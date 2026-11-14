@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794636012;
-	b=e0cS3ogvVgLuGtGS3OQwzslGGEJTNYAQ0nYc2xJKgawu+uv9IxR9un9UcJV/iYqAw3lO
-	 HTYOYlAjPyfCGrZAqmZObEZihWPzwYCLX2TcwB9qQF2mmveri2JJkcvuQrIO929RNJi0D
-	 DjTN89p7RoXz9xIamRDR+0LyLbRpA8V/rG27Ic6YNjUJYL2Z0YpxlLUrEYTLMgHln1FXO
-	 8VTHy6B8cQM499j3puquBLiYBF+n/oz+YHqaUGxrYmG1W92XECbd+LEW68WksdumcVD7D
-	 sQXdDyu5bpYETmBK5M+/dmuGWVh5tNQnXsy+Yw0hzp36IyyRF6qnreQ5wJrDWj4OlvA==
+	b=Z1mwTOtqEagHiGUt/JxJ6zq1/ZAEY/fZwugDOJlLYh1k/2M+9bL+idYUnLaosue9erEM
+	 rowuPl9k0SjjuntV0q0GSLspGkLd1ASdh27I1npnrhC/AavbfqGjn4GbZtIzw0pO6aiOC
+	 KjiziaQpL3zidzBV83iNf4+0vo4axu3WhLLlFkBdzlLSV05DP6HanLBtp3YbLSdPFp4gz
+	 1D6oW8yWsXphnX+YdSh0FGtI1csI28/N46FUn0MaBNSwgVMYhkM0WiOJonqQ47eqaUyxe
+	 HWFuk6F7XqMn2zYeJVp9gxsN8PSM6Hos3YTWSuffZ+i3sQd1Z1BewlJ/cqobtZhIr0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794636012;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=E5f69N1afNwnZIbIaExQBEbVt7VaM+P2Su75ERCUnMk=;
-	b=huhOOBQWyKsuWX3ZHm0614VFZqA3g5jxzlzef2JwUS7QW4QKyfNiSaTLtb5sPoDzRA90
-	 6eMlFII5KD9pR60RePqb/R+rfBPZ/G+MsiUXyjOsSD4ZEDeHQcoMUCykiWt8Y5PLJNuyx
-	 pGtMFjzUl4HlWuWtj22OPpEZ0+3kXI6Nt5yzHs3sn+9EshHCnywCtsfLgg2cMjvE9jDOp
-	 L7+Qulkvi/BOqzPuyUXwKNBuZ1EPbUCgcnSxg+rYyzSsloFHro0t1fWPQEM3v70gU4wN6
-	 eAbrcC22YcAUK3JVIoeBdILXiYPrQrjZO3L441m1iqt6SYRfMUVQaexH/7QWBA5JNiQ==
+	bh=NfuC547+tfDP/ZnK34MTsgmeKITWfmTasB7CUQvzVbo=;
+	b=Qf9OGr+Gt62PTC7sK8n0KihQBqb2YKw3InLvv6h41ZQv8GrE1jI36uWxTeAg6Md2ADq0
+	 16yBwHqPGQYhkXYH1OUn2H3Rr80sNbQxu38zf/mEI3MbQEEcM/HMq2Xvjk5l9zIreT3Vw
+	 UiwGrnIdzrJhc2fOrRuGQpNuKXw+pF0O3LoC5HNhy/Pt8nodV6dIjU7AEPE8LP79DDweY
+	 LaSF4O2pYHsvxV674hys3ngzpWqjXhfBOGfCXt1Td9rHdFXICzpSYrhX+EnFDWexwFRXC
+	 IrZEujV78D+x7S/qsmdF4dRwiouYVBcr8KeEFsEzIQ64DQw6HZuGe81oZcGX8uJzYPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ncv6SjoU;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EiKPqTQU;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1E460A261F
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C1E460A261F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E76D60A262A
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E76D60A262A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ncv6SjoU
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3791619605cso3502062eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EiKPqTQU
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15dd124bbe7so1141127c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794636010; x=1795240810; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794636011; x=1795240811; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E5f69N1afNwnZIbIaExQBEbVt7VaM+P2Su75ERCUnMk=;
-        b=ncv6SjoUxDlbxsBnSYYXSk60WhpJ0DfxQ2wQE/BSwhPivcpr1UrEp7n/voQVMccGeU
-         hW9fCkvcW4VoBqwLx1Q0fTScheRBw18CUY09XrD/DV0EMZb2jvKeRIKFUOBXNgeZQPPz
-         7GCOIcX6Cl4JBhdWKhZACF47kfiJtK23u0j6oMaZuWS6IZVRhSEXVPIJSc+kmiF1tv+T
-         rqtvOxlS+bTI6f99F5vPkcN+Gghf/ovnKY7q1a1eI5AoqcKMwREsW8DjR7c2rmaVU+8A
-         9wT9bsUILLDgsPK1GIp9Gkvq11WL/yKcvvMYyMVdqOSGQArticrOYeM42E2s36PvnybY
-         W+0w==
+        bh=NfuC547+tfDP/ZnK34MTsgmeKITWfmTasB7CUQvzVbo=;
+        b=EiKPqTQUMCQoiFs9r/xUvD8DNKzfFBFi0GGeN0/JEQIr+4/yw+9louFBnp8gtkfNAD
+         o7W6TAQ9+6+pifP08PqVl1CAClUbRhoS5hxLxZ0cco+iHjNDbimraaXo3RqXR53OCi49
+         iqzrDU+HGdbjFBBteFyjzf4euwrtdNUK+UV+Fx09SyVmiefGNkGeishOfENAYKAOG5qD
+         ztK47c1QArK/SZrt6IMj3RsKnvixtsueFTeVOmq//GvxjCqmMe7a3HUIAFjJbvpel62z
+         HZeq0dsaRCjLL1Mq2SvB5wU0WikzgueXNoEx4DM0vlDbiNxpFOXKg5fcTCXBDnLKjnBG
+         F0Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794636010; x=1795240810;
+        d=1e100.net; s=20260707; t=1794636011; x=1795240811;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E5f69N1afNwnZIbIaExQBEbVt7VaM+P2Su75ERCUnMk=;
-        b=2SnpgbsyP2m1UH7DuLZ2ENHSc6SkflFmKmZ5lJIptTgoSr5B6owHzM6PRZjiIFaSoL
-         1QV4bmtnKE1EAi8+/kPy0Vf2hzGJWJvxE6Zr0ICVshe7o5ChbZyBR4HfQyMfphbMXrNj
-         1DNG+dPfUzfbadbsDtAXhg5tV7kbG0SSVfILfsKISZVTs16TGQpISw5FmTbNh4VqsfJH
-         vHbwv/VePaY8vguVEG1a1jdhHxSrcwa0+cm7ty7OPmiLkgMC3xz6cG/jG9k8ybu3I/Td
-         wtSj0sOAVWAXgdPkX55FcTIbzgkEMTOCQvrvuhjyA7q2ONgJU/auqiNbkm20cwNCPKzm
-         mK7A==
-X-Forwarded-Encrypted: i=1; AL+hErGAkp2WlGRlkbjpnSBKpK4XPNpTbuG+RerFrjXYGaEzZAKvF6RIv9xTeFMYv4JJ+flmHDU2quZcgGVj2Qs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UL2DXnaMhQfcOsPqCm6BWOCBuJRjAf/Pz7avldwZLP/35tZ7w
-	saVIqczDow+siIzjZFTMFTjAJtuWshKXreGR8eFnx3mOKUXXN//o1wgC
-X-Gm-Gg: AYBFou3RUQjbKNivQ4rbgeL4k3lgwPwJUwyjvTZh38TuSCxtG4Ax2ZGPm09gDKtWQtM
-	vd/D3vkol7AFp03OrSU21OzjvI3SIitwcKuRppPhRKRgsmESLRjVTuMwFYNsbrHM9xdjxO6GRn/
-	so079USNNN77yemvmz+xHcU31jvRDPyMa+XCjcZkg9ztwj1bVF/b70lsRSMnOGibEmxVPxdY8OG
-	3ZXdi9kogiHMJB7TjxuRgXECZoh7OVV6zjZ7fbYQrVl6IYk9+XG4F12SdbZmlzMtzyFl32zvmY5
-	dJIOCw9Sks7PsWnmthf5FIetNh6RmeRlEuzNjAQOV28XijhjorK7LH65VC6DQECcvww2wrc6Iyv
-	spXM8XlSZXOXNV6puggmdSeplg66vK4ERAGD6Qga+ntFPlTZrabqp1oz4HJ+88onUgaSbwuyvh4
-	P7W7cu0k26/GVUC64LRFuQIaMpnPHX7/lPLYlTd+qTo3B+JDqWOKSepvBCps4QhimuV+ei1WKpu
-	07Q248W/CTyhqls6PeKkJlFevRivnHrxYukizfBLeOukC79oU3AJgogVlOPa8kch9jBHovB06g2
-	ktUgQoZBTa0/BwltqkTS0+rZ0yv/MApeyLM2bCSThXyPvR5VwdmFtwkM5Z/+YhMbIyZ8ce+j2lt
-	cbPxMVeHSnfAI0KQV
-X-Received: by 2002:a05:7023:a4b:10b0:185:33ab:4d55 with SMTP id a92af1059eb24-1b503115c0fmr4167409c88.29.1794636010082;
-        Fri, 13 Nov 2026 22:00:10 -0800 (PST)
+        bh=NfuC547+tfDP/ZnK34MTsgmeKITWfmTasB7CUQvzVbo=;
+        b=FIf0Zhe+lXEEascbXDIV+3Bn/YD5e/Z0WObC+tdfGpEufaxuDDY+LCy6LpxT8G+xdO
+         Rt9eBpofi2n2A2gWMJcb8ye248gCC+Lx1J2aZEJA31PMhcDQuhhObW0p3GLm3fxrWsNH
+         2rCXkBw/VfPocNv0sgii2bKqtVPE8YZWhSXM11KoBKB13DCEy1AEemlvgE4lltazHq69
+         wmHwnmtCB4KUmu3HXzWjuFcdJ+kHCbj3K7bcH7GYA48ZpHbCYSUlU2cfAbk/pS40K2iq
+         cVBVBVgmRMcul6XIjNCOYr4EQn0htpIJghzGlFanK8qqvHN6PiIYtdZVf/3do3CA2Bdj
+         ViDw==
+X-Forwarded-Encrypted: i=1; AL+hErF9u7M0bIeAy1c64L1q4Cj+4RVKjQFCBI/44bkCXn6GO/zox7PsDGeRVFBasVaQdECiSqJ5LhMvFCSrhBg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8ic2U+8R5lzk2a2EQyb7C16wc7tupp2J+NObGgR6kCriA/Sc1
+	ivrzoQ6nwx2ZCWw8PrcB3QxuoNXHMdQ8rNTCws/sQGLbETay8alGt1kc3FD4ig==
+X-Gm-Gg: AYBFou2HZbOpBOqCJpEvT2DnCgn30HwzSSegGQokeJAAX7zm2fKFPDDeItOIf+4ndfa
+	c1Im1+Lfu8YBNJliVRWh70NEKhdVJ6Arzls/qMSlUYR7FNxOOw/qByfEwkcRr3ia18FVfatGyR4
+	j3N+c2uiXxJ8DdkW6wKmEuMFJPP5XukmFwuvcKWFGtkel9zInvcvMkX2w2tG8+t7MExhzvd7nQw
+	GDbDfJ0ESQ++/znuy6Hi+IFhTS+QynKtJGklDCzt1queBaIQsQGQOlRUnyyzyEuv+F0SvLc3WDf
+	YflF7FcJHXZWKmrWONOHSXSLoiWXspfN5nKo1q78Y7MOWwXyHuRr+FYp1EQGjeD3iusa9lfnosh
+	lf0h8ERJvUSSAoGSCD98SqwsG5aUuYCKsT44krg15942OuUVsN/uuPkPBF0xfOCIabWvbxZ7bBN
+	uPQPqA9GTJGpSqZm7Fjp4e/BtowVJYK87TXsFF01UFya5tGV1ySkWWbdvQD9FP9y+k8577GbJgO
+	hKIv7lJEFBF74d7Vy2uMA1P6FE+kE2jEQcafF337Nmiku91mR2fMaaFjotL8M3/hlEhCij4c/qU
+	kk7k1DEhxVO3niTnx2vqtYBdguXfZh7sYL2lAL4YSyATRd7z3i6McExCtEWSSjan1G2naXgN8kH
+	z7dFu+oQQOdFyuzl5
+X-Received: by 2002:a05:701b:418f:20b0:1ab:de8b:5f0f with SMTP id a92af1059eb24-1b50319d4f5mr4632900c88.40.1794636011415;
+        Fri, 13 Nov 2026 22:00:11 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:560:7267:5908:e9a5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.08
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:00:09 -0800 (PST)
+        Fri, 13 Nov 2026 22:00:10 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Fri, 13 Nov 2026 21:59:56 -0800
-Subject: [PATCH 06/12] HID: rmi: avoid GFP_ATOMIC allocation with hard IRQs
- disabled
+Date: Fri, 13 Nov 2026 21:59:57 -0800
+Subject: [PATCH 07/12] HID: rmi: do not mutate shared platform data
+ template
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-hid-rmi-v1-6-afc43d97d766@gmail.com>
+Message-Id: <20261113-hid-rmi-v1-7-afc43d97d766@gmail.com>
 References: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
 In-Reply-To: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
@@ -103,46 +103,48 @@ To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
 Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.17-dev-6b8b8
 
-Storing incoming attention data allocates memory with GFP_ATOMIC while
-hard interrupts are disabled, triggering sleeping lock warnings on
-real-time configurations.
+Probing a device with physical buttons modifies the static platform data
+template directly, altering GPIO configuration for any devices probed
+afterward.
 
-Stage attention data before disabling interrupts and use the safe
-generic interrupt handler helper.
+Make the shared template read-only and adjust the per-device platform
+data copy instead.
 
 Fixes: 0b2c7a897378 ("HID: rmi: Make hid-rmi a transport driver for synaptics-rmi4")
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/hid-rmi.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/hid/hid-rmi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
-index d3e4ee0f62f0..a4406bc6af43 100644
+index a4406bc6af43..0a5d32dbe881 100644
 --- a/drivers/hid/hid-rmi.c
 +++ b/drivers/hid/hid-rmi.c
-@@ -362,7 +362,6 @@ static int rmi_input_event(struct hid_device *hdev, u8 *data, int size)
- {
- 	struct rmi_data *hdata = hid_get_drvdata(hdev);
- 	struct rmi_device *rmi_dev = hdata->xport.rmi_dev;
--	unsigned long flags;
- 
- 	if (!(test_bit(RMI_STARTED, &hdata->flags)))
- 		return 0;
-@@ -373,13 +372,9 @@ static int rmi_input_event(struct hid_device *hdev, u8 *data, int size)
- 
- 	pm_wakeup_event(hdev->dev.parent, 0);
- 
--	local_irq_save(flags);
--
- 	rmi_set_attn_data(rmi_dev, data[1], &data[2], size - 2);
- 
--	generic_handle_irq(hdata->rmi_irq);
--
--	local_irq_restore(flags);
-+	generic_handle_irq_safe(hdata->rmi_irq);
- 
- 	return 1;
+@@ -613,7 +613,7 @@ static int rmi_check_valid_report_id(struct hid_device *hdev, unsigned type,
+ 	return 0;
  }
+ 
+-static struct rmi_device_platform_data rmi_hid_pdata = {
++static const struct rmi_device_platform_data rmi_hid_pdata = {
+ 	.sensor_pdata = {
+ 		.sensor_type = rmi_sensor_touchpad,
+ 		.axis_align.flip_y = true,
+@@ -776,12 +776,12 @@ static int rmi_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return ret;
+ 	}
+ 
+-	if (data->device_flags & RMI_DEVICE_HAS_PHYS_BUTTONS)
+-		rmi_hid_pdata.gpio_data.disable = true;
+-
+ 	data->xport.dev = hdev->dev.parent;
+ 	data->xport.pdata = rmi_hid_pdata;
+ 	data->xport.pdata.irq = data->rmi_irq;
++	if (data->device_flags & RMI_DEVICE_HAS_PHYS_BUTTONS)
++		data->xport.pdata.gpio_data.disable = true;
++
+ 	data->xport.proto_name = "hid";
+ 	data->xport.ops = &hid_rmi_ops;
+ 
 
 -- 
 2.56.0.679.gc527c65306-goog
