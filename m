@@ -1,67 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794666077;
-	b=BBRmNnWpdDFWTzeGwnt03WvvyWlPlnMk+60zaMRsZDLq29YzB1Hhuo6fN/k4ma3QmI/G
-	 zHjOOgS2xZ3koCHL8kj4/A9d2dJQzaNePPxsMbFfXMbFT5MeEvzGc/b7EGO4ZHS4ECX8F
-	 Km5hdGC2gGI6vMSww3VgqVhhugEzPMW9zxpNXP1S5a5yGu4/pJiHC35ru4fyWAbpF9qzH
-	 w9pWJbh3pbHYavNQ86A5wqA0S8WtZ6SmstaJelb/T00TpMnGE0W3SNCDXGpOS2WHgZd0g
-	 /oq8YH2NtzcZJP0FfPSOpXE4LX0DmTVn5np6Yfz9fh0/YGTY9wD7z+3i2ggB4yIqN+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794666077;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=FqnHMYlKaSA8Ft2QevowFaKT6pdWror7xfjpOfngALs=;
-	b=MdVigrakPBDnDPViRkPUSQAEwnVM4KdBoWFT3mqZljrTJfHKz1PD5bIqlHIgmuugQDzr
-	 4bKoAOiPbRHJjSRrNEfegwHe/f/EHdlWt13LSUZVnj34Iu5wcQVjuoQLmN1uVhQExEf0T
-	 tDVytsrVij8tFK7+me+kGlDIho5axPul8Y5f1mRCHOdl+XuKI6LcNCjV5F6kBLb+X6eQt
-	 v0GvevlqSINWX1PuQkbptTjECDHXVeAbu0WQNcCDGR6C0/bl53rUTqSHD+ARcDbqi9dwt
-	 G+Fcc5pXE5Mr5lI3dIpyBr7SbXJLKdIOtrnjAH3f4lqXdQrCTtRGj3oOczMbNBNqIvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OExVtD2D;
-	arc=none smtp.remote-ip=95.215.58.170
-Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794666179;
+	b=1SLec+yGUQmv09dT9pG/a8PDASqDWxzSxt/7WK6ZqC2imnHpIqhys+b0mVCYtlukv8F6
+	 CnubSwog0KKz9mL5fdxjfXs/NOb+PY03lwIZxdSU/49FvBLZ8zmkX8mrg2Mpo2WVKIvH9
+	 1QbHLrhAy2DhFVY3XOhGUMyOqFWIfqaBmgmVcFb5BUxCovzu7djmFYLzKuTMq6wMXNS3g
+	 jRd+x95Jh26HsxpUDd7npZd0x22AmSzt0KmGaWy1pQCyV5Pdu8Rx8oGQuCvvvdY8LuLmp
+	 +u9zGdTzRBeBjnJTpi/sESHUvbJksa+ZkvItdSfZN7w4uiDG3rKYd4YRmxUI24qMFXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794666179;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=G5yus5RH2Mmxq4O40QSTYF6RMwPjngJIn1JYpz9Q3bE=;
+	b=2W8oBhfnz6tAqTrzvRwq/pFyu6i4a11ywaqpaXFgN9ZpLN7aNucDkouuVqEbb5PKxMOO
+	 stXU4wsI5xKHwhKSKvQK5U3li2Tg5eVCBvfY7mOiu9NvZ4x4QBQ7MeccfioGN0NAbOO0J
+	 ojrXtzTxJ6qI3ZcmkmMfX/+HTFdggXU3rh7UyQmpR5Jz//HF4Ty/fCFBSXsw0SwqfHC29
+	 hniFbbXdbuaygJiVAQ4ECG3NvEmjpdwG3jDkxax3BIVdfchXJz9W0aeFcLL36oLrkPvt0
+	 O825v6tWVbR/m7ha15TuhV1prKiS0YEnpbd2OCqklesGxX8DS19XWcHeo7XT6A7rRpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OKa6KfC7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0E2606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:21:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB0E2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA383606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:22:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA383606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OExVtD2D
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qUS2XBe2YZ7bGkxDICrEYx9w9WRwXYDG0onMhdWkZeQ=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794666068; v=1; x=1795270868;
- b=OExVtD2DREEabuKkXYf+UPbQJ2cX5VXVFhgdMx3EwH3YZMqAQzhhO2madi843LxjssRkaALF
- JGdZLh3MKjugnqwLrGArfxYp/9ekcfG4HWL7c3p6c0bJZcTxdoxu5vGAIiRlIREzqvUUqR452P5
- +h6ImIvZkhIotJ7+9zXigHY9YJsPTFNX+DuztsPt8e/Dle3Cw+/zMCT4+rxhPl9KSMrceKCNvN0
- tPyBLgTLRbfFL+boIAC//znoFE4bPQD8czGUA+UOATaphcW2Sr4e4kCZ0F78JDPGlcvjzlBB9yv
- K4a+lqm2q+oIIY1B/OopR6o9E/57rg0Hnn5lSzTIYax7w==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ba8871558e610b89;
-	Sat, 14 Nov 2026 14:21:07 +0000
-X-Mizu-Trace-ID: ba8871558e610b89
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 14 Nov 2026 22:21:04 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: =?utf-8?B?6Zey6YCb?= <2368492046@qq.com>
-Cc: corbet <corbet@lwn.net>, mchehab <mchehab@kernel.org>,
-	linux-doc <linux-doc@vger.kernel.org>,
-	skhan <skhan@linuxfoundation.org>, rdunlap <rdunlap@infradead.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/4] docs: kernel-doc: fix export selection and error
- handling
-Message-ID: <avhuUH2BLm-EQpPw@wyuan.org>
-References: <tencent_9BF64A4FFFB7B990DD5E6D6CF26C43565306@qq.com>
- <avgDq_FrLSbuC7bK@wyuan.org>
- <tencent_79B4A967C5ADFFCE3CCF0EA9362419ABE105@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OKa6KfC7
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-537548b811aso12753941cf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:22:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794666178; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c3FVG5dj7IXuHB1k0vFtnO+6MFY4nfTaED8D8HmH+sVqOC5wAho6YJPAnNkptK8zFt
+         yCZfcGi1jY5lkQ4OPHlFh8oiMTNohfuI0DnAnGGZhHv85GweMKHD0hQDmUahvU2mWP69
+         87S9laoOQsM3gZomb8rKn9AVJ04Z7Cn+vClpT4PGSGuXpplT5TJdRQaKr55Dl1nXDTBL
+         Eloxprj5J2uRGCTkF49E5DsLWARIW0N771du/o/vKAS6kxNiWCZ7MlVR/xO1Q5KJv/1G
+         wjVXbWiO5MejD8hepr8tgWvU5kHlTGsph0KfNIfBlWALd6zXdyJVWH/CW9wmxFGS5mFi
+         oqpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=G5yus5RH2Mmxq4O40QSTYF6RMwPjngJIn1JYpz9Q3bE=;
+        fh=Jf8SWyz+DK9derPo3IQ79M+p+s2gIiZhHi2De5EeNaE=;
+        b=F++JX7vIznm0wOzBJKG8ffpZgzP/FGhQ3E9qcGw9BK/dw44a+5HMQ4X4q2hX4BO02/
+         FLG7jL7ld0hYxAOIRcYIHLtSRHqTyED0cy+FwCT6xS72bw+2r9fogDBL/TqtxrEE/yl7
+         54BX7H/h8gGLz1oH+Acb2krVwp/YTWZjQ1bxeQ/oG5NhGXjAXtVU2dQ4nXRLf03VWw8z
+         NnkPKdYOnvA4yOQS6pLifLlhDM62eqHhGcVRukEw39Mrw29GgCzooYnSR8p4ZHbkTXci
+         EfJpb89XcwsXuz+bQCJfqgWzFr1Mg54fAULLy1DuhEcbKlHoX8Wh/c70A5LrwDbg7Aqi
+         M0Ag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794666178; x=1795270978; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G5yus5RH2Mmxq4O40QSTYF6RMwPjngJIn1JYpz9Q3bE=;
+        b=OKa6KfC7ruy5yaZT8s4W8fKpzxvy2X8Or+9st7L3BqjXlq12bO5v0k3ujfceeea6vc
+         zEkpkol+mYW2vkHJdhrY4ykz6LgSw2TZO/HVzKAsoun0282sWSCLUrI+5x9Kync1dasg
+         Lgk4xvEMHufsV9B2EUGbXIoeSxVA59kUMGnOpL03Aa2r2Bls/oA4bCUO40sArQuqGlXv
+         yJ3hD32WWpzpymZzULVZJF7PKs1V5RUd5znLYtFRYr7GXlpfQbqZH/EFw6lVTS+KFfZA
+         8dmcKABy0xebNEraKsBBGM2blkuOZKyvYL5xLU2TklJ/Kqa3CXB7nKcZ2Lu9ShlS6+UW
+         KdyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794666178; x=1795270978;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=G5yus5RH2Mmxq4O40QSTYF6RMwPjngJIn1JYpz9Q3bE=;
+        b=qCs4xfUpWNPE9JDk0MITTgXoCv0ExTy40GS0IFrU+7KbBpmwPmwBFlPr9yquMyYlkl
+         gYB9d8n4vJ/pFVmnfW8H67jzKES5R7cX9c1qRbAaXOHaRLIuaMZ2gUkdVRuQ10UABv/f
+         USxYpmYnzC1f1YoqMOHjGMhlhZKmtXuebEersSZv9sqEiufE+VJ+QsXUPL1adNVagSSn
+         lBXW9zCk2di9m204xrSvcfIESYO6sSzI4m1TBvPe65FHY3FIi/l2l+1bLad+//Us/25y
+         cAHAAgxJ0kXLCg4XNpDspYsvas8cGQ6wPvJBvQA+t2BYuQWgpOiSKC4ODuDP6k1RM3Li
+         u+Gg==
+X-Forwarded-Encrypted: i=1; AL+hErGyjEZYsqOriAMN4M4XkfglTu8Wa3FUKpyCUEw3EAwKtzGQPxWMIrts6uBRG/nyo5tB7Zjc54ZF8r9Ehe0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HGbBsBrI/onjYsYh9kfPN4gyPUeISBqvDJIeFEZAM6Lmak+Xz
+	76MowiNuU3i36iOK2LcNrUj61cOqbEHpVHNpI3I7wKI3ykcG0iHu2zNli0AEHWhwtZbGpe2kPux
+	iIVhXlFhCKmUQf1TkwtB5i3ynnuZJj2YoQg==
+X-Gm-Gg: AYBFou1jrTpXDu9Grr2JClT78jik9Ao+sw8HIypwox2JBspw8XaYgzH9UzvbgqaQLfK
+	OONHIvNsSM061gldwEwNlbtDoVeaY5ovHssAaSRNWquVaVCj6WWOnj3Fg6Cy1xF5clcgjN0zomT
+	ql/jZALQmWHNE9pBKePrg4OZr1VTOs0+x2Md/8NhYG0apA9Wh2bB8LxAWLG5ie1Wve050se7jSX
+	OX4CiWFQ3WQTY0zBMyBw5/N4UZd30YlkooAJUGnqd8fNX3iKKLHogk7Gn4aRiOYk+X8kvmG2oNX
+	VbgvIUqc9EoI/otBbb0566zliyWFoEpglNCpIMc8ffm2GNYT50nj9FfX/pzAGVxjaoCIEfO4DNB
+	9cT2+rqvoDwawZtnFIbX19LUqU/8vtjFrcTFrhchzWutEANPta12xWbmMebqAXbtp62TVrQ==
+X-Received: by 2002:a05:622a:99a:b0:55c:303f:622b with SMTP id
+ d75a77b69052e-55c304f17b0mr39835191cf.0.1794666177718; Sat, 14 Nov 2026
+ 06:22:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,58 +101,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_79B4A967C5ADFFCE3CCF0EA9362419ABE105@qq.com>
+From: Alex Guo <alexguo1023@gmail.com>
+Date: Sat, 14 Nov 2026 22:22:45 +0800
+X-Gm-Features: AclHuK9yiLIXob55ZroLFT0Cg9mD_HokkJX4TvKd-iDgDxOTy4uoDwFYBnQu6Xs
+Message-ID: <CAAi4Z-ff4LK0ZX1JHGkcv0JE0Eij7C2y+gRMhaMq7kHVjGsJ=g@mail.gmail.com>
+Subject: [PATCH] bus: omap_l3_noc: Check IRQ lookup results
+To: aaro.koskinen@iki.fi, andreas@kemnade.info, khilman@baylibre.com, 
+	rogerq@kernel.org, tony@atomide.com
+Cc: linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Nov 14, 2026 at 05:05:38PM +0800, 闲逛 wrote:
-> Hi Weijie,
-> 
-> Thank you for reviewing my submission, and sorry for the mistakes.
-> Although I have been familiar with and using Linux for nearly ten
-> years, this is my first time submitting a bug fix to the kernel
-> community, and I still have a lot to learn about the process.
+omap_l3_probe() passes the results of platform_get_irq() to
+devm_request_irq() without checking for errors. When the interrupt
+controller is not ready, the lookup can return -EPROBE_DEFER, but
+the IRQ request can turn it into -EINVAL and prevent a probe retry.
 
-Thanks, you're welcome! No need to worry. And sorry if my previous reply
-was a bit straightforward. I was a bit out of form this afternoon. :)
+Check both IRQ lookup results and return the original error.
 
-Unfortunately, your actual patches of v2 this time were not sent as
-replies to the cover letter. Usually, your actual patch, let's say
-[2/4], should have a 'In-Reply-To' email header that points to the
-Message-ID of your cover letter [0/4]. But now they do not have that
-header, therefore not in a thread. See also:
+A similar issue was fixed in commit 47c3e06ed95a
+("spi: tegra210-quad: Fix missin IRQ check in tegra_qspi_probe").
 
-  https://docs.kernel.org/process/submitting-patches.html#explicit-in-reply-to-headers
-  https://docs.kernel.org/translations/zh_CN/process/submitting-patches.html#in-reply-to
+Fixes: 2722e56de603 ("OMAP4: l3: Introduce l3-interconnect error
+handling driver")
+Signed-off-by: Alex Guo <alexguo1023@gmail.com>
+---
+Build-tested the affected driver object with Clang 18 for ARM
+(multi_v7_defconfig). No hardware test was performed.
 
-If you were using 'git format-patch' and 'git send-email', that should
-work well as expected. What did you use to send patches? Is it QQMail
-web page? I suspect it would damage the process of sending patches. (But
-it seems that your [1/4] can be applied successfully with 'b4 shazam',
-so anyway) I had heard before that using QQ email might cause problems,
-but I wasn't quite sure either. You may want to take a look at 'git
-send-email' or b4.
+ drivers/bus/omap_l3_noc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-I'm not familiar with this part, so please wait for others to review.
-;-) I suggest that sending out your v3 after receiving some comments,
-so you don't need to reroll too often beacause of this format issues.
-(But if they want you to tidy it up, that's fine too.)
+diff --git a/drivers/bus/omap_l3_noc.c b/drivers/bus/omap_l3_noc.c
+index 56794c67d865..0e445b36a647 100644
+--- a/drivers/bus/omap_l3_noc.c
++++ b/drivers/bus/omap_l3_noc.c
+@@ -276,6 +276,9 @@ static int omap_l3_probe(struct platform_device *pdev)
+         * Setup interrupt Handlers
+         */
+        l3->debug_irq = platform_get_irq(pdev, 0);
++       if (l3->debug_irq < 0)
++               return l3->debug_irq;
++
+        ret = devm_request_irq(l3->dev, l3->debug_irq, l3_interrupt_handler,
+                               IRQF_NO_THREAD, "l3-dbg-irq", l3);
+        if (ret) {
+@@ -285,6 +288,9 @@ static int omap_l3_probe(struct platform_device *pdev)
+        }
 
-Yup, the process is not that easy to get familiar with at once. But
-please don't be discouraged. If still meet any problems, please feel
-free to let me know.
-
-[...]
-
-> Thank you for your time and guidance.
-> 
-> Best regards,
-> yuehua-meng
-
-Thanks. The usual practice is to write it as "Yuehua Meng" in your
-From and Signed-off-by. But since I can tell that it's a known identity,
-I guess it's fine unless later asked. Or perhaps this is just your
-original intention. ;-)
-
-Thanks.
+        l3->app_irq = platform_get_irq(pdev, 1);
++       if (l3->app_irq < 0)
++               return l3->app_irq;
++
+        ret = devm_request_irq(l3->dev, l3->app_irq, l3_interrupt_handler,
+                               IRQF_NO_THREAD, "l3-app-irq", l3);
+        if (ret)
+--
+2.43.0
