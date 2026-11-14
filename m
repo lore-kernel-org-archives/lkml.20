@@ -1,137 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794690308;
-	b=gybOCKJc4zj3Kiq2ddSUA+EmxwosjO1rux1f3fcyxJqbmDe1BUCBD8X9AQh2enpgYIhy
-	 ig1v96XsH/u7DvjcVnU8yLQuBM8Hcs+WUkINafgoypkZe0V+yQKWZw2YvsjfZ/0kqfC53
-	 q5+BegjvqBxdDnB245RK8W1M7ymW19Xgo/VkbTID2AV6I7lecMZDBhuooOQGKwj723tOP
-	 dKY8+8mJPvzrdwbiHQUYR9NHCV1ceopTX4gfzzSV0q/JebJ79TVZeItl9CG6RXpQo8NDx
-	 g8W8ohURphS//xwWzn3GlqLGs7Wzdy/LP3iyO0JolW25UAx2TbM2ZUh9JHrrKa4BTZw==
+	t=1794690314;
+	b=v/GIEpDNH/eTx7e35HXKTNliqjICaV0cwa1wfiEpAlUaPmmEyKu+rJOxrf0yBaFl73Hj
+	 CmyWA2gNMbx+1DrA41TdCmafhqdPsg1WilITacYBPsU0UmUtxi81LtdCmaR72GMe/mXl1
+	 KKVpnXJaW/LHxWkqOVFpauGBeeaeT31cLZiE6ey8lB23q6MxSg+7jwzj16sOLlXlMiyPY
+	 /oXo/96/6CZ/D566Wy5Y7qwxCDj3l5cYOofXt+D73tcHMSf1YK0w1bcXY4KKInTkeAbOh
+	 Bb/Hock/SbzmDscnU+pr9jkIP4cr8aaDHOaQ41PdVVaGIxylX8x45CUrOI9hGoXc2Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794690308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794690314;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=S6r9JliYuLkU6bNVnsHUex3XuU8S/UM2soCRpJowQjE=;
-	b=Fruo3yeBnxPQAsEfWwxb/jmPzW93kdm1uwF62Esm3/LpKpN/m0aRNuwdhQrbXEWp4n7c
-	 X6TcOvrZnXKIP3+OtNSOO9xiD2bMQplbN+bucqGTik1n9pZ2xaj4512tdihVbXjopHxum
-	 LmrKECwF+kGzHOW5zaA1vrhqY106SgGE+tXSvy5L8lAcdFlxNtrW7Ybu/A1zJIr/FNEzb
-	 RD8GDUElJk6OXOKAJCHbl83ECZtHFp+C69MlHbApAkT1pLTIlXpnxnKXNB697zLuyDmMI
-	 nIugPkaAr2JtveopIUkH9k+CKOv2pPZQEwoNXE7hgoKXziukgLsINZTQyRCGX2YaYTA==
+	bh=Fkd42w5V14bXsJqIyYpVaD3zfPD5OHjGnQateM2Ecv0=;
+	b=ZUyCofFz4s41vk0PUmgF4Dpdx1pxSao/ggKfvO/17DIT5oOeiBQD+0b8v0q2X68BXB13
+	 vHR9ACeFWVdUfKtcMhJagZMx19HS0bE5UWS/hobc5YnyinKtywt0SE67K+APWa7UI0GTT
+	 QZyFsdmXFlB8+PqSPaFPS9X/q+Pe+ts6uVAUMICBoCu9UOE7Oh9c/oaSYs/ViHYn9n95h
+	 W4Ygyn73PTFatszK544dP7Lf+N/wZv120D6h58MnMkAq2i9b2ToHYMnBm/MbpOQVEc1q9
+	 DBS+zE5VNtBUn9qNkKP9SVeBMgP8pjV95larEANCRDj0cLwPky9x9XR13hg/WKVy45A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bairaktaris.de;
 	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=Fb5v+9t5;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=WutE3Hvf;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89905606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 21:05:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89905606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C7E606A333
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 21:05:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C7E606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=Fb5v+9t5
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so2782851a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:05:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=WutE3Hvf
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so2782892a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:05:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1794690307; x=1795295107; darn=vger.kernel.org;
+        d=bairaktaris.de; s=google; t=1794690312; x=1795295112; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=S6r9JliYuLkU6bNVnsHUex3XuU8S/UM2soCRpJowQjE=;
-        b=Fb5v+9t5HQpH99lBDL6eSyXCd561d6T4RIG3tul3obk+hV+lLvqwx2E/a53VBrruzj
-         C7QdCNRUNH/J3utrvpe2c/geGqZ5Sl8S8ROXMNSnD6HIxac1Ng+Ry9w9h6KKx9WqPGRk
-         nL5/soLI9m/NrOZQjEKC8IeWYL9z0hSTP62ueEx8glDPxYjodiB5UKN/us3YZ/pjLuiy
-         jR7DawCFm/DODgpczCGYTo42aYB6PExJBlNnAUTnFQ1VK90sXBu/fB3nC7A4lv4SEGbL
-         FCfXgTsCZXAhHYy7HOtrxslAD9W2+jbfWDGJdsvIuv9xo7so5tZou4C9uFbhXQelwj4a
-         ryLw==
+        bh=Fkd42w5V14bXsJqIyYpVaD3zfPD5OHjGnQateM2Ecv0=;
+        b=WutE3Hvf+o5KpeEuekDBq1HgfX3m2w2ietqiBPYwTUpIweNZUp2baxaqY4m+UW2m5d
+         nISJ3A3qnYC51aqskKTW6KH8msJWHqWdYyMyOfaU4ZNLk0PO0J+oNIQNR0zjGlegciqe
+         BHTRluu/078htYySVPXg806BRDyd2eRoR0TPaCUBuea7yr3JXLExCNB8D6KOB2oSV7Z7
+         h5RC1q8Dst3dBtxmKv1AL3M6t01Si8Zunsfvve1jlltu9/3GxAPRbiC7jMCR2J/fku40
+         RQbTDCsHWn1CN7MLHj5OApYc4VSWjZO4jTAZ89dHCtGaOZlFb5eNrP/CCgIrH3IWCoMl
+         CL4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794690307; x=1795295107;
+        d=1e100.net; s=20260707; t=1794690312; x=1795295112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S6r9JliYuLkU6bNVnsHUex3XuU8S/UM2soCRpJowQjE=;
-        b=hMq0ARnd/nSPhqJs0+ZCc/kKFv/50mZqlAJblUZ7enhffnAmDT8gigurwaPQFlrMIm
-         broF/1dpQj9P7Evxh4nDKYGCYNlYJzmhLFRfPE8Pjpo8GwBQnbO0GiE/OgsozHtJLhEI
-         RLohl3bU5NCnZ/kYtS0u3j8oNOlOW7VjUcOWCeKwl+6RP1pq0HKNYULK5dMGFIIVe9U4
-         ibQ2xJiFxIg9vJhXjdmeoIhFHis3gkKoeTm8+hOvDCem5WVjcKFHMGQzPz81XJL6AgAi
-         BT2gcj/BeDEeWg30Fhd1vkg4iwG6AXojeDrqdz2YSDyylSAYuhxwt8xzUIwetR84SxOP
-         tSZA==
-X-Forwarded-Encrypted: i=1; AL+hErEao2jLUpKV5DZwziMmehcz26HTJzYW2CxWK/8iYv4Msyxk2gJqh7SvZme+Ha+Da3WnT83KSUaXllgPMoA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8KNOiRAUbbeOlwAmgHd9k5U8zUvkvF6RkyKhH6VEf5kMIgY0d
-	0435bV+DzhRJSshpR6VjzLQccByhGPZT9TGrYHvNHulZ+t07oYaRrIzpJIKE2JZT1g==
-X-Gm-Gg: AYBFou2c1EJoN9zwOA1C/TygSUOcM3I2i29f5rxQIrbLTof2bNRtfyYoWgeGftcd8XU
-	r366Cu9DhptVPQnDei1k3Pae3zCwzkZw7knsK5NZQxMYrg8NkMzGfwzhikriEb0gXX36KBRJmQw
-	YF6M7lhvs1k7TfuQ09cnUqcgVSIHKbmAB+Y6v63IUnYBukTpJzNZmrXDvELscGl3hKD8TjKteiF
-	1dcYUfcSVBLRpl7SmVEvs+ipxJenANvCWJ8K2hczzZT0KJ/GkXwrvQpxxr4buv1J65lxAGghVVj
-	z9kGDg57FKjtk04QepdYMK2QXcdRF36j8GhUMwNkMzhgknrSOhb6bLXEiVriHMannJtRsUtTQtf
-	MzSAsb+kYlESI+08i/CnqDhpFUDTbNHMv0YN6tQSxgWQn2PhbETTMRyuP/LnsPNNeDZd9HbvnR+
-	Ad6wXsia+3Qq9mG7Q/WlaNYAdwUiJtpcXqqjZHpe6reC5x8czOqHQTQb0cyBOxras2UkZNnvFCf
-	Vw3kgW6h0TJ6d9n/1jkpSq+4CruXi9OQiSvsEIKWEFCjqSlK9e8XVd6g6LrhnAxLN1raXpR2K7e
-	M/k7R1/7FQjWN8t4+kk6UGV1UkJeRpFoPTERRH3jcn02dnf6T5nitcrXZnosR812+N+FrtJg9Kh
-	3rWV5p/olaiiRdMhVnLrMrY+OUhxZxGGRxsOJq8p13QgEwrHoj7PzUQRa1BZQGnSrkAXucQBrPs
-	r7Nx2AIpdgslRvFgftKnVDhmRCRU9ejx/hbOLSZYb335rmKeiGY3BGLTsxk7b1Qa/n06Eer+ctg
-	BRwsitKXs9FFJnJu1UyF12ofY/mVYPavtmIGCUSdDGezXuV4ZOkSXN6Y8ALq00PVpn/Sey3Q/WH
-	4gx7/Pom0WvoKPc16rHH79HH
-X-Received: by 2002:a05:6402:42c7:b0:6b7:eda4:e136 with SMTP id 4fb4d7f45d1cf-6b7eda4e281mr1321653a12.41.1794690306618;
-        Sat, 14 Nov 2026 13:05:06 -0800 (PST)
+        bh=Fkd42w5V14bXsJqIyYpVaD3zfPD5OHjGnQateM2Ecv0=;
+        b=HjScoXhbOgAK7zLAdhUhqbM3aSPHA/wzgRQ9w2FdqyOmgNMkNfszZcQE7rECEMfrcA
+         +RYxOCA6MvaNAE5Y8y8XJo8zZBHeTRkcFZ8RmGGHhfF6ndZ8hQYIAU8xqozLgPZf5/Ax
+         K3naiGDrXK0er8VQ49yIaX0a397nPynY2bOhW80xnKLNRVJGqFqyTOdcdE7t/7I1Mwnv
+         JnGQkKzmm3Z4zqni0tX0Ltk2kFRh4UlacJCWrOUVeT05unoXFVOWQtTuBZdmHV/zibgc
+         vDuTEv8LPbVnRJD0B/lgSOxI5OGD0u969CsxmjdWRPotsjS8SQk02Kn30lRtPC4Wx6vB
+         AJPA==
+X-Forwarded-Encrypted: i=1; AL+hErEbmyJ9JuvvmQI+lxVBaqLnyOR/rWnuQF9DLjP6DosjBjVFYypDWwR2uGljseR5Ghxu5G+xSipzPdSqF2E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9Gde3RFkXl869d13o7W/Y3okOK5Td/VzfuAcmFaMGf9765e6r
+	MU4ekpDykKqu7O0kDGTG6KlJpAtK9SRtFSrotzZ7obEI6tKZyngqQ4F1roK/ku9JQxWddS9b2pH
+	yOcUZ9Z1g
+X-Gm-Gg: AYBFou28ZcK96IPwzjqXWYSrPzrveG07FytPYC1jHvFuAzmEk6GaBUuRqXPXRbQctlK
+	sjDGEiPAdGnJ3gAg036DWDKOJyiCqeB25sHSVID6IToi/vHP0/gJVQr6J/D44cSnoo4YYuPP4Ok
+	m/mO8zRE0TfP4ZhqK8b2qJRCKz+YeboSPZ4Pyfx14Ddiz/fcOq/M6U+auWbyuCa9VxGV4wTfPLq
+	7vGe0t4ZtYYam4zJ0s0E3o2bvB3gL85jdeeZeekaaCfhbJyBEqdrDqqAUEsFuXlfbO8qgBko7X8
+	AYNLq2RKRiK9VPZSpWWdrLwbFfeR+rWt9syRyrHjzuKuB7ZKVltzFU8eOzKsUsiYUm9arjnKlKl
+	bq8vsBfHVqlyGZIGUM5UVpnUgxcDRSBgQPN8DStRn1Nrxcs6s3fPBMpPUFbBH8A9vkU/v46zpuq
+	nUkYuDe9UxycLbq8xKbVuqgK1CMW3qGU3qnm13TqNfgA+i5DrFGtT0O3nemxGPw+5ojWUdYChmS
+	DfuAill2Jy4hYbT8WL6lxrL5rRDsV+PyFCZNzkJ/q/Khus6+wFUMtUAacE9LYfKpRt9aul8cqX1
+	jkNSrsMJFu6HkmwGVlYoXfDZ4bBRdjuMsMImyCIKc79F7pq60s8vKrYe340Ifq09itxOVUFLMXV
+	C8RHjWnygjSiULa4Of2Gyj04Aq2a6GNz6bWj7VOu4l3ZxH0ChWrKfgcxxGifPdNIhSPNNvQ8Jht
+	Awkv9SJtMh3ALwzRY+DPIkL1RwnR3ZAIclF0DizWi8OXQEXK07SNWkIeYbxJezqsUhUP4F2zUOw
+	fP6qrTGvDdmZsLYtk0U3dmjvKPif2tEQQtc2ejlc18XAqy9E+RHYnKFnVubcrg4p4a758hgDkRg
+	shLSMNqHRzykaZBX51dugh6A
+X-Received: by 2002:a05:6402:448:b0:6b7:1b3b:d309 with SMTP id 4fb4d7f45d1cf-6b7c0c75058mr3870449a12.33.1794690311837;
+        Sat, 14 Nov 2026 13:05:11 -0800 (PST)
 Received: from Desktop.fritz.box ([185.181.130.189])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c2361280sm2705836a12.10.2026.11.14.13.05.03
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23c7c21sm2604649a12.19.2026.11.14.13.05.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 13:05:05 -0800 (PST)
+        Sat, 14 Nov 2026 13:05:10 -0800 (PST)
 From: Julius Bairaktaris <julius@bairaktaris.de>
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	andrew+netdev@lunn.ch,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	richardbgobert@gmail.com,
-	willemb@google.com,
-	ecree.xilinx@gmail.com,
-	linux-net-drivers@amd.com,
-	saeedm@nvidia.com,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	leon@kernel.org,
-	linux-rdma@vger.kernel.org,
-	alexei.starovoitov@gmail.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	martin.lau@linux.dev,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	corbet@lwn.net,
-	rdunlap@infradead.org,
-	skhan@linuxfoundation.org,
-	shuah@kernel.org,
-	bpf@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 0/2] net: keep the TCP fixed-ID flags on the header they describe
-Date: Sat, 14 Nov 2026 22:05:02 +0100
-Message-ID: <20261114210502.787195-1-julius@bairaktaris.de>
+To: loic.poulain@oss.qualcomm.com
+Cc: jjohnson@kernel.org,
+	ath10k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baochen.qiang@oss.qualcomm.com
+Subject: Re: [PATCH ath-next] wifi: ath10k: spread the PCI copy engine interrupts over the CPUs
+Date: Sat, 14 Nov 2026 22:05:06 +0100
+Message-ID: <20261114210506.787342-1-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179468119953.2168702.10813567320493574993@kernel.org>
-References: <cover.1794139176.git.julius@bairaktaris.de> <179468119953.2168702.10813567320493574993@kernel.org>
+In-Reply-To: <CAFEp6-3iq_Pc0UgeCi7x16w6J-VwgGQ37QaP=dXp_OaTEi+esg@mail.gmail.com>
+References: <20261101164247.258200-1-julius@bairaktaris.de> <CAFEp6-3iq_Pc0UgeCi7x16w6J-VwgGQ37QaP=dXp_OaTEi+esg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,15 +107,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, 14 Nov 2026 18:33:19 +0000, netdev-bot+sinfo@kernel.org wrote:
-> - How the issue was discovered, e.g. hit in production, hit during
->   development, syzbot report, manual code inspection, LLM or static
->   analysis tool scan.
+On Mon, Nov 2, 2026 at 1:13 PM Loic Poulain wrote:
+> > -		ret = pci_enable_msi(ar_pci->pdev);
+> > -		if (ret == 0)
+> > +		ret = pci_alloc_irq_vectors(ar_pci->pdev, 1, CE_COUNT_MAX + 1,
+> > +					    PCI_IRQ_MSI);
+>
+> Why not simply using pci_alloc_irq_vectors_affinity()?
 
-Reported by the hosted Sashiko AI review of v2 2/3 of my "ipmr: forward
-GSO multicast packets" series:
-https://lore.kernel.org/netdev/179182559332.434549.18294510093742639467@kernel.org/
-I then reproduced it with the selftest in patch 2: on net, 6 of its 18
-cases fail in 2 of 2 runs.
+irq_calc_affinity_vectors() sizes the block by the possible CPUs: 5
+vectors on the 4-CPU IPQ8074 with the firmware vector as pre_vector.
+msi_setup_msi_desc() rounds that up and enables 8 in the device, so the
+HTT copy engine's vector 6 has no handler: 226 interrupts in 14 s (one
+run) against 36891-37590 with the hints (three runs). A calc_sets
+callback allocates all 8, but group_cpus_evenly() makes at most one
+group per CPU and the rest get irq_default_affinity. v2 takes the whole
+block or one vector, and keeps the hints.
 
 Julius
