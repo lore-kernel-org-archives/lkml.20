@@ -1,101 +1,103 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794614343;
-	b=YD7/Trr2upeIBqmU0NYTv88INtjpOq3hW6VEVx/4XMM5/LFAU4f6qLMl1FUD1qh+zMrp
-	 ln51YDV2KFm7cEOCbpxAJQxihr5/oBDd1eZXJ++wVilPiY9P9iXEFdkMsvDZEHzTe8S4R
-	 BSF1aKCp9KwtxPvjkjAGymnEHjtxV5N6FyJ7hT1KXzmVsHBlTZulbXK8RMn8p+luZMNld
-	 hDrmy+0KPzOw++1yvSur0iHv1JyPSxmfZd/zFiLXivWBF23LRgdQoLSnn4IzeO0GT/Cyp
-	 WqqIGDMHDTw3tInZxoK9F3jTlc5CxwNpAtCcZyn/3Hx+rCxGsn56JrF+VdGZ0ID7tKg==
+	t=1794614406;
+	b=BDMQsgWPROykw5286Y/2pITz+4A/TeIsMfxJxGtBaqx60xSrJvjP8g/p8aWN7KcOHJ8p
+	 yAbxQaH/nMptJ9Pyt8rLgOwtvZw1K6cjgnxDFGocrvolSj4kHCnU/1+o0kKmqzbCrYPqt
+	 rNza5r1yeDVwUYCxPi0SBzg8KxxHyLauEevQH68p8dUQwvT1O3QculBQUKqlizql9ypkZ
+	 OnaWyxwSbwS34dxkhTiSbzHkOfZrNRQW7o2scTmF90+AMPKQepnNoljM5SH8/gV27NHoi
+	 XJkCsG38QN5B7TeDfCHrzepJphuQ2I9kOR4h3u6pfX/pewgZkFH4n4V9jHYQNQs6RDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794614343;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614406;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=3Y34gjrCf1/M8nt0B/F1aUTr5s9mtv5S2XS9OA+DkLI=;
-	b=l/1TApAk/7bAlV2Q+kIkfYRteHihWUCmuwG19ndnZuPIjTA7pK8uq2h4T3rtmFnd6WjW
-	 6PEjRu+zzjMxDQ9EqY8A0+XOU09TrJ3en6Rqv3h69peX5SsL9m+aQ4LHv8j1NW8ISSZaF
-	 rxmsQ8BFK7i1Og/cXizMURuAKQG0S81m28Z50C4MdztTEqkITfTBaLzftmWpmwpFEBdem
-	 5MFx8ARKzbU1WrH1OwHwFB1GCFqedi4tKoVNxMloCvKSmXFArMZJ98jO/wHepA5SERIC3
-	 u3wUeUMDxt0/Bxr8KqjC4z5VruT19SohrZxIJTxALagFtgPQTVxDe4awHg3MUDbHTZw==
+	bh=IGSul/JbY9ftJg8MsxdaD9RtU8ZYOBU8DTFoA5trNZ0=;
+	b=AM94qW2a1Hljep9FB7t33gdOvoD3xSzvWeq3II+aHjbgQssQHMBi/aCyvSWv91ujor9I
+	 y0l8mNflRqcVDJeSEdv1JiWbMFXGK3h06CQQU29bgJ+ctTH4s2SMPvNmOBUOiiLFJikAO
+	 UWcvwwH15yNkKFzbpve06INAvHjo4gL+/W3/tLV3I4KYzeTlK1VY4nvos/joo13+5rSHm
+	 eSJfDNnaNKKIaqTJyF6C1HCj0LqXzWwIN2TpzBgK7LGt4nf8T2+cY35Ns6dwWWI1MhEJ+
+	 TGMHpcQ50uvh7S6aAqddQrLdG/+D+uw5259xQeUOQmtmOPSqLjhXV+9KdeFr7pQhvbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j98LLVL7;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mJaSdAdb;
 	arc=none smtp.remote-ip=209.85.218.52
 Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A137260A260D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:59:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A137260A260D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7167606A88B
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:00:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7167606A88B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j98LLVL7
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c5067a2411bso285395266b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:59:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mJaSdAdb
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso386195366b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:00:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794614339; x=1795219139; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794614404; x=1795219204; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3Y34gjrCf1/M8nt0B/F1aUTr5s9mtv5S2XS9OA+DkLI=;
-        b=j98LLVL7Bger13mwxy+RIduMv5CvRdYzEFv1VIx3U66oUFXRZWXDTshuxUo2ymJYC0
-         c9mtAA1yhWm1trTEBiJcm//l7uq6Bhwjz0i/w/ZXtt5kg+MPsQU+S/3RVgNYh8MZbpED
-         p7AALQrnD2xjkeHwWawtkYLo2DXJO2xm5n5Il9VMwn2ElfYSIRbg853fsVPFBSi3IcVK
-         QVQW/LODLe6ZrXrYSCElLBNTAdAgpe8mOohE3gwiOJArbcTwFpM94901+CS37YPiG86X
-         E8y/DApyidI2jBZLE2+TwSDUsp2eDgGLUJq/S1ur5AQbCH6VuE7rgw/8uC4bLnlxgZPP
-         ALFg==
+        bh=IGSul/JbY9ftJg8MsxdaD9RtU8ZYOBU8DTFoA5trNZ0=;
+        b=mJaSdAdbEeAPm1sF7lZDu7kYW7qI/K86+q0BlhQ6GVJfL00ZxKXBSfPBY+UCO+P1c6
+         NS4sQadt7gnuGaElD1jNGCrQ7JF0MiUvbizQMhVIiOfienwz4CZxOFh1E/7Q5PosDsEN
+         J0xXgwQcWgkMXmR8su71qgTz77yB3xzVw3+GsJm7nURkFG9HFTz38QKL81RYAFVps5bA
+         9Qsmo64v/hdGMk/b/pqPaWwcGzqtPBdrGY9LPcsbBnc9FNxNkLwDgwoWgFQioTNvDHn5
+         gXip/HoXB3WgohdKsSxRNSj8bw7a5VbXBkmNog6XS//gY1/1BsaUnxbjjCjISsoDsG6N
+         s4Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794614339; x=1795219139;
+        d=1e100.net; s=20260707; t=1794614404; x=1795219204;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3Y34gjrCf1/M8nt0B/F1aUTr5s9mtv5S2XS9OA+DkLI=;
-        b=msdGD4XSa5eKQt/b+YbDGxa65Tjkc50/X1o9xwcyCvbmGqiWuUDApsWosuDqJ/LZhZ
-         j/sIHhaRRt2k9016pmgH4JWTf2D18CiklL7JzzpW9dlQYJqGWQHI3uAZqMKFG4DfsLR+
-         YyQ3lDve6NNtM/XcUmR8wPQuiXHDYkq0FSlZZpA5vedPxp4fwY+NLV5tLE1R6JKZGz/g
-         Vs+AT/CK6P+JB2kuC9LquObqVG6gZvmUkVoOw5xDymxkYQqrGsZqUOxU9ach++dZGsDE
-         jUCPWfkqnT3C2ZNtM7F2yWf9f7KlywPPFkx4mpYHZ6H7JOTowFVM9VXEAztb9ORs1vlq
-         JYzQ==
-X-Forwarded-Encrypted: i=1; AL+hErH2ifDTWF58VhjW6WBGaSkzT78HlXqVJDM0MuC3C3sQ3oAHeb7z6cMOpSLhPznMu/3V6h45WTokUt0myIM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XjPmjgg7sGzgGnj2iXv4FIeLnjZzlKwO9g5Frf1FE17ZZp/EX
-	kP6tDC4rTR7YE3pzk7Mt/HXkBRdkQFCY7zNa3lMax73OQNnt/jmwVjAh
-X-Gm-Gg: AYBFou02O6ANPyJ2Ycey4rjrxfqw9Z4C+9xXJQqV1kvc3abh/3CRfpzQL9nhifd2Ox4
-	gCDJPRzlEmSVMpcIAlEbnMJxJDYucWmQvJEESOwsJQvqaYgYlrn+d8zjJ7OTzi1+V5HnkLQrZe1
-	ocw9+ES7T1fwfSL0PNBBR5jROsTlG7K6UrGqTd5YLq51FU388kozk9W7L9XgEp6QgtHfzarNQty
-	dBd8xB9U8r/L6FihHvCG+iP0QFvi1Ui8K4XjJE62jeDa8wKi441Lc9b0lcPTnEAChGCqY2vjs1w
-	K8Iulbl+084N1VzzeWc+b9x72bDPS/dVbkPy5jSeeDFLZH/ihDKGkU8/iI8aYY+c8vI+ZUFS+a1
-	EcH1UdxPlrkoD1sC1xQzT5ZAPwDwY3CKaDNcNuoOJuszF/Zef1ZPAht1Oxk+VoEHlDb7DzgLI/d
-	TixOU/jdqFhQBUcNDhatxXb5iyeqAYXTPABsfGcHr9BO3kHUTcrKsDJ2Ri3/JKyxaHF2AQGR9BG
-	hd88RNuBY+WJN+G0wx60ByKbpw81mOn8Se/Yk5DgnXISBlHfn6hO7Mm9c8ppfzxsVVH45Xw+b7+
-	+7Q0WfbtTdhaj7FPGf79WNsQ3iPqeB2sUYAGWEpy
-X-Received: by 2002:a17:907:a08a:b0:c4c:b545:f29d with SMTP id a640c23a62f3a-c5096545652mr356912566b.36.1794614338993;
-        Fri, 13 Nov 2026 15:58:58 -0800 (PST)
+        bh=IGSul/JbY9ftJg8MsxdaD9RtU8ZYOBU8DTFoA5trNZ0=;
+        b=lWTDCJQIq5ZPzAqiLoUaXPjMPisyGhp1pIuMKCHxJD/EE2sNjeAKO674nxzRBgyJzO
+         LTfmnjuDCsD3ShZVxr37s4DZhPDSGVVS6CEtT98wqtmtC2IxhojuaS//063VUpE9HQS6
+         lCr/YcG4K1gZGd+WxTRMzilmRLvmgf3do7hb691PEG/3D0x0ncfA0UsKnL5u9XiTeTgC
+         G8R4L/Y4l/HaAg5dTwEFoufGcYu0YZKHvj+5dH0Q38d9BhOJrFuzgXYJgyeuodUGD4l2
+         NhfK3FFaM7p1fUzWynDXxp7/j+SOtH/zRKEZciCRLqLNWCQjnUTD04iwp6P8kBzeBCTX
+         9YBQ==
+X-Forwarded-Encrypted: i=1; AL+hErEUtZrh3yzs+fQ+r1kmQp2otZOBTgzMpvWM8LU0Slxx1j3BBRVPChlvGgkX2dvo0xBdS5JarREsmSV/Z1U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8V1T+qZj3GIUxc68GDNvwXUiISrpzL6AbVOlWQDwKdSrzfxLqq
+	ORwF0mC3c4+XJhuHGi1MiHuqcQvkyqu62Q2X0wJy0i6n+IIUmDj+7jpt
+X-Gm-Gg: AYBFou0fZ5JUKTJ8QtD6Gc70VX6Duyfa42fm9hPtskB7pJIKuuf+wrGgFfgPWXV59Kf
+	jDWTbH69UlU28dwV/KH34mg7QhnSn2gDVx1KMD3BCy2PAEK0cNM8Bmc9H4Cn2DhHpfIsHxI/PVD
+	sMkLde3MMO8rvG6brLY6qqRpyScBocTUCC7975Lp0Q2L7H1Tb3iY6CPEdDtlXTkMlOumG1MHpcf
+	zmhwti4eajG4DuoNk/I8A1YZnlZ2YqbCkx8AXFaF/ekp2xszcZ8IgJVO/wBtySC1VOVeyx+U/lg
+	yqZO8HnP1kx+9PDkcnu9pcn9vkGczob1yy8bAqcEtwl3yJdDwG/+PTPJksy3uH2w3fOqF9ffxXI
+	oei7S7UV75y9H7BwuCsk4zH3Tl1Cccz0BrlhQoAXfcujK3eUsKmNfGJcUPaGjxiUQIocTy42dUV
+	YADRFpExO/XE+26P3m7LotBPaR0jpSRp+Z9qF9qrhCgQFv/v9Ad0Y9BprZmIK2EpBAFG3eqmfPf
+	FMMCl+gAQrhdQI9o1i1R+GCmBItoN12C2Cb5Cl9xLEJtg9PdKI2P/dVFbpiy9rQpFzD/LQtp0JQ
+	rKhkqFZwcK6QTOj1E4pEVmZgFsizEKlszK8qbaRE
+X-Received: by 2002:a17:906:b1d9:b0:c4c:e91f:e1db with SMTP id a640c23a62f3a-c507c439449mr515074366b.25.1794614404071;
+        Fri, 13 Nov 2026 16:00:04 -0800 (PST)
 Received: from kordpc.lan ([2a13:e746:396c:c600::8f9])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b3dbaesm153454266b.32.2026.11.13.15.58.58
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b42782sm156867766b.38.2026.11.13.16.00.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 15:58:58 -0800 (PST)
+        Fri, 13 Nov 2026 16:00:03 -0800 (PST)
 From: Kordian Chmielewski <kudzo51@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	bcm-kernel-feedback-list@broadcom.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org,
+	Doug Berger <opendmb@gmail.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 5/7] net: bcm4908_enet: unmap RX buffers on stop with their mapped size
-Date: Sat, 14 Nov 2026 00:58:45 +0100
-Message-ID: <20261113235847.517308-6-kudzo51@gmail.com>
+Subject: Re: [PATCH net-next 0/3] net: mdio: Clause 45 support for
+Date: Sat, 14 Nov 2026 01:00:01 +0100
+Message-ID: <20261114000001.518424-1-kudzo51@gmail.com>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261113235847.517308-1-kudzo51@gmail.com>
-References: <20261113235847.517308-1-kudzo51@gmail.com>
+In-Reply-To: <20261113211554.2058181-1-florian.fainelli@broadcom.com>
+References: <20261113211554.2058181-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,34 +109,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since the switch to build_skb() the RX buffers are mapped with
-ENET_RX_BUF_DMA_SIZE and slot->len is no longer set for them, but
-bcm4908_enet_dma_uninit() still unmaps them with slot->len. Use the
-size they were mapped with.
+On Fri, 13 Nov 2026 13:15:51 -0800, Florian Fainelli wrote:
+> This patch series adds support for Clause 45 MDIO operations within the
+> mdio-bcm-unimac driver.
 
-Found by reading the code.
+Tested on a TP-Link Archer AX6000 (BCM4908) with OpenWrt and Linux
+6.18.55, with this series in place of our own C45 support. The bus has
+the switch's internal PHYs, which are C22, and the BCM54991E WAN PHY at
+address 0x1d, which is C45.
 
-Fixes: 3a1cc23a75ab ("net: broadcom: bcm4908_enet: use build_skb()")
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Kordian Chmielewski <kudzo51@gmail.com>
----
- drivers/net/ethernet/broadcom/bcm4908_enet.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The BCM54991E takes its firmware over C45 and links at 1000 Mbit/s,
+ethtool -r brings the link back, and the WAN carries traffic. 8000
+reads through SIOCGMIIREG gave no errors. Such a read, ioctl included,
+takes 18 us on average for C45 and 10 us for C22, against 64 and 32 us
+with the old polling, which starts with a fixed 30 us delay per frame
+(our C45 code used the same wait).
 
-diff --git a/drivers/net/ethernet/broadcom/bcm4908_enet.c b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-index 03de65d9b..4065769da 100644
---- a/drivers/net/ethernet/broadcom/bcm4908_enet.c
-+++ b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-@@ -334,7 +334,8 @@ static void bcm4908_enet_dma_uninit(struct bcm4908_enet *enet)
- 		slot = &rx_ring->slots[i];
- 		if (!slot->buf)
- 			continue;
--		dma_unmap_single(dev, slot->dma_addr, slot->len, DMA_FROM_DEVICE);
-+		dma_unmap_single(dev, slot->dma_addr, ENET_RX_BUF_DMA_SIZE,
-+				 DMA_FROM_DEVICE);
- 		skb_free_frag(slot->buf);
- 		slot->buf = NULL;
- 	}
--- 
-2.56.1
+The PHY's DT node has only its ID compatible; our PHY driver, which is
+not upstream, switches it to C45 in probe. So the new check in
+unimac_mdio_reset() never matched, and since the bus is registered
+from DT, the C45 scan at registration did not run either.
 
+Tested-by: Kordian Chmielewski <kudzo51@gmail.com>
