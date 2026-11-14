@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794665401;
-	b=mO9v6zSqefI5Lv23OYA+UGjZVCsW222cWc8yx/2ntQqwrNM3tP6PxqEGfjZp2DIn05ne
-	 at+j8cCK75zHxsSicUVzFdbC88u47HRVFYCMfzlBsYthP6Ssqoc/sIQM8WuZPA2V8UHTk
-	 zaMv2UgOcSrb6hCGM0Vk6xvfmVVJ3v5DhKr7T01JfmrWtlw3wU3SwomW6FwG3pDKScHyn
-	 MC8ngLSqxsdNVkbgazB6LVIWXXmacQe9suXQT3VPb8Gjg3WIHxsJ5SUPn6DIHQnmGfHh9
-	 jUeFilm2bfjEzQ1K7FZDm68gORopg160XDwD9ipHBXuIW6ZksjjjQBl+r0xOcYA40AQ==
+	t=1794665402;
+	b=gDkvvrJxq7U9+KS0IAUjkmPGJCBFCrX2yCxgPvRau1aAarDbzdTXBF6Y6O8igPhVO+21
+	 EdOkhfuNigsfBzsnk7vee4XzB9caOXJMZlXTdgxUMFFg3gfRLBV/S08r7pc1SiZGKT/L5
+	 8ysfGTbo2T2BUF695dIrKyu6EaSnbgrEv6sctLgeoLe4Poizk1RQCVuOUS6mWVMtr3Fg0
+	 huRxdrAWZh3XZPKKc2r6xMzzSGFQx0yqBynsLgjIfdSCiFWUSYUwcjMcSUqQS9qfDAVv+
+	 DBJ3TJcyd98XuqM0X0X5TSDslsaovAhruwq2ykGRZ+wAWLM7RqJ6qAH+QbSPj8ruu+g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665401;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=vYFRq9ZxqRkW0vwnC0kdGr431NbPxhomC2G3Bn60508=;
-	b=xcDBsOvSBDa475KqlGFOrky/kwiipORa3LeI4xR0FXXb1bFajH71bMAl2DXEsDWIdRuJ
-	 DoeUJ3BkRjVnoacpLP7xc+72T0L8Csh2buL1PTdPM4AsbSp0R8YPwxhBNc/RTSWvbgQJv
-	 mEWP2FukjbOKSFBPeiYy6gW0in9Add01drwkkogt1vDWYyfJCfXEoxpkDAB7gXOp3DbIS
-	 AfQ0X4VRFrTP9PcxibQIWQzN3vIbrXcKCR2CdgC9pFqpq/sKLkspACdSQh/G9BaV/umiX
-	 zwOtwFgLoeG7JyuGfcWKX6O/IABeeP/GAiP/WnZ0nMK3aLfcOtv4PCN0o5QSCRKkVVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665402;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=I+o7fn4Xi40F4aTgkVoEJlD0ZAwKqae1lOOgUTDSbC8=;
+	b=ZkT1fJkMSIrFTR1OPWsQ8TMZJGCq1XtiahW8TEY4LvTjVYkKal2heY2u+AZs3ELFXCCU
+	 n6I5tXi0CAGXdQ/c9exmrw3gwt9ZTKYSQZudG8n0f7RlmRBWXZndqnBJrOTvExEpwuFxD
+	 2uuyMm+dW3mPjzyPfS5j11Jw68JlK1pO4MlS5etJDguPS4ubl3z7mWMn2hgtXnzeaCUhm
+	 JXTOQfJ2hgckhABdx7P+q4mqaJ11AFbFR8tMCVxNYQWUQ2uvqTYUHl19rURWL8/ro2QQ9
+	 smVYdWpy05sP01nbXKIvKBV9UNB9CuKftZND+c+TsVMoVA+mgSzYIZQDAFWoqv1UHSA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHF0xDc5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km80JTmd;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5CE606A329;
-	Sat, 14 Nov 2026 14:10:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1BE606A880;
+	Sat, 14 Nov 2026 14:10:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHF0xDc5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km80JTmd
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794665400;
-	b=0xnlKgZiN4fsgNcesv32JB6xbiIgPn8kz/PeR20IqYTK+LTW3tHmO3qv6KpHUP8S8NIb
-	 IAF1lzdT9YeHuEuhM7fEUlusv3A7HQLtVT7nQhbVCXNeRJcHO/D6uzFBTA3QMyp7xEWFD
-	 MegCFmpePMB4HS18wMwciR7SlVnhc5Iu7lb3qHLUe74zdG1t4fGGwcA000sSDBsLULBir
-	 yd8vPlTEw52J5iwD9z85Yw/K+hbnZYL7++Xl+qmqEaOKEXFbWSLouRaFUu5bI01+YcLJq
-	 7ruJIJFCKwa1AC3C8creTp85pEF9W7HKnkhXKEdFf1rL7F61yNX9tb2tYrBJpGJR32Q==
+	t=1794665402;
+	b=SWI18KkPnOwpwqnGMq7xeM/oraEqVvham61/osqcsGtE9pC49pKUWIVH/dQFXQjVCV6l
+	 BMkPTpXLFlCM+58DanTCnobYOigftWRrPT8wbOS/oF1ngj1EZ7dP3AFzOfGQgPCrNTUcG
+	 XsWDq8Y3pZ+lYAsKutaWvkUgG6YzO6XFZ4Zhl0/nlhxGlkRy5zqWQ5igZosApXOopEsp2
+	 6Ae+9Gtwdr5mTRaVb+66pR0Jzf1f295qhjZ5VojORBKl/jzjBefsMldUW3Y8xrXsIyToG
+	 WJB4/w5JC2kOYgStU9TYivEMA+qeNX7zuvVo6saRoE4Zzvjdq9UTHpRW1qLNQCn10sA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794665400;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=vYFRq9ZxqRkW0vwnC0kdGr431NbPxhomC2G3Bn60508=;
-	b=OlCkMpzMg3kdBoiFxwuAEhOo1Jgxnm7pEhr0kmmP5WGE4GfGyJ+jq6oKqqmXuLis13u1
-	 w+5R9/P78JqW9aXE5EC8CVFWKXZd64+fDo+wq049UajIUzLTfhhiWj3+2mxQx0QNDtbcJ
-	 Rvp824DWgCmOYeVWOta33mXqhz9rUgLIiGNn7uJaWmB1IyoBSFFUf38j3jVw/BjKeSM0h
-	 KuTHuqQvf4iS2sf4lqHEJNHsSu1C5FabhhT8qbogpAX8sAK6zKPsLb27vXSPsHLYzngPD
-	 /9WlMn8EIm9ZYldfEy26M6eIHO7szFPRYM3+2R/Ust04njLFIcuxYcN84nItPHvAJBQ==
+	c=relaxed/relaxed; t=1794665402;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=I+o7fn4Xi40F4aTgkVoEJlD0ZAwKqae1lOOgUTDSbC8=;
+	b=OjP4alNwBDm7cdFmf2vNjOLfogTbm/tQLhtWTB37/XTFuKvS+bGwilsvmQhqWzmAqjfl
+	 sDCkvnsZMIAGhWb8Nz6DrelGdtxNSEUlFlpWEKGxJG1ZsM1VfGiJ1zEhnPEk9ii9fl1wS
+	 /5dr/gMTtNLaSg62d8US1Np/mh1OPGsAZFKfmaVpktpzjxcvZ4WiZ/bd5NXSWp+mGekRS
+	 HYJHh4oUjctY3M+I7rUJfEODBsvoA7YK3IMdtz99oUiJRR3UWrLgNyip3aEbxI9/vFNY/
+	 847q0L9QS5w0j3G4dl1t5jjlJFazRr1omO6PuF3b9HhJQq9TNAwZAVSYHF8ELXFERhA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E50B91F000C4;
-	Sat, 14 Nov 2026 14:09:59 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 165DA1F000C6;
+	Sat, 14 Nov 2026 14:10:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794665400;
-	bh=vYFRq9ZxqRkW0vwnC0kdGr431NbPxhomC2G3Bn60508=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=OHF0xDc5jZPj4fIQN/p3Twh5KhjAguuEaB5sOKkjXAM2xTMLRKQHsDT+0sSDTp/yx
-	 ckPVq3yOWUXYZtrhqQxWyHShCwTvsKtITxFACOQhr61siz+07hm4CgYOwBn6pjb9jy
-	 C0Tmj+WmxN5hd902nhr6IpH+DRYAirrxDD5ZqiYgaqD+VmEPbGqhKmMrJFYZuv+HM+
-	 VE02kp1e9tpIU3B95x6XPfuhaj4gzRamSkV8qzoeWemhr2Dgysf1c1ij/z776g1Qrf
-	 HZWoGf9RHkMTVU55dAwT2Y83l3UU9ehfVB5plD+N/vV+ODENPYVCc3/sIuKhjnQFLA
-	 MspN9FgpbgyAw==
+	s=k20260515; t=1794665402;
+	bh=I+o7fn4Xi40F4aTgkVoEJlD0ZAwKqae1lOOgUTDSbC8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=km80JTmdQoNTPR8xbhGGjC5yhT6/sFBVZJfAHtdKUQAvZxW33m1t/4UIvN9WL2v+5
+	 ZyAYAHdk5xPc7MBH1Fs/qq2AzGP1M2zTGOOyhIjicj1b1xuwdjawB5Zea9ZKxd7r74
+	 1O6+C54e4bEaIa6s5WQTPiCsFX/FMIsYCdLQoOH8cnE+kBlZDQhPI11ObEuQMidudH
+	 XGjRufReZzVW8z+CmKRfuYhkgQ23YSjop9X4lsK9T0vbdb2pvn7Tiy7+S2YzFWcb2R
+	 3E1SRe2kHIX+kpxeDRI28j9uMt7gBUqi0MLSb8fmbRVHzJVS/xw6jIZrQwPC8SM7Rz
+	 CNpIFczmVWMjA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 622B449DE2;
+	by lkml.kernel.org (Postfix) with ESMTP id 9081849DEC;
 	Sat, 14 Nov 2026 14:09:59 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Subject: [PATCH v6 0/7] Add E notation support to kstrtodec64() and IIO
- sysfs writes
-Date: Sat, 14 Nov 2026 14:09:52 +0000
-Message-Id: <20261114-e-notation-v6-0-205ca9a1438a@analog.com>
+Date: Sat, 14 Nov 2026 14:09:54 +0000
+Subject: [PATCH v6 2/7] lib: kstrtox: round to nearest, ties to even in
+ kstrto[u]dec64()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,163 +84,260 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIALBr+GoC/23OS07EMBAE0KuMvMao2994VtwDsXD8mTGCGMUhA
- o1yd+xhQaywLKledd9ICXMKhZxPNzKHNZWUpxrUw4m4q50ugSZfM2HAFAIgDXTKi11qjUIEraU
- 2CEGSCj7mENPXfez55TeXz/E1uKUttMY1lSXP3/drK7bev8MrUqBa4qDHCMohPNnJvuXLo8vvp
- C2vbGeRd5ZV64X1owxoeHQHy3eWQWd5tdHzQTqIY1TyYMXeqs6Kai1XyiqPwkt9sPLPVtxZ2X7
- mxgQphDUD6+y2bT/wv777pwEAAA==
-X-Change-ID: 20261001-e-notation-0f07757910e5
+Message-Id: <20261114-e-notation-v6-2-205ca9a1438a@analog.com>
+References: <20261114-e-notation-v6-0-205ca9a1438a@analog.com>
+In-Reply-To: <20261114-e-notation-v6-0-205ca9a1438a@analog.com>
 To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
  Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
  Andy Shevchenko <andy@kernel.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794665398; l=6300;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794665398; l=8166;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=qkglJAAoJMp6WutJnose8xK7lLSYHcC33wrXVsxjJLM=;
- b=gd825G2+uZY8TWcjDbGm+AdgntuWosrdx95Jk+oJiTFOxV6OUsgTX9FBrPehe+7n6/9k0zvQv
- S8u5vrKEl0cBttAnvddhM81mdey6CQgY2DH4XxqHxb3yB2JUm9qXQiW
+ bh=scyZwro+u7sqhzonXs9Nh8pZhA6YdfMjHj8TdDCPqu4=;
+ b=GVuwQK3rpxGbzI6FRZPP6GYV93EVMW970q9GvRjh+h1BCeZjGH65pdm7catUiejNiucJA4jRh
+ Q/zlCxTwSmwBEKfbLjfVSiI8BasgRVIDMMrWWBri526pdlE5GrGf+VH
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
  with auth_id=561
 X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 Reply-To: rodrigo.alencar@analog.com
+Content-Transfer-Encoding: 7bit
 
-This series lets kstrtoudec64() and kstrtodec64() accept numbers in E
-notation (scientific notation), such as "2.7e9", "1.5E-3" or "1e+16".
-It then moves the IIO core fixed-point parser over to kstrtodec64(), so
-every IIO channel attribute written through iio_write_channel_info()
-accepts that format as well.
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-There are two main motivations:
+kstrtoudec64() and kstrtodec64() drop the digits beyond the requested
+scale, which truncates the result toward zero. The error is up to one
+unit in the last place and is always in the same direction.
 
-1. Shell usage of sysfs attributes
+This is easy to hit with values produced by userspace floating point
+formatting. Printing 0.3 with "%.17g" gives "0.29999999999999999",
+which is parsed as 299999 with a scale of 6 instead of 300000. With E
+notation a negative exponent can also drop integer digits, so "19e-1"
+with a scale of 0 gives 1 instead of 2. The same applies to negative
+values: "-19e-1" with a scale of 0 gives -1 instead of -2.
 
-   Some IIO devices take values that are long to type and easy to get
-   wrong in plain decimal. A frequency synthesizer or DDS might be
-   programmed in the GHz range, and a scale might be a tiny fraction.
-   With this series one can write:
+Round the result to nearest instead, with ties to even. This is the
+IEEE 754 default rounding mode, as used by strtod() and printf(), and it
+does not bias results in either direction. The first discarded digit is
+known from where parsing stopped, so no extra pass over the string is
+needed: the remaining digits are only checked when the first discarded
+digit is a 5. Since round-half-even is symmetric, kstrtodec64() keeps
+rounding the magnitude and negates it.
 
-     echo 2.7e9 > out_altvoltage0_frequency
-     echo 1.5e-6 > in_voltage0_scale
+Inputs that fit within the scale are parsed exactly as before. An input
+that rounds up past the type limit, such as "18446744073.7095516155"
+with a scale of 9, now returns -ERANGE.
 
-   instead of counting zeros in "2700000000" or "0.0000015". It also
-   works with shell tools that print in E notation by default, such as
-   printf's %g conversion ("printf '%g' 2700000000" prints "2.7e+09")
-   and awk, whose default output format ("%.6g") prints
-   non-integral values like 1234567.5 as "1.23457e+06".
-
-2. Userspace software that formats numbers automatically
-
-   Many languages and libraries switch to E notation when converting
-   floating point numbers to strings, without the caller asking for it:
-
-   - Python: str() and repr() of a float use E notation for exponents
-     below -4 or from 16 up, e.g. str(0.00001) == '1e-05' and
-     str(1e16) == '1e+16'. Writing such a value straight to an attribute
-     with open(...).write(str(value)) currently fails with -EINVAL.
-     The same applies to NumPy scalars and to f-strings with the 'g'
-     format spec (f"{2.7e9:g}" == '2.7e+09').
-   - JavaScript/Node.js: Number.prototype.toString() uses E notation
-     for magnitudes from 1e21 up or below 1e-6, e.g. String(1e-7)
-     gives '1e-7'.
-   - C/C++ applications and bindings that use printf("%g") or
-     std::to_chars() with general formatting, as well as MATLAB/Octave
-     and other numeric environments that print in a "short" form.
-
-   Today these values have to be reformatted by the application, or are
-   rejected by the kernel without warning. Accepting E notation in the
-   kernel makes the IIO sysfs ABI more robust to this common
-   behaviour.
-
-The exponent is folded into the requested decimal scale, so no floating
-point arithmetic is involved. Overflow is reported as -ERANGE and a
-malformed exponent ("1e", "1e+") as -EINVAL.
-
-Digits beyond the resulting precision are now rounded to nearest, ties
-to even, instead of truncated (new patch 2). This follows from the
-second motivation: floating point values printed by userspace often end
-just below the intended decimal value. "%.17g" of 0.3 gives
-"0.29999999999999999", which truncation turns into 299999 at micro
-precision instead of 300000. E notation makes this more visible, since
-a negative exponent can drop integer digits: with truncation, "19e-1"
-written to an integer attribute gives 1. Round-half-even is the IEEE 754
-default, as used by strtod() and printf(), it is unbiased and symmetric
-for negative values, and inputs that fit the precision (including values
-read back from sysfs) are parsed exactly as before. The rounding is done
-before the IIO core conversion, so IIO fixed-point writes change
-behaviour only once.
-
-This changes existing kstrtodec64() behaviour, so feedback is welcome on
-whether it should stay in this series or be sent as a follow-up.
+Update the existing truncation test cases and add cases for ties and
+for rounding at the type limits.
 
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
-Changes in v6:
-- Rename skip_digits() to skip_and_count_digits().
-- Add a negative value example to the rounding commit message.
-- Link to v5: https://patch.msgid.link/20261102-e-notation-v5-0-d399e544a982@analog.com
+ lib/kstrtox.c      | 46 ++++++++++++++++++++++++++++++++++++++++------
+ lib/test-kstrtox.c | 48 +++++++++++++++++++++++++++++++++++-------------
+ 2 files changed, 75 insertions(+), 19 deletions(-)
 
-Changes in v5:
-- Allow for a negative scale in kstrto[u]dec64().
-- Add more details to the documentation.
-- Link to v4: https://patch.msgid.link/20261026-e-notation-v4-0-a366a6d14d57@analog.com
+diff --git a/lib/kstrtox.c b/lib/kstrtox.c
+index 4341e4cec1c8..4c1ec9223d63 100644
+--- a/lib/kstrtox.c
++++ b/lib/kstrtox.c
+@@ -405,9 +405,28 @@ static int skip_and_count_digits(const char **s)
+ 	return *s - start;
+ }
+ 
++static u64 round_half_even(const char *p, const char *end, u64 res)
++{
++	if (p == end)
++		return 0;
++
++	if (*p < '5')
++		return 0;
++	if (*p > '5')
++		return 1;
++
++	/* tie: any nonzero digit after it breaks it, skipping the decimal point */
++	while (++p < end) {
++		if (*p != '0' && *p != '.')
++			return 1;
++	}
++
++	return res & 1;
++}
++
+ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+ {
+-	const char *s_int, *s_frac;
++	const char *s_int, *s_frac, *s_end, *s_round;
+ 	int len_int, len_frac;
+ 	unsigned int rv;
+ 	u64 _res = 0;
+@@ -422,6 +441,7 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+ 
+ 	s_frac = s;
+ 	len_frac = skip_and_count_digits(&s);
++	s_end = s;
+ 
+ 	if (!len_int && !len_frac)
+ 		return -EINVAL;
+@@ -442,8 +462,16 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+ 		return -ERANGE;
+ 
+ 	if (exp < 0) {
+-		len_int = max(len_int + exp, 0);
++		len_int += exp;
+ 		exp = 0;
++		if (len_int < 0) {
++			s_round = s_end;
++			len_int = 0;
++		} else {
++			s_round = s_int + len_int;
++		}
++	} else {
++		s_round = s_frac;
+ 	}
+ 
+ 	rv = _parse_integer(s_int, 10, &_res, len_int);
+@@ -454,6 +482,10 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+ 	if (rv & KSTRTOX_OVERFLOW)
+ 		return -ERANGE;
+ 
++	s_round += rv;
++	if (check_add_overflow(_res, round_half_even(s_round, s_end, _res), &_res))
++		return -ERANGE;
++
+ 	exp -= rv;
+ 	if (_res && (exp > 19 /* log10(2^64) = 19.26 */ ||
+ 		     check_mul_overflow(_res, int_pow(10, exp), &_res)))
+@@ -473,7 +505,8 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+  *
+  * For example, a scale of 3 with input "123.45" results in 123450. Note that
+  * trailing zeros in the fractional part input to match the scale are not
+- * required. Also, digits beyond the specified scale are ignored.
++ * required. Also, digits beyond the specified scale are rounded to nearest,
++ * ties to even.
+  *
+  * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
+  */
+@@ -494,9 +527,10 @@ EXPORT_SYMBOL(kstrtoudec64);
+  * @scale: The number of digits to the right of the decimal point.
+  * @res: Where to write the result of the conversion on success.
+  *
+- * For example, a scale of 4 with input "-3.141592" results in -31415. Note
+- * that digits beyond the specified scale are ignored. Also, trailing zeros in
+- * the fractional part input to match the scale are not required.
++ * For example, a scale of 4 with input "-3.141592" results in -31416. Note
++ * that digits beyond the specified scale are rounded to nearest, ties to
++ * even. Also, trailing zeros in the fractional part input to match the scale
++ * are not required.
+  *
+  * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
+  */
+diff --git a/lib/test-kstrtox.c b/lib/test-kstrtox.c
+index 9255234752db..1f176b232085 100644
+--- a/lib/test-kstrtox.c
++++ b/lib/test-kstrtox.c
+@@ -737,12 +737,23 @@ static void __init test_kstrtoudec64_ok(void)
+ 		{"0.01",		3,	10},
+ 		{"0.1",			9,	100000000ULL},
+ 		{"0.01",		9,	10000000},
+-		/* truncation: more fractional digits than scale */
+-		{"1.23456",		3,	1234},
+-		{"3.1415926535",	6,	3141592},
+-		{"0.999999999",		3,	999},
+-		{"1.99",		1,	19},
++		/* rounding: more fractional digits than scale */
++		{"1.23456",		3,	1235},
++		{"3.1415926535",	6,	3141593},
++		{"0.999999999",		3,	1000},
++		{"1.99",		1,	20},
+ 		{"1.234",		0,	1},
++		/* rounding: ties to even */
++		{"0.5",			0,	0},
++		{"1.5",			0,	2},
++		{"2.5",			0,	2},
++		{"2.500000",		0,	2},
++		{"2.51",		0,	3},
++		{"2.5000001",		0,	3},
++		{"0.05",		1,	0},
++		{"0.15",		1,	2},
++		{"0.25",		1,	2},
++		{"99.5",		0,	100},
+ 		/* trailing newline */
+ 		{"1.5\n",		1,	15},
+ 		{"42\n",		3,	42000},
+@@ -760,15 +771,16 @@ static void __init test_kstrtoudec64_ok(void)
+ 		{"18446744073.709551615",	9,	ULLONG_MAX},
+ 		{"18446744073709.551615",	6,	ULLONG_MAX},
+ 		{"0.18446744073709551615",	20,	ULLONG_MAX},
++		{"18446744073.7095516154",	9,	ULLONG_MAX},
+ 		/* scale > 19: representable when integer part is small */
+ 		{"0.00000000000000000001",	20,	1},
+ 		{"0.1",				20,	10000000000000000000ULL},
+ 		{"0.00000000000000000000001",	23,	1},
+-		/* truncation with scale > 19 */
++		/* rounding with scale > 19 */
+ 		{"0.0000000000000000000012345",	23,	123},
+-		/* truncation with many excess digits */
++		/* rounding with many excess digits */
+ 		{"0.00000000000000000000000000000000423",	34,	42},
+-		{"1.99999999999999999999999999999999999",	3,	1999},
++		{"1.99999999999999999999999999999999999",	3,	2000},
+ 	};
+ 	TEST_OK(kstrtoudec64, u64, "%llu", test_udec64_ok);
+ }
+@@ -795,6 +807,7 @@ static void __init test_kstrtoudec64_fail(void)
+ 		{"1.5 ",	1},
+ 		/* overflow */
+ 		{"18446744073710.551615",	6},
++		{"18446744073.7095516155",	9},
+ 		{"99999999999999999999",	1},
+ 		/* overflow with scale > 19 */
+ 		{"1.0",				21},
+@@ -833,11 +846,16 @@ static void __init test_kstrtodec64_ok(void)
+ 		{"-1.2",		3,	-1200},
+ 		{"0.01",		3,	10},
+ 		{"-0.01",		3,	-10},
+-		/* truncation */
+-		{"1.23456",		3,	1234},
+-		{"-1.23456",		3,	-1234},
+-		{"0.999999999",		3,	999},
+-		{"-0.999999999",	3,	-999},
++		/* rounding */
++		{"1.23456",		3,	1235},
++		{"-1.23456",		3,	-1235},
++		{"0.999999999",		3,	1000},
++		{"-0.999999999",	3,	-1000},
++		/* rounding: ties to even */
++		{"2.5",			0,	2},
++		{"-2.5",		0,	-2},
++		{"-3.5",		0,	-4},
++		{"-3.141592",		4,	-31416},
+ 		/* trailing newline */
+ 		{"1.5\n",		1,	15},
+ 		{"-1.5\n",		1,	-15},
+@@ -846,6 +864,8 @@ static void __init test_kstrtodec64_ok(void)
+ 		/* limits */
+ 		{"9223372036.854775807",	9,	LLONG_MAX},
+ 		{"-9223372036.854775808",	9,	LLONG_MIN},
++		{"9223372036.8547758074",	9,	LLONG_MAX},
++		{"-9223372036.8547758085",	9,	LLONG_MIN},
+ 		/* scale > 19 */
+ 		{"0.0",				20,	0},
+ 		{"-0.0",			20,	0},
+@@ -875,6 +895,8 @@ static void __init test_kstrtodec64_fail(void)
+ 		/* signed overflow */
+ 		{"9223372036.854775808",	9},
+ 		{"-9223372036.854775809",	9},
++		{"9223372036.8547758075",	9},
++		{"-9223372036.8547758085001",	9},
+ 		{"99999999999999999999",	1},
+ 		/* signed overflow with scale > 19 */
+ 		{"0.1",				20},
 
-Changes in v4:
-- Adjust iio-test-rescale.c to use kstrtodec64().
-- Minor changes on making the patches more readable.
-- Link to v3: https://patch.msgid.link/20261020-e-notation-v3-0-fd385c0fbf65@analog.com
-
-Changes in v3:
-- New patch: round to nearest, ties to even, instead of truncating.
-- Amend kstrtox E notation tests and IIO channel write tests for rounding.
-- Link to v2: https://patch.msgid.link/20261013-e-notation-v2-0-d4adb5e193fc@analog.com
-
-Changes in v2:
-- More test cases on test-kstrtox.c.
-- Rework fallback logic when parsing integers.
-- Add iio kunit test cases for iio_write_channel_info()
-- Link to v1: https://patch.msgid.link/20261001-e-notation-v1-0-75187bf06c10@analog.com
-
-To: linux-kernel@vger.kernel.org
-To: linux-iio@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>
-Cc: Nuno Sá <nuno.sa@analog.com>
-Cc: Andy Shevchenko <andy@kernel.org>
-Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>
-
----
-Rodrigo Alencar (7):
-      lib: kstrtox: support E notation in kstrtoudec64() and kstrtodec64()
-      lib: kstrtox: round to nearest, ties to even in kstrto[u]dec64()
-      lib: kstrtox: allow a negative scale in kstrto[u]dec64()
-      lib: test-kstrtox: add E notation tests for kstrto[u]dec64()
-      iio: test: rescale: compare scales against the precision of the output
-      iio: core: use kstrtodec64() to parse fixed-point values
-      iio: test: add kunit tests for channel info writes
-
- MAINTAINERS                               |   1 +
- drivers/iio/iio_core.h                    |   3 +
- drivers/iio/industrialio-core.c           | 186 ++++++++-------
- drivers/iio/test/Kconfig                  |  14 ++
- drivers/iio/test/Makefile                 |   1 +
- drivers/iio/test/iio-test-channel-write.c | 360 ++++++++++++++++++++++++++++++
- drivers/iio/test/iio-test-rescale.c       |  60 ++---
- include/linux/kstrtox.h                   |   4 +-
- lib/kstrtox.c                             | 127 ++++++++---
- lib/test-kstrtox.c                        | 246 ++++++++++++++++++--
- 10 files changed, 833 insertions(+), 169 deletions(-)
----
-base-commit: 7c054db85b5a3ce4d5465cc5cc682cc44ae9eabd
-change-id: 20261001-e-notation-0f07757910e5
-
-Best regards,
---  
-Rodrigo Alencar <rodrigo.alencar@analog.com>
+-- 
+2.43.0
 
 
