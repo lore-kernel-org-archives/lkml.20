@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794732463;
-	b=RJeX2ZE8byLKnYaKfLT5EzZr9JUFb34UopUgLcV72a+P8Cf/d9SMgPViF0NprRpUUwdV
-	 6LPxQj+W8B2UAPH3AFCwSsggR2zA5fw2mGjL84aO9XUdw05lwLYWYSINHcqCSZ2kAKygX
-	 TaaASdnCq/zR+AZf2kpfWdHRZeqA6skXEF3ska2uKQkUtRAEOYIK3RRvMpOje8VRRJwSk
-	 V+hZsFPQSknZNOWnFG6WoWGDfxyP0CC2CVxGTjjvbFZeP4+AvEhc3vEYOiczJFDWDYON4
-	 7wezdxfQqNk7XpkvXTHwv6HXpGTGfngnsoJX9DIcCJiaeAhCqJ8Vf8MWwSyIlNlj6qQ==
+	t=1794732557;
+	b=dPDujqymTBmBHo8XB4SdQGp71h2vQCJwev+ao/eq20B8E45aTCVvpoPIsd4xY5Akrnd4
+	 ux+6eLPYSV7dEmzZk6P24anrZWnRae9Czidv8gqxXUHTwuzzcekJqhHI3TBrBg09hgC70
+	 xxxuNXyShSNffA7TKEGbciup0SGDtikktfR0Kbvy/6mWILzsgyNz5tggt5PXXNLctbpGk
+	 zbhjg3J4CZP1KySAxGNMC5fqZM/TzvxGYxGt9w5rlbkAjZRIfaS/d06U4VrKeXMw/glKd
+	 A5TRJ/320kI7GhqKJLlmpuTEP6g7gxmxMZsvj8SpghmneNUIo1Jj4wntC5l6bjiUnIw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794732463;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794732557;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tt3zLwRlEbhHHzfvqBg3SbCShwsAMAa6tuNoWsaaWnE=;
-	b=op50l6KSbK3KkglgkjMfKcg0q8HL3SfVyb24OEe5kHCH1zg1+5WLjQb9sPYlWgDU8Vv6
-	 /cvHREZAse3siP2nQQdbxPoXfsWNpMS8lLrQiJegDBbTPDE73F5M2yt+REuok1iPb3x6S
-	 NvzHXGEE8pQb0YOZUaHgCqxnML/cJMgUjxJixfZm6j0a3ur5MFk/8JeNAcfKBASCSQSre
-	 rXsX+DtqczXM5NuO08fECx3lLjHQXSJ4P5hmPTCIGBP4RP7wYpcNcIp+VjUpQMtgk/Axx
-	 n7xi4yt6h0k0JBg95onRZRjiirRLHdti1h7SLmt+qptgrHiPzmAhkGnTg/zZUd5riWg==
+	bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
+	b=adufZKJQm14WlhNTvjwpJjEpwlBJpx0MfDa34YoRQm1i9kVhqPrlmf4uSlH+i8ZgtXJ7
+	 lguV5n4hYieZeDkZ6YepMYaLi9+WWsblHkFnl2bBwpq5riZ+rDo4++MFcPSpirPjVRDKw
+	 MxlLQA3B/bQfjKed5kCU4XTrxNQXAlmHNU7w8l5TAptGM8BipD6XprPFetqNwTOB9NEpY
+	 ycAnBk5W4LTbNFcq9q0XiIlVCEwxfJi5MOJ3R+X4NdchdfxWtP5DLGs8dZpPdW4ffoALA
+	 X+g99VpNamcE9fng+VsbolMspJOUDjBYRflWDYkcVrGCsGnXrk8lFFvoCbrghPFhzEg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6xOnUgl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dpqZ0/XE";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97232606A323;
-	Sun, 15 Nov 2026 08:47:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F288606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:49:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6xOnUgl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dpqZ0/XE
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794732463;
-	b=T7HNH51/GXx9vQKe3lAjyqW+BjevtypEanymiazSlsImQmJHkxjUbqQQItbkoaBHuUcm
-	 4DFDEG4MivzKnkOFSDfsNiT4l12B7M01s8kOZJTFTF4DKAPbWM4ugEd5uK8FsdXNm/jCb
-	 Qssk/KgCTgPpON/laJF8v6WwhIVMfvCsM8n6bDAk8whX6ONDvgRnyLHViLkXVpn03ArcM
-	 BX/yP1UFfmtwEBwST8hwiveBCpvacnoQdXMuH8qXu5y71tNRFPKB7mALl2uto0lnLOlgb
-	 qSF+XCG2BoyfCJMuHWSmQp5wqUI/dvH9klfTabygNUHsUnz5t/AuMrv2Ivt9b/j4duA==
+	t=1794732557;
+	b=boqvfHsThvZVyYibacBhO1YrtuGRNyunVmpI1+GLV3N5leKZ86lg68/AVg0eBkE5EpOv
+	 oY4QBiKPCXrWBCdWy4TSsvGb42aOkgo4vkn7sT11ObCNa/KvJt8uuASLREqNQ63ST+S3l
+	 XGZaouhSWwsZfoy37cc61JmjYSreK/l3GhfgmRwdpsJCXFNDeMeDOFrXXDluEbBcqueZ1
+	 ZVfXPfV4trN9AlsUq6yBCuXvwk1GhYeOWsy/IjRr2OI6LracWqTDsIQHoo8WWMRG8ewnt
+	 z0guR2UQ76zPNyiNDFFLOBUN2xsgBaCph/dSi75XL0OTY1NwdjHpKS11CtrICtI0uaw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794732463;
+	c=relaxed/relaxed; t=1794732557;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tt3zLwRlEbhHHzfvqBg3SbCShwsAMAa6tuNoWsaaWnE=;
-	b=o3t1Qx6qU74bL9nd6uxXZstkssxUZzcj8Xy7vlOSkoVEZc0Ruwrb2EF86pc3KFko+YAR
-	 d4MeeKLdM40rXNGfCYS2nfRgjGGQpAiVjexoWXf3ThSPuNbsdg9S7GGyl7HdWPFLebW8H
-	 ijeoqM422zmxqqbhSU/oOwFBMpe2NVSv+R+i4DlEOxUlQ2liK+lSWqDpxNyj/RmG1/Wvd
-	 Os7um1f32wkAFH2NLCyCEFG6Pz/6s46UlPTM1QMSdrWZY4IX4aR6usDNW5nUGewGp8L1P
-	 kiQvqh469xagIm+63vXg15fpfWRcDJWw7BlgfDfl5xcrFrUf4OPB9lN1qeR1Sv/enIg==
+	bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
+	b=b3V+Q93mA9q+BkZDqJFPD03tdIXmALA1h6TwAr3inPCeAtMQ3b59XHIvbTzl4YWuIqoE
+	 FVBoo4hUGdyGleBkjKQHV1Ugma/29lDtcFbtWqelneUiWu60H48LLSXKZXb6tTWy7P4ZP
+	 +JLqyfeCSzWq8qZXqBA73PpZz2fhDZl9flLvmXS7bC3uS33iOJLEImaHQeWtjqoKwXPCm
+	 JvlwTACbJ837+Qz9zpoqRbYtXqXtmGJQSQ42h5TzP2LEeFCtijZ5ZUt85URGtTtxWWdHd
+	 B2SZ3D9xX3QgW6pJurNI6S862FO5l7OCa8j07XWrlCaJVk9EaV8UtRMnEwrywXCa1NQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 94C681F000C4;
-	Sun, 15 Nov 2026 08:47:42 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4763C1F000C6;
+	Sun, 15 Nov 2026 08:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794732463;
-	bh=tt3zLwRlEbhHHzfvqBg3SbCShwsAMAa6tuNoWsaaWnE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=V6xOnUglEeG2ZHbjfE1UbeOn3TF5z63ZdwjnEhTuJt/AuRJ1Wa8Xvg/qCg3neKzw+
-	 JaDY9qpDF7FAh4RtTNYnUsQNonZwFQpUDM86kEjujxKjs5/BEXopAkeKNcM8+kAoDF
-	 z7equn0exul0+62dbN91/tDZeQH/UqoBtVvq3wHU/QMPWe6IuGObnR4VHaYNZApr2J
-	 d1I1oMpU+hyLFIuyvmYEStYqRr/lKJBcZ3Q9aLTbAehEYt999UZSanCUkSjLJsXrsN
-	 xx8b/qotgYseRv0m8RsLUKs3yzaClTjFxZifR5kBS9f7h5QqQd22xB9QtN1Cs2Gl42
-	 wW7JkvQoKmbWg==
+	s=k20260515; t=1794732557;
+	bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=dpqZ0/XE2eGod2aMDqwqkN1pvcqOdc0QN0Zab5xL+o4INHUYftGlvi+3Wu3HmTlyH
+	 r7Hs/5pcZyxjO+Otm+p0FbEzSgQ/oxzRC4pywXWhQt2R3lFYDVPykw0ha68pywsdpZ
+	 0ClKfvsj/8uBbEanGsNT9kzKLHvS3rqCBkW2aJ2ZgySQq/9t/oxYltSEvmNtTFNNeo
+	 XWbILPN2S2er9tiYnpDtXRCEhlgPc4tNl9DeR7BozPSHcB9hq93D9trWXOb0b6OoL/
+	 9+BVNftkdbzGtXkMwmv1ZQJiZtJ5eEGknyBKndGmkrRb6upDGsS9NFT+vP088NMTQj
+	 igXQMjWZoH7Pw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 100714A002;
-	Sun, 15 Nov 2026 08:47:42 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id BC02149FEA;
+	Sun, 15 Nov 2026 08:49:15 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 08:47:42 +0000
-Subject: [PATCH v2 1/3] media: dt-bindings: Add Rockchip IEP2 deinterlacer
+Date: Sun, 15 Nov 2026 08:49:15 +0000
+Subject: [PATCH v3] drm/bridge: Fail an unsatisfiable bus format
+ negotiation with -EINVAL
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,24 +84,30 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-iep2-v2-1-3d8798cd9a55@gmail.com>
-References: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
-In-Reply-To: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Alex Bee <knaerzche@gmail.com>, Arun Iyengar <aiyengar1990@gmail.com>
+Message-Id: <20261115-drm-bridge-busfmt-einval-v3-1-ab38616d6135@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Nyw6CMBBFf4V0bU2nrfhY+R/GBX0AYyiYFhoN4
+ d9tccPKuDyZO+fMJFiPNpBLMRNvIwYc+gRiVxDdVn1jKZrEhDNeAgCjxjuqPJp0UVOo3Ugt9rH
+ qKNf6pIQBJs+CpPentzW+VvXt/uUwqYfVY/blRYthHPx7bUfIuz8yEShQnSJSGS54Ka+Nq7Db6
+ 8GRnIl8K4IfIp5EtVJHeWaHEqTaipZl+QCHQoFpGwEAAA==
+X-Change-ID: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794732461; l=3973;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794732555; l=2445;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ChHZwNhLk4WNiGW3BpdABPaZ57+oP++kU/hOOD04E7I=;
- b=GMNGd1IctVsCad3503Cxem0D/wvD8iX2XTLiziLurXuh92OaeUZOru9C3ms6+REWAICXf0tbg
- hK6SE+93bLpDay4kLFR+xlh9oHd0FlwIDGW+z8gR/8b2FIEMucI8YiV
+ bh=wDXeQt9euA8I+/3t45VeI1f/YvX4GBH9rBxqF2WJVaY=;
+ b=DYQVDCJ5ppn7LVbkF62hmMtueR/ast2YyZseZIpyOAfxSFZ+ZZp/me3meaoXZI8p8lH7Sn9rg
+ QUXTgKPXV3yDUEoOnrUNcQV4SCFb078jHL9BxsuAupqrTT7/s0tLsbi
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,142 +118,69 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Add a binding for the IEP2 deinterlacer of the RK3568 and RK3588 SoCs.
-It is a different block from the IEP of RK3228/RK3288/RK3328/RK3399,
-hence "iep2". The RK3588 block falls back to the RK3568 compatible:
-the vendor kernel drives both with one compatible ("rockchip,iep-v2")
-and one driver.
+If no bus format chain fits, drm_atomic_bridge_chain_check() passes
+-ENOTSUPP from the negotiation to userspace. Return -EINVAL instead and
+update the KUnit test that expects -ENOTSUPP.
 
-Clock and reset names follow the RGA binding. The resets are optional:
-the block has its own soft reset.
-
+Fixes: f32df58acc68 ("drm/bridge: Add the necessary bits to support bus format negotiation")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- .../bindings/media/rockchip,rk3568-iep2.yaml       | 95 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 102 insertions(+)
+Tested with the drm KUnit tests (UML).
+Developed with Claude (Anthropic), which wrote the code and the commit
+message. I reviewed it.
+---
+Changes in v3:
+- Shorter commit message, without the DW DP example (Nicolas Frattaroli)
+- Drop the code comment
+- Link to v2: https://patch.msgid.link/20261111-drm-bridge-busfmt-einval-v2-1-fbb74905614b@gmail.com
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
-new file mode 100644
-index 000000000000..0c7666de19f8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
-@@ -0,0 +1,95 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/rockchip,rk3568-iep2.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip IEP2 image enhancement processor
-+
-+maintainers:
-+  - Arun Iyengar <aiyengar1990@gmail.com>
-+
-+description:
-+  Memory to memory video deinterlacer of the Rockchip RK3568 and RK3588
-+  SoCs. It has its own IOMMU, with which it shares its interrupt line.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: rockchip,rk3568-iep2
-+      - items:
-+          - const: rockchip,rk3588-iep2
-+          - const: rockchip,rk3568-iep2
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AXI bus clock
-+      - description: AHB bus clock
-+      - description: Core clock
-+
-+  clock-names:
-+    items:
-+      - const: aclk
-+      - const: hclk
-+      - const: sclk
-+
-+  resets:
-+    items:
-+      - description: AXI reset
-+      - description: AHB reset
-+      - description: Core reset
-+
-+  reset-names:
-+    items:
-+      - const: axi
-+      - const: ahb
-+      - const: core
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  iommus:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - iommus
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/rk3588-power.h>
-+    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
-+
-+    bus {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+
-+      deinterlace@fdbb0000 {
-+        compatible = "rockchip,rk3588-iep2", "rockchip,rk3568-iep2";
-+        reg = <0x0 0xfdbb0000 0x0 0x500>;
-+        interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>,
-+                 <&cru CLK_IEP2P0_CORE>;
-+        clock-names = "aclk", "hclk", "sclk";
-+        resets = <&cru SRST_A_IEP2P0>, <&cru SRST_H_IEP2P0>,
-+                 <&cru SRST_IEP2P0_CORE>;
-+        reset-names = "axi", "ahb", "core";
-+        power-domains = <&power RK3588_PD_VDPU>;
-+        iommus = <&iep_mmu>;
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f4456f4589a1..b32b7eeb0a9e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24285,6 +24285,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
- F:	sound/soc/rockchip/rockchip_i2s_tdm.*
+Changes in v2:
+- Make drm_test_bridge_rgb_yuv_no_path() expect -EINVAL (Sashiko)
+- Add the Fixes tag (Sashiko)
+- Cc Nicolas Frattaroli and Boris Brezillon
+- Link to v1: https://patch.msgid.link/20261110-drm-bridge-busfmt-einval-v1-1-c0494bd23264@gmail.com
+---
+ drivers/gpu/drm/drm_bridge.c            | 6 ++++++
+ drivers/gpu/drm/tests/drm_bridge_test.c | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 8ae2f9b1db44..33120cc7f982 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1437,6 +1437,12 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
  
-+ROCKCHIP IEP2 DEINTERLACER DRIVER
-+M:	Arun Iyengar <aiyengar1990@gmail.com>
-+L:	linux-media@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
-+
- ROCKCHIP ISP V1 DRIVER
- M:	Dafna Hirschfeld <dafna@fastmail.com>
- M:	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ 	ret = drm_atomic_bridge_chain_select_bus_fmts(bridge, crtc_state,
+ 						      conn_state);
++	if (ret == -ENOTSUPP) {
++		drm_dbg_atomic(bridge->dev,
++			       "[ENCODER:%d:%s] no bus format chain found\n",
++			       bridge->encoder->base.id, bridge->encoder->name);
++		return -EINVAL;
++	}
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index 15583ade8494..792dbd035501 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -1351,7 +1351,7 @@ static void drm_test_bridge_rgb_yuv_no_path(struct kunit *test)
+ 		drm_modeset_backoff(&ctx);
+ 		goto retry_commit;
+ 	}
+-	KUNIT_EXPECT_EQ(test, ret, -ENOTSUPP);
++	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
+ 
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
 
--- 
-2.55.0
+---
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
