@@ -1,84 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794719572;
-	b=iea8wqVsIAYEA1lh5H/7xdrcq+LNlfEqQTWG3+iMDrZqKyhnVUH/NcxCOM/t7nKsCsQe
-	 VVd7pXUDdoGPxg/9vdQ2q2iwPEVhQv+f9U/0csyIAGPR0ZXxDjFy+94BhQdcuqmg4Tnmq
-	 iQKP3X0wLebPxHJN9TtBZ249hPObmk/EY0ULKQHgkHDseIAb8LMk2gRKNcjzuFHKOxnjM
-	 7jp8UaLTbbxlVkb72dc9yqHMRdqs5G7mCeDsfipFtdDta4c5t2PS8R6orFcpkpXfls6eq
-	 RNv4cqUTDNPZ9hI0WIyO+FI4JzqEGPTUkTaFKHa+6DJcE/J5S6crQoTd3ILjO7LWoRQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794719572;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=;
-	b=JtHWsqX+mQMvkh4CSw8zDxUv5ez9FrU6qVP8L/5ns6Itje+lu4UEME8YqcbDkv2i5+MF
-	 iuc+jQ/ar0JdJypb1fhPO9zQ+IOO2RHZxfhY0q3hXLqIoLf6HTNIizAwlN8u5wjUXhxmf
-	 ng9uSG+q6CLF54yQXJ8s1a86TIqPGqlgp/3roGkWufdATplBFa4si8yNQGCWGjh1+1q/N
-	 LlXF+mk8RlBg+CnelcVRaUpY82s/74jD6Umt4rPB8gaE9pPT93ehnZCDqLrFzL+ROxvtI
-	 Zbk/JE9Jc7dLv5R+CWssp1PXMASe9uK/fxs4MCBHLy4rLV/0dE5E1ieOmYUC33u8p6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Shf9I945;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
-Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.141
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794720343;
+	b=ZFPZ4lIrcLDackB7RmC0qu0gdwerTApKCu4GCTvU+wOThz58TgRlRJ8y4zY0n0gTZ7ga
+	 7bu740s0lyFw+Kmy0OPstw5X2xnrurIjZTID8ycmYBWSAzEiYZYV0tWeA0S2GwajlThXU
+	 ey8vy4ughdwvBSfOOFmXnrZ5D+kaon7eyKVL1mVETo1axaLopgigBG7M9HTooX9UQHYR9
+	 6m4FKclbdsQCETf4MZ38J5/hIgS7el+Q1qjFUn5oVxCt3NqF3hZwWKvZxqeN5wblGsN4n
+	 rdgC5jRTa7E/vLTSKemAHwNPGAVW+b1OHFknIAmUhgGbi4lOAdwiQZSxCsdk/Qxw75A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794720343;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LkGrPCXP0JLPKLY8G6l+QM23WPnzVBFjGg4q6mnVAmY=;
+	b=wCdzM8nynDOP29T7/WvFLAW9GS2XpIx7lp5CRCAFkDYiw+66OlI562sGGDodZdm0kDsc
+	 GODwfH/IZMSxuNMGs0xAHrDCsxLGTnsI689rjymaNwctMBieFB2GAyBJhjvtcDZTlbYtA
+	 8q0BNrWoqycU9S8IyhKqkBpMySgu13howOTqSYdmK2ii9o9pfdYCO19oNInDGK6MRhdyh
+	 Li6G0/7TKtsQRLKEZG8FkmU5+Vgd6YjsIoz0vBS4NTI6X8eKCNEwrbhStQGbtVksJPpID
+	 g7IHU+CIQPVu6z+HYlWIxcNbhj3fht3XxGK6D0sWVMhrPS1KQUu+nhmvD+wBdi09aQQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=iN8B8XJc;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UxHea5MZ;
+	arc=none smtp.remote-ip=103.168.172.141
+Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F19606A323;
-	Sun, 15 Nov 2026 05:12:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F19606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C26F606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:25:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C26F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Shf9I945
-ARC-Seal: i=1; a=rsa-sha256; t=1794719509; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JOGlxjHP0/DLspL53khKYZ0SgtKL6wuFzI00xEcjsX2X0naxDeDwG+mN0JTsz+5zf0ZCsFsBMFVqrfaYnQkAUR3t8lbRG8f1BqRhvEj48tV95ZrVQTmeVdXAt/QIi6mKdxRQO4HSe+Y2wYyGGmY5++jbPgiD+NxssVDB9aWoBjQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794719509; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=; 
-	b=JTenAkqIMAIIKYfr7QF4ukYjfy4yNh7djxPijM5gJBR3O9VQkxjSsfcuEF+p9XA5MdQEuNgbt7oMj340d21QTX0xU1gbejcKMOP0wnSw4pDSpshTztxX0p8eRsiJSxdrfO19Rmjh226WJc5Bx5ELVWdzILkLoI3UZafzszEw3oM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=Shf9I945a9oA67J+8Ds7UcvmrKj5kNlbGheeRhdtymi+TrNqZRK6TwdNA0v0w0R1b75OQzmI+Pyn/9GuzyrrZRQfM0JQGmkR68MafrCHVXz++GT9O2md5umoQoi44aXHOxbY6STIXDFBFIAEQXgeWQUE//D0QAsCIq6o9b5zNPUZt+5+wuziXnY35ZuNhZHvxU7OHkjnTNRyt2a3mSonSL2WllJDuNrDRkoqTTG0IN5p2Lc+cTSCHPlIF9dSfOHF+TkdKAJJrJV1uxIjEm7+Zqpjmq88uP2UTLimDIQ3QB1f6xrpwLEoaunTnY0SDU7qEWPeTq0v3mNjL5iZ6ia4tA==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794719506138787.2843822660936;
-	Sat, 14 Nov 2026 21:11:46 -0800 (PST)
-Message-ID: <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me>
-Subject: Re: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861
- SoC
-From: Icenowy Zheng <uwu@icenowy.me>
-To: gaohan@iscas.ac.cn, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt	
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti	
- <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren	
- <guoren@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec	
- <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, Daniel
- Lezcano	 <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
- Stephen Boyd	 <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet	 <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland
- <samuel@sholland.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Alexandre
- Belloni <alexandre.belloni@bootlin.com>,  Maxime Ripard
- <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>, Andre Przywara
- <andre.przywara@arm.com>
-Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
- devicetree@vger.kernel.org, 	linux-csky@vger.kernel.org,
- linux-sunxi@lists.linux.dev, 	linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-rtc@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Date: Sun, 15 Nov 2026 13:11:31 +0800
-In-Reply-To: <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
-References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
-	 <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=iN8B8XJc;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UxHea5MZ
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.phl.internal (Postfix) with ESMTP id 62B281381BE5
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:25:41 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-05.internal (MEProxy); Sun, 15 Nov 2026 00:25:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794720341;
+	 x=1794727541; bh=LkGrPCXP0JLPKLY8G6l+QM23WPnzVBFjGg4q6mnVAmY=; b=
+	iN8B8XJcdgKjryL4leqw1KQVAC7w9HuzWK/gMrGBpsUeYrjEEhgnjK8E9bcMHKbW
+	T/Jdvhb2I3VxJ9n7lohsRdG0XTet4fnLiFJknRSIZFbNuhNgTuBraC7LBy4uzlyO
+	63xERsd/h1wbXrpDa1806w8kfnYJPDWCHYmUaVUSZjaFcPN1Uci11PaWipy902lY
+	vZZvYC85CMuqczLfKFksfvkSThmqn3HBgF5ngP0WLjr0rWTQsHP1ZtLicwY/dSAw
+	X0aKUof9SqnyiuRBci/4orEiJUdP74PnbTEZ+h0ytDswy/HWqt20Ttj1sT+QNHSc
+	Nh/2OJCCksHl1Bjg2Alk8Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794720341; x=
+	1794727541; bh=LkGrPCXP0JLPKLY8G6l+QM23WPnzVBFjGg4q6mnVAmY=; b=U
+	xHea5MZUh2Ct1ptcmh96dt57YhrCj13A/j0EZpYB4NIaLOIHMXk4pCdoUjzF/77V
+	hXXSpd2As3dUKEOI1NFZ8JepC4jXUR9i/2ND7zPfYTpRylhdQ7qnWUK2j6aQyEcj
+	WO0jPOq4ktAIwnuw/9etqlfXTfVlEifiUemT9XGggU6oJvVUQHdwDb++rJYEsAOf
+	IFzWJcuYBVYVMgBQRvyi/eku3f7sL4Xg/HYh4Ba3KlRVtEw/mHTNwMdd/RPPx6oj
+	tiIK/g5hRdL0IBIDlc5MvINanxrN8pdto/GFG5LYlhPEN/jtmJ63mMErtwCvKu6W
+	ao5LWT60dbZDM0d0guSvA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794720341; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:HbAQeFuZxXP4mbd0cqAJKCMpDZjYGJNEVBPLndZ+pOrby3U
+	SYWfUEtRZduQ8UbMYISUaBWZMf1hEUf3YZsDuSpcX/qkfxc4OAHsqo8k2LzyWY2S
+	04CB+oWKkemozzCyuS9cwl1bEknG0sTie1Yom7R9OAe3HyR08kKVQL5gzYmf0lD3
+	ICAIpkZzBFf2F5OpPn/OSBgLqeX3Z/TwKoquTPOBxyWXGA98yqa2yZU0O+aiq1+/
+	r5AoRP9lv5SpSKYD9ZHAeQ4tVyJuoPz2u5tS7BfiGQQsGV0loaQTRIsVi+F4Havp
+	CeUaDLnlEDx8Rvkqxp7RJar7lKUS10beCMAgBxg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:pgYaof8s69eQEzDiEx+YE1Lz7uCmSlLbL1lL19rLk5I=:lBBrFOAxXfUOM9RLrf+gvd0Ms7akLkU1PpLZKV9d5EI=;
+X-ME-Sender: <xms:VEL5aloIu7QeyWBFSYRmVM6G_n2co2X58HG10ZAU7fVr0lEoEXauLg>
+    <xme:VEL5aji5Hphrl6QEMv048c54itNH46NQCAkytAzPX_91XqDBz3E9hz7ToDCRHz3DF
+    ejH5AEBWtoP_q_b-cw8CfGXNWWx0Hu4ddsv2iNDQZNY5ctcORU99zaB>
+X-ME-Received: <xmr:VEL5atsTMbjN0BQs1bPoCgAWKT5RrMnkQlWWgduW24rqquMxszEu5psQVQb7VCjj_tOYB9fHPRq5nNK2sHGJ0ZuU5OGUnQcO>
+X-ME-Proxy-Cause: dmFkZTGEh5LvreCZCnvcwwEWb9jr6mjfkx/QSxg6HA1Q53K88YCMfBJwvlcY5e5F3Ty0MX
+    jKbz27N+bErKjiX7XukR5r1K4y6g4J8Ccld5lVZIHbuiJiB53M0AftEte3Mc0KkWJcw/cu
+    VEiAkea/vK70hsvoH46Gn0KlJO1tXh06nvOO8ldmrAcZqb9jE+GPMwQ/oPrtO5GH5QtjGc
+    W0vCQVvMQP7W2DcZFtPgA0GfDURzYHR4+GsvsjQFZpqttxm9akKGPhgpIbwPWDaLKOhYVj
+    LWj9/ujW5OJIt77/ob2s0gomwGP/3h6jO0RYxsIeBKlk4hHSfW3Nc9REr4uav0Dco8xtMs
+    dJKhs1IwncK7eJAJnwUlXW5lwGZkoqfmLUtcd3obzqi2MBko18koTtySG6XTzdM8AiTSlV
+    fxmbcCgX9RJXpejJFglBIE/6BkpVIkLwF8u+A+lDLtmyr/VolFHrvxw+3O1yfL6c2G3dud
+    C8oo1Si4dAcQDP0iGHVcdX025ZjdfyvfoqJhG9H7Bi18e6T5ucfXjOax7k1nOIyOPT6NfQ
+    2PXvZnPN2urq4hgUREoi6sBaOyJXmTb6uQQ0Fm4NtXZv1annBMMAaCa+u3VaNoMGekuljg
+    2vgXZ0wtCnV6G5WCL+30IODw5aBta+tHUkvc5t9eCR92ZDaHGpi6d9sa2uAA
+X-ME-Proxy: <xmx:VEL5ak0gExD7RequbW5DWdJxTc-_vjMokZ09CiaSGsvd3vtSBKW2YA>
+    <xmx:VEL5asynkQ__k1-J7WoR5VLMh3LjIKuewDSLZUBmWoF4AbAphHDWWw>
+    <xmx:VEL5anVQMdb4xRbWCcnls8yzlcP94ZNJbiZwwiWcs_VaStclqtjXvw>
+    <xmx:VEL5amCB7izlYBMl9NCqCqAaeiWUCnL8dbD8Y1Ev1KprW4fk85tkEg>
+    <xmx:VUL5amEsXGoM7mtVBVvkYrjuo4ezOWGyIWuGZ7y1-yvQ_1qvVVma8wGj>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 15 Nov 2026 00:25:38 -0500 (EST)
+Message-ID: <fbaf7f58-4c42-496d-8db0-6bd7ea3ab0b0@pobox.com>
+Date: Sat, 14 Nov 2026 21:25:36 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,50 +119,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/507] 7.3.5-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261113153753.358973689@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-=E5=9C=A8 2026-11-14=E5=85=AD=E7=9A=84 06:33 +0800=EF=BC=8CHan Gao via B4 R=
-elay=E5=86=99=E9=81=93=EF=BC=9A
-> From: Han Gao <gaohan@iscas.ac.cn>
->=20
-> Add myself as maintainer for the V861 bindings, clock and pin control
-> drivers and device trees.
+On 11/13/26 7:45 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.5 release.
+> There are 507 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.5-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-I think traditionally sunxi do not add maintainers for specific SoCs.
+I took 7.3.4 and applied the stable-queue as of commit
+3b8ff7f280433e6fb085dbc4f44ac6a138f352a0 ("fixes for all trees").
+So, equivalent to taking 7.3.5-rc1 and doing the two mm reverts.
 
-Maybe you should patch the regexp of "ARM/Allwinner sunXi SoC support"
-item instead.
+Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
+no regressions observed.
 
-Thanks,
-Icenowy
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
->=20
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> ---
-> =C2=A0MAINTAINERS | 12 ++++++++++++
-> =C2=A01 file changed, 12 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065..dfc300dc1eb2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24031,6 +24031,18 @@ F:	drivers/irqchip/irq-riscv-intc.c
-> =C2=A0F:	include/linux/irqchip/riscv-aplic.h
-> =C2=A0F:	include/linux/irqchip/riscv-imsic.h
-> =C2=A0
-> +RISC-V ALLWINNER V861 SoC SUPPORT
-> +M:	Han Gao <gaohan@iscas.ac.cn>
-> +L:	linux-riscv@lists.infradead.org
-> +L:	linux-sunxi@lists.linux.dev
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/clock/allwinner,sun252i-
-> v861-ccu.yaml
-> +F:	arch/riscv/boot/dts/allwinner/sun252i-v861*
-> +F:	drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
-> +F:	drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
-> +F:	include/dt-bindings/clock/sun252i-v861*.h
-> +F:	include/dt-bindings/reset/sun252i-v861*.h
-> +
-> =C2=A0RISC-V ANDES SoC Support
-> =C2=A0M:	Ben Zong-You Xie <ben717@andestech.com>
-> =C2=A0S:	Maintained
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
