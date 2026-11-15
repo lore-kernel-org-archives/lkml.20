@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794752666;
-	b=2DFeeMxpvOmaIed6xGSyO3wSGelwb410qUCygN6KWq2EoMedR+nkwg7pEXLtC0Dg9F1A
-	 LRkQ9+GgwulVUjEpZ2Q0WHlKZaSCt+VNVNqHbtBTZnit5joZ60mu0L7LdAEpsApLsjFk2
-	 1jgatR2nbxBrh0CvxFxc80ubO/5CexHrGQmy4xLv2aWlWuUQct4ADGykgNQUeW+AQLXa9
-	 N3mA2LdkUnpf7Tvc3YhnYxbK+PLfCiQEDpQIibsYcaHLoJBYh7N1p8Q6Z0EfbCYzxbYvG
-	 TZjHNYLdP06LGmLFmxirVKmw4yq5AMPZZuOm+dp2vcvdOkKZUUr02jL9DbiwTTN4mkQ==
+	t=1794752669;
+	b=2UZcGEdZH3kaQN28Y3dHkntC4UiIGCSP4wlo23o97trCenqyA/bRlBkSBlZ5TG0/ZMvN
+	 L8YKCR8Pz2rf7Hb7xtk5g69CChAId0ARIrodqqcBPC8uJzpJNJg70u3QEjyaVzfLr53/l
+	 E0nKtODQLWyBKIjpptTme+d6UHYA6oRjYq0ZMK3yUA5lI6wCRseE/VvkjUpuffYmOYemX
+	 oJViU32xkb0/7mW0hMK8k7fQjnzt8W1pmcPK8ankg140iXOOaKCI8CYvIjNCAatMeUEB6
+	 NY4+Asxsvi5hFsVeBWiiPkF5DAUh39tzGxN6peTKmmQK9yyzE4dYuIob/Q/8YblIsRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794752666;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794752669;
 	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
-	bh=hbvCG1et4dLbwODP8IMSydYvcUFPUeIfKsToBG5oDk0=;
-	b=2g4Tm8We5qCxnXB1hR5wmlkOOn2i7x/t3ExdPcpess0DNM4gcUhGkFFr8Jg3oogDQJ5W
-	 cv/j3tYdicN9sASF9nJUwWd9dLDwjHn98lOKK43TM0xHq5SkzANvokbchpv4/Swc9RlRO
-	 FQjbLA/O7tFjEFA/7+jbBcG1hsypfyqEZ3LYxm85D3ODf01hdgIjuk1w2j1Q/f/RWlJsX
-	 7l5BggO/rUrXuhxIaInN/vxAj6/zY7eD85I9/A7RAYnDRR21tr0kumI4K9r4Gdc+itwif
-	 7n88zy/PyEmo1Y4135nuh59ZT+bSikszeifvYLK7KCmnPp5e8Mh9OFRp9Nd48w28cAg==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
+	 DKIM-Signature;
+	bh=vcanUONDfh4UpwdX4o7Q9IMWZ0FQX/y7PhEqP7yd0GI=;
+	b=CkP9/wS7qSZXddYbnOj9scfjQ5N77loOTUYvxqUGmyWsvIamNJsrgMJZgKhRiabnX/u+
+	 BP15e83VvwQK5opkhTXfFGudyNZlMk09OKdH27coh+I7RvMZjmrMk56tLThtozXuAG01o
+	 pE3sKlQMv0lGUHQFm0AOPNg1mZ/gZtUsbxtnMj7l1Q1CmDAjiaf/PGWEtTyL1kzryDhDm
+	 aqz2hFy1Z/jJ4Orko4CdorNUwKe5/GpPpkaqwN132iG5bHzdB182f3BPI3kmAi2RNf3yH
+	 +L3aog4sdheXE+8YX9DBN8uamG0H4gKf6hHLlP4zxyOBCiNLzqhfX3KkRShAW+yxpYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=lausen.nl;
 	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=j2QKutIN;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=wc9by7I+;
 	arc=none smtp.remote-ip=95.143.172.20
 Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CB6606A880
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64CB6606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1031C606A8A0
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1031C606A8A0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=j2QKutIN
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=wc9by7I+
 Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 3BDC660D61
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:24:19 +0100 (CET)
-Received: (qmail 21944 invoked by uid 990); 15 Nov 2026 14:24:19 -0000
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 6DBD960D6D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:24:27 +0100 (CET)
+Received: (qmail 22121 invoked by uid 990); 15 Nov 2026 14:24:27 -0000
 Authentication-Results: devico.uberspace.de;
 	auth=pass (plain)
 Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 15 Nov 2026 15:24:18 +0100
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 15 Nov 2026 15:24:27 +0100
 From: Leonard Lausen <leonard@lausen.nl>
 To: Ping-Ke Shih <pkshih@realtek.com>
 Cc: leonard@lausen.nl,
@@ -49,10 +50,12 @@ Cc: leonard@lausen.nl,
 	linux-wireless@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] wifi: rtw88: reduce RTL8822CS SDIO request overhead
-Date: Sun, 15 Nov 2026 14:23:28 +0000
-Message-ID: <20261115142330.359247-2-leonard@lausen.nl>
+Subject: [PATCH 1/2] wifi: rtw88: 8822c: filter hardware-handled control frames on SDIO
+Date: Sun, 15 Nov 2026 14:23:30 +0000
+Message-ID: <20261115142330.359247-4-leonard@lausen.nl>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261115142330.359247-2-leonard@lausen.nl>
+References: <20261115142330.359247-2-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,64 +66,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: /
-X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.300008) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -0.900008
+X-Rspamd-Bar: -----
+X-Rspamd-Report: REPLY(-4) BAYES_HAM(-2.999999) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -5.599999
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
 	d=lausen.nl; s=uberspace;
 	h=from:to:cc:subject:date;
-	bh=5yIgk9Y/uhq3UEbSFnl5syJel/NO3xp8uQwJn+ydqwE=;
-	b=j2QKutINRqmEpmsx1PLb6wOw7lHfv32bvsCfYGYu2XIrDJwyPwRMdUkRcvZ/DAtACnVd9F9Zdn
-	JmEkILVqDBxcaNL9adwyWu/rv+q8ZXvJ9/SfIsvlU954sKiISlzNSsihpl6LMFvQYX65lV+9W51E
-	EneXvcXLeMFSfQV/hhI+zNzrkdpmamllyaOOHj0qsMQRKEyJLsRy1dSPQ/LNr2H+D5mfV2hvShZ9
-	1e8U5jmy+7rc+lfjVwYcXmaURViV4n6u0EOt5jZt4gYvW02/CVP4XbIguruaLedwSRAuEXw9OOoK
-	EIMFDeCgwmXPmlIcLBOkOhAAq5UflxilBNjik4A6d2iEC4PYCbfsbBxyFYbrSMARt8lNb/JAnEFx
-	ZjRpqe6nuBEshfGOQzgrIk3NBqLaJwCdzDt98t5n/FYHw07yi7rkvKWh+UCYY3dZj0dAsPukI2hf
-	X0m/nsDnPEJ8kDj39sf9aKb6tNS1gX/TEB0Asq0yl9dRROfD1H+r5/ePSIw5LGx8Ebx/gb1sv/Yo
-	3h67rA+Insvp5tI5uujd1VI1AlSLQz7OEXZWgTb0jI5iGiTyyohoPHW/AFb1gp+md9UBl0MqFZqi
-	gQNJzw0ESRLb/5bsvL9S+hCMLz+A59SOyY3i7nf5Y1CT4T4sj0vcWKEzNSm97Jk+K30t4sNMbiBD
-	k=
+	bh=0TRBf06mo4IgPwGwnvbNv30x92205M3V5CcT3zrUl3o=;
+	b=wc9by7I+3JGBK/Oc6+bASwD97QqerUv6hamR6+se/F2occAtCIHswHSlIXEpapmfz9lsOW+rf2
+	GCZST68Pd0Q2D5sotV2l1bJ2N1HTJN4Sn/u6nxp1pPviQHAWl0baeDBNZJgFycwRRUDXo7IrH+gT
+	wTH7UAvbjA9+sM6FbS8qnqjOgkJaUzzfvVwWDX6ag8cX6N/MfeVVeOC2OjGIuGh6ABIyljAw0lSu
+	U1sd51T1Z+RcGQ5uLN1rslJoDsM8kWhe4OthejYNsJjIld7da36T2lhpw4qvJ4czLF2i583jFU5d
+	ld7EQBDoXTGwBNraF1P0BwyONNkUbe9NqoxzWcWo6L48UOGQJCf5Ve4+CO5Si+yWF9Q1Kxw8Q4K/
+	Irhot6hs91bKGV5RpbFpLcvx1S2BO/SYM7S/IMXy5EhvJjZ1Vfh0cO01NXDxTXrtmOk1W09E6pVy
+	YCidZt8iTwufehXAjUMkI+Qw2BU9EugERVFBwK0C8hcBxb0/VHrd/yQpntGWgR/XWHWu8CE96f8j
+	W8sUlqW42/TnMumIbw3COZgOMbCPtggB65UdtrC/xcmG2jjTMlpm7R17O2fGsHj6cZNNIRX1Wo+d
+	QDhVU/FeepyHz6jIIy3ZPzvdcGACHKCocMo/rYhIfzv90NDajnH7amjyfkuA0AmP5/B1SX1S1kY0
+	o=
 
-Reduce SDIO request overhead by filtering hardware-handled control
-frames and combining adjacent TX-capacity reads.
+RTL8822C forwards every control-frame subtype to the host by default.
+ACK, Block Ack, RTS and CTS frames are handled by hardware, but forwarding
+them also adds small SDIO transfers to the data path.
 
-RTL8822CS on NanoPi M5, median TCP Mbit/s:
+Clear these four subtypes from the SDIO default RX filter. Retain BAR,
+PS-Poll and the remaining subtypes, and store the default in rxfltmap1
+so FIF_CONTROL can still request all control frames.
 
-                              Upload   Download
-  Neither patch                170.4      241.2
-  Filtering only               258.2      263.3
-  Combined register reads only 186.5      261.6
-  Both patches                 286.9      273.5
+Limit the new default to SDIO, where profiling identified the overhead
+and throughput tests measured a benefit. PCIe and USB use different
+receive paths and have not been validated with this filter setting.
 
-Together the patches improved median upload by 68% and download by 13.4%.
-Upload and download were measured in separate sessions, with four
-20-second upload samples and four 30-second download samples per
-configuration. Testing used a shared Wi-Fi network, so throughput can vary.
+FriendlyElec's RTL8822CS driver also filters control frames at startup;
+this change retains additional subtypes for mac80211.
 
-Runtime baseline: v7.4-rc2 plus the RX-bounds fix accepted in rtw-next
-(83ca360e85280) and the MMC voltage-switch fixes in linux-next
-(67a97316a31a3, a3838c21e28e5). All variants use stock MMC host limits,
-198 MHz SDR104, performance governors and identical CPU placement:
-SDIO IRQ on CPU4, iperf client on CPU6, server on CPU7. Traffic crosses
-Wi-Fi/AP/Ethernet between two endpoints on the board.
+On RTL8822CS/NanoPi M5 at 198 MHz SDR104, this patch alone increased
+median TCP upload from 170 to 258 Mbit/s (+52%). 
 
-All 20 configured rtw88 modules built with W=1. Sanitized function models
-cover credit-read errors, fallback and buffer ownership. Module IDs,
-filter registers, traffic paths and kernel logs were checked. AP/monitor,
-suspend/resume and other-chip hardware remain untested.
+A separate download test (four 30-second samples per configuration)
+measured 241 to 263 Mbit/s (+9%).
 
-AI assistance: Codex inspected sources, developed the changes and messages,
-and automated validation. Prompts requested small optimizations measured
-individually and together, with explicit prerequisite and impact checks.
+Link: https://github.com/friendlyarm/rtl8822cs/blob/c8b944a34bba2116fcdb060362bde40242bb87e5/hal/rtl8822c/rtl8822c_halinit.c
+---
+ drivers/net/wireless/realtek/rtw88/reg.h      | 4 ++++
+ drivers/net/wireless/realtek/rtw88/rtw8822c.c | 9 +++++++++
+ 2 files changed, 13 insertions(+)
 
-Leonard Lausen (2):
-  wifi: rtw88: 8822c: filter hardware-handled control frames on SDIO
-  wifi: rtw88: sdio: combine free TX page register reads
-
- drivers/net/wireless/realtek/rtw88/reg.h      |  4 ++
- drivers/net/wireless/realtek/rtw88/rtw8822c.c |  9 +++
- drivers/net/wireless/realtek/rtw88/sdio.c     | 58 +++++++++++++++++--
- drivers/net/wireless/realtek/rtw88/sdio.h     |  1 +
- 4 files changed, 68 insertions(+), 4 deletions(-)
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/drivers/net/wireless/realtek/rtw88/reg.h b/drivers/net/wireless/realtek/rtw88/reg.h
+index afcdb66fdb9a1..8e220580be4f8 100644
+--- a/drivers/net/wireless/realtek/rtw88/reg.h
++++ b/drivers/net/wireless/realtek/rtw88/reg.h
+@@ -587,6 +587,10 @@
+ 
+ #define REG_RXFLTMAP0		0x06A0
+ #define REG_RXFLTMAP1		0x06A2
++#define BIT_RXFLTMAP1_BACK	BIT(9)
++#define BIT_RXFLTMAP1_RTS	BIT(11)
++#define BIT_RXFLTMAP1_CTS	BIT(12)
++#define BIT_RXFLTMAP1_ACK	BIT(13)
+ #define REG_RXFLTMAP2		0x06A4
+ #define REG_RXFLTMAP4		0x068A
+ #define REG_BT_COEX_TABLE0	0x06C0
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
+index 32d9709f2c243..9c9e4f2397282 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
+@@ -2096,6 +2096,15 @@ static int rtw8822c_mac_init(struct rtw_dev *rtwdev)
+ 	rtw_write8(rtwdev, REG_WMAC_TRXPTCL_CTL_H  + 2, WLAN_BAR_ACK_TYPE);
+ 	rtw_write16(rtwdev, REG_RXFLTMAP0, WLAN_RX_FILTER0);
+ 	rtwdev->hal.rxfltmap1 = WLAN_RX_FILTER1;
++	if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_SDIO) {
++		/* Hardware handles these frames; retain BAR and PS-Poll for
++		 * mac80211. FIF_CONTROL restores all subtypes for monitors.
++		 */
++		rtwdev->hal.rxfltmap1 &= ~(BIT_RXFLTMAP1_BACK |
++						BIT_RXFLTMAP1_RTS |
++						BIT_RXFLTMAP1_CTS |
++						BIT_RXFLTMAP1_ACK);
++	}
+ 	rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1);
+ 	rtw_write16(rtwdev, REG_RXFLTMAP2, WLAN_RX_FILTER2);
+ 	rtw_write32(rtwdev, REG_RCR, WLAN_RCR_CFG);
