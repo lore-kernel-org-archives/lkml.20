@@ -1,60 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702208;
-	b=C3H4w/83aVSVklc8OEARSOW1p00Rrsrzidgd1AUzIMXg0UiyJCW5tWrQXdsDz1X6KOwL
-	 NR9jBMcEpKZO9LvYjRH98ofFDexW4860ti09NjQiDxCka/8r0Mxtlg12/ddX0I/majhr3
-	 w8XXhLtXvzGvg8brizqqEUBVCFWBdIZil8zwfzaEyVkuSaFZr3oDRzs+ZX001b752x2VU
-	 XJBKtFOhoaM0VaGeKmLCAw8jzKUE5iZ5HWjTMwKyXqzbZ0ZLwdaHtjSKM/bA+nta+wPBN
-	 J7+71rWUCh4RW4oiI/qvUwDxj+mAZTTTCOwB9D4RfI9qDNRiq6fIfkDAxGr55aAk9gw==
+	t=1794702318;
+	b=ALIEUidhbZzkOwgj+VQFW+oWnLKLON605zvYe9/1kShnTquovUe7zHgT1BkzBS+0mFOt
+	 ll523GPFq62+krTsAseStjvcy9habZvHNbF2OpjjQHwXbIEp8+RKVJIQYznd4Oj7yDVyC
+	 bif8q5NKG/VrHbkffHW97GY/WobKDYwfZZqToEBxUC0TMYnQWFTT4HMXz1ccbp46cZRtw
+	 Fy9VhwNbmnhJ1KzsBI05Qz3sPPlVuXI8NK36mMEbarbddO89VyvY/jk4Fnu7DrBhGs4ga
+	 D7YP/tg3WlcyEts6j76l0kL/9rP4TjjzCtVVPwBgEwwvm3jWk8QdPfBAGaKz528c6oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702208;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=upNdzqa2Yr+dsS/pV1xOv7YPOmRw/ecj+eAdrBYpC0k=;
-	b=rBVu5DoKySQo086x42sa1ZYOy/YpmFHOehoJPFu5BNK4NQst80bIRGXsA/SwkRJdP5nu
-	 K5mQqLqw6Gyln5j3hR8bXZCX9nny23tBt1XFq47cdMGfNYdtyqbRks1qhvyB+qlxeRV/3
-	 syAL3nt2lwGAo4h9QYdLQ1X4j1P7j6fdKRKsEa67Z2YYWsoQGZGzg9lWcmFYYYDjwvLQ7
-	 uZuPR2kyzaAyp6GZAn78sMhGla5cly2xJ9RkYBqCYITIT/W0PeEZw77eeoaTKx2GKnG70
-	 BsrYuCaflS9pjqmCD0wF0u3uP8fdQH1U0KYaamgG1P2HNAq6r5GfGMFA9fvjsry0rOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702318;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Reply-To:Subject:Content-Language:To:Cc:
+	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=QBU+JY0LIvKeNHjcy5gTbrjwDNu63TsOHh29cK8nd4o=;
+	b=5WEqfB5fXrUjoUIH7Nt+NrpvIzAORG4BcLm2wrozNxwWj3S6sd5sRYKkOOJ7cNDOUte7
+	 6W2crzCr0nPpH6h3FhdtPDqZ8PyxQyyhh6os+1FRjWsghUMPQuVDY6j2zhlzlWYjvkXvQ
+	 Ah3eVbpLN5UG6LuWzu9G/05Lpx7Y/EoU/EtzCVjOD1DQ1TvIvZGTTyR5rL1u9QnRvwT+N
+	 SrmmcSnWCj/2CfKxpsgUAQMuOGlfk8ss5ewXPhjwuUMRam1o52Re7Wzxg1XkxYoy4pCjH
+	 /SSICsgc3kVrdVV0X2qQegvrtUA2194hl3LrjQkI15dUGVb/sme6UIMbh/I/Bor6U0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btjXOEBZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ols/R6zM";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3715E606A323;
-	Sun, 15 Nov 2026 00:23:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA6E606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DA6E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btjXOEBZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12CC1F000C4;
-	Sun, 15 Nov 2026 00:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794702208;
-	bh=upNdzqa2Yr+dsS/pV1xOv7YPOmRw/ecj+eAdrBYpC0k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=btjXOEBZ9004Sp+/BokRY0GmO1d0Dl+Uhz2yMQAEILSt4orkFjrN0Avg3vNZ377lH
-	 iiEe/RCVBfAY0VyR9yp1DKOH9bEfrSs9EXVcsNpeHED/ZMk1/SLBdny3Ml33l/OH35
-	 cTEyKBX3MIHD2HKZzhhst2qJRJ2CMzz+WJId6B7/o09kkTBCQCNZLIhdAXLm5afAVR
-	 3V/n6le+/2g9VDmuyezrvpdwrtHdopxbiG92wW6eU6ZcDCzm9ooLDfsxVdzO81KGBO
-	 Nu97dr88GL9Hshc2Gzn5h1d90U3jXgbsDD20MEPqeqERNQxtYf07uszcCzqgonWmu9
-	 PC7SLeuDnzErQ==
-Date: Sun, 15 Nov 2026 00:23:20 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josef Bacik
- <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable <stable@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH 01/15] iio: buffer: let the block keep its DMA fence
-Message-ID: <20261115002320.78ade93e@jic23-hlaptop>
-In-Reply-To: <-TPmKHsgTdWh1jJ4sxKceg@bootlin.com>
-References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
-	<20261027-llm-char-misc-iio-v1-1-0d818334f6c7@linuxfoundation.org>
-	<-TPmKHsgTdWh1jJ4sxKceg@bootlin.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ols/R6zM
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37600b0db49so2923698eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:25:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794702317; x=1795307117; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QBU+JY0LIvKeNHjcy5gTbrjwDNu63TsOHh29cK8nd4o=;
+        b=Ols/R6zMu1kix52YL4gO5G6t2l7MiCVboq6QHsHUlZh2C3x/yzt3IZrAH3frath6cD
+         IHSwWZ8L9+AL+FuxJygZaWikHgFGc2CAl8pnkoeHXpjyjqFfP19Bo7uRxdluOcabnYNR
+         zRii8/9UJcgRqZslD4goexaigmszzwT6TkqlMK75b8yS5cah+Td2FSI5WVGuH5+o8iE1
+         0ilIhNSyE5ctI9aBg86g4QPNsrczsn6Z3ByBpMl0F9bGyNZbmWIHictoqeUQ0xWr/jWx
+         6lij1GXYh6GTlCxmrMgDcbfX8DzpHAsFDNAxjNjpcpFY94Pe8U15mqheTpYJiwX6Phe4
+         jtlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794702317; x=1795307117;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QBU+JY0LIvKeNHjcy5gTbrjwDNu63TsOHh29cK8nd4o=;
+        b=MgLDiF3krtYHOkycVYytjfijbBb1URRFBxUTcG2vpg6ImUWVeW2+GJ0EEZVBpbZ0xN
+         ewLO0SYIOZIhMUj8YW36/c34cPL8XkHHVVwLtZH6xI85Xu2h3jY7dvFOZAronpsfS7d7
+         VR63iwc8PW+a2vuE6bU3hRuUs+ykDnpc2BverLuW0ziOOqFKZcohUKRirF9YbtJxYGyD
+         vgU6tmzu4Be70y/URxUL3+VSFWZg04/QYUv3HzY7HXrCMyKe+KZzk2PhDFnoeeWzxhwZ
+         0bEo8FWkSNIhls8Xo/J9Iv/n/NiZuc4cjkyHSSDp7ZO2pkgpPRCSsmpA4h0XtyhJZLKH
+         TADw==
+X-Gm-Message-State: APuU4Z9Joy6VfryLlaERIv1aB3G0s5Z3eVXEel4vFqHzogITDbbBP6bA
+	9F4yvYnTv/FL8Ynoo70Wje4C83chfGgW4wSsuz7bXfOE3hIDwYYghd9C
+X-Gm-Gg: AYBFou2bZoP5PBlFufMkcSoAbOMr6Pxuj2thdjdgLP8+sqWNQu60Xq35CAZsl5H54os
+	KkyfmLNnpm5jJitY/AHSlGkNE3aybYoXvE7jP+HvCPbLAMRPXQtZRCkNctPh3/jrtpnm3XRBQ7s
+	fniZ/h2d5PVRVjsxeA3nCCPRuJiCYJCdgfavMkOee+Iu9GQ0NiF7mhgzd+FbwUJA0+Wnyh67plH
+	0bdCrw/06Yh0Sb7Q6y6ZS0jsAYioOOkABdS2JwXIMfsTT8IdwvJNeckWm5bxYYvpHtg3fmWk4oC
+	JHpQuhf9opyqHjs/kDKC9m9ln0lsgVTkEr8mymo5oAHguZbB9SLrzpHKX0uzylEuFpNo2hxnZ0S
+	xTmgU+veciUBJ+H56Ue0h5ZT2mNA4p2Tnz1bFS3x+2kTWP/o+2NtCVrK52AGZYG18J7NZnMA1QL
+	EWDIKkGhoglfI9EWOffGvLuNafyvSauVpApjZcQkAowLcPI7WRG220V3tC/n1y9PeUwvhtV5bzM
+	aaCe1Q5wzsBPG/04nU8tnGD+BN3bl9gWD6hzFYRuXrum8E73uNwDRgqoqPGLCam34mB2ZiV9ebx
+	qtIbxC0r9s66PafSP4W9rAyceKN7tFJNAspRd9sG8NxQfYcXSqDMSkt5DupcDs8EyaA=
+X-Received: by 2002:a05:7301:1509:b0:369:f3a3:fad6 with SMTP id 5a478bee46e88-379658c798fmr6036337eec.4.1794702317178;
+        Sat, 14 Nov 2026 16:25:17 -0800 (PST)
+Received: from [192.168.35.43] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f01d68sm19708520eec.17.2026.11.14.16.25.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 16:25:16 -0800 (PST)
+Message-ID: <a813b1ea-6971-4fde-b310-659a03963fba@gmail.com>
+Date: Sun, 15 Nov 2026 09:25:12 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,118 +90,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Reply-To: chanwoo@kernel.org
+Subject: Re: [PATCH v2 1/4] PM / devfreq: Fall back to previous_freq when
+ get_cur_freq() fails
+Content-Language: ko
+To: Bean Huo <beanhuo@iokpp.de>, linux-pm@vger.kernel.org,
+ linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, "Martin K . Petersen"
+ <mkp@kernel.org>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Stanley Jhu <stanleyjhu@google.com>,
+ Bean Huo <beanhuo@micron.com>
+References: <20260907192140.2701755-1-beanhuo@iokpp.de>
+ <20260907192140.2701755-2-beanhuo@iokpp.de>
+From: Choi Chanwoo <cwchoi00@gmail.com>
+In-Reply-To: <20260907192140.2701755-2-beanhuo@iokpp.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Thu, 29 Oct 2026 16:43:14 +0100
-Beno=C3=AEt Monin <benoit.monin@bootlin.com> wrote:
+On 9/8/2026 4:21 AM, Bean Huo wrote:
+> From: Bean Huo <beanhuo@micron.com>
+> 
+> devfreq_set_target() calls the optional ->get_cur_freq() callback to get
+> the frequency that is passed as freqs.old to the DEVFREQ_PRECHANGE and
+> DEVFREQ_POSTCHANGE notifiers, but it does not check the return value. If
+> the callback fails without setting @freq, cur_freq is never assigned, and
+> an uninitialized stack value is passed to the notifiers.
+> 
+> hisi_uncore_get_cur_freq() can hit this. It returns -ENODEV without
+> setting @freq when its PCC channel is missing. On the mailbox error path
+> it sets @freq to 0 instead, so that the core does not read a random
+> value.
+> 
+> The other two callers, cur_freq_show() and devfreq_monitor_resume(),
+> already check the return value and use devfreq->previous_freq when the
+> callback fails. Do the same in devfreq_set_target().
+> 
+> This does not seem to cause a visible problem today. The passive governor
+> is the only DEVFREQ_TRANSITION_NOTIFIER user in the tree, and it only
+> reads freqs.new. So this patch is not marked for stable.
+> 
+> Fixes: 0fe3a66410a3 ("PM / devfreq: Add new DEVFREQ_TRANSITION_NOTIFIER notifier")
+> Signed-off-by: Bean Huo <beanhuo@micron.com>
+> Reviewed-by: Avri Altman <avri.altman@sandisk.com>
+> ---
+>  drivers/devfreq/devfreq.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
+> index f08fc6966eae..f20d9a660779 100644
+> --- a/drivers/devfreq/devfreq.c
+> +++ b/drivers/devfreq/devfreq.c
+> @@ -348,9 +348,8 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
+>  	unsigned long cur_freq;
+>  	int err = 0;
+>  
+> -	if (devfreq->profile->get_cur_freq)
+> -		devfreq->profile->get_cur_freq(devfreq->dev.parent, &cur_freq);
+> -	else
+> +	if (!devfreq->profile->get_cur_freq ||
+> +	    devfreq->profile->get_cur_freq(devfreq->dev.parent, &cur_freq))
+>  		cur_freq = devfreq->previous_freq;
+>  
+>  	freqs.old = cur_freq;
 
-> On Tuesday, 27 October 2026 at 17:19:05 CET, Greg Kroah-Hartman wrote:
-> > From: Josef Bacik <josef@toxicpanda.com>
-> >=20
-> > iio_buffer_enqueue_dmabuf() hands a plain pointer to the fence to the
-> > buffer implementation, which keeps it in block->fence, and since the fix
-> > for the fence leak it drops the initial reference right after
-> > dma_resv_add_fence(). The only reference left is the one of the
-> > reservation object.
-> >=20
-> > That one does not last until the fence is signalled. dma_resv_add_fence=
-()
-> > replaces and puts a fence as soon as a later fence of the same context =
-and
-> > the same usage is added. All the fences of an attachment share a contex=
-t,
-> > and an enqueue on an output buffer only waits for the writers, not for =
-the
-> > read fence of the enqueue before it. A second IIO_BUFFER_DMABUF_ENQUEUE=
- of
-> > a buffer which is still queued is refused by iio_dma_can_enqueue_block(=
-),
-> > but by then its fence has taken the place of the first one. When the DMA
-> > is done, iio_buffer_signal_dmabuf_done() signals a fence which has been
-> > freed and schedules the work item in it.
-> >=20
-> > The leak came from the reference which iio_buffer_signal_dmabuf_done()
-> > takes and iio_buffer_cleanup() drops: with it nobody dropped the initial
-> > one. Do not take it, and leave the initial reference to the block until
-> > the cleanup.
-> >=20
-> > Fixes: a09399935508 ("iio: buffer: Fix DMA fence leak in iio_buffer_enq=
-ueue_dmabuf()")
-> > Cc: stable <stable@kernel.org>
-> > Cc: David Lechner <dlechner@baylibre.com>
-> > Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
-> > Cc: Andy Shevchenko <andy@kernel.org>
-> > Cc: "Beno=C3=AEt Monin" <benoit.monin@bootlin.com>
-> > Cc: Paul Cercueil <paul@crapouillou.net>
-> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > --- =20
->=20
-> Having the block and the reservation each hold a reference to the fence i=
-s a
-> better fix than mine.
->=20
-> Reviewed-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+I agree this patch.
+But, I don't recommend to execute to function on if statement.
+In order to improve the readability, could you please update it as following:
 
-I lost track of this one (just doing a check on stuff outstanding in patchw=
-ork)
- but seems folk are happy who know more about this bit of code than I do!
+        unsigned long cur_freq = devfreq->previous_freq;
+	unsigned long freq;
+	...
+	if (devfreq->profile->get_cur_freq) {
+		err = devfreq->profile->get_cur_freq(devfreq->dev.parent, &freq);
+		if (!err)
+			cur_freq = freq;
+	}
 
-Applied to the fixes-togreg branch of iio.git
-
->=20
-> >  drivers/iio/industrialio-buffer.c | 15 +++++++--------
-> >  1 file changed, 7 insertions(+), 8 deletions(-)
-> >=20
-> > diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrial=
-io-buffer.c
-> > index 4294101810fd..a2386dba497c 100644
-> > --- a/drivers/iio/industrialio-buffer.c
-> > +++ b/drivers/iio/industrialio-buffer.c
-> > @@ -1931,9 +1931,14 @@ static int iio_buffer_enqueue_dmabuf(struct iio_=
-dev_buffer_pair *ib,
-> >  	if (ret)
-> >  		goto err_queue_unlock;
-> > =20
-> > +	/*
-> > +	 * The reservation object takes a reference of its own, and drops it =
-as
-> > +	 * soon as a later fence of this attachment takes the place of this
-> > +	 * one. The initial reference stays with the block, which points to t=
-he
-> > +	 * fence until iio_buffer_cleanup() has run.
-> > +	 */
-> >  	dma_resv_add_fence(dmabuf->resv, &fence->base,
-> >  			   dma_to_ram ? DMA_RESV_USAGE_WRITE : DMA_RESV_USAGE_READ);
-> > -	dma_fence_put(&fence->base);
-> >  	dma_resv_unlock(dmabuf->resv);
-> > =20
-> >  	cookie =3D dma_fence_begin_signalling();
-> > @@ -1989,18 +1994,12 @@ void iio_buffer_signal_dmabuf_done(struct dma_f=
-ence *fence, int ret)
-> >  		container_of(fence, struct iio_dma_fence, base);
-> >  	bool cookie =3D dma_fence_begin_signalling();
-> > =20
-> > -	/*
-> > -	 * Get a reference to the fence, so that it's not freed as soon as
-> > -	 * it's signaled.
-> > -	 */
-> > -	dma_fence_get(fence);
-> > -
-> >  	fence->error =3D ret;
-> >  	dma_fence_signal(fence);
-> >  	dma_fence_end_signalling(cookie);
-> > =20
-> >  	/*
-> > -	 * The fence will be unref'd in iio_buffer_cleanup.
-> > +	 * The reference of the block will be dropped in iio_buffer_cleanup.
-> >  	 * It can't be done here, as the unref functions might try to lock the
-> >  	 * resv object, which can deadlock.
-> >  	 */
-> >=20
-> >  =20
->=20
->=20
->=20
-
+-- 
+Best Regards,
+Chanwoo Choi
+Principal Engineer, Samsung Electronics
