@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.94
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794750165;
-	b=3ZI3AQUbWiVh3hC2+UHT37Qt7lFxlheYEXPxbuIuQqt1J5Lc2Qjwt2sJwiw80G3rW2Nm
-	 PqoewcyyZoOnd+reDXIoui6IoJRyyya/IK6vFwiXogpQoSNIrXwFh/aDtRT9fuY9gpjJX
-	 RqzL/iPb5O2NDo1jyduv27Eh0xm3UDRBjfJZ1eV2lyFEmC3mZ+bijhfb7e0mNoD/brB2V
-	 OoH49r8rQB2H0SP49PWNQ19t9lNhXt3EyXsrii+VnsUvQw+tusSWZf+OJuoJOCUMdEMG1
-	 vz9pUrK6E0V+OV4gFau5RqGd7g67wgvB/6hvEuzvsvK6PvRP9Z9BW3+HG3FqwfeJ0lQ==
+	t=1794750169;
+	b=A/sTbNk7L5KouyKc+63I6w6qPgNoNmE146YAHDKFPnxiypudx8vB7x3YrL0+++v/guQA
+	 ms19+U8MnS+i02SaLROALn9Fsn2FAgfcW9g/tTnQJP0GA3o4GUejQQzpdCmDhjpEUpPSr
+	 1Hn6VE1edTqgiRxHk24xAdLSXJZwlbUzxec9IbzYW6kzqFVVRKqNOc+aNlnBPTJ8+B247
+	 23cxiThUfuOB0HdoL26HnY1QvlD8/igzuOVY4VLO7/sp85XWAjxOD2lYdf9ewrMYLNYrz
+	 cU/ZlWfd+NbGalvdm6XD+q74M9Cvj1+HVSXvignM+iBZkr7ehuyI2GuFNfy6gUiPe1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794750165;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CzrZb3Zd8o48Hpqe2mTWemktOybsKjrXRs/zD4WvXLs=;
-	b=Z9gLkNOwFJybtUN5oVqRxiwXY/B1AktqD+Qbw1NJh1oId0k41ardLE+BP7+i70WUzfBo
-	 32vJr5Io9uJI5AM8wTiyoQQBqo6EZnehnVxOOqBu5NEttqfELmwktbJitquPa+0wEhaZ3
-	 a3sfh16mgjs2oyqTzdy3k7F0bITnP0Nlikhgi/yYjxRinMtSgmawCFQBPU6qUenWx7WJf
-	 PMz3Spn3OrLFg0Tfao0jaFpO5jyciCgOqrykgPrlI9n4AsGoqUwNZoT62cp4HPfrJgnxp
-	 ghJyJSIBMFXhDVsgl8oCfytvo/JWevChn9tfqum/gchlF1Pkb/fBIXK188Z2nN+Ohlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794750169;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=O4Pu+XOzyyu9/z/OzDH/Zf5ByDCwJvsC4BxuMsmIuA4=;
+	b=BYwwP8BKVwWhtcnU2ojlJs+llDtXCpkf0vsDOcikGLZuDXLyBmz93WoovS6xcMM11vrm
+	 fW9T216BK2BdCPw8QcMwhFdtx7DPbje3pGwtQapLXx1ETH5LwTziEw1gL7hd4GM9zFIyq
+	 jgoK5ADRX02ujn83A2WY+DATaVdCMWad8z2KXrDBV3Eyk7k+fb7xCPOk6SMEIKui6Y2fa
+	 gbuscH54RYxGhSXkxMJ4RemC9lDDqjCLJt7JVvD9pAW7C59YNR1nl8/eLnPYreddw6hyW
+	 SqEUH9QgC+TL/EBekUvabFrvcyob5HYKQEt3Fg2v/SE85Flrw23kS8UDOAgt2m68r+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YCYNzJCN;
-	arc=none smtp.remote-ip=91.218.175.94
-Received: from mta0.migadu.com (out-94.mta0.migadu.com [91.218.175.94])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=seu.edu.cn;
+	spf=pass smtp.mailfrom=seu.edu.cn;
+	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=lrKWv+Ca;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6357606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:42:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6357606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB92D606A33B;
+	Sun, 15 Nov 2026 13:42:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB92D606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YCYNzJCN
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CzrZb3Zd8o48Hpqe2mTWemktOybsKjrXRs/zD4WvXLs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794750162; v=1; x=1795354962;
- b=YCYNzJCNlhqDNm7T8D15c6+TVxAW0LOvBB363LvetluLJR4q8PKEj9kctOJnPo9FVr1PGMOO
- Esjs6cGrosgJgixg5M6cb7XlUfLygsVqM2fOPsK5dyvqp94IEMDRX8QOz66HzHaCnc/7uq0/uMb
- ydL5Du+/242VbXM3PNfLOW5M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 260a9f29dcf82ef2;
-	Sun, 15 Nov 2026 13:42:42 +0000
-X-Mizu-Trace-ID: 260a9f29dcf82ef2
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 14:42:37 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v4_6/7=5D_wifi=3A_rtw88=3A?=
- =?US-ASCII?Q?_88xxa=3A_correct_carrier-frequency_offset?=
-In-Reply-To: <20261115114336.1739863-7-hjf3108@gmail.com>
-References: <20261115114336.1739863-1-hjf3108@gmail.com> <20261115114336.1739863-7-hjf3108@gmail.com>
-Message-ID: <329749D3-41A6-401F-9D1E-EEDDBC3E5CD8@linux.dev>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=lrKWv+Ca
+Received: from [192.168.17.1] (unknown [124.79.98.159])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54b8d4a12;
+	Sun, 15 Nov 2026 21:42:42 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject:
+ [PATCH net v2 1/2] net: plip: quiesce private work before releasing resources
+Date: Sun, 15 Nov 2026 21:42:40 +0800
+Message-ID: <179475016060.114908.18308299911622759410@seu.edu.cn>
+In-Reply-To: <179475015898.114908.1534399014158681174@seu.edu.cn>
+References: <179475015898.114908.1534399014158681174@seu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,26 +58,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1df72282203a1kunm6a37fc6bc5350
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS0hLVh5CH0tNTEgfT0wfTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VTEJVQkNVSk5CWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	JKVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=lrKWv+CaDuWr5g/5n4Ss3bggQHtUsr7zG7iezoJiu0MiOdhY7a5bVyMfj//optNqFiga7QvdD/NsNJeo2jz0OzcUyCakAmhmBsv42paem478xUunnK8R8YSC2UE3dFlZRFOj12ew6KCWj3Ino70ZdvR6YCgGiNBP10MMRzHQXGY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=O4Pu+XOzyyu9/z/OzDH/Zf5ByDCwJvsC4BxuMsmIuA4=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Jie Feng,
+PLIP can still run immediate or deferred work while close releases the
+parport and pending skbs. Initialize both work items disabled and
+disable and drain them before resource release.
 
-One more thing in addition to the other patch 6 reply.
+Initialize state and enable the work before parport_claim(), since
+claiming the port can already expose the interrupt handler. Restore the
+disabled state on claim failure. This avoids dropping a trigger on
+disabled work and then leaving the connection in receive state forever.
 
-On November 15, 2026 12:43:32 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
-wrote:
+The separate second patch balances the controller IRQ across close and
+an interrupted transfer; keep that repair separate from work quiescing.
 
-> Use the newly promoted helpers to implement support for 88xxa
+Found by the author's in-house static analysis tool.
 
-Could you expand this to describe how the CFO samples are collected and
-used to adjust the crystal cap? I think the two path reporting limit on
-RTL8814A and the handling of the efuse crystal value are worth explaining
-too.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260928134136.1213-1-getshell@seu.edu.cn/
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
+---
 
-This adds more than the callbacks, and a short description would help
-explain the changes to the shared parser and chip initialization.
+Discovery: found by the author's in-house static analysis tool.
 
-Best regards,
-Luka Gejak
+ drivers/net/plip/plip.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/net/plip/plip.c b/drivers/net/plip/plip.c
+index d81163b..dc3d258 100644
+--- a/drivers/net/plip/plip.c
++++ b/drivers/net/plip/plip.c
+@@ -308,6 +308,8 @@ plip_init_netdev(struct net_device *dev)
+ 	/* Initialize task queue structures */
+ 	INIT_WORK(&nl->immediate, plip_bh);
+ 	INIT_DELAYED_WORK(&nl->deferred, plip_kick_bh);
++	disable_work(&nl->immediate);
++	disable_delayed_work(&nl->deferred);
+ 
+ 	if (dev->irq == -1)
+ 		INIT_DELAYED_WORK(&nl->timer, plip_timer_bh);
+@@ -1069,14 +1071,27 @@ plip_open(struct net_device *dev)
+ 	struct net_local *nl = netdev_priv(dev);
+ 	struct in_device *in_dev;
+ 
++	/* parport_claim() can make the interrupt handler reachable. */
++	nl->rcv_data.state = PLIP_PK_DONE;
++	nl->snd_data.state = PLIP_PK_DONE;
++	nl->rcv_data.skb = NULL;
++	nl->snd_data.skb = NULL;
++	nl->connection = PLIP_CN_NONE;
++	nl->is_deferred = 0;
++	nl->should_relinquish = 0;
++	enable_work(&nl->immediate);
++	enable_work(&nl->deferred.work);
++
+ 	/* Grab the port */
+ 	if (!nl->port_owner) {
+-		if (parport_claim(nl->pardev)) return -EAGAIN;
++		if (parport_claim(nl->pardev)) {
++			disable_work_sync(&nl->immediate);
++			disable_delayed_work_sync(&nl->deferred);
++			return -EAGAIN;
++		}
+ 		nl->port_owner = 1;
+ 	}
+ 
+-	nl->should_relinquish = 0;
+-
+ 	/* Clear the data port. */
+ 	write_data (dev, 0x00);
+ 
+@@ -1088,12 +1103,6 @@ plip_open(struct net_device *dev)
+ 		schedule_delayed_work(&nl->timer, 1);
+ 	}
+ 
+-	/* Initialize the state machine. */
+-	nl->rcv_data.state = nl->snd_data.state = PLIP_PK_DONE;
+-	nl->rcv_data.skb = nl->snd_data.skb = NULL;
+-	nl->connection = PLIP_CN_NONE;
+-	nl->is_deferred = 0;
+-
+ 	/* Fill in the MAC-level header.
+ 	   We used to abuse dev->broadcast to store the point-to-point
+ 	   MAC address, but we no longer do it. Instead, we fetch the
+@@ -1141,6 +1150,9 @@ plip_close(struct net_device *dev)
+ 		wait_for_completion(&nl->killed_timer_cmp);
+ 	}
+ 
++	disable_work_sync(&nl->immediate);
++	disable_delayed_work_sync(&nl->deferred);
++
+ #ifdef NOTDEF
+ 	outb(0x00, PAR_DATA(dev));
+ #endif
+-- 
+2.50.1.windows.1
