@@ -1,55 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.107.17.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794741813;
-	b=mOUE+qifyiJo9bXCm6Pccu5JJg4jPoLGQXpm8zCEdoI6fmpJHikqcpGjVLkH0aj3e7VE
-	 FKNRSPEsgD4b/6irN3qp9YS/6eH0aJaKTLMiQL75MRttZDxmGCBp7WnMS06Knkf9i+676
-	 AUeUU+2QWqWynlMk/GIIqzj003EabFo/tf4QwLtV61oFLMxm0ud1gtw6q3ANqeJoR1joo
-	 QfdZxIT11iDq+eKr4cir4DnliebV3UhhGwUo5CG8FbS3U+qjdf4F/oXXQtjg23FXRf7Sw
-	 Pm+NF0gkknTixMxlWWXv216hToDCWvyY0UlfezPAvmDrqR0dYDW4Xtl55JinAV+SS2g==
+	t=1794741978;
+	b=JiEGOin39Dq9KrWJVOIZgtYyPJP/R4jBVFuAE7uqVocmmDzJH0lb9dn+8JDJb/JYzYAu
+	 lt4YLshqPWreqf/clvo63LgoFi/HN4l1AVe/vsHISuNo62x5nRHmBbUcYXbXyet9kX21P
+	 p16mkS0Q3/6WZ0NidK3UIlClL7LtPkwHIpDMz6PLsgrDrPuUj+rFUEpYRx0dXdWmHem4R
+	 B4KIyTDb22dg9cvMg9gystw5ep+j7zNcPIL9hdjq5fCahZnkCdeUUr5yOm0C5vWgBWAP0
+	 7WIlGuMGssE7Q4xph78MOnqRaQVomQOoLT4zZgQOXb/JzD+gBES9SESdFHNRMbARtJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794741813;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kX53oJXe6zh6Wm0f/NLw/xzJgNuI7GT7tZ/9xrnt5WI=;
-	b=e8VqW0ueipxLaajtvCoUdKocHuX1KnLmQEGp3IMuDzTvuiQakwIVlyliJr4OIRq4vG6b
-	 rjIj+9zAWVR+FBmGPFNj8W+zX1QppkewK0+KnSuGBjMPZ3hfnPQ8MSlVcpm6peZZIDosx
-	 JJYgLpAqBqq8iQCK+0TroZHGGaFcbpeU33U7ToSH8gmTS3K+cSpZxdc1W8MsrkqKhwVpI
-	 fQ4ExhvdcqRoglc5ymPuSTf5+bixnnAdUNE32FMLcp/drB8Bdzw6IckMAs0X+1cgT25AJ
-	 PRcS11Edq95qs3fgzKJKtvWalbH0AdXIbna7AVty/XxnPufFVNP5E4R4Nsrw7A3ogwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794741978;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xkLE/w3z97ylZ8Sor9sRwmSzH6qQ25Puxw0Ewfd79p4=;
+	b=xQjGV7cuy2N/ifwu8CSeLKfqyYEnpp5/MsSUF8l+kG6IBPuVV2909hO5k8Bp4Y9zcPV4
+	 lxqxTI2eDP/dveFs10TYn3rusi4ow/rKVuVWZwH/xFdG746P2EYekxPQKtu9JL+MSn5HJ
+	 VEYx68Ce0Y2ODbdT1oeUGzp6ljNBKhV9QnnDt8LIhbmmQIcfEc+50+N5xwkt8vNu8JhLk
+	 kP2C+tyodixAfRTx3NhK7YuxeLp7NTwo5cnlkF172yQd/1Ql6r9eLaMmf4AuK4Otsl726
+	 EKYUYIa1X7NqZZppPzzGPtTvPkpSPycYMpRc+Rez7vXy2B2Uz7a5oZ31EUlI2OFOWrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n03mFvQ/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75C3606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n03mFvQ/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB7E1F000C9
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:23:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794741813;
-	bh=kX53oJXe6zh6Wm0f/NLw/xzJgNuI7GT7tZ/9xrnt5WI=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=n03mFvQ/1EXrpr5LWQJtiZYHd03TFTWFjfs47QxSHRguTJtgURTEOt8VLNSFJQc7V
-	 8L1ioyNBXKcSCdeXyzO3Zbbq7rjPZUO5cdi/KH5O4/8SmNHFf8+dhb++ZDR9jqF3XN
-	 eQFMiMpw558ksTpnDxbW1Uoyf7SrURXsJJQ0NdakMTHtLX9GYnKsAyAcFTWDVL5PDQ
-	 a/d4B9e/Eyv/g1jr0gu0oHnuMdcm9UInKtOVUPZKT16D06n3S52QgoPjw78i2DiGFZ
-	 vrwsvnDFcXKLM5i39Jx18tUFh+8lkX1DtcjgfTRdaOPBvKEB8tN0IQtjsJEAqkI/0h
-	 pWRFQtnQ60VhA==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ae22dcfdc3so24429641fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:23:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGTj6cy2e/ySRnZ3JYOpDH36fM5iITYVPsDxM290aJaZjz4mOYfhk4z5XEr6bCGJOjxdUpgl5FLGzHpwoY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84CANvfqlK3lBUxd71eXcbh9riflKkIvop7mseaPz2Tm6RqzsQ
-	OYu5ewXdaH8L7sga+dBddsGiErfleePME/HulcjTmK/YWMYNKfx0EVPEJsRS5RToohTWjeGmN1D
-	KsNs0h/Impys6kpjFKhthqaZ2gbU91Aw=
-X-Received: by 2002:a05:651c:a142:b0:3ab:3bf3:1610 with SMTP id
- 38308e7fff4ca-3ae2b4cb4a9mr19055231fa.10.1794741811994; Sun, 15 Nov 2026
- 03:23:31 -0800 (PST)
+	dmarc=none header.from=strace.io;
+	spf=pass smtp.mailfrom=altlinux.org;
+	arc=none smtp.remote-ip=194.107.17.57
+Received: from vmicros1.altlinux.org (vmicros1.altlinux.org [194.107.17.57])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 577C8606A31A;
+	Sun, 15 Nov 2026 11:26:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 577C8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strace.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
+Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
+	by vmicros1.altlinux.org (Postfix) with ESMTP id 4F7F372C8CC;
+	Sun, 15 Nov 2026 14:26:10 +0300 (MSK)
+Received: by mua.local.altlinux.org (Postfix, from userid 508)
+	id 39C5F7CCB3A; Sun, 15 Nov 2026 13:26:10 +0200 (IST)
+Date: Sun, 15 Nov 2026 13:26:10 +0200
+From: "Dmitry V. Levin" <ldv@strace.io>
+To: Renzo Davoli <renzo@cs.unibo.it>
+Cc: linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Eugene Syromyatnikov <evgsyr@gmail.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	strace-devel@lists.strace.io, linux-api@vger.kernel.org,
+	Bradley Morgan <bradley.morgan@linux.dev>
+Subject: Re: [PATCH v2] ptrace: reject out of range error values in
+ PTRACE_SET_SYSCALL_INFO
+Message-ID: <20261115112609.GA31399@strace.io>
+References: <2D2A202C-35F8-4200-9110-B0E636216FCF@linux.dev>
+ <20261115082540.385386-1-renzo@cs.unibo.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,137 +55,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com> <20261112-h616-zero2-dt-v3-3-1cd2664230c8@gmail.com>
-In-Reply-To: <20261112-h616-zero2-dt-v3-3-1cd2664230c8@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 19:23:18 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66AtwrqViwOdwd9SwXAxXKv7U1za72pj2BqcdqegVnYpA@mail.gmail.com>
-X-Gm-Features: AclHuK8ZAVIclElCusS8bGm9wRGMlekW6DfDLlnWFEB8TeBA8l91MdVQ65LV97I
-Message-ID: <CAGb2v66AtwrqViwOdwd9SwXAxXKv7U1za72pj2BqcdqegVnYpA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/7] arm64: dts: allwinner: h616: Add GPU OPP table
-To: aiyengar1990@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
-	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115082540.385386-1-renzo@cs.unibo.it>
 
-On Thu, Nov 12, 2026 at 5:22=E2=80=AFPM Arun Iyengar via B4 Relay
-<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
->
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> Add the operating points of the H616/H618 Mali-G31, so that boards can
-> enable GPU DVFS through panfrost devfreq: 306 to 600 MHz at 810 to
-> 950 mV. The table is the one of the vendor images (as recovered from a
-> KickPi K2B image, also carried by Armbian). Like the H6 GPU OPP table,
-
-FTR I found https://github.com/armbian/build/commit/3432b23f09c4a3fe74d6760=
-b42ff01cfff8dfe1b
-which probably came from https://github.com/armbian/build/pull/10902.
-
-It says it was from an KickPi K2B v2.2 image. However the latest source
-tree dump from KickPi doesn't seem to contain a GPU OPP. I can't tell if
-the v2.2 refers to the board revision or the SDK version.
-
-
-Note that OrangePi seems to use a different table:
-
-https://github.com/orangepi-xunlong/linux-orangepi/blob/orange-pi-6.1-sun50=
-iw9/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi#L1520
-
-But anyway, if it works, that's fine.
-
-> it uses <target target max> voltage triplets with a common 990 mV
-> maximum: a board whose GPU supply cannot reach an OPP's target voltage
-> loses that OPP, while a board whose supply minimum is above the target
-> of the lower OPPs keeps them, as their [target, max] range still
-> overlaps the supply's range.
->
-> Like sun50i-h616-cpu-opp.dtsi, the table is in a separate file that
-> boards include once their GPU supply is described.
->
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+On Sun, Nov 15, 2026 at 09:25:39AM +0100, Renzo Davoli wrote:
+> With is_error set, PTRACE_SET_SYSCALL_INFO passes info.exit.rval to
+> syscall_set_return_value() as an "int" error without checking it: a
+> positive value, or on 64-bit one outside the "int" range, turns the
+> error into a success or is truncated.
+> 
+> Reject with -ERANGE any error value outside [-MAX_ERRNO, -1].
+> 
+> Fixes: 26bb32768fe6 ("ptrace: introduce PTRACE_SET_SYSCALL_INFO request")
+> Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
 > ---
->  .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++=
-++++++
->  1 file changed, 62 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi b/arc=
-h/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
-> new file mode 100644
-> index 000000000000..18989d11c832
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
-> @@ -0,0 +1,62 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +// Copyright (C) 2026 Arun Iyengar <aiyengar1990@gmail.com>
+> v2: shorter commit message and comment, dropped Assisted-by (Bradley Morgan)
+> v1: https://lore.kernel.org/lkml/20261114184842.373304-1-renzo@cs.unibo.it/
+> 
+> Tested on x86_64: rval 0, 1, 3, -4096, INT_MIN and 0x100000000 with
+> is_error set are now rejected with -ERANGE; -ESRCH and -4095 still work.
+> 
+>  kernel/ptrace.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+> index 3f2fe68ccb14..1ffacfcef8d4 100644
+> --- a/kernel/ptrace.c
+> +++ b/kernel/ptrace.c
+> @@ -1111,6 +1111,10 @@ ptrace_set_syscall_info_exit(struct task_struct *child, struct pt_regs *regs,
+>  	if (rval != info->exit.rval)
+>  		return -ERANGE;
+>  
+> +	/* An error must be a negative errno value. */
+> +	if (info->exit.is_error && (rval < -MAX_ERRNO || rval >= 0))
+> +		return -ERANGE;
 > +
-> +/ {
-> +       gpu_opp_table: opp-table-gpu {
-> +               compatible =3D "operating-points-v2";
-> +
-> +               opp-306000000 {
-> +                       opp-hz =3D /bits/ 64 <306000000>;
-> +                       opp-microvolt =3D <810000 810000 990000>;
-> +               };
-> +
-> +               opp-336000000 {
-> +                       opp-hz =3D /bits/ 64 <336000000>;
-> +                       opp-microvolt =3D <810000 810000 990000>;
-> +               };
-> +
-> +               opp-360000000 {
-> +                       opp-hz =3D /bits/ 64 <360000000>;
-> +                       opp-microvolt =3D <820000 820000 990000>;
-> +               };
-> +
-> +               opp-384000000 {
-> +                       opp-hz =3D /bits/ 64 <384000000>;
-> +                       opp-microvolt =3D <830000 830000 990000>;
-> +               };
-> +
-> +               opp-420000000 {
-> +                       opp-hz =3D /bits/ 64 <420000000>;
-> +                       opp-microvolt =3D <850000 850000 990000>;
-> +               };
-> +
-> +               opp-456000000 {
-> +                       opp-hz =3D /bits/ 64 <456000000>;
-> +                       opp-microvolt =3D <870000 870000 990000>;
-> +               };
-> +
-> +               opp-504000000 {
-> +                       opp-hz =3D /bits/ 64 <504000000>;
-> +                       opp-microvolt =3D <890000 890000 990000>;
-> +               };
-> +
-> +               opp-540000000 {
-> +                       opp-hz =3D /bits/ 64 <540000000>;
-> +                       opp-microvolt =3D <910000 910000 990000>;
-> +               };
-> +
-> +               opp-576000000 {
-> +                       opp-hz =3D /bits/ 64 <576000000>;
-> +                       opp-microvolt =3D <930000 930000 990000>;
-> +               };
-> +
-> +               opp-600000000 {
-> +                       opp-hz =3D /bits/ 64 <600000000>;
-> +                       opp-microvolt =3D <950000 950000 990000>;
-> +               };
-> +       };
-> +};
-> +
-> +&gpu {
-> +       operating-points-v2 =3D <&gpu_opp_table>;
-> +};
->
-> --
-> 2.55.0
->
->
+>  	if (info->exit.is_error)
+>  		syscall_set_return_value(child, regs, rval, 0);
+>  	else
+
+Reviewed-by: Dmitry V. Levin <ldv@strace.io>
+
+Also worth adding a test case for this issue to
+tools/testing/selftests/ptrace/set_syscall_info.c
+
+
+-- 
+ldv
