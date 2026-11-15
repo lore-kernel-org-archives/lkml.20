@@ -1,101 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794755197;
-	b=tRJktpxpCwmZFgxg0c72jS18yEGYrGtzIS/uesk23hdoIui5xMY9uo8KPupyZjfwNHId
-	 phZ8Wm+F4CA7sepx3wgKlI/xtmZDLxXmAKvYVLF1TTHH4xvDkafG8XPUGAqGGTKexueOn
-	 LmZpvbpObahyQyfbQC7cyK6PsTS2hwVNL57E6tSp4i3LBFQz2nwYbflmORLKmB8ho8q9B
-	 o4VPSBnQSuBb1659/rzPHHgV4//MGTPb2m9l0Bz9xasIkV0j3n5cAHLZA6xFk9ZsI6aZB
-	 P3S16dOrWAIOjk6dHdVs9O9VPRGPEHY9Kk2SJSCfdctnnsOw5pZ9FpfSrS/tfHR6DrA==
+	b=xb/9IHmbCeAz+oLcAj37NszffJ/1DMzkOH7n9csqBwi1GY585gg7Ww3s3LtGGAabR8TB
+	 t7ySIRhGK5HvkXl37f0V77QRzhA3Su+cwVdvsPScoJhAQeQkMRu6Wzf/0EXmDN1UQWPBP
+	 FJyaWN1G+2qJw2W0mGPrEoZvg2j64AnpzIgQBRD4gNZ4KNhxvIoNTarmZ2lAMS9y8ezUl
+	 J3LMRK0eURQvM1l/T7j1bH+j/gr0QjTwOHMaco2N/+xEtgSo3VHAEXHFhvRrpzS+P3HsO
+	 oOj83D4jBRs0etcac1WZOUdyxkDNu0we5VqM7jSpqn0eD3o9o0MNuLBe0oFlwtf51tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794755197;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=y/hOIyUcvAfKlaaXm+bgaXHbjM9PJioyHvxOcCFmCQQ=;
-	b=oTr2QXIzuszp0tHDFAfyYHkqxRzwbLs7JR2swWi5YAzDXzzL21UdcSH1XIuhGvB72OUq
-	 NMvaW45x0XpwHs+KK7+b7iDXZuTPuVI1BPG5LKugUdI3M58TGdsTxx9U5DrU6J/o2gxbh
-	 271PMhe/voEU607N1mXPNh6DmL00XkqYbq34xHhM4EElsxTmf4oLrnPWp1IFyYBmG1voO
-	 dpTULRKIvuiIZNqpEAqCEa8fD4ZgCozYsVvN8tr3c02TlgRm70zatFkuIpC06BGLUwq/y
-	 KyuL16C+5PhjvBcAbL8cBHRI/CyeQowcgEy8bh5OIsAySp+ipLJu3NvCQpn8VudYZlA==
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=weUeyzsssr8dS91Dxqw4Iq8kFGcygNjrCrPAqehGlCc=;
+	b=lQrc1/+0Rj13H6fZ4lIhqnlylzzKF4VtvM6sYrj4zE2oaXJAwX1Qz4ps+qOxCMeHCbWV
+	 Fc1/s4XGtKDMz5JMmKWs6F3twPdEtIL2yiOX0Ud0Kh/Znwtbikoq0cDi3eKEqL/FoR6cX
+	 kHW+OzSsXtl4pIFa0WaqlxHdQXeIWXq9WR3MDYm3HijPXWXjEVpLV9vRwuHKb71KqxK6i
+	 9COtcb+8mkNY54rKN/cPxVFm3yYJfzw4UhUdU9EMNKQiiYQLsdDE5367GL+aeuGoU1ZpP
+	 LjgU9faf6Pjy2PF4HsiSRYbCELZz/7cuGT/jR9ghoE5Od8MfFGDTb4KHE7lBuj/eS0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A2CxOg0u;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORwiHLMY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4A6606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:06:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E4A6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C22606A32C;
+	Sun, 15 Nov 2026 15:06:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A2CxOg0u
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so7681545e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:06:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794755195; x=1795359995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y/hOIyUcvAfKlaaXm+bgaXHbjM9PJioyHvxOcCFmCQQ=;
-        b=A2CxOg0u4nA5j2QwWMCX2xov6hIZN16xt8onwYD8iiyiAmefaUJoMWy7xFANfTWq3e
-         b2Vw1nSe0DtU76RQo6cvDZJfosmWeIYVTT4tvIbqCA21YFldIqfypY4/lOVrBjY5f5Ws
-         4fRK9yBDQMVa/LTBdWIjf4ivi1vmColGKsZo/1rnE83gpKiU/Hwvi2dCjToI04dcUG99
-         5Cs/R7e51IBr6ubNPMl7niPd4VnEjeUzqhpbUDoyd1rAVesZRug/8vJFXr8RgwdKvQ8o
-         L417AZpEqKuwBbhYDbV7yLkjyrKK8uoDyka2WiK/Joc7HZfWKIaZ0UcTG0SeY7b3XiFb
-         kBGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794755195; x=1795359995;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y/hOIyUcvAfKlaaXm+bgaXHbjM9PJioyHvxOcCFmCQQ=;
-        b=Fxk7AjE5/6V6ws8ItmGV/ocdG1Mh8fBi3j/CV36lUcbqj8KipcHJe/K1m+LU2Mjzwl
-         wcr1eNF/KVTN6k2ZZb8v4ZDRPGVIEyn7nFlQH3SDDAbOBEL/l4ZmPfDSQTFQnB3fzOAc
-         Ph4T8TKpHLjHsSyAovnyLE/dRPQTy5MZz8vnm93ezafx+mh1dpUG8OkqjzHkySfrO1MB
-         mY2GMYtEa1UqFyDt9B6MqavJhXNlmKWB9zssiOkYxk638OvRK+Hxj6JzsiwXmejnRBA9
-         x5FXWLG19xQzpFoF1ync633ThecbgEKtCaJAJL1DTzyWjlxGCruCtYTPpsRy+q7TXTIN
-         Nvkw==
-X-Forwarded-Encrypted: i=1; AL+hErEibo67l3QNOsJxgEY5hFL8KQLO/thsd7l01v7NRGVp5/7MSuQ46gLxsXIILW/gYABaomdfBRRN8IOmZQM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3bwMqpcinzhGPPp01zQ5NYS2QG+PSHKoJtDH+uxL+z53LoamU
-	hTyA9qoqGDDUnu/0g6qNnH3S9zUHasZDMghFoMCRKkilry0wlQbhB3pa
-X-Gm-Gg: AYBFou3sENt4PzUgE5dk5Q/XlFm4sFaomknZsS2HH3lYoxoKvdJqvEonpePaLZtPJmE
-	VCY+0mIROchFnTckl0EDMwHI/84AdUgWQUNGle8ecNSPjnq8d0QvWqZcQWPT/q5INJL0qXOs/7B
-	aJIv1eHkoLdnQlOgwYMyK/JocriwOv5ULl8evJlvOHIcBXvZVzs1T4jOGeorPY/9qA8NSup/ldr
-	lW6w6bfh/uTyKCTgXIwjCsKub0sA97cfGrFPnk8uI8lsjmNjoXnNdl9TxdOzWZGPRuoJzR4zHVo
-	ICXyJEV7CRRyqgTQD2LkqeaFnGpCcNXTa8zcP3wfYPMiEpOVC/Dp54qWHAjjO4RrfBLxjXw89SR
-	kcsK6RU9s7e4nNyQc9/mSBeBQobYZF2JnSlJczbQ50lJzFHZ4+mdHDq6edNHCFdQU1/O5uRXaHV
-	OgiFb54aJ44jT24GPxpB3e5QzkwFxL4OulPT5fRKe/pzC9ETYE2nG8srtEK2MrrHlcgTbkee5lQ
-	/dpak8vg56ytCrwS+dqtJbPNxkmQH5FyeKuzdG9hC3PtTxnMJ++Al15LbA3rcNpVqZEPTYGP9EH
-	xxwUnMePETphXWlwxxujEKAuykmLp/mJdohQzCKUUIQxRtucb3MFNWI5+yj0enO3TQ==
-X-Received: by 2002:a05:600c:3551:b0:4bb:534b:ada4 with SMTP id 5b1f17b1804b1-4bb55abdc18mr178633625e9.33.1794755194903;
-        Sun, 15 Nov 2026 07:06:34 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2be55sm17236146f8f.28.2026.11.15.07.06.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 07:06:33 -0800 (PST)
-Date: Sun, 15 Nov 2026 15:06:31 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: andrii@kernel.org, bpf@vger.kernel.org, ast@kernel.org,
- daniel@iogearbox.net, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- alan.maguire@oracle.com, shuah@kernel.org, alexis.lothore@bootlin.com,
- luisflavieira@gmail.com, ameryhung@gmail.com,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next v2 1/2] libbpf: Fix sign extension of unaligned
- enums in btf_dump_get_enum_value()
-Message-ID: <20261115150631.3854c17c@pumpkin>
-In-Reply-To: <20261115084923.53182-2-dennylin0707@gmail.com>
-References: <20261115084923.53182-1-dennylin0707@gmail.com>
-	<20261115084923.53182-2-dennylin0707@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORwiHLMY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893241F000C6;
+	Sun, 15 Nov 2026 15:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794755196;
+	bh=weUeyzsssr8dS91Dxqw4Iq8kFGcygNjrCrPAqehGlCc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ORwiHLMYmxXPyBaOautNu04UKw3d887VJtdDVPax8pPHotHrCmKMkIyvRpu+hEzYy
+	 gt9xSGElu9PnvdWQk182cqwkh2M94cHZOAJAu1XhJK10xHtHJvLiNdtp8mL97bUaVp
+	 w7L7mx+Y2twfAf4B9+HUNoIoSkKlMy8gpPwzeTtMXF16yWyT41sIinLmdfgbMf3nuR
+	 D4aitWGt4WgmiLx5RXKLoZRYDOb+vkVN6DvyrtPPNERciCARX7vvIxtsgBqY2ZHbh+
+	 gENgRrBxtRse7T4gzRJ2PIKd5Qn2saK8eSKgo84axX7OFDOef4xKAYbsr2N7wE2Ayi
+	 NZ6uTQz9fbjfg==
+Date: Sun, 15 Nov 2026 05:06:35 -1000
+Message-ID: <598bee2c48b23aee00c404d1183b581a@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>, Peter Zijlstra <peterz@infradead.org>
+Cc: void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, mingo@redhat.com, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH 1/2] sched/core: Pass ENQUEUE_RQ_SELECTED on initial enqueue
+In-Reply-To: <20261112144935.583937-2-cui.tao@linux.dev>
+References: <20261112144935.583937-1-cui.tao@linux.dev> <20261112144935.583937-2-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,60 +57,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-On Sun, 15 Nov 2026 08:49:22 +0000
-Hungyu Lin <dennylin0707@gmail.com> wrote:
+On Thu, Nov 12, 2026 at 10:49:34PM +0800, Tao Cui wrote:
+> select_task_rq() sets WF_RQ_SELECTED and ttwu_do_activate() maps it to
+> ENQUEUE_RQ_SELECTED so enqueue_task_scx() knows whether ops.select_cpu()
+> ran. wake_up_new_task() also calls select_task_rq() but activates the
+> new task without the flag, so on the fork path ops.enqueue() never sees
+> SCX_ENQ_CPU_SELECTED and SCX_EV_SELECT_CPU_FALLBACK never counts a
+> fork-path fallback: a misbehaving select_cpu() leaves no trace in the
+> counters, and schedulers testing SCX_ENQ_CPU_SELECTED run a redundant
+> select_cpu_dfl() on tasks select_cpu() already placed.
+>
+> Set ENQUEUE_RQ_SELECTED on the initial enqueue when select_task_rq() was
+> called, matching the wakeup path. Only sched_ext consumes the flag.
+>
+> Fixes: 9b671793c7d9 ("sched_ext, scx_qmap: Add and use SCX_ENQ_CPU_SELECTED")
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 
-> btf_dump_get_enum_value() reads unaligned enum values through
-> btf_dump_get_bitfield_value() with a zero bit size. That makes
-> right_shift_bits 64 in
-> 
-> 	*value = (num << left_shift_bits) >> right_shift_bits;
-> 
-> which is undefined behavior for a __u64 on both endians. The path also
-> bypasses the signed loads used for aligned data, so a negative value of
-> a signed enum can lose its enumerator name when the data is unaligned.
-> 
-> Fix this by copying unaligned enum data into an aligned buffer, as
-> btf_dump_int_data() does, and reading it with the same loads as aligned
-> data.
-> 
-> Fixes: 920d16af9b42 ("libbpf: BTF dumper support for typed data")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  tools/lib/bpf/btf_dump.c | 13 ++++---------
->  1 file changed, 4 insertions(+), 9 deletions(-)
-> 
-> diff --git a/tools/lib/bpf/btf_dump.c b/tools/lib/bpf/btf_dump.c
-> index bbe86928b3ec..a80762a70cd0 100644
-> --- a/tools/lib/bpf/btf_dump.c
-> +++ b/tools/lib/bpf/btf_dump.c
-> @@ -2329,16 +2329,11 @@ static int btf_dump_get_enum_value(struct btf_dump *d,
->  				   __s64 *value)
->  {
->  	bool is_signed = btf_kflag(t);
-> +	char buf[8] __attribute__((aligned(8)));
->  
-> -	if (!ptr_is_aligned(d->btf, id, data)) {
-> -		__u64 val;
-> -		int err;
-> -
-> -		err = btf_dump_get_bitfield_value(d, t, data, 0, 0, &val);
-> -		if (err)
-> -			return err;
-> -		*value = (__s64)val;
-> -		return 0;
-> +	if (t->size <= sizeof(buf) && !ptr_is_aligned(d->btf, id, data)) {
+Acked-by: Tejun Heo <tj@kernel.org>
 
-Do the alignment check first, you don't expect the size check to fail.
+Peter, how do you want to route this? I can take it through sched_ext too
+given that the flag is only consumed by sched_ext.
 
-David
+Thanks.
 
-> +		memcpy(buf, data, t->size);
-> +		data = buf;
->  	}
->  
->  	switch (t->size) {
-
+--
+tejun
