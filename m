@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794750216;
-	b=bx6TMgNJAhM5qWtuUs3LX0pZyiaaUs2HHPp7R5PANmsS14H6EejkiXLcAC3b09N8OPkA
-	 Tj7N03eQ/9nfJR0Av9zkXFp1y4PQ8xDDR1mJd7WbMEqIPyelbZo0YngP5BSSTTsIxOI2T
-	 5d0IDnl4C12g+FG6mNH2qd7lI51GG535gAmEBgHOvECGjW8mJgWqCNUZwMt5VpK14iwde
-	 tPX1i/MjUJaq4oCr9ayQwslCFaypwPVrQCIkceCd7MKLUeR/W5I3+B2D4wCix3tHPoWv+
-	 TkS7cPGCZg6Q43ucLBPB9zFwYZdlVirqBXcnMXySpoZzfZSVxnQQ5yubIzq2G3Z4Oyg==
+	t=1794750217;
+	b=MK6pt/yCT7iiCvPu8J37CZXwcC4Kcf5217jIzJlr83U58vuuDljijpJrUUyQqd6G4b3g
+	 b8hAzuKndE0tDOJMW7f3WnC897DkDir5Zx4XqROKlT3NKNvyluNGRBHPsvhCcPAIg8mwp
+	 Mmbw0EThrTQpnsthnxzzHyWk/DrHlLtl9VaVHzlIAdoRNcUBRCsl0ievwScPHIzceGL6C
+	 JOqOjbTHfoBtVXPRsXVOeuLj6kd5B5XgtROcvgrGtd2fM9zj8GyG4Tgd2Bvu69aEFOH6p
+	 /jCOabTDQT705MY6EVBFvYCHiasD3uKtWZfTCSQuFturNMNVxXRI/a5W+NV1zQmKm4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794750216;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=r1BWchFZ0F6U4eL8O5cOuqHAnPS3YQCASCANNaxwnwE=;
-	b=NjgZYK4/rTElD2jtyM9Sme//X5UcvOxp5d40j7iW00vcp+0QiWYLlMmLBTPolgzcUmI4
-	 Lo+RgDXyqY+qCkyW1BkqpZ6Ts96onvZjYlkpd57DJPS0fUSu28UGOV/+SJK4G1NeZqbRM
-	 zH08XtcPE7785GdsyrUAbt/tK9AvJa865ejZ8pPo+7jxAi15B86CHo7/F3TwREXSYBfQJ
-	 PhU08bUt+e/NnB8wXm0CtqRrwWKHrlYP23FGf2MMs8rbJmUd41brfsWR/HORyg9txwtM8
-	 jAK6FvaWp8+LNSCN/pDjxur5MRRS+mCxVlnp0FjRv9DUgP7lyv0ByHJCo10fNjCJYiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794750217;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hKmNG7/PUDkTFTFWHzBH3UfWdxGcdz+gZqXAszUVFns=;
+	b=gVTxwcYEcevpEMV3SQrGU5jgzX9NCTRH2YMFSYfxxydfvZfcnfXlnOyo0S4JSUCie/8c
+	 dTwGBNLNH24BpcX0NCE7WRUTmCfM+5riDjn2nMV3jiztn5o0ABnkfbo34CQJ7qPlenfz5
+	 BQQvj2LLrfhaUd3KN5kuozLzMj6ee1vfDrxw37g+1aV3OXa5/1bgiYppGeGapj0Q+k337
+	 nfKu3ih13TyYYDuC/vPVAdVUUucRamNfsPblRJkQIS+VHPP3DfIi4TXhliHDUiOl1QKwm
+	 u8dw6fBSjeDANWuIQKnTsuVReujYaSgUIr2VQ0QgRL7rmwr9osGQimpWTqAGdgRBQgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=spfOm6x7;
-	arc=none smtp.remote-ip=91.218.175.103
-Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwksNlKK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF037606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF037606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3C6606A329;
+	Sun, 15 Nov 2026 13:43:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=spfOm6x7
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r1BWchFZ0F6U4eL8O5cOuqHAnPS3YQCASCANNaxwnwE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794750213; v=1; x=1795355013;
- b=spfOm6x7sfenH13qNLn8ER6w5DV/ryfpEuDUr6k65eZ0IyHssOKHvWFKP5H8wSFHWD4aa2IL
- bnOOtMo4ckeH71SbJnOt4KCzb4y+meL9n+3rII5AOGVdALJhDiSNfSAo4iGeM8N02QQ3iaQqDfC
- gk5ehHnQbHaRrLv0eWS9908E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8dc64cd74b0b1ec3;
-	Sun, 15 Nov 2026 13:43:33 +0000
-X-Mizu-Trace-ID: 8dc64cd74b0b1ec3
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 14:43:32 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v4_7/7=5D_wifi=3A_rtw88=3A_88?=
- =?US-ASCII?Q?12a=2C_8821a=3A_respect_peer_A-MPDU_size_limits?=
-In-Reply-To: <20261115114336.1739863-8-hjf3108@gmail.com>
-References: <20261115114336.1739863-1-hjf3108@gmail.com> <20261115114336.1739863-8-hjf3108@gmail.com>
-Message-ID: <68091FA5-A6C0-4485-A01E-E1D3C2132552@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwksNlKK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16041F000C6;
+	Sun, 15 Nov 2026 13:43:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794750217;
+	bh=hKmNG7/PUDkTFTFWHzBH3UfWdxGcdz+gZqXAszUVFns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lwksNlKKqWcap2cDYkbGiNmbIjfil3xcjpk3c9TeIS+UEKav9sLziQYzFLPZMy9nX
+	 oW/j7rbaX1jq5flNWOL0zWykxRQsv79YvWODHjs9P0Z8MjfrE9vJGTnnL+TvZ1w2HC
+	 XJOhVLoGJGq9oUHRKL9iBzXM6d1YjL+VRCCRgMYmKEe16khZqL8d2hjhkNwdo/63v8
+	 sjn6SOfnML8R4EmWYn0hKXln34DAxcpoIbjXckXaA6nlESv/paFovQF+8DBIef0UYa
+	 KrCo/yqi+Q8Fzxh8FRO6RxhlMFRoHCJmHCnnfrPNMsquSZ98MotNLeyk24eGAarQGW
+	 EzDAf3vgqEclg==
+Date: Sun, 15 Nov 2026 15:43:34 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Xin Tian <tianx@yunsilicon.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Junxian Huang <huangjunxian6@hisilicon.com>, weihg@yunsilicon.com,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org
+Subject: Re: [PATCH v1 00/15] Yunsilicon XSC ethernet and RDMA drivers
+Message-ID: <20261115134334.GC42525@unreal>
+References: <20261104155650.37053-1-tianx@yunsilicon.com>
+ <20261110104822.5d8a1a76@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,24 +62,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110104822.5d8a1a76@kernel.org>
 
-Hi Jie Feng,
+On Tue, Nov 10, 2026 at 10:48:22AM -0800, Jakub Kicinski wrote:
+> On Wed, 04 Nov 2026 23:57:31 +0800 Xin Tian wrote:
+> > Subject: [PATCH v1 00/15] Yunsilicon XSC ethernet and RDMA drivers
+> 
+> This is way too big, initial driver should be minimal, maybe 6k LoC.
+> You may find these prompts helpful:
+> https://github.com/kuba-moo/ai-prompts/blob/main/driver-upstreaming-prompts.md
+> 
+> Each patch must build cleanly with W=1 C=1.
 
-I have one comment on this description as well.
+Please submit the Ethernet driver first. The RDMA driver will not be reviewed until
+the Ethernet driver has been merged.
 
-On November 15, 2026 12:43:33 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
-wrote:
-
-> Honor the peer-advertised receive limit for transmitted A-MPDUs.
-
-Could you mention that these chips had no set_ampdu_factor callback, so
-rtw_set_ampdu_factor() returned before programming the peer's limit?
-
-I think it would also help to explain that the new setters clamp the
-factor to the chip limit before updating REG_AMPDU_MAX_LENGTH.
-
-Best regards,
-Luka Gejak
+Thanks
