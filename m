@@ -1,95 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794708113;
-	b=AKGQw6JZsg2bdZqV33+Se+VR8h0GcVi1SgUiixzSPgKy1IYrCgTfQylddFBT58rCsDEW
-	 iYLxhBg/Ec6EO1F3EyCxF2lyTMd1Ov2fZoWmsWK6yL6gCwyqvLJPQ2fb5kEyUtITPbJaj
-	 8RHWU3ExHbFZJN0JD2z04rb62d80l1KfP9ANdlvKCkN/WqGc+7c/sbFM/jfbQ20prR4Cd
-	 QHAydEzOgmoayszGnC+VRM21XjJ7N3RXyt5mgcpKU3IE8s9YBdkMS1Q4N0HBAwRwmaHdF
-	 Ye9ZOX1cq/yCB/+mapWHsFdF2re9fj8hnCfUKtbktzsa2XdCpPnzSmvVmINipbeEKzQ==
+	t=1794708170;
+	b=IcINnEHXPVjT5Z8xsEGqvHJRqGUlfQR31aW8XAttXv8ZcdxkpAIfprYWxRKg8Y0as1w/
+	 AzjO7evJwiDmjrnR2wiRKYtj+KKTOgEBIYpyT8Hjf3KEGuvqWKRP0m0QaUQ+gafUDW1VO
+	 ZWA8F3BKjyLLFQy7Oux7GZ5yCnhoVj040hyBIWdUlkwoG2NoxHctprqw8lL+m1WkyGQ9s
+	 h9VuX4w6McfbpSDcwHI5Pc6+M6Y1m7nyPEvxAbqWavwXCiLHBM5PoCH4jwxQFwa6KG6/R
+	 cFGPOMPcwNGH7x2AdgbgRJLwa/LFU34uaO8vDuptqEpSIZOykKMG8gfQBo782+RqjTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794708113;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794708170;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=CQUJEsM41kQN1gS1eh8fcKksxwF/ZWRkcSj8ZZ5afgo=;
-	b=Fs/w1Fi6OGErc530m42iNLMJGTQFTsM1oWo90BvFMfItCEfQFYpqAAM6D006RMQv3ZG4
-	 8sk5h6Edbu7AvjVhSXq691MaHqpKAynTdXukr/mKWoTzbKwvDLQDv7tjnMnkQALNrLLKK
-	 Rd668cvDDvom5eKQpq0sapPwN/8EjAxeIuflmZHrFrirbzQXHSTBlIvxed1dD5XQyUuxR
-	 /mMSNqJj86J/SVXs2VJbA/+5a6Tk6EwkiwH9yyzDwPBJ+KjeUnpLPF/Cl5Kcuach6IASf
-	 PARUM1y574gIPvAhYct+IXO2ZcYJ3JELW9d4uiS0YyZk3zoFm+35BhlYOWIoSnNLrNw==
+	bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=;
+	b=TxN1S0+iOPMt+dZwP7cdPgOYmeZJZPQdVtNfj+xO6q9tORNSGRjP/4stA3bj0OM+2+YK
+	 g85oOp/oYEGCSQUYr0kZHH5BUTEfKAT8qf5QXysWg/xfe8viOjMRJn6VO11VOw+4rbpsO
+	 fhfuBBa+m3gl4wYvJb9nTyYdpiHcnXUT1bWfJeC4HkyvIXJrWAUb11b8PKzsv5t6sUMqW
+	 D/0/0kDYns9YxD1Tq1yr85n/s58KRp9fwQH425rXSMAm88k/3g3CJK1NbeVebDf4XpJvY
+	 kqabtsNKN5TIaBqe/WL1Q3HcWEH6xyt2FtfLO6JgeNl+xUMxfXJOqZ4Np6UDUusWUMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JtZWb36q;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=jpltLqPc;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4haMV33o;
+	arc=none smtp.remote-ip=103.168.172.155
+Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41BE606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B41BE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38872606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:02:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38872606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JtZWb36q
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-37d424f1ae8so562615eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:01:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794708112; x=1795312912; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CQUJEsM41kQN1gS1eh8fcKksxwF/ZWRkcSj8ZZ5afgo=;
-        b=JtZWb36qW7JSsf2oREUwNmV0N73WQXL4ymDp3d3pF8nvydsVsmIvBN4L09dB5MAeJk
-         pqpocR1/1pFMUUfgYwB56cxqGBk54gEgkLqjvCsO73mlaV/bgcbLB0+ifML5FVmouXVI
-         RXSEZxg4xG88cT993gOJ4V7B1+Prn7mUs/N6iVgPcjC+5aPtFicwoLgr3EashKHfgEBG
-         /wBS0xmQ4B9Wtvt1WGUgYPeuI55A74dGGySEjQWd1v/3Wt1RQNp0Vmx4liOZvC9I7s6+
-         aCdm34i4ervs9AMsSvWrfUjp/qBoRU+1xUan9UUOw+E7DwGBfSxeiRfC/mchYFVm/o1Y
-         3DmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794708112; x=1795312912;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CQUJEsM41kQN1gS1eh8fcKksxwF/ZWRkcSj8ZZ5afgo=;
-        b=q9g1Bfo7A9DG2Kczdk1p5221HH5fk5clQWsl6z1qlRN9U3QtLXFr5ucmXP/9nv/cP+
-         qD91AY5sWlEKr75othEYTZTeVyt6WYu7le5E1A0e5JZqKre9tAmJ83+MR+Yy+hyTNTiE
-         stTDrbEi0ZqtHIFaCwWYXpti0C/rK9pkTEeqedrcl3t550VJnIjowIq7fkRnR0KYLdvE
-         faH/gJGG8iC+bJSCCfZO+02CxfGqTYX3u7PyRAaBsUl1FhGMXB/RJ3ZfmFIWbEHV7FuK
-         QmfRzg9mE70fL1k0l3Lc7gFGImAMZNBnJ7/r7y93BA3W/PHcyXo2Li5P/jxvIlDQG+tP
-         PBhw==
-X-Forwarded-Encrypted: i=1; AL+hErGrfBA+sDJ9QcCd9SgObYKQqAMEXVD9logsGHMJV3cV4iEbhTZkvHBtl7SGyEVIoUV8KAOQW/+4h5N2Jls=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bdq2HrmoiR+KHSmBXrLE9fR2B2Q3jMPKewW1dLkaEWmX3+CH7
-	YquYYm00ZGPtGvSdO32RLrgHsfP/ewDP1jBx+citerPvaQRCPs8XsWs5
-X-Gm-Gg: AYBFou1Z8CBEEWvafY5hpX66NN/QKCoxZ6w+gNrweZ5ADADiVyeLfPrAeyDP+df0D0C
-	AlZActS4ZQOcb/HSay29hcmY99pmm3ryKzFC3LV635yjMp33KCC8e2ky4VohqIKVLxbVs9HCjYX
-	95JJ0p2+dc9amPSQF3uioO/sdMva6JeQXw1ld8o83po3ntXMj0eUUWD/eh8A7ODo60+O6eEEDxo
-	NkdAgDXTrm/thHSptbfHnyCHJPEWPWNta9KHFPcL5NBrgAdTeqFUfNVf/IlwltU56Pbtzdy9wR9
-	+Y/1UKlUlPwB7d5JYgsJ2mb0f+jr0Mx17Y07PCsMKIfrRe59x/Fuxri/Ia7tIzXUA2wsQ051kXM
-	T+IvD9CtbEclBqoEFFrJfGV5MWUGLZ6PAqRzOi0WNAS1AEYxSJKsysURlG5ZyNR5jVN6eR36bwc
-	PdPKjUZ/4YxUkcQTrBQC/AjBtXwCPAScwUilukFgb6iK5gQqpCchOOwCJH49Jw+odg7AFQkmtE8
-	9yvcfSPlsOTI6LCVxyScX/4gUIVRLF4dm0TWYCN1AkMZnHD56KrdSoSc6fEu6xc0ufj4p34ocFP
-	HpMvbF+iuu65bMqb7jg5gVrmp5hMrInAylT64+RG8Vt8hx9JqlgdSPjcO1NOFdHj4BKa/GsykQb
-	BMdr9
-X-Received: by 2002:a05:7300:ff43:b0:36f:6b99:f963 with SMTP id 5a478bee46e88-37966d408a7mr6873878eec.21.1794708111511;
-        Sat, 14 Nov 2026 18:01:51 -0800 (PST)
-Received: from kdev ([131.179.133.114])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955ffcbc9sm30588433eec.18.2026.11.14.18.01.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 18:01:51 -0800 (PST)
-From: Niloy Meharchandani <niloymeharchandani@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Niloy Meharchandani <niloymeharchandani@gmail.com>
-Subject: [PATCH] iio: accel: msa311: use devm_mutex_init()
-Date: Sat, 14 Nov 2026 18:01:29 -0800
-Message-ID: <20261115020129.10259-1-niloymeharchandani@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=jpltLqPc;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4haMV33o
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 5B058140003E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 21:02:48 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-09.internal (MEProxy); Sat, 14 Nov 2026 21:02:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794708168;
+	 x=1794794568; bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=; b=
+	jpltLqPc+1cMXe8U/4NNjhTBF07N1HJLp5JaxV4gXQzRZlv5sIGERY9JKds5Z9yg
+	Nzdj38K1xBxpbWkwksuFK8KcawJQlmhNS+ATLBTxA48j++/Sk4gFO6lNyX+g3J7T
+	ejVxjv4QrYjpuPKwlPWKXJ8oiiKPcSu/36V2ynaqITfJlbcSpW1wo7YsjyQvzuV2
+	pXWt7HDtSdo59RBgtPtVIRnpyoOdyUG7uQmqP1ev7Dn/cCYL+BHg1WH3EBmwP4il
+	wYSj2vktsd6pmlz2VYwAkrsACUysRUgmeLUU10AhRgrsjbjuZAfLKoF8+LV/IKtl
+	OTH+h/WjRBXZ2nxltvgBnQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794708168; x=
+	1794794568; bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=; b=4
+	haMV33o8rJYNBBtMSnF5ghWdDrsxgk8USzpPZBdpgN9cVMu10LFy1Ycqwx9PBmvy
+	4L5ooYYTLRZYUdwkWdGJJWzulrt1cnKTmYMW3wb6eYAPz3jaYkyOoO/71TLdJE3V
+	HeSBxANeu2etF6Hvoz7m5JTXUFOjusTuP+ivB2yVawfqmhI7sUHxE5V/6YqVOZua
+	5TgvHFOzRouLwJRAW4PAwd/+PsfV7WkIETOUYQI/V07mI/+yFF5YQNRQAKWfJyuF
+	tsp4j/UzyfUBXlTry0R0x4MkX8TMSFmEYDwk020PuKTeOSrdSkwcoGE/bfmTu7wN
+	qava5rk2qrlZXNDGQw8pA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794708168; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:BGGn5XOAfybA8E9xi9r6uKGuQghhts/cs72MFmELx2oxs2W
+	bES8Z1CF2QSLJ/25bPicyOfjjcs3FB/F2uN/lG2Kmj4DcbhfU0iPi3KxEfbcUVcc
+	O+PBd2C/kEBNe92vUwxQG60FVJhXqjRErHgLegcr1M08EoP0vb+vhWpLgdoyEH1U
+	JLJuSYQlVR5r0W34wfSs8YQiiuCeLJwAwMtyKwO+L9gFhCRo9jOeIN/Jk8vf4Lwt
+	P4VWY8Ccm26zAyH9jbEhzFqITr8cMJBgwWWSTOY5ozZzP/C/TY6ZOM7l2ecAfrCW
+	MSkgkyy1WJ6c0mPMR5prTGanIdrD/0lhQyMlU0A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:FFMOKhGJ9p5eEH2DWlocJU0y0igLo2sjuCpJrZ4TlrE=:Tpw3Non5gE6pOfwR95MYUuG0UIe4k4tfuqOTIQe75TI=;
+X-ME-Sender: <xms:xxL5aq1nOGhKMVoze3UkOdBNoD2EMM_t8CGYGS-hySl20DKiv8FEVA>
+    <xme:xxL5ao_hqIIuhdC8obRYOMqsZxyOXvwAZvFYjmXiRq3t_Cgq3kH7TY5HWnnb6wWAc
+    pQ_lBdgRiuXAqJOB9WrUgvoEQZNCW_4H7GLUmSRJkrRU6ofbSy9E6E>
+X-ME-Received: <xmr:xxL5auZqdlfqnyRwfOHAKdmJObz2InV71Aa9dE3azzW4fr6aNCNurzR-lwswTFVOrNslPb--TTerz5ywjrHfF0fWBby-h989>
+X-ME-Proxy-Cause: dmFkZTEBnDdc4pznVckitJbI95Pg4sruqJ/c4GzT1RFlylgcChDtglOD1navQFQG9T4WdT
+    LXPCzMsSu7+oOpY/tjKnfqRsuvXzo79H7cOA+v8kIeagruBSfkGe1+uq5oeBHFGJxFr+36
+    AL1dyct1h4wr3rBmLn9Mb4ldooOvCJeU/TUZucAGYD3qu7WQf20bmLL323jDt17o5E5bJd
+    APKGrDsMvQH8nXrriEODv1pzjIWhRVRoWXpqc25IvCd8u8I1ys+BU52SWIU1KX0u7NkRcN
+    f8RnJ7Er57suWh3UQVFeSXdvs5JOoNqt9S4CjwofcljgVELRsd3VxZ+7ZrtCw/esE8y3b7
+    /dBG2vrnnO8SKWNmcG3dsndWf1biHJlej4f1ljsec9wVKAjrb18RMjAeRD/aCOyrHW99mS
+    4pqtfeJI13SWVbp5YsBkIOU4sSMXmsaQ6+3BoEeICygVGxS6PKpRE+WGCOAVrLLRekQB6w
+    bNEwAO7Q2Vm2URk9D9lKEXS8/m4ue1ZonxwuXy9SIfJA2GyuAQ/qR+EibuGeYL7xKQYKn8
+    /68V8pfketRlDNN1dqxK6g0tQDk1a9VgKMR1jEAhZ+caP/o0JQfG3Zoxauh0eWxxhpIgAf
+    xfbPJJQHuln0cm5vVodt+hvcDl3V1Gbu+LMxwnbVatrU6X8R06xC5DoMLqPg
+X-ME-Proxy: <xmx:xxL5avwR8fRZofkKhc99HzlOq0JBscni2uz8TmbXvJMNUgbhlO1G-Q>
+    <xmx:xxL5ak_JiHhyG6a4W6jMxbHylA_JRapgiQs_nroXTeNngL3MfeFB6A>
+    <xmx:xxL5ajxHSg7--_Eot-wiG4yOrh7X_x5udtjzNeiHP6V3DSy9taSfMg>
+    <xmx:xxL5ahteuo7yxBCJEaPn2OVoilGuzOCBCqcWERFosfuSNtuwqiQf7Q>
+    <xmx:yBL5anIzwXDe2ioczJ87icRmiKppHm2Y2h8Is0__2b-fCef22e2ytdAH>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 21:02:44 -0500 (EST)
+Message-ID: <e750f93e-1378-412c-b213-4d0e1408c067@pobox.com>
+Date: Sat, 14 Nov 2026 18:02:43 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,47 +119,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261113153820.902362109@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Initialize msa311->lock via devm_mutex_init() instead of mutex_init()
-in msa311_probe() and propagate any initialization error. Include
-<linux/mutex.h> explicitly.
+On 11/13/26 7:42 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.64 release.
+> There are 686 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.64-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Since msa311 already manages all remaining resources with devm_* helpers
-and defines no remove() callback, using devm_mutex_init() ensures proper
-mutex cleanup on probe failure or device removal when CONFIG_DEBUG_MUTEXES
-is enabled.
+Tested on my Lenovo ThinkPad T14 Gen 1 and an arm64 virtual machine.
+Working well, no regressions observed.
 
-No functional change intended. Compile-tested only.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Signed-off-by: Niloy Meharchandani <niloymeharchandani@gmail.com>
----
- drivers/iio/accel/msa311.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/iio/accel/msa311.c b/drivers/iio/accel/msa311.c
-index caf9b1b6397f..0e1af4761b7d 100644
---- a/drivers/iio/accel/msa311.c
-+++ b/drivers/iio/accel/msa311.c
-@@ -29,6 +29,7 @@
- 
- #include <linux/i2c.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/pm.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-@@ -1156,7 +1157,9 @@ static int msa311_probe(struct i2c_client *i2c)
- 	if (err)
- 		return err;
- 
--	mutex_init(&msa311->lock);
-+	err = devm_mutex_init(dev, &msa311->lock);
-+	if (err)
-+		return err;
- 
- 	err = devm_regulator_get_enable(dev, "vdd");
- 	if (err)
 -- 
-2.53.0
-
+-Barry K. Nathan  <barryn@pobox.com>
