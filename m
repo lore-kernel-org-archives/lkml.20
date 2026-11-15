@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794718908;
-	b=3hTRyA0tBon+kl12is9iceT7VAa4SBJYVIViDuPoJBjsZ1EBi5ES11tnVYCE6z7b/0iC
-	 MpUAmGJ7kuwcLEUIsz8aYXxjlZeZl+SCCEe7ZBqK1xZILtgX2j5HQ/DRFZJomga37O6Ok
-	 7xhRVyAMkhu0EyywRuWVwSgtPo+//GmTFTDnqiy+6PJquJO0vEiNc4PLqte7d2CaIraPo
-	 WVxWjSLur82PScxKDj0Z/zRG4DJ/IcvQt+LIBWCaLlJNsSbNAkHzINoETCjXDAi1UlkYt
-	 Hy63in3Yg6A33wxViMuufmlQTzVbXAcoCHt8kFIGEaa/VVWCYy5T7Y3uQyDKYLYFWqQ==
+	t=1794718927;
+	b=syzrPExcZDa0ADR0zaiJSaVJbxWA3WBAPnjrZcpIrDlr4N7OOrlYPeUSR0SKYInSkZhu
+	 3+DRmF/WuIBQ6/PDJtjNwB8+vpo6D4j+biplcXIZJ8bI+bWI7CfsUEXR9tDWd9nwe/rVR
+	 xMY/KaFmBHm9zQeWun2yVar+8Nbjr/ojm3c/RnHDsTpPgLuHmWDy/vscIdkgLTVfOq864
+	 FcmeP5ySSWbqWpZsBn1K8Uaq6ELXhlOHV/aqDeDsM276Xnfg2KNtIP6xTZq4DMTOlE8EC
+	 UVf1uNLybzafoh2ftbzcjLd5FEXTyiVUgtyyv/9yGoXLxWT4Wyx6/8K86PJGUcdK7yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794718908;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q5Y4EGcEbwCpGEouSqydpRVCUuNFu9xHjxA3h8F8yRo=;
-	b=mTQnHI9bY80xxKHR490tj0SCOAlUaaKgpgsFwurjfF11ZeADZHrjCZTjOgmPodvtYUc/
-	 heHz6zFYnu5dTuKD6mAgE340qCgBNnOukX9x5Nf0nNmn0zd/zpX3c2ZJwIDzasBS4pzPx
-	 B2+TYj6BiR+zQJAsCUw1wcDYZ8z8aM5PpcI/6J8CTdVE+YWYdoefhphF6VGkIN8Y0xtu+
-	 4EyCIBVSzzLq3YxFViYVdllobvhRYMk8UkG1srQkAog7UsywJ0j39Eia/TvvczSXNQb2s
-	 cuWzagqHeHk46CA7jrjNaH6EKZjmzitJzx4k6jv56oCnjSahHnJ5QzLQZvYehexdcGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794718927;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RvmTX8t5j5/IoltMXAdXZ4t6ouHAYznQwasZalqaL6s=;
+	b=quyxYYUh7dXdUXKkEZ5Dx+9PfPsEPa4Q/83F7E21V+8D2+OtAVQMsTr37e4xMQUBPBRQ
+	 51U7N5w+HvCyo0zMZPM5JiZ1POpcjmR/y3ykMG+SNK86O/lsOrpRLMk0KQY7xadj6JXJ6
+	 tPsbolMa9NM49tR9geI3S7keXgF2C//aMalIB+ePvORZlOaBuXjJ1EhLXX2rAJ49zFwnu
+	 YMJnfbPFJz2jZzp/VPngIK+UYCAeWB+c3muzEyOV4oUr+ktsWZe9OLtAizBxMUidPt70j
+	 Ehz0Cc4yX1X4c3MVZZj9EEPMZ0rqLNxNQOTRM37ssEQhO/018Yy0qfrcAW74uzUYUQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1QIZrsl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izOZUxYS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3542F606A329;
-	Sun, 15 Nov 2026 05:01:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35740606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1QIZrsl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6E21F000C4;
-	Sun, 15 Nov 2026 05:01:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izOZUxYS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E59CA1F000C4;
+	Sun, 15 Nov 2026 05:02:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794718907;
-	bh=Q5Y4EGcEbwCpGEouSqydpRVCUuNFu9xHjxA3h8F8yRo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N1QIZrslimBijwhJa0iI9wNCWaq0NzHVavSesSsYwS03JSnva+dJEcn+PPBVpRE3i
-	 0fLsf+hzJpVCpL4SHHCWqeoezilqo7M0zzH5yAoKlC198rPGBMJkuG/GmBXADE7ty5
-	 XgfIZg45rT1z4+1zuTFdWdyxIP1UC5B3m8sX+pcoAaCTsaqffOU8KTHpNySOBrenwX
-	 vGNpcVHrc4Y+36sk0GcpQlRd4s9lFx2gmWLBrnMlvsmkWJHHGucIMcMM/JZU/OkSkV
-	 BhqjsCT6dUX+gb238zRFuNNEPX4kPbR1jpZOm+Xx/6jsqpIXaIkqy8xbWFKqWgSq7m
-	 sm7BdqicIwuAg==
-Date: Sat, 14 Nov 2026 22:01:44 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: kernel test robot <lkp@intel.com>
-Cc: Kees Cook <kees@kernel.org>, llvm@lists.linux.dev,
-	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: drivers/misc/lkdtm/bugs.c:492:31: warning: unsequenced accesses
- to volatile qualified 'element_count'
-Message-ID: <20261115050144.GA600738@ax162>
-References: <202611140405.wMowxoPE-lkp@intel.com>
+	s=k20260515; t=1794718926;
+	bh=RvmTX8t5j5/IoltMXAdXZ4t6ouHAYznQwasZalqaL6s=;
+	h=From:To:Cc:Subject:Date;
+	b=izOZUxYS8HzrKJi/UTtmkSX1XsfKOfNT/yiOgTXLdnD2mb1BL2X5Y0LGXWS1HHELm
+	 u5zNT/MvMnyq5cDMbRI+VExbc48PKodmpXx+pcb7xSEg3xoWvRxJtt4dGYjLL6O9s7
+	 YM5O0UmhtfXCvw4ZKHKaesI0+OPAda34j10NsiEiSBP1cua2JuJGQAUXekQkSYyEMG
+	 3n+6t+xGDvI6xfCthg7ELLZaNoJPC4i9v72Ttw6PT3H3cVrCAFWqcsgP2C7G4tEooH
+	 52EdZ/htiGD5VY4UChDHYXH7saYSG/+F/XE0EgCNTNMZvxZugmg2YahDHt2zasdGpC
+	 2UHhDR1omBYWg==
+From: Mike Rapoport <rppt@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] kexec: MAINTAINERS update
+Date: Sun, 15 Nov 2026 07:01:59 +0200
+Message-ID: <20261115050200.1847508-1-rppt@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,34 +60,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202611140405.wMowxoPE-lkp@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 04:47:52AM +0100, kernel test robot wrote:
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> head:   97d73c8251226cf27cc6656b4c542869bb8c69fa
-> commit: a120a832e3ebca48474d7183ddeadf4138472535 lkdtm/bugs: Add __counted_by_ptr() test PTR_BOUNDS
-> date:   10 months ago
-> config: mips-randconfig-2000-20261114 (https://download.01.org/0day-ci/archive/20261114/202611140405.wMowxoPE-lkp@intel.com/config)
-> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 8621950157210c1fa68f20f0614cb51310ec9dff)
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611140405.wMowxoPE-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Fixes: a120a832e3eb ("lkdtm/bugs: Add __counted_by_ptr() test PTR_BOUNDS")
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202611140405.wMowxoPE-lkp@intel.com/
-> 
-> All warnings (new ones prefixed by >>):
-> 
-> >> drivers/misc/lkdtm/bugs.c:492:31: warning: unsequenced accesses to volatile qualified 'element_count' [-Wunsequenced]
->      492 |         inst->array[element_count] = element_count;
->          |                     ~~~~~~~~~~~~~    ^
->    1 warning generated.
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
-https://lore.kernel.org/20261114-lkdtm-bugs-wunsequenced-v1-1-b24f15ce1328@kernel.org/
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
--- 
-Cheers,
-Nathan
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git tags/kexec-fixes-2026-11-15
+
+for you to fetch changes up to ab75132e99eb0b7dcd3a1882e35519f8229a669e:
+
+  Remove myself as a kdump reviewer (2026-11-11 00:37:37 +0200)
+
+----------------------------------------------------------------
+kexec: MAINTAINERS update
+
+Remove Dave Young as kdump reviewer
+
+----------------------------------------------------------------
+Dave Young (1):
+      Remove myself as a kdump reviewer
+
+ MAINTAINERS | 1 -
+ 1 file changed, 1 deletion(-)
