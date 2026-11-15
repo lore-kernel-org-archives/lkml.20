@@ -1,101 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794731106;
-	b=Jqikkd4MVweGMbLblPWDxuLm/YdzBSyr8K5PqXVAdiNTFb1QaJ4V8uv4w5E2R8NETJaH
-	 FA0wPBrQCECfPd/ii49ONM8uJ7B4PmXDaqEDp9qGBowY5dn5qX+YOU0i6ujCwclniY+yC
-	 nUKaV9Z6KSn7adyb0/krICV0QTCNHWnG545k6Debaxf8Ih8IOlh7GZ2zIZ5cNHhmLXHns
-	 zu4k3Te0biCQ1sGk0sPqx4KSOjSlXrkjC08WJnjih3iu46JYeV3QKX+f4NsSIS76fbNmp
-	 HEt6K021+KJxhLI1MFjP5gYzOkza+chc7JcdQuItfDyDABsKPCf/bEFgtNsQQbxuNlg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794731106;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794731110;
+	b=UM6fMmjjZCvR4QHdpSrGKjFJN7sfo5oKu3kFgsqSIAIDYtgbwCeFwoc9R+MYbmFhKI09
+	 JBXaOTnzm1MOvwaofpsZVqYBGqOuoOrH+PgPDDFKDVXQ98sacnKItedWMUwa4p70X9XhE
+	 iDQLLSDfBzIMFAkA0JPvvJQndD0oBC30t1cO7WecDSE9Kb7hru+HX5iJIAzXYAF+v1hd8
+	 2QAARzuL3N8acQOUS584Tpkou8bbT4xN9k/KXYIWi2hZ992SZ2/3wgoC1SK2/0eRMqELA
+	 xQhUW1najo+tQsMOYNYxtTkehCWuyJjvSUpvpEN3VBTgRoedaKCZ1rmKhqJn8WbGvyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794731110;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/Px0VIJUlGzeZ9LUedxi9YmXr5Pv4gH8RZcOXqIrVUQ=;
-	b=zi2u619RoLgRKFO7vg/xuYf6f/DpRkcIG0ULzK0sLsd97hvRDvXMJlUeWOvzOQjGphC2
-	 RbEBAOp4TZhd4uV64NqjZp9tHKVxREHX4egbYXOUEtCP+u8xwQ1QgIMKp0gYshS6KOzoU
-	 mh7qZ1P3Yj0mkwH4VoM/Y9obRuJJilKumYojkcguVwalnjaVb1WpnszTRsygON+P6d0gP
-	 JVKoA96ImSACTmjI3HZ9QEBhk25duDhsHqvwh7rRLUD6v39GF/KaQn7dqz9TLxC/oH98N
-	 d3pWWsu4raVOMoUIqFNeYsBe84mwOmcl14awf0oLta6t/1GgBEHrxtUXWx78vb7P8Kg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=IR9SQMXY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wnoWZ39CWKlVGBavzBsrpwv3xdsKQNy7nRW5s5dEtYk=;
+	b=B0r7o3pQjeZPoZrl23lV4hchifS/c0eaQolxMgxx3njZZaYs6sM1o2YFLiiv0Y5iBMMU
+	 HLImPbo6Pgzs6055RzW+QwhlDk5Xbv/ORkfG5zF14fPp37s0sRwkRLKWWQrmuSS1DsGns
+	 0zgL3/Wwzzqxrv/tC8Xpb/Ksd67nYozhls8oKwQ1lGRPpsFlWL6zMDxPJX9Jw+x3DYua5
+	 20fU2nNN64PK+K4UY9FXtQyuL5tyFtAUSFJThQ0U9vXWTct/4Ur6ZxfELsAYIpufOExlI
+	 LcwXUKhmuFOR1IT573oNK7/pEJenyM9PoUvnG+b23Ww6OAc5TrKT78pBQhvcQSET0nw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPUH+C+d;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5AB606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:25:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C5AB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B95606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:25:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5B95606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=IR9SQMXY
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so2740605f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:25:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794731105; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WMkxElkiJAIoKmSk2UMraGZYkFJjHQRqyHAivn5wkjCgfNiIAFtKLBzepP8E/DiBge
-         B1yvnGUdvW0x8JbXL1ckA2ijqN7G9EDx3m+tOfJZaGv6KAPEvgAqujWZ7xvq2drSR0fz
-         6HBHZbIahbCjcWi7Id5VMiz8xrU1c9vODlzdZL6VJGCytAS7qkjllIx97zWXItnKNiry
-         4e8JgWpu5dk6q8diVgWv52JsSVSXBhUAQMKNqmBVBm4zsoLYtfNZyOYQiFbioutuSCTS
-         U4BaH8QL8QhxWXfzJcQV9YfYcYif9nBmsa21AWPwV23PZEWCmCUywg8SlX1Xj62C3EUa
-         x+Mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/Px0VIJUlGzeZ9LUedxi9YmXr5Pv4gH8RZcOXqIrVUQ=;
-        fh=G5Tr4sgHsuXhYlPIoZt2TY3ZHq7KOLUBunF5NeaC7Sk=;
-        b=TKOmb4gnnjdEafumjysTcbL6PtEB/N+im5eqojka0O/wlNjipE1aksFWQCb3K5aXfs
-         YkheMhqaPpz/5a8HLKd9MTZVJ0OvRFD/7RUbDwIt+xRL43YZ6iFrdM3+XgdAR4MAUtTi
-         PjUFvVZUbb+zY4r/kyBdQ6kLIa5/Mpkec61D3kZsTYdKLTFlGS4xKbBS559Y6zBIDjY+
-         8UrKbZFfYUB4CaD6Lt31AQhQCMW1e8u1zLtqeJ2XJYCIjgyH2/VxdR6F/fygn+H2VxSk
-         Fbp0dljeR2OmP0biA4yUKYkvSlT0ucw6f2HWLApzPZ/FTcMsmNnUXA+K5e4p3/16c3PP
-         tELg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPUH+C+d
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so5580805e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:25:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1794731105; x=1795335905; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/Px0VIJUlGzeZ9LUedxi9YmXr5Pv4gH8RZcOXqIrVUQ=;
-        b=IR9SQMXYvTknKh3oH4uGk+tMS8HRfie+6WGkmtvhQ58SaddqigIaRPAfgFPWZgwckj
-         6mVw2khpAdNDCIwkrtwzW/8FuRrbL0Ox15exAuIB/LAHgHO0+JumrvxkzSXMX+245ZZ1
-         hJhwnWSaw0mDuZPdig46uu87mMu2B8DW3tlFZ1kqB7B1hFS8SJbjh7K9YDbUWF2OkU+X
-         X6r+gDMyILYji1zI04QLzoylvklkjdabLw53EqXEyL/koUeylsD34U47rY1IOl6LWe2d
-         cBBnXTnlgrNd7wYcr4EsWuR9/FuGmdMoNY0u6QUKFsjv8OhKGuCEbiPskfVjf1KpUVos
-         qekQ==
+        d=gmail.com; s=20260707; t=1794731108; x=1795335908; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wnoWZ39CWKlVGBavzBsrpwv3xdsKQNy7nRW5s5dEtYk=;
+        b=wPUH+C+dlgNprvFfVN8anGSl4ZCUEuWMG85Jza2LpZhALRotttfpJcHf0nNXoJxD3K
+         HuyMkCjdefbQnLp1dxVyzbZWIBAtKI8JpCM0Kda0V8QXhK3PM/9gu14Thx/jgSqy9faq
+         yOYfT2bPqRpFzn3a0zXGcJLLQhcVi5L6aG7NxkiTnOxeofuI26lJPLxzFvEdf0Kbxi1u
+         xW0RdESvOjxwU+ygaXqPqSuCTWNg9+vf9Z6tmmY3KmDQULNAhsIPPH4gwmqBCmtPzorJ
+         Gk8vNnd4kSdpJoepuh5Px8TB1MjgkwM61ncajdcsOJ0caAUAOAuszWZ28oq3W4C8i92H
+         8uUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794731105; x=1795335905;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/Px0VIJUlGzeZ9LUedxi9YmXr5Pv4gH8RZcOXqIrVUQ=;
-        b=V8F5efWn4RovvWumFzI74omX1j6U5fBupLSdnBsEkpmB0whW0Uqg3UK+evH3C2E5mh
-         ldecNrK1Mx8cKImJQre8u1wQbVrZn4dfs9yBi9cn6WVMhE/zXcbwqisRHnWk0T3mXC6g
-         epH0T5ANz3xb1fkqTiQUFjRt8/BDKVKnVxChckhNCT1miT9oMu0pIhWVDJOo7C/RWGzK
-         I6s3LuS2n9Sm1RZYNgi5y7ETbDTkPzyOiOXAZLuDZ17j/73X6OPPkCaNZ+72cjd2zmiM
-         vG6zNrX2eW32MQMuXw2PjpLRcuAOXiEzRuoazlt1mcPrC07mdSJW9uCfK/n3gOxRLa73
-         Z0ng==
-X-Forwarded-Encrypted: i=1; AL+hErEwt8/B5s4+v+qD/jdJaCNXEBnEO62P+sXAMW7d+WNn1iA9K7pEZd58lybsvgVrS2/+0y/YG3wKjXUevwg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IsGNFNy2TA4pa/1u66OF+1aM5iHSpI5xT+GreOZEsnqmZn2Z0
-	JV+dU90jRAoiOnXgg4HaQ3kLfQCdP7JC1mgMNcElEzLF30uxdHGkGYW4fG2mcdFo8AgJOIrOjbf
-	1Kq3zdJOhilQV5hpeBjHnF6rBBLqs9d3TtXBFpNcxbA==
-X-Gm-Gg: AYBFou3ONktq7NR3Mq+2e2ZON74KECDWDtC7fEgfRy/CFD2My8x1GnHsJXFdms0nPEk
-	0DBGjYVe+GtikK2Acpu6nOufgNXiq9kDPt89BCXNvEEsdEILdv+fesnOg8jy/wCKnUufFnepySL
-	NrOv1kEtuUgDk8vV+WAXzYydk/XddCjEb+AN0tGWYbeAeWU8uH2jV3hWTuggHF/jwoQps3Al8bK
-	wdNeDBTk/PXKxd5GIcbMCbZHhDGCP9FMNLHJVX9N96LWoHWXufoouhR5XufV2GybknS4DxFpujW
-	XmCuxejkwAf4j6pey2RyrjswEy++azzR/btCa+1LOR+Mp3f75ANBggScvc9lh75j8qqLM4FEImD
-	4MQcAtLRRAVXe+02poe0oIdchLU1TswEWgWFPys5fRnFSmDQfaWrP7Z0x+BnwMnGBtB3SGmcKtT
-	whN9cHZz6FlAmUWJfUlywVyvZA1dbw0oAIl2pIyfam1qBo8Tk2EFhK
-X-Received: by 2002:a05:6000:2012:b0:49c:9e8a:31a9 with SMTP id
- ffacd0b85a97d-49c9e8a3296mr14948320f8f.57.1794731104324; Sun, 15 Nov 2026
- 00:25:04 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794731108; x=1795335908;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wnoWZ39CWKlVGBavzBsrpwv3xdsKQNy7nRW5s5dEtYk=;
+        b=jPQ93daVlz5vQt34O7YEWELwH3PMSb+NVVNUqwD/zcikQn4V/N1fVUo1woH/JbZ0vq
+         5dGFx5IkDtrpBji6bh18RqLJjGyFuqPQlmIQn34GoiWQWUi2f7atsIom4A2rrwauojEQ
+         CbVOuNkjUFrBMxRUrA6XdaTIcI+Qz+FUdscbrtMUH1Yu6s6QYXPFD/bNjF+LkmhQnvEp
+         IuiqPoUM0+Wfq+oFwWbOpcmCCWJ+gOku7IxCFnChqLLIxL7jYkueeMTp6D48/o+nXJY6
+         YfSyLmZMbhiZQuZGnMzVxKkRbj0tXrSr8+F82sdp/4z+NPLoEUyKmKNsEXnQQj0C4VfW
+         d0hg==
+X-Forwarded-Encrypted: i=1; AL+hErGrOLll+wqn8xBTjeOWu6K2wXXcTG3IaZ85crCdrWAWQRqv04/lfdWzSFLZHzk0ZNjryFLfcZxRFjxSnAo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0O4QWGw02ywQdsnLCNsWwNwOZUti759lrH4MLp9rqAErkPD4Z
+	WFsRiNMxJoOxPcdcymKOFBaXdvpX6Eq+x3yEKSfVEE4JYbA/15J7N9tNsNjzpQ==
+X-Gm-Gg: AYBFou34jZCsgvn2/vC17L/eBqr05vhH/fJqcXcelZnS16aD3JS4NCBq8ytjReIvbzq
+	Mm/oesxW3k6z7o8Put0KYL5++y7ZvZ0CRfWePvaj1GCBYnjCzAfVj07cYywD14OyTmrOZWi0F5n
+	Pn3WK1hYoTV8oY7pHg3GDwkVYIf/RmuBKwQzwyL0t8OmITBbbvY73jZkJztnL3xWd//Ph4eDRHZ
+	0rlYEC8DO1fIdMLiecHUfHEXIoAFaEH4NyHl7OUl1MmPM/g2+7S439Ye4DHg/IEMwzkkVqCivQn
+	4MpvCH5ou0wY0ENn7yILZExJClhIUUuTbx9qYOrccPHf9btP9H0BjuZFu5A0piqYOQ1uSY+4+k5
+	hcMl7WU78yqOyrWN+W8oht3+mYZIIez/IaqiinGmoQhkjM0ubeAYzEvO7TTNKazlNX2L11UyFxK
+	l6whorL52/f8sCOxw4meOiBOrpTcDLIhBCnbNjFPyLOfUYwTNMDa7/ugkbfcA8q1hal5cz5g+Hc
+	bzAAO4bv4TLLGCrpqqrfcUQRj0gdwR6zWU6+0NsnFSWqsBrD6eD3Yc0jndRwK3IgFriiRZ50lWN
+	Hk/68V3JEGvCtPR5zTioHCxUAq40XnVtFHLkQA==
+X-Received: by 2002:a05:600c:3486:b0:4a2:c2b:a91b with SMTP id 5b1f17b1804b1-4bb55a6a828mr164742915e9.10.1794731107999;
+        Sun, 15 Nov 2026 00:25:07 -0800 (PST)
+Received: from LAPTOP-AVI.lan ([2a06:c701:474b:1700:dc0a:bc51:e26f:5cf8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e28d0b2sm236796415e9.7.2026.11.15.00.25.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:25:07 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Anthony Iliopoulos <ailiop@suse.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dma-debug: Avoid uninitialized hash traversal in mapping dumps
+Date: Sun, 15 Nov 2026 10:25:06 +0200
+Message-ID: <20261115082505.2012573-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,96 +96,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104161512.883885-1-anup.patel@oss.qualcomm.com>
- <20261104161512.883885-2-anup.patel@oss.qualcomm.com> <CACnXVnfFWF8h+o0=nSb9JESOxYsdVMO+BJKMT7t=K=XVgVwx2g@mail.gmail.com>
-In-Reply-To: <CACnXVnfFWF8h+o0=nSb9JESOxYsdVMO+BJKMT7t=K=XVgVwx2g@mail.gmail.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Sun, 15 Nov 2026 13:54:53 +0530
-X-Gm-Features: AclHuK-mOIV-pplZYU_DZWul_INV3rWFbYVSrvzZgzVjhgWpo6FzAMokpkZQVIs
-Message-ID: <CAAhSdy0ec6MdgrXWAe_AZT2aHEZeL-muj1EpadjCfseZVBy3qQ@mail.gmail.com>
-Subject: Re: [PATCH v7 1/1] RISC-V: Add common csr_read_num() and
- csr_write_num() functions
-To: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Sunil V L <sunilvl@oss.qualcomm.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Paul Walmsley <paul.walmsley@sifive.com>, Alexandre Ghiti <alex@ghiti.fr>, Len Brown <lenb@kernel.org>, 
-	Atish Patra <atish.patra@linux.dev>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, linux-acpi@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Anup Patel <apatel@ventanamicro.com>, Sunil V L <sunilvl@ventanamicro.com>, 
-	Andrew Jones <ajones@ventanamicro.com>, Atish Patra <atishp@rivosinc.com>, 
-	Nutty Liu <nutty.liu@hotmail.com>, Yunhui Cui <cuiyunhui@bytedance.com>, 
-	Yuanzhu <yuanzhu@bytedance.com>, Yicong Yang <yang.yicong@picoheart.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 2:45=E2=80=AFPM Zhanpeng Zhang
-<zhangzhanpeng.jasper@bytedance.com> wrote:
->
-> Hi Anup,
->
-> On 11/5/26 12:15 AM, Anup Patel wrote:
-> > From: Anup Patel <apatel@ventanamicro.com>
-> >
-> > In RISC-V, there is no CSR read/write instruction which takes CSR
-> > number via register so add common csr_read_num() and csr_write_num()
-> > functions which allow accessing certain CSRs by passing CSR number
-> > as parameter. These common functions will be first used by the
-> > ACPI CPPC driver and RISC-V PMU driver.
-> >
-> > Also, the RISC-V ACPI FFH specification allows arbitrary CSR number
-> > as CPPC register and the RISC-V SBI specification allows arbitrary
-> > CSR number as PMU hardware counter. This means ACPI CPPC driver and
-> > RISC-V PMU driver no longer need to do sanity checks on CSR number
-> > which are now done by the common csr_read_num() and csr_write_num()
-> > functions.
-> >
-> > Signed-off-by: Anup Patel <apatel@ventanamicro.com>
-> > Reviewed-by: Sunil V L <sunilvl@ventanamicro.com>
-> > Reviewed-by: Andrew Jones <ajones@ventanamicro.com>
-> > Reviewed-by: Atish Patra <atishp@rivosinc.com>
-> > Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
-> > ---
-> >   arch/riscv/include/asm/csr.h |   3 +
-> >   arch/riscv/kernel/Makefile   |   1 +
-> >   arch/riscv/kernel/csr.c      | 165 ++++++++++++++++++++++++++++++++++=
+Booting with dma_debug=off causes dma_debug_init() to return before
+initializing the hash buckets. The debugfs dump file is registered
+independently, so reading it traverses an uninitialized list and
+triggers a NULL pointer dereference in dump_show(). The
+debug_dma_dump_mappings() helper has the same unchecked traversal.
+
+Skip both dump paths until dma_debug_initialized is set. Check the
+initialization state rather than global_disable so that mappings
+recorded before DMA debugging disables itself at runtime remain
+available.
+
+With CONFIG_DMA_API_DEBUG=y and CONFIG_DEBUG_FS=y, reading the dump
+with dma_debug=off triggers an oops in the unpatched kernel. The
+patched kernel returns an empty dump, while dumping with DMA debugging
+enabled still returns mapping information.
+
+Fixes: 173735c346c4 ("dma-debug: fix debugfs initialization order")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ kernel/dma/debug.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/kernel/dma/debug.c b/kernel/dma/debug.c
+index 36c1f7cbb2ae..2f487246d8ce 100644
+--- a/kernel/dma/debug.c
++++ b/kernel/dma/debug.c
+@@ -543,6 +543,9 @@ void debug_dma_dump_mappings(struct device *dev)
+ 	int idx;
+ 	phys_addr_t cln;
+ 
++	if (!dma_debug_initialized)
++		return;
 +
-> >   drivers/acpi/riscv/cppc.c    |  17 ++--
-> >   drivers/perf/riscv_pmu.c     |  54 ++----------
-> >   5 files changed, 184 insertions(+), 56 deletions(-)
-> >   create mode 100644 arch/riscv/kernel/csr.c
-> >
-> > diff --git a/arch/riscv/include/asm/csr.h b/arch/riscv/include/asm/csr.=
-h
-> > index 621f84d1898f..ebd82043430b 100644
-> > --- a/arch/riscv/include/asm/csr.h
-> > +++ b/arch/riscv/include/asm/csr.h
-> >
-> > [...]
-> >   /*
-> >    * Read the CSR of a corresponding counter.
-> >    */
-> >   unsigned long riscv_pmu_ctr_read_csr(unsigned long csr)
-> >   {
-> > -     if (csr < CSR_CYCLE || csr > CSR_HPMCOUNTER31H ||
-> > -        (csr > CSR_HPMCOUNTER31 && csr < CSR_CYCLEH)) {
->
->
-> Could we keep the existing CSR range check in riscv_pmu_ctr_read_csr()
-> when switching it to csr_read_num()?
->
-> The SBI PMU driver still assumes the architectural counter layout. For
-> example, if SBI assigns an event to a custom counter at CSR 0x800,
-> pmu_sbi_csr_index() truncates 0x800 - CSR_CYCLE to zero. The perf mmap
-> page then advertises index 1, so userspace reads cycle while the kernel
-> reads 0x800. The same index is used to set and clear scounteren.
->
-> Non-snapshot overflow handling and RV32 high-half reads also assume the
-> architectural layout. Could we keep the PMU conversion
-> behavior-preserving and handle custom counters separately?
->
+ 	for (idx = 0; idx < HASH_SIZE; idx++) {
+ 		struct hash_bucket *bucket = &dma_entry_hash[idx];
+ 		struct dma_debug_entry *entry;
+@@ -576,6 +579,9 @@ static int dump_show(struct seq_file *seq, void *v)
+ 	int idx;
+ 	phys_addr_t cln;
+ 
++	if (!dma_debug_initialized)
++		return 0;
++
+ 	for (idx = 0; idx < HASH_SIZE; idx++) {
+ 		struct hash_bucket *bucket = &dma_entry_hash[idx];
+ 		struct dma_debug_entry *entry;
 
-Okay, I will keep the CSR range check in riscv_pmu_ctr_read_csr().
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+-- 
+2.43.0
 
-Regards,
-Anup
