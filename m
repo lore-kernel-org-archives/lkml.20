@@ -1,67 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769960;
-	b=RajqQ2eWZOreZNDNJt135W+O95Wq9HI5EQ1AMd1CsAxzMP8QWmpCMZUklQDGvRRbNvC3
-	 Y5DRz+S25Ie7MauYEbOMjHGv2rLJAsP2ysq+pt7NXyFTD0UMOaPOYoYMRGCBRpCjSH+WO
-	 AzgD6XJ6dt0z78AX/c3WE88z1hQaGApW3Rx429a7MtWzf8r0bahHCyESJKnr2yj/FzB92
-	 uwXUeld5ykf6LTAf3KjF57tNjUchRxTpVFvvAKxuMlcE+baY9SjFkkQRtDjMxXgeX9MKs
-	 4ulJnCGklcv9OIkcp7h1c7vFfFte+6QVyQCV3yd2jDI+l8iycgCT6aP6gIbcHTYnNWw==
+	t=1794770076;
+	b=OjuWazEZ0MYOICGRfVlGGgVf9jIkwOiWH1kCD8XD07HMm1ul+7Ij8kyifc7AoWYOwewU
+	 lJBvHrIm+pFiJnXduZ91ffUdk3raz7Tj9bXiho7anqvoGc5PZkvQljmqBTLtNpwAp5v+L
+	 0LwaGozhQ7Kxjq1RC4YK7ljbWkqyTFIBu4EcHMbVpuwMwwitK1wjuhEXOt2L7PeizaqAb
+	 2nMnUc1rAa9Dx90BYfqp/GvNzQaTrtnJl42ulMpsgMEFAiqqCPi5Y08mW6kl16EB1+FOx
+	 sVP/uW/UlZuLOHNEREDIDP/SI9G+WZpBKwrFmCsqsQd+DmlD1grSAER1qI3SP68Muxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769960;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Xqlm2kOR1cxrlmJ+MYBK2EL8pgLaXkcSwS+2jbI07RQ=;
-	b=UZH7qclvSlvw1D9bsA2G4zJ7TsaUMPK4XJ3A4yn5XAoqt4iyMQiczaGEdH1GiPOHXMs2
-	 Mt1vJTNu92Dqxt1K7Xb9igPdAoDk7F9Ja+vCEVuxRTOZEHgEy+M4M1QmhDqAiuSpKZua0
-	 /AUgSmkx8J6V5t469ps05pQqRSjMibe5TA4PRGFTp00Msxku8Y+A1xiB+V6DxIN43YR04
-	 bV3cHcfh0tLQRpzvhwmQ/8vut5sYQckBeBZlAWia4WEkcl/vLXdV41Zx2nrbeTQ2X3GWV
-	 xj+kAw9AMmMd3w5VLzlyRurUBFiCacrWfaEXuyvR6EI9p/ORND9I+mxstuxCVSHWYeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770076;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bTYAm4EWSRHx/ZHXwlhFob7m+xxSKwh0NNHvPVL+4a0=;
+	b=VZ2Vj3IVLqLZLsREd17qiC/2xY0QgLPMj6qLoZlolFoD1xMmKrVML+ESq1wWAmGBx1Tu
+	 mZL0xErfTe+5OHnVqxeBtT+wYpDc3agU+/kPXRXVfxbLEQtYqVShYTnCTOjQSNMicA2s5
+	 upNoI7xBxXSLpkcEX9Jaxm5lUFHtOVBY6AFeT0A6OrbNEcciPUTCDmabE48yQzXZi1vTv
+	 SU6r7xnB+BsZBDl0PR5Zg4poVaQZv5FzubZFaKjFVIwt3pgdITKWX9tgdbqh8Nxkjy1/K
+	 DIaXiWsBPtac7oMfvrtQe65TVQkgoObzUjQPi4Sraef/7R9Vp2UtD5Ws0zUCal5fp/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjO7B99O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zlr8cphp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4CA606A31A;
-	Sun, 15 Nov 2026 19:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CFB606A31F;
+	Sun, 15 Nov 2026 19:14:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjO7B99O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49EF71F000C4;
-	Sun, 15 Nov 2026 19:12:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zlr8cphp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2830B1F000C4;
+	Sun, 15 Nov 2026 19:14:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794769960;
-	bh=Xqlm2kOR1cxrlmJ+MYBK2EL8pgLaXkcSwS+2jbI07RQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=KjO7B99OaOq2BmFtymQVEXKQouaExUwmim5LYsv9zGWLSgFfTkw94kGJEOXQeU2Mx
-	 DCs2YyItL7JHsDcJaFZ/SxlTprQxy05AjkkNffvW2QRnAOf9r9lJS2l5Oz5LgNfCuO
-	 Tmyv1lSHS+aeefWLirLUO81uKDnlomVdeCv2yXyxQJE0FGXL8Qxbb/zyDTqxs93z3s
-	 MZw1JXQjGIsemX5daI/TnF5OhjPB8XHSmTuze2wAmW6GeE9r8j35SPQNbaNEE+pdlj
-	 VTvnLJTyzKYQ6SkRJV5gps4pHiYlEw3P2963JK5b+GYckIs3bkNxzECuUDKic1H13W
-	 DH6f+NjjpI5uw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com,
- sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, alexanderduyck@fb.com,
- kernel-team@meta.com, andrew+netdev@lunn.ch, hawk@kernel.org,
- ilias.apalodimas@linaro.org, ast@kernel.org, daniel@iogearbox.net,
- john.fastabend@gmail.com, asml.silence@gmail.com, axboe@kernel.dk,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- almasrymina@google.com, mike.marciniszyn@gmail.com, bestswngs@gmail.com,
- razor@blackwall.org, dw@davidwei.uk, aleksander.lobakin@intel.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, stuclar@meta.com
-Subject: Re: [PATCH net-next v1 10/11] eth: fbnic: Support RX buffers it
- cannot split
-In-Reply-To: <179443689907.2199510.5966675063900520158@kernel.org>
-References: <20261110102039.1002605-11-bjorn@kernel.org>
- <179443689907.2199510.5966675063900520158@kernel.org>
-Date: Sun, 15 Nov 2026 20:12:37 +0100
-Message-ID: <87tslhhpsq.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1794770075;
+	bh=bTYAm4EWSRHx/ZHXwlhFob7m+xxSKwh0NNHvPVL+4a0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zlr8cphpaQd3nqY4dD/M8LKmVfhEwBhg/RXnFS8Dbd42j21budIL80Fj83ujynYBi
+	 xrkpXbt/vgXXJ3zbCIgd0vytWH9UFZRo+kWYg6+zk3Dgh5sXkP6sxBNtPVRWMc7kgU
+	 7c0cXcpkCgnk34WxtxAQP15i7VF+f+o9Op3gqEYw8sVFIZUZZKKEE/DiCEBd5NJmBL
+	 eqWix0PI/yHN1v1kle17XH0UgF/k5g+OojdNRy9zlUqHohW/kmiciG1CH3WaxOOynl
+	 GtOjVUG+IaqnqKJMnuActvv+XKVHz8jIHWFruwvUHIhP9DWwGFEUc3P4bbqJVKIINp
+	 h+RZkJC+eVaDQ==
+Date: Sun, 15 Nov 2026 21:14:25 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
+	m.szyprowski@samsung.com, jenswi@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, mark.rutland@arm.com,
+	robin.murphy@arm.com, hch@lst.de, ryan.roberts@arm.com,
+	sumit.garg@kernel.org, sudeep.holla@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/8] memblock: Introduce MEMBLOCK_PTEMAP
+Message-ID: <avoEkRRM3iH70_Am@kernel.org>
+References: <20261111110738.872947-1-vdonnefort@google.com>
+ <20261111110738.872947-2-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,30 +64,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111110738.872947-2-vdonnefort@google.com>
 
-netdev-bot+sashiko@kernel.org writes:
+On Wed, Nov 11, 2026 at 11:07:31AM +0000, Vincent Donnefort wrote:
+> Keeping PTE-level mappings is interesting for arm64 as it allows
+> mapping/unmapping pages from the kernel direct map without the risk of
+> splitting blocks which, under the break-before-make rule, may trigger
+> page-faults the kernel can't handle.
+> 
+> However, mapping the entire direct map at PTE-level is costly. So
+> instead, create a new memblock flag MEMBLOCK_PTEMAP to selectively apply
+> a PTE-level mapping.
+> 
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-[...]
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-> Wouldn't the restarted queue keep the old EN_HDR_SPLIT, which no longer
-> matches the MAX_HDR, PAYLD_OFF and PAYLD_PG_CL values in CTL1? Nothing
-> corrects it until the next restart of that queue.
+> ---
+>  include/linux/memblock.h |  9 +++++++++
+>  mm/memblock.c            | 39 +++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 46 insertions(+), 2 deletions(-)
 
-Pre-existing for the drop mode, and the per-queue bits make it worse. I
-have a net fix that serializes link up and queue start with a lock.
-
-[...]
-
-> Should both callers require that the completion starts the buffer and
-> also closes it, i.e. a zero offset and PAGE_FIN set? Passing the rcd
-> into fbnic_bd_one_desc() and doing both checks there might keep the
-> header and payload paths from drifting apart again.
-
-v2 drops these checks instead. With MAX_HDR, PAYLD_OFF and PAYLD_PG_CL
-as programmed, the device closes a whole buffer after one descriptor,
-and fbnic trusts its completion ring everywhere else.
-
-
-Bj=C3=B6rn
+-- 
+Sincerely yours,
+Mike.
