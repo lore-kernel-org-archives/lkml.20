@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794740748;
-	b=h8fa5Ztsw3hgvur+CthLFRuI9QLPGEwfhUwzt6allW24NPvEd6MCI66PrXYMomb7ehyB
-	 5OLnhVvUzKZVbTuQpaXYH6AvJFmFxim9zKDrE1dDXPLDx9u3BMo7h40CAhJyvjIKIIM0c
-	 xk6IaYoF8dYlcvp/a62RShrhfcW6Gt0/GpAT48xes1szS8fk/FhO7cMHqQVlphigYpLLG
-	 QMjqcq48bpibhqDlpaMT0QeN3j/6ZqaQ29FNmW8ytrA9hh3+/d5/46IQS5Mv5qk52t7AX
-	 fABeIBcAfQT9wgqAMQLxhUjdj0hlJCFmTG8ha1W+JtUUlu13r0dkIOlOOubenlGyEJw==
+	t=1794740750;
+	b=KUSQ9q/K/CtCpNUBc/qS9SK50rmHPzZIzfqc7Q9ArbA11mXmCUaspHN+SQ8bfVL/EqwL
+	 mie7VmdySdFoOYdZHbYweMOWMcqC8jyS6aBSznWRDOQYAG5UhRkO+xHor6ZAOTTLW/7VH
+	 odh5hUIa+Dx25bJwZ7Ut0QlMFOAvCdSYOWWJdyg1xhzF8OsqrSWm9hEdbfxHq9U3PZage
+	 6mxQdOA9STPT4M6SdzMwwuvHeDZQYkTyEeNFOfASswDQ66KNwJk3ZdHqE061RkfIy1Xn+
+	 ku2kuroF25GOcnqk7oIvEstbexugYwaV9n/3n81M4+GniaYt2IxIIdMHMW/2j2eN6LA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794740748;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=hK+5XJC+lJT4Jur6NS/UQqYwsuEPNviAHyqonVulBXs=;
-	b=X2mle+GURDSo+rJWYeKaq7LmjKrY98aAn8xWHAh5eNyKkuAIpL0/O1zOGkY/ePrbkiNi
-	 U5QirB2Dw+bS0Cgtl0WYwMfhLagCtOQvydM/za4BxGM/AKGSEqX8kmG4K+THDNI24Hm2T
-	 U8iAMgpUlQY7weXvc1DmHf3t5KfRJfD3IYo8FZKD8xIEtOD8HASB8h28UoCkX+Fc2yZ7F
-	 ScQcjwGQqQH6s86wWpyXdmCf+CBwrey4HTOPFwN+sdFaK9kk0zNPyL9/9Ogkdu6M3aLrz
-	 ZgsTmQD3QVBzL9YQXUjTWFQdEQPCRgLryDz2xake9SW6XjWuG/vuodmZFmbSX25pVmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794740750;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bEv4AHDUm026GE6n1cBpD0QcLMp6c2PdbcmzdzW9Vts=;
+	b=5ipW/3Pj3wbe6eIYjVlvUCPXSVPW40GPHjtGZUPD/O9bpsCmmqaZxTcx3oaIISfhCgSW
+	 KKOaqFn2AcHWOEbDduKuMuctuyRYyPdr4PiT61gaYXC6I47kSeUoNig/LTB7ROh3LFUkR
+	 bngFLLR5ftHUakn5dD+EC6LDAwyVXtDVgp9w+DFngM1o74Ma7m/vOfSWY6QxRrFc1YQKJ
+	 3jhDMUwRjzBU+BNhrLDpuCGlTFhFooI55vUo7ZB7bBR9P3DDzcnWmkZsXKVOSbLGZJKxN
+	 Doje6JxUwa1jPbTk0HTeDaDaYRwr+GxNkMe+ipvQoBQdSY31dwcY1QW8iJfF+cFXpKw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zom/TGJl";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrM9ZxMz;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6165606A32F;
-	Sun, 15 Nov 2026 11:05:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C8F606A337;
+	Sun, 15 Nov 2026 11:05:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zom/TGJl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrM9ZxMz
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794740748;
-	b=KTx01X199Tg9dUC3Svn7u7nL6y/XRPdznm8VqEpnIDt17T6ygsgBlMW2ANlcnZbZ0nDK
-	 KTZmn1gPcYTxSjigx7+XBVDs8PxZya3iZyPL7SFak7Vg8zbmKEy69spZyJ2aawXGEOnjZ
-	 G5+ycqHVXrRHzHI/O5IRNR2IewClktR/OgVGBGWMIxPCqyLJgVGGoORD/4RGkv3x5720G
-	 ztRSL9rIMTvnhw1MlfoTcXzbCS4xVRpkDJMTqnSJOTTvkxkHhdiBcyvaHVJycci5qb25Y
-	 B6KnsLYN81QyRAcBiA7n8UvOK6Bo6V1Ax7P1kZ7rCKUQXpI1NoCkNcNQBk/CF6DIuLw==
+	t=1794740750;
+	b=1RuKUN1oZUdl1SJmn1LnF+Sh6Utu2Q36Evt7plpfFVJllpfiKvVq00hx7/Xn/xp7WjTZ
+	 6rnYk12us8IAJz+A7QaI2GzrRpYRy+dp50Hv9lT4i7VPXPzaDDzb+Yrl/0Y62b0qshDfk
+	 lnXHgYh4rgBySyG6/p9y6w1tosNOKTY9yIjr+wsISAae3gx3EWYQGET9IrvI9gASPMp0E
+	 s/0LVm75b23tH8gLwFezqBBVuVeLu6IYfkp32Xp6oglOHUEXXXNsQmuMjRzo2ap1iW28I
+	 roLy18nkCulzf3lHllxJbGY5R4utM21uZ3kDrxmqPVwt6prKNddURItnSeO5GXBaHXQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794740748;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	c=relaxed/relaxed; t=1794740750;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=hK+5XJC+lJT4Jur6NS/UQqYwsuEPNviAHyqonVulBXs=;
-	b=aizfoc7rLzEp6ta5u25fCGe+odkReifAXMYn41Jw8oJdxJyyAb0ZZRzx9dq/Qrb8lMw6
-	 OoUsNqkWkppSF5yw4f7nLv8QRH/jxYZ2h2hcPWfKzh5cYXfbPyuSmnImDj/49GqGKTI3+
-	 NQnM3P7l4AWi7U+sNKLRUlnoofYLv7w039Bs3oQXBIF8qrJ4KLFhWyN10S5qmdAjKs1bN
-	 5iOkNNj3KA//650G/bVh3N9pCqaTIlHhkM4++Db7zaRu+SmpwatBiuKZcpNB0d3YX8cW/
-	 KRhY//TgHYtrt+qQ0XgU25ZDGatbtaVJNtfuW60xvPI3QkKFD1NxqGc/xFtduuXLeDA==
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bEv4AHDUm026GE6n1cBpD0QcLMp6c2PdbcmzdzW9Vts=;
+	b=feii0mwytoQFZnBlSIaLlGkPIHvu5L3NvLMwqWa35/BuhpQOEgyTP1ssp5Uv10xLJMFb
+	 nz4wAvwxqh40ZclYLfFEp9vlGoc0wasHgOi/q0jCxqQrFKANEP86RXLtCCy0vWGPFKeGz
+	 uo1yzxTjNNaRqDL3Fb9YJHbuMRbjsFmfEM4wsz0h6CLIzW2xqaGS6CjlDYpeh1U2ZJ7R0
+	 k4luGneSgZSj8pG5gFx0qDWnX7q7PdaFuKAHn7B5MMBMkMT8ytCHsLITK1xt0U7WwPM2/
+	 FfpJfzrwlDKONbBpEgCZOlTwFlMgr/RFEa/lHW90ZYryAVT56TFIVZnNDTQLlnbbdJQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8BAAF1F000C9;
+	by smtp.kernel.org (Postfix) with ESMTPS id 8B8E91F000C8;
 	Sun, 15 Nov 2026 11:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794740748;
-	bh=hK+5XJC+lJT4Jur6NS/UQqYwsuEPNviAHyqonVulBXs=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Zom/TGJl2jglCmDeusfRnuGd4oiUCCVG1lpBRkERosDaygzvKbyIjbGQk+dihpAV1
-	 BFiNXLyxKIXtx7tlGd4bGN8B/mGsOT7efbkbYsEgccKyNSAhikntNqXOr37PyyGw6v
-	 xw7MQLZ0WdyF+bUQOGvaV5CgUZMjlwWS6jpy6On+ndr7Fpt1ys315HmWprCta51ba3
-	 Jmf1lMCE1OpGkhuHGXqlWuywCAPKKzd6AsYlnAaveS0dcqKLEGyAnDJLgwEDOlWHI3
-	 nmoPUZc1BzyJP/1922Q8A4IpC+UGwAhVVRaX1ySB0fasWlvPpX2AQa6xcpxDku9ozk
-	 5lhRdhXFaT80A==
+	s=k20260515; t=1794740749;
+	bh=bEv4AHDUm026GE6n1cBpD0QcLMp6c2PdbcmzdzW9Vts=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hrM9ZxMzw/UEAiWe5qe5QF/chcQ1Qliih86kSNZkcs2Q+SZm2bfRv5WNwtJ39iMJW
+	 /CqCUiUi1RfOH7ikMNRqFM32Y4ikOw8GRPzCxIOy1wxzxmBVKTPo/l35Nagx2hS0ET
+	 XbJuKzSBblJI2but8nErVcgv3ySEkWRByAYnXC7kkIZvfdlEupQ6JgehflMf2YVgMo
+	 LK/AglKXOQC9ToqMVczDyzpsQGX1gwnieYV5HpKBM67w82cVogsV7vq1/XwuvkQ0oH
+	 tN96HWrVV7GUxB/XYHthwvEJTlONRxdjpr4xkSqDlkp1ueXdUsXMr1CERB6yU9Cjw1
+	 j1EMzuZcwgt9g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DFC874A05B;
-	Sun, 15 Nov 2026 11:05:46 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0553C4A046;
+	Sun, 15 Nov 2026 11:05:47 +0000 (UTC)
 From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Subject: [PATCH v5 0/5] lx2160a: change the pad muxes through the RCW
- override
-Date: Sun, 15 Nov 2026 12:05:36 +0100
-Message-Id: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr>
+Date: Sun, 15 Nov 2026 12:05:37 +0100
+Subject: [PATCH v5 1/5] dt-bindings: pinctrl: add the NXP LX2160A RCW pad
+ mux
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,12 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAACS+WoC/5XNsW7CMBDG8VdBnmt0ZzuOzdT3qBiu8blYKklkQ
- 0iF8u4YFqATSLf8b/h9Z1E4Jy5iszqLzFMqaehrNB8r0e2o/2GZQm2hQFlE0DIOWR7HcshMe/k
- 7K7RAMncnOaZ+f5zlhFJj9BR8GzpnRYXGzDHNt5Gvbe1dKoch/902J7x+3+LrgQSySN7ptjXmM
- 2bmdcziik/qfVBVUBMFcBa+vfsH6kfQvQTqCjYEYHXEQJ6fQfMAonkJNBVkjh0TWEtNcweXZbk
- AFtQmkcUBAAA=
+Message-Id: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-1-d246166ea469@free.fr>
+References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr>
+In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr>
 To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
  Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
@@ -105,129 +101,355 @@ Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  Vladimir Oltean <vladimir.oltean@nxp.com>, 
  Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794740742; l=5609;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794740742; l=9059;
  i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=v9zbbzSmM/69ewSbqBsLJz3u1dtfiSOwvumEGtAxm40=;
- b=GqByQYVV98x6n4nGkn0NfyLAeNioHLP8BT3zIxMzjmxdxn25CXDCJ/e8JYMpNjWAebS3xsOrJ
- zf4cC9UANfcAHuWvpY3BziHEdejlm32rxxQSgD0oZGrvfXi6qIJ253x
+ bh=qg98rjtoU5lxO3S/IIt3AS+9TwVrpblI1bgZQ2hoFnE=;
+ b=V/VeQScXMOoCJdKKBmKZthtXBiM6N0tGt3OT+CzqVm/X4668zLg2aqFNofMiZ8VLbrBinGxYS
+ tMlfdnV+lRzDF2pMVF/AjPTL9bVlCURlQKf5WhG3fWck0dipoOAnxZs
 X-Developer-Key: i=vjardin@free.fr; a=ed25519;
  pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
  auth_id=871
 X-Original-From: Vincent Jardin <vjardin@free.fr>
 Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
-fields of the RCW. They are read-only in RCWSR12..14 of DCFG, and are
-changed at runtime through the override registers in the DCSR view of
-DCFG, which read 0 until written.
+From: Vincent Jardin <vjardin@free.fr>
 
-Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
-gpio to support bus recovery"), fsl-lx216x.dtsi drives the override
-registers with pinctrl-single for the I2C bus recovery. Its first pin
-state clears every other field of the word: a board whose RCW programs
-a non-zero pad mux loses those pads at the first I2C probe.
+The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ, EVT, EC and USB pads
+from fields of the RCW: read-only in RCWSR12..14 and RCWSR27 of DCFG,
+changed at runtime through the override registers of its DCSR view.
 
-This series reads the fields in effect from RCWSR and writes RCWCR, as
-fsl_guts_rcw_rmw() already does for the SerDes protocols:
+Describe the pad mux as a child of DCFG at its RCWSR12 to RCWSR14 and
+RCWSR27 windows: the override registers are at the same offsets of the
+DCSR view of the parent. One group per RCW field, one function per
+encoding.
 
-- patches 1 and 2 describe the pad mux as a child of the DCFG node,
-  which gains its DCSR view
-- patch 3 exports the RCW override of fsl-guts for the pad-mux fields
-  only
-- patch 4 adds the pinctrl driver: one group per RCW field, one
-  function per encoding
-- patch 5 moves the pad muxes of fsl-lx216x.dtsi under DCFG. Labels
-  and pin node names stay, so no board file changes, and the
-  pinctrl-single node goes
-
-Patch 4 uses the exports of patch 3, so it cannot be applied alone:
-patches 1 to 4 could be for the the pinctrl tree with an Ack of
-the soc/fsl maintainer on patch 3,
-and patch 5 through the i.MX tree once the driver is in,
-since the I2C pin states of fsl-lx216x.dtsi then belong to it.
-
-DTBs built before patch 5 keep their pinctrl-single node and behave as
-before. There is no Fixes: tag, since patch 5 depends on a new driver.
-I did not believe it should be backported then.
-
-Tested on a Nodebox v3 (LX2160A) whose RCW muxes XSPI1_A_DATA[7:4],
-SDHC1 and IIC5 are not set with the defaults, so I could confirm:
- - with pinctrl-single the first I2C probe cleared those fields
- - with this series RCWSR12..14 read after boot exactly what the RCW and
-   the board's pin states select
- - all I2C controllers come up with their recovery states and a
-   forced bus recovery on IIC1 (multi-master enabled for the test)
-   changes only that field
-
-Thanks to Vladimir Oltean for pointing at fsl_guts_rcw_rmw() when I
-tried to prime the override registers from the RCW instead:
-https://github.com/nxp-qoriq/rcw/pull/8
+Each function lists the groups that take it, so a pair the driver
+would refuse, such as can on iic1, is refused by the schema.
 
 Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
-Changes in v5:
-- soc: fsl: guts: the exports become fsl_guts_pmux_read(),
-  fsl_guts_pmux_override() and fsl_guts_pmux_override_supported(). guts
-  lists the pad-mux fields of the LX2160A and refuses any other field
-  or register, so the serdes fields cannot be changed (Vladimir Oltean)
-- dt-bindings, pinctrl, dts: add the EC1, EC2, USB_EXT, GTX_CLK and
-  SDHC1_DS pad muxes of RCWSR27, the second reg of the node (Vladimir Oltean)
-- Patch 3 is reworked: drop the review tags, new round of review is
-  needed (TBC, from Christophe Leroy and Frank Li)
-- Patch 1 gets a reg, 5 groups and 4 functions:
-  same drop the the Reviewed-by of Rob Herring and Frank Li
-- Patch 2: its description names RCWSR27 too, I assume the
-  Reviewed-by of Rob Herring can remain
-- Link to v4: https://lore.kernel.org/r/20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr
+ .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   | 309 +++++++++++++++++++++
+ 1 file changed, 309 insertions(+)
 
-Changes in v4:
-- pinctrl: MAINTAINERS with imx@lists.linux.dev
-  FUNC and GROUP macros with LX2160A_PMUX_ prefix (Frank Li)
-- Add the Reviewed and Ack tags of Rob Herring and Frank Li
-- Patches 1, 2, 3 and 5 are not changed
-- Link to v3: https://lore.kernel.org/r/20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
+new file mode 100644
+index 000000000000..f835ebe332a9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
+@@ -0,0 +1,309 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP LX2160A RCW pad muxes
++
++maintainers:
++  - Vincent Jardin <vjardin@free.fr>
++
++description:
++  The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ, EVT, EC and USB pads based
++  on its RCW. The related fields are from the read-only RCWSR12 to RCWSR14 and
++  RCWSR27 registers of DCFG, and can be changed at runtime by writing the RCW
++  override registers in the DCSR view of DCFG. The node is a child of the DCFG
++  node, which owns both views. Its reg are the RCWSR12 to RCWSR14 and the
++  RCWSR27 windows of the CCSR view, and the override registers are at the same
++  offsets of the DCSR view.
++
++properties:
++  compatible:
++    const: fsl,lx2160a-rcw-pinmux
++
++  reg:
++    items:
++      - description: RCWSR12 to RCWSR14
++      - description: RCWSR27
++
++patternProperties:
++  '-pins$':
++    type: object
++    $ref: pinmux-node.yaml#
++    additionalProperties: false
++
++    properties:
++      function:
++        enum: [ asleep, can, evt, flexspi, flextimer, gpio, gtx-clk, i2c,
++                irq, reset-req, rgmii, sdhc, sdhc-clk, sdhc-data, sdhc-data4,
++                sdhc-spi, spi, tsec-1588, uart, uart3, uart4, usb ]
++
++      groups:
++        items:
++          enum: [ iic1, iic2, iic3, iic4, iic5, iic6, xspi1-data74,
++                  xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
++                  sdhc2-data74, sdhc2-base, uart1-soutsin, uart1-rtscts,
++                  uart2-soutsin, uart2-rtscts, irq11-8, irq7-4, irq3-0,
++                  evt4-3, evt2-0, clk-out, asleep, reset-req, ec1, ec2,
++                  usb-ext, gtx-clk, sdhc1-ds ]
++
++    required:
++      - function
++      - groups
++
++    allOf:
++      - if:
++          properties:
++            function:
++              const: asleep
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ asleep ]
++
++      - if:
++          properties:
++            function:
++              const: can
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic3, iic4 ]
++
++      - if:
++          properties:
++            function:
++              const: evt
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic3, iic4, evt4-3, evt2-0, asleep ]
++
++      - if:
++          properties:
++            function:
++              const: flexspi
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ xspi1-data74, xspi1-data30, xspi1-base,
++                        sdhc2-data74, sdhc2-base ]
++
++      - if:
++          properties:
++            function:
++              const: flextimer
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic2, irq7-4, irq3-0, evt4-3, evt2-0, clk-out ]
++
++      - if:
++          properties:
++            function:
++              const: gpio
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic2, iic3, iic4, iic5, iic6, xspi1-data74,
++                        xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
++                        sdhc2-data74, sdhc2-base, uart1-soutsin,
++                        uart1-rtscts, uart2-soutsin, uart2-rtscts,
++                        irq11-8, irq7-4, irq3-0, evt4-3, evt2-0, clk-out,
++                        asleep, reset-req, iic1, ec1, ec2, usb-ext, gtx-clk,
++                        sdhc1-ds ]
++
++      - if:
++          properties:
++            function:
++              const: gtx-clk
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ gtx-clk ]
++
++      - if:
++          properties:
++            function:
++              const: i2c
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic2, iic3, iic4, iic5, iic6, sdhc2-data74, iic1 ]
++
++      - if:
++          properties:
++            function:
++              const: irq
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ irq11-8, irq7-4, irq3-0 ]
++
++      - if:
++          properties:
++            function:
++              const: reset-req
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ reset-req ]
++
++      - if:
++          properties:
++            function:
++              const: rgmii
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ ec1, ec2 ]
++
++      - if:
++          properties:
++            function:
++              const: sdhc
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic2, sdhc1-base, sdhc1-dir, sdhc2-data74,
++                        sdhc2-base, sdhc1-ds ]
++
++      - if:
++          properties:
++            function:
++              const: sdhc-clk
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic5, iic6 ]
++
++      - if:
++          properties:
++            function:
++              const: sdhc-data
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ sdhc1-dir ]
++
++      - if:
++          properties:
++            function:
++              const: sdhc-data4
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ sdhc1-base ]
++
++      - if:
++          properties:
++            function:
++              const: sdhc-spi
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ sdhc1-base ]
++
++      - if:
++          properties:
++            function:
++              const: spi
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ iic5, sdhc1-base, sdhc1-dir, sdhc2-base, sdhc1-ds ]
++
++      - if:
++          properties:
++            function:
++              const: tsec-1588
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ ec2 ]
++
++      - if:
++          properties:
++            function:
++              const: uart
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ uart1-soutsin, uart1-rtscts, uart2-soutsin,
++                        uart2-rtscts ]
++
++      - if:
++          properties:
++            function:
++              const: uart3
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ uart1-rtscts ]
++
++      - if:
++          properties:
++            function:
++              const: uart4
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ uart2-rtscts ]
++
++      - if:
++          properties:
++            function:
++              const: usb
++        then:
++          properties:
++            groups:
++              items:
++                enum: [ usb-ext ]
++
++required:
++  - compatible
++  - reg
++
++allOf:
++  - $ref: pinctrl.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    pinctrl@12c {
++        compatible = "fsl,lx2160a-rcw-pinmux";
++        reg = <0x12c 0xc>, <0x168 0x4>;
++
++        iic3-i2c-pins {
++            function = "i2c";
++            groups = "iic3";
++        };
++
++        iic3-gpio-pins {
++            function = "gpio";
++            groups = "iic3";
++        };
++    };
 
-Changes in v3:
-- dt-bindings, dts: the pad-mux child is bus-addressed like the
-  clock-controller child of the LS1028A dcfg: its reg is the RCWSR12
-  to RCWSR14 window, under #address-cells, #size-cells and ranges on
-  the dcfg node, the override registers stay the DCSR view of the
-  parent (Krzysztof Kozlowski)
-- cover letter: patch 4 cannot be applied without patch 3 (Linus Walleij)
-- Patches 3 and 4 are unchanged
-- Link to v2: https://lore.kernel.org/r/20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr
-
-Changes in v2:
-- dt-bindings: list, for each function, the groups, so the
-  schema refuses the associations the driver refuses (Frank Li)
-- Patches 2 to 5 are unchanged
-- Link to v1: https://lore.kernel.org/r/20261103-for-upstream-lx2160a-rcw-pinmux-v1-v1-0-0a61a9837744@free.fr
-
----
-Vincent Jardin (5):
-      dt-bindings: pinctrl: add the NXP LX2160A RCW pad mux
-      dt-bindings: soc: fsl: layerscape-dcfg: add the LX2160A pad-mux child
-      soc: fsl: guts: add the RCW override of the pad muxes
-      pinctrl: freescale: add the LX2160A RCW pad-mux driver
-      arm64: dts: lx2160a: describe the pad muxes as the DCFG RCW override
-
- .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   | 309 ++++++++++++++++
- .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml      |  18 +
- MAINTAINERS                                        |   8 +
- arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi      | 377 ++++++++++---------
- drivers/pinctrl/freescale/Kconfig                  |  15 +
- drivers/pinctrl/freescale/Makefile                 |   1 +
- drivers/pinctrl/freescale/pinctrl-lx2160a.c        | 401 +++++++++++++++++++++
- drivers/soc/fsl/guts.c                             | 122 ++++++-
- include/linux/fsl/guts.h                           |   3 +
- 9 files changed, 1078 insertions(+), 176 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-for-upstream-lx2160a-rcw-pinmux-v1-31f9ad97dc86
-
-Best regards,
 -- 
-Vincent Jardin <vjardin@free.fr>
+2.43.0
 
 
