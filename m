@@ -1,76 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749644;
-	b=PTsOhGSW6XezGca89CmyCBPmaz2pjHubi/xwqXAbHoC6BmfeERqUbqAExLMq4zQ3JDeo
-	 FwEcqQQPbgvtzps0X/R3ZGmQOtjZ5Dk7g+bsk0upqtY6knyF0TDeeB+Ye9HV7PIJfEnKL
-	 CZ16kpuJyip9sQREl1JbJWmtRbGrhx69XCU4fumsynDfgzZLS9aoY0MoXXpdxznajo4ng
-	 YopGYhpHnOIPZuzUnG2E/MsAq7Hhgx61rzcgHhj3Wzr9C5J6Vnztn/wEv/QzW5dQLfCQ7
-	 BGSD6SG8o4qPeIaeIDAzf9kiRU0cT7tcuFg6gs+T0ASjZkykhlCSWNqOqKY1fXv0ftA==
+	t=1794749683;
+	b=sRJk0gl7mWvtFfS/Dm5UNcbeHjB7j90l14ETVwgLK+DySGJ+rWnDcJk0m7RCP4FJyZbZ
+	 5a/o7qIw05HcyQRSf2Td5woP2t4FoxhVSF0AvpPu80rxOtspVrrM8cEtNh+P4CCwnnjvv
+	 a57Fh0wI2teHQxJyg/f4g35hLN48Q4MNf/3xeyvWDxLqJZb8B1bCFddl9tXaeIGPkEJz8
+	 SuXNLCYjjbEeZ/TBo/p2qdtRh7dx35l2fOtOQPiPMN7zPw5W/Wl0NdmWoIj7//ykwSD3q
+	 hrGA5UJI0Fh63SqOkm+ALqPeXW+QCgQXXUBRP0FIm1o7CsYNNF8HyTZARW17YzaRQDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749644;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=1bytFfLq5CGOzx0IILJ9a2zDeD4jxyW+w7M6grr9Vbo=;
-	b=uC7lXGCo4Lj/IWLpud7WVUKIstosmjXtXoJO2/SP3kkA/rAe+bfXAOX74m1kQgFMzunW
-	 /wkEhAE6hZGG0InPbDoVTcFBJmK7cHAN9wHMSatkTfLgS8E9ps/YNrJ3cSe2hfuEmL7FP
-	 YJter1Ut32dwIcV6SczvHfcspqd/ztq5mMbDepxjpMFRirSLSQgjpHKqLgLlDWQKQzIvK
-	 saRtlMNboyf1C2e3dFjkhaAibWmVnjqmBSyPFWJ+7IybU7Wv1KW0A2Nv2NBgcZaBuoxoT
-	 EMF2Ke2L3zGOjpUhiaH4hzHUnuPbjpPgOyGViEDbIllfsomvAqzGRg9CbUzVWtD3m+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749683;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=cy2nNK1rI/kLhuzSyR0baNH1H94wn090BymVcYk+AF4=;
+	b=O5Mz7WY03sXX4DmDYiuyBWuBw0CK88+l2h87AJpPHKlHgZQjk6m5XuVdXio7LcXMnYmk
+	 HweMperOF6W4HnqFPE4NvrkIkxn/euFzBqAf+CTwhFwm2pJLuMfjuCVi8h2xDtQgKx9tK
+	 AjQKDM92yctXktga+1y+MhSMHJ/Vu6rvMRNpEwjIDCxWVm6vWIlQVXvrefFQp3gKPHGB1
+	 tVbpisXVW7pnVsIFfqdn20O6cDT/siLskiPvndQvbOc9M7tKv7ORuu4G7INHOd18p0r/R
+	 6C0zzE0YofQtBEUIwTQB5lnA9Z/pGRCGfsupf4pfSoEjpJ0aub6GfjyWuG4+afY+fzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ivjNaf1K;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1675606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:34:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1675606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M63F1wkv;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3BD5606A31A;
+	Sun, 15 Nov 2026 13:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3BD5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ivjNaf1K
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id SMj6xLYnTVK9USaMsxqFdv; Sun, 15 Nov 2026 13:34:03 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SaMsxT4xkxmi7SaMsxdR2p; Sun, 15 Nov 2026 13:34:02 +0000
-X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6af9b4ca
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=9rJA89_LAy90xbHUIIMA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=1bytFfLq5CGOzx0IILJ9a2zDeD4jxyW+w7M6grr9Vbo=; b=ivjNaf1KxWWujcDDlIw1IFhw9q
-	c12fT6PRPNN6AWQO+OWFIOvQ4HLG2eyaiucc2sDJ641rQOsat9Q4b70Lt30wpM1u0tOLxdZIbT64U
-	0lQN21M6dDNLhdH/cjMbElnRXncvL0GW0MkIGdBBzKs5qpN9LiJYZ0O4t82rPd5mZV6J1cRt9wJ0Y
-	duGCdY92TN3XBAV2SQsTgucq/X/0NxymSuU7quU+RwdSaJQJonmB8gYi/L+vux8hycEb5p4cd3YB8
-	edA7u0AMaTCUn2HbsDh6XJSJFLs/6KK39L7dRmuuUleop5OLDQJFl52yFVuYyhoCWOb4Q/VwN5u4m
-	WJaOCFwQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52946 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSaMr-000000011FV-4AWY;
-	Sun, 15 Nov 2026 19:04:02 +0530
-Date: Sun, 15 Nov 2026 05:34:01 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Niloy Meharchandani <niloymeharchandani@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (pmbus/xdp710) Use dev_err_probe()
-Message-ID: <908a05e8-a1f7-41c2-82e3-a6713d89f93c@roeck-us.net>
-References: <20261115022053.32321-1-niloymeharchandani@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M63F1wkv
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 47E491688;
+	Sun, 15 Nov 2026 05:34:39 -0800 (PST)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F0E3D3F85F;
+	Sun, 15 Nov 2026 05:34:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794749682; bh=km/W8N+ZMvEGY9g0PkTnKKdqrsdpENOnRL0v1yDlAG8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=M63F1wkvBUuCeR5BtsdpVEpywDj9MdyD8B5xSr7iM5k5HAgZmcSz4HW8OgrgRWdFF
+	 9JdvtTlI8mn272s+Wh3azqxpugq1UVFjX5tt15b/PVxTUtPw+yQ4ac3P4c0shSxwOz
+	 mHUl97ErrzB6y8UGTnJiovVY0ok5k0ik9Qp6Wssc=
+From: Leo Yan <leo.yan@arm.com>
+Date: Sun, 15 Nov 2026 13:34:22 +0000
+Subject: [PATCH 4/4] perf docs: Describe multi-record thread maps
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,40 +55,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115022053.32321-1-niloymeharchandani@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSaMr-000000011FV-4AWY
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:52946
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHloFteOuCYfQlVt1yZTyAvjPsRX2/XCXLdAYj+DWK5xvL4YTOgqbPk8vBgHxMXIrrxbrAYwsrCj3EBA1yzwq694B5RqQurfy1la260Er3xGe6jgvafv
- gnWaBn0k9O+ML8pXgACoffLxzXfB0vCpWPsVXN0tDprg/pcWspzSmxHTYRfl+PPslYZaOGhVCvIdhcV9bYTTCScdVXPEBMHG10itTRoFDitYF7mxf4u+usyY
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261115-perf_fix_large_threads-v1-4-69c9b86b9ae5@arm.com>
+References: <20261115-perf_fix_large_threads-v1-0-69c9b86b9ae5@arm.com>
+In-Reply-To: <20261115-perf_fix_large_threads-v1-0-69c9b86b9ae5@arm.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Suyash Mahar <smahar@meta.com>, 
+ Amir Ayupov <aaupov@fb.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Leo Yan <leo.yan@arm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794749674; l=1961;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=km/W8N+ZMvEGY9g0PkTnKKdqrsdpENOnRL0v1yDlAG8=;
+ b=aqjjd2fCbLNg92lBrDb2qhU9uahjGE4oFmONxbLbNopAR65qu0r9EOGSDh5vjGqUtJVgEA/aD
+ 86ktP/AZA7BDv2oYlTcP35zKzUbl6Oedb1jFFN1C2dlYbU8L5T+GdXf
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-On Sat, Nov 14, 2026 at 06:20:53PM -0800, Niloy Meharchandani wrote:
-> Use dev_err_probe() in xdp710_probe() instead of dev_err() followed by
-> returning the error. This simplifies the error paths and prints the error
-> code in symbolic form.
-> 
-> No functional change intended. Compile-tested only.
-> 
-> Signed-off-by: Niloy Meharchandani <niloymeharchandani@gmail.com>
+Document the PERF_RECORD_THREAD_MAP layout using the structure names
+and flexible array declaration from the code.
 
-Applied.
+Describe the continuation flag and ordered assembly of split maps.
+Explain that readers must collect the complete map before allocating
+per-thread counters or processing statistics, and that split maps
+require updated readers.
 
-Thanks,
-Guenter
+Signed-off-by: Leo Yan <leo.yan@arm.com>
+---
+ tools/perf/Documentation/perf.data-file-format.txt | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/tools/perf/Documentation/perf.data-file-format.txt b/tools/perf/Documentation/perf.data-file-format.txt
+index 1f8e7d8e9ae21d732df698c9d2560377dea5f03f..6b59404ef0ff92102aeb63fc0d1da283536a4add 100644
+--- a/tools/perf/Documentation/perf.data-file-format.txt
++++ b/tools/perf/Documentation/perf.data-file-format.txt
+@@ -651,6 +651,30 @@ struct auxtrace_error_event {
+ 	char msg[MAX_AUXTRACE_ERROR_MSG];
+ };
+ 
++	PERF_RECORD_THREAD_MAP			= 73,
++
++Lists thread IDs and command names.
++
++struct perf_record_thread_map_entry {
++	uint64_t pid;
++	char comm[16];
++};
++
++struct perf_record_thread_map {
++	struct perf_event_header header;
++	uint64_t nr;
++	struct perf_record_thread_map_entry entries[];
++};
++
++Large maps are split into records that fit in the 16-bit header.size field.
++PERF_RECORD_MISC_THREAD_MAP_MORE (1 << 0) in header.misc is set when another
++record follows and clear for the final record. Each record's nr counts only
++its own entries. Concatenate entries in record order, preserving their
++positions, until a record with MORE clear completes the map. Consumers must
++assemble the complete map before allocating per-thread counters or processing
++statistics. Split maps require readers that support this convention; maps
++that fit in one record are unchanged.
++
+ 	PERF_RECORD_HEADER_FEATURE		= 80,
+ 
+ Describes a header feature. These are records used in pipe-mode that
+
+-- 
+2.34.1
+
