@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733324;
-	b=gqAAlBsSTsrHeTNKXPGQck+cYCbATWb/AzI7JYB0lk92Znv6jSMKYgSGkHCOehHrGr+x
-	 m209rhk0ljqeLO6smYzEriKPtdW6+JsbPVnqrHkWVYUL2dzTn+puDCOO8Il/wSZWzKjdF
-	 HuTSwDodq7hx4Ng6PxdxWI0OmSomY1YZG/QfaFiTVsx8IRTK6utNZraVtU0SrfRtiXyRD
-	 yWjgRL/dU2CPzHuE9RJTXq49gEaIVQcW8lkcUclVdaVyIC/jC4vdihH6DnkydfUpNQSRg
-	 OpK/uO1bgF4f5gORVNcH9E1zTUxjitpUCG4s63xo7OehzI5sCKD84cd7TGYH2Mn2Kvw==
+	t=1794733326;
+	b=ZUGuNSh/TY3jgFAsa49N6vwnuheQVkbAzQy//by1PYlUMo0ZLpa/sH2FjoKcIG1HKfPa
+	 5GbCqlSrtSd2v35JHRjVBOSZHYiDx4euThXOfKm2FFEZkHk5ratwjuh2L/lLzZLY3SVAy
+	 5B4/qtEhM4/hyqT3NyNTEC+h52iHzwa9DdpZ4wDkl89Tn+EGXBo6YLgrxi9fB3P/sMO8c
+	 9cqZStyvRvIH/tI0z5inckl9wYANjdZ4+Muci1JDVX700Xyp/Ei15wj5VvXkysftl60o9
+	 AdnGz0CpFO9dpt5hLycGFyG9uMV4E56ejAT8cjLy4G+YunRqi1FIUlCiFYII0/fP8Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733326;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=JIGdSfePgzD0dfXi1attDBqrNHcTYvQa9hsulRJWW/U=;
-	b=sKqzsKyTuyTsPY9gLkVWBT2Aef1ML+JJ64nwTpy2oWRVkIrn4gcPr0caxU3rAjP2hEUt
-	 lrXQJnasJ3CXzt0LkwgNpf4/qDK4uVZYHM+8b+SxLVeyK5I8RXTEvumQiW65GoqiRP+HB
-	 Ahzd1IwcwwDEitlYTRPYJZGtUW8lTwix481yF5UjauDC+qSTOL2CvnQE6zVIr338F+WKl
-	 sGgOaCfDcGxSva0NiVoKIwheiNGWS0oHnN27q04VGMbxwvM2eTAIAawt1U43aO4SZ5AF5
-	 hiMCsMR9kWWqDb9Tw4PYUWMLhbcdm79gHR7Sg5en06AyeoWE4RToRK/s0PtDv8uW0Ug==
+	bh=JyM31cGx8Sg4l+C801TiUlTl53Lt9FfHftI5A2bsynM=;
+	b=aoZpoDiQ5x36AM6uNh5OKQmmr3LONx7JvI117Qa9DfPXz+Vlapyv470hlmG3udQ2BOhQ
+	 KKOBlan5TBHV2RtUwfY0tdUhYAhP2kwMK4AfDR0tjOP8yYmhrZYKcx1gSwPJHc8Z3LMHn
+	 kjpL2jyLS1zVUaPcRhexZlYN1JdolNGqpLJ0vH/sl0eSiSv4zfEew9x1XOiNIkpYlQH7S
+	 sun31G8WlAPXtIfGEIfyh0W7jOTUMDJ4nopjXsB8aZ7INjCQEQ9P5ebRX9FKkF4yXZtOj
+	 kG52IHsf0mU7crykcR8R2sZ2+c0Unms2950sHdBGXzHH38M/5L1a7cHYVl3IArI5Gqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MNbn5TYI;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wQCdfKgR;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DD2606A8A9
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:02:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55DD2606A8A9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A8D606A8B3
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A8D606A8B3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MNbn5TYI
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c50604721c8so430400366b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:02:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wQCdfKgR
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4395d31228so421928766b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:02:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794733323; x=1795338123; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794733324; x=1795338124; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JIGdSfePgzD0dfXi1attDBqrNHcTYvQa9hsulRJWW/U=;
-        b=MNbn5TYIf/3m158dUPO7+7WNtkW/VRabw5aJK/Aw7+W3D6EUxYKIp3BighUBxk0q4S
-         NAFkfHGSGIQ7Y6v4R6xpWg80p7qkmOzVe72k0+j+26NLpCHFGr6D6gKd+T3y9M9pD5yG
-         iAm9bnETom8l099Y31vOryZVYcp2dxUj4UQ2zfpDh6/Xcav3L+Lh+hiiyAbD48vxhrnv
-         DGM+SqMJ4/iIahbcaVYPUP7Smvj2wS8qqDVW6aXdFcDb7i3FUsoGaTQRrkzzDPOoCFAu
-         fMw0HGC7ARk6UTBPZCRHoA15EiwewHSlarDvTREpcCDu4MoF8nVw9znHvBIczylSuwWo
-         y4Kg==
+        bh=JyM31cGx8Sg4l+C801TiUlTl53Lt9FfHftI5A2bsynM=;
+        b=wQCdfKgRjSDN5un7cIV5u/eVKfHrhGXf38UEdfx/2tMsnkOf4bSZ5KcELOtnSXb5oL
+         0tGvC0lS9lmQpyuvLAaABKnxB3l+RNeKAR1l34OUpt/oEiX6PzIWH6udcdgOafJk5ivB
+         QoOo7uV8fnjGpBIuu9aCKPrkYi4Kka3TMnitG2I8Ve0hXGyhb1X145QLcOI3Ds401dGB
+         aGigjOzS096fxuRybJYYOBRr9WapmXhXvfi427cUq8fpTYnO/jlV3+S6TofwNPkgEZ1J
+         7p+7XcHsrJEtfN28qKBNLO2cmbar/eZpfPZ0aXksY6UbNQ87HpNE99ONCPG78335llAS
+         4e6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794733323; x=1795338123;
+        d=1e100.net; s=20260707; t=1794733324; x=1795338124;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JIGdSfePgzD0dfXi1attDBqrNHcTYvQa9hsulRJWW/U=;
-        b=JaNVGF5XPQAIXZdpTeQAK7/imzh2JWcCp1Y4ZVba0R7ZNHS6OQ4TAcqp1zT9HcbOSf
-         VR+HGuinMgS7ji135PPfR7K7IqSghj5InR7uWGUogyqaCAtl3FYcEYJec96PSNzZ4I8X
-         hg3mjdYA5xk6z2+XECLUfpLEF+CZt4Advy7dletLAcf/0a3EPpGT9X6vDVhw1l8jFKe6
-         KEySrIcq9U4AgdJrvc4X8kTdSMzxjE5YMFrDkcMSTwBrXhEohWvo53SY15I/UVu1NqUt
-         NbHdjKDjh2n6QRl9wKNcy9ax4PnFEagqh/msHsAKywGEi9FHEVYtJLOnRKMguXp8wL2R
-         EapQ==
-X-Gm-Message-State: APuU4Z/8I62GpQQvUIWyfrNYGk0jB1L2EGdJLAMAbO68V75++tJHjpCO
-	8foOphhkWkbuhBl0/xmcBmmWcTAP4wLv/5QFftoQyOuWmnwU55s/bw9r
-X-Gm-Gg: AYBFou05Y51sqYZk08fsk6EuLqbRFWHIYMDPLYKVBcSShinfxLIi4geM/vbMTaJCwG1
-	Hfyq1cVcLvkQKz71Hf/hdYW4cM6aQY0l0NPYzK8soDyIAqneFjgchkhwBoot/EXKp0dsQs74Y0v
-	2SRwCWhLRSNFS7V3r8xy9SSQMKrMU+iXuZ8h9vJCKe9AMSHr7vStZtidLLpTAL6kKPOpiA0E5DH
-	uzKCID0ZLMgk2RABGKF4bTzKioAdBk0tc32kv22XQ90oZrpXBF9K4GuutCSMcmC4KWUaCd2Au0U
-	PFlmsN4EEm9mlO4MdxdHN/w+6eVkZquUcs5kwnZmvbSaHeqoS6tt5wnClc2gKDHdAHBd9C2b1Kr
-	8J2ej/jwFYsL6TTNBAHrZlGSqQny9oSp87GQtHnlG9LSpxpWe6UIiOts2+OdSyyo0/dTNv7dgjF
-	9rjqZzaZ1EQnm3zPGLSrusPr0+W/d0fkrSOqgI5XoAPZQNEz0CdNjEBWPki+qAMAHg60HEpSCfR
-	eIxiZR9suR37Vceid8nXuW23JKg7KHFW+sNiaMnVmv8hK+D/ohVPAD+rJEh86dDIUUVbE+GSTlk
-	H4c+4xAChTtWjkqbPq4xH8k1Zgjo2YJYKFFjO1t+7R7zE3eO0HjTwp2qcLKqet5pasL5xdSawY2
-	eBPrQ6T92aw==
-X-Received: by 2002:a17:907:3e8b:b0:c29:f5d8:9c78 with SMTP id a640c23a62f3a-c50964101demr575842866b.39.1794733322499;
-        Sun, 15 Nov 2026 01:02:02 -0800 (PST)
+        bh=JyM31cGx8Sg4l+C801TiUlTl53Lt9FfHftI5A2bsynM=;
+        b=ZKveCXl/7cIiQlFWI8Nxhkgl2xYRZLn+R9PtfqYoPmkerR2+o39TT3lf+HE2l0vpi8
+         Ct3McqozUc+hkand4lPRMSAwxoq85BKW1kfVr4sbs9L+OJh0q91HB83kNKb0dxjOwMQf
+         cubDMroBB52XFf9l1NY3kYDGaiwLHE/lLkYJMT30GZb+o/zBPM1BFWRatWAvUtbNgyMJ
+         w8GVyEcDknD5ft1beN7s+HDRkbQvqF+PJRGGF57z2glfLAcdhLf3xSO2YEZToSWloIf7
+         jykrlJgCV6GOiPVrLE4ReokShZFA+zZCh7wcCpiV6+XQpLI8hWI3Y4kLCqX+aFs9o8EG
+         03Iw==
+X-Gm-Message-State: APuU4Z+pEsKc8ydLOfpOntrVYkTNqWexyN1S0Kx7bnYmHHn2T3g5n0d0
+	Uf8dk2rpfo4pGrleus2CteReqDYiRPNGeuYpoeFQW3sh3+vgDQFCkVh6
+X-Gm-Gg: AYBFou07ONz1ALVARFO0O3perO0p8bK0hDJEQQa9teBxutdqv/GhJ6c6xJOkAdOVEci
+	TeGFh2RgeVaWMXTxvFtWrxQOqr0HefdCAdVJNLD2996D+/y9mEWFM/btMlIjGQvvLIiAgWl56hK
+	1TD5CD0ayXb+yyqhr6p7Hr7s8+htqfUvknNbwEkU99MOusJXjODMGZM6NsbdlkORS/mLHkVIkAI
+	NRBWIQDNAHPM3b3/WUAnmJ1mBVWEpPxYVV1xwcCkJ1caM+OvjSK02QLQMUSwgaYHH6UcYML/dRK
+	wxdeSurBdfe+bouv7QLsW49cnERDrCM898t4AxCO/iJXz4UooQVpZ7gAeKX7tHJgnFc2aVVjIx3
+	K2OvLLOewurJeQfTjy/WruTi1IgAW/GREiMzGwOblqhCI+uvLP/vNnT0iJl+ddvPt/RC2V+7qSS
+	RhvBRrJ3zFfcoRU7TJmSdVTvCgkjtxo7QB4i+QM+26ixu9RnOL24+vPdOclb1bg2CILGLBW5ZFN
+	sbx+T807OF3kYj5J92GJ5kKigpjKcn4frBrM+nccyNcpbksw+4IMmH1hM9KKiEusaBZBKtN6PRp
+	9AivZ2mOv+upDrQqI+82W+KNghvDPEzOQHHBJPyL1oMCJtFlynQ9ZtXTp7bmBUYQX9TJY6uZpqp
+	fJguXM7xZ4A==
+X-Received: by 2002:a17:906:f595:b0:c50:94be:22ab with SMTP id a640c23a62f3a-c509633e68cmr632454066b.18.1794733323864;
+        Sun, 15 Nov 2026 01:02:03 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b8651bsm291440966b.78.2026.11.15.01.02.00
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b8651bsm291440966b.78.2026.11.15.01.02.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:02:01 -0800 (PST)
+        Sun, 15 Nov 2026 01:02:03 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -89,9 +89,9 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	mfd@lists.linux.dev
-Subject: [PATCH v5 4/5] mfd: max8907: Convert to use device managed poweroff handler
-Date: Sun, 15 Nov 2026 11:01:46 +0200
-Message-ID: <20261115090147.95337-5-clamor95@gmail.com>
+Subject: [PATCH v5 5/5] mfd: max8907: Add restart handler
+Date: Sun, 15 Nov 2026 11:01:47 +0200
+Message-ID: <20261115090147.95337-6-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261115090147.95337-1-clamor95@gmail.com>
 References: <20261115090147.95337-1-clamor95@gmail.com>
@@ -106,75 +106,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the legacy global 'pm_power_off' function pointer assignment with
-the devm_register_power_off_handler() helper.
-
-There are no in-kernel users of maxim,system-power-controller property and
-all new users will use generic system-power-controller so check for the
-legacy property can be removed.
+Add restart handler to reset hardware properly on system reboot.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/mfd/max8907.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ drivers/mfd/max8907.c       | 17 +++++++++++++++++
+ include/linux/mfd/max8907.h |  1 +
+ 2 files changed, 18 insertions(+)
 
 diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index f6d7a4ce9712f..8412dab2133e3 100644
+index 8412dab2133e3..b57c497334ea6 100644
 --- a/drivers/mfd/max8907.c
 +++ b/drivers/mfd/max8907.c
-@@ -15,6 +15,7 @@
- #include <linux/mfd/max8907.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/reboot.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
+@@ -187,6 +187,19 @@ static int max8907_power_off(struct sys_off_data *data)
+ 	return NOTIFY_DONE;
+ }
  
-@@ -173,11 +174,17 @@ static const struct regmap_irq_chip max8907_rtc_irq_chip = {
- 	.num_irqs = ARRAY_SIZE(max8907_rtc_irqs),
- };
- 
--static struct max8907 *max8907_pm_off;
--static void max8907_power_off(void)
-+static int max8907_power_off(struct sys_off_data *data)
- {
--	regmap_update_bits(max8907_pm_off->regmap_gen, MAX8907_REG_RESET_CNFG,
--			MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
++static int max8907_restart(struct sys_off_data *data)
++{
 +	struct max8907 *max8907 = data->cb_data;
 +	int ret;
 +
 +	ret = regmap_update_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
-+				 MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
++				 MAX8907_MASK_SOFT_RESET, MAX8907_MASK_SOFT_RESET);
 +	if (ret)
-+		dev_err(max8907->dev, "failed to power off the device!\n");
++		dev_err(max8907->dev, "failed to reset the device!\n");
 +
 +	return NOTIFY_DONE;
- }
- 
++}
++
  static int max8907_i2c_probe(struct i2c_client *i2c)
-@@ -185,8 +192,6 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
+ {
  	struct device *dev = &i2c->dev;
- 	struct max8907 *max8907;
- 	int ret;
--	bool pm_off = of_property_read_bool(dev->of_node,
--					"maxim,system-power-controller");
- 
- 	max8907 = devm_kzalloc_obj(dev, struct max8907);
- 	if (!max8907)
-@@ -237,9 +242,10 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to add MFD devices\n");
- 
--	if (pm_off && !pm_power_off) {
--		max8907_pm_off = max8907;
--		pm_power_off = max8907_power_off;
-+	if (of_device_is_system_power_controller(dev->of_node)) {
-+		ret = devm_register_power_off_handler(dev, max8907_power_off, max8907);
+@@ -246,6 +259,10 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
+ 		ret = devm_register_power_off_handler(dev, max8907_power_off, max8907);
+ 		if (ret)
+ 			return dev_err_probe(dev, ret, "failed to register power-off handler\n");
++
++		ret = devm_register_restart_handler(dev, max8907_restart, max8907);
 +		if (ret)
-+			return dev_err_probe(dev, ret, "failed to register power-off handler\n");
++			return dev_err_probe(dev, ret, "failed to register restart handler\n");
  	}
  
  	return 0;
+diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
+index e222250f0cc1e..025874e5f8808 100644
+--- a/include/linux/mfd/max8907.h
++++ b/include/linux/mfd/max8907.h
+@@ -164,6 +164,7 @@
+ #define MAX8907_MASK_OUT5V_VINEN	0x10
+ #define MAX8907_MASK_OUT5V_ENSRC	0x0E
+ #define MAX8907_MASK_OUT5V_EN		0x01
++#define MAX8907_MASK_SOFT_RESET		0x20
+ #define MAX8907_MASK_POWER_OFF		0x40
+ 
+ /* Regulator IDs */
 -- 
 2.53.0
 
