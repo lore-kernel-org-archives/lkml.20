@@ -1,117 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794730962;
-	b=zwxkfk8FlSxoqvjG/6F535T8Vzr/bApAxXndTjpIjMoRPSdvcnN6ejApnvDiBgZILanL
-	 Ehm2kOJedqmdnoG08U7xFQchomgZaasFc8EbnB2slCSHI4BSAFK6Uh/jW7Y2dVClTEpza
-	 5c5LMs58HkzACbZ2TBz9lcthHORFrA1OGgQKt9L4vveapQNujn1xkouEO40SoXX4xC5fO
-	 sQRHT0ZM5eauMfxOqH2+qCGbaAq/hIX2i2S0QWnDnufWngWw/nAHLNxnoGbFemZI0SaWY
-	 edEvYUWGcQU/JG0jChj8eX2GKnzosxN9AtGBVMfxPyY7QR0ZAgRWXSmreF862grZ74A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730962;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-	b=sB07RPo7txdyUSe+EA9bL7miHTiYfb8SyH+vUJCJMQw0AkKjDtafFjfIsZZKIREm5F2p
-	 uezZjD0jtlOLCuxcASVRRR7fcwzlLwFHCdPTRH/x51wIWuGfeXVED1GyUhUAdVh6MppDi
-	 g1jLgU881RSOZzzyy/64KDh7tQjK+efOqyMxd0unKCAF3kA/R67Hdtp8NUy9LLazcEDWv
-	 6T/BFYoltC++V/iIRkjd3vako2aUm1GQpNwd8W8+x/0jxRM1VVAJwYKZFrpTyjIAJJ5ri
-	 l+HY/Fi+FfW9ACvytb0DF8Qf5txo4N74fwOfp+0YuVCCPi16cAbbdtzV36dU5HACsIg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794730996;
+	b=MgcJrKWoQaGn7+fGd55mVvC9mK+muGATG4kXSfI4YhzCe9uWjKAEqrI3cQ83CP3jWIie
+	 MArHx/8MRrixGa5lsr3eAJJ0Y+cpU3o12xJhQxah+gR72eyVEsHKJS286u4PIIbnnAd+9
+	 RQaGoki8hHvDu5yA0xmVsDUk2fOQ9/P/HFhC+W+TcuirBokwSG5ax2gZNSMf4FtJUwWAM
+	 rncosOfFvBjsllXuJiBaVgVYV09K0pajrVdPT0X8rcNlOF8RxH6qkJyVSpUvMl5Gxnety
+	 EuBiYTybbOvQoo9viPwlIekX0DodntCftQwfIY8hMFI+XSnJwaiAlGBdCvGNQUd3R3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730996;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=aaNQL++D9N+GmkaFE6XF03ix3k0yr0hKRtisBHFV+jc=;
+	b=18zXcf5BDmD5bRdS9H6dkgz8056G6cPQGz1sbMzujL2ePjdMori3am2PwAhlzJehXA8T
+	 r0Y1PEma4fpxKlVN1y4stDtIh5/P2DhoG8tg4PqTWHzp8VI/8dgK7avnOK3hSuUxqxKBJ
+	 rbNMzvK0XzuQ2Q2j6jHiWX/zTj3lJl/9m3riaCEE3+f8b3I+fIp7UmsX8JHpz+D7wFcI2
+	 dBl6uo92WvjMdf3tXBQtUcznFptQmEPLnUOpJllVsDULO+G8dPrzgyPbyNOKAU/ZHv4MA
+	 MBu43xotWEjbe98jhDNtCSo17Ww0+15/k82ohTvk7iWVmLQdk32wvXiJ0ySL8lE0d5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=YjVKAjZf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA98A606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:22:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA98A606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F72606A31A;
+	Sun, 15 Nov 2026 08:23:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F72606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794730960;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-	b=fzae79s4r33XIm4X0Qplugnvzcx6gmPVHrx9mtrZBkRTm4nlRPUcw1+SPvXJg7RI2vN7db
-	cMANMWjWd4+a8HcnjUfAdloBcKJBlC61C8d9w+Yj3H6YmqZPNcP33FoP1P7YrLhbM37cjL
-	fv+ZjYa3kgtVouWIOS3xtRXdYH3jv8s=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-638-R669S21hNp2jwKBBZ1kp6A-1; Sun, 15 Nov 2026 03:22:39 -0500
-X-MC-Unique: R669S21hNp2jwKBBZ1kp6A-1
-X-Mimecast-MFC-AGG-ID: R669S21hNp2jwKBBZ1kp6A_1794730958
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4916d47eeb5so2204555f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:22:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794730958; x=1795335758; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-        b=DmTM11z2mj0Ygyj+SNk4FmJDtfZr0mpv1PUS2jGNBIKf8NMHOQcQqCCVH78jJnYr8w
-         BcLd6CjxdqglHGwJ5zLoZ2EH+AXT5DksN/YWmNfMWshEiGPfB5wbL3ur3RXMt+eak/bo
-         AJU3htHY47nwfMp58dD7JeMtvLCU83xjPwW+zQGwNZUK53OG10JeUWhK4dqc4phQswdW
-         Ar/lr9h7EaYwautyYFc1ZvinugH7pbRkEDJxsZ/bXqOBotJbEZcAGAiALRAhePW6TbLY
-         iL0iS/8I5xz+qWtOxPYrgduXx37RHZ69MBAqu39Tu6g0e1g5xBYYkd11SclSGtv3Hsdb
-         8IOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794730958; x=1795335758;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-        b=n+xNNmRctsEZA634WSS4tQTirIFbf3cX58IKSDP4GAlBOq4IyXvcPzzkbxIesjPsYY
-         VApJ2IXem762H+WNYiDqqe/mkfBwlo871s1lgVydhPtq0qjBtobLz3PY38bby2p5H6Ia
-         dVESUqynyvSiSuXoDRFCj1Hpnp7XGQyIF1o5lbve3A89zroRaYtnN0npamr813svn7Uv
-         1dlDUzhowCUWj5+I0Jhz/52206GCBhneTozX+pA3gUtMgK9YSzxUtyur+9xHggNEDPlu
-         KA5orV3w21xoaYQZ4u98fqtRU0q4M6J/YxUNi6GidrHD5s16HtddJijMPhO9fGCuSvNo
-         w//A==
-X-Forwarded-Encrypted: i=1; AL+hErEV3YhVzqHw0uLuBn6se5FnDt4cV7mzfqo9sKuMun1YqKa+h4MA6G1ixGFP0bDVqksapU2YFKzKW9G+Kxg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qYmzqvzsCovMxfLKA8um2688+Wjh9irxQpvYJ32MUuXoIEkoJ
-	8r8fmEFD0fI1orwbZVqo/Tou5gisTwGH3e0nBs0sbNGRQA8yRGN6TMDgVvKn7WgdfFE5B8yYy+u
-	PNr60ZJ83DAlKb0lVoZVV8TubuukVt4QFTHfhr+9Pw8ySbSiSqPmS3h1o0z9dAo6s8nkgHUAUPP
-	DM69I=
-X-Gm-Gg: AYBFou3x1hCLXc3AXvCfe9f/G3ekhi2VMooxNtCB3tCLVx9gQJu6jRRRY7wAhQE/miq
-	DdsPcZAHTgrt9umSjYeCQHZb28WQDMdO8N9CnC92NN7TP8IsLz31hBTgkYNAvF+zgJrcg4Upyjf
-	QJDykiRdygjN7pVGlStFL7CEqZuZ/S4+gt/8i/GCqlpSFNIhZWnYwhZuTwpb6Aw9NPQOsomhVaY
-	4BTTGV7BmJz0XPYx4WkRpMMYJsKPtY9ICZCIQ1ZeVGLeqJ7l+qsdslH0mpkm/8ALWMFFw/XE7Tp
-	FqB7Q+yJvvo/LdjRrAsQ5ERlacWQMjgpcwELiC18vwNWGtp4621/ksUiloW0yKOiULhVNCNm++B
-	OFwVAJNl9zK+jbFmrkKmGYdAtlXOJIt1BIOyWWAjkLuXxBM01SEGWyg==
-X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906615e9.34.1794730958283;
-        Sun, 15 Nov 2026 00:22:38 -0800 (PST)
-X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906215e9.34.1794730957813;
-        Sun, 15 Nov 2026 00:22:37 -0800 (PST)
-Received: from sgarzare-redhat ([193.207.75.235])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm297980195e9.15.2026.11.15.00.22.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:22:36 -0800 (PST)
-Date: Sun, 15 Nov 2026 09:22:22 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Sergio Lopez <slp@redhat.com>
-Cc: Bryan Tan <bryan-bt.tan@broadcom.com>, 
-	Vishnu Dasa <vishnu.dasa@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] vsock/vmci: reject datagram binds in local network
- namespaces
-Message-ID: <avlpwYZr4pSpunEl@sgarzare-redhat>
-References: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=YjVKAjZf
+ARC-Seal: i=1; a=rsa-sha256; t=1794730971; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bnCWSZz5hm7+1PCztJ6+5PM1UjcO5qlDLsn7K9m9iaSG+P+pDoW3vgBBquFQFbwOH6YAWg65IFcpMGqA8ZMi7X68Kf1fFtOf5EmfUjWDMkeFOVs8X1Xj4GfwWIgzZ+AXc4CxqN6cR6PbbBssmnQ94UGwVXP+WCvBeLyaSYvev3g=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794730971; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=aaNQL++D9N+GmkaFE6XF03ix3k0yr0hKRtisBHFV+jc=; 
+	b=O4QYyKMbXkvxMQSDXeI60ONQiZE5nMZUsKjFBsXPuTUc3Qlck64CocZI5GBUAl+f6jvPFIjG/2d2AwDJlcZRPYZSNWkSEKbf+HQw6XjlZLxw7m3GhM9beMlAG40bEVFo7GuPBBpafzqhfV+9wz1q/KQp8skYbKNER2MaRWTSzv4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=YjVKAjZfLMfrR1CfAgrVfQn2f7IKDBIprVHqQjcDqIdHCqsEO2ACzBHFjL/bYrdlylZUEsfHdPySBvzs6m2+pHeGsHkdnwY+y79UEPQJrD6O+AA/B/41QjDzuras6lSMAKG6xzpxiMyi0vO6Sj+lV0kDE1qY2EeRwVPYJNqli+r+Po8vF8SXW0sCHFux74m1/73MbNa++yvoUF0+KipEBKrBRf7Wzk0jwqPthYC/0BLYDH+VzHKuSLVJLVe4VTy8yKA6hqM6sOQlaz2e9OikKQgoAuy9Adzc39oBjBa7z1SzmfruLvyM/jjJaXedUrcu4YnIYCWesxeBJty4xxmozw==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=aaNQL++D9N+GmkaFE6XF03ix3k0yr0hKRtisBHFV+jc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794730968576109.36158973206864;
+	Sun, 15 Nov 2026 00:22:48 -0800 (PST)
+Message-ID: <78209dfec0574dd6ccc4b1b1410e0c23925a95ca.camel@rong.moe>
+Subject: Re: [PATCH v3 6/7] platform/x86: thinkpad_acpi: Add support for
+ auto keyboard backlight
+From: Rong Zhang <i@rong.moe>
+To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
+ <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
+ <hmh@hmh.eng.br>
+Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, Lee Jones
+	 <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
+	 <griffin@kroah.com>, vishnuocv@gmail.com, vsankar@lenovo.com, 
+	platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261114174814.62153-7-kmatzkaczor244@gmail.com>
+References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
+	 <20261114174814.62153-1-kmatzkaczor244@gmail.com>
+	 <20261114174814.62153-7-kmatzkaczor244@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 15 Nov 2026 16:17:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,79 +77,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-On Fri, Nov 13, 2026 at 06:04:40PM +0100, Sergio Lopez wrote:
->VMCI already rejects datagram sends from local network namespaces, but a
->datagram bind still creates a receive handle in VMCI's global port space.
->A VMCI sender outside the namespace can therefore deliver to the local
->socket. Its handle also prevents a global-namespace socket from binding
->the same port.
->
->Reject VMCI datagram binds in local namespaces. No namespace-local
->datagram transport exists, so EOPNOTSUPP reflects the available receive
->paths. The receive callback also rejects any local-mode socket as a
->defensive check.
->
->In a KASAN/lockdep QEMU guest, a reproducer observed cross-namespace
->delivery and the global port collision before the fix. After the fix,
->local bind returns EOPNOTSUPP, the global bind succeeds, and a global
->VMCI datagram still reaches the global socket.
->
->Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
->Cc: stable@vger.kernel.org
->Link: https://lore.kernel.org/all/sashiko-outbox-212907@kernel.org/
->Signed-off-by: Sergio Lopez <slp@redhat.com>
->---
-> net/vmw_vsock/vmci_transport.c | 6 ++++++
-> 1 file changed, 6 insertions(+)
->
->diff --git a/net/vmw_vsock/vmci_transport.c 
->b/net/vmw_vsock/vmci_transport.c
->index 1f186e8f8364..282131544c42 100644
->--- a/net/vmw_vsock/vmci_transport.c
->+++ b/net/vmw_vsock/vmci_transport.c
->@@ -627,6 +627,8 @@ static int vmci_transport_recv_dgram_cb(void *data, struct vmci_datagram *dg)
-> 	 * outside of the create and destruct socket functions.
-> 	 */
-> 	vsk = vsock_sk(sk);
->+	if (!vsock_net_mode_global(vsk))
->+		return VMCI_ERROR_NO_ACCESS;
-> 	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
+Hi Qiling,
 
-Why duplicating the VMCI_ERROR_NO_ACCESS return? Can we just put them in 
-OR ?
+On Sun, 2026-11-15 at 01:48 +0800, Qiling Zhu wrote:
+> Wire the EC keyboard backlight auto mode (level 3) up as a private
+> hardware control trigger, named "tpacpi-kbd-auto", on top of the LED
+> hw control trigger framework.  On machines that support auto mode
+> (MLCG bit 20) the trigger is registered and set as the LED's trigger
+> type.
+>=20
+> Selecting the trigger switches the backlight to auto mode; the
+> offloaded state is derived from the cached EC level.  When Fn+Space
+> cycles into or out of auto mode, the driver notifies the trigger core,
+> so the trigger state shown in the trigger sysfs attribute follows
+> hardware-initiated transitions.  If the EC is already in auto mode at
+> driver initialization, the trigger is set as the default one.  Writing
+> a regular level through either sysfs or proc leaves auto mode, and the
+> trigger is dropped by the LED core.
+>=20
+> Registering the trigger is allowed to fail; basic backlight control
+> keeps working in that case.
+>=20
+> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
+> ---
+>  drivers/platform/x86/lenovo/Kconfig         |  1 +
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 95 +++++++++++++++++++--
+>  2 files changed, 89 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/lenovo/Kconfig b/drivers/platform/x86/l=
+enovo/Kconfig
+> index 516594993..77d159a3a 100644
+> --- a/drivers/platform/x86/lenovo/Kconfig
+> +++ b/drivers/platform/x86/lenovo/Kconfig
+> @@ -83,6 +83,7 @@ config THINKPAD_ACPI
+>  =09select NVRAM
+>  =09select NEW_LEDS
+>  =09select LEDS_CLASS
+> +=09select LEDS_TRIGGERS
+>  =09select INPUT_SPARSEKMAP
+>  =09help
+>  =09  This is a driver for the IBM and Lenovo ThinkPad laptops. It adds
+> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
+rm/x86/lenovo/thinkpad_acpi.c
+> index f9e2d324d..f11e61417 100644
+> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> @@ -5106,7 +5106,12 @@ static struct ibm_struct video_driver_data =3D {
+>  /* EC level that selects the auto mode for the keyboard backlight */
+>  #define TPACPI_KBD_LIGHT_AUTO_LEVEL 3
+> =20
+> -static enum led_brightness kbdlight_brightness;
+> +/*
+> + * Cached EC level, including TPACPI_KBD_LIGHT_AUTO_LEVEL.  All state
+> + * tracking compares EC levels; the auto mode is translated to a
+> + * brightness value only when reporting to the LED core.
+> + */
+> +static int kbdlight_brightness;
+>  static DEFINE_MUTEX(kbdlight_mutex);
+> =20
+>  /*
+> @@ -5191,6 +5196,38 @@ static bool kbdlight_is_supported(void)
+>  =09return status & BIT(9);
+>  }
+> =20
+> +static struct led_hw_trigger_type kbdlight_auto_trigger_type;
+> +
+> +static enum led_brightness kbdlight_level_to_brightness(int level)
+> +{
+> +=09/* Auto mode is not a brightness level; report it as off. */
+> +=09if (level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
+> +=09=09return 0;
+> +
+> +=09return level;
+> +}
 
-The rest LGTM, if you respin, maybe we should mention that also 
-connect() and sendmsg() are affected since they call vsock_auto_bind().
+Please move the helper to PATCH 1 and use it there.
 
-@Bryan, @Vishnu PTAL.
+Meanwhile, the return type can be int.
+
+> +
+> +static int kbdlight_auto_trigger_activate(struct led_classdev *led_cdev)
+> +{
+> +=09guard(mutex)(&kbdlight_mutex);
+> +
+> +=09return kbdlight_set_level(TPACPI_KBD_LIGHT_AUTO_LEVEL);
+
+This does not update kbdlight_brightness. See also my reply to PATCH 3.
+
+> +}
+> +
+> +static bool kbdlight_auto_trigger_hw_offloaded(struct led_classdev *led_=
+cdev)
+> +{
+> +=09guard(mutex)(&kbdlight_mutex);
+> +
+> +=09return kbdlight_brightness =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
+> +}
+> +
+> +static struct led_trigger kbdlight_auto_trigger =3D {
+> +=09.name=09=09=3D "tpacpi-kbd-auto",
+> +=09.trigger_type=09=3D &kbdlight_auto_trigger_type,
+> +=09.activate=09=3D kbdlight_auto_trigger_activate,
+> +=09.hw_offloaded=09=3D kbdlight_auto_trigger_hw_offloaded,
+> +};
+> +
+>  static int kbdlight_set_level_and_update(int level);
+> =20
+>  static int kbdlight_sysfs_set(struct led_classdev *led_cdev,
+> @@ -5204,11 +5241,11 @@ static enum led_brightness kbdlight_sysfs_get(str=
+uct led_classdev *led_cdev)
+>  =09int level;
+> =20
+>  =09level =3D kbdlight_get_level();
+> -=09/* Auto mode is not a brightness level; report it as off. */
+> -=09if (level < 0 || level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
+> +
+> +=09if (level < 0)
+>  =09=09return 0;
+> =20
+> -=09return level;
+> +=09return kbdlight_level_to_brightness(level);
+
+What a back-and-forth change! That's why you should really move
+kbdlight_level_to_brightness() to PATCH 1 and use it there.
+
+>  }
+> =20
+>  static struct tpacpi_led_classdev tpacpi_led_kbdlight =3D {
+> @@ -5235,9 +5272,37 @@ static int __init kbdlight_init(struct ibm_init_st=
+ruct *iibm)
+>  =09=09return -ENODEV;
+>  =09}
+> =20
+> -=09kbdlight_brightness =3D kbdlight_sysfs_get(NULL);
+> +=09kbdlight_brightness =3D kbdlight_get_level();
+> +=09if (kbdlight_brightness < 0)
+> +=09=09kbdlight_brightness =3D 0;
+> +
+>  =09tp_features.kbdlight =3D 1;
+> =20
+> +=09if (tp_features.kbdlight_auto) {
+> +=09=09rc =3D devm_led_trigger_register(&tpacpi_pdev->dev,
+> +=09=09=09=09=09       &kbdlight_auto_trigger);
+> +=09=09if (rc) {
+> +=09=09=09/*
+> +=09=09=09 * Auto-mode trigger unavailable; basic backlight
+> +=09=09=09 * control keeps working.
+> +=09=09=09 */
+> +=09=09=09dev_warn(&tpacpi_pdev->dev,
+> +=09=09=09=09 "auto-mode trigger unavailable\n");
+> +=09=09} else {
+> +=09=09=09struct led_classdev *led_cdev =3D
+> +=09=09=09=09&tpacpi_led_kbdlight.led_classdev;
+> +
+> +=09=09=09led_cdev->flags |=3D LED_TRIG_HW_CHANGED;
+> +=09=09=09led_cdev->trigger_type =3D &kbdlight_auto_trigger_type;
+> +=09=09=09led_cdev->hw_control_trigger =3D
+> +=09=09=09=09kbdlight_auto_trigger.name;
+> +
+> +=09=09=09if (kbdlight_brightness =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
+
+If it can't preserve across hibernation, how can it preserve across
+boots?
+
+If it does preserve, you'll need to take extra care to prevent the LED
+core from resetting it on exit, or else this is always a no-op. Note that
+setting LED_RETAIN_AT_SHUTDOWN is not sufficient as the teardown routine
+of hw control trigger emits LED_OFF.
+
+I am also thinking about enhancing the LED core to properly handle
+LED_RETAIN_AT_SHUTDOWN for hw control trigger. That being said, please go
+ahead without my enhancement in this cycle by implementing a similar
+mechanism like ideapad-laptop, as cross-subsystem coordination takes much
+more time.
+
+> +=09=09=09=09led_cdev->default_trigger =3D
+> +=09=09=09=09=09kbdlight_auto_trigger.name;
+
+Lines can go up to 100 characters.
+
+> +=09=09}
+> +=09}
+
+Add a helper function to reduce indentation and improve readability.
+
+> +
+>  =09rc =3D led_classdev_register(&tpacpi_pdev->dev,
+>  =09=09=09=09   &tpacpi_led_kbdlight.led_classdev);
+>  =09if (rc < 0) {
+> @@ -5347,6 +5412,8 @@ static void kbdlight_resume(void)
+>  static void kbdlight_notify_level(int level)
+>  {
+>  =09struct led_classdev *led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
+> +=09bool is_auto, was_auto;
+> +=09int brightness;
+> =20
+>  =09/*
+>  =09 * Check the brightness actually changed, setting the brightness
+> @@ -5355,15 +5422,29 @@ static void kbdlight_notify_level(int level)
+>  =09if (level =3D=3D kbdlight_brightness)
+>  =09=09return;
+> =20
+> +=09is_auto =3D level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
+> +=09was_auto =3D kbdlight_brightness =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
+> +
+> +=09if (is_auto !=3D was_auto)
+> +=09=09led_trigger_notify_hw_control_changed(led_cdev, is_auto);
+
+Skip when trigger registration has failed.
+
+> +
+>  =09kbdlight_brightness =3D level;
+> -=09led_classdev_notify_brightness_hw_changed(led_cdev, level);
+> +=09brightness =3D kbdlight_level_to_brightness(level);
+
+Let's inline it into the next line.
 
 Thanks,
-Stefano
+Rong
 
-> 		return VMCI_ERROR_NO_ACCESS;
->
->@@ -1697,6 +1699,10 @@ static int vmci_transport_dgram_bind(struct vsock_sock *vsk,
-> 	u32 flags;
-> 	int err;
->
->+	/* VMCI handles are global and cannot serve local namespaces. */
->+	if (!vsock_net_mode_global(vsk))
->+		return -EOPNOTSUPP;
->+
-> 	/* VMCI will select a resource ID for us if we provide
-> 	 * VMCI_INVALID_ID.
-> 	 */
->
->---
->base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
->change-id: 20261113-vsock-vmci-netns-isolation-7e46732dcd73
->
->Best regards,
->-- 
->Sergio Lopez <slp@redhat.com>
->
-
+> +
+> +=09led_classdev_notify_brightness_hw_changed(led_cdev, brightness);
+>  }
+> =20
+>  static void kbdlight_notify_change(void)
+>  {
+> +=09int level;
+> +
+>  =09guard(mutex)(&kbdlight_mutex);
+> =20
+> -=09kbdlight_notify_level(kbdlight_sysfs_get(NULL));
+> +=09level =3D kbdlight_get_level();
+> +=09if (level < 0)
+> +=09=09return;
+> +
+> +=09kbdlight_notify_level(level);
+>  }
+> =20
+>  static struct ibm_struct kbdlight_driver_data =3D {
