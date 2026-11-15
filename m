@@ -1,85 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794783148;
-	b=ruR77kNJGQ2caLT6XS54PL+vglyIwuFEg/nH9Ubu2Bq+0P1IjyYC40PqLtLOVhFPMIwZ
-	 +q2ztlrCAbHbb3OeQB4QTMHsyLFNkvysoDC1Rb0h0ZjTBnbNqY/kVxnu3eTW3OUTVGpPW
-	 CHCh1kIjy53G4s1fgW9LfXQvoNil8ue9nZXJmMzfPlzSQEmIoCWl9KdntT+wC8EhH5BcS
-	 QSvFgIkZWgZ5/U+KH/NhQTGBVZFXwxKzG5wK45Mw3Qz6y1a3NwGXA/B1WCyYxs4B9XdPH
-	 EmyTl1md68PiuMc6P/sLhDWZzUJ8/Z+pjPmn5rXNHZWZ56N7uC40KAySZij0qFvUuTA==
+	t=1794783424;
+	b=QnDNPqoUiKzDqAydurvjkhCFCJiNJYxOT1GKmfXDzW/ksT706o3Q2f01qIBaaWIXtdGl
+	 Zvnki3lbMxNywjgqHvCmCbtU923LAILn5xHK/2rCUytQXmMfmaQbXyfsV7vH23ko0vXTW
+	 1Jl7x1ies46XHDYRBlC0KFqjFBV/mCKFrlV3ROPc5QqtghnnDmhg1y5soW5UIc9pW3sCu
+	 8XFdQE8rDRrQyc/qWAWySLCBOH+sPX3WwCrIPDaLAEEAhgikNfe+TIIvyziQZ1MDdBC3K
+	 l05vOLgzAEYHYMvSEXlzYQKE/faRZSxMsEuNvFBRKI/rq86Wf/uxTtHa02fXyZw3Lyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794783148;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=ElkOEwzqFMVazDgPfmPJH8YI8hCqGrmAc8l3kEGiXOs=;
-	b=pGhYZrqYytsjVWRS2KuMizsq5g9f9k8KOUWgimuZmZ0rbCHE0OcxUsCNQGSaoRUZXuSm
-	 bAllZlTq/Lnz1ANL4RoUKXZuc8eq8L0iVgyRV49ctA4fEyWZOJijXrXdfFmaLHj2zoZFU
-	 Y+gRgZ/REf7xGE7BronALNha4w5t447xmmgyfOOiNRm5c5SsvVkw8dkwK73gbtXhDbW6w
-	 guWoLqYlYkmnydkX2yGUyZ6a0bDtgpVLRbrsVnfmh4TOxLbZasWxAzGEEXg64Xu7Z9mZ8
-	 8feqf5yGL7KwSwf562+ZFmlaRcQCt1lIQZOvVfORDnbvTz0da6Uv0Pga3yRKJ38/Zpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794783424;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
+	 Content-Language:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WpSIe4tLJIwZsVjPZznB7WvuZ2lyXPI8G0YCiWHPn/Q=;
+	b=Fvc0vFfDUYCLWgP7vZNo6SR97ZsPA32A8RstBuX2pPM8UZ4mX1DpYy4o0kmsBFUMGjEI
+	 lNkanIFZVPV7opSNi2Xu8nQkM3hnphuDTigmPX7uJLGBpfn2ityC/KSvbBp9/Bqm6m94z
+	 x89acZGjP6z4LsiqjLwTjQnAqPJbgOvv6FsMRYuT0zFI3yP+TTciUonqaj5pLhSTOVxXA
+	 gJOTLK55VS615dSXHO1OFhbhEGObUY75bQCv48rT6u4tOpyoSKEvpaoDyNF4GzAH9+LVf
+	 WjdNfkS8LRSLzSscZAZET3FW002xjVXuMzfF0s8wPSEJiCCqwfkekIST6q6sImBfphw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FepVLd+0;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJAzbxLL;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E25606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93E25606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0629606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:57:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0629606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FepVLd+0
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id SblDxibrLyb4YSj5IxmIPJ; Sun, 15 Nov 2026 22:52:28 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Sj5Hx6xA23nNNSj5HxVlw2; Sun, 15 Nov 2026 22:52:28 +0000
-X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6afa37ac
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=1XWaLZrsAAAA:8
- a=GU_cOIP1yHUKzuPKd5EA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=ElkOEwzqFMVazDgPfmPJH8YI8hCqGrmAc8l3kEGiXOs=; b=FepVLd+0XyTfhGfWi2zYTb2dCo
-	mcQNf6o5gX92ChWdE+XflwR3p9AlWicMoCdct9OHP2k2u2zVi+K5MTgx7GhGGHY7dOefDzIYaebdg
-	dpMyDyg8lePJdF5RD24oSuZXYDXHlknH3uB7FFc+GKO+WkxfiG9l2/SN3OGZ+DS970NBC6jJpZRie
-	OFWj0YeaEPDIFvGZnQTObjZbzThOp/hfTWP+0fmqGujmtyNYOzTYKD2MgSudbGIfSTAVZmsKCR7QP
-	f0FyfyVTHXgRhZrcFWI+75ky4G0XcS8i9P0+Xs++AguHZ2RKIFUUv8O1K0026U+UujKjuQ4pbmxwf
-	bQaSnIkg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50630 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSj5H-00000000p0X-0myw;
-	Mon, 16 Nov 2026 04:22:27 +0530
-Date: Sun, 15 Nov 2026 14:52:26 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Mayank Rungta <mrungta@google.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Marc Zyngier <maz@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	"Kirill A . Shutemov" <kas@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: Re: [PATCH v4 6/7] watchdog: pretimeout_panic: Use nmi_panic() when
- invoked from NMI context
-Message-ID: <1720d199-fc7e-49db-9c64-6733c75caba5@roeck-us.net>
-References: <20261112031629.396819-1-mrungta@google.com>
- <20261112031629.396819-7-mrungta@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJAzbxLL
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-37f14feca60so530701eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:57:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794783423; x=1795388223; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :to:content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WpSIe4tLJIwZsVjPZznB7WvuZ2lyXPI8G0YCiWHPn/Q=;
+        b=zJAzbxLLJfqk9yA2eC3kpKBXCxMa2jNFOheVKVl8d+f1BhsoNlJr1vailxT3fV4aNh
+         wsIxeUvlpzjqUPydUUFh3juEsi90wpvUE6bEffVwojrq8u5/k+Rb3KInJn94jYL8tBV4
+         YuwwfU7Ldeg27w4likYqMzN7xmM18hRL4DeefKJZ55jwwxL8VXkpNfd9HEtE44FUDRnw
+         zjurKf0TMY0nouiRkgcxelUw+8SA4Cnd7NSfGIiGkeLF3OYRNfXq0OYT05NcFzBlePQO
+         dgIuH75zbo+5ZZgLTNdmtVOClxxy9x9YyTyWWD+tbRZvQkigXIObXTQCv2T7h3wkg7Pi
+         C1YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794783423; x=1795388223;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :to:content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WpSIe4tLJIwZsVjPZznB7WvuZ2lyXPI8G0YCiWHPn/Q=;
+        b=AjusUnLGWcAHTp3AuXtS8CWDrZg1RZpGOqWFMkI9mRKOssDLqzrdvEHGvL8rqvGCat
+         MV5DrlPKylHW7vEnQjFltUWMkqKGD6Y4A8mrQhnezqOeSE6Bj0z4qb0DVd4MRM53MK8E
+         7l8eSzmqHSFh/7x0E6LTzqY+3IqvC8iq6nF9sqCcBfpLIpFd2N7JXNJmPCvlFpbO8+/i
+         kfFekKBtenmTc0QIC9Iu0cv3AFNzqcexauX+QAp9psG6pP4fpJMzqSibKL3WvhpyvV/D
+         5sErtZPFKpmJAoUTe1YcZER8mQ3zNq8qFOU3ubP5m9+abj25Ezy2qIWbAKSW2uaNQX0m
+         ksEw==
+X-Forwarded-Encrypted: i=1; AL+hErFdgWeSBuKuJIRZmckL+uO+noqbJ5xHATuWe2D+R5vnWHTldUhqdrWpmkQEaA9jeKZeW3e7cNK190vT/7Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y/StsZ7uOjR96otYKuklCDWrWO00QJGLP3dssq64Bt/717M0f
+	p5zMZnKgno4V7r8BCWhVRL/Lpq3y8IDzOoXuZdApL5JVjWIPTreDP5Jd
+X-Gm-Gg: AYBFou1cvc28J/4H2levDFJOlCOnG/atO8pYEJkcKXJNFFH1KlrnAnsoxycdLULTWdA
+	ndgpnmfmI64bquWKBEd3N1S/6+a6Bh8u3jVS2WPpdooqCGYkyxIF6XiqpZ/6d1I9FDH8CTGcB3G
+	WDT7pVJ2iSq2RL/VE1+XHBrBOOouSu8Kzg/cn0rIphKr4TB+wHn6PNrF7+F4CFhbc2YCQRhszZG
+	iIL7HKtRRB627BmA46NVqEVKGlp7PE4WTUhHq2lxzyRSYo2aSQEcPfV5FECcWfjCzVR/XM9cNGV
+	ndB+lsCHzkYBm5gh8b64V8wtGYsi75TRsXaf0QlNJ9EhHLQbC7AQXaqERUMqQAuXGQq1nHTV3xZ
+	xINagifGV0bwWACvxpgOwilG9XkU1cNjAmDv/ki9sslcu0HxVlvb/CjjbPXEe3YCPYhjZUsN3av
+	JtOv4BKgqiK6GNtrBu6k7ke2fVRmxwqEwe4tqxnmEFFo1xiEGUc0dEJl43/ttfck28lZ8L+TAUv
+	iigSxypXcrz7fuHkcI0epVf1v8Ovo8aaWctl8jhv9OUCGsjq7xy7lLqfKlYo/I4imPLlGZixhcu
+	6e6vHd7OVAWiUTaWDUnF3YjPCqEXRmMGvSF9fc3Txp/0RqRP9OFMM2uH+YwABYae3kIFH6phhGd
+	x9/GjPnqTMP53NQI=
+X-Received: by 2002:a05:693c:4153:10b0:37b:e40:397e with SMTP id 5a478bee46e88-37b0e403d73mr6432496eec.14.1794783423022;
+        Sun, 15 Nov 2026 14:57:03 -0800 (PST)
+Received: from [192.168.35.214] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm28183468eec.3.2026.11.15.14.57.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 14:57:02 -0800 (PST)
+Message-ID: <2af4c490-8655-4afd-8c1d-1894f910dcc3@gmail.com>
+Date: Mon, 16 Nov 2026 07:56:59 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,48 +92,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112031629.396819-7-mrungta@google.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSj5H-00000000p0X-0myw
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:50630
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 22
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAg62rj4H354yvI738JKcI1vpPB0hdNYMrNjHLIk86VebGVAw6Sg5fh0NfoUIGpkL8RvfxkhNVilVDIwgPYM8v+lU0H1XhPjW58TUvPaJ7G9ei36cwja
- lzRn5kCi30rjq/IQzeYqIruMT2xrIPudimghH1NdbT+PcU1SqOE8M/V/FfJBTWuyO6EA9DJPS53FvNC+8yy54fp11hoVosleku3MgoGEv4VPJZq7LbolepOH
+User-Agent: Mozilla Thunderbird
+Reply-To: chanwoo@kernel.org
+Subject: Re: [PATCH] PM / devfreq: tegra30: Remove redundant dev_err()
+Content-Language: ko
+To: Pan Chuang <panchuang@vivo.com>, Dmitry Osipenko <digetx@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ "open list:MEMORY FREQUENCY SCALING DRIVERS FOR NVIDIA TEGRA"
+ <linux-pm@vger.kernel.org>,
+ "open list:MEMORY FREQUENCY SCALING DRIVERS FOR NVIDIA TEGRA"
+ <linux-tegra@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+References: <20260713131316.322358-1-panchuang@vivo.com>
+From: Chanwoo Choi <cwchoi00@gmail.com>
+In-Reply-To: <20260713131316.322358-1-panchuang@vivo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 07:16:28PM -0800, Mayank Rungta wrote:
-> When a watchdog pretimeout interrupt is registered as an NMI (or
-> pseudo-NMI), pretimeout_panic() executes in NMI context. Calling plain
-> panic() from NMI context is unsafe if the current CPU was already inside
-> vpanic() with regular interrupts disabled (where the watchdog is no
-> longer fed): vpanic() assumes panic_cpu == raw_smp_processor_id() only
-> occurs when entered via nmi_panic(), so it falls through into a
-> recursive panic on the same CPU, corrupting the static panic buffer,
-> panic notifiers, and crash dump state.
+On 7/13/2026 10:13 PM, Pan Chuang wrote:
+> Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
+> devm_request_*_irq()"), devm_request_threaded_irq() automatically logs
+> detailed error messages on failure. Remove the now-redundant
+> driver-specific dev_err() calls.
 > 
-> Invoke nmi_panic() when in_nmi() is true so that an NMI interrupting a
-> CPU that is already panicking safely returns, or stops via
-> nmi_panic_self_stop() if another CPU is panicking.
+> Signed-off-by: Pan Chuang <panchuang@vivo.com>
+> ---
+>  drivers/devfreq/tegra30-devfreq.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 > 
-> Signed-off-by: Mayank Rungta <mrungta@google.com>
+> diff --git a/drivers/devfreq/tegra30-devfreq.c b/drivers/devfreq/tegra30-devfreq.c
+> index 401aac6a9f07..d149694becd9 100644
+> --- a/drivers/devfreq/tegra30-devfreq.c
+> +++ b/drivers/devfreq/tegra30-devfreq.c
+> @@ -880,10 +880,8 @@ static int tegra_devfreq_probe(struct platform_device *pdev)
+>  	err = devm_request_threaded_irq(&pdev->dev, tegra->irq, NULL,
+>  					actmon_thread_isr, IRQF_ONESHOT,
+>  					"tegra-devfreq", tegra);
+> -	if (err) {
+> -		dev_err(&pdev->dev, "Interrupt request failed: %d\n", err);
+> +	if (err)
+>  		return err;
+> -	}
+>  
+>  	err = devm_pm_opp_set_config(&pdev->dev, &config);
+>  	if (err) {
 
-Similar to the previous patch, this patch is independent of the rest
-of the series. Applied to watchdog-next.
+Applied it. Thanks.
 
-Thanks,
-Guenter
+-- 
+Best Regards,
+Chanwoo Choi
+Principal Engineer, Samsung Electronics
