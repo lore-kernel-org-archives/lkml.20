@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703165;
-	b=0otRemtenVukqk7y4ftXhQV0GINABOSX8iMupvwGXELoRrz7o72BNBwaY8NOdXVLaUBS
-	 NjKJjPd84K/zO89+g5co1uqJ1wy7XORHZjiOo/c982vW2W347cp8WzAAHWxYefZc+Z+1g
-	 a6cyQKl1to92S77Zu+nIw3wJfTDyADnwxLcZ9Vkmwlg84JH7AD77eWFeGWcllFlTDyFZK
-	 ZCS39Ajhw3d73/1kjaOMs5HHpEHsv06frwaXegrR6bxwwheWYtTgeRjXKFVsOSvrg0cxR
-	 e3BzKqu6oDvl4PV8N0eIVOM3KMsrHmz+E9grzKfN+7JhW16842Q+7uF7egO34ktRwGg==
+	t=1794703167;
+	b=5HR3VLCUdZgZRmo8WyieJh2EJtK+7Oz3DdUviaf1Qqy0sEKFylkFE6xl1CsPCG/Pey+o
+	 OqqQ7crGdGsgxiKn+3JdluLw+T/7pSy39G3CGjqD8Oq58XKXCx+e/hVZJneNABALA5y1S
+	 CegewKymRDbl8t3pktaxrlRnjeSuoNbN6EaXznF9LCDMlpORB/l6blGUTA5vZyW3Ch+fk
+	 ZQd7S8OlZT+ICqEffqRU8AvMczDYf+VpwxNOqeo3qLFLdr4Vts47zs9cDJiVvX7wP6cp0
+	 RgyJeymNu1AG7BiwoNbTr47I95fTWAQUWxr49QrBHy2r5LQOCzIcHbtlzKC78EdB9xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703165;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703167;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=AmLLppEFOPvTRAprkKzlNES6CSqTXbzX5HYhiEOrIVc=;
-	b=wDJJ4uyVvaeF5gvPxMkUArq/Njv1DEhhM07mcJhlPu5WTP1IQT5ZlzgcqfQpEDa34MJY
-	 t04wxz/v3tvkp9d/RET2jYEy6b6FNfj8WpE5dBrPxaWCR3viYPPMwCBz4LbWe32mWXd/x
-	 o9UidGPns72ux9FH2MbKNkXba+An25hh6ycNuIY99Z7P79zrAKHte9OFzZsb8eIlsPVhh
-	 JCVCNFDMoH03LDBAAc1ygNrVOcFhUOcrqx1z/d6Y+y2Y0bwyk97rRioTD57dcPIugyOA6
-	 hofQ901gxXyde62uoBJoKDBGxHhEheKCdflUSUGXFo78m/F2PAAVbZf3LOKr3iJNizA==
+	bh=In7taLgVFQA5m5lyqlspkXmcysL0qzWGD5dgQ5EARs8=;
+	b=dNOjJssvXlMSXiGsZLma2/sfz/3WMPawQubop/Pji/Dcekd7r99KzsQomxDTGGafEOUs
+	 0hJyoDrb+VNwWJC+1ARAqjiScb51UOhJ92JHB6HWlhrSgFYtflcE3JeQOlCODUU1StmLW
+	 tgAtf8n+lvjxCrSzMpCqis0pYHkX4iW8wYEqArVZRD3pF65jlseKrQqO3DHkiTpmMNstr
+	 i4606ydn8l9KsIw0ZRkf+JUwqiDhNYBrx4iCA3SdJek27aFCZdB34a1gxS6/y3wgPuoq5
+	 2cO2O+pd1usjekTfaRfgIWPEZXJaIG0Je47zLvmhDLVCA3M2PELiA/i7NkhE0LnBtGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="l/DoGnhF";
-	arc=none smtp.remote-ip=74.125.224.53
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wY4VLEuA;
+	arc=none smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02020606A33D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:39:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02020606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72638606A88F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:39:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72638606A88F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l/DoGnhF
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-677af43eed4so2082560d50.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:39:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wY4VLEuA
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67dae7d3f7dso121195d50.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:39:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794703164; x=1795307964; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794703166; x=1795307966; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AmLLppEFOPvTRAprkKzlNES6CSqTXbzX5HYhiEOrIVc=;
-        b=l/DoGnhFF7+ypxBEew/dllCBAZYIA7H/dltmZ1WcY7x7O5Nkb/CG6EvD98YUwIWOSy
-         dIVQt27CGjHX4rgOGxXDuU1obvD3otLbmLKVY/eEXMgYkOj71JGZenaJLQnjligFcX0F
-         Wt2ogxCmi7+MUtHcbQsfq1pSh9bxqFevTiauym00k3TqHO6poJzx2XdupYeIjFU17DnA
-         Sdeyv7ebInjxttZLll5H8Z00iI/KLd0nlSShkmlXXVL5OHkqOETLDt4weZyU1z8F9VAX
-         2MN1QpyRMwamArI5jcWa5mYlYyC6xT7rH89uu4S3EE/dj5WIemKI3MpkqAC3UGk1dnVo
-         YtBw==
+        bh=In7taLgVFQA5m5lyqlspkXmcysL0qzWGD5dgQ5EARs8=;
+        b=wY4VLEuAA/KIJHVw2y14bVt/1IvnsO/2lsrfS8dK4/JtUzG3xMEW6snsr/3mCLEXD7
+         /mJQynQBbXcOLNoWe8G4R7cHwLNgJ+XEkbok9KTiv7iB0AswS6KrWpmRRgN1R0kts5sM
+         hkw65/63Aayu0Ktdr9sZk3nB7aNJRQ7ua3qC0jQBuvUgKUgNycGdIdUZVDo/qDV1t1/o
+         iq2gM5zcEyGIov259kJSpHRB0K+hDEoSS6KbQT/khsZiv4SwtbyIPbo4iIWiQWJBL8bY
+         cBB5gsSykgmAICevP72uRUoeEwN4wGdJ329zOmhH2UsGLFpIkFAV1RNmq1bRVYDtOdWK
+         R/+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794703164; x=1795307964;
+        d=1e100.net; s=20260707; t=1794703166; x=1795307966;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AmLLppEFOPvTRAprkKzlNES6CSqTXbzX5HYhiEOrIVc=;
-        b=t21zPAk7ibZru1ljuDIUPbQ0uejakBA22oiFu/CpVyglRSrsnf0wrQdfXipAMFem6N
-         F0+raz5chMd1gWGGODzmjJvECwZ5KSVI1ZicgBCYqQ+g0YEK7fCNEsj7YjwjfXBEGvYJ
-         HKTZXQSFl8P0PbxXQlWMCIVpS2zKyMTLCadH4MxG8BJwJ8kjt6MzqZ9MmyeSqML5hgkE
-         vjTlO5ml/ke2DESYpqC6L8W1RUuJ09SwnZQx4gRFg0hk1Fiaw3wgwmMi9dJ+qdATfoPa
-         LJQd1e+tmWRV5zK3WPImQPaJQFuZPN/YuZFex9Gm+Xuo0oTprCA9XdV27pJQhEUgK43S
-         UYXw==
-X-Forwarded-Encrypted: i=1; AL+hErGr+JnGb0SDCrUjwHSz/SHEtxv8ZK4c53eIpdqAyzQiUvV6+J4AkeeYC4ZqnIAX9KDi4d8We1siopXzZt4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8i6niTX+noVoMyD38BCfh1wrFzidP9T8j9JHqO4zYMFSt5n3R5
-	RqYlWIupeh3lS/tVVRDnfvdgWkjCemvvkrdVPob0lgpQf7sLdPBRFv4byZqtYRubCAQ=
-X-Gm-Gg: AYBFou0g9jk+N4XbJw7ja/djVlPLzbtWjkriKEHoRJD/QnsJ2y6DRm1Kp0JzDh7Qq6z
-	prsxCVs8ViEHeJhF8klFjgQ6AgRnjaEZlQ9FHrI4K6SG25tvmKoxEdZteXYDx4iWwpruPNFXAVH
-	0HErjTW2rpGudB0VvmVHuVMFCBovwONmy5rA/5liJP9BFgjxYOL3pcCYG2gpi/lHzgjEJS+PioA
-	VqNowIj4RfdJQS6HYfF0xu2Eg5+eZUTMk4b7TqAqkz5vSsgObjZFStc+kmPnB46nvu9yrQlpXaY
-	k3Q7U+xjFyrggw8qVtF9hYfe4VA7SNeeg3Fx9NnJcJ5UWMaT+p06TXcrExJ1WyEcZ6sRKQnvjmQ
-	v5aXj6Jwrd5FYIXABZqUjfqwZ8uUO+IoQXkFc/PeKGOiehYfmPxc+LmiqkLh2IWpAwID1ERxHMu
-	le+NPe52ao5hRhsgC4PK11Me0R67szL6gJKW31zlzx+kXq8+ASW03jrtcj9ZTn9r0WxalUNWcTz
-	ie2JOckGDmJ1njghRMmsjHb+L60WxJJ1rlFbBJxB21eHxnlgEIV7PgiYuTnPH0xUOtC+qWG8msC
-	2iMr7CIXHw3ePq9PDzrEueNNAlNej6QJjCtXNvEnerfwhStRgyAPQUnh
-X-Received: by 2002:a05:690e:47da:20b0:67c:1dca:80c with SMTP id 956f58d0204a3-67d8971741dmr3150254d50.45.1794703164085;
-        Sat, 14 Nov 2026 16:39:24 -0800 (PST)
+        bh=In7taLgVFQA5m5lyqlspkXmcysL0qzWGD5dgQ5EARs8=;
+        b=wvJVfMEtb1mY3YHNoEwDG9/iXL/jjiKRrTC/K5sRNXLT69lXtblZJi1ri2S6gY+c7v
+         6G5kGa/ZiieeRGN+Ik5/3JpMfCgoFrf5hCmBnh37aOl/zRoZKJ82nmxtZvI6SMfVlgEf
+         BZZy4cXhhlmgKARb0E+fx7EXr6rq4RruV2CdF2ChQ9QDLkYQOrUXoMuGEreNc9rbh556
+         T+IEr1cmYlY+5klMKHjR9b7/54lHNkQQ7A2kUFqXZanR7bnDWAmqqt0wmiNSKHCdnsoa
+         JT9332fRezdAhxcfjF4fQX+Fs4QVeTbJqpPig/VvxCJjegYvVkq67J9Nw2wi5kg0RVha
+         oiyw==
+X-Forwarded-Encrypted: i=1; AL+hErEkTXsrU1cHusJkQHpWyqmoeXIef0II63qiwHJ3C8OVE9rraNw3d81Jdkn2suuKDUj3Q4HlBsoiRhboAlo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FhStVBeZkCfxLCuXQPxntoXrPLSsnB+gF9pQDqyy9NLLKYttp
+	KABRo3f8xFvb8jH2L9cruUNnH6NAldAMltI/BrmIDzOnerYP2aL/PSKx
+X-Gm-Gg: AYBFou21oGuiMttQWb7PWEIz0i6Ul12XAB+6Hif0lrvs2bTvJGaGeZ153jOywgmHL5n
+	UcQHMfR3I8qq4wxOlWnXgzX5Yq0OaFeOD1uT1w7SbIKAUss/giHOf7E1w34NmM9q5eG4pAAPY7W
+	s+pkXO9GLp3NF8ya92noFX4xHQhvUFn76AJy5sD3VmRmq+tFGoZ29KOYqq2nBaaWVjVdqZCK50l
+	qkFeHTb/Xa/vN/XwQ75Y3fs3HZRu1EkwCRlg1X2E0A2VNfqicyB1HkG9KUSH18lt9pkmFAhKClm
+	YfiUnbkhtepKPG0ciYOf4xHfTD+1sY8npWqFztQBTe8tVbNUAL18DFTKnAPo3gZeB3Y4OVRgAaq
+	KUWk3K/oNKDMDZtjDJC7KTGuTcSzQjL4Ie45rTBKE9SY7UIBxcVdxL/jzvqg/xoqqqU7ss91EL6
+	YTz4XlYBcTSxPCYVbC5wDwWUnSO6dsV25wEXM413C0lQgiWb0C+SmDLQ1MQkBT7fXX7qq1XGCSQ
+	NTQROC6lmsYgqNlqOBuArG+b+59UjYso5X/bmiYFtelCUnqpvsOlgvfWEHxSTlCDniffSMqx2F+
+	OaE3Fn1FC4maJxetWCQsD8OYHEm7TjjPo8pB7Fr/J3Avh1Bf+xZkmHji
+X-Received: by 2002:a05:690e:4894:20b0:676:a43e:ea5d with SMTP id 956f58d0204a3-67d89716d43mr2084844d50.94.1794703165433;
+        Sat, 14 Nov 2026 16:39:25 -0800 (PST)
 Received: from codey.attlocal.net ([2600:1700:22f5:3930::a])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67db0361f39sm189602d50.19.2026.11.14.16.39.22
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67db0361f39sm189602d50.19.2026.11.14.16.39.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 16:39:23 -0800 (PST)
+        Sat, 14 Nov 2026 16:39:25 -0800 (PST)
 From: Lalit Maganti <lalitmaganti@gmail.com>
 To: acme@kernel.org,
 	namhyung@kernel.org,
@@ -92,9 +92,9 @@ Cc: adrian.hunter@intel.com,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lalit Maganti <lalitmaganti@gmail.com>
-Subject: [PATCH 1/4] perf python: Add kernel attribute to callchain_node
-Date: Sun, 15 Nov 2026 00:39:13 +0000
-Message-ID: <20261115003916.1873857-2-lalitmaganti@gmail.com>
+Subject: [PATCH 2/4] perf python: Add clockid attribute to session
+Date: Sun, 15 Nov 2026 00:39:14 +0000
+Message-ID: <20261115003916.1873857-3-lalitmaganti@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261115003916.1873857-1-lalitmaganti@gmail.com>
 References: <20261115003916.1873857-1-lalitmaganti@gmail.com>
@@ -109,57 +109,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Scripts that convert callchains to other formats often need to know
-whether a frame is in the kernel. A callchain_node only has the DSO
-name, so gecko.py guesses from names like "kallsyms", "/vmlinux" and
-".ko", which misses kernel DSOs named anything else.
+With perf record -k/--clockid, sample times come from the given clock
+instead of the perf clock, and the clock is saved in the perf.data
+header. perf.session doesn't expose it, so a script can't tell which
+clock its timestamps are in.
 
-Add a "kernel" attribute that is true when the frame's DSO is a host or
-guest kernel DSO.
+Add a "clockid" attribute with the clockid_t from the header, or None
+if the default perf clock was used.
 
 Assisted-by: LLM
 Signed-off-by: Lalit Maganti <lalitmaganti@gmail.com>
 ---
  tools/perf/python/perf.pyi | 1 +
- tools/perf/util/python.c   | 9 +++++++++
- 2 files changed, 10 insertions(+)
+ tools/perf/util/python.c   | 8 ++++++++
+ 2 files changed, 9 insertions(+)
 
 diff --git a/tools/perf/python/perf.pyi b/tools/perf/python/perf.pyi
-index 087da00728fd..5b68d70c5216 100644
+index 5b68d70c5216..71bc7719ac5c 100644
 --- a/tools/perf/python/perf.pyi
 +++ b/tools/perf/python/perf.pyi
-@@ -353,6 +353,7 @@ class callchain_node:
-     symbol: str
-     dso: str
-     sym_offset: Optional[int]
-+    kernel: bool
- 
- class callchain:
-     """Sequence of callchain frames."""
+@@ -500,6 +500,7 @@ class session:
+         ...
+     e_machine: int
+     is_64_bit: bool
++    clockid: Optional[int]
+     def process_events(self) -> None:
+         """Process all events in the session."""
+         ...
 diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
-index 902157c472b3..3ba3ce0e651c 100644
+index 3ba3ce0e651c..274c66c28c1c 100644
 --- a/tools/perf/util/python.c
 +++ b/tools/perf/util/python.c
-@@ -994,11 +994,20 @@ static PyObject *pyrf_callchain_node__get_sym_offset(struct pyrf_callchain_node
- 	return PyLong_FromUnsignedLongLong(addr - pnode->sym->start);
+@@ -5330,6 +5330,14 @@ static PyObject *pyrf_session__getattro(struct pyrf_session *psession, PyObject
+ 			return PyBool_FromLong(sizeof(void *) == 8);
+ 		}
+ 	}
++	if (!strcmp(name_str, "clockid")) {
++		/* The clockid_t of perf record -k, None for the perf clock. */
++		struct perf_env *env = perf_session__env(psession->session);
++
++		if (!env->clock.enabled)
++			Py_RETURN_NONE;
++		return PyLong_FromLong(env->clock.clockid);
++	}
+ 	return PyObject_GenericGetAttr((PyObject *) psession, attr_name);
  }
- 
-+static PyObject *pyrf_callchain_node__get_kernel(struct pyrf_callchain_node *pnode,
-+						 void *closure __maybe_unused)
-+{
-+	struct dso *dso = pnode->map ? map__dso(pnode->map) : NULL;
-+
-+	return PyBool_FromLong(dso && dso__kernel(dso) != DSO_SPACE__USER);
-+}
-+
- static PyGetSetDef pyrf_callchain_node__getset[] = {
- 	{ .name = "ip",         .get = (getter)pyrf_callchain_node__get_ip, },
- 	{ .name = "symbol",     .get = (getter)pyrf_callchain_node__get_symbol, },
- 	{ .name = "dso",        .get = (getter)pyrf_callchain_node__get_dso, },
- 	{ .name = "sym_offset", .get = (getter)pyrf_callchain_node__get_sym_offset, },
-+	{ .name = "kernel",     .get = (getter)pyrf_callchain_node__get_kernel, },
- 	{ .name = NULL, },
- };
  
 -- 
 2.56.0
