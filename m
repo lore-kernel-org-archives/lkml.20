@@ -1,93 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743628;
-	b=sz2K8e4kj2syHkwbaRhuilMr/yiVROJAU5T7RMhKXFFsv7h55HsZKGxBlWpMDpdF27tC
-	 ZvjqTdQ0xK97NcqKVon8lPvHyZ7ZLrSD6+NVIw/TqG0r5Zko29hFB3zkgHbrwd22UL4jl
-	 PPXaGMCX6O6DGYZMYdmrNPL7AgLUIGnRJMfswBoRMJl/nO3F3TzxkM8fl73xplwtgNHTE
-	 qBJqjsnb7GRbw5IpxUCw9HZlbQ5jk54sHs9XHaQcVcp1coSaQEG/O8d+WUH21fcmIH6Am
-	 OO87wiZguhc98S7X7JOF00+7vJxSQ7rjZeYnUlmk8RDm7SeUm2arpHMQviLkltvQQjw==
+	t=1794743660;
+	b=SlnDamIdTg/+RoBBPTQUPlECCF04ges0XjNHr3ojVQzgsKczAqAXZCHiunpSq96cFmWg
+	 jEbp4+nJJHBxWg05jKKaEofGNL6zTOWoqdi36joMtyxnORyE4yGzJ3fNdN8alEkwUKPYS
+	 QHm6h4whLzp8y8qbiNr/qA4HodP0iuNCojy0OJqMeHDItTtBD2k3vEBgKSWzSRrnG2hTI
+	 ch1yYFrJwNAV81ETC8yaID+xJOPhBx6XH2xtg3+r2Kb2x4OT7rX5ywYJvWYxS4E1jdLEG
+	 u8J0GB2umDW+iRAkVlF6tW0iP0RIwVZRIc2yBI1S+sAQSOnshnUV70FPrfhwV9H4CbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743628;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UWkGir4qU1HOXBM7UDVrmvnooNoUjfmfTGYPX9mWWvE=;
-	b=q1pm7Ui1VMRo2GWb4qx45j39wbyZ81V5/P84ZGzH3XtVirNp2dKO64DlJHha0CryFiKF
-	 o6hty+MTd8zFhsFV5FxNQPvpbzlAeOZiS7+QM7I6KtEksgbhHKS3WKJ+p3uxBreBQetnN
-	 0IgF6rcdV2k9+2/QY/an63XxodU1vZZt7++v/2/lVvpmUM7jwAmlq6Ga8wEWtsNcB3fsz
-	 FApcxQexyEiYtnZq4yAhwNSsA7WB5Cu8lWLnjaxfYFzaDr3nAX74aWwmTy0LGARge/XzL
-	 Ndci/hhm59dRYjrgWR1sSYLy4uydLdkJQBv6Q+8nj5FIGpDZZcu2HOXc42rPyBHwxQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743660;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Q6PkhZN1LO5aZYteXn+u1sosgPv/a8y6Vpaj2cYwuTI=;
+	b=DN6SCr/r0zt7TA45tKmtB7sehloJojrHd9aMZKq3MrLhUi3JtGQD9nioF4bua/JnREWO
+	 yyTpgc7w0GiL/ZpRENFPe6PG9agiVlB4VvuNd0b8fmrUgd6gzBO4OVhyuS5tCLgXiyfqj
+	 x9NFG6QX8RUAXhGFvA5SoqxHBm+lHMzLrzz8gYGaeE9JaXEN7l9KKB/iklFWXran8o2+U
+	 R5l8CGBtQr811S0hSG5mQileZRwARLbLwV718UhrJ5az4mkZTjuoggwYEnITBJ70yyCPn
+	 Cn6cqeJvuBY4lM7z4yYONaI8sQwSL0Am9M9QxJBg5x3f3YxOyW/h+BoSUdm0POLlwBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VO+dgxIU;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HSCx49Z2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4082E606A880
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:53:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4082E606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3929D606A31F;
+	Sun, 15 Nov 2026 11:54:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VO+dgxIU
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a2761c69fbso3029189c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:53:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794743627; x=1795348427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UWkGir4qU1HOXBM7UDVrmvnooNoUjfmfTGYPX9mWWvE=;
-        b=VO+dgxIUum2TwF1DQuOZn5OCDMRCH0TY8ifUfWx6Sx67aY5+ZsAGrlVeNJ/ABdEtxo
-         hxoi+e+LKb4AkMCq6G2J2L91YfDtq6WMOV3JwkI0FmCNRjVU+5XlP4diOamSZF6ZqaaM
-         e2YVJ9dtw4mk7YvLFHClS/S7TiSCZT+D0nzmNKlTFIbtU7lNMF8EhEKH243Ys455w6xG
-         156q0wYjd4A8X2O1Iu0nOLP0Cbsez65FyS8qftwRoDyt7gixJrCG91yKI2Sh8ZFWAdvM
-         Q0MMaT1Q6ZVIVyqO6nYgzlwybHe+kL8RGypnhVv9h4CQhug8jobOwRAP9azSsk4PEg/9
-         Iw5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794743627; x=1795348427;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UWkGir4qU1HOXBM7UDVrmvnooNoUjfmfTGYPX9mWWvE=;
-        b=SCWiGGDcjxCwABK5tBUrSAeVbqlrao2Xv1NVYuVIoNyoEilw153RypGlZ9ghL2ieFn
-         lCSVMpH+QjfLckY4hIuKOXKcU2xeW1Tm9K3gc0P3/hmOzGwopwm4kiJyg6mQxaWRUsNL
-         aWCAmusVK7C6uSnW+8my63AAMpboPBrfIRNkLu1eRPockNQJ+bidN6TqL/h9VfVl40Pv
-         rydXfGckDIOB650I5t7jWQ5sLxiftJ/KR6AKOpZQB4Z8JWMwj6nNjI2mD39WiPHvUAzs
-         Fgo1m6W/EFmMrnMvmPdgtOVMjxXH3Q/sSUOM47OpTGo85rz/6r3/XGl0c2eZLj3oE5w0
-         /bgQ==
-X-Forwarded-Encrypted: i=1; AL+hErGWEWsj0o6+XOf84jf9fMAsPbOgttyzZWGKD9TsDk9Z5UR/ka3aXNVGfySwy8fqhVyElkuNh0dMctgr5ak=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ajBBflGc1F8LLC9iAU09D2P+V9+L57ZZu/AO7Xeauhx1RoIeW
-	un8vATJB2wYLyoPxuAor6uYeczDfR0lwAHj1yUZ+Zy040/1cdkskPwUyq2dhTg==
-X-Gm-Gg: AYBFou3ZleAH8AZB/Sg5x3+s7uqnkuRDzAmFBgTNjML3he2sAWpccufN9Kexma2u/Gz
-	JcF3vZkWveYBVnUpMsNODxe/UffCmnwYw7KMsVKkxNZs6Kg+bC3+30liQ2m+4mv4cpe4ZAdPdx3
-	rj8aPwK/+ixxF+ljMV7zIZgUYjEjWD312aIgQYEn4NBGIZqwkIZkNCMi5OMHN0vwtw4BtrFbHqc
-	s3Ja+IyhLhjGTvA8sizURba3rXYjLObuQZuTqEjm9geOpbrlLJyPbnJEufBLoL8eDLvGAjfcYmP
-	L5oeQa7ec3ZwVwvfdhiqKL3JqWWq53PAvAtE9bmmvc8md+2LWDOc2t8fHKbI/+56IHsZp1+8sSk
-	hNZ9308FAbMzFHvvmqO2OMj5/NqYVoZTK2aP6JEnaZ6MXeqxT39prFEpA1VWKqLGzaGMamhyJwj
-	TvLVSPSbBe/h82XHQ6FKLZEbD1xDAdqg/AzXiqPV4JFdCDcjRCoDZFWf/pAhZ9fSjWzi3MJMNQK
-	T3GP8aiKLKIS8lunOvPWEjIf/2kuVeMPPgdOqHG4fUg2RkveE5o+4WSZ1vzNtVBhWArWBbBfMY3
-	mTa2cr09HOtUBmAIgExB2hbt064m
-X-Received: by 2002:a05:701b:2083:10b0:145:287:ce91 with SMTP id a92af1059eb24-1b50314bef1mr8426787c88.14.1794743627152;
-        Sun, 15 Nov 2026 03:53:47 -0800 (PST)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45c:e6::17:34a])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031bc518sm21722845c88.15.2026.11.15.03.53.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 03:53:45 -0800 (PST)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stig Hornang <stig@hornang.me>,
-	syzbot+9dc8780713b11155dd74@syzkaller.appspotmail.com
-Subject: [PATCH] Bluetooth: L2CAP: don't reserve an ident for L2CAP_LE_CREDITS
-Date: Sun, 15 Nov 2026 18:53:41 +0700
-Message-ID: <20261115115341.316484-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HSCx49Z2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1A91F000C4;
+	Sun, 15 Nov 2026 11:54:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794743659;
+	bh=Q6PkhZN1LO5aZYteXn+u1sosgPv/a8y6Vpaj2cYwuTI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=HSCx49Z2F7XRlnxLS9u+rO23/JtsmVV5ff/jbEH3Y7JbEfemE7W7UqQRGRHZ5MdSm
+	 A0Wdjo4UuOp+7xPbLE47JAfCB6pOCGGIfHvQ3lJma2di8mjNXNmRbWtCEPhOgun6O9
+	 T47qMy7p6jHkE+G6tr0pCbLJBlRpH05fRIhs9HHvvNN1O2JZFSZ/dslT9eW5bb6Och
+	 eEec9VMAeXrd03CSBQtny59WgX1u0SjIzzn9J31p/UANd0/QoSxdPolE5ZUVK7wSGQ
+	 /P0/OF1haSUmDIewEka+MJPrF88BajcjDqaORsCRXzalSOk2gc4LyzPI8TEx/u0wMQ
+	 scgb59hHNrvWw==
+Subject: Re: [PATCH] bpf, sockmap: fix cork data loss after redirect
+From: netdev-bot+sashiko@kernel.org
+To: omermetekaya0@gmail.com
+Cc: john.fastabend@gmail.com, jakub@cloudflare.com, jiayuan.chen@linux.dev,
+ edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ daniel@iogearbox.net, ast@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 15 Nov 2026 11:54:18 +0000
+Message-ID: <179474365842.2199510.4530388049204286583@kernel.org>
+In-Reply-To: <20261114115222.180345-1-omermetekaya0@gmail.com>
+References: <20261114115222.180345-1-omermetekaya0@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,128 +64,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-l2cap_chan_le_send_credits() allocates an ident from conn->tx_ida, sends
-L2CAP_LE_CREDITS and then frees the ident unconditionally, since the
-command has no response.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-But the ident is visible in tx_ida while the command is in flight, and
-the remote may answer it with L2CAP_COMMAND_REJ anyway. The RX path then
-releases it in l2cap_put_ident() under conn->lock, while the credits path
-runs from recvmsg() with only the socket lock held. Whichever ida_free()
-comes second hits:
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
 
-  ida_free called for id=3 which is not allocated.
-  WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594
-  Call trace:
-   ida_free+0x24c/0x2d4 lib/idr.c:594
-   l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
-   l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
-   l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c
-   l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Worse, if the ident is reallocated for a real request in between, the
-credits path frees that request's ident instead.
+- [High] The patch adds a memory leak in tcp_bpf_send_verdict()
+  (net/ipv4/tcp_bpf.c).
+- [Medium] bpf, sockmap: stale msg->cork_bytes re-corks data in
+  tcp_bpf_send_verdict()
 
-tx_ida only exists to track requests awaiting a response, so a command
-without one has no business in it. Give L2CAP_LE_CREDITS a plain cyclic
-ident instead, which never needs releasing. The ident is still never 0
-and never exhausts the range, which is what commit 6e1930ece855
-("Bluetooth: L2CAP: fix tx ident leak for commands without a response")
-set out to fix.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  makes it reachable in more ways.
 
-Fixes: 6e1930ece855 ("Bluetooth: L2CAP: fix tx ident leak for commands without a response")
-Reported-by: syzbot+9dc8780713b11155dd74@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9dc8780713b11155dd74
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Tested in QEMU (x86_64, KASAN + lockdep) with the syzbot C reproducer,
-15 runs per kernel:
-  base (origin/master 23c62304dde2): 31x "ida_free called for id=N ..."
-  patched:                           0 warnings, 1200 LE credits sent,
-                                     none with ident 0 (ident wraps fine)
+--
 
- net/bluetooth/l2cap_core.c | 44 +++++++++++++++++++++-----------------
- 1 file changed, 24 insertions(+), 20 deletions(-)
+bpf, sockmap: fix cork data loss after redirect
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 7dcb0586a10b..0b861ced5703 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -1028,21 +1028,36 @@ int l2cap_chan_check_security(struct l2cap_chan *chan, bool initiator)
- 				 initiator);
- }
- 
--static int l2cap_get_ident(struct l2cap_conn *conn)
-+static u8 l2cap_ident_max(struct l2cap_conn *conn)
- {
--	u8 max;
--	int ident;
--
- 	/* LE link does not support tools like l2ping so use the full range */
- 	if (conn->hcon->type == LE_LINK)
--		max = 255;
-+		return 255;
-+
- 	/* Get next available identificator.
- 	 *    1 - 128 are used by kernel.
- 	 *  129 - 199 are reserved.
- 	 *  200 - 254 are used by utilities like l2ping, etc.
- 	 */
--	else
--		max = 128;
-+	return 128;
-+}
-+
-+/* Ident for a command that has no response: it is not reserved in tx_ida,
-+ * so nothing has to release it and it can't be released twice.
-+ */
-+static u8 l2cap_next_ident(struct l2cap_conn *conn)
-+{
-+	u8 ident = READ_ONCE(conn->tx_ident) % l2cap_ident_max(conn) + 1;
-+
-+	WRITE_ONCE(conn->tx_ident, ident);
-+
-+	return ident;
-+}
-+
-+static int l2cap_get_ident(struct l2cap_conn *conn)
-+{
-+	u8 max = l2cap_ident_max(conn);
-+	int ident;
- 
- 	/* Allocate ident using min as last used + 1 (cyclic) */
- 	ident = ida_alloc_range(&conn->tx_ida, READ_ONCE(conn->tx_ident) + 1,
-@@ -7081,7 +7096,6 @@ static void l2cap_chan_le_send_credits(struct l2cap_chan *chan)
- 	struct l2cap_conn *conn = chan->conn;
- 	struct l2cap_le_credits pkt;
- 	u16 return_credits = l2cap_le_rx_credits(chan);
--	int ident;
- 
- 	if (chan->mode != L2CAP_MODE_LE_FLOWCTL &&
- 	    chan->mode != L2CAP_MODE_EXT_FLOWCTL)
-@@ -7099,18 +7113,8 @@ static void l2cap_chan_le_send_credits(struct l2cap_chan *chan)
- 	pkt.cid     = cpu_to_le16(chan->scid);
- 	pkt.credits = cpu_to_le16(return_credits);
- 
--	ident = l2cap_get_ident(conn);
--
--	l2cap_send_cmd(conn, ident, L2CAP_LE_CREDITS, sizeof(pkt), &pkt);
--
--	/* L2CAP_LE_CREDITS has no response so the ident is never released by
--	 * l2cap_put_ident() - release it right away, otherwise the tx_ida
--	 * range is exhausted after 254 packets and from then on credits are
--	 * sent with the invalid ident 0, which some remote stacks ignore,
--	 * stalling the channel.
--	 */
--	if (ident > 0)
--		ida_free(&conn->tx_ida, ident);
-+	l2cap_send_cmd(conn, l2cap_next_ident(conn), L2CAP_LE_CREDITS,
-+		       sizeof(pkt), &pkt);
- }
- 
- void l2cap_chan_rx_avail(struct l2cap_chan *chan, ssize_t rx_avail)
+This patch changes the cork cleanup in the __SK_REDIRECT case of
+tcp_bpf_send_verdict(). The corked sk_msg is now freed only when it has
+been fully consumed or the redirect failed. Otherwise it is kept so the
+more_data loop can send the remaining bytes.
+
+> diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
+> index 8cf63a9e7fed1..e6a8184aad6a4 100644
+> --- a/net/ipv4/tcp_bpf.c
+> +++ b/net/ipv4/tcp_bpf.c
+> @@ -499,9 +499,13 @@ static int tcp_bpf_send_verdict(struct sock *sk, struct sk_psock *psock,
+>  				*copied -= free;
+>  		}
+>  		if (cork) {
+> -			sk_msg_free(sk, msg);
+> -			kfree(msg);
+> -			msg = NULL;
+> +			if (ret < 0 ||
+> +			    !msg->sg.data[msg->sg.start].page_link ||
+> +			    !msg->sg.data[msg->sg.start].length) {
+> +				sk_msg_free(sk, msg);
+> +				kfree(msg);
+> +				msg = NULL;
+> +			}
+
+[Severity: Medium]
+When the redirect keeps a partially sent cork alive, can the leftover
+bytes get re-corked even though the program did not ask for it?
+
+msg->cork_bytes is only written by sk_msg_init() and
+bpf_msg_cork_bytes(). When the cork is satisfied, tcp_bpf_sendmsg()
+clears psock->cork_bytes and sets psock->eval to __SK_NONE. It leaves
+psock->cork->cork_bytes at the old threshold.
+sk_psock_msg_verdict() does not reset it before running the program
+either.
+
+With this patch the sequence looks like this:
+
+  - the program calls bpf_msg_cork_bytes(msg, N), and the message is
+    copied into psock->cork with cork_bytes == N
+  - later sends fill the cork, so msg->sg.size >= N, and the program
+    returns a redirect with apply_bytes smaller than sg.size
+  - tcp_bpf_sendmsg_redir() sends apply_bytes, psock->apply_bytes
+    drops to 0, psock->eval becomes __SK_NONE, and msg is now kept
+    alive
+  - at more_data the program runs again on the leftover, and it may
+    not call bpf_msg_cork_bytes() at all
+
+msg->cork_bytes is still N, and the leftover sg.size is usually
+smaller than N, so this check fires:
+
+	if (msg->cork_bytes &&
+	    msg->cork_bytes > msg->sg.size && !enospc) {
+		psock->cork_bytes = msg->cork_bytes - msg->sg.size;
+
+The leftover is parked in a new psock->cork, and nothing is sent until
+the application writes another N - sg.size bytes. An application that
+waits for a reply before sending more would stall. This is also the
+path that orphans the detached cork, as noted above.
+
+Before this patch the cork was always freed after the redirect, so the
+stale cork_bytes was never looked at again in this case. The on-stack
+msg from tcp_bpf_sendmsg() can probably hit the same stale value on
+the existing more_data loop, so part of this may be pre-existing. The
+patch does make the cork case reach it.
+
+Should msg->cork_bytes be cleared when tcp_bpf_sendmsg() decides the
+cork is fully accounted? Or should sk_psock_msg_verdict() reset it
+before each program run? I am not sure which semantics SK_MSG programs
+are expected to rely on across reruns.
+
+[Severity: High]
+Does this leak the corked struct sk_msg when data remains?
+
+Earlier in the same __SK_REDIRECT case, the cork has already been
+detached from the psock:
+
+		if (psock->cork) {
+			cork = true;
+			psock->cork = NULL;
+		}
+
+Once this branch keeps msg alive, the local msg is the only reference to
+the kzalloc'd cork. Neither sk_psock_cork_free() nor tcp_bpf_sendmsg() can
+reach it any more.
+
+The code then jumps back to more_data. On the next pass, the only exit
+that kfree()s the struct is another __SK_REDIRECT that fully consumes the
+message or fails. The other exits appear to leak it.
+
+The first one is the re-cork path. Only bpf_msg_cork_bytes() and
+sk_msg_init() write msg->cork_bytes, so it is never reset. After a
+partial redirect the remaining sg.size is usually smaller than cork_bytes:
+
+	if (msg->cork_bytes &&
+	    msg->cork_bytes > msg->sg.size && !enospc) {
+		psock->cork_bytes = msg->cork_bytes - msg->sg.size;
+		if (!psock->cork) {
+			psock->cork = kzalloc_obj(*psock->cork,
+						  GFP_ATOMIC | __GFP_NOWARN);
+			if (!psock->cork) {
+				sk_msg_free(sk, msg);
+				*copied = 0;
+				return -ENOMEM;
+			}
+		}
+		memcpy(psock->cork, msg, sizeof(*msg));
+		return 0;
+	}
+
+psock->cork is NULL at this point, so a new cork is allocated, the old
+struct is copied into it, and the old struct is orphaned. The -ENOMEM
+branch also only calls sk_msg_free().
+
+The second one is the __SK_PASS case. It never calls kfree(msg), whether
+the push succeeds or fails. This case is reached when the program returns
+SK_PASS, or when the msg_parser has been detached.
+
+The third one is the __SK_DROP/default case. It calls sk_msg_free() and
+returns -EACCES without calling kfree(msg).
+
+Before this patch, the cork branch always freed msg and set it to NULL.
+So a detached heap cork never went back through the loop.
+
+The existing test_txmsg_cork_hangs case in test_sockmap.c sets
+txmsg_redir = 1, txmsg_apply = 4097 and txmsg_cork = 4097. It probably
+takes the re-cork path, because the test program calls
+bpf_msg_cork_bytes() on every run. The test does not check for leaks.
+
+Could the leftover be handed back to psock->cork? Alternatively, could the
+code track that msg is a detached heap cork and kfree() it on every exit?
+
+>  			ret = 0;
+>  		}
+>  		break;
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch, but
+the patch adds another way to reach it.
+
+tcp_bpf_send_verdict() drops the socket lock around
+tcp_bpf_sendmsg_redir(). It then goes back to more_data without
+re-checking psock->cork, psock->eval, psock->sk_redir or
+psock->apply_bytes.
+
+The __SK_REDIRECT case also assumes that a non-NULL psock->cork is the
+local msg, and never checks msg == psock->cork. The re-cork path also
+memcpy()s over any existing psock->cork.
+
+Can a second sender on the same socket race with this window?
+
+Thread A                                Thread B
+tcp_bpf_sendmsg()
+  msg_tx = &tmp (psock->cork == NULL)
+  tcp_bpf_send_verdict()
+    __SK_REDIRECT, apply_bytes < size
+    apply_bytes hits 0, eval = __SK_NONE
+    release_sock(sk)
+    tcp_bpf_sendmsg_redir()             tcp_bpf_sendmsg()
+                                          lock_sock(sk)
+                                          program sets cork_bytes
+                                          psock->cork = M2 (kzalloc)
+                                          memcpy(psock->cork, msg, ...)
+                                          release_sock(sk)
+    lock_sock(sk)
+    data remains, goto more_data
+
+Thread A can then go one of two ways.
+
+If it takes the re-cork path, memcpy(M2, msg) overwrites thread B's
+message. B's data is lost, and its sg pages and sk_mem charge leak.
+
+If it takes __SK_REDIRECT, it sets cork = true and psock->cork = NULL
+without owning M2, so M2 leaks. An example is thread A sending exactly
+3 * 4097 bytes with apply = cork = 4097.
+
+In that case msg is still the on-stack tmp from tcp_bpf_sendmsg():
+
+		if (psock->cork) {
+			msg_tx = psock->cork;
+		} else {
+			msg_tx = &tmp;
+			sk_msg_init(msg_tx);
+		}
+
+When the redirect fully consumes the message or fails, the cork cleanup
+runs sk_msg_free(sk, msg) and kfree(msg) on a stack address.
+
+With this patch, a detached heap cork msg can now also go around the loop
+after the lock is dropped. So both outcomes can now also leak or
+overwrite M2 when msg is a heap cork.
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114115222.180345-1-omermetekaya0%40gmail.com
