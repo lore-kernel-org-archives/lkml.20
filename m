@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794777197;
-	b=NOyjRReX7YEdzr7wrXnM+flIT0lcvlcJSBtCT9lZA49nm/BGjhPaNSsay79P2B6xmJsL
-	 ZXWWgumQAtY5lUI86Z/cfEy+bG2ISwintdjtlbjTxURIIBI/fLfMWVcBrWcDNaBBhgKqG
-	 b/ZwN4zd3S5Tx4+oapkSh2W8W7e80oHdVISTM4ST0rxDLd5GWH2/AiwNKb3Om8PJu3FFw
-	 UOT5GRBDLySlWoTE/Gvc2WqyyoyKffUYUNi61lHJA5PR/FFzgDm8t1Y3vrQ5omKR7RcYG
-	 SltN3XBZsTHcDgI7H94KRR97h6UITMYcb0mteaXkzWPa9EYTphzpAaz7teCUlU7OXgg==
+	t=1794777268;
+	b=0dUMHmj6fvPmiBypE0pdz7ZxEVkwBaIwg8pXtNho5xpmGOn1bRLmrz21Mky/IxaI4UAV
+	 uxjOUZu35df8hWLcxHCR4ezeClSXWi7q912tqRaiS19OCrYMemAQb16ubNF2Owsy9CxUK
+	 sVK6Xjs3Z3BmI+QkjNuIQtN6YoZvqWwQn53tM/dLQWxGKzNwM2p4qI+9PRbv8neYIQFDB
+	 qRAg2wjJf02VF8GzediIa1yKHN7DmJpat/mjZ6UwnWVy25JVG/qId6zAj8BKPbnmCo221
+	 Zd6mHbx9XrHYdnPIaca6ZckidevIavt9Nq5kOUpuGAvqH8uKM4oZK5ZLTlhwa4+l5eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794777197;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Dl2GSKLNZwxHnys/gmOepf+Z7DTsWvB68DYjsGWZv64=;
-	b=TxPDETuG8JRheq5bumrsFf2WzyLiwwd86kG0CGR/OoqwIOyE18In8FvwHd+mkGAMeDHt
-	 YhhBwpsPGbvsWwr4cH8QF7+SxpmwaP4FUC3hyCj/phgD1n1+bqlW6gGRSd0KqwHlGN4lC
-	 5vt606VRmodnERqi/V83HziHSBN20N7XeIquwLpQpDBxc6jVMUn9C2yQBVsn96JWBaAQ6
-	 Dkm7m69gyX4Av0pCiTyOYhmQfO3VlfFuxzlWyMRljfI1YYwrEKUrhoML1CHsaSqa5GAjZ
-	 riyvEsqvNRqXqpUKjTbUdgq8BYfmU3XfMUjzO08EMJqPyGEugFs/bfCGZElSaaJfV/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794777268;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bP9xDmNL6n8HSW3FN+T6xQwv9mEs6FoPklQ0Shvye/4=;
+	b=3YjRtwjRuDZOfRFocC6CFqpLvB6Mh44puXBp8It+1gPB39ZMII3fZksredPqfnu2LTxT
+	 aovoukypTC7zSr9koGl3/xq6/ix7QjRxCRaS4JIimZnBUFEVy5gVWdnWFPpcv1xtojdaB
+	 5vqiV84PK1IAYRgcaxgyDDK4Sz/CdjW3H0jXsJ775Rd/dEPSkJTSDHw70vmTFQqaYKWng
+	 c2Jg/RnTCPa4o1bX2qGQtNrZZcE8tnh32ZP9P3+M8t7FHlJRloPk1U2+1mkJDSBRqFrXc
+	 pfJSf3y5Pj6HtaM0PeyDC0t5HPR8fJhy7aqF9et4XnbkB6xWxHlmbX+/lXGV6BWhKDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GS99ENSk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=grapheneos.org;
+	spf=pass smtp.mailfrom=grapheneos.org;
+	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=MK979sBD;
+	arc=none smtp.remote-ip=206.220.120.4
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E568B606A31F;
-	Sun, 15 Nov 2026 21:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D795D606A323;
+	Sun, 15 Nov 2026 21:14:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D795D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GS99ENSk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9511F000C4;
-	Sun, 15 Nov 2026 21:13:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794777196;
-	bh=Dl2GSKLNZwxHnys/gmOepf+Z7DTsWvB68DYjsGWZv64=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GS99ENSkyF3TPKalnRsitjk9MfxxCoI6uu2CrsWuj6OXs2LGrdDdsTtemrKU81oTS
-	 NQz61UnwJFhSzPQx45UBtUCU4SHKf9nYerW8/f0vMoe4Nnc0PqiDPZ6GkUmC8WfdEr
-	 81svY8FiHAcrkEj9C1GqS0Y+SS20Rz6IEPoAbbjdiVpqAFlGrVvJXGcD5WO8EKnA+x
-	 aORjlLA0gh6XEt6NUM0wUGse7rdtOVrYDdvQCgqJBfwtLeYGvawNqjgaOBHHR7rTya
-	 Uj3Y8dY+wyYgPhRcmdYuNHbD31nus/Dx1xO68JCpIEI/mZzl1dYaqUpZosbs3C3yT1
-	 1tvvicofqqg6A==
-Date: Sun, 15 Nov 2026 13:13:14 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, Andrew Lunn
- <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, Ilias
- Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, John Fastabend
- <john.fastabend@gmail.com>, Pavel Begunkov <asml.silence@gmail.com>, Jens
- Axboe <axboe@kernel.dk>, Andrii Nakryiko <andrii@kernel.org>, Eduard
- Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil
- Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org, Mina
- Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
- <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
- Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
- Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 01/11] net: Get skb fragment addresses
- through netmem
-Message-ID: <20261115131314.2d3ab96f@kernel.org>
-In-Reply-To: <20261110102039.1002605-2-bjorn@kernel.org>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
-	<20261110102039.1002605-2-bjorn@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=MK979sBD
+Received: by mail.grapheneos.org (Postfix) id 6E4593C08EF33;
+	Sun, 15 Nov 2026 21:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1794777260;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bP9xDmNL6n8HSW3FN+T6xQwv9mEs6FoPklQ0Shvye/4=;
+	b=MK979sBDgKdDWaUiBPvuEAPD7ba04SVeD2IV0eQ+RSMR0CYOXdFCqFT/0udd2jbYZzpdlC
+	RLlMzqMmYYs968zK7AXcJqpFu8QPw3LHdeQL0mhpPrfI+hhIbfXRMpsxPuW5Jk6/LUHOfD
+	ZncMgQX3eQc8L5BzbPkR7vP30woUf3Rl/cph308O06nh6ZXtDvF3yqykzyieyRb1AW/fQK
+	XhNEx7s4COT6j3SNHOhYzwg/8qyJYZTfVPv20IWB7dea65YDdCLerHuSvCXAAA5xacJkX0
+	rQ15ZxpRnsWXBhAxcp6VsHROJUhMxpSw2OjgK4a86FnRnRUXLyIZKuuRWsuAQw==
+Message-ID: <e5a3b758-a145-4823-b1bc-4c7c4d3c9808@grapheneos.org>
+Date: Sun, 15 Nov 2026 21:14:11 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,20 +58,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net-next v3 0/4] ipv4: restrict on-link fallback to lookup
+ misses
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Liam Smith <liamsmith827@proton.me>
+References: <20261112235932.23836-1-liamsmith827@grapheneos.org>
+ <20261115083007.GA3764829@shredder>
+Content-Language: en-US
+From: liamsmith827 <liamsmith827@grapheneos.org>
+In-Reply-To: <20261115083007.GA3764829@shredder>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 10 Nov 2026 11:20:22 +0100 Bj=C3=B6rn T=C3=B6pel wrote:
-> skb_frag_address() goes through struct page, so a net_iov never has an
-> address. Only unreadable memory should lack one: XDP and BPF read
-> fragments through this helper, and AF_XDP UMEM will back readable
-> net_iovs. netmem_address() also returns NULL, not a bogus pointer, for
-> an unmapped highmem page.
->=20
-> Generic code needs the size of a net_iov to find its address, so keep
-> it in struct net_iov_area instead of the devmem binding.
+On 11/15/26 08:30, Ido Schimmel wrote:
+> Please also mention that omitting the fallback for multicast packets
+> will break multicast traffic in a VRF, which hits the default
+> unreachable route by design.
 
-IIRC netmem is supposed to be used for frags and memory CPU never needs
-to access. This patch looks odd. I haven't read the rest of the series
-yet but at the very least commit message should explain why this
-aberration is needed / correct.
+I don't understand the purpose of highlighting this one case. As I 
+explained in my reply to the v1 feedback, omitting the fallback for 
+multicast will break non-VRF too. There's also no requirement that a VRF 
+routing table must have an unreachable default, that's just one specific 
+VRF configuration. I have chosen not to document this specific case 
+because I believe doing so creates confusion.
