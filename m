@@ -1,65 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794756438;
-	b=U4mf0/bFrd2AmIn5J45Y5OXjheRMUwTjWkaZsTrRna3SQ86Alf1AjlPSHQK6S5uqroYN
-	 LXaf+DhvYeyioHpat+4CY2iGNz7GP2UEjqIaEKPDjVCXJvsi3lQz7H9CWxXTCr6TxcCXg
-	 9e1+NDT16lYIfLLzb7ECP/GJhU24UCeX/Gl4l7AXKTk3itRJui6Ssp8vH72gDqHaVmVJj
-	 8GkDav3lmQlZbULvsAAQdeiSQfwDJh3/R/WoXPkha0lIJPm3RTMcQ4ERuRUyEgo41eJci
-	 0LIHOw73sbXahO3ciKrJCO1VrQ2r8UsgnrY1qYLTD8Ab49hBf9v/H9xpohLyzFBvCfg==
+	t=1794756566;
+	b=C0M7jtbTstS9q/wYifuyUi3kqd3c4Ga/mJKF5YGMFfw/B4ylL9DFGMBEZF8TdQqaRKop
+	 GryqiEkju5OzzUm9l3Toe38sAO3S8m3+20IElDMx42vwZWAon5+GFZjrW+IxLwdNMX6sG
+	 NbjfQjvUAomFXLrPDBnHCyVE4ju8ldmkUFTPsLs3GkFpo2L6B8cBfjRMs18947b2RFvPU
+	 kV1P1sWDVxOA96ULxeNKL4jvkUveDjIVRN0PX9UNkV7rxuG39B4hawc83KaP7La1XP/8s
+	 MNBRj/otB5TCkPtT0tCveqoKnRgdZaHUfrYD36pgDwUNzMRG7Ha+7+Zs62Jp7jjBd7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794756438;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rsB3JLoCPVV0K4C/Spsno0mPXtm72WZwA26MPlIaX0k=;
-	b=wngvcDMxL0AShfAJsLXjRtLy8Uc+E9tLXxVKJXPTAJNT2RMYAGkEvq4TjAZCJ9ciN0w5
-	 oxFELEvdjcBC7LYv/5foM6hVFRflA5AB1OZxQGtBM275CiL37hfxSeDdSu/M2ICoWIDCh
-	 ETYkMxKEx4RzU+NcGSkN/uIbluz5cuehoGQTdXM/kUk+c7OdKinzwfs0VVs6YEzmPIOis
-	 5sCF8vY2f3MIbW7Ktf05pBI6Nqmc2ovvKYOzkfD0ys+XPlbr4CcTP53FBKrqW5c9fk7LV
-	 3Q+9nKu6WN6fKtuijrHrKphx39TDT7DWYMxFP+EHX4MQtStMvPKPqsPVLxjGB76YFBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794756566;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Yb/rW1NOmAiEOX8njX27I+yC9sCUQ2ioynhsTqMUeEU=;
+	b=v/PcNADVzRdg8xSDMxqwFf6F38mER76/QQp/BKxpQBQhC51kR/j1KLVUkmR8ufaksBrI
+	 Eabw91utP6oDmDBbSQHO8RZalDZAJXF+sz4N+Y/iG8/kI4qQFdOSy/D2Ia2Sv8PL27Sd9
+	 UsHgjCyU/fUx38UgI4hc17TS6l5eFLLjh3A/RsNZb5Fu0maoegT7EnhA+Rgtu8BFd/b31
+	 PtdR2Xaie2tYKu3ZrCcnfYs6mE2LMiCIZTlZ7jNkEX+0fs8F5WwLfoGls7OBEvM6W/zrR
+	 GqH04qZY4lQezBwmdiI36thwPjRYX4pdc4m41HxB6+66yHg8ECktehgbBnb0Y3L9bhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=bprRZ0rA;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E4B9606A32E;
-	Sun, 15 Nov 2026 15:27:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4B9606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=in3oqOzp;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF86606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF86606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=bprRZ0rA
-Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 243321C025E;
-	Sun, 15 Nov 2026 16:27:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1794756437;
-	bh=Xaq7tdArymqQ9EW3aTadVEYTr9nONTfiZp+7FcATQEc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bprRZ0rArOUpY6GCjzbDO1Z8bgfko3+Znq+35eqQ3OKHyYsPgxt59/ayB5tOdmbEU
-	 L131BwEL/03UV+uIAJDIu2UCQ+aThRBuJZmwg1ry+APMn6fyEmktV5RRtygzZvdpyb
-	 QaioTydhiAmxlgq0bae+B2vYqnkgR/RpSqUQ4BEk=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: linux-kernel@vger.kernel.org
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Alexey Gladkov <legion@kernel.org>,
-	Eugene Syromyatnikov <evgsyr@gmail.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Bradley Morgan <bradley.morgan@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	strace-devel@lists.strace.io,
-	linux-api@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v3 2/2] selftests/ptrace: check that PTRACE_SET_SYSCALL_INFO rejects invalid error values
-Date: Sun, 15 Nov 2026 16:27:00 +0100
-Message-ID: <20261115152703.416254-3-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261115152703.416254-1-renzo@cs.unibo.it>
-References: <20261115152703.416254-1-renzo@cs.unibo.it>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=in3oqOzp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794756566; x=1826292566;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=z+Gdrxc3ydTyR+6uvWLKyFCQ1TI3j9Fxfs4TZg3tGNY=;
+  b=in3oqOzpSVOujUmPwk4QNFONNuyBcEEpBEypABMzkikEC6CuC88be3DM
+   agZoaW2a74DnSmr1TPqKhh7Prewb0kmiP1YXCcpqwMoHiKZvGxKHy52Ce
+   8+hWmjQfF4Wve2knTWSRdltGDkfEgkNfLsdluNMeh97l8t1nubiiobcto
+   58qq1lZh4SovnkGSiS+YeGkC3cDG6NqKXq/rhyeMhOU8jkUv+QJe76rTO
+   CHv7hRUhXBaeZ7AkbhucADDx2QZfM1c7CiTk8irjkG/m0B2/FZe6N3pHl
+   B9zqxExEqKOTCr/UToN/StYlFc5gPG7q6JvgmpC7EOb57pXsIBi2HCO4K
+   Q==;
+X-CSE-ConnectionGUID: DnrrNrReRIu6DaGCDPwUyA==
+X-CSE-MsgGUID: SeYib6O1S9iQLhDxCVu6tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3579332"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3579332"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 07:29:25 -0800
+X-CSE-ConnectionGUID: uHGKMeRrTCafyscBwkhRzQ==
+X-CSE-MsgGUID: 71k7X6P9QdSw6nMHEdQ/kQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9597153"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa008.fm.intel.com with ESMTP; 15 Nov 2026 07:29:23 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xScAS-000000016zE-3MLt;
+	Sun, 15 Nov 2026 15:29:20 +0000
+Date: Sun, 15 Nov 2026 23:28:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	chengming.zhou@linux.dev, david@kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org
+Subject: Re: [PATCH v2 2/2] mm/ksm: add initialization helpers for
+ scan_get_next_rmap_item()
+Message-ID: <202611152302.OUfZlgfW-lkp@intel.com>
+References: <20261115080049.132515-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,87 +84,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115080049.132515-1-xu.xin@linux.dev>
 
-At every exit stop of the set_syscall_info test, try to set with
-is_error set a few values outside [-MAX_ERRNO, -1], check that
-PTRACE_SET_SYSCALL_INFO fails with ERANGE and that the return value
-of the system call is left untouched.
+Hi Xu,
 
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
----
- .../selftests/ptrace/set_syscall_info.c       | 51 +++++++++++++++++++
- 1 file changed, 51 insertions(+)
+kernel test robot noticed the following build warnings:
 
-diff --git a/tools/testing/selftests/ptrace/set_syscall_info.c b/tools/testing/selftests/ptrace/set_syscall_info.c
-index 1cc411a41cd6..366ef0ec228f 100644
---- a/tools/testing/selftests/ptrace/set_syscall_info.c
-+++ b/tools/testing/selftests/ptrace/set_syscall_info.c
-@@ -126,6 +126,54 @@ check_psi_exit(struct __test_metadata *_metadata,
- 	}
- }
- 
-+/* Error values that PTRACE_SET_SYSCALL_INFO must reject with ERANGE. */
-+static const long long bad_error_rval[] = {
-+	0,
-+	1,
-+	ESRCH,
-+	-4095 - 1,	/* -MAX_ERRNO - 1 */
-+	-2147483647LL - 1,
-+#if __SIZEOF_LONG__ > 4
-+	0x100000000LL,
-+	-0x100000000LL - ESRCH,
-+#endif
-+};
-+
-+static void
-+check_psi_exit_bad_rval(struct __test_metadata *_metadata,
-+			const struct ptrace_syscall_info *orig,
-+			const struct si_exit *exp_exit)
-+{
-+	struct ptrace_syscall_info info;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(bad_error_rval); ++i) {
-+		info = *orig;
-+		info.exit.is_error = 1;
-+		info.exit.rval = bad_error_rval[i];
-+		ASSERT_EQ(-1, sys_ptrace(PTRACE_SET_SYSCALL_INFO,
-+					 tracee_pid, sizeof(info),
-+					 (uintptr_t) &info)) {
-+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: error rval %lld accepted",
-+					bad_error_rval[i]);
-+		}
-+		ASSERT_EQ(ERANGE, errno) {
-+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: error rval %lld: %m",
-+					bad_error_rval[i]);
-+		}
-+
-+		/* the return value must be left untouched */
-+		memset(&info, 0, sizeof(info));
-+		info.op = 0xff;
-+		ASSERT_LT(0, sys_ptrace(PTRACE_GET_SYSCALL_INFO, tracee_pid,
-+					sizeof(info), (uintptr_t) &info)) {
-+			LOG_KILL_TRACEE("PTRACE_GET_SYSCALL_INFO: %m");
-+		}
-+		check_psi_exit(_metadata, &info, exp_exit,
-+			       "PTRACE_SET_SYSCALL_INFO with bad error rval");
-+	}
-+}
-+
- TEST(set_syscall_info)
- {
- 	const pid_t tracer_pid = getpid();
-@@ -476,6 +524,9 @@ TEST(set_syscall_info)
- 				check_psi_exit(_metadata, &info, exp_exit,
- 						"PTRACE_GET_SYSCALL_INFO #1");
- 
-+				/* invalid error values must be rejected */
-+				check_psi_exit_bad_rval(_metadata, &info, exp_exit);
-+
- 				/* apply the changes */
- 				info.exit.is_error = set_exit->is_error;
- 				info.exit.rval = set_exit->rval;
--- 
-2.47.3
+[auto build test WARNING on akpm-mm/mm-everything]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Xu-Xin-vivo/mm-ksm-extract-helper-functions-for-scan-cycle-cleanup/20261115-160032
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261115080049.132515-1-xu.xin%40linux.dev
+patch subject: [PATCH v2 2/2] mm/ksm: add initialization helpers for scan_get_next_rmap_item()
+config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20261115/202611152302.OUfZlgfW-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project ca14e3d05c4e63d6e8103945c86b958ed2f55d5f)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261115/202611152302.OUfZlgfW-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611152302.OUfZlgfW-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> mm/ksm.c:2693:6: warning: variable 'mm_slot' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+    2693 |         if (scan_should_start_new_cycle()) {
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   mm/ksm.c:2720:10: note: uninitialized use occurs here
+    2720 |         slot = &mm_slot->slot;
+         |                 ^~~~~~~
+   mm/ksm.c:2693:2: note: remove the 'if' if its condition is always true
+    2693 |         if (scan_should_start_new_cycle()) {
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   mm/ksm.c:2684:29: note: initialize the variable 'mm_slot' to silence this warning
+    2684 |         struct ksm_mm_slot *mm_slot;
+         |                                    ^
+         |                                     = NULL
+   1 warning generated.
+
+
+vim +2693 mm/ksm.c
+
+  2680	
+  2681	static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+  2682	{
+  2683		struct mm_struct *mm;
+  2684		struct ksm_mm_slot *mm_slot;
+  2685		struct mm_slot *slot;
+  2686		struct vm_area_struct *vma;
+  2687		struct ksm_rmap_item *rmap_item;
+  2688		struct vma_iterator vmi;
+  2689	
+  2690		if (list_empty(&ksm_mm_head.slot.mm_node))
+  2691			return NULL;
+  2692	
+> 2693		if (scan_should_start_new_cycle()) {
+  2694			advisor_start_scan();
+  2695			trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
+  2696	
+  2697			/*
+  2698			 * A number of pages can hang around indefinitely in per-cpu
+  2699			 * LRU cache, raised page count preventing write_protect_page
+  2700			 * from merging them.  Though it doesn't really matter much,
+  2701			 * it is puzzling to see some stuck in pages_volatile until
+  2702			 * other activity jostles them out, and they also prevented
+  2703			 * LTP's KSM test from succeeding deterministically; so drain
+  2704			 * them here (here rather than on entry to ksm_do_scan(),
+  2705			 * so we don't IPI too often when pages_to_scan is set low).
+  2706			 */
+  2707			lru_add_drain_all();
+  2708	
+  2709			ksm_prune_migrate_nodes();
+  2710			ksm_reset_unstable_trees();
+  2711	
+  2712			mm_slot = scan_get_first_mm();
+  2713			if (!mm_slot)
+  2714				return NULL;
+  2715	next_mm:
+  2716			ksm_scan.address = 0;
+  2717			ksm_scan.rmap_list = &mm_slot->rmap_list;
+  2718		}
+  2719	
+  2720		slot = &mm_slot->slot;
+  2721		mm = slot->mm;
+  2722		vma_iter_init(&vmi, mm, ksm_scan.address);
+  2723	
+  2724		mmap_read_lock(mm);
+  2725		if (ksm_test_exit(mm))
+  2726			goto no_vmas;
+  2727	
+  2728		for_each_vma(vmi, vma) {
+  2729			if (!(vma->vm_flags & VM_MERGEABLE))
+  2730				continue;
+  2731			if (ksm_scan.address < vma->vm_start)
+  2732				ksm_scan.address = vma->vm_start;
+  2733			if (!vma_has_anon_rmap(vma))
+  2734				ksm_scan.address = vma->vm_end;
+  2735	
+  2736			while (ksm_scan.address < vma->vm_end) {
+  2737				struct ksm_next_page_arg ksm_next_page_arg;
+  2738				struct page *tmp_page = NULL;
+  2739				struct folio *folio;
+  2740	
+  2741				if (ksm_test_exit(mm))
+  2742					goto no_vmas;
+  2743	
+  2744				int found;
+  2745	
+  2746				found = walk_page_range_vma(vma, ksm_scan.address,
+  2747							    vma->vm_end,
+  2748							    &ksm_next_page_ops,
+  2749							    &ksm_next_page_arg);
+  2750	
+  2751				if (found > 0) {
+  2752					folio = ksm_next_page_arg.folio;
+  2753					tmp_page = ksm_next_page_arg.page;
+  2754					ksm_scan.address = ksm_next_page_arg.addr;
+  2755				} else {
+  2756					VM_WARN_ON_ONCE(found < 0);
+  2757					ksm_scan.address = vma->vm_end - PAGE_SIZE;
+  2758				}
+  2759	
+  2760				if (tmp_page) {
+  2761					flush_anon_page(vma, tmp_page, ksm_scan.address);
+  2762					flush_dcache_page(tmp_page);
+  2763					rmap_item = get_next_rmap_item(mm_slot,
+  2764						ksm_scan.rmap_list, ksm_scan.address);
+  2765					if (rmap_item) {
+  2766						ksm_scan.rmap_list =
+  2767								&rmap_item->rmap_list;
+  2768	
+  2769						if (should_skip_rmap_item(folio, rmap_item)) {
+  2770							folio_put(folio);
+  2771							goto next_page;
+  2772						}
+  2773	
+  2774						ksm_scan.address += PAGE_SIZE;
+  2775						*page = tmp_page;
+  2776					} else {
+  2777						folio_put(folio);
+  2778					}
+  2779					mmap_read_unlock(mm);
+  2780					return rmap_item;
+  2781				}
+  2782	next_page:
+  2783				ksm_scan.address += PAGE_SIZE;
+  2784				cond_resched();
+  2785			}
+  2786		}
+  2787	
+  2788		if (ksm_test_exit(mm)) {
+  2789	no_vmas:
+  2790			ksm_scan.address = 0;
+  2791			ksm_scan.rmap_list = &mm_slot->rmap_list;
+  2792		}
+  2793		/*
+  2794		 * Nuke all the rmap_items that are above this current rmap:
+  2795		 * because there were no VM_MERGEABLE vmas with such addresses.
+  2796		 */
+  2797		remove_trailing_rmap_items(ksm_scan.rmap_list);
+  2798	
+  2799		spin_lock(&ksm_mmlist_lock);
+  2800		slot = list_entry(mm_slot->slot.mm_node.next,
+  2801				  struct mm_slot, mm_node);
+  2802		ksm_scan.mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
+  2803		if (ksm_scan.address == 0) {
+  2804			/*
+  2805			 * We've completed a full scan of all vmas, holding mmap_lock
+  2806			 * throughout, and found no VM_MERGEABLE: so do the same as
+  2807			 * __ksm_exit does to remove this mm from all our lists now.
+  2808			 * This applies either when cleaning up after __ksm_exit
+  2809			 * (but beware: we can reach here even before __ksm_exit),
+  2810			 * or when all VM_MERGEABLE areas have been unmapped (and
+  2811			 * mmap_lock then protects against race with MADV_MERGEABLE).
+  2812			 */
+  2813			mm_slot_remove(&mm_slot->slot);
+  2814			spin_unlock(&ksm_mmlist_lock);
+  2815	
+  2816			mm_slot_free(mm_slot_cache, mm_slot);
+  2817			/*
+  2818			 * Only clear MMF_VM_MERGEABLE. We must not clear
+  2819			 * MMF_VM_MERGE_ANY, because for those MMF_VM_MERGE_ANY process,
+  2820			 * perhaps their mm_struct has just been added to ksm_mm_slot
+  2821			 * list, and its process has not yet officially started running
+  2822			 * or has not yet performed mmap/brk to allocate anonymous VMAS.
+  2823			 */
+  2824			mm_flags_clear(MMF_VM_MERGEABLE, mm);
+  2825			mmap_read_unlock(mm);
+  2826			mmdrop(mm);
+  2827		} else {
+  2828			mmap_read_unlock(mm);
+  2829			/*
+  2830			 * mmap_read_unlock(mm) first because after
+  2831			 * spin_unlock(&ksm_mmlist_lock) run, the "mm" may
+  2832			 * already have been freed under us by __ksm_exit()
+  2833			 * because the "mm_slot" is still hashed and
+  2834			 * ksm_scan.mm_slot doesn't point to it anymore.
+  2835			 */
+  2836			spin_unlock(&ksm_mmlist_lock);
+  2837		}
+  2838	
+  2839		/* Repeat until we've completed scanning the whole list */
+  2840		mm_slot = ksm_scan.mm_slot;
+  2841		if (mm_slot != &ksm_mm_head)
+  2842			goto next_mm;
+  2843	
+  2844		advisor_stop_scan();
+  2845	
+  2846		trace_ksm_stop_scan(ksm_scan.seqnr, ksm_rmap_items);
+  2847		ksm_scan.seqnr++;
+  2848		return NULL;
+  2849	}
+  2850	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
