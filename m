@@ -1,90 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727195;
-	b=tKyY/Aa7Ss8U+8nLdu4GxN6tV24TV0qRrHD1TUmTCY4mOYECtcZZ1X0u5OF4Hc8ale+E
-	 PxH7f7moaZE63zTE3KpOGOQLl9SaHEUQ1xwSe0iht7QvzI+9TmJe2Bjz94+V8V5PeRh37
-	 kVDN8P/PR9Mt+/YOSCoh5JeDxgzVs36YGHjvDHwdV6UBSIz6IZmD7w4vXM8lVHM7aCDi6
-	 V1dE2wemhBSiq+I0E99z6iVPtFi2m+LRNLpp7+3NS+UvQfpINL68XA/U8FRi+DfcgxD1f
-	 PppU4YXomxUkHeqES+9zNj487fm5fALI8MEYGAZNTRJXzeg4NTAek9maJy8qdN66RKA==
+	t=1794727219;
+	b=juVMLVUIM3gBz0jxdKLS/FNbd/kt1MaVKjnLlhiCZ6qsfVjJBy8rQXovqhcs56CU5koA
+	 JhkvybdaXS8hKWlh/zJ9l80nO6rA4AEJiTo9aQhzwKgWNmWhwtVUCytZzd4HWI9Kgf7zF
+	 RLJoDiSmON6HezR6PZKIWNiXb1SpAw0QfHjdwIjyYR663TiB4cev0Y3/oDUibU6VreYWI
+	 9CR+mst/grsfXcfFzFRs5UmjiqcCGXie2my3uUPtnpzWh4AcBPpctstSqc+CmW+BHNN0X
+	 LVlpG7UtLZ+Vr5ScLtsT3QmR9HVSiH2QzFp6omvjFl0u9QlowFjS0OpQuB35b3rturw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727219;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=pZ+dtlSoMIwzi8tXLggRIOEKa0idJB89sEnqPt1VQaE=;
-	b=IQR6tFQ64WTAtlQHZGoNvy3Ks9Ebvle1J2T5jGagjNr0oATqc1DZ4uupk6qcs4kQuYVC
-	 CLsZWHBh8of1CCd4P7tyL8iJqr9UrU0CiVpAy6WvFVnLKyolD1Vdaw2gad9FepQWt0NOg
-	 NMv/W7/IjVcgl86xDb4M4BOkUTlsABkkwgTyzgdfq3UNmtKclfpXEdrtE57LA5W+glkn3
-	 6c8HLlSm1oFyetLgNMennEpuxKWCISSFVCxpNGWus7NhNJMoxy2CYuk5WuLBJtE/68qU7
-	 uqNQzkLbPrQIAhrgWm8NIma/cQhP3cjVL74htj4rQICoJJMIpAN65++ekWEthvT9S9A==
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=KroQIiuPpq62ASZ4V9uK0JJ0eFDYvcn9D+kvCdldZig=;
+	b=Nd35wyZyee/UfH4I12fnpIqRDvrIJvozw7XkejWKIzt3/1/yZX/3kmc2pAeJWfWdJcWo
+	 JB0Zx60MdCbhxc7NESqMoOXNYkXGTdtqto5f+s5NFidbkwOTUSgtwA+FzSBWeo+qXaEec
+	 5z/8SW5e4lbsee4CYbxzHg8KcSls2IV15e2IGgCAoqDNrgSWB3oooat8rJYgumC4nBDG6
+	 twyhgrQ3MvATvI4i3Nub3gN+jvyRW8af/wQbLV5IYb5XURw8/hz+P1/zIO0pCLw2WWTKr
+	 y98qVHa5paLvynj+RvLcKh6Zg7ydS9/ne2tqXR3jjqy5hSqU+HaLJEHKP23PE/5ceGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rVBifrle;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DORECUVP;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBCE60A3827
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:19:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBBCE60A3827
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63040606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:20:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63040606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rVBifrle
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-706113e92f9so2131556eaf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:19:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DORECUVP
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so1259245b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:20:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794727194; x=1795331994; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pZ+dtlSoMIwzi8tXLggRIOEKa0idJB89sEnqPt1VQaE=;
-        b=rVBifrleMzP84l/hPxYELN2fD2a0DnTrmhidiUE/G3b2Ci7QZihgT1VdZV8GePTF/t
-         DOEjfBzF6Vats+CXTaPgLqUOuAExcNKyFVfUmRaFiNc35TvW2htW4Z8MBWKo318iwwi7
-         raRNt93RWvJ+uMHRuuaPSweciuYkRCh/qidEERyNJbSO86DVK7uocznMGUMIRLU5FvAf
-         mfnS3X3pLR9G28dW/WbkdY3Ewb7H372j7Mjndz/+bYv1NY9+hjpipygSf61XHvKfrB6n
-         fCmu1Jl/0NKciZzVUVtxwSKUC7OS2BH+tyc3kYgPbtsGu4/s2ZpuCn09mx+9lWJP3dTY
-         GD3A==
+        d=gmail.com; s=20260707; t=1794727219; x=1795332019; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KroQIiuPpq62ASZ4V9uK0JJ0eFDYvcn9D+kvCdldZig=;
+        b=DORECUVPZxuI83HPH73zVsv/MqxNQTEk83AE7grYQK5dZePulOKCkWylLquGBzZ0p8
+         NFUwKm2THBYjPyUWNjUKzpujR91+LVSPdefLm8OaJa5DUQ0NCWE6RLUUniquBLinz4+k
+         TMSbTBwliesdd9oGl8KvM+HDAsdT1QX0Vx7+XrYuDzHCpHGX3EKW4gEZzFSDpECerfIv
+         XJKmzc9mUW2tT6IdhkfxsCnLIzgHKvWvwGqhK/TWNkP64LNLndTcu7p1WqwEzc+I3yyR
+         NUpmISxzDhHHndX3UqXVsNBdymP9Lls8cE4rAtWozcgWM++uc/MazfmuljRV4jd+XSkP
+         47hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794727194; x=1795331994;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pZ+dtlSoMIwzi8tXLggRIOEKa0idJB89sEnqPt1VQaE=;
-        b=cEDt+vkwHEnDnU9lHo9LWAl8cFpdGx08aXYjoC/bOvdtuNvApuTweVsBE7lBfz+z9Y
-         APWXVtF58EpT/q1rlE0utuk3j4xRMLdUJjIN2ijA24iMkw2O4OcAGiY5ueVOF2er0iLi
-         W1tiXBpAYlDEMHHPvaLUrCL1zR8C5C2k3TpvLiyUH7WEFVFJqvaYCYe9TmZDwVyIPg+v
-         qCwZk4Q5e6t/Dk4Rg0O6uoEDrwNfvZx7RJ6xjhMS96wdQm3lY5RvEmQDwkEuUfxgrAjz
-         mOuUrCPyA9mYtv17h06WkbT3iSSSchbireKm7VdFfFRCOIDCKbHb8YHaJAkllhY9F5hn
-         H7pA==
-X-Forwarded-Encrypted: i=1; AL+hErGAEwGfnnP1hQ4pHg8EBKqwQSSR9IzpefJt1izKc81swqg4zjL1u/5CtDogZHP1/Lo5tgmEUom6NKzmG8A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WDLA3oh4uBExZv9CuKOIAlQQihpLGqn1NRpuMBShS8ecfHIG3
-	aL/NVNfZ7QEU9PvHFup3tk6V47Zb4aDobCKmy3fRE4E9PKH8I0r7sxMA
-X-Gm-Gg: AYBFou29JMMfl+c+xBB/OI3L3cGFguqbtnQWuRTwBF37+9/x2Nboes/8UZiwH4hA5m3
-	KYrvdJoQRE1FWR7Rq7HIK7AdHkmdOYkPGEjMBxg4fvWCCW3jsjKdUZKrLrTs0MuqsnkvvLaH3na
-	dJPaIMYocJXxDFVZmFYfdIYH403wOHSUNapQy6X/53pQGw8tjJG2Fc4z3HGioG6KMTFeLrLX3Xk
-	wv55pLyeI0ToLYU09AWHr6pZOUy7S/hcsyUZrPJwRfz1YJvATE04X6XlJofASgheiZGlQp3bxse
-	HYBXM7rgYx9t1WZwoWkp7TuwIRHy69+wgk29mMfoZKKMQnQdgj2bvOMWiD2JUYXjbG6bLYhdVXO
-	2dtUicHuVFUdVwq7TdUbdYv1lEdURNmsrisnEx77aLRmS1kL7iDVaKZw2ApaDhUlM6mty2B2lvi
-	9qp/HOfJE3WhYP2tcDe+aE/AAWwQbdjsNEmGpaJEckQYkFQbcmhzViu4aRMAPGvHwO4eWmU1p9z
-	WsQh9zcAP/2O6RU0UTaSvACSlty7A/QviGaichugfuETqE7687XgFvPlYhjRPi3gPpfQxNVfSYa
-	3jwYR5i8/QlzcxCYMLin+KpVLoNgb2QCOdHX5enSqqBhAjr27lF6OK7kGcqY3dba+D9dthx7bSy
-	Y17YFGFMrqG/Ke9/NKY5/Lc4vC7Rj1SFExCf2ztADw+RTKKlzRyq5fBxRPihlX5PrtBtM+21yrm
-	0fH/dVapqYjAH6cmZHMnZd/Hx80i0IvCSGzMUFG9oh5Kf4YEIiqW8=
-X-Received: by 2002:a05:6820:83d2:20b0:716:c021:56eb with SMTP id 006d021491bc7-71ab4ef6568mr3133090eaf.28.1794727193901;
-        Sat, 14 Nov 2026 23:19:53 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ae860ebd7sm1145321eaf.8.2026.11.14.23.19.52
+        d=1e100.net; s=20260707; t=1794727219; x=1795332019;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KroQIiuPpq62ASZ4V9uK0JJ0eFDYvcn9D+kvCdldZig=;
+        b=u55QB4UpYpW6aqqxdYf3GyIHCMmFEvS/PP8O9I2KeKvBBTd2voA6yYVpT41pbQG9A7
+         nL+GabqLTF1KaB85FfBbxycPO5jO+tsL1dzQjXvf7tXksoC34WAxzN8XRa1UYETWChBi
+         fRddquTw8ukQzSnL/ThepNn8OoNYqWrmhYdCD2RQqU2J5bd9AGhbNVlHseIfZ32mZJDO
+         cLuujsURzOo9WEqxJ+vzc792ZB1/3P4WxgTHDi+QTchKHtA3nujuz81lWep/Ec4MZkZ4
+         i2VwCfriVrfPzgNWfg0EL3chYqJiDJ2JreemjChKqaIpPXXUgBD0T2aI3KWgd8C9DAeX
+         Iu7A==
+X-Forwarded-Encrypted: i=1; AL+hErGvEMJhmKH3xLJylNwQtSzxtFDCgLd7U4AgyJnaOCzfusZkgb0pEb6tzholst871A9JM82sCpmn+Qxh4PE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cMxr01W6iUFKZqfYas1gWGMJSxQG88tR66r3r6+uZS+22p+k/
+	zpLXfibEezAqTsxNEVeJNtFEfdVaxpGpWPlLdvF32q0C0aWeA/hGR5TT8Ufz6ADL
+X-Gm-Gg: AYBFou2UFdy1fFw4VIskb496XvAcQfpRJbi+XA2Gk1+PLMqPTq2y5X3/cj7ceweaOX3
+	zIJpcl3qhI51VBkvHZpUqhX9hCs84PGibUAoQS57RduJvHZXUM1cs8zHYeNfR0B9BtaJ2hWoaAr
+	PHhCMUj4O/4cbCl7iuSPGAWoCchNQPfE5YmUQenvqHn9Rda9+uPLEp6s/JbUBscdtV1TGhzGWqa
+	uS0T5cpycmqsvMMyLD/oILBckmyqM1X9hoyyDkNL8n3/zATUz3RrGF2q2I39QtzoXF9hWCtZDo1
+	QmcrI0rFDvVTvit5rJnfMc0t1twA8keN+dK4NoeGyn4scJsM6HxyidJyvqPMzyd9dVgrey/Kfk6
+	nPbN4SH6VHqAB9ku4wpacHEEOq/b3uVWUraP2+4kfNTa+A8eSZhdL/Yfynozp5tR6UqR9J8E+IA
+	WGYKg7pD6n9uByJcjvPhRSSWNaCI67DDHpAghjhmZsfdmDVFE+MT4MvtxtW3R/zlPuX1i4DaL6z
+	3CX8UCM7ruiaa6Vgy2YejvZMeV6qIdARb+XotQo0DmzKiDt8M0aIUbwnvQ59Omn2kTfTu8pXk5p
+	yuKiwletOf7AMPfHs9YQeSYmconbR5Evrixm/UUn6qBNNE3kFFMywdtODVBoxjXL7jpZ0NdmHHl
+	hKtnlr9pEJovWfcTzObkwfJ5Ztvl8
+X-Received: by 2002:a05:6a20:9c14:b0:3dd:a197:735a with SMTP id adf61e73a8af0-3f7a95f0de0mr6394154637.51.1794727218625;
+        Sat, 14 Nov 2026 23:20:18 -0800 (PST)
+Received: from junjungu-PC.localdomain ([2408:820c:9009:b6e2::6a87])
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-8bed2055031sm2720925b3a.39.2026.11.14.23.20.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 23:19:53 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 15 Nov 2026 00:19:43 -0700
-Subject: [PATCH v7 10/10] dmaengine: dw: Prevent tx-status calling DMA-desc
- callback
+        Sat, 14 Nov 2026 23:20:18 -0800 (PST)
+From: Felix Gu <ustc.gu@gmail.com>
+Date: Sun, 15 Nov 2026 15:20:01 +0800
+Subject: [PATCH] mtd: nand: qpic_common: fix BAM transaction memory leak
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,325 +94,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-submit-dw-dma-synchronize-v1-v7-10-8d58f3d49e4d@gmail.com>
-References: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
-In-Reply-To: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
-To: Viresh Kumar <vireshk@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Dan Williams <djbw@kernel.org>
-Cc: Serge Semin <fancer.lancer@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Message-Id: <20261115-nandc_unalloc-v1-1-65d849fa9998@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrA04oYr2KiISJ6NOkVESLQXx7
+ k3r8i3+PyFyEI7wzE4I/JYoqyZgngHNTic24pPBFrZCxNKoU0/9oW5ZVjJ1ibap6gcNzkNqtsC
+ jfP6/trsdj+HFtP8mcF1f13DbU3EAAAA=
+X-Change-ID: 20261115-nandc_unalloc-85129684cbad
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Md Sadre Alam <quic_mdalam@quicinc.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>, Felix Gu <ustc.gu@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794727213; l=1169;
+ i=ustc.gu@gmail.com; s=20261030; h=from:subject:message-id;
+ bh=p0lMH4v4LyjSNh9wsFd3M/eshEtUTxninjjrG0SXaRc=;
+ b=kCkyCuIAfbccVQxaiV/0aW6/6Kz2ZnKPh3J18rFcPaTifQsbmHvX1rXBFKKbD0YWTWQg1gd/x
+ ydvwxHE9/QVBVspNoQGKWMCE6+qY40SWmt9bI5rIFAG5X+VAB8+pvgd
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjDJtbnSeysEBjmOfNYqYUUDS6g7Tfov9W5oGngTBfo=
 
-From: Serge Semin <fancer.lancer@gmail.com>
+qcom_nandc_alloc() allocates the BAM transaction, but
+qcom_nandc_unalloc() does not free it. This leaks the transaction on
+controller removal and probe failures after successful allocation.
 
-The DMA transfer status getter can invoke a completion callback from
-dwc_scan_descriptors(). An 8250 RX timeout queries that status while
-holding the UART port lock, and its DMA callback takes the same lock:
+Release it in qcom_nandc_unalloc().
 
-  serial8250_handle_irq()
-    uart_port_lock_irqsave(port)
-    serial8250_rx_dma_flush()
-      dmaengine_tx_status()
-        dwc_scan_descriptors()
-          dwc_descriptor_free()
-            dma_rx_complete()
-              uart_port_lock_irqsave(port)
-
-Queue completed descriptors on a channel completion list under the channel
-lock. Let the controller tasklet detach that list and invoke callbacks
-outside the lock. Termination discards notifications still on the shared
-list; the tasklet owns descriptors it has already detached, and the
-synchronization hook waits for that run.
-
-Keep handling raw completion events from tx_status(). Clients such as
-catpt poll transfers without DMA_PREP_INTERRUPT and can mask the controller
-interrupt externally. Polling must still advance software-emulated LLP
-blocks and complete cookies without waiting for tasklet execution. Hold
-the channel lock across event handling and status calculation, then
-schedule the tasklet for deferred notifications.
-
-On channel release, discard queued notifications after draining the
-tasklet, before clearing the controller's in-use state.
-
-Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
-[james: defer notifications while preserving polled completion and cleanup]
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Fixes: fdf3ee5c6e52 ("mtd: nand: Add qpic_common API file")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-ba3b41c6-9de2-42b9-8205-67454e0229f6
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 ---
- drivers/dma/dw/core.c | 102 +++++++++++++++++++++++++++++---------------------
- drivers/dma/dw/regs.h |   1 +
- 2 files changed, 60 insertions(+), 43 deletions(-)
+ drivers/mtd/nand/qpic_common.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-index 6f863fae7455..804fbfa0e5e5 100644
---- a/drivers/dma/dw/core.c
-+++ b/drivers/dma/dw/core.c
-@@ -8,6 +8,7 @@
-  */
+diff --git a/drivers/mtd/nand/qpic_common.c b/drivers/mtd/nand/qpic_common.c
+index e97043b866d2..0f81303ae8b6 100644
+--- a/drivers/mtd/nand/qpic_common.c
++++ b/drivers/mtd/nand/qpic_common.c
+@@ -657,6 +657,8 @@ void qcom_nandc_unalloc(struct qcom_nand_controller *nandc)
  
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/dmaengine.h>
- #include <linux/dma-mapping.h>
-@@ -257,6 +258,22 @@ dwc_descriptor_free(struct dw_dma_chan *dwc, struct dw_desc *desc,
- 	dmaengine_desc_callback_invoke(&cb, NULL);
- }
- 
-+static void dwc_free_completed(struct dw_dma_chan *dwc, bool callback_required)
-+{
-+	struct dw_desc *desc, *_desc;
-+	unsigned long flags;
-+	LIST_HEAD(list);
+ 		if (nandc->cmd_chan)
+ 			dma_release_channel(nandc->cmd_chan);
 +
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	list_splice_tail_init(&dwc->completed, &list);
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+	list_for_each_entry_safe(desc, _desc, &list, desc_node) {
-+		list_del_init(&desc->desc_node);
-+		dwc_descriptor_free(dwc, desc, callback_required);
-+	}
-+}
-+
- /* Returns how many bytes were already received from source */
- static inline u32 dwc_get_sent(struct dw_dma_chan *dwc)
- {
-@@ -295,19 +312,17 @@ static u32 dwc_get_hard_llp_desc_residue(struct dw_dma_chan *dwc, struct dw_desc
- 
- static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- {
--	struct dw_desc *desc, *_desc;
-+	struct dw_desc *desc;
- 	struct dw_desc *child;
--	unsigned long flags;
--	LIST_HEAD(list);
- 
--	spin_lock_irqsave(&dwc->lock, flags);
-+	lockdep_assert_held(&dwc->lock);
- 
- 	if (!(dma_readl(dw, RAW.XFER) & dwc->mask))
--		goto unlock;
-+		return;
- 
- 	dma_writel(dw, CLEAR.XFER, dwc->mask);
- 	if (list_empty(&dwc->active_list))
--		goto unlock;
-+		return;
- 
- 	desc = dwc_first_active(dwc);
- 	if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
-@@ -325,7 +340,7 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 
- 			/* Submit next block, including for polled transfers. */
- 			dwc_do_single_block(dwc, child);
--			goto unlock;
-+			return;
- 		}
- 
- 		clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
-@@ -340,15 +355,8 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 	}
- 
- 	dma_cookie_complete(&desc->txd);
--	list_move_tail(&desc->desc_node, &list);
-+	list_move_tail(&desc->desc_node, &dwc->completed);
- 	dwc_dostart_first_queued(dwc);
--unlock:
--	spin_unlock_irqrestore(&dwc->lock, flags);
--
--	list_for_each_entry_safe(desc, _desc, &list, desc_node) {
--		list_del_init(&desc->desc_node);
--		dwc_descriptor_free(dwc, desc, true);
--	}
- }
- 
- static inline void dwc_dump_lli(struct dw_dma_chan *dwc, struct dw_desc *desc)
-@@ -365,18 +373,17 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
- {
- 	struct dw_desc *bad_desc;
- 	struct dw_desc *child;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&dwc->lock, flags);
-+	lockdep_assert_held(&dwc->lock);
- 
- 	/* Termination may have cleared the error since the tasklet sampled it. */
- 	if (!(dma_readl(dw, RAW.ERROR) & dwc->mask))
--		goto unlock;
-+		return;
- 
- 	dwc_chan_disable(dw, dwc);
- 	clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
- 	if (list_empty(&dwc->active_list))
--		goto unlock;
-+		return;
- 
- 	/*
- 	 * The descriptor currently at the head of the active list is
-@@ -402,40 +409,41 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 
- 	/* Pretend the descriptor completed successfully */
- 	dma_cookie_complete(&bad_desc->txd);
--	spin_unlock_irqrestore(&dwc->lock, flags);
-+	list_add_tail(&bad_desc->desc_node, &dwc->completed);
-+}
- 
--	dwc_descriptor_free(dwc, bad_desc, true);
--	return;
-+static void dwc_handle_channel(struct dw_dma *dw, struct dw_dma_chan *dwc)
-+{
-+	lockdep_assert_held(&dwc->lock);
- 
--unlock:
--	spin_unlock_irqrestore(&dwc->lock, flags);
-+	if (dma_readl(dw, RAW.ERROR) & dwc->mask)
-+		dwc_handle_error(dw, dwc);
-+	else
-+		dwc_scan_descriptors(dw, dwc);
- }
- 
- static void dw_dma_tasklet(struct tasklet_struct *t)
- {
- 	struct dw_dma *dw = from_tasklet(dw, t, tasklet);
- 	struct dw_dma_chan *dwc;
--	u32 status_xfer;
--	u32 status_err;
-+	unsigned long flags;
- 	unsigned int i;
-+	u32 status;
- 
- 	/* Channel release may have drained a polled completion before this run. */
- 	if (!dw->in_use)
- 		return;
- 
--	status_xfer = dma_readl(dw, RAW.XFER);
--	status_err = dma_readl(dw, RAW.ERROR);
--
--	dev_vdbg(dw->dma.dev, "%s: status_err=%x\n", __func__, status_err);
-+	status = dma_readl(dw, RAW.XFER) | dma_readl(dw, RAW.ERROR);
- 
- 	for (i = 0; i < dw->dma.chancnt; i++) {
- 		dwc = &dw->chan[i];
--		if (test_bit(DW_DMA_IS_CYCLIC, &dwc->flags))
--			dev_vdbg(dw->dma.dev, "Cyclic xfer is not implemented\n");
--		else if (status_err & (1 << i))
--			dwc_handle_error(dw, dwc);
--		else if (status_xfer & (1 << i))
--			dwc_scan_descriptors(dw, dwc);
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		/* The snapshot selects work; recheck events under the channel lock. */
-+		if (status & dwc->mask)
-+			dwc_handle_channel(dw, dwc);
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		dwc_free_completed(dwc, true);
- 	}
- 
- 	/* Re-enable interrupts */
-@@ -911,6 +919,7 @@ static int dwc_terminate_all(struct dma_chan *chan)
- 	list_splice_init(&dwc->active_list, &list);
- 	list_for_each_entry(desc, &list, desc_node)
- 		dma_cookie_complete(&desc->txd);
-+	list_splice_init(&dwc->completed, &list);
- 
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -955,10 +964,9 @@ static u32 dwc_get_residue_and_status(struct dw_dma_chan *dwc, dma_cookie_t cook
- 				      enum dma_status *status)
- {
- 	struct dw_desc *desc;
--	unsigned long flags;
- 	u32 residue;
- 
--	spin_lock_irqsave(&dwc->lock, flags);
-+	lockdep_assert_held(&dwc->lock);
- 
- 	desc = dwc_find_desc(dwc, cookie);
- 	if (desc) {
-@@ -978,7 +986,6 @@ static u32 dwc_get_residue_and_status(struct dw_dma_chan *dwc, dma_cookie_t cook
- 		residue = 0;
- 	}
- 
--	spin_unlock_irqrestore(&dwc->lock, flags);
- 	return residue;
- }
- 
-@@ -988,19 +995,24 @@ dwc_tx_status(struct dma_chan *chan,
- 	      struct dma_tx_state *txstate)
- {
- 	struct dw_dma_chan	*dwc = to_dw_dma_chan(chan);
-+	struct dw_dma		*dw = to_dw_dma(chan->device);
- 	enum dma_status		ret;
- 
-+	guard(spinlock_irqsave)(&dwc->lock);
-+
- 	ret = dma_cookie_status(chan, cookie, txstate);
- 	if (ret == DMA_COMPLETE)
- 		return ret;
- 
--	dwc_scan_descriptors(to_dw_dma(chan->device), dwc);
-+	/* Poll completion even when the client has masked the controller IRQ. */
-+	dwc_handle_channel(dw, dwc);
-+	if (!list_empty(&dwc->completed))
-+		tasklet_schedule(&dw->tasklet);
- 
- 	ret = dma_cookie_status(chan, cookie, txstate);
--	if (ret == DMA_COMPLETE)
--		return ret;
-+	if (ret != DMA_COMPLETE)
-+		dma_set_residue(txstate, dwc_get_residue_and_status(dwc, cookie, &ret));
- 
--	dma_set_residue(txstate, dwc_get_residue_and_status(dwc, cookie, &ret));
- 	return ret;
- }
- 
-@@ -1079,6 +1091,7 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
- 	struct dw_dma		*dw = to_dw_dma(chan->device);
- 	unsigned long		flags;
- 
-+	/* Polled completion can leave descriptors waiting for the tasklet. */
- 	tasklet_disable(&dw->tasklet);
- 
- 	dev_dbg(dmaengine_chan_dev(chan), "%s: descs allocated=%u\n", __func__,
-@@ -1089,6 +1102,8 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
- 	BUG_ON(!list_empty(&dwc->queue));
- 	BUG_ON(dma_readl(to_dw_dma(chan->device), CH_EN) & dwc->mask);
- 
-+	dwc_free_completed(dwc, false);
-+
- 	spin_lock_irqsave(&dwc->lock, flags);
- 
- 	/* Clear custom channel configuration */
-@@ -1238,6 +1253,7 @@ int do_dma_probe(struct dw_dma_chip *chip)
- 
- 		INIT_LIST_HEAD(&dwc->active_list);
- 		INIT_LIST_HEAD(&dwc->queue);
-+		INIT_LIST_HEAD(&dwc->completed);
- 
- 		channel_clear_bit(dw, CH_EN, dwc->mask);
- 
-diff --git a/drivers/dma/dw/regs.h b/drivers/dma/dw/regs.h
-index 5969d9cc8d7a..c41f18281efe 100644
---- a/drivers/dma/dw/regs.h
-+++ b/drivers/dma/dw/regs.h
-@@ -279,6 +279,7 @@ struct dw_dma_chan {
- 	unsigned long		flags;
- 	struct list_head	active_list;
- 	struct list_head	queue;
-+	struct list_head	completed;
- 
- 	unsigned int		descs_allocated;
- 
++		qcom_free_bam_transaction(nandc);
+ 	} else {
+ 		if (nandc->chan)
+ 			dma_release_channel(nandc->chan);
 
--- 
-2.53.0
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20261115-nandc_unalloc-85129684cbad
+
+Best regards,
+--  
+Felix Gu <ustc.gu@gmail.com>
 
