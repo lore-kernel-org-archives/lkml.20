@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794706505;
-	b=vxDeeoyGoV/JcGPl6fnv1Fj6VBmjpdirfC0LN18AordRLnNVo012hvLgQXpVLyZUCeVz
-	 J7H1TMU8lOD4aQ26GYlqo5XNBxi/MDQFNftP5Aw/L3N/2Jz+ci3/MMOZXRBruSctRhcRG
-	 xqsfgSoLqct8jECeL6PkizYp3b+VbWB+pZFkiYmVNAD0zo03BpBYAAGB70ngiZBpJteru
-	 lOEDf8RuiEuBHesOZUBpkg0wul3b08U6rL4iPyl2bUarDqrg5btZZyJMXIXTCCwkV2GO5
-	 /52BFOorXn7CGTEzwm8kbM8QN9kuOvAxLz0GaC22sO3IKb8ngfA+eK5AoXtyfp8KBUQ==
+	t=1794706503;
+	b=i97DaWV9UMjyuzDpSqZnFx0TSyEu44c62mj6mvivmkuLgTM8+GvweydqD79m3xF7DxMZ
+	 mJy5K0XYaXjHhIqU7beiQ15k7hwcqzZIP0p3l2SRLMDmurpdRz92Xpvdw5x6qCGJ2ZHfh
+	 iMYxPwND8K+7lrdAyHs5sqiRjtU8Q9VVR6Qe60sbzqjJss/8C0808vABbde1iq3w8Y0eY
+	 7GpeYWGoWivVDP8gNfyb5hi5EhEtIcPLQdqbXHIKhRbwv4+yAk6TfFjHqqifzuK9PSfk9
+	 Dip4L7ew/sC4EWLw9CutyM/N9+/63xj9pxk14Y1+F+WvonqjwO5PDwK9TsBPaBsyiTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794706505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794706503;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=aYL6G69BaEJMm4DnAUdFEhty32iIoI7j/HmKyks21b4=;
-	b=MuoU+Y/c1GIuFgqoL/nwOZ9YLg2ck2jNhnrRajgq/ramYGBItV9u2uGKYJ8t+4a0ajK9
-	 r93LihqNERPQK4TG3plbRrXF87hm2BEB+NpBw0zDnxA7ZyizvMrGemCsp7QETFCiZvqxn
-	 jFqnbL2HdSaT0qathrLid8J15pI5+EyZPBvUylIe5sduiqufeurVzSO1XmLexlrc7CLKC
-	 HOWJaM+XAnfJiUc4HLmVMRToUpB3BSb6YG5ccZV9gZuT6Pj9K56ztD5U6ggoDSbWopB2U
-	 A7wyCwOAAzmxsiY25b76fvNDpyNbCfU4n7dhmGe+vApGiy4WTQtJLSI6Eros40+PwaQ==
+	bh=oMtWGlskVqXWYTGgT8kUzvtSaHGUGjmSxElRD/6sbRw=;
+	b=iSIgRVwdMVqkJlk15jdqLT/d5fDgvrUEuuU1FN1g3a1M3caSAxnIxtuZ5L71chn2qdyG
+	 W+pcWe5VudjDqY2Hnto/PuepeyCET0q2UYXToaKBlE68Y5PSwU5LcOU/yCn97igouK5hH
+	 fIN+oWcQDhyvyuhcW9Or44x9vQq7IoGRTcEjIL1Bv6z956C19w1j7vFrFTze605Cwlx+y
+	 A/gtuM6AkauPLOVjuvUZ+LKgONLOblRSF8Y4s5DDjH9HgTZi5Wg8x/WxYo34E8n27S7H8
+	 EOw7cFAMn8weXmfAjJYTkwIb7DlO2kynpItA6eKMmEEFWv50ATpgCjYQFEMlIFcDvdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPe1l8L5;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LilD7GJx;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F37F606A8BB
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F37F606A8BB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D756606A8A3
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D756606A8A3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPe1l8L5
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b58d6f67a5so1135816b3a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:35:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LilD7GJx
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e95bd1c14cso32204835ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:35:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794706504; x=1795311304; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794706503; x=1795311303; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aYL6G69BaEJMm4DnAUdFEhty32iIoI7j/HmKyks21b4=;
-        b=lPe1l8L5XSBpMr0r8PpBNL+l7lGIPCLaMYrzIEk0nMcUR2uHakOa7pAKXLNRASmpm6
-         LyJp54eW3SJHzFQ9jmmQU8z817nxhIrzbujKj7In0eHzil+Rnm2EGi+HeFVBIYhbMnjN
-         xL0LxOg3pBC80cKcJKhx2UzBvaIyU2JNFW1JxtKMggPSOJ/zw8Yw70UaAZrpoK9FGpr9
-         XJ2o4gogRjFSbZjbCx9MvGqmKRD7gAs+sdylWFJSlL+p2BY1snd4eyeOyJk7urGvpXzB
-         wLdr8mZt3cpJWuKzn+Mq8grdEh7SX1TTaqB2gNC7vH5QgpLeiDm39NfZfL3TdxxzLrjy
-         pyRw==
+        bh=oMtWGlskVqXWYTGgT8kUzvtSaHGUGjmSxElRD/6sbRw=;
+        b=LilD7GJxr03jIzB7EtXGcdYh/bYS7LilwamkzJF3H76Vhg6R8PmB0Jygd06fV5Mird
+         OcjnnHflXjVswXGE4WDW+bbzzmZnyjzaVFvkYxMOfxROzACIlg2+Djm1byEpJ6AX6tSf
+         OS4zS3ARYBgsvIWBdInSEyfWYLs4u4gQFO2m9lWiFykZrLSxSCrlbylXMiPCwCclwaMU
+         bKDpEfZoqHcxi2u+kGQEcB4ZmnJLzkB6AKNJCi1WWhgCNqfC/pWyHaaHZVPymkfKpRnG
+         M0MW5aq0x0n+WRXQIJGf5uHmAcLcTj8hH1CVZbKOccm/DGnso/1/tY7buaS+TKbM0GqX
+         QGtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794706504; x=1795311304;
+        d=1e100.net; s=20260707; t=1794706503; x=1795311303;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aYL6G69BaEJMm4DnAUdFEhty32iIoI7j/HmKyks21b4=;
-        b=RDGXBEe7Co3oRj0OWDyl7yRyiUSV3PS4jE+8P4D8am0FlNWKXtl6nEHMU+rVshdCFu
-         MxUGnOAtIEBBGsJpwpy/3GeyLltz+sn//LDnux+P99IMOQkF9f1nP8x+l27B74nfQTYd
-         zkh3vgaiv7e2hvFprva1ZQjdsq9dcvHp1UbN0xq6XMhNBs9IqZ7sPAOeU5vZDGIdtNXq
-         VDG8sd406eFl6Vnwbip4vIB2/j6yT6nZvHRMujWYtXkpknI1av5ZnrXgxiK+QEEutHIw
-         R1xuAr7QYwqKL0Ut+WHaWR4YPFQloSqxckpSRzGYMuFOw8paWB4r7qB4sZ+KBa3m6ysg
-         4Lkw==
-X-Forwarded-Encrypted: i=1; AL+hErFOr8wrv2TSzYsTHoh1T91pgIK4Dx9QWshixxPpdjbRzqjA5yI+POTbdIgzjPeDFOBQhD26zfm7OsURR64=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bB7T+Tbyf6twu3qztmIPXQqFNTgiwjAN18cCRY6Dl+vfFaQ4C
-	cc7Ia0MsPuTx1YeQ7f6N4VriiluIwqoCp7gl8mwIIiBaLQ9ButYw0w03
-X-Gm-Gg: AYBFou18ErhbraQmo801zlO81THpxbcTLqVDTBVD2vIuVSTIH0cmjIVqrl5bWOQke5c
-	A5kNr5QcMSJDdQbDTB2zzZmEwvSZy3/dZN6v9IRJxdZJxPdWesbslYV/ivBizsF19LoEgLtaC8X
-	uUQNnlIqNgoful6QWSRV55goEbXwZ5ihWhbkgEvvfQ3QO2P0DZLeqHPzilFqyVzOmWRqTcFrxN5
-	bUGpQyewEZudffZN2ytJTKejiUFrJNLforSEVtXmL6gzDQu1a1M86rGDD3A+baq4XFnGNxuQa3Q
-	wZUmUGRACm9JhyzuJTqHNNMRFqEW0zOBJbfitAdSYONwzs+r0YofCOwaubBJLqT1d8D2ksBUyxt
-	NlquuvDHM6HgP4Z/ZYW3rqTp/9N6ZCMkO0yO8YQx6kFbMKB0NwBMcZk8+7B1xPAAO03zeDPfADD
-	halI0ZXG3X9qOawk+GNCiDiZ7Q3irzyfsCEO+/66tdBOFOW/qadWuXtUsNJqHxudXcRTWn+08sx
-	aOnTtuST/C856wCteXTn+Y9M1gGgEhUBmTSNBWg25qEc+XmASg4mDdbeeivJtXvwCFGAgM+23ue
-	V8AGshL47ucZJMoZAmz/HN/AeB42enRoOGnb1+2YPxkSMNfwUq7onShma1PX/J6Te209vgp/DG9
-	dnlqeOYu/Ce3+XkMdFSe+CjvWyIEqc0IfQibnJ/W5o011h+uQgkzrCSx2vaGp9QJfIALUqBhfl0
-	IauPQ45E+CE7Vds5VVQh9gx7VwVN+y5QiEOuZyt0Ku
-X-Received: by 2002:a17:902:cf04:b0:2e2:aa17:477f with SMTP id d9443c01a7336-2ee0e0b161bmr68606555ad.58.1794706503817;
-        Sat, 14 Nov 2026 17:35:03 -0800 (PST)
+        bh=oMtWGlskVqXWYTGgT8kUzvtSaHGUGjmSxElRD/6sbRw=;
+        b=N8gM/pX8lrbOd6VhDnOtxcmLv6QZawavyoCzxuAqoBjXHHLw53L36MTFej8Lq5zMJZ
+         s+I8u5hliTvFGjnlky32I25cyKUAyxEWAQi9WsIKSHWMqGZa6QlP7TVaU2wy1ZUxy+ol
+         ymh7xfd+cvLgwxyPu3jJQjV3m3b+1sGTxzM/9yNdfXogKrtwNRH4Y2zJ98phAN/TYBN3
+         OD7SjQzXua4BXLXO5odjyBLSk01uTpSVukM8d4FsaZs/PcSR3XgFqjJ6DBGxvulHmIgv
+         Aezpq4pDa1qCRBVDfuBM8g1FSGwIc4KWQ3ttuYSctNTgixqsPg5pAgOxDzy2IxFGMJKj
+         bKXQ==
+X-Forwarded-Encrypted: i=1; AL+hErHDuTtFf/teargq8u0cr6mK9bgl2dvTbvmVegwgo2+GCV+w7x+q/6K5TnJLvWapPHc5Xtnf7JGWQnJuqE0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96NnnsdWN1UBSEgfckRllcNzW19oCIAY54MRRNoZ/2kOerZE6B
+	cm34ixd4a8tsSNXCsRQqPd09XSmmWmC/DIr6IdIV8aTmBb1FyLpn5yyF
+X-Gm-Gg: AYBFou1U3tWeE5a85FWrElFcFtzBM0Fj19fBAj1LwVSMAk+Bw+1yTFydkNAoRQ+JAZq
+	fQpct0vWxLKO6ZSR8fJ1jdcXWpUDKghVdqh430PoPe0tq1ZcrahwWblXrUhMxB3jOycwyTIik96
+	eSI9nw8dQdMty33f7yGksAXbj9bj66KnP4XJI0bOp6eozmm8kGAxEBwB51uOgK0HVCmIe1YXOVP
+	sq6d4HoQ3O+wo4tpml8rQEQ+p0fnPcKU4mhAYdzA4FGxWOgSxMYwV4K9rj+eO58cxxzmXyw+ndG
+	4qiLsXc6OcFYaYX7TtUywuzcIlHLSEhWz8NC9tNQQILzY83TenPnc3PxekIZiij0wMRZRlSMrJB
+	0MUk/+lzlL5I4MbGJdMxElhzM2O+l75cDQIIaCv7Ii8YOUDZpStrzEDIhRWNF3Bd1Yp/w+ZgiPs
+	fCMLlFf2xFMWtUyRqsvbsdxu4Dkuk8a9zl9jjFCsDpPz9AiiYxbpU6Qp44lf79eHrTUfE1TPm3Y
+	eaDl/F+4O9TGnjRnGisL0zxnlhe3hPNN4owY7qOFhyTcFnjD7/qf+iZhdbDTHhbSnductOGcsaN
+	K3SuPfOVmhstDuB6nhQnKeGNoGrTc2XghM3T41fn/jegIZoNuCBidyOt0pPxRolKIsXUJTh1oQF
+	3ysmbeL5dwUaRLI4qA17NCO2ULKp7p8s8sv3JSBcL43eSYqVnbntC4G2YPqzeimWB8h3dXprSeW
+	5+fVaiRIkU2jWPvvBDCz5szX+1LH9D8hS4ABDsRmwZ
+X-Received: by 2002:a17:902:e848:b0:2e5:98d7:8202 with SMTP id d9443c01a7336-2ee0dd2dbe6mr71270395ad.13.1794706502800;
+        Sat, 14 Nov 2026 17:35:02 -0800 (PST)
 Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75dde9sm23671935ad.22.2026.11.14.17.35.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75dde9sm23671935ad.22.2026.11.14.17.35.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 17:35:03 -0800 (PST)
+        Sat, 14 Nov 2026 17:35:02 -0800 (PST)
 From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 To: Peter Huewe <peterhuewe@gmx.de>,
 	Jarkko Sakkinen <jarkko@kernel.org>
@@ -94,9 +94,9 @@ Cc: Jason Gunthorpe <jgg@ziepe.ca>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Subject: [PATCH v3 4/4] tpm: tpm_crb: Use cached tpm2_acpi_start_method
-Date: Sun, 15 Nov 2026 01:34:56 +0000
-Message-ID: <20261115013456.212141-5-sidchintamaneni@gmail.com>
+Subject: [PATCH v3 3/4] tpm: tpm_tis: Use cached tpm2_acpi_start_method
+Date: Sun, 15 Nov 2026 01:34:55 +0000
+Message-ID: <20261115013456.212141-4-sidchintamaneni@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261115013456.212141-1-sidchintamaneni@gmail.com>
 References: <20261115013456.212141-1-sidchintamaneni@gmail.com>
@@ -111,255 +111,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace priv->sm and the local sm variable in crb_acpi_probe() with
-tpm2_acpi_start_method across tpm_crb so the cached global serves as
-the single source for the ACPI TPM2 start method.
-
-Check tpm2_acpi_start_method at the start of crb_acpi_probe() and
-return -ENODEV before mapping the ACPI TPM2 table when the table is
-absent or uses ACPI_TPM2_MEMORY_MAPPED.
+Use the cached tpm2_acpi_start_method value instead of mapping and
+unmapping the ACPI TPM2 table again during probe. Remove
+check_acpi_tpm2() and open-code the start method check directly in
+tpm_tis_init(), returning -ENODEV when the device does not use
+ACPI_TPM2_MEMORY_MAPPED.
 
 Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 ---
- drivers/char/tpm/tpm_crb.c | 82 ++++++++++++++++++--------------------
- 1 file changed, 38 insertions(+), 44 deletions(-)
+ drivers/char/tpm/tpm_tis.c | 45 +++++---------------------------------
+ 1 file changed, 6 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-index 4749a9183726..8585c73fb25b 100644
---- a/drivers/char/tpm/tpm_crb.c
-+++ b/drivers/char/tpm/tpm_crb.c
-@@ -98,7 +98,6 @@ enum crb_status {
+diff --git a/drivers/char/tpm/tpm_tis.c b/drivers/char/tpm/tpm_tis.c
+index 6f8344894ea5..df2d8c1c2be0 100644
+--- a/drivers/char/tpm/tpm_tis.c
++++ b/drivers/char/tpm/tpm_tis.c
+@@ -127,45 +127,11 @@ static inline int is_itpm(struct acpi_device *dev)
+ #endif
+ 
+ #if defined(CONFIG_ACPI)
+-#define DEVICE_IS_TPM2 1
+-
+ static const struct acpi_device_id tpm_acpi_tbl[] = {
+-	{"MSFT0101", DEVICE_IS_TPM2},
++	{"MSFT0101"},
+ 	{},
  };
- 
- struct crb_priv {
--	u32 sm;
- 	const char *hid;
- 	struct crb_regs_head __iomem *regs_h;
- 	struct crb_regs_tail __iomem *regs_t;
-@@ -138,11 +137,11 @@ struct tpm2_crb_pluton {
- /*
-  * Returns true if the start method supports idle.
-  */
--static inline bool tpm_crb_has_idle(u32 start_method)
-+static inline bool tpm_crb_has_idle(void)
- {
--	return !(start_method == ACPI_TPM2_START_METHOD ||
--	       start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD ||
--	       start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC);
-+	return !(tpm2_acpi_start_method == ACPI_TPM2_START_METHOD ||
-+		 tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD ||
-+		 tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC);
- }
- 
- static bool crb_wait_for_reg_32(u32 __iomem *reg, u32 mask, u32 value,
-@@ -166,7 +165,7 @@ static bool crb_wait_for_reg_32(u32 __iomem *reg, u32 mask, u32 value,
- 
- static int crb_try_pluton_doorbell(struct crb_priv *priv, bool wait_for_complete)
- {
--	if (priv->sm != ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON)
-+	if (tpm2_acpi_start_method != ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON)
- 		return 0;
- 
- 	if (!crb_wait_for_reg_32(priv->pluton_reply_addr, ~0, 1, TPM2_TIMEOUT_C))
-@@ -204,12 +203,12 @@ static int __crb_go_idle(struct device *dev, struct crb_priv *priv, int loc)
- {
- 	int rc;
- 
--	if (!tpm_crb_has_idle(priv->sm))
-+	if (!tpm_crb_has_idle())
- 		return 0;
- 
- 	iowrite32(CRB_CTRL_REQ_GO_IDLE, &priv->regs_t->ctrl_req);
- 
--	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA) {
- 		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, loc);
- 		if (rc)
- 			return rc;
-@@ -258,12 +257,12 @@ static int __crb_cmd_ready(struct device *dev, struct crb_priv *priv, int loc)
- {
- 	int rc;
- 
--	if (!tpm_crb_has_idle(priv->sm))
-+	if (!tpm_crb_has_idle())
- 		return 0;
- 
- 	iowrite32(CRB_CTRL_REQ_CMD_READY, &priv->regs_t->ctrl_req);
- 
--	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA) {
- 		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, loc);
- 		if (rc)
- 			return rc;
-@@ -303,7 +302,7 @@ static int __crb_request_locality(struct device *dev,
- 
- 	iowrite32(CRB_LOC_CTRL_REQUEST_ACCESS, &priv->regs_h->loc_ctrl);
- 
--	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA) {
- 		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_LOCALITY_REQUEST, loc);
- 		if (rc)
- 			return rc;
-@@ -337,7 +336,7 @@ static int __crb_relinquish_locality(struct device *dev,
- 
- 	iowrite32(CRB_LOC_CTRL_RELINQUISH, &priv->regs_h->loc_ctrl);
- 
--	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA) {
- 		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_LOCALITY_REQUEST, loc);
- 		if (rc)
- 			return rc;
-@@ -530,18 +529,18 @@ static int tpm_crb_start(struct tpm_chip *chip, u32 start_cmd)
- 	 * report only ACPI start but in practice seems to require both
- 	 * CRB start, hence invoking CRB start method if hid == MSFT0101.
- 	 */
--	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER ||
--	    priv->sm == ACPI_TPM2_MEMORY_MAPPED ||
-+	if (tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER ||
-+	    tpm2_acpi_start_method == ACPI_TPM2_MEMORY_MAPPED ||
- 	    !strcmp(priv->hid, "MSFT0101"))
- 		iowrite32(start_cmd, &priv->regs_t->ctrl_start);
--	if (priv->sm == ACPI_TPM2_START_METHOD ||
--	    priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD)
-+	if (tpm2_acpi_start_method == ACPI_TPM2_START_METHOD ||
-+	    tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD)
- 		rc = crb_do_acpi_start(chip);
--	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
- 		iowrite32(start_cmd, &priv->regs_t->ctrl_start);
- 		rc = tpm_crb_smc_start(&chip->dev, priv->smc_func_id);
- 	}
--	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA) {
- 		iowrite32(start_cmd, &priv->regs_t->ctrl_start);
- 		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, chip->locality);
- 	}
-@@ -622,7 +621,7 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
- 	}
- 
- 	/* Seems to be necessary for every command */
--	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON)
-+	if (tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON)
- 		__crb_cmd_ready(&chip->dev, priv, chip->locality);
- 
- 	if (len <= priv->cmd_size)
-@@ -638,12 +637,12 @@ static void crb_cancel(struct tpm_chip *chip)
- 
- 	iowrite32(CRB_CANCEL_INVOKE, &priv->regs_t->ctrl_cancel);
- 
--	if ((priv->sm == ACPI_TPM2_START_METHOD ||
--	     priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD) &&
--	     crb_do_acpi_start(chip))
-+	if ((tpm2_acpi_start_method == ACPI_TPM2_START_METHOD ||
-+	     tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_START_METHOD) &&
-+	    crb_do_acpi_start(chip))
- 		dev_err(&chip->dev, "ACPI Start failed\n");
- 
--	if (priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA) {
- 		rc = tpm_crb_ffa_start(CRB_FFA_START_TYPE_COMMAND, chip->locality);
- 		if (rc)
- 			dev_err(&chip->dev, "FF-A Start failed\n");
-@@ -762,7 +761,7 @@ static int crb_map_io(struct device *dev, struct crb_priv *priv,
- 	 * Pluton sometimes does not define ACPI memory regions.
- 	 * Mapping is then done in crb_map_pluton
- 	 */
--	if (priv->sm != ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON) {
-+	if (tpm2_acpi_start_method != ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON) {
- 		INIT_LIST_HEAD(&acpi_resource_list);
- 		ret = acpi_dev_get_resources(device, &acpi_resource_list,
- 					     crb_check_resource, iores_array);
-@@ -804,9 +803,9 @@ static int crb_map_io(struct device *dev, struct crb_priv *priv,
- 	 * the control area, as one nice sane region except for some older
- 	 * stuff that puts the control area outside the ACPI IO region.
- 	 */
--	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER ||
--	    priv->sm == ACPI_TPM2_CRB_WITH_ARM_FFA ||
--	    priv->sm == ACPI_TPM2_MEMORY_MAPPED) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER ||
-+	    tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA ||
-+	    tpm2_acpi_start_method == ACPI_TPM2_MEMORY_MAPPED) {
- 		if (iores &&
- 		    buf->control_address == iores->start +
- 		    sizeof(*priv->regs_h))
-@@ -938,25 +937,21 @@ static int crb_acpi_probe(struct platform_device *pdev)
- 	struct tpm2_crb_ffa *crb_ffa;
- 	struct tpm2_crb_pluton *crb_pluton;
- 	acpi_status status;
--	u32 sm;
- 	int rc;
- 
- 	device = ACPI_COMPANION(dev);
- 	if (!device)
- 		return -ENODEV;
- 
--	status = acpi_get_table(ACPI_SIG_TPM2, 1,
--				(struct acpi_table_header **) &buf);
--	if (ACPI_FAILURE(status) || buf->header.length < sizeof(*buf)) {
+ MODULE_DEVICE_TABLE(acpi, tpm_acpi_tbl);
+-
+-static int check_acpi_tpm2(struct device *dev)
+-{
+-	const struct acpi_device_id *aid = acpi_match_device(tpm_acpi_tbl, dev);
+-	struct acpi_table_tpm2 *tbl;
+-	acpi_status st;
+-	int ret = 0;
+-
+-	if (!aid || aid->driver_data != DEVICE_IS_TPM2)
+-		return 0;
+-
+-	/* If the ACPI TPM2 signature is matched then a global ACPI_SIG_TPM2
+-	 * table is mandatory
+-	 */
+-	st = acpi_get_table(ACPI_SIG_TPM2, 1, (struct acpi_table_header **)&tbl);
+-	if (ACPI_FAILURE(st) || tbl->header.length < sizeof(*tbl)) {
 -		dev_err(dev, FW_BUG "failed to get TPM2 ACPI table\n");
 -		return -EINVAL;
 -	}
-+	if (tpm2_acpi_start_method == ACPI_TPM2_NOT_ALLOWED ||
-+	    tpm2_acpi_start_method == ACPI_TPM2_MEMORY_MAPPED)
+-
+-	/* The tpm2_crb driver handles this device */
+-	if (tbl->start_method != ACPI_TPM2_MEMORY_MAPPED)
+-		ret = -ENODEV;
+-
+-	acpi_put_table((struct acpi_table_header *)tbl);
+-	return ret;
+-}
+-#else
+-static int check_acpi_tpm2(struct device *dev)
+-{
+-	return 0;
+-}
+ #endif
+ 
+ static int tpm_tcg_read_bytes(struct tpm_tis_data *data, u32 addr, u16 len,
+@@ -222,11 +188,12 @@ static int tpm_tis_init(struct device *dev, struct tpm_info *tpm_info)
+ {
+ 	struct tpm_tis_tcg_phy *phy;
+ 	int irq = -1;
+-	int rc;
+ 
+-	rc = check_acpi_tpm2(dev);
+-	if (rc)
+-		return rc;
++#ifdef CONFIG_ACPI
++	if (acpi_match_device(tpm_acpi_tbl, dev) &&
++	    tpm2_acpi_start_method != ACPI_TPM2_MEMORY_MAPPED)
 +		return -ENODEV;
++#endif
  
--	/* Should the FIFO driver handle this? */
--	sm = buf->start_method;
--	if (sm == ACPI_TPM2_MEMORY_MAPPED) {
--		rc = -ENODEV;
--		goto out;
-+	status = acpi_get_table(ACPI_SIG_TPM2, 1, (typeof(buf->header) **)&buf);
-+	if (ACPI_FAILURE(status) || buf->header.length < sizeof(*buf)) {
-+		if (ACPI_SUCCESS(status))
-+			acpi_put_table((struct acpi_table_header *)buf);
-+		return -ENODEV;
- 	}
- 
- 	priv = devm_kzalloc_obj(dev, struct crb_priv);
-@@ -965,7 +960,7 @@ static int crb_acpi_probe(struct platform_device *pdev)
- 		goto out;
- 	}
- 
--	if (sm == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_ARM_SMC) {
- 		if (buf->header.length < (sizeof(*buf) + sizeof(*crb_smc))) {
- 			dev_err(dev,
- 				FW_BUG "TPM2 ACPI table has wrong size %u for start method type %d\n",
-@@ -978,7 +973,7 @@ static int crb_acpi_probe(struct platform_device *pdev)
- 		priv->smc_func_id = crb_smc->smc_func_id;
- 	}
- 
--	if (sm == ACPI_TPM2_CRB_WITH_ARM_FFA) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_CRB_WITH_ARM_FFA) {
- 		if (buf->header.length < (sizeof(*buf) + sizeof(*crb_ffa))) {
- 			dev_err(dev,
- 				FW_BUG "TPM2 ACPI table has wrong size %u for start method type %d\n",
-@@ -999,7 +994,7 @@ static int crb_acpi_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	if (sm == ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON) {
-+	if (tpm2_acpi_start_method == ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON) {
- 		if (buf->header.length < (sizeof(*buf) + sizeof(*crb_pluton))) {
- 			dev_err(dev,
- 				FW_BUG "TPM2 ACPI table has wrong size %u for start method type %d\n",
-@@ -1014,7 +1009,6 @@ static int crb_acpi_probe(struct platform_device *pdev)
- 			goto out;
- 	}
- 
--	priv->sm = sm;
- 	priv->hid = acpi_device_hid(device);
- 
- 	rc = crb_map_io(dev, priv, buf);
-@@ -1038,7 +1032,7 @@ static int crb_acpi_probe(struct platform_device *pdev)
- #ifdef CONFIG_X86
- 	/* A quirk for https://www.amd.com/en/support/kb/faq/pa-410 */
- 	if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD &&
--	    priv->sm != ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON) {
-+	    tpm2_acpi_start_method != ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON) {
- 		dev_info(dev, "Disabling hwrng\n");
- 		chip->flags |= TPM_CHIP_FLAG_HWRNG_DISABLED;
- 	}
+ 	phy = devm_kzalloc_obj(dev, struct tpm_tis_tcg_phy);
+ 	if (phy == NULL)
 -- 
 2.45.4
 
