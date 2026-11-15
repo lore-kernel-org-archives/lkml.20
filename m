@@ -1,74 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794741579;
-	b=h5OaNHA2Uv236bp6aCqN9HW0C56ScovIAXz4fEuUtB89OBfDcE0ROxxJ3zk+rezTIkoi
-	 8OD/G+1bU6JqtmXTl/+EOCcW/6pCEKQvWxeBXwamHJN9WDyzzAjLPqT7Qtg+g5CDz7r8M
-	 qwud9TRtGvk2mGy2T0WojvmJ4jDeF8DsrKhjAi0rumkYTyUl62xskkJLlPzTlkaoEp5d1
-	 2wwvegZD11j/rC9luqNvpdeII44ZalkM3QYigNuIbdo2/uwZswdYnYfLxcL3mvgDnYCqI
-	 Nb//fotXdJeCuYnprs17DcQihK8MY3IwuQVyw+FpDQZPQXe6yAvkAbaYHIMM3TnwSWQ==
+	t=1794741626;
+	b=KJVaarHpUCpvDwfz6Pm1sljRXN5Wyp6iS7/UY9E8aoZz6i3MGD3gGDzHXyQxqcPZpL3u
+	 5VvzGf7PwvnYRZ5izeEHwKWwySd+mDU8cxsrhIdNLtDtzxgeHKscfyiZlJeFCgssRSoiU
+	 Dd52R8yywpAzg1fvU1L9U0RY7K6GFy/MXSvFt9oddjSU2hmQj8VaahFa9GkS+g699IaPJ
+	 BA63axaoSy4ZkfpTHg0/8Q5Gud1uca9o3aKfwF37tk6ljrFvmGHnFEmdTT4WGj90Ehqu/
+	 GNlSslRjBtdsU6Gk/PS9ZJBWrTvpGLrR9qfs8PafHuG2Kd/QIvsl6KnAMSj2agKZkyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794741579;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=I6M9drfNN7zCNsaSrSObIiphbvQS2j9fYF//SvIIVu0=;
-	b=0CeFJTSL4ePFM7sJiXn3TElcxLlwu4Pq6rS2sGDO/Q1QQK3XjBsmeuSzy4XBuLQhjp+Z
-	 5bs0mQGybkv0e2QF6akeC/0+EWGa824NeAiqlBWVZARiQyFFvBuztW7ZIajBrPhHbf6Hc
-	 eGMfggoHSOLPPCU+BEltq1OIPSq/fNHkY5pl8alsaMimOlEZdT5tulTQp1WBVHbRxQ1nJ
-	 xiWRMKzaHQSc4+TZHYeUl3etwW1N5iMwMhcj12o2/G1zclIT+D87SBDyRnIPMa88tloPX
-	 jfRGAng5Y73stYs07xcquwW7nj/EmrLr1W0UgWPwj1u/eH73uh891sJf8d+8qqi61Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794741626;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=80R9EfORix9MyhYi1pf17AWudSobYjYqJIUm704fLuU=;
+	b=qdde3RUNhDHNGV70F+XQr5kOXyQDMTFBWMj62Z6Sya7ohdBsE31Np5lu0K2/veeIHsFj
+	 UTzw2HwWRHW4xh1BTtdZF+kY6WSV/fq2EzE//IzC0jwq0CCuZjl1ZYCE9KEFDMqR+MlX1
+	 KlzVJig/UYtvtBKvUqVnDzoBJ+exBQmlizcDN6sn4hvqjI+8CRpwGH3UokRR6wcUm+/Vn
+	 m0AwbRWCuYvl7v4Ymhf6M/pp+UgihsaaOAvi6AHwivS0Q5fqnxDe64kDu5Kmkpa+EKAw6
+	 WG2+X16LP4JxoZd6zUabOEZwEZJ+si/blTeRC1M2M2yZNZidKNElRU/wNq7sN4jBznQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ik6dsrXJ;
-	arc=none smtp.remote-ip=212.27.42.1
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PyLne98z;
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB8A606A31A;
-	Sun, 15 Nov 2026 11:19:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB8A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD9D606A31A;
+	Sun, 15 Nov 2026 11:20:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDD9D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ik6dsrXJ
-Received: from L30177.local (unknown [78.242.88.98])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp1-g21.free.fr (Postfix) with ESMTPSA id D792CB0051B;
-	Sun, 15 Nov 2026 12:18:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794741571;
-	bh=JQD3/EFXCa4lxF1FzAPYk7PWu+NKW3cxCD9tTy0x1cs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ik6dsrXJYrk/VQXyRed2GD1Pp5tDkQSbJ83ictljm1FKfb4Ox8x+nlLt0T2YU9kJR
-	 rvmjalYzY7TiZJfQAbCUy1e2Zt84pL9OLjTa20g1DK2yews6kwKo/vq20kUD9jonZL
-	 C46MPyDT7DhMhbvQOOqe6zl38xuHODDxKCvm8MTp8HuV003/CEC1zxqnvfncFbp4uR
-	 TOIgfbpbbZ1do+E1PYz0KZTcBnbc79rLlddNWRWGBeCMkjN3nAjd7ARCpRdywXrX63
-	 xo/tKnRt+jx2nfY5H7izHPB8sfV3RfaNPrIK0MBzXPHbN/jYZbsEyHnJBMRKnw+v7t
-	 Gn8OC0dkrijwg==
-Date: Sun, 15 Nov 2026 12:18:57 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v4 3/5] soc: fsl: guts: add the RCW override of any RCWSR
-Message-ID: <avmVIb5-l2DUq75m@L30177.local>
-References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
- <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-3-eefcea066a55@free.fr>
- <avi9N8P34X5uel7a@skbuf>
- <avjy-lCL2A9gEhcL@L30177.local>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PyLne98z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794741541;
+	bh=80R9EfORix9MyhYi1pf17AWudSobYjYqJIUm704fLuU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=PyLne98z3LWnDqUrLSDm1nbLww33pgoz5tGaYqU8YhShPglZXO6v2V6aUfc3AvMOy
+	 A0dGsaYnmGCBr8tvPH78TEhZKSQsxpkJtnzTSUW/0VGC5yu4XX1d4NpU2g3chxYxmu
+	 o1UVtypmmt/30tHJZUGsV73njHFOQNtdOtSNw2ZI=
+X-QQ-mid: esmtpsz21t1794741536t4686ba69
+X-QQ-Originating-IP: XhL8AzStSBSMW5oQl38KzZPC+6Ga/5P8TR9YT+DtGvc=
+Received: from localhost.localdomain ( [61.183.83.60])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 15 Nov 2026 19:18:19 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12140221221863691289
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
+Date: Sun, 15 Nov 2026 19:18:16 +0800
+Message-ID: <B8B7B99F37A65A88+20261115111816.3553925-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+References: <20261113153820.902362109@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,45 +87,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <avjy-lCL2A9gEhcL@L30177.local>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: N2bAIxLK0eln7YnjYRThX4m4cb3k+iWRaM9W7UUt7garlrJ76kW+bpGp
+	o78Hk84mAY2JrKqjDm0k6J4tueXdJGDxvNZJkdRx/k0jI5DxJqubqSAgqzT+rhvKamt3YJp
+	anGLezBmsIk9a94Msfx41GJfcbq4S7B0/ejrLo15qXcBugpcxkd95NDALzfbuC/MvyGGr54
+	Dj3ybgj9ZREPiHaP/6QAo9gLy7aMQZNpDdpjTWVwVlnrsV6VApstyfC7PBF414jY1bbAcKl
+	9IX5jUSOV2L0kO79hYQaN7eIksFHe0aeLgjpl20MkHAnNWY/QSzThiXmE09qU4uy8FnTQpL
+	/HYS9BT9hzgggPH8yzVGEPrAxnkQllVIfQexA3++8ZmC2A9ycdJGqBxaxx9FCB+1FKBbJ5X
+	uXD4DKCvsfcwmhT56T63Hui4k8bch0K7EoSr8x8y20Og4uIVq5kW98So72kSxe7U7Mx068E
+	510nrGn+QruPoxHPdw3Qux+oVAuzkjDdHcMHO4aEg7+9pPZb0cYFcgKAdZHIm1CnAvq4bp1
+	ZWPWEm7GYRsCJaGe8JCikXkMr5G3XjoY1NpccLHdbjm1QNLRmnd3UIVmN4GmCAHqIpGLECH
+	gyfWygPMZDcxGhqS06wxntzvDYW/U/tzVEaAj56+LoNwICcrKKJtkdYARvDDgZ+4PdyLw+5
+	PQ+fGpTVpNLJlbPqZ87f3ce2NDOn/QC0fkOKWKTTH72qB6UJkAMSRb4+zCszu2LzYDfwn6q
+	9I3TP+vpjvM9J0i0+0a4xHWaYv5OQPjqCukHQvnnBgWxXy1LsxwlFoiTQBRtFSntAtptrHx
+	JK3olP1J05zx88nUc5nreQaKMkPlv1gVU4RHPeSR42PxXfou14SlH/RCDGu4STxkmkYZ8vg
+	YY3YLTInX+0fvoqZFG8DWldHl+BLPh2J6v7XTjfX0nVnWqUWaBISublRUsb9dusmJMDIbkm
+	rJDKx54xft5jUDTF98H01nlaHW+elStH8eMGOfK3kqnck9gQjXJJewqClfF4Qw5yEbbgb3U
+	U+URG7iRpwqHHMIVKGWrNEyj1muZCWjWrbDZva5HTNVcndl/0NRLA4jKI1ECI=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Hi Vladimir,
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Le 15/11/26 00:47, Vincent Jardin a écrit :
-> Hi Vladimir,
-> 
-> > I cannot agree with your API proposal. It exports to the rest of the
-> > kernel a blanket API for RCW override of any RCWSR1-RCWSR31 register,
-> > *including* the SerDes fields for which the fsl_guts module already
-> > exposes an API. So with your proposal, what can be done with
-> > fsl_guts_lane_set_mode() can also be (un)done with fsl_guts_rcw_override().
-> > The possibilities of abusing this API design are endless, and I don't
-> > want to have to deal with them when I can avoid them.
-> > 
-> > At a minimum, I would recommend renaming the API as fsl_guts_pmux_override(),
-> > and make guts enforce which register fields it permits overriding via
-> > this API. Example:
-> > 
-> > static const struct fsl_soc_pmux_mask lx2160a_pmux[] = {
-> > 	{ 12, GENMASK(29, 0) }, /* IIC2..SDHC1_DIR */
-> > 	{ 13, GENMASK(29, 0) }, /* SDHC2_DAT74..EVT43 */
-> > 	{ 14, GENMASK(10, 0) }, /* EVT20..IIC1 */
-> > 	{ 27, GENMASK(7, 0) },  /* EC1, EC2, USB_EXT, GTX_CLK, SDHC1_DS <- your series is missing these */
-> > 	{}
-> > };
-> 
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-I did test it on the board and sent the related v5 based on your suggestion.
+Best Regards
+Wentao Guan
 
-For instance, when I did a forced bus recovery of IIC1, it
-moves only its related field of RCWSR14, and the first override of RCWCR27
-does not touch USB3_CLK_FSEL.
+Log:
+Linux version 6.18.64-rc1-g910b5c0af479 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sun Nov 15 18:18:39 CST 2026
+Linux version 6.18.64-rc1-g910b5c0af479 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sun Nov 15 18:36:37 CST 2026
+Linux version 6.18.64-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sun Nov 15 18:56:07 CST 2026
+Linux version 6.18.64-rc1-g910b5c0af479 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sun Nov 15 17:54:57 CST 2026
 
-The v5 is here:
-https://lore.kernel.org/all/20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr/
-
-thanks for you help,
-  Vincent
