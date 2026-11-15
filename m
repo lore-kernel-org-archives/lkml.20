@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794765302;
-	b=jkGzG1RmwuR5vw691TwJCFVjyp6spwK0LvVLXAh7dMOfkEaEIlEEgFcGVXCJb91/acVq
-	 GJdE48EvvSbDzG4xAe5HNYHSBFYACR/cD6G64wkNyz29vBJYgUxc/QyH3wVLPU5cahF50
-	 AjvwDQDF2jKH1h+atQf97EOcoxD1lDyludEKbwaDj/YyMf2mF7W2jcmzJk7ZLHGS8ngMw
-	 8AJl6tKsFZMuu81xWMVTvZQU6iiVrs2whWlPPB8KAufv/Mj+GfiwE2eB66+7sb9p2b0Qp
-	 y9dQ+Y1xuQcjb0Wdcd0lonrpWDEkfxRAMOYunEdaGqzFo6rA4UKrousysXuTFC02Dyg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794765302;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=e+KRSjz5unGISTmIji2Qh3NG8Y9zdvuwaVseTB7OBUI=;
-	b=F814ejzu0iLQkpnRRMjzHzuFdBJeZnM3L7akcqSvCychIeTS/9BxtuHcDSCew378R6ZR
-	 wYS/+ZJezM8qT+9PjtPdVHjX4R651bo/DcJAAF03bkHlLvJt30SwyDd7WX2N9Vfuhpz/E
-	 3uzHLJlZKG2jZkJzYwn8GrL/UVO7SpMt63F5L9a3i3YoTn8vbvS722xNdnFhApgERjOvH
-	 MGmOZeCLMJXxbABbk6/SiBaAY5a9GzpeX0qG2+kvbe6N22OuviH5zfAQeTkFakdiTdW8R
-	 TGEi2wJTM9dZ6tYgeGNf69aNV7EeVBy0OLJZbs93C3YpszNIMlFrt+/NFLAX+06gqew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zb9DS5Ga;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794765377;
+	b=gkiMUBp23/Bvj9ptveMm2YgahO85tHk9YvIjv0gkFOzg9Xos9xM5gsIVWCxpqD1Jomij
+	 QpTK84UWqFSnOvIobeGo1uLBBGT7cpZ8GSZTaYyfXN2hmmeAGBMFzbD97yLlizQ/TzSsH
+	 vQCjpORfOr6JIePIdnMnM+w7kobGfTk5sTrd9m2eDSMonewN4MKbaYy9psiHTBHoEEXtg
+	 rUzk1Twe8YZf4K41EpSwKgIdDcORJBNUsQ3SMxG4lo4Oo4OSa2jF89rX0oeuKhJfERJkC
+	 JK6f02uCJyGZi6FdDzbcW/6ND60/euxrP2xCZoCHtIeP7BEbaWvGNHWW/wfawYb1SEQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794765377;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
+	b=zL2C+IwQqykqCxjuw2JjINwVEPjkFrSYv3UhoeRnriooCZRQSf48l0S3XuK8Ep+WSJUE
+	 TJWdepvvrbUkS+MzRruNakt6cTzlKAwtZtTO2Sht6Bp7ZZqNUv+UefhPNaMxtBomQRo1D
+	 WbQI7Lyai+yBxDcU8+cAiUpvpUZ/kEX3YqCRzDlQKue4mRmLXw260R7tSEzLOiMC0STzk
+	 q/w2DNGnXWqJ/jXYN7l+BX3VJy0Zu+XkRFruhmqauN4oTA+onq0tM/MbiC2aLCJOnD6Lj
+	 tzWo0Ohdm1vWnrgo8JsQpd+yZxrDPetEuzFSgv0jOsYJxE4JwXokPYBhlt1HVGilkPw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=pas+8ePt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825D3606A31F;
-	Sun, 15 Nov 2026 17:55:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3664606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:56:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3664606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zb9DS5Ga
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F58A1F000C4;
-	Sun, 15 Nov 2026 17:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794765301;
-	bh=e+KRSjz5unGISTmIji2Qh3NG8Y9zdvuwaVseTB7OBUI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Zb9DS5GaYhaJ6Ch9P6489+j1eOAgwsoSPVIXKZ6ccab5Va309Oj/m3amgIVTklthj
-	 GZzKvxc9YK01oD93KHf3oTkD3dxZjMI5xJF8nBeqq/RkTvh+LYmxF+MtDeINdLihqg
-	 xcvnCUClDZRAtmDALXvgOg8FQY7uL9EXhBCFNXTye3oIKCxKPGZ3ibCV4XSbB7+/OE
-	 u8mU5bfP6WqcckcAbdWhs9MhcUHip6RCvZmhin7hGJWYXqQmeVRfA4DB0/x+0U+W68
-	 4+ZJG6p8stGVigJ3aRoiYeY1R1M8VEqUPVtMFPRpiaRpQnCw7MEiYTwS2w8THrYgTm
-	 HUUDT/cmY1Iuw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 3AD3C33B9F9C;
-	Sun, 15 Nov 2026 17:54:55 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: linux-spi@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Mauro Lima <mauro.lima@eclypsium.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Pratyush Yadav <p.yadav@ti.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261108203728.25735-1-rosenp@gmail.com>
-References: <20261108203728.25735-1-rosenp@gmail.com>
-Subject: Re: [PATCH v2] spi: intel: only check locked opmenu for SW
- sequencer operations
-Message-Id: <179468058364.102466.10330309101011843963.b4-ty@b4>
-Date: Sat, 14 Nov 2026 18:23:03 +0000
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=pas+8ePt
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67db0791748so423670d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:56:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794765376; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UwHcGkBj1asc1mg2UoJp9MBiKyMzOsZGeA9I4wwBGeNV8ZG6Nf+v//uNonrXClNcw7
+         0Gj01Kpi2CIfyFthns7uKzfADk+FBJCS9rQO5ovel+Xmr/P4FtAV687+wkM8KRKd1RRf
+         q3n1A6SIJBwEzBFwz/Q8GfSowd4ra4fzVGGvddIiiUqBUZjGP4WU4dpwY7lE6iov8Jv8
+         CrNFKBQzWPsXEYr4BtjmYDqyJfVUsOZoTB985Xirh9BTvqeEmiH5l9C/vrAFLe/Y/uI4
+         8i8fRF2NhZYNiftyUxU8kll6bHZO9qSkhVT9SwPZl/oyLY5akIl6vwcNEMhHfrL0x9N7
+         pFlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
+        fh=jM0CILKo5u1thFGVnTqsEDtYArXLyr6pV80FHfmqQ/Y=;
+        b=eJ9EnYR/QXCOeVmZG4FfVIVf3D2hCzE1ixtvVwHlsvCFNGpvZcX8uLTZb2e0mBqYQg
+         c+vi71wPEzGDVE5Ug8SduRHkJ62Zd1zVDeHMtqVm5Uq9KqmpCsDmczyFBTysrdDBnAxa
+         4BRbtqqHymOhqC5o/03p8gqvF7XeOmhEpn4vMdSjpQQddcc11jCOOma6vkA3IaapiCJ4
+         xGhsp654UQpxfV8y/KkacKDnCMtSleXKeyyUlgi5DluxrY7dIho63ZRqBTmrbTMHPMGD
+         BA20dYzjltRjjjMpvynnrJKEN6T303KXWSrQC8jixsfkulBZ09GpqDDfzYMtM2/Y14Wm
+         W+Yg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794765376; x=1795370176; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
+        b=pas+8ePtrT3q08eC33iGkr56u7NPfuFn8YpxQC393/ikNvaz7ESYVMC+rMU7CbJr0M
+         +R8X0eulKHmx/G2309+RC0B+2JSRNqkHfj4tJCBBEFcdhDtMBoknquLrs/b/RUBGV4dm
+         1Bw0o9Ch2AjP3P+3QJnA9+93mjfzMg4hoR44F0Q3QQlXSkq+p5DSWZwe83zJUHANf2Sk
+         FahErFkpveX+kHbTOQ4tq9i9bFlGcKKtP7iqyv6ANpkMIhgMHxj1Q4OqTTmm6mWlcb5o
+         mMkX1fgPByvBYyHkAI0DxttWhyPbpZLcytpFbirxj5ffC3D1ncK1rdgVnw3Et6tCa3a+
+         McNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794765376; x=1795370176;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
+        b=cpiwRJV3dlHkB9cxzcDsUk2MRwRteafq8yfexrog+A2E2nfGxwLO+QmrmQc5Hfaz3c
+         GgyafkbHt8q2JuVMACpX2+vPHfuED2ly4GovrhIRsNhAX+9nFO0qRotl3nSI8Qo4zOcg
+         RVd8CMu3AvZQ43vTePSHCyR5QOLUh8d+Tm7BTa6tjo7MynS7TS+meV/BvXL9xA2jIIZp
+         zc+T0ZOrlgHMWT2GtM1XZXwhTfs+GX2FIl+1vUFdY1tWir32jzUjZQD/EguPj7xJlSGi
+         UmzGXN3kmmFWzabHJizmX5V8jLKcjHSTV01XV/2r87fxnrplS2la5BonmxGYK9dL7+Lm
+         T1YA==
+X-Forwarded-Encrypted: i=1; AL+hErF//Jj5AQVZ4wxDe6QBSlcyrdLxmHIq3LryiCRHXAbYt5jucPqozGO6A01GZBx3RgPNMNlc426ufjwQmxA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rJ7P9hjjJ3k7hLBRwgfnUpL1lKZiBCTw6/RAO3BNyG9xcQknj
+	cb65aoQz+fqNt3Rb5ZvNiUYUV5smKzPsiwp66r3YF01W/avLukFJ1dV8tdol94I1mAhqqTM7eP2
+	lCusQwtboremvS4NXAbld8UBKpuKKeL4=
+X-Gm-Gg: AYBFou2ljOjQVBGbuegLVg4n0Q5lJqO86znTgSZMMUrTiDGESFTrwrGdc0Bzm3zQTVD
+	sZCMC6PCQWbRciFqlLrymszvBotZHhpQaLX2ZXgoJ+/xTGla1bDdacWfpdqY8LbDYmkJA0rSdmj
+	jQtnu7ATqUXpL1EsTsBT87EErnq82Cjx+sZGBuk1JAJTb6mIQIV6QLccdC2kGCUuVPvrx6AAiqX
+	QM7/lhL+1LmmIeclJy0J4SnpQyUC1hpgO9J/MjFsvn9sH2YM+2hYm/rLUwO0wshW4b6t6Aq56Np
+	hppSy+PDxFQ95QHD+gJBbC2Zz/R++LJOUE3I1/lfqL1RbOVv7UN1jdkooPWyPY8muFE4/BYdAep
+	5QXI6sm6YvotxTdF7FkQuaj/QD/Q2iIkuUN6mufxWAd6VQBv11CkyDZ2IycEGv0FckqlKjA==
+X-Received: by 2002:a05:690e:4852:10b0:67b:abb9:3d15 with SMTP id
+ 956f58d0204a3-67d895d195dmr3505161d50.24.1794765375839; Sun, 15 Nov 2026
+ 09:56:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +104,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1141; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Sy0uJjTextcTMdBboR3+Gtyrnv40Wq9GFRPpsf4iyDk=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+fny/vuLxrh7RisN75+a48MrUrbmooejp0/FQeleH9
- U5hs3dyHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZiIfycjw69u2xbFJrE7V8RF
- LHgaNl2d81n1jZG/HidPRuYcobeJGYwMJ3f9zjx/+sprhcw9JyovOgVf5HH42hQ5X7YxU5lf1ym
- bDwA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-3-tanure@linux.com>
+In-Reply-To: <20261113121852.334604-3-tanure@linux.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 15 Nov 2026 18:56:05 +0100
+X-Gm-Features: AclHuK_UkljuS9ciZHxa_G9-g5ueKP83ug6GjLSD0viVWSMIsEbzxQPrFL8LXzo
+Message-ID: <CAFBinCB+DkFDwXm9L+NYgtsUNR2F01xhJJnHN_8ydcRjcpNU3g@mail.gmail.com>
+Subject: Re: [PATCH v7 2/7] dt-bindings: net: add amlogic,t7-dwmac
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 08 Nov 2026 12:37:28 -0800, Rosen Penev wrote:
-> spi: intel: only check locked opmenu for SW sequencer operations
+On Fri, Nov 13, 2026 at 1:18=E2=80=AFPM Lucas Tanure <tanure@linux.com> wro=
+te:
+>
+> The T7 has the same ethernet glue as the G12A but needs two clocks of
+> its own. The controller reaches memory through a pipeline stage with
+> its own gate; nothing else claims it, so it is switched off as unused
+> and transfers never finish. The glue registers share a gate with the
+> MDIO multiplexer, which probes after the controller has programmed
+> them: the writes are lost and the port keeps the bootloader's delays.
+>
+> With a newer core, a clock list of its own and delays that follow
+> ethernet-controller.yaml, the T7 gets a binding of its own: the PHY
+> adds the 2ns, and only the receive delay line offers fine tuning, so
+> only rx-internal-delay-ps is valid here.
+>
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+Looks good to me in general
 
-Applied to
+[...]
+> +      - description:
+> +          APB clock of the glue registers PRG_ETH0 and PRG_ETH1.
+> +          Without it, they read as zero and ignore writes.
+Please give Chuan Liu a few days to clarify this clock input: [0]
+It would be great if he could provide more details on it. If there's
+no reply then I suggest going with Lucas' testing finding though
+(which means that clock input is correct)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
-Thanks!
-
-[1/1] spi: intel: only check locked opmenu for SW sequencer operations
-      https://git.kernel.org/broonie/spi/c/374557008e5d
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+[0] https://lore.kernel.org/linux-amlogic/CAJX_Q+0seFwDvd6zksLnJjWYJJY1QcLc=
+1gAjr=3DFN1p+aTdumpw@mail.gmail.com/
