@@ -1,106 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794746529;
-	b=e9xm4oLAtkIp7faJ+1C1c7tVBtgG32mxNZyElM9wVw7T12mXK2V8zp4IBTWST8PZwNzb
-	 QTaogx/WG/yAuSj1VNEKqn3GdRh/RdoNEtZFWz8sAi7+ytXegx9vDhw0nwb2mfPCJ8pro
-	 phgMLhk+S32dsTCAv2PPdIvB84QiKst2I0dmhngMXsFamP1DPvdjUq9CjFwvVSeTuYQKQ
-	 yD+fyp7jYL2Fgu1uQTqUkk1faZUI/EPzAX8QQB17l6tLQ+d2G7CYgxL68MnNnOt4qcuKs
-	 igOmTdVKvR519Yuo+SK4PYpxOJK9uCrhwSnelct8q+hlILSTd1cbw59h6L/fVihRXBw==
+	t=1794746627;
+	b=GZmd6X9wumk6HHOO7x7iIfb1hESpUCgwN937bBCUJqqMB9GgEPoZNqevVnvgG30Z45Nh
+	 xT15VgyoutwuG7lO+9jAdVWGbI4RmfAOsiTIWJJdlOXmDktydVNS8bL7FNs7B66PLnuJN
+	 mGpIwsWEqZsIFt4fBSEUOGVmIv10uGPxp20HsNsNVFe+ZoKZt6objBW8myAHS9HcnXIz2
+	 cG/AW5KNjzQz8z4KS6/1bRoKiF4GUAdWqZvIaCdkRLFPKxVbastHVE/dxe6Pug729veoB
+	 TLTGxBatHcmCw7RoWsOHI1w4/IG4kp9VAtlnHFItYTy0qmC8F2f9/uGjPxIpo6v2V6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794746529;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XlAf4PQU/2HL7ADnQCu3Rro0yhb+MVC3ik4t9nS9H5E=;
-	b=c4N0gT7dqYWIpKsXbAQJ+W+NrZ7P2UkPuVJQwUul6fjfthJ9NuqWWDgRCEw44xr2hi9R
-	 EDoqSHR7dRA+vGa699Xc44Wdcfmis6QefwElGs7eERQUJ6kujcDrIFUddNtGkNFQJx5bm
-	 NuqB+BrHkr2CU39KlJyX2oYCjXDqxhBoesgS7Ze4EBI31EBuIsn71Ex1PxQCPJhVDAfCd
-	 ltG0PRMF65hG4oOdQsS0C/vHGeR5IQs9m4m9vSLhkuFxlcwzFuYWIupGvlDxjv25R19km
-	 v5xv/i7mEiTHYZPFS5aIRDqvucohzv+18lNh7UoxvcnEAf8jE/4BkRVL1hUWjJjmNag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794746627;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ItLIVfR1UvySuEEyBIwhJcSgZBhLRZU0DncWL/OBsMk=;
+	b=h/jtpU/dMDfMyeCgxzuOuSQrngFxnzLWzUurPD1/Qf9NwI7RvzgvkBGlW/tz60ipXRHd
+	 Dvoc0r0Ql7K510Z51nfv2phBSQUt5WOvK8OaykDGIGPuPC2DCo7pNBu/V8tZjwKxX4qBJ
+	 TZLLMWolYuAJ5KPvCl5sDE/oy9ClWaDbLV2uK4QT/HSQzvch4Wy0hb0zTUnwWnuq/Q9IQ
+	 Rn10Lt4CtXohs9wS6HNYkD8HLJnBOjTk1Sx2722Bz+lg4lUdwhj2DA9fcFAU0sR8HWCZO
+	 3uh0FCs3GZm4OK4UMPxuoSjj0E+fn3wON0wKnf0PnBt7DpZYDyfS500GIxn+Qhk+NFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSg+QPAL;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQUCoZgo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA96D606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:42:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA96D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A334606A327;
+	Sun, 15 Nov 2026 12:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSg+QPAL
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-491846221ffso2307805f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:42:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794746527; x=1795351327; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XlAf4PQU/2HL7ADnQCu3Rro0yhb+MVC3ik4t9nS9H5E=;
-        b=JSg+QPALnqyb4xWfThYgwoPiiSMbwvN7+84slATI16Gh3ck/WVjdmqYsY6N3kzHb8X
-         LoUk/b5xxaD3CPVtL2oPmc6sw8Cg+WfJvky6Ujn9Qz72cbZVv4KdoofCKLFCL/FgMsHN
-         qMrE3syYUb99v6Ywz9bqetkKo8i9Ktird/SXMxTyHQbzFSr9v4qaq+1yGrgDRtxysTxJ
-         wMwLU/EKAA7p9jMnWDjbriscauKUu2ClZAgxFWgtX+6M+zM20b+LQwNjYxg6HcO9CCJ8
-         pJ7AgZ4wJPKPpsr998349QI2lMdLa/lvOmBeE4jhgO2rKAKXjzSt4MoX26VQED4J07QF
-         +rLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794746527; x=1795351327;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XlAf4PQU/2HL7ADnQCu3Rro0yhb+MVC3ik4t9nS9H5E=;
-        b=thmoN4dIRq1dEOL9HCPxjYHjpS/q3KWgqFr8g5EWXknlhkXjj92ZRYxVLjrS6KFIjK
-         XEvqciYllwdmaRWViupKAKxgW3MuLKXcvejoj2BEMwXKatdmf3+2suK1nyVvrKIpMStg
-         i9kxVD8QQ9xFLDp+FDm8Fdwv1t5zqF6x9cqUlzMCkiF7H0yrJFSQFvHpcykVoIRukB6h
-         zJgmmBC8djXztx8UI3swclLv30Z29aBmzC2xlS94LOUi84VEFBXx0IL5Wdlw1ZLHLyfb
-         lKVOBpmHePGWgecpv25cAq+EEfDIZVcsvvkv5dxZ0ftJ4g3/i1/tefj08MqYZN6fLBDf
-         ybpw==
-X-Forwarded-Encrypted: i=1; AL+hErFmxvthZmsr2/q0LC16G8wPM9FqcMiRHbd7xU1TXNXAgW0m/BVV0FLbkU+XcD5tL3PUZrctCC7lfVTirmI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WGuD28b8ENwXwaYERlT7zA+ngCmz8XEqX0da3hHkDNrnX1+0G
-	q4FFquNlNFj2LF596XnkWTqwKptZJnGCObp1JkOUrvplsok5FQTWZxjX
-X-Gm-Gg: AYBFou2N/ATHIzBD2kEIYJCVu2PN1BZdJFQQkEKRGTfZ9amKHVmNuBsl/mHGR/5XKUk
-	bI9lFWiIXGyeUmemoHVGu02CulXPWuuJvot3S9HaGnmvJxhUECzOBTkzY6cjwLlfa53hn1DYaEu
-	5gPyr3UGlfdVtSxfd17rp33m768jtnfG5yaqBX71JHcJCAyA1GQTfXlKh2kL9CTVWQ/tcBlmh07
-	txbVbpuAGAfS/p8yUiB6Bt63+pP6s83yOMiNM55fRz0kJLU+uF6el7G9D1XXfm9TGtgLufN62nJ
-	c0wmrRAkI25DL83OIQArsZBDSVojZgNHu0j98+sSuB7QyNmjdXxaSQ/PXwz9NNSobADFaIGU0pc
-	QQ/MyXUYpDdl6rOe+DfohT/2D0W4VQnawdhO4XNXvUD4f9w2FV/YGzJd6kmBat6XyMMp2eKuhzW
-	IZa/mUlEnu9SslMdGuxyInU8BX9P8g4J7Nup2MtT5KH9OPqIza1RQSSF3LVk58QJv/ds0gO02Rb
-	Jp4SIBB1Pf/babjdvDCI/iwvB3NHcUjm9Mz1ezwLRIDoRjepeZdR+Qd2IbMFr3SJbmyGKOsGahw
-	w/JhEZt5mkLX/mM+cIy4MgV2kTQPO+tnS6jSl/qv0Y3uqdavoL7zGpzr9YgJ8mqfiQ==
-X-Received: by 2002:a05:6000:610:b0:48d:e696:8a65 with SMTP id ffacd0b85a97d-49c72ab0c18mr17718549f8f.46.1794746526929;
-        Sun, 15 Nov 2026 04:42:06 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5fb58fefsm18020780f8f.26.2026.11.15.04.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 04:42:06 -0800 (PST)
-Date: Sun, 15 Nov 2026 12:42:05 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Borislav Petkov <bp@alien8.de>, Usama
- Arif <usama.arif@linux.dev>, dave.hansen@linux.intel.com, dsterba@suse.com,
- linux-kernel@vger.kernel.org, mingo@redhat.com, terrelln@fb.com,
- tglx@kernel.org, x86@kernel.org, kas@kernel.org, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on
- ERMS CPUs without FSRM
-Message-ID: <20261115124205.076cdd63@pumpkin>
-In-Reply-To: <CAHk-=wj0MtJpBbwNr=NGh4kFPM__Wf9Hq+LZ1Qv1Yv1SCpjaLQ@mail.gmail.com>
-References: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local>
-	<20261113141137.1113517-1-usama.arif@linux.dev>
-	<20261113160300.3f0d0a37@pumpkin>
-	<CAHk-=wjmnpCmhyOta1EBR6D8_JFgLNz7Jb2s_PgbPq6cBiQ0wg@mail.gmail.com>
-	<E9C129F6-61F5-49CE-8948-064DAE86EF4F@zytor.com>
-	<20261113233703.GCavefHwxVZX8mGFCm@fat_crate.local>
-	<628BDCC5-B599-4B70-B512-E13DEE926DFA@zytor.com>
-	<20261114224504.7574f7f0@pumpkin>
-	<CAHk-=wj0MtJpBbwNr=NGh4kFPM__Wf9Hq+LZ1Qv1Yv1SCpjaLQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQUCoZgo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E391F000C4;
+	Sun, 15 Nov 2026 12:43:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794746626;
+	bh=ItLIVfR1UvySuEEyBIwhJcSgZBhLRZU0DncWL/OBsMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kQUCoZgoZYY0fcgF/LYN5sg/FhigfV0RmeA/86U/4sCjPuPGBE7pd/oHPIVJVMHeI
+	 2IlWDFrE2uywqCCL3Jj4I0gGH96okLxf/UhYvS5kk81lBsUXiLT0XG4bnC3fmIIbQT
+	 FAXlrPGLPbzjzk/slqBIXIi2bdAAItZxNHxkbUNb2Djd2SOHBSqePSUK+11mTmke2o
+	 pFbiltFhIDDUt2GyBFurnDfb1H58W6ugxVtf1bPJT4VmYgHVtu2+LnWlCcDTfojdcw
+	 G5zEG77A/QC/3H4C0a3ofuIthVL6eskpAnW0W6WqaYJziKQzUOtpAXQO19MXd54q0C
+	 fv05uW8CCyplA==
+Date: Sun, 15 Nov 2026 12:43:34 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 08/13] mm/migrate_device: fix ksmd oops on a migrated
+ KSM page
+Message-ID: <avmojuNNO_ZRKL1P@gremlin>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+ <20261113-mason-migrate-et-al-fixes-v2-8-50a2ed382b61@kernel.org>
+ <20261114115657.f63de4714929f7af@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,50 +77,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114115657.f63de4714929f7af@chrisdown.name>
 
-On Sat, 14 Nov 2026 16:56:16 -0800
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+On Sat, Nov 14, 2026 at 11:56:57AM -0800, Chris Down wrote:
+> Hi Lorenzo,
+>
+> Lorenzo Stoakes (ARM) writes:
+> > [ ljs: tweak commit message, comment, also refuse device coherent ]
+>
+> Alistair's Reviewed-by on v1 came with the argument that KSM pages should
+> still be able to go to device coherent memory [1], which is the opposite of
+> what this does now, so it's probably worth checking that he's happy for it
+> to be carried over. Going by what ksmd does with zone device pages, the
+> change itself looks right to me.
 
-> On Sat, 14 Nov 2026 at 14:45, David Laight <david.laight.linux@gmail.com> wrote:
-> >
-> > Otherwise you'll need to spill to stack for even a simple byte copy loop.  
-> 
-> I think the optimization should be for the inline case.
-> 
-> Once you do a call, having a couple of push/pop instructions in the
-> target is a complete no-op.
+Given the endless waves of AI fixes I think giving a little slack is fair
+on details :)
 
-You certainly don't want to have a lot of available registers.
-But even with a call I'd have thought a push/pop would be noticeable
-for short copies.
-If you need extra registers to unroll a longer copy loop, then I agree
-that the push/pop will be noise.
+But, yes, that was a mistake so - apologies Alistair, let me know if that's
+OK.
 
-> But having extra registers free could help at the call-site,
+>
+> I've tested the device private case. Without this the process hangs the
+> next time it touches one of the pages, and with it the migration is
+> refused and the pages stay merged.
+>
+> [1] https://lore.kernel.org/r/avTu3LmscsttRVRp@nvdebian.thelocal
+>
+> Reviewed-by: Chris Down <chris@chrisdown.name>
+> Tested-by: Chris Down <chris@chrisdown.name>
 
-There isn't much you can put at the call site instead of a 5 byte call.
+Thanks!
 
-> and if the 'rep movs' is inlined you only modify rcx/rsi/rdi.
-> I think the calling convention should mirror that.
-
-I think I'd go for rax/rdx being scratch and the final values
-of rcx/tsi/rdi being undefined.
-What you don't want to do is have to preserve the destination address.
-That is always better done at the call site.
-
-I'd guess the compiler option could have a option to say whether ax/dx
-are scratch or not.
-
-I'm not sure whether the loop I posted runs as fast as I hoped.
-It might need interleaving to get a read and write executed on the
-same clock - but the AVX xor loop didn't need it.
-
-All needs some real experiments.
-
-David
- 
-> 
->              Linus
-
+--
+Cheers, Lorenzo
