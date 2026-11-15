@@ -1,101 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.64
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794727057;
-	b=klgc6hRgsAUV4D/gE1JMLgh7XZiIu4Uy1ksKUWdrlt/mQLp4EDpRAYF9/UgtZYn3v621
-	 6rSl3zg44A6M72JyucmwdvkkuSr8HkvrOUhdJuKIE8umB33usSB+NzNkWDMsqky2yI13B
-	 kTvS2KyyNx+6yLHN4Z3baAw2mzvCB+jZFqAvIrkH1qtfhAmg5h3EKNmYAkzZZYMCBNTPt
-	 YyL887chsoW2ak7Uti5vjP0FX7LyaoJMuBWnRrc+QWwb2uvaRbEVyJZPcBiMjR+2bc1eT
-	 0po0el8mFgNHyVzMcPdcpgqXUphtS+Dw7Faxj9cQftplD+ELiiL7RYs4NRvPgnkszng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727057;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jA3XxsFTm55bdn9xJgLUVE5bkeI9KRrqnLjY44lJZbY=;
-	b=AS2WUTfc2BxJ6I9Mg6mgjSDSpFNViStR6hUb+bhHkhLFLszJ0bK70FaJ1cE0Js4/zLnj
-	 F3LMAF+oxnVQBZBtMxhlXT5n/eFGjc7kliYbs69yZmjwJYHSyW6SOxgciryvOHMHDBnAT
-	 2zArFTgfxuO0OW/iuKlGI3+kyNcOoyzUhgaEToiU5z/FV5sQoFBPfjfBUHbki1P8ylza2
-	 3H2GHnB7NqTfyxiEIW6Pic0Jl3JDsXnU6wIdaKXKyxV3KQbMw/FaiOToP7uvRUAFuaxO5
-	 R3LGiHHjRJ/gKS+JO1GCOxLocX5+C6RrjWflx3G7ch5hT2uYm5fu31JnziBtXvXw10A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	dkim=pass header.d=mobileye.com header.i=@mobileye.com header.a=rsa-sha256 header.s=selector1 header.b=ADwOqrq0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.64
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010064.outbound.protection.outlook.com [52.101.84.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794727181;
+	b=zJfL43mRzlkUol8DKT9V7sBtuS880636mHGB8RvviUUmyOGZNc//yz52C5x4g8QNzTG2
+	 R4MsFbSwjFb0S9DnbR4Q+t+OUk7aJ8YzgiO3DvcZcQDaPlklQA3/7jUXYJN6Est4DFJdU
+	 ZpVFS7/Gj1Cg0OLT7hTGlZmn5Ixo+kDk66Gm+aLN+vdb9xSTao+5t5m3o8swCcyF1tUFV
+	 xmStkgg6iJ1svm6SNZWCo3UTG3MoxT7ChbQrP7bldInHTdxG1UsJ/KsFzztCn7GhFLGrE
+	 2BrbVcIth+zWWDCGDudsM/AU4a+sheZxlTI0mVaegtJc0SNGtYQpK4wPWhxWdWRpEsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727181;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=nXyMrT3sYdOxeSk47EaCAAbBwQAWb4yc1AvLRKcz5XE=;
+	b=RY5CLWtF2oanLVUc66rotvoOKYaRlPCARlJl15VxuIbT/dmUAN3Wo7OXKRTmyO1n3fXR
+	 tf1jhGctjcg+cCt8+wFpBMY7rYZ0S8hTo2IF/iGhZtI093ul4CrHSi6+W1vxZggYq6fgt
+	 oduLEDvgXJM64Yn2N3CPq1hnl/0UAYOHAhm0wCbjaCBjUDnixzoosyE6Tr1ln7M4chS7m
+	 7l4Jpe/J0nlxoeKGxhc/7XQf29Mch9CB42uP8fK16x+SsykyD7ZwwB2BcBKo25jU14ACe
+	 g61qAM7PnoD5XBOxnJLebXIl/gfCXIL0v7ZNtSrKc/PJI+43X7g13SqhaUuymNX5xUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="u9ZOqO/W";
+	arc=none smtp.remote-ip=209.85.161.42
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90E0606A31D;
-	Sun, 15 Nov 2026 07:17:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A90E0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0A7606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF0A7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mobileye.com header.i=@mobileye.com header.a=rsa-sha256 header.s=selector1 header.b=ADwOqrq0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F8xw4P2xoQkON1R58b8dSNsufu9QF1/1Zr4WbUWLv4mL1JShtl6wPcmo4UyhMs7tPm2VsqgL5PvFs49hqn4LOAhDX1lUN4H7xqmwyXhaZOPsz6QI/zuElAnBX8bF0c1U5pLvaD/l7Ho2vwLiI+qaNsRXVTMJbPrW/j44fguzlaXwXaZGd4Jsm8xLdgmuwVLeF8U948lYembqRz9WIsRn7om9Beofs/f2l6Bk4CCFhKChWK+BpOtroJWpiOgi6a293cceBfh2tq3PEk4z4gf3lbgqPbPOqTaVcz74Y+5yIhxV1veUK46fh5LAlYIxCPNWdGJUzO+/Jq6IVPuZoHTXHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jA3XxsFTm55bdn9xJgLUVE5bkeI9KRrqnLjY44lJZbY=;
- b=BAcYdj/UF3Yp+nRVU43gkrdcOai271TZ9ur5z/E6HeReKOffr/tXEFc0vJS7EZb1VsDJSEuvj6uklsjcJCWo+y95qMZFRBeY2TbqYoEPbqldUduezZsJWrWQvgb61xK0uVDVSPJL18I+N0ART/ffdjiZNdSaA70M0fuUx8JlUCJgvicOhpbZ/XeUd61RVF9W/k4M0qGn4c0TMR/FcYmsuvFEvVmEkurhdlJyGrf9AAEgDq30hjeo1DRk/rSn3vN00IsBN7i4Ua3E+XWVd7LSa7XUy7vyZu8cZ2Hll/5qLyiw6GADy6Fb6yFTtWy1mUq+7IuC/bPXohu8Toc72suLFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mobileye.com; dmarc=pass action=none header.from=mobileye.com;
- dkim=pass header.d=mobileye.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mobileye.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jA3XxsFTm55bdn9xJgLUVE5bkeI9KRrqnLjY44lJZbY=;
- b=ADwOqrq0Tmk0ZoG4C0eXv/hB9C17zdg30G5PCQWeHpF2+s5vlBQgzUXaSXmOpJqWenCym3KIZWV8RR7NrJjqa0rfeiAkpVDJ1UIPiKEMZ4k+JpC30+/urVL1csc4N5DeuXXXnugSjEJ8OenR5dPJ9Da0VuhH5HFeLyggZTaUu+A=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mobileye.com;
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22) by AM0PR09MB3940.eurprd09.prod.outlook.com
- (2603:10a6:208:196::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Sun, 15 Nov
- 2026 07:17:32 +0000
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2]) by ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2%4]) with mapi id 15.21.0615.012; Sun, 15 Nov 2026
- 07:17:31 +0000
-Message-ID: <cd92fe07-9a9b-4a21-b596-1b2d007b4c9f@mobileye.com>
-Date: Sun, 15 Nov 2026 09:17:28 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] riscv: probes: reject probes inside an LR/SC
- sequence
-To: Guo Ren <guoren@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Pekka Enberg <penberg@kernel.org>,
- =?UTF-8?Q?Patrick_St=C3=A4hlin?= <me@packi.ch>,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Palmer Dabbelt <palmerdabbelt@google.com>
-References: <20261112-probes-in-lrsc-v3-0-a95089852a17@mobileye.com>
- <20261112-probes-in-lrsc-v3-2-a95089852a17@mobileye.com>
- <CAJF2gTTY5ODDH6XV2h1v+T7Sn5BK3L9x-Q_Qb_EXNmdCor5rPA@mail.gmail.com>
-Content-Language: en-US
-From: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
-In-Reply-To: <CAJF2gTTY5ODDH6XV2h1v+T7Sn5BK3L9x-Q_Qb_EXNmdCor5rPA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TLZP290CA0004.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::15) To ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u9ZOqO/W
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6b8e2d8df4fso2316562eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:19:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794727180; x=1795331980; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nXyMrT3sYdOxeSk47EaCAAbBwQAWb4yc1AvLRKcz5XE=;
+        b=u9ZOqO/WGuvUTfJeon5puJvmrGkdOEessM2TfATgkPUOU5Yah8sDNvOdqlPF2/E/yo
+         2EeEfz/1DwIT3iJju4rPOa5hqOgcVV4bw8lop9yrYRrp3Wt/IxhIR1sAono8AodUrCxm
+         LVGp/9e9MnrgOGfpY2rNh70xVEg0on/zcz4vTERwnCPWbCmvmg76UrfVxGo5umutFLUk
+         CSW1Kl8FA3LWPGLty1PdRGb9mewc8cvq6S1+amKciSzC3kOjHkMb2z03cjzEu/crjB8H
+         +bw28/C7xaupuhrtaWa6x8c0CpbxMv839gaIJX10vg1aZi2+1djXDHeKQtP4Tc+iypG8
+         7A6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794727180; x=1795331980;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nXyMrT3sYdOxeSk47EaCAAbBwQAWb4yc1AvLRKcz5XE=;
+        b=CUqr9iuUsIHs0XPhK7rJUoGYYloG2E4HshPIrzmK2Py+y8Q6CFfeyKZ/yv2jTiltkC
+         quIc/oCExv7d1FNMGoWE4usbkal0HvzsVAspTlz8J1bccNDXgWozTeMlGtNBL/niy7JK
+         iZfYLQA9y56s7egIxO34oCvw+B28UEFstsEgK+kMEFoFB4p5sxKGXsklTkk5MF1unnbm
+         4DQIgbnftc6VDJy+z93IGWMi+BL31f6kE7/PZTaLLrbXjfs2qWRQ5ftr8/1ogiZzX6Wc
+         Jy9E/0dnNNnYTBQ03qFIbHjrwjRozs0eWpIOneNKQGECbz0j4D/asE4kK1yebAu7U1Z3
+         XfTg==
+X-Forwarded-Encrypted: i=1; AL+hErFzaxJySDR7uT16j5b1R1kU3qyi/nr/wYx/mbyjJDroW+fJiS73U8GwdwYc24XRirae+kmkNfSq/XD+o/Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NVDVxMIpwhWMj6q67abmLnX9pmEIFcGdwV2s/SQCNGM+SuGJh
+	5Mima0sW1to76Y90FwZw0bdkz+2oJFUR5NMqTHiMhRd04lRVXxCZRTS5
+X-Gm-Gg: AYBFou0Tv2Vp+GaiXimwejhp8R3YJMCOKD9yVFLOtUdwYrbRAsmXhIkG5SfyLGti3o+
+	NwCQYtYFvPwu0v/UGmhpMOf3Zsx3fAjWXgGKoz0YOlZF6j4BL2gHdr0bUHV/t+Sh6iVYy309gus
+	xs36erAxH1gFeRBJBulBzm1P7Q61ytWAcm3nUycQ6YseqxflOs7tWEJvcVE2WLMMQzzx5ZiYR59
+	p8Sq/z5PCa3T1YbWN5rwgP8rSaZky9kEUwzvIRC1RTrVmdDAxIDQsboOUwOttmFLPBSvCAPi0RM
+	F10HzvlGbSho2BVmBlU/49MStVO3uqRTvGFi5qsv/rJ+oNpfTgr1nS6QOJXH3VFT1WbPzMyaz2k
+	nqS7ckzZG1FAQZmkmVjmwuDxTTbjgF5SKBEtVCtHoAYsm/hhNC7eaH0aJJq/Jiev/jhJeEECzZs
+	yJpu13sulqeXcRvRtHZ9VcS3oy7OtdeLk42Z9sg3Pn2H6Y8Tgh3LGLQczsxFS5h7qq9iAR8VJk+
+	/mdkE7dTwFSrD9+RHWaCCBUyQFqly5bMinFFeVyfhGDIn5rY1vuQofdKPSaMELsFou1wGhi3WKu
+	dHqlIwrrTKVHO1qs51DHNKyASj6vwLgex/l8hd6RLaU+rIn+RDDa2GJx9rpLx2pmqLmjB76ARqd
+	S9j5hwKRtjHTY+scGgKZuYfdZ/TJaEXYV+rC6CWVzhOEwslMFrNg4//jzeBneE70ZqR0/uerlNr
+	Mb4/wJBP90GXhFnLbawNWcV+ccUl9r+Y6d8lEfvgyQrTkA3LCpskA=
+X-Received: by 2002:a05:6820:a29a:10b0:714:e19b:c3c7 with SMTP id 006d021491bc7-71ab509996cmr3191034eaf.39.1794727179658;
+        Sat, 14 Nov 2026 23:19:39 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ae860ebd7sm1145321eaf.8.2026.11.14.23.19.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 23:19:39 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v7 00/10] dmaengine: dw: serialize completion and
+ termination
+Date: Sun, 15 Nov 2026 00:19:33 -0700
+Message-Id: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,76 +94,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZR6PR09MB889505:EE_|AM0PR09MB3940:EE_
-X-MS-Office365-Filtering-Correlation-Id: 897cbec1-9b2f-439b-6b9a-08df42e88372
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	zw+6Tt1/fhaT5azyQk+8MR+psTDshm5GoRwuBjf1c2i7lkYtbQBCtkX/3rxjtHW1inxXlzqbibcMBS71zNOFHxqAMtS6Nr5ITgcLUgWu5WW3oIaoKcfu50WKdJnaIGQogR4WXHSbSx/BnMjmlgjroqCmCPRUTJvACzxMnGhUS8E464K1m+kLnj7qxmpj0zB5TjtZXuHb6Jyr1flYYSqnLD80vSvwIyJmopR3Qg/FmHVwQNallT/crWVzx4BaO/jvwj8gPH8jG3NXB4I9VXd+T5b1bQvEdrD2TE1riW394dKVVdZzH6hrKgrJQtnWauXqG0IoRdVQAIbTe3GWDcApvYgxFEwJooyaB+Q4spxMJqELWX+FTKjqzRY6a+j7s4AGYzBoxWycw1AzDGkJXCXmLUMu6/+hoam9nn9ckxbOuaH1xf9vqgKFbV07jb25UDlJWb9fhrhb2e6ZRhXjqOuAeqzb+T4G1URB6HCkIWFaZBcu5qrT6TAzQgO1++AMTsa2LCixgNjnvAL49SQyGvvYmTDwiOKpWLNM/cTrH1sTj4j8qv+lro08XAc3CywzpRNUufhgpFI8Yud4S4ZSMrj/lzs/U2ejTTN3wsMs5Q5ySgY7zowIdX1WI0catSEKr4tqAzJ/X5GAE2V/I0B7AnmJgFQziHYjyIPGdreLWKeUU48=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR6PR09MB889505.eurprd09.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K09JdVZPMnJWVjBZNkwrcmlQb0FOaTNvTnd3S1MzYkloUXRyR2pmdWMrbkt0?=
- =?utf-8?B?ZTFyYW9KTE95b0RPQkZ1RUZCOWRhZkJETFgwcS9QUmpuSURPVVZQVzJWYjN4?=
- =?utf-8?B?K05uZDVtaDBsb0xqSzZ5YkRaL0JRbEZvWHlrclFQc2h3WEwreXVOMDBhOEdC?=
- =?utf-8?B?ZCtyRGhBelNCZ3pHUGdUZGxkQjJ3TjFCMjRURUJrdjFBWVhzRGx4SGc0NFFU?=
- =?utf-8?B?eGgrcXI2Y1FFbGdGZ2VUWkFDRzhGTnBCVUpCUFNqZ1lYcU56QTVtUWF2bmZu?=
- =?utf-8?B?WFNzVlhRQVcrdm5pKzRqb3MrYVJmMVYzT2FhRGppSXRZOU5oRzZka0N1VDdj?=
- =?utf-8?B?bVVUbVUzNVZaamxJdUZQTEhHbVM1MjhQbzlRdHVwbGFQdVFNK3Q4OE82TzdL?=
- =?utf-8?B?bVB1U1dZd0Q3WG1sNzZOV3h2RE5vNGdScEkycHFGc01LYW9DVmRiOXE3Mk9H?=
- =?utf-8?B?SVlyNDd6TWc4eWtoNWE1ODBZK2Nta3doeFZaZ0VTTjczRUY0MUlyMTRjNncz?=
- =?utf-8?B?eUJzV2tKZitITWNld0t3UG05VWErdFBrdTF3SmJ5VzZmRDdHY0NJRWRaR3J4?=
- =?utf-8?B?MVF4ckpLY2Z6MXQzQ09GYittaHpmOWROMnBnUXF1NHpCb3Zwek96b3hiTWtt?=
- =?utf-8?B?UG5OYWhnL1lFcGdPWElyRFcxcWRwK21jUFErZzY1RlpKcVZZQlNqTW9kZ3pq?=
- =?utf-8?B?T0hjWnRqSnFsRk8wL2hpNWF2VWlCbFYwOXNnS2pzaXV5ZUVwTWN1ckRzVTM2?=
- =?utf-8?B?cVoxdld5ZFdrdGhOVTkrMW5zOW9QWm9QRWNWVS8wSnFvVDdlWTYxU2psNE1a?=
- =?utf-8?B?UHJDZGlTOFZ5cnE4bzhQTE5aWGlBaUV3NzR3QVJhVzkzSzYyVGFWeCtlRzNm?=
- =?utf-8?B?dDRGd0Uxb0gzSjdGdSs0MSt6aUFPY0l4VGdtN3RXRmZ6aWNHWHk0MUM2c0FO?=
- =?utf-8?B?U1krVjI2bnVrcG9PVTNkdW03R1MrMFhBSVAxK28rd3ZkWGVTeXhNdlJoeVNs?=
- =?utf-8?B?MXFqcmZMb2QxTFUrN0R1S2g2cXU1Q0xmSVhYZmowVXZkRzloSzBIZy82Y1M5?=
- =?utf-8?B?TGxLTkVuZHZXcWxBOU9mRzgxOWNSN1FYRVEvNDRtY3lCRlAzdHVnU0lVTHV1?=
- =?utf-8?B?eENlNWpqazJ3NVVweVdTZHh3QjRXb3U3WVo2dlFLdWF4Skw4VktaaldtRFh1?=
- =?utf-8?B?YjNVS2NBSmx6V1JFRE1NZjIyRE9UZ3dESGFSalVMS3pWN2dkZGxUWlBTaUc5?=
- =?utf-8?B?K1hUNTZGTHVnb1FPdVp3L2VzMzdHK1lIK29JcTlwQ1JhWXpaN2NoSWgvek56?=
- =?utf-8?B?VmNNOE1JYjIyQzU5bFk1cy9xMlNUV3BucTlXSnJ5QVIzVWpHaW50eFRsL0Yv?=
- =?utf-8?B?MUJWQXlIbU8yVU9sWGxXTWd0TW42aCs4MUZJZ3Z2RUhXMFdIYStVZHFmZTg4?=
- =?utf-8?B?anp5RXNsS1pMRy9Zem1QLzM4VGNaTFNEK2RoQk5OelE3NVNHUVFkb1F3czA5?=
- =?utf-8?B?eFE4MWsyUUx2LzBrbldKRXhESVlha0tFcmhiNjRUSFZjeVg5QVdKWTNab0lN?=
- =?utf-8?B?N2N2dzRxKzIzdWsySmcrMC9CZ2ZNKzl6MlRiMWNuZVc0YWpMWXIxRzgxVkJQ?=
- =?utf-8?B?enZQd1BNWTZ6KzdYUWQ2VTl4WGh2U0QveXZUbFltc2REclBvUjRTRUVjODN0?=
- =?utf-8?B?d3JUYTM1b1Q2aHMzVmJnNzdnZUl2TG02MUZJQnE4Qi9oYnBDUm4zNXl6YVlu?=
- =?utf-8?B?b3dkTUM4QVRJWWhOUmJNellVcEpVcnVqcGtCbS9BYmhEYlBkWjJ4bzJnNG81?=
- =?utf-8?B?eXQzTWdESlN1WXk0V1I0QjNlNFJXYmlybk0xblpqbWZsUHlzbWtYdmJoaE9M?=
- =?utf-8?B?ejUwN1R6RmZyN0dZY0pzdi82YVcyRU00ZUJZNXVLay9vZXRPN1V4Tm5ldFJq?=
- =?utf-8?B?aE41RVd2eDRPSFlSbFNiSFRPbkVDR0NPTXpRRUdvVHQyNFZuOGRZY3owUHBo?=
- =?utf-8?B?RWRyQkllSHArSElERCtPZHNiNFYyMTg5STZSRDdvUjFFWmtCTlFGSnFxdGNv?=
- =?utf-8?B?RitDSEE0TE1IOFdZcGpUVk1vTU12SmJCbWZWMjVZSTdNVkc3SXg2NnNsNmIz?=
- =?utf-8?B?cHFhSXBTRkk5UlNIRWRyNmlDTVBxbXloKzlOdFBzM1grRE45RnF3NTgrZ3Zt?=
- =?utf-8?B?cTJscTJZT3NlVWVTbjdZKzc5YytmWkhncDFYY0FTdlRKSVpyNlU3R2tYaE8z?=
- =?utf-8?B?TThDaTV2UlMwZjFjcUNwSlZJb1JsM09XWGZoUDk4VjJldkVXcDhpU0FZcWFz?=
- =?utf-8?B?RHdLZ3pSTVBIN2R1Y0kxeWlJbDZXVERMaS9Kb1pLRVhYaU1XMFlNUT09?=
-X-OriginatorOrg: mobileye.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 897cbec1-9b2f-439b-6b9a-08df42e88372
-X-MS-Exchange-CrossTenant-AuthSource: ZR6PR09MB889505.eurprd09.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:17:31.6365
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f85ba13-6953-46a6-9c5b-7599fd80e9aa
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R6MGx9KdbwMhUv7tuTTYMkedaEJpezzNokDBEb7KGNMahpmMp1S33L/cLt8SigslXHOdEZad43QgEDbgQSGLkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR09MB3940
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43QwU7EIBAG4FfZcBalU6DUk+9hPFAYWoxtDdTqu
+ um7O9092NRDTbj8ZObLDxeWMUXM7PF0YQnnmOM4UKjuTsx1dmiRR0+ZgQBdCCh4/mj6OHH/yX1
+ veT4PrkvjEL+RzwVHpUSQVfCFt4yI94Qhfl3555dbpv1XdNNqrhONzcibZIlZr8jEoY0DPtz2a
+ KKLeRrT+dpwLlbpn2XoFFzbYJQDr4Oun9rexrd7N/ZsLTPDFoMDDLjgCqTEWnpnjdtj5RYrD7C
+ SMKehCUKaoBzuMbnF6gNMEhbQSln5OoBRe0z9YqQdYIowX4KoKmVCE/78md5iR8/UhAGicKU0A
+ NJvsWVZfgBy9Q6ffQIAAA==
+X-Change-ID: 20261021-submit-dw-dma-synchronize-v1-e550f47fd1da
+To: Viresh Kumar <vireshk@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Dan Williams <djbw@kernel.org>
+Cc: Serge Semin <fancer.lancer@gmail.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
 
-On 11/13/26 10:01, Guo Ren wrote:
->> Fixes: c22b0bcb1dd0 ("riscv: Add kprobes supported")
->> Fixes: 74784081aac8 ("riscv: Add uprobes supported")
-> One patch for one Fixes tag, is that okay?
-One for kprobes, 2-nd for uprobes. This is what sashiko-bot suggested, I
-thought it knows the policy better than me. If it should be different,
-just let me know.
+Keep client callbacks in the controller tasklet while preserving polled
+completion. Serialize descriptor ownership across completion, error
+recovery and termination, and wait for callbacks before a client reuses
+its resources.
 
-Thanks, Vladimir
+The series first serializes completion, error recovery and cookie
+accounting with termination. Separate patches extract hardware-LLP
+residue calculation, calculate it in the status getter, simplify completion
+handling and report queued residue. Channel release and
+device_synchronize then gain tasklet draining before the final patch
+adds deferred notifications and shared completed-descriptor cleanup.
+
+The series adapts Serge Semin's channel-restart and callback fixes [0-2].
+Polling continues to advance cookies and software-LLP blocks, while client
+notifications run from the controller tasklet. Synchronization preserves
+pending tasklet runs from other channels.
+
+Based on dmaengine/fixes at 6628e7d4c6b2.
+
+[0] https://lore.kernel.org/r/20240911184710.4207-1-fancer.lancer@gmail.com
+[1] https://lore.kernel.org/r/20240911184710.4207-2-fancer.lancer@gmail.com
+[2] https://lore.kernel.org/r/20240911184710.4207-3-fancer.lancer@gmail.com
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+
+---
+Changes in v7:
+- Use a scoped channel-lock guard in dwc_tx_status(), following Frank's
+  review, keeping polled completion and residue lookup in the same scope.
+- Collect Frank's Reviewed-by tags for the residue and completion patches.
+- Link to v6: https://patch.msgid.link/20261103-submit-dw-dma-synchronize-v1-v6-0-2ee0c348224d@gmail.com
+
+Changes in v6:
+- Keep dwc_get_hard_llp_desc_residue() next to dwc_get_sent() when
+  converting it to return residue, following Frank's review.
+- Remove inherited RFC notes from the individual patches, retaining
+  the revision history in this cover letter.
+- Link to v5: https://patch.msgid.link/20261102-submit-dw-dma-synchronize-v1-v5-0-d3207758fbf9@gmail.com
+
+Changes in v5:
+- Rebase onto dmaengine/fixes at 6628e7d4c6b2, using the shared
+  dmaengine_chan_dev() helper for channel logging.
+- Split residue handling into a behavior-preserving extraction, status
+  calculation, scanner simplification and queued-residue reporting,
+  following Frank's review.
+- Share completed-descriptor freeing between the tasklet and channel
+  release, retaining callbacks for normal completion and suppressing
+  them during teardown. Name the helper dwc_free_completed().
+- Carry Frank's additional review tags and put the submitter sign-off
+  after the review tags.
+- Link to v4: https://patch.msgid.link/20261029-submit-dw-dma-synchronize-v1-v4-0-fea447d9f285@gmail.com
+
+Changes in v4:
+- Split v3's callback-deferral patch into cookie accounting, residue
+  calculation, channel-release draining and callback-deferral patches,
+  following Frank's review. The resulting seven-patch series preserves
+  v3's final implementation.
+- Place device_synchronize before callback deferral so clients can drain
+  deferred notifications when the completion list is introduced.
+- Carry Frank's Reviewed-by tags on the unchanged channel-completion,
+  error-recovery and device_synchronize patches.
+- Link to v3: https://patch.msgid.link/20261023-submit-dw-dma-synchronize-v1-v3-0-c62bf048f5ce@gmail.com
+
+Changes in v3:
+- Order channel-completion and error-recovery locking before callback
+  deferral, retaining four patches.
+- Require a locked RAW.XFER event before retiring a transfer; zero source
+  residue alone cannot establish destination completion.
+- Preserve polled completion and software-LLP progress in tx_status(),
+  queuing client notifications for the controller tasklet.
+- Serialize cookie updates with termination and report queued residue.
+- Drain deferred notifications on channel release and let a pending
+  tasklet return without MMIO after the last channel is released.
+- Adapt Serge's two patches and retain his authorship and revision notes.
+  Drop the Tested-by tags that covered their earlier implementations.
+- Identify the introduction of the synchronization API in the final
+  patch's Fixes tag.
+- Link to v2: https://patch.msgid.link/20261022-submit-dw-dma-synchronize-v1-v2-0-5244e94dca8c@gmail.com
+
+Changes in v2:
+- Carry Serge Semin's two posted fixes before the synchronization change,
+  preserving his authorship and revision notes. Add the requested stable
+  Cc trailers and Andy Shevchenko's Tested-by tags to those unchanged fixes.
+- Add a separate error-recovery fix for stale error status, empty channel
+  lists and software-LLP state when terminating or restarting a channel.
+- Use tasklet_disable()/tasklet_enable() instead of tasklet_kill() so
+  synchronization preserves scheduling requests from other channels.
+- Explain descriptor ownership during termination and acknowledge the
+  shared-tasklet scheduling race reported by Sashiko.
+- Link to v1: https://patch.msgid.link/20261021-submit-dw-dma-synchronize-v1-v1-1-6af85c2d6f69@gmail.com
+
+Revision history from Serge's series:
+
+Link: https://lore.kernel.org/dmaengine/20240802080756.7415-1-fancer.lancer@gmail.com/
+Changelog RFC:
+- Add a new patch:
+  [PATCH 2/2] dmaengine: dw: Fix XFER bit set, but channel not idle error
+  fixing the "XFER bit set, but channel not idle" error.
+- Instead of just dropping the dwc_scan_descriptors() method invocation
+  calculate the residue in the Tx-status getter.
+
+---
+James Hilliard (6):
+      dmaengine: dw: serialize error recovery with channel termination
+      dmaengine: dw: complete cookies before releasing the channel lock
+      dmaengine: dw: simplify transfer-complete handling
+      dmaengine: dw: report residue for queued transfers
+      dmaengine: dw: drain the tasklet before releasing channel resources
+      dmaengine: dw: synchronize completion callbacks
+
+Serge Semin (4):
+      dmaengine: dw: Fix XFER bit set, but channel not idle error
+      dmaengine: dw: extract hardware-LLP residue calculation
+      dmaengine: dw: calculate residue in the status getter
+      dmaengine: dw: Prevent tx-status calling DMA-desc callback
+
+ drivers/dma/dw/core.c | 284 +++++++++++++++++++++++++-------------------------
+ drivers/dma/dw/regs.h |   1 +
+ 2 files changed, 145 insertions(+), 140 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261021-submit-dw-dma-synchronize-v1-e550f47fd1da
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
