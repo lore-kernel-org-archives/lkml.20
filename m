@@ -1,54 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794740304;
-	b=1/Josn7NaoRdEUMwGeSM+OPjMwNLKbfN/037o5jhHxw4XDrTlDdcv1flIR9DbD3jPi4C
-	 EAC6RTzVg9Pk4d/oU1hDZBYgQ4w0qIcT3LtooM2X+2xtZmDLuQ0eNUHIyYd6G/gJLnQeQ
-	 EOMqLAOV8wrD29gd1kly7Is/SsJLcknzHfcSLWaK+1A6Q85BiZVWNMc2cdgK3yltKLKi2
-	 I5hBminRQT+mEuMggAukI4xKiLMFOTKygzTKFL8QT58Hgk4Bz0Ymdd75QfqBTPmgTYtGc
-	 HpmGCngYiOk9mHVwsCCSBMZTo3ZYTgOm8mLf3hxfpl64dPDMVtop8e0YYGrkbNr3GRA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794740304;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=gEBlYkFcdJCim3zj5oQSNe5WnMDFK3Q1GA0+OH1Yxbw=;
-	b=pNUfHwjhk6uj/JmImMzp8VVgjXEH9qXRpq2tvfVrllO4nyHcHC/UZqw++fh0Gp7XxFM9
-	 5Tc1PIgK1/Jb/I9kznbqXwiQWk6fCxWKeYkd8KLukmRdj/jJnsYgcTDC9Z4dyiiwJpYEV
-	 8lW8jlgE1LSR+ocNHzQkMXAs+p1h3Wng64Bv2z4HX4LOou832iOvUtvCgBXKniINMb1U8
-	 NRwfPCg/8llSOMEiVfbTwGr5hkXennCb8smomqOoa1IpDGNFlw0dNX3ONZqnlidNbN1Jc
-	 9aq/JQzDnZNICVAr9KO4eSqkOAU4JURjoDJYlCBFbYzoJ/+QLGkac9NVSQ1r4tqLMwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794740405;
+	b=TwPkpxR/fn6EGEe3rtHjNAhoAbeR1lFoRrmtpfJygY9qXcxLoeUcrza5NjNnCww/6Oki
+	 ITa7d4NgT70Qq8q18WJxTalsGNf/m+eyGOSm44x/M2/do40JJQ+/HQpHD6vW5MhDq0V9q
+	 l5wwa+MhQL2CizO+U5QsVV0mIrULtN/3DKcPbN38Z1RYe0rQPbL+xK95fyi114LV5D3O2
+	 hdZWgKI+fAfJ5IEr4OUPOTFarWto27mp+gNxnr0E6lU0CYYe6uAVRlt3+7rGkxBkOI9fm
+	 a3hC4QS4e+ywVp1fF5LztUzoc1XMnH2HvzIFojd9Nezx3cv0vxNaDih6ocelEXjj0Xg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794740405;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=wkA+VPYGFLuORnMAtbJKzLsvwtfdb241bM0vf1HQ6aQ=;
+	b=0T+nUOGeQJS9rI0E+awtXYpQmlixNHNwVJLeIRlvGp71Sw6YDZomCCtj2h2KAwE62ASo
+	 tkqAFm6FDnSqBjvGvtcILlLpvU7iAKV8i0tZQCuMVsW+9dIfG3SY9Y7qqbWHpdNNWjV67
+	 Z+OFHpfhYyYBkdRT6sAYXj7XKkrSRbPLg0vygqbLr2O+5q+iYJ4BLXH6RILLAnHjhiVNU
+	 q5EMcsx/+qcTm4X0Pl4HKW5wbmObNdj9IEmFMCRCLY45DjSiC1JDKeLkPhLFnJwFagXEh
+	 BvbwTgxPmItEUNUCbfqV69Nt+TlUoPn69Cb44528Xy8u2Rse3EB6lTU9j35XmcaSXlw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=A3mQRzK9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55559606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:58:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55559606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f8281066c4so3333454b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:58:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794740303; x=1795345103;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gEBlYkFcdJCim3zj5oQSNe5WnMDFK3Q1GA0+OH1Yxbw=;
-        b=hcZXaZrLt5ga0PA+Tfxez+FPuvqOMs85oGmkG43NN9E2ztvGe0Tu9qKCHSeH2JOWPz
-         t8yG9DlDTE0UkM3SaUPPE+z/tqFFK/3rqLI58C/Zyrb21SbzaIX8QswHUq6kDYvbpodZ
-         G6EO4BBQTHVn/9xpxceLQIUr3nB9/bxh4hd4QiTx31t1sUgw8oP8QyQCMJ5pZuUCbUA7
-         mnHX8646P44CJED0yU8/5Dz0qYoV+cmV6V02UxJsljCF2LKu2iFPWx8CYTWlGSkcFI4u
-         nJCZkd+VbigzaGckVGrLwrT4IR1Jb965VNACRxBDV3APyhCL9eXOZlZubT+D6KlpVfjP
-         YCgA==
-X-Forwarded-Encrypted: i=1; AL+hErHJ1glO9Mf405Fv6tZ1gOAf35be3sRXAYgzA4FeminoJ08Xja6hiXQZbe3kyppX5td2DD4/pVbbc0X6RXM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YH+MM0EU60wJmetVLz5ZWSKJ4JWbjUfZ0nM1IeNHfbmEs7rHn
-	Qu1MJfdQXmwUpVprTR+Zm78ZnFqz5Xg7+7gYWln48tI70Xuu4duEcbmKoJdiUIKIN0VJrpLB1BN
-	dzHKBcwpY1kkkbzXHnadBlFVjdxjb0CZ5qgMR95v7B6ztjvQMhOnlnL2JCvM=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE80606A331;
+	Sun, 15 Nov 2026 11:00:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EE80606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=A3mQRzK9
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
+	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 26B892059F2;
+	Sun, 15 Nov 2026 12:00:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794740401;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wkA+VPYGFLuORnMAtbJKzLsvwtfdb241bM0vf1HQ6aQ=;
+	b=A3mQRzK99xHypblrjsJtV2XPfGBv6xLKfgmmz5O8A5LZqRzNPB0jqR4Jt7IOWwrr10Hq3T
+	Ye+U3a2h4oTtcwr74p7F8KMOTAqW2c/8mX2WyG27+zbdcStFOzdRxJiDKCyBJJsy9zkkmc
+	lmX7hMZG4yZ2vfiG4DtJ+B8Zu0OXo8/hGnpEQ4hh5fmXii7OIToiLb/kobjVKLbRqZqLQw
+	DrKkNUmRqQSH/rfZQue4ObOGnwRbT5DcWX3lqu/B6McUxQmAutOaVRhFcJ7YA/XlY8dSSn
+	PzOj3xEbM7kyJ4WWKa0jpRFGuD0bW9c0DXTh/hJCyqzX6uv7FndOC99rx4zv1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794740401;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wkA+VPYGFLuORnMAtbJKzLsvwtfdb241bM0vf1HQ6aQ=;
+	b=OhqtE2KrEI+91VlvhuX0adPeSijA+m22ZMJXkZtSWQa3eZI1Qw3SnzQ8HldS8SbCzUcoa8
+	mtykOO+L84bt0ZLpdy4qUAfbynJzcAPp+A3nBciKlE0tmVgpV7x3kijdNtBrcIkoUGw/yZ
+	GVI0qDbe2UXCPBkA6IdLvMjIYC0Ql2meCI0gthwP7xjhSZMP5OXBHLmPqLWBy3ZctNEDqV
+	QOvdG1MaU2T4yiqluBp+xzOP8nXg7i8zRF/Cw3v2sXmSACPJ4OOHAZRfyRvo/9LIS57OoR
+	hFETDHPmJvH7yuJWXGrGPvuaFstLumP9e4j1WpNcgljF4TOsEYq9/RaQukAj1Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794740401; a=rsa-sha256;
+	cv=none;
+	b=ClPViRJ1vo1HpNWcVJkJauwnTXTNMV8owgI7SD5jrVQ0E+pqNSlkIwa3DeI6oJ+2juEleM
+	aLyzZOijZ2Lm4MpI0j6GtoLjzwE6BOAFqmf/OeSVzTWP2ggLDDCWQNBJCfGpunxLcBIE0l
+	gD1jgBlrCckq0onMOlMphxPb5bBS622lCRm2WzCAa2gacxNqszdGyxjtctpfRUcBq0XG//
+	3G40/xdBCwpN5l+XleYxaUqlozpXlN1yxPJskUTvwHwIoC8a/I8rPzNWAkRleFFloLeT/c
+	+jJnzki9UXMCC5ppfHr1JZ4w4lQyq3Ce0zcLYL0o76drJ5/MxTBG8YtVY3qFRQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
+	id 06FB73815CE; Sun, 15 Nov 2026 12:00:01 +0100 (CET)
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+Date: Sun, 15 Nov 2026 11:59:51 +0100
+Subject: [PATCH net-next v2 1/3] net: dsa: microchip: ksz9477: apply a
+ shorter ageing time at once
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,176 +86,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:11cb:b0:4bc:fbd4:2a43 with SMTP id
- 5614622812f47-56e643d2026mr6364635b6e.41.1794740303299; Sun, 15 Nov 2026
- 02:58:23 -0800 (PST)
-Date: Sun, 15 Nov 2026 02:58:23 -0800
-In-Reply-To: <6ac5b02e.fe639fcc.32b100.000f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af9904f.84fe3b82.798c4.0000.GAE@google.com>
-Subject: Re: [syzbot] [bluetooth?] KASAN: slab-use-after-free Read in mesh_send_sync
-From: syzbot <syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com>
-To: hdanton@sina.com, igorpetindev@gmail.com, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, luiz.dentz@gmail.com, marcel@holtmann.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261115-ksz-stp-ageing-v2-1-7af27320033e@pengutronix.de>
+References: <20261115-ksz-stp-ageing-v2-0-7af27320033e@pengutronix.de>
+In-Reply-To: <20261115-ksz-stp-ageing-v2-0-7af27320033e@pengutronix.de>
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Arun Ramadoss <arun.ramadoss@microchip.com>, Jiri Pirko <jiri@resnulli.us>, 
+ Linus Walleij <linusw@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>, 
+ Vivien Didelot <vivien.didelot@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, 
+ =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?= <jensemil.schulzostergaard@microchip.com>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>
+X-Mailer: b4 0.14.2
 
-syzbot has found a reproducer for the following issue on:
+Pulse Fast Aging when the programmed ageing time gets shorter or the Age
+Count gets smaller.
 
-HEAD commit:    23c62304dde2 Merge tag 'for-linus-7.4a-rc3-tag' of git://g..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=17227da1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5c210800cfc8f61e
-dashboard link: https://syzkaller.appspot.com/bug?extid=f20755f37da70df33a16
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13ceb769580000
+The ageing time is Age Count times Age Period. An entry stores the Age
+Count when it is updated, as the datasheet says. The datasheet does not
+say when a new Age Period applies.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com
+Without the pulse, stale entries outlived an STP topology change. In my
+STP tests the switch ran at 300 s as 4 x 75 s, its reset value. With
+forward_delay 4 s, the bridge asks for an ageing time of 8 s. Read back
+right after the write, the register showed 8 s. In three tests, an
+entry learned before the change still stayed for more than a minute. I
+think the switch uses the new Age Period only after the running one
+ends.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in mesh_send_sync+0x3d9/0x430 net/bluetooth/mgmt.c:2343
-Read of size 1 at addr ffff88804f72623b by task kworker/u34:0/67
+The pulse is also needed when the ageing time grows but the Age Count
+shrinks. From 8 s (4 x 2 s) to 31 s (1 x 31 s), an entry stayed about
+63 s in one test.
 
-CPU: 3 UID: 0 PID: 67 Comm: kworker/u34:0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: hci0 hci_cmd_sync_work
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- mesh_send_sync+0x3d9/0x430 net/bluetooth/mgmt.c:2343
- hci_cmd_sync_work+0x1b6/0x4c0 net/bluetooth/hci_sync.c:338
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+On a KSZ9893 the pulse removed the dynamic entries on the one user port
+I tested. The new period then started right away.
 
-Allocated by task 6696:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5680
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- mgmt_mesh_add+0x54/0x410 net/bluetooth/mgmt_util.c:413
- mesh_send+0x2b4/0x770 net/bluetooth/mgmt.c:2536
- hci_mgmt_cmd net/bluetooth/hci_sock.c:1739 [inline]
- hci_sock_sendmsg+0x159f/0x26f0 net/bluetooth/hci_sock.c:1859
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:818 [inline]
- __sys_sendto+0x492/0x4e0 net/socket.c:2283
- __do_sys_sendto net/socket.c:2290 [inline]
- __se_sys_sendto net/socket.c:2286 [inline]
- __ia32_sys_sendto+0xdd/0x1b0 net/socket.c:2286
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x14d/0x8e0 arch/x86/entry/syscall_32.c:286
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:311
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+I found this in STP tests on a KSZ9893. I tested the fix there with
+kernel STP and with STP off. With mstpd I checked only the programmed
+ageing time, not the FDB.
 
-Freed by task 67:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2780 [inline]
- slab_free mm/slub.c:6630 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6923
- mesh_send_complete net/bluetooth/mgmt.c:1095 [inline]
- mesh_send_start_complete+0x1a1/0x210 net/bluetooth/mgmt.c:2319
- hci_cmd_sync_work+0x20a/0x4c0 net/bluetooth/hci_sync.c:340
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Fixes: 2c119d9982b1 ("net: dsa: microchip: add the support for set_ageing_time")
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+---
+Changes in v2:
+- Fix the tense in the comment (Andrew)
+- Add new_period, and compute old_secs next to new_secs
+- Rephrase the comments and the commit message
+- Add a Fixes tag
+---
+ drivers/net/dsa/microchip/ksz9477.c | 41 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 36 insertions(+), 5 deletions(-)
 
-The buggy address belongs to the object at ffff88804f726200
- which belongs to the cache kmalloc-96 of size 96
-The buggy address is located 59 bytes inside of
- freed 96-byte region [ffff88804f726200, ffff88804f726260)
+diff --git a/drivers/net/dsa/microchip/ksz9477.c b/drivers/net/dsa/microchip/ksz9477.c
+index 8d4647e23cda153bc68255a44c44e0d1d92469f9..a9d701f0404a706e6ad2a6faa2f57dbe28d383c2 100644
+--- a/drivers/net/dsa/microchip/ksz9477.c
++++ b/drivers/net/dsa/microchip/ksz9477.c
+@@ -1289,13 +1289,16 @@ static void ksz9477_phylink_get_caps(struct dsa_switch *ds, int port,
+ 	ksz_phylink_get_caps(ds, port, config);
+ }
+ 
++/* The datasheet gives no pulse length. A 2 ms pulse worked on a KSZ9893. */
++#define KSZ9477_FAST_AGE_PULSE_US	(2 * USEC_PER_MSEC)
++
+ static int ksz9477_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+ {
++	u8 data, mult, value, old_period, new_period;
+ 	struct ksz_device *dev = ds->priv;
++	u32 old_secs, new_secs, max_val;
+ 	u32 secs = msecs / 1000;
+-	u8 data, mult, value;
+-	u32 max_val;
+-	int ret;
++	int ret, err;
+ 
+ #define MAX_TIMER_VAL	((1 << 8) - 1)
+ 
+@@ -1314,6 +1317,10 @@ static int ksz9477_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = ksz_read8(dev, REG_SW_LUE_CTRL_3, &old_period);
++	if (ret < 0)
++		return ret;
++
+ 	/* Check whether there is need to update the multiplier. */
+ 	mult = FIELD_GET(SW_AGE_CNT_M, value);
+ 	max_val = MAX_TIMER_VAL;
+@@ -1336,8 +1343,32 @@ static int ksz9477_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+ 			return ret;
+ 	}
+ 
+-	value = DIV_ROUND_UP(secs, data);
+-	return ksz_write8(dev, REG_SW_LUE_CTRL_3, value);
++	new_period = DIV_ROUND_UP(secs, data);
++	ret = ksz_write8(dev, REG_SW_LUE_CTRL_3, new_period);
++	if (ret < 0)
++		return ret;
++
++	/* data is the new Age Count and mult is the old one. An entry
++	 * stores the Age Count when it is updated. The datasheet does not
++	 * say when a new Age Period applies. On a KSZ9893, entries outlived
++	 * the new ageing time after it got shorter, and after the Age Count
++	 * got smaller. Pulse Fast Aging in both cases. On a KSZ9893 the
++	 * pulse removes the dynamic entries (checked on one user port) and
++	 * starts the new period.
++	 */
++	old_secs = mult * old_period;
++	new_secs = data * new_period;
++	if (new_secs >= old_secs && data >= mult)
++		return 0;
++
++	ret = ksz_rmw8(dev, REG_SW_LUE_CTRL_1, SW_FAST_AGING, SW_FAST_AGING);
++	if (!ret)
++		fsleep(KSZ9477_FAST_AGE_PULSE_US);
++
++	/* Clear the bit even after an error. */
++	err = ksz_rmw8(dev, REG_SW_LUE_CTRL_1, SW_FAST_AGING, 0);
++
++	return ret ?: err;
+ }
+ 
+ void ksz9477_port_queue_split(struct ksz_device *dev, int port)
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88804f726c80 pfn:0x4f726
-flags: 0x4fff00000000200(workingset|node=1|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 04fff00000000200 ffff88801d442280 ffffea000114bb10 ffffea000105ef90
-raw: ffff88804f726c80 000000000020001e 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 37, tgid 37 (kworker/u33:0), ts 11020237037
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1860
- prep_new_page mm/page_alloc.c:1868 [inline]
- get_page_from_freelist+0xdae/0x2c80 mm/page_alloc.c:3950
- __alloc_frozen_pages_noprof+0x2ad/0x31e0 mm/page_alloc.c:5492
- alloc_slab_page mm/slub.c:3384 [inline]
- allocate_slab mm/slub.c:3499 [inline]
- new_slab+0xb1/0x6d0 mm/slub.c:3550
- refill_objects+0xe3/0x410 mm/slub.c:7539
- refill_sheaf mm/slub.c:2917 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4811
- alloc_from_pcs mm/slub.c:4887 [inline]
- slab_alloc_node mm/slub.c:5021 [inline]
- __kmalloc_cache_node_noprof+0x517/0x710 mm/slub.c:5695
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- __get_vm_area_node+0x124/0x350 mm/vmalloc.c:3270
- __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4112
- __vmalloc_node_noprof+0xad/0xf0 mm/vmalloc.c:4213
- alloc_thread_stack_node kernel/fork.c:359 [inline]
- dup_task_struct kernel/fork.c:931 [inline]
- copy_process+0x80b/0x88e0 kernel/fork.c:2150
- kernel_clone+0x176/0x9d0 kernel/fork.c:2798
- user_mode_thread+0xd1/0x120 kernel/fork.c:2875
- call_usermodehelper_exec_work kernel/umh.c:169 [inline]
- call_usermodehelper_exec_work+0xcb/0x180 kernel/umh.c:155
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
-page last free pid 37 tgid 37 ts 11020040140 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1402 [inline]
- __free_frozen_pages+0x7b1/0x10f0 mm/page_alloc.c:2958
- ___free_pages_bulk mm/kasan/shadow.c:333 [inline]
- __kasan_populate_vmalloc_do mm/kasan/shadow.c:385 [inline]
- __kasan_populate_vmalloc+0x164/0x210 mm/kasan/shadow.c:424
- kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
- alloc_vmap_area+0x963/0x2bc0 mm/vmalloc.c:2151
- __get_vm_area_node+0x1ed/0x350 mm/vmalloc.c:3281
- __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4112
- __vmalloc_node_noprof+0xad/0xf0 mm/vmalloc.c:4213
- alloc_thread_stack_node kernel/fork.c:359 [inline]
- dup_task_struct kernel/fork.c:931 [inline]
- copy_process+0x80b/0x88e0 kernel/fork.c:2150
- kernel_clone+0x176/0x9d0 kernel/fork.c:2798
- user_mode_thread+0xd1/0x120 kernel/fork.c:2875
- call_usermodehelper_exec_work kernel/umh.c:169 [inline]
- call_usermodehelper_exec_work+0xcb/0x180 kernel/umh.c:155
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+-- 
+2.47.3
 
-Memory state around the buggy address:
- ffff88804f726100: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
- ffff88804f726180: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
->ffff88804f726200: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                                        ^
- ffff88804f726280: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
- ffff88804f726300: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
-==================================================================
