@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794731876;
-	b=eHhI85c/h9Sz1meqUKaiymCfJe+MOU/v/GexGdQCSFLy7U/BmwrNcGp2rYpBIVvisAnE
-	 L5dYAow13dPflybNz3hvm7jyvUmoaM0iFLoEK6LJs0LzqYW+pPaoWtMW2+rSgLa6LPi6s
-	 ptaQzGFLbvy/ySNR6zKSJ3/Ez1oDpPArWtYTrrP/ba+8nOZwBAvKDa+iyUh4RH50Kzp96
-	 gFh85Df2uah1I2WFUb85IkS5JA+wseSMKdIyhQzUlF6TorOLXUsvVBizgLp70ESf00hoq
-	 zJgbwAky9e4HgiqEVb52pxfYbtPq3RD6LIJR2l/N7vs40ip6U9bTqR80dCiUumDnYiw==
+	t=1794731879;
+	b=OeMUNTrOCwQtzT81rD9zM94fQVAnD6VxN37SkxZcv6dPVFZWu3zGYSKo/0bfUjHK5+Uw
+	 f7YU3IsTMIdGWs2fq77dNkdbux+wcVhr6PZP/70P4eqz7zPK47V1UGuJyGlaSnyWnUfR/
+	 3jWuKCYiHH8J3S5A0pR1ArRYFWGN6idUULJXAvJUa5Q3PUpjY9gON9M643LrlUdsSUJZd
+	 ht4Ga2jr0sFxWaqwOV777rCj6mimM6tLCtt16TdYagNjJ1XDQw6CzLfgy+3ysYrgr5UCJ
+	 Dg336Wd8JpXpwOsu8vRsDtczzhUHQvdBKZzdSAvSgUKif8Cs3nv6LQ204rxjJQiI2Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794731876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794731879;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ux5NGbtqF+gagUInPGtsI7+EDxIceF6FofSlZy2J8g8=;
-	b=ML4jSWERaIwzxUpoi4+qZ9QrvQR2pdl8r91GzMavEROieiLqq8iyPbjEGXm2sEYERe3t
-	 2Fv1aXy71N0D7rdGHstZ8Ng+jz4oTlE948a88r8ALNsLu/a5IaHPB2CmeiZxkx3qh09/A
-	 Tkfo2uod+ZxOA0L8MclV7CYgqGI3Vkv5Y9JmPBJin2NOTAAuPHi1r060qqjH2bwg+8Byq
-	 u2t6qGdJoRBOLfP4Cgfkqtgykm6RzqA34br+LCxZ1WKr+nC3qi2fp866gOhmocEIzG/1m
-	 cOnA4muG+EZtCgkt/81+IOg/3zQBpFiWYIo0u+Ki9EPf6g6WmZkM1sZVyrdziQEkRZg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=jtbqpR4PVOYpBoo8BS7ac5grEKA6PA4yUOvkcxAWBqE=;
+	b=iJc1KVtRiblolxY7dBmYn5slJsmPu929rGmjlG110WzYIVVhppDqzPoo28rHqf6B0m99
+	 JFCsgtKpBDp/HuvBFCqKdnh0kRm55CHXD4Se4GDuhJdoXDGfcnK6sNPMztKecBohzlFld
+	 +UmPFrViffYHrxMNphRvRdpgs7sQs5K7G7bZACtSgbZaRrKCStSUY0uTsUFImklZys+WC
+	 0+eVPvxm9ss59HAqd0naqJf2r1uYLEeLVs8nuDROQCyT/Qy6Rkf9rsT+5Nv45douTfcvz
+	 hps8ydKe27D5IUwFcgzgZdvOUXEGwkj9RwghfmD6l0cW89OWsZ2pZMWfQbGsPKcnzuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zB5gkDW1;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xSWolltU;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F76606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:37:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04F76606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8A4606A33E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC8A4606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zB5gkDW1
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c505186727fso443356966b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:37:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xSWolltU
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4322d310e7so491324266b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:37:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794731874; x=1795336674; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ux5NGbtqF+gagUInPGtsI7+EDxIceF6FofSlZy2J8g8=;
-        b=zB5gkDW1BqXh1JNvLccWrWrGO3i5x3t/XGqujrE9aStiElStX+CTSJLCXROTO01pkX
-         leRQ8gKHYsQUQqYjgcBGYqxVVnmO0t2Eq6WtTqBGFpBMcL0344Xr4SqRkrX0BeHr8p6w
-         V1IKWXxIc4YKyfdS0U4kmaqQovnl9QZN2WWSEl43ISd5+P9aqjEYKV6+aaRCeCzdkM4z
-         4ea/tVNnxTyBzZ8MntZTwqHaY0qdZ7C2L3/7a+VL/zkTIEsS//Q3S2gWY7Yhol/Vwnoc
-         r/EoCDlXpFauYAQLNdoLdb8kG7Suk10lneEhlTKgY8qt+cN2wTGrLw+PRkeQS412oB69
-         v8Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794731874; x=1795336674;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794731877; x=1795336677; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ux5NGbtqF+gagUInPGtsI7+EDxIceF6FofSlZy2J8g8=;
-        b=FNPxBAd78NCSxf+GTWBQD44QARnajCWHeJ+ZM8IRg4tuXnb6WSipSehL0RDvgEkSvX
-         26TwyrdDlcSjxQA+TS55jHUQPip5MCetdEjGjAyKUPHQfUsQIDnZBHPIPjnkpAejGrp3
-         jmbzU0upNeYxj48GTm4VijcfdajYBheZsHOazR56kJY1c9WkqpQiRDUGt0TPQMCbMqsr
-         R74cXFhhZjLGjqXzK2DO2c3kpJGTF6lDxFxrlZqL4oL5igszjsjg+ScLiSBvIxwaXl00
-         cImRv/c6R81jj81Xfb06U4peC8NMomGkAn1CTPryCe5FdsGCMyQa1jgXD+001P3Yx/0q
-         YznQ==
-X-Forwarded-Encrypted: i=1; AL+hErEmBuimpfQKmCU7YZPb8XTasxqDZnUrdpmc3brNNvk9JRbzHCMm3vE407ZxNZJ1292FeZBxOEkEv2gZLA0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3z2Vq+fbrrM4tWD6CaHQzrtcVE5K3HEwgzxVimQF8so7z8pMA
-	JqZq376OJzwRoUB9jwwvKKK+kdCQ2FlG3g2x7VMhmeMiN6jQLZQyUpcl
-X-Gm-Gg: AYBFou3AAIrn40k5TTFQmOCcy9j91ptXmIAnUtV5y6Pqe8td6L5bKUcr7akMeZ/xLxf
-	i+KKxCp+dSU4tLnVlcnS/fnTwHTd13Wbo663kw41W3E+DE5bfxMJy93kSqpLjs47h5DTtAF1E/Y
-	UNcxN9WY5cgWMjXoyGBhp1DADHTPk8fdrAI9vTfJHouvlzJmH4vU/HpaU5QSU/pkQULCW+LbbTF
-	xs0winM9ZssZyyHqPEE0RmPX7Vdmq7Qi+fyQstQjDPGQMXEVFiukQIf/gif+7I4ABafEhblphxk
-	4DyEx/1RA3tcumjQUHgvf3JVM5FrD5zUq/khn5/8nvrIk69qfJnBr0shc7a++OjuWI7HgFz8pIa
-	ovRpXx0YnsJI4twmSMjTawQl6j+oFZikU88gtfmG5ImtLe0KtiBNMSB1HIzVzelW1zTn7rqKVrc
-	rYxaCcBUFQqMUX4stzLuqj54jKqdEIOKH3C13pPv4yxdevc8SsTJjm29tGdm+KqEAwc0ZI3bgc4
-	jvtMJEBxaSLfs74QigAlWrzLJbFGX0Ow29wWfReA/9ihFtPSHt1mH/TanSCrnlARkOp8xjS4sqJ
-	+vdsxFSQ8qn8MNiHm2/vvyAty23R+7a6NxRyym+dSxQxxHISbTyKyP9bE6ZKNYd9YpGXm0ggKBE
-	/57iAucOH/VTJWWouYwG7q0Vu2xLQ3gg=
-X-Received: by 2002:a17:906:c14f:b0:c50:5a51:632f with SMTP id a640c23a62f3a-c50963ce147mr624639366b.39.1794731874281;
-        Sun, 15 Nov 2026 00:37:54 -0800 (PST)
+        bh=jtbqpR4PVOYpBoo8BS7ac5grEKA6PA4yUOvkcxAWBqE=;
+        b=xSWolltUx0cu9rG0v3Gwyfon4ESyDGwACQeay5cjvh3GLW5ysHvcrsvGNJmpi1pFhI
+         CtveyAbd/zl5WNXbKMS4atuvD1OWiwkCLcaKX7v2hDVoypIf7VinfoXLqSJ/vxKcoRqs
+         TPResK1jWndOW+X8QsW8CthUkAPmxTQ86xu6s6Euy+0dnqLYPXHZTqgWKnPgq9ZiJMJ5
+         IIw1Jgbm9RsPmViiz8YJTsXHIM4ApWGVBfhOh04HZLqDZL30hwo4tw0TjZUVzoI04Bjc
+         Kh9fPNTgtdEMCZhOEA5ISYz0GCr/UIjtPAxly/xAM8QgxWHowoeEPk5cO8Bs5TkPTg+5
+         vj0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794731877; x=1795336677;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jtbqpR4PVOYpBoo8BS7ac5grEKA6PA4yUOvkcxAWBqE=;
+        b=bhhYte3IV7SS389hXxiSWNoOzuW3V4pABzRv7wmkg921xHlu8DmhKlVqYMk9xWCVux
+         n3HE0OtuoPdXIL6ZU0MGPBFoAkJp/4r9CKAdXShj9+2kkb4MOXWC+ud45LdoYI23zBX6
+         cJhhK7d29Z670z3LyJnDeLc2Bvf3pIKM3FW5XEpCHajKMuWQA1FDAyl1fDaNTQIhg7rW
+         fa1cZ0KFM7uRTBqwoej34UW9v1FQum7Mnbjdl6jKzTDmEYgQCI1iTfB9nM6jImAO2Tw8
+         2Yh5zsrpamvTM8WjHNLH4VxU0/OqOiOjjssEhX5KEBDsHTkxZJ9JS3MzzdbUJUuPmdS7
+         pPog==
+X-Forwarded-Encrypted: i=1; AL+hErEuMPkNkU1lucgGxtgy8KuZLg9lBDq4tz+rHfg8+6StGj0a2VNTsSDcnSRdziFPgELIrODIYAcUen0TIic=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/q/09FfvUkWrZArmg73+UT6wkO+UYDEK7/3SFsoyLxu8iUe0sE
+	xJU+ZQBLvaZ3KJ1Pq/g3aYdgNB4FEuHSO+W6JBqzIBR1z5WoEblFSPR3
+X-Gm-Gg: AYBFou0+0/oeptqEYgWFM+R+LwucMzLr4DuFjYZBxSK7Kwbh5SdzhZk/hxt2UMvoFfL
+	2MvozwazudlNaSy6FfLQebEFz3LkEqrfLbEQKynxrIvam9/J/MY2kWPOMtn8yvvfG/YWgtwIsV6
+	zXC0h+IV1zRjnQxOCxoNpKTJU6C3zeaUpkj2OhZTUP29ewSqTKyy0l+LLa1MuSpiWofcjpZCW5V
+	g1r62VglUNNG03QYWwOBYvzC90tD+cfm7lOytsIJ+G6e3ov6j+btgxpnF+9ptf2u0wwmZxiomn8
+	Oy8yVNlCCCUx+QiyMOiuoJQG00Ta+kJ2JxsWpzb4ZP0eor9VBrP4CsZrEUj5Z2dgJw2dzJff8ys
+	TCef2sMvVi+/JINHqmub8DxoaKevACGbu7FIUiqwe8RWh13wmzvEsOzM5gUMsVjZT7+bcwRxsww
+	gyv6ACvGVA/oP6dvYA0BKEUmlj/exJ5Bqy3FxtcEbXraGvfPgdAixgxsnOibD6I8k/7lHxp1tl3
+	6vextKX5mf0XfhIDWQ3F+M8FDpDsSy8pxi0dTmkZh6dJ9/gqq8tW7r5kbj0EocchrAx1oPgel2y
+	IhZ0e+mFoXpOgDTHz82CWhFgAJeARzPcSqFkMyIm+pqIzmZix0BT+OwT7u/4DTbHRAqWRhhPhJp
+	vBvEtv8Nlx/yir30UdXcxMs9gKOzap8E=
+X-Received: by 2002:a17:907:8687:b0:c4c:eb16:b567 with SMTP id a640c23a62f3a-c50963114ccmr577809566b.19.1794731877111;
+        Sun, 15 Nov 2026 00:37:57 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5ad9esm284815666b.2.2026.11.15.00.37.49
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5ad9esm284815666b.2.2026.11.15.00.37.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:37:52 -0800 (PST)
+        Sun, 15 Nov 2026 00:37:55 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -97,10 +98,12 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/4] iio: light: ltr501: Add LTR-659PS-01 prox sensor support
-Date: Sun, 15 Nov 2026 10:37:37 +0200
-Message-ID: <20261115083741.62140-1-clamor95@gmail.com>
+Subject: [PATCH v4 1/4] iio: light: ltr501: Switch to read_avail() op from manual attribute registration
+Date: Sun, 15 Nov 2026 10:37:38 +0200
+Message-ID: <20261115083741.62140-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261115083741.62140-1-clamor95@gmail.com>
+References: <20261115083741.62140-1-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,47 +115,352 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
-nearly identical to the LTR-559ALS-01, but omits all elements related to
-ambient light sensing.
+Switch to the read_avail() operation from manual attribute group
+registration. This eliminates the need for per-chip attribute_group
+structures and related ltr501_chip_info iio_info entries.
 
+Adjust LTR501_INTENSITY_CHANNEL to account for the new
+info_mask_*_available layout, allowing the removal of _shared since all
+intensity channels share the same layout of available entries.
+
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- set IIO_PROXIMITY channel to scan_index 2 since driver will not handle other
-  id properly
-- add IIO_CHAN_INFO_SAMP_FREQ for IIO_PROXIMITY channel
-- isolate missed ALS register calls
-- add commit to use read_avail operation
-- convert to use modern chip info match
+ drivers/iio/light/ltr501.c | 193 +++++++++++++++----------------------
+ 1 file changed, 77 insertions(+), 116 deletions(-)
 
-Changes in v3:
-- LTR501_INTENSITY_CHANNEL macro adjusted to set predefined info_mask_shared_by_type,
-  info_mask_shared_by_type_available and info_mask_shared_by_all_available
-- added info_mask_separate_available and info_mask_shared_by_all_available to
-  proximity channel
-- fixed IIO_CHAN_INFO_SCALE for IIO_INTENSITY since table has -1 entries
-- fixed indio_dev->name asignment
-- dropped ltr501_has_als_support helper
-- fixed channel finding in ltr501_trigger_handler
-- isolated more accesses to ALS registers if no_als_support is enabled
-
-Changes in v4:
-- adjusted intensity scale passing
-- int_time and samp_freq converted into 2d arrays
-- for_each_set_bit() + iio_find_channel_from_si() > iio_for_each_active_channel()
----
-
-Svyatoslav Ryhel (4):
-  iio: light: ltr501: Switch to read_avail() op from manual attribute
-    registration
-  iio: light: ltr501: Switch to modern match mechanism
-  dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
-  iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
-
- .../bindings/iio/light/liteon,ltr501.yaml     |   1 +
- drivers/iio/light/ltr501.c                    | 425 +++++++++---------
- 2 files changed, 209 insertions(+), 217 deletions(-)
-
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index 24733607d1b49..3662aed5225bc 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -133,6 +133,22 @@ static const struct ltr501_gain ltr559_ps_gain_tbl[] = {
+ 	{0, 15624},
+ };
+ 
++static const int int_time_avail[][2] = {
++	{ 0, 50000 },
++	{ 0, 100000 },
++	{ 0, 200000 },
++	{ 0, 400000 },
++};
++
++static const int samp_freq_avail[][2] = {
++	{ 20, 0 },
++	{ 10, 0 },
++	{ 5,  0 },
++	{ 2,  0 },
++	{ 1,  0 },
++	{ 0,  500000 },
++};
++
+ struct ltr501_chip_info {
+ 	u8 partid;
+ 	const struct ltr501_gain *als_gain;
+@@ -145,8 +161,6 @@ struct ltr501_chip_info {
+ 	bool no_irq_support;
+ 	struct iio_chan_spec const *channels;
+ 	const int no_channels;
+-	const struct iio_info *info;
+-	const struct iio_info *info_no_irq;
+ };
+ 
+ struct ltr501_data {
+@@ -164,6 +178,8 @@ struct ltr501_data {
+ 	struct regmap_field *reg_als_prst;
+ 	struct regmap_field *reg_ps_prst;
+ 	uint32_t near_level;
++	struct ltr501_gain als_gain_tbl[ARRAY_SIZE(ltr559_als_gain_tbl)];
++	u32 als_gain_tbl_len;
+ };
+ 
+ static const struct ltr501_samp_table ltr501_als_samp_table[] = {
+@@ -582,14 +598,18 @@ static const struct iio_event_spec ltr501_pxs_event_spec[] = {
+ 	},
+ };
+ 
+-#define LTR501_INTENSITY_CHANNEL(_idx, _addr, _mod, _shared, \
+-				 _evspec, _evsize) { \
++#define LTR501_INTENSITY_CHANNEL(_idx, _addr, _mod, _evspec, _evsize) { \
+ 	.type = IIO_INTENSITY, \
+ 	.modified = 1, \
+ 	.address = (_addr), \
+ 	.channel2 = (_mod), \
+ 	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+-	.info_mask_shared_by_type = (_shared), \
++	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) | \
++				    BIT(IIO_CHAN_INFO_INT_TIME) | \
++				    BIT(IIO_CHAN_INFO_SAMP_FREQ), \
++	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE), \
++	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) | \
++					     BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+ 	.scan_index = (_idx), \
+ 	.scan_type = { \
+ 		.sign = 'u', \
+@@ -609,19 +629,18 @@ static const struct iio_event_spec ltr501_pxs_event_spec[] = {
+ 
+ static const struct iio_chan_spec ltr501_channels[] = {
+ 	LTR501_LIGHT_CHANNEL(),
+-	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH, 0,
++	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH,
+ 				 ltr501_als_event_spec,
+ 				 ARRAY_SIZE(ltr501_als_event_spec)),
+-	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR,
+-				 BIT(IIO_CHAN_INFO_SCALE) |
+-				 BIT(IIO_CHAN_INFO_INT_TIME) |
+-				 BIT(IIO_CHAN_INFO_SAMP_FREQ),
+-				 NULL, 0),
++	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR, NULL, 0),
+ 	{
+ 		.type = IIO_PROXIMITY,
+ 		.address = LTR501_PS_DATA,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+ 			BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) |
++						     BIT(IIO_CHAN_INFO_SAMP_FREQ),
+ 		.scan_index = 2,
+ 		.scan_type = {
+ 			.sign = 'u',
+@@ -638,14 +657,10 @@ static const struct iio_chan_spec ltr501_channels[] = {
+ 
+ static const struct iio_chan_spec ltr301_channels[] = {
+ 	LTR501_LIGHT_CHANNEL(),
+-	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH, 0,
++	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH,
+ 				 ltr501_als_event_spec,
+ 				 ARRAY_SIZE(ltr501_als_event_spec)),
+-	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR,
+-				 BIT(IIO_CHAN_INFO_SCALE) |
+-				 BIT(IIO_CHAN_INFO_INT_TIME) |
+-				 BIT(IIO_CHAN_INFO_SAMP_FREQ),
+-				 NULL, 0),
++	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR, NULL, 0),
+ 	IIO_CHAN_SOFT_TIMESTAMP(2),
+ };
+ 
+@@ -1111,111 +1126,56 @@ static int ltr501_write_event_config(struct iio_dev *indio_dev,
+ 	return -EINVAL;
+ }
+ 
+-static ssize_t ltr501_show_proximity_scale_avail(struct device *dev,
+-						 struct device_attribute *attr,
+-						 char *buf)
++static int ltr501_read_avail(struct iio_dev *indio_dev,
++			     struct iio_chan_spec const *chan,
++			     const int **vals, int *type, int *length, long mask)
+ {
+-	struct ltr501_data *data = iio_priv(dev_to_iio_dev(dev));
++	struct ltr501_data *data = iio_priv(indio_dev);
+ 	const struct ltr501_chip_info *info = data->chip_info;
+-	ssize_t len = 0;
+-	int i;
+ 
+-	for (i = 0; i < info->ps_gain_tbl_size; i++) {
+-		if (info->ps_gain[i].scale == LTR501_RESERVED_GAIN)
+-			continue;
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%d.%06d ",
+-				 info->ps_gain[i].scale,
+-				 info->ps_gain[i].uscale);
+-	}
+-
+-	buf[len - 1] = '\n';
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE:
++		if (chan->type == IIO_INTENSITY) {
++			*length = data->als_gain_tbl_len;
++			*vals = (const int *)data->als_gain_tbl;
++		} else {
++			*length = info->ps_gain_tbl_size * 2;
++			*vals = (const int *)info->ps_gain;
++		}
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		return IIO_AVAIL_LIST;
+ 
+-	return len;
+-}
++	case IIO_CHAN_INFO_INT_TIME:
++		*vals = (const int *)int_time_avail;
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		*length = ARRAY_SIZE(int_time_avail) * 2;
++		return IIO_AVAIL_LIST;
+ 
+-static ssize_t ltr501_show_intensity_scale_avail(struct device *dev,
+-						 struct device_attribute *attr,
+-						 char *buf)
+-{
+-	struct ltr501_data *data = iio_priv(dev_to_iio_dev(dev));
+-	const struct ltr501_chip_info *info = data->chip_info;
+-	ssize_t len = 0;
+-	int i;
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		*vals = (const int *)samp_freq_avail;
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		*length = ARRAY_SIZE(samp_freq_avail) * 2;
++		return IIO_AVAIL_LIST;
+ 
+-	for (i = 0; i < info->als_gain_tbl_size; i++) {
+-		if (info->als_gain[i].scale == LTR501_RESERVED_GAIN)
+-			continue;
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%d.%06d ",
+-				 info->als_gain[i].scale,
+-				 info->als_gain[i].uscale);
++	default:
++		return -EINVAL;
+ 	}
+-
+-	buf[len - 1] = '\n';
+-
+-	return len;
+ }
+ 
+-static IIO_CONST_ATTR_INT_TIME_AVAIL("0.05 0.1 0.2 0.4");
+-static IIO_CONST_ATTR_SAMP_FREQ_AVAIL("20 10 5 2 1 0.5");
+-
+-static IIO_DEVICE_ATTR(in_proximity_scale_available, S_IRUGO,
+-		       ltr501_show_proximity_scale_avail, NULL, 0);
+-static IIO_DEVICE_ATTR(in_intensity_scale_available, S_IRUGO,
+-		       ltr501_show_intensity_scale_avail, NULL, 0);
+-
+-static struct attribute *ltr501_attributes[] = {
+-	&iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
+-	&iio_dev_attr_in_intensity_scale_available.dev_attr.attr,
+-	&iio_const_attr_integration_time_available.dev_attr.attr,
+-	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+-	NULL
+-};
+-
+-static struct attribute *ltr301_attributes[] = {
+-	&iio_dev_attr_in_intensity_scale_available.dev_attr.attr,
+-	&iio_const_attr_integration_time_available.dev_attr.attr,
+-	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+-	NULL
+-};
+-
+-static const struct attribute_group ltr501_attribute_group = {
+-	.attrs = ltr501_attributes,
+-};
+-
+-static const struct attribute_group ltr301_attribute_group = {
+-	.attrs = ltr301_attributes,
+-};
+-
+ static const struct iio_info ltr501_info_no_irq = {
+ 	.read_raw = ltr501_read_raw,
+ 	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr501_attribute_group,
++	.read_avail = ltr501_read_avail,
+ };
+ 
+ static const struct iio_info ltr501_info = {
+ 	.read_raw = ltr501_read_raw,
+ 	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr501_attribute_group,
+-	.read_event_value	= &ltr501_read_event,
+-	.write_event_value	= &ltr501_write_event,
+-	.read_event_config	= &ltr501_read_event_config,
+-	.write_event_config	= &ltr501_write_event_config,
+-};
+-
+-static const struct iio_info ltr301_info_no_irq = {
+-	.read_raw = ltr501_read_raw,
+-	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr301_attribute_group,
+-};
+-
+-static const struct iio_info ltr301_info = {
+-	.read_raw = ltr501_read_raw,
+-	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr301_attribute_group,
+-	.read_event_value	= &ltr501_read_event,
+-	.write_event_value	= &ltr501_write_event,
+-	.read_event_config	= &ltr501_read_event_config,
+-	.write_event_config	= &ltr501_write_event_config,
++	.read_avail = ltr501_read_avail,
++	.read_event_value = &ltr501_read_event,
++	.write_event_value = &ltr501_write_event,
++	.read_event_config = &ltr501_read_event_config,
++	.write_event_config = &ltr501_write_event_config,
+ };
+ 
+ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+@@ -1226,8 +1186,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0) | BIT(1),
+ 		.als_gain_mask = BIT(3),
+ 		.als_gain_shift = 3,
+-		.info = &ltr301_info,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1238,8 +1196,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0),
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+-		.info = &ltr301_info,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1251,7 +1207,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+ 		.no_irq_support = true,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1264,8 +1219,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0) | BIT(1),
+ 		.als_gain_mask = BIT(3),
+ 		.als_gain_shift = 3,
+-		.info = &ltr501_info,
+-		.info_no_irq = &ltr501_info_no_irq,
+ 		.channels = ltr501_channels,
+ 		.no_channels = ARRAY_SIZE(ltr501_channels),
+ 	},
+@@ -1278,8 +1231,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0),
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+-		.info = &ltr501_info,
+-		.info_no_irq = &ltr501_info_no_irq,
+ 		.channels = ltr501_channels,
+ 		.no_channels = ARRAY_SIZE(ltr501_channels),
+ 	},
+@@ -1450,6 +1401,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 	const void *ddata = NULL;
+ 	int partid, chip_idx;
+ 	const char *name;
++	int j = 0;
+ 	int ret;
+ 
+ 	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
+@@ -1548,7 +1500,16 @@ static int ltr501_probe(struct i2c_client *client)
+ 				     &data->near_level))
+ 		data->near_level = 0;
+ 
+-	indio_dev->info = data->chip_info->info;
++	for (int i = 0; i < data->chip_info->als_gain_tbl_size; i++) {
++		if (data->chip_info->als_gain[i].scale == LTR501_RESERVED_GAIN)
++			continue;
++
++		data->als_gain_tbl[j++].scale = data->chip_info->als_gain[i].scale;
++		data->als_gain_tbl[j++].uscale = data->chip_info->als_gain[i].uscale;
++	}
++	data->als_gain_tbl_len = j;
++
++	indio_dev->info = &ltr501_info;
+ 	indio_dev->channels = data->chip_info->channels;
+ 	indio_dev->num_channels = data->chip_info->no_channels;
+ 	indio_dev->name = name;
+@@ -1573,7 +1534,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 		if (ret)
+ 			goto powerdown_on_error;
+ 	} else {
+-		indio_dev->info = data->chip_info->info_no_irq;
++		indio_dev->info = &ltr501_info_no_irq;
+ 	}
+ 
+ 	ret = iio_triggered_buffer_setup(indio_dev, NULL,
 -- 
 2.53.0
 
