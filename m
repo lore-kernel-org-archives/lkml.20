@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743770;
-	b=qDM2c6KBeV0IAxb6dwT5GGr2sEhD8qAU1SjUE2pQJNFqt5iqUmgGKhkxpHiEL0/SzVQ5
-	 XKVjJEZVXWw1bIw/4erMcJoDnqBB2rRTVdiDNY9ob9dAOegZLXB9tCsFl+BDMxIhAcQyZ
-	 QI3gq8xosK9RGvM9soUXqga+uRkq9q/1806951UkCCD9hBZUFfWh+d5B03i9EJceXqGJT
-	 6vZq8ycip2JRJnY4sr5LB0xF/h3IUZxk9KsgyxdXgX/CffR7DLkif4l+V/7FSc6TTZfVY
-	 45Vg/DwPDtrnuVbmQVzH0ZmMNtB3z0NJVdZb/OY6FjchH5ty+Q/VVwUKjGZpRX4tIEw==
+	t=1794743775;
+	b=Oz1h5nJRx0fflNUa5uVlXvmG0fnP4Ka4U1JOyc4gu4eiKHdp8dsEdUH3PctHjFKUTlw+
+	 N/mfiAAoGiyLqF3QVsR28lvH8uqHNnvE25XRip/9dnNKA2sEGZFJRD/SbeQY6RmjIW6i3
+	 lBP2NmcFr66aKGTHRtt0nkGsDdXR1lsTdZf2iqE1EPfgPnomBEcaFdK+0kfmWP8xqIGXo
+	 JItXOCrGWiGNM9twVfCP7yf1wUXQFoexJYFW6au1/ZcVa/Dk1gEPizl0cve4ZDnlLacyO
+	 arF6jLjAT2cuqyI58nGyV5PYD4h/47HDmpMmCeinMIMDEd1vX1Rx6AQYfPlY4ht3wmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743775;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=a5UPKbjeaPw7wY9xTmJ9YNuUlgr3mb8CPRr9BZb3ueU=;
-	b=aXICkadJAhxwC21ULYTsHu2O2SSQZf78ciuL5HCR8daz8q1Zv3JSdP8yLK6M0MpOzTiL
-	 OtnCAVM96VRy2jry1/K/8RcEhL2/ut8jc74t33+XM1jzxW7g+zQ6atc8nhMEjXcVg4RZu
-	 kcht6lT4QfIt1aXztSM+5xIU0R7qf352UMvevuqT5k3Tg3Iw3lkz4ppfPJbIshFe9QJDx
-	 3QMKdA2/V96+lYMt3yhz+sOOZpe7hDXT7wSgxmBe87TYl9YA6XHD3GoNiebRw2FbGdZVH
-	 D9AAICRfGb07xCxkESxHGEfhfj8X+AcVBUUwCCFzCdDIECtGHdMbHGxHnQkh/OxFc2g==
+	bh=hfpuaPUeNzYRX/a4bpteWtQm3HZVKHFNeVxpDys+fxs=;
+	b=16vgw4pYOyeFHIAXjw2T0fhBKkJ4culc+ac5UgAyEDenguxDLURFpJnPTbpt2kU2Fp6Z
+	 h+9PPmiyHAo0XYHMn3B+auRC3G2nv6EfMuGFvlc45cJcUnH/uWEKk81oLkI6p/Dym+5rF
+	 LSphEjrDifIARzfq6D0CHYn4DsHcfiSyVbzBqPFZz6U4CaWM7PJmu2rQnt6EkEvJ/nvaM
+	 mhQS0pl3krPnYMe02+PiMgnvHX5kX5JgDb+oC4FbTZXQwRHneXaRHce977rNKoWdGVcdb
+	 ZgVcyjXze5gYOts63gXHEyMxLWAuFvSHo9bMFaBtSXrtAgx6nhX8vEthM6g+wy5CaJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tz4TNrH0;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tn9z7leD;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CE6606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5CE6606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E761606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:56:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E761606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tz4TNrH0
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso2158954a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:56:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tn9z7leD
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc758830601so2720935a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:56:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794743769; x=1795348569; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794743774; x=1795348574; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a5UPKbjeaPw7wY9xTmJ9YNuUlgr3mb8CPRr9BZb3ueU=;
-        b=Tz4TNrH0Yx0Pyd4OwiFfRzsZ7irlGRKKhBrKALoU5QPFaDkTtTriYP1WDKSh2Yd7my
-         8VKvnk0bK8yjdN1SRukUaaIDzZZFZ5YOy5XfPsZ8wjlC69QfE+QGeH4Cn9KTiV9fNPII
-         SxTCEPSM7FEeM46qWdD/OA05OdcjBVu23BWSl+KNUP7KO7VoBlOiqA6ojpfRb32sv9cC
-         px5xQKq8e1+NCAKV5oIperMHAaLk7ma/8PRR08KRk+tpASXLsB59FBS4L1zMaCNYqu3r
-         qHo04TFSoeQi9gFROKY1wgb9xh3UdzxEcRmAwVRwUFck+psQnFu7jBfa7G9hzjxz19YY
-         5IHA==
+        bh=hfpuaPUeNzYRX/a4bpteWtQm3HZVKHFNeVxpDys+fxs=;
+        b=tn9z7leDGheCOugWA/nznYEvtKxDfaiTWWpRt+sb6L8cX8DoslrAsdaNshDw1M3eQe
+         LshUpqpL7PXQ26fkmx1M4FkdqTk5Xw1T90ahYfZZB7bCawPeDqcbNPOkChmZY3Uhw+hp
+         vul99nQOgWv8Ew0qnhaAldImQFF7qqSAGMFqLFiiUtPpna2y5dRhq85lfCoZVFaHVfxI
+         X/Th+7M0La+mFt1Swom/jBlVHh+XTSiFnnWaZfbiPYkGx1wBnGd+TrOdkjIZQK6E7MZ6
+         2jc+MLYCn9zId6JW9vR/Nqdpbr/PjKLJtwnpgyPtx6fweEmXPxwZKrHqmHmfva9k7vIw
+         lznw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794743769; x=1795348569;
+        d=1e100.net; s=20260707; t=1794743774; x=1795348574;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a5UPKbjeaPw7wY9xTmJ9YNuUlgr3mb8CPRr9BZb3ueU=;
-        b=sraukHJlY4O/d6U0UJt0+EZZeMEu0qmDuIgIf1NrxYuQtdZe2Lgh/oVn/lfZzccuv8
-         1C8ufJOthPbDyQn4FzcfZxAK0HFeW/D2TeqddU5SLPhP3TzXpU7L9R1PJwuPbBi+lLwP
-         CuKh6dz+MAJ9Xor5as28dPU2ss1XqvHk6u/eFL9+xZGt11JoChOMRrHdDbRSwwceQEq6
-         +I3KhV/17YshQ+TZ3p7JC+qRiaBAMjaBObOHQ74UJNioWC9Ma47miNyRP57oa0EE8jhV
-         KTFAJtXHomEcKsG1d197SAboiD2+5IM+X5gVPihHhlovXWYHNHAzfVqaI2PLHHPlWNoY
-         zrZA==
-X-Forwarded-Encrypted: i=1; AL+hErErtSzzrTCkTBMtS/qB99AsJv3vgKDMIzYVV7D1+4zXUlouUY1MR3bzRJg6WpO+eSHF4SJLlyrERj09q6g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+uWFB3/ZI7hPL48Gyl4WSHoijzG8qzSfN2Zfgp2N+arWCdYXQK
-	M9eToPqgUoN4LjIfYZiYP22xsMSFmevXAyMHNoXv6Bv9dfnJwwGUYmK5
-X-Gm-Gg: AYBFou3IATLh+xtz7elqPCRgedqfW4GHRNgfLEjvkiErQ4NeIC60t7xkpQUfFK5CwSn
-	6WIm1ts6Oxq015PJptc/mkLPkM/zer77Gts0Z8VSnNvNf6DFcO5TuuZv02tFlMhpWfRy4X74o9M
-	xIH5ar+B+oh3db50T5EA2bw7ELtdWxsYFao4frT0a18yn1dgaGcuei+8j2tYd4m7RSNPFEAE7pF
-	G/y39wLqNFDGdRoKG1pZQxSP4frMNA3N+bEDrjb+fQkB6NVJAghdMSMb4X3WU8H9sLqAMn7ZVIo
-	yj6oYfMdTzadiQN620VevtkWcCCH/SsyFDceJmQTrkAEYbDePzEfSo6L+xmsPWMlv1a993jNbNE
-	BGfsj7CaKqMc0Jo1KF/qcwDWANR7Bng4m+opD1TapkZuUKWI8pXomGp1LSaB+pqwffxTix6v44b
-	7jSU9CmZ/DchQjLdmgfVZxLSUy5ptOex03LA0dWXCBQNoGrZBGOwaHOeus2q6l8UhXYS0crNPHr
-	PlLoD7fM4Kjh2E4QTxL/zsaxvVbm9mtLyeqlaoKPGxgdhNTBGflmyv7u+OPsE08Z0jrdWRCN3SQ
-	8/vX+bYiUJqElR1rZacfxElMUeBiQWna4jAsQGAKYdCyiAHW0lEH3swY9IYM/1iTil31F5MCHXw
-	OB8UOYIZr79SydJDL1cHMu8T/aByFF3fn3EJzTgyfprc=
-X-Received: by 2002:a17:90b:1b02:b0:3a4:b509:88bd with SMTP id 98e67ed59e1d1-3b1b087c16emr5013019a91.2.1794743769234;
-        Sun, 15 Nov 2026 03:56:09 -0800 (PST)
+        bh=hfpuaPUeNzYRX/a4bpteWtQm3HZVKHFNeVxpDys+fxs=;
+        b=tIXJm0vqYHR36doGBC5hPav+o+MYhoqQvybow5RhlJ5CZp7CVLl8biCLeZDSjeYCR6
+         G6dxlfUV6N9UZ09Sa5L2H31ddeUPc6ashrACk2sDN5KYQYBfH7iOo5iTcjBN5HSry/C4
+         wmYt7sGacDkjYTDDdtkV+Z5iH4mxX7dtuz31umEujCIxWERDPjDTDhi5yOFKDB1uNE/j
+         I2cHSkeQdkOKH81BbZfVQ9WtCzJaVDIFbD1uK3nSiN4POVPQ6IWIdEKYdfuMURNcFCpB
+         SyeskrTgOj3dD3E0sM2+B8xYJQCXiqEowGRbN243CxiWsFoNqY1LsLrgDe+1UNKzwjEv
+         jccA==
+X-Forwarded-Encrypted: i=1; AL+hErH+Wq7UEQyvqFzDSO0U7YmRNBhp8NtRJg5NdsqCDnk086Wof0NqNfgW+/F7FbLKLL8sjscxAvs9c4uaX/A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ODpXHZfyGOfAiFmfiZ9nhJ2KMgw9Po1Ilh/h+UPIemgtpNm9R
+	j+3BaLaHQz+y2CxTtc+lqeWBoB5sN8WqglxeEdv0JNdkWVMd9ntsYoRT
+X-Gm-Gg: AYBFou2HlegAAkUvkNsvg5T1mN8UX0CyEwQc4tJmseKVYB9i6sHpeBp2hQDOYZ9xUqg
+	75eadMKI4ctc8C0+9dgj5SwUAK+687e+yrmWXsG23LgsWF/krLbTIml5tM41CXf0cZBUUgkY2oL
+	m6SAmHQhY5K95FcytJmq7wg6+eTWqMbFc0hlPWnlzIEQti9IEPvp65inSg0dGAkZEcGe9z/BfVF
+	Wz7bRWhymSRa8C0PuR1JmGOi1CagUAhmiS77Bm/zAqETmP1lITktgc3L3JS8D4xEkXkBgwwFsSr
+	Y8kkCeaRvEYAvMQA3MFMI9ZoIK6NzLh6H5610I+M0zkn2t1fGACbSlPHM9g7UkOT3H9e3cxEirW
+	VQAD81wBFbclJ2NMzcL+zUI0BhkSV5SZrwPERGlBnu/PftLQze3eF+v25am0MmwjWwOG+oUuNUk
+	BKOq9itCnXn5QlnNC6qRrqjowsV2/KEs6UzcwdzX0i1kR+DZSqFbwWNbYiWGeZsRKZc0uMIS9D1
+	yLQE+Iqn9ckzWJFnvsI41kLMI8sH4LBtPVNl0hShMec3DrdScc44Sr8/ZjaQ2nos3ogMiVQOBB1
+	Px0Pd5xl5IVRzQK6EgDv/tBKAJpCl7utNPGI26wqxq5sJcCOFCZnaLchIKjelroShYYP3Fw5iPU
+	H7IQQ/UtazXPJYuDYvN9JI/jRLOca/uCuOqXfKcJ7/28=
+X-Received: by 2002:a17:90b:4f44:b0:3ac:450b:164c with SMTP id 98e67ed59e1d1-3b1b0cf43admr7838406a91.47.1794743774561;
+        Sun, 15 Nov 2026 03:56:14 -0800 (PST)
 Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:5ade:5fb:5602:326b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3ac294bsm5853901a91.2.2026.11.15.03.56.07
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3ac294bsm5853901a91.2.2026.11.15.03.56.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 03:56:08 -0800 (PST)
+        Sun, 15 Nov 2026 03:56:14 -0800 (PST)
 From: Ho Jie Feng <hjf3108@gmail.com>
 To: Ping-Ke Shih <pkshih@realtek.com>
 Cc: linux-wireless@vger.kernel.org,
@@ -86,9 +86,9 @@ Cc: linux-wireless@vger.kernel.org,
 	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
 	Luka Gejak <luka.gejak@linux.dev>,
 	Ho Jie Feng <hjf3108@gmail.com>
-Subject: [PATCH rtw-next v4 2/7] wifi: rtw88: skip the dynamic CSI rate without a cfg_csi_rate op
-Date: Sun, 15 Nov 2026 19:43:28 +0800
-Message-ID: <20261115114336.1739863-3-hjf3108@gmail.com>
+Subject: [PATCH rtw-next v4 3/7] wifi: rtw88: correctly expose beamformee capabilities
+Date: Sun, 15 Nov 2026 19:43:29 +0800
+Message-ID: <20261115114336.1739863-4-hjf3108@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261115114336.1739863-1-hjf3108@gmail.com>
 References: <20261115114336.1739863-1-hjf3108@gmail.com>
@@ -103,33 +103,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rtw_dynamic_csi_rate() runs from the watchdog for each vif that is a
-SU or MU beamformee. new_csi_rate_idx is only written by the
-cfg_csi_rate chip op, so on a chip without that op such as 88xxa,
-an uninitialized value is compared with cur_csi_rpt_rate.
+Make MU and SU capability flags each depend on the chip declared
+maximum instead of setting both flags together.
 
-Return early when the chip has no cfg_csi_rate op.
-
-Suggested-by: Luka Gejak <luka.gejak@linux.dev>
 Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- drivers/net/wireless/realtek/rtw88/main.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/wireless/realtek/rtw88/main.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index e243738809..a8a603aaee 100644
+index a8a603aaee..b0c338954b 100644
 --- a/drivers/net/wireless/realtek/rtw88/main.c
 +++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -174,6 +174,9 @@ static void rtw_dynamic_csi_rate(struct rtw_dev *rtwdev, struct rtw_vif *rtwvif)
- 	u8 fix_rate_enable = 0;
- 	u8 new_csi_rate_idx;
+@@ -1606,6 +1606,7 @@ static void rtw_init_ht_cap(struct rtw_dev *rtwdev,
+ static void rtw_init_vht_cap(struct rtw_dev *rtwdev,
+ 			     struct ieee80211_sta_vht_cap *vht_cap)
+ {
++	const struct rtw_chip_info *chip = rtwdev->chip;
+ 	struct rtw_efuse *efuse = &rtwdev->efuse;
+ 	u16 mcs_map = 0;
+ 	__le16 highest;
+@@ -1624,10 +1625,13 @@ static void rtw_init_vht_cap(struct rtw_dev *rtwdev,
+ 		       0;
+ 	if (rtwdev->hal.rf_path_num > 1)
+ 		vht_cap->cap |= IEEE80211_VHT_CAP_TXSTBC;
+-	vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE |
+-			IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
+-	vht_cap->cap |= (rtwdev->hal.bfee_sts_cap <<
+-			IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT);
++	if (rtw_bf_support && chip->bfer_su_max_num) {
++		vht_cap->cap |= IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
++		vht_cap->cap |= rtwdev->hal.bfee_sts_cap <<
++				IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT;
++	}
++	if (rtw_bf_support && chip->bfer_mu_max_num)
++		vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE;
  
-+	if (!rtwdev->chip->ops->cfg_csi_rate)
-+		return;
-+
- 	if (rtwvif->bfee.role != RTW_BFEE_SU &&
- 	    rtwvif->bfee.role != RTW_BFEE_MU)
- 		return;
+ 	if (rtw_chip_has_rx_ldpc(rtwdev))
+ 		vht_cap->cap |= IEEE80211_VHT_CAP_RXLDPC;
 -- 
 2.53.0
 
