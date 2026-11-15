@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794758565;
-	b=pFnMfJ7sd8x0lexU7nt3HP6p6kuSW/VmAL1gkaTC76dJIADNBQNtYftuma80z5ce0ouJ
-	 kmmCG/mBzHY6ChoQl8I9wf0AuAX8dAZGw/GY2vxLonPOJm6jUZ4029ZXSv8WxXzSR0taU
-	 wYftsHZsUs2Hm5CHbkzJW4KeYDTfgBpjwy0XtR33mQ5PElRVa3H2H90YF9e6weARtbxu2
-	 y3mPBt+ekpSc1+Z34O3FFlgoFimtXqlKG1M9v0WaQXa72xBbfIezinjVKOo+yjI8LZPlO
-	 i/Saq1PgChSVux47SSRTeKbhen/O6fzwjzL0pt6pJfazz4ZsSy4cc/2HetSqkG5dYsA==
+	t=1794758569;
+	b=h8ZwtUFJ6MerzPfqmIXhKJzkorLkio8LtRBVGZU67SxCrXtpZWd/absH2eti27Xqlkp0
+	 ZaqffasvPiXRQpYYVwL6BsWm9spS0mpGZ7LsE34p7kZaIZGLDUWN+RrXIhm/FOc4sv9ZM
+	 aoUKZvF68X7x5KiKdocEwbjLjU9VOqkzDIUw6Z6BPP21E5ovIOXbFmo6CtT4GPphDfaK3
+	 ckbWK+IvxyhBOkeCWYkRhwHF8YO0r53WKmSSU1Hxfd0SOismL/7IukSwintqhsEDyIqQp
+	 IljCdjA4ge4C9RIlOf2OCS+WPg0eOSxef0R1OEim/1FlJLCMlrZaq/YzBmO/uhc1NgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794758565;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NHZIeryU1J/9Tg4kQWcesLp+ZRL5MdN2PYnUzIdJe2U=;
-	b=Cag65YWt1ki6wAvHtKkdpM5/uyTq5S65vB7Tv1S6kMfrla4d/t6fd40bRfHgacAtxK2L
-	 z6m6z7EpfywmSsS6llfVr2FEqBQFNHiA7bB0ZNVSzvmt/ojO4A9BHFKDfsFVOY6Hn8PqI
-	 AF6tZs75jSZZh6TLhUHJQDo/b4pzYvGuYtAOCeLMe0UD5WEOcvREoxdk2QFu/lr9Ivke9
-	 qs8JrKhi+p2vvZQ2CJv+XSmQDAK7JBBJjtGDVvHL2be/px45zMOgNNI6eBWMU/6Hgtx38
-	 HkEKtElKFkusOo9pw5hzCUqP111yjC+7DYV9X0COMU39ikO8y2fQNyHffrAYz2anB5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794758569;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PxPneTBKBcIwmLSq0P7KwXhX0yhOffKOv9PdYMrIZVs=;
+	b=gvi3oTej7EdVtLacaMhhPxazCFPAKlxHPLgP6vb3qW8qyYJ/3LxP6dFqvHfsY+eitHuN
+	 w/UdHjERX9S2k1MyFEG6U4O5WTyA/yL9L3VH9KjA+1Iit/DLU+xbyITeVO+t9rgve+PTp
+	 TAN0/LXfObe9jbkWWq6v9E6KAN1n1h8p4iOaktA5PT+VAGs73MGdxt4NL8oxrOYzUQU4U
+	 f7Oj6xlfhhHWKrVwbppU3n45lLZxKPDteqDBnXSl/8ogwvNck9OI50NSIJZdlk9AyRoIi
+	 4koTA47ZprRlqyFuDW8am97ndiDbmaJjUldx4Q5ghAN7PtCT3L/uQwaE8IPlx7HxWGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d0CvdoTu;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkxR9A+Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B92606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B92606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B753C606A31A;
+	Sun, 15 Nov 2026 16:02:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d0CvdoTu
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so5112225e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:02:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794758564; x=1795363364; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NHZIeryU1J/9Tg4kQWcesLp+ZRL5MdN2PYnUzIdJe2U=;
-        b=d0CvdoTuIvE++rWcm5VTuDMedIWzBhDY2Ecca18KGLJnmD5yqtq8OL2LZilAYTIz8q
-         yqfjUjDP4qq1gxPaFSPMSCcagtNBQSTPKDqERthyk2fPovKH8ZN69wlacZ27A55Rsw7W
-         K54MlsENIWsPcjsk71AwQdKkxcGDQxRD+RnHwXmRHf17IqXWQHj5tsl50Wp0lC773MHt
-         bLNf8/iGWYdrME3iRJ8OfBpQc6GYUsyr+BleFLvD+216hxgooo3PaymDo0JYSmzznqdf
-         6DKOlMMVO8MA9y8hFbmmhrYXftgbkqgZm6/jsGaw0lmFsELH3R1SnFsmYKXsqyMrGOoQ
-         6r6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794758564; x=1795363364;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NHZIeryU1J/9Tg4kQWcesLp+ZRL5MdN2PYnUzIdJe2U=;
-        b=ec6rEXYe9I8N6gddmX5YmR5CplVB8enPqpEoObOIrN7Rqs0iblSUAQN8rZ4SqLyKIF
-         GfqupifoAeDlTqoIEbiNCcOeGWozcRFMU5WNYosBjjz+Z7WdPnuK/90RxoQfiISV8T6J
-         9M8YEHHu5VXkw8nSVjrsITe5Dr6zm2HlCyM3L7O03GkHZk7TPb8d/vS5couMCdyjdhBe
-         L1odGBu2PPk9rknS6YIg5k/sWOGwVgM6sIKgVZo8+pWU/TXepkY2QJUqdB/gI5iAOt/E
-         7I+6qEFFtYBzp10Z3UHuyagfQtJg/qCTMznZD33yE0VeDqpqrfvlFGVGcgkJQDeJqJ4L
-         axMw==
-X-Forwarded-Encrypted: i=1; AL+hErEkDhOi8sN8/8p6GWVs/YS6NaUsJOVhYldqqbuxlkxnUd+JCsdQMp6DkroyDwIi8wmH0TPuTTl/dNI5X3U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nLhCXTQRAH/562uElV8mQyDFKPFmqAC6X6wG1KX1Jr7M2KeQj
-	70Tqpor/K4ZmA48b7pu6jCUCsPgWseo3OVB9rdcJn3Q1GCvTNhe1w+q+
-X-Gm-Gg: AYBFou002BNMPnjAQ0V66uTAgziFO+beA1wIYtl79bwOt/B8vamy/JuH0mZR0+O/AOo
-	5b9eeorug/x1nNv4FkvQDIbsaiPmSxhkQ57CDn/4Lkc8fDHFFr5oW9nQapzapZc/3GlGXJ0l5LP
-	bF04KAu37CIqF55wqb22ZGtiQNyVFeKVgcMMALL04xAh5hoaJHJcl32nKfjJSFr4B+xAG75orck
-	TQExEVV2WL54kR9A416pwsRvp8v14YyfblsL/AQfrAkNrspSSpZTnl4tRpVJgqgT9lJ8ecazWL+
-	TBCh/lP2Fi5i7AubFXKr6640hwky0r8Y5rSz75iPKmNxv43W38ggUwhUx0BegMME5OZL+PKjoU3
-	eofftcBVJyawRE29XxE+hxNWFCdrBGIEqREK4+7F5MjNxEzLm7AibxuK2mwaXiRxfqMzOBQG0Jo
-	kbeCj202PC37mXD2tPAskt0cCJiUbJCFRvQfiI1gvdkqKV5q9erOfA3UbpXZiNyiAcfIqloi/bs
-	5955PupwvDpdn8SltjfphJcS1KlVynKstt/2QUZwQtjWvXG4HgJfxxux8cQxR8mQuZl0cBMp9MB
-	5FKm26okJkf57K2+yQR1LPEvjce+PxbodOi3sb4JPGodzwTbB7RdOPVV3WEJiWKjuT+7urMr6xV
-	Wk884c/uO7921XuVDLNO8QKcLohTsrENgj3uN1uMGGVQ=
-X-Received: by 2002:a05:600c:a0b:b0:4bb:6847:7927 with SMTP id 5b1f17b1804b1-4bb68477b90mr76007525e9.7.1794758563469;
-        Sun, 15 Nov 2026 08:02:43 -0800 (PST)
-Received: from rebar-v3-testedby.eml (host86-185-73-183.range86-185.btcentralplus.com. [86.185.73.183])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56689bc2sm132025125e9.2.2026.11.15.08.02.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 08:02:42 -0800 (PST)
-From: James R Taylor <jrtaylor11@gmail.com>
-To: Geramy Loveless <gloveless@jqluv.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v3] PCI: Reserve prefetchable window headroom for Resizable BARs
-Date: Sun, 15 Nov 2026 16:02:23 +0000
-Message-ID: <1794758543.190740.rebar.hermes@gmail.com>
-In-Reply-To: <10fb16fb-2069-4d89-b473-1006ae5abfbc@jqluv.com>
-References: <10fb16fb-2069-4d89-b473-1006ae5abfbc@jqluv.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkxR9A+Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028B91F000CC;
+	Sun, 15 Nov 2026 16:02:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794758569;
+	bh=PxPneTBKBcIwmLSq0P7KwXhX0yhOffKOv9PdYMrIZVs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=WkxR9A+Z2chV56lMBRSdQ2pZG0DuNotLU+BmQ1hL3UdZoiwfmG7zHFpDozrbgBAyl
+	 GQtB4PMBK01XRV/i6gEhgdOg19Y521CCrESqkeaAOlzwEZwREksl31kRGqJlfttJYP
+	 hXlYk+nElL+uIRyzuoHfg0IQFYNYfk941r7JEFyo014Vx5uH14lZnYdr9QmXxtBoC7
+	 fBuiql76wC4zSjQgiIj+vGIOyLRYISwAMWBnCg1rVpHtr06U0y51YTFf97EQp/6N8X
+	 rLk5Z96Q0Ea5qr77SeZ3gYhAdv+aiVAJrtYPzQQxXIbdkty35DfBl6nJYiT9KOYo3+
+	 aswfyU3KVUyrQ==
+Subject: Re: [PATCH net-next] net: dsa: motorcomm: Resync SMI slave after
+ interrupted MDIO access
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Sun, 15 Nov 2026 16:02:48 +0000
+Message-ID: <179475856853.2199510.11675474406929032398@kernel.org>
+In-Reply-To: <20261111163954.1132921-1-mmyangfl@gmail.com>
+References: <20261111163954.1132921-1-mmyangfl@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,58 +63,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Geramy,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-On Sat, Aug 29, 2026, Geramy Loveless wrote:
-> Firmware typically sizes prefetchable bridge windows for the boot-time
-> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is then
-> no room for a driver to grow a Resizable BAR afterwards
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
-I've been running v3 since 27 October on a different kind of fabric from
-yours, a USB4/Thunderbolt eGPU, and it gives the GPU its full BAR there
-too. In case the data point is useful:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  Host:  Minisforum UM890 Pro (AMD Ryzen 9 8945HS, Hawk Point),
-         BIOS 1.06
-  Dock:  Minisforum DEG2 (Intel JHL9480 Barlow Ridge TB5 switch) over
-         USB4, link 2 x 10 Gb/s
-  GPU:   Intel Arc B580 12 GB, xe driver
-  Kernel: 7.3.4 with v3 applied (it applies cleanly)
+- [High] yt921x_reg_mdio_resync() does not reliably realign the SMI slave
+  after an interrupted write, even by the patch's own state table.
+- [Medium] yt921x_mdio_probe() allocates mdio with devm_kzalloc(), so
+  synced starts out false.
+- [Low] The commit message presents this as a fix for a user-visible
+  defect: one interrupted MDIO access leaves the SMI slave misaligned,…
 
-The firmware gives the USB4 root port 0000:00:03.1 a 64 GiB prefetchable
-window, but the tunnel is enumerated as a hotplug event about 12 seconds
-after boot, and without the patch the switch windows below it were sized
-at 256 MiB, so the B580's BAR2 stayed at 256 MiB and a manual resize
-failed.
+--
 
-With v3 the headroom is reserved down the chain:
+net: dsa: motorcomm: Resync SMI slave after interrupted MDIO access
 
-  pci 0000:6a:01.0: bridge window [mem 0x400000000-0x40fffffff 64bit pref] to [bus 6b] add_size 3f0000000 add_align 400000000
-  pci 0000:69:00.0: bridge window [mem 0x400000000-0x7ffffffff 64bit pref] to [bus 6a-6c] add_size 3f0000000 add_align 400000000
+This patch adds a synced flag to struct yt921x_reg_mdio. It also adds
+yt921x_reg_mdio_resync(), which sends a fixed sequence of MDIO frames to
+realign the SMI slave state machine before the next register access, and
+clears the flag whenever an access fails. The flag starts out false, so
+the first access after probe always runs the resync.
 
-and xe then resizes the BAR when it binds:
+> The driver so far assumed every access succeeds, and relied on manual
+> resetting when the state machine wedged.
 
-  xe 0000:6b:00.0: [drm] Attempting to resize bar from 256MiB -> 16384MiB
-  xe 0000:6b:00.0: [drm] BAR2 resized to 16384MiB
+[Severity: Low]
+This reads as a fix for a user-visible problem, but there's no Fixes:
+tag. The access helpers that assumed every access succeeds appear to come
+from:
 
-Both bridges above the GPU (69:00.0 and 6a:01.0) end up with 16 GiB
-prefetchable windows, and the whole 12 GB of VRAM is CPU-visible. It has
-been stable as a daily VAAPI/compute card since then. On 31 October I
-also unplugged and re-plugged the dock while the system was running: it
-re-enumerated, xe re-bound and BAR2 came back at 16 GiB.
+186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
 
-One interaction that may be worth knowing about: with
-pci=hpmmioprefsize=16G also on the command line, the TB5 switch's three
-empty downstream (daisy-chain) ports each reserved 16 GiB as well. That
-overflowed the 64 GiB root-port window, and the B580's BAR2 was briefly
-assigned at 16 GiB and then rolled back with -ENOSPC. Without that
-parameter it works as described above.
+Should a Fixes: tag pointing at that commit be added, so stable trees
+that carry the driver can pick up this recovery?
 
-Tested-by: James R Taylor <jrtaylor11@gmail.com>
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index 33e5fc127244d..8b6c9739b6841 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -94,10 +94,98 @@ struct yt921x_reg_mdio {
 
-Thanks for the patch,
-James
+[ ... ]
 
+> + * State Input Next Comment
+> + * ----- ----- ---- -------
+> + * AH    aw    AL
+> + * AH    dr    AH   `0xdead` sentinel
+> + * AL    aw    DH
+> + * AL    dr    AL   `0xdead` sentinel
+> + * DHr   aw    AH   abort, frame discarded
+> + * DHr   dr    DLr
+> + * DLr   aw    AH   abort, frame discarded
+> + * DLr   dr    AH   the access is done
+> + * DHw   aw    AH   abort, frame discarded
+> + * DHw   dw    DLw
+> + * DLw   aw    AL   abort, frame consumed as next access's addr-hi
+> + * DLw   dr    ?    `0xdead` sentinel; stay or advance undetermined
+> + * DLw   dw    AH   the access commits
+> + *
+> + * The table lists the whitelisted frames only; any other REGAD/op combination
+> + * is not characterized and is never emitted here.
+> + *
+> + * The resync sequence is dr, dr, aw, aw, dr, dr, plus one more dr as a sanity
+> + * check: the machine must be back at AH, which reads the `0xdead` sentinel.
+> + */
+> +static int yt921x_reg_mdio_resync(struct yt921x_reg_mdio *mdio)
+> +{
+
+[ ... ]
+
+> +	/* dr */
+> +	res = __mdiobus_read(bus, addr, reg_data);
+> +	if (res < 0)
+> +		goto end;
+> +	/* dr */
+> +	res = __mdiobus_read(bus, addr, reg_data);
+> +	if (res < 0)
+> +		goto end;
+> +	/* aw */
+> +	res = __mdiobus_write(bus, addr, reg_addr, 0);
+> +	if (res)
+> +		goto end;
+> +	/* aw */
+> +	res = __mdiobus_write(bus, addr, reg_addr, 0);
+> +	if (res)
+> +		goto end;
+> +	/* dr */
+> +	res = __mdiobus_read(bus, addr, reg_data);
+> +	if (res < 0)
+> +		goto end;
+> +	/* dr */
+> +	res = __mdiobus_read(bus, addr, reg_data);
+> +	if (res < 0)
+> +		goto end;
+> +	/* AH --dr--> AH */
+> +	res = __mdiobus_read(bus, addr, reg_data);
+> +	if (res < 0)
+> +		goto end;
+> +	res = res != 0xdead ? -EIO : 0;
+> +
+> +end:
+> +	mutex_unlock(&bus->mdio_lock);
+> +
+> +	mdio->synced = !res;
+> +	return res;
+> +}
+
+[Severity: High]
+Does this sequence realign the slave when it starts in DHw?
+
+The table has no row for DHw + dr, and the comment says uncharacterized
+combinations are never emitted here. Even so, yt921x_reg_mdio_resync()
+always starts with two dr frames, whatever state the slave is in.
+
+DHw can be reached from yt921x_reg_mdio_write() in two ways:
+
+- The aw(lo) frame is latched by the slave, but the controller still
+  reports an error.
+- aw(lo) succeeds, and the first data write fails before the slave
+  latches it:
+
+yt921x_reg_mdio_write() {
+    ...
+	res = __mdiobus_write(bus, addr, reg_data, (u16)(val >> 16));
+	if (res)
+		goto end;
+    ...
+}
+
+Either way synced becomes false, and the next access runs the resync
+starting from DHw.
+
+Suppose DHw + dr is a no-op, the same as dr in AH and AL. Then the
+sequence would go:
+
+DHw -dr-> DHw -dr-> DHw -aw-> AH (abort) -aw-> AL -dr-> AL -dr-> AL
+
+The final dr in AL then returns 0xdead, per the "AL dr AL" row.
+
+Can the res != 0xdead check tell AH apart from AL? By the table, dr
+returns 0xdead in AH, AL and DLw. So the check would pass, and
+mdio->synced would be set to true while the slave is still at AL.
+
+What happens on the next access after that? A read would go:
+
+AL -aw-> DHr -aw-> AH (abort) -dr-> 0xdead -dr-> 0xdead
+
+yt921x_reg_mdio_read() would then return success with *valp = 0xdeaddead.
+yt921x_reg_update_bits() in smi.c could write (0xdeaddead & ~mask) | val
+back to a real register, because by then the slave is at AH and that
+write commits.
+
+A write would go AL -aw-> DHw -aw-> AH (abort), followed by dw, dw in
+AH. The table doesn't cover that, so the write would be lost while still
+returning success.
+
+synced is only cleared when __mdiobus_read() or __mdiobus_write() returns
+an error, so neither case would be detected.
+
+Would a sequence built only from whitelisted transitions work better? One
+example is aw, dr, dr, aw, aw, dr, dr. The leading aw aborts from DHr, DLr
+and DHw, and DLw + aw is a documented abort.
+
+Ending with a full read of a register whose known value is not 0xdead
+would also let the check tell AH from AL.
+
+> @@ -108,6 +196,12 @@ static int yt921x_reg_mdio_read(void *context, u32 reg, u32 *valp)
+>  	u32 val;
+>  	int res;
+>  
+> +	if (!mdio->synced) {
+> +		res = yt921x_reg_mdio_resync(mdio);
+> +		if (res)
+> +			return res;
+> +	}
+> +
+
+[Severity: Medium]
+yt921x_mdio_probe() allocates mdio with devm_kzalloc(), so synced starts
+out false. The first register access at probe therefore goes through the
+resync:
+
+yt921x_dsa_setup()
+  yt921x_chip_reset()
+    yt921x_chip_detect()
+      yt921x_reg_read(priv, YT921X_CHIP_ID, &chipid)
+        yt921x_reg_mdio_read()
+          yt921x_reg_mdio_resync()
+
+A supported part might return something other than exactly 0xdead for a
+data read in AH. In that case yt921x_reg_mdio_resync() returns -EIO
+without logging anything. yt921x_chip_detect() passes the error straight
+up, so its "Unexpected chipid" and "Unsupported chipid" messages can no
+longer be reached.
+
+Every later access would then retry the full 7-frame resync, and each
+attempt would fail silently with -EIO.
+
+Is the 0xdead sentinel known to hold on all of YT9213, YT9214, YT9215
+and YT9218? The driver header mentions only YT9215+SGMII as tested, and
+the commit message doesn't mention the sentinel.
+
+Could the resync print something when the sentinel doesn't match, so
+this new failure mode can be diagnosed?
+
+Also, each resync does a real read access of register 0x0 (aw 0, aw 0,
+dr, dr). The commit message doesn't mention that either.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111163954.1132921-1-mmyangfl%40gmail.com
