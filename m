@@ -1,62 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794747716;
-	b=fS6OqYkIMLqJg8B2ZkUejYVtIaih9HRUc6SIBHY1EU2lzDunLD1YNMcoKRuMKpe1sU2c
-	 I4gFmRJ5c1KypQGpTHsidu+KpXIZteIwS1DceDG0+7grH4EiN5f9w1I1odRv9/hmC0g+L
-	 t3lMVpd83agVd0dLaLZZRB7waDWOHxsrSVe2Y/9g+OGC9uLrUTwT9AGQ1xr2H2hL4zCps
-	 0aJ43wFuIwIv8wdvhNskit5zRivXI+Cjj8gvwvYc3Irf3CQzQGXpGP6SoRMFGQyDo6omS
-	 APvYAqkmpz7TbGxryoNzZVtJWh2bZ+wTk1cpKm674b803p2tBDae3lWYp955iL9QU2A==
+	t=1794747751;
+	b=gQ9DKqk4CSrHn3h8/kwaesRRQ203SPEhomXG26OLvhtYHc05Z8+EPH4JJnboLTNCutY9
+	 +8hGa3rDApWK5Q3yzzdu21D9N1lJVGpdOQ25B4mNziT6Nc8ZS6T/6645y2VlmCXoZw4mG
+	 uPEVK4Ay610DxPZr3v2JveTO+UBEY8rXxwOHWNQhoEVvmWYx//AlLCc30hYHYD33FDtdE
+	 2ihJ50eWP8+M0hIdFgF79ZJDaMQCryCJ74SyMjDV3dhDpR8w209X/SXF1joWv6bKrzyHZ
+	 sYKhXCTQhjriKfmyP8VDitwjUBBQQhvShbvENovVe5oOcASk6TEq4DGXMfl0DFPE+8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794747716;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=6NQF+lrUF+qSTerQwu4IKVb8mS5domCvzOcN/5sWjtM=;
-	b=As6cQo8Ec2hjImn/FZz3/8yhWrR1AslBYjcDwAGwvH3l0q9e6U+pCfCcMfeSDgGDg16n
-	 XathPerN4lRSVy2sBoWNBqG+irFeaXmzdb4uwB9BThDOdX41riiSjP2aBn/Sxt00aQ7yv
-	 89hzTegm4FgO4GML61GX/bJFV1rWwlChb1W5e7111fNFoJI8S4IDfPBvZEfsOfQze8KU7
-	 jOcwrPcxkQL9qvQAdKU0IP1gNxdTlV3088GrB9z9LaCaEpnFz7W2bm7ZJ4Dx1hKwAAZzG
-	 cIhBPvdTWsGQF7SG+DHfv80F2X7QNMZ/lwp23YdqdWoz2ZIcYj7hqUnlum3Iuin1LaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794747751;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=+BsOQn9fI2fusV92JgJXST2g12Yg/yq3BHWZFI28LzQ=;
+	b=hAufSnDJZd5yHF2yPQ6rXIi2xZceKpMbrYyWd0wNwZgoxTyP++3xQWSjBRzcAJiHa3/e
+	 HfwLXVq6bttIYkZUr4w4QFDhRD2PqvhRmKkDuX3svkRytC8m6020a7W+cwSzwTSQqA4lx
+	 HLtl4yRqGvEUfJQ8NHEOLNnlSWbVY0/2sfE6qHW4PH12dXo1h16WBfskaQKdIVDufUntl
+	 iBvgrDBaPSWn3oDn+Px1VvY0HIWxoVNBS7zco3ijX96S1iHaHIxkMn1sdPogQ2/BO/FZy
+	 4y5z+d/elxXWNJUSs8q2uOz+vyWLgvyQOYpPqMeQO+qisA5BsNehyz12stDQVhpFpCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fkeV+nal;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=g2n80qFV;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F409606A891;
-	Sun, 15 Nov 2026 13:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6418606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6418606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fkeV+nal
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516C91F000C5;
-	Sun, 15 Nov 2026 13:01:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794747716;
-	bh=6NQF+lrUF+qSTerQwu4IKVb8mS5domCvzOcN/5sWjtM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fkeV+nalMAhgoqKDOB4PDngcShXr+ltVNlrXmfO+Mh+0kxzZYd2AjoUDfNZEREeeB
-	 ZjSE/LTIdSvYfk5RDg6zNgTDCeQ+t0zSmPRNbDpT/7rwVibalMKEVItHsrinmrthRI
-	 Hg1wsGpepgAIZrd1gzdr7oV8J6jrNE0+e47W8uW8Unwn+q4N2UBNYnZcnANtwl+woM
-	 z2mIHhgPUKbCZQ+H93trWnUo4mlLIWBHVqxmmbOTpKcVIrYyJNhvLOsyvHpIW1UDE4
-	 aLfMmdVcpAnZgKu6MqlJOvDXMzivtQ/HV/zeKsW11FQZmvU07OvN06fz204VFW7wSn
-	 /vHEjdRf3gL5A==
-Subject: Re: [PATCH net-next v7 9/9] net: bcmgenet: reassemble jumbo frames
- from status block fragments
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- f.fainelli@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- pierremarinleclercq88@gmail.com, dave.stevenson@raspberrypi.com,
- justin.chen@broadcom.com
-Date: Sun, 15 Nov 2026 13:01:54 +0000
-Message-ID: <179474771487.2199510.9115361919445613385@kernel.org>
-In-Reply-To: <20261112-nb-genet-mtu-nn-v2-v7-9-43a5d90b3256@tipi-net.de>
-References: <20261112-nb-genet-mtu-nn-v2-v7-9-43a5d90b3256@tipi-net.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=g2n80qFV
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794747743; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=+BsOQn9fI2fusV92JgJXST2g12Yg/yq3BHWZFI28LzQ=;
+	b=g2n80qFVkxRvWRJXVJp1+vqWv1FIeVnWbq9zCyyoGN0a+eulIh5kJlE6N9wEGLtHK8cim82tIvwl3+mdH0tbuf7pMGulIj5OV+uSf8R5TlOHakR9fQD6+1keU8x/T4b+B/GQ+GbwtexVD/1YI0/URCJHMegdx/4tPyKbqIcXDLE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XEjuDMt_1794747742;
+Received: from 30.180.33.101(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEjuDMt_1794747742 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sun, 15 Nov 2026 21:02:22 +0800
+Message-ID: <d7c23cb6-5839-4b42-923e-1a1211cdcd41@linux.alibaba.com>
+Date: Sun, 15 Nov 2026 21:02:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,184 +53,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: don't reuse SINGLE_DEPTH_NESTING for unpublished
+ inode ip_alloc_sem
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Heming Zhao <heming.zhao@suse.com>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+3f66416993279938e957@syzkaller.appspotmail.com
+References: <20261115104656.210945-1-ngocthang2710.1999@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261115104656.210945-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 11/15/26 6:46 PM, Nguyen Ngoc Thang wrote:
+> Commit c204bf5ac3ee ("ocfs2: fix deadlock in inline-data truncate
+> transactions") made ocfs2_xattr_set_handle() take ip_alloc_sem of a
+> not-yet-published inode inside the create transaction, under subclass
+> OCFS2_IP_ALLOC_SEM_UNPUBLISHED = 1, so lockdep records:
+> 
+>   sb_internal -> j_trans_barrier -> ip_alloc_sem/1
+> 
+> But subclass 1 is SINGLE_DEPTH_NESTING, which ocfs2_remap_file_range()
+> already uses for the destination inode, and the remap then starts a
+> transaction in ocfs2_duplicate_inline_data():
+> 
+>   ip_alloc_sem/1 -> sb_internal
+> 
+> Lockdep merges the two and reports a circular dependency.  It cannot
+> deadlock, since the unpublished inode is unreachable by anyone else,
+> but the warning hides real reports.
+> 
+> Give the unpublished subclass its own value past SINGLE_DEPTH_NESTING.
+> 
+> Fixes: c204bf5ac3ee ("ocfs2: fix deadlock in inline-data truncate transactions")
+> Reported-by: syzbot+3f66416993279938e957@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3f66416993279938e957
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-- [Medium] This patch raises dev->max_mtu to ENET_MAX_MTU = GENMASK(13,0)
-  - ENET_FRAME_OVERHEAD = 16347 on every GENET revision except v1…
-- [Low] The comment this patch rewrote above bcmgenet_pkt_rdy_thld() says
-  the receive threshold "covers the alignment bytes and the frame up to…
-- [Low] In bcmgenet_desc_rx() the length check (`if (unlikely(len >
-  priv->rx_buf_len || len < min_len))`) runs before the new…
-- [Low] net: bcmgenet: frag_drop not cleared on EOP in bcmgenet_desc_rx()
-
---
-
-net: bcmgenet: reassemble jumbo frames from status block fragments
-
-When a frame is longer than the packet ready threshold, the hardware
-splits it across several RX descriptors. This patch reassembles those
-frames and strips the per-descriptor status blocks. It also raises
-ENET_MAX_MTU to the 14 bit UMAC_MAX_FRAME_LEN limit, which allows an MTU
-of up to 16347.
-
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index 30ba77931c4f0..eb6975459917b 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> @@ -84,11 +84,8 @@
->  				      ENET_THLD_MAX * ENET_THLD_UNIT, \
->  				      ENET_THLD_PAGE_LEN)
->  
-> -/* Largest MTU that fits one descriptor, with room for a VLAN tag so a VLAN
-> - * interface can use the parent MTU.
-> - */
-> -#define ENET_MAX_MTU		(ENET_THLD_MAX_LEN - GENET_RBUF_ALIGN - \
-> -				 ETH_HLEN - VLAN_HLEN)
-> +/* UMAC_MAX_FRAME_LEN is 14 bits wide and counts the FCS */
-> +#define ENET_MAX_MTU		(GENMASK(13, 0) - ENET_FRAME_OVERHEAD)
-
-[Severity: Medium]
-Has the wider TX descriptor length field been confirmed on GENET v2, v3
-and v4, or only on v5?
-
-bcmgenet_probe() applies the new maximum to every revision except v1:
-
-	if (!GENET_IS_V1(priv))
-		dev->max_mtu = ENET_MAX_MTU;
-
-Before this change, max_mtu was tied to the single-descriptor RX
-threshold (about 3564 with 4K pages). So no TX buffer passed to
-bcmgenet_xmit() could reach 4096 bytes, even with the 64 byte TSB added.
-
-With an MTU near 16K, a linear head can now be 4096 bytes or more, for
-example with SG off, from a packet socket, or after skb_linearize(). A
-single page frag can be that large too. bcmgenet_xmit() writes the
-length without clamping or splitting it:
-
-		len_stat = (size << DMA_BUFLENGTH_SHIFT) |
-			   (priv->hw_params->qtag_mask << DMA_TX_QTAG_SHIFT);
-
-bcmgenet.h still documents the field as 12 bits for both directions:
-
-/* Tx/Rx Dma Descriptor common bits*/
-#define DMA_BUFLENGTH_MASK		0x0fff
-
-The commit message says the TX field is wider, but the only evidence
-given is a UMAC loopback test on v5. The RTL confirmation from Broadcom
-that it cites covers how RX splits long frames. It doesn't cover the
-width of the TX length field.
-
-If the TDMA on v2 to v4 decodes only 12 length bits, would TX buffers of
-4096 bytes or more be sent truncated modulo 4096?
-
-[ ... ]
-
-> @@ -2518,24 +2563,42 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
-
-[ ... ]
-
->  		/* Reject lengths that would underflow the SKB build path. */
->  		if (unlikely(len > priv->rx_buf_len || len < min_len)) {
->  			netif_err(priv, rx_status, dev,
->  				  "invalid packet length %d\n", len);
->  			BCMGENET_STATS64_INC(stats, length_errors);
-> +			bcmgenet_discard_frags(ring, dma_flag & DMA_EOP);
->  			page_pool_put_full_page(ring->page_pool, rx_page,
->  						true);
->  			goto next;
->  		}
-
-[Severity: Low]
-Should this branch clear ring->frag_drop when the descriptor carries
-DMA_EOP?
-
-bcmgenet_discard_frags() sets frag_drop to !eop. The rest of an
-aborted frame is then dropped without being counted again, and
-counting resumes once that frame has ended. This branch can only set
-frag_drop to true. So when the last continuation of a dropped frame
-lands here with DMA_EOP set, frag_drop stays true even though the
-frame is over.
-
-The same thing happens in two other cases. A lone orphan descriptor
-with DMA_EOP and no SOP sets frag_drop to true here. A failure in
-bcmgenet_rx_refill() calls bcmgenet_discard_frags(ring, false) before
-the status word has been read, so it cannot know whether that
-descriptor ended the frame.
-
-Suppose the next frame on the ring has also lost its SOP descriptor.
-Its continuations reach this branch with frag_drop already set, so
-they are dropped without incrementing fragmented_errors. That lost
-frame then never shows up in the error counters.
-
-This is only a counter inaccuracy on already abnormal paths. Would
-setting ring->frag_drop to !(dma_flag & DMA_EOP) here, after the
-count, keep this branch consistent with bcmgenet_discard_frags()?
-
-[Severity: Low]
-Should this length check in bcmgenet_desc_rx() come after the new SOP and
-frag_drop handling? Because it runs first, two cases skip the reassembly
-accounting.
-
-The first case is a frame that has already been dropped (frag_drop set,
-frag_head NULL). Each later non-SOP descriptor with an out of range
-length still logs "invalid packet length" and increments length_errors.
-
-The comment on bcmgenet_discard_frags() says "do not count it again until
-the next SOP". Continuations that carry DMA error flags, on the other
-hand, are absorbed silently by the frag_drop branch.
-
-The second case is a SOP descriptor with an invalid length that arrives
-while ring->frag_head holds an incomplete frame.
-bcmgenet_discard_frags() frees the pending frame, but fragmented_errors
-is not incremented. A SOP with a valid length in the same situation does
-increment it:
-
-		if (dma_flag & DMA_SOP) {
-			if (ring->frag_head) {
-				BCMGENET_STATS64_INC(stats, fragmented_errors);
-				bcmgenet_discard_frags(ring, false);
-			}
-
-Is the lost incomplete frame meant to go uncounted when the next SOP has
-a bad length?
-
-[ ... ]
-
-> @@ -2768,7 +2854,8 @@ static void bcmgenet_link_intr_enable(struct bcmgenet_priv *priv)
->  }
->  
->  /* Receive threshold in register units. Covers the alignment bytes and the
-> - * frame, but not the status block, which the hardware adds on top.
-> + * frame up to the register maximum, but not the status block, which the
-> + * hardware adds on top. A longer frame arrives in several descriptors.
+It takes no runtime effect. But the collision is real.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+ 
+> ---
+> Tested in QEMU (x86_64, syzbot config with lockdep) using the syzbot C
+> reproducer on top of 23c62304dde2:
+>   - before: "possible circular locking dependency" after ~8s
+>   - after:  no lockdep report in 3 x 180s runs, debug_locks stays 1;
+>             /proc/lockdep shows both ip_alloc_sem/2 (create) and
+>             ip_alloc_sem/1 (remap) exercised.
+> 
+>  fs/ocfs2/xattr.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+> index 71e5986bafaa..9f2d5797e4d6 100644
+> --- a/fs/ocfs2/xattr.c
+> +++ b/fs/ocfs2/xattr.c
+> @@ -3867,10 +3867,11 @@ static int __ocfs2_xattr_set_handle(struct inode *inode,
+>   * ip_alloc_sem there adds a transaction -> ip_alloc_sem order that would
+>   * form a lockdep cycle with the ip_alloc_sem -> transaction order used
+>   * elsewhere, if not for this separate subclass.  The inode is unpublished
+> - * so the acquisition can never contend.
+> + * so the acquisition can never contend.  It must not collide with the
+> + * SINGLE_DEPTH_NESTING subclass ocfs2_remap_file_range() uses.
 >   */
->  static unsigned int bcmgenet_pkt_rdy_thld(unsigned int mtu)
->  {
+>  enum {
+> -	OCFS2_IP_ALLOC_SEM_UNPUBLISHED = 1,
+> +	OCFS2_IP_ALLOC_SEM_UNPUBLISHED = SINGLE_DEPTH_NESTING + 1,
+>  };
+>  
+>  /*
 
-[Severity: Low]
-This isn't a bug, but is "up to the register maximum" accurate? The clamp
-in bcmgenet_pkt_rdy_thld() uses ENET_THLD_MAX_LEN:
-
-#define ENET_THLD_MAX_LEN	min_t(unsigned int, \
-				      ENET_THLD_MAX * ENET_THLD_UNIT, \
-				      ENET_THLD_PAGE_LEN)
-
-With 4K pages, ENET_THLD_PAGE_LEN (3584) is below the register maximum
-(0xf0 * 16 = 3840), so the page sets the limit.
-
-The comment above ENET_THLD_PAGE_LEN says the same: "on 4K pages the page
-bounds the threshold before the register does". The two comments now
-contradict each other.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-nb-genet-mtu-nn-v2-v7-0-43a5d90b3256%40tipi-net.de
