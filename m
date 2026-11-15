@@ -1,73 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794730506;
-	b=FKnJWywUg5vCjk2UORJbp9l8SR72XR3KFm/z/26/z+n/HNAd6mO5t/Azk04ixcrEBxAl
-	 1P5SBoWQEdjuYfRHVRPocPzNLKTaUwT9PaIpteVvUsoOYSzA5H3DWlydkppw3GwBr6n71
-	 WgxuIyo+zMm9gJe7h1l42cmw7A13yb/1rG7hmpjDmuldFp38gtF2OMVT+I+WQv4FW/5wu
-	 +00OHwWCjL7ilCU27klTVy5EhjrJQClKjVJRW2qWM2tV5gzDpd80oSaxV68Z8tgnDlIfh
-	 y/Ob9cu33Q6Xb1+9SZvqa/cLsmzjW9d7oYCnE8zh4nG1in/MBU8hpaqeG1FuErg5C8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730506;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=uydEahiP1CgfQ+Qejg0zXzNqMoA+gS90z4vYszZCEJc=;
-	b=HP1S1QtzTUEvZT6E5L6n/jEUct1f4PL5BBSqhyAaHsfEWKljgumo/+EB4lnkrwB5ej+H
-	 9E6tKhZykg9r7e+2CsE9geKe4uF4hMecLgGaqyYyOuYhOt4bL61QfK6L4rg+0OJxSsUah
-	 PFbS9G/YaINBptlzS8fj//DscLocaCag9P0vD5Ldzq6pncKR8ffySUm+RI/D2Ovma51eX
-	 erY8nJ+5ER/6oLh1rBsmi7PNyUWYdhI2QvLaafTerg/vyRm9kR+fajGLFz74BDnzRrODi
-	 RlbuDIJQ5pUeD/IWgYB5rQow2ITI+gm6ZsDw5TEEbGVhpnkLAz+iVFFaKvsaEW4uUaQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=F3Z+ZEp4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794730785;
+	b=TCAeYFlAbzo44BVn1wKZKnvyRC1/K8wmbNs6uROMybmkcs9UM4/EXV0QFroPoYgw255/
+	 ww5ZchPNbr3QJR1P10BOC8/TLPPqUbZr3uMl4jxuYJfnnubuFalfTUMLMNd6HnqWsscB1
+	 FlR2XUKC9bWUEjIlqB8JmHtu8Zh2kYjXJyDc7967nuJmClpyI3i+3S5LQ5WVa4ZkmXEbC
+	 z4gZ2j7svrFJQxQA3u3b1/qI7Kl/TLv0zT4Dld3OiPHoiYE624/i+/icv/WKIafhCQXXm
+	 dGFETtxeuidzz7BshL12KlJP4zb2e40jo7GttqrOJl9F4sc/tvvwcnaZK/vFn5IvUPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730785;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=80w8iL2W9gryhtVUMyqRJV/LWO4hHCXkBwuL/bmEPOU=;
+	b=5hodXCKunjZCoRGjgyjyBA4THdrxuSX8FXXYwcgy3PxSSTNq0tmgW7g8SGUXc61rFvE1
+	 yvo8xbFlVTgkx4KwHq2huwERQcxkRrMllzBfoeWgCYDkImDFio+hNZ0FxW5dkUrtiO4lN
+	 sDd9WbPvSa5LAwYBKT2PZKvWh7+texYRh5i8AK1qotHd3ErD3JBPEEB25zC1qKDR0Vm7Q
+	 637VnNt5PdhsYXSagwh8Ii9SS3LgpKBUi4xhULIjA5rtqBUWJIbJbldh/aRBPtCIMmjyf
+	 SU92OccrzRhH2usrWah9smseU2SwddwoU6Fjk0SKTmOZIJfJIiopvATQFX8WvQKx0tA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ey+epUG5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F7C606A323;
-	Sun, 15 Nov 2026 08:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F7C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E104606A32E;
+	Sun, 15 Nov 2026 08:19:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=F3Z+ZEp4
-ARC-Seal: i=1; a=rsa-sha256; t=1794730480; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mVAPIAGPCfYFNKv7rzOTzJh6W42C1ph1JEnYYLlqOt0v9rbKDJQDJ+Lo1Tmm0875rCGf2fw37uYlFC/d1MRZeakLJcueVGViG86rWAOFqurk48qL10sXtx81qZ7u8nhsJL9LDLE9TIRYQRVzCn3edn/brduV7xki89AheRel6cQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794730480; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=uydEahiP1CgfQ+Qejg0zXzNqMoA+gS90z4vYszZCEJc=; 
-	b=TcWfl7Xcq39T17TDkSk7tPHUGTYvubIwsDxG/KIYA6fH/6791l2k3jyHlUN07v02Fm5IxRWUCnvJSXcwgJZ//BDaQT7wwoM/k7HNbDQX/Z+2VQX5UUMUpJRRrezpy+JSMeQhq3ZU3Kw5kVNM55+iOP975GHYpQvp+WkWY0f2ufQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=F3Z+ZEp4FVzhCkMg3vufaWg1xO9AqZwDgy3Y0+TgHr3+14rtg+kdPgX5vrPT+S2I+DlshEajokVfAYiMFJu28JResyRM7cKXdI5CgrwOaYYGI2fqB3cKS3adwH7kuz8Maa4FhmGRgFwgfRHwVDWchqn8XVPMkKhp9g/G1IMD8KcInFnj45UhkT0GfsqXaMu+cDGpFRXv1PmGGuAf/51po3lQfeQo0KBvvwuOlZ7nKCxnNIKYG1fvMlmOLdpHlje2QJewHDw+BvkgxpaN5vh1AR7Pm4eYnUrYfvnA9UOpu3YzDWRor+93Szv9MJRVKarO5xuK66ytI4LZAQ9iNbmK4g==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=uydEahiP1CgfQ+Qejg0zXzNqMoA+gS90z4vYszZCEJc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179472957662614.658949649354213;
-	Sat, 14 Nov 2026 23:59:36 -0800 (PST)
-Message-ID: <64525e6fc8bd29dab836a5f6a4249523ef285012.camel@rong.moe>
-Subject: Re: [PATCH v3 1/7] platform/x86: thinkpad_acpi: Report auto
- keyboard backlight mode as off
-From: Rong Zhang <i@rong.moe>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
- <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
- <hmh@hmh.eng.br>
-Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, Lee Jones
-	 <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
-	 <griffin@kroah.com>, vishnuocv@gmail.com, vsankar@lenovo.com, 
-	platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261114174814.62153-2-kmatzkaczor244@gmail.com>
-References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
-	 <20261114174814.62153-1-kmatzkaczor244@gmail.com>
-	 <20261114174814.62153-2-kmatzkaczor244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 15:53:00 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ey+epUG5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BFD1F000C4;
+	Sun, 15 Nov 2026 08:19:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794730785;
+	bh=80w8iL2W9gryhtVUMyqRJV/LWO4hHCXkBwuL/bmEPOU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ey+epUG5GVqMxwfyLdvkzjamSP7BZiuKBDukA1SSruUwSeXRwO8C6wPjQBvaa4FOM
+	 ax29sd05p7SaRBJoodPJ0a24rG0oU3gNI5yAgwZ8NMNJ0vxmMosU2gfc5EhE9VI1+W
+	 8FJl5M5IsYrKldlO91t+nOIatQTFob6Y7lo11fRb38rnm6ATLd/rgumKBOJF/UW0ji
+	 HoVFLdTv6Oxh7QiKwcT6siPTG6DBZH2qM3HxKP2DzHHDZ/OhWkovCDYkdCAoRDcL/G
+	 VcfiWHA8nvebsSyNee7yoHIPPmun4PWIhQ+KowQJ9SNI8EFgz4gZxrsqGHHpkIMxHF
+	 As9urmXH19lvg==
+Subject: Re: [PATCH net-next v2] net: phy: aquantia: Poll global status
+ register for provision ID
+From: netdev-bot+sashiko@kernel.org
+To: hongmei.xu@oss.qualcomm.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sagar.cheluvegowda@oss.qualcomm.com
+Date: Sun, 15 Nov 2026 08:19:44 +0000
+Message-ID: <179473078423.2199510.11398825136938509686@kernel.org>
+In-Reply-To: <20261111-aquantia-poll-global-status-register-v2-1-b602fc7e80a9@oss.qualcomm.com>
+References: <20261111-aquantia-poll-global-status-register-v2-1-b602fc7e80a9@oss.qualcomm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,66 +64,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
 
-Hi Qiling,
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-On Sun, 2026-11-15 at 01:48 +0800, Qiling Zhu wrote:
-> The EC keyboard backlight level 3, which selects the auto mode, is
-> passed to the LED classdev verbatim by kbdlight_sysfs_get().  The LED
-> then reports a brightness of 3 with max_brightness 2, both through the
-> brightness sysfs attribute and through brightness_hw_changed
-> notifications.
->=20
-> This is not only cosmetic: UPower 1.91.x treats the out-of-range value as
-> invalid and stops watching brightness_hw_changed altogether, so the deskt=
-op
-> stops following the Fn+Space hotkey once auto mode has been entered.
->=20
-> The auto mode is not a brightness level.  Map it to 0, the value it is
-> reported as most of the time anyway, in line with what ideapad-laptop
-> already does for its auto mode.
->=20
-> Fixes: bb28f3d51ff5 ("thinkpad_acpi: Add support for keyboard backlight")
-> Reported-by: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>
-> Closes: https://lore.kernel.org/r/CAENjc+w0Rqy=3DkDSew7XtNJCSvyPiXPJ5faWd=
-mCr5RGYFhpunCA@mail.gmail.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
-Reviewed-by: Rong Zhang <i@rong.moe>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks,
-Rong
+- [Medium] In aqr_wait_reset_complete()
+  (drivers/net/phy/aquantia/aquantia_main.c:708-721), the new second…
+- [Medium] net: phy: aquantia: propagate MDIO read error in
+  aqr_wait_reset_complete()
+- [Low] The comment above aqr_wait_reset_complete()
+  (aquantia_main.c:684-690) was not updated.
+- [Low] On a provisioning-ID timeout, aqr_wait_reset_complete()
+  (aquantia_main.c:717-719) prints 'Firmware provisioning ID not ready;…
+- [Low] net: phy: aquantia: missing Fixes trailer for
+  aqr_wait_reset_complete() fix
 
-> ---
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
-rm/x86/lenovo/thinkpad_acpi.c
-> index 4f81855ad..2c3f8cf32 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -5102,6 +5102,9 @@ static struct ibm_struct video_driver_data =3D {
->   * Keyboard backlight subdriver
->   */
-> =20
-> +/* EC level that selects the auto mode for the keyboard backlight */
-> +#define TPACPI_KBD_LIGHT_AUTO_LEVEL 3
+--
+
+net: phy: aquantia: Poll global status register for provision ID
+
+This commit adds a second poll to aqr_wait_reset_complete(). Once the
+firmware ID shows up, the poll waits for the provisioning ID field in
+VEND1_GLOBAL_RSVD_STAT1 to become non-zero. If the poll times out, it
+logs a warning and the function still returns 0. The stated reasons
+are link failures seen on AQR113 and correct fingerprinting of AQR412C
+MUSX firmware.
+
+> diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
+> index e95d391a6dc23..bed891cfaaa1b 100644
+> --- a/drivers/net/phy/aquantia/aquantia_main.c
+> +++ b/drivers/net/phy/aquantia/aquantia_main.c
+> @@ -702,7 +702,23 @@ int aqr_wait_reset_complete(struct phy_device *phydev)
+>  		return val;
+>  	}
+>  
+> -	return ret;
+> +	if (ret)
+> +		return ret;
 > +
->  static enum led_brightness kbdlight_brightness;
->  static DEFINE_MUTEX(kbdlight_mutex);
-> =20
-> @@ -5191,7 +5194,8 @@ static enum led_brightness kbdlight_sysfs_get(struc=
-t led_classdev *led_cdev)
->  =09int level;
-> =20
->  =09level =3D kbdlight_get_level();
-> -=09if (level < 0)
-> +=09/* Auto mode is not a brightness level; report it as off. */
-> +=09if (level < 0 || level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
->  =09=09return 0;
-> =20
->  =09return level;
+> +	ret = read_poll_timeout(phy_read_mmd, val,
+> +				val < 0 ||
+> +				FIELD_GET(VEND1_GLOBAL_RSVD_STAT1_PROV_ID, val),
+> +				AQR_FW_WAIT_SLEEP_US, AQR_FW_WAIT_TIMEOUT_US,
+> +				false, phydev, MDIO_MMD_VEND1,
+> +				VEND1_GLOBAL_RSVD_STAT1);
+
+[Severity: Low]
+The commit message describes two problems: link failures seen during
+AQR113 bring-up, and an AQR412C MUSX fingerprint that can't be built
+correctly. Both come from aqr_wait_reset_complete() treating a
+non-zero VEND1_GLOBAL_FW_ID as the end of chip initialization, before
+the provisioning ID in VEND1_GLOBAL_RSVD_STAT1 is set.
+
+If this is meant as a bug fix, should it carry a Fixes tag? The
+FW_ID-only poll appears to go back to commit 43429a0353af ("net: phy:
+aquantia: report PHY details like firmware version"). That commit
+added aqr107_wait_reset_complete(), which was later renamed to
+aqr_wait_reset_complete().
+
+Without the tag, stable maintainers and backporters have no easy way
+to tell that this change addresses a problem in released kernels. And
+if it is a fix, should it go to net rather than net-next?
+
+[Severity: Medium]
+This poll only exits on a non-zero PROV_ID or a read error. If a
+firmware image reports PROV_ID == 0, will every call sleep the full
+AQR_FW_WAIT_TIMEOUT_US (2 s) and then return 0 anyway?
+
+The commit message says "not all PHYs require a valid provision ID",
+which suggests PROV_ID can stay 0 on some images.
+
+In the driver, prov_id only matters for one fingerprint:
+
+  AQR_G3_V4_3_C_AQR_NXP_SPF_30841_MUSX_ID40019_VER1198
+      AQR_FW_FINGERPRINT(4, 3, 0xc, 1, 40019, 1198)
+
+That fingerprint is only checked for PHY_ID_AQR412C, in
+aqr_translate_interface().
+
+aqr_wait_reset_complete() has two callers, and both now pay for this
+wait:
+
+  aqr107_probe()
+    aqr_firmware_load()
+      aqr_wait_reset_complete()
+
+  phy_attach_direct() / mdio_bus_phy_resume()
+    phy_init_hw()
+      aqr_gen1_config_init()
+        aqr_wait_reset_complete()
+
+With such an image, would each port lose about 4 s across probe and
+attach, and then 2 s plus a warning on every later attach and resume?
+On quad-port parts like AQR412/AQR412C, that cost applies to each port.
+
+Before this patch, both paths returned as soon as FW_ID was non-zero.
+Could the PROV_ID wait be limited to the PHYs or firmware images that
+need it?
+
+> +	if (val < 0)
+> +		phydev_warn(phydev, "Failed to read VEND1_GLOBAL_RSVD_STAT1: %pe\n",
+> +			    ERR_PTR(val));
+> +	else if (ret)
+> +		phydev_warn(phydev, "Firmware provisioning ID not ready; "
+> +			    "interface mode detection may be incorrect\n");
+
+[Severity: Medium]
+If phy_read_mmd() fails while polling VEND1_GLOBAL_RSVD_STAT1, the
+val < 0 term ends read_poll_timeout() right away with ret == 0. The
+code then logs a warning and returns 0, so the MDIO error is lost.
+
+The VEND1_GLOBAL_FW_ID poll just above handles the same case with
+phydev_err() and returns val. Is it intended that a read error here
+is non-fatal? The commit message only says that the timeout case
+should not fail probe.
+
+Both callers act on the return value:
+
+  aqr107_probe()
+    aqr_firmware_load()
+      aqr_wait_reset_complete()
+
+aqr_firmware_load() treats 0 as "Some firmware is loaded => do
+nothing". Any other negative value goes to the default branch, which
+passes the PHY read error back to aqr107_probe(). With this change, an
+MDIO failure on RSVD_STAT1 looks like ready firmware, and probe goes
+on.
+
+  phy_init_hw()
+    aqr_gen1_config_init()
+      aqr_wait_reset_complete()
+
+aqr_gen1_config_init() only builds the fingerprint when the return
+value is 0. After a read error it now goes on to
+aqr_build_fingerprint() and the rest of the PHY configuration, even
+though the provisioning ID was never seen.
+
+Could the val < 0 case return val, the same way the FW_ID poll does,
+and leave only the timeout as a warning?
+
+[Severity: Low]
+This warning can fire on every model that uses aqr107_probe() and
+aqr_gen1_config_init(), such as AQR105, AQR107, AQCS109, AQR111,
+AQR112, AQR113, AQR114C, AQR115 and AQR813. Is "interface mode
+detection may be incorrect" accurate for those?
+
+The provisioning ID only affects the interface mode in
+aqr_translate_interface():
+
+	if (phy_id_compare(phydev->drv->phy_id, PHY_ID_AQR412C, phydev->drv->phy_id_mask) &&
+	    priv->fingerprint == AQR_G3_V4_3_C_AQR_NXP_SPF_30841_MUSX_ID40019_VER1198 &&
+	    interface == PHY_INTERFACE_MODE_USXGMII)
+		return PHY_INTERFACE_MODE_10G_QXGMII;
+
+So on other models, a missing provisioning ID can't cause wrong
+interface detection.
+
+The message also doesn't mention the link failures that the commit
+message describes for AQR113.
+
+> +
+> +	return 0;
+>  }
+
+[Severity: Low]
+This isn't a bug, but the comment above aqr_wait_reset_complete() was
+not updated:
+
+/* If we configure settings whilst firmware is still initializing the chip,
+ * then these settings may be overwritten. Therefore make sure chip
+ * initialization has completed. Use presence of the firmware ID as
+ * indicator for initialization having completed.
+ * The chip also provides a "reset completed" bit, but it's cleared after
+ * read. Therefore function would time out if called again.
+ */
+
+It still names FW_ID as the only sign that initialization is complete.
+It doesn't mention the second, non-fatal wait on the provisioning ID.
+
+Also, on PHYs where PROV_ID stays 0, every call from
+aqr_firmware_load() and aqr_gen1_config_init() now times out again.
+Isn't that the repeated-call timeout this comment says the design
+avoids?
+
+Could the comment be updated to match the new behavior?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-aquantia-poll-global-status-register-v2-1-b602fc7e80a9%40oss.qualcomm.com
