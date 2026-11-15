@@ -1,99 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.203
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794781463;
-	b=vVEaktZW0nhREYEUNPbWvsXQ+OxhfL3xhdu6lbQsyYuv/s8wjMqPILvImCUogJBy0NHf
-	 HG49ErhgWILhEZHiCYwAuLTTJxUkcGE8cJwVi8lyXGBizi+Zw1kPvtpy38jpLqvfQMR5F
-	 RiYdiNaGNsn3mt06WWt5BV2OuvQxFjosjvWFlBWzzwAIIxtY6Sce5z8SPJTIRjEsF320/
-	 AyjUhTKSsZbfE+53PA014xi1/HCo+35OT9KhQaVhqmeapZyRRsVYIULdwpP8/IGN7qdwh
-	 9i4UJBXm2kW7H/iOjOVnelsgyTiHVSqZNkr+gHFeOiB3qZhyvP1bJQURdCbrFDbwXCA==
+	t=1794781614;
+	b=cRMSPLcsh+Qn0s+G+eBrZ7MH6uAdXrTh0eIAUw4+YrUCXYclQLLRLMjs0eL6ZfleA5kT
+	 ZBf+mfNMQm5tC0MOEGh0V775Y8OFSw+NMPeEAJolm1tH6xE3giMf7RbXaCq9xxfbToUkT
+	 LIRgVzpWs5Z41I+dY3g/2CzJdRgbkcKZ+/BEMhr3QP61p8wERwBcibxJMmUORJU08KbH+
+	 Ggnn/b0mHA+3v0jmROFeMcr1pIm6egNPpPT1wh9CO0UYOeHq9m5NycyZbaP+/+bf7QnoS
+	 cpeKAbg+VR28H0JzA+WB7M+d/RFeqXKr6Gbe/IxlNTp83TaYPBgk08BEgzIY5rp+UQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794781463;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794781614;
+	h=DMARC-Filter:From:X-Lima-ML-UUID:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=YkVMBv/sY05OW6n9It2eq/jMeb5IfpTG+9202Dl+KMY=;
-	b=d+RqgAG8ctCSu2L4xHtOnsSMW8z6YOPhbEy9gg4+gJADBlim4mbXqP7iVX91tZ3P+l4o
-	 u2yYQs1gYaeSFjdc7SFAfasX/2CFDvdC2CQKVD3QWlsarduoT8u8MRg1WOc8o0k4qEjUD
-	 8lT1i63kr67Y1Kcamt2MeP6Ddf6qveFc9OcCLg60OkMx0g0DgLSd6B0UcHr3vxPyAqmTa
-	 ElELmts0elZVj+0J7aogQtvo7WTxbT9u4Qm+F5vRAVSnxRnx5Uajde9RXoGk196JHYpIF
-	 kOsnqpAPkrR5oMqnQbg3P3vD8OObFBbBMiFzTQvViEA50e4B5b7fQojt94oeETAGEUA==
+	bh=H70rAsqDd/+AoMBICHrr1CVS1yQL3pOatKeHtbn/fqc=;
+	b=HFLy+L1xMI3SBbjWuHEj5R4RvqGL2EtHRgVubkotYJgdT/KANkgKjTxAod5SDIT00rew
+	 OuAX1S0n38Z+p2bkN5tFi7GUPQhu9efXKck7XDhOljqAcPXYALL8eSDlKlTQ9+86EzpCz
+	 MeHr7wA8OVJ3jVp1IhfCDlAreJvl/heMj8YvhwTPWJ6lFkwx9x4jq/wSNcEJrHcjraD+m
+	 d45vuqKFeccMEXSAuljF73IjoCHG44BrdJFNLf4gQnNELjC37KX1fvOG3IhG0SjrWaqwc
+	 gxComgoPs5FgWqRldWgT/zYZEGwm3b5a0ixgE17yzdmc0X86bmXuycrm/lfpYV5c49Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b0yQvjJe;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=matt3o12.de;
+	spf=pass smtp.mailfrom=matt3o12.de;
+	dkim=pass header.d=matt3o12.de header.i=@matt3o12.de header.a=rsa-sha256 header.s=securedbylima-20230709 header.b=F0afJlIh;
+	arc=none smtp.remote-ip=91.216.248.203
+Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de [91.216.248.203])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AB4606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:24:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5AB4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61638606A323;
+	Sun, 15 Nov 2026 22:26:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61638606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matt3o12.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b0yQvjJe
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-49d611f6938so106049f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794781461; x=1795386261; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YkVMBv/sY05OW6n9It2eq/jMeb5IfpTG+9202Dl+KMY=;
-        b=b0yQvjJekO3PSUHhKhHzRM90blA1jqgD+9bqFw0785WKtWMeeX8nmRkizPtKugB50f
-         4kgzzDXw1Okb2pUL7a/b7Tlv/deMoEF5qF8zy2dFFOCUYgKe8nsWi1eHuFmrlhDYQHaL
-         xsLCJVUxO8TnwStZl74hS9tEP5Mc+iefJrwGIDhNGFnv3J6X9Xul109RTbeT5hL+IG0O
-         TsH8tCyncH7AkvO+8j4h50MfyhIA0y/gycUXQ+MaHbbPWisx+jFygrjVVRZGHOb0jIAu
-         f0wiRZr73uG4dXAHTvAs0h83ErXcq5F/jvpJ1dxxyQ9S/ptVF36pS3M1GMkuPibPiODQ
-         mkJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794781461; x=1795386261;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YkVMBv/sY05OW6n9It2eq/jMeb5IfpTG+9202Dl+KMY=;
-        b=Dtm/WhyVrAYHgeuPXn+9l1W20kSSiIgT/MMPCFjHKBcmneMsFioZJh0Ku8n2HO5PXE
-         HNwQ7h34sAQRtsGGnlh+2oQGGgWhHYiCuxDvI2FUcz/6B2N1MeF1Ig1Bq/vc76D3aqPU
-         Gx5Ovo3B6Xy5oS775ApyjxT2GYs2UOUPrwn+WQWwPPztVbGzY2pFVmQMwTutS1fmQJY5
-         sKJVkoDrYoNXi44wnZtkTqKRDwIdf/v3v/ZyZOP02lhjmxhhFVCE4cxg2IYHmnUzy2Ay
-         P5bYS+MwOmanljYqsjy8AgkWbSnwWGEtKxT4EPWGO9dSjIoSckLdDHdLeharZPf5Qcok
-         A6IQ==
-X-Forwarded-Encrypted: i=1; AL+hErG6wJivZgljXqJ1zhuRQUa6oLsyOC4wL9LE8iwuanEIk9kwf1CGJ6B9LeA4FgHATl+Nq18usrfI/gUnU0A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JnouwxNc2ko38oOMYOxIYRFd4bxB4JgT8HsiAev4/lzD5JNq0
-	brg9T717+P8h6PRwgDREn9T1zXleRtF589Ew8RfOz4v0ELGSDqpo6y2R
-X-Gm-Gg: AYBFou3ZwY/4qllPotAVYdk8GD/gxy0NjFuswDBxECP3+Q4TVWamXdA4Xc3o73D6XPx
-	2iVM82ocprxtvl5LXdOH9jV4uzIQj43bPr4e9aUkpJVseCceNpjE9fsx7aBrIV1hWJhnTYh/pbe
-	byanf7uJMTPSZrKjb6FEwLIXoGpHR9LagbTmLOb9DpNYxIIHPtpTZMQzN4e5IvSRV3p3JSFPOdx
-	nsD6CsuTFExaG/Cq76DJ568vodHjOaYfdc2OkgF4gtfU0RxJPSCcj17/gGp3KNbW/98N0zGlIGh
-	EKELDqXyGZtl9GONRM4aLO7FgTzSo5R/R/iqegV3RBzZs4q43ht2B1OTcQA6wGLbV7SW/PLQ/bh
-	xNz9yu7sUVoJrG43QZNJHrzlxTiywkCo7BRcKU0hh3s5nUaZko31SJhDXx1LI+Epc3Ix92qbNio
-	nmStVFDCdonc5lsQmZtL/sz3WjkWbYqogw77F5RKVzusG010PX20GoAvuz8D14yLLqXJKftSLC+
-	A7aEdj7oaVZMdyb1jnrYSp0g1dtj6QBbo8xGO6V6l/ffSWQCZRpiv4s6xiiN9DR2B6af0kKeGfC
-	lLIqwbWr14HpXY85gbnJGCmb7lwsLyFpj5F+mMSyQHjNhUDlZnOvlYYLQujZVDVjfAGATw2B
-X-Received: by 2002:a05:600d:6409:20b0:4bb:6fb4:586d with SMTP id 5b1f17b1804b1-4bb6fb45a20mr28190285e9.0.1794781461202;
-        Sun, 15 Nov 2026 14:24:21 -0800 (PST)
-Received: from Nuel20.localdomain ([105.112.221.201])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2842e6sm346050855e9.4.2026.11.15.14.24.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 14:24:20 -0800 (PST)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: netdev@vger.kernel.org,
-	po-hsu.lin@canonical.com,
-	linux-kselftest@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Subject: [PATCH net] selftests: net: arp_ndisc_evict_nocarrier: propagate the last test failure
-Date: Sun, 15 Nov 2026 23:23:51 +0100
-Message-ID: <20261115222351.52930-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=matt3o12.de header.i=@matt3o12.de header.a=rsa-sha256 header.s=securedbylima-20230709 header.b=F0afJlIh
+From: Matteo Kloiber <kernel@matt3o12.de>
+X-Lima-ML-UUID: 0bbccc4b-eafb-4d59-b301-18d3d57f673f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
+	s=securedbylima-20230709; t=1794781605;
+	bh=H70rAsqDd/+AoMBICHrr1CVS1yQL3pOatKeHtbn/fqc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=F0afJlIh36LdOWU/yR723YEDCGdV7vz0vzPgGDfRb2aa4uiBcmenyF0IcEtp5sRBi
+	 hP1QWFqxQBm4NOreCKlfLKJZFYAu5fuELhKLHCpI7hqPTbjAN+fYPyT9bdesXVaSNM
+	 1LMJDLrUWczucqNKGMAr9rhtH+gPe8n3Pf82ISLQDmBo6GwCkyfC7q0xnyYSBlYrTM
+	 BmJnEx2gUnG3s7ZW48bKN3SgMPn5rZHhE4cK7VbUKgxVys6breT5FGsy2jhceCkL6t
+	 WZNsLdy8Z+TRCpX/TTRN1Ak5C/xJcVT0M3BGMRD7JBi2iKWIUDrfkS32nr2ec7mmcV
+	 +lgXl9GnwzYjw==
+To: acourbot@nvidia.com
+Cc: dakr@kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	driver-core@lists.linux.dev,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum segment size
+Date: Sun, 15 Nov 2026 23:26:33 +0100
+Message-ID: <20261115222633.393501-1-kernel@matt3o12.de>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <DMRGPTJ9CH1A.2M8LD751KZRIB@nvidia.com>
+References: <20260831233215.287881-1-kernel@matt3o12.de> <20260831233215.287881-3-kernel@matt3o12.de> <DMRGPTJ9CH1A.2M8LD751KZRIB@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,31 +69,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-run_arp_evict_nocarrier_disabled_all() reports mismatches with a
-"failed" line but never sets ret, so the script exits 0 even when the
-all.arp_evict_nocarrier=0 test fails. The 2023 bulk fix wired the
-other five test functions and missed this one; the v6 twin
-(run_ndisc_evict_nocarrier_disabled_all) already sets ret=1. Set
-ret=1 on mismatch.
+On Tue Nov 10, 2026 at 7:35 PM JST, Alexandre Courbot wrote:
+> Hi Matteo,
+>
+> Do you have plans to keep working on this and follow up on the feedback
+> received on this revision?
 
-Fixes: 1856628baa170 ("selftests: net: return non-zero for failures reported in arp_ndisc_evict_nocarrier")
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
----
- tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh | 1 +
- 1 file changed, 1 insertion(+)
+Hi Alex,
 
-diff --git a/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh b/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh
-index 00758f00efbfa..4afb953a3e479 100755
---- a/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh
-+++ b/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh
-@@ -139,6 +139,7 @@ run_arp_evict_nocarrier_disabled_all() {
-         echo "ok"
-     else
-         echo "failed"
-+        ret=1
-     fi
- 
-     cleanup_v4
--- 
-2.43.0
+Yes, I do. Sorry for not getting back to you sooner, I was unusual busy at
+work.
+
+I've had a patch implementing the approach we discussed ready for quite
+a while now, but haven't found the time to review it properly myself.
+I plan to do that and send it out as an RFC by the end of this week.
 
