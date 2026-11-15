@@ -1,65 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.185
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794761106;
-	b=N4hdUh4cviNtcGD9wIniD+0EHaQ/sCSOu4vFP8wAs+4pY4PaY01524lpUHd+KCgfSwi7
-	 t1zW27mJXVRDK/hr4Y+KMBkz/elJ6JA+INnVCHlZPvQZSA2L2tSYSWqqw1Tijl79W0wl2
-	 LaNxnybQFgeNd8lCm1Ghgg7aO3uuRC3B4Qul6AE6eHg2LcRGULUlubUVpO5h1F6y9D+SX
-	 G73xvnuZVsanCcpbhNd5WmOz7FQngfNDCsH0SEQMKt7s9pmnIszjTdV02usNdqDcckDDm
-	 V7SiwMK31XmYnGuIPPr4StfX1SCC83C1Dw3WHgYR+8LlozTI3iGnEuTZrkEfy6ckT+w==
+	t=1794761178;
+	b=JFLLZRhtNCB74VVM2Dq/TSV8+JCavJwSW2Ju0cfpIe3zPUrr7uaJy9IISw3z/LsO5C7l
+	 qXlOeLXc1dNY0ev+HDuBJR/uvW4jk0xI1Jf1bIQCutBJZ4XcagstFHhPSFzkhhX1n+EQi
+	 6T8OxX0ChaoNoEsgUTnXqLpKDqZOMeaHY/LXfFXOIN54VZHuGXsGeTaGHq9hOaE+iVKTR
+	 reD/Ke6i5ErLepj/p2oRPVldMKCtVcucF5jd2ZMaQI4yJcraCzwdR883P89XMMhidfdVe
+	 HNZqqBcO6tNx/F53zxB/XkkeWpxyUWua166GQxxsVL2VdL6UvKtV7V3qnqAKaYdJ5Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794761106;
-	h=DMARC-Filter:X-KPN-MessageId:Received:DKIM-Signature:X-KPN-MID:
-	 X-KPN-VerifiedSender:X-CMASSUN:X-Originating-IP:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=h2dUULBE1fPGIekm815tBT/QYZpp/zRW5skbIJlMXnw=;
-	b=EOC4vHgRz9QvTsvJY5fFH2cP/KwqOiC1577vidlluEwy508pVV7OvcuzrMu4SBI8T+Zq
-	 rv+3vioayCxiNOh+JmzYnWf2hJEl25zDDMN6ePHOZlwZwiPXDsR25/XJDaPL6UkFiJ+sx
-	 8lelH/z9BMKf9n66OHv7ZZ9+ehF6hQWQQZO6jRwnyJ6k5REm91angtLbRgahM/bmWRy9C
-	 N8XQLBAZum7QYWexgsk6EilITUwOiRnmkr0ZFe4DHS2+kmbrxtjQqhHAdFIWRTtd2hXn7
-	 td7gaDOv6YaGwZXoNJ/oR6bcBs42Mfya9aufjadN2uCW0p1wBDtzrju/Nil7WrxDMhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794761178;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=2MoJWMn6VKWDyiGwzxkMuLU3J26ndCbXCcakP40CUSg=;
+	b=XnRCbNFRrzzLGSYq98r+HTTrHT+jmrJO9FoEKXB0qIGkN1bz23fYVVDuI4Cv3KrZ/wY5
+	 sEhR7S8kFhrYJDQTtegliCsKnPemynLzrnfftwXzi2MlVb36a1W7SOmT6ayLmLM/njytj
+	 M4jhED8aBuM0nu03av4TJCDCnr3uZ6sH/PJZ04ukMV7oV4DDjFgd1+VgC/5vafiyl47yj
+	 x8XzeM6HheYX7rhtUUIY3/L5zXhfOhqNWJEudpPQIPKN41Fk87rJyslV4QJSuC/EJVoDT
+	 A4tEp8HPKBLnfVMyF3TLq/Z4t5IpiBNKuNg4IKc7JbadpmENr89UOsOOMugRZHsIgZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xs4all.nl;
-	spf=pass smtp.mailfrom=xs4all.nl;
-	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=Rg+JF0Sp;
-	arc=none smtp.remote-ip=195.121.94.185
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8M3unOV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9ECB606A88F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:45:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9ECB606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFBF606A31F;
+	Sun, 15 Nov 2026 16:46:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=Rg+JF0Sp
-X-KPN-MessageId: e486e84f-e113-11f1-ba8e-005056999439
-Received: from smtp.kpnmail.nl (unknown [10.31.155.8])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id e486e84f-e113-11f1-ba8e-005056999439;
-	Sun, 15 Nov 2026 17:44:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=to:message-id:content-type:mime-version:subject:date:from;
-	bh=h2dUULBE1fPGIekm815tBT/QYZpp/zRW5skbIJlMXnw=;
-	b=Rg+JF0Spd1onVYeE7iMkR5M+JR5jtt4bRE9BsFXXKi4GTW5v3bCSN193XJZ/X7iN2/T9hoLoY6Hyq
-	 Spexo3lPPalUI1wvNaEc6KxxwZN7E/Kz6QD526WACpxbR7Y/QrmyLbLftwy4Tpi0zXVkX09miVMYRF
-	 7MFTy/SQnOLKKnRh7XGA+A7dbwVc0Itc5AM9uZwBSY99UPEavQju3CG4CmJg0UJFVmO1Sm64QzGKgI
-	 QeFlZZ/PRUErTF5y4aZsCUo4xiECRisJ44EATJcL4G2iWadqXXnksERjisPm6oVoN4t5d5T5Pb89zY
-	 62CS8VYwRCb6GedUDD0LMluH8t1n6QA==
-X-KPN-MID: 33|Zchs13G1FNViE6xx8diQCs1AxB0hlx+VudxQKLkze6qLPmykgfj0KUinO5g9KBC
- Ap7dGeTW56WO7pNxaRa9D1bT8mUA5Fl+1ER3z/tmjtvg=
-X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|mNRwOOt81JwsHy18bHVSWwY4TKhzhhFc4B16lvpE8/ER8eur5fpTdMxX0PiMYBw
- lDJnA/YexFUra9p12gPgBMw==
-Received: from [10.56.187.180] (unknown [83.172.175.28])
-	by smtp.xs4all.nl (Halon) with ESMTPSA
-	id e45f3b6e-e113-11f1-9bd1-00505699d6e5;
-	Sun, 15 Nov 2026 17:44:57 +0100 (CET)
-From: "Jori Koolstra (CIQ)" <jkoolstra@xs4all.nl>
-Date: Sun, 15 Nov 2026 11:44:48 -0500
-Subject: [PATCH 3/3] selftests: allow wildcards in TARGETS and SKIP_TARGETS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8M3unOV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778A71F000C4;
+	Sun, 15 Nov 2026 16:46:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794761178;
+	bh=2MoJWMn6VKWDyiGwzxkMuLU3J26ndCbXCcakP40CUSg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i8M3unOVKP3MMaTm1zNOl+FhccH7hwIqyzLm9BEBvlpqbA7abZZFNDwkwy60HSHW9
+	 AC2u2s5Tue1wBbrb++sAoycH7lWwZSjqesXovS4smNt+M0XNdnTf9BFjDZ07mX2dGl
+	 xKNzZc8M08G0Bnf/shL+OOUR0wE9VoEV67R79ElS98dxdHbhfcJe3rxGyvYFpK6kw5
+	 IniYJ7SgZPGKfvw+YheRL2CWc4gh+y6Pqzn4GsLmgvbzBqTCjIWoFC1gQZr/fm7NPp
+	 jA+P5NNP+f2GLtYkFVXnbIY9xWt1u4YbZdeEWESnWFEb9YR44X/lqt+aHpGcRnySry
+	 Tpkhcl8/92H8A==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id BD4EF336CEF7; Sun, 15 Nov 2026 16:46:06 +0000 (GMT)
+Date: Sun, 15 Nov 2026 16:46:06 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Peng Fan <peng.fan@linux.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Lucas Tanure <tanureal@opensource.cirrus.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 00/10] regmap: clean up and improve __regmap_init()
+Message-ID: <8a0bea1d-868f-48ba-a5ca-9101ec84503d@sirena.org.uk>
+References: <20261113-regmap-improve-v2-0-5dfd6a89078f@nxp.com>
+ <avhbxfOZqN048N-Y@fedora>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,92 +64,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-ksft-targets-wildcard-v1-3-7512a50d0976@xs4all.nl>
-References: <20261115-ksft-targets-wildcard-v1-0-7512a50d0976@xs4all.nl>
-In-Reply-To: <20261115-ksft-targets-wildcard-v1-0-7512a50d0976@xs4all.nl>
-To: Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- "Jori Koolstra (CIQ)" <jkoolstra@xs4all.nl>
-X-Mailer: b4 0.14.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="RTzgXl3Fqqzsuwj0"
+Content-Disposition: inline
+In-Reply-To: <avhbxfOZqN048N-Y@fedora>
+X-Cookie: A watched clock never boils.
 
-Many selftests are split over a top-level target and several targets in
-its subdirectories, e.g. filesystems and filesystems/binderfs,
-filesystems/epoll, etc. Running all of them requires listing every
-subdirectory in TARGETS by hand, and keeping that list up to date as
-new targets are added.
 
-Allow entries in TARGETS to contain a '*' wildcard, which is matched
-against TARGETS_LIST. The wildcard may also match '/'.
+--RTzgXl3Fqqzsuwj0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Allow the same in SKIP_TARGETS, e.g. SKIP_TARGETS="drivers/*".
+On Sat, Nov 14, 2026 at 09:01:57PM +0800, Peng Fan wrote:
 
-Signed-off-by: Jori Koolstra (CIQ) <jkoolstra@xs4all.nl>
----
- Documentation/dev-tools/kselftest.rst | 11 +++++++++++
- tools/testing/selftests/Makefile      | 17 +++++++++++++++--
- 2 files changed, 26 insertions(+), 2 deletions(-)
+> I am thinking to drop patch 1(which seems not a correct fix) from the series
+> and use a separate patch to avoid sending a large patchset again, and the
+> other nine patches are orthogonal with patch 1.
 
-diff --git a/Documentation/dev-tools/kselftest.rst b/Documentation/dev-tools/kselftest.rst
-index 44da142a67b8..3413f59f5c3a 100644
---- a/Documentation/dev-tools/kselftest.rst
-+++ b/Documentation/dev-tools/kselftest.rst
-@@ -118,6 +118,17 @@ dedicated skiplist::
- 
-   $  make TARGETS="breakpoints size timers" SKIP_TARGETS=size kselftest
- 
-+Entries in TARGETS and SKIP_TARGETS may contain a '*' wildcard, which is
-+matched against TARGETS_LIST and may also match '/'. To run all the
-+filesystems tests, including those in subdirectories::
-+
-+  $  make TARGETS="filesystems*" kselftest
-+
-+To run only the tests in subdirectories of filesystems, but not the
-+top-level filesystems tests::
-+
-+  $  make TARGETS="filesystems/*" kselftest
-+
- See TARGETS_LIST in the top-level tools/testing/selftests/Makefile for
- the list of all possible targets.
- 
-diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
-index 4c223bcd2449..f2b779f7afba 100644
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@ -156,7 +156,20 @@ TARGETS_LIST += zram
- # "make quicktest=1 kselftest" from top level Makefile
- 
- # Build and run all targets unless the user asks for specific ones.
--TARGETS ?= $(TARGETS_LIST)
-+ifeq ($(strip $(TARGETS)),)
-+TARGETS := $(TARGETS_LIST)
-+endif
-+
-+# Expand '*' wildcards in TARGETS, e.g. TARGETS="filesystems/*", against
-+# TARGETS_LIST.
-+ifneq ($(findstring *,$(TARGETS)),)
-+	TMP := $(foreach t,$(TARGETS),\
-+		$(if $(findstring *,$(t)),\
-+			$(or $(filter $(subst *,%,$(t)),$(TARGETS_LIST)),\
-+			     $(error No TARGETS match '$(t)')),\
-+			$(t)))
-+	override TARGETS := $(TMP)
-+endif
- 
- TARGETS_HOTPLUG = cpu-hotplug
- TARGETS_HOTPLUG += memory-hotplug
-@@ -173,7 +186,7 @@ endif
- # which require more effort to install.
- SKIP_TARGETS ?= bpf sched_ext
- ifneq ($(SKIP_TARGETS),)
--	TMP := $(filter-out $(SKIP_TARGETS), $(TARGETS))
-+	TMP := $(filter-out $(subst *,%,$(SKIP_TARGETS)), $(TARGETS))
- 	override TARGETS := $(TMP)
- endif
- 
+That's fine.
 
--- 
-2.56.0
+--RTzgXl3Fqqzsuwj0
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavnhygAKCRAv73Ows9A4
+iXYaAQC+TIecl8vXIYYTbuJjWoEf/G40FVaD8VmRym9z8wklQwD/aFcuEuhH3A0l
+k2lGLH87LAYatOZdjZp1SSKYHwYNLwU=
+=FyVT
+-----END PGP SIGNATURE-----
+
+--RTzgXl3Fqqzsuwj0--
