@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794731548;
-	b=BK8wPiuorLIXPU/yxInPm1fSvgUCZ/C+viDaGteCk7Za3EdixDUowKMP5Y/aQO0ltxSK
-	 GQkvTZD7dAYIZ9TnCUYIELTp1DgFOxJzZGHui/JgS1i3ykScwTTKVihtuDqtfQkXC8XxQ
-	 w9q3mUVtOQbIamvTXxm9TjP3RLvrm46R/Pt1l+h/QjTu8xdAOlp661XcdopmXYKrUT1xl
-	 7mf9sELsr7DSxwXYasM09Wr+GFZrPnY0iP+KvTvxYG5z1mQr9BHvofEkn6ouJYs6Dn+tT
-	 yBNGjausGzDlaIp2oIVGdQgBKwdPKM5sEtdif4Lk49FJW2Nu3rAtEAzieQred/53AkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=bC7EA24fj4avy9cidZojnHvXReiBSG7HV8+CCASyk/yQhzUL771en/n2OrMm9LPOC/2f
+	 iFqm43pBF1ZLW7geJbmH9qujT6hBCrqpyCIaGKdiTK7gGl1ddWlwx2l0KVnV/xEvYrhIK
+	 Aenp8qX3HzQEf7AjxiAkDF/VZ0XCIzuQmH713bAXL9OaxdZcaxBPS9Lwxj1iJpe8dC1Vo
+	 YqOhII0yHps12Sxo0g7XTl1SKwouzlo9yIjzaUq2l9IWAxdsN9Ypso0OyHb0uLlEtIOKA
+	 4+kePIsqt91uMkXQ0Aw0ZynMjqsktVMMAlbi6yvZpPm/bG9Ap7+K7FcHUXSdiMqid/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794731548;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=eEmTq2aD52LZwBg8OYrz5cuWmNtD67t5UWpL7YHFS6g=;
-	b=4c8RKWFLIWwkxJ9xdWkQ9gUXQ38Qk2vLP51e2nwQVKeBc7oUr2RT9d1Rg/B9y3CbnWh6
-	 9Rq+cr6INOqCg8qpaPgzD5GDGml4Abs7EbIYKFsbKCsyzD7CL0MTDYsWMCJ8jFVaC1gej
-	 1hx4Bt4S2C7bXMA3eG1d+wTRBHlDkKSGCCgozBRCwtRE5fJ+z2SqbJ69gV2mVY/J/Wthf
-	 4Doz0j5XO3oXsKSu+LcyMYaPFVfU1mU9kOAxU8DcHsDcfGWjlaaNK9Pv7EP+EkP+PtsKr
-	 KS37LACHcFgElSoHrtNnB2m7YzRDkidOV21x5owBS4DNnH1ZUq8GIPNhNtTBKFtSggg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ErYHWPAM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GCh8Ifwi9uvxPPglO9UrnRFnfH7l5jkW/d7XdsHHxuw=;
+	b=nEUCSuQpxfICOgz1NaaUS9ebGIA+IM8L4i0MqorpAMq9U8QuiEvJ1EGLJWEsFsFYD4Gc
+	 fbHZ/xFa0ZkVjclXzb9Ro7Z8aE4JjQ1T6gvLqAaVVullvTxD58lenN6i1sQJRImScRwEQ
+	 SxOG5r67an0JpslVb2ZPq83GK/CTYbRFuG0qcZXxaDAAoVpWjEeavcj/bMgv1USfdLyCv
+	 qMxJB+t91+xC7QGdwOOekJHBnZ3VA10ETIQKTCnAL6ChmpmJLlO7BdZRvwz1ilZ5ix2GN
+	 /nWhLkXSRYkbujs0gwr7JWR8yH0yUDkh9JjY7Jchg3xmEcFpWRj8DzZJmr7EUD84eAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBAiMSoh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68406606A31A;
-	Sun, 15 Nov 2026 08:32:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68406606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06C1606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:32:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ErYHWPAM
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 61837202043;
-	Sun, 15 Nov 2026 09:32:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794731545;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eEmTq2aD52LZwBg8OYrz5cuWmNtD67t5UWpL7YHFS6g=;
-	b=ErYHWPAM2O28uQeOsboT09z3tSG9ykZEyafROwpzYqAZf6JCv5jV5EYSxwN7OHFRqZvaOE
-	aKuPCS9SnlTDi40PIg8URCw1qgb0ZOvw2ik7XvlUS8vrCELDgXfWxZKTyLnDHSVn+prV03
-	kK/dGh9qnOuCe0xkO/4WeeST3KwGxd+BYzyU/bhM7NV6up56UjiqVuI82HDHPYjxsfTAiF
-	RHcz5+C2qHBrkBavY6ngngX0uQdBvF/kc6duKAdVJ2oF5InBUWNtPIJKPgk5V+wMdt3ptF
-	cwQDDBzXzc/XOuC5GsSvoZtKDcjgS2e7YxgY40/MNPMuyVdKydVijtLzpHTyIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794731545;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eEmTq2aD52LZwBg8OYrz5cuWmNtD67t5UWpL7YHFS6g=;
-	b=TtRtGrhM+dQoJIUpapXJ4hfcBBc7fwh+59v52C82XsLkVUsrg9xJE2KLSsu6PGyYOKSNYd
-	CYAUI1BK1wiWQqwGzWO3G6uu01JesPdXMYRZi1FqfDnOkCCROyMieApsuS5WPcPbdmN2mY
-	LxfCCV6ljCydXVTasazbqMWIJObvSwIB3p0F+aD+hrwlPEZAp/ICl9kpnER4J4s39dPj8A
-	fYarTJlnj5Tzq0XX3YtPgRA2o7sgsomaHXZX0nFL+7iSJdmYEicd267565bezbD+GjiMA1
-	hvp1+nxxntO3GQCR9U4VjjptAu1IhWr0ZlxbJXiNfXWXjr0bpWzIkdXjXhGM9Q==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794731545; a=rsa-sha256;
-	cv=none;
-	b=cu8muPU9IaBMS8n5CuQQl4iYPtp2GHL2L/9ICyOQo2k1HZvyJdQvp9Q4eFtvTLTP6FclSA
-	X6GrGv9NobwmG5M0G5GM+5JeveKsIisqWjAK2BiyELUl5KY4zVt+oI25YsiIZtvW4uu/Rr
-	Pe1r7F9FECvO/6HuoZOHNfEdM3sLpK7Y5v9PYalXO/b4RGXaio+RBbcWtM2ngZuF10IAT6
-	6yZDyTmn6VOzgJG3580NMIWZ8WBez2scpWzV28MRPNH/ADyFpDFAAJEGGINxYBmbooESEe
-	ifa0XBAnKZDnaT+kmAE8nGRgnZ/TxvoKWWK3F9aZYOWNkNW/oR0BIlmmhnXM0A==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xSVez-004G5Z-0s;
-	Sun, 15 Nov 2026 09:32:25 +0100
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id F3F7B5EC1DA;
-	Sun, 15 Nov 2026 08:32:24 +0000 (UTC)
-Date: Sun, 15 Nov 2026 09:32:23 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com, 
-	max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de, 
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	kuba@kernel.org
-Subject: Re: [PATCH can-next v6 2/6] can: gs_usb: gs_can_start_xmit(): don't
- leak uninitialized memory over USB
-Message-ID: <20261115-strict-wine-hoatzin-90dbc0-mkl@pengutronix.de>
-References: <20261113-gs_usb-fixes-v6-2-0c039e1bfd74@pengutronix.de>
- <179469989360.488853.2267495586582678566@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBAiMSoh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5454F1F000CB
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794731548;
+	bh=GCh8Ifwi9uvxPPglO9UrnRFnfH7l5jkW/d7XdsHHxuw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UBAiMSohkM5KfXVEBDBy7CRMSsOwbi1hP3rk3TU9/89oUkVe6UCm24Vb3CmDvF4z/
+	 yOY2RgiM29r4sEzCm3ye06DBabOoobyPOBVJdK/ul04D58nDcjm6CSoPQQlwL3m5Wl
+	 cMULqRqaEbyaqO5ca8h1WaukMsbfXjTwzBSoBZ6LvdM5fKavmHsNrligN54uDxAUuI
+	 2hHStRSpuj80FGStPpW38bJWdVKz4ajq+TfMvojqW7zhOt8LatpTF1QE3lCuDVaj+/
+	 LVg1FCcDhsaxf+rveFojuvcmQ5VjVEFROICOciEYtkVmmOOBvFchnHvXia5UB1PoJH
+	 RHbGFhep+UAhA==
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-94961b68685so121390685a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:32:28 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFgEcKk3uOn9X1IpiNfVzJX6HJM1IdTO6Rfsl2GrN5KZArH7r3Qp90y1+iWmL1daryE39WnYuSrQiWAkBI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+r5TXiHUH85p65QoYtc7nOn/JnCOKerufUYWoTxrkbZBkDVsS
+	JRltUA9rg7q3MuW0IGJeOq+I+qLUyEMFtHd6kmnEgadWrRLrr2ikkJA14/QaV58XletGycoBiE3
+	CNG5P92tqQmnu/LU8dphHDBFVampXBJo=
+X-Received: by 2002:a05:620a:2614:b0:939:fde0:a71b with SMTP id
+ af79cd13be357-9494b86e99fmr1135729085a.0.1794731547421; Sun, 15 Nov 2026
+ 00:32:27 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,73 +59,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qwnibajoklxs4rs7"
-Content-Disposition: inline
-In-Reply-To: <179469989360.488853.2267495586582678566@kernel.org>
-
-
---qwnibajoklxs4rs7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20261103113711.1832834-1-max.kellermann@ionos.com>
+ <20261103113711.1832834-4-max.kellermann@ionos.com> <CAGsJ_4y+LX-CSnDJ59VT2nc-i=rB=4iMuBQYawMCktk-_SPykg@mail.gmail.com>
+ <CAKPOu+9XP8CP-EiLqd_Q-F6EWUQPgi4Ysz7wu8LZijR+j0_uyQ@mail.gmail.com>
+In-Reply-To: <CAKPOu+9XP8CP-EiLqd_Q-F6EWUQPgi4Ysz7wu8LZijR+j0_uyQ@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 15 Nov 2026 16:32:16 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zp8WJosxkVwRtfEvySBwp38bLd-0g6cV0G1BPb2V=hPg@mail.gmail.com>
+X-Gm-Features: AclHuK903Z9BUzVG_q0fBix3SipsrwutJuy-Sym-wmyWv56RpJEBqKKFqIWDC2c
+Message-ID: <CAGsJ_4zp8WJosxkVwRtfEvySBwp38bLd-0g6cV0G1BPb2V=hPg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] mm/mglru: cache the last memcg node, make tail
+ insertion constant time
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH can-next v6 2/6] can: gs_usb: gs_can_start_xmit(): don't
- leak uninitialized memory over USB
-MIME-Version: 1.0
 
-On 14.11.2026 23:44:53, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in ca=
-se
-> you want to address the nit picks below when you respin.
+On Wed, Nov 4, 2026 at 3:55=E2=80=AFPM Max Kellermann <max.kellermann@ionos=
+.com> wrote:
 >
-> Low priority / nit picks for your consideration:
->
-> - [Low] can: gs_usb: inaccurate Fixes: trailer in commit message
->
-> --
->
-> > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> > --- a/drivers/net/can/usb/gs_usb.c
-> > +++ b/drivers/net/can/usb/gs_usb.c
-> > @@ -861,7 +861,7 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff=
- *skb,
-> >  	if (!urb)
-> >  		goto nomem_urb;
+> On Wed, Nov 4, 2026 at 4:40=E2=80=AFAM Barry Song <baohua@kernel.org> wro=
+te:
 > >
-> > -	hf =3D kmalloc(dev->hf_size_tx, GFP_ATOMIC);
-> > +	hf =3D kzalloc(dev->hf_size_tx, GFP_ATOMIC);
-> >  	if (!hf)
-> >  		goto nomem_hf;
+> > On Tue, Nov 3, 2026 at 7:37=E2=80=AFPM Max Kellermann <max.kellermann@i=
+onos.com> wrote:
+> > >
+> > > Rotating or onlining a memcg currently uses hlist_nulls_add_tail_rcu(=
+)
+> > > which walks the destination bin to find its tail while holding
+> > > `memcg_lru.lock` with interrupts disabled.  With thousands of cgroups=
+,
+> > > this takes a long time and causes severe lock contention.
 > >
-> >
+> > This is the main cause of the soft lockups and RCU stalls,
+> > right? If so, we may want to add a Fixes tag.
 >
-> [Severity: Low]
-> The Fixes: tag points at 26949ac935e3 ("can: gs_usb: add CAN-FD
-> support"). As far as I can tell, the leak in gs_can_start_xmit() is
-> older than the CAN-FD support.
+> Yes. I added (for v3): Fixes: e4dde56cd208 ("mm: multi-gen LRU:
+> per-node lru_gen_folio lists")
+>
+> This commit added lru_gen_rotate_memcg() which calls
+> hlist_nulls_add_tail_rcu() (full linked list walk under spinlock).
+>
+> > The fix itself may not be directly applicable to stable
+> > kernels, but based on the logic of this patch, we should
+> > be able to work out a backport, right?
+>
+> The primary copy of these patches lives in our kernel branch that is
+> based on 6.18 LTS.  So I already have a set of patches that can be
+> backported more easily.  Do you want me to submit these versions, too
+> - and if yes, how?
+>
+> For me, it is not entirely clear if a stable backport is really
+> necessary (thus I did not Cc stable).  It's not a bug; just awful
+> performance when you have thousands of memcgs, but few people have
+> that.  But that's up for you to decide.
 
-will fix
+Okay, thanks!
 
-pw-bot: cr
+I guess we can only reproduce the soft lockup with thousands of
+memcgs being rapidly rotated by artificial test scripts? In real-world
+scenarios, would this be more likely to manifest as a performance issue
+rather than a soft lockup?
 
-Marc
+If so, let's focus on upstream mainline development first.
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+>
+> > Another option is to leave the cleanups in patches 1 and 2
+> > out for now, and make patch 3 self-contained as the first
+> > patch in your series, if that makes backporting easier.
+>
+> I don't think that makes backporting any easier - they are not really
+> cleanups, but refactoring to make [3/5] as simple&small as possible.
+> I wouldn't squash them; it improves nothing but makes review harder.
+>
+> > I'd appreciate it if you could also mention Ridong's earlier
+> > work in the changelog:
+> >
+> > https://lore.kernel.org/all/20251119083722.1365680-1-chenridong@huaweic=
+loud.com/
+>
+> Aye.
+>
+> > > +       if (at_head || !last)
+> > >                 hlist_nulls_add_head_rcu(&lrugen->list, head);
+> >
+> > Do we still need at_head now that MEMCG_LRU_OLD has been removed?
+>
+> Yes, for the "!last" case.  This is, unfortunately, a special case.
+> If you prefer, we could move this special-casing to the hlist_nulls
+> API so callers need not be aware of it.
 
---qwnibajoklxs4rs7
-Content-Type: application/pgp-signature; name="signature.asc"
+I mean, you might not need `at_head` at all if you rebase your code
+onto either mm-new or mm-unstable.
 
------BEGIN PGP SIGNATURE-----
+https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/log/?h=3Dmm-new
+https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/log/?h=3Dmm-uns=
+table
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCavluFQAKCRDMOmT6rpmt
-0tO6AQCP1l91ftvr470OfnqXYtarw/3FklF+i9mJOy83itq1kQD/WGKcjxyywdLo
-7L9TOcMSo+f5V81CE+wU95maFzahawA=
-=0+XK
------END PGP SIGNATURE-----
-
---qwnibajoklxs4rs7--
+Thanks
+Barry
