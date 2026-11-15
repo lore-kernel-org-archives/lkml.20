@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794733508;
-	b=5gOGhgaFrI23dkJqT8LgLuOp/sYImMETzKvAOyJOfynWHYhnX0XC+rHl0Bqo5SmzQfGV
-	 28h4Ux1kd/2IKc7XzMeXBOrv2l3+aWEYni83loUajl6P44iVKu9pw4DACfRJW10suP9wf
-	 hLBAE4dmBNyMpyXGdLXZZrk+m1hps3MDsyLQEG9WUzz2eC7RsRWc+2k/Aj5fRf34uSISi
-	 /a8dmgUpxPT2B/3IAtbw8yUMuFp+1TPhWFJ6CrrRZ0lyv42ZeqvW09r+3CaCvwoCKGoix
-	 bmxbPjQ5iERYe9iMZ+d/sl5p+s7swir4BGHDn2uI+8sKaDD6Gv0ujraSELZo5vkXAAQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733508;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SWwLvN5yU83ZBCHPhXtyXSkK0RHhvvZ/0hRhOydSxnQ=;
-	b=1VYVdEm4htwzE3PrwMryu7/XXqICAwp3HfZp5axoR/Iz/Yzkw4zsqBjrs0fcGTXmijNn
-	 nou6Pl/jVovgj8q2BqZTqaw3fp3NATmO548699+8iK9Z7WtEboe4kKF7oaoBD8QHnEfuo
-	 R6uJjw1e0hvXb1f2OXNcmyyIqKBy/LZsAoLsrh+DK5UH7Egi36LdU8NBmN3YAdT0VnMcG
-	 yPIUdor9Q1gW5Y7BpuRW9heKtxM8ru0CR8JKHmBFStj8QLmqV+drAskjnz5lmfvzkGnQX
-	 /TQQK8K9EbPWwiGnzecyLvB74XvJbM/dQORfrrVdJECtcIdI3Isbe7WbsNQWz/Fr1MQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7qQBefS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A17606A31A;
-	Sun, 15 Nov 2026 09:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7qQBefS
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794733508;
-	b=fmn9mMLINAdI3b31dx7fl4/htTvC8ovdMwnsGo2D2qv7wYh61GN0BTP9yyunEFLUV6JX
-	 YfqQUM2YKCwntnmRmPad819+BtHyFFvymQYDZ58Pv5HhdHj722CPc+Ak0sAiybpGjQd8p
-	 SKAH1Dp8QooPMCzs3MmPTTbXKps9T4Qd1vTmtfnOExnRcSMJOVa8nCBQ6LQEkeZvCaJlJ
-	 A0hKb0WzkN/yIWA4i/ilN5ClvMVlol5P2T293rnFjw3CQPS+WJ8hZIFTBXFKXe+lhjOFe
-	 DvYWDnjsrZbAufGBSYRU83Q7f0MPYzEXeaTG0nbiMY334qCQCaQEYVX123exbNiVIeA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794733508;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SWwLvN5yU83ZBCHPhXtyXSkK0RHhvvZ/0hRhOydSxnQ=;
-	b=SRV+lHk/qJNEgLwUf6p0peY74acWbnMmLBsv0Jq1MDPfSC/AVgUdW7sWUoY53QCOFbxD
-	 X5IKHOkA1meRX/1TupSynlWPJUr0PYAuabwUEvKdZUuopvTCYQsRFGAL8MQCjAEYMFtXB
-	 y2Ae+b/1bsY7/KwY0LtEWbhtdbTaB60M1IaY41AdOzhZG9mx6bYDNY6gN4tLy9bw+M7va
-	 EzogctxgiX9PCGXTJRbmGStXIT4p9S7BuMx+2DAYHyU5tlkwoN2SHFLsq4tO0wgSddGRX
-	 qbN2ZvwO5ic4iVQMSB9rcfRr5aVsN5r8NHus12HbJJQuGh/iCdOONwqR0C7gnH9wHCg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794733533;
+	b=sqgWWtQd13f/itTP2xkJIbOwjTSjAr/ZmqfMniX9NlyeA5n2VuP6aKFE+4D29JbLaoih
+	 4An2w5/viLEQYcY3zUwUAJ3gQKSgkldFRrSYHzLOWFCHFAAtO9CNWF//eYsl9htepcyYc
+	 4iXuLy+JOsShLvAGzhmPqqP42kjARKN3V1wuJhTEQBXzbTIUklY44uBR14kRJ7YN13TVS
+	 416kH4PpI02x27X2UKuSvhIVd527AWRK4XfLiGY38W6sw+DodLth0sTupQL9uP1eugfji
+	 /iY9Gry+vFQRUEfRvtwibEObhcX6hlYQeXRwmq0tbQwJP1370EYN4hxeYm/boYMQ+iw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733533;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ZMg/nSjUq9iJR0S1fUdGtC09hfJyYX8pLkJgw5gz5Go=;
+	b=3XtEsSn+Tv12o8QpWT1XpEyPQ1YthS71QJ4pIUkzlJgcJ++av8FhwoGGKLAG+on84mpu
+	 QPLJqRQl8ghETgQQVnYZhtTyBQ/cVa562nMPIfUt5vSJeTii2otQazps2vQJjOCrB7O9C
+	 kZ+Ym3nhbD9hBoM1aB3O/lElTkTzvNh0wz6oxc20xDCe/1fI1/eFNjtavzji+PnTm/lYk
+	 IZ7gSRdHKApyakwkk69RvF4RTVzfbQIe6nrLmGICYuohbCtBVl6koNOBxNaVqZ09SS2qn
+	 JtsF0KQtaNJ2FGQ5zXH0P3YcI8u5i5AQK7b1+s59JDGb6SrIWnYJ+OKIjT/F0j504EA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WZEzl23J;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D830E1F000C4;
-	Sun, 15 Nov 2026 09:05:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794733508;
-	bh=SWwLvN5yU83ZBCHPhXtyXSkK0RHhvvZ/0hRhOydSxnQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=H7qQBefSjjR2IwpJigL66Q2xaCI88wcALhDKH2LL147sCbE2I3/p89S9IU4R+Agro
-	 jwKbSp9q0ZVxkdSbtK4bJLtIL4Qa1BfK/n6g34vMnD3k+I26eI6NqBf+WaDhGWjXsG
-	 1v16zPzhy9EMx2e8V7KG+W2GAozwc7Ubr7+Ucg5Mh0ZkW0DzMIUaWPwuhu95WRYLZQ
-	 ar/2dsn+waVeh/rLXQXGpjmr6iBqn/TRErPKVdIyMVeD3dqiBrgKkypTMVOE6AWuOY
-	 JSttsKOP81SA8edIgnX/Td/1zzzexeXiSeQqw+fafqh2S/xTVVFLXZtKyA5de6bue0
-	 aS5d9aTCc9fwQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 544294A021;
-	Sun, 15 Nov 2026 09:05:07 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 09:05:07 +0000
-Subject: [PATCH net-next v3] net: stmmac: dwmac-sun8i: Fix use-after-free
- in the MDIO mux error path
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F182D606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:05:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F182D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WZEzl23J
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4395d31228so422168266b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:05:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794733531; x=1795338331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZMg/nSjUq9iJR0S1fUdGtC09hfJyYX8pLkJgw5gz5Go=;
+        b=WZEzl23JKiuZ8TYYH80BBF0tEbF1rQKXBSe9ergk6FRLlwVUxhjaAu8Sd7fv1rI5Bu
+         g1Jk/4uI2sfBGIHJ8bC345/3JtGxR0nxfSEjQBTV1eWTL21v7nZ7ELikOz9iuuKPONz3
+         U8RBLhoizcLWzPrRTlXam38C7HdCSP41810emOm7SKRqwJMpWgG4Q466Wa3ASyLsX4Qk
+         e8sHi+I2hF8xKBSacQBGS1HFrmERP/1eGDso2s2+Zfihb3XERt4PW6y8mlJzLj94udY7
+         v56S+e2QyXgXPiPcfaj+QNqcTTVawANp7PC9RBNLTQtoZfZ4EIZhoSUnXjt64OYKfCAq
+         xHfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794733531; x=1795338331;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZMg/nSjUq9iJR0S1fUdGtC09hfJyYX8pLkJgw5gz5Go=;
+        b=2WB8Gcq10BohDRO5EB1SucZIqaUcJhjlVTUv/E6ga3Obdy+ZXhU5Uk+2ER1f3YSPUe
+         FE0YGH36Uq2jPS0rw8eE9jbcp35az2l9tr9zB/wl7fFY1vtxashFlYWV77PfKec5YAEA
+         QkbJOdN1kD5jsO/bCZRxunFq41XvE9EiK30QAee59A9BBytmr04kz5flBVkaqlze49JD
+         R4MRNGiMRHbLEWyW2ROlFu0UX5BDQ7L4m36aT94wFW7HdeC/tS7phQlXyEywuYturgAG
+         sAXHgw/pASsxhdozuqp+U0RwSxXENPhn6sTJW10IH1kciuzbKprbr/uy9FLsOmSHSAbs
+         3bew==
+X-Gm-Message-State: APuU4Z/Ri8gu90rR1vZEaPeNxf342pUvhyUt9/h9w1sPvKYDhSjc5ve/
+	jmWXoITzc1PBEZUjqyFR7Zjksqq+x/2kTE6qbqNg/gDIrdKWvRl21a5s0I+l/A==
+X-Gm-Gg: AYBFou2gbXNdJFbZxKyEWzd9uwr3MTu/reQBzYInxC4kPaBrSY2IVqLO3HUSxcjH/yc
+	CAVGHUZiqeoit7X0DmZWA+LeuuwXHeh7LTo0o1oXgAaA+ipfSrlZiVVv6V5lWPefHlgW1H+ExuZ
+	885vKekVqcdBFigyReBPdOmCkHnj/soif+0PM8IMWhbhf9WKaJvhaoBiuW7RDCpHp7x0cPx90y7
+	IJ1U1rk6kdg6vQnAMGWXzx2SjzxhOtDuaGTNs++EK0jcLIJxAcK43A4e4zo5NgZNA82/7Tsy2W/
+	ChqcGLNRzyUCnwLrA23yiYsm+KTbDAo/hfSM8tIkjv84de9MuarVAU5d8EnTQdhT+gMQUqwrdwL
+	pqFIS1uIYRYfK+vSQ9ibk+nyuDCmdU9mIs3UVOdj2m9qLRRpAkze1vga8dAaTdDLEYdBn41MX8q
+	tRJOyWHJZw48rMFE97C4s08vFHaPVL1izq2yLRYXD9iCoFy6DgEFJCWwlEiWHHURMB4reKJmYjv
+	toSAPgwB9lYorBzf0xM8oRSO96eovrotxIJyY401npYMGynZTQUjFiGjIeUmXEbIYpGzzzRFpj5
+	f9QbbtOPupa/Xm0BAT9Vw1oKo1b028MgEWZ0VY1BzDjQStMkYiX0ljV2ZyR+V5KTnxK00C7+56x
+	cPlYg3FdX0A==
+X-Received: by 2002:a17:906:9fce:b0:c26:19de:9126 with SMTP id a640c23a62f3a-c5096342a7dmr672105166b.25.1794733531152;
+        Sun, 15 Nov 2026 01:05:31 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c4b7sm288103466b.1.2026.11.15.01.05.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 01:05:30 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH v6 0/3] leds: Add driver for MAX8907 LED cell
+Date: Sun, 15 Nov 2026 11:05:17 +0200
+Message-ID: <20261115090520.102216-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,86 +103,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-sun8i-emac-mux-uaf-v3-1-c69d4189539d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBAF0KuYrh1Dp7FUV97DuCh1CjVSDKUNh
- nB3C25YGJc/M//9iQXqHQV23k2sp+SC63wOYr9jptG+JnD3nBkWKDnnCCF65YBabaCNI0RtgVd
- aqSPykyViufjqybpxRa/M0wCexoHdvpcQqweZYTGX38aFoevf637ia+PfVOLAQRRKU0nSGouXu
- tXueTBduw4k3BLiJ4GZkFgIKWWFUpVbYp7nD9R3qGETAQAA
-X-Change-ID: 20261112-sun8i-emac-mux-uaf-1ba885219fee
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794733507; l=1719;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=+y0GcY4/PVmv5CEIOUChNpzRjsd6qAFwqN8yUicaQ8g=;
- b=WGxB9GPqMj1G3uOyPfh5GdwBrWsH+43WV1Oy91ghXj3UHSYqtPOjYOO9ZUbcawnPfHKKSQZIV
- wqJkLbTlGtqAaq9v9D/6boTgG+ufsgKqVVr5mtNEHt4mj2Rq7hd9I9S
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Add a small driver to control the LED cell provided by the MAX8907 PMIC.
+The LED does not require any specific configuration and is folded into the
+PMIC's node.
 
-If mdio_mux_init() fails after the internal PHY was powered, the error
-path releases rst_ephy and ephy_clk before sun8i_dwmac_exit() uses them
-to unpower it. Unpower the PHY first, as sun8i_dwmac_remove() does.
+Patch 1 of the series requires this patch:
+("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
+https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Found by Sashiko's review of another dwmac-sun8i series of mine.
-Build-tested only (arm64 and arm, W=1): I have no board with the
-internal PHY (H3, H5 or V3s), so the error path was not exercised.
-
-Developed with Claude (Anthropic); I reviewed it.
----
-Changes in v3:
-- Drop the Fixes tag (Andrew Lunn)
-- Shorter commit message
-- Link to v2: https://patch.msgid.link/20261113-sun8i-emac-mux-uaf-v2-1-6203666b2687@gmail.com
-
 Changes in v2:
-- Target net-next instead of net, drop Cc: stable (Andrew Lunn)
-- Shorter commit message
-- Rebased onto net-next
-- Link to v1: https://patch.msgid.link/20261112-sun8i-emac-mux-uaf-v1-1-308ae7e6fcf2@gmail.com
+- rebased so patch is now applicable to linux/next
+
+Changes in v3:
+- added check if led is off for get callback
+- added dedicated MAX8907_REG_WLED_MODE_ON mask
+- switched to devm_led_classdev_register_ext
+
+Changes in v4:
+- platform_set_drvdata dropped
+- init_data.devicename dropped
+- added MODULE_ALIAS
+
+Changes in v5:
+- add and document a dedicated node for LED
+- split adding led cell to mfd into separate commit
+- expand Kconfig description
+- populate devicename and default_label of init_data
+- unfold platform_driver->driver
+
+Changes in v6:
+- converted to devm_kzalloc_obj
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 2ece7ba9dd73..898560e8e95c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -1245,6 +1245,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	return 0;
- 
- dwmac_mux:
-+	sun8i_dwmac_unpower_internal_phy(gmac);
- 	reset_control_put(gmac->rst_ephy);
- 	clk_put(gmac->ephy_clk);
- dwmac_remove:
+Svyatoslav Ryhel (3):
+  regulator: dt-bindings: maxim,max8907: Document LED support
+  leds: Add driver for MAX8907 LED cell
+  mfd: max8907: Add LED cell
 
----
-base-commit: 6964ff21c5d8b75649211a52dbfd92753e605649
-change-id: 20261112-sun8i-emac-mux-uaf-1ba885219fee
+ .../bindings/regulator/maxim,max8907.yaml     |  4 +
+ drivers/leds/Kconfig                          | 10 ++
+ drivers/leds/Makefile                         |  1 +
+ drivers/leds/leds-max8907.c                   | 99 +++++++++++++++++++
+ drivers/mfd/max8907.c                         |  1 +
+ include/linux/mfd/max8907.h                   |  2 +-
+ 6 files changed, 116 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/leds/leds-max8907.c
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+-- 
+2.53.0
 
