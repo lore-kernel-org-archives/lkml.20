@@ -1,70 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794783757;
-	b=z9Idfvp4VpRAKNaMDjZR03HBPoGBfGFoluT/e+u2HKb2WK9hC1e/v5/O59DfPhGlw8Xc
-	 AuTHsAo99f/vSxZnjBnPrEfFT52N5KQf3tEBMPlc9jBQRedgkbxTMIq6uxUjMVZi2e5ar
-	 OzNdxmK0EngDkuc6AENSOZoKYwyuNSgt6/nGQ0nOR1xJV7Z25/DNtICpL4O90Ml+sEaEL
-	 6jE/iAdZ5kdn7kcmVew2NUgdv47Q+ljItNlSRkw5BhzrybsEs9qzRXVRaJ0ZwCo/W7lyP
-	 tQV7XTxrJbh6qhGQCNWKrBhFHUexYXjBVa38u48hfNpHijD2Ia63k7eg2JDd1VJJlRg==
+	t=1794784061;
+	b=nqXEdRSyC80jD5abRQt2Xb/sEHQ9Xy7WjjWK7IVcYwYOhNGl6IMmJpGCA/TEd9D9f/o3
+	 ndJxqTglujMEFL3VJrrY/rVakq4rB9bT9hFFdASkiUv35sVCKrRwt2FpXbMeNsJY+olHF
+	 NzlGyRF3846ClHiN8n//3Bw845uadC9ufE5cJQfIwrWhN7j6sV17lu1MWbvh7ufzF2OF6
+	 YZR1/U28rbHpI9T7OLYgwfTK7/u7yy3tZDmhhPVGuG3r7PgYXsuJvkMkcA+YN6f5q/Lh5
+	 5GhcdwoTG6qrLeLH3+kEEor1aPkBOBwa7syUfJ0w8gOC7FMuHH98ADCo2sIMZ7rfKkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794783757;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BKZLVviTPAasAjwZ45EGIXC3/piLCHzV8MWKFs7dwkw=;
-	b=2O90I1UobaeC6no05YZWgupi/OIPg7AvMHjb7X1m1P4A7UINpI0//jC3u84NLU8M0faY
-	 eVd4TuD4Mk6jF02uhsJ3J7l2ECH+d5FJ6Ku9Py7F01aTaEZKl2ULZGqJ/vHDJyFxcGUX/
-	 NFzeKCdSEqH6EMpMPA5ZXMWy+OAdWBtJL5zXRZO9xitnlfoHJaxSn47gA5QvaGsCh5qvx
-	 zin5ZsEvTfg84v7IXCb1dQ8SGqx1vj59/6ZA9t4V4c26mbsxO9fdFkrT01Cw19geB2q1z
-	 H3QxjNz7Ve5jyresFjkoLhYsjDN6yNjnlsEC8l2gbQlIoG6zOuufxBdKA2q7xNf8rGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794784061;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=8971y8BjMAyggDW8ETCObk6ax7fbcDcj/Mtdeb9FC5k=;
+	b=EKLFwHAAV+2Lntu1Ir1FZxIBrOvxsf6ZlewCNVbunkv/lanSEx3Yt/y05+dk7ame69Wy
+	 XCqKp0yrOZao+VTNGgxr6fAIfZTtNOlwpPA51XlwX4qZdfEYbi9Jfqc410uqOWBpPDRxW
+	 +hKe4uak+Jl8eif3P4pY98/QaGvkkJWeTkiMbOqELY5h7jSDolmvxZbFHwxhyC2NGrciQ
+	 cHH0wdkPMkR+fwPVOLMQ58oz2nawRgG29HY5DYcTl8B1Hv8ykYFgz/4KXFTMRNq6YKZcs
+	 DRyCxFbn22MHcpsOMGXmzYN+ccKc6l7tCJ3xWJYkS3vt3BwgP9cP026Y9KTVPhOvC7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bp4qHMkT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GKPa0Nw5;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36E3606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:02:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69614606A32F;
+	Sun, 15 Nov 2026 23:07:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69614606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bp4qHMkT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B30D1F000C4;
-	Sun, 15 Nov 2026 23:02:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794783756;
-	bh=BKZLVviTPAasAjwZ45EGIXC3/piLCHzV8MWKFs7dwkw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bp4qHMkTiNj7pmttT1qqyHNc4XUALCOQme1pxy97DELSmauGpY8OHEOEOXwe88oxd
-	 2p49Pmf6HAbXoToz2UD4hiIrKvPimcaS7e7mMURp6QJ0acdfa52nujWu0QZB86A5ht
-	 fxrPXsMOS5TspEmmeByCuQVnC9SSeJYkYGjJQ5OyaC1zDCbtT+RtBqBMgVAgtuX3/e
-	 1nwTuclZU704ljAniyO/APpKW2eDKz3kWYYaB/Q75CyC4ADuKN6kAig+oRebPTRffZ
-	 XW/89g0GkODfl72N7cSO+iHlHcaZ78ETJs/4tqG3nUqpA8yL4mmZ7aMCj2LDGMNaU2
-	 +OL3OKt1fBoOA==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: zippermonkey@icloud.com
-Cc: akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	bruzzhang@tencent.com,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	weixugc@google.com,
-	yuanchu@google.com
-Subject: [PATCH v6 0/5] mm: batch TLB flushing for dirty folios in vmscan
-Date: Mon, 16 Nov 2026 07:02:31 +0800
-Message-Id: <20261115230231.21194-1-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com>
-References: <20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GKPa0Nw5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794784061; x=1826320061;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vBsIBFjd51c+RtM9uJ3edtPSSE5WdmPMwKgKgqr5zaI=;
+  b=GKPa0Nw5jc4RE23sFO0EzH7zRvFJGIkoA3BQZ+ZVapFKRkk/5+KGxqDD
+   moPuofS5PFudx6ZGA03Xq/MwYjv7ChA9hOof85xb+pRKgxJI/GZXbUweY
+   gStnsZ9XYr1cUWmKRYyPI5GtD+l4wSCLwIje+aFdOzy4sbHK9YAx+oN+e
+   jcmQVwA0MjowdoIq1MMrMi7B+gb93feJs/4mu7qQEZ3TO7TMtPxes/hJu
+   x/dMtp/AH6npKmUeKxDYjv6s+VUEm0HZwy5afR9LzL4OQQlbOF8gTCF82
+   PZ/vlFpMp2xehYMntcvwvX3VxGd0m3Q/dk/Be0/Q+Xm3qxOUfsF28+ovO
+   A==;
+X-CSE-ConnectionGUID: XvQxc7XGSoySnr8sU3DdHA==
+X-CSE-MsgGUID: IRJLsL8ySdul7XyQwq6lTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3507865"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3507865"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 15:07:40 -0800
+X-CSE-ConnectionGUID: T0clSzB4Q+qj2I5XBNZXdA==
+X-CSE-MsgGUID: oOzTsgjDSVa3mPwyHThFlQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9481327"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 15 Nov 2026 15:07:36 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSjJt-000000017Qg-0RDt;
+	Sun, 15 Nov 2026 23:07:33 +0000
+Date: Mon, 16 Nov 2026 07:07:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, dakr@kernel.org,
+	aliceryhl@google.com, daniel.almeida@collabora.com,
+	airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org,
+	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+	lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
+	work@onurozkan.dev, boris.brezillon@collabora.com
+Subject: Re: [PATCH v8 2/3] drm/tyr: add GPU reset infrastructure
+Message-ID: <202611160607.TNmf1CMV-lkp@intel.com>
+References: <20261113-tyr-reset-impl-v8-2-2ee298ac9808@onurozkan.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,134 +88,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-tyr-reset-impl-v8-2-2ee298ac9808@onurozkan.dev>
 
-On Sat, Oct 31, 2026 at 6:35 PM Zhang Peng <zippermonkey@icloud.com> wrote:
->
-> This series introduces batch TLB flushing optimization for dirty folios
-> during memory reclaim, aiming to reduce IPI overhead on multi-core systems.
->
-> Background
-> ----------
-> Reclaim calls try_to_unmap_flush_dirty() before writing out each dirty
-> folio. When writable TLB entries are pending, this triggers a flush.
-> On systems that use IPIs for TLB shootdowns, frequent flushes can add
-> significant overhead.
->
-> Approach
-> --------
-> Collect dirty folios into a folio_batch, releasing their locks while
-> collecting the batch so swap faults can progress. Before writeout, try
-> locking each folio again and recheck writeback, mappings and DMA pins.
-> Keep eligible folios locked, flush pending writable TLB entries once,
-> then page them out. Process a final partial batch at the end of the scan.
->
-> Changes
-> -------
-> Patch 1: Extract the folio activation block at activate_locked into
->          folio_activate_locked().
-> Patch 2: Extract the folio-freeing path (buffer release, lazyfree,
->          __remove_mapping, folio_batch drain) into folio_try_reclaim_free().
->          Group retained folios, deferred frees and the reclaimed count
->          in reclaim_folio_state, local to each shrink_folio_list() call.
-> Patch 3: Extract the pageout() dispatch state machine into folio_try_pageout().
-> Patch 4: Extract the TTU setup and try_to_unmap() block into folio_try_unmap().
-> Patch 5: Implement batch TLB flushing logic. Dirty folios are accumulated in
->          batches and a single TLB flush is performed for each batch before
->          calling pageout.
->
-> Testing
-> -------
-> The benchmark script uses stress-ng to compare TLB shootdown behavior before and
-> after this patch. It constrains a stress-ng workload via memcg to force reclaim
-> through shrink_folio_list(), reporting TLB shootdowns and IPIs.
->
-> Core benchmark command: stress-ng --vm 16 --vm-bytes 2G --vm-keep --timeout 60
->
-> ==========================================================================
->                  batch_dirty_tlb_flush Benchmark Results
-> ==========================================================================
->   Kernel: 7.0.0-rc1+   CPUs: 16
->   MemTotal: 31834M   SwapTotal: 8191M
->   memcg limit: 512M   alloc: 2G   workers: 16   duration: 60s
-> --------------------------------------------------------------------------
-> Metric                 Before        After             Delta (abs / %)
-> --------------------------------------------------------------------------
-> bogo ops/s             28238.63      35833.97          +7595.34 (+26.9%)
-> TLB shootdowns         55428953      17621697          -37807256 (-68.2%)
-> Function call IPIs     34073695      14498768          -19574927 (-57.4%)
-> pgscan_anon (pages)    52856224      60252894          7396670 (+14.0%)
-> pgsteal_anon (pages)   29004962      34054753          5049791 (+17.4%)
-> --------------------------------------------------------------------------
->
-> Suggested-by: Kairui Song <kasong@tencent.com>
-> Signed-off-by: Zhang Peng <bruzzhang@tencent.com>
-> ---
+Hi Onur,
 
-Hi Peng,
+kernel test robot noticed the following build errors:
 
-Just a quick update: this patch is still on my radar. I ran a
-quick perf test while building the kernel. Without your patch,
-try_to_unmap_flush_dirty() accounted for 1.75% of CPU cycles.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.4-rc2 next-20261113]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I guess there could be workloads where try_to_unmap_flush_dirty()
-accounts for an even larger share of CPU cycles.
+url:    https://github.com/intel-lab-lkp/linux/commits/Onur-zkan/drm-tyr-add-GPU-reset-infrastructure/20261113-173227
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261113-tyr-reset-impl-v8-2-2ee298ac9808%40onurozkan.dev
+patch subject: [PATCH v8 2/3] drm/tyr: add GPU reset infrastructure
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20261116/202611160607.TNmf1CMV-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160607.TNmf1CMV-lkp@intel.com/reproduce)
 
-# Children      Self  Command  Shared Object      Symbol                      
-# ........  ........  .......  .................  ............................
-#
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611160607.TNmf1CMV-lkp@intel.com/
 
-     1.75%     0.01%  cc1              [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
-            |          
-             --1.74%--try_to_unmap_flush_dirty
-                       try_to_unmap_flush (inlined)
-                       |          
-                        --1.73%--arch_tlbbatch_flush
-                                  |          
-                                   --1.70%--flush_tlb_multi (inlined)
-                                             __flush_tlb_multi (inlined)
-                                             |          
-                                              --1.69%--native_flush_tlb_multi
-                                                        |          
-                                                         --1.68%--on_each_cpu_cond_mask
-                                                                   |          
-                                                                    --1.62%--smp_call_function_many_cond
-                                                                              |          
-                                                                               --1.23%--csd_lock_wait (inlined)
+All errors (new ones prefixed by >>):
 
+>> error[E0432]: unresolved imports `kernel::workqueue::OwnedQueue`, `kernel::workqueue::ScopedWork`, `kernel::workqueue::ScopedWorkItem`
+   --> drivers/gpu/drm/tyr/reset.rs:49:9
+   |
+   49 |         OwnedQueue,
+   |         ^^^^^^^^^^ no `OwnedQueue` in `workqueue`
+   50 |         Queue,
+   51 |         ScopedWork,
+   |         ^^^^^^^^^^ no `ScopedWork` in `workqueue`
+   52 |         ScopedWorkItem, //
+   |         ^^^^^^^^^^^^^^ no `ScopedWorkItem` in `workqueue`
+--
+>> error[E0433]: cannot find `new_scoped_work` in `kernel`
+   --> drivers/gpu/drm/tyr/reset.rs:185:25
+   |
+   185 |                 kernel::new_scoped_work!("tyr::reset", Controller::new(pdev, iomem))
+   |                         ^^^^^^^^^^^^^^^ could not find `new_scoped_work` in `kernel`
 
-With your patch, the CPU overhead drops by roughly 7x:
-
-
-# Children      Self  Command  Shared Object      Symbol                      
-# ........  ........  .......  .................  ............................
-#
-     0.25%     0.00%  cc1      [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
-            |          
-             --0.24%--try_to_unmap_flush_dirty
-                       try_to_unmap_flush (inlined)
-                       |          
-                        --0.24%--arch_tlbbatch_flush
-                                  |          
-                                   --0.24%--flush_tlb_multi (inlined)
-                                             __flush_tlb_multi (inlined)
-                                             |          
-                                              --0.24%--native_flush_tlb_multi
-                                                        |          
-                                                         --0.23%--on_each_cpu_cond_mask
-                                                                   |          
-                                                                    --0.21%--smp_call_function_many_cond
-                                                                              |          
-                                                                               --0.14%--csd_lock_wait (inlined)
-
-     0.00%     0.00%  fixdep   [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
-
-
-Overall, I think this is a good approach. I'll be traveling soon
-and will return to this patchset for more testing and a thorough
-review in about two and a half weeks.
-
-Thanks
-Barry
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
