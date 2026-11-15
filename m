@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794701936;
-	b=1CxiPMVNkNrl7NacGhePIfFh7EO50TMMVmBKU2DvHfKSl6Tl5eo3dAd2J5pRD7yqsmV8
-	 EG4QKgeOS+Hi3+kAR1WjafJFIOx9+rjIeWiVMBoMBgchuPy9SiW5NMRV8YPE3hVYsXruQ
-	 9agNPK/oYYyYaXolI8ytE4scuve3cp8f3B+U1fdjjEJbHhasCGYJpGZOi9FsOmw2VZZix
-	 8i8/8rqE9qZp0ms8PRjg3xNBCOD+Lyy33VVR8q83LpR3KKaWuds20j/7OKza1kG0YbpMt
-	 fo0nq25CDoMg8ElU8OnfT5e9D9A+GFNG8G7T9Xx/YQ06OvVnlfeJK7VdNzuzAn/jUbw==
+	t=1794702145;
+	b=yUuKXw4g6ndWdbsUSuNh7+pcquU4a6E2k3vGqHtzmYM0hI5CvMdsbvWTVSdOm9tkxIOw
+	 Cj8SZgj9Exh1YosYHj2dZc6HPyKuye8ZYipfjJ17ZhU43raTl5NWhYCfn7BPvMbotjjP1
+	 X2Mc+qJUyVH+1nQsUKdlZfWn6wsZjPV5X7SL8vfWOtcKN73XJ1GmSeXEkXVmNJ3mrYzES
+	 9g+yjhv7CahbX3BAzc3vrm8QwVih6lkZnQ/tPVXqDGYe/a93et79dOQBMVekFcQmyV1Ew
+	 wok86i/cq62xnaopHppehAfwxpD8+tEb5MLhG9iQ6kk8s678hxOzDPb0vQM/kTjM7VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794701936;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=EZxe3fLIr15GcaixYMlvps3d1PnaVZ20JcGF+Wr3YZ8=;
-	b=dKahy3dA8blxVhVUK4PIX+tvAe4Bjl15/JOXNGat+FuE4MOxTp+paIOhSRhVXsiYbSeM
-	 JyR6q2XM7upzeIVx6AgAp3qCXlku7/7Rgv+m9dPtes91H+RoC59UlsVv2tDu/c5nWrBOT
-	 2gRw/pVzWRHlmOk6JPGn34alExx5AcehTOe6qv1SRFViU0NL9ecIMxafUSIYozemDIjE7
-	 odX1hJ1dlxQ6baj94YPcADzsa0Q6ZgXn7D7QNSZwB16VB0XprQh0uA0AksAt8xPyisSec
-	 4qTItAtteP+cWLJylZP4OpiTXP59yVER5zmzNlbD5EomIi4t/ejvfJXb6q+NtFXYhVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702145;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wCcIvzsuQGx469LziUohYtgxI/06BzX+ClZShOsYgGA=;
+	b=Q6deaHmidEdZPGSptQI4B59BjgLM1Yg0+xfslNYUI8z6zjAO8IAtyfv9Has1/9CVUEnI
+	 ezdUf2gkMpxcLQ+GFnWuqbUY7dOF7cqMiUHcafzmtu2A/xPwnPR1cgyQSXFxbV1ux2rv5
+	 +UPgpIyXLD2+H4pRA6R7diC2NLLNizAZlmb4Jj7CP7py+aQCrYqjsNCQTXnqh4oIsF1aj
+	 74ptZR0mMN9Od/Vbqim1bMAke1Ge9Dy4LfRd59hU8rUnM/TwfG/LFm4xioT1zDeqqqk4B
+	 upuK3LQWnBELa+DyBqNcWvjDd5BIGynoP81Tq8PK5sAP2VoE8PvQwKPnwtxD+VG0eFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwRn2o9P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CPvFgnyZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2793E606A330;
-	Sun, 15 Nov 2026 00:18:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38AF606A32D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwRn2o9P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329351F000C6;
-	Sun, 15 Nov 2026 00:18:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CPvFgnyZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379B51F000C7
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:22:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794701936;
-	bh=EZxe3fLIr15GcaixYMlvps3d1PnaVZ20JcGF+Wr3YZ8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AwRn2o9PJPdY4Tsh8f7dj4K/jfCtYiXAKcWLF0yQ0QLmDqxcF9BGCWNZxE6Bj2NIn
-	 XdwEkc/MHOgMrlCheM4punrxGrDokcTG1uhVaU+DiH2gVgVvbhS53D3X7cF47QVBbp
-	 cRZ4N7IOemShmlDKlVb8zfUDmzoHSPgVLg48sPmNtyI20H4lCtejLmjm8B970Cx2RE
-	 0dbQCcf+hj4gB4YkN5uFUq3mAPJGv+NqA57memdEMrOGlOCsAr82vqQEushYZf51c2
-	 TaLFps8Tt0tFlvCYDKgoZeyOSGvZ7/SF1ZbkEQjhV0bycOVX1oHJbYrg6VsKkx9eSC
-	 8VMn+oxSdhmNw==
-Date: Sun, 15 Nov 2026 00:18:49 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Archit Anant <architanant5@gmail.com>
-Cc: dlechner@baylibre.com, andy@kernel.org, nuno.sa@analog.com,
- u.kleine-koenig@baylibre.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v6 11/11] iio: adc: ti-ads1015: Replace custom shift
- macros with FIELD_PREP/GET
-Message-ID: <20261115001849.17c18851@jic23-hlaptop>
-In-Reply-To: <20261109165805.31160-6-architanant5@gmail.com>
-References: <20261109165805.31160-1-architanant5@gmail.com>
-	<20261109165805.31160-6-architanant5@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794702145;
+	bh=wCcIvzsuQGx469LziUohYtgxI/06BzX+ClZShOsYgGA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=CPvFgnyZ5W27IwipTs1lpzasnMKBpDj2OYZEWrdZsQcmuR5GUK7QPFrcxO2YRCGcR
+	 1OL/M2Vmj4vbmrVHaFCSlKAg45vBp7QIXxSj1jEzylpalMxFmgdaxUzgAjvt/eVTrb
+	 uBWxd8s56c38p2ftsiP3bbM3II0ZVwT3TtJ9ZmZ0SAcVvgrZiUupBcOmBX+05II1Ai
+	 sSTzmYWguMahfyw/V6AKrMhxlA6vRVW7hTOnYegLNAzdGzsGZgUP9ulwsGD4wwtqI4
+	 ComjppMaYRmfxL6eRouSiVjd4+bzB6iB/+GmTuXlbMGpvnWgf7PCtoNIULFLaZPVPx
+	 YWstHq4spjTDw==
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d28f75d62so473951266b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:22:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF14qTl87kssjuu/Wo9mQ4+EBo0ljeXpJf4kI4zIB53hlJtHscL+5K8xFUR4hP/Ptys8juHTJPxlUEHZE0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uCM+U24Jbh4FVRsLpyUN0fnm4fmkaJKdo2RhI9u11sOSPod8+
+	Loevl183a4FnMnrOslKIPukfHiMRj5NL7ApjjB7KToxGAufRiORMFu+UrEbQUCkLcwdgykCjY60
+	LQDqwuMkfELnKgthGCEXulZUJxd876x4=
+X-Received: by 2002:a17:907:3d92:b0:c27:420b:7c79 with SMTP id
+ a640c23a62f3a-c50964057a4mr574674866b.48.1794702143794; Sat, 14 Nov 2026
+ 16:22:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,90 +59,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261114012736.639171-1-koray.fra@gmail.com> <20261114160332.2228435-1-icb@fastmail.org>
+In-Reply-To: <20261114160332.2228435-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sun, 15 Nov 2026 09:22:11 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_qe-dLq6o7XdJzG8orYiKRioAtfEsLjxj33Ca3=PzGjw@mail.gmail.com>
+X-Gm-Features: AclHuK8sng4ajcW81oalTmmeANU3J1j-6EE0UYzK1YRlD-i3CkmDWMr44z7UGTs
+Message-ID: <CAKYAXd_qe-dLq6o7XdJzG8orYiKRioAtfEsLjxj33Ca3=PzGjw@mail.gmail.com>
+Subject: Re: [PATCH v2] ksmbd: decode and honor DOS attribute validity flags
+To: Ian Bridges <icb@fastmail.org>
+Cc: koray.fra@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
+	chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon,  9 Nov 2026 22:28:05 +0530
-Archit Anant <architanant5@gmail.com> wrote:
+On Sun, Nov 15, 2026 at 1:03=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
+e:
+>
+> Hi,
+>
+> There is an existing bug that matters when enabling these checks.
+>
+> ksmbd stores DOS attributes and the client's creation time in
+> user.DOSATTRIB. The xattr also contains flags saying which fields
+> are valid. Currently, ndr_decode_dos_attr() reads the values but
+> discards those flags.
+>
+> When the sparse or compression code updates an existing xattr,
+> it writes the creation time back but sets only
+> XATTR_DOSINFO_ATTRIB. The time is still on disk, but its validity
+> flag is missing. This has not affected the reported creation time
+> because ksmbd currently reads it without checking the flag.
+>
+> Your patch preserves the flags on future updates. However, the new
+> read-side checks also apply to xattrs that ksmbd has already written.
+> Those files will stop reporting their stored creation time.
+>
+> For example, with DOS attribute storage enabled:
+>
+> 1. On the unpatched server, create a file over SMB and set its
+>    creation time to a date different from its filesystem birth time.
+> 2. Make the file sparse. Its xattr retains the requested time, but
+>    now has only XATTR_DOSINFO_ATTRIB set.
+> 3. Upgrade to the patched server and reopen the file.
+>
+> The server now reports the filesystem birth time instead of the
+> client's time. Directory listings change too. On a filesystem without
+> birth time support, the fallback is ctime.
+>
+> The affected writers are fsctl_set_sparse() and
+> __ksmbd_vfs_set_compression(). Their existing-xattr path differs from
+> the no-xattr case in the commit message: it writes flags 0x01, not
+> 0x51.
+>
+> I am not sure whether handling these old xattrs belongs in this patch
+> or in a separate one. Namjae, what do you think?
+Agreed. separate patch in the same series is fine, but the
+compatibility handling should land together with the read-side checks
+to avoid changing the creation time reported for existing files.
 
-> The driver currently uses custom _SHIFT macros and manual bitwise
-> operations to read and write to the configuration register.
-> 
-> Modernize the bitwise logic by replacing all manual shifts with the
-> standard FIELD_PREP() and FIELD_GET() macros from <linux/bitfield.h>.
-> This improves readability and prevents potential bitwise errors.
-> 
-> Remove the now-unused _SHIFT macros from the top of the file.
-> 
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Archit Anant <architanant5@gmail.com>
-> ---
->  drivers/iio/adc/ti-ads1015.c | 79 ++++++++++++++++++++----------------
->  1 file changed, 44 insertions(+), 35 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-> index 2c3ba1b91aac4..8f7ec61314363 100644
-> --- a/drivers/iio/adc/ti-ads1015.c
-> +++ b/drivers/iio/adc/ti-ads1015.c
-> @@ -11,6 +11,7 @@
->   *	* 0x4B - ADDR connected to SCL
->   */
->  
-> +#include <linux/bitfield.h>
->  #include <linux/cleanup.h>
->  #include <linux/delay.h>
->  #include <linux/i2c.h>
-> @@ -38,15 +39,6 @@
->  #define ADS1015_LO_THRESH_REG	0x02
->  #define ADS1015_HI_THRESH_REG	0x03
->  
-> -#define ADS1015_CFG_COMP_QUE_SHIFT	0
-> -#define ADS1015_CFG_COMP_LAT_SHIFT	2
-> -#define ADS1015_CFG_COMP_POL_SHIFT	3
-> -#define ADS1015_CFG_COMP_MODE_SHIFT	4
-> -#define ADS1015_CFG_DR_SHIFT	5
-> -#define ADS1015_CFG_MOD_SHIFT	8
-> -#define ADS1015_CFG_PGA_SHIFT	9
-> -#define ADS1015_CFG_MUX_SHIFT	12
-> -
->  #define ADS1015_CFG_COMP_QUE_MASK	GENMASK(1, 0)
->  #define ADS1015_CFG_COMP_LAT_MASK	BIT(2)
->  #define ADS1015_CFG_COMP_POL_MASK	BIT(3)
-> @@ -382,17 +374,24 @@ int ads1015_get_adc_result(struct ads1015_data *data, int chan, int *val)
->  
->  	pga = data->channel_data[chan].pga;
->  	dr = data->channel_data[chan].data_rate;
-> -	mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
-> -		ADS1015_CFG_DR_MASK;
-> -	cfg = chan << ADS1015_CFG_MUX_SHIFT | pga << ADS1015_CFG_PGA_SHIFT |
-> -		dr << ADS1015_CFG_DR_SHIFT;
->  
-
-I'm probably being inconsistent across versions, but at least
-looking at it this time, I prefer the building up common cfg
-and mask first, then adding the extra bits in the following.
-
->  	if (ads1015_event_channel_enabled(data)) {
-> -		mask |= ADS1015_CFG_COMP_QUE_MASK | ADS1015_CFG_COMP_MODE_MASK;
-> -		cfg |= data->thresh_data[chan].comp_queue <<
-> -				ADS1015_CFG_COMP_QUE_SHIFT |
-> -			data->comp_mode <<
-> -				ADS1015_CFG_COMP_MODE_SHIFT;
-> +		mask = ADS1015_CFG_COMP_QUE_MASK | ADS1015_CFG_COMP_MODE_MASK |
-> +		       ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
-> +		       ADS1015_CFG_DR_MASK;
-> +		cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
-> +		      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
-> +		      FIELD_PREP(ADS1015_CFG_DR_MASK, dr) |
-> +		      FIELD_PREP(ADS1015_CFG_COMP_QUE_MASK,
-> +				 data->thresh_data[chan].comp_queue) |
-> +		      FIELD_PREP(ADS1015_CFG_COMP_MODE_MASK,
-> +				 data->comp_mode);
-> +	} else {
-> +		mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
-> +			ADS1015_CFG_DR_MASK;
-> +		cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
-> +		      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
-> +		      FIELD_PREP(ADS1015_CFG_DR_MASK, dr);
->  	}
+Thanks!
+>
+> Thanks,
+> Ian
