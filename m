@@ -1,108 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794783672;
-	b=X29tE4mgi3r8dtYFvOM+7NH7Ctz6zUxuLa8wpQk+Re8DWzWj0nMi6kI/1AbAmXMvk1JZ
-	 1ohDGltYfY6U7vHIrzSSpapMwTq0AhFA9ze7XOW7GInDt9kQbQNxpnLweXEko5eWXfBOJ
-	 5UWo8OmRoImK8Td/hZhHtIC+bhJmx+f+iEPfJ0UGf2l8h5H0sZOUeeZt8fUVDg8f1Psgd
-	 uDudCPWtbYkMRr2RbyG2ly+4sTG4+NZZhxOaCGxzP6kFJZo+fkTVh7ePnhCMGXAVKM8IV
-	 4J5ppakI1MTBAvAGsFg1U2Hi+jJvFtjtM1DJqESqkeiXh1zIig6bBxf/66m6jIVwTZA==
+	t=1794783693;
+	b=ryEAA+dCOZ135tHqr0PMl9b/ZiK8/YjxnxY5PtLxdYAKScMZldmS3PF6cMssoSgnNQGR
+	 Sr++XQ1u29ZZAAs7Ki+JBnSd5Jr+V2Krfgrw7QbN7ub7q8rkiQu7syHwTMV5/pApOX9CZ
+	 u+/Wk9yMTQajOcp7BKVRYtlqXsLWyCkhEm9uFnouzM5st4os1J7aPcMO8ISLEgcPl98xz
+	 kV3+QQuXuVsdcQ/37E+CAKQ/ZSJ7zSwVWT9KRuquNSdADSyFYYa1CWt87L3FxTpI6f5Ck
+	 j8X19Mcc6GAqAKHcFtNIN8X/guxoo28D11iw/LMvNh44argK9vBbaGquVmeQOQ8kQ2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794783672;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pGYN85ltIoMmnrSUQu4gVbHDNOjBD9CL9NlblPsMu6M=;
-	b=ZosvMJC7quEfpVVe90yMGTFJbXucxyc5fl6LsNPEWuXD3dhayYzkkwBIP5K5a1+8POTQ
-	 ELBQm6xWxzmhyHy/AfhLvqhosRzkMlLk68frPUOk3QSV2tGpmMOuTSZKFrdARb/RgStRP
-	 VtFHliFZ8ob6khIhqFyZymHswuyyW7aoGY9MjA6q4/4zZQjolw65MXQEq8ZUlgW3CCN9o
-	 XTCqawDdPmgO8RorfowSDrKbDvBDsB93aemtEow5/Efl6D7GrSnkputHBs1wg0IhD2vRF
-	 zXBcXmy6pGxTrI2dkHDbcDqvSvpuiQ1WMLalVgtNPR1liwmNnatU/64VjFGE8uBlABA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794783693;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=+estSKTP5vos6ferPHC7vSoZbFx1RtdPQ+GvGUrze6E=;
+	b=CQmLuWDAbNnhHlVlMmyO/OZMfGdvcRHDG7r82ZG1h+6xYqRIKe5FpGtUBn69ko+0HkS4
+	 cBmYIsSi4cMpq2bIAoeUgmXnq3zRHRcEaTPMQ6ubpU9nA0ASITOnZ3JkY3lmjqRuYUhPL
+	 aMDBIiyPifb29EBo4fY77KW1uOMIxFkd89ZMXzt2RaBBTIzyeXBrVi0v3ZXEFehIj3Z6E
+	 phvuAr1OSnX4kTLCtzZDRPDYcAFuqSVtjctj9grG5ZaL5a30WfuWw+Rp/Qt6b9fs7/iQc
+	 KTN8nh7rfqNUHwpnMPuSZhuJjueNupyqUrXcWT92yJWH2EwAUUltX5fPk4jyUHiiSYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ktWYUI/g";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx3hwOTh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC2C606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FC2C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E846606A335;
+	Sun, 15 Nov 2026 23:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ktWYUI/g
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so32112415e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:01:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794783670; x=1795388470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pGYN85ltIoMmnrSUQu4gVbHDNOjBD9CL9NlblPsMu6M=;
-        b=ktWYUI/gfLVcEH+TEBQuxfFtNcroRAo67z9hL/cdzuANggI/yHM8QG4YXPXqbxOpWc
-         xf5lTTcmCRRRT0AE+GA6OBIFIXAuUwqzFSk3J4oKM78JA75/s/cN/G58vMvnlBY672TB
-         CuQ4Lmj9isDy1KpkMFqzIxY2ITknmH480C18urgyz3kezCmsKOodHECICMfpCKke4k11
-         +Rz6bPiIleOjP4iV57cjr6sh6hsllKjxF5TFjnvni3Yk8BVKsXhZCL/ZhLTduy7GY31E
-         ONoNTj7JI/v6dGoSy9XAWP/JzpO93w4CCD43ESPIbijFM/dUNsgjQiX0MaXjb91YijOF
-         QRtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794783670; x=1795388470;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pGYN85ltIoMmnrSUQu4gVbHDNOjBD9CL9NlblPsMu6M=;
-        b=x73K9vBPSU9lzl5vftAnFkk0N0L5QLbRq3UtGrKYNXshqYXbzbFhQCcPRpoYoePFH4
-         h0mfswC4SstDdsWAoBjnaLw37sc/eZr9J1LMvqfjXIr4QwV+SoySEsFsgVV0B7Xnsmkc
-         FUGXeLyI6xq0mpKNkuUNPH8+TC3aruJ1xv/sI3vfYuY9NlvNvc3gSqCTl64R/ER15IkW
-         E5zHliU3Kj84tKGa5JeM02+oUs1ciwG1pAzF0ZWrZF5cnS9zVhZKoakQkwSH7UExfDaH
-         1kAqxNhUenHUb9MDpeW7hwnaPXJOuEqTxUzybVE+S1+HHxMpDnlQ+FeZvMn5t7iIoUok
-         xVaA==
-X-Forwarded-Encrypted: i=1; AL+hErFm256OTNfytGbWRVMRT0BCkWZx33MPUSnMIfTwl44T1webeIKrSDp0hJwkPfzpJ6K2ARLzp/tAgxnwWfw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DJwxAFVidR8ee5vlnfQObj4Vu5Xb+nz/B9aOYekQp1ovrDY3t
-	QsDzBMWqJ2tvmpYobk2aO9ml8hRqc8fmrxPauQYGluimMTglMwVsITow
-X-Gm-Gg: AYBFou3Zke2Nub12uPfpypM6CdHuhtjpTPa2LTs59SF+/zF/vFGPlZ20zLH6lmAqG61
-	/iEBdTnVT4cQCwswFusfbdarYs+fdvNMI/ZTfvZ0uTG6gKEkmceZJvQ5bNcql8Dr4z4cnt483CH
-	9uLSSaP9uUUAeGWxItjYg66Gl1ETkIiK9hqKXV06Do+749RPKywRPQ9uLA4TxzTV5BLB+LwDBq1
-	HMt3vk6vRmEL582MJ73bJqETcCI1+LvqCqUDZIDFXsumMZNbIvyIeHD5NAdxaSlUPADNzHfZJxS
-	5Wdyq+SN+CyBNCQ6bjNz3vGWmQYDPBrpwYjRneEaCyLXldLhcNv4+Aw3yTReSP6435faxhUUx2o
-	0Oq5tSZHz/9TgDDjLMVYgRLLz859H1nv4bfPI56JgvMIKMJC2S2Wq2fr8gyGsgcydjSXowK2R6I
-	4Fn5ssxLmtBIbTFkVSBC176M4wmvO/Pi1ByO5OfQ6ifTHF3G7SxX8g6i1OFMBJDq4bvV2JcIxYC
-	QLg+Aq6WhbxVH4Q4Q+DePT9459KuORe3ehl86OFmfceISNvuKGaksNyK0VI2FR6hcYsglZ/Gvfz
-	jCupDM/KC0cxnx6fN9KS20w81Re+9P8YUTCgjxyVcxMb0S0iZ7OkTjG1GUMtoMAQhQ==
-X-Received: by 2002:a05:600c:885:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4bb55a71212mr113683025e9.25.1794783670351;
-        Sun, 15 Nov 2026 15:01:10 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5720f6basm121534695e9.4.2026.11.15.15.01.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 15:01:09 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:01:08 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Borislav Petkov <bp@alien8.de>, Usama
- Arif <usama.arif@linux.dev>, dave.hansen@linux.intel.com, dsterba@suse.com,
- linux-kernel@vger.kernel.org, mingo@redhat.com, terrelln@fb.com,
- tglx@kernel.org, x86@kernel.org, kas@kernel.org, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on
- ERMS CPUs without FSRM
-Message-ID: <20261115230108.44309d35@pumpkin>
-In-Reply-To: <CAHk-=wjNdNjA_=POY-jA2ot+KKTVJ1-b7Xv_bwF6ehF-AJMmQQ@mail.gmail.com>
-References: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local>
-	<20261113141137.1113517-1-usama.arif@linux.dev>
-	<20261113160300.3f0d0a37@pumpkin>
-	<CAHk-=wjmnpCmhyOta1EBR6D8_JFgLNz7Jb2s_PgbPq6cBiQ0wg@mail.gmail.com>
-	<E9C129F6-61F5-49CE-8948-064DAE86EF4F@zytor.com>
-	<20261113233703.GCavefHwxVZX8mGFCm@fat_crate.local>
-	<628BDCC5-B599-4B70-B512-E13DEE926DFA@zytor.com>
-	<20261114224504.7574f7f0@pumpkin>
-	<CAHk-=wj0MtJpBbwNr=NGh4kFPM__Wf9Hq+LZ1Qv1Yv1SCpjaLQ@mail.gmail.com>
-	<20261115124205.076cdd63@pumpkin>
-	<CAHk-=wjNdNjA_=POY-jA2ot+KKTVJ1-b7Xv_bwF6ehF-AJMmQQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx3hwOTh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B935F1F000C4;
+	Sun, 15 Nov 2026 23:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794783693;
+	bh=+estSKTP5vos6ferPHC7vSoZbFx1RtdPQ+GvGUrze6E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Nx3hwOThc9u41gYjCnWnze4IknSu0jwtA5857xSfUL65VKEt1dbhsVSO7Xl8InBGS
+	 +Yndk6v/GZvJ7B4bxbXZCUIy+zU4qwYI5XIBvJbg4PeSKnIeShEx7qc4RxSYsevxJZ
+	 s27JM8hECFLb0NdfOcrGgxrUJ7x4jCLJCoS/pIDg7c7sfGZ/t8KMYZ038DDHh0n2v7
+	 5xhj2nrnakPK/xNUHRB50gxoZQTqE5qPjAsXw1XmzGwr7UdhV+YXYVIR2ZPuM467Ir
+	 DrXl62MRVnoRo3FUkrDNOvFpWKZQTcBgrJF90GtuNj+9q4NR1bS6tNCsy9Dt7hsoYe
+	 6y0UW9pNMRP4g==
+Subject:
+ Re: [PATCH net 3/3] net: dsa: motorcomm: Use VID 0 as the unaware PVID
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Sun, 15 Nov 2026 23:01:32 +0000
+Message-ID: <179478369229.3136.1576101942763120343@kernel.org>
+In-Reply-To: <20261111234110.1449602-4-mmyangfl@gmail.com>
+References: <20261111234110.1449602-4-mmyangfl@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,47 +63,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sun, 15 Nov 2026 10:45:22 -0800
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-> On Sun, 15 Nov 2026 at 04:42, David Laight <david.laight.linux@gmail.com> wrote:
-> >  
-> > > But having extra registers free could help at the call-site,  
-> >
-> > There isn't much you can put at the call site instead of a 5 byte call.  
-> 
-> You misunderstand.
-> 
-> Avoiding call-clobbered registers means that the caller has more
-> registers live and can do better code generation.
+Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
 
-I missed that was what you were thinking of.
-Clearly you definitely want as few registers clobbered as possible.
-It is a compromise, but current 'standard C calling convention
-is horrid here'.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Making the calling convention clobber registers that aren't useful is
-> *bad*. And if you do a loop - which you know is either large or
-> unknown size - and take the I$ hit, adding a couple of push/pop
-> instructions really doesn't hurt AT ALL.
+- [High] In the most common case the fix never takes effect.
+- [Medium] A port that leaves a VLAN-aware bridge ends up standalone with
+  PVID 0 instead of 4095.
+- [Medium] The patch removes the setup-time write in
+  yt921x_chip_setup_dsa() that set the VID 0 VLAN entry to LEARN_DIS,…
 
-When I get around to some memcpy() performance measurements I'll
-include it.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  yt921x_vlan_filtering(), yt921x_dsa_port_vlan_add() and…
 
-> It has nothing to do with the 5-byte "'call' or 'rep movsb'" instruction.
-> 
-> (And I realize that 'rep movsb' is only two bytes. You'd add a 3-byte
-> nop or harmless prefixes to it depending on which decodes better)
+--
 
-I'm not sure why I mentioned a two byte nop, I've been writing x86 asm
-since 1982 and really should get it right.
+net: dsa: motorcomm: Use VID 0 as the unaware PVID
 
-David
+This patch changes the PVID of VLAN-unaware bridge ports in the yt921x
+driver from 4095 to 0. The goal is for the switchdev FDB entries, which are
+reported with VID 0, to be hit by hardware lookups. It also removes the
+setup-time programming of the VID 0 VLAN entry, and standalone ports keep
+PVID 4095.
 
-> 
->              Linus
-> 
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index d84e1f6dad843..5cc8a21c9d55f 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
 
+[ ... ]
+
+> @@ -962,7 +961,7 @@ yt921x_vlan_filtering(struct yt921x_priv *priv, int port, bool vlan_filtering)
+>  	bdev = dsa_port_bridge_dev_get(dp);
+>  
+>  	if (!bdev || !vlan_filtering)
+> -		pvid = YT921X_VID_UNWARE;
+> +		pvid = 0;
+
+[Severity: High]
+
+Does this assignment run when a standalone port joins a VLAN-unaware
+bridge?
+
+yt921x_port_setup() calls yt921x_userport_standalone(), so the port starts
+at PVID 4095. The join path never touches PORTn_VLAN_CTRL:
+
+yt921x_dsa_port_bridge_join()
+  yt921x_bridge_join()
+    yt921x_userport_bridge()   /* only clears YT921X_PORT_LEARN_DIS */
+    yt921x_bridge()            /* only rewrites PORTn_ISOLATION */
+
+The DSA core then calls dsa_port_vlan_filtering(dp, false) from
+dsa_port_switchdev_sync_attrs(). That call returns early because the port
+is already unaware, and the driver sets neither
+needs_standalone_vlan_filtering nor vlan_filtering_is_global:
+
+net/dsa/port.c:dsa_port_vlan_filtering() {
+    ...
+	if (dsa_port_is_vlan_filtering(dp) == vlan_filtering)
+		return 0;
+    ...
+}
+
+So yt921x_vlan_filtering() is never called. The replayed default_pvid VLAN
+goes to yt921x_pvid_set(), which also skips the PVID write when the port is
+not filtering:
+
+	if (vlan_filtering) {
+		res = yt921x_port_set_pvid(priv, port, vid);
+		...
+	}
+
+In the default "ip link set lanX master br0" case with vlan_filtering=0,
+does the hardware keep classifying untagged and priority-tagged frames to
+VID 4095? If so, the VID 0 entries installed by yt921x_dsa_port_fdb_add()
+would still never be hit, which is the problem this patch sets out to fix.
+
+Before this patch, standalone and unaware ports both used 4095, so join did
+not need a PVID write. Should yt921x_bridge_join() or
+yt921x_userport_bridge() now set PVID 0 when the bridge is not VLAN
+filtering?
+
+[Severity: Medium]
+
+The !bdev case now gets PVID 0 as well. What happens when a port leaves a
+VLAN-aware bridge?
+
+The commit message says "The standalone default of 4095 stays". However,
+dsa_port_bridge_leave() runs things in this order:
+
+dsa_port_bridge_leave()
+  dsa_port_bridge_destroy()           /* dp->bridge = NULL */
+  DSA_NOTIFIER_BRIDGE_LEAVE
+    yt921x_bridge_leave()
+      yt921x_userport_standalone()    /* PVID 4095 */
+  dsa_port_switchdev_unsync_attrs()
+    dsa_port_reset_vlan_filtering()
+      dsa_port_vlan_filtering(dp, false)
+        yt921x_vlan_filtering(priv, port, false)
+
+At the last step dsa_port_bridge_dev_get(dp) returns NULL, so this branch
+overwrites 4095 with 0. The old code wrote 4095 here.
+
+Can the standalone port then classify into FID 0, which the VLAN-unaware
+bridges now use? The comment in yt921x_chip_setup_dsa() says port
+isolation is applied after the FDB lookup. A frame on the standalone port
+whose DA hits a FID 0 entry for a bridged port would then be dropped by
+isolation, rather than trapped to the CPU as unknown unicast.
+
+The standalone PVID also starts to depend on history. It is 4095 after
+setup or after leaving an unaware bridge, but 0 after leaving an aware
+bridge. Should the !bdev case keep 4095?
+
+>  	else
+>  		br_vlan_get_pvid(bdev, &pvid);
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but is br_vlan_get_pvid() given
+the right device here?
+
+bdev comes from dsa_port_bridge_dev_get(dp), so it is the bridge master.
+For a bridge master, br_vlan_get_pvid() returns the PVID of the bridge's
+own VLAN group:
+
+net/bridge/br_vlan.c:br_vlan_get_pvid() {
+    ...
+	else if (netif_is_bridge_master(dev))
+		vg = br_vlan_group(netdev_priv(dev));
+    ...
+}
+
+That is the host PVID, not the PVID of the port being configured. When
+vlan_filtering is enabled, a port set up with pvid 10 would get the
+bridge's PVID (for example 1) written into PORTn_VLAN_CTRL.CVID.
+
+yt921x_dsa_port_vlan_add() and yt921x_dsa_port_vlan_del() make the same
+comparison:
+
+		bdev = dsa_port_bridge_dev_get(dp);
+		if (bdev) {
+			br_vlan_get_pvid(bdev, &pvid);
+			if (pvid == vid)
+				res = yt921x_pvid_clear(priv, port);
+		}
+
+Take the common sequence "bridge vlan add dev lanX vid 10 pvid untagged;
+bridge vlan del dev lanX vid 1". When vid 1 is deleted, the bridge
+master's PVID is still 1.
+
+Would that call yt921x_pvid_clear(), write PVID 0 and set
+CVLAN_DROP_UNTAGGED? All untagged ingress on lanX would then be dropped,
+while the software bridge still thinks lanX has PVID 10.
+
+>  	res = yt921x_port_set_pvid(priv, port, pvid);
+
+[ ... ]
+
+> @@ -2336,15 +2333,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+>  	if (res)
+>  		return res;
+>  
+> -	/* Tagged VID 0 should be treated as untagged, which confuses the
+> -	 * hardware a lot
+> -	 */
+> -	ctrls[0] = YT921X_VLAN_CTRLa_LEARN_DIS | YT921X_VLAN_CTRLa_PORTS_M;
+> -	ctrls[1] = 0;
+> -	res = yt921x_reg64_write(priv, YT921X_VLANn_CTRL(0), ctrls);
+> -	if (res)
+> -		return res;
+> -
+
+[Severity: Medium]
+
+VID 0 is now the classification VLAN and FID for every VLAN-unaware
+bridge. With this write removed, what programs the VID 0 entry?
+
+The entry is left at hardware reset defaults for learning, membership and
+untag. yt921x_dsa_port_vlan_add() and yt921x_dsa_port_vlan_del() have no
+special case for VID 0, so the 8021q auto VID 0 can rewrite it.
+
+8021q adds VID 0 through vlan_vid0_add() on NETDEV_UP when
+NETIF_F_HW_VLAN_CTAG_FILTER is set. DSA sets that feature while the port
+is VLAN filtering. The add reaches yt921x_vlan_add(priv, port, 0, false),
+which sets the port and CPU member bits and clears UNTAG_PORTn.
+
+When the bridge then switches to vlan_filtering=0:
+
+dsa_user_manage_vlan_filtering(false)
+  vlan_for_each(user, dsa_user_clear_vlan, user)
+    yt921x_dsa_port_vlan_del(vid 0)
+      yt921x_vlan_del(priv, port, 0)
+
+and yt921x_vlan_del() does:
+
+	masks[0] = YT921X_VLAN_CTRLa_PORTn(port);
+	masks[1] = YT921X_VLAN_CTRLb_UNTAG_PORTn(port);
+
+	return yt921x_reg64_clear_bits(priv, YT921X_VLANn_CTRL(vid), masks);
+
+Does this remove the port from the VLAN entry that the unaware bridge now
+forwards in?
+
+VLAN-aware ports with no PVID also classify to VID 0, through
+yt921x_pvid_clear() or yt921x_vlan_filtering() with pvid 0. LEARN_DIS is no
+longer set on VID 0. Can frames accepted there, such as priority-tagged
+frames if CVLAN_DROP_UNTAGGED does not cover them, be learnt into the FID 0
+table that the unaware bridges use?
+
+The comment in yt921x_dsa_port_vlan_add() also looks stale for VID 0:
+
+	/* CPU port is supposed to be a member of every VLAN; see
+	 * yt921x_vlan_add() and yt921x_port_setup()
+	 */
+
+Apart from 8021q, nothing adds the CPU port to VLAN 0 any more.
+
+>  	return 0;
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111234110.1449602-1-mmyangfl%40gmail.com
