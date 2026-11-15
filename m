@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794767091;
-	b=Wq8tBjU484WinRCVLI/uhbstqbNbsZ0ZDZnrsm/JJGxJgzS/rhCvwumtSVlz63t8MOWf
-	 ABGXyC6lUFO/38b89o4lw5FcF6KuUMfpBrFd829B4+Y6wPRQfFCgHZcsPCmsS/Qu+n2sK
-	 P6Hi0FNiZScrdeN8j1kCtu1nH2VRFZAKEb1KQG+wTpv6tfH/I0UgcoGYGpv3C1FlMN7Oc
-	 oSd6C2mj7bHMvrMfiQj34pEFLMKbV4WcfdGcD4yz/oZab9KB50qCBDxYnjrYIlWZUX0gc
-	 nMmE7PCR5zpRu6Jdpqhyxbw3gStjpvU71ludcdypCsy2jAWZ16TvETyxb6VbcqqqxDQ==
+	t=1794767194;
+	b=0/zDVJngyL09B6pE+I5ItNK7v0PnADRh2z2vxnK9nWnGXev8LGjS8GXKrkxOIPRQWULQ
+	 gv6hnqvy+Vx+GPXxPLPJJuFFEIabzUwIv5Z5OE6CxpguMbEveAqC3q/aMwWrPTQV0oN7K
+	 jZWDZssGX/xTr21puLQ0O7dSo8Nl1vknKd2NAG93XpIwrV/1DOPyUyhktBCipdaeL6enh
+	 WRQiiBD8xMy9+MHXJDqsC5sPiY/DwGF9sqB9wmPkU8/eJbvfR81lU6tq9k1jQIyik7SQf
+	 4P/hU5IYj+DjgHKiicivKi8Zkf9AWY6C4Sx33yToURtt0SMDuvudklfsFG3cntl6Zwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794767091;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Q7h5sHivOvvnGFN4BWklWRuGzq8WV7a3Iv/4wV30Qfg=;
-	b=TjmazPCQswZkjQGnBsym2FGsnI4Y0fBh+TwhF96mtS4offHXckapK2CYHQqFtq/B51dx
-	 xMh2NXZoOBBorFpvXdcZ3Wf/oVy1vecjUxIm5XGIcuu3rraEEi7pVV1VuiVJf9yfkovcU
-	 YDpwZCtfOuBoDuWHxXX2FYajdWcFcasOFuDEiwF1ZJkZvk50tgjTUR+a4jwFv7Zjb/xC5
-	 ox95ye626+0x/1woiTcY2Btq2rErs+2A9J3TFIJrwdLirdJPKEkuSvr7TFwEa8Lt+jQe4
-	 yeywtUTbelipCN3sAxKKaa0ZLmIr530Apltc3bnzEDNWkzMLyUTLwICq0FalV4figZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794767194;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6hhvBoZDMPREBK+QllaLdak4HEXlDgN9M+ym2CatEzY=;
+	b=Cdqj6G7FVdbXoFm041y1aR3zEnRpJnM5NwpLi3Gde0dq68LkgqudAE7AV0SI/tAw5z70
+	 S9y1X66gbBjgtTmXqEeNSVEQKmBtGmQlt3vZK9Cp2OCxm6iOqDyew7lRsZ2aD8svhG68A
+	 bnd/dOpQFvIrA6SZbphGUvx15hwhQ8Ncg2B+DbcCjCViC/KBg+9nEDXh2RluGWtozxupA
+	 hUO1kwurWU81joaNoCQHOjQOJ2vDAgd+Z31sCjHdqi+YfTH1cL8bHpYeqn0VrMN8+IlR1
+	 y3fUB65mBetaRY/mSLEf0KrTA/x5BRyXdGIbHaIKLajOVO7I6+kevBUUry/quGqFdKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=BsEwvHHR;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xWqq6Ytz;
+	arc=none smtp.remote-ip=91.218.175.33
+Received: from mta0.migadu.com (out-33.mta0.migadu.com [91.218.175.33])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFBB606A31E;
-	Sun, 15 Nov 2026 18:24:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCFBB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1851B606A332
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1851B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=BsEwvHHR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Q7h5sHivOvvnGFN4BWklWRuGzq8WV7a3Iv/4wV30Qfg=; b=BsEwvHHR/j7zQrShJFQZN8CX0N
-	VF4aIrrXv5GXzCJXb+z5GbEB69HbUbCVh/h5Je97NlfAhxolZBlhNwvhPUkrlFpMsm64ekZO8FL1g
-	1V4GuSrvJJZTGdjm0ekQcaWP29ccENnSpkq7IJCF53ww6NscIpBCz0U4/U+2z8SYLIJA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xSeu6-00GePV-Rs; Sun, 15 Nov 2026 19:24:38 +0100
-Date: Sun, 15 Nov 2026 19:24:38 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Elias Pukari <elias.pukari@gmail.com>
-Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] net: phy: et1011c: don't write an error code
- to the config register
-Message-ID: <81110bc1-865e-4107-bac2-86d5edcd979d@lunn.ch>
-References: <20261115180735.649299-1-elias.pukari@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xWqq6Ytz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ya6B7gVo7+tq2SFNtrJ1DU++OTmw3FzfOanRib/ggkk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794767190; v=1; x=1795371990;
+ b=xWqq6Ytz+wVRlDOrMYXwYvevrkjMQ2eN1dUy6pZtXSnaZwi1oN2q7riacxrRWNYLVN9E0Ehv
+ LYZUz6bsXFqz3tNvFFgx659Ciizs7knUMWW4XHi42RLNgHAoqRrbk2p9il0MFPhlZAzmkhgFbVd
+ hI0DjERIL3eV02eMIHU2N/9I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0dbe625ad8b95c5b;
+	Sun, 15 Nov 2026 18:26:30 +0000
+X-Mizu-Trace-ID: 0dbe625ad8b95c5b
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 19:26:25 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: linux-wireless@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>,
+ Ping-Ke Shih <pkshih@realtek.com>
+CC: leonard@lausen.nl, Shawn Lin <shawn.lin@rock-chips.com>,
+ Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] wifi: rtw88: reduce RTL8822CS SDIO request overhead
+In-Reply-To: <20261115142330.359247-2-leonard@lausen.nl>
+References: <20261115142330.359247-2-leonard@lausen.nl>
+Message-ID: <27B2AC6E-6293-4287-B966-986AF8C0CABE@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,18 +67,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115180735.649299-1-elias.pukari@gmail.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 08:07:35PM +0200, Elias Pukari wrote:
-> phy_read() can return a negative error code. Use an int and check
-> both reads before using their results.
-> 
-> Found with LLM help; fake-MDIO KUnit error-injection tests passed
-> (6/6, KASAN). No hardware testing.
-> Signed-off-by: Elias Pukari <elias.pukari@gmail.com>
+Hi Leonard,
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+On November 15, 2026 3:23:28 PM GMT+01:00, Leonard Lausen
+<leonard@lausen.nl> wrote:
+>Reduce SDIO request overhead by filtering hardware-handled control
+>frames and combining adjacent TX-capacity reads.
+>
+>RTL8822CS on NanoPi M5, median TCP Mbit/s:
+>
+>                              Upload   Download
+>  Neither patch                170.4      241.2
+>  Filtering only               258.2      263.3
+>  Combined register reads only 186.5      261.6
+>  Both patches                 286.9      273.5
+>
+>Together the patches improved median upload by 68% and download by 13.4%.
+>Upload and download were measured in separate sessions, with four
+>20-second upload samples and four 30-second download samples per
+>configuration. Testing used a shared Wi-Fi network, so throughput can
+>vary.
+>
+>Runtime baseline: v7.4-rc2 plus the RX-bounds fix accepted in rtw-next
+>(83ca360e85280) and the MMC voltage-switch fixes in linux-next
 
-    Andrew
+Series targeted for rtw-next should be based on rtw-next, unless there is
+a good reason for doing otherwise.
+
+>(67a97316a31a3, a3838c21e28e5). All variants use stock MMC host limits,
+>198 MHz SDR104, performance governors and identical CPU placement:
+>SDIO IRQ on CPU4, iperf client on CPU6, server on CPU7. Traffic crosses
+>Wi-Fi/AP/Ethernet between two endpoints on the board.
+>
+>All 20 configured rtw88 modules built with W=1. Sanitized function models
+>cover credit-read errors, fallback and buffer ownership. Module IDs,
+>filter registers, traffic paths and kernel logs were checked. AP/monitor,
+>suspend/resume and other-chip hardware remain untested.
+>
+>AI assistance: Codex inspected sources, developed the changes and
+>messages,
+>and automated validation. Prompts requested small optimizations measured
+>individually and together, with explicit prerequisite and impact checks.
+>
+>Leonard Lausen (2):
+>  wifi: rtw88: 8822c: filter hardware-handled control frames on SDIO
+>  wifi: rtw88: sdio: combine free TX page register reads
+>
+> drivers/net/wireless/realtek/rtw88/reg.h      |  4 ++
+> drivers/net/wireless/realtek/rtw88/rtw8822c.c |  9 +++
+> drivers/net/wireless/realtek/rtw88/sdio.c     | 58 +++++++++++++++++--
+> drivers/net/wireless/realtek/rtw88/sdio.h     |  1 +
+> 4 files changed, 68 insertions(+), 4 deletions(-)
+>
+>base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+
+Can you resend this properly, as v2, as resending singular patches is not
+encouraged?
+
+For the actual patches:
+
+Read Documentation/process/coding-style.rst and
+apply what you learn in there to all patches. Furthermore Assisted-by tag
+is deprecated and should be removed, which you would have seen if you had
+ran checkpatch on your patches. Address these and other style issues and I
+will review v2, as I don't have time right now.
+
+Best regards,
+Luka Gejak
