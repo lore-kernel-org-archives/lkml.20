@@ -1,45 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727910;
-	b=XjG0pH9V9AFoiu53OLLN8anQbOGUkREyFAfIicVNAxJN45eXXzhed96reIthMBfG0G7E
-	 kHKA6vMI2h/rhRvcNB1EJR21NDnMUfx27/i8g0k4Edv87wTtCl4jXIFFgs1rom0Kl6Wqk
-	 ZHnTAHHpbV7OZI1U7qPwl0Lb5PHx96EHHcUxPa2n2t/qJ9P61Vd6jNU3aj+vP+csQMp+z
-	 jD0IKAszKadVWeHdJvgrCMs7G6V9K7FcVYahOZBykdeTBgDeQ5J0t/c20Ga9m9vcXhU3A
-	 SBLPQ5O9TImaOCy+GkBcDGf/LdS2Hp/FbUmY4xDo4B4IcVh6ssqMj41GJjo46xa6HKw==
+	t=1794727926;
+	b=I8sH3BIXLWdRzmvNMUYwkw7/iOyxiGIV69JJDqOMnCqz/wcOUdlMi9KBg2esTAWNL+Pp
+	 Ay3jQayNL0kzX9NgqerXUHs28rxHSMPn0k1K53bduXSUuPs/wwotAKX3yqiWMUmzn+BXP
+	 ryZFkcEqcLZIJaZB2OU1yTK46qmPydWUMgvzzkXUy2Ee2kCtOOIS9f4he47QSc5lSvc0b
+	 /RRtfAjcSEzkbTYJLlbRhtYl94HilpgV5+a+NTDAFFDAQiWUnJVQpSJUgYQGQ89PZP8Y2
+	 WbexvTUNJiyLJTj+qjKx7XYKcpcT2TPukVqRZSiuunhK8+bx4EW+AKUCsP+FqTm3hBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727910;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=TQ713QRNAekIGjd561kzHhEiq1a9v32zLLsxJ3VDhUE=;
-	b=NEz7qMgExRMgAtF6CuH7M7IBxuv5n9x5MBt5tcovZ92uqztBU0H4IMpgg9vfA9hoqOHF
-	 mvM5cfa2gL/LTQf/HHWaoWOOJfdnuuXriUYuem1SIctfKodtTig13oD3gqP8ZCO1f4evx
-	 efzNr4y5JMcJIDHCCxSI2FC8IhmbLMuZDAmijdEHpafx63oynuYzwRgM4nZuVrOCti0pd
-	 UzyAVpki+3QE7++q5oh1IxRoGNONC7HlrEylA0j7T17vJrJ4USzjJdw24d4ju+rC5jhUg
-	 npGhwDjc7sLGhEHtkWAwhs2MwZ6iAgJkhdc4jxIpK9rB4Tqa1fCAKqrOH1CON86C8DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727926;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=WZJNoA9PE/aFpJtYQV1Avlq3zZ1+tFwplbGmb9pSnGY=;
+	b=pCHEpTw1MxhHuCVb5tb6DvdfyWeeuBERrbZRPDE5saD70Zz/LeXvQTZlT9GxVnC7VXfJ
+	 +mvxiH8lZvq/Skjy5zOq4ahju4ujHvEf+VFi39ngXCpluv4ZUt/5YnIc+rICIe3lFT5nh
+	 GlpeK++Whr7RcHHfMFKbScoI0wID7FU5L0gzU8JSD866GHlBQQD4AIAPNpmkxAcRGSilc
+	 QzFl5NMZLc1EyIcog/IhLK00Fwo+YPC351CqNgqpobPqTXYjnqbHELZuRfLnFZIh3L+PP
+	 YzndSi5K32E/XpRvTa+rO2gTxfbhSIOibju+vwlU80WSw467Z5NC7km7J+BaLUgDN2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmR+ov55;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGLp07qN;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B010606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BFE606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:32:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BFE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmR+ov55
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009211F000C4;
-	Sun, 15 Nov 2026 07:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794727909;
-	bh=TQ713QRNAekIGjd561kzHhEiq1a9v32zLLsxJ3VDhUE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=lmR+ov55w3BRND1pmg4VD+/X00Vfk8cE6VGaeaINUKR0AljewXM+RrwYXxG5xYXzY
-	 nN1jWlgF7PgtJdwUoWrLfmmmkn+L/Sy4VaS20ZOT6ZfURkddQCl7yEzifz6EvSza7+
-	 1s8jkPurTSZbnc2RYZNu8nENteW3J29zf22p0U3eSCKfOoCct743JZPQosfgcgksTb
-	 dDa7Lx1v+awqW2cIhQFbqYQHVEZcsNVcUR7Va40dygaQt/fiBqEP34du7GD1e5FCRw
-	 vGqjVUA+ZA7+4UPfcT1fRUtnnl8bxeKdR5myOHq80BzoD72n7OaqoclUE2XsGLq9Rs
-	 nV8f3aOqAhzgg==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGLp07qN
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490a0e72588so1007623f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:32:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794727924; x=1795332724; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WZJNoA9PE/aFpJtYQV1Avlq3zZ1+tFwplbGmb9pSnGY=;
+        b=zGLp07qNJvhQ6+u0soNSdE4zISfLgteQxFDtiLB3+MHdU5R8cLNayQpDOu9z6E8HsN
+         cokgnkhAr/wayCMP5a5YNMbrz8W4SjZLOU5BRZvRdWywNx6ylkAud+eGM9IO9xu5mMW7
+         vNaai9gq6sOgHH/Plv7KLPJqtlQ7SNQhP8MwbOsiVY9oebQhNkQHqvTKMcZy20gw6VyG
+         k7ZCwjq9cWqbqhlBhjXQDv7h88lCfGgbi6MypmIx2cT/mMVK282PdLi8Wwi9Md6f2p2U
+         0P0GPJt+gXIMzGs33ytfrKjlEGV7t0Pg95zZC84eG54l5hQ2KUyeWmzxrEwtZdsEBCOn
+         OqLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794727924; x=1795332724;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WZJNoA9PE/aFpJtYQV1Avlq3zZ1+tFwplbGmb9pSnGY=;
+        b=OY6IpUqBlQzHmjst0YRRiSiUcRruQklcRHxqsY3l9KF4iD9zlHM9iCuDmUkpEVyITx
+         HTGbM00iETp+L8vxn0iVuzT8Q3og3C03LZ8hvFeyK/FKdtWEmdqQ4KJ7OsNODrspmmD7
+         u9pEL5essQbuO955ighff0TseKDpLFJuGwVFEaV2YVkUZHjMsGXR5zPJG1HF7L6IUo/+
+         em6iFdtdK4ODNfqbpd8zmVfkQDUJm/Cq3QuOJtJ+v/Lz9ssH6Hr8ZSKYMF1KLp2NglIr
+         VYE0cjoGnMKNUtHHwKg94rXBqTAJOylAid8Z2iVVvu6oo1wvUuEmyIN5yTdrBqly95RU
+         mGSQ==
+X-Forwarded-Encrypted: i=1; AL+hErFkJJj1fLlOVHlwaHxe7xq7yxBi6s8P43KXM1o3YboQ9ZN4BqhFzItbNKteWEhXEdVxa45WWOoS+ZYS8Wo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/+EFMTuEuYd5dvFbnssE3+eUQstZ0mfWfmrgTOWQ4YvflszWT
+	HJss4UQf+qMqjY6b0NF/u9BIOv2xOGitbu1kCivDA2TkEmSWFiC9VulJ
+X-Gm-Gg: AYBFou38/W0PZkbvH0f16ViTGN0HyrGrTFOwHRm1lYk8g/D3SyZ0dbR9JKkUp82C6Nr
+	EDdCmNmMN8Jd7c1nnFEm/EMScElrKxCSqhK5j19qnvpprlriJNhJC2gd7JYSFPPKlB0NrR8kDH2
+	2RefVaQtwAYOr83XSGZFKsL6nCXyS3kAGnJozkUuXPJ7qv2wbMIKVoQbE/TfZ6X2O22WIJbD+/X
+	/I5hnsxv4aaL2mPHsDiGTHDp2oJPQ6JEkp7tHhWqhSMHSppQ83hfPdpyQuh+1YrVR3iBbGdz9rT
+	9GmGpx2pAMf7nLJBzN5hIN0OL1F/NtjjQwBqZzWxfhyTTOVyEBQldTxRIE/flel0FLBGU1voEn0
+	qDLGjLEVlwlpwX8929LooxLj1ibooUIixJnVHSaevXc5PPkpOXKyXMma2WrwIHlAdepKwiJOWFc
+	N912XPPpDWl6llAstJumKC1h+u12Ncp5vFPNrV7V/hBOf5vB0S3pYzVRedbIDFE3KppcFrPbY6J
+	Dt2UHXhFhcgELYMpC1japZTVsYrk5kLUvaaI5pTZ4eabsracLnYzTFnAchNM940Aw7ecrLIWCbT
+	TcI9XoAz9J3cztaVV6b2h3UwKlUBkqerJ+/N7rX3l95HflGL2w4Q+iFVWTpAdVVc3zaBk8O3LH5
+	CQ1wdD+U5oxpV8nB7gIgBFirXOL/fZhpGS1ktHc/GKqGmllHg/51TiGrEuowy1628auYWPu9CAB
+	hXkSBIfoFtLM9oLEbiFgSh1LpdlK30vcvS+Jxo96mcvPOg5lgdS9C1L3D/BGcKW3hC1T1Rrgmyq
+	ygtrYzHwSmjn/erb4OyW+gbDUYCFKYsLzdkgfG/RyLeRl4=
+X-Received: by 2002:a05:600c:1f90:b0:4a7:76fa:87e9 with SMTP id 5b1f17b1804b1-4bb55ab281bmr146703185e9.21.1794727924403;
+        Sat, 14 Nov 2026 23:32:04 -0800 (PST)
+Received: from jernej-laptop.localnet ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571cfa2esm183982925e9.2.2026.11.14.23.32.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 23:32:03 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: gaohan@iscas.ac.cn, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Maxime Ripard <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Andre Przywara <andre.przywara@arm.com>, linux-sunxi@lists.linux.dev
+Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ devicetree@vger.kernel.org, linux-csky@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>
+Subject:
+ Re: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861 SoC
+Date: Sun, 15 Nov 2026 08:32:01 +0100
+Message-ID: <G7_h6i47RcuqvaGeHxw_dw@gmail.com>
+In-Reply-To: <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me>
+References:
+ <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
+ <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,72 +121,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/3] mm/page_ext: support early allocation for
- SPARSEMEM
-From: Mike Rapoport <rppt@kernel.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Alexander Potapenko <glider@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Marco Elver <elver@google.com>, 
- Dmitry Vyukov <dvyukov@google.com>, David Hildenbrand <david@kernel.org>, 
- "Liam R . Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Sang-Heon Jeon <ekffu200098@gmail.com>, 
- Mostafa Saleh <smostafa@google.com>, Ketan <ketan.kishore@oss.qualcomm.com>, 
- Usama Arif <usama.arif@bytedance.com>, kasan-dev@googlegroups.com, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-In-Reply-To: <20261114104150.58424-3-songmuchun@bytedance.com>
-References: <20261114104150.58424-1-songmuchun@bytedance.com>
- <20261114104150.58424-3-songmuchun@bytedance.com>
-Date: Sun, 15 Nov 2026 09:31:41 +0200
-Message-Id: <179472790175.1870365.16622132821657916911.b4-review@b4>
-X-Mailer: b4 0.16.1-dev
 
-Hi Muchun,
+Dne nedelja, 15. november 2026 ob 06:11:31 Srednjeevropski standardni =C4=
+=8Das je Icenowy Zheng napisal(a):
+> =E5=9C=A8 2026-11-14=E5=85=AD=E7=9A=84 06:33 +0800=EF=BC=8CHan Gao via B4=
+ Relay=E5=86=99=E9=81=93=EF=BC=9A
+> > From: Han Gao <gaohan@iscas.ac.cn>
+> >=20
+> > Add myself as maintainer for the V861 bindings, clock and pin control
+> > drivers and device trees.
+>=20
+> I think traditionally sunxi do not add maintainers for specific SoCs.
+>=20
+> Maybe you should patch the regexp of "ARM/Allwinner sunXi SoC support"
+> item instead.
 
-> Moving KMSAN's per-page metadata into page_ext requires page extensions
-> to be available when kmsan_init_shadow() runs, before memblock is freed.
-> FLATMEM page extensions are available by then, but SPARSEMEM normally
-> allocates them later from the page or vmalloc allocators.
->
-> Add need_early so clients can request SPARSEMEM section backing from
-> memblock during page_ext_init_early().
+Usually no entries are added at all.
 
-Can't we just always allocate page_ext for early sections from memblock?
+Best regards,
+Jernej
 
-> Use page_ext_init() as the common late path for client callbacks.
-> KMSAN starts requesting early page extensions in the following patch.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->  include/linux/page_ext.h | 26 +++--------
->  mm/mm_init.c             | 11 +----
->  mm/page_ext.c            | 99 ++++++++++++++++++++++++++++++----------
->  3 files changed, 82 insertions(+), 54 deletions(-)
->
-> +static __ref void *alloc_page_ext(size_t size, int nid)
->  {
->  	gfp_t flags = GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN;
->  	void *addr = NULL;
->  
-> +	if (!slab_is_available()) {
-> +		addr = memblock_alloc_try_nid(size, PAGE_SIZE, 0,
-> +					      MEMBLOCK_ALLOC_ACCESSIBLE, nid);
-> +		if (addr)
-> +			memmap_boot_pages_add(size / PAGE_SIZE);
-> +		return addr;
-> +	}
-> +
->  	addr = alloc_pages_exact_nid(nid, size, flags);
+>=20
+> Thanks,
+> Icenowy
+>=20
+> >=20
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > ---
+> >  MAINTAINERS | 12 ++++++++++++
+> >  1 file changed, 12 insertions(+)
+> >=20
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 93abbb315065..dfc300dc1eb2 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -24031,6 +24031,18 @@ F:	drivers/irqchip/irq-riscv-intc.c
+> >  F:	include/linux/irqchip/riscv-aplic.h
+> >  F:	include/linux/irqchip/riscv-imsic.h
+> > =20
+> > +RISC-V ALLWINNER V861 SoC SUPPORT
+> > +M:	Han Gao <gaohan@iscas.ac.cn>
+> > +L:	linux-riscv@lists.infradead.org
+> > +L:	linux-sunxi@lists.linux.dev
+> > +S:	Maintained
+> > +F:	Documentation/devicetree/bindings/clock/allwinner,sun252i-
+> > v861-ccu.yaml
+> > +F:	arch/riscv/boot/dts/allwinner/sun252i-v861*
+> > +F:	drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
+> > +F:	drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
+> > +F:	include/dt-bindings/clock/sun252i-v861*.h
+> > +F:	include/dt-bindings/reset/sun252i-v861*.h
+> > +
+> >  RISC-V ANDES SoC Support
+> >  M:	Ben Zong-You Xie <ben717@andestech.com>
+> >  S:	Maintained
+>=20
+>=20
 
-And unrelated to this patch, do we really need to try an allocation from
-buddy rather than always use vmalloc?
 
--- 
-Sincerely yours,
-Mike.
+
 
