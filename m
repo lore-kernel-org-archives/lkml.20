@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755350;
-	b=274OuTbT5zeR9J7tR7+A5HbjGiFz8rrGejAon6mNn730ZtXfhwaJ0o8xnlgvO/9OiCiX
-	 hfLHElLol0SyhhKNVEa87qZjkaDaN6F7cnBCD6wwvcWQNId4yyo2vWZaJi92f+TgDsx0L
-	 3JLOi9oxbfAttao7AJrIB/IkP4H0TAXWGuhdaonRz3SJtya8Z8V0J0zOODIDN+EifZ5wK
-	 UWv3zlkb+ihHSCvKbCKUpC7dtmveTjS1eDz09V/223xF0bpRveiwpz7zg/VGpowmVrSKG
-	 uX8QgY9NtBaTTlNP3HzZQvj/9FqFoWZMIiDL/EaPDVdzTMZhuS4pVVEphE/O1CBMtkg==
+	t=1794755380;
+	b=T3WSJ9CG2TcgVyUsl7o4Swme/EGtMOpwaNmRMWHHQiXSN3rbg0dvfFtRC79iYN54KnWM
+	 tWXBSVp04TdkKG33y+mLkQanQ27cetpvHdZgh4NaCC/ZwGm0UREJM1/0n/+oWeUFcIITR
+	 aOC96FlOTdjDwGXA5HkIQJ8sxweAF6g0dTsC2u3LEPwF54fY2ojep+O9fO1O654kKejdT
+	 7o8V+pJLl/Mfn1q9k6C29BP85qJdUld3LefY8ufFLmK//CLA3SXH3w5+6jUQCxWhQxSjR
+	 tUvVBWY5cotjLoQBhhS91nMx7WSYIyyxNIJZL/Z+drnA9SUlfzS7qoW5EoCpxZH8FNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755350;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Xq7qc4BRfu5FJGRN78qOqsOjPTIEKnXdGiz34GlzHCY=;
-	b=bWTN+oGSktP8x0+P5u4o+mcqOaZBowrxxrVsWzO8bO18NslYBem5tQ6Usgg/l1qXHYBk
-	 7O64/tZrkKvC6gOP1a4b1axAT7gsY7hTRZCOV4mlgq4F47vqscYenSHuEjNGJppEQMUBu
-	 XQbeNRjSS84y3OWtmyKvKm/BkAq4mChAZQWlrxokpiLbL52z+HuEQue0QGbzIToxiq59l
-	 hc4BZLNMMA0HgU8hiKeHkv/BSyjoJNXDcAM/lZ4DczXghln9MG07qRvbAIcPw2vBxMlRl
-	 vnOUWM+UYIdoOPMsnDFhPiWUOhHbbY/AF39jbasR7Udu2S7HUDqYzZe5oU9XGq4aFXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755380;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Cq6yUQzukHtwhYuWtD3CdG/vzfG7TEB1pVADzBcWgFs=;
+	b=EFcbcDzVS+ageoHzGAaKPQgAFwRrQX+RRPRhPg0e6ARiK5fXqbvtjT4cb6JNGnyhkx38
+	 qC9V3qz2mlc+BPCcn5Ioz5uhNtJoKBjkVSjHNf0U7YwOwPJGO2gsvoa98Ucs5BOultxUe
+	 y5Vn8mb6Wsd0hU91d9CkZxVZWiLN+g3KnCanDoeQ9NzHHJDTXTAAoB2hILKfRcq+sqWR+
+	 GFLFWYHF4Bs/d2U1drYXIiH/LEFVfdtQBGiNG/ZVqinbL/24mYzVmi5uiic0CKb84nokk
+	 3nV4jYd6agAzXxlM1+quMyOt3VUJbQRbApKX8d04HJzjuuzrC3yuAz818aptAqhLIIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rCxSEUxa;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cANDfa3J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E289A606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:09:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E289A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423A5606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:09:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rCxSEUxa
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so19484455e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:09:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794755348; x=1795360148; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xq7qc4BRfu5FJGRN78qOqsOjPTIEKnXdGiz34GlzHCY=;
-        b=rCxSEUxavVoPw8oHQzwRacIkVgUNBvJQUSqMxPRJSGadPZx+kvjG97Tq8oMhiUdQh7
-         oDHwczu5d0A4jGiPN3y6Hs1F9V/svsg6VMBvWIZKTsmeJdMZUdMZK7yTO5Ki2DsXH8xM
-         17535pnAFg99xAYjTAsQcch1Blj+CJL6WBUH77Vv8P/D4UJEO0ZwiaV54U8t0T5GpcbH
-         2qm9Mr4N0EDIxPiMmEkU1cXzLlwGkV0JGWefB9apLM1DFkoZTTK64ren5W8XCgtkXli0
-         sABfA8KbDe1gE+sDwhTIzMNJjmt7ISexoRKDBcU3EhUjBz/wZAPHtMh0qtOaLj4KFoKz
-         njQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794755348; x=1795360148;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xq7qc4BRfu5FJGRN78qOqsOjPTIEKnXdGiz34GlzHCY=;
-        b=F+PtG0YEyMCuKGCkS1sNnk0PyCL+x6M2Wc3m92lVM9T/daOLODUREtwyO0ZJb0FnOk
-         UIHi56wsOEaSmlmDradlcwrxpEQtXTUsQZZz7pghcIChYOftynylVeDvVEGdgUWVEO2i
-         BK83GVaonP9ZrvMIrlschhMQ0s/QiZfc62GUDLoxwtMKdDYXrbGi+mWbqJBp9/zfG0VV
-         xSSX23J3oxKPqB1o5XPAoOUejMnh881h1jCXK+aodVV4ED8hqsGZre5KdFGL53NNDgFf
-         Y9nS/JoLhZNs4SA0cEZ5x42uuLqzGO+YTXKv334xmMQBe+u+UW2z9LClvNZOjaiabmDW
-         SLSQ==
-X-Forwarded-Encrypted: i=1; AL+hErEyYKSy/T+EWJVapXAKMeaR/iY8mksar+rNS2QmreFaIyiJSwNEjx2IklKo4tnJ4TjoF6xpJZAb/Ns1qdI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2SOfhibAJ+k4FWfUS8sWk2pJrlqj2VYpfZ6FU0MH7XBrstEpi
-	5lE21VWjVbbpwFIf4SZFsD8QFlKhxP7+LMgQ8VpZ0CLvkh2JGBgllADD
-X-Gm-Gg: AYBFou3bIL7BlB3Bsl2m8KWcrqB9xDHG8kJM3wZprOhj1frV/xeZyF7f+0kF0WRXjka
-	NhMpsE2omIifrOCPYh1DTWM0mqQ8jVNRyQPd5Y+edM6ybxwqPM1+g469J2H0h5TX8a07lybfakZ
-	It04dV/G57/vw16RSz7Z6U53Sntq84nQvukHOzKPT9Ljf1I36VKJEKLifM6AWHz72+hK3t4cwJM
-	32H4GGZedrtySOws7rsn6++7zZ0UOWB6ATP1KmFIZLLQqWLhQPzuE3/CMcCPhe5zru+P0lMfkEK
-	YpAwQSqPQA7IicSHKIX8i3bIqbuvInlGCVE2p8okLVVwtRTk5ZN9bIUFjmCVieKqI/2nFO2qUCv
-	eCAW7K2eUGyax+U4WOUT5xRuV688212Jkknv3UGUxzBscK+xj+YEk44sLSzD8ttUc4PYguxTguw
-	UOHjeq/1Tw6RemdSNmTMud/YH8iz1FVMNsflLlONJzc2cAHmtF5nB/Le0ZxiCI1u0NjzVptMtd+
-	UvSjDFGZsWAng5lLzIQppPSTHx+rVSAWVFA2f7vyrynWOIfcSayjG3E57BkfY67mSoD7nV9w9E5
-	UIMd8HP0g2P2gglD7vfDQrJknjD6js3Nzz/3xQbsrNSWIJuQSz2HYS91l8eofavBVlqY9OFWLsL
-	DIjB5qZrdgFlOVFoVqDSaat0fkiFGW1CzmudSF+2anoY/bpgZ9L4xNYqlFgn4KgZcaC9uAQQfEG
-	wbCAZBrxVnGEXKbHiZi4ckzEiYlUZdN4HcGvS+FNYziz53eOILCPjlVjwzPw7ZFjAeRtEB8GSGF
-	AIixcj0JzbQCw==
-X-Received: by 2002:a05:600c:34d6:b0:4a2:526b:d40f with SMTP id 5b1f17b1804b1-4bb5599801dmr172843665e9.0.1794755348206;
-        Sun, 15 Nov 2026 07:09:08 -0800 (PST)
-Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571d7e87sm150114515e9.3.2026.11.15.07.09.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 07:09:07 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Chen-Yu Tsai <wens@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] Input: axp20x-pek - support the AXP313A power key
-Date: Sun, 15 Nov 2026 16:09:03 +0100
-Message-ID: <20261115150903.16855-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cANDfa3J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2ED21F000C5
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:09:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794755379;
+	bh=Cq6yUQzukHtwhYuWtD3CdG/vzfG7TEB1pVADzBcWgFs=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=cANDfa3JG/1VLOyWOyMbLnYziGnzSsHDw0+p48eFEhwqjIqqzBMypnlKn2KIJbBGy
+	 Hq4EETBr2jUy034admevuoevndcXik9C6uGtap6cIMzgHvPoML9laee3OpAmf4sBiB
+	 V6Hi3F0/36Jj6przMu8+XPjSpjPzA85GybC1zU02FANO/I/3EaUryQjljgHh/wI44D
+	 5RYySKRVJXo2SRloVa8du07x2AxdwjTDUjUTJXlLIsql7MWUyVb1o93lvq6ZjrRX/R
+	 dB0ZlpwIe039A6elGxys/Fb3U05iYiO1bsBl4w+OQaWaOFfVK9uQspK5cbriu9IOZv
+	 IE74MzMSJVX0w==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ae25c846edso22210921fa.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:09:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFwIcJcSN3Fg535+GOn/75nN4H/r6IjeWqoI00RYM17IjLMLIpDt/yVJxv/kYeJe5eGPDmr3Ors2NgTKp0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JmOSsbNArnu7A1B4HbC4iHLoKLcbeVxpt0t6o5tHuBCjiaaJW
+	mXK1+qQKtBf6SzY6FNE4yOzXlr/AVntjWwUy4Po5xMRXUkwgBISQmaW9Se4NmxPiLGTABfNfyHt
+	MyQTqFAWgjE50nKAZQ8gScvrdH5WBU08=
+X-Received: by 2002:a05:651c:1986:b0:3ae:25c8:dc78 with SMTP id
+ 38308e7fff4ca-3ae2b69178cmr25726671fa.22.1794755378199; Sun, 15 Nov 2026
+ 07:09:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,74 +59,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261115132215.289236-1-jernej.skrabec@gmail.com> <20261115132215.289236-4-jernej.skrabec@gmail.com>
+In-Reply-To: <20261115132215.289236-4-jernej.skrabec@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 23:09:23 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
+X-Gm-Features: AclHuK8SfNxnDatVmiI32N0fkX-YaXg08NGH8ia-Bx19MDfSYUZXv-OL_jNzao8
+Message-ID: <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: h6: orangepi: Enable CPU
+ frequency scaling
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The AXP313A MFD cell is registered as "axp313a-pek", which this driver
-doesn't match, so the power key doesn't work on boards with this PMIC.
+On Sun, Nov 15, 2026 at 9:22=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
+l.com> wrote:
+>
+> The Orange Pi One Plus and Lite2 lack the CPU OPP table and CPU supply,
+> so the CPU never scales its frequency. Add both, like on Orange Pi 3.
+> OPPs above the regulator constraints stay unused.
 
-Match it as well. The AXP313A has no AXP20X_PEK_KEY register, so hide
-the startup and shutdown attributes on PMICs without timing tables.
+My review agent noted that some of the other boards raised the constraints
+when CPU DVFS was enabled. Do you think it's reasonable to do the same
+for the OrangePi? Or do you want to be more conservative?
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- drivers/input/misc/axp20x-pek.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
+Note that I already applied this series.
 
-diff --git a/drivers/input/misc/axp20x-pek.c b/drivers/input/misc/axp20x-pek.c
-index c34e002258ee..d7e696dd7c09 100644
---- a/drivers/input/misc/axp20x-pek.c
-+++ b/drivers/input/misc/axp20x-pek.c
-@@ -85,6 +85,9 @@ static const struct axp20x_info axp221_info = {
- 	.shutdown_mask = AXP20X_PEK_SHUTDOWN_MASK,
- };
- 
-+/* The AXP313A has no AXP20X_PEK_KEY register, so no timing controls. */
-+static const struct axp20x_info axp313a_info = { };
-+
- static ssize_t axp20x_show_attr(struct device *dev,
- 				const struct axp20x_time *time,
- 				unsigned int mask, char *buf)
-@@ -193,7 +196,26 @@ static struct attribute *axp20x_attrs[] = {
- 	&dev_attr_shutdown.attr,
- 	NULL,
- };
--ATTRIBUTE_GROUPS(axp20x);
-+
-+static umode_t axp20x_attr_is_visible(struct kobject *kobj,
-+				      struct attribute *attr, int n)
-+{
-+	struct axp20x_pek *axp20x_pek = dev_get_drvdata(kobj_to_dev(kobj));
-+
-+	if (attr == &dev_attr_startup.attr && !axp20x_pek->info->startup_time)
-+		return 0;
-+
-+	if (attr == &dev_attr_shutdown.attr && !axp20x_pek->info->shutdown_time)
-+		return 0;
-+
-+	return attr->mode;
-+}
-+
-+static const struct attribute_group axp20x_group = {
-+	.attrs = axp20x_attrs,
-+	.is_visible = axp20x_attr_is_visible,
-+};
-+__ATTRIBUTE_GROUPS(axp20x);
- 
- static irqreturn_t axp20x_pek_irq(int irq, void *pwr)
- {
-@@ -392,6 +414,10 @@ static const struct platform_device_id axp_pek_id_match[] = {
- 		.name = "axp221-pek",
- 		.driver_data = (kernel_ulong_t)&axp221_info,
- 	},
-+	{
-+		.name = "axp313a-pek",
-+		.driver_data = (kernel_ulong_t)&axp313a_info,
-+	},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(platform, axp_pek_id_match);
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
-
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> ---
+>  arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/arch=
+/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> index 40c5c42b347e..a2a2e4cb0256 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> @@ -5,6 +5,7 @@
+>  /dts-v1/;
+>
+>  #include "sun50i-h6.dtsi"
+> +#include "sun50i-h6-cpu-opp.dtsi"
+>  #include "sun50i-h6-gpu-opp.dtsi"
+>
+>  #include <dt-bindings/gpio/gpio.h>
+> @@ -65,6 +66,10 @@ reg_vcc5v: vcc5v {
+>         };
+>  };
+>
+> +&cpu0 {
+> +       cpu-supply =3D <&reg_dcdca>;
+> +};
+> +
+>  &de {
+>         status =3D "okay";
+>  };
+> --
+> 2.43.0
+>
