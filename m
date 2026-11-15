@@ -1,100 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794779831;
-	b=cQj+gGZ6c9Ss9s3PN33VCeHVYNVMUcpjPEozj0f7dKEQKn4nBCn2hsp7QehYC7gecFxx
-	 Es6Lghfy1+CvO6Ioj6lhew9fZNmWd1N4VJ7uhS6ldcukTFEImGBMzzXRSrpR42RyCgwmu
-	 okWQpjI8H20IrSbpEyggM3ViBkV/1HjmlY8gutD6lXuXN0iNL9J5GYgzvsCcd5+VMxsPp
-	 BfHxdgmHURTgImaCzcN3YiarCw9L7HI3UIrtVV5wa0LkzdzydqU4p5B6b8wBy/44sKWfe
-	 I+UQXMQI5Fj0RGDYu7904iBtL/1fneRUBJj/TSeq02zlbDsnZslQhLA7z52dnmTdZfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794779831;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
-	b=nVh432X4hw4PRhXr4rkv7MPUtNQnngPO8Cr12n830ktXsiRz0C7FYNrh3jFkG/ugnJ0K
-	 QQpj1AtW2rmIMrufAKr7lrEkOGmadKYwNJHJFaDEKF4dkq/GRe5fFU+q4BIDqXfaw3Eh1
-	 v/k8WhHdbyE06LRjwlm5vAPcpyo9/P8WVkbIfaMZx7PBHcXxGhwsrosgENSHGoWTqwhfb
-	 kdzhsRN78DCHyuIUuE/Zks/wu/96xwfnbovf5FNppCEtzAD/MZN6bd3ssfiwl4577e/aC
-	 JzavQl21G0k/ZR9jiUqWfxAuGPsRwwKwBoFNYUEaFLBBy5vkAWB/1NXMxKtkeXGUA0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUojU28V;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794779838;
+	b=w+1XW01A5TT10eN/CD6CBbp6wJmrH9eGX2drhTRgeM3C6fqQNMDhJNJpFV3TtCAvkZJl
+	 MvdpMkNeuOxDuaZvW2F5UQh1MBYuL3uZxneunnKgu1WGNM8XuFUeEPTdvCjzDFYrraKpv
+	 8VJLGNYfMlpEOP3ybRuhnxqM2silIN0vO+9356VBuzA7h1fU1w2LUJXQkUSlziqkzSwz1
+	 V6r5I69lc0M6ThYBr91pjsodve5OOFztaMR8gnIvqSF/LjLYSv/T7mclxixVhBr80lnNb
+	 gj36cDvhEdeRWUNEK05Mhbc+9Zz0Up1Pd7Bemduez0P3Dc3Ulcj64kBNJi8EbSEgMFA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779838;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hoFapUtlspIAPrh7Ga2yspRCKBKoddrYUp4uzoxvs4M=;
+	b=uzoRX19jKGTZEbNMUNUUafR/daBmUSvIUi2PSd0v3ZXkBBdVsVVEdZnTgyf9DdKL8Bv2
+	 NaQcZ/C9DeD0wY1XERBWsqM9V23Z8WBymwL5Ec5YzZ2ccrCUCAulTzvWTxEOiqfEYdgXa
+	 +Nq080XnB5dN+Py5qm94qZ/znHu+38dKvWsKmGBCA3UfgJEndzijDT/OyX9X4chPgkMty
+	 8jsrVMNQg9LQTaVFOYCFVbYWvcUv4LaTB0HPgdsz7Q3Tb2a4Av2Xb8DV2WArpSzwDlOmA
+	 mMh1oCk4ZYhyPCNocoGmKztZ2ncg4q1+qyOgal0lnqoWsVsITR3lrYjYRG7NpmYqFMg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=grapheneos.org;
+	spf=pass smtp.mailfrom=grapheneos.org;
+	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=HFzL14Og;
+	arc=none smtp.remote-ip=206.220.120.4
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2AA606A890
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:57:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A2AA606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799DB606A323;
+	Sun, 15 Nov 2026 21:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 799DB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUojU28V
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-55be673e029so212001cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:57:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794779829; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WdZ+brOAVVbrfHKZgquUMtkP14n0lxEM9uq7m+edYLDOUNiSA9WwUY/igwEm5JbjYa
-         BlXv6n9mPJ3S/csrY7hIMmZnIuIZ5BN1c1t59KhmXlOPGxrfmJVCksPkGBxdhP8gegXh
-         al9IGbJFrcLkSOU8vmPMSmI7llxTPeGd/OfJQR3q92+xVCNZ8Iq5QNGXes8NF+cutolx
-         ZLZsk83kN6jbEE4XVROX70lBFvOq/JbDc1R3ZW3HTXbG34wTiAEhVzmY1yK28eZtyOkt
-         clHwGj4qyDFREhzRHRLDDwycV4JDG2F3N138q1PXfJWxYXlOuqTZFWrM81gz8GHZRBUw
-         NBMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
-        fh=UDybj2EqOzd1tCq0yH8PnKAOqCXIn2lygJeLNikpNkg=;
-        b=plB/WPXuLM4Juq4rtcFAIg5JA+ABj1YlZ4lrij4gZpEEfTQ53+XOJWdZfNzEawIs4l
-         d/DNvue/x9ZoQp0OyatinInxtegGyZzmjE3MhFNDNqMGcozRV2JXPDflLZ8XgBv7FIz6
-         iIFRFu2fvpNME5Pq9YGMX2DOY+ZbcyMHYNFQxLAuuJcACtAZNN8jaIfyk4vWAi7f2YBq
-         F8MYVyVp9Yw2Hr1zGUwa8aUY2fEZYhMQQB2s+xTr44Rk4nUU2niNPX6DQ78HDooWQfjZ
-         Se13vpIU6gAbYzBWBZmz1mVWD9+YClvphFbz7xP+zZKxHEe8Cx8U2T9Gm4vWpsO6A/GP
-         owgg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794779829; x=1795384629; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
-        b=lUojU28Vd3dqK01eZKmE3yuMAiWpA5SDAF/VehUstM3PbMQD4I0VAIbfuNaxpOlnld
-         9fBXxZqdZ3kCYgu65FpbSSG/KuTR3YWl+ipVx2XjFnc021yflHAQyf7g3FiJEqC++fu1
-         wTowk0eA6n9ssPkLGWGo+JngDkwuuJ+GoZRBDehrTqub4ALdzd1h01HVzvrFkdH8F/8g
-         YOiVfuzIb5Gpw5MSCBnVCoRIo190L0XAc2R45ORsyjSgRac8tUpowxvlYOjekRxJYGEL
-         BjcZjO10JJK0hXzlJu8mAvPT9IDxiTd1fFkb66f83dsWgsjxTIGnF6W5na1/PejqLYNr
-         szcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794779829; x=1795384629;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
-        b=TCzDz6anEk8c+fI0Sty6+fQXPyhqNCMbiAwYs33d1uOSJf5gjHMtTDZEmB1QTmlot0
-         vwjVnpMuuDdrgUPGsHixjEMnVtxwO/91lFVYr/Ezkj4IZ8Jb/Wxn2KxVSKOfZWRq/Lmn
-         n2S0p3wYnFdAhHrg0seBKNdPfcGx2Z6l2gQVk8jd6AV42QxS9IVqzmc+xs76FnExIMen
-         7zmRzC5Cn0cLGXzCpBImIY7IGe1bdrvmZDnsDUvs26sA4DuGQmwyyeJvvD+Bpmmb5eKs
-         nOyKkqqjIvbsE6KwhCcJftNZjakWyi1wZumZcI0v3f/jUpfS/tADeDEoz0QYZCQ5JJXr
-         vu7Q==
-X-Forwarded-Encrypted: i=1; AL+hErFqS/DSrHjEyFwY75xCxijZxrbiA63iPmysqmuGYnC3bulpgDf7oZjI6WBjtJR3reTbxqA0d18TTra3SSc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yW9xA4L4xxC18qdVfJg/0uZqpKxTU6KGYSiv25oPiYUktgtZy
-	8HuKunR6dXqeVLz9NLl4qjnBxzMs5+bF5QUOGhbBFiFkSC6THdp59PlNv/EZz7MMQjm8P0bdX+p
-	1bJ8LoMjKvpyJTey4SrTYsNvQuMpn33MdVE1DcUSQ
-X-Gm-Gg: AYBFou1sTt0CFPjnT3H8PMligscTD4wJqe4bpuaHzY1/2SNjrdQoApM4ee+u1zF/83g
-	tTCCLDDK3ho7ScFf+buv17G7nHNxKo7oCcVnrXBignsYRIxgrXlybuFkfO8qWlvrBuPlOhsc8IN
-	sjbveWu+qGxFqvixRo8t0Y4+YpZITMYs3/A81XiW06rSnNkqNSBEq1hQfJeS5My7fmK45C4oo6j
-	Jux4q5waYiKgtVfxGoLGRO/371MHAqLjg81YLV+iicUqPT0j/dAX3Mo7geM3hGf0HUai80fAjvd
-	MTu+hTp0ec4mQnlOtDQO21nxdVcPlddTkLssfA7/bUEBQ/UjRXrrkOorH7hMBqi0fi1xjkhtjRs
-	oyIBVDrr9lW92B4zzVS0pcL1q+WsaBCnbrXJY
-X-Received: by 2002:a05:622a:418d:b0:530:e00f:7768 with SMTP id
- d75a77b69052e-55c3ef5b118mr30920321cf.0.1794779829101; Sun, 15 Nov 2026
- 13:57:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=HFzL14Og
+Received: by mail.grapheneos.org (Postfix) id 257DC3C08EE9B;
+	Sun, 15 Nov 2026 21:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1794779836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hoFapUtlspIAPrh7Ga2yspRCKBKoddrYUp4uzoxvs4M=;
+	b=HFzL14OgGUYbdOXrQY8BExpfS48R2XcNs5bsII0Mmoh5f8HCewNbX229vkjdN+ZGStNRuK
+	zIUqGggdmhp3BPC06goen0oAaKV2rOiJHGB6IL2RF+i8Mulv2Pc0Wf1XBiVyQ7MdypHqSh
+	RaM+I8Rt9Tk/ROlU6miBzp+qIYuQvbZUyr4X5S+9rHf85r8Nan3p2Hkgp1LHaIWgdwTawj
+	/NqLwVB0FCdrBDSGfF83Wc3ceJcNQEoVh1sz2vQ37nLnn7rAKmAjSlQJszrVCjJyPmzYqZ
+	vr6UCPmS1qrVs02qvdFi3kk+Pw+sUtF6zBXEWtsV1hEKjNX9MXWEPQ2UM3hV/w==
+From: liamsmith827 <liamsmith827@grapheneos.org>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liam Smith <liamsmith827@proton.me>
+Subject: [PATCH net-next v4 3/4] selftests: net: test restricted on-link fallback
+Date: Sun, 15 Nov 2026 21:56:39 +0000
+Message-ID: <20261115215640.18728-4-liamsmith827@grapheneos.org>
+In-Reply-To: <20261115215640.18728-1-liamsmith827@grapheneos.org>
+References: <20261115215640.18728-1-liamsmith827@grapheneos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,65 +74,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115014102.2879372-1-acme@kernel.org> <20261115014102.2879372-12-acme@kernel.org>
-In-Reply-To: <20261115014102.2879372-12-acme@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Sun, 15 Nov 2026 13:56:57 -0800
-X-Gm-Features: AclHuK8tUG0HqxJLZwfiHpkrbYOo6UvxhIaokwTCKMzordl012uFYJdKi4dzOyM
-Message-ID: <CAP-5=fUXT0eB-YnozpOXJzYz1K3x+BnDZELU+ipXPp6Oq9BFWg@mail.gmail.com>
-Subject: Re: [PATCH v3 11/12] perf test: Drop samples without an IP in the
- dlfilter test
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 5:41=E2=80=AFPM Arnaldo Carvalho de Melo
-<acme@kernel.org> wrote:
->
-> Since v7.3 the kernel zeroes PERF_SAMPLE_IP when a userspace-only event
-> skids into kernel mode, so that kernel register state is not exposed to
-> an unprivileged event (166f10836a653dfa "perf/core: Fix kernel register
-> info leak via hardware skid").
->
-> The test dlfilter keeps those samples, and the check that nothing but
-> test_loop survives then trips on their lines: the comm column reads
-> "perf".  Drop them, which is what the test wants, everything except
-> test_loop must be filtered out.
->
-> Fixes: 199d5e872a9ce737 ("perf tests script dlfilter: Add a dlfilter test=
-")
-> Cc: Ian Rogers <irogers@google.com>
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+From: Liam Smith <liamsmith827@proton.me>
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+Following the previous patch, the on-link fallback is no longer taken
+when the FIB lookup hits an unreachable, blackhole or prohibit route/
+rule. Adjust the IPv4 tests accordingly:
 
-Thanks,
-Ian
+1. ipv4_ping_novrf(): Pinging a loopback address while bound to a
+device now fails with an error instead of timing out, since the lookup
+hits the unreachable default route. Adjust the expected return code.
 
-> ---
->  tools/perf/tests/shell/script_dlfilter.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/perf/tests/shell/script_dlfilter.sh b/tools/perf/tests=
-/shell/script_dlfilter.sh
-> index 88222280f6094fd0..797cd9ae84141f64 100755
-> --- a/tools/perf/tests/shell/script_dlfilter.sh
-> +++ b/tools/perf/tests/shell/script_dlfilter.sh
-> @@ -46,7 +46,7 @@ int filter_event(void *data, const struct perf_dlfilter=
-_sample *sample, void *ct
->         const struct perf_dlfilter_al *al;
->
->         if (!sample->ip)
-> -               return 0;
-> +               return 1;
->
->         al =3D perf_dlfilter_fns.resolve_ip(ctx);
->         if (!al || !al->sym || strcmp(al->sym, "test_loop"))
-> --
-> 2.56.0
->
+2. ipv4_ping_novrf(): Add a variant of the above without the
+unreachable default route, to make sure that the fallback is still
+taken upon a route miss.
+
+3. ipv4_ping_novrf(): Add a test that demonstrates ping fails as
+expected with an unreachable rule. This ensures FIB_LOOKUP_REPORT_MISS
+does not break this behavior.
+
+4. ipv4_ping_novrf(): Enable the device bind test cases that were
+commented out because of the fallback (prohibit rule, unreachable route
+and unreachable default route).
+
+5. ipv4_udp_novrf(): Connecting to a loopback address while bound to a
+device now fails with an error instead of timing out. Adjust the
+expected return code.
+
+With the exception of the route miss and unreachable ping test cases,
+which are specific to IPv4, the IPv4 test cases are now aligned with
+their IPv6 counterparts.
+
+Signed-off-by: Liam Smith <liamsmith827@proton.me>
+---
+ tools/testing/selftests/net/fcnal-test.sh | 53 ++++++++++++++---------
+ 1 file changed, 32 insertions(+), 21 deletions(-)
+
+diff --git a/tools/testing/selftests/net/fcnal-test.sh b/tools/testing/selftests/net/fcnal-test.sh
+index a50609535fed..9722d7dcad08 100755
+--- a/tools/testing/selftests/net/fcnal-test.sh
++++ b/tools/testing/selftests/net/fcnal-test.sh
+@@ -619,17 +619,30 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
+ 	log_test_addr ${a} $? 0 "ping local, device bind"
+ 
+-	# loopback addresses not reachable from device bind
+-	# fails in a really weird way though because ipv4 special cases
+-	# route lookups with oif set.
++	# loopback addresses not reachable from device bind, unreachable
++	# default route
+ 	for a in ${NSA_LO_IP} 127.0.0.1
+ 	do
+ 		log_start
+ 		show_hint "Fails since address on loopback device is out of device scope"
+ 		run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
+-		log_test_addr ${a} $? 1 "ping local, device bind"
++		log_test_addr ${a} $? 2 "ping local, device bind, unreachable default route"
+ 	done
+ 
++	# loopback addresses not reachable from device bind, route miss
++	log_start
++	setup_cmd ip route del unreachable default metric 8192
++
++	for a in ${NSA_LO_IP} 127.0.0.1
++	do
++		log_start
++		show_hint "Fails since address on loopback device is out of device scope"
++		run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++		log_test_addr ${a} $? 1 "ping local, device bind, route miss"
++	done
++
++	setup_cmd ip route add unreachable default metric 8192
++
+ 	#
+ 	# ip rule blocks reachability to remote address
+ 	#
+@@ -643,10 +656,14 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 ${a}
+ 	log_test_addr ${a} $? 2 "ping out, blocked by rule"
+ 
+-	# NOTE: ipv4 actually allows the lookup to fail and yet still create
+-	# a viable rtable if the oif (e.g., bind to device) is set, so this
+-	# case succeeds despite the rule
+-	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_start
++	setup_cmd ip rule add pref 49 to ${NSB_LO_IP} unreachable
++	log_test_addr ${a} $? 2 "ping out, blocked by unreachable rule"
++	setup_cmd ip rule del pref 49 to ${NSB_LO_IP} unreachable
++
++	log_start
++	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_test_addr ${a} $? 2 "ping out, device bind, blocked by rule"
+ 
+ 	a=${NSA_LO_IP}
+ 	log_start
+@@ -671,10 +688,9 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 ${a}
+ 	log_test_addr ${a} $? 2 "ping out, blocked by route"
+ 
+-	# NOTE: ipv4 actually allows the lookup to fail and yet still create
+-	# a viable rtable if the oif (e.g., bind to device) is set, so this
+-	# case succeeds despite not having a route for the address
+-	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_start
++	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_test_addr ${a} $? 2 "ping out, device bind, blocked by route"
+ 
+ 	a=${NSA_LO_IP}
+ 	log_start
+@@ -692,10 +708,9 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 ${a}
+ 	log_test_addr ${a} $? 2 "ping out, unreachable default route"
+ 
+-	# NOTE: ipv4 actually allows the lookup to fail and yet still create
+-	# a viable rtable if the oif (e.g., bind to device) is set, so this
+-	# case succeeds despite not having a route for the address
+-	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_start
++	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_test_addr ${a} $? 2 "ping out, device bind, unreachable default route"
+ }
+ 
+ ipv4_ping_vrf()
+@@ -1602,10 +1617,6 @@ ipv4_udp_novrf()
+ 	run_cmd nettest -D -d ${NSA_DEV} -S -r ${a} -U
+ 	log_test_addr ${a} $? 0 "Global server, device client via IP_UNICAST_IF, local connection, with connect()"
+ 
+-
+-	# IPv4 with device bind has really weird behavior - it overrides the
+-	# fib lookup, generates an rtable and tries to send the packet. This
+-	# causes failures for local traffic at different places
+ 	for a in ${NSA_LO_IP} 127.0.0.1
+ 	do
+ 		log_start
+@@ -1613,7 +1624,7 @@ ipv4_udp_novrf()
+ 		run_cmd nettest -D -s &
+ 		wait_local_port_listen ${NSA} 12345 udp
+ 		run_cmd nettest -D -r ${a} -d ${NSA_DEV}
+-		log_test_addr ${a} $? 2 "Global server, device client, local connection"
++		log_test_addr ${a} $? 1 "Global server, device client, local connection"
+ 
+ 		log_start
+ 		show_hint "Should fail since addresses on loopback are out of device scope"
+-- 
+2.47.3
+
