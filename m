@@ -1,51 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794744176;
-	b=dsLKuq1pkMzUvd5aE9dWBOggJi3wmLhtbcZlh6TdDuYOOoYeDzY0sDgZpCneOtWSNIwA
-	 LjsOS6HaYzBTmj03jlBSxFCjSOEkn9hyXzal1y6z0xwVP6G59twbC1EWMgZpFCvVxF/vj
-	 LUFa2FI8YCcpPRsWEvxLRnf+WCichDFcScsORJsPOXVM0CUOZnWnGyp1bVcIAvRZ5hX9I
-	 LEbO8qfaygHqxf2fgbH/pqbVHBe0yb3XtTk2Z0oOX9wXqGUwRIJrrfJxEov/kT0lRJWf+
-	 mRZz6Izsuz1ZeeZ5PR1UOWrmp5L3mRe47XWMwSO9gIfTxKLnhoxTK+VjWJxaZ08sKFA==
+	t=1794744178;
+	b=YWPnI8hnmcde6dvYzRgfvsYSMlOod4OYOC+cqVHM/1wdrxS3QPMetw5Yjid5BviKAxys
+	 BR4xNTZt9eNibWDaHVm+O7rFD8Qxf/2JStHBgWMtoTB+fpHhSdzTkkV7sfk2tV9YTMDXK
+	 fzTdWOtdXyMHTKgdaLOjNd3+VbNDowiBs3rP6vrD6s+nFD4RdG0qLOfB7AfdBlBrdmqu3
+	 8V+iIlSTT5qbdCtsSd+eBQQ4L8ViHpjUJePhhA8rHWL0Mx5YoY+gHVdxn8qwl0js9hx5h
+	 b2qxhR3qX5eKbcSH0lbKUovqUsImWpHoI29I+RKLqnXgUqlQNIIN/5OC9wnJfnzSw9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794744176;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=zQhASDOLNWCYZbbeXaQ7+mEuVmEL3e7UOmkqC/kQG0U=;
-	b=SE0sBA9en5hTbHxaAQth/WBGAdo4oH5pOFpuJKA90KOOKT3jkZv/KDLJa5RsNJD8Dlsv
-	 lLKhlVaqGBdEWYAXteBuRRmvCq6ZNiURXDgvKo0ZF6UDpXXGJEw125buvpVlY+SQgphLi
-	 XF5m6SA/czO74+npF+fdfTCHoMv+nD+NcfJEeIvVA02+6MG47I7oOoXpu/9s4Z9uXMlrS
-	 m3/csSYdFFroB/Wdd2kneNCPPCp7KNhtX5ya6MX+3eFcADb8iMs9xi85ZvBLy3ctALvJM
-	 XZue1uPWOz6593EMrJ24irEm55U/njLH+DPAeAPe+L8jb6Kb8JqGwgdhGui4EzvJm4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794744178;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=a68naecbXPiVp+RBiDOlkn0oTW1XFAmC0R9J837YGik=;
+	b=msNUVN54vd05f9rpDJz5xEYBKc3Bl6Q0i6VWX8Pc7ICcptmDcBJEfjLeWsWVpwYTwa5V
+	 NHAy+M6pktcHVm/D+/e5/PtG46U4UIoQSK6XBSDE6ieQrajyO+o++7U/0+HRYPntFIOci
+	 g2d9PhJyXKPwFtwTHHtcCRVKVOwOTqasYTBiRSnxO/IGdoOlXS3VFKnPTUe904LKowyc0
+	 9bMvyRJKMDJdchQyADGN2TTHWy1SKFkg0vP7HXv/AtYBlY9oeklSMs3Wes8Z+6XfHUMWq
+	 9sJG/82i82N0mDP1aqu/FdfX4vpPHetU8EwL3EyV+GJJ+ss5tiPpaQDgzpfFwrc1dvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xi69WWci;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=Bs4JNiNG;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB15C606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:02:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8772606A330
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:02:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8772606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xi69WWci
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2563D1F000C4;
-	Sun, 15 Nov 2026 12:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794744176;
-	bh=zQhASDOLNWCYZbbeXaQ7+mEuVmEL3e7UOmkqC/kQG0U=;
-	h=Date:From:To:Cc:Subject;
-	b=Xi69WWciRbJrAgEtC4BuMLmXtP6z5BEHe8I0W/LO7cPaxxjn6/5Aoo8QNOB+fCEgU
-	 spsO43ADAfZ4LPngz3Bj0u2fVnIpbFfzuIZIGSlSRyMUm8dYmt9JFPHYaQPWDkH6Im
-	 HMLwunlQ1xjS33V3BmOpikoqLIjTX8xAEs3diEb/MC0LC5dYJKXTCffLuiX1y8v+Q1
-	 OCwW0WRl56mThs3l0C1nI8KT9DonfNRSLOtlSDcOfMNghss8YMXma+ONYKisKRtvjD
-	 3nsyVC8el2Y1yuUMA0Jk00qPJqZmvcU63DtusdstB3Nvne17eOFIFtUWJKUa2nZ2k7
-	 GcbiBDFgDNlzw==
-Date: Sun, 15 Nov 2026 13:02:51 +0100
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <a.p.zijlstra@chello.nl>,
-	Thomas Gleixner <tglx@linutronix.de>
-Subject: [GIT PULL] core/urgent fixes
-Message-ID: <avmfa9udOnu4gFmp@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=Bs4JNiNG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=a68n
+	aecbXPiVp+RBiDOlkn0oTW1XFAmC0R9J837YGik=; b=Bs4JNiNG+3FjoiRalM0N
+	4zN1q7BUCqeTzCaVuFCGQ+rmJa8cBMcsEBMPZzuT/x9Q4+6S9oBwhUpEu4XWjyPt
+	whQ/BoK2cpiNrIoM4C2nwQOn4ACbX3hwRe9GgQurA2UoW6Oy+1Bfe87jAzkIC5g+
+	qw4P2Aue0N3ti+p+umTQRcAf+kvqnizfIjYKc5R7YPUGGxYTpZS/GYRGLsNqZcm1
+	qbiseJDJ1bPUEF1Ho9JTF8AJzh/wSR0sQsJR8NXfcNga91JhKu2YJnRyaWsuGbo1
+	zLxL4f6yNWsmLfsz08OFz6P3VMIvtTwSehRO0m1Yqxc5DNMtAmSyiwGDyfOttEWB
+	mw==
+Received: (qmail 907919 invoked from network); 15 Nov 2026 13:02:55 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 15 Nov 2026 13:02:55 +0100
+X-UD-Smtp-Session: l3s3148p1@etoAcU9grqYujnuZ
+Date: Sun, 15 Nov 2026 13:02:53 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Diogo Ivo <diogo.ivo.sx@renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] soc: renesas: rz-sysc: Remove SYS_I3C_CFG register
+Message-ID: <avmfbZSQsV-AHGb_@shikoro>
+References: <20261029-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-a5d2ff9b1367@renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,50 +66,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261029-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-a5d2ff9b1367@renesas.com>
 
-Linus,
+On Thu, Oct 29, 2026 at 05:51:56PM +0000, Diogo Ivo wrote:
+> As per the Renesas HW team this register was unintentionally left
+> in the HW manual of both the RZ/G3S and RZ/G3L and should be removed
+> from the code, so do it. No functional changes intended.
+> 
+> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
 
-Please pull the latest core/urgent Git tree from:
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git core-urgent-2026-11-15
-
-for you to fetch changes up to efe191f1605a149b06eb0fe1ff975e7d3137c9bb:
-
- - Two generic syscall entry code fixes for return code
-   data type definitions. (Florian Bezdeka)
-
- Thanks,
-
-	Ingo
-
------------------->
-Florian Bezdeka (2):
-      entry: Fix return type of syscall_trace_enter()
-      entry: Complete syscall_enter_from_user_mode_work() to bool migration
-
-
- include/linux/entry-common.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/entry-common.h b/include/linux/entry-common.h
-index fa2854fed1f2..15278416f886 100644
---- a/include/linux/entry-common.h
-+++ b/include/linux/entry-common.h
-@@ -62,7 +62,7 @@ void trace_syscall_enter(struct pt_regs *regs);
- void trace_syscall_exit(struct pt_regs *regs, long ret);
- void syscall_enter_audit(struct pt_regs *regs);
- 
--static __always_inline long syscall_trace_enter(struct pt_regs *regs, unsigned long work,
-+static __always_inline bool syscall_trace_enter(struct pt_regs *regs, unsigned long work,
- 						long syscall)
- {
- 	/*
-@@ -202,7 +202,7 @@ do {									\
- 									\
- 	instrumentation_begin();					\
- 	local_irq_enable();						\
--	long _ret = syscall_enter_from_user_mode_work(regs, syscall);	\
-+	bool _ret = syscall_enter_from_user_mode_work(regs, syscall);	\
- 	instrumentation_end();						\
- 									\
- 	_ret;								\
