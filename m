@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.240.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769708;
-	b=P+iArBeRS/jN9AyYg6b+7Bn+lzUHb70pT4hVEcOES7IzyrvGWDqkq4YtVAvm/+/vhC1J
-	 zg0r1del1DB/qGuYtTxXVmhoNgQjNog51GR4st7xX6vTszZa+pFtgK0cPOxQvUVCEBVv1
-	 YbCxPzkzWfgcNE1fI0qytF9subhsyR+Yav4s3a9CEliW2rHVU3piAtBEOx5+nrK6EMqaS
-	 QnnZyfvyRcD01wLNuvvtMNPJzGCSXKvg027WiQju7zti1JDFLAfUnMmeM4Qs5jRc12Tt3
-	 irO1jYzvCucEt2CUTeXpR849pNYori08PCVTIcA8qE/nbFILbgzjk1oaKXvJ9lnl7Ug==
+	t=1794769840;
+	b=FJjQ6ZL7fnYyc+lUpnw/bNzXp+Wnnfgbz56HTJ4gn27m5gBNF5ONyr5GaFal6aqRySSk
+	 19ROmMTQNoDhxp9PzSvEZnAKkWSEnZWpPvTYSNtiVvvCHJCUUFdrH6WAAQ14xXq6Fy4RT
+	 zAPtGrjpb7XZoIgpwUpU87gd271zpLuRFxnpHRu+hVLhTxlHKjzyZq6HIujnJjZH4AOlt
+	 bswTnswglOF/vPFbp+ehfz/wpYLGXvjeW0BXaeKWk6njjXjHwKybYzJu+n7dzfmXu9nWP
+	 VUBWG6p0OpPz0t/X5nPRPJGjE15Fn1Jt9xMWcTZHjz+2ttPNoV8xmDyxjIk9mpnnjQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769708;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769840;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=10OkA8VAmfu8rQr5arZGbBrpbY2LKxX+xjHUgRXefG8=;
-	b=duhJ7FZGtVi4Ub6lxGdLuPTi06IPF9FeIh1aCdUYzFUWwKoVc1RWnq/gz/OD+8rhT4em
-	 ayrqzrNA2ckixxSu/ZtGjKW+ridBXsE/q9dAKbRRzKfBNpJ/SDs9UrDP4my0+We/i/53K
-	 axnFx+x6Sxv+vc0/BPYDTbElrwRoC+qZrHKQ62q/f0/dLUL6iVQE6JsJPxeGeuS36XIzT
-	 tyZVi31nCk5vb9phg0523Ea2iaQCzS/tCWsAbqEBmSigVGySRxRwHXJcKqcReRErccaDK
-	 fBe1A35dG5XTakPaxVagGoUPFQPScK4QRyOQIuPtN0PXRuYNgeatuQPxuPEUU+oFUUw==
+	bh=LtF+ZicJDI4fmgfCu+Ij9MY3N9bkIMYd5p+PyPTG2Fk=;
+	b=OICFJPv7QlRQpQ4/qMt4jDo4zx4d2kCKO5j+eW5tNFvAMzpDRkzx7f0hg4x71NZxNO2w
+	 UrXy++jrgtzFokAaUq8UOXbFrskNIO0UrACBqhYDsLACSrBfZMEvHqutrDazfHy2NBncA
+	 75Hzp7wDKkCJEp/5fAC03yvUCH8yefS6zEmyvKknc8ZpvbENrvs9Df3eURglSFAHqVccK
+	 ZV2GN5/VvW+Df6jeblwLy+/BCBmSv0fRtdKKKv5N8TJCAXHzqorq5j0yH0gQWDxffRjuj
+	 ZjTt5y3qFOAYiOqqnCIvQHHqEe0jeb2h/dlmKbo6JEzLjVpflKFqlwPEm2MfZrQjI2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gDfY/kDz";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sraa.de;
+	spf=pass smtp.mailfrom=sraa.de;
+	arc=none smtp.remote-ip=85.214.240.192
+Received: from sraa.de (sraa.de [85.214.240.192])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1A8606A31F;
-	Sun, 15 Nov 2026 19:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gDfY/kDz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5DC1F000C4;
-	Sun, 15 Nov 2026 19:08:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794769707;
-	bh=10OkA8VAmfu8rQr5arZGbBrpbY2LKxX+xjHUgRXefG8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gDfY/kDz8J1wjtKyqTDjv9TfS2eVmZtqF3Z2rbb/xXlXsLU/9oxeoazJPVL4EfvWj
-	 HjxYB96daq06o+GzBz5C8IU3fgFqW0O84wYrvTwTk3huTddlZ0I9jyOV9a28gX+bFi
-	 Msd7uIGn40CccVinAR/dBlS0ZMzvSLm8crxxskPZEY+jQCSmqRedpDLspbGrH+tFRs
-	 CHPx/BDnyfHYreHeLU/AllWaOdykBg0otPp1Jquxf+T1e8SuQiU89RZrHYQTXGJNqI
-	 C72G3irnR/CU+JSocdLjLHtoM0bvNe2Fia2T9dhiTVdos65YV/WOTb8ppbFila4hvp
-	 FNHbTnrbea2zA==
-Date: Sun, 15 Nov 2026 11:08:26 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Christian Brauner <brauner@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH net] net/sched: cls_flow: pin file with get_file_rcu
- before reading f_cred
-Message-ID: <20261115110826.502858e7@kernel.org>
-In-Reply-To: <20261111153106.580776-1-tristmd@gmail.com>
-References: <20261111153106.580776-1-tristmd@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DF3606A32C;
+	Sun, 15 Nov 2026 19:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56DF3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sraa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sraa.de
+Received: from [161.142.148.162] (helo=ryzen)
+	by sraa.de with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <basti@sraa.de>)
+	id 1xSfcX-00FyWm-7L; Sun, 15 Nov 2026 20:10:33 +0100
+Date: Mon, 16 Nov 2026 03:10:26 +0800
+From: Sebastian Raase <basti@sraa.de>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Sebastian Raase <linux@sraa.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Helge Deller
+ <deller@gmx.de>
+Subject: Re: [PATCH 0/2] Add monochrome framebuffer support to
+ simple-framebuffer
+Message-ID: <20261116031026.2afde847@ryzen>
+In-Reply-To: <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
+References: <cover.1793758480.git.linux@sraa.de>
+	<ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,21 +65,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 11 Nov 2026 15:31:06 +0000 Tristan Madani wrote:
-> flow_get_skuid() and flow_get_skgid() read sk->sk_socket->file->f_cred
-> without holding a reference to the file. Since the file slab uses
-> SLAB_TYPESAFE_BY_RCU, a concurrent close() may free and recycle the file
-> object, causing stale credential data to be read through f_cred.
+Hi Hans,
 
-Missing annotations. Please also make sure you include the answer to
-the questions from the bug discovery bot in the commit message of v2.
-Otherwise it will ask you again.
+On Wed, 11 Nov 2026 12:15:36 +0100
+Hans de Goede <hansg@kernel.org> wrote:
 
-net/sched/cls_flow.c:217:32: warning: incorrect type in argument 1 (different address spaces)
-net/sched/cls_flow.c:217:32:    expected struct file [noderef] __rcu **f
-net/sched/cls_flow.c:217:32:    got struct file **
-net/sched/cls_flow.c:235:32: warning: incorrect type in argument 1 (different address spaces)
-net/sched/cls_flow.c:235:32:    expected struct file [noderef] __rcu **f
-net/sched/cls_flow.c:235:32:    got struct file **
--- 
-pw-bot: cr
+> Hi Sebastian,
+> 
+> On 4-Nov-26 03:34, Sebastian Raase wrote:
+> > This patch series adds support for monochrome framebuffers (1 bpp,
+> > packed-pixel) to simple-framebuffer.
+> > 
+> > Monochrome framebuffers require far less video memory and bandwidth
+> > than 16bpp or 32bpp framebuffers, making them useful for small
+> > devices or FPGA implementations.  
+> 
+> Thank you for your patch-series and I see that Helge has just
+> applied this to the fbdev tree.
+
+This may need a revision because of the DT bindings discussion. I agree
+with Thomas that 'mono' was not a particularly good choice of name.
+
+> Have you considered also extending the simpledrm driver to also
+> support these monochrome formats there ?
+
+I have, but my target environment does not support simpledrm (DRM
+doesn't work with CONFIG_NOMMU), so I could not test it.
+
+It's a very basic Busybox-based system, not a full distribution.
+
+> Most Linux distributions now a days have switched from using simplefb
+> to using simpledrm.
+> 
+> But I must admit I've no idea how well the drm subsys / kernel-mode-
+> setting API handles monochrome formats.
+> 
+> Regards,
+> 
+> Hans
+
+Best Regards,
+Sebastian
