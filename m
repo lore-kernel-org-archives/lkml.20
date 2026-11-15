@@ -1,61 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794729788;
-	b=IzvA23Pn2gVDdpe3yr5vIKRZUDfcMjGr6nU4LVW4iegSRR3ulUD6pY24jvY9JKsdgNQs
-	 y3qYDBp2B0tNw5vD9YkneIoVcRB19Z8pVcn/Qu8O/K21YjkJY6NrVQHgSuGbyyD6GWeqR
-	 fSe2vXYgaTr5d8Mz/VBLOuj8/G3dQqGdjdS0h7nEy2W3nOb9oxfLXPjVY5Dqd3ZU3J3XX
-	 Q2tvcrgid5baNPxAIovVxPVXDVuivIoPEJkcYhMp7wD0DvXBqhjf+wNtvVxqEDCt9C8jX
-	 DuJhE5a6ggbnalTYta99a0ruJoCfyyFXaBliaMd7m45QAzMeQ8U/OIcBXBxAm4nzzCg==
+	t=1794729962;
+	b=e2/qcjIfdg2FzBqKE2HGgWQybhGPf4QbxhTKYvOczzXvmIh5qcSMpFegF7/V7um1fg3K
+	 nlT24DjZxffrHg8k5y7xjtnmt/Yin2CvA3y8GoQYQj9kPaByH7NVhtE1Xuw1ZGPJydvFk
+	 6qyQ0bKiGH0Ndp/MaPJCzjO8Tj8uOJnVDWpAtsUg2Mt3bDUAWkekT0874OBLgYnRQbEPz
+	 KnDR3Qna4EqTT/i3DkvAQMTVb3ixbf3lLljhPqTf9krkD0Czph0M5+v9XdMPCOFKEmCcd
+	 X3Lqg8Gmq0O4eQJW/1ZmsPd8C2hwQ8rsA9g+pv+YKy7PL7k3VIWKZaYpU50c4wXDZHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729788;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=iqFD1Dy0PA5Hv/7kVoTZRvbdlmdkVu9y//K9Cw3fKM8=;
-	b=qHkExpasRRDPUSTXPVeEhcGQXqfIvSS94J9q+txQU38YM317zLUj8Cznqv/VqPn6zvS5
-	 aDZ8eqSr6Yxui4+/5wAD0vvGbFDMxgQ+p1a7pmaH/0vXuO6LwIAIo8g1cQrAxKZwFgpt9
-	 dqBDWua+t7NzxrYH3y6wjj2N8td5fvrQFKqrmyQ91LqrXD7P/PYlqJs2MAQ5KXtKE6R9C
-	 yiRlJ3UIBeN0Dij6R1HsnqesNmOF6jGU/+NIXzXFRYwHNGnBAHOU65O6C78nE5WUmRX/z
-	 BuMOQeSsRdS4EpIWSv1xaUwMgH2C4cuhnHINsc4ZMnO2y2K0aUl100r2zfYb8oj4fsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729962;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=VHl71I32Bx/e3xsZSclmhNLm1RyMWmdjUwSSd6FZTAI=;
+	b=jWt6NTGbEl4uBosBSXy7eZ1gZm6cmbUmtKiqjX31MMRXcfliKx9fVZ+nyR5uZMoJK9FH
+	 aBkKzZdh3Fba3hsA8EiJCNCCaOenUgx6RUhFlARZncTUYUN3YgECEMwAjZbtJVrBrvX9K
+	 shnN43jMWLSAw+3+WQHuMxmme3kOyg0Cojm6ULNMXzIhoXpx/2O61J/DMQOQsvMLhA5rC
+	 NXHHki9Q+VDWsT7LIuCRVAw/aeODFKRcgf7hIy2lhSpzUv1+abjnDXSkgyhVat0bmJEL6
+	 WyJo5Djz5dy4Ef861L95qRpRQ75rMhjrV6/axpo5uvKehhXrEU7RT+Gbo5oyqEhEv9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=AccT0Gtp;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jHPhbDfo;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372F4606A33F;
-	Sun, 15 Nov 2026 08:03:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 372F4606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF1B606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:06:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECF1B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=AccT0Gtp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iq
-	FD1Dy0PA5Hv/7kVoTZRvbdlmdkVu9y//K9Cw3fKM8=; b=AccT0GtpYOmkgHaMbw
-	qgk5oDQiS2+F1HIJtb+ZKtzUXFiXh54CYN9I5QXybfghSl07ssNJFR5CUN9Sr2O9
-	aVHMcfKssWn8Cj0UVh6X01X72wBDJjRvjdSp/NCAU8/CWDTJauu5jt6RiNq4crHu
-	XhmT7y22CyAFlzxkKRUhDaVxs=
-Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wBnbpcfZ_lqTjp7HA--.27549S2;
-	Sun, 15 Nov 2026 16:02:39 +0800 (CST)
-From: Ziheng Wei <zihengw03@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: mt76: mt7925: fix mt7925_reverse_frag0_hdr_trans() for MLO
-Date: Sun, 15 Nov 2026 16:02:39 +0800
-Message-ID: <20261115080239.910402-1-zihengw03@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jHPhbDfo
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso348569a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:06:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794729961; x=1795334761; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VHl71I32Bx/e3xsZSclmhNLm1RyMWmdjUwSSd6FZTAI=;
+        b=jHPhbDfodVTTLB5cXQrLwjt4wm+a9W9TWJJM5+3lF1pO+PhIXoY1YcYm0kgu41i568
+         rUuAH8AruR40VSgN1BVucGgChAC/D4cBDOlMbEc7HSvo1+JVm+ZU0WgPQujJABGKxVQ8
+         qYLcZ25UH3NusLAwOF5BDrimMUxXwf6LGAD4evHqUPA+VHsRGO1oRMkGQ3l1yt36vTok
+         LT3GYxUGG2w9I+XijGOeDUnRZAwvyqeidAuasQ+O901dsm1N0wE5j8RyG9Vwa7AKRW7J
+         kWdLPCpZJdw4Nmew025EIIGboLL4fjB2IJnd4wdcMmoaLqwlqnsKQeaK8RHvYM7d4z5n
+         0YuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794729961; x=1795334761;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VHl71I32Bx/e3xsZSclmhNLm1RyMWmdjUwSSd6FZTAI=;
+        b=oOzc7LLmE56Yca0E29liaLEmPEiSXoENpXiZ5Wvn2QhrkevP1RiBSell9EoOi+3BgI
+         sfCcLedBgobs3UKPIfXcV76bOZ4TX9t/E9BTBGUdC3LupM6n5T/c+QkWxzcpWXy/Yq6M
+         ivw0+833eHqEWUBHsoRbMWJZ5fTQzlvWAmq1+Rl+91uIMFSrk5N9BnU5DxDaRwRdEj0N
+         xvH0SaPVRFvsPt6WlaiJUwPW8XJh8DOoeqIJdfCz4v/aEWA8aLPwLhzM3ZqMJdSvkxL6
+         Y94QFOwFQKdd3yIsYXxr2qcT55/Vb7fJpesPJlwxLPpZ/ZZxVcIaETM4rYs7AqlacsUF
+         PCrw==
+X-Forwarded-Encrypted: i=1; AL+hErHerDeco/f+EWQVA15TALk96AI9Hx2QFaIu6MY4FjeLarrDaauoKJi3+6aLtdRfPfftXdUhx6r6UTzul2M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z83+AmfmnIYG7hu4fl8wma40rfsUsBY3Ut8YA6oz7pebYAFjJU8
+	G+3tqwnS0+Tp7/0QFjWtwMjq7jb3coDb4IGIFPvM3MtMgIP1LxU+F4YK
+X-Gm-Gg: AYBFou2PTdbL1yhvzU6Snf28trg/0c+4RRP5jV7fFpCNrUJ+uGf9fjn+Ea5zSUHQS4d
+	m1gY7IAKch5Hlnm5dYn8cK3whXkfcK0ljyzmu63dExD9mJ0F0EMTvkrzJZAWBijfyTfcto3sw4/
+	hsB9SjQBvP6h4sMC9Y7XOfG0O7ukp+1uagC6z/YTWxC49xULQBPhEYGhXIcKYf1YvgliBDHknTl
+	OxOi5JJrtF6P2+G9awMg+7QoDKkB8NG8nFrpB5vhdunEpVfR5PaIPDrpFqTKchxzbaxjAd3MQBy
+	ZMG9n0/INAT7+RrOezAI4wC45gHJHEYOn6HU2Of1N8mojfNoCEKPN14/2wtdmPgs0sykANQe5FF
+	Hp0Oo7heGZ8tmb7RRZb/Sz4eVk3tWv//VCokN4FtOPgqcLSFVqmD6jwnizBoeyTu4Xo8oA6I/k8
+	Tb/V9xVmsfWrUp8gYJEaGtdDvdaB4/NlTcwnTtJXkXHUYJDFr9oNr31wtXmvxJUNDCtShMQ0XqK
+	Hl6Gl17xEKd4nrntSoTQUk7O6mCH2cxmZn4u2m9vX3yEicim6XDFefD2W6Yg5H3NSS3hZwNluph
+	MNtpKYv7QkmcZWDwrE0j4fS8hiOH1yATb4Pgd/xHZkhm+eMi5kh9+ioUPVWfERIdC+7BCRx0ZRu
+	DdbQVUPM=
+X-Received: by 2002:a17:903:94b:b0:2e2:d09f:d772 with SMTP id d9443c01a7336-2ee0d366b72mr113814645ad.0.1794729961255;
+        Sun, 15 Nov 2026 00:06:01 -0800 (PST)
+Received: from claudebox.iyengar.cloud ([50.39.139.68])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f868203sm24927565ad.49.2026.11.15.00.05.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:06:00 -0800 (PST)
+From: Arun Iyengar <aiyengar1990@gmail.com>
+To: Joonhoe Kim <26rote@gmail.com>
+Cc: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org,
+ mathias.nyman@intel.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] usb: dwc3: tell xHCI that it lost its state when the
+ core is powered off
+In-Reply-To: <20261112141512.1840-1-26rote@gmail.com>
+References: <20261112141512.1840-1-26rote@gmail.com>
+Date: Sun, 15 Nov 2026 08:05:58 -0000
+Message-ID: <179472995896.3849457.7552548813153786316@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,87 +102,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnbpcfZ_lqTjp7HA--.27549S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF18Ww4fWFyktFWUGw15Arb_yoW5tw43pa
-	yjk3y5Gr1kXrs5Zw18Cw4j9FWava1fKFyIkryfG3Z5uFZ5tr18JFsrXry0vryYkr4kuFnI
-	yFW8tr98Gayq937anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jkpnQUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7QD6S2r5ZyCuOAAA3e
 
-For unicast frames mt792x_rx_get_wcid() returns the wcid of the
-receiving link. Since commit 43aa4033eb18 ("wifi: mt76: mt7925: add
-mt7925_change_sta_links") the wcid of a non-default station link is
-embedded in a separately allocated struct mt792x_link_sta, not in
-struct mt792x_sta. mt7925_reverse_frag0_hdr_trans() still casts
-status->wcid to struct mt792x_sta and derives the ieee80211_sta from
-it with container_of(), so for a frame received on such a link it
-reads msta->vif past the end of the link allocation, dereferences the
-result as a vif, and copies sta->addr from memory in front of it into
-the rebuilt 802.11 header.
+Tested on an Orange Pi 5 (RK3588S, dwc3 not wakeup-capable), 7.3-based
+kernel with KASAN and a local dwc3 s2idle change set to keep today's
+power-off: 10/10 s2idle cycles reset the controller ("root hub lost
+power") and brought a USB 3 disk back; a cycle with the core kept
+powered kept its state. No xHC resume error or splat.
 
-This path is taken for the first fragment of a header-translated
-unicast frame, so it is reached when the AP sends fragmented data on
-a secondary link while RX header translation is active there.
-
-Do what commit a3ea1c309bf3 ("wifi: mt76: mt7996: Fix
-mt7996_reverse_frag0_hdr_trans for MLO") did for mt7996: get the
-station through the sta back pointer of the link and wcid_to_sta(),
-and take the BSSID from the bss_conf of the receiving link.
-
-Found by LLM-assisted source review. Not tested on hardware.
-
-Fixes: 43aa4033eb18 ("wifi: mt76: mt7925: add mt7925_change_sta_links")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ziheng Wei <zihengw03@163.com>
----
-
-Notes:
-    The changelog was drafted with an AI assistant from my analysis;
-    I have reviewed the code, the fix and the text.
-
- drivers/net/wireless/mediatek/mt76/mt7925/mac.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-index 7af996abe..e00c04cf5 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-@@ -184,7 +184,9 @@ static int mt7925_reverse_frag0_hdr_trans(struct sk_buff *skb, u16 hdr_gap)
- {
- 	struct mt76_rx_status *status = (struct mt76_rx_status *)skb->cb;
- 	struct ethhdr *eth_hdr = (struct ethhdr *)(skb->data + hdr_gap);
--	struct mt792x_sta *msta = (struct mt792x_sta *)status->wcid;
-+	struct mt792x_link_sta *mlink = (struct mt792x_link_sta *)status->wcid;
-+	struct mt792x_sta *msta = mlink ? mlink->sta : NULL;
-+	struct ieee80211_bss_conf *link_conf;
- 	__le32 *rxd = (__le32 *)skb->data;
- 	struct ieee80211_sta *sta;
- 	struct ieee80211_vif *vif;
-@@ -201,8 +203,11 @@ static int mt7925_reverse_frag0_hdr_trans(struct sk_buff *skb, u16 hdr_gap)
- 	if (!msta || !msta->vif)
- 		return -EINVAL;
- 
--	sta = container_of((void *)msta, struct ieee80211_sta, drv_priv);
-+	sta = wcid_to_sta(status->wcid);
- 	vif = container_of((void *)msta->vif, struct ieee80211_vif, drv_priv);
-+	link_conf = rcu_dereference(vif->link_conf[mlink->wcid.link_id]);
-+	if (!sta || !link_conf)
-+		return -EINVAL;
- 
- 	/* store the info from RXD and ethhdr to avoid being overridden */
- 	frame_control = le32_get_bits(rxd[8], MT_RXD8_FRAME_CONTROL);
-@@ -215,7 +220,7 @@ static int mt7925_reverse_frag0_hdr_trans(struct sk_buff *skb, u16 hdr_gap)
- 	switch (frame_control & (IEEE80211_FCTL_TODS |
- 				 IEEE80211_FCTL_FROMDS)) {
- 	case 0:
--		ether_addr_copy(hdr.addr3, vif->bss_conf.bssid);
-+		ether_addr_copy(hdr.addr3, link_conf->bssid);
- 		break;
- 	case IEEE80211_FCTL_FROMDS:
- 		ether_addr_copy(hdr.addr3, eth_hdr->h_source);
-
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
--- 
-2.43.0
-
+Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
