@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794763921;
-	b=LReZcQETEFKgKM9NlZiVagCF3FBnnckCUvJhDOBUXYw6nlspiOXjpX2RX7s6gRIzZuVz
-	 3uYuYWLhBeDbNW9FfXVcGkd6ibLqLpV8sY4LqT/q1hfqNoWy1lHxZgMR2OfJjUJxBfi2t
-	 O95bSrPw3/9tXYwvNsZ4cfjoqkj8Vtrrjd22f2RaZf+pXL0TqdzJrn2a0GFrtrbOjJKi5
-	 nkc2O2LRVPD7TgqhoT165MQ3hGis7CLBPfwIT73kv8A0nW6RPg3nAzgUgK/nXM8Xw4TV7
-	 XDC5nT+JnjZFWHaGvblANgMkI0bAfJv9n3W3vn/K+Ebw5z9w1kf/kM1NfhbCQN2dkqA==
+	t=1794763941;
+	b=E/e4cRGDqQagY9vLpwEr5ICke7eIHO+NeqHNd9ccXFKvIwH0b9xy/k9M4sToHtw9IOx8
+	 Sxm4HpE7nIqxRjGAZQwzC2Jv3lCZmejtjxz0tRVUXaSVaFHmzpgmMAS0sjqRLC7L7aQnf
+	 HHLBia73KXiKir160CgJTwAGeUiLKwNoi3Hy0WSObhi+UZPhDb2VBU8oNRkwVHeKex/+o
+	 KA6b3WS83Ga5+6/p3E78hFJikSNPed5knYwEoFZRPdoilC05kNJ+kGa4rSnkYHwPqeu6r
+	 Jm826qlpSc4sByhVT2OtsfRyKGW+bK/1wvVXuRD6etiWaITdu62ovXqzYFuXHJLYNTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794763921;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=dEd8hXaaiisAzwLdKenoopNjwVu5tcwGdy3pO4Jpuk8=;
-	b=tZPDwlxJbk4xmsSzU1MZwveCGDH2h4QhmHK7yTdmgASOT2KzTZoRE+jilB/kWv1RxfhI
-	 0tJWY9TP5/QN4Ua3zUfKJ9t63cdW63ndGKa5bK8n+LpAgln1m4+a9k1t1itXrr5naOgu7
-	 ssRtuglqNP65h4vXtqEUQOfeP6Te3/UACA1K4il08uhMJlyb+ojCimKh4LXm4dkT0ZKlP
-	 qZ4SqBiB0+IMcCi1eKX3OnpxyjgAxEWT2nYclAQV/54nTV6HJnDGKYxpE4XnIEBIq02lg
-	 BspEA+0ALHRVVYuO26DiGRm22gIUqCUdyGSIfHpAjcLhnXf8paNaCcX7jAmHiZ6Ce1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794763941;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jqEVXWdaDYy2iAwkzt+easl1YaYbtwylCIe+qCtSDRA=;
+	b=bLCVCyttZeCYVO/A5oulnsFDT8uggGpXpxGra4S4g1aaHZi48kRjBfumJbkvIcfO0dVA
+	 1GjjMj3w7ZzSrPlaVLx97vgdg1ODD9uzoNFXQMS7LG8luYh7IG0c80KFoFMZyZnuL8ayG
+	 h/nlrE7H8ILI8j/1+AEdfhqLwixys9Q1Tq+mso+IE8TKNICyE54YrLbvwlzlLM+DKMfvq
+	 euxImJ3BURMZEbq49Hm4LuTYIDaliR7asZxMa1mMdMLR/ow5MGx4qD2ghqmie719+66HC
+	 IEq4WKG7Ru0po3ykVEhcsTCAGwfI7j7qFD325dUgsr6fHNYhMm+Vch4B2xqcGpncD1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b="qwd/To1G";
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkLB5ySA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC015606A336;
-	Sun, 15 Nov 2026 17:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC015606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AAF606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qwd/To1G
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=dEd8hXaaiisAzwLdKenoopNjwVu5tcwGdy3pO4Jpuk8=; t=1794763920; x=2110123920; 
-	b=qwd/To1GcYawLeXbpdAarDAH01O91H/2h+d1wdfyvUqum+088vIIEm5W+wR+1JfAYD/aNGQPyBF
-	OQ+efO+8Q0+44XoBO8HpaSOTrb8RgX/rO5Lr1w7+efVGEDz6zIbbQrQezLSn8rDg8SJWq0MxzChTM
-	Us0ZDrdvwR9sGl6KknERZBWYu/acS7tq45o4k7E8OJTCJmsF08VGN4rc1R0YlUVr3pJ+BOMiQjn2S
-	lFLl+b/OiVBRfxDv52v+JOqc8/EsdepxD9jxm8/KG3GktMX8/hf6qvgfnfRpEjzH8yuly/CdR5jde
-	IIlyiNE4SBgrTq8fOHVlI3HkdgZtIYJmfE4Q==;
-Received: from [177.172.124.218] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xSe4z-00B0BK-NH; Sun, 15 Nov 2026 18:31:49 +0100
-From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Date: Sun, 15 Nov 2026 14:31:19 -0300
-Subject: [PATCH v8 10/10] futex: Use new robust list API internally
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkLB5ySA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E759C1F000C4;
+	Sun, 15 Nov 2026 17:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794763940;
+	bh=jqEVXWdaDYy2iAwkzt+easl1YaYbtwylCIe+qCtSDRA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hkLB5ySA63uJy/oKlRFoLkV12uImhhP8T8+p3m8feeKxGPiq3DNfzOzYhilQMBfsh
+	 E3W1f4LmGd2CaxEnu5JRsvre2AXq/Fi10BhYw0/5mP/kycAxfvC9E5jCnHFZZgxVQ0
+	 DCGeZaw9gEmWG3l00yW7cz7h7Kc0m/9+TbW+D+Ugi2uAggTxs4l+hkD1a67dSyMs93
+	 QUVYsUz54GnIJstYxlTV4O62VxXb4DLrM9aSxkYb510V/v4TgmRbfEZyNES8GSeR+k
+	 kTfVCsN46ZWbA89WtiV17yXSH6SkQYdQfzOnygoObX+1hntbhhQQY6KxNCPbm4K8Sa
+	 k9194hCfkVzPw==
+Message-ID: <72dc7b45-ad20-450b-8ec7-3e86be8a41f8@kernel.org>
+Date: Sun, 15 Nov 2026 18:32:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,279 +51,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261115-tonyk-robust_futex-v8-10-a4fe47333a28@igalia.com>
-References: <20261115-tonyk-robust_futex-v8-0-a4fe47333a28@igalia.com>
-In-Reply-To: <20261115-tonyk-robust_futex-v8-0-a4fe47333a28@igalia.com>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Waiman Long <longman@redhat.com>, Ryan Houdek <Sonicadvance1@gmail.com>, 
- Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-api@vger.kernel.org, kernel-dev@igalia.com, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/util: fix off-by-one when checking folio index in
+ snapshot_page()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, shao.mingyin@zte.com.cn
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ linux-kernel@vger.kernel.org
+References: <20261115004657890Pz8ERDf5nCtE-B6M7KFzu@zte.com.cn>
+ <avibe0HG4ssUUuBX@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <avibe0HG4ssUUuBX@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The new robust list API internals can handle any kind of robust list, so
-to simplify the code, reuse the same mechanisms for the original API and
-when calling the original set syscall, set the head in the array of
-lists. The first two indexes of the array of robust lists are reserved
-for the original API lists, the native robust list and the compat robust
-list.
+On 11/14/26 18:33, Lorenzo Stoakes (ARM) wrote:
+> On Sun, Nov 15, 2026 at 12:46:57AM +0800, shao.mingyin@zte.com.cn wrote:
+>> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+>>
+>> mm/util: fix off-by-one when checking folio index in snapshot_page()
+>>
+>> snapshot_page() computes the page index before copying the folio state.
+>> If the folio changes between those reads, the index can equal the copied
+>> folio's page count. Valid indices are strictly less than that count,
+>> but the current check accepts equality and marks the snapshot faithful.
+>>
+>> Use >= so that this inconsistent snapshot is retried, or falls back to
+>> the unfaithful single-page representation. This also avoids reporting an
+>> out-of-range folio index without the corresponding dump_page() warning.
+>>
+>> Fixes: d863a12108f2 ("mm/util: introduce snapshot_page()")
+>> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> NAK.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
+Let's do the following:. Thoughts?
+
+From c7d1a79926e3b3448bb5e84f901c185234f43b52 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sun, 15 Nov 2026 18:11:08 +0100
+Subject: [PATCH] mm/util: fix retry detection and handling in snapshot_page()
+
+snapshot_page() detects races with concurrent folio split+construction by
+checking whether the given page still falls into the folio. Unfortunately,
+we have an off-by-one error in there, and we should be checking for
+"ps->idx >= nr_pages", because idx 0 is valid.
+
+For example, we might currently report a tail page at idx 1 as faithful,
+although the snapshotted folio is now a small folio.
+
+However, there is one complication: As we don't hold a folio reference,
+folio_nr_pages() can return 0 on races (or when called from page freeing
+code). Handle that by just setting it to 1 in that case, so we don't
+wrongly report a head page as "page does not match folio".
+
+In addition, we should reset ps->flags when retrying, by just resetting
+it to PAGE_SNAPSHOT_FAITHFUL. Otherwise, PAGE_SNAPSHOT_PG_BUDDY and
+PAGE_SNAPSHOT_PG_IDLE from a failed attempt could stick around.
+
+These races are fairly rare, so this is not really critical, we simply
+report something slightly wrong. No need to CC stable.
+
+Fixes: d863a12108f2 ("mm/util: introduce snapshot_page()")
+Reported-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/futex.h       |  4 ----
- include/linux/futex_types.h |  6 ------
- kernel/futex/core.c         | 35 +++++++++++++++++--------------
- kernel/futex/syscalls.c     | 50 +++++++++++++++++++++++----------------------
- 4 files changed, 46 insertions(+), 49 deletions(-)
+ mm/util.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/futex.h b/include/linux/futex.h
-index 03a3973a7068..160e7e72b085 100644
---- a/include/linux/futex.h
-+++ b/include/linux/futex.h
-@@ -95,10 +95,6 @@ static inline void futex_init_task(struct task_struct *tsk)
- 	INIT_LIST_HEAD(&tsk->futex.pi_state_list);
- 	tsk->futex.state = FUTEX_STATE_OK;
- 	mutex_init(&tsk->futex.exit_mutex);
--	tsk->futex.robust_list = NULL;
--#ifdef CONFIG_COMPAT
--	tsk->futex.robust_list32 = NULL;
--#endif
- 	tsk->futex.robust_lists = NULL;
- }
+diff --git a/mm/util.c b/mm/util.c
+index 80f6c714844f2..3b10d4c2a4fd9 100644
+--- a/mm/util.c
++++ b/mm/util.c
+@@ -1406,9 +1406,9 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
+ 	int loops = 5;
  
-diff --git a/include/linux/futex_types.h b/include/linux/futex_types.h
-index 58321314ecab..45c614923e46 100644
---- a/include/linux/futex_types.h
-+++ b/include/linux/futex_types.h
-@@ -12,8 +12,6 @@ struct robust_list_head;
+ 	ps->pfn = page_to_pfn(page);
+-	ps->flags = PAGE_SNAPSHOT_FAITHFUL;
  
- /**
-  * struct futex_sched_data - Futex related per task data
-- * @robust_list:	User space registered robust list pointer
-- * @robust_list32:	User space registered robust list pointer for compat tasks
-  * @pi_state_list:	List head for Priority Inheritance (PI) state management
-  * @pi_state_cache:	Pointer to cache one PI state object per task
-  * @exit_mutex:		Mutex for serializing exit
-@@ -21,10 +19,6 @@ struct robust_list_head;
-  * @robust_lists:	List of robust lists heads
-  */
- struct futex_sched_data {
--	struct robust_list_head __user		*robust_list;
--#ifdef CONFIG_COMPAT
--	struct robust_list_head32 __user *robust_list32;
--#endif
- 	struct list_head			pi_state_list;
- 	struct futex_pi_state			*pi_state_cache;
- 	struct mutex				exit_mutex;
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index dd6fa8035fb6..23880a9d8bac 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -96,6 +96,13 @@ int futex_robust_list_create(uintptr_t head, enum robust_list2_cmd cmd)
+ again:
++	ps->flags = PAGE_SNAPSHOT_FAITHFUL;
+ 	memset(&ps->folio_snapshot, 0, sizeof(struct folio));
+ 	memcpy(&ps->page_snapshot, page, sizeof(*page));
+ 	info = ps->page_snapshot.compound_info;
+@@ -1438,13 +1438,16 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
+ 	if (ps->idx < MAX_FOLIO_NR_PAGES) {
+ 		memcpy(&ps->folio_snapshot, foliop, 2 * sizeof(struct page));
+ 		nr_pages = folio_nr_pages(&ps->folio_snapshot);
++		/* On races, or when freeing pages, we can read 0. */
++		if (nr_pages == 0)
++			nr_pages = 1;
+ 		if (nr_pages > 2)
+ 			memcpy(&ps->folio_snapshot.__page_2, &foliop->__page_2,
+ 			       sizeof(struct page));
+ 		set_ps_flags(ps, foliop, page);
  	}
  
- 	switch (cmd) {
-+	case FUTEX_ROBUST_LIST_SET_COMPAT:
-+		entry |= FUTEX_ROBUST_LIST_ENTRY_32BIT;
-+		index = FUTEX_ROBUST_LIST_COMPAT_IDX;
-+		break;
-+	case FUTEX_ROBUST_LIST_SET_NATIVE:
-+		index = FUTEX_ROBUST_LIST_NATIVE_IDX;
-+		break;
- 	case FUTEX_ROBUST_LIST_CMD_CREATE_32:
- 		if (head)
- 			entry |= FUTEX_ROBUST_LIST_ENTRY_32BIT;
-@@ -1294,7 +1301,8 @@ static void exit_robust_list(struct task_struct *curr, struct robust_list_head _
- 
- static bool robust_list_clear_pending(unsigned long __user *pop)
- {
--	struct robust_list_head __user *head = current->futex.robust_list;
-+	struct robust_list_head __user *head = (struct robust_list_head __user *)
-+		current->futex.robust_lists[FUTEX_ROBUST_LIST_NATIVE_IDX];
- 
- 	if (!put_user(0UL, pop))
- 		return true;
-@@ -1309,7 +1317,8 @@ static bool robust_list_clear_pending(unsigned long __user *pop)
- 	 * that's mostly an academic exercise.
- 	 */
- 	if (pop == (unsigned long __user *)&head->list_op_pending)
--		current->futex.robust_list = NULL;
-+		current->futex.robust_lists[FUTEX_ROBUST_LIST_NATIVE_IDX] = 0;
-+
- 	return false;
- }
- 
-@@ -1412,14 +1421,16 @@ static void exit_robust_list32(struct task_struct *curr, struct robust_list_head
- 
- static bool robust_list_clear_pending32(u32 __user *pop)
- {
--	struct robust_list_head32 __user *head = current->futex.robust_list32;
-+	struct robust_list_head32 __user *head =
-+		(struct robust_list_head32 __user *)
-+		current->futex.robust_lists[FUTEX_ROBUST_LIST_COMPAT_IDX];
- 
- 	if (!put_user(0U, pop))
- 		return true;
- 
- 	/* See comment in robust_list_clear_pending(). */
- 	if (pop == &head->list_op_pending)
--		current->futex.robust_list32 = NULL;
-+		current->futex.robust_lists[FUTEX_ROBUST_LIST_COMPAT_IDX] = 0;
- 	return false;
- }
- #else
-@@ -1527,6 +1538,9 @@ bool futex_robust_list_clear_pending(void __user *pop, unsigned int flags)
- {
- 	bool size32bit = !!(flags & FLAGS_ROBUST_LIST32);
- 
-+	if (!current->futex.robust_lists)
-+		return false;
-+
- 	if (!IS_ENABLED(CONFIG_64BIT) && !size32bit)
- 		return false;
- 
-@@ -1591,17 +1605,8 @@ static void exit_robust_lists(struct task_struct *tsk)
- 
- static void futex_cleanup(struct task_struct *tsk)
- {
--	if (unlikely(tsk->futex.robust_list)) {
--		exit_robust_list(tsk, tsk->futex.robust_list);
--		tsk->futex.robust_list = NULL;
--	}
--
--#ifdef CONFIG_64BIT
--	if (unlikely(tsk->futex.robust_list32)) {
--		exit_robust_list32(tsk, tsk->futex.robust_list32);
--		tsk->futex.robust_list32 = NULL;
--	}
--#endif
-+	if (unlikely(tsk->futex.robust_lists))
-+		exit_robust_lists(tsk);
- 
- 	if (unlikely(!list_empty(&tsk->futex.pi_state_list)))
- 		exit_pi_state_list(tsk);
-diff --git a/kernel/futex/syscalls.c b/kernel/futex/syscalls.c
-index 0ecb32afd5e1..ba6730bfd47d 100644
---- a/kernel/futex/syscalls.c
-+++ b/kernel/futex/syscalls.c
-@@ -27,21 +27,19 @@
-  */
- SYSCALL_DEFINE2(set_robust_list, struct robust_list_head __user *, head, size_t, len)
- {
--	/* The kernel knows only one size for now. */
-+	int ret;
-+
-+	/*
-+	 * The kernel knows only one size for now:
-+	 */
- 	if (unlikely(len != sizeof(*head)))
- 		return -EINVAL;
- 
--	current->futex.robust_list = head;
--	return 0;
--}
--
--static inline void __user *futex_task_robust_list(struct task_struct *p, bool compat)
--{
--#ifdef CONFIG_COMPAT
--	if (compat)
--		return p->futex.robust_list32;
--#endif
--	return p->futex.robust_list;
-+	ret = futex_robust_list_create((uintptr_t) head,
-+				       FUTEX_ROBUST_LIST_SET_NATIVE);
-+	if (ret >= 0)
-+		return 0;
-+	return ret;
- }
- 
- static void __user *futex_get_robust_list_common(int pid, bool compat, int index)
-@@ -50,6 +48,9 @@ static void __user *futex_get_robust_list_common(int pid, bool compat, int index
- 	void __user *head;
- 	int ret;
- 
-+	if (index >= FUTEX_ROBUST_LIST2_MAX_IDX)
-+		return (void __user *)ERR_PTR(-EINVAL);
-+
- 	scoped_guard(rcu) {
- 		if (pid) {
- 			p = find_task_by_vpid(pid);
-@@ -74,11 +75,8 @@ static void __user *futex_get_robust_list_common(int pid, bool compat, int index
- 	if (index >= 0) {
- 		scoped_guard(mutex, &p->futex.exit_mutex) {
- 			uintptr_t *rl = p->futex.robust_lists;
--
- 			head = rl ? (void __user *) rl[index] : NULL;
- 		}
--	} else {
--		head = futex_task_robust_list(p, compat);
- 	}
- 
- 	up_read(&p->signal->exec_update_lock);
-@@ -103,11 +101,15 @@ SYSCALL_DEFINE3(get_robust_list, int, pid,
- 		struct robust_list_head __user * __user *, head_ptr,
- 		size_t __user *, len_ptr)
- {
--	struct robust_list_head __user *head = futex_get_robust_list_common(pid, false, -1);
-+	struct robust_list_head __user *head =
-+		futex_get_robust_list_common(pid, false, FUTEX_ROBUST_LIST_NATIVE_IDX);
- 
- 	if (IS_ERR(head))
- 		return PTR_ERR(head);
- 
-+	head = (struct robust_list_head __user *)
-+		((uintptr_t) head & FUTEX_ROBUST_LIST_ENTRY_MASK);
-+
- 	if (put_user(sizeof(*head), len_ptr))
- 		return -EFAULT;
- 	return put_user(head, head_ptr);
-@@ -168,8 +170,7 @@ SYSCALL_DEFINE4(set_robust_list2, struct robust_list_head * __user, head, unsign
- 	return -EINVAL;
- }
- 
--SYSCALL_DEFINE4(get_robust_list2, int, pid,
--		void __user * __user *, head_ptr,
-+SYSCALL_DEFINE4(get_robust_list2, int, pid, void __user * __user *, head_ptr,
- 		unsigned int, index, unsigned int, flags)
- {
- 	struct robust_list_head *head;
-@@ -597,22 +598,23 @@ COMPAT_SYSCALL_DEFINE2(set_robust_list, struct robust_list_head32 __user *, head
- 	if (unlikely(len != sizeof(*head)))
- 		return -EINVAL;
- 
--	current->futex.robust_list32 = head;
--
--	return 0;
-+	return futex_robust_list_create((uintptr_t) head,
-+					FUTEX_ROBUST_LIST_SET_COMPAT);
- }
- 
- COMPAT_SYSCALL_DEFINE3(get_robust_list, int, pid,
- 			compat_uptr_t __user *, head_ptr,
- 			compat_size_t __user *, len_ptr)
- {
--	struct robust_list_head32 __user *head = futex_get_robust_list_common(pid, true, -1);
-+	struct robust_list_head32 __user *head =
-+		futex_get_robust_list_common(pid, true, FUTEX_ROBUST_LIST_COMPAT_IDX);
- 
--	if (IS_ERR(head))
--		return PTR_ERR(head);
-+	head = (struct robust_list_head32 __user *)
-+		((uintptr_t) head & FUTEX_ROBUST_LIST_ENTRY_MASK);
- 
- 	if (put_user(sizeof(*head), len_ptr))
- 		return -EFAULT;
-+
- 	return put_user(ptr_to_compat(head), head_ptr);
- }
- #endif /* CONFIG_COMPAT */
-
+-	if (ps->idx > nr_pages) {
++	if (ps->idx >= nr_pages) {
+ 		if (loops-- > 0)
+ 			goto again;
+ 		clear_compound_head(&ps->page_snapshot);
 -- 
 2.56.1
 
+
+-- 
+Cheers,
+
+David
