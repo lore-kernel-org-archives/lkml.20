@@ -1,32 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794770895;
-	b=KVd1mBpzl2nJMBixcCMsJZ1eeAHzEtqe+Rd4XrCR78eeVOjmDEr1yy6KsLspDi5irX6F
-	 UpFCw6q//og5ItnSxc/cRuMDhqF5Un67Giz6vBxVlG3jIyq4yhknbOVQ30qW1y40tTtle
-	 2gv45AHSLLYKoLZFM5lDozPDf9u0xtgV+xAjdTZj/ju5sVjQYqj8BruNKdNt1anFKs2ua
-	 IE31tfiUrN0t9SzpPffDp8DCgUD/iX7H+4iRsRo3/9KtbUGQOEtLdyYxulm8MJy/ILDnV
-	 SeWLvy/ZLrf2jjcAGJxFThHSyBGaQBN4ftAPJ8lXLbW+dxkkkFfnzSzl8QijgoVoAlg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770895;
-	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=8vXUwT5n2Ez9H80tnR2LUwnWnU9RLKteDWZxZYsi4Ms=;
-	b=kEgs6T5YbTp27IEBSveEbL9jhxkQWN4MzDnONCEOr2cZ9WSlExh5KvdWpv48vf5KcGv7
-	 KiE+DgUSVt07ia11ZuXlVUsKrspWQAvaXWiv3USplzDNTFTBYG8dYYZmb9OSuiBg7C9xi
-	 lfOizVoWJJjQ1XF9MEGwkYAreEk2rEngbl1XlYcexrUpihqBLpbY5qWuJbMkDc166VmQD
-	 pGIQvhof6Teg50ZRdf6wKDtyhZBdEhiEAjE/3loAGJ0Uns30tXkhFrZRZoRCzguj2YVZL
-	 jr2/Da1yxUa6gD2MemsUC4TbUPY2albjNhEZlVpCEyK/Pty3ba7Po0rGrTOUCPQBdxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794770890;
+	b=V9h8bY5T0sRtpuBp1eftGQfFfAP9wlxNEVPvGVBs82n8UqdBGYkUKnsuAkNxZGUelHqX
+	 uHHAqQD6iK6XMkUchpfNOHUkqUkp8YhxrXF5gLQPchBJ1TvUOW3oreiaLS6qDIXCmead8
+	 PwhsB39Hh7Nbw3Gpvrz/mvpg7B9A8ZZFQ5AAc5bFC1hThEpo71fS7gpp17WVqcF07vVP+
+	 1Y2Wz7BYOro1Tw9gdS2vYZDvU477XyHAfYQX4qWiJJ7jOG6imOqhAnFVVByyH6C1of7tX
+	 2joQD4M39dqYyIsKK5BaLzNsUodfugELZ7RIFD8Yn7sm9kXHcafal3keuB3A8eC23Cg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770890;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=94KhW5gFHB+Tf5veh73vuUJrUSUoa7+UvlWhnH1zYYY=;
+	b=TdRMQJ1DQicAR0ToPJ7sclUL92Mb3sVKG4A3rJp7sw7G6L76WzX1ELgazMGH9SS4JlpT
+	 XB90OdocTLvpXFhx/gfmyG7W+f6eeDHn2loZXdjGbAPyMRhQFZa39UpJDsnBBwhypRlry
+	 KQM3GE1teaxfG8m1xxfK054Oxh6L9KsrTaP/RvA5fxdnqC9jtlWIcQJF0jq6hvB6Btjh6
+	 GvF+ISvxwWE4sJfCTG09rpWFuSp1rvs99Tf1NjnIcf3c9x6Ua2rrfw8sOgOMZMwn35DtP
+	 lJ+1c52ApIztjYqI9ZpmKrXwmj/AWO11iG9afbKp1WmnD0StkMXzKPilAg3iIJTdOyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=bfjbAJ4a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4369606A890;
-	Sun, 15 Nov 2026 19:28:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D29B1F000C4;
-	Sun, 15 Nov 2026 19:28:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2596606A329;
+	Sun, 15 Nov 2026 19:28:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2596606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=bfjbAJ4a
+ARC-Seal: i=1; a=rsa-sha256; t=1794770875; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AU3276MvoEErBKNULN6GHvtPTZtA7sEJw7agjxG8u+rz5cQVQxrG2VsKNms5mc+69iJsgKG8RCc66KLsNXHhaByyFZkuc8nfistRy7+VoOsuyeBimgme0/SSbQoyKkb/rksdP8cFTcksilwgpzEtOIE8SUmKmF5qmmhhO0Q+ox8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794770875; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=94KhW5gFHB+Tf5veh73vuUJrUSUoa7+UvlWhnH1zYYY=; 
+	b=MiY8vaObsT9GxYRepKkhGc8R6Zjlj4OqwUoesK6g8nWJI2apCRmHtNGbyzFqVcwGEL8RSKOBNSWdrSurj03Q1yhPClBY/v62gdZ/Fq6aWngnnOniVjkR3CTguhIzAzd2IKoS6sOqPXUXIdChWOY5Lg5GDeRNNta/4czWKXIAKQE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=bfjbAJ4aKEh8jmjZcQDZxWoYgcewHcg0aLtdtqPBJbWambb3eA+zdYNZraYC29f4ZfWVgTcaLGH6ktS3MibXw6iePbgHLIBVOU9RSyp3FCcP9b1YVmECX7nb/s1UcxzDTNEcNPqjBEkLP/4CufaLVGECxltEirlwCq0upng10vrIaGQuWYGXbsmwBbc3swW6XpbUKNVou6fMrfiE5eJaG4S9pGZkjRwFA+B36LC1Y7ebr2iQw4wmOhHBf6dYrsoWUdA8ajF6Zp/rhK6cCr1VwOuobHJnnWDxmpC4hzlyKj8i9R778ksm6HHy9j79r90dBk+kZ30PJC5z+JG1vVbhkg==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=94KhW5gFHB+Tf5veh73vuUJrUSUoa7+UvlWhnH1zYYY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794770873306199.81259782201857;
+	Sun, 15 Nov 2026 11:27:53 -0800 (PST)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH 0/7] platform/x86: ideapad-laptop: Trigger the EC on YMC
+ events following Windows behavior
+Date: Mon, 16 Nov 2026 03:27:01 +0800
+Message-Id: <20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -38,108 +63,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 1/1] phy: qualcomm: m31-eusb2: Add register
- XCFGI_159_152 for SE0 recovery
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Peter Chen <peter.chen@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Elson Serrao <elson.serrao@oss.qualcomm.com>, 
- Ronak Raheja <ronak.raheja@oss.qualcomm.com>, 
- Wesley Cheng <wesley.cheng@oss.qualcomm.com>, 
- Udipto Goswami <udipto.goswami@oss.qualcomm.com>, 
- Jack Pham <jack.pham@oss.qualcomm.com>, 
- Pratham Pratap <pratham.pratap@oss.qualcomm.com>, 
- Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261027015545.2758784-1-peter.chen@oss.qualcomm.com>
-References: <20261027015545.2758784-1-peter.chen@oss.qualcomm.com>
-Date: Sun, 15 Nov 2026 11:28:07 -0800
-Message-Id: <179477088797.132702.6764909412562148256.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2666;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=CkVV2Z6n887sHlq0y6Nrzi6ogW1akCFY6515LpCrso8=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+gfKPwG9ryOEGXLeuMHwXxU0JzlEI+Op9xvr5
- o02zWKbG2mJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoHygAKCRBVnxHm/pHO
- 9QiBB/9d1C+xOeJntv2ZEA4qL+U2A8rvd+Qi2LaeOrgEaGIBehuvRlFrcfPHZssTYRG5/F+8Iee
- 6wIrplH/Z3ZZWtOOn6Gf/KshKcKRiZ30b7XPDQSB5sRFmy+TZMdlMYjrDl06cMFdtIkN0xNv6SF
- IkghtKBRGiE118GbO2J2cyCEzSJmXUqzWyiLxo1+aAvi6ScZYlRiO18XQihDkRwpzkyEoyGzFfM
- 42jv6Ilu57qGbzBkw9P3UjQuIIjrnaXxwc8SNwdR7LdVhX82mYdUEKrl4iR8mdvZRoYwgtmsOZh
- zURmrMqkN8YbQH3BHK6EKFxvXS+7RVk/kfu/2OhkxUNVqi6E
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JROzREOLRAMz3crcZF0Lo8oc3RRTyySTNIs0C0vDVCWg8oKi1LTMCrBR0bEQfnF
+ pUlZqcglIv1JtLQA1rli5bAAAAA==
+X-Change-ID: 46a18a06-ymc-82yl-d59b4f8f891e
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Gergo Koteles <soyer@irl.hu>, Ike Panhc <ikepanhc@gmail.com>, 
+ Andrew Kallmeyer <kallmeyeras@gmail.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mahir Faisal <mahirfaisalantiq33@gmail.com>, Rong Zhang <i@rong.moe>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-ZohoMailClient: External
 
-On 2026-10-26 18:55 -0700, Peter Chen wrote:
-> From: Elson Serrao <elson.serrao@oss.qualcomm.com>
-> 
-> This patch introduces support for the XCFGI_159_152 register to enable a
+Currently, the ideapad-laptop driver triggers the EC with YMC command
+0x01, which seems to be randomly chosen with trail-and-error and turns
+out to be not a command for YMC events. While the devices in the DMI
+quirk table recognize it, some other devices do not, making the
+trigger_ec functionality a no-op.
 
-Avoid using 'This patch'. Once a patch gets merged, it will become a commit.
+Lenovo's YMC driver for Windows (YMC.exe) emits YMC command 0x08/0x09 on
+fold/unfold YMC events, in which "unfold" means laptop mode and "fold"
+means other modes.
 
-> hardware-based SE0 recovery mechanism in the M31 PHY when operating in
-> host mode.
-> 
-> During PHY initialization, spurious pulses from external devices can
-> interfere with speed negotiation, potentially leading to abnormal
-> behavior. To mitigate this, the M31 PHY provides a fail-safe mechanism
-> controlled by bit 159 of the XCFGI register.
-> 
-> When XCFG_SE0_TIMEOUT_EN (bit 159) is set, a hardware counter is
-> activated to monitor the SE0 state. If SE0 persists for more than 2.5 ms
-> before entering L0 mode, the PHY interprets this as bus inactivity and
-> resets the state machine to its default state. After transitioning to
-> L0, the PHY resumes normal operation in accordance with the eUSB
-> specification.
-> 
+Adopt the said sequence to make it work on all relevant devices. For the
+sake of caution, only emit YMC command 0x08 only for the known fold
+postures. For all other postures (including unknown ones), emit 0x09 to
+make sure the touchpad and keyboard are still functional.
 
-Please rewrite the commit message in imperative tone.
+Beforehand, also fix pre-existing issues, modernize relevant WMI
+drivers, and add a resume callback refreshing the posture and poke
+ideapad-laptop to trigger the EC. See each patch for details.
 
-> Fixes: 9c8504861cc4 ("phy: qcom: Add M31 based eUSB2 PHY driver")
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-> Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
-> ---
-> Changes for v2:
-> - Add Fixes and Reviewed-by tags
-> - Link to v1: https://lore.kernel.org/all/20261020061811.3127511-1-peter.chen@oss.qualcomm.com/
-> 
->  drivers/phy/qualcomm/phy-qcom-m31-eusb2.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-> index 275df38256de..8d954e772585 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-> @@ -56,6 +56,9 @@
->  #define USB_PHY_XCFGI_7_0		(0x15c)
->  #define PLL_LOCK_TIME			GENMASK(1, 0)
->  
-> +#define USB_PHY_XCFGI_159_152		(0x1a8)
-> +#define SE0_TIMEOUT_EN			BIT(7)
-> +
->  #define M31_EUSB_PHY_INIT_CFG(o, b, v)	\
->  {				\
->  	.off = o,		\
-> @@ -88,6 +91,13 @@ static const struct m31_phy_tbl_entry m31_eusb2_setup_tbl[] = {
->  };
->  
->  static const struct m31_phy_tbl_entry m31_eusb_phy_override_tbl[] = {
-> +	/*
-> +	 * Set XCFGI[159] to enable SE0 timeout mechanism in M31.
-> +	 * This enables a counter which will assume bus inactive if
-> +	 * SE0 is more than 2.5ms and reset the state machine to default
-> +	 * state.
-> +	 */
+With these changes, add a DMI quirk table entry the Lenovo Yoga 7
+14IRL8 as its EC must be triggered by software on YMC events properly
+(i.e., with command 0x08/0x09), or else the enable state of touchpad,
+keyboard, and keyboard backlight become out of sync.
 
-Any reason on not making use of 80columns for comments?
+Reported-by: Mahir Faisal <mahirfaisalantiq33@gmail.com>
+Closes: https://msgid.link/CAGAHqH6o0TUa1HXMrNV6e+HNYwU3xxHkOM665756n8Cp3AzhVQ@mail.gmail.com
+Signed-off-by: Rong Zhang <i@rong.moe>
+---
+Rong Zhang (7):
+      platform/x86: lenovo-ymc: Use enumeration to represent device posture
+      platform/x86: lenovo-ymc: Serialize WMI event handling
+      platform/x86: lenovo-wmi-events: Modernize WMI event handling
+      platform/x86: lenovo-ymc: Modernize WMI driver and factor out events
+      platform/x86: lenovo-ymc: Refresh posture on resume
+      platform/x86: ideapad-laptop: Trigger the EC on YMC events following Windows behavior
+      platform/x86: ideapad-laptop: Enable ymc_ec_trigger for Lenovo Yoga 7 14IRL8
 
-With these fixed,
+ drivers/platform/x86/lenovo/Kconfig          |   2 +
+ drivers/platform/x86/lenovo/ideapad-laptop.c |  42 +++++++++-
+ drivers/platform/x86/lenovo/ideapad-laptop.h |   9 ++
+ drivers/platform/x86/lenovo/wmi-events.c     |  38 +++++----
+ drivers/platform/x86/lenovo/wmi-events.h     |   1 +
+ drivers/platform/x86/lenovo/ymc.c            | 118 +++++++++++++++++----------
+ 6 files changed, 147 insertions(+), 63 deletions(-)
+---
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+change-id: 46a18a06-ymc-82yl-d59b4f8f891e
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-- Mani
+Thanks,
+Rong
 
