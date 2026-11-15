@@ -1,48 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794724029;
-	b=wI7lm5Sj2pKt0M4A4teFvZAV3mLu3wpFYQqHNtosIDeeXTDA572sGOrfrTE/OfUaBgZL
-	 t7ExLEA8m8sGTyfumA1qb1SqVCQsTAv0mCa+PhT49RK36HyIzULLIGYYofCJQ8VzhRR+r
-	 YulpP+lKZzk3ApFwllabU83pxOG9/m8bY/c4dI0nH0vB1Y26+BhgcEhwljhzktg2sXdMT
-	 aieu7cB9BZTkz5793qtoR4bHVCZ1ojLGGf0Cn63pjwgca7x4pq2Ix5PrVrURZDrwYeIg4
-	 4rE4k184JTLCokLQwhDZ3Cb94walX6gsW0fkfW4Ou3SWNBrvqMx91sgMmV0ciH7IAjg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794724029;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=Dz1HTKa9cA29oU+jZvIB6qYsMLCpYfnrjTOCzLvXPpE=;
-	b=H7UKGH7OBFRphLl+iWl4MeuYaXHoehVRsqLwzrRfW1hscyebPYY3as5AhZ20H42syGL3
-	 +GiK2tBZzacPmjt56+DXq15h8qRVh/EmczX/BJkG2RhSUJt7qOute4/TKN/lpoJO1zITH
-	 s0w9B+l5FLwMWb3pZujKx9j37swhwIaJTK+E3kcslfBzm7PBLwz26WUjoTBNHFFVltzEQ
-	 sxJObCq1h15z039az+vPbz2KTOHPuNpe+n2j81iFw0BNiT7OZ7S/S344KMIM27Wmayr9Q
-	 b0A/N4X2T2ZGL5s1ydNbTnn91oP/3rfWjZTqFg46ZynSfmDSGhOmj75WvCNxacPXu5w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8I7pPFQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794724271;
+	b=jwZGEBYtvcUsW8rBmtw+TtI1gBCngOHliP/GRyQz78WNw6w1ey6Keif1+mSBxXGBoDE6
+	 3q/xPzTTHZxL5Kwp58/wz5TCzeFrXy7BeZe1VqxTClBn8oZrXm6fXEyilgbDGxHWU1vvJ
+	 fsz0DvyIEq61+aF7TjA4lmp8Szta3RJLqOPPLap5x/iqtAm2TV+3/Zv7gFQVHcz7+niLj
+	 hyAZOFwXAv6jPcl/Tp/doIBPVqdnrSz4ntvBFqbKwbedjVq4nfG+Xlic98XsgoZaUv/in
+	 P+PuZ+4Z/qC8UnYIosRwiLirPP+2UP9YwbYyM8QfPZ5J9xrqeKLtec1L1ciJEot+RGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794724271;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
+	b=db6hTvF3hrOk+gYU20xS3WIvFdEYdNbJ4noWOZ666SkLABNgItvBbWlmFauYYiuJ2kdj
+	 sx3qm45Y55/M2tCItywAwxFvDEBvmdiQcMFTjCXTNO8yBEk/DnHYl9t33/Ef9C/37InNG
+	 8jFK/AW66Oh4B1DjMT0nTX9Q/r96qO/hX3CdkZhCdmq0l6xRDxbANrEZhiN76RI+f3N5Q
+	 QbDjT9Bmm366RaDdSuI1gt2FLvHNA1ybYB5tEzc4KOCbLIE+McYY+xdiaqYgvS1Rd9jow
+	 ssXoKWxETiD3+79S6u+cKIYDZTC0WHTiwtEqy8HBbNj3i8FjZAvx1nxnAMJx0HNaiQQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BlBeN1S8;
+	arc=fail smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5439606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:27:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77469606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77469606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8I7pPFQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A2A31F000C4;
-	Sun, 15 Nov 2026 06:27:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794724029;
-	bh=Dz1HTKa9cA29oU+jZvIB6qYsMLCpYfnrjTOCzLvXPpE=;
-	h=From:Date:Subject:To:Cc;
-	b=U8I7pPFQ08dzjlu+6xk9g3RxW8PWk9xXyQcl948Va0LSjgPdTTdMXgwFdvK+e4bb5
-	 LF68Y84WXZXKQW/H11R5cA3j6MhL0JOMlKTdfpsKazcjpMob262cFZ2clZUOdjURuk
-	 5ECQ6nJZ6XRwWQdUPixsDje1OHVVA1jeIoLL2TxZ+2wl21UyWKaO2KELkZkY26+KTl
-	 mFN2uXDvcDkDOoldAmXA29oTGxR44AGQWNtNLdgL5qxRzaasMYr4909Ynsi6HhBYlT
-	 +dDDgorPALhYOvCZ/NITPNRxcHvL1UfE5vKvFpxm7g/dGG5UvJw7MThT/f0mtbYGGF
-	 A8uixuQcxywOg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sun, 15 Nov 2026 08:27:03 +0200
-Subject: [PATCH v4] mm/cma: simplify cma_declare_contiguous_multi()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BlBeN1S8
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b7221c0f2cso3891615a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:31:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794724270; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aupK7bE9tizmBFCklQN37KMRiFr7uOEBZsEK33eRNw4YNPp7CJryO57NGunGHm7vPO
+         fd2HSv3yp/mDgJMjwNqbJWEXrX8N1ILokMGJ+pq34qZstUQ/7ce/kVWngr9gg5bCOunc
+         OKXAnIA+cT1oJyg4oKaEpI0+np4zPKAyGyOC9teK6MXeEzmMfCQaVd8N/U7sIc0NBOZc
+         vMrYwKPimxFzY89q7afMlF4ipB4py22v6c6Fecvd/B3ev1JrRK++tRPYVEFE1g/v+Cvc
+         jnYScVGhEzr8jd6aJ+O8DTn7+iqDoaR4WYilf1J0u8coYwbTAXuagREfFhIE3xgsp5i6
+         qFBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:reply-to:mime-version
+         :dkim-signature;
+        bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
+        fh=MbGqyrmaC3pVLZulv/HzyO35Kx68J0BAxNvAGrCS7LY=;
+        b=e7crMlxyzWSDXRI1tZeC4/KPNqzi6HIuz+x33narc1KV6H8QboJhDPLPRhfselRa4k
+         E/M1ul1U7JA9GJA39HAiKrqyibGU869AeTlKbNfGU7n40a4iKusZzZs/LWXNcjvTz6xK
+         oV4O8vdXoCuK9MZ8jNk8jmXNOW14297DJ4MixpAEzzCb0QrOTafcYY+CLPYpl0srj7jg
+         Si2kZWQpojZmiU5QxwCLBbFUQ4z3P45N2QdsU1DQlOVRyxOmCLIMRjNS6yZfyCGdPUEZ
+         XRsralQRcCgS2g5/qdNxf56MBrnI2u1Y4dM/+JmUMshgUiEPB73m2rOBx1He8viLMrIk
+         WLUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794724270; x=1795329070; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
+        b=BlBeN1S8rxcZ8yHOolgoiuyhMXqgdxn5IUTUR4vu1neep3YC6Nrms9TuiacukJbDIQ
+         4Ao4jHPx5XOu8x8KY+n6o0tRgK7B6wZsW5Qg0DB297HV/i28F0+navu+6k3y7W1HJWYE
+         ABZCpHvPcq7YmTMebkJ4CpyDq4tOMsoMXWuuZOxglaIOOAHTf9eukAMlvJUSxiG72Z1c
+         +XtZ7g47yej1b9xctL3w7HLwQ/NamA4ZkgEzIZD8jL8IRrRnzt2RbghrfhSruHET0Qor
+         TfYIl01uqJ0xc8a+lEjf7htkqSHScjFhOMVIjqI0Ls3uEAjetq2v9mDw5WJ7XZ20vU4r
+         RX8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794724270; x=1795329070;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
+        b=GlKUfww4pAwe8BS2s5v3+s9F6iWhsXY2+7ykyRhO9oPrMOp3VQXM6WxWMLpq9Kn8HN
+         sePvWJLhI2deBhlbfly3t/KuBYygjCm1VewD0CGQFJs+bf8N91n9Z/eGjIb/pkP+7kHs
+         AwbdA9u3ccgXrcBLBatggi/BHoyTDwGYRIBpROb2nudW52KTOQTERlNg9VfFj6lP10nu
+         rtmfVdQcumJ8LiH+nMVl9wU+HW+kiOZGErFwSXwWJSv7t44mwPy7llwj423bXNfipk4D
+         0YnXfrvJRHYbIrZLRIrVr8BkzIR7koCQZCDkUu16yV3+gxzFuwKv2IdlGYfQpJfiMnU2
+         OM+Q==
+X-Forwarded-Encrypted: i=1; AL+hErG4eCGwxPn+YPQoF/c/dJ27FMbTu3gGp7xi3BA6m0a7B9egKKNir7wtbTnq7dU0yC0T8p6Vek+kfRSgFPk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z898t4ypq9ZiMK9Ya7oGX3cKx1MtAMf8qbvckkhXziMRbeBIONK
+	BD3zSMM1Y0rkIjbtzHgZnuhlbG7T7HfTsffD2aNLYcoBQ7J1wDmA+N6P3hl+FZ4eVPjRyP0XxhA
+	WKFSh+u0vhy+MhcGY2qUJe8SbQpoX/84=
+X-Gm-Gg: AYBFou3Xo5Ld+tIMn7R+j0GuBFMs/U1200kOwR48rX8rqM5h1RC3hQvbrS9pP1u5Xkf
+	lqIxMrAoyg14tGl5BweDAFiFMboZH+1rLRpPomS1oNypdE0xlIkgUZ86bBj4LMwROyE1r2haEmS
+	RgeWCn//s5CDQ/6DusFUmKSlRNcgtXB3tOOmINf5IUc6q/yo7CG2fZzr/78QEdg51yX/19UP5F2
+	x1nXhyU51i4oOMzOU6qFFCmPS+a/BOUBPov2FqOV4YrLr//FminbJi5ln+rkvtTJ1qwQAwsC48+
+	5TCzh6x4Jr6fBoXpHAh6fqBkY79cRpZmD8mhxNCwp70eqpjzoK2INkG3FB4qB/1YqK6jNcRtgah
+	uLsJrUnB6KdANDA46diOJJIqMX20BcSfqYPvrvhC7S5BN0UvnDjug9cuX+8/fQaOSUlWwST9EVH
+	Qk380t1e7FYIF6tbcDUKnwKGX/HJDwr/G1j9J8Y4/qTwrpVNJWv5lI1hA=
+X-Received: by 2002:a05:6402:4404:b0:6b7:82cf:f69e with SMTP id
+ 4fb4d7f45d1cf-6b7c08b4c7emr4946620a12.2.1794724269570; Sat, 14 Nov 2026
+ 22:31:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,431 +104,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-cma-multi-v4-1-d159631171d5@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OTW7DIBAF4KtErEsLY0JJVrlH1AU/45jW4Aiw1
- Sjy3QPpxlW7fOh9b7iTjMljJsfdnSRcfPZTrEG87IgddLwg9a5mAgwk50xSGzQN81g87XulUAn
- T7w8HUvvXhL3/fm6dP35yns0n2tIGWsPojNQkHe3QnkKYSngLgc4xF21GbJ3B5zKl2/NDC29b/
- 91eOOWU7QVqlAiW29MXpojj65QupB1fYEM531KoVCA45wxocOoP7bYUtrSrVMpOsPcOFDL9i67
- r+gCRUB92TwEAAA==
-X-Change-ID: 20261106-cma-multi-ff88e84bf599
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>
-Cc: Frank van der Linden <fvdl@google.com>, Ivy Lopez <skunkolee@gmail.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Oscar Salvador <osalvador@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
+Reply-To: ludloff@gmail.com
+From: Christian Ludloff <ludloff@gmail.com>
+Date: Sat, 14 Nov 2026 22:30:57 -0800
+X-Gm-Features: AclHuK_unVTggCaoPUML0eK717T84qUSQdruqbjfPhZrS0xnHYClig_DE2lhj_Y
+Message-ID: <CAKSQd8XsZg7VooNs+MK2=YWOvXii8oOC6ULmbusubAk0aQxAYA@mail.gmail.com>
+Subject: Re: Turning on DOITM at last
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, Dave Hansen <dave.hansen@intel.com>, 
+	Demi Marie Obenour <demiobenour@gmail.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
+	linux-crypto@vger.kernel.org, 
+	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-When cma_declare_contiguous_multi() cannot allocate a CMA area as a
-single range, it falls back to collecting a list of up to CMA_MAX_RANGES
-largest free ranges above 4G, reserves them in memblock and adds them to
-cma->ranges.
+Continuing this summer's thread...
 
-The list and subsequently cma->ranges are supposed to be sorted in the
-order of base addresses of the "allocated" ranges.
+  https://lore.kernel.org/lkml/14962fdf-66e9-4b64-a37e-0e697c875cc0@citrix.com/
 
-This implementation has two bugs:
+The DOITM U/S spec arrived, as mentioned on the gcc-patches list.
 
-* The allocation may fail even when there is enough free memory because
-  list_insert_sorted() sorts the list in the wrong order.
+  https://gcc.gnu.org/pipermail/gcc-patches/2026-November/738803.html
 
-  When the list is full, the largest range is evicted rather than the
-  smallest, the final list is not sorted by address, and the smallest
-  ranges are used first.
+  https://www.intel.com.br/content/www/br/pt/content-details/932747/user-doitm-and-sup-doitm-extensions-architecture-specification.html
 
-* the function may report success while it reserved less memory than
-  requested because sizesum accounts for ranges that were skipped.
+In section 3.1.3 it proposes two changes to the published DOIT list.
 
-And overall it is a lot of list management and open coded range
-selection for no real gain.
+  https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/resources/data-operand-independent-timing-instructions.html
 
-Replace the current code with a loop that finds the largest free range
-above 4G, reserves as much of it as needed and repeats until the entire
-area is reserved or CMA_MAX_RANGES ranges are used.
+Namely, for shift/rotate and for rep stosb.
 
-After successful alocation sort the cma->ranges by their base address.
+How is this not problematic? Will Intel do the required SW work? How?
 
-The new code scans free memory once for every range rather than once
-for all ranges, so it is slightly slower, but it is way simpler and more
-robust.
+And what good is a DOIT list... when it then changes under one's feet?
 
-Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
-Reported-by: Ivy Lopez <skunkolee@gmail.com>
-Closes: https://lore.kernel.org/all/cover.1792032699.git.skunkolee@gmail.com
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
-Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
----
-Changes in v4:
-- silence smatch warning about SZ_4G on 32 bits
-- fix a type in a comment
-- Link to v3: https://patch.msgid.link/20261112-cma-multi-v3-1-663407328e0a@kernel.org
-
-Changes in v3:
-- Skip the search when CONFIG_PHYS_ADDR_T_64BIT is not set to avoid
-  clang warnings on 32 bits.
-- Link to v2: https://patch.msgid.link/20261111-cma-multi-v2-1-4e2dddb2a2d8@kernel.org
-
-Changes in v2:
-- make size_mb const
-- Link to v1: https://patch.msgid.link/20261106-cma-multi-v1-1-054eae6e2c1c@kernel.org
----
- mm/cma.c | 269 +++++++++++++++++++--------------------------------------------
- 1 file changed, 81 insertions(+), 188 deletions(-)
-
-diff --git a/mm/cma.c b/mm/cma.c
-index f61d52796f4e..bdad6e74abbc 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -23,8 +23,8 @@
- #include <linux/sizes.h>
- #include <linux/slab.h>
- #include <linux/string.h>
--#include <linux/string_choices.h>
- #include <linux/log2.h>
-+#include <linux/sort.h>
- #include <linux/cma.h>
- #include <linux/highmem.h>
- #include <linux/io.h>
-@@ -310,56 +310,6 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
- 	return 0;
- }
- 
--/*
-- * Structure used while walking physical memory ranges and finding out
-- * which one(s) to use for a CMA area.
-- */
--struct cma_init_memrange {
--	phys_addr_t base;
--	phys_addr_t size;
--	struct list_head list;
--};
--
--/*
-- * Work array used during CMA initialization.
-- */
--static struct cma_init_memrange memranges[CMA_MAX_RANGES] __initdata;
--
--static bool __init revsizecmp(struct cma_init_memrange *mlp,
--			      struct cma_init_memrange *mrp)
--{
--	return mlp->size > mrp->size;
--}
--
--static bool __init basecmp(struct cma_init_memrange *mlp,
--			   struct cma_init_memrange *mrp)
--{
--	return mlp->base < mrp->base;
--}
--
--/*
-- * Helper function to create sorted lists.
-- */
--static void __init list_insert_sorted(
--	struct list_head *ranges,
--	struct cma_init_memrange *mrp,
--	bool (*cmp)(struct cma_init_memrange *lh, struct cma_init_memrange *rh))
--{
--	struct list_head *mp;
--	struct cma_init_memrange *mlp;
--
--	if (list_empty(ranges))
--		list_add(&mrp->list, ranges);
--	else {
--		list_for_each(mp, ranges) {
--			mlp = list_entry(mp, struct cma_init_memrange, list);
--			if (cmp(mlp, mrp))
--				break;
--		}
--		__list_add(&mrp->list, mlp->list.prev, &mlp->list);
--	}
--}
--
- static int __init cma_fixed_reserve(phys_addr_t base, phys_addr_t size)
- {
- 	if (IS_ENABLED(CONFIG_HIGHMEM)) {
-@@ -524,37 +474,75 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
- 	return 0;
- }
- 
-+/*
-+ * Find the largest free range above 4G that can hold a part of a multi-range
-+ * CMA area.
-+ */
-+static phys_addr_t __init cma_find_free_range(phys_addr_t align,
-+		phys_addr_t size_align, int nid, phys_addr_t *basep)
-+{
-+	phys_addr_t start, end, size;
-+	phys_addr_t max = 0;
-+	u64 i;
-+
-+	/* no point searching if the system can't address above 4G */
-+	if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
-+		return 0;
-+
-+	for_each_free_mem_range(i, nid, MEMBLOCK_NONE, &start, &end, NULL) {
-+		if (!upper_32_bits(start))
-+			continue;
-+
-+		start = ALIGN(start, align);
-+		if (start >= end)
-+			continue;
-+
-+		size = ALIGN_DOWN(end - start, size_align);
-+		if (size > max) {
-+			max = size;
-+			*basep = start;
-+		}
-+	}
-+
-+	return max;
-+}
-+
-+static int __init cma_range_cmp(const void *a, const void *b)
-+{
-+	const struct cma_memrange *cmr_a = a;
-+	const struct cma_memrange *cmr_b = b;
-+
-+	return cmp_int(cmr_a->base_pfn, cmr_b->base_pfn);
-+}
-+
- /*
-  * Create CMA areas with a total size of @total_size. A normal allocation
-- * for one area is tried first. If that fails, the biggest memblock
-- * ranges above 4G are selected, and allocated bottom up.
-- *
-- * The complexity here is not great, but this function will only be
-- * called during boot, and the lists operated on have fewer than
-- * CMA_MAX_RANGES elements (default value: 8).
-+ * for one area is tried first. If that fails, the area is assembled from
-+ * up to CMA_MAX_RANGES of the biggest free memblock ranges above 4G.
-  */
- int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 			phys_addr_t align, unsigned int order_per_bit,
- 			const char *name, struct cma **res_cma, int nid)
- {
--	phys_addr_t start = 0, end;
--	phys_addr_t size, sizesum, sizeleft;
--	struct cma_init_memrange *mrp, *mlp, *failed;
-+	const unsigned long size_mb = (unsigned long)total_size / SZ_1M;
-+	phys_addr_t size, remaining, size_align;
- 	struct cma_memrange *cmrp;
--	LIST_HEAD(ranges);
--	LIST_HEAD(final_ranges);
--	struct list_head *mp, *next;
--	int ret, nr = 1;
--	u64 i;
-+	phys_addr_t start = 0;
- 	struct cma *cma;
-+	int nr = 0;
-+	int ret;
- 
- 	/*
- 	 * First, try it the normal way, producing just one range.
- 	 */
- 	ret = __cma_declare_contiguous_nid(&start, total_size, 0, align,
- 			order_per_bit, false, name, res_cma, nid);
-+	if (!ret) {
-+		pr_info("Reserved %lu MiB at %pa\n", size_mb, &start);
-+		return 0;
-+	}
- 	if (ret != -ENOMEM)
--		goto out;
-+		goto err;
- 
- 	/*
- 	 * Couldn't find one range that fits our needs, so try multiple
-@@ -572,151 +560,56 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 	 * aligned to @align, and a size that is aligned to
- 	 * both @align and @order_to_bit, things will work out.
- 	 */
--	nr = 0;
--	sizesum = 0;
--	failed = NULL;
--
- 	ret = cma_new_area(name, total_size, order_per_bit, &cma);
--	if (ret != 0)
--		goto out;
-+	if (ret)
-+		goto err;
- 
- 	align = max_t(phys_addr_t, align, CMA_MIN_ALIGNMENT_BYTES);
--	/*
--	 * Create a list of ranges above 4G, largest range first.
--	 */
--	for_each_free_mem_range(i, nid, MEMBLOCK_NONE, &start, &end, NULL) {
--		if (upper_32_bits(start) == 0)
--			continue;
--
--		start = ALIGN(start, align);
--		if (start >= end)
--			continue;
-+	size_align = max_t(phys_addr_t, align, PAGE_SIZE << order_per_bit);
- 
--		end = ALIGN_DOWN(end, align);
--		if (end <= start)
--			continue;
--
--		size = end - start;
--		size = ALIGN_DOWN(size, (PAGE_SIZE << order_per_bit));
-+	remaining = total_size;
-+	while (remaining && nr < CMA_MAX_RANGES) {
-+		size = cma_find_free_range(align, size_align, nid, &start);
- 		if (!size)
--			continue;
--		sizesum += size;
--
--		pr_debug("consider %016llx - %016llx\n", (u64)start, (u64)end);
--
--		/*
--		 * If we don't yet have used the maximum number of
--		 * areas, grab a new one.
--		 *
--		 * If we can't use anymore, see if this range is not
--		 * smaller than the smallest one already recorded. If
--		 * not, re-use the smallest element.
--		 */
--		if (nr < CMA_MAX_RANGES)
--			mrp = &memranges[nr++];
--		else {
--			mrp = list_last_entry(&ranges,
--					      struct cma_init_memrange, list);
--			if (size < mrp->size)
--				continue;
--			list_del(&mrp->list);
--			sizesum -= mrp->size;
--			pr_debug("deleted %016llx - %016llx from the list\n",
--				(u64)mrp->base, (u64)mrp->base + size);
--		}
--		mrp->base = start;
--		mrp->size = size;
--
--		/*
--		 * Now do a sorted insert.
--		 */
--		list_insert_sorted(&ranges, mrp, revsizecmp);
--		pr_debug("added %016llx - %016llx to the list\n",
--		    (u64)mrp->base, (u64)mrp->base + size);
--		pr_debug("total size now %llu\n", (u64)sizesum);
--	}
--
--	/*
--	 * There is not enough room in the CMA_MAX_RANGES largest
--	 * ranges, so bail out.
--	 */
--	if (sizesum < total_size) {
--		cma_drop_area(cma);
--		ret = -ENOMEM;
--		goto out;
--	}
--
--	/*
--	 * Found ranges that provide enough combined space.
--	 * Now, sorted them by address, smallest first, because we
--	 * want to mimic a bottom-up memblock allocation.
--	 */
--	sizesum = 0;
--	list_for_each_safe(mp, next, &ranges) {
--		mlp = list_entry(mp, struct cma_init_memrange, list);
--		list_del(mp);
--		list_insert_sorted(&final_ranges, mlp, basecmp);
--		sizesum += mlp->size;
--		if (sizesum >= total_size)
- 			break;
--	}
- 
--	/*
--	 * Walk the final list, and add a CMA range for
--	 * each range, possibly not using the last one fully.
--	 */
--	nr = 0;
--	sizeleft = total_size;
--	list_for_each(mp, &final_ranges) {
--		mlp = list_entry(mp, struct cma_init_memrange, list);
--		size = min(sizeleft, mlp->size);
--		if (memblock_reserve(mlp->base, size)) {
--			/*
--			 * Unexpected error. Could go on to
--			 * the next one, but just abort to
--			 * be safe.
--			 */
--			failed = mlp;
-+		size = min(size, remaining);
-+		if (memblock_reserve(start, size))
- 			break;
--		}
--
--		accept_memory(mlp->base, size);
-+		accept_memory(start, size);
- 
- 		pr_debug("created region %d: %016llx - %016llx\n",
--		    nr, (u64)mlp->base, (u64)mlp->base + size);
-+		    nr, (u64)start, (u64)start + size);
- 		cmrp = &cma->ranges[nr++];
--		cmrp->base_pfn = PHYS_PFN(mlp->base);
-+		cmrp->base_pfn = PHYS_PFN(start);
- 		cmrp->early_pfn = cmrp->base_pfn;
- 		cmrp->count = size >> PAGE_SHIFT;
- 
--		sizeleft -= size;
--		if (sizeleft == 0)
--			break;
-+		remaining -= size;
- 	}
- 
--	if (failed) {
--		list_for_each(mp, &final_ranges) {
--			mlp = list_entry(mp, struct cma_init_memrange, list);
--			if (mlp == failed)
--				break;
--			memblock_phys_free(mlp->base, mlp->size);
--		}
--		cma_drop_area(cma);
-+	if (remaining) {
- 		ret = -ENOMEM;
--		goto out;
-+		goto err_free_ranges;
- 	}
- 
-+	/* allocate from lower addresses first */
-+	sort(cma->ranges, nr, sizeof(cma->ranges[0]), cma_range_cmp, NULL);
-+
- 	cma->nranges = nr;
- 	cma->nid = nid;
- 	*res_cma = cma;
- 
--out:
--	if (ret != 0)
--		pr_err("Failed to reserve %lu MiB\n",
--			(unsigned long)total_size / SZ_1M);
--	else
--		pr_info("Reserved %lu MiB in %d range%s\n",
--			(unsigned long)total_size / SZ_1M, nr, str_plural(nr));
-+	pr_info("Reserved %lu MiB in %d ranges\n", size_mb, nr);
-+	return 0;
-+
-+err_free_ranges:
-+	for (int i = 0; i < nr; i++)
-+		memblock_phys_free(PFN_PHYS(cma->ranges[i].base_pfn),
-+				   PFN_PHYS(cma->ranges[i].count));
-+	cma_drop_area(cma);
-+err:
-+	pr_err("Failed to reserve %lu MiB\n", size_mb);
- 	return ret;
- }
- 
-
----
-base-commit: b3710a1d0f145a4f6f1d44fdaff56a6af8cffe89
-change-id: 20261106-cma-multi-ff88e84bf599
+(Other insanity: the naming prefix/suffix mess and the cpl1/cpl2 mess.)
 
 --
-Sincerely yours,
-Mike.
-
+C.
