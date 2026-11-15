@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755873;
-	b=h4d1ROqkwof4Aw+MfhVD+YgoiK0e0P9VaaMsHeQr0Mfkazl7ueIVJZ3eJ5A1LHLHv78F
-	 AFQ5UM81697bLoFI9j7OAUywp252gc6jMoE5QCUbZyffnLF2/p1ATlOM8x8BpUHbTkKzV
-	 EUGpIsGS1BJ1DGaHZS7PZ91tH2g00y+G7SoVpGMZrO08NNHNmw6gLvjbc1bt640rLaUA2
-	 V9teCYuVG70scjPf3A1VhgHhzX9tDHtq9MYqJJNpyiiakR5YJ1abbomU/iyTvs2v9AICc
-	 7qg+P6aKJEK/QwPpRNXGad+p5ERrlbvLMWl3xjLtEoqC+DpFC6uVgliiftBpCLKbB/g==
+	t=1794755933;
+	b=RA1CqbCB4TtU3qJ160rC6MYWkdwS9vFOH2kkTTgBbdpGn+sAM+5VCz/3qyvzWHIbqbSY
+	 7RtwfZSuuPYVK4s7X/CC7s9W+0JkuNSXdsaaYvQ26Xsg4bX8o0b2C8Ly9DgU0KOQ3eDsp
+	 M06hhsC87H1HKAK6oygZLwpP/JYpwEn5jbHDbSvcdPR6fQicInwnWcKAPVcBDmEyjyS7m
+	 Y+YEKidy30uHXjGBUI6Z7dk0F1Jmg5bUlx4oKr5pZcLwXLuxMf8tdFyd9T41k8zGsFRk9
+	 JxPFEE22Fx9kzx0zXF6MMsZoQcMx+xfNBHkN6BwCUB35iZmVB46nhHrqkUThkxyZtZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755873;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=uILaEjTmikObRymXS62y7PAE1rdhRW8tNvZex54A274=;
-	b=v7lWDWV2ifjbAogdXDyevk3J+kpZABXsWbzZHAfAn80dV03uyRaa7p121aDRRJhT3dDO
-	 wc64WxvTIHVLNO/ZAqm/MTkjvC6y2oM6QYxHU4QI7lCrJDIrA6IYC9UcKmsJGeKscP7l+
-	 OWjmfb/0gwy9ZqnMX4N2OMelNuRy6Tpo6ff4+Bz4GmYwoVs+/V84UovRio88b07OLMHHA
-	 JwcYOSg2dEqy3hm4prSBJL+7dzAwWUS4iezWutldUZtQ378zFAMwmcDVjGfu9Q+Iu0yky
-	 +69up3lnhLsNs5qNsNLxHbf6yqXHV0eYUUbacojzDas5EpbaBCx5xG+Q7g8MVY4gNOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755933;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=jXL3awY87I7bqCpFDm1wxAqeA5Al9Z5LUc/nPR+6gxs=;
+	b=hdPkyzhHWDkM+8QkJj9fdd61q8Cd6wF3lyxXUwTOqiEdsv0pMBflh51gry9XHCUF6PBS
+	 B8cyCGW0Fi/zOeiQ0ZJF8XSP9obtCD5EPMOYKnlJ2qkGX9W6rOVvwydM4yhnlNptftvNH
+	 R4y+40LF3U++Oi/Je+2MK13HR9QyK3JFzxAT5+uiBGFIjWuaAY77nbQLM+WCC07eSpkGk
+	 62i1cbBY0svM81KqWx077FNL9OG4hjQJ8AjQ9/TPhdWYTdeMBAPxCCY4HlY8Tj9e1oQck
+	 6+1zMz2HARDq3O1zA0XrP1c+X8WbD2jg7T7zkuM2Oo143VN3puBtrL4FfsuWaV//0uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=W9uku9oX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=X3fyl0AE;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LN+XwsJg;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DC6606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBA3606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBA3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=W9uku9oX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24591F000C5;
-	Sun, 15 Nov 2026 15:17:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794755873;
-	bh=uILaEjTmikObRymXS62y7PAE1rdhRW8tNvZex54A274=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=W9uku9oXa6C6FjtQGfEhD7DNicrQQRcqbgmLK5Hh+s7px3+loJmcK+S8yT+Oqbl+U
-	 cGZjieZxCoM8mI41695GOol36C4ocuiATQRgYAFFiTR1tfgar9x378NlKWz48S5TDn
-	 IEtz6mPICx0IrUDFyqd5+x7uET11fxgbhxeGp6Dc=
-Date: Sun, 15 Nov 2026 07:17:52 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Thorsten Blum <blum@kernel.org>
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>, Breno Leitao
- <leitao@debian.org>, Christian Brauner <brauner@kernel.org>, Sang-Heon Jeon
- <ekffu200098@gmail.com>, Wilson Felipe Pereira <wfelipe@google.com>, Ryan
- Roberts <ryan.roberts@arm.com>, "Mike Rapoport (Microsoft)"
- <rppt@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] init: Combine blacklist entry allocations in
- initcall_blacklist()
-Message-Id: <20261115071752.ca50507283d1d4cf94631a91@linux-foundation.org>
-In-Reply-To: <20261115142321.96774-4-blum@kernel.org>
-References: <20261115142321.96774-3-blum@kernel.org>
-	<20261115142321.96774-4-blum@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=X3fyl0AE;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LN+XwsJg
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 819A47A0050
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:18:52 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Sun, 15 Nov 2026 10:18:52 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794755929;
+	 x=1794842329; bh=jXL3awY87I7bqCpFDm1wxAqeA5Al9Z5LUc/nPR+6gxs=; b=
+	X3fyl0AEfeBvHFst5Q0V1UEsQeby1BM81HLqcTKPmAuriRvCkJtvXMNqjk3o21zv
+	tRZTqOGdm041GVhK72a39b/+gfrMUE98uXp4FKhaSjZZV8oiFStFk3YJoUx30HFu
+	emCd5JhI4WFKRIwA0vTUqrxqf7llJjPNxk8UNRXyPYXOGmwjzoGCK/AVELeqyA1T
+	Mf3+GebDYnpJmA8POXM/TzFfW6cYecKlX9syieJT3Fc/T/Pfi/I/VHV1QIetjC/K
+	ngKqz1MHdYO9Wot9lKt5+xBAcbRSb6bfwcUppMqESa6XU/J/ngZvm1xn67zg7zlH
+	CqSBjwTZpNagioRE6sbHXA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794755929; x=
+	1794842329; bh=jXL3awY87I7bqCpFDm1wxAqeA5Al9Z5LUc/nPR+6gxs=; b=L
+	N+XwsJgSy6unJDUxVhbAN9jjR4ChGLpK09UWox0eeTi3aau0ZlGYyDgSYisfeo6H
+	V0NpLW6Wt0EJ7sWWpm7PoXWnfTsm6X7EAaLlF2pdx6Hv6tBfS406PDbg7DqMSX9e
+	pX20y1bpyPyRZEb+MLH/aF1FGcYJSvyuQMNb+5+S0ZXXSMhvoqIvLWjE7OI18ZOJ
+	FXewkwQADJnGK1i8pVgotICZYo1BGU7w/2XVhokJKwC8EzlpkX+pzpVfrN5CrhEq
+	aRem9s9O2dN16nywVapYeU0fUkXegPHJ6YXhVJ1yEfu9weCAN/BYB0d3rQtw37zH
+	OqGoGoEgun05KfNlkXs2w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794755929; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:IwaZYG+qMpODE/j+/NhCHdCFMdF/+09GEYxXr7m5PV9XoFv
+	zUddAOnJemOCNRuRMLpdJBwI/Q9obAIWC0JmXe/WJNOOmayHgKnCaLlmzfEz+rGW
+	/MWoLLFDfeID/iIwLYjGXj+wWbNUNJ9vPimKwXaSTqvUVu3vxY/Dkw9Kuj8UE+BV
+	nGl2zgDdI6nnefrNP1aQNUQ7nYeTEpbKPSl/XBS+v/x+DpPI3Phvqu0fpoVxuU8/
+	+5VKXn141jC7ekMQxN3rxWfPT0WKII2gveh7jBAQVR+AM9n2Mi2PMcGz7AafNHHq
+	2Sp+pMLWGXE0VnALbaB0QpwlirUKDq7Fgqn/yGw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:RPRGmgdxnBnNv5uquxYy8MBAVAddXarUAKannPbarMQ=:LPIofgvPCh59qWtpBBu3/xvmkCvTHB5eJOFqs6HnklQ=;
+X-ME-Sender: <xms:Vs35auF3ZKeoxzwOsUYqSkStVskbs4R-NGUIdeyhfyeixyyk9EN3ZA>
+    <xme:Vs35aqIEdga0nfRUy1jvgxGicKyLl7wz4lxqhsowM6MD8fEPuqveb7hRDmyeV22hw
+    eqH_O14ewKa36SMvMq3UQGHhWn8C5qo0Qy9uxzoAAV37KTnw9Vp-1Hs>
+X-ME-Proxy-Cause: dmFkZTG0KPJjbF0MaYzlr1rMKbFVKZccD29mlx5DJ2nDT7gsDYCCpAPlozFsGDxohcC0/r
+    rBNTGt6QIyhi+iHgRSTHcMZwGyMov7EYB/dRho9I5EtscXX8S47EQ95GzVnNrVZ7/87yQl
+    W+t2L/rmREhnML0NmZgivhr89fiMdi0TupTTBVSxjvICnNewjWK5RL/9Aauzl1KonQ6Nxe
+    NEWqX4k3HjKJETMzrTNMg238sNyGliWAM3YNCpjFRAvg+11+z0nJt6eJjlFMdihuPNbgIm
+    oYg+mzbAvXGVjFYQFNtth3taHKaeWEkuhsGKNyHHNPiZcPoe08V914VpI6+MtAPh2X17cw
+    FuBgm7wf7JfRdStmmfKL1GwGzkX4/BxT6+huZ7YIOqNgCkcHUAVroQ0OnY222fxJk82r9S
+    UouzJSAmkJtqWmfeYCPE7yv5BfOT00gCZ9RF/HnUOSO2cSH4QXPDYMPsFB1melKmKAd5DE
+    U8ZEMFMDe3MXzPL0Bf060i9FZ/du702JWrVBV7M8iUjqjTFwJk2g2RT2y3wMmwXo2p31BO
+    TS/nfxaAXtBzKxURMxws+YH3t11fQ7Sj2TFX0JKgypZhMZtveSU2ZgNCOA9Z3ygn7G4BG7
+    imxonf/MrJU+NVTafWwmyXTbOjFMBCs94nvQjGLiLz4+9S7XgAPqgyQWVsGg
+X-ME-Proxy: <xmx:V835ahrv4y2-PQDiHSsLS0XYo1QHdz5R1BdqX1MXkUm-FttaFVZsxg>
+    <xmx:V835al4upEkIi7RJYjYyJk2fjijUGXxBNFBHDXaCSkP3X5EicHxwUg>
+    <xmx:V835agcOfApQazsMJguSEf37x-hfOcQn58VFpyTCxaMteRTE03SfOw>
+    <xmx:V835ai6xj3oYcT99JabivV--4v_uh8k8TdJQfAbpvVX23n2U379t3g>
+    <xmx:Wc35amsAonV99wwPoCZRTnv44dyVVUBYx-zoO6bdqCvwHDlfQyhY36aI>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 5C25C32A009C; Sun, 15 Nov 2026 10:18:46 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +114,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+X-ThreadId: A4hrlnFi848o
+Date: Sun, 15 Nov 2026 16:18:26 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Nathan Chancellor" <nathan@kernel.org>, "Kees Cook" <kees@kernel.org>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Message-Id: <dbf6e2a3-ac52-4d0f-a2df-b78163e9d57a@app.fastmail.com>
+In-Reply-To: 
+ <20261114-lkdtm-usercopy-wunsequenced-v1-1-d9f288701932@kernel.org>
+References: 
+ <20261114-lkdtm-usercopy-wunsequenced-v1-1-d9f288701932@kernel.org>
+Subject: Re: [PATCH] lkdtm/usercopy: Avoid unsequenced accesses to cache_size in
+ lkdtm_usercopy_init()
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On Sun, 15 Nov 2026 15:23:21 +0100 Thorsten Blum <blum@kernel.org> wrote:
+On Sun, Nov 15, 2026, at 05:37, Nathan Chancellor wrote:
+> After a recent improvement in clang to warn on unsequenced accesses to
+> volatile variables [1], an instance appears in lkdtm_usercopy_init(),
+> which can break the build with CONFIG_WERROR=y / W=e:
+>
+> drivers/misc/lkdtm/usercopy.c:431:9: error: unsequenced accesses to 
+> volatile qualified 'cache_size' [-Werror,-Wunsequenced]
+>   429 |                 kmem_cache_create_usercopy("lkdtm-usercopy", 
+> cache_size,
+>       |                                                              
+> ~~~~~~~~~~
+>   430 |                                            0, 0,
+>   431 |                                            cache_size / 4,
+>       |                                            ^
+>
+> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+> 6.5.2, unsequenced side effects on the same scalar object are undefined
+> behavior.  Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+> function call is indeterminately sequenced, meaning any side effects in
+> the arguments are unsequenced.
+>
+> cache_size is marked as volatile to hide its value from the compile time
+> constant checks in the hardened usercopy routines. Refactor the
+> calculations based on cache_size into their own volatile variables to
+> keep the values hidden while avoiding unsequenced accesses on the same
+> object.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: e47e311843de ("lkdtm: Update usercopy tests for whitelisting")
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2195
+> Link: 
+> https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 
+> [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-> Use a flexible array member for the function name and allocate it
-> together with the blacklist entry. This removes the pointer and saves
-> one allocation call per blacklist entry.
-> 
+lgtm,
 
-Looks OK, thanks.
-
-> --- a/init/main.c
-> +++ b/init/main.c
-> @@ -1266,7 +1267,7 @@ static void __init do_ctors(void)
->  #ifdef CONFIG_KALLSYMS
->  struct blacklist_entry {
->  	struct list_head next;
-> -	char *buf;
-> +	char buf[];
->  };
-
-We need some care with the flexible arrays.  If some code does a struct
-copy:
-
-	struct blacklist_entry bl1 = bl2;
-
-then the old code would have worked but after this change bl1 has
-garbage in its buf[].
-
-afaict none of our static checking tools (gcc, clang, smatch, sparse)
-will catch this.
+Acked-by: Arnd Bergmann <arnd@arndb.de>
