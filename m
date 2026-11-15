@@ -1,110 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794776654;
-	b=qJCg/aWwUp5QRsPO2ehsk2OT/woOmssy3HM0AIKuQyQZ0f7T/El9nqrGRvbI8+qaJE27
-	 U23VB8M7PgKD3oBypb4htNb2ac3s3DQbDNJa40qsFiUAAG2iueRJjmKZKhOjMUFS50kKw
-	 qOAzqUGAQ41cwuEx0Mu8B6RER3QILF35z2NZeghHPIlWszVYadpkcMpxZI2r8bP3s/p1h
-	 HND7EPl++nDBZXhf07lwmgxtavSmZzIORPczN204mKzPdcXG1UtBtwdtwknRUfcovoLT0
-	 kaJtegZcAx74DxDrNj16ZFMQzIrSij45GMbk8yuPu1JyzN2+vJrhdlAj0J7Cu6RhApA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776654;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=dclX5TjXagQdXvyM26xnlyJ5ipiPzjLpHRRtLV+Mu9U=;
-	b=b1LwS/NFNS9mVRMG+Z/kieWJEMZgH9LJvViHR6uvmJlT2lvlG3WalY80GP4m/FpXwBj/
-	 7fgcasgWh7tGShct/tXG/g5fFQvX9pW7ME/AV56aYlAa2Kh7RGT6EdkARxxpjXFXA0stV
-	 epuKHw7JOx+BACFbaK/noZHysP3lnwpW2Z1NI0VPorasP7iVcJY39xP8R5iwX9YaNU8fs
-	 rwXjH/lYwM1GJ0Ep5pZ0hQ7wUD/8XNS7dLmSb3MQ3SA2Lzqv/V0YJseYBhO5ZsYNjA5rh
-	 RiHaomQpnsrecio/EaLfHjkcAfStrswGI6xn7Cc7++p1gdHUJxNbl+oq5JPBBC+PNlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hXhbcREU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gbbohgdl;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794776656;
+	b=OTl25JsK2lO+PX6HucKOGLZz571oSUaRLKXefICzJ+pwNbZgihiuGGBvCe8TQBEw4lbl
+	 yrRihTsydNorcOM0Px2r6x+gE//Pp8VMZSbqcKby0+eCZpY6ODXGBe2P0w+uTLr4jAPgi
+	 TzE7FtUdVNYf8dSd/9mesCSbZdqMCoITxlnI+FoBm6d7yeyFmxIV1Fi57u5rhN096yior
+	 KnzIqsW9ioHjV7vdiD0WaHMlbYwsjNkVJyVtHcHvGvZJVTtyV7x17wHRTKEDbU8e4cl/W
+	 yyXDG3upDBflvJyCwUgAVBajUSkmllddoam+EGkbquFUaFF6YcR76LzZwPhP68s8Kyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776656;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
+	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
+	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=KcTuZ8qvTe5vxloxi+f2kSeY+XTzTrKJaAUcmXZjzOA=;
+	b=zPN7kw57IDIFhR6J/I3dc8Ub2T6eXb/HoVXZFtld/J2DomEM0Zg52l0HI8t8dTIv1RwO
+	 RhMxwDcrY17lhGhrdi0YiXoNa2hAjC695/n2fCui65kFfNQ/G2y01vwzW6F0inZFuOMv6
+	 VGGHnE2Ng74pUrm8bYcRBqP5MHNxN8k2dqbCnjOvgotbyClcUAtKjBbKFq/0s8I1pq0op
+	 TgMNNS5dJTtborYDjL9am2vlWLW6WIxyuE/EhrCcUlNKeUfv3zZd0qCaUf64vUQTVyjAM
+	 Jq21yXxYwAYkcgjCTaVFxL4wHBgg0EPHusE/io/9eE5qEsmSkpWFFWunPf+jsRM96mA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=0lLlcBtE;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=Xi92WCZa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE25606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:04:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AE25606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4685E606A883;
+	Sun, 15 Nov 2026 21:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4685E606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hXhbcREU;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gbbohgdl
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AFITRo73623961
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:04:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dclX5TjXagQdXvyM26xnlyJ5ipiPzjLpHRRtLV+Mu9U=; b=hXhbcREU6EwFVDDB
-	Ac8Vq/qFfizpEk/cik4MmxFQpCXugF+GlgkILLWppwGilyRz8fnK3e++71wVN7Zq
-	pPnPwFjle7rgE9KBYeE3NWGOtNccZhbYTL8qP4hq09PCSQGupbcRDLF1HUeqIDA9
-	xbblNuUZOCKEv3ciOHVFa2fwZKaU5Spa6NBHGecpSv6IO2QKJFuIgX4RICwmcDa5
-	79GwDYzfn2kz2k6sNBOXSFQfyMaSaylcIopDsNYIS2iKIwqJsyUBzMq6FgqmpUY/
-	Ce0xE1QeiZ81fcTIL/ZDAHTX7vZyfCjcYxDLjOCU5iRq2QvofjZMFXKkOsNp86Sk
-	sJd9dw==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhjqktrx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:04:13 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-9907de400a6so492978241.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:04:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794776652; x=1795381452; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dclX5TjXagQdXvyM26xnlyJ5ipiPzjLpHRRtLV+Mu9U=;
-        b=gbbohgdl4ZiKWFeaQxrHxD6Qook6v29MRorFw8KuCHOI8M80aKqWbg3AMPrs6ao2Tw
-         OZC07Hc80Yv1ytjdvza8NG20LDJh6+B8xM5Y+W4Mf5s1e0XY//ygCZl5UcnYnp/3LZDw
-         JXs9k70pxgbKFpXLbrs7D28fg3p/99SOw77I4VzOg1CSSg8N3YwUiKH+j2+HJVaE+aq8
-         rIumeBmWO/eAllqTDbs8dYLXjxfm1nEEqHJa6ugqn4haGPIxKHgkjh7BGqvmrTGeVckk
-         6CCWmIOY43pNwFnVoR/OEP3Nzvk7iiIsaQF0uq+MOulzP7QsQcaRrU+TC3Ntlfs8F7bc
-         jcng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794776652; x=1795381452;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dclX5TjXagQdXvyM26xnlyJ5ipiPzjLpHRRtLV+Mu9U=;
-        b=ew9qX0MnvfRM2IxdydzkRAZxFGfkrOB9EfomgCXGsXB0KhRvhOmnk15pmABppLCD6l
-         wshvob8IUNobBBNZV73bYQV9fBMHXTHgU+XPdrew/KDlX8tdlBmuK5JSM4bSw/9nA981
-         gA8nGt4vclY2yrRJbMqcdYL20p4dBgZXi+JyAxDflO+W3sIHqoFaGQAGD/Ww0BsRrWws
-         urtVXZTTHofPrr3dyTKwAbbfNUGFAXoeqRl3jGiXKLmuy3wZNqQb8BD8B2I2PZkMQWqP
-         AKNWJJB7qc5fWSAe2aT4PuAhRxTrfC+J3kW+cHr/0X4HmnSkVVXLsoI7U/JXPpaA1c7m
-         KFag==
-X-Forwarded-Encrypted: i=1; AL+hErE1R3utCC5TuAdDyF8Hbdu+OZfQYViGBFSBCJLutP6xgbRJANYHEyhTMxoq2upcE5xgFQnsr2elIdPuBm0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MQwisI8NGLsa2KiQFWcgP7bb1h8AVIEsidTsSajMTDYF0NY99
-	gEqlXq8P2iztf/EjuKMRNSwDD3ec/hjL21egK1GgqQXC8RNZwpNjTpJQPiAfC0fVcR9bFhZxreO
-	SCyeRzmbRyWH5MsDoYkvDsGV2VmBre/cYmh13urBIubPVrlC93/SElI4C+Ls+6DOPXfc=
-X-Gm-Gg: AYBFou0YQl7SGqGjgJLkg158qVGzJ1ukqQbb9RJH6VUwNZ8crovCug6rP1Fru5g7dW8
-	+Fs8+TFTRc4/oyYlmaPfzgWYZI6Kog5Mz49orPCeq8vOEYDyoIzfD/DZVQ8GP+VWZ8v/ebe1T5f
-	NmXTpzdEDbj9sBfBXibb6SDJGPWRehR39oQwIgtXg4Zp1BDcc7kB61a10CBe+WFxld8vnVAvYwj
-	emgsRExAWiU6tH9zRlsmDcf+O05nFIlKaEK8a89r6KV6D+8bVXqf87zDJf7S84BwdZZMati5nWX
-	VU8vXOehCR2SVAIUGf0wPVaCy3T0EcwfKw5xFdkwvhPyDBuEu1TuD1y+fT3P4bmJWd11veEqFnw
-	pzyW/4EeEPgxAe2yulrm1wFGDKW+zyvY4L3ZlkbOYQdSl5lQqrVKlSN/BlqqcKK1J5Iu8arC79l
-	8J
-X-Received: by 2002:a05:6102:84c2:b0:7bf:74c1:b606 with SMTP id ada2fe7eead31-7d64d8abce4mr1883012137.34.1794776652417;
-        Sun, 15 Nov 2026 13:04:12 -0800 (PST)
-X-Received: by 2002:a05:6102:84c2:b0:7bf:74c1:b606 with SMTP id ada2fe7eead31-7d64d8abce4mr1883004137.34.1794776651917;
-        Sun, 15 Nov 2026 13:04:11 -0800 (PST)
-Received: from [172.22.9.204] ([217.110.90.56])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb65ce005bsm156345935e9.14.2026.11.15.13.04.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 13:04:11 -0800 (PST)
-Message-ID: <85e400f9-eb56-4d8e-b791-ad00cbbdaea5@oss.qualcomm.com>
-Date: Sun, 15 Nov 2026 21:04:10 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=0lLlcBtE;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=Xi92WCZa
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794776654;
+	 b=GywlanzW7prYW7uTCF6Ku5cFUGYBBdqKeRBwFsdf8dRXWvu10uROfG/WKFSAPKQPF6Y9b/57ox
+	  6LpeFC4Djvumq1d1Gx0Bo+mND75lL4DtaCSfjxtIMwl3rZq28C40ubkbRv12cYIxnWKxVGogId
+	  LRKl10vANHXoDHpaQ59VbOUEoYwOf4jF7FMMvC4tUpOSEmNn+Ys2Ja2+SpMpMvxiHfxLgQWzbV
+	  19m6p+cIuuxhd4BZ+kTKXZOrjRC5gzL67FPtljtWeWmCXOJXF5DaCeMyV44cMZqQP46TNQ44zh
+	  Dnaj2HmXST0x503xrQYvC7veGU7i9e+EcwEVSCEVmIzODw==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794776654;
+	bh=qvRI87OhkfV8z5niOsxk7r8wNFzHIb/D2KlukgscIrI=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=JAyGpA490hLE3oj43C+t5GT7bK+XAf9OZjiPvbaQsg0cabkqbPY32YFO3e6rjlYwUeNSTPJcAi
+	  5/dEielVkZY34HyolSMTjKozTHn66a58PrD58nsMvHG3IrGe9uvpmZKGbt28wpj6wy3/BmPi4W
+	  +ptSyvFinhwJZ/1xK0PqslZ9uzBl//cUtoAQ8eycVUOgB7FDV4jcJ9BLQdSxGZ91flO+UeeQNo
+	  oAUJngDkuP45wRP+we/EOG4ynJMtYLPvpEPin+KSyAA+Ct8LrIyu31Gr1AHrPNqU+IeES//2eI
+	  FGvRX7LN7s+mjDnC9YeVpbqgjwaB3JOOhIw+JzEn2WkphA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=KcTuZ8qvTe5vxloxi+f2kSeY+XTzTrKJaAUcmXZjzOA=; b=0lLlcBtE6bkSwCl6NYyldu33CQ
+	6swDYIUqLLkntIY74XavMT/8OFDyBoFM1UxMdL/JKkZw/xnrjMzmmmU4uPJaD+fiJ74zXUpKvEaXc
+	rtD1/wAcJ7F22eCKntRi0YpnDrrbMAJBP+TWtEn9DyT4aDSNA0EPoY8/IIt9URW7N2/U=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xShOR-00000004PXy-0zGb;
+	Sun, 15 Nov 2026 21:04:07 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=KcTuZ8qvTe5vxloxi+f2kSeY+XTzTrKJaAUcmXZjzOA=; b=Xi92WCZaOHLbVn47osgzkYrr6C
+	9hOKcav24QJfuYzYnmQU+M1aImWXQeza4vqEnkIpLMwLb/pWwN8p60GWuG1OsOVZ9492MpkiHmxwl
+	UNIBFGkhm8P2feOMxegL22sJc1cvbaZHkQdPVW1JSLgDcePt707Fy8nhdJkY1iFT1AEM=;
+Received: from [95.251.96.187] (port=63831 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xShOM-00000000Bb1-2Bhh;
+	Sun, 15 Nov 2026 21:04:02 +0000
+Date: Sun, 15 Nov 2026 22:04:00 +0100
+From: Francesco Valla <francesco@valla.it>
+To: Chrispine Tinega <dev@chrispinetinega.com>
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] remoteproc: k3-m4: Leave crash recovery enabled
+Message-ID: <avodrGAJY6tZtrpP@bywater>
+References: <20261109054830.42715-1-dev@chrispinetinega.com>
+ <20261109054830.42715-3-dev@chrispinetinega.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,132 +101,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: Re: [RFC PATCH 02/23] ASoC: soc-pcm: add multi_direction_codecs link
- flag
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261023171433.820092-3-srinivas.kandagatla@oss.qualcomm.com>
- <179476416982.140154.13934302514044276070.b4-review@b4>
-Content-Language: en-US
-In-Reply-To: <179476416982.140154.13934302514044276070.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 7f8wumXurgLtEcfi-5VgsmXpbqUc-R2G
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDA4MyBTYWx0ZWRfX3pJU18u+oGvZ
- bPNSgr6JuZaHqD/8HhOI7WTaQ0TawqGxAYVzIYG3Yme/p1bxs25LYP7bsPF6VJ42F4irrk0TJ/Q
- K8kgIxnxFpR0+bURgrpPX9Q05ay83nYJmLDxI3LjmlggaD/DAKJEuLB02hhiDLupK7HxtXKAscL
- oZNq5TXbLOORapjYuSJihKXFSpyLbhjnD4B1XylzNUolflJsBLpYFPaKlBLDsgyGlNvSUX8hnoO
- SDmDEgEfBahAfzFXZhns74C3ewDPmP63aSvUaG/IkGW7IGsxjxbFwJNcMOJNZDlT1WmQZjAHDN4
- wFOA6EK7nBh8qN799jzeyyAcQVtaNVd2XBLihCm7z5c/5LpVyq45Udy55lFQssrvxFbUVjj4WKJ
- k90MmkLDZQ1o2P4eTYQfYSnaEk/AnBMzUkPrqKsINqQnmXQ+X5h/dKfzGmxnTOPDa14dbm0hDq1
- WRAnAG7GjuTGF1eRn5A==
-X-Authority-Analysis: v=2.4 cv=TqJzFzXh c=1 sm=1 tr=0 ts=6afa1e4d cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=hzUeyGCwRGS7WCfWEAyTKw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=xKiGHf8qJV6DUAaYMh8A:9 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: 7f8wumXurgLtEcfi-5VgsmXpbqUc-R2G
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDA4MyBTYWx0ZWRfX/I0SNdr2lagH
- cPFKoajvw6i9oWGeerYE6tjM6BuPTomW8+rzPu7tRImB5yf6dGnW4ROZ1ERuh5k95fInH66F7Yt
- ILTPopSGuiDMc/K3ZzHsa7ZkX1SpU+c=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-15_06,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0 suspectscore=0
- spamscore=0 priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611150083
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109054830.42715-3-dev@chrispinetinega.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 89f2a380f271351277a7f0750beb8961
+X-AntiAbuse: ID - 89f2a380f271351277a7f0750beb8961
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xShOR-00000004PXy-0zGb-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On 11/15/26 5:36 PM, Mark Brown wrote:
->> Speaker protection needs the amplifiers' V/I sense capture running
->> whenever the speakers play. Putting the capture codec DAIs on the
->> playback BE link ties the two together, but the core skips codec DAIs
->> whose direction does not match the substream.
-> 
->> Add a multi_direction_codecs link flag. When set, the core also calls
->> .hw_params and .hw_free on codec DAIs of the other direction, with the
->> substream direction switched to theirs for the call under pcm_mutex,
->> and sends the matching stream events so their widgets power up and
->> down. An optional multi_direction_params_fixup callback lets the
->> machine driver set the parameters for those DAIs. Links without the
->> flag are unchanged.
-> 
->> +3. Optionally calls ``.multi_direction_params_fixup`` so the machine
->> +   driver can rewrite rate/format/channels on a per-codec copy of the
-> 
-> Probably worth mentioning the ordering with regard to other fixups.
-> 
->> @@ -986,6 +986,9 @@ static int __soc_pcm_prepare(struct snd_soc_pcm_runtime *rtd,
->>  
->>  	snd_soc_dapm_stream_event(rtd, substream->stream,
->>  			SND_SOC_DAPM_STREAM_START);
->> +	if (rtd->dai_link->multi_direction_codecs)
->> +		snd_soc_dapm_stream_event(rtd, substream->stream ^ 1,
->> +				SND_SOC_DAPM_STREAM_START);
-> 
-> This will update every DAI, including CPU DAIs.  That will mean that a
-> CPU DAI could be flagged as actively capturing due to playback or vice
-> versa.
+Hi Chrispine,
 
-Correct, we should limit this to codec dais, will fix that in v2.
-
+On Mon, Nov 09, 2026 at 08:48:30AM +0300, Chrispine Tinega wrote:
+> The M4 driver disables recovery, but nothing reported a crash to the
+> remoteproc core, so there was nothing to recover from. Now that
+> RP_MBOX_CRASH reaches rproc_report_crash(), recovery resets the M4F and
+> boots its firmware again, while Linux keeps running. The stop is a
+> plain reset, so it does not need the crashed core's cooperation.
 > 
->> +static int soc_pcm_dai_hw_params_at_stream(struct snd_soc_dai *dai,
->> +					   struct snd_pcm_substream *substream,
->> +					   struct snd_pcm_hw_params *params,
->> +					   int stream)
->> +{
->> +	int saved_stream = substream->stream;
->> +	int ret;
->> +
->> +	if (stream == saved_stream)
->> +		return snd_soc_dai_hw_params(dai, substream, params);
->> +
->> +	substream->stream = stream;
->> +	ret = snd_soc_dai_hw_params(dai, substream, params);
+
+This can be fine for a core started by Linux, but it's not for a core
+working in IPC-only mode, where Linux only attaches. In that case, a
+recovery action might start a firware living on the Linux userspace that
+is different from the one originally started outside of it (and if this
+is enabled by default, the user might not even notice this).
+
+> Leave recovery enabled by default. Userspace can still disable it
+> through /sys/class/remoteproc/remoteprocN/recovery.
 > 
-> We flipped stream but nothing else, if hw_params checks things in the
-> substream->runtime things will get confused.  Usually everything is just
-> checking params though.
-
-
-I think the documentation should capture this and the codec dai that is
-supports multi-directional should be ready to handle this.
-
-I will add a comment about this both here and Documentation.
-
+> Signed-off-by: Chrispine Tinega <dev@chrispinetinega.com>
+> ---
+>  drivers/remoteproc/ti_k3_m4_remoteproc.c | 1 -
+>  1 file changed, 1 deletion(-)
 > 
->> @@ -1061,9 +1117,20 @@ static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
->>  	snd_soc_pcm_component_hw_free(substream, rollback);
->>  
->>  	/* now free hw params for the DAIs  */
->> -	for_each_rtd_dais(rtd, i, dai)
->> -		if (snd_soc_dai_stream_valid(dai, substream->stream))
->> -			snd_soc_dai_hw_free(dai, substream, rollback);
->> +	for_each_rtd_dais(rtd, i, dai) {
+> diff --git a/drivers/remoteproc/ti_k3_m4_remoteproc.c b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> index 4c46f4a25..fbd2b7c04 100644
+> --- a/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> @@ -56,7 +56,6 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
+>  		return -ENOMEM;
+>  
+>  	rproc->has_iommu = false;
+> -	rproc->recovery_disabled = true;
+>  	kproc = rproc->priv;
+>  	kproc->dev = dev;
+>  	kproc->rproc = rproc;
+> -- 
+> 2.53.0
 > 
-> This has flipping that __soc_pcm_hw_params() doesn't unless I'm
-> something?
-
-Yes, this needs to be split like what we do for hw_params, splitting
-both cpu and codec dais. Will fix in v2.
-
---srini
-
 > 
+
+Regards,
+Francesco
 
