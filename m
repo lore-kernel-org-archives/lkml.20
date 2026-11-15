@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794770763;
-	b=RJUdSBE6GqBGkH/GK/ItgeA43W6rSkR7cpNWDsqs47qwbP4ZBckmgDRNves3iZ+DBLhs
-	 iRij50ymBhWDDWUY/LOlgNbicDuM0t+GOyEztXMuL7V8Vp+EZ23aJwHBNE39w4tpCE4zu
-	 UmMxJaj4LjwaqKCYnd2EGjXdxGLM9VM7tEDOBqSGSTBNnlAISlO/WCRx7m47VxSidvvgy
-	 zGQTF2qpK8vX5lQ4Htfit08jigo/UC89hCmUYkuj53K2YQKe9rpZQOx8AVTRuarAvH1Cr
-	 vPf/QzaS7d38hSuzfUl2WdhkKYpx7Z7og8Vj1aNF3IStuAI2YKImAMigIJiYk/viyxg==
+	b=qhE3S1nIWne0TlbTprI25ezULbS4toGWLEPWrcLkCPp29YBwxrX2yRNlFedQ+u1RZoQn
+	 /2Vo17k/3APVNVDI/FU4UeCQUTcxd18IOsgNCUSe/MUbjC77CjKA7mMfAt6Pa/fMuZ6EE
+	 MCmn655CyYGV07XLFLJGJkLXYvkpNZnd0Ozj5wrVv1IIcKpnfrqa0KaKC98Q2Zr+sUvQZ
+	 fKssqPaxa5CVlCEiCrXf5kJfN/s0MK0lo5lytZf2bHo9g25Sj444gGYSIs8KhetIWctlc
+	 IQqhvOa+NTkUpsgobxZrPNo4NnoHsYyT7sj2tYzrHDdVSRZd18Bj2YST9ewQHGKy1vQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794770763;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YfA12bPf4P7sGYZa/N5/B7BUHIf1k5T8Y6EXeCqRlwo=;
-	b=cpGVFiGdnt96LdsSqSTob5ShjEmc3Yt/LWkOr74XitK6aUy5jtNaWEqoMXxd0mCrmiia
-	 M2E0F3lxs9cxG5IHzewPncC5E39dhKtHdFNM0rtJECXtPFmfe1Al4mPgB6uFXtmooKR5p
-	 +d327F5bpUM3ttJGXNtJXUwLsM0PU8PiSQJeH0vp4LaQeP9St94q8ssru/3uPGlJ6KZBa
-	 j2T/CHNIA3WqE5h5LKnmRJTqIJAeshzVP6J+eEuNsz6tbtqZBtBCMzD2SmnYEVOGR3u51
-	 0V9TKMX+R8dnc0RAD8fP/gwoD/jhxBlqNqaiw7rkTAeMii6TVUE//LqIK5QSwLPjxcA==
+	bh=fxSntwja7aRJzUm/P5tC/T4QpdH99PtJwcIFZb9OmLc=;
+	b=v+JkJUJwCrOC/tqzLf8vUdd7LqlWV05HWighg+DGd9hGJ1r/iQm051F6bUpJVyymnVSA
+	 5Z6iUzRU+VGaIH3QFz5VEqRw7w9wKf6MSVpiN5qYCfheZHNotTCE4ZLmHqLE0t4Vt12cd
+	 pYvnFTvAoxSTje5T2Xy1NYgOyZQu2iNmrHUNIj50SCwwfyAkFKptr4JSy4eMlL3lzg8qK
+	 9gUoPCXGhzajjN2bVi7ooKM+8hHsBFKcixteEeZMDJpGWpxclux+Vk8t8RnwCCECGc7jw
+	 D455ySL3CmkCxaMbGUaU7CLrKaGfDNy3RRplz6SyybBTEr1q30dvqWSnxjTaMs/F7sQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bV+2jqd9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQs3Nf0Q;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCD4606A336;
-	Sun, 15 Nov 2026 19:26:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187E4606A31F;
+	Sun, 15 Nov 2026 19:26:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bV+2jqd9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQs3Nf0Q
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794770763;
-	b=VnckCZ7jTJsSdN6zquGQ0O5ntLA21xhY5kzELOpLOicBNjs/6p0VhBcDD2+b8Xqdxlew
-	 BfHcDoNGjHRce50VLyQ55kwwCHFk2vY7dR33qMuLbPPZs9JIwP2ojB4UQOzb6aNNVOslh
-	 /vFcVtqwTs0iZh4HL4Pt0rxR4JS8TnijDUWAcI5JAV9EguHqUtyAYkRr+0jRlmD8FMTsv
-	 N5uFsUTbDh7tgq2OyK+JCDDzTsQ5OPC7PYK1Wkj6UZnAGWpSze0BKI1XriuYIkDWpYZja
-	 mfRh2BGroWIQjHGv/1Fy61zI8H+LGyCrIZFBBGcjUczaSFbXYzLzwKRymjHlycT9h6w==
+	t=1794770762;
+	b=bgh6F0vWX+wcA1yZvVfs7CZNvy2mvLgVphM623n5C0dHpfqDrDjL8Njiq4TZKloqKmDw
+	 WYIm2WWbciw8AVK96kmh+uYsMNEPAjHrGNisLDo+VOHaoarW2yjUTvUJyUyQI0Uemg/pd
+	 U0+gOZNpfoKrzRYCUeptmeC4X4LTIvbJMQ3D/gDNc7D0ndzH+6xvpYX/4Gar0BJR0bpSZ
+	 A4pXedVERpAfxLfgfnNwPuIW3tjK5IohpzhmwxYSA26PqG1zriNReZgqTWWzBq9HzOj+j
+	 CNpWVxeLeJAM5PsMqo70ClS4l3xe6gE8/WDn5moQLBTDKeX6WhNtr5IAg/qS+QtocdQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794770763;
+	c=relaxed/relaxed; t=1794770762;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YfA12bPf4P7sGYZa/N5/B7BUHIf1k5T8Y6EXeCqRlwo=;
-	b=NxmeJJXXx8HR0P9/xuhIuNAJnixmHHooeo0KJekSdvCfK+KI9bSE28BWYcFkmr6XKctf
-	 Kh+7xCaRz+jFyTqRaOK+U6qqjNUsnNFLz1Ctz5+bsFb9XqeP/fHRea4Z1L72R4guXVU8+
-	 Dt8N6FwrnowmQ5K16K1YukDFngcp0Xny3BcxpIAwQgIVZpJ3koFySZJsIFYj+KOdXVyGT
-	 5GrqMCy5bB5OFqO3425hQKdPqrmBEhgkb+MG2woq9psXBaTzJ5Ou7LByc8maIS7Xb/IF1
-	 aSIbxHF6mFRRhJNOVroCO6X64xgp91s6UOXohNCSfWfwc7iyDKrtzem2PQR2c9WG+Cw==
+	bh=fxSntwja7aRJzUm/P5tC/T4QpdH99PtJwcIFZb9OmLc=;
+	b=i07MPAvEBDfB5oVH2ydh99XGRyDcEYDSi/NnDqQPYuyNEz8NOUYDQtxLiIkoM2VfIrwE
+	 /+znOpxYsTF6KPWGnJcqUnDA0mx7Zo0XUmN+DVtmp6Fm2QvrTMK9jEwiCxCBX/8q60oIr
+	 Edx8apvcaKRrniYYEWvtTumfnji11XdC37nARhs9gppv/7EGHOsKm1mqBqhneBo56tNuS
+	 HrnVuZmjhZppHDMChWxxUGYD57FLZZEhgPaYRbau0d4ORT33bhuSM2gxAjKysvFZY6/7V
+	 2Rw+uK0upMhfZZlrE3MKPbb2vXteW3Y4n6OKOT6MuL6uVGx9s8I69G9xhIWZVQAWgtQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1EC6F1F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1EA441F000C5;
 	Sun, 15 Nov 2026 19:26:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794770763;
-	bh=YfA12bPf4P7sGYZa/N5/B7BUHIf1k5T8Y6EXeCqRlwo=;
+	s=k20260515; t=1794770762;
+	bh=fxSntwja7aRJzUm/P5tC/T4QpdH99PtJwcIFZb9OmLc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bV+2jqd9bvCDnkUVxu4jPvbYkprAYUTDppRVHjFYeNnJsT2doGXlF17EZcecU2WSs
-	 L6vhBoyAhN4yxLPPIj1bpGyXw+8GSJQc2eYmqUcjc9FgbQnlHyh44otySZbmfbLXQY
-	 rkxAyYWJOffgwl/OwBUf8qHH4fD0ti7H42nTKS1Lok5ZlcPvQYo6+ntrB6jRj3lBwd
-	 WABf9a8Ei1UNGApFeiNzxReV5vjM7oNSonEq1eKA3XinJO21M9uC4EfVubWC74dDPP
-	 odESlPGSqfbXSElmhjivNWWOadSxMG36XRTrw0o2Pcn4nU2ENrK4cZhRr4+Hkfb3s8
-	 gn4rXcgrD+zgQ==
+	b=ZQs3Nf0QZifhnDXa44DENzAClLQckIxiQX2t1DAnF8l3HfhyF8TNoK4VgyoOF/2BN
+	 1OdOKBvYjySy0nwuIovsMxFrz1aozG/7FsDIUfJ0PG6KVtvusB6tKsxO4UTo7Raq5Z
+	 IZ031Sbx0gLyfJaiTpt+vQnUekgya1s/Nh9uygu4S7hABRVB5dm9hRlWdbm3wgTczI
+	 G1sE1BfTDfrCYjqJywRMJ+fFa21+diFb4xUBF1OvNuH6hScUP4haB3+7Rqfrfz7tuL
+	 e0l//kRU3JXusXWv+Ze9sYf1OZILNoW6M8V2b9EhLKmXippANVZOsbhvGU61h6OARK
+	 cYl7R9d89bfaw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9B93D4A164;
+	by lkml.kernel.org (Postfix) with ESMTP id 87BD44A15E;
 	Sun, 15 Nov 2026 19:26:01 +0000 (UTC)
 From: Akshat Singh via B4 Relay <devnull+automobilehacks.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 19:26:02 +0000
-Subject: [PATCH 2/3] irqchip/econet-en751221: Chain the handler to all
- parent interrupts
+Date: Sun, 15 Nov 2026 19:26:01 +0000
+Subject: [PATCH 1/3] dt-bindings: interrupt-controller:
+ econet,en751221-intc: Allow up to 6 parent interrupts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-en751221-intc-all-lines-v1-2-dc03a40f47f0@gmail.com>
+Message-Id: <20261115-en751221-intc-all-lines-v1-1-dc03a40f47f0@gmail.com>
 References: <20261115-en751221-intc-all-lines-v1-0-dc03a40f47f0@gmail.com>
 In-Reply-To: <20261115-en751221-intc-all-lines-v1-0-dc03a40f47f0@gmail.com>
 To: Caleb James DeLisle <cjd@cjdns.fr>, Thomas Gleixner <tglx@kernel.org>, 
@@ -95,11 +95,11 @@ To: Caleb James DeLisle <cjd@cjdns.fr>, Thomas Gleixner <tglx@kernel.org>,
 Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Akshat Singh <automobilehacks@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794770761; l=3558;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794770761; l=1607;
  i=automobilehacks@gmail.com; s=20261115; h=from:subject:message-id;
- bh=AvBYJRpDnd41ctnJewbCqRqAPcY/Z1Tf3CIjkBU4Efw=;
- b=W9ZlGo4y+FhOFrEJ8Gf7H7kaeZI2jCtb+l+YdpSYHi63LaASsb68HRvZDSypqmS73otIyflTv
- LjmPfKqpOJBDRMonApm3X/ShfbyHXeeEub3pMp7XQ+p9sm4/QmyFiPo
+ bh=Q16SqUnJq9TZKzQktewafiPW/Xjzjt1HWd82Q/C9cGI=;
+ b=0C9XBuX/ItvzSfYec1R10aS9mPoOqWbTmhE7Xy98VI55aKqu/mh7vLYTTy4wrifi4UWVaMqo6
+ EZZyS3HKfq+CulMHDanTxAozywwwbuwR4Fbk6vp4jlZaxY+xlP4gQZ6
 X-Developer-Key: i=automobilehacks@gmail.com; a=ed25519;
  pk=wYmYXn6wy/XN0edTCg6D7UtE9nYLei8mbfqydGGCdf4=
 X-Endpoint-Received: by B4 Relay for automobilehacks@gmail.com/20261115
@@ -110,90 +110,40 @@ Content-Transfer-Encoding: 7bit
 
 From: Akshat Singh <automobilehacks@gmail.com>
 
-The EN751221 interrupt controller does not drive one CPU interrupt line
-per source. It presents the number of the pending interrupt plus one, in
-binary, on the CPU interrupt lines IP2-IP7. In VEIC mode the CPU takes
-that number as the vector, but without VEIC the driver chains its handler
-to the first parent interrupt only, IP2 in the existing device trees. An
-odd-numbered interrupt then never interrupts the CPU by itself: it is
-handled only when an even-numbered one happens to run the handler, which
-on an idle system is the next timer interrupt. That covers the frame
-engine's QDMA (21), xHCI (17) and the first PCIe port (23).
+The controller is not connected to its parent through a single
+interrupt line: it presents the number of the pending interrupt plus
+one, in binary, on the CPU interrupt lines IP2-IP7. A CPU in VEIC mode
+takes that number as the vector, but without VEIC each line is a
+separate interrupt, and the controller has to be chained to all the
+lines that can carry it.
 
-On a Nokia G-140W-C, whose 34Kc does not report VEIC, this delayed
-received packets by up to 10 ms, and ping round-trip times to the device
-cycled through 1-11 ms.
-
-Without VEIC, chain the handler to every parent interrupt listed in the
-device tree. One interrupt usually raises several lines, so the later
-runs of the handler find nothing pending; don't count those as spurious.
-
-VEIC mode is unchanged.
+Allow listing up to six parent interrupts, one per line.
 
 Signed-off-by: Akshat Singh <automobilehacks@gmail.com>
 ---
- drivers/irqchip/irq-econet-en751221.c | 33 ++++++++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
+ .../bindings/interrupt-controller/econet,en751221-intc.yaml      | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/irq-econet-en751221.c b/drivers/irqchip/irq-econet-en751221.c
-index 2ca5d9018..5930c67c3 100644
---- a/drivers/irqchip/irq-econet-en751221.c
-+++ b/drivers/irqchip/irq-econet-en751221.c
-@@ -18,6 +18,15 @@
-  * When VPE#1 requests IRQ 30, the driver manipulates the mask bit for IRQ 29,
-  * telling the hardware to mask VPE#1's view of IRQ 30.
-  *
-+ * The controller does not give each source its own CPU interrupt line. It
-+ * presents the number of the pending interrupt plus one, in binary, on the
-+ * CPU interrupt lines IP2-IP7, which a CPU in VEIC mode takes as the vector.
-+ * Without VEIC, IRQ 21, for example, shows up as 22 = 0b010110 on IP3, IP4
-+ * and IP6, so the controller is chained to every CPU line listed in its
-+ * "interrupts" property. Chained to IP2 alone, it would see the odd-numbered
-+ * IRQs only when an even-numbered one, such as the timer, happened to run
-+ * the handler.
-+ *
-  * Copyright (C) 2025 Caleb James DeLisle <cjd@cjdns.fr>
-  */
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/econet,en751221-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/econet,en751221-intc.yaml
+index 44c09785e..098fdeaa3 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/econet,en751221-intc.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/econet,en751221-intc.yaml
+@@ -34,8 +34,13 @@ properties:
+   interrupt-controller: true
  
-@@ -145,9 +154,12 @@ static void econet_intc_from_parent(struct irq_desc *desc)
- 	pending0 = ioread32(econet_intc.membase + REG_PENDING0);
- 	pending1 = ioread32(econet_intc.membase + REG_PENDING1);
+   interrupts:
+-    maxItems: 1
+-    description: Interrupt line connecting this controller to its parent.
++    minItems: 1
++    maxItems: 6
++    description:
++      CPU interrupt lines connecting this controller to its parent. The
++      controller presents the number of the pending interrupt plus one, in
++      binary, on the CPU interrupt lines IP2-IP7, so it can be connected to
++      up to six of them.
  
--	if (unlikely(!(pending0 | pending1))) {
--		spurious_interrupt();
--	} else {
-+	/*
-+	 * An interrupt usually raises several CPU lines. It is handled when
-+	 * the first of them runs this function, and the others find nothing
-+	 * pending.
-+	 */
-+	if (pending0 | pending1) {
- 		domain = irq_desc_get_handler_data(desc);
- 		econet_intc_handle_pending(domain, pending0, 0);
- 		econet_intc_handle_pending(domain, pending1, 32);
-@@ -461,7 +473,22 @@ static int __init econet_intc_of_init(struct device_node *node, struct device_no
- 		if (ret)
- 			return ret;
- 	} else {
-+		int nr_parents = of_irq_count(node);
-+
- 		irq_set_chained_handler_and_data(irq, econet_intc_from_parent, domain);
-+
-+		for (int i = 1; i < nr_parents; i++) {
-+			int parent = irq_of_parse_and_map(node, i);
-+
-+			if (!parent) {
-+				pr_warn("%pOF: DT: Failed to get IRQ %d from 'interrupts'\n",
-+					node, i);
-+				continue;
-+			}
-+
-+			irq_set_chained_handler_and_data(parent, econet_intc_from_parent,
-+							 domain);
-+		}
- 	}
- 
- 	econet_intc.domain = domain;
+   econet,shadow-interrupts:
+     $ref: /schemas/types.yaml#/definitions/uint32-matrix
 
 -- 
 2.43.0
