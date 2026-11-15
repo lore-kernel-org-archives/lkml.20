@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794748383;
-	b=RhepWzx/3b+9uB96m5H+GhtFoUoerS8q7Ux0z1lGfnImi4ShGu9WWYHeT0OLxqYPdn4i
-	 RfL4m3VwiqileZ3fO/m26tK1tKuHq+MP+uf5MLDws7Q/KEKMndrzPJtzxr/zbRZjX6dEp
-	 SQJssW8+D+WSp4a/eYY4e39gjakDCZ7CKcwzirAxbZ3n/+gj3ZfLYweh3QEGP7g1Dh6SR
-	 Jao35FxDpkB6RQegtcRsq3CStjeIgvL1JD1Xg3Oo1Hi5E6KKo8Wh8ZIoMWfp0pjVs8wv7
-	 GMTADJf8Kseo4/zuu/wO3iMdWP2/sFZkLph6Kisdo4EZEkpH0OerzWblzWELXCrTl7w==
+	t=1794748470;
+	b=47GFq3TO+X48r9+xh4lhODOxTTW7hCd7hwEBLqJomNzzuff8cuOWvvq0gYdvISsAx/RH
+	 RZlBFpf2jyeUvG2tkeAREe5j1WOVHqTtcmPRTITzj44FzjkM9SuUHF5//Tn0WB8oRTcqA
+	 sBDQqn99M1tgAaUvxfJ3eRfQ70rjzGi03BXGXNCQa0w0ube1CNuwGRhfLe8vtwHkq+5Lw
+	 mR9fcf70YCHprLXuI/G3h4Co5YZ0D2/M+PUDE33cKL1G9KpxwOis3JPgYvC7cVodE6LUD
+	 yezqYdu/L0lTCa9vrfXRX5t3YvqZ6a0V4/LaNpf9fKwyOiwd1md4CXS5pwiazidLEEw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748383;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IqR561dWiplqXUp1PMLGBdY5P8lIwtM8j4jl0EFni5Q=;
-	b=SE/mz0XFPfSbWK9iO9iDlxxQuVcHnJdM2O0Wamk57e+69Q0N6Hidr2IaeKkHYyu077Ew
-	 Yj3m/Tl76YYatkYx5p4vYyclUI0fboen5i+bJlkBo2tl8d9WWJegfXmFOVc1d8PGBssZc
-	 RTbGybZBhdEWgpqyo26Zski6oxQDIyhKEIgdmM14dHWLu6FroFdxpGuxy5mB36R5DPIx5
-	 BGQ0utdWQhZ/zK7W/hDg9v0Nqi654nubkhNiSG6bKe2xXllO5cs5LjfoK3MBPZV0QJcZ6
-	 m16hmidBZ9NkR3bOn+5KVtEj0S1J2se3h/2XpL4kqzHSVMw0X7z04dTmazQN1aSlppg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748470;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=bYXlSXwF9wJwvPJhBMKm32XKxPsyax9Z7BtZtS8oPks=;
+	b=3BGE2GETEreHxO9aaA8dsusk1aB3NQqyfMpr9F44B/toqxjHxj9Agrf2xQ64761OY2ED
+	 6yusMVi2KXy/84MwKG0ooVif9Rsu0rNtp7os2m8xEqfnbGUpo/VNabJEJIjUt+AmscwjF
+	 HZm+EJl3XtZ/kirYvrGEnAhjKOS7L5Zgfxjky4gSDoVwHss6U91ufUR5nXqoGhe21LeJH
+	 TlU8XmvJjnhiOcPk12vkrZcKDNG5OuK8iVYCpJXiBdtpsKCidixnaUGwzHtf3wbG/GyPD
+	 P6UlbtzfEAxPUqXpKlw5TONRDgqDQ2GDjjikydAcQAAURAgl8F2AO/Pke+XUIEU5Zhw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJAuXMgc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA622606A31E;
-	Sun, 15 Nov 2026 13:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJAuXMgc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794748382;
-	b=YUMDaxtYaKnTDtTrUrC8JpkhAfk6EfuC3FcLXU5KbbxxJ+lnVorlsv9saBsddQpsFbSd
-	 MG1az+RV5ZIFxYMxoY+eGo9hGlpH2KyU0Z00G9CldbrWuVQWqctofHvVJRDQLlXRyHtjY
-	 H5Hc3V2qea+rLnzOwe7We2iGl8yAjQdjsa+rYlWejFCNZahDyeEcRoNqNJzTkZd940xDr
-	 BwsdJm/R/J5eYjGcajMa0QbvI25tOO+L2eORNIr0ETe1w23tUDmyw6rcw6DqER84Ns0lR
-	 bxibclKUfA0eso0pET45uuXJc5IQV/Ju+5B3pePyO74KjdA+chKTFMWDt2WzqBlU6EA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794748382;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IqR561dWiplqXUp1PMLGBdY5P8lIwtM8j4jl0EFni5Q=;
-	b=1yyRud+L+rYKtwZ6PO7D2QJ8P7vTG2Mfx+nijfhYAerqxx4OtSBrOagyfE4QVRmwn+kS
-	 gN8lHPHi1otlue1fFiQ6kIoHyJBU7/bOrVKKsKz6x9rQv9k7gVZflGZrCf8JUuAIEp8xM
-	 HpOlyvQvi3FUpRCC//FuaUpguLEiSUfceYHjLQqnY1eD3FIMvgbvCEpd0Iotibvb1n+SP
-	 8H1MCQsAs34HAErjcMUYMuz4eFsQN/tZnRRGs2VwK2NBPNbhj9yFNuJl5HUyz+DE0wcei
-	 +6iXtrcX7rYgbLdTo6IHWwJ2BZExhUb3cVYcAVcn5N2itmQ1CQYJCSmv4jRSIK/WIiA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vzS0tOez;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.50
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 14F661F000C5;
-	Sun, 15 Nov 2026 13:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794748382;
-	bh=IqR561dWiplqXUp1PMLGBdY5P8lIwtM8j4jl0EFni5Q=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=IJAuXMgc3/CrVFvtvJGHJ/gPL2mdVN5ctgD7Lp2r4pLqY2YIWRbpQmQcx5dZSIB6B
-	 9L5KtDAifjS4jFFDpJqDGFL6MgcpYHN1T6oVlWcfuNDN1UUZfZHpMXorYs4s4Hh7pJ
-	 VBhNS/I3/UDpchk+OS2uOIoCz7QbTQ8slEKNMhw5VA/4hgH4gUGpibYycB+8jAJPAH
-	 7LE4yp75z9xbw/gnbObKKVZsaXIteIV2TGFghAr9J+nWrMzp9J9HMQBOyMNURDn6sL
-	 eXzcS1KFY4tm317BYu/Y7d97gK7JDVhJPF5CwS5ainxK8hNEIVNbnZ3pJRoCObX/LD
-	 E0zvBA7dWlbvg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 99DE44A0A8;
-	Sun, 15 Nov 2026 13:13:01 +0000 (UTC)
-From: yzddMr6 via B4 Relay <devnull+yzddmr6.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 21:12:57 +0800
-Subject: [PATCH] ASoC: qcom: q6dsp-lpass-clocks: Set driver data before
- registering clocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8E4606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:14:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A8E4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vzS0tOez
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7d2dbc0a8d4so740899137.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:14:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794748469; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DIYSQYOBhSul4cGYhRghD7cbIeNYSlWqmVKJh0eKoOuKdtPAJCzKKJhQOenu9jxuRO
+         BSb0m4qjXRZyLbcCibEo16HRNvlC/2EEIGiY6rdA+4QsHaaxEoKqvDcTmMuIAkT1zSEN
+         Gb1/tM4fl3LXy7PLm8G2s2upuhra9skEG9rYB9UuhWvd9K/c8cygBYjRDp6GtweAmrkO
+         w1wTlm8dlpYcSeiKAv+9v36uWcwQqEclSQjZaEiFrDyicemmX+n1bKuRfllmHeR6gP+D
+         ZK0rLDGUAnQxEt105JW9Y+0mGTVQYZKG5+2yWo5wpKBzLL9hLh4cI8hSXT/ig5kOwd8n
+         U9oA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=bYXlSXwF9wJwvPJhBMKm32XKxPsyax9Z7BtZtS8oPks=;
+        fh=RMW3r7d3PE15AvVF0Kz/jZWSnabhiFfQNVImTRDidcQ=;
+        b=TMWsAiTV2BJmmg0DtWj2UtmrMoca9IdKjQawMQDmTFpSxtdUUZpYgzNUTL5pEqWBRj
+         3zAWxmK7mZs0nJn35c/0jTB+CiaQSIwHDBzNC94TpONNXDJ7IYnvvH00EYpCNEZUiBIP
+         zenY0ikPo702tNte3HVsi7j2+/0u1xj5IYYk6vs78Q6hU14q3xZ0k/gnO8EgN8FmzhSj
+         Bxp6f/+eXNdW9aiDUIvg42f8l6A3EaW1OnCIVVwO75dO645IyQYiL+88y08ke1WBHpEG
+         GZwoojPabOPbBcSqRthqIm788w9uyWcX/xKy9yTUUIKYDimylHgPdKuukCrMVbjuTfqZ
+         S2sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794748469; x=1795353269; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bYXlSXwF9wJwvPJhBMKm32XKxPsyax9Z7BtZtS8oPks=;
+        b=vzS0tOezwaJfJKM/ugPXfbwXZeMAuY8izOXYyvEuIr+NYPL9H2n0d27ZB7jGHKiemE
+         YKIdO+a/tR/SjXqkPGjtg7XZe5j4zm9Nxa7LYI1GFtcrdsHOO49pcqQCS3MuYHgLCSvO
+         CeOtmmVwOuG1jhHm9N2c69lHwt0kj7Fg05U45eGW5/jsXB25h1psxaRVstMqZilHxcRm
+         GRY2Jvk7UXhOJWbDLF3P4CQP81jyeiR6RSG2R92xrHf8XitWJ6XnzpvakU5vina1SFvz
+         QrGY/sGTtX98WMiQJ5RWQHRyKc18oGSTOBbiH1i2yIxZ3oXOWLvzvrmmWCEKd9ybawLG
+         PQvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794748469; x=1795353269;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bYXlSXwF9wJwvPJhBMKm32XKxPsyax9Z7BtZtS8oPks=;
+        b=TZIyu6ZsvlsbN0yTxg8TmvMJyq7UmMLkRp0tYCYVaXPmjhugMABV02Ue6xBN9vpDOU
+         G7JwaN79nMLWIAgcAdyjLZlOkEI8hpvlY2p1GEvaxlAtP7uljHQE9wCje+tv8O6z/DW8
+         ammlrLInNR7GdtVrrz2LE9zBbsWobj92wy/nrGQs7Lm5vKY79f7A61xzy8QYogYYr41G
+         0LmsDZQGz81KRh1RYRgsSkcdb6mAfsiAteMmAYlr5JALoZn9AYuSLy21wD7mmvQtiXFO
+         PCGFjG+S8r1mAIw4iGl4zVJBz2Y1UvXIpO3ZODTn3hTXDxqhUkBsvTMB5wl5Ex0pMoMo
+         nciw==
+X-Forwarded-Encrypted: i=1; AL+hErHyGVP/Gi3uZJdalH7/fBrO/YspFy8mSMZOO7bIwVo2A9QCTyKVR0pchTMHeYkgoSHKk2rLIR6gsXHblEw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rNCt553N6KuGKNoBI22o7PJWREemOrwJzjjtvtcVZ6BCmuemk
+	/uO8btH9Z9GQfAed3+PKYz9GbBb80XCWRWHtSqQj2rBImteve5LwSS2LXYpQFJ++VJZ9dLMIojW
+	IltqHXOISr7qAAHZD19AydmEiNuSLgPyQig==
+X-Gm-Gg: AYBFou0633jinGbUDJuE9YSuG42D2w5RedgvtOAQhAI+bO2bW/ZNROwbmzUYj7vSiev
+	KmI8FiksHIIjtWKdozLeJ7IgzW4miwCZgq+/890X091j2ANgMjT47wEQ1o/5HlbCU7ebbByZZiL
+	fK7MxQ9a+Vbt49OMHZBmnFFxENDoEie6R5kgO+dFwWXj8+ymIY7WF1FqFXm7IkNavchdL4T7wtn
+	nw5TG5kaQ0m5cAhjm1FtbgiO19BevzuSLRhx+86yDpu4QHLQ9JvTmJos0RCRr0f+0jMsawwR4Wc
+	gkGHt43PSSIGW7pFYWyWh1VC5z9xgxMmA+fMRU3h5rqmcHGD+DYO9Z6CGt+E2JJVv0Xt94p9wUa
+	qqvhSoHL/E2H7zfbmanYWxdEU2+VZ04+gbxqdbeFde/F0f+z3wzaYfqGaMg==
+X-Received: by 2002:a05:6102:4412:b0:7c3:68c9:d24b with SMTP id
+ ada2fe7eead31-7d64d767b54mr1875312137.17.1794748468894; Sun, 15 Nov 2026
+ 05:14:28 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sun, 15 Nov 2026 07:14:28 -0600
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sun, 15 Nov 2026 05:14:16 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,144 +105,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-upstream-q6dsp-clk-drvdata-v1-1-4d7dbea52e52@gmail.com>
-X-B4-Tracking: v=1; b=H4sIANiv+WoC/zXMyw6CMBCF4Vchs3aUVgLiqxgXvQxSL4Az0JgQ3
- t2CcfmfnHwzCHEggXM2A1MMEvouhdpl4FrT3QiDTw0616VSqsBpkJHJvPBdehnQPR/oOXozGqS
- 89rpq9Km2R0jAwNSEz4Zfrr+Wyd7Jjau4PqwRQsumc+06/e3DtsdqXyA7DcvyBbn5X9OnAAAA
-X-Change-ID: 20261114-upstream-q6dsp-clk-drvdata-e09d27f289b3
-To: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, yzddMr6 <yzddmr6@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794748380; l=4515;
- i=yzddmr6@gmail.com; s=20261028; h=from:subject:message-id;
- bh=IhpdDzjG8SfUTWw69Q02/8xD6GDVJahHeSuoz5N6di4=;
- b=1VjHJ+3hckZdc0O+FuL60XGYogx0ZxwJhD+VOXHMKTe3EPdoyEnpqTWiIqO8cOPhscKIRQjan
- UBcaxw7PFcQAtzV+3B+D6bnxJHIYHcKVusuuFUHGEN5vOJxUKkfxkEN
-X-Developer-Key: i=yzddmr6@gmail.com; a=ed25519;
- pk=QLT2mwairk4R38oU379hkHynqjoLrlqd0Cl1ERUqIqY=
-X-Endpoint-Received: by B4 Relay for yzddmr6@gmail.com/20261028 with
- auth_id=1489
-X-Original-From: yzddMr6 <yzddmr6@gmail.com>
-Reply-To: yzddmr6@gmail.com
-Content-Transfer-Encoding: 7bit
+From: enderaoelyther@gmail.com
+Date: Sun, 15 Nov 2026 07:14:28 -0600
+X-Gm-Features: AclHuK--EdPjoiSIYzc81ErX-WgozmFnctLmEz0c5VmUm9mcp7XJG0KbBCaY5Mg
+Message-ID: <CACHPgzyxGEYJVCyGH6GJBvUdqG8zsfyRn5zxDiuj14tw3byXBw@mail.gmail.com>
+Subject: [PATCH wireless v2] wifi: mac80211: parse wrapper TPE elements
+ without an extension offset
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: yzddMr6 <yzddmr6@gmail.com>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-The clk ops of the q6dsp clock controller look up struct q6dsp_cc with
-dev_get_drvdata(), but q6dsp_clock_dev_probe() sets the driver data only
-after it has registered the clocks and added the OF clock provider. A
-consumer that gets and prepares one of the clocks in between
-dereferences a NULL pointer.
+Commit d160663ca2fa ("wifi: mac80211: fix TPE in channel switch wrapper
+parsing") replaced cfg80211_find_ext_elem() with for_each_element_id() for
+Transmit Power Envelope elements inside a Channel Switch Wrapper, but kept
+the offset that skipped the Extension ID. The parser now drops the first
+byte of each element and misreads the rest.
 
-fw_devlink does not keep consumers out of that window. The q6prm and
-q6afe clock controllers are described below the ADSP remoteproc node,
-and their devices are only created once the ADSP has booted and its
-GPR/APR services have come up, long after the remoteproc device has
-bound. fw_devlink therefore makes the remoteproc device the supplier of
-their consumers. A consumer such as the LPASS LPI pinctrl then just
-defers until of_clk_get() succeeds, and its retry from the deferred
-probe worker can run while the clock controller is still in its probe.
+ieee80211_parse_tpe() takes a u8 length, so for a zero-length element
+0 - 1 wraps around to 255 and the parser reads past the element. Received
+beacons are parsed this way when the BSS table is updated, with or without
+a connection, so a frame sent over the air can trigger it.
 
-That happened once on a Xiaomi Pad 8 Pro (SM8750). While the LPI pinctrl
-probe registered its GPIO chip, gpiolib read a GPIO direction, which
-runtime resumed the device and prepared its q6prm vote clocks through
-pm_clk. The prepare op then faulted with a NULL pointer dereference at
-virtual address 0x350 (trimmed):
+Pass the element body and length unchanged, as for a top-level Transmit
+Power Envelope element.
 
-  pc : clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common]
-  lr : clk_core_prepare+0x7c/0x298
-  Call trace:
-   clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common] (P)
-   clk_core_prepare+0x7c/0x298
-   clk_prepare+0x28/0x44
-   pm_clk_resume+0x10c/0x188
-   pm_generic_runtime_resume+0x2c/0x44
-   ...
-   __pm_runtime_resume+0x50/0x94
-   ...
-   lpi_gpio_get_direction+0x4c/0x8c [pinctrl_lpass_lpi]
-   gpiochip_add_data_with_key+0x7b0/0x10dc
-   devm_gpiochip_add_data_with_key+0x38/0x8c
-   lpi_pinctrl_probe+0x2b8/0x320 [pinctrl_lpass_lpi]
-   ...
-   deferred_probe_work_func+0x88/0xc0
+AI assistance was used.
 
-0x350 is the offset of desc in struct q6dsp_cc; the driver data pointer
-it was loaded from was NULL. The oops left the clk prepare_lock held,
-which blocks every later clk_prepare(), and the system did not finish
-booting.
-
-On mainline the window is short, but it includes a wait for prepare_lock
-in clk_core_reparent_orphans(), which of_clk_add_hw_provider() calls
-right after listing the provider. The kernel that hit this had
-out-of-tree changes to drivers/clk/clk.c that do more work at that
-point, which makes the window wider.
-
-Both q6afe-clocks and q6prm-clocks use q6dsp_clock_dev_probe(). Set the
-driver data before the first clock is registered.
-
-The oops was analysed and the fix written with the help of an AI coding
-assistant.
-
-Fixes: 9ab71ac37240 ("ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file")
+Fixes: d160663ca2fa ("wifi: mac80211: fix TPE in channel switch
+wrapper parsing")
 Cc: stable@vger.kernel.org
-Signed-off-by: yzddMr6 <yzddmr6@gmail.com>
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
-The kernel that hit this was v7.4-rc2 with out-of-tree board support and
-other changes, including the clk.c changes mentioned above. The oops
-showed up once in the 23 boots of that kernel I have logs for, and I
-have not been able to reproduce it on demand. The patch is build-tested
-(arm64 defconfig, W=1) on the base commit below.
+Changes in v2:
+- Preserve the author name in the mail metadata; no code changes.
 
-I used an AI coding assistant for this work. It analysed the oops,
-traced the probe ordering and drafted this patch and changelog. I have
-reviewed the change.
----
- sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Tested the in-tree parser with a ten-case KUnit extension under KASAN,
+applied identically to the base and fixed kernels. The base fails three
+decoding cases and reports a slab-out-of-bounds read for a zero-length
+nested TPE. All ten cases pass with the fix, without KASAN reports;
+the existing TPE suite also passes on both kernels.
 
-diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-index 94d96130245e..c3628f90fdb2 100644
---- a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-+++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-@@ -146,6 +146,12 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
- 	cc->dev = dev;
- 	q6dsp_clks = desc->clks;
- 
-+	/*
-+	 * The clk ops look up cc through the driver data, so set it before
-+	 * any of the clocks can be prepared.
-+	 */
-+	dev_set_drvdata(dev, cc);
-+
- 	for (i = 0; i < desc->num_clks; i++) {
- 		unsigned int id = q6dsp_clks[i].clk_id;
- 		struct clk_init_data init = {
-@@ -174,12 +180,6 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
- 			return ret;
- 	}
- 
--	ret = devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
--	if (ret)
--		return ret;
--
--	dev_set_drvdata(dev, cc);
--
--	return 0;
-+	return devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
- }
- EXPORT_SYMBOL_GPL(q6dsp_clock_dev_probe);
+Compile-tested with no new W=1 GCC/Clang, sparse or smatch warnings.
 
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261114-upstream-q6dsp-clk-drvdata-e09d27f289b3
+ net/mac80211/parse.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Best regards,
---  
-yzddMr6 <yzddmr6@gmail.com>
+diff --git a/net/mac80211/parse.c b/net/mac80211/parse.c
+index f3c5a9f6ec7c..7564d655919f 100644
+--- a/net/mac80211/parse.c
++++ b/net/mac80211/parse.c
+@@ -698,8 +698,8 @@ _ieee802_11_parse_elems_full(struct
+ieee80211_elems_parse_params *params,
+ 			for_each_element_id(subelem, WLAN_EID_TX_POWER_ENVELOPE,
+ 					    pos, elen)
+ 				ieee80211_parse_tpe(&elems->csa_tpe,
+-						    subelem->data + 1,
+-						    subelem->datalen - 1);
++						    subelem->data,
++						    subelem->datalen);
+ 			break;
+ 		case WLAN_EID_COUNTRY:
+ 			elems->country_elem = pos;
 
-
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+-- 
+2.56.0
