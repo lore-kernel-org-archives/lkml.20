@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794706500;
-	b=km2hqpveayKkWtqF5TeZQ+dWmOZyTrF12nBK4gP4e6Ksl6fjt56Z7iOBKi6khsxUJ0Oe
-	 rgIU8RAde8d9K4hE0b/3bvSw5ne8FhQJZ7z/QmgGO5vWNaxjLG/nCfI+Mz/b+L+aJ2sw5
-	 Quv+wvhMWgk4fk0AacfSPKXlwJwuK32nO3XH6du+Gx5bGKoa0GA3tb3VIiuBNOzJnEXbS
-	 duURmyNjgGbKSpU/4mstiHddyqB/+18P0dBuO4bWzSDk9dBrgbyTEolPfvsk4TU7wP+dp
-	 yYcWXx+n1EE97Z6F4V+aBQJHtHpEfDbuNfqo7tMOB+hJUhKp/JD9Ah6ks2yaSiH4iLA==
+	t=1794706501;
+	b=2t01IIT8kuiTc4utscEFs63LWfFLD2+qi1djaeMxw0sl6uNUEmuVIjiIVRE80YAAq2IX
+	 2/37/82D4kCs4AQRBP1CBT5K2VzBfHcjUSqTNhgHwoti5dl3D6AJ4Ue02diHYTanExmKB
+	 HlWIo0W/vXgMqiqyzLEaFJtlkndqXi81KaSdNvYpMA/B1vSw9aO5nkHVyzjA11B3BA993
+	 haMNKjoRYpX2K2e1ApZZrv2oW3IijSQvwTOIevfUZGu+qMMCtBEJ6/JYPWoyYSd0WOGzI
+	 7UYPqfUj/iWB2++cHBHMr2SUaAzsOK3ABvXqz2Jlkl4LQtrpPgd1biOCdfozDlk490w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794706500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794706501;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OczTFag+4rrpYiC7SwR0JFMdaa1DWemeh7STu5Jts6Q=;
-	b=okDpBwrXl+Jjco6szYrvPxhv2D2CxzzU1QLXoKANEHBatKinyEUNFdcq9FRyHtD59p4i
-	 bSE8TssIFby5UXpR+uDMDrr+ErkN7zr+g1yHtv9fbNZFKyUen2NznJzJR0znjH0wjfNKp
-	 wLUK8w8nF87w3Wt0UdELgCXNBYa/s8ejB+PoShMovK5qphY0480XMNJXorRiXdQzrc20W
-	 tiHGUwTY5MVgEMNlRpKWt5NSpTvv962hv0QW+IPABw9KKAw66a4kHi7+FKy9xUjmjcVJs
-	 WMNi1GOKV6jf2cXLF2e9HZMVSo/J2kalb/Fkp4xlsCpTLZiTF4i1+IFjystw+Zr/cww==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CRGAUvOGM7cXeBiNifNubn0WANT9Nl+imZXj5mUQRV4=;
+	b=AmKidPXl/wSu9cSob7T5L+PN9ehIX6U8r5r2K82thCo7svNcmRhskelsA+s/FKmeB8+M
+	 TyMY6HGAPysZqo2O9JE8NWkhdvSChFoZzsAaklIAs6VtqQHum9kzwvTtYekZLMsj77EzR
+	 pwLTV9XOCZhJA1LBcADdFZEJRQ+NLD0e34z1jZbeWhEu8YMVGDrEztzdsPg80KmNb9F6f
+	 Xl8fbaxHmxoSQaw2pcS8JZLGcb1enzFPr8h6Hpy5iH2GuB2C6dnSFKfTLQu7Y35+74pYL
+	 lBQfBrpjN26OfLamX4uQfFjhi6oBn0S1D9qNwaMOIVOvK74MFx+pmeN8QXDRdUMu7yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eRMikMdE;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L7Z9GksH;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C184606A33F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C184606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A118606A882
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:35:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A118606A882
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eRMikMdE
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e987a2ba0cso12383335ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:35:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L7Z9GksH
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e95bd1c14cso32204625ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:35:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794706500; x=1795311300; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OczTFag+4rrpYiC7SwR0JFMdaa1DWemeh7STu5Jts6Q=;
-        b=eRMikMdEzKDARPSpg40y/hYEod3qTu+9jV9ibYgtAcaPEeQb+6r4XjXEr1rR5DUmKJ
-         UN7qX/dL9Q451OFC206rCvr0htXc8ihh8+CIunjseBO1Qj+uSofuJlXFHQCj3n51O4gB
-         Wa1wiQKAWB4fRd6QqPQ4AJ6TJ/GDj+zlMxatLqlmecR95yi7C5OxcIC9mzvfO0vp54WZ
-         egrXTmIgFN57tkACvP/M9BYaWgj/pJ5agFKdRdsy8MQrYNP9TxFKVjhAujikujSI1MdC
-         DRzHm51qMfW8DbqBlhMwHILziOHSrrSQu2XfogXU86g14xv1jM6UHcV8XZ+pdoGwgDMf
-         bbWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794706500; x=1795311300;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794706501; x=1795311301; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OczTFag+4rrpYiC7SwR0JFMdaa1DWemeh7STu5Jts6Q=;
-        b=LwzMFTQKKEOZ3QmoxBgDR8+YX42s6vIXiZLmEhWxRN+g0PqSV3v0EZB89f8V8sZf7X
-         TuLMY25g8QUh1ch3wX2qgO1G1zIJl+y1FgAtqPxumYA18tQhiM0u64HiZ3ipjGkQf3Zg
-         J6PbvoYXBOprtzMpSbd6cjecJKbhYCwizW6OpeMz0tO46ieXFVUmHoY1XwfPgNOj4Iq/
-         2rFZ3Jf5cDAqjOjmU4Vj/qtSuW0bf12I1m4a85/LY2dPOAxuogSdwGVsOLGBw7lGyfzx
-         3dH4YAe8C6R9oEtLJ+IcR1VGUUQJ9XMwkTxQ3XV6ToFke0KxkjvTG4MnxVM6cwF/mlWO
-         E3wQ==
-X-Forwarded-Encrypted: i=1; AL+hErHz5F5IwUXqG2o1WVKXe4mZhfbo5gR/2AN2oVPzIx8qY5/rLErhU6PMYEbfiaKmxyF4e/U/o22GD4ijrl4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mhw3mnuJeJDKAqyFb49fpreSOb1IqZw+VFls5FW5uEIodVlRC
-	vaZJo1IhEtPS9MmPm4D2Cwn+xw38ZZME22kPTqcgqL3ZAgj8dbbCih3Z
-X-Gm-Gg: AYBFou1m21VTuB9kKrgBo4gwiV+AZJYyjKUC83yr178dYKiBcqxRf+GZYGX2r3cD3BG
-	sBw7BPQSMWg1ZP8qTsoUI+ppNy6riA9yJQ2lY9cUB9WQc2sTqAGvQYLD0dxjyJ3yN2HnZFVdcu/
-	ZMdaW6prtdAjThgmhC7hKlTK9L2Jmk7jXb/U/JBz/A1LU6ABPPklQ+5oenL+j3gkwZklekwADae
-	gEQs/OT5bxSAKqVfnJk93BLPHGIf5lJ5XdQzxd3TehAhOmk5Ny3Wl/oN1n5O5iaBBrOvjON95vH
-	VKdpZX/nSzELTGCOZvScKVbXrzOTI7uRcZ51UYcknykf3Xk3VZPgqh7wl9Y5eGL4kQFbF7A6oZX
-	0yTRWikm5Tu2Wy40L4K1a3evl4nYRUdL8go7TRuysowzyUrvqODrTv2/u69anist5dI/RimN4f6
-	GftNIVAKh2agvVdwPzEeRN+XDYdDyUrhSeHasYpH3A0kZaHyIikXKmIe7LtfE3B8jgJzg5m3XI9
-	g6EbiLdJYh4TqTaao075QiGUa9LBbliLa15fiQFJEUy0EBGzQ4/15L0vW0cQvHHB/+WBO+gfMhH
-	3a7j5mzQ1ZU5iHzBloknHF7UGNXrwj64VjyHA69bK1L1m7JlbOlKCwhmlzNGhP7LEGG4NTfscBl
-	ZKz/piArnGFM7dgBXuEwdNM5jTy3SkyOylmngDjIpuEAZDZ29kV6DgbdQIHA+1o1MpAgpcNug5N
-	4nG6PIeJMQFe9wR8lBAv82O12HFj6VZsWhL1zlEGpG5CZgJx0qH0KV72COtj0+Fg==
-X-Received: by 2002:a17:903:3c2e:b0:2ed:3f47:9691 with SMTP id d9443c01a7336-2ee0dc05bc1mr66811655ad.42.1794706499678;
-        Sat, 14 Nov 2026 17:34:59 -0800 (PST)
+        bh=CRGAUvOGM7cXeBiNifNubn0WANT9Nl+imZXj5mUQRV4=;
+        b=L7Z9GksHVQp6Gvhb1y7Dp1+wrzgzxQeF609lfKbG8erVBH8cWqLDDYDQ+LCpK/PpMe
+         eFLIUVzl0Dt6RBXN01kpQO/iyjLHhudWnfNpLN01Bk6f+0DOlzg7sJUDzeeD9byT0vnL
+         2b0CgqzT1w3QRw70UtYWIMcxpJRassQU4JXxwjnRjw+LhfrZ6aV6WPpfpvA3H17+fCgY
+         Z+Wqp3cZHgmjZ/VsLwiuDvmhotmDocgHyC9tnp6pjKdbeZgsMyDX/5go7INkFwuz8sjR
+         SR8LZ+RvnCS6vfvIhD8JIMx4nu6978l0bLUxsYg251DBDzzQSOy6gB+QUIVsW0PW1B0b
+         0Ssw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794706501; x=1795311301;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CRGAUvOGM7cXeBiNifNubn0WANT9Nl+imZXj5mUQRV4=;
+        b=UGjXzJrbxsjN0D+d/zyVn9mfsXrWOgld8GF9GAWMG82mulr32V5JLZ9+0kf7RrY0Ci
+         Df+PMvGVnrhNRXLR+pvGBHrf9Yo+0eFrzQUiNonmLBAcjTZ8TCMT/q6CsddgZfqyXtpe
+         DHGvTD3FQKgZ184cLxKKE33WO8G9KtxzxINpHBJ5dNjH5UwbfPMppSl+7FkVYjgDm/bq
+         oqsuieYPekKyhAadzckkyUNEX3WbCR1Af6Rwauxibg1aM0KuZOOEdvSbd9TmRCrLNQmQ
+         acRB2CzH/rOLrK6JTjhHrIIbGOkx0Mol6wjVCnhot+5bJlusV+6ADnHz9Q58aj1UkjE6
+         +zWA==
+X-Forwarded-Encrypted: i=1; AL+hErFc+MVqIomw6dAo9kSefezFVsXN33K9lvCn8YvMohmFHetlDy4egCHup0hUwnFUrpdG1ngaPvGW0YjCdJw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wHTDLIIzyHzHuH70GoUor6J5YnrkB/0PcpnLJZ8fYAYtRnOAz
+	/M/KnsgM9G5NtsSqjJV4FikVvTUNSZoOFxH2oFkrpqlQTKQTvdq640Lk
+X-Gm-Gg: AYBFou1p8dJdikJh3BbNSu9qeBufeSjY4rEOz2jsXsn0SScooZLRfN7V1KOClDEgNm2
+	qTQ7DI8yT2ClxABsUtKb7LCQ4Sbjhv/jKQXgG0MBSo0K1JVVRgV41qByZkAz9wToyVr2ou9fMBA
+	6r40OoKqSLwsQ2YpwI3Ze522hLVMC8kQwDmVjxDkG5wkJqib8cHl/8zKzVjBxgWQYB01pvEd+N7
+	2Cn5VBI2M95zREEPr5xxzlBRohY4+1D5HF8/YzFmsj8yDOKObp8bmXQrqChyfsteKv6+d3/GzOk
+	xB0tlc+kDwB1BR8Xy09RCz/VJkl5IjIq+1dMNTSKGnChbnfPId92eebFP6V8lv1rM6epn/rzQiV
+	6NU+aXjCvTsqSmahKii/qi0sGCwkMZiaealLWwuQGjRjfKHR3FbxoZXG/l4WDbUTz/rv/hxy+v+
+	vyKvwyzkIHv35HTWk56SVUA+yJUrfuGwPYPWCYsJ2v+73o7Sawzm0xJCM6UJyZZGYCy5xGQcJZk
+	kPVnjTK4Q/x5BWIgi/iOPEHtxi/52nabW/L4nDJakar9Lo5z5h6I1OHaxTD7qOFhZfIGj5lx1Ew
+	wP0L5RV35DQziq1Ht4mUwmkAr23atKsysJPt8IRU/7vz8RkHtNLxe1tP/lr6Ro4wRi2WKCIaEN6
+	eJ12RzWa5wYiLmrLN1cLpX2kWKwD4PpNOvzw8eDj2sblExYo7aDmIEPzOrn/qEWRegKzd0MpIUg
+	sMcR4i9jJvqE3ooQc5Qx0Yv7JxPBMDtmwTyCG06fxnf1+oHz3TE7h+uwuf1g212w==
+X-Received: by 2002:a17:902:e5c9:b0:2ed:84c6:5d5 with SMTP id d9443c01a7336-2ee0de3e85emr70675995ad.42.1794706500714;
+        Sat, 14 Nov 2026 17:35:00 -0800 (PST)
 Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75dde9sm23671935ad.22.2026.11.14.17.34.58
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75dde9sm23671935ad.22.2026.11.14.17.34.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 17:34:58 -0800 (PST)
+        Sat, 14 Nov 2026 17:35:00 -0800 (PST)
 From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 To: Peter Huewe <peterhuewe@gmx.de>,
 	Jarkko Sakkinen <jarkko@kernel.org>
@@ -93,10 +94,12 @@ Cc: Jason Gunthorpe <jgg@ziepe.ca>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Subject: [PATCH v3 0/4] tpm: Cache ACPI TPM2 start method and gate tpm_crb_ffa probe
-Date: Sun, 15 Nov 2026 01:34:52 +0000
-Message-ID: <20261115013456.212141-1-sidchintamaneni@gmail.com>
+Subject: [PATCH v3 1/4] tpm: Cache TPM2 start method
+Date: Sun, 15 Nov 2026 01:34:53 +0000
+Message-ID: <20261115013456.212141-2-sidchintamaneni@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261115013456.212141-1-sidchintamaneni@gmail.com>
+References: <20261115013456.212141-1-sidchintamaneni@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,57 +111,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series caches the ACPI TPM2 start method in tpm_init() and uses
-the cached tpm2_acpi_start_method value across tpm_crb_ffa, tpm_tis,
-and tpm_crb.
+From: Jarkko Sakkinen <jarkko@kernel.org>
 
-Patch 1 caches the ACPI TPM2 start method once in tpm_init() into
-tpm2_acpi_start_method (defaulting to ACPI_TPM2_NOT_ALLOWED when
-absent or invalid) and logs it when a TPM2 ACPI table is present.
-Patch 2 checks tpm2_acpi_start_method in tpm_crb_ffa_probe() and
-returns -ENODEV unless ACPI advertises ACPI_TPM2_CRB_WITH_ARM_FFA,
-skipping FF-A probing on non-FF-A platforms while keeping modular
-tpm_crb/tpm_crb_ffa loading intact.
-Patches 3 and 4 update tpm_tis and tpm_crb to use the cached
-tpm2_acpi_start_method value directly.
+Both tpm_tis and tpm_crb retrieve the start method from the ACPI TPM2
+table during device probe, and tpm_crb_ffa also needs it before chip
+allocation.
 
-Changes in v3:
-- Log tpm2_acpi_start_method in tpm_init() after acpi_put_table() and
-  use a single-line acpi_get_table() call with typeof(tbl->header)
-  cast (Jarkko Sakkinen).
-- Remove check_acpi_tpm2() in tpm_tis and open-code the check in
-  tpm_tis_init(), dropping dev_err() and returning -ENODEV (Jarkko
-  Sakkinen).
-- Remove priv->sm and local sm in tpm_crb, use tpm2_acpi_start_method
-  throughout, drop the probe dev_err() messages, and return -ENODEV
-  (Jarkko Sakkinen).
+Cache the start method in tpm2_acpi_start_method during tpm_init(), log
+it when a TPM2 ACPI table is present, and export it for the leaf
+drivers, defaulting to ACPI_TPM2_NOT_ALLOWED when the table is absent or
+invalid.
 
-Changes in v2:
-- Expand into a 4-patch series caching tpm2_acpi_start_method in
-  tpm_init() and converting tpm_crb_ffa, tpm_tis, and tpm_crb to use
-  it (Jarkko Sakkinen).
-- Move the tpm_crb_ffa start_method check from module_init into
-  tpm_crb_ffa_probe() so tpm_crb.ko and tpm_crb_ffa.ko still load
-  cleanly on non-FF-A systems when built as modules.
-
-v2: https://lore.kernel.org/linux-integrity/20261114193434.117714-1-sidchintamaneni@gmail.com/
-v1: https://lore.kernel.org/linux-integrity/20261112233807.70664-1-sidchintamaneni@gmail.com/
-
-Jarkko Sakkinen (1):
-  tpm: Cache TPM2 start method
-
-Siddharth Chintamaneni (3):
-  tpm: tpm_crb_ffa: Only probe when ACPI TPM2 uses FF-A
-  tpm: tpm_tis: Use cached tpm2_acpi_start_method
-  tpm: tpm_crb: Use cached tpm2_acpi_start_method
-
- drivers/char/tpm/tpm-interface.c | 21 ++++++++
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Co-developed-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+---
+ drivers/char/tpm/tpm-interface.c | 21 +++++++++++++++++++++
  drivers/char/tpm/tpm.h           |  1 +
- drivers/char/tpm/tpm_crb.c       | 82 +++++++++++++++-----------------
- drivers/char/tpm/tpm_crb_ffa.c   |  5 ++
- drivers/char/tpm/tpm_tis.c       | 45 +++---------------
- 5 files changed, 71 insertions(+), 83 deletions(-)
+ 2 files changed, 22 insertions(+)
 
+diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+index e0385b16616b..c18b060d7da2 100644
+--- a/drivers/char/tpm/tpm-interface.c
++++ b/drivers/char/tpm/tpm-interface.c
+@@ -534,8 +534,17 @@ int tpm_get_random(struct tpm_chip *chip, u8 *out, size_t max)
+ }
+ EXPORT_SYMBOL_GPL(tpm_get_random);
+ 
++#ifdef CONFIG_ACPI
++u32 tpm2_acpi_start_method = ACPI_TPM2_NOT_ALLOWED;
++EXPORT_SYMBOL_GPL(tpm2_acpi_start_method);
++#endif
++
+ static int __init tpm_init(void)
+ {
++#ifdef CONFIG_ACPI
++	struct acpi_table_tpm2 *tbl;
++	acpi_status status;
++#endif
+ 	int rc;
+ 
+ 	rc = class_register(&tpm_class);
+@@ -562,6 +571,18 @@ static int __init tpm_init(void)
+ 		goto out_unreg_chrdev;
+ 	}
+ 
++#ifdef CONFIG_ACPI
++	if (!acpi_disabled) {
++		status = acpi_get_table(ACPI_SIG_TPM2, 1, (typeof(tbl->header) **)&tbl);
++		if (ACPI_SUCCESS(status)) {
++			if (tbl->header.length >= sizeof(*tbl))
++				tpm2_acpi_start_method = tbl->start_method;
++			acpi_put_table((struct acpi_table_header *)tbl);
++			pr_info("tpm: TPM2 ACPI start method: 0x%02x\n", tpm2_acpi_start_method);
++		}
++	}
++#endif
++
+ 	return 0;
+ 
+ out_unreg_chrdev:
+diff --git a/drivers/char/tpm/tpm.h b/drivers/char/tpm/tpm.h
+index fa554c5ad80b..212ca2410c93 100644
+--- a/drivers/char/tpm/tpm.h
++++ b/drivers/char/tpm/tpm.h
+@@ -100,6 +100,7 @@ void tpm_sysfs_add_device(struct tpm_chip *chip);
+ 
+ 
+ #ifdef CONFIG_ACPI
++extern u32 tpm2_acpi_start_method;
+ extern void tpm_add_ppi(struct tpm_chip *chip);
+ #else
+ static inline void tpm_add_ppi(struct tpm_chip *chip)
 
 base-commit: 7e52fc165aa50e70e8df3c879d04fc0ff1673d4a
 -- 
