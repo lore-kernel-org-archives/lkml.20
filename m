@@ -1,49 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794771658;
-	b=FzRdJzr/lkxPsMvlZPa4HaWa2G9tiPZjnGrzyLSstTsfGYQuL67V/MFx8ns+b3TGbJRu
-	 6wsE4P5iHm5tv4gG0mcL6rwXTWF/Q5oU61xFbkpuMrHvffBTdmWJzSusiZAp9vgUGx5+3
-	 pCD506kUqYkP+9YVNE1E2r4bPQcgiNfoorB4Iz2pCfw1T9UDuuUlonoLhEG/e7fYZpDTq
-	 y2fJGGUBhdt3cjgRBy1cDTDm3FUo7QG/6bkThIvoyR2+VamFufRrARcP7t5inGejIIh2H
-	 TTRu8nwCcmDaKH9MlKC/4iqnZn0GZKVGcdnxKoYmDwdWDdOiVIzPJlp3TBRH3vaQ5OA==
+	t=1794771925;
+	b=d8LQlx/8FM7748Szmca+ZX4gXkoB1wGNbuTZWTMwYLKJ9JC0EDdQO1YzBsQ3+a+vg83T
+	 detiPCvnUE9tlBXRPn3/fFiaZt0KHAoGbp/YD8MJxR2m8xLpnirur0z12xR3tNOWv4Nxu
+	 waisB3Sx+nsNwUFLaaRUB4tl8XyfPLoSeag5JQlpiS9Kl/iUHVdR2vF4SVxXFVcbYCnt3
+	 AMgTiBz1vg197ouvd0M7hbRmNdiRWH9AMXx2wugLZWZWvGhMyQT4qp3k3xChYu7wCuRw8
+	 LZk61lKwt+DiD0sCKdKLPdrE/nvlSdcCeGoQWxCj/SyQZxazw3gJajXcxFNXxP6Fwfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794771658;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=9Z/SeLigb7cKZ8AenGFKvsGPiHPN7jeIOZeKFYBKPbY=;
-	b=n6C6cptDivGLhiLcDBQbjTqlRv5bUwyShudveKw3dfMpHBE8kFI7r+Ybp1J7BuoeP2rn
-	 siY4dTNP0P5ZWzeJtRSX6jlgAvpg3nIdj1xHjWphecTYkIZQJWeYgsHF7g1xlkCHKPEL7
-	 duoUiodPLXGiBnNzFqHVKKgm2j7IPHOCrgcbAs2oKKq55cOvmCnstuBu2WromMx6ZIOYk
-	 3rAYKssJVP3rMvF/czKuJ1iyZxXnByWNtRta2iJSqPFsbl78moCqrtGkQIYZyzxVenaUG
-	 /QJtw8LmBe1AVw2sbLV23z4KqBkEhpJLoROe6dz7QYg5HGQvl1fTEVyq7B5YGyZhK/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794771925;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=6vPT76ulLO4cxp6gW0RIOC7kkqeP9A5yUEJ7TToOaew=;
+	b=Sg9XkX0ll50i2d+jel+lilsCiVo+uLL71K1aS6wTsXqOjy6Szg0KJ1E4l68lPSYat9I1
+	 nUkCvFHJDZyXxPnB73xvJJKXoJuOb539aYKXV/ydpeLYaSF4FCPQYCbpinmpPMFU0Atwh
+	 VUL77B2yt+4mOEaa7IwPfxdq/DfUKWApJqFYL/YyYQ9Ujs4TgEnQarfLFjC4476nBHhiy
+	 SfmXPj54tKO4O2LpnddZnVZ6d+V/sjBrzUO7XdNV2yBaiI9GywJey78s/nWL35X5ksLMO
+	 vbHZVKealG3lng/aVukyhENFpwifXTVhpetsX4gjABHCsDn/T6b4r5/drdm8RkBdQGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=yWY28+xR;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A146606A31F;
-	Sun, 15 Nov 2026 19:40:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A146606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=yWY28+xR
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57395A15A5;
-	Sun, 15 Nov 2026 20:40:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794771656; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9Z/SeLigb7cKZ8AenGFKvsGPiHPN7jeIOZeKFYBKPbY=;
-	b=yWY28+xR+uME0tIkAhr6W+D54FEYTar3UfmQ29bGapl8Xt9Us9v6la1EqRQx8CzrCHhk2s
-	OgE7SYbSdMA8NVXaRbQDaQWAid9YLmvbFu3LavUJPUYkMi1D3i6+fPotd8cn7oIbtg4aiD
-	CnniVTMDuscpm8DXyfF/TVgnueGb0N47PECPFb160IkU5NVCZtXaNh4xFM6kDGSNnxx2x3
-	DRuo57WoaKekYx0wX+vT0zh63ZYfNbgY2KNFfizynNwuPpX5PC4bN5KzfBT5FLN1zj11I1
-	Pof4Fl4n4aI5ctvJeBu7LcW+QbGpivOkSeXuNXDdtd1F7lszO3CZuKhUqpp/VA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEAF606A31F;
+	Sun, 15 Nov 2026 19:45:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F321F000C4;
+	Sun, 15 Nov 2026 19:45:22 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,75 +36,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sun, 15 Nov 2026 20:40:55 +0100
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Paolo Valerio
- <pvalerio@redhat.com>, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, =?UTF-8?Q?Beno=C3=AEt_Monin?=
- <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH net-next v6 2/2] net: macb: distribute evenly Tx SRAM
- segments
-In-Reply-To: <20261113-macb-set-channels-v6-2-5de59d9e7f02@bootlin.com>
-References: <20261113-macb-set-channels-v6-0-5de59d9e7f02@bootlin.com>
- <20261113-macb-set-channels-v6-2-5de59d9e7f02@bootlin.com>
-Message-ID: <00aea741bd079eb9168fb2ef9b656f25@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] phy: qcom: qmp-combo: update offsets table for
+ x1e80100
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Tapas Rana <tapas.rana@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Prashanth K <prashanth.k@oss.qualcomm.com>
+In-Reply-To: <20261030105515.1948430-1-tapas.rana@oss.qualcomm.com>
+References: <20261030105515.1948430-1-tapas.rana@oss.qualcomm.com>
+Date: Sun, 15 Nov 2026 11:45:19 -0800
+Message-Id: <179477191938.132702.13137454785343235801.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=762;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=JRUjBJXo+GEfXop0V8NK49VdWI5pwUUQAk7AQE3FkZI=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+gvSBpFntFsicBl+nr7S2MAtRjt2KJYNvqFG+
+ w3g9FVDOrmJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoL0gAKCRBVnxHm/pHO
+ 9ZmaB/4naZcfHpZ/Es4f1bIYGrXJ3XitoD9kofj9bvPqgNF6RQ3gAPeolQ7LocGLtU283VAoq7c
+ C5dQLqw/MRpBbMMc9YDng5pbJdfN4A5vFQUKbl/z9xPysJ5YZV6zeChF2YjOxLsSjngtFIMElJp
+ QlgqvhyOhI+InOajCpKgXRor3+9MHeYm1XrQRQEGDgivUXQOL+MNhHg8RBzOCQfX4sDCuywPxOY
+ /zYQcJYPg++RaItUjdftoHMfFVO/KmfykWQkD22I7GpZVqvTOfZRDXynratNmhosHWX4zREkAGv
+ ueu6kO13e6gv7FYFnwTCQhbI4fTRB4ZY/7X1uCNc9pD+7yZm
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 13.11.2026 18:32, Théo Lebrun wrote:
-> GEM has registers to configure the Tx SRAM segments distribution across
-> queues. The reset value is apprioriate (even spread) but we need to
-> care if/when number of active queues is modified (or if we inherited
-> unevenly initialised hardware from bootloader).
+On 2026-10-30 16:24 +0530, Tapas Rana wrote:
+> x1e80100_usb3dpphy_cfg uses qmp_v6_n4_usb3phy_regs_layout, which
+> places QPHY_PCS_CLAMP_ENABLE in the PCS_AON register space. However,
+> it uses qmp_combo_offsets_v5 currently, which does not define the
+> usb3_pcs_aon region. As a result, qmp->pcs_aon is not mapped and
+> autonomous mode falls back to pcs_misc for clamp control.
 > 
-> To distribute segments, we take as input the number of queues
-> (ctx->num_queues) and the number of segments (found inside DCFG6).
-> Its output is a number of segments for each queue, formatted as
-> powers-of-two (eg 2 for queue 0 means it has 2^2=4 segments).
+> Add a dedicated USB3+DP V6 offsets table with usb3_pcs_aon included
+> and use it for x1e80100_usb3dpphy_cfg so clamp control is performed
+> through the correct PCS_AON register space.
 > 
-> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-> ---
->  drivers/net/ethernet/cadence/macb.h      | 14 ++++++
->  drivers/net/ethernet/cadence/macb_main.c | 76 
-> +++++++++++++++++++++++++++++++-
+> Signed-off-by: Tapas Rana <tapas.rana@oss.qualcomm.com>
 
-> [...]
+Missing Fixes tag. With that,
 
->  static void macb_init_hw(struct macb *bp)
->  {
->  	u32 config;
-> @@ -3465,6 +3522,20 @@ static void macb_init_hw(struct macb *bp)
->  	if (bp->caps & MACB_CAPS_JUMBO)
->  		bp->rx_frm_len_mask = MACB_RX_JFRMLEN_MASK;
-> 
-> +	/* Distribute Tx SRAM segments evenly based on active number of 
-> queues.
-> +	 * TXQSEGALLOC is only documented for some GEM integrations.
-> +	 */
-> +	if (bp->caps & MACB_CAPS_TXQSEGALLOC) {
-> +		unsigned int num_segments;
-> +		u32 val;
-> +
-> +		num_segments = 1U << GEM_BFEXT(SEGMENTS_BIT_SIZE,
-> +					       gem_readl(bp, DCFG6));
-> +		val = gem_sram_distribute_segments(bp->ctx->num_queues,
-> +						   num_segments);
-> +		gem_writel(bp, TXQSEGALLOC_LOWER, val);
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-This only runs on open, not on a context swap. So ethtool -L on a
-running interface keeps the old split until the next down/up?
+- Mani
 
-> [...]
-
-Regards,
-Nicolai
