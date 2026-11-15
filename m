@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794735961;
-	b=3ZVlgi7qbFpvSuJCMsQvVmtxf7IevmMHsak1tfNCe7145dGUv0qCeMYbeaivEac50yil
-	 Q+Ly0B3Z6xuKCBBcmUf4knwLEz0cMTqunTtCJ/8yTZHPHA7QeghMLat1mrTZJZcIbQ16g
-	 a3uyjq9XjfbYKxcsW+ankDy01TlzUkuitqKIxeg3e/k6+VBWOe42Ed8jjTIH1WrLvSvun
-	 wlj360aNGPc7lQ/qofyyJeOVIZOWK2xOakLImc64/vYRrbL8XsU5nSl+SDxFp+wFFw8Q7
-	 pCMmt5A0tk83Ib1cTL3LVrJTyxCAWgDYsRCEZG4/nBVRGO8rGC+4e7fa4oSmtemhWlQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794735961;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=/H7ist9tJ0po06viy1vxuJ3/qEXrpm4LsgaJ7Obvc10=;
-	b=YfttElGxTw7OeRHo8pjnQWnGUSL0YKmphXHGFoOywysMW5IxHZiwtRVtcUdTTMkOvCbm
-	 0gBDU0bfkB9SgGDXhMVdYPzc3rOUj6oUx8gVPUR8B9oXyLUAzAVFcawRpVWXQrKwIeUz8
-	 jKMpr8drkdfxE/3ZMow7BGBJmge7DNVuhmjlZOX2TwH9TAvJLXjm3UsVDA1MXokB27Hoo
-	 TE9N4dI/sqnof1aR5kqW+ToyZm29/vt4O9ZZF+ed8k/Iw1cIrSyBAcJ//ZiJfF2JMN+WU
-	 i9TiZMJqlebwD+qVLlccl3tnGxYPCXiN4Zq+fH01SHIMqo7veC1tzSBTlZfQXz1V5lA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UTXdv+nO;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794736046;
+	b=J7nuXO7aSsBDIVf9cT7pbnd8j4wyw9W8VPlsBv3F/84a2slS7LlTTgM72jt2Wp5HpZRi
+	 hrSxHKYSO/mZR5jj2ToCbhL4iYZFoqioTw46TAWykSVNvqUOh2nw8bUd3D1EzMPbMbBYE
+	 eOxolHN9ITyj+8ggerCrK0P+tC0v40mkM097H5nilbAhF65a9IJtxssQRWVdzPnS2XNoG
+	 aiShH1lJkTDlVKFfs22u+E1DEBIeQxCSU2rlbCwiJG10EgyrgMxITaxUjqaWwhDElrV7J
+	 11nzg59UJ4Y1/grY9wnbEfi4yBMtb5OjgBHfYUBKqoxzQwN1wVIYnS1T1N4QLOMbhQQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794736046;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VfHEYcb2rNE2iyrm94zQquEkhGNgVZsRO7MYguIDjP8=;
+	b=uEAZfqwhmws03uHGvy3H95oedv4HS8nxAxFJjPCrIasxBiMCAtewM/VCIjIV66HProt2
+	 05mkuI1JzP8kles4DsEs8nT3yn7U2dCCjmk5iJq8VA6rt1WOEgbbwtPQcb7Qz/nH82YMd
+	 MmeC+wQwk/eVHVC3PzffjcqnAmTo2n/kB/vdozR7Wr4zicoeDcA5bRGWFPLkUaqwxr1KM
+	 27YdYGN9QVEpuG9CiXF8TqMnFXve8Cvzb69OD/KFiZTfydHOLj4lb4UGpAhjKLZFZY3IR
+	 GML/QciReeWxwlTFXXwlB9RZhHcG+8bXdL4Ks0WNdxEotPqgAkl8fZEctOPI4ZjCCqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ULcSl0tj;
+	arc=fail smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258B6606A31E;
-	Sun, 15 Nov 2026 09:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 258B6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CFB606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52CFB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UTXdv+nO
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AF7xdeR3780179;
-	Sun, 15 Nov 2026 09:45:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/H7ist9tJ0po06viy1vxuJ3/qEXrpm4LsgaJ7Obvc10=; b=UTXdv+nO8OZ8Cc9K
-	gd0ALDQficAKwW9yH3MsH02kOqksuFmHkpMfFiv4eJopGePEqCtRha9KcWLgwKHi
-	pFcJTUHlwr+pS5IoFChujYBKY86bCfGrdL8TR6NVOJQ1MDi+UvUszW+S4ur78miq
-	i3iRAmU+ZH9a71HPF0ffOJ2NKphCdPGC0IM1rZwDHSHQDrF8CusKgcTTs9mlzjzl
-	IngWrYvlYDFAq7UpFqJDoVNVxcCCw62n/n8jaU+s20kX24bPvx0QRGGhZtc00b1W
-	4pAU9SCqzdzGqN76q8N/I7kv8jqQAOjCbqcQFMTsmb2io7PqLxvgCTRauvbSGdfD
-	2KAQIg==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhm8tm86-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 15 Nov 2026 09:45:45 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AF9jhKW2604307;
-	Sun, 15 Nov 2026 09:45:43 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-bibekkum-hyd.qualcomm.com [10.147.243.199])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AF9jgmu2604298
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 15 Nov 2026 09:45:42 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4253010)
-	id 99C045FF; Sun, 15 Nov 2026 15:15:41 +0530 (+0530)
-Date: Sun, 15 Nov 2026 15:15:41 +0530
-From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-To: Val Packett <val@packett.cool>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 3/6] arm64: dts: qcom: kodiak: Add GEM_NOC
- interconnect for adreno SMMU
-Message-ID: <20261115094541.axsybs55kedvlank@hu-bibekkum-hyd.qualcomm.com>
-References: <20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com>
- <20260706-smmu_interconnect_addition-v3-3-afdca0125a65@oss.qualcomm.com>
- <h6opbtr2ced3sannj3ym573qc2sjk7ek3clpto5j5mtqfrfk6w@34sk2zraoqtj>
- <807f145d-88d3-460a-9862-b63fe2a52cf7@oss.qualcomm.com>
- <a4f5sod3aflubxkk4mm4k5ozddydqcnqeac4s6vnozkd2nvxbi@hmh6zclsw5z3>
- <4e5a3d82-b946-4490-885a-ea7061939c32@oss.qualcomm.com>
- <ak5qkRKk2eHHLYmo@baldur>
- <2c21041d-f84c-4fa7-a977-555f9203d8b5@oss.qualcomm.com>
- <4ce436ed-63b7-4764-afc5-dc5ffa4f0ba1@packett.cool>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ULcSl0tj
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b807aab44fso327627a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:47:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794736045; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WagcvZAI9xt9NgVX5JAL5ht7UCqzEvFiY9rirfjEpv2SvYgwBA8QHyfCoXt7NxZJMD
+         N0ElSXnE6VJWVZRMuLLaMBsIomavrJDCVKW3492ozYA5C3WgpAdixoQdwTVHuD5+GZI0
+         rrDI596Onql4MXmNN8T44MispG4Srm7C9pCHtWHTLdfAb21QiJIcmLs4x80XKh5lSB2Y
+         nvUgQQOiClwLE2GYASrXbQvz7XcXNj0+Yv5/ibypMPU3Mn8jlP6C3BfZD4ZjLBHBIrWN
+         wPYGC6UKPqjGpG7XmIabzwpNeKYkSSH0IMFyskzWTfhsv43ru0rlYdPMbzIS8nkNkl+i
+         9omQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VfHEYcb2rNE2iyrm94zQquEkhGNgVZsRO7MYguIDjP8=;
+        fh=wnX6Kxy941pc9oWioGQcwQb2nL6RbrpcGnsxvGBzXSE=;
+        b=ZB+u9lPiipn66wOmx3NXEyARAbFsLUYYyuS9zLd06gGhynbdTD4VDCfnfY/P7Kt+ZP
+         uRtfQsgJxyeQ2whHe0bLRYerPhA+7l0IikX72ZxcrA9ozjFlYyUEFS62QIICx9YzgLJq
+         on1R1hfolzoRMQxQ/Thc9i4Bjtp8V2ZissGILotkMXvqcvEEdW0CwoEOVMtb6Yne/KXS
+         /67+5KAXrvhgZkojGLYTxNp8VeVjkOy8RACJcE23GW5dgBnKYHoI2hOey0oF+iLAQTR4
+         6jSNTtEaAcNeDlC9ti4a9vp71X49nSJCqB7BpS77rxsy9HJduwdmkAkAZDJlYJV8vi5l
+         yoNg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794736045; x=1795340845; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VfHEYcb2rNE2iyrm94zQquEkhGNgVZsRO7MYguIDjP8=;
+        b=ULcSl0tjXJEeZizN5NqOx7g1xOkL5/p3DgK9rLhn5627DhSN4mIwoV9SIny66Hap9q
+         AQpN0gv4ZOs66D+BkwP264e+8bLRMf1Iq5chGtVz5+sOu68ZGxQjSCVPowfA0dy7ca5A
+         JlJOfHn2aNQSa/jenvTLj3+qk3LhHZEnWvERYhDUcIzvGioqHC5TPLu32QoNpgxDZgon
+         KNHSnjfV25+rIf7/4I2NEIr5MFM9xH23Zh6pV4bOZXDLbjINyX1dgB1+OyJIy8R09gRB
+         ZEXxKFcY7SWTMGuHOgXLda+qhot3falzJyzaM8YnS2Av7PPg0p4tlzK0Sc718MjYdLsm
+         dZvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794736045; x=1795340845;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VfHEYcb2rNE2iyrm94zQquEkhGNgVZsRO7MYguIDjP8=;
+        b=q6JCbETV3xP0wnNIb1+iYvBNmZozFfSo8iurPDXrtByOvAgx8aw/gMpMdAIUPsbdjf
+         J+AMr/n9GTr12EkazATp6TiocGkKmQirq4+PgdycnADafceujJOoOUeSohxsXNhqFClx
+         8pn2zaldIqf/SBWPTeFVj56mkdHXXbIIpSF3yhd5QZXSdo+GoNdp5/nC5dPQ3260urxE
+         AvJrUMhdjBxrPwjMlVSSueXXAzFefhSWEVov+EuS7ODT/mrUUS8bPMnnY4EP/0EP5l4G
+         W1Hb7bmTkLriY8BYDBphIXNZCpMWpfFSxI5lAS4dBQKWG0MIOCp7ex+4OOv+atiamaBK
+         hCig==
+X-Forwarded-Encrypted: i=1; AL+hErF2xQq/U9OMSLLYPpYZ2hzomIqUxmqC69GzZFr3nuQS2piv4DcwNkrYKqMVzm9WPMt7y55p7P36FyXy4VM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JB6iw22ltCC1FzGB01YM+NfPDjA1tzA3Z6+9T3x9KsNbcHIul
+	/ygVTmCH40wO0QgmwbcjDz+A6cAmgm+X64YXweSMD3iLZsESjHW/kEP+PcHR8rNlP53psP1PHWQ
+	O8FBGZR+M8BBpiTSgXbfZy4ZTRzluirLxEfDXAl4=
+X-Gm-Gg: AYBFou1jgjp04IlS6y2X3X6QDF2iZnZwxOQQR+nFMf2kJRzAfhXRjqR+7hF+JFKJCPS
+	4MvodBCcIfXPt6Rgw691uGVHRU6LrxSQHJTYuRJ1att1UMjwNUVa/n5Dg0uwThFPiMKPEeUUb0L
+	xfBIiFSrthvyzDdhCrQ6lhoCG9cHMbF/xFbgbt/hMW5YfYa4mqiqUZ3++SFtH2bdVWZXw1gngzJ
+	bgP6cFUvvPQjjkXlg9qWKaAsYLyMjVBQ1sJrnCTCglYG0NYK5ZUl89iRwXToobhhBWah/hTSCCc
+	3epdDKtU+BCT2i6cPFQVqj/hfJvUrHYufM5NaP9hZl5cSp9mOyywQJ7yKXT8v9/XMT5L1BkmbzI
+	RYsADsZ2cLpQsHqjwJe1Qy8yg87HETu1XDc7nkND29QFYvcbGtm0AImM6/ZjKNhtcf7M88awqpd
+	dZSLADbcKAk+BEfxW/hrc2rF4=
+X-Received: by 2002:a05:6402:4010:b0:6b7:f9e0:a5bd with SMTP id
+ 4fb4d7f45d1cf-6b7f9e0a75bmr1572741a12.23.1794736044483; Sun, 15 Nov 2026
+ 01:47:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,187 +105,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4ce436ed-63b7-4764-afc5-dc5ffa4f0ba1@packett.cool>
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=ItKL47/g c=1 sm=1 tr=0 ts=6af97f49 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=pq1cc4_aG4dz-00lW3QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDAzOCBTYWx0ZWRfXzsV0SrSfIXpR
- /0wykZDNvcv4ZERAEqt41SugVaLDzT6ujBhPpjCKfjXAMUvZc+S4e305U2nfxQbHAsBHstsusl1
- wMzd/npCxHAGzVIuAumMyIqqR+wLt6g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDAzOCBTYWx0ZWRfXzu+QoH68rj9B
- lHgtNsDWouxEPvzmlkd5pGrqcWS+V8DjK5mDcR6z4kahuGIXmmznL1xszZThYM1dwzfEDFn7Rxc
- hit7i2iVapBy1WKB1FJdX1SdopJ/yUgMbRCy/yympDpLdJvKo3q2+Ex9mszfzGlERhLRxWCpKpT
- MQmRnkYpbsjLPUcKtHaou29kPEfxJ0UQR9a0CWpUK3fJDzNASVfiH8XTp4IkiFL9en/fwGAj98T
- NUMfgii9Z3vunuLC8JACxUeK8tsfJNBTb2/YRACofwjhz/49ajWlt8oOVneUyX5nXOefkWAefLH
- EGF2KvIaRQQETN9NomuXzAP3dv5YoYEyDE2X9aIW1dRh+eIZqPHSm+gcW3iI6U1rxm1S0UoDCtz
- UdyZqfpQGxjxcuD9K/jUXGo3Y8v2Ufw4xnLM6B70gBX25O+6wVWd5+9WYV9db4U0bI/tUZJaGVf
- WxW9yv1iq2yVKJ3cUqw==
-X-Proofpoint-ORIG-GUID: eLMBCF6MfO3K9RJdKnVhAf8HqjIlwkPZ
-X-Proofpoint-GUID: eLMBCF6MfO3K9RJdKnVhAf8HqjIlwkPZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-15_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611150038
+References: <20261114-marvel-env-v1-0-890328e4b7e5@gmail.com>
+ <20261114-marvel-env-v1-5-890328e4b7e5@gmail.com> <e8ffe364-5c98-4987-b6bd-c263122aeae8@roeck-us.net>
+ <CAEdQ38GEckm8oU9pmg_t-_EC85brP4ghWAE4tYBNEvF+gcqMKA@mail.gmail.com> <3f6d66cf-8a1a-4074-a234-dfe571622aee@roeck-us.net>
+In-Reply-To: <3f6d66cf-8a1a-4074-a234-dfe571622aee@roeck-us.net>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 15 Nov 2026 10:47:12 +0100
+X-Gm-Features: AclHuK-agHSxMvaTLWSNegaTGKIV9gehw4JdNQIbbkxCi9Nu8UmTXM9oBoYmDgc
+Message-ID: <CA+=Fv5SAtweSW61Y_N5_k0ukEektque1gY41LKSjbO0R_4JRnw@mail.gmail.com>
+Subject: Re: [PATCH 5/7] hwmon: Add driver for Marvel AlphaServer
+ environmental sensors
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Matt Turner <mattst88@gmail.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Nov 13, Val Packett wrote:
->Hi,
+Hi,
+
+On Sun, Nov 15, 2026 at 4:46=E2=80=AFAM Guenter Roeck <linux@roeck-us.net> =
+wrote:
 >
->On 7/17/26 8:40 AM, Bibek Kumar Patro wrote:
->>
->>
->>On 7/8/2026 8:56 PM, Bjorn Andersson wrote:
->>>On Wed, Jul 08, 2026 at 03:31:07PM +0530, Bibek Kumar Patro wrote:
->>>>
->>>>
->>>>On 7/7/2026 10:14 PM, Dmitry Baryshkov wrote:
->>>>>On Tue, Jul 07, 2026 at 06:37:24PM +0530, Bibek Kumar Patro wrote:
->>>>>>
->>>>>>
->>>>>>On 7/6/2026 11:12 PM, Dmitry Baryshkov wrote:
->>>>>>>On Mon, Jul 06, 2026 at 10:26:36PM +0530, Bibek Kumar Patro wrote:
->>>>>>>>On Kodiak platforms, the Adreno SMMU requires a bandwidth vote on
->>>>>>>>the GEM_NOC path (MASTER_GPU_TCU -> SLAVE_EBI1) before 
->>>>>>>>its registers
->>>>>>>>are accessible. Without this vote, the SMMU may become unreachable,
->>>>>>>>leading to intermittent probe failures and runtime issues.
->>>>>>>>
->>>>>>>>Add the required interconnect to ensure reliable register access.
->>>>>>>>
->>>>>>>>Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
->>>>>>>>---
->>>>>>>>    arch/arm64/boot/dts/qcom/kodiak.dtsi | 2 ++
->>>>>>>>    1 file changed, 2 insertions(+)
->>>>>>>>
->>>>>>>>diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi 
->>>>>>>>b/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>>>>>>>index 90e50c245c0c..721526f023dd 100644
->>>>>>>>--- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>>>>>>>+++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>>>>>>>@@ -3389,6 +3389,8 @@ adreno_smmu: iommu@3da0000 {
->>>>>>>>                power-domains = <&gpucc GPU_CC_CX_GDSC>;
->>>>>>>>                dma-coherent;
->>>>>>>>+            interconnects = <&gem_noc MASTER_GPU_TCU 
->>>>>>>>QCOM_ICC_TAG_ALWAYS
->>>>>>>>+                     &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
->>>>>>>
->>>>>>>Why is it ALWAYS? Would it be better to declare it as 
->>>>>>>ACTIVE_ONLY and
->>>>>>
->>>>>>Added QCOM_ICC_TAG_ALWAYS, to hold the vote in SLEEP bucket as well
->>>>>>preventing gem_noc going to sleep when icc_set_bw is being called.
->>>>>
->>>>>_why_?
->>>>>
->>>>
->>>>Now when i think of where we implemented the hooks, ALWAYS is 
->>>>not needed. We
->>>>should keep it ACTIVE_ONLY since we are already voting it
->>>>back in resume pah. I'll fix it in next revision.
->>>>
->>>
->>>The path is between the SMMU and DDR, so clearly it has to do with the
->>>TCU's ability to fetch things from DDR.
->>>
->>
->>Yes as you rightly mentioned, this series is helping to resolve the 
->>race in TCU DDR clink
->>
->>>ACTIVE_ONLY states that the vote should only be applied when the
->>>application subsystem (CPUSS) is not in low-power mode (CPU is active).
->>>
->>>So, are you saying that in all cases that cpuidle might select such
->>>low-power state the GPU TCU is "stopped", and does not need to perform
->>>any memory transactions?
->>>
->>
->>I rechecked the architectural block diagram, GPU TCU is
->>independent of the CPUSS, unlike system TCU.
->>
->>This means CPUSS can be powered down while the GPU TCU remains voted 
->>up. While this series was intended to avoid a DDR voting race 
->>between the
->>GPU TCU and its clients, using ACTIVE_ONLY could have possibly
->>introduced a race between CPUSS and the GPU TCU itself.
->>
->>Thanks for catching this in my reply Bjorn.
->>
->>ACTIVE_ONLY would have been suitable for system TCU (apps_smmu)
->>for which the interconnect field is anyways not needed, but
->>unsuitable for GPU TCU.
->>
->>>
->>>To me these two are orthogonal and TAG_ALWAYS is logically correct, but
->>>perhaps there's some practical dependency that I'm missing?
->>>
->>
->>We can ignore my acknowledgment [1] on previous response, Dmitry.
->>ALWAYS TAG is correct here instead of ACTIVE_ONLY in the 
->>interconnect field for adreno SMMU.
+> On 11/14/26 18:50, Matt Turner wrote:
+> ...
+> >>> +``in[0-*]_alarm``           Sensor is in the warning or fault state
+> >>
+> >> Which one is it ? Is it distinct ? A "fault" means
+> >> that the hardware is broken/defective. An alarm means that
+> >> the voltage is too high or too low. A faulty channel
+> >> should not be reported as alarm but as fault.
+> >
+> > It is always the voltage being out of range: Warning is the reading
+> > outside the warning limits (5% from nominal), Failure outside the
+> > failure limits (10%). Both are reported as in_alarm in v2. The limits
+> > are not in the console's packet, so they are not exported.
+> >
 >
->
->This series seems to help with a really annoying bug on Kodiak phones 
->like sm7325-motorola-dubai where often boot would hang when 
->initializing the display panel (so it took a few reboots to 
->successfully boot the device).
->
->And indeed it only helps with the ALWAYS tag..
->
->I've had this patch applied for a while (without even realizing that 
->it fixed that!! thought the issue was gone because of something else) 
->and today I went around kodiak.dtsi trying to remove 
->unnecessary ALWAYS votes… first boot after changing this tag 
->to ACTIVE_ONLY and boom, hang.
->
->
->Tested-by: Val Packett <val@packett.cool> # sm7325-motorola-dubai
->
->(for patch 2 i.e. the driver code as well)
+> This could be reported as inX_max_alarm and inX_crit_alarm.
 >
 
-Thanks Val for reporting your issue scenarios and providing a
-Tested-by tag — this issue has been tough to reproduce consistently in our test setups.
+Only if the direction is known. "Outside" covers both, and in_crit is
+the critical max (Documentation/hwmon/sysfs-interface.rst, in_crit vs
+in_lcrit), so an undervoltage would read as too high. Matt, if the first
+threshold in the packet is the nominal, as the comment in 5/7 says,
+comparing in_input against it would pick min/lcrit or max/crit;
+otherwise in_alarm alone is the safe choice.
 
-As I understand your scenario, without the patch:
-
-   arm_smmu_runtime_resume() enables clocks and immediately calls
-   arm_smmu_device_reset() to write SMMU registers. At that point there
-   is no GEM_NOC voter — the GMU may not be active yet and therefore holds
-   no vote on GEM_NOC either — leading to the observed hang.
-
-With the patch, the sequence in arm_smmu_runtime_resume() becomes:
-
-    1. impl->runtime_resume()   -> icc_set_bw(icc_path, 0, 1)
-                                   (SMMU holds its own GEM_NOC vote)
-    2. clk_bulk_enable()        -> clocks on
-    3. arm_smmu_device_reset()  -> register writes, GEM_NOC is live
-
-And the reverse in arm_smmu_runtime_suspend():
-
-    1. clk_bulk_disable()       -> clocks off
-    2. impl->runtime_suspend()  -> icc_set_bw(icc_path, 0, 0)
-                                   (vote released after clocks are off)
-								  
-I'll address all v3 comments and send out v4 shortly with your
-Tested-by tag. Patch 2 will have minor structural changes (no functional
-difference), so your tag can be carried as-is.
-
-Thanks & regards,
-Bibek
-
->
->Thanks,
->~val
->
+Magnus
