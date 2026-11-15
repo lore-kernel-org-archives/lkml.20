@@ -1,65 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794760960;
-	b=Pf+DVRIHlBw8z5lLGv4H6Gd6YGcZWlCaNUUO4D/KRhhpB1b1IX0OrZ+zsEnuFL3muP5j
-	 NkRYgvGYAJc2r+gALjZ44ltdiW7wU1E9S3xHEIfy20M1sB834SaF5SE/P9NlTac58FpNQ
-	 uS7OTzRQxfEF6sz4+jIc1djoyGi9n/LaxRERIqNne0O8PG8qIeTP7+eddETJFx3bm1MeS
-	 NtVjJODvy4obr/sPEeXaiP3wDiTT+emm2KyIGR1kfsSOYlaijoiy66wJRmkxbWfs4k2ol
-	 H4QcfkPialMzp0DlJ7/LVgvt9pBcAMB3Ptm5HK+ca/x2nMEsWbz4Z3RXGhdNZd0SaPw==
+	t=1794760990;
+	b=QotN10S50JVN8qAJpWHEKjR6hDA4OSFB/mN2h4d6vYklVox5SCwAC8J6aMMXjIvvZ/oc
+	 Ky7lzgHt26PLUqOM4uaaxfiRCdHiyYbMZlMKHOurG1b7ENuavNY0udTI0rV00OViBhxEn
+	 KiwwIgdBG4BOzgmUfIOC7Yrk9Y5Ep5GCGR3NuKAAB5u0cqhPbYDxKi3Nm4PCWSfIc8eNc
+	 PCGRJ1jz9SU8Hu70dKCGOfi+tRzxRBxQCLZnb0m1s9BVCehu2bzq2lEEJE+OqDCxZZzWU
+	 0rW9uAjctL+89rG12+t0zLCnGVbT7AKaFAJ7PlfflX//cwbplTcL5hGocOkv1/rtNzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794760960;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=gWeY517Ke0uGVHUv0TVgDQAs3UNrX8FLyLwTiu4EloA=;
-	b=1Mm/AGrlqBAK1kjSedPWwC8KlnmYdCWxyZFt55OHHkxi0ZkXMIDE8cxX+CX10deH6yZR
-	 0ACAqg9WxYoCNoZJhRJxZFEhk5I7bxGtObVh2Q4Dk2XA5piqu8psWgJLSuF4NzVNPpyQi
-	 3RQtPzAFubiCFODgdErr9qGimeX9dSGqx5hMbgsb3jjI7BpdFU3Y/jcOblCZLuTxj9FS9
-	 KglX4Lknsar1EVEZLVCc6eer3QliW9+elcP8tBUhV+SvmeHFOxjIGlRYiq8k4wxz0MkNY
-	 XeUbWjZT8R+Y2VrBKdfNoL5BTdrLrQ2Qea/waZSILuqhfItbS8AdDCZUdePDW6TcKVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794760990;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Content-Transfer-Encoding:From:Mime-Version:Subject:Date:
+	 Message-Id:References:Cc:In-Reply-To:To:X-Mailer;
+	bh=5TstXJPrDePm/oZp1iHWoslySj6snE3j87RkioJk/dU=;
+	b=OLNbOsLtpUZef1Wc9oGAAwK5cFhdu3S26wcHUkF5kyzhuzfp5O3la7dvL2/5jhrC/rc3
+	 6vVSR326livIoNKtjW0HjdR7zlF7JaDiqDEI7d4YTVHZXbEJ5dsrBZKz3fnRk+223GAbt
+	 nHzpBie8dx+92Gu2W+TELvZZ6qgElgnc1tmC5MoIRxXYPKn+zuLxULGxIEBqFPUA86yZA
+	 lbuNuYbSkFvuWl9BcfI+WC+qe98RLPpAb0fvereRpkbf7G2b//kOlr5tmj9ASJ8GdASZm
+	 335ThHf/PocUhmqK7GiWYEkdI9ZUJC7mZWsVAaaL/AqS8o20eAmGS1xvwpKKuW7geqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeQahA+l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XmP2HE+x;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFF7606A337;
-	Sun, 15 Nov 2026 16:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147E0606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:43:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 147E0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeQahA+l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80331F000C8;
-	Sun, 15 Nov 2026 16:42:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794760960;
-	bh=gWeY517Ke0uGVHUv0TVgDQAs3UNrX8FLyLwTiu4EloA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jeQahA+lxYYyOfLeiHudF2Q59ebsIsygaAoe87xAPFPiR8y9ZQdQ4HvmHKwUUGeUe
-	 eXXApPZ0heuigybhyIeqcel8MWbbiYvI6QEkFuGwCAGEr4jDOlx6DQww8iFLbnkQxr
-	 +s8S1NjPV9lxz7p4hAbtNt88ijBC/odZvvQSQG9Y84XfCOHTOiwc6XusT9OGi4F1bj
-	 SCIGCKB0sL7L2AeCin55wPaktjzXmTzWp3q8zF0EIyDalfaINgmvtktKwVGcrx7sOw
-	 433t4XXH9SiO21XqE3yxXAWeUgdO8AiDWY3QRBUdDGFyPujVvD8WbWJ2InYKOwnAJG
-	 ltZ4kagFLcjQA==
-Subject: Re: [PATCH net-next v17 4/4] net: dsa: lan9645x: add basic dsa driver
- for LAN9645X
-From: netdev-bot+sashiko@kernel.org
-To: jensemil.schulzostergaard@microchip.com
-Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- woojung.huh@microchip.com, linux@armlinux.org.uk,
- Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, edumazet@kernel.org,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Sun, 15 Nov 2026 16:42:38 +0000
-Message-ID: <179476095835.2199510.1283236817441472762@kernel.org>
-In-Reply-To: <20261111-dsa_lan9645x_switch_driver_base-v17-4-83a471c5bddb@microchip.com>
-References: <20261111-dsa_lan9645x_switch_driver_base-v17-4-83a471c5bddb@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XmP2HE+x
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-37f14feca60so305768eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:43:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794760988; x=1795365788; darn=vger.kernel.org;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5TstXJPrDePm/oZp1iHWoslySj6snE3j87RkioJk/dU=;
+        b=XmP2HE+xtJUA+X7Df8vk9lur7AUkt4CHsLiCcwxm3jS56RYZhsjvMMB0xIXgg2vc7v
+         AVuqCTcZdm8hS3DD2zVWaDQdkqRvTuRZ6itEzJ8t/yFCUQGJUr0i08HuWk73Ov8RFVKe
+         LPQ9Gndp+f8zd/4AN9DmmQZHt3XKWHGaDiv1GX3TTQ4J7zs2rfkvuxdRMcNoH43hw0z/
+         lJngHAPSLYXSrp03kPq7kOp1OM1HxagaltXI/zcoci6BQmVDPzroPAJD8wwgssMnGSKc
+         uoQ81eAmViuk2Y1QM21u0aEFs9/LiLL4VjrM8BWN9rYHEmSsF+hRjj1ji7RG9dNUvB3d
+         Z5Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794760988; x=1795365788;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5TstXJPrDePm/oZp1iHWoslySj6snE3j87RkioJk/dU=;
+        b=Fx+ObVGnfT28SpTNZWiLM9BUFQX0cjk2Yyhj03aKHXkN5JnGqyO6pJxRGOdxdnLsOQ
+         unOSlKcZwwwZGsnmvAc3MavjFQHSawuX/u2lTz6obMAtJQGUL/BwZdcB4u/7n/O8n0WD
+         rw7g3jTK4jG1JyhU1dN2jNOf49Naoo508DmnnzMqyrEh80yAlTtHH3qY0S/04PIEP8Bp
+         ebMCIFCnnzZiEuBFEZy6/CnGXSVv1WLz0hBMf6IDIjRY9+XU20qVuVMjhVafcdmpj3XT
+         YFTMubb59v6m9HrLum8wnNWgfL7rE6KNrIj6fN8jt6gnOmDVKm1MMY23ON9CRokbeb8w
+         hjMQ==
+X-Forwarded-Encrypted: i=1; AL+hErHy3/72btqiz8nHpASKMEuMjM23XtKCP0iyvFZWDNAVB6pesQfFKMGoNqox6QfEa6MJJzUwJ2vgBclVDe8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YP+AK0SxKBMCRyF+mxei63rlT5V6pFhchP4vv6gulJJWCV0ws
+	4lW5kqnXJsC0UY8enCLshm0AbdsFSkVbIdf6s6RHWlMQrh6a2fx/BeKauRV18dCzYwyE2j1wFkQ
+	hv9kyO+o=
+X-Gm-Gg: AYBFou3cCnVsnK7mgnsynYcQTdGLmP9FVQywWJTWRie3KB5AA1UUZatfiT7Koo45Qh6
+	nJoKrKjDkDZu2nqSCvHkUD13kgeFS+SaK9HkY9ftAJDkL8UyTByQ8agzgm/ilRvbXWGtTACdo4f
+	O5iGbGneJ7L+7PJnsW/62fuxvpQXIiy1h/IrtFrx2Jnw+brcFJeHhcpCdgOGBdM46xpTfubBu2P
+	dEbB5OBQZzvfcA+L3l0EOuSXX4Zah3uynNXGP7PcuxEJt3Et424md6hOXOBt7+hiBh48I9CSEqi
+	6htGNtAdhvnRryajvkZWVBvbkh8DdzCmHk7fSkzRNWziwL5oJboIGizAl2nlpEZRvTC1BSLR3uU
+	j0FHlHrtVO4HDpJ2mA8BAKNsM+A8KlrM3hYkwDdbdTopJvDlXcraGBtP34TlrxdvnEG8qVqxWRz
+	y/Zb5ZwY/PsFOuMbooQNziK7AlGN3MRRggobJG6gllLyYdBj2Er+M9rhvVaNyqPu3PApkLPivl+
+	vT6Ff3lPXcFwifNoMdrKt6qkMMz7EQiZlGutv2u3Wfu2Z1sZkM+8lZIaSxRh6/LQvYDVMERbd1g
+	MSRZ+T1Odqk4b6hlf+LtQE0HWvmJlY9qatbu1Z+DRGgzB6JKhpm/Kb798Cwmac/aZRA3VnoHV4W
+	QZNGRGUYQHgOT0IQ5CRDdPfBeMLBp
+X-Received: by 2002:a05:693c:4019:b0:35f:2858:aa4b with SMTP id 5a478bee46e88-379675fc9ebmr7514367eec.30.1794760988058;
+        Sun, 15 Nov 2026 08:43:08 -0800 (PST)
+Received: from smtpclient.apple ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm26571819eec.13.2026.11.15.08.43.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 08:43:06 -0800 (PST)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Jens Axboe <axboe@kernel.dk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,269 +92,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0 (1.0)
+Subject: Re: [BUG] io_uring/timeout: multishot timeout rearms during cancel drain
+Date: Sun, 15 Nov 2026 09:42:55 -0700
+Message-Id: <2B793643-3C34-4AE9-8473-1E6ADFE55F89@kernel.dk>
+References: <20261115163547.225149-1-teel4res@gmail.com>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261115163547.225149-1-teel4res@gmail.com>
+To: Cheng Yongkang <teel4res@gmail.com>
+X-Mailer: iPhone Mail (24B156)
+
+On Nov 15, 2026, at 9:35=E2=80=AFAM, Cheng Yongkang <teel4res@gmail.com> wro=
+te:
+>=20
+> =EF=BB=BFHi Jens,
+>=20
+> I hit a corner case in io_timeout_complete(). It only shows up when
+> userspace sets the CQ head to a bogus value, so it may not be worth
+> fixing. I am reporting it in case you want the check.
+
+For this and the other one, please send an actual patch. You already did the=
+ work.=20
+
+=E2=80=94=20
+Jens Axboe
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The driver never explicitly initializes the analyzer MAC table
-  or VLAN table.
-- [Low] Several comments and register writes in this patch describe
-  features the driver does not have.
-- [Low] In lan9645x_phylink_mac_link_up() (lan9645x_phylink.c), the
-  comment above the DEV_CLOCK_CFG write gives the…
-- [Low] For the NPI port, lan9645x_port_set_maxlen() (lan9645x_port.c)
-  adds both LAN9645X_IFH_LEN_BYTES (28) and LAN9645X_LONG_PREFIX_LEN…
-
---
-
-net: dsa: lan9645x: add basic dsa driver for LAN9645X
-
-This adds a basic DSA driver for the Microchip LAN9645x switch. The driver
-gets named regmaps from a parent device. All ports run as standalone ports,
-with phylink integration for the internal CuPHYs on ports 0-4 and RGMII on
-ports 7-8. SerDes modes are left for follow-up patches.
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> new file mode 100644
-> index 0000000000000..0eee05034458b
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> @@ -0,0 +1,464 @@
-
-[ ... ]
-
-> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
-> +{
-> +	u32 rst_cfg, val = 0;
-> +	int err;
-> +
-> +	/* The parent must reset the whole chip before instantiating its
-> +	 * children, so the switch core is disabled when we get here. The
-> +	 * sequence below must not run more than once: initializing the
-> +	 * memories on a running core corrupts pointers inside the queue
-> +	 * system, which eventually fills up and stops passing traffic. If the
-> +	 * core is already enabled the chip was not reset, so skip it.
-> +	 */
-> +	err = regmap_read(lan_rmap(lan9645x, SYS_RESET_CFG),
-> +			  lan_rel_addr(SYS_RESET_CFG), &rst_cfg);
-> +	if (err)
-> +		return err;
-> +
-> +	if (SYS_RESET_CFG_CORE_ENA_GET(rst_cfg))
-> +		return 0;
-
-[Severity: Medium]
-
-If CORE_ENA is already set, this returns before SYS_RAM_INIT. That is the
-only memory or table initialization in the driver. On this path, is anything
-clearing the analyzer MAC table and the VLAN table?
-
-ANA_MACACCESS and ANA_VLANACCESS are defined in lan9645x_regs.h, but no
-driver file uses them. lan966x runs the same RAM_INIT sequence and then
-issues MACACCESS_CMD_INIT (lan966x_mac.c) and VLANACCESS_CMD_INIT
-(lan966x_vlan.c) as separate steps.
-
-This path can be reached after kexec, because lan9645x_shutdown() only
-calls dsa_switch_shutdown() and leaves the core enabled with the tables
-populated. It can also be reached with a bootloader that leaves the switch
-running.
-
-The driver depends on flooding to deliver host traffic: learning is
-disabled, PGID_SRC + p is 0, and PGID_UC/MC/BC include the CPU port
-module. Suppose the analyzer behaves like ocelot and lan966x, and a stale
-unicast entry points at another front port. Would DEST resolve to that
-port, PGID_SRC then mask it to nothing, and the frame be dropped before
-the CPU sees it?
-
-Dynamic entries would age out through ANA_AUTOAGE after about 300 seconds.
-Static entries would never age out.
-
-lan9645x_setup() also sets ANA_PGID_CFG.OBEY_VLAN on every destination
-PGID. Does the CPU copy then depend on inherited VLAN table contents, such
-as VLAN_PGID_CPU_DIS, that the driver never programs?
-
-[ ... ]
-
-> +static int lan9645x_setup(struct dsa_switch *ds)
-> +{
-
-[ ... ]
-
-> +	/* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
-> +	lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
-> +	       ANA_AGGR_CFG_AC_DMAC_ENA,
-> +	       lan9645x, ANA_AGGR_CFG);
-
-[ ... ]
-
-> +	/* Disable learning for frames discarded by VLAN ingress filtering */
-> +	lan_rmw(ANA_ADVLEARN_VLAN_CHK_SET(1),
-> +		ANA_ADVLEARN_VLAN_CHK,
-> +		lan9645x, ANA_ADVLEARN);
-
-[ ... ]
-
-> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
-> +	 * use the same masks. Control frames are redirected to CPU, and
-> +	 * the network stack is responsible for forwarding these.
-> +	 * The dataplane is forwarding according to the offloaded MDB entries.
-> +	 */
-
-[Severity: Low]
-
-This isn't a bug, but this comment says control frames are redirected to
-the CPU and the dataplane forwards according to offloaded MDB entries. Does
-the driver set up either of these in this patch?
-
-Nothing sets ANA_CPU_FWD_CFG_IGMP_REDIR_ENA or
-ANA_CPU_FWD_CFG_MLD_REDIR_ENA. lan9645x_switch_ops also has no port_mdb_add
-or port_mdb_del.
-
-Some other writes look left over from functionality the v16 changelog
-says was dropped:
-
-  - The ANA_AGGR_CFG write under "Link Aggregation Mode:
-    NETDEV_LAG_HASH_L2". There are no LAG ops.
-
-  - The ANA_ADVLEARN VLAN_CHK write. lan9645x_port_setup() disables
-    learning on every port with ANA_PORT_CFG_LEARN_ENA_SET(0).
-
-  - ANA_PGID(PGID_CPU) in lan9645x_port_cpu_init(). It is written once and
-    never used as a destination.
-
-The comment in include/linux/dsa/lan9645x.h, added by the tag driver patch
-earlier in this series, has the same mismatch:
-
-  /* Chip has 8 cpu queues. The cpu queues used by a frame are passed as a mask in
-   * the IFH on extraction. We use this to avoid classifying BPDU, IGMP and MLD
-   * frames in the tag driver.
-   */
-
-The switch driver only programs LAN9645X_CPUQ_TRAP, for BPDUs through
-ANA_CPUQ_8021_CFG. LAN9645X_CPUQ_COPY and the IGMP/MLD queues in
-ANA_CPUQ_CFG are never configured.
-
-Could these comments and writes be dropped or changed to match what the
-driver does now?
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
-> new file mode 100644
-> index 0000000000000..7ca4a67d154e9
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
-> @@ -0,0 +1,315 @@
-
-[ ... ]
-
-> +static void lan9645x_phylink_mac_link_up(struct phylink_config *config,
-> +					 struct phy_device *phydev,
-> +					 unsigned int link_an_mode,
-> +					 phy_interface_t interface, int speed,
-> +					 int duplex, bool tx_pause,
-> +					 bool rx_pause)
-> +{
-
-[ ... ]
-
-> +	fc_spd = lan9645x_speed_fc_enc(gspeed);
-
-[ ... ]
-
-> +	/* Take out the clock from reset. Note this write will set all these
-> +	 * fields to zero:
-
-[ ... ]
-
-> +	 * This linkspeed field has a slightly different encoding from others:
-> +	 *
-> +	 * - 0 is no-link
-> +	 * - 1 is both 2500/1000
-> +	 * - 2 is 100mbit
-> +	 * - 3 is 10mbit
-> +	 *
-> +	 */
-> +	lan_wr(DEV_CLOCK_CFG_LINK_SPEED_SET(fc_spd),
-> +	       lan9645x,
-> +	       DEV_CLOCK_CFG(p->chip_port));
-
-[Severity: Low]
-
-fc_spd comes from lan9645x_speed_fc_enc(). That helper is documented as
-the PFC_CFG.FC_LINK_SPEED encoding, and it maps 2500 to 0:
-
-lan9645x_main.h:lan9645x_speed_fc_enc() {
-	...
-	case LAN9645X_SPEED_2500:
-		return 0;
-	...
-}
-
-The comment just above says this field uses a different encoding, where
-0 means no-link. Should DEV_CLOCK_CFG.LINK_SPEED have its own encoding
-instead of reusing fc_spd?
-
-For 10/100/1000 the two encodings agree. SPEED_2500 cannot reach this code
-today, because lan9645x_phylink_get_caps() does not advertise MAC_2500FD
-and the speed switch returns early for anything else.
-
-When 2500BASE-X support is added, would DEV_CLOCK_CFG be programmed as
-no-link? For reference, lan966x uses one encoding for both registers, with
-2500 mapped to 1.
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-> new file mode 100644
-> index 0000000000000..4d2d922bacba6
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-> @@ -0,0 +1,166 @@
-
-[ ... ]
-
-> +/* VLAN tag overhead is handled by DEV_MAC_TAGS_CFG */
-> +int lan9645x_port_set_maxlen(struct lan9645x *lan9645x, int port, size_t sdu)
-> +{
-> +	struct lan9645x_port *p = lan9645x_to_port(lan9645x, port);
-> +	int maxlen = sdu + ETH_HLEN + ETH_FCS_LEN;
-> +
-> +	if (port == lan9645x->npi) {
-> +		maxlen += LAN9645X_IFH_LEN_BYTES;
-> +		maxlen += LAN9645X_LONG_PREFIX_LEN;
-> +	}
-
-[Severity: Low]
-
-Is LAN9645X_LONG_PREFIX_LEN needed here? lan9645x_npi_port_init()
-configures injection with no prefix:
-
-	lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LONG) |
-		SYS_PORT_MODE_INCL_INJ_HDR_SET(LAN9645X_TAG_PREFIX_NONE),
-
-lan9645x_xmit() in the tag driver only pushes the 28-byte IFH. The long
-prefix is only used on extraction.
-
-ocelot_port_set_maxlen() sizes the NPI MAXLEN from the injection prefix
-(npi_inj_prefix). If DEV_MAC_MAXLEN_CFG works the same way on this chip,
-the NPI port accepts frames 16 bytes longer than needed. The pause
-watermarks derived from 4 * maxlen and 6 * maxlen would also be slightly
-larger than intended.
-
-If MAXLEN here also limits frames sent with the extraction header, could a
-comment say why the extraction prefix is counted?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-dsa_lan9645x_switch_driver_base-v17-0-83a471c5bddb%40microchip.com
