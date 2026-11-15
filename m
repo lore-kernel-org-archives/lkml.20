@@ -1,96 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794751658;
-	b=HJdsE8ss2i4PFEQh8Mm07juDLSOEbvHSNqOPPcp/Z76EHLKhaqFPGoQX8JY88YT3oFDl
-	 +l3QGSjVVBNCXJKMAHzhulvBKjiN5iZ7CbOBQgR2UqObr4RlBnPb2O8hvElzfFWKrOd5v
-	 kD/xamau7PsqIHbQFjq/wkGAoK8GJKiXQTOA2RWix7MyMt/BSpHJWJJdVsh7ka5pxaAEp
-	 NglZvkzX1MOhRsbi1Uk1OA93DQnEAiMIRQHCNaGQdetrjprziMz4EMuvS1Qwn2nOo72oa
-	 6AH+RvocLn3z25ljgyaMJeHRFtXHaEbp7eO2xoL2stO83Xz34v1uJU9es6vPyIw55sg==
+	t=1794751727;
+	b=DzsGx7AQrImHgLwrSTc0TKmfKEb1ZcUoqt497b9hcQ7hQHiBY2qMH5gOsJzErdbZHlJ5
+	 wc8SY0NQh6r4Lt87dtvAq4/lVVLEMG65QOXeMatgcpzCk9Edt0uJASFtF75WMRVc2kSZB
+	 UKyr6uLPaJRujMs0FSQHz3KmTfaf0OBAN3mYfMmlUfZfOmvCHU0qsgCNNl8T4QY5byOrG
+	 2Wk/VvI81DEIUg3Upfah9oVo+oSVHLdCu6CLOWsQSuGy1tuNhjSqH0QTjemYABcelaHhp
+	 wIHsI8yDR7UCi4Oa+D8AAdD5vMO1zehz0MPrjzt/HZyqMwZNij6BeuwF1Jex974x/fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794751658;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=OJFca1IrqJCommukdO3n/0kB3WMoRrx3bWcK3Wr+F+o=;
-	b=PF6jqEh5OM9O+S/Xl5pM+myagHnT3S5VHMafBrBt/uULegwLsLaAe8Qs5VOz80Pn8gGr
-	 0OZdz5ITPl2YAoGYBKxlVn0v3kGWjVG9NGVCkL9NqqYryYJUOZGh8yD7daK3DWaP3rDTI
-	 fAvAH7Arh8lGfqh1gVzPOB2V+7GVPipLGcNZmEsJAVkfOyS6bl2R2HNojKaMITsKs8FfY
-	 ghq7IPSIEqwAi5HSWv4Dmtf3aYCjeisbVwEjbw1apBcocydZIX3E7/0xJ7V1yMHJvzHkv
-	 6vZPmg6Ek46k2aDMsOPss5nwUfhwAVGR1ih3epXHdo7+wo3HKhHyO+83ABU44XUgCVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794751727;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=JUy2Lmpej4xnERTXpUx7lz/gMVfiYLOHU2C0M4X8NCE=;
+	b=AbWo94ZOeI7c3uJtzTyzonKmKWSsYH/6MpD5xnyJ7hDSh814Y35GL30B8KZg+9JoRCPq
+	 DWiV+P2ZLOhDvn5crhx8CXAtjUFriG44j8QZ4ZVYW6OTYDfHC0Dme7plQxIQa0JdDplCU
+	 xJKd66ijFeDMcDsLCpaQ16YlX036kEcy9jlpyiPlKPL8izxL9gD2SENrOHSA+Rr0TDYm2
+	 Yq2/Hiu7/RqmLipLApQnO9TzigpE6etccjiyefW77spmWdG7w55i7LkoVsXZCquipvKos
+	 BIsgy+j6nOJEDDrRdblqEUxxWUgdaUo7aSwVLGhfzpP3gJtd9hOcQ1oeY6DR3TMcoHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRllI1j2;
-	arc=none smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmx.net;
+	spf=pass smtp.mailfrom=gmx.net;
+	dkim=pass header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=qSzFV7sI;
+	arc=none smtp.remote-ip=212.227.15.15
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74B5606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B74B5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10B6606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:08:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D10B6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRllI1j2
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679a2b5fe87so2568139d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:07:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794751657; x=1795356457; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OJFca1IrqJCommukdO3n/0kB3WMoRrx3bWcK3Wr+F+o=;
-        b=XRllI1j2D4IJt+1KAWnjJHVgfb+UGZCF71XzMYbXVcj1KlGxMSNlFsIUu8T6YI3K1R
-         tGCFkKzE80GqHEW0eEHf7fVrwTbwEtOLEZ4LxWwHbq6A9UoVkAqY/CofeKnbjY2PUFs3
-         T0/0rzkoCGYHCbhgSqoqWhkPDa3B/S6ULoA7tadpSXaUaFcwH2PBBNHIfY8t9ufDPEJn
-         v7Iiey04zospMH7HEWDVbVFgqvQvL3U7zQnn3vmA7U80VrRmWdTh5xMsTsvJs31ov4S7
-         f4w0QVoONTbn+ApcXNosPJYwLvW39juGtMQVf9Xpn5NJ3HMw/be9kwE42T/43OrMnhH9
-         DwJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794751657; x=1795356457;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OJFca1IrqJCommukdO3n/0kB3WMoRrx3bWcK3Wr+F+o=;
-        b=kGPDPzQNpOkPKNHcVOoIa4I7fHUZ+rGDzjZ1bw20Es2nz/6cXdQ7lV1tXPp45PQJ4F
-         pJXymXYl5b6w/2zlGDkcvo93QpxTvJLztj0fZ34pkmvNLVZ+1UA6ehDFxRj0e5PpYkpj
-         2ZKEmf4bLIRu91f6bwzKh00rJ1q4ijx94ErLbIEmPcaKpvKD+Bx+dK3XOWAaxM1klvL7
-         KPRJoauSP9UbqQ51SCAJLTNDF3+rtnyYCeCnzuMhb9lgdRfWwRBffu6zFV3KPMAV7ufw
-         XK18crxDZ/lIvda25BwJxqUKY+8jF+3ZlDFkmW6FoYYjbWt4p1MjV5OuEvUJ4nUuFZTn
-         r0gw==
-X-Forwarded-Encrypted: i=1; AL+hErFInJLUWDCJIifiWYDhvoVbwLSzWYgMMyWTk2JVxkzKag7ZkCP/Ux+GB2Fh1kQyy0D/nq04l761YvPCV3s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/inO+GhEfplA1gUv6BXDeNeprNptYI+kRvtXhvEYohHog/TPl5
-	GK12b8Y9TlyaB8Tm5DNsp9ewaMN/XKv3/oDQ+Pm006DLfZPUYVuVug0L
-X-Gm-Gg: AYBFou3fS9w9EW9+kTPdhm3uHAoOM4uHBHeFe2R6QVyXhF0XlnbQSMqx4sVLFZcQJb6
-	WS1WhKi+yby9JX2r6vR8j7d0vmGji9n+PhX+0kXIQlJD0U5hAJ2qIW63jH1/zRGojmOXCJEGt7Z
-	StKg/1Tjpp5AH+YKHh0gV+AIPagQlE/FolpXw1zgmtCbd/0KvweKZX7s1YMm/PkbYQMK8CNP0XA
-	VcsnaOIKVTRnhfiMRa8turObob/QB8HbQS03zJi+XlpIUXpaK9EIiu1NXUGbcA5sWNMDzyGiSu2
-	cmUYSYVCGjN7UcH0F+hVcXNYcSAOpuxCT/K08zHcodcV352+C5OZx8i2TzEoFeCHwm/OCcFtcGK
-	z1yR7mB0xM+RPiakN6wXha9An2fTAEzm907DmGTqFQTxpCNIzklEO4YHPAP1Qq+/EnwcmzT30sX
-	TrfSKHYjYpmOci7Tb3/drvka28w9MTN25Sgiyi82n3IhdIyFjnGqrD/tC9eUC1BrHW4IUIlbFKt
-	OCwNFNIG+Mg6l4E2eBcX0qVAfWhqkXK5Q5f/A1phX5dAYipuAQ2vvMetgLBPVqPx9nrWR+FxKw/
-	BK6VA9ln6Fyb8o4j3E+2WCBEtpFD4c4ZB79HTobL913KceZEs1rgP1829lzr9cLSXz89bYmb3MS
-	Ydzo=
-X-Received: by 2002:a05:690e:12c2:b0:67c:1907:922c with SMTP id 956f58d0204a3-67d895e627amr3639209d50.44.1794751656403;
-        Sun, 15 Nov 2026 06:07:36 -0800 (PST)
-Received: from dell-pro-plus ([2804:29b8:5080:dd51:39c5:770e:6bea:512e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a629a2dsm7453937d50.21.2026.11.15.06.07.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 06:07:35 -0800 (PST)
-From: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
-To: linux-doc@vger.kernel.org
-Cc: danielmaraboo@gmail.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org,
-	Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
-Subject: [PATCH v2] docs: translations: pt_BR: add researcher guidelines
-Date: Sun, 15 Nov 2026 11:06:31 -0300
-Message-ID: <20261115140631.70601-1-ic.gabrielribeiro@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=qSzFV7sI
+DKIM2-Signature:  i=1; m=1; t=1794751724;
+ mf=PHdhaHJlbnN0QGdteC5uZXQ+;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.net;
+ s=s31663417:rsa-sha256:G4WnCiMtFz962bJb2b9WoiGRK0If
+   frDiXeUSnn7PWGu7VTjNHpHKuCVJZCz3XslErpqVJEoSOPDNB5hBY4KK0cd+tWiqb2wAz5PZ1Ic
+   lqMKUlJSke9Bm9X5OtpG6huNvO3B5/csk/4a8YP/I6zJDgq4xsHOh24p0p9nlNlsjHmkoQVOLH1
+   tLG8yyBa4b5xsYB+sBNXBhCOmKsC1ESnEwR+LB+69Fbr3xyKmgz0kYcNAcj3hEmabhvGtCV5Rxf
+   POyxLm4zK4QcBoxLCx9bfgaeUQ7I+ix9kDuH3lDxh9btHMDX2bJd70KWhj4QCeWKjOzIRRPY3OW
+   mL8TX6U0gfKs7w==;
+Message-Instance:  m=1;
+ h=sha256:
+   E9jGeJWkqatQxmE7ggRSW0sqxmLRWZXEmbk2/hI2CS8=:
+   HnOwQpmKBtCLoScExv0yxLqFIJvU9f5XcAl+vtj/TRo=,
+  sha512:
+   +QhEzRr1QaZWaMIpbRkkEm//sf0ove114tZv/wIDoCUwviln0ywnzJ5g/99igwOuswByjdjKzURK9CSiNJmE3g==:
+   POrytf1dfEja9CckZja2BRbX3YZ7Be1EkP7j2u7+UP57r4Vyh4zM4LxZvWkJZ6ZPjqGuDcl3VRE3Tx7FxgBjtg==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1794751706; x=1795356506; i=wahrenst@gmx.net;
+	bh=JUy2Lmpej4xnERTXpUx7lz/gMVfiYLOHU2C0M4X8NCE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=qSzFV7sIhlMxWx6yXVOdYXcGDyJOL/G5dCZKgECnSPIsrI1PjDfV7B4lwI4igDoW
+	 dBe6p3R23IUOPgy4LiZ5djaaYOV3mR/lipwgGUPsAPFJe4fQzgiAJjwQ5JlLxW9/g
+	 X7SlURh5eV2LibsRCsrQfrjwmsDuGNgZ3Fd025ilkOGgQZR2B+mTZi9EQo2O+yfUC
+	 BZWswcO8e5Amw2vX4aHCfGKmBNyyGtu5uDmbz0H71jaj+QDAv+uE1zg2UgL4p35Dm
+	 AIFAAoE3/zE/ohEApgZdFLQBcQ/JHnJtrRE+AjCvSE84ZoMjwCNe/sY8ATkeKlQr7
+	 rn/Ds9Xyevklcy8wDQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MQ5rO-1x6eAU33I0-00Kda7; Sun, 15
+ Nov 2026 15:08:26 +0100
+Message-ID: <490e6ccf-0cc0-4db6-b076-5d4ac5f5b8a4@gmx.net>
+Date: Sun, 15 Nov 2026 15:08:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,212 +81,210 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] qca_spi: Avoid unsequenced accesses to jiffies in
+ qcaspi_netdev_tx_timeout()
+To: Nathan Chancellor <nathan@kernel.org>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org
+References: <20261114-qca_spi-wunsequenced-v1-1-6b219b906db7@kernel.org>
+Content-Language: en-US
+From: Stefan Wahren <wahrenst@gmx.net>
+In-Reply-To: <20261114-qca_spi-wunsequenced-v1-1-6b219b906db7@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:RjQUwp8PlpDQc9bo9XKnnJYGvo22/SEcWUYCRCqOv1b/+0Ud2Ou
+ LPpC2S7PtSwUVyToCIfnwapl5QthI9sDZIdw+mdXwqa1L9g9Y7PMUKoI7a7mzmtpL4iHNfr
+ 6CnCZLmw5iRyOzMNMjRkbpmrDD0+LUMI0CIFXIHPAPYxDQkn/kYrNm39+wNwR3X+Ke/30Fj
+ 0NsVhNtzMI9aws14GT1oQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Kq0QF+Nllcc=;4U2hG9HqgmdsnivUQkPNb/bvXeV
+ QRrPcvTS4d9qnERQ+QD0Mb83yRwokyOEV6WMtnKiL4OopKFSrjcvFYBGTDI0AX64JgvQei1Tc
+ 9RmD7TXK6hFakPEipX3yLeq58nZSstSRAhl94jH4z4fx/5DJO7ksusg3B63e6iaL6RWPqrFix
+ 3xbO7sU4D0Zq8K3eZo6hjPEe/NDVu2J4z654esYjNfQ4f9ZPSnqulf52Mev/AAuejLbqJ+yOS
+ Y4iWrtir18/A+19EdDSQ4XLkKfwdFAPN451UrXnGtkhRNZbjkEHgUUlvgVVpyRR/cKfh0yxUY
+ mGQhR5LWXXTHTUjQ/tqHaePk4jBinH3FS40LFbWsgZuEmiUqnH07ysUTJaJ0KAWMPdnh95fVm
+ 070DghOfXEzN178QOJmEmui8/r2nQBfI0kKLJq0d4nF2ktbTARID0EY90YjxjK3zGar8wXQk8
+ QXXG4q7iQi9jaoTG4rIYGWCefD+WHP70+z7MAx08W55rbysRh3zD4rh5FTWWWBbpM3cxEtKcS
+ bhTU4FUmvuugmATQ7zP0eNCjwruJkT1UZnO7snMhR4nKwFvHcjqfl7OfApXjPIjFdaZezphQ0
+ 1SBJRB1r6uwBGaY+pWfrR1EBAptJKbffeoz/3zf/j+YR6OSc7V+6o7Lg74gnTFP4k2qoIRDKa
+ 4o4i29OstcZjYnYhN8XCzXOsbjODyPGHKKZxFdTvwoTZMyKA3zoQapqeBnVykj6JUo0CMt5Tg
+ f6Gpdtkk7wSHVNpVuP5jWwyWY8mgMN+DN/USgJt1QSn21u82v5efr4FS7gi7Vw6xvXdHAk6+q
+ cicYAXR+tbvZg3HeECpdsODbv+PqMa4TzF+gSrLMeeypFY9wdtDuVE0ob4Fu/iDy24Px6e9FC
+ tJ3ACaPKWjUVUpgHAQyVnAH5ele3pmqemD9a6Y9x7SNVacqCY6WHTnSXSt3W/R1gLg2V23MnY
+ TqpbTKPAmodESohbG6DMGE3YImgDOFt5XRNM2D+rcxvHd0+3RCLGM8mtShx3rB2tNYvB0GSEi
+ y7owfW12rqR9DR9RmSw6vZaUJxs7Q476xA+s/4l+uGTHPtIL+j5YDKcdhTI/Y1cKhKwIIDrv8
+ fWeVUd0Be/wf2THHN0mrokaUOul+CKndrIRhqEDZT44xOrpxZFF7OqEXAs4g3yMN4AVcwh03/
+ hVarpIIYCFsJ765Oz0hMOxr/2s80d4ima2uaZLQakJRArr4OmYTTuHEJGWc968l8LbGW8yot8
+ YiyrLKbMXLBTGTvF7ANHNbwRrL4NJdr5vsy6KQUEbxfBoiUBoszWnVU08OG48kAu1Lgn2IeF7
+ UUCuk8QFaZehMRPkvx/I9cvZ564FQmnFDaHPSq4wpHl6evELUO4N31E4LJdpu6T8mivzNq8W1
+ lBz2XDLn6KdGtkXBNQayGlXwS1xIz84EbDyF/v4U1U10Lfkxz47jytADPI1S05Bc8tvGhQsEP
+ pGGr0qgo06pGMEkeWi8XoNuwrN4iWzCmF7oBV7agLr79FIBEFOihx1c9XYkhnPQkE6B5KChru
+ gpmJW1Xm/x6QRBM/On6mqXkCYpxXAqrLIBuRqP3aRvvlpBXo00yQKJPmXkUPHRjgkOTYpWM33
+ UVWyD2lKbavmLqHYVS98yFKLGygGijjCEPK+n1j1p9QO2bPYYixDfkHemFcJUDP5ji+5PUORt
+ SyQ0X/T7T+4bD0v0nzTuh0b2v06abtgBMelx3GxlzRkCTCEz343XGbTFcANzkv8mdCM6eoaPL
+ iLdoR6mDwHiM0kk0ncX8Spprqn/uXerXhiFkWsrzZGw2V55a9bb3p8rXLOJAjKU0B3SR/Un5i
+ E52uEonQF6DGNwhGr9DKNDXJFGvSPmvVBjLcpVLk6d/8qSv2xMEXSoBvXDIKGj71m8Db5NUpu
+ RrIItKCjHZWk0xw7eleUzIIjNAl6+ALuqx1w6M5omAiruVcKP4gWjGH/9P+zjF1G3NDUpHkhu
+ KWQR0p2aeRLkOT1QB+vnR+wMVNgYpTxtpRxC3qgLygbb/snRKRBFhhngsoaxmOQbTiat3gEEZ
+ Ix24XAEvq09c/l4LoVGdZsSk7zFS/ynRPXXrMAM97o6x0ng0kQr2GC8MIq/0IwWhkTogyYLc9
+ jy2p6PXjdRkUG/o3C+SbdrZjMn5Y6F6RrL1TwGPRkYa8JKXyOLuNYN/XG7PyuC6M2KEJ1vTVI
+ Pj+tCp2SDykFtZNitu5Gmg6t9rCRiyRvdC+o/TRrUeYzPeNn0QDQCJRgNpSCmC8nOtERt2vwi
+ n8z5lj/0alc8+gzH6pjTeGCi4rDweg9Qcm783WZXBhotoYcv8HuV02PthJVahj/UyHpauqm8S
+ QxBKbZ4q5cUTdZdzx7ecWRVG8lI3+AFQ1wHoOx5q5D3KnIFvIV+rhYuw15kd/q9LbAgHyQ9Ge
+ aZbjMvK8C9pDSJKmL2DC5qWzytn76cRZZddejHIPRrKwkmwsI6Kl8+pnKgzs6Dm9rzfc85+6C
+ wYnjyTjRbtTCgLdPPyn/xbexSKKgVnpRl+dgx3i1wUPaEG83Bd7vhF0l3zy+3gfPGVgvrkgpI
+ ZDEIi3raxYnsYh/CG3rNcXGPancIsyPIpxYBoGgHAogRGb/x1nxqvEeSm8GBFzUcUM/L6DlZ9
+ aN78PGga8WWVrhApi1VgeIVqr6hGoj0nmYC7iSSIrhvyRDz/Km+ZwYjO930K7uSckAqO3TL1U
+ dyWyF8WEwIi3Dhh/qWX8+Abg2RsNaPoCoI7WMOXj28s8S7nz6F01pXJWp6ynfh9HtK+lGVLue
+ WWkSdwo1seJtBMIPtdzPq7aceEzuH85SCsBdRzernWT7fC5R6ULOZe/VRnkmljRmSYliR+Ol0
+ 97btKGIB+WEm7dFOXfJ+Xj0EEU73O9fVJQ94cNAO6k3saxl3lfGQK5IRHfmcSNX4fB0Oj6JeX
+ Jxsqjbn/u7S3jSDUgb2F/lcZgIM4fNSd90W4nvhRhBxQvrhjfLf4GC5x9PHSZZynheZf9dsuu
+ FuLt67UQmBlebnH4wPFHgsAWteKePunQ6J9qYVLKvpIiYzgx2hCjnS4ar1oOhnwGiG82/apUn
+ sCZxnAiQK2ynHA/0wTjP57TtCw1aBcxtdsZsKfO454ZIOhsFOrBKgd9YpRWsodlXFP/L1I2qD
+ 1GPD6moUsF0Iqt0qH9mnPoOSbNumGBK7XqOOwUA1yMHJjuuvmHS0k9zIHyTNRUviouS562E/1
+ DcRwRy2iJ7ZLw8lzE4pHhHQkfgsacQ642ZJAOY5X/F7UzuvIcLRCqVv00eO3hPUPX1Yflcuav
+ zFmzFHENCvPYp7CpEKqAPjkwMU9geyfFq1HUa5SKr0KE4VJm33z7ncuPzuf1oT94C5A1DCYck
+ exqJv0keTpNvBqlGwqHJ50uNTc+Gmdgdt58f+W5FuaYCCdBthOo+vVlLyyo/DKE5oEE/vgcPo
+ lokfLwjSdLWkvl+16pCaTmvruvUL+p9VP/sSdTc+rhmg1q6d9sHnlx496OuqCMvZJQAxwztJC
+ GoDAX7gzYgO5EHSB1QkARX797U8yV+JSF+QNOjVppNdka3mESyAK0sgZnksbPwvS2fVeWGh/p
+ E/vOkacn62AkljoqKyRqOeetVksYxTRcr7RDDB6VslwUEiXo0DkVWuK3bu4i9Ov4k7AnBZPUI
+ 0ixkh7NpzpCvgl0tVrk3u4KNnIc3GPjAlAd7x0BAGnvGg25Q2NI1P+pFJTwjHavSAm/324qxU
+ UBx9CNVUJdb4Pk4sg2s/O/s8wnWFMyaA3SGJ4BQDeqPlY6cgbLL8C/WCetouMjkgjO3qW4ziN
+ wwpNYiFNdAi36dlpIuxupgSG1vu4CkDekaRf1TJuiwemAbLYNFErLInSll5Jr6eUB717PWZrt
+ E/Nqy6xpFqAkaKZdIlA04nIDsVApGPJQdKZZPl4f56NAlo0KMXywPw5z+cOqit974onB3kfEb
+ 7edZNvghl6tm2qGOKFAxWRpiMl7QD8w78dutFnfoNlxcOIZWrZNV8slR5QAL5TpNYkCmMYkcS
+ s0nHwi28DTHWM/QnxRJKogvXiHABnHvhtrtWM/MkVa0mmJtEC6LSuMTmaWafLOXymdJaGFobV
+ Oq9yY66EmACdwyCFXJ3429R2piroKtHP7HQOUYBtuYuw1+etcwUdV0x2qPy9Ww0R0XIIxi3NC
+ LbRLgJ6vps6qdpA/Z6rPD1FxklRSChrtcCvKo7/Mvv2/eSXX6JNKoC+aKJAWB9V7KPfsMNY6k
+ 3/VHjVnptDYs9O68Yp6RVNSqxmPjpjl2Kyx0PniVLfdl/5h+31Yw8+Yvl03aT+WglLo9ek+3N
+ rgD56BD0fhv1ZrGl7X8+r5GqcrLpjQlpkqb2szEbhOT5vOcoAMDAVcoYS4v/XbPPY/qEhU4gr
+ RBLOJVglBHTs28e1L7CMGpq12H9nIFGxOUYg4fsVV3se4XX6qQ4T/gpJeVC+6nQjbM0AcpsZy
+ SFxu66otNBEma84n9/dxsKaUyaQAEb8u9wpEfE9ReRT2Ce8/ldTRe42Hv31MYu+IIJPDv6+d4
+ uJvpMVLwUuAkX6DQKAw0nuZy1rFJhzmvkZtOvuEt06WLy00R6gwDhqg1cQ4A0rf8/zbVQ1LeS
+ 6piVQ7Z7lzQHFbTUgBR54RSyRXiMu2hLmXPKjtNcjvKdwjNlqTfSEL28RbWOWGbf7SkzwWf2j
+ tIrtQ8rr61FLbpM/L/CqlRgq1FSfDhIXKGFt5ttqLIYQGWD0fe/8Yz3yNOMmf6dYlM1J4rkIE
+ dq5zcvDhRa0XoLmx3BRfhRCVIYbrGVL1w5uFXXpzN014N2xiNbQ0YGqImbNIaLgEiRtWFiIXy
+ R0qNbCK7aXd6ibZkkmoQKEpnGusvASP9IlXKz23NEnwLAMljSg0OXhRFpp8zmqhBzywbu8yZ7
+ XxcQ44iIGs/syZ0adGx98xM0/GseEG3x6avXXSz0FzLAwEJ87I0b4qLYp7swqIByYOjwKk0zN
+ AZzJ9raf74N2wd5+kAUYmKXgzZBQ0PO7lfi4DXdqaX3EHthE5qHVpqQ7angHGM/oIDIB8vh2t
+ renrxSR3WNU+oBc53IhukmH/dzNSU0eyAsI5TE0mQkO9iD65ImvHOX1Um6ZX4+zZaEzap3OyK
+ 9OM4MJXUCiePUum7TQrRkbrVGPrHrEKtBSTp3tYLMyDd9CdhkLmDu4RpOt8JFTfFJBcrkfC6e
+ CbV0YDbeAlXHWS8IuYrx2hyr00VR7Vj3r6dnA7Pusy4zJFswE/0teP9pI3BdQitByORXmdZTA
+ nhXSbZD8zF+zVZwTjZxi2sYZ0TgKVQSQyqfJfiW7lxOPtIoSdLJqsxioToCluHZamfn4Z7ivr
+ GLbg+AJ8HvFppgCBcf4u/NMOxYtBDz1Xhs89Pwe0SAT3Vlou/CD2mg7bJC7zz+GCbwoTdQpJd
+ YJxrd30gYOsInBqFMj7fR4NRDmgYTRRSYDhbyOyQTrqmVojKFQZJw+H3r9+7eKmU/pgQ70ND8
+ hoFVxtaSB+sXno9DP9GVelu24CrQRykVoEYfvWhcqa9RHYyq3CPo1IrLIZXeY2XaiAeBvAxUd
+ +a6uxS/duFkLgIXyQmKf4vPKTQB6BdkWmZMFYJCUxSIPlHRM/tdzNjaEkyiQq7sQJXN9VQ5jh
+ vSZuLFl5g+cQi6MCXbx6kWw7TuiF0Z118CY6i5ZTmKDrZR2aWoYlNj4IqSJgWXsCdxhGIwnde
+ NGyvkYpp2N3jZwqHLaj5eSTKtoe3giLxuk8yfiE8XzbYoonKx7xi4EBIk+SL1KaHrqZXiUkfz
+ S191EWzdeqycxcQTfzT+JEhJwJNruXRuokkkcU/QReTfHaCSPdT2jARzzMt39awhYe8nSZ93S
+ 8AHgSjKKGP+L8jLEkuhlLtn+ChugxViByiBTwAVzHoV8Zy4sWt2oYpmL+hz1J2sHi7PbsKYNz
+ WYw9EyyZdjHBTPbzgQugudJucDvzeBR0vuYOL88i1gdhVK5Ll73ZkDaGJQW6QsrABZ2RHZUwx
+ DOyKm2rOChF/kISSReta4WqEL0j1VTwAcxVO0/oNjIDwuoPYhd47C1l1UpTqIsvonDAgN9UaD
+ J3qbcAfXuOkKWxkLs26fNVtOVgUBsOFuYb/WRNDc8JeuRXDnmGi8TfRx0HMFo0kRVgVi5k1En
+ GKc3uAWDSxhlHsIeMUbyr10LDuBOKfR9BoXL8VhjlfAu39LpeaWOaqaBwuywT+QHHG6oKQ3mB
+ r7czKg0VvEdh1n8yYdBXPIzvCvuiphPZlAa+1XBS95RRmxFkhclwNwC5Qqrj/wnpKvymEaufq
+ qTopjxNZPgHAvp4U0ynnOpCRBNvEAorQbeVhEcu1S9yUtgDp0OvN9DWS9LhiBh97/jnxUEeoq
+ 47T5NpQ+drTNoZIdVYAATsIzamK3UKYRenSk8Pos2u+sVr/8xeLS7BSz69AAtQx84muL1tbmT
+ A9i3tPruwdFQguSYk9jRyVm7WnBC79k0DSSaZgcNWJCM5rqdesQ/RMnT3uRRxGMQqXo23rDgp
+ qK7I/E8E08YbhrDeNIvlGxJNCJ85UtzkRWUdr9k/9adNEL5x/9DP18vQcGrkOA4b7eqR51FBy
+ VD1e4LATpPZZRQ4JjLIhJijsNviKh89U0fjBZJeuTEYCBEenr8h9p/1tH2/duKzz/AE2BiDg3
+ A45RHvb6akqiNHwnB+JvOYnQCHrHvnPXtbx+6SxbnCeTyFYGVapaKRvMtVJ9yocBRJ2doKwtu
+ oBJTdeVSYSwpZ0Ms9q7bFvxawtUyES3WBpBLFAX0zbsocwUBt1kbTqqpkomFITb21jtdjKDvr
+ iqh15C/xpjlKR3orLsaZWgZYwj6inG6HvxYevdexvLvT7tB66Pv0pBE/J3Qf9XDNFCT9Ntd+G
+ CqCIK0idA/p7GM2yqf6mh6tE2vevZHjtMFxbsY3gBrUUq8e5AhlS/+O/MaEkPfw5/WovoGfhU
+ LTrUzKp3BlJ0f4ffIsEze6bHmWIreEvGReOgqIqIZMWZrKi2EzSul2+XxmbBHzrs8ui0mAApe
+ rvuGlOVXHzxsZWDitxcF3qp07ggFfGQlSUBjEXrikqHFcXkNtzUUc8HiYAPyziqbVZ2OeB8Ax
+ Zk86+rXxh5JRrAuqEm0+eDeHx/hAdV2Dd72qTiwbjzQLGpVAba9Ju7kp7pa8K3LQ6TQsv/csT
+ VYcgIG5uUzR3mPaP/sGsuS7IWnht20YVHg0jIr6pO0idb5K99XbsnsQgHHi+i/n/2R4TAkuVi
+ SLOooVmzjwbbK2a+Z/ZsbRS7+qjg4kbRIaWpVCkLO7BFR6Z2eAEcYaxbExz3agu3xcy/fbCDv
+ EiSq7aFBvso2BJCZAqHJeo6U+5bSZ2+1Dt6EHnvRgtnWT+3SZyaR3Zbx9GfNMGIUv+oz6ICjQ
+ bDtH53xOxtsl0bMbdl698aHEVp9/cSb7vcVhO6BLf5BPsKVSQLQA1uTr8Nli8ig7hDO1TrjGY
+ 1UxH78w3fLyuucCRPQKF5IyUKJqwZ91nIfGMQ6cxRXAru7l3T5GkWB+poYMs0Y0yIqse3KoD7
+ MDEnsl06pWBL73Oq47ukTsnTOQiHLnMPUWiTi44BOdAOY4Chrx2yzO2qc5zZ8kObrYujrsvRY
+ mZyK146txhNywGLK8F4hQQ+h5cGPEvd9cC3tPYrFBMhYU/0rISYr5P7GmWfGTldkqDH8KMphY
+ GyxI6qpVL/8UOxa3andyB7ZAG7mlBf3Cuf+kexy5OXekz4kjm3kjedEJ14aUU/yAJY6eOAU9p
+ hiFcWt51vEHkIkqjKgYRe1PsmIRBuiIr9lO/+gv6HPfOyWyemXjxV0iWIvmM47n1Q+J8w672v
+ QamZTDtMCj0sZxPOuw67e0B+xbEg/s77AI0P8YvZSjmfkHNwepynHpzIJtHOSkaeGM4nrzNBA
+ KCR6gQbtYw9RYqJ9W4KWSp8elH9U3hA/wZIWrQPXKTprCTg==
 
-Translate the kernel researcher guidelines into Brazilian Portuguese and
-link the page from the pt_BR process index.
+Hi Nathan,
 
-Signed-off-by: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
----
-Changes in v2:
-- Preserve the existing toctree indentation when adding the new entry.
+Am 15.11.26 um 05:39 schrieb Nathan Chancellor:
+> After a recent improvement in clang to warn on unsequenced accesses to
+> volatile variables [1], an instance appears in
+> qcaspi_netdev_tx_timeout(), which can break the build with
+> CONFIG_WERROR=3Dy / W=3De:
+>
+>    drivers/net/ethernet/qualcomm/qca_spi.c:805:16: error: unsequenced ac=
+cesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+>      805 |                     jiffies, jiffies - dev_trans_start(dev));
+>          |                     ~~~~~~~  ^
+>
+> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+> 6.5.2, unsequenced side effects on the same scalar object are undefined
+> behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+> function call is indeterminately sequenced, meaning any side effects in
+> the arguments are unsequenced.
+>
+> Add a local variable to hold the value of jiffies before the function
+> call so that there are no unsequenced side effects, clearing up the
+> warning.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 291ab06ecf67 ("net: qualcomm: new Ethernet over SPI driver for QC=
+A7000")
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2197
+> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c7=
+4750637fc82dfcc423 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>   drivers/net/ethernet/qualcomm/qca_spi.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/ethernet/qualcomm/qca_spi.c b/drivers/net/ether=
+net/qualcomm/qca_spi.c
+> index 38a779f4b866..3ea745d4aef7 100644
+> --- a/drivers/net/ethernet/qualcomm/qca_spi.c
+> +++ b/drivers/net/ethernet/qualcomm/qca_spi.c
+> @@ -800,9 +800,10 @@ static void
+>   qcaspi_netdev_tx_timeout(struct net_device *dev, unsigned int txqueue)
+>   {
+>   	struct qcaspi *qca =3D netdev_priv(dev);
+> +	unsigned long j =3D jiffies;
+>  =20
+>   	netdev_info(qca->net_dev, "Transmit timeout at %ld, latency %ld\n",
+> -		    jiffies, jiffies - dev_trans_start(dev));
+> +		    j, j - dev_trans_start(dev));
 
- Documentation/translations/pt_BR/process/index.rst |   1 +
- .../pt_BR/process/researcher-guidelines.rst         | 176 ++++++++++++++++++
- 2 files changed, 177 insertions(+)
+In general agree, but imo the jiffies itself were not helpful to debug a=
+=20
+transmit timeout in the first place, so I hope we can avoid adding a=20
+local variable here.
 
-diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
-index da92a7026e..cb9724b5f0 100644
---- a/Documentation/translations/pt_BR/process/index.rst
-+++ b/Documentation/translations/pt_BR/process/index.rst
-@@ -66,6 +66,7 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
-    Declaração sobre Drivers do Kernel <kernel-driver-statement>
-    A interface de drivers do kernel Linux <stable-api-nonsense>
-    Estilo de gerenciamento do kernel Linux <management-style>
-+   Diretrizes para pesquisadores <researcher-guidelines>
-    Assistentes de código <coding-assistants>
-    O manual da árvore tip <maintainer-tip>
-    Conclave (Continuidade do projeto) <conclave>
-diff --git a/Documentation/translations/pt_BR/process/researcher-guidelines.rst b/Documentation/translations/pt_BR/process/researcher-guidelines.rst
-new file mode 100644
-index 0000000000..5ebc72cd2d
---- /dev/null
-+++ b/Documentation/translations/pt_BR/process/researcher-guidelines.rst
-@@ -0,0 +1,176 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+.. _pt_BR_researcher_guidelines:
-+
-+Diretrizes para pesquisadores
-++++++++++++++++++++++++++++++
-+
-+A comunidade do kernel Linux dá boas-vindas à pesquisa transparente sobre o
-+kernel Linux, as atividades envolvidas em sua produção e quaisquer outros
-+subprodutos de seu desenvolvimento. O Linux se beneficia muito desse tipo de
-+pesquisa, e a maioria de seus aspectos é impulsionada por pesquisas de uma
-+forma ou de outra.
-+
-+A comunidade agradece muito quando pesquisadores compartilham resultados
-+preliminares antes de torná-los públicos, especialmente se a pesquisa envolver
-+segurança. O envolvimento antecipado ajuda a melhorar a qualidade da pesquisa
-+e também a capacidade do Linux de melhorar a partir dela. Em qualquer caso,
-+recomenda-se compartilhar com a comunidade cópias de acesso aberto dos
-+trabalhos publicados.
-+
-+Este documento busca esclarecer quais práticas a comunidade do kernel Linux
-+considera aceitáveis e inaceitáveis na realização desse tipo de pesquisa. No
-+mínimo, essas pesquisas e atividades relacionadas devem seguir as regras
-+padrão de ética em pesquisa. Para saber mais sobre ética em pesquisa em geral,
-+ética em tecnologia e, em particular, pesquisa sobre comunidades de
-+desenvolvedores, consulte:
-+
-+* `História da ética em pesquisa <https://www.unlv.edu/research/ORI-HSR/history-ethics>`_
-+* `Ética da IEEE <https://www.ieee.org/about/ethics/index.html>`_
-+* `Perspectivas de desenvolvedores e pesquisadores sobre a ética de experimentos em projetos de código aberto <https://arxiv.org/pdf/2112.13217.pdf>`_
-+
-+A comunidade do kernel Linux espera que todos que interagem com o projeto
-+estejam agindo de boa-fé para tornar o Linux melhor. Pesquisas sobre qualquer
-+artefato produzido pela comunidade do kernel Linux que esteja disponível
-+publicamente (incluindo, mas não se limitando ao código-fonte) são bem-vindas;
-+pesquisas sobre desenvolvedores, porém, devem ocorrer somente mediante adesão
-+explícita dos próprios desenvolvedores.
-+
-+Pesquisas passivas baseadas inteiramente em fontes disponíveis publicamente,
-+incluindo publicações em listas de discussão públicas e commits em
-+repositórios públicos, são claramente permitidas. Ainda assim, como em
-+qualquer pesquisa, a ética padrão deve ser respeitada.
-+
-+Pesquisas ativas sobre o comportamento de desenvolvedores, por outro lado,
-+devem ser realizadas com o acordo explícito dos desenvolvedores envolvidos e
-+com plena divulgação a cada um deles. Não se pode interagir com
-+desenvolvedores nem realizar experimentos com eles sem consentimento; isso
-+também faz parte da ética padrão em pesquisa.
-+
-+Questionários
-+=============
-+
-+Pesquisas frequentemente assumem a forma de questionários enviados a
-+mantenedores ou colaboradores. Como regra geral, porém, a comunidade do kernel
-+obtém pouco valor desses questionários. O processo de desenvolvimento do
-+kernel funciona porque todos os desenvolvedores se beneficiam de sua
-+participação, inclusive ao trabalhar com outros que têm objetivos diferentes.
-+Responder a um questionário, porém, é uma demanda unilateral imposta a
-+desenvolvedores ocupados, sem benefício correspondente para eles ou para a
-+comunidade do kernel como um todo. Por esse motivo, esse método de pesquisa
-+é desencorajado.
-+
-+Os membros da comunidade do kernel já recebem emails em excesso e
-+provavelmente verão pedidos para responder a questionários como mais uma
-+demanda por seu tempo. Enviar esses pedidos priva a comunidade do tempo
-+valioso de seus colaboradores e dificilmente produzirá respostas
-+estatisticamente úteis.
-+
-+Como alternativa, pesquisadores devem considerar participar de eventos para
-+desenvolvedores, organizar sessões em que possam explicar o projeto de
-+pesquisa e seus benefícios para os participantes e interagir diretamente com
-+a comunidade nesses eventos. As informações obtidas serão muito mais ricas
-+que as de um questionário por email, e a comunidade também poderá aprender
-+com as percepções dos pesquisadores.
-+
-+Patches
-+=======
-+
-+Para esclarecer: enviar patches aos desenvolvedores *é* interagir com eles,
-+mas eles já consentiram em receber *contribuições de boa-fé*. Não há
-+consentimento para enviar patches intencionalmente defeituosos ou vulneráveis,
-+nem para contribuir com informações enganosas nas discussões. Esse tipo de
-+comunicação pode prejudicar o desenvolvedor (por exemplo, consumindo tempo,
-+esforço e ânimo) e o projeto, ao corroer a confiança de toda a comunidade de
-+desenvolvimento no colaborador (e também na organização à qual ele pertence),
-+prejudicar os esforços para oferecer feedback construtivo aos colaboradores
-+e expor os usuários finais ao risco de falhas de software.
-+
-+A participação de pesquisadores no próprio desenvolvimento do Linux, assim
-+como a de qualquer pessoa, é bem-vinda e incentivada. Pesquisar o código do
-+Linux é uma prática comum, especialmente ao desenvolver ou executar
-+ferramentas de análise que produzam resultados acionáveis.
-+
-+Ao interagir com a comunidade de desenvolvimento, enviar um patch tem sido
-+tradicionalmente a melhor maneira de causar impacto. O Linux já tem muitos
-+bugs conhecidos — o que é muito mais útil são correções verificadas. Antes de
-+contribuir, leia atentamente a documentação apropriada:
-+
-+* Documentation/process/development-process.rst
-+* Documentation/process/submitting-patches.rst
-+* Documentation/admin-guide/reporting-issues.rst
-+* Documentation/process/security-bugs.rst
-+
-+Em seguida, envie um patch (incluindo uma mensagem de commit com todos os
-+detalhes listados abaixo) e acompanhe qualquer feedback de outros
-+desenvolvedores.
-+
-+Ao enviar patches produzidos a partir de pesquisas, as mensagens de commit
-+devem conter pelo menos os detalhes a seguir, para que os desenvolvedores
-+tenham contexto suficiente para entender a contribuição. Responda:
-+
-+* Qual é o problema específico encontrado?
-+* Como se pode chegar a esse problema em um sistema em execução?
-+* Que efeito a ocorrência do problema teria no sistema?
-+* Como o problema foi encontrado? Especificamente, inclua detalhes sobre
-+  quaisquer testes, programas de análise estática ou dinâmica e outras
-+  ferramentas ou métodos usados no trabalho.
-+* Em qual versão do Linux o problema foi encontrado? Recomenda-se fortemente
-+  usar a versão mais recente ou um branch recente do linux-next (veja
-+  Documentation/process/howto.rst).
-+* O que foi alterado para corrigir o problema e por que se acredita que a
-+  correção está correta?
-+* Como a alteração foi testada em compilação e em tempo de execução?
-+* Qual commit anterior esta alteração corrige? Isso deve constar em uma tag
-+  "Fixes:", conforme descrito na documentação.
-+* Quem mais revisou este patch? Isso deve constar nas tags "Reviewed-by:"
-+  apropriadas; veja abaixo.
-+
-+Por exemplo::
-+
-+  From: Author <author@email>
-+  Subject: [PATCH] drivers/foo_bar: Add missing kfree()
-+
-+  The error path in foo_bar driver does not correctly free the allocated
-+  struct foo_bar_info. This can happen if the attached foo_bar device
-+  rejects the initialization packets sent during foo_bar_probe(). This
-+  would result in a 64 byte slab memory leak once per device attach,
-+  wasting memory resources over time.
-+
-+  This flaw was found using an experimental static analysis tool we are
-+  developing, LeakMagic[1], which reported the following warning when
-+  analyzing the v5.15 kernel release:
-+
-+   path/to/foo_bar.c:187: missing kfree() call?
-+
-+  Add the missing kfree() to the error path. No other references to
-+  this memory exist outside the probe function, so this is the only
-+  place it can be freed.
-+
-+  x86_64 and arm64 defconfig builds with CONFIG_FOO_BAR=y using GCC
-+  11.2 show no new warnings, and LeakMagic no longer warns about this
-+  code path. As we don't have a FooBar device to test with, no runtime
-+  testing was able to be performed.
-+
-+  [1] https://url/to/leakmagic/details
-+
-+  Reported-by: Researcher <researcher@email>
-+  Fixes: aaaabbbbccccdddd ("Introduce support for FooBar")
-+  Signed-off-by: Author <author@email>
-+  Reviewed-by: Reviewer <reviewer@email>
-+
-+Se você está contribuindo pela primeira vez, recomenda-se que o patch seja
-+revisado por outras pessoas em caráter privado antes de ser enviado às listas
-+públicas. (Isso é obrigatório se tiverem lhe dito explicitamente que seus
-+patches precisam de uma revisão interna mais cuidadosa.) Espera-se que essas
-+pessoas tenham a tag "Reviewed-by" incluída no patch resultante. Encontrar
-+outro desenvolvedor familiarizado com contribuições ao Linux, especialmente
-+na sua própria organização, e pedir ajuda para revisar antes do envio às
-+listas públicas tende a melhorar significativamente a qualidade dos patches
-+e, assim, reduzir a carga de trabalho de outros desenvolvedores.
-+
-+Se não for possível encontrar alguém para revisar os patches internamente e
-+você precisar de ajuda para encontrar essa pessoa, ou se tiver outras dúvidas
-+sobre este documento e as expectativas da comunidade de desenvolvimento,
-+entre em contato com a lista privada de emails do Conselho Consultivo
-+Técnico: <tech-board@groups.linuxfoundation.org>.
+How about this:
+
+netdev_info(qca->net_dev, "Transmit timeout, latency %ld\n",
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 jiffies -=C2=A0 dev_trans_start=
+(dev));
+
+The timestamp from netdev_info() is much more helpful.
+
+Thanks
+
+>   	qca->net_dev->stats.tx_errors++;
+>   	/* Trigger tx queue flush and QCA7000 reset */
+>   	set_bit(SPI_RESET, &qca->flags);
+>
+> ---
+> base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+> change-id: 20261114-qca_spi-wunsequenced-a81e54616844
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
