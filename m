@@ -1,94 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794780320;
-	b=W1s5Vy/eqbrx4CINncPeiM2SE97w67p86IIfGjawfq3gWqE4R2WfLQEmNtu/7Vdv/9HP
-	 +tR3YTp0cbwrs1oUE3zf5mwmx2hHiXPKEWnHhPZK6W/GXJaDOsUMLAa/QgHWTCNN1XbwH
-	 X4RqhI2bX7Z2TsMB/TN9iKwmbT8BPi44hgMieu3d5pDPwAebru3xXibC6OeocLEnIrLIi
-	 a/5bd1oztVx/LCHWgKaqP70ZR3dnK+d/z/4lmwA4t8BS/Ws2maMMeZ8ur6feE+sZd9rLd
-	 1QHn20tiLL/wPN4PyExsj7C3WhC6WU+nVYGqrMFX5wzenal5LgJbAt3VlDWvJwIwBnw==
+	t=1794780393;
+	b=JEyD+glZ5WyE2MRlLLA1NhdFzuKguw2F0GtIY4kWt9zdVl+yZcj0/ymXUmzhgSozjxwT
+	 SJqwVaKZ2V0sU7rtXtc2eeMQI6Qfv4KKJqT6wKi8UZ4MDSnAeR/trBJEV+4Bx0id7yDKi
+	 scNWD6Yp9G2e65C1d4zezv+jsY9CEx+vmrfZU7Wtc4caoyug0wR1fHpVsJOHE62AXQ1Px
+	 IZD6WfLuZGi16IpbjW1gCktJ19+6ds7faAcu3K/62RH+4oqdeYFSmHp1HtYegx57bJZTB
+	 CX2nWKa8Hc43RbyPA3KWJ5WjmXmC8K4zOKP7G6j+rbxhpun1nyUVkJLs6mHQtTYbCAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794780320;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CN9AKgF/hWkL3empD3c/LQ8/9rcmhykYPSIjXEPK8gw=;
-	b=D823Attp4PgWfzGr+5Aw8pxfQ/w6phlAwBBBL/fwJGcmdKYwIkk4tRaXsCjQezahfW+4
-	 ZLNSLiUGTr6X6eG01jshmD0OJgGMH2Xg4KWf22acp8nV4wSznyqN2QjPlSIQa7ERUUKn5
-	 mvBltK32okuxFL9Jt7Xc3lAU0Il+ZFDPdoIhwfF+Mt0tck9EW0D4wo3Jot4MCQKYqHSAd
-	 y56mBXm8B5gB2h1v+Uo/7q8jEI4sa0DpJv3WYs8srsfhkNXWPwBZahTAfpx4O3gRoiJ6Q
-	 qeWEqr2F/TDh1bnDM9wzWnWVn4dSdnpy1g3unVtoYIcIdxALe6DvQc84YcjCEyBYzcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794780393;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=DvLJmcl7VLDEt19dwLQxbmMUIFAq46s6dA6QGAbxaI8=;
+	b=KLqpM3HwPIX2nwFkvWFLpuXh+Tt8UyL/hw9kkZaY/xobmD6ROKRkWnCCgRrnpGXZEwrD
+	 MMjXQwNZXFyao67U/971GqNUhMKjGEHfsS9oZbrdWj6eg8Xl1GQMGbeg+dzENrV8C/m0h
+	 9ABGaWHuyu9JFngleP5BlAT7TC5xdHRaoqitVDcm8GZVSyBWYae22578XZ999VTlJBWN0
+	 SPl8IHZwvG69dkapk76H0FIt2gAIknimUWKD6GbcxHEVexxse2x/7fYw0xtGGEJtt0iDG
+	 0cMNyxW9aKrCqpHW1WOgP+j5nRgOdInakEfHqhe7cPs21nZxD//UGTlNi/7afzYrSOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tdc3kRZG;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6849E606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:05:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6849E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tdc3kRZG
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-490f38e9688so1914144f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:05:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794780318; x=1795385118; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CN9AKgF/hWkL3empD3c/LQ8/9rcmhykYPSIjXEPK8gw=;
-        b=tdc3kRZGgUfFdBpnCdMHtajXuF+a0jfLik8/ck/vZ/XjfT9jIMPs/l03UlKCOSqvum
-         jSWFLk5CDpil5SkMkL0JcozqIzrRZ8gPt7T1zloEdJimEUGpsFzR3f66Z6omzGGDD1Z0
-         AYkCaz77QXWDH6Y8EOK1j7so2l492RsbpFFZcd0kggQJO/jCad4yxO3gRSbZSRoM6XHX
-         H6Na0/qCMuiQUvhDOk8kk6pJpzfTQwcY/+j+Erqhd6xRq7EV4JU6VnkUW42PS2CY9RzG
-         leg9wrl6bDm4VdEGBbgxhDNGrSY32tmE7hyqn9wHTpIlmNTmjwGRySyTZYd1RcZFboLX
-         JiSA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A015606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:06:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A015606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e9eso3633616b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:06:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794780318; x=1795385118;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794780392; x=1795385192;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CN9AKgF/hWkL3empD3c/LQ8/9rcmhykYPSIjXEPK8gw=;
-        b=Yhyk/8C6mZ9TkSNJiV6E1BNDCing6v9g3Jh0IvJdF3mfecnKvl8DTzR3L5CM3Db0Eo
-         0ptNecxcB8l43sCNwBb3u7UEr4tqKEDomAu0A2MG7PtxlHspJawZGK3SnE23xtKngD9L
-         R3obd8N0vCBupvEuhYcGyvcTAlafkKpwaBK++cGlXniR3khrMdoZp8CLAeXp+s3YwkI+
-         qkhzrirQgspcxooS3l5PHlK1jfFBZqpUf14BYS3ytrIqCOXuVyRVOdXLgUd5Lrltr6h3
-         0WzREegRkReoaWx0T/wqi/dm/Lq67wkZPDJbi92iEgJeemCwhPOpqsRtdcPeBdEco3R2
-         IEvA==
-X-Forwarded-Encrypted: i=1; AL+hErHZPqveqViTMc+SWVdJ0KVZTymblAyTimkAlV6K9GGAlEMb5eNsOQgmyuNtSGbJGqWeJzWSnj+xAAbi5Zg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CE4skNCkWZTVs9Zl/YEdNm71Eiw4Jg0KVdOVaqhnMcxdemkG4
-	9PvAF/RehS0klVovwdQlLx1celHFxi1xpO3RRJ77oSaOg4cfeB3+pF8=
-X-Gm-Gg: AYBFou0rBHCYWym/F872JzX+pj7og8igw0lME99456PMLOc/hZRniMIrUmdtaci3SBh
-	w7oLLpX8VEYmzVYrZOcVZUpOpJh46IxhulWdFszUWDtFybnKwaycs1KtLNDtvMw1hRbTUrZKAcZ
-	M0uOPectwnEP594vGGQMmO7XnPlXMQ5IGZdIiraiCzvM5G4k0wKARxDL5oKgOZqemdHgp5Tk3Nu
-	XFWkrZjWuDqg6ME3fleYxvMNdk2fjy/Eb+QhN6w3HZsuoRTElEIhzjqmYdDH3cyEgzIXwxaA1kk
-	6Frs5AYYdxE0MUlqyNkTjzALMy4DPpzbM+EE18KsAqXa+EgBuRvZpyD6Y/s8sQNcuVl/shWfmZK
-	Sh49T5FbKC7zMvoQazASSKmwqDLi2YV3IfFSi/DxqK1dge9cCUb7+pX8VCFRR7gjaQlprlpEuwn
-	+VsFXRl0UA8vUkshf0jCIbySlyc43bwlomwJ1sI8Ol0lahmlZDlASIeAjYpl3embcPeyF8YpthD
-	e4Fce+i7ZEB3HEneaA309DkhCcsbP5kuJM8EPXKH+wxiNNnAidE4nVMsuVuUXmM6Ia8j39toMJb
-	SCOGf8eX/GbYSrY3PY87/04X0LAfFw5wwjTBewSk1karnsvwqpWKko0+OMbgXMwZHHoZ3wnN4bG
-	BnKEd+A==
-X-Received: by 2002:a05:6000:455c:b0:48e:3c5f:a24e with SMTP id ffacd0b85a97d-49b01cf32damr18111293f8f.11.1794780317539;
-        Sun, 15 Nov 2026 14:05:17 -0800 (PST)
-Received: from lithos ([2a02:810d:4a94:b300:2305:4cfe:af66:fa99])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm18659046f8f.23.2026.11.15.14.05.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 14:05:17 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:05:11 +0100
-From: Florian Fuchs <fuchsfl@gmail.com>
-To: kernel test robot <lkp@intel.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Subject: Re: arch/sh/include/asm/uaccess_32.h:204:1: error: impossible
- constraint in 'asm'
-Message-ID: <avosl5rcgpWCw0Ur@lithos>
-References: <202611151925.SgXid5Fj-lkp@intel.com>
+        bh=DvLJmcl7VLDEt19dwLQxbmMUIFAq46s6dA6QGAbxaI8=;
+        b=odZIwH5G8/hRaGSF29BCeaI0ir1LKgAA45nUpMYrmv2/g9QoSxw+5H9xspmCNO9QQb
+         TXJMLa/nM5es3qtY8S2q/GKx1TqjioXH7Fd+eew9pvUlDfd74MEijPrW742bBq3cCKc8
+         zhHNyHCF332TbMEwoUMvubA1yzGJpxsAk6RV6PFtKBpBM4TTodjWQix+1TGcS++34vMI
+         14/Jxaa76JjmOgqvUYvtiVt7XHrVavxTbjnaSNzdDlaxxLsmju8MJAvPrnjILopyOyNp
+         yksAWdDJUQ6/oCW4qq4x08XZ2/1n5ET6WsB1+jY9Ll0Ni6jpXSKLmWD2+7lpl4LBqwdd
+         7wlw==
+X-Gm-Message-State: APuU4Z8K0zqLdO4iMcBTv7cP40I9+DM1Kg8W+++8ku92jxGv+9cwTrWk
+	dxXXzNrUPM7OxnYi+9hwT5cFk321+z2pTNLADVu4mSdS+NMFLZlea/o2tIaoabVt6BKId4cE8dB
+	9bKbLmg8kuH2gPSge1DWcOQEiby68KnXii3YLeaDOyWEGkQAp91nF+QYcQek=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,167 +57,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202611151925.SgXid5Fj-lkp@intel.com>
+X-Received: by 2002:a05:6808:1310:b0:539:a2c2:aba3 with SMTP id
+ 5614622812f47-56e65f64f62mr7251247b6e.52.1794780392359; Sun, 15 Nov 2026
+ 14:06:32 -0800 (PST)
+Date: Sun, 15 Nov 2026 14:06:32 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6afa2ce8.920b2b3a.148c65.0040.GAE@google.com>
+Subject: [syzbot] [raid?] KASAN: slab-out-of-bounds Read in super_90_validate
+From: syzbot <syzbot+c5969d7e0a934b384fd6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
+	syzkaller-bugs@googlegroups.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Adrian,
+Hello,
 
-On 15 Nov 19:44, kernel test robot wrote:
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> head:   23c62304dde29abe92013d85910d03a77dada35d
-> commit: 8b5dba9ea4a3f5ed994f03d6ca7686c49491b426 sh: uaccess: Require offsettable operands for 64-bit user access
-> date:   6 weeks ago
-> config: sh-randconfig-r2311-20261115 (https://download.01.org/0day-ci/archive/20261115/202611151925.SgXid5Fj-lkp@intel.com/config)
-> compiler: sh4-linux-gcc (GCC) 9.5.0
-> sparse: v0.6.5-rc1-21-g84ec0658
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261115/202611151925.SgXid5Fj-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Fixes: 8b5dba9ea4a3 ("sh: uaccess: Require offsettable operands for 64-bit user access")
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202611151925.SgXid5Fj-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
->    In file included from include/linux/export.h:5,
->                     from drivers/gpu/drm/drm_property.c:23:
->    drivers/gpu/drm/drm_property.c: In function 'drm_mode_getproperty_ioctl':
-> >> arch/sh/include/asm/uaccess_32.h:204:1: error: impossible constraint in 'asm'
->      203 | ({ \
->          | ~~~~
->      204 | __asm__ __volatile__( \
->          | ^~~~~~~~~~~~~~~~~~~~~~~
->      205 |  "1:\n\t" \
->          |  ~~~~~~~~~~
->      206 |  "mov.l %S1,%2\n\t" \
->          |  ~~~~~~~~~~~~~~~~~~~~
->      207 |  "mov.l %R1,%T2\n\t" \
->          |  ~~~~~~~~~~~~~~~~~~~~~
->      208 |  "2:\n" \
->          |  ~~~~~~~~
->      209 |  ".section .fixup,\"ax\"\n" \
->          |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->      210 |  "3:\n\t" \
->          |  ~~~~~~~~~~
->      211 |  "mov.l 4f,%0\n\t" \
->          |  ~~~~~~~~~~~~~~~~~~~
->      212 |  "jmp @%0\n\t" \
->          |  ~~~~~~~~~~~~~~~
->      213 |  " mov %3,%0\n\t" \
->          |  ~~~~~~~~~~~~~~~~~~
->      214 |  ".balign 4\n" \
->          |  ~~~~~~~~~~~~~~~
->      215 |  "4: .long 2b\n\t" \
->          |  ~~~~~~~~~~~~~~~~~~~
->      216 |  ".previous\n" \
->          |  ~~~~~~~~~~~~~~~
->      217 |  ".section __ex_table,\"a\"\n\t" \
->          |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->      218 |  ".long 1b, 3b\n\t" \
->          |  ~~~~~~~~~~~~~~~~~~~~
->      219 |  ".previous" \
->          |  ~~~~~~~~~~~~~
->      220 |  : "=r" (retval) \
->          |  ~~~~~~~~~~~~~~~~~
->      221 |  : "r" (val), "o" (__m(addr)), "i" (-EFAULT), "0" (retval) \
->          |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->      222 |         : "memory"); })
->          |         ~~~~~~~~~~~~~~~
->    include/linux/compiler.h:68:3: note: in definition of macro '__trace_if_value'
->       68 |  (cond) ?     \
->          |   ^~~~
->    include/linux/compiler.h:55:28: note: in expansion of macro '__trace_if_var'
->       55 | #define if(cond, ...) if ( __trace_if_var( !!(cond , ## __VA_ARGS__) ) )
->          |                            ^~~~~~~~~~~~~~
->    drivers/gpu/drm/drm_property.c:484:3: note: in expansion of macro 'if'
->      484 |   if (i < out_resp->count_values &&
->          |   ^~
->    arch/sh/include/asm/uaccess_32.h:136:3: note: in expansion of macro '__put_user_u64'
->      136 |   __put_user_u64(x, ptr, retval);  \
->          |   ^~~~~~~~~~~~~~
->    arch/sh/include/asm/uaccess.h:72:3: note: in expansion of macro '__put_user_size'
->       72 |   __put_user_size(__pu_val, __pu_addr, (size), \
->          |   ^~~~~~~~~~~~~~~
->    arch/sh/include/asm/uaccess.h:20:26: note: in expansion of macro '__put_user_check'
->       20 | #define put_user(x,ptr)  __put_user_check((x), (ptr), sizeof(*(ptr)))
->          |                          ^~~~~~~~~~~~~~~~
->    drivers/gpu/drm/drm_property.c:485:7: note: in expansion of macro 'put_user'
->      485 |       put_user(property->values[i], values_ptr + i)) {
->          |       ^~~~~~~~
-> 
-> 
-> vim +/asm +204 arch/sh/include/asm/uaccess_32.h
-> 
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  178  
-> 0fb19dcb64ec4b include/asm-sh/uaccess_32.h      Stuart Menefy 2007-11-30  179  #if defined(CONFIG_CPU_LITTLE_ENDIAN)
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  180  #define __put_user_u64(val,addr,retval) \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  181  ({ \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  182  __asm__ __volatile__( \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  183  	"1:\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  184  	"mov.l	%R1,%2\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  185  	"mov.l	%S1,%T2\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  186  	"2:\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  187  	".section	.fixup,\"ax\"\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  188  	"3:\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  189  	"mov.l	4f,%0\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  190  	"jmp	@%0\n\t" \
-> 0fb19dcb64ec4b include/asm-sh/uaccess_32.h      Stuart Menefy 2007-11-30  191  	" mov	%3,%0\n\t" \
-> 0fb19dcb64ec4b include/asm-sh/uaccess_32.h      Stuart Menefy 2007-11-30  192  	".balign	4\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  193  	"4:	.long	2b\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  194  	".previous\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  195  	".section	__ex_table,\"a\"\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  196  	".long	1b, 3b\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  197  	".previous" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  198  	: "=r" (retval) \
-> 8b5dba9ea4a3f5 arch/sh/include/asm/uaccess_32.h Florian Fuchs 2026-07-16  199  	: "r" (val), "o" (__m(addr)), "i" (-EFAULT), "0" (retval) \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  200          : "memory"); })
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  201  #else
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  202  #define __put_user_u64(val,addr,retval) \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  203  ({ \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10 @204  __asm__ __volatile__( \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  205  	"1:\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  206  	"mov.l	%S1,%2\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  207  	"mov.l	%R1,%T2\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  208  	"2:\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  209  	".section	.fixup,\"ax\"\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  210  	"3:\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  211  	"mov.l	4f,%0\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  212  	"jmp	@%0\n\t" \
-> 0fb19dcb64ec4b include/asm-sh/uaccess_32.h      Stuart Menefy 2007-11-30  213  	" mov	%3,%0\n\t" \
-> 0fb19dcb64ec4b include/asm-sh/uaccess_32.h      Stuart Menefy 2007-11-30  214  	".balign	4\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  215  	"4:	.long	2b\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  216  	".previous\n" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  217  	".section	__ex_table,\"a\"\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  218  	".long	1b, 3b\n\t" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  219  	".previous" \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  220  	: "=r" (retval) \
-> 8b5dba9ea4a3f5 arch/sh/include/asm/uaccess_32.h Florian Fuchs 2026-07-16  221  	: "r" (val), "o" (__m(addr)), "i" (-EFAULT), "0" (retval) \
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  222          : "memory"); })
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  223  #endif
-> 9b01bd9ee64088 include/asm-sh/uaccess_32.h      Paul Mundt    2007-11-10  224  
-> 
-> :::::: The code at line 204 was first introduced by commit
-> :::::: 9b01bd9ee6408846c0553c03fb4b864353a845c9 sh: Split out uaccess.h in to _32 and _64 variants.
-> 
-> :::::: TO: Paul Mundt <lethal@linux-sh.org>
-> :::::: CC: Paul Mundt <lethal@linux-sh.org>
-> 
-> -- 
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+syzbot found the following issue on:
 
-with the commit 8b5dba9ea4a3 ("sh: uaccess: Require offsettable operands
-for 64-bit user access") reverted, the test results in a gcc ICE in
-change_address_1, which was the initial reason for the fix.
-So the "o" fix from the commit does fix some cases, but doesn't prevent
-every case of a non-offsetable address to reach the asm.
-I think we could fully fix it, by passing the address in a register, but
-I need to dig more into that.
+HEAD commit:    2800868f6322 Merge tag 'sound-7.4-rc3' of git://git.kernel..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17a6353d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
+dashboard link: https://syzkaller.appspot.com/bug?extid=c5969d7e0a934b384fd6
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=159fc9ad580000
 
-So it is not a new issue, but caused by the same root problem. The cases
-that previously triggered an ICE give now sometimes a compiler error.
+AI-generated root cause summary:
+When creating a non-persistent RAID array (`not_persistent = 1`) via
+`SET_ARRAY_INFO` (`md_set_array_info()`), `mddev->max_disks` is left
+uninitialized as 0. When a new disk is added via `md_add_new_disk()`
+(`ADD_NEW_DISK`), `mddev->persistent == 0` causes `md_import_device()` to
+allocate an uninitialized `rdev->sb_page` without loading superblock data, and
+`bind_rdev_to_array()` assigns `rdev->desc_nr` from `mddev->raid_disks` without
+enforcing `MD_SB_DISKS` (since `max_disks == 0`). For array personalities
+lacking `hot_remove_disk` (such as `md-linear`) or when journal devices are
+added, `add_bound_rdev()` unconditionally calls
+`super_types[mddev->major_version].validate_super()`, executing
+`super_90_validate()` without checking `mddev->persistent`. In
+`super_90_validate()`, `desc = sb->disks + rdev->desc_nr` is accessed without
+checking that `rdev->desc_nr < MD_SB_DISKS` (27), leading to an out-of-bounds
+read beyond the 4KB superblock page into adjacent kernel memory.
 
-Regards
-Florian
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=c5969d7e0a934b384fd6
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c5969d7e0a934b384fd6@syzkaller.appspotmail.com
+
+md: md0 stopped.
+md/raid1:md0: active with 1 out of 35 mirrors
+md0: detected capacity change from 0 to 4096
+=========================
+==================================================================
+BUG: KASAN: use-after-free in super_90_validate+0x178b/0x18c0 drivers/md/md.c:1592
+Read of size 4 at addr ffff888073d36390 by task syz-executor291/6009
+
+CPU: 1 UID: 0 PID: 6009 Comm: syz-executor291 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ super_90_validate+0x178b/0x18c0 drivers/md/md.c:1592
+ add_bound_rdev+0x274/0x390 drivers/md/md.c:3012
+ md_add_new_disk+0xca1/0x1820 drivers/md/md.c:7666
+ md_ioctl+0x2c1d/0x3700 drivers/md/md.c:8525
+ blkdev_ioctl+0x5ad/0x6f0 block/ioctl.c:798
+ vfs_ioctl fs/ioctl.c:52 [inline]
+ __do_sys_ioctl fs/ioctl.c:598 [inline]
+ __se_sys_ioctl fs/ioctl.c:584 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:584
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f27a95100ab
+Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+RSP: 002b:00007ffd4383a800 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f27a95100ab
+RDX: 00007ffd4383a890 RSI: 0000000040140921 RDI: 0000000000000003
+RBP: 00007ffd4383a890 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f27a956cfc7
+R13: 0000000000000002 R14: 00007f27a9594cc0 R15: 0000000000000002
+ </TASK>
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x73d36
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f0(buddy)
+raw: 00fff00000000000 ffffea0000d5ae88 ffffea0000d5af88 0000000000000000
+raw: 0000000000000000 0000000000000000 00000000f0000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as freed
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xcc0(GFP_KERNEL), pid 5639, tgid 5639 (syz-executor), ts 63888746915
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1860
+ prep_new_page mm/page_alloc.c:1868 [inline]
+ get_page_from_freelist+0xdae/0x2c80 mm/page_alloc.c:3950
+ __alloc_frozen_pages_noprof+0x2ad/0x31e0 mm/page_alloc.c:5492
+ __alloc_pages_noprof mm/page_alloc.c:5532 [inline]
+ alloc_pages_bulk_noprof+0x77e/0x1420 mm/page_alloc.c:5349
+ ___alloc_pages_bulk mm/kasan/shadow.c:345 [inline]
+ __kasan_populate_vmalloc_do mm/kasan/shadow.c:370 [inline]
+ __kasan_populate_vmalloc+0xf0/0x210 mm/kasan/shadow.c:424
+ kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
+ alloc_vmap_area+0x963/0x2bc0 mm/vmalloc.c:2151
+ __get_vm_area_node+0x1ed/0x350 mm/vmalloc.c:3281
+ __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4112
+ vmalloc_user_noprof+0x9e/0xe0 mm/vmalloc.c:4307
+ kcov_ioctl+0x4d/0x750 kernel/kcov.c:756
+ vfs_ioctl fs/ioctl.c:52 [inline]
+ __do_sys_ioctl fs/ioctl.c:598 [inline]
+ __se_sys_ioctl fs/ioctl.c:584 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:584
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+page last free pid 5356 tgid 5356 ts 65501624162 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1402 [inline]
+ __free_frozen_pages+0x7b1/0x10f0 mm/page_alloc.c:2958
+ kasan_depopulate_vmalloc_pte+0x5d/0x80 mm/kasan/shadow.c:484
+ apply_to_pte_range mm/memory.c:3536 [inline]
+ apply_to_pmd_range mm/memory.c:3580 [inline]
+ apply_to_pud_range mm/memory.c:3616 [inline]
+ apply_to_p4d_range mm/memory.c:3652 [inline]
+ __apply_to_page_range+0xb1d/0x1520 mm/memory.c:3688
+ __kasan_release_vmalloc+0xd7/0xe0 mm/kasan/shadow.c:602
+ kasan_release_vmalloc include/linux/kasan.h:593 [inline]
+ kasan_release_vmalloc_node mm/vmalloc.c:2312 [inline]
+ purge_vmap_node+0x210/0xb40 mm/vmalloc.c:2334
+ __purge_vmap_area_lazy+0x90a/0xc00 mm/vmalloc.c:2424
+ drain_vmap_area_work+0x27/0x40 mm/vmalloc.c:2458
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+ process_scheduled_works kernel/workqueue.c:3578 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff888073d36280: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff888073d36300: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+>ffff888073d36380: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                         ^
+ ffff888073d36400: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff888073d36480: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
