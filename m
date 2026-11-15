@@ -1,66 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.21.61.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794779815;
-	b=WlaraPfFpHW/kRvQzHGrk9I1deME2d2r76upHo4GD12xorE9URF1H7Z0yNUgtScsM/0L
-	 dtYbEHynToFGMICcIqLIEmvd+8nDcbv7wB7lhc4isqEdY7+E9bGwDdZoXoGCgRMztqXV8
-	 9qEEGixie8kztDmtK48mMFjEpp4XV9cs385TkCwBS0nHD7b2Sxi/QfZL83WskFU9Nd+lU
-	 Z1GjzJzihwt1Im2MfKurF4uytkaPy671t3kk0es3Wj+VXguGJ9uKe9BPpXBYos+o/VH12
-	 lyqXzfX3mQMiQsJoWFjWjrU+tBEGVsoYNMXSY+NnItiOQ9/vuKAHRt0iBSzzEpxI2PA==
+	t=1794779818;
+	b=bxqS4cklzEteFAnXZWksWnUOOcLuzsWquxxfK1hUAwRC8yovzen47bKxJHfeCC+bnFzb
+	 t6swCkoNvzyhQC4sFqOMVoTOK/ruPlgqkRmzCWi42zjHFx9yH5BUnh8cjSqAw40eYfchw
+	 aQ4GZNeLgijhQ0rth7g5V0XZO0feP10FFe6/5vXTc/02AfppoIAFx045QUziHSkv3OGTu
+	 qjFiwDuQDHJS8f2E0JWuK9TvoAgOiJzVMlVq36uhWB18WFEjTkY1y4ItwaCK8fI3iO+GV
+	 I4QFrcMBr2omtifhPibmxzQYBBrm5tQi/E0Z8rjOeib+w1VpIegxc9yOQBgyDEM4RPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794779815;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=cDM1NA86OeeZcL9gQ0yYJliUVGVW/LGHmePT0Gn5Sc4=;
-	b=wMj0xABmVXeCO2o/ki0QA8x7jafSg/tlCCTb1QLa85um9Vx9eezu2WupXBbo6Bz8BU2v
-	 +pHv94Wv4boZoF5jLN1MpnbFGSnMGIHighYvKVbUjI12m5BUCYB96DwdGOldggkbUXct2
-	 K3B/ci0F/wYLRuXnFpRs+QKb55Mpt1AY25DrO06o7I8tsdnk6KemMlDh95QVYHfcI+G20
-	 7AYNJ1qzdQUHsdmSaQVAsS+xDdyTzuohaIshYqmfIMq6rfF6QNSdD641aEEbE4tz7Of45
-	 YFbY4NcEoUWHFMTSONnwKtTxlykq4Kcl3JWRtroUWk8MXnlBRj072GVOA6tRG22RgkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779818;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:User-Agent:
+	 From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WrHCNL0KXrXk5rA5zdalOrV02Xy8jJVbUwtw3kWjMOM=;
+	b=O3c6UHGkc+ih/qI8Lw2us9VhTzgxP8DVOBxEBdomFu8qSVYCZLlPiU1J5VcCoI+5ehtd
+	 55+KEqT5YR/hLpw/Wv8pWvjubh/cjeiIYqffj+Y/vMi9vNni/9Anyw8TZPNhGCouk7lnV
+	 KbVa5HSjnIRYIV9FexHK3YGHI1aAwZZNh7rfUZVSkIwYIj4+zi/I7NvG1v0peifHUlnTF
+	 hBALwRt6hhrq1oW3qu0gaw6l/yWt6rKNGW7zznqypCWyc0xXwio3jPwGlnuwwxJ2ddBQd
+	 erx7DsT22oqKtMujwvF9Lam18mrlIEbZMBAzq/InZ2CGuIbUlJGYc4yMVdyJwdB0d9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=grapheneos.org;
-	spf=pass smtp.mailfrom=grapheneos.org;
-	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=TDTAl6OA;
-	arc=none smtp.remote-ip=206.220.120.4
-Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
+	dmarc=pass header.from=aliel.fr;
+	spf=pass smtp.mailfrom=aliel.fr;
+	dkim=pass header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=GEv9vjch;
+	arc=none smtp.remote-ip=65.21.61.41
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B8B606A32C;
-	Sun, 15 Nov 2026 21:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6B8B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DAC606A33D;
+	Sun, 15 Nov 2026 21:56:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25DAC606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=TDTAl6OA
-Received: by mail.grapheneos.org (Postfix) id CEEF63C08EE9B;
-	Sun, 15 Nov 2026 21:56:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
-	s=default; t=1794779813;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=cDM1NA86OeeZcL9gQ0yYJliUVGVW/LGHmePT0Gn5Sc4=;
-	b=TDTAl6OAy//qVfnqzemY6H32jX7IThB1tE/uTHcYwOqnscIEZ0ryIftF17fLkesv0PHTlF
-	Xbv0ZKqB9hN6EyJz82HPM/D9kvqtnEk/oo9tbcBz/Vt0jxBGLhXUACcGUzEv04HPGWkfNH
-	iBS5DsqM/RIAjl7ptwW5120t6LuzNlhW2utdyffbrRh1iH6M1VHbhPg9L76R12TgaRL8H6
-	K5mnRaR0yMaZJAhqvSPYk1DgCT8cX5Ck8PQiX8zX/V0l/8pN6vKiGR0USy4woNLVmXPJ1t
-	pvrz/0JjEdEUSCaPxRRaZkPnz3H4MuQtU6xR4/QOVEiPzAHfJdH+/GewDeCWEg==
-From: liamsmith827 <liamsmith827@grapheneos.org>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liam Smith <liamsmith827@proton.me>
-Subject: [PATCH net-next v4 0/4] ipv4: restrict on-link fallback to lookup misses
-Date: Sun, 15 Nov 2026 21:56:36 +0000
-Message-ID: <20261115215640.18728-1-liamsmith827@grapheneos.org>
+	dkim=pass (1024-bit key, unprotected) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=GEv9vjch
+Message-ID: <e526e0df-d3e8-4c6b-ab50-e9b4cc9bdd3c@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1794779809;
+	bh=Wsvy++1Jhz31GNLY6mcfL2ulnfXKznpBChaXnW8X7ME=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=GEv9vjchECQHtag1czQFsuwD0vdspJK6CbtnGjHm4SsKXaQjIMKp5blcTP+3hWOmb
+	 morU1X6i1QQuY6BlyafEREoxPdQ2ZcQ57pY+krO6WuGQ2vyP5i+pUlJ6WirubpYM0O
+	 AFn7GDQ8CLgYTUlu1lM7iZg+A1K1SvVSS5ZzgXuE=
+Date: Sun, 15 Nov 2026 22:55:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,117 +51,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v4 0/3] Add T7 PWM bus clock support
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
+Content-Language: en-US
+In-Reply-To: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Liam Smith <liamsmith827@proton.me>
+On 10/1/26 18:55, Ronald Claveau via B4 Relay wrote:
+> The PWM controllers on the Amlogic S4 SoC have a system clock that
+> controls access to the controller, in addition to the two input
+> clocks of channels A and B. The A1,C3,T7 which fallback to S4 have
+> this third clock too.
+> 
+> It is currently not described in the device tree, so it is neither
+> referenced nor enabled by the driver.
+> 
 
-When an output interface is specified (e.g., using SO_BINDTODEVICE,
-IP_UNICAST_IF or IP_PKTINFO) and the FIB lookup fails, the IPv4 output
-path ignores the error and constructs an on-link route via the
-specified interface. According to the comment above the code, the
-intent was to allow sending packets via an interface that does not have
-any routes.
+Hi Team,
 
-However, the error code is not checked, so the fallback is also taken
-when the lookup hits an unreachable, blackhole or prohibit route/rule.
-In other words, these routes and rules are ignored when an output
-interface is specified [1].
-
-This is a problem for Android, which implements its VPN "kill switch"
-using prohibit rules, with the expectation that packets hitting such
-rules are never transmitted. Unprivileged applications can bind a
-socket to an interface and trivially bypass the VPN. This is especially
-bad on cellular interfaces where neighbor resolution is not needed, so
-packets can reach any destination and not only on-link ones.
-
-Solve this by only taking the fallback when the lookup did not match
-any route (i.e., a miss) and returning the error to the caller
-otherwise [2].
-
-It is currently impossible to distinguish between a miss and an
-unreachable rule since they both return the same error (-ENETUNREACH).
-Therefore, patch #1 adds a lookup flag that makes the lookup return a
-different error upon a miss and patch #2 uses it to restrict the
-fallback. Patch #3 adjusts the selftests and patch #4 updates the
-comment above the fallback.
-
-After the change, a packet that was previously transmitted on-link
-despite hitting one of these routes/rules is no longer transmitted and
-an error is returned to user space instead. It is unlikely that anyone
-is relying on the current behavior:
-
-1. It is a side effect of not checking the error code and it contradicts
-ip-route(8) and ip-rule(8), which document these routes and rules as
-dropping packets or generating an error.
-
-2. These routes and rules are already honored when the output interface
-is a VRF device or enslaved to one.
-
-3. These rules are already honored by IPv6, which does not have such a
-fallback.
-
-The following is unchanged:
-
-1. Packets can still be sent via the specified interface when the
-lookup does not match any route, which is the original use case.
-
-2. The fallback is still always taken for multicast packets. The
-precedent in ip_route_output_key_hash_rcu() is to not enforce
-restriction rule/routes on oif-bound multicast, so that precedent should
-be followed here too. 
-
-[1]
- # ip link add name dummy1 up type dummy
- # ip address add 192.0.2.1/24 dev dummy1
- # ip rule add to 198.51.100.1 prohibit
- # ip route get 198.51.100.1
- RTNETLINK answers: Permission denied
- # ip route get 198.51.100.1 oif dummy1
- 198.51.100.1 dev dummy1 src 192.0.2.1 uid 0
-     cache
-
-[2]
- # ip route get 198.51.100.1 oif dummy1
- RTNETLINK answers: Permission denied
-
-v4:
-- Add unreachable rule test.
-- Improve test commit message.
-- Minor formatting fix.
-- Reword routing comment.
-v3: https://lore.kernel.org/netdev/20261112235932.23836-1-liamsmith827@grapheneos.org/
-- Remove comment on flag.
-- Improve flag commit message.
-- Improve cover letter.
-- Target net-next instead of net, remove Fixes and stable Ccs.
-- Change author to legal name.
-v2: https://lore.kernel.org/netdev/20261110061536.10811-1-liamsmith827@grapheneos.org/
-- Restrict the fallback to routing lookup misses, instead of only
-  honoring prohibit (-EACCES).
-- Add FIB_LOOKUP_REPORT_MISS to differentiate a routing miss from an
-  unreachable rule.
-- Split the comment update out into its own patch and remove the
-  signature.
-- Enable all of the commented out device bind tests in
-  ipv4_ping_novrf(), add a route miss test and update the UDP test
-  expectations.
-- Target net instead of net-next, add Fixes and Cc stable.
-- Drop RFC.
-v1: https://lore.kernel.org/netdev/20261019032406.88874-1-liamsmith827@grapheneos.org/
-
-Liam Smith (4):
-  ipv4: add FIB_LOOKUP_REPORT_MISS
-  ipv4: restrict on-link fallback to lookup misses
-  selftests: net: test restricted on-link fallback
-  ipv4: replace obsolete routing comment
-
- include/net/fib_rules.h                   |  1 +
- include/net/ip_fib.h                      |  6 +--
- net/ipv4/fib_rules.c                      |  2 +-
- net/ipv4/route.c                          | 33 +++++++-------
- tools/testing/selftests/net/fcnal-test.sh | 53 ++++++++++++++---------
- 5 files changed, 52 insertions(+), 43 deletions(-)
+Do you have any idea on how to move this series forward ?
 
 -- 
-2.47.3
-
+Best regards,
+Ronald
