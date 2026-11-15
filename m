@@ -1,117 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727876;
-	b=Z4+2zEh3oirNftM9BF25tYLP/kzCKfhKJYjC/GkjVbVd/fx+3/Gykwd+gJc+wvJPPBoo
-	 9e0TEBvIaTYymsfs8w/WerltZBnpu2judVVVINQbtOtXWaibyoXs+bryu8OilUqmQR0qU
-	 r+R6swvYmk3D8Aawr9KKLEj/aBxJrphLJFvtcc3maaDTs8TCSOXa0cieZHG8X1GXdsFeR
-	 htehb/agb6U88k5w8T17EVqhq9yL5Sko/pKR3hUKbws5SN+ZyCzcL2zJz0gqGdQIGKx+M
-	 KI6qr7aCypLBvRr6jfehveq73Xo9FY1TYvEYwaB5/Y2K7n845tK1eHqU3hvFhXZkx8A==
+	t=1794727891;
+	b=R61kU5KyYQ59g3FNJVCeX2fGsuipGb6EHrcoMpvk/wcPV0Pbccaq70Ka8Mm0Cf8wSC0k
+	 J2CnKYX/XbxDauOXbpxg3szzRE02znih3vxyHGT4fCxz1Xg3nYmdFGV4eACZyys2NvzCc
+	 94TzNlPJV2zlRchopRzbC002/X2jmdfx3QBArEydcJLQOa9Vi5nXfxB6xz9gbmgRnBjmR
+	 qAuHIUe8y5/zW9Ku3HbclyShy6EFy7atURpHK5+k3c64s7rX/snqMd6IDIHhRSpu0tANI
+	 5OgzbTV91Kvtr3dguOMJHC+KYHvxLZF3znd5+0tVBMrSq8xgxgm/SnxJPI/YxfepEEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727891;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=qI3xoqr08MTqFKH89OHdawFy9+IYpxgrM6eMy9hh1r0=;
-	b=Z0ez9izwSRKiiWedAFiepSiwl1HxnjdixbSZhsCBBFkRzQoF19Ox/qD0mtwormF9zHxK
-	 i2iQQVPBp9StELyTFQHKsiflW2WwKgYtp1qlgiAtC+ft8vWRFlDAI2W73Pc3ctRAicRBi
-	 GxjeOLSEngXIIRJCxWfMDQtH3HpCppHu8fviio66l5GqfYezacG/VPbVliVlWUxlfJa0U
-	 Ctd4goBw4IoQafZmRqlX0PNIQP/cOsLG78zz+yhA3NJNT+Ebrbs8O395WE2HWi4cywpvl
-	 Pg2hXNeLznVpZg6Wvv3VnOEDhbsStPNTjzoybCjGgvH3pL21eDAIEcqtAu4SI6SvFog==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Sa+akLds93BeVY1vzyQ/uvngZ/sCGwFCpoLktGOe6rI=;
+	b=CsCvtSN3KW20M84HlSQ9StaEBmkpAQdjixcU0T/fSQpQdBwDf68pIF2ZFAlkb1dGeUGy
+	 RjOW0+ZORA6V0tcWHbdrAB+GokmsIcd1HlQ+wxjppdsy3pUHhVspzmb56JIgWVuwqO9gu
+	 f2TGW3BthKmUob9Y+wFFW5gvLPC5nk0NEP0QoYaMST900RybQ7CrsOgWg7qQCda77ET/Q
+	 iJNvHTf4hl8u+pomX5x5KiWAMPe7E0izlHWquFD00/pkQZ8+sQVjV31+4hHe8Jwww/OGB
+	 Nlx19U8/Uaexd9NaaUGCLBr9joyL0p4Mxuc05cOWTJTzuqJvMk4AyIGygjUr0SPMWyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfHX33b9;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y3P0aCTQ;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FBB606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90FBB606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89358606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:31:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89358606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfHX33b9
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so2719972f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:31:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y3P0aCTQ
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b37951a397so513394a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:31:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794727875; x=1795332675; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qI3xoqr08MTqFKH89OHdawFy9+IYpxgrM6eMy9hh1r0=;
-        b=sfHX33b9HzNVq08BaSf4y0sViK/MK0chzVBJ0Q+gvrAe9T8wXjtDwJMVvfNxxjvT9l
-         SEWTWE0sZtcsNwKWEFyXzvLZNe89AQsVdApUgEXQBL0TJsoj+jbScFkEv+3jRZ1lB8vf
-         d/rISxDPp+F/K0bJHknHkk8CXnGYEM/127Yv2NeUvCKPhYO+eTU9rpQmEU6Dd62/EQvB
-         fz0HUNzeHXC6U3b4kz52ODEk3D6rWUXeADFYBeeqPtDrSrS3EHKV1D44l3N4ZEbUKSDw
-         GOdF9hL5WuF6stzHu5B4BcrufdthWBPcUDcNVZnPgxjB1MxYoePPvR2o1eoXKeb9bMzV
-         K9GQ==
+        d=gmail.com; s=20260707; t=1794727891; x=1795332691; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sa+akLds93BeVY1vzyQ/uvngZ/sCGwFCpoLktGOe6rI=;
+        b=y3P0aCTQn4WSyqVN5zkxPbnkLqEDzHMHWf2Ar9oDoYglX075SKR/QrPhxSRKsu+JLb
+         VG6aayabQVF6xbKnfaAXPknVHtTyL++LrdvGQJynFMEr2Eitam8S8KBSktTTQuUACzbP
+         eRurKT0vNOsRlXljLI9u1PfFG9pdCHA2csRYllNf/hr5bJzscbk4PlX1JvW6A+1YAGgL
+         rfbXHlA5LKWHSvYXX9qN1UE3xoUitxFTKdUgsupyk4nL2yQDnkmsEIUInFiNbs8woD2C
+         Sc9EAb5kpp+64cahJCWIu/3eohf3hhxg1ifoCOUu+9MZo6+V4DOcHGg972RWOCJdntRQ
+         PTxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794727875; x=1795332675;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qI3xoqr08MTqFKH89OHdawFy9+IYpxgrM6eMy9hh1r0=;
-        b=F/TfEwDHE12rnGI3f+ZhVHac6SEsTzoONQXv9UzOuqB/UIT8WuO2YzjFsdnw0ymZGO
-         MACn9eDzX1x7hi3pETC6xOmFdgmttUmcR1Qn3qYiLFSdf4qNXRcf1Pm95Aj8Wfs45f+o
-         NfBa8AAyFzyj84VAkjo2HKP+G7qYptdIeWKe4Z0reyI10xM+bxJyfujpwO/ZLPld9bnu
-         YTBeK1DB/8Y2/r6U3uIuMs43pcHYQ8HqcDTBQlr9gVrOYRWXXAgFndTtQiVf/XZqnwVZ
-         PnBFgybVfL4Hn8c6diKfMi4GLI2jySYcEd22cEab8pePgz7FzaFXL/KqkUH+iXKmanLX
-         T4nA==
-X-Forwarded-Encrypted: i=1; AL+hErFApf1vL/MghrMNz5nlOIhbFQBXJIvUUjMnTwDPnp5tuz+ytTfs6AM9eAuBysimlVxSpr8OrcZdudFNfHk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vUSS9HABMy3ZBfzYr9EnjsZOSevuAoAcyJnVIYcuNdKxsoMvM
-	Acp2cROhCcYD0aOX6EQ917dDe3jBU2dFNlXPaH+1jvQ9QkFbLty9JFSq
-X-Gm-Gg: AYBFou1Zq8k8X60i3YJcFnnC81MBskxqp49vxwwJ7nnU5/syj/zLhVmR1EsIxfoP/8M
-	y4QEx39L4RoAVn89jrWmQL20HeXR+JUSbg5bA6equJLjufje16ABg+NaTDVVVSpjmpPkLD7GJL1
-	+y9RTjG3le7LSWgBhHL4eRiH+lfF3LLaNe/rngRwvz8fgrwgwamNXN9JObOdvbj4RKEteukf1fk
-	nzXe73baAND/Aj+20o9bNvHeKBQd/ImxiC3DjunZKfIMvcSZG7ZAygnwDlYNYmuQW8pg4QR1LRd
-	eqzTzuEpdNfhBKaugwxNK94Ying3eiaR9ULt5INYFhkSt72wzhWi2ZuQ3rNwZ4YXUDYy2XHMRBg
-	rsxgf6D/Lzwg+pVJpYUqx39RIaCFyulOL0tWsmizLzq0PrYPZiCctYivVNOYBhYsY/Q1EYf5K0/
-	JTJ9ApfTZTvIYBfgSCnnIFPim1oziVrDR3OgRn8HdC0AfQ8wQs6MjQLbpAqpStyq5vHY+z03hn7
-	TKSXOP/CIuvZw6XB+6VD4K6ZAOdY0qj7cJoXrHF8Wn/dFPgzHMasjLBEDCY+TvzzSIUKipVQgEh
-	9GX9lsM238i07g+snzzhhEMCKUrSgM2deumXqvg4aq2kLLoIrtRhXc1yJqWpgafX8dsweExgBam
-	5FXzRtSEuUuRlAXT4mBxgPcUfUaOIcsKXCbt2ZuDz/f/vNh22nxMfWm3aYkeLUBkwTQpXj5Gujj
-	saa6gr18bTUe7piNkW0sAZb3dq6Gaef6ZvKKwrVhs23ww3DkwdXa8ZY8c1Dh+tKl5v9D2b0uxa7
-	hUBY7xA72zohGvDXY5s8Ub7lg==
-X-Received: by 2002:a05:6000:25ec:b0:493:803e:800f with SMTP id ffacd0b85a97d-49c725e5749mr15660384f8f.29.1794727874441;
-        Sat, 14 Nov 2026 23:31:14 -0800 (PST)
-Received: from jernej-laptop.localnet ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c0e31sm12992274f8f.19.2026.11.14.23.31.12
+        d=1e100.net; s=20260707; t=1794727891; x=1795332691;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sa+akLds93BeVY1vzyQ/uvngZ/sCGwFCpoLktGOe6rI=;
+        b=AcpuEqoOKobWyQkBUsSZyMDXFeH0qgby1ocS4OQUN/yPrVo57MBaWesA8dCbR0EXrd
+         c0E0WtG3TKBEoelqBkL4aJ1HE5LtiHc3eG4duugkV5o9MFJ/I0Av/7+VIqG0VJq2GUG7
+         zjyeJ8b1XGCAhQmfg+W83rB5vU8kI+x4lc1g0SPeF/lOUU6UhSU2sD/22MGEAwdhQ1V+
+         nsNP0oH/N07sMftMl9P1fv/xa1/aZi1/G4Oh9kfTE50Oaq6JLHzUVIQaFrfQNxT//KdC
+         pGGC8KtNlgWg0YWdj0BkIwAuNDtFGZbxbYMBNi9/RtgI4h6np+9qxpbsJpiDuYdHgAZK
+         kgOw==
+X-Forwarded-Encrypted: i=1; AL+hErFDnGaSXv2CJk2piAkO91YHZlp+Fkuy959HXNjwYgQuX72MeS9Luy9GyUoJ9F4/Vyc2b3LFoqMHDn9qI2U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5NMc/u6KYXlgRuBDWizh8AFZFfSKBlKnZ8NnRIFIvsZIntk2i
+	62W5zIMLvThULau0V6mm+gVNqzyM6ssGHuYubnqt1H0FUs0UiusDwHyuDNE39QBK
+X-Gm-Gg: AYBFou0tS0vha5u/xC2hEqe9/O4WSo9khAgpfLSow7QlgJn084YuYFb2Jk/bDkO1MRT
+	eARsr+Z0zdKnwqUyB34y+ck1kS1BVW/XRvUwj4Gpt66ghe5nvEjb1L334R3If9TKFS6nXt0PCgD
+	Y4PSf2RRmBIdGgvHc2GI/VQFB63pUecheBS7H7xXbgBwsb3Gsdygdk0OMpWHNai8csrxzUC/2I/
+	HlIs+HJnIKxdZ47zaZafz4yIgqxcOwn1ISjhbbFPgzkYdybhIHHr/rcmmQNYUHHA8SpEk2wrND7
+	btuuZzC0oGlYvRBhNMlXE0x1CBzICAdkIFdJ6nyvGhR+/gvFj75+ilHwrLimc9DWRLUqEKAx9lV
+	Qp0tCoWV+nD5RAYwxCe4nkacko3D17fQDUJ8nisVxmLlMBvMF2re6gIYcTlstch8tWX0D4i9VwS
+	UAHVRsK8YMu5iJoTZAKk32EMtRHtYoFkmdRMmevHx69hed+QbZdBhl6Fc0IQiXPfVzj2S8gb8Lt
+	GD9x1epF/YN9Iso7I7y4usTHzgsK9K1+I/2u4BefE5ezZjoyR2twQhBekn5OevcfYfylVwjXi3d
+	zeBrj+eD2N7n1SSL/9AbS28RXtzmJ4sHhEAKCXFza6Hsl5ekgqqCNrddOgzrzOe2VLEZg9Sm84o
+	k2B8pWQKmgwD4BYTsHKXl5bQETuws4p+yGwLpXDJXe+x5xCUYc7pK1NA5XLtavFMCrMK82LKpu8
+	Kk68dqXYgkU5GxkNykbmJXRFPOzVfO0tiHZWJn4rbjHbdLrt8mzOFH6nqUycwguSWNe2Rq1SoFl
+	ncOQr8FZfLYWhzoExPL77rNnKW9fjTHoKxizT6mxyv0XJjyfy2b4UfYkkFD1Oi1
+X-Received: by 2002:a17:90a:f947:b0:3ad:eb4c:26fb with SMTP id 98e67ed59e1d1-3b1b0b553a4mr7578914a91.23.1794727890800;
+        Sat, 14 Nov 2026 23:31:30 -0800 (PST)
+Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm16837463a91.3.2026.11.14.23.31.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 23:31:13 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Samuel Holland <samuel.holland@sifive.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
- Han Gao <gaohan@iscas.ac.cn>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Maxime Ripard <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Andre Przywara <andre.przywara@arm.com>, gaohan@iscas.ac.cn
-Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
- devicetree@vger.kernel.org, linux-csky@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Subject:
- Re: [PATCH 06/19] clk: sunxi-ng: add support for the Allwinner V861 CCU
-Date: Sun, 15 Nov 2026 08:31:11 +0100
-Message-ID: <c8OwiyQSR8ivEFULfFWNow@gmail.com>
-In-Reply-To: <20261114-v861-v1-6-eb71ec3ee523@iscas.ac.cn>
-References:
- <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
- <20261114-v861-v1-6-eb71ec3ee523@iscas.ac.cn>
+        Sat, 14 Nov 2026 23:31:30 -0800 (PST)
+From: Daniel Wade <danjwade95@gmail.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: Maurizio Lombardi <mlombard@redhat.com>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: target: iscsi: queue login_work under sk_callback_lock
+Date: Sun, 15 Nov 2026 18:00:03 +1030
+Message-Id: <20261115073003.9927-1-danjwade95@gmail.com>
+X-Mailer: git-send-email 2.39.0.windows.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,27 +99,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Dne petek, 13. november 2026 ob 23:33:32 Srednjeevropski standardni =C4=8Da=
-s je Han Gao via B4 Relay napisal(a):
-> From: Han Gao <gaohan@iscas.ac.cn>
->=20
-> Add the main CCU driver for the V861, based on the A523 one. The CPU
-> PLL, the CPU subsystem clocks and the E907 clocks are left to the
-> firmware.
->=20
-> Unlike on the A523, the second divider of the 27 MHz output is a power
-> of two. pll-audio-4x does not pass rate changes up, as its parent also
-> feeds the UART clock mux.
->=20
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+iscsi_target_sk_state_change() drops sk_callback_lock before queueing
+conn->login_work:
 
-Do you have any user manual for it? Or at least BSP code? It's hard to
-review patches without any of those references.
+	write_unlock_bh(&sk->sk_callback_lock);
+	orig_state_change(sk);
+	if (!state)
+		schedule_delayed_work(&conn->login_work, 0);
 
-Best regards,
-Jernej
+Racing this, iscsi_target_do_login_rx() can take its err: path, which
+restores the socket callbacks, calls cancel_delayed_work() and then
+frees conn. The cancel does not help: the callback read conn from
+sk->sk_user_data before the unlock, so clearing it changes nothing, and
+cancel_delayed_work() cannot cancel a queueing that has not happened
+yet. Nor can the err: path wait for it, being itself login_work.
 
+The callback can therefore queue login_work after the cancel has run,
+and conn is freed with that work still linked on a worker pool's list.
+The core then unlinks it, reading the list pointers out of the freed
+object and writing through them:
 
+  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report
+  Read of size 8 at addr ffff88800d94c440 by task kworker/1:2/32
+  Call Trace:
+   move_linked_works+0xa7/0x2a0
+   assign_work+0x168/0x3c0
+   worker_thread+0x3f2/0xd10
+  Freed by task 32:
+   kfree+0x179/0x530
+   iscsi_target_do_login_rx+0x3b7/0x7e0
+  Last potentially related work creation:
+   queue_delayed_work_on+0x80/0x90
+   tcp_fin+0x238/0x470
+
+CONFIG_DEBUG_LIST catches it there; without it the unlink proceeds.
+
+The window is a couple of microseconds against an idle target, but it
+widens to milliseconds while many logins are in flight. An
+unauthenticated initiator looping logins against 64 portals faulted an
+unmodified 6.12.117 once in 19577 attempts, on a stock config with no
+sanitizers, that time inside iscsi_target_do_login_rx() itself:
+conn->tpg read back as NULL from the freed conn, and tpg_state_lock is
+at offset 0x1c. An unprivileged local user reaching the portal on
+loopback hits it far more often, about once per 258 attempts.
+
+Either path oopses in a kworker. With panic_on_oops set the machine goes
+down with it. No credentials are needed: the race is in login negotiation,
+so any host able to reach the portal can trigger it.
+
+iscsi_target_sk_data_ready() already queues login_work while holding
+sk_callback_lock. Doing the same here makes the read of conn and the
+queueing atomic against iscsi_target_restore_sock_callbacks(), which
+clears sk->sk_user_data under the same lock. Either the work is queued
+first and the following cancel_delayed_work() finds it, or the clear
+happens first and the callback returns at the !conn check without
+queueing. orig_state_change() is still called after the unlock.
+
+With the patch applied that local reproducer makes 11212 attempts without
+a fault.
+
+Fixes: 25cdda95fda7 ("iscsi-target: Fix initial login PDU asynchronous socket close OOPs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniel Wade <danjwade95@gmail.com>
+---
+ drivers/target/iscsi/iscsi_target_nego.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/target/iscsi/iscsi_target_nego.c b/drivers/target/iscsi/iscsi_target_nego.c
+index b03ed15..85531d6 100644
+--- a/drivers/target/iscsi/iscsi_target_nego.c
++++ b/drivers/target/iscsi/iscsi_target_nego.c
+@@ -715,12 +715,12 @@ static void iscsi_target_sk_state_change(struct sock *sk)
+ 		pr_debug("iscsi_target_sk_state_change got failed state\n");
+ 		set_bit(LOGIN_FLAGS_CLOSED, &conn->login_flags);
+ 		state = test_bit(LOGIN_FLAGS_INITIAL_PDU, &conn->login_flags);
++		if (!state)
++			schedule_delayed_work(&conn->login_work, 0);
+ 		write_unlock_bh(&sk->sk_callback_lock);
+ 
+ 		orig_state_change(sk);
+ 
+-		if (!state)
+-			schedule_delayed_work(&conn->login_work, 0);
+ 		return;
+ 	}
+ 	write_unlock_bh(&sk->sk_callback_lock);
