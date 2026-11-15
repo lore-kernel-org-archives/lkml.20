@@ -1,96 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794718355;
-	b=yae2589o8YXVu86rPBIueAsuqoQs19g4eMkIxnG0p006+x2beU/P5jL+l2AEbIFzE8R8
-	 XiUD7vCKgPrx53nj3SKwpP55VybFYr5y2TU+sS74wJUOfqIgGL34CoSJTVDyL/pl0jX/w
-	 WX0kW8bId+n6l099Sj6PRAyt3g4JAd5mvPZ80v37rprXXVGDVRkEhwvqcKnc6c0mNaCEe
-	 LKp22KkB9iwhkG0rxGqpZ+Dx6bJ3Wez/JVxgC3a1V7L8AajY+BW63kfNqNNtjyA+obx7e
-	 Thc3tfQwEMiXF+mKMFwZ3nqUJKA75HNTMcFZ5V9bvRvsnlolFKGftJ2oPYkx5ukKqJw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794718355;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=H4OYy3kGcHQe3q8wy+eXpmSYEjj417UWrJWf6YCRFCQ=;
-	b=v1YbaXo8hW65SA8qd5/m7tCc5D2d58eoby7Ps0gPzLxbUuIospe1BTBZl/hB8AnxCkJj
-	 II3+dzsu7JHzauoWQ04NsgQ6VMd6VZRge69JHBpepyZNyYqIJEHqg3N1ErGcSTftuD9Km
-	 I6v5tKVqU40ZQy8WFcuuLq7eU2rU1og5ct/8KQ10NzQDCuTp42ZPeqJ+P1GrZLGopaHtk
-	 LaInFu+ervmTBh+m7ie7mydK5LMbJ9asnu7HNH3E9yUFHf0p5qBnVtVCwiSSaZcOHYWZV
-	 DLZZVU8ho+QQx1z6cQOz1yKpIIquXGtby9o3+hiF7lmSl0fqM1ZbKnbZuqULfbcz5hA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uber.com;
-	spf=fail smtp.mailfrom=uber.com;
-	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=N5ZoctSu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794718613;
+	b=pWm7JQydbWHMqXnZTlKszrt1q+TNbrevaSLtQXf3eNhqC4Kob2yRi3SD0BA5tDka01eZ
+	 LS6/VMfQEA5fYYtpM6dpBG9eMw/anju/HIQ46fTPCqY8Vm9WZt3HEed6m9GGg0ef/0GQg
+	 vDEIvZgLdODQXsrMPqarE8bg3DZVRlek0jv023tocOdwRCt5GXqXNelrJLZNkoOGff49W
+	 iLgkFnQSrtW3eM256dQEH84uv83dkifNI0Z/hwkEYj/tAmfIeGyb3kZiKh+pXQtisMagy
+	 kc5xYcdTJSnGQw/+kuSUdait/YySbbGsTLJVuNhJGAWAbNRZCj0I6bxGCTtISI0z6Xw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794718613;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=khASVnuhY+rY9MqIwmoGx90/W2kY6N1cqw0vv22kJ+c=;
+	b=E0FW8TN+BHRGqYKiuMPYgemoX6rOr4hQ/8ldx5A28wjOrfxo8cL5FFdtzevHtrztDpoO
+	 2eqen5NxY5m0M/tE4zHDoVMdwIQopk04BYCgAx1yVV/jabAdROhEIC06uA26c/8tOqgk8
+	 b/90trhpx2SO7MiXcEwdJrXKyjJG9YitpIkh3zfCKgm2UZTkZTDIH7d3ZTZ62RRD3Gg7i
+	 O/Zboih5P17jtEtiDfuFVFRj/k0IjV4fKjWdUnSBMPkdONWrLYPb01c2zt1XbhiEjZL9e
+	 G9LoycfqYPdEsLHEETGV6ZeT8s6T7rnGlMGT6h82+58gdlWnIrlr8YKdh6Vqj38d5Hw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6gl0zM1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9766E606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9766E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20422606A329;
+	Sun, 15 Nov 2026 04:56:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=N5ZoctSu
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67c0bd676eeso1777991d50.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:52:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794718353; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lym6Ty0u7YjU83KzPNUSDtMPYnfhSOrkMzmICW/2uVeJZkkbRjhBrgHygzvwomXJCd
-         5EE41RrOmdMiJoF/K6QGD2hiJfjQkUCB2th3j8QG0CNIXP3OzYuOPhyfYmVlLfe+uQxo
-         P3PTQn5776EgQYecMPThSD5cCEo0ZiC6RarFM2ZqsTo3et1hNw4qzmMhqeigXsHBBOIw
-         8dP9uIek9r19j1cfP3RcFgg3Gk5/bryHOv6SX9yYSN/JK7kykUiJKyNKJ7nRyU7I1cHx
-         Vr1Jy8u0UBdTZWsk6FahwEiCTcRQp8kJXskL3aBAo97amwuOCoYQrty1HRBRniuNro3E
-         ZBNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=H4OYy3kGcHQe3q8wy+eXpmSYEjj417UWrJWf6YCRFCQ=;
-        fh=ynRfv9oLaNy9Sz/X1LzmBrarz2pTCXCVxOd0Y7eJzjQ=;
-        b=DSH/6oS1z6mmQt4wxz0WHX0XU7fwKjSt/BxSQJJhp87RP+KIC+YhXCpjDWuwU0Xy3X
-         xaRgtLnTDp7XQ9eeG7GLIcshiKdxG0HJGIyfXheJrejffgAnn9U3gW9Rbpu+OLgDEBTw
-         fHYlkfIZvfK5MznbTLVXrN044GbOiXI5lRpC4vqm3sIvn6pC5l5XnYa6vkgmNF3W1Egv
-         KC//sDxnPXRAzMqISeQ4erSkTMm0B5E/IP5jaAj7B9xXCSCGWdvZO5V/YPkAgAd5i5Db
-         O0cIC7nER0IUTh9hr6n50kAnC2fmxhdYaHI5jLEtiXKa8/+KOXr6N9826xcvFmlSDG7h
-         abjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1794718353; x=1795323153; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H4OYy3kGcHQe3q8wy+eXpmSYEjj417UWrJWf6YCRFCQ=;
-        b=N5ZoctSuX9R+wQdRPkBJLINCVEYk9LECs4v2PTcPW4KCVOAIqj/zO2cyoQtbz3ZqCk
-         g4t4hXNwd2mcDU34s5C2dOEntwah15iOTRyJK+kWdtLqcQyervpAsZvnxi/7Fgnll/v/
-         xIPF3jccDm+uW/F1zJMXWnJmNucRH+JT7TmP0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794718353; x=1795323153;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=H4OYy3kGcHQe3q8wy+eXpmSYEjj417UWrJWf6YCRFCQ=;
-        b=F4AWy9DbmZFBmQC35eCykKHv6LBDuzDL+llvIqcdqhisBiqKEihn1ophAPkyPcbX5f
-         uGWYnvP+844g3ZqFOAsD5Fg26dOSl34OP3KicWIahbBB25RUCWC0ZFiO52vAdL83APD6
-         shYLrqSZIrbYKBMw32koQUVvEcOfk+br9H7S/a7WyppVT3YUAL3yGoj4yRqgKKuCkLjN
-         bZytKmdSrwTVnR7zcdFH9LMk5oVy4Kqo3+52nOuBWyh7yiAg4LXPOSKc4/D6j02CB5AH
-         DecEq0lhyIZK37oNBzD/Z93qmbDHBN54byXmurhHTkoRaF5wgmgMG1pX8bAGHYV2TJ0X
-         LIew==
-X-Forwarded-Encrypted: i=1; AL+hErHU82z2q0mid2CaNLtYBm7eb3rs/JAKCTovpEhb1OTGoqIeSkWiOyy/x4t7Ty+DvJ1GNPAWy5hGFShhNT4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Qy7/9VRC/JVqSMqvf1UoZBF0YLvFFHn6aNILPQBFMMlvQmcAp
-	MSXA7GlQ1V4bJfPobeRVi+D6f/WtzDfUXTOqc9flyUxK/K7MoROS3HjTnkQfogLVFhtMVbz23dX
-	chqNbW/U2r1sKOkYSkdA9NRzh7JKoxVKDU8EhoGReSA==
-X-Gm-Gg: AYBFou3pWSYxpQo/fpb4mhpWEdRN7j41Sbdlct3wUDekGzFCsKDXsgqe5ghBexrAXLP
-	g5B4JEXT73Rqm1miz12yw1cH+bz/klQLxmyHnX5BKJEXL+9CAHDrrtgFfMTMyOLlYurW56l4iN3
-	oe2wa4W6bIb2MR9ncHtURRZf8ZBatLpWC3Qo/CxoZzGLP5O8feX9u1k9gbYtVyjEB0VUpx+A7cq
-	iUVQrP6tyaWizZDxQZMqyZ9Xeuz1FQV17i0xrk1iADjsaSIwelqgItMPVAy4SIDUDT362RX1JWq
-	DK3PYu3MSZINL04GjepuVhATgA2JRHcQRXe94xvfz5It0vTMOyumWy0hO01O1gpII0c0XKTten5
-	0EP+xBhPFO6lF0lIDIi9hMbpOMc2M7ZInrrtrPPocQYj9YbFTCDhuQ80BClfFWIX+ySMBvA==
-X-Received: by 2002:a05:690c:6b12:b0:8b4:d1d3:3729 with SMTP id
- 00721157ae682-8b4d1d34297mr3204737b3.59.1794718353336; Sat, 14 Nov 2026
- 20:52:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6gl0zM1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EF961F000C4;
+	Sun, 15 Nov 2026 04:56:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794718612;
+	bh=khASVnuhY+rY9MqIwmoGx90/W2kY6N1cqw0vv22kJ+c=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=n6gl0zM18YZKj3v0mhvMmdw3XwY9U2//3h7j2rRa76QNIwaUQOoKGEJZNgunE7+D9
+	 MmoFVaxn9yFuCyEzvKYGo5s8f8w9PkKZN8mYhW9g6WtQ1Ox37HIo++C6z3Ai1gl+ZJ
+	 Z7GyMzqrVnPFP3+1DIoDl7h1YkjY2O0pr/aAI+pF6+cUpPTq+DbDrR+EGPT9JWIURN
+	 C3j7veOyYyKFlsJWy+zcJxI0+4RlNd29I5zQCniohZ0DspeBNJi2Ens8Z3gH1CaQQg
+	 n/OWOFkjoRF0EgZXYSL3r0gLr4eq9Yr4HQIBV5XeZ8EWJyiRPmDrFDbBq0W121NAua
+	 ibl70NJKqdj6A==
+Subject:
+ Re: [PATCH net-next v02 1/5] hinic3: Solve an stall issue in hinic3_rx_poll()
+From: netdev-bot+sashiko@kernel.org
+To: gongfan1@huawei.com
+Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, andrew+netdev@lunn.ch, ioana.ciornei@nxp.com,
+ maxime.chevallier@bootlin.com, mohsin.bashr@gmail.com,
+ dimitri.daskalakis1@gmail.com, hramamurthy@google.com,
+ larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ zhoushuai28@huawei.com, wulike1@huawei.com
+Date: Sun, 15 Nov 2026 04:56:50 +0000
+Message-ID: <179471861093.2199510.12521678349103517689@kernel.org>
+In-Reply-To: <7b1857bfd040c90baa1777c4c18be56551c4c1b0.1794371175.git.gongfan1@huawei.com>
+References: <7b1857bfd040c90baa1777c4c18be56551c4c1b0.1794371175.git.gongfan1@huawei.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,34 +68,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028-perf-symbol-memory-send-v6-0-7e90415f0101@uber.com>
- <20261028-perf-symbol-memory-send-v6-4-7e90415f0101@uber.com>
- <CAP-5=fU9Du9cCge2aTm10ejtwBKX1THQpm=h7EMR=WVQLww6DA@mail.gmail.com>
- <auacxQZKtlFa9Pc3@z2> <CA+w=M=S-H4d_-KCZJqdPoUCyfYtNDsKLd8t37kT134bwpKD7qw@mail.gmail.com>
- <avkrTBAE08wB5Qy1@z2>
-In-Reply-To: <avkrTBAE08wB5Qy1@z2>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Sat, 14 Nov 2026 20:52:15 -0800
-X-Gm-Features: Aa3M54rO03zK-6zPMH9aB-pRaLogW0cwWWxarWSNqRtSpROzp42K86ZauPMHxmo
-Message-ID: <CA+w=M=Qxu_-kKkax5HkJoJXnivNTHqfpNt7qT9UKUATsCFLK+w@mail.gmail.com>
-Subject: Re: [PATCH v6 4/5] perf script: Add --lazy-load-symbols to load
- symbol names lazily
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Nov 14, 2026 at 7:47 PM Namhyung Kim <namhyung@kernel.org> wrote:
->
-> We have struct dso_id to identify the binary.  The build-ID is the
-> preferred method to check it.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Good point, I'll use the build-ID from dso_id for this check in v8.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks,
-Alireza
+- [High] The patch does not close the WQE-starvation stall that its
+  commit message describes.
+- [Low] When napi_alloc_skb() fails, hinic3_rx_poll() now returns
+  `budget` even if zero packets were processed (the poll_again path at…
+
+--
+
+hinic3: Solve an stall issue in hinic3_rx_poll()
+
+This patch makes hinic3_rx_poll() return the full budget in two cases:
+when recv_one_pkt() fails, and when the LRO replenish threshold is hit.
+In both cases hinic3_poll() then keeps NAPI scheduled instead of calling
+napi_complete_done() while an unprocessed CQE sits at the head of the
+ring.
+
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> index 309ab59013797..f2262cdd66287 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+
+[ ... ]
+
+> @@ -571,8 +572,10 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+>  
+>  		vlan_len = le32_to_cpu(rx_cqe->vlan_len);
+>  		pkt_len = RQ_CQE_SGE_GET(vlan_len, LEN);
+> -		if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status))
+> +		if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status)) {
+> +			poll_again = true;
+>  			break;
+> +		}
+
+[Severity: Low]
+This isn't a bug, but a note on this path. When napi_alloc_skb() fails,
+the CQE stays in place and hinic3_rx_poll() now returns budget even when
+nr_pkts is 0. hinic3_poll() then repolls the same head CQE until an
+atomic skb allocation succeeds.
+
+This matches the "return failure ? budget : total_rx_packets" idiom in
+i40e/iavf/ice. net_rx_action() also bounds it, so it isn't a livelock.
+
+Should this failure be counted somewhere? rxq_stats has an alloc_skb_err
+field, but hinic3_rxq_stats_init() only ever sets it to zero, so these
+retries can't be seen from userspace.
+
+[ ... ]
+
+> @@ -581,12 +584,14 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+>  
+>  		rx_cqe->status = 0;
+>  
+> -		if (num_wqe >= nic_dev->lro_replenish_thld)
+> +		if (num_wqe >= nic_dev->lro_replenish_thld) {
+> +			poll_again = true;
+>  			break;
+> +		}
+>  	}
+>  
+>  	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE)
+>  		hinic3_rx_fill_buffers(rxq);
+>  
+> -	return nr_pkts;
+> +	return poll_again ? budget : nr_pkts;
+
+[Severity: High]
+Can the RQ still stall for good if hinic3_rx_fill_buffers() can't post
+any buffers here?
+
+The commit message describes this case: "WQEs cannot be replenished in
+time. The chip will drop packets due to lack of WQEs ... Furthermore,
+the NAPI instance will not be polled again". However, the return value
+of hinic3_rx_fill_buffers() is ignored, and poll_again is never set
+when the refill falls short.
+
+hinic3_rx_fill_buffers() stops at the first page_pool failure and rings
+the doorbell only for the buffers it actually posted:
+
+drivers/net/ethernet/huawei/hinic3/hinic3_rx.c:hinic3_rx_fill_buffers() {
+    ...
+		err = rx_alloc_mapped_page(rxq->page_pool, rx_info,
+					   rxq->buf_len);
+		if (unlikely(err))
+			break;
+    ...
+	if (likely(i)) {
+		hinic3_write_db(...);
+		rxq->delta -= i;
+    ...
+}
+
+Suppose the device has used up every posted WQE, all CQEs have been
+processed, and page_pool_dev_alloc_frag() returns NULL. The loop then
+exits on !RXDONE, poll_again stays false, and nr_pkts < budget is
+returned. hinic3_poll() then completes NAPI and re-arms the vector:
+
+drivers/net/ethernet/huawei/hinic3/hinic3_irq.c:hinic3_poll() {
+    ...
+	if (likely(napi_complete_done(napi, work_done))) {
+		hinic3_net_dim(nic_dev, irq_cfg);
+		hinic3_set_msix_state(nic_dev->hwdev, irq_cfg->msix_entry_idx,
+				      HINIC3_MSIX_ENABLE);
+	}
+    ...
+}
+
+With no WQEs posted, the device writes no CQE and raises no interrupt,
+so NAPI never runs again.
+
+hinic3_rx_fill_buffers() is only called from hinic3_configure_rxqs() and
+hinic3_rx_poll(). hinic3_periodic_work_handler() only logs TX timeout
+events. Nothing else refills the ring once memory recovers, and the
+queue stays dead until the interface is reset. rx_buf_empty and
+alloc_rx_buf_err are also never incremented, so the stall is silent.
+
+i40e/iavf/ice handle this by folding the refill failure into the return
+value ("failure = failure || iavf_alloc_rx_buffers(...)"). Could
+poll_again also be set when hinic3_rx_fill_buffers() posts fewer than
+rxq->delta - 1 buffers, or could a deferred refill be scheduled?
+
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794371175.git.gongfan1%40huawei.com
