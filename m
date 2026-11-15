@@ -1,80 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749718;
-	b=KkEharXw8kuoOBn1N7UsZOnIYekuEGPwTm/m9JoXhs5KGVz+GUsumqjpzlRFbSwPFu6V
-	 Y20OgyH/vQx2F4ZL8vgOwaW8caQ/IF+VGlb0scA+EOEwbXP6p9eyJFq3vyRnHyoBeyfHg
-	 hoxiRGNbD36fbF9dSJAQOX8hOH/Yn4LIdoznN9/b4utEt3Q9TyJaJoYUNZ0DIUgPrvvyz
-	 oktPdP5H/qfBweX8ifK4bITtrB22vc7E4aJ9DvMarzT/xDjubtnRZGv2ggIRhqtk/c63h
-	 npWhObUfNu2AOQxwDyeDlOWAQ90O97telCBN8rTYZQNaMQlb/1PzvMkY1EsQ6cCqtvA==
+	t=1794749745;
+	b=mrSevCt0eFObJfdt81jkQv01GuKo3YJiXecyeTJQv9UzrHVwJb4MpaSpBMtqcXGxEGy1
+	 SoteQNpilRv7HFwbBP5tzDlToyhuQyl5rYFazbFa+t2Zw26GlVNKrhRY97h2SlPE4HQ8k
+	 7B2XRhipq0Js4tHlOfW2ML+Gpn5kHkPVUDAkHS4/n/16+qua77r4NK6J1E4c4DZhAhx3A
+	 SeX3Ce5FbT1vfkACtdMRwc/5/OmJjJKjt2JtiHD+1x9crbeB/u7h/XZuBLujob5/2i+Ap
+	 uyrpvF5xtSKbNZQZI+xHpSyOkQGWaF9wRJ4RoDuUVo1MOtPp2fhGQCij2MupnV+j0eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749718;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=aSapEaH/NuRU2jX6S12LQSO8bYKdhcI+xgkonqmfsqs=;
-	b=nig2j5rL8t+5Gf/uu6eYCkHLcH62QDdnM32zHycjQtT2ULcqdBIYfUZhsF6jQkFXM5mY
-	 OydcJeyixcQMKG4pOy3cUPnTruKDY05GzSEZ5W8DSkPLoemvTqotvp4CEQkziFBXI+0le
-	 H0xIfgtP2ed4IqK2051vyJkJaxjl5S9uFrPxMHigZUjVkFbVetYWzEECmHmYc/9kUeDK2
-	 Rp8ehfSd+FqRrYkWdBr+k1Bpru61tRLyph/o4y9dISS/OaflNgDM4zSpasyAJxI8C2asP
-	 ousU/58Zc7+jjc1W4XFdImONPWQ96OxOdq7F2aH0MRSNy5/ldHnyRd1IPBo3nAj2cJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749745;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=h6OEXgSIS2KSn2gzGHEkOO2aDOY6x2JBf4c/xK1Coeo=;
+	b=c+asu1UaG0ZcLPKAIWLm3/aXppi9s0x8BA5il7wuI7lxJZzoLKr7e2WFqtLa3Yaj8BU6
+	 Bbsw9vj7d51q85e7Hz3PKhvNQDDQjS8ijY6BBVcnBJIpLFewAZMY3d6UUC+FrwqfDq7XJ
+	 Yd3jGwctMo1ipFlB0mHuDrLjgdTRsTIjOysKz3kzF+af/CUIWvI7d/u4pQlW8K8xSvnJ0
+	 s9uPLVBF0BiX3AfCUu4808oBOEICDQHqvu5/HfORjJX+6eD9wrTYX6x0FNLlgzSQhy13e
+	 bOskPWLVxnCHSheofjh/Q/suM4Tq54o3yEOmnhtnqmvwWeJvocCWCPecvQ+d3chM6bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=f9WBXsKM;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UhhPFDGC;
+	arc=none smtp.remote-ip=91.218.175.34
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C09606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:35:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24C09606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8DB606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:35:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F8DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=f9WBXsKM
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id SPjpxIG52RiNxSaO0xGCxX; Sun, 15 Nov 2026 13:35:12 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SaNzxt5q93nNNSaNzxJH8x; Sun, 15 Nov 2026 13:35:11 +0000
-X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6af9b50f
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=Byx-y9mGAAAA:8 a=YlH-AGZLenAcjOw3p3AA:9 a=CjuIK1q_8ugA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=aSapEaH/NuRU2jX6S12LQSO8bYKdhcI+xgkonqmfsqs=; b=f9WBXsKMx+AxcyyUHrh3/0Gv6H
-	n9FaCar2PKDAsnj/XFLBflZL/3lYxXy8UXiYLvlDXOS2wjoyTqV5l2PrODsNaJwyXZ22jcLkXLB6h
-	A8AiqA0jyaEpX0HBtdSQj2rS4tQlTzHeeBExazgh63F/ghXq2d7XUubsU5UDLInNlPcraL/cTi30L
-	P9/HDY8J0fHyFVpxIr+Sf0Tynf6rJGOVVs3UwnqgXsFPfIYg+WehnpZXerdmeCAfBsGbO8iaWAsI8
-	oidN3LeLknD06YHwa5dH6y7ghqaSaYApiXjekQNY9shPMaPRkZV8qxwm357X4ufT95OvuUqVIJ2Km
-	KRi5yE5A==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50512 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSaNz-000000011nP-0obe;
-	Sun, 15 Nov 2026 19:05:11 +0530
-Date: Sun, 15 Nov 2026 05:35:10 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Ziheng Wei <zihengw03@163.com>
-Cc: Marc Hulsman <m.hulsman@tudelft.nl>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] hwmon: (nct6775) Fix incorrect struct cast in beep
- callbacks
-Message-ID: <adcfae11-f8f2-477f-bb4d-4512caa089a1@roeck-us.net>
-References: <20261115080203.910033-1-zihengw03@163.com>
- <20261115080203.910033-2-zihengw03@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UhhPFDGC
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h6OEXgSIS2KSn2gzGHEkOO2aDOY6x2JBf4c/xK1Coeo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794749742; v=1; x=1795354542;
+ b=UhhPFDGC2m9MeRClvUgoQAVhnz4PsNPJR7tU/4zO+vnMOIo+6CXdqjeIMl6RrniKfG9DqcGx
+ nX6asoYQpUjsfpGPvdJlJp39B2Z25DjiLPlru9HZbBUf26ure/JucYoDBIxilzsHkZWiwoSBeAN
+ F096Jg6Q4VgWKqwm8vr75hPM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0848c2a5e9df1cac;
+	Sun, 15 Nov 2026 13:35:42 +0000
+X-Mizu-Trace-ID: 0848c2a5e9df1cac
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 14:35:41 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v4_1/7=5D_wifi=3A_rtw88=3A_88?=
+ =?US-ASCII?Q?12a=2C_8814a=3A_enable_STBC_for_HT_transmissions?=
+In-Reply-To: <20261115114336.1739863-2-hjf3108@gmail.com>
+References: <20261115114336.1739863-1-hjf3108@gmail.com> <20261115114336.1739863-2-hjf3108@gmail.com>
+Message-ID: <56FC313D-ADEF-48B2-BBF5-A4DFAC129C3A@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,62 +66,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115080203.910033-2-zihengw03@163.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSaNz-000000011nP-0obe
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:50512
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 5
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOsdBYnzebxY6wWVZXNdqrcvwJxNLmni2l4WKYNXzhtZV/8h1FAgdfM/VQ15Ghsd8WCK+gZ1TvmECMklyr0nHmCiRMraggS+4OAGp/Iw+XiWVBXEDi4o
- 2kAuWOFAetyXJfvIqGEpX0StGmBRYK2kHz28RTK06G8rCwQs90T3iwfGeKkTF3DJYx81Yry9qDKpud+LwfrQJpjLcz2JqlTgXXoETvK686LbWavsXWt7hceF
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 04:02:01PM +0800, Ziheng Wei wrote:
-> On big-endian architectures, writing the in[1-*]_beep, fan[1-*]_beep
-> and temp[1-*]_beep sysfs attributes in the nct6775 hardware monitoring
-> driver always changes channel 0 due to an incorrect struct downcast in
-> the beep store callbacks.
-> 
-> The driver defines these sysfs attributes using SENSOR_TEMPLATE(),
-> which initializes them as struct sensor_device_attribute (where the
-> index is a 32-bit int). However, the sysfs store callbacks
-> nct6775_store_beep() and store_temp_beep() incorrectly downcast the
-> attribute to a struct sensor_device_attribute_2 (where the index is
-> an 8-bit u8).
-> 
-> Because both structs start with struct device_attribute,
-> container_of() resolves to the same base address. On big-endian
-> architectures, reading the 8-bit index field from the memory layout
-> of a 32-bit int fetches the most significant byte (which is 0),
-> rather than the intended channel number.
-> 
-> This type mismatch causes all beep writes to change the beep setting
-> of channel 0, regardless of which channel the user targeted.
-> 
-> Fix the type casts in the two store callbacks.
-> 
-> Not runtime-tested: the only big-endian machine available to me (s390x
-> under QEMU) cannot build the platform driver (no HAS_IOPORT).
-> 
-> Fixes: 30846993047b ("hwmon: (nct6775) Add support for beep attributes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ziheng Wei <zihengw03@163.com>
+Hi Jie Feng,
 
-Applied.
+Thanks for the update. Two comments below.
 
-Thanks,
-Guenter
+On November 15, 2026 12:43:27 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
+wrote:
+
+> 8812a and 8814a support STBC, enable it.
+
+Could you mention here that this enables HT TX STBC on these chips? As
+far as I can see, VHT TX STBC was already advertised when more than one RF
+path is available, so that would make the scope clearer.
+
+[ ... ]
+
+> Tested on RTL8812AU, STBC packets were captured in monitor mode.
+
+Were these HT transmissions from the RTL8812AU, for example on 2.4 GHz
+or with an HT only AP? As far as I can see, we already advertise VHT TX
+STBC on this chip, so a VHT capture would not confirm the change here.
+
+Best regards,
+Luka Gejak
