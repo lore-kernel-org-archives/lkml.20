@@ -1,67 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794770243;
-	b=JPQ3p0F4pfHRJXHyge2ZhsjM+2fJNNXvohqq5saBeoGvU9iRpKbXtFgbWLhHlA3SxZH7
-	 Hi5ygeuaBBbFb5JFw3tdiaD4q3WnZ7pgV/SAPJVJMOHxMc8ypWSgavo11kdzr7Drj8XVL
-	 pPjYq3wnrOpDbn3yNykNmno+pRUJ9phYkzClZs5E3zWmNwEcV5Lc59y9ysnjKcyWvSQMY
-	 JQkKeewKH8s4uQZSmjHDN8q/I306/VC/GX4aqKVegfjMCv5zlX0zuI9l6WejuND7ZzxDI
-	 J9rK+59nrRWsIKXvib/a1oXdnDofTSqtjLDRrCSbAI5I27NwwSXxL7O5TpNC+8QLHNA==
+	t=1794770427;
+	b=K+MvwBMi4zZBWyc7PJsEj5BvM7jZhGJ8RP45k7FWSiiOiQMzD225gwbm9bK8lADI067H
+	 SWbcsDk0i8hxj7dJmYr4sAXQw7RRDOwzMVVdW3YwLITfe1lAJZ/zbtu9jwPXGBzEMmyxF
+	 tekdWDOYoT3wmv+TCnR7gGm7slM/FKsqXwnY92ssxvdnvsvDQge1mbNZbsMFPY2ShSSjv
+	 LUvavCBOKSQBUAqlyJOVzsS851Mm5MdELoQAf5dc12OVzLJmgkhCFlDRSJvhtf+WI7GT5
+	 opbDAqANsAPipzfapneiihcNgeMY8yA4C2im/MN0y/OyQ/1lsceE/fBAMvgRuLqLsJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770243;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=syiaQMJ04df2CAPDd9TxgmwagOaCksS43FztMaZSoj4=;
-	b=YI9DW0o84/btgXhcFZC57hmxJfpLJ3uUOz0d10lR3SoNfKVikJylVoTxgADjGgBFwtat
-	 v5jr5alAwc9YhCs25HAwJUWQdQQJ6ud+Uh6p8LaiEXjRONHo+WKOySObDUp9Om7akayAS
-	 q7jZksPe3KAJaUNSqu3Kl38PiFFVJrMYojpaPduqXh++/c/AJTwFphhSgw07Bafsls9tF
-	 xNOJxnogng7KVh5pMIfTxJLbgPcqpXKphda0RYPkqHQB1oekLTvvoltIO2i7/c36qPi0P
-	 +JBhi19AhhX5YbKS5AGsmM+YPUsG7v+if3ArWRZJ1NjQbBcC0U1LNxmi7RyI9c7nh3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770427;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fLaQUPcYKxXkir2twg3fsW7g9Gg8lBOZ22Z32cylxH0=;
+	b=XqPQYNQwW5ujlNjS2GQGwL/zp3KvvvpktpWgYp90h7PiqlF5JeIjcviyta3CW4d/AGIF
+	 m428aUS4eUHkB5JnCzEFdPpciEWh+iNly5Awz8lftvDslPYkdxQJABnDTL7C4xzbb0sMm
+	 i9ak7oLL8vwj81IFaN7knkxyDGlt08hDjVBolDb80MEyExxSV9Ya/6aQCs35EGYrCw9sH
+	 vsz9v3CO87bThzEgS5/m3c3OEif1E13RrtzkZuALtGXOciQzHypmMdBZmAxsaA32OAJo0
+	 IHc6lcb7raA06N/eTvuPLI8XgfJwJGa+EhDXfokXeWw8eBFllgUawZ9mn+W7bKFqpog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ2RTQiU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhLu85Ua;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203CB606A323;
-	Sun, 15 Nov 2026 19:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05E5606A32C;
+	Sun, 15 Nov 2026 19:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ2RTQiU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBF11F000C4;
-	Sun, 15 Nov 2026 19:17:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhLu85Ua
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC921F000C4;
+	Sun, 15 Nov 2026 19:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794770242;
-	bh=syiaQMJ04df2CAPDd9TxgmwagOaCksS43FztMaZSoj4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=NQ2RTQiUkooIEv2aFmxn0mSejwHAVan7OoLwkXp7+EqL2JE0uyg24oNE/w8/BPWGU
-	 hOkEUqIcDLeoy6OECB08uAAAqUGy6jJbvGmrZQE1k0fPw5aiUyeVkPyTKP6ZLr8hhJ
-	 znImMXQFXrHoaun4DzvCTiTsjpny2ultaPf0sLdeCuE6xqS0qb+FGZLDa7+wyuAKiv
-	 NuTb3IfidJO8ZktYh+I8f6+utWgwo5Mv+YUTMcv9JSMRBm9cDgointBeyQ2h166T9t
-	 a1q+nUh0ZUqUIJQX914bGraPwGIETtkpad3nVgRfq6u6rtlguO+PxFoX7biiqEnA0U
-	 BPqgK4+7YLhXA==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com,
- sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, alexanderduyck@fb.com,
- kernel-team@meta.com, andrew+netdev@lunn.ch, hawk@kernel.org,
- ilias.apalodimas@linaro.org, ast@kernel.org, daniel@iogearbox.net,
- john.fastabend@gmail.com, asml.silence@gmail.com, axboe@kernel.dk,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- almasrymina@google.com, mike.marciniszyn@gmail.com, bestswngs@gmail.com,
- razor@blackwall.org, dw@davidwei.uk, aleksander.lobakin@intel.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, stuclar@meta.com
-Subject: Re: [PATCH net-next v1 06/11] page_pool: Coordinate refill with
- memory providers
-In-Reply-To: <179443689325.2199510.6016244708978672874@kernel.org>
-References: <20261110102039.1002605-7-bjorn@kernel.org>
- <179443689325.2199510.6016244708978672874@kernel.org>
-Date: Sun, 15 Nov 2026 20:17:19 +0100
-Message-ID: <87ld6thpkw.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1794770427;
+	bh=fLaQUPcYKxXkir2twg3fsW7g9Gg8lBOZ22Z32cylxH0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XhLu85Ua2c6WZLlLlAlu41R/VyenJMuIzs9+HeEnHjow/dZUNr5fsUxv33MVe0xR9
+	 NiqKgGZojOd6z653AmlAbwBWSNz0Y/J4dsO9oqMstKyh/UAzeOwqo1F24tatjYGczh
+	 Q0qBu2kvlSa0F8oIVuhxCAoOMhwI/hK6jFz/WnzR0a+3Y8LmbXpxRwMM+kxXmZY1iq
+	 25w3eguzUz3kcvSwQsQNl1CFRImzluQwZPqKEdduaE+/HXoeSbYwThL2YZMJLNU1I0
+	 E3zvrbGwhP652mJ1OL7CToELmOQZpBOaxBkQTr+i8KiSeA8Qj626ksqR9/Ha+aLwjb
+	 //TVlKyt3smmQ==
+Date: Sun, 15 Nov 2026 21:20:16 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
+	m.szyprowski@samsung.com, jenswi@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, mark.rutland@arm.com,
+	robin.murphy@arm.com, hch@lst.de, ryan.roberts@arm.com,
+	sumit.garg@kernel.org, sudeep.holla@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/8] arm64: Add support for MEMBLOCK_PTEMAP
+Message-ID: <avoF8IbOxVJ9Uh8Y@kernel.org>
+References: <20261111110738.872947-1-vdonnefort@google.com>
+ <20261111110738.872947-3-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,45 +64,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111110738.872947-3-vdonnefort@google.com>
 
-netdev-bot+sashiko@kernel.org writes:
+On Wed, Nov 11, 2026 at 11:07:32AM +0000, Vincent Donnefort wrote:
+> With the MEMBLOCK_PTEMAP flag, force a PTE-level mapping. This also
 
-[...]
+I'd expand this to "Force a PTE-level mapping for memblock regions with
+MEMBLOCK_PTEMAP flag set".
 
-> Should netif_mp_napi_del() also clear rxq->napi when it matches, or
-> should netif_mp_update_napi() only publish a NAPI that is still
-> listed? If drivers are expected to clear the association themselves,
-> could netmem.rst item 8 say so?
+> disables contiguous PTEs to make sure any page from the memblock can be
 
-The first. v2 drops mp_napi, so wakeups use rxq->napi itself, under RCU,
-and the core clears it when the NAPI is deleted.
+                                     and memblock region here ^
 
-[...]
+> safely unmapped from the linear map.
+> 
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> ---
+>  arch/arm64/mm/mmu.c | 22 +++++++++++++++-------
+>  1 file changed, 15 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> index 140520b351e2..a4cafafa1d82 100644
+> --- a/arch/arm64/mm/mmu.c
+> +++ b/arch/arm64/mm/mmu.c
+> @@ -1184,9 +1184,8 @@ static void __init map_mem(void)
+>  	phys_addr_t init_begin = __pa_symbol(__init_begin);
+>  	phys_addr_t init_end = __pa_symbol(__init_end);
+>  	phys_addr_t kernel_end = __pa_symbol(__bss_stop);
+> -	phys_addr_t start, end;
+>  	int flags = NO_EXEC_MAPPINGS;
+> -	u64 i;
+> +	struct memblock_region *r;
+>  
+>  	/*
+>  	 * Setting hierarchical PXNTable attributes on table entries covering
+> @@ -1226,9 +1225,14 @@ static void __init map_mem(void)
+>  		       flags);
+>  
+>  	/* map all the memory banks */
+> -	for_each_mem_range(i, &start, &end) {
+> +	for_each_mem_region(r) {
+> +		phys_addr_t start, end;
+> +		int rflags = flags;
+> +
+> +		if (memblock_is_nomap(r))
+> +			continue;
+>  		/*
+> -		 * for_each_mem_range may return sub-page-aligned boundaries
+> +		 * for_each_mem_region may return sub-page-aligned boundaries
+>  		 * after memblock_mark_nomap() splits regions at byte precision.
+>  		 * __create_pgd_mapping_locked aligns phys down to PAGE_MASK,
+>  		 * which could accidentally map no-map memory on the boundary.
+> @@ -1237,17 +1241,21 @@ static void __init map_mem(void)
+>  		 * regions. The cost is at most one page of unmapped gap at
+>  		 * each boundary.
+>  		 */
+> -		start = PAGE_ALIGN(start);
+> -		end = end & PAGE_MASK;
+> +		start = PAGE_ALIGN(r->base);
+> +		end = (r->base + r->size) & PAGE_MASK;
 
-> Should the documented contract require that, or should the core handle
-> the disabled-NAPI case itself?
+Nit: as we anyway change the assignment to end, PAGE_ALIGN_DOWN() is
+slightly more explicit.
 
-The contract. fbnic polls the vector right after napi_enable()
-(FBNIC_INTR_SET), so the queue refills once, from the reuse stack or
-FILL, and refill_done marks it starved again if both are empty. A wakeup
-lost on a stopped queue doesn't matter then. v2 documents that a driver
-polls the queue once after enabling its NAPI.
+>  		if (start >= end)
+>  			continue;
+> +
+> +		if (memblock_is_ptemap(r))
+> +			rflags |= NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS;
+> +
+>  		/*
+>  		 * The linear map must allow allocation tags reading/writing
+>  		 * if MTE is present. Otherwise, it has the same attributes as
+>  		 * PAGE_KERNEL.
+>  		 */
+>  		__map_memblock(start, end, pgprot_tagged(PAGE_KERNEL),
+> -			       flags);
+> +			       rflags);
+>  	}
+>  }
+>  
+> -- 
+> 2.56.0.542.g3ef89b7020-goog
+> 
 
-> Could uses_need_wakeup be cached in struct xsk_pp when it is created, or
-> read only after pp->fq is confirmed under pp->lock?
-
-Same root cause as the failed removal in 05, and the same fix. The pool
-then stays until the queue DMA has stopped, and no refill runs after
-that.
-
-> Should the error path arm from the configuration that is running
-> again, or should __netif_mp_open_rxq() and __netif_mp_close_rxq() call
-> netif_mp_update_napi() once they have settled rxq->mp_params?
-
-Neither is needed -- with mp_napi and mp_armed gone in v2, there is no
-wakeup target to arm from the wrong configuration.
-
-
-Bj=C3=B6rn
+-- 
+Sincerely yours,
+Mike.
