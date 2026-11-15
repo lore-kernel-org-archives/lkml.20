@@ -1,65 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794715700;
-	b=sgsYG2QdE1aP4Wlpvth8xjAbd2zidh8u0UbsALmZxJYDqkJ+UeNFCPQAtpmCe0a2sRQT
-	 wwcihMDT6PngC0GNcA2oOlniYGgjXWw28qgNSIsbyyz5kWiUvrKubGVd909aEs0CFNFyf
-	 p9OZktdhtXIaOF/YjzoVm22qgeP6PX4hynEVZqtBTMhM6nvdlXIQ+RYAI51dDYhouyd/S
-	 ZizAlDTqaGPx5uhyySywg/ozX17LfcIyGIc51JERwrCrLsrHp+xnHe0OemOUhZA/S9euD
-	 1EZmmgLUjXv7Vk+/OZA8CeAziwA8XiNGs7NCdrUHIa9jExmJKFDZKnYnNlWY4RuIkyQ==
+	t=1794715719;
+	b=di3d6EfubdsRa4TFJupFtYzMxwNUCGgMIqYguLY8UXP5KCetIH/r/5F9lhricSgnsSqS
+	 gsHU3e7HqIZTXtAummtrxLHgR8axXF3Rd/3T1Lbo2Lj67pNm1CzbifQCORmLl9MSoTrkT
+	 WW7s5H1tf8pluEPlQDgW5zQ5a2tVlt6u5VoSIH+LW3G+Fd1hbFups4EwwkFAFAWFuLJO8
+	 pZgwD8GekpqVTa/ZlmX9UVI54Aq1VT9Mv2rkXIWGj7luJMAww9Nngu2hQ9coS2A+MqXRr
+	 /VMJw4BILT++7s89vQzrAPogGLmd7Hhxba26fGT0OauUP/ReVcB6+5Pr+atMedpZHJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794715700;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Debian-User;
-	bh=O1aNnud1hC5sF5Cj79XKOT6k43FxwiLQRFJz6PwV4w0=;
-	b=tCuONMqKJhSFAt/Q+LcpDBJwqKV7HQo+cfCTz0tO9iO4dJrAzc2LsaCo2rSB63MYsUYF
-	 cZD4TbPwFtMQ7JiRpMXC1YpQWt+/62QyHtylNtgs5c1DhMuSIJAJPjW623Ho5Wx6FOe3g
-	 4VEmHOZ0vM1aW28HuEyKdRp/BDVitLOka32jIqhFcZMoOeYflxrPBKWNOWCYY8gutD4ZW
-	 WAzn6hJiYvT97+ZSauqw4sB0PVpYrny5VHXGNmTma6Jw+iwUQEI1IF6lueNmdgFWTnOWy
-	 cI6EKsm+F9iXCeiwXbw3SLu75tiK3lipXQPNbge4vTJcbvVdxrZs3Xad+FzDJx3mVfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794715719;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=TOgDAngET7SCptQyx7wtEEDhE65iKbzZJMncrBheFv8=;
+	b=XLHf6QRK+MCqegMHKdr8N3CNG2IlAiwUyb0YMZUpHtB5pq20jf6rkkA1yCwa3K0ICtVt
+	 mg478EX/kHdCdkdzAVj1B+O6sDy047D+vK16Pnde/PDnDAkEoHJ3jDzLQcTGHsQS1SWOY
+	 M5roqbEVUFxFQ8kGEJxVn+VwE7FkunDKecKv4WioA6w4HJ7V4mwwAgCszw8EI08VrXgAx
+	 L3XGeDkHftumMdZzouhrPOL9oYIk3nkxC9mlzM+ulAkwFjtFdzAyGgpAGoIh3sTI2pvds
+	 C6bOlRTjGwgUfmOrF9gSys2Q/pHRjZkCB4xGyzP9thf1S+yIlUEEHXt5NOfUrrOyq7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=FOskF0Jr;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=KMP9lLio;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72FD606A323;
-	Sun, 15 Nov 2026 04:08:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E72FD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF6E606A323;
+	Sun, 15 Nov 2026 04:08:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FF6E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=FOskF0Jr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
-	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=O1aNnud1hC5sF5Cj79XKOT6k43FxwiLQRFJz6PwV4w0=; b=FOskF0JrODUjr+o/LBTmc+f6S8
-	jIyccQpozHnowAORmzMCJnXljGXDwUclaAQzJNfuxGL+oRQrcL2qwVOKi61uDdObZjGPqZQcQIhr/
-	9KCgVhAfv2OwAJeerZkLpp54zuDMJt74jOczCHYl4JOVuzYPFofzk18+8Y/FoMIreHPaQIG1+xImK
-	6uovcA7q990kaDNF4KEBQM2rE1h0zfCTFIIqdkPqJY9XXbrrRL9lChWEdENZqoWR1XHJ6VhoNVuie
-	Gf5bUhZs+cLYnRp4hhiOad6G5UeiJXjhvu6Q5hXEK0xMkxsJR/Ftpp3YdiFBtZIST/H0c2RRZw0zv
-	tt3PsFOw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xSRXJ-00G33F-0Q;
-	Sun, 15 Nov 2026 04:08:13 +0000
-From: Emfox Zhou <emfox@debian.org>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] HID: intel-thc-hid: intel-thc: restore PRD table capacity
-Date: Sun, 15 Nov 2026 12:07:56 +0800
-Message-ID: <20261115040756.602092-1-emfox@debian.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=KMP9lLio
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AF48WcG42162428, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794715712; bh=TOgDAngET7SCptQyx7wtEEDhE65iKbzZJMncrBheFv8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=KMP9lLioGVmzdk4oync2O9IyJkneSW0RI1ZX5wcgkXQBQ7ulAl1IbQtq/oXwhD+Nu
+	 HjplDvi66UbjsMdMAHyRLYiKmq3p3dhMkOJJZ2FdDqdVxXwXIlPlX5itKS67tPCX1O
+	 XjwCDeicGUeZqqY/qYBROW+PKLlyYT2YXxnUPxHPZuJrkO4ITf0756f7nIIvm5DR2T
+	 m3iNX7f1oqTLW0EmpXBWukJmr7cFGBx9g96B0DbzbD3v1T9mqp+21ILE+jExEtWJ9v
+	 kNgOdFYep1EWlpWaojf7bMVWQoegpF4f88NoRkCeXnsyU4He45j7DcIw1F4Hc89Sbf
+	 TZNCIX3/1FPqQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AF48WcG42162428
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 15 Nov 2026 12:08:32 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 12:08:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 12:08:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Sun, 15 Nov 2026 12:08:32 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Enver Ikromov <owner@ph4ntom-rev.uz>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v5 05/10] wifi: rtw89: use AP self role for
+ monitor interfaces
+Thread-Topic: [PATCH rtw-next v5 05/10] wifi: rtw89: use AP self role for
+ monitor interfaces
+Thread-Index: AQHdc8qFK2Jt1QtiLUSH4J8FZa1Wk7cuhEig
+Date: Sun, 15 Nov 2026 04:08:31 +0000
+Message-ID: <971ff7a2aa6e4f5bb6d4e459c386d433@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
+ <20261113235211.1911-6-owner@ph4ntom-rev.uz>
+In-Reply-To: <20261113235211.1911-6-owner@ph4ntom-rev.uz>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,62 +87,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Debian-User: emfox
 
-The controller writes the frame length into the PRD entry it filled and
-marks the end of the frame there; only the read path puts the capacity
-back. thc_reset_dma_settings() rewinds the read pointers, so the ring
-reads as empty while the entries keep those lengths, and the next frame
-that does not fit runs past the end of its table: the controller reports
-a buffer overrun, which is a transfer error and leads back into the same
-reset, with the tables untouched.
+Enver Ikromov <owner@ph4ntom-rev.uz> wrote:
+> rtw89_vif_type_mapping() leaves net_type and self_role zero for
+> NL80211_IFTYPE_MONITOR, i.e. RTW89_NET_TYPE_NO_LINK and
+> RTW89_SELF_ROLE_CLIENT. When rtw89_mac_add_vif() initializes the
+> interface, rtw89_mac_vif_init() first creates the role via H2C
+> ROLE_MAINTAIN and then sends JoinInfo with disassoc set (op =3D=3D 1) and
+> this client role.
 
-Rebuild the receive tables in thc_dma_configure(), after the pointers are
-rewound and before the engines are started again, which covers probe, the
-RxDMA reset and the resume path. All four engines are stopped at that
-point, so nothing reads the tables while they are written, and
-thc_copy_sgls_to_prd() returns early for a channel whose tables are gone.
+Describe why you need this patch. Which problem you encountered and
+wanted to fix.=20
 
-Fixes: a688404b2e20 ("HID: intel-thc-hid: intel-thc: Add THC DMA interfaces")
-Signed-off-by: Emfox Zhou <emfox@debian.org>
----
-Changes in v3:
-  - Restore the tables from thc_dma_configure() rather than from
-    thc_reset_dma_settings(): the reset also runs on the SWDMA path, where
-    nothing stops a reader.
-  - Do not touch a table that has already been released.
-  - v1 was posted under an older subject.
+>=20
+> In firmware (verified on RTL8852AE firmware 0.13.36.2), the JoinInfo
+> H2C handler treats (self_role !=3D RTW89_SELF_ROLE_AP && op =3D=3D 1) as =
+a
+> station disconnect request (HAL8852A_Role_Disconnect), which clears the
+> newly created role's active bit in the firmware role table and skips
+> initializing its CMAC control table entry (CCTL_ResetByMacid). Frames
+> queued on that MAC ID are then silently dropped instead of transmitted.
+>=20
+> With self_role set to RTW89_SELF_ROLE_AP and net_type kept at
+> RTW89_NET_TYPE_NO_LINK, the JoinInfo H2C handler initializes the
+> MAC ID's CMAC control entry and connects the role without enabling
+> client TBTT tracking (gated on RTW89_SELF_ROLE_CLIENT) or AP beacon
+> transmission (gated on RTW89_NET_TYPE_AP_MODE). Set both fields
+> explicitly for monitor interfaces.
 
-Link: https://lore.kernel.org/r/20261115001100.313270-1-emfox@debian.org
----
- drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+I'll check firmware people the setting.
 
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-index c80ef8c20..64fd890e5 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-@@ -211,6 +211,9 @@ static void thc_copy_sgls_to_prd(struct thc_device *dev,
- {
- 	unsigned int i;
- 
-+	if (!config->is_enabled || !config->prd_tbls)
-+		return;
-+
- 	memset(config->prd_tbls, 0, array_size(PRD_TABLE_SIZE, config->prd_tbl_num));
- 
- 	for (i = 0; i < config->prd_tbl_num; i++)
-@@ -491,6 +494,10 @@ int thc_dma_configure(struct thc_device *dev)
- 		return -EINVAL;
- 	}
- 
-+	/* Pointers rewound, entries still short: restore before restart. */
-+	thc_copy_sgls_to_prd(dev, &dma_ctx->dma_config[THC_RXDMA1]);
-+	thc_copy_sgls_to_prd(dev, &dma_ctx->dma_config[THC_RXDMA2]);
-+
- 	for (chan = 0; chan < MAX_THC_DMA_CHANNEL; chan++) {
- 		dma_set_prd_base_addr(dev,
- 				      dma_ctx->dma_config[chan].prd_tbls_dma_handle,
+(I will review remaining patches tomorrow.)
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+>=20
+> Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
+> ---
+>  drivers/net/wireless/realtek/rtw89/core.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wire=
+less/realtek/rtw89/core.c
+> index 3447f0e..9cf2b03 100644
+> --- a/drivers/net/wireless/realtek/rtw89/core.c
+> +++ b/drivers/net/wireless/realtek/rtw89/core.c
+> @@ -5756,6 +5756,8 @@ void rtw89_vif_type_mapping(struct rtw89_vif_link *=
+rtwvif_link, bool assoc)
+>                 rtwvif_link->self_role =3D RTW89_SELF_ROLE_CLIENT;
+>                 break;
+>         case NL80211_IFTYPE_MONITOR:
+> +               rtwvif_link->net_type =3D RTW89_NET_TYPE_NO_LINK;
+> +               rtwvif_link->self_role =3D RTW89_SELF_ROLE_AP;
+>                 break;
+>         default:
+>                 WARN_ON(1);
+> --
+> 2.56.0.windows.4
+
