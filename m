@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794737600;
-	b=NmoKtSHt5S/8SlJdMY2Y4JdF1I1TeVCtIfP1scqd8FP89CJ75lo9Nrrc2uaDnl7J/mcx
-	 Gb8VSDV79m+Ev4VEQ4owGKxIX0CXcztHts96i64sE4Wd3YdQS3aqCRsHdxm74WNWUm7md
-	 Xr5mzmxLe1Xsdd5Zb8qW822TbZHifTJNp41jMJT/V75EdveFALmOavc54F+lj/072pu7Q
-	 RXsvFtawEJKdwSY1uz4HzBw/gik0D4HSOSVO6DGvqJAvMUpsFC6anZFHGsp2kl3g3X3O+
-	 v6txElSwhiaObZ0pQHMrirDmTuuZ/VdA2+reSSQqiG02obuG5WhfRQwHb1LvGbJMzJw==
+	t=1794737675;
+	b=imQmVh/ECx0vDFg46xU5TYyflKrhtte/+WMTREKnVFi7sXjZ2fXF1P2DBLS+0bCbZHiy
+	 vWK44ltL/G16d9+gaJM5bIsAH8kW9xZy+0qZcdDsjiFfH/OxNF3m3h8ld33ovmIKmzCSw
+	 tHLNFjzmsnRbtXCrXaTJwNboqlPH7r0SqUPM6rvuySA4x646DU/7Bu6O1f1MrzlFDIMsd
+	 0zhL7flbw63p2N7gHoQcSbgI/EcRULMpnZm3+1IaVxg1X+91bNn1NNJPd/cdBXk7wsoZS
+	 Vm2PrHQZ80gHYI9ZBAAW1dCmmwv43rYWTMa2Ej9/1vk3HxXGEX3S3PDnRs0FP0YSctw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794737600;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=orVIjeK5f2EFZpjqq8T9rpz60EOcQy7AnaVi8Tf6t3s=;
-	b=urdcgVewNHqxW+C+IzNzH1QdlpnOip4xOnzOtF+g9xnq3wenAskmrXgVM1R0QxeNo22S
-	 KlH3gL10NFjXeWTwUU3A81OZMtsojUyhsNhSJDEFEs+0H1d57Jy8SCk5JGu2IGSnEPj4q
-	 DdgkKOSHkT+P1Nj6p5NTBnt8R5QLlMnMehQy+DUTgOdJILiws2GeeL8kIPRHRmaLYytsf
-	 8ey6EjfWigjrHhYaJsjyFkENQTGvACL7DxmV+LJOja7Hx+AWCMylZduCwTtCxC9D+NKiN
-	 A/pL8KcMXnL7Ii/gXDuNysqj4AtVTFykz+drHWalBE3FQjrCf9fJQAqSMLMnHG15M+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794737675;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jsOzBPklyFHN5jTwfkFr9FXyJBSWMNCCaNjdoNWryzI=;
+	b=POY/owmw5XohB32jNExszOkscfg/7GpScCYAlGadRNu9Gg7uadBS76i0UrBLv1Zx6/BQ
+	 wMMUQvvpphDnZWiniEc/CwOZ6GKJtzUGp3DCnx9kA6K9NSmkbA4PovL9c0ZzbDBVZDgeD
+	 XSqH70s5GGEZ2I3Z12xnXtZGdKbKawdPAYtG05k3ZxFvLcP2OblVbJBI5WqjdVGHXO1mP
+	 JhmvAId/XReISdeTTrYM7lpNroya75XrymL7KLrYhoIuH46sZPd6L9ZR1GljTGOzINXKJ
+	 vQAiVXEJKNN3oZ6E1Q1hT7fmw6Hlp5Z2Ib8iN++pwM9XviOsSt8FO7GOPJOuMQUrdnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E4rDq6RV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1Er7Is7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB7A606A31F;
-	Sun, 15 Nov 2026 10:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F05606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:14:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E4rDq6RV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FDCC1F000C4;
-	Sun, 15 Nov 2026 10:13:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1Er7Is7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA0A1F000CA
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794737600;
-	bh=orVIjeK5f2EFZpjqq8T9rpz60EOcQy7AnaVi8Tf6t3s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=E4rDq6RVrZ60xvB3RSUH+2Mwrr+tpbMcXeeGAtzu6wsgdLDQGlGbwf7r4kzzC3LKe
-	 HxlV2a2XvHQYx0YZTKudLPTnN7/kQP/ihkQ/L8bNTWLyKRYRjICMEL2Q4kSxnjfHXZ
-	 cC1t7kx9g5fHA0ZDXLRRoRx3ghcmMtaU3jfnYpiM2ZESzkeUCJHnmAFF+TJGf2D3yp
-	 BRYt43gfjSkPA8AjK6lQC+qYCKqdoM8NovCEhHl7yPG3ste3pOsFM1otCxVhOaiLS3
-	 kUSbkS4TXGr220d2d2btoYO35MtvPmZVd0A2p+466u7gxdATpjAXfERWi+NhqwTC22
-	 antaMFIOhRXCg==
-Subject: Re: [PATCH net-next 1/2] net: sgi: ioc3-eth: apply the DMA attributes
- only to 64-bit addresses
-From: netdev-bot+sashiko@kernel.org
-To: kaloz@kernel.org
-Cc: tsbogend@alpha.franken.de, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 15 Nov 2026 10:13:19 +0000
-Message-ID: <179473759964.2199510.1259617691806814840@kernel.org>
-In-Reply-To: <20261111095138.1757-2-kaloz@kernel.org>
-References: <20261111095138.1757-2-kaloz@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794737675;
+	bh=jsOzBPklyFHN5jTwfkFr9FXyJBSWMNCCaNjdoNWryzI=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=V1Er7Is7RnbiN+NUKhpa7FNisKKeKAeIHVG0MSGXlUllTsgiQGQZ8nANCSvWShb7Q
+	 F6jL89F2bgxfUFYcXnSBmX6dZKYBbb0HAX8PSbbS7m0gbfxJlvDg9pJGLihL3ej+9U
+	 7nM+CU139jM5pPG84S2RPRVrX/XR1hydrKFRTYaXvvrs+BwnDIoKbVi+1T/RpA0PCg
+	 EPg9g1Oic7PKGias7RsjP5EKt3s3hYfW4XmP+upEPUoHNnjciASlMIuzhgneSx1o/g
+	 sHWagyUnThMscZtCgCwejHFEtBPBoSgAR1Bcz2/YZYU+A/rIIQCNyvGS8xDzWSUdQd
+	 sCrBBPMKaW9WA==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3adfe77d35aso26427611fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:14:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFqxreUhuz97Ah+ypjBjBBynkEuKa8zJmFS9mZsPb0ADfZkjon9VVApc92rOqAzhGCxqrzSUummonfFFqE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8P56u29kuwqRolwvgd3aj4deocjJ27vKgQwN+ifvpmlr4VAcqj
+	7Lv8oZ0QD9rw+i63LJtabhTPKMTKDyq1vcyKul8urt4RDx9YX2EohvSIjGSVASJgYgHP9zLevVV
+	afhX8S0d7Dq0sqFLiI0YbTECOJsH01h0=
+X-Received: by 2002:a05:651c:e0a:b0:3ab:3bf3:1604 with SMTP id
+ 38308e7fff4ca-3ae2b522732mr26530741fa.26.1794737673900; Sun, 15 Nov 2026
+ 02:14:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,197 +59,490 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com> <20261026-sunxi-orangepi-3-lts-v3-2-98fef4f75184@gmail.com>
+In-Reply-To: <20261026-sunxi-orangepi-3-lts-v3-2-98fef4f75184@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 18:14:18 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com>
+X-Gm-Features: AclHuK_6A40eJrlmY5f-ZeGht5rVlzRHC6fRhBB__iltMURvpQkARgIjbXIIKYQ
+Message-ID: <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+To: filipescu.cristian@gmail.com
+Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Tue, Oct 27, 2026 at 7:34=E2=80=AFAM Cristian Filipescu via B4 Relay
+<devnull+filipescu.cristian.gmail.com@kernel.org> wrote:
+>
+> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+>
+> Add the board description for the Allwinner H6-based Orange Pi 3 LTS,
+> including its regulators, storage, Ethernet PHY, LEDs and USB ports.
+>
+> Specify the Motorcomm YT8531C PHY ID to avoid early ID autodetection,
+> which failed on MAC driver rebind. Reset the sole PHY at MDIO bus
+> registration and keep reset outside interface detach so its configured
+> 125 MHz clock output is retained. Use PHY-internal RGMII delays.
+>
+> Select the weakest GPIO drive level for both LEDs. Enable 1.8 V eMMC
+> DDR52 and HS200 modes; retain the H6 maximum frequency of 150 MHz.
+>
+> Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-jernej.s=
+krabec@gmail.com/
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
+> ---
+>  arch/arm64/boot/dts/allwinner/Makefile             |   1 +
+>  .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 379 +++++++++++++++=
+++++++
+>  2 files changed, 380 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts=
+/allwinner/Makefile
+> index aa21f58a4..7ea136380 100644
+> --- a/arch/arm64/boot/dts/allwinner/Makefile
+> +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-p=
+lus.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-plus2.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-beelink-gs1.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3.dtb
+> +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3-lts.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-lite2.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-one-plus.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-pine-h64.dtb
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts b=
+/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> new file mode 100644
+> index 000000000..e2ca41b94
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> @@ -0,0 +1,379 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +// Copyright (C) 2025 Jernej Skrabec <jernej.skrabec@gmail.com>
+> +// Based on sun50i-h6-orangepi-3.dts, which is:
+> +// Copyright (C) 2019 Ond=C5=99ej Jirman <megous@megous.com>
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] ioc3_init() picks the device-wide RX barrier upper-address
-  bits from the RX descriptor ring's coherent address:…
-- [Medium] For 32-bit direct-window addresses the patch drops every per-
-  transaction Bridge attribute the driver used to request: - RX buffers…
-- [Low] In this tree, the new 32-bit-window branches in ioc3_map() and
-  ioc3_erbar() (drivers/net/ethernet/sgi/ioc3-eth.c:162-163 and 171-172,…
-
---
-
-net: sgi: ioc3-eth: apply the DMA attributes only to 64-bit addresses
-
-This patch changes ioc3_map() so that addresses with bits 63:60 clear
-(the Bridge 32-bit direct window) are returned unchanged, without the
-DMA attributes OR-ed in. It also replaces the ERBAR_VAL constant with
-ioc3_erbar(), which sets the RX barrier upper address bits only when the
-RX ring address is a 64-bit direct-mapped address.
-
-> diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
-> index 009f37105eafd..25139cf5ff62c 100644
-> --- a/drivers/net/ethernet/sgi/ioc3-eth.c
-> +++ b/drivers/net/ethernet/sgi/ioc3-eth.c
-> @@ -152,19 +152,37 @@ static inline int ioc3_alloc_skb(struct ioc3_private *ip, struct sk_buff **skb,
->  }
->  
->  #ifdef CONFIG_PCI_XTALK_BRIDGE
-> +/* A Bridge 64-bit direct-mapped DMA address carries the target widget in
-> + * bits 63:60 and the DMA attributes below it.  An address in the 32-bit
-> + * direct window carries neither, so attributes OR-ed onto one form a
-> + * 64-bit address aimed at widget 0.
-> + */
->  static inline unsigned long ioc3_map(dma_addr_t addr, unsigned long attr)
->  {
-> +	if (!(addr & PCI64_ATTR_TARG_MASK))
-> +		return addr;
-
-[Severity: Low]
-Can the code currently in the tree ever reach this branch? With
-CONFIG_PCI_XTALK_BRIDGE, phys_to_dma() is the only source of IOC3 DMA
-addresses:
-
-arch/mips/pci/pci-xtalk-bridge.c:phys_to_dma() {
-	...
-	return bc->baddr + paddr;
-}
-
-and bridge_probe() always sets:
-
-	bc->baddr = (u64)bd->masterwid << 60 | PCI64_ATTR_BAR;
-
-masterwid is never zero. IP27 uses 0xa for a directly attached Bridge,
-or the hub's xbow port from xbow_probe(). IP30 uses IP30_WIDGET_HEART
-(8). That means every address the IOC3 gets from dma_map_single() or
-dma_alloc_coherent() has bits 63:60 set. The same applies to the new
-check in ioc3_erbar().
-
-dma_to_phys() only masks bits 63:56, so it also could not round-trip a
-window address.
-
-The commit message says:
-
-  "An address in the 2GB 32-bit direct window carries neither, so
-  attributes OR-ed onto one aim it at widget 0, and every receive
-  raises a PCI error."
-
-and:
-
-  "IP27 and IP30 give the IOC3 64-bit addresses; behind an XBridge or
-  PIC it can use the window."
-
-In this tree, XBridges are handled by the IP27 and IP30 code
-(XBRIDGE_WIDGET_PART_NUM in probe_one_port() and xtalk_init_widget()),
-and they still get 64-bit addresses. There is no PIC or IP35 support
-yet.
-
-Could the commit message say that this prepares for platform code that
-hands out window addresses? As written, it reads like a fix for an RX
-failure on existing systems.
+We now have a common sun50i-h6-orangepi.dtsi file. You really should
+rewrite this patch to just use that as a base.  It is mostly the same
+across all the OrangePi H6 boards.
 
 > +
->  	return (addr & ~PCI64_ATTR_BAR) | attr;
->  }
->  
-> -#define ERBAR_VAL	(ERBAR_BARRIER_BIT << ERBAR_RXBARR_SHIFT)
-> +/* The RX barrier's upper address bits follow the same form. */
-> +static inline u32 ioc3_erbar(dma_addr_t addr)
-> +{
-> +	if (!(addr & PCI64_ATTR_TARG_MASK))
-> +		return 0;
+> +/dts-v1/;
 > +
-> +	return ERBAR_BARRIER_BIT << ERBAR_RXBARR_SHIFT;
-> +}
+> +#include "sun50i-h6.dtsi"
+> +#include "sun50i-h6-cpu-opp.dtsi"
+> +#include "sun50i-h6-gpu-opp.dtsi"
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+> +
+> +/ {
+> +       model =3D "OrangePi 3 LTS";
+> +       compatible =3D "xunlong,orangepi-3-lts", "allwinner,sun50i-h6";
+> +
+> +       aliases {
+> +               ethernet0 =3D &emac;
+> +               ethernet1 =3D &aw859a;
+> +               serial0 =3D &uart0;
+> +       };
+> +
+> +       chosen {
+> +               stdout-path =3D "serial0:115200n8";
+> +       };
+> +
+> +       connector {
+> +               compatible =3D "hdmi-connector";
+> +               ddc-en-gpios =3D <&pio 7 2 GPIO_ACTIVE_HIGH>; /* PH2 */
+> +               type =3D "a";
+> +
+> +               port {
+> +                       hdmi_con_in: endpoint {
+> +                               remote-endpoint =3D <&hdmi_out_con>;
+> +                       };
+> +               };
+> +       };
+> +
+> +       ext_osc32k: ext-osc32k-clk {
+> +               #clock-cells =3D <0>;
+> +               compatible =3D "fixed-clock";
+> +               clock-frequency =3D <32768>;
+> +               clock-output-names =3D "ext-osc32k";
+> +       };
+> +
+> +       leds {
+> +               compatible =3D "gpio-leds";
+> +
+> +               led-0 {
+> +                       function =3D LED_FUNCTION_STATUS;
 
-[Severity: Medium]
-For a window address, ioc3_map() and ioc3_erbar() now drop every Bridge
-attribute the driver used to request:
+The schematic (v1.4) calls this the "PWR" LED.
 
-  ioc3_alloc_rx_bufs() and ioc3_rx(): RX buffers lose PCI64_ATTR_BAR
-  ioc3_start(): RX and TX ring bases lose PCI64_ATTR_PREC
-  ioc3_start_xmit(): TX buffers lose PCI64_ATTR_PREF
-  ioc3_init(): ERBAR is written as 0
+> +                       color =3D <LED_COLOR_ID_RED>;
+> +                       pinctrl-names =3D "default";
+> +                       pinctrl-0 =3D <&led_red_pin>;
+> +                       gpios =3D <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 *=
+/
+> +               };
+> +
+> +               led-1 {
+> +                       function =3D LED_FUNCTION_POWER;
 
-Window addresses cannot carry these attributes. For 32-bit direct DMA
-the Bridge takes them from the slot's b_device register instead.
-BRIDGE_DEV_D32_BITS in arch/mips/include/asm/pci/bridge.h lists
-BRIDGE_DEV_PREF, BRIDGE_DEV_PRECISE, BRIDGE_DEV_COH and
-BRIDGE_DEV_BARRIER for that.
+And this one the "STATUS" LED. So you have the two functions swapped.
 
-In this tree, the only b_device setup that affects the IOC3 slot is:
+> +                       color =3D <LED_COLOR_ID_GREEN>;
+> +                       pinctrl-names =3D "default";
+> +                       pinctrl-0 =3D <&led_green_pin>;
+> +                       gpios =3D <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 *=
+/
+> +                       default-state =3D "on";
 
-arch/mips/pci/pci-xtalk-bridge.c:bridge_probe() {
-	...
-	for (slot = 0; slot < 8; slot++) {
-		bridge_set(bc, b_device[slot].reg, BRIDGE_DEV_SWAP_DIR);
-	...
-}
+And this should go to the power LED.
 
-followed by the IOC3 fixup:
+> +               };
+> +       };
+> +
+> +       reg_gmac_3v3: gmac-3v3 {
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "gmac-3v3";
+> +               vin-supply =3D <&reg_vcc5v>;
+> +               regulator-min-microvolt =3D <3300000>;
+> +               regulator-max-microvolt =3D <3300000>;
+> +               startup-delay-us =3D <150000>;
+> +               enable-active-high;
+> +               gpio =3D <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
+> +       };
+> +
+> +       reg_vcc5v: vcc5v {
+> +               /* board wide 5V supply directly from the DC jack */
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "vcc-5v";
+> +               regulator-min-microvolt =3D <5000000>;
+> +               regulator-max-microvolt =3D <5000000>;
+> +               regulator-always-on;
+> +       };
+> +
+> +       reg_wifi_3v3: wifi-3v3 {
+> +               /* 3.3V regulator for WiFi and BT */
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "wifi-3v3";
+> +               vin-supply =3D <&reg_vcc5v>;
+> +               regulator-min-microvolt =3D <3300000>;
+> +               regulator-max-microvolt =3D <3300000>;
+> +               enable-active-high;
+> +               gpio =3D <&pio 7 7 GPIO_ACTIVE_HIGH>; /* PH7 */
+> +       };
+> +
+> +       wifi_pwrseq: wifi-pwrseq {
+> +               compatible =3D "mmc-pwrseq-simple";
+> +               clocks =3D <&rtc CLK_OSC32K_FANOUT>;
+> +               clock-names =3D "ext_clock";
+> +               reset-gpios =3D <&r_pio 1 3 GPIO_ACTIVE_LOW>; /* PM3 */
+> +               post-power-on-delay-ms =3D <200>;
+> +       };
+> +};
+> +
+> +&cpu0 {
+> +       cpu-supply =3D <&reg_dcdca>;
+> +};
 
-arch/mips/pci/pci-xtalk-bridge.c:bridge_disable_swapping() {
-	...
-	bridge_clr(bc, b_device[slot].reg, BRIDGE_DEV_SWAP_DIR);
-	...
-}
+Set the supply on all cores.
 
-Nothing sets BRIDGE_DEV_BARRIER or the other D32 attribute bits.
+> +
+> +&de {
+> +       status =3D "okay";
+> +};
+> +
+> +&dwc3 {
+> +       status =3D "okay";
+> +};
+> +
+> +&ehci0 {
+> +       status =3D "okay";
+> +};
+> +
+> +&ehci3 {
+> +       status =3D "okay";
+> +};
+> +
+> +&emac {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&ext_rgmii_pins>;
+> +       phy-mode =3D "rgmii-id";
+> +       phy-handle =3D <&ext_rgmii_phy>;
+> +       phy-supply =3D <&reg_gmac_3v3>;
+> +       allwinner,rx-delay-ps =3D <0>;
+> +       allwinner,tx-delay-ps =3D <0>;
+> +       status =3D "okay";
+> +};
+> +
+> +&gpu {
+> +       mali-supply =3D <&reg_dcdcc>;
+> +       status =3D "okay";
+> +};
+> +
+> +&hdmi {
+> +       hvcc-supply =3D <&reg_bldo2>;
+> +       status =3D "okay";
+> +};
+> +
+> +&hdmi_out {
+> +       hdmi_out_con: endpoint {
+> +               remote-endpoint =3D <&hdmi_con_in>;
+> +       };
+> +};
+> +
+> +&mdio {
+> +       reset-gpios =3D <&pio 3 14 GPIO_ACTIVE_LOW>; /* PD14 */
+> +       reset-delay-us =3D <15000>;
+> +       reset-post-delay-us =3D <100000>;
+> +
+> +       ext_rgmii_phy: ethernet-phy@1 {
+> +               compatible =3D "ethernet-phy-id4f51.e91b";
+> +               reg =3D <1>;
+> +
+> +               motorcomm,clk-out-frequency-hz =3D <125000000>;
+> +               rx-internal-delay-ps =3D <1950>;
+> +               tx-internal-delay-ps =3D <1950>;
+> +       };
+> +};
+> +
+> +&mmc0 {
+> +       vmmc-supply =3D <&reg_cldo1>;
+> +       cd-gpios =3D <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
+> +       disable-wp;
+> +       bus-width =3D <4>;
+> +       status =3D "okay";
+> +};
+> +
+> +&mmc1 {
+> +       vmmc-supply =3D <&reg_wifi_3v3>;
+> +       vqmmc-supply =3D <&reg_bldo3>;
 
-Without the barrier, could the RX status write to rxb->w0 become visible
-before the packet data that ioc3_rx() reads once it sees ERXBUF_V?
+Something is fishy here. The schematic also shows vcc-wifi-io (on the aw859
+side) directly derived from vcc-wifi (reg_wifi_3v3). I suggest at least
+checking with a multimeter to confirm what the voltage is on the VDDIO
+pin of the module.
 
-Does the window path rely on platform code setting the D32 bits in
-b_device for the IOC3 slot? If so, could the commit message mention
-that, or could the setup be done together with this change?
+> +       mmc-pwrseq =3D <&wifi_pwrseq>;
+> +       bus-width =3D <4>;
+> +       non-removable;
+> +       status =3D "okay";
+> +
+> +       aw859a: wifi@1 {
+> +               reg =3D <1>;
+> +       };
+> +};
+> +
+> +&mmc2 {
+> +       vmmc-supply =3D <&reg_cldo1>;
+> +       vqmmc-supply =3D <&reg_bldo2>;
+> +       mmc-ddr-1_8v;
+> +       mmc-hs200-1_8v;
+> +       cap-mmc-hw-reset;
+> +       non-removable;
+> +       bus-width =3D <8>;
+> +       status =3D "okay";
+> +};
+> +
+> +&ohci0 {
+> +       status =3D "okay";
+> +};
+> +
+> +&ohci3 {
+> +       status =3D "okay";
+> +};
+> +
+> +&pio {
+> +       vcc-pc-supply =3D <&reg_bldo2>;
+> +       vcc-pd-supply =3D <&reg_cldo1>;
+> +       vcc-pg-supply =3D <&reg_bldo3>;
+> +};
+> +
+> +&r_ir {
+> +       status =3D "okay";
+> +};
+> +
+> +&r_pio {
+> +       vcc-pm-supply =3D <&reg_bldo3>;
+> +
+> +       led_green_pin: led-green-pin {
+> +               pins =3D "PL7";
+> +               function =3D "gpio_out";
+> +               drive-strength =3D <10>;
+> +       };
+> +
+> +       led_red_pin: led-red-pin {
+> +               pins =3D "PL4";
+> +               function =3D "gpio_out";
+> +               drive-strength =3D <10>;
+> +       };
+> +};
+> +
+> +&r_i2c {
+> +       status =3D "okay";
+> +
+> +       axp805: pmic@36 {
+> +               compatible =3D "x-powers,axp805", "x-powers,axp806";
+> +               reg =3D <0x36>;
+> +               interrupt-parent =3D <&r_intc>;
+> +               interrupts =3D <GIC_SPI 96 IRQ_TYPE_LEVEL_LOW>;
+> +               interrupt-controller;
+> +               #interrupt-cells =3D <1>;
+> +               x-powers,self-working-mode;
+> +               vina-supply =3D <&reg_vcc5v>;
+> +               vinb-supply =3D <&reg_vcc5v>;
+> +               vinc-supply =3D <&reg_vcc5v>;
+> +               vind-supply =3D <&reg_vcc5v>;
+> +               vine-supply =3D <&reg_vcc5v>;
+> +               aldoin-supply =3D <&reg_vcc5v>;
+> +               bldoin-supply =3D <&reg_vcc5v>;
+> +               cldoin-supply =3D <&reg_vcc5v>;
+> +
+> +               regulators {
+> +                       reg_aldo1: aldo1 {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <3300000>;
+> +                               regulator-max-microvolt =3D <3300000>;
+> +                               regulator-name =3D "vcc-pl-led-ir";
+> +                       };
+> +
+> +                       reg_aldo2: aldo2 {
+> +                               regulator-min-microvolt =3D <3300000>;
+> +                               regulator-max-microvolt =3D <3300000>;
+> +                               regulator-name =3D "vcc33-audio-tv-ephy-m=
+ac";
+> +                       };
+> +
+> +                       /* ALDO3 is shorted to CLDO1 */
+> +                       reg_aldo3: aldo3 {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <3300000>;
+> +                               regulator-max-microvolt =3D <3300000>;
+> +                               regulator-name =3D "vcc33-io-pd-emmc-sd-u=
+sb-uart-1";
+> +                       };
+> +
+> +                       reg_bldo1: bldo1 {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <1800000>;
+> +                               regulator-max-microvolt =3D <1800000>;
+> +                               regulator-name =3D "vcc18-dram-bias-pll";
+> +                       };
+> +
+> +                       reg_bldo2: bldo2 {
+> +                               regulator-min-microvolt =3D <1800000>;
+> +                               regulator-max-microvolt =3D <1800000>;
+> +                               regulator-name =3D "vcc-efuse-pcie-hdmi-p=
+c";
+> +                       };
+> +
+> +                       reg_bldo3: bldo3 {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <1800000>;
+> +                               regulator-max-microvolt =3D <1800000>;
+> +                               regulator-name =3D "vcc-pm-pg-dcxoio-wifi=
+";
+> +                       };
+> +
+> +                       bldo4 {
+> +                               /* unused */
+> +                       };
+> +
+> +                       reg_cldo1: cldo1 {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <3300000>;
+> +                               regulator-max-microvolt =3D <3300000>;
+> +                               regulator-name =3D "vcc33-io-pd-emmc-sd-u=
+sb-uart-2";
+> +                       };
+> +
+> +                       cldo2 {
+> +                               /* unused */
+> +                       };
+> +
+> +                       cldo3 {
+> +                               /* unused */
+> +                       };
+> +
+> +                       /* DCDCB is polyphased with DCDCA. */
+> +                       reg_dcdca: dcdca {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <800000>;
+> +                               regulator-max-microvolt =3D <1160000>;
+> +                               regulator-ramp-delay =3D <2500>;
+> +                               regulator-name =3D "vdd-cpu";
+> +                       };
+> +
+> +                       reg_dcdcc: dcdcc {
+> +                               regulator-enable-ramp-delay =3D <32000>;
+> +                               regulator-min-microvolt =3D <810000>;
+> +                               regulator-max-microvolt =3D <1080000>;
+> +                               regulator-ramp-delay =3D <2500>;
+> +                               regulator-name =3D "vdd-gpu";
+> +                       };
+> +
+> +                       reg_dcdcd: dcdcd {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <960000>;
+> +                               regulator-max-microvolt =3D <960000>;
+> +                               regulator-name =3D "vdd-sys";
+> +                       };
+> +
+> +                       reg_dcdce: dcdce {
+> +                               regulator-always-on;
+> +                               regulator-min-microvolt =3D <1200000>;
+> +                               regulator-max-microvolt =3D <1200000>;
+> +                               regulator-name =3D "vcc-dram";
+> +                       };
+> +
+> +                       sw {
+> +                               /* unused */
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +&rtc {
+> +       clocks =3D <&ext_osc32k>;
+> +};
+> +
+> +&uart0 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&uart0_ph_pins>;
+> +       status =3D "okay";
+> +};
+> +
+> +&usb2otg {
+> +       dr_mode =3D "host";
+> +       status =3D "okay";
+> +};
+> +
+> +&usb2phy {
+> +       usb0_id_det-gpios =3D <&pio 2 15 GPIO_ACTIVE_HIGH>; /* PC15 */
 
->  #else
->  static inline unsigned long ioc3_map(dma_addr_t addr, unsigned long attr)
->  {
+This isn't connected to anything but a pull-up. And you already specified
+host mode only above.
 
-[ ... ]
 
-> @@ -727,7 +745,7 @@ static void ioc3_init(struct net_device *dev)
->  	readl(&regs->emcr);
->  
->  	/* Misc registers  */
-> -	writel(ERBAR_VAL, &regs->erbar);
-> +	writel(ioc3_erbar(ip->rxr_dma), &regs->erbar);
+ChenYu
 
-[Severity: Medium]
-Should the ERBAR value be decided from the RX descriptor ring address?
-ERBAR is set once for the whole device from the coherent ring address,
-but the RX barrier applies to writes into the RX data buffers.
-
-Each buffer is mapped on its own by dma_map_single() in
-ioc3_alloc_skb(), and its form is decided per buffer:
-
-ioc3_alloc_rx_bufs():
-	ip->rxr[i] = cpu_to_be64(ioc3_map(d, PCI64_ATTR_BAR));
-
-ioc3_rx():
-	rxr[n_entry] = cpu_to_be64(ioc3_map(d, PCI64_ATTR_BAR));
-
-drivers/mfd/ioc3.c sets a 64-bit DMA mask, and the 2GB window covers
-only part of memory. A platform that picks the window or the 64-bit
-form by physical address could therefore put the ring in one form and
-the buffers in the other.
-
-If the ring is 64-bit and the buffers use the window, ERBAR still adds
-the BAR attribute to barrier writes into window-addressed buffers. That
-gives the widget 0 PCI error the commit message describes.
-
-If the ring uses the window and the buffers are 64-bit, the barrier is
-cleared for buffers that need it.
-
-Could ioc3_erbar() use something that also holds for the RX buffers?
-Alternatively, could the buffer mappings be kept in the same form as the
-ring?
-
->  	readl(&regs->etcdc);			/* Clear on read */
->  	writel(15, &regs->ercsr);		/* RX low watermark  */
->  	writel(0, &regs->ertr);			/* Interrupt immediately */
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111095138.1757-1-kaloz%40kernel.org
+> +       usb0_vbus-supply =3D <&reg_vcc5v>;
+> +       usb3_vbus-supply =3D <&reg_vcc5v>;
+> +       status =3D "okay";
+> +};
+> +
+> +&usb3phy {
+> +       status =3D "okay";
+> +};
+>
+> --
+> 2.47.3
+>
+>
