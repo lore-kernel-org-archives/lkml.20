@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794778803;
-	b=VHraiFOMUwt2t5KIxBPLA2D9lcD1B5gmCsxkp1ETIuZn3rhVpvMYbpmwD+mkplPAKz3o
-	 99Rh87T4eAiaqn9RHV1vyIgYp65uXbdt9GVpwQPQo/zlaQecMyzyuJp3GPIjlvXITzVzs
-	 aFdL2utc3oBr5CX0+jnRnNpjveMlGNHIKeM2ZC/hBmbLaT+DKMSX2gVVoF9x2m8D8XGyd
-	 sfRtwKFm8ZcmtQgwvMw5fJZR+UIHtQ/SQN55OSCj2/XJtRO95BMQtAl/bvrucIouBHzki
-	 HCrPHWKFbj4utg0TO7MzxsgXxTKtJlkEH4h6bJidz0Y33iX9PpD8DNxCgs55He4e8xw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778803;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
-	b=1owK+qDy/2RF+uKPsy84lehi4LXIGUT1iT3UT4BnYNBPTeaQcszsRurjYwJClr27hutt
-	 jkDgBr94+ngITQw14oU/pspuZn0PxK7xmxRxRB065Qn3oa6eGAGuQV2HJgNXFsQctKYQh
-	 a3xV3ZoyYOfnlKoJaZIefQ/o1s0c5h9ClaFgSi2RgedVYembufdv1hW8icofxFTw2lkzZ
-	 k0NVDLDOPhcPGW9OWOVbpkuf1MN00FplDByzjo3ef3m6vGyUTAaNfMTCXlNqj2FEF9J/y
-	 t1AH9z8UV2A+v1jbqyjkQ5GXibmHYHrOuTYtT0IdaV00AY+rnVr8epGA9+23D1MQLtw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794778812;
+	b=V/3rOXOLqAzeoAA7FbX6ovyNXq7acQQ/w9iE8cMQMfL7QlfZGGaJibpLErN0Q6H5npac
+	 IDvd3owmAq9c6S3r7g2u6ul7XgbqDI7ko1DWkNqKIeFLpTIsdy3bR01jQeYAwMX2pNcmw
+	 ixL6Ga+uVQi/NTrCCa5EpzFZZzPurjd26pk9Yv74bxCF7+VFOqZRa09fdJWjjYFr/aWzd
+	 /Ho+QL5e+LBS6dni+jqIrBMthlQFd2FZ0UGKB3sCyFUAAlb12b36kFc6GLbRDF3wOxfl1
+	 5GgVo7iEmSovr8meSG4fUn7yywdONcE4xeAcP0bZAK7ktNFB5/CWd4QoQI0xMFprvhg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778812;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=KVX7vPJ9OTeTzfoMFASmwz/gzFZvz1nh0dPEPAyIr0I=;
+	b=k/dS5PkpA1bC9+P9dFVsngBWP68fte9tF74xhSymzvEiyzTLJvLfORx/O7ni6EFpjAHQ
+	 +sCiw7DmgTH1CwlklsCaoBrx6Z6joMcXrsjZbFhpjCFBBEykwwnrfiuoVO/firKfeWJD7
+	 NDnAuJGg9R2fZ8DwJR8gsx0eA6I5/87N5bDk6/79u4Y1kbx9B3wWefWgQd5Ho8K1VNvvZ
+	 C0hp1XQHVNknvTC63v4mpPu16M7XDDq/0NJCs0z3JYDdp8dhx6jeYbR2MbOf3lfW1A4c5
+	 0wOSXV0LbzmeBfGVDhFbOWCb7PKdm9mhWy+khD2i4/M6G8BK/S6V60RRCYOBcPuAbvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YxtgJo2W;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15544606A31F;
-	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B544606A32F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:40:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B544606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794778802;
-	b=CftTzxgyLMJwm3bhBexRcZOHJBaFWxsp8vYFCWCinTzrCkITLfydDSr35THNXpJyiBF+
-	 hOB1Ciuna76PFXLHMcjoAGDws26sj+vPx2r6xgNcfMowo+ai92ruy8njvPRZY7aSTZytx
-	 coQSEXjNCdoVUfKK2IY9PVdAuKGAg1X+1Otv2PbC1sdTEvHnbRg0XVrAZ1QBVvgB1r2VW
-	 NlEuN5pVlfkb/oe+iG+ei4XRYDEsYzHQz6F41kdj0KVt/HVNxMjfDa8QJF3q8NZoGaRBW
-	 4nmAAHFLoQo7dw3qWYXkyW15n8tx6X4aJQcbzYfZoXVW5/RhY9qHWxiTUpq0GG9qU7w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794778802;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
-	b=0QUf1UOk33npcTZknKyyCBniXFHLnQfyiVsQ8cI6pBTBdgx+Rrw7MkPlgfvQ6eDMbqKq
-	 ubkuxe7ee/pJli1LXzjmueEkChv6uipfvhckE9DyqnuziS9t0Vh+y7mQfs6hNjv8suT3r
-	 nlRIZmBT1fUcpjp2kahqnJLm57QfEJD1TfV+E7s/BzKUzYKrtFvMRHpyT4BGPDMeS6NjU
-	 3oPeIO3QOCAclHpkCGe7DunyT3PO/P6+3ZQFCRCdAvQWlnLZNR6hhd0EamhiYIMdIarUa
-	 pH4BT+MM0VLzYmDKXW2kf3ONk9h67sP+tmolIaShnXVbOvlB29itfyM4rz+66aDPSvw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 200EB1F000C4;
-	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794778802;
-	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=bVYON9nyiNA1ScxrHvAukf882icY23Dl2rKcC1Gf4Zlmxw1gCWNzSz/UOVm9VWm4M
-	 1x1cXO4Rrcu/6fV962cC2v92Yu4WBfsT3mvA1qiKyVIcSxw0wcnNZ2t/TX14CSv/Yb
-	 9NvLtsjKEqCOt3FewQlx77UmOEcYtDNAnS0NE+QQmx0ABUYOQb3Yn1REQoYZPu24RS
-	 7QO3AdP1fAG7fL8eXPjI35qjPtG60negVgJ+KALKsXfOlfEPtqAX9bqERldLBBBb7P
-	 H5Px1YzwHY8R/h5tdw5OgEsCqn+AMwSAerrd9AqQClu1oe7vEfkMmNvGdxBzd6Kd7L
-	 zre8Bx7aPBs7g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 92BB94A205;
-	Sun, 15 Nov 2026 21:40:01 +0000 (UTC)
-From: Phil Williams via B4 Relay <devnull+phil.williams.advisoft.co.nz@kernel.org>
-Date: Mon, 16 Nov 2026 10:40:01 +1300
-Subject: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
- trim
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YxtgJo2W
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id SZq0xN8KyVK9UShxMxs62f; Sun, 15 Nov 2026 21:40:12 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id ShxLxtdxyxqjjShxLxlED7; Sun, 15 Nov 2026 21:40:12 +0000
+X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6afa26bc
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=T8OswTi7en7Lat6lzKAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=KVX7vPJ9OTeTzfoMFASmwz/gzFZvz1nh0dPEPAyIr0I=; b=YxtgJo2WD6n0
+	WmJugJPeVh5UlVsUmIS8e5Uyd3ctxtWEj5FuNKBl6gdX2sFInUqR3GphGv5cXNZ88vWiD3QE5gs5Z
+	zSQqvxcG3YVBlpPgUch8bEShrjW7PeCAYfSAhQpT6JNlZbPLe69eVO1LzFNWtoYvzZSe1hoTv5Eww
+	rAKxglVx4fEdEbGv1IUMhq42k22kHuPkoh3KUy/0hrHLq2N6ZohmfO2wIf+H3z3sjP9JpedudAF4f
+	6AuyWAnDp82UyMlhSQ9NERocloE+PRFwt3zCNbaSWjTmnwIsfkVBDeROSkwKVO4Znb8+SYuWRb5wF
+	BqVeYesa5vS1sVrvvIqKuA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50662)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xShxJ-00000000Je9-288q;
+	Mon, 16 Nov 2026 03:10:09 +0530
+Message-ID: <62350363-b796-4637-a102-c668037bbbdd@roeck-us.net>
+Date: Sun, 15 Nov 2026 13:40:08 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,92 +76,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1jCQcrQq6AOIXFaQ6BVnFZIi
- LuTlvEN/++gnIUVbs0Omb+i8lorqG3AP936YJRQDaYzlogsasGkiw26YVGMLqXR+Rl9MBQpEPc
- dQ43fmaNs//Fwv6yfcWJffjc4jhNT60DqegAAAA==
-X-Change-ID: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
-To: Lorenzo Bianconi <lorenzo@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
- Phil Williams <phil.williams@advisoft.co.nz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794778800; l=2231;
- i=phil.williams@advisoft.co.nz; s=kernel; h=from:subject:message-id;
- bh=uHlYPZd4leaL6BZM5UhiWipgD8U4U669fNKN8B6lxPA=;
- b=swvwjnWL3dHnjOwF5N49mxp+jQkSzO5f8iKsDykvNkJoG9nL5N9gOV1dfEDQAgYLgtVenSNDn
- mmz43EWAIvwD7R8bnl+BqLxRMaYraCgYT3m1eKkeiSTLJO89BB/7Zg6
-X-Developer-Key: i=phil.williams@advisoft.co.nz; a=ed25519;
- pk=t0M8TApJRlA/rHh3lIu1XTiWO2+evmU8VnO43/qqLPk=
-X-Endpoint-Received: by B4 Relay for phil.williams@advisoft.co.nz/kernel
- with auth_id=1538
-X-Original-From: Phil Williams <phil.williams@advisoft.co.nz>
-Reply-To: phil.williams@advisoft.co.nz
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] hwmon: (adt7475) Convert to
+ hwmon_device_register_with_info()
+To: =?UTF-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>
+Cc: Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261114004110.328050-1-david@dsg.is>
+ <20261114004110.328050-3-david@dsg.is>
+ <d28f392e-82ea-44d6-83e5-9593b341a722@roeck-us.net> <avm-tbgWgTJNFTBj@dsg.is>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <avm-tbgWgTJNFTBj@dsg.is>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xShxJ-00000000Je9-288q
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:50662
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 7
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHOwjqOHTabmm3rn5GzTBJ7jrcbnJBvnRtuUhGPgAr3aMovsXfXu1jSBUQ4/L112jB4XIztcgA3gHXiKX3QISnuNnqKFoX7qmFGz/jjRfrjaIy7fLcLW
+ YJYiXpr+FDZ5wUTo0gTAW1T1wZCe/Ldnzrefpkfy8s+ztk7M0DstDEMfvM7u1XMcXIFw0tai/ayFtBFCeLqoGPRaEPsu1RAODxGkpxtSDXYN60ik2pPRrLZ7
 
-From: Phil Williams <phil.williams@advisoft.co.nz>
+On 11/15/26 06:16, Davíð Steinn Geirsson wrote:
+> On Fri, Nov 13, 2026 at 10:07:53PM -0800, Guenter Roeck wrote:
+>> On 11/13/26 16:41, Davíð Steinn Geirsson wrote:
+>>> Convert the driver from hwmon_device_register_with_groups() to
+>>> hwmon_device_register_with_info(). The standard voltage, temperature,
+>>> fan and PWM attributes move to hwmon_ops. The chip-specific attributes
+>>> stay driver-defined and are passed as extra groups: the automatic fan
+>>> control points, temperature smoothing, PWM stall disable,
+>>> pwm_use_point2_pwm_at_crit and the VID attributes.
+>>>
+>>> The driver keeps data->lock, although the hwmon core serialises the
+>>> hwmon_ops callbacks. The attributes in the extra groups run outside that
+>>> serialisation, and they share the register cache and its periodic update
+>>> with the hwmon_ops callbacks. They do not take hwmon_lock() instead, to
+>>> keep this conversion free of locking changes.
+>>>
+>>
+>> I disagree here. If you don't want to change the locks to use the hwmon
+>> subsystem lock in this patch, add another patch to change the code to
+>> use it. The subsystem lock was not introduced to be ignored.
+> 
+> Understood. I did notice one issue while planning that change. Patch 4
+> makes the chip a PWM provider, so its callbacks will also need the
+> lock. If the consumer is pwm-fan, then when userspace writes pwm-fan's
+> pwm attribute, the hwmon core holds pwm-fan's lock. pwm-fan then calls
+> into the PWM core, which calls into adt7475, which then needs to take
+> its own hwmon lock:
+> 
+>    hwmon_attr_store()              takes pwm-fan's hwmon lock
+>      pwm_fan_write()
+>        pwm_apply_might_sleep()
+>          adt7475_pwm_write_waveform()
+>            hwmon_lock()            takes adt7475's hwmon lock
+> 
+> As far as I can tell no driver does this today. adt7470 and
+> aspeed-g6-pwm-tach are the other PWM providers I found in drivers/hwmon,
+> and neither takes the subsystem lock in its PWM callbacks.
+> 
 
-Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-calculation") takes the FIFO timestamp scale from ts_sensitivity.
-That field is only filled in for parts that have freq_fine. The
-untagged-FIFO parts are left at zero:
+Ah, the usual "someone else does (or does not) do it".
 
-  LSM6DS3
-  LSM6DS3H
-  LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
+> I haven't written any code for this yet, so this is based on my read
+> of the current code only. If correct, I think this would need a hwmon
+> core change to give each hwmon device its own lockdep class.
+> 
 
-st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-every sample is published with the timestamp taken when the buffer
-was enabled. The accelerometer and gyroscope values still update.
-Userspace that integrates attitude from the timestamp delta treats a
-stuck timestamp as dt = 0.
+Hmm, if that is true (I'd like to see a lockddep warning), that will
+need to be fixed anyway. The situation above will be more common with the
+pwm subsystem maintainer pushing for that kind of architecture, so it will
+need to be fixed. Introducing / maintaining another layer of locks is not
+the solution.
 
-These parts have no freq_fine register, so there is no trim to apply.
-Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
-unset. Entries that already set it are left alone.
+Anyway, you want to add the complexity of getting the pwm subsystem and
+the pwm-fan driver involved, even though this could as well be handled
+in the adt7475 driver, so you'll have to suffer the consequences.
 
-Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calculation")
-Cc: stable@vger.kernel.org
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
----
-Resending inline. The first copy went out as an attachment.
-No code changes.
----
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Thanks,
+Guenter
 
-diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-index 823f8ac66..98db90a30 100644
---- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-+++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-@@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_lsm6dsx_hw *hw)
- 			return err;
- 	}
- 
--	/* calibrate timestamp sensitivity */
-+	/*
-+	 * Parts with no freq_fine register have no trim and leave
-+	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
-+	 * A zero gain publishes every FIFO sample with one timestamp.
-+	 */
- 	hw->ts_gain = ts_settings->ts_sensitivity;
-+	if (!hw->ts_gain)
-+		hw->ts_gain = 25000;
- 	if (ts_settings->freq_fine) {
- 		err = regmap_read(hw->regmap, ts_settings->freq_fine, &val);
- 		if (err < 0)
-
----
-base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
-change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
-
-Best regards,
---  
-Phil Williams <phil.williams@advisoft.co.nz>
-
+> I'm not quite confident enough in my understanding of the core to
+> commit to implementing such a change. But I'd appreciate your thoughts
+> on this.
+> 
+>>
+>> Thanks,
+>> Guenter
+>>
+> 
+> Thanks again,
+> Davíð
 
