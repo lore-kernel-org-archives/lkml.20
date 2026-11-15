@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794745667;
-	b=1qdaJH2GCmLx9KeaCgtSUKvJqb3m2Q0k9/UlTQuY0InCbkGjMxm9cfgk0DerYR+ymgHu
-	 KBqzMzy3bYVkiCQB/x6C8m6QbWrjQNzUT6H3WevGvRaoaF++zTGf3FEnNTXd8ERb2uZ0I
-	 1LtIkEkx1zggSKXwtN6H6l6PH4RTzshXLXMVjn/33ystj23mDxE9epAVCahZ7Ye+jZH6j
-	 SAejl4grVpGQz/jtUlu8yGFEud0vehnPKLojzKNFLfHP5vGPQGUG1+quF5VMe2M9EpNsW
-	 /kIxvZXAhzDaIvtyYi4KOuCyCNyj7Rtur6HlYIkCo98SPPdWwgnqQ0RNPNrOwdIPZXQ==
+	t=1794745790;
+	b=TzKntfH5W9MR2dmvOu4PDh4Yfi2CVm26fLh1ChnOvQBhNyzhV5T0qzTXmCa24aV+GiRa
+	 fTtyvmbXw+hY5HMgVFPs4x2QOdFUQPk9Fsl6Dr/o4P/yb/O3FhF22cmHpGsfW8gd7PEbW
+	 UbdlxiLlwjoHEeHXiWrRIThEpyszzS65O8RUiyLp/TmAQxADLAP+FucY/QJGP+E2Z/nr+
+	 PCt3TwELT43KOACNYFrDpC5nMh609Ur21DWO2vBQ+DPU8TTtHfH4Pm/bjvzn/RVrh6A69
+	 Iz2ktBi5JA7E9pXdn80EkvPZlNopWotbbru+SJD/MOzmxanIKXQVaBqCiPuY/eK3O0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794745667;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794745790;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=UAPUreepg71t27uA19huNdBMN8SZC5pl+gBBNOjrEpE=;
-	b=NcAVzKADAVwk8+STifjgUT30gvpQWYznkMKnDW5tMwTmbgjVVUM/oM9i9Sa7LRfHlEzb
-	 gaEVuUPYjQP3AmLeGwrsdtmT3f6sKskODMbfjg0xCFQSx2shpsDDnIpknL7D4fxUHuTYC
-	 t1R7OmQtCiWyuB8kAyzovv6BVUXdohQ/PrQEGiRb0Unv1YUKtnTXxSpc+v+aYKW3VKvMN
-	 AgYkxW7qUBAaiYnuPfUdNNCxIokwWkUjue/SaM8vWK1BAycorOdHY0akQ628rEoKe+X2Y
-	 uZPlkMyAyEPJMyEhsiMWnEY4CivzsK8grKd+/+SBN+6sEzB59XlGBdYlEDyJba0E9Tg==
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=mE1ReHqAepLbTrPaYJdE+Rdl5/le41qTZkMqekA7MC4=;
+	b=OatC2wHJUzgq3iKDug8H5pDoN8UbpLHcAt83lQuegxEjV2kBYtm7wZWEi5tCM00rLauj
+	 lSSaaPKmPXtcURGXfe/FDzhGqURxojDInMRwMVCo0DktY474uLZsTRP+Vq9YjqcY4lWVa
+	 8o4JXy6mPJ8DJD1F2XVklMpIS4Ft662xKTpYrH8MwiQ0/Ae/7Bd/KszBSoZuDA0BLCH4o
+	 mD4HelALEdpd5Chb1sPcwqCYWOQ3tA8CK/Qtbi9Ig8Xc41RsTcQVbAloz2K75NlDkGLws
+	 gu9njGR73p2/dzIn//DPYtBd7ph9aa25h7UX0SibeCi9wd92/EJ9803wkNXgiCoc2sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lg2tJ8Zf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkTXGIcX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CFF606A31E;
-	Sun, 15 Nov 2026 12:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B731606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:29:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lg2tJ8Zf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E8E1F000C4;
-	Sun, 15 Nov 2026 12:27:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkTXGIcX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 681AB1F000C4;
+	Sun, 15 Nov 2026 12:29:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794745666;
-	bh=UAPUreepg71t27uA19huNdBMN8SZC5pl+gBBNOjrEpE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lg2tJ8ZfrKmdiIKH0xpR57qGsXXfv2F5ghS97GTxNPBYY8aqMOGx2U30AnaIf0OtU
-	 BwGhDNlCMBUsrfabSbufGfLT3OaR1RYjS9nwKVDAWL8J6AdVpnXLSgwdCGgl2bKeHP
-	 VgjCDvrJZoBkLyNSrBbJDQlRKdaGGexyelqo55KgE7EzB9xk4jwa8rwl79TQccZyvz
-	 RmmlZGwya6TYgMfbALzKyzOkSeGtq+99zbwJcdGmtM/laJI+bxnQD+irqZdTHdrtQ3
-	 0/6lM2cuN6kAuj4g3ho77thhIa6vswDZPy9tONnIb9v3gpmpvoP3zqyMcal8rxA3qM
-	 R3BmAszLUtkkg==
-Date: Sun, 15 Nov 2026 12:27:42 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Ivan Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: use PFN_PHYS() in phys_mem_access_prot()
-Message-ID: <avmlN3K0CYl2yDP-@lucifer>
-References: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
+	s=k20260515; t=1794745789;
+	bh=mE1ReHqAepLbTrPaYJdE+Rdl5/le41qTZkMqekA7MC4=;
+	h=Date:From:To:Cc:Subject;
+	b=bkTXGIcXvwrX4LcdKzHzGcPkqtQdtzsyCLzDopzQ4q0hYSKDnGnVkfRD1n23WL/XY
+	 xoJdakADrG9D8jpmbP7vxJqIPj89JV3x0j+LC6hDgAU6IXBYfktYOxcvoV7fxw755N
+	 5hD8zPgG9jZ4xiu2b+652d8Y2jS/ScdJbjtta+h/769McYZIS/D5dR39Ub7a0b0inQ
+	 lEm1zTRMpMMxmcDRgYJZ7qmWGcxK4rjUcMeb4CxBt2nn4D0+vt4tbJQSddqjMhCC5R
+	 bQThpqnQm5q9el3IVJDJrtjB+LZgDWOPPILQZOX0wRM9wTiNgm29e9JBIBVd4VWfIY
+	 KZvYgTF2AunHQ==
+Date: Sun, 15 Nov 2026 13:29:46 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, the arch/x86 maintainers <x86@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [GIT PULL] x86 fixes
+Message-ID: <avmlusPLXMDbcBfq@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,54 +56,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
 
-On Fri, Nov 13, 2026 at 04:38:12PM -0300, Ivan Ezequiel Rodriguez wrote:
-> From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
->
-> phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.
-> The shift is evaluated as unsigned long, so on a 32-bit kernel with
-> CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
-> uncached_access() compares it with __pa(high_memory).
->
-> mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
-> accepted and then left cacheable. PFN_PHYS() casts before the shift.
->
-> On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
-> O_DSYNC used the boot CCA. The same mapping with O_DSYNC was uncached.
-> With PFN_PHYS() both are uncached.
->
-> Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Linus,
 
-LGTM so:
+Please pull the latest x86/urgent Git tree from:
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-11-15
 
-> ---
->  mm/char-mem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/char-mem.c b/mm/char-mem.c
-> index c5761ddedbd7..53ce0034a4c1 100644
-> --- a/mm/char-mem.c
-> +++ b/mm/char-mem.c
-> @@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
->  				     unsigned long size, pgprot_t vma_prot)
->  {
->  #ifdef pgprot_noncached
-> -	phys_addr_t offset = pfn << PAGE_SHIFT;
-> +	phys_addr_t offset = PFN_PHYS(pfn);
->
->  	if (uncached_access(file, offset))
->  		return pgprot_noncached(vma_prot);
-> --
-> 2.43.0
->
+for you to fetch changes up to 0dc2a4dac3d04e9e4479aeb0b46172feab1cca0a:
 
---
-Cheers, Lorenzo
+x86 fixes:
+
+ - Don't print reset reason in VMs, to fix Xen PV domU boot regression
+   on AMD Zen CPUs (Jason Andryuk)
+
+ - Preserve the default VGA fallback for legacy modes, to fix
+   regression where a SeaBIOS QEMU guest with bochs and VKMS the
+   boot VGA (bochs) loses its DRM boot_display attribute (Hengyu Liang)
+
+ - Ensure write visibility during LDT installation (Dave Hansen)
+
+ Thanks,
+
+	Ingo
+
+------------------>
+Dave Hansen (1):
+      x86/mm: Ensure write visibility during LDT installation
+
+Hengyu Liang (1):
+      x86/video: Preserve the default VGA fallback for legacy modes
+
+Jason Andryuk (1):
+      x86/CPU/AMD: Don't print reset reason in VMs
+
+
+ arch/x86/kernel/cpu/amd.c     |  3 ++-
+ arch/x86/kernel/ldt.c         | 12 +++++++++---
+ arch/x86/video/video-common.c |  2 +-
+ 3 files changed, 12 insertions(+), 5 deletions(-)
