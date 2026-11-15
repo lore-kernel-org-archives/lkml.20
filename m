@@ -1,86 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794729328;
-	b=FnTGQ/gfjYEt+f5zEZXniOZVE83QBC292/xv1JrvCKN3zG5AgPofbvsjQ9KqQjXQOMZl
-	 Bt3HL4gy2e8z1IvjPi8PwdBkcH7mVAC8mVg/oHLcYtQ6ifChO5pl0z8Rzbo0WaWrE9W1s
-	 TkOo7JHTfu4B0XZgcs2RretSLFM6jUapLlRAC/EgTE7qe2wpZJYwPOLA26ZMt7tBY8yGR
-	 yzBBURhh0qafvCGQ/5gmWGgiU21ECGy0C86iO71PX38tBg11QzOzl/eH1vI80rexJfVTx
-	 wkXiJiqridf8Wsujxf8pNFO30el6rQ2EFRGwMz670unJuA74taskO4JDwQHvt4nWrHQ==
+	t=1794729498;
+	b=WeGzt63SXz0P+ZumCWP1pFXp8ym681TNOso8AlQO5KynbQfmIgREnJ/wguutqdMOV3YZ
+	 EwW1Kult8O+vlpipM9AgGswdrwhLI4tQw9PDdA9gPsuOsxiRZJNJfLZOYIlTV0bC/lmwJ
+	 7Ea1yGmyH7j8/zAM2cK8d3z9Fwi9xxUekeBOcrJ4ztnjvxfJwpEFmWBxln3tkLZfw4SfN
+	 sxIuDIVDd/8Ef7O8CneuFFNNiI+2S68RCleQff4QZWC8M/Lwo+6Bn/8g+9F9Wl876BSjq
+	 90T2IWKc7iRK2w41Etv+uvM8cKvUNFO2WzjNuceFtrpLxCIH5IxoqKnj0EZFGKF3zYg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729498;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=uLrkbNalekNKLkCB0XNj+22wcuzKD0fuIFqvheTwm3o=;
-	b=SPHoOvqq+OCP/NI/BMqWL1MHq1EFBEQ4SPyA2AQ2+JnUzCK9rQN2qHz4bah196NGjNSU
-	 qqaC9liJZ8f7krhEhs4fdb2ZS37ON7QQifADpF0nv8birfGn2pDD0N0ppCz2ot6xDcc9m
-	 zu0wKvYw+Fyrf/2f34Y7mOXwd15UytotYx6jTxs94TC2W5SYjvJyNe4WT6KJfhRM2O7gC
-	 Jpvsr4P9k8b3hY0PC68q1q6Rg8H0Gt2zkbExKcsDFZngEMxApLkWTt1GmzTd3Nc51H0Z6
-	 Y6mKfYycqoTaxYWB1uXqV4wyrf9fSXCaWklV+y04hhYDHA5MnUW3wyoffNAKbU8Qpig==
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=05IOe9HqJkWhqKvUBJVfU/SAL+xPCR/Byzx9O7+JrPI=;
+	b=TblDrCG36J7mvVd0o/cCUBva543HOPMIjSqi8ojwt2fq8sK1F4AtwX1ZJCGlsZS2U4yV
+	 de2VD6MvsHSf8dJ3fs0Dh+WS/DTY2GVizW7yufVRogtGbcC0gWi6PoSMEcoNpxNoRC1pK
+	 P+dmpK8ImUMN07tKLdqoSl7XVjH8btskxAkvtg0HojSgFQG334vNCzy1dVhurQaEH8VS2
+	 0Y702+aQCtk7wLr10o4h60dHWlATmhiJBr7BgfcGNS3KB9c0plCLArH6wcOQmYyVwzhpf
+	 iet+nZJeJcY5IcQVS9xF2llp6YHHP4xsxIL5iGUKO+IJWkGOJIfoQA+W8PaxkE/ypaA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=HXT89uKD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=nU6PyZVn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0F2606A31A;
-	Sun, 15 Nov 2026 07:55:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E0F2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB9B606A31D;
+	Sun, 15 Nov 2026 07:58:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBB9B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=HXT89uKD
-ARC-Seal: i=1; a=rsa-sha256; t=1794729276; cv=none; 
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=nU6PyZVn
+ARC-Seal: i=1; a=rsa-sha256; t=1794729471; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=PzpbNvrjLiWmMMQpYIFs6kNtE5aAFPG95KjK5KvlXphkFJSQWxIkxHJ4ewsm4PYP3Mu0PpJusYSynaTno95IPepvJSuojmDTtnqDPrMUmq4G0/DTo6yfAJQOclFVYQvcm8r9jx8WmNHum1iqeQh818u9gkDKzaozdGAAGHtdC0Q=
+	b=XPA4K2S0K4QuFahjL33GNLMjMak11iOF+0O3K8CZzyVUxt63zy9FOfgQRgUJnlaMP2PsqjMkKnGgcnvw8lBU8MU4Jp79rfw6GHXAXELvkZd/Kxne3nKKQo72T/fK/X8xPu4Ec3vGaoBqboYP/JTD1vuqy0wtiNiOgO4+BuaJVF0=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794729276; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=uLrkbNalekNKLkCB0XNj+22wcuzKD0fuIFqvheTwm3o=; 
-	b=UY3QFzh2y8YKc6dOyLqCWIN0cb0Dg83WZRST7n5TKEVlzHkytkmluI80+r9b3AeVwHbIKNNmnJpUiRGJWOlG6Oq0XE7DX4O/OVg10DOFJm/HQlxdTTmMviT9RldpbxtRZK4bQjwZBY01n70Wg4cSQz26p/LS7DENhlA37eiS7S0=
+	t=1794729471; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=05IOe9HqJkWhqKvUBJVfU/SAL+xPCR/Byzx9O7+JrPI=; 
+	b=b8vkkqmjt9GPNV3u/hMyltOfymeSXgcfyMjj50ofBBdOwHichO+29yWNFb8MCPjYFXF/rIEkII4/Zx78SUUqaPfSg/RnFx/iTwcOkqVE91J2OCEYhTqfuJPPLxWdqZMnUqRSpzxuC75HXVBaGsh/12Rw1OvCWTS+sRGEO8zpu4U=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=HXT89uKDo45p/IEIvQZmTbsoA3f6lkwMkgKc83FYWPHSHvSS15qcZRoGwBJLRFlK3r88KFW6epg9hZH4+rukeSGfXRkgyl8GBU8U4o+d67P6qUoaL0v4Yb7iW8sEeP4dCB5mNz08q3mkik23j6b8f3x9/z9Dkdu91sV4nbhUU124g6M50i1ZHcaboD1mp9kVDGqn16XGZ+iuOyT5ZYmtQIVLzVE5ONA+HqL48LJIG0cJqY2hBYAiW7gg5VRq1n3xH9RaU8xdBXCa6d97Jg67wDJu+K4XcnskstUIPVU0vYe8dbOM1UW5DzEoRv1CsSaC6v3iV3GdQZsrqRdYtx57OQ==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=uLrkbNalekNKLkCB0XNj+22wcuzKD0fuIFqvheTwm3o=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794728372584790.9071811696919;
-	Sat, 14 Nov 2026 23:39:32 -0800 (PST)
-Message-ID: <a6b616df57285440326043f5546affe9a64fd1ca.camel@icenowy.me>
-Subject: Re: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861
- SoC
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Jernej =?gb2312?Q?=810=947krabec?= <jernej.skrabec@gmail.com>, 
-	gaohan@iscas.ac.cn, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt	
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti	
- <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren	
- <guoren@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec	
- <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, Daniel
- Lezcano	 <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
- Stephen Boyd	 <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet	 <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland	 <samuel@sholland.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, Linus
- Walleij	 <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
-	linux-sunxi@lists.linux.dev
-Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
- devicetree@vger.kernel.org, 	linux-csky@vger.kernel.org,
- linux-clk@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-rtc@vger.kernel.org, 	linux-gpio@vger.kernel.org
-Date: Sun, 15 Nov 2026 15:39:17 +0800
-In-Reply-To: <G7_h6i47RcuqvaGeHxw_dw@gmail.com>
-References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
-	 <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
-	 <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me>
-	 <G7_h6i47RcuqvaGeHxw_dw@gmail.com>
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=nU6PyZVnjwX2D9OAqkeq7xjUUrh0RJSnsJuLLguBdBZwkMqI7put65BfMZ5iw3DaAu1/Kny0M/z/Mq+weG1QIFAIuV/N5LaYfshAvFOEwaq7cNnyp+X9XzUwbg3YKf3544bYjFbWNyMOJ63XX0CGT5JDBZoj9RVet7KdGfDjuwnH5HNT8jlnR77ypJKy0UV0q+AKAcN0fn/l4G/EUFTXsHsxcLT+rjY8d9S9oclBpZBhm4fSbUBTrl2d9qNSKcgC1uQ1YKvIsTzUDGaE0pu31HIQTTVkRv5G2xGZ9Jg9nEo0U5ErRgRKS8RxdC6qYLg91Hz7y1w70+JHlP78vRlTqg==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=05IOe9HqJkWhqKvUBJVfU/SAL+xPCR/Byzx9O7+JrPI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794729468897515.208258334714;
+	Sat, 14 Nov 2026 23:57:48 -0800 (PST)
+Message-ID: <230263171c25c322d97fa29439a01922db47f913.camel@rong.moe>
+Subject: Re: [PATCH v3 0/7] platform/x86: thinkpad_acpi: Add support for
+ auto keyboard backlight
+From: Rong Zhang <i@rong.moe>
+To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
+ <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
+ <hmh@hmh.eng.br>
+Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, Lee Jones
+	 <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
+	 <griffin@kroah.com>, vishnuocv@gmail.com, vsankar@lenovo.com, 
+	platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261114174814.62153-1-kmatzkaczor244@gmail.com>
+References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
+	 <20261114174814.62153-1-kmatzkaczor244@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Date: Sun, 15 Nov 2026 15:52:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,83 +76,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Evolution 3.62.1-3 
 X-ZohoMailClient: External
 
-=E5=9C=A8 2026-11-15=E6=97=A5=E7=9A=84 08:32 +0100=EF=BC=8CJernej =C5=A0kra=
-bec=E5=86=99=E9=81=93=EF=BC=9A
-> Dne nedelja, 15. november 2026 ob 06:11:31 Srednjeevropski standardni
-> =C4=8Das je Icenowy Zheng napisal(a):
-> > =E5=9C=A8 2026-11-14=E5=85=AD=E7=9A=84 06:33 +0800=EF=BC=8CHan Gao via =
-B4 Relay=E5=86=99=E9=81=93=EF=BC=9A
-> > > From: Han Gao <gaohan@iscas.ac.cn>
-> > >=20
-> > > Add myself as maintainer for the V861 bindings, clock and pin
-> > > control
-> > > drivers and device trees.
-> >=20
-> > I think traditionally sunxi do not add maintainers for specific
-> > SoCs.
-> >=20
-> > Maybe you should patch the regexp of "ARM/Allwinner sunXi SoC
-> > support"
-> > item instead.
+Hi Qiling,
+
+Thanks for working on this.
+
+On Sun, 2026-11-15 at 01:48 +0800, Qiling Zhu wrote:
+> Hi all,
 >=20
-> Usually no entries are added at all.
+> Thanks, Rong, for the two rounds of detailed review, Vishnu and Mark
+> for the firmware-side answers, and Andrea for the bug report that
+> became the first patch. This v3 addresses the feedback in full; the
+> series grew from two to seven patches to pick up the suggested
+> structure and to make the fixes independently backportable.
+
+The next time when you send a series (i.e., PATCH x/n, n > 1), please do
+not reply to the previous thread to keep it tidy.
+
+>=20
+> The series in short:
+>=20
+>   1/7  Report auto mode as brightness 0 instead of 3          (stable fix=
+)
+>   2/7  Extract kbdlight_notify_change() helpers               (refactor)
+>   3/7  Sync LED core state on level writes          (write-path sync)
+>   4/7  Detect auto-mode capability via MLCG bit 20            (groundwork=
+)
+>   5/7  Skip LED suspend/resume on auto-mode machines
+>   6/7  Add support for auto keyboard backlight                 (the featu=
+re)
+>   7/7  Reconcile EC level on resume
+>=20
+> Changes since v2, by comment:
+>=20
+> * The notification path is now split as suggested: a helper that accepts
+>   a level and a wrapper that queries the EC (2/7), and the proc write
+>   path goes through it (3/7), like commit 07f48f668fac did for the
+>   ideapad FnLock LED. The manual check-then-act trigger removal is gone
+>   entirely; leaving auto mode through either interface now drops the
+>   trigger through the LED core.
+>=20
+> * LED suspend/resume is skipped entirely on machines that support auto
+>   mode, keyed on the capability bit rather than the current level (5/7),
+>   as suggested. My testing confirms the firmware restores the previous
+>   level on its own in all cases except auto mode across hibernation;
+>   less state remains in the driver, and the class of races around
+>   LED_SUSPENDED disappears.
+>=20
+> * activate() is now a one-liner with no read-back verification (6/7);
+>   it only writes the level, using the plain set helper. I did not use
+>   the updating wrapper there on purpose: the trigger core is in the
+>   middle of its own activation flow at that point, and the 0x1012 event
+>   that follows the level change is expected to bring the state back in
+>   sync through the regular notify path.
+>=20
+> * Trigger registration is gated on MLCG bit 20 as per Vishnu's
+>   confirmation (4/7 + 6/7).
+>=20
+> * Andrea's report is fixed by 1/7, which reports auto mode as 0 to the
+>   LED classdev and is marked for stable. It is deliberately minimal -
+>   a single check, no further splitting - to keep backporting easy.
+>=20
+> * On the proc attribute deprecation: I support the idea, deferring to
+>   the thinkpad_acpi maintainers.
+>=20
+> One addition that was not in v2: testing showed that the firmware does
+> not restore auto mode across hibernation
 >=20
 
-The N: clause in "ARM/Allwinner sunXi SoC support" currently only
-contains `sun[25]0i` for two-digit IDs, so I think sun55i/sun60i is
-also not matched yet?
+How about s2idle? And what if hw brightness =3D [0,2] before hibernation?
 
-BTW a random thought: should sunXiwN be accepted name now? I found that
-qcom now speaks SoC codenames (e.g. nord, kodiak, etc) instead of
-market names, and this might help pre-launch mainlining (well, if
-Allwinner, or at least some contractor, is going to do it...).
+Meanwhile, could you test s2idle, hibernation and cold boots with
+thinkpad_acpi blacklisted to see if hw brightness ([0,2] and 3) is
+preserved? We need the raw behavior to determine our strategy.
+
+>  - the EC comes back with the
+> backlight off, without an event. Rather than re-attaching the trigger
+> from the pre-suspend state,=C2=A0
+>=20
+
+"re-attaching"
+
+I am not familiar with hibernation, so I am not sure if the LED core
+would detach the trigger before entering hibernation. If not, why did you
+say that?
 
 Thanks,
-Icenowy
+Rong
 
+> 7/7 simply re-reads the EC level on resume
+> and routes it through the regular notification path. If the firmware
+> exits auto mode across hibernation, the driver simply reflects the
+> resulting EC state rather than restoring the previous mode: it stays
+> out of the firmware's way and only synchronizes, which keeps the code
+> simple. Happy to hear opinions.
 >=20
-> Best regards,
-> Jernej
+> A few notes on the result:
 >=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > >=20
-> > > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > > ---
-> > > =C2=A0MAINTAINERS | 12 ++++++++++++
-> > > =C2=A01 file changed, 12 insertions(+)
-> > >=20
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 93abbb315065..dfc300dc1eb2 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -24031,6 +24031,18 @@ F:	drivers/irqchip/irq-riscv-intc.c
-> > > =C2=A0F:	include/linux/irqchip/riscv-aplic.h
-> > > =C2=A0F:	include/linux/irqchip/riscv-imsic.h
-> > > =C2=A0
-> > > +RISC-V ALLWINNER V861 SoC SUPPORT
-> > > +M:	Han Gao <gaohan@iscas.ac.cn>
-> > > +L:	linux-riscv@lists.infradead.org
-> > > +L:	linux-sunxi@lists.linux.dev
-> > > +S:	Maintained
-> > > +F:	Documentation/devicetree/bindings/clock/allwinner,sun252
-> > > i-
-> > > v861-ccu.yaml
-> > > +F:	arch/riscv/boot/dts/allwinner/sun252i-v861*
-> > > +F:	drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
-> > > +F:	drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
-> > > +F:	include/dt-bindings/clock/sun252i-v861*.h
-> > > +F:	include/dt-bindings/reset/sun252i-v861*.h
-> > > +
-> > > =C2=A0RISC-V ANDES SoC Support
-> > > =C2=A0M:	Ben Zong-You Xie <ben717@andestech.com>
-> > > =C2=A0S:	Maintained
-> >=20
-> >=20
+> * Writing a level through either interface now also emits
+>   brightness_hw_changed: both write paths share the same notify helper,
+>   which keeps the LED core and userspace listeners consistent with the
+>   new level no matter which interface was used. Rewriting the current
+>   level emits nothing, matching the firmware's own
+>   no-event-on-same-level semantics. Extending the notification to
+>   userspace-initiated changes seemed reasonable to me - the OSD then
+>   also reflects echo-based changes - but I'm happy to restrict it to
+>   hardware-initiated transitions if that is considered the better
+>   semantics.
 >=20
+> * All state transitions now run under kbdlight_mutex in single
+>   critical sections (query + reconcile, write + reconcile), with the
+>   set and notify helpers expecting the caller to hold it. On the
+>   ordering with the LED core's trigger_lock, my reasoning is that the
+>   trigger callbacks (activate, hw_offloaded) are reached with
+>   trigger_lock held and then take kbdlight_mutex, while the
+>   notification helper is lock-free (it only queues the worker), so I
+>   don't see a reverse nesting. Extra eyes on this are welcome.
 >=20
+> * The cached level is now the raw EC level including auto mode, so the
+>   kbdlight_brightness name has drifted a bit from what it holds.
+>   Renaming it would touch quite a few places; I left it as is for now
+>   and can do the rename as a follow-up if preferred.
 >=20
+> One open question, mainly for Mark and Vishnu: the skip of LED
+> suspend/resume assumes the firmware turns the backlight off on suspend
+> and restores it on resume on all auto-mode capable machines, which is
+> what I observed here for manual levels (suspend and hibernation), auto
+> across suspend, and auto across hibernation coming back off. My belief
+> is that most machines handle this fine, but more testing on other
+> models or a look at the EC documentation from the Lenovo side would be
+> needed to be sure; if an exception turns up, a DMI quirk could restore
+> the old path for that machine.
+>=20
+> Tested on my ThinkPad X1 Carbon Gen 14 (linux-next next-20261030).
+>=20
+> I'm still learning the ways of upstream; thank you all for your time
+> and reviews, and any further comments are most welcome.
+>=20
+> This series was developed with LLM assistance; I reviewed every design
+> decision against the framework sources and validated the behavior on
+> real hardware myself.
+>=20
+> Regards,
+> Qiling Zhu
+>=20
+> Qiling Zhu (7):
+>   platform/x86: thinkpad_acpi: Report auto keyboard backlight mode as off
+>   platform/x86: thinkpad_acpi: Extract kbdlight_notify_change() helpers
+>   platform/x86: thinkpad_acpi: Sync LED core state on level writes
+>   platform/x86: thinkpad_acpi: Detect auto-mode capability via MLCG
+>   platform/x86: thinkpad_acpi: Skip LED suspend/resume on auto-mode machi=
+nes
+>   platform/x86: thinkpad_acpi: Add support for auto keyboard backlight
+>   platform/x86: thinkpad_acpi: Reconcile EC level on resume
