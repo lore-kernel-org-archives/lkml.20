@@ -1,59 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794759538;
-	b=3GrOGIpVtcSD5qLbLPrED9edbL5lPR+yr7DMa2koGKmUojKSgP3G45jg2i3oPdYsr6Wq
-	 G3s8toti7Hy62dHHiUMm6D7mDNxZzAXPmu0NM6205lFyXwYhcPzbnpBrNt4dL/e8XYy32
-	 T0RPsr1/ukroEddOhMtxQMLLN8wJQFDB0tqXzu81TinB8r7JuJVot8kls8uxHtRjYwG68
-	 1ObelyiC9m+6lqM8GXe5YWYKeom8hLj1cvUw4WzNuc5IOKXsHYLT3TLZuuV7Oh8YajfLL
-	 FTVFh5u3gIW7pJaqSr6CdidPCux+vy3PMGx5wi1fGNZfsCQ2hDYCqPeMohJiU4cuOCQ==
+	b=wH2zulsrK/jLj5DIT6eC5oY+q/d2N9M6DRAPaGjMfMpoWP2ALy7XVLn2JR7qt73PA0Cx
+	 1kBkOP3UrFLdoi0dLiWXIHyGjMQ/cpO1Y4d4o3G44FcHqfZbRgHmuZfrrj2A33S5t1Y5G
+	 73pmw20GEoxc0px7iJ32bP0GJ3+bUoDmnsCwEqLlJP6QXdusuaeQuYqYzAqE4KXCx8DHa
+	 N7LFhits6C8O6tEymApx1IwW0EMkQNZXhlIg3aA67NIXR/qVq9+UMu9oQpFlPzRt1AB8X
+	 KTNGTUwAEcUDkJDC2c+MldEM6sEv304K6mYWzdwYd1aFpg7BPK4yilVxbt76hQRxgkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794759538;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=rC46ljI1wkzuuDt36qNW3ZBG08s5+InoUkoZUDEJRkM=;
-	b=vnuw5WlnwA019k2RFjoBcgVNZIZisFRmAM4UnFMp3fu+OpIbKAwlEiTXrDrv5BZOi8/H
-	 XdGmKh13XiHCszY7RN8SaWDgkRFfHZDQKPtruFRG1+xJQUpW46xRaJQJyAYmAgoD5InCF
-	 WCpgsS32w62LO4QssdRpV6cmrfXCoI/6D3XJWueIi4QNprt7L63Anb1Pk8bSCSj+QH1Bp
-	 +fTeRmyWP3dtg6DEYCPGTWRWrvaZhw5W7HllOV/BQJfl0gxM4+HyUVB2I7tJ8VQsji5zR
-	 HcwtRPippVZO/iSCfDxHoZxPzzfDF1CTwA+EUpFtzPlu7vrQB8Kb/tZujDCGJ2O1p+Q==
+	bh=wLeP02jmayXugbf1gYu0sGHCjbqVPdP8sGgIACyUIa4=;
+	b=12EJNkMnXAZSjvpvG77khtA9bR5pyHdc2vJDmGFJkCsiQLRxJZk61GwcF/xl/NNUKb7d
+	 Yo/ZWqtH7I1mvOK87efQGj0cdXtd9sD01un7aGi+K727k5Tuo6o8Ktmw5zGDwMros9Xp7
+	 v9r86hPkc7hr4xB2fYadQRw1mv2yjY+K5ziYW/GDqZwHmx09wVq8WwJjPom4rGr4ZTgbO
+	 kaGKIal9vMYev1qeymE0Rgh+JUVmGEbStUtxKhYbPx2iM5+BiFNk/A17o6fxfHReFN2wo
+	 kesMX2Y7YMobtSs5jtH58a5WB/UnTDflrHFYkfmtSZNcamBfz/0aPb5FjlBIYjOjpzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z2D8lpiQ;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="ZM7Mi/Os";
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F38606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53848606A31D;
 	Sun, 15 Nov 2026 16:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04F38606A327
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53848606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z2D8lpiQ
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ZM7Mi/Os
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rC
-	46ljI1wkzuuDt36qNW3ZBG08s5+InoUkoZUDEJRkM=; b=Z2D8lpiQSkP6DrID3o
-	xM0C1qjqrmSPB2pigbVTNwejoLNAqaLAp4jQ7LHsEfALBB/EXm9Omp2RqkNCFglS
-	Y+Tom948M8rhnepNNzgAZa2OzGxZlUg2k/DVX9ZjuGlGQbj/7dumrG5lAAgfR4St
-	xhLwaRCoXK9PR6taz9CbUhRno=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=wL
+	eP02jmayXugbf1gYu0sGHCjbqVPdP8sGgIACyUIa4=; b=ZM7Mi/OsOHs4YY2TOv
+	wugfopZjlrqJZ0V50EozqHHtQjEFBYlre0j+RsCw1Zn64H9+yuMAn7YP8nmQBbQ/
+	pAAs0ICJXMIJnt2NgF6fZ4xIr6RJPSgF27B/QtwjBSsXqJiMyjQTcTiXxsNMiwP4
+	1HpWNAYpq0B3q6+yR1JG6urkg=
 Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnr8BI2_lqw3h9HQ--.52158S2;
-	Mon, 16 Nov 2026 00:18:16 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCXDpxM2_lqrZVaGA--.8842S2;
+	Mon, 16 Nov 2026 00:18:20 +0800 (CST)
 From: Ziheng Wei <zihengw03@163.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: qed: fix dead NULL check on the MPA buffer list
-Date: Mon, 16 Nov 2026 00:18:15 +0800
-Message-ID: <20261115161815.941090-1-zihengw03@163.com>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: do not use SOCK_INODE() in sock_init_data_uid()
+Date: Mon, 16 Nov 2026 00:18:20 +0800
+Message-ID: <20261115161820.941166-1-zihengw03@163.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,37 +67,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr8BI2_lqw3h9HQ--.52158S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJF17Jr17GF4DGFyUJr1xGrg_yoW5JrykpF
-	WrAFyDCF4kJF4rG3W7uw40krWY9FWxZFWjgF9rKwsxZrW5ZF47XryUKFya9rW5Ars5XFs2
-	yFWUKFnrGFWDJ3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jlCJPUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7Qgicmr520gxwwAA3H
+X-CM-TRANSID:QCgvCgCXDpxM2_lqrZVaGA--.8842S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uF17Cw4DZryktrykuFWUXFb_yoW5JrWrpF
+	y5tFW3J3yDAr4kZrn5JFWkXrWfAw1fCa17GFyrZ343AFZ0gr4rJrykt34DAFnrKrs5Ga1f
+	ZF47W348ZasxCa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j9sqAUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7gwjc2r520w4WQAA3X
 
-qed_iwarp_ll2_comp_mpa_pkt() takes a buffer from mpa_buf_list with
-list_first_entry() and then checks the result for NULL. list_first_entry()
-never returns NULL: on an empty list it returns a pointer computed from
-the list head, so the "No free mpa buf" error path is dead and the list
-head is used as a struct qed_iwarp_ll2_mpa_buf.
+Since commit 5d6b58c932ec ("net: lockless sock_i_ino()"),
+sk_set_socket() reads i_uid and i_ino through SOCK_INODE(sock).
+sock_init_data_uid() calls sk_set_socket(), but its only direct users
+are tun and tap, which pass &tfile->socket and &q->sock. Those sockets
+are embedded in struct tun_file and struct tap_queue, not in a struct
+socket_alloc, so SOCK_INODE() points at whatever follows the socket in
+those structures and both reads return unrelated data.
 
-Buffers taken here go back to mpa_buf_list only through
-qed_iwarp_process_pending_pkts(), which keeps a buffer on the pending
-list while an FPDU is split across packets (-EBUSY). Whether the list
-can run empty in practice depends on traffic and rx_num_desc; the driver
-already has an error path for it, which just never runs.
+sk_uid is overwritten a few lines later with the uid passed in, and
+nothing reads sk_ino of a tun or tap socket today, so the result is
+not used. The reads themselves are still out of type, and with
+CONFIG_RANDSTRUCT the inode fields can land beyond the end of struct
+tap_queue.
 
-Commit fbb8bc408027 ("net: qed: Remove redundant NULL checks after
-list_first_entry()") removed the other checks of this kind in qed where
-the list was known to be non-empty. Nothing guarantees that here, so
-keep the check and make it effective with list_first_entry_or_null().
+sock_init_data_uid() was added so that tun and tap would not use
+SOCK_INODE() on these sockets. Set sk_socket directly there, clear
+sk_ino, and let sock_init_data(), whose sockets always come from
+sockfs, fill in sk_ino.
 
-Found by LLM-assisted source review. Validated only with a test module
-that calls the function with an empty mpa_buf_list, which oopses in
-__list_add_valid_or_report(). The fix was build tested only; it was not
-run against that module, selftests or hardware.
+Found by LLM-assisted source review and confirmed by code inspection
+only; the out-of-type reads were not triggered at runtime. The fix was
+build tested only; it was not run against selftests.
 
-Fixes: fcb39f6c10b2 ("qed: Add mpa buffer descriptors for storing and processing mpa fpdus")
-Cc: stable@vger.kernel.org
+Fixes: 5d6b58c932ec ("net: lockless sock_i_ino()")
 Signed-off-by: Ziheng Wei <zihengw03@163.com>
 ---
 
@@ -103,24 +105,35 @@ Notes:
     The changelog was drafted with an AI assistant from my analysis;
     I have reviewed the code, the fix and the text.
 
- drivers/net/ethernet/qlogic/qed/qed_iwarp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/core/sock.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/qlogic/qed/qed_iwarp.c b/drivers/net/ethernet/qlogic/qed/qed_iwarp.c
-index 4d1ce9b1a..057d6c0bd 100644
---- a/drivers/net/ethernet/qlogic/qed/qed_iwarp.c
-+++ b/drivers/net/ethernet/qlogic/qed/qed_iwarp.c
-@@ -2314,8 +2314,8 @@ qed_iwarp_ll2_comp_mpa_pkt(void *cxt, struct qed_ll2_comp_rx_data *data)
- 	u16 first_mpa_offset;
+diff --git a/net/core/sock.c b/net/core/sock.c
+index ad414878d..b4499be84 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -3831,7 +3831,11 @@ void sock_init_data_uid(struct socket *sock, struct sock *sk, kuid_t uid)
+ 	sk->sk_sndbuf		=	READ_ONCE(sysctl_wmem_default);
+ 	sk->sk_state		=	TCP_CLOSE;
+ 	sk->sk_use_task_frag	=	true;
+-	sk_set_socket(sk, sock);
++	/* tun and tap pass a socket that is not part of a socket_alloc, so
++	 * SOCK_INODE() must not be used here. sock_init_data() sets sk_ino.
++	 */
++	WRITE_ONCE(sk->sk_socket, sock);
++	WRITE_ONCE(sk->sk_ino, 0);
  
- 	iwarp_info = &p_hwfn->p_rdma_info->iwarp;
--	mpa_buf = list_first_entry(&iwarp_info->mpa_buf_list,
--				   struct qed_iwarp_ll2_mpa_buf, list_entry);
-+	mpa_buf = list_first_entry_or_null(&iwarp_info->mpa_buf_list,
-+					   struct qed_iwarp_ll2_mpa_buf, list_entry);
- 	if (!mpa_buf) {
- 		DP_ERR(p_hwfn, "No free mpa buf\n");
- 		goto err;
+ 	sock_set_flag(sk, SOCK_ZAPPED);
+ 
+@@ -3897,6 +3901,8 @@ void sock_init_data(struct socket *sock, struct sock *sk)
+ 		make_kuid(sock_net(sk)->user_ns, 0);
+ 
+ 	sock_init_data_uid(sock, sk, uid);
++	if (sock)
++		WRITE_ONCE(sk->sk_ino, SOCK_INODE(sock)->i_ino);
+ }
+ EXPORT_SYMBOL(sock_init_data);
+ 
 
 base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
