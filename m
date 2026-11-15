@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794754481;
-	b=dzXYy2p95kjuNaIm5hTTfjU2uYxehDjUmZ/QUWAoQiqM725fZTxgIAbdBDdkx5wQZm4C
-	 zFCnDBnccbtE7KUPH48Kmi1dlESYTamaWI8I6a6pfebxwwHhlCmuxpFeB97JwE6aNtjqN
-	 lxk2Fa8oya7fWDWlfCO14wdf690mmuFouane/4DSqkt8p75P/KMJZhCccJTopSlPstSif
-	 lAkTPufeR3AVnZ9oJPjq+plBjbUU5ZSTle5Jt1iOFRYEC4m/MjORlX2aRaFN22kGOlUbq
-	 wD0hgDxi0GAOaVW/qPyO9wbctXv3TBmN4aqs9oDmcISCy/ZVMf5rf5tSoWGu7XwzNmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794754481;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794754571;
+	b=e/W1vwahQQnPO2vDS5d6BOck029csRmvSwJKP1RvicGo0URR41aKT6u3VWeeKpxdJSuu
+	 zF0lrSmn/PGNi+/1tvm802bkKqBM2YPeQsSUnd8W01jK1nwZSGAAQ4CTdM58WMKvE4N1n
+	 jraGgpj3HqSsIfZttWgVRDMDOhl3cJTCRBMXmNfPi8dwKEUTcBM4+6AfNI5OWPhJyDHgp
+	 RUkbVJ5kqStQQfiC8vweULN2ChNQfpgpqnVihOJm8M4M3P/LB0UQtVBBgvNZVtQbEaS4Q
+	 L6CCXl7VJT18tVSV9lDIBx24P2S9OjFGKWyaOGY305KfNHejeiVT1fi9GUe5D/atl7Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794754571;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oqISismNDREzK3BapMQL3oVfFqMKLBzQ11G0pwa4rCw=;
-	b=xyiH3rDSBN0dQTIBLxC7vHvqb31IpCcGQRHfYvEZ0hQTxbBqwhWsOZLYI9e8ULnMsgLD
-	 aHneXYXV07dTRSDcE3MRGlCVPLIpRkQsba8sydgFXmhUW5syTL1qPdu8Uwug3cx/zUBGy
-	 AaQBEiKWvNaoPXoK2yRZ0WQ8QooXFWcu4pilgK5m8EICxiAQ7JAB5Bk8l24s7q+/Zs4BG
-	 5+s13bJVd65vmKMpfgFZuIA3Q30ZJWM3Fgp+/qJrnQZT75xGqV4chT4vJd4ChgZmg+D1V
-	 WI0fIRT8mqlGQdBXvyX+fK5uUggVaN2uXHbYHAF0+gpJx0ZTsaGyFzLA80NcOczYiEw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nene7tW5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=66KrluPErA73yZ5oWO4/Se+YF4oLxRzv02FOs2NcGy0=;
+	b=aoPj+wcR7x6gZa73NaH+TTiFQJcS1icLHvUrXb360HYHL9m06yIE1LHm9gXmL/XtDiSg
+	 brAyv3o47l8PAx07uye0hiI49GRAmVSECOuTB6kq1QDAQWW62gNNsZAvH4XxBemR6ew5f
+	 zMtYB65MVFSZogshFkYhL1OiZkC5byGSvb+kq95rKzibyPdIi/X2M4rV2+KKy5o7pBdZd
+	 0VmAWDst0+cCly8KlplpnezE2hIvQoW5/ZzCBMyxW+XUM3bp1DV2dwb6SYdt54L5fOury
+	 aq2u/Cjv2z/6v5Z4Bmk2fVixilVk634Wlcxg7kt7YvXo//Z97yGwF5Skzmfhi/XI+lg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ieee.org;
+	spf=pass smtp.mailfrom=ieee.org;
+	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=MdjyCQDg;
+	arc=none smtp.remote-ip=209.85.210.50
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286EC606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 286EC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB757606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB757606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nene7tW5
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b7ddb99db4so1521794a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:54:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794754478; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q5UYPsQOGb4rvdbQraNqC2M5ldbP3rj2y3YpjjWc6lWipGdUIQResrBW7crlh4Syij
-         oarMCxtD0nij07DMdmby55SDxps+jxwQM5UtWMQw4rIuOO4k1EoylYO+fteyiIP5/HzX
-         jbX/cA6xTZvmZqsydJ4NcESQ9HyDhigtbdcJMZpmmdY/nZsS3rtMPic+Kj2figaj5GGF
-         feHeA7Q87R4PcLUeM3RTYd8Jm8Aa2UlLYyj3chcz4urKMSpBP8pzP4p7QRMvjCpXUB0J
-         /T6kfucLKJS0Cq5hmKtbMKmUFxqxOEi/yb4/Bx9UA6wIdUQ12QTbeoNuyIXIKr6oNDNP
-         dy1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oqISismNDREzK3BapMQL3oVfFqMKLBzQ11G0pwa4rCw=;
-        fh=KLEA1Qa9ElAeq6LNDCyReJYkECnjeoPXPn7ZjtsfooU=;
-        b=DhTNe8vdu5Q0fnhlCnedigT6lGDogbxCuqSCHca5aZ5w7ObkfJd3eUrAMAxtsirpQ4
-         rIn/4f2JfB/XypIzPbPM9l2Rh/Z1ONug7dHC6kww59DsSF01475z5lXu0aLpZa45kZ8+
-         eBXcoUZ21u9V0RQnr7ButP/AHbbamup/llgiXRQSEjDxRRur9cKIvCOQVXQFybSzfPcU
-         ENF/djVqqsIyR6oMcGtzE7fWjoDpqX8diCtEaD9atdrJHt2BEYyF9+YYNCpBBQXLPR8j
-         Ew2ahveYUnpQiKoEcuc6RnNV3hdKQYx8oC8cOGBFLlgf9hdtk1XOZNUKulJejO0nZ6EX
-         qPgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=MdjyCQDg
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-86210f31496so2290685a34.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:56:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794754478; x=1795359278; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oqISismNDREzK3BapMQL3oVfFqMKLBzQ11G0pwa4rCw=;
-        b=Nene7tW5gi/n28xM9GPcsrsbApaftwN+5VLijlNSUx682MtoFHHSTEvDl1z11fpu1X
-         HvQApdaPQrGfQyiS3FbYQVWjhD4Evwt6P0rS5BC7bOQTZVXFLWaPO4OPsg6ddRko0o+q
-         9oJBo3AXuMJZvhtMaEl5yxlnDv3/Y+/ZTOoPRzC8SnU76nRTNG9VsBQOFmcVN+eTzILI
-         pLq9xeN6fA01RGoB9NuHnqix3fuxZlQryfHYntRw18u5V1gyWgLisGhonGsU8L2T6Lkf
-         J6bkZRN93M/WAUT22qxzPXNMWojuGB568xJ5NJFT1QuthxcS4hfC3ctLRiOXitSCJ+gM
-         bTMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794754478; x=1795359278;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=ieee.org; s=google; t=1794754568; x=1795359368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oqISismNDREzK3BapMQL3oVfFqMKLBzQ11G0pwa4rCw=;
-        b=GsDiL22/cWgUQOQ7S4XvNUItkXoYan49Q6kIMksL3DMYkSbXBEA+/8rTCGl5x9QSXc
-         bm1Vp0c/UIV2CBIRTcQ8Zgo+PhYEijrD/uEw1JkqGIGBQ+LdQrauAef9n/OaWShy2YgM
-         szsF+4TnnVZgH49mnsc7eZ95H5np7gIsvd4QUOayi8tjSkOIaKpTAUH8bqb/L6bcGiEV
-         mtf0pqIKSTCScXgqjJm48RYLrKA/wFae/6BhacnEl6Sra2vD4kG56bwwQp4UEFjb+av2
-         oBj5We58ShnXXCOAcbEVUX22ZbVj9IYDNOODUrF2gb/GhrZh1HZ+WJh9kYfNIEhTJUs/
-         P7CA==
-X-Forwarded-Encrypted: i=1; AL+hErEPH6DCZwm+7x/u0ddGHqa7u+FaM+8fBhd0dm5ISzxZQOdwR0e4yvKE32bL1cGv+QLc197QzPVloJGY6ic=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/k6s8uedJF+TT1b7fLqWfpL2WaTnPrv9My8xMgZ4o+PeAHPig0
-	bDA6k3kn/PGmtR0dhVR7gfS2Aka1YlTZnRSmTFXYbkuDwZrA1grc9XdjkiMBp3KBAWwEGmNxbIj
-	ahGL2hGIpbVVapiYopQ0+tC/3X+QCT/uozFxCuIw=
-X-Gm-Gg: AYBFou1+GqN8s6QRV7LDuRxALld8lAO28zBdzDt0zea4ICgbZ6X+/UKSfxdGEAX1lps
-	hPw0kgXMkpzcIfTdMHA41R6rEFBHcL1aTJRcnEdxd2rJ6OFXjqIapmYdkszDDdmUGOvKBV7DHjp
-	zN3N5CVRq8iuJn1LDK1VqF7ehZ1Qb7owIEh5mzp2oTqLPfRvUGENpTdmUGTQWdgUjkNdSWGu9cK
-	UvBD9vKC1l/MZsdtTLuP2Uw/UvsQCapUrGJkVxFE/+dvBoe+sTQf7vFygfCL6fsmd3oZm+dOsvS
-	Hml9KdINU8rEprcQjaNrn8WcLevVbXOc+rbPQLFgU8GlHkERbVhksF/Qdids0HX3bDAYKgZrT4k
-	qqUUKUI/zkFkxYfx+5h6KmSfy7KvQ6FjaPm3ZFUKZfrePcIw3DEDczJMNZ3bmh0YHcHhe0A==
-X-Received: by 2002:aa7:d1ca:0:b0:6b1:c2cd:db0c with SMTP id
- 4fb4d7f45d1cf-6b7c0957c1emr4306146a12.10.1794754478075; Sun, 15 Nov 2026
- 06:54:38 -0800 (PST)
+        bh=66KrluPErA73yZ5oWO4/Se+YF4oLxRzv02FOs2NcGy0=;
+        b=MdjyCQDgymuxq21YTzEo9I02h9xhfqBitfXT2rvxDMXO7aai4bGGI7wS9F9l9TXhuh
+         tsSff63SYcMwrTPUqLh3CZM8wcRXZNZabZ7uKKHRXyd7W0T6ypagmMWJOJYMZoGWVRd8
+         xeKYKWZxNvg+IGCJo+FCvsYm7x0fFgFGH6RDs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794754568; x=1795359368;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=66KrluPErA73yZ5oWO4/Se+YF4oLxRzv02FOs2NcGy0=;
+        b=G1AQU4pr+I+9I4YsqVSXeJezpPcivRZvvEYWniRf7ws8KLoYX6mBut5y6A/Os50SgG
+         N1z3MGlchsLxAfbhiTyM6W023ND9Mz5NDeqx1QULLQhBbEniLThkNad4I3A7cBmgUzD8
+         Wlv6V/n37hzliLbUvcVPzmVA8apdqLVXxvnPCmFoIfMgnYsUR3qTshtysABkBqaNN8L2
+         1OgCpKCpWsNeHWMx7/1I/IclbhOdD/v5oGqW7ggvFakhz6ZEXtG1cgaX1HDUF0tu6yKg
+         7QeOnrVzxOoXsxaxrLoprRuOz6x0H6r8Ir9+CF14hu9QiQnRkXdkLpjkBstlnW2c7yZJ
+         0JsQ==
+X-Forwarded-Encrypted: i=1; AL+hErFBSVcTm1lUcG8fVegBlHysk7WxUeG8Rykezgol3VqeKMYA4Z7VbORs5QbtMEMizaAS2gnk6EV7McE8dHw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UYNt0kKcARu7BVsIWdPF3/R/0SLDy5YzEQGbQelI+lMR83nCC
+	rE0zD5bdpRWZpgswSjnwHYqtwBBLwBUuGws8i6sxaTrrFX8sJcX4LC7T0cemb642aw==
+X-Gm-Gg: AYBFou2IxwksUlVA05Pui3GZafX78fUnc2D/nWHOkX3Ww/DBjjjGvd6wyWRZPIhrssk
+	BrW+7i5y+IuVMdogHVTtE1vm6Fj50/fPSIRjMCSkQqgob7DuISzqNXeQp/nN1S7Ma7scK8GoFT2
+	x2ahBD+j3mKrVq/cwVah5uhXDnKGLt9fL98IDLxk7EjiGqzsqPym94WI8A3+wK4HBwp9BBIsxKK
+	l6WC12diyUvCaldyIM5EEjnhE6Dcr/WNu/Ky7WdTFuwtROZWX9D9u0vtj3fHZwSVOmZkylD/pKy
+	lQSi2gYfJUyV/d6SSLdMOOlB8c5qvoU5b7uBwKjO4d3bT6S4VvPo+nOCV7ed0Colo+fS8DNjhRJ
+	q7bkIK0lBQkCd35qebV+nBKsxQWkNL7Jl7rtzg6nFCr4/MPzihiYCXFU2tm2BXylPYbJCjtwcyy
+	I8FJhUQPujXZ6DRf7Tu0bz1pf0+cb9qkiwCLSM+Skz+NwnQRvGWxTTE8lBUzTbQzf1yWj75BSSk
+	ujDS7JpFb5baIQ9T7Sgm7M87+vopnsbbiz1fpWmUIsgTt1FqMMNw1ysowQgFpPQ5mtQTk7IkVOB
+	DR1DdFKq07KQF15tP9NUOMEJ
+X-Received: by 2002:a05:6830:3495:b0:85f:31f:7643 with SMTP id 46e09a7af769-8628981ad1emr8483076a34.7.1794754568555;
+        Sun, 15 Nov 2026 06:56:08 -0800 (PST)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-8628812e44esm8317981a34.15.2026.11.15.06.56.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 06:56:04 -0800 (PST)
+Message-ID: <b304a5dd-f6b9-4cd8-9d2a-8ca398119a41@ieee.org>
+Date: Sun, 15 Nov 2026 08:56:01 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,121 +89,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115-work-ovl-d_real-v1-0-ca155efbcb2e@kernel.org> <20261115-work-ovl-d_real-v1-1-ca155efbcb2e@kernel.org>
-In-Reply-To: <20261115-work-ovl-d_real-v1-1-ca155efbcb2e@kernel.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sun, 15 Nov 2026 15:54:26 +0100
-X-Gm-Features: AclHuK8KXHVL-duO-F-YZ8XPwW63n9hxew9z3khJWwo4KtxA0bTnHEz-HW4OPxU
-Message-ID: <CAOQ4uxhkqQE+ONrcgJNw2Jah59bKruxUAsLohTtKnsgTVQBw-A@mail.gmail.com>
-Subject: Re: [PATCH 01/13] ovl: don't warn when the lazy lowerdata lookup
- fails in ovl_d_real()
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Chris Down <chris@chrisdown.name>, 
-	Miklos Szeredi <mszeredi@redhat.com>, linux-unionfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-integrity@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-mm@kvack.org, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] greybus: verify the received message size covers the
+ message header
+To: Shunbo Shi <shishunbo@cmss.chinamobile.com>, dan@pereq.eu
+Cc: elder@kernel.org, gregkh@linuxfoundation.org,
+ greybus-dev@lists.linaro.org, johan@kernel.org,
+ linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-usb@vger.kernel.org,
+ syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com,
+ syzkaller-bugs@googlegroups.com
+References: <avV8I97uZJgX8Osk@stanley.mountain>
+ <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 15, 2026 at 3:02=E2=80=AFPM Christian Brauner <brauner@kernel.o=
-rg> wrote:
->
-> ovl_d_real() looks up the data of a metacopy file in a data-only layer
-> itself if nothing has done that yet. If that lookup fails it WARN()s and
-> returns the overlayfs dentry.
->
-> Commit 42dd69ae1af4 ("ovl: implement lazy lookup of lowerdata in
-> data-only layers") assumed that the file would be read before
-> trace_uprobe places a uprobe on it so the data would be there already.
->
-> But nothing actually guarantees that. trace_uprobe takes the path from
-> kern_path() and calls d_real_inode() on it when the event is created and
-> again when it is enabled. So a uprobe on a metacopy file whose redirect
-> points at nothing warns twice:
->
->   ovl_d_real(/f, 0): real dentry not found
->   WARNING: fs/overlayfs/super.c:79 at ovl_d_real+0xc9/0x210, CPU#2: sh/27=
-9
->   Call Trace:
->    <TASK>
->    __trace_uprobe_create+0x1869/0x25b0
->    trace_probe_create+0xcc/0xe0
->    dyn_event_create+0x46/0x70
->    create_or_delete_trace_uprobe+0x3c/0x70
->    trace_parse_run_command+0x1a6/0x320
->    vfs_write+0x1cd/0xfa0
->    ksys_write+0x116/0x250
->    do_syscall_64+0x10e/0x5e0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->    </TASK>
->
-> bpf's uprobe_multi does the same.
->
-> A failed lookup isn't a bug though. The data can be missing, its verity
-> digest can be wrong or a signal can interrupt the wait for the inode
-> lock. ovl_open() simply fails in that case and
-> ovl_maybe_lookup_lowerdata() already warns ratelimited about failed
-> lookups. So return the overlayfs dentry without warning. That's what the
-> WARN() path returned anyway.
->
-> Fixes: 42dd69ae1af4 ("ovl: implement lazy lookup of lowerdata in data-onl=
-y layers")
-> Fixes: 184996e92e86 ("ovl: Validate verity xattr when resolving lowerdata=
-")
+On 11/13/26 5:47 PM, Shunbo Shi wrote:
+> In gb_connection_recv(), the size of the received data is checked
+> against sizeof(struct gb_operation_msg_hdr) and against the message
+> size encoded in the header (msg_size), but msg_size itself is never
+> checked against the header size.
+> 
+> If a peer sends a message whose header claims a size smaller than
+> the header itself (e.g. header.size == 3), the two existing checks
+> both pass (size >= sizeof(header) and size >= msg_size), and the
+> message is dispatched with the undersized msg_size.
+> 
+> In gb_operation_create_incoming(), this leads to an unsigned
+> integer underflow in:
+> 
+> 	request_size = size - sizeof(struct gb_operation_msg_hdr);
+> 
+> The underflowed request_size then wraps back around in
+> gb_operation_message_alloc():
+> 
+> 	message_size = payload_size + sizeof(*header);
+> 
+> causing kzalloc() to allocate a buffer that is too small to hold
+> the message header.  When the response is later prepared in
+> gb_operation_response_alloc(), reading
+> request_header->operation_id reads past the end of the undersized
+> allocation, triggering a KASAN slab-out-of-bounds report.
+> 
+> Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
+> Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
+> Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
+> Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
+> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 
-Nit: 42dd69ae1af4 came first and opened the possibility of goto bug
-and then 184996e92e86 came later and depends on 42dd69ae1af4.
-I don't really see the benefit from stable POV to name the later as Fixes
+Looks good!
 
-> Cc: stable@vger.kernel.org # v6.5+
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-214581@kernel.org
-> Reported-by: Chris Down <chris@chrisdown.name>
-> Closes: https://lore.kernel.org/all/20261114120557.4bc1eb6e57218cdc@chris=
-down.name
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-
+Reviewed-by: Alex Elder <elder@riscstar.com>
 > ---
->  fs/overlayfs/super.c | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> index 08695a99f4f93..1985b553a47b7 100644
-> --- a/fs/overlayfs/super.c
-> +++ b/fs/overlayfs/super.c
-> @@ -58,15 +58,13 @@ static struct dentry *ovl_d_real(struct dentry *dentr=
-y, enum d_real_type type)
->
->         /*
->          * Best effort lazy lookup of lowerdata for D_REAL_DATA case to r=
-eturn
-> -        * the real lowerdata dentry.  The only current caller of d_real(=
-) with
-> -        * D_REAL_DATA is d_real_inode() from trace_uprobe and this calle=
-r is
-> -        * likely going to be followed reading from the file, before plac=
-ing
-> -        * uprobes on offset within the file, so lowerdata should be avai=
-lable
-> -        * when setting the uprobe.
-> +        * the real lowerdata dentry. Callers may ask for files that were=
- never
-> +        * opened, e.g. for uprobes or O_PATH files, so the lookup can fa=
-il
-> +        * here. Return the overlayfs dentry then.
->          */
->         err =3D ovl_verify_lowerdata(dentry);
->         if (err)
-> -               goto bug;
-> +               return dentry;
->         lower =3D ovl_dentry_lowerdata(dentry);
->         if (!lower)
->                 goto bug;
->
-> --
-> 2.53.0
->
+> Changes in v3:
+> - combine the two separate conditions and unify the error message
+>   as suggested by dan. Thanks!
+> 
+>   drivers/greybus/operation.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+> index 7e12ffb2dd60..74429f3745bb 100644
+> --- a/drivers/greybus/operation.c
+> +++ b/drivers/greybus/operation.c
+> @@ -1047,9 +1047,9 @@ void gb_connection_recv(struct gb_connection *connection,
+>   	/* Use memcpy as data may be unaligned */
+>   	memcpy(&header, data, sizeof(header));
+>   	msg_size = le16_to_cpu(header.size);
+> -	if (size < msg_size) {
+> +	if (msg_size < sizeof(header) || msg_size > size) {
+>   		dev_err_ratelimited(dev,
+> -				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
+> +				    "%s: invalid message 0x%04x of type 0x%02x received (%zu < %zu)\n",
+>   				    connection->name,
+>   				    le16_to_cpu(header.operation_id),
+>   				    header.type, size, msg_size);
+
