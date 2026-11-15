@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794704362;
-	b=2vNtgSf7W+MdN+ySR2E/dcEz8u2IUq6U3Bc9JQ0x417eNffwyJmlHnwfqSFqF/Z1YhYc
-	 C4CgJ7g4xxEDDFAl2WnAynHND41IVf0DLj43x3jeKTVtP55u+UMvJwyrIRMmn0U4AwcJl
-	 zqAmF5yNXw0D9k//aWyRZNKpDJim6DXaNMwVl64VhR3YrWTFOmF8lYIPAoG3tStz8Ao9I
-	 1s9J/vj3rMcnB5eahAPnmvb7a0aPwmirbQZDSvMQN2g9oD7XfSwIaN1wgZDsGYMHXAs9N
-	 HkvnBftq8ucR0PwG7QcIbfuOZwGm1aYTcPpDQytg4cQYfx00Js1MXZn47pEPaWljIOQ==
+	t=1794704385;
+	b=mAgTkoO7sPPgtT+KEqlHdi0JJWOJ0hHkn8p+kQywFVKaZ7jNUo6i6uV74u4P1V7lS9B/
+	 FCCUEf37ZV4tOAFCkRuRhZeLOkGOnDncdKUMsGzj0+Q5WNx5Z+m6S3hN7tRx6+qVERKvP
+	 ST7IJ7D4nmjmCS3ojlUyPXaI4XsK5gaAOZPoASxezFT9fZSa7xErvuPlJngS4GgAh7Dfj
+	 I6UjOl5p+4AwuNQwlnESH9EKYVYW0ZEiqmk9mZKUDBJ9P4+39MvRCsNKRMSwsukgbEec9
+	 2maOg9GULT2P/sXixaJGvLX+uHEC4br4jikUXQB4ax935OOuOzfvduVi0hS66NFhnSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794704362;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794704385;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
 	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=H5gORA8lBWNt/FrQUIrrCLOfomvpdlfZQU675IOPv9o=;
-	b=WQRRnhdIBvePXK6evhdu+j3wgDg31HsjY+M40VV11ICV860xv8CXr+JrNr3Po3khsB/6
-	 xoHJebebkpMzO11NU49EcX5EsDDQVwWyRhDFTDr1szUNDzC0/jwlYO/47GvfdyVLRe5+I
-	 zhGzl1Xp+pdZeCk/rj+vwWenzF+7G4c3Q15Ht9Y12z9bkKiRi+c9HSfltcE4XGsqWXOge
-	 JkEWcNi7uVwkArdaFmkVeSppJ/SRmU3KQwROyDtfflUfllnhm3s4qj+/fH1/SluxjjWUL
-	 bmwjKk68fh8KEk2mPAgf05SukJa7viJbti0RnYTT1icMp+xHyNCTqwWxUhLcJ/tnjXQ==
+	bh=D4Ti/c1K26HZ8SQG/WnnVKgfJOZ1KY26CoYAHnXmIG8=;
+	b=lRdbsNmVAtFTaj+UlZSk4TwlqbyfuhNmR/5nLRJvOtyaapo9ODigzFjTuRPLRWfSbRMu
+	 nDAyU4Qi13IjvF6oxeTJq/gP7LqV+oBa+Aj46JJ58190Ktk8QiALawqKcfQy4fNK5gzSK
+	 FOvZopFGlkeVcF+gqJ/QrAVEVEIetElF7GGM132v4bx+FWciNs+vFQfoP0SGQMSvwXhlz
+	 U8A/+L7AWY/Ja2p0UHPhkcLI4KfMuaxFTtiHAXla7bPU+0OFMFReF2MyPYzkRHzsxmVDj
+	 DvOvThh6WG8sIm1RFX1m9brlBiwMxIp2p9UBTdbCo78xFB59ZUvfQffkEIX5O8oHhKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jP4SUhaU;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T2FdWRJU;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F19606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:59:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76F19606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7672E606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:59:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7672E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jP4SUhaU
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3704d30b84fso2812277eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:59:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T2FdWRJU
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33fb4680717so6515611eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:59:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794704361; x=1795309161; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794704385; x=1795309185; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:reply-to:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=H5gORA8lBWNt/FrQUIrrCLOfomvpdlfZQU675IOPv9o=;
-        b=jP4SUhaU/1s+bJegZl7fwS9GDcrkTwT3ktqXJB2jbdhpkF9qtkmX9hOuc4H0Isf6/S
-         t95bJXrfBfioTpYwsmbsT4XWMh27lioeK72HmRVm69No8veKhDn+WFPaYBrdlR/OQb8C
-         4Pt9iCuXplfG8tNV/Zrp+sML03tNMGDgnqXF2JbU0OP6RXHj/xU5Fh5Pxz9ItgSlVgAS
-         FO+oCzPpkmFBneYuu5WTqqZVuRNwErAH/gFHfSNI8K+rdziuRDc8p0NBmkD7NZqfMDev
-         /Ph9aWNz5ykxrInosryMfF5gBUlufGQF4UKWcEj2MeyU9i0z3KLltz5MobgMR9SXe67r
-         RXsw==
+        bh=D4Ti/c1K26HZ8SQG/WnnVKgfJOZ1KY26CoYAHnXmIG8=;
+        b=T2FdWRJU8frQQgQke2EJMi2Fm4/4Di9P/QKqprSUh+KaHDLt2lqzkxrdSYdWSC7SGd
+         RRWjV+Rp/NPstS3oHktHofYs6Wz92pToV9TcpBEEg/uihE4ukM/sfx3RaeEZnk+8EETp
+         aP7CVqP6Q7A8iBrO+c+yZReh6GT/jHCh/15MijNtG9k4zP5BTNUCIdbCcYvCjLwRYUkH
+         eS6dg7KbqDJspvk4BTqE1bTAi7l04fjaHyRPK0l8gZhC5v63TuAwAIDkY9jieXKy9ov6
+         biDQvLYOYQmjQNl8vf2DM+pkHDEmN5Lx4dYHEuuGGs7KFUh7FJAAmUr/oKHWGeFrvwmZ
+         h8LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794704361; x=1795309161;
+        d=1e100.net; s=20260707; t=1794704385; x=1795309185;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:reply-to:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H5gORA8lBWNt/FrQUIrrCLOfomvpdlfZQU675IOPv9o=;
-        b=iKWsOFfZUuuTevtHlX9HbHkYg5t0hRFf4aBvsYEgi8ZYidTFhXWfdmUyL/CeqlX7VH
-         5BuXgFgzYmlntP1AK2mL22NE+syqtpDXUHvMG3+mQMlVrRGKO3dG3+KOZvsTLw0/TtJw
-         Slis50ZQsr5JFTb1HhEBIve7WA+Xxkhrk7ubIfyyWlYsL/QOeEpiJq7tUbmVDWp1qHmU
-         0MR9PSnxiB/nOAr8F/b+AWopgdqrwyyNvkhhxsJfTN7cPNPGh/uCMuSh/PV5/fV8gzBB
-         f3RjgIOsc5Nw/4xTBIl9On/zPxoGs7qL8/3uSmDBHcrxuJaxI6nkjWIv4W+JMrZDXLH8
-         2vnA==
-X-Forwarded-Encrypted: i=1; AL+hErGbI/Z6TP3bzTZgSegp0HjgiEhRqS9kMHrD3PX6oBEcSadvLopK2KBMKkakmfpWSpQprqljlNWuAMBEeMM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FJVk6UrwRxrdFhnw9bdU6W/CPAwSsl1bbeayEW//H+9EJ1OR/
-	gcw9qlhtcH+TOd6/vLOWwr15u6OY2JMeCXYaPny+X9FF0+YkAhJiKwAP
-X-Gm-Gg: AYBFou1f80idnn3QC3uqhQIw5T8sPUBn5zeHulVXGw7ySK1zlU7NWxjNlktGGrhN+9z
-	XKYWnELEae4mmr72PrtfoHHCOB94WDSawQDAEuQDUXKpRAoICBy7LErnjXDnBZGKFHbSYyqStAj
-	9MAJ1hntNnseaKg47Wd1AuMrsVez0M9z8EyqYM2KO+OQImJNVkMIvW5HTP0ABU9LZs9AlF9Bb3V
-	JEcZUR2Oq7cNbLTdx9wNmSXK+V8WCZmJeUQvWcEQk8y/E68fd0nrAtwnU6dQWS28h87CLMiKPYM
-	6A58EI8jlkzKRo4W2VjaQfQK9JWetdGwziuobw6fGHsW2ZYh3SqD25tDAtQsm+dvBsBGJpKThYn
-	xyur8iT8vnAWzBTDWuL4odiJjRqtz/rzzT0p6rgYzqi2qQBRF+7MGfJXwMGZgfdu7kKd4n03uMK
-	YczJK6KAWvsF4V4DDikwaWZ+g3tIFIdmPG8RR9v3DWhGyPVHLPwKcLBj5sbbq2G2nXRtdo0+70Q
-	2aBfDTUe3R0+QEoRzJ4+2T8cZCWO1Mz9sDA1og3L0qg3nOu3LfntSjyFCJkgb8DCOWN7Uz/+Yru
-	6jb1uwCTO1/Mt5TZB5HILHDoyBrsjXOj/hWgc/ZVzl3ZSgbJcZJNqoKBpeT7Rl8qA+LhYbmmioq
-	08cfLlDAhh1LT
-X-Received: by 2002:a05:7300:231c:b0:36f:3c7e:3c13 with SMTP id 5a478bee46e88-37967ae7f85mr9538114eec.22.1794704361510;
-        Sat, 14 Nov 2026 16:59:21 -0800 (PST)
+        bh=D4Ti/c1K26HZ8SQG/WnnVKgfJOZ1KY26CoYAHnXmIG8=;
+        b=AJJWT9BDw67yxiN2BL4lMQ9DylmFNQmvxrqg6X1wKjG5dn8EgOIZQaudSpSv5KCXgb
+         XzwCC2VHYe5rAshhgee34CxwNKaayMdxz7gWKLAln1a5eL2ck5NDUaEMt1gedN6vZd0L
+         3hjBQC4Ql+h0jxEEr7q5aDI8m2YYJvrYX4ydif626Cscxefy8hf0UgG7R55HViEqTmxG
+         53vRMuMj094ImnOJ+D34zbHG7Tz6HGGyFVBfKZzU07LWrb59hndroZK9N6vmFXwQHMD3
+         puyM+0Fjv5N9mx3gOzgJ7bIrDPY8/xZ+2Xeur4R3kaZe/Wg+t3Hlfiu+ErA299Bp2jn1
+         Hnog==
+X-Forwarded-Encrypted: i=1; AL+hErFJoZXPH5Ia/Y4UGTwuTc3GnU7xxCCpCBI5LIkUk4tVwfbPDghvFrQrifcVzn+z2H1LECDIlUoXAbOv5tE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z942CvkV4Rh3xtvvh5qMBUiqyJYdGXiV1OHkJWvg1Px02/NoSpm
+	ae9nAPYN1mkLaGSSJErj+rrO0FLp9itO+kfacB0Q22Yudj4PRntSavDW
+X-Gm-Gg: AYBFou0BI7LpkwAnDbgygIUNRD01K8R+92A76psYO8ymPqxw87i8116OFtHo1apxM8Y
+	Hg2J5OcIl/oyl1z7OjDtSLO4RDBYiy1bnSApyrTCqWNIX9BH/TTZxhUg8EmmNNK7qHjuvauXrTL
+	ur+RLgYTFg6oMop+iR1kid3G8nVI01Rb5a1zsUgOudmUwd27nUa0711HRlP2NKBSuMwUTYL0sgH
+	uZmQyKTTc0xqRA+mUiePalUjFio++2rsrJ1CyyF45TfFRpyuMq4rOJexfY0zRiDyIAqivPnWmhA
+	YQdC3Nxh5lvUSp8/n261fVrl+6ZUYgC+elR9NF2Wm0WyS85V4QO9xh5kuAj7oqqGaI24BxKn+lW
+	/KVthnXwA22Q1uzSgeqM6H3ocPGxORGreGCSTftFiVO4trboz7yiypUSayeDSVHt41hHme2cQpF
+	QLDeDUmSnuKIIcldo0/ZQ2RDwzqKmrb7TCtgR6giY0+za/Duu97Fthwdf/EbCbnBD+OskgYdHbz
+	CzdCq5ooywiRFh2ylj35eOdAVT+2gNJYQihB2NaaBETDR5abRGx8wOS1ouV/8dw2AiRHvCHkliV
+	FxNu+gRUgBni7tkHMOUIMpNDKw2qYpqD6xEEVifp3hYIzUyMzmFswKJ4Ef9xyrylKG0=
+X-Received: by 2002:a05:7300:e9c8:20b0:36d:a466:9d0b with SMTP id 5a478bee46e88-37966a5c202mr7670296eec.19.1794704384537;
+        Sat, 14 Nov 2026 16:59:44 -0800 (PST)
 Received: from [192.168.35.43] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm20244703eec.0.2026.11.14.16.59.17
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm35687984eec.21.2026.11.14.16.59.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 16:59:21 -0800 (PST)
-Message-ID: <0a8c0d90-9d80-4688-83b3-faf6bf04ca06@gmail.com>
-Date: Sun, 15 Nov 2026 09:59:16 +0900
+        Sat, 14 Nov 2026 16:59:44 -0800 (PST)
+Message-ID: <03c0c33e-9619-4641-92bd-ffd0459f11db@gmail.com>
+Date: Sun, 15 Nov 2026 09:59:39 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,8 +94,8 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH v2 5/7] PM / devfreq: rockchip-dfi: move register offsets
- to variant struct
+Subject: Re: [PATCH v2 6/7] PM / devfreq: rockchip-dfi: prepare support for v4
+ DDRMON
 Content-Language: ko
 To: Sebastian Reichel <sebastian.reichel@collabora.com>,
  Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
@@ -111,115 +110,164 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, kernel@collabora.com
 References: <20260921-b4-rockchip-dfi-rk3576-support-v2-0-04f847016321@collabora.com>
- <20260921-b4-rockchip-dfi-rk3576-support-v2-5-04f847016321@collabora.com>
+ <20260921-b4-rockchip-dfi-rk3576-support-v2-6-04f847016321@collabora.com>
 From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20260921-b4-rockchip-dfi-rk3576-support-v2-5-04f847016321@collabora.com>
+In-Reply-To: <20260921-b4-rockchip-dfi-rk3576-support-v2-6-04f847016321@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/22/2026 6:15 AM, Sebastian Reichel wrote:
-> DDRMON in version 0x40 (found in RK3576) has two control registers,
-> which moves the register addresses. Move the register offsets from the
-> defines to the varaint struct to ease supporting the newer version.
+> Add support for the new control register layout found for DDRMON
+> controllers having version 0x40. This prepares the driver for
+> adding RK3576 support.
 > 
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->  drivers/devfreq/event/rockchip-dfi.c | 34 ++++++++++++++++++++++++----------
->  1 file changed, 24 insertions(+), 10 deletions(-)
+>  drivers/devfreq/event/rockchip-dfi.c | 85 ++++++++++++++++++++++++++----------
+>  1 file changed, 62 insertions(+), 23 deletions(-)
 > 
 > diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
-> index 380361a231a2..8490219f61be 100644
+> index 8490219f61be..8ba97af78e3d 100644
 > --- a/drivers/devfreq/event/rockchip-dfi.c
 > +++ b/drivers/devfreq/event/rockchip-dfi.c
-> @@ -42,12 +42,6 @@
+> @@ -42,6 +42,19 @@
 >  #define DDRMON_CTRL_TIMER_CNT_EN	BIT(0)
 >  #define DDRMON_CTRL_LP5_BANK_MODE_MASK	GENMASK(8, 7)
 >  
-> -#define DDRMON_CH0_WR_NUM		0x20
-> -#define DDRMON_CH0_RD_NUM		0x24
-> -#define DDRMON_CH0_COUNT_NUM		0x28
-> -#define DDRMON_CH0_DFI_ACCESS_NUM	0x2c
-> -#define DDRMON_CH1_COUNT_NUM		0x3c
-> -#define DDRMON_CH1_DFI_ACCESS_NUM	0x40
+> +#define DDRMON_CTRL0	0x04
+> +#define DDRMON_CTRL0_EXT_TRIGGER_EN		BIT(6)
+> +#define DDRMON_CTRL0_DDR4			BIT(5)
+> +#define DDRMON_CTRL0_LPDDR4			BIT(4)
+> +#define DDRMON_CTRL0_HARDWARE_EN		BIT(3)
+> +#define DDRMON_CTRL0_LPDDR23			BIT(2)
+> +#define DDRMON_CTRL0_SOFTWARE_EN		BIT(1)
+> +#define DDRMON_CTRL0_TIMER_CNT_EN		BIT(0)
+> +#define DDRMON_CTRL0_HOT_RANK			GENMASK(8, 7)
+> +
+> +#define DDRMON_CTRL1	0x08
+> +#define DDRMON_CTRL1_LPDDR5			BIT(0)
+> +#define DDRMON_CTRL1_LP5_BANK_MODE_MASK		GENMASK(2, 1)
 >  
 >  #define PERF_EVENT_CYCLES		0x0
 >  #define PERF_EVENT_READ_BYTES		0x1
-> @@ -128,6 +122,10 @@ struct rockchip_dfi {
->   * @clocks_optional: whether not finding the clocks is non-fatal. Set if the
->   *                   DT binding for this variant didn't require clocks in the
->   *                   past, so that the driver remains compatible with old DTs.
-> + * @reg_write_access: register offset for writes access
-> + * @reg_read_access: register offset for read access
-> + * @reg_access: register offset for read/write access
-> + * @reg_clock_cycles: register offset for clock cycles
->   */
->  struct rockchip_dfi_variant {
->  	int (*init)(struct rockchip_dfi *dfi);
-> @@ -137,6 +135,10 @@ struct rockchip_dfi_variant {
->  	const char * const *clk_names;
->  	unsigned int num_clks;
->  	bool clocks_optional;
-> +	u8 reg_write_access;
-> +	u8 reg_read_access;
-> +	u8 reg_access;
-> +	u8 reg_clock_cycles;
->  };
+> @@ -143,8 +156,6 @@ struct rockchip_dfi_variant {
 >  
 >  static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
-> @@ -275,13 +277,13 @@ static void rockchip_dfi_read_counters(struct rockchip_dfi *dfi, struct dmc_coun
->  		if (!(dfi->channel_mask & BIT(i)))
->  			continue;
->  		res->c[i].read_access = readl_relaxed(dfi_regs +
-> -				DDRMON_CH0_RD_NUM + i * dfi->variant->stride);
-> +				dfi->variant->reg_read_access + i * dfi->variant->stride);
->  		res->c[i].write_access = readl_relaxed(dfi_regs +
-> -				DDRMON_CH0_WR_NUM + i * dfi->variant->stride);
-> +				dfi->variant->reg_write_access + i * dfi->variant->stride);
->  		res->c[i].access = readl_relaxed(dfi_regs +
-> -				DDRMON_CH0_DFI_ACCESS_NUM + i * dfi->variant->stride);
-> +				dfi->variant->reg_access + i * dfi->variant->stride);
->  		res->c[i].clock_cycles = readl_relaxed(dfi_regs +
-> -				DDRMON_CH0_COUNT_NUM + i * dfi->variant->stride);
-> +				dfi->variant->reg_clock_cycles + i * dfi->variant->stride);
->  	}
+>  {
+> -	u32 ddrmon_ver;
+> -
+>  	switch (dfi->ddr_type) {
+>  	case ROCKCHIP_DDRTYPE_LPDDR2:
+>  	case ROCKCHIP_DDRTYPE_LPDDR3:
+> @@ -159,26 +170,43 @@ static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
+>  			FIELD_PREP_WM16(DDRMON_CTRL_LPDDR5, 0);
+>  		break;
+>  	case ROCKCHIP_DDRTYPE_LPDDR5:
+> -		ddrmon_ver = readl_relaxed(dfi->regs);
+> -		if (ddrmon_ver < 0x40) {
+> -			*ctrl = FIELD_PREP_WM16(DDRMON_CTRL_LPDDR23, 0) |
+> -				FIELD_PREP_WM16(DDRMON_CTRL_LPDDR4, 0) |
+> -				FIELD_PREP_WM16(DDRMON_CTRL_LPDDR5, 1) |
+> -				FIELD_PREP_WM16(DDRMON_CTRL_LP5_BANK_MODE_MASK,
+> -						dfi->lp5_bank_mode);
+> -			break;
+> -		}
+> -
+> -		/*
+> -		 * As it is unknown whether the unpleasant special case
+> -		 * behaviour used by the vendor kernel is needed for any
+> -		 * shipping hardware, ask users to report if they have
+> -		 * some of that hardware.
+> -		 */
+> -		dev_err(&dfi->edev->dev,
+> -			"unsupported DDRMON version 0x%04X, please let linux-rockchip know!\n",
+> -			ddrmon_ver);
+> +		*ctrl = FIELD_PREP_WM16(DDRMON_CTRL_LPDDR23, 0) |
+> +			FIELD_PREP_WM16(DDRMON_CTRL_LPDDR4, 0) |
+> +			FIELD_PREP_WM16(DDRMON_CTRL_LPDDR5, 1) |
+> +			FIELD_PREP_WM16(DDRMON_CTRL_LP5_BANK_MODE_MASK,
+> +					dfi->lp5_bank_mode);
+> +		break;
+> +	default:
+> +		dev_err(&dfi->edev->dev, "unsupported memory type 0x%X\n",
+> +			dfi->ddr_type);
+>  		return -EOPNOTSUPP;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int rockchip_dfi_v4_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl0, u32 *ctrl1)
+> +{
+> +	switch (dfi->ddr_type) {
+> +	case ROCKCHIP_DDRTYPE_LPDDR2:
+> +	case ROCKCHIP_DDRTYPE_LPDDR3:
+> +		*ctrl0 = FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR23, 1) |
+> +			 FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR4, 0);
+> +		*ctrl1 = FIELD_PREP_WM16(DDRMON_CTRL1_LPDDR5, 0);
+> +		break;
+> +	case ROCKCHIP_DDRTYPE_LPDDR4:
+> +	case ROCKCHIP_DDRTYPE_LPDDR4X:
+> +		*ctrl0 = FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR23, 0) |
+> +			 FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR4, 1);
+> +		*ctrl1 = FIELD_PREP_WM16(DDRMON_CTRL1_LPDDR5, 0);
+> +		break;
+> +	case ROCKCHIP_DDRTYPE_LPDDR5:
+> +		*ctrl0 = FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR23, 0) |
+> +			 FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR4, 0);
+> +		*ctrl1 = FIELD_PREP_WM16(DDRMON_CTRL1_LPDDR5, 1) |
+> +			 FIELD_PREP_WM16(DDRMON_CTRL_LP5_BANK_MODE_MASK,
+> +					dfi->lp5_bank_mode);
+> +		break;
+>  	default:
+>  		dev_err(&dfi->edev->dev, "unsupported memory type 0x%X\n",
+>  			dfi->ddr_type);
+> @@ -188,11 +216,12 @@ static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
+>  	return 0;
 >  }
 >  
-> @@ -829,6 +831,10 @@ static const struct rockchip_dfi_variant rk3399_variant = {
->  	.max_channels = 2,
->  	.clk_names = rk3399_clk_names,
->  	.num_clks = ARRAY_SIZE(rk3399_clk_names),
-> +	.reg_write_access = 0x20,
-> +	.reg_read_access = 0x24,
-> +	.reg_clock_cycles = 0x28,
-> +	.reg_access = 0x2c,
->  };
+> +
+>  static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+>  {
+>  	void __iomem *dfi_regs = dfi->regs;
+> +	u32 ctrl, ctrl1, ddrmon_ver;
+>  	int i, ret = 0;
+> -	u32 ctrl;
 >  
->  static const struct rockchip_dfi_variant rk3568_variant = {
-> @@ -836,6 +842,10 @@ static const struct rockchip_dfi_variant rk3568_variant = {
->  	.stride = 0x0,
->  	.ctrl_single = true,
->  	.max_channels = 1,
-> +	.reg_write_access = 0x20,
-> +	.reg_read_access = 0x24,
-> +	.reg_clock_cycles = 0x28,
-> +	.reg_access = 0x2c,
->  };
+>  	mutex_lock(&dfi->mutex);
 >  
->  static const struct rockchip_dfi_variant rk3588_variant = {
-> @@ -845,6 +855,10 @@ static const struct rockchip_dfi_variant rk3588_variant = {
->  	.clk_names = rk3588_clk_names,
->  	.num_clks = ARRAY_SIZE(rk3588_clk_names),
->  	.clocks_optional = true,
-> +	.reg_write_access = 0x20,
-> +	.reg_read_access = 0x24,
-> +	.reg_clock_cycles = 0x28,
-> +	.reg_access = 0x2c,
->  };
+> @@ -207,10 +236,16 @@ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+>  		goto out;
+>  	}
 >  
->  static const struct of_device_id rockchip_dfi_id_match[] = {
+> -	ret = rockchip_dfi_ddrtype_to_ctrl(dfi, &ctrl);
+> +	ddrmon_ver = readl_relaxed(dfi->regs);
+> +	if (ddrmon_ver < 0x40)
+> +		ret = rockchip_dfi_ddrtype_to_ctrl(dfi, &ctrl);
+> +	else
+> +		ret = rockchip_dfi_v4_ddrtype_to_ctrl(dfi, &ctrl, &ctrl1);
+> +
+>  	if (ret)
+>  		goto out;
+>  
+> +
+>  	for (i = 0; i < dfi->variant->max_channels; i++) {
+>  
+>  		if (!(dfi->channel_mask & BIT(i)))
+> @@ -225,6 +260,10 @@ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+>  		writel_relaxed(ctrl, dfi_regs + i * dfi->variant->stride +
+>  			       DDRMON_CTRL);
+>  
+> +		if (ddrmon_ver >= 0x40)
+> +			writel_relaxed(ctrl1, dfi_regs + i * dfi->variant->stride +
+> +				       DDRMON_CTRL1);
+> +
+>  		/* enable count, use software mode */
+>  		writel_relaxed(FIELD_PREP_WM16(DDRMON_CTRL_SOFTWARE_EN, 1),
+>  			       dfi_regs + i * dfi->variant->stride + DDRMON_CTRL);
 > 
 
-Acked-by: Chanwoo Choi <cw00.choi@samsung.com>	
+Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
 
 -- 
 Best Regards,
