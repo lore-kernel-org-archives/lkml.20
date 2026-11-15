@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794759362;
-	b=Z1Fqf8u+MHNeLB4NOfBJMrgpa6AClaBestbBSGQF7iEtYV1iWFNrZDUjdutvt9KT+kvT
-	 F2reGjb9q9eNfyvGq/ReVPhFbD4/PAicu4TMIlIdn+syJwwSZTMspFPOnQc75+HfuC2uW
-	 nTKE8EdXZEHr6tP2HE0mdWcTDNtL01SYLZfI0VqykrxoYayOolmuxSscvp/2dLV0C7qe4
-	 Y4AOBYbms8MJ5QZlVRWcGCnBw6OKrlJsLxAlSEW7RaelOPAVaF1fKr2mv4ZBRQzx/oCs9
-	 MxWhjmK6rzxNcshia9sQ4xcxeTOuM7FYYnty1xHItXaJGnal/+yWoepfKnLh8DXLKhQ==
+	t=1794759437;
+	b=IwoCwW7fNzLoW/PJQCF71H7EsTQABv9DK4dH+KVwmp5dTNvTlURj0eDZZDrt4w/g3c7h
+	 xrDVuCRjnAhmGiRSpF/5fp0MVJWdPnEXUl/MJPgwKy+tZiUef/+N0pUrs1wcQYTVPWIHc
+	 unttRSir3KJqdQEOvGI50wo8AcezZFd/4Z8d6+Wg6ZeRRVooQQfQLpRTZVOfsxYJ/DbaK
+	 aRlN3SvEcAOaJ7nlQzh687hz2XBl60vmZ/iVn7LBu+XXSRf7JhvmTYGY+68f5M0cWajiM
+	 uMSNdIDPyZAeaiSC5sWNRtulW9M9Lxagq/P6YptW6UEXGOVNXi/r4DwIS+tc2gPMH6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794759362;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Stat-Signature:X-Spam-Status:
-	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
-	 X-HE-Tag:X-HE-Meta;
-	bh=y1SyaCbxPgxUqPKDIPzlhYz46szeJkR1Qe7QsbB6fso=;
-	b=drnv0suRgAx7Mku4nNImh0T9mm7L88IsATN0azzTGCuEugcM5yDrvyQlmlzVjp1Mt/lm
-	 ADqFghD7Yj/9P1iTKWGdqRYOi376V4adEaTJV5DT4UatOhWEAwriFpT4SD0CmlvJMkbcf
-	 /g/xu3u6NQZdCCKWW04OCBZs/qU/HMe7HLZ4dupaxhC6doZ1bVCGhsWMXzyEMndXrVL6D
-	 KDX4/BHhNpe21T7esUbeBktb6INTdz7EMDqzHpQl9j942gk2xYOY3Z7g97HmCw93g0jRq
-	 NkR+t/CyPFbzRukIzdl2izz4iXvlpp2hPES1Bu9mJTmlls2UDJEIXUIpUtwNZXjsoaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794759437;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NCICt+g4ba+h6Y1JYbGSqPwtwINdBha1BMylpnmqlkw=;
+	b=YcLzq37f5HstlTvxreIi7LMHfg9qpW+1mdlVaElA6QNYdGTPTWuxSwPVYP70w0K+Etm7
+	 p06HLtfS6YaMH9nV3jM2mSvYKw1cRV0i1YGrseuNP3MNqkEa3TsFK9mxEXHvXb4g7Fx0t
+	 /lwNttxCpRe4YWIfvhT2XGAhYx7IKxmCOUvJ93bjGSIOMeaOEOFH8Tl9TFFhtGv7KqrK4
+	 ivUaLDjiya9YHjG27DPkHJLNDCxQj2PQTs3QoacavINI3bJjgv1YYgo/A7NU7FqMY3QZ6
+	 ibqcvwvcfebZfEPSXyMl98QJiC0B19IHoLYWxzhZOKFMrAfyqNzvGK4VYzTlH0HxZWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.16
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jTGU0qPZ;
+	arc=none smtp.remote-ip=95.215.58.94
+Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E0C606A31F;
-	Sun, 15 Nov 2026 16:16:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3E0C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 71263C07F4;
-	Sun, 15 Nov 2026 16:15:55 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf19.hostedemail.com (Postfix) with ESMTPA id BCC1A20025;
-	Sun, 15 Nov 2026 16:15:53 +0000 (UTC)
-Message-ID: <43c991a975d649c11706714e05ab9bd438e0d7d5.camel@perches.com>
-Subject: Re: [PATCH v6 18/19] treewide: s/\<strends\>/strsuffix/g
-From: Joe Perches <joe@perches.com>
-To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Date: Sun, 15 Nov 2026 08:15:52 -0800
-In-Reply-To: <3cad861d30901777d9bdafec1ccf113e0a3fcfa7.1794667407.git.alx@kernel.org>
-References: <cover.1794667407.git.alx@kernel.org>
-	 <3cad861d30901777d9bdafec1ccf113e0a3fcfa7.1794667407.git.alx@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C3A606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:17:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C3A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jTGU0qPZ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g57S+tnYE1I+WM8B/j2X3/lHuNfkcd/fJZIJlo5BpOI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794759434; v=1; x=1795364234;
+ b=jTGU0qPZCdwrI1i/wZMz58bJOOopSnXcy2Ep+1AQXZPEmXUnbL1WX7MKLyJcDW9D67Sz3koD
+ ockiAJ9/swiyVABwzraZ99v2DEt2JrQeE8Cuv0m/xBV9BjzJUqhdpe1tef+brwftpEBOouOuVfG
+ KtxDx7idEGBPqti7itEL2fDs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 434b23527c560fa3;
+	Sun, 15 Nov 2026 16:17:14 +0000
+X-Mizu-Trace-ID: 434b23527c560fa3
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 16:17:06 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: Renzo Davoli <renzo@cs.unibo.it>, linux-kernel@vger.kernel.org
+CC: Oleg Nesterov <oleg@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ "Dmitry V . Levin" <ldv@strace.io>, Alexey Gladkov <legion@kernel.org>,
+ Eugene Syromyatnikov <evgsyr@gmail.com>,
+ Charlie Jenkins <thecharlesjenkins@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ strace-devel@lists.strace.io, linux-api@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_2/2=5D_selftests/ptrace=3A_check_that_PT?=
+ =?US-ASCII?Q?RACE=5FSET=5FSYSCALL=5FINFO_rejects_invalid_error_values?=
+In-Reply-To: <20261115152703.416254-3-renzo@cs.unibo.it>
+References: <20261115152703.416254-1-renzo@cs.unibo.it> <20261115152703.416254-3-renzo@cs.unibo.it>
+Message-ID: <DEC23DE6-5D6B-42FA-8A31-2914B730C777@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +70,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Stat-Signature: r19jq57b5fooramtpn76iatrj36ksds7
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: BCC1A20025
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX182ECguAhdUhQpHiucwxJWxrPvpXC04QtQ=
-X-HE-Tag: 1794759353-214076
-X-HE-Meta: U2FsdGVkX1/FXeh89E7cosGKxXXZcZjwTNVlP4Y681zLNS9/CqaaXEeufAhYwqLsfNXonTRTZYSXtNOZyByrCzeKKa7RUf9BKjWW9Gc+naFC2NfGcCwxFQJsXs9h3SALRbT0sQw2uK3vBYHZfLW2kPH25Drhj/CYd/X4S7qwqbN4mC77SlS7tl9svN//Dco/w0Q2YVsD1CEfltPi4ft2XPgH95AjSRE1t6wjiU9Jjyer7rFrHi194jbpL6iF2xXmPxxnBliN/RvqMuWBd9vkErr81scgeohcxlQ/4B3hC07LqzXENBZvW+1BShacR0+Cmlp5DTBWyLRCbSBpPfxAdDAl6bwm3pzio8VKwWq1kKbaCFLByFJHDDWfgSgVGtXPRxQoWrN2wet3NqLOjeGGXQ==
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 2026-11-14 at 16:24 +0100, Alejandro Colomar wrote:
-> Except for the changes to "lib/tests/string_kunit.c", this was
-> a scripted change:
->=20
-> 	$ git ls-files \
-> 	| grep '\.[ch]$' \
-> 	| grep -v -e ^tools/ -e ^scripts/ -e ^include/ \
-> 	| xargs grep -l strends \
-> 	| xargs sed -i 's/strends/strsuffix/g';
+On 15 November 2026 15:27:00 GMT, Renzo Davoli <renzo@cs.unibo.it> wrote:
+>At every exit stop of the set_syscall_info test, try to set with
+>is_error set a few values outside [-MAX_ERRNO, -1], check that
+>PTRACE_SET_SYSCALL_INFO fails with ERANGE and that the return value
+>of the system call is left untouched.
+>
+>Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+>---
+> .../selftests/ptrace/set_syscall_info.c       | 51 +++++++++++++++++++
+> 1 file changed, 51 insertions(+)
+>
+>diff --git a/tools/testing/selftests/ptrace/set_syscall_info.c b/tools/testing/selftests/ptrace/set_syscall_info.c
+>index 1cc411a41cd6..366ef0ec228f 100644
+>--- a/tools/testing/selftests/ptrace/set_syscall_info.c
+>+++ b/tools/testing/selftests/ptrace/set_syscall_info.c
+>@@ -126,6 +126,54 @@ check_psi_exit(struct __test_metadata *_metadata,
+> 	}
+> }
+> 
+>+/* Error values that PTRACE_SET_SYSCALL_INFO must reject with ERANGE. */
+>+static const long long bad_error_rval[] = {
+>+	0,
+>+	1,
+>+	ESRCH,
+>+	-4095 - 1,	/* -MAX_ERRNO - 1 */
+>+	-2147483647LL - 1,
+>+#if __SIZEOF_LONG__ > 4
+>+	0x100000000LL,
+>+	-0x100000000LL - ESRCH,
+>+#endif
+>+};
 
-You should really use coccinelle (spatch)
-and this should probably be 2 patches.
+yeah sure. Bit of a odd way to show error codes but okie dokie.
 
-https://coccinelle.gitlabpages.inria.fr/website/docs/main_grammar016.html
+>+
+>+static void
+>+check_psi_exit_bad_rval(struct __test_metadata *_metadata,
+>+			const struct ptrace_syscall_info *orig,
+>+			const struct si_exit *exp_exit)
+>+{
+>+	struct ptrace_syscall_info info;
+>+	unsigned int i;
+>+
+>+	for (i = 0; i < ARRAY_SIZE(bad_error_rval); ++i) {
+>+		info = *orig;
+>+		info.exit.is_error = 1;
+>+		info.exit.rval = bad_error_rval[i];
+>+		ASSERT_EQ(-1, sys_ptrace(PTRACE_SET_SYSCALL_INFO,
+>+					 tracee_pid, sizeof(info),
+>+					 (uintptr_t) &info)) {
+>+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: error rval %lld accepted",
+>+					bad_error_rval[i]);
+>+		}
+>+		ASSERT_EQ(ERANGE, errno) {
+>+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: error rval %lld: %m",
+>+					bad_error_rval[i]);
+>+		}
+>+
+>+		/* the return value must be left untouched */
+>+		memset(&info, 0, sizeof(info));
+>+		info.op = 0xff;
+>+		ASSERT_LT(0, sys_ptrace(PTRACE_GET_SYSCALL_INFO, tracee_pid,
+>+					sizeof(info), (uintptr_t) &info)) {
+>+			LOG_KILL_TRACEE("PTRACE_GET_SYSCALL_INFO: %m");
+>+		}
+>+		check_psi_exit(_metadata, &info, exp_exit,
+>+			       "PTRACE_SET_SYSCALL_INFO with bad error rval");
+>+	}
+>+}
+>+
+> TEST(set_syscall_info)
+> {
+> 	const pid_t tracer_pid = getpid();
+>@@ -476,6 +524,9 @@ TEST(set_syscall_info)
+> 				check_psi_exit(_metadata, &info, exp_exit,
+> 						"PTRACE_GET_SYSCALL_INFO #1");
+> 
+>+				/* invalid error values must be rejected */
+>+				check_psi_exit_bad_rval(_metadata, &info, exp_exit);
+>+
 
-something like:
+Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
 
-@@
-expression a1;
-expression a2;
-@@
 
--	strends(a1, a2)
-+	strsuffix(a1, a2)
+A feature suggestion on the table here is that you can modify the
+bad_error_rval[] parameter thru sysfs so you'd provide custom addresses or
+custom whatever.
+
+E.g:
+
+Echoing 0 to the sysfs directory. Then checking dmesg to see if it passed
+or if a hole happened.
+
+
+
+> 				/* apply the changes */
+> 				info.exit.is_error = set_exit->is_error;
+> 				info.exit.rval = set_exit->rval;
+>
+
+
+--- Thanks!
