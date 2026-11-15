@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794751503;
-	b=GSfOjCiPeI/t8XGH6dbmHhI5xJQvd5yE5zFnvTelaeiaWKkcGlEIAz9ZtbuzaPjdD9Jb
-	 axYGlR9OIu6IRy74DjpXc/M1JycabP4VA+W8060tdiCLTzPrNA4aPIklBZkdL/443izBr
-	 8mixbrATlcTG1pSqcBcol21vFdLegd3vIMFoj6M6iIQdJVzqI+yKqFSB/2oHHQXPKuz+/
-	 e2Krh94xYEEYeUfUCe6W3jeGPL3OkYPhJWiwYRnGFqCmwvhQkWnNF1xfyUazyxU8jY4ap
-	 SKTtjpxo/h7uHk8jWLZcNrdp0e1o9WK8d5vqGJ/FvHJtWtpy2jG+sG7Dx5J3DAhFS4w==
+	t=1794751588;
+	b=TNWYS0X0/ps8g+qVkiT27AgkmZrW65UCzUuHgE0a7Y6sFpMs1UElS9qawiH4zG5KYG66
+	 Rjv0mTKMqAhhiYb2DfeDq0Ak2jJ2g6NjY9P2x054z1MRhLajIGWm5LGDvu/9/Cc8GwrdL
+	 1w+F2Y9n1iuhw5a9hC7eKtWOwSdwuTQ7i9ZTtSz6SHMnJ9DxqBMzpfaQnAGEBQFynz3SI
+	 AbjYLgxQLNL0lprm2BO3o0gtKgCdIk5tgHsb7pEkiZ/ji7lox+Vnm/hHkMAsm75/lFNOV
+	 i3y9+F9G3GuQoLjoeVU1IYDZvmpLfZhaDVIW2nluHkgJyhRrop9tLIOyF111p4tmznA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794751503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794751588;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XWgHxxw6EzmAFNHm6I5mTHp/KXf3zQq3hfRAvmIG95Q=;
-	b=f7KCaF+K3QUOrS24AsIAAe0bja/O7KX2N8Cdgubm5vSHqLzgsrpKu4xre6z1qxxvghVT
-	 p3GNabp2j84lS7BljhDLajnru3evYX7tYGz38IOa7SoLW9Xloys5nDQbAvXja5RiVBDA8
-	 +ZyhVDiTM7WhmEBAa/uIkgvwU01/JUK9xwT1SjB517WS5AY4GfFUXgBPZomplRofkbc7k
-	 3Kto9rxalq8Q39cPhiCTTawLPnExSXZSXG+CzIU0efAdzjgwTWdd0mWsbb6tNP4ms1mLe
-	 rOaKf1YEmVdeXrGBlAIcnea/gxAUeosX2c/oDYmqZquvC9Z5PiwAg2lRFw1H29vcDUA==
+	bh=Yjh8Gm7XLBcgfYiYP3LTQh3dAygMMLi9uTvlwpldUyI=;
+	b=irBdIfHWntGgL6Ny7+xccFV063IxtADCbyEBZjgFeIR+MJqFTUe7URfTg+a/vXiX5HFu
+	 s+Z6eYQXo/pz/FFshwPPJm4QlWnafAZoQVfNNUTEXi0yrqqmHlkh8pUSX1aWGH5m7usYF
+	 zlXt2OZuMr51VSPIM2m+JN3dAOTPGlIDj72r3Wao8O0jgNjEkCY6iQwhtQWSFOfCDj66v
+	 9hdd49A+G1+Kw17Rt39jRcDcdVg/hyg95NSre5pFLtKyXBhrr03ZL9iQgTVXqmjq4R9Ht
+	 1gbTDroTHfa035gqnW74QQGFF9rcffz97Tj4iEjIhB9tEWnvJ9UHQdksTUMk85mhnFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=llJiswIg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz+siG7D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C585606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F1E606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=llJiswIg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45FC1F000C6
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:05:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz+siG7D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 718671F000D1
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794751502;
-	bh=XWgHxxw6EzmAFNHm6I5mTHp/KXf3zQq3hfRAvmIG95Q=;
+	s=k20260515; t=1794751588;
+	bh=Yjh8Gm7XLBcgfYiYP3LTQh3dAygMMLi9uTvlwpldUyI=;
 	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=llJiswIgpE2HPBpnEFhVVHSqXDlvWHm5O2IRqbzWMXcQA2Fnh5lSgMWkqNFyyELMQ
-	 SrrY9bras3+WFysUsJncPWt1HLb39sHQM1mmZ4wcEgRWkhSPckE5gVK+ey5UP6LKTB
-	 In3PU17RmxvrxeCeqH+ucpgEY6NPDxolLYW6QIPchzIu60dCCEk47PvU2Eadd55vgG
-	 9/TZYHC7FfuGv5esiWSrg/M5020cqnr3flJp2Wr51ujXkxiHvRwwVZ6H/dG/8f94NH
-	 hImJPI3KFT4KhimuthZCM3ZVFyfeXsmRnu7lueQqssRGGKDQ6Xo+AL6Tt/W+RVqNHQ
-	 +F/gvg+dzxE5A==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ae2ab35d82so22255011fa.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:05:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEhdTsadBxWbn5w+MYlEd7JmFhXLvq9BDiYCG+ZaRDQjMezQwlLXdobx04q8d/K8m4RU6EeFapxqLB5M6o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8lzl4oR9miyoEHL3OSVpQufzjP/uoFetHo3vg0cclluLBJox4
-	VWQoF81pOVgx2EXO1bdZoHdL4s6NTRAqwYqJw3xwDHAbtcLB0Rs7God//OZTb7u2qkcjvxoE+CU
-	uSv/Z6MMwJndqCpTe89R2zMyumYO4y/c=
-X-Received: by 2002:a2e:bc90:0:b0:3aa:ee7a:5466 with SMTP id
- 38308e7fff4ca-3ae2b4f52f0mr25507651fa.16.1794751501306; Sun, 15 Nov 2026
- 06:05:01 -0800 (PST)
+	b=mz+siG7D/yfCsaQUtmvyh2TtPp6RSL+xZHuVfQQpgQhiqnFA2hy66sFqJDYv/zhNN
+	 PZdl2f5jnz2cqc1ntx0TIL/cO1Z0Kh+VIfLZI8tPEkRNIx2NwRPylPxwO04vLWiK/C
+	 S/tzsizO2aQtz305oM/Q/OG/w+H4MHYJduUfF7hKbiu9ouFFLGxed4MMPRDyLH/eDG
+	 hMtlbugIRv5AqQQEF5MAIKv7X7WhfHNaoVQIgvD4XmINyiuNwknyiWuDimQGiag2xB
+	 vmscKeRolp3ztysYOwCMZUOKT9oN5lIzDVQYCH3SP/dTdMtB1CQAPEP/qgiHKxh2iZ
+	 XHTmXMjR20iDA==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3adfc004920so28765341fa.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:06:28 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGqbV5MXDlDi5570rIYqf/rXK3j4fy9PPFEeEJN+UBUCvpmMTGFjGBbbRKRfvBhPIYsGCBMqiMCQ+xg6xU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/58cCPhuSUSakLUyX9UUaU+jUTf9d1hNQQu5+x9ThXiNWo0eHp
+	wUuyWogoD/P02dHbo7ewQVh7jzr411h+FtNfCPaJaJI+ba4voe7dK3HOP08jaVv/Wj1dv0oIM7J
+	37+jnwE1yoskczTNX+VGfhNVBJaaaJWY=
+X-Received: by 2002:a05:651c:41d1:b0:3ab:1207:bd2f with SMTP id
+ 38308e7fff4ca-3ae2b4bad8cmr29149331fa.11.1794751586867; Sun, 15 Nov 2026
+ 06:06:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,15 +59,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com> <20261115061102.229680-5-jernej.skrabec@gmail.com>
-In-Reply-To: <20261115061102.229680-5-jernej.skrabec@gmail.com>
+References: <20261115061102.229680-1-jernej.skrabec@gmail.com> <20261115061102.229680-8-jernej.skrabec@gmail.com>
+In-Reply-To: <20261115061102.229680-8-jernej.skrabec@gmail.com>
 Reply-To: wens@kernel.org
 From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 22:04:47 +0800
-X-Gmail-Original-Message-ID: <CAGb2v643JrFOwrLrhUOTenSVbRgOVz+hEDFqXDR+0eF9fNpOfw@mail.gmail.com>
-X-Gm-Features: AclHuK8_QfEct_D3A6zPG8V_CU046sWNEFKONymgEnMQSD9bb71yZqe8AOLlRsI
-Message-ID: <CAGb2v643JrFOwrLrhUOTenSVbRgOVz+hEDFqXDR+0eF9fNpOfw@mail.gmail.com>
-Subject: Re: [PATCH v3 4/8] drm/sun4i: vi_layer: Limit formats for DE33
+Date: Sun, 15 Nov 2026 22:06:13 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67Kkiz=ns+DGS-nGeX7c_nT61B-CkXggqq0K2uxXGQ1UQ@mail.gmail.com>
+X-Gm-Features: AclHuK-7yda1JGDc_9OgA1yiAcJwBx1hvDReZ63bJlhLUfk9UlCfGoWhOH0aQLI
+Message-ID: <CAGb2v67Kkiz=ns+DGS-nGeX7c_nT61B-CkXggqq0K2uxXGQ1UQ@mail.gmail.com>
+Subject: Re: [PATCH v3 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
 To: Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
 	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
@@ -83,15 +84,101 @@ Content-Transfer-Encoding: quoted-printable
 On Sun, Nov 15, 2026 at 2:11=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
 l.com> wrote:
 >
-> YUV formats need scaler support due to chroma upscaling, but that's not
-> yet supported in the driver. Remove them from supported list until
-> DE33 scaler is properly supported.
+> As it turns out, current H616 DE33 binding was written based on
+> incomplete understanding of DE33 design. Namely, planes are shared
+> resource and not tied to specific mixer, which was the case for previous
+> generations of Display Engine (DE3 and earlier).
+>
+> This means that current DE33 binding doesn't properly reflect HW and
+> using it would mean that second mixer (used for second display output)
+> can't be supported.
+>
+> Remove layer register space, which will be represented with additional
+> node, and replace it with phandle, which will point to that new, shared
+> node. That way, all mixers can share same layers.
+>
+> This change is intentionally not backward compatible and the old binding
+> will not be supported by the driver, for the following reasons:
+>
+> - It can't describe the hardware. Plane register space is shared
+>   between all mixers, but the old binding puts it in the mixer node, so
+>   only one mixer can ever claim it. The second mixer can't be supported
+>   with the old binding at all. It also has no way to reference plane to
+>   mixer mapping registers, which live in display clocks register space.
+>
+> - Supporting it would mean keeping a second, mixer-local plane
+>   management path in the driver, with hardcoded plane mapping, which
+>   doesn't match the hardware and which can't be tested, since nothing
+>   uses it.
+>
+> - It was never used. Upstream H616 DT has no Display Engine nodes and
+>   the rest of H616 display pipeline (TCON, HDMI, PHY) is not supported
+>   upstream yet, so the old binding never produced a working display.
+>   Vendor BSP kernels use a completely different DT structure and no
+>   other known DT consumer (U-Boot, *BSD, Zephyr, TF-A, ...) implements
+>   H616 display support. Only out of tree WIP patches used it and those
+>   are updated together with the kernel.
+>
+> The driver will print an error, asking to update the device tree, when
+> the old binding is detected.
+>
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Somewhat related, but I think you also need a patch to block fractional
-coordinates? IIRC that also uses the scaler.
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 
-This was flagged by my review agent, but I vaguely remember it being the
-case from working on the DRM DMA helpers.
-
-
-ChenYu
+> ---
+>  .../display/allwinner,sun8i-a83t-de2-mixer.yaml  | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-a8=
+3t-de2-mixer.yaml b/Documentation/devicetree/bindings/display/allwinner,sun=
+8i-a83t-de2-mixer.yaml
+> index cbd18fd83e52..064e4ca7e419 100644
+> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
+mixer.yaml
+> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
+mixer.yaml
+> @@ -46,6 +46,10 @@ properties:
+>    resets:
+>      maxItems: 1
+>
+> +  allwinner,planes:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle of Display Engine 3.3 planes node
+> +
+>    ports:
+>      $ref: /schemas/graph.yaml#/properties/ports
+>
+> @@ -74,22 +78,22 @@ allOf:
+>        properties:
+>          reg:
+>            description: |
+> -            Registers for controlling individual layers of the display
+> -            engine (layers), global control (top), and display blending
+> -            control (display). Names are from Allwinner BSP kernel.
+> -          maxItems: 3
+> +            Registers for display blending control (display) and global
+> +            control (top). Names are from Allwinner BSP kernel.
+> +          maxItems: 2
+>          reg-names:
+>            items:
+> -            - const: layers
+> -            - const: top
+>              - const: display
+> +            - const: top
+>        required:
+>          - reg-names
+> +        - allwinner,planes
+>
+>      else:
+>        properties:
+>          reg:
+>            maxItems: 1
+> +        allwinner,planes: false
+>
+>  required:
+>    - compatible
+> --
+> 2.43.0
+>
+>
