@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794725231;
-	b=X+uS+SuZZO3MnAvFPPqnuIllrEGKAS4LNh2HecQNbsSBitYhyWEppLbsY7mXrdK5epaX
-	 sLcTSId3Z9w9EyL/dal0sd6qm9QvTxB+i15FuY2M4vmUos2pBjexVtNoOTZcXnI4eDR7J
-	 p2lB6LhVA3kIn2GT9ecmUantLYs/KxfnDeIkEtHS00HwFEMYEau5cHFuBLJKV6thy53fF
-	 cCx+/0gg5lkjEqgJNDpY8kBDME0p4VVlSK0S1LXdBmIsYpbD29U8UbOc9UVZtgGbxzYdJ
-	 MD7LZcC153LBiUFMAkB9Qqhw5TjhcsC8NwURJbrbE6h4/R2LYoAYJvmJYJeJHqE1xiQ==
+	t=1794725252;
+	b=5eLIG+5CiThcSFGWzgGQ+TK/j0DDxcqZlKDf6xGYpsAtG5faQfiFGWUOQ+Y5sHxqge3z
+	 nwJKLg73p9lurQmuAFnOAkF+Bq5XyDM+TzDBcVnU2SKmiXLUHWqpSzOFFjv2AzBI6IzB5
+	 Vlbd6gb9NAUVsWwqJXX0mcAocGx9aBJFwnlk7+1h5j7kg5eVuKudm2cEvO9D4hO67XZ9R
+	 P2udf9ffMAMDX0LDIci3bgKYtrzdpD0aFIrCvKRpGLel9iUZxaWHppDpT90yw/mSZlBlb
+	 nTj40d8x+yUnzwl2gJLlZCDcOTsbzHxQIPIPoeI5UmjbEmTAXChMmeH7sV7QVhCtLng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794725231;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794725252;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=jwh2VnCoRYNWSpJavB3/olcfSK9xBV/jM+pUQtOBE9A=;
-	b=MQj4x0f93NLG+Nio/zPbKHTO/lrNmLaCL8PbQl8dcBNO2GtiQV87WEmhhUEXmPTqM9kQ
-	 UWTDCxqxard2a1/BiRqsUwGb0e3NoRx0JQs+r1o3UGo46mOIlM4Y6ba7V/PUUygKBxiew
-	 gQ/HlPV1eolQ852eixnYVKfL8UbZyFAaZQ5XM9ywO++4SKDN/J3pKK+Wy8kj9ozaf4lZX
-	 UUL+Fz9ccR01ijRaOySbAELBtz3hxvcNGMWZB402YnHyUcwp8FDAZ0wQ43IHNXPQ78vQ9
-	 gtROySToA/A76UJpKk2c5jE6mkrZiez+z2A4UmP9wTpvLwx7p9zvVR9yoR666ObMlWw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4HAjrXPrfcwf3DdVlXCgx9Lu6i3VT6EHbvwugPPf3CE=;
+	b=TDL/u/LDs5PbctjYyUNE6r0YR5VTA97/TzMOdybeItRf8bZc9cUTfW9gJDYSu/HAoECg
+	 z8pFUgwp82tPONseWpTt3To2RYheKWcQtCIQI8muQMH0jBE7NmFjToYdssfXoZClI8df4
+	 UkhbUDdqcNGxkLdsgq3sYZOiVxwDKwq91bbUlzAtPhVNXQQ/+HPEwK0zgUXGcnKAkOIEu
+	 DX/KhaYhnzHMg9GxMmVcReY0YA6qHX2inPv+BtzrkMaWte0GnIFtS1F/5Rmh1Gl9Hg0fI
+	 P0hZINjFbyTnwCWzaduyGKZK9Y5aUoiB7iV8kwOCA+SA8f2ItA1k2tRq6oWgSHREN6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iQc88LIF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sga7+Ei7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D15606A329;
-	Sun, 15 Nov 2026 06:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AFE606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:47:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iQc88LIF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168E31F000C4;
-	Sun, 15 Nov 2026 06:47:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sga7+Ei7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D2D1F000C4;
+	Sun, 15 Nov 2026 06:47:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794725231;
-	bh=jwh2VnCoRYNWSpJavB3/olcfSK9xBV/jM+pUQtOBE9A=;
+	s=k20260515; t=1794725252;
+	bh=4HAjrXPrfcwf3DdVlXCgx9Lu6i3VT6EHbvwugPPf3CE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iQc88LIFJYlWRk3x+jUkZv57DqD6Zr+Qi/bjvEAx6dsX0FyX0S6lwk5ssflsR/o8q
-	 L14BShrB8yCWC1qdswhGpATgsyOV8akcA3ZMu/82XdeGgiJt/9OF9kPNqo+YMkfT57
-	 Cda8LpkOvH59RGcnzmo/VfwIa1Myl3kIXSPqFx/aZY5QuFYwzhZ9/jc2VoG3eh44ip
-	 0ZeYVP9n/yUTogA4bJF/Jo01UXxbS8p1XgamlSKGMQnAbXpw6/Aa2iM0N1gdgBDnKe
-	 qRiQYpm/Lla8FEkImBmQmUc2AiqKt61MV+5B7glgUOmoOp8jSZa0TfUzpuB2cjqTCx
-	 M83DKc/z/VjxQ==
-Date: Sun, 15 Nov 2026 08:47:03 +0200
+	b=Sga7+Ei7O7GcefvdplYgPgdCXS4eUuASHq8ItMV8SMHKTChYHNl42sHVH22fN6Ypa
+	 CnnDRlH6mQCP3hM54nm2kIlPRvhUMgENuhTfzPlzGVrXvlYo0tTB3FyVVGKmYVGYqI
+	 q6jQGV3PQkUVICc96wIrNp+2WOYcxHyrX3j9y5N0q9VVVWpkgbyqX+BIfE4wCSSoqY
+	 aySZ9VSne76rg8zpwT3iOxGPlBle09s5Us5LJcayoy7iCPthruyjoL7w+lQRTUka+6
+	 Lf5gxus7i4mLsAPPQDxHWfqlx8iC3vyLyCFECTuaOOBTUYBkAx2Yo+qgl5hcFZ+aBE
+	 tB/d8Q9CD4Rbw==
+Date: Sun, 15 Nov 2026 08:47:26 +0200
 From: Mike Rapoport <rppt@kernel.org>
-To: Ivan Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+To: Thorsten Blum <blum@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm: use PFN_PHYS() in phys_mem_access_prot()
-Message-ID: <avlVZ9d-TqQKrJBw@kernel.org>
-References: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Wilson Felipe Pereira <wfelipe@google.com>,
+	Ryan Roberts <ryan.roberts@arm.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] init: Reject bare rodata parameter before architecture
+ parsing
+Message-ID: <avlVfiKASeue2HsY@kernel.org>
+References: <20261113202321.91770-2-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,52 +62,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
+In-Reply-To: <20261113202321.91770-2-blum@kernel.org>
 
-On Fri, Nov 13, 2026 at 04:38:12PM -0300, Ivan Ezequiel Rodriguez wrote:
-> From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+On Fri, Nov 13, 2026 at 09:23:19PM +0100, Thorsten Blum wrote:
+> When a bare rodata parameter is specified on the kernel command line
+> without the '=' separator, early parameter parsing passes NULL to
+> set_debug_rodata().
 > 
-> phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.
-> The shift is evaluated as unsigned long, so on a 32-bit kernel with
-> CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
-> uncached_access() compares it with __pa(high_memory).
+> Current hooks already handle NULL safely. Reject NULL before calling
+> arch_parse_debug_rodata() so architecture hooks always receive a
+> non-NULL string.
 > 
-> mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
-> accepted and then left cacheable. PFN_PHYS() casts before the shift.
+> Return -EINVAL to report the malformed option instead of falling through
+> to the existing warning. Also remove the now-redundant NULL checks from
+> the "on" and "off" comparisons.
 > 
-> On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
-> O_DSYNC used the boot CCA. The same mapping with O_DSYNC was uncached.
-> With PFN_PHYS() both are uncached.
-> 
-> Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 
 Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
 > ---
->  mm/char-mem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  init/main.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/mm/char-mem.c b/mm/char-mem.c
-> index c5761ddedbd7..53ce0034a4c1 100644
-> --- a/mm/char-mem.c
-> +++ b/mm/char-mem.c
-> @@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
->  				     unsigned long size, pgprot_t vma_prot)
->  {
->  #ifdef pgprot_noncached
-> -	phys_addr_t offset = pfn << PAGE_SHIFT;
-> +	phys_addr_t offset = PFN_PHYS(pfn);
+> diff --git a/init/main.c b/init/main.c
+> index 7b0c8c34e6a9..768b65f2498f 100644
+> --- a/init/main.c
+> +++ b/init/main.c
+> @@ -1566,12 +1566,15 @@ static inline bool arch_parse_debug_rodata(char *str) { return false; }
 >  
->  	if (uncached_access(file, offset))
->  		return pgprot_noncached(vma_prot);
-> -- 
-> 2.43.0
-> 
+>  static int __init set_debug_rodata(char *str)
+>  {
+> +	if (!str)
+> +		return -EINVAL;
+> +
+>  	if (arch_parse_debug_rodata(str))
+>  		return 0;
+>  
+> -	if (str && !strcmp(str, "on"))
+> +	if (!strcmp(str, "on"))
+>  		rodata_enabled = true;
+> -	else if (str && !strcmp(str, "off"))
+> +	else if (!strcmp(str, "off"))
+>  		rodata_enabled = false;
+>  	else
+>  		pr_warn("Invalid option string for rodata: '%s'\n", str);
 
 -- 
 Sincerely yours,
