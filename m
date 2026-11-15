@@ -1,90 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794768342;
-	b=kEr6WVuVOxJoK+qWKSEBw5tthu6gw10kfpMYlkB8Fz+byl1G4QXh82CWC/L+q5vxBJce
-	 a/qMsf/Wt/4HrH/gvikWi95r5ttkBDB+QmAZ31TdctAAeuLGJTyd/yFb2SREGAhK4d179
-	 dl5E3LnrwLt9fPDDsdCxCj7kaHcGY+2WYrhxQZftpCnelSao9CrsDZgPdPKMTqZtKH2iW
-	 AD01Y2b/J3UB1EE3x0Z6fFQvze1WKmK8qqcdnVY7QA9lJoQGwcQxY5CHV7abLw/gOcnuq
-	 u36S+c6/7yS/z52zFaQ89XDfaUuWWYlND/nW08oz5qDElzQsiDiBuA3xE739uxg8+0Q==
+	t=1794768423;
+	b=hiF9rP/X4cz4QvIQbRSRtS+dMRx9fzxVYH1i5dd2lO1ILVtIgYZxJHecEsLz9OL1+F+8
+	 sqlFW7mwXuxLAmjoRWnw6nAgQzMLEBcgYeHJ+rFXS8wwM/ZXUldDt0kUF1K6YAR9jRGTu
+	 BLE7gQMKY3lOx85YzoAv7QvekrHo3K2fDyjD8WlUf9+mjf7UIUVihw2QfoSKPdN9Bl7/Q
+	 Q4bNGkLqc00Ny32ENviEhTf6OI98dO76z2U9OurPhQyW8YoAHnOT+brfaBotFuotO0KAA
+	 sEAN7PfLQbW9uDixU3zQEOHPsXskQcFvJbojy4T0R2YtumI78w1cK36glX4XR8EywUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794768342;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=Kvx3OD4ToTTcBE4UmOeEbrjq2RxGIJgBoPuswUMpJbo=;
-	b=2zm4v+VUIlvO/pabjMOo35/zU6WyNHnsMqUGQ4TfTWO45uHWsgv7wroXAMN+YxnfF8T3
-	 tO4yJWZQgC+4myqvsm7KPn43RfaAn8tI3PfiiIbx5S5xJJmff+lw/emqiZuke2hBK4T4R
-	 jDLP286E9VLyIGVL9T21xsoflUd88nLj6OWpI+UxDVj3g5jiLMfkmax8pUbaSxVfofZw5
-	 MC3oOjVPfCIm6XrqTxgV5HNPtP8jYUle2obKMwQ0ZkzFG3a+k7nfb/qJ965paPOYuA/3W
-	 N4vxYsxqV40KP2w7b883gpEf49cuPawx3ZIZmztXII9v+TNjEGOd+V2nxL9lZZr8nXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794768423;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Na2XO9zB5CCljMGVxWPztMYjQeo7vwyHFK10e26rYCg=;
+	b=DooAt3ul7vEoZ5ojN7Sn+K9hfxrGz6fYOJXC02jlVSb4dBtYDcKgwnXIMn2YmOe40LJL
+	 Hujc4EEybWPGonLJFk5KhZJMDm1X4opbY5Tph/3UK+yCkY+WD5syrbAGiAjiR3hJAwPeW
+	 ozCQTNApr/Isr2DIqbVme7R1KU/DuwD6PuzN5cQtYIXagR6vWuonp0wMvytB1h9pUq3G2
+	 /rPj84i8sjtfgONiFxje1qhw9sCRjPu50Avjw0uSmNmNrEVr0WjmxgHUhDNIDb8FKoo5g
+	 1tTs4PfqqR1jDbukjTe3TnrfqMjS2NaM/8XgjkSJdck1Oa6KDxGqAeLuXUUWA4aLdaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=AZK1oJzl;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/qmH5ha";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF2C606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EF2C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4042F606A31D;
+	Sun, 15 Nov 2026 18:47:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=AZK1oJzl
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c40f29667e6so488120666b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:45:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794768340; x=1795373140; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kvx3OD4ToTTcBE4UmOeEbrjq2RxGIJgBoPuswUMpJbo=;
-        b=AZK1oJzluee1pt8ew+FJbElyQlQoyCtN5x9nac3gtsssf67Touw9OSNDkxMf+TRXq4
-         PaG6Df1Z+bNu5Aw59bmTLNF3Gwx2OQDtrSlT3NR21sVeQy7QiwPRq57NezQbjcnPe/hk
-         OuZ10/4uUrGwR468g0qYK7rR6h6V9fhZ2f2JY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794768340; x=1795373140;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Kvx3OD4ToTTcBE4UmOeEbrjq2RxGIJgBoPuswUMpJbo=;
-        b=gHn5xLRyrbIpEHQzzkyYCNkhXcYiFW4tFkeFWLDEd5iemO8ySpDBzAX9cHOJVVAtVL
-         sWeYU2JLhPf6DL9+KZOEgkNjC7+x+09jw8lulnhX+8JLdLPw2asS3lpKqAm7laXE38P8
-         KD7QUaStyfvpmT3a47sI6kvGxHXbywrstxNysppiJKLU6tSETwGk9ISIe9tY9VIA4qB2
-         AkGT8MjFDGPMSHnnjojT5XzH1LQGP9cktWAacE87tVDAR9020gJeVWiaXe2gS7gfKH9y
-         +ml65o7lHxz38+5qNSqGwFVbG0igtT7RnOLfC4DHyTmgO/AqCWmItuy8SNUNCxIsJBap
-         RSxQ==
-X-Forwarded-Encrypted: i=1; AL+hErHv0BLTbWn+6wzIdSgBZu31PxMjV/oeZ7lyDMff1JKyYks5BvQ35+tZ63xzHp3qyh+W6Vlc0rohaYkvr+0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lKAswtukHIrcKKaFta6HNyXZvMUPUbMAyCV7sVkiU1cUwvjED
-	+IIQldro0r5ttVXwb341kzvqWiA82F/F5LPjNaOynFx9QT1YgE3J6scP4Aao24TQdWOsKaSJsSR
-	giGDZri9odg==
-X-Gm-Gg: AYBFou2kGNH+DKVtS7RWHbRFxQXoOA3YCcJBBcgiQUyVW0YyQ+z1pW+f3Gy8Kx7OyzB
-	l2j4EChekW7HQbV+tjQV9T0YNK0MMLZu+iZeorqpn0H7MouidMXGQg+YX/5vUsCUTsevx/OS4Vm
-	lFmixScuB49fiijfXwb6dpGCbUA5wfqHw8Psd+WM+O8lBezVgNPqfcWBsZ9BOhao2CZvYKSmyUe
-	x6cspTVTB/pFW7eOn/Z6OBbsg/qbCfpwm9trbjTv/ZeRkroJ0mwa1araQwJTco/045hz1ms1j/f
-	hgI1qghFNrmCNBqzG9lsIBmD/t+4RpmSU0Btr/IMcFVLwHzna/7fUp+aftXAxkLrBtOa+R3pn0v
-	t7zNCUIk1MyAWo3u5kgdaelMaNT4b8pZo+tMwa4EiuZbjh86Cb/fwiZXqflqWKUWcPsjTjLen3q
-	+Xs7+2+TXCg8omdjwtfHC9fTHiB2W8W01+39Z9hHNXfSLSn4oDXS/mloOGbHgaPgee/ljpQqPgf
-	DY8tV9f5kq0DfuNMwBlnjeDLjGryVc4UywcbV5RckqvoqNG68m9SGqaRQPTnnEVyoWWC3aEXvd1
-	kZ6Dk8L7KgXO0cZiH2Sj/nyRsXA47Qp0caBHqDzLxNrxU3Xiq5El9UFNh4nmLoydLvU+fmlaWXV
-	Mhlo=
-X-Received: by 2002:a17:907:8e08:b0:c50:4d71:a85d with SMTP id a640c23a62f3a-c509641ab20mr581211666b.32.1794768339636;
-        Sun, 15 Nov 2026 10:45:39 -0800 (PST)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com. [209.85.218.49])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b23afdsm329796766b.13.2026.11.15.10.45.38
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 10:45:39 -0800 (PST)
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c40f29667e6so488118766b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:45:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHST/V416Fw7ULAeewgybhhYnDg4iBL6kkOFtyuiHdJNsKIIaEAzJ7q17yj9D6wAwpRjWsn5sFE+7Uc22c=@vger.kernel.org
-X-Received: by 2002:a17:907:3f91:b0:c42:102f:15d7 with SMTP id
- a640c23a62f3a-c5096398ac9mr616132066b.10.1794768338502; Sun, 15 Nov 2026
- 10:45:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/qmH5ha
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9CFE1F000C4;
+	Sun, 15 Nov 2026 18:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794768423;
+	bh=Na2XO9zB5CCljMGVxWPztMYjQeo7vwyHFK10e26rYCg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=U/qmH5ha4nQoNSqrzW1+vONVi4qEDqJD002kvbGnuEYnu9pgJ/u3bROdSccZsxs9w
+	 XnVYBUj4swTq9zb1L1Nwqs2G3Ve7CHxMto5LG5T+zy/BYVCCk005yZNmWXT1MYAUG5
+	 4+8hgt0Qs04bk8HAccehXAB7rQktrZydb5ZW3gDMWmzOjkRecJITgpq7ekleOfaSKj
+	 wPrOKTBXAJZSkOuLd/c6PqdoSoDdxwlxoRV09DPxORqgURiLdlNA7NpGSRQpCpO45v
+	 XZLqUmgDgEGMgNhB/0Xz8Lnc3qpLZ0cSwmqaF6k9nb9Sq+xV/H0n7BNmgwRj0YgRWM
+	 YQ8FNkYNIuKMA==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
+ <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
+ Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Stuart Clark
+ <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 02/11] net: Add memory provider capabilities
+In-Reply-To: <CAHS8izMaAv6gX1NeJR+QCf43CL+DC4DgePRNNxSLoE31jxHU0g@mail.gmail.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-3-bjorn@kernel.org>
+ <CAHS8izMaAv6gX1NeJR+QCf43CL+DC4DgePRNNxSLoE31jxHU0g@mail.gmail.com>
+Date: Sun, 15 Nov 2026 19:46:58 +0100
+Message-ID: <87fqx2j5jx.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,47 +80,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local>
- <20261113141137.1113517-1-usama.arif@linux.dev> <20261113160300.3f0d0a37@pumpkin>
- <CAHk-=wjmnpCmhyOta1EBR6D8_JFgLNz7Jb2s_PgbPq6cBiQ0wg@mail.gmail.com>
- <E9C129F6-61F5-49CE-8948-064DAE86EF4F@zytor.com> <20261113233703.GCavefHwxVZX8mGFCm@fat_crate.local>
- <628BDCC5-B599-4B70-B512-E13DEE926DFA@zytor.com> <20261114224504.7574f7f0@pumpkin>
- <CAHk-=wj0MtJpBbwNr=NGh4kFPM__Wf9Hq+LZ1Qv1Yv1SCpjaLQ@mail.gmail.com> <20261115124205.076cdd63@pumpkin>
-In-Reply-To: <20261115124205.076cdd63@pumpkin>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 15 Nov 2026 10:45:22 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wjNdNjA_=POY-jA2ot+KKTVJ1-b7Xv_bwF6ehF-AJMmQQ@mail.gmail.com>
-X-Gm-Features: AclHuK8p4cZJbhEZ0PGVwgBPKTtu33HQbdjBts5W6GrmO5Q9ctqC9Uji-GNnwMs
-Message-ID: <CAHk-=wjNdNjA_=POY-jA2ot+KKTVJ1-b7Xv_bwF6ehF-AJMmQQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
- CPUs without FSRM
-To: David Laight <david.laight.linux@gmail.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Borislav Petkov <bp@alien8.de>, Usama Arif <usama.arif@linux.dev>, 
-	dave.hansen@linux.intel.com, dsterba@suse.com, linux-kernel@vger.kernel.org, 
-	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org, 
-	kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 15 Nov 2026 at 04:42, David Laight <david.laight.linux@gmail.com> wrote:
+Mina Almasry <almasrymina@google.com> writes:
+
+> On Tue, Nov 10, 2026 at 2:21=E2=80=AFAM Bj=C3=B6rn T=C3=B6pel <bjorn@kern=
+el.org> wrote:
+>>
+>> The core treats every memory provider as unreadable: installing one
+>> needs header split and no XDP program, and any page pool that allows
+>> unreadable netmem takes it. An AF_XDP UMEM provider is readable, needs
+>> XDP, and hands out whole buffers.
+>>
+>> Describe providers by MP_CAP_READABLE and MP_CAP_FRAG; devmem and
+>> io_uring keep their behavior with MP_CAP_FRAG. A page pool takes a
+>> readable provider only with the new PP_FLAG_MEM_PROVIDER:
 >
-> > But having extra registers free could help at the call-site,
->
-> There isn't much you can put at the call site instead of a 5 byte call.
+> Why do we need this? I thought whatever creates the pool actually
+> shouldn't get to pick whether the pool picks up the memory provider. I
+> thought if core has configured the rxq for a memory provider then the
+> pool is forced to take it.
 
-You misunderstand.
+Thanks for looking at series, Mina. ...this needed some thinking.
 
-Avoiding call-clobbered registers means that the caller has more
-registers live and can do better code generation.
+It isn't forced today either: only pools with
+PP_FLAG_ALLOW_UNREADABLE_NETMEM take the queue's provider. Drivers set
+it on the pool that holds payloads, and keep headers in host memory: in
+a separate pool (fbnic, bnxt), or outside the page pool (gve, mlx5).
+That works because every provider so far backs payloads only.
 
-Making the calling convention clobber registers that aren't useful is
-*bad*. And if you do a loop - which you know is either large or
-unknown size - and take the I$ hit, adding a couple of push/pop
-instructions really doesn't hurt AT ALL.
+UMEM doesn't. The socket gets whole packets, so UMEM has to back the
+header buffers, and with multi-buffer the payloads too. The flag was my
+way to get it there, but you're right that it's the wrong knob: it lets
+the driver opt in, where it should only say what each pool holds.
 
-It has nothing to do with the 5-byte "'call' or 'rep movsb'" instruction.
+How about this instead. Both sides use the rx_roles bits from patch 5,
+HEAD and PAYLOAD:
 
-(And I realize that 'rep movsb' is only two bytes. You'd add a 3-byte
-nop or harmless prefixes to it depending on which decodes better)
+ - The provider says which buffers it backs, next to rx_page_size in
+   pp_memory_provider_params: devmem and io_uring zcrx PAYLOAD, AF_XDP
+   HEAD, or HEAD|PAYLOAD with multi-buffer.
+ - The driver says what each pool holds, in rx_roles. A pool without
+   roles but with PP_FLAG_ALLOW_UNREADABLE_NETMEM holds PAYLOAD, so
+   existing drivers don't change.
+ - page_pool_create() gives the provider to a pool whose roles are all
+   backed; the others get host pages. No opt-in.
+ - After ndo_queue_mem_alloc(), the core checks that the new pools that
+   took the provider cover everything it backs, or fails the restart.
 
-             Linus
+With fbnic's header and payload pools:
+
+  devmem:                header pool host, payload pool devmem
+  AF_XDP single-buffer:  header pool UMEM, payload pool host
+  AF_XDP multi-buffer:   one shared pool, UMEM
+
+A shared pool on a devmem queue doesn't take devmem, since devmem
+doesn't back HEAD, so the check fails and the driver has to split.
+That's the "headers in host memory" rule, without the driver asking
+which provider it is.
+
+Wdyt?
+
+
+Bj=C3=B6rn
