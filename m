@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794757942;
-	b=pXDnvnGji3tb7SNhJFJHYoZGVOkPS3nrkye/8Vg/TmxRGHi8YQpsSCp3h6gfDSkcoEuZ
-	 e7v4MUopwimV0kp/HHBWJdfr+Poxsf5EMWn+hzeq2fouUyH7hI+HYSWBzVakmNfIhp9Yv
-	 UEwDALUYqhD72T/D80zpNc7AhY+oRL9cn4Iv53UJOhKXNdyc4J352dmDyP5kaCxW5r25b
-	 VaSwjRZmQHmlk3uHmUfF4SfauNTWRwz5H01P/uZ9zywxPVY8KYlXRIFKvW2Jm/2GjRwrG
-	 JrfulG5MWz4Uh7ROdiOIq5aFDZu9yvrzbLeryJJaAmx14yZ2t3S0qQwZZRntouqkSiw==
+	t=1794757978;
+	b=FXKVynRmSr4fIgCU0UZ99jxdY9DZqHCkl7G2i2nXHGLb50NVG8ocv97HGBFnJ92UBx2v
+	 0PCvqB+DwH6y+DcNCtpdpTEN9d2586F350J0vzVuySLB5wJ4GZx0W09nldPAPpwLL9NWy
+	 lq7+w1QLEZ9WD3DGs3ndcoKUvDftnlA3NCgnd8gQwW8XUTSCbieEOhOA1+EWnSiT6shbS
+	 hFzOYq0lco9mca4UKogl6ES0RGUr6LZZ2iC2pybdZJIOVNEhychH2r13Fn686QvsXAl2y
+	 qbcCAGwpg3Ya1PWESKeI/PslVnKlpb55YUH5PeZlcGWDpJXSXso8xULWxOVcBCsFOAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794757942;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=nTjFplutDyO+6B0L2q9B2Wxl1+E3m6fypJVZ+ZBVxqg=;
-	b=rgvdoDBsyl5xlE5QhtzHqHFynjxU9kzgNSRqxyg+gj95RyWxsqmLdmbnfz51QuSb4Y+9
-	 rnNqbkpmseGroYLThBO9UVmaKa6FosJ4ng1oFN6DCwYzHl6PWYXSu1IEFPIi6sH91mBpv
-	 uNhE8lxMAIHsJzzLsYUjFgul6v3USJVFWOYGzGgXNJrGCZCbUESH4heZCkGYHClXHT5tF
-	 DHyUMQ/ggUBRfFwN9QXGl6DnGP3nwe34YeqNgF9r8KA9nq/v/r0wsleLeO6RT8ZIAa9jI
-	 Y3TJm0YGBpoE0eGDkXCYtABd9+49G0Wrg93ZDWiQz9ZVZpmfUGLqyw40Eoyypiz/KEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794757978;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=zYLg9CDhxj90tCxncwjOVnCz5bkJHfzwDw5ixcwSYAY=;
+	b=20Rs5dmhUsgk5Y2k4mQxZHbYJ2L7aN8iLndGbUMqZseQs4+YiSiB3g32RKXNYtNikY9c
+	 HSPrUqiLJsFeqSr2k1sM5Bqdoyvpu8DwuZyAgD9uAflUdlfRlLJBPCg4EY93b4X4hMuo/
+	 8Ou7ms9cbsc7NUyQHMT4FB+NxPAJifVdq1Jod+R/fGNbiAIjDF0fN3rTUNFxlWMXo8uiy
+	 YUPsiuobIeqNA1UoAd8QxDamPy5ytC8L7G30pTlU31PBLc3hHN1OQF43U3/XzxVndiNVb
+	 2aU/80f17f2CKFVmKmI1mIUVUqy1Iwyc4ihVMzPTwaywEzkKIAhl6oy7UYGGifH2Wqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=XLobJJu1;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=9+eZUvgX;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=rdlVdlY9;
+	arc=none smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8995606A31D;
-	Sun, 15 Nov 2026 15:52:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8995606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC58606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEC58606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=XLobJJu1;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=9+eZUvgX
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1794757923; bh=nTjFplutDyO+6B0L2q9B2Wx
-	l1+E3m6fypJVZ+ZBVxqg=; b=XLobJJu1Sp0iKBB7AarH1kkFYcI1a6OH0Amjv9u201lAnHV2WM
-	CTQaZgS3NKcEmR7kMKPiUAlqQDuX9yCNw1XPVH7Td/u43vTcP6tp2tYMGkhrwU0qbROvG1Hcw+z
-	Qzb3O2EXuA8H0AK86nEmRy0Mm/YkZWJ2GCT14kcM8CifLIhvFH7oU+Tyuo3u9JWwia6Mnk7xQyH
-	k5WsBIIYDtPaOYrLLZ5AmeXwJsFBy9dmE6Gs+TCbmmMo+KEi7oFOYc2OfoaamfSFRIWDowUAifP
-	hR7j2N/yCYmzNxG/VOmtM0lI3nbQ0cOZ1GAgTQmcKc5fCxwbI9CJ4VTJN3DMICFGsmA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1794757923; bh=nTjFplutDyO+6B0L2q9B2Wx
-	l1+E3m6fypJVZ+ZBVxqg=; b=9+eZUvgXS2Z37ak7RCy4qYe9lWlZepFQVRoZaXRWf43aSV4yB5
-	EaBusvXqUnguui8dgRrFznCiuA/201lZE0CA==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Date: Sun, 15 Nov 2026 18:52:02 +0300
-Subject: [PATCH] dmaengine: qcom: bam_dma: Report the residue of packet
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=rdlVdlY9
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-94961bfe1a0so92714885a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:52:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1794757977; x=1795362777; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zYLg9CDhxj90tCxncwjOVnCz5bkJHfzwDw5ixcwSYAY=;
+        b=rdlVdlY9zP8I5QcooO08a+w2q8HrBN2sNX3xECK2d+eML/sd8Zkn48dk9ZCC/IcWQT
+         ER71faOAqY3oRAmrF+dwHSqz2bJtmOiZ1t3IeLlN9U/KJWP2ZUqCFSUtAU4bkZOACKyD
+         3/ezPyBoMo2gmXrrMoNCMPaCXieQbH4Zuo26ev7oP4AfbpSwDQnnBsFOqAlhdAVcqDlr
+         /WTrhv34lU+FmEcw7nCcr7TmHmTkty47Xq3euFu9M3akOFgdJ9qb1v3zdyiKFdkIAtXe
+         ydJN/oR2QjSzMGDJmVcfSTeT2V6jqSA90xz5ZleQ1LMy9ACXbwC9GezebVKpZMYKfK1a
+         O/eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794757977; x=1795362777;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zYLg9CDhxj90tCxncwjOVnCz5bkJHfzwDw5ixcwSYAY=;
+        b=zeKQB17M1dNDitK1zPg4OPrEs63FlWBfX4hkqE+eTHbqg+qVhRFbzIcgL1cSSqm7Ge
+         PReQz+nT582nZjPhnG9URFBPgDAurMT/0yyuj8UyPZcIBvb4LsXguxNfwPYOt4fL1bXM
+         TZhrljv/uWYZMsvJK64/qOKGOK7FkAD76WWg9N2kOU1WdiUCj5qXJjMo1CxT27lOm7mQ
+         UrT4S7vavdL+XCJ4DiKVzbIhBghRUxZDr6a3BkA35CEqmPF9ggyRb3YApuyhvffKQ4Vf
+         ll2iLDJWazQzD3mUe26gkoXVQpIt6DqyknfPLNhrxWFbACl3GTk8a1vI4c29NPLK70W9
+         /Eeg==
+X-Forwarded-Encrypted: i=1; AL+hErF93xROmiobBvcDjF+Kkv/SmYZgWCfeC7TvT0MUmFK4xDXWGy5PMVLfTm/qNyOTUXo1fMrVKYNOuWWr/N0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ALky5H6dblQ3l/GItPKVcTrNHXNs7xKwI/0hOgpRaFdYTUYY8
+	71gonadOal6ng3bC8wCo4+dAWOjuQ6T96NSWL30QFgyZB6WTsC816cJnob/S7FhbkQ==
+X-Gm-Gg: AYBFou2EIC9rzoZputkb9j4naP8SjH8js2Qm+IxlIT3Bl5XmBijFgJnnwu/nffqhxAh
+	wo8nCPAjriiFIY6YSTv1d44M58Df6Ei5dpqaI4R1FQXgYtKIxZE1sdCPWb47U+lzNVgDb5VYd8h
+	kqhLXSND98nyIB8lVNFiKJVCbC6HtzJQfJmIbh6p9miL1ZF1Bj+CEoHzShdk+EsxpYFpJGItZKt
+	OPMB9sgP7YrnCaM3MNq5lmRwbezzoEePTJXYMoEfaTRv8Np1FdnOaGl//EXKBeD3IPB3/8dwveW
+	M7K6gGoHx566MdOz7klKOnDLRbhxviTJEOrUyaQD8Yi5MhYZ+n3BT4MV3UmwjKneIrt33UfXmcb
+	AV6BSQLGC8+HxFQzGbVWNqfhoR2uAXLMTZHYBI5ToVtDO4ffDJ69Mx8TZUEGGnHtiy94++47fUf
+	U0IOoCndDh1ZPqHf2D79zKNVsAiQjwB9rskaTuqOtO6QlOt83lSW+E5M317qEeKbVJecRVUmeh4
+	UdP2chy92NBqYOF2TC2vvvgdWomfc6hZqSkp8WyK+EgjS2EqKGGSUatgUB1sE7lxpI1Z4jGuZYy
+	d8nFQQYjzJwVIQPYiSd84w2pfQ9TG/Y=
+X-Received: by 2002:a05:620a:2994:b0:949:7069:3faa with SMTP id af79cd13be357-949706943e3mr449902385a.4.1794757976522;
+        Sun, 15 Nov 2026 07:52:56 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d00:161a::d398])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db8d26sm66871726d6.43.2026.11.15.07.52.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 07:52:55 -0800 (PST)
+Date: Sun, 15 Nov 2026 10:52:53 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Mateusz =?utf-8?Q?Jo=C5=84czyk?= <mat.jonczyk@o2.pl>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-scsi@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
+	smartmontools-support@listi.jpberlin.de,
+	Christian Franke <Christian.Franke@t-online.de>
+Subject: Re: [PATCH] usb: uas: expose US_FL_NO_ATA_1X in sysfs as
+ deny_ata_passthrough
+Message-ID: <1e731b43-93ad-4230-833a-df6949c7d4c6@rowland.harvard.edu>
+References: <20261115124046.5286-1-mat.jonczyk@o2.pl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,111 +102,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-qcom-bam-dma-metadata-v1-1-52e4de54ffd3@mainlining.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1IohbsVYqLMRnbEaJtEkUQ7
- 260y7f4f4fIQTjCs9gh8CpR5ilDlwXYD01vRnHZYJR5aK0b/NnZY08enSf0nMhRIhyqmpvWuFo
- pC7n9Bh5ku7+v7u+49CPbdM3gOE4BtdETeQAAAA==
-X-Change-ID: 20261115-qcom-bam-dma-metadata-f34e592d400c
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nickolay Goppen <setotau@mainlining.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794757923; l=3031;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=nbWHp5UD+m3jmg5mPKY+XUaOPKi5dA/h7fGX+FvVAs4=;
- b=ZzYKVsRiGlh2aARMVM8cC00ltMblUL2jpMeqqMjz+EBGi/ruTX7+ajkO7OXF6T89XIoRdh3s7
- twSRhVNxsuLBePdb1s/gUTj4ieREVFkNo2MsdHbEezQ/DxOt9xpNC9a
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261115124046.5286-1-mat.jonczyk@o2.pl>
 
-The BAM writes back the number of bytes actually received into the
-descriptor that ended an RX transfer. Report this through the standard
-dmaengine_result (residue = length - transferred) so clients get the
-packet length from callback_result().
+On Sun, Nov 15, 2026 at 01:40:46PM +0100, Mateusz Jończyk wrote:
+> The uas driver blocks access to ATA passthrough commands for some
+> devices it considers buggy (via the US_FL_NO_ATA_1X flag in
+> unusual_uas.h and uas_detect.h). However, it does not expose any
+> meaningful information whether the command was blocked by the driver or
+> is genuinly not supported by the hardware. This creates a problem for
+> the smartmontools program and makes it difficult for it to provide a
+> useful error message (with instructions to disable UAS on the drive to
+> get SMART readings).
+> 
+> So, expose the information in sysfs as deny_ata_passthrough. Other
+> quirks may be added in the future if there is any demand.
+> 
+> Link: https://www.smartmontools.org/wiki/SAT-with-UAS-Linux
+> Signed-off-by: Mateusz Jończyk <mat.jonczyk@o2.pl>
 
-Assisted-by: LLM
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
----
-IPA v2.x uses BAM to send and receive IP packets, to and from the AP.
-However, unlike its predecessor BAM-DMUX, it doesn't send information
-about the packet length, but ipa2 driver will need that. To find the 
-length of the packet, one must instead read the difference between 
-packet length and residue.
----
- drivers/dma/qcom/bam_dma.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+Why was this change made to uas but not to usb-storage?  Was it because 
+some devices can handle ATA passthrough commands over the Bulk-Only 
+transport but not over the UAS transport?  Note that the 
+US_FL_NO_ATA_1X flag applies to both transports.
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index e62e411dc8f8..b5cfe3ce3406 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -65,6 +65,7 @@ struct bam_async_desc {
- 
- 	u32 num_desc;
- 	u32 xfer_len;
-+	size_t transferred;
- 
- 	/* transaction flags, EOT|EOB|NWD */
- 	u16 flags;
-@@ -447,6 +448,30 @@ static inline void __iomem *bam_addr(struct bam_device *bdev, u32 pipe,
- 		r.ee_mult * bdev->ee;
- }
- 
-+/**
-+ * bam_fifo_xfer_len - bytes transferred for a completed descriptor chunk
-+ * @bchan: BAM channel the chunk was queued on
-+ * @async_desc: BAM async descriptor owning the chunk
-+ *
-+ * For RX pipes the BAM overwrites the size field of the descriptor that
-+ * ended the transfer with the number of bytes actually written to memory,
-+ * which can be less than the buffer size (e.g. an IPA packet).  Those
-+ * values live in the FIFO copy, not in async_desc->desc[].
-+ */
-+
-+static u32 bam_fifo_xfer_len(struct bam_chan *bchan,
-+			     const struct bam_async_desc *async_desc)
-+	struct bam_desc_hw *fifo = PTR_ALIGN(bchan->fifo_virt,
-+					     sizeof(struct bam_desc_hw));
-+	u32 len = 0;
-+	unsigned int i;
-+
-+	for (i = bchan->head; i < bchan->head + async_desc->xfer_len; i++)
-+		len += le16_to_cpu(fifo[i % MAX_DESCRIPTORS].size);
-+
-+	return len;
-+}
-+
- /**
-  * bam_reset() - reset and initialize BAM registers
-  * @bdev: bam device
-@@ -732,6 +757,8 @@ static struct dma_async_tx_descriptor *bam_prep_slave_sg(struct dma_chan *chan,
- 		} while (remainder > 0);
- 	}
- 
-+	async_desc->vd.tx.metadata_ops = &metadata_ops;
-+
- 	return vchan_tx_prep(&bchan->vc, &async_desc->vd, flags);
- }
- 
-@@ -881,6 +908,11 @@ static u32 process_channel_irqs(struct bam_device *bdev)
- 			if (avail < async_desc->xfer_len)
- 				break;
- 
-+			async_desc->transferred +=
-+				bam_fifo_xfer_len(bchan, async_desc);
-+			async_desc->vd.tx_result.residue =
-+				async_desc->length - async_desc->transferred;
-+
- 			/* manage FIFO */
- 			bchan->head += async_desc->xfer_len;
- 			bchan->head %= MAX_DESCRIPTORS;
-
----
-base-commit: 2cc223d6ffadd48e25eff0c8a03108a5d7a61c41
-change-id: 20261115-qcom-bam-dma-metadata-f34e592d400c
-
-Best regards,
---  
-Nickolay Goppen <setotau@mainlining.org>
+Alan Stern
