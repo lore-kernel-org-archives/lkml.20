@@ -1,66 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794759437;
-	b=IwoCwW7fNzLoW/PJQCF71H7EsTQABv9DK4dH+KVwmp5dTNvTlURj0eDZZDrt4w/g3c7h
-	 xrDVuCRjnAhmGiRSpF/5fp0MVJWdPnEXUl/MJPgwKy+tZiUef/+N0pUrs1wcQYTVPWIHc
-	 unttRSir3KJqdQEOvGI50wo8AcezZFd/4Z8d6+Wg6ZeRRVooQQfQLpRTZVOfsxYJ/DbaK
-	 aRlN3SvEcAOaJ7nlQzh687hz2XBl60vmZ/iVn7LBu+XXSRf7JhvmTYGY+68f5M0cWajiM
-	 uMSNdIDPyZAeaiSC5sWNRtulW9M9Lxagq/P6YptW6UEXGOVNXi/r4DwIS+tc2gPMH6w==
+	t=1794759441;
+	b=QBNzMnWXM4ie15C67PEOWqk/HhcUeemCeIVJm52/iLTvpl+SxadfrhF71GQa1LklTloN
+	 PCprLEPL9qKDErnRGxO8O/dQF31iNZ2Cn853xakbPweHqqKQf788BXvdb0Ss2dHyW0Mpn
+	 Zyd09YLJ/5rCgyiaq0+/AkSoIUVpsTP8SBJDNhO++eReGq1lh9B1xzMLWPSf4utaXdgMC
+	 oEiSjDOft6gGXEadVIxV39yh6oeyWVztfEcN5CjmIG9ymWe5OukfQYq5hXDVPk98bUHBN
+	 a3b2PrfSg1s+pwN8UuADnSkUbHdLTO1qR735C1HEdmq2tTCR4rkOdLpwFaV0rS86z8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794759437;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NCICt+g4ba+h6Y1JYbGSqPwtwINdBha1BMylpnmqlkw=;
-	b=YcLzq37f5HstlTvxreIi7LMHfg9qpW+1mdlVaElA6QNYdGTPTWuxSwPVYP70w0K+Etm7
-	 p06HLtfS6YaMH9nV3jM2mSvYKw1cRV0i1YGrseuNP3MNqkEa3TsFK9mxEXHvXb4g7Fx0t
-	 /lwNttxCpRe4YWIfvhT2XGAhYx7IKxmCOUvJ93bjGSIOMeaOEOFH8Tl9TFFhtGv7KqrK4
-	 ivUaLDjiya9YHjG27DPkHJLNDCxQj2PQTs3QoacavINI3bJjgv1YYgo/A7NU7FqMY3QZ6
-	 ibqcvwvcfebZfEPSXyMl98QJiC0B19IHoLYWxzhZOKFMrAfyqNzvGK4VYzTlH0HxZWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794759441;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=q/z14z+d7POgY9c+yc0G66ZMePGWOZhS5NXoDt9IfGc=;
+	b=Ygs9Y+h72WWFcmRh47zOAUIoscpQGnCOBgf9e/aMj7stkSjiZ+RJ+NNodQJe8rO7t+fg
+	 vvg5LDCakm/wyxg0hoTMFZLJ0EpZB2y4tT+kqISlDern/V3GEAWof9kADkzeg/C9DS7gX
+	 Ce7lR4Dj3GcCsxewxh/A4SdzB38lpwzoTy5omOFr3whjYOeEjKB+29A1r7wHUlxetmFCq
+	 mM+U+qH7ZMOWY5FoFnaCCHaHrVkLNm9PbGhCnzIsZmmkdBMM73gPaWAMZy4lDEOmO8uSB
+	 SECrQNuiN+avzh7wvw3AGYbljmyOQwlx276avzTA8qSrfpb+HDfrwgZn85fd+SIKR9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jTGU0qPZ;
-	arc=none smtp.remote-ip=95.215.58.94
-Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R2rJaiQ5;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C3A606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:17:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C3A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7607606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:17:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7607606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jTGU0qPZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g57S+tnYE1I+WM8B/j2X3/lHuNfkcd/fJZIJlo5BpOI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794759434; v=1; x=1795364234;
- b=jTGU0qPZCdwrI1i/wZMz58bJOOopSnXcy2Ep+1AQXZPEmXUnbL1WX7MKLyJcDW9D67Sz3koD
- ockiAJ9/swiyVABwzraZ99v2DEt2JrQeE8Cuv0m/xBV9BjzJUqhdpe1tef+brwftpEBOouOuVfG
- KtxDx7idEGBPqti7itEL2fDs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 434b23527c560fa3;
-	Sun, 15 Nov 2026 16:17:14 +0000
-X-Mizu-Trace-ID: 434b23527c560fa3
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 16:17:06 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: Renzo Davoli <renzo@cs.unibo.it>, linux-kernel@vger.kernel.org
-CC: Oleg Nesterov <oleg@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
- "Dmitry V . Levin" <ldv@strace.io>, Alexey Gladkov <legion@kernel.org>,
- Eugene Syromyatnikov <evgsyr@gmail.com>,
- Charlie Jenkins <thecharlesjenkins@gmail.com>, Shuah Khan <shuah@kernel.org>,
- strace-devel@lists.strace.io, linux-api@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_2/2=5D_selftests/ptrace=3A_check_that_PT?=
- =?US-ASCII?Q?RACE=5FSET=5FSYSCALL=5FINFO_rejects_invalid_error_values?=
-In-Reply-To: <20261115152703.416254-3-renzo@cs.unibo.it>
-References: <20261115152703.416254-1-renzo@cs.unibo.it> <20261115152703.416254-3-renzo@cs.unibo.it>
-Message-ID: <DEC23DE6-5D6B-42FA-8A31-2914B730C777@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R2rJaiQ5
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so468249366b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:17:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794759439; x=1795364239; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q/z14z+d7POgY9c+yc0G66ZMePGWOZhS5NXoDt9IfGc=;
+        b=R2rJaiQ5HqWalGyhLP6BMT2OUXd2xSj7dwmo3raaDreSDVlsh0SXIqrJvIz7Umj1ke
+         iqXhOtvHFOlwItAGVn7ePPpyXoVPUG1UvvHNP/flsEHZKgJG7TOAt16YHnR8VosReTof
+         i5pQ8UELMRn2LySK6mJkLCUZFFZ/ZVW6J+zyNd+CxEd8I8OPS7rBRi2Lp90oFBimDoJh
+         q0hzdml2jg1San9mUlzZ2uHV9hLtF2tC+elpQyFBm7MEYdKuxmm4CsheWxvzBKS9h8lv
+         fhT/E86cAWJkTw3yexjtEZIibs29IZT+3wl5NRPagNRV0NZEFXbfXSzVFmvEduBbwOwd
+         z7jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794759439; x=1795364239;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q/z14z+d7POgY9c+yc0G66ZMePGWOZhS5NXoDt9IfGc=;
+        b=uXva5MYIYhkN1GV1DU16RKhoWCFuJKmrfVPYmhhdUEqPoqmwpIyugxOX7O2HgQU0OV
+         ErZJhOUBb7cP2cLK9kp40Z6XR+MxIBH8IoDVqxCw/q0jNdhVPvOFvcaKawZZ+pdU3Pr8
+         gKVWej1NIOWHla2aODc63qLneittAXp2nRgYyLs+o82cBUSvjq3yf6DoYS9VhaG0Cj8J
+         DCqEPtzJjwceya8s6evDtlzMnD88Pnq0RMnUKb0zlYmSsNKHFqt6n3hlv/CAor0DfWun
+         +p0ejISwnPbbggnAkz4J7HeO/IgajQL5gQIXERS+XRg6KqbgtC9hIszDY2LlZ0OMQPkZ
+         z31A==
+X-Forwarded-Encrypted: i=1; AL+hErFviGmkw49QYZ2dA13D1Imv3sSONxrh8q+5hw8PMqferbbtJ5nPQyRV2K3ux06dNxUe+e52P3ZfkWqUdhM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gnF0SrhlLEYi9BtX0ayuAw0lQFrI693Dl8aMw//WJ59sohwc1
+	x6unQPj1jlRr5JG6fjMzygJLKQ25zFEkGzW7kKNmNo1wQMTFhlpKaJFZ
+X-Gm-Gg: AYBFou1clowJsJEzRSTKKTyimjV0zE+9Hz60YTTswErMy7VLzFFWK/gPwGlcEmAamTT
+	9k6Neifp7FR4JnniPDvld85aQ+uNqC2ecSkcSz63B9xwsTai3J1mKjXXpfgfTADMCzyBqrbkJMX
+	yp8O48aJgcRE6rsI8lm2Pj9s36XThmlN2z+YEQ8ICTa0/89JEQz+LFPUIO4uLjrHF5ldvWV1Tfm
+	Zm5dvFKoFaNJcblM8JyJqAWrc/wRIp9wIQD4igSqcV3HArIsJ1RJEk/2TH52nHZlc/9gd5RlrsV
+	oybZu7DdtncDqn/DUaFscsL+cNMAMdpds/mzW56Z9q4uD/+2xfa7lBKspjoGJaWPZ+nAiXAHCzn
+	Eq4mbzskdQiEnglMUbJUqCsIYoLodPyRF4aLW37m+D/1h4pXb8RvJjsBSdeRO9VIUfAo/XzugI0
+	UvD7gzzpJ6hZ+vVQmrPHb4u7nfohsy4Cu7S7lYbKtRi5MpNiVBIbZgWPfOUfkp1K8EJ+bMNBks8
+	Jm66u/ZCebP12C7EeTmfLiV4KYihKkYATOhsBcxjP7NPRfMP6/Qi0KXLowK0Cb7B42pAbzCKan6
+	v3l61wSCeegSb1sSdcHMnf1sROdiWTqZw9kWFTzlvBRBDEXwpvNwAqyw9hjEXy3VPjRq6fiBRu8
+	RkVzZmCXLwXNiIhw3ejDsGWjaa4yHEBOfkFpT2RvT78txXO3i/HD1uFJjCtOvMBXZqB2nKmbKOq
+	5TscnbrJjuMRJ6NNj6fxxhkQ==
+X-Received: by 2002:a17:907:1c85:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c50963bbc82mr656270766b.43.1794759439146;
+        Sun, 15 Nov 2026 08:17:19 -0800 (PST)
+Received: from desktop.home.arpa (2a02-1810-1e16-ac80-898e-1938-27eb-b890.ip6.access.telenet.be. [2a02:1810:1e16:ac80:898e:1938:27eb:b890])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b57c5bsm319832666b.49.2026.11.15.08.17.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 08:17:18 -0800 (PST)
+From: Stijn Cleynhens <stijncleynhens@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: netdev@vger.kernel.org,
+	netdev-bot+sashiko@kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 2/2] net: dsa: realtek: rtl8365mb: keep the neutral PVID in VLAN-unaware bridges
+Date: Sun, 15 Nov 2026 17:17:01 +0100
+Message-ID: <20261115161701.2351256-1-stijncleynhens@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <179432406157.994134.6897059294926012210@kernel.org>
+References: <179432406157.994134.6897059294926012210@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,109 +109,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 15 November 2026 15:27:00 GMT, Renzo Davoli <renzo@cs.unibo.it> wrote:
->At every exit stop of the set_syscall_info test, try to set with
->is_error set a few values outside [-MAX_ERRNO, -1], check that
->PTRACE_SET_SYSCALL_INFO fails with ERANGE and that the return value
->of the system call is left untouched.
->
->Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
->---
-> .../selftests/ptrace/set_syscall_info.c       | 51 +++++++++++++++++++
-> 1 file changed, 51 insertions(+)
->
->diff --git a/tools/testing/selftests/ptrace/set_syscall_info.c b/tools/testing/selftests/ptrace/set_syscall_info.c
->index 1cc411a41cd6..366ef0ec228f 100644
->--- a/tools/testing/selftests/ptrace/set_syscall_info.c
->+++ b/tools/testing/selftests/ptrace/set_syscall_info.c
->@@ -126,6 +126,54 @@ check_psi_exit(struct __test_metadata *_metadata,
-> 	}
-> }
-> 
->+/* Error values that PTRACE_SET_SYSCALL_INFO must reject with ERANGE. */
->+static const long long bad_error_rval[] = {
->+	0,
->+	1,
->+	ESRCH,
->+	-4095 - 1,	/* -MAX_ERRNO - 1 */
->+	-2147483647LL - 1,
->+#if __SIZEOF_LONG__ > 4
->+	0x100000000LL,
->+	-0x100000000LL - ESRCH,
->+#endif
->+};
+On Tue, 10 Nov 2026 15:21:01 +0000 netdev-bot+sashiko@kernel.org wrote:
+> - [High] In VLAN-unaware bridges, rtl8365mb_port_commit_pvid() now sets
+>   pvid = 0 (VLANMC index 0, EVID 0).
 
-yeah sure. Bit of a odd way to show error codes but okie dokie.
+Jakub, as you asked for a reply: the review is correct. Multicast
+entries have no EFID, so with all VLAN-unaware bridges and standalone
+ports classified to VID 0 and VID 0 in IVL, they share one {MAC, VID 0}
+entry. v3 will not do that.
 
->+
->+static void
->+check_psi_exit_bad_rval(struct __test_metadata *_metadata,
->+			const struct ptrace_syscall_info *orig,
->+			const struct si_exit *exp_exit)
->+{
->+	struct ptrace_syscall_info info;
->+	unsigned int i;
->+
->+	for (i = 0; i < ARRAY_SIZE(bad_error_rval); ++i) {
->+		info = *orig;
->+		info.exit.is_error = 1;
->+		info.exit.rval = bad_error_rval[i];
->+		ASSERT_EQ(-1, sys_ptrace(PTRACE_SET_SYSCALL_INFO,
->+					 tracee_pid, sizeof(info),
->+					 (uintptr_t) &info)) {
->+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: error rval %lld accepted",
->+					bad_error_rval[i]);
->+		}
->+		ASSERT_EQ(ERANGE, errno) {
->+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: error rval %lld: %m",
->+					bad_error_rval[i]);
->+		}
->+
->+		/* the return value must be left untouched */
->+		memset(&info, 0, sizeof(info));
->+		info.op = 0xff;
->+		ASSERT_LT(0, sys_ptrace(PTRACE_GET_SYSCALL_INFO, tracee_pid,
->+					sizeof(info), (uintptr_t) &info)) {
->+			LOG_KILL_TRACEE("PTRACE_GET_SYSCALL_INFO: %m");
->+		}
->+		check_psi_exit(_metadata, &info, exp_exit,
->+			       "PTRACE_SET_SYSCALL_INFO with bad error rval");
->+	}
->+}
->+
-> TEST(set_syscall_info)
-> {
-> 	const pid_t tracer_pid = getpid();
->@@ -476,6 +524,9 @@ TEST(set_syscall_info)
-> 				check_psi_exit(_metadata, &info, exp_exit,
-> 						"PTRACE_GET_SYSCALL_INFO #1");
-> 
->+				/* invalid error values must be rejected */
->+				check_psi_exit_bad_rval(_metadata, &info, exp_exit);
->+
+Luiz, this ties in with your mail. One correction first: the patch
+does not move ports without a PVID to the bridge PVID, it does the
+reverse, it keeps the neutral PVID on the ports of a VLAN-unaware
+bridge. Your main point stands though, and I tested the SVL direction
+on hardware.
 
-Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
+The switch has a port-based FID (enable mask at 0x07ac, one FID per
+port from 0x07ad). I tried it on an RTL8367S and on an RTL8367S-VB, the
+latter with the L2 entry layout from Mieczyslaw's v10:
 
+ - The port-based FID alone changes nothing while the VLAN4k entry of
+   the VLAN a frame is classified to has IVL set. The learned key
+   stays {MAC, VID}.
 
-A feature suggestion on the table here is that you can modify the
-bad_error_rval[] parameter thru sysfs so you'd provide custom addresses or
-custom whatever.
+ - With that VLAN4k entry in SVL, the learned key is {MAC, FID}, and
+   the FID is the one of the ingress port, not the one in the VLAN4k
+   entry.
 
-E.g:
+ - A static unicast entry written as SVL with the port's FID replaces
+   the learned one in place. The roaming case from the commit message
+   passes, 10 of 10 pings, on both chips.
 
-Echoing 0 to the sysfs directory. Then checking dmesg to see if it passed
-or if a hole happened.
+ - Multicast entries follow the port's FID as well. With an SVL entry
+   whose only member is an unused port, 0 of about 40 frames reached
+   the CPU while the ingress port had the entry's FID, and 38 (39 on
+   the VB) once I gave the port another FID.
 
+ - Two VLAN-unaware bridges on the RTL8367S, each with its own FID: the
+   same MAC and the same group in both give separate entries, deleting
+   the group in one bridge leaves the other's entry alone, and traffic
+   of one bridge does not hit the entry of the other.
 
+ - Tagged frames, on both chips: with the VLAN4k entry of VLAN 20 in
+   SVL, a station sending in VLAN 20 is learned as {MAC, port FID} and
+   the roaming case passes, 10 of 10. With the entry in IVL as today it
+   fails, 0 of 10.
 
-> 				/* apply the changes */
-> 				info.exit.is_error = set_exit->is_error;
-> 				info.exit.rval = set_exit->rval;
->
+So for v3 I would drop patch 1, leave VLAN 0 in SVL, and:
 
+ - give each VLAN-unaware bridge its own FID and enable it on the
+   ports of the bridge while they do not filter,
+ - keep the neutral PVID on those ports, as patch 2 does now, so that
+   untagged frames are classified to a VLAN in SVL,
+ - write the VID 0 FDB and MDB entries from DSA as SVL with the FID of
+   the bridge,
+ - as a separate patch, write a VLAN4k entry as IVL only while one of
+   its member ports filters, and as SVL otherwise, so that tagged
+   frames in a VLAN-unaware bridge are looked up by MAC as well.
 
---- Thanks!
+VID 0 is then no longer part of any lookup key, and multicast is
+separated per bridge by the FID. vlan_filtering_is_global is not
+needed. What remains is a VLAN that a filtering and a non-filtering
+bridge on the same switch both use: it stays in IVL.
+
+The FID is 4 bits on the RTL8367S and 2 bits on the VB, which limits
+the number of such bridges.
+
+Does this direction work for you? As this is no longer a small fix, I
+will send v3 for net-next, keeping the Fixes tag, unless you prefer it
+in net.
+
+pw-bot: cr
+
+Stijn
