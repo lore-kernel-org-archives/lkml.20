@@ -1,63 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727469;
-	b=Y/y89YgvWgNmupyghFAQqe1g33XVlAQhaXnM+bPqW714XUqRPvpmkLNV5RwFr92vyVDj
-	 SzcP/1+BwdjkCNUlw7AJ7ify+E9RPffosgGjRDPKBmBIwA6MubGlCwEj1ctxjUmbNCV5/
-	 PnpthTvMaPb4yzW5z5AIegysjK4y1jL7dwolANePKWxI2izDPAj5lon3L0J6dJbzDYK5u
-	 Oup7/X+MvA1f9cb3mb1VlIa9CYdtaMI2xR2KQ2rIFNOkWY/v87T5OL9Ly4mGh4Sp3WlHj
-	 Yw8XYQ60pcy+Y+EcI/r41b6pk7xu01HF5A8WbNk99+qiGyFWmOHuD99dnXVknyto43w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727469;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=XJvoq1Xx3i//LS85IKNJhTpt4GaOTRDB2ZKGZaEdhIM=;
-	b=KlK05rLJewPy1iz7cc5wY0YIHXSuMQCv9KT6JhnhOOlUEH+368guQY4PqtPIlV8fI5fx
-	 keVroTAu86foTw+ZUI1yOrG/vM2g8B4bgDHK5DKuzWsUu6T+uBs8C7roIE6y4j69Wxyfz
-	 /qfIG6AgYFIIr8TQlall5nw1EhCQqMm5z3GdY9JPX8pBV2PlZhYqRwGSrypUam10xnvR8
-	 H5nRltZ/4O+ikbYha83h9VtL8iEtJJmv0aTWXjCMnAI1LibomwxL4ksaEmQYcKYNPP1wj
-	 N1N1/OzSCffiAtI2PP0i4mQpGS/UNIV2dcawJbNJWc1mgw61FN8O2eGNT4xfb5UknSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjCdzTFF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794727807;
+	b=bOBo39LvPpkDidoi2r1dhD5JQ4WeqVe0fAl/59FCAkIsiFVfvT2jAOEreupfGfI7uj1G
+	 E0kqM2D4wRveIqnZYVvMqUXnQfeAyBDul9PL0RXc/nJqlXN9623NwG/1+5IGhNW2XwoTZ
+	 bicpIT1QnffodFD4VfRZ1K2hC0cIJ5oCqsKEwgyb6NQtn9tlcsX5DyeJL/a3qt1wnJQFX
+	 bg8X4TiuW4ex8Eixlf+RWuPA1lmgEgBD9cpSXW7kSMdgVNTCFjkv1HEUxlLuws2zCz3wr
+	 RnYCiKvwCMYdUwTr992gLz3t61/xsd+DUEehJJhoVp3Fp7do7CRvyrLKJNNHbtjoq4A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727807;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sFRNHl/A+EBSc+ljJstso20ObPhS8+gGdpPRrKt1w80=;
+	b=SDg7tiPS9UfdVzM5Iv8MULXgiQRDidkzzzU2cTjpLnx8AWgtJH/AKwKzRlK9L3bJ6T2b
+	 zR1eTH3SrfI7e2lh8UlB8YJ2yfl3xlNjqFzsGX0zez/4zlc6JFbd0DxnRUOFvFU53WFd1
+	 IQOL/iEmj4pn+cmox1KM1nhsvrp28TM/phzGLS0XDD/y8A9i228iTKksYvdQlpfk3Uce8
+	 WOAj7TPxnOYqoihY/U4tUYIY3C+68YS16lUyRoL9N9v83+Hu42GQbbpIaBEv800oSRGu1
+	 IAy4kNlSvaSb1Wr+0AL6EKXk1n9Lk1+ACuhAtF5Jtp1Tv7HQpuNyQoS9AhYzq3Cs/sQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=K7gpPQNA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.64
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010064.outbound.protection.outlook.com [52.101.193.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0204606A8A9;
-	Sun, 15 Nov 2026 07:24:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4ED606A31D;
+	Sun, 15 Nov 2026 07:30:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB4ED606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjCdzTFF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFDAF1F000CB;
-	Sun, 15 Nov 2026 07:24:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794727469;
-	bh=XJvoq1Xx3i//LS85IKNJhTpt4GaOTRDB2ZKGZaEdhIM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bjCdzTFFWOTQxYzdNReFNPy7ZvRQqVahtRIZC2T6jYZvNMXHdRGUcTk+G/es81Gzd
-	 XyHevjYjEx3BAvNNCrG0bddehM0wH2Cxkczo7zAXWq0pcAoPfbFeK/JpmpZp//T6i4
-	 PwJLUMw+HMhjcRcgjqIP08F9kvS9TWI4nmCMLKVDWv8Dq4D5HHzkqtzvQ5Cc0ZtcQU
-	 4UhG6sfbm91CAh1sIXcOvWqjoFB1PYgtceNoL4lO7XmkJIoeRt3RKDDzX0k/CtwMpe
-	 8AF1SxC9A/0BHheAo4iNj8ZwRT4vPzk/vRY41D55fTkM7XVLekiBE4ekuaID/1qVkN
-	 ox/df4CzkDifQ==
-Subject: Re: [PATCH v7 net-next 9/9] net: dsa: netc: add PTP one-step
- timestamping support
-From: netdev-bot+sashiko@kernel.org
-To: wei.fang@oss.nxp.com
-Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- richardcochran@gmail.com, linusw@kernel.org, linux@armlinux.org.uk,
- wei.fang@nxp.com, imx@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org
-Date: Sun, 15 Nov 2026 07:24:28 +0000
-Message-ID: <179472746829.2199510.2714083926199671078@kernel.org>
-In-Reply-To: <20261111062753.1397582-10-wei.fang@oss.nxp.com>
-References: <20261111062753.1397582-10-wei.fang@oss.nxp.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=K7gpPQNA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H+f4pAtiphNBVySsDIQwnbxRk0yHRzA+fUZSWj5A52icZNDV/xTmUIIPlZkojRhLFC9LU8UaMqsglSxcTYhAN1xKjk7JDvIyEby4SbgXvrZd29AXoFLHXJazwH5y7fvxq5cQQ80T0oGjht2EnI27C/eKq8+XdGs0p5hRHyqkhfntBMoLHx05EpmuIBFaBnXzJhYkY4vjygnWhNeEPP7w6PrWw2VKbUkqukSce5qLD2l6ZLqOphmjEMqn0VJRlHzUtkelDb+its8GZjQvqtvhYSdn53e2MLuY72jFPk+BKmylpWd4Pt7fQfIWI5xBsKcOMFgRalaFHoKlFV0f7LUkLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sFRNHl/A+EBSc+ljJstso20ObPhS8+gGdpPRrKt1w80=;
+ b=IbVvgTbsKtRo7OB86lG6NXdW2FEGfDip0Aazvyo4HwCS6zJB9MA3ws6WbNXJC6mWi48yXp4nfThbg3wsNpyGiS8W8QPHyh6anHHYtfnPvGL/R/RFMOnbjEq6rnQsrq1YydX3dahzW+AyeLHT6SRCSio2sOJAfA/Ocd5vrevEKc17DQLiFx9Os77b2tB/1ZC+srtv2ku50P0sXDqdy2DBABri4/xQohH4F1k2UMjNKO+KBNYea3l+nQVACJe+aJvmqVsy6sUFYH2AdE1N6vZMcMpAAFWJn7u4CCY1o2N7AvHhdq2605KfQKKr/dmtwMVwgIhxywh74WmmaDXJ3GIvAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sFRNHl/A+EBSc+ljJstso20ObPhS8+gGdpPRrKt1w80=;
+ b=K7gpPQNAqZsnJiLKwQyUySt43qwrwPQFbb0MnHvC6RqicNPjiNalhp0jSf1bY+KMnlzpIEvECcGl7BDeJ/x0xvHWxepWyFyFrIubSYBXAwUiyVq9mQvocspXD9RWhCnQremkFc2g6yk5Zg+WnN7i+fgmosMuFFAyPb+kNUA5eWNUZKeC+Hl6crDlnaVXdE+nn39FuElwbXWqDSd4AEkuJR3Cl7IHjlreTgMovV+SpC+Agsh1iFBExObWAUn9q+mf5X3h3r/JdL6SubwGj+BbSc4fCIJ5gHc/d97inhfVPWbWxNCE9GOmFKF9hM801R++JButTOlqJKDZE6/ok7ngSA==
+Received: from MW4PR02CA0029.namprd02.prod.outlook.com (2603:10b6:303:16d::34)
+ by MN2PR12MB4079.namprd12.prod.outlook.com (2603:10b6:208:1d5::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sun, 15 Nov
+ 2026 07:30:01 +0000
+Received: from BY1PEPF00026967.namprd05.prod.outlook.com
+ (2603:10b6:303:16d:cafe::8f) by MW4PR02CA0029.outlook.office365.com
+ (2603:10b6:303:16d::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Sun,
+ 15 Nov 2026 07:30:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BY1PEPF00026967.mail.protection.outlook.com (10.167.244.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 07:30:01 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sat, 14 Nov
+ 2026 23:29:46 -0800
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sat, 14 Nov
+ 2026 23:29:46 -0800
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Sat, 14
+ Nov 2026 23:29:40 -0800
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Alexei Starovoitov <ast@kernel.org>, <bpf@vger.kernel.org>, "Carolina
+ Jubran" <cjubran@nvidia.com>, Daniel Borkmann <daniel@iogearbox.net>, "Gal
+ Pressman" <gal@nvidia.com>, Jesper Dangaard Brouer <hawk@kernel.org>, "John
+ Fastabend" <john.fastabend@gmail.com>, Leon Romanovsky <leon@kernel.org>,
+	"open list" <linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+	Mark Bloch <mbloch@nvidia.com>, Nimrod Oren <noren@nvidia.com>, Saeed
+ Mahameed <saeedm@nvidia.com>, Simon Horman <horms@kernel.org>, Stanislav
+ Fomichev <sdf@fomichev.me>, Tariq Toukan <tariqt@nvidia.com>
+Subject: [PATCH net] net/mlx5e: Fix XSK pool corruption when switching channels
+Date: Sun, 15 Nov 2026 09:29:34 +0200
+Message-ID: <20261115072934.353341-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,222 +120,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF00026967:EE_|MN2PR12MB4079:EE_
+X-MS-Office365-Filtering-Correlation-Id: a18c81c7-f9ba-4039-5294-08df42ea426b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|36860700016|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261102123227099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mMss/ffZN5xNu632jl93QLbbBsDYVxgSD/VBCPyspBu6St81KUvp2+cl40qrwCpJ8tsGvuZ9ZDixxqbGOeZHXTtRCuFkou0yOubgJBs9g6WS4wTh4adTyRHNUIPPMSSA8/jIs6s6tn6TOMoXEm9TnztTyh/ZQK072572Iz8wv9tHtDGlU1xUt+UOl0dmKOg5F7e6JCX7yqHWhOu/3ENsogBeriuIVqrhmbad9ByBmfu+TZPVE8unuuw1iAf+Ex2kIc4jpOGlNvJgfW2/3oBJT24ZvhyjNkq2h/pH+8KeqbXuaiHcwMmnp2Kf5blIe2hq4R9n+s9F9SFQC+gF4sgK4fYSjEwTfNLOXnjPZ+Z9r74+zR3Z1n05BzlBTT/XO0zgboL0DOtME/bH8rMJsUyaxd6TRWF/vL3tnKDkURza9gmnertzMEZrkWM3hn7La+xHJokflIM++vgmWmEEdFylrck5rUwRqMSDiv9EEbUiyrG1D3r9fqNrVilrtMCXUOcq/splUyZPdj+/KKrW6Q4bEHNDvDa8PicPIeyAXV5iw18DGknruljaT+zaxrae2URxRqqIemTWcnMVZHGDTmdH8gUzAeXGlIkqiVtGXgyXDiZIvRAW8vO2RfrBkXgBIYDUnyRC34CLWNtKSeLFiIZyeeXHKKSYUc3Cuufp0PjxwNfY1QHxhL4jvZO8iVRaDwNjcRpxSzmAwkUgRE+Jb6OZZg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SqN7nNEBWRfJRBSGviImOrPNwm43N9JLb2WzTnQTuU5M/z6tt1Vm7Osb1b3M0Vn4odBemndmtig30njG8DYMjvmVaWIc9OJIsXTDX3xGnvUtpAf3BIYnjgB/lYAPjFC7vhQ4RN5mxFGsfS3JLKrGHCGQQyh7NX844OzHOQMr43Hjpy6QIaAJWy8kEqPkK62Mv3Mgo3wPX0ZEIRSMjkkxK2HFQg8XzvuQK6pJ3a7BJB2kElr2SsQiYKzpj73ckBhAiwJbbS0WdmrdzHNA+LxMvf8e73YNM8b4zOl7R772rH3pro+AVljF2k/QAdQkBLwBW9j0e0qq0YmH2x2iypwP893UIo1hVjJg0DVbWlMpUEfwO30EIELTyX+AfIKXqrl26WmHs0kTC8Ugb5tUGglc0APjS7Fa62pkaEso0py/vSjxWAWmAI5Mf5xtZ4jV9MFa
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:30:01.3750
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a18c81c7-f9ba-4039-5294-08df42ea426b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF00026967.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4079
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+From: Gal Pressman <gal@nvidia.com>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
+When the device supports tis_tir_td_order, mlx5e_safe_switch_params()
+closes the old channels only after the new ones are activated.  With an
+AF_XDP socket bound, the old and the new channel hold an XSK RQ on the
+same pool.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The old RQ returns its buffers to the pool while the new RQ is already
+allocating from it. Since the pool is lockless and expects a single user
+at a time, it gets out of sync.
 
-- [Medium] In one-step mode, netc_port_prepare_onestep_sync()
-  (drivers/net/dsa/netc/netc_ptp.c) falls back to two-step whenever…
-- [Low] The comment in netc_onestep_timeout()
-  (drivers/net/dsa/netc/netc_ptp.c) says that adding one tick makes 'the…
-- [Low] When one-step mode is enabled, every Sync-classified frame on a
-  user port goes through one per-port FIFO, onestep_queue, capped at…
-- [Low] PM_SINGLE_STEP is a single per-port register that the hardware
-  applies when a subtype-3-tagged frame egresses.
+Close the old XSK queues before activating the new channels, the rest of
+the old channels can still be closed later.
 
---
+The crash was hit by our regression tests, with a random sequence of
+binding xdpsock to every queue and later changing the ring size.
 
-net: dsa: netc: add PTP one-step timestamping support
+This resolves the following call trace:
+  BUG: kernel NULL pointer dereference, address: 0000000000000068
+  RIP: 0010:mlx5e_free_rx_mpwqe+0x113/0x250 [mlx5_core]
+  Call Trace:
+   mlx5e_dealloc_rx_mpwqe+0x38/0xb0 [mlx5_core]
+   mlx5e_free_rx_descs+0x126/0x170 [mlx5_core]
+   mlx5e_close_rq+0x81/0xb0 [mlx5_core]
+   mlx5e_close_channels+0x4b/0xa0 [mlx5_core]
+   mlx5e_safe_switch_params+0x34d/0x3e0 [mlx5_core]
+   mlx5e_xdp_set+0x287/0x3a0 [mlx5_core]
+   dev_xdp_install+0x269/0x400
 
-This commit adds one-step PTP Sync offload for NETC switch user ports.
-The tagger hands one-step Sync frames to the switch driver. The driver
-queues them per port and sends them one at a time from a work item,
-programming the shared PM_SINGLE_STEP register and inserting a To_Port
-subtype 3 tag. Other PTP frames still fall back to two-step timestamping.
+Fixes: 3b88a535a8e1 ("net/mlx5e: Defer channels closure to reduce interface down time")
+Signed-off-by: Gal Pressman <gal@nvidia.com>
+Reviewed-by: Nimrod Oren <noren@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+---
+ .../net/ethernet/mellanox/mlx5/core/en_main.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-> diff --git a/drivers/net/dsa/netc/netc_ptp.c b/drivers/net/dsa/netc/netc_ptp.c
-> index 0bcc01ebf01de..738855bd4bbf8 100644
-> --- a/drivers/net/dsa/netc/netc_ptp.c
-> +++ b/drivers/net/dsa/netc/netc_ptp.c
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index 72bca10c579d..97081a644d5a 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -3421,6 +3421,23 @@ static int mlx5e_switch_priv_params(struct mlx5e_priv *priv,
+ 	return 0;
+ }
+ 
++/* The old and the new channel of the same index are bound to the same
++ * XSK pool, which is lockless and expects a single user at a time.
++ * Close the old XSK queues before the new ones are activated, even
++ * when the closure of the rest of the old channels is deferred.
++ */
++static void mlx5e_close_channels_xsk(struct mlx5e_channels *chs)
++{
++	int i;
++
++	for (i = 0; i < chs->num; i++) {
++		struct mlx5e_channel *c = chs->c[i];
++
++		if (test_bit(MLX5E_CHANNEL_STATE_XSK, c->state))
++			mlx5e_close_xsk(c);
++	}
++}
++
+ static int mlx5e_switch_priv_channels(struct mlx5e_priv *priv,
+ 				      struct mlx5e_channels *old_chs,
+ 				      struct mlx5e_channels *new_chs,
+@@ -3452,6 +3469,8 @@ static int mlx5e_switch_priv_channels(struct mlx5e_priv *priv,
+ 	mlx5e_set_xdp_feature(priv);
+ 	if (!MLX5_CAP_GEN(priv->mdev, tis_tir_td_order))
+ 		mlx5e_close_channels(old_chs);
++	else
++		mlx5e_close_channels_xsk(old_chs);
+ 	priv->profile->update_rx(priv);
+ 
+ 	mlx5e_selq_apply(&priv->selq);
 
-[ ... ]
-
-> @@ -68,8 +97,283 @@ static int netc_get_ts_req_id(struct netc_port *np)
-
-[ ... ]
-
-> +static bool netc_onestep_timeout(struct netc_port *np)
-> +{
-> +	u64 expire_time;
-> +
-> +	/* Use monotonic jiffies_64, as the PHC may be stepped backwards.
-> +	 * Add one tick since the ns-to-jiffies conversion rounds down, so
-> +	 * the software window is never shorter than the hardware window.
-> +	 */
-> +	expire_time = np->onestep_tx_time + 1 +
-> +		      nsecs_to_jiffies64(NETC_ONESTEP_VALID_WINDOW);
-
-[Severity: Low]
-Is the "never shorter than the hardware window" guarantee accurate?
-
-The hardware window is 2^30 ns of PHC time, because the 30-bit tag
-timestamp and the SFD capture both come from the NETC timer. This window
-is measured in jiffies instead. The one tick margin is about 0.26 ms over
-1.07 s at HZ=1000 (roughly 240 ppm), and about 2100 ppm at HZ=250.
-
-The NETC timer driver allows a much larger frequency adjustment:
-
-drivers/ptp/ptp_netc.c:
-	.max_adj	= 500000000,
-
-Say the PHC runs slower than the system tick, during servo convergence or
-just from crystal tolerance. Could netc_onestep_timeout() then return true
-and let netc_port_onestep_sync_enqueue() reprogram PM_SINGLE_STEP before
-2^30 ns of PHC time have passed for the in-flight frame?
-
-Should the comment be softened, or the margin widened by the maximum
-frequency adjustment?
-
-> +	if (np->onestep_state == NETC_ONESTEP_IN_FLIGHT &&
-> +	    time_is_before_jiffies64(expire_time))
-> +		return true;
-
-[Severity: Low]
-Is it safe to treat PM_SINGLE_STEP as free based only on elapsed time?
-
-After netc_port_onestep_work() programs the register and calls
-onestep_sync_xmit(), the tagged frame may not have left yet. It can still
-be in the conduit qdisc, the ENETC TX ring, or a switch egress queue (for
-example under pause/PFC or a closed Qbv gate).
-
-Three paths seem to reprogram the register without knowing whether the
-previous subtype 3 frame has gone out:
-
-  netc_port_onestep_sync_enqueue(), once netc_onestep_timeout() is true
-
-  netc_port_tstamp_timeout_work(), which sets resume_onestep after 5 s
-
-  netc_mac_link_down()->netc_port_disable_onestep() followed by
-  netc_mac_link_up()->netc_port_enable_onestep(), which sets
-  NETC_ONESTEP_IDLE without tracking frames already handed to the conduit
-
-Suppose the old frame goes out after the register has been rewritten for
-a new Sync with a different layout (L2 vs UDPv4 vs UDPv6, or VLAN vs
-untagged). Would the MAC then apply the new correction offset and CH bit
-to the old frame?
-
-The NETC_ONESTEP_VALID_WINDOW comment says such a frame "is already
-invalid, whether it has been dropped or not". In this case, though, the
-hardware could add the residence time at the wrong byte offset, for
-example inside the IPv4 header or the originTimestamp. It could also
-update or skip the UDP checksum wrongly. The frame on the wire would then
-be malformed, not just carrying a stale correction field.
-
-This depends on when the hardware latches PM_SINGLE_STEP. That point is
-inferred from the commit message, not checked against a datasheet.
-
-[ ... ]
-
-> +void netc_port_onestep_sync_enqueue(struct dsa_switch *ds, int port,
-> +				    struct sk_buff *skb)
-> +{
-> +	struct netc_port *np = NETC_PORT(ds, port);
-> +
-> +	spin_lock_bh(&np->onestep_lock);
-> +	if (unlikely(np->onestep_state == NETC_ONESTEP_PORT_INACTIVE))
-> +		goto free_skb;
-> +
-> +	if (unlikely(skb_queue_len(&np->onestep_queue) >= NETC_ONESTEP_QTH))
-> +		goto free_skb;
-
-[Severity: Low]
-Can an unprivileged local sender crowd the real Sync frames out of
-onestep_queue?
-
-SOF_TIMESTAMPING_TX_HARDWARE needs no capability. ptp_classify_raw()
-treats any UDP datagram to port 319 as a PTP event, and the sender
-controls the payload (msgtype Sync, twoStepFlag clear). With
-HWTSTAMP_TX_ONESTEP_SYNC set, such frames take this path:
-
-  dsa_user_xmit()
-    dsa_skb_tx_timestamp()
-      netc_port_txtstamp()
-        netc_port_prepare_onestep_sync()   /* NETC_PTP_FLAG_ONESTEP */
-  netc_xmit()
-    netc_port_onestep_sync_enqueue()       /* shared FIFO, drop at 512 */
-  netc_port_onestep_work()                 /* one frame per response */
-
-These frames share the single per-port onestep_queue with the ptp4l
-Syncs. A flood would delay the real Syncs, or get them dropped once
-NETC_ONESTEP_QTH is reached.
-
-The same sender can also send non-Sync event frames. Those take the
-two-step path and can use up the 16-entry ts_req_id pool. Then
-netc_port_onestep_work() drops the real Syncs when netc_get_ts_req_id()
-fails. If tagged frames are also lost in the conduit, the queue stays
-stuck until the window check fires on a later enqueue or the 5 s timeout
-runs.
-
-The ts_req_id pool exhaustion already exists before this patch. What is
-new is the serialized one-step FIFO.
-
-[ ... ]
-
-> @@ -409,6 +718,67 @@ int netc_port_hwtstamp_get(struct dsa_switch *ds, int port,
->  	return 0;
->  }
->  
-> +static void netc_port_prepare_onestep_sync(struct netc_port *np,
-> +					   struct sk_buff *skb,
-> +					   u32 ptp_class, bool *twostep)
-> +{
-
-[ ... ]
-
-> +	/* Ensure the buffer is linear and writable so the packet can be
-> +	 * parsed and updated in place. Otherwise, fall back to two-step.
-> +	 */
-> +	if (unlikely(skb_linearize_cow(skb))) {
-> +		*twostep = true;
-> +		return;
-> +	}
-
-[Severity: Medium]
-What happens here if the frame really is a one-step Sync (msgtype Sync,
-twoStepFlag clear)?
-
-skb_linearize_cow() makes a GFP_ATOMIC copy whenever the skb is cloned or
-nonlinear. A clone is common, for example from dev_queue_xmit_nit() when
-tcpdump is attached to the user port. So this can fail under memory
-pressure before the message type is checked.
-
-netc_port_txtstamp() then sends the frame down the two-step path:
-
-	if (tx_type == HWTSTAMP_TX_ON || twostep)
-		netc_port_prepare_twostep(np, skb);
-
-netc_xmit() then gives the frame a subtype 2 tag. On this path
-originTimestamp is never written, PM_SINGLE_STEP is not programmed, and
-the correction field is not updated. The frame still says it is one-step,
-so no Follow_Up will be sent.
-
-Would the slave then compute its offset from whatever originTimestamp
-user space left in the frame? The socket would also get an unexpected
-hardware TX timestamp through skb_complete_tx_timestamp().
-
-The commit message says:
-
-  "Frames that are not one-step Sync still fall back to two-step
-  timestamping."
-
-and:
-
-  "If the originTimestamp field of the sync frame is not in the linear
-  buffer of the skb or the correction offset exceeds the hardware
-  capability, the frame will be dropped."
-
-Should this path drop the frame and count it in tx_dropped, like the
-offset check further down? The ptp_parse_header() failure falls back the
-same way. There the header is incomplete, though, so that frame cannot be
-a well-formed Sync.
-
+base-commit: b71c101bbb9814d163c00234d43c41f0a17907d4
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111062753.1397582-1-wei.fang%40oss.nxp.com
+2.44.0
+
