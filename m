@@ -1,105 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702734;
-	b=SDpKpXtTDf6f8fCc6LyXJL/IFxhr/dBghd6s22h6Lb7clAQQi5t852i7qTLJ460G4fDa
-	 xZMBIiprJcnyIFCV+WMQ5P9SUjhxRGV5cqVAOaeXgerR1CrGnXaemjYaujugPIdPidx9/
-	 nJr4s87BNyqioCT0DWcBuUJ9q1SUREoKKRINaAjm2DG/x8k3M7UeWhT+7UjO4R2Q6jrbh
-	 S2iVxPSowExRmfg//gBz91Q/shllP77/PDpjfH2ML+uGPaLaEAXDyngoTv1MK09UYuNQU
-	 59rwbHP9WfYtWV9yCsYeM51wDbFUGHNBiV6/W9ujsWwIsMtF/PYisTFNxsZC2p3txiA==
+	t=1794702916;
+	b=e7Vn2N9MtzJgdvG6fGpTSo5BZA7pdpN9/G/KXhsq7OMf2iVWWrehIsyoDDTcsZT1GVZl
+	 6gLprfFcSIPvfCWLvwH5ZEiA735Y60zExw4s6QvS/bea2HehjZVqltG85/uxdJrAcRQhj
+	 hLDBzcq/N05bbJnX6JYI6h8hp6VvNOt0YfNCIHdsYFwlZT6FpdCjx49zfo7zD5jtaZitq
+	 hCZWTrEc/u4ViWdZ9skD+30Q1/GaAxp8Xcf6J/loskrcLsv+keW8hMrddFtsMoqpZbd6I
+	 XRLPiRSk1xCVzNgCncmFX9Kopr5RBHwOIBNyKqVm2E1CO8FupQBT8tneExLfUth4dLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702734;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702916;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=5BzEzIkh88UF/eFKoP7bFiAZvwEVTm/vwY2OAtRkH6Q=;
-	b=Cx/wnpcT/qjkzCdHQzw15GtlAosEriWKS0jphJB9TSyRHcy7rtc2kcAdkkt4de9b+UMn
-	 P5uY/KOFk39C6w3z3aNRgUSS6YR5i9srLQYdmb4ds+QuRLIGjMeKHH0NCqwTY0O47wp7A
-	 sVeKtnp5xPkiHYhJKpxbMaujFp47NLdzb/QKs1gr88kBp/fzT0AufHKbF86P7S2ToCoCK
-	 ULUfROqmFxlzzNkPEhv1N5mqGRkLug6pwx5yP9A9p+CJsFYlT+3XL6Su8YkO7M2KnssKl
-	 NC+g6tpCxfiSCcj8WN1Lkyyu36Bt2ueV3E/DIH0AcI3O8SQW+ZaIhtd5L336wZdDLMA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2nYIukBoRE89MLYt2M3FDs+Pz1fZECVW1PjFbco9lqI=;
+	b=FWnJ73qDN8Se8B1uEI9fyNE8D/UM13Uw9yQtAB5oBPEmPL6LmVyy8rAh74vRy9DiMAN5
+	 Cfmm4eTbrTzAnf3atT/ACoj2GA+tDOVbP2I7sThcg9QnoCYkbwqOzR8Y0TCtnxLwMyZKt
+	 jeGxPWn+P8jNHs3Zdv4vNpv8Ch/gP6Q2nt68xW7Ivo69tLEJgP1JZlpNFrqVpufewXJPR
+	 8IHINYp4o/7kMIJ7kHJFONYu6ThIoczqN/Pf93L/7bndlnB3g6p8aS2XYpO2UabR72Ca4
+	 81WXVh1vkWgEgOdPxxZKSl+5+4Dt0gtZjZI/LeAZsYoaEJceiidK5Ng8nmR8QEzzrRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NuB+pYQG;
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alRD4mQZ;
+	arc=none smtp.remote-ip=74.125.224.43
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F56606A8AF
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F56606A8AF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DF7606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:35:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3DF7606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NuB+pYQG
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so3640479a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:32:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alRD4mQZ
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-677bc4704cbso2318163d50.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:35:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794702732; x=1795307532; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5BzEzIkh88UF/eFKoP7bFiAZvwEVTm/vwY2OAtRkH6Q=;
-        b=NuB+pYQG05P8vQsvSqK8FGXmuv6ceF9SEljR1BuShW+W/8vSijjlGoVxffAOL1Xuit
-         FVKS/QagbramNrGHQ7YQcw0KXf5Z1rEHgu8J9YT+7duzmX+5k+DIm70GcYL1Aj0moXUo
-         ZbSgnLz7FveQGyQDM9sNm2M8Bu+DDGoSDYyOnUujpQBR5IqA/cb8XvQ35+n2qf68Lwle
-         +nPHPawZqGNoYKcpYs4YYZHnqEEt9MeLiKNt34QXOpZLGMndedcl94C89CAAGK2Jc/W8
-         mvtkgZtTYqmUa8XMvuu8WvWp8r7vaoHxmm8RsNTnDfAWmDWKMzHpkttLgwVJ1m14oeK1
-         TvIw==
+        d=gmail.com; s=20260707; t=1794702915; x=1795307715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2nYIukBoRE89MLYt2M3FDs+Pz1fZECVW1PjFbco9lqI=;
+        b=alRD4mQZf1yKAdYgBXU+nGRJF2V7dX6f6n7iipUFWPAHMK4eBhGkTz5n52PIMkkChB
+         SODXx7LxHfLE3n+yAPm9PYfFKr9myDDH/NNqjm8jeKs842mMQIyF7UrpHWKmS7SKRVjy
+         LE3tbvWRxWQWTyQWhL4AjaEOwYJy0aJC6AJd/mnLGUWvouBUYQcJYRaSVf5/41UPHJgK
+         B4wVoFCcjilp8lt7V4nmJNVBwXI+JdxLgVViyiVY7/6fq0sR5x4OHsv8uPhhbkO0oU8f
+         bgnt1B7/IZzX6DEj0GU/QPjkLLdBzJHIjk9QDcAkEZTxagfaEVnnq4EI86LoB6jWvsyQ
+         pv8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794702732; x=1795307532;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5BzEzIkh88UF/eFKoP7bFiAZvwEVTm/vwY2OAtRkH6Q=;
-        b=UFzoO0uFBmKHkJ4sUJ4mkkcoCmdwTohEuFoSB2pGIvpZsyOaQwMKTDAnRsp4KHITgG
-         jZNF63nON+q4MhHt8E/uL/l7nLT2eMB8lHUroTcmeaTQWnGKbWwrqfIHlhMpnGljOvLE
-         uqBearf4uN4ZVRnbnhsylGHjJM1537yNEgTwla8bsdY7r3f79GePjOwH4DoQOt/jJU1W
-         hLzfcSIjP0S3HFNInRbutNeKSc/V3g6pf1OAefFgwi/+uus1RpIgEp735mLJWVHpKODc
-         Nzu12ZHC7PMskQ3TlNLk31pLaxZHGW8Hb3OcGX3qT4J+LeGJEQTeHCgYw8yzHL19xP5R
-         gvyA==
-X-Forwarded-Encrypted: i=1; AL+hErEHQMxAWLRk72dxshEITF+y1rBsY0ne2bfurQ+s1fQhJLfXhuemufOXgmSvefM38DbUwgvtghcJflksLIo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QhPm/x7HC8VnKMCtHURMU1ouYTgV561n6tTGmKIRyua1xgRUl
-	nvX2bA319bfp36YMw3T9L6XOaYSuKeP2OuTjJJveVYtAyodD/4F32+Y=
-X-Gm-Gg: AYBFou2yoUl3AELhowWvGLh2iZWSVuL1CcZl8qZQNSZFWaj5TD61wsssEXR7tSsVALR
-	nRjs+htQC1ZuQq0FnBVWKIJ8IO1XGvmBnQQETpBDQ9O+9gu9S3wruPClEgDIu3V7Ia4hWyNeVz1
-	Dk+XQnWFrrZuz/9/g2+6GjPMkFbBgYQ1jrczWmMqQrk+kldY6UEi2b5HfxcWsu+G1tO99JWfKNO
-	TBjlD/ELWkCeqI59UJqOEfnlxkOZXuXZuWKYSY6nRXFblea/mYd36xNz4eitMf/2nQwRPkAANcm
-	AszVlIF1vBII03r5nCmNkqOsrnNtFDb1xJBzMCearvPP8nwEuSDB40gstLE9TycgHWN6id7c0/O
-	lcmcmZE8tf0XtHdREWUgL6df/zzxmERmgA7a6RWXIoXwQ1oe2wjBT7rU/d3bEfoPvIf4NZszGl+
-	HXOlKhRy+alHWdTr9zEssXHfQprrgVWk/fpd6A0iZNi5MEY08rDFTPISjB/l1XBs7uTBwiujd6G
-	b1yx4VsmeE+/XCO2BDCthl5HEuq2JAC+ZOWFe0s2R8mXG4q5xJtVYBrdH0bqNDkpDPparYok8JW
-	j2NjD2Hj9s0O+cflNEfj5mlrQakalsq8pBtaR8lT2AMyvadh8dKVpYDirzpTn2kzKO+YKSDmvXL
-	GnJgSNhLbqlvwf0bSwJPryg5hUvTjN8vhU4M=
-X-Received: by 2002:a17:907:3f02:b0:c50:5186:6dc2 with SMTP id a640c23a62f3a-c509636b5f5mr660429766b.24.1794702732209;
-        Sat, 14 Nov 2026 16:32:12 -0800 (PST)
-Received: from sohrab-omarchy.taila18b31.ts.net (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c4b7sm260695166b.1.2026.11.14.16.32.10
+        d=1e100.net; s=20260707; t=1794702915; x=1795307715;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2nYIukBoRE89MLYt2M3FDs+Pz1fZECVW1PjFbco9lqI=;
+        b=V5NTCXAqze9mR6jUXhIp1tkmWrFUGPF+MFnxC5JuBwwFmE7D7xu8qoPD4+s6p9a0Tv
+         NuynZtDKXJoMUxkYrMDj9S0vsOQinMHB4HStbDooRhXDXSj1VPNp3qsEulHQfcRwWMRS
+         GjcoZTC3eF+crzIyKc7Hx+QQEzgKif0mPF3LcpY/HmKi/3ob+DJpQENC5zvWEFsJ4/IP
+         SWV0jtvAL3IVNIPDX7J0JLMFSiAfVa0uKLBNfSmbmBA/Y7IfQyldtZR2N9iJahHd/0/+
+         RB7oq/lnOZtNNaPfaphJyC40/WbOnJf2ZNPk6MZlR4w2RJ0ztuJEyxfzbhRGxMJDW4i1
+         eXJA==
+X-Forwarded-Encrypted: i=1; AL+hErE6MXEhpCkaF5Nzlcj0T6bcS/8cvUz5eoiFhUevq2JHvzeEDsYeeF3iTJDXQbvfb0iKSTV4OSH00wgipXE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3Y2vKOpN3W83pS3TVOy2souSk4VrvCwEzjUeO0Np9bS1LyYoB
+	lUHYsrDc2+z9/K1SHaK/NpkufLd6LgmxBdUdLQwpczmhqlHZ6W/X2t0r
+X-Gm-Gg: AYBFou23g1DUNnywcWUvSxUb+DhhHCcGOAaQIX4e155kF/3yLR8aoWf3YMVkXRmNOxS
+	oK2EH5KrbGieVzbHxRTshfnatvkl/J2z6D1egJynYnADxDjBd2V6EvSTNK1aPqyUaaZP7RHs+Uz
+	XYslomGcYmAQxtCNmPIxgqiMYpzJGql9z7YBkvDQZBBFmC2FbLtRbmPH7vmN43AhiK/pb0WhEb8
+	4dHsAmbx3+lMrYjmf1b22nt4hXkb69JiFUMcIvf5UvMhSUR9G2hD/87J2JKtoYHUyKKIVtYKv3I
+	ToNn0UnisFnVRn38N7pT6q5Cx9iDrvaiZoQQaypEQu5y/b1NQuMltm9g6k2Ett2gqhTAXWbJBEX
+	G5NpioJZk35wm/Pw6O/45855Or8lE8DsKAVsruykimyA0n83CYrLUvdBaRNu4QmvXHzLh7UqVux
+	5sUoQWgLzqN6V3/vRKJTYyKPNd2+gJTg1fuor1G0GCZotqWxo85cZijR5pRRqoDIdVSZR5w100B
+	ZZfiG6dNxe6XagkyoPW0bpjBlSV+60vuodJLjc9K+FstaneIg31Ffl34oWFdjoewx2ixi4F8iSO
+	PjtUZZbUPw1akDLTbFeBml7psdu6ojS0J4FBm8ZWSqxv7NvahCrbCRu04ZQNEmQI/AOiwr1n465
+	+ig==
+X-Received: by 2002:a05:690e:a47:b0:67d:a95e:27d2 with SMTP id 956f58d0204a3-67da95e2a0emr689331d50.84.1794702914732;
+        Sat, 14 Nov 2026 16:35:14 -0800 (PST)
+Received: from codey.attlocal.net ([2600:1700:22f5:3930::a])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a55b09esm6013734d50.6.2026.11.14.16.35.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 16:32:11 -0800 (PST)
-From: Majid Hajiheidari <majidhhdri@gmail.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	abelvesa@kernel.org,
-	mani@kernel.org,
-	admin@mswin.me,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: qcom: sm6125: Add CPU idle states
-Date: Sun, 15 Nov 2026 01:31:58 +0100
-Message-ID: <20261115003158.391171-4-majidhhdri@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261115003158.391171-1-majidhhdri@gmail.com>
-References: <20261115003158.391171-1-majidhhdri@gmail.com>
+        Sat, 14 Nov 2026 16:35:14 -0800 (PST)
+From: Lalit Maganti <lalitmaganti@gmail.com>
+To: acme@kernel.org,
+	namhyung@kernel.org,
+	irogers@google.com
+Cc: adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	jolsa@kernel.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	leo.yan@arm.com,
+	Lalit Maganti <lalitmaganti@gmail.com>
+Subject: [PATCH] perf tools: Stop using the deprecated argparse.FileType
+Date: Sun, 15 Nov 2026 00:35:07 +0000
+Message-ID: <20261115003507.1872482-1-lalitmaganti@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,121 +108,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add per-CPU power collapse states. The downstream "trinket" low power
-levels use exactly the SM6115 numbers (silver: entry 290 us, exit
-376 us, min residency 1182 us; gold: 297/324/1110 us; PSCI CPU mode 3),
-so reuse them in platform-coordinated mode.
+Python 3.14 deprecates argparse.FileType, and pylint 4 warns about each
+use of it. The perf build runs pylint and treats its warnings as errors,
+so the default build fails:
 
-Cluster (domain) idle states are left for later; their PSCI parameters
-still need to be checked against the downstream levels.
+  pmu-events/jevents.py:1494:26: W4904: Using deprecated class FileType of module argparse (deprecated-class)
+  pmu-events/jevents.py:1496:33: W4904: Using deprecated class FileType of module argparse (deprecated-class)
+  tests/shell/lib/perf_json_output_lint.py:23:31: W4904: Using deprecated class FileType of module argparse (deprecated-class)
 
-Tested on a Xiaomi Mi A3: WFI and cpu-sleep-N-0 show up in cpuidle and
-the usage counters increase.
+Take plain file names and open the files after parsing, as the
+deprecation warning suggests. The output of jevents.py is unchanged.
 
-Signed-off-by: Majid Hajiheidari <majidhhdri@gmail.com>
+Fixes: 5fe83fb352c8 ("perf build: Make pylint build test opt-out (NO_PYLINT=1)")
+Link: https://lore.kernel.org/linux-perf-users/20261018070110.927636-1-lalitmaganti@gmail.com/
+Assisted-by: LLM
+Signed-off-by: Lalit Maganti <lalitmaganti@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm6125.dtsi | 32 ++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ tools/perf/pmu-events/jevents.py                    | 12 ++++++++----
+ tools/perf/tests/shell/lib/perf_json_output_lint.py |  8 ++++++--
+ 2 files changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-index 1b148e453..c06842c0c 100644
---- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-@@ -44,6 +44,7 @@ cpu0: cpu@0 {
- 			reg = <0x0 0x0>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -60,6 +61,7 @@ cpu1: cpu@1 {
- 			reg = <0x0 0x1>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -71,6 +73,7 @@ cpu2: cpu@2 {
- 			reg = <0x0 0x2>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -82,6 +85,7 @@ cpu3: cpu@3 {
- 			reg = <0x0 0x3>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -93,6 +97,7 @@ cpu4: cpu@100 {
- 			reg = <0x0 0x100>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -109,6 +114,7 @@ cpu5: cpu@101 {
- 			reg = <0x0 0x101>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -120,6 +126,7 @@ cpu6: cpu@102 {
- 			reg = <0x0 0x102>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -131,6 +138,7 @@ cpu7: cpu@103 {
- 			reg = <0x0 0x103>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -173,6 +181,30 @@ core3 {
- 				};
- 			};
- 		};
-+
-+		idle-states {
-+			entry-method = "psci";
-+
-+			little_cpu_sleep_0: cpu-sleep-0-0 {
-+				compatible = "arm,idle-state";
-+				idle-state-name = "silver-rail-power-collapse";
-+				arm,psci-suspend-param = <0x40000003>;
-+				entry-latency-us = <290>;
-+				exit-latency-us = <376>;
-+				min-residency-us = <1182>;
-+				local-timer-stop;
-+			};
-+
-+			big_cpu_sleep_0: cpu-sleep-1-0 {
-+				compatible = "arm,idle-state";
-+				idle-state-name = "gold-rail-power-collapse";
-+				arm,psci-suspend-param = <0x40000003>;
-+				entry-latency-us = <297>;
-+				exit-latency-us = <324>;
-+				min-residency-us = <1110>;
-+				local-timer-stop;
-+			};
-+		};
- 	};
+diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
+index 080e04b51b8c..99b9813ca242 100755
+--- a/tools/perf/pmu-events/jevents.py
++++ b/tools/perf/pmu-events/jevents.py
+@@ -1490,11 +1490,15 @@ such as "arm/cortex-a34".''',
+       type=dir_path,
+       help='Root of tree containing architecture directories containing json files'
+   )
+-  ap.add_argument(
+-      'output_file', type=argparse.FileType('w', encoding='utf-8'), nargs='?', default=sys.stdout)
+-  ap.add_argument(
+-      'output_string_file', type=argparse.FileType('w', encoding='utf-8'), nargs='?', default=None)
++  ap.add_argument('output_file', nargs='?', default=None)
++  ap.add_argument('output_string_file', nargs='?', default=None)
+   _args = ap.parse_args()
++  if _args.output_file:
++    _args.output_file = open(_args.output_file, 'w', encoding='utf-8')
++  else:
++    _args.output_file = sys.stdout
++  if _args.output_string_file:
++    _args.output_string_file = open(_args.output_string_file, 'w', encoding='utf-8')
  
- 	firmware {
+   _args.output_file.write(f"""/* SPDX-License-Identifier: GPL-2.0 */
+ /* THIS FILE WAS AUTOGENERATED BY `jevents.py arch={_args.arch} model={_args.model}` ! */
+diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+index 8cde22ac9d97..1324dd8c9ec6 100644
+--- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
++++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+@@ -20,10 +20,14 @@ ap.add_argument('--per-die', action='store_true')
+ ap.add_argument('--per-node', action='store_true')
+ ap.add_argument('--per-socket', action='store_true')
+ ap.add_argument('--metric-only', action='store_true')
+-ap.add_argument('--file', type=argparse.FileType('r'), default=sys.stdin)
++ap.add_argument('--file', default=None)
+ args = ap.parse_args()
+ 
+-Lines = args.file.readlines()
++if args.file:
++  with open(args.file, encoding='utf-8') as f:
++    Lines = f.readlines()
++else:
++  Lines = sys.stdin.readlines()
+ 
+ def isfloat(num):
+   try:
+
+base-commit: a1c3b14c28ebfa79dd56e2743c2fbad0c02a7146
 -- 
-2.56.1
+2.56.0
 
