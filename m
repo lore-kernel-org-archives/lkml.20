@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753458;
-	b=clou5q363e1aYhTpuWxS3504JH3fIupeykzwwvHSKNOVSsJxb1tishlyh9F5d+5ElCgI
-	 1sLS9XrJvHNIcLrz59JiUUxVKT80Chr/SYJ/Pfx5VYBRtkzIhZWBJxVg5nCXvQRHal8AH
-	 VZbX9UnNndfMEdVxu7HcVC5YlOG8rWfPZBu3v1zEhhe1H2G63MnXMYES20mFKT8kOGTo/
-	 uN3Yc1gqvLughSGFORR0unWUJ7n8F1CVDuZJfx4crvD0IhTHHdqgkSyY9gCIIz5fK92lR
-	 lj/4nkNH3roa4jBiNjqBIRE5hVIUWBX4SSfBWGvID02icbvBAE52EoQTX1jLCNV4OZQ==
+	t=1794753464;
+	b=Dcxc1pQsa5DwE1juYT2tl53d6F/e7ySTQfJw49w0VE5RdhZ3GVIz6A87kJkwaBBwEQ3L
+	 iP3JNEEyjV08fl2D9q3vZQSYET+CHQf8T9yL7bt6LaIv2HBi54PzjU0mcrjW26j9sYYp2
+	 Tv4Z7PKemJWOFSfAKPHVyQ3t3OxgjEHN9Kjt7yxXaMq6Tuqykv2k3TB1VrOXVz/o3X39u
+	 /56foml/u06mVyIIHKq85re+D8TNIf2aOU/3HGbKcuEonFcEko3A9xAZNoGH4UOt+g8lC
+	 rp0eWXY9w8Wu4baq9rDW869d4yp/jzLnXTPxDyLiol+7xx9ZwXxquNZZV2pyI5bgnCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753458;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Ou+D8+UafU+jp4Hw7Aa+E+nQ0dVT5dxPA488UsJVsjg=;
-	b=r3bthQAyoPLYPBygxR/GtjrcJOSP8F1vg7zw1tPn08JvGfIFKVHdzEA5AHSgC9FPW/f3
-	 1HIlHjouBwzHXNpWWUv913sskNhE2cQioR9r94SS4CFaRZ1OuPt/iyzRSqokORRUKhQcq
-	 j1iTCo+azHbsta+zjlTiiENVOxceV1Fm+FE4fjfcNjLK8cyNjyEuUSYZ5tcmPVJjJMt8h
-	 Y0UYgp6xC65os9QzW1JVXKs4n/zau0puvwnZE+67GhyHDYcqO+FURJUQEWCb0acDYFg0o
-	 HneRGdRbOpue8Kiic/ivADG6ZmbuKJEi5t6FWkuzFWOll/rEsPGHHn0Y1KzKHptpFWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753464;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LZrrte1o5NSIPT2kPnWiRAF/yUTjYoJq4hLlMOko4J0=;
+	b=tveX6rC1vtBN3lPUpdyJAqk1XI248xZqegqSwEJzZOQ2sfd1MIfTYGvGNxoeLpATbdPq
+	 9EpBfsYUgAY8kdlaDD6AUwZvXJrX4NmcaMX2Mbv08mq8XR8w6gkStIPGNu2Q9+MfmKEou
+	 N5PAybi78APlU2B/pvmFGEAzijWIpZn9VgSjCaxe8fRQwwzicr1PVSx6EseKkQafvYE7n
+	 Zi4Z+CWpslu3AJEL+R4o7M9CJhy2VsU05HWuyMffmnmFXspdbH4h289eK0hHteNrXPlRT
+	 EberocKi/cmJuJZdRp5YQayG9pN+KYnjk41GNe/MPJCYheUIFDr3ijcCSSZTJspdiTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAg6Qxne;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIGObF5+;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFCB606A335
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B73606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:37:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0B73606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAg6Qxne
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0CC1F0092A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:37:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794753458;
-	bh=Ou+D8+UafU+jp4Hw7Aa+E+nQ0dVT5dxPA488UsJVsjg=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=NAg6QxneUukEEMO/5KyW40RXWbYpgoyRdO8F0fApuPvpzdbZcgBdFBzuCnHyRQKm3
-	 1i6xmcO08M3XbiEER05ZsQg9jmA1Vy/qXSm+OWetsz18ImZeiLjNaR7UPDWW9aaU5I
-	 rsLIS80li64OvTApTvnSGNz7LwuLNAvHA45p+thSHkKJ+LcDj9MqbNkZg0mTsuQd0D
-	 7R6vbWgXJT+G5IOfRUY+hU6vUdr32dk0l0VlJng9RBdywzBNq7vPLXCkl8muse76JR
-	 XjTnh0GNCu2oTpBV9xi4gQi54wL67zSbAJkPQlWlZzkJ7wfd+DOBLocz7YsULyMr0T
-	 TCXWp2BHHKLaQ==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ae2fb3fe2fso21914581fa.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:37:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErETWxhA6JDUZmDa21r013IftBOznlm268xObgPYWqXbLqpA3gX+IIhvLd6N08NQ3mlWBWx9L8AsFyl+oZo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/w9oSntYbjQoNLGz3zWQstwaGmRkPNH0repFQ/WOq8mG8VG1dJ
-	F2Qgl1rXBgk/gB5zZ2LOVPsfU3NEAwIQ7XcFqRQNOS2czhkXL/Ts0BkUyMHagarYQqRwE5vNt3Q
-	toaXEJdv5tGwcmAiasEEWdGApXtz15Wk=
-X-Received: by 2002:a2e:be8c:0:b0:3a9:9a2e:27fd with SMTP id
- 38308e7fff4ca-3ae2b35bc76mr26369541fa.0.1794753456820; Sun, 15 Nov 2026
- 06:37:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIGObF5+
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4922523d1afso1225019f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:37:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794753462; x=1795358262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LZrrte1o5NSIPT2kPnWiRAF/yUTjYoJq4hLlMOko4J0=;
+        b=JIGObF5+n9z2rF2DAEPIH2wEAG3uYTfbAus5HXg0lWmaFmYAMCO4Q4uM0BUtPHeg4A
+         GPyH/Dr0LX9Cj/EkDbK7Slo/ruNLFYLk+ahuPHjUnLKBw0jjG7Z1njYWhFvhBj9UihxN
+         UICSUPnKvcHJ4+4lSH0rEhuQK8PCcjMpwmCDjtumC/7XZY5PWWkA/gAb8v9nKkSbxrV/
+         Y9ThN/v4ygArVzLZAXb3YM7BxUVKfigR84V8gBR45JeqbTPR2CfifN2+sENM0bcHdFtM
+         lj61zu7W35zudlmbCik3sb15ddV3QrjhbaumMuJP4SWZ2/FHSVE/m0/Qf+yUjxTHpyeM
+         Qc+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794753462; x=1795358262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LZrrte1o5NSIPT2kPnWiRAF/yUTjYoJq4hLlMOko4J0=;
+        b=Ew8Rixc90GR+6Y/G4r8KlEbAT51eFdAnlD8NfcRKjS5GYoMfVF3kTCUj0/DDe31VM/
+         /MI4gTBbvq7++MZ/2tVbvKlmmtbY8/40HLSmJS6oeEoy3053nWzvdAnBUCttGgEKcwyI
+         Ld6SzkvbYlp6UNbO1I/dwa+5MEGcdaZ+L1s9C9TefNf/BDS/RqK+n+KyQ7TO4WakUbIs
+         saaTqgKT3VS0OJLTKGst6Y82zxIz2oMSgfaqGz7gGSTqbx/yvtArb2Ug3OSuZk9GvA6z
+         fVRh+u9disudolYwC5YFAY3o4+eVTBHVCxuCcwYZlXRt4xfIpFNYRWkoYx++3NgbjEw1
+         k6hg==
+X-Forwarded-Encrypted: i=1; AL+hErHQ7k6fe9dIPOXHIilGDZ20vVXtiWWHD5dDvBztT5ESHJcHKAjal1VaN/B3kpsTvEGCmHms5+bX61yktvA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ooV8HrXJKLIXSgdT6AFVrKpYnK1oJ8NO9oNJCe6TR5QAsKceB
+	EI0hEt58jq6uJN2w8KSL7Qz0nngYM8SPTPyn4kUqI2RTRH9ZyirquzHw
+X-Gm-Gg: AYBFou2PI06S8htbSTIiAoLwwTcumVr4y3dBfae35ZZ5fUNWMFN5AuIMJ0HtJR9V+4C
+	XMhGv0M/KMKTR/q3UL1graTqjGmw1Q8mk9NHF/x13mosSYGhW0dKOfkYirrng4t88thNnKNCWd5
+	nTbLdBP4afJL87XmVGvHh23QvnYEethWACdQnJbuiPaLvoyHb7PK6NE6IgWPVDNEYAoKHoStUm/
+	H3oUvfEfCBMo53aTWj7OGRebMKxb4lg1a09lF63Gtjwz6bUoe1sLp5bYqrm3SXfG/PbKZHacBKn
+	cRmwD90FwZ0MMgrqyU+2LGZX6VjMFlg9kyYw2lQcTDe2W7iPWLJE9WXy3QpupqrzyPfubIOWZnA
+	rHuSsGaMa4OTF4pPMry+hRSawU1nlgNqzZ0gvLwNXSp2lMRmfHqdcZdcXzPnykS5YIB6dhSvc98
+	g0iAc9X/S5LLLA84PMfVdZyulC5Es5/sfBQgF9/OG8ge+KW6x6v0QoA4VBqqEblET7VMnrs1fvq
+	KFnXfj78+Nxxk7SoF+hVSemBZWX5rkb/a2XOanoTcblGKFvZ7ZLwDGsPaJn4BqX8pGMLP2Zbk2E
+	hntWUzfioC9F3MOM0LtZ+l5iJo5r65OPpL+TvqggNDSKYKRTnY5rK31kkhViByTloN6MyvXHP5f
+	A5YK2fDg6aVxJcwI=
+X-Received: by 2002:a05:600c:6092:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4bb55a44be7mr159448425e9.8.1794753460960;
+        Sun, 15 Nov 2026 06:37:40 -0800 (PST)
+Received: from puma.museclub.art ([2a00:6020:b326:d300:d19:a765:d8d7:bedc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ac1159sm196174025e9.4.2026.11.15.06.37.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 06:37:39 -0800 (PST)
+From: Eugene Shalygin <eugene.shalygin@gmail.com>
+To: eugene.shalygin@gmail.com
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] hwmon: add three more board models
+Date: Sun, 15 Nov 2026 15:25:37 +0100
+Message-ID: <20261115143708.492883-1-eugene.shalygin@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,138 +100,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
- <20261115061102.229680-9-jernej.skrabec@gmail.com> <CAGb2v64wZv7TV1Jb-r0qtvRz=dWWO_YkhYxMwxBNcyVUoKi9VQ@mail.gmail.com>
-In-Reply-To: <CAGb2v64wZv7TV1Jb-r0qtvRz=dWWO_YkhYxMwxBNcyVUoKi9VQ@mail.gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 22:37:23 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67Kh_dTmZ715-RSsQD=Y=hjmi2kZ0ESLqxxs8aPZ7ydaA@mail.gmail.com>
-X-Gm-Features: AclHuK_SACmwWg6PkvqxFn5K18kN5QhlBxadj6BOscc2Q_hjlnBtJkiANF8wPgA
-Message-ID: <CAGb2v67Kh_dTmZ715-RSsQD=Y=hjmi2kZ0ESLqxxs8aPZ7ydaA@mail.gmail.com>
-Subject: Re: [PATCH v3 8/8] drm/sun4i: Switch DE33 to split plane bindings
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
-	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, sboyd@kernel.org, 
-	Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 10:26=E2=80=AFPM Chen-Yu Tsai <wens@kernel.org> wro=
-te:
->
-> On Sun, Nov 15, 2026 at 2:11=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gm=
-ail.com> wrote:
-> >
-> > The shared plane driver and split register resources are now in place.
-> > Switch DE33 mixer discovery to the new bindings and remove the legacy
-> > per-mixer plane setup. Mixer register space now covers only display
-> > blending control, so limit its regmap accordingly.
-> >
-> > The old DE33 binding is not supported anymore, since it can't describe
-> > shared planes and was never used by any device tree. If it's detected,
-> > print an error asking the user to update the device tree, instead of
-> > failing silently or misusing the plane register space as blender
-> > registers.
-> >
-> > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > ---
-> >  drivers/gpu/drm/sun4i/sun8i_mixer.c | 195 ++++++++++++++++++++--------
-> >  drivers/gpu/drm/sun4i/sun8i_mixer.h |  10 +-
-> >  2 files changed, 140 insertions(+), 65 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/sun4i/sun8i_mixer.c b/drivers/gpu/drm/sun4=
-i/sun8i_mixer.c
-> > index dbde80b32080..0970be6aa035 100644
-> > --- a/drivers/gpu/drm/sun4i/sun8i_mixer.c
-> > +++ b/drivers/gpu/drm/sun4i/sun8i_mixer.c
-> > @@ -13,6 +13,7 @@
-> >  #include <linux/of.h>
-> >  #include <linux/of_device.h>
-> >  #include <linux/of_graph.h>
-> > +#include <linux/of_platform.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/reset.h>
-> >
-> > @@ -25,6 +26,7 @@
-> >  #include <drm/drm_probe_helper.h>
-> >
-> >  #include "sun4i_drv.h"
-> > +#include "sun50i_planes.h"
->
-> Nit: doesn't seem to follow the order we use elsewhere. I think we normal=
-ly
-> would do:
->
->     sun4i_drv.h
->     sun8i_*
->     sun50i_planes.h
->
-> >  #include "sun8i_mixer.h"
-> >  #include "sun8i_ui_layer.h"
-> >  #include "sun8i_vi_layer.h"
->
-> [...]
->
-> > @@ -566,12 +582,34 @@ static int sun8i_mixer_bind(struct device *dev, s=
-truct device *master,
-> >         if (!mixer->cfg)
-> >                 return -EINVAL;
-> >
-> > +       if (mixer->cfg->de_type =3D=3D SUN8I_MIXER_DE33) {
-> > +               /*
-> > +                * The original DE33 binding described planes as part o=
-f
-> > +                * the mixer, which can't work with more than one mixer=
-.
-> > +                * It was never used by any device tree, so it's not
-> > +                * supported.
-> > +                */
-> > +               if (of_property_match_string(dev->of_node, "reg-names",
-> > +                                            "layers") >=3D 0 ||
->
-> No need to wrap this bit.
->
-> > +                   !of_property_present(dev->of_node, "allwinner,plane=
-s"))
-> > +                       return dev_err_probe(dev, -EINVAL,
-> > +                                            "Unsupported DE33 mixer bi=
-nding, please update the device tree\n");
-> > +
-> > +               mixer->engine.ops =3D &sun50i_engine_ops;
-> > +       } else {
-> > +               mixer->engine.ops =3D &sun8i_engine_ops;
-> > +       }
-> > +
-> >         regs =3D devm_platform_ioremap_resource(pdev, 0);
-> >         if (IS_ERR(regs))
-> >                 return PTR_ERR(regs);
-> >
-> > -       mixer->engine.regs =3D devm_regmap_init_mmio(dev, regs,
-> > -                                                  &sun8i_mixer_regmap_=
-config);
-> > +       if (mixer->cfg->de_type =3D=3D SUN8I_MIXER_DE33)
-> > +               mixer->engine.regs =3D devm_regmap_init_mmio(dev, regs,
-> > +                                                          &sun50i_mixe=
-r33_regmap_config);
-> > +       else
-> > +               mixer->engine.regs =3D devm_regmap_init_mmio(dev, regs,
-> > +                                                          &sun8i_mixer=
-_regmap_config);
->
-> At some point we need to move most of the bind function to the probe func=
-tion.
-> None of the devm_* stuff gets released if the bind function fails.
+Add three boars, submitted by users via GitHub repo.
 
-It seems I was wrong. Though it probably still makes sense to move anything
-that could return -EPROBE_DEFER to the probe function to make it fail / ret=
-ry
-early.
+Eugene Shalygin (1):
+  hwmon: (asus-ec-sensors) add ROG CROSSHAIR X870E DARK HERO
 
+John Roden (1):
+  hwmon: (asus-ec-sensors) add ROG STRIX X670E-F GAMING WIFI
 
-ChenYu
+Kostiantyn Korn (1):
+  hwmon: (asus-ec-sensors) Add support for PRIME Z590-A
+
+ Documentation/hwmon/asus_ec_sensors.rst |  3 +++
+ drivers/hwmon/asus-ec-sensors.c         | 34 +++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+)
+
+-- 
+2.56.1
+
