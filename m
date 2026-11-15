@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794782304;
-	b=AIKAxrPfQLQfVQii0j8CQBKgv5K0alH9AloaaPTpObzTRCQY709kp++f7E9wem5kL018
-	 yuGxN8oGoPBjquSN3YlF4+OLOE4i8p6doXedWTr6UMANpRzRSsHHMPg1EJPPf7fwO+gyA
-	 79JJVAUc7GKSfjZJJjU3E1P9Pdqr/qhb5uuUgAn4Bx6GPOmANbTZlWoKR+7drcOD2Dfq0
-	 fqM2xTNfyKhJ0zkSdaQ5dyNHiBxLXGyLxjRPT8tC54p3tQ6e+ceqwEXgGhQX/xOnf/kd/
-	 DHLYNOmT+iA21AD7KjLelUoXZKDuxDAz6AZiu59Tm0HhJmDktZKHEVHxN+dEVEo62Sg==
+	t=1794782383;
+	b=Ww1sr3PRfTQZcJkkP+XLZSnvgE7iWW3CLoTOVBpv7RwziL8BeRPzXutuTzFV1Z28TWBU
+	 Pe+mRJCmvQJY3lhxV10rAY4vMCTOPkitY05jGQnA8HaZ2oHc+NC9AYwnAm21Hp5mRggk4
+	 HhyOV5rvayhwPR0A7mmnDH6j4MKH53HyyaMEFIVMiHS1VT42GYpAcXkmXwymDuVU9pRuG
+	 g6Fny9ZY/D9mfEMq2XBWhGD+Bpt5A0LIBqUvYeMkle70Bekds0oqmbW0x8YfEEp+DWAbP
+	 kkP8s/6xK/WaUrXvg4fUebcSKQAKQ9uLmQbWUAV70C54sEobKatB8IT7FPJ8JzbF7ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794782304;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jP2BTh7rVpWo9Im/wV5enbfenEoL6kTHcUKyx3s6YMc=;
-	b=sBcwHjVEe1bUoq//JjrwKcMRUEAcMG0Aq+bzsPq8O5sJuhiM3+y+eKiqlALRQChlrbLn
-	 UNSPHeZbLx5YuxDL37a4SrlEvaadys4BTmQdb0qg6rn4cIHgf9zK13lM1gw5wSBLOs/Bo
-	 giwozAflqpPPp7FupwhoJSunxQv/Dnh0kEYnd+F0j2OEEmjdaTp+SVszVlvaHtmlQn2KV
-	 cVKwCkTvbMXmIbOqRUpAzh9/lQaV55E8GAD/UN6tHMZQ2zp0eRPwQ6AgSNhI7474GGG3L
-	 oS2gIi1oJyR+x9frykw9gVI5romKDXOsqlDwqgZwQFs2XOypaIhWr2FKWBw5YB5pAyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794782383;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:X-Source:
+	 X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=QJyd6HCIaaTvcuVGrB3oSb9PcvIB0O1Dg8GiEWgja0Y=;
+	b=VA7wA9P7n5TGSvSvBzTanlVn4wFMyc1o5xgynY8XoN7WcAS79LGM73tHiaNhJJxw9ry0
+	 K+yGuTOZLqw/usQAh/s21MtVRac9hkV6AvQ7lDiwVhYNjVYQEte/0/VTEaSuG2HmB8feG
+	 47zI9fPkDexWy+p5rAceG46OO3mckfJO3JXqPruPCtTJUy4TlYUfv4kdNow/YNBEpLU/I
+	 S0XKbT9UWgKwue3sbzHsfQsP82ccOUBoYxYUIMS1EudzlLXSbNDhsOLFIYyWAJPXIlia3
+	 /zw9mUjvNWscPu1/6PsosbKIqz9D9L67CTcNopH5kI5qJeR5xz1pfJVxK6TlIvMTSSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3lG3ihj;
-	arc=none smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SljBbvOG;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF013606A331
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:38:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF013606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E110D606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E110D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3lG3ihj
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c158c4c15fso3546937e87.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:38:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794782302; x=1795387102; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jP2BTh7rVpWo9Im/wV5enbfenEoL6kTHcUKyx3s6YMc=;
-        b=j3lG3ihjCmXBRSjnJqfN6ORSYkKfksPwGSeBXneAiBHnDt/KFj6KriUjeYuN+YiuXs
-         K++zqwRNb760hiJ7UBo40cdx23MOLJ4f1kvArUpP358FKJPhYZk7Bw+6FmKzYG/w/DoI
-         8r9a+IiyvkRU8BR6uhKUMmLUIr0jnPUncUyY28/0J4JK6wSG7U3pVfMIkUgHCIX0nwPK
-         +/wlx0iNi7+k3XCyauiBMkhYq8F4xiN3Z8o/bjO2gC0c5fUQZvPVUY8ycrp/9hlbAzHg
-         xi35KmSe/ag7cDkawGFUCb/G4pQzByS0eb1GIxnoPwvB2Wmn9ylnYl6XRcMdnHAf6vdK
-         SDew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794782302; x=1795387102;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jP2BTh7rVpWo9Im/wV5enbfenEoL6kTHcUKyx3s6YMc=;
-        b=tEkNTFsn6LZnwaUTzdcFsy/4s84uuzvQ3k/ztFZWhkVNXoiiqtUK/bXkQ23k1fyeyD
-         sgIKK9UVBh42TSnwHp/Y/3e8UOffR+1TJ/BEX4Du48FdiexLayYbyTQl9Q8FE3x02Mu+
-         3bByjz27C1tS0NtRqImODtypCmNnxUc6om3/eUL9FPET1RNtNm3UWj2AhVXpuEOLEW0r
-         PLOySTXODionsa6VbN7DUNKNyWAyhs0lzmPQp1cspu8TQBBcm8bOWIXAJdr2sFp8J1xE
-         NJNkFpTWgSRTNJnLcdzPMM7KyMfabnpj4sJ+IrGjztTV43QiPE5gbw2h9JdbNbL/wOqW
-         s5Ew==
-X-Forwarded-Encrypted: i=1; AL+hErGJvwJ6HnX/dkmiFqdyu6TLsPHG/y8HmZBa7FbqbZEV2dEf2JytnbfZ2cTD/2RBWYXP5NIqaFyTwIL2cR4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Sg4VkdWgSNBti9/IgVL/SeMQuVx+1vlv9k7miy0zdTQj7gYek
-	uXjqTJE9yD6VdDcpcaJ6ZgHV/JkoIsqVoZ7ef6+iUaWZD1kruLQPW1eeRJHKgiBj
-X-Gm-Gg: AYBFou1xk88oJcYiG/hpFklx4C+eyVDxz1FD+xSIWdVwcryyzwJAToVDDphmhDEv+MM
-	8ywelj0MLxhcZoJd0wd3SfA3agZT5V67bqaHHlMaI21j33K+3xu3UM3n21jmEkhXym3A1kiAfSt
-	AeXli+ZImC+fFKsbeUJnA9V+7g5+wjLj/D9r/lhrcxfBiTSrO4Uh8sN7aupkN9WqvTNW5jhraqw
-	Mw5Yr2JK6Df6eTWaWfq9lLszKP7/+6L2Epjhl/f4MJhFbpgl+J96zOSt9LfghntGEJmV2U0gvJG
-	lFDv4dGoEfUOdNTv5n057jan5nqQ3D6Nd6r+L0B+Q5SQbECcjY2Gr32Uq3U3b/FH1JoA2y3aZpv
-	kRp20ShMEKFjrJy477i4zxr/8XiBg80a9tekgaE99J1OQUQix5qOdvsG+XXog7RZD5jJAg0Z/nB
-	3Ea+kVy3/2dYV6iz4jpyNZPNcRJEfPZ63q6/s91eMgC7HEx/61zDpbFCMCWLkJngDwMp4/awCRx
-	4JsMZD8g4GK75T6cXKMxQN1luUhCdYI0sj0GX5tOddOD4VtEZdqKm6Ul5AiNutEKztHiZ6ZqLII
-	40/5ccdRmNPJG4DlevgYKpIvtzUsdxgtus6IWCByX75Q9FyPnmb/OQHv0snpczAVC85otpWUVrk
-	R4ovkfVphG+3FMut6gay5eOltOSZ8GEpn4kbxFZM=
-X-Received: by 2002:ac2:4bd1:0:b0:5c1:4817:2c03 with SMTP id 2adb3069b0e04-5c164ebe9cdmr3717369e87.36.1794782301710;
-        Sun, 15 Nov 2026 14:38:21 -0800 (PST)
-Received: from yantra.. (nekmmqvelexmc8nt5ae-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:dce3:b876:6f6e:9706])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171357477sm2759609e87.74.2026.11.15.14.38.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 14:38:21 -0800 (PST)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: jic23@kernel.org
-Cc: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new temperature in trigger handler
-Date: Mon, 16 Nov 2026 00:38:17 +0200
-Message-ID: <20261115223817.10568-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261115203150.7faed0b1@jic23-hlaptop>
-References: <20261113230241.82046-1-zoone.rupert@gmail.com> <20261114013817.476f8fb9@jic23-hlaptop> <20261114083525.11972-1-zoone.rupert@gmail.com> <20261115010203.2a939bd6@jic23-hlaptop> <20261115183949.11591-1-zoone.rupert@gmail.com> <20261115203150.7faed0b1@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SljBbvOG
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id SiGZxLSXD4vCDSiswx6P9s; Sun, 15 Nov 2026 22:39:42 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SisvxkBlvSeuLSisvxewcy; Sun, 15 Nov 2026 22:39:42 +0000
+X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6afa34ae
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=p17y3UlcgzNCgfqtCmUA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=QJyd6HCIaaTvcuVGrB3oSb9PcvIB0O1Dg8GiEWgja0Y=; b=SljBbvOGbg5j
+	06HQ5uhEIdVBwZK9K3EmCkuowUlYp5tW24d3Dx/qzYJCHFPL59J0xRwAvZWocBLxsubZBVUskZRkr
+	TRjq0H6mubexgrUK0EqxyRIpzwjzFDwj8LdzUUy/XVEVOX5Ql7NWIAXOfV6btBCNhjUk/kf/31Wvr
+	3/PWVwi1VYelCGseKIq8t0wjDL+dLuQj/DfBAqM0x6AM7HH4tYrdhZrlBiJGAm1Oiv+uwv7lW5zCZ
+	2paQsFL4MCLgqjOe1xaI/JSCgc6HmYpF5f9KNxnBFTktpKbn+Ff6SxgjM15KzNGNEdDraCtVosfrI
+	Usc8aOmVRW818/c00OUSbA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:42868 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSisv-00000000jJm-18Xv;
+	Mon, 16 Nov 2026 04:09:41 +0530
+Date: Sun, 15 Nov 2026 14:39:40 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: =?iso-8859-1?Q?V=EDtor?= Hugo Silva <vitorhg20080@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Diogo Ivo <diogo.ivo@siemens.com>, linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] watchdog: intel_oc_wdt: Add INTC109C ACPI ID
+Message-ID: <8df779d7-eaa9-44c4-a0d8-e9187fd8819e@roeck-us.net>
+References: <20261115205408.99849-1-vitorhg20080@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,21 +83,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261115205408.99849-1-vitorhg20080@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSisv-00000000jJm-18Xv
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:42868
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfObGqJGJ/8H/wG4g7nGIphu4+6hHyTiY6OUWrWqGP//qYbiXV62ewWoUgLvscBaEo3NPV4yoTdpwyd24T90gsAI1TmxI8LTo9iU0otrdaIFydwZa2diZ
+ BQbQH7Z9MWbd3hwGN/WGTa30+6kPt2GfPIkKUocfx1Bdj0Rt9jMsRV6mRtZ1uBtQRPX+mduT9mf0/6h2kfd3KdwpdLCLLmafPJPYDghDOUEgf2WrJujff2Lx
 
-On Sun, 15 Nov 2026 20:34:11 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Sun, Nov 15, 2026 at 08:54:08PM +0000, Vítor Hugo Silva wrote:
+> The Lenovo laptops with an Intel Core 7 240H (Raptor Lake)
+> exposes its OC watchdog as 'INTC109C', leaving the device
+> unbound, because this ID is not present from the driver's
+> ACPI intel_oc_wdt_match table.
+> 
+> The firmware selects INTC109C or the already supported
+> INTC1099 from the same CWDT object's _HID method,
+> depending on the processor signature. Both paths share a
+> four-byte I/O resource at PMBS + 0x54.
+> 
+> Add INTC109C to the match table to use the existing implementation.
+> 
+> I have tested as a module on Fedora kernel 7.3.3-300.fc45.x86_64.
+> I did verify device binding, timeout configuration, start,
+> keepalive, explicit stop and magic close. Register reads
+> confirmed the enable and timeout fields. Expiry-triggered
+> reset was not tested.
+> 
+> AI assistance was used for development of the test harness
+> and 'peer-review' the patch.
+> 
+> Signed-off-by: Vítor Hugo Silva <vitorhg20080@gmail.com>
 
-> That all sounds good.  I tried to apply it to the testing branch of iio.git
-> but I'm getting some build errors (+ a load of fuzz). I guess this
-> has dependencies that I'm missing?  If they are fixes, then I may just have
-> to wait until I can merge back into my tree (after they are upstream).
-
-No dependencies. It is based on fixes-togreg. On testing probe
-hunk no longer matches and with fuzz it lands in
-dps310_fifo_interval(). git am -3 gets it right there and it builds.
-
-I can send a version on testing if that is easier.
+Applied.
 
 Thanks,
-Rupesh
+Guenter
+
+> ---
+>  drivers/watchdog/intel_oc_wdt.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> 
+> base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+> 
+> diff --git a/drivers/watchdog/intel_oc_wdt.c b/drivers/watchdog/intel_oc_wdt.c
+> index 0b012aeb1..a78fe1e5f 100644
+> --- a/drivers/watchdog/intel_oc_wdt.c
+> +++ b/drivers/watchdog/intel_oc_wdt.c
+> @@ -215,6 +215,7 @@ static int intel_oc_wdt_probe(struct platform_device *pdev)
+>  static const struct acpi_device_id intel_oc_wdt_match[] = {
+>  	{ "INT3F0D" },
+>  	{ "INTC1099" },
+> +	{ "INTC109C" },
+>  	{ },
+>  };
+>  MODULE_DEVICE_TABLE(acpi, intel_oc_wdt_match);
