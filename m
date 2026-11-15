@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794782383;
-	b=Ww1sr3PRfTQZcJkkP+XLZSnvgE7iWW3CLoTOVBpv7RwziL8BeRPzXutuTzFV1Z28TWBU
-	 Pe+mRJCmvQJY3lhxV10rAY4vMCTOPkitY05jGQnA8HaZ2oHc+NC9AYwnAm21Hp5mRggk4
-	 HhyOV5rvayhwPR0A7mmnDH6j4MKH53HyyaMEFIVMiHS1VT42GYpAcXkmXwymDuVU9pRuG
-	 g6Fny9ZY/D9mfEMq2XBWhGD+Bpt5A0LIBqUvYeMkle70Bekds0oqmbW0x8YfEEp+DWAbP
-	 kkP8s/6xK/WaUrXvg4fUebcSKQAKQ9uLmQbWUAV70C54sEobKatB8IT7FPJ8JzbF7ew==
+	t=1794782394;
+	b=tUmzQU5LRmRoe582iLpHdstp6fwaS9yvFlfZhFJZae6yH9GWWMU6AfM9S+4gGqCT5KMv
+	 2E3FQ33ualIRGMDzn5qwCm9eybPd54wV/AYYkOixkY0qCAOT5QdtYTEAFCrQjYmoBlOCZ
+	 AqHuTgx0LoNdb8dag3vPGm0O4rz1fxWuTS59WCE/Gh8p+c5hmPlI7Td6xgGF2cr1gceVK
+	 8HIYRAYIbMKFUeAkcuti2gPUVYs65s9IOSaBNOLNStWA5ya8hD4fLHNz8Vf2iMg3j8Ouz
+	 rSb1D8uEjTC0nx6asgUnGKi1N7xTzGoezbXx96RT1QnpbcjTI7zWmw2eBTdnfrW+1Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794782383;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:X-Source:
-	 X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=QJyd6HCIaaTvcuVGrB3oSb9PcvIB0O1Dg8GiEWgja0Y=;
-	b=VA7wA9P7n5TGSvSvBzTanlVn4wFMyc1o5xgynY8XoN7WcAS79LGM73tHiaNhJJxw9ry0
-	 K+yGuTOZLqw/usQAh/s21MtVRac9hkV6AvQ7lDiwVhYNjVYQEte/0/VTEaSuG2HmB8feG
-	 47zI9fPkDexWy+p5rAceG46OO3mckfJO3JXqPruPCtTJUy4TlYUfv4kdNow/YNBEpLU/I
-	 S0XKbT9UWgKwue3sbzHsfQsP82ccOUBoYxYUIMS1EudzlLXSbNDhsOLFIYyWAJPXIlia3
-	 /zw9mUjvNWscPu1/6PsosbKIqz9D9L67CTcNopH5kI5qJeR5xz1pfJVxK6TlIvMTSSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794782394;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=bNeDCgwvFnCnsvXZG+H8EtJRxUT+DRj67qdVYEs4+aY=;
+	b=qHLjrCSJVlk4ICpAB2vhe4BHcAWHZl9SFVKNNPWdojMH+THMB3/Y3y1bwgLnCcrv0KQ1
+	 U0rolYdxmcEAOXC7vfOlwZtrfpc+u4QRHxgEjdNcYeofR/OyVqB0NRBw/UbyKnNb5UDU1
+	 pNw0WzkQbwemRHL2ypSKpecdhk4RUCtRpDdkSBDZiVn4Jw9Lb06xKe02hXvrH4xT716BW
+	 +n7j1Oth+hNFVhhmTv+1kjTozq0QLRRG5g9FNpmZMiFqR3G8GlSCK61fpubf/UQLIoVRS
+	 v1hpPqQKhE657Z9wC8eAjOQISY4aEtYNrebR2FRB7NfBYPWHo+JqKMmofKRRcNbDTfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SljBbvOG;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=squebb.ca;
+	spf=pass smtp.mailfrom=squebb.ca;
+	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=JVvCCZGo;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Cjdh5Hfm;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E110D606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:39:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E110D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4010606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4010606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SljBbvOG
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id SiGZxLSXD4vCDSiswx6P9s; Sun, 15 Nov 2026 22:39:42 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SisvxkBlvSeuLSisvxewcy; Sun, 15 Nov 2026 22:39:42 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6afa34ae
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=p17y3UlcgzNCgfqtCmUA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=QJyd6HCIaaTvcuVGrB3oSb9PcvIB0O1Dg8GiEWgja0Y=; b=SljBbvOGbg5j
-	06HQ5uhEIdVBwZK9K3EmCkuowUlYp5tW24d3Dx/qzYJCHFPL59J0xRwAvZWocBLxsubZBVUskZRkr
-	TRjq0H6mubexgrUK0EqxyRIpzwjzFDwj8LdzUUy/XVEVOX5Ql7NWIAXOfV6btBCNhjUk/kf/31Wvr
-	3/PWVwi1VYelCGseKIq8t0wjDL+dLuQj/DfBAqM0x6AM7HH4tYrdhZrlBiJGAm1Oiv+uwv7lW5zCZ
-	2paQsFL4MCLgqjOe1xaI/JSCgc6HmYpF5f9KNxnBFTktpKbn+Ff6SxgjM15KzNGNEdDraCtVosfrI
-	Usc8aOmVRW818/c00OUSbA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:42868 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSisv-00000000jJm-18Xv;
-	Mon, 16 Nov 2026 04:09:41 +0530
-Date: Sun, 15 Nov 2026 14:39:40 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: =?iso-8859-1?Q?V=EDtor?= Hugo Silva <vitorhg20080@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Diogo Ivo <diogo.ivo@siemens.com>, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] watchdog: intel_oc_wdt: Add INTC109C ACPI ID
-Message-ID: <8df779d7-eaa9-44c4-a0d8-e9187fd8819e@roeck-us.net>
-References: <20261115205408.99849-1-vitorhg20080@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=JVvCCZGo;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Cjdh5Hfm
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4F9FF1D000D5
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:39:53 -0500 (EST)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Sun, 15 Nov 2026 17:39:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1794782393;
+	 x=1794868793; bh=bNeDCgwvFnCnsvXZG+H8EtJRxUT+DRj67qdVYEs4+aY=; b=
+	JVvCCZGom5Zh2ENE8E5zp6W85ZtwPYxOq1vdSHuL+fFmLFMMN4s332+5dtj61FbD
+	UsuV2IYFn1XhnbcHfAM+RU7tZdeb1hLhQ7R5T4IVY2Le6F8khHCZCI6/nz1OB1CX
+	BYvv41SjTmv2gSPB81NMMukRP3gCCDlDsyKWOX8MOcFjmrO9NCpUqjRZlYsCq3d8
+	JqJ9hhhBC27HSpMHdFMxtakIyKnXAAsQc2Ry8eiS88f7AsRiJ6EQNqWLVHgPxNVs
+	x3lpmOAGcbvMIbK3p4y8Ao7lLbHvGw4m/DC1Z4QOTg7tQZBoKUzhCgJW9j1gOJtX
+	GFKlZHQl1nmrOP+N5ldu9A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794782393; x=
+	1794868793; bh=bNeDCgwvFnCnsvXZG+H8EtJRxUT+DRj67qdVYEs4+aY=; b=C
+	jdh5HfmKc/wKgZgXb5PafUxawvkjufYEdLq/COlVkRGmJgpnCzUadbmo2qd5MFTr
+	V/KLNHa1YWIqZqc9Rlxn1zmH2f7WeVx8Md4luWGCgI5GVPH4LUx56vHtOCUE61i6
+	L4yAggY5dpo4GUkp++Owjqm/XNOrr6NlmtV2VFACd9rYQlzRM1346R2n5j+xKrfP
+	NEfb0ciH7ADqO+TvPOS1AYBWA91+dbtd6OAAQd53gnOcky9LzPZyT3du26JeqmxW
+	NxHDubww1Gv+tLzWnr2nXK5kyAVBQHwvglTb+vNDwx26xgiD8jhYqa1xK0UUWhoq
+	tD2RorlIrJ43RjPFuBb4w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794782393; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:L7cJzMkl4MHdldD9gI0u972sqppli8OaTAabgjDXJz36Es0
+	pUVQAwxiuzYDZ5zf/BsCkT/rOV9Y1/4lD9vYxc8as/lMXKV4WgvR82Xm6XmtiMSn
+	sHg/SSzKAm6LOTs8JHiGDgO2COcGyyG1fMp2pTPiWg1udM2f2JGxXxwCI0/3Sh5u
+	BRCui1AFOkzSF61xiQzHBPr9dTj/jR0T5mUKNjzZkEXtS4WfhUJ/bj98LlI5Gvsw
+	0+PvseaXGWqhq1rt3167nyhrb4Z68+SSJc4b8AoLPr1kFezLtOYC3EAOKHNPQVRi
+	wxzHthkrhJtEq4xpej0HKcMqklZols+TAhk+Egg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:DjQgXcEKYibzuRGNO+xSN2OH0q2boEHMS6s+FVJgDbs=:Uf85MUytDBoXQ6wmzhfjoG4RZu/fgneJL3IiIdAIZYo=;
+X-ME-Sender: <xms:uDT6aig6_XS9zhoTiFK1IjxIwuf1YeQwQ1qGJscexDiF7u0r2Wmqww>
+    <xme:uDT6at2GgHrgGQY_g97pUd8o2IY5IvBi6Bm73xxln4R8upDfBFksT7PpBjHysmSjQ
+    i9Xs0ILLL28okU3xdT3Nh2sChkouIaZ1S4yt0hG7-DC68fOJ53YD7hs>
+X-ME-Proxy-Cause: dmFkZTGW0qsrD/X5vzJCF9IttnZ4SizfRrSvSRedsU5IxQxBtOmoNdrD0Qt+G6Cfmq1V8c
+    GsP1WlmsZaYS4DAPVPJBimtIWhRtd3D3B36jVZHEtl3VAkADjXcO6hVndTwO8Ugcq9aHZg
+    Fk2jcrqXzh16WdgeDGIArmb1RLELS8KE02oQgJ/ZhQ7f1kLAzOQL9pWiNNV/pPXSs5k+DJ
+    Cs2unxt28j+xrT3eOoLCPpinqX493U5TqTwxMioIfPbtajfeP9KKQrAleXjVsqgBx8bojS
+    WynMMkRT2nORbaF7dSN367ITEgWMj/Ak6Zj3Zqded5u21ycH33Kc4aE+tTyHSUmXUgJ9YK
+    bgPA/zBjVAniv2M8YA5om2w1gcvXvvPcWNnOrlZpTdWT2HpMCwwjPEaeRb+JcLXdot93hf
+    mlLBcISHWuk2Q4jQtui+8ror/RY7BZvOe91NdWPfqXiZYFRVRs+i3stdRNvb7rnkeiKxUh
+    P+3Q7EVaAQ+nFTGqlfdZQ2F4W5gToLYE/0Si1E7s6RVUG6mSMGQCT+877ex3WIYryv7HvT
+    vs1iYCPKs8kCszGRfs0SufTPJOIGl4xZhnI59RWcpagWLE7ML1l7s77M9qWTpHsHfGbLbx
+    9QLReYXzrzhEvSzW5MfcyV84CyQWBIiWeFeNcjqMIp5umEY7YlBJhzwn9EAg
+X-ME-Proxy: <xmx:uDT6auFcczvJk4is3xenKobOLsZ089w5E_5GGiV__V1ZhgJ-BmAwEg>
+    <xmx:uDT6anjCbnV-YazS8N5e7lsKWV2NRWMmI6MhjEjh-3q3DCEfF_5jfQ>
+    <xmx:uDT6ajtf-2JsBo6_8U7eynSe1fFdgjnDpl1-buZP1YqycwBzmQtSeQ>
+    <xmx:uDT6aisUc1M4zBCZ1udSvJ9qGxCF6UQ0a9L_0cyhZ1HFQk0SQTMv3Q>
+    <xmx:uTT6alm0PYs9E3xdiUAPfL3Uf6XYpOzeITZWvYpEeP6c_bvrneGDOVsb>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 1CC1E2C00085; Sun, 15 Nov 2026 17:39:52 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,76 +115,356 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261115205408.99849-1-vitorhg20080@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSisv-00000000jJm-18Xv
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:42868
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfObGqJGJ/8H/wG4g7nGIphu4+6hHyTiY6OUWrWqGP//qYbiXV62ewWoUgLvscBaEo3NPV4yoTdpwyd24T90gsAI1TmxI8LTo9iU0otrdaIFydwZa2diZ
- BQbQH7Z9MWbd3hwGN/WGTa30+6kPt2GfPIkKUocfx1Bdj0Rt9jMsRV6mRtZ1uBtQRPX+mduT9mf0/6h2kfd3KdwpdLCLLmafPJPYDghDOUEgf2WrJujff2Lx
+X-ThreadId: AZf8LQYQVgsF
+Date: Sun, 15 Nov 2026 17:39:31 -0500
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Rong Zhang" <i@rong.moe>, "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Gergo Koteles" <soyer@irl.hu>, "Ike Panhc" <ikepanhc@gmail.com>,
+ "Andrew Kallmeyer" <kallmeyeras@gmail.com>
+Cc: 
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, "Mahir Faisal" <mahirfaisalantiq33@gmail.com>
+Message-Id: <e39bd69c-9953-4154-8938-313e6fb0b26a@app.fastmail.com>
+In-Reply-To: <20261116-ymc-82yl-v1-4-fac1a2b01a84@rong.moe>
+References: <20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe>
+ <20261116-ymc-82yl-v1-4-fac1a2b01a84@rong.moe>
+Subject: Re: [PATCH 4/7] platform/x86: lenovo-ymc: Modernize WMI driver and factor out
+ events
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 15, 2026 at 08:54:08PM +0000, Vítor Hugo Silva wrote:
-> The Lenovo laptops with an Intel Core 7 240H (Raptor Lake)
-> exposes its OC watchdog as 'INTC109C', leaving the device
-> unbound, because this ID is not present from the driver's
-> ACPI intel_oc_wdt_match table.
-> 
-> The firmware selects INTC109C or the already supported
-> INTC1099 from the same CWDT object's _HID method,
-> depending on the processor signature. Both paths share a
-> four-byte I/O resource at PMBS + 0x54.
-> 
-> Add INTC109C to the match table to use the existing implementation.
-> 
-> I have tested as a module on Fedora kernel 7.3.3-300.fc45.x86_64.
-> I did verify device binding, timeout configuration, start,
-> keepalive, explicit stop and magic close. Register reads
-> confirmed the enable and timeout fields. Expiry-triggered
-> reset was not tested.
-> 
-> AI assistance was used for development of the test harness
-> and 'peer-review' the patch.
-> 
-> Signed-off-by: Vítor Hugo Silva <vitorhg20080@gmail.com>
 
-Applied.
 
-Thanks,
-Guenter
+On Sun, Nov 15, 2026, at 2:27 PM, Rong Zhang wrote:
+> The lenovo-ymc driver is a legacy WMI driver. It binds to the events
+> GUID as a WMI driver but calls the query GUID with the deprecated GUID-
+> based interface.
+>
+> Handle YMC events in lenovo-wmi-event, and coordinate relevant drivers
+> with notifier chains:
+>
+>                 +---LWMI_EVENT_THERMAL_MODE---> wmi-gamezone
+>                 |
+>   wmi-events ---+
+>                 |
+>                 +---LWMI_EVENT_YMC---> ymc=20
+> ---IDEAPAD_LAPTOP_YMC_EVENT---> ideapad-laptop
+>
+> Modernize the lenovo-ymc driver by adopting lwmi_dev_evaluate_int() fr=
+om
+> lenovo-wmi-helpers, which has adopted the modern WMI core interfaces a=
+nd
+> taken care of buffer's lifecycle. This should hopefully improve
+> robustness on various firmware as it aligns with the Windows behavior
+> that ACPI object type doesn't matter but the size does.
+>
+> Note that the WMI core does not verify min_event_size for the legacy
+> notify() callback (it only ensures the event has data). By factoring o=
+ut
+> YMC events to lenovo-wmi-events with the new notify_new() callback, now
+> the WMI core can finally verify the size of event data:
+>
+>   [WmiDataId(1), read, Description("Lenovo Yoga Mode Change Event")]=20
+> uint32 ModeDataVal;
+>
+> With these changes, the lenovo-ymc driver become a no_singleton
+> asynchronous-probe driver that only binds to the query GUID. It also
+> retrieve event data as a fallback data source when the query method
 
+Minor typo: retrieves?
+
+> fails, so that the EC is always triggered on valid events (i.e., passi=
+ng
+> the min_event_size check). On probe it's always triggered, too, as we
+> want the EC to initialize the state of keyboard and touchpad on boot.
+>
+> The input device's phys string also adopts the query GUID rather than
+> the events one. It shouldn't break anything, as nothing actually match=
+es
+> the previous phys string.
+>
+> The DMI quirk tables are left untouched, as the contained devices shou=
+ld
+> have both GUIDs.
+>
+> Signed-off-by: Rong Zhang <i@rong.moe>
 > ---
->  drivers/watchdog/intel_oc_wdt.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> 
-> base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
-> 
-> diff --git a/drivers/watchdog/intel_oc_wdt.c b/drivers/watchdog/intel_oc_wdt.c
-> index 0b012aeb1..a78fe1e5f 100644
-> --- a/drivers/watchdog/intel_oc_wdt.c
-> +++ b/drivers/watchdog/intel_oc_wdt.c
-> @@ -215,6 +215,7 @@ static int intel_oc_wdt_probe(struct platform_device *pdev)
->  static const struct acpi_device_id intel_oc_wdt_match[] = {
->  	{ "INT3F0D" },
->  	{ "INTC1099" },
-> +	{ "INTC109C" },
->  	{ },
+>  drivers/platform/x86/lenovo/Kconfig      |  2 +
+>  drivers/platform/x86/lenovo/wmi-events.c |  7 +++
+>  drivers/platform/x86/lenovo/wmi-events.h |  1 +
+>  drivers/platform/x86/lenovo/ymc.c        | 85 ++++++++++++++++++-----=
+---------
+>  4 files changed, 58 insertions(+), 37 deletions(-)
+>
+> diff --git a/drivers/platform/x86/lenovo/Kconfig=20
+> b/drivers/platform/x86/lenovo/Kconfig
+> index 516594993073..f16b09bab082 100644
+> --- a/drivers/platform/x86/lenovo/Kconfig
+> +++ b/drivers/platform/x86/lenovo/Kconfig
+> @@ -63,6 +63,8 @@ config LENOVO_YMC
+>  	depends on INPUT
+>  	depends on IDEAPAD_LAPTOP
+>  	select INPUT_SPARSEKMAP
+> +	select LENOVO_WMI_EVENTS
+> +	select LENOVO_WMI_HELPERS
+>  	help
+>  	  This driver maps the Tablet Mode Control switch to SW_TABLET_MODE=20
+> input
+>  	  events for Lenovo Yoga notebooks.
+> diff --git a/drivers/platform/x86/lenovo/wmi-events.c=20
+> b/drivers/platform/x86/lenovo/wmi-events.c
+> index 01ad5bcf0437..a0ddea01213f 100644
+> --- a/drivers/platform/x86/lenovo/wmi-events.c
+> +++ b/drivers/platform/x86/lenovo/wmi-events.c
+> @@ -21,6 +21,7 @@
+>  #include "wmi-helpers.h"
+>=20
+>  #define THERMAL_MODE_EVENT_GUID "D320289E-8FEA-41E0-86F9-911D83151B5F"
+> +#define YOGA_MODE_CHANGE_EVENT_GUID "06129D99-6083-4164-81AD-F092F9D7=
+73A6"
+>=20
+>  #define LWMI_EVENT_DEVICE(guid, type)                        \
+>  	.guid_string =3D (guid), .context =3D &(enum lwmi_events_type) \
+> @@ -123,6 +124,7 @@ static void lwmi_events_notify(struct wmi_device=20
+> *wdev, const struct wmi_buffer
+>  	struct lwmi_events_priv *priv =3D dev_get_drvdata(&wdev->dev);
+>  	void *notif_data =3D NULL;
+>  	int sel_prof;
+> +	u32 ymc_mode;
+>  	int ret;
+>=20
+>  	switch (priv->type) {
+> @@ -143,6 +145,10 @@ static void lwmi_events_notify(struct wmi_device=20
+> *wdev, const struct wmi_buffer
+>  			return;
+>  		}
+>  		break;
+> +	case LWMI_EVENT_YOGA_MODE_CHANGE:
+> +		ymc_mode =3D le32_to_cpup(buf->data);
+> +		notif_data =3D &ymc_mode;
+> +		break;
+>  	default:
+>  		return;
+>  	}
+> @@ -175,6 +181,7 @@ static int lwmi_events_probe(struct wmi_device=20
+> *wdev, const void *context)
+>=20
+>  static const struct wmi_device_id lwmi_events_id_table[] =3D {
+>  	{ LWMI_EVENT_DEVICE(THERMAL_MODE_EVENT_GUID, LWMI_EVENT_THERMAL_MODE=
+)=20
+> },
+> +	{ LWMI_EVENT_DEVICE(YOGA_MODE_CHANGE_EVENT_GUID,=20
+> LWMI_EVENT_YOGA_MODE_CHANGE) },
+>  	{}
 >  };
->  MODULE_DEVICE_TABLE(acpi, intel_oc_wdt_match);
+>=20
+> diff --git a/drivers/platform/x86/lenovo/wmi-events.h=20
+> b/drivers/platform/x86/lenovo/wmi-events.h
+> index cd34e886912c..592da08ff2a3 100644
+> --- a/drivers/platform/x86/lenovo/wmi-events.h
+> +++ b/drivers/platform/x86/lenovo/wmi-events.h
+> @@ -10,6 +10,7 @@ struct notifier_block;
+>=20
+>  enum lwmi_events_type {
+>  	LWMI_EVENT_THERMAL_MODE =3D 1,
+> +	LWMI_EVENT_YOGA_MODE_CHANGE =3D 2,
+>  };
+>=20
+>  int lwmi_events_register_notifier(struct notifier_block *nb);
+> diff --git a/drivers/platform/x86/lenovo/ymc.c=20
+> b/drivers/platform/x86/lenovo/ymc.c
+> index eba22600161e..cb3ae49dfd9e 100644
+> --- a/drivers/platform/x86/lenovo/ymc.c
+> +++ b/drivers/platform/x86/lenovo/ymc.c
+> @@ -3,22 +3,25 @@
+>   * lenovo-ymc.c - Lenovo Yoga Mode Control driver
+>   *
+>   * Copyright =C2=A9 2022 Gergo Koteles <soyer@irl.hu>
+> + * Copyright =C2=A9 2026 Rong Zhang <i@rong.moe>
+>   */
+>=20
+>  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+>=20
+> -#include <linux/acpi.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/bits.h>
+>  #include <linux/cleanup.h>
+> +#include <linux/container_of.h>
+>  #include <linux/dmi.h>
+>  #include <linux/input.h>
+>  #include <linux/input/sparse-keymap.h>
+>  #include <linux/mutex.h>
+> +#include <linux/notifier.h>
+>  #include <linux/wmi.h>
+>  #include "ideapad-laptop.h"
+> +#include "wmi-events.h"
+> +#include "wmi-helpers.h"
+>=20
+> -#define LENOVO_YMC_EVENT_GUID	"06129D99-6083-4164-81AD-F092F9D773A6"
+>  #define LENOVO_YMC_QUERY_GUID	"09B0EE6E-C3FD-4243-8DA1-7911FF80BB8C"
+>=20
+>  #define LENOVO_YMC_QUERY_INSTANCE 0
+> @@ -61,8 +64,10 @@ static const struct dmi_system_id=20
+> allowed_chasis_types_dmi_table[] =3D {
+>  };
+>=20
+>  struct lenovo_ymc_private {
+> +	struct wmi_device *wdev;
+>  	struct input_dev *input_dev;
+>  	struct mutex mutex; /* Protects event handling. */
+> +	struct notifier_block nb;
+>  };
+>=20
+>  static const struct key_entry lenovo_ymc_keymap[] =3D {
+> @@ -75,49 +80,44 @@ static const struct key_entry lenovo_ymc_keymap[] =
+=3D {
+>  	{ KE_END },
+>  };
+>=20
+> -static void lenovo_ymc_notify(struct wmi_device *wdev, union acpi_obj=
+ect *data)
+> +static void lenovo_ymc_refresh(struct lenovo_ymc_private *priv, u32 c=
+ode)
+>  {
+> -	struct lenovo_ymc_private *priv =3D dev_get_drvdata(&wdev->dev);
+> -	u32 input_val =3D 0;
+> -	struct acpi_buffer input =3D { sizeof(input_val), &input_val };
+> -	struct acpi_buffer output =3D { ACPI_ALLOCATE_BUFFER, NULL };
+> -	union acpi_object *obj;
+> -	acpi_status status;
+> -	int code;
+> +	struct wmi_device *wdev =3D priv->wdev;
+> +	u32 input =3D 0, output;
+> +	int ret;
+>=20
+>  	guard(mutex)(&priv->mutex);
+>=20
+> -	status =3D wmi_evaluate_method(LENOVO_YMC_QUERY_GUID,
+> -				LENOVO_YMC_QUERY_INSTANCE,
+> -				LENOVO_YMC_QUERY_METHOD,
+> -				&input, &output);
+> -
+> -	if (ACPI_FAILURE(status)) {
+> -		dev_warn(&wdev->dev,
+> -			"Failed to evaluate query method: %s\n",
+> -			acpi_format_exception(status));
+> -		return;
+> -	}
+> -
+> -	obj =3D output.pointer;
+> -
+> -	if (obj->type !=3D ACPI_TYPE_INTEGER) {
+> -		dev_warn(&wdev->dev,
+> -			"WMI event data is not an integer\n");
+> -		goto free_obj;
+> -	}
+> +	ret =3D lwmi_dev_evaluate_int(wdev, LENOVO_YMC_QUERY_INSTANCE,=20
+> LENOVO_YMC_QUERY_METHOD,
+> +				    (unsigned char *)&input, sizeof(input), &output);
+> +	if (ret)
+> +		dev_warn(&wdev->dev, "Failed to invoke query method: %d\n", ret);
+
+Should it not bomb out here? Otherwise the chances are high it's reporti=
+ng an incorrect status isn't it?
+
+> +	else
+> +		code =3D output;
+>=20
+>  	/* strip upper bits (e.g. 0x50000) on newer devices */
+> -	code =3D FIELD_GET(LENOVO_YMC_STATE_MASK, obj->integer.value);
+> +	code =3D FIELD_GET(LENOVO_YMC_STATE_MASK, code);
+>=20
+>  	if (!sparse_keymap_report_event(priv->input_dev, code, 1, true))
+>  		dev_warn(&wdev->dev, "Unknown key %d pressed\n", code);
+>=20
+> -free_obj:
+> -	kfree(obj);
+>  	ideapad_laptop_call_notifier(IDEAPAD_LAPTOP_YMC_EVENT, &code);
+>  }
+>=20
+> +static int lenovo_ymc_notify(struct notifier_block *nb, unsigned long=20
+> action, void *data)
+> +{
+> +	struct lenovo_ymc_private *priv =3D container_of(nb, struct=20
+> lenovo_ymc_private, nb);
+> +	const u32 *p =3D data;
+> +
+> +	switch (action) {
+> +	case LWMI_EVENT_YOGA_MODE_CHANGE:
+> +		lenovo_ymc_refresh(priv, *p);
+> +		return NOTIFY_OK;
+> +	default:
+> +		return NOTIFY_DONE;
+> +	}
+> +}
+> +
+>  static int lenovo_ymc_probe(struct wmi_device *wdev, const void *ctx)
+>  {
+>  	struct lenovo_ymc_private *priv;
+> @@ -147,7 +147,7 @@ static int lenovo_ymc_probe(struct wmi_device=20
+> *wdev, const void *ctx)
+>  		return err;
+>=20
+>  	input_dev->name =3D "Lenovo Yoga Tablet Mode Control switch";
+> -	input_dev->phys =3D LENOVO_YMC_EVENT_GUID "/input0";
+> +	input_dev->phys =3D LENOVO_YMC_QUERY_GUID "/input0";
+>  	input_dev->id.bustype =3D BUS_HOST;
+>  	input_dev->dev.parent =3D &wdev->dev;
+>  	err =3D sparse_keymap_setup(input_dev, lenovo_ymc_keymap, NULL);
+> @@ -164,16 +164,24 @@ static int lenovo_ymc_probe(struct wmi_device=20
+> *wdev, const void *ctx)
+>  		return err;
+>  	}
+>=20
+> +	priv->wdev =3D wdev;
+>  	priv->input_dev =3D input_dev;
+> +	priv->nb.notifier_call =3D lenovo_ymc_notify;
+>  	dev_set_drvdata(&wdev->dev, priv);
+>=20
+> +	err =3D devm_lwmi_events_register_notifier(&wdev->dev, &priv->nb);
+> +	if (err) {
+> +		dev_err(&wdev->dev, "Could not register YMC events notifier: %d\n",=
+ err);
+> +		return err;
+> +	}
+> +
+>  	/* Report the state for the first time on probe */
+> -	lenovo_ymc_notify(wdev, NULL);
+> +	lenovo_ymc_refresh(priv, YMC_POSTURE_UNKNOWN);
+>  	return 0;
+>  }
+>=20
+>  static const struct wmi_device_id lenovo_ymc_wmi_id_table[] =3D {
+> -	{ .guid_string =3D LENOVO_YMC_EVENT_GUID },
+> +	{ .guid_string =3D LENOVO_YMC_QUERY_GUID },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(wmi, lenovo_ymc_wmi_id_table);
+> @@ -181,16 +189,19 @@ MODULE_DEVICE_TABLE(wmi, lenovo_ymc_wmi_id_table=
+);
+>  static struct wmi_driver lenovo_ymc_driver =3D {
+>  	.driver =3D {
+>  		.name =3D "lenovo-ymc",
+> +		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
+>  	},
+>  	.id_table =3D lenovo_ymc_wmi_id_table,
+> -	.min_event_size =3D sizeof(u32),
+>  	.probe =3D lenovo_ymc_probe,
+> -	.notify =3D lenovo_ymc_notify,
+> +	.no_singleton =3D true,
+>  };
+>=20
+>  module_wmi_driver(lenovo_ymc_driver);
+>=20
+>  MODULE_AUTHOR("Gergo Koteles <soyer@irl.hu>");
+> +MODULE_AUTHOR("Rong Zhang <i@rong.moe>");
+>  MODULE_DESCRIPTION("Lenovo Yoga Mode Control driver");
+>  MODULE_LICENSE("GPL");
+>  MODULE_IMPORT_NS("IDEAPAD_LAPTOP");
+> +MODULE_IMPORT_NS("LENOVO_WMI_EVENTS");
+> +MODULE_IMPORT_NS("LENOVO_WMI_HELPERS");
+>
+> --=20
+> 2.55.0
