@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794764191;
-	b=xCICQW+k+YO9wAD5Ou3l6Jbii9tt2lMjSdA39H1veIruBPcU+Udd8rNcM8dsAhaLUe0y
-	 0+6Sx+gGydSsOAjcj+2FlnToKAITaKSFzHS1By9DvrFPIbC93/Ud9UVVjCmIgDXfSmHiv
-	 XJ4uTQotnQ48WdlErui6Za1L7uvzdufOk7B6CNPShz7MbIlroOBpQdnLWBe0qoJkaYwoa
-	 tXcAezdqNj9vReqwoudJDhInHKiHEvvBDaTMOKvOrJaFcjFdKHKyq+RISoX4HGm2jqmIc
-	 E1C3ULDNTRt2h8blvVyY1B6GekaUfuubtVVL/87aDW/81hmU5R619RGMIL/8fKeZzOQ==
+	t=1794764189;
+	b=od2Oy2NtdbyLBn5GyWSTCHLLhCRu+2jAopCdDDTuIpbm5ss39dyK3cTcIeRBfte0tHPw
+	 AJG2xMVb3MzQ43olo+a4K5rUh+xzmjPzopaloRqEdDOtMAus5ujItmI+N0tx/5s9DR3Z8
+	 F/XfWmaik6u5bsRBMDPhTYjx9My/IlKTpAZw5x1cdpNiVY/sefUXkq2gKYbaiPhJWazjH
+	 MnDDs81s/LlHLJVlwkqPU+us/D7yDBzSMNixRHg5H337guZ/QX1VjhOw896hqARu616if
+	 y6Y3JGlNHKTOvBcwnMqFgI4lp/L0tmvpdzfyRkA++FLDWFY7Xk/HleNDm9rE7VJPeGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794764191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794764189;
 	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6h+Ha7KN9XM6xvLvpRCSysZazxM/mCu+d7EvNfI1Y0E=;
-	b=vshHj0Rn7dNzAaW9OonLgsYVoLjZ7NImQSumYYaQCWaF+yYHuAmQZ6RopJMwmkSq73Tw
-	 9RT3nLvts/JagPhXjJ50CURqXHXCvnQPqfqwT5kOD+xdxf9+tv93wDdsS6YUJ5s+27MhF
-	 HIEQdBdjIIGGdIRGpu+BA276KVM91K5OE3O11LLPktdJQiQZzXZUU9uauQSeLK6B87S8U
-	 ilUows8s6I1UC9omevsG0UlntgzIu2St9F3uGR423h/ogSlD/c5ETscDDO6PV3E8m74oT
-	 tFVwdEhFTt0pYe4kwyC9FeQyP2mP3MBrdCoIPTF2508VkiopDnZaDI5lYwrgNUDCk1w==
+	bh=8eceGqRXAVV+/Ch92OXhS59R1x5EZsTmMijdFTDM48M=;
+	b=0SONTjm2EJnzeW5Xql1lnQx74sS8gupHObLxFw4WkUJ1ZeJM6pmMtAXD6YOhWR/iRX9h
+	 ppz+52E9QqElQQuPzdWqtM2VYT8TmM4WP+NO0QhUB/B0rGw5Tl8EAshdZ8EKLU3q49ZKB
+	 V1f1BdJdw+TTnrYewoW8Jbkfm2DliKZraaShMNEUi4zYuvPHWVgpFCYAbpi+lrsivU9Qk
+	 a94wgpSRB/Roq2P1RbY47l7rM7gjnWwQC1zg6NZOUmq4qXKXQKjHsN5qdu9V6P2XlIUru
+	 RTVIh4xqeAw5mmGJYNjT4dFnkqKFsxcNh2Q6NLLSmY2DNUVXSOGDKifdwj4EnzXOUUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+zPLpQ7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRabifpn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA31606A33E;
-	Sun, 15 Nov 2026 17:36:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DFA606A332;
+	Sun, 15 Nov 2026 17:36:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+zPLpQ7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8271F000CE;
-	Sun, 15 Nov 2026 17:36:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRabifpn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A35B1F000C4;
+	Sun, 15 Nov 2026 17:36:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794764191;
-	bh=6h+Ha7KN9XM6xvLvpRCSysZazxM/mCu+d7EvNfI1Y0E=;
+	s=k20260515; t=1794764188;
+	bh=8eceGqRXAVV+/Ch92OXhS59R1x5EZsTmMijdFTDM48M=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=T+zPLpQ7278r032+a88JLxD8auqDE/jPGitgDHhC+FX8tyTlxBDfm3IstwpT1XgMc
-	 LMihRwijaoHftFZF7SVZ64hsmr2QaeOgDWaAlJzPP4E87vjsz4dRm5pfke5EN9e80q
-	 9FEJIR2uyDKpEm3ZFO1wqy5y1jnj+t+1aKJhJbxliXH+Z7k/HgW8uwjpRGSBK1m78a
-	 fJ40mGGsLSVQJhDigYI41SXCfJNRyelneVzLiYIxdpYsJro6d07r4QocE/KbKrh6/f
-	 /+ZqbTgbpqtlbys2eErnqzK+ZVUpKx/rNmLiVM61Rm+WoPB9ARJ66j1947HRxK9+4j
-	 PX6/i9exTmVfQ==
+	b=jRabifpnq1B7zOHWV3z1wCkYz23//k1iJS43dci4j0WVCK6nC+d0YXW9w/ILGJqp6
+	 7P3+nPCCg9UD0KH0TXb/VtaZl7jZD2Y0fqs4gNyr+hMZE2Dm/GGdo6J/+Rr0jDglay
+	 Cru6roYbi5rzEJUEZvomLood9/B2gMU+c4UNdMVwT21PO9Jj9yHOd9AZ2efpgB+uYi
+	 fKej2iE7n3/90+5R2sBzZWRlSzE8SxXtTHnt/9MpZI1EZytt9TOAtOlIhUveYkhumJ
+	 Lml73M6bl8owJG+vzJRdhVj8e/gP3GYOwwXeX6rUkl6sMO6jQu4kgEh2Bc7Wggg29+
+	 TuaizpfhYR2cQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 7BC5F3386D14;
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 762713386D11;
 	Sun, 15 Nov 2026 17:36:16 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,8 +54,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH 05/23] ASoC: codecs: wsa884x: add VI sense capture
- DAI
+Subject: Re: [RFC PATCH 01/23] ASoC: soc-core: allow default ch_maps on
+ links with more than 8 DAIs
 From: Mark Brown <broonie@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
@@ -67,39 +67,41 @@ Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261023171433.820092-6-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20261023171433.820092-2-srinivas.kandagatla@oss.qualcomm.com>
 References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261023171433.820092-6-srinivas.kandagatla@oss.qualcomm.com>
+ <20261023171433.820092-2-srinivas.kandagatla@oss.qualcomm.com>
 Date: Sun, 15 Nov 2026 17:36:09 +0000
-Message-Id: <179476416982.140154.10822957842494469444.b4-review@b4>
+Message-Id: <179476416981.140154.14343442697827559163.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=925; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Q3/1p6grUh3xccQDiW+Hn5ZbDJ7BX+yEQqit7SJ49CY=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+vp3wXu689JVXHZE3gyOWatsJrGL5+S3XafkpQbvEw
- Oo5k/O2dpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiDqwMf8V6pps8dT1qaWuQ
- 7XkqSyhqgbzGDHvxPs4bj7aUeh5elcTwvyqAve8VQ1z7nPt59XsmyLto7vw/ZfWpfzzyU/58t7d
- K5wMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1019; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=QnygDcPT67Ji6OazEsDZCOuFyKT6QTxycpva3XMVuSo=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+vu0uyufjfD89b7LZ1DketX6aM7oa71+R/W58e8nh9
+ 8v/Lq7s7ChlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEpOUZ/ue99iyfLJl+kW3y
+ sWuHq9b1nmROC5FKE5pjv+ysH/Nv+XeMDAf2rWX8smvRGr46nderXI5lvVqXlrhHYPP7m61XX2Q
+ 4/eICAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> The VI sense port carries the voltage and current sense data that DSP
-> speaker protection needs, but it is described as a sink port next to
-> the playback ports and has no DAI, so nothing can capture from it.
+> snd_soc_compensate_channel_connection_map() builds the default channel
+> map from static 8-entry arrays and fails the card for links with more
+> DAIs. A speaker protection link carrying both the amplifier and the V/I
+> sense codec DAIs of four speakers has about sixteen.
+> 
+> Keep the static arrays for links that fit, and allocate a per-link map
+> with the same 1:1, 1:N or N:1 layout for those that do not.
 
-> Make it a source port with its own capture DAI, ops and stream runtime,
-> and leave it out of the playback port list. sdw_get_slave_dpn_prop()
-> searches the sink port properties by count, so pack that array densely
-> now that VI sense is no longer in it.
+> @@ -915,20 +915,40 @@ static int snd_soc_compensate_channel_connection_map(struct snd_soc_card *card,
 
-> @@ -1795,7 +1826,10 @@ static int wsa884x_hw_free(struct snd_pcm_substream *substream,
->  {
->  	struct wsa884x_priv *wsa884x = dev_get_drvdata(dai->dev);
->  
-> -	sdw_stream_remove_slave(wsa884x->slave, wsa884x->sruntime);
-> +	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
+> +	if (dai_link->num_cpus   <= MAX_DEFAULT_CH_MAP_SIZE &&
+> +	    dai_link->num_codecs <= MAX_DEFAULT_CH_MAP_SIZE) {
 
-The VI DAI has it's own ops so it could just have it's own hw_free()
-which would be a bit less fragile/surprising.
+> +	} else {
+> +		int num_maps = max(dai_link->num_cpus, dai_link->num_codecs);
+> +		ch_maps = devm_kcalloc(card->dev, num_maps, sizeof(*ch_maps),
+
+This is a dynamic allocation bound to the card's device but it ends up
+in the dai link which might be stored as static data in the machine
+driver and get reused on a rebind.
 
 -- 
 Mark Brown <broonie@kernel.org>
