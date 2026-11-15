@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794780901;
-	b=B9cU2+z0ECEaZRCe9Szo6noo27YSzO2nrDEm5LcmHsuSZjnjEYFpl6VqqD67oFRZJNhC
-	 X7QMLKYL+jed57/iAqyyhOQaV6aPsdryF7VTEXmHMq+2ZhPKc2Q8vsMU2IKYB/2qwSJ1W
-	 nw17QDbolH+3gP7s5i401IJJnzQEKs8pSaqHnPde1b1x78GaVO6J75dOrl7U9Q2rFL4N3
-	 D5pMGi3Rj+pf9APZAbMskupA+UymZosR1/bo2BjXBdDnLk6YctY+E52jedyuwz/gNP6Ko
-	 FmBHxq5LF5WDuJyrUrCktmNj5vBrjSRjUsJheWeEd/WoEj4y1rqW5u0E4fyoyHO+kZw==
+	t=1794780923;
+	b=DRtgsqvU1Z9x0GXuILlUJ0ff9MKxxmTmEmS8Cm6GwtWkxR+MxnKMuIxY0jba7B8Es8LA
+	 O1elVEYh3oDaWt7eWnzy5Ww9gqcncDchJGTkp0up/fqi90fo1NTbJ36+dBwPKAshCmXHh
+	 UT+/Km8c1A5V7TZ8xsOxe5hT6rT9zxy/r1beLiKuJXg/Kd4+XhIfdUodRJLKluS/Pkv1M
+	 65YtAzUBNky26F639EywsjD23jDPvpxp6CrOuRCjNvM8LjjDewlTeCu9fZxoSlHjuvbRp
+	 7Hr6timIrAoHe7c0C8OiAjyHuJ39klwjQwBxyhlGa+LeJnefuHR9GkYYr4lzAp9qjxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794780901;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=0pjD6yTOOqO6S5Xi8Aicg1saMdbdOw8JPDtY8uBR1uc=;
-	b=NuAmf+CzifEOZg8WQ4/ACoI10VeayTYIFxle2bW5LRWMSbqpjdPz7ahq4mVgPeHgEPqL
-	 kVjp4V6fGvAD1RufNl3x5Lhfskq+PLlhIgMedNgTQ2tG90FdCtDaLNV9y1QVS9DdDcqmz
-	 /bHKOblUmkk+2LoIo77YAU3oQOTTX51Nz0iMtn3X+x2mJnGh2owz9nlb7vVdtLBHSMo0J
-	 oHz/nYOsKTHOSSngaN11sqbztqFcuKXhe8ypqzILuJztsopkpG+b03vbNcMRV5njfOYYu
-	 h/ib/vSUihmjkBfVW12a0LySo5Ye+mey6DfizrEzmvPmjVudh/oFFVjE9+dyztmvrKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794780923;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 References;
+	bh=2F2z0ZuZcbyuAjZU7VnocXFK2M42aX34gNp3ecJ79HQ=;
+	b=efFYTcz2DffGkN8QuIX/B/bud6zO6gKxmYj3fzDea1o6n4GUwLRbIw2nGeo3/ZKkhzdH
+	 Ua/KOgw+WuOSOqjOE7yGu40JodNByzpKbi0BYXUOU+rpOaltnErUiKwZ0tcG45XOKYVp/
+	 DAPKWaxgjkvLoDuc9I4LtODjv8rO5TQWc++D1AqL3xrmg1GS5HDkgaIn3fUdy6bPlVxBj
+	 QI5npNExZfbOAjCE6W/IluqBD9oULd4wGvW2TxdQfZxLDAIjueuwSuuRLFV9Pu6ZcXEgh
+	 pdASSSLQAx+nf2Iq1sWxemwB1PoKrSyDOfEKcYrqyyfmAwj8EYtRERZYKEWhDX5WULg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=ELf7e+7z;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	dmarc=pass header.from=yahoo.pl;
+	spf=pass smtp.mailfrom=yahoo.pl;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=S9cTi6Lh;
+	arc=none smtp.remote-ip=34.2.82.16
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A975606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:15:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A975606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7092A606A331
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7092A606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=ELf7e+7z
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b571979178so4476358a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:15:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794780898; x=1795385698; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0pjD6yTOOqO6S5Xi8Aicg1saMdbdOw8JPDtY8uBR1uc=;
-        b=ELf7e+7zHUUJttearjZszOFnQowWEQdOD+xr5n5FbDod/lHSudvSiva8nXBUYx9NFW
-         U4qvqcDly2cxhTE9ClLxskuSJGF6Beh2lR+MZL2loLur/RrxWGPnoFWugLtmYhJTFgp+
-         nMdfg8h5mZaTFYzTIi6jxPVfjRqfrAhvlI6Pg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794780898; x=1795385698;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0pjD6yTOOqO6S5Xi8Aicg1saMdbdOw8JPDtY8uBR1uc=;
-        b=oXqJJXKgQvwr3RW3oGRnE6+V1mGSCPZhpdK+wS6+77kv6JlUFX7WQwJM0SW/ZzmsKA
-         hcOikyn/7y2xxofjM1V3KKKX0XznTZM6Exd61hxfGZjAWXWqJd9btHdDC5QvnsFMBfAd
-         UcVeSjzxBLOradmgVlSk+L55TbpzEf2i1IwdJHD6YWZUkv8mgkx+yiCLfJPnwmfSYdSf
-         8Qy+r1hz0J2eIy3v5ymLe56aOB7uq8PQ/KbjJKj5uaTQG467BIDQ3psFhFCSdBjdys2a
-         hVjAoBUwet/A+8DMrZ8+eNcrLK9xqaeoQC/OffWhHhisp63gnV5s3ZAJ5RfwYasUyFQK
-         oH3A==
-X-Forwarded-Encrypted: i=1; AL+hErHNo7sxqcFTeUUJ8ktTLOTwGWMN1c/YtBkZVAsc8l/y62WSpkPY2oYv0lDWxGI2ut0M+jO02DjOhyI12YM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yV0M6nrW1UcfTYiBA0R/CEJi9icY1l1z43ttUJCIEjDDCOVC5
-	ObvndRilKdMJlwPvSdfwRUnpOA+KF0X98zIIXAxb2Rohiz+FsMJQXusafY5z5d0bwnZvGdK1iX+
-	627CuXmhAyg==
-X-Gm-Gg: AYBFou0KWXNlcWvOFM01ZivJKrIRNvDQwXQK+JpBJ6tlXbaOyh+4XpRwIPc0M/P3eSU
-	Ag/3VWjTOMRdqziu+J+G/Lg09gWquw99ywXsXulMcm1xScsMwrNzldtCwStd8lZSrvu70npGJjc
-	lf2VX/ytBRHWtyBrNevRnwCSdiaUnw8l8gj7ZzhmhIcFp6eLy74nBvsX1SYkzigglHKamrfRaUi
-	cVn5/JkFKkTbAgOuUbML/eEkkSjdbpAaLQvzqCJSkhgexw4TmPbqULnQ+mK7vYZHZsMFQlcSUFK
-	6i2TMKqN1jDdHHIi9iVP5XMDdyeTQ8O43/nMgVch4pLxBp7JZYtr4UJesLjRKPo6Zv4Uh/4pTFV
-	oC/FCTJQSpmYCJDBj0G2X55r9V3S60l11lBck7sXTY9TVbFoSeLEZ/hy6PqOV4y1QEYsNNCkswN
-	vfXquZHOmuylBebxY2oCCoSwMA6X9jw5vYBVqnVQjCIjPcYAbRezbnuxcmkuOnig8UOTBIxYdQg
-	37fHhMmthnKE83Vza9e9rP8gOC1NYHzAe2i7QPQxGbhPYWdpqbRY++TkhLFEyScE7ux+xj5q8Mr
-	3w7wV70ZgdniluMGDdXqD48X7ocQqN0y0eXOZlCutv14svIAjFNCFal29xcaLAWpT86aE+5AZbp
-	ID+Y=
-X-Received: by 2002:a17:906:d553:b0:c4d:5820:325e with SMTP id a640c23a62f3a-c5096328869mr697271266b.13.1794780898537;
-        Sun, 15 Nov 2026 14:14:58 -0800 (PST)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5b93csm337284966b.5.2026.11.15.14.14.58
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 14:14:58 -0800 (PST)
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c505186727fso496299566b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:14:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEdHlP3i3Zi8b0ZZ/+VBWorsiK9R1e2Y+lo0x+gpuXHJsQ2NevyEGUpeXBPsLYlFaIVRTOE1dHXN5CfUh8=@vger.kernel.org
-X-Received: by 2002:a17:906:f59c:b0:c42:102f:15f0 with SMTP id
- a640c23a62f3a-c509614d4c1mr660568766b.3.1794780897882; Sun, 15 Nov 2026
- 14:14:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=S9cTi6Lh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794780920; bh=2F2z0ZuZcbyuAjZU7VnocXFK2M42aX34gNp3ecJ79HQ=; h=From:Date:Subject:Content-Type:To:Cc:References:From:Subject:Reply-To:Content-Type; b=S9cTi6LhY2apmj7BjKqKoB6081fiDVvPkhdFmk6IwYe/09zZLaOALZS+Dgd39bOOaURQXTmpUXUNTeGq6AapHsf6rFcejEiMyrOnGlpP3G347uE/xqLWTG7kVIbX8CZcl/m2TugR3VWfHHYQ1e0G7exbuFw/5E9baKIRDRvbpTfL5fjNRNyONjgApKeJJBd428H85pJBkXIGpNvPqmSUrTkx3LG5DkNnz91ZeKR211hJ55XGzsQv2oZPWyC6jXvqVZ++VGlWB6kBnN1GSf6F+Ye2DT4Tno+M1PwRsKKe1BZEuicwof73VUu4zbgrvg1oziaukydIYavc0NXVoGeGpg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794780920; bh=8io4HMmBHjf90ncS3kftgptXmHBAbxhh8oY345FWlNT=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=BgYWuToiTRfg8CGs5ho8lBXG0m6MxIayP55YOLU24JCSnH5KZcEGxc/emTtCNbnIIxTkcbKAe3qSp4LCBai7PAXFjiwwlCrihLx7G8LkcYfVegDz2DBW/ycqvYZRkbAV+BJUR2vYhfXaiMUnQDE4K2UNhg4OnqoopMhBOd/OFoRic3zHXh9WZ/NPpprNRJnUTMH8LBtmLXmlfuAtqz5ouqTWUZNbMXtQ/56Lt5oPRWO3rudL96J5bHBC9IaHSjGw8ZibxYrfXQwBkX/fmfI5XOx0ICypgiQhHiOgDsj8Z3BZXuPfDeyOCTNLitzllj+NWTN1mX0riP6Nc4pKk2pPXw==
+X-YMail-OSG: cKdOGDwVM1nsX0eogjTveVDoZYwLm_y6FI.Lo4VvAN2AVen6dCWuS3SKdH8QymF
+ HeJz658itmZov0GrRBecn.AnHGSmNhlVPkLpFcVLhDHZp65m0SpLum7F0c8I6VN095Ni6vJA0yvu
+ aR13Ze84FTAL8N71GQ2rcTkzY3FR.ywrLd7V5SxvHaMPoaM8r_bF8Ocy8cdLjt3Wcra2YvWY41nN
+ Y0i9u6K1puJGacQTAfFBOAw8646rzO.MEiGkEPr85mUrnXyqqVRQgULk1AJFF7bMPM9c4wT_1e3B
+ nUVnNAR0g_NZlSemHcWAV1HDRLUpNKMy8.uwby7FpgcmVuRB7jqjWUkHGvUZ7UNDrSljjqYY8jc8
+ LYDJyZXqK2xSiEaIRpAxf9ZqSQFCW._7kuXjXI1wrAhA7oLup7M_1r9wD3vZyODwJb5efhm_9qfY
+ 0_WPdJxsMklP.dgbiwQHyztaGnc7A1GA2GX2rmS73yRiIPRiZV2r923nXBDYRwPcatT2SYMtbHWQ
+ N7zm1.F__3c9DGGAz9JmACjUNI2VIb3Ugsl_cJmDVI2GZ5oCVhZrOjlvSOkYPcA7tSjca9zQLmWe
+ LcOuTlNd18fUalEYUqcBmwaYTfhBOWna0PbTRkCDB6VWo4eQINDGVezm2JrKrASq0tfJcCloJ829
+ 7ZayR39ZYVjrll5hGGKl68BINKvC7Iv7UatLzhoyjaNJB3AeKP7QfixrLX4_7rHcExm4PTleGxKw
+ vXC03llRSI7HTYrLGpZhVS45_duPX_jr1wtrd3sajsHb4nQXSR1cSKEZBBGBL6P_x8VQiHFdPiAE
+ DQeY0oDEgDbuwcQWqrpZEMpKB1_j.aYtNoIf2HKkAy1c1I_dM4uNzuG2M0_AvAoWsJ9JdlzGBvHB
+ hoCbZ270BCJ3mS4KhQy3.LpBXg4Fk6qdS.bzvyHxEMEiMtQpeX8qddNMEQFGLX1PBQgCKIQm3vq1
+ toB910W0hy_5BuY3AH69x06uPh0JV6FBrbhy0vg0RLhq.h8q4vYjwG8isaL8Mrpwh8CIAHzOB5Bn
+ nEH2xcYQ2gxXANdy_jfdbWyaVc1GkMSgAp3co9JJJHoK4E6LH3PxjqeVYMjTJ_d8XkxiXAPG_oMo
+ 8Idse8deYm181fMvYMo5ust2.FJbJVxd18dDmEahAOLt9mvmYgtEIgaSADih0kIwyVVjJnNUSGZW
+ LvKoNECYZO319rDu3YIIV_IE7Q0zY3cRmNvOsKOxMRX5v9_y4u3rRRlELD1C1eD0E4xKLpm8c3CU
+ 6AgoMdd9IWse3SrmH2PyvmxqbgurRd.mJNSLx.nWnJOYddYQf5Bgn1P50oduQrV_0mzg7MTC05fO
+ 153eHdM1PiEnaEglv4J_98E_dBDkJmzxlUNQ_OxW5I1S6XVoN.mRj0t7P5LfK3o1bZdx5DqU83T9
+ FoCdZQ_g62dmz9M.yIF9alxZvegJLc2X_LCRK0in2aD1C3N4WVRFw.92KTHkzjOUnXAVnsUBZl4H
+ SZKmiVSsIxiU0j1_XmQD3AP0rJbMLGJz3uRvixs5gBTtUyaf6yU5epo9HnqhYzRDX_KqQN2SRX.r
+ KIzDNSHcxvy9AgdBm0W5p7sELB6lF3ZAza7U9cIGvjZsO_Lj7bShCJJMZUWNpwy44kDxsoHghqM.
+ ZjsWLg1_2riOdlWLtkADNqzTnSPUdhVl5MCHrlvi9p1cgpz0eBSn7iXvqepF6WojlLKzV7rK0Axj
+ I_b1VOMumhlWN7MNIZoLHjDpZcfLObnD06PsT3G3_JRgpJ_V2YgAfun9wr6DDHWtUfGBUwT69n5z
+ 5k1sMhrA5FNYYXTNH3mCNrBYND13Rs_fvJsFRXRAHxvj6SCchMevNSkuJPcTXsOj6jJ3t93sOXhh
+ JZCYhc97StbFWZI8bC8n8rBnA6TViv_Tk8P20cibLUy4abFCEXHY8qClTTzroImtoGNRhn1lf3QK
+ wfvfvV0tGYz8R.C9kKFj3r67Zfir17KzJ9osLThKbAwzxpBBOLeb5M52ArZK3jde8qrjmyxu8pyB
+ JFPkDhQ20RVFpKTj93t95wgE-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 49e5a92c-a159-440c-ab6e-d16bcb01beff
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-104 with HTTP; Sun, 15 Nov 2026 22:15:20 +0000
+Received: from dip25.lsn.ir2.yahoo.com ([87.248.99.34])
+          by hello (SMTP) with SMTP ID c8d60a975a832e99b8d64eff3def6a17;
+          Sun, 15 Nov 2026 22:15:17 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Sun, 15 Nov 2026 23:15:15 +0100
+Subject: [PATCH] dmaengine: bcm2835-dma: Add missing
+ of_dma_controller_free()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,81 +84,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <fb224bad9baf5f44cf17e1d664776a4e@kernel.org>
-In-Reply-To: <fb224bad9baf5f44cf17e1d664776a4e@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 15 Nov 2026 14:14:41 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wg4jAWZvxWo0OZ+fFTU=SBtQ7dnsUCV7hx+UAifkwPUwQ@mail.gmail.com>
-X-Gm-Features: AclHuK_LGhq7nDj4NuCBVcN_vX9hS2upSOJLuckybdfHcTfd7WWSNt-k3LZOEh8
-Message-ID: <CAHk-=wg4jAWZvxWo0OZ+fFTU=SBtQ7dnsUCV7hx+UAifkwPUwQ@mail.gmail.com>
-Subject: Re: [GIT PULL] workqueue: Fixes for v7.4-rc2
-To: Tejun Heo <tj@kernel.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261115-bcm2835-dma-of-dma-free-v1-1-d539234bfec5@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWXfAiY2XvkrpQuOJnYIXklYK4
+ rs31dXhW5x/o4igiHTLNgpYNeo8JcglI/dspwGsfTKZ3JQiYrlzo6kLy/3Y8uyP8QFg+NpWVen
+ yRq6U3kuA1+9Rvj9Ox0/3gnv/c7TvPwce4ll7AAAA
+X-Change-ID: 20261115-bcm2835-dma-of-dma-free-ef85776c0914
+To: Vinod Koul <vkoul@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Frank Li <Frank.Li@kernel.org>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ dmaengine@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794780915; l=3260;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=jV0a/9DTGW1SPvNbP0Mt26tL8Imf7uBrc5dwl3yGkZM=;
+ b=CscCH9wbwWmQedrCZPpnmGMn+DkzApvTh/R9gV9+S6vD7i2g0um3z09nUEFA3pGeMASBZjqbA
+ dpj+AHnai5fDlH/VxgdEU7Wo+HF8NFz+66pNTc7PPRNQXcZNozKTnGp
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20261115-bcm2835-dma-of-dma-free-v1-1-d539234bfec5.ref@yahoo.pl>
 
-On Sun, 15 Nov 2026 at 12:45, Tejun Heo <tj@kernel.org> wrote:
->
-> - Draining a workqueue could return while a work item queued by another work
->   item was still pending, making workqueue destruction warn and leak the
->   workqueue.
+bcm2835_dma_probe() registers the controller with
+of_dma_controller_register(), but of_dma_controller_free() is never
+called, neither when dma_async_device_register() fails nor in
+bcm2835_dma_remove().
 
-Why is this re-creating - badly - the existing sequence counter code?
+The entry stays on the global of_dma_list and keeps a pointer to the
+driver data, which is devm-allocated and freed when the device is
+unbound. The next DMA channel request for this node is passed to
+bcm2835_dma_xlate() with the freed structure and, depending on what
+that memory holds by then, either fails or crashes. As the stale entry
+is found first, this still happens after the controller has been bound
+again.
 
-Not only does it do the memory barriers by hand - possibly getting
-them wrong, but it seems actively broken.
+On a Raspberry Pi 4 Model B, unbinding vc4 and the DMA controller and
+then binding vc4 again results in:
 
-There's a reason proper sequence counters have that "odd/even" rule,
-and a writer increments the sequence counter *twice* - once when it
-starts the modification and once when it is done.
+  Unable to handle kernel NULL pointer dereference at virtual address
+  0000000000000018
+  Call trace:
+   find_candidate+0x64/0x210 (P)
+   dma_get_any_slave_channel+0x64/0xd0
+   bcm2835_dma_xlate+0x24/0x48
+   of_dma_request_slave_channel+0x178/0x2a8
+   dma_request_chan+0x20c/0x380
+   snd_dmaengine_pcm_register+0xa4/0x2a0 [snd_soc_core]
+   devm_snd_dmaengine_pcm_register+0x60/0xc0 [snd_soc_core]
+   vc4_hdmi_bind+0x4d4/0x8e8 [vc4]
 
-As far as I can tell, your "fix" is still broken:
+Free the controller on the probe error path and in remove. In remove,
+do it before unregistering the DMA device, so that no channel can be
+requested through the node while the device is going away.
 
-  drain_workqueue:
+The bug was found and the fix drafted with the help of an AI coding
+assistant (Claude).
 
-        mutex_lock(&wq->mutex);
-        if (!wq->nr_drainers++)
-                wq->flags |= __WQ_DRAINING;
-        mutex_unlock(&wq->mutex);
+Fixes: 96286b576690 ("dmaengine: Add support for BCM2835")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5-2
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+Verified on a Raspberry Pi 4 Model B: without the patch the sequence
+described in the commit message oopses; with it, binding vc4 while the
+controller is unbound is deferred and HDMI audio gets its DMA channels
+back once the controller is bound again. Both paths (remove and a forced
+dma_async_device_register() failure) were also run under KASAN in QEMU
+raspi4b: slab-use-after-free in find_candidate() without the patch, no
+report with it.
+---
+ drivers/dma/bcm2835-dma.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-        seq = atomic_read(&wq->drain_seq);
+diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+index 06d830d36882..cf29d897450e 100644
+--- a/drivers/dma/bcm2835-dma.c
++++ b/drivers/dma/bcm2835-dma.c
+@@ -1011,13 +1011,15 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 	if (rc) {
+ 		dev_err(&pdev->dev,
+ 			"Failed to register slave DMA engine device: %d\n", rc);
+-		goto err_no_dma;
++		goto err_of_dma;
+ 	}
+ 
+ 	dev_dbg(&pdev->dev, "Load BCM2835 DMA engine driver\n");
+ 
+ 	return 0;
+ 
++err_of_dma:
++	of_dma_controller_free(pdev->dev.of_node);
+ err_no_dma:
+ 	bcm2835_dma_free(od);
+ 	return rc;
+@@ -1027,6 +1029,7 @@ static void bcm2835_dma_remove(struct platform_device *pdev)
+ {
+ 	struct bcm2835_dmadev *od = platform_get_drvdata(pdev);
+ 
++	of_dma_controller_free(pdev->dev.of_node);
+ 	dma_async_device_unregister(&od->ddev);
+ 	bcm2835_dma_free(od);
+ }
 
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261115-bcm2835-dma-of-dma-free-ef85776c0914
 
-__queue_work:
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
-        if (unlikely(wq->flags & (__WQ_DESTROYING | __WQ_DRAINING))) {
-   ...
-                smp_mb__before_atomic();
-                atomic_inc(&wq->drain_seq);
-                smp_mb__after_atomic();
-
-but what if __queue_work() was called before __WQ_DRAINING was set and
-is running concurrently and never incremented the sequence number?
-
-Of even if it *did* increment the sequence number, what keeps it from
-doing that *before* the atomic_read() in drain_workqueue() and then
-
-Either way drain_workqueue() never sees that drain_seq change, and
-thinks everythings is fine, even though __queue_work added an entry?
-
-Is there some other serialization that I'm missing?
-
-Anyway, sequence numbers almost never work with a single write,
-exactly beause the single write is itself then not ordered with the
-changes that the writer does (ie the sequence point update happens
-before them or after them, but either way the reader might miss the
-sequence number update, becuase it's not atomic wrt the actual change
-it is supposed to be about.
-
-The actual 8real* sequence numbers we have do that two-step change
-exactly because of these issues. The writer increments once before it
-starts writing, and increments it again after it is done. That way the
-reader actually can check whether something changed (an odd value
-means that change is happening and needs retrying regardless - which
-is why read_seqcount_begin(() will loop on odd numbers)
-
-It is possible that I'm missing something that makes your ad-hoc
-version ok, but this really does look just plain broken.
-
-I pulled it and then unpulled it, waiting for explanations.
-
-             Linus
