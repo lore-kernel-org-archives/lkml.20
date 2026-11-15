@@ -1,61 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794722860;
-	b=2oR8Xr8TnQC+ZGWeJkNirUwosQMaZklYZnijR3p2cBXDDMxaWvjzOL1u8FdXK68D0IGJ
-	 Vw10+wIuLmubAyh7wIagvlIYlK2Tl1HL8RsbztMTZ4/OQeyJwDxlyqLRfHRdIXciOlQhz
-	 iPAiWhF3rugUV7i1Gn9y6jtwZJ4ApHl2UUVIaZZz+eEN8Pr+DBP76tLOqvG8gJHpAHUNm
-	 rcOYaLmOR7vcQnG1rDpy11QILTuzdPYX7SYD6uF44zSeOssdZ7J7FYcumRw3kBTvy3m/r
-	 Q1uk53hAjutKcMx0dCdeUJ1ZGIBznQ3sOotZ3m5qSPK/8y/lpwWW+XoIXV+rPOpXSFg==
+	t=1794723083;
+	b=rOZLx/uPs9Kt6L/CoYhHtNaI+SPppXbn8/99Xk4TZcC/cmfQq0AqFJWng8WLEoOYjwMo
+	 wN1jXAL4Ldi644sbFQam6EYTEAnpZKJhEE0CGO0ncX2gt39cUZj5TWqB/u1nTnX2vDDYA
+	 KhipHoUoewOMQ1p0JjS6R3QKOKNXNTJj8EBCJJ4ZO9n5zelUB3MoXkV0iUhvpOMJDnl//
+	 1HXKpXra+MH+zJdHaIKWWpCduZXIRdCxD4fKprGh3/sK2OhmPeTTefx+8I230cKHk4PDp
+	 X9SaIIer7Wi2I70jM7C1TGEEQiTspOy22pOrIBV3x/JeYHKUIQkYcyiQ+xZJP4aWYJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794722860;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=pD21cF0F7petF8iJUG6KKrG1msB1EH88t0HH2frnez0=;
-	b=uy8zmxaglzsm59aGK4+rmhjnAUUWM/nbwOmYBtTjAg/XCcUEFxLHepYkwtpkcmhrnDCg
-	 F6Ap9b7vFAAXIgoUdyfSB1QJcoqE5PrUIbXQgZi+yeAtnBXxJM9f2QYNkc4fj1Yn9k4JL
-	 zKcAMdCoJQHKa7c0TNPBFxqVcDkREcF94wVX4VacTFGLAsN5MrmglRspkMVejvc1NuqWt
-	 R2tO7sZ3Tgn9S40nbLVbFlJJWaO+/+McJ0qLkeH8yrnfnZsOpzhOSK7iPUp2RW4iqZrOq
-	 YPRPDSJeIf7bkBysMLK9qkL+09RnlW3EQCURHU4xQA+G0q6iuB/xYp4s/Fp0C3myHQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794723083;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jucsGGsP4A94CkjewiCz+sSfRnTZY+EbzcNS/u6Mk/w=;
+	b=IVqSX0KLhdlhZR7bUAxIVngsZsIbKu1DTXrqVkClVLyS87xSQuemH1STXfhoMexSQlWp
+	 M20kzRwBkEQ2aaYDICw0pAvPdYClOXg6P8oExfI+VPt1APKLXKePnqeUrIL9NT/7boSUg
+	 sTwVo8sxqgilp7dRHDz78nSVSBp+Rqt95pRpG7c8cVPhURGFDQ9A2WZIj74EpwXPkzVIB
+	 ZjWOi+pi94ztoxNLv8Xcmo2aAvVeAy2r8Tsq1Msh9ysLHTg5+LFMXebKvOXwcn4r084f+
+	 tFtSUtWREqjClo7wWZVpx1HwDVKMm9abJeFovVXG0OuMo20ND9Gl8A7QX+yLiaezSFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5DXEIp4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PfGO72hV;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825EB606A33A;
-	Sun, 15 Nov 2026 06:07:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E54D606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E54D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5DXEIp4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7491F000C5;
-	Sun, 15 Nov 2026 06:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794722860;
-	bh=pD21cF0F7petF8iJUG6KKrG1msB1EH88t0HH2frnez0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D5DXEIp4EowRnZ4YvbjbQWJ2d5YtgJsL+vWmj49GKfzeugpQKCFZTauILzepfa7KR
-	 tQhffYvKYBA6NowYcY5Q3pBvhU5QcQ7wZT/NQnJ7bDhsDTPUHU74ERGpyqcRZyAbtO
-	 0de023lBugMB4/TLJpEb6M9H21p0fhcO+OJoZfa/mXiet/YR4eSnnKYcvimZlT/hkc
-	 qksENrwAZAGeAkFVC1QM5AlVid6+mjI1yl5JlfoZawr+bjSQgi/QfHpj+bG4Eqd0Xk
-	 rZpIQNTCuu3upE8f0uy/dxdO0cC35o9bHR07MFz4S2enZ9/BWAgvjZfvS2UWU7tyCP
-	 liU50FScrYncw==
-Subject: Re: [PATCH net v7 6/6] amt: create relay tunnels only from
- authenticated Updates
-From: netdev-bot+sashiko@kernel.org
-To: omar@blockcast.net
-Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
- linux-rt-devel@lists.linux.dev, kuniyu@google.com
-Date: Sun, 15 Nov 2026 06:07:39 +0000
-Message-ID: <179472285922.2199510.7147009024477916910@kernel.org>
-In-Reply-To: <20261110210538.217936-7-omar@blockcast.net>
-References: <20261110210538.217936-7-omar@blockcast.net>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PfGO72hV
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb6adaf0f1so1247625e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:11:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794723081; x=1795327881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jucsGGsP4A94CkjewiCz+sSfRnTZY+EbzcNS/u6Mk/w=;
+        b=PfGO72hV+7K+Bg2rbbjq10rm0RIetCz0/FRxgVqU1XK8ZLsGG2X6lmqmEZoUITZaiL
+         0uVePmMylD2kf/99hIEE6d3FIyF3HedVSiJ83nuwDxFq3pm0+cACun6X1eQ3LJ0Pgcs4
+         jbJ7kzb+9QYKJfh/zVKkpVccIhy07LkJ2EZsB8pEOP1QP/rpxlrp4MahL/WdgH0iP3ey
+         Q4TzQiWbARjL4aE8xBCdzTQ8I30mT+WNQ0dFI3dZ72aju5+vcjuO4HvY/jkxtkImKrhF
+         RROvPReMcLd4HTt1r68zwPJRzOiAiTP5TGNSPwC1qU/GyGzWX3W+0S0G4moO+g+bzz25
+         G1Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794723081; x=1795327881;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jucsGGsP4A94CkjewiCz+sSfRnTZY+EbzcNS/u6Mk/w=;
+        b=Z/3zjtuFmbA6nT3GGNPvXkoTRIPUmV+U+3W0ao18ItHEftO7IxBKRqZPyfEqsxeFgt
+         IlRm/s+8W11QyND48gONSLce7H8udFbJJo0akxPeVQrr4tvfkOrGtrW1SC7UW56ZL5dW
+         Z9I63S7OmUdh7/wwBj95a/7h3nGVGtESKQTod4WsAd3/a6jDeG/jSnufXNbI3oeJiL3n
+         3Qex+xJcezNYPzlhDT6svdPKr1GZN3p0xfssEYQRirRPgJYJFwe8dG7zf6VDiSgTqmCP
+         ExsVrRZ/Ak9bCJ1eNZ2g4M2IXTCJ+g/TqIkpUlbxkY+jBuUGwe9mBRJUzQganJiJXqJ9
+         EYPg==
+X-Forwarded-Encrypted: i=1; AL+hErGEmGjIhKzW5gOMp8dtvYrB+7QW7mccjKjQE7cMNNoQzzbKwZoZy5mYXz4BYdCc7+yYigQHuGDUEhhZOFI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cizNcMs13WMLx3yaNA0U5eA8WR+zskHgKvzHMy97la0VOS06e
+	jztQ7bL8j8wIKRz+BCE5k4c46xQ5SWhbAhIhoPZwyM+kJHepjgp7LAGc
+X-Gm-Gg: AYBFou3QkmsOeg8j5Uf2spXKGZ/Shoetp1TgjEfjDE72i7G+b17VIgzU4p8l2CvdVH2
+	rNBil1bBdcRgncX4T6HFILJbOzxoMh6tBvhrPsTok+Dw3zWBC+phFduFVABiy85ho1CqQNpU1J/
+	gCmzeiURVBNb83TbswJAbSeGuaLFpeB3kg2+Is6VC3/0MEgelR+Bxe3rStWdMO26J+MygfFe+Mx
+	l94cLH4+AKauq4XBRdJJgcFyR2M2madz+fYiuUcm1aHESOFqUSF1TUSuE/tiwCbF8EpRiNA4A7N
+	fgOznwCp3URulqwLkaO5IufPky/Oil2O/PDUljuSmdHpMjY58EpG41Wcx1TYC8DkII+mK4rOp9A
+	WtxqdcAnYmAZnQB5Kc9CsGCn7GL32Lf4gyyv8JwkJRn+2Dq/7r43tuu+e6fHKIU3ySpDw8nQSAV
+	pcTW6U7NsdGSL5ALgCZJNk+MUUckpKzEPiyhg7VCnJ7wbbB/FzMKxpaHftj7OBEjBOhHCab5rm8
+	OzXMKkN8zsWP1d5VczOzyribt3akCs/eCSQwn35R04DXVmOSRKyuxCeORF6XMVsWM0xy2GeODKp
+	xq4Kx44qE2Xit9iOVEQwS3WAZP5P0XZFbAJZrtCM0IR2z83Jwr/AHSKk0zSiBtNiN+8RtUhTWfm
+	onuwEvKhQQ/dB94Oa9Ylk0DntOxasJKT530FY9dRRlikHob0dJI0Epzt6vKOz+28CoMsyxv3QCw
+	394yd6GnVBdGxbvLZX9qvrxD8jFzXY8DO9XmZLwp2Th16pYy/pp1F0OJw9JXTsFVvo9BTv1+NWb
+	rypIKP0WGukuA==
+X-Received: by 2002:a05:600c:4e56:b0:4ac:aae6:6400 with SMTP id 5b1f17b1804b1-4bb55a48042mr148514035e9.13.1794723080596;
+        Sat, 14 Nov 2026 22:11:20 -0800 (PST)
+Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5ba25b50sm139331075e9.14.2026.11.14.22.11.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 22:11:20 -0800 (PST)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	sboyd@kernel.org,
+	Andre Przywara <andre.przywara@arm.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v3 0/8] drm/sun4i: update DE33 support
+Date: Sun, 15 Nov 2026 07:10:54 +0100
+Message-ID: <20261115061102.229680-1-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,133 +114,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+This is second series out of tree which aims at properly introducing
+support for H616 Display Engine 3.3. Previous series [1] reorganized
+driver so proper DE33 support can be easily implemented.
 
-Low priority / nit picks for your consideration:
+H616 DE33 support was actually introduced a while back, but it was done
+without fully understanding hardware design. Issue with existing binding
+is that it considers planes as resource which is hardwired to each mixer
+as it was done on older Display Engine generations (DE3 and lower). That
+is not the case anymore. This series introduces new driver for planes
+management, which allows doing proper plane assignments.
 
-- [Low] In drivers/net/amt.c, amt_request_handler() now drops a Request
-  without any reply when the relay cannot admit a new endpoint.
-- [Low] The comment above test_query_egress() in
-  tools/testing/selftests/net/amt.sh (lines 256-259) still says: "The…
+Note that this series intentionally breaks existing H616 DE33 mixer
+binding, which was released in v6.17. Old binding can't describe shared
+planes, so second mixer can't be supported with it, and it never had any
+user - there is no H616 Display Engine node in upstream DT, rest of H616
+display pipeline is not upstream yet and no other known DT consumer
+implements it. Reasons are documented in patch 7 and driver prints error
+asking to update DT if old binding is detected (patch 8). See v2
+discussion for more details.
 
---
+Remaining patches, which introduce all the missing bits to fully support
+display pipeline on H616 SoC, will be sent once this series is merged.
+WIP patches, which can be used for testing purposes, can be found at [2].
 
-amt: create relay tunnels only from authenticated Updates
+Please take a look.
 
-The relay no longer creates tunnel state from unauthenticated Requests.
-Instead, the Query MAC is derived from the source address, port, nonce and
-one of four rotating secret generations. Tunnels are created or refreshed
-only after the Membership Update's MAC and encapsulated IGMP/MLD message
-are verified, with global and per-source limits.
+Best regards,
+Jernej
 
-> diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-> index de5b7dbe3a20d..8014798b33167 100644
-> --- a/drivers/net/amt.c
-> +++ b/drivers/net/amt.c
+Changes since v2:
+- rebased on v7.4-rc3+ (mainline sun4i fixes)
+- patch 1: explain in commit message that DE33 has only one bus clock
+- patch 2: don't register regmap with syscon, drop preset plane mapping
+  and reword commit message
+- patch 4: don't expose YCbCr color properties on planes without YUV
+  formats (kept Chen-Yu's R-b)
+- patch 5: collected Krzysztof's R-b
+- patch 6: renamed, get mapping regmap from display clocks device and
+  add device link instead of using syscon, defer probe until display
+  clocks are bound, set drvdata only after mapping is initialized,
+  register driver from mixer module instead of module_platform_driver()
+- patch 7: explain in commit message why old binding is incompatible and
+  will not be supported
+- patch 8: renamed, initialize blender pipe modes for DE33, add device
+  link to planes device, limit DE33 display regmap to its 128 KiB region,
+  print error asking to update DT when old binding is detected
 
-[ ... ]
+Link to v2: https://lore.kernel.org/linux-sunxi/20260509190015.79086-1-jernej.skrabec@siol.net/
+Link to v1: https://lore.kernel.org/linux-sunxi/20251115141347.13087-1-jernej.skrabec@gmail.com/
 
-> @@ -2888,59 +3059,45 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
->  	if (amtrh->reserved1 || amtrh->reserved2 || amtrh->version)
->  		return true;
->  
-> -	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
-> -		if (tunnel->ip4 == iph->saddr)
-> -			goto send;
-> -
-> -	spin_lock_bh(&amt->lock);
-> -	if (amt->nr_tunnels >= amt->max_tunnels) {
-> -		spin_unlock_bh(&amt->lock);
-> -		icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
-> -		return true;
-> -	}
+[1] https://lore.kernel.org/linux-sunxi/20251104180942.61538-1-jernej.skrabec@gmail.com/T/#t
+[2] https://github.com/jernejsk/linux-1/commits/sun4i-drm-refactor/
 
-[ ... ]
+Jernej Skrabec (8):
+  clk: sunxi-ng: de2: Fix Display Engine 3.3 definitions
+  clk: sunxi-ng: de2: Export register regmap for DE33
+  drm/sun4i: Add support for DE33 CSC
+  drm/sun4i: vi_layer: Limit formats for DE33
+  dt-bindings: display: allwinner: Add DE33 planes
+  drm/sun4i: Add DE33 shared plane driver
+  dt-bindings: display: allwinner: Split H616 DE33 layer reg space
+  drm/sun4i: Switch DE33 to split plane bindings
 
-> +	rcu_read_lock();
-> +	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
-> +		if (tunnel->ip4 != iph->saddr || READ_ONCE(tunnel->dead))
-> +			continue;
-> +		per_src++;
-> +		if (tunnel->source_port == udph->source)
-> +			have = true;
-> +	}
-> +	rcu_read_unlock();
->  
-> -	if (!netif_running(amt->dev) || !netif_running(amt->stream_dev))
-> +	/* Withhold the Query when a new endpoint cannot get a tunnel. */
-> +	if (!have && (full || per_src >= amt_max_tunnels_per_src(amt)))
->  		return true;
->  
+ .../allwinner,sun50i-h616-de33-planes.yaml    |  46 ++++
+ .../allwinner,sun8i-a83t-de2-mixer.yaml       |  16 +-
+ drivers/clk/sunxi-ng/ccu-sun8i-de2.c          |  82 ++++++-
+ drivers/gpu/drm/sun4i/Makefile                |   3 +-
+ drivers/gpu/drm/sun4i/sun50i_planes.c         | 215 ++++++++++++++++++
+ drivers/gpu/drm/sun4i/sun50i_planes.h         |  43 ++++
+ drivers/gpu/drm/sun4i/sun8i_csc.c             |  71 ++++++
+ drivers/gpu/drm/sun4i/sun8i_csc.h             |   5 +
+ drivers/gpu/drm/sun4i/sun8i_mixer.c           | 193 +++++++++++-----
+ drivers/gpu/drm/sun4i/sun8i_mixer.h           |  10 +-
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  72 ++++--
+ 11 files changed, 663 insertions(+), 93 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
+ create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.c
+ create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.h
 
-[Severity: Low]
-amt_request_handler() now drops the Request with no reply in two cases:
-the table is full, or the source address already holds
-amt_max_tunnels_per_src() live tunnels. Before this patch, a full table
-got an ICMP Host Unreachable through icmp_ndo_send(). The new per-source
-cap case is also silent, and gateways that share a NAT address can hit it.
 
-The commit message only compares silence with ICMP. RFC 7450 also defines
-an in-band signal for this situation: the Limit (L) flag in the Membership
-Query. amt_send_membership_query() still hard-codes it to zero:
-
-	amtmq->l	= 0;
-
-Could the relay answer with an L=1 Query here instead of dropping the
-Request? The relay already sends full Queries to unauthenticated sources
-on its normal path. So the reason given for staying silent ("a source
-address nothing has authenticated yet") doesn't seem to rule out an L=1
-Query.
-
-With no signal at all, a gateway that is refused can't tell a capacity
-refusal from packet loss. It keeps retrying Requests with backoff instead
-of moving to another relay.
-
-The in-tree gateway's timing changes too. amt_err_lookup() used to react
-to the ICMP for a Request by retrying immediately:
-
-	case AMT_MSG_REQUEST:
-	case AMT_MSG_MEMBERSHIP_UPDATE:
-		if (READ_ONCE(amt->status) >= AMT_STATUS_RECEIVED_ADVERTISEMENT)
-			mod_delayed_work(amt_wq, &amt->req_wq, 0);
-
-That reached the AMT_MAX_REQ_COUNT reset to discovery quickly. Now the
-gateway waits out the exponential backoff in amt_event_send_request()
-before it falls back to discovery.
-
-The in-tree amt_membership_query_handler() ignores amtmq->l. Setting L
-would therefore only help third-party gateways unless the gateway side is
-also updated.
-
-> +	mac = siphash_3u32((__force u32)iph->saddr,
-> +			   (__force u32)udph->source,
-> +			   (__force u32)amtrh->nonce,
-> +			   &key) >> 16;
->  	if (!amtrh->p)
-> -		amt_send_igmp_gq(amt, tunnel);
-> +		amt_send_igmp_gq(amt, iph->saddr, udph->source, amtrh->nonce,
-> +				 mac);
->  	else
-> -		amt_send_mld_gq(amt, tunnel);
-> +		amt_send_mld_gq(amt, iph->saddr, udph->source, amtrh->nonce,
-> +				mac);
-
-[Severity: Low]
-This isn't a bug, but the comment above test_query_egress() in
-tools/testing/selftests/net/amt.sh is now out of date:
-
-# The relay sends its General Queries straight from the receive path, in
-# the same context that found the tunnel. A query queued on the amt device
-# instead could outlive the tunnel it was built for.
-
-After this patch, amt_request_handler() neither looks up nor creates a
-tunnel for the Query. The daddr, dport, nonce and mac values are passed
-by value, and struct amt_tunnel_list no longer has nonce, key or mac
-fields. The check the test makes still holds, but should the comment be
-updated to match?
-
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110210538.217936-1-omar%40blockcast.net
+2.43.0
+
