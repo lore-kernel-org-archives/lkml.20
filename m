@@ -1,92 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794731110;
-	b=UM6fMmjjZCvR4QHdpSrGKjFJN7sfo5oKu3kFgsqSIAIDYtgbwCeFwoc9R+MYbmFhKI09
-	 JBXaOTnzm1MOvwaofpsZVqYBGqOuoOrH+PgPDDFKDVXQ98sacnKItedWMUwa4p70X9XhE
-	 iDQLLSDfBzIMFAkA0JPvvJQndD0oBC30t1cO7WecDSE9Kb7hru+HX5iJIAzXYAF+v1hd8
-	 2QAARzuL3N8acQOUS584Tpkou8bbT4xN9k/KXYIWi2hZ992SZ2/3wgoC1SK2/0eRMqELA
-	 xQhUW1najo+tQsMOYNYxtTkehCWuyJjvSUpvpEN3VBTgRoedaKCZ1rmKhqJn8WbGvyA==
+	t=1794731153;
+	b=r+3zEKnDSo2TbElnm2JCiGwz7oC9R65ZbgJtSrEg8aphH/4UPsKsnrctsmgiVHehhcSX
+	 ERTz7O//7vcwRzQlKibn5JeGdUYis7fq/Y555CwzX5Hnkv2v0tS6hMZO5aBuFfwUYJgrF
+	 aBVYOr67XriqtdAWh8qub+FYfUCOJ6/5Hx+0GYcBw8cwZrvckWVeIYlllxy+8vJpfn1ce
+	 6PvIvZuM8ZtRyk3X3uYUYOo1kpP1Nag5gAFBunAVS2PuKcuRLtnjDlr4pzImgaPXbpBKd
+	 kVkfpr6Q6j+eWgNsEj3XyFbOuLRb6gP27yQgbH0OIN6lclfjJbQkM4WZCqxFHhL0SFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794731110;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794731153;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=wnoWZ39CWKlVGBavzBsrpwv3xdsKQNy7nRW5s5dEtYk=;
-	b=B0r7o3pQjeZPoZrl23lV4hchifS/c0eaQolxMgxx3njZZaYs6sM1o2YFLiiv0Y5iBMMU
-	 HLImPbo6Pgzs6055RzW+QwhlDk5Xbv/ORkfG5zF14fPp37s0sRwkRLKWWQrmuSS1DsGns
-	 0zgL3/Wwzzqxrv/tC8Xpb/Ksd67nYozhls8oKwQ1lGRPpsFlWL6zMDxPJX9Jw+x3DYua5
-	 20fU2nNN64PK+K4UY9FXtQyuL5tyFtAUSFJThQ0U9vXWTct/4Ur6ZxfELsAYIpufOExlI
-	 LcwXUKhmuFOR1IT573oNK7/pEJenyM9PoUvnG+b23Ww6OAc5TrKT78pBQhvcQSET0nw==
+	bh=am2oq3K7voWtidL8P/wiusHrC9cFOyMvuO2qYCBRnSI=;
+	b=hknjt0xGs6uE6qdcaK2CQraozPWuh/KC5PRaX7htuhd8oGC/ymBThM9mSXV6hrwYweWL
+	 RCn9Hlq5zYoAP1T2B0MU2wifDRDMZHAGJj+AP9ZEAZOCNojdYI4fp3Q9qy3Ca/jZ9i2r5
+	 7OJCbF9uxoRqob4WkwZ7KcafDy538lb4cuiy5Ajs8JYDiGz87atn7Kw1k5xw2O2p2cTn9
+	 jE9DmgmAUoQiGXCZhgOAU5qH3N9Xs913kRPhHtN8erniuQHgIT64Ej/F28wbRCQhgRswJ
+	 tLqepI2Fgo0QO8IDe6kxXYePgLKgaGEMEtEMKys0bTFwH/If/2t9zeMDLyMUMmAOVfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPUH+C+d;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B95606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:25:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5B95606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cs.unibo.it;
+	spf=pass smtp.mailfrom=cs.unibo.it;
+	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=wzZ2owGe;
+	arc=none smtp.remote-ip=130.136.161.50
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF122606A31A;
+	Sun, 15 Nov 2026 08:25:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF122606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPUH+C+d
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so5580805e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:25:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794731108; x=1795335908; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wnoWZ39CWKlVGBavzBsrpwv3xdsKQNy7nRW5s5dEtYk=;
-        b=wPUH+C+dlgNprvFfVN8anGSl4ZCUEuWMG85Jza2LpZhALRotttfpJcHf0nNXoJxD3K
-         HuyMkCjdefbQnLp1dxVyzbZWIBAtKI8JpCM0Kda0V8QXhK3PM/9gu14Thx/jgSqy9faq
-         yOYfT2bPqRpFzn3a0zXGcJLLQhcVi5L6aG7NxkiTnOxeofuI26lJPLxzFvEdf0Kbxi1u
-         xW0RdESvOjxwU+ygaXqPqSuCTWNg9+vf9Z6tmmY3KmDQULNAhsIPPH4gwmqBCmtPzorJ
-         Gk8vNnd4kSdpJoepuh5Px8TB1MjgkwM61ncajdcsOJ0caAUAOAuszWZ28oq3W4C8i92H
-         8uUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794731108; x=1795335908;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wnoWZ39CWKlVGBavzBsrpwv3xdsKQNy7nRW5s5dEtYk=;
-        b=jPQ93daVlz5vQt34O7YEWELwH3PMSb+NVVNUqwD/zcikQn4V/N1fVUo1woH/JbZ0vq
-         5dGFx5IkDtrpBji6bh18RqLJjGyFuqPQlmIQn34GoiWQWUi2f7atsIom4A2rrwauojEQ
-         CbVOuNkjUFrBMxRUrA6XdaTIcI+Qz+FUdscbrtMUH1Yu6s6QYXPFD/bNjF+LkmhQnvEp
-         IuiqPoUM0+Wfq+oFwWbOpcmCCWJ+gOku7IxCFnChqLLIxL7jYkueeMTp6D48/o+nXJY6
-         YfSyLmZMbhiZQuZGnMzVxKkRbj0tXrSr8+F82sdp/4z+NPLoEUyKmKNsEXnQQj0C4VfW
-         d0hg==
-X-Forwarded-Encrypted: i=1; AL+hErGrOLll+wqn8xBTjeOWu6K2wXXcTG3IaZ85crCdrWAWQRqv04/lfdWzSFLZHzk0ZNjryFLfcZxRFjxSnAo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0O4QWGw02ywQdsnLCNsWwNwOZUti759lrH4MLp9rqAErkPD4Z
-	WFsRiNMxJoOxPcdcymKOFBaXdvpX6Eq+x3yEKSfVEE4JYbA/15J7N9tNsNjzpQ==
-X-Gm-Gg: AYBFou34jZCsgvn2/vC17L/eBqr05vhH/fJqcXcelZnS16aD3JS4NCBq8ytjReIvbzq
-	Mm/oesxW3k6z7o8Put0KYL5++y7ZvZ0CRfWePvaj1GCBYnjCzAfVj07cYywD14OyTmrOZWi0F5n
-	Pn3WK1hYoTV8oY7pHg3GDwkVYIf/RmuBKwQzwyL0t8OmITBbbvY73jZkJztnL3xWd//Ph4eDRHZ
-	0rlYEC8DO1fIdMLiecHUfHEXIoAFaEH4NyHl7OUl1MmPM/g2+7S439Ye4DHg/IEMwzkkVqCivQn
-	4MpvCH5ou0wY0ENn7yILZExJClhIUUuTbx9qYOrccPHf9btP9H0BjuZFu5A0piqYOQ1uSY+4+k5
-	hcMl7WU78yqOyrWN+W8oht3+mYZIIez/IaqiinGmoQhkjM0ubeAYzEvO7TTNKazlNX2L11UyFxK
-	l6whorL52/f8sCOxw4meOiBOrpTcDLIhBCnbNjFPyLOfUYwTNMDa7/ugkbfcA8q1hal5cz5g+Hc
-	bzAAO4bv4TLLGCrpqqrfcUQRj0gdwR6zWU6+0NsnFSWqsBrD6eD3Yc0jndRwK3IgFriiRZ50lWN
-	Hk/68V3JEGvCtPR5zTioHCxUAq40XnVtFHLkQA==
-X-Received: by 2002:a05:600c:3486:b0:4a2:c2b:a91b with SMTP id 5b1f17b1804b1-4bb55a6a828mr164742915e9.10.1794731107999;
-        Sun, 15 Nov 2026 00:25:07 -0800 (PST)
-Received: from LAPTOP-AVI.lan ([2a06:c701:474b:1700:dc0a:bc51:e26f:5cf8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e28d0b2sm236796415e9.7.2026.11.15.00.25.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:25:07 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Anthony Iliopoulos <ailiop@suse.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dma-debug: Avoid uninitialized hash traversal in mapping dumps
-Date: Sun, 15 Nov 2026 10:25:06 +0200
-Message-ID: <20261115082505.2012573-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=wzZ2owGe
+Received: from eipi10.cs.unibo.it (host0.studiodavoli.it [109.234.61.1])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 88BC91C024A;
+	Sun, 15 Nov 2026 09:25:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1794731149;
+	bh=hrHmOxbTSAB7Y9Jg4qV0thUknR1ape12zJwbVMAYLNo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=wzZ2owGeAGzrsmcDGxaGesBza5yjzR3NGtOr6zZkcCtwXYyQEi2OxS+lfKM64Df8+
+	 UvsklVCdnvEtLdqJLXiHag1rH66bXYeMGuvr8KVqiTh8lWfqs1xsNwB5AoY8Hy/YJQ
+	 Ay4ndTp5k8NDP3RcKNKuBEZzw6PK4XcdhDUPXY5g=
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: linux-kernel@vger.kernel.org
+Cc: Renzo Davoli <renzo@cs.unibo.it>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Dmitry V . Levin" <ldv@strace.io>,
+	Alexey Gladkov <legion@kernel.org>,
+	Eugene Syromyatnikov <evgsyr@gmail.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	strace-devel@lists.strace.io,
+	linux-api@vger.kernel.org,
+	Bradley Morgan <bradley.morgan@linux.dev>
+Subject: [PATCH v2] ptrace: reject out of range error values in PTRACE_SET_SYSCALL_INFO
+Date: Sun, 15 Nov 2026 09:25:39 +0100
+Message-ID: <20261115082540.385386-1-renzo@cs.unibo.it>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2D2A202C-35F8-4200-9110-B0E636216FCF@linux.dev>
+References: <2D2A202C-35F8-4200-9110-B0E636216FCF@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,54 +69,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Booting with dma_debug=off causes dma_debug_init() to return before
-initializing the hash buckets. The debugfs dump file is registered
-independently, so reading it traverses an uninitialized list and
-triggers a NULL pointer dereference in dump_show(). The
-debug_dma_dump_mappings() helper has the same unchecked traversal.
+With is_error set, PTRACE_SET_SYSCALL_INFO passes info.exit.rval to
+syscall_set_return_value() as an "int" error without checking it: a
+positive value, or on 64-bit one outside the "int" range, turns the
+error into a success or is truncated.
 
-Skip both dump paths until dma_debug_initialized is set. Check the
-initialization state rather than global_disable so that mappings
-recorded before DMA debugging disables itself at runtime remain
-available.
+Reject with -ERANGE any error value outside [-MAX_ERRNO, -1].
 
-With CONFIG_DMA_API_DEBUG=y and CONFIG_DEBUG_FS=y, reading the dump
-with dma_debug=off triggers an oops in the unpatched kernel. The
-patched kernel returns an empty dump, while dumping with DMA debugging
-enabled still returns mapping information.
-
-Fixes: 173735c346c4 ("dma-debug: fix debugfs initialization order")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Fixes: 26bb32768fe6 ("ptrace: introduce PTRACE_SET_SYSCALL_INFO request")
+Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
 ---
- kernel/dma/debug.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+v2: shorter commit message and comment, dropped Assisted-by (Bradley Morgan)
+v1: https://lore.kernel.org/lkml/20261114184842.373304-1-renzo@cs.unibo.it/
 
-diff --git a/kernel/dma/debug.c b/kernel/dma/debug.c
-index 36c1f7cbb2ae..2f487246d8ce 100644
---- a/kernel/dma/debug.c
-+++ b/kernel/dma/debug.c
-@@ -543,6 +543,9 @@ void debug_dma_dump_mappings(struct device *dev)
- 	int idx;
- 	phys_addr_t cln;
- 
-+	if (!dma_debug_initialized)
-+		return;
-+
- 	for (idx = 0; idx < HASH_SIZE; idx++) {
- 		struct hash_bucket *bucket = &dma_entry_hash[idx];
- 		struct dma_debug_entry *entry;
-@@ -576,6 +579,9 @@ static int dump_show(struct seq_file *seq, void *v)
- 	int idx;
- 	phys_addr_t cln;
- 
-+	if (!dma_debug_initialized)
-+		return 0;
-+
- 	for (idx = 0; idx < HASH_SIZE; idx++) {
- 		struct hash_bucket *bucket = &dma_entry_hash[idx];
- 		struct dma_debug_entry *entry;
+Tested on x86_64: rval 0, 1, 3, -4096, INT_MIN and 0x100000000 with
+is_error set are now rejected with -ERANGE; -ESRCH and -4095 still work.
 
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+ kernel/ptrace.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+index 3f2fe68ccb14..1ffacfcef8d4 100644
+--- a/kernel/ptrace.c
++++ b/kernel/ptrace.c
+@@ -1111,6 +1111,10 @@ ptrace_set_syscall_info_exit(struct task_struct *child, struct pt_regs *regs,
+ 	if (rval != info->exit.rval)
+ 		return -ERANGE;
+ 
++	/* An error must be a negative errno value. */
++	if (info->exit.is_error && (rval < -MAX_ERRNO || rval >= 0))
++		return -ERANGE;
++
+ 	if (info->exit.is_error)
+ 		syscall_set_return_value(child, regs, rval, 0);
+ 	else
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
 -- 
-2.43.0
+2.47.3
 
