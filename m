@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794745641;
-	b=LAJQb5ImPRQnxQDTSo/sDomWosm/yUJ/AWApToF7rLY8vvqhOjHAKEYSQ1a8ZjL6pnH7
-	 IgsfWzorRLkE2PpVNuntSfkl/RO/xf0tXQOLjA2g1II+ob+s4AmpOJ1OJ9LcvLu52diPX
-	 Lb5KJ/sTxIwrnVeiU2ounxNQRJ9kkgCHtNPl0zH7jB1axuys04s7DnE7Z5VebUinWEF1E
-	 gGBjp0Lx3QrY8V2D/zta1bAOuOkEhYQSJLdrNIdJEediM8thKGjWTsrQR3G51VzoOYJkq
-	 CsLGH+WgOR7UQyZIQ1R5xe8hYX7ALoblWAdbPNMPS6C/4Iqh7KIwsPmXBCuVR3vz7YA==
+	t=1794745667;
+	b=1qdaJH2GCmLx9KeaCgtSUKvJqb3m2Q0k9/UlTQuY0InCbkGjMxm9cfgk0DerYR+ymgHu
+	 KBqzMzy3bYVkiCQB/x6C8m6QbWrjQNzUT6H3WevGvRaoaF++zTGf3FEnNTXd8ERb2uZ0I
+	 1LtIkEkx1zggSKXwtN6H6l6PH4RTzshXLXMVjn/33ystj23mDxE9epAVCahZ7Ye+jZH6j
+	 SAejl4grVpGQz/jtUlu8yGFEud0vehnPKLojzKNFLfHP5vGPQGUG1+quF5VMe2M9EpNsW
+	 /kIxvZXAhzDaIvtyYi4KOuCyCNyj7Rtur6HlYIkCo98SPPdWwgnqQ0RNPNrOwdIPZXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794745641;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=NB1w2u3xkVvO+2PGAHEd0slXbgnQ5oCjDxu5kM2qVSI=;
-	b=Mif2vWue3+4X2/tyzWB3SzSnPgECoBSVathXS0/2QIrA/YVbKGu2AA8RWe/k5i9sxfvq
-	 EjpiDiSfBau/uTTKbq4FopUCE2KC+tOVHY0XtrFLznsB2GG9LMTBi7tIJlZdvawufdmuX
-	 Jo3z5yH7mcrh8zM16aD2wY6H5kj6+DZ4T95uIu5kVuU3/R7p1dRwKyl+Un9tBRbO0JkUE
-	 Iwg9nTibyy57iLVUGWdvKYKAxwzSl/z92GLOhdvypI9RYqCZHTMHb69E2CZzYxxgicmvS
-	 9cnHKAv1EFWXecMm8qavykXbA9elfUyMtycK1uRDiXsIg6UBvUzdazmIFMDWpSqxboQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794745667;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=UAPUreepg71t27uA19huNdBMN8SZC5pl+gBBNOjrEpE=;
+	b=NcAVzKADAVwk8+STifjgUT30gvpQWYznkMKnDW5tMwTmbgjVVUM/oM9i9Sa7LRfHlEzb
+	 gaEVuUPYjQP3AmLeGwrsdtmT3f6sKskODMbfjg0xCFQSx2shpsDDnIpknL7D4fxUHuTYC
+	 t1R7OmQtCiWyuB8kAyzovv6BVUXdohQ/PrQEGiRb0Unv1YUKtnTXxSpc+v+aYKW3VKvMN
+	 AgYkxW7qUBAaiYnuPfUdNNCxIokwWkUjue/SaM8vWK1BAycorOdHY0akQ628rEoKe+X2Y
+	 uZPlkMyAyEPJMyEhsiMWnEY4CivzsK8grKd+/+SBN+6sEzB59XlGBdYlEDyJba0E9Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAVPNL5f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lg2tJ8Zf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406D8606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:27:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CFF606A31E;
+	Sun, 15 Nov 2026 12:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAVPNL5f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE631F000C4
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:27:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lg2tJ8Zf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E8E1F000C4;
+	Sun, 15 Nov 2026 12:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794745640;
-	bh=NB1w2u3xkVvO+2PGAHEd0slXbgnQ5oCjDxu5kM2qVSI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HAVPNL5foOLNcdJ+vKehkfHmP0fyD2Wg7r9vpcM38dNhK2Dpmo07pNhjCwm3bAV+Q
-	 gVd3bPx1cSZr+7rIEC5hf84cDqNy6KLMSpbNhQg7XkB39+plcKdI7pafTLVxMnA/UP
-	 75aczzQht9Ra7/s/ftjt/iXRE5K7w5pwmKwVFDOpT3x6/ja6WI9Z0r7Y1zG5vVXVhE
-	 i+TvPKh8Y54vGkjrt87Sxxe54UGz0En3rkM7V4U+X6zKxQA6Z25yPRmOnRoubUocW5
-	 yvvDZK9IulRnfZx3xdfFdmVqbNBgT3Qr7EUQK3U7tjNx4Ibk16FOiSc4HHZiY+tKYL
-	 KoymE4smzg4MA==
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67da69e7c31so701106d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:27:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEtC/FrgEDpLJrWoyL7GWm5eq7Sq1HdAKqpVUSeHKZfVfHBiOVt2Ev8rg4d+/3gIyPjG9Zud9Fqe/3zgDs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ydt7CHrOqCP8JN6kFQ933npFq/YuEFDHSdbgTVEVoXkG5VIbx
-	rRMItXncOIs7i0hAVpjyDue/6AvJG7JIRHoMJ99vZd2TMnRhDpl/42AbIXePN6WH5I+YVB1D80I
-	tazHMo2Qn1WFo2nu6CS59qLPNq2xct9o=
-X-Received: by 2002:a05:690e:190c:b0:67d:b0df:909b with SMTP id
- 956f58d0204a3-67db0df9d31mr693683d50.21.1794745640119; Sun, 15 Nov 2026
- 04:27:20 -0800 (PST)
+	s=k20260515; t=1794745666;
+	bh=UAPUreepg71t27uA19huNdBMN8SZC5pl+gBBNOjrEpE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lg2tJ8ZfrKmdiIKH0xpR57qGsXXfv2F5ghS97GTxNPBYY8aqMOGx2U30AnaIf0OtU
+	 BwGhDNlCMBUsrfabSbufGfLT3OaR1RYjS9nwKVDAWL8J6AdVpnXLSgwdCGgl2bKeHP
+	 VgjCDvrJZoBkLyNSrBbJDQlRKdaGGexyelqo55KgE7EzB9xk4jwa8rwl79TQccZyvz
+	 RmmlZGwya6TYgMfbALzKyzOkSeGtq+99zbwJcdGmtM/laJI+bxnQD+irqZdTHdrtQ3
+	 0/6lM2cuN6kAuj4g3ho77thhIa6vswDZPy9tONnIb9v3gpmpvoP3zqyMcal8rxA3qM
+	 R3BmAszLUtkkg==
+Date: Sun, 15 Nov 2026 12:27:42 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Ivan Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: use PFN_PHYS() in phys_mem_access_prot()
+Message-ID: <avmlN3K0CYl2yDP-@lucifer>
+References: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,76 +61,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114012736.639171-1-koray.fra@gmail.com> <20261114160332.2228435-1-icb@fastmail.org>
- <CAKYAXd_qe-dLq6o7XdJzG8orYiKRioAtfEsLjxj33Ca3=PzGjw@mail.gmail.com>
- <DMVECM7B14I1.3GF2HZB9KRUX@gmail.com> <20261115030707.2275633-1-icb@fastmail.org>
-In-Reply-To: <20261115030707.2275633-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 15 Nov 2026 21:27:00 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd93sDtx_nzvB3B3aqgScFjMN82u9vpePTCsuPk+uEPtWA@mail.gmail.com>
-X-Gm-Features: AclHuK-O0RszS51_FPFPfSFdYdy5xBvfaWWwn-CxRpe0JOJmF1xY1ntdTYz5fr4
-Message-ID: <CAKYAXd93sDtx_nzvB3B3aqgScFjMN82u9vpePTCsuPk+uEPtWA@mail.gmail.com>
-Subject: Re: [PATCH v2] ksmbd: decode and honor DOS attribute validity flags
-To: Ian Bridges <icb@fastmail.org>
-Cc: koray.fra@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
-	chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
 
-On Sun, Nov 15, 2026 at 12:07=E2=80=AFPM Ian Bridges <icb@fastmail.org> wro=
-te:
+On Fri, Nov 13, 2026 at 04:38:12PM -0300, Ivan Ezequiel Rodriguez wrote:
+> From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
 >
-> On Sun Nov 15, 2026 at 2:34 AM CET, koraynilay wrote:
-> > Hello, so I should include the legacy handling in this same patch and
-> > separate the bugfix for sparse/compression in another one?
+> phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.
+> The shift is evaluated as unsigned long, so on a 32-bit kernel with
+> CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
+> uncached_access() compares it with __pa(high_memory).
 >
-> One option might be to keep it all in this patch, with a few changes
-> so that it stays compatible with the xattrs older ksmbd has already
-> stored.
+> mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
+> accepted and then left cacheable. PFN_PHYS() casts before the shift.
 >
-> When sparse or compression updates an existing xattr, it keeps the
-> creation time, but ndr_decode_dos_attr() discards the flags. The
-> writer then stores the time with only XATTR_DOSINFO_ATTRIB set.
-> Checking CREATE_TIME on read would hide creation times that ksmbd
-> reports today.
+> On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
+> O_DSYNC used the boot CCA. The same mapping with O_DSYNC was uncached.
+> With PFN_PHYS() both are uncached.
 >
-> Your changes to decode the flags and keep the existing fields are
-> useful. On top of those, something like this might work.
+> Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+
+LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  mm/char-mem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> - Read the stored attributes unconditionally, including a value of 0.
->   Samba also reads the attributes without checking ATTRIB.
+> diff --git a/mm/char-mem.c b/mm/char-mem.c
+> index c5761ddedbd7..53ce0034a4c1 100644
+> --- a/mm/char-mem.c
+> +++ b/mm/char-mem.c
+> @@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
+>  				     unsigned long size, pgprot_t vma_prot)
+>  {
+>  #ifdef pgprot_noncached
+> -	phys_addr_t offset = pfn << PAGE_SHIFT;
+> +	phys_addr_t offset = PFN_PHYS(pfn);
 >
-> - Use a non-zero stored creation time even when CREATE_TIME is clear,
->   and fall back to the filesystem timestamp when it is 0. A comment
->   could explain that older ksmbd writers lost the flag.
+>  	if (uncached_access(file, offset))
+>  		return pgprot_noncached(vma_prot);
+> --
+> 2.43.0
 >
-> - When rewriting an xattr, preserve the other fields and flags, set
->   ATTRIB, and restore CREATE_TIME if the time being written is non-zero.
->
-> > The problem I had found when trying this approach (I originally wanted
-> > to send PATCH 1/2 to fix sparse/compression and 2/2 for the decode/read
-> > fixes) is that with only the sparse/compression patch applied, ksmbd
-> > clobbers the time on reading by reporting 0, since it doesn't check
-> > the flags and reads the timestamp anyway.
->
-> With the reader change in the same patch, a creation time of 0 would
-> select the filesystem timestamp. That handles attribute-only xattrs,
-> but it would not make the writer change safe to apply on its own.
->
-> > Please tell me if I wasn't clear, this patch/bug is quite confusing for
-> > me since it touches a few bugs and they all depend on each other.
-> > (And one fix introduces another bug fixed by the next fix).
->
-> Keeping the current no-xattr initialization would avoid that ordering
-> problem altogether. We could fix preservation of existing xattrs here
-> and consider changing newly written xattrs separately.
->
-> It might also be best to leave changes to ITIME validity policy out of
-> this fix. I don't think ksmbd uses the itime for anything it reports, so
-> those changes would not affect this bug.
->
-> Namjae, would accepting a non-zero creation time despite a missing
-> flag be a reasonable compatibility rule for existing ksmbd xattrs?
-Yes, that is reasonable for compatibility.
-Thanks.
+
+--
+Cheers, Lorenzo
