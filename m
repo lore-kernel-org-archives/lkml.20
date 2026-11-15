@@ -1,96 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794762717;
-	b=pqIZPgN7xgA8fLYDl393nIDjUpXJstGvOXMm3tWP9b2g4eyBMpUaFje9LuR60pAy2x/M
-	 V0cOhe/v1ED5rHjL9e3V9sOkWcMIJc8ih3hrMRB5tkz5+oTtj5aSZjFJHFzwzSCLF31PP
-	 56zXRMa5+cvsjO9noleJL+fM+d7JkTUe/zevQwbPntdpcxzDZK4hutiWTFUM1jZkC3yff
-	 F2B6+Vm4tvvysoebbo8DPDIUNSz3GF0rmuSbsAKcFVuDnK5Bc0ov3uz7Vv8wEo3bswOfR
-	 ZCGHLEUPALhpchyv07RTZrWacYmVRCN1Fte79kVXtla4Ovw6MMXmXeOjjn7r//fw/TQ==
+	b=bQqSQAGV1D0j0aFaeNaF/YOj3gQ0UwXWykryQBHBVg6gja54s9CrStn30KrAviEX1He7
+	 xj3AFuzBKsAQYU856qJ8rbAWmJiIUrQWEplh5B9jLHHfWAlw3/OTcjFN4eNFF+rwapGGc
+	 oc3KlePuoRr4w1pqUZ/7YIPH8a6hYa2lhXxJJG9uvUjgPo4IyfJKesV8rXOGkUPVLUFwX
+	 z7zksUK1KfesdsTBP9WMHJqGt6PvdBz5ue2tnGutbZuPvBWYBLX1lXF3026vTKyDl9ldg
+	 rsQ5UG+kbW3K2coY4vM36CGO8vEzw+PiX6GVDBa3Lcyl8+kOiiNFPBFEOlQfPmwIxWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794762717;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SUty3Kjk027prBqeBhkvRnDD2NB+WzecWQp5Zz75x3E=;
-	b=GB3dP9VwvcX9V+6WhCmUwtcyfknLZvBhfnjsHDEsxo6s6mooxiJBgQLdVRvYWjrTcpfh
-	 gZDpQajykLjV7qfwhx5e5TravSqioL2cQb6+guKvB6MEhRgZwcAGNvmy4vtT9sVoMOUpW
-	 L/UFsn4gh0lm4zT43zciybBE087yq0vn68O2HSjTKa7YD20hLjlzyZyDIhCNwwr9b0/tE
-	 vpgAxKVS+nCE4zYHFvkf+BvWE98shXL8iz685v3uE581dLAxn9gy5XrC0Z/f96Zda60Ni
-	 W2DQkizu1MEph0rdsQLSiBK1DLwvJfQf6V82Zmjx8gMz5gpa+RJQ1O9YGypYhH/qXJQ==
+	bh=I8oI0tJ5P964EKpbze+zNelHoKVoVfC9/uaM3xB8TdE=;
+	b=3fvkrAUId6AgP2tKmIwAgrcVl7uLnRAj4y15FtoKddlkT3Ryzol+/OTZ36shRJPJBSOL
+	 DN5uAFFuoDDoAMXxBsO1A6UvhiQAon+xqRuw6a//IeTLFqXx2CviER6zmk624xKG1yEQc
+	 u7oCJhoe5tJpwdtuu+9t95zfz8APhsw8oV8hns7kAY8eIcNbiSlfPdvjzNDFxchBbFpOz
+	 jYxiTBPM/Hob7d3EdqFGgA5oNDmpU4Gl86Vo9IsdzSp9hFN7t/CVyRfiXwLuRkI3bshWo
+	 R58ZVbhzq0Z7mmtKOMfznOebuqThQsPN3Fhb9PYvFQP8E27zEDLcu1nkuZ6Nlgc4NhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=vIs2Q9XU;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="iLu/u/Oc";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DBC60A2611
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094DF60A261F
 	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3DBC60A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 094DF60A261F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=vIs2Q9XU
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so26560325e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iLu/u/Oc
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so26560355e9.1
         for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:11:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mgcrea.io; s=google; t=1794762715; x=1795367515; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794762715; x=1795367515; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SUty3Kjk027prBqeBhkvRnDD2NB+WzecWQp5Zz75x3E=;
-        b=vIs2Q9XUhBhVuTcjvNhBkD3l9qFdWXRMs/W9gTAbX5hXU8JKMUKqjAXaU8QFpHI4rY
-         rUNHqYIbTIDcAtmV/gEXpdl5JSZWRL8yAoKCjpaHx+F3vfcwy1QRtrI1FbqLsIjyaJa/
-         kCzNWJt/wv64zOYp/CuG68sCjZNHi/sP0H6VKOja5VOk6q7WsNsBjGRkOk0bv0T4YEsB
-         XmUrVQjeOrG5CxF7qUTWuHh0TlMj5KaX3usTSwq/qjl2aseuEAguTxkoea8X13HWXeRB
-         kFXLBf+YujGBioMjFlXVFBMrMfIKq410C47EvtevCdM37CSMv8VHWJTLyC8diEl+mr+X
-         L+AA==
+        bh=I8oI0tJ5P964EKpbze+zNelHoKVoVfC9/uaM3xB8TdE=;
+        b=iLu/u/Ocdy7uhlfbDWXL+IB3I0snvaovLpYg0pTcJm/H7IaRQaGPQlfsZvTkHjsJP+
+         lVudbYO1rHvTY2zeJi/A6MLyFhOmlLfXcu0Guk5vVeVtCwgScZprwqbpxTlT9rYcdief
+         bw0Vu4EqsTaSktrDyTOq0oIynr14snJ/z/1lfWkgncDcUIVf54rp+fLcWOOeuyMQmOaL
+         hX+fB+ODF49UDWlRNm8o4JBumiXHSEXrozbdwbjQHnDMdgO/pbetdkwIzvJdqeFmqen1
+         InjtYSd4kRof+leQY/F18TrIrC9Hrl7NaqJCVChrYKPOWLcDwwK1FuQj+8ZediI3LUfM
+         DAOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794762715; x=1795367515;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SUty3Kjk027prBqeBhkvRnDD2NB+WzecWQp5Zz75x3E=;
-        b=u1URPBSLu3Xz4Fgzw/2skvoxsRm8A0TdhJ28mfO2BFvj7FoC384tN22NJkf2Cb/8Z/
-         y8yU40/3HFsMUYKPAwN653dLg5Xdv+q6o5JAvDaCrIke0e29bawHz8ARP1fyhAHG1D6q
-         BDgf0HUYI7/JXlgv7ZoO7WkRkwGDkfxqKB5HC3NFeX1djQ+TyXEoDhMDQJdUyJWYdlRN
-         0q86T+71FjO30J6ygRI3MBrubDt/Sjsq1X1q76AiONXBlestdT0YepP8xPP/OofsUELf
-         dc8fAXTMtaSzqRTlhs6wgcZZV1fTcDVKLRicrhyN5yJTOZTYkMTovV7zUD1ryqWNzF3h
-         AFsw==
-X-Forwarded-Encrypted: i=1; AL+hErEIa5qcEUQ4/q/zqq7cvu5XWMsBw5bge0idCh7S0VMn8UbqmOz7e/Ha0bOvr211i2Dsb9/zEJc6dxc6gG8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8bDDQM+eJG1Djsp5VA70xGOGQmfumFttGlY1BCDRknF1XQJbNO
-	BFpOY8roUlKSAyZ/1GePxyIhwwTkmg1Rl7unPCWVM2pvtPKAoaAu2+GtOPOFtjvOaY8=
-X-Gm-Gg: AYBFou0noLX7amf1mVNkZd+HwLloQtgJ5FBBxtzz0nggPvIbWi04v1OTMSAeYMXD5wp
-	p1y1j7zf9ifYz4CURXRXPiwjI+nvOn5iJGxerT9fxZyvFP8wjqdyiyUMPOAfYgeMhhmFWbH08s0
-	zxoL+Ooo8oj+hJsEIufvBxte5OBXa7V7NtTkAt/QMhB8Wm8xWZaIjGTqROE83N9CUGTMjHoj9Dh
-	gdFzbfo5OjE33DY2ndFl80qANKwj/mNLfZpFnRQ+ycX7X+DTl2ai4Nxp6pDX9sjHPBhy3ly+T8Y
-	eiQda6yrCt92RYQTPOhJ8sYYsScgOvyh5bXE3D9U6fBU0sdrcrLSCxQ7xeS3dYeQn3Imu+QZJVz
-	SR9GrYzP90lRTrZJFhc3VWH9/4CU2/d1i6tPTZ58sIvbB8J6tlhc/6sJ1l0QEoKobCTNw8piWjo
-	vtlpKR5vup/T0aNYUhpYlDxzD6FbJ8mPFYxEDnZWToLzRt2ofILslIObGII039YrTMO187EcbY2
-	QQJmaENNZKe7pX6Dk48AKv8g5rJmkhxJ8QOaOUIv43GQykomBx+c0ZmbvcyUUk7ylX2XpcPGQX0
-	VpYAsuL/dkIi1eeaW9xPe5Xog/6wxc2y9caO1fgGh2uFYZkgly3Mb8Go0GAtjA==
-X-Received: by 2002:a05:600c:3b16:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4bb55a6116bmr181649815e9.4.1794762714846;
+        bh=I8oI0tJ5P964EKpbze+zNelHoKVoVfC9/uaM3xB8TdE=;
+        b=Gnj3aGq4WVKIxzqw/QEbPubTkn7PCi+cMiDKmkSern3JsuM67SzL42EGc4KNdRywQI
+         25FuI+H1+qdp85LToDgbxPFWjpDtlQOl9EWF3COXIyGH4YAbLLfrfpUwmXU7UdycvZFO
+         T5+9hLmb2yq2fQ2TWF8t17TbdoqEB3Rjm/vMxx3v+CMGWvPIZhqXvhWOpBC2DGdw8DaB
+         e4tFwn/TmeGbO1iwF/LWq6gz1GU49Ut2aNmfN5gupoHXxjr4xD5jBtlK+YAjjj537CSi
+         KF7XUQIe8HvJ0jI+BfnZYQggnC166rHBxXW4EPZJqPbR9hwiuv00aAr0NiGuaiMAyJrM
+         W9yg==
+X-Forwarded-Encrypted: i=1; AL+hErFQJATktQQgheHOUVoLMAipeOYPYkrcMdNLGOJNIOwFkkP5w6hOjLdKQHQ64zDMhA4+bQLFvysK7wjkvgs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gIfsdgn10YBJ0cXL1PE0uVQ998XlEkFIdcnxYjbQUKnLz5wBS
+	rBoowlqbKYeMER4XZpN4HXfM8I/mxAMalO1DEwa7g9zzXpRifHtsO0FG
+X-Gm-Gg: AYBFou2zozfag6tsO+0vUtsdZhApugE1kQwWu/Uswjn22DWbF7xn6nDQT/JQatUX2Y6
+	O8IgUUr2rQQSQHbhD0MNCDsqEljWlea80/Fi2TVcEcMWZeWqdJv8J+nmVFyxD4SXr1bIE1DOgg6
+	Pt36VIrgFE2qkiLrZQwHKFk1JOU1DijSd8qHHOZJYyZeiQ4w5SaEQTWezSWHHBr7oRVBzAiPoep
+	hNC+oOJTJcFlJINnHwkyfVKBQ4MPLqb2sh+wdwu5m5MSDnNS0aqSriLV8fWEZurnGgignfq1/8A
+	3XbAMlv/gqUsMEbJqoecK9dMW/yUry8sFisDCB6yNvNl+NJamjQyQahbCaOy4AXido78CmV4TQ1
+	DBBTPtOQ3HO0to6MYmbkS13teawCbKQWO8S1PlUsWu7TTHRxKyoai+vSiHgIFXFS7VHt1kRJYaZ
+	RIcoW4iH2JtjfrojWni/6+lajYp7M9wjIdoTzskGlm0s3GuipZFtB774jCyM7XLYxhoE01GjgT8
+	LQgAo3GS2XGYS1j0ImKrmxRm0ehLD0WG3XbCcagdHoWJJEbwAtDmrp+L6VBgMgazxagQUuvIV10
+	rHS3XjzrfYNaxoUx/PFEh+y2Ckkupg5rZ5K0oEgi81MnMMHgKlsjsoydha2gmr9y4bNtysbn8IF
+	kUp25nH/l0vg/PfgyICVx6ZYiqA6JdS7GPGLDSV4JEMEUSk3OYJ0SZgoIiC5aKS1yNyWDznrW6b
+	WC+PyHUgUvcYyd8NzKZjZZrBqtuERgt46JWqw9SBn3Ok2xKKY4FOXtIZk6a6Z/IuDYXxuA52idm
+	gLaLYtiVxj4Lw==
+X-Received: by 2002:a05:600c:8b38:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4bb55a7b45bmr192615255e9.10.1794762715336;
+        Sun, 15 Nov 2026 09:11:55 -0800 (PST)
+Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm501415845e9.1.2026.11.15.09.11.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 15 Nov 2026 09:11:54 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:b9ad:41d3:c29c:11b4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ac0e1esm205418705e9.3.2026.11.15.09.11.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 09:11:54 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Lee Jones <lee@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>
-Cc: Olivier Louvignes <olivier@mgcrea.io>,
-	Sebastian Reichel <sre@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/7] power: supply: axp20x_usb_power: Add support for the AXP2101
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	James Hilliard <james.hilliard1@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH 2/2] arm64: dts: allwinner: tanix: Enable Ethernet
 Date: Sun, 15 Nov 2026 18:11:48 +0100
-Message-ID: <20261115171150.64431-6-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261115171150.64431-1-olivier@mgcrea.io>
-References: <20261115171150.64431-1-olivier@mgcrea.io>
+Message-ID: <20261115171148.37784-3-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261115171148.37784-1-jernej.skrabec@gmail.com>
+References: <20261115171148.37784-1-jernej.skrabec@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,165 +110,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Report whether VBUS is present (bit 5 of the first status register) and
-the input current limit (100 mA to 2 A, in IIN_LIM), and update on the
-VBUS plug-in and removal interrupts. Nothing is written: the AXP2101's
-VBUS input needs no set-up for that.
+The Tanix TX6 and TX6 mini have a 100 Mbit Ethernet port connected to
+the PHY in the AC200 companion chip that is co-packaged with the H6.
 
-Tested on a HiBy R1: unplugging and replugging the cable gives one
-VBUS_REMOVAL and one VBUS_PLUGIN interrupt, and "online" goes 1, 0, 1.
+Enable the PWM controller and the pwm-clock it drives as the AC200
+reference clock, enable the I2C bus to the AC200, and describe the
+AC200 Ethernet PHY package on the EMAC MDIO bus, so that the EMAC can
+use it over RMII.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/power/supply/axp20x_usb_power.c | 86 +++++++++++++++++++++++++
- 1 file changed, 86 insertions(+)
+ .../boot/dts/allwinner/sun50i-h6-tanix.dtsi   | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-diff --git a/drivers/power/supply/axp20x_usb_power.c b/drivers/power/supply/axp20x_usb_power.c
-index 7625366104bc..926f9c3f1239 100644
---- a/drivers/power/supply/axp20x_usb_power.c
-+++ b/drivers/power/supply/axp20x_usb_power.c
-@@ -31,6 +31,7 @@
- #define AXP20X_PWR_STATUS_VBUS_USED	BIT(4)
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
+index f08077175549..d101001b6f70 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
+@@ -11,6 +11,7 @@
  
- #define AXP717_PWR_STATUS_VBUS_GOOD	BIT(5)
-+#define AXP2101_PWR_STATUS_VBUS_GOOD	BIT(5)
+ / {
+ 	aliases {
++		ethernet0 = &emac;
+ 		serial0 = &uart0;
+ 	};
  
- #define AXP20X_USB_STATUS_VBUS_VALID	BIT(2)
- 
-@@ -172,6 +173,24 @@ static void axp717_usb_power_poll_vbus(struct work_struct *work)
- 	power->old_status = val;
- }
- 
-+static void axp2101_usb_power_poll_vbus(struct work_struct *work)
-+{
-+	struct axp20x_usb_power *power =
-+		container_of(work, struct axp20x_usb_power, vbus_detect.work);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(power->regmap, AXP2101_PMU_STATUS_1, &val);
-+	if (ret)
-+		return;
-+
-+	val &= AXP2101_PWR_STATUS_VBUS_GOOD;
-+	if (val != power->old_status)
-+		power_supply_changed(power->supply);
-+
-+	power->old_status = val;
-+}
-+
- static int axp20x_get_usb_type(struct axp20x_usb_power *power,
- 			       union power_supply_propval *val)
- {
-@@ -315,6 +334,42 @@ static int axp20x_usb_power_get_property(struct power_supply *psy,
- 	return 0;
- }
- 
-+/* Input current limits of AXP2101_IIN_LIM; 6 and 7 are reserved. */
-+static const int axp2101_usb_curr_lim_table[] = {
-+	100000, 500000, 900000, 1000000, 1500000, 2000000,
-+};
-+
-+static int axp2101_usb_power_get_property(struct power_supply *psy,
-+					  enum power_supply_property psp,
-+					  union power_supply_propval *val)
-+{
-+	struct axp20x_usb_power *power = power_supply_get_drvdata(psy);
-+	unsigned int v;
-+	int ret;
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
-+		ret = regmap_field_read(power->curr_lim_fld, &v);
-+		if (ret)
-+			return ret;
-+		if (v >= ARRAY_SIZE(axp2101_usb_curr_lim_table))
-+			return -EINVAL;
-+		val->intval = axp2101_usb_curr_lim_table[v];
-+		break;
-+	case POWER_SUPPLY_PROP_ONLINE:
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		ret = regmap_read(power->regmap, AXP2101_PMU_STATUS_1, &v);
-+		if (ret)
-+			return ret;
-+		val->intval = !!(v & AXP2101_PWR_STATUS_VBUS_GOOD);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int axp717_usb_power_get_property(struct power_supply *psy,
- 	enum power_supply_property psp, union power_supply_propval *val)
- {
-@@ -643,6 +698,12 @@ static enum power_supply_property axp22x_usb_power_properties[] = {
- 	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
+@@ -85,6 +86,10 @@ wifi_pwrseq: wifi-pwrseq {
+ 	};
  };
  
-+static enum power_supply_property axp2101_usb_power_properties[] = {
-+	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
-+	POWER_SUPPLY_PROP_ONLINE,
-+	POWER_SUPPLY_PROP_PRESENT,
++&ac200_clk {
++	status = "okay";
 +};
 +
- static enum power_supply_property axp717_usb_power_properties[] = {
- 	POWER_SUPPLY_PROP_HEALTH,
- 	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
-@@ -682,6 +743,14 @@ static const struct power_supply_desc axp22x_usb_power_desc = {
- 	.set_property = axp20x_usb_power_set_property,
+ &cpu0 {
+ 	cpu-supply = <&reg_vdd_cpu_gpu>;
+ };
+@@ -105,6 +110,14 @@ &ehci3 {
+ 	status = "okay";
  };
  
-+static const struct power_supply_desc axp2101_usb_power_desc = {
-+	.name = "axp20x-usb",
-+	.type = POWER_SUPPLY_TYPE_USB,
-+	.properties = axp2101_usb_power_properties,
-+	.num_properties = ARRAY_SIZE(axp2101_usb_power_properties),
-+	.get_property = axp2101_usb_power_get_property,
++&emac {
++	pinctrl-names = "default";
++	pinctrl-0 = <&rmii_pins>;
++	phy-mode = "rmii";
++	phy-handle = <&ac200_ephy>;
++	status = "okay";
 +};
 +
- static const struct power_supply_desc axp717_usb_power_desc = {
- 	.name = "axp20x-usb",
- 	.type = POWER_SUPPLY_TYPE_USB,
-@@ -722,6 +791,11 @@ static const char * const axp22x_irq_names[] = {
- 	"VBUS_REMOVAL",
+ &gpu {
+ 	mali-supply = <&reg_vdd_cpu_gpu>;
+ 	status = "okay";
+@@ -120,6 +133,29 @@ hdmi_out_con: endpoint {
+ 	};
  };
  
-+static const char * const axp2101_irq_names[] = {
-+	"VBUS_PLUGIN",
-+	"VBUS_REMOVAL",
++&i2c3 {
++	status = "okay";
 +};
 +
- static const char * const axp717_irq_names[] = {
- 	"VBUS_PLUGIN",
- 	"VBUS_REMOVAL",
-@@ -815,6 +889,15 @@ static const struct axp_data axp223_data = {
- 	.axp20x_cfg_adc_reg = axp20x_configure_adc_registers,
++&mdio {
++	ethernet-phy-package@1 {
++		compatible = "x-powers,ac200-ephy-package";
++		reg = <1>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		vcc-supply = <&reg_vcc3v3>;
++		nvmem-cells = <&ephy_calibration>;
++		nvmem-cell-names = "configuration";
++		x-powers,ac200 = <&ac200>;
++		x-powers,xmii-rx-clock-inverted;
++
++		ac200_ephy: ethernet-phy@1 {
++			compatible = "ethernet-phy-id0044.1400";
++			reg = <1>;
++		};
++	};
++};
++
+ &mmc0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&mmc0_pins>;
+@@ -163,6 +199,10 @@ &pio {
+ 	vcc-pg-supply = <&reg_vcc1v8>;
  };
  
-+static const struct axp_data axp2101_data = {
-+	.power_desc	= &axp2101_usb_power_desc,
-+	.irq_names	= axp2101_irq_names,
-+	.num_irq_names	= ARRAY_SIZE(axp2101_irq_names),
-+	.curr_lim_fld	= REG_FIELD(AXP2101_IIN_LIM, 0, 2),
-+	.vbus_needs_polling = false,
-+	.axp20x_read_vbus = &axp2101_usb_power_poll_vbus,
++&pwm {
++	status = "okay";
 +};
 +
- static const struct axp_data axp717_data = {
- 	.power_desc     = &axp717_usb_power_desc,
- 	.irq_names      = axp717_irq_names,
-@@ -1056,6 +1139,9 @@ static const struct of_device_id axp20x_usb_power_match[] = {
- 	}, {
- 		.compatible = "x-powers,axp717-usb-power-supply",
- 		.data = &axp717_data,
-+	}, {
-+		.compatible = "x-powers,axp2101-usb-power-supply",
-+		.data = &axp2101_data,
- 	}, {
- 		.compatible = "x-powers,axp813-usb-power-supply",
- 		.data = &axp813_data,
+ &r_ir {
+ 	status = "okay";
+ };
 -- 
-2.39.5
+2.43.0
 
