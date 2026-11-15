@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794750928;
-	b=Xsd8cDxY3N2yIoCh0PPZttYIeBAjqVQuX8rUsGYofUjROpBJPf8EMgKNm2CawCfjIOEU
-	 PF1aGqocVTBgq5DTiE4llkR6ChckUUpTIfU0dYQRPEXtrSlHO9y+hsaCC+zhmkAPvwOhF
-	 IqqI4ApZj35ZkbH4+/qkaZAgi3PxXuFRJqq0R6KyI5H7t6urbdd5dh02G43KDSwP0IBfG
-	 buAexEB2E3Hvfn7OgiP3YEPIREEP8k9HDkU0ggbZfpBpjUPRHWNnzVE/y3pOD1ZZOkDlp
-	 bdX/4cxRnTh8dYEqP4JEiJUX/4bPHtNvjeNpFYXMuO4oWl+sHgVUheBOHQaRsA+pYvA==
+	t=1794750960;
+	b=qRjkCGc90P9j5N0OqvelbSdVV4kAzKsFVXp6W3RBfl4fhxk8SVtlXsbakyynvmzV3ZWX
+	 gN+5axzWMfhyvkbAV5KBZfXA9b9MzqE5PQhKus1EOMeQeJteg3tN0lh+5pF/5Id5288RC
+	 kFIlFTIpvc0RrXwuYf5K26fjWTm5rHpSmQD1PJmOXjWYJSrgSTMVeoFVqZelLlahkC2UD
+	 pjU0N3TeO0LG5x3xxtjvWqyd1aCR++Bn2h1cWYvgQ4tHvoHNgmMalxVdSVRTSz5P/pvJ/
+	 S7BJzByfsKkJw6FjRgGlkdvEuyr/xBNI+ntllGEAEpZ2EJf3T0b7ZXsRs5FmSVAz7BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794750928;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gTdXHNZ4m9+z2N/yHS6M3KqqT5Mkw+ISeKzUL028u7E=;
-	b=hZ341wPp+Zep5YUQze1+OQwj6hb7OIF2o3IeIt8nlF7AFw4/9K+sEHyijCSqTevPHq0/
-	 tL24ItVsA3eESF7bfE6f5O1sHBnGgXZpY2CR9hL/U4+KWSgFTJZED9/JrLKiocRZP73Zq
-	 xgGIbhvLZTJhqRT5bBi1CEkmidYIYEXIu/iyBKhUKvWzJgG98MDTm8UGq0o76ulihkoBU
-	 JxJ7dsHBQ67sKwvnOI+leXjGiXp/Gx47jHfITw523QVDtY5WfXyWcfAGD9F09zQjm+Q9f
-	 BFzbGzuQYtuxaapbCQeMTfnFu/jPbY2xmw8SUIgYLhl8zHdxR6gJ1U6j2dl5oodxrNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794750960;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hAp1f5HJymx1C1eLBNtpgn3RwhEpebpPxR/1OejtNF0=;
+	b=Q6GrQv8uPgpR/O6TDNNyy1sWm2Wl4/xdFakfzrpRfoYe/EqRLn791hD0ecKQwVsb/mvC
+	 Lr+lMEIM427GMKiBkcYwdCVcF7VlskIJguxOBwjwrPwDsNyW/E9pz06qI71eRUIPXtJtc
+	 IG8W3PeGnLQ9UEvVTstYM3GJO2IzcVRSBtl8/tzpbz7NG8VHddjyJQ5ahKfn3rsdg29g6
+	 XT+5NH97hAIR4mDyzeYcY0Ap+x6ctwSHXd3SJ4a+nGotNVm9UWYoCRxubsmrUT1e1Jamo
+	 nScW3SupxtjR5qufHKqk1jpkDy90OVM3eGwNojWvr0TKvg8iav1RyW01h8Bn2qLcAUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gb/lKqh2";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XsVqAIWj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8380606A31D;
-	Sun, 15 Nov 2026 13:55:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE53B606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:56:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gb/lKqh2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A031F000C4;
-	Sun, 15 Nov 2026 13:55:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XsVqAIWj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6C11F000C4
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794750928;
-	bh=gTdXHNZ4m9+z2N/yHS6M3KqqT5Mkw+ISeKzUL028u7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gb/lKqh2L35xsor89doADEe3ugsBZ7/24E8ckzBkiPRLI6QlxOGihR9ftj1DNFMVU
-	 2o5D2GonamWzibAEiKXY6OxNs8F3/iCwGMGrFLGCk8jZqq82rUXEkuh46+x2RP0r2d
-	 fbBQ3d/7hYZZsvxbw1/0Xn7zgbzK17QiMgrLBecHDh7D5Pife/whBW3tZ/aomEsVcu
-	 Xg9BpsFm4j/rl4EFw7SbtRHSCQtQYaUwlVoQLbQaC8AFpsVWNs1ZtGkzJs711pFpmB
-	 f+6mzp+yKeBMdlFlddDD9y9HuT9wJRX9NqMJqSN6hkgcKTYOBgNO6n/npqyvbozV+K
-	 wcbuU/o9nvfkA==
-Date: Sun, 15 Nov 2026 15:55:24 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] IB/hfi1: Fix potential leaks in IPoIB TX queue
- initialization
-Message-ID: <20261115135524.GE42525@unreal>
-References: <20261111-e5624093d6-rdma-hfi1@mail.sdu.edu.cn>
+	s=k20260515; t=1794750960;
+	bh=hAp1f5HJymx1C1eLBNtpgn3RwhEpebpPxR/1OejtNF0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XsVqAIWjC4lXMDgMwr/kFUj5/a6++KNyH7YKRVm0ZEkKu1Zh3omRmhWW5xyLZS6L7
+	 zlPvJVzf0aEwvM1FREYrv7XutE7sCtUg5jEjD7PoO2Jh2QehaPebInvjUTlNMDm/Q+
+	 8xDubh84hs/1iNiQWFAheh4CoIZvkJBmfMP056Y0s09xMOceLaO2hHCsbQ8u8CVfiw
+	 wXILBB3jwSRHBQqQejKF1y8t1o9VmJlpgztn2hV/TBX7IYtjt5wg2Ml4aG/HCjzrY1
+	 xh2MxG6pzN0NBtU9FXeOMNTt0aHYvn3ej6qwcVwzmjv3Va8c2UdJs6dQx8PR/MS/lu
+	 Y/ARWUHh4tbFQ==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c5080ef9b31so466711966b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:56:00 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFur8ofJ9flRnKkwEHfu8y4xGvrN/1XWJ4yARhuSjNl4CrwQUxLzh5z3cDceWi83VTCUX+ss64Lbu5aYG0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UtrU6dMrvKmpnunRQM19M4K7teue4nYK2R6Xp1FoCIL3y6fjG
+	XbWr16lgb/8x6L7/wLW+LyqkfldZIsqrJnWuOgv2tZT1vG+vJQqvsLmSHhABiwU1YGrc2YyvY1O
+	vlfY6326JKN3PM72yodBunMIcHAPEjeA=
+X-Received: by 2002:a17:907:944e:b0:c29:22cf:b0f5 with SMTP id
+ a640c23a62f3a-c509634ac8cmr630049366b.33.1794750958896; Sun, 15 Nov 2026
+ 05:55:58 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,53 +59,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-e5624093d6-rdma-hfi1@mail.sdu.edu.cn>
+References: <20261112134041.4133634-1-liubaolin12138@163.com>
+In-Reply-To: <20261112134041.4133634-1-liubaolin12138@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sun, 15 Nov 2026 22:55:45 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-Zg6Qy8vyu1tOXLn387R-1KOVWnuv+Z+y6=_E4so23ig@mail.gmail.com>
+X-Gm-Features: AclHuK-NDR_thR0DehYI3BeOo38-z7P-1doiJEQQKyLyO4Pxr6t_QdkIQXbmVn0
+Message-ID: <CAKYAXd-Zg6Qy8vyu1tOXLn387R-1KOVWnuv+Z+y6=_E4so23ig@mail.gmail.com>
+Subject: Re: [PATCH v1] MAINTAINERS: add Baolin Liu as an NTFS reviewer
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Baolin Liu <liubaolin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 08:23:19PM +0800, Guangshuo Li wrote:
-> When an SDMA header allocation fails, rollback skips the current TX
-> queue. Its ring and already allocated headers are leaked. Free the
-> partially initialized ring before unwinding the completed queues.
-
-free_tx_ring already performs that, see "for (j = 0; j < tx_ring_size; j++)"
-loop.
-
-Thanks
-
-> 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: c874ad879c2f ("IB/hifi1: add a null check of kzalloc_node in hfi1_ipoib_txreq_init")
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> ---
->  drivers/infiniband/hw/hfi1/ipoib_tx.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/infiniband/hw/hfi1/ipoib_tx.c b/drivers/infiniband/hw/hfi1/ipoib_tx.c
-> index 8b9cc55db59d..2e9225b558b4 100644
-> --- a/drivers/infiniband/hw/hfi1/ipoib_tx.c
-> +++ b/drivers/infiniband/hw/hfi1/ipoib_tx.c
-> @@ -743,7 +743,7 @@ int hfi1_ipoib_txreq_init(struct hfi1_ipoib_dev_priv *priv)
->  				kzalloc_node(sizeof(*tx->sdma_hdr),
->  					     GFP_KERNEL, priv->dd->node);
->  			if (!hfi1_txreq_from_idx(tx_ring, j)->sdma_hdr)
-> -				goto free_txqs;
-> +				goto free_tx_ring;
->  		}
->  
->  		netif_napi_add_tx(dev, &txq->napi, hfi1_ipoib_poll_tx_ring);
-> @@ -751,6 +751,10 @@ int hfi1_ipoib_txreq_init(struct hfi1_ipoib_dev_priv *priv)
->  
->  	return 0;
->  
-> +free_tx_ring:
-> +	while (j--)
-> +		kfree(hfi1_txreq_from_idx(tx_ring, j)->sdma_hdr);
-> +	kvfree(tx_ring->items);
->  free_txqs:
->  	for (i--; i >= 0; i--) {
->  		struct hfi1_ipoib_txq *txq = &priv->txqs[i];
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> 
+On Thu, Nov 12, 2026 at 10:41=E2=80=AFPM Baolin Liu <liubaolin12138@163.com=
+> wrote:
+>
+> From: Baolin Liu <liubaolin@kylinos.cn>
+>
+> Following Namjae's invitation, add myself as an NTFS reviewer to help
+> with patch review.
+>
+> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
