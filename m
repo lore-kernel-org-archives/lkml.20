@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794746811;
-	b=q5tHPoyhdMV2FZJ0Mew1YYeMUdqLvftWMKbhNTXtTNaCWET7bRE8lWjVqXFQproFu5vP
-	 i8JW58NSVP5i0wLh7i14l37Xj5h5XzdVB3QAzByWO+wOrRHp7L7d5X43OFHcti5gyTGdt
-	 7lt8p5y86yLhklasc3lA97RjLsSq5POnuJa89M/HiQrNhxWWD6znwodPFd3sj5KB7v2dH
-	 nQtDGOhQnfZnu8U6TZwdS/t3XBGgu7DWGY/Lir2yjeoVlvUP9hDqmCZQgQ88ya08yfKhM
-	 iMh0FZ0vps/jsSLVo1VWmGx2jTWJaTNG0UZFoop882Wwrz95Bv8mEV/N7DqhwdwsI7A==
+	t=1794747012;
+	b=2FtENufXz+BL4H1gsRuF54XMOYyijyvPBWJcQHTCrF6Yp1YVkwS+4Dl3sFHBNYi1XyfU
+	 9On+58nUICPfq8QmdlJemN3Z7uphUDlyQoRYpxthRyxf5NJ0uAmEMGA2JE9mUCP5NC3rW
+	 ftnVAiHL71uO+kTY7U9M2yfjUxhRMKHRLfmezCL/zy6mTgmZ5dqcqEmP6vpZ8MI1cn9/F
+	 +AOaFqPjfMPg+BC1oX1/floGNYGjxVFz/mx0g1bP4KPDVZsFGXNp2B2IXekPJa8rEhH+j
+	 qYUqOowDlPl2zHtLd0SpfVf+5S7xq9IgswY5HE2Sd8Zs/MgK0t2WZvOZY2OJTRXuP/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794746811;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=BF7Nl85Bxr5Zh4rYOV9vowwj1g8iWevEqtUlRpb404k=;
-	b=IjdqP6RqFVND9YpcDA5jFl8/KJyXBMkFbIWvSVKMU74fO0rPxOwpV5hA1W/lmaImhqwX
-	 0qJa4dP22AuqbGzS1f+L9Bbj/qWMzbwksNDjKEvr1i27FtEpX6MP5khKUdwHnI5Tc3laG
-	 zZsSHOiAJrLHBMJ+ChapoYZTllIhg39ZQ4ehTg1/6KpFm797f6jLJc5GELQNfpGb7h8jX
-	 /ENAfBMJqitYooojIfuADC9/ak7BYcDgvF0qCLmQIltFY3mKV0iy0CP1gg42sXUjbYBWb
-	 s0wHXkbmswj+6oTDt4RUZdo05FPOqZ171IX+6fnhObz/Kt3RDVhTu3nuFhNEj+TGajg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794747012;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=mVNyqoZPmWVu3SKQuwZrHrfUspenGyNr7ONwhLH90yo=;
+	b=jI6qlidWFLDjDsrLR4zuWNhqobtEpD+sFVkZaFQ/MgoDCxeoKhu/235ECW+rEHeVnUag
+	 e5UFbX26zKUqWfAFv0d0rmH1RUBC++3o8dD+LWylqrb3C6mUdo9LO1A9FYSmcC2u2lqAR
+	 8VjWd6FWQaGKxm2cYDOrIhKIzhRSpQ6KA0n59dN/gSluQjlZYYhHVqwn/xti7GyxVRXwr
+	 a7VR1RXrwcSvMlhoeAuurmf3YVTSY5Vymrl7KNAfTvb3pE49pwSOVcKuWGgqkP68p05jk
+	 kHRk+p9EvDQuoJgPoA0IsExIx63cMy1BkkONXNVNLjCqv/ZpKe9r987+/eurK35nsEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ianghel.com;
-	spf=pass smtp.mailfrom=ianghel.com;
-	dkim=pass header.d=ianghel.com header.i=@ianghel.com header.a=rsa-sha256 header.s=protonmail header.b=r7LdfQ+w;
-	arc=none smtp.remote-ip=109.224.244.107
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+	dmarc=pass header.from=feldt.systems;
+	spf=pass smtp.mailfrom=feldt.systems;
+	dkim=pass header.d=feldt.systems header.i=@feldt.systems header.a=rsa-sha256 header.s=protonmail2 header.b=Z6rO7xwO;
+	arc=none smtp.remote-ip=185.70.43.17
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E29E606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:46:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E29E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ianghel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ianghel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88727606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88727606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=feldt.systems
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=feldt.systems
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ianghel.com header.i=@ianghel.com header.a=rsa-sha256 header.s=protonmail header.b=r7LdfQ+w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ianghel.com;
-	s=protonmail; t=1794746806; x=1795006006;
-	bh=BF7Nl85Bxr5Zh4rYOV9vowwj1g8iWevEqtUlRpb404k=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=r7LdfQ+wdY9rdSvq2nNEMDn26OubSpJg91R2Ej5FCjTtSqSfKwB1rCMI03ae18Up9
-	 ehJnD62GiJt/wTHmlYypbP1BGtrAuLjlTwgcfaP/f+6VEybcIuGMjktSif+Oy+2vsu
-	 c6n7NOtaoczPyyNPKRtqHfhutEO13SbR4h139uD8Wv0xASja4HS7Xnaflt3iLNDv9e
-	 92SiDLL4AWKn2IJJzhQu90/TeAyqd32MYmryZqLDEfaMFlzHtqwZ1A4RjX8Ng/udbu
-	 UWEFCpVK7W+gkBD6/AaOdAfKrZ9le9B9QkDk9lnqUJBXX/XNx62HyhK/WSEYdWxwNh
-	 vMUcegodY8H9g==
-X-Pm-Submission-Id: 4jS9jc0btfz1DDLT
-From: Anghel Mihai-Alexandru <mih@ianghel.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org
-Cc: Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Anghel Mihai-Alexandru <mih@ianghel.com>
-Subject: [PATCH] Documentation: thinkpad-acpi: fix backlight power attribute name
-Date: Sun, 15 Nov 2026 14:46:42 +0200
-Message-ID: <20261115124642.983197-1-mih@ianghel.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=feldt.systems header.i=@feldt.systems header.a=rsa-sha256 header.s=protonmail2 header.b=Z6rO7xwO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=feldt.systems;
+	s=protonmail2; t=1794747008; x=1795006208;
+	bh=mVNyqoZPmWVu3SKQuwZrHrfUspenGyNr7ONwhLH90yo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Z6rO7xwOeaCPF1nl2j/O0ICdnwWkRxg7BDBC24YB/dCJaOzTh7lN8mOIwUnFE7x0m
+	 QlmwWE8RMW+4XMGkXUXANKxIsMFkFZOE6UqZ/vJqNv1adRtH8U/m3LFOK2xzynVDwt
+	 4/44dv4E/awHfcgHCwWVdW5CF5bv4CPVpM1qcjOqe7iAyDJd5fAKK0GhyQ7glao2MZ
+	 Cg2D9U8fl6G3k7B5w6jZe9RIqkFJnc4LuaPjSptsiZiuHKVDfWZ2SgyxRnfXLCnN1x
+	 Oxv9yjTksvsdk3/wnpvaB1Sae4rIaBIXuvPihdeexW1SB/93gyXAXRAIUfGhW+4tAz
+	 A5y8IhP1V4ikg==
+Date: Sun, 15 Nov 2026 12:50:02 +0000
+To: Shakeel Butt <shakeel.butt@linux.dev>
+From: Noah Feldt <noah@feldt.systems>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: mglru: splice all generations when reparenting a memcg
+Message-ID: <20261115124954.7146-1-noah@feldt.systems>
+In-Reply-To: <20261111000913.22943-1-shakeel.butt@linux.dev>
+References: <20261111000913.22943-1-shakeel.butt@linux.dev>
+Feedback-ID: 113045274:user:proton
+X-Pm-Message-ID: 7a8d2dffe38d7e29b15abfa03649c45efb904402
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,69 +64,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9
+Content-Type: multipart/mixed;
+ boundary=05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c
+From: Noah Feldt <noah@feldt.systems>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: mglru: splice all generations when reparenting a memcg
+Date: Sun, 15 Nov 2026 13:49:53 +0100
+Message-ID: <20261115124954.7146-1-noah@feldt.systems>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261111000913.22943-1-shakeel.butt@linux.dev>
+References: <20261111000913.22943-1-shakeel.butt@linux.dev>
+MIME-Version: 1.0
+
+--05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The sysfs notes called the thinkpad_screen attribute "power". The
-generic backlight class names it "bl_power", so the docs now use that
-name and describe its values (0 on, 4 off). The intro now points to
-the backlight class documentation instead of saying it is poorly
-documented.
+On Wed, Nov 11, 2026, Shakeel Butt wrote:
+> Noah reported list_del corruption on single-node hosts running 7.2.11,
+> which already has commit bf4ade7dbd76 ("memcg: keep folio's objcg same
+> as its node"). The bad pointer is an MGLRU list head in a freed
+> mem_cgroup_per_node:
 
-AI-assisted: Claude Sonnet 5.5 and Claude Haiku 5.5.
-Signed-off-by: Anghel Mihai-Alexandru <mih@ianghel.com>
----
- .../admin-guide/laptops/thinkpad-acpi.rst     | 29 ++++++++++++-------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+I have already rolled this patch out on our servers. Since then the
+panics and resulting restarts from my report have stopped, and we have
+not noticed any other unusual behaviour.
 
-diff --git a/Documentation/admin-guide/laptops/thinkpad-acpi.rst b/Documentation/admin-guide/laptops/thinkpad-acpi.rst
-index db4588af0278..f6377fad3aa0 100644
---- a/Documentation/admin-guide/laptops/thinkpad-acpi.rst
-+++ b/Documentation/admin-guide/laptops/thinkpad-acpi.rst
-@@ -1066,8 +1066,9 @@ The available commands are::
- Sysfs notes
- ^^^^^^^^^^^
- 
--The interface is implemented through the backlight sysfs class, which is
--poorly documented at this time.
-+The interface is implemented through the backlight sysfs class.  See
-+Documentation/gpu/backlight.rst and
-+Documentation/ABI/stable/sysfs-class-backlight for details.
- 
- Locate the thinkpad_screen device under /sys/class/backlight, and inside
- it there will be the following attributes:
-@@ -1082,17 +1083,23 @@ it there will be the following attributes:
- 	brightness:
- 		Writes request the driver to change brightness to the
- 		given value.  Reads will tell you what brightness the
--		driver is trying to set the display to when "power" is set
--		to zero and the display has not been dimmed by a kernel
-+		driver is trying to set the display to when "bl_power" is
-+		zero and the display has not been dimmed by a kernel
- 		power management event.
- 
--	power:
--		power management mode, where 0 is "display on", and 1 to 3
--		will dim the display backlight to brightness level 0
--		because thinkpad-acpi cannot really turn the backlight
--		off.  Kernel power management events can temporarily
--		increase the current power management level, i.e. they can
--		dim the display.
-+	bl_power:
-+		Backlight power management mode, provided by the generic
-+		backlight class.  0 (BACKLIGHT_POWER_ON) turns the display
-+		on, and 4 (BACKLIGHT_POWER_OFF) powers the display down;
-+		the driver decides how to blank the output.  1
-+		(BACKLIGHT_POWER_REDUCED) is deprecated.  Any other
-+		non-zero value is also treated as blank.  Kernel power
-+		management events can temporarily blank the display.
-+
-+		thinkpad-acpi gets its brightness from
-+		backlight_get_brightness(), which yields zero while the
-+		display is blank, so the backlight level is set to zero
-+		in that case.
- 
- 
- WARNING:
--- 
-2.54.0
+Tested-by: Noah Feldt <noah@feldt.systems>
+
+--05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - noah@feldt.systems -
+ 0x9B02BBB4.asc"; name="publickey - noah@feldt.systems - 0x9B02BBB4.asc"
+Content-Type: application/pgp-keys; filename="publickey - noah@feldt.systems
+ - 0x9B02BBB4.asc"; name="publickey - noah@feldt.systems - 0x9B02BBB4.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
+ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRVpuV2ZveFlKS3dZQkJBSGFS
+dzhCQVFkQWpjOWlieHJoOExkN2E3YjdBM1hXUnZSdGt6V2cwcEZUaUpDTgoza3J1ZnM3TkoyNXZZ
+V2hBWm1Wc1pIUXVjM2x6ZEdWdGN5QThibTloYUVCbVpXeGtkQzV6ZVhOMFpXMXpQc0tNCkJCQVdD
+Z0ErQllKbWRaK2pCQXNKQndnSmtFQlN1OWFxLzJDcUF4VUlDZ1FXQUFJQkFoa0JBcHNEQWg0QkZp
+RUUKbXdLN3RGM0s0QUt5ZXdZWVFGSzcxcXIvWUtvQUFFSjdBUURaRlZLOGpTa3FDSk9oS1NsTVp6
+T01Ibk4vQjhyYwpHZzlXei9UdW1lejVwQUQvV2l6V2xGem4xT3NibzBzV0U3L25FLzRMaXRKS2k0
+bjlObUVGczRob01BVE9PQVJtCmRaK2pFZ29yQmdFRUFaZFZBUVVCQVFkQTc4U0JLZkc1Ymd6SjQw
+bVZxTmNGUnhqc0lTT0ovVW4rZU1TaC83MkQKVUVJREFRZ0h3bmdFR0JZS0FDb0ZnbVoxbjZNSmtF
+QlN1OWFxLzJDcUFwc01GaUVFbXdLN3RGM0s0QUt5ZXdZWQpRRks3MXFyL1lLb0FBTWJHQVA0anZ3
+YlBacnFSY3dzRk5VdWI3aSthSFVTY2pwQTJIazFUdTBKTG5HWTlMQUVBCjRBOGQrWGNsdEVhUEtp
+Vi9sbzh2RFdPaFBBQVBhbTFuQi8wQWhlenh1UTA9Cj1jQkVoCi0tLS0tRU5EIFBHUCBQVUJMSUMg
+S0VZIEJMT0NLLS0tLS0=
+--05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c--
+
+--------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wqsEARYIAF0Fgmr5qnoJEEBSu9aq/2CqNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmcJY1tpAvGYVk58XJVYWNHrFiEEmwK7tF3K4AKy
+ewYYQFK71qr/YKoAAElkAP9khqOtjveDcbwTuViuCxaBhfOSAVQoH+cQF9d0
+ekfMBwD/XqKUWZwBK1v+fl/e6jrZ0dwuxvsCOdhSvhM1UKKP4g0=
+=TNjw
+-----END PGP SIGNATURE-----
+
+
+--------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9--
 
