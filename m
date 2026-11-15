@@ -1,100 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794724271;
-	b=jwZGEBYtvcUsW8rBmtw+TtI1gBCngOHliP/GRyQz78WNw6w1ey6Keif1+mSBxXGBoDE6
-	 3q/xPzTTHZxL5Kwp58/wz5TCzeFrXy7BeZe1VqxTClBn8oZrXm6fXEyilgbDGxHWU1vvJ
-	 fsz0DvyIEq61+aF7TjA4lmp8Szta3RJLqOPPLap5x/iqtAm2TV+3/Zv7gFQVHcz7+niLj
-	 hyAZOFwXAv6jPcl/Tp/doIBPVqdnrSz4ntvBFqbKwbedjVq4nfG+Xlic98XsgoZaUv/in
-	 P+PuZ+4Z/qC8UnYIosRwiLirPP+2UP9YwbYyM8QfPZ5J9xrqeKLtec1L1ciJEot+RGQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794724271;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794724654;
+	b=MgMBjd/ON6mx+8sInDos8AXIKtVYBOv2LDdjsU59zfs/oZWUAeba+xiLdqna8gnTQGjC
+	 qvoi7l3fiilFSTCv9AACpolPBXwxxjNW/vrJlQ/Pfd/pqLkfs5bYwLCtrUtnseSDNYdQs
+	 xBa9xAAe2NOkWP/BV+KRU0ZLmrizZvcGSFXVEETfDtfnXQrqshUMMXEP6fqcBLRQScL9R
+	 PACMAhuMf9Fk/S8vKqQz+YrZp0EkOD2T7aaY2Xe7tS9zOE1eo6szHdCLy9huDNZDr08O/
+	 0Brq3qTm1h3+9ZlHX3RVWi1aaJ0zBzZlcYlxFXhikL4JcCoSiKGrh/IF/VAzHHgyCHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794724654;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type;
-	bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
-	b=db6hTvF3hrOk+gYU20xS3WIvFdEYdNbJ4noWOZ666SkLABNgItvBbWlmFauYYiuJ2kdj
-	 sx3qm45Y55/M2tCItywAwxFvDEBvmdiQcMFTjCXTNO8yBEk/DnHYl9t33/Ef9C/37InNG
-	 8jFK/AW66Oh4B1DjMT0nTX9Q/r96qO/hX3CdkZhCdmq0l6xRDxbANrEZhiN76RI+f3N5Q
-	 QbDjT9Bmm366RaDdSuI1gt2FLvHNA1ybYB5tEzc4KOCbLIE+McYY+xdiaqYgvS1Rd9jow
-	 ssXoKWxETiD3+79S6u+cKIYDZTC0WHTiwtEqy8HBbNj3i8FjZAvx1nxnAMJx0HNaiQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BlBeN1S8;
-	arc=fail smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=aE92BuA/q+u7mWs8kchTDkcjs1m/i8lsv1ezZ7OruqU=;
+	b=z/g19GIS+1Q8d8VikFFaAGj78ofDiiiQbsOy7OQpymAfFVXEMDfmYDPvlUdepVgJBFtF
+	 fDsUnJzea5AcuedB+D6eypAZLiwoDQ0a/+r8RHBfHtwELZ8RcYlM+GJlqAyp3uFNIpaoY
+	 itfQ2Nhu6WbnXpb6Jkp0sYdfJL9r8Qna1LBCe6OvsMauz4jgChcjIwM57tkb/Pxah3wKi
+	 gtyDlGVZiFT7Za07upb235wZtRPf3+v0RR3C9YveEW8ayocvJfxPk/IEE+4+r4GpG9/35
+	 d2/O9VDsjR61nf9CK9BR9PrEW9NJNGgXp9N8yDNo8fFdnmlAgzLgtbCxNFm/eagzdjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XLzHgoV3;
+	arc=none smtp.remote-ip=209.85.218.69
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77469606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77469606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197FC606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 197FC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BlBeN1S8
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b7221c0f2cso3891615a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:31:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794724270; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aupK7bE9tizmBFCklQN37KMRiFr7uOEBZsEK33eRNw4YNPp7CJryO57NGunGHm7vPO
-         fd2HSv3yp/mDgJMjwNqbJWEXrX8N1ILokMGJ+pq34qZstUQ/7ce/kVWngr9gg5bCOunc
-         OKXAnIA+cT1oJyg4oKaEpI0+np4zPKAyGyOC9teK6MXeEzmMfCQaVd8N/U7sIc0NBOZc
-         vMrYwKPimxFzY89q7afMlF4ipB4py22v6c6Fecvd/B3ev1JrRK++tRPYVEFE1g/v+Cvc
-         jnYScVGhEzr8jd6aJ+O8DTn7+iqDoaR4WYilf1J0u8coYwbTAXuagREfFhIE3xgsp5i6
-         qFBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:reply-to:mime-version
-         :dkim-signature;
-        bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
-        fh=MbGqyrmaC3pVLZulv/HzyO35Kx68J0BAxNvAGrCS7LY=;
-        b=e7crMlxyzWSDXRI1tZeC4/KPNqzi6HIuz+x33narc1KV6H8QboJhDPLPRhfselRa4k
-         E/M1ul1U7JA9GJA39HAiKrqyibGU869AeTlKbNfGU7n40a4iKusZzZs/LWXNcjvTz6xK
-         oV4O8vdXoCuK9MZ8jNk8jmXNOW14297DJ4MixpAEzzCb0QrOTafcYY+CLPYpl0srj7jg
-         Si2kZWQpojZmiU5QxwCLBbFUQ4z3P45N2QdsU1DQlOVRyxOmCLIMRjNS6yZfyCGdPUEZ
-         XRsralQRcCgS2g5/qdNxf56MBrnI2u1Y4dM/+JmUMshgUiEPB73m2rOBx1He8viLMrIk
-         WLUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XLzHgoV3
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c42888c50c4so127614166b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:37:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794724270; x=1795329070; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:reply-to
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794724652; x=1795329452; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
-        b=BlBeN1S8rxcZ8yHOolgoiuyhMXqgdxn5IUTUR4vu1neep3YC6Nrms9TuiacukJbDIQ
-         4Ao4jHPx5XOu8x8KY+n6o0tRgK7B6wZsW5Qg0DB297HV/i28F0+navu+6k3y7W1HJWYE
-         ABZCpHvPcq7YmTMebkJ4CpyDq4tOMsoMXWuuZOxglaIOOAHTf9eukAMlvJUSxiG72Z1c
-         +XtZ7g47yej1b9xctL3w7HLwQ/NamA4ZkgEzIZD8jL8IRrRnzt2RbghrfhSruHET0Qor
-         TfYIl01uqJ0xc8a+lEjf7htkqSHScjFhOMVIjqI0Ls3uEAjetq2v9mDw5WJ7XZ20vU4r
-         RX8Q==
+        bh=aE92BuA/q+u7mWs8kchTDkcjs1m/i8lsv1ezZ7OruqU=;
+        b=XLzHgoV30EX3XK+IKPAkxf1NIb5iub/1+QP9OZESQPBT/nbZSwd+vhxPRSYjPTjEy8
+         6pNOTjUDI9xA9TM6UgpXg+rhOfPSJIgkglyhPEkwUDvSB9xqbwLBseo1rMmEJjTL2oUV
+         bMsRramqEqNAkvIFvyiaR5Dn1APgaZwx9nL9Tcoo0MdGVE4UZMCOPNcI/R6Fbh66hBnt
+         aK995BtGsljPmGs66zYNWiPNrNOhigAehP1DM+QN96lq0GSJ2OkQWmODo/4PTzveGJAW
+         7ufVF+ADmBv3OtDogn8ht793IGrIrf0wleGy5TY80sCBku0zeWx8+NOzMJ4DEq/wspYV
+         UCoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794724270; x=1795329070;
-        h=content-type:cc:to:subject:message-id:date:from:reply-to
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794724652; x=1795329452;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TRLI9Td+RNJwtBm4+tKQD4CjycAG9GxlD246x0jzIC8=;
-        b=GlKUfww4pAwe8BS2s5v3+s9F6iWhsXY2+7ykyRhO9oPrMOp3VQXM6WxWMLpq9Kn8HN
-         sePvWJLhI2deBhlbfly3t/KuBYygjCm1VewD0CGQFJs+bf8N91n9Z/eGjIb/pkP+7kHs
-         AwbdA9u3ccgXrcBLBatggi/BHoyTDwGYRIBpROb2nudW52KTOQTERlNg9VfFj6lP10nu
-         rtmfVdQcumJ8LiH+nMVl9wU+HW+kiOZGErFwSXwWJSv7t44mwPy7llwj423bXNfipk4D
-         0YnXfrvJRHYbIrZLRIrVr8BkzIR7koCQZCDkUu16yV3+gxzFuwKv2IdlGYfQpJfiMnU2
-         OM+Q==
-X-Forwarded-Encrypted: i=1; AL+hErG4eCGwxPn+YPQoF/c/dJ27FMbTu3gGp7xi3BA6m0a7B9egKKNir7wtbTnq7dU0yC0T8p6Vek+kfRSgFPk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z898t4ypq9ZiMK9Ya7oGX3cKx1MtAMf8qbvckkhXziMRbeBIONK
-	BD3zSMM1Y0rkIjbtzHgZnuhlbG7T7HfTsffD2aNLYcoBQ7J1wDmA+N6P3hl+FZ4eVPjRyP0XxhA
-	WKFSh+u0vhy+MhcGY2qUJe8SbQpoX/84=
-X-Gm-Gg: AYBFou3Xo5Ld+tIMn7R+j0GuBFMs/U1200kOwR48rX8rqM5h1RC3hQvbrS9pP1u5Xkf
-	lqIxMrAoyg14tGl5BweDAFiFMboZH+1rLRpPomS1oNypdE0xlIkgUZ86bBj4LMwROyE1r2haEmS
-	RgeWCn//s5CDQ/6DusFUmKSlRNcgtXB3tOOmINf5IUc6q/yo7CG2fZzr/78QEdg51yX/19UP5F2
-	x1nXhyU51i4oOMzOU6qFFCmPS+a/BOUBPov2FqOV4YrLr//FminbJi5ln+rkvtTJ1qwQAwsC48+
-	5TCzh6x4Jr6fBoXpHAh6fqBkY79cRpZmD8mhxNCwp70eqpjzoK2INkG3FB4qB/1YqK6jNcRtgah
-	uLsJrUnB6KdANDA46diOJJIqMX20BcSfqYPvrvhC7S5BN0UvnDjug9cuX+8/fQaOSUlWwST9EVH
-	Qk380t1e7FYIF6tbcDUKnwKGX/HJDwr/G1j9J8Y4/qTwrpVNJWv5lI1hA=
-X-Received: by 2002:a05:6402:4404:b0:6b7:82cf:f69e with SMTP id
- 4fb4d7f45d1cf-6b7c08b4c7emr4946620a12.2.1794724269570; Sat, 14 Nov 2026
- 22:31:09 -0800 (PST)
+        bh=aE92BuA/q+u7mWs8kchTDkcjs1m/i8lsv1ezZ7OruqU=;
+        b=bkP7l6y39W9z7rMYhUKWPa7K4jRJg8tvSBVVH/eBjlnlqePxqoESIJmLEUwHivrqRV
+         CsIVMmeGRgPK7Qxn/35LGqHxWEvg9TcAJ9zVushqshIL5YZ/K1hYxyUqXYwD1fn/mQhw
+         84G+vDcEIrSSS9FWft6qDI28BCgNvxKxR+/AnFjDgcjIWQLQd4HDg8RffM553qj6PnbM
+         HcpLoV+WCE9LKUqSr6f8jlWRxktDo79o1oBNPt4qkayQmJ5pZvqOPSo0AS/eYxCDCFZI
+         hA0JKY1F4Fn3hFE9mxxsPpVVRrpElyjxqeF1T5VaXxR+Topfbv6ckK4V0L4XGuBYS+xy
+         xmug==
+X-Forwarded-Encrypted: i=1; AL+hErGKRAuqvl1cyUn18G46MsccL3rg264fHKdV87jR/iZGSpTfgJg5orrAO8PNXek4SaqwSk8DZqt+6qoG4uQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wSo3kmQMoZuWihXuooOhyGLyQ4tyPCpU9bYk0m0OkBNgsgMfn
+	RohZh9bRSaL8BgvJ1eRG+i5x30kzC3iDUnIPizWjZWHXC7ySYQFlH9BONrHWOkhGjMkNHv3UPGU
+	VXfgzmYubuZ7Zz+UEag==
+X-Received: from ejbge24.prod.google.com ([2002:a17:907:9098:b0:c46:7bd3:aa06])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:a714:b0:c42:5363:38dc with SMTP id a640c23a62f3a-c509637e20cmr533164966b.25.1794724652053;
+ Sat, 14 Nov 2026 22:37:32 -0800 (PST)
+Date: Sun, 15 Nov 2026 06:37:31 +0000
+In-Reply-To: <DMROZB8DPEWD.W2BFC7JIBVZP@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,43 +77,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Reply-To: ludloff@gmail.com
-From: Christian Ludloff <ludloff@gmail.com>
-Date: Sat, 14 Nov 2026 22:30:57 -0800
-X-Gm-Features: AclHuK_unVTggCaoPUML0eK717T84qUSQdruqbjfPhZrS0xnHYClig_DE2lhj_Y
-Message-ID: <CAKSQd8XsZg7VooNs+MK2=YWOvXii8oOC6ULmbusubAk0aQxAYA@mail.gmail.com>
-Subject: Re: Turning on DOITM at last
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, Dave Hansen <dave.hansen@intel.com>, 
-	Demi Marie Obenour <demiobenour@gmail.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
-	linux-crypto@vger.kernel.org, 
-	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+Mime-Version: 1.0
+References: <20261110050202.529473-1-tarunsahu@google.com> <20261110050202.529473-3-tarunsahu@google.com>
+ <DMROZB8DPEWD.W2BFC7JIBVZP@google.com>
+Message-ID: <9huzjymepplg.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v4 02/19] kho: block: Record the entry size in the block header
+From: tarunsahu@google.com
+To: David Matlack <dmatlack@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, maz@kernel.org, will@kernel.org, 
+	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, loganodell@google.com, 
+	arnd@arndb.de, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
+	Bjorn Helgaas <bhelgaas@google.com>, oupton@kernel.org, alex@shazbot.org, 
+	gle.com@google.com, pbonzini@redhat.com, 
+	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com, joro@8bytes.org
+Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org, 
+	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, kvm@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	skhawaja@google.com, sagis@google.com, linux-arch@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Continuing this summer's thread...
+"David Matlack" <dmatlack@google.com> writes:
 
-  https://lore.kernel.org/lkml/14962fdf-66e9-4b64-a37e-0e697c875cc0@citrix.com/
+> On Tue Nov 10, 2026 at 5:01 AM UTC, Tarun Sahu wrote:
+>> Add an entry_size field to struct kho_block_header_ser. On the outgoing
+>> side, record bs->entry_size into every block header during allocation.
+>> During restoration, derive the entry stride directly from the block
+>> header instead of relying on caller-supplied dimensions. The
+>> kho_block_set_init() interface remains unchanged. A zero entry size,
+>
+> Since the entry size now comes from the block headers, incoming block
+> sets should not take an entry size at all. I pointed this out on the
+> PCI patch (16/19) as well. As is, every incoming path still calls
+> kho_block_set_init() with this kernel's (outgoing) entry size, which
+> kho_block_set_restore() then silently overwrites. That makes the
+> callers (e.g. pci_flb_retrieve() and the LUO session/file restore
+> paths) read as if they iterate incoming entries with the outgoing entry
+> size. kho_block_set_restore() should initialize the block set itself
+> from the incoming block headers, and the incoming paths should drop the
+> kho_block_set_init() call.
+>
+I agree, responded to the PCI 16/19 patch.
 
-The DOITM U/S spec arrived, as mentioned on the gcc-patches list.
+> Please also add an accessor for the entry size, e.g.
+> kho_block_set_entry_size(). Users of the block set need it to check that
+> incoming entries are large enough for the fields they read, and that
+> the fields of a feature are within the entry.
 
-  https://gcc.gnu.org/pipermail/gcc-patches/2026-November/738803.html
+Sure, Will update it.
 
-  https://www.intel.com.br/content/www/br/pt/content-details/932747/user-doitm-and-sup-doitm-extensions-architecture-specification.html
+> [...]
+>
+>> + * Each block header also records the size of its entries. A newer kernel may
+>> + * append fields to an entry, so the kernel that writes a block and the kernel
+>> + * that reads it can use different entry sizes. The reader steps through the
+>> + * entries with the recorded size, so every entry is found, and it does not read
+>> + * beyond the recorded size of an entry.
+>
+> KHO blocks can't guarantee the last part. The iterator returns a void *
+> that the caller casts to its own struct, so it is up to the caller to
+> not read fields beyond the entry size. Please document that callers must
+> check the entry size before accessing fields that may not be present.
 
-In section 3.1.3 it proposes two changes to the published DOIT list.
+Yes, I meant the same thing. by having a check on entry_size reader must
+prevent itself to read beyong the provded entry_size. I update the
+correct the documentation.
 
-  https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/resources/data-operand-independent-timing-instructions.html
+Also, I realize tha, after checking the base fields using offsetofend,
+for any following new feature fields, a entry_size should also be
+compared against the readers offsetofend till this feature field for
+required fields. Incase reader does not have that field and
+kho_ser_validate passes, that means that field certainly is optional.
 
-Namely, for shift/rotate and for rep stosb.
+I can add this also part of the documentation.
 
-How is this not problematic? Will Intel do the required SW work? How?
-
-And what good is a DOIT list... when it then changes under one's feet?
-
-(Other insanity: the naming prefix/suffix mess and the cpl1/cpl2 mess.)
-
---
-C.
+~Tarun
