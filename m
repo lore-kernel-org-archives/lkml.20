@@ -1,78 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749211;
-	b=hEuLCE8/P4aIhhhnrTYWur80Fx4d2TFqBIXTghdjoHHAIDN45aUXzO9CX4qAxD/uBDuH
-	 35/BI3iwuUay73yV2oclqgja+N3FUTi3+l7htopfxOwytBjhWwaQI4y87eElS2K+LHImi
-	 m+wQoTbJwTFzDsZoS1xo8KHaOfj9OtiUNXJQGqQlNRMhUsPuIcDOx0qGrsSRn9rM77dwu
-	 E6r6RT+KeCxO+blMzYCTcSYXC5APkUK8DASrSHP2E98Akniej9T9piM4g9sb7p0j++unS
-	 IaZ8ZH5XhE+L8Bh3y9pu5ary6P3YsAatJAyWM0nTe4tWPIE2d4JmkcVU0V5mEPnhW1w==
+	t=1794749238;
+	b=D3NEt+ZnP87q/iStoQkJxc10mAopnPpylRtM5DVMZRXXcTTzScWkCGEOHtvuAvo8o9r9
+	 s/ZV+j7SVgYme+oE3Umfu9EWuR/wIoU6BLjvkCE8EcJ5gycMrtc/zGdx6N5SmfkqdeBcY
+	 9Np3iLcW4Jkf/cIk17AlXA638CXrY8NlYv4/kzAvUw7U3dfjtBiDRLA95lDJRKjtW20Wc
+	 qztC3T753rWv62sI/Ig7SeM+KU/nNMntPB0bGdYv4hr3j+29HOGlLmlSiatRIFMutcV9e
+	 FVYINJNGaI6V3efs2m+6Q6rcHLQwvvgENdJVAvKhFZNs2vIzmwAA0EE7S49CgdIeG0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749211;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jY3xGG57GVWa+wMl7oxhpSIomPcM/kWyJWqi5RR6jzk=;
-	b=v0JDcRcomyqnELvZvX8t8rlryLIs4gUuxNkQROLBFD5VffIN7+6qEaaP/m6FBhk/7vbD
-	 u2+MoLxigbr6IHyXGOV22LW1amKBbjPei4PvlF0/RdPHegWTvatnAPd8o9srchiaApaSG
-	 z/eJM4ze63WDRorzJJaNMiawsDSREqAilRN+Lhl2QZyxTGrY09i3ePh5ZTwbcq0LktXIt
-	 9uTK4Nmt+3lToh8ldl6tJBpISoUZKvK8tDwN8RrLIpkMqWFctxv7sEJG9FYXoEdrAd/eJ
-	 7ICAh3n0gV4uUgAVGzKXrbgCMqhNL+fKRN7HLNHj476MCsAM2/9YFiQtUOpDx6jNt8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749238;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=DX9VM9jkTgK560Jv3EZhZ53vVQdjW3sO2tpZaZM1PhE=;
+	b=QFhcWla2JGVXd4rDKW1EfmTmyTd91bsRPsrf+QXIUAAeDJEx2qHFnxIE1I8ncd5vJYxu
+	 zlkzflcqj0ehg4KFTAzBXsDZYxZWEcW3VgZlcDQXklsVOx8LNFUazP2ialqhGF7fH1q/U
+	 /Lc5rccbChgx3J/kjy4f8v3lquF2ECiOIWjwRYofGntA3NdzLUwziDImJfpM16Ov9cjSs
+	 RZ3ey5DkjE+vWWNIxJZz76qQ51WfS0/xKlMySgIFOCNwX3auIGHFxG68pHNJSGVwF1cIP
+	 t0ES3pcf2iswD43LRtCoKeZgiwO34Dya5dDc/zMwAis/IrSBhQIC4vPwswSYzCisHQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=sung-woo.kim;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IVS4TsRx;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12965606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12965606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=sung-woo.kim
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c247f6687dcso485540666b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:26:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794749209; x=1795354009;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jY3xGG57GVWa+wMl7oxhpSIomPcM/kWyJWqi5RR6jzk=;
-        b=C0iNgYUn/prBZFaOnXUhPSdtQtI7gBggywzlLOPoiaVilEzxGw3PX0ipIJXTOMS7BF
-         mpuZ+WGqee+qjsDtnJ8L6lAnACVtLQ8JwBVW6YQusMzcn9JCLU2cz7JRNr6XMdaaVHlT
-         i08DUqlx4L1rD9m84XK76sBV0IlLgoxsbi8vCecp6K53ISdomUdFR/XwIGEV2HsltaAQ
-         oU9GRpRdkOO/JtuqURAbL/SXa2/UQEaDql+ebv2DQxaswapItxpP9JuxKacO0uJb3ZHu
-         ya0JRFxQeIG0oNXbMOVFcp9HM8q+wkP+ayxkmNF3tVA/ZRwToaWGQGO5BpEMzi7B0zZE
-         XkuQ==
-X-Forwarded-Encrypted: i=1; AL+hErGUn9knXJWQsGVHJ7F+Tl1pf//5VuLwPjYBhc/il/n8Bh4InM3QUtwNkljEr+D5Jk4+lB0qUlvZ10wNp08=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Q4tCwf+Bbk7T8RNil+u1FZZ8wgKuhWO9N//NQQLGfp8O3/LAU
-	Zbfa3m+tdVCzdfAovA6+lKPZzYlBEgXNL74d/VuDNB+bn0B8zEXt3mP8w1amygNWl4Y=
-X-Gm-Gg: AYBFou0ov6KwQvBwNrTfRa/3aau7Q04A3r8sR26F9bpI8hisvJZ45D9ayf8rHNRh+bd
-	zFLrlWRn3M0rZ0afVhZulaqEzEUs6Qj5yrW08yUpW4u1yiMrh8cOqvWjkkiaYr9joaEflDVxnI/
-	l1KNTyDlLkxyCWLqM+lP3pOaWzy9d6ZZa0cTGYhxUv2XkEkDcilqnQo6eVdj3Yph6b4eTYlz9fr
-	Jf3Nqmxst1msKMMP9QudS/UaBVHih1oql6VsFKtZCnXAa8MZCUPPlUEIDRx4lANvJnLKEPWNmvP
-	46opetvjuYCWjSSZIXhj63dWrVLH+uj9bIeti8ktYkurze0448bQKIIIK087cgYYHJ+mPNQkb6o
-	aEY0t8t5J/dDPeaD/eM9fRXVnPiA+JFtoiqoF6MDnV0M7poRg/ss75CgkL3QiYyBk9oYxS/1uyU
-	lLjFX9iW9mPJfFadpAEvL5rGb9l31R4cLM+X3t0FyqQbHKM0neOpsrT3lu8afr5DeIABxmmge7L
-	1xVVfprp0lj1DlZf0XK+QqBNvzgABANp2E63ljdAXb2wOLHFyXrk92gIzHOmfmPsKwlO8kSNjme
-	bVt25qFFefpOa0H+k+NJO+X3IUZfMefq8qqX/vwFgDwo6VuqWn3n0QFHJyqeVVvnktxGjf/Hd/3
-	gOr1rsHDPPBpxBJT/JA==
-X-Received: by 2002:a17:906:dc89:b0:c26:1648:a06b with SMTP id a640c23a62f3a-c509642fa78mr654139966b.38.1794749209132;
-        Sun, 15 Nov 2026 05:26:49 -0800 (PST)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com. [209.85.221.47])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b57c5bsm307855366b.49.2026.11.15.05.26.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 05:26:48 -0800 (PST)
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso914319f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:26:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHdEPJ134cwRUg9aQQp4dYW/2+YS8tCzZkfsr0rfjKMj/P38iFsx+baLahZiUa4YFJYifmlZRufQMLs+Qw=@vger.kernel.org
-X-Received: by 2002:a05:6000:1848:b0:48f:bcbf:26f8 with SMTP id
- ffacd0b85a97d-49c7390fcbamr17525357f8f.48.1794749208648; Sun, 15 Nov 2026
- 05:26:48 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA6A606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:27:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FA6A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IVS4TsRx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=DX
+	9VM9jkTgK560Jv3EZhZ53vVQdjW3sO2tpZaZM1PhE=; b=IVS4TsRxdA9ZcV9mt4
+	ragq/3JNwXbuoHocfrQk4eGah1z6gIpCk0EIsPqkQLciu02UApSIF/o8pu+xwVi9
+	6B3u1X4stxakvmYsRvK7apNBA8BNP+4xHMfhgXd95LqyhXbh0HShr6EyTYWaDrPe
+	8+zn0XNatvSI/zQ97sjFT2KKo=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S8;
+	Sun, 15 Nov 2026 21:26:16 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v4 06/12] ntfs: read ACLs using their stored size
+Date: Sun, 15 Nov 2026 21:26:03 +0800
+Message-ID: <20261115132609.209957-7-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261115132609.209957-1-liubaolin12138@163.com>
+References: <20261115132609.209957-1-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,84 +64,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115132215.4084031-2-iam@sung-woo.kim>
-In-Reply-To: <20261115132215.4084031-2-iam@sung-woo.kim>
-From: Sungwoo Kim <iam@sung-woo.kim>
-Date: Sun, 15 Nov 2026 08:26:32 -0500
-X-Gmail-Original-Message-ID: <CAJNyHpK8ZpP5uAK0tgtswKVvD3=Z=d+2dR148RSNw-L7X_ih0w@mail.gmail.com>
-X-Gm-Features: AclHuK89S0biKagP1-Gmz3zw0cKplorvpQTCrvEikzedtHJQEI8ZvWsTk-6J-VQ
-Message-ID: <CAJNyHpK8ZpP5uAK0tgtswKVvD3=Z=d+2dR148RSNw-L7X_ih0w@mail.gmail.com>
-Subject: Re: [RFC PATCH] ALSA: hda/realtek: fix missing chained flag in fixup
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: Dave Tian <daveti@purdue.edu>, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S8
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF1fuFW5Xw45Gr48Ar1UKFg_yoW8Cw1fpF
+	sxJr1YgF4xXry2vF1vyr4DXry093WxKay5G34fKa1Ik3yYqrnI9Fy3tFy09a1ftF93Jwn0
+	qF15KrZIv347uwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2FALUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RgEzmr5svhtmgAA3V
 
-One more, ALC668_FIXUP_ASUS_Nx51_HEADSET_MODE in alc662.c also has the
-same issue (missing .chained=3Dtrue)
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-On Sun, Nov 15, 2026 at 8:23=E2=80=AFAM Sungwoo Kim <iam@sung-woo.kim> wrot=
-e:
->
-> The fixup specifies a chain_id but does not set the chained flag,
-> which prevents the chained fixup from being executed.
->
-> Should chained be set to true here?
->
-> This was identified through static analysis and has not been tested
-> on actual hardware.
->
-> Signed-off-by: Sungwoo Kim <iam@sung-woo.kim>
-> ---
->  sound/hda/codecs/realtek/alc269.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek=
-/alc269.c
-> index 96fa8c2782bb..1be2e609c28d 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -6431,6 +6431,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
->                         { 0x1e, 0x411111f0 },
->                         { }
->                 },
-> +               .chained =3D true,
->                 .chain_id =3D ALC269_FIXUP_DMIC,
->         },
->         [ALC269_FIXUP_CZC_TMI] =3D {
-> @@ -6449,6 +6450,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
->                         { 0x20, 0x8000ffff },
->                         { }
->                 },
-> +               .chained =3D true,
->                 .chain_id =3D ALC269_FIXUP_DMIC,
->         },
->         [ALC269_FIXUP_CZC_L101] =3D {
-> @@ -6467,6 +6469,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
->                         { 0x1e, 0x411111f0 },
->                         { }
->                 },
-> +               .chained =3D true,
->                 .chain_id =3D ALC269_FIXUP_DMIC,
->         },
->         [ALC269_FIXUP_LEMOTE_A1802] =3D {
-> @@ -6485,6 +6488,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
->                         { 0x21, 0x03214020 },
->                         { }
->                 },
-> +               .chained =3D true,
->                 .chain_id =3D ALC269_FIXUP_DMIC,
->         },
->         [ALC269_FIXUP_LEMOTE_A190X] =3D {
-> @@ -6497,6 +6501,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
->                         { 0x1b, 0x0201401f }, /* front lineout */
->                         { }
->                 },
-> +               .chained =3D true,
->                 .chain_id =3D ALC269_FIXUP_DMIC,
->         },
->         [ALC256_FIXUP_INTEL_NUC8_RUGGED] =3D {
-> --
-> 2.47.3
->
+The ACL setter accepts values larger than PATH_MAX, but ntfs_get_acl()
+uses a fixed PATH_MAX buffer. Valid ACLs larger than 4096 bytes cannot be
+read back after inode eviction. Inode-based ACL lookup also propagates
+this error to permission checks and default ACL inheritance.
+
+Query the EA length and allocate the required buffer with GFP_NOFS.
+Keep the record lock across the size query and read so a concurrent ACL
+replacement cannot change the required size in between.
+
+Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+New in v4.
+
+Tested access/default ACLs of 4092, 4100 and 4836 bytes with 512-byte/4 KiB
+clusters. Inheritance, permissions, remount and reboot checks passed for
+regular files, O_TMPFILEs, directories and FIFOs.
+
+ fs/ntfs/ea.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index 68397b2a4e43..834f38ea4a00 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -1019,11 +1019,7 @@ struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *den
+ 	size_t name_len;
+ 	struct posix_acl *acl;
+ 	int err;
+-	void *buf;
+-
+-	buf = kmalloc(PATH_MAX, GFP_KERNEL);
+-	if (!buf)
+-		return ERR_PTR(-ENOMEM);
++	void *buf = NULL;
+ 
+ 	/* Possible values of 'type' was already checked above. */
+ 	if (type == ACL_TYPE_ACCESS) {
+@@ -1035,7 +1031,14 @@ struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *den
+ 	}
+ 
+ 	mutex_lock(&ni->mrec_lock);
+-	err = ntfs_get_ea(inode, name, name_len, buf, PATH_MAX);
++	err = ntfs_get_ea(inode, name, name_len, NULL, 0);
++	if (err > 0) {
++		buf = kmalloc(err, GFP_NOFS);
++		if (!buf)
++			err = -ENOMEM;
++		else
++			err = ntfs_get_ea(inode, name, name_len, buf, err);
++	}
+ 	mutex_unlock(&ni->mrec_lock);
+ 
+ 	/* Translate extended attribute to acl. */
+
