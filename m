@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.240.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769186;
-	b=S8FOPymONIQPnxP7cyE/2vm6TKl+ztTOA3WSXq7vYN/rCflt4ZWaI81xp7nsRSr0OXYI
-	 cGp3u6/ru3xQRJhZ1RqaH/QP8/NAc9Bso0KdchbWTJsiUhYIasm0xy84pcOBcUFKoudcZ
-	 do+W+FbBs0R36y+gy4yKONKzXhvttuk8mRcxJqYNEadK4vkyEDD7zGppsLBITzU2XreuX
-	 WqFxxuWJ6uuiBtNa08Lh4eH2EzWM27nvjxbV2CGCu3jizPTcaYV3yGyyBQjHqKmuMA4R0
-	 8gG3fHZO5A1rK3HK7ZE+QXzQQWs2GsJNdEcNXKxfHiHuyV2RYmFWuPcGq4rINJNbgTQ==
+	t=1794769253;
+	b=ZyUHQbaQ6oXvmZCczeoBqVu0VeSltq5ISENwVSB255PE+9+kzZ59Y9fBI9Z4gtDRPbu2
+	 dx750ubX9zk/fPcW1k/4SAGkUz2IeC9kAXHNr4mC3KW1fcHBOWxiUSWKMF1cpgPHP2fTX
+	 dL1nD8FX4MO2OGCpVASTNVSUQZ79plvWFl+BeeFwHcihfeVhBubTOyifPjNan04BrKNSF
+	 XfMqGzTMtF4XZOPfL0qqcCYitn6SWChCBSngmQC8EFSf4/Dj5N19S/YPCqaPbNNF6RonH
+	 I7unAMgVWpDpKA9SQCMZ798DVnvJFB0h+FDvyXD5+Ciqgd4LMz59f4j5KULosGpt4VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769186;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DuWRw0pm3e+98SOmXelKpHIJTHYXZWbeemqNai35EO8=;
-	b=fIIRGXCCf+X4QRnAz6GAwGaBN21/GatY1JRKhaySzmgDj4aldMHX3+MWfcQLR+RLk2NJ
-	 4LpcVI79M29cpTgdSdELX2xJdlQpofCVD2KjFNEv96JDzPXJNhACH1rX+eX+1s4JgFovq
-	 eyCI6aE8mWNG/tWxYLItSzeK3sX9ZcquzCEfovdAzctY19J8u7seL7f2UbIUR/fzpq2t9
-	 jvYuvc7ZsdaQrKOhed2y3S9pR2BNAl2v6YsH3/Cqs6RezwrtlpIS1FU+fv1/UoKzA0X9i
-	 Rrn6i427E7SF+37or4w5mS5os+S20gscvQzWzZw0NDjGy/VpEB1Gro2vfbIL/E6N9gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769253;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=R6szs5w9Uz9ymZ3V+5ITu+1dXPrkQ566vnE3nCeyQ5A=;
+	b=OJ/vpoxyV1ojlnrLepWLWPfiu14W0zkTrwM3xkcXQy8m9yxhWYx+hZFPDOE3ecqX6CQj
+	 HK6ot6fVVb9z8hEUjAPx1+9Lg7jseXOUVIPlZxCmi+fw3/+MGi4y+fHdxCZZ7SpJ0rPVC
+	 Rq/eAKvdUZS04LvLSB3by/YYJFq0MWehPFRfsIjmsNJEZCaImIeNOygx9Fom1hHT0EG7H
+	 14smhUmLao6qoqwMuE8E1kugo3oY4l+QKmy1hFBafFd28AWMS4u0fM5b2xq6Uq/HJvLXv
+	 ETVGPVEQvcAWB5++juwMg3MnGJidb1gmdaM+9Hdmb2md1+NMv2OQjzCtrbx7uRI8+fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MsyhObEQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sraa.de;
+	spf=pass smtp.mailfrom=sraa.de;
+	arc=none smtp.remote-ip=85.214.240.192
+Received: from sraa.de (sraa.de [85.214.240.192])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C675606A31D;
-	Sun, 15 Nov 2026 18:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MsyhObEQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2123E1F000C5;
-	Sun, 15 Nov 2026 18:59:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794769186;
-	bh=DuWRw0pm3e+98SOmXelKpHIJTHYXZWbeemqNai35EO8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=MsyhObEQa4B12hLDfSbk8mlrv4CVjmCz3ZmtdmX2YYT6ni7g7/qGJWhdVdzMp+FWE
-	 YJvJ3aj4/JKmM+k9dzfyypDSu91SnK606oF2vl+G1triU3BT6PE65zomazzLMnpkjx
-	 amXXAQM2hWbkXav0F+pGFelvi3OUVOXyw/leAL1n1hYG20DF097d7Z1bW0IYItwrX6
-	 XGuyBCyDQa9Q/Lmmo91HvfXmWqXh0KKolLCwCk/0wgli66Kxywa6gUTUk+fiVoU/Ck
-	 XFJA86TebLDgveonC5DjFQHbibe6wf7xqBqR5/eJ7nGMpEy4LIr4rKsh/IJrTvFdGX
-	 80fL3/Reefegw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Stanislav Fomichev
- <sdf@fomichev.me>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
- kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
- Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
- Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
- Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
- Kartikeya
- Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song
- Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
- <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, bpf@vger.kernel.org,
- io-uring@vger.kernel.org, Mina Almasry <almasrymina@google.com>, "Mike
- Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
- <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
- Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Stuart Clark
- <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 11/11] eth: fbnic: Support AF_XDP page pool
- zero copy
-In-Reply-To: <avc6tIIQ9uDQB4IM@boxer>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-12-bjorn@kernel.org> <avWk5as19fvZoEJA@boxer>
- <87wlqhq0kb.fsf@all.your.base.are.belong.to.us>
- <87jymhot7q.fsf@all.your.base.are.belong.to.us> <avc6tIIQ9uDQB4IM@boxer>
-Date: Sun, 15 Nov 2026 19:59:43 +0100
-Message-ID: <87ik1xj4yo.fsf@all.your.base.are.belong.to.us>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD24606A32C;
+	Sun, 15 Nov 2026 19:00:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFD24606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sraa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sraa.de
+Received: from [161.142.148.162] (helo=ryzen)
+	by sraa.de with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <basti@sraa.de>)
+	id 1xSfSt-00Fxrp-Mz; Sun, 15 Nov 2026 20:00:36 +0100
+Date: Mon, 16 Nov 2026 03:00:28 +0800
+From: Sebastian Raase <basti@sraa.de>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Sebastian Raase <linux@sraa.de>, Hans de Goede <hansg@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Helge Deller
+ <deller@gmx.de>
+Subject: Re: [PATCH 2/2] dt-bindings: display: simple-framebuffer: Document
+ mono format
+Message-ID: <20261116030028.32753ba3@ryzen>
+In-Reply-To: <8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
+References: <cover.1793758480.git.linux@sraa.de>
+	<258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+	<8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,75 +63,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Maciej Fijalkowski <maciej.fijalkowski@intel.com> writes:
+Hi,
 
-> On Fri, Nov 13, 2026 at 12:40:09PM +0100, Bj=C3=B6rn T=C3=B6pel wrote:
->> Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org> writes:
->>=20
->> > Maciej Fijalkowski <maciej.fijalkowski@intel.com> writes:
->> >
->> >> On Tue, Nov 10, 2026 at 11:20:32AM +0100, Bj=C3=B6rn T=C3=B6pel wrote:
->> >
->> >>> @@ -538,6 +547,13 @@ static int fbnic_bpf(struct net_device *netdev,=
- struct netdev_bpf *bpf)
->> >>>  {
->> >>>  	struct bpf_prog *prog =3D bpf->prog, *prev_prog;
->> >>>  	struct fbnic_net *fbn =3D netdev_priv(netdev);
->> >>> +	const struct xsk_rx_check *check;
->> >>> +
->> >>> +	if (bpf->command =3D=3D XDP_VALIDATE_XSK_POOL) {
->> >>
->> >> do you really need a separate command here? why not rely on existing
->> >> XDP_SETUP_XSK_POOL ?
->> >>
->> >> here it doesn't look like things being validated are something unique=
- that
->> >> you could not check during XDP_SETUP_XSK_POOL and XDP_SETUP_PROG.
->> >
->> > I'd like to keep it. XDP_SETUP_XSK_POOL means "set up driver ZC for th=
-is
->> > pool": the driver maps the UMEM and restarts its queue, and the core
->> > WARNs if it didn't map. A provider driver does neither; it only says y=
-es
->> > or no, before the core maps and installs anything. The same question
->> > comes up on MTU and program changes of a bound device, with the new MTU
->> > or program, which XDP_SETUP_XSK_POOL can't carry. One command keeps th=
-at
->> > in one place, and v2 runs it from the core MTU path too, so a driver
->> > can't forget that case. This is only a burden for the core.
->>=20
->> Thinking more about it, maybe I can drop the callback altogether, by
->> doing what devmem, io_uring zcrx and tcp-data-split already do: the core
->> refuses a setup that can't work, instead of asking the driver.
->>=20
->> The driver only judges the chunk size and headroom, in
->> ndo_validate_qcfg, which the queue API already calls when it installs
->> the provider, with a new bit saying the buffers can't be split. A frame
->> of up to the chunk size (minus headroom), then lands in one buffer, so
->> the core checks the MTU itself, at bind and on MTU changes. And like
->> tcp-data-split, a socket bound with XDP_USE_SG needs a frags XDP
->> program: attaching a single-buffer program fails while one is bound, and
->> the bind fails while one is attached.
->>=20
->> That drops XDP_VALIDATE_XSK_POOL and struct xsk_rx_check, and fbnic's
->> MTU and program hooks with them. Not fully cooked in my head, but maybe?
->> Wdyt?
->
-> Would be nice, what I meant mostly was that a single driver can't do both
-> 'legacy' ZC and new-age provider based xsk at the same time, so let us
-> have a single vehicle down to drivers, adjusted to both needs?
+On Thu, 12 Nov 2026 08:35:59 +0100
+Thomas Zimmermann <tzimmermann@suse.de> wrote:
 
-With the callback gone, a provider driver doesn't get an XSK command at
-all. It sees a queue restart with the provider's parameters, the vehicle
-devmem and io_uring zcrx already use, and opts in with xsk_page_pool in
-its queue ops. Driver ZC keeps XDP_SETUP_XSK_POOL. So each driver has
-one vehicle, and the provider's isn't XSK-specific. What's left of XSK
-in a provider driver is TX, which finds the pool with xsk_rxq_pool().
+> Hi
+>=20
+> Am 04.11.26 um 03:34 schrieb Sebastian Raase:
+> > This is a 1 bit-per-pixel monochrome format, with 8 pixels/byte.
+> >
+> > Signed-off-by: Sebastian Raase <linux@sraa.de>
+> > ---
+> >   .../devicetree/bindings/display/simple-framebuffer.yaml         |
+> > 2 ++ 1 file changed, 2 insertions(+)
+> >
+> > diff --git
+> > a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> > b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> > index 45ffdebc9d86..c627ec088434 100644 ---
+> > a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> > +++
+> > b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+> > @@ -94,6 +94,7 @@ properties: format: description: > Format of the
+> > framebuffer:
+> > +        * `mono` - 1-bit packed pixels, 8 pixels/byte =20
+>=20
+> I don't object the change, but I really object the naming.
 
-Does that cover it? I'll try to get that working in v2.
+I fully agree, but could not think of a better name at the time.
 
+As Sashiko pointed out, "mono" neither describes the endianness nor the
+polarity.
 
-Bj=C3=B6rn
+> Mono is not a good name because it doesn't describe the format's
+> pixel layout. For example, RGB with only 2 colors is also mono in
+> some sense.
+
+A two-color RGB format sounds like a contradiction, although bi-color
+LEDs are very common.
+
+> The common names used in the Linux kernel for this type of color
+> format are C1 and R1. More generally speaking,
+>=20
+>  =C2=A0- Cn describes an n-bit format with a palette. The pixel bits inde=
+x=20
+> into the palette.=C2=A0 Pixels are packed.
+>  =C2=A0- Rn describes an n-bit format with a single color channel. The=20
+> channel has linear color gradient. Pixels are packed.
+>=20
+> In your case, you'd define 'r1'. While at it, we can also define r2,
+> r4, and r8.=C2=A0 The terminal supports up to 16 colors, so implementing
+> r4 might be of interest to some simple hardware.
+
+Sounds like a good idea; I can test those for simplefb (not simpledrm).
+Do you have a suggestion on endianness and polarity in the name?
+
+Today, we have grayscale/color in mind, so the obvious polarity is
+0=3Ddark and 1=3Dbright. But the other approach uses 0=3Dpaper (white) and
+1=3Dink (black), which leads to reverse video hardware. It's uncommon, so
+we can probably ignore this.
+
+Endianness is basically the same difference as RGBA vs. ABGR in 32-bit
+color formats.
+
+So far, I have only tried stride values which were multiples of 8, to
+align them with byte boundaries. Any restriction would apply to r1, r2
+and r4 formats.
+
+If I send a v2 patch, should that be a follow-up of this email thread,
+or a completely new thread?
+
+> Best regards
+> Thomas
+>=20
+>=20
+> >           * `a1r5g5b5` - 16-bit pixels, d[15]=3Da, d[14:10]=3Dr,
+> > d[9:5]=3Dg, d[4:0]=3Db
+> >           * `a2r10g10b10` - 32-bit pixels, d[31:30]=3Da, d[29:20]=3Dr,
+> > d[19:10]=3Dg, d[9:0]=3Db
+> >           * `a8b8g8r8` - 32-bit pixels, d[31:24]=3Da, d[23:16]=3Db,
+> > d[15:8]=3Dg, d[7:0]=3Dr @@ -106,6 +107,7 @@ properties:
+> >           * `x8r8g8b8` - 32-bit pixels, d[23:16]=3Dr, d[15:8]=3Dg,
+> > d[7:0]=3Db
+> >           * `x8b8g8r8` - 32-bit pixels, d[23:16]=3Db, d[15:8]=3Dg,
+> > d[7:0]=3Dr enum:
+> > +      - mono
+> >         - a1r5g5b5
+> >         - a2r10g10b10
+> >         - a8b8g8r8 =20
+
+Best Regards,
+Sebastian
