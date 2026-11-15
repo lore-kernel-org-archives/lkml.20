@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794758114;
-	b=FEQQPp+0rXDrNRuyi93PQfsF32ZaMAZqnxq7z/amSfOwtUHn8VTWgaJSd7OgO0npvX/p
-	 ATBkHHbBgrY6fOG/QiJ5+GRRZcYx3LPOrk92gLIOxlnhd2tMXegDfxWQ7dnP+v9gH742E
-	 9/t95QhskMQC/7IAqU3uhb2S8xe2cZlBvFUPgEAWbiLndv8GNyLHl5yHi5N1zBnngi1hu
-	 A3GzCEWbrnE+nLW9eMTza6FbAiSGn8h/ZOQZMLi5H7pPbdBwnOT+ppU7Z5Xi/SbWP4fIl
-	 an5hjsWmxfq9f8II0bDfcG3WK5kuqk3Ww1isfcDiSxQkifhqtWP8JLdOJNQjo2YxDpg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794758114;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6r4bfHjcklFA+xL6mNcTzXy0f2CbgrpwkPGUf2FnCNI=;
-	b=3z/IT6xr3M6WrT6WPb4UD8zNpV12YiqpsgnvY7u0jKF+4AIjN29AkCMkvvNv4WxZ7i7I
-	 5O3d2G/eKKsbWDjWA1PM1qC4y/iHzG1CrVcm9tzQO9k/f0U/2mc3C0FvwpUcG9Jb6wnyw
-	 3Tllo8xayIaXCFX2ktQBv3pIwaYmtEiaJvOEV3H0eAEhD9AdPCB3cls4wDDRJU/4qwg/D
-	 s5eRoaYN5YJY3byjj3vKDHdo6U60brKGDiaglxIrCl5Mjnb6PX+hRzy8ebXtnQ7ruZ7DJ
-	 Zs3TUihNrZnaPtrIQq/O1djyVWc8QQKR3VxVAU3+bM5Q6gv9z2FowqdjAyPoTDFBFDQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDdOqKap;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794758198;
+	b=XpjFpHd1/dGLdbTZEN2ftoffeBg8jiEdp9+gm+9ULEH7W+fFIwgrioQfwAW43Zlr77Fy
+	 S0xTK0AfZjSp025D+8bEpTrRxyTpR3tC0ilmdaYIDZ2RTXHufEnlif1xTZxUkQei4XV/R
+	 MvFFpmT6/kiqcxdei5LBskvjv0FYzDcVAOfQ27Az98icKg+qMljsq8QKZ3hV7g/dmZ59V
+	 4gwvv4JZMSQ2n3v8X1Zin8wjsHYFqjVPLQH3zAFKYwiBOhbXUep9ssQ/L+GI5ysmiS+cH
+	 kNB9tGhcmdYcdX2zLC/9pMW+YnduABLKmkq3bWP5ncpHzajviLQ7ZFCvlz/46rJIIkQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794758198;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=gucgyH9UJ4PzIs/wJYjaqcqVwySmiuvzgHUjJmOtkC8=;
+	b=CXMeHdiuNxPjKUMpJgKvaLo0flZ8YzUcBiYGpmfCbNcx6kulQcTUc+G4MqBUTTOk049S
+	 rrlmJXrigkipxtS/pEUF40nGyHXbJv/my8w/hoaOXzBIgBvNXUwTf12D4XLhyCahKPGXa
+	 GBhUG2tXEKGsGJASuymVZd2V99eI7atOmlZs4v/YU+rJbtYxndnpQwzcaAW0hgIIi/+lo
+	 Zy0QQ+RbmXYf+M7EHqixjnU44JfNjtBwbuBh+wRTCgf4Nuv/FLTB93ZQCyTARA1XwKs7J
+	 artpEQKx7NJSHubLCPSb6cDKU2FNOlM3lzGlUd3et+MLY1cHJ2+1CSQJxyjVy4RnojA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FE1y0IVx;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6766606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6766606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D54606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D54606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDdOqKap
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b904d10882so1007178b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:55:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794758113; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QqNf/LxK38kz2pnQgZeufBJIhw2R3bpML8beN8h4w2sfId9UZBACZkEHLkiWzA2Ko9
-         VkKGOMgFLmrYx2m2WfJA54verIqosqLQAGArZ++Eu90YRcLaKb9YBoMvmkun5uJsQiAJ
-         MO8Tb5cKXYFk/uVssfiRIxcE5UsPyAh9/wjhWSSTPwcWCZmgTAQNwuGRcXaORJknLNve
-         W+C3glyTx6JMwb4iZqvQpTkSssZp0fvWGou42zQMc7uarapKbeGz3VQoRv/RvJFNbxnL
-         PAd8pT/F0vSW2fxP53F04o0XGxIVIgVasgy2JceDM5eqan3YklfDwwl40ADNCzQ05KbI
-         TPJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6r4bfHjcklFA+xL6mNcTzXy0f2CbgrpwkPGUf2FnCNI=;
-        fh=pVMKl36x/gHaalKQJoYixT82BksBGP+/y4B9zgKBaFc=;
-        b=bcK2Que0SN2rxOgp0LWSpHlolMsB+J53FKEla9VO/JRBopDmbepUucJaRCO5l3PCN1
-         2AwxAvy2ew7wp+iAIYUsMbKI+oMC5piernciGNoEU90EtARk+JSyEdQmYo8JAQIli8aF
-         NKwUzTtPizZWEKuz+l7+NSvQ+m90eGFCrEB2D9jm4j3zc9WI+MARC/gWmheR4liJJW7Y
-         v722bDxxu7j78j/V5CswzNnLKscj7ieYjFFsg5FijXaxcWL1M/LWHgypwDjxEJlKGJ2W
-         tk5GbvTPaS/gGCDyewF5tRvzEBJp6agBPoiHHw/SMffy2wWmYbwIVBVvUl33ozjahV/9
-         iYrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794758113; x=1795362913; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6r4bfHjcklFA+xL6mNcTzXy0f2CbgrpwkPGUf2FnCNI=;
-        b=cDdOqKap+jejk6/pFU7nOIRHXSVsIpaeSQV+M6N5wEQyEvAEMiNrqWs/+yuZ0VvtrR
-         q+3FBGOBVL/Ngrj/b9axHnVHpVGb3iU+j4V4Lxq22y7OiCf+YO76zxoB6wXa9xq65Nwl
-         UwgHWSjZbYFAhv/eqBAuolQxoFHxoporot9jS/07CIAfFbRo1wbQOHBgkIop49XEAE2M
-         q5ZpGJBXw+GzW9j2e8eofz/yhA0oBW3Lc7uKU1S+F+FEpvEK1CqT7k7m/FDsUfshQ4sf
-         iEzkz+cL4dTgoiAP6SpnMtPgp8qAXnAhsYYCT9ekkvPMiLfRPySYvUbNEIu1Dc2GAGw0
-         DUIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794758113; x=1795362913;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6r4bfHjcklFA+xL6mNcTzXy0f2CbgrpwkPGUf2FnCNI=;
-        b=Ybv8yUOwkBi020mBRgBCxUhyb+Lee+7Ompcg2C9nsghp5GjTCLWz3l8A7e7/pgHWZC
-         US3vHECd/RC4bfiEgDigwGUuh5brWqCq5moDW7RrK0dPTT3L8gkWXND1g44W/5JvA48M
-         M/Bhl1qFLi5pRu5HcfYjBaldNeCSp8yTHZ4BRrP3tgB5/fMZVSuJjdZdo/lvJrwIt+vt
-         5HrS+i9E0B3QxmcWw662SGGLIVmikyUXC2U1z9HlC2bGmBLVP8VkJSG6Wm0gwmHJ8jDe
-         obF/O+jYgNnxtXfb83U4T6T6qa0vuk+24GeQ0iCyD9lZYEd1r1Zs0JvGxzGxNvmTkOay
-         ESPg==
-X-Forwarded-Encrypted: i=1; AL+hErEBpwtsiBE6qAgJ3zzCNKGwdURvdlmF92+/jnsrity+gaqgXZEnyfl7JcWVmgSDW1pwLuVTthm/RUSj1tE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8e5x448QV9phShH4BIF6Txnb2qmm+pRSFhZH5kaPve1EgkJW/b
-	vqGT6JDOvI5IIygSsMlpp6MDP4HWNainPdWNUg+eD/cwZ60m/SUOga1JVLtX2C99AXfx6NRdcFu
-	3/9G15AlFBLDgUgFIm/vn3xXHCF3YtSM=
-X-Gm-Gg: AYBFou08lHLsVwM8mesWuOcoN/LQ6ADmQVF/oetA10lm6KWkA9dMt9ZGj5WoryNHH0u
-	IKgMttQkN0JvD8YxyCUZf3B1QEIgJV10S9dBMx27ypD0slBRK5TBsZXHTwF6lwyry38/2mjnX+O
-	w6ct4g1tXD1Y18Rf+I03j0fQVmDwa8fhnNHEjKrZUPqBjfhCL4sp3nid9kzxVev161mn8y2hcgW
-	kpNV0Tf0xA8vcXMI3TfMFL1basAh3kLnffzNd+JQIqxn23/ealm1wbhdlUZTL7XXyWnwM83c1nX
-	9yx1SvcDE81GJUXh+kj9rT6/qmo9HfIydoLGuDHUlrE0PAL1+BkZ4516pZ+OTsF7xxiyI8XgglB
-	9rqfGw9vV0hKZ7VPVexJYHD2kR07yo4BCYOd/yoqFNY8+YRPfdYtumGjdwxsnoOYYb+KvoQ==
-X-Received: by 2002:a05:6a00:1c9c:b0:88d:20ff:15c9 with SMTP id
- d2e1a72fcca58-8beb56cd0aemr7806058b3a.17.1794758113164; Sun, 15 Nov 2026
- 07:55:13 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FE1y0IVx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794758197;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gucgyH9UJ4PzIs/wJYjaqcqVwySmiuvzgHUjJmOtkC8=;
+	b=FE1y0IVxMv3fnFurx+D2t3aYloodLFE8LTueenknRTJP1kI8JBcVgXkz+y0m33Gh0clqNU
+	A9uia5+dl0rm3TFFlSd1P33K3g7jd+PGWyhAVPIseCDPpm3jx33aPaVmTGV/S4omlOo/zK
+	iBs2BxS8hdX0yiwxs6JFgEMqi2qSRtE=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-644-B4KiHO_SO9u3L3OXpNYHgw-1; Sun,
+ 15 Nov 2026 10:56:34 -0500
+X-MC-Unique: B4KiHO_SO9u3L3OXpNYHgw-1
+X-Mimecast-MFC-AGG-ID: B4KiHO_SO9u3L3OXpNYHgw_1794758192
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7077D180035E;
+	Sun, 15 Nov 2026 15:56:32 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EFB201800545;
+	Sun, 15 Nov 2026 15:56:30 +0000 (UTC)
+Message-ID: <ec69f1c9-4798-47cf-b91c-ed6a9ec96ffe@redhat.com>
+Date: Sun, 15 Nov 2026 10:56:30 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,148 +71,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114200803.23129-1-baohua@kernel.org> <20261114200803.23129-11-baohua@kernel.org>
-In-Reply-To: <20261114200803.23129-11-baohua@kernel.org>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sun, 15 Nov 2026 23:54:34 +0800
-X-Gm-Features: AclHuK_2vmb8QBja-DLz_lsLG3UAD61vNyhqGxF5EBjdDG7VZfVQVvq6uaqHJDg
-Message-ID: <CAMgjq7C_cH75JrYs8=P5LbxnDjDD6bqeqsCidOPa=r8Z+42sCQ@mail.gmail.com>
-Subject: Re: [PATCH v9 10/16] mm/mglru: Run aging when pages are rare outside
- the youngest gen
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
-	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, hannes@cmpxchg.org, 
-	hui.zhu@linux.dev, kunwu.chan@gmail.com, liam@infradead.org, 
-	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, liuxiang.277@bytedance.com, 
-	lyugaofei@xiaomi.com, mhocko@kernel.org, mhocko@suse.com, qi.zheng@linux.dev, 
-	ridong.chen@linux.dev, rppt@kernel.org, shakeel.butt@linux.dev, 
-	surenb@google.com, wangzicheng@honor.com, weixugc@google.com, 
-	yuanchu@google.com, zhangbo56@xiaomi.com, zhuhui@kylinos.cn, 
-	sidchintamaneni@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-7.4-fixes] cgroup/cpuset: Don't revive invalid
+ partition without active CPU on hotplug
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, Ridong Chen <chenridong@xiaomi.com>
+References: <20261114120532.1438512-1-ridong.chen@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261114120532.1438512-1-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Sun, Nov 15, 2026 at 4:09=E2=80=AFAM Barry Song (Xiaomi) <baohua@kernel.=
-org> wrote:
+On 11/14/26 7:05 AM, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
 >
-> From: Gaofei Lyu <lyugaofei@xiaomi.com>
+> When a CPU hotplug leaves no CPU outside of the partitions for the top
+> cpuset, cpuset_handle_hotplug() clears subpartitions_cpus and gives all
+> the active CPUs back to the top cpuset. cpuset_hotplug_update_tasks()
+> then walks the hierarchy and invalidates the partitions, as
+> subpartitions_cpus is empty.
 >
-> Run aging when the total number of pages outside the youngest
-> generation across both types falls below 1/MAX_NR_GENS of the number
-> of pages in the youngest generation. For extreme swappiness values
-> such as 1 and 200, also consider the balance of the corresponding
-> type.
+> However, an invalid partition visited in the same walk may be revived
+> if its effective_xcpus is not empty. tasks_nocpu_error() doesn't catch
+> it when its CPUs are all offline but it has no task. Its CPUs are put
+> back into subpartitions_cpus, and the valid partitions visited after it
+> are no longer invalidated, as subpartitions_cpus is not empty any more.
+> The top cpuset is left with CPUs overlapping with these partitions.
 >
-> This improves reclaim efficiency, especially at extreme swappiness
-> values, while reducing system time.
+> It can be reproduced on a system with 8 CPUs:
 >
-> To avoid the overhead of aging, we only allow imbalance-based aging
-> when the reclaim priority is low enough that we might reclaim the
-> youngest generation.
+>    # cd /sys/fs/cgroup
+>    # echo +cpuset > cgroup.subtree_control
+>    # mkdir A1 B1
+>    # echo 1 > A1/cpuset.cpus
+>    # echo 1 > A1/cpuset.cpus.exclusive
+>    # echo 0,2-7 > B1/cpuset.cpus
+>    # echo root > B1/cpuset.cpus.partition
+>    # echo root > A1/cpuset.cpus.partition
+>    # cat A1/cpuset.cpus.partition
+>    root invalid (Parent unable to distribute cpu downstream)
+>    # echo 0 > /sys/devices/system/cpu/cpu1/online
+>    # cat A1/cpuset.cpus.partition B1/cpuset.cpus.partition
+>    root
+>    root
+>    # cat cpuset.cpus.effective
+>    0,2-7
 >
-> Signed-off-by: Gaofei Lyu <lyugaofei@xiaomi.com>
-> Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> A1 can't take CPU 1, the last CPU of the root cgroup which has tasks.
+> When CPU 1 is offlined, A1 is revived without any active CPU, and B1
+> stays valid while its CPUs are also in the effective CPUs of the root
+> cgroup, which triggers
+>
+>    WARNING: kernel/cgroup/cpuset.c:919 at rebuild_sched_domains_locked
+>
+> Only revive an invalid partition in hotplug if its effective_xcpus has
+> an active CPU, the same as what is required to create a partition with
+> tasks. With that, A1 and B1 are both invalidated in the above case.
+>
+> Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20261114083124.1340140-1-ridong.chen%40linux.dev?part=11
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 > ---
->  mm/vmscan.c | 44 ++++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 42 insertions(+), 2 deletions(-)
+>   kernel/cgroup/cpuset.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 0fef966b0a14..1450542d709c 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -2743,6 +2743,8 @@ static bool should_clear_pmd_young(void)
->  #define get_memcg_gen(seq)     ((seq) % MEMCG_NR_GENS)
->  #define get_memcg_bin(bin)     ((bin) % MEMCG_NR_BINS)
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7e374210c123..bfc852090765 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -4016,10 +4016,10 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+>   		partcmd = partcmd_invalidate;
+>   	/*
+>   	 * On the other hand, an invalid partition root may be transitioned
+> -	 * back to a regular one with a non-empty effective xcpus.
+> +	 * back to a regular one if its effective xcpus has an active CPU.
+>   	 */
+>   	else if (is_partition_valid(parent) && is_partition_invalid(cs) &&
+> -		 !cpumask_empty(cs->effective_xcpus))
+> +		 cpumask_intersects(cs->effective_xcpus, cpu_active_mask))
+>   		partcmd = partcmd_update;
+>   
+>   	if (partcmd >= 0) {
 >
-> +#define AGING_PRIORITY (DEF_PRIORITY / 2)
-> +
->  static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc=
-)
->  {
->         struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
-> @@ -4780,7 +4782,7 @@ static int scan_folios(unsigned long nr_to_scan, st=
-ruct lruvec *lruvec,
->          */
->         if (sc->priority =3D=3D DEF_PRIORITY)
->                 seq =3D lrugen->max_seq - MIN_NR_GENS;
-> -       else if (sc->priority > DEF_PRIORITY / 2)
-> +       else if (sc->priority > AGING_PRIORITY)
->                 seq =3D lrugen->max_seq - 1;
->         else
->                 seq =3D lrugen->max_seq;
-> @@ -5073,6 +5075,40 @@ static int evict_folios(unsigned long nr_to_scan, =
-struct lruvec *lruvec,
->         return scanned;
->  }
->
-> +static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_contro=
-l *sc,
-> +               int swappiness)
-> +{
-> +       unsigned long youngest[ANON_AND_FILE] =3D {0}, old[ANON_AND_FILE]=
- =3D {0};
-> +       struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
-> +       DEFINE_MAX_SEQ(lruvec);
-> +       DEFINE_MIN_SEQ(lruvec);
-> +       int type;
-> +
-> +       if (sc->priority > AGING_PRIORITY)
-> +               return false;
-> +
-> +       /*
-> +        * Round up or down corner swappiness, to balance the heavy biase=
-d
-> +        * type better
-> +        */
-> +       if (swappiness =3D=3D MIN_SWAPPINESS + 1)
-> +               swappiness =3D MIN_SWAPPINESS;
-> +       else if (swappiness =3D=3D MAX_SWAPPINESS)
-> +               swappiness =3D MAX_SWAPPINESS + 1;
-> +
-> +       for_each_evictable_type(type, swappiness) {
-> +               unsigned long seq;
-> +
-> +               youngest[type] =3D lruvec_gen_size(lrugen, type, max_seq)=
-;
-> +               for (seq =3D min_seq[type]; seq < max_seq; seq++)
-> +                       old[type] +=3D lruvec_gen_size(lrugen, type, seq)=
-;
-> +       }
+> base-commit: e234ed1bb82c96a5643fd70784f16cf3d72eeed3
+Reviewed-by: Waiman Long <longman@redhat.com>
 
-A little nit: with the rounding above, I think we don't need youngest
-/ old as an array, just an accumulative value seems enough now? But
-feel free to ignore this so we can avoid more update noise in this
-series.
-
-> +
-> +       /* the vast majority of pages sit in the youngest gen */
-> +       return youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
-> +              (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS;
-> +}
-> +
->  static bool should_run_aging(struct lruvec *lruvec, unsigned long max_se=
-q,
->                              struct scan_control *sc, int swappiness)
->  {
-> @@ -5087,7 +5123,11 @@ static bool should_run_aging(struct lruvec *lruvec=
-, unsigned long max_seq,
->                 return false;
->
->         /* better to run aging even though eviction is still possible */
-> -       return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS =3D=
-=3D max_seq;
-> +       if (evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS =3D=3D m=
-ax_seq)
-> +               return true;
-> +
-> +       /* run aging when folios outside the youngest gen are rare */
-> +       return lru_gen_imbalanced(lruvec, sc, swappiness);
->  }
->
->  static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_cont=
-rol *sc,
-> --
-> 2.39.3 (Apple Git-146)
-
-Reviewed-by: Kairui Song <kasong@tencent.com>
