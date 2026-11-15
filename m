@@ -1,72 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702698;
-	b=yyo0+WOMUrdPx4TnxlbruTV5NT6tBXxYLrmXVtOFxEq/XYmenJiuG/mLI+RX7vWl9man
-	 sIrxx2X3muk5+FqmnWemSCbGaRDu/Csy9bhRMppT9GSqGrDsXUu4ryskwaHKaQhaHkmuK
-	 XIfVG6R5b1mOqo4HyNaMqQdHhGm6LIcXCPGC7a5cYvb+5usveu8+tyuGxx9EXHzirjq8f
-	 Nlei/gbOBFoiIoMtrmSSuBYbacczKJ95Ue/9onmnb0jhtxdjH2HrpJD1zbJEKNy+hJ5cU
-	 DBJJKWJgL0PrLYVsgnioLUFWco0ajoMFlxTamfwh0Jzx1F+3X/xzZzAON40vKlcUUCQ==
+	t=1794702710;
+	b=c/eo/WxGufn8JRtyVD9ZWLLBqm96ewnkYuakDvIrYMpQ9EhpJBI0OBL4zVO/ul8LGEGU
+	 RCiaC/G0WT2RC7ussgj0cD+j5CMM6TxP7b4Cyj/9DFI8K7Ytr3Ah4ulVK4Ustbi3fKI8r
+	 A9hc5HqC36BZCVpt+AQq6xMdBYVMpTDbI3OYiKhrjnp6R50MHg2CQ6EE10Z0i2BIMsbhU
+	 x3N6RqE7Jx2gos0Nw1n3AdwpEiKlbGeemiAjyuE6F7MEJzmc0JZ920lufJlmUaesZDIKM
+	 y0AnW0iNVUix546tEvLk4q+qjp2M3Qt+YHWsGjwJpZnAjYJwWvTmG3rK6Y2Fy4nujJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702698;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=H1r4s03OTSXpAk2qDHWsbzmDBzynW8D8hOIi23yx2Ig=;
-	b=YBqtSxUAJnR4jvUeVfSICipugbS0QXq8LjeqsW+S3osqFsJ2TrBj5D5SNAnYq+N0ILxM
-	 aWkLR1HPysXV1+7V9hLuZAzO0djVgx8o+O9qv4IyMRcJn8QqW/BwYcqexwJUpKi4+FoGh
-	 MOQ2VN6w600a+Z1YGLQDhGX45UWJZAgOXLzHuBQpM74uh+b40rK0j7aEKNMAZ1zhNeEGH
-	 7zkX/BIYHaKnAP2Uu7/Kriw1SVNCi72t12VdVDk3aryarnGerDyF4tpP3cd2y2MB3MQ4h
-	 4qA66dYcJWmuACncQReI/3q+7r4yFLqPTCNfkm0wfGuM1/rnhGv6YKGum+646MoFvaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702710;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MuGlyWuHgt1+ModFh6dI+/+UPnwPpZ0FLEt4g6S4HO8=;
+	b=XcA4+2iDJ7JbasAcpmJBggaEUlach02eAOWBMizvRHu6HpFTdQLMYrO8EWIA238mslZ+
+	 Q+wAggUkIzF8RZcVjhcYk7q0DQ9Wzh4adVmcTFO4FZVmebwM7od8NwzPiVv3M9KmMzHuT
+	 wWpgq9ULDbCdkWngxD9LPcsjV2Bq+sOKRNgsKZCtPEhE0FEOKuVAVuLUodF/SC38I3ajA
+	 MN8wVvKX2t4yaefeZ2Iftx2WcemZpJ9o5AwqJOgAMfnDRmd4bRkM5GzQiW9qxzM5OlyJk
+	 TjNl2gTXfgvFFT66BKdsDpZtITLy5h4cd09ODwr8/R/A18byUzjdNIn720w4pOEJnHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="mIrAg/jV";
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDZMk+Vg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D8C606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:31:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D8C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6213C606A323;
+	Sun, 15 Nov 2026 00:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mIrAg/jV
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso2858252eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:31:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794702697; x=1795307497; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H1r4s03OTSXpAk2qDHWsbzmDBzynW8D8hOIi23yx2Ig=;
-        b=mIrAg/jVOclPkOIFebftKeA/NkL/iGZ4uxsWfgejkVtgVv9ZzXBE0JB/3erqKjNeGs
-         GToOd7/yiGs6IucMQJ7PEePm4mv4nmTzqvjnJJBW+xQgCZHApKX3k9ij2Z63Sf+l3i6j
-         DeiuBOz2xK90EyKtrcyhs9AuSF2u2MeaaYzFzsYnH8fw+TPHDw5Mti0JCSSNf38VYAIe
-         BRdaq+R7vqxvISSpZf5uHR/aeYNr6PLgAeM6BU2EeZdNNr3cLIdsha5q6u12gbWGJVFe
-         gKRgYxNFX6bfT4k9SydgzH0g5JI6oNW70bkwhWSYC/HYQXVQfkmyNsqaSF0zeD6FnIUG
-         diDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794702697; x=1795307497;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H1r4s03OTSXpAk2qDHWsbzmDBzynW8D8hOIi23yx2Ig=;
-        b=osVbBztpGcfqmLR4HDLMNv1u2jPjfmd0LQoj57EJs131bncBr4tZkJsl9jMwBxcT26
-         cng6O0LvK2HlM38Gj3SywfWcmpKMTfFIbVvxbNqNhxqMcn6U/Fv6Rnh4xOsqmJtWkpTx
-         1O0yL81pl/wskXylDhD5fE46UusfWBLDBlv4RpsT8R4w+R5tP5bBF9NLaOQ1lZWi3NLD
-         AyfwnVqvgfxk+6fcrXsF2zKaEPvSnl8VERNLFRItoxFYSZxQsxkZ6xyn0iFbAhPDHpJi
-         xMuf/3/csIhVO87EzbwdHdHtEw+8WkvjGz/0t9zFtNeDBipImakA03l7y/ddowtyKWRf
-         sNTg==
-X-Forwarded-Encrypted: i=1; AL+hErHpX8wKRNlCfOPwF4YEAG73FKYd3Nr+daYxgE6qH0MZTFPZ/dU9fJKpBh+tkKUY8N70MMxkH6TXca+4O8c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+loCvDFdRMCAFO2yL1/AdOt/XbgdIjugs9pwkNrtniXK16YdlR
-	uKkTU+dx4bZdD9LRW/skoz/kZwvwNVZtJPGY06S2HKwhysPjFSw0NQstKI8ZN+Dv3zw7ag8ZRHB
-	Ece4OvcYwy1OyEw==
-X-Received: from dyaw16-n2.prod.google.com ([2002:a05:693c:4150:20b0:34c:9660:9612])
- (user=wusamuel job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:8816:20b0:36f:350b:3838 with SMTP id 5a478bee46e88-379671247e7mr6454518eec.31.1794702696356;
- Sat, 14 Nov 2026 16:31:36 -0800 (PST)
-Date: Sat, 14 Nov 2026 16:31:14 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDZMk+Vg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527691F000C4;
+	Sun, 15 Nov 2026 00:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794702709;
+	bh=MuGlyWuHgt1+ModFh6dI+/+UPnwPpZ0FLEt4g6S4HO8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fDZMk+VgOSgiZzXp/yKlRM5qEUtKavpJDvvGCLlA701hnXzhO75g8bOpFUIJH0XyO
+	 AjYQz9up2Rs2N11jp/0DzxHdI66Vb0vcn2enjFpkien+ikV5wmyf8XuK4/pIGmhJdU
+	 Pe0Ow2FskxVeNJ4j1mpfO1YchiONUPASKaO42S/tsjpxwZhmAp7NCRV4BNWzBUG3Jr
+	 M1pvMPpJCFVCnYPqXbVkQE8tCQamTAui+qczor0bzGIbAHMKgr54wMdRxM7LFqRqPB
+	 7EbVkV7kryzBDiGW8vBzpJ2Yo1XXPyNgFdaf3UOrRbk17OGGWO8m/VWvtSS4KfDveQ
+	 L6wDMTehW96Zw==
+Date: Sun, 15 Nov 2026 00:31:43 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <crofts@kernel.org>
+Cc: Arnav Kapoor <kapoorarnav43@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: sx9324: reject reserved gain values on
+ read
+Message-ID: <20261115003143.44a65e15@jic23-hlaptop>
+In-Reply-To: <20261107203508.30be5cf2@jic23-hlaptop>
+References: <20261104175920.207384-1-kapoorarnav43@gmail.com>
+	<20261105141504.000009b8@kernel.org>
+	<20261107203508.30be5cf2@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,47 +65,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261115003113.1852160-2-wusamuel@google.com>
-Subject: [PATCH] freezer: Check frozen() before freezing() in freeze_task()
-From: Samuel Wu <wusamuel@google.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>
-Cc: Samuel Wu <wusamuel@google.com>, kernel-team@android.com, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-During the freeze stage of suspend, there are multiple passes over the
-same list of tasks. Each pass tries to freeze non-frozen tasks, meaning
-that the number of frozen tasks increase monotonically, and that each
-subsequent pass will mostly be iterating over frozen tasks. Therefore,
-it is faster to *first* check that a task is frozen before other checks,
-especially since the frozen check is computationally trivial.
+On Sat, 7 Nov 2026 20:35:08 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Check frozen(p) before !freezing(p) to short circuit the more expensive
-freezing_slow_path() calls, while retaining identical return semantics.
+> On Thu, 5 Nov 2026 14:15:04 +0100
+> Joshua Crofts <crofts@kernel.org> wrote:
+> 
+> > On Wed,  4 Nov 2026 23:29:18 +0530
+> > Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+> >   
+> > > sx9324_read_gain() is meant to return -EINVAL for the reserved
+> > > PROX_CTRL0 gain codes, 0 and 5 to 7. But the range check sits in the
+> > > else branch of "if (regval)", where regval is always 0, so codes 5 to 7
+> > > are never caught and are reported as gains of 16, 32 and 64, which the
+> > > sensor doesn't support and which write_raw() rejects.
+> > > 
+> > > Check both reserved ranges before converting the code to a gain.
+> > > 
+> > > Fixes: 108e4d4de2b5 ("iio:proximity:sx9324: Fix hardware gain read/write")
+> > > Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> > > ---    
+> > 
+> > Makes sense. A stable tag is probably needed.
+> > 
+> > Reviewed-by: Joshua Crofts <crofts@kernel.org>
+> >   
+> Seems correct and I can add the stable tag.  I'll leave this on list
+> for now so that perhaps Stephen has time to take a look.
 
-On a v7.3 Pixel 9 device, this consistently reduces freeze_processes
-latency by ~10% (~4.5 ms).
+Given nothing back from Stephen I'm going to apply this, but not
+rush it in. So applied to the testing branch of iio.git which is lining
+stuff up for the next merge cycle.
 
-Signed-off-by: Samuel Wu <wusamuel@google.com>
----
- kernel/freezer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks,
 
-diff --git a/kernel/freezer.c b/kernel/freezer.c
-index a76bf957fb32..1adf09321389 100644
---- a/kernel/freezer.c
-+++ b/kernel/freezer.c
-@@ -166,7 +166,7 @@ bool freeze_task(struct task_struct *p)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&freezer_lock, flags);
--	if (!freezing(p) || frozen(p) || __freeze_task(p)) {
-+	if (frozen(p) || !freezing(p) || __freeze_task(p)) {
- 		spin_unlock_irqrestore(&freezer_lock, flags);
- 		return false;
- 	}
--- 
-2.56.0.679.gc527c65306-goog
+Jonathan
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+> 
 
