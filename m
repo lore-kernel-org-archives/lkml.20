@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755380;
-	b=T3WSJ9CG2TcgVyUsl7o4Swme/EGtMOpwaNmRMWHHQiXSN3rbg0dvfFtRC79iYN54KnWM
-	 tWXBSVp04TdkKG33y+mLkQanQ27cetpvHdZgh4NaCC/ZwGm0UREJM1/0n/+oWeUFcIITR
-	 aOC96FlOTdjDwGXA5HkIQJ8sxweAF6g0dTsC2u3LEPwF54fY2ojep+O9fO1O654kKejdT
-	 7o8V+pJLl/Mfn1q9k6C29BP85qJdUld3LefY8ufFLmK//CLA3SXH3w5+6jUQCxWhQxSjR
-	 tUvVBWY5cotjLoQBhhS91nMx7WSYIyyxNIJZL/Z+drnA9SUlfzS7qoW5EoCpxZH8FNg==
+	t=1794755409;
+	b=vhvMwskds6oj7z+CC9og5pNxsp0/Ad/UKFhIGn5KVCJi9eqvFfvxFe7x/9L4JnXsloIQ
+	 2LHqueNcPFP/bVUOq8MMKkg3lkdNo4YNJnRriVKdQBlQYPOnrF4wTsvzHiHoG4btTbwL0
+	 /5k4n9wYgiATWmCLGvyw9GUmEOGNAqqLHMbrfIy+lNuYvPqIbLaVoYk5pnbV175pFRFyV
+	 0MP22MQt0t328sTKg0fEGnDPAKAsH493awIjYpyz6zyTFatKB8Ax+LsXVCINyVngv48v3
+	 JZrLyQbMdwtp/gsDB3NnFKLSRc4fovGf1Ov7cITt8YMQh+EoI4jzMvZ1XlEuBUSsjOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755380;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Cq6yUQzukHtwhYuWtD3CdG/vzfG7TEB1pVADzBcWgFs=;
-	b=EFcbcDzVS+ageoHzGAaKPQgAFwRrQX+RRPRhPg0e6ARiK5fXqbvtjT4cb6JNGnyhkx38
-	 qC9V3qz2mlc+BPCcn5Ioz5uhNtJoKBjkVSjHNf0U7YwOwPJGO2gsvoa98Ucs5BOultxUe
-	 y5Vn8mb6Wsd0hU91d9CkZxVZWiLN+g3KnCanDoeQ9NzHHJDTXTAAoB2hILKfRcq+sqWR+
-	 GFLFWYHF4Bs/d2U1drYXIiH/LEFVfdtQBGiNG/ZVqinbL/24mYzVmi5uiic0CKb84nokk
-	 3nV4jYd6agAzXxlM1+quMyOt3VUJbQRbApKX8d04HJzjuuzrC3yuAz818aptAqhLIIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755409;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=TEWHh130R00cWzrxjI9RLEu/jO2W72gxEB0EEQ477+k=;
+	b=f413v2llTw0zdaGHj41ekJvWeNvFz+f3OLOqeeFVgOyw4MFwfgksv7O0GQipFatPszBq
+	 g4tEVQUZGvcXXHTHRaprVPLAqCcrUh3NMf1twNrIRQnA67Ipjcjt2P5/rm7YXWwE5YNbi
+	 qBJ/pKxKddvAiRGfGn+Y5iMDip/BDnbAu7KYSuZ/y8sxlNGyFaqGDlLi5IuAAP8pXgvra
+	 bgmi6PLvBjN9SriJw7VW1G33OrGkBROCci2bjmb9qB+TqHjGArsVWRYtf0FKvXtobZ9mG
+	 OuR9SALB9cqlg4FEHjqveJBn0LHYItNd1Wj8ufn4wU2/Osf7N1B91muPZ8Bjra8tSxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cANDfa3J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aKItX/9j";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423A5606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:09:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B18606A31E;
+	Sun, 15 Nov 2026 15:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cANDfa3J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2ED21F000C5
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:09:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKItX/9j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA8C1F000C4;
+	Sun, 15 Nov 2026 15:10:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794755379;
-	bh=Cq6yUQzukHtwhYuWtD3CdG/vzfG7TEB1pVADzBcWgFs=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=cANDfa3JG/1VLOyWOyMbLnYziGnzSsHDw0+p48eFEhwqjIqqzBMypnlKn2KIJbBGy
-	 Hq4EETBr2jUy034admevuoevndcXik9C6uGtap6cIMzgHvPoML9laee3OpAmf4sBiB
-	 V6Hi3F0/36Jj6przMu8+XPjSpjPzA85GybC1zU02FANO/I/3EaUryQjljgHh/wI44D
-	 5RYySKRVJXo2SRloVa8du07x2AxdwjTDUjUTJXlLIsql7MWUyVb1o93lvq6ZjrRX/R
-	 dB0ZlpwIe039A6elGxys/Fb3U05iYiO1bsBl4w+OQaWaOFfVK9uQspK5cbriu9IOZv
-	 IE74MzMSJVX0w==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ae25c846edso22210921fa.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:09:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFwIcJcSN3Fg535+GOn/75nN4H/r6IjeWqoI00RYM17IjLMLIpDt/yVJxv/kYeJe5eGPDmr3Ors2NgTKp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JmOSsbNArnu7A1B4HbC4iHLoKLcbeVxpt0t6o5tHuBCjiaaJW
-	mXK1+qQKtBf6SzY6FNE4yOzXlr/AVntjWwUy4Po5xMRXUkwgBISQmaW9Se4NmxPiLGTABfNfyHt
-	MyQTqFAWgjE50nKAZQ8gScvrdH5WBU08=
-X-Received: by 2002:a05:651c:1986:b0:3ae:25c8:dc78 with SMTP id
- 38308e7fff4ca-3ae2b69178cmr25726671fa.22.1794755378199; Sun, 15 Nov 2026
- 07:09:38 -0800 (PST)
+	s=k20260515; t=1794755408;
+	bh=TEWHh130R00cWzrxjI9RLEu/jO2W72gxEB0EEQ477+k=;
+	h=From:Subject:Date:To:Cc;
+	b=aKItX/9j+oVOU25ty1qIp8xqlkd6ee+UQZ/Hbo8gOignltDgBFfX+79NazSakEtlI
+	 UqTDY2DS6PduyUCmZxJCcfWchi4Jv6L+HhN78+jpAg0UJsQkqWeLk3Q3PFHS7rn1mw
+	 +J6OGK1IWx0joXcH/Cm2DLslBex/W8Nfez8RvaMp6Q7z56cFOvZ0fIsaDNDq0m+S2Y
+	 /SzwDZ105uTbgoU7SnKw3pdwpF+G/xAU6dINP3YYyITYbFIiACIvgTr3jFCtStiDPD
+	 Ndvb9m4F4mAvLJ539KxbojNq8GAn4wO0BDv0JI9B+sYxPGsccB6hHq6N4c86dvPXTj
+	 vjUk+44fTSmQQ==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+Subject: [PATCH for-next v3 0/7] memcg,slab: kmalloc_nolock() fixes
+Date: Sun, 15 Nov 2026 15:09:34 +0000
+Message-Id: <20261115-kmalloc-nolock-fixes-v3-0-9034dd4ecaab@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,66 +53,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115132215.289236-1-jernej.skrabec@gmail.com> <20261115132215.289236-4-jernej.skrabec@gmail.com>
-In-Reply-To: <20261115132215.289236-4-jernej.skrabec@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 23:09:23 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
-X-Gm-Features: AclHuK8SfNxnDatVmiI32N0fkX-YaXg08NGH8ia-Bx19MDfSYUZXv-OL_jNzao8
-Message-ID: <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: h6: orangepi: Enable CPU
- frequency scaling
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC/L+WoC/22OzQ6CMBCEX4Xs2TX9wVY8+R6GA9YFKtCaFgmG8
+ O4WvHqZZDL7zewCkYKlCJdsgUCTjda7ZOQhA9NWriG0j+RBMKGYEjl2Q9X33qDzSTus7UwRTaG
+ VPklx1lpCQl+B9iCRN6h9QEfzCOUvie/7k8y4tW63rY2jD5/9g0nsxDbGOZP/xyaBDHnBlTY15
+ VoX146Co/7oQwPluq5f18yaCdUAAAA=
+X-Change-ID: 20260624-kmalloc-nolock-fixes-c97675328773
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Harry Yoo <harry@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+ David Rientjes <rientjes@google.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: kernel-team@meta.com, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Sun, Nov 15, 2026 at 9:22=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
-l.com> wrote:
->
-> The Orange Pi One Plus and Lite2 lack the CPU OPP table and CPU supply,
-> so the CPU never scales its frequency. Add both, like on Orange Pi 3.
-> OPPs above the regulator constraints stay unused.
+This patchset fixes three kmalloc_nolock() bugs.
 
-My review agent noted that some of the other boards raised the constraints
-when CPU DVFS was enabled. Do you think it's reasonable to do the same
-for the OrangePi? Or do you want to be more conservative?
+1. obj_cgroup_put() takes spinlocks in the release path when it drops
+   the last reference, but it can be called from any context.
 
-Note that I already applied this series.
+2. A spinlock may be taken in the following path and may lead
+   to deadlock:
 
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> ---
->  arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/arch=
-/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> index 40c5c42b347e..a2a2e4cb0256 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> @@ -5,6 +5,7 @@
->  /dts-v1/;
->
->  #include "sun50i-h6.dtsi"
-> +#include "sun50i-h6-cpu-opp.dtsi"
->  #include "sun50i-h6-gpu-opp.dtsi"
->
->  #include <dt-bindings/gpio/gpio.h>
-> @@ -65,6 +66,10 @@ reg_vcc5v: vcc5v {
->         };
->  };
->
-> +&cpu0 {
-> +       cpu-supply =3D <&reg_dcdca>;
-> +};
-> +
->  &de {
->         status =3D "okay";
->  };
-> --
-> 2.43.0
->
+   kmalloc_nolock()
+   -> slab_post_alloc_hook()
+   -> memcg_slab_post_alloc_hook()
+   -> memcg_alloc_abort_single().
+
+3. irq_work_sync() is called without synchronization for rcuwait
+   (on PREEMPT_RT or some architectures), potentially causing a
+   hang.
+
+Bug 1 was reported by lockdep, and bugs 2 [1] and 3 [2] were
+reported by Sashiko.
+
+This series fixes the bugs by:
+- 1. Deferring obj_cgroup_release() to an irq work.
+- 2. Making slab_free_hook() and memcg_alloc_abort_single() respect
+     SLAB_*_NOLOCK
+- 3. Serializing irq_work_sync() with a mutex
+
+Patch 1, 4, 5 are bugfixes and others are refactoring and cleanup
+patches.
+
+Changes in v3
+=============
+
+- Rebased onto the latest slab/for-next.
+
+- New patches and changes to existing patches were written and
+  verified with AI assistance and carefully reviewed by Harry Yoo.
+
+- Patch 1: added Vlastimil's Reviewed-by (thanks!).
+
+- Patch 2 (new): pass free_flags to slab_free_hook() instead of adding
+  a third bool, as suggested by Vlastimil.
+
+- Patch 3 (patch 2 in v2):
+  - Now handles SLAB_FREE_NOLOCK in free_flags, so callers no longer
+    need the allow_spin local variables.
+  - Updated the subject accordingly.
+  - Addressed v2 review comments from Vlastimil (thanks!):
+    - dropped the memcg_alloc_abort_single() functional change from
+      the changelog, as it does not change until patch 4.
+
+- Patch 4 (patch 4 in v2):
+  - Try freeing the object to the percpu sheaves first in both
+    contexts, as suggested by Alexei and Vlastimil. Dropped Vlastimil's
+    Reviewed-by accordingly.
+  - memcg_alloc_abort_single() now takes alloc_flags instead of a bool
+    allow_spin, and converts them with a new to_free_flags() helper.
+
+- Patch 5 (patch 5 in v2): added Vlastimil's Acked-by.
+
+- Patch 6 (new): Make free_to_pcs() call can_free_to_pcs() and take
+  free_flags instead of allow_spin.
+
+- Patch 7 (patch 3 in v2): moved to the end of the series, after the
+  fixes. Reworded the comment.
+
+- Link to v2: https://lore.kernel.org/20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org
+
+[1] https://sashiko.dev/#/patchset/20260610-slab_alloc_flags-v2-0-7190909db118%40kernel.org?part=9
+[2] https://sashiko.dev/#/patchset/20260615-kfree_rcu_nolock-v3-0-70a54f3775bb%40kernel.org?part=5
+
+---
+Harry Yoo (Meta) (7):
+      mm/memcontrol: defer obj_cgroup_release() to irq_work
+      mm/slab: pass free_flags to slab_free_hook()
+      mm/slab: handle SLAB_FREE_NOLOCK in slab_free_hook() instead of open coding
+      mm/slab: fix a deadlock in memcg_alloc_abort_single()
+      mm/slab: serialize deferred_work_barrier()
+      mm/slab: refactor free_to_pcs()
+      mm/slab: call debug_locks and KCSAN checks in kfree_nolock()
+
+ include/linux/memcontrol.h |   2 +
+ mm/memcontrol.c            |  27 ++++-
+ mm/slab.h                  |  14 ++-
+ mm/slub.c                  | 247 ++++++++++++++++++++++++++-------------------
+ 4 files changed, 180 insertions(+), 110 deletions(-)
+---
+base-commit: a7cdd0af963a420fc0e6f20b7c8bc8d4784098db
+change-id: 20260624-kmalloc-nolock-fixes-c97675328773
+
+Best regards,
+--  
+Cheers,
+Harry / Hyeonggon
+
