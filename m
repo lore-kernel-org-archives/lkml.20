@@ -1,113 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794705774;
-	b=4OgcXWYbmMtjoJmf4QEABNhXr/7/CQB/4ywY6AiniFO2GxLv4+IyBY3KrQiPGbO+p9l4
-	 Y0jalGXCrFfmV35gogmcMz2j6mynLrySnvGruD9APoWo3WtA5PxSBXR87krrsTa3kYdl7
-	 Vyv9Nn+CekDhX0xOqMw1busreZa54dCaeccT5tlDIbSlcWN4ASB4uBL+x8htcmb7OUmwZ
-	 ecqIySpjUm2mK21bRartMQe96qVKew0pYk86PeNGIqieWvhcIbBodsWS5CGq3525lvf3F
-	 Ke6r/bhGWRJeVCoEP7ozSp6T2j486dSC3LZLAErzK3d5cg/GXo6jPSv7597QWpry/LQ==
+	t=1794705891;
+	b=SEYZpnN9dl1tMYTELabVcukO1OevXRirEZzWpKJ0Z6z4LtP/+UA+ZQqci19kr7GyJC/P
+	 vHW0pwqr+8X+QeBPjmB87XFV5jFRG+aCK2mbXHJqQZ+INmn2+za8tQQlVcl/Zhf4BQiA1
+	 Us1b8ROFyzwnsPKQ8OYz1QtpPuvxeQFCAFvOc4oyXZX8OFGzy/wFg5e+hdFS2XE344+sN
+	 YhsJ1Dv3lNzI/z6mgyvK63YcRWlF4qVLtCMbC1G2QeS4pXfyUApdXth8W7fXOC5GCNG1u
+	 xaRl6RYj4i4KhJPcwyQtpY2HKH90bo8XnDQ8eoMe1f1RRpd9Q31sUwxXw+R0YoRslMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794705774;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dp/67JmcNvmFQHE7Njd0ridip6Zcl0Wn6uMgmcNbwbU=;
-	b=yJnVspF2/+lwOuLw4C2wyZiLxHJ/XnkJwANOaD8SeF53dBjJFS8K7uGsWqmxx5TmUK1X
-	 +r+qxUkup9H++7GMuKp9bGSfiPxI1lEAFHeLZNXLTmDIpxcMzK9GdKHvBrrDuNQCuzZp9
-	 BrfICuIXoeNwCrpekCNtPBp/RkKJlx3PwIIrHyBROC2mlpJGotXYAf1ITfraGQ9Zd2flz
-	 rsm/sLWPEHFNWFNemdIePo+VaQteDd2wIrRsd2YWr2+a5gjhBDvV3ttYvmSMuPxz/yK2o
-	 OUur9JWzTRHO1Q13+OBuB5BYd5qriTr/sHbR6H9WlE7sjxiyCoYHBD909P81JwwAK5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794705891;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tEMmLChOiIwNpNXHWX/4+kW3khLpcCfHhJ/NCZNzzsk=;
+	b=mHEc5xspLZGRvd4a5Tc5VsIC94k0+VHQ/G1rXbtjI1TjxiSMTLhlVJXrjA7F2jjNQ1YH
+	 Nx1j9WhHvjy473b+D/zrxZU/jN/0RbA02qOi3neH7akVkxlZCym1eLLDGQUoW8Q/W3+Fn
+	 sUxIayuVyC+w6/qROmPRMVEeqhpIlihU5177edhHZsz2QpdNwBrK6YTuJtHQ9fepmVAl2
+	 PGuVuoVfispDUcSYf4BPepJtnBQpxMZWOJqzF47xsu3AkkjU2HmGaaPxkN2ScWz6wPgg4
+	 Vidphk9JO9Ke+JZ5ptCd8myIU1qFuyYvFHwA9qkXjY5AlzkRcY9Hoo3vrck0MXEbaXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JXvE48TK;
-	arc=none smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D44606A32E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:22:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40D44606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=A15tRyoM;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75A81606A323;
+	Sun, 15 Nov 2026 01:24:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A81606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JXvE48TK
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b577addee9so3899617a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:22:53 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=A15tRyoM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794705771; x=1795310571; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dp/67JmcNvmFQHE7Njd0ridip6Zcl0Wn6uMgmcNbwbU=;
-        b=JXvE48TKiy91S9dvEv9At4IP8YWrv9G85CuWVftuPW0Nm42VDo9KFgSl0Wt6vcS56X
-         H/qmdvNli+F431Mg85skwEVk3uZHmXjh03Qi1nriXU+eIVvL33jxebJhCOEYHkhdTzpe
-         qqZmE/91d+DfQD6wRraqOOfh+6h/j5NhZExktRhovVugD8/uWjdRZ5edtEdRvQKSbyzS
-         f2JkGxlgs18vVYYXWbHFihlv83Ce+ekiPSYHXuNjHYNdv4NqwZegVHcEX7C9VocMT2zZ
-         HChWwWqXQwoRrokeuXsOueXT9eKfEoso4m9TOGVYvUa0b1HSABp4Vy3dHtUYsJRq4o7h
-         Ty0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794705771; x=1795310571;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dp/67JmcNvmFQHE7Njd0ridip6Zcl0Wn6uMgmcNbwbU=;
-        b=1yqbiBwN8rqnkxAvAJrStAwOlT4h/xxZibnlZRY+99zXOYuLmBZJsOaTLGsgrkow+k
-         gXBbBeiH21D00+NlZ/klM41+bLMrGO9jht0dxp/H9Qnybniz0a7RTAKPzbBj63NUIsY3
-         z/N6rPxB0QIyngIIwOFogm2p7fCBkV8y4OFkgye3jsOebei0zMYCYz0AP5BuOOVrEJUo
-         6bnq2NraigCxUgYiZy2esDdLJEl7+OOWrq21xwZVeRV3VjfognQilWFgpCf78/lWU0j6
-         QlWVeLcEk19bLHmPcNoe+M7Ev/voKQ5algoGVoWLekPnHjqFemDmFJmdm8LSFq8LcpxV
-         dvdg==
-X-Forwarded-Encrypted: i=1; AL+hErGeLtGmrM2NrMECTDQBJp5EQsTXFpe2NKvtSt6MufTqFXGRDl5IuPpemTyOmvguCdZWCvdLdxcNcU3uhow=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82YkFyiFOKlQku5GfKBZMFb36PPMDBCxlUQaL7csgqWZizye3N
-	lGwZm6rUQ7Uoc6EF8vn/FnrZOeIu0OAbWZqdmkkNLf07FKhD8oNaQuE=
-X-Gm-Gg: AYBFou2I/N1r8ojneR3sk9NYVfj7a7PLTqqJYrRwl72SN1zyTQ7baKs8vRnDtQgkV1P
-	59aoaegtjb6s2P5bxDDBOsC8zfWRB3R7KsKdpSls3E4YemIcZa5F/0Y/V1CT+Tib/LCL4kXLs5Y
-	ScmJ2KMMHbrOO45hg7etbj4eYsWDkyfD1rCycwPmyi3heuxjvkFH7p8TbVb+mA8BYKU9mrVD4cS
-	0iYlcIIBL+1mQDA7BsE8WHxfddjHwA6g0EWULKU39NXLIhK3TtGYJEx5ecaQ8yCw5TCIQ6XqJA5
-	7dGBb+y7Ljz3bQiWJetN6MXTtaUK+JJGVtP96WYOt6xd2auNwkUEdaprvn76P2nQ6886dSQp+Ej
-	x6ze0oR8/AyqQLFyfpw4ueX+AXH8SSOr8+GYMn9VcZBAWKExwFkY576NqDOVjKjo+OQ0a3UJjHK
-	z6FkLKQBxW8bnGw41xG+Rd1lE2dtJ+O3z9TvqBAedwF+o1eNBaRG9uSTi9rOBqRlp+1iw4nQ9oo
-	UH2JohrD4ViTRWF47xYFo7cpC6ILO0kDkkVssED8xfPf1Vuv9xMrrPzZUUYgj2Er/7znDpjn50I
-	QBL8YqKJZs2OJyBKapg8UaG3mExNuRYbOvH/57yvSfOFamHCIgcqDTCLR0vYDhLRO+8htH+iYMx
-	HPrEFgASrwWT3jir6/Vtg5dzy
-X-Received: by 2002:a05:6402:849:b0:6b7:c9d4:6b96 with SMTP id 4fb4d7f45d1cf-6b7c9d47044mr4130497a12.8.1794705771576;
-        Sat, 14 Nov 2026 17:22:51 -0800 (PST)
-Received: from sohrab-omarchy.fritz.box (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c6a5924bsm2636697a12.18.2026.11.14.17.22.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 17:22:51 -0800 (PST)
-From: Majid Hajiheidari <majidhhdri@gmail.com>
-To: val@packett.cool
-Cc: marc.lainez@gmail.com,
-	luca.weiss@fairphone.com,
-	barnabas.czeman@mainlining.org,
-	danila@jiaxyga.com,
-	sre@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	jic23@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] Add driver for Qualcomm QGauge (qcom_qg) fuel gauge
-Date: Sun, 15 Nov 2026 02:22:47 +0100
-Message-ID: <20261115012247.621144-1-majidhhdri@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112170841.2189322-1-val@packett.cool>
-References: <20261112170841.2189322-1-val@packett.cool>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=A15tRyoMpBKbokLfYjSyqFGUCP8idsbscdEmuLEeYrORrwGYM02iOZ3WV3UqvUG3ZVtj6iTWm5fR5
+	 jd3IZDxuCrJmgMD6A4oCn+9Wpq1Emhu7fZM11m2PqlczbVhawv9UBT1/kSa+It3IAy6vt28Wq1iYWK
+	 9SJUSuQur21LNOIw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26af909dadb6-2fe35;
+	Sun, 15 Nov 2026 09:24:44 +0800 (CST)
+X-RM-TRANSID:2ee26af909dadb6-2fe35
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [198.18.0.90] (unknown[112.23.105.246])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af909daf1f-54b94;
+	Sun, 15 Nov 2026 09:24:44 +0800 (CST)
+X-RM-TRANSID:2ee16af909daf1f-54b94
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org,
+    oe-linux-nfc@lists.linux.dev
+Cc: David Heidelberg <david@ixit.cz>,
+    "David S. Miller" <davem@davemloft.net>,
+    Eric Dumazet <edumazet@kernel.org>,
+    Jakub Kicinski <kuba@kernel.org>,
+    Paolo Abeni <pabeni@redhat.com>,
+    Simon Horman <horms@kernel.org>,
+    Thierry Escande <thierry.escande@linux.intel.com>,
+    Samuel Ortiz <sameo@linux.intel.com>,
+    Samuel Ortiz <sameo@rivosinc.com>,
+    linux-kernel@vger.kernel.org,
+    yana06070@163.com
+Subject: [PATCH net-next v2] NFC: digital: fix target leak after Type 1 Tag discovery
+Date: Sun, 15 Nov 2026 01:23:15 +0000
+Message-ID: <1794705795184.22628.49502335540847234602.nfc-t1t-v2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,48 +76,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Val,
+digital_in_recv_sens_res() allocates a target for an NFC-A response.
+For a Type 1 Tag, it calls digital_target_found() synchronously.
+nfc_targets_found() copies the target into dev->targets.
 
-On Thu, 12 Nov 2026 14:07:26 -0300, Val Packett wrote:
-> This series adds a driver for the "qgauge" battery fuel gauge
-> present in Qualcomm PMICs like PMI632, PM6150, PM7250B, PM2250.
-> The PMI632 is used in SDM632, SM6115/SM4250, SM6125 based phones.
+On success, rc is zero and the callback skips kfree(target).
+The original allocation is lost when the callback returns.
+Each completed Type 1 Tag discovery leaks one struct nfc_target.
 
-I tried v1 on an SM6125 phone, a Xiaomi Mi A3 (sm6125-xiaomi-laurel-sprout,
-PMI632), on top of next-20261113. Board side: the node enabled with
-monitored-battery (simple-battery with the OCV table from the stock
-profile), io-channels = <&pmi632_adc ADC5_BAT_THERM_100K_PU> as
-"batt-therm" and power-supplies = <&pmi632_typec>.
+Free the target on the exit path, also for a Type 1 Tag:
+digital_target_found() does not take ownership of the target. Keep the
+target for other tag types, whose discovery continues asynchronously.
 
-It probes without any kernel log output and reports sane values:
+Found during a code review of NFC-A target ownership.
 
-  capacity            66
-  voltage_now         3979548   (vbat_sns from the ADC: 3.98 V)
-  voltage_avg         3979937
-  current_now         -72631
-  temp                297       (SoC TSENS zones: 29-30 C)
-  charge_full         4048000   (design 4030000, so the SDAM read works)
-  health              Good
-  status              Charging
+Fixes: 2c66daecc409 ("NFC Digital: Add NFC-A technology support")
+Suggested-by: Simon Horman <horms@kernel.org>
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+Changes in v2:
+- Free the target on the exit path and add a comment on target
+  ownership, as suggested by Simon Horman.
 
-Two things I noticed:
+v1: https://lore.kernel.org/netdev/20261109031832.37642-1-yanxia@cmss.chinamobile.com/
 
-- voltage_ocv returns -ENODATA ("No data available") while capacity is
-  reported at the same time. Is that intended, e.g. the PON OCV being
-  used for capacity but not exposed?
+ net/nfc/digital_technology.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-- status is derived only from power_supply_am_i_supplied(), so it says
-  Charging whenever USB is connected. On my phone the charger float
-  voltage is limited to 3.96 V with a local patch and the battery sits at
-  3.98 V, so current_now stays at about -70 mA (discharging) while status
-  reads Charging. I would expect the same once a battery is full. Would
-  it make sense to report Not charging / Full based on the current?
+diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
+index ae6487c10a25..62d385a49685 100644
+--- a/net/nfc/digital_technology.c
++++ b/net/nfc/digital_technology.c
+@@ -483,6 +483,7 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
+ 				     struct sk_buff *resp)
+ {
+ 	struct nfc_target *target = NULL;
++	bool res_is_t1t = false;
+ 	int rc;
+ 
+ 	if (IS_ERR(resp)) {
+@@ -510,7 +511,8 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
+ 		goto exit;
+ 	}
+ 
+-	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res))
++	res_is_t1t = DIGITAL_SENS_RES_IS_T1T(target->sens_res);
++	if (res_is_t1t)
+ 		rc = digital_target_found(ddev, target, NFC_PROTO_JEWEL);
+ 	else
+ 		rc = digital_in_send_sdd_req(ddev, target);
+@@ -518,10 +520,15 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
+ exit:
+ 	dev_kfree_skb(resp);
+ 
+-	if (rc) {
++	/* Release target on error.
++	 * digital_target_found() does not take ownership of target,
++	 * so also release target if res_is_t1t is true.
++	 */
++	if (rc || res_is_t1t)
+ 		kfree(target);
++
++	if (rc)
+ 		digital_poll_next_tech(ddev);
+-	}
+ }
+ 
+ int digital_in_send_sens_req(struct nfc_digital_dev *ddev, u8 rf_tech)
 
-Tested-by: Majid Hajiheidari <majidhhdri@gmail.com> # sm6125-xiaomi-laurel-sprout
 
-Happy to test v2 as well.
-
-Thanks,
-Majid
