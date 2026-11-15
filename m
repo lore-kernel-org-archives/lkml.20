@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794745904;
-	b=sxkvxZQuOdsOa+BSa0jQlECD/JJdRhE76lHxdauueIgxxKnW7b3ERA1IRA97ISwGwWim
-	 xRNSe8THu/C+q51rqBRe5z6lEeQs7TW7tcs0w1BgQ592SwuBWHCYyVclA4hMApAZauNiS
-	 qOR1JRYRxH4em/wYnPkFvQkxxqtdTLtrP6TosUgYPMzMrGBZkTQ1kyWDeqrOcOB4oHVyl
-	 d/Kvogskn5bhFxm8NsCvurA23wu9qtE5kMuSp8EkWNE0LAI/hkbLSvVmZwyJdqh07sMgr
-	 O1SueD99jBv/zxgPhYAv0FEPw/EMfvQVxF3hqVFt3hTUAFUEWK1Gdzx7nL20p6wU/Eg==
+	t=1794746010;
+	b=M3YxeqRGbNUubM0snwfl8skwylWRA4dPvCUprZNGRgqz2T/OLhXZlQa+ast8waVKSQMK
+	 qHkduGKwaUiI0R3tJ8vonh4XM90z/us5GkpWXAR96UPll+qEf4GT0oIYgI1xcEDuPuu79
+	 B3d3k1nwcA1cTEEg2XXQZhMsIz3J4WDMhm/JB0BJ6VrIxclpph/4X7NCbT1qKKCD+cWKW
+	 h6fBY/aawed3C8eanBBooZ/eVHCG7JuHWSjuT3s7QFUnHmdm99JuiEWGj/Jb6GbIXxCch
+	 sIfh85OTBrrXNGjo+g36OWJCHMWWxUJkt7NLhuZ14WDeQM8tLCkiRGlye06jfAcKTHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794745904;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=GlevWmVgnm99xWVRUylqyXtiUrBDAyjJZv3w5J7mbDM=;
-	b=SBZBetw90DA85a/jsq5883gCeMybvKn0dC/erb/ePb9nAqOB2VuIuAGVXH67Iv/AFZiV
-	 GTo8RhwVK7wwip1EudZZHv7D2mnEYV1KlrSonG36MlyYcJOfSKsz+aQVpEx9GRlBX29d4
-	 SFlRK6VK+KDzD8+MXXsSsCo/gfNuOofbcLEtqABBGcalU6/r6CveyhC1uifve3X9QBVWL
-	 oEkk4v6kSpV/LYaQbIgq78Wv+NSaf811PF9tSsJADl2YSmcFZlpKnOaEvCkD+pPU/uq7k
-	 zQJHBd/moNTe11ydfkELk2A9LYbN1fkNF3s67IUX7Hu0NJXsbs3/bGsjFWAh+Sh/4Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794746010;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=P0L0ftbj+kIt53ureHmiQ7Y/IcbNESkfV8kHEr8QUa8=;
+	b=gGVWFUbTpeO54op7OYdVtoU3r/6xF+tMc7wz5/egsY6SIsAVa/AaHqZDJFlU8dG+LUc6
+	 JDAH7IiD2ldppuVCqKLqn03YYw0BlTHnANI4Ya5vR+2xXdyNTYmdjgGHwZ/U/neLccXCt
+	 9RZ7NkLKU1FtmCeblOef9fkaf90K081AkGudgUibpKTjkVoJ59hlU7WT1jWybz0+Ak5Cf
+	 deSkR/ficp2f+QaR/wa5//I2zGQ55XnELzfcHw1HWY0oBT29HdzBgbYpwGWG0vJC2Qy8t
+	 BmYdVlBCIgSTqYTDvCcdRv5BqJrMUcZL7vZEUfcO5yv/8M1u8qDowUPWuLmwNCUk1nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7glPu0B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 757DA606A31A;
-	Sun, 15 Nov 2026 12:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7glPu0B
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E93171F000C4;
-	Sun, 15 Nov 2026 12:31:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794745904;
-	bh=GlevWmVgnm99xWVRUylqyXtiUrBDAyjJZv3w5J7mbDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S7glPu0BlJ7Vq+IWNILFSE3/hQnCsjmROKUgrsXtRCs3hC6cZL/GBusLuhKRKZ8+K
-	 Zpr07TzgPc7iA/anIH4DFuHa+O2Qrac02QGzfkuBO5KzgR4KIHP5z2THeqYo71Wacm
-	 tI6WjZnbmM7QSKY1/B8smjENxExr6EBraRFARAmzivrBR9iQSjAB5J735uZNx3Ycjw
-	 G3T6WBq5vR3SEPcC/YiOIwomIFwvuED3XlyvljHhJ7yuqfUhfhPVx5ayyXweIwmtZL
-	 SB9ERAHjw1AurnstMpVTE2y80Nvsp4Cbk/Nas4zqWspUXNCCJWB85LbWThevJrGi+h
-	 NmhUS2UQ6d0jw==
-Date: Sun, 15 Nov 2026 07:31:42 -0500
-From: Joel Fernandes <jfern@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rcu/nocb: Avoid unsequenced accesses to jiffies in
- show_rcu_nocb_state()
-Message-ID: <20261115123142.GA650613@joelbox>
-References: <20261114-rcu-tree_nocb-wunsequenced-v1-1-057996a86f0e@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A74606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:33:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30A74606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5735cd94235so314541b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:33:29 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794746009; x=1795350809;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P0L0ftbj+kIt53ureHmiQ7Y/IcbNESkfV8kHEr8QUa8=;
+        b=egUViNr1B2ZPRgeUypuE/eKG9FXFKrRnpvQ2oZeiWd8Ispy03GEBz+YQ8JwdE+8JiG
+         CGXhCvTDPIywXpvv78qkUQ5r1JSyAOSSAfw3VNZ4jDxwuj4OnTW1DL7G8mvFB+ad9T6J
+         hknTwMr7Iintt0ASaHvgVdT0jSFtOMU+LheUBgQWnE0LNqnmwGUIva3mPOMrvTV7iUIJ
+         pfDWgTpJuq8hq3lFoZFpAIgaROLyTJ/QVWTVxCLQcRGyqHphMKHViYxgNElHaM+K2u8V
+         2pTsVMyB4ICztJiqfJzum+vbHGvl7WWZlhc+ba2gUfvfwV6uL1cyGEpFGmaZNrYqoGCK
+         u64Q==
+X-Forwarded-Encrypted: i=1; AL+hErGVfmmquHmQkRkHciYffOWvVyee4Sa/rvJhcxW0MfYyeqBw8SNspE09dPrZP6RqF8gIuz2Ze9wWCOz90rs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nIHp4bwihicocsmf9vg8Pqio+4tQ+OrhFnseBfv95JaF23mS2
+	u2sshPQxCSaMS3S1glXNqHD36J6mqWphEnqF/MrT+Njmf1WJInc9Qh4R+GAr1+yd/CMGmhaG6X2
+	MvHRStUUsyG3ev5xXgrFdXla5ZrG3/orIelb6LaGySgRAqSF4dIkiSjxP3M4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,89 +58,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114-rcu-tree_nocb-wunsequenced-v1-1-057996a86f0e@kernel.org>
+X-Received: by 2002:a05:6808:e88:b0:55c:8ed:4db8 with SMTP id
+ 5614622812f47-56e65a413efmr5878322b6e.62.1794746009242; Sun, 15 Nov 2026
+ 04:33:29 -0800 (PST)
+Date: Sun, 15 Nov 2026 04:33:29 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af9a699.78cd6c47.117a81.0005.GAE@google.com>
+Subject: [syzbot] Monthly wireguard report (Nov 2026)
+From: syzbot <syzbot+listd270b2ab9f81057c7dc8@syzkaller.appspotmail.com>
+To: Jason@zx2c4.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, wireguard@lists.zx2c4.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/14, Nathan Chancellor <nathan@kernel.org> wrote:
-> After a recent improvement in clang to warn on unsequenced accesses to
-> volatile variables [1], an instance appears in show_rcu_nocb_state(),
-> which can break the build with CONFIG_WERROR=y / W=e:
-> 
->   In file included from kernel/rcu/tree.c:5123:
->   kernel/rcu/tree_nocb.h:1651:3: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
->    1650 |                 jiffies - rdp->nocb_bypass_first,
->         |                 ~~~~~~~
->    1651 |                 jiffies - rdp->nocb_nobypass_last,
->         |                 ^
-> 
-> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
-> 6.5.2, unsequenced side effects on the same scalar object are undefined
-> behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
-> function call is indeterminately sequenced, meaning any side effects in
-> the arguments are unsequenced.
-> 
-> Add a local variable to hold the value of jiffies before the function
-> call so that there are no unsequenced side effects, clearing up the
-> warning.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: f7a81b12d6af ("rcu/nocb: Print no-CBs diagnostics when rcutorture writer unduly delayed")
-> Closes: https://github.com/ClangBuiltLinux/linux/issues/2192
-> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Hello wireguard maintainers/developers,
 
+This is a 31-day syzbot report for the wireguard subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/wireguard
 
-Reviewed-by: Joel Fernandes <jfern@kernel.org>
+During the period, 0 new issues were detected and 0 were fixed.
+In total, 5 issues are still open and 21 have already been fixed.
+There is also 1 low-priority issue.
 
-I will send it for 7.4 -rc.
+Some of the still happening issues:
 
-thanks,
+Ref Crashes Repro Title
+<1> 111     Yes   BUG: workqueue lockup in wg_packet_encrypt_worker
+                  https://syzkaller.appspot.com/bug?extid=ce2a09d03fdc079a46e9
+<2> 60      Yes   BUG: workqueue lockup in wg_packet_decrypt_worker
+                  https://syzkaller.appspot.com/bug?extid=d0d2f1a65f45b319d25d
+<3> 21      Yes   INFO: rcu detected stall in wg_packet_handshake_receive_worker (3)
+                  https://syzkaller.appspot.com/bug?extid=48f45f6dd79ca20c3283
 
-Joel Fernandes
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> ---
->  kernel/rcu/tree_nocb.h | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/rcu/tree_nocb.h b/kernel/rcu/tree_nocb.h
-> index b6cfee4e5039..8448a7c578e8 100644
-> --- a/kernel/rcu/tree_nocb.h
-> +++ b/kernel/rcu/tree_nocb.h
-> @@ -1618,6 +1618,7 @@ static void show_rcu_nocb_state(struct rcu_data *rdp)
->  	struct rcu_segcblist *rsclp = &rdp->cblist;
->  	bool waslocked;
->  	bool wassleep;
-> +	unsigned long j;
->  
->  	if (rdp->nocb_gp_rdp == rdp)
->  		show_rcu_nocb_gp_state(rdp);
-> @@ -1639,6 +1640,7 @@ static void show_rcu_nocb_state(struct rcu_data *rdp)
->  		rsclp->gp_seq[RCU_NEXT_READY_TAIL].exp);
->  	sprintf(bufn, "%ld", rsclp->seglen[RCU_NEXT_TAIL]);
->  	sprintf(bufb, "%ld", rcu_cblist_n_cbs(&rdp->nocb_bypass));
-> +	j = jiffies;
->  	pr_info("   CB %d^%d->%d %c%c%c%c%c F%ld L%ld C%d %c%s%c%s%c%s%c%s%c%s q%ld %c CPU %d%s\n",
->  		rdp->cpu, rdp->nocb_gp_rdp->cpu,
->  		nocb_next_rdp ? nocb_next_rdp->cpu : -1,
-> @@ -1647,8 +1649,8 @@ static void show_rcu_nocb_state(struct rcu_data *rdp)
->  		"lL"[raw_spin_is_locked(&rdp->nocb_lock)],
->  		"sS"[!!rdp->nocb_cb_sleep],
->  		".W"[swait_active(&rdp->nocb_cb_wq)],
-> -		jiffies - rdp->nocb_bypass_first,
-> -		jiffies - rdp->nocb_nobypass_last,
-> +		j - rdp->nocb_bypass_first,
-> +		j - rdp->nocb_nobypass_last,
->  		rdp->nocb_nobypass_count,
->  		".D"[rcu_segcblist_ready_cbs(rsclp)],
->  		rcu_segcblist_segempty(rsclp, RCU_DONE_TAIL) ? "" : bufd,
-> 
-> ---
-> base-commit: 18b332441bbf59fa537929fe390238e137a6caff
-> change-id: 20261114-rcu-tree_nocb-wunsequenced-02d11678cf42
-> 
-> Best regards,
-> --  
-> Cheers,
-> Nathan
-> 
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
