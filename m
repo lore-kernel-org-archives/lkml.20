@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794757927;
-	b=kmdxE38oBmWY/P8LlrHn9G9w9mfpSsvHSic+t17vVWceQdMWvBGZCbJBg/jWF167Wgze
-	 yajRflR+3Ion7Yz8OJAmPfrc6M2ubTFiJpmIfgMhZRfrjwC3hWkd1FTrCbNfC6KvGm0gF
-	 NXQDYx5uvBhtLkOnGjdU54MDEbD+CyyFDcTqsZrIG/d+B1stavT+2H2Z2sf0SveOgvPOW
-	 AqkKblIFffh8HxwVxuq1KBYQkQ3lHR5rBy5Apc+2OHhz2mgg/S8G2VkUk/+s6nzCw0xeh
-	 P6SgX7YaVEUFewcfURDg1Q/gNbojf1XBnAv1FxbJGcgQaviZyUjdrV5G4ei4hvqqiBg==
+	t=1794757942;
+	b=pXDnvnGji3tb7SNhJFJHYoZGVOkPS3nrkye/8Vg/TmxRGHi8YQpsSCp3h6gfDSkcoEuZ
+	 e7v4MUopwimV0kp/HHBWJdfr+Poxsf5EMWn+hzeq2fouUyH7hI+HYSWBzVakmNfIhp9Yv
+	 UEwDALUYqhD72T/D80zpNc7AhY+oRL9cn4Iv53UJOhKXNdyc4J352dmDyP5kaCxW5r25b
+	 VaSwjRZmQHmlk3uHmUfF4SfauNTWRwz5H01P/uZ9zywxPVY8KYlXRIFKvW2Jm/2GjRwrG
+	 JrfulG5MWz4Uh7ROdiOIq5aFDZu9yvrzbLeryJJaAmx14yZ2t3S0qQwZZRntouqkSiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794757927;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=9IgiEftk86Exm37bg3Zur+DbX5I2RnFSX2hzBREhK00=;
-	b=TcGNNcNEDMVNPWwnAXaMeXmNdZ/4qLshwkJzepLHbEQGLacb+ntBEp4rN3xrjPEmmwAC
-	 8uZgAsXV0OBAKSXYu2XSenWBsgHP/AhZXh+Ywp38wIhtButH9KfVQ4pF803WvUJKv1oOX
-	 LUcpml9CDDjvw9pVJg0Tx/G28nJkovickmwTJ4FhsZCSf2Fdlb8lXVOKNqf6mhkf4x7A1
-	 ur4bICqdwE46AwaUGDZprH2xjWKXDm4yp5bFLLxNJrmSOSIV8dnIx2JkBuA/ZlKBXaIXa
-	 b63uYaGq3EeNQa5Rfn6c8qVPsr46hfsYSFV2+yF0A6ntUXWIl2I6FcurLZCzNaAp27A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794757942;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=nTjFplutDyO+6B0L2q9B2Wxl1+E3m6fypJVZ+ZBVxqg=;
+	b=rgvdoDBsyl5xlE5QhtzHqHFynjxU9kzgNSRqxyg+gj95RyWxsqmLdmbnfz51QuSb4Y+9
+	 rnNqbkpmseGroYLThBO9UVmaKa6FosJ4ng1oFN6DCwYzHl6PWYXSu1IEFPIi6sH91mBpv
+	 uNhE8lxMAIHsJzzLsYUjFgul6v3USJVFWOYGzGgXNJrGCZCbUESH4heZCkGYHClXHT5tF
+	 DHyUMQ/ggUBRfFwN9QXGl6DnGP3nwe34YeqNgF9r8KA9nq/v/r0wsleLeO6RT8ZIAa9jI
+	 Y3TJm0YGBpoE0eGDkXCYtABd9+49G0Wrg93ZDWiQz9ZVZpmfUGLqyw40Eoyypiz/KEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Q/+NoRu6";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=XLobJJu1;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=9+eZUvgX;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED7E606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:52:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ED7E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8995606A31D;
+	Sun, 15 Nov 2026 15:52:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8995606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q/+NoRu6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794757925;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9IgiEftk86Exm37bg3Zur+DbX5I2RnFSX2hzBREhK00=;
-	b=Q/+NoRu6SHS59eeSAJ7sR3il2n50pvZLPi9MHmMg2RtX7XX7anjg+3t1azq6I1AYb/3qnZ
-	9VRlWPydKyz+S89oYkoFETYCEDNzIXmndPK5FqNcPhVWhFb/zFZuZHOuqyDuz4M4kgWdfX
-	gkmRgUJWZpj3GQ881WC+6WtZaB+bcNo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-382-_bVS6r_UMnewo3cwi-yJVg-1; Sun,
- 15 Nov 2026 10:52:01 -0500
-X-MC-Unique: _bVS6r_UMnewo3cwi-yJVg-1
-X-Mimecast-MFC-AGG-ID: _bVS6r_UMnewo3cwi-yJVg_1794757920
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EE4F718004DA;
-	Sun, 15 Nov 2026 15:51:59 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 78446589;
-	Sun, 15 Nov 2026 15:51:58 +0000 (UTC)
-Message-ID: <1f2a8f19-aecf-4c32-b6b2-36b0af6d0d06@redhat.com>
-Date: Sun, 15 Nov 2026 10:51:57 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=XLobJJu1;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=9+eZUvgX
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1794757923; bh=nTjFplutDyO+6B0L2q9B2Wx
+	l1+E3m6fypJVZ+ZBVxqg=; b=XLobJJu1Sp0iKBB7AarH1kkFYcI1a6OH0Amjv9u201lAnHV2WM
+	CTQaZgS3NKcEmR7kMKPiUAlqQDuX9yCNw1XPVH7Td/u43vTcP6tp2tYMGkhrwU0qbROvG1Hcw+z
+	Qzb3O2EXuA8H0AK86nEmRy0Mm/YkZWJ2GCT14kcM8CifLIhvFH7oU+Tyuo3u9JWwia6Mnk7xQyH
+	k5WsBIIYDtPaOYrLLZ5AmeXwJsFBy9dmE6Gs+TCbmmMo+KEi7oFOYc2OfoaamfSFRIWDowUAifP
+	hR7j2N/yCYmzNxG/VOmtM0lI3nbQ0cOZ1GAgTQmcKc5fCxwbI9CJ4VTJN3DMICFGsmA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1794757923; bh=nTjFplutDyO+6B0L2q9B2Wx
+	l1+E3m6fypJVZ+ZBVxqg=; b=9+eZUvgXS2Z37ak7RCy4qYe9lWlZepFQVRoZaXRWf43aSV4yB5
+	EaBusvXqUnguui8dgRrFznCiuA/201lZE0CA==;
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Sun, 15 Nov 2026 18:52:02 +0300
+Subject: [PATCH] dmaengine: qcom: bam_dma: Report the residue of packet
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,70 +59,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-7.4-fixes] cgroup/cpuset: Remove redundant
- WARN_ON_ONCE() in remote_cpus_update()
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, Ridong Chen <chenridong@xiaomi.com>
-References: <20261114100612.1380464-1-ridong.chen@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261114100612.1380464-1-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Message-Id: <20261115-qcom-bam-dma-metadata-v1-1-52e4de54ffd3@mainlining.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1IohbsVYqLMRnbEaJtEkUQ7
+ 260y7f4f4fIQTjCs9gh8CpR5ilDlwXYD01vRnHZYJR5aK0b/NnZY08enSf0nMhRIhyqmpvWuFo
+ pC7n9Bh5ku7+v7u+49CPbdM3gOE4BtdETeQAAAA==
+X-Change-ID: 20261115-qcom-bam-dma-metadata-f34e592d400c
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nickolay Goppen <setotau@mainlining.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794757923; l=3031;
+ i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
+ bh=nbWHp5UD+m3jmg5mPKY+XUaOPKi5dA/h7fGX+FvVAs4=;
+ b=ZzYKVsRiGlh2aARMVM8cC00ltMblUL2jpMeqqMjz+EBGi/ruTX7+ajkO7OXF6T89XIoRdh3s7
+ twSRhVNxsuLBePdb1s/gUTj4ieREVFkNo2MsdHbEezQ/DxOt9xpNC9a
+X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
+ pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 
-On 11/14/26 5:06 AM, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> remote_cpus_update() warns if the CPUs to be added to a remote partition
-> intersect subpartitions_cpus, and then checks the very same condition
-> right below to set PERR_NOCPUS and invalidate the partition:
->
-> 	WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
-> 	if (!capable(CAP_SYS_ADMIN))
-> 		WRITE_ONCE(cs->prs_err, PERR_ACCESS);
-> 	else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
-> 		 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
-> 		WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
->
-> Sashiko reported that the warning could be triggered by a write to a
-> cpuset control file, before the CAP_SYS_ADMIN check, which would panic a
-> system with panic_on_warn set.
->
-> The warning was added by commit 86888c7bd117 ("cgroup/cpuset: Add
-> warnings to catch inconsistency in exclusive CPUs") as an assertion that
-> such CPUs have been filtered out before. No way to trigger it with the
-> current interfaces has been found, as these CPUs are rejected when
-> cpuset.cpus.exclusive is written. But the warning is redundant, as the
-> conflict is handled right below anyway.
->
-> Remove the warning and rely on the PERR_NOCPUS check, the same as
-> remote_partition_enable() already does for this conflict.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20261114083124.1340140-1-ridong.chen%40linux.dev?part=6
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->   kernel/cgroup/cpuset.c | 1 -
->   1 file changed, 1 deletion(-)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 7e374210c123..0be0d26c442b 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1833,7 +1833,6 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->   	 * left in the top cpuset.
->   	 */
->   	if (adding) {
-> -		WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
->   		if (!capable(CAP_SYS_ADMIN))
->   			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
->   		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
->
-> base-commit: e234ed1bb82c96a5643fd70784f16cf3d72eeed3
-Reviewed-by: Waiman Long <longman@redhat.com>
+The BAM writes back the number of bytes actually received into the
+descriptor that ended an RX transfer. Report this through the standard
+dmaengine_result (residue = length - transferred) so clients get the
+packet length from callback_result().
 
+Assisted-by: LLM
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+---
+IPA v2.x uses BAM to send and receive IP packets, to and from the AP.
+However, unlike its predecessor BAM-DMUX, it doesn't send information
+about the packet length, but ipa2 driver will need that. To find the 
+length of the packet, one must instead read the difference between 
+packet length and residue.
+---
+ drivers/dma/qcom/bam_dma.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+index e62e411dc8f8..b5cfe3ce3406 100644
+--- a/drivers/dma/qcom/bam_dma.c
++++ b/drivers/dma/qcom/bam_dma.c
+@@ -65,6 +65,7 @@ struct bam_async_desc {
+ 
+ 	u32 num_desc;
+ 	u32 xfer_len;
++	size_t transferred;
+ 
+ 	/* transaction flags, EOT|EOB|NWD */
+ 	u16 flags;
+@@ -447,6 +448,30 @@ static inline void __iomem *bam_addr(struct bam_device *bdev, u32 pipe,
+ 		r.ee_mult * bdev->ee;
+ }
+ 
++/**
++ * bam_fifo_xfer_len - bytes transferred for a completed descriptor chunk
++ * @bchan: BAM channel the chunk was queued on
++ * @async_desc: BAM async descriptor owning the chunk
++ *
++ * For RX pipes the BAM overwrites the size field of the descriptor that
++ * ended the transfer with the number of bytes actually written to memory,
++ * which can be less than the buffer size (e.g. an IPA packet).  Those
++ * values live in the FIFO copy, not in async_desc->desc[].
++ */
++
++static u32 bam_fifo_xfer_len(struct bam_chan *bchan,
++			     const struct bam_async_desc *async_desc)
++	struct bam_desc_hw *fifo = PTR_ALIGN(bchan->fifo_virt,
++					     sizeof(struct bam_desc_hw));
++	u32 len = 0;
++	unsigned int i;
++
++	for (i = bchan->head; i < bchan->head + async_desc->xfer_len; i++)
++		len += le16_to_cpu(fifo[i % MAX_DESCRIPTORS].size);
++
++	return len;
++}
++
+ /**
+  * bam_reset() - reset and initialize BAM registers
+  * @bdev: bam device
+@@ -732,6 +757,8 @@ static struct dma_async_tx_descriptor *bam_prep_slave_sg(struct dma_chan *chan,
+ 		} while (remainder > 0);
+ 	}
+ 
++	async_desc->vd.tx.metadata_ops = &metadata_ops;
++
+ 	return vchan_tx_prep(&bchan->vc, &async_desc->vd, flags);
+ }
+ 
+@@ -881,6 +908,11 @@ static u32 process_channel_irqs(struct bam_device *bdev)
+ 			if (avail < async_desc->xfer_len)
+ 				break;
+ 
++			async_desc->transferred +=
++				bam_fifo_xfer_len(bchan, async_desc);
++			async_desc->vd.tx_result.residue =
++				async_desc->length - async_desc->transferred;
++
+ 			/* manage FIFO */
+ 			bchan->head += async_desc->xfer_len;
+ 			bchan->head %= MAX_DESCRIPTORS;
+
+---
+base-commit: 2cc223d6ffadd48e25eff0c8a03108a5d7a61c41
+change-id: 20261115-qcom-bam-dma-metadata-f34e592d400c
+
+Best regards,
+--  
+Nickolay Goppen <setotau@mainlining.org>
