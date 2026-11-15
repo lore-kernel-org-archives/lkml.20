@@ -1,96 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753464;
-	b=Dcxc1pQsa5DwE1juYT2tl53d6F/e7ySTQfJw49w0VE5RdhZ3GVIz6A87kJkwaBBwEQ3L
-	 iP3JNEEyjV08fl2D9q3vZQSYET+CHQf8T9yL7bt6LaIv2HBi54PzjU0mcrjW26j9sYYp2
-	 Tv4Z7PKemJWOFSfAKPHVyQ3t3OxgjEHN9Kjt7yxXaMq6Tuqykv2k3TB1VrOXVz/o3X39u
-	 /56foml/u06mVyIIHKq85re+D8TNIf2aOU/3HGbKcuEonFcEko3A9xAZNoGH4UOt+g8lC
-	 rp0eWXY9w8Wu4baq9rDW869d4yp/jzLnXTPxDyLiol+7xx9ZwXxquNZZV2pyI5bgnCQ==
+	t=1794753468;
+	b=kP2wCI7ZUcroYv1JifOCnC2P2RPx48pQvTvtijmUs/0KpVmXiqkS7fq4gbpmlnqWWSOH
+	 4715I/0E08v3/I+NUSbbQNP3YNAohU1I/QsKGm37hayyynbxS6lsaVQ3M9DSbyt8S792C
+	 krWQNBa1wsd4WEZKXzOcXuyy9a+x0SzCDDiJ1eF6GZFxJ53oy5WzO+LoHQFGpcq47aa7H
+	 dWGoB8u5ICxkZ2jPOVQjkFRMAFhJUZCO/RdrsCivB+vjLBYfY9Lr+sYMdJ69R4hlhV6f4
+	 G8ilyW1eVXEBwL6UA42jVVLIm10y1E8M23T7GOjRixtCCIzbHng+8Ms56VSVdIcFOSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LZrrte1o5NSIPT2kPnWiRAF/yUTjYoJq4hLlMOko4J0=;
-	b=tveX6rC1vtBN3lPUpdyJAqk1XI248xZqegqSwEJzZOQ2sfd1MIfTYGvGNxoeLpATbdPq
-	 9EpBfsYUgAY8kdlaDD6AUwZvXJrX4NmcaMX2Mbv08mq8XR8w6gkStIPGNu2Q9+MfmKEou
-	 N5PAybi78APlU2B/pvmFGEAzijWIpZn9VgSjCaxe8fRQwwzicr1PVSx6EseKkQafvYE7n
-	 Zi4Z+CWpslu3AJEL+R4o7M9CJhy2VsU05HWuyMffmnmFXspdbH4h289eK0hHteNrXPlRT
-	 EberocKi/cmJuJZdRp5YQayG9pN+KYnjk41GNe/MPJCYheUIFDr3ijcCSSZTJspdiTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753468;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=2aQpD+5wOwFw2m2I7/vgi2Nycby2o3K9U9x+kyRBQZ4=;
+	b=Bz1jCZ9ZUB3HbYsayh/qjIw/0GBFzyJmtQLS3rx/xeJeGFV9EmOcNh384eer9LV96Vfh
+	 YgX0/CajRg107YrWBhc2vOV4R8IHwbuuWmWBtC6TRu2+2+p5fFDAZcBe1QmPnwEm0i7/q
+	 hvVBiNzIKuSnJJZucrxcOzVKosezIjeNwwmDLCfZUpBPhTNu8qskeVAXf3foNBcBqJ8AA
+	 eTHk+5ScdegOyEXy+agGI5jENO2YG+j97rJdEE7sRs9KvLOrlUwpAoFXjxUZU+/aCF4zt
+	 HHUSrzkLrAyrayBKRKC3sZtu2mRb9bRVar0jf3eL8HnjmSFAU+Lt1W2n/Yd11ltidlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIGObF5+;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/8qSbuo";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B73606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:37:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0B73606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93337606A31D;
+	Sun, 15 Nov 2026 14:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIGObF5+
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4922523d1afso1225019f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:37:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794753462; x=1795358262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LZrrte1o5NSIPT2kPnWiRAF/yUTjYoJq4hLlMOko4J0=;
-        b=JIGObF5+n9z2rF2DAEPIH2wEAG3uYTfbAus5HXg0lWmaFmYAMCO4Q4uM0BUtPHeg4A
-         GPyH/Dr0LX9Cj/EkDbK7Slo/ruNLFYLk+ahuPHjUnLKBw0jjG7Z1njYWhFvhBj9UihxN
-         UICSUPnKvcHJ4+4lSH0rEhuQK8PCcjMpwmCDjtumC/7XZY5PWWkA/gAb8v9nKkSbxrV/
-         Y9ThN/v4ygArVzLZAXb3YM7BxUVKfigR84V8gBR45JeqbTPR2CfifN2+sENM0bcHdFtM
-         lj61zu7W35zudlmbCik3sb15ddV3QrjhbaumMuJP4SWZ2/FHSVE/m0/Qf+yUjxTHpyeM
-         Qc+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794753462; x=1795358262;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LZrrte1o5NSIPT2kPnWiRAF/yUTjYoJq4hLlMOko4J0=;
-        b=Ew8Rixc90GR+6Y/G4r8KlEbAT51eFdAnlD8NfcRKjS5GYoMfVF3kTCUj0/DDe31VM/
-         /MI4gTBbvq7++MZ/2tVbvKlmmtbY8/40HLSmJS6oeEoy3053nWzvdAnBUCttGgEKcwyI
-         Ld6SzkvbYlp6UNbO1I/dwa+5MEGcdaZ+L1s9C9TefNf/BDS/RqK+n+KyQ7TO4WakUbIs
-         saaTqgKT3VS0OJLTKGst6Y82zxIz2oMSgfaqGz7gGSTqbx/yvtArb2Ug3OSuZk9GvA6z
-         fVRh+u9disudolYwC5YFAY3o4+eVTBHVCxuCcwYZlXRt4xfIpFNYRWkoYx++3NgbjEw1
-         k6hg==
-X-Forwarded-Encrypted: i=1; AL+hErHQ7k6fe9dIPOXHIilGDZ20vVXtiWWHD5dDvBztT5ESHJcHKAjal1VaN/B3kpsTvEGCmHms5+bX61yktvA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ooV8HrXJKLIXSgdT6AFVrKpYnK1oJ8NO9oNJCe6TR5QAsKceB
-	EI0hEt58jq6uJN2w8KSL7Qz0nngYM8SPTPyn4kUqI2RTRH9ZyirquzHw
-X-Gm-Gg: AYBFou2PI06S8htbSTIiAoLwwTcumVr4y3dBfae35ZZ5fUNWMFN5AuIMJ0HtJR9V+4C
-	XMhGv0M/KMKTR/q3UL1graTqjGmw1Q8mk9NHF/x13mosSYGhW0dKOfkYirrng4t88thNnKNCWd5
-	nTbLdBP4afJL87XmVGvHh23QvnYEethWACdQnJbuiPaLvoyHb7PK6NE6IgWPVDNEYAoKHoStUm/
-	H3oUvfEfCBMo53aTWj7OGRebMKxb4lg1a09lF63Gtjwz6bUoe1sLp5bYqrm3SXfG/PbKZHacBKn
-	cRmwD90FwZ0MMgrqyU+2LGZX6VjMFlg9kyYw2lQcTDe2W7iPWLJE9WXy3QpupqrzyPfubIOWZnA
-	rHuSsGaMa4OTF4pPMry+hRSawU1nlgNqzZ0gvLwNXSp2lMRmfHqdcZdcXzPnykS5YIB6dhSvc98
-	g0iAc9X/S5LLLA84PMfVdZyulC5Es5/sfBQgF9/OG8ge+KW6x6v0QoA4VBqqEblET7VMnrs1fvq
-	KFnXfj78+Nxxk7SoF+hVSemBZWX5rkb/a2XOanoTcblGKFvZ7ZLwDGsPaJn4BqX8pGMLP2Zbk2E
-	hntWUzfioC9F3MOM0LtZ+l5iJo5r65OPpL+TvqggNDSKYKRTnY5rK31kkhViByTloN6MyvXHP5f
-	A5YK2fDg6aVxJcwI=
-X-Received: by 2002:a05:600c:6092:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4bb55a44be7mr159448425e9.8.1794753460960;
-        Sun, 15 Nov 2026 06:37:40 -0800 (PST)
-Received: from puma.museclub.art ([2a00:6020:b326:d300:d19:a765:d8d7:bedc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ac1159sm196174025e9.4.2026.11.15.06.37.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 06:37:39 -0800 (PST)
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
-To: eugene.shalygin@gmail.com
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] hwmon: add three more board models
-Date: Sun, 15 Nov 2026 15:25:37 +0100
-Message-ID: <20261115143708.492883-1-eugene.shalygin@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/8qSbuo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78A461F000C5;
+	Sun, 15 Nov 2026 14:37:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794753468;
+	bh=2aQpD+5wOwFw2m2I7/vgi2Nycby2o3K9U9x+kyRBQZ4=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=F/8qSbuoGQZGQtgBxIr6B2ueFpU95+7qJMwmm8INX1xDHRlTUaSD8BFdbq4CbOxrR
+	 ox1qNccLa8/HK300SOpQmBbk5Qvso5s0ej0nnLzfaw7woW9fsTRsB3fn8XKtg4GZi2
+	 mkIHuNrdV77fS3AS7HGyBsRW6r1I1TVsLts0dAY635e5VsCW997Apri30eUILQ8DE8
+	 6QT8gY4VS7IF4+z6kjL7VWLQ7z0W25C7ZhfXYsY6RHZAfw5JKq52esd/VilnzZerDm
+	 yfh9vV8t3VLyXsXWrgdekBNeTMfP6B4g7EKPziGoUoo9vqTOsFrf/z8rys1tdDFec/
+	 iXGUcM50BmJSQ==
+Content-Type: multipart/mixed; boundary="===============5766711597295612734=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,23 +49,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <9bacf710b101058735f399d44953a18d1630aec3b6b176fe96215cdd2f0eb7ac@mail.kernel.org>
+In-Reply-To: <20261115-work-ovl-d_real-v1-8-ca155efbcb2e@kernel.org>
+References: <20261115-work-ovl-d_real-v1-8-ca155efbcb2e@kernel.org>
+Subject: Re: [PATCH 08/13] ipe: handle errors from resolving the real inode
+From: bot+bpf-ci@kernel.org
+To: brauner@kernel.org,amir73il@gmail.com,linux-fsdevel@vger.kernel.org
+Cc: chris@chrisdown.name,mszeredi@redhat.com,linux-unionfs@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-integrity@vger.kernel.org,linux-security-module@vger.kernel.org,linux-mm@kvack.org,brauner@kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun, 15 Nov 2026 14:37:46 +0000 (UTC)
 
-Add three boars, submitted by users via GitHub repo.
+--===============5766711597295612734==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Eugene Shalygin (1):
-  hwmon: (asus-ec-sensors) add ROG CROSSHAIR X870E DARK HERO
+> ipe: handle errors from resolving the real inode
 
-John Roden (1):
-  hwmon: (asus-ec-sensors) add ROG STRIX X670E-F GAMING WIFI
+TL;DR: Behaviour question: the new ipe_evaluate_event() early return for an
+unresolvable real inode skips ipe_audit_match(), so enforce-mode -EACCES and
+permissive-mode allows may leave no IPE audit record. Should it audit?
 
-Kostiantyn Korn (1):
-  hwmon: (asus-ec-sensors) Add support for PRIME Z590-A
+> diff --git a/security/ipe/eval.c b/security/ipe/eval.c
+> --- a/security/ipe/eval.c
+> +++ b/security/ipe/eval.c
 
- Documentation/hwmon/asus_ec_sensors.rst |  3 +++
- drivers/hwmon/asus-ec-sensors.c         | 34 +++++++++++++++++++++++++
- 2 files changed, 37 insertions(+)
+[ ... ]
 
--- 
-2.56.1
+> @@ -335,6 +339,15 @@ int ipe_evaluate_event(const struct ipe_eval_ctx *const ctx)
+>  		return 0;
+>  	}
+>  
+> +	/*
+> +	 * Without the inode hosting the data none of the properties of the
+> +	 * file can be evaluated. Refuse it unless IPE is permissive.
+> +	 */
+> +	if (ctx->file_err) {
+> +		rcu_read_unlock();
+> +		return READ_ONCE(enforce) ? -EACCES : 0;
+> +	}
+> +
 
+Should this path emit an AUDIT_IPE_ACCESS record?
+
+This early return skips the eval: label, so ipe_audit_match() is never
+called.  Every other way ipe_evaluate_event() ends in a denial goes through:
+
+eval:
+	ipe_audit_match(ctx, match_type, action, rule);
+	rcu_read_unlock();
+
+	if (action == IPE_ACTION_DENY)
+		rc = -EACCES;
+
+	if (!READ_ONCE(enforce))
+		rc = 0;
+
+With this patch, in permissive mode a file whose data cannot be resolved
+returns 0 and leaves no record at all, even though
+Documentation/admin-guide/LSM/ipe.rst says that in permissive mode policy
+violations are logged.  In enforce mode the -EACCES has no IPE audit record
+to explain it.  The commit message says "Permissive mode allows it like any
+other denial", but other denials are audited and this one is not.
+
+This path can be reached for an already open file.  ovl_open() verifies
+lowerdata and sets OVL_VERIFIED_DIGEST, but a metacopy copy-up clears that
+flag (ovl_clear_flag(OVL_VERIFIED_DIGEST, inode) in fs/overlayfs/copy_up.c).
+A later mmap(PROT_EXEC) on the open fd then goes:
+
+vm_mmap_pgoff()
+  security_mmap_file()
+    ipe_mmap_file()
+      ipe_build_eval_ctx()
+        d_real_data_inode()
+          ovl_d_real()
+            ovl_verify_lowerdata()
+              ovl_maybe_validate_verity()
+
+which can fail with -EINTR from ovl_inode_lock_interruptible() or with an
+error from ovl_validate_verity(), setting ctx->file_err.  The IMA patch in
+this series (c9952f8fed84) describes the same scenario, and its error path
+in ima_collect_measurement() still calls integrity_audit_msg().
+
+Could this set action = IPE_ACTION_DENY with a suitable match type and jump
+to eval:, or use a dedicated audit helper that records the error, so that
+denials and permissive-mode would-be denials are still logged?  No later
+commit in the series touches security/ipe.
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43723438893
+--===============5766711597295612734==--
