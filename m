@@ -1,51 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743278;
-	b=FHmDy/4qKTg7+Teabj+mOMtbaLGG+MtmtgQ5vaVKiH3w/ShTQxadLu0bLG/9VmAH1MOA
-	 xRkDdIyCZ9nJ7mFWqxFBH0Fe6Sr+Ih2pM2leIGDd2tEr8mKHSMHpXz89lSrhzogoEBY8Z
-	 aOmVIAOPt6LAW65Hn8Hr8T8pJfqVqGxU+qelCGi4+sBnO26nHoq7YhZfJgHfuLTSx6a0y
-	 iibvYVJ4mK+egXxQhR4qcAgoJ46vGj5Yq5GWY9fO12cHzihstQWPB+xJ1S8oauYmPtZaT
-	 tHZ/3YatgwO60+RKRogHAZxmn2FphEkYnkVNsl1naSUgP+A9LhCoAxWP9apWw+UjzvA==
+	t=1794743285;
+	b=CtIXlt8m8H+83Y56j2ioC8putPP588RIrhT2Jv4GnnQc84kpN9j/ljUofHkXGAKDZLJH
+	 /VQ3uZ5xsxAEwpq4ivTCHCiZuVuQQolc84M0YOShstJTP1kebwgS9UtsbOio6X+n7gDxH
+	 nC9ZUj6gLnGQeR1OcvBqJ5a9bxBCvidTA1bSQKyCpJp0gcDuzUJGrRHFYOOLguhqT99Hy
+	 g8rWmv4kVeSV0YAkgq4dhvAfNI5QBmTQvwHeGwWB3PhtmhoFaMmsPhtlB1FI7gf8FE+tK
+	 RjQANLS/7eOURCn7X0pi4d2n9VsEErTAIUYS5FlzbmGfmwMBXrqTzoMSVAjWoo+Xz/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743285;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:
 	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-HM-Tid:
 	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=VbMCdBMC51dswZ0iB2igKCow9I2aNhICTuXCg6TbMTk=;
-	b=eAIwjqbYjokw96mz32jmxBASUhrGE8cM1GLyuj3yVYkI4jNlH6zKTVEBsmzMvCSF64kS
-	 WO6TDZmKf7O4oigRahI7rg84YqccIioWYgdUb2Qtfcc5U4owNBUOvL8R8u6Xh4sorQmhZ
-	 WflPwyNumqOP0yJyPwdyHSpAVwmQfo6E2YGtdHgfi6G0SLtmj+Q/YJaICHZbv+tdGzs3w
-	 5WvPHTnggQdMEbmZ0yFpKw3GFN6nO7tNZEmF8e9ySCBfSj09IgZLLo8QaVxHZ5FrCvWNX
-	 QePnx40Rtlf8V0bXHHh5H8id2QsX7k0OJ5vDyejWTxALkEfOSIe764IrAlNvJRgjZAw==
+	bh=Q7p+k82rUA2OsopQlg7GMQsuEU8vxDLBlk9pcfSPr6U=;
+	b=1ISgwzzcpHHUdk3lhCID3m5XpFzCXjNKVm2eu9jcyb8Xz8LjUIQ/PM9sop4UU8TgxyNp
+	 3gc76yn6n5R6JQ4JR/8dCJcM8mXKaTGgfKIpYF+zji9BQQ9kBuSr/6rGbemsILcZLzZR5
+	 jgbuEyGMkzE5+8QLIpL+flepi1TaPSmOS6ppmlQdi/8GGAVifBJ8nTZcgWIl0EFz6NlvK
+	 Sz99kBy5CFFKUsKRTTjHX9ZsUuvOBD2vUIELQ+HBNk/SNUhO8VUBvgAjQYS1G6rTiNXry
+	 3Br7WmIyXGfwnBHY7gmOK74udI8jjYA9K1cXqH9+1nkzetEuByl9kFyUG6lMd4rCrbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=seu.edu.cn;
 	spf=pass smtp.mailfrom=seu.edu.cn;
-	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=dGLAnL+o;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=EAfImHd2;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F80606A896;
-	Sun, 15 Nov 2026 11:47:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5F80606A896
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0562606A33A;
+	Sun, 15 Nov 2026 11:48:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0562606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=dGLAnL+o
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=EAfImHd2
 Received: from [192.168.17.1] (unknown [124.79.98.159])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54b7e04db;
-	Sun, 15 Nov 2026 19:47:48 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54b7e04e0;
+	Sun, 15 Nov 2026 19:47:54 +0800 (GMT+08:00)
 From: Hongyan Xu <getshell@seu.edu.cn>
 To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
  Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: Simon Horman <horms@kernel.org>, oss-drivers@corigine.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net v2] nfp: flower: protect offloaded MAC lifetime and
- preserve its index
-Date: Sun, 15 Nov 2026 19:47:46 +0800
-Message-ID: <179474326638.103840.8229494258385415595@seu.edu.cn>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject:
+ [PATCH net v2] net: calxeda: disable timeout work across ring teardown
+Date: Sun, 15 Nov 2026 19:47:51 +0800
+Message-ID: <179474327156.103840.6542933288446718978@seu.edu.cn>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -57,151 +56,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa1df08f65a03a1kunmbac61c98bf77a
+X-HM-Tid: 0aa1df090a9103a1kunmbac61c98bf789
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTEtLVhoaTU0dTUIdS0wZHlYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUtNVktCTk8aTxpJS0lMTVYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VTEJVQkNVSk5CWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
 	JKVUpLS1VLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=dGLAnL+o6d+82yJlfmGp9M2uvJ31CEch04s/k9fR3K/JRsu/bV4c4krfwt1QdX2NmRfn29dLJNrNznKasVYWF9kmzWkJbqpYXhYJbpyQY9Ij2zP8NkE2MXj+xb3I43YUXINn3cW5nk1ZX1eeJWhHQ8JopEVQh28nVtkjtPC3/aM=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=VbMCdBMC51dswZ0iB2igKCow9I2aNhICTuXCg6TbMTk=;
+	b=EAfImHd2SkOF6cjcbQ9LkzQ/XfN2Wn6GW1H6vYaTOEH29uVA8x6ns9U0YfZUYKwkZ8kDxrF2vc6YHNNVo9VMTWq9DHmIGbLHhubd/OnNWDDWqjJ/ssbLuhm/H1nq4nQpDpBrbCqIyaRyepb9EZHy4C6oWOpcnsGZMLJgrwHAC34=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=Q7p+k82rUA2OsopQlg7GMQsuEU8vxDLBlk9pcfSPr6U=;
 	h=date:mime-version:subject:message-id:from;
 
-The flower offload path uses nfp_fl_lock rather than RTNL. A MAC-table
-lookup's internal RCU critical section ends before returning its entry,
-while the RTNL notifier can remove that entry and immediately free it.
+Both the watchdog and the TPS interrupt can queue timeout work. A simple
+cancel cannot exclude them during a direct MTU stop/open cycle, and
+waiting for the worker after disabling NAPI can deadlock on a second
+napi_disable.
 
-Add an rcu_head and introduce kfree_rcu() in both the deletion path and
-the add rollback path: rollback can remove an entry already visible in
-the hash. Hold an outer RCU read lock through copying the index, and
-keep the sleeping firmware-message allocation outside it.
+Initialize timeout work disabled, enable it only after ring allocation and
+NAPI initialization, and disable and drain it before stopping NAPI. Keep
+the NAPI-before-TX-disable order so neither a poll nor the recovery worker
+can wake TX after its final shutdown. Synchronize the IRQ and re-mask it
+after NAPI has stopped, and perform a final work drain before freeing
+private state.
 
-Apply the per-rule IPv6 bit to the local copy only. Writing that flag
-back into the shared index races with the notifier and breaks the
-global-index test that decides whether to release an IDA ID. The flow
-already saves the payload index for deletion, so delete retains the
-required IPv6 bit without modifying the table. Pair the snapshot's
-READ_ONCE with WRITE_ONCE at the three RTNL-serialized index updates.
+Track allocated rings and NAPI enablement explicitly, and give interface
+down and system suspend separate references on the work disable counter.
+Each path then disables once and enables once, so a concurrent suspend and
+ifdown cannot leave the recovery work disabled forever. A failed MTU
+reopen must not disable NAPI or work a second time, or free ring pointers
+left by a failed allocation.
 
 Found by the author's in-house static analysis tool.
 
-Fixes: 14690995c141 ("nfp: flower: avoid rmmod nfp crash issues")
-Fixes: 5c4f5e19d6a8 ("nfp: flower: add ipv6 bit to pre_tunnel control message")
+Fixes: 85c10f282861 ("net: add calxeda xgmac ethernet driver")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20261108105605.1668-1-getshell@seu.edu.cn/
+Link: https://lore.kernel.org/all/20260928134115.1957-1-getshell@seu.edu.cn/
 Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
 ---
 
 Discovery: found by the author's in-house static analysis tool.
 
- .../netronome/nfp/flower/tunnel_conf.c        | 26 ++++++++++++-------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/calxeda/xgmac.c | 60 +++++++++++++++++++++++++---
+ 1 file changed, 54 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
-index 46b6cda..0b1f872 100644
---- a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
-+++ b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
-@@ -188,6 +188,7 @@ enum nfp_flower_mac_offload_cmd {
-  * @ref_count:		Number of devs using this MAC address
-  * @repr_list:		List of reprs sharing this MAC address
-  * @bridge_count:	Number of bridge/internal devs with MAC
-+ * @rcu:		RCU head used when freeing the entry
-  */
- struct nfp_tun_offloaded_mac {
- 	struct rhash_head ht_node;
-@@ -196,6 +197,7 @@ struct nfp_tun_offloaded_mac {
- 	int ref_count;
- 	struct list_head repr_list;
- 	int bridge_count;
-+	struct rcu_head rcu;
+diff --git a/drivers/net/ethernet/calxeda/xgmac.c b/drivers/net/ethernet/calxeda/xgmac.c
+index a2410fb..61ffdbe 100644
+--- a/drivers/net/ethernet/calxeda/xgmac.c
++++ b/drivers/net/ethernet/calxeda/xgmac.c
+@@ -380,6 +380,10 @@ struct xgmac_priv {
+ 	char tx_pause;
+ 	int wolopts;
+ 	struct work_struct tx_timeout_work;
++	bool rings_ready;
++	bool napi_enabled;
++	bool work_disabled_down;
++	bool work_disabled_pm;
  };
  
- static const struct rhashtable_params offloaded_macs_params = {
-@@ -1136,7 +1138,7 @@ nfp_tunnel_add_shared_mac(struct nfp_app *app, struct net_device *netdev,
- 		goto err_free_ida;
- 	}
+ /* XGMAC Configuration Settings */
+@@ -1027,6 +1031,12 @@ static int xgmac_open(struct net_device *dev)
+ 	xgmac_mac_enable(ioaddr);
  
--	entry->index = nfp_mac_idx;
-+	WRITE_ONCE(entry->index, nfp_mac_idx);
- 	nfp_tunnel_offloaded_macs_inc_ref_and_link(entry, netdev, mod);
+ 	napi_enable(&priv->napi);
++	priv->napi_enabled = true;
++	priv->rings_ready = true;
++	if (priv->work_disabled_down) {
++		enable_work(&priv->tx_timeout_work);
++		priv->work_disabled_down = false;
++	}
+ 	netif_start_queue(dev);
+ 
+ 	/* Enable interrupts */
+@@ -1046,9 +1056,21 @@ static int xgmac_stop(struct net_device *dev)
+ {
+ 	struct xgmac_priv *priv = netdev_priv(dev);
+ 
+-	if (readl(priv->base + XGMAC_DMA_INTR_ENA))
++	if (!priv->rings_ready)
++		return 0;
++
++	if (!priv->work_disabled_down) {
++		disable_work_sync(&priv->tx_timeout_work);
++		priv->work_disabled_down = true;
++	}
++	if (priv->napi_enabled) {
+ 		napi_disable(&priv->napi);
++		priv->napi_enabled = false;
++	}
+ 
++	writel(0, priv->base + XGMAC_DMA_INTR_ENA);
++	synchronize_irq(dev->irq);
++	/* An in-flight interrupt may have restored the interrupt mask. */
+ 	writel(0, priv->base + XGMAC_DMA_INTR_ENA);
+ 
+ 	netif_tx_disable(dev);
+@@ -1058,6 +1080,7 @@ static int xgmac_stop(struct net_device *dev)
+ 
+ 	/* Release and free the Rx/Tx resources */
+ 	xgmac_free_dma_desc_rings(priv);
++	priv->rings_ready = false;
  
  	return 0;
-@@ -1145,7 +1147,7 @@ nfp_tunnel_add_shared_mac(struct nfp_app *app, struct net_device *netdev,
- 	rhashtable_remove_fast(&priv->tun.offloaded_macs, &entry->ht_node,
- 			       offloaded_macs_params);
- err_free_entry:
--	kfree(entry);
-+	kfree_rcu(entry, rcu);
- err_free_ida:
- 	if (ida_idx != -1)
- 		ida_free(&priv->tun.mac_off_ids, ida_idx);
-@@ -1188,7 +1190,7 @@ nfp_tunnel_del_shared_mac(struct nfp_app *app, struct net_device *netdev,
- 				return 0;
- 			}
- 
--			entry->index = nfp_mac_idx;
-+			WRITE_ONCE(entry->index, nfp_mac_idx);
- 			return 0;
- 		}
- 	}
-@@ -1212,7 +1214,7 @@ nfp_tunnel_del_shared_mac(struct nfp_app *app, struct net_device *netdev,
- 
- 		ida_idx = nfp_tunnel_get_ida_from_global_mac_idx(entry->index);
- 		ida_free(&priv->tun.mac_off_ids, ida_idx);
--		entry->index = nfp_mac_idx;
-+		WRITE_ONCE(entry->index, nfp_mac_idx);
- 		return 0;
- 	}
- 
-@@ -1234,7 +1236,7 @@ nfp_tunnel_del_shared_mac(struct nfp_app *app, struct net_device *netdev,
- 		ida_free(&priv->tun.mac_off_ids, ida_idx);
- 	}
- 
--	kfree(entry);
-+	kfree_rcu(entry, rcu);
- 
- 	return __nfp_tunnel_offload_mac(app, mac, 0, true);
  }
-@@ -1426,6 +1428,7 @@ int nfp_flower_xmit_pre_tun_flow(struct nfp_app *app,
- 	struct nfp_flower_meta_tci *key_meta;
- 	struct nfp_tun_pre_tun_rule payload;
- 	struct net_device *internal_dev;
-+	u16 mac_idx;
- 	int err;
+@@ -1713,6 +1736,8 @@ static int xgmac_probe(struct platform_device *pdev)
+ 	ndev->ethtool_ops = &xgmac_ethtool_ops;
+ 	spin_lock_init(&priv->stats_lock);
+ 	INIT_WORK(&priv->tx_timeout_work, xgmac_tx_timeout_work);
++	disable_work(&priv->tx_timeout_work);
++	priv->work_disabled_down = true;
  
- 	if (app_priv->pre_tun_rule_cnt == NFP_TUN_PRE_TUN_RULE_LIMIT)
-@@ -1441,21 +1444,26 @@ int nfp_flower_xmit_pre_tun_flow(struct nfp_app *app,
- 	 * Note that because the device is always an internal port, it will
- 	 * have a constant global index so does not need to be tracked.
- 	 */
-+	rcu_read_lock();
- 	mac_entry = nfp_tunnel_lookup_offloaded_macs(app,
- 						     internal_dev->dev_addr);
--	if (!mac_entry)
-+	if (!mac_entry) {
-+		rcu_read_unlock();
- 		return -ENOENT;
+ 	priv->device = &pdev->dev;
+ 	priv->dev = ndev;
+@@ -1830,6 +1855,7 @@ static void xgmac_remove(struct platform_device *pdev)
+ 	free_irq(priv->pmt_irq, ndev);
+ 
+ 	unregister_netdev(ndev);
++	disable_work_sync(&priv->tx_timeout_work);
+ 	netif_napi_del(&priv->napi);
+ 
+ 	iounmap(priv->base);
+@@ -1858,11 +1884,18 @@ static int xgmac_suspend(struct device *dev)
+ 	struct xgmac_priv *priv = netdev_priv(ndev);
+ 	u32 value;
+ 
+-	if (!ndev || !netif_running(ndev))
++	if (!ndev || !netif_running(ndev) || !priv->rings_ready)
+ 		return 0;
+ 
+ 	netif_device_detach(ndev);
+-	napi_disable(&priv->napi);
++	if (!priv->work_disabled_pm) {
++		disable_work_sync(&priv->tx_timeout_work);
++		priv->work_disabled_pm = true;
 +	}
-+	mac_idx = READ_ONCE(mac_entry->index);
-+	rcu_read_unlock();
++	if (priv->napi_enabled) {
++		napi_disable(&priv->napi);
++		priv->napi_enabled = false;
++	}
+ 	writel(0, priv->base + XGMAC_DMA_INTR_ENA);
  
- 	/* Set/clear IPV6 bit. cpu_to_be16() swap will lead to MSB being
- 	 * set/clear for port_idx.
- 	 */
- 	key_meta = (struct nfp_flower_meta_tci *)flow->unmasked_data;
- 	if (key_meta->nfp_flow_key_layer & NFP_FLOWER_LAYER_IPV6)
--		mac_entry->index |= NFP_TUN_PRE_TUN_IPV6_BIT;
-+		mac_idx |= NFP_TUN_PRE_TUN_IPV6_BIT;
- 	else
--		mac_entry->index &= ~NFP_TUN_PRE_TUN_IPV6_BIT;
-+		mac_idx &= ~NFP_TUN_PRE_TUN_IPV6_BIT;
+ 	if (device_may_wakeup(priv->device)) {
+@@ -1884,18 +1917,33 @@ static int xgmac_resume(struct device *dev)
+ 	struct xgmac_priv *priv = netdev_priv(ndev);
+ 	void __iomem *ioaddr = priv->base;
  
--	payload.port_idx = cpu_to_be16(mac_entry->index);
-+	payload.port_idx = cpu_to_be16(mac_idx);
+-	if (!netif_running(ndev))
++	if (!netif_running(ndev) || !priv->rings_ready) {
++		/* Drop the reference taken by suspend, even when the
++		 * interface was brought down while the system slept.
++		 */
++		if (priv->work_disabled_pm) {
++			enable_work(&priv->tx_timeout_work);
++			priv->work_disabled_pm = false;
++		}
+ 		return 0;
++	}
  
- 	/* Copy mac id and vlan to flow - dev may not exist at delete time. */
- 	flow->pre_tun_rule.vlan_tci = payload.vlan_tci;
+ 	xgmac_pmt(ioaddr, 0);
+ 
+-	/* Enable the MAC and DMA */
++	/* Enable NAPI and timeout recovery before interrupt publication. */
++	if (!priv->napi_enabled) {
++		napi_enable(&priv->napi);
++		priv->napi_enabled = true;
++	}
++	if (priv->work_disabled_pm) {
++		enable_work(&priv->tx_timeout_work);
++		priv->work_disabled_pm = false;
++	}
+ 	xgmac_mac_enable(ioaddr);
+ 	writel(DMA_INTR_DEFAULT_MASK, ioaddr + XGMAC_DMA_STATUS);
+ 	writel(DMA_INTR_DEFAULT_MASK, ioaddr + XGMAC_DMA_INTR_ENA);
+ 
+ 	netif_device_attach(ndev);
+-	napi_enable(&priv->napi);
+ 
+ 	return 0;
+ }
 -- 
 2.50.1.windows.1
