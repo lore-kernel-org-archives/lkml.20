@@ -1,69 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.207
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794709647;
-	b=UnV4RhetPJu2RXfQhlCp/8b2pIhkfraq/xzDUHx8Mnf6fiMXFmh7Yix5RoYQokfrdOMC
-	 +MGj1viOQCLyOBmwFYJUw6CAJ+cZt/fKeEanQ38310VeL1scn+RynwCHeVfxMtYiTsYCg
-	 pHWGQjsxLU114sIR7AovxmhPNsIK4ESsOVZoukcRKZeEER3EmnEtoTCd7gD7piBCvsz6p
-	 TgOOZaegQ00LH0/n540byFg/Kg0LH+ng+1lvH7unRgvvHUfFkxgr/Gp5Jda1jc0x1XBgO
-	 ec3ZeTI+CiBVEzli54ahDgBCnfIBgurmOv4fzmh1RqPzNMjR3d0Qn5Lgm4VsrV5J6cA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794709647;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YB3FOJ+gRSJ3MX0qWZZc5Mi4TxWLs6ApSSKDzuinJY0=;
-	b=1xXVIdyMW4b6pqjR8HffG8smzHNsomRfqQZC/aKs6Snyt+pcwc9HBYKoyLYdSsiwXg5y
-	 gGlUTzvRKiQAAJDFwJ+g+h2stLbYtuKaBBP2y2J914lIrf7fr0ndoj5ldypGv4mV79tgS
-	 2HeVvlQarmf1eDhiTaW/BU+TrxPDM7slePOCIrEGXsWd/Kf8xQ80cxxXQ6YlXJxSsGsJp
-	 ebaHdjWx0Ufd+SyD9i0KJkyCPFERvmKb87o4XMYPMR35g9w3m30nSDh3DWgChgk3DBtqV
-	 N90ACkV8shNughPk/CTGo3URQLxtSP2Vip3q8AL3dwVhKFWgfzCFeHjH2xOJ0gvf7oA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hYhHbtXG;
-	arc=none smtp.remote-ip=95.215.58.207
-Received: from mta1.migadu.com (out-207.mta1.migadu.com [95.215.58.207])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.161.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794709737;
+	b=lIkJlCNnLn3L1vTOIhKhscMlfDK6sqsICvMhspfqAcZntPqNYKG46BNxo1G/bE1lKwpq
+	 tWk7XssLz4vPae57VS3OLun2gIh6mQBXT5+M6q3ElMY9pXQZJ0wEALDTiZVoJZLcj644M
+	 O2NekNmnI2bhi2f2w2ByM/thqMSwaGB8IRhWrvazkyy1H6TxYFvgPHhdop7n5jFCcbWsP
+	 GJcgKAgnT/3zpiEK/WL6mXr54D8NDbkubn5wmTgQ7pNpy8lu5xzsN1FZnb0YMfJ3pnyJI
+	 BAXAK9/yN3KLSHA+kTjahZfnRejnEh1Ae/V9VF7iV2savqWFGaVwpLRL2llvBhcvHsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794709737;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
+	b=1GEaBt84sA6Dtr1nVTqLqtLega/5/SEWwKSxCvtf6UII7WyDwlaiGpNPRjCxdvv10QW4
+	 iXv+0mz6Szvwo3hfOXatMI2HQqQsF/UZqxnNSopobdegx0Ne8GEZRQ9bydqvoFL42+Vqf
+	 w/yg3HIovZT7tmbMiifNULCCdOg8acZHS9u4sRVJgppF4/fjn0bgrh7Cx3vQTqCOBglAy
+	 Es/zuZ3s/JV69SLkwIWVgrKfOmg0FjwhKHv76WeQAnhkCSrr1Bh/LXb97ZWhQ2pLSyjkH
+	 dcNBAR8OWNfwHP2v94Ee97k/cVMau9+b4y6sOIqMBgTwMmFWxUWIk2Iqkx4GTtwTINw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nbfneGYr;
+	arc=fail smtp.remote-ip=209.85.161.42
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62375606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62375606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B069606A32D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B069606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hYhHbtXG
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=k0KgbZ8KIRqFXobVQdI1EpDgbojxN/wJ2vGB/cIrI4w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794709639; v=1; x=1795314439;
- b=hYhHbtXGQBgGyveJ8DF55Zw/ijGjlZIQF5bQC44up7raecVZay06htxz9LLpw48euJmnP67J
- PolrGxRyNjnOG8EoWENbN6cDyxJHx8FodDrrgFd/tQc0GApzsTVYpqbhz2bFFvdv2OMJRYPmMbG
- IilbMPBZlB9UL1ydVSkkap4g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e138b811e0af93e6;
-	Sun, 15 Nov 2026 02:27:19 +0000
-X-Mizu-Trace-ID: e138b811e0af93e6
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Qiliang Yuan <qiliang.yuan@linux.dev>,
-	Qiliang Yuan <odys.yuan@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Ming Lei <tom.leiming@gmail.com>,
-	Wen Xiong <wenxiong@linux.ibm.com>,
-	yukuai3@huawei.com,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] blk-mq: run the hw queue synchronously for unplugged scheduler inserts
-Date: Sat, 14 Nov 2026 21:27:13 -0500
-Message-ID: <20261115022713.391768-1-qiliang.yuan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <dfa3f8d1-fa82-4c4b-91bc-e2529fbb5ddc@linux.dev>
-References: <20260930-bug-blk-mq-noplug-sched-dispatch-v1-1-ff1e49e52b00@gmail.com> <dfa3f8d1-fa82-4c4b-91bc-e2529fbb5ddc@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nbfneGYr
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-71ad1db7e31so479512eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:28:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794709736; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NW9nZSB4tdG+HoU2WGFHOvFuA6k58oRFE9JA+DUMyBQec2ExUo1OQCQ41o2ZtIV3JP
+         RvUM7H9Wi0P/ErctzS8XxPGPnt7GxfReyH9HVVjzF9ZOos5RbAZP7PqzDSXUzwzovw1g
+         4ovkUyh/0l8d3V6vXO9jXOfkAANSvo4gEXxheays0ldGHx1mPZIoCij62KEjt3eX8DGt
+         1LM20mINcqNBnp9pBCSl+5Rakcz2xOxUTfvM5Cn6pRaq5Dno7EPF+1smpTzxmjCqtWg5
+         g5KpiypZjnjR1jsh0vG0oUyykHIEXgmIkpN2mzvO93uu42soCfapnNu3ElhJ1rLm24Ua
+         II2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
+        fh=ACDTArbG5DhZPjO+l/rOITUL/rHwTW4w5q7p72gQGGA=;
+        b=fstHbv8GvoMINGJAImvWYVd3+HnOKngbe5NY9W72QeqBmVCfp5Bb+ml90Kmd3B76LA
+         uCpu/FeIx84hGAqUfbFSQ7hnPoUOJCj8mjGLyVi4hu4Kc7IijpdDd2tNtWxG6/2wPG8O
+         CsA2LgtOV8AyvIAde7zH7PMIWIE8dY8D/9eibGuVLLSifoCeBo355raodqJicjzuIBNx
+         LnujVKVZwBECZnDRf7vHeK4SSJbPyOSL3nWa5AkLbKX6zjabjymIM9MF8ELq27EChQf3
+         MQoUVKRSlfBUyPc950L+1ky2cp6x+PUji1UNW0dvZ1G8Gc7ATcThHnkjLX1eDnn/njll
+         6K/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794709736; x=1795314536; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
+        b=nbfneGYreYpMfUAFkHDdlSMQmERdv23sSDuuWJ0gzACuRP9FFyRT1YhoCeaRNHI/jL
+         GsNPvJ1lCij/s0E8/JKYBXgeOm98BmOsIqtmYEEd9Q11go5twbrwrZfHYhwsxndejGwb
+         coGSqvOT/VjRhCiU0gDbZO9XzTM9tsW8vq8oPHjV11xIHreG57Y+9SAlELikVNansz7w
+         DBfUMM01rxIJZvCOdRfWEtFTZUWi91j+FXUH6H2pFwKEpwV1o5EMLC3tREoEQjcKt6Rx
+         rQ043/klYKCRt+u1wmVY8lr65wlrxV5NKQbmiv5au+/hyPqPvinslNUx6gAjn09+GaSY
+         CHYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794709736; x=1795314536;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
+        b=LqpRrd4VzDi5bwU+t0SRe+BPHRw5oBzLSD+abpLzepV77U6czzAb9r1LpyKQVqsh3D
+         V3WkKSrx2nKVpbYhE0EYRRIZ9R2Yp/ul+VIp2Ee0PWZHUR5Fu+fOV406kh245buSHGlk
+         gb/2BMMOj8/55+Zc3XPhoEOwCoIhHCsYCJP6wCQlbFDB0EO0lYKa+PSY4rlbv1pWHSPh
+         VVZbR8sMehvA2nUpiZugdxJSrupR0BV2J9Eb7hzUECjRUwL3T0WV6fLckz73ThJ4du9v
+         sozw1s6EsICpydZdu3nXHN3q76V2cT6x6P3iunOFUFUdB/iPnyFCbjzMijZ2n+GoA+hs
+         E10w==
+X-Forwarded-Encrypted: i=1; AL+hErEefHcZXqzFAENGdpMWaZo47wqRCwKsTsg9aauoQCZ1IjpkEtpcaGCtRi8ebN0uh9ZU0+vhuUZOiZ2kfNE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yBebEek9hVVbpDJMycEK//5plFnv8SxWtJZiQmmEY4jQxQzrM
+	L+VYbL26MrjHD8vA0tGF2aYBIX8iCSrWqoI4rvuH0cYFnMTDybe0sHYrn6oujIvTXCJd3XJJQvA
+	yJgOz6lnknHCGgGdTFg5emYFl5tMZuhg=
+X-Gm-Gg: AYBFou2B0CvAJZJTT959PSqF83/owQlv7YB5VYfK2ngQt7I3oMtW0OaCOxzLVbmEjKc
+	idBkfPIlcH6Gx6Zldf91ZAcs8/HmAZhXVs7UwSfQfx7fN5bvDD7KwTLJ9do/t8v+pQMARazQuDh
+	ED9DEyDsQndJbytoszdsjXDvzz8DEJYRqqD+JCGuTznFNgAuTjXs5b2YPNcNcA+Ba77Drn085rZ
+	em+SSjRMtkf2BCJhGMDevCdcJLKo7vAv60Pw/Hi+LlD+v5RlJrmlTxIJ9PAQtyXR35hKYcFDKHZ
+	ShXxbI5esTAgz0oGpig+MSm/IAp38P7my+3U3UB3MAxphsTnTmNuKbsqOBXyCSnmiYZtu3iLJnC
+	DxcTyhHNfr2ZNaLCoMsgMkKTWS0Dr9kOLGWd57UVOeRYqAuEiUJ3m5u1y7U1XkCTv59us2Q6Khl
+	dbk6EYf+o/abqMxBb68buI6vQ+KXboxkhbJShcjKPVb5guR3SFtTriAHwpFw==
+X-Received: by 2002:a05:6820:8105:b0:6dc:7513:c06d with SMTP id
+ 006d021491bc7-7197cf12f05mr6314842eaf.50.1794709735598; Sat, 14 Nov 2026
+ 18:28:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,45 +105,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
+ <20261111225759742pwhACD8p_0GdXSYIk_Ob6@zte.com.cn> <avkT5yu3hJgi-YWb@fedora-laptop>
+In-Reply-To: <avkT5yu3hJgi-YWb@fedora-laptop>
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Sat, 14 Nov 2026 20:28:43 -0600
+X-Gm-Features: AclHuK_Ifc5tkbepMLK0d8ZgWsUZJ0Zl-dFfIWODo7gKqOHzWbB2LamABucX8Fs
+Message-ID: <CACVXFVN0Kw+jvDuZJB-XaAN3hNDd3WFvLZULJcpKrpz3qiehXw@mail.gmail.com>
+Subject: Re: [PATCH 2/4] selftests: ublk: propagate stress worker failures
+To: shao.mingyin@zte.com.cn
+Cc: shuah@kernel.org, linux-block@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Kaitao,
-
-On Thu, Oct 29, 2026 at 09:09:19PM +0800, Kaitao Cheng wrote:
-> Our customer ran fio tests with --bs=4K --rw=randwrite --iodepth=1 --numjobs=1
-> and confirmed that adding bio plugging to __submit_bio() improves performance.
+On Sat, Nov 14, 2026 at 8:07=E2=80=AFPM Ming Lei <tom.leiming@gmail.com> wr=
+ote:
 >
-> Without bio plugging in __submit_bio():
-> fio:
-> __submit_bio                              (17.16%)
->   → blk_mq_submit_bio                     (16.80%)
->     → blk_mq_run_hw_queue                 (9.97%)
->       → blk_mq_delay_run_hw_queue         (9.41%)
->         → kblockd_mod_delayed_work_on     (9.13%)
-[...]
-> With bio plugging in __submit_bio():
-> __submit_bio                                (26.94%)
->   → __blk_flush_plug                        (21.36%)
->     → blk_mq_flush_plug_list                (21.24%)
->       → blk_mq_flush_plug_list.part.0       (18.38%)
->         → blk_mq_run_hw_queue               (15.34%)
->           → blk_mq_sched_dispatch_requests  (14.55%)
-[...]
-> Adding bio plugging increased IOPS from 60,000 to 74,000 and reduced latency
-> from 12.4 µs to 9.5 µs.
+> On Wed, Nov 11, 2026 at 10:57:59PM +0800, shao.mingyin@zte.com.cn wrote:
+> > From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> >
+> > The stress tests update ERR_CODE in background subshells and use a bare
+> > wait in the parent. A worker can therefore fail while the parent still
+> > prints PASS and exits successfully. Calling _show_result() from a worke=
+r
+> > also removes backing files shared with other workers.
+> >
+> > Generalize the recovery PID collector and use it to wait for every stre=
+ss
+> > worker in the parent. Return errors from the worker helpers, leave resu=
+lt
+> > reporting and cleanup to the parent, and reset the PID array after each
+> > batch. Keep failures ahead of skips when collecting worker exit statuse=
+s.
+> >
+> > Fixes: bb2cabf23568 ("selftests: ublk: run stress tests in parallel")
+> > Reported-by: Ming Lei <tom.leiming@gmail.com>
+> > Link: https://lore.kernel.org/all/avJ0Vn9G7XhZv-XL@fedora-laptop/
+> > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> > ---
+>
+> Reviewed-by: Ming Lei <ming.lei@redhat.com>
 
-Thanks, this is the same pattern on NVMe with an I/O scheduler. Without
-the plug every request is dispatched by kblockd, with it the submitter
-dispatches the request itself through blk_mq_run_hw_queue(). This patch
-leaves __submit_bio() unplugged and runs the queue from the submitter
-for scheduler inserts, which should give the plugged profile without
-the plug.
-
-Could you run the same fio job on the unplugged kernel with this patch
-applied? Ming asked earlier whether real devices see a difference, so a
-Tested-by from an NVMe setup would help if it gets back to about 74K
-IOPS.
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
 Thanks,
-Qiliang
+Ming Lei
