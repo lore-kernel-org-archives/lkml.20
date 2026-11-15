@@ -1,61 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794752669;
-	b=2UZcGEdZH3kaQN28Y3dHkntC4UiIGCSP4wlo23o97trCenqyA/bRlBkSBlZ5TG0/ZMvN
-	 L8YKCR8Pz2rf7Hb7xtk5g69CChAId0ARIrodqqcBPC8uJzpJNJg70u3QEjyaVzfLr53/l
-	 E0nKtODQLWyBKIjpptTme+d6UHYA6oRjYq0ZMK3yUA5lI6wCRseE/VvkjUpuffYmOYemX
-	 oJViU32xkb0/7mW0hMK8k7fQjnzt8W1pmcPK8ankg140iXOOaKCI8CYvIjNCAatMeUEB6
-	 NY4+Asxsvi5hFsVeBWiiPkF5DAUh39tzGxN6peTKmmQK9yyzE4dYuIob/Q/8YblIsRg==
+	t=1794752676;
+	b=qCdjnoK9GzKwhVEmACM++5J+L2U39H0Ic8RmpG45oHIFfjjqs7jI8XGll/wigvOXkZvI
+	 x33VCzNlprdbCJ6YQyeqSKgqwa09WIs9OT5nOcQif03dihtS5MEuYMo/+6kBgl0nTYDsL
+	 IJjpW26OyC8KUoRTcaceu7A62ocPnQglfpfXiHymqGbjmapTEgbYyVY8cb/3gU8ZQ0fLT
+	 sr0Jp3ZmmZJq23IuqGP9FjhRjp6fKAHI5gHlg/VpRF+tO+FLPj0MgC5tHzpVwrvAHMo6b
+	 Go6LRn+BnBYMuYRTYLt6glg8thtAUem4mEUcDYPI9w/4T9gnvJbAVRiPgpbCDKmzvUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794752669;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
-	 DKIM-Signature;
-	bh=vcanUONDfh4UpwdX4o7Q9IMWZ0FQX/y7PhEqP7yd0GI=;
-	b=CkP9/wS7qSZXddYbnOj9scfjQ5N77loOTUYvxqUGmyWsvIamNJsrgMJZgKhRiabnX/u+
-	 BP15e83VvwQK5opkhTXfFGudyNZlMk09OKdH27coh+I7RvMZjmrMk56tLThtozXuAG01o
-	 pE3sKlQMv0lGUHQFm0AOPNg1mZ/gZtUsbxtnMj7l1Q1CmDAjiaf/PGWEtTyL1kzryDhDm
-	 aqz2hFy1Z/jJ4Orko4CdorNUwKe5/GpPpkaqwN132iG5bHzdB182f3BPI3kmAi2RNf3yH
-	 +L3aog4sdheXE+8YX9DBN8uamG0H4gKf6hHLlP4zxyOBCiNLzqhfX3KkRShAW+yxpYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794752676;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7QzzvIBZ5m85jb8a3T2vbOcaHxM8nqWRH2JKBq6oOx8=;
+	b=sMfjdAsE/cpT+JhN2xIRicTHsbIVj/HrQzSmq/piKzePy79edyJeMJXWrhLBJfQ1aS5X
+	 88d1N9YXST0/GSX+RSExSQIB0NyEngWMAv2HwW6tZ/ea9jbXpIr89G9YXCZtkRrow98xU
+	 hvBQfPS4yWEfSIID/VrIZiReXNfgXzgFOxy9G3E/WaignG62SOY8I7oFxXevRUWwuXR7R
+	 F7mKxx2uevapnoeAKgIN6HfgcRna93h4tgt7xoWyGdPuev7s+lvDck+KPH0InaWbvo7VI
+	 2pezWXrl+uFJ2MeM6FoICAsf3fOQgCShBzjl0blv9ckIboafHhikCuqF8Xgh5Llve9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=wc9by7I+;
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jxVes4fN;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1031C606A8A0
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1031C606A8A0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8F1606A8AB
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B8F1606A8AB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=wc9by7I+
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 6DBD960D6D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:24:27 +0100 (CET)
-Received: (qmail 22121 invoked by uid 990); 15 Nov 2026 14:24:27 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 15 Nov 2026 15:24:27 +0100
-From: Leonard Lausen <leonard@lausen.nl>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: leonard@lausen.nl,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	linux-wireless@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] wifi: rtw88: 8822c: filter hardware-handled control frames on SDIO
-Date: Sun, 15 Nov 2026 14:23:30 +0000
-Message-ID: <20261115142330.359247-4-leonard@lausen.nl>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261115142330.359247-2-leonard@lausen.nl>
-References: <20261115142330.359247-2-leonard@lausen.nl>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jxVes4fN
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so20251675e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:24:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794752674; x=1795357474; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7QzzvIBZ5m85jb8a3T2vbOcaHxM8nqWRH2JKBq6oOx8=;
+        b=jxVes4fNS9TSgGvlHsTT80+9II9XinvC4prossPItwxQmdIh/ly0jdC/cdyT55vVR6
+         dxr87FlrY8HaEzKWL1k6AkuqQTejZzqNuP03IkWn/1QKMcHCGusJm7Uzh90VmKNatLHN
+         /Ur+ln5v7C1S9XPfNu7fKUrI1pDdBwtHp9o72Tv8ddrZYc02/UP04z5Cj9qKvnMUiuBc
+         AKlR1i85YUHuEqLhR+nPnOGxB8gyhi3BmtQiXq42P2XoLdScRFWDqb++9b0P9t/EHP1y
+         PjbWv5kEkbF943EnXhorY4a6wJ2J69Bqn/WcjcubzUA5IRKt9NLekdoBKWqKwl/hWu6c
+         NQpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794752674; x=1795357474;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7QzzvIBZ5m85jb8a3T2vbOcaHxM8nqWRH2JKBq6oOx8=;
+        b=NT6sleVFUslZZ43u0Hqu+sI3uCcUzz70OCDaOTdHA3gL62roWfZylle4dMMPNPZrt4
+         ZEFCrZu7+ZESMC6mX7phcnRI4flomkXQ2+CxBgpsvQsrhIEpjwgmJUgD/UJKhFZuv6Dy
+         1ol/z0ACDt6s5RoPhXIm9jyMYZEJFxryicOxwazQ1tqhVY3vpNDJfMPpsZDzAZx6BuW/
+         wh6Hpu7eFpaq3m9zb0tFtfeNwhAHsPoERTxtdCKnr/ZQJbVXISd8e4Qvv7kTNLGlCcJN
+         AwxyYlLnPyFL4omjxFYgyZlZ6+JueVli6Gl1uga9ivdr0FX865v1nwuzceppxXzDvs7a
+         ejpw==
+X-Forwarded-Encrypted: i=1; AL+hErFVry8WCuSfjrMvS4fVtM+9GjFD9rR4NjQiOFZzCPvL8dDp0V5OGa1ECCWJ1ev77rFwSXNUVxrvyKQ5aCg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dKg3EhqxzudkGVhLV6JqrI0u0c+WWI8cyAOPFnbl93oRqDfhN
+	jeRuGB1iExLTDu+mFQVkInX06nmdZf/57xLwvr0oFSpIrWlHaJDIHxlJ
+X-Gm-Gg: AYBFou1AirtVBQr0/L5OCgaoBPNXyTj1aE+Nzb3I4vwiSvqgfyQuurY6s9VpRs1nAta
+	iFmzuxsIyJLr2zWAoGUYvtQHtZUM6D8KlLEgaiu0i0iqw/S/JgW+dl5+p3nR28cTsjL0NEjSl8+
+	FJOPWnWeNUmFA/ARako9WzgsxLLsNATaUC825S9YiVW8WUqfcPtKGiS/fsKV0HolVsGgF0fG824
+	IbFNUFQRuZg6g7HiqtTqGlVpZX24KQo1jm1QNzJl0QMZqBGR91sV7P2Akb831wEXmbpIefQoMaU
+	f8xKXCfjmuGJRsZHbfHOugjm4joMY47B5S4sIYRKnyavReEnybllMjcUWuJkXHTyyqVgesYhsuv
+	1ajEKnu3RTS3p3FqYNTTAEdjz4JeT58BTyQG1NSka3ig9NNh+ZXikERciLNSKXOMjfGokxMO/Zf
+	kPEhYxJFAD5fDnw/Fq43MzvWG4fWLJhIYIwi3Uji6rkPF0z3ibLpKla9h/If4SAA/vXT45r+SG5
+	BcFpuXkBigzbYFB1GuRFcJc9Nd8BxYkqFrNPV9PWeDhe7BmlW9tqLOdcJazfPVKbbAq3XN6LVCZ
+	RqjdpDrPXusqAbxPW2yW2zOisnIa9yEEipDj7YOSPbLZ0iE4r6xkMiEn2y+Inlf8yySdiIx9g2h
+	IOptHNz64WS4=
+X-Received: by 2002:a05:600c:c0c5:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4bb55a6602amr130912825e9.9.1794752673813;
+        Sun, 15 Nov 2026 06:24:33 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm318854915e9.15.2026.11.15.06.24.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 06:24:33 -0800 (PST)
+Date: Sun, 15 Nov 2026 14:24:31 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Samuel Wu <wusamuel@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Luis
+ Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, Daniel
+ Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron
+ Tomlin <atomlin@atomlin.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Alexei
+ Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, Nathan
+ Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>,
+ kernel-team@android.com, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-modules@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH bpf-next v3 0/9] kallsyms: Add KALLSYMS_QUERY_BY_NAME
+ and KALLSYMS_QUERY_BY_ADDR ioctls
+Message-ID: <20261115142431.1587690a@pumpkin>
+In-Reply-To: <20261113221248.3535369-11-wusamuel@google.com>
+References: <20261113221248.3535369-11-wusamuel@google.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,84 +117,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: -----
-X-Rspamd-Report: REPLY(-4) BAYES_HAM(-2.999999) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -5.599999
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=0TRBf06mo4IgPwGwnvbNv30x92205M3V5CcT3zrUl3o=;
-	b=wc9by7I+3JGBK/Oc6+bASwD97QqerUv6hamR6+se/F2occAtCIHswHSlIXEpapmfz9lsOW+rf2
-	GCZST68Pd0Q2D5sotV2l1bJ2N1HTJN4Sn/u6nxp1pPviQHAWl0baeDBNZJgFycwRRUDXo7IrH+gT
-	wTH7UAvbjA9+sM6FbS8qnqjOgkJaUzzfvVwWDX6ag8cX6N/MfeVVeOC2OjGIuGh6ABIyljAw0lSu
-	U1sd51T1Z+RcGQ5uLN1rslJoDsM8kWhe4OthejYNsJjIld7da36T2lhpw4qvJ4czLF2i583jFU5d
-	ld7EQBDoXTGwBNraF1P0BwyONNkUbe9NqoxzWcWo6L48UOGQJCf5Ve4+CO5Si+yWF9Q1Kxw8Q4K/
-	Irhot6hs91bKGV5RpbFpLcvx1S2BO/SYM7S/IMXy5EhvJjZ1Vfh0cO01NXDxTXrtmOk1W09E6pVy
-	YCidZt8iTwufehXAjUMkI+Qw2BU9EugERVFBwK0C8hcBxb0/VHrd/yQpntGWgR/XWHWu8CE96f8j
-	W8sUlqW42/TnMumIbw3COZgOMbCPtggB65UdtrC/xcmG2jjTMlpm7R17O2fGsHj6cZNNIRX1Wo+d
-	QDhVU/FeepyHz6jIIy3ZPzvdcGACHKCocMo/rYhIfzv90NDajnH7amjyfkuA0AmP5/B1SX1S1kY0
-	o=
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-RTL8822C forwards every control-frame subtype to the host by default.
-ACK, Block Ack, RTS and CTS frames are handled by hardware, but forwarding
-them also adds small SDIO transfers to the data path.
+On Fri, 13 Nov 2026 14:12:45 -0800
+Samuel Wu <wusamuel@google.com> wrote:
 
-Clear these four subtypes from the SDIO default RX filter. Retain BAR,
-PS-Poll and the remaining subtypes, and store the default in rxfltmap1
-so FIF_CONTROL can still request all control frames.
+> /proc/kallsyms is the primary interface for userspace to query the kernel
+> symbol table. However, resolving even a handful of symbols or addresses
+> requires reading and parsing the entire text file, which is often several
+> megabytes and takes thousands of read() syscalls.
 
-Limit the new default to SDIO, where profiling identified the overhead
-and throughput tests measured a benefit. PCIe and USB use different
-receive paths and have not been validated with this filter setting.
+Separate from this, I've wondered about separating out the /proc/kallsyms
+code from the code that actually handles the symbol table itself.
+The two parts are pretty much separate.
+IIRC it uses a static function to get the symbol type (which does most
+of the work of getting the name - which it also wants) so it isn't
+completely trivial.
 
-FriendlyElec's RTL8822CS driver also filters control frames at startup;
-this change retains additional subtypes for mac80211.
+I'm pretty sure all (well almost all) the changes will be lower down
+the file than my changes and won't cause (hard) conflicts.
 
-On RTL8822CS/NanoPi M5 at 198 MHz SDR104, this patch alone increased
-median TCP upload from 170 to 258 Mbit/s (+52%). 
+I've been compiling kernel/kallsyms.c and kernel_kallsyms_selftests.c
+in userspace for testing both, but had to cut the bottom off kallsyms.c
+to get it to compile with a sane number of definitions.
 
-A separate download test (four 30-second samples per configuration)
-measured 241 to 263 Mbit/s (+9%).
-
-Link: https://github.com/friendlyarm/rtl8822cs/blob/c8b944a34bba2116fcdb060362bde40242bb87e5/hal/rtl8822c/rtl8822c_halinit.c
----
- drivers/net/wireless/realtek/rtw88/reg.h      | 4 ++++
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 9 +++++++++
- 2 files changed, 13 insertions(+)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/reg.h b/drivers/net/wireless/realtek/rtw88/reg.h
-index afcdb66fdb9a1..8e220580be4f8 100644
---- a/drivers/net/wireless/realtek/rtw88/reg.h
-+++ b/drivers/net/wireless/realtek/rtw88/reg.h
-@@ -587,6 +587,10 @@
- 
- #define REG_RXFLTMAP0		0x06A0
- #define REG_RXFLTMAP1		0x06A2
-+#define BIT_RXFLTMAP1_BACK	BIT(9)
-+#define BIT_RXFLTMAP1_RTS	BIT(11)
-+#define BIT_RXFLTMAP1_CTS	BIT(12)
-+#define BIT_RXFLTMAP1_ACK	BIT(13)
- #define REG_RXFLTMAP2		0x06A4
- #define REG_RXFLTMAP4		0x068A
- #define REG_BT_COEX_TABLE0	0x06C0
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-index 32d9709f2c243..9c9e4f2397282 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-@@ -2096,6 +2096,15 @@ static int rtw8822c_mac_init(struct rtw_dev *rtwdev)
- 	rtw_write8(rtwdev, REG_WMAC_TRXPTCL_CTL_H  + 2, WLAN_BAR_ACK_TYPE);
- 	rtw_write16(rtwdev, REG_RXFLTMAP0, WLAN_RX_FILTER0);
- 	rtwdev->hal.rxfltmap1 = WLAN_RX_FILTER1;
-+	if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_SDIO) {
-+		/* Hardware handles these frames; retain BAR and PS-Poll for
-+		 * mac80211. FIF_CONTROL restores all subtypes for monitors.
-+		 */
-+		rtwdev->hal.rxfltmap1 &= ~(BIT_RXFLTMAP1_BACK |
-+						BIT_RXFLTMAP1_RTS |
-+						BIT_RXFLTMAP1_CTS |
-+						BIT_RXFLTMAP1_ACK);
-+	}
- 	rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1);
- 	rtw_write16(rtwdev, REG_RXFLTMAP2, WLAN_RX_FILTER2);
- 	rtw_write32(rtwdev, REG_RCR, WLAN_RCR_CFG);
+David
