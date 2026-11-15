@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794750429;
-	b=uI16O0Xvj8WjEkoyY74FvQ6nZE5RMlD7gyvoURi+Ne4arpn0zewFc1nEex+ghiWS4qI1
-	 zVp1RqumD89yakb3SZ5d63z9PYn3Mclk6O4sOdCmY/DFJk2YS1ozeoFwpOqiZOZwrhFLH
-	 wDWcDSAWK76512R59MxX1djAv1qt3S74BXZe46jlbkFZabr6Ds8AS/+/HB89yjf4ZUnlT
-	 h32Qm9GTLBM+Pw9fjfDcaEWdJ1Bvfi4w2bgPNxBScEoCG74MudaiWlEviRS/JpkFpLy48
-	 9CIUgC+MtW7L+szrRNIAx245fiKm9huapyPHsI07WIpWdpkDk92b/MKDkwU3wuHWOLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794750429;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794750566;
+	b=210dqag+Gzb/rMr+ZAKljARPg9tCe8SGa0OrDq0+C2N0k+eWgtJv3nivnbhKZL7Iclxh
+	 JOVBrEwhXq42EU1mI8Jktg57dmeq+3nRnqfTNMjCD347gSku6pxmHj6vwsupKPtHI6C1s
+	 /vuFZNuiAnjwG+k2162poJlAecX37xNznBCrncbRffCFQ8waF7yX1hzfXOEOZkXxn2f4t
+	 CNtnLDUyDKr8xVlHQAMuBH5kbEhpzjvuJTQYMk1VVl2FcX3X2Yx9zjcRfUAzp5O8PVq/Q
+	 t5R3WG9pAeeufyhAxp5CndF2QbxrV6AS0SnvICq0KG01FcWnEsz5ZWqgCn00TOcefxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794750566;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FpOG0cpnBOHBYv9UoV4Ob8nspS31qekk4WrWeis1Ouw=;
-	b=WirE8MWcRBiQU7PlBTaaVy8NhKD7oQO4vWChVEJSGFhc1p96b1100enPF/7mUguI27xm
-	 hhYFBoDANm19jSR6wqQtZkqMtuv027vniB1ZGfZQWR0GBTT00QFU68KS8qiRx3+XekcqU
-	 ei/CMDBQ09aoD/z0Eppg5O9AKvsSM5aAPZjBol02FWimeWteQFKqcr5mg2Vq8e60zp2hL
-	 steDx8/XseLqRuaCvjdRo5taAHbOeTO6A8/WoPmxxiGTHoXyFKrdL8EV+hjDditHAhBX0
-	 YV6bS2LfRj9npXjm87XOI2BNNr/9srbzzzT5ZGlvyFA2uyxK3KQm2C2f2WR3o/9ZuYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sjZ8k8T7PvKA8j8UcuMcMJQ9cW1ScO0YNNkYRf0WN3E=;
+	b=h3gq9v7sR7Hh4IxaBuJvEba+eTD5Lwtoy79GpOQYQnh/0Olk8BBUZMrFwUYmHFarrwy1
+	 dw141jddAJSa+GTiRH0DSjXVEKhKXq1LRiFEnixWCSsP148Z70QhfXwl04nd4ePMjv6WB
+	 NmKkm4oqZWMqcBucoCEOA4BONSxy2ctpghtEpQcIzUPHbKzwZFYP4Bn0cQkjMoD5vF3Fs
+	 0sR9cNkHb25AyyuxMTyvxMO+JjmKBb6idYl4MIaEW2i/k6CeSKt6gO5GEN7swSk+5h3so
+	 IwQhFieajXQBVwT8aRnGKV6JQQkK2QRy3S3gLLD1543hKa9e78srEyttLL/5fEGaXPA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aWMyaooB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VinQC1TW;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CC2606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25CC2606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C02F606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C02F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aWMyaooB
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679a2b5fe87so2557105d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:47:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794750428; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ivMZV25g39YdudxLtX2L7ZPhphpcU4XJY+mrgP8t3vP7JB71innbHwIlHriw4E4oUw
-         5FEKg2BfjKL2DhCFiwccDfe54OwrUpE7lD2EDbpal8Y+Wt89ten0lH28gbAqkeJCVdP6
-         qh8bRskWUb3eB/WM2z0pH1TTBORKxpSci7WlISIICZoseFEM5rVcFkYy07KI+I1zeAn9
-         NVreihZcqoUjh8+bCJRdfH5FIMuBJ+dYKtBWR+ZyoFs4vyPSbH+MQHKs3xdR0BAG9Jd6
-         o9PK9pbtCZ3iZ1aBZ37zRTy478l10CnprFce3q226lNr46g95qhcXYLqbhIiBqJyMxIc
-         f4cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FpOG0cpnBOHBYv9UoV4Ob8nspS31qekk4WrWeis1Ouw=;
-        fh=4Q4m63qkV5jzjMZ/weiP0Dza6E7amtIM3C5sFW0CTPg=;
-        b=V8U5YgAfKUH3JwjTncjTuxu3tjYypYdekSrmc4UC4wdzsUjcdD3GdscObait38kG0N
-         n8J0V/U2C2Beu3MpZVo5HSCMOFW+wwofiTCr7YS3zGlVQC2UfwLJ3ZraakVGE78wpO4I
-         iNBTMv1DCQ/VbeaRz+TMYJsscxSfet31B00kjIBEao5DchF5I0/XcP6vYfb61TlHTwH5
-         a/KNN+SpDfqbF4gKWbkExRyTDKi1pqiWkWtfbM/OYmMFL/kSwW/P4FVk0EylEjB/yD30
-         nrys1cla0qcH5dWBAK8lQ5y1PqQ4FHJ0nvcHhh/WVQ2Et+GvVFDy4Xvwan+MpV6JeLtp
-         s+qg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VinQC1TW
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c247f6687dcso486889666b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:49:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794750428; x=1795355228; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FpOG0cpnBOHBYv9UoV4Ob8nspS31qekk4WrWeis1Ouw=;
-        b=aWMyaooBHymqlhmmh9HmpWGiHQxNTYahKaz7UxgEAvmKiMGJJF9eMOC1+vOaHhX3/f
-         kGPN0lbRMDckE8xmhyrAbQC5mPmMhSfjI70YIo+2LqeEmi+ixQFROlfbw46G/Un8ohjS
-         vc8zcBbl3TAmuFVwAQz1YLvI7OX3tYO8IPJzVoGM9IhcGepL/55jwuvzwEjK57QHjZKD
-         TiRFSUQOxIfEB21wY9/ZSIE7KAsBOBZ5wNsbifuhRwfml7/abdCw4/ag0PjK7oDwKKB5
-         QwrrM2QLjWyKcZyW+8T+9zvDr7OKoZLJ6luVw9/868DD43vXKJt7ArOwpEFxhi2RpFNM
-         keTQ==
+        d=gmail.com; s=20260707; t=1794750564; x=1795355364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sjZ8k8T7PvKA8j8UcuMcMJQ9cW1ScO0YNNkYRf0WN3E=;
+        b=VinQC1TWx0LeaMKDlhsfSpWq3Deuy5SBZaKufwhNgIQ0oWLtJeMyeHHILvP1ivt8UD
+         bln7itfhJ5aoO7OLEJeXYYMrUksih944swOijz3EPPm0K3lka/j+xRPC/kC23zhVDmro
+         qfPZQg7YhqQI8MZqnjDOS2o+aE3XeJqVQVFIe9YIopzgV5cG5SrnxD6G4kCSY4Y2reL1
+         LtoG6Yp+SVDdE69z7mwByH5ltzVhcMyJR5tGzJaCh68cLCCJhexjDpmez9xFf5vp8E43
+         6Ij6eYpigZc3No3Imr2OAW8Nd+jTzi6LhkvdBAvTB1aeIvjmGs3wuLeKfuCGGqZuUV8w
+         /sWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794750428; x=1795355228;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FpOG0cpnBOHBYv9UoV4Ob8nspS31qekk4WrWeis1Ouw=;
-        b=iNrCp/CeqKdVPgRbO3s9xBQQQlwyS/2taQxakGdfuEZvgAph4TRiB35MLMkgB7Obod
-         ZaQ55KIA9Phu+ULoLoUWki2C+YdHY7wb4o1L5/t6Bv5nHKFY12GXeAdyXkg5a0NBT+yF
-         Ls6AFKOySmnLWdkZxF+kiU0xhBHIY25lNFP/PmRk8sDts1wJuuJVmPXSdeA5y51Nou8E
-         v7HRWmZjQcJgzljH1ouHVN+izKoP/rgntj6MjX945gnA4EjTVPlpq5ogq054sbFRbOhR
-         1Da7bfFbjIzkqX5x1UxF2hNXaQq5gLHD7xureVFOKlncNeaC00x23VFtPCmGd5rSooOz
-         MPUw==
-X-Forwarded-Encrypted: i=1; AL+hErFw0geQ4LfHbKrZwBto0i9b4xK58AbOe8lzRXyNUcopvdNz+ZZhfOl/YmEDvcSt3e+SzTPpQz69MamzVpo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Qf5XVmMJicGj09ViiKGSEZ2Ev0GXO09AnzEiiQBxdwnRRnz+i
-	FUl4Itn6VeMDZSjiyd/vWQmm/4q1HtQTiLiHD2E3N1P9EDQEMEfAN578nqQ/L/Lah3jFor1jXDi
-	Jec3ruwLMblmgqqgHZr6/KQg+lVQ59rt5FQ==
-X-Gm-Gg: AYBFou0RrOb0CsUGwPNxiNB4V9dgA2WnqtESLGmob8O7H2m8X1Wmfjk6E207JO44ckc
-	KEvkKovKEKMC3h4DOuFcFiCaR8yDaTY/p5vu7i0wc0caeXSqHV7pF7DDea8Nqzz9O7CzntvczTu
-	jS2KmFqu7F3ohQsii8Sxym8dXinDFDMvsUBndrda2FsG5GppFB8KfVhwy0legJkZSX0o08YtL1R
-	MryP2XczTyF6HeVKhZwp9gz9F+URoNerGUdhujrhlnjrGcwMDuDvidJ25MaPK3jt2Usw7ImXTOZ
-	FwMrfPT9zzg60ZEHobYn1zQiBtqh2ae/rm84u7kPDqxyrTgfYPEfB0IwEJcamv5NJ/hXjhlSfh7
-	3Ls9K/VaNAkflFXf5z8c6Uillel9kzWacr8lOwbVf8u67W8q85Ig8ghWAaTGJ2cvvw7G6WGZb6D
-	oDdCBMgF4tRm6ozFKsSfePnTeBxtLR3hkoadFOha8JJfUDqL0mQFr69zn8IcjMtEVfI7ORYepjB
-	q1gaQrBtnvmLt5heF9ekX/pXin8kEsB
-X-Received: by 2002:a05:690e:bc2:b0:67d:b309:a23d with SMTP id
- 956f58d0204a3-67db309a28emr432606d50.113.1794750428013; Sun, 15 Nov 2026
- 05:47:08 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794750564; x=1795355364;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sjZ8k8T7PvKA8j8UcuMcMJQ9cW1ScO0YNNkYRf0WN3E=;
+        b=vyRjCYbm2NYL1TcAJpYdCzah7qTaFKk/DmJ4ZFucdw+vL2ajo4xXJApZg7QXUcU3U8
+         iZxGDKUMOk9DdihYTXYMSmLuFAHheyIcFpgH1Jfy28bN0YP8g9GG5Yi3jR6g6PUKgIoV
+         oTMbYh+fAPPBoK+D9PCdwrFv+LuRNCiDCtPWEzYi4xMJOYI25QUCQ5G1r+/mDckP4Q0L
+         8PtSqODDpGtR9bbmAfH64/kvGRol5LsS8eTzJ57TSFiseDnz2tyO29ljOjcbm0YIdvhw
+         QnVdJE+R/OPyCalXU1tfqZFn+5JGQmK+oFx4xMWZa4/3WoC+NQKa5bItszotnnbngq8l
+         GNXQ==
+X-Forwarded-Encrypted: i=1; AL+hErEOD6Jq182I+cC8uBKGZnUbzUFU7i/P/zzPV4uwzn2CIqC5uMp0f9b4S1bDpXcw0zHs0ijCFxy1Qf7It18=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lxBKy4//kwlYkFLULP8Mx2IdGY9pIyvzbyygPeD3ANi+QEH+2
+	4wGV7L+SgQa8NZMokLtmhVTRnpYorao4+EzNGLkucqjMb1T4FBOyZb4K
+X-Gm-Gg: AYBFou0hgxyoBeeEHxtSz0luwSTsHcus7tNapv3OWJXnoSDFQrbDF9VZvhQjw4mY8Tp
+	DxQySsc/Z/sx+M8QJ3LaPhqgZFiPRoDWJ1ilUpOPnmwNoJohPR9K6VbvCjoGUHQoONPFRyN3PM7
+	OJZEzqBLE7KyRnoRmDm0P65gNxw08v7tn6STO0aH1hqWkVt4sDURxJDSqUmfO9KUq8KIq+ca1tl
+	TSNt2ti3LOP9YqX2XE4+irlPdULUIZ6o5EXMdN7DePr0ZTHP0scHEQYTnzL/p3hX/lt2hQWU6VJ
+	qm8TJt2lOxI55bUq3ORcumBS7nGlhPJDTyHJbCbdixNEuwUI96gILHhEgb+OosQFvt6kb4T5BTT
+	3Sva+g580WVhZ7BVdtPItmE44ajLNm5bK7D6LqdkjpknwNLc82sTcszarp0yVhnDwkIxWDGoLz1
+	Vg6tRC/7ygk+seRI27AR+MBYDTlgbY4KMq2ia85NMfP38JJhlbLgGhN/CulID24vDC3/PgmPkfq
+	zBR+AMM1R1ggajasbDRYSIhxPHgbtgcedI0zmrFQCpYm8PzZOFg+bPnc4icbmfk8M9WlG6lf1P7
+	OZVlwHs9BZooK4qpLB6FrLjHV5ovAK43mKetu55b
+X-Received: by 2002:a17:906:d542:b0:c29:d31f:7d6a with SMTP id a640c23a62f3a-c509642ad87mr549257466b.35.1794750563634;
+        Sun, 15 Nov 2026 05:49:23 -0800 (PST)
+Received: from kordpc.lan ([2a13:e746:396c:c600::8fa])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b7eb14sm314858866b.75.2026.11.15.05.49.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 05:49:23 -0800 (PST)
+From: Kordian Chmielewski <kudzo51@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	bcm-kernel-feedback-list@broadcom.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3 1/7] net: bcm4908_enet: fix the TX ring wrap
+Date: Sun, 15 Nov 2026 14:49:20 +0100
+Message-ID: <20261115134920.55329-1-kudzo51@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261113235847.517308-2-kudzo51@gmail.com>
+References: <20261113235847.517308-2-kudzo51@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,90 +105,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260821114854.12218-1-kartikey406@gmail.com> <2026092925-licorice-strode-7905@gregkh>
- <CADhLXY6t7UL9Ys65qDSBBAUzj+sQkS26xFZX3YjkFZ8ufS16wQ@mail.gmail.com>
- <CADhLXY55XwzujRCg+xgm4v4UJmfdgUQ0oihS39f3iMwFDzXTRw@mail.gmail.com> <2026101828-oxidation-squishy-51e3@gregkh>
-In-Reply-To: <2026101828-oxidation-squishy-51e3@gregkh>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Sun, 15 Nov 2026 19:16:56 +0530
-X-Gm-Features: AclHuK9Otwj5KZQGTuXt58Ob917qEckKqwNSKFzQk-AX8IyL3DHhyoRMo2Da_E8
-Message-ID: <CADhLXY4N5ia9-J7ahmnOE2i6r5w-SMZC0KiezFu0P1n7=O_xrQ@mail.gmail.com>
-Subject: Re: [PATCH] usb: gadget: u_audio: reject srate request for
- unconfigured direction
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: kees@kernel.org, pavel.hofman@ivitera.com, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+e1d0e66badecc32d45eb@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 5:24=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
->
-> On Sun, Oct 18, 2026 at 04:28:49PM +0530, Deepanshu Kartikey wrote:
-> > On Wed, Sep 30, 2026 at 1:48=E2=80=AFPM Deepanshu Kartikey
-> > <kartikey406@gmail.com> wrote:
-> > >
-> > > On Tue, Sep 29, 2026 at 6:53=E2=80=AFPM Greg KH <gregkh@linuxfoundati=
-on.org> wrote:
-> > > >
-> > > > On Fri, Aug 21, 2026 at 05:18:54PM +0530, Deepanshu Kartikey wrote:
-> > > > > u_audio_get_playback_srate() unconditionally locks and reads
-> > > > > uac->p_prm.lock/srate, but g_audio_setup() only initializes
-> > > > > p_prm.lock when p_chmask is set. On a UAC2 instance configured
-> > > > > without a playback direction, this results in acquiring a
-> > > > > never spin_lock_init()'d lock when a GET_CUR sample rate
-> > > > > request targets playback, triggering a lockdep "trying to
-> > > > > register non-static key" warning.
-> > > > >
-> > > > > Reject the request with -EOPNOTSUPP when p_chmask is not set,
-> > > > > before touching prm->lock.
-> > > > >
-> > > > > Fixes: eb3a1ce6f5ed ("usb: gadget: u_audio: Add capture/playback =
-srate getter")
-> > > > > Reported-by: syzbot+e1d0e66badecc32d45eb@syzkaller.appspotmail.co=
-m
-> > > > > Closes: http://syzkaller.appspot.com/bug?extid=3De1d0e66badecc32d=
-45eb
-> > > > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> > > > > ---
-> > > >
-> > > > How was this tested?
-> > >
-> > > I have not been able to test this since there is no
-> > > repro present in syzbot.
-> > >
-> > > I verified the fix by static analysis of the call path in the report
-> > > (afunc_setup -> in_rq_cur -> u_audio_get_playback_srate) and confirme=
-d
-> > > in g_audio_setup() that uac->p_prm.lock is only passed through
-> > > spin_lock_init() inside the "if (p_chmask)" block, so it is left
-> > > uninitialized whenever p_chmask is 0. Leading to lock splat issue.
-> > >
-> > > This patch is compile test only
-> > >
-> > > > Did you forget a Assisted-by: tag?
-> > >
-> > > Sure I will add assisted by tag
-> > >
-> > > thanks
-> > >
-> > > Deepanshu
-> >
-> > Hi Greg,
-> >
-> > Please let me know the status of this patch.
->
-> Burried with 2000+ other pending USB patches, please be patient, there
-> is no rush here as this is not affecting any real device you have,
-> right?
->
-> thanks,
->
-> greg k-h
+Sashiko's review of this patch [1] attributes one Medium point to it:
+start_xmit() still stops the queue with netif_stop_queue() when the
+descriptor at write_idx has OWN set, and poll_tx() no longer wakes the
+queue unconditionally, so a stale OWN descriptor after ifdown/ifup could
+stop the queue for good.
 
-Gentle Reminder. Please let me know the status of this patch.
+In the case the review describes, the ring is empty: start_xmit()
+returns before anything has kicked the DMA, so no TX interrupt comes
+and poll_tx() never runs. That stop could not be undone before this
+patch either; patch 3's changelog describes it. With stale OWN
+descriptors further in the ring and frames in flight, the old
+unconditional wake could undo such a stop and the new wake does not,
+until patch 3 removes the check and clears the TX descriptors when the
+ring is initialised. I left that change in patch 3 so that this one
+stays the ring wrap fix.
 
-Thanks
+The other points in that review are older than this series. Patches 3,
+6 and 7 fix three of them, and the missing TX interrupt is the question
+I asked under v2.
 
-Deepanshu
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113235847.517308-1-kudzo51%40gmail.com
