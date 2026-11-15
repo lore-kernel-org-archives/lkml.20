@@ -1,70 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794776383;
-	b=BlbrvwszrjAgDVAmn6kqe021MrTPZmSlKFGt6kj2F4wTcJQ4qrJS6btwuyqolFkxsVYr
-	 CBCBIj9xoBqTXOuJ53Xc3cqlAuwcxDfAGhM5h/GB0NB46+yQGZkqf+lPzas/NWQgH9TaC
-	 vbDjcjUw2hShpt5QeyiC/nQ1kccTIOHlXcvMkSh61TqJbhrNcU0qZIEQnM+RriZUVtLrQ
-	 AErKIJUY3DJ+RMRLro3beHJB4dPGAmG6stzazQGeFiTu32+xpQfqfH/JGSqitTHLr4Mpo
-	 +R6I7fBEKkFgXPk1VufNqKjq4cnuSyNy/qU4ESB+E8g0Q2P/vydtREqlnph3//PzuNw==
+	t=1794776391;
+	b=efYzUyyiN6zm9JZlSkfE7iDrchM7Sao2AzZWrIOiTrr6AGBR6dljxEQ5HW9rAARiaVpX
+	 EKTI3N3bgZslFGRrYTtLMlncqhKcQquyOzNRqFOUT2kSdD1gcmvJ1ks6/zADmZG0IAP3s
+	 C0BWzVZvRU9tXEEhC9T4URe4rBCpkBt67QxEYItIzERNKCCxEi2ezHKtOIpeEuiaMKq9e
+	 djQzwo8SW8YhNCcZRXIUhrRa3MQlJmR0VZxLcb8CIODqXgodWTX+dGb0oCPTyL8fzZAJq
+	 q9HIgRW2h8IC8yl1PAi+woN1bVEWYXLwkshle3OKs1S8Qm0icajLn+rdWkJI4oX6W4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776383;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=ZaEc514ihvfvk9V5+VuMh0ehlrDQX81AXtOUhrkge+A=;
-	b=vs1zyiOkz/XJ/cls2kipnH6+B2x8MPA8bUWYgD0q6M5RhtNRV2dOHc5I0UxboXVwKSWb
-	 mowPguJHaVDajsjqxCaQMOJZyP81BtjnkrA9v8oB8bDE07zcntVM8+C01/YwoUN9bkBFz
-	 acZvCE4oH4AyqDJ3UdXtLEqhKsKvXh0DUPqdO1xsz/lgqTXPUyoELMFYGJhNhTvazZKG8
-	 +fHZVDMtOgDuCcP/WHOTDdVBM7zJ+iy6JnmElkYS+3B64eULgJPBTLOwCifzYqXLoNS1j
-	 XAtTtxSxbxfHxjICRSPpsZBMMlBDfiteAfWO0W4l7wbBUWM/4M+uGqdJ7p6VlGvAb6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776391;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=VA2364/cpCnUggdKro+8A6hQCGEzXM/toJ6MBqEOOtA=;
+	b=VEiRn0ZHdsakhK30fEvuTYnpChWe0w6b6QoV1NDJqIulhKFfZhoMYVqKgL6b6xUHf5hg
+	 +cHLfFiPH+4wSe+vnnLwaXJeJjTdvIY+AFYc9JXKKjrFEPIULLV98tl53RCvY5HgydY8r
+	 LKRT1EbfKtcQgTN3xK2wAsJY1L57N6htryrDSK3vH/ikvDjCNfkmw6vV8OEMMuCgLU0Hc
+	 HLkuX0q2lZ/yu+s7lFOXDl7SpKO7iUy9wmbepHlIwNBmA15YqPzh2Z63PGyhT8FG7cDHQ
+	 LOSlYo03EV7bbJai8Xuf6Kyfp7M6IT4anyn7wsYtmuCQtMNUpj4ylpUZj1My5/w4kkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ChaNsDt+;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=byhLqDIe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825F2606A323;
-	Sun, 15 Nov 2026 20:59:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 825F2606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E868606A323;
+	Sun, 15 Nov 2026 20:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ChaNsDt+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=ZaEc514ihvfvk9V5+VuMh0ehlrDQX81AXtOUhrkge+A=; b=ChaNsDt+/6WNmwdhBfZyPGeAHN
-	lvqWX4m45CErxVseqoveA3sj9SQrqB9sUihwEWp0recnzzHJL2US2uukHEkt+hgcZGbvYGx83utaO
-	EtClqeg9GWiZy63DcFKfFTR0ZqONpOK2oYXqvebBsX4m7jErRs1B/JbW2Wrn1W8xVe5d9vTX8YZw1
-	xdCXfvaDACX47G/5PvBBhV+ij9Luh11fnYvyXgBVptACMEjU8RQhQBBAy7HR01M0mC7/ZBG/aQCli
-	LguNJ4RG/48wZZzGFujY1c5IcaOdph6hUi8Z1y1ObRgWeWCDo8eH+WjeAp5DFHWaAUVkc+7ML75k6
-	CaO8zQNA==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Igor Paunovic <royalnet026@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
- Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
- =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject:
- Re: [PATCH v2 02/11] accel/rocket: number the cores by devicetree position,
- not bind order
-Date: Sun, 15 Nov 2026 21:59:24 +0100
-Message-ID: <8bRsvcNcRhepz3nNzmBZVw@sntech.de>
-In-Reply-To: <20260922080114.44662-3-royalnet026@gmail.com>
-References:
- <20260922080114.44662-1-royalnet026@gmail.com>
- <20260922080114.44662-3-royalnet026@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=byhLqDIe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74EB1F000C4;
+	Sun, 15 Nov 2026 20:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794776391;
+	bh=VA2364/cpCnUggdKro+8A6hQCGEzXM/toJ6MBqEOOtA=;
+	h=From:Subject:Date:To:Cc;
+	b=byhLqDIegiQVqxAucl9Glj1PrPu917T1FZTNs3DV7p9HnAejAgQAbynrsCmrw7/Mm
+	 JaTzPT1MXtu7jaYqDZ1s+W3fOGw3iixNVGPUZl9yHz6YHU164bYdk7NeETPpJHqUd+
+	 I9nfdjFneqbnxYmYlKRzO9ioGQ2GRNJw8Y1h2vI3eX8IkXNz7Y5u4OJzWzCcln5Qg+
+	 +tAMDmEkriNqw40FVMLziHs8KxCSDHLlzB79Jnv6vgPeDDxXkzlhcuJyRv6PwjQH2L
+	 DXLZdPxf68lxWwnHXLohGwnnPkSn/LQI8dPlgRuZNMFM+hO6PZf5a1oqJHflx9oLcW
+	 4UW+BE6Dle7uQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH 0/3] mm: fix races between huge and non-huge faults in PFN
+ mappings
+Date: Sun, 15 Nov 2026 20:58:19 +0000
+Message-Id: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,148 +54,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOsc+moC/yXMQQrCMBCF4auUWTtgosnCqxQX6XRiRzQNmaYUS
+ u9u1OX34P07KBdhhVu3Q+FVVObUYE4d0BTSg1HGZrBn640xDqfathzTO2SMob4WLIFY0V2u7K0
+ f2RFBe+fCUbZfub//rXV4Mi3fHBzHBzCyPk97AAAA
+X-Change-ID: 20261115-huge-pfnmap-fault-races-534e626de5cc
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+ Roman Kisel <romank@linux.microsoft.com>, 
+ Saurabh Sengar <ssengar@linux.microsoft.com>, 
+ Naman Jain <namjain@linux.microsoft.com>, 
+ Michael Kelley <mhklinux@outlook.com>
+Cc: ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3985; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=xSqJJkNSDKsyFei27utb2c8SL/5Rn98AsgyN1JAUJu4=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJ+yTpFLf67/xKjee/RnzUbFI9ee7q1Xc1liUrb8eJ7q
+ xl2KPuXdZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAi+5cz/K98tov5J8OUtd5r
+ xNJ1p/LeKVpV75Ux1y6/7ZDLO2PDyU6MDJ+rxPeGbtcxrnjlevhKpfP5mhPVYc8U5UJv7XIwn8v
+ DxgMA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Am Dienstag, 22. September 2026, 10:01:05 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Igor Paunovic:
-> rocket_job_hw_submit() programs the S_POINTER registers of a core with an
-> extra bit derived from core->index, the way the vendor driver derives it
-> from the hardware number of the core. rocket_probe() sets core->index to
-> the slot the core takes in rdev->cores[], which is the order the cores
-> bind in.
->=20
-> The two agree only while the cores that bind are a prefix of the core
-> nodes in the devicetree, in devicetree order. Unbind them and bind them
-> back with a different core first, have one core's probe deferred behind a
-> sibling's, or disable a core other than the last one, and every task
-> submitted to a core whose slot is not its hardware number times out after
-> 500 ms. The reset that follows does not help, and the inference finishes
-> with wrong output.
->=20
-> Observed on an Orange Pi 5 Plus with a KASAN build, over all six bind
-> orders of the three cores: only the devicetree order ran clean. The other
-> five produced 27 to 141 "NPU job timed out". In four of them no output
-> tensor changed with the input, and the harness gave up before its first
-> measured round; the fifth got through a six-second run with 27 timeouts
-> and a wrong top-1 class. All but one of the timeouts land on the cores
-> whose slot is not their hardware number, in proportion to the tasks the
-> scheduler hands them, and in both directions of the mismatch.
->=20
-> Number the cores by their position among the core nodes in the devicetree
-> instead, which is what the hardware number is.
->=20
-> The wrong value has been assigned since the driver was added, but it only
-> reached the hardware once the extra bit was introduced, hence the Fixes
-> tag below.
->=20
-> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM sparse checkpatch
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+A driver that implements both ->fault and ->huge_fault must anticipate
+concurrent use of both.
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+concurrent with faulting, as that only holds the mmap write lock and thus
+does not exclude faulting threads stabilised by VMA lock.
 
-nits: both the commit message, as well as the comment blocks are
-excessivly long, and could be shortened a lot, if a future version is neede=
-d.
+A number of places in the code that implements huge PFN support fails to
+take this into account correctly, which this series aims to address.
 
+Generally the shape of the issue is that faulting the same empty page table
+entry can result in the ->fault and ->huge_fault handlers racing and the
+loser finding something they didn't expect.
 
-Heiko
+The fault code must tolerate this, but fails to in 3 places:
 
-> ---
-> Supersedes the standalone posting:
-> https://lore.kernel.org/r/20260905135612.7324-1-royalnet026@gmail.com
-> Same diff. The message now says the numbers come from a KASAN build,
-> corrects the timeout range to 27-141 against the raw log (it said 140),
-> says what the four failed orders showed (the output did not change with
-> the input; it said an oracle rejected the output), notes the one timeout
-> that landed on a matching core, and drops the throughput figure, which
-> was measured under KASAN.
->=20
->  drivers/accel/rocket/rocket_core.h |  5 +++++
->  drivers/accel/rocket/rocket_drv.c  | 31 +++++++++++++++++++++++++++++-
->  2 files changed, 35 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/ro=
-cket_core.h
-> index f6d7382854ca9..46ed8352a79d2 100644
-> --- a/drivers/accel/rocket/rocket_core.h
-> +++ b/drivers/accel/rocket/rocket_core.h
-> @@ -30,6 +30,11 @@
->  struct rocket_core {
->  	struct device *dev;
->  	struct rocket_device *rdev;
-> +	/*
-> +	 * Hardware number of the core: its position among the core nodes in
-> +	 * the devicetree. Not an index into rdev->cores[] - that slot is what
-> +	 * find_core_for_dev() returns.
-> +	 */
->  	unsigned int index;
-> =20
->  	int irq;
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 2bcfe4ab3c68f..7d927bb6b322d 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -157,10 +157,39 @@ static const struct drm_driver rocket_drm_driver =
-=3D {
->  	.desc			=3D "rocket DRM",
->  };
-> =20
-> +/*
-> + * The extra bit that rocket_job_hw_submit() sets in the S_POINTER regis=
-ters
-> + * is the hardware number of the core, which is its position among the c=
-ore
-> + * nodes in the devicetree: a disabled core keeps its number. The slot a=
- core
-> + * takes in rdev->cores[] is the order the cores happened to bind in, an=
-d the
-> + * two only agree while the cores that bind are a prefix of those nodes,=
- in
-> + * devicetree order. Every task submitted to a core whose slot is not its
-> + * hardware number then times out.
-> + */
-> +static int rocket_core_hw_index(struct device *dev)
-> +{
-> +	struct device_node *np;
-> +	int index =3D 0;
-> +
-> +	for_each_matching_node(np, dev->driver->of_match_table) {
-> +		if (np =3D=3D dev->of_node) {
-> +			of_node_put(np);
-> +			return index;
-> +		}
-> +		index++;
-> +	}
-> +
-> +	return -ENODEV;
-> +}
-> +
->  static int rocket_probe(struct platform_device *pdev)
->  {
-> +	int index =3D rocket_core_hw_index(&pdev->dev);
->  	int ret;
-> =20
-> +	if (index < 0)
-> +		return index;
-> +
->  	if (rdev =3D=3D NULL) {
->  		/* First core probing, initialize DRM device. */
->  		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
-> @@ -176,7 +205,7 @@ static int rocket_probe(struct platform_device *pdev)
-> =20
->  	rdev->cores[core].rdev =3D rdev;
->  	rdev->cores[core].dev =3D &pdev->dev;
-> -	rdev->cores[core].index =3D core;
-> +	rdev->cores[core].index =3D index;
-> =20
->  	rdev->num_cores++;
-> =20
->=20
+1. walk_to_pmd() asserts, without the PMD lock, that the PMD entry is not
+   huge, so a VM_BUG_ON() triggers. [ vfio-pci, nvgrace-gpu ]
 
+2. insert_pfn() treats a failure to map the PTE table as an allocation
+   failure and reports OOM, causing kernel accesses to the range to
+   spuriously fail with -EFAULT. [ vfio-pci, nvgrace-gpu ]
 
+3. insert_pmd() and insert_pud() assume a populated entry is huge and
+   compare its PFN on write fault, warning when that of a page table does
+   not match. [ mshv_vtl, drm_gem_syhmem, panthor ]
 
+This was originally reported and fixed by Eliav Farber in [0], this series
+reworks patches 1-3 of that one.
+
+Patch 4 of that series (x86 PAT encoding of huge PFN mappings) is dropped -
+it is unrelated to the above, no in-tree driver is affected by it, and it
+needs a different approach which is better pursued separately with the x86
+maintainers.
+
+All three issues were reproduced on x86-64 under QEMU using vfio-pci in
+no-IOMMU mode on an ivshmem BAR, with 6 threads faulting the same address
+in each PMD or PUD aligned range of the mapping while another toggles
+PR_SET_THP_DISABLE (note that vfio-pci had to be modified to pass the write
+flag to reproduce the third issue.)
+
+Without this series the BUG is hit immediately, with only patch 1 applied
+tens of thousands of -EFAULTs are observed within seconds, and with patches
+1 and 2 (and the vfio-pci modification) both warnings fire immediately.
+
+With the series applied 30 second runs at each of PMD and PUD size complete
+with none of the above, with or without the vfio-pci modification.
+
+[0]: https://lore.kernel.org/all/20261112051440.16140-1-farbere@amazon.com/
+
+---
+To: Andrew Morton <akpm@linux-foundation.org>
+To: David Hildenbrand <david@kernel.org>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+To: Michal Hocko <mhocko@suse.com>
+To: Alex Williamson <alex@shazbot.org>
+To: Peter Xu <peterx@redhat.com>
+To: Zi Yan <ziy@nvidia.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: Nico Pache <nico.pache@linux.dev>
+To: Ryan Roberts <ryan.roberts@arm.com>
+To: Dev Jain <dev.jain@arm.com>
+To: Barry Song <baohua@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+To: Usama Arif <usama.arif@linux.dev>
+To: Kiryl Shutsemau <kas@kernel.org>
+To: Wei Liu <wei.liu@kernel.org>
+To: Roman Kisel <romank@linux.microsoft.com>
+To: Saurabh Sengar <ssengar@linux.microsoft.com>
+To: Naman Jain <namjain@linux.microsoft.com>
+To: Michael Kelley <mhklinux@outlook.com>
+Cc: ljs@kernel.org
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Eliav Farber (2):
+      mm/memory: remove racy huge PMD assertion from walk_to_pmd()
+      mm/memory: do not report OOM if insert_pfn() races a huge fault
+
+Lorenzo Stoakes (ARM) (1):
+      mm/huge_memory: only compare PFNs of huge entries on huge fault insert
+
+ mm/huge_memory.c |  8 ++++++++
+ mm/memory.c      | 12 +++++++++---
+ 2 files changed, 17 insertions(+), 3 deletions(-)
+---
+base-commit: 5b99c3309de70337f38bd6e6998ab8335c2758e4
+change-id: 20261115-huge-pfnmap-fault-races-534e626de5cc
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
