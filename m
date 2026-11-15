@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794705891;
-	b=SEYZpnN9dl1tMYTELabVcukO1OevXRirEZzWpKJ0Z6z4LtP/+UA+ZQqci19kr7GyJC/P
-	 vHW0pwqr+8X+QeBPjmB87XFV5jFRG+aCK2mbXHJqQZ+INmn2+za8tQQlVcl/Zhf4BQiA1
-	 Us1b8ROFyzwnsPKQ8OYz1QtpPuvxeQFCAFvOc4oyXZX8OFGzy/wFg5e+hdFS2XE344+sN
-	 YhsJ1Dv3lNzI/z6mgyvK63YcRWlF4qVLtCMbC1G2QeS4pXfyUApdXth8W7fXOC5GCNG1u
-	 xaRl6RYj4i4KhJPcwyQtpY2HKH90bo8XnDQ8eoMe1f1RRpd9Q31sUwxXw+R0YoRslMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794705891;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tEMmLChOiIwNpNXHWX/4+kW3khLpcCfHhJ/NCZNzzsk=;
-	b=mHEc5xspLZGRvd4a5Tc5VsIC94k0+VHQ/G1rXbtjI1TjxiSMTLhlVJXrjA7F2jjNQ1YH
-	 Nx1j9WhHvjy473b+D/zrxZU/jN/0RbA02qOi3neH7akVkxlZCym1eLLDGQUoW8Q/W3+Fn
-	 sUxIayuVyC+w6/qROmPRMVEeqhpIlihU5177edhHZsz2QpdNwBrK6YTuJtHQ9fepmVAl2
-	 PGuVuoVfispDUcSYf4BPepJtnBQpxMZWOJqzF47xsu3AkkjU2HmGaaPxkN2ScWz6wPgg4
-	 Vidphk9JO9Ke+JZ5ptCd8myIU1qFuyYvFHwA9qkXjY5AlzkRcY9Hoo3vrck0MXEbaXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=A15tRyoM;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75A81606A323;
-	Sun, 15 Nov 2026 01:24:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A81606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794706161;
+	b=SCQUZ+y16tPw2EclmrGlln1gJu2NHtNbucW1lhi/zbJHYr8vIio3rgTEA7zjaN8t9+Pe
+	 XwxTbHqrx0QYIF7yALhfUj0+UwAM5Vt3/dZcpASgAZ2VMKiCks05f/tGg8yijh4LKNJkr
+	 VrlVTpwYsW3dsEL08jCtBmNKJLnA7UwupZNpY1DooYggl6+gQe5Zlf+rHDPJPqONF3prU
+	 +mODsbuimkw7sYF8KJI6uReELQwZllSz5N+FXLSdli6D8x867RCaPungoTZ1dcxvqk2/i
+	 Z57TjWofIyF5cfj86lRcgaB0vySbBEw8ZRVWBN3ZyvgLwdM4PwjBmnZQMAWqaJYjtaQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794706161;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2iqmL6iOJMo3g565VJI0+HoAhWzhBx4D71mFA2rHpQU=;
+	b=sHVlfNkL/GIkbZX96C3Qs5YD9JumzpGpqpK22sUS8xDg8VHymf+xofg4ekIneCNzlzW4
+	 RttQOQB8c4hjJx9mXBcIICFAEPGLoLAdk0KuIDqWRC2ixS8hlBzYGdBgWDogU7hxuHYjS
+	 bZbZRQongp5tjFL3enZWuR0UxzsPxDB7IHX1d2khPl251poVDgWshbo8dhm5wLSWViWRf
+	 YA9kcOvoWDATFDZDwK4nmcT4GtF1jLHV7jYaSjjvqwBKiHrxiRkaVNRd6iKYRI5xgQ9+r
+	 RKY/z07o6GVmiHBKohrbnSWH2vF8VpzuwIb+K9lMP+v+LuHF4vcpbHU08s4HlTRhlIw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTj7kHYb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D108E606A33F;
+	Sun, 15 Nov 2026 01:29:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=A15tRyoM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=A15tRyoMpBKbokLfYjSyqFGUCP8idsbscdEmuLEeYrORrwGYM02iOZ3WV3UqvUG3ZVtj6iTWm5fR5
-	 jd3IZDxuCrJmgMD6A4oCn+9Wpq1Emhu7fZM11m2PqlczbVhawv9UBT1/kSa+It3IAy6vt28Wq1iYWK
-	 9SJUSuQur21LNOIw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26af909dadb6-2fe35;
-	Sun, 15 Nov 2026 09:24:44 +0800 (CST)
-X-RM-TRANSID:2ee26af909dadb6-2fe35
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [198.18.0.90] (unknown[112.23.105.246])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af909daf1f-54b94;
-	Sun, 15 Nov 2026 09:24:44 +0800 (CST)
-X-RM-TRANSID:2ee16af909daf1f-54b94
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org,
-    oe-linux-nfc@lists.linux.dev
-Cc: David Heidelberg <david@ixit.cz>,
-    "David S. Miller" <davem@davemloft.net>,
-    Eric Dumazet <edumazet@kernel.org>,
-    Jakub Kicinski <kuba@kernel.org>,
-    Paolo Abeni <pabeni@redhat.com>,
-    Simon Horman <horms@kernel.org>,
-    Thierry Escande <thierry.escande@linux.intel.com>,
-    Samuel Ortiz <sameo@linux.intel.com>,
-    Samuel Ortiz <sameo@rivosinc.com>,
-    linux-kernel@vger.kernel.org,
-    yana06070@163.com
-Subject: [PATCH net-next v2] NFC: digital: fix target leak after Type 1 Tag discovery
-Date: Sun, 15 Nov 2026 01:23:15 +0000
-Message-ID: <1794705795184.22628.49502335540847234602.nfc-t1t-v2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTj7kHYb
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794706161;
+	b=wm4l7SjYmEdyYK4iSQnhFuXsppn+UPkM89sWRJqSGBCMeweNEvTJsoXm4QLJO9zIWfSn
+	 0Pjlm6R3B+mR0R6jTHLmdRbbgcALKYe+zpKXNUdmqlEkmslfizIC/juDMJ205R8lQxVIw
+	 vRNtEOnlOK3OqrrtgWzcyFZHPCMu4mQfqcZ59AejYNYRqneuV9BdK+lUyK/kxshjxtF82
+	 M3hcFxflJwIwGqcLG9TUdiHJt23eL5PyEVF90jPVRX+ejxJwkpN3PCGirRyvcv/s0RmlH
+	 M5G9xaK1iksNKAG5ttf45k6uEdUfFZtyHepTErNU6q2PugxPPfGLHp4eMF5q0GVG+PA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794706161;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2iqmL6iOJMo3g565VJI0+HoAhWzhBx4D71mFA2rHpQU=;
+	b=kvRyc//kqodMnZPaJu5Ic+G1BcKpa03z4+jMPCCFAxhDrGZqF6LFiU7iXb0zXyiDj8vH
+	 HCC8BQzxv/lLyiayW8jzVdg3aJq91uM0ur7uR0R08daGqQY22KEATC05Pa9OMekC+un6w
+	 YycmbbdblNDJbmmAg2YkirmEQOVp7oIOcaDATliHXN7fRHZ/dmghUf/ZtmtVfD+jZc8qs
+	 L+VC8irlvQaGkLCYrGbMP3EW+/T2i+9th+PO9Ayn8cXYfa6oHKvHB9fduzHhOEhOqUsDr
+	 dN7vc3hfPHYykZagvIasBltNlyIDEGapUo20EujMJUm9cKMM5pYehmc/hCB5JstKNDw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0AD281F000C6;
+	Sun, 15 Nov 2026 01:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794706161;
+	bh=2iqmL6iOJMo3g565VJI0+HoAhWzhBx4D71mFA2rHpQU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fTj7kHYbZ2k0FG6zC6fb2DcwcGsF5flCvmqS69FKgyDyB9e3Rsr0BMpoipjVLimjE
+	 +0ozCaMXjEfTTDThovC84dYBSelqh/jh4pgHGqnMDuCjyAN2kx+ajq3aUCfzHXwiEr
+	 69YxV6MvziR0bcgMsu7apaIFty+95X8EpvbEFvgscmC0VlhHOiCcVR6ZRh89n1LF/H
+	 AkDg8HMPZycLMcGb9qz6URTzFknt563mm/pvJkPFoW6+yodjluMqfVlVaj8ydzHtSr
+	 mhrPLDrErnan1ZmR4KwtdDeYMIlf14L8a73ss9A0cZq7Aean9LPMhft0zcMqX/4u8O
+	 PKO819uT+G64g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8AA7E49F10;
+	Sun, 15 Nov 2026 01:29:19 +0000 (UTC)
+From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Date: Sat, 14 Nov 2026 20:29:20 -0500
+Subject: [PATCH RFC net v4 2/8] net/iucv: do not clear SEND_SHUTDOWN to
+ send a control frame
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,75 +83,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-b4-disp-fc0634a3-v4-2-f96c506447ce@proton.me>
+References: <20261114-b4-disp-fc0634a3-v4-0-f96c506447ce@proton.me>
+In-Reply-To: <20261114-b4-disp-fc0634a3-v4-0-f96c506447ce@proton.me>
+To: Jakub Kicinski <kuba@kernel.org>, 
+ Alexandra Winter <wintera@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Hidayath Khan <hidayath@linux.ibm.com>, Eric Dumazet <edumazet@kernel.org>
+Cc: Thorsten Winkler <twinkler@linux.ibm.com>, 
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nagamani PV <nagamani@linux.ibm.com>, 
+ linux-s390@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794706158; l=4835;
+ i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
+ bh=B0pcVs5Hy8pGhGv4ssAFevhx+TtT3x9fnZV79eL5Myk=;
+ b=kjWnMMaH391XKhaNxRPLC+8ay25iNjrng9/kRN9eRWRQmvStNbnSxI61QVHQ2jaGzFhWNihNZ
+ tJl7VnQwKDxCF41/HZEENC7Bm38xDazdmgA/10wNkrzt7hnzS9UmD/V
+X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
+ pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
+X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
+ auth_id=893
+X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Reply-To: hexlabsecurity@proton.me
 Content-Transfer-Encoding: 7bit
 
-digital_in_recv_sens_res() allocates a target for an NFC-A response.
-For a Type 1 Tag, it calls digital_target_found() synchronously.
-nfc_targets_found() copies the target into dev->targets.
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-On success, rc is zero and the callback skips kfree(target).
-The original allocation is lost when the callback returns.
-Each completed Type 1 Tag discovery leaks one struct nfc_target.
+iucv_send_ctrl() allocates with sock_alloc_send_skb(), which fails once
+SEND_SHUTDOWN is set, so it clears the bit first and writes a copy of
+sk_shutdown back afterwards. recvmsg() calls it for a window update and
+the NETDEV_GOING_DOWN notifier for a FIN, both without the socket lock.
+On a socket that has shut down sending:
 
-Free the target on the exit path, also for a Type 1 Tag:
-digital_target_found() does not take ownership of the target. Keep the
-target for other tag types, whose discovery continues asynchronously.
+- A shutdown(SHUT_RD) done in between is undone when the copy is
+  written back: the call returned 0 and the socket still receives.
+- sendmsg() can find SEND_SHUTDOWN clear and send data after the SHT of
+  a shutdown(SHUT_WR) that already returned.
 
-Found during a code review of NFC-A target ownership.
+Allocate the control frame with sock_wmalloc() behind the test of
+sk_sndbuf that sock_alloc_send_skb() makes, and leave sk_shutdown alone.
 
-Fixes: 2c66daecc409 ("NFC Digital: Add NFC-A technology support")
-Suggested-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Fixes: 4e0ad3221691 ("Subject: [PATCH] af_iucv: enable control sends in case of SEND_SHUTDOWN")
+Cc: stable@vger.kernel.org # 6.18.x
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 ---
-Changes in v2:
-- Free the target on the exit path and add a comment on target
-  ownership, as suggested by Simon Horman.
+New in v4. iucv_send_ctrl() clearing SEND_SHUTDOWN is what the AI
+review of v3 3/7 is about ([4] in the cover letter), what the notes of
+v3 2/7 and 7/7 left open, and where my copy of Hidayath's sk_shutdown
+test loses its bit. v2 rewrote the function and v3 dropped that on
+Alexandra's review. This is only the part about sk_shutdown; the
+allocation that ignores sk_sndbuf for a FIN and the first SHT stays out
+(cover letter, "Not in v4"). It goes ahead of 3/8 and 4/8: the test 3/8
+adds and the wait 4/8 moves out of the socket lock both rely on the bit
+staying set.
 
-v1: https://lore.kernel.org/netdev/20261109031832.37642-1-yanxia@cmss.chinamobile.com/
+The first item, in the emulated setup: a task reads on a socket shut
+down for sending, with SO_MSGLIMIT 2 so that nearly every read sends a
+window update, and another calls shutdown(SHUT_RD). Over four runs of
+200 cycles poll() then shows no EPOLLRDHUP in 12 to 57 cycles of a run
+on net and with 1/8, and in none from this patch on.
 
- net/nfc/digital_technology.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+The wake-up the AI review describes is the one for the memory wait of
+4/8, and missing it takes two waits that overlap, so a test kernel on
+top of the series has them: the writer sleeps 1000 ms between releasing
+the socket and its wait for send memory, a window update waits 1500 ms
+in iucv_send_ctrl() ahead of its allocation, and the sk_state_change()
+that recvmsg() calls when its window update finds no room is taken out,
+as it would wake the writer. A writer blocks with the send memory full
+and SO_SNDTIMEO 8 s, shutdown(SHUT_WR) follows at 200 ms, and at 300 ms
+a recv() that owes a window update. The writer returns -EPIPE after
+1803 ms, when the reader lets go of the socket lock. With the clear and
+the restore put back around that delay it sleeps until its timeout,
+9193 ms. Without the reader the writer returns on both kernels when the
+1000 ms are over.
 
-diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
-index ae6487c10a25..62d385a49685 100644
---- a/net/nfc/digital_technology.c
-+++ b/net/nfc/digital_technology.c
-@@ -483,6 +483,7 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
- 				     struct sk_buff *resp)
+By inspection:
+- the second item of the message
+- poll() on a socket shut down both ways reported no EPOLLHUP while
+  the bit was clear
+- sock_alloc_send_skb() also returned and cleared a pending sk_err,
+  which af_iucv sets only at the end of close(), after its FIN
+- SOCK_NOSPACE is no longer set; SOCKWQ_ASYNC_NOSPACE still is, for a
+  socket with O_ASYNC
+- I have no KCSAN build: of Hidayath's reports on net-next, the 6
+  between afiucv_hs_rcv() and iucv_send_ctrl() and the 2 between
+  iucv_send_ctrl() and iucv_sock_shutdown() are on these writes
+---
+ net/iucv/af_iucv.c | 27 +++++++++++++--------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
+
+diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
+index daed2a3cfd66..92468293f7c1 100644
+--- a/net/iucv/af_iucv.c
++++ b/net/iucv/af_iucv.c
+@@ -401,26 +401,25 @@ static void iucv_sever_path(struct sock *sk, int with_user_data)
+ static int iucv_send_ctrl(struct sock *sk, u8 flags)
  {
- 	struct nfc_target *target = NULL;
-+	bool res_is_t1t = false;
- 	int rc;
+ 	struct iucv_sock *iucv = iucv_sk(sk);
+-	int err = 0;
+ 	int blen;
+ 	struct sk_buff *skb;
+-	u8 shutdown = 0;
  
- 	if (IS_ERR(resp)) {
-@@ -510,7 +511,8 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
- 		goto exit;
- 	}
- 
--	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res))
-+	res_is_t1t = DIGITAL_SENS_RES_IS_T1T(target->sens_res);
-+	if (res_is_t1t)
- 		rc = digital_target_found(ddev, target, NFC_PROTO_JEWEL);
- 	else
- 		rc = digital_in_send_sdd_req(ddev, target);
-@@ -518,10 +520,15 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
- exit:
- 	dev_kfree_skb(resp);
- 
--	if (rc) {
-+	/* Release target on error.
-+	 * digital_target_found() does not take ownership of target,
-+	 * so also release target if res_is_t1t is true.
-+	 */
-+	if (rc || res_is_t1t)
- 		kfree(target);
-+
-+	if (rc)
- 		digital_poll_next_tech(ddev);
+ 	blen = sizeof(struct af_iucv_trans_hdr) +
+ 	       LL_RESERVED_SPACE(iucv->hs_dev);
+-	if (sk->sk_shutdown & SEND_SHUTDOWN) {
+-		/* controlling flags should be sent anyway */
+-		shutdown = sk->sk_shutdown;
+-		sk->sk_shutdown &= RCV_SHUTDOWN;
 -	}
+-	skb = sock_alloc_send_skb(sk, blen, 1, &err);
+-	if (skb) {
+-		skb_reserve(skb, blen);
+-		err = afiucv_hs_send(NULL, sk, skb, flags);
++	/* Control frames go out after a shutdown too, so this is not
++	 * sock_alloc_send_skb(), which fails on SEND_SHUTDOWN. sk_shutdown is
++	 * left alone: it is read without the socket lock, and not every
++	 * caller here holds it.
++	 */
++	if (sk_wmem_alloc_get(sk) >= READ_ONCE(sk->sk_sndbuf)) {
++		sk_set_bit(SOCKWQ_ASYNC_NOSPACE, sk);
++		return -EAGAIN;
+ 	}
+-	if (shutdown)
+-		sk->sk_shutdown = shutdown;
+-	return err;
++	skb = sock_wmalloc(sk, blen, 1, sk->sk_allocation);
++	if (!skb)
++		return -ENOBUFS;
++	skb_reserve(skb, blen);
++	return afiucv_hs_send(NULL, sk, skb, flags);
  }
  
- int digital_in_send_sens_req(struct nfc_digital_dev *ddev, u8 rf_tech)
+ /**
+
+-- 
+2.56.0
 
 
