@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703506;
-	b=ihageXefE71lueHHQeWAO7AIZVsZJPQiedxbmkFJYmcgbAgiRey+nHDK2Z/h0j0jFXFk
-	 2wMn3CP03KL/ltfp7OAeLR6ujuv8mEoim66RuzrR5gBdEjhGQJtg7YgOJNxBNaXZek1wK
-	 QUrkb7FmtVeOephcj1WYmQn7TDw5svgOHq5EM5s9yNtyv6wm3aO/0Is/4pKa3fPirf8Bq
-	 X4/WaVgH0ZPQKHfZwX4Tt059LasW3tvDSkfh4HKcGRFi2OxSCzCuAkpn14ut4L6DP3Z2m
-	 ydIJEZ8gcEPx42FzpEBZOsxg00jfHN2XrAhKXJusqJ2YER8Lb8VJBM2w/5yHJDzYZMQ==
+	t=1794703507;
+	b=PqwvUisL9W150wvZQVM0LxfT7+x+Yde2UICgJ/cUkGs2MSO32tPpHpboFBX7tpLCf5CX
+	 ueFHR8uvRihbu+iARhurLvNUXTO1lMV8lO1TiokAiA2eesP9liRz7ETLeunQ9HagIAbx7
+	 lrkm0ozSIghrYbYFeF5kcYS9jSUL+Jw4DG+jvJ0FROkrPrpeFp8Wv7tshC9WY5q3XmS3b
+	 3GITbzt2PFMFuCR/n+kuD8mqFhAkyxia3YVLLLPe0x1XRoNfRDI2L9R8DziVbdkYUbedU
+	 d+FLpSlMPBKpFmbLdOMH+ZsxvcJio5COQhNr0djRLwYdeLlzane2/sQcNoK455G0G6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703506;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703507;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=p1qeezPkjYvl7m0buWilarmr+j2OC6NCeVnUky5I7Ec=;
-	b=W7LOaNbefHt2nSLFyBfBBT+Ymk3FhNDz1mSG1oz5mbjl4GY8y0rn9vmRQXCCGPDVVaTw
-	 KTVl/3riEURowI+s9Miy42YOnCdU0uuZ3lZqLzFSZlkjQSwugn3+Eaq56Y7Od7nxMvc21
-	 SHrQuZrRztYfoqhe4qMov9sEJtN9D5lDclSQ+zbHf9khRqxvqlWO8uzc3kHtDtKPPYjsU
-	 r5wfW4ueha7Tz7YGpQoby+gmlc4y69yjM4qbGBTqRx6UZIr5fPpMJKl/nSm3sRp9lq/tR
-	 pUyP5vBG1X2HhtX17xbRJPpUW/N7YMya9MzSyud5ygXY7aRI0feMlcKvaHq+NhL28jg==
+	bh=RiNYzztBiVox2P9vASzVZ5SqLcQATUvhICdg6qPjINc=;
+	b=bEvGR7IsJC8IkAVL0p2QwYghgRVywWDo91nFraBHqIUaGzVFSGfQv2J3zjh6lgJOwLf/
+	 knTMA7LCIQBgWkY5xB+NSj6LAYA+tWjqRikNQ3DKMmW1kZamBSiztEhY+T3uB8XpRAgeE
+	 0aZ/CmUlJFsz/OVD0L2anoH1ZD36AzyHW+ZHs+ezrfEztiVMykRXNDueUgzdQpzBrNX8t
+	 DAHGLisDLethz5SHfqMXLHCTMgA0rmKS1ZXk2MqTJQmPuKKbsQ4AxUKnT4s84eAA678TS
+	 uyvmELTvkv7MKqXDndYWr80mUVYN4qeCH23NglAuAyJoQ4q2xhUFuioFcGvdKyjOXGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wd70A3+b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9oIFjIp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13ADE606A323;
-	Sun, 15 Nov 2026 00:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E432606A332;
+	Sun, 15 Nov 2026 00:45:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wd70A3+b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547D91F000C5;
-	Sun, 15 Nov 2026 00:45:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9oIFjIp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23961F000C6;
+	Sun, 15 Nov 2026 00:45:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794703505;
-	bh=p1qeezPkjYvl7m0buWilarmr+j2OC6NCeVnUky5I7Ec=;
+	s=k20260515; t=1794703506;
+	bh=RiNYzztBiVox2P9vASzVZ5SqLcQATUvhICdg6qPjINc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Wd70A3+bv0aZmQ/elxnY9+B8Gdb5zZ2T+8MT97x8b2jpwba7sdix9RBhgo5wJFd/u
-	 0ZL7dD+iz69zk+ANATes9YnkytLrURvVag+CDosKM10OQGRvQJBDOMzvf8uZ/q6Bmp
-	 TBI+RwiaJUmaGAleMRXQVo2rUDEeGSrWwrIfGZqtC1ES3Mw2HJ3UzYtyPuAjwoWQLj
-	 70rMAV2CdmsnwHGCPOsc/suOiBD2aLgqMXe5MoLtaCVSDAz2R4IGqmjZFaAqTOwbyv
-	 gyKvkbwhwIwO3RqBzg/v4oA0O8Rra4qENJDC0yYFsf7JBI7yn+Iq+pWz5T9Bjz79U/
-	 Z6wnD3unudI5A==
-Subject: Re: [PATCH net-next v6 1/3] net: ethernet: mtk_eth_soc: fix the RX
+	b=B9oIFjIpjbmmPQ+cWOXhJq27CVqHZyMqMXeRl0v0fIqJUPmhOAKcHMx5KH964FbWa
+	 JytEmlvgcb06DNNDmXNvsxW/WOMXVjUudSCAK5fQ4Jtu5+GyhhihJFhh0+E5aD4LSV
+	 GaJFmAHqKaIbM1KMdJBgQ9Hq2ROYo2jjX/M5VJSWP6chZdXE+7rbkiwIJ895jBD+qN
+	 UyCp8lni+zNkBTTa+HlbEkZHOd6VH5KMo/UFGeZoJC6gVA+Z1fRzW6wT4zc+4JCPmW
+	 vqPG7LqdsN3DWUOVrzq6jos3lFVumqCw/LyUVHmGJFeJQ3aWG6CUEm0Mz5iZnjHkmp
+	 T1arq23Wx508Q==
+Subject:
+ Re: [PATCH net-next v6 2/3] net: ethernet: mtk_eth_soc: skip page_pool
 From: netdev-bot+sashiko@kernel.org
 To: sandeeph@loljews.com
 Cc: netdev@vger.kernel.org, nbd@nbd.name, lorenzo@kernel.org,
@@ -50,11 +51,11 @@ Cc: netdev@vger.kernel.org, nbd@nbd.name, lorenzo@kernel.org,
  daniel@makrotopia.org, mason-cw.chang@mediatek.com, frank-w@public-files.de,
  linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Date: Sun, 15 Nov 2026 00:45:03 +0000
-Message-ID: <179470350391.2199510.1485391861090132860@kernel.org>
-In-Reply-To: <patch-4b4c5003bcf028fafd094e719c5e910b@loljews.com>
-References: <patch-4b4c5003bcf028fafd094e719c5e910b@loljews.com>
-X-sashiko-severity: Low
+Date: Sun, 15 Nov 2026 00:45:05 +0000
+Message-ID: <179470350538.2199510.6670148874523069932@kernel.org>
+In-Reply-To: <patch-2a89212e66b84e37783e0d2ebdaa0a75@loljews.com>
+References: <patch-2a89212e66b84e37783e0d2ebdaa0a75@loljews.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,113 +68,186 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 (2) · Low: 1
 
-- [Low] The commit message for "net: ethernet: mtk_eth_soc: fix the RX"
-  gets the history and cause backwards.
-- [Low] The subject line "net: ethernet: mtk_eth_soc: fix the RX" does
-  not say what is being fixed.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] mtk_rx_alloc() (drivers/net/ethernet/mediatek/mtk_eth_soc.c)
+  now creates the page_pool only when `ring->buf_size <=…
+- [Low] The new comment in mtk_rx_alloc() and this commit's message both
+  name `mtk_max_buf_alloc()` as the fallback allocator.
+
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but
+  mtk_rx_alloc() leaks ring->data on two error paths.
+- [Medium] This problem wasn't introduced by this patch, but
+  mtk_rx_clean() calls `dma_unmap_single(eth->dma_dev, rxd1|addr64,…
 
 --
 
-net: ethernet: mtk_eth_soc: fix the RX
+net: ethernet: mtk_eth_soc: skip page_pool
 
-This patch resets dma_addr to DMA_MAPPING_ERROR at the start of every
-loop iteration in mtk_poll_rx(). Without it, a descriptor that goes to
-release_desc without a new mapping can pick up high address bits left
-over from an earlier iteration. That matters on MTK_36BIT_DMA SoCs with
-DRAM above 4 GiB.
+This patch makes mtk_rx_alloc() create a page_pool only when the ring's
+descriptor length (ring->buf_size) fits within MTK_PP_MAX_BUF_SIZE. Larger
+rings fall back to the netdev_alloc_frag() path. With the current MTU
+limits the gate always passes. It is meant to take effect with the 9K
+jumbo support that follows.
 
-> That protection was added by commit 6e0490fc36cd ("net: ethernet:
-> mtk_eth_soc: fix SER panic with 4GB+ RAM") for the MTK_RESETTING path,
-> but commit e10a35abb3da ("net: ethernet: mtk_eth_soc: fix
-> uninitialized variable") moved the DMA_MAPPING_ERROR initialisation
-> out of the loop, so it only holds for the first iteration.
+Link: https://github.com/mediatek/mtk-openwrt-feeds
 
-[Severity: Low]
-Is this history accurate? e10a35abb3da is dated 2023-09-10 and
-6e0490fc36cd is dated 2025-04-27, so e10a35abb3da came first.
-
-e10a35abb3da also does not appear to move an initialiser out of the
-loop. Before it, mtk_poll_rx() declared dma_addr inside the while loop
-with no initialiser:
-
-    dma_addr_t dma_addr;
-
-e10a35abb3da moved the declaration to function scope:
-
-    dma_addr_t dma_addr = DMA_MAPPING_ERROR;
-
-It also added the first dma_addr != DMA_MAPPING_ERROR check at
-release_desc. Later, 6e0490fc36cd replaced that check with the FIELD_GET()
-branch:
-
-    if (unlikely(dma_addr == DMA_MAPPING_ERROR))
-        addr64 = FIELD_GET(RX_DMA_ADDR64_MASK,
-                           rxd->rxd2);
-    else
-        addr64 = RX_DMA_PREP_ADDR64(dma_addr);
-
-So that branch only ever worked for the first loop iteration. Nothing
-broke it later. Could the message give the order that way?
-
-The message also does not say that this fix depends on the FIELD_GET()
-branch from 6e0490fc36cd. Both hunks touch only the declaration and the
-top of the loop, which have looked the same since e10a35abb3da. So the
-patch would apply cleanly to a tree that has e10a35abb3da but not
-6e0490fc36cd.
-
-In that tree, every descriptor reaching release_desc would hit the
-dma_addr == DMA_MAPPING_ERROR case and skip RX_DMA_PREP_ADDR64(). Its
-high address bits would then be cleared. That is the original SER
-failure, now on every iteration instead of only the first.
-
-6e0490fc36cd carries Fixes: 2d75891ebc09, so most stable trees probably
-have it already. Would it still help to name 6e0490fc36cd as a
-prerequisite?
-
-> net: ethernet: mtk_eth_soc: fix the RX
+> diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> index 6c8b039fad415..16c3e4157085b 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> @@ -2824,7 +2824,13 @@ static int mtk_rx_alloc(struct mtk_eth *eth, int ring_no, int rx_flag)
+>  	if (!ring->data)
+>  		return -ENOMEM;
+>  
+> -	if (mtk_page_pool_enabled(eth)) {
+> +	/* A page_pool hands out order-0 pages and is created with
+> +	 * MTK_PP_MAX_BUF_SIZE, so it can only back a ring whose descriptor
+> +	 * length fits.  Larger rings use the netdev_alloc_frag()/
+> +	 * mtk_max_buf_alloc() path below instead.
+> +	 */
 
 [Severity: Low]
-This isn't a bug, but the subject does not say what is being fixed.
-Something like "reset dma_addr per RX descriptor" or "keep descriptor
-high address bits on release" would be more specific.
+This isn't a bug, but mtk_max_buf_alloc() doesn't exist yet at this commit.
+The fallback below still calls the LRO-sized allocator:
 
-> With MTK_36BIT_DMA and DRAM above 4 GiB the hardware then DMAs the next
-> frame to an address that is neither buffer, and the driver passes the
-> stale contents of the untouched buffer up the stack.
+			if (ring->frag_size <= PAGE_SIZE)
+				data = netdev_alloc_frag(ring->frag_size);
+			else
+				data = mtk_max_lro_buf_alloc(GFP_KERNEL);
 
-Could the consequence be stated more directly? Before this patch, a
-stale dma_addr from an earlier iteration reaches release_desc in
-mtk_poll_rx() and goes through:
+The commit message has the same forward reference:
 
-    addr64 = RX_DMA_PREP_ADDR64(dma_addr);
+    Gate the pool on ring->buf_size <= MTK_PP_MAX_BUF_SIZE and let larger
+    rings use the netdev_alloc_frag()/mtk_max_buf_alloc() path that already
+    exists.
+
+mtk_max_buf_alloc() comes from the next patch, "net: ethernet:
+mtk_eth_soc: add 9K jumbo". That patch renames mtk_max_lro_buf_alloc() and
+sizes the buffer from ring->frag_size.
+
+Could this patch name mtk_max_lro_buf_alloc() instead, or leave the
+reference to the later patch?
+
+> +	if (mtk_page_pool_enabled(eth) &&
+> +	    ring->buf_size <= MTK_PP_MAX_BUF_SIZE) {
+
+[Severity: Medium]
+When this condition is false on a netsys v2+ SoC, ring->page_pool stays
+NULL and ring->xdp_q is never registered. XDP only runs inside the
+page_pool branch of mtk_poll_rx():
+
+mtk_poll_rx() {
     ...
-    rxd->rxd2 = RX_DMA_PREP_PLEN0(ring->buf_size) | addr64;
+		if (ring->page_pool) {
+			...
+			ret = mtk_xdp_run(eth, ring, &xdp, netdev);
+			...
+		} else {
+			...
+}
 
-RX_DMA_PREP_ADDR64() fills RX_DMA_ADDR64_MASK, which holds physical
-address bits 35:32. These bits are combined with the current buffer's
-low bits in rxd1. The device then writes received frames to the same
-offset in a different 4 GiB window. That is silent DMA corruption of
-memory the driver does not own.
+At this commit, the XDP admission checks still compare only the per-device
+MTU against MTK_PP_MAX_BUF_SIZE:
 
-The mismatched address is also passed to dma_unmap_single() later. One
-caller is mtk_poll_rx() itself, on the non-page_pool path:
+mtk_xdp_setup() {
+    ...
+	if (dev->mtu > MTK_PP_MAX_BUF_SIZE) {
+    ...
+}
 
-    if (MTK_HAS_CAPS(eth->soc->caps, MTK_36BIT_DMA))
-        addr64 = RX_DMA_GET_ADDR64(trxd.rxd2);
+mtk_change_mtu() {
+	int length = new_mtu + MTK_RX_ETH_HLEN;
+    ...
+	if (rcu_access_pointer(eth->prog) &&
+	    length > MTK_PP_MAX_BUF_SIZE) {
+    ...
+}
 
-    dma_unmap_single(eth->dma_dev, ((u64)trxd.rxd1 | addr64),
-                     ring->buf_size, DMA_FROM_DEVICE);
+Once the shared rings can grow past MTK_PP_MAX_BUF_SIZE, could an XDP
+program attach successfully and then never run? Every packet would then be
+handled as if the program returned XDP_PASS.
 
-The other is mtk_rx_clean() during SER.
+This can't trigger at this commit. Non-LRO rings have a buf_size of about
+2110, and HW-LRO rings only exist on netsys v1, where the page_pool is
+disabled.
 
-Would it be worth calling this memory corruption in the message, so
-stable and security triage can judge how urgent it is?
+The next patch, "net: ethernet: mtk_eth_soc: add 9K jumbo", changes
+mtk_xdp_setup() and mtk_change_mtu() to check the shared rx_buf_len. That
+appears to make the admission checks match this gate.
+
+Would it be cleaner to make the admission checks use the same length as
+this gate in this patch, so each step of the series stays consistent?
+
+>  		struct page_pool *pp;
+>  
+>  		pp = mtk_create_page_pool(eth, &ring->xdp_q, ring_no,
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but does mtk_rx_alloc() leak
+ring->data on the error paths right after this?
+
+		if (IS_ERR(pp))
+			return PTR_ERR(pp);
+	...
+	ring->dma = mtk_dma_ring_alloc(eth,
+				       rx_dma_size * eth->soc->rx.desc_size,
+				       &ring->phys,
+				       rx_flag == MTK_RX_FLAGS_NORMAL);
+	if (!ring->dma)
+		return -ENOMEM;
+
+Both paths return with ring->data allocated and ring->dma still NULL. The
+cleanup through mtk_start_dma()->mtk_dma_free()->mtk_rx_clean() only frees
+the array when both pointers are set:
+
+mtk_rx_clean() {
+	...
+	if (ring->data && ring->dma) {
+		...
+		kfree(ring->data);
+		ring->data = NULL;
+	}
+	...
+}
+
+The next mtk_rx_alloc() then overwrites ring->data. So each time ndo_open
+fails at either step, the old array of rx_dma_size pointers is lost.
+
+[Severity: Medium]
+This is a pre-existing issue, but now that the page_pool decision is made
+per ring, should mtk_rx_clean() follow it too? It unmaps every live RX
+buffer unconditionally:
+
+mtk_rx_clean() {
+	...
+			dma_unmap_single(eth->dma_dev, ((u64)rxd->rxd1 | addr64),
+					 ring->buf_size, DMA_FROM_DEVICE);
+			mtk_rx_put_buff(ring, ring->data[i], false);
+	...
+}
+
+For page_pool rings, the pool owns the mapping (PP_FLAG_DMA_MAP), and
+rxd1 holds page_pool_get_dma_addr(page) + MTK_PP_HEADROOM from
+mtk_page_pool_get_buff().
+
+Doesn't this unmap an offset address with ring->buf_size, and then have
+the pool unmap the same page again with PAGE_SIZE when it is destroyed?
+With CONFIG_DMA_API_DEBUG this would be reported. With an IOMMU or swiotlb
+bouncing, it could corrupt the mapping state.
+
+mtk_rx_put_buff() already checks ring->page_pool to decide how to free the
+buffer. Should dma_unmap_single() be skipped under the same condition?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/patch-4b4c5003bcf028fafd094e719c5e910b%40loljews.com
