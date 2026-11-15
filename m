@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794723921;
-	b=CkfapwYEuzwmzchYtbJkH/mc5s7ubNcvNJUlAKKEcCgSe2pNa4+J8K+QMvcKCpfkyG8W
-	 TumOmb6Z4AEfegwyyJdoK/SnL2jGwAMHgBTqJt8ljOHh1W2CdcrcdbpoIfLwaJbxgSn3B
-	 SQnZ6faQjKQlFEy7z6Jf34jawgdrBGFI6bY1zp77NwYP8lZZyCgLIORQ6KhLU1t6irMEb
-	 vPE5rr0agUtRvkzFu2ZgTdk/G3vwUnDQKYvWn4h9jelrqAeF3BOdTy9Fq9RdiLdht7mj1
-	 v3pPMcMtYV6UdzHPeNJjkHU4I/lua/WaOtLg69erUsuzkZmL7FLNT0GrQqFuSZOqg9g==
+	t=1794723998;
+	b=0p7vAmga+EL4JDuGrmpFiocEPa6Y611OJiQoLyplq3jV16sbtX5hPn7lCwQ5e+oq+MpW
+	 UVP2sfbYFFw2+rAtbGW6CT3g75Fueb+jGMnPsDukIUfuRuEH03Hr4YL+mqurcRTOcIMO9
+	 XVUlTJoWhtVxpYG+l77oVDlHSmwRY3kqZDyrhW/pydjzBl3IRJzEgAccZdRFyl9AeAQDB
+	 L4zZtrZfdqSqDE8N+Rxpmep4l36PyuSENuujAnXTasMf/RpjROzpavv0qkvm+Hqfe1WKC
+	 bkyYfcb3SP15zOK6GhWG3GkE3gYez23R8JTtSb5z4fScYQo5bKcWV1sH8738Um7PmLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794723921;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lEaSEP13YLWe51FMjtntpG8dRQe2g/kyEyc8pzUoiFw=;
-	b=1RCr4lbA+EAQjKsyDbUBvmw5G2aslYCvIJxVDi8cNmdZzstW6Ea0VQbMaDcIsegglNF7
-	 LWUSM6w4WY36kcj/iUy5QWTNmxGRu/iBBZkpgHKlcjFU+5ui0kdKFNKb7MsHqa6S9Crbj
-	 v52/jNe1O3FjS7n/bLLz74jLujbQKfKpo/oXy2cH3WEW30SvSlFVUQQg2ZfIZ+BuqOr40
-	 MmPBHPeTR76qco62SpuPrsmuLbpHnIUgN5ZYUC1FNBtlcM0hoVZ6aX5Dub63MVyn4FxcY
-	 bCUBva/ia0tExKGdLk3t1/OCChafa3aGjJED40rbhaynNgVLWc6MTCO0ky0I2Sgj5zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794723998;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=tidyCoyZe7LKo8H4SlVqrvVHfH/8nEUqM91aapDHdu0=;
+	b=WNBkcpxFqtWFGuQjDThSIAEeF4hDtE1K+nwxH8dOMf9P/pt2SETHIB6HnWmeIkdptpfP
+	 30KrokSNO+gJlythB3/+JbHuePoUegV0uRfVKjDKYotAN/q0E15S0OM9xC08k0JhausMY
+	 NDm0JuivL7SjhTOUl7QeyWCjOwf2O0vtQRJnD4DgaKbITF5JdnYmi2KIsBZgxL6Ngq5vM
+	 zzVmRj4BPzWWPOrLCQcq3Qi3lPO7N0/KOdAsy0/n1JTyBPvY377eT+l76UVujfqK5b1lM
+	 HQpWvz9whAowLNrLOOtt2b2mAbW1w11/+OZCdd1PLGtw8tKO66BTEKZyMV5KoH+yf9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AavXM6Yk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8005D606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AavXM6Yk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF4D1F000C4;
-	Sun, 15 Nov 2026 06:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794723921;
-	bh=lEaSEP13YLWe51FMjtntpG8dRQe2g/kyEyc8pzUoiFw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AavXM6Yk7OJjSS6Cg4Ku/zzm9o1X4YoPkfD+AcwWB1QxqSrxC1gktsQJ1Rs2eNEQ7
-	 nnq7u74xgwddKK4YHO3/83ss0J3vVmnbjdojuIsxCg+WFncEJ0EcjGYBb/SLvV+Dwn
-	 ALRATQTsJbe2B1hahH7CF970lxSvYjCtl7McxD2uyl2WLoMWM+fcO5WA6ArGHZ4t1P
-	 YcNoG1fsGC9Sa+ohJtgYTo5FPM68VTWZhGufs9w8L6/cMTIcheLiPRh9XLbOA8R21b
-	 JKH13cdPfuZo7MZjI6jNqL1FTJgofl7tffuT65lEaH9O6f6lkZFUS+oCAyYVQEmiHz
-	 Ot3OxWEQG5wYA==
-Date: Sun, 15 Nov 2026 08:25:13 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
-Cc: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/9] x86/mm/pat: don't warn about W^X violations before
- mark_rodata_ro()
-Message-ID: <avlQSfsHJoU6_BwY@kernel.org>
-References: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
- <20261112-fixes-x86-v1-5-791adb8d6670@kernel.org>
- <avYzmyX5eR814o5L@eldamar.lan>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8686606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8686606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-568249fbf5eso2928739b6e.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:26:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794723996; x=1795328796;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tidyCoyZe7LKo8H4SlVqrvVHfH/8nEUqM91aapDHdu0=;
+        b=bx7s6ILakquxVxdEXoclKoTUve0eYVFtsMIzHAy+qG6BhuTYBYqonISyCK2bMhw724
+         BSMzODly3w/9TrrURGFGzhgoQliGWw0Y+Iw44gNEXIa1gDo8yXqaHY9Zw4eznJvMpOLN
+         acoEOY7ryKTbFUO2EK5Zl8f9Ei01zTTnAxCzh3pZVQbIbfVi8N1vBTTF2w1b4THf27wy
+         txNh8R8N69sNXCosmRSvTD0XeS2cdY9kyx7Lg3pBq0w/UVSeJmvOh9OYJ93/7hDTQs8X
+         Zl2+NFd2PJe7ggg/sXQxKVho8+KawfolMmnjjWIoQMkwl2PbiqhHy+B/nGy83Q+9eXnv
+         +S9A==
+X-Forwarded-Encrypted: i=1; AL+hErGLnSUg1EZmnI7m9bBsyu0zJBfCLelPDO9SmWuQOmmj8nUxTrjyklMtcc1TX6vWO3p5OLBTcA+5qDE/sFc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9X+92eAqI8CUHbGBMJdMlw8BMWUoM7ChJbJEYckSQZTq7Ro8TO
+	bl60xg3S4xGTFs8ov0iUIluiPqxVQt6v96XPDU4IucjN5nUVO9KqrYXsct02hKFAJTiicjsP1oK
+	ZrK/aWNK4fnO/1Kzv9ZJWzBVw5GaWuD3SCXBA6/HuGRl+z8e+itqUsrTYeRc=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,88 +58,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avYzmyX5eR814o5L@eldamar.lan>
+X-Received: by 2002:a05:6808:17a1:b0:4d6:9222:99f7 with SMTP id
+ 5614622812f47-56e64ce3fa5mr6534838b6e.55.1794723996655; Sat, 14 Nov 2026
+ 22:26:36 -0800 (PST)
+Date: Sat, 14 Nov 2026 22:26:36 -0800
+In-Reply-To: <6a1694a9.17ccd394.1fa6b8.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af9509c.07d0a7c9.39b765.0026.GAE@google.com>
+Subject: Re: [syzbot] [io-uring?] WARNING in io_wq_put_and_exit (2)
+From: syzbot <syzbot+b0d54b9e81de55179e47@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, elzeigel@gmail.com, io-uring@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kernel@vger.org, syzkaller-bugs@googlegroups.com, tom.leiming@gmail.com, 
+	zcgao@amazon.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Salvatore,
+syzbot has found a reproducer for the following issue on:
 
-On Thu, Nov 12, 2026 at 10:46:03PM +0100, Salvatore Bonaccorso wrote:
-> Hi Mike,
-> 
-> On Thu, Nov 12, 2026 at 06:31:10PM +0200, Mike Rapoport (Microsoft) wrote:
-> > The kernel text is mapped RWX until mark_rodata_ro(), so W^X violations
-> > that verify_rwx() detects before that can be false positives.
-> > 
-> > CHECK_WX is enabled by default with STRICT_KERNEL_RWX and it reports
-> > mappings that remain W+X after mark_rodata_ro().
-> > 
-> > Drop the warning about W^X violations before mark_rodata_ro().
-> > 
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  arch/x86/mm/pat/set_memory.c | 18 ++++++------------
-> >  1 file changed, 6 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> > index a1bea16a3c3bb..a674433850dc9 100644
-> > --- a/arch/x86/mm/pat/set_memory.c
-> > +++ b/arch/x86/mm/pat/set_memory.c
-> > @@ -718,21 +718,15 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
-> >  	if (!rw || nx)
-> >  		return new;
-> >  
-> > -	end = start + npg * PAGE_SIZE - 1;
-> > -
-> >  	/*
-> > -	 * If the kernel text is still RWX, gently complain, this could be a
-> > -	 * false positive.
-> > -	 * Once debug_checkwx() becomes mandatory for CONFIG_STRICT_KERNEL_RWX,
-> > -	 * the warning can be removed completely.
-> > +	 * The kernel text is RWX until mark_rodata_ro() and the entire kernel
-> > +	 * page table is verified after the text is protected, so there is no
-> > +	 * need to warn.
-> >  	 */
-> > -	if (!kernel_set_to_readonly) {
-> > -		pr_warn_once("CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
-> > -		  (unsigned long long)pgprot_val(old),
-> > -		  (unsigned long long)pgprot_val(new),
-> > -		  start, end, pfn);
-> > +	if (!kernel_set_to_readonly)
-> >  		return new;
-> > -	}
-> > +
-> > +	end = start + npg * PAGE_SIZE - 1;
-> >  
-> >  	WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
-> >  		  (unsigned long long)pgprot_val(old),
-> > 
-> > -- 
-> > 2.53.0
-> 
-> Does this need to carry a 
-> 
-> Fixes: ea6fd393cb9e ("x86/mm/pat: Use pr_warn() for early W^X warnings")
+HEAD commit:    aacb77975041 Merge tag 'ovl-fixes-7.4-rc3' of git://git.ke..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1105ee3d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
+dashboard link: https://syzkaller.appspot.com/bug?extid=b0d54b9e81de55179e47
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1093cb69580000
 
-No, that commit actually relaxes how W^X violations are reported during
-early boot.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+b0d54b9e81de55179e47@syzkaller.appspotmail.com
 
-And this patch removes the warning only because there is an earlier commit
-that forces the check of W^X consistency that was optional previously.
- 
-> ? 
-> 
-> On a system booted into 6.12.117 (from 6.12.116) I see:
-> 
-> [    1.091378] ------------[ cut here ]------------
-> [    1.092538] CPA detected W^X violation: 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 - 0xffffffffc0477fff PFN 109c1f
-> [    1.093994] WARNING: CPU: 5 PID: 222 at arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
-
-Please see my reply to your regression report.
-
-> Regards,
-> Salvatore
-
--- 
-Sincerely yours,
-Mike.
+------------[ cut here ]------------
+time_after(jiffies, warn_timeout)
+WARNING: io_uring/io-wq.c:1482 at io_wq_exit_workers io_uring/io-wq.c:1482 [inline], CPU#0: syz-executor273/6014
+WARNING: io_uring/io-wq.c:1482 at io_wq_put_and_exit+0x372/0x9d0 io_uring/io-wq.c:1511, CPU#0: syz-executor273/6014
+Modules linked in:
+CPU: 0 UID: 0 PID: 6014 Comm: syz-executor273 Tainted: G S                  syzkaller #0 PREEMPT(full) 
+Tainted: [S]=CPU_OUT_OF_SPEC
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+RIP: 0010:io_wq_exit_workers io_uring/io-wq.c:1482 [inline]
+RIP: 0010:io_wq_put_and_exit+0x372/0x9d0 io_uring/io-wq.c:1511
+Code: 00 00 0f 85 7d 05 00 00 48 8b 15 e9 74 8a 0a 4d 89 e7 31 ff 49 29 d7 4c 89 fe e8 f9 fd d7 fc 4d 85 ff 79 aa e8 4f 03 d8 fc 90 <0f> 0b 90 eb 9f e8 44 03 d8 fc 4c 8d 63 08 48 b8 00 00 00 00 00 fc
+RSP: 0018:ffffc90003abfb10 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff888038fb1000 RCX: 0000000000000000
+RDX: ffff88802b0d2580 RSI: ffffffff85367db1 RDI: 0000000000000007
+RBP: fffffbfff1f81e50 R08: 0000000000000000 R09: ffffffffffffd785
+R10: 0000000000000001 R11: 0000000000000000 R12: 0000000100001f9b
+R13: 0000000000000064 R14: ffff888038fb1018 R15: ffffffffffffd785
+FS:  00007f00678c46c0(0000) GS:ffff88812246c000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffe270457d0 CR3: 0000000023abe000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ io_uring_clean_tctx+0x117/0x180 io_uring/tctx.c:261
+ io_uring_cancel_generic+0xa9e/0xb00 io_uring/cancel.c:771
+ io_uring_files_cancel include/linux/io_uring.h:52 [inline]
+ do_exit+0x344/0x2a00 kernel/exit.c:920
+ __do_sys_exit kernel/exit.c:1090 [inline]
+ __se_sys_exit kernel/exit.c:1088 [inline]
+ __x64_sys_exit+0x42/0x50 kernel/exit.c:1088
+ x64_sys_call+0x156c/0x1570 arch/x86/include/generated/asm/syscalls_64.h:61
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f00678f9a99
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f00678c3fd8 EFLAGS: 00000246 ORIG_RAX: 000000000000003c
+RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f00678f9a99
+RDX: 00007f00678f9086 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: 00007f00670c3140 R08: 0000000000000000 R09: 0000001000000008
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f00670c3004
+R13: 00007f006796b0e5 R14: 0000000000000006 R15: 00007f00678c40e0
+ </TASK>
