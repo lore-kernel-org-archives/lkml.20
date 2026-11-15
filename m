@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794745208;
-	b=hf5T5BVKm1Tm8H/JvbwBBlXtA28DIZWFPP6NwdBYajdWKvuTPoc5QkMUIhY6l6rakw/g
-	 fHAG5Htt/pqdeHBifCEScvZO5yYhm1Fk3Vz1M35PDUUm1mAQ40+NWJDAd5Df9H+hEfJS2
-	 tLzWjGwk6btUQTwzon1YwXLhaGHZApgEwXJGg4mOF1+U/pnrgh6nOWeqYHepcs2eHwJRI
-	 emju6RHl8SiHuOwzm2sfOcpZuMXspSHaiOZYxQCn8VNk6YQwlyYgB6FBZOtavK2Zg5O3T
-	 fXbMhf7v2JlXIVuuIBxFhyNqaTYUDRcnfRL5zHWNlMUZ3TgbHQwMoEHCEjp1N0Boi7w==
+	t=1794745297;
+	b=vsNCzgDZSxqgEoR6VTD/fxqaRtlwQn3/19Jsdu4OT9hj7Y4cd8JGPLmhWsBD52+96Zy2
+	 kKe+/uCZAhKHYRVQRPZEqMwT6eyuXFwfhiS9LTFoAVHQt83iZKQVRMEgX2+Bh4OnqoGiz
+	 1YxufyFL3v4yZPnbp6Sysa7/4J3v4Q8Re2tpw/JAwtPIfVqaKoG6Jx6w8acu/uiylzzaH
+	 y4dT7ZqZ5r6uBLRCIv5lMRDwvnPJH4WmsUAC4KCagtnO784vfdd3m7bOi7XleNcBklhBU
+	 WRrNSHFt618LN9PFJK6LU53ysqKMBvqGfjWNgJl7SInJcerDtxl4Ptw/ZZ9r3CF2lqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794745208;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794745297;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=wM9X+iy5MCRcwM8plfZFoLTKyrt2bxDseelvnwrZu18=;
-	b=pfjRFmapuJlE50gqMnYIsNPlMdjsxtuPor0zevlFNA4CTxB0csg2Rogv7iQPd3Vg7vjb
-	 681+TXZ5hHWljGVWY3E8Tqoy0LyZR5bc+Gs+H5AK3/ojwrrSJXRQBh4ArgiuP9BkbwNYs
-	 ZIsrAG9dkyAJsL3qWayk9Exf+Kbe4W+pA30KN0VoFDLkmUAEc8Oev2TNN2XTMUkFoNuJN
-	 nf+9NVQ4MG2JBCUYWjD8GSVq3p++5vIwaimVJbjCW5fTpnqmKGfcdAXdF6CZ4N9KrCusC
-	 eXQ4IRDw6STHSfxALb4GF7UoLig47sU28+VibkWfPBqiJJyCi+StKYD0XSqTj1hoDnw==
+	bh=JHGMhIDfe6WAYWe+FkSfHWLhXPJoptf+ba9HCbYyk88=;
+	b=0EFT2Ma34pm1AH5k02gMoKfErWmwCSsCk8W61g/WzMrc9/t3v9E2T/GBs+dELwWZrRR3
+	 Et/qCDdFobVIrEqOHR4xq1EuxUieqTapvy2WipFE18ytztNpRUrBGvjbU09D0WcRUTk5D
+	 l1uE6l43MMVtpv2Fm6zStghyg/WM9OfUOtmiY9XHVL3ws5//aXl6qI9DUNGaM0JHQIbsc
+	 hanbFRIn7hVoC6BD1ml0Vh/qJH7hk2Nlru0651YCq6GxYBaLyVVHvhQjRpHbm7tC5b5MJ
+	 IwUNx4P5WOi3BgZkxQgpJjwjHwfuI9pNf6128+A6IJtTu33+aLrJbnfouwfujJ5EwXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDsEstZO;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=SuHcITR3;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E32B606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:20:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E32B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB8E606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB8E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDsEstZO
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdab938dc83so1175808a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:20:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=SuHcITR3
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so998658b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:21:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794745207; x=1795350007; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794745296; x=1795350096; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wM9X+iy5MCRcwM8plfZFoLTKyrt2bxDseelvnwrZu18=;
-        b=cDsEstZOoe5RaS1REViHKZr2NgVH4fotMK9V+PtupwGYT1fpbaoX1x1RxwOSITj6qj
-         fRESDpsU8di1FlyJ2Myd52Umw61gLdmoLDWAKeU+K0+4fQ2MqxlTZkEUJKkgsPirblng
-         v5BoDba/fAAMq/XNPW4fJva4Yef6TxU/bWK3fVpUyMpH4ATHts4rLVXAs6MDoct1CN2y
-         EzGAyndI3yrXug1nnKPbBfSeGFytlvgIYr/O4y2YZ/VS6Xfh8q+AX6b9hqOfvcbU8bpc
-         97PJvjL2kXMun6tbduI02A6Icc1R9k+N4RBc3ArZKwFCO9A1FYVpU8sZc4LgAjYPDBNK
-         pIMA==
+        bh=JHGMhIDfe6WAYWe+FkSfHWLhXPJoptf+ba9HCbYyk88=;
+        b=SuHcITR3zO9FUe5aWO6oSCNsm2i3GomzfbwB6DUi87XOEJBcUlS9GEnmpssphplHm3
+         BCAzqapGelNdJVylbZf6VUsSrS/gePn7mLuER7LEyQNN92UEcZOVY0c0ZPbzpS43yKQQ
+         N+qslmv+yfu7ppoz1WtFraMIlOSPhuujaadB3bbNDfQ2ebiSk8A/q0mK8OMEuE8NrB4z
+         XCNW3mcUr0NDRhkcjecgS+vRsKsVlZK0AX1eZeyVs6R8h8BAgyJZDpgKZLIx7ylYQ523
+         ZcsrMP33BCfclAnxwhgAG4CvI/kJfS4ol7hHebRpjij0MuFxxuPSBrMQRE5QUZZglZHm
+         evJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794745207; x=1795350007;
+        d=1e100.net; s=20260707; t=1794745296; x=1795350096;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wM9X+iy5MCRcwM8plfZFoLTKyrt2bxDseelvnwrZu18=;
-        b=CaJov7FhT/ZyQIHnCldSA4PspyMbToQWb622wiRLiWR8XwF6MZgewotnOVWzKG+szH
-         yAIX81xsU6PyOTdamKDveZEk1cx57WcUaoLClnTIxGtkVIQqeRuOEoxQXngkqjNnN9cf
-         le31XZtq9QJMkO4sl8AuqVsooma5YimjfIx14C5H8eamC0ERxB2oXgduvAbIy+twNxe4
-         xUPINSOLMg545sNSRPUQLywwnOJ4ALLR5P1/yQL6+G4HeBR/O0jJ7If4EmMOfckc/D9b
-         tX+qkqDsc9AyBCpbDKV8LwEfhzloTmEv9kK//TKApV9ZZEW8h2ST9N+GumddDwjZcSQ+
-         K5UA==
-X-Forwarded-Encrypted: i=1; AL+hErHkHIxlHDLSuk2ILzrfOA5cIdR59KJi3ujFR1sP7yRRR5GQIiUoxQb3i+dzhLZsFFXEJX9XJe6OHORgKvk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QdXMP+n+AdAmgBamGsaMiKw9FpiMoq8aU2PVBu8EUcMFmzRXP
-	cplHDhN6cB+N9xEtqMJEwsgvD0v/r+W6Cq1eKXDcGEUVjZTdAMy3fUjD
-X-Gm-Gg: AYBFou0px6MfzsdkVWEEPzR9wIC38vilShLNkp8hXyXQiWValZYAdBELzMggsUJzlvB
-	IAeZtoCPQSEZK59LKvpO3AcaCBxOoUNjBTDHWEUGaTcF0hiBlHM5R0gCwNCz+h8E7MuRl47Al1e
-	WlkLmL0B99erbfatVBPUoIq7QhqclVX97tfx2IbI+aqvD5ITNPlZhjG/G1yrQ76pffuoK6NohM4
-	resb8CXnMPlcI0JFprl0D6JE/EYdO7Qi48KYvpGxqAmG5iwrAtp1sBUVPEUsAVEPP+rNZG5M/tn
-	ghPJ5/2dhyZ3ATRoYfqfKjtXs/tJswKooqSc93KvfMjlev7YZC11CtnZYMAW3FCFOXg+fsQNRr2
-	aH++8MCeV24hczc3bYxPREk4dfgiz8+0vVmSGORrDhEG44uzB5XwGESphbwkOXLRuWlXRQPVByv
-	JGLkAATelbi+9hvdrYbfFc2bJoIhVHP+3hK7Zv1ClAr36B6YfpM1SQSTIAvXVaLtX9JIxYznoPE
-	ofEEzEI9RY8no3Dq5T16WC5porNstvuZeL5OLyjwvmKJnQ3rPmDL7G63ljigfK/dkd5tX3t0ILu
-	2/zQefAWLtriaiH9ONTY6zedVuVCFOITrMXzBaUSyFHAzD46WUcAYHOnybPnelXZqjqlUiMrfqU
-	IIMcGDqJ3DX7jc9k1ZsK/6JZD8XCVVvEPzUgKWreTTW47FpyK+hMlfUmK5bki9wkOoDIdzOgXq5
-	Ud5wBj4jlsX62CWQ2EQlT2pBHYv3KgAPrCOh95q9z6W7LF3IgoXe+80vVGi7OVU2xD2nW6Ei+u1
-	ZUWedW0IMOila18NmF0+zcP6/lJmXKytuCGAvFcCsmnSeXCEZ8dsAAd8MPNkdS+
-X-Received: by 2002:a17:90b:5105:b0:3ac:a5ff:2cc3 with SMTP id 98e67ed59e1d1-3b1b081ad46mr7535432a91.8.1794745207241;
-        Sun, 15 Nov 2026 04:20:07 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec622b6sm13828101a91.11.2026.11.15.04.20.02
+        bh=JHGMhIDfe6WAYWe+FkSfHWLhXPJoptf+ba9HCbYyk88=;
+        b=GcMHYTXdAWoKpIof43zxpGBGHNLTDgJbbF+mrUIXoPKmhsQ95h61tRyInXbq7FHl3C
+         wlMCRQuVrfb+G5UEkiOts/i1CbGxOlXd/Io4/Rh6yD8QH50iSygiZCOyYegPrkkFBj5w
+         YNXKU1el1GfRN9oUDUJWoEBqeCa96qgqjYsbEbU/JeR2I5Y6g5X7emFF7EXQpy0wSoq+
+         +XoVuKoouxdnZoPULI7wt2XdEUdNnFaZrwywiGW8cDrzW9Y1c/GDtwNrZ+3GauVhT6y+
+         0fhhY3hs1XW3Atu5xiKGVKHJrIsjudsQclLm4yX8AU20GgrpcSOKRZqmxikJcFqchkRK
+         VXMA==
+X-Forwarded-Encrypted: i=1; AL+hErH7hlH/GgLyw21slK/8nDZRp9iYR1mdvBa+SmdP9dsF5CXYNHWa1Lstyh+ys2IzYHrPovq4MPqntVFL3FE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+pb+M+WNCuwqe/cFJtOya8fnJ/SYx7vW7Ijh9mvCU/r3EYoeBs
+	r1RKBDcfhK8Dyk1X7Mw/SUawwAYfmXliJiBTqcxEOG++SrRsbwaRT7n5A01R9PIZEFo=
+X-Gm-Gg: AYBFou0JS5o/YOSTt+0bItEGbRH6qdOEEp7OmwCClSKNvXaXAwqT/HRhOFrH8aQ9WKc
+	qMOIgJ+jfIPmEE1dlSpciZ43xoqSHv5A+q3MCueza5bZjtZzTk85jkK14P5LeUeQYo9ITSSFQ9h
+	k+CThFrAeAa7zt+9cpWSwduO8KzmJvzntqDrVWgT51ZA7d1ioBJtHqSOQpYZOqM2S6zSEgTTpom
+	2klDd+wVFbqSjxbTDpvITq4gpDtvwZOP25DAJ1uwQE50PFfDc28EtytXm//l+ZsuR6tej8KdGrE
+	rqa6KoGUJkg9PSrxjEK/mVOzo+YhEpi/nvEtW2gqq0lpmTF4H7rwQm5srQM51gYmfRF/mXss271
+	HUwXSneRnK1LVpRWP/kuXnCVIcIYi3pUdxMN3mbk9SSEU2MmU3WZZURJceXLnpl8vloi5C44ZPQ
+	w4dqEAVH4S71Abeb/qBBuBcK/HQ4uBYJYqBBvevatU/rgHQmRTVENiE1Pt0bhqDcjYdfUwHvG+x
+	AfA9JP35ok5yiAXAG+rj/PI9k6SNoywdRqTxK5JiT9KZU5gu9SaEqNwHz/7rmNupJFcXKQ1LCHG
+	Sub7q2EUbvtwRLqENPjaFRlJnki0mGjdtswoFirzUD31GSNYbzR6jUqStBYmmTz34MAEP8rxPBS
+	1oVWV4+zkuLW/Oew4DyfzzLg78wyRuzW17dXUkw==
+X-Received: by 2002:a05:6a21:6e96:b0:3f9:bfa2:6067 with SMTP id adf61e73a8af0-3f9bfa2a300mr2573650637.21.1794745295946;
+        Sun, 15 Nov 2026 04:21:35 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:35d0:694a:1071:9bae])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18736b3sm3301925a12.7.2026.11.15.04.21.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 04:20:06 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	netdev@vger.kernel.org,
+        Sun, 15 Nov 2026 04:21:35 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: lduncan@suse.com,
+	cleech@redhat.com,
+	michael.christie@oracle.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net] rxrpc: Fix NULL deref on CHALLENGE to an unsecured client conn
-Date: Sun, 15 Nov 2026 22:49:36 +1030
-Message-Id: <20261115121936.5523-3-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
+Subject: [PATCH v3 0/3] scsi: libiscsi: tighten task completion
+Date: Sun, 15 Nov 2026 21:21:19 +0900
+Message-ID: <20261115122122.1446791-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,82 +101,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The I/O thread publishes a client connection in the local endpoint's ID
-table, where incoming packets can find it, while it is still in
-RXRPC_CONN_CLIENT_UNSECURED: the security class is set but
-conn->security_ix is 0 and no session key is installed.  The key is set
-up later by the sending thread, and if that thread is interrupted while
-waiting for a channel the connection can stay unsecured indefinitely.
+1/3 stops the receive path from completing a management task that is still
+queued or still being filled in, so a slot cannot be returned to the task
+pool while the transmit path still owns it.  2/3 stops it from completing a
+NOP-Out sent with RESERVED_ITT, whose single reference belongs to the
+transport, so that reference cannot be dropped twice.  3/3 is new: it makes
+the transmit path hold a reference before it publishes the state the other
+two test, and makes the SCSI command lookup honour that state at all.
 
-A CHALLENGE carrying securityIndex 0 then passes the check in
-rxrpc_input_packet_on_conn(), and nothing before ->respond_to_challenge()
-looks at the connection state.  rxkad encrypts the RESPONSE with a NULL
-cipher and the work item oopses in fcrypt_pcbc_encrypt(); rxgk
-dereferences a NULL transport key in rxgk_rekey() under
-conn->security_lock.  An unprivileged local user can do this against
-their own socket: the epoch is in every packet the client sends, and the
-connection ID and state are in /proc/net/rxrpc/conns.
+v2 -> v3:
+ - 1/3 and 2/3 are unchanged.
+ - 3/3 is new.
 
-Discard a CHALLENGE that arrives on a connection still in
-RXRPC_CONN_CLIENT_UNSECURED.  A genuine server cannot challenge before it
-has seen DATA, and no DATA is sent until security is set up.  Read the
-state under conn->state_lock to pair with
-rxrpc_init_client_conn_security(), which installs the key before changing
-the state under that lock.
+The review of v2 1/2 raised three issues.  All three are older than this
+series, which narrows two of them and leaves the third as it was, and 3/3
+addresses each one:
 
-Discovered by an AI code review agent, reproduced on unmodified mainline
-with KASAN: a CHALLENGE with security index 0 sent to a connection listed
-as ClUnsec in /proc/net/rxrpc/conns oopsed the rxrpc worker with "KASAN:
-null-ptr-deref" in fcrypt_pcbc_encrypt().  Same on v6.12.117.  With this
-patch the CHALLENGE is dropped and secured connections still answer
-theirs.
+ - the window between the ISCSI_TASK_RUNNING store in
+   iscsi_prep_mgmt_task() / iscsi_prep_scsi_cmd_pdu() and iscsi_get_task()
+   in iscsi_xmit_task(): the store moves into iscsi_xmit_task(), after the
+   reference has been taken.  For a SCSI command that alone is not enough,
+   because iscsi_itt_to_ctask() never read task->state, so a command still
+   queued on conn->cmdqueue in ISCSI_TASK_PENDING could be completed by the
+   receive path; that lookup now skips a task that has not been sent, the
+   way 1/3 does for the management lookup.
 
-Fixes: 9d35d880e0e4 ("rxrpc: Move client call connection to the I/O thread")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel Wade <danjwade95@gmail.com>
----
-Tested on mainline b3dfbde62cf1 in a 2-vCPU KVM guest with KASAN and
-PROVE_LOCKING, AF_RXRPC and RXKAD built in, as an unprivileged user.
-Unmodified, the rxrpc worker took a general protection fault with
-"KASAN: null-ptr-deref" in fcrypt_pcbc_encrypt() from
-rxkad_respond_to_challenge(), and the test process then did not exit
-within 300 s.  With this patch there is no oops: the CHALLENGE to the
-unsecured connection goes unanswered, and the secured connection answers
-its own as before.  On v6.12.117 without debug options the unmodified
-kernel gave "BUG: kernel NULL pointer dereference" in the same place.
+ - iscsi_xmit_task() requeueing in conn->task a task that the receive path
+   completed while frwd_lock was dropped: the requeue becomes conditional
+   on the task still being ISCSI_TASK_RUNNING, read under back_lock, which
+   is the test commit 533ac412fdb4 ("scsi: iscsi: Remove unneeded task
+   state check") removed.  The other half of the same window - a task that
+   was parked in conn->task and finished before it could be sent again - is
+   dropped now instead of sent.
 
-Stable: the hunk applies wherever ->validate_challenge() and
-rxrpc_post_challenge() exist, v6.16 and later.  6.12.y needs a backport:
-there the CHALLENGE is validated and answered in the work item, so the
-same locked test goes into the CHALLENGE arm of rxrpc_process_event()
-and returns 0, as the RESPONSE arm below it already does.  6.6.y and
-6.1.y were not examined.
+ - transports without ihost->workq, which call session->tt->xmit_task()
+   from iscsi_send_mgmt_task() and iscsi_queuecommand() with no reference
+   beyond the allocation one: both now take a transmit reference of their
+   own, and both finish with a failed send inside the same back_lock
+   section that tests for it, so the receive path can no longer complete
+   a task whose reference the caller is about to put.
+   iscsi_queuecommand() gives the command back to scsi-ml right there;
+   iscsi_send_mgmt_task(), whose caller frees the task, parks it in
+   ISCSI_TASK_COMPLETED, which is a state no ->cleanup_task() reads
+   differently from ISCSI_TASK_RUNNING.
 
-Not tested: rxgk, the RXRPC_MANAGE_RESPONSE path, interoperation with
-AFS servers or clients.
+3/3 needs 1/3 underneath, and is marked for stable for the same reason.
 
-The test program is not included here; it is available on request.
+v1 of 1/3:
+  https://lore.kernel.org/all/20261113145140.282504-1-yhlee@isslab.korea.ac.kr/
+v1 of 2/3:
+  https://lore.kernel.org/all/20261113232322.395246-1-yhlee@isslab.korea.ac.kr/
+v2:
+  https://lore.kernel.org/all/20261113233938.397415-1-yhlee@isslab.korea.ac.kr/
 
- net/rxrpc/conn_event.c |   12 ++++++++++++
- 1 file changed, 12 insertions(+)
-diff --git a/net/rxrpc/conn_event.c b/net/rxrpc/conn_event.c
-index 611c790bc6d..da16521cdfb 100644
---- a/net/rxrpc/conn_event.c
-+++ b/net/rxrpc/conn_event.c
-@@ -511,6 +511,16 @@ bool rxrpc_input_conn_packet(struct rxrpc_connection *conn, struct sk_buff *skb)
- 				rxrpc_send_conn_abort(conn);
- 			return true;
- 		}
-+		/* No genuine peer can challenge before the client has sent
-+		 * DATA, and until then there is no session key to respond
-+		 * with.  Pairs with rxrpc_init_client_conn_security().
-+		 */
-+		spin_lock_irq(&conn->state_lock);
-+		if (conn->state == RXRPC_CONN_CLIENT_UNSECURED) {
-+			spin_unlock_irq(&conn->state_lock);
-+			return true;
-+		}
-+		spin_unlock_irq(&conn->state_lock);
- 		if (!conn->security->validate_challenge(conn, skb))
- 			return false;
- 		return rxrpc_post_challenge(conn, skb);
+Best regards,
+Yehyeong Lee
+
+Yehyeong Lee (3):
+  scsi: libiscsi: only complete a task that has been sent
+  scsi: libiscsi: do not complete a task sent with a reserved ITT
+  scsi: libiscsi: take a transmit reference before a task is published
+
+ drivers/scsi/libiscsi.c | 67 +++++++++++++++++++++++++++++++++++------
+ 1 file changed, 58 insertions(+), 9 deletions(-)
+
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+-- 
+2.43.0
+
