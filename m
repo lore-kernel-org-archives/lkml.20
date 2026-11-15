@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794726784;
-	b=UHEPj9m47rdMlzSwfKVQS29TAL6IpXEzkf1CUYtURBWoJ1/TVY57QUz1wxyE8pt/eHkf
-	 TYySCgV/h/uNV70Z1EDIbVCTdBxxcExZdOhWbr9rl3aJW34bh1gT0N/OuDolE5OAlW7Ye
-	 yJiywrW7B2b5VUvEqqo7kw/55T+9H2+gdJ0+kVb446LYjEXLvidK7WHhJszaQJc+mF7xH
-	 1kuFr+mt+qme4aE7jGlJx8SDjg5tqQG4NORz+i8ok2H0UATognYqhrU3k7H4lLMxphdds
-	 MT1uRFyWBe9YJSWbH0V1S55wZjc2cbj6YZFmb6JpiUh9Vv3ZvBXZQps4GfDhEW1/LAA==
+	b=QLZ/NberFhmyldJAFoTg/xm1NXMAeTyDOQJNxfDnuqm/TAEhJvf6ocdXGkS1ZUw7aQth
+	 WnKu08Rnq/zil/gZ/MozA1/PftrT2V0ixKseRSFRgTq2d9mAs5HFQAX3V1XO/RPhaDcFd
+	 KFkx7Ih0qpOfyC7L9RNr+D4W3ro4FNGgSy5sCWH1U+gGJY+RJM6jaYarDv2YeiUUeZpRv
+	 dnTD+GgcjlB8sDtPXC4JGXxIsRhsChus82BDYhGYR3CkIKRm0olh5qmBoy5rCNI4QzMp+
+	 JsMoDS73MFKzcjchedobiG2iUr8wDTctChtbLuppGRlh8S+VbzcLYxgsxlpF+Cmceww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794726784;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=0Z+TaypX6Nv4nbH4lcelIKsz6XBKBS8H3IpTVaphkkM=;
-	b=OJnE7uGIStzq55WXDvmYlTmiMIOP1xRIUbzv8BS7mSUKV4W8hwheLneicxUg0mUPZmim
-	 lf6GnO6P+mC3Ucm3P/ADMc9Oaek06AdQaTjBa/gIX3HQDajmX5u3x4lCsWqhxVfMdaKMv
-	 Q1Tcjrco7mUd8y98AgwEUzFRv4NibqIiK5ImhG2QcN06kOxL7bYf+87j6aaZouB7FAt+E
-	 cABDuR8v5WCx7VTlTMXkY6ITvrOO5k6xy5nTJ6mBibJnWW5Sk3EEWyX53XV8U4TawQCRN
-	 oAMVa4pbU5prypbA2WZUVclMfmXd6+IkRCzCtv/7dTh/1Kk8vBfjBz6E+15FP3/6Bdw==
+	bh=vuZUVGeksjaM3h7mHsO4bBjAJIcJ89o8RP3K8dhbMg4=;
+	b=D4zEOrjX0vsZJtsWIx60oMkNj7j38bHPqhYBqUkGGz7VxaC04cio/sJH5PmgDu4f7Ddi
+	 yxZrMWwHg0T1iJOZHZC2ZKABg66TOPy0UMWI7P4n5Ptywp0D28Pu08KdLyABebCeY4ow+
+	 GLf+6DoxBX2PDkmkxYNkI3FiLt6Zs6R/HSg4a4jD9b2WechwK/Q9iBirOz38uwhSdiTPE
+	 fxP2RmO1TlAXY/W/gImdm3DeGXOLEvJefaAbklsbWZqyYgPCRN3MJdWNX1IEQHxKfx6eq
+	 2PvNpJUv/cQwyT2N9WIwjfniKIf2rGvKVW6x5mOI1Yz3d1gEl9TjYmTt+ax6+GB2xAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xytmkvBI;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mBVTxcPk;
+	arc=none smtp.remote-ip=43.163.128.54
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613BB606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:13:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 613BB606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B045E606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B045E606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xytmkvBI
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mBVTxcPk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794726773; bh=0Z+TaypX6Nv4nbH4lcelIKsz6XBKBS8H3IpTVaphkkM=;
+	t=1794726776; bh=vuZUVGeksjaM3h7mHsO4bBjAJIcJ89o8RP3K8dhbMg4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xytmkvBI4I1yUosmCtKrJ62gocZgx8c8HQqpRle8x2vIu1oSSNVkilMqAfTZLHPSV
-	 HjoCSExMB49b6zGK+iMoyd6CwyDIVKlDjRSZT2Mn2l4PVQ30i+Xo1a58julnSPxggq
-	 CMfom4kyIzty+CvxYzOvjUQYAY5jko4Oibu2T5wI=
+	b=mBVTxcPkx6OulJnjfnyG+r2L2/+8bRLU2mNXRXKcPitxfzKbOwpSmKA8hVO77wJR5
+	 a16vcluzuBL4Zj9O8i8hA+jcL/6XyGTT8QzouzskAAinoSJeLGBI0B+jqdDiQnkCWD
+	 a+ghOdSss4T6F9aJCdAYYwYYAfyNnaBqMA9qbGD8=
 Received: from ubuntu.. ([112.3.92.91])
 	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
 	id 331A3A28; Sun, 15 Nov 2026 15:12:49 +0800
-X-QQ-mid: xmsmtpt1794726769tl3iiugjm
-Message-ID: <tencent_2A5F8EBA9EC78CA99CD080386A68EE90B506@qq.com>
-X-QQ-XMAILINFO: NdB5/PuY7PjGlSs9wjl/U+WvFpZYh9a6snnY723MQPkFp3jWEfdaUypSk6u9iO
-	 UvE9UPD6/PP5l71k3VtBz8cfNcAa12joolprQjDypB06mvYblW86l8ZLdLRf39PZPN4161mefRqn
-	 Q6saEYAAdxuYtKNRWlt6qPIyqkpX54tyfsvs1A4erDfb8DY4EVMiEvAL0npmAmbVziBM/oL5712Q
-	 rMv+3Ni4mrtNS5xMIbgbmsiwn/qG7xOGQ5EtA7CLSabl/PWxeL+rw+Ja6PV/Zac0/fC7L+TIOTop
-	 7y1PNLN40oQrgg0albd0+0OUF6YJXWEnb4rt8kEsb7KGMdAsFImo2SR+6jxsTZnO83a3v2wEIAc7
-	 hXpZV4sS+JNEkgjW4qtt5Lt+ThUaLNmMoNxZqzRjwpu8gjLpIXDogx61wY+LYYo+R2FXVEck+/1P
-	 1o5UooS9L+d0c2Mq4yCBQp5/G/C436vMIfxElG1UwR3G8OSz08h+4eWiN1myiqac3tjWkITiJDuD
-	 jZcEMnIve2iAbC/s+9CKTd2GQN0g4oEn2ngtCarzsvuSLrJjgUUM5/50bdHcS2ogsNodcrsdpBiL
-	 0n/nn/dedKobCFvgydIuVhRjt9UCKgI+YmNxZYh/EPU2yTQMSlg7En4UoWdhtPwHOL9jRTWkHy0c
-	 4vGW0xKK0Y1CV3EMYK587SDQM5vghaD3WqYUNeuVxSs3y30f5wc6qzylLUwfO79On4BIjjfh70fl
-	 oxXNNcSN9AhElrjAQuf3146s95kFPoLQq1pun5pbu5xKSojIfmHzRa9gYUxYVYbo944onVluCZbs
-	 o/ZbTaZO3DjYoVkJX1OX8xbE/CV+PNBtx4rE1j3Ps/XS9PBh70yAnVCdDxcykw8UhFkv4PLCrNFR
-	 K/4KgsZ4gt3mmncUsPGPMYD7Afrd5FYsbGxB+QhWEKaTbTq7e194Kv3w+CwcWt5StnktRh72BU4j
-	 s0lPAJ787awXGjxqqADtAToXlOeYC28j5ul6iCcTdv4Mk7mP2px7mOI5PyhzQBAgAdD89fv0ipNG
-	 Ru5i2x+CQebhLTidbIafsg7BZtHIeZrwkIZCfJCxtW4LIc5wznE461GF1M/KTK9uzSY/2rObMUyr
-	 ZbP9g+s9PP++VvNDk=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-mid: xmsmtpt1794726771tum14ob3x
+Message-ID: <tencent_E27D0F1CA04EE58A5873E5A4EBBDCDF8C80A@qq.com>
+X-QQ-XMAILINFO: NMiAo2azIaDAW5+IjjMFFIGcEI025b2QqjSkDGS1qobrC5TTKyHeKryYKOwjyP
+	 NY/THjFavgpatcaPuUgURuMt7obA7DSz/ePWu9ZMrsgbdpQfRH5IJfA0+0Ce6HHsB3oFsc29XneF
+	 XYws71zQ3BpFyRKsrLJj2PhjXVAieTBBDpCEMd/CPiDHB2hlwyvwvxoqpdghLXBx/B3H6bw+c5zj
+	 yzN8GQsGPanVvB6XPswtQkQHjhtL36t9mA3EKHHOVDp37h39w1H0PA2W+Vy6ffb3jp3vdI/ZWS30
+	 nBEhM+F5IT1FlJkj7X4smYFhOE9R8fvGejJ172M2NT5UehuUF3otjIsZVtio2cjJlJVxA9SV8gDI
+	 Ndccfh7WMHGpsDWm3YTV/1VyywtPhR6JOZjkacEhNaTjtqcbxZKICyCdrZBYCX5DORjsIbBOBYlP
+	 /5aIn/Iqjv9rFAgqKCQFgH8FUc7dNJIOaBDkstFLDr/fepO+P5FAtHvtaa1yIag9HHbg6fFuahkR
+	 L1chNaRHZvbhOFSOeNnIKUCrYtMwPVf53MdmNoT7upUSodVJK7kh1nCtOXqoITU/zae7+kArP2nF
+	 w8FdP+PShqt8HLohscN3idXLuYCCbVcOhcXVMPMqa6d/7Pbs95x9VhgksHR2fiMxx0q/K3vPMZAB
+	 /RdhGwtcRB3m5Bgat2FAl8OWCqHPMcW9PsxyD8gG+kC25/wlDj/C8hmnNhPI5vjU50pq/IRqeOux
+	 P0CrTzm+hG8AMdUdNtDsMN2iNPc2a6fKZ2OQAXagdBfYjCM9dWdx8s01BHgk1/1dsb/RHEDtkHT4
+	 fnQ65hreK1rZh2kF/mlAA5+MU86aRlm++KRt/WbmwJ1S/UhiH5PJBOBUY30+SBuo4gInOZeCffqt
+	 CQaPjoGonPa/68mOhkMt27H80UvQekPhiGXLF2U64HP3fg8jK4HOE5ncrYgwF5YLu4AWz31KlHI9
+	 lWLuh/JmDRQNdQ5CtQFZYXA7vwOF7++2O4KIuabJNSDz9Q7su3Gbo1GqU8+Gtx7VGw+rgc03PbBU
+	 iFdTcjTp7EgS3dZ7JJEQmhhqs+WiujuGDqyOa1YAASGoSPfmRUTQ+9BHThDiLuI02Anuk/0Ecc32
+	 2iesHRoQY0OzynL9Y=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: Congjie Zhou <zcjie0802@qq.com>
 To: netdev@vger.kernel.org
 Cc: mst@redhat.com,
@@ -76,9 +76,9 @@ Cc: mst@redhat.com,
 	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	zcjie0802@qq.com
-Subject: [PATCH net v2 1/2] net: napi: add completion with an ordered IRQ mask callback
-Date: Sun, 15 Nov 2026 15:12:45 +0800
-X-OQ-MSGID: <20261115071246.9096-1-zcjie0802@qq.com>
+Subject: [PATCH net v2 2/2] virtio_net: mask callbacks before releasing NAPI ownership
+Date: Sun, 15 Nov 2026 15:12:46 +0800
+X-OQ-MSGID: <20261115071246.9096-2-zcjie0802@qq.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
 References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
@@ -93,20 +93,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-napi_complete_done() can clear SCHED, arm the watchdog and return false
-when deferring hard IRQs. A false return therefore does not guarantee
-that the caller still owns NAPI. Masking interrupts after this return
-can overwrite the interrupt state established by a successor poll.
+virtqueue_napi_complete() prepares callbacks before calling
+napi_complete_done(), then disables them if completion returns false.
+On the hard IRQ deferral path, completion can release NAPI ownership
+and arm the watchdog before returning false.
 
-Add napi_complete_done_with_irq_mask() with a mask callback that runs on
-false-return paths before ownership can be handed off. The callback
-must be non-sleeping, idempotent and leave NAPI state unchanged, since
-a state-update retry may invoke it more than once.
+A successor poll can rearm callbacks and complete before the old caller
+executes virtqueue_disable_cb(). The stale mask then disables
+notifications again. If the one-shot watchdog has already run, no NAPI
+owner or timer remains to consume later used entries, causing a
+persistent RX stall.
 
-Keep napi_complete_done() as a wrapper without a callback, and inline
-the shared implementation to eliminate the callback path for existing
-callers.
+Use napi_complete_done_with_irq_mask() to disable callbacks before
+completion can hand NAPI to a successor, and remove the stale mask after
+a false return. Keep virtqueue_enable_cb_prepare() before completion:
+moving it after ownership release would reintroduce the RX virtqueue
+race fixed by commit cbdadbbf0c79 ("virtio_net: fix race in RX VQ
+processing").
 
+Fixes: 6f8b12d661d0 ("net: napi: add hard irqs deferral feature")
 Signed-off-by: Congjie Zhou <zcjie0802@qq.com>
 ---
 Changes in v2:
@@ -116,105 +121,40 @@ v1: https://lore.kernel.org/netdev/tencent_74EA7A2E8BF5758E9C5EF18C9B1CED401D06@
 Bug report: https://lore.kernel.org/netdev/tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com/
 Discovery and validation: https://lore.kernel.org/netdev/tencent_4DBDF69909B9FD811F54F2DC0E6BAC1C0507@qq.com/
 
- include/linux/netdevice.h | 18 ++++++++++++++++++
- net/core/dev.c            | 29 +++++++++++++++++++++++++++--
- 2 files changed, 45 insertions(+), 2 deletions(-)
+ drivers/net/virtio_net.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 435be7880..810527cd8 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -601,6 +601,24 @@ static inline void napi_schedule_irqoff(struct napi_struct *n)
-  */
- bool napi_complete_done(struct napi_struct *n, int work_done);
- 
-+/**
-+ * napi_complete_done_with_irq_mask - complete with an ordered IRQ mask callback
-+ * @n: NAPI context
-+ * @work_done: number of packets processed
-+ * @mask: non-sleeping, idempotent device interrupt mask callback
-+ * @data: callback argument
-+ *
-+ * Like napi_complete_done(), but call @mask on false-return paths before
-+ * releasing NAPI ownership. Drivers which prepare interrupt rearming before
-+ * completion must not mask interrupts after ownership has been released.
-+ * The callback must not modify NAPI state and may run more than once if the
-+ * state update is retried.
-+ *
-+ * Return: false if device interrupts have been masked by the callback.
-+ */
-+bool napi_complete_done_with_irq_mask(struct napi_struct *n, int work_done,
-+				      void (*mask)(void *data), void *data);
-+
- static inline bool napi_complete(struct napi_struct *n)
- {
- 	return napi_complete_done(n, 0);
-diff --git a/net/core/dev.c b/net/core/dev.c
-index df1a840b0..4ba9e4c1b 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -7001,7 +7001,10 @@ void __napi_schedule_irqoff(struct napi_struct *n)
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index dd2c41ef6..0de6bd95a 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -727,19 +727,23 @@ static void virtqueue_napi_schedule(struct napi_struct *napi,
+ 	}
  }
- EXPORT_SYMBOL(__napi_schedule_irqoff);
  
--bool napi_complete_done(struct napi_struct *n, int work_done)
-+/* Inline so the legacy API eliminates the optional mask callback path. */
-+static __always_inline bool
-+__napi_complete_done(struct napi_struct *n, int work_done,
-+		     void (*mask)(void *data), void *data)
- {
- 	unsigned long flags, val, new, timeout = 0;
- 	bool ret = true;
-@@ -7013,8 +7016,11 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
- 	 *    the guarantee we will be called later.
- 	 */
- 	if (unlikely(n->state & (NAPIF_STATE_NPSVC |
--				 NAPIF_STATE_IN_BUSY_POLL)))
-+				 NAPIF_STATE_IN_BUSY_POLL))) {
-+		if (mask)
-+			mask(data);
- 		return false;
-+	}
- 
- 	if (work_done) {
- 		if (n->gro.bitmask)
-@@ -7047,6 +7053,13 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
- 	do {
- 		WARN_ON_ONCE(!(val & NAPIF_STATE_SCHED));
- 
-+		/*
-+		 * A false result is not proof of retained ownership. Mask
-+		 * before the state transition lets another CPU enter poll.
-+		 */
-+		if (mask && (!ret || (val & NAPIF_STATE_MISSED)))
-+			mask(data);
-+
- 		new = val & ~(NAPIF_STATE_MISSED | NAPIF_STATE_SCHED |
- 			      NAPIF_STATE_SCHED_THREADED |
- 			      NAPIF_STATE_PREFER_BUSY_POLL);
-@@ -7069,8 +7082,20 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
- 			      HRTIMER_MODE_REL_PINNED);
- 	return ret;
- }
-+
-+bool napi_complete_done(struct napi_struct *n, int work_done)
++static void virtqueue_napi_mask(void *data)
 +{
-+	return __napi_complete_done(n, work_done, NULL, NULL);
++	virtqueue_disable_cb(data);
 +}
- EXPORT_SYMBOL(napi_complete_done);
- 
-+bool napi_complete_done_with_irq_mask(struct napi_struct *n, int work_done,
-+				      void (*mask)(void *data), void *data)
-+{
-+	return __napi_complete_done(n, work_done, mask, data);
-+}
-+EXPORT_SYMBOL(napi_complete_done_with_irq_mask);
 +
- static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
+ static bool virtqueue_napi_complete(struct napi_struct *napi,
+ 				    struct virtqueue *vq, int processed)
  {
- 	struct llist_node *free_list;
-
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+ 	int opaque;
+ 
+ 	opaque = virtqueue_enable_cb_prepare(vq);
+-	if (napi_complete_done(napi, processed)) {
++	if (napi_complete_done_with_irq_mask(napi, processed,
++					     virtqueue_napi_mask, vq)) {
+ 		if (unlikely(virtqueue_poll(vq, opaque)))
+ 			virtqueue_napi_schedule(napi, vq);
+ 		else
+ 			return true;
+-	} else {
+-		virtqueue_disable_cb(vq);
+ 	}
+ 
+ 	return false;
 -- 
 2.43.0
 
