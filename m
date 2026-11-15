@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794730808;
-	b=fBC9Nm61Btl4mb4i2hW018L1/a4TfSUMV9dnE/D/Ri4siBEy9zvSOjqE+tF83NBvhn9M
-	 aw4RAgZ2lfpZtVB9jVPs7Z+VIaqdTiZpJl6x0ofhSG7ng/TS8TsbjwI6eQQf7xMxLq2Kj
-	 K3egLgcgiZxIdBEJkB8OqUZXht3p7bAFkVdXx2Yxibvmjpocd9PsnU69OaulcIb8FjKF5
-	 XP0XNBPEhz3TIW4X2dK7EecjpqNbGpMYUJOsSYZ41ueISpzdEe2/fdSFNi1Cf/QX6SCYk
-	 w2G/rC6iA8igkElVF+c/l2UC/m9pKmjtWP/CO5mQL9IpuTR9uevpsD+Vv0TIH/mjbiA==
+	t=1794730838;
+	b=3BzDPX2hDLp6JZ8crh2lEHuyL4jRQLjMnx4FyWIjx93Frd7X42aCATqoXnWaf6KeoF3m
+	 nvQM6U/TIoJ97fcxGuRLvIyUyl6yz/23tvyJMdRXGvFNgQI1+DFqPs231bC9Th5dVkUG6
+	 Om8jQg32Mrao9Qjikmw1xmzm+Knq6um/1GlrsicBZ2iqVNps7faaUNVdZKqEDzH2JGsFr
+	 LEpd++cE34seN72Q0iERBUwW9cDSVu4jAj5pPkMgug+Hg57SchGZc6UfhWePbTQUp+Eyk
+	 WCo0i4qYNO+SlbMimsDU6rBpXJA6Dnhc7Aw5baU/hl4cQEyQqVGzsLWoh9EukzuHpZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730808;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:In-Reply-To:
-	 Mime-Version:References:Message-ID:Date:Subject:From:To:Cc:
-	 Content-Type;
-	bh=cvkRQ9vTEHp2sTanBdWux8S9LLOQ1dWCdfqy76FCS9s=;
-	b=NQjRsLgJfV3E25hi2juxvciOfhNwyIiQbuEzQNFa8MWvKi5t6b0uqDM5L5FiPFBlZcGz
-	 vkWlUXFzqGpDkkTsGXvMhDwfYEQj7+e/VH5o/lOmFaQ/UceuLYtrxGoAPRMlozroezJxo
-	 yQWD+l1aP+VUdjrRbzEoTeKVJxRSRKWJOBft1lYInqmmubzz1uk5T6whorYEXg1Ou7tDE
-	 kOOapdLhTWBh66TmdHFjCITX1ktdHDJ1HdvzTwT7t6EGSsINbK+gWAL1f+tymS4w5age8
-	 nwoOTbUc5eqONPEfG5uUZMtaemogkwahwxybO/iu+kVsbuWUs1+YdHVpXcmEdyqDvAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730838;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AJ1xfee2Csn9VN4fhbIm0y3xwJVteInbog5JyVAqWMQ=;
+	b=iIMhbqALiDGJ9YENkeMAWjq71uXlqKt+JKe9kAm5WdNDH3AFXdvLxarBL3axQNM2mXK8
+	 SlWiF9vRmYNOrxj+gM3QdP5epgAU8PEo2xLKLEA7xKcOAShApI0Jy58Mdm362VUQPnYiT
+	 UT6lic6gVrVMg1psEpzvHzPAtEbdbWKZLU39AMhON1r1pokqeZgR947ZzNUnxeuuY0Zai
+	 MDBwtX3pkzFWrq6nNGrgLgOp9BqK4/9c3T01KNR+lfKZtcrI7oa2jSxIFCy8bTOUA+ydD
+	 XOvyxENNPB+TayzJw6LhWpi4PjmzM0g+xFNPjY2ZSOxvEMinrzQeUsd9vq2vI8XxbeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C0LwxZF6;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=P8JwMvKM;
+	arc=none smtp.remote-ip=91.218.175.210
+Received: from mta0.migadu.com (out-210.mta0.migadu.com [91.218.175.210])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2660D606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:20:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2660D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0DC606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:20:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B0DC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C0LwxZF6
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e9501034c4so37236755ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:20:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794730807; x=1795335607; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :mime-version:in-reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cvkRQ9vTEHp2sTanBdWux8S9LLOQ1dWCdfqy76FCS9s=;
-        b=C0LwxZF6+BFl6wgUmpOceGqyxcXU3fj+WC5/Cgs6h9OMxjU5KJcHmONuMZv7DiZX5Z
-         7ouvr9YUsPYgzxkRzA4mIrwal94AZW2LseWerMZqopLEsTqxJzI1UcZB+T9yluKFSTPm
-         UEEy8X68/7sEeMFquUJJm96w1//g2IJMsevD+D+aZdmp+7KT/om3YmAI7ZOYWW7CagS4
-         bRb+DkO7jzmcyMQmeL0KlKD5HBmRDBaf5Ebid8numYxRfknjg6YjPuOKNUY9sQNBMb+n
-         hxcLz9/8jxxWvwXJ/40Mp+TsPK1oQ1QoZkCToeA3YpNdmyNot8c1LKjDn5nUgsEFsssG
-         CkqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794730807; x=1795335607;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :mime-version:in-reply-to:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cvkRQ9vTEHp2sTanBdWux8S9LLOQ1dWCdfqy76FCS9s=;
-        b=YlgBOAe1sSR9bxFKOOoTaJoqz+jMEq4z93h7QANFgduFfNUlSxpSKO7mTzUGb7nsqA
-         RXnT8RJ1r+cTm1zZrmcKlQc+ZKMb0BwtuDkJsfRt4kmwUqCy6kbQxP8sjOu4CtH5RVBp
-         P/f5gTGfwxCvRtHr/2SY6WhgD0SV3ixyVB1da9GHI4K49nQbf4ODyJuc6BNnp9TcB0Eb
-         3FDAgq+2kHlKHRK8vHiVHSqDm1MoBBkMUcK0JDCXnFHR4L54kfxLNEf7ciaBWSBKDvGz
-         cDI2Xjs4/T6OrLotF6jRSd50Tet4xLDN1ocFuxXRq2C8A3zj66rEnHX/oZjjaSbxbcQP
-         u8fg==
-X-Forwarded-Encrypted: i=1; AL+hErFEUiLTQtKSRBOLdG86m7A7poqvH8W33jahZhrz7EnxcPki6jFBZhLpQ+EC1iiVE+wWs8YBkscDTCpuKZQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lz+mxWSORzLeqyS99SK3wiR+YHqEsRpMpcyXbpoK6DsCKx4ZH
-	K6wVsljq1Xxhpj2Ke7vlAIHQ5FfKrNiX1W2YA2UMHx43q6u8X7ho/fkKcWgvHP0VAL8eIsFosC5
-	jvbHiuzedtHfcsqANiN9BWA==
-X-Received: from plhn3.prod.google.com ([2002:a17:903:1103:b0:2ee:20a7:da27])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2281:b0:2e9:55fc:ded2 with SMTP id d9443c01a7336-2ee0dec63demr78859485ad.52.1794730807271;
- Sun, 15 Nov 2026 00:20:07 -0800 (PST)
-In-Reply-To: <99108d6b-ce90-4008-85bf-fef12204faef@acm.org>
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=P8JwMvKM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6Q2a8Doi+A+WH2MhvcE6/e3oliRLG1FAhetxf+CGFl0=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794730835; v=1; x=1795335635;
+ b=P8JwMvKM7F/skTX9h6XCjQAdOAidih/jfip94v06HSKWXrzk3uFWRJiB/BJWhdCk2pGxc03Y
+ z8dgHjcorsAzSXLC07n4nwZutGuN1EbUxxDQKbz3nf+IHeAv+1MWB7KcwjY/ia+kBewD08sOhAY
+ LlxST8kjAQdgeeo8ibKA/ngJjqnBrlwdkgUx3XxrUv9gqZlzvvKQ4Ce8Pa/sXvpo2rN5Sqpj8/u
+ y0NLokh+t8x9BQIVYdWIR0dVkZQAVzIjcYaI9JnueSS2yFKd6zB+MteEyqry9HuNPVgNPWsD03r
+ vuTd7VUS6mzOaiuzsTvyJx3yk0dKkc1BbfNQi6yEOu6jw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9046fc18112be64a;
+	Sun, 15 Nov 2026 08:20:19 +0000
+X-Mizu-Trace-ID: 9046fc18112be64a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4a7e0f27-60b6-46ec-956b-8897812622a2@packett.cool>
+Date: Sun, 15 Nov 2026 05:20:11 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,32 +59,140 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113111202.3551341-1-stanleyjhu@google.com>
- <20261113111202.3551341-2-stanleyjhu@google.com> <99108d6b-ce90-4008-85bf-fef12204faef@acm.org>
-Message-ID: <18e82a2906bde9db.3137322e31362e3131332e313435.7ae79.0000sendgmr@google.com>
-Date: Sun, 15 Nov 2026 08:20:07 +0000
-Subject: Re: [PATCH v2 1/2] scsi: ufs: core: Recover link in
- ufshcd_set_dev_pwr_mode() on timeout
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>, 
-	Peter Wang <peter.wang@mediatek.com>, Brian Kao <powenkao@google.com>, 
-	Can Guo <can.guo@oss.qualcomm.com>, "Bao D. Nguyen" <quic_nguyenb@quicinc.com>, 
-	Hongjie Fang <hongjiefang@asrmicro.com>, Praveen Talari <praveen.talari@oss.qualcomm.com>, 
-	Hoyoung Seo <hy50.seo@samsung.com>, John Garry <john.garry@linux.dev>, 
-	Hyeoncheol Jeong <hyenc.jeong@samsung.com>, Jens Axboe <axboe@kernel.dk>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] arm64: dts: qcom: sc8180x: Add Microsoft Surface Pro
+ X
+To: Haipeng Lin <jimmie.lin@gmail.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede
+ <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
+References: <20261104070441.74127-1-val@packett.cool>
+ <20261104070441.74127-3-val@packett.cool>
+ <64e7afd3-50e5-4134-9bf6-92c4aa740bd7@gmail.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <64e7afd3-50e5-4134-9bf6-92c4aa740bd7@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 11/13/26 12:37 PM, Bart Van Assche wrote:
-> One change per patch please.
 
-Agreed. I tried to fix too much in one go. I will split this up
-and address it step by step. Please drop this version for now.
+On 11/15/26 12:16 AM, Haipeng Lin wrote:
+> On 11/4/26 2:04 AM, Val Packett wrote:
+>> From: Maximilian Luz <luzmaximilian@gmail.com>
+>>
+>> Introduce a device tree for the Surface Pro X tablet in all 3 variants
+>> (SQ1 with cellular, SQ1 Wi-Fi only, SQ2 with cellular).
+> [...]
+>
+> I believe there is also a Wi-Fi only SQ2 variant. Looking at the WoA
+> drivers for 8180_CAS (Caspar, Wi-Fi only)
+> https://github.com/WOA-Project/Qualcomm-Reference-Drivers/tree/master/Surface/8180_CAS/200.0.31.0
+Huuuh, okay..
+> This variant is the only that has both SurfaceSMF_SQ1.cab and
+> SurfaceSMF_SQ2.cab. Only 8180_CAS MPSS INF maps the no-modem subsystem
+> ID (SUBSYS_MSNM8180 -> qcmpss8180_nm.mbn), the 8180_CAR (Carina) only
+> lists the cellular MSWW/MSJP/MSCN IDs.
+>
+> My SQ2 Wi-Fi boots with the caspar dts in this patch fine but the
+> gold cluster is pinned at SQ1's top clocks because the 3.072 / 3.1488
+> GHz OPPs are only in carina.dts.
+>
+>> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
+>> new file mode 100644
+>> index 000000000000..5d155c69907a
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
+>> @@ -0,0 +1,50 @@
+>> +// SPDX-License-Identifier: BSD-3-Clause
+>> +
+>> +/dts-v1/;
+>> +
+>> +#include "sc8180x-microsoft-surface-pro-x.dtsi"
+>> +
+>> +/ {
+>> +	model = "Microsoft Surface Pro X (SQ2)";
+>> +	compatible = "microsoft,carina", "qcom,sc8180x";
+>> +};
+>> +
+>> +&cpu4_opp_table {
+>> +	opp-3072000000 {
+>> +		opp-hz = /bits/ 64 <3072000000>;
+>> +		opp-peak-kBps = <8368000 51609600>;
+>> +	};
+>> +
+>> +	opp-3148800000 {
+>> +		opp-hz = /bits/ 64 <3148800000>;
+>> +		opp-peak-kBps = <8368000 51609600>;
+>> +	};
+>> +};
+>> +
+> [...]
+>
+> Would it make sense to move opp-3072000000 and opp-3148800000 into the
+> shared sc8180x-microsoft-surface-pro-x.dtsi? qcom-cpufreq-hw disables
+> all DT OPPs first and only re-enables freqs present in the hardware LUT
+> so this would work for SQ1 and caspar.dtb will cover both the SQ1 and
+> SQ2 Wi-Fi models out of the box and carina.dts won't need its own
+> &cpu4_opp_table override.
+
+I'm pretty sure mine *did* complain very loudly about having these OPPs 
+and might've even had broken scaling.
+
+I'll retest again, if it works I'll move it to the shared dtsi (or even 
+the SoC's?)
+
+>> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
+>> new file mode 100644
+>> index 000000000000..17fb01c6b164
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
+> [...]
+>> +&smb2351_2 {
+>> +	status = "disabled";
+>> +};
+>> +
+>> +&smb2351_a {
+>> +	status = "disabled";
+>> +};
+> Confirmed on hardware that labeling pmic@2 and pmic@a in
+> sc8180x-pmics.dtsi fixes the dtc build failure here.
+Yeahh, forgot to include, will be in v2
+> [...]> +&uart13 {
+>> +	pinctrl-0 = <&uart13_state>;
+>> +	pinctrl-names = "default";
+>> +
+>> +	status = "okay";
+> [...]
+>
+> On linux-surface, ad1bb617a15a from Maximilian Luz had
+>
+> &qupv3_id_2 {
+>    status = "okay";
+> };
+>
+> Would it be helpful to add here? I confirmed on hardware that adding it
+> allows uart13 (WCN3998 Bluetooth) and uart15 (SAM EC) to populate and
+> probe properly.
+Of course; it should've been the _2 in the first place but I made a 
+mistake during last-minute cleanup and left out the wrong ones…
+> Thanks,
+> Haipeng
+
+
+BTW, please send me the output of `sudo fwupdtool hwids`, these are 
+needed to add support to dtbloader/systemd-stub/stubble DT auto-selection.
+
+(If anyone with the cellular variants reads this: you too :))
+
 
 Thanks,
-Stanley
+
+~val
+
