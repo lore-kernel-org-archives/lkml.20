@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794764198;
-	b=YVIqwa7xh7g4/eG2bBV8JanTIWJUomcBRhpfZ4mYptTPjI9ywczX31HuSjYOcSIYOQCR
-	 oFZRPZXpEuvW21C0zMOrh5mUbnwgPUgPrisjQl1K+IdEvrj7ihvsMlg9uZ/h68vX3VdZ4
-	 jSwCETb/CtnHoKL9sfg8nvpFnb2naLb5qhU70anfl2NAhDcGPcykVAxvSHxctX5+/X7SG
-	 mLYObGj5PqnhputykMSjkTQ70ggADuD9XcZYRgz8GgNsyxsBWtR957TvhghAkQLgUsmpQ
-	 ovlSbRmjMnx0yILkVQYTUZ7pT70Ah4BdsuQ/0dCpFgQRWF+Mi0t2+TNZm2MfTuHrSgQ==
+	t=1794764191;
+	b=h8vL+v5MBLWrIRXvwRJiMl/4Zv3QFKqz3O6cUD3yjA7tGfnujDtGYArSx+ufnMPocEeu
+	 PTPc9+mQFKmzohiR5zSpbzc3GAq8hUkV/Zu/AvAnVeTzrYS3Ar3y0bqMsXDBiMAG7ahqS
+	 VODCBmTDLi4uUIM/Vg95aznccQecHzAdiH+SjeVS0G6P8P+wkjGN8MFAcrytCu/z4pENh
+	 +5bMJILNvM9sVbDFCRltj+/uDyMI/qXJk7hHDCgR+lU5E+WfXHQcNPpPDkWXNklff6EXH
+	 MUatpCSUqjW0OE0CwGRe5ESj6IyqkJDgRv/9g2r19A+GDEMJp6fVk2mGUaEGs6YcwmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794764198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794764191;
 	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yh6++frshBE1QaumwBxB0PcS1DRm4uywpNoD+jV9kuc=;
-	b=gQy3gWMxRqFPu4i60CszlkRlBuBza6djiwixiaz5E2Nm+TCbH4xvDJbT06+55zgdeZ6D
-	 7KpF9OeE9+WtaHkWvR1mOjxB/TOSf82Iy3B023NA4NAuCb1qgH60cj6W9RCTiobEx+c/O
-	 oxh2jD9H84IH7MV19j/T6KpkdrmIaaxmK4rDPg5Qjam20hLPSRzXOy/qbEc7MXKZZMWQ0
-	 ZYlpsiQ6JGxzt6OeswF1R7HzJJilQDyRgnnUtIpnOCfhN9XuPxUTGE2ADdxxP9kjYdHB0
-	 y2F5NVauAfczffC0yn6cnGLwibK+h9+g88O/i4sEesBrzLbWa3B5Wqo7eVDT7AzkcDA==
+	bh=oI/8o/DiV/bCzmSN72SV0aGLWerxFym73b9YNEeRZhA=;
+	b=cvLfgZaOYHnVso2s/n5A4eAuLRjCXJMBizc2SHf0em5OwaOYaXhfPp46q9LeXXQ87Ifc
+	 JPkkbGY4ZlJErUCLVkkJzinchEbCOkR5212rMHnqpn70NbmHcGOluW58anM+MSqh72ihJ
+	 GvxBrlmkBX7Rev96tz/tmyqQ9qUquPe68hY0VPxTKywJHYjEjxSeSk1aU4wQyJ2YzmDeS
+	 SW+h1+cFdvFWcaZtMBfc20JnpAgDWhSf4akJ3grib+FDdp+CuFXCeuEwPHjlyGNtyHa19
+	 IMFzaxAZv1k97yUJ5D3JZLruzlFSgwtCP5tc3XB/oXt9hscTveFcZewgYlqDUUEcv9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYQDmM7t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ms/BJab/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E4C606A323;
-	Sun, 15 Nov 2026 17:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49911606A339;
+	Sun, 15 Nov 2026 17:36:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYQDmM7t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94FA91F000D4;
-	Sun, 15 Nov 2026 17:36:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ms/BJab/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FEDD1F000CD;
+	Sun, 15 Nov 2026 17:36:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794764197;
-	bh=yh6++frshBE1QaumwBxB0PcS1DRm4uywpNoD+jV9kuc=;
+	s=k20260515; t=1794764190;
+	bh=oI/8o/DiV/bCzmSN72SV0aGLWerxFym73b9YNEeRZhA=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=PYQDmM7tJkMuuZm2PHbvWpU0AQc42MSl3Fs6tdMBI9OBU6yETAkTDx9WhZUQn4VOZ
-	 MoaVRNbhXDXFA+ehcWfcP0aGT8bbd1mpO0tDr5R8aVP9gnahZdVeQtm0cJb4me4tIq
-	 fwjKFB3LY7f6zYURSsf7+yYgg7mQZuK7ZVItuQPhDAHo5Te66s1/MLNmrM/Z9dXlzv
-	 09H/u3VupJ5cXEUJZ8Y0Eqa8KcN9mJz+0ebAlwyHYvrAMVyOMVWQhDK7eenOhpfMMI
-	 UchDzyUqsgX7Lop7W4AtDGPLPIQxnD2i5CMdXvJi+N99K2/saVDfQpn5C04K0jnibs
-	 dPlj0oAOvomPg==
+	b=Ms/BJab/F0yMCpVgRrsm8O8GHY2RdEBGakLzg/Ic8oSPJTJQ1fHhg9op3KG6xX+FN
+	 wdPSaT756s/v3tPXszSl4TGCCJcQ3EHCN2ALb1I13vNQ5OkoXPDEBbgopMJQUStSrK
+	 JkOym9oDdcExytspCG8tT3BMzitYvER7WqbjsKzf4OXg+N9pm+lFXs1i9lEri2QYoZ
+	 JAsUwHPXfB9TQ4QoBijs0vbuPeut08ygjk69yA3reuBbYpi3gJZuTEjGps5MM/HWNp
+	 ZJKTqcRxNnCaH0z6fOcyqe8oG7RyLG7gBhXo7mqPpgrwnScS2SHC/NzRSyexQbuptH
+	 velMd95jS3lOg==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 7FE233386D16;
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 7DA603386D15;
 	Sun, 15 Nov 2026 17:36:16 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,8 +54,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH 20/23] ASoC: qcom: x1e80100: carry WSA VI feedback
- on the WSA Playback BE link
+Subject: Re: [RFC PATCH 08/23] ASoC: qcom: audioreach: run VI module in
+ calibration mode with per-speaker events
 From: Mark Brown <broonie@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
@@ -67,50 +67,44 @@ Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261023171433.820092-21-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20261023171433.820092-9-srinivas.kandagatla@oss.qualcomm.com>
 References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261023171433.820092-21-srinivas.kandagatla@oss.qualcomm.com>
+ <20261023171433.820092-9-srinivas.kandagatla@oss.qualcomm.com>
 Date: Sun, 15 Nov 2026 17:36:09 +0000
-Message-Id: <179476416983.140154.148298781294201106.b4-review@b4>
+Message-Id: <179476416982.140154.6938504071664790577.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1105; i=broonie@kernel.org;
- h=from:subject:message-id; bh=r6yv/JFGbDzg7kdtJx20n1PHKTVLOpEiKFiD1JfXDKA=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+vp2w/uv8VwYSko1Tzu4xlZys0NbDceaCyKbO/qnt6
- vxcntdMOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRM1GMDHPjyjJuHiuI8cjU
- cA058H/1W9uot0rr0vgfi186ucg54Qcjw/65LwVvWhycduqx2xVPluJTPmJJKydERLe8T3rz23I
- /Ey8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=917; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=5wCE1xfUPJHgm8WecdH6VIvcEKtYX/3gTuynF0/m4Wg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+vp0gfPFO6fX8I4/6m1JuHXr1qPB7XonajnN65et/6
+ cuoPWhX6ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBE7qxg+O8uNutOMIf7TO+L
+ EfNOLnbWrJ9VfuXo7M/uQq1/5+3OXnub4Z/17dsNf2r3O6Uq7V+Ty7z6+erVryLbXlzwOrkxZp7
+ GjoXsAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> Speaker protection needs the WSA V/I sense capture running whenever the
-> speakers play.
+> Put the speaker protection and VI modules in calibration mode and
+> register for EVENT_ID_VI_PER_SPKR_CALIBRATION, so each speaker's state
+> and measured resistance are reported on their own.
 > 
-> Set multi_direction_codecs on the WSA Playback link so it can carry the
-> VI codec DAIs, with a params fixup for their 8 kHz, 32-bit format. The
-> core's capture stream events for such links power the VI widgets.
-> Nothing changes until the DT adds the VI DAIs to the link.
+> Number the V/I channel pairs consecutively, as the VI capture packs one
+> pair per speaker without gaps.
 
-> +/* VI codec DAIs on the WSA playback link run at 8 kHz, S32_LE */
-> +static int x1e80100_wsa_vi_params_fixup(struct snd_soc_pcm_runtime *rtd,
-> +					struct snd_pcm_hw_params *params,
-> +					int stream)
-> +{
-> +	struct snd_interval *rate =
-> +		hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
-> +	struct snd_mask *fmt =
-> +		hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+> @@ -1483,9 +1513,20 @@ static int audioreach_speaker_protection_vi(struct q6apm_graph *graph,
+>  		return -EINVAL;
+>  	}
+>  
+> -	op_sz = APM_SP_VI_OP_MODE_CFG_PSIZE(num_channels);
+> +	/* One 32-bit V/I word per speaker, so channels == speakers */
+> +	num_speakers = num_channels;
+> +	if (!num_speakers) {
+> +		dev_err(graph->dev, "Error: VI needs at least one channel\n");
+> +		return -EINVAL;
+> +	}
 > +
-> +	if (stream != SNDRV_PCM_STREAM_CAPTURE)
-> +		return 0;
-> +
-> +	rate->min = rate->max = 8000;
-> +	snd_mask_none(fmt);
-> +	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S32_LE);
-> +	return 0;
-> +}
+> +	rc = audioreach_register_events(graph, module);
 
-Shouldn't this also limit channels so we don't get something wider from
-playback?
+What unregisters these registrations, or does it just not matter that we
+do this a bunch?
 
 -- 
 Mark Brown <broonie@kernel.org>
