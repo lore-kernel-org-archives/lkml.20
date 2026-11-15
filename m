@@ -1,79 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794732557;
-	b=dPDujqymTBmBHo8XB4SdQGp71h2vQCJwev+ao/eq20B8E45aTCVvpoPIsd4xY5Akrnd4
-	 ux+6eLPYSV7dEmzZk6P24anrZWnRae9Czidv8gqxXUHTwuzzcekJqhHI3TBrBg09hgC70
-	 xxxuNXyShSNffA7TKEGbciup0SGDtikktfR0Kbvy/6mWILzsgyNz5tggt5PXXNLctbpGk
-	 zbhjg3J4CZP1KySAxGNMC5fqZM/TzvxGYxGt9w5rlbkAjZRIfaS/d06U4VrKeXMw/glKd
-	 A5TRJ/320kI7GhqKJLlmpuTEP6g7gxmxMZsvj8SpghmneNUIo1Jj4wntC5l6bjiUnIw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794732557;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
-	b=adufZKJQm14WlhNTvjwpJjEpwlBJpx0MfDa34YoRQm1i9kVhqPrlmf4uSlH+i8ZgtXJ7
-	 lguV5n4hYieZeDkZ6YepMYaLi9+WWsblHkFnl2bBwpq5riZ+rDo4++MFcPSpirPjVRDKw
-	 MxlLQA3B/bQfjKed5kCU4XTrxNQXAlmHNU7w8l5TAptGM8BipD6XprPFetqNwTOB9NEpY
-	 ycAnBk5W4LTbNFcq9q0XiIlVCEwxfJi5MOJ3R+X4NdchdfxWtP5DLGs8dZpPdW4ffoALA
-	 X+g99VpNamcE9fng+VsbolMspJOUDjBYRflWDYkcVrGCsGnXrk8lFFvoCbrghPFhzEg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dpqZ0/XE";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F288606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dpqZ0/XE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794732557;
-	b=boqvfHsThvZVyYibacBhO1YrtuGRNyunVmpI1+GLV3N5leKZ86lg68/AVg0eBkE5EpOv
-	 oY4QBiKPCXrWBCdWy4TSsvGb42aOkgo4vkn7sT11ObCNa/KvJt8uuASLREqNQ63ST+S3l
-	 XGZaouhSWwsZfoy37cc61JmjYSreK/l3GhfgmRwdpsJCXFNDeMeDOFrXXDluEbBcqueZ1
-	 ZVfXPfV4trN9AlsUq6yBCuXvwk1GhYeOWsy/IjRr2OI6LracWqTDsIQHoo8WWMRG8ewnt
-	 z0guR2UQ76zPNyiNDFFLOBUN2xsgBaCph/dSi75XL0OTY1NwdjHpKS11CtrICtI0uaw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794732557;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
-	b=b3V+Q93mA9q+BkZDqJFPD03tdIXmALA1h6TwAr3inPCeAtMQ3b59XHIvbTzl4YWuIqoE
-	 FVBoo4hUGdyGleBkjKQHV1Ugma/29lDtcFbtWqelneUiWu60H48LLSXKZXb6tTWy7P4ZP
-	 +JLqyfeCSzWq8qZXqBA73PpZz2fhDZl9flLvmXS7bC3uS33iOJLEImaHQeWtjqoKwXPCm
-	 JvlwTACbJ837+Qz9zpoqRbYtXqXtmGJQSQ42h5TzP2LEeFCtijZ5ZUt85URGtTtxWWdHd
-	 B2SZ3D9xX3QgW6pJurNI6S862FO5l7OCa8j07XWrlCaJVk9EaV8UtRMnEwrywXCa1NQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794732574;
+	b=LNQOKim8jMqi4EVkuef3NIIXWX6bwJaiq2srHY43hbVcPEy1ZKu/l4tk7fBm8Pvuonrp
+	 ysyP1oQ3kcrMEzXUnnMkuB+I/qZ+ySsqQZ4bfxOKPKgQbBhQV5dUYUE3xzbR3Pc0IrBqn
+	 CMnsqw9ULClvqVdGvztYdym4UpfkgV5/t5qmIlGb5fztde7pO5Ny7oVnUgmqxSqRljDgF
+	 gJzjJV2299JFgv5kON/zNoJnlAledCmDL0dlSszTiNWQ363qUY7VpFVGwJCP8HMH+ktzb
+	 aWjSBxYerSEmsxLAVJBEMTWPpESI800dUvevtjJ5lra+3j5tAVi0RbnhrNZHfDAyJlw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794732574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5+DlzZ54z+gqYS2j5LWpmlloxzsta3AIypG5vjV0hKY=;
+	b=g5CzFYdKghiDqQUucv/OAOH9aAIQf5bKTm7HwD5Ln05xvbrhtuzq4ZsmnugPG8eRnuHj
+	 WkbP5uXtjRKxVexdDHGRDjlSR7xpjpUtqg393qka/VAz9fZf2ZudA3ByE9p0v+YJds61x
+	 UIF+dI3eun9pu21AKE1O8rBX3bZ0AOh76drndwPCtcsW38tba04dNXKTNzljo39V6oyF2
+	 5eKe/PPaTuI5R6bEp9RzQG1z80whoZ190oGCIt7zywqsCFnh+QV9a5Ndy07cOLVC0evAT
+	 Z+BrdwRbRz9fndsvu9nSmZNeFbx5J46M+ejUaldX7TU/tEaZeRrWv9/FYHl3l/B4iXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OCuvD+/Z";
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4763C1F000C6;
-	Sun, 15 Nov 2026 08:49:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794732557;
-	bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=dpqZ0/XE2eGod2aMDqwqkN1pvcqOdc0QN0Zab5xL+o4INHUYftGlvi+3Wu3HmTlyH
-	 r7Hs/5pcZyxjO+Otm+p0FbEzSgQ/oxzRC4pywXWhQt2R3lFYDVPykw0ha68pywsdpZ
-	 0ClKfvsj/8uBbEanGsNT9kzKLHvS3rqCBkW2aJ2ZgySQq/9t/oxYltSEvmNtTFNNeo
-	 XWbILPN2S2er9tiYnpDtXRCEhlgPc4tNl9DeR7BozPSHcB9hq93D9trWXOb0b6OoL/
-	 9+BVNftkdbzGtXkMwmv1ZQJiZtJ5eEGknyBKndGmkrRb6upDGsS9NFT+vP088NMTQj
-	 igXQMjWZoH7Pw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BC02149FEA;
-	Sun, 15 Nov 2026 08:49:15 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 08:49:15 +0000
-Subject: [PATCH v3] drm/bridge: Fail an unsatisfiable bus format
- negotiation with -EINVAL
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E15606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:49:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E15606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OCuvD+/Z
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f758312e0so750766eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:49:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794732574; x=1795337374; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5+DlzZ54z+gqYS2j5LWpmlloxzsta3AIypG5vjV0hKY=;
+        b=OCuvD+/ZYUyJBwtcZ9SiBfGB0R3m8CJJ7uqWGLa/nM4vATgtMPx+ctTwj7DOFy/WSy
+         xYM9s7AIC71gtafU34SjUfbP42VHORHeDHCgT/rxFrQm27TQZuWF8oxNkE4n70r9XOqO
+         LBER5aF0bszPgv3x4eLobOwaI5Zb7garF+Vx6tN4kfj6yIKL7yslnHPCgo99qdkuBz1m
+         XGR13Qcev8Cv8rQqXmAIVPC3l0malD4Nrx9xckR6EA4PqvZYdQhzOZg6v0V9CVZ4Uvo8
+         APkxqimHzKZCWFVghVvRp9+5q/bcR0GIoqiJ43qR+OogwZmegVnsi2ThhqlNyiLLplL/
+         iQmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794732574; x=1795337374;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5+DlzZ54z+gqYS2j5LWpmlloxzsta3AIypG5vjV0hKY=;
+        b=xXLwL9eiKR3l5Z96St6Xoc7aPvkRoS47N6hnbD2xVgO8AlWSmSlCru1yMzUbMS95so
+         ewIDOOvXpB/9HsKPGuf/xSP0X5NB3ZTknFW+vJY2B/cj2FaTWJ0Wqtp+19Zg0OzXmIED
+         Y02jmVGdTPvk3XMrz6OedlqlIGsdI7d8St0stqSlFTYi78crlMaPyd2LPF1DFZoE1qgT
+         vq2fmXkP2CEwSOq9muju/09nuF4XwM9mGJ6WbnHQTaTy6i+89RJvDxOngT9IiOel/eYX
+         Sd8AF7sepoHRumPwGSghkv/CzOUiC7mXkOY9TbN3eX383VH8JN0n7zwkqx9g99KfS5Ke
+         xsUQ==
+X-Forwarded-Encrypted: i=1; AL+hErEDdYoNjgWXNy7es7FnSgPs5FtUQ9zSmjtIfk+6Y3CqxDxQ7bY4sfgEsnqzZJNLjiyTQaOIfE5oqA2Zwo0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9yFrUvxyUM+oYfwB4/9PPa/6r2mBZvcoFvNF/Ati4QPI+WRVWb
+	jnyka/+LSNXPMsod25QYBd2o2bt7qTzx9lfPO9IZGukho+jVUY+ghXXQ
+X-Gm-Gg: AYBFou2QydsaIL600i58B9wzbvqyFBpuVrdIWOMWCWlcnHPvOzh4lSsfbcwAcfmWP/I
+	h14nPHlHWHvjd7MEYC/CpqH1CCzzUoI148aWejCtUW2Ja/pF10wwXJNi8Fz4pCWUDYIA1gK/qhz
+	D4RVZs5OPF3LGgZs/iKKAM9xW9Bv4CthuEw+Dmkrqpas4pqUnnVUDFPSZJWxrbq8fv7buGSu+DQ
+	Lzs5YvKD4MyPtCkFOEyTUDYi9CyWqKoCY4g2Kd3lTMdN41VkZ7uWTcs96YWZWJ3RuJoLfEEAmgZ
+	QM6T1pL7gHyJ3LEQY1zOpLj3Y6aGtMUBIJQj+EpET30aScnEAa+3A79ustepKXdDrgCu5UC6c59
+	UKoDq0JvUVvqCVpJSixpyTrvxJXhU1SdYXZVJD+hUYLtG7ramFQXk9ki7GGZEk76nZ38LjC8qUi
+	ZQmaLezYTAXNuwDEMFl2lkYyXepJRrGdABA0TzFFjemSuYfM9uRISQqIBfEdZCTRzzbW86uJc/1
+	w8zgC5aSinrfx8jzth/SXbXccGaw5pRWqRrBmf55qNJ+s90H6tOHFgNUGTmZThQzXtfjSQV6Uf+
+	6kWqKr/TUM9vACe/P2mOPWxKhtUse8XJWKC1ivlY8d8uO23Q3L1OrVIejMJOirlJqpr2Yy0DUOr
+	9KOGyhtH3dH+ceYjAoviZf93GgYf3UnCnGwiSDA==
+X-Received: by 2002:a05:7301:5518:b0:379:d02f:dfe8 with SMTP id 5a478bee46e88-379d02fe0b9mr6019030eec.14.1794732573612;
+        Sun, 15 Nov 2026 00:49:33 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm25221051eec.23.2026.11.15.00.49.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:49:33 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: andrii@kernel.org,
+	bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	alan.maguire@oracle.com,
+	shuah@kernel.org,
+	alexis.lothore@bootlin.com,
+	luisflavieira@gmail.com,
+	ameryhung@gmail.com,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH bpf-next v2 0/2] Fix unaligned enum values in btf_dump
+Date: Sun, 15 Nov 2026 08:49:21 +0000
+Message-ID: <20261115084923.53182-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,104 +112,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-drm-bridge-busfmt-einval-v3-1-ab38616d6135@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Nyw6CMBBFf4V0bU2nrfhY+R/GBX0AYyiYFhoN4
- d9tccPKuDyZO+fMJFiPNpBLMRNvIwYc+gRiVxDdVn1jKZrEhDNeAgCjxjuqPJp0UVOo3Ugt9rH
- qKNf6pIQBJs+CpPentzW+VvXt/uUwqYfVY/blRYthHPx7bUfIuz8yEShQnSJSGS54Ka+Nq7Db6
- 8GRnIl8K4IfIp5EtVJHeWaHEqTaipZl+QCHQoFpGwEAAA==
-X-Change-ID: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794732555; l=2445;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=wDXeQt9euA8I+/3t45VeI1f/YvX4GBH9rBxqF2WJVaY=;
- b=DYQVDCJ5ppn7LVbkF62hmMtueR/ast2YyZseZIpyOAfxSFZ+ZZp/me3meaoXZI8p8lH7Sn9rg
- QUXTgKPXV3yDUEoOnrUNcQV4SCFb078jHL9BxsuAupqrTT7/s0tLsbi
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
-
-If no bus format chain fits, drm_atomic_bridge_chain_check() passes
--ENOTSUPP from the negotiation to userspace. Return -EINVAL instead and
-update the KUnit test that expects -ENOTSUPP.
-
-Fixes: f32df58acc68 ("drm/bridge: Add the necessary bits to support bus format negotiation")
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Tested with the drm KUnit tests (UML).
-Developed with Claude (Anthropic), which wrote the code and the commit
-message. I reviewed it.
----
-Changes in v3:
-- Shorter commit message, without the DW DP example (Nicolas Frattaroli)
-- Drop the code comment
-- Link to v2: https://patch.msgid.link/20261111-drm-bridge-busfmt-einval-v2-1-fbb74905614b@gmail.com
+btf_dump_get_enum_value() reads unaligned enum values through
+btf_dump_get_bitfield_value() with a zero bit size, which shifts a
+__u64 by 64. Patch 1 copies unaligned enum data into an aligned buffer
+instead, as btf_dump_int_data() does. Patch 2 adds the tests Alexei
+posted in the v1 review.
 
 Changes in v2:
-- Make drm_test_bridge_rgb_yuv_no_path() expect -EINVAL (Sashiko)
-- Add the Fixes tag (Sashiko)
-- Cc Nicolas Frattaroli and Boris Brezillon
-- Link to v1: https://patch.msgid.link/20261110-drm-bridge-busfmt-einval-v1-1-c0494bd23264@gmail.com
----
- drivers/gpu/drm/drm_bridge.c            | 6 ++++++
- drivers/gpu/drm/tests/drm_bridge_test.c | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+- Describe the undefined shift in the commit log.
+- Drop the data_end check, which broke the dump of struct fs_context
+  without emit_zeroes.
+- Add the selftests from the v1 review.
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 8ae2f9b1db44..33120cc7f982 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1437,6 +1437,12 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
- 
- 	ret = drm_atomic_bridge_chain_select_bus_fmts(bridge, crtc_state,
- 						      conn_state);
-+	if (ret == -ENOTSUPP) {
-+		drm_dbg_atomic(bridge->dev,
-+			       "[ENCODER:%d:%s] no bus format chain found\n",
-+			       bridge->encoder->base.id, bridge->encoder->name);
-+		return -EINVAL;
-+	}
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
-index 15583ade8494..792dbd035501 100644
---- a/drivers/gpu/drm/tests/drm_bridge_test.c
-+++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-@@ -1351,7 +1351,7 @@ static void drm_test_bridge_rgb_yuv_no_path(struct kunit *test)
- 		drm_modeset_backoff(&ctx);
- 		goto retry_commit;
- 	}
--	KUNIT_EXPECT_EQ(test, ret, -ENOTSUPP);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
- 
- 	drm_modeset_drop_locks(&ctx);
- 	drm_modeset_acquire_fini(&ctx);
+v1: https://lore.kernel.org/bpf/20261113223449.97604-1-dennylin0707@gmail.com/
 
----
-base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
-change-id: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+Hungyu Lin (2):
+  libbpf: Fix sign extension of unaligned enums in
+    btf_dump_get_enum_value()
+  selftests/bpf: Dump unaligned enums and a zeroed fs_context
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+ tools/lib/bpf/btf_dump.c                          | 13 ++++---------
+ tools/testing/selftests/bpf/prog_tests/btf_dump.c | 10 +++++++++-
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
+
+base-commit: 0021f17128de5dc0b19f1a523f448df2440d8088
+-- 
+2.43.0
 
