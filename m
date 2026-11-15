@@ -1,62 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794723697;
-	b=4E+FKCPjEp638SzqF11b90MuWT1hA2Mz+ievbBRy7HyE9tVFUmwwzwjHIMcVTYAT+M/h
-	 5Ipl11gBMj7ho0B+9fRpI1dmivzWSy4DqOXwEOi1ZPqfV+k4DDG4LCVIEuJaflcDEroSW
-	 AUjBFAyGckaw1m2gX8k/iEb26BBxUtDPm51aHqRxwYbLY10s+8pUVe56NJD5/VK8IHcnB
-	 LGkPwMpxBCdkKgPzcUqcSxdQaZNFpHqGkppseCf4xgzyB47qgoUx+PffAm0BXSanljTco
-	 U6HsFuVu1eaedoGVNDpO8EO008RJG1sQh805ifKwylTGQfLTixLgieod9p0YWQNP9wA==
+	t=1794723826;
+	b=y+/MiK3GFmuU1Ij/XWXVFWUe15ByB1lZmTr+BsWctsQ9wuE8WPHIGfnj0MxJTH46+unG
+	 Ev72tdO1OGsYOmzvBCUyAgtqk4nJO7L41peRe00Kl/sctRf+MlR74tHSEeEJ8/91jXOwk
+	 ditws1PIf4KeEUFgCGDYkSjUveDJTz5RU50yQDwcXkJwCp+08r4jyQ/ngQFLa6Qc9qdU3
+	 a1Cce73tiJq5edGz+b7WS8UgJ0bnyAlIWfglQbjvSUHZ1LYuGJJzMW5Lhlc8B2IG813dE
+	 aSAsPG67ZvYEnjnCm22IaOr/XUTUWwij+FKBm79cOtHqkKOAY9sn3fu8jCPfQG+VRBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794723697;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QsgB+sVcK9UCbK4UGXs+Cd+3JFpVkvHshXsJJqj2Hgw=;
-	b=fJkFJWAwv+FAxQWHR2jPaoO3IvO+sBivTiJNG3iRj8eyeXwGJxrYhRnxP4QAZ3MCCL1q
-	 v4c7heyKeTDRWd1NfZvBQGQrKHFKHavqRLdtS+F4zfnT9Jg8vfTykomElxIdH7vldA4B/
-	 J2T+iCtR02dC+GrpZqsmcvP+fPfwYI7NcJ9/1269DGWpWxfomvUqyhxd8JvfaqlIZw+6v
-	 OHRi6YMHnGPXeJY0nd11HKNTFYL+PHPOwMTfjdARtMNulkM+D8q8x43pAjqGfXgavxl8c
-	 MPPcUsKYMRJa6ohZlOMDk8YDdqSYqvRoQDy1aPbR99VQ+qMI8o7M+czdBHnewvAK2oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794723826;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
+	b=krn8lDXtqxlt9AWAemBmiZCuirpcjXVXflzEA+ocU9AahVVJ362vX/1ykSef9UCKwJ8c
+	 MV96bcCJzyGQl27qtaKk/PYwA1V93dvYQUDyym5DG0ApFAQYft8Lup8uIOBIbchl1//lZ
+	 Hfx+op4FFIZYg+A4bmUmEFAoEnqi+33KvsM98OrILoyUCjCwog8JPdWLvQ0sEQzfp/hg3
+	 pdQQjDAgBkzjW6p2QfZSFnG5Wowc3FzolJxgeokdNu0VxPZg+P018XeKDO+zroaCA4+hp
+	 7q2F96d0KulpvXI+LEkqb8mzijQhqCi4vZD5TDIsunQh29KBb+LjmLU3ds2IxKScPtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4Hwa9iT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=IG2T7Bnt;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2202E606A329;
-	Sun, 15 Nov 2026 06:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C73606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30C73606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4Hwa9iT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB891F000C4;
-	Sun, 15 Nov 2026 06:21:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794723696;
-	bh=QsgB+sVcK9UCbK4UGXs+Cd+3JFpVkvHshXsJJqj2Hgw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G4Hwa9iTv01i4SbPlzvx2vvckTsmPQ6Z6nKiB3XDVir7LEk7Ytxb7QuDUI71WkCPr
-	 FDcnjbfNTmAr2q3p+A6aiC8UM90z7JWV4xyzqhibD0nBjS6nC+OkMX7+dZC41qoPyA
-	 WBq8ggHOpbed/vwuKfxeA0fGpZsz8n/L91jz9+zuHoCyge0z4obZ9aKq8Ex0uluaDK
-	 CIJSVszNOJ9pJbpx++6Wfwti4fdHBk+WHaROK+3FrCFO2Mz4p76lDPxjSEo32QnipO
-	 chVKQgHzR9xtQPuGMqNFXuHnPs67XeTUL7Tby4JENRCmFlJ8HEaS1GjnyQfs//odH+
-	 BEziTZvFUJNIw==
-Date: Sun, 15 Nov 2026 08:21:28 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
-Cc: Nathan Chancellor <nathan@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>, Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, regressions@lists.linux.dev
-Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation:
- 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 -
- 0xffffffffc0477fff PFN 109c1f and WARNING at
- arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
-Message-ID: <avlPaC_oxGeFBeAa@kernel.org>
-References: <avcG_ggetL8ArwAx@eldamar.lan>
- <avdb9EPXBv2hRCzQ@eldamar.lan>
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=IG2T7Bnt
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so7121964eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:23:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1794723825; x=1795328625; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
+        b=IG2T7BntzzUTEAUJLRiA7i9f1NZjJSRnAtFfatGBjdJiCJCNz47ij/51iKRGcQX0iC
+         gii7HAZLsquTGeFyljA2r4X1SnQdip+R/gSf6CAnuqgCi6U994IltiYMtVbFBf3fj9Cr
+         AP57W9Jt9M6zvMaQZSs/rsodN6SFzxv4mBPZI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794723825; x=1795328625;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
+        b=ojIdqVHJMM+/5fX3zI3IsBya+NE2U4eUg5XFGZDopdon1TosCqRx4+0zIxxcYYrCkE
+         MPT1jmpzBvYtRoq08oYXVUoAberns8WIIz1sf5Ml7uYDByCBjF+vELg7Rqr6NzXryAPu
+         8a9WnZdgGHZuhhB+GQPzPYtPfp2I/nd3Uc4Mi5ih4bsQSYMrf+L8F1e8gXdkGD3GhfO4
+         PCroOeixjVZQD9TNZSex5M36KDHqA9aJWqZ4xsIdeJQH09NUn/1hyuEw0foMFBXtqe4g
+         Vjj6Av7NE4bE9pJjJ52EAZJRiSGeYwp4oRoGl4yU7fUFJPNvNl9WI/9rtyL1UoWQbzXd
+         fCrg==
+X-Forwarded-Encrypted: i=1; AL+hErG2858dBzGD3FZQl7EWFMxp8HapZ8WAUFqX6/GTCOZyMwSa+fL8sieHy0Q76wkiSv4dSSn+hcbZZJ40Akw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8126rGsGiTxjTH2xmVVX7SOCIjY/N/1kCrCxrgBGqvI5cs/Bbt
+	DNy/DtZWLRnuqfnuTv8LsG0DGqFMvnLTVmosOl2fYJuRmBAYcVGpxnYI0LDYtrlohPA=
+X-Gm-Gg: AYBFou2EiP6xjtFOHOynvSIOBEvYtYGtRKHnUImzgZLVBY0DTY0TXSFbw1vCnTrxO2v
+	WscTJEsKvzLBNjMf2NbaDyM18HPEojrJceuNuWXd9M0+YDTXBsh3jbpdfOwbST6I/wJT8zf5YVS
+	DnDa1jDSum/dwzt9nt1jRZkU1T8LQBlBRCMUel6wqsJ23oVjYhu84qYM8kDyMCBRMN47UQ++z5q
+	r3nyaU6jl2trUB3BdMzZrFI0z9TjhtsMOwd4HnNK7Cutn5NLsFJWyOZJvCeDJUIDmv4geumAICG
+	g68nAqSc60E5yYS4OAherhw0THSJefYKeturlpUj+LmTLu5mZeh6C5BTjXDZIRaHtIu+9ar5yPh
+	VOhC40G/nhVEND1Dq1BwqlWc0SDuu3N2tRaiPBk8Dk6RYGAvuwhkVtqHfWRDDtAG7TYlbDAYMo+
+	iyceOcAkiE2mbTL5FXPdpFoUhEVwr7yRyLvLtxc4XIreWyjTbwjNc0W3E2OJVXXq9ajQXk2A6H8
+	F0/csV65NArUClg1KlvmwY3Y3KPcJ85Wws8W8i60jS7YaJNrg/boNp4yklrT0b8RxniMyuJmBb3
+	8xlDgVbXCfCrFmQknVNvUjTZP0SRpZ4Gr3YqrEBLmczif4aR6n4foExHWiD1wJc3gEhEn75d5fS
+	EOzervLKy6q/+sw0SMJp9t+Q5lSq1QZpJGBDZ6fWdZsnIlPIE1D6SL+r38ne7AYDGSXykpTi8Au
+	LZpa0sP/9aJtKZo1aljF6F01qW8U+wwfRHtC6HX1g17EQqTjquNexYzOCe5vYMfZth
+X-Received: by 2002:a05:7300:269b:b0:37a:cafa:6d78 with SMTP id 5a478bee46e88-37acafac54amr4684055eec.33.1794723825291;
+        Sat, 14 Nov 2026 22:23:45 -0800 (PST)
+Received: from [172.18.0.2] ([172.56.232.151])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379558231eesm21719807eec.12.2026.11.14.22.23.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 22:23:44 -0800 (PST)
+Date: Sat, 14 Nov 2026 22:23:40 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Alexander Potapenko <glider@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>, Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>, David Hildenbrand <david@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+	Muchun Song <muchun.song@linux.dev>, Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Mostafa Saleh <smostafa@google.com>, Ketan <ketan.kishore@oss.qualcomm.com>,
+	Usama Arif <usama.arif@bytedance.com>, kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 1/3] kmsan: encapsulate per-page metadata access
+In-Reply-To: <20261114104150.58424-2-songmuchun@bytedance.com>
+References: <20261114104150.58424-1-songmuchun@bytedance.com>
+	<20261114104150.58424-2-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,117 +105,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-In-Reply-To: <avdb9EPXBv2hRCzQ@eldamar.lan>
+Message-ID: <20261114222340.8fe68e5bf755c1f7@chrisdown.name>
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-Hi,
-
-On Fri, Nov 13, 2026 at 07:50:28PM +0100, Salvatore Bonaccorso wrote:
-> Hi,
-> 
-> On Fri, Nov 13, 2026 at 01:47:58PM +0100, Salvatore Bonaccorso wrote:
-> > Hi
-> > 
-> > While updating from 6.12.116 to 6.12.117 on one system the following
-> > warning is seen:
-> > 
-> > [    0.991048] x86/mm: Checked W+X mappings: passed, no W+X pages found.
-> > [    0.992476] Run /init as init process
-> > [    0.993426]   with arguments:
-> > [    0.993428]     /init
-> > [    0.993428]   with environment:
-> > [    0.993429]     HOME=/
-> > [    0.993429]     TERM=linux
-> > [    1.091378] ------------[ cut here ]------------
-> > [    1.092538] CPA detected W^X violation: 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 - 0x
-> > ffffffffc0477fff PFN 109c1f
-> > [    1.093994] WARNING: CPU: 5 PID: 222 at arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
-> > [    1.095730] Modules linked in:
-> > [    1.097101] CPU: 5 UID: 0 PID: 222 Comm: (udev-worker) Not tainted 6.12.117+deb13-amd64 #1  Debian 6.12.117-1
-> > [    1.098671] Hardware name: LENOVO 20XXS1FU00/20XXS1FU00, BIOS N32ETA2W (1.78 ) 07/23/2026
-> > [    1.100096] RIP: 0010:__change_page_attr_set_clr+0xf62/0xfb0
-> > [    1.101357] Code: 09 ea e9 19 fa ff ff 48 8b 4c 24 10 49 89 d9 4c 89 d6 48 89 54 24 08 48 c7 c7 38 43 95 a6 c6 05 d1 fd d7 01 01 e8 9e 76 01 00 <0f> 0b 48 8b 54 24 08 e9 22 fc ff ff 80 3d ba fd d7 01 00 0f 85 15
-> > [    1.102928] RSP: 0018:ffffd02d40557648 EFLAGS: 00010286
-> > [    1.104241] RAX: 0000000000000000 RBX: 0000000000109c1f RCX: 0000000000000003
-> > [    1.105561] RDX: 0000000000000000 RSI: 0000000000000003 RDI: 0000000000000001
-> > [    1.107204] RBP: 0000000109c1f121 R08: 0000000000000000 R09: ffffd02d405574c8
-> > [    1.108503] R10: ffffffffa70b43a8 R11: 0000000000000003 R12: 0000000000000001
-> > [    1.109816] R13: 0000000109c1f121 R14: 0000000000000001 R15: ffffffffc0477000
-> > [    1.111556] FS:  00007fcf08a6b980(0000) GS:ffff88c4bf680000(0000) knlGS:0000000000000000
-> > [    1.112888] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [    1.114279] CR2: 000055cf7979a138 CR3: 000000014061e006 CR4: 0000000000f70ef0
-> > [    1.115600] PKRU: 55555554
-> > [    1.116935] Call Trace:
-> > [    1.118345]  <TASK>
-> > [    1.119677]  ? __purge_vmap_area_lazy+0x13c/0x320
-> > [    1.120979]  ? _vm_unmap_aliases+0x217/0x260
-> > [    1.122392]  change_page_attr_set_clr+0x104/0x1a0
-> > [    1.123702]  set_memory_rw+0x28/0x40
-> > [    1.125019]  apply_retpolines+0x19c/0x4c0
-> > [    1.126404]  module_finalize+0x209/0x3e0
-> > [    1.127690]  ? add_kallsyms+0x293/0x310
-> > [    1.128985]  load_module+0x17f1/0x1e90
-> > [    1.130318]  ? init_module_from_file+0x89/0xe0
-> > [    1.131586]  init_module_from_file+0x89/0xe0
-> > [    1.132873]  idempotent_init_module+0x11e/0x310
-> > [    1.134175]  __x64_sys_finit_module+0x5e/0xb0
-> > [    1.135433]  do_syscall_64+0x87/0x1b0
-> > [    1.136706]  ? vfs_read+0x24d/0x370
-> > [    1.137967]  ? __x64_sys_pread64+0x98/0xd0
-> > [    1.139652]  ? arch_exit_to_user_mode_prepare.isra.0+0x16/0xa0
-> > [    1.140905]  ? syscall_exit_to_user_mode+0x37/0x1b0
-> > [    1.142172]  ? do_syscall_64+0x93/0x1b0
-> > [    1.143402]  ? __count_memcg_events+0x53/0xf0
-> > [    1.144644]  ? count_memcg_events.constprop.0+0x1a/0x30
-> > [    1.145859]  ? handle_mm_fault+0x1bb/0x2c0
-> > [    1.147452]  ? do_user_addr_fault+0x367/0x650
-> > [    1.148626]  ? clear_bhb_loop+0x70/0xc0
-> > [    1.149809]  ? clear_bhb_loop+0x70/0xc0
-> > [    1.151303]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> > [    1.152445] RIP: 0033:0x7fcf095cf4f9
-> > [    1.153586] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d e7 68 0d 00 f7 d8 64 89 01 48
-> > [    1.155067] RSP: 002b:00007fffd10634a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-> > [    1.156238] RAX: ffffffffffffffda RBX: 000055cf79783110 RCX: 00007fcf095cf4f9
-> > [    1.157419] RDX: 0000000000000004 RSI: 00007fcf07cf944d RDI: 0000000000000010
-> > [    1.158766] RBP: 0000000000000004 R08: 0000000000000000 R09: 000055cf79763ba0
-> > [    1.159927] R10: 0000000000000000 R11: 0000000000000246 R12: 00007fcf07cf944d
-> > [    1.161090] R13: 0000000000020000 R14: 000055cf79784bc0 R15: 0000000000000000
-> > [    1.162318]  </TASK>
-> > [    1.163460] ---[ end trace 0000000000000000 ]---
-> > 
-> > I'm attaching for comparison as well the log from 6.12.116 which does
-> > not show any CPA detected W^X violation message, while the 6.12.117
-> > shows it twice, with one WARNING.
-> 
-> One followup to this. Reverting 
-> 
-> Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
-> Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
-> 
-> "fixes" the problem.
-
-Right, because without "Fix effective RW computation in
-lookup_address_in_pgd_attr" W^X in modules is never actually detected :)
-
-Apparently, this commit exposes issues in the management of permissions in
-ITS mitigation that was fixed here:
-
-https://lore.kernel.org/all/20250603111446.2609381-1-rppt@kernel.org/
- 
-> Testing 6.12.118-rc1 which is on review does not change nothing, but
-> that is not surprising as I think there are no changes in that area.
-> 
-> On the other hand though testing 7.3.5-rc1 which is currently under
-> review only logs:
-> 
-> [    0.096682] CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100800
-> 
-> but no WARNING anymore.
-> 
-> Regards,
-> Salvatore
-
--- 
-Sincerely yours,
-Mike.
+Reviewed-by: Chris Down <chris@chrisdown.name>
