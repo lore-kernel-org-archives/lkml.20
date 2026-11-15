@@ -1,60 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794759855;
-	b=4CI6j5LPxXXgSjRKe4yuUO/ZIY2+uKxzexrhZIGGocHLCsFQ+nWBbDCujDDf+kbG1Cc8
-	 uuLMqgGu4K85seeeWB+I8XWfL6P8WNZLz6s0mzPot1OfbGkgehDMy0LU1Qrj5zzlKClFp
-	 OBnsD4YlLSoC3tDXyl5AWaxXu9VfQeKwE7o0Nl5M6aPXigGFpm9sgjr+65vEEwy1+xd9J
-	 /9VO6qU3pXbf+gAoG2zJVOHzGh6vISyDVMbfwX/rM7nCYDQ3GOO/7eMKuFCsUUjA64NcX
-	 3jU7lK4tYHAlbOB5U1KFsL8EIGasEXaAmfu7XWuwkKs5Mb4dwk/WDqCZf5sDbuRFPUA==
+	t=1794760137;
+	b=GpKw0F9X0NnkSbLj3mo0slGjTFAinlkyWuXnggHo/SGDJ/k9WDGYOU9ZUnpqEACKXvsv
+	 NaiSJQ0e1n/HvA95hTCMR5TO+f7cbtwsih4vayCNyJbVfdmXjB1i9edZGCfcWyedWLqlj
+	 BtJS2Gu0uWdIAv5ROu8yzkCgqCWZ6ST2Sm3lvrgTmFhACxeXrcnjnbf6jZRdbJXPMd0tG
+	 g233slXLwU3rsYX8J8wEiuz/hZLspWzLVR6r8Cnb0vqg1D55SDCRykOK9fLe3XDg0xc5X
+	 CedrD9wLszaXs5dDCuJqix7GhJuTBCzZys/g7e/YQkm93B5pTFBrmRDkDKrVZJW+IzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794759855;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ZSdx5f19liyf4Ud8gvv6YQ5/soOY5YSVXqUrvett9F4=;
-	b=mBBMTy+jVrlIREj0ULXGMeEXqbvOIl5V9dQ1Ot80aZ9nOLpOBwCC+vrc7SO7qUqNbu0h
-	 2SXLg19sJHr9j6OQvLdbtqQgTRgczOjyU6tl1ATIj385MINlHccAe6aqKI7dM6Q2mvGY1
-	 cG6y9ZsFn9PDoQ29Lj6jJpekPPxCx/T3dEzPKcFybesOWXKIbjr9BAC3aX+uqJcGKvrJA
-	 H/pC7ZlqmGb0EeOC99IogJbzHhS41cHAwFDI8qwafgij/+vtSEFth1THT5KUKvb7QtCKz
-	 83/xVVt1Tz50hn6POrjbjxajFoU8N4xNLsc+PFzSCGU0Y83vI03y27TdKT7DM3qX84A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794760137;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=K4tqPHQ2TGxmxB2s84Ytr8HIVLoVGZcqE0JXAR5BO/8=;
+	b=JQyRfx8DV7n7cFcUKdFad+ggznbpVVYNnH8PlnvJDE37kQUQiSVwcHtjHLun91JdP4TC
+	 v7v5S4BUeRxwiIN4zI8mtIRdyVrcO25sgIZ6ZB/IfvMC4TPOO5C3Tr5E5RGn04Ra0THaO
+	 XyIy+TNLePipNPn+V7bVLbpbzyFOE8pcTnce7qIUa929R+7pSxyYzgYUioJmt9T8BLQle
+	 Pl0je8W3sDohxu3kJVOP49g/xNyTRj68G+qEmxBfJGr9dRFsvMmmOIlEA8/NEdrWLO2ab
+	 d/sFBVu0daD6l2ZMLl5p6I6M/yGZKjL9G3QFcHRgcCNcHvGKMATTv0uTcIDErtnT3uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6ROHLvd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=luknuyNZ;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A086606A31A;
-	Sun, 15 Nov 2026 16:24:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A76606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87A76606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6ROHLvd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5698C1F000C4;
-	Sun, 15 Nov 2026 16:24:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794759855;
-	bh=ZSdx5f19liyf4Ud8gvv6YQ5/soOY5YSVXqUrvett9F4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=n6ROHLvdrpBs3K6OqWq45kAvQxnlqCn5AxnNnUX7BmbpbpPEr9oHqIqxd0KysehcP
-	 DoWxfwETb5ur0TdXZzJY7cRsQaR6isB3nMdQLEQYVT/rVQjwB6sEuJdY7qSD4lApFE
-	 TykGMqZEZ36Qbg/iiAvRy0gXUp4fEaRRnlRomcKxDRmM2Y9ac5zikUjKPudpTLwquH
-	 cf79g6rddAbd5v5tPCovL93I8sulQX2DInqaLk02Frl11oHk19dYsPyozRqqlUv1Qp
-	 4VQV72XaNDm7TFmNm4la5oD+5i70lN56nX4CBf7CqQXPo3SerLhVBXtUxmY8tbBgkg
-	 ScK+iHll5Jsyw==
-Subject:
- Re: [PATCH] net/ncsi: use kfree_rcu_mightsleep for RCU-protected list entries
-From: netdev-bot+sashiko@kernel.org
-To: tristmd@gmail.com
-Cc: sam@mendozajonas.com, fercerpav@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- tristan@talencesecurity.com
-Date: Sun, 15 Nov 2026 16:24:13 +0000
-Message-ID: <179475985387.2199510.17235857253316810745@kernel.org>
-In-Reply-To: <20261111160649.677910-1-tristmd@gmail.com>
-References: <20261111160649.677910-1-tristmd@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=luknuyNZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794760136; x=1826296136;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=mGqceJuqxNxltkPLs29w2Zuuud7BMNwlebSNpiX3d4g=;
+  b=luknuyNZ230CY1mKn0WOJJ+GNQ80C2UJ+jj1npQ/enxZC6Vw5wbkrwLR
+   JJnQ0IbjPM6wS49PLO/Z+j5+8YLLbtAMqCbY4cDCi09wbiHv9ydof6KM2
+   520aHwC7uikLPwiJVBXR3vBtlGqrj+9TXzlUwico+pf9TsQv/CkQoq/oM
+   Jtm+Q3Vwmf8JAIWuBzFSQY2suux0eMCCnFjj/5S46/UlZOvhaKJ478n4T
+   FGZRU0maEDRA691bncxQ+Z4a/TyipQyMn3J/bgCuzy8kovq2cc8Jq7V9b
+   b/yk5N9ITQfyTljLsPIMI1+NP7MljRdKQ3E9XSOdrbMD8R7QyRN8999dx
+   Q==;
+X-CSE-ConnectionGUID: U9L8GmA1TD+Zj4EzDbvV2A==
+X-CSE-MsgGUID: L2rjqap8TUGOAgU1+JERrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3494211"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3494211"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 08:28:56 -0800
+X-CSE-ConnectionGUID: sNze3bm4QE6lyf7pN4kNlg==
+X-CSE-MsgGUID: HiHMIc9bR8KtT45EdEFtEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="11075420"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by fmviesa012.fm.intel.com with ESMTP; 15 Nov 2026 08:28:54 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSd64-000000002Iu-0tAs;
+	Sun, 15 Nov 2026 16:28:52 +0000
+Date: Sun, 15 Nov 2026 17:28:44 +0100
+From: kernel test robot <lkp@intel.com>
+To: "Thomas =?utf-8?Q?Wei=C3=9Fschuh"?= <thomas.weissschuh@linutronix.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Dinh Nguyen <dinguyen@kernel.org>
+Subject: ERROR: modpost: lib/lz4/lz4_compress.ko: symbol
+ '__divsi3_table' undefined!
+Message-ID: <202611151706.g0q1YGnb-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,279 +81,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Hi Thomas,
 
-Critical: 0 · High: 3 (2) · Medium: 0 · Low: 1
+First bad commit (maybe != root cause):
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   23c62304dde29abe92013d85910d03a77dada35d
+commit: 2180d11e06fb56fd13643ae59964f144896870be nios2: ksyms: Declare __mulsi3 export
+date:   4 weeks ago
+config: nios2-randconfig-r2302-20261115 (https://download.01.org/0day-ci/archive/20261115/202611151706.g0q1YGnb-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 9.5.0
+sparse: v0.6.5-rc1-21-g84ec0658
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261115/202611151706.g0q1YGnb-lkp@intel.com/reproduce)
 
-- [High] The fix depends on a premise the code does not support, so the
-  use-after-free it targets is still reachable.
-- [High] ncsi_unregister_dev() removes every package and channel (now via
-  kfree_rcu_mightsleep) before it calls disable_work_sync(&ndp->work) at…
-- [High] ncsi_remove_channel() still frees nc->mac_filter.addrs and
-  nc->vlan_filter.vids right away with kfree() (ncsi-manage.c:253-254).
-- [Low] net/ncsi: invalid commit SHA and subject in Fixes trailer
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 2180d11e06fb ("nios2: ksyms: Declare __mulsi3 export")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611151706.g0q1YGnb-lkp@intel.com/
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  ncsi_unregister_dev() never cancels the per-request timers in…
-- [High] This problem wasn't introduced by this patch, but
-  ftgmac100_remove() calls ncsi_unregister_dev(priv->ndev)…
+All errors (new ones prefixed by >>, old ones prefixed by <<):
 
---
-
-net/ncsi: use kfree_rcu_mightsleep for RCU-protected list entries
-
-This commit changes kfree() to kfree_rcu_mightsleep() in
-ncsi_remove_channel(), ncsi_remove_package() and ncsi_unregister_dev().
-The channel, package and device structures are then freed only after an
-RCU grace period, once list_del_rcu() has removed them from their lists.
-
-> diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> index 1d63958c4429b..460fc024c1126 100644
-> --- a/net/ncsi/ncsi-manage.c
-> +++ b/net/ncsi/ncsi-manage.c
-> @@ -263,7 +263,7 @@ static void ncsi_remove_channel(struct ncsi_channel *nc)
->  	np->channel_num--;
->  	spin_unlock_irqrestore(&np->lock, flags);
->  
-> -	kfree(nc);
-> +	kfree_rcu_mightsleep(nc);
-
-[Severity: Low]
-The Fixes: tag doesn't look right. I can't find any commit that
-2d283bdd5b20 resolves to. The subject "net/ncsi: Package and channel
-management" belongs to a different commit, e6f44ed6d04d.
-
-This commit introduced ncsi_remove_channel(), ncsi_remove_package()
-and ncsi_unregister_dev(), along with the list_del_rcu() plus kfree()
-sequences changed here:
-
-  2d283bdd079c ("net/ncsi: Resource management")
-
-The patch carries Cc: stable, so the stable tooling depends on this
-trailer to pick the trees that need the backport. A SHA that doesn't
-resolve, paired with the subject of another commit, will at best be
-ignored and at worst point the backport at the wrong base.
-
-Could you check which commit you meant and fix the trailer? Going by
-the code being modified, it looks like it should be:
-
-  Fixes: 2d283bdd079c ("net/ncsi: Resource management")
-
-[Severity: High]
-Does this grace period actually wait for any reader of these lists?
-
-NCSI_FOR_EACH_DEV, NCSI_FOR_EACH_PACKAGE and NCSI_FOR_EACH_CHANNEL wrap
-list_for_each_entry_rcu(). As far as I can tell, the only rcu_read_lock()
-in net/ncsi/ is in set_one_vid(), and it covers ndp->vlan_vids. That is
-why the VLAN fix mentioned in the commit message worked.
-
-The readers of the package, channel and device lists run in process
-context without an RCU read-side section. These include ncsi_find_dev(),
-the genetlink handlers (ncsi_pkg_info_nl(), ncsi_pkg_info_all_nl(),
-ncsi_set_interface_nl(), ncsi_clear_interface_nl(),
-ncsi_set_channel_mask_nl()) and ndp->work helpers such as
-ncsi_choose_active_channel() and ncsi_reset_dev().
-
-For example, ndp_from_ifindex() returns ndp without holding a reference:
-
-net/ncsi/ncsi-netlink.c:ndp_from_ifindex() {
-    ...
-	nd = ncsi_find_dev(dev);
-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
-
-	dev_put(dev);
-	return ndp;
-}
-
-ncsi_pkg_info_nl() then sleeps before it walks ndp->packages:
-
-	skb = genlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-	...
-	rc = ncsi_write_package_info(skb, ndp, package_id);
-
-NCSI_CMD_PKG_INFO does not need CAP_NET_ADMIN. ftgmac100_remove() calls
-ncsi_unregister_dev() before unregister_netdev(), so dev_get_by_index()
-and ncsi_find_dev() still succeed while packages and channels are being
-removed.
-
-The readers that do run under RCU are the packet_type RX handlers
-(ncsi_rcv_rsp() and the AEN path). ncsi_unregister_dev() already drains
-them with dev_remove_pack()->synchronize_net() before anything is freed,
-and ncsi_remove_package() has no other caller.
-
-So is the grace period only added where the RCU readers are already gone?
-The concurrent accessors the commit message describes could then still
-reach freed nc, np and ndp.
-
-Since the patch carries Fixes: and Cc: stable, would a fix need
-rcu_read_lock() on the reader side plus references for pointers used
-after it? Another option would be a teardown that quiesces the netlink
-and work users before freeing.
-
-[Severity: High]
-Should the channel's sub-allocations be deferred as well? Earlier in
-ncsi_remove_channel(), while nc is still linked on np->channels, the
-filter buffers are freed right away and the pointers are kept:
-
-	spin_lock_irqsave(&nc->lock, flags);
-
-	/* Release filters */
-	kfree(nc->mac_filter.addrs);
-	kfree(nc->vlan_filter.vids);
-
-list_del_rcu(&nc->node) only runs after ncsi_stop_channel_monitor().
-ncf->vids, ncf->n_vids and ncf->bitmap are never cleared.
-
-Any reader that finds the channel can still follow these pointers, even
-one holding rcu_read_lock(). NCSI_CMD_PKG_INFO is one such reader, and it
-has .flags = 0 in ncsi_ops:
-
-ncsi_pkg_info_nl()
-  ncsi_write_package_info()
-    ncsi_write_channel_info()
-
-	while ((i = find_next_bit((void *)&ncf->bitmap, ncf->n_vids,
-				  i + 1)) < ncf->n_vids) {
-		if (ncf->vids[i])
-			nla_put_u16(skb, NCSI_CHANNEL_ATTR_VLAN_ID,
-				    ncf->vids[i]);
-	}
-
-Can this copy freed slab contents to an unprivileged netlink caller
-during driver unbind?
-
-set_one_vid() also reads ncf->vids under nc->lock. That lock gives no
-protection once the remove path has dropped it.
-
->  }
->  
->  struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
-
-[ ... ]
-
-> @@ -1969,6 +1969,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
->  
->  	disable_work_sync(&ndp->work);
-
-[Severity: High]
-Is ndp->work disabled too late? The removal loop in ncsi_unregister_dev()
-runs before it:
-
-	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
-		ncsi_remove_package(np);
-	...
-	disable_work_sync(&ndp->work);
-
-ncsi_dev_work() and the channel monitor timer reach channels through raw
-pointers and ndp->channel_queue (nc->link), not inside RCU read-side
-sections. The deferred free does not wait for them.
-
-While the loop runs, ncsi_configure_channel() can still do this:
-
-	ndp->hot_channel = hot_nc;
-	...
-	ncsi_start_channel_monitor(nc);
-
-That re-arms nc->monitor.timer after ncsi_remove_channel() has stopped
-it, so could ncsi_channel_monitor() later run on freed nc, np or ndp?
-
-ncsi_process_next_channel() can also take a channel off
-ndp->channel_queue and cache it:
-
-	ndp->active_channel = nc;
-	ndp->active_package = nc->package;
-
-ncsi_remove_channel() only calls list_del_rcu(&nc->node). It does not
-unlink nc->link from channel_queue. It also does not clear
-ndp->active_channel, ndp->hot_channel or np->preferred_channel, so a
-freed channel can stay reachable.
-
-ncsi_stop_channel_monitor() also returns early, without
-timer_delete_sync(), when monitor.enabled is already false:
-
-	if (!nc->monitor.enabled) {
-		spin_unlock_irqrestore(&nc->lock, flags);
-		return;
-	}
-
-ncsi_channel_monitor() clears that flag itself on its timeout branch. It
-then calls list_add_tail_rcu(&nc->link, &ndp->channel_queue) and
-ncsi_process_next_channel().
-
-Can a concurrent ncsi_remove_channel() skip waiting for that callback and
-leave a dangling channel_queue entry?
-
-Would it work better to quiesce the work and monitor timers, and unlink
-nc->link, before removing the packages and channels?
-
->  
-> -	kfree(ndp);
-> +	kfree_rcu_mightsleep(ndp);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but are the per-request timers
-in ndp->requests[] ever shut down before ndp is freed?
-
-ncsi_xmit_cmd() arms each request:
-
-	nr->enabled = true;
-	mod_timer(&nr->timer, jiffies + 1 * HZ);
-
-Normally ncsi_rcv_rsp()->ncsi_free_request() cancels this timer. After
-dev_remove_pack(), no response can arrive. A request still in flight at
-unregister time keeps its timer pending, and its nr->cmd skb is never
-released. Examples are a GLS sent by ncsi_channel_monitor() or an
-NCSI_CMD_SEND_CMD request.
-
-The kfree_rcu_mightsleep() grace period is unrelated to this 1 second
-timer. When the timer fires, ncsi_request_timeout() takes ndp->lock and
-may walk the freed package list through
-ncsi_find_package_and_channel(). It then calls ncsi_free_request(), which
-does schedule_work(&ndp->work) and consume_skb().
-
-Can this leave a queued timer_list inside freed ndp memory? Nothing in
-ncsi_unregister_dev() walks requests[] to call timer_shutdown_sync() or
-ncsi_free_request().
-
-[Severity: High]
-This is also a pre-existing issue, but does ftgmac100 still use the NCSI
-device after this free?
-
-drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_remove() {
-    ...
-	if (priv->ndev)
-		ncsi_unregister_dev(priv->ndev);
-	unregister_netdev(netdev);
-    ...
-}
-
-priv->ndev and priv->use_ncsi are not cleared. If the interface is up,
-unregister_netdev() closes it and ftgmac100_stop() calls:
-
-	if (priv->use_ncsi)
-		ncsi_stop_dev(priv->ndev);
-
-ncsi_stop_dev() walks NCSI_FOR_EACH_PACKAGE(ndp, np). It then calls
-ncsi_report_link(ndp, true), which calls nd->handler(nd). None of this
-is inside an RCU read-side section.
-
-Before this patch, this was an immediate use-after-free. With
-kfree_rcu_mightsleep(), the grace period can still expire before the
-device is closed, because unregister_netdev() takes rtnl and can block.
-
-Doesn't this only change the timing window instead of fixing the bug?
-
->  }
->  EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
+>> ERROR: modpost: lib/lz4/lz4_compress.ko: symbol '__divsi3_table' undefined!
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111160649.677910-1-tristmd%40gmail.com
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
