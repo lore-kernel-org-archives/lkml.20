@@ -1,54 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794725121;
-	b=ngvy8R6pXsrn3O80aEmOwkpMIr72kxXIczBwWRUoevAoJxP8muHGl1jWdqhFCphyU/T4
-	 G7aneHhUR7xd3Iyip5srRDNKiS0US1iW0625AI7kdumCvniQYfQWCmRD1rCxAjhrFv+MH
-	 P3AreosypWc4iK3JOgeqfZ545P68fDBBLAX95VWbce4xv2Mdxq2Xcy2UBH3Cn5s1uUhL7
-	 uu7WxPBvQnG0qdR99nPE2F3MV/+/lmn+0nAZSPceUkgQuM8+bqWbzajncbHi9Yvw/aHwR
-	 YTpJKJ0GaOy9AyJJllLravHwd4PE18wRgeBxqP62izjNThRtjY9yJJ/IBLCbe4fZvEw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794725121;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=Hy9lM7OviU25g29M4jtdgfdBG7/TUKoGJ32oQNZu2Rk=;
-	b=mk6GrkE6lA9zvWA9DBFsJXQJuOmP0KYu/PaKi7iJsBiorkgCIVd3HDv9y6B6LDFCmU2y
-	 73rg5tw38PkZN0xcV84lkbp04gXLqJSzfchD8iwIEq7RI2MbjCD7om9ynl8XN0vlqQHfs
-	 w5Csoma4RwKCwg9Jg6if/5qAkX326JdQzVYekSAQGiJsxiQJTk0GRUN9Jc3SHiq0CQFaX
-	 qWUSBe7QjZ8k0iO4CPpbo8LysD+S2CcmdV1eatG2CiMs+qYefE82jG7dvLVp+igHr9/2z
-	 qNoggLp78vl10e6z97zARMLwuW5TfXg2UzMu2AEg5M5SqrNRm92cW1tvbdHs8DKWSbQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="pi/7Vgk/";
-	arc=none smtp.remote-ip=95.215.58.175
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794725122;
+	b=vTr8VF/Vj6XC8fVZoAX1gWzonrh/hamJvASAIgJS+Oh1JC91KTVQOfmOsAEoJB+IG0Ar
+	 eObiJQEg6jmnYEAUg/Rc6BRxYDtUpzoyjK32WelVMkeF6u+o9tDdS2zMEJIu7QCUHJgJl
+	 7S3Wee35KT++VDH2xcuYkVBKKNxe5E5dfPQcINY3bLmPsUmrDh0gyHSzXdFpA76gLn6QB
+	 v9/cvisykB7ECNLFGX4pB3u1UlQdP8/Ltc51jLsz5Y3SL5wrnfzKX0LDbofgERt4brGju
+	 BNC2E3Q/3ol1s6EQg0FIsd0+lRAqMGujXwdn2Z7AjBhKX10LZDDhwss4orQzKz8OSnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794725122;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=hAZqS5tW0P8Kr9gtuBy9z3go+odNQ1jK4DHH70/QF0I=;
+	b=MZeIfIWYPG+CywOdVfU7RFV/SAYwz0P5zSMCVGwKaT66KSWvqI4dLIRM6GXVz9vWfoKo
+	 wL8Lwn5fZ20f/xwW10OTznBH51uY6pVw7442i9oG1VUCPH2YivDZB8LRo/QewRC6XlJI9
+	 RQnsu9Yui0HYRNNcpzU1EwhbPRZJiF56r/TF0fq/uzKC5qktqrJVaUsdBBmy+jtHLLMpn
+	 7oCw/rcE5BeRb40uIvnw41xlLGEs6GrkFc912PZuZYMcm5AkY3QByGYM9uSfpplEMfRXG
+	 kOLcigbVl5ZdrQhfmBbBxZay/kEUR1hBrHmVn5A9WCtGT2GOwJoG9IM/f6mBKQ/x0lQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pYiKcB4D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4C5606A332
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:45:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D4C5606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4DB606A334
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F4DB606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pi/7Vgk/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5XwkqcHFhPzVcZzlFSKG0JJJqOr0gHJXncGteFyJ/mA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794725118; v=1; x=1795329918;
- b=pi/7Vgk/vReb8RlEMiv3d7thFIcJAVGv1rywzYoz+LpmJdUTWrjcsvBySOGJz0YTLpCSZxyW
- 1xF6iADHJjmvvy6H8rYGb+5+1V6imgFGwVuVWkqngD01ZotbUyughQEEOu19omZzq0/bjArPChf
- 3m/3Tu9qfjr7ApiL5j6oucv8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 84e8d21794d04bb6;
-	Sun, 15 Nov 2026 06:45:15 +0000
-X-Mizu-Trace-ID: 84e8d21794d04bb6
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pYiKcB4D
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-537548b811aso16013281cf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:45:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794725121; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HTZjuDM1E0sGNE9gzEWllsLV8wW8Aa0XxGxxsQxp4lsvBORpOKVzUQg0xlemaLuhVc
+         x11OGfkmMP8kIwiprCHJLudGFWKA1ObIn+0kQvBO1qmDIk72WxDUwsKo8JN/DhNiQiu5
+         Vb/3e2sSZPBN50ZQgxBOZ9Ja87OGqXVmIFfqJU+tq8ilnf1exJg/bY1BhKucFRf1y5U9
+         a+wGoT4uO+wnosxLzoXjQDcs8fQUxxUAMBHHDLENFWHLvs4pG3d8m3gG0qa0Dr01VU2z
+         FLPZmZczKdWrFo1RIlEL7TcmiygBfjYvhuaRxaT3mWSe7jCP+NVQW5EepXw8efLRgZeA
+         lUfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=hAZqS5tW0P8Kr9gtuBy9z3go+odNQ1jK4DHH70/QF0I=;
+        fh=TIfwnlT8BvU+f+su7opn0KTzFkvmI6MLXEz80FX38Gg=;
+        b=QiB9xHqKpxbL3Au2DFbUetUdAuXHbww9jH1fey0hltrOXzZgTfiXdsbvDLAGHXQikC
+         KjQtj+2ihMDhK3rkL3L6Y5+WzS2717Ug7fydSLyyGKJV0qwp9P6uAIIY4JLWvW0ATwHY
+         bIN6Uuessffn9Cxhu19cv9648UFTcjb7AF9/34kvGm0bzTvD0LeqLNyYpmGJGs2+9H9S
+         F7jghjAIobQbEOYYIbVGRyz4UWt/Ca5hE4E7M0ZMPNB0WwqDZtB4UcCTu4Opnw9GLvIG
+         I4XF6IFy52LfSf5BET0ITRHgHaXLUT7CRdK9IR8NFWr1+FdGzD34fBkbTFSFiMEFBkeQ
+         2p6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794725121; x=1795329921; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hAZqS5tW0P8Kr9gtuBy9z3go+odNQ1jK4DHH70/QF0I=;
+        b=pYiKcB4Dkw8p3OxL4Am4xaWjRSZUG5ivDuVKRm1HgQNSi82FSOcSmfvvCZOR9/Ymin
+         SdnkieChYZBpdm2sEMzgk5XpIEuoUUbtFukA7FVTfRBF1fhFiHns/loNIp2aCkaRYylD
+         y1PmoORLg9Hh3EhcKe/lI978mJuq+J07c1lxaoBEVKXTlmlEJcRY5WcDk8UkKp7S2YK4
+         /a1kAeXh8aoc0opjOaoRzE6Pp5kNCvlTDnts5t3UUwIrSWX69OdGW8w1viYTJvYzHknV
+         Y+0wio8bFpzNO5QWm4DxW8VeyaAR+nEQVy8RhxEHskg59zWLhYF/EnljdsrrosWSwcJl
+         jLeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794725121; x=1795329921;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hAZqS5tW0P8Kr9gtuBy9z3go+odNQ1jK4DHH70/QF0I=;
+        b=M+8enssuDFlGqzCaMK9SnfUqXz+f6gfIyoUMtx0c8FXXfgIaZDYOdSlXDO4LuV+RCb
+         fD5G+ZCxK837LV3DGh1OiO+poyI/FCzEZOBCB9UfZzoJmm8ksePLt6uBPQFw8MLeXp9O
+         pSsJ7ruZQcrulK0a/OTgBCnebkp4eBTC5hSuBl9WKxohVRtd/qqmK0yhNZPHqqX0Iq5D
+         Qru2ZyE7V5D0NWouocHwTu7ZMn+6XSbolLuH9hChVTAPl3576QM1eA3QZ6oxrqKtxwvV
+         ZhHom32e4rh5v7/eusHF3+FE+1B5mvWJxR2hmcegkebBJ9AV3UKaMvQ19jbuBrFhi0dR
+         XHxw==
+X-Forwarded-Encrypted: i=1; AL+hErHZDAJOc8AOLGbwWfoJsiWFQ66DyphLYw+PsCRWIsiYyRD9ViOgqAkIVaIGuuRUpPVSZc3VZ7hJB9qM5DY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mrjAqM5lMfOn0cEfeOT4+ncORmY2NMAW513MBnJK0w3wauTjL
+	V6jD1gI/UR5DLTGBRZrYP200aKmtABF1acAuttNMWZD4U4vXbOKs7pdHbmxkDPeT4RkFnZOHTvb
+	b5YMKx0EjXSW7+hhVmi1VjHMWmkAG41Q=
+X-Gm-Gg: AYBFou0dqIhPqShDEndBqxRkcEJhc5ensd+5TLt8SVVvABYgXtPo03cqV0chD9cqACY
+	4zIKckRbIj0Qd/mNO9tDHFRbQzN458OkZrI5b/2KNI1J73i1yNUuF9CHOCIVmTYXw5t9qv53lv3
+	glerM8hDU3UTl97u+/ded3x210YjOfOWD4RXQfGhq9ccrJXsLkPLidPpllGi8XAj9MnRGkt51WY
+	vHCfRhueR5zbhAnxKzcTlbJv9FVFcsDPly7hL0n516cinwYZc1PXFc9O8jya+WonfVvSLcqy9xD
+	w2xw0o37BYw4P1uFs7rMN2VSFBskbtdzDjVDFU0iba8XLg+Co2vgJ0Y6xw78TQ3dxRlCRsKBORQ
+	KYm9Tlk/p7CJ9BwZPZfK0ZECpnp20urpxtYWZClm7knFpT/wG5/HjVK6Z7QtlzyyGNManzdRGoJ
+	Yy0JpkTHWvI6Aowg==
+X-Received: by 2002:a05:622a:4185:b0:55d:3350:d270 with SMTP id
+ d75a77b69052e-55d3350d4a9mr10965061cf.35.1794725121094; Sat, 14 Nov 2026
+ 22:45:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,130 +101,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 2/3] mm/page_ext: support early allocation for SPARSEMEM
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261114222344.e65dbc73bf2c9276@chrisdown.name>
-Date: Sun, 15 Nov 2026 14:44:45 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Alexander Potapenko <glider@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>,
- David Hildenbrand <david@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Zi Yan <ziy@nvidia.com>,
- Sang-Heon Jeon <ekffu200098@gmail.com>,
- Mostafa Saleh <smostafa@google.com>,
- Ketan <ketan.kishore@oss.qualcomm.com>,
- Usama Arif <usama.arif@bytedance.com>,
- kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <90DD8319-BE49-4355-8CFF-36B7AA9BA4EA@linux.dev>
-References: <20261114104150.58424-1-songmuchun@bytedance.com>
- <20261114104150.58424-3-songmuchun@bytedance.com>
- <20261114222344.e65dbc73bf2c9276@chrisdown.name>
-To: Chris Down <chris@chrisdown.name>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+From: Alex Guo <alexguo1023@gmail.com>
+Date: Sun, 15 Nov 2026 14:45:10 +0800
+X-Gm-Features: AclHuK-jDDhL3mEMFmeo9aMUL7RpBVpjc6aGb81YPdfDwTLWZPEh7kzOxY3PHSo
+Message-ID: <CAAi4Z-dOp+TvmvtJbkepcFWVA9jsbrq00yd5d+LV86cizsc9vQ@mail.gmail.com>
+Subject: [PATCH] EDAC/altera: Check device IRQ lookup results
+To: dinguyen@kernel.org, bp@alien8.de, tony.luck@intel.com
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+altr_edac_device_probe() passes the single-bit and double-bit IRQ lookup
+results directly to devm_request_irq(). If either lookup fails, the
+request can mask the original error, including -EPROBE_DEFER.
 
+Check both results and preserve the lookup error when unwinding the
+probe.
 
-> On Nov 15, 2026, at 14:23, Chris Down <chris@chrisdown.name> wrote:
->=20
-> Hi Muchun,
+A similar issue was fixed in commit 47c3e06ed95a
+("spi: tegra210-quad: Fix missin IRQ check in tegra_qspi_probe").
 
-Hi,
+Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
+Signed-off-by: Alex Guo <alexguo1023@gmail.com>
+---
+Build-tested the affected driver object with Clang 18 for arm.
+No hardware test was performed.
 
->=20
-> This looks good to me in general, I only have a few small things.
+ drivers/edac/altera_edac.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Thanks for taking a look.
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 12175d0cbc43..b7f04cccb599 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -759,6 +759,11 @@ static int altr_edac_device_probe(struct
+platform_device *pdev)
+        }
 
->=20
-> Muchun Song writes:
->> -	/*
->> -	 * page_owner must be initialized after buddy is ready, and also =
-after
->> -	 * slab is ready so that stack_depot_init() works properly
->> -	 */
->> -	page_ext_init_flatmem_late();
->=20
-> Not a big deal, but this means that on FLATMEM the init callbacks now =
-run
-> after vmalloc_init() rather than straight after kmem_cache_init(). I =
-can't
-> see anything that depends on the old place, but FLATMEM isn't what the
-> patch is about, so it'd be good to say in the changelog that this =
-moves.
+        drvdata->sb_irq = platform_get_irq(pdev, 0);
++       if (drvdata->sb_irq < 0) {
++               res = drvdata->sb_irq;
++               goto fail1;
++       }
++
+        res = devm_request_irq(&pdev->dev, drvdata->sb_irq,
+                               altr_edac_device_handler,
+                               0, dev_name(&pdev->dev), dci);
+@@ -766,6 +771,11 @@ static int altr_edac_device_probe(struct
+platform_device *pdev)
+                goto fail1;
 
-Sure. The new behavior is aligned with the non-FLATMEM case. It should =
-be fine.
-
->=20
->> +	if (!slab_is_available()) {
->> +		addr =3D memblock_alloc_try_nid(size, PAGE_SIZE, 0,
->> +					      MEMBLOCK_ALLOC_ACCESSIBLE, =
-nid);
->=20
-> Maybe this should pass __pa(MAX_DMA_ADDRESS) as min_addr, like
-> alloc_node_page_ext() does, so that the tables stay out of ZONE_DMA =
-when
-> there's room elsewhere?
-
-Make sense.
-
->=20
->> +	page =3D virt_to_page(addr);
->> +	if (PageReserved(page)) {
->> +		memmap_boot_pages_add(-nr_pages);
->> +		kmemleak_free_part_phys(__pa(addr), table_size);
->> +		free_reserved_area(addr, addr + table_size, -1, =
-"page_ext");
->> +		return;
->=20
-> free_reserved_area() prints "Freeing page_ext memory" when it's given =
-a
-> name, and this runs once for every section, so offlining a few =
-gigabytes
-> would put dozens of those in the log. I think it should pass NULL =
-instead.
-
-Good point. I'll pass NULL in v2.
-
->=20
-> Did you manage to get this branch to run, by the way? KMSAN is the =
-only
-
-No. I only verified that the KMSCN kernel boots successfully.
-
-> user of need_early, and from a quick check offlining a memory block on =
-a
-> KMSAN kernel fails with EBUSY, presumably because the metadata pages =
-can't
-> be migrated, so I couldn't exercise it myself.
-
-I'll exercise this code on this path and report back.
-
->=20
-> Once the changelog and the log message are fixed, please feel free to =
-add:
->=20
-> Reviewed-by: Chris Down <chris@chrisdown.name>
-
-Thanks for your review.
-
-Muchun
-
->=20
-> Thanks!
->=20
-> Chris
-
+        drvdata->db_irq = platform_get_irq(pdev, 1);
++       if (drvdata->db_irq < 0) {
++               res = drvdata->db_irq;
++               goto fail1;
++       }
++
+        res = devm_request_irq(&pdev->dev, drvdata->db_irq,
+                               altr_edac_device_handler,
+                               0, dev_name(&pdev->dev), dci);
+--
+2.43.0
