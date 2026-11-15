@@ -1,100 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753481;
-	b=MXGBwCNgbemvnWKUq6gsWy0g07k5LKTnqKKhjfP8Afb+3PkzEbYlLUJ8H2usgjDaL/fX
-	 LK9u1tMg1XQOra7gxx7byPdMBnvIOW6jXEN3lZI/Vpb83qCqnJB6y00D5XMwsfTDtrhPN
-	 QCJLOSr8EK862D9IHjXg2vC3/KG0R8I2rfEcbL+fQkVk1M7ueWYTVuJ+EdpTGQzw1SZUa
-	 BKvy6UlTjPmZlprPeKrZYkNxvOAjbneDEPUWCyDLNt+A5UdTiD7onc8eX+gKW4Z3kUYmJ
-	 JzLdfc9W/xYHQODUnjgG1S0fSou4LCwGDfVi+JxGb55Z3VdkewMUQFMDrhNJl7h/WuA==
+	t=1794753562;
+	b=yZVfEGttjpNgVCCllEfL18tuSZKvp7VVFfZUp6EpeTRYcQuqENWUquPJGHjT7kuuIWOU
+	 YpdMCztvhHAlSYgw7b+C9gBdi3MoSioN9/rJnkepz8zGRii7kHz8BueI8getsHFsTuQge
+	 /UO6B1Ah3w/mYnc8iBBuJCLEhmE4SwBfC2KpdwSL6lQ/Y/ulMB8d1kS6pCq0QWLcTGkuo
+	 erj6Zw/Vb1p1rVZQU1NargmW7fWoc3+pxKGnPLj4ztea5/p7E4RULy3klQyNStk1ZoZy7
+	 ajepCV+Xsk8QtySFGSvOqkDQL1GDt0LZzWM2JX6C4PjErMop3lu6Vs3WjV3t1j/4sNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753481;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LpSjIj8pKJ9BkaQaLlGgGcKivjXC6GF5pWFS+e/nTfQ=;
-	b=4QItWLfSMpNIVM4d3zMf+4e/IT7ki0PnQzFUA+On6k6OqlTcVenvTAH6Gc5AhgaUwJkb
-	 iV8qc836hrEl2pKMnRSCyLA7mE9djw55k6RS4f9cjRSOesDsTRpZHOVq6jcDAlAR7ohib
-	 Ln1ppR30ruEWtavwdonpopgK2IDcmVOrFJNzEgKC8TiibMBKJeJft2/lcQaQIkWS4sw72
-	 JT5O+MpvUvOrKsG+UEfoffSuG3KsTd6I6L63WckRlb9bjd8lLBzJ9/FJD1udt4Ew+Jvhb
-	 U9tIHKQxg1QQ7oifjiPUfiOkNGtQGyZNh2AOkVpc5fdPWRJN8T36rEc4X8xgcZWB7aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753562;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ZaejXHaBUpAvEwKuL1oBVBhqrVdgMX2jfRxMaYZY1C0=;
+	b=Rx1+vcPeIVVcga5XGy0+S6Tpas85+7uZgdf8cB2WDGA6c2FarOqT+fbMHiSsoGJeHO5n
+	 gZ9I+7QyEZTnEbcYzcpuHbdj0oOX6C6AgpUJc1r9Fj1FVbccwQgc+LxhyoVZBwWlcHfuc
+	 BtHZOjZh8CdZp/qEspd5dqWx/wmwCM/LIGETyxa/5peLrpuRQ5JvalOa+fNabpDFAl8rC
+	 M+T8/zPU6ksavKuw0hVtr6qFr11kKcHCiXMVd7ZQnwuuvykouBT0oD+M10eejytewgx5y
+	 nhORekwtHrFJ9WoS5Lr2gvDjnA0yL8mD87+GbYKS23oURsHrNHJmCJSzUhaTaSc0fqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SA7w7fjj;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FC2606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:38:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1FC2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Y7Vd6qgN;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AEEA9606A31F;
+	Sun, 15 Nov 2026 14:39:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEEA9606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SA7w7fjj
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so792445e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:38:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794753479; x=1795358279; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LpSjIj8pKJ9BkaQaLlGgGcKivjXC6GF5pWFS+e/nTfQ=;
-        b=SA7w7fjjruQZnf4O5mdcIdBHyaqX5GaOq4CquECmWjYzqFCzAZD4IGGfm/ivxkzNUt
-         RJfnocz57Jma8fkQsD6xB8yEDIQt/+555ogJpLLHFwBjxq9t547frWhbrGtSkaoPzq5p
-         hAZ40tR8I0/eiVWnZv17F7p6RgHqVYtinebAcdLGeWrnzC0DpaSJqPbNk5bBq35pi4DJ
-         qvZH3qG+xylsYGOVXzMFZMKmxdGfNbDAyb8daZVkhmpzzW/TXNQ95Bqr1O02TvOpIOe9
-         Un2VDrhtePUTYi8C1vfTepx6SMkNdI0u/cEeNfA8TMyyXYFBIRLwQbVIFGDj8DwQju01
-         +mtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794753479; x=1795358279;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LpSjIj8pKJ9BkaQaLlGgGcKivjXC6GF5pWFS+e/nTfQ=;
-        b=dEVJq4t4lrHYPJ2BpwxnIOx73bs4Z/CWuJvKrtDz+uodpTflfKlyEeFGz+HYl8gDPm
-         TLJN60X7TeFg+BxnSsNP5OFN6POsPyZLe8pM0lIyJOZCuJnPCYqSmRjcB5/mtPZU88Tj
-         9GZeihhKXKrqRiTW+pmc/IXvWjBOqxYtiKqVRP87irIPFdUK2u75cQBwF58VbqCe1o39
-         ZjJgxBXdr6r/F+/vGSsyv0a7vBrxgxjvf//2vJSDsx19oAE8Z9k5IiJe9dnzNLxAXONk
-         +YLCmFtZHTOKNuVYWCZ699U/fYiuPVgz2y/lAaoAoCDDMiJ/7pW9rSoCqFJQcARCEzKA
-         D02w==
-X-Forwarded-Encrypted: i=1; AL+hErGtlOG8+tFRC+dtR+62sjfuP7u1dn84Tz24Nkl3Cm+eiHxCZtlApWN+P11Vy5K5UYTIDgkQkdt9Q1bQQaQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cO/IK4gbhbhoquaQfAs4oMnW4nzqfodH/Y4RKjd6Y3WUbDOVv
-	pT/aRlu1/ULjmb+zQTWjzVvxEKErIWXt70FSa0YcqWBWfX9TqDP7+ahk
-X-Gm-Gg: AYBFou2GQ58D7Gg2KNYutEAu8RaCXa/Ng36w79W+MwPwirXog7rf1NhK5ErU8ZJIudJ
-	wKjqlDIedqhBWw0HR0/mH2oiZ8dKlxiW3FJf5YOf04I8FOuAySzES9hGmFWFypWwEmNeBwJC6yk
-	5JN1ya7H66ma63lacks3yJ/WfhwwR/WGIW6UT2COnMs2UdQe/+FpiCbXDX+ZskGVpyg5SQo00Ag
-	5B5gOuWEhqdRdnd3NMue1OL/uLX0dtp5epUi7GCAkG0kQQL10BdXJKpj9rIa2RY+46BQ6edtLBu
-	t7DztP45PComKTyqSsDEg4m0g38smy5wJ//lqoHfEUeSUlYKm8abkdAtiRLZ3zzcef5O9UGZH7n
-	VxDbuQeTn+Fvd2DHOc9gg972HZoo+eKb95CduiVDEWfQLzABz6O2Y37EBMFHnmEe0kOp/tTVq7l
-	aYZ293uq0dZv7eQOz89K63GjucYXUPaLoKHPygZBZJYuqlQ4kGPYQI0wLEMH2XNzgVTidw12YvX
-	+uC+bwlixKALxk8mZJbPB9/jKfsYaQtREaLMXqi7eVFKq0PvI4aMQsU1xjxaBoKhMjGb+ak62zY
-	A1Q7SlSuwmbjv0oN+HqaVHRpqRskPxPxbvcZqzKxfjH+xJSias4Pt+Svms54Ne24rtXcO+aPcb4
-	H6BSNx03EUPcP/9I=
-X-Received: by 2002:a05:600c:6099:b0:4ab:cc03:7f60 with SMTP id 5b1f17b1804b1-4bb55a753f8mr160792155e9.18.1794753479132;
-        Sun, 15 Nov 2026 06:37:59 -0800 (PST)
-Received: from puma.museclub.art ([2a00:6020:b326:d300:d19:a765:d8d7:bedc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ac1159sm196174025e9.4.2026.11.15.06.37.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 06:37:58 -0800 (PST)
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
-To: eugene.shalygin@gmail.com
-Cc: John Roden <jonathan.roden@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] hwmon: (asus-ec-sensors) add ROG STRIX X670E-F GAMING WIFI
-Date: Sun, 15 Nov 2026 15:25:40 +0100
-Message-ID: <20261115143708.492883-4-eugene.shalygin@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261115143708.492883-1-eugene.shalygin@gmail.com>
-References: <20261115143708.492883-1-eugene.shalygin@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Y7Vd6qgN
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 84E751476;
+	Sun, 15 Nov 2026 06:39:16 -0800 (PST)
+Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id ACC043F85F;
+	Sun, 15 Nov 2026 06:39:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794753559; bh=jI0WbTDOJd6J5+na5JHcdV0AETzFP4/ftE8ndjLZuMw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Y7Vd6qgN125q8hK35gQR0raUdxPiX5gSqSFy44kpN+z29FlGNNe97oyKtLMGxDtlE
+	 Z/Y0dYXpMbLieTfKz8aDW2YRqEltVKVwNb+kxYClYQWm/5ZbkGfdaEkJ5vK6fiVuNF
+	 RTmXNEProFAb29tj75RfnqnFRB6o6JsA/6UCCFok=
+From: Dev Jain <dev.jain@arm.com>
+To: david@kernel.org,
+	ljs@kernel.org,
+	akpm@linux-foundation.org,
+	hughd@google.com,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	davem@davemloft.net,
+	andreas@gaisler.com
+Cc: Dev Jain <dev.jain@arm.com>,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	pfalcato@suse.de,
+	anshuman.khandual@arm.com,
+	geert@linux-m68k.org,
+	sparclinux@vger.kernel.org,
+	ryan.roberts@arm.com
+Subject: [PATCH v4 0/9] Optimize anonymous swapbacked large folio unmapping
+Date: Sun, 15 Nov 2026 14:38:55 +0000
+Message-ID: <20261115143905.3045084-1-dev.jain@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,57 +88,128 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: John Roden <jonathan.roden@gmail.com>
+Speed up unmapping of anonymous swapbacked large folios by clearing
+the ptes, and setting swap ptes, in one go.
 
-Add support for the ROG STRIX X670E-F GAMING WIFI model.
+The following benchmark (stolen from Barry) is used to measure the
+time taken to swapout 256M worth of memory backed by 64K large folios:
 
-Signed-off-by: John Roden <jonathan.roden@gmail.com>
-Signed-off-by: Eugene Shalygin <eugene.shalygin@gmail.com>
+ #define _GNU_SOURCE
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <sys/mman.h>
+ #include <string.h>
+ #include <time.h>
+ #include <unistd.h>
+ #include <errno.h>
+
+ #define SIZE_MB 256
+ #define SIZE_BYTES (SIZE_MB * 1024 * 1024)
+
+ int main() {
+     void *addr = mmap(NULL, SIZE_BYTES, PROT_READ | PROT_WRITE,
+                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+     if (addr == MAP_FAILED) {
+         perror("mmap failed");
+         return 1;
+     }
+
+     memset(addr, 0, SIZE_BYTES);
+
+     struct timespec start, end;
+     clock_gettime(CLOCK_MONOTONIC, &start);
+
+     if (madvise(addr, SIZE_BYTES, MADV_PAGEOUT) != 0) {
+         perror("madvise(MADV_PAGEOUT) failed");
+         munmap(addr, SIZE_BYTES);
+         return 1;
+     }
+
+     clock_gettime(CLOCK_MONOTONIC, &end);
+
+     long duration_ns = (end.tv_sec - start.tv_sec) * 1e9 +
+                        (end.tv_nsec - start.tv_nsec);
+     printf("madvise(MADV_PAGEOUT) took %ld ns (%.3f ms)\n",
+            duration_ns, duration_ns / 1e6);
+
+     munmap(addr, SIZE_BYTES);
+     return 0;
+ }
+
+Performance as measured on a Linux VM on Apple M3 (arm64):
+
+Vanilla - Mean: 37401913 ns, std dev: 12%
+Patched - Mean: 17420282 ns, std dev: 11%
+
+resulting in more than 2x speedup.
+
+No regression observed on 4K folios.
+
+Performance as measured on bare metal x86:
+
+Vanilla - mean: 54986286 ns, std dev: 1.5%
+Patched - mean: 51930795 ns, std dev: 3%
+
+I tried magnifying the difference on x86 by using 1M large folios, but
+can't spot an obvious improvement (looks like my system is too fast to
+benefit from batched atomic operations!), hinting that the benefit lies
+mainly in the reduction of ptep_get() calls and the reduction of TLB
+flushes during contpte-unfolding, on arm64.
+
+No regression is observed on 4K folios on x86 too.
+
 ---
- Documentation/hwmon/asus_ec_sensors.rst |  1 +
- drivers/hwmon/asus-ec-sensors.c         | 10 ++++++++++
- 2 files changed, 11 insertions(+)
+Applies on mm-unstable (24231596edf2).
 
-diff --git a/Documentation/hwmon/asus_ec_sensors.rst b/Documentation/hwmon/asus_ec_sensors.rst
-index b3a061bd10db..fb7704c46d8b 100644
---- a/Documentation/hwmon/asus_ec_sensors.rst
-+++ b/Documentation/hwmon/asus_ec_sensors.rst
-@@ -50,6 +50,7 @@ Supported boards:
-  * ROG STRIX X570-I GAMING
-  * ROG STRIX X670E-A GAMING WIFI
-  * ROG STRIX X670E-E GAMING WIFI
-+ * ROG STRIX X670E-F GAMING WIFI
-  * ROG STRIX X670E-I GAMING WIFI
-  * ROG STRIX X870-F GAMING WIFI
-  * ROG STRIX X870-I GAMING WIFI
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index d86f3614d557..d0c01b825377 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -822,6 +822,14 @@ static const struct ec_board_info board_info_strix_x670e_e_gaming_wifi = {
- 	.family = family_amd_600_series,
- };
- 
-+static const struct ec_board_info board_info_strix_x670e_f_gaming_wifi = {
-+	.sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
-+		SENSOR_TEMP_MB | SENSOR_TEMP_VRM |
-+		SENSOR_TEMP_T_SENSOR,
-+	.mutex_path = ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0,
-+	.family = family_amd_600_series,
-+};
-+
- static const struct ec_board_info board_info_strix_x670e_i_gaming_wifi = {
- 	.sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
- 			SENSOR_TEMP_MB | SENSOR_TEMP_VRM,
-@@ -1035,6 +1043,8 @@ static const struct dmi_system_id dmi_table[] = {
- 					&board_info_strix_x670e_e_gaming_wifi),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X670E-E GAMING WIFI",
- 					&board_info_strix_x670e_e_gaming_wifi),
-+	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X670E-F GAMING WIFI",
-+					&board_info_strix_x670e_f_gaming_wifi),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X670E-I GAMING WIFI",
- 					&board_info_strix_x670e_i_gaming_wifi),
- 	DMI_EXACT_MATCH_ASUS_BOARD_NAME("ROG STRIX X870-F GAMING WIFI",
+mm-selftests pass.
+
+This breakout patchset is the final completion of
+https://lore.kernel.org/all/20260526063635.61721-1-dev.jain@arm.com/
+
+The extra addition is the generic set_softleaf_ptes() helper.
+
+v3->v4:
+ - Make page_anon_exclusive_batch return the exclusivity instead of
+   computing that in the caller
+ - Make ttu_anon_folio() return the number of unmapped pages, to simplify
+   the code
+
+v2->v3:
+ - page_anon_exclusive_batch returns unsigned long, shift to rmap.h
+ - Drop a para in description of patch 5, use softleaf_is_swap to gate
+   pte_swp_exclusive
+ - finish_folio_unmap -> finish_folio_unmap_batch
+ - Add patch 9 to do batching for sparc
+   
+v1->v2:
+ - Add WARNs for folio span in folio_*_swap_pages
+ - Trivial changes to page_anon_exclusive_batch
+ - Add two sanity checks in patch 4
+
+Dev Jain (9):
+  mm/swapfile: add batched version of folio_dup_swap
+  mm/swapfile: add batched version of folio_put_swap
+  mm: move anon-exclusive batch helper to rmap.h
+  mm/rmap: Add batched version of folio_try_share_anon_rmap_pte
+  mm/internal: rename swap offset helpers to softleaf offset
+  mm/internal: add set_softleaf_ptes
+  mm/memory: use set_softleaf_ptes for uffd-wp markers
+  mm/rmap: batch unmap anonymous swap-backed large folios
+  mm, sparc: batch arch_unmap_one()
+
+ arch/sparc/include/asm/pgtable_64.h |  10 ++-
+ arch/sparc/kernel/adi_64.c          |  21 +++++
+ include/linux/pgtable.h             |   6 +-
+ include/linux/rmap.h                |  76 ++++++++++++++----
+ mm/internal.h                       |  64 +++++++++++----
+ mm/memory.c                         |  23 +++---
+ mm/mprotect.c                       |  25 +-----
+ mm/rmap.c                           | 119 ++++++++++++++++++++--------
+ mm/shmem.c                          |   8 +-
+ mm/swap.h                           |  35 +++++++-
+ mm/swapfile.c                       |  39 +++++----
+ 11 files changed, 289 insertions(+), 137 deletions(-)
+
 -- 
-2.56.1
+2.43.0
 
