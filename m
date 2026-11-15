@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794783698;
-	b=gjxnyZa2YbhZotlGmEI/kaOljSuwbJZY3O2ugvd8QLK1PtOYx/KryUTxb7CHiyFEy7Hm
-	 Job4Nq71qIzeeimtmNfTJ0Lh6wAunOpchDnBpkMoL3t4g8JhON58lK7e8N/ck77gWl7oX
-	 59uA4eMEtvzKs/wXXl4s8GETJzzl45VJzHqXqBv55crBMN8U8zP0REWtvVPeuHomkMsRx
-	 FJhwPPoUym1YFXD/GpR5DHQxQFUcTFUCGqdtRfvVLkN9E68Ll1j3GLD8cSXq7m7JGx39s
-	 ZX94WnkDNykWFAwFjvocyXBU/CXD5y/A3HUpEIbix+xChmc1Y75WpuLyPsWFp3Ed+KA==
+	t=1794783692;
+	b=pX65DbnJ9nfiqZ1xXas3GTVTzTnBN4dDFGad+JZnnEadKnZ7r0SPtljukb/QHBUgCGrA
+	 QPgg6xNWK+9rZtaoOnqjG2SwNIalu6YI7jIXNG7z/M/AuQLxL0SI3EGs3nAuFM2Qnvm33
+	 Ly8HTNbmrsr8u1zpcFAszSeZcjVEOIvMtx9ORkWZ3bwHdyEkYJY2fZXCFbHxFnoe0qSsJ
+	 lhYmAv7viOCMrdHL+ATFoFp0E71nyZiRryQ68n2Xx3F1MBXCSuhKt+ipQ/UpqeTS6ZXSq
+	 vpoXeGsRIJOIyhhZWAqUPW4RxkqU02eq4mHv9hJK1XnAYfODhGxLQRhPgXD6HUj8Cew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794783698;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794783692;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=IVGnRXoqXBiU7ETbvXoL7R64i/p8KMatzMxEBMeIuV0=;
-	b=wPWDNzQTkZf2upS51Bq10PP3HilbXoM+oVhcpfAHIcR4HfolAR3DW0L1+E75HHgcepzo
-	 XBq/xR1S40EKnmneajHo9MKCfx+rWCorMUWPLJycLVuj2d+DFZLtG0H3U3ICt079Ue/ke
-	 rWHd7yYCCVTnPIBTEvYfKn8zVnFExNaLvi2ovkj8e2yMSlVJI46xUyAlvhAN3UNRiu2ib
-	 w+z6MGbfJW7lN4ZgS3JvYLYk1hb7+0suFdoafXCoHYl9VHwjp2mQ+zzgwOovoU7vA5DWK
-	 KjfiL8QAijfW+9Zj9cRZ30ymilWZ0oV8lvGJqA53DLqt5yhqUCdP7TxUVPMkUZBBw/g==
+	bh=DyXscBM6rKSqAxqGibRfOYNr5/PSL7sFuhg7DlIKEfA=;
+	b=wDPrLmxew+8+xDjv8pc+OrlFXFYd3S42BF3JUo6E5ir+CJeqhxxUX24N1yAdnQO1a1Z7
+	 wmzswBUv9sR+EQubtineNjoxO0phQs8/SNh6DF3f560kdU0pPWD7M4h80UEXfxOg5zAmA
+	 T9NGErqVWVGRKAubrPWU+bUiCBBKlpQeEMjtfflIu1ddOJv3IF0d8D6paDslXT8RyRAN+
+	 2xTQEnK+iR1cFE28nzyJoID+6Ydn6/ws5zduPRUcNCznIdP9aUr+ycI+w2QT7XgoBPls7
+	 olLDblnL9QqpDiD3OhvA25lpY9iOtaH0wkWJH5Hzvx4UsnLQ/WkCScdF5fCjMmIhUmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWruc7n7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXHHCxhR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9D7606A88B;
-	Sun, 15 Nov 2026 23:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839DF606A31F;
+	Sun, 15 Nov 2026 23:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWruc7n7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA31B1F000CA;
-	Sun, 15 Nov 2026 23:01:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXHHCxhR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93FF61F000C4;
+	Sun, 15 Nov 2026 23:01:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794783698;
-	bh=IVGnRXoqXBiU7ETbvXoL7R64i/p8KMatzMxEBMeIuV0=;
+	s=k20260515; t=1794783692;
+	bh=DyXscBM6rKSqAxqGibRfOYNr5/PSL7sFuhg7DlIKEfA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KWruc7n7sYbh5ua3RvNfycysbM5WxTlN0iuAlSD7iob8wTwtgGq2w865X0kicICZ1
-	 KXiqGMlhoCMlW4dbqiZjSERc9Dp9uo/T0+Q+4RfIsWXKwYMCmasEBNpTkQOjlKcdTB
-	 u2W6IWq+Tzp8hPCScypnp48LYy9RAGdJ2rMrPhRwtpP95JHlh4Pt3F2MhwFSh8MQui
-	 saGJL5KcVnBi61zup90PZobWcMPZEua7jK0ggtYX1Htd5HbIVqmsvbCsRp225Sbovt
-	 DlnKwsfPu22o3YblNKpb+6Ib4v5sDdCNXdBMBu1xt9vcb9ExWb1ZL6y7ax4cKh9/U2
-	 WMeeXhanq2Mbw==
-Subject: Re: [PATCH net-next v2 08/10] net: dsa: realtek: rtl8365mb: program
- the PCP of untagged frames
+	b=FXHHCxhRVx9uv5flE81n4x05x9YNK3FhbWGO0dErAF9ezUtlut4nNc86kZ7n91ziX
+	 amUHKsOudXuFkomzogVCTPLZpTSOah5jqxJY9LI102749HJ/rmnkGB52frsBYz2ww3
+	 vWePh7nsygehVTXbKutWknUCcsCmgrzCniqCTNQPMz76/IGdjlTacT2H9j6wL4kjJu
+	 bSS+2M4lew3cCo7hUu30sYAZrsYSELQnZisAYG3J899wM1U5WUO/ON9A45s2S0A3Df
+	 Ownzt2n8yC2LBDDIk+Nsjli/WH0Th/EEklDwyFk57h4N4qKdf+nqQs7GFIGdllBeXO
+	 yNbJPjroKirqw==
+Subject:
+ Re: [PATCH net 2/3] net: dsa: motorcomm: Rewrite FDB entry on port migration
 From: netdev-bot+sashiko@kernel.org
-To: o.rempel@pengutronix.de
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, linusw@kernel.org, luizluca@gmail.com,
- alvin.sipraga@analog.com, andrew@lunn.ch, olteanv@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Date: Sun, 15 Nov 2026 23:01:37 +0000
-Message-ID: <179478369746.3136.10805769576309531848@kernel.org>
-In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
-References: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
-X-sashiko-severity: Medium
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Sun, 15 Nov 2026 23:01:31 +0000
+Message-ID: <179478369106.3136.17586264754426731793@kernel.org>
+In-Reply-To: <20261111234110.1449602-3-mmyangfl@gmail.com>
+References: <20261111234110.1449602-3-mmyangfl@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,10 +64,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,80 +75,146 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] rtl8365mb_qos_set_port_prio()
-  (drivers/net/dsa/realtek/rtl8365mb_qos.c) now does two separate…
+- [High] The fix is incomplete: an address that moves between a user port
+  and the host (CPU port) still leaves a stale port bit in the hardware…
+- [Low] yt921x_dsa_port_fdb_add() now calls dsa_bridge_ports(ds, bdev).
 
 --
 
-net: dsa: realtek: rtl8365mb: program the PCP of untagged frames
+net: dsa: motorcomm: Rewrite FDB entry on port migration
 
-With this patch, setting the port default priority also programs the PCP
-the switch gives to untagged frames. Under PCP trust, that value decides
-how untagged frames are classified. It is also what the switch writes into
-the tag it adds on egress.
+This commit merges yt921x_fdb_join() and yt921x_fdb_leave() into a single
+yt921x_fdb_update() helper that takes separate leave and join port masks.
+yt921x_dsa_port_fdb_add() now passes the bridge port mask as the leave
+mask, so ports left behind when an address migrates are dropped from the
+hardware entry.
 
-> diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.c b/drivers/net/dsa/realtek/rtl8365mb_qos.c
-> index 378cd6ed7fe64..2a849d0e4898a 100644
-> --- a/drivers/net/dsa/realtek/rtl8365mb_qos.c
-> +++ b/drivers/net/dsa/realtek/rtl8365mb_qos.c
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index f34f37b736249..d84e1f6dad843 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
 
 [ ... ]
 
-> @@ -192,6 +201,13 @@ int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio)
->  	if (ret)
->  		return ret;
+> @@ -877,10 +872,17 @@ yt921x_dsa_port_fdb_add(struct dsa_switch *ds, int port,
+>  			const unsigned char *addr, u16 vid, struct dsa_db db)
+>  {
+>  	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+> +	struct dsa_port *dp = dsa_to_port(ds, port);
+> +	u32 bridge_ports_mask = 0;
+> +	struct net_device *bdev;
+>  	int res;
 >  
-> +	ret = rtl8365mb_qos_regmap_update_field(priv,
-> +						RTL8365MB_QOS_PORT_UNTAG_PCP_REG(port),
-> +						rtl8365mb_qos_sel_mask(port),
-> +						untag_pcp);
-> +	if (ret)
-> +		return ret;
+> +	bdev = dsa_port_bridge_dev_get(dp);
+> +	if (bdev)
+> +		bridge_ports_mask = dsa_bridge_ports(ds, bdev);
+
+[Severity: Low]
+Is it safe to walk every port's dp->bridge here without rtnl?
+
+dsa_bridge_ports() does a plain load of dp->bridge, then reads
+dp->bridge->dev, for each user port via dsa_port_bridge_dev_get(). This
+path runs from dsa_user_switchdev_event_work() on dsa_owq, and rtnl_lock is
+not held there. Before this patch, the driver only called
+dsa_bridge_ports() from the bridge_join and bridge_flags paths, which hold
+rtnl.
+
+The bridge leave path looks covered. dsa_port_pre_bridge_leave() flushes
+dsa_owq under rtnl before dsa_port_bridge_destroy() runs. The rollback in
+dsa_port_bridge_join() in net/dsa/port.c does not flush first, though:
+
+out_rollback:
+	dsa_port_bridge_destroy(dp, br);
+
+Say FDB work queued by an earlier static fdb add on port 1 is still running
+when a bridge join on port 2 fails. The work could load dp2->bridge just
+before the kfree() and then read ->dev from freed memory.
+
+The loaded value is only compared with bdev, so the practical impact is
+small. Separately, bridge_join stores to dp->bridge on another port with a
+plain write. That is a data race with this reader that KCSAN can see.
+
+DSA core already does similar lockless cross-port reads in
+dsa_foreign_dev_check() and dsa_tree_offloads_bridge_dev().
+
+Could the port's own bridge come from the db argument (db.bridge) rather
+than re-reading dp->bridge outside rtnl?
+
 > +
->  	return rtl8365mb_qos_regmap_update_field(priv,
->  						 RTL8365MB_QOS_PORT_PRI_REG(port),
->  						 rtl8365mb_qos_sel_mask(port),
+>  	mutex_lock(&priv->reg_lock);
+> -	res = yt921x_fdb_join(priv, addr, vid, BIT(port));
+> +	res = yt921x_fdb_update(priv, addr, vid, bridge_ports_mask, BIT(port));
 
-[Severity: Medium]
-What happens to the untagged PCP field if the second write fails?
+[Severity: High]
+Does this still leave a stale port bit when an address moves between a user
+port and the host?
 
-In rtl8365mb_qos_set_port_prio(), the UNTAG_PCP write goes to the hardware
-before the PORT_PRI write. If the PORT_PRI regmap_update_bits() then fails,
-for example with an SMI ACK timeout from realtek_smi_wait_for_ack() or a
-bus->write() error in realtek_mdio_write(), the error is returned. The
-untagged PCP is not restored.
+The leave mask comes from the target port's own dp->bridge. This driver
+sets ds->assisted_learning_on_cpu_port, so DSA installs host addresses by
+calling .port_fdb_add() with port set to the CPU port. dp->bridge is only
+set on user ports, so bdev is NULL and bridge_ports_mask is 0.
 
-On that error, the DSA core rolls back the software state:
+yt921x_fdb_update(priv, addr, vid, 0, BIT(cpu)) then keeps every existing
+egress bit. The existing entry is already STATIC, so ctrl1 == val1 and the
+full clear in yt921x_fdb_update() is skipped as well:
 
-net/dsa/user.c:dsa_user_dcbnl_set_default_prio() {
-    ...
-	err = ds->ops->port_set_default_prio(ds, port, new_prio);
-	if (err) {
-		dcb_ieee_delapp(dev, app);
-		return err;
+	ctrl1 = val1;
+	if (join_ports_mask) {
+		ctrl1 &= ~YT921X_FDB_IO1_STATUS_M;
+		ctrl1 |= YT921X_FDB_IO1_STATUS_STATIC;
+		if (ctrl1 != val1)
+			ctrl2 &= ~YT921X_FDB_IO2_EGR_PORTS_M;
 	}
-    ...
-}
+	ctrl2 |= YT921X_FDB_IO2_EGR_PORTS(join_ports_mask);
 
-dsa_user_dcbnl_del_default_prio() does the same with dcb_ieee_setapp().
+The result is still an OR-in, not a rewrite of the whole entry.
 
-After that, dcbnl reports the old default priority. So does
-rtl83xx_port_get_default_prio(), because rtl8365mb_qos_get_port_prio()
-reads back only RTL8365MB_QOS_PORT_PRI_REG. The switch, however, keeps
-using the new untagged PCP: it tags untagged frames on egress with it and,
-with PCP trust enabled, classifies them by it.
+One way to reach this: take a static entry on swp1 and use bridge fdb
+replace to point it at a foreign interface in the same bridge, or replace
+it with a local/permanent entry. fdb_add_entry()->fdb_update_dst() only
+sends RTM_NEWNEIGH, so swp1 never gets a SWITCHDEV_FDB_DEL_TO_DEVICE:
 
-Could this leave untagged frames tagged and classified by a priority whose
-request failed, with no way for software to see it, until a later set
-succeeds?
+fdb_add_entry()
+  fdb_update_dst()
+  fdb_notify(br, fdb, RTM_NEWNEIGH, true)
+    dsa_user_fdb_event()            /* host_addr = true */
+      dsa_port_bridge_host_fdb_add()
+        dsa_switch_host_fdb_add()
+          dsa_port_do_fdb_add(cpu_dp)
+            yt921x_dsa_port_fdb_add()   /* port == CPU port */
 
-Elsewhere the series avoids this kind of state. For example,
-rtl8365mb_qos_set_apptrust() batches its writes "so a failed write cannot
-leave the trusted table half programmed". Would it make sense to restore
-the previous untagged PCP when the PORT_PRI write fails, or to order the
-writes so that a failure cannot leave the two fields out of step?
+The swp1 bit then stays in a STATIC entry that DSA no longer tracks. A
+later host fdb del clears only the CPU bit. Fast age through
+yt921x_fdb_flush_port(..., false) does not flush static entries. Unicast
+frames for that MAC keep going out of swp1.
 
-The code is still the same at the end of the series.
+The reverse direction seems to have the same problem.
+dsa_switch_for_each_bridge_member() only iterates user ports, so the mask
+from dsa_bridge_ports() never includes a CPU port. When a host address is
+re-pointed to swp1, the old CPU port bit is never cleared, and frames for
+that MAC also go to the CPU.
+
+The commit message says:
+
+  "rewrite the whole entry on add with the bridge port mask as the leave
+  mask, so that ports left behind by the migration are dropped from the
+  entry."
+
+but egress bits for ports outside the bridge's user ports are kept.
+
+The later patches in the series, up to "Use VID 0 as the unaware PVID",
+don't appear to change yt921x_dsa_port_fdb_add() or yt921x_fdb_update().
+
+For DSA_DB_BRIDGE host adds, db.bridge is a copy of *dp->bridge. Only .num
+is zeroed, because fdb_isolation is not set.
+
+Could db.bridge.dev be used to work out the bridge mask for CPU port
+calls? Could the CPU ports also be added to the leave mask for user port
+calls?
+
+>  	mutex_unlock(&priv->reg_lock);
+>  
+>  	return res;
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99%40pengutronix.de
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111234110.1449602-1-mmyangfl%40gmail.com
