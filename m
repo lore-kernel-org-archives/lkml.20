@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794749199;
-	b=UDsP/LIsxirMaiqZtWyXDD30Nv0vPJL7Moi2e4/LtPn+3GFC4rimno4IP604/QOHt4J+
-	 H6Wu39cJm7cxEPMEWy35jgbcTnBg5uvrpQ5iNpjuMONqMAtpV+EVbU3MRkhC/8CFbxdni
-	 EVIAk0HQjtPcY1oSqEQz2894GxAlb7Uxq8mECs8p6+jRrxUBQ3F8cgDdhJXRnwJGffOi6
-	 8qyecNXfhEpLqfhaeh+i0uJJS1+SllgoCLXSfASrwMzecYPLs+IqJ19+F8V7pG6zbzzrV
-	 9QDhrc7r5EB3GJRE786Gt16fuj81fK+ig7SjvA3g+E0h6vg0kNNJkwrwJzE7V/ABTtQ==
+	b=mzlFfi7I2i+Lssb4yxfzroiy8R9wwmUoMvQMkfBgQLZ4mHrH2j9WQehh767fC7whTHAe
+	 tbbJHw6BawYpo3V+2hUYoNaCdLztTaEvqTjvmKq4GFGYpXJldP/DTBRCYtxZYzzFkjF7f
+	 2JcrmBbO3/nNY0ESUqVdOLeWIGraXvxbEKcPB7NosFh/gyMKDnolq0cdG8O60lDM+q4zi
+	 s+EcqUEZ6nmFBY+3+myNTB/SgS3o30ofdzgVSCK9FTN6cNGDtgRZOeALZJj0MRN7eZ1kb
+	 XJrVRRoVJNnHyx1B6zc0baZZHHuvqPEjhpDJyXvms9ERjb+kyPnTvIi+wLm+8Yv/JSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794749199;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=DxFqHk89+AUxsswFbtHbs6sZwleEydVjCKAy+YjPdgc=;
-	b=I7lFuXJAVcMtzQ2KnRJWIvc10zqzsZWcAaM/P1qgcgDHtsdrrHa4Yf5F3HentCj5u+pY
-	 QgsHP1aHngNGRNE6/2yMtMEInrzYUx6j7O395dA+fs1pi57F6/oeVJk7nYPc7VoiPKJ1R
-	 01a5Vuizi2hhvGd3lUHKAVVwE+W+nnQ/Y9KTSlMeWN2poIP1siCWmdZ3wNl/hQWlo2OLl
-	 8rfjClJpUFDZhtSCVpwGKOQbqj64y4qHXPbIU3hffclwCNP7mGA5OjnDOSRuf3LF4rBwc
-	 oR3EOeeD3sqssgDG0iZywQyjSRipB9lhaEwUgw4PTf5simpTJ7NCRtbtgHL8ziIOwRA==
+	bh=cr+vimpw5jt0758YqtYxZsFHqQP3QlFB5SQYksHXPPA=;
+	b=hUt9IpMJWvkXiqPphjfxZIMlGeXHi7VDLwVVgFN0KK3jI6BLWwRAEYfXDJkxR2cBvBbO
+	 10SWoZv+3E40rd9OURagvIwhKo7t5z9ZSzcmjE1C75sSn5zAsznvWXxsri3NLrwibJ0HF
+	 1yJb6Dv24u2KS9EhgppYcWItmsnz5biYOZj/+2ZRr5tMIG3PI+5nD5YI1ejPcraKey/wU
+	 ASzewPRtZfumwfpKaMfm4WefmNVs4+B1SHbS24Df96HDZqkUp4hJZl8JxIcwxBHGRT9ws
+	 CY1M6yE01k6f9tDUP2fuA8pDe6aWjmWVVlWhk5Lg9s4aW9SKO98w4pjJNRI0D9ib4Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RGJq4BJd;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=m3v7hcnt;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A54606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33A54606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58C5606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B58C5606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RGJq4BJd
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=m3v7hcnt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Dx
-	FqHk89+AUxsswFbtHbs6sZwleEydVjCKAy+YjPdgc=; b=RGJq4BJdQ3sWN3ehbj
-	AAcb0TSLaLe2co11goFSE9YHc8K0oLObAiSUCbO8TzIsk7y0MR3GqDgRQhSZFg5L
-	nvfnxaBXs04fL8tv5WE3fmyljA6QdqvXPxNMUrnwtsHO2Qu4RXXUb9AZ9r6QLUGC
-	WtlB2HMh0CScNTMIQQRc9+UQM=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cr
+	+vimpw5jt0758YqtYxZsFHqQP3QlFB5SQYksHXPPA=; b=m3v7hcntc3Dt9YPTbh
+	JFOpRV7nEXxGiNhbruiT7wd3I5xVEEQB5R/g/iU1GGzHEVf18rBVwKEgqyayTBgU
+	ZwSiZc2VOizKiA50w/UsGQtlHO76dAHRwMsUY6aoAI/IoWQ8TzxydM0Gx9xapwnV
+	5mzKPW3EuB/wGvjDw2SUvUXaE=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S9;
-	Sun, 15 Nov 2026 21:26:17 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S7;
+	Sun, 15 Nov 2026 21:26:16 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 07/12] ntfs: load uncached ACLs through get_inode_acl
-Date: Sun, 15 Nov 2026 21:26:04 +0800
-Message-ID: <20261115132609.209957-8-liubaolin12138@163.com>
+Subject: [PATCH v4 05/12] ntfs: initialize inherited ACLs after allocating the MFT record
+Date: Sun, 15 Nov 2026 21:26:02 +0800
+Message-ID: <20261115132609.209957-6-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261115132609.209957-1-liubaolin12138@163.com>
 References: <20261115132609.209957-1-liubaolin12138@163.com>
@@ -65,122 +65,155 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S9
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFWkGr1UJryxurWkKFWDXFb_yoWrXFyxpF
-	sxJw1rKa1xZrWSgwn2kr4DXw1F9ryxWa9Fg34rWw1Ska4Dtr13tFy8Ka1xuF95trWrGFnF
-	gF15Kr4jvr15Wr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uio7NUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RkEzmr5svltpAAA3r
+X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S7
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gr1xXF1UZF47XFy7XrWDJwb_yoW7CF1rpF
+	s3urW7J39rXrySgFs3Kr4Y9r13K397ur4UGr47J3WSy3WFgw1a9a48KFy0kFn3trZ5G3sF
+	qF4UKw47ArZ8u37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2FALUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RgEzmr5svhthQAA3K
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-Permission checks and default ACL inheritance use get_inode_acl(), which
-cannot call NTFS's dentry-based get_acl callback. After inode eviction,
-these paths treat stored ACLs as absent unless an explicit xattr read
-has populated the cache.
+ntfs_init_acl() can write EAs before __ntfs_create() allocates an MFT
+record, so inherited ACLs can disappear after inode eviction.
 
-Use get_inode_acl for regular files, directories and special files,
-leaving ACL caching to the VFS. Return -ECHILD during RCU lookup so the
-VFS retries where the EA read can sleep.
+Initialize ACLs after MFT allocation and standard attribute setup,
+releasing the record locks around the ACL helpers. Refresh the mode and
+use the post-ACL ctime for FILE_NAME and its index entry. Roll back EA
+and EA_INFORMATION on failure.
 
-Fixes: 9c87959601e8 ("ntfs: update file operations")
+Skip writeback while I_CREATING is set: failed creation clears I_NEW but
+retains I_CREATING after freeing the MFT record.
+
+Fixes: af0db57d4293 ("ntfs: update inode operations")
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
-New in v4.
+Changes since v3: add the I_CREATING guard and Fixes tag, and apply
+after the cleanup fixes. Drop Reviewed-by because the code changed.
 
-Tested cold-cache inheritance and permissions, O_TMPFILE publication,
-chmod, ACL replacement/removal, idmapped mounts and concurrent default
-ACL replacement/creation. Remount and reboot checks passed.
+Tested cold-cache ACL inheritance and creation rollback. Forced writeback
+after I_NEW was cleared in failed named and anonymous creation; no access
+to the freed MFT record occurred, and subsequent creation passed remount.
 
- fs/ntfs/ea.c    | 10 ++++------
- fs/ntfs/ea.h    |  3 +--
- fs/ntfs/file.c  |  4 ++--
- fs/ntfs/namei.c |  2 +-
- 4 files changed, 8 insertions(+), 11 deletions(-)
+ fs/ntfs/inode.c |  4 ++++
+ fs/ntfs/namei.c | 49 +++++++++++++++++++++++++++++++++++--------------
+ 2 files changed, 39 insertions(+), 14 deletions(-)
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 834f38ea4a00..b745391b3f25 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -1010,10 +1010,8 @@ const struct xattr_handler * const ntfs_xattr_handlers[] = {
- // clang-format on
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 6a9f488e2775..885818f00b78 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -2955,6 +2955,10 @@ int __ntfs_write_inode(struct inode *vi, int sync)
+ 		return 0;
+ 	}
  
- #ifdef CONFIG_NTFS_FS_POSIX_ACL
--struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
--			       int type)
-+struct posix_acl *ntfs_get_acl(struct inode *inode, int type, bool rcu)
- {
--	struct inode *inode = d_inode(dentry);
- 	struct ntfs_inode *ni = NTFS_I(inode);
- 	const char *name;
- 	size_t name_len;
-@@ -1021,6 +1019,9 @@ struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *den
- 	int err;
- 	void *buf = NULL;
- 
-+	if (rcu)
-+		return ERR_PTR(-ECHILD);
++	/* Failed creations retain I_CREATING after discard_new_inode(). */
++	if (inode_state_read_once(vi) & I_CREATING)
++		return 0;
 +
- 	/* Possible values of 'type' was already checked above. */
- 	if (type == ACL_TYPE_ACCESS) {
- 		name = XATTR_NAME_POSIX_ACL_ACCESS;
-@@ -1049,9 +1050,6 @@ struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *den
- 	else
- 		acl = ERR_PTR(err);
- 
--	if (!IS_ERR(acl))
--		set_cached_acl(inode, type, acl);
--
- 	kfree(buf);
- 
- 	return acl;
-diff --git a/fs/ntfs/ea.h b/fs/ntfs/ea.h
-index f200d49063e0..e9ea024f6a8e 100644
---- a/fs/ntfs/ea.h
-+++ b/fs/ntfs/ea.h
-@@ -28,8 +28,7 @@ int ntfs_ea_set_linuxflags(struct inode *inode, u32 linuxflags);
- ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size);
- 
- #ifdef CONFIG_NTFS_FS_POSIX_ACL
--struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
--			       int type);
-+struct posix_acl *ntfs_get_acl(struct inode *inode, int type, bool rcu);
- int ntfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		 struct posix_acl *acl, int type);
- int ntfs_init_acl(const struct mnt_idmap *idmap, struct inode *inode,
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 5ab0e3437d67..a52483d16c6e 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -1580,7 +1580,7 @@ const struct inode_operations ntfs_file_inode_ops = {
- 	.fileattr_get	= ntfs_fileattr_get,
- 	.fileattr_set	= ntfs_fileattr_set,
- 	.listxattr	= ntfs_listxattr,
--	.get_acl	= ntfs_get_acl,
-+	.get_inode_acl	= ntfs_get_acl,
- 	.set_acl	= ntfs_set_acl,
- 	.fiemap		= ntfs_fiemap,
- };
-@@ -1600,7 +1600,7 @@ const struct inode_operations ntfs_special_inode_operations = {
- 	.listxattr	= ntfs_listxattr,
- 	.fileattr_get	= ntfs_fileattr_get,
- 	.fileattr_set	= ntfs_fileattr_set,
--	.get_acl	= ntfs_get_acl,
-+	.get_inode_acl	= ntfs_get_acl,
- 	.set_acl	= ntfs_set_acl,
- };
- 
+ 	/* igrab prevents vi from being evicted while mrec_lock is hold. */
+ 	if (igrab(vi) != NULL)
+ 		need_iput = true;
 diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 05e2747bae54..d3c63b1c166f 100644
+index abb3675757e9..05e2747bae54 100644
 --- a/fs/ntfs/namei.c
 +++ b/fs/ntfs/namei.c
-@@ -1703,7 +1703,7 @@ const struct inode_operations ntfs_dir_inode_ops = {
- 	.mkdir		= ntfs_mkdir,
- 	.rmdir		= ntfs_rmdir,
- 	.rename		= ntfs_rename,
--	.get_acl	= ntfs_get_acl,
-+	.get_inode_acl	= ntfs_get_acl,
- 	.set_acl	= ntfs_set_acl,
- 	.listxattr	= ntfs_listxattr,
- 	.setattr	= ntfs_setattr,
+@@ -422,6 +422,7 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 	struct ntfs_volume *vol = dir_ni->vol;
+ 	struct ntfs_inode *ni;
+ 	bool rollback_data = false, rollback_sd = false, rollback_reparse = false;
++	bool rollback_ea = false;
+ 	struct file_name_attr *fn = NULL;
+ 	struct standard_information *si = NULL;
+ 	int err = 0, fn_len, si_len;
+@@ -429,6 +430,7 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 	struct mft_record *ni_mrec, *dni_mrec;
+ 	struct super_block *sb = dir_ni->vol->sb;
+ 	struct inode *rollback_data_vi = NULL, *rollback_sd_vi = NULL;
++	struct inode *rollback_ea_vi = NULL, *rollback_eai_vi = NULL;
+ 	struct inode *rollback_rp_vi = NULL, *rollback_al_vi = NULL;
+ 	__le64 parent_mft_ref;
+ 	u64 child_mft_ref;
+@@ -470,19 +472,6 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 
+ 	mode = vi->i_mode;
+ 
+-#ifdef CONFIG_NTFS_FS_POSIX_ACL
+-	if (!S_ISLNK(mode) && (sb->s_flags & SB_POSIXACL)) {
+-		err = ntfs_init_acl(idmap, vi, dir);
+-		if (err) {
+-			iput(vi);
+-			return ERR_PTR(err);
+-		}
+-	} else
+-#endif
+-	{
+-		vi->i_flags |= S_NOSEC;
+-	}
+-
+ 	if (uid_valid(vol->uid))
+ 		vi->i_uid = vol->uid;
+ 
+@@ -647,6 +636,24 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 			goto err_out;
+ 	}
+ 
++	/* ACL EAs need the allocated MFT record and initialized attributes. */
++	rollback_ea = true;
++#ifdef CONFIG_NTFS_FS_POSIX_ACL
++	if (!S_ISLNK(mode) && (sb->s_flags & SB_POSIXACL)) {
++		/* The ACL helpers acquire both the parent's and child's locks. */
++		mutex_unlock(&dir_ni->mrec_lock);
++		mutex_unlock(&ni->mrec_lock);
++		err = ntfs_init_acl(idmap, vi, dir);
++		mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
++		mutex_lock_nested(&dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
++		if (err)
++			goto err_out;
++		mode = vi->i_mode;
++	}
++#endif
++	if (S_ISLNK(mode) || !(sb->s_flags & SB_POSIXACL))
++		vi->i_flags |= S_NOSEC;
++
+ 	err = ntfs_ea_set_wsl_inode(vi, dev, &ea_size,
+ 			NTFS_EA_UID | NTFS_EA_GID | NTFS_EA_MODE);
+ 	if (err)
+@@ -680,7 +687,8 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 	if (NVolHideDotFiles(vol) && name_len > 0 && name[0] == cpu_to_le16('.'))
+ 		fn->file_attributes |= FILE_ATTR_HIDDEN;
+ 	fn->creation_time = fn->last_data_change_time = utc2ntfs(ni->i_crtime);
+-	fn->last_mft_change_time = fn->last_access_time = fn->creation_time;
++	fn->last_mft_change_time = utc2ntfs(inode_get_ctime(vi));
++	fn->last_access_time = fn->creation_time;
+ 	memcpy(fn->file_name, name, name_len * sizeof(__le16));
+ 
+ 	/* Add FILE_NAME attribute to inode. */
+@@ -721,6 +729,15 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 	return ni;
+ 
+ err_out:
++	if (rollback_ea) {
++		if (ntfs_attr_exist(ni, AT_EA, AT_UNNAMED, 0) &&
++		    ntfs_attr_remove(ni, AT_EA, AT_UNNAMED, 0, &rollback_ea_vi))
++			ntfs_error(sb, "Failed to roll back EA attribute.");
++		if (ntfs_attr_exist(ni, AT_EA_INFORMATION, AT_UNNAMED, 0) &&
++		    ntfs_attr_remove(ni, AT_EA_INFORMATION, AT_UNNAMED, 0,
++				     &rollback_eai_vi))
++			ntfs_error(sb, "Failed to roll back EA_INFORMATION attribute.");
++	}
+ 	if (rollback_sd) {
+ 		int rollback_err;
+ 
+@@ -776,6 +793,10 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 	mutex_unlock(&dir_ni->mrec_lock);
+ 	mutex_unlock(&ni->mrec_lock);
+ 
++	if (rollback_ea_vi)
++		iput(rollback_ea_vi);
++	if (rollback_eai_vi)
++		iput(rollback_eai_vi);
+ 	if (rollback_al_vi)
+ 		iput(rollback_al_vi);
+ 	if (rollback_rp_vi)
 
