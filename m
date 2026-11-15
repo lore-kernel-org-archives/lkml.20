@@ -1,104 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794723832;
-	b=NLk51I+ILXcoZ6fN3nGjj6tpjGkurrRb4s0pkYK9rZSElsk1HmLJqOTJmWBra7CuPzP4
-	 kdjnId8Se1ZIwztDo42jgn2NaSF62sGkkPeHat96kyuDL/i475E8tJni1tsUMxXyLrLd3
-	 aPO79SR18AoIPcdu9JZTh+Wqk3OaF/zmD+M5tNd6StLCqVm5ACax8feUdvRtN6crdHLbK
-	 Cmb7o8EcuJSB7hPvN1hcdayn9JnTgtNOXalkOlNUNlRLU7yer+MCtAj+ybnEIVNMyOUdG
-	 t4bO9wl/DVv8KTGLIPjlesJugUASbb/JZl1U9YiF3g4doz+K8I35UxBPrmRxqmXG85w==
+	t=1794723921;
+	b=CkfapwYEuzwmzchYtbJkH/mc5s7ubNcvNJUlAKKEcCgSe2pNa4+J8K+QMvcKCpfkyG8W
+	 TumOmb6Z4AEfegwyyJdoK/SnL2jGwAMHgBTqJt8ljOHh1W2CdcrcdbpoIfLwaJbxgSn3B
+	 SQnZ6faQjKQlFEy7z6Jf34jawgdrBGFI6bY1zp77NwYP8lZZyCgLIORQ6KhLU1t6irMEb
+	 vPE5rr0agUtRvkzFu2ZgTdk/G3vwUnDQKYvWn4h9jelrqAeF3BOdTy9Fq9RdiLdht7mj1
+	 v3pPMcMtYV6UdzHPeNJjkHU4I/lua/WaOtLg69erUsuzkZmL7FLNT0GrQqFuSZOqg9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794723832;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=bjlulku/2dq10AOxE1AaqZxjwCs9790A4Bi3utPP5NY=;
-	b=J9upcqK8WZFRYev/7e5p7Jr+7t1y3AVSesz9yMe76vxsAy1JDAXeixE1GNZDsM5mA6n0
-	 WESt8NKSPIgE7wHw2pRTt4981gG/RCB/s/x3WbzWWIB5gLqRxvcO+EWUPx0WMc9Qczisn
-	 /AI2hkY6Mx3alFqxU5Nj2ZnB5VNUP5UtOEzzy06wDjhXPFbn+iKEj/pRZ74H8aTFAUmOr
-	 8LGWCuk8DHTjQqnn1jxidtvJ+ZSfxwsh/OeMLVZmSu3iwVjKvf7IGlh2SkzotY/hP4mhl
-	 hAULCwuH708cjUE4BWnemTHIkvcTl8HwUezMO7L/dOWpigtbNbR0HObAO/8vAfVYsPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794723921;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lEaSEP13YLWe51FMjtntpG8dRQe2g/kyEyc8pzUoiFw=;
+	b=1RCr4lbA+EAQjKsyDbUBvmw5G2aslYCvIJxVDi8cNmdZzstW6Ea0VQbMaDcIsegglNF7
+	 LWUSM6w4WY36kcj/iUy5QWTNmxGRu/iBBZkpgHKlcjFU+5ui0kdKFNKb7MsHqa6S9Crbj
+	 v52/jNe1O3FjS7n/bLLz74jLujbQKfKpo/oXy2cH3WEW30SvSlFVUQQg2ZfIZ+BuqOr40
+	 MmPBHPeTR76qco62SpuPrsmuLbpHnIUgN5ZYUC1FNBtlcM0hoVZ6aX5Dub63MVyn4FxcY
+	 bCUBva/ia0tExKGdLk3t1/OCChafa3aGjJED40rbhaynNgVLWc6MTCO0ky0I2Sgj5zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=bV0J03Wt;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AavXM6Yk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715BB606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:23:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 715BB606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8005D606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=bV0J03Wt
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37d424f1ae8so799903eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:23:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794723831; x=1795328631; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bjlulku/2dq10AOxE1AaqZxjwCs9790A4Bi3utPP5NY=;
-        b=bV0J03WtsVAQmjrKBj37w00fDQYNg3toNRRrkfrzyPQZLW5lWl4La+0YgI8UXuW5Ya
-         avJvgcqKEPsHMeG8zpmHkg499rCIxRHTTiDdcwiZf2kNrd2iYvRf2u8eDohkwHAR9uU7
-         TppgwxcfbDXQwElAIV6GgkrWwMFWt3Z3URKjQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794723831; x=1795328631;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bjlulku/2dq10AOxE1AaqZxjwCs9790A4Bi3utPP5NY=;
-        b=nJA5XbfVTrHUEegt9HIiV4/HPCPdaFUo+CzMq+Flu3NYcUuiBchuFySKfmU53Bx6sT
-         Yb2fehHuCun57ujgnsSyPxJtrCrqN8ogM089SL5kERC7Lml2rvGA269gTKk8wiyQFO9M
-         GESw2NbpprF//fL+KvwW6Cebnyt1Qfj7bOPjYCjDbnRnFeHTsXcmaDZzi73cyxPcwm1u
-         FAtgAi8Qb42352hTxw8aaGp9ICt36JMZKbibbAAsnCTOI2gSynHMPh35fsAoX+db/i7U
-         NzH9nLBlLk1KRxVQdtv9UYv1xWrnnUE4KyRsjc/vtMMsaEiCQx61OXgF+cb/m/GkZHr5
-         w9Tw==
-X-Forwarded-Encrypted: i=1; AL+hErHNeqCoU0h7bfOwtknCvC5rEvQlRj364ekdN2pzKnyE6uFCV/TKu449G9/tC3lZmWGBF0seKy5SiU/GEHU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z98LTpUsXH7aSZ0+Hs5sKJSfDQmSSxNDcc0emz6eMXwB8156/9a
-	qPrFrRl5iQ0VY/6ajZ30N1GycwXBHA0fTVCoV4bfQK6BBBgywwYPnEYiYFUvx+nXYK4=
-X-Gm-Gg: AYBFou14bFmeGQdZ31xSB25Z7nDOdg6knP4xc83YjVNNsp12BkybsMzdJ8MO/+7uha6
-	qvPHM0is7rPGMZJOC/EsSaKcD0kJdEz3RbL3GK38r8xzrpGkTwE1nLqRIH3KkcSm+8YVTqfBJi2
-	S/4rs4pXDSf06hv0FK/2ba0RqN7EAAB4ISMRDqPUPmCJShe2XwFtPSQ2j1xMgvgbnfMGKYxtvOB
-	RNregq1ZJ9YVAD15MpTrg2KS/zKM4hzouDjOo3469SvNSEGhTXDBzlltCTr/DZodQsiz/E/ZPLU
-	ITyxICX8sHS27rf0F1nDCjaU2jvadQN3fMxTo0ncMdOaKl+HAkaGF3DYcLNepFCNvzbv+6vKzZB
-	vVLsfT+snZD2gGxiwr9W/3VQVyJcZBzsswE+WKl6b3UcfMHRwj6pGjC9SM1dgeeQXV5k8BpN6LZ
-	Pif/SMZaVF5ouAHQ8115nEOoHaRY9Uesk9MBgnY7xIjTGtzXv38rHT83J2Dj9ONf5wjzDvF9Gbz
-	xyeO4pnOBFZJQwWYUYNJdUuz/+hAheWXXWuWuIJMpY/bPlTWbMvr9+DA80YpCwaDKGbDs7A3syU
-	GrnsYnIzP/Uj5ndeHcqrCjaivtyKzrJa6/APUsv2van7YHbJP8yyA0sVA617VnP8/I5ZvyutHbb
-	HMYu7uggOPn3qKpfhDM9G5ZwPkdQ5Ep4mvqGhNCFCV6wvbZp5g2Tt/minnhHZKc/cEKY+Y+3yuE
-	gwSZkna+06q2XZR2mPfUoWTe+/ef086UghXmfJeCJuYQ/D5vqI42edruCsgTFizTEtxSAAZ1q+Q
-	5ncLWL58e3K5To=
-X-Received: by 2002:a05:693c:6383:20b0:37a:c882:994f with SMTP id 5a478bee46e88-37ac891df02mr4316528eec.9.1794723831472;
-        Sat, 14 Nov 2026 22:23:51 -0800 (PST)
-Received: from [172.18.0.2] ([172.56.232.151])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319e381sm20719709c88.12.2026.11.14.22.23.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 22:23:50 -0800 (PST)
-Date: Sat, 14 Nov 2026 22:23:47 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Alexander Potapenko <glider@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>, Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>, David Hildenbrand <david@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
-	Muchun Song <muchun.song@linux.dev>, Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Mostafa Saleh <smostafa@google.com>, Ketan <ketan.kishore@oss.qualcomm.com>,
-	Usama Arif <usama.arif@bytedance.com>, kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 3/3] kmsan: fix metadata loss during HugeTLB struct page
-	reinitialization
-In-Reply-To: <20261114104150.58424-4-songmuchun@bytedance.com>
-References: <20261114104150.58424-1-songmuchun@bytedance.com>
-	<20261114104150.58424-4-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AavXM6Yk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF4D1F000C4;
+	Sun, 15 Nov 2026 06:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794723921;
+	bh=lEaSEP13YLWe51FMjtntpG8dRQe2g/kyEyc8pzUoiFw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AavXM6Yk7OJjSS6Cg4Ku/zzm9o1X4YoPkfD+AcwWB1QxqSrxC1gktsQJ1Rs2eNEQ7
+	 nnq7u74xgwddKK4YHO3/83ss0J3vVmnbjdojuIsxCg+WFncEJ0EcjGYBb/SLvV+Dwn
+	 ALRATQTsJbe2B1hahH7CF970lxSvYjCtl7McxD2uyl2WLoMWM+fcO5WA6ArGHZ4t1P
+	 YcNoG1fsGC9Sa+ohJtgYTo5FPM68VTWZhGufs9w8L6/cMTIcheLiPRh9XLbOA8R21b
+	 JKH13cdPfuZo7MZjI6jNqL1FTJgofl7tffuT65lEaH9O6f6lkZFUS+oCAyYVQEmiHz
+	 Ot3OxWEQG5wYA==
+Date: Sun, 15 Nov 2026 08:25:13 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Salvatore Bonaccorso <carnil@debian.org>
+Cc: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/9] x86/mm/pat: don't warn about W^X violations before
+ mark_rodata_ro()
+Message-ID: <avlQSfsHJoU6_BwY@kernel.org>
+References: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
+ <20261112-fixes-x86-v1-5-791adb8d6670@kernel.org>
+ <avYzmyX5eR814o5L@eldamar.lan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,68 +66,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Message-ID: <20261114222347.227199839f5ffa44@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+In-Reply-To: <avYzmyX5eR814o5L@eldamar.lan>
 
-Hi Muchun,
+Hi Salvatore,
 
-I can reproduce the crash and the series fixes it, and I think page_ext is
-the right place for these pointers. I do have a few comments, though.
+On Thu, Nov 12, 2026 at 10:46:03PM +0100, Salvatore Bonaccorso wrote:
+> Hi Mike,
+> 
+> On Thu, Nov 12, 2026 at 06:31:10PM +0200, Mike Rapoport (Microsoft) wrote:
+> > The kernel text is mapped RWX until mark_rodata_ro(), so W^X violations
+> > that verify_rwx() detects before that can be false positives.
+> > 
+> > CHECK_WX is enabled by default with STRICT_KERNEL_RWX and it reports
+> > mappings that remain W+X after mark_rodata_ro().
+> > 
+> > Drop the warning about W^X violations before mark_rodata_ro().
+> > 
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+> >  arch/x86/mm/pat/set_memory.c | 18 ++++++------------
+> >  1 file changed, 6 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> > index a1bea16a3c3bb..a674433850dc9 100644
+> > --- a/arch/x86/mm/pat/set_memory.c
+> > +++ b/arch/x86/mm/pat/set_memory.c
+> > @@ -718,21 +718,15 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
+> >  	if (!rw || nx)
+> >  		return new;
+> >  
+> > -	end = start + npg * PAGE_SIZE - 1;
+> > -
+> >  	/*
+> > -	 * If the kernel text is still RWX, gently complain, this could be a
+> > -	 * false positive.
+> > -	 * Once debug_checkwx() becomes mandatory for CONFIG_STRICT_KERNEL_RWX,
+> > -	 * the warning can be removed completely.
+> > +	 * The kernel text is RWX until mark_rodata_ro() and the entire kernel
+> > +	 * page table is verified after the text is protected, so there is no
+> > +	 * need to warn.
+> >  	 */
+> > -	if (!kernel_set_to_readonly) {
+> > -		pr_warn_once("CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
+> > -		  (unsigned long long)pgprot_val(old),
+> > -		  (unsigned long long)pgprot_val(new),
+> > -		  start, end, pfn);
+> > +	if (!kernel_set_to_readonly)
+> >  		return new;
+> > -	}
+> > +
+> > +	end = start + npg * PAGE_SIZE - 1;
+> >  
+> >  	WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
+> >  		  (unsigned long long)pgprot_val(old),
+> > 
+> > -- 
+> > 2.53.0
+> 
+> Does this need to carry a 
+> 
+> Fixes: ea6fd393cb9e ("x86/mm/pat: Use pr_warn() for early W^X warnings")
 
-Muchun Song writes:
->-	struct page *kmsan_shadow;
->-	struct page *kmsan_origin;
+No, that commit actually relaxes how W^X violations are reported during
+early boot.
 
-This takes struct page from 80 bytes to 64 on a KMSAN kernel, which means
-that hugetlb_vmemmap_optimizable_size() no longer returns 0 and HVO can be
-used there for the first time. From a quick check with
-hugetlb_free_vmemmap=on it seems to work, but nobody would guess that from
-the subject, so I think the changelog should mention it.
+And this patch removes the warning only because there is an earlier commit
+that forces the check of W^X consistency that was optional previously.
+ 
+> ? 
+> 
+> On a system booted into 6.12.117 (from 6.12.116) I see:
+> 
+> [    1.091378] ------------[ cut here ]------------
+> [    1.092538] CPA detected W^X violation: 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 - 0xffffffffc0477fff PFN 109c1f
+> [    1.093994] WARNING: CPU: 5 PID: 222 at arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
 
-Documentation/dev-tools/kmsan.rst also still describes the two pointers as
-members of struct page, under "Metadata allocation", so that needs
-updating as well.
+Please see my reply to your regression report.
 
->+ifdef CONFIG_KMSAN
->+KMSAN_SANITIZE_page_ext.o	:= n
->+KCOV_INSTRUMENT_page_ext.o	:= n
->+UBSAN_SANITIZE_page_ext.o	:= n
->+CFLAGS_page_ext.o		+= -DDISABLE_BRANCH_PROFILING
->+CFLAGS_REMOVE_page_ext.o	= $(CC_FLAGS_FTRACE)
->+endif
+> Regards,
+> Salvatore
 
-This takes the instrumentation away from all of page_ext.c, when the only
-thing that needs it is the lookup. page_ext_size is already visible in
-page_ext.h for page_ext_next(), so I think page_ext_lookup_raw() could be
-a static inline there instead. That way it gets compiled into
-mm/kmsan/shadow.c with the right flags already and needs none of the
-finagling above, and it saves a call on a very hot path as well.
-
->+	preempt_disable_notrace();
->+	page_ext = page_ext_lookup_raw(page_to_pfn(page));
->+	if (page_ext)
->+		meta = *(struct page_metadata *)page_ext_data(page_ext, &kmsan_ops);
->+	preempt_enable_no_resched_notrace();
-
-This is quite a lot more work than the two loads from struct page that it
-replaces, and kmsan_get_shadow_origin_ptr() has to go through it twice
-for every instrumented access to direct-mapped memory, because it calls
-kmsan_get_metadata() once for the shadow and then again for the origin.
-You might think that's a bit academic, but it does add up. For example, on
-a 2 CPU VM, perf bench sched pipe -l 30000 goes from about 1.37s to about
-1.58s with the series applied, perf bench syscall basic -l 300000 from
-about 0.66s to about 0.75s, and a dd of 300000 blocks of 512 bytes from
-/dev/zero to /dev/null from about 1.63s to about 1.90s.
-
-1/3 says that keeping the pair together lets callers avoid duplicate
-lookups, but the caller that matters most doesn't make use of that yet.
- From a quick hack that has kmsan_get_shadow_origin_ptr() look the page up
-once and take both pointers from the result, the same three come out at
-about 1.38s, 0.62s and 1.54s, which is no worse than before the series.
-Could you do something like that here?
-
-Thanks!
-
-Chris
+-- 
+Sincerely yours,
+Mike.
