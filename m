@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794718985;
-	b=e30qYJSRYRm6GixLCZE1GZt6y47Hg/ENIi/Z9iTaD33hATzvSCMC9v728MOje5LkU6eV
-	 nkSl6Rfc6zQKlYErdkorm3ETTjprj4Ke+G3y3aRQkiCop2ci9kUOOhBwJLj79maXnGawS
-	 DD63hXfr27QygiKZNEoHe2Qb1AhdhBr/AGAgJotAOOz1uba5o0xq/d7AJ6Nf1UTCfBeGR
-	 +paIHCfTbPT/svwrSE1B704FIc5Hb2svzlhbI6iHKsqJV2wRDvCA0Ox7RDJapS2W/Sm4h
-	 Jqf5YcJOZVhvdAAr2/IxxP9deFJxc9XG447f1JjZPRG+X+dAOz+jTAnOwHpQXr2aFqA==
+	t=1794719255;
+	b=snyGBraOQEreXWfj3z2FQTQlMZyGBKZ4iE3KLbyqiuaCpzYDmdl3Zf+p+vB1dwOvOijZ
+	 VN5isnZ112BuCj1PVt0LVbVaKxkyQYWdy3Oc+Jy54t3TIFDVZjTNtaTzVirA72Rm9ed/a
+	 cPgWZy2o5E8buJjzICNdQE14eY+uz3vdwECCE3XFl7qgbzHSn5lRr6UahfVDm1OeKbeyg
+	 +nnT64Ip4MabO6CllJmc7GmD2fZZXHyX14j0EbIxVdKJgqJykQylhaHu46NBDirpnkrxt
+	 RKvaXn59Kppx5y6y07IX7sB56TIZsovtxT9+BnE2PbOo838VWc7uMks4O6hbz3vuVgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794718985;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=azq6hlaktEMUDgLyNyRfk0hKL7yGmOVuQpf+tMmLcs8=;
-	b=QfamGonnI66lv26tWI6Dbu5Si/fuqLGlYF+H8OhKo/3hdO39hAxiBLorznpc3iSBQ/Y0
-	 iOlFE0Msq+d+WFirPLeTGhWP/Y6t/fpBfB5vq8yKvbJjDqWp6RW6D9Vm4WfQcWHFqtT1/
-	 sTLJ4vPntKGx6SgjS9o1xaDdITJ6V1lKLV935BgHCiRdYLOUKkG40x+3rS2kzVhFqzX3L
-	 CExPwZH+r2t+6/ZC8OTGCLgJxMkXwK6tJh2N/JGZ1R2I2YIkhWV3zgRDd75eIM5vs6WQ7
-	 +fEvSof0N/Ee6sTlsqyL9AEoNSEJNMuUvRqWCqndlRccEk8hzKRnSxtjhwCjYk6bY/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794719255;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ikScGg7wBKTFsbJ/gDhTQR58vzTQcrwVNkVKkfOyHeQ=;
+	b=d4qX7KbUmnVf2t8fekFk9TMrjEqHneHkjaGX5bY8XbbjHd1uLXQKsvrstpFnbgzlF5h0
+	 vWYR6xK3jDqljeUvAXtsCVmBnA+LGTgImc5lFf33cJ8QBshd+nNVBoAKJqGaTC6CcKYtW
+	 QFxwHHqrSghPWAVpLphQW1Kh4f25cIGBO+sy7Quzei7W4VpGuewgI6lEd6iGaG/D6aNau
+	 O2oxQL+P/sX2FCNQHVoGTGDJAhFoqZjIhabc6mvbb2qmgFx80Ax2HVw0V7xv2N4OhAuK8
+	 5k469tGqGCjNuTDGQ+aUmao3jZhGEp7oyyUIl1w68+n2Y299t5P/IBUbZ22JabiwkbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQrW1hFA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv182j1S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357AA606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2449F606A323;
+	Sun, 15 Nov 2026 05:07:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQrW1hFA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098C31F000C4;
-	Sun, 15 Nov 2026 05:03:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv182j1S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5511F000C4;
+	Sun, 15 Nov 2026 05:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794718984;
-	bh=azq6hlaktEMUDgLyNyRfk0hKL7yGmOVuQpf+tMmLcs8=;
-	h=From:To:Cc:Subject:Date;
-	b=kQrW1hFA9eLROj+8e9HgGk1bBbcWq7RXQkuKPs9FiAK/S3BOBKoe776SyNhHchMa3
-	 Sc57o9flKR5qM7CJFj5NoIM6e4nwb6krOaxMUGtTrFL6Pg9f3xAZ3HM+rs9nGYcoTZ
-	 gRcGCAYfU+1NY99N6C7eoFjeaXymFovRdrhEoG5WX+DXlYPdQ801Fp/1UZJNQZ9p0n
-	 o54/BgyH/7moBX2pEhuVL7ExS4gvOuyWguy6X96/BRARkEqooe/Hd13sU4UkQUfH6g
-	 5/ZX/MDGeKzHeKspVqQe0jCODYSTB01Dzt/wNfeTS/WiNlr/lPWpkDqLxxGVLjG0UR
-	 I+mqd2/+5wj0g==
-From: Mike Rapoport <rppt@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] liveupdate: fixes for 7.4-rc3
-Date: Sun, 15 Nov 2026 07:02:58 +0200
-Message-ID: <20261115050300.1847760-1-rppt@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1794719254;
+	bh=ikScGg7wBKTFsbJ/gDhTQR58vzTQcrwVNkVKkfOyHeQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gv182j1SrsNW+vBDS+pykRsj8qYVG8aIuI90aGACVYsIszE1iQUPEVUMkp5txwyUF
+	 T3K8o0/CUQtG/DAvzx1pVQJOuSP1W3t2fzF/Pr95ULXXWbl57C97Hh9JV01ZdWeEG1
+	 Jc6DaZX2+JXCl8A41UzeRNTEFbr8pDeSM4YOwSLCFnGjdiR7dnEhp/QqCPK2wc+roG
+	 GvnEu/fNdibLdCbbyLZe746MZJ9fENN3crBFZ5d6tNuaAP4UhLPJuhxncMc99SAZm2
+	 p/bGLGIB/+YEtGq9EZeR4puJ3Avey3S/UjeIcjKHn6+xYn9vyMITYScAdziPbPPYYr
+	 h4e51aFjHSCGA==
+Date: Sat, 14 Nov 2026 22:07:30 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
+ non-x86_64 hosts
+Message-ID: <20261115050730.GB600738@ax162>
+References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
+ <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
+ <20261114204605.GA173332@ax162>
+ <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +65,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+On Sat, Nov 14, 2026 at 12:58:06PM -0800, Borislav Petkov wrote:
+> On Sat, Nov 14, 2026 at 01:46:05PM -0700, Nathan Chancellor wrote:
+> > No other architectures provide an option to turn on '-march=native' like
+> > x86 does. It all lives within arch/x86, so I would just be adding a
+> > check to arch/x86/Makefile instead of arch/x86/Kconfig.cpu. Making the
+> > option unselectable seems like a better option. If other architectures
+> > did want to add this option, I agree generically abstacting this check
+> > would be reasonable.
+> 
+> Are you going to move it somewhere generic when other arches decide all of
+> a sudden they love the native thing?
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+Yes, as I would expect another architecture implementing this to
+abstract the current x86 support out and adjust that check in the
+process but I can't guarantee that. I can only go off of what is
+currently in the tree.
 
-are available in the Git repository at:
+> (If it were me, I'd simply whack that native thing. It is such a waste of
+> energy).
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git tags/fixes-2026-11-15
+Another option short of adding this test or killing it entirely would be
+depending on !COMPILE_TEST, as I only noticed this because
+CONFIG_X86_NATIVE_CPU gets enabled for allmodconfig.
 
-for you to fetch changes up to 58c5852ca96c58cdfdb9646870b217fc54d06a97:
-
-  kho: check fdt_phys in is_kho_boot() (2026-11-08 11:20:19 -0500)
-
-----------------------------------------------------------------
-liveupdate: fixes for 7.4-rc3
-
-* avoid address translation in is_kho_boot() before the linear map is
-  initialized, fixing early boot BUG_ONs on arm64
-* check for duplicate session names before growing the sessions
-  preservations block set to avoid preserving an empty block that causes
-  restoration to panic()
-
-----------------------------------------------------------------
-Christian Aurich Zanettini Martins (1):
-      liveupdate: check for duplicate session before growing block set
-
-Greg Thelen (1):
-      kho: check fdt_phys in is_kho_boot()
-
- kernel/liveupdate/kexec_handover.c |  2 +-
- kernel/liveupdate/luo_session.c    | 21 +++++++++++----------
- 2 files changed, 12 insertions(+), 11 deletions(-)
+-- 
+Cheers,
+Nathan
