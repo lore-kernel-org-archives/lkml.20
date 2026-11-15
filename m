@@ -1,103 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794748948;
-	b=hF8H4f1Ii4aR2t62lPrhe7oXPA7TavR8B1M+uWgAdyzEqXeznaUGvZiSvWDr3BRo+r8Z
-	 3Vi5DJX0nWfuu/c83jeE2Lib+sfhccWsY8E7Ed56iON3xMtcNfPJS9FhULcRmIeSj1uWK
-	 3JvDozYbMF7rNdm6EincBzxF+qK+ZRR0mkRNlOXY+dGDSjFMk1QNE7U+PpEwNgqof94w6
-	 2uX+peJJleoY/djUuNuwZMNhHbhRU1XeU6zrZnExqiKAJoImYJqAgbCCyx3y2ST2PqlD6
-	 YnkUWWP4jmvosHoN4A/pb/U17lORX+lOvPqUrabJmQMyyFcWXBGHfZScUhXYhB0h2ZQ==
+	t=1794748994;
+	b=k5S6Mcr/dCpyARj556NkrGFP6811xx+O7RdQ3+sziK4pmk+1JFC3RU94/MfWbXPEhFYQ
+	 8+6b8iV2NnH7f3k8+d9Aoduq4MetzaJh95MFgkNfFKjFv8GdER2B+DzM2c6G13GuQ6+7L
+	 dIx2+1xL/0iOmxHU2O+nC+dLAxdjy40HieHdwN/BVctBQJFP3KUy6azNL2X7/zn/nDjEY
+	 Fw6GonqcUf4GqA70POoX7yusc3u74PFtV+c/Ox861gr1+kYk3pRvf78RiAKScJb6URlXt
+	 x333wAf/l6xqV/Iw8zgGJJ/PktYk/HqLgnefTtVxlWN2TIfeoVetqASskvda5PoDRwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pjzj5aEMnAhOnp3zC+6PlBD16bM2Wct+scJniZ3yxAk=;
-	b=wYFd9iIM9hqwsIBzzOjc5ZPz8wuVr+puddQzBXmnR4OKHGM1oa3HFpcgLg0f12RXs+7+
-	 dH6oKpxs09UJXa1HWKJdcCNxbM0cnmhODd4/XLtnWwBUaiwOc+rnPvB8gYubqsebmpQyX
-	 wyceHcHFMLJNPCjFV+Q/tiAdJwof4z5Mdya4YEuJYjm/ysWAE+Vg7iZ3DYzCgDwz5aP5t
-	 lOIWEUvc1TyPMQ7ve4tAaVRFuHofe5THOH2f2u7cHwEoC9usr/HUh5gAZEgm5t/M/0GOC
-	 mTMidBLWp3GZ3pJR/L5hQySTEIjKnB3gAro1iQ4rQEqUrbb10IFLg93rtoC9IKw6a+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748994;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=CjqQPNhZow+JJGKg1R+gp2dO325Gr8fRFWJtkgK9zaE=;
+	b=Oz/kfyzYIqAPj9B4lF26Tw0q0MIzF+4egTrshuXiV8zJaRyudjSAda3Ya22THLFj5q5z
+	 P6N/RbpIWGKBf8T8OQYyTmA5gX/LJlU7nH/RRSDMI2kvmpU2z2Fl9ixnLGGnZpzyGA7WH
+	 CWyfqUhGNxdVDJdqCr14nnSp3G+EF0ksifbmnj8iM+lXVxcbwCy2bFym5OLXqCUjqeNjb
+	 lldRQ+FSwjbnYOENcvWVR8GebXo8gOioLXGIrA/Upc3qfpY+/Frt0cdMkmNrDdwHfgChI
+	 nflSE/7DZiY0LU66PSbfzmgmptQicuMzlllO0sklaOcFReJkPkH5Kuts4HqhgQeTZsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=sung-woo.kim;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzWQKClT;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD7C606A887
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:22:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CD7C606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6691606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:23:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6691606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=sung-woo.kim
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kzWQKClT
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48fd2e38825so1523679f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:22:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794748945; x=1795353745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pjzj5aEMnAhOnp3zC+6PlBD16bM2Wct+scJniZ3yxAk=;
-        b=kzWQKClTNl9bBl9YgC4CWWkOCluChdcX+XH5aOd2jppkv0+8Qw1/gGICPRGRLgjbw5
-         w4JdGhk84gFeTlGsPfH0+5ZR2slnHfIR420yPrAAV1cGLV3MogVQ9mHaHGOPz56Sl4tm
-         HIsXrI6+pAuhkCmScj3H8PFr7KlQlVddl8O9yuGoPN2KpR6sIq5hzbJ9/XF+wGcgmIIt
-         i4Jnlm8yH67C+DgHTOeMd2WQudULzcirT3i2AGq2Txvkfbvrv+Ou1TYbeMCykQnL+e1R
-         I00q/U0SN5tEZ8v6K+sDz3sLeI20g7lLgV5KHRo8qsDhOW400RQChE7M1Z1kRTeybvKj
-         DmAg==
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b3ada81853so2251361c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:23:13 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794748945; x=1795353745;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pjzj5aEMnAhOnp3zC+6PlBD16bM2Wct+scJniZ3yxAk=;
-        b=UZ6F19mQaq9yEb8hAhrovVVMrI647D5rEehmSPdshmgsCrWcKSr0YxFm65p1aL2WLw
-         uE3asdb3ApACj0TyW97dn/DfdMW49pnEargwYk4EU8SSU8JnvyNiABiaXEYBnjrg0Pj5
-         9AhaQW5QLrHQVD04NXiX/RMDcp9Y+08Ysy+2t539131pIHlPJW3GKMJxE9KXW7BFYcWk
-         gANO7lj+PLqMRxNVGO9B114dnO/8iOOn5SMZOyoykrdAj6Rl5I54YWfz1DcvZ0JeOcin
-         ZokEjoT/yfsnqo6OAWoT8Qv6IEMkJ8Ts37WO6uss5nmQotrwIZeQv0ngAwf1uzLrQKqe
-         KNAw==
-X-Forwarded-Encrypted: i=1; AL+hErFE9NjQmKeVMLV1+dp/+jAo6MndU+f+imrf4Hmv4Mi+Ecl/S79kFFQeXgbjvwPLLMLZnrZMLsm1vSf5lQE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/iLrWIgyjzDDH7jBCAbo88IIAqbWd3rJ8VhB3TJuX5N3NiBb4R
-	+wHhWWCXDo0IxqLc+gajVTxLxfNs//Ti2ESk/EXjBPzRbU3GaNTwzSHM
-X-Gm-Gg: AYBFou0XQV6TfiH2sfLa6iYAOYsKrVlmCxzSnLUfzo0TqGRPadty482iNxNaCgKJqcA
-	p5JnT7UTa02zG2TOecZE0OB+vmT+GbciPqx6jAi6lms1Yuu1pAkbCkASt52m/nxt2Xm96KVujbg
-	ehQ5r/jdvG5AVSH201H5fCg+IYcmpscFo/lMx1DxIggxLOpQHadNqOvAoCfBTObYkUxKJeKg4fD
-	8r9hasZjrsixN4fZsIt2C5eR0bx0HeylZrrpm5gBVGOTBAoCVSsQxTSE/XV3TfQU/HIamSaxdFh
-	yZhXSU04EhiIA42tp0g7xGb48THkOYjcvZQAw3lc1sIsnqKrzlu87D9wvUsCLPfaGvMPApQsgDM
-	rtri3sAh7VQ78l3Ms3edN3nZ99VxCagFlhD59Qom6/UaiKGYX/4hJ0EfInxKtszhSXhrGghPf+t
-	O3XWsJmao8eynV/tE4v+60LGgXVJ6gqw3p7/cS1wxPjK+qzFpI4D2AHTMaLojKUkskRMWKuKWQ9
-	/7A09i3NdnPHXRFZxYYa7LrHlsqeCTBqvDb0+aoRBW0Bklc3uXvlpX/hgokA+NEOnk4xTuCt3dq
-	PuGt5nv0+TcWC9AnM8CkAYiUQ42a3V/aVwxaCfSklciAbKPyYA17r/ssk8CWV5FEDlOSs/1zL3w
-	FjMwmbW9ss3a6/PqYlfZQ3nROnrYp+xCAEEQ0x+gqgAyf5v6npDB1V6K9ecR4iziLH30KTtObGd
-	Im5ApaFxDkQx49xVxtNs1+4gHENGdGLjbK6bbz+JjbT5censuuYiA8nej5zbqCFkrivmyO9OBcF
-	Fg0g1Ndv0t2UVRNSupvp4QDc+3rz9My+Mo=
-X-Received: by 2002:a05:6000:2385:b0:48f:d7cd:a5af with SMTP id ffacd0b85a97d-49c6a645dd4mr18844055f8f.0.1794748945187;
-        Sun, 15 Nov 2026 05:22:25 -0800 (PST)
-Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm18406672f8f.1.2026.11.15.05.22.23
+        d=1e100.net; s=20260707; t=1794748993; x=1795353793;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CjqQPNhZow+JJGKg1R+gp2dO325Gr8fRFWJtkgK9zaE=;
+        b=ZoIutP4AmnsFdZgpEuBJhaVcEsJ16yjfp23zoOw15NFesH5t6YpeEkOIhkk56dakNH
+         ZJ9Qv3oSQh5Su8zton29bK+OZLrvm6A+UAicWIBvtBCyUkZL3QMJK8f2q0V+GhpgMwCv
+         gdkp6fDllsGRIpJ6HBT/p0Hq9IY/PF4DRypLTIyHBAHVwl3DXVYpCRxIof0SQ/6jWhZq
+         fyes/MQ/Cb0wnjgBVNKSXVpf/ELRxwEMIOCzoR74ANv9tr6f+DaCB5BMJU9PYXpaWKLP
+         2mfIQloFg0T6ei/rXggsdzR4822WGl78g6k72zOFrsrKudJq1vdPk3y3bnxb6Vub0Kbv
+         FLMw==
+X-Forwarded-Encrypted: i=1; AL+hErGIk7G2L4JqNHNfg+Df3JPcqS2qdI0rozgTXdQizuZGkDxBGhp663MI0Ux1Rj+ii6pkvtAn2T+npadncd4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RPHhhOuwlb0VuPC36c8hUCBixd3I5HZUrqhXIbyX4l77F6QrN
+	Xz0RekfdQSjgmY74BiHlFASgvrLYkmugrQB4wwItxMgFw47OOhKw5tXR
+X-Gm-Gg: AYBFou16glFGFIQAJFwiTSSwn7/Wz/5zU7GCapQSvTCML6rtG8Ern3adYSSItfx1/4N
+	QxSt6yYDByvAc4/oSJtNJm0esJvh/VMlTWU8MWMW/hNhMG4mdPAdkUebk/ej7+1UYO5AJ5PSRQP
+	O1Mbu/Q6BEekiywjSY7gwyosXq5P2KihHG8DiWdKmK8fxcdi3S/gTXekYJI8B7nW/YTkF0K7vU7
+	raC6AtbgoUpcXvI2PRk7FEtLFElCmWNR+O6c4XDnuW4xnP928VkVunqN3YHq/X3+/uZBqGR03jU
+	6zVMPE73HHgJWkwQJnJbwfblrADTV0ZFJDgvt8Q7+NvWT5zXMNduZ8+OJFaD0bOPATknQTPzI4y
+	CDBF/PrU6tmZT12fcRt0lQn3NupTUTW5fTdUX/bZ97/kuky0LIMhjqg/Sb0ZeE2jUmBCr2giwIP
+	b8Vo4dvGCGtt0ZNcRbjLLaRifxDDoaiD63CGG5pTP27pGDhrso9JTgPjKJ/DrhnO43WvRYaIXMw
+	+SNf/O7bRLmRNamHj0EDwBunc8kogWJCUADVMSiMbhatds7Vz+EVId3DOG/AWwIhZKxQppi8ceG
+	Kl2HmUwbh/vUu3sRylmCxO46L5zKrLqPkchS4jKFNFp2+K7CpBJhgWBB7NUT0RoUhW8wMg==
+X-Received: by 2002:a05:701b:2415:b0:169:9f67:a91b with SMTP id a92af1059eb24-1b5030e74d1mr6757528c88.12.1794748992847;
+        Sun, 15 Nov 2026 05:23:12 -0800 (PST)
+Received: from tofu.taila6b446.ts.net ([128.210.0.165])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b50316d9c2sm21263584c88.7.2026.11.15.05.23.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 05:22:24 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH v2 2/3] arm64: dts: allwinner: h6: Add GPU OPP table to all boards
-Date: Sun, 15 Nov 2026 14:22:13 +0100
-Message-ID: <20261115132215.289236-3-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261115132215.289236-1-jernej.skrabec@gmail.com>
-References: <20261115132215.289236-1-jernej.skrabec@gmail.com>
+        Sun, 15 Nov 2026 05:23:12 -0800 (PST)
+From: Sungwoo Kim <iam@sung-woo.kim>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Dave Tian <daveti@purdue.edu>,
+	Sungwoo Kim <iam@sung-woo.kim>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] ALSA: hda/realtek: fix missing chained flag in fixup
+Date: Sun, 15 Nov 2026 08:22:15 -0500
+Message-ID: <20261115132215.4084031-2-iam@sung-woo.kim>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,69 +84,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Only the Beelink GS1 and TaiQiCat A01 include the H6 GPU OPP table, so
-the GPU on all other H6 boards runs at a fixed clock rate. Include it on
-the remaining boards, so devfreq can scale the GPU clock for either
-better performance or lower power consumption.
+The fixup specifies a chain_id but does not set the chained flag,
+which prevents the chained fixup from being executed.
 
-The table also works with a fixed GPU supply, as on Tanix boards.
+Should chained be set to true here?
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+This was identified through static analysis and has not been tested
+on actual hardware.
+
+Signed-off-by: Sungwoo Kim <iam@sung-woo.kim>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts | 1 +
- arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi  | 1 +
- arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts   | 1 +
- arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi     | 1 +
- 4 files changed, 4 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-index dc7381c944c9..ce82aa265cfd 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-@@ -5,6 +5,7 @@
- 
- #include "sun50i-h6.dtsi"
- #include "sun50i-h6-cpu-opp.dtsi"
-+#include "sun50i-h6-gpu-opp.dtsi"
- 
- #include <dt-bindings/gpio/gpio.h>
- 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-index cbe88ee6a487..40c5c42b347e 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-@@ -5,6 +5,7 @@
- /dts-v1/;
- 
- #include "sun50i-h6.dtsi"
-+#include "sun50i-h6-gpu-opp.dtsi"
- 
- #include <dt-bindings/gpio/gpio.h>
- 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts
-index fa7a765ee828..f4a5a2215ea2 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts
-@@ -5,6 +5,7 @@
- 
- #include "sun50i-h6.dtsi"
- #include "sun50i-h6-cpu-opp.dtsi"
-+#include "sun50i-h6-gpu-opp.dtsi"
- 
- #include <dt-bindings/gpio/gpio.h>
- 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
-index bb7de37c0d58..f08077175549 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
-@@ -5,6 +5,7 @@
- 
- #include "sun50i-h6.dtsi"
- #include "sun50i-h6-cpu-opp.dtsi"
-+#include "sun50i-h6-gpu-opp.dtsi"
- 
- #include <dt-bindings/gpio/gpio.h>
- 
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 96fa8c2782bb..1be2e609c28d 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -6431,6 +6431,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 			{ 0x1e, 0x411111f0 },
+ 			{ }
+ 		},
++		.chained = true,
+ 		.chain_id = ALC269_FIXUP_DMIC,
+ 	},
+ 	[ALC269_FIXUP_CZC_TMI] = {
+@@ -6449,6 +6450,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 			{ 0x20, 0x8000ffff },
+ 			{ }
+ 		},
++		.chained = true,
+ 		.chain_id = ALC269_FIXUP_DMIC,
+ 	},
+ 	[ALC269_FIXUP_CZC_L101] = {
+@@ -6467,6 +6469,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 			{ 0x1e, 0x411111f0 },
+ 			{ }
+ 		},
++		.chained = true,
+ 		.chain_id = ALC269_FIXUP_DMIC,
+ 	},
+ 	[ALC269_FIXUP_LEMOTE_A1802] = {
+@@ -6485,6 +6488,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 			{ 0x21, 0x03214020 },
+ 			{ }
+ 		},
++		.chained = true,
+ 		.chain_id = ALC269_FIXUP_DMIC,
+ 	},
+ 	[ALC269_FIXUP_LEMOTE_A190X] = {
+@@ -6497,6 +6501,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 			{ 0x1b, 0x0201401f }, /* front lineout */
+ 			{ }
+ 		},
++		.chained = true,
+ 		.chain_id = ALC269_FIXUP_DMIC,
+ 	},
+ 	[ALC256_FIXUP_INTEL_NUC8_RUGGED] = {
 -- 
-2.43.0
+2.47.3
 
