@@ -1,63 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727468;
-	b=Pcaw7nE02PaNWeEPlcxl2ZWJRzBCRAdhqOAG2eblOh5Yw2Qjp2Rkrv3nC0F1axIqG0vI
-	 JOF/+7qjnqzMbx9mcEGARAnVQAmMYG+1ur/dbSxBUB6Axgr8aKP5VlsiBh1srE4NIJ0zG
-	 nmitfbF6dlOTKWArtooHkcU7RumquJ5mg2r2LlhnIX+NKZ4GkbNsdL0qB8eQRQoMW91Cy
-	 Rp3IQor+5UotKn6ld1ujIgtP0wgUrZW4S7otu/sc5PrGfirDu7Ck15DbNzCJ47HnFlY6e
-	 XYlr9DbqzM2dphRqYmgYYjHZ6wP7hUPZUfLXv62uRQ9vDVzGoEZ8bM19y6FLYtouO3w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727468;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=g8XCj3VmupwTgmei3ccSJ336G4V8n0s/RIq73TfG+uE=;
-	b=5ALBbpCCGaU9iz2Ml+2aAaoJxeNBKnPt3XQnPQvkl0JF4RJAcNElJm7+eR3cfbtzNjWp
-	 iEkJnGQdhPcXnILogI7KzGaVfoG4E+krlzGGJUcqwxjyJsGolcCTPBMKltqGyWxULeXQY
-	 7Ge88kNNITMQ6SUOGMGKR7ckFptrAsH3YL8CTL0JtfvCDY1mCFV73N17CigUoZYlKMw+g
-	 qn+VgrzlDxSJBcoqz18wf6cTVlEEoAN+LTLtiK0K0LGpGwjGE9IwJQSSYQOpUpWZtJ3g2
-	 Il9QRLLBTxqZpFsVeR8JaZMgA4Y6kT05+7C1hZJaxYN/YxaTzXZ2Cay6+pRO6eq7j6w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ko9M+Oay;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794727462;
+	b=uyS/XUg0YVP4pb561zrRVZF1Z43eyTTt9k/138ar84TTrKxRjxEkCY3QmTC14CDkedTq
+	 00Hw/iFaww0jQqQWfH4XUr7Bam4JmL3BeZKxAg2RxBmOSFsoOsJrkJTaJUsOdyZO1YxmK
+	 clv3AaHKAF89mGxfJoMD3guA1aV9aWMh+SIyZAwg8KbZ/eQWJfd4eu4V9j5EKZPeU1YjP
+	 JugGvPQnXiQ3DGoUP0Tve7n5ZQnjtiwzyInIJKM/7o0xnO2Xdeyf8STG18juZ8rLLQD8z
+	 zTJ+8vNNnRxmiHW6XZLkkLNkfJbUrcVJ+ps2C5C7Lo7wutyZYkopwUxkf5vo3m/t1yQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727462;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wo8vvqXzb5QCrZMCEF5Fe5NsY4QdpznmI/9Iup2sIv0=;
+	b=HG3a+ND1WHlM7r7wVzD2TP9wpEbaYn55/CptWK33jrHjhRXjmuj37LXaRPQ7+RZozd3W
+	 i4E0VN+wS3jHQ0i6QXOjBaN5J37E2fciL8DarL919mKkh7cYy+k+5F+HD4OxfA7tEY+Ot
+	 HhONwVPsm8myMAQEMb0oRu2KPi5a57EL/kj3FJSRQ5AuqilUk5NtwGDJkmrBsJRC07hJ9
+	 CIWe3W/lUG5blGlK8UQoYb4PF+c3g8N8PiiN5RZsS6jEjJc3EQVY3hbOW56xi0r239aaV
+	 Wov++CWZrmVmO7Ju8EbfNPEpxji2ceih50J8IlcSeYQ5SqlqBJN33VFLF3cTFtdi5sA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aSZevQbT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.11
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012011.outbound.protection.outlook.com [40.93.195.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BAE606A89A;
-	Sun, 15 Nov 2026 07:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB808606A31D;
+	Sun, 15 Nov 2026 07:24:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB808606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ko9M+Oay
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13B751F000C9;
-	Sun, 15 Nov 2026 07:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794727468;
-	bh=g8XCj3VmupwTgmei3ccSJ336G4V8n0s/RIq73TfG+uE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ko9M+OayOZlmNrk9y4ORNlESO+7FTWempV9V5dMDxG/Jn2wnoFB9mqN5XDQCSbfUt
-	 756QVfT3V4bKNU9kF1LIkli3jDiR9S0HKAdY0/um8eh3cpHs8zmYEb/Gfop7nEYhSZ
-	 h0HbXxvayEWc9SztmE5FO1OrFf6QMbNm3WCPTAT0FeUFcCj03HuhdFmbt2qnvfX9Xu
-	 72baXIAbo64Gt+NzoN9R75FJ69HWqD9v6RZv+eIM3dmP9xp9C0k2bxlv/Lg8sEHMWp
-	 UQKtEVpygqNKqcMuymm84uzNXJQVoikHB17YlpO2z4fDGSCCdlkYtVpY8SslB0mFkL
-	 E+swMDRN8qMkg==
-Subject: Re: [PATCH v7 net-next 8/9] net: dsa: netc: add PTP two-step
- timestamping support
-From: netdev-bot+sashiko@kernel.org
-To: wei.fang@oss.nxp.com
-Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- richardcochran@gmail.com, linusw@kernel.org, linux@armlinux.org.uk,
- wei.fang@nxp.com, imx@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org
-Date: Sun, 15 Nov 2026 07:24:26 +0000
-Message-ID: <179472746660.2199510.5760653548195700469@kernel.org>
-In-Reply-To: <20261111062753.1397582-9-wei.fang@oss.nxp.com>
-References: <20261111062753.1397582-9-wei.fang@oss.nxp.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aSZevQbT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QkQ8PGZBTZl2ziAdBqPNLLslSARMhnJx34tE4f1sDaAq/EUtURYWWbXsPMwp3SzKUpBQ052PJ3grWG0HAzNgNaNKSuHTsjJYT3R4/YzRtX/r4Fqaccbdi9V0yXPsc/FOmc41gFnGgkudq9DZlyoKmUv5RiOCWCj7/v+U5sNxRRfhixDvsChVB5vB47tQAFSHBpQiHYfbrBoz1EKT8QtTiy5M2su4a/nBl3fhQDttxA/dRtuYf9QNZ1K8risfSmFVmwGBcMOBqXRXP7qajQ6bsq6ZlHTBhscoS1NLPwxSpNvkgeECI5KlB6YIOmPtyD2rbCXZstuBGgJgLllDz+DiHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wo8vvqXzb5QCrZMCEF5Fe5NsY4QdpznmI/9Iup2sIv0=;
+ b=lgw3uwGXtOWZQB11iVfEGdZ6ooQ35oGAeVzpB2qx8VvhawEAsuszL01yPROjd/5rkx79qLxLOXBMq11woq6aXMN1hVFN8nbEooc5zGWd+zDNQnjPbyQI0WNfb5RZEHbhA9lTw2/Xzv0IiAb3j2Vnm4emqbsvmgTeEOoOFrKjshODpmPgZAKlXcRC65bXukEWB1BB4IvTGmiQ8VhJFm8uHFEd0C9A7ifvPGdgmQxsjyZ7ZZBPYWiaQsNPGnzFTBsoPPcjXAUD23c4MPeyhSuiCvcQvYJWPgJaPDzF78D8LhMq99yQvuK++uLTGAEW359oCTG5e8eYkpLt5Ug3S3PdxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wo8vvqXzb5QCrZMCEF5Fe5NsY4QdpznmI/9Iup2sIv0=;
+ b=aSZevQbTr9XRqOlggh3kFtq/OB0QCgftOKW16y1usdWKJjHk4OfoUFC09MKPMenySTQbINfSG1Wiei/tfYfz1FdJDA0Rp+/1+jSxnTaAB7T1tF2X0+IJlWx+MayQDBBee09TBmuC907p0mD94siLQkPR1Keh64lY/av7rVPxJXG4AKiiGhodE2NibZbYYSkDh5Bu2BgMYx0ItP6ZF1d2ptbMUXpUzwkrloRxpo4YtlTeWZAE5B4HKQplc7gKpH8GSXtW00H963uAseFpA7UviZemOlmFPuU+BtmOKY6bKsw+kqLrMcodgMF1yyQDht6ttcOdhLGVhTn8rZ7doKFvPw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA4PR12MB932075.namprd12.prod.outlook.com
+ (2603:10b6:207:12d::15) by SA5PPF9176ED2F1.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Sun, 15 Nov
+ 2026 07:24:18 +0000
+Received: from IA4PR12MB932075.namprd12.prod.outlook.com
+ ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
+ ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0615.012; Sun, 15 Nov 2026
+ 07:24:18 +0000
+Message-ID: <4d975312-4d4d-46b2-9510-c5a3263a330d@nvidia.com>
+Date: Sun, 15 Nov 2026 09:24:13 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/mlx5: E-switch, Query port function mac only when
+ vport is enabled
+To: netdev-bot+sashiko@kernel.org, tariqt@nvidia.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ ajayachandra@nvidia.com, gal@nvidia.com, leon@kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
+ moshe@nvidia.com, saeedm@nvidia.com, udar@nvidia.com
+References: <20261110092648.2511196-1-tariqt@nvidia.com>
+ <179443255917.2199510.5948232347809644575@kernel.org>
+Content-Language: en-US
+From: Tariq Toukan <tariqt@nvidia.com>
+In-Reply-To: <179443255917.2199510.5948232347809644575@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TL0P290CA0009.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:5::6)
+ To IA4PR12MB932075.namprd12.prod.outlook.com (2603:10b6:207:12d::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,545 +101,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|SA5PPF9176ED2F1:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6115b851-e2b7-42a0-f2b1-08df42e975e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|22082099003|18002099003|6133799003|261009223027099003|4143699003|56012099006|261102123227099003|261028144727099003|261021121427099003|261022105027099003|261026121527099003|261021135927099003|261022075727099003|261026140227099003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Y3JuzdCKiqerjmKPznKuX6DkkTsZm13admLkVjdCWEz4nYNGXPTS9Zq7rK+M4iIwa1YHDEVyd63PnNFPUqkPRb5YJt5oCDpO8pAoOJRjRUC+y11acGQMAD6a7oxeP3eSx3rtCMuzpigptRM7IOes8EQ/zXTUHxdbO9nmVWGWdTm4t1XfgL4TFWItgMEgQhogkHP4MyYg72E+syPNoojNQlLS6R5ooqilfkWVJKFxkgF1HeCNwRYSb9QcOHq0Sk/6NOk5BbeicgSAODUArPL7D89Z5w9lDAlW1O2HLh6/LFIVMbqA85z0/RC2ntpOwtWly2GJOUXre/vdSX0niCNBONfyIw9DOCrXhSRg1YD6TqlZLME3cuC7Y3f2RWIddBz6aKSAohuPcKwLNi2CO8yTM7GCpSsQQEojH1OCQnFP+AkYS8Ck2CrUGooJW67niysOaqu+irq5THZq6W7DKeClXOgWZYJpu4Krm/16HNox0No4INKTZ3ok0Fk/H6kj81pe/VJbJR9NGoLTEOS+jWN6XXv3r56Mu7k/26HXJPowdjptxiIjAEmXuwUYdbwb5AGfrf8XYriz5Rc9XEeQvw5cDn5ElTuwhna/268WtqvYq85ict0tMD80421TIz4kcujtuaC61d7VneEhIJ6TfzMiH5guhAeBWE7vh0S+qgsU1Ms=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(22082099003)(18002099003)(6133799003)(261009223027099003)(4143699003)(56012099006)(261102123227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261026121527099003)(261021135927099003)(261022075727099003)(261026140227099003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WTZIeGZKRzc0WlR4M2tDVUtDZGpieTQ0ZGpLelA2RHVZbzl3T2F0Q3UrTTR0?=
+ =?utf-8?B?SldWVEo5bWdwUmRjRjhxNjlVdG5KNXQ4WlpyRzJJOWY5TUYybVhTQ09TS2FW?=
+ =?utf-8?B?S0wybGhsWXd2ZTI3REJHbUJUbVlnTnB2dGtoV082N2F4MUpuWEFuLytyRkQ0?=
+ =?utf-8?B?Ni9TM1IrRWVEN1RwYnIra3pTd0cwbjNaa25mejZReWM5dU5Ua2NsVjkxWDFj?=
+ =?utf-8?B?TmQ4V25EWjF3QXFpV2hDaHp2K05USU9NZktFdU1XcmxKbmNpQ2ovT3F1YUdi?=
+ =?utf-8?B?ZFlyZXFvTmFXNnMxOGlTZFRGYW4yYVhLdkNwWUFHTUhYZ1JsTVVUZmpONm00?=
+ =?utf-8?B?SURmYVI3QUlxcUVyckNxWUdNaUdCS1U2NXdmZzQ5UDVNWDVaVGdpa3hMa2NR?=
+ =?utf-8?B?T1lKTndSRnZ1Tlh4VzFyY1dRSnVoQ1o3M1ROSmYrdk55QUtUZEQ0SFRWWW5N?=
+ =?utf-8?B?VE5XeUZSZGo3d042eEFGOVEzaFlpa1hNVkthcEMzYUNKVGJwV2Mwc1ZDYm45?=
+ =?utf-8?B?b1lNYzdHT0QrSlJxSnpXK0xTK2ttQ05mazRhTVZxcjAxRERKZVJxM1plQmRk?=
+ =?utf-8?B?c0I1WlJncDVUeFMxei9HZFpUaFM2NWtZaGNsYUJBbEZNQVI2SFhsRDZINEh3?=
+ =?utf-8?B?WG5yNTd4TjlST25ONnhpV0RlUzZlL2JZODZRaHJiTW5ZaklUNkJIVXdFVlQz?=
+ =?utf-8?B?Q2xtNnJZZURwb1F5NjlFNnpuNmJZckR3WU9yazRpRi9zK1hQa3Z5NUg0emZG?=
+ =?utf-8?B?UlNNYS9NdWtaNmJ0UlFtbVJyVk9xVWk3VXRYU2R0TUFEZ0d5ZGduc2FmMjBr?=
+ =?utf-8?B?LyttUGYzU3ZRcGcvUEdBVjBWTkNvNnVnUG5XbjZ0dUhtY1hONmcyWXRDazhS?=
+ =?utf-8?B?U2xBVUZDUzFUclNobkEzRlRyam4zYjU4N0NiWW14RkxaeFlaQjh4Rk1xU21W?=
+ =?utf-8?B?ME41YmJhVXJrVHR4WmVBZVZYL2JMbVpBMjVMMTNoYTM1ZkNoZy9Lam9qdXZl?=
+ =?utf-8?B?WVRJRnIrK0lWajJtRFlBMi9lOHpqWll6UUNTOVBMV1Q4TFNRWk8xVVl0bTha?=
+ =?utf-8?B?S0twODBhSVkyVGw0dFNXL3V4WWE1WUlkZ3hBaS8raERJTStOTmN1WlRQSk13?=
+ =?utf-8?B?NWczR0JmbEpIMHNZTmpsOEY2N1NzSDMzT2ZlTUNlT1VqQTlvUTdzYXhRdkFw?=
+ =?utf-8?B?RVpRdWF0R3NOOVkwZXJvdU9XeDBocmxBQm9VL05JVk1HdnF0OTVLNWxTMFVL?=
+ =?utf-8?B?Z1hPQ3RaZE9OQWgvY25Ea29mR3Z0Nktkc0VwcEVTOWErRlF0dG93WU9GNTc5?=
+ =?utf-8?B?UmQ2SzdGVmV0WWNpUFpXV0lFVEoyVFFvSzE1SVV1dVBnK1g1T0F0QkdzbG5k?=
+ =?utf-8?B?WXphTzEvcTVidVkzVnh6eXc0Ykp2SWpXNlFPUXpVNnF3UDVmUnlnVmRkbE5I?=
+ =?utf-8?B?RkdnbEhwVGMveGpVMnQxZmlnMTZ0aXgvQkI2TnZmcEU0N1JqZk9NT2lwUmFR?=
+ =?utf-8?B?RkdkaXVZZ0VsUXVqb2FydVhGUXFWOWVaT3d1eTlGOGNFVGpPTzE4TmNkdUJr?=
+ =?utf-8?B?ME5QRUx6dXdzSlh0dTdudU83dzlmYWVHeng5NlJOSDNqcTdRWWpDMVVtY2J1?=
+ =?utf-8?B?NHczSzRURzZEZUlOb1lFMFlmcXBMT2QvMER0RzYxREFMVkUxM21nSndBWjJu?=
+ =?utf-8?B?clAwaHhCRDNjWGhVRFhNekd3OW5CR09zT051VFV6QW1PaWhOQktFaXp5OXl2?=
+ =?utf-8?B?cXlwUmR5b3lDTjdZMHJsYmdOcTg5SjlLS3FFNDUwc1MzZC9PellTZGVOS2Zr?=
+ =?utf-8?B?cHV3R0NlZWo2TTNhcGwyTjd4Y2VzTDdJYTJZZjZnMFBrdFZHWDk4aDFxRUFL?=
+ =?utf-8?B?bkJ2T291T0dPMFJ1ODBleGhaN2tuWlJKUnN5dW5HVmJ1clpMQW02bGpmZTlX?=
+ =?utf-8?B?NllLM0FTa3Nuc1RLSDlEVERzd2JhR2o0MC9rUWNvTk81UWxnWmZNRjdNNTU4?=
+ =?utf-8?B?SHZ3blNja2dwNS92VjI5QldtQ1luOUc4K3dORUFYR2x5VURyeEVnM3B3elV3?=
+ =?utf-8?B?Z1NWaXFJVzl2Q0RpRU5DTzNlUy9ESkxHbGQxY2dsRXVsYWEyYlBPZEd1YXBo?=
+ =?utf-8?B?Sy9JSXdSUzc3b2xPV0FSRGljV1ZGU3V3YVR3T1NDSEwrTjJwdldZSTFrN0hw?=
+ =?utf-8?B?N1NaVG5mbndvWXdFUk1EbHUwQlZ5TGU3eVRsdHRacHV5bnQrV1BXaEYvcitX?=
+ =?utf-8?B?d1BaTDJmK3hPWGFJaVpDR2JkRW80MDQ3TTFXR1YzOFFPTUJRNTZLbUtFM0RC?=
+ =?utf-8?B?N2hQaHVSTS8yeHkzaldKTFlpNUpkc0dYaWNQN3RySkRIS1AxTVQwQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6115b851-e2b7-42a0-f2b1-08df42e975e3
+X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:24:18.3405
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U/wHcQfas8tdWeRSc5hZgrTKdi77urydyaPlS7kcBRNreOevGUU+C4l5y/55euth5D3MJshv4gm+V55flW5ntQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF9176ED2F1
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
 
-Low priority / nit picks for your consideration:
 
-- [Low] net: dsa: netc: incomplete IPFT_FAF_L4_CODE mask in
-  netc_build_ptp_ipft_keye()
+On 11/11/2026 23:29, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The new `if (vport->enabled)` guard in
+>    mlx5_devlink_port_fn_hw_addr_get()…
+> 
+> --
+> 
+> net/mlx5: E-switch, Query port function mac only when vport is enabled
+> 
+> This commit wraps the mlx5_query_nic_vport_mac_address() call in
+> mlx5_devlink_port_fn_hw_addr_get() in a vport->enabled check. The goal is
+> to stop QUERY_NIC_VPORT_CONTEXT from failing in firmware when a port
+> function is dumped while its vport is not enabled.
+> 
+>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+>> index c712848b202db..b83c6c02670f8 100644
+>> --- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+>> @@ -5121,8 +5121,9 @@ int mlx5_devlink_port_fn_hw_addr_get(struct devlink_port *port,
+>>   
+>>   	mutex_lock(&esw->state_lock);
+>>   
+>> -	mlx5_query_nic_vport_mac_address(esw->dev, vport->vport, true,
+>> -					 vport->info.mac);
+>> +	if (vport->enabled)
+>> +		mlx5_query_nic_vport_mac_address(esw->dev, vport->vport, true,
+>> +						 vport->info.mac);
+> 
+> [Severity: Medium]
+> Can this check ever be false here? The commit message says "A port
+> function can be dumped while its vport is not enabled". The ordering of
+> devlink port registration against vport enable/disable seems to rule
+> that out.
+> 
+> mlx5_devlink_port_fn_hw_addr_get() is reachable only through the
+> .port_fn_hw_addr_get op in mlx5_esw_pf_vf_dl_port_ops and
+> mlx5_esw_dl_sf_port_ops. Devlink calls that op only on registered ports.
+> 
+> Those ports are registered in mlx5_esw_offloads_devlink_port_register(),
+> via mlx5_esw_offloads_load_rep(). That happens only after the vport has
+> been enabled:
+> 
+> drivers/net/ethernet/mellanox/mlx5/core/eswitch.c:mlx5_eswitch_load_vport() {
+>      ...
+> 	err = mlx5_esw_vport_enable(esw, vport, enabled_events);
+> 	if (err)
+> 		return err;
+> 
+> 	err = mlx5_esw_offloads_load_rep(esw, vport);
+>      ...
+> }
+> 
+> On teardown, the devlink port is unregistered before the vport is
+> disabled:
+> 
+> drivers/net/ethernet/mellanox/mlx5/core/eswitch.c:mlx5_eswitch_unload_vport() {
+> 	mlx5_esw_offloads_unload_rep(esw, vport);
+> 	mlx5_esw_vport_disable(esw, vport);
+> }
+> 
+> mlx5_esw_vport_enable() and mlx5_esw_vport_disable() are the only places
+> that write vport->enabled. Rep netdev notifications that reach this op
+> also run inside the same window. So every dump, doit or notify that gets
+> here should already see vport->enabled == true.
+> 
+> If so, would the quoted QUERY_NIC_VPORT_CONTEXT "bad parameter(0x3),
+> syndrome (0x29d722)" error still occur after this patch?
+> 
+> One possibility is a vport the driver has enabled but firmware still
+> rejects for the query, such as an inactive SF. In that case this query
+> still runs and still fails.
+> 
+> Another candidate is the unconditional query that the same Fixes commit
+> eea31f21dce1 added to esw_vport_setup(). It runs on every vport enable,
+> including bulk SF creation:
+> 
+> drivers/net/ethernet/mellanox/mlx5/core/eswitch.c:esw_vport_setup() {
+>      ...
+> 	mlx5_query_nic_vport_mac_address(esw->dev, vport_num, true,
+> 					 vport->info.mac);
+>      ...
+> }
+> 
+> This patch leaves that query unchanged. Was the failing path confirmed
+> to be mlx5_devlink_port_fn_hw_addr_get() and not esw_vport_setup()?
+> 
 
---
+Ack.
 
-> diff --git a/drivers/net/dsa/netc/netc_ptp.c b/drivers/net/dsa/netc/netc_ptp.c
-> --- /dev/null
-> +++ b/drivers/net/dsa/netc/netc_ptp.c
-> @@ -0,0 +1,504 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * NXP NETC switch driver
-> + * Copyright 2025-2026 NXP
-> + */
-> +
-> +#include <linux/ptp_classify.h>
-> +#include <linux/ptp_clock_kernel.h>
-> +
-> +#include "netc_switch.h"
-> +
-> +#define NETC_NUM_TS_REQ_ID		16
-> +#define NETC_TSTAMP_TIMEOUT		(5 * HZ)
-> +
-> +static void netc_port_tstamp_timeout_work(struct work_struct *work)
-> +{
-> +	struct netc_port *np = container_of(work, struct netc_port,
-> +					    tstamp_timeout_work.work);
-> +	struct sk_buff_head free_list;
-> +	struct sk_buff *skb, *skb_tmp;
-> +
-> +	__skb_queue_head_init(&free_list);
-> +
-> +	spin_lock_bh(&np->tstamp_lock);
-> +	skb_queue_walk_safe(&np->tstamp_queue, skb, skb_tmp) {
-> +		if (time_is_after_jiffies64(NETC_SKB_CB(skb)->ptp_tx_time +
-> +					    NETC_TSTAMP_TIMEOUT))
-> +			continue;
-> +
-> +		dev_dbg_ratelimited(np->switch_priv->dev,
-> +				    "Port %d ts_req_id %u which seems lost\n",
-> +				    np->dp->index, NETC_SKB_CB(skb)->ts_req_id);
-> +
-> +		__skb_unlink(skb, &np->tstamp_queue);
-> +		__skb_queue_tail(&free_list, skb);
-> +	}
-> +
-> +	/* Reschedule if there are still pending clones that have not
-> +	 * timed out yet.
-> +	 */
-> +	if (!skb_queue_empty(&np->tstamp_queue))
-> +		schedule_delayed_work(&np->tstamp_timeout_work,
-> +				      NETC_TSTAMP_TIMEOUT);
-> +
-> +	spin_unlock_bh(&np->tstamp_lock);
-> +	__skb_queue_purge(&free_list);
-> +}
-> +
-> +static int netc_get_ts_req_id(struct netc_port *np)
-> +{
-> +	DECLARE_BITMAP(ts_req_id_bitmap, NETC_NUM_TS_REQ_ID);
-> +	struct sk_buff *skb, *skb_tmp;
-> +	unsigned long ts_req_id;
-> +
-> +	bitmap_zero(ts_req_id_bitmap, NETC_NUM_TS_REQ_ID);
-> +
-> +	skb_queue_walk_safe(&np->tstamp_queue, skb, skb_tmp)
-> +		__set_bit(NETC_SKB_CB(skb)->ts_req_id, ts_req_id_bitmap);
-> +
-> +	ts_req_id = find_first_zero_bit(ts_req_id_bitmap, NETC_NUM_TS_REQ_ID);
-> +	if (ts_req_id == NETC_NUM_TS_REQ_ID) {
-> +		dev_dbg_ratelimited(np->switch_priv->dev,
-> +				    "Port %d has no available ts_req_id\n",
-> +				    np->dp->index);
-> +		return -ENOSPC;
-> +	}
-> +
-> +	return ts_req_id;
-> +}
-> +
-> +void netc_port_ptp_init(struct netc_port *np)
-> +{
-> +	spin_lock_init(&np->tstamp_lock);
-> +	__skb_queue_head_init(&np->tstamp_queue);
-> +	INIT_DELAYED_WORK(&np->tstamp_timeout_work,
-> +			  netc_port_tstamp_timeout_work);
-> +}
-> +
-> +void netc_port_purge_tstamp_queue(struct netc_port *np)
-> +{
-> +	struct sk_buff_head free_list;
-> +
-> +	__skb_queue_head_init(&free_list);
-> +
-> +	spin_lock_bh(&np->tstamp_lock);
-> +	skb_queue_splice_init(&np->tstamp_queue, &free_list);
-> +	spin_unlock_bh(&np->tstamp_lock);
-> +
-> +	__skb_queue_purge(&free_list);
-> +}
-> +
-> +static int netc_get_phc_index(struct netc_switch *priv)
-> +{
-> +	if (!priv->tmr_dev)
-> +		return -1;
-> +
-> +	return ptp_clock_index_by_dev(&priv->tmr_dev->dev);
-> +}
-> +
-> +int netc_get_ts_info(struct dsa_switch *ds, int port,
-> +		     struct kernel_ethtool_ts_info *info)
-> +{
-> +	struct netc_switch *priv = ds->priv;
-> +
-> +	info->so_timestamping |= SOF_TIMESTAMPING_TX_SOFTWARE;
-> +	info->phc_index = netc_get_phc_index(priv);
-> +	if (info->phc_index < 0)
-> +		return 0;
-> +
-> +	info->so_timestamping |= SOF_TIMESTAMPING_TX_HARDWARE |
-> +				 SOF_TIMESTAMPING_RX_HARDWARE |
-> +				 SOF_TIMESTAMPING_RAW_HARDWARE;
-> +
-> +	info->tx_types = BIT(HWTSTAMP_TX_OFF) | BIT(HWTSTAMP_TX_ON);
-> +
-> +	info->rx_filters = BIT(HWTSTAMP_FILTER_NONE) |
-> +			   BIT(HWTSTAMP_FILTER_PTP_V2_EVENT) |
-> +			   BIT(HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
-> +			   BIT(HWTSTAMP_FILTER_PTP_V2_L4_EVENT);
-> +
-> +	return 0;
-> +}
-> +
-> +static int netc_port_del_ptp_filter(struct netc_port *np)
-> +{
-> +	struct netc_switch *priv = np->switch_priv;
-> +	int ret = 0;
-> +	int err;
-> +
-> +	for (int i = 0; i < NETC_PTP_MAX; i++) {
-> +		if (np->ptp_ipft_eid[i] == NTMP_NULL_ENTRY_ID)
-> +			continue;
-> +
-> +		/* No -ETIMEDOUT here: with the command BD ring enabled, the
-> +		 * hardware execution time for a command is much less than
-> +		 * 1ms, so no timeout error will occur. Any remaining error
-> +		 * means the entry is still present in the table.
-> +		 */
-> +		err = ntmp_ipft_delete_entry(&priv->ntmp,
-> +					     np->ptp_ipft_eid[i]);
-> +		if (likely(!err)) {
-> +			np->ptp_ipft_eid[i] = NTMP_NULL_ENTRY_ID;
-> +			continue;
-> +		}
-> +
-> +		ret = err;
-> +		dev_err(priv->dev,
-> +			"Delete PTP entry 0x%x (type %d) on port %d failed\n",
-> +			np->ptp_ipft_eid[i], i, np->dp->index);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int netc_build_ptp_ipft_keye(struct ipft_keye_data *keye, int port,
-> +				    enum netc_ptp_type type)
-> +{
-> +	u16 src_port, frm_attr_flags;
-> +
-> +	keye->precedence = cpu_to_le16(NETC_IPFT_PTP_PRECEDENCE);
-> +	src_port = FIELD_PREP(IPFT_SRC_PORT, port);
-> +	src_port |= IPFT_SRC_PORT_MASK;
-> +	keye->src_port = cpu_to_le16(src_port);
-> +
-> +	switch (type) {
-> +	case NETC_PTP_L2:
-> +		keye->ethertype = htons(ETH_P_1588);
-> +		keye->ethertype_mask = htons(0xffff);
-> +		break;
-> +	case NETC_PTP_L4_IPV4_EVENT:
-> +	case NETC_PTP_L4_IPV4_GENERAL:
-> +	case NETC_PTP_L4_IPV6_EVENT:
-> +	case NETC_PTP_L4_IPV6_GENERAL:
-> +		frm_attr_flags = IPFT_FAF_IP_HDR | FIELD_PREP(IPFT_FAF_L4_CODE,
-> +				 IPFT_FAF_UDP_HDR);
-> +		if (type == NETC_PTP_L4_IPV6_EVENT ||
-> +		    type == NETC_PTP_L4_IPV6_GENERAL)
-> +			frm_attr_flags |= IPFT_FAF_IP_VER6;
-> +
-> +		keye->frm_attr_flags = cpu_to_le16(frm_attr_flags);
-> +
-> +		/* Set IP version bit in flags_mask to match IPv4 or IPv6
-> +		 * packets
-> +		 */
-> +		frm_attr_flags |= IPFT_FAF_IP_VER6;
-> +		keye->frm_attr_flags_mask = cpu_to_le16(frm_attr_flags);
-> +		keye->ip_protocol = IPPROTO_UDP;
-> +		keye->ip_protocol_mask = 0xff;
-> +
-> +		if (type == NETC_PTP_L4_IPV4_EVENT ||
-> +		    type == NETC_PTP_L4_IPV6_EVENT)
-> +			keye->l4_dst_port = htons(PTP_EV_PORT);
-> +		else
-> +			keye->l4_dst_port = htons(PTP_GEN_PORT);
-> +
-> +		keye->l4_dst_port_mask = htons(0xffff);
-> +		break;
-> +	default:
-> +		return -ERANGE;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int netc_port_add_ipft_ptp_entry(struct netc_port *np,
-> +					enum netc_ptp_type type)
-> +{
-> +	struct netc_switch *priv = np->switch_priv;
-> +	struct ipft_entry_data *entry;
-> +	struct ipft_keye_data *keye;
-> +	u32 cfg;
-> +	int err;
-> +
-> +	entry = kzalloc_obj(*entry);
-> +	if (!entry)
-> +		return -ENOMEM;
-> +
-> +	keye = &entry->keye;
-> +	err = netc_build_ptp_ipft_keye(keye, np->dp->index, type);
-> +	if (err)
-> +		goto free_entry;
-> +
-> +	cfg = FIELD_PREP(IPFT_FLTFA, IPFT_FLTFA_REDIRECT);
-> +	cfg |= FIELD_PREP(IPFT_HR, NETC_HR_PTP_TRAP);
-> +	cfg |= IPFT_TIMECAPE | IPFT_RRT;
-> +	entry->cfge.cfg = cpu_to_le32(cfg);
-> +
-> +	err = ntmp_ipft_add_entry(&priv->ntmp, entry);
-> +	if (err)
-> +		goto free_entry;
-> +
-> +	np->ptp_ipft_eid[type] = entry->entry_id;
-> +
-> +free_entry:
-> +	kfree(entry);
-> +
-> +	return err;
-> +}
-> +
-> +static int netc_port_add_l2_ptp_filter(struct netc_port *np)
-> +{
-> +	return netc_port_add_ipft_ptp_entry(np, NETC_PTP_L2);
-> +}
-> +
-> +static int netc_port_add_l4_ptp_filter(struct netc_port *np)
-> +{
-> +	int err;
-> +
-> +	err = netc_port_add_ipft_ptp_entry(np, NETC_PTP_L4_IPV4_EVENT);
-> +	if (err)
-> +		return err;
-> +
-> +	err = netc_port_add_ipft_ptp_entry(np, NETC_PTP_L4_IPV4_GENERAL);
-> +	if (err)
-> +		goto del_ptp_filter;
-> +
-> +	err = netc_port_add_ipft_ptp_entry(np, NETC_PTP_L4_IPV6_EVENT);
-> +	if (err)
-> +		goto del_ptp_filter;
-> +
-> +	err = netc_port_add_ipft_ptp_entry(np, NETC_PTP_L4_IPV6_GENERAL);
-> +	if (err)
-> +		goto del_ptp_filter;
-> +
-> +	return 0;
-> +
-> +del_ptp_filter:
-> +	netc_port_del_ptp_filter(np);
-> +
-> +	return err;
-> +}
-> +
-> +static int netc_port_add_l2_l4_ptp_filter(struct netc_port *np)
-> +{
-> +	int err;
-> +
-> +	err = netc_port_add_l2_ptp_filter(np);
-> +	if (err)
-> +		return err;
-> +
-> +	err = netc_port_add_l4_ptp_filter(np);
-> +	if (err)
-> +		goto del_ptp_filter;
-> +
-> +	return 0;
-> +
-> +del_ptp_filter:
-> +	netc_port_del_ptp_filter(np);
-> +
-> +	return err;
-> +}
-> +
-> +static int netc_port_set_ptp_filter(struct netc_port *np, int rx_filter)
-> +{
-> +	int err;
-> +
-> +	err = netc_port_del_ptp_filter(np);
-> +	if (err)
-> +		return err;
-> +
-> +	switch (rx_filter) {
-> +	case HWTSTAMP_FILTER_NONE:
-> +		break;
-> +	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
-> +		err = netc_port_add_l2_ptp_filter(np);
-> +		break;
-> +	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
-> +		err = netc_port_add_l4_ptp_filter(np);
-> +		break;
-> +	case HWTSTAMP_FILTER_PTP_V2_EVENT:
-> +		err = netc_port_add_l2_l4_ptp_filter(np);
-> +		break;
-> +	default:
-> +		err = -ERANGE;
-> +	}
-> +
-> +	return err;
-> +}
-> +
-> +int netc_port_hwtstamp_set(struct dsa_switch *ds, int port,
-> +			   struct kernel_hwtstamp_config *config,
-> +			   struct netlink_ext_ack *extack)
-> +{
-> +	struct netc_port *np = NETC_PORT(ds, port);
-> +	struct netc_switch *priv = ds->priv;
-> +	int rx_filter, err;
-> +
-> +	if ((config->tx_type != HWTSTAMP_TX_OFF ||
-> +	     config->rx_filter != HWTSTAMP_FILTER_NONE) &&
-> +	    netc_get_phc_index(priv) < 0)
-> +		return -EOPNOTSUPP;
-> +
-> +	switch (config->tx_type) {
-> +	case HWTSTAMP_TX_ON:
-> +	case HWTSTAMP_TX_OFF:
-> +		break;
-> +	default:
-> +		return -ERANGE;
-> +	}
-> +
-> +	switch (config->rx_filter) {
-> +	case HWTSTAMP_FILTER_NONE:
-> +		rx_filter = HWTSTAMP_FILTER_NONE;
-> +		break;
-> +	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
-> +	case HWTSTAMP_FILTER_PTP_V2_L4_SYNC:
-> +	case HWTSTAMP_FILTER_PTP_V2_L4_DELAY_REQ:
-> +		rx_filter = HWTSTAMP_FILTER_PTP_V2_L4_EVENT;
-> +		break;
-> +	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
-> +	case HWTSTAMP_FILTER_PTP_V2_L2_SYNC:
-> +	case HWTSTAMP_FILTER_PTP_V2_L2_DELAY_REQ:
-> +		rx_filter = HWTSTAMP_FILTER_PTP_V2_L2_EVENT;
-> +		break;
-> +	case HWTSTAMP_FILTER_PTP_V2_EVENT:
-> +	case HWTSTAMP_FILTER_PTP_V2_SYNC:
-> +	case HWTSTAMP_FILTER_PTP_V2_DELAY_REQ:
-> +		rx_filter = HWTSTAMP_FILTER_PTP_V2_EVENT;
-> +		break;
-> +	default:
-> +		return -ERANGE;
-> +	}
-> +
-> +	err = netc_port_set_ptp_filter(np, rx_filter);
-> +	if (err) {
-> +		NL_SET_ERR_MSG_MOD(extack, "Failed to set PTP filter");
-> +		return err;
-> +	}
-> +
-> +	WRITE_ONCE(np->ptp_tx_type, config->tx_type);
-> +	config->rx_filter = rx_filter;
-> +
-> +	return 0;
-> +}
-> +
-> +static int netc_port_current_rx_filter(struct netc_port *np)
-> +{
-> +	bool l2, l4_v4_ev, l4_v4_gen, l4_v6_ev, l4_v6_gen, l4_any;
-> +
-> +	l2 = np->ptp_ipft_eid[NETC_PTP_L2] != NTMP_NULL_ENTRY_ID;
-> +	l4_v4_ev = np->ptp_ipft_eid[NETC_PTP_L4_IPV4_EVENT] != NTMP_NULL_ENTRY_ID;
-> +	l4_v4_gen = np->ptp_ipft_eid[NETC_PTP_L4_IPV4_GENERAL] != NTMP_NULL_ENTRY_ID;
-> +	l4_v6_ev = np->ptp_ipft_eid[NETC_PTP_L4_IPV6_EVENT] != NTMP_NULL_ENTRY_ID;
-> +	l4_v6_gen = np->ptp_ipft_eid[NETC_PTP_L4_IPV6_GENERAL] != NTMP_NULL_ENTRY_ID;
-> +
-> +	l4_any = l4_v4_ev || l4_v4_gen || l4_v6_ev || l4_v6_gen;
-> +
-> +	if (l2 && l4_any)
-> +		return HWTSTAMP_FILTER_PTP_V2_EVENT;
-> +	if (l4_any)
-> +		return HWTSTAMP_FILTER_PTP_V2_L4_EVENT;
-> +	if (l2)
-> +		return HWTSTAMP_FILTER_PTP_V2_L2_EVENT;
-> +
-> +	return HWTSTAMP_FILTER_NONE;
-> +}
-> +
-> +int netc_port_hwtstamp_get(struct dsa_switch *ds, int port,
-> +			   struct kernel_hwtstamp_config *config)
-> +{
-> +	struct netc_port *np = NETC_PORT(ds, port);
-> +
-> +	if (netc_get_phc_index(ds->priv) < 0)
-> +		return -EOPNOTSUPP;
-> +
-> +	config->tx_type = READ_ONCE(np->ptp_tx_type);
-> +	config->rx_filter = netc_port_current_rx_filter(np);
-> +
-> +	return 0;
-> +}
-> +
-> +static void netc_port_prepare_twostep(struct netc_port *np,
-> +				      struct sk_buff *nskb)
-> +{
-> +	struct sk_buff *clone = skb_clone_sk(nskb);
-> +	int ts_req_id;
-> +
-> +	if (unlikely(!clone))
-> +		return;
-> +
-> +	spin_lock_bh(&np->tstamp_lock);
-> +
-> +	ts_req_id = netc_get_ts_req_id(np);
-> +	if (ts_req_id < 0) {
-> +		spin_unlock_bh(&np->tstamp_lock);
-> +		kfree_skb(clone);
-> +		return;
-> +	}
-> +
-> +	NETC_SKB_CB(nskb)->ptp_flag = NETC_PTP_FLAG_TWOSTEP;
-> +	NETC_SKB_CB(nskb)->ts_req_id = ts_req_id;
-> +	NETC_SKB_CB(clone)->ts_req_id = ts_req_id;
-> +	NETC_SKB_CB(clone)->ptp_tx_time = get_jiffies_64();
-> +	NETC_SKB_CB(clone)->ptp_flag = NETC_PTP_FLAG_TWOSTEP;
-> +	skb_shinfo(clone)->tx_flags |= SKBTX_IN_PROGRESS;
-> +	__skb_queue_tail(&np->tstamp_queue, clone);
-> +	if (!delayed_work_pending(&np->tstamp_timeout_work))
-> +		schedule_delayed_work(&np->tstamp_timeout_work,
-> +				      NETC_TSTAMP_TIMEOUT);
-> +
-> +	spin_unlock_bh(&np->tstamp_lock);
-> +}
-> +
-> +void netc_port_txtstamp_handler(struct dsa_switch *ds, int port,
-> +				u8 ts_req_id, u64 ts)
-> +{
-> +	struct sk_buff *skb, *skb_tmp, *skb_match = NULL;
-> +	struct netc_port *np = NETC_PORT(ds, port);
-> +	struct skb_shared_hwtstamps hwtstamps;
-> +
-> +	spin_lock_bh(&np->tstamp_lock);
-> +	skb_queue_walk_safe(&np->tstamp_queue, skb, skb_tmp) {
-> +		if (NETC_SKB_CB(skb)->ts_req_id != ts_req_id)
-> +			continue;
-> +
-> +		__skb_unlink(skb, &np->tstamp_queue);
-> +		skb_match = skb;
-> +		break;
-> +	}
-> +	spin_unlock_bh(&np->tstamp_lock);
-> +
-> +	if (!skb_match) {
-> +		dev_dbg_ratelimited(np->switch_priv->dev,
-> +				    "Port %d ts_req_id %u which seems lost\n",
-> +				    port, ts_req_id);
-> +		return;
-> +	}
-> +
-> +	hwtstamps.hwtstamp = ns_to_ktime(ts);
-> +	skb_complete_tx_timestamp(skb_match, &hwtstamps);
-> +}
-> +
-> +bool netc_port_rxtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb,
-> +			unsigned int type)
-> +{
-> +	struct skb_shared_hwtstamps *hwtstamps = skb_hwtstamps(skb);
-> +
-> +	if (!NETC_SKB_CB(skb)->rx_tstamp_valid)
-> +		return false;
-> +
-> +	hwtstamps->hwtstamp = ns_to_ktime(NETC_SKB_CB(skb)->tstamp);
-> +
-> +	return false;
-> +}
-> +
-> +void netc_port_txtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb)
-> +{
-> +	struct netc_port *np = NETC_PORT(ds, port);
-> +	u32 ptp_class;
-> +	int tx_type;
-> +
-> +	NETC_SKB_CB(skb)->ptp_flag = 0;
-> +	ptp_class = ptp_classify_raw(skb);
-> +	if (ptp_class == PTP_CLASS_NONE)
-> +		return;
-> +
-> +	/* Only supports PTP v2 */
-> +	if (unlikely(ptp_class & PTP_CLASS_V1))
-> +		return;
-> +
-> +	tx_type = READ_ONCE(np->ptp_tx_type);
-> +	if (tx_type == HWTSTAMP_TX_ON)
-> +		netc_port_prepare_twostep(np, skb);
-> +}
+pw-bot: cr
 
-[Severity: Low]
-The mask is built by reusing frm_attr_flags, which only holds the
-value bits. IPFT_FAF_L4_CODE is GENMASK(11, 10) and IPFT_FAF_UDP_HDR
-is 2, so FIELD_PREP() sets only bit 11. That means bit 10 of the L4
-code field is never set in keye->frm_attr_flags_mask and is treated
-as a wildcard. The L4 code part of the key then matches both
-IPFT_FAF_UDP_HDR (2) and IPFT_FAF_SCTP_HDR (3), not just UDP.
+>>   	ether_addr_copy(hw_addr, vport->info.mac);
+>>   	*hw_addr_len = ETH_ALEN;
+>>   	mutex_unlock(&esw->state_lock);
+> 
 
-In practice this is mostly hidden, because the same entry also
-matches ip_protocol == IPPROTO_UDP with ip_protocol_mask = 0xff.
-SCTP frames are therefore still rejected. Still, the frame attribute
-mask is not doing what it appears to do, and it is easy to copy this
-pattern into a rule that has no ip_protocol check to back it up.
-
-Should the mask cover the whole field? Something like OR-ing
-IPFT_FAF_L4_CODE (and IPFT_FAF_IP_VER6) into the mask separately
-from the value would do it. If leaving bit 10 wildcarded is
-intentional, a comment saying so would help.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111062753.1397582-1-wei.fang%40oss.nxp.com
