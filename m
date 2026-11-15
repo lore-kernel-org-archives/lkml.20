@@ -1,114 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794784065;
-	b=1jz9sm6BPMeBziqPPGjLU9nS3RFFeChvIUcb5pHrdeQSsUUyU33A3CWR+vdP5l1Jbws1
-	 /sl40ODk/T8DWd+YL+4ipsH2qvDAih3dbgrBdHK76mEonUw2eSOxWfgubuZ2kBiANkD43
-	 Lhf2QPpXDDCxuFS28ABkPcgxeqCyZUC/W/IrbaAkpYjh4MIsktFUZodeHM8hpgH9c2rbk
-	 p6WkdDTrZnE1vltUUL1mQ3znX0vTIxQ1FYvrLe7IlP8DwFO3R54Y5L/UbzYgT0JRywYYJ
-	 plgdBESxHGXK23NY5lak69RX5HHcRc8TG09ZkFStmB7lM+hSMR3AoBB+IK3IU3+EmtQ==
+	t=1794784251;
+	b=ZjNMIBgSv6zkbQmAovgI8DcjlNBYQ8ZQVlvN4VKnrWUUIShC3FbQ4NpFzvNWXC55U14m
+	 T0yS09MYKKaELq0IeouCVy5SJLY7BDrzJGHIRid/qbAa+dHk0+GJOI4CyPqXGof9zdHxq
+	 KuFC0APJ/c9KqTQiZdTBO3JqK6Z0JKr5hwBW0Niahll3LiPCb/Ihdb3iJZlKZrq+LqXgI
+	 1ujaRhjehWoX/nAVH8O77yTICqz1tgU9hw8ujeTJo4Z86mSI+s1UgsRALuwTuyybL2+pj
+	 zu4852j53TwO0hLHc4GkTfXS34z5soGOCt/oG9h7nNd7APtv0qraCc7JP7bhP9lpUbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794784065;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qSuk1jbsdV+iZEtNlLpPi3t1jVjwwjZENkNYPa18BIE=;
-	b=HYfvh7inD1CRzq87UjTbp6c+mmifQDsFYEmoitUWR7WCuQEvDtekVdzlNvrkTdGNQM3L
-	 XrudQW0vxATZs+RKEOl9Vo28XgcCN6ce2oVIxE84lwGniWIooqWyLLkU9BrcmUAoO6H4i
-	 3QjFYcNx6KB3l8kRX561SM8oL11J35w2gs1LpeuBQ1SMSKAlvT69QS/Yk+E3J13zBgOq9
-	 Sq6oJcU9SYSVqRDflX7X3pfL5DvE0DfREZejL/p/CwbsgBZt9o30m0f8Moe1MpSx0jmaL
-	 mcKNzEmktGFptlyifrDXC3XqDNM8eWgIQZh6efCseauYZy/psTlvEbeSRZWP4r7/jog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794784251;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Y2c4GuntC+J+u1XdIe8/YlwOw+mNu6OQYE3WM0aA4Sw=;
+	b=J3Dt2odrs8KBvmp4J5tEnBrpOnT3+QuVEmJTZdEs0SXlcZXSotg1qJQ/ditSegV8R21F
+	 J51KvqPv5wRwver+QtUKcj8Ljq7BNSaQLjImElC2pUFwpCwzXyHjNZ55rqiFL/Y/60kCd
+	 fyYqTCPNPV5iKg/ziczGOlA1Xr6IbzjnwJ5hCGZrbQQlIL53ONJQqOUBD+hCTyRxP6bw4
+	 Qow/v3D0CbL7rV3TRn7MjVuaOyQDPHLobOlCeh94fe1sZHBrGHsj+YP7RK0j7jSbHkx13
+	 fiyZsne+ZtsvR8hx33yUTXjEhazImVq2j9AtfmFK1vCVtZeBGBxTINTH6YmriWlxHmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hk1x1wV9;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JjVOT4V+;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=rbox.co;
+	spf=pass smtp.mailfrom=rbox.co;
+	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=Y5kqtfjb;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24289606A32F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24289606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD002606A31F;
+	Sun, 15 Nov 2026 23:10:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD002606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hk1x1wV9;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JjVOT4V+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794784064;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qSuk1jbsdV+iZEtNlLpPi3t1jVjwwjZENkNYPa18BIE=;
-	b=hk1x1wV9PY7+tEv7OxpQ7i325IjzCasykmQLW61Wj+HTl3sCUY9VtIuAHfw5XbLxsluhZR
-	ULiSbRCrwQG6wIJmVvaLMmhsSXejPy9cvEJ+sAX+GSNJ3O80KjegQ/WOdAIZvgEk/Umyb2
-	XzT/5YEiFGuOaJDmr34uPMbIiwyQ4/M=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-433-Eno4Gi3LPbiwPZ7ch1pkEQ-1; Sun, 15 Nov 2026 18:07:40 -0500
-X-MC-Unique: Eno4Gi3LPbiwPZ7ch1pkEQ-1
-X-Mimecast-MFC-AGG-ID: Eno4Gi3LPbiwPZ7ch1pkEQ_1794784059
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1f03f2e8aso22719535e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:07:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794784059; x=1795388859; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qSuk1jbsdV+iZEtNlLpPi3t1jVjwwjZENkNYPa18BIE=;
-        b=JjVOT4V+TGCb83VkIVmnJav2JUK96bzcgADChkjgU+4zOTuXmPfFS6k/KToTM6Ygz8
-         z5T2fMjC53/kcIflVr18eAN90VW6bmNqg8DA3kftQDf6a5e1Wv4AuiC/s2tF/0B+Ojsr
-         JBkwUDBMWd0kSH0LTMLUcqkitniPnUTsjhxSNZoiOGPFd+aErPF5k+HKhq2NL2yMtNCs
-         qPudT2HkxtAkg112E3/K/43SwkyGlEbHYIOPSxE3H+PyYglTAnRteCfCfWrPvdC2UPwp
-         xg/PnP1/W9jNnV8gX036w+/ujAaH7uKFOfGL/4oQVvMEvR01YJPzuViaZuFuyhTBoQxP
-         hs0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794784059; x=1795388859;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qSuk1jbsdV+iZEtNlLpPi3t1jVjwwjZENkNYPa18BIE=;
-        b=JYS5rxvEkkaXUBZZ9Ft7/wV5PpaInrol9EdexL/hUnoYKdurkcbpZ5BI7KpbY/j228
-         TnFuymSTAeBEk96U0e1dGNy8aJHPmeRgvRy+oOdg9Cocbe8XpWGVGnafFsmo8I6DCUTa
-         SeOFTGtYHzVSeTCEqlOdEU0TG8mAtvkondtnZS05A9JqV9GmwjEDA5do9sGATnuP7sOo
-         t68ErZzcj3+uDBnjXZE9Rn+Cw653/2D+usjstoMtgjgZOyDF0tMWXNZg9+sygUYcubrx
-         SZ3rr7xxoVeH6j+8j4f0tGX3jiJjWPnx8OZ2IGrBKjm/s5yJcmYNXUmEx6swsMwWBOCi
-         UrrQ==
-X-Forwarded-Encrypted: i=1; AL+hErElc9T/DCDPbX4ixwelD4G/TjYa93ypcVfyNiIc5MptU/C999brwZJkZz/fxfdoTPMCHmUQVBDkHm1XfnU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4HrMfOEFljWtHAJNyH8R0OOc/cYjX72KIePOoTnqTFgwcn39l
-	JMAS1Ri8bR5TWJnsCaqN3DSqdjQ5BZ4r1QnoKHtB8f1YnnOQEbdVU0YrlAYeWEEJ0rki+8OrjVD
-	G6K5DYbx26P9A7y0Pcspj5//dqQhjHtMslkrz+CbENFUXjsTyMqZtgSSWNKKUw4IbAg==
-X-Gm-Gg: AYBFou2ZJOd9xRrLWEEssyXT0DTTtiqMXGIHxEEtx/KuN7i6K3AV50Hmtt7uJJ79ErU
-	Lka7jP5ESNp4Q+i53Ty4+9LLJsOi3QUbfbBZyqyP4R67RHOMUVPgzz+Qr3jvkDKGKWDAgy/CH3H
-	DEGMm/16rcHY/rCudu6R1Y+sO5A4jDtqiBxwqV15p72z/E471HA9W4vIWGilbhTJdtf1pzfFR98
-	EJ3MhvhNv+YCs28U1G1jReqUfjryxaugQakiR/3AYOHTK2FjW+V/dQUWDvtE5N3RkCfaqEyFQNA
-	ZyHylXj7RinonDSGF4kA5Z50sinualovVIorazTjz2BOf8bu9v3NbUtNJ6c0C5MQeskvs4+4NV1
-	IMp2AWlP5UEBR0oJgvEhHErdAS54AiZHP8LAvJnTiRg==
-X-Received: by 2002:a05:600c:8b6c:b0:4a3:5a7b:6002 with SMTP id 5b1f17b1804b1-4bb649d4148mr97699695e9.28.1794784059285;
-        Sun, 15 Nov 2026 15:07:39 -0800 (PST)
-X-Received: by 2002:a05:600c:8b6c:b0:4a3:5a7b:6002 with SMTP id 5b1f17b1804b1-4bb649d4148mr97699295e9.28.1794784058388;
-        Sun, 15 Nov 2026 15:07:38 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:151e:a200:7a96:1b15:81f:ebed])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5b4a3fcdsm213451595e9.0.2026.11.15.15.07.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 15:07:37 -0800 (PST)
-Date: Sun, 15 Nov 2026 18:07:33 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Congjie Zhou <zcjie0802@qq.com>
-Cc: netdev@vger.kernel.org, jasowangio@gmail.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] virtio_net: RX stall caused by masking callbacks after
- NAPI ownership release
-Message-ID: <20261115175445-mutt-send-email-mst@kernel.org>
-References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=Y5kqtfjb
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1xSjMb-00FK8o-Mj; Mon, 16 Nov 2026 00:10:21 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
+	bh=Y2c4GuntC+J+u1XdIe8/YlwOw+mNu6OQYE3WM0aA4Sw=; b=Y5kqtfjbJEBZsunJyvYzYSuOKJ
+	x4GqsvQFHvgz6aMwDH35pjfmNTCxYUppfB+rnK63mUjpLQWszSGSzqnWenkREZ98QWq0quF1sByHE
+	ZlzY9j6508J9K+z3CGvJvjvCdIzjVKa3UoLSnstBqpQQ8BI7ggksAIB/AsGYhWiB2s1S+46SThI5s
+	HeuMc00fyAyAt83o3Qd3TJnKjU6o7Or5v+fBiLyGEeZ1j5sb3tSOVFUqwp8o0WuoWjqiqFzqOrbKh
+	AeQo30VTE0YXV9+3O8kohQd3lf1omZmHB94dTmmsdwlvARbC2IEyq0fDDMRMctSMFZh+enWO9CUxW
+	zu2hz7oQ==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1xSjMN-0001t3-8N; Mon, 16 Nov 2026 00:10:07 +0100
+Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xSjML-000piU-I1;
+	Mon, 16 Nov 2026 00:10:05 +0100
+Message-ID: <e8f1736e-3f13-4f92-ad69-8b166c41e68a@rbox.co>
+Date: Mon, 16 Nov 2026 00:10:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,68 +66,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+User-Agent: Mozilla Thunderbird
+From: Michal Luczaj <mhal@rbox.co>
+Subject: Re: [PATCH bpf-next v3 0/8] bpf, sockmap: Restrict iter-context
+ sockmap updates to sockmap iterators
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Eric Dumazet
+ <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
+ Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen
+ <jiayuan.chen@linux.dev>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Stanislav Fomichev <sdf@fomichev.me>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
+ <DMV5NLOEYFGF.C7ITHCRCNA7P@gmail.com>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <DMV5NLOEYFGF.C7ITHCRCNA7P@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 09:36:10PM +0800, Congjie Zhou wrote:
-> Hello,
+On 11/14/26 19:45, Alexei Starovoitov wrote:
+> On Sat Nov 7, 2026 at 5:58 PM UTC, Michal Luczaj wrote:
+>> Follow-up to Sashiko's report [1] and the decision to restrict which
+>> iterator may perform sockmap updates [2]. Series started short: remove
+>> about-to-be-stale test, restrict updates, add a negative test. Then it
+>> expanded: mark bpf_iter__sockmap::sk as PTR_TRUSTED, restrict
+>> bpf_sock_destroy() callers to iter/{tcp,udp}, few little tweaks.
+>>
+>> [1]: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
+>> [2]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
+>>
+>> Signed-off-by: Michal Luczaj <mhal@rbox.co>
+>> ---
+>> Changes in v3:
+>> - Drop RFC prefix
+>> - Update bpf_iter_reg::feature docs
+>> - Fix tcp_request_sock BTF build error
+>> - Restrict allowed callers of bpf_sock_destroy() to iter/{tcp,udp} (Alexei)
+>> - Link to v2: https://patch.msgid.link/20261102-sockmap-update-limit-iter-v2-0-e96a63c43b39@rbox.co
 > 
-> I observed a persistent virtio-net RX stall on Linux 6.18.58 during a
-> multi-threaded TCP receive workload. After the stall, the RX virtqueue
-> contained unconsumed used entries, but its NAPI instance had no owner,
-> the NAPI timer was inactive and virtqueue notifications were disabled.
-> The receiving TCP threads remained blocked waiting for data.
+> Sorry for the delay. Applied.
 
+No problem, thanks.
 
-Played with it a bit since. I think the below should do it?
-Can you confirm?
+To follow up on bpf_iter__unix::unix_sk, looks like there's a single helper
+that will become unusable from iter/unix (once plain-PTR_TO_BTF_ID is
+gone): bpf_get_socket_cookie(). PTR_TRUSTED then?
 
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index dd2c41ef6fbe7..7bc7306231521 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -740,6 +740,8 @@ static bool virtqueue_napi_complete(struct napi_struct *napi,
- 			return true;
- 	} else {
- 		virtqueue_disable_cb(vq);
-+		if (!napi_is_deferred(napi) && !napi_is_scheduled(napi))
-+			napi_schedule(napi);
- 	}
- 
- 	return false;
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index c0ae442c4344b..2199750825d4f 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -22,6 +22,7 @@
- #define _LINUX_NETDEVICE_H
- 
- #include <linux/timer.h>
-+#include <linux/hrtimer.h>
- #include <linux/bug.h>
- #include <linux/delay.h>
- #include <linux/atomic.h>
-@@ -553,6 +554,21 @@ static inline bool napi_is_scheduled(struct napi_struct *n)
- 	return test_bit(NAPI_STATE_SCHED, &n->state);
- }
- 
-+/**
-+ * napi_is_deferred - test if the NAPI timer is armed and will schedule NAPI
-+ * @n: NAPI context
-+ *
-+ * A true answer guarantees NAPI will be polled again without driver
-+ * action.  A false answer is "best-effort": the timer can be armed
-+ * right after the check.
-+ *
-+ * Return: True if timer is armed, False otherwise.
-+ */
-+static inline bool napi_is_deferred(struct napi_struct *n)
-+{
-+	return hrtimer_active(&n->timer);
-+}
-+
- bool napi_schedule_prep(struct napi_struct *n);
- 
- /**
+Michal
 
