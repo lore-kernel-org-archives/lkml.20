@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702596;
-	b=J87V21ncaQAPmrMH96t+k1k6NemZuLA3Sqd/jcYoaHtfqXSSbBMZPKmqVIUclhuXBcNN
-	 PGrckQaJMure+x6lrLIYIeMSGjzwUmmCnUdFfWx2lS1DVoIBz4+6brPBEzAdlytAmugjW
-	 CNZSFjPXxi7RrigQ6TMxAQ1ei3EFi6F0I/dWnlWCETpfhZFDwsPtaJ1pJgcfJer7ncvZ4
-	 0jk9Q25kBQc0WmrnYqiEMXsct5ZIYwtMjz26hGqareVHschwSrwC6giFE4pzLqW9X78KJ
-	 NDhi1o314KXXhQ0Rq3rGySIDFqmlQiEfn23GcC8GVS61Mezy0mncqpBwsPOldigf67w==
+	t=1794702608;
+	b=Ifzq5xQagF0sviMARZHPOmwb8g3w6UqK7iWN+MXqLiVXCXqA4X0qv4JtbV7PHZt0pL3f
+	 /zlX0m3rkevjTl/KR/j3Tzt9xE5ckhqStR7/0bQ/9NfptlUmCtQ7uf7M75AY5HDJeSjSH
+	 y6IV0sUWPn0ychpeRvtLDmONYrOEtdFpdyDM3kokGfMmv0Eme7gP3S9mwaH3CgbV3UTmS
+	 Cpl58jLGa9u6KGgAYp7wREPeAWRq17OqhIT6NcfCM9t2L7wzTebnnX8qBDrWucnxQ5+78
+	 IH3l5K7sXyg74STywX+BOjGQFA0qA44X76G61yv67woDU0zD3CP4kU2Dk9ymA4i7eaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702596;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=enBhx9VQimcvOxaezFBJwJ0l0s5cxrvOgc+zxqU4vkc=;
-	b=u1GmWSAhs/rYXu23YVkHyJaxntsZaINyoAE6F0TUhbt0Q9YYp5/AgcAZTZSGln68I0uu
-	 p2uWpiJArL3RohKnX8jNG+Hnmr6foDujniHZpPlVZ//t0qwZZNQjKvJDxOHZJbjnBDPL2
-	 CVGPqSVYZKF9QuhoZniALRJZciyPlZXuqHV9F/0Fwew25AlcwMDIxS8DU5sJz8tt0GGLJ
-	 SallV7SsYNJ8XuhuY1EJTZcx0ijYsmCG3g/0xxsEdo2d+vTS/4BnxyE3qCD9lkQRg/Ja7
-	 FZaiVV32Wc/4TLNMZqzebyW8rjPb4hrmrKcGHqsbJm6JSnDoVed9Zamk15yOBQD2iBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702608;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=9KJyISR2AtHnOeUtveLbWH9gz4mCekwR54L842JjBYg=;
+	b=DBN4hDVLknRhNmKdAznfdN6c7ssEF2B5EBEUpqBcc21OEkEYPGW14i2J7i4ivp+FMDh8
+	 9cWaP+OjJhmv1Er4vZJqmPZQjsxiVqL26o7BGq6ePaawtuK4Qhqz4AUZYjbLA+G8y1q1M
+	 KC4vVl5LeIVPs4tv3Df+IAB2x4+f3x/BalX/fVXkFnkDVMWeCsEemnibtpHYBn/D75iS2
+	 CR/DDN1slbn/C4q2W40pnFdDsJfh4p233DlXJRqrcMHprfvjc7av/gMsBPIjwtBoWkcYw
+	 WtKcqFfRx1sJ+Vh4HjBhaogFWFjAJhihK9zksK/AEVXeVOv4PFLnTs3M3nfpjK+fzBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAkZs5v1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kL8RpPZN;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE63606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:29:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4762E606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:30:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4762E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wusamuel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAkZs5v1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C23B1F000C4
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:29:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794702596;
-	bh=enBhx9VQimcvOxaezFBJwJ0l0s5cxrvOgc+zxqU4vkc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lAkZs5v1XjB0EGqNipWP9Yxvhrwg/oaCSXGwoZzKsIQ8q2Ils+eZnEziSuHaKavSU
-	 GIgfQ3FADf07Sy095edgyeBPu9H5cdnDk420H07oR7XrK5/LsWc+XnvjAeN71rpHtI
-	 9L5FzFCcV/9hCP79aMiUyAjY6Lw/B9c4EUpFfxdUwOuFPePubtNQWR6BHnL/RJ+6Sd
-	 K/ET7+pWkgqo5zeZfLhq48sdLVdWl9Sghj0hI6TPlKtqmzVHoV1+mtgFH+M9QMWLPP
-	 1cF4oVO/Po4VZreRkUMdTHc+u0CJnWHIkUeo3rj6XgSDWgGtM02Zm9Y7pTXDjqX8rr
-	 iQODlsRjxVHSQ==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d21051042so408140966b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:29:56 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEfNpGvQw6/EdQ9Mek4QE4M2nBbuDBfuBVEP84dLwIIgoyPoBKD+Vibfd8tkLutX5Hkkj8Znyhs2ZdYktU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bHs8ehSCLUFGW60AJea3pUsaJVohbMeUhfRIq2dZYVpQGv8Pj
-	LvEipgrVLBvwn+FUJ2Ja88iCA+tcis92MWy1SYc+HQIQY1HqaXy00/FjTRdLfOuogrC7StFY/4b
-	kazdD9/ccWRBQOy2VGbO7TwlttNpw7cE=
-X-Received: by 2002:a17:906:ee85:b0:c4d:2895:e492 with SMTP id
- a640c23a62f3a-c509636a10dmr492344866b.21.1794702594951; Sat, 14 Nov 2026
- 16:29:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kL8RpPZN
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-37549877380so3001971eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:30:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794702607; x=1795307407; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9KJyISR2AtHnOeUtveLbWH9gz4mCekwR54L842JjBYg=;
+        b=kL8RpPZNrRt7KvqOE9g/3dldn91il5lvEMDZjyMBF9qQCep2bf24C+ytmdEI+kPOmB
+         CkVxzme3ris/DDsxvsOtOW5vA35XIX3QsGAui1F2V7HnoUAnnNrmkWfMZwk5MO1wUtie
+         BL7mjdw1MR1QD1LIFKDNQ+2jrFVaAE/+QVntHhYAJSzXSAjvdESZjPTFOUIh0/ydeHNI
+         flYFddZ2OcHCapLnm7JfOgSPOS+F32FZ4rLD8uPkEctQsVTJdfUH0an77e9Vl0eexBZJ
+         p7J9OAIW53t+jt4rWnD2bb7ddA9ZyhsZON46KN1bMbogj6Y+VCY0+Zzxp43q467l6HA7
+         vIVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794702607; x=1795307407;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9KJyISR2AtHnOeUtveLbWH9gz4mCekwR54L842JjBYg=;
+        b=uszS4OT1wJg3XzdZF8mXan7DIuqQ/pGlQ/5jvOTnYrbBlZuRbzMsQstCHaWWQJmgo3
+         xQJP6tg6icHZAOmJBTlTuJn7ecNU763g7pcrWedPtJOV4sx3j5V9ZqfmiPkFO26lwvVB
+         WdYgEJOrw5ZoAh5kuME2DpoGxsv5YT11WE6btWPVxD41beH8Tb7cNMXCYhsStIGMdeGM
+         EtSSpllNSA+KBIBwt6Xchth2esfnEeX11bKX5s03hqcN3WDOuXlJ1IJT1iqNwdOGm8jy
+         nEwWL3R/bW1b10JbHpQ1yzsgNBEkHkiHogFykq/MwU897KhW+e1aTP8zsHxAahOVLMfD
+         EXNg==
+X-Forwarded-Encrypted: i=1; AL+hErHGm52MuzpoDk1Jo0eWRZtd+qHF7MuUSO01WMLKtFgq6Yn5fPdPcnsjZPPD9GwdxC2K1Q7eKyYz4z5NTIs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7zFTywsybXWb0ydO/Mu9IBnr0jTXppQEg2QovJOvLr1LPEUVC
+	m/mI3q4Kj2xvH+8zTfDqUKxdas3uFP8XCZ3gjMrWJ+pRBwjsqizdEd925GTra81ylkyZSYSK+xN
+	QqXvksO33Qenx0w==
+X-Received: from dybmf33.prod.google.com ([2002:a05:7301:921:b0:369:e1b:2d71])
+ (user=wusamuel job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:da04:b0:369:f420:8679 with SMTP id 5a478bee46e88-37968b93b2bmr6800017eec.38.1794702606926;
+ Sat, 14 Nov 2026 16:30:06 -0800 (PST)
+Date: Sat, 14 Nov 2026 16:29:16 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,102 +75,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261109173229.1921147-1-wahidzk0091@gmail.com> <20261114073451.367708-1-wahidzk0091@gmail.com>
-In-Reply-To: <20261114073451.367708-1-wahidzk0091@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 15 Nov 2026 09:29:42 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9s8NSv9oa=ZLKXDD8UdB25SZ8ftTYO0Xij=dF6hSvL9A@mail.gmail.com>
-X-Gm-Features: AclHuK-m-Sdmrwl51aOuB0L1ae5zj9gizIwQS7njO6zY9g4NU8zJZfCUozdHAng
-Message-ID: <CAKYAXd9s8NSv9oa=ZLKXDD8UdB25SZ8ftTYO0Xij=dF6hSvL9A@mail.gmail.com>
-Subject: Re: [PATCH v9] ntfs: convert a named $DATA stream safely when making
- room in a record
-To: Wahid Khan <wahidzk0091@gmail.com>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261115002915.1849847-2-wusamuel@google.com>
+Subject: [PATCH] workqueue: Skip non-freezable workqueues in freeze and thaw
+From: Samuel Wu <wusamuel@google.com>
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
+Cc: linux-pm@vger.kernel.org, Samuel Wu <wusamuel@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 14, 2026 at 4:35=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> =
-wrote:
->
-> When an attribute has to grow and the mft record is full,
-> ntfs_resident_attr_resize() walks the other resident attributes and
-> converts them to non-resident ones. For $DATA it always opens the
-> unnamed data inode of the base inode, even if the attribute found is a
-> named stream:
->
->   tvi =3D ntfs_iget(sb, base_ni->mft_no);
->   ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
->
-> value_len is the length of the stream, so it does not match the
-> attribute that ntfs_attr_make_non_resident() looks up for the unnamed
-> inode, and the WARN_ON() on entry fires:
->
->   WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
->    ntfs_resident_attr_resize
->    ntfs_attr_expand_locked
->    ntfs_expand_for_write
->    ntfs_file_write_iter
->    vfs_write
->
-> It does not need a damaged volume. A file with an alternate data stream
-> whose record has no room left is enough.
->
-> Open a named stream by name with ntfs_attr_iget(), as is done for the
-> other attribute types in this loop, and keep ntfs_iget() for the
-> unnamed one. The loop runs with the mft record lock held and takes no
-> lock of the stream inode, so converting a stream from here needs more
-> care than the plain lookup gives:
->
-> - A reader of the stream holds the folio lock and then takes the mft
->   record lock in ntfs_read_iomap_begin_resident(), the conversion takes
->   them the other way round and waits for folio 0. Take the folio with
->   FGP_NOWAIT in this loop and skip the attribute if it is busy. The loop
->   only tries to free space. The same inversion exists for the conversion
->   of the attribute being resized, which waited for folio 0 with the lock
->   held and hangs against an mmap fault or splice reader. Use FGP_NOWAIT
->   there too. The resize then fails with -EBUSY while such a reader is
->   stuck on the lock, instead of hanging.
->   Do not look for room in other attributes either: the reader keeps the
->   folio until the lock is dropped, so the attribute can neither be
->   converted nor written without waiting for it, and the loop would only
->   convert other attributes for nothing.
->   FGP_NOWAIT also fails when the folio can not be allocated, so on
->   failure look the folio up: only one that is there means a busy folio,
->   otherwise return -ENOMEM.
->
-> - A stream that is in the inode cache can be open, being written, being
->   removed or already unlinked. A write that passed its residency check
->   before the conversion carries on with a non-resident attribute, and
->   a stream in the middle of ntfs_stream_finish_remove() is converted
->   under its feet. Convert only a stream that is not cached.
->
-> - An attribute inode of a file that has no links left is evicted on the
->   last iput() with its dirty folio, so what was converted is lost and
->   an open file reads its extended attributes back as missing. Convert
->   nothing, of any type, in a file that is being deleted or has no links
->   left.
->
-> - The unnamed data is converted through the file's own inode, whose
->   i_rwsem only a resize of the unnamed data itself holds. When a stream
->   or an extended attribute is being resized, a writer of the file can
->   have passed its residency check and carry on with a non-resident
->   attribute (iomap_iter warnings, recursive mrec_lock). When the
->   unnamed data is the attribute being resized, its conversion was just
->   tried by the caller. Do not convert the unnamed data from this loop.
->
-> - Do not convert the attribute that is being resized either. Its
->   conversion was just tried and failed, for instance on a busy folio,
->   and a second try that succeeds leaves the resize to go on with the
->   resident layout of a record that is now non-resident.
->
-> - The lookup of a stream ignores case, so a stream whose name differs
->   only in case from an earlier one resolves to that one and the length
->   does not match again. Compare the names exactly.
->
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
-Applied it to #ntfs-next.
-Thanks!
+In wq_adjust_max_active(), non-freezable workqueues always keep
+saved_max_active and saved_min_active, so updating them during freeze
+and thaw is a no-op. However, both freeze and thaw acquire mutexes and
+adjust max_active for every wq on the wq list, which is extra work and
+could increase contention.
+
+Skip workqueues without WQ_FREEZABLE in freeze and thaw.
+
+On a v7.3 Pixel 9 device, this consistently reduces thaw_processes
+latency during system suspend by 4-5% (~0.7ms).
+
+Signed-off-by: Samuel Wu <wusamuel@google.com>
+---
+ kernel/workqueue.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index edbb2aa9c950..902f84bcfd24 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -7370,6 +7370,8 @@ void freeze_workqueues_begin(void)
+ 	workqueue_freezing = true;
+ 
+ 	list_for_each_entry(wq, &workqueues, list) {
++		if (!(wq->flags & WQ_FREEZABLE))
++			continue;
+ 		mutex_lock(&wq->mutex);
+ 		wq_adjust_max_active(wq);
+ 		mutex_unlock(&wq->mutex);
+@@ -7446,6 +7448,8 @@ void thaw_workqueues(void)
+ 
+ 	/* restore max_active and repopulate worklist */
+ 	list_for_each_entry(wq, &workqueues, list) {
++		if (!(wq->flags & WQ_FREEZABLE))
++			continue;
+ 		mutex_lock(&wq->mutex);
+ 		wq_adjust_max_active(wq);
+ 		mutex_unlock(&wq->mutex);
+-- 
+2.56.0.679.gc527c65306-goog
+
