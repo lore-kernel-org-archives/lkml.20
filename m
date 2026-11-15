@@ -1,87 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794758769;
-	b=UZLBIYrFEyaOOJ1Bxth2KXqazkXHzUoTyBxMvwNzHUANwxl9l0HFHQTup3dtcq9YAlY+
-	 t02IOZ1gkpXPC5G/yscok3vf2Q30eHUTpcXDKH+RfZMRRE+/ExzEZ/2OJP2RAubLjv/cx
-	 kmcwarxeVrj1g2vqSqV0h3Y0PVScXN2wj3RCtpYsmXPBj9hcEznw9pxQzrAPHat12ylCn
-	 yZ+8gfPR9/WY99vhdq6z4LX27HrU+ttFtpY3F7SEihFnWhQXrZ74VugCnplBFZFhrvK/9
-	 noIKxs5h3iOi7FwmUB37iHm0mjhIbjXUCb92u+FJRLwQ6I3K1GUrFPzDG18bAZqeQlA==
+	t=1794759010;
+	b=B6yLWqyGNAvkmzZ+KVdlmXpSm6DDyM1W7bJN3jzOBTYTKVT/O2mdOcQ+g/bmft3nhCRd
+	 00jDbnDp1kBy9lJ7LknaI3n+Hp/ifFvb5Sv8X/VgOQ/3KHQBMKuFhkxw7AXnYCI/yh/Vs
+	 iMAygBmTKP1xOnP0NGcIEtg9GGPltb7a9f7Vb3lq4mOobI8a5HY+bfitzhA1dI9COa2JE
+	 hUoRE72IoLG3xJ20DBvHAKHs/d1xVOSh0UtTFADMg5LjbhrLV0VMhQjoFUqLemDNonI7B
+	 sRLFAa+KRgTWK1qMRCZAH3F5TDrW3V6uiKFn27DH8dIjSFQrT5X8vThX8faSIIk284g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794758769;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=kKbzeVq0dxaBZX4ziUX6/Bw27/CT0mPhXYsMi4cyD8w=;
-	b=tdFxJ8rBwB7Q1WJ68GIsJe7fVyRihgNIRU3qaHaaXcJmmZHCW5ydID8R12VlEaS+ohK6
-	 D/i3iG1q0d7v4aFM6II+C9sIsDF55t5mJYtz9Q/66ry2rPtt+W/rUeImJdVZ0GhAXKf8V
-	 L3O8HEjR028o+AxTXyqzz05AAjoqtlenVcFX285G0s6+BvUIMWKEm2bocDWNx4/BVWky5
-	 IxEJY+iWMOCzglEnSEJsOOfZu3ITuutvgJ58GX3djpd7VSQVl8VR5j9BEBEcWaDVNgx19
-	 Vn2C1y244pGv83x1qTXqwfECL/mNTL2rZVSXP1a0pIRaLipYbqpb/NDnUae67dl9foA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794759010;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
+	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
+	 Content-Type;
+	bh=w38rqGNrGDLCqa74mPssK7iYVtNKY8BC2nJHasK7eRI=;
+	b=nI8xU3sb6NEfIPqixLR3XAGCDd1/r9cP+VbvncOeQXz82Gh+l86sUbM+SLNov48mLSHx
+	 ehbumSPVkC5W7XX0S01rmXDZnBM7VM0U1809lpKEIomjGvTHNmnrxpn7rs5L8x8BduMfK
+	 UWf29HbYXJtshVgolsXHXMORAtoFiCW+mP+kyF9Jv6RLhtn6T98XtWcwYtEiiHmdW3ohv
+	 xjDuvcQ6rq/gTnzesvVh7MWcdZN5Rg3u70w7BTLC9pMl9uMgN88MimX48xAKeBo2WfaaT
+	 otzf9O0Z7Uz2V3f4XcetoPj19tZuDqo88zj0+ZndOBxElJDiZKOodiJIF/O583zndrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=L8lH6tAl;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=ssi.bg;
+	spf=pass smtp.mailfrom=ssi.bg;
+	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=VLfjhweh;
+	arc=none smtp.remote-ip=193.238.174.39
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4280606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:06:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4280606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDC0606A31E;
+	Sun, 15 Nov 2026 16:10:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EDC0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=L8lH6tAl
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E496640E019C;
-	Sun, 15 Nov 2026 16:06:05 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id mqeIC_iLPPDk; Sun, 15 Nov 2026 16:06:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794758762; bh=kKbzeVq0dxaBZX4ziUX6/Bw27/CT0mPhXYsMi4cyD8w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=L8lH6tAlDy3YZ6/LlcKSs8MKDpg5r6HmRZXUcztsFfcOPPIqXx91a0jhEGtG5tqON
-	 6dhCgBnakBjrdHZBIonINOJg11S3FxfdHpyp/rmkDfybLrHnVk02WVVKVlyLzQcku2
-	 a7em6G2HQhY2IVchr7eNjuxnirff17GwAOKwCR4cyk8Cdkw8sKuAdyYL/KLMOnayYK
-	 9w05PHM8QLwlHWD5ScIB8J5DUBKaY+N2h1tIZdmob5Fx25NTjIj8YTTru09/fs/XZ8
-	 f1zpcL2pcJHvj9rgSU7vLBXIrEn0oQC2x1DKVsp+idBlRuz8eW1TP/k5L9HkS4XEd2
-	 Vwj2SLNmE4IpbYWbWjSb6izyprzoyBu3gI5VZKTfW0xbLwJRVl0/T/K3V+zeT5P5B1
-	 +6hMN7ty/67xMF28bzfiQAsK20nctOAfZOrszW/cSeWCjh/EfG2rj9sNF4iMYCeQPk
-	 /ZQHIBr3YBLMozyCnRqiPz2cFax1DPdREwkhsDxHxoQW/rKcJwdrShUzg7LawLja5b
-	 15cArAerveWmhK6ShwnrXJAM7Pk34/LI4hBNhnqnNChkQVvxwjdEsLWLafcUw87GKL
-	 HBdAgK7EvBZRM2EEUAdrKfQaf8XhYuqqQqA1WbuuPkYGISGbIryJOJwx7ogYv4cqMX
-	 FXpSvuLLaLiTCnkLScH25VT0=
-Received: from stx.tnic (unknown [209.52.143.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C897940E0140;
-	Sun, 15 Nov 2026 16:05:44 +0000 (UTC)
-Date: Sun, 15 Nov 2026 08:05:40 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Grzegorz Jaszczyk <jaszczyk@chromium.org>,
-	Breno Leitao <leitao@debian.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yinghai Lu <yinghai@kernel.org>, Ingo Molnar <mingo@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND 1/3] x86/setup: Fix logged allocation range in
- relocate_initrd()
-Message-ID: <20261115160540.GBavnYVFiGL7kpdOCW@fat_crate.local>
-References: <20261111165608.78688-4-blum@kernel.org>
+	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=VLfjhweh
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 03348213FD;
+	Sun, 15 Nov 2026 18:10:05 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=w38rqGNrGDLCqa74mPssK7iYVtNKY8BC2nJHasK7eRI=; b=VLfjhwehPmzT
+	waBTOCTGdOoc65YijRE9PDgaJm2duQHE3fmvO0Q48dy64sHwUp9l/KIZaQBVJVLD
+	ogbTgQYIgaDZ/yhYnM8TOPuo9OJFB+oeLry0g3+xp60o80mN6UAALb5s1ednSQrZ
+	oswcMUUbMQSH+WMVAr5xNM1RywFXFJw+NDl9npRj9uCkcEPBH/AJlF7TBK/dD8lL
+	eR+ZITyXnu+t7WeOw02qWqojZ1sVleJ+UG6NM7Eotavid8A51oSdKMnKNKOTsR44
+	Urc8xOOCDP36TZiqYh22uJOPg5LojfNqKJiWyhGglCgFRECn+tH6ZKyTB/QEREdi
+	ybnfZp1L9D2Eqw0upOxxvG1Cd3XSPlc3vqljXbHilKmKCRZjUfWQ1W97d3RX2BCP
+	JxIEV3zAODejaqplIs3gDmzTEWb6wufy4KzvyDB38pCTKotfM/k7L7sPF+hgU8Yd
+	Ncfd15W2uRIkt9RNs11bkkAvMWVrWkdFDFUi6ZSr3JmOJ4k6P3wL5dBLlex1Gwu4
+	NXgB5EdyGv+4TA4tw0vJXzSzxIUZpyeyA6fXfVC3QDA0h7+0RpbInHfPd1MMAM+f
+	wOObpGtv2uf+KCK/V+nzR53tc902weizEXvEWEGPuDvFKrpnZ4A/ejttVfeAUMiK
+	uyCjweLi4HygwvKpcyEZH/Hlge/O/QA=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Sun, 15 Nov 2026 18:10:04 +0200 (EET)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 416C160121;
+	Sun, 15 Nov 2026 18:10:04 +0200 (EET)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 6AFG9uRb118090;
+	Sun, 15 Nov 2026 18:09:57 +0200
+Date: Sun, 15 Nov 2026 18:09:56 +0200 (EET)
+From: Julian Anastasov <ja@ssi.bg>
+To: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+cc: Simon Horman <horms@verge.net.au>, pablo@netfilter.org, fw@strlen.de,
+        phil@nwl.cc, "David S. Miller" <davem@davemloft.net>,
+        edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+        netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
+        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        linux-kernel <linux-kernel@vger.kernel.org>, skhan@linuxfoundation.org,
+        syzbot+84e27adb95fd2a1fe9bb@syzkaller.appspotmail.com,
+        stable@vger.kernel.org, Wei Wang <weiwan@google.com>
+Subject: Re: [PATCH net] ipvs: wait for RCU callbacks before dst_ops
+ teardown
+In-Reply-To: <20261114195410.96503-1-pavankumaryalagada@gmail.com>
+Message-ID: <8473d38d-2d50-ad77-18c1-29bbdda56616@ssi.bg>
+References: <20261114195410.96503-1-pavankumaryalagada@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,48 +85,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111165608.78688-4-blum@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Nov 11, 2026 at 05:56:08PM +0100, Thorsten Blum wrote:
-> Since commit c967da6a0ba8 ("x86: Make sure free_init_pages() frees pages
-> on page boundary"), relocate_initrd() allocates area_size bytes, which
-> is ramdisk_size rounded up to a page boundary. However, the log still
-> uses the potentially smaller ramdisk_size to calculate the end of the
-> allocated range and can report it as too short.
+
+	Hello,
+
+	Adding Wei Wang to the CC list...
+
+On Sun, 15 Nov 2026, pavankumaryalagada@gmail.com wrote:
+
+> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 > 
-> Use area_size instead.
+> During network namespace cleanup, IPVS releases cached destinations
+> using RCU callbacks. However, ip6_route_net_exit() destroys the
+> per-CPU destination counters before these callbacks complete.
+> The RCU callbacks call dst_release(), which updates the destroyed
+> counters and causes a NULL pointer dereference in
+> percpu_counter_add_batch().
 > 
-> Fixes: c967da6a0ba8 ("x86: Make sure free_init_pages() frees pages on page boundary")
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> Call rcu_barrier() at the end of __ip_vs_cleanup_batch() to make
+> sure all pending IPVS RCU callbacks finish before the destination
+> counters are destroyed.
+
+	What you see is a result of more fundamental problem.
+IPVS is supposed to catch all NETDEV_DOWN events coming from the
+pernet device phase which come before the pernet subsys phase.
+So, on cleanup_net IPVS is supposed to run its subsys cleanup
+with no traffic, no devs, no cached dsts, no netfilter hooks, etc.
+
+	But in my tests free_fib_info_rcu -> fib_nh_release ->
+fib_nh_common_release -> rt_fibinfo_free_cpus calls
+dst_dev_put() where the dst device that IPVS listens for is replaced
+with a blackhole_netdev. This happens before the NETDEV_DOWN
+event and as result IPVS misses the event because dst->dev is
+already replaced and does not match. When such dst_cache
+remains for the pernet subsys cleanup you see these crashes
+because IPVS has another problem that it does not call
+dst_release immediately but from RCU callback.
+
+	I now created a change to call dst_release immediately
+but the problem with the blackholing before NETDEV_DOWN remains.
+It can hurt other event listeners.
+
+	My tests were with tools/testing/selftests/net/netfilter/ipvs.sh
+where I modify it to run only the NAT test. What I see is veth12
+to be blackholed before its NETDEV_DOWN event and ip_vs_forget_dev()
+missed it. Trying to find more information...
+
+> 
+> Reported-by: syzbot+84e27adb95fd2a1fe9bb@syzkaller.appspotmail.com
+> Link: https://lore.kernel.org/all/6af795e2.98e60839.1e023a.00d4.GAE@google.com/T/
+> Closes: https://syzkaller.appspot.com/bug?extid=84e27adb95fd2a1fe9bb
+> Fixes: 026ace060dfe ("ipvs: optimize dst usage for real server")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 > ---
->  arch/x86/kernel/setup.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  net/netfilter/ipvs/ip_vs_core.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-> index 19fc8e1714e6..4a6c54110e75 100644
-> --- a/arch/x86/kernel/setup.c
-> +++ b/arch/x86/kernel/setup.c
-> @@ -334,7 +334,7 @@ static void __init relocate_initrd(void)
->  	initrd_start = relocated_ramdisk + PAGE_OFFSET;
->  	initrd_end   = initrd_start + ramdisk_size;
->  	printk(KERN_INFO "Allocated new RAMDISK: [mem %#010llx-%#010llx]\n",
-> -	       relocated_ramdisk, relocated_ramdisk + ramdisk_size - 1);
-> +	       relocated_ramdisk, relocated_ramdisk + area_size - 1);
+> diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
+> index 8a3c880fdb26..9c456efe13c7 100644
+> --- a/net/netfilter/ipvs/ip_vs_core.c
+> +++ b/net/netfilter/ipvs/ip_vs_core.c
+> @@ -2553,6 +2553,11 @@ static void __net_exit __ip_vs_cleanup_batch(struct list_head *net_list)
+>  		IP_VS_DBG(2, "ipvs netns %d released\n", ipvs->gen);
+>  		net->ipvs = NULL;
+>  	}
+> +
+> +	/*
+> +	 * Wait for ip_vs_dest_dst_rcu_free() callbacks before dst_ops teardown
+> +	 */
+> +	rcu_barrier();
+>  }
 >  
->  	ret = copy_from_early_mem((void *)initrd_start, ramdisk_image, ramdisk_size);
->  	if (ret)
+>  static void __net_exit __ip_vs_dev_cleanup_batch(struct list_head *net_list)
+> -- 
+> 2.43.0
 
-What about the rest of the code in that function still using ramdisk_size? But
-reserve_initrd() using the page-aligned size?
+Regards
 
-Looks to me like this should be unified.
+--
+Julian Anastasov <ja@ssi.bg>
 
-And that unification patch should contain all your other micro changes.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
