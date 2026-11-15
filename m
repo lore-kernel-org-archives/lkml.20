@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.38
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794757611;
-	b=wYcT+SVJrp2cXUlPOda1YTP2rmwMCOnOjoqSRZU94cBk6rJVyzD6jKRDruyMXqpWQ4/q
-	 kSyzthJnH+c+qUa9JR1E0gkdIjDi9DXMK92ZAfoiu2OiIE+1boPmUu4+F23R/sPbXWvNP
-	 EiksZqFZfjWBct3hhQBc4FjDXxJCg+EmNvfORA19GqUjSUvZ8UwB60M/MUVOYz5ke7QFP
-	 IMq0jRqOm9ES8cfPWBBBonbfUjIo2KKFPqxp/Y8WXZFvasTLtl+BAwpzdtXbqJRIp9VhA
-	 JqGdEYpRUR7kYOmVnjTo6x8HJkb6Plkx94HMKkx1Nhgi5I3HatzT8tCtgLIx8slcGsA==
+	t=1794757694;
+	b=O0CA+zGkbXE8UobZdTkEouvqrIdGnlxEyq1faZ7fJAJQr089ABBm3DDenhCBXuBgM1G7
+	 Yh7gdDk1IhbW8P3CGvgQ1CuKEouU1RsW/re+QLLgKc/pW7adHS2u+4WOVUYkWGrrkV9/n
+	 +kLI5bjZUV29Kpxb1NKqmGKksVB5OaA+qVMrVmbImQAZVTzlvUddrR8yrRaFN7T2ocb/5
+	 QuWBxJl12A9vnTvD8nECKTjzFyfq+aSjxJjzA4xC6kDI2OGqKDa7QETVwJmh4ljCBmd88
+	 ntriAXC6SWHFLTA5R6BgWSSa2Jwt3HKvmMjD+8eEkfEfijIdcPXOH/86UHSnHL+yWcw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794757611;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XgFVgtZJKwd0/J16bgpaB5ANWZ4t9GVYEDengX8O708=;
-	b=3nQwe5IDacpZ+CqrKen4cFtreBzmrC+gwUFMynXiYN2ilOVZLDMZejqFVs03OSOGlc45
-	 j5oDBJvDmbE9Y9s+hXMNnuNapGfKx4GCgObUucP171ERHvgD8Etx3lx1fyiVTxBeZwso1
-	 ESdREeB7+ScMR95+KI4nhg4tq2WffdGHkrl+m90wI07MHR1zQJFTYciukc1VHf6itc25L
-	 9nSOjv6O1gvLkyEaC1fJt88PJawOAHoPOgXI4dBtKeT//ii3mLsfZ0ETa+XWbREet3+oe
-	 QDeSdPIETrPEDOJQT5srhfZuvTUL9UsiXjoDWeNqjfz9zJWm4rUndN0nOJ7lr6/tGrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794757694;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=NInYMJ+ut3zDh5Fb+CgE3l3kNaY9NJsY+o6n7flFLcw=;
+	b=IvRitTNsXafR4ushWupkteAtdYPg4wacu7SfywxicNG60NNSmVUoOvfbR9XJfzPypd8j
+	 gMVhnXrxT7wMiYK7HiyMbEEEVmLk1CsBSb9UmuLpu/yDCtGp+OB0gbZ7D9xJrI739/U0s
+	 JtjWyzWdwrYfcX7wCLaH8IaTHlLHxNTHmJt4L4Qi/w7t0w5fPPB0h9t5KTehyfJ/0b/Hg
+	 LKY+HceHbZUN7QVw2mS3MHld8xA9jL3NerJUt/jJrNUOcu6sOXo52Ri3bBzdv4c/Xw69i
+	 bgMlzwiZ3Vr0DKKZNIz0/FzecxTrVBKQ8F8UUbc+xeSUyHVmsIi+TyesmiFJZ8f3PkA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="iGv8ml/t";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.38
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KrZOaIhM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3921F606A31D;
-	Sun, 15 Nov 2026 15:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3921F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E31606A31F;
+	Sun, 15 Nov 2026 15:48:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iGv8ml/t
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EE61sxprMzk/mWM6070x0iEyhCRlH30mftQG5v5V1TreElcPO45o8YMJCzEIIUQJRoCDIpI45VwFPZRbmnPVvyTn0B5R1qfJvwV5XdgboIXPsMu8SVdN38Ie8CWhwlUPi4+REBfYlrYlHgikg8VqAQchrfwkbJKyf1XUNZyPhiwlMASFbHHZklwooB4lYLF8YbUityxYan9efigidYhnoAB0i/CyLgf20HaVPcQCSQJXDfuPeapoTXlPnibur0JeWcpFsydWXxAXjPgXkN8sexXAMZtAZtruRzZauQq/XVxVeTvXjV4agqIvdrmZoaWpVWRlo+u6iE+jjWpiiiNh2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XgFVgtZJKwd0/J16bgpaB5ANWZ4t9GVYEDengX8O708=;
- b=xUztpdbThU6QLzUjowCKH3RSE8ifY0nXNTkUmgvBSHR4pdsSkjEjXlLHTFRSTeMEEI22FBYBG6GV6aK9Bs4SKbnmFVK3QCWcVD6gfTPj1bKde7nJg2cjzv+a4qbPVVp29Jc2RM1zj2AmeCUcofx/JQ86CFUL6tFK+oErck1oCHmE70g4zJemL2N71F83zfSffzeyutUZNb6pD8MdFbx19euqozH7A3uCe6qh91oYia9l0gp8CJw2ePtp0g4S/r5YUsBnCUe1yGvS4w0y/eesThAutrsw8WPPriySgZ8MyiqdHhQZWw+yb/Ta2pcK/fB5D2tv8f41lJYroUVtG8G+lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XgFVgtZJKwd0/J16bgpaB5ANWZ4t9GVYEDengX8O708=;
- b=iGv8ml/tg97cugoJ73pR8wvuxEqMle5pD5wGaB5jAUWz580rrhCmjDjTcojIRK8l0AXqZu7UqgdWY+FhEb0mbbgC6dD01/67kGrgN/JTPfM8/Ivo/du7wilqtAZMGVCxsNGNBfmGM4BBlSgjtW7CYdrQ+zsQjADuBgOLSG8W00KmTH7CaBvuKZ49tpzW7x3ZGVkYNzmyZ0SLIqqrwSbSh8W4vrIeAPLQmDK8bo1ZAjzNW3yavrddaI3YVOYHHoPC5jUS57RpYkF97aA+PGdhRAix4H5QRzToPqRkRkTDrc/7uvyW/WByey01a15q/U4RZPyvNP1Dvmk7kQWdP3ZP2w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13)
- by SJ2PR12MB9164.namprd12.prod.outlook.com (2603:10b6:a03:556::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sun, 15 Nov
- 2026 15:46:47 +0000
-Received: from LV8PR12MB9407.namprd12.prod.outlook.com
- ([fe80::208b:424e:47e9:8a96]) by LV8PR12MB9407.namprd12.prod.outlook.com
- ([fe80::208b:424e:47e9:8a96%4]) with mapi id 15.21.0615.009; Sun, 15 Nov 2026
- 15:46:47 +0000
-Date: Sun, 15 Nov 2026 17:46:39 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: Leonard Lausen <leonard@lausen.nl>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	Shuah Khan <shuah@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 1/2] ipv6: honor prefix-length suppression in raw
- FIB lookups
-Message-ID: <20261115154639.GA4121811@shredder>
-References: <20261115114434.10343-2-leonard@lausen.nl>
- <20261115114434.10343-4-leonard@lausen.nl>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115114434.10343-4-leonard@lausen.nl>
-X-ClientProxiedBy: MR1P264CA0110.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:50::19) To LV8PR12MB9407.namprd12.prod.outlook.com
- (2603:10b6:408:1f9::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KrZOaIhM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794757694;
+	b=Lr3eodA8Kw75qmKUBUYgpnCpf4bXaEg3UZiF7dWF1dfu492etqJZM7Z4gtSxlEMEwjvv
+	 AkBbWVuo3vuAIfuZLG70A4q5zAwoa+omuZrZgbPP1IYkdto6p6SPFZ3URYNic/cAxnShD
+	 DUn4moy08dsDVJCw94DDNWOjVA9+6xWm+fAY9A+Jrq28FRcAmNqEAG+e6bR139OFuAWpb
+	 avKFo6kbmQcQ9XUXElL3g5ZstJlJ7+eOl8C8AWCwD1z474m1TAVhbqDMIWJhpYy+S1mrF
+	 3FhnJGmC7/5TbfynB0nIQfWk850JXZdK3JNeC6j+pPrX1zeIep/EYvxCnKkYt9H4MwA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794757694;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=NInYMJ+ut3zDh5Fb+CgE3l3kNaY9NJsY+o6n7flFLcw=;
+	b=vO3MMUNEVQrsW1znvqToAaXEz0m/USwBgJnjZmayoJw6MlJz+wMGXF9oB+4Y3ulnANiF
+	 KGLg9P4FlAfpAX8ecHoEylbPAa1F+3dSI2wN3RW0ZFkEXLQIDuR9rk7iU5AGEzP2wGEwh
+	 IZeHrMKGUjN5ayudt2Ui9NS//xrre+oJU0gemYUjSR14PcecfVMsE0DQC4GcVt/pykKd2
+	 P6D839e9+MeK44A82PsooQGcK87PeTNTLABtiVMBe8ATgOL3NaVNEzPilAnOGqFOSB8v0
+	 jCkYM8Lb2YHnwzxkbfwreU0GtVL8z6W+sKGFuuvWO5s+bXCERQ1he0x/v76I45D9VIA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 958EA1F000C4;
+	Sun, 15 Nov 2026 15:48:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794757694;
+	bh=NInYMJ+ut3zDh5Fb+CgE3l3kNaY9NJsY+o6n7flFLcw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=KrZOaIhMkWHaTakDBX4dnHLgAkHn7h/WboXX/sanQxYPbHQA2l/yiBQ4MTqDYPoMA
+	 pC/4+PZX8s27EpRPBiHAdPTfeYU1/akNQOorSzNLyI/kNVx6WbPVb5iXJiZlBu+lNV
+	 w0ob3HOXHUhajvbl9996UPTe+I7y+N5WVO7oF03Ne5Ql3zavmdx+BgFenTxQ0wefOt
+	 X/YuOxor+wz5GRvtyd+hHIVl2A1ul6b4Ufp0IYk62v934Hb5OrICteIlqZOhtKcuAH
+	 g8gD/dZ/klkTNt3wvrYNaUc/h0nTuAF71WEcvaaa/4jqUhnanoN8+q8gag6QeX0fKp
+	 Gnz62um5ifR+g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 19E274A0FA;
+	Sun, 15 Nov 2026 15:48:13 +0000 (UTC)
+From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
+Date: Sun, 15 Nov 2026 16:48:11 +0100
+Subject: [PATCH v2] phy: rockchip: naneng-combphy: fix RK3588 SATA
+ pipe_con1 register offset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,178 +83,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9407:EE_|SJ2PR12MB9164:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22e6bfd1-e951-4428-d60d-08df432fa815
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|11063799006|5023799004|4143699003|56012099006|261021123027099003|261021121427099003|261009223027099003|261102123227099003|261026140227099003|261022105027099003|261022075727099003|261026121527099003|261028144727099003|20052099010|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	rDkP8eLVVTQyeAI7Fh7HpkyKE74NBSiVihhfvQYdK3kEwVHKLz237H1xBiiG2iglVyafDpgOcGTKHYGmL6cthKlG/nvICqOs+ZyqqjQXqdKWz0YKaeunENN/pU5h4F6ozFGMvIU5IWA7HN6ZOPeAYtIJ3B389cn2GnAtJtkoSFfAytmxrOtjWmDaevyCFU5Nc3gWX2Z3IO6tviUO3DNBQjbx7T5zWGHAymNq59rXW/TexnzniGG7yNxo40k9H0KoxyXl0RjrnYgBwpVeLjJ8910Y9dVTe/qYCEMHfTyohSFARJtdl5UJEHajIVNyzikN79pg0J8Q1NP5Jz9T+/xTOpXO/y7ZetA7nQ9WM+OlSmSiZxcbDu/76mBKRBVQ3GEZvCJ5VVMKcEDqrTnBqPnSqMMPdehrepHbJlo0TZ/M51NOP0le8r5cmYLawUu2rH7X7OEg08b/w1zPeT8bPxV+dmSgzvhC3Oh1C5zrb6KBDY9nFnh4FQSmtb6vdQSwdeQgOIVockSv5ITMI1RYPRsLhe/wnQhJf8cz6POzlLtCBHJcCL8YDZHH5Gw+tNBK6cFtnQWS9MDG5NUf/EtIhTNigt6nOLjomFSOTqT4EGJ+jDlxUmkQR8uGMS/6kXIv3dXoS7IzvTEDYl0wS5sprulWldzre2EYKOCO2rR8yELfJgk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9407.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(261026140227099003)(261022105027099003)(261022075727099003)(261026121527099003)(261028144727099003)(20052099010)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SzVSTZc7Y6F5bixiby+P7ds6XQTexv0Jfs2xl82gzSB4zEfqpTpmS+GMFYiH?=
- =?us-ascii?Q?zXG3k7tRnEeKsXJwjLtGxa+ua7GyDCYjHPwclyRS+itvNhtgv/PfyDiqZDM8?=
- =?us-ascii?Q?Jyf1o7egc1HID8ka8VvVZ6Vb0gJnTtmmGJ6WQ2ZtzBgCmOW1lkJY1ViJOcQH?=
- =?us-ascii?Q?3bGO9GnpLS42z+KBXzmEnkEzmf1SApPpPLRGkymKPQ+xMpWKboKeTsgAdpQ/?=
- =?us-ascii?Q?MHrJNipbEgBdVYcvTNT4KuLwgLwZ5T6LZOhgwrdHcXC1+7mZidxHMvgsxQz9?=
- =?us-ascii?Q?gffPJm33uDvsz4RQOlpU28d83QYOE4pis2vM5Nkh+455t+WNtvNjivSWTLXF?=
- =?us-ascii?Q?GtoXQT3Iss6Ejzs0JTLqWfqAKeIwR3aO6bZz4AoxlRUYmSqo3v6f9a9ei8nB?=
- =?us-ascii?Q?iFmAQjwPoMdkRIozX0+FwgMhBu7fMeuSXPC0U5dGeDskvsAMfJlNXQjUcW5Z?=
- =?us-ascii?Q?iCuDA9j6q0W0HVaZzPawUIa7TsWM5HVKRXqc1InD3sSASoCSlpuS2GYyHhVS?=
- =?us-ascii?Q?d12/8YAyrCenftAg7rWUCjHyDeCbFnVEhA0PNLz144rcXpjPhY3jPuHqDfqk?=
- =?us-ascii?Q?YpXEZkSajzBBLXSN4rNlG/OHzQ/VanaUQN/JiMPxDMl077jmWZM+yJxbkJVx?=
- =?us-ascii?Q?hMOWnW2K6TLtWdOW9Ehc9Fd3yhbNgbcdqfbM9ATOCTV8ODANWY4NgObQ0mnR?=
- =?us-ascii?Q?NIqowBy2aO1CUP9o4TM4iDodVNGrViLOIHRJXk2OZcQPga7St5uR2+S5A7oG?=
- =?us-ascii?Q?+/ng8uZ+ZbxRgdi8swHU3NmpusDst925hrjlNTnEw08yTqDgouCIzMhkXjW0?=
- =?us-ascii?Q?DXO9ITGLRSvSWoqBEQyRkL6Vz4c9RSQ5z7Lo6E81hQu4GxKcxAfO7hCV3jvo?=
- =?us-ascii?Q?mV2j4XcxaW2FiR+VHoSz4cWdjfw522Q6FIY8pql+kGiQgYO7h2EkIQsh29O/?=
- =?us-ascii?Q?jnBHhtaYnhuqfv93KWVQfMILVa3iEUGa/Cy/vVt0Zn00C6nJxoy6ifJn+jn4?=
- =?us-ascii?Q?GY2KPQj6sk0z/HrBef8jS4qOlFPvbiONPGmDGz/tbo47h/uftcHNKEP1yNbu?=
- =?us-ascii?Q?xy4Da7EHz6/t7Jd4HJwZOoQ6V2w4UHtZtpNp9v5YIkoo/14B9m4MWG188xI3?=
- =?us-ascii?Q?2BVjPoQJHHlWD1g8TsseOENW7dsU1w1Rial3JPDMa7ND4yFyOKm7xyNpKXDy?=
- =?us-ascii?Q?7zmTkKD6pPWOc7qoKS08Vx3lsyBsR++Q+BpsECdeFKTb/Kq5qc+xXopVqgaB?=
- =?us-ascii?Q?k9XhWlWFbcTLu153c9CN+Rxlpl+d9eY/Sn1tsf1NVFz/KgE2Luu49EpnQZXs?=
- =?us-ascii?Q?MfjkGeK7nLfkbfvA+PK1zfMxipF/muYnN55he+OSC+JDCPDHHT86ICLrf9zH?=
- =?us-ascii?Q?TiQsm8pprFx1fAAWfW7tIFCr99gaePss8JBPUjNU2bbtGxqY/PU64q+AsGxj?=
- =?us-ascii?Q?tXblBS5mnPxnGor4kcQra2oNmKnnH25816UTEqFQH9M6l7Lq8dlQqi9tmeG4?=
- =?us-ascii?Q?XhxMuiqEOlEZACf+ogtUM/9ezDQFHvYZUsVNITbR1+CUjxQGEfgmJgcq0l77?=
- =?us-ascii?Q?ZWJD23sqxp/UB37aL3jpx8y4FYcMVNg6dRhGIkvdiy0n3tzsXZTKVnYELMzn?=
- =?us-ascii?Q?BZK3tPmbZcvmD4t+hHj9XWd8use3vQEr5pinelxyvBB8Wh1EJsz6OqfDDUua?=
- =?us-ascii?Q?MVP5SVxQlCr0oDbiGxDDyGV1En+z2PK4OLP/fLGBJtiP2dRL?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22e6bfd1-e951-4428-d60d-08df432fa815
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9407.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 15:46:47.4889
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3113TvLNSWv56b0PNAtRz7txxgrbfa48zYMaLYAlSutdUsbUylp+/5+yz+AmoE3f70cqn7o/S/UI3AF6444Qyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9164
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261115-rk3588-combphy-sata2-6g-v2-1-778e0e8011fe@pardini.net>
+X-B4-Tracking: v=1; b=H4sIADrU+WoC/3WNyw6CMBBFf4V07ZhOawm48j8MixZGGI2FtJVIC
+ P8uj7XLk9x7ziwiBaYortksAo0cufcrqFMm6s76loCblYWSKkepLhBe2hQF1P3bDd0E0SarIG9
+ Baue0RIPGKLG+h0AP/u7me3Vw/Lgn1WnTbYuOY+rDtKdH3HZHBWX5tzIiIFCJ2tQlNpTb22BDw
+ 57PnpKolmX5AZz+eZnSAAAA
+X-Change-ID: 20261024-rk3588-combphy-sata2-6g-03bb30151552
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Lucas Tanure <tanure@linux.com>, linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Yifeng Zhao <yifeng.zhao@rock-chips.com>, 
+ stable@vger.kernel.org, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Ricardo Pardini <ricardo@pardini.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3245;
+ i=ricardo@pardini.net; h=from:subject:message-id;
+ bh=7C3z50HF4YPPhxfojWOPHlWST5mhlOANTFSCF0BvMLE=;
+ b=owEBbQGS/pANAwAKATteP+Oex+3pAcsmYgBq+dQ8Q7AOEqBEaJ40Qr8v90oLDQJ4qH6b6aZGN
+ Rxv5wgYhS2JATMEAAEKAB0WIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCavnUPAAKCRA7Xj/jnsft
+ 6Qu5B/43ii5B5vLp7uePCdS2Y60DAhqinh6J/QWpePpP4kNJVbE3YWpuHFy9lFKwgX7VaIRTNjq
+ b3b06t7skss2elc97aE6opCrKTCog4udVuaUFgbXajh63e/nJBZgr91p9dSespZKw1RkNg9fsj7
+ XEnFvSfys82kKhyK3Ap7g9qvhyukWwo6XsSCbUjnTRP0WBBNPJBM2LQ6cjEwia06jlipE5LZIxQ
+ Hv49ZX2NnMZ3ba4y3Q+Dwh1U/KGFw2UuOjpo23r+4MFQFYEetjNqPKQxVkFdseeyz9GHGYtgCpV
+ lJdsS2jc6D6do+YxNpwORkbkyNwgrK9fifExcH/RUeVuGsK4
+X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
+ fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
+X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
+ auth_id=588
+X-Original-From: Ricardo Pardini <ricardo@pardini.net>
+Reply-To: ricardo@pardini.net
 
-On Sun, Nov 15, 2026 at 11:44:32AM +0000, Leonard Lausen wrote:
-> IPv6 raw FIB lookups populate f6i and nh in fib6_result, but not rt6.
-> fib6_rule_suppress() only examines rt6, so fib6_lookup() ignores
-> suppress_prefixlength.
-> 
-> With a policy rule that suppresses the main-table default before looking
-> in a VPN table, an ordinary route lookup selects the VPN while an nftables
-> FIB lookup returns the suppressed default. Strict reverse-path filtering
-> can then drop replies arriving over the VPN.
-> 
-> For raw lookups, evaluate suppress_prefixlength against the FIB entry's
-> destination prefix length. Preserve results marked RTF_REJECT: raw lookups
-> can return zero with a rejection encoded in the result, while dst-based
-> lookups return an error and skip suppression. Check the result flags so
-> blackhole nexthop objects are covered as well.
-> 
-> Keep the dst-based path unchanged. Raw suppress_ifgroup handling also
-> remains unchanged because the table lookup's nexthop need not be the
-> final multipath selection.
+From: Yifeng Zhao <yifeng.zhao@rock-chips.com>
 
-Never heard of "IPv6 raw FIB lookups". This commit message [1] is easier
-to understand.
+On RK3588, the sata2 PHY speed is selected by sata2_phy_spdmode in
+PHP_GRF_PHP_CON1[1:0] (offset 0x0004), with sata2_phy_rx_err in bit 2.
+rk3588_combphy_grfcfgs has pipe_con1_for_sata at offset 0x0000 though,
+so the value 0x2 (6.0 Gb/s, rx_err cleared) ends up in PHP_GRF_PHP_CON0
+and CON1 is never written.
 
-BTW, I think that fib6_rule_suppress() should always work on the FIB
-entry ('rt->from') instead of the dst entry. Currently, if the default
-route has an exception for the destination (e.g., via PMTU), then the
-default route will not be suppressed since 'rt->rt6i_dst.plen' is 128.
+This leaves sata2 at its 1.5 Gb/s reset value, so the link only trains
+at 1.5 Gb/s, even with a 6 Gb/s capable disk and no SControl speed
+limit. sata0 and sata1 are not affected: their speed fields are in
+PHP_GRF_PHP_CON0 and are set by pipe_con0_for_sata.
 
-I will add it to my TODO list. This patch doesn't need to fix it.
+The misplaced write also lands in PHP_GRF_PHP_CON0[2:0], which are the
+PCIe link reset grant bits, and turns on the one for pcie3x2 whenever a
+combphy is put in SATA mode. No effect from that is known, but this
+stops it too.
 
-> 
-> Fixes: 138118ec96cb ("net/ipv6: Add fib6_lookup")
+The register layout is described in the RK3588 TRM V1.0 Part1, section
+6.17 "PHP_GRF Register Description".
 
-Should be:
+Tested with an mSATA SSD on sata2 (combphy2_psu). Before:
 
-Fixes: 1c32b24c234b ("netfilter: nft_fib_ipv6: switch to fib6_lookup")
+  ata2: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
+  Timing O_DIRECT disk reads: 374 MB in 3.01 seconds = 124.45 MB/sec
 
-The tag should point to the commit that introduced the regression.
+After:
 
-> Link: https://github.com/firewalld/firewalld/issues/1600
-> Assisted-by: LLM
+  ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+  Timing O_DIRECT disk reads: 1266 MB in 3.00 seconds = 421.78 MB/sec
 
-Please remove this tag. See commit 1e035297ffda ("docs: remove
-Assisted-by references").
+Fixes: a03c44277253 ("phy: rockchip: Add naneng combo phy support for RK3588")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yifeng Zhao <yifeng.zhao@rock-chips.com>
+[rewrite commit message]
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+---
+Only sata2 was tested. U-Boot has the same table and the same problem;
+the fix was sent there in [1].
 
-> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
-> ---
-> Investigated with AI assistance after VPN failures. Reproduced on
-> unmodified v7.4-rc2 and verified with nft_fib.sh on the rebuilt kernel.
-> 
->  net/ipv6/fib6_rules.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/ipv6/fib6_rules.c b/net/ipv6/fib6_rules.c
-> index 0ffd7b47a046..ceb4180bcf2f 100644
-> --- a/net/ipv6/fib6_rules.c
-> +++ b/net/ipv6/fib6_rules.c
-> @@ -283,9 +283,16 @@ INDIRECT_CALLABLE_SCOPE bool fib6_rule_suppress(struct fib_rule *rule,
->  						struct fib_lookup_arg *arg)
->  {
->  	struct fib6_result *res = arg->result;
-> -	struct rt6_info *rt = res->rt6;
-> +	struct rt6_info *rt;
+[1] https://patch.msgid.link/20261109-rk3588-sata-fixes-v2027-01-v1-0-e54ca8e68f18@pardini.net
+---
+Changes in v2:
+- Author is now Yifeng Zhao, who wrote the fix in the Rockchip BSP
+  kernel; add his Signed-off-by (Sebastian)
+- Move the PCIe link reset grant note into the commit message (Sebastian)
+- Drop the BSP history sentence, the BSP Link: and the Cc (Sebastian)
+- Trim the notes below the fold (Sebastian)
+- Collect Sebastian's Reviewed-by
+- Link to v1: https://patch.msgid.link/20261109-rk3588-combphy-sata2-6g-v1-1-e9135c91de6a@pardini.net
+---
+ drivers/phy/rockchip/phy-rockchip-naneng-combphy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Unnecessary change, please drop. It also breaks reverse xmas tree:
+diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+index 3102a99128f6..c469222dba8b 100644
+--- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
++++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+@@ -1395,7 +1395,7 @@ static const struct rockchip_combphy_grfcfg rk3588_combphy_grfcfgs = {
+ 	.con3_for_sata		= { 0x000c, 15, 0, 0x00, 0x0407 },
+ 	/* pipe-grf */
+ 	.pipe_con0_for_sata	= { 0x0000, 11, 5, 0x00, 0x22 },
+-	.pipe_con1_for_sata	= { 0x0000, 2, 0, 0x00, 0x2 },
++	.pipe_con1_for_sata	= { 0x0004, 2, 0, 0x00, 0x2 },
+ 	.pipe_pcie1l0_sel	= { 0x0100, 0, 0, 0x01, 0x0 },
+ 	.pipe_pcie1l1_sel	= { 0x0100, 1, 1, 0x01, 0x0 },
+ };
 
-https://docs.kernel.org/next/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261024-rk3588-combphy-sata2-6g-03bb30151552
 
->  	struct net_device *dev = NULL;
->  
-> +	if (arg->lookup_ptr == fib6_table_lookup) {
-> +		/* Raw lookups report reject routes without an error. */
+Best regards,
+--  
+Ricardo Pardini <ricardo@pardini.net>
 
-/* fib6_table_lookup() returns 0 for reject routes. */
 
-> +		return !(res->fib6_flags & RTF_REJECT) &&
-> +		       res->f6i->fib6_dst.plen <= rule->suppress_prefixlen;
-> +	}
-> +
-> +	rt = res->rt6;
->  	if (!rt)
->  		return false;
->  
-> -- 
-> 2.55.0
-> 
-
-[1]
-ipv6: Honor suppress_prefixlength in fib6_lookup()
-
-When custom FIB rules are configured, fib6_lookup() performs the lookup
-via fib6_rule_action_alt() which calls fib6_table_lookup() and only
-populates the f6i, nh, fib6_flags and fib6_type fields of the FIB
-result. However, fib6_rule_suppress() only examines the rt6 field, which
-is only populated when the lookup is performed via one of the callers of
-fib6_rule_lookup() such as ip6_route_output(). As a result,
-fib6_lookup() ignores suppress_prefixlength.
-
-This was not a problem for nftables until commit 1c32b24c234b
-("netfilter: nft_fib_ipv6: switch to fib6_lookup") switched the FIB
-expression from ip6_route_lookup() / nf_ip6_route() to fib6_lookup().
-Since then, with a rule that suppresses the default route in the main
-table before looking up a VPN table (as commonly configured for
-WireGuard), the FIB expression returns the suppressed default route
-instead of the VPN route. Strict reverse path filtering then drops
-replies received over the VPN.
-
-Fix by evaluating suppress_prefixlength against the prefix length of
-the FIB entry when the lookup is performed via fib6_lookup().
-
-fib_rules_lookup() only invokes the suppress callback when the rule
-action returns 0. Unlike __fib6_rule_action(), fib6_rule_action_alt()
-returns 0 for reject routes and instead sets RTF_REJECT in the result.
-Do not suppress such routes so that they continue to terminate the
-lookup, as with ip6_route_output() and IPv4. Check the flags in the
-result rather than in the FIB entry so that blackhole nexthop objects
-are also covered.
-
-suppress_ifgroup is not handled since fib6_table_lookup() does not
-perform multipath selection and the nexthop it returns might not be the
-one that is eventually used.
