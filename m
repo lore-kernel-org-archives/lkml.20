@@ -1,61 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794719255;
-	b=snyGBraOQEreXWfj3z2FQTQlMZyGBKZ4iE3KLbyqiuaCpzYDmdl3Zf+p+vB1dwOvOijZ
-	 VN5isnZ112BuCj1PVt0LVbVaKxkyQYWdy3Oc+Jy54t3TIFDVZjTNtaTzVirA72Rm9ed/a
-	 cPgWZy2o5E8buJjzICNdQE14eY+uz3vdwECCE3XFl7qgbzHSn5lRr6UahfVDm1OeKbeyg
-	 +nnT64Ip4MabO6CllJmc7GmD2fZZXHyX14j0EbIxVdKJgqJykQylhaHu46NBDirpnkrxt
-	 RKvaXn59Kppx5y6y07IX7sB56TIZsovtxT9+BnE2PbOo838VWc7uMks4O6hbz3vuVgQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794719255;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ikScGg7wBKTFsbJ/gDhTQR58vzTQcrwVNkVKkfOyHeQ=;
-	b=d4qX7KbUmnVf2t8fekFk9TMrjEqHneHkjaGX5bY8XbbjHd1uLXQKsvrstpFnbgzlF5h0
-	 vWYR6xK3jDqljeUvAXtsCVmBnA+LGTgImc5lFf33cJ8QBshd+nNVBoAKJqGaTC6CcKYtW
-	 QFxwHHqrSghPWAVpLphQW1Kh4f25cIGBO+sy7Quzei7W4VpGuewgI6lEd6iGaG/D6aNau
-	 O2oxQL+P/sX2FCNQHVoGTGDJAhFoqZjIhabc6mvbb2qmgFx80Ax2HVw0V7xv2N4OhAuK8
-	 5k469tGqGCjNuTDGQ+aUmao3jZhGEp7oyyUIl1w68+n2Y299t5P/IBUbZ22JabiwkbQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv182j1S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794719572;
+	b=iea8wqVsIAYEA1lh5H/7xdrcq+LNlfEqQTWG3+iMDrZqKyhnVUH/NcxCOM/t7nKsCsQe
+	 VVd7pXUDdoGPxg/9vdQ2q2iwPEVhQv+f9U/0csyIAGPR0ZXxDjFy+94BhQdcuqmg4Tnmq
+	 iQKP3X0wLebPxHJN9TtBZ249hPObmk/EY0ULKQHgkHDseIAb8LMk2gRKNcjzuFHKOxnjM
+	 7jp8UaLTbbxlVkb72dc9yqHMRdqs5G7mCeDsfipFtdDta4c5t2PS8R6orFcpkpXfls6eq
+	 RNv4cqUTDNPZ9hI0WIyO+FI4JzqEGPTUkTaFKHa+6DJcE/J5S6crQoTd3ILjO7LWoRQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794719572;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-ZohoMailClient;
+	bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=;
+	b=JtHWsqX+mQMvkh4CSw8zDxUv5ez9FrU6qVP8L/5ns6Itje+lu4UEME8YqcbDkv2i5+MF
+	 iuc+jQ/ar0JdJypb1fhPO9zQ+IOO2RHZxfhY0q3hXLqIoLf6HTNIizAwlN8u5wjUXhxmf
+	 ng9uSG+q6CLF54yQXJ8s1a86TIqPGqlgp/3roGkWufdATplBFa4si8yNQGCWGjh1+1q/N
+	 LlXF+mk8RlBg+CnelcVRaUpY82s/74jD6Umt4rPB8gaE9pPT93ehnZCDqLrFzL+ROxvtI
+	 Zbk/JE9Jc7dLv5R+CWssp1PXMASe9uK/fxs4MCBHLy4rLV/0dE5E1ieOmYUC33u8p6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=icenowy.me;
+	spf=pass smtp.mailfrom=icenowy.me;
+	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Shf9I945;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2449F606A323;
-	Sun, 15 Nov 2026 05:07:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F19606A323;
+	Sun, 15 Nov 2026 05:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F19606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv182j1S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5511F000C4;
-	Sun, 15 Nov 2026 05:07:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794719254;
-	bh=ikScGg7wBKTFsbJ/gDhTQR58vzTQcrwVNkVKkfOyHeQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gv182j1SrsNW+vBDS+pykRsj8qYVG8aIuI90aGACVYsIszE1iQUPEVUMkp5txwyUF
-	 T3K8o0/CUQtG/DAvzx1pVQJOuSP1W3t2fzF/Pr95ULXXWbl57C97Hh9JV01ZdWeEG1
-	 Jc6DaZX2+JXCl8A41UzeRNTEFbr8pDeSM4YOwSLCFnGjdiR7dnEhp/QqCPK2wc+roG
-	 GvnEu/fNdibLdCbbyLZe746MZJ9fENN3crBFZ5d6tNuaAP4UhLPJuhxncMc99SAZm2
-	 p/bGLGIB/+YEtGq9EZeR4puJ3Avey3S/UjeIcjKHn6+xYn9vyMITYScAdziPbPPYYr
-	 h4e51aFjHSCGA==
-Date: Sat, 14 Nov 2026 22:07:30 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
- non-x86_64 hosts
-Message-ID: <20261115050730.GB600738@ax162>
-References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
- <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
- <20261114204605.GA173332@ax162>
- <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Shf9I945
+ARC-Seal: i=1; a=rsa-sha256; t=1794719509; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JOGlxjHP0/DLspL53khKYZ0SgtKL6wuFzI00xEcjsX2X0naxDeDwG+mN0JTsz+5zf0ZCsFsBMFVqrfaYnQkAUR3t8lbRG8f1BqRhvEj48tV95ZrVQTmeVdXAt/QIi6mKdxRQO4HSe+Y2wYyGGmY5++jbPgiD+NxssVDB9aWoBjQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794719509; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=; 
+	b=JTenAkqIMAIIKYfr7QF4ukYjfy4yNh7djxPijM5gJBR3O9VQkxjSsfcuEF+p9XA5MdQEuNgbt7oMj340d21QTX0xU1gbejcKMOP0wnSw4pDSpshTztxX0p8eRsiJSxdrfO19Rmjh226WJc5Bx5ELVWdzILkLoI3UZafzszEw3oM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: a=rsa-sha256; b=Shf9I945a9oA67J+8Ds7UcvmrKj5kNlbGheeRhdtymi+TrNqZRK6TwdNA0v0w0R1b75OQzmI+Pyn/9GuzyrrZRQfM0JQGmkR68MafrCHVXz++GT9O2md5umoQoi44aXHOxbY6STIXDFBFIAEQXgeWQUE//D0QAsCIq6o9b5zNPUZt+5+wuziXnY35ZuNhZHvxU7OHkjnTNRyt2a3mSonSL2WllJDuNrDRkoqTTG0IN5p2Lc+cTSCHPlIF9dSfOHF+TkdKAJJrJV1uxIjEm7+Zqpjmq88uP2UTLimDIQ3QB1f6xrpwLEoaunTnY0SDU7qEWPeTq0v3mNjL5iZ6ia4tA==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794719506138787.2843822660936;
+	Sat, 14 Nov 2026 21:11:46 -0800 (PST)
+Message-ID: <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me>
+Subject: Re: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861
+ SoC
+From: Icenowy Zheng <uwu@icenowy.me>
+To: gaohan@iscas.ac.cn, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt	
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti	
+ <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren	
+ <guoren@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec	
+ <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, Daniel
+ Lezcano	 <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
+ Stephen Boyd	 <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet	 <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Alexandre
+ Belloni <alexandre.belloni@bootlin.com>,  Maxime Ripard
+ <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>, Andre Przywara
+ <andre.przywara@arm.com>
+Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ devicetree@vger.kernel.org, 	linux-csky@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, 	linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-rtc@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+Date: Sun, 15 Nov 2026 13:11:31 +0800
+In-Reply-To: <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+	 <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,34 +88,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
+X-ZohoMailClient: External
 
-On Sat, Nov 14, 2026 at 12:58:06PM -0800, Borislav Petkov wrote:
-> On Sat, Nov 14, 2026 at 01:46:05PM -0700, Nathan Chancellor wrote:
-> > No other architectures provide an option to turn on '-march=native' like
-> > x86 does. It all lives within arch/x86, so I would just be adding a
-> > check to arch/x86/Makefile instead of arch/x86/Kconfig.cpu. Making the
-> > option unselectable seems like a better option. If other architectures
-> > did want to add this option, I agree generically abstacting this check
-> > would be reasonable.
-> 
-> Are you going to move it somewhere generic when other arches decide all of
-> a sudden they love the native thing?
+=E5=9C=A8 2026-11-14=E5=85=AD=E7=9A=84 06:33 +0800=EF=BC=8CHan Gao via B4 R=
+elay=E5=86=99=E9=81=93=EF=BC=9A
+> From: Han Gao <gaohan@iscas.ac.cn>
+>=20
+> Add myself as maintainer for the V861 bindings, clock and pin control
+> drivers and device trees.
 
-Yes, as I would expect another architecture implementing this to
-abstract the current x86 support out and adjust that check in the
-process but I can't guarantee that. I can only go off of what is
-currently in the tree.
+I think traditionally sunxi do not add maintainers for specific SoCs.
 
-> (If it were me, I'd simply whack that native thing. It is such a waste of
-> energy).
+Maybe you should patch the regexp of "ARM/Allwinner sunXi SoC support"
+item instead.
 
-Another option short of adding this test or killing it entirely would be
-depending on !COMPILE_TEST, as I only noticed this because
-CONFIG_X86_NATIVE_CPU gets enabled for allmodconfig.
+Thanks,
+Icenowy
 
--- 
-Cheers,
-Nathan
+>=20
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+> =C2=A0MAINTAINERS | 12 ++++++++++++
+> =C2=A01 file changed, 12 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..dfc300dc1eb2 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24031,6 +24031,18 @@ F:	drivers/irqchip/irq-riscv-intc.c
+> =C2=A0F:	include/linux/irqchip/riscv-aplic.h
+> =C2=A0F:	include/linux/irqchip/riscv-imsic.h
+> =C2=A0
+> +RISC-V ALLWINNER V861 SoC SUPPORT
+> +M:	Han Gao <gaohan@iscas.ac.cn>
+> +L:	linux-riscv@lists.infradead.org
+> +L:	linux-sunxi@lists.linux.dev
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/clock/allwinner,sun252i-
+> v861-ccu.yaml
+> +F:	arch/riscv/boot/dts/allwinner/sun252i-v861*
+> +F:	drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
+> +F:	drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
+> +F:	include/dt-bindings/clock/sun252i-v861*.h
+> +F:	include/dt-bindings/reset/sun252i-v861*.h
+> +
+> =C2=A0RISC-V ANDES SoC Support
+> =C2=A0M:	Ben Zong-You Xie <ben717@andestech.com>
+> =C2=A0S:	Maintained
