@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794747752;
-	b=SUR4zwgpB5k2B+kmHK2k3JgE5/AUrW+rEIfKLG1F0h3bc6tK8q01qDCcmRa5TDw6RRlM
-	 CjvoV5ovnuyE1D76r4Sdq2rRKQbsTI5ql7NemjBzif5lT5+HWCWCN4sFYcdmW1SSN0K0z
-	 Q1UHNQ2gg6eMZan4M2UJOt8AgEd/dV/d+UQHFOTv+5ufltDqD9t838uL9/YlGLgVilkD5
-	 cMmGYPkwc479yHDp0TKgbFBGp9eCjKfeGLQ4xQ3dHHxEXlSv9mHY9yW1XI2W4wOaEBXTm
-	 LgE44KZq8nQZw4An3o7PJeVxHc4eiGPCeUOYm/x6TMeK2Atut3EyYEThJHRYghB8ZLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794747752;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3tJIKpc8AwX5cndBfqHiESi1n0+LeUDLJZqK1Qyg4iM=;
-	b=czLKVedJ3dNSe8Q6tSMnbLnIjDgE/Bmv26m8ddJ01ObWdtrHX3VuwwuPjxu02kiibGys
-	 bxvl8S5k9PbFPv56ULnviC0dFK33XhQgPpROP0YUcagRWGM/t2Wn8d7We+WOsFRZnur2w
-	 Yq1ZkP5lnBAoetzV14KX+bDokjCLRbDjjtZVhIVtGnrs9F3+et3rWg+TXmlkDZnG9uELU
-	 OvKVOTn7GYSkh4JTgmARNLf0hjqcYmExlE7VRWY++YhzDbDSzmPVIj/5IwZql8AHhWJV4
-	 qIMLTMNlJEM4NAgVdIJSE9d32+MQwpKlsQDeKJ5/PGpY3QxgWaeDhDU2NFvNZ5XlNEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YKc4QGjQ;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794747831;
+	b=gVYhySjdC5jgbVu7jeO1rE12dc4E3c9oKXGo3s0yMnPtze5/6MyoyNDTQAUi9xctu7Gy
+	 nd43y+ZyxU7s38Mg2AY724m3aPpJW/aaBwcAjuDx9ery3b9dxm1W4dtpsTL8shDVMfVbP
+	 +M7dRmXSDaxnMLZCS36owabYoWNRgadubLifj0BMqwxQrasNN7LBA7wgT8ZMu0xHFdjJv
+	 wuJKwphNNBwaugm8WPkEfPrgilrlafNfhvhBwVo2pXFBD69md/7xq4qR//t6XsMDLTy6E
+	 M95i7HpBFAaISdVeH4jKXwO8NqBSYKNTtGJPQ44AxIugVqzoFEYN2yI03Q11+0H8HPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794747831;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pon4Orxf+wxXpPtJNQHkuozRV8DRO+bVJt+AyFuNNgA=;
+	b=IGSHvNm/ZcTx7qFBWjHJ+jW3rBjF6mwPel1eFqTIH5VbtH1Q00AIw7PtFLMnPo6rzWIa
+	 M8uh9FBtNUuth7UG7DDb0aGIEVWAtMUjrebu5Viw/ifySoyWgA0jNijh7bek+dIxNJw7p
+	 487zvWgHGPAFKevePd6b0YTgWGEsXpKEurJ/iz0+9eytEmK5G1F5Ht4/JQWw7CgC5c34A
+	 X3gGUN7Y2+yxhRml4MyRxA8ZEBHZq9Ov0Tl2X9mJJxl/NLyHHLX39mcCyocQh/XAeY2eC
+	 V/hXN1fmMw3CwVBnBu2WscZCJzuI3k5Lu1c58TRWjOh/TYiKQCCaw6CMJE3vmcXtWNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFY7bNbw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089E606A31D;
+	Sun, 15 Nov 2026 13:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFY7bNbw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794747830;
+	b=OUSONZFJMDovmjRzOroXfDbn33rzW2XFbRIc/4GuTGtdQySrNYMcSSHHYh7PJ57KKZXv
+	 a8R0Sj/qeIwZSlDZZm4PwYGu5u+91rkzQKpRSb+HjB3UrtD3cYD1yY9DqN2Uxy3sMroln
+	 ifKrsJIgM7MffpL/KMDt/ffa6yDNaxhe2GUt78Hqmy55tJ4gPpG8jTXioAYy0lRu85KiU
+	 Boj6LFoL5IQEa9NaDe/j0DvEbiCk/T0F84mnZ3MUmpHb6AOQRnP27+6ypTMn5tAnD2kQ2
+	 q9UoAThK0GnIsZ0htAOyGt3JYGEk+k+J/pRvBynNDU6Im/ZGXeSj6uF/pjR8BViNfZA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794747830;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pon4Orxf+wxXpPtJNQHkuozRV8DRO+bVJt+AyFuNNgA=;
+	b=kAnKTk9er5e3nGLoMvCY9CImUXq8sj/CAcBcY3B4h2I80mxZlZhaoLQLrHxQt35gIIlf
+	 htEFrqafR67XuwSWgpfnRmjCvHIWbJ62o/n1UzQlaU2aW3JRBHCcxYYZjbDe9kRSzA0ft
+	 8E7FwB+jcUkKGL0xpOyarMIhGy/ZuxrYaSFxSUhAyE7uof8XdeCA2jZIH4xfSIqujRGpE
+	 bADcJqUFmY5LbXdinE7t2vFnH+b+WL2mGRrM2YFdk0LZ8fB5L097h4entF2KZfEQkpNk0
+	 rBradvBQQKSMGEZgFxI0Bav42V8YaufbLtszlpInchMZLKA5QwAU9PYAhRu3LN/Uvjw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC6E606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:02:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC6E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YKc4QGjQ
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cddff772fffso41184a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:02:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794747751; x=1795352551; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3tJIKpc8AwX5cndBfqHiESi1n0+LeUDLJZqK1Qyg4iM=;
-        b=YKc4QGjQNt/gGYhDJ4lxQX1TkkYRNscLLuZGvr7CtEt83aw0KqQ3p6DeMi/mIz1U4u
-         BLdzV9L+PY07ztVEL/TQ+ZOgnScdtEoiu9cDKSSOJEam+nfmOtbuifn6Dlkl5xxNCzvT
-         /2EZeddOARxcGiesVGzSUfJhBexGvPaFQ6/pmuHc1vbSyJnUAcLkcIMxV9wFsKEeI1sV
-         8Y56/NomkFz/T2gXk4jw/D8kG52Sx1Rflj9NTQ1qMQ7yKAO9QNdWSQ1pugJsYUmUqk84
-         p3N3vv6clQcD0u5CptP2HCL6kk4Yz/f5hJa+j2916li8iM9MN+s2CgVLQVloB6DxeQ85
-         xacw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794747751; x=1795352551;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3tJIKpc8AwX5cndBfqHiESi1n0+LeUDLJZqK1Qyg4iM=;
-        b=cEGEZcAseh7eg21NslkLKjKNjk3mPaTNt/BZT918nzf+OcouwUMO6b3i7NOBlLa50W
-         fjNG47aeZCBYZtW0fv0+T9IKSjWNhk7vmVwBUa7ssgKPJXh5Gm6ePb4Y27d0BS9MPo0T
-         9sT7txy5DLFl2JCPIvJaW3vGob9ux13zOXw7mHk7YYFje9dAKdXuDy8JDOkb9MGKGYDP
-         +vvdKtLrCkrdoPHB68/Dq5WjtnkVeL+TqkB65S97CG1FyoXA/vxqjBbzbvKuQz0Dz8Gp
-         qMk32AT/01ketQpEYf5WLoJgVPu/WnA1pdUYwrSHselNZPJykeQiNvez7Grhf9Gtk3/m
-         HPyA==
-X-Forwarded-Encrypted: i=1; AL+hErH/3lYV5Xj14CT+zDuGGMz2uanfbU09JWSd1dwdNiOKDWlTu93MWlWQyioKjT5FyNh0e8lFQj1ZQMeOQiM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+48boIEBqbkUdh8mU27zRTWlH1Yop4LqSoGbNGc8p5aMBTYIAf
-	z3wAmLJkPpcSQIIUq4gvEOvgNx6hvG7pC17zTnePvMCr0UFolZyxphOn
-X-Gm-Gg: AYBFou02mYre+6+l0F56mPmI298vxSLQVvlfGzDoEdl6x23MsvWHBtajT4+CFMPkRFW
-	MUa+MJbtRFo8b8zgfcnToPrzXqzqEhxNQvhUoLSuKrrHuzlWpBdBqhtmDRY6pPz5I9His5wMfnI
-	7M6jxqd/DoPmlvlatKcutinNWKyYxf1btNpAOklBWmqV5xmDP4co2BDsYRQNhgtrzy/KGUIesNX
-	knPzLTgepKr+kNAv/at+h0m0DhcX8WzQaAMZBJZQ3o8sGx5uUHIlKyI6JJMneIfnGsPkIAjWanD
-	PzabPhlGh1WyijVLoR1bg4uR7USv5A5tVaDuYI9e0ZXZnsnJUdC/ypJAySWfnMbQwJ71Tno6p1J
-	if8Fqa/9EM6aZgtDp0twzMKJb+qk2uZhjOHRZxnZGXlFoZa5K4fflHfGKzuBJiAWBp3WKuOoIle
-	N4QvLhFtTK3gVBw4RcZs45pi3BJ+2SpJXeGNRpfx1Ll6UnpFjzn7cVInTa+wAOhydmPMVjMTYok
-	x1hteLS3BgCTy/CHWApv6b2KR9dtGtR3tFLCla85xE+q2waaPtyeM6M5Yee+QEcX7TCvUwOh8An
-	gfWondiKkjYFUzV4fwuxkyhUyUzbMv1cOPRYTj12+F1Swyoh7soXQfWFMjiXwSJGowpETDAocII
-	6mtoJ7vNnVxFAChkCUmJpS6BRhyQj705esgflTiuDjpl3/8BDK5dFXDvO166aJEDPXB8tR7OSa1
-	EG0cz0/x947bCsHvfLgz25hlOfebmuzTgyjxTY7QfHSb0Jp57dKTnRt80XjHIGA0kDAKMB/rOai
-	K8mgfDnrVAArOoOWGPtsJySNEqX9zLowo93uVxm9FI0q8a0jiqzpbcRTNI5g0gn
-X-Received: by 2002:a17:90b:54cb:b0:3b0:ac2c:1619 with SMTP id 98e67ed59e1d1-3b1b0a5064cmr7142317a91.39.1794747751079;
-        Sun, 15 Nov 2026 05:02:31 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d35ac2sm17691691a91.17.2026.11.15.05.02.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 05:02:29 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: bridge: fix skb leak of reinjected link-local frames
-Date: Sun, 15 Nov 2026 23:32:11 +1030
-Message-Id: <20261115130211.7724-1-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
+	by smtp.kernel.org (Postfix) with ESMTPS id 47B021F000C4;
+	Sun, 15 Nov 2026 13:03:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794747830;
+	bh=pon4Orxf+wxXpPtJNQHkuozRV8DRO+bVJt+AyFuNNgA=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=NFY7bNbw18avbta8RqY+5u9GzDzbq00ccvEyvbnxPMuJo3Y56XBdtw6n0iqENZaAv
+	 v/2wCrRgp3/NKpuB4p6fNjOvkSetxw1TIg/4ccQeU2VSDXDSvhXKj020bJsRhRyLvN
+	 iBf6sXH3VnOXT2eJIamdEyIE86HodgChNM9PpOV7C9Rr4RYLmAEb4SXtoqv23845LI
+	 NQSfmLRLxXbNGXJ+lqW3Rq72AF6I7/Xo6vMW8xdi9Aik9HptaAcRJ/kDuZuFQycRW8
+	 QQ/SvrkK5+koWDh/K/6uVkMDGMjF41tg+dohe/pda2MhlEE2bAJ9e1qW8rKUdel+i9
+	 0WyY+JuRbKUpg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9C0A94A09B;
+	Sun, 15 Nov 2026 13:03:49 +0000 (UTC)
+From: Alexey Skidanov via B4 Relay <devnull+alexeys.xsightlabs.com@kernel.org>
+Date: Sun, 15 Nov 2026 15:03:29 +0200
+Subject: [PATCH net] selftests: drv-net: psp: skip unsupported versions in
+ netkit data test
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,109 +83,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-main-v1-1-7011cd84e54a@xsightlabs.com>
+X-B4-Tracking: v=1; b=H4sIAKCt+WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0NT3dzEzDxdgyRj87SkVNNUwxQjJaDSgqLUtMwKsDHRSnmpJUqxtbU
+ AdT6qw1sAAAA=
+X-Change-ID: 20261115-main-0b37fbe5e1d2
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Shuah Khan <shuah@kernel.org>, Wei Wang <weiwan@google.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, guyt@xsightlabs.com, 
+ Alexey Skidanov <alexeys@xsightlabs.com>, 
+ Lior Yizchak <liory@xsightlabs.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794747829; l=1543;
+ i=alexeys@xsightlabs.com; s=20261115; h=from:subject:message-id;
+ bh=+HHsLPET6WB6VgqdrP9TIelZlMYJuT8XLUrUt8UuqfA=;
+ b=vVXw9si6EHE39Eo2dXea6LyskLSwuKQn3lHCXtuRRoLGUziB4aoRDjPgOp+NV7p3TzDUs3tu5
+ g/A3NOSYmkgD2g/WBTPcfCZDxW5rub9IeXDMvfNx86udW9Ok7PKo00K
+X-Developer-Key: i=alexeys@xsightlabs.com; a=ed25519;
+ pk=ve3muo5qeQ0fgK78LFE9NWqGShBLIHZrMBKOM0exhfY=
+X-Endpoint-Received: by B4 Relay for alexeys@xsightlabs.com/20261115 with
+ auth_id=1532
+X-Original-From: Alexey Skidanov <alexeys@xsightlabs.com>
+Reply-To: alexeys@xsightlabs.com
+Content-Transfer-Encoding: 7bit
 
-br_handle_frame() passes the link-local frames it neither forwards nor
-delivers (01:80:c2:00:00:02 to 0d and 0f, unless set in the group
-forward mask) through NF_HOOK() at NF_BR_LOCAL_IN. Since commit
-3b2e2904deb3 ("net: bridge: fix per-port af_packet sockets") the okfn
-only learns the source and returns 1, which becomes RX_HANDLER_PASS.
+From: Alexey Skidanov <alexeys@xsightlabs.com>
 
-That commit sent the nf_queue case to RX_HANDLER_CONSUMED, which is
-right for the synchronous return, but the frame comes back: on
-reinjection nf_reinject() calls the okfn and ignores its return value,
-because every other okfn consumes the skb. This one no longer does, so
-nothing frees the frame. NFQA_CFG_F_FAIL_OPEN leaks it the same way
-with no verdict at all, when the queue or the listener's socket is full.
+data_basic_send_netkit_psp_assoc() runs for PSP versions 0-3. The
+non-netkit data path already skips versions the device does not
+advertise in psp-versions-cap. The netkit path does not, so those
+cases fail instead of skipping.
 
-Each frame leaks an skb, and one sent from a local socket keeps that
-socket charged, so neither it nor the network namespace holding it is
-freed. Bridge, rule and queue need only CAP_NET_ADMIN in a netns, so
-with user namespaces an unprivileged user can exhaust kernel memory.
+Version 0 stays mandatory. Skip an unadvertised version before opening
+the PSP connection.
 
-nf_reinject() cannot free the skb on a 1 from the okfn, because other
-okfns return NET_RX_DROP, which is 1, after freeing it.
-
-Call nf_hook() instead of NF_HOOK() and do the learning and the
-RX_HANDLER_PASS return in br_handle_frame() on 1, as the 0x00 and 0x0e
-cases already do and as vrf_rcv_nfhook() does. The okfn then runs only
-for a reinjected frame, which br_handle_frame() has already reported
-consumed and cannot pass on the port, so it learns from the frame and
-frees it. These frames were not delivered before this change either.
-
-Also set *pskb before the new RX_HANDLER_PASS, as the other such
-returns do; skb_share_check() may have replaced the skb, and the commit
-above added that return without the assignment.
-
-Discovered by an AI code review agent and reproduced on unmodified
-mainline under KASAN: an unprivileged user in a new user and network
-namespace bridged a veth, queued link-local frames to an NFQUEUE
-listener that accepted every one, and leaked an skb per frame. With
-this patch the reinjected frames are freed and nothing leaks.
-
-Fixes: 3b2e2904deb3 ("net: bridge: fix per-port af_packet sockets")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel Wade <danjwade95@gmail.com>
+Fixes: 43cf629700fa ("selftests/net: psp: add dev-assoc data path test")
+Signed-off-by: Alexey Skidanov <alexeys@xsightlabs.com>
+Signed-off-by: Lior Yizchak <liory@xsightlabs.com>
 ---
-Tested in a KVM guest on mainline b3dfbde62cf1 with KASAN and
-PROVE_LOCKING, running as nobody under "unshare -Urn". No kernel
-modification, debug patch or injected delay was needed to reproduce.
-Before: 192000 bytes charged on the sending socket, unchanged 2 s
-later. After: 0 bytes, no KASAN report or lockdep warning, and
-br_input.o builds clean at W=1.
+ tools/testing/selftests/drivers/net/psp.py | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Not tested: NF_STOP, NFQA_CFG_F_FAIL_OPEN, real EAPOL traffic, the
-netfilter and bridge selftests, CONFIG_NETFILTER=n.
-
-Applies to v7.2-rc5, v6.12.117, next-20261109 and 7e1392a42ea2.
-
-The Fixes commit was checked against torvalds/linux: it adds both the
-"return 1" okfn and the RX_HANDLER_PASS return without the *pskb
-assignment.
-
- net/bridge/br_input.c |   18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/net/bridge/br_input.c b/net/bridge/br_input.c
-index fc2e381..b5bd9d6 100644
---- a/net/bridge/br_input.c
-+++ b/net/bridge/br_input.c
-@@ -257,13 +257,18 @@ static void __br_handle_local_finish(struct sk_buff *skb)
- 		br_fdb_update(p->br, p, vlan, eth_hdr(skb)->h_source, 0);
- }
+diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
+index c114d2245135..7c8fb2200b39 100755
+--- a/tools/testing/selftests/drivers/net/psp.py
++++ b/tools/testing/selftests/drivers/net/psp.py
+@@ -728,6 +728,12 @@ def _data_basic_send_netkit_psp_assoc(cfg, version, ipver):
+     """
+     _assoc_nk_guest(cfg)
  
--/* note: already called with rcu_read_lock */
-+/* okfn of the link-local NF_BR_LOCAL_IN hook in br_handle_frame(). It is
-+ * only called when a queued frame is reinjected, after br_handle_frame()
-+ * returned RX_HANDLER_CONSUMED for it, so the frame can no longer be
-+ * passed up on the port and has to be freed here.
-+ * note: already called with rcu_read_lock
-+ */
- static int br_handle_local_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
- {
- 	__br_handle_local_finish(skb);
-+	kfree_skb(skb);
- 
--	/* return 1 to signal the okfn() was called so it's ok to use the skb */
--	return 1;
-+	return 0;
- }
- 
- static int nf_hook_bridge_pre(struct sk_buff *skb, struct sk_buff **pskb)
-@@ -424,11 +429,14 @@ static rx_handler_result_t br_handle_frame(struct sk_buff **pskb)
- 		/* The else clause should be hit when nf_hook():
- 		 *   - returns < 0 (drop/error)
- 		 *   - returns = 0 (stolen/nf_queue)
--		 * Thus return 1 from the okfn() to signal the skb is ok to pass
-+		 * On 1 the frame is passed on here. The okfn() only runs if a
-+		 * queued frame is reinjected later, and must consume it then.
- 		 */
--		if (NF_HOOK(NFPROTO_BRIDGE, NF_BR_LOCAL_IN,
-+		if (nf_hook(NFPROTO_BRIDGE, NF_BR_LOCAL_IN,
- 			    dev_net(skb->dev), NULL, skb, skb->dev, NULL,
- 			    br_handle_local_finish) == 1) {
-+			*pskb = skb;
-+			__br_handle_local_finish(skb);
- 			return RX_HANDLER_PASS;
- 		} else {
- 			return RX_HANDLER_CONSUMED;
++    # Version 0 is required by spec, don't let it skip
++    if version:
++        name = cfg.pspnl.consts["version"].entries_by_val[version].name
++        if name not in cfg.psp_info['psp-versions-cap']:
++            raise KsftSkipEx("PSP version not supported", name)
++
+     # Enter guest namespace (netns) to run PSP test
+     with NetNSEnter(cfg.netns.name):
+         cfg.pspnl = PSPFamily()
+
+---
+base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+change-id: 20261115-main-0b37fbe5e1d2
+
+Best regards,
+-- 
+Alexey Skidanov <alexeys@xsightlabs.com>
+
+
