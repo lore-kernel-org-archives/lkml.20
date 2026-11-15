@@ -1,89 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794724744;
-	b=RfPXdTfAIy1ysjOFvtCTRQMxC+F3xOpE4hDmDl8rVT57PkmAljINPwPslLJGny4jBQCt
-	 eJhagj1Ge7cZZe0fxwGj8K8Xu2yazP7Gfpj03cJtkXUI3NBXM/DlB0QLA0IJhixNbBwjB
-	 mZaPefrO03klqZZk3fBQ5lPo3nN4C8/OZbq8axuE0wOyZjJ3FKc2MIgAmoQXCIgJNweNn
-	 Ai5W3gLl1eMXuxRTj3qqwVmVZJ6MQOuNU6uWF5ucCyOTVlfRTTDGD9BIzrMqznQE++/TE
-	 TV39guLR/nF1vFv2UhTy6olzozYW8q9xiOtLodUNl+4WYJAaUAVDKGv6hBkXITKA6dA==
+	t=1794724881;
+	b=rS0u1XgHyStVHNNZ169rhm0AKm925h8H4Nyr3eCi1y15+evj5ykdPPu+s3YkBngNok9Y
+	 ejQDPwGr0J4SERCcqiGnq8510tlghH6eUvqzNweh6VEQTmfhKMqy4QhGG3Us/U6PZhTQp
+	 xvqB9+p4QUA6s3Zwupt5CsIPwEBL2fVRIRfzDWrhiYcHBZEvs0ny9oGdBlLluoe9yGyEx
+	 LilFy5MDONIsGZtxEW30rqfX5KV2SCpZarWheJMUhgPdlUGJsH2Hka/AdnRmCBb4kpolp
+	 Vrjcar5umfF+Ez46YYdB4lLPAKKL0mD3gbdtsCaOR0maAFF5HTYy0Z0WGygLKKvW6TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794724744;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=5uzNQjIqKu1Z5H5h4ULFcPsML/9M2qNB6yySUHBpd2Q=;
-	b=h/AP1EZHYqg1tUtXFrQDnze6+q1cmHPahHxpMrVoJED9C10jFUDrV+eTss2V+6e5Txo4
-	 uOtWg177eJ0EYJe3dNwCCMRkmcUdsrobpGfqTlGMbEV4fohtS5UrR9fnNWmDK7yiQKVSo
-	 lvXyluqIVz4JMkc15So0HpwtGomN7fS/5lCGSELj0kYIId9RfS2tDeV6eqBWc5dX+IEW3
-	 vJt/2AI2Tb7/xkrdWLn8j5QdiSbjFlOi02IpXFjszjANEkVaz0SeVJP4qM9YGASjJj+uF
-	 84fasrzTtew0nqHJb1nxrkIZORmmCKztn6nAvhCEDxjWL+1U7gyT/fNoFkBfW5wjJLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794724881;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=1GoOltvu7puxik2cPShNsVeQGZfVphJdF2LJTrTKpw4=;
+	b=0BR/ScL+4f4IqEolHJiI69XxwshdeRQeQDieS/P24eJQ+jmeaWWO0ypW+RR2RBM30gmY
+	 NUoHRHxMax/IQ0KAg9378zL34l42J/VEjpZX5GWygoxn6zWdulUTEtSyYZght8o1lyvxA
+	 cJ3f0pjrRdZuznd7ZlVrkZd6TizDTU/YABJje9JmR5nnfZC5YmpE5bHiIaPg9OqjznvdH
+	 p2mWuDw+fWDyd2+OGhywNKA4Ztr2TPSjtL3k8ImYh1t1r5CYwiFvvdLpVykQqmEdY2SKU
+	 VM4K1g/tyKTvbgjOMuF2Z9izBLy8H8isVdlorUoYLc6exCDVphyUwOpxJrfUFC+KdMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XY6g0QDN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSDCQrDy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06DB7606A323;
-	Sun, 15 Nov 2026 06:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A1A606A323;
+	Sun, 15 Nov 2026 06:41:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XY6g0QDN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF9C1F000C4;
-	Sun, 15 Nov 2026 06:38:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSDCQrDy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1F21F000C4;
+	Sun, 15 Nov 2026 06:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794724743;
-	bh=5uzNQjIqKu1Z5H5h4ULFcPsML/9M2qNB6yySUHBpd2Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XY6g0QDNlp+U9PsTjMW6Z7U+4AKhATHLs5He0CZN49f2Nu0bcao4bAPuuwEsft6FI
-	 TWnoj+VGBoUPTmb0EJCJXCsTtwSE0k13bv5Te+OZ5Acn6pVLSE5i/fhLT5QGKgwaOk
-	 Ucb2W6afh0Q1yzMIuWl0IoyL1xjTDc8J5WHHCJWlw82oKPLfFptJE13O1Ok9X62IyP
-	 xkoneXTm1OtIXF7WSDiXJH8M/fRN/bG7+qbjc7kJUeud8mWA9cz/xm6XTt15y1BZge
-	 qGkeMJ/mOBJIxREW4t6uml5kStkcI3+UGIwjK5RYkeEIMSPndyRf3R1y4lpuaoL/kN
-	 M2jExDr2sEOLQ==
-Date: Sun, 15 Nov 2026 08:38:46 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Alexandre Ghiti <alexghiti@rivosinc.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Donald Dutile <ddutile@redhat.com>,
-	Eric Chanudet <echanude@redhat.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Helge Deller <deller@gmx.de>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Liviu Dudau <liviu@dudau.co.uk>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nadav Amit <nadav.amit@gmail.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Sam Ravnborg <sam@ravnborg.org>, Song Liu <song@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>, Will Deacon <will@kernel.org>,
-	bpf@vger.kernel.org, linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-mm@kvack.org, linux-modules@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev,
-	netdev@vger.kernel.org, sparclinux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH RESEND v8 11/16] powerpc: extend execmem_params for
- kprobes allocations
-Message-ID: <avlTdlK9ErlqVRYl@kernel.org>
-References: <20240505160628.2323363-1-rppt@kernel.org>
- <20240505160628.2323363-12-rppt@kernel.org>
- <3f7af771-87a7-4ae7-9919-bc4c23bd31c9@kernel.org>
+	s=k20260515; t=1794724880;
+	bh=1GoOltvu7puxik2cPShNsVeQGZfVphJdF2LJTrTKpw4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jSDCQrDy9+A+6d2oYO8F8jPa4/D/IuzTAXVNIU62M7Rd75yTY0ONCUbXsTVfTOYGg
+	 J4COXS95r7s6K/I4x3B6hpR4GtIZe/ZhnX0iZ21hAJ7B/5rP6ukuGv8714bTemj2yQ
+	 XZ+L1kVv6suMKUXyHhc+1HpYi2dCBbuR013S0yCnCpO+hf3UOFXO6x852WRbhbUdWX
+	 3mXRjlDttcrIM9IQhL2iaaSD1uNObaGydGicYoixe7LO41zrXWOitmZ+7No/17whL5
+	 nw7MZ9aQJtG6Q5YrbZlBsdbbn4juOWAoCb2GhHUjjHuGol1AAyllhngBuUx4NBc7ij
+	 /p6yd6WNX6vQg==
+Subject: Re: [PATCH net v2 4/4] net: sb1250-mac: Fix RX checksum status and
+ header offset setup
+From: netdev-bot+sashiko@kernel.org
+To: f.fainelli@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, macro@orcam.me.uk,
+ daniel.machon@microchip.com, linux-kernel@vger.kernel.org
+Date: Sun, 15 Nov 2026 06:41:19 +0000
+Message-ID: <179472487941.2199510.17276250717965795834@kernel.org>
+In-Reply-To: <20261110230300.2769327-5-f.fainelli@gmail.com>
+References: <20261110230300.2769327-5-f.fainelli@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,43 +63,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3f7af771-87a7-4ae7-9919-bc4c23bd31c9@kernel.org>
 
-Hi Christophe,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On Fri, Nov 13, 2026 at 03:36:01PM +0100, Christophe Leroy (CS GROUP) wrote:
-> Hi Mike,
-> 
-> Looks like I missed this change ...
-> 
-> Le 05/05/2024 � 18:06, Mike Rapoport a �crit�:
-> > From: "Mike Rapoport (IBM)" <rppt@kernel.org>
-> > 
-> > powerpc overrides kprobes::alloc_insn_page() to remove writable
-> > permissions when STRICT_MODULE_RWX is on.
-> > 
-> > Add definition of EXECMEM_KRPOBES to execmem_params to allow using the
-> > generic kprobes::alloc_insn_page() with the desired permissions.
-> > 
-> > As powerpc uses breakpoint instructions to inject kprobes, it does not
-> > need to constrain kprobe allocations to the modules area and can use the
-> > entire vmalloc address space.
-> 
-> Using breakpoint means the segment must still be executable.
-> On book3s/32 VMALLOC segment is not executable, while module segment is.
-> 
-> See commit 6ca055322da8 ("powerpc/32s: Use dedicated segment for modules
-> with STRICT_KERNEL_RWX")
-> 
-> See report and fix at https://lore.kernel.org/all/ed03d290d440d579a81ae0b7de5243721291d903.1794543909.git.ritesh.list@gmail.com/
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-I'll take a look, thanks!
- 
-> Christophe
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In sbdma_rx_process()
+  (drivers/net/ethernet/broadcom/sb1250-mac.c, lines 1147-1150), the RX…
+- [Low] sbmac_set_iphdr_offset()
+  (drivers/net/ethernet/broadcom/sb1250-mac.c, lines 1718-1726) writes…
+
+--
+
+net: sb1250-mac: Fix RX checksum status and header offset setup
+
+The RX path now reads M_DMA_ETHRX_BADTCPCS from descriptor B instead of
+descriptor A. The patch also fixes the combined mask/set expression in
+sbmac_set_iphdr_offset(). It reprograms the IP header offset on every
+channel start and keeps it when unicast and broadcast reception is enabled.
+
+> diff --git a/drivers/net/ethernet/broadcom/sb1250-mac.c b/drivers/net/ethernet/broadcom/sb1250-mac.c
+> index 433aa1e244397..7998ab9fc46c4 100644
+> --- a/drivers/net/ethernet/broadcom/sb1250-mac.c
+> +++ b/drivers/net/ethernet/broadcom/sb1250-mac.c
+
+[ ... ]
+
+> @@ -1145,7 +1146,7 @@ static int sbdma_rx_process(struct sbmac_softc *sc, struct sbmacdma *d,
+>  				/* Honor the RX checksum offload feature setting. */
+>  				if (dev->features & NETIF_F_RXCSUM) {
+>  					if (!((dsc->dscr_a) & M_DMA_ETHRX_BADIP4CS) &&
+> -					    !((dsc->dscr_a) & M_DMA_ETHRX_BADTCPCS)) {
+> +					    !((dsc->dscr_b) & M_DMA_ETHRX_BADTCPCS)) {
+>  						sb->ip_summed = CHECKSUM_UNNECESSARY;
+>  						/* don't need to set sb->csum */
+>  					} else {
+
+[Severity: Medium]
+Is it enough to check these two error bits before marking the skb
+CHECKSUM_UNNECESSARY in sbdma_rx_process()?
+
+A clear BADIP4CS or BADTCPCS bit means no failure was reported. It does
+not mean the hardware checked the frame. Both bits are specific to IPv4
+and TCP:
+
+arch/mips/include/asm/sibyte/sb1250_dma.h:
+#define M_DMA_ETHRX_BADIP4CS	    _SB_MAKEMASK1(51)
+...
+/* Note: This bit is in the DSCR_B options field */
+#define M_DMA_ETHRX_BADTCPCS	_SB_MAKEMASK1(0)
+
+The descriptor also holds the hardware's packet classification, and the
+driver never reads it:
+
+#define S_DMA_ETHRX_PKTTYPE	    55
+#define M_DMA_ETHRX_PKTTYPE	    _SB_MAKEMASK(3, S_DMA_ETHRX_PKTTYPE)
+...
+#define K_DMA_ETHRX_PKTTYPE_IPV4    0
+
+sbdma_add_rcvbuffer() posts every buffer with dsc->dscr_b = 0, so
+BADTCPCS reads as clear unless the engine reports a failure. The MAC also
+parses IP at one hard-coded offset, and VLAN detection is never enabled.
+
+Suppose the engine leaves both bits clear for frames it does not
+validate. Would IPv6 TCP/UDP/ICMPv6 frames and 802.1Q tagged frames then
+be reported as checksum verified, with the stack skipping L4 checksum
+validation for them? The same question applies to IPv4 frames that are
+not TCP, or that are fragments.
+
+The commit message says:
+
+  Consequently, a frame with a valid IPv4 checksum and a bad TCP checksum
+  can be marked CHECKSUM_UNNECESSARY.
+
+The same result still looks reachable for frames the hardware does not
+classify as IPv4/TCP.
+
+This patch may also widen the exposure for IPv4. Before it, the
+IPHDR_OFFSET field was in practice 0 at runtime. sbmac_channel_start()
+cleared sbm_rxfilter, and the old mask expression never set the field.
+So IPv4 frames probably failed BADIP4CS and fell back to software
+checks.
+
+Now sbmac_channel_start() calls sbmac_set_iphdr_offset() on every start,
+so IPv4 frames can pass the header check. Any IPv4 L4 protocol that the
+TCP check does not cover would then be marked CHECKSUM_UNNECESSARY.
+
+Would it be safer to set CHECKSUM_UNNECESSARY only when all of these
+hold, and leave every other frame as CHECKSUM_NONE?
+
+- G_DMA_ETHRX_PKTTYPE(dsc->dscr_a) == K_DMA_ETHRX_PKTTYPE_IPV4
+- the frame is not a fragment
+- the L4 protocol is one the hardware verifies
+
+The headers in the tree do not say whether the MAC sets these bits for
+frames it does not classify as IPv4. This concern depends on how the
+hardware behaves.
+
+[ ... ]
+
+> @@ -1717,7 +1721,8 @@ static void sbmac_set_iphdr_offset(struct sbmac_softc *sc)
+>  
+>  	/* Hard code the off set to 15 for now */
+>  	reg = __raw_readq(sc->sbm_rxfilter);
+> -	reg &= ~M_MAC_IPHDR_OFFSET | V_MAC_IPHDR_OFFSET(15);
+> +	reg &= ~M_MAC_IPHDR_OFFSET;
+> +	reg |= V_MAC_IPHDR_OFFSET(15);
+>  	__raw_writeq(reg, sc->sbm_rxfilter);
+
+[Severity: Low]
+Is 15 the correct encoding for the IP header offset?
+
+The comment above sbmac_set_iphdr_offset() says:
+
+ *  Set the iphdr offset as 15 assuming ethernet encapsulation
+
+In an untagged Ethernet II frame the IP header starts at byte 14
+(ETH_HLEN). Measured from the cache-line-aligned buffer start, after
+sbdma_add_rcvbuffer() adds NET_IP_ALIGN, it starts at byte 16.
+
+The field definition in sb1250_mac.h does not give units or a base:
+
+#define S_MAC_IPHDR_OFFSET	_SB_MAKE64(8)
+#define M_MAC_IPHDR_OFFSET	_SB_MAKEMASK(8, S_MAC_IPHDR_OFFSET)
+
+This patch is the first to make the value reach the hardware at runtime.
+Suppose the field is a plain 0-based byte offset from the start of the
+frame. Would the MAC then check the IPv4 header one byte off and set
+BADIP4CS on almost every IPv4 frame? RX checksum offload would then
+quietly fall back to software every time.
+
+If the hardware uses a different base (for example 1-based) and 15 is
+correct, could the comment and the commit message say so?
 
 -- 
-Sincerely yours,
-Mike.
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110230300.2769327-1-f.fainelli%40gmail.com
