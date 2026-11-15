@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794779195;
-	b=vUr7ps7Tpx4y3qYEWQOYxslLb/h3SNsE6VBRiP/sxWGyOMcIot7cvzsuHnDUdkfnhMlq
-	 FJNtT9wxtSNaGDQrBtDSjz6AWnRu91glqzrjtQsC/UqvGGuX00EV43P1OPsIZaEKHB9YU
-	 AyveMUalIlDernOjJC/LfLb61rRdbVwMfan5APvc0vX4xsuE5mLaUTCUt+Zf/QGNNR0mV
-	 DpSFuXNWs5W6E+S12q4KV+9l12gp8IE7ETxbvYmZkU7ROa2+ChyAu3iq/QXcJTI0NKenh
-	 VbriQDmvRKk+uZ3lLMKKbLAxjomz+3B7QGHtWkshxzwQC4V383wOmxdsD1T9/dC/BVA==
+	t=1794779232;
+	b=xEKF2LeilLhUGKQnNb4DiUGbnpwgi76EsapAZ8hNhJHEff7bGFYcZoahGN8JUwFZuPJv
+	 944UyAr3ZW9tHIxOVmRBRtyAs9rr1GL9d7zXB0Yse6TvC+tmLRCKMGKnGfigC5/Z65QeD
+	 PVfFL2NpfFUIhmUyoOnWoZGk0s0PYUj55OUwz548uBjhbzKVcO1v0vJx7cqO9IhHsAKdb
+	 X7GRc6eqKToB6QgVpCfuSFLeNT0atVVbX7BrDGCV7I2WtdLhmdCwUdXePHMo10eYK7MSC
+	 OZokAPketaWItuWOUUF1371sxsI88WJF82n5XNhD4SCxD3UuCH9Le2okHAGlVo3X+YA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794779195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779232;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=p5PzHnNL2AEJDBpXqAy/+xT9oZldjEjDYa8FAcA8TRk=;
-	b=xCeqnMKSPImRrYZgHpy/cizAQ4SSULbTtr9kue8MrFbZW/IlYDhppYy1hG/3+xEuT+hz
-	 d0UFD0bU4eDZc62/jgz+YhwbUE66TsMudkiIGtvAao0OL0mPPlGP11Qc2qFuTU0lyYx4t
-	 cLexW7MGMD5M0RK4saIDAJa2/vG7JvW/hGBqBqu61sp9ChAI7wVZ0kNrQt83G1OpjQbVg
-	 AdjsgvaP95CfeNE0y/MgqbIbipoJWKFhfSe74ZBLVuWNRHCpKso30ZGzvGmXRkSmc9zU3
-	 YaqrN4mYyOi8MXOy162xIRWwoiuhZG8myi5t9b+cik5l42BgBExlLGqz/0ybAigWxfg==
+	bh=KY524zcDaF9JzpVhBPlIGXmBZ70a6nSskpmzif1Nzw0=;
+	b=Q5w0th0XxFJNFD0uSjP3oyun4a5wviBhJhKOkpiiCisxkr17kFDPPD6jypeIQAq1XDvn
+	 S6S7g4GCnQIHixpVJV+WAmweD6qTAIS4ReRhfpTNxiobw1d6HSNtJ3OvN2fWYIJatGSPt
+	 BDjvOEndKoRBFui0V72CFynGxt70MXSV4tqgyJC2yHrwfFejszujLzy9SES7T6M+BCqID
+	 V7KwJvGgQpqfShoPbxxL1J4iStqBUX33YWaN+uqpuDg6v4Z0V3IlnBGpKD7rKl332G535
+	 j57/Tnhufq0UYYNKvSos+m3F9asvEjySnUZj/6mqf1T2qO+tOT6/4D0HqygOHXnBYaA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="SbISZ/Tp";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ITMNhRTT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79C1606A32F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:46:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79C1606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2ED606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:47:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB2ED606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SbISZ/Tp
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-55c7445cf85so208231cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:46:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794779194; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ITMNhRTT
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-55c7445cf85so208461cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:47:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794779231; cv=none;
         d=google.com; s=arc-20260327;
-        b=pPsxp5LaOc/sZeLf0CFEZwE0+qP6dfuN7bgvxsOR9mrUJp7wWzwKJbmlOU8beTPk6K
-         62vKUmQ+FgugBYHUnq37hJ/pz5MwDANYK7rC/GEaupeUEfmgDWrY5GuhL6UZi/1DpA8K
-         dIK+hzDwYLSreWJ9BLG2/pwKWM6Q3WbxfpV7IvmykrbRfnkx/A4QvjSiCWs6c7nDF1d5
-         z8pznP1RO3o9pLEe7Ak8qdszqisFVHNMdZhwH092zol55EFKddlolS31K5GPfmavvDJg
-         u6utF77PMhEQ3JwmKmwh6DwBfQxsZbfYkcKhP2Ock8nXpJuF3d4FafHXIrJ80Q3nVkwM
-         1J0A==
+        b=YXRUK3177gOmu5+a19LgpuVVzdug5pJRc2jYkUWs5JCK3pDVEH+mBOrTBWEQJFAAta
+         0FUdnns8yKZx693ynBMQh1gIxV34icxH2r5ADgZgknvQvLu7mh5Zjqv4OCAbwdMoeno5
+         6jpcBOTB+eC6TtbHXtwD04mV4Ho1/gVSAtBSahVzw+Y7dv7cZr+8/0s6reWDZJRvyYy4
+         DmXNLOFzvmTGhARxaCEqpChvsGh86Ke0K4z4UT3Y6OIkqoNw8mA1wc9X0BtEoUEgibbX
+         +kTsnryAGL/+/vG2zw9t4PeQJdmSwO/BX0Mwfjeea1Pqw5jXjyFw71kQLLjLcYYeGYO/
+         4O2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=p5PzHnNL2AEJDBpXqAy/+xT9oZldjEjDYa8FAcA8TRk=;
-        fh=HrpGl023Knkd6zGBWn/TTu6IguDokOV/5NvL6kvqO5A=;
-        b=ZrIx4j1v6KqUrKbXygFzYdnCMV/C8nbWe1lX5stbwkko5AUoJhrI/yhbsn+sHoqshM
-         0O2rhTJ1GYL0aZG9UGZhv2v4pZI8I3A2bjF6U/fjloxSQVCj7V9Y7Ac/gypE8tOwlWAM
-         qabBROZaCD6pxL80bowlS6rFyEHURLRrLyTjXha02n9fq7Tg2A+74fHqxYgHrWAOBw8/
-         nRt66pS4Ig5sR2fALgQzDiWkFD2Qspa4gtZ9/jeCpvtp7ASjv+1hpnR9/Ve5WoWnm52b
-         roCInsqzZ3UJepVhV6oOOHkrpeHvRMsbstaJDa7kygMEfB4cWIgPHIbYY1HO+UN+mNAb
-         bHMA==;
+        bh=KY524zcDaF9JzpVhBPlIGXmBZ70a6nSskpmzif1Nzw0=;
+        fh=x9eNMXBEOTuXMPtQlSwC2Wpi501agl7P4s/tH3C6+OE=;
+        b=Rq6HRkQy6DXb4M/2YJ1Lw3FxDUfQ+fuoAo0Pkn7A7/u7+LNcts+cwZgvy9JWIJdJJM
+         erMvMg+gG9Xfi3JY+EyOoeFvOLLDWg4aVU5rlnEtVNhLivJnpoAaedlpeaCG1o98hLqg
+         i8oFEgIZhd+NEXadooaz2IIXYqnwufCxyyUQMUB0cvvSONu62bFc+szcPSi4WMRrh4Li
+         wl7SzA699UBAyFdN53O+N9Qzv4C8foutXOATTFyrb/lk9BjRFZQPL0W7W8JWebm+wf7i
+         iUoVltwtQUMJSx+awfU2FCxdQ10T7tk0dah3CWr8gsB7fDFvFGBvj3Kf0e4P7KxsU4+a
+         6AXg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794779194; x=1795383994; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794779231; x=1795384031; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=p5PzHnNL2AEJDBpXqAy/+xT9oZldjEjDYa8FAcA8TRk=;
-        b=SbISZ/TpilfJE2cBh5ZJg73aBd0d5UTTauVJ3r21HFKQH1YANNxDTDoSUGAxdv9yDw
-         m5Hr7oQf0cBym6nKOmDgB9JIwzqU+MU+GarsrbWFlxEX2Lnoql76TCOMgqNc0QjbzxRa
-         VQOLUcqDCH6xAoEWp/MoUkFAVfL8C/V4L/UDPwPzmRpnEyy1P0sGzHEG/tTgnocOfx34
-         XjHnCS/74myuwgDNHbypGgXAmL86XV/F+2PuorFIzm31WLvubkkrYnQF0YGdcoy56EfD
-         x/I06x6uYlHA8FJd8eCkpvPq3V/21wg439JuW/XB17EtINq5M5UtNRiKzwgCEVqiyBBi
-         3RCg==
+        bh=KY524zcDaF9JzpVhBPlIGXmBZ70a6nSskpmzif1Nzw0=;
+        b=ITMNhRTTLZ90oDqyrVkePblvLODyiBaBeHrSEx00EZMVhstHaEmfFoW8Sej7KYziCX
+         AK/TDM6xxtwVf1o6d0Ulqip2gnuT0YOr77Y5CGGBRaHMc14MG3FVdkMTo1ebuujQWROl
+         Y1AMZDYDVdnB60tDgbADaO+IJI7a25hVOV/yyDIrK6+5AQ6O10lL0tPHokSl29EYs5Ek
+         7K4WDWwBSdNdVHfTfmJm29XBpG2dX9pK9jI5ekUKqYHtvm1YVONF/fSpEK8T5WyxwY2B
+         zbVqY7T3mC70r5GMlKPVorn0Lf4EgXKntTY6raM0Y2i16QVlF7PauJUoxYIQ1BB0EmtM
+         YAJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794779194; x=1795383994;
+        d=1e100.net; s=20260707; t=1794779231; x=1795384031;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p5PzHnNL2AEJDBpXqAy/+xT9oZldjEjDYa8FAcA8TRk=;
-        b=dD02fi3SdQ21bva4/jWSD/7X3EnRn/EUnLSJVJZpr7ebw4/VSekxnpV2HIB3Xw1EDQ
-         +i4DxW0WxAaszTLE7ctMLNdXMOvbZXhRc3ypQFfp0EyCmtvZld9pFqbS07x1WUU7NmRP
-         PaI3n3opP9fhYR1lL2eIcz40PCvH4HntQnxj179IgfCNbGry0UfzaNvfHO+o3T7lbcXb
-         QtLTaO6O54dvTBoSw+VITCeVNFx6s2EwHr1iXjypWViWMZchPIeaeEfYHV6Ty5XLZaYo
-         BE4faw3ooJaV1FrJDCKOmafPOO105Ekt+7ZUnF5tMrJdMXAq55cqNvAZSFA66Y1OZ4CX
-         PuvQ==
-X-Forwarded-Encrypted: i=1; AL+hErETnG6K4TW6g2hTKCZKLqQkBthML/HBxT3gIMSiRTds6MYVONRndckvjfBZUeP/9XFZsNqeFSanTHBUzSw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uvv23Kh1tEbzgcV/OT2sfWL3Q9QRVOdbPyu7mCnpMp+CDJDLr
-	Ykp0zaLe5jvVC01OMN3eNpHu8FhXExjiR/7OKHSf9mgJxA470myMiAox23C+fxxEQ4irjuV+pf7
-	GFF54RWvVb9UK+rJ70qhG7yUTZQe7mUE1+cqcv7xN9Jl5i+u4KfrBzXnFRgE=
-X-Gm-Gg: AYBFou2qtDXi8gCdBbwhZSy7QDy+cOB0wnWKsnkFijIhWo9ToMZLtKKqgA7gkZ/f/p9
-	xZ+/zaIqQzEKpo9lO6nwMpt5CcNnII9FReNC/TErre7MD/i9U0znub7+uzUb5en0GjhPPCyJVtd
-	KnovMDiIEpEl3/WZjc5RQOhVocdoMD8bm7XWysu6HJBUE6IQG/jGik4trB1PYG1N1XARO50DHs6
-	K0qB/NScq85Z9hnfjYt4fgYuovwrN/s+kqumJx2NGYU6ujNQ+VSmCsva4y8Mdnnl7072xBNIvWo
-	EqEKC82fH8uvXj3TaUaWMBfe2CQzzjud0/1oXAM+GuzwivszVJDwYRzZs3hykP4q6f0ur7LKlAA
-	UyIonq81FMddiMp3/jeMS/L+aZCkYHZiexShi
-X-Received: by 2002:ac8:6908:0:b0:55b:ce7e:e65 with SMTP id
- d75a77b69052e-55c67fb2932mr26805921cf.12.1794779193017; Sun, 15 Nov 2026
- 13:46:33 -0800 (PST)
+        bh=KY524zcDaF9JzpVhBPlIGXmBZ70a6nSskpmzif1Nzw0=;
+        b=ivgnTJfdy+yZaz/reNQHa6XBmPzxy1XOpI7bHJhG+GRRkx9al3Y8njlFkNkxW8DZRI
+         08abYk1vKxqUCgobFkBeTMEU+bcVeEaCJ+FTuLJfh2PGarcbWo2CA4gVybao90zoOcgq
+         Z5BDY6R/Te+mrjpvHyjFZgewMGQkbwmLNFjydOIy5OE+Yl2YYgweUbkd6Il4X9UedHVT
+         K56/PHpyWC5/mBob05hzd516UsNlFCraY3XBIfsZniIou1EpYl2MCpTc5DrKr8XemO6t
+         GNbDArhJzG59cbI7SI+yUhGYhBqIY5fqbOXpn1eBpGMRJOdp6/X1AQpxaW9GOnO+xbPo
+         Hn9A==
+X-Forwarded-Encrypted: i=1; AL+hErEq5VtfCYPTEgUluW0/FCuYJmQaIavD/u9WgPeiN++29keamCc/DxhTEm379GSO4Xlroe7rGAI2ob/zd3I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Fz5j+bSiiUpESZUniUKv0J60Y3bkRu6KOYM2HZ1qdSetvOo8T
+	wDw6iYXRJHVk9ZPtQ2HwlZWm0SkNyaDbRbZzM7oEszEvPqaKABLa5wVfcuUre+5sJwfNH8iw97Y
+	ZB4uysQ5fJLXBvv1OnXAghDXTxnrZC5KPlrqBl2h+
+X-Gm-Gg: AYBFou2N0fexrm3a3jV0KDhEoaS5bVyS4+2TYBoXDLoksaBwa3VMMoITfi5K6mHboLZ
+	QqaYmKYz99KSh5ql5vlGTm7LgTA+TaSiU25yLUferkRfZGoTUEAsBgDT4MsMPTrw5/JfizUFfwd
+	KK9M+Kon9Yo7p9RWr/UBJRNhCOBiYAhdq9/1tbkL8eymh1diy1hTFmdkWZ25IrY9gaikyDIBlZ1
+	sGLOvTQJaCVlGRCOatrSHjSro2F7zfpyEI3piT+4nF26+JB/e+gh1SBhShWV4vlECzhK5aSrtU1
+	LYX4ZKm2vl6+MUoYdrAbDclMX+TjDeyB93cegfrKJ8+lgS0s0d0nbUC9KRdeKKJ3AthpH95RM1T
+	un/yFnnnuBtWD9S2R5Y3ombgMbiWmXNnppox9
+X-Received: by 2002:a05:622a:5917:b0:54b:648d:9ab5 with SMTP id
+ d75a77b69052e-55c67bc6fa6mr24530791cf.11.1794779230155; Sun, 15 Nov 2026
+ 13:47:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,14 +104,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115014102.2879372-1-acme@kernel.org> <20261115014102.2879372-6-acme@kernel.org>
-In-Reply-To: <20261115014102.2879372-6-acme@kernel.org>
+References: <20261115014102.2879372-1-acme@kernel.org> <20261115014102.2879372-7-acme@kernel.org>
+In-Reply-To: <20261115014102.2879372-7-acme@kernel.org>
 From: Ian Rogers <irogers@google.com>
-Date: Sun, 15 Nov 2026 13:46:21 -0800
-X-Gm-Features: AclHuK-OZ98Z-2CBlkFK4sBbd5Z6EYX3vCLucxTQFymZZgfWe-XBmvmtvZVlbSQ
-Message-ID: <CAP-5=fVGaJ8OKcMiVLrm1Q7LK_n67xUXhMVJ99gp=Oj2qfy00g@mail.gmail.com>
-Subject: Re: [PATCH v3 05/12] perf annotate-data: Count flexible array
- accesses for the whole struct
+Date: Sun, 15 Nov 2026 13:46:59 -0800
+X-Gm-Features: AclHuK9p5dgPwGyyxBwCuXNSFy44RKEFivTqM1rf_pMJqsUSRrhbOaxGt66nG_g
+Message-ID: <CAP-5=fVAgPPC7UMo85udqK2zsT-8PQ6QRSOCikRwVv8eX7wXmA@mail.gmail.com>
+Subject: Re: [PATCH v3 06/12] perf tests: Exercise data type resolution from a register
 To: Arnaldo Carvalho de Melo <acme@kernel.org>
 Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
 	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
@@ -124,24 +123,14 @@ Content-Transfer-Encoding: quoted-printable
 On Sat, Nov 14, 2026 at 5:41=E2=80=AFPM Arnaldo Carvalho de Melo
 <acme@kernel.org> wrote:
 >
-> The per-member percentage sums the histogram entries in the member's
-> own [offset, offset + size) range.  A flexible array member is resolved
-> past the end of its struct, so the struct row only covered its declared
-> size and showed 0.00% while the member row showed 100.00% and the
-> header said N samples.
+> At -O2 a struct pointer lives in a register and DWARF describes it with
+> a register location, while the unoptimized workloads the data type tests
+> profile keep their variables on the stack.
 >
-> Take a member's extent as the end of its last child as well, so the
-> struct counts what was resolved past it.  Union members all start at
-> offset 0, so a plain union keeps its size; a member that is itself a
-> struct with a flexible array extends the union too.  The TUI browser
-> accounts the members the same way, use the extent there as well.
+> Add a regptr workload with a noinline function that gets the pointer from
+> a volatile global, which keeps it in a register, and check that its three
+> member accesses are resolved from that location.
 >
-> Extend tests/shell/data_type_flex_array.sh to check that the accesses
-> count for the struct in the percent, samples and period columns.
->
-> Fixes: aaca646915a1bb53 ("perf annotate-data: Adjust type offset for flex=
--array")
-> Cc: Namhyung Kim <namhyung@kernel.org>
 > Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
 Reviewed-by: Ian Rogers <irogers@google.com>
@@ -150,195 +139,200 @@ Thanks,
 Ian
 
 > ---
->  .../perf/tests/shell/data_type_flex_array.sh  | 40 ++++++++++++++++++-
->  tools/perf/ui/browsers/annotate-data.c        |  7 ++--
->  tools/perf/util/annotate-data.c               | 24 ++++++++++-
->  tools/perf/util/annotate-data.h               |  8 ++++
->  4 files changed, 72 insertions(+), 7 deletions(-)
+>  tools/perf/tests/builtin-test.c              |  1 +
+>  tools/perf/tests/shell/data_type_register.sh | 64 ++++++++++++++++++++
+>  tools/perf/tests/tests.h                     |  1 +
+>  tools/perf/tests/workloads/Build             |  2 +
+>  tools/perf/tests/workloads/regptr.c          | 60 ++++++++++++++++++
+>  5 files changed, 128 insertions(+)
+>  create mode 100755 tools/perf/tests/shell/data_type_register.sh
+>  create mode 100644 tools/perf/tests/workloads/regptr.c
 >
-> diff --git a/tools/perf/tests/shell/data_type_flex_array.sh b/tools/perf/=
-tests/shell/data_type_flex_array.sh
-> index 8d6b277991aea96e..c8e8ccd130abd771 100755
-> --- a/tools/perf/tests/shell/data_type_flex_array.sh
-> +++ b/tools/perf/tests/shell/data_type_flex_array.sh
-> @@ -66,5 +66,43 @@ if ! grep -Fq "# data-type: struct flex +0x4 (data)" "=
-$perfout"; then
->         exit 1
->  fi
+> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-t=
+est.c
+> index 18311673b231e657..b6d31f5f009d206b 100644
+> --- a/tools/perf/tests/builtin-test.c
+> +++ b/tools/perf/tests/builtin-test.c
+> @@ -201,6 +201,7 @@ static struct test_workload *workloads[] =3D {
+>         &workload__false_sharing,
+>         &workload__global_data,
+>         &workload__flex_array,
+> +       &workload__regptr,
 >
-> -echo "flexible array member resolved"
-> +# The accesses to the flexible array are resolved past the end of the
-> +# struct: they must count for the struct, not only for the member.
-> +if ! perf annotate --data-type -i "$perfdata" --stdio > "$perfout" 2>/de=
-v/null; then
-> +       echo "FAIL: perf annotate --data-type"
+>  #ifdef HAVE_RUST_SUPPORT
+>         &workload__code_with_type,
+> diff --git a/tools/perf/tests/shell/data_type_register.sh b/tools/perf/te=
+sts/shell/data_type_register.sh
+> new file mode 100755
+> index 0000000000000000..0b7cb4bfe0aacfbe
+> --- /dev/null
+> +++ b/tools/perf/tests/shell/data_type_register.sh
+> @@ -0,0 +1,64 @@
+> +#!/bin/bash
+> +# perf data type profiling tests for register variables
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +set -e
+> +
+> +perfdata=3D$(mktemp /tmp/__perf_test.perf.data.XXXXX)
+> +perfout=3D$(mktemp /tmp/__perf_test.perf.out.XXXXX)
+> +
+> +cleanup()
+> +{
+> +       rm -f "$perfdata" "$perfout"
+> +       trap - EXIT TERM INT
+> +}
+> +
+> +trap_cleanup()
+> +{
+> +       echo "Unexpected signal in ${FUNCNAME[1]}"
+> +       cleanup
+> +       exit 1
+> +}
+> +trap trap_cleanup EXIT TERM INT
+> +
+> +if ! perf check feature -q dwarf; then
+> +       echo "Skip: no DWARF (libdw) support"
+> +       cleanup
+> +       exit 2
+> +fi
+> +
+> +# No point in recording if the PMU cannot do memory events.
+> +if perf mem record -o /dev/null -- true 2>&1 | \
+> +               grep -q "failed: no PMU supports the memory events"; then
+> +       cleanup
+> +       exit 2
+> +fi
+> +if ! perf mem record -o /dev/null -- true 2>/dev/null; then
+> +       echo "Skip: cannot record memory events on this PMU"
+> +       cleanup
+> +       exit 2
+> +fi
+> +
+> +if ! perf mem record -o "$perfdata" -- perf test -w regptr 1 > /dev/null=
+ 2>&1; then
+> +       echo "FAIL: perf mem record"
 > +       cleanup
 > +       exit 1
 > +fi
 > +
-> +if ! awk '
-> +       $1 + 0 =3D=3D 100.00 && /struct flex/ { struct_ok =3D 1 }
-> +       $1 + 0 =3D=3D 100.00 && /char\[\]/ && /data;/ { data_ok =3D 1 }
-> +       $1 + 0 =3D=3D 0.00 && /int/ && /len;/ { len_ok =3D 1 }
-> +       END { exit !(struct_ok && data_ok && len_ok) }
-> +' <(sed -n "/^Annotate type: 'struct flex' in/,/^Annotate type: /p" "$pe=
-rfout"); then
-> +       echo "FAIL: --data-type does not count the flexible array accesse=
-s"
+> +if ! perf annotate --code-with-type -i "$perfdata" --stdio \
+> +               --percent-limit 1 > "$perfout" 2>/dev/null; then
+> +       echo "FAIL: perf annotate"
 > +       cleanup
 > +       exit 1
 > +fi
 > +
-> +# Same with the samples and period columns, the other two display modes.
-> +for mode in --show-nr-samples --show-total-period; do
-> +       if ! perf annotate --data-type -i "$perfdata" --stdio "$mode" > "=
-$perfout" 2>/dev/null; then
-> +               echo "FAIL: perf annotate --data-type $mode"
-> +               cleanup
-> +               exit 1
-> +       fi
-> +
-> +       if ! awk '
-> +               $1 + 0 > 0 && /struct flex/ { total =3D $1 + 0 }
-> +               /char\[\]/ && /data;/ { data =3D $1 + 0 }
-> +               END { exit !(total > 0 && total =3D=3D data) }
-> +       ' <(sed -n "/^Annotate type: 'struct flex' in/,/^Annotate type: /=
-p" "$perfout"); then
-> +               echo "FAIL: --data-type $mode does not count the flexible=
- array accesses"
+> +for member in "+0 (a)" "+0x8 (b)" "+0x10 (c)"; do
+> +       if ! grep -Fq "# data-type: struct node ${member}" "$perfout"; th=
+en
+> +               echo "FAIL: member ${member} not resolved from the regist=
+er"
 > +               cleanup
 > +               exit 1
 > +       fi
 > +done
 > +
-> +echo "flexible array member resolved and counted"
->  cleanup
-> diff --git a/tools/perf/ui/browsers/annotate-data.c b/tools/perf/ui/brows=
-ers/annotate-data.c
-> index 0f778788df4a934b..e4047e97e8a943a4 100644
-> --- a/tools/perf/ui/browsers/annotate-data.c
-> +++ b/tools/perf/ui/browsers/annotate-data.c
-> @@ -53,12 +53,11 @@ static int get_member_overhead(struct annotated_data_=
-type *adt,
->                                struct evsel *leader)
->  {
->         struct annotated_member *member =3D entry->data;
-> -       int i, k;
-> +       int i, k, end =3D annotated_member__extent(member);
+> +echo "register held access resolved"
+> +cleanup
+> diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+> index f99910b0f8d93a82..6d284bc79cc31779 100644
+> --- a/tools/perf/tests/tests.h
+> +++ b/tools/perf/tests/tests.h
+> @@ -274,6 +274,7 @@ DECLARE_WORKLOAD(callchain);
+>  DECLARE_WORKLOAD(false_sharing);
+>  DECLARE_WORKLOAD(global_data);
+>  DECLARE_WORKLOAD(flex_array);
+> +DECLARE_WORKLOAD(regptr);
 >
-> -       for (i =3D 0; i < member->size; i++) {
-> +       for (i =3D member->offset; i < end; i++) {
->                 struct type_hist *h;
->                 struct evsel *evsel;
-> -               int offset =3D member->offset + i;
+>  #ifdef HAVE_RUST_SUPPORT
+>  DECLARE_WORKLOAD(code_with_type);
+> diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workload=
+s/Build
+> index 74a0cbe49dc93533..17189458032c0a17 100644
+> --- a/tools/perf/tests/workloads/Build
+> +++ b/tools/perf/tests/workloads/Build
+> @@ -19,6 +19,7 @@ perf-test-y +=3D callchain.o
+>  perf-test-y +=3D false_sharing.o
+>  perf-test-y +=3D global_data.o
+>  perf-test-y +=3D flex_array.o
+> +perf-test-y +=3D regptr.o
 >
->                 k =3D 0;
->                 for_each_group_evsel(evsel, leader) {
-> @@ -69,7 +68,7 @@ static int get_member_overhead(struct annotated_data_ty=
-pe *adt,
->                                 continue;
->
->                         h =3D &adt->histograms[evsel->core.idx];
-> -                       if (hashmap__find(&h->samples, offset, &hist))
-> +                       if (hashmap__find(&h->samples, i, &hist))
->                                 update_hist_entry(&entry->hists[k], hist)=
-;
->                         k++;
->                 }
-> diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-d=
-ata.c
-> index d8d00646ef63b30f..a74f894cbda70f5d 100644
-> --- a/tools/perf/util/annotate-data.c
-> +++ b/tools/perf/util/annotate-data.c
-> @@ -2237,6 +2237,25 @@ static void print_annotated_data_value(struct type=
-_hist *h, u64 period, int nr_s
->                 color_fprintf(stdout, color, " %7.2f", percent);
->  }
->
+>  ifeq ($(CONFIG_RUST_SUPPORT),y)
+>      perf-test-y +=3D code_with_type.o
+> @@ -39,3 +40,4 @@ CFLAGS_callchain.o        =3D -g -O0 -fno-inline -U_FOR=
+TIFY_SOURCE
+>  CFLAGS_false_sharing.o    =3D -g -O0 -fno-inline -U_FORTIFY_SOURCE
+>  CFLAGS_global_data.o      =3D -g -O0 -fno-inline -U_FORTIFY_SOURCE
+>  CFLAGS_flex_array.o       =3D -g -O0 -fno-inline -U_FORTIFY_SOURCE
+> +CFLAGS_regptr.o           =3D -g -O2
+> diff --git a/tools/perf/tests/workloads/regptr.c b/tools/perf/tests/workl=
+oads/regptr.c
+> new file mode 100644
+> index 0000000000000000..d5d357b047e1cfd1
+> --- /dev/null
+> +++ b/tools/perf/tests/workloads/regptr.c
+> @@ -0,0 +1,60 @@
+> +// SPDX-License-Identifier: GPL-2.0
 > +/*
-> + * A flexible array member is resolved past the end of its parent, so th=
-e
-> + * parent's samples are not bounded by its size.
+> + * A struct pointer that -O2 keeps in a register, so the member accesses
+> + * have to be resolved from the register's type state and not from a
+> + * stack slot.
+> + *
+> + * See tests/shell/data_type_register.sh.
 > + */
-> +int annotated_member__extent(struct annotated_member *member)
+> +#include <signal.h>
+> +#include <stdlib.h>
+> +#include <unistd.h>
+> +#include <linux/compiler.h>
+> +#include "../tests.h"
+> +
+> +struct node {
+> +       long long a;
+> +       long long b;
+> +       long long c;
+> +};
+> +
+> +static struct node n;
+> +static struct node *volatile vp;
+> +static volatile unsigned long long reg_sink;
+> +static volatile sig_atomic_t done;
+> +
+> +static void sighandler(int sig __maybe_unused)
 > +{
-> +       struct annotated_member *child;
-> +       int end =3D member->offset + member->size;
-> +
-> +       list_for_each_entry(child, &member->children, node) {
-> +               int child_end =3D annotated_member__extent(child);
-> +
-> +               if (child_end > end)
-> +                       end =3D child_end;
-> +       }
-> +
-> +       return end;
+> +       done =3D 1;
 > +}
 > +
->  static void print_annotated_data_type(struct annotated_data_type *mem_ty=
-pe,
->                                       struct annotated_member *member,
->                                       struct evsel *evsel, int indent)
-> @@ -2244,6 +2263,7 @@ static void print_annotated_data_type(struct annota=
-ted_data_type *mem_type,
->         struct annotated_member *child;
->         struct type_hist *h;
->         int i, nr_events =3D 0, samples =3D 0;
-> +       int end =3D annotated_member__extent(member);
->         u64 period =3D 0;
->         int width =3D symbol_conf.show_total_period ? 11 : 7;
->         struct evsel *pos;
-> @@ -2257,10 +2277,10 @@ static void print_annotated_data_type(struct anno=
-tated_data_type *mem_type,
->
->                 samples =3D 0;
->                 period =3D 0;
-> -               for (i =3D 0; i < member->size; i++) {
-> +               for (i =3D member->offset; i < end; i++) {
->                         struct type_hist_entry *entry;
->
-> -                       if (!hashmap__find(&h->samples, member->offset + =
-i, &entry))
-> +                       if (!hashmap__find(&h->samples, i, &entry))
->                                 continue;
->
->                         samples +=3D entry->nr_samples;
-> diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-d=
-ata.h
-> index 184262c7356213fa..6e0d410929651426 100644
-> --- a/tools/perf/util/annotate-data.h
-> +++ b/tools/perf/util/annotate-data.h
-> @@ -260,6 +260,9 @@ void global_var_type__tree_delete(struct rb_root *roo=
-t);
->  /* Print data type annotation (including members) on stdout */
->  int hist_entry__annotate_data_tty(struct hist_entry *he, struct evsel *e=
-vsel);
->
-> +/* End offset of a member, including a flexible array's children */
-> +int annotated_member__extent(struct annotated_member *member);
-> +
->  /* Get name of member field at the given offset in the data type */
->  int annotated_data_type__get_member_name(struct annotated_data_type *adt=
-,
->                                          char *buf, size_t sz, int member=
-_offset);
-> @@ -316,6 +319,11 @@ static inline int hist_entry__annotate_data_tty(stru=
-ct hist_entry *he __maybe_un
->         return -1;
->  }
->
-> +static inline int annotated_member__extent(struct annotated_member *memb=
-er)
+> +static noinline long long touch(struct node *p)
 > +{
-> +       return member->offset + member->size;
+> +       long long sum =3D 0;
+> +
+> +       sum +=3D p->a;
+> +       p->b =3D sum;
+> +       sum +=3D p->c;
+> +       return sum;
 > +}
 > +
->  static inline int annotated_data_type__get_member_name(struct annotated_=
-data_type *adt __maybe_unused,
->                                                        char *buf __maybe_=
-unused,
->                                                        size_t sz __maybe_=
-unused,
+> +static int regptr(int argc, const char **argv)
+> +{
+> +       unsigned long long sum =3D 0;
+> +       int sec =3D 1;
+> +
+> +       if (argc > 0)
+> +               sec =3D atoi(argv[0]);
+> +
+> +       vp =3D &n;
+> +       signal(SIGINT, sighandler);
+> +       signal(SIGALRM, sighandler);
+> +       alarm(sec);
+> +
+> +       while (!done)
+> +               sum +=3D touch(vp);
+> +       reg_sink =3D sum;
+> +       return 0;
+> +}
+> +
+> +DEFINE_WORKLOAD(regptr);
 > --
 > 2.56.0
 >
