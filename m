@@ -1,100 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794776685;
-	b=NG/n9MpgEG288tLKmgXej9GCxbhGZJUigIBTt2s3RO+EnPnQ9TaaUl2vXEy51H9OnQJ7
-	 hk3hw3CY8c3XTWcif7EoO9g4aEEARzcg7LsrLjZIharPVgjDQ+5P6UhiMgT5MZ8RWNooQ
-	 2eQ+r7mym7RFr9hGrwfveiht6RJJv8TBuCJsXgkbASbFY/MSJL+AjNHRgNO+VFvbkxd2Y
-	 izdg9Ap0nrS1gwUa8iOvFD0B7vfuWPGMtMoYDru1RVgID2+H5G5uS+Tagf2LfohMtQ3td
-	 HlxYv/T1fJWCs84YT8wy1+TdbnXI8RJHSwrdutYpxkr26XpqPv6pvCQoqE52Y3nVYDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776685;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=sIHnyJgJC+IXkahXP+z0qF28x1WEe7IYoK+ZV519Rug=;
-	b=pq767vBY5A/wXITVCaEcY9hDxd0WXxM1U4gagdmwYjz+qQVRRvdnUOIOzABBTnV/xh1+
-	 8LzkVBO2ID3gTHHmaHJC8z/P1xobMR0AHY+1hsrxc/1bakxcsv61fhTwPHEGsoFCzN7w8
-	 OUc4hyHH943aRHsDYR2wV2oJDPEuY4kDHX+Vm4YDcohk8lapOUkD/u8qlIo9cvq2zOvqH
-	 xVz0AYCyxhdhYotLOSXBTr1eFLVrd/K2fEiJVJMeHy0rZyrTN029jKwjqT1D6YtwRAdad
-	 5nHhBHDrsVJd/cFmZLxWYjypNH0gjMVyKYlPt1AwINBxjRgft7iyTWmUoSG61iR/anw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aXPCVwfx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794776695;
+	b=gvMQIANI37Wr9cxez4qGjMQCjBCzZYrXcGAoJN/ORtCcANjiUCXC47nRAP7KvtdsvEDC
+	 G/B2h5RxOFxyeuGlnLm+LRyZY9oV4F6RyE4k0mF7v783a4jufUphF/10+Q5GVvXw3fFaP
+	 k9RVGENFvlHsHTmnaaV4CdF8aAeMwNp+GVUmbCop6Bx+aj/6STTeHpxJM90LeysmPiwmJ
+	 x8xU55SaBN8fNS2kdEsCTrHCKNR8d7TTRGNSfeWzFE4NfhwUfRRI66vmL1QuumMJj1CXe
+	 F8NEzi7+gGNrNciiGKMPFC9wZGG5AE8Scr4zrji/3rnLAidVr0UHQ/XJSzIe8jgDdpw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776695;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-MBO-RS-ID:X-MBO-RS-META;
+	bh=DykgM5NE4WdLFCVY94RfUrWegvpeMHFMFL7zj7//kZY=;
+	b=i5bn4SnnNmPKyviH+qjEUlMC+nkxafst5TYk6W4pbsdf76+ZAVLuIQ5DQ5BxW54Shnix
+	 fmRojVOKz+Dfc1ImDVr1t40pejP/zhzBcKq7iM0zV/Ce17rGlHEamuV9sMbwnkgbnS/zW
+	 SxBtgY8WSGbMkPbEdvyHHRCkESGboM2+2IA4hS9FHmz12/jPARjiYG8jTiF95xaFcx+z+
+	 EssKs2tsdysFit3AV/3k1ye0YHvTx31pICTEuWwStTao2GOlpuL36t+J4HHLVdnwN1APm
+	 RY0VtegRbqe1Mt/X2zSHLvUVytMdtq3PJg+hMUWrmZhxiRWwSr9VyBNaQIzTDw3X4Ng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=bxPqqgrh;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F34606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F34606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2E2606A332;
+	Sun, 15 Nov 2026 21:04:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B2E2606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aXPCVwfx
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67db35e7953so424715d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:04:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794776683; cv=none;
-        d=google.com; s=arc-20260327;
-        b=H5AAUHDYsze544k+38Mgr8Cn5s4UWVMa7GgSYyP43uocascZcJv6HYqCVdG8EB/F2U
-         Okh0vexYoh1+osKg8S7G9L1b/qEGkAtATQjiMFx+Mz+Whq6CxVcHuioXbQ5EQREmre2a
-         NAzqqs4i7ebakgWU02NmYs+4F+P1jRLG9aRTh5ylQBFm43kPRy3lD05E5HDyHJEnn5GL
-         G33Rc+lEsRcB/L+NRxFrG6qDK2ZQUZo5PKoZ1ojOmDrAH5mst4z4Df+cAv0UbvmnBmYr
-         B59OXtmiw2DWoDM03Ra5gnuHfJoq84PEegmhLe8e+/GrD/YNPaMDGTisahmZjmg/AN4j
-         ntfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sIHnyJgJC+IXkahXP+z0qF28x1WEe7IYoK+ZV519Rug=;
-        fh=yV4KFBG8HMuIJ/1gSK4frPg9BIKhSyPJYahTGkIJcLA=;
-        b=q8cit5wO2buJTwMXVmnaBKQe5JNnfiBauR5vQnTl+45P3Tks66TVHpqiIRJ5CP1UGf
-         G1IpMJLTiDID6Kq08VEudjmfEM/SL09I74Ev6tFBpzk2BIEPlredLtWUKwO17wiiWw7Q
-         Ak9H8ZmpGyWJPAqYf5JzdGwyf5SAhsDzXffEUoRgpJ1Ct8tuEySA0YOmqmjQmrVkWuHL
-         fUvfKIEQDIp+ak/XgoFFUg7ObeuY7hQxDmwsxBRnLSHW6+kIZq8hpV5DMIpZk1fw66/j
-         6bStE3BC8/q32+KVEVOTSqEKyrLb98u/IGNbZJAnAR6WJlpdzl4L/ESNOL8YmHnaix52
-         h5Fg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794776683; x=1795381483; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sIHnyJgJC+IXkahXP+z0qF28x1WEe7IYoK+ZV519Rug=;
-        b=aXPCVwfxL+U9CzSjw15PUia7M/Maex05durHtcijeoqRj39L0XOsvUxgOm5jygXmf7
-         dsUly9B5FSkWRJW/0AfffHZktcq5Tn1k2yDWad476fvMt7Q8QS3KrB6uTQd1Y7EwsQIU
-         8Tjnk7ldXmlXusoxA1JB7NM/0ejeOtNIePsRXX0ydmMQ/kisjfO8TOVCUEO+1c7D4hi+
-         7ExJ+ufyjAyv23ItPvSej33CXAfl0Zr/tbvjXXFLurtBDW7auR4pziSiUURj5fBn/hp6
-         +m+lAHg9M/T1nj7/UGpSyVeGFF8KK7OClKihchyjewwnJQNGcbQguSy/O0ABI/jb8QP0
-         EMvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794776683; x=1795381483;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sIHnyJgJC+IXkahXP+z0qF28x1WEe7IYoK+ZV519Rug=;
-        b=pXzNw40D+CqAh8lEFkYCukXMcgNb3Y7kUuWhEyt9Uk5QVpIGXjZN9Wo9eFALCDNpPP
-         Q2GQEtzTCZzl9qKmcIm2nJbUWzEBXcxYPq5DfIRSRG+vmdaG8yNxOJeH5cQ6SwxPrswg
-         e6+OSvzM0m3iDZa4omco637lSINV2eaaHhpBRPa0fokyOMWJsktbNqr3mfUbqnjhtgkf
-         ZIQtD38D8GZ1qCs32HBtcfexEORUnJ54voG8yOFFLyYYGcJbVXxJuurcroodKxaiOnyw
-         DP3wy5ORp6NrMxMAnXcul70gvLEqOKlj0E79P4Vu1ZncJkP0JMCAI6t5mWa1AA4eFaQy
-         qigw==
-X-Forwarded-Encrypted: i=1; AL+hErEziIVxsT3OdQ+AvW1jSG6z5DwTsGIbPa7gQRanPsp/3KifmU7i97tzB5wvR2oBeHyVKCm0Fzwo2/rKyfQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TmdRpERcGRcDrLGLm6CXLFr6iTp6ur9JAonSwTv2NdqflGWGB
-	F+WjoVtniB9mczmHgyvEjVZUdFwTP5g/tKYEzBxb4RaO+4gECNxJl/hOtmo3Ls3rxCJbfgYe9JS
-	DePFt3EhAej8IpA2Xpr89WIs6wnHkqvk=
-X-Gm-Gg: AYBFou38x/aC5mbQjfo1S7f5UVwOnnmJS8dXBJlld7hRc8I9rO2X5X/IbQOYCsyIa0c
-	GSLCqxos/I/wznjrmbdTmJVUe+ZYrugQ0Tbm4035CD+FqiOa3exBK0+HpTZwdgWd07CwWA2Z+qL
-	ZkEXh/8LXuPuuD+ozz/mpZ8QGXNuisDmBlZsIpMyqDe2kcbQ4roJjevmQQ4yC49ILR9zm7+jzHX
-	NsWw599WOSfwyKj4L9fVg5yQBqth09j/+dwu1YR58Qwy6WK0X0TfOvTvx7VhDBJ1yH09ue+TR8a
-	LSfGGyPbN78TnkxrJG9lbZMqg1jqebUjuRn7pA42V1LAZgz/QlIZA4GisocQUCsMmwbNBz7TP7H
-	PpANfFl1HoYNYKDYDHM45QMkaggHLtPod2icUcrBoH+qyYAVf+m49+xDK22AmHLv0ROSB6g==
-X-Received: by 2002:a05:690e:479f:20b0:67c:2b34:31a5 with SMTP id
- 956f58d0204a3-67d896aa73dmr2886678d50.56.1794776683083; Sun, 15 Nov 2026
- 13:04:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=bxPqqgrh
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jSNmL6GXDzKmKZ;
+	Sun, 15 Nov 2026 22:04:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794776690;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DykgM5NE4WdLFCVY94RfUrWegvpeMHFMFL7zj7//kZY=;
+	b=bxPqqgrh3O4NiaOx5bDtdk9uM3cutMTSwniGOFbKzfkoPvXAHKfw/posdGWJNaLfwI1EYV
+	lrCZceSzcH+UU02aKQcTa+vIRrEI8odb7/cm6j4lq252rS7IMgABYzn3UtHBkdOc5fcrpL
+	xqDNCz5AW3e82ivV8NRI+C0EHP1xr1P130aF+zDl4LiC53bIsZ6Qahnw0NR9rKu7OSCPi7
+	Tz4iMDJz6sXWFXIrxEeCIHHXXhRzJaoOZmTAqzSoMQWk0S/Wodo5a85vnjuknvz1xpRO6e
+	3phIhas5wVCG/iiEV9QJXmDXn8kmK0YtPypdfl4auj7VoV4v3Yw0XXLCHFMaXA==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: doc-guide: improve language
+Date: Sun, 15 Nov 2026 22:04:23 +0100
+Message-ID: <20261115210423.1089716-2-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,31 +70,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com> <20261018-audin-v5-2-4b8cc13a1b22@baylibre.com>
-In-Reply-To: <20261018-audin-v5-2-4b8cc13a1b22@baylibre.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 22:04:32 +0100
-X-Gm-Features: AclHuK9HsBcphbKQs0k8LqAA9uRq4kzQTQJzZ3MTf8At638gba0WRnCC9ExoQzo
-Message-ID: <CAFBinCDtqNQM=89mQ9uw7hr1CJVGo5fHNPJd=jAyDZ3+L3wCvQ@mail.gmail.com>
-Subject: Re: [PATCH v5 2/7] ASoC: meson: build gx-formatter as a separate module
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: dda047f22aaeb684f0a
+X-MBO-RS-META: cdo3g9kenkbd8xbexsfdai3qzo5tdi9e
 
-On Sun, Oct 18, 2026 at 12:18=E2=80=AFPM Valerio Setti <vsetti@baylibre.com=
-> wrote:
->
-> Instead of including it in 'snd-soc-meson-aiu', create a separate module
-> for it. This way it can be independently selected by either AIU or the
-> (upcoming) AUDIN.
->
-> Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+There is no 'kernel process' thus change to 'kernel contribution process'.
+
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ Documentation/doc-guide/contributing.rst | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/doc-guide/contributing.rst b/Documentation/doc-guide/contributing.rst
+index f8047e6331..0f0804f82d 100644
+--- a/Documentation/doc-guide/contributing.rst
++++ b/Documentation/doc-guide/contributing.rst
+@@ -14,10 +14,10 @@ it needs to be to support a project of this size and importance.
+ 
+ This guide is for contributors who would like to improve that situation.
+ Kernel documentation improvements can be made by developers at a variety of
+-skill levels; they are a relatively easy way to learn the kernel process in
+-general and find a place in the community.  The bulk of what follows is the
+-documentation maintainer's list of tasks that most urgently need to be
+-done.
++skill levels; they are a relatively easy way to learn the kernel contribution
++process in general and find a place in the community.  The bulk of what
++follows is the documentation maintainer's list of tasks that most urgently
++need to be done.
+ 
+ The documentation TODO list
+ ---------------------------
+-- 
+2.56.0
+
