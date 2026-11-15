@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794739241;
-	b=ZNGm1Q4IVwZjMsMcKQuhThdQTiO4LxGve0AK2Z9IQugcPdoU8AYSGIVN/BJv7Xl3c48I
-	 E7f1okDZ3CqRPAgbus3TBgZ6aboAal972K9mGus+hnel7L3kLNZWleWWWnHvzLvRaFYUH
-	 4SsyKL2YwHgL7Li5jWiV63LmcWcAKYs81UkbfDpzR40tIjKkZFcq5lY2svzrznTruCwpb
-	 pIgEuR/PokgzvomE/BwkYVX3tjE8LaKgEtw+x2gTsTSovcVPBTnVgXqwba4MRzXI2qWLw
-	 XWOlHrtjsM4J8/e0S12ftezulrMhB9D8d8SlVDb+uCaRRjjLibS6ovgEZDQxeEzPOjg==
+	t=1794739411;
+	b=E0WNaojOwNgNT7tFEcATmA9AOOXA7DgtGaQFoQOZQZVKwYZc94ul9x8KNmr4W1tHu2xK
+	 wxJrSx3/fTnNL93zbvHv2xKX/4LlxTN1VLLP3s9SSLfLqySSwol6gcLo+dydmbVjbRapm
+	 A68OWgqmFnkLoAvFLH2uMMRKUM9bXfHDDkSESAxCSadj7QM0+IWSH9RIe73k6RkClyaO2
+	 V+/enQBX4MBdnkcSVkLKavoyw30jgdvAWsC14gpaLpX07TlWCqjFU50r1/07d24AxU+eI
+	 dKYntGUM58seBP6HCvuwf9yfQLAaPH9osFiYnb4HKWGm16p8bKwOATVXKzvk2hEL2NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794739241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TENXDxvv5jFBPerWep/Z3nZ9UwBvzf2srmB2t0s0Ufk=;
-	b=0xLEHq4HqwVRv3cAV2+urRK6kT6HUG1HXFR1VQ1zeh2XvRcS83UXtEWXJipW/vJ7Tarw
-	 d8baviiKIC4j6oswRYAoFC6C6BXfaHvF6gEfuPWMrlKA1HLUO+lLDIgqYSO6FTgY2l0r9
-	 EF7ZVjkREyOCAgtUzd2UYZjObh6ajZ5WfWzGNF7ZTBQhQr8FV7YVEWHAlK2T+YF0WFxxh
-	 KOC19dpI08ZzPLju/X/OzxDdp8c6cLBziM+STMaC8ChvRiuGJc3J9XwawMMzWyPoglhRG
-	 Tsg947TlEAfgy19FnRqgD4MpSQtXPi+Z0vtV847x3+33MoywDc8QnAMnu/emHlXsFLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794739411;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0nqnviQtI0zVgBpLZforuUbgldUYw5y4JIwCb3k/byo=;
+	b=l1ZSn7H/j7iiJUiHanGmQ6y30HPMnh19546dgzVN0RRX32qaRZ4gYpyNifI/C9i6hKaK
+	 rbXKDJ4cWfbGYNUoXkVgQptnTFDwuW29mzBQCyFXDdYXzCeII0SIUvH43CmJz8Xdmvtrs
+	 RsBz4avKTaPlTMivgiTDJZODxioGY0ALx4nTBgjPQ0Ug/45jwP5fbgbBQSj4IGvo6fgPO
+	 EgJ3hQTRZTaK59J7FmiyxBHeGCdTnx2mMfx09HmCbYj6TP6Bhf0ycO48nQcMcr7DQ7zYP
+	 wTVz1q1zSd8sP+CtqzZnspZ5eE4p3bLyjmcI+MdNrO4tBV+Q6HOjk8/Asne0zn91v7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gEiVyM34;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMgHHDZg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A353E606A89D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A353E606A89D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A4B606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:43:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gEiVyM34
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9995ce866so27052215ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:40:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794739240; x=1795344040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TENXDxvv5jFBPerWep/Z3nZ9UwBvzf2srmB2t0s0Ufk=;
-        b=gEiVyM34NDSCp2pkPQHpI928xWtg0jAwkU/EloJQ/g0yaZba/6kxQadtViGi3+wEah
-         XOrg+w2+flKHeBdmIll0ru5ewMNgL4UoLb0RnByBBV7Y446WgYVAdR3Pij0H0+1Xcm6X
-         IC+nF9rftvRryg2AavPmqTPIbi8FlSXGWXsGTnC20i//w23MXZI6AevHv4382SPCJsty
-         8iww6oTppF0lhO9rBUdEwsxbwRyTR7dUPk21OQLfsTfER8oT5xaSmHn1hdxTqsIVx6NF
-         yEBraZpvbudueMgbvLmMMBYU7VhjebE58m50l/7Y/BybISts+0BzEQF6TqXd1SRmwh7U
-         5Qmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794739240; x=1795344040;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TENXDxvv5jFBPerWep/Z3nZ9UwBvzf2srmB2t0s0Ufk=;
-        b=QSIIXdMVw4ENoW26usi0awB+V7IrQA43NtshFHxMU28AxBqQkUi+jaQvCgKIblWIca
-         pvx/DT9ZgV4sf+9hwxtaE8rZVsiDk6Yinb38+6kzFbb+kQpEQM0V+KqmTm4sq5xJ6P1D
-         g+U8scnQsNwrxRpc85sUKIXbPfzrVaqCO5VMxzXAB/wsbc1+sPtYCF+zTMnucx5i2Vcj
-         +CvB398o9rETNgLMH8aA6/lOlN11Ip6Pf34k7UxX4WecDkWP4MDUHqbK8jWQJim1EO0P
-         022TDEn9u3tZAWjfEsvPQVgKFycPv07Q56gCZ8/BlCIdpFzp0bXDW8XnDOGO8QvRqGwN
-         y2Tw==
-X-Forwarded-Encrypted: i=1; AL+hErFmJlDWqrbYjRQxvGGz9ws9n5FGPyPDlH7Yp+kP5s4ukrHoZ050CFFsgHBXO9ulVB8/DwZgYA8tRctGjz4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9v0ntIROwylHQPXfMPonr1RpJgZ7EjCHnL6Pq9NhBJmSOzVuXZ
-	c4GD30ELySHPVpFfPdRbcSw0VReY6Dt/M4BYBZ+PgsrVA2Pl6V+3sJ3/
-X-Gm-Gg: AYBFou1iywYzzDlQXgfHRoSpmDKKtUH/IdUYjPqCq7TByztp2y9WKx7zKJh1qoQXjDQ
-	Bxm/TqJ1hsyh0vbkLwu/tR4snu77B6OzbRc4txicD7FALX5Gur/oaQF77joHWVx7tEnbcUSC5PR
-	mjENOUjnv9AgxAYccsdKOjIoaJ0fUWof64n2rQJvltBlH91L0vfiXK170z8ckPK2lzuRjVq2IP5
-	dFeiW6PgqRT7lQrlcsWUpW4hhnc2x33KkFkLphDeB9UvJ3LgSIqRoQ3d7aPSH3XqZGUVx4nb7hG
-	zIEBzCoMBRVw4QFzw2K5a4QMqzbhDZTQO3vPZY16BA7nGAEtjo7+/56ykLnmlEEVwwjLE/e5ez0
-	DrR0eLn7PT+ic3KheRLsUPaVgDDwswdAO8ubYduDsUHHEV+YIfgbT6HjySB0sfKK6rn9wuu45zP
-	2p3m4CQDwRZiZFFf7veP8T34kOfF6V6KCXCkEs/thUX/VJBNxIp/tyYWJieEak+Kp1NWq9MdlUH
-	09oYsuhETMmq6xNTagEB2TdKPQUk08SJswM9GHAzMZC3Id2GpjmhQ5Gm/EQP/9q/yhE8mXqH6/q
-	BLsNLMRAEZCkc9KnhADskc8GGzbOnjlLCsRg6rC3IPBU1d3tShpPXLmpyTihDK/M7ETPadl+sBI
-	FXg2f+rzeohOLKdKI6ULFzYQKzK7bc6NbEQ018r9imKC5ZNmYonVKZ4QtG632QIh8cTPHetDoGR
-	8Lb7NQP69TlZ6lU7+S8lLDccieW3RdAfWGR/m4VUxz+c2WQN6dDiVVNEZY9dJnn+rjy5h7qd3UY
-	7j+Km62PSR8qWtSmW/djLb1RfHMQvuNQMFLobuDVGfSaHBEHJBmEDmx+ZxEfL+5
-X-Received: by 2002:a17:902:e88d:b0:2ed:acb:aa96 with SMTP id d9443c01a7336-2ee0dad0247mr91339425ad.24.1794739239813;
-        Sun, 15 Nov 2026 02:40:39 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8d4612sm26739145ad.57.2026.11.15.02.40.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 02:40:39 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Maurizio Lombardi <mlombard@redhat.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sujal Tuladhar <sujaltuladhar1231@gmail.com>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] scsi: target: iscsi: don't re-arm Time2Retain on a closing session
-Date: Sun, 15 Nov 2026 21:10:07 +1030
-Message-Id: <6396b9a2d459b956e4081fa080e194d2df0b2a6a.1794739041.git.danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
-In-Reply-To: <cover.1794739041.git.danjwade95@gmail.com>
-References: <cover.1794739041.git.danjwade95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMgHHDZg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75651F000C9
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:43:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794739410;
+	bh=0nqnviQtI0zVgBpLZforuUbgldUYw5y4JIwCb3k/byo=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=iMgHHDZgx9CCeW7jQ7Z0VvGlzs0uRoMnkwXwVYnMkgw3UfmNXwg7BPjCn3iJOmVAg
+	 Gg+SZ2dj1i/3RTRPgmZ2y+tJ9mrVdGFL3hC7La7eAhV57oFHczQI4RTSjKH5QnkKxe
+	 PRNwbnlancl3/A/4q7NR4LBteog+4r3S4N0arQL7cNeX0B4jXmChzh9wCKpcX1SQrZ
+	 o9hAKkK0rA/fb1i9+7UWNHwe0dRLM43LV//ByEEn/kYBRtxmBH4DjyPGew/PLrsyFt
+	 f1her53+EUpfBpeTRR6wldUdnPdu+GyEtCsdpiLOQRYeuOxZF5h4pue+tmjkFSCccq
+	 +x1FjiSrRjw7A==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3adfe77d336so27030711fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:43:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHvzBRrqJ3RyR4Jxf6CTDrNjIXKQ+6/3p1d1TlV6ADklVqIDgUAVoZELhtpHvMYOixBuwG73XDOGGmcrsw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99cUZiuMNRFXmougLuol55q4hlF8SzFt99ueULCVaJ1Sm2+v0K
+	R21RuJ8FnP4ZoS1Enf91CinZqbFoJLGKHS5StdhFxIeCYYGYLj6FwvnfhPg0EWwdKXREB2HsG38
+	Yh3Rvqr9nr+wlX+1UM/QAWzQ+OZIDBOM=
+X-Received: by 2002:a2e:a543:0:b0:3ab:1862:25fe with SMTP id
+ 38308e7fff4ca-3ae2b49f199mr27144831fa.4.1794739409347; Sun, 15 Nov 2026
+ 02:43:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,51 +59,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com> <20261112-h616-zero2-dt-v3-3-1cd2664230c8@gmail.com>
+In-Reply-To: <20261112-h616-zero2-dt-v3-3-1cd2664230c8@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 18:43:16 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66CYb5LmHrThjqh4i7kQeG3D=0=om33=mJJUS_u4r=UvQ@mail.gmail.com>
+X-Gm-Features: AclHuK8HzeMAHozlJAL7NvuOGHQVO3JAeAx6hsTa0bLpIvwSKJtCAkiSGEitsvM
+Message-ID: <CAGb2v66CYb5LmHrThjqh4i7kQeG3D=0=om33=mJJUS_u4r=UvQ@mail.gmail.com>
+Subject: Re: [PATCH v3 3/7] arm64: dts: allwinner: h616: Add GPU OPP table
+To: aiyengar1990@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-iscsi_target_login_sess_out() re-arms the Time2Retain timer of the
-session whose login just failed.  In the window closed by the previous
-patch that session may already be on its way out: iscsit_close_session()
-stops that timer, then sleeps in iscsit_check_session_usage_count() on
-the reference this path is about to drop, and frees the session as soon
-as it is dropped.  A re-arm therefore lands between the stop and the
-free, and leaves an armed timer on freed memory.
+On Thu, Nov 12, 2026 at 5:22=E2=80=AFPM Arun Iyengar via B4 Relay
+<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
+>
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>
+> Add the operating points of the H616/H618 Mali-G31, so that boards can
+> enable GPU DVFS through panfrost devfreq: 306 to 600 MHz at 810 to
+> 950 mV. The table is the one of the vendor images (as recovered from a
+> KickPi K2B image, also carried by Armbian). Like the H6 GPU OPP table,
+> it uses <target target max> voltage triplets with a common 990 mV
+> maximum: a board whose GPU supply cannot reach an OPP's target voltage
+> loses that OPP, while a board whose supply minimum is above the target
+> of the lower OPPs keeps them, as their [target, max] range still
+> overlaps the supply's range.
+>
+> Like sun50i-h616-cpu-opp.dtsi, the table is in a separate file that
+> boards include once their GPU supply is described.
+>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++=
+++++++
+>  1 file changed, 62 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi b/arc=
+h/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+> new file mode 100644
+> index 000000000000..18989d11c832
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+> @@ -0,0 +1,62 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +// Copyright (C) 2026 Arun Iyengar <aiyengar1990@gmail.com>
+> +
+> +/ {
+> +       gpu_opp_table: opp-table-gpu {
+> +               compatible =3D "operating-points-v2";
+> +
+> +               opp-306000000 {
+> +                       opp-hz =3D /bits/ 64 <306000000>;
+> +                       opp-microvolt =3D <810000 810000 990000>;
+> +               };
+> +
+> +               opp-336000000 {
+> +                       opp-hz =3D /bits/ 64 <336000000>;
+> +                       opp-microvolt =3D <810000 810000 990000>;
+> +               };
 
-->session_close is set before the free is committed to, so test it here
-too and skip the re-arm.
+Just a note, found by my review agent:
 
-Unlike the previous patch this does not need the other teardown flags.
-Every iscsit_close_session() that reaches the free is the can_sleep=true
-call from iscsit_close_connection() and has ->session_close set, while
-iscsit_handle_time2retain_timeout() passes false and re-arms the timer
-instead of freeing when a usage count is held.
+The temporary clock for the GPU module is currently pinned at 400 MHz.
+So say you are just jumping between the lower OPPs, you go from
+306 MHz -> 400 MHz -> 336 MHz, all the while the voltage could still be
+0.81V. This is likely going to cause issues.
 
-Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel Wade <danjwade95@gmail.com>
----
- drivers/target/iscsi/iscsi_target_login.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+I suggest sending a separate patch to increase the pinned divider for
+GPU_CLK1 from 3 to 4, which would give a *really* safe clock rate of
+300 MHz.
 
-diff --git a/drivers/target/iscsi/iscsi_target_login.c b/drivers/target/iscsi/iscsi_target_login.c
-index 556ae5d2d50..124c9903fac 100644
---- a/drivers/target/iscsi/iscsi_target_login.c
-+++ b/drivers/target/iscsi/iscsi_target_login.c
-@@ -1177,7 +1177,13 @@ void iscsi_target_login_sess_out(struct iscsit_conn *conn,
- 	 */
- 	if (!zero_tsih && conn->sess) {
- 		spin_lock_bh(&conn->sess->conn_lock);
--		if (conn->sess->session_state == TARG_SESS_STATE_FAILED) {
-+		/*
-+		 * iscsit_close_session() stopped this timer before sleeping on
-+		 * the usage count this path drops, so re-arming it would leave
-+		 * the timer armed on freed memory.
-+		 */
-+		if (conn->sess->session_state == TARG_SESS_STATE_FAILED &&
-+		    !atomic_read(&conn->sess->session_close)) {
- 			struct se_portal_group *se_tpg =
- 					&conn->tpg->tpg_se_tpg;
- 
--- 
-2.39.0.windows.2
 
+ChenYu
