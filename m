@@ -1,73 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794746627;
-	b=GZmd6X9wumk6HHOO7x7iIfb1hESpUCgwN937bBCUJqqMB9GgEPoZNqevVnvgG30Z45Nh
-	 xT15VgyoutwuG7lO+9jAdVWGbI4RmfAOsiTIWJJdlOXmDktydVNS8bL7FNs7B66PLnuJN
-	 mGpIwsWEqZsIFt4fBSEUOGVmIv10uGPxp20HsNsNVFe+ZoKZt6objBW8myAHS9HcnXIz2
-	 cG/AW5KNjzQz8z4KS6/1bRoKiF4GUAdWqZvIaCdkRLFPKxVbastHVE/dxe6Pug729veoB
-	 TLTGxBatHcmCw7RoWsOHI1w4/IG4kp9VAtlnHFItYTy0qmC8F2f9/uGjPxIpo6v2V6g==
+	t=1794746811;
+	b=q5tHPoyhdMV2FZJ0Mew1YYeMUdqLvftWMKbhNTXtTNaCWET7bRE8lWjVqXFQproFu5vP
+	 i8JW58NSVP5i0wLh7i14l37Xj5h5XzdVB3QAzByWO+wOrRHp7L7d5X43OFHcti5gyTGdt
+	 7lt8p5y86yLhklasc3lA97RjLsSq5POnuJa89M/HiQrNhxWWD6znwodPFd3sj5KB7v2dH
+	 nQtDGOhQnfZnu8U6TZwdS/t3XBGgu7DWGY/Lir2yjeoVlvUP9hDqmCZQgQ88ya08yfKhM
+	 iMh0FZ0vps/jsSLVo1VWmGx2jTWJaTNG0UZFoop882Wwrz95Bv8mEV/N7DqhwdwsI7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794746627;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ItLIVfR1UvySuEEyBIwhJcSgZBhLRZU0DncWL/OBsMk=;
-	b=h/jtpU/dMDfMyeCgxzuOuSQrngFxnzLWzUurPD1/Qf9NwI7RvzgvkBGlW/tz60ipXRHd
-	 Dvoc0r0Ql7K510Z51nfv2phBSQUt5WOvK8OaykDGIGPuPC2DCo7pNBu/V8tZjwKxX4qBJ
-	 TZLLMWolYuAJ5KPvCl5sDE/oy9ClWaDbLV2uK4QT/HSQzvch4Wy0hb0zTUnwWnuq/Q9IQ
-	 Rn10Lt4CtXohs9wS6HNYkD8HLJnBOjTk1Sx2722Bz+lg4lUdwhj2DA9fcFAU0sR8HWCZO
-	 3uh0FCs3GZm4OK4UMPxuoSjj0E+fn3wON0wKnf0PnBt7DpZYDyfS500GIxn+Qhk+NFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794746811;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=BF7Nl85Bxr5Zh4rYOV9vowwj1g8iWevEqtUlRpb404k=;
+	b=IjdqP6RqFVND9YpcDA5jFl8/KJyXBMkFbIWvSVKMU74fO0rPxOwpV5hA1W/lmaImhqwX
+	 0qJa4dP22AuqbGzS1f+L9Bbj/qWMzbwksNDjKEvr1i27FtEpX6MP5khKUdwHnI5Tc3laG
+	 zZsSHOiAJrLHBMJ+ChapoYZTllIhg39ZQ4ehTg1/6KpFm797f6jLJc5GELQNfpGb7h8jX
+	 /ENAfBMJqitYooojIfuADC9/ak7BYcDgvF0qCLmQIltFY3mKV0iy0CP1gg42sXUjbYBWb
+	 s0wHXkbmswj+6oTDt4RUZdo05FPOqZ171IX+6fnhObz/Kt3RDVhTu3nuFhNEj+TGajg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQUCoZgo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ianghel.com;
+	spf=pass smtp.mailfrom=ianghel.com;
+	dkim=pass header.d=ianghel.com header.i=@ianghel.com header.a=rsa-sha256 header.s=protonmail header.b=r7LdfQ+w;
+	arc=none smtp.remote-ip=109.224.244.107
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A334606A327;
-	Sun, 15 Nov 2026 12:43:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E29E606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:46:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E29E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ianghel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ianghel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQUCoZgo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E391F000C4;
-	Sun, 15 Nov 2026 12:43:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794746626;
-	bh=ItLIVfR1UvySuEEyBIwhJcSgZBhLRZU0DncWL/OBsMk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kQUCoZgoZYY0fcgF/LYN5sg/FhigfV0RmeA/86U/4sCjPuPGBE7pd/oHPIVJVMHeI
-	 2IlWDFrE2uywqCCL3Jj4I0gGH96okLxf/UhYvS5kk81lBsUXiLT0XG4bnC3fmIIbQT
-	 FAXlrPGLPbzjzk/slqBIXIi2bdAAItZxNHxkbUNb2Djd2SOHBSqePSUK+11mTmke2o
-	 pFbiltFhIDDUt2GyBFurnDfb1H58W6ugxVtf1bPJT4VmYgHVtu2+LnWlCcDTfojdcw
-	 G5zEG77A/QC/3H4C0a3ofuIthVL6eskpAnW0W6WqaYJziKQzUOtpAXQO19MXd54q0C
-	 fv05uW8CCyplA==
-Date: Sun, 15 Nov 2026 12:43:34 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 08/13] mm/migrate_device: fix ksmd oops on a migrated
- KSM page
-Message-ID: <avmojuNNO_ZRKL1P@gremlin>
-References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
- <20261113-mason-migrate-et-al-fixes-v2-8-50a2ed382b61@kernel.org>
- <20261114115657.f63de4714929f7af@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=ianghel.com header.i=@ianghel.com header.a=rsa-sha256 header.s=protonmail header.b=r7LdfQ+w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ianghel.com;
+	s=protonmail; t=1794746806; x=1795006006;
+	bh=BF7Nl85Bxr5Zh4rYOV9vowwj1g8iWevEqtUlRpb404k=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=r7LdfQ+wdY9rdSvq2nNEMDn26OubSpJg91R2Ej5FCjTtSqSfKwB1rCMI03ae18Up9
+	 ehJnD62GiJt/wTHmlYypbP1BGtrAuLjlTwgcfaP/f+6VEybcIuGMjktSif+Oy+2vsu
+	 c6n7NOtaoczPyyNPKRtqHfhutEO13SbR4h139uD8Wv0xASja4HS7Xnaflt3iLNDv9e
+	 92SiDLL4AWKn2IJJzhQu90/TeAyqd32MYmryZqLDEfaMFlzHtqwZ1A4RjX8Ng/udbu
+	 UWEFCpVK7W+gkBD6/AaOdAfKrZ9le9B9QkDk9lnqUJBXX/XNx62HyhK/WSEYdWxwNh
+	 vMUcegodY8H9g==
+X-Pm-Submission-Id: 4jS9jc0btfz1DDLT
+From: Anghel Mihai-Alexandru <mih@ianghel.com>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org
+Cc: Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Anghel Mihai-Alexandru <mih@ianghel.com>
+Subject: [PATCH] Documentation: thinkpad-acpi: fix backlight power attribute name
+Date: Sun, 15 Nov 2026 14:46:42 +0200
+Message-ID: <20261115124642.983197-1-mih@ianghel.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,39 +68,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114115657.f63de4714929f7af@chrisdown.name>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 11:56:57AM -0800, Chris Down wrote:
-> Hi Lorenzo,
->
-> Lorenzo Stoakes (ARM) writes:
-> > [ ljs: tweak commit message, comment, also refuse device coherent ]
->
-> Alistair's Reviewed-by on v1 came with the argument that KSM pages should
-> still be able to go to device coherent memory [1], which is the opposite of
-> what this does now, so it's probably worth checking that he's happy for it
-> to be carried over. Going by what ksmd does with zone device pages, the
-> change itself looks right to me.
+The sysfs notes called the thinkpad_screen attribute "power". The
+generic backlight class names it "bl_power", so the docs now use that
+name and describe its values (0 on, 4 off). The intro now points to
+the backlight class documentation instead of saying it is poorly
+documented.
 
-Given the endless waves of AI fixes I think giving a little slack is fair
-on details :)
+AI-assisted: Claude Sonnet 5.5 and Claude Haiku 5.5.
+Signed-off-by: Anghel Mihai-Alexandru <mih@ianghel.com>
+---
+ .../admin-guide/laptops/thinkpad-acpi.rst     | 29 ++++++++++++-------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
-But, yes, that was a mistake so - apologies Alistair, let me know if that's
-OK.
+diff --git a/Documentation/admin-guide/laptops/thinkpad-acpi.rst b/Documentation/admin-guide/laptops/thinkpad-acpi.rst
+index db4588af0278..f6377fad3aa0 100644
+--- a/Documentation/admin-guide/laptops/thinkpad-acpi.rst
++++ b/Documentation/admin-guide/laptops/thinkpad-acpi.rst
+@@ -1066,8 +1066,9 @@ The available commands are::
+ Sysfs notes
+ ^^^^^^^^^^^
+ 
+-The interface is implemented through the backlight sysfs class, which is
+-poorly documented at this time.
++The interface is implemented through the backlight sysfs class.  See
++Documentation/gpu/backlight.rst and
++Documentation/ABI/stable/sysfs-class-backlight for details.
+ 
+ Locate the thinkpad_screen device under /sys/class/backlight, and inside
+ it there will be the following attributes:
+@@ -1082,17 +1083,23 @@ it there will be the following attributes:
+ 	brightness:
+ 		Writes request the driver to change brightness to the
+ 		given value.  Reads will tell you what brightness the
+-		driver is trying to set the display to when "power" is set
+-		to zero and the display has not been dimmed by a kernel
++		driver is trying to set the display to when "bl_power" is
++		zero and the display has not been dimmed by a kernel
+ 		power management event.
+ 
+-	power:
+-		power management mode, where 0 is "display on", and 1 to 3
+-		will dim the display backlight to brightness level 0
+-		because thinkpad-acpi cannot really turn the backlight
+-		off.  Kernel power management events can temporarily
+-		increase the current power management level, i.e. they can
+-		dim the display.
++	bl_power:
++		Backlight power management mode, provided by the generic
++		backlight class.  0 (BACKLIGHT_POWER_ON) turns the display
++		on, and 4 (BACKLIGHT_POWER_OFF) powers the display down;
++		the driver decides how to blank the output.  1
++		(BACKLIGHT_POWER_REDUCED) is deprecated.  Any other
++		non-zero value is also treated as blank.  Kernel power
++		management events can temporarily blank the display.
++
++		thinkpad-acpi gets its brightness from
++		backlight_get_brightness(), which yields zero while the
++		display is blank, so the backlight level is set to zero
++		in that case.
+ 
+ 
+ WARNING:
+-- 
+2.54.0
 
->
-> I've tested the device private case. Without this the process hangs the
-> next time it touches one of the pages, and with it the migration is
-> refused and the pages stay merged.
->
-> [1] https://lore.kernel.org/r/avTu3LmscsttRVRp@nvdebian.thelocal
->
-> Reviewed-by: Chris Down <chris@chrisdown.name>
-> Tested-by: Chris Down <chris@chrisdown.name>
-
-Thanks!
-
---
-Cheers, Lorenzo
