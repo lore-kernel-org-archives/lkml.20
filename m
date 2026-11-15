@@ -1,61 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703896;
-	b=Is5Av4yi5Jdsafpuv0sFk2NSsJg4txhtjWqFCNlIWKPc6zMbWkLvCVM/uDk0Dk2QwV1g
-	 c0PpnRpu9hhleeaXRv/l0e0x+JP0Oy1uFxAA71oxuzmalQfAUUsSg1dgyGPUJGhTs7XOz
-	 tTDNnA2MTBQYsryEEsTedmJQ1dT61y4hrvDW0Oi6WsBt4jlRHHtlATDEIzZ4ouom2e8cR
-	 R9rZsYw/9tqYq56Q73KDUoZtGRydYLm7mNLi/cMYTWFLVpAlEq8e8oV2Y+nJ3TFnyOuRF
-	 mCJIutg5V9S2NGHRljr7AP5S8kqA3LgmVZqLrdGjC8d8JRhKErzwqkVVHDd6XrYN0sQ==
+	t=1794703978;
+	b=TBM/jqxxW3RfOLmfd8Lq8HfUVQgB4h3BKehNciniS0WBYRC0nVLSUH4tsIcUA45jH20h
+	 d3QbyOR42CDcBDj8zBiS2FieJKh7rNH3DP+2BNPUSin58fUyJwD2zpZi+fzhUWyGo7Fga
+	 EPmP+HT4Hqs5OVHSO+tFXEuzdcKAUEePzoY+3LyQTMT4nkmEg521i5LhAXj5MDfZw7Y8N
+	 2CAvwuM1gDQgE4vDjMoku2G6hqMH03vMTiqHMxD0L4HUjGyL8cd66stQFsYLQaekfRwRF
+	 Hpy2jy6N04S4xeQd+7rbNqs+shXLYGIcZb64oeY/Eo1qGjp23w3XKB1/LehpLCM6JOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703896;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cIQKJ+UG91RHKyYene2ntrB1MHw8caFD+qmGOAO6wSU=;
-	b=vZdGpl9TWy6HouSoYInRQoBHIT4rjqLe5GywbQ9cyx6pR+8Psf/SS+jydBXmmern1cnP
-	 zetb2a+m/FuEjxXmtUlpKwcpVDgaDVqLagVUAIV2mqmrOgJ+ZJ0ysYu18rOp2LFMTiVpN
-	 tSswdrh9svmjlNw2BC0hPoUcJ/rt9S1hGMF/qc3bp/q1k5lAQjZs2bB3cR6Qm/3m27F3i
-	 F01WkZNWKPJLtw4XgWdaDsPCLNllneOf4n1ZaLPc+c0Q4WjBk2w34iKkPZZ2PTZIjd5r1
-	 i5Nn8clWt8SWTQJU5O3IJOqhiVfl1nUxBeach4CDAcsuTRCSbhYfqO6ZiFKuysA8quA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703978;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pgt4oZ2WN8u01ga7Sr4+oVx6S9OSfcnwOm7/oUBJ1+g=;
+	b=fEEh47jaT7qDrRmgDoglp1ulm8tKBzXZ/Y8FWaaGdJosfzIrLP6wvQLm3xBMWrMRrppx
+	 jivJIBzBBx/cNAtfsoATM+Cx7ZkYLqZqo+kNVKrTDPHZSRUROGEAogQ4Iaf6BEbKjAKzi
+	 JMUryQtOvnKJuwkBSL2kjmHkcCRZoPU2LYy82534zSbHR4QwnH9vgwiIpVZIsQPo8L52R
+	 U0hQEZ0nNjExzrmkkkZLSt8EUHvaGDzzCBcMoeu51yQeREmoqviNpoTkqqUGYRrPaMQfn
+	 9v6/EBLE4tVdbhsxnfH40pVBSJiQnOnBd6eGqODp0bA/F6LCFA5kfV85ppLO5U9mNgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SWe59QkV;
-	arc=none smtp.remote-ip=95.215.58.200
-Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoJZLbjL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3BD606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3BD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EA5606A323;
+	Sun, 15 Nov 2026 00:52:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SWe59QkV
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xFnLsG59GvlRg1cGX6jqXi1P0i1OqXy1k2drts1zmg0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794703893; v=1; x=1795308693;
- b=SWe59QkVUKTpOuhVSRr4ltJFXxocdeMcga7R0GcwcO0EDL0etq+qIs5/TVyfHi6BVNDn7trL
- imz1lbQV0oqs9d4PGRQ2flu/5KeG5Ck2h36znDAAhUdCaKbTrlRYVhArXQYR0+6Traj224K3d4W
- MiSpnRv/orIv1JjypQ1hNdnM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d6aa2e4d69f7770f;
-	Sun, 15 Nov 2026 00:51:33 +0000
-X-Mizu-Trace-ID: d6aa2e4d69f7770f
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 00:51:33 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: renzo@cs.unibo.it
-CC: akpm@linux-foundation.org, evgsyr@gmail.com, ldv@strace.io, legion@kernel.org,
- linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, oleg@redhat.com,
- strace-devel@lists.strace.io, thecharlesjenkins@gmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_ptrace=3A_reject_out_of_range?=
- =?US-ASCII?Q?_error_values_in_PTRACE=5FSET=5FSYSCALL=5FINFO?=
-In-Reply-To: <20261114184842.373304-1-renzo@cs.unibo.it>
-Message-ID: <2D2A202C-35F8-4200-9110-B0E636216FCF@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoJZLbjL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3321F000C4;
+	Sun, 15 Nov 2026 00:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794703978;
+	bh=pgt4oZ2WN8u01ga7Sr4+oVx6S9OSfcnwOm7/oUBJ1+g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YoJZLbjLl5pW82lKxjooxbaV6WLHCNjxerihDg3XmyihZHEweGwmO4UwRInaSbWKk
+	 QJ/1qtOsiZ1UIoJIR/D9Fz90hb/uDZRkb046cJKW0Orq01MacxIBUpVFxlSIK1YmfZ
+	 13a2jnjf1ivx4ebeyfZGGAhDUZS3fmAkP3S/Nlj+bIHx7zUaPY2s08bozR8fhi6cuc
+	 8vBZVivsrlDoqyLvmr9tPA/DYcjgK9awpqtjRI6L6Xhxtab1zh2QHcmtiEE9pJDhCf
+	 8MX4UfLpTFH5QHsbkr/eKVBCTFc96h1ySw+miN+GK+jDXYayKdVjDlrpagsdbw/pqM
+	 KfHDrBw8kkPHQ==
+Date: Sun, 15 Nov 2026 00:52:53 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: sx9310: fix semtech,proxraw-strength =
+ <0>
+Message-ID: <20261115005253.2b2d7f01@jic23-hlaptop>
+In-Reply-To: <20261107143523.465188-1-kapoorarnav43@gmail.com>
+References: <20261107143523.465188-1-kapoorarnav43@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,93 +63,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 14 November 2026 18:48:40 GMT, Renzo Davoli <renzo@cs.unibo.it> wrote:
->When PTRACE_SET_SYSCALL_INFO is used with op == PTRACE_SYSCALL_INFO_EXIT
->and is_error set, info.exit.rval is passed to syscall_set_return_value()
->as its "int error" argument.  The only check is that rval fits in a
->"long", which is a no-op on 64-bit architectures, so:
->
-> - values outside the "int" range are silently truncated;
-> - a value whose low 32 bits are zero, e.g. 0 or 0x100000000, becomes
->   error == 0, and the system call returns 0 as a success although the
->   tracer asked for an error;
-> - a positive value is stored as is by some architectures (e.g. x86)
->   and is not seen as an error by the tracee.
->
->PTRACE_GET_SYSCALL_INFO reports errors as negative errno values, so
->reject with -ERANGE any error value outside [-MAX_ERRNO, -1].
->
->Fixes: 26bb32768fe6 ("ptrace: introduce PTRACE_SET_SYSCALL_INFO request")
->Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
->Assisted-by: claude-opus-5-5
+On Sat,  7 Nov 2026 20:05:20 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
 
-Drop. No longer needed. Annoyingly. Assisted bys aren't needed no more. :(
-
->---
->This patch is independent of the PTRACE_SET_SYSCALL_INFO syscall skipping
->series and applies cleanly either before or after it.
->
->Tested on x86_64 (QEMU/KVM) with a test program that, at the exit stop of
->getpid(), calls PTRACE_SET_SYSCALL_INFO with op ==
->PTRACE_SYSCALL_INFO_EXIT,
->is_error = 1 and the following rval values:
->
->  rval                   without this patch            with this patch
->                         (getpid() in the tracee)
->  0                      returns 0, success            -ERANGE
->  1                      returns 1, success            -ERANGE
->  ESRCH (3)              returns 3, success            -ERANGE
->  -MAX_ERRNO - 1         returns -4096, success        -ERANGE
->  INT_MIN                returns INT_MIN, success      -ERANGE
->  0x100000000            returns 0, success            -ERANGE
->  -0x100000000 - ESRCH   fails with ESRCH, but         -ERANGE
->                         PTRACE_GET_SYSCALL_INFO
->                         reports rval -3
->  -ESRCH                 fails with ESRCH              fails with ESRCH
->  -MAX_ERRNO             fails with errno 4095         fails with errno 4095
->
->Without this patch PTRACE_SET_SYSCALL_INFO succeeds in every case, and
->on x86_64 syscall_set_return_value() stores the error, truncated to
->"int", as is: values outside [-MAX_ERRNO, -1] become successful return
->values, so the tracer asks for an error and the tracee sees a success,
->or a different error than the one requested.  With this patch these
->values are rejected and the tracee registers are left untouched; valid
->errno values behave as before.
-
-That's just word puke. I did NOT read all of that, make it TL;DR
-preferably.
-
->
-> kernel/ptrace.c | 8 ++++++++
-> 1 file changed, 8 insertions(+)
->
->diff --git a/kernel/ptrace.c b/kernel/ptrace.c
->index 3f2fe68ccb14..2fbd0d55b42e 100644
->--- a/kernel/ptrace.c
->+++ b/kernel/ptrace.c
->@@ -1111,6 +1111,14 @@ ptrace_set_syscall_info_exit(struct task_struct *child, struct pt_regs *regs,
-> 	if (rval != info->exit.rval)
-> 		return -ERANGE;
+> The binding allows semtech,proxraw-strength values of 0, 2, 4 and 8,
+> where 0 turns the PROXRAW filter off and the others select a strength of
+> 1 - 1/N, i.e. register codes 1 to 3.
 > 
->+	/*
->+	 * An error is passed to syscall_set_return_value() as an "int"
->+	 * and must be a negative errno value: anything else would be
->+	 * truncated or would make the system call succeed.
->+	 */
+> sx9310_get_default_reg() converts the property with ilog2(raw). For 0,
+> ilog2() returns -1, which FIELD_PREP() masks to 3 in the 2-bit RAWFILT
+> field. A board that asks for the filter to be off therefore gets the
+> strongest filter, the same as semtech,proxraw-strength = <8>.
+> 
+> Keep 0 as register code 0.
+> 
+> Fixes: 5b19ca2c78a0 ("iio: sx9310: Set various settings from DT")
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+I've applied this one to the testing branch of iio.git.
 
-This is very verbose. Like VERY verbose. Maybe a one or two liner comment
-would be way way better
+I note you've sent quite a few patches touching this same driver.
+That's all good, but if you can group them into series that would
+be even better!  It makes sure I at least merge them on the
+same tree!
 
->+	if (info->exit.is_error && (rval < -MAX_ERRNO || rval >= 0))
->+		return -ERANGE;
->+
-> 	if (info->exit.is_error)
-> 		syscall_set_return_value(child, regs, rval, 0);
-> 	else
->
+Thanks,
 
---- Thanks!
+Jonathan
+
+> ---
+> No in-tree DT uses semtech,proxraw-strength = <0> (sc7180-trogdor-lazor
+> uses 8), so this only affects out-of-tree boards. I checked the
+> mapping with a userspace copy of the ilog2()/FIELD_PREP() conversion:
+> 0 and 8 both give RAWFILT = 3 before this patch, 0 gives 0 after it.
+> 
+> Compile-tested only (W=1); I don't have SX9310 hardware.
+> 
+>  drivers/iio/proximity/sx9310.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx9310.c
+> index 2585b9c6fb69..a39277237d39 100644
+> --- a/drivers/iio/proximity/sx9310.c
+> +++ b/drivers/iio/proximity/sx9310.c
+> @@ -855,7 +855,8 @@ sx9310_get_default_reg(struct device *dev, int idx,
+>  		if (ret) {
+>  			raw = FIELD_GET(SX9310_REG_PROX_CTRL5_RAWFILT_MASK,
+>  					reg_def->def);
+> -		} else {
+> +		} else if (raw) {
+> +			/* 0 means off; 2, 4 and 8 are codes 1 to 3. */
+>  			raw = ilog2(raw);
+>  		}
+>  
+> 
+> base-commit: 340d44bdf9db0f095f99845b5ad8628781d79b6f
+
