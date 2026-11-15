@@ -1,99 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794770870;
-	b=zVM6DmpxiH17hq9mpXtj7gjWmlxXbja4+OD+VQsFDiKCgtgrfSEYnkkG0KyJEUst1OzG
-	 J8UGdS9cxgjk8QuSY66oPZX/uR+Tnteb0rOHQTQNwa9NVOj0n+Q4FD4M7Jl9QSAtoBZea
-	 VWTSQTqfx+ILE8vk8Mu6ekhn6XA7IQQguEP9CMm3JUfChXtfggwVyKQE8as2sPwza5kdt
-	 GEAoyJRw1+ln0FykMdLE7RZ1ZwnFgExE2PBgABcu8Fc9/LhxLn0w2hFZB6FAFKprJN3Tp
-	 3jSEOj24YtZXFxHC3iu/RCwmdhaQzNkhxC7OUkA6Yj6L0paS7s4Fsr0NaqKC90n6Ydg==
+	t=1794770895;
+	b=KVd1mBpzl2nJMBixcCMsJZ1eeAHzEtqe+Rd4XrCR78eeVOjmDEr1yy6KsLspDi5irX6F
+	 UpFCw6q//og5ItnSxc/cRuMDhqF5Un67Giz6vBxVlG3jIyq4yhknbOVQ30qW1y40tTtle
+	 2gv45AHSLLYKoLZFM5lDozPDf9u0xtgV+xAjdTZj/ju5sVjQYqj8BruNKdNt1anFKs2ua
+	 IE31tfiUrN0t9SzpPffDp8DCgUD/iX7H+4iRsRo3/9KtbUGQOEtLdyYxulm8MJy/ILDnV
+	 SeWLvy/ZLrf2jjcAGJxFThHSyBGaQBN4ftAPJ8lXLbW+dxkkkFfnzSzl8QijgoVoAlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770870;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zK1HFeXb+5RIaaTyR8jNDy335l1vYAJOKc4AYeqRcfQ=;
-	b=GxwVEjExaE2k8W2GQW8S2waMhVp+ABD9p3F4z0v5QO8Oty3+qAPzFfLR9b4Lw4OuGH0W
-	 ddnRxQjTh3dX8WpHV+nV+4aDIZA9Nxm2rvgJmN4goWlW0RzZRTPM3e0Z9IzwQf/bWRBEA
-	 3ORLovQ61azjHnCHJ/17DHEhEuPsnlm8D/RvhU3RipeZTJIUNG1F5UYqqZAaMP1BGvYof
-	 D2csOeR0YhcVC/h+Byx7Sf5KEP45b3kOSombiXc2BgJC7/6hGHwUyQ4Z9m0gpP5rAimSS
-	 r5v3F/ZMKDe0vhiwqz0giYxCxWoDrIsLRAxWStJPX5D0ZdDwhlvJkN5zZyVSLRKFwMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770895;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=8vXUwT5n2Ez9H80tnR2LUwnWnU9RLKteDWZxZYsi4Ms=;
+	b=kEgs6T5YbTp27IEBSveEbL9jhxkQWN4MzDnONCEOr2cZ9WSlExh5KvdWpv48vf5KcGv7
+	 KiE+DgUSVt07ia11ZuXlVUsKrspWQAvaXWiv3USplzDNTFTBYG8dYYZmb9OSuiBg7C9xi
+	 lfOizVoWJJjQ1XF9MEGwkYAreEk2rEngbl1XlYcexrUpihqBLpbY5qWuJbMkDc166VmQD
+	 pGIQvhof6Teg50ZRdf6wKDtyhZBdEhiEAjE/3loAGJ0Uns30tXkhFrZRZoRCzguj2YVZL
+	 jr2/Da1yxUa6gD2MemsUC4TbUPY2albjNhEZlVpCEyK/Pty3ba7Po0rGrTOUCPQBdxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OIzoKe6Q;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A25C606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:27:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A25C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OIzoKe6Q
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so2826211a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:27:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794770869; x=1795375669; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zK1HFeXb+5RIaaTyR8jNDy335l1vYAJOKc4AYeqRcfQ=;
-        b=OIzoKe6QdCSPp0UTuPTRvk4jU2866oxArlCSwkQQ0rk53rt2m2h0Rnqyy6YiLEHn+i
-         ITZXLfC2DUrD8/MZDW9gyQwYK9x1dzUzk9WxLCeGT5D6ItOCerMzTnkYl36CC8lZp3z/
-         QW62V0XxpvRoN1GS0TkHQdDiCAYZ6Ts2thQFPvzO+6cL5HQ0E+Ga3CyS4PrSR+FzAFvj
-         1tyEMYDbhKQ1TaM+PkV6c4kJtexkl5GKhq/Ex0ycn04KMaBIgs5oZmq+u6+pZOn8hrc/
-         UO5alnT7IIqm7KPzUDKWF/63k5tGaQxQWWm//y+HaT6LoyxQSYAvv8vWd4/ciz4IOOza
-         HNtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794770869; x=1795375669;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zK1HFeXb+5RIaaTyR8jNDy335l1vYAJOKc4AYeqRcfQ=;
-        b=MaQBk+Br8yS7+wzgWcV9GAuW6C2gHobv9+TEOJxY1atBI21plwRMKRzZTk9GBNP5hb
-         UwvJj0w0N7N9GBFldXUG3mXDcLtgo/qgJA/+kFeAFIjE3i2V12/+HfbsBz90xIfhW3k1
-         kvOoS9Ra5/dSAAi9ohKVdg/Ead90E7Mu1k9eqX4kNanbT2EBcqHzWZrKUHT8aaqyDaO8
-         oPSrn/M6hqien8Y2tWQqw2G3VpkY7Tfoy3Dmk0FXRH3zce6LVSuF+QR/Sc4zti8lq6z1
-         1Epp2y4ZDUWyjVp/pmciFPTR7B/lTb1SE7zbeW7b5GB+QcxsS4CQqk4t3cMv6nXVDtxm
-         2XOQ==
-X-Forwarded-Encrypted: i=1; AL+hErFI0jZQzUySFEwNxyruYvoVEzQxZ0xBAMgeeYglCaHaToMMIUDGwB24v1WJk5Xt1du7Q8x6L/NgUpdwP5I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FENiQA1jc3w2jVNThQ8aQ9ifYAmkZMQT26qvmPcR/AJgdkj0a
-	aH2tJkzWX8w/5exQCgclgqDuCSaVpgzKWBhzKcXprLIHWHKrOk48DcFL
-X-Gm-Gg: AYBFou2rXUiuUP8E7kOgQW9eHsl2+1WP75OWA1YAH7CjT9DsDQPM6MfyiIJ6jRMy5pI
-	ULTP9tDlF04lfGt6mtQ3SipsScVj0hJJHweav4ThZTaVHzm/OKvZXm6GZVVR1aphn0v3f4qF2eZ
-	BugeXDco37novb3pr0iebprgPc3xjDq1hNRtWfS1wZPMohFz2UNvicuIyMqOYzHEv2Hi5AjFRQK
-	okncaJkvn2AosElRzK7+6DZSiFFqRLhBHZnUYgbrNVN3Zo8M768lpqXv+eeXbF3gPjQUzQzwBcM
-	4dS0wduc9/o8pslH3cM4tNGFXqVgqcljKClvWcqCjgkeIByO/hcgDJ0CoxfzgEgPHeGhwb1D8j0
-	o6xOWH3V33YPJbjdGxbmWpI/3Duq30nvuoyy7lNmNtoCD8k9QeLuF4Ks2gnqKRRnrIK16PFPTn9
-	QsfgibXDb4TZ7lvG7z44sLiCe1RGDjPzjRDrJ8eTtu4oDppAFjKGJFEVK6fQiX2TOR0knmXhh77
-	+LfFyJbRfSPw9/r0L3w6T0bRpQ6F7Pu9JNY+9AbfdX7fmHMgWbj8jxyHfnXDlQ8erRoVE7UbJlw
-	89IYvzOBxQm4TrAZOEmpLsbdEvCwAvkId382N7Ix7rK0m6BtyoNXXQ/goIsq
-X-Received: by 2002:a17:90b:1b12:b0:3b0:a3eb:759e with SMTP id 98e67ed59e1d1-3b1b09e5cb0mr8453054a91.17.1794770869377;
-        Sun, 15 Nov 2026 11:27:49 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:d1be:2710:af83:9beb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b4cca7sm5633895a91.2.2026.11.15.11.27.41
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 11:27:49 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Ziheng Wei <zihengw03@163.com>
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] wifi: mt76: mt7925: fix mt7925_reverse_frag0_hdr_trans() for MLO
-Date: Mon, 16 Nov 2026 03:27:25 +0800
-Message-ID: <20261115192725.8230-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261115080239.910402-1-zihengw03@163.com>
-References: <20261115080239.910402-1-zihengw03@163.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4369606A890;
+	Sun, 15 Nov 2026 19:28:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D29B1F000C4;
+	Sun, 15 Nov 2026 19:28:10 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,58 +36,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/1] phy: qualcomm: m31-eusb2: Add register
+ XCFGI_159_152 for SE0 recovery
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Peter Chen <peter.chen@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Elson Serrao <elson.serrao@oss.qualcomm.com>, 
+ Ronak Raheja <ronak.raheja@oss.qualcomm.com>, 
+ Wesley Cheng <wesley.cheng@oss.qualcomm.com>, 
+ Udipto Goswami <udipto.goswami@oss.qualcomm.com>, 
+ Jack Pham <jack.pham@oss.qualcomm.com>, 
+ Pratham Pratap <pratham.pratap@oss.qualcomm.com>, 
+ Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261027015545.2758784-1-peter.chen@oss.qualcomm.com>
+References: <20261027015545.2758784-1-peter.chen@oss.qualcomm.com>
+Date: Sun, 15 Nov 2026 11:28:07 -0800
+Message-Id: <179477088797.132702.6764909412562148256.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2666;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=CkVV2Z6n887sHlq0y6Nrzi6ogW1akCFY6515LpCrso8=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+gfKPwG9ryOEGXLeuMHwXxU0JzlEI+Op9xvr5
+ o02zWKbG2mJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoHygAKCRBVnxHm/pHO
+ 9QiBB/9d1C+xOeJntv2ZEA4qL+U2A8rvd+Qi2LaeOrgEaGIBehuvRlFrcfPHZssTYRG5/F+8Iee
+ 6wIrplH/Z3ZZWtOOn6Gf/KshKcKRiZ30b7XPDQSB5sRFmy+TZMdlMYjrDl06cMFdtIkN0xNv6SF
+ IkghtKBRGiE118GbO2J2cyCEzSJmXUqzWyiLxo1+aAvi6ScZYlRiO18XQihDkRwpzkyEoyGzFfM
+ 42jv6Ilu57qGbzBkw9P3UjQuIIjrnaXxwc8SNwdR7LdVhX82mYdUEKrl4iR8mdvZRoYwgtmsOZh
+ zURmrMqkN8YbQH3BHK6EKFxvXS+7RVk/kfu/2OhkxUNVqi6E
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Hi Ziheng,
+On 2026-10-26 18:55 -0700, Peter Chen wrote:
+> From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+> 
+> This patch introduces support for the XCFGI_159_152 register to enable a
 
-On Sun, Nov 15, 2026 at 04:02:39PM +0800, Ziheng Wei wrote:
-> -	struct mt792x_sta *msta = (struct mt792x_sta *)status->wcid;
-> +	struct mt792x_link_sta *mlink = (struct mt792x_link_sta *)status->wcid;
-> +	struct mt792x_sta *msta = mlink ? mlink->sta : NULL;
+Avoid using 'This patch'. Once a patch gets merged, it will become a commit.
 
-The MLO part is right, but the cast still needs a guard, and the
-MT_RXD3_NORMAL_U2M check below does not provide one: it selects the
-unguarded path. mt7925_mac_fill_rx() computes unicast from the same
-rxd3 comparison, so every frame that gets past that check arrived
-through the one branch of mt792x_rx_get_wcid() that returns the WTBL
-entry as it found it:
+> hardware-based SE0 recovery mechanism in the M31 PHY when operating in
+> host mode.
+> 
+> During PHY initialization, spurious pulses from external devices can
+> interfere with speed negotiation, potentially leading to abnormal
+> behavior. To mitigate this, the M31 PHY provides a fail-safe mechanism
+> controlled by bit 159 of the XCFGI register.
+> 
+> When XCFG_SE0_TIMEOUT_EN (bit 159) is set, a hardware counter is
+> activated to monitor the SE0 state. If SE0 persists for more than 2.5 ms
+> before entering L0 mode, the PHY interprets this as bus inactivity and
+> resets the state machine to its default state. After transitioning to
+> L0, the PHY resumes normal operation in accordance with the eUSB
+> specification.
+> 
 
-	wcid = mt76_wcid_ptr(dev, idx);
-	if (unicast || !wcid)
-		return wcid;
+Please rewrite the commit message in imperative tone.
 
-	if (!wcid->sta)
-		return NULL;
+> Fixes: 9c8504861cc4 ("phy: qcom: Add M31 based eUSB2 PHY driver")
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
+> Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
+> ---
+> Changes for v2:
+> - Add Fixes and Reviewed-by tags
+> - Link to v1: https://lore.kernel.org/all/20261020061811.3127511-1-peter.chen@oss.qualcomm.com/
+> 
+>  drivers/phy/qualcomm/phy-qcom-m31-eusb2.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+> index 275df38256de..8d954e772585 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+> @@ -56,6 +56,9 @@
+>  #define USB_PHY_XCFGI_7_0		(0x15c)
+>  #define PLL_LOCK_TIME			GENMASK(1, 0)
+>  
+> +#define USB_PHY_XCFGI_159_152		(0x1a8)
+> +#define SE0_TIMEOUT_EN			BIT(7)
+> +
+>  #define M31_EUSB_PHY_INIT_CFG(o, b, v)	\
+>  {				\
+>  	.off = o,		\
+> @@ -88,6 +91,13 @@ static const struct m31_phy_tbl_entry m31_eusb2_setup_tbl[] = {
+>  };
+>  
+>  static const struct m31_phy_tbl_entry m31_eusb_phy_override_tbl[] = {
+> +	/*
+> +	 * Set XCFGI[159] to enable SE0 timeout mechanism in M31.
+> +	 * This enables a counter which will assume bus inactive if
+> +	 * SE0 is more than 2.5ms and reset the state machine to default
+> +	 * state.
+> +	 */
 
-Not every entry is a station link. mt792x_init_wcid() reserves index 0
-for beacons and management frames and installs dev->mt76.global_wcid
-there, a bare struct mt76_wcid inside struct mt76_dev, immediately
-followed by the wcid[] table. For that entry, mlink->sta reads at the
-offset mt792x_link_sta keeps its back pointer at, which lands in that
-table, and msta->vif then dereferences whatever it found, so the header
-is still built from a type-confused object. I can't say whether the
-hardware reports index 0 for a header-translated unicast fragment, but
-the non-unicast path in the same helper already guards its container_of()
-with wcid->sta.
+Any reason on not making use of 80columns for comments?
 
-Doing the same here keeps the conversion valid for every entry, with
-mlink and msta left uninitialized in the declarations:
+With these fixed,
 
-	if (!status->wcid || !status->wcid->sta)
-		return -EINVAL;
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-	mlink = container_of(status->wcid, struct mt792x_link_sta, wcid);
-	msta = mlink->sta;
-	if (!msta || !msta->vif)
-		return -EINVAL;
+- Mani
 
-> +	link_conf = rcu_dereference(vif->link_conf[mlink->wcid.link_id]);
-> +	if (!sta || !link_conf)
-> +		return -EINVAL;
-
-With status->wcid->sta checked above, wcid_to_sta() cannot return NULL
-here, so only !link_conf needs to be tested. The per-link BSSID lookup
-matches what a3ea1c309bf3 did for mt7996.
-
-Thanks,
-Zhao
