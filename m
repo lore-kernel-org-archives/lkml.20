@@ -1,50 +1,43 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794784589;
-	b=lrt1NOdgm6J6zHHSQW1Ov6c1V2KztkgWxy02y2TRQlwDOvxkXSK6wK1iiydoEuPFbB3x
-	 V3iwh9yA3/nxS57Danu9YMuqiFe3fgcOFgcqhcHJKtVDAmhPIXubVwEi5YAd969jAIuo0
-	 k0PSSmGRem/RhVIq4UVJCuusBp7poSIqKVlC+IJh+U4ULAtNBiexr3r/C8ByyxMnDLb/x
-	 HWItmBHGYqzG+5eLYn0uiwK+xZ4bjEWdO2FzPCpb92CI66MRLtjljZp6tQJl6Y5/7PNIh
-	 W4TWZAPNayG2lXRRoS8CuKAiW5hGJp49uA7YGWAleBSqr82gBFzueQHA4J8deGIRdsQ==
+	b=Bh4cCp63XvaiTISZLNykBQQmnj2Ym1SnTy0DHk42OquqjC3cQeKdYKSQ0IAeu0qsOskQ
+	 PkJkXA01FreIEA9B5h8Z8effC5dD1IANGb4eK+oBmD4g27Dc1LLDMmPOwLilaB5U1YzR0
+	 6toE9wfUV2eHRPdTTkdn0KeuNBeEcskuKdTbkN10dtlRNcSJ5ckIz4bce9R+DELp8w0FV
+	 0penarYzZIgS1Q9sL51zKBp34B45aKVDR+qq3UjKGYc9932I5XywJdTIz/CshLDW+FVUw
+	 rThEN9NI6u+PjPL1BUptWEAAA18AG+zmA2RCOiIx8HBAEW3gFmdiXorJnkrzIaNpOmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794784589;
 	h=Received:Received:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=a+w238kPtYPJFlKbG68YXn27xRXOoOY7E6OIISLXm1k=;
-	b=wwE1MkKtz35hMFW4YzyUroAiVtcrIjyVrdEY3k5wsRaJnGZIrLh9Xw/rOPxiuZeAzqPZ
-	 LnLk3o4q7gxkhYTf7uwL/LQR/JTnkjU1HgHtauBr7I8CzCHkw0fXfTen/i1Nh1jBlzGZK
-	 tMApKcMe3X7Y/B81Gg7JOFGiE8GRHr3fMcKMA7ucF+qG0KQ/0KTEqhFrDfmaEZ2QcV1uc
-	 /PlNITyaPNlcp/smJnMuYQ3rR559LbiifL9Dm6wseMNyU3gUrAunKPd0lW683f4sYLCCr
-	 lrbw+n989twGn62WXMlvrH3E0m2UCYxSKYdUd4Hn0Qeyr5aFHFaKfGgdb6vfhvKeXVA==
+	bh=JrTdSg4vZD7mK2oRGlVfshHa6kogWTh6d/yF+oX+7Vc=;
+	b=hZsjWx9if75CLWClSXivIvkVD+KYqsoruwrCek8t9EGDqNhte/1dze2YohKnX44hGY6V
+	 Vpem1dKNQAhVJ0MtC7kVtwdPh9oV04/YSaFYiA7G35/m6C3EGsxu6R1cyuCI/8VEDLNJ7
+	 F4RiX+UCcWrIEyTGv0SalQSp5NHFjEuKToZBGTA72gCSdLK5MaqvJNvBLwIS0qLZoKEeA
+	 9wWRHwP/PmbIpF2Wq43+ku0/qJBNr01hMN8tdo6Ng/wzZMQtjwMUhc2jr22KujYKNvZFL
+	 af1mJ0drs+iJgYcqzQjkpqdbvW9ovD61hX5Z1ye6kwLc9tKh/FSg8AF6chAfuCV3BzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9863E606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985AB606A31F;
 	Sun, 15 Nov 2026 23:16:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A65A1F000C7;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC241F000C4;
 	Sun, 15 Nov 2026 23:16:29 +0000 (UTC)
 Received: by venus (Postfix, from userid 1000)
-	id 9397C181BFB; Mon, 16 Nov 2026 00:16:27 +0100 (CET)
+	id A0E85181BFD; Mon, 16 Nov 2026 00:16:27 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Eliav Farber <farbere@amazon.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-In-Reply-To: <20261113104459.35839-1-farbere@amazon.com>
-References: <20261113104459.35839-1-farbere@amazon.com>
-Subject: Re: (subset) [PATCH v6 5/7] platform/x86: uniwill-wmi: use
- devm_blocking_notifier_chain_register()
-Message-Id: <179478458759.205616.10010504977852392294.b4-ty@b4>
+To: Sebastian Reichel <sre@kernel.org>, linux-pm@vger.kernel.org, 
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261111222124.1035303-1-colin.i.king@gmail.com>
+References: <20261111222124.1035303-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH][next] power: supply: Kconfig: Fix two spelling
+ mistakes
+Message-Id: <179478458764.205616.10991046626009385263.b4-ty@b4>
 Date: Mon, 16 Nov 2026 00:16:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,16 +53,13 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Fri, 13 Nov 2026 10:44:53 +0000, Eliav Farber wrote:
-> Replace the blocking_notifier_chain_register() +
-> devm_add_action_or_reset() pattern with a single call to
-> devm_blocking_notifier_chain_register(), removing the
-> devm_uniwill_wmi_unregister_notifier() callback.
+On Wed, 11 Nov 2026 22:21:24 +0000, Colin Ian King wrote:
+> There are a couple of spelling mistakes in the Kconfig text, fix them.
 
 Applied, thanks!
 
-[7/7] power: supply: cros_pchg: use devm_blocking_notifier_chain_register()
-      commit: 1937d7bfbae4268a293043589c0954fe16f98ae6
+[1/1] power: supply: Kconfig: Fix two spelling mistakes
+      commit: d44db44c15b988f20d0fc990777980899c6ef06a
 
 Best regards,
 -- 
