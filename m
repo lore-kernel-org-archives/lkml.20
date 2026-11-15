@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753416;
-	b=Cf6nD/zHRPCdK1aBPnRqtWPjSKt+cpN6Ez2oFyahl7Ri0G7FcKq1vAMZChn+ehyZZNdq
-	 8UEtTjssiR4VMvao0U05VHvL9PIWrXxIUD1o7i/JSG6Uin02FmabHkMUKmB1B4joKin4O
-	 TGgd4Bdq9TAOHCBDnv93+Ao0NizZsVTMy70e0PkkMKVj60C08+1wC8n92fSsvwVF2xuc9
-	 hcuXRccHFzJFCefthnLdnHKy0jaFi61AJtJSUfMASkl3B2rTEZrcAigVBeMA25pzEfzXa
-	 XV+u087SpB3ZPwpiTc9QwEVUcDc1pBomp1LLDEqr5xqDDriVmrRigQ9jbA2BVBbQumg==
+	t=1794753458;
+	b=l5xffNOSkbdlYR5foA/bqcXz8oEnjdu7J5nelAA9STmt++Ne1JJLwM8BUcsKVaxc5AhP
+	 1eivf4ssCFE5cXZqgWQ98Vf1Nnhagf9GnMODib2SVygP/OZe0abnOxJTVmFHk8NP0h9/3
+	 mGo8ugiGq8xul2gJWXlXRPv8zUn15cRzLM6LKt+ZLHJHDqaQEIuzukPjnJKTGnjSTCw15
+	 Bo8TvOREQglxXp9xa9Fp8CZQfsgyCwdPVQ6SHTKsiO7bzwUzbUSOe4DtjMXon8Ylo3ZUE
+	 T+L2gD9UrhXzdSbX6BMgxqhkDzrkNtFw5NQ7USvNlGS77EmQK03Es+PU97+Obq5kvYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753416;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=wyhe2kapAZArTD8qJ0pBkkV0jJkCFoxGvELft/IKCOo=;
-	b=ObBD25VSGmuyK+cg9ggO7P4AKoTZ98WjBHQlA7bBhZCLd4DvFKeXM3vQHMCPgB/x7DkY
-	 6R05zCcg74hE9l2GoS+RPb1YO3u7Cnganm6W+tZf4DN3ReijoXij/61/nOrJZfRCZj5MT
-	 IJD8uaO6kpYPpsCJMUr9XmDC3sgp1Sk9tPHYTqTGOX47GlNmMVNIZ5kqL0N6SDsxV3s8n
-	 OjtJPHN6Z7zGLYt+wJLFOV7JaFfXe18Pfhl/jmXDCju4zt1nKqWwHTxFo4bQsNUJU3TjM
-	 pxnjpLbjLSaywykg/K1tQDRD8WYEPon2XWe0xW7xIdsfjFTy7ZvcbrNYNlQFY1oZuDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753458;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=TZFY0nWk89RIttQycWfHfmi3Uv3kaULeHN2GeypqrKs=;
+	b=oJMdWGoAOPTXppPJFfxx6Cnhy6LfPWWxRRBx6CRGpLEo7UqMrHHd6ta4f1x5hiPQl7qv
+	 FXF7VvgchSBHRCo/6aW9+U16QSm+0GvtYKgd+VnK5vgVtKRf8atXJ+8pfqunX6tfF5GJI
+	 PMdMI0vyYx0NFwTgbVimqbrwKEwLKlP5sGCcvO3E5laMJ+IfI8GP1Xqt3MfiwXV3gFbIu
+	 hedSFwKFYl6RHYfe98Zn1uMXe6unYSg+yydxW0u/gp2JFoICfSDYTpG74AJmwLmWQfUkp
+	 ua0RkCMGEfsgXciP57POnJYk105fhH8ccrbQpEKb6++o+c+JHuDnhxPw4Lx+j1tmVkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jq26txFI;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dbIl5CZB;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE1D606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:36:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAE1D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6D0606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:37:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F6D0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jq26txFI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794753416; x=1826289416;
-  h=date:from:to:cc:subject:message-id;
-  bh=hM2fS1FOzQH9GVrq6afmOCaES/o1lDprQhXwREJBx+k=;
-  b=jq26txFIP3Bu7sFOHKQNNQWBAH7gak5ub6SP8BByZ5Kl19HKO77eZIzD
-   cMq7WXBE6OMAQIrbQCg2h8A+c9D0nR6t4JYJzZHENR7RnVOnF/MRobS/w
-   bhPZSxOlvDldRU5gZS5HErKvcJA32iXUkVA/T6+s0pX4DvQKupwzNjrnS
-   W755Udi+cgTrQ1QKAf0xGJAOO6R5B4zNjT3Te4pLPNIMkVgEcIwEggrlA
-   yyXw30bk3oEdQSBfSLnejNC0EE1Ji2vhK02IUOCgPaH9+lWTau+ka1E+E
-   8kSv8UYxhE8ql5tpkTDi/8qaCNjsH9FvhUh5Q7HpFBuZitAzEzYvTyOp3
-   w==;
-X-CSE-ConnectionGUID: 3r8DA1RzR6mtOJ4+tzSECw==
-X-CSE-MsgGUID: fhHfeoYMSjG1PsN9dJcK2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3490497"
-X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
-   d="scan'208";a="3490497"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 06:36:55 -0800
-X-CSE-ConnectionGUID: w3FxVu2hQja2b2WpszG8kA==
-X-CSE-MsgGUID: EM+4bPEbRoasEl+8Dfy92Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
-   d="scan'208";a="9344700"
-Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
-  by orviesa006.jf.intel.com with ESMTP; 15 Nov 2026 06:36:54 -0800
-Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xSbLf-000000002Ec-02aR;
-	Sun, 15 Nov 2026 14:36:51 +0000
-Date: Sun, 15 Nov 2026 15:36:16 +0100
-From: kernel test robot <lkp@intel.com>
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Subject: include/linux/fortify-string.h:562:4: error: call to
- '__write_overflow' declared with attribute error: detected write beyond size
- of object (1st parameter)
-Message-ID: <202611151503.Yv389PS2-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dbIl5CZB
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so2899376f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:37:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794753456; x=1795358256; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TZFY0nWk89RIttQycWfHfmi3Uv3kaULeHN2GeypqrKs=;
+        b=dbIl5CZBTlZARi63kuoDghFVe2FXcO1LMdDeRqXWoj4s6usVbGU/Ee5bTMidXDwiro
+         On9rPGsq6pRmeXQNPyVgPLs02pMGlubT/7jSYEKOabny1JNKW9BeiyCJEguOmM4JXSP2
+         8kg3aLkDQShWXXWajzbIf4VYzaLKi1l4tkrmioKCWgUXfACFxqwrqKI3DsoqGnBPuSax
+         eqm+rxN2elipMluqrHYhz69lN9MSNixobHK76TNGzZdOGQDt+67D5b1ovOQMaos9wQ9k
+         vDxSvC68KdJWakHd78r9QqzG9g70S/CF3Y+ADs8XF/rczpISsEKNn3q15ntorz9eb/eq
+         flAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794753456; x=1795358256;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TZFY0nWk89RIttQycWfHfmi3Uv3kaULeHN2GeypqrKs=;
+        b=SSh8CZRP/wy09EGYPW1MIWXAov12fLsJUz1toVExwisfsbZNVFy8oS0m4Gl9TOI7rh
+         xl00QnL62/+0wZV6yYjscJEKQFBMjF4JY2wCtdc1vFX2C2Kkmpq4MexZb1Ys4UhFr+nf
+         YXEiWBxorfPCENn69wOZjus4n9jHAoe9ZKkGyfcPnkmi+09tLFTEAWa4d9D7u+NgseQZ
+         6Qd23+Gy/nB40Fhuw+eMzhtuu85hPD6OAegWW/xl2EcDj08WsIi/5kc7Y4jhRFevvWcR
+         MipEAovLm8VpfjEDBF4SZXQPZHD/YckhqJ23fGWrd+w3m/HRhZPXxuAf3hiY2mVYF7iI
+         s1OA==
+X-Forwarded-Encrypted: i=1; AL+hErH5IN/AbyKUBBmwYfmeJ7ezXW/ShsH7uUZgY6pcFZUtu4CvWcX7862RXK/1GVRf15HusWbzmI1CnM7+NxE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9dci8ruwMyvaaSFGQdwK1CCzOGK9YdG9KxeM5GQM60e/bhbO7I
+	DrOl30b4XexYUzctotEpG3GfR8Lu3KbPhbNkrIoTuFdACk+5Qnh+FIDv
+X-Gm-Gg: AYBFou35foKJ4dTPtd4VqgNlxnlqJaNKh2I+64iWpCAchg/NFKcFAqIvBlC61qxkD47
+	qO9/Tumcnt9N48lG/pKqQoukxN/aSqdjsVEjI6Jv97HWRknFXZ9tCkd8yJqufyCKqsnPFJXHrOu
+	7L72x0EsdEe3Md5nSQTToRsNfDZkR8Pe8To+MnUKMi7Wo2e8YNHLe6M++R32tQ3xvdQ/1SoU80H
+	nqJrAFcCRD+16uCucR31we0s6p2hDPGu6Vnn8x7zp01t1Cq7p8+RvLqx6QBfFTl7tCUDONpO/db
+	O67Okl2/23Q9bX+3NLJnyADWoWUV40E/D+FiZLEbAOaOCDehsk81t1LBdd3IXEc30FTQdZpfjZR
+	F0zd37NThsUR/XqB99G4XGjcuqUH87DDYk1YgLCNlJQQ0SDudvQvEsTMDQ7k+pM0uBQG2wu12SG
+	r+qwFrl5Sm6CIs6oYc6Db2V6O3F98WltszXJm/q7JFgZFiQh0JMvVWBmR93e9Bp6gWOfMJZcvNV
+	yvCA4YjqkFUA09B7i5JjlQxbeDolZtQhWOPU5itjyKoExvtwlJRBJ1c4pGG1tESdCIFsb0McYHX
+	NYr7M3lYMr7JmVZUKiSPYEW55pR8hFpITauolIKXQeUIt9k+mJIuE/etyO2U4Mt60g==
+X-Received: by 2002:a05:6000:2990:20b0:48e:3d2:44b1 with SMTP id ffacd0b85a97d-49c7353c8aamr12310750f8f.52.1794753455945;
+        Sun, 15 Nov 2026 06:37:35 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm16954821f8f.56.2026.11.15.06.37.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 06:37:35 -0800 (PST)
+Date: Sun, 15 Nov 2026 14:37:34 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+Cc: "Hungyu Lin" <dennylin0707@gmail.com>, <andrii@kernel.org>,
+ <bpf@vger.kernel.org>, <eddyz87@gmail.com>, <ihor.solodrai@linux.dev>,
+ <daniel@iogearbox.net>, <memxor@gmail.com>, <martin.lau@linux.dev>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <emil@etsalapatis.com>, <alan.maguire@oracle.com>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next] libbpf: Fix sign extension of unaligned enums
+ in btf_dump_get_enum_value()
+Message-ID: <20261115143734.4addeb28@pumpkin>
+In-Reply-To: <DMUPC8KHIGGC.1GSNJVGA8XC98@gmail.com>
+References: <20261113223449.97604-1-dennylin0707@gmail.com>
+	<DMUPC8KHIGGC.1GSNJVGA8XC98@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,163 +103,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Lijo,
+On Sat, 14 Nov 2026 05:58:41 +0000
+"Alexei Starovoitov" <alexei.starovoitov@gmail.com> wrote:
 
-FYI, the error/warning still remains.
+> On Fri, Nov 13, 2026 at 02:34 PM Hungyu Lin <dennylin0707@gmail.com> wrote:
+> > btf_dump_get_enum_value() reads unaligned enum values through
+> > btf_dump_get_bitfield_value() with a zero bit size. That path
+> > zero-extends the value instead of using the signed loads that are used  
+> 
+> Not quite. bit_sz == 0 makes right_shift_bits == 64 in
+>   *value = (num << left_shift_bits) >> right_shift_bits;
+> That's undefined behavior for __u64 on both endians.
+> Pls say it in the commit log.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   23c62304dde29abe92013d85910d03a77dada35d
-commit: 294403fde5ba8e972d1bab88ea56be0fa2ff1f3e drm/amdgpu: bounds check VBIOS name extraction
-date:   5 months ago
-config: powerpc-randconfig-2001-20261115 (https://download.01.org/0day-ci/archive/20261115/202611151503.Yv389PS2-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 9.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261115/202611151503.Yv389PS2-lkp@intel.com/reproduce)
+Isn't a size of 0 just wrong?
+The code is likely also wrong for a size of 64 - which is valid.
+I also remember there being a helper somewhere to sign extend
+a 'narrow' integer.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 294403fde5ba ("drm/amdgpu: bounds check VBIOS name extraction")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611151503.Yv389PS2-lkp@intel.com/
+David
 
-All errors (new ones prefixed by >>):
+> 
+> > +	if (t->size <= sizeof(buf) && !ptr_is_aligned(d->btf, id, data)) {
+> > +		if (data + t->size > d->typed_dump->data_end)
+> > +			return -E2BIG;  
+> 
+> This breaks the dump of struct fs_context when emit_zeroes is not set.
+> 'phase' is an enum bitfield of 8 bits, 3 bytes before the end of the
+> struct. btf_dump_type_data_check_zero() ignores bit_sz of an enum:
+> 
+>   btf_dump_struct_data()
+>     btf_dump_dump_type_data(data = end - 3, bit_sz = 8)
+>       btf_dump_type_data_check_overflow()    1 byte, ok
+>       btf_dump_type_data_check_zero()
+>         btf_dump_get_enum_value()            t->size == 4, unaligned
+>           end - 3 + 4 > data_end             -E2BIG
+> 
+> Today it reads 1 byte past data_end and the dump succeeds.
+> The over-read is an old bug of enum bitfields. It needs its own fix.
+> The fs_context test in test_btf_dump_struct_data() sets emit_zeroes,
+> so it doesn't notice.
+> 
+> Drop the check. btf_dump_int_data() copies without it.
+> The check against data_end belongs in one place for all types.
+> 
+> The first case below fails on bpf-next today.
+> The second case fails with this patch.
+> I didn't build it and didn't run it:
+> 
+> diff --git a/tools/testing/selftests/bpf/prog_tests/btf_dump.c b/tools/testing/selftests/bpf/prog_tests/btf_dump.c
+> index b5c90f7..d6fd993 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/btf_dump.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/btf_dump.c
+> @@ -945,7 +945,7 @@ static void test_btf_dump_enum_data(struct btf *btf, struct btf_dump *d,
+>  				    char *str)
+>  {
+>  	__u32 high = 0x80000000;
+> -	__s32 neg = -1;
+> +	__s32 neg[2] = { -1, -1 };
+> 
+>  	/* enum where enum value does (and does not) exist */
+>  	TEST_BTF_DUMP_DATA_C(btf, d, "enum", str, enum bpf_cmd, BTF_F_COMPACT,
+> @@ -994,6 +994,8 @@ static void test_btf_dump_enum_data(struct btf *btf, struct btf_dump *d,
+>  				"(enum test_enum_u32)TEST_ENUM_HIGH"), "dump unsigned enum");
+>  	ASSERT_OK(btf_dump_data(btf, d, "test_enum_s32", NULL, 0, &neg, 4, str,
+>  				"(enum test_enum_s32)TEST_ENUM_NEG"), "dump signed enum");
+> +	ASSERT_OK(btf_dump_data(btf, d, "test_enum_s32", NULL, 0, (void *)neg + 1, 4, str,
+> +				"(enum test_enum_s32)TEST_ENUM_NEG"), "dump unaligned enum");
+>  	btf_dump__free(d);
+>  }
+> 
+> @@ -1182,6 +1184,12 @@ static void test_btf_dump_struct_data(struct btf *btf, struct btf_dump *d,
+>  		type_sz = btf__resolve_size(btf, type_id);
+>  		str[0] = '\0';
+> 
+> +		/* 'phase' is an enum bitfield 3 bytes before the end */
+> +		ret = btf_dump__dump_type_data(d, type_id, zero_data, type_sz, &opts);
+> +		ASSERT_EQ(ret, type_sz,
+> +			  "unexpected return value dumping zeroed fs_context");
+> +
+> +		str[0] = '\0';
+>  		opts.emit_zeroes = true;
+>  		ret = btf_dump__dump_type_data(d, type_id, zero_data, type_sz, &opts);
+>  		ASSERT_EQ(ret, type_sz,
+> 
+> pw-bot: cr
+> 
 
-   In file included from include/linux/string.h:386,
-                    from include/linux/bitmap.h:13,
-                    from include/linux/cpumask.h:11,
-                    from include/linux/smp.h:13,
-                    from include/linux/lockdep.h:14,
-                    from include/linux/spinlock.h:63,
-                    from include/linux/mmzone.h:8,
-                    from include/linux/gfp.h:7,
-                    from include/linux/umh.h:4,
-                    from include/linux/kmod.h:9,
-                    from include/linux/module.h:18,
-                    from drivers/gpu/drm/amd/amdgpu/atom.c:25:
-   In function 'fortify_memcpy_chk',
-       inlined from 'atom_get_vbios_name' at drivers/gpu/drm/amd/amdgpu/atom.c:1404:2,
-       inlined from 'amdgpu_atom_parse' at drivers/gpu/drm/amd/amdgpu/atom.c:1642:2:
->> include/linux/fortify-string.h:562:4: error: call to '__write_overflow' declared with attribute error: detected write beyond size of object (1st parameter)
-     562 |    __write_overflow();
-         |    ^~~~~~~~~~~~~~~~~~
-   include/linux/fortify-string.h:569:4: warning: call to '__write_overflow_field' declared with attribute warning: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wattribute-warning]
-     569 |    __write_overflow_field(p_size_field, size);
-         |    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-vim +/__write_overflow +562 include/linux/fortify-string.h
-
-a28a6e860c6cf2 Francis Laniel 2021-02-25  513  
-f68f2ff91512c1 Kees Cook      2021-04-20  514  /*
-f68f2ff91512c1 Kees Cook      2021-04-20  515   * To make sure the compiler can enforce protection against buffer overflows,
-f68f2ff91512c1 Kees Cook      2021-04-20  516   * memcpy(), memmove(), and memset() must not be used beyond individual
-f68f2ff91512c1 Kees Cook      2021-04-20  517   * struct members. If you need to copy across multiple members, please use
-f68f2ff91512c1 Kees Cook      2021-04-20  518   * struct_group() to create a named mirror of an anonymous struct union.
-f68f2ff91512c1 Kees Cook      2021-04-20  519   * (e.g. see struct sk_buff.) Read overflow checking is currently only
-f68f2ff91512c1 Kees Cook      2021-04-20  520   * done when a write overflow is also present, or when building with W=1.
-f68f2ff91512c1 Kees Cook      2021-04-20  521   *
-f68f2ff91512c1 Kees Cook      2021-04-20  522   * Mitigation coverage matrix
-f68f2ff91512c1 Kees Cook      2021-04-20  523   *					Bounds checking at:
-f68f2ff91512c1 Kees Cook      2021-04-20  524   *					+-------+-------+-------+-------+
-f68f2ff91512c1 Kees Cook      2021-04-20  525   *					| Compile time  |   Run time    |
-f68f2ff91512c1 Kees Cook      2021-04-20  526   * memcpy() argument sizes:		| write | read  | write | read  |
-f68f2ff91512c1 Kees Cook      2021-04-20  527   *        dest     source   length      +-------+-------+-------+-------+
-f68f2ff91512c1 Kees Cook      2021-04-20  528   * memcpy(known,   known,   constant)	|   y   |   y   |  n/a  |  n/a  |
-f68f2ff91512c1 Kees Cook      2021-04-20  529   * memcpy(known,   unknown, constant)	|   y   |   n   |  n/a  |   V   |
-f68f2ff91512c1 Kees Cook      2021-04-20  530   * memcpy(known,   known,   dynamic)	|   n   |   n   |   B   |   B   |
-f68f2ff91512c1 Kees Cook      2021-04-20  531   * memcpy(known,   unknown, dynamic)	|   n   |   n   |   B   |   V   |
-f68f2ff91512c1 Kees Cook      2021-04-20  532   * memcpy(unknown, known,   constant)	|   n   |   y   |   V   |  n/a  |
-f68f2ff91512c1 Kees Cook      2021-04-20  533   * memcpy(unknown, unknown, constant)	|   n   |   n   |   V   |   V   |
-f68f2ff91512c1 Kees Cook      2021-04-20  534   * memcpy(unknown, known,   dynamic)	|   n   |   n   |   V   |   B   |
-f68f2ff91512c1 Kees Cook      2021-04-20  535   * memcpy(unknown, unknown, dynamic)	|   n   |   n   |   V   |   V   |
-f68f2ff91512c1 Kees Cook      2021-04-20  536   *					+-------+-------+-------+-------+
-f68f2ff91512c1 Kees Cook      2021-04-20  537   *
-f68f2ff91512c1 Kees Cook      2021-04-20  538   * y = perform deterministic compile-time bounds checking
-f68f2ff91512c1 Kees Cook      2021-04-20  539   * n = cannot perform deterministic compile-time bounds checking
-f68f2ff91512c1 Kees Cook      2021-04-20  540   * n/a = no run-time bounds checking needed since compile-time deterministic
-f68f2ff91512c1 Kees Cook      2021-04-20  541   * B = can perform run-time bounds checking (currently unimplemented)
-f68f2ff91512c1 Kees Cook      2021-04-20  542   * V = vulnerable to run-time overflow (will need refactoring to solve)
-f68f2ff91512c1 Kees Cook      2021-04-20  543   *
-f68f2ff91512c1 Kees Cook      2021-04-20  544   */
-54d9469bc515dc Kees Cook      2021-06-24  545  __FORTIFY_INLINE bool fortify_memcpy_chk(__kernel_size_t size,
-f68f2ff91512c1 Kees Cook      2021-04-20  546  					 const size_t p_size,
-f68f2ff91512c1 Kees Cook      2021-04-20  547  					 const size_t q_size,
-f68f2ff91512c1 Kees Cook      2021-04-20  548  					 const size_t p_size_field,
-f68f2ff91512c1 Kees Cook      2021-04-20  549  					 const size_t q_size_field,
-475ddf1fce1ec4 Kees Cook      2023-04-07  550  					 const u8 func)
-a28a6e860c6cf2 Francis Laniel 2021-02-25  551  {
-a28a6e860c6cf2 Francis Laniel 2021-02-25  552  	if (__builtin_constant_p(size)) {
-f68f2ff91512c1 Kees Cook      2021-04-20  553  		/*
-f68f2ff91512c1 Kees Cook      2021-04-20  554  		 * Length argument is a constant expression, so we
-f68f2ff91512c1 Kees Cook      2021-04-20  555  		 * can perform compile-time bounds checking where
-fa35198f39571b Kees Cook      2022-09-19  556  		 * buffer sizes are also known at compile time.
-f68f2ff91512c1 Kees Cook      2021-04-20  557  		 */
-f68f2ff91512c1 Kees Cook      2021-04-20  558  
-f68f2ff91512c1 Kees Cook      2021-04-20  559  		/* Error when size is larger than enclosing struct. */
-fa35198f39571b Kees Cook      2022-09-19  560  		if (__compiletime_lessthan(p_size_field, p_size) &&
-fa35198f39571b Kees Cook      2022-09-19  561  		    __compiletime_lessthan(p_size, size))
-a28a6e860c6cf2 Francis Laniel 2021-02-25 @562  			__write_overflow();
-fa35198f39571b Kees Cook      2022-09-19  563  		if (__compiletime_lessthan(q_size_field, q_size) &&
-fa35198f39571b Kees Cook      2022-09-19  564  		    __compiletime_lessthan(q_size, size))
-a28a6e860c6cf2 Francis Laniel 2021-02-25  565  			__read_overflow2();
-f68f2ff91512c1 Kees Cook      2021-04-20  566  
-f68f2ff91512c1 Kees Cook      2021-04-20  567  		/* Warn when write size argument larger than dest field. */
-fa35198f39571b Kees Cook      2022-09-19  568  		if (__compiletime_lessthan(p_size_field, size))
-f68f2ff91512c1 Kees Cook      2021-04-20  569  			__write_overflow_field(p_size_field, size);
-f68f2ff91512c1 Kees Cook      2021-04-20  570  		/*
-f68f2ff91512c1 Kees Cook      2021-04-20  571  		 * Warn for source field over-read when building with W=1
-f68f2ff91512c1 Kees Cook      2021-04-20  572  		 * or when an over-write happened, so both can be fixed at
-f68f2ff91512c1 Kees Cook      2021-04-20  573  		 * the same time.
-f68f2ff91512c1 Kees Cook      2021-04-20  574  		 */
-fa35198f39571b Kees Cook      2022-09-19  575  		if ((IS_ENABLED(KBUILD_EXTRA_WARN1) ||
-fa35198f39571b Kees Cook      2022-09-19  576  		     __compiletime_lessthan(p_size_field, size)) &&
-fa35198f39571b Kees Cook      2022-09-19  577  		    __compiletime_lessthan(q_size_field, size))
-f68f2ff91512c1 Kees Cook      2021-04-20  578  			__read_overflow2_field(q_size_field, size);
-a28a6e860c6cf2 Francis Laniel 2021-02-25  579  	}
-f68f2ff91512c1 Kees Cook      2021-04-20  580  	/*
-f68f2ff91512c1 Kees Cook      2021-04-20  581  	 * At this point, length argument may not be a constant expression,
-f68f2ff91512c1 Kees Cook      2021-04-20  582  	 * so run-time bounds checking can be done where buffer sizes are
-f68f2ff91512c1 Kees Cook      2021-04-20  583  	 * known. (This is not an "else" because the above checks may only
-f68f2ff91512c1 Kees Cook      2021-04-20  584  	 * be compile-time warnings, and we want to still warn for run-time
-f68f2ff91512c1 Kees Cook      2021-04-20  585  	 * overflows.)
-f68f2ff91512c1 Kees Cook      2021-04-20  586  	 */
-f68f2ff91512c1 Kees Cook      2021-04-20  587  
-f68f2ff91512c1 Kees Cook      2021-04-20  588  	/*
-f68f2ff91512c1 Kees Cook      2021-04-20  589  	 * Always stop accesses beyond the struct that contains the
-f68f2ff91512c1 Kees Cook      2021-04-20  590  	 * field, when the buffer's remaining size is known.
-311fb40aa0569a Kees Cook      2022-09-02  591  	 * (The SIZE_MAX test is to optimize away checks where the buffer
-f68f2ff91512c1 Kees Cook      2021-04-20  592  	 * lengths are unknown.)
-f68f2ff91512c1 Kees Cook      2021-04-20  593  	 */
-475ddf1fce1ec4 Kees Cook      2023-04-07  594  	if (p_size != SIZE_MAX && p_size < size)
-3d965b33e40d97 Kees Cook      2023-04-07  595  		fortify_panic(func, FORTIFY_WRITE, p_size, size, true);
-475ddf1fce1ec4 Kees Cook      2023-04-07  596  	else if (q_size != SIZE_MAX && q_size < size)
-94fd44648dae2a Kees Cook      2025-07-29  597  		fortify_panic(func, FORTIFY_READ, q_size, size, true);
-54d9469bc515dc Kees Cook      2021-06-24  598  
-54d9469bc515dc Kees Cook      2021-06-24  599  	/*
-54d9469bc515dc Kees Cook      2021-06-24  600  	 * Warn when writing beyond destination field size.
-54d9469bc515dc Kees Cook      2021-06-24  601  	 *
-2003e483a81cc2 Kees Cook      2024-06-19  602  	 * Note the implementation of __builtin_*object_size() behaves
-54d9469bc515dc Kees Cook      2021-06-24  603  	 * like sizeof() when not directly referencing a flexible
-54d9469bc515dc Kees Cook      2021-06-24  604  	 * array member, which means there will be many bounds checks
-54d9469bc515dc Kees Cook      2021-06-24  605  	 * that will appear at run-time, without a way for them to be
-54d9469bc515dc Kees Cook      2021-06-24  606  	 * detected at compile-time (as can be done when the destination
-54d9469bc515dc Kees Cook      2021-06-24  607  	 * is specifically the flexible array member).
-54d9469bc515dc Kees Cook      2021-06-24  608  	 * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101832
-54d9469bc515dc Kees Cook      2021-06-24  609  	 */
-2003e483a81cc2 Kees Cook      2024-06-19  610  	if (p_size_field != SIZE_MAX &&
-54d9469bc515dc Kees Cook      2021-06-24  611  	    p_size != p_size_field && p_size_field < size)
-54d9469bc515dc Kees Cook      2021-06-24  612  		return true;
-54d9469bc515dc Kees Cook      2021-06-24  613  
-54d9469bc515dc Kees Cook      2021-06-24  614  	return false;
-a28a6e860c6cf2 Francis Laniel 2021-02-25  615  }
-a28a6e860c6cf2 Francis Laniel 2021-02-25  616  
-
-:::::: The code at line 562 was first introduced by commit
-:::::: a28a6e860c6cf231cf3c5171c75c342adcd00406 string.h: move fortified functions definitions in a dedicated header.
-
-:::::: TO: Francis Laniel <laniel_francis@privacyrequired.com>
-:::::: CC: Linus Torvalds <torvalds@linux-foundation.org>
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
