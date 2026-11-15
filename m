@@ -1,105 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733899;
-	b=g/Pb4dOsHYDtYRtoluzBTnVK+kcrKCvjtnb5LY9kbOvypvjdIPFcRsIRIeqSHqA2/fX0
-	 ZZ+6+2WzznD91ZBmk6kWyiFJk0WYcsHFoXvqI7iRbDEZzBBrE8lGN9SFqYks14a/LajJ0
-	 DWy6EjKH0JbEnz80vNsdyElaPSk5l2SbqYDIs8pcCETLYupaCQGdPm9HJ/L6HwMdB1OPQ
-	 8OpSCxGS3KxYLEhMHiwTkaYhj3Rak7y5mLx9TREZtkAN4YAnlAfqa/7T3QYpYKOudxdRJ
-	 awb5HUQSISJbfOAl1Ko3ewQ7YCuFyzztLWZjvJjL7lqFbIjNslRNRGWgoPaThApdQOA==
+	t=1794733941;
+	b=urZ+g/9ohwaBv5n2OGbnHUnzD/2vHyCA6BM3D64s7HA/QB5O+Ko+x0XmUkUJ55qWNldk
+	 w6OIBo5gFxHwfaLNhc12FSdAJJXLT281Nlz8hMiBJ4JxiMvxYM5poTBCq5Zv+b5Ght5UH
+	 8LasSV79t/kppumdVdYfAtTZ42o5WUxW91w3bdgrWbrPiZr5hnMuaNbXmknUHdS6pbDTs
+	 eDSEi+QRyq1gZfNxB+9qkaf93JJ588zk7JuW2oSpxR9YIzCSpkyviXVrLQu3OLV1eOuty
+	 N/xjM79Sa+WJCd5GCAtzASM+9rUY7v7GSyFJ/VRvXOnRej1KtP2dBYOm0jeYHrDbHXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733899;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733941;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wcWcH7tJyixpCkmaYR6T6VjPcinuyJPX3UgBgsh3a94=;
-	b=H6c6Nu4DgtYy1CAUodf4sL/tLvDrZrq/LxBrRm7KeTpeSSnByLnVX20cZLB91f7ag5p3
-	 WDMkDnwKn33R91tDIU0yxLPFsnZTFmGpa5v0i9HBonC858NX4UhmxGLwJJQmPLtlL/La8
-	 JLX0w5wTD5tT8kbLxxRhvtVxfviur3kCmmMa4ecc1eq/u2RrvM+5y92urB8XTn2zv4Z2D
-	 ilQ/GeN5VUvxpqSBm8HTu/bDgMCm4N8pQ8GqYhbfbIgt3tmEkt3sZoGkTbWtkoWVdTWXy
-	 P9A7N56WR4wGQ3Tfvw2pdrkBZbtCOncUkVYOAA27q1cz7Y/2r8A367eKFUYph5zQoaQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6WJFie4wHwA9g4ldBNe7rVwQP1AavfCmBkfuHq7pLEg=;
+	b=hpS37LeLQkFydiLj7LymAVAjwU4qyTDupeZOVJtqZpv3XQmUgnPms3zoc6KDlsliDkzv
+	 zNW7/0wMm3T4gsjEcxOBLoAtdMYIiVfDRgFfOpWqs0TBp0F1wS87g1uKpbwa+hyD8UV+D
+	 GQPgATeTwwMx1xviySHON1j+xDBf4gtuY0iNQwMo/7v4yYrovWTr0jbNWbqkShteuKVGN
+	 T6EpCOEYew9sasQfdhFxrYuxRT850kcXyHw9fuglNG2Xbd4+llm9qVOfWilG4l9wrY0ft
+	 PaM+Oir5sSfWmA2KG49UgW5jQ8Mx6UBKY4hjncW8ZlWDxdrdNimNVYNQ/A300VFFv+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a2A9FU46;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dzHX0i9B;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B04606A880
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B04606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE27606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:12:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE27606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a2A9FU46
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c40e30c26a4so480499066b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:11:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dzHX0i9B
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso28202505e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:12:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794733898; x=1795338698; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794733940; x=1795338740; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wcWcH7tJyixpCkmaYR6T6VjPcinuyJPX3UgBgsh3a94=;
-        b=a2A9FU46G+YiztCbvxrFji+SXnIeWoZe5W8H+k3kUQ/qCHq4YhLKHZwlVzkXq8280U
-         IzF0NuXMD5lXnmObxGmcMI/x/hCT6srMphYqu+k0ksoKEa3JysO06aYhsnEpihXcxEUV
-         AG49snclUtE0sPUtYP16iCpRIs8IrDC4UHZYC0mn/4ctNphzJFHeww94U77LCOqWH8vZ
-         UwKMOem6ay7imGpw+AVFsZlHetX1a8Hv+s5JcrUsWOfXhjhtJJIG2biWL/wpuwnEEfEy
-         xHXbp0GkHCWddGBgMnnFLhS3zfkyxUMI19a9qoGAgqFcp7Wyl426+sP5BPywD7QUYaVp
-         okRg==
+        bh=6WJFie4wHwA9g4ldBNe7rVwQP1AavfCmBkfuHq7pLEg=;
+        b=dzHX0i9BCl9fHZjLEe0FI/ndyZH727+QrlmQIAOgcpaTXlggmmPcSiMkO+gy+VfKCc
+         BzZOT8jzySWnASJ+GRVowEmGRRIQIg1Bu6M7tDWfFKhntKbmAVUorg2IGjUhLk9gjJbc
+         o06Da8Oq7XIwuNX3ENH5e2G4IGQRmbKW93Hsd2N3D8auejhX5E+3LbPtyIsfPZ2YiVS/
+         8cEGlBocn+nzgDgcfKtbg/peddU2CY8cQKTnXcE/ShzYCJ8FMtBoP1dR7dlit78fb2so
+         ADlewt/ihhvpkGxQGkaNbAwmnpw/M28EDLDAvCgu/v7XeQ4KuEH9scf+XPDMYwWrasWd
+         SZQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794733898; x=1795338698;
+        d=1e100.net; s=20260707; t=1794733940; x=1795338740;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wcWcH7tJyixpCkmaYR6T6VjPcinuyJPX3UgBgsh3a94=;
-        b=f0TPxYaFgXJIjyiifbLRP1QcGL/E+FbpLfxoYeJ2A3ez4TSVQV0Xwy4RStYZ9PZ6KH
-         N4r0N6h1YTxdJOfO+KH4G8hb1Wsv2x29QBnonyVACvtlraczMdhrf7Z2IKO9dPqaaEr2
-         L2EFlbMm7umwY3PzmjlQ6W+LJNxCOs58bb2dW+C2ncRzBcWLUK5Fgknsfu/X+211Pftx
-         z2bUFRwpS9ar6RM40ZDve3NsgJvAaB0YNWRpfhbEEEt1FikbPja30cEZeCMCYN8qD2EV
-         9LnYMc4urhu0fx8RL/a3RrSOxUuxNgM3udIML3yYeU60rFJFeV7dtJxNPjQmNFnKQnEs
-         XaFg==
-X-Gm-Message-State: APuU4Z8QXUFA1twpuvQJyGyrAyTmTrLM/uegGYI/7VEJ8J+4CWvT6s0S
-	KLSTyQJTlPRZX5oEO8FM2M6De4wE1bg9qZ1ffpvB/QCGyebksd+OWXOK
-X-Gm-Gg: AYBFou191gKCHiP4wgMpKeDSAw9Y+AhfkXvscbxog78HFHw5DynT6URoIEYIK4WDBjS
-	Iut2EvlQT8+3OhaksCAzsnMbCTF2CXRF+Zw1XsUfxQ7nmlQZiHmxJQAmgE9c48B4urutrf9do+G
-	yIcz9Yx82NHfS8V2TIWGc2VOcTpgusEO97t3fnUz/dANZZv8EQEpk2uIRPudL38arjturQG7luf
-	bhVQYv4X+wUqO7O0kDXG6TH8s//4eCQSxOE+1zD9WmIBgPMFGMqVJmz/WL940ofzpVRt8m5ph7o
-	tS24TB1p1gXUmBBl1UoHZvRUuijqSiBzSSkZsJ1svG4Uq8U52y+TSnUkcVflVm/cj5kXh2xd3kw
-	jHYoxxDfFL0Sckb0fD+np+4HlKeHDyhcVff90smA+gnX2M+MFO0YFvlQwLY2pd7NfegVik4q4GH
-	Rsk8q5gmjrrgisN0r//F7ZgbK9RnhBiLInMR1UPvDfitfRfmC5jHrxHxB7dXKzU1+YdBWj814X7
-	129PdxKL9r/svjVCQqJRZn/ZK3jERrsEZd1kiCZoIdoHR5iTjmMwrwQDQDRbZMxVNnpJb0mKHvg
-	KFf2mx6VK1RJknmKcF+F0VQ0J53RBSBWUCY6JSwuUqZVUHS/gpu3ndEZiz3gLqu9KkYq0YV1d9x
-	Wm8n2juGH4w==
-X-Received: by 2002:a17:907:3f8d:b0:c46:8b87:c212 with SMTP id a640c23a62f3a-c50963bba0cmr735412066b.20.1794733897981;
-        Sun, 15 Nov 2026 01:11:37 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b3dbaesm289392366b.32.2026.11.15.01.11.36
+        bh=6WJFie4wHwA9g4ldBNe7rVwQP1AavfCmBkfuHq7pLEg=;
+        b=kwAeBQb8fxwQqkjy64CxPmuOlftc2e/fS96B9LPgRdpehb2z210Luj9kxyuj3DjvYr
+         KdPCqr6xt6Qd9IYkuPfe6FuSjzrmiXDbj546MHScCEOFAqzk2KYg2BqJyk9k/Uefb1VY
+         u7ZoNQw/ZJINrOYHczxoTC24ryJVRMN+52Dibet+p5VFn7n+jUfEVOlF3dLfg9oDkxnd
+         N4K9O1YLtZ8v4iGExRaYOr4jb+g7zdwy+ysMrqwzXpwzzMNypvWoVOh9jDM+i6ZJZaNf
+         4ji5N+EzVOGR9WZCn9EkkH92U+/9nNJ23Gf0tvs6xhVPNKwhFFsljbH3+csSPFzoLRVl
+         IJYw==
+X-Forwarded-Encrypted: i=1; AL+hErHJxY+IjoypOS1XCdsux2pBdKBQCRoJJMeTAUy0rlhv2zykhL6NV90aGKppPoN6kZCQxXMHj7wYE6igFug=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/U8PevY8c2KXxkqHVdrCHFs4tXjKftA5tSRhyFIxtepJSoF/Er
+	SqLxsz0qFohH7FfSVyN1ioYPW6F1xyOEelljUextGXHZtq6O5vqafjhjHCubPGba
+X-Gm-Gg: AYBFou16E/KBV4ZnJbmGMDUdcvyENW1Ny5X/FuzZiQv6ZV3hOf6vEnThFVFZorNe9LG
+	q16gXVGPPgIaAYM2En3JhI+WzKqRrWc+AolJ+6vIZCEJLDkix4izFfbuf7EiSCy9rDfs5Y7/SuS
+	6HqwtJ2ivZ4T+/bDXkaDoUIUs0EeSQPIQS09T+uRg6b5IN0ZM1yg14BkKxnsWrgktMdJBXhhxgs
+	EYsJXOxe/394igpn52WhbyoCbzKbjYW9eAN9OJePiJ9D4h+M5qR0ibaIBfuIGBplG4r05S0yedn
+	RrREPwUuZ27Jquu0HRccmkyvhKGgqykT/xfb/RQ7KQm6uUwTZ4kLv7961XjeVt5yjstgumnXBpD
+	SqJNU+03pTCNvt2uM7blfBXED6xniRgcxBw6ZbjKVLYMtt9SXG0qMA9+M1GqGsHwP8jXwMm/UWC
+	P33KlGDZmXYCI4p7Ek+sHPEy22/rPTUNa854cutSlBoeNW25p4rKrIXCk1UyWjo4myaOvzd9Nh4
+	BXQnSkxm2h1sDJ6V/e6cSAtIrGMcGZ5WDI8hG8ryd5cWmxhtNFRc7IH3yeY2hKuadNdBsW2YJSz
+	C2fRRrpo4f/UyHKCdYa+HCWP+DNH18WBuQkuqimuiSoMtX9hS04iYoAYIuBRnAeFEVLOWJR27oX
+	vuPu7YMk=
+X-Received: by 2002:a05:600c:3507:b0:4bb:68c4:2044 with SMTP id 5b1f17b1804b1-4bb68c4240fmr50816565e9.11.1794733939838;
+        Sun, 15 Nov 2026 01:12:19 -0800 (PST)
+Received: from beelink0 (host86-181-68-246.range86-181.btcentralplus.com. [86.181.68.246])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2be55sm15778446f8f.28.2026.11.15.01.12.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:11:37 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v2 4/4] mfd: max8907: Add ADC cell
-Date: Sun, 15 Nov 2026 11:11:20 +0200
-Message-ID: <20261115091120.108684-5-clamor95@gmail.com>
+        Sun, 15 Nov 2026 01:12:19 -0800 (PST)
+From: Graeme Harker <graeme.harker@gmail.com>
+To: geert@linux-m68k.org
+Cc: linux-m68k@lists.linux-m68k.org,
+	linux-kernel@vger.kernel.org,
+	tsbogend@alpha.franken.de,
+	oak@helsinkinet.fi
+Subject: Re: [PATCH] m68k: irq: Fix irq numbering in m68k_setup_user_interrupt()
+Date: Sun, 15 Nov 2026 09:12:18 +0000
+Message-ID: <20261115091218.433517-1-graeme.harker@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115091120.108684-1-clamor95@gmail.com>
-References: <20261115091120.108684-1-clamor95@gmail.com>
+In-Reply-To: <20261113143731.167962-1-graeme.harker@gmail.com>
+References: <20261113143731.167962-1-graeme.harker@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,25 +102,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the ADC cell name to the list of MAX8907 cells.
+Eero Tamminen recommended the Hatari emulator to me for testing the
+Atari caller, so I have now done that.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/max8907.c | 1 +
- 1 file changed, 1 insertion(+)
+Hatari from Git (4894d9a), emulating a Falcon and a TT (68030 with MMU,
+68882, 14 MB ST-RAM, 64 MB TT-RAM), booted through Hatari's LILO with
+its tools/linux/kernel.config and a small BusyBox initramfs. Kernels:
+m68k master 8c9ddebb300c (v7.4-rc2) with and without this patch.
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index 2aaea750d1690..2d94248011915 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -20,6 +20,7 @@
- #include <linux/slab.h>
- 
- static const struct mfd_cell max8907_cells[] = {
-+	{ .name = "max8907-adc", },
- 	{ .name = "max8907-leds", },
- 	{ .name = "max8907-regulator", },
- 	{ .name = "max8907-rtc", },
--- 
-2.53.0
+On both machines the two kernels boot to init with the same kernel log
+and the same /proc/interrupts apart from the counts:
 
+  Falcon: 4, 8, 12, 13, 14, 15, 21
+  TT:     8, 12, 13, 14, 15, 39
+
+all on the "atari" chip, ERR 0. That is what the code suggests:
+atari_init_IRQ() puts atari_irq_chip on interrupts 1 to 141 straight
+after the call, so on Atari the patch only stops user_irq_chip being
+left on interrupt 0.
+
+The Sun-3, VME and Apollo callers are still untested.
+
+Thanks to Eero for the pointer.
+
+Graeme
