@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794765377;
-	b=gkiMUBp23/Bvj9ptveMm2YgahO85tHk9YvIjv0gkFOzg9Xos9xM5gsIVWCxpqD1Jomij
-	 QpTK84UWqFSnOvIobeGo1uLBBGT7cpZ8GSZTaYyfXN2hmmeAGBMFzbD97yLlizQ/TzSsH
-	 vQCjpORfOr6JIePIdnMnM+w7kobGfTk5sTrd9m2eDSMonewN4MKbaYy9psiHTBHoEEXtg
-	 rUzk1Twe8YZf4K41EpSwKgIdDcORJBNUsQ3SMxG4lo4Oo4OSa2jF89rX0oeuKhJfERJkC
-	 JK6f02uCJyGZi6FdDzbcW/6ND60/euxrP2xCZoCHtIeP7BEbaWvGNHWW/wfawYb1SEQ==
+	t=1794765486;
+	b=ryTV7g6PqU6OZCM4dA+YHQSaKG1Mj1v0JspXDav8IFC7SWrUrHTk7vAeMmw9//u6CQ4h
+	 MZPh40+h1KxcPJ+vZcf1hVPMHRhpQuD9yEGpxFwGDovPlmoe3SEUXBPnnbhqHPhGi32vL
+	 FKHkJHboCYWwRDeipKOAkHi5tb57nPxSaMQTVU5+obzg4GdT9NDBdqimi0mtxyoZ4f790
+	 6RLVRRonIPQ2Au7OPyUQaWHXgQggu6Shq744TvuDaAkBSv9YhHWIL9UjiRK1PSXTVN2Vx
+	 XrLqeSJj5zdq4ggJQs/DT1IiH5l/S2NV11KB0YuUr7PFVipi/ZlxVJPBNgf5vko8tYQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794765377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794765486;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
-	b=zL2C+IwQqykqCxjuw2JjINwVEPjkFrSYv3UhoeRnriooCZRQSf48l0S3XuK8Ep+WSJUE
-	 TJWdepvvrbUkS+MzRruNakt6cTzlKAwtZtTO2Sht6Bp7ZZqNUv+UefhPNaMxtBomQRo1D
-	 WbQI7Lyai+yBxDcU8+cAiUpvpUZ/kEX3YqCRzDlQKue4mRmLXw260R7tSEzLOiMC0STzk
-	 q/w2DNGnXWqJ/jXYN7l+BX3VJy0Zu+XkRFruhmqauN4oTA+onq0tM/MbiC2aLCJOnD6Lj
-	 tzWo0Ohdm1vWnrgo8JsQpd+yZxrDPetEuzFSgv0jOsYJxE4JwXokPYBhlt1HVGilkPw==
+	bh=z6EkiZTsrK4weHp4bp257FUTfMCYoyNr2SVzcxt+tW8=;
+	b=LL1sgMhwChpfEucjEBn4cufG6SUTrZWK21Wj2tq2XqofmiNhtGyHUFAuVJc4MR76VYAu
+	 yo+jjanoEWiIr/1qYa3cCF3qCjaeYXnA3wLb78l/Ii9rrR4K+w4+BZEfUkJNUouvCY9cE
+	 I4a0h377DQ+LSlvvImyWRodF4oReBveQiyX/eXJ/87tYLBARNkv7vnQV27lDGxDTuRFci
+	 yji34N2f3eCfulQU/1NDNA5+yCg0qHMSK50psBnx7kZEOJR2j8N7EGTPWnbULFUerELba
+	 gTW/ghKglh7RL1SSJwm1BtZCsFvKE+3ZZvM7o9UVFgrm+aNvBTo1oLdgIy4ExUUsWBg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=googlemail.com;
 	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=pas+8ePt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=UMJw813N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3664606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3664606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0A2606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B0A2606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=pas+8ePt
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67db0791748so423670d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:56:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794765376; cv=none;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=UMJw813N
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67db35e7953so344085d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:58:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794765485; cv=none;
         d=google.com; s=arc-20260327;
-        b=UwHcGkBj1asc1mg2UoJp9MBiKyMzOsZGeA9I4wwBGeNV8ZG6Nf+v//uNonrXClNcw7
-         0Gj01Kpi2CIfyFthns7uKzfADk+FBJCS9rQO5ovel+Xmr/P4FtAV687+wkM8KRKd1RRf
-         q3n1A6SIJBwEzBFwz/Q8GfSowd4ra4fzVGGvddIiiUqBUZjGP4WU4dpwY7lE6iov8Jv8
-         CrNFKBQzWPsXEYr4BtjmYDqyJfVUsOZoTB985Xirh9BTvqeEmiH5l9C/vrAFLe/Y/uI4
-         8i8fRF2NhZYNiftyUxU8kll6bHZO9qSkhVT9SwPZl/oyLY5akIl6vwcNEMhHfrL0x9N7
-         pFlw==
+        b=hmldevp1wFxdl5FLppKM81dyAC26XfzIFxbnaCCPZ7LVqiJn52f9C/HatCJgq2Fi8s
+         NuTtnj4CKkMiIMbuO0R1Tma93QYn/X+x4AaO3rdKSsBtqa085IS1u1hVBLKE1Z9fP0Wi
+         vbwcgPcmLeMMEBpAW1CB3oUGQ8CwlD2yXIjNI7T7uo1tLHuwRAxZb9Y+m/ROthIgr130
+         OXdfZ5PU17hgjLSmyKCJELpn7/Gb+V7YTfLzyPVVo6fANS7QEG5Xipuyq2/kwbRm5v6N
+         p6ywE2CXM5WAupJYbSYvajXuQcuER2ZbIQaQJCZdWce8pOdaTSkNv0XzMjqTgyuyExK5
+         bWaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
-        fh=jM0CILKo5u1thFGVnTqsEDtYArXLyr6pV80FHfmqQ/Y=;
-        b=eJ9EnYR/QXCOeVmZG4FfVIVf3D2hCzE1ixtvVwHlsvCFNGpvZcX8uLTZb2e0mBqYQg
-         c+vi71wPEzGDVE5Ug8SduRHkJ62Zd1zVDeHMtqVm5Uq9KqmpCsDmczyFBTysrdDBnAxa
-         4BRbtqqHymOhqC5o/03p8gqvF7XeOmhEpn4vMdSjpQQddcc11jCOOma6vkA3IaapiCJ4
-         xGhsp654UQpxfV8y/KkacKDnCMtSleXKeyyUlgi5DluxrY7dIho63ZRqBTmrbTMHPMGD
-         BA20dYzjltRjjjMpvynnrJKEN6T303KXWSrQC8jixsfkulBZ09GpqDDfzYMtM2/Y14Wm
-         W+Yg==;
+        bh=z6EkiZTsrK4weHp4bp257FUTfMCYoyNr2SVzcxt+tW8=;
+        fh=I4MBQPidYdGNJ4sjNuL1PMY6P5m1SGMV98n8gRXIBPM=;
+        b=pShyPNExZrynHLK3kwStvdSzJjGj6i9izRV3R7XuJkhC6ekfRQ6/EfPWHtZiMMV88Y
+         LywTf4HYDTBQ8f4q2os/Q5PM/u3tMBydB1G1xwTm0Gi2dLOtpNtkVVaGRo2nThD1Guan
+         8g7x48oTRfLE6+LAv3VZ3CI8g+MdAJ0ynPAQSbgoyvRUSvbaQ6o6q/j601KIA7PZCSrQ
+         NM2RJhAZ9CwdFwr5Okqw/+SwqPJaBGZVNPQ5cqxa0QlMwQkUsNiD/Q66c1NS1cqRpXP7
+         ebRo0YrPe6g1oOqrEItyNA1uT+TqZ8Y76h10wnVUUeoCJ+r2QwTlv1Jfktbozf9aqA1K
+         1JWA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794765376; x=1795370176; darn=vger.kernel.org;
+        d=googlemail.com; s=20260707; t=1794765485; x=1795370285; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
-        b=pas+8ePtrT3q08eC33iGkr56u7NPfuFn8YpxQC393/ikNvaz7ESYVMC+rMU7CbJr0M
-         +R8X0eulKHmx/G2309+RC0B+2JSRNqkHfj4tJCBBEFcdhDtMBoknquLrs/b/RUBGV4dm
-         1Bw0o9Ch2AjP3P+3QJnA9+93mjfzMg4hoR44F0Q3QQlXSkq+p5DSWZwe83zJUHANf2Sk
-         FahErFkpveX+kHbTOQ4tq9i9bFlGcKKtP7iqyv6ANpkMIhgMHxj1Q4OqTTmm6mWlcb5o
-         mMkX1fgPByvBYyHkAI0DxttWhyPbpZLcytpFbirxj5ffC3D1ncK1rdgVnw3Et6tCa3a+
-         McNg==
+        bh=z6EkiZTsrK4weHp4bp257FUTfMCYoyNr2SVzcxt+tW8=;
+        b=UMJw813NaHp2fp6GmFJEff+sL10VP1gPjYCiJH+OebAxKxF4/haNwCNOZVgE3x8Hsz
+         YoID5uBXWYsSL+Xefhx5dU31eW0jDmxlRjsIkwD7vgjEshvRnN7X/hx3MHRrdkNNeOCW
+         dj0EvTOlqMvpSvOzfmIoMeut65M6YYPOLfyfoVNW3mMTwXnNcbvGHwykkQ3zB84ZM36w
+         1xiDvW64PrJLN7niDMEYHv12teBDEP3RWJgJ1FPrWLNqfTUhgTFwyTv/7D/yov+oim23
+         Me/+GAb1wMtADSz5Y7FtMjMOp9pRHW2YJ/z336YKZoFynJXlX0eQikruMka/4QDeLURe
+         S7NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794765376; x=1795370176;
+        d=1e100.net; s=20260707; t=1794765485; x=1795370285;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MsnquGLE3pqzvl2AB6wbuvaSxBLJ6UrFg4ezX2gSrs0=;
-        b=cpiwRJV3dlHkB9cxzcDsUk2MRwRteafq8yfexrog+A2E2nfGxwLO+QmrmQc5Hfaz3c
-         GgyafkbHt8q2JuVMACpX2+vPHfuED2ly4GovrhIRsNhAX+9nFO0qRotl3nSI8Qo4zOcg
-         RVd8CMu3AvZQ43vTePSHCyR5QOLUh8d+Tm7BTa6tjo7MynS7TS+meV/BvXL9xA2jIIZp
-         zc+T0ZOrlgHMWT2GtM1XZXwhTfs+GX2FIl+1vUFdY1tWir32jzUjZQD/EguPj7xJlSGi
-         UmzGXN3kmmFWzabHJizmX5V8jLKcjHSTV01XV/2r87fxnrplS2la5BonmxGYK9dL7+Lm
-         T1YA==
-X-Forwarded-Encrypted: i=1; AL+hErF//Jj5AQVZ4wxDe6QBSlcyrdLxmHIq3LryiCRHXAbYt5jucPqozGO6A01GZBx3RgPNMNlc426ufjwQmxA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rJ7P9hjjJ3k7hLBRwgfnUpL1lKZiBCTw6/RAO3BNyG9xcQknj
-	cb65aoQz+fqNt3Rb5ZvNiUYUV5smKzPsiwp66r3YF01W/avLukFJ1dV8tdol94I1mAhqqTM7eP2
-	lCusQwtboremvS4NXAbld8UBKpuKKeL4=
-X-Gm-Gg: AYBFou2ljOjQVBGbuegLVg4n0Q5lJqO86znTgSZMMUrTiDGESFTrwrGdc0Bzm3zQTVD
-	sZCMC6PCQWbRciFqlLrymszvBotZHhpQaLX2ZXgoJ+/xTGla1bDdacWfpdqY8LbDYmkJA0rSdmj
-	jQtnu7ATqUXpL1EsTsBT87EErnq82Cjx+sZGBuk1JAJTb6mIQIV6QLccdC2kGCUuVPvrx6AAiqX
-	QM7/lhL+1LmmIeclJy0J4SnpQyUC1hpgO9J/MjFsvn9sH2YM+2hYm/rLUwO0wshW4b6t6Aq56Np
-	hppSy+PDxFQ95QHD+gJBbC2Zz/R++LJOUE3I1/lfqL1RbOVv7UN1jdkooPWyPY8muFE4/BYdAep
-	5QXI6sm6YvotxTdF7FkQuaj/QD/Q2iIkuUN6mufxWAd6VQBv11CkyDZ2IycEGv0FckqlKjA==
-X-Received: by 2002:a05:690e:4852:10b0:67b:abb9:3d15 with SMTP id
- 956f58d0204a3-67d895d195dmr3505161d50.24.1794765375839; Sun, 15 Nov 2026
- 09:56:15 -0800 (PST)
+        bh=z6EkiZTsrK4weHp4bp257FUTfMCYoyNr2SVzcxt+tW8=;
+        b=HcjWNr4CxogxUf1Sf4I63esVY9v3dGrRL48Hz+HhtM209s3NJp0fBxoA5ACBFO2q9A
+         5IZYt8nYCSBt+apsDkFAcmORqWVRuSuWu9rdwFIbfEYTe0hCOhZq88+c7FtWFkUWNdnd
+         0ubeLC0VKE0vzIQ4KJAGJuR5vKZmX3enR92RRYoLJFPf6Izw3rft4b8qFcIqAxwy9peH
+         AUeYGeSCXWxOFglxfMvswvpoT3vOJko1FLM6MNeKd1mi/uXxcG/G3+8DO5xdVu+b5rqZ
+         Un5ftMeheBZPxrh6+84PpRBTnAH325uHBnIUg3VGiiY4uCISodZp/b1taMduzF9PBn5h
+         gKhg==
+X-Forwarded-Encrypted: i=1; AL+hErFks3r7P2pLZVWwEnocdKl4dOrGIHYlL6F1YV6QqPXlJNP+3/CyEz+7SDZKt7IZKf914T3poGcct9jSbOU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZtHTIkMir8mm/kaLncsiQ9FT/wVpR0dCNqvLNl2McZL7TJiuf
+	jO+OuGfdatkkHigc3nYbdXn97S0lQLDxDR6YPGp6mCbEmJEUHYDZmtu/zHX+eH7v61Dw3QOiFnM
+	w+/BcswkuDGW4VTx6Y45VQSlHhazqsys=
+X-Gm-Gg: AYBFou1KFi2GWkoYq7oMMMGewNqMr7oGp0yCRezMyXGXhyjYb+F6LaqbVnItlRUFZD7
+	9ehQ1UpE42HFn6hqY/XRuWpa7RF2J3+VzYMtWOXZXLfMxswUsluczEIWDFy3pigTsQrR02+TgxC
+	agGNF1wmZeum1YcTPVuwD5iIszhsLuf4lu4lYeXBmZqJTZ1bAQRTQenSwFnrVV84EWPgFNj3i3m
+	3sBvh0hkVetGc11bKOYwrmTdBoEGZz36T1XA5xoTOIKq9Ca8aL923gL2CsHN9FxqpfMJfjKqTb8
+	lkE+MigRTqbxxuxFYd+/Pos+TU5uxEf72ixO43Z/xWIv7K1nAG0yQ6ST3EhBQrsyi8FsBGswc1/
+	48DDfrFGx9xv22GLcBo3lh2m4e1wZVLL3swuq7s+Zk9XCAkq9DYG+PNrs5DUEwE5m0d9Qrg==
+X-Received: by 2002:a05:690e:803:10b0:679:af57:d19e with SMTP id
+ 956f58d0204a3-67d89661b52mr2605986d50.45.1794765485479; Sun, 15 Nov 2026
+ 09:58:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,13 +104,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-3-tanure@linux.com>
-In-Reply-To: <20261113121852.334604-3-tanure@linux.com>
+References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-5-tanure@linux.com>
+In-Reply-To: <20261113121852.334604-5-tanure@linux.com>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 18:56:05 +0100
-X-Gm-Features: AclHuK_UkljuS9ciZHxa_G9-g5ueKP83ug6GjLSD0viVWSMIsEbzxQPrFL8LXzo
-Message-ID: <CAFBinCB+DkFDwXm9L+NYgtsUNR2F01xhJJnHN_8ydcRjcpNU3g@mail.gmail.com>
-Subject: Re: [PATCH v7 2/7] dt-bindings: net: add amlogic,t7-dwmac
+Date: Sun, 15 Nov 2026 18:57:54 +0100
+X-Gm-Features: AclHuK9m7YW9F8wMPiMsA7yThjtGjePZoU8lN6bMh8Ee4d6dZkum7e9qCRT0s2I
+Message-ID: <CAFBinCA7XhksQaTHoGP3jCCeSCBdwAYgamW2AfPTdK0ncSCzCw@mail.gmail.com>
+Subject: Re: [PATCH v7 4/7] net: stmmac: dwmac-meson8b: follow the generic
+ RGMII delay rules on the T7
 To: Lucas Tanure <tanure@linux.com>
 Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
 	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -120,37 +121,25 @@ Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemlo
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
 	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, Nov 13, 2026 at 1:18=E2=80=AFPM Lucas Tanure <tanure@linux.com> wro=
 te:
 >
-> The T7 has the same ethernet glue as the G12A but needs two clocks of
-> its own. The controller reaches memory through a pipeline stage with
-> its own gate; nothing else claims it, so it is switched off as unused
-> and transfers never finish. The glue registers share a gate with the
-> MDIO multiplexer, which probes after the controller has programmed
-> them: the writes are lost and the port keeps the bootloader's delays.
+> The delay code reads phy-mode as the list of delays this glue has to
+> add, falls back to a 2ns transmit delay when no property asks for one,
+> and takes the vendor delay properties. ethernet-controller.yaml says
+> the opposite: the PHY adds the 2ns delays, and the MAC properties only
+> hold small fine tuning added on top. Every board in the tree depends on
+> the old reading, so it stays as it is.
 >
-> With a newer core, a clock list of its own and delays that follow
-> ethernet-controller.yaml, the T7 gets a binding of its own: the PHY
-> adds the 2ns, and only the receive delay line offers fine tuning, so
-> only rx-internal-delay-ps is valid here.
+> No T7 board uses this glue yet, so the T7 gets a path of its own that
+> follows the generic rules: the receive delay line is fine tuning in
+> 200ps steps, and the transmit side, a quarter-period phase step, offers
+> none, so the transmit property is refused.
 >
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 > Signed-off-by: Lucas Tanure <tanure@linux.com>
-Looks good to me in general
-
-[...]
-> +      - description:
-> +          APB clock of the glue registers PRG_ETH0 and PRG_ETH1.
-> +          Without it, they read as zero and ignore writes.
-Please give Chuan Liu a few days to clarify this clock input: [0]
-It would be great if he could provide more details on it. If there's
-no reply then I suggest going with Lucas' testing finding though
-(which means that clock input is correct)
-
-
-[0] https://lore.kernel.org/linux-amlogic/CAJX_Q+0seFwDvd6zksLnJjWYJJY1QcLc=
-1gAjr=3DFN1p+aTdumpw@mail.gmail.com/
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
