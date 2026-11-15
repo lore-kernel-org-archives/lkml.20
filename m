@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794732789;
-	b=mCzBMZXQTe5p50Gjn4tWwpbDTv1bB+IJfiFiLu0ic9tOop6v7h3hHifVJeXYQMB4M2Ny
-	 mA2VjkzU9ZtRVhG+VjTFXy9A0S7Kpdz3aNwGAbyxV1Ag9wBHgUGnkioaJrKUCGHL2irWV
-	 80zYDNLDfGouQIuL7aOryACXUUd01NTwaebG46a5/HKIN5Xvr5/h9JAA82pjOErX1Uduh
-	 zv2Rlf3Zi6HU2AdVUPHnoSAuedepqVlbVZWbJLw7hIEhi7O5IOGVvA53HSKU63dvckfXM
-	 wCeiUWErX2JWEFpZWZYVeT5+nVID6zEN18GdSy1/JVubnxuUrPu21n6OKmoTthtNknA==
+	t=1794732866;
+	b=4JSP25G41445+kgxVbtSVgyF7KB53iUyrfg1R6byqtNrEwixmNw+Xymua+E3KIsyTxC9
+	 gwSfx1kAGyvUhVD1yItHJ3D3LOwiuBi1thho+0xvupbw0V2rkZX5url82VgF6fYbjv+x0
+	 3Yp0VMosbed9ZIjL+D0hY9338rvvWRX3s9CpxAcDML52JgtwV09Ml7UIRnGcA0XdPNgun
+	 OQ+xqaHMC5tRzoOjaQ7XA3EqbJ3jl3iIYLRyLXidQ43LlUKaGCV/nmcopC+NMhcPLMQtZ
+	 WYyLMdrmyTsyke/PqPUCIgAIlhifs+xH1J2FH+PmTrl+aYeATjPxUrV6k94q4OafgGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794732789;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794732866;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wNHsMSnqXLNqxHaUvaHElX48eJyvQ5UchZoPNPKizhU=;
-	b=nXAP/uO2/poqKj8k0kKG2dIRxN27demKVeTIdWZvcFmOMHCZIzdkynb5DYiRElw5NJqj
-	 QCg9AlK4l1f1Bx8NvJuSRCPY+uxxr7t4uDEsXS1H80f2/MObB/fTnUN+h1IjW4SQ/9JjB
-	 1XL7IVPP1a1Fj1zthty9XlSV/pfK7+ay+hEJx6UGIr/s9/ir2Z3gCgAffhBgWQKBvyPVk
-	 7QhLwYnQOfqSr4dCxjLOAZBTc78kh5rBmZA91ysIEaJHE0DBkHmvG5rywantFb7lxHaCG
-	 lPJt2yrmPxCArRtJg+M2JB0iSav/QGu4lHaPhv17ZJ6Nc5cSmnV3M8jld2gQgWuZaGw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tNFwIny9vR4/dtjp+ZSTec8BndrnFquzWtty+qMHocc=;
+	b=MSH+5u4zNxiyHlBWefovA8W3LBxzu5u8nyYyz3Xgli6QnD8SgF5z4h7F9Zjk8nzLF2Tl
+	 jXg3bkmh6CKYt3Bz3ThNs5Kb98Zp5MqNYa3/teNpTAC/A/80o6vXSfj00jStITAMwHKcM
+	 Tf+lHEP0TQlgha+kstxtn0IpjmbEcCqG5nOQDqC2c022kWGsMAKydeFWH+sBQQTqJmlrZ
+	 ZQmN0frAtHw4+9SIzdKK7Cl97CWHYNuh9HusnOeaexfkYLXI0ihf0Hz+gtwvgerS3+D4X
+	 zvyuQ/mtehXv4Fcz3w31OpLeJqkwiVPMJY/nIBJ1Wy5QFooIormiZxcNRQ7irJfXCpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QuNZbqws;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsmfTUYf;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56457606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56457606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673BE606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:54:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 673BE606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QuNZbqws
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-49134c8509fso2512008f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:53:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsmfTUYf
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f2f262b19so1212778eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:54:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794732788; x=1795337588; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wNHsMSnqXLNqxHaUvaHElX48eJyvQ5UchZoPNPKizhU=;
-        b=QuNZbqwsBNxNnipsn4hLIE9NyeFCT6idEXbwgrzgEnYTHXbw73p6jGLvh/aQmuBd2Y
-         XaOxgSrfRJwL4Xu3A7HbpjXc8fVo63nWtteDG48RgGTBE3oLu/8g55GsggyMUwox2XVF
-         9mEeCpnEzAcVwR7gg/oIgdD4UETZVqz54cDW6oS0OGpD/JuxBQ8HcNcWZHxtkXvBzQRD
-         /WsCHS7+dkzaTZa8PdFiosc41ct7scbG071Y8M7V/SxuNb4J/uxyoJl/432pHWd1antS
-         FgMHSc4ONoEpAzxUZG/emyrTgJRh12Xgfkc/FCYrpC8FWyuODcgdPYiIfSVlGesSoGoB
-         6w7Q==
+        d=gmail.com; s=20260707; t=1794732865; x=1795337665; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tNFwIny9vR4/dtjp+ZSTec8BndrnFquzWtty+qMHocc=;
+        b=jsmfTUYf9Zp/e0epLXvwAdxeVcb8c9E6NfI2YdOmZW9bc6soKN3+DCmJnj//3qoi4b
+         RYCGU6g+Bo2/Hx66TXuty9ztzjnaRIFy5b8CiUWLhzN5qEA7ZJBbVa/4ohg+t46vOT0P
+         AdTtCENJjN7uEXdztQ1ov3k355dd9Gfc5kV1KTHF6T036DTYdGumEdDILm9Uq2W/p6SP
+         ZWBkvdifyprjbugg4rztU8kEEbd3Hrc0BdnUbfl7jyf1ws3T72+Fx+tFkEjho/x+JjqL
+         /sliJ3cdR1MMX3/nQBhnpwQiZhkj8mDgh+6/YlqKMIGr+gHFfwlYKfpHV7AySsAcf4Zr
+         K4Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794732788; x=1795337588;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wNHsMSnqXLNqxHaUvaHElX48eJyvQ5UchZoPNPKizhU=;
-        b=VCvaXLzKwVWvVvPO3gNi29pF2DnWBRvdzRFeZXCZiYrwjhRlK4PPp5iSHFLBHLPwdm
-         8875+P6NBPUco3LjJGT5nOAZT1QFrjiiNNMNFJD3Eq//J5Nqi9e53MHidyj7YidbBX3o
-         ewmWIHecz7pcUoJsbDmCEo9ThLnbDby5HXz7M/CNUS8RLnDv5cYBxzN6M5flay5xPKSy
-         mTBAA7zxW2UdJGxCD8OExyYJ9PKcCzxnY5KcYxu2dH+/7T0log2guUMDfae8OzZ7o5Bd
-         wQHHr9xdsqJ/beQ73pB1ikPJUTsJv03N0mHeDErZINlbES+rM4+Vz7SHmqS3IFCG/7v+
-         GBAw==
-X-Forwarded-Encrypted: i=1; AL+hErEysX97MRR799lU0aIhFetlPQ6o3xEoXVOrWC4kKzSZxcL8A/W/f9Cf6GlYiEM/RajDAF1Xxpa8do0Ex9I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RK4eNcKhO8Us8Afs659I+CUf1ndEOWcwEzxFklLnqGyKLV3rS
-	DH/uZvGp99R1JZJ2eYr2HuSA+mwz57gaAOmlyI8ro4yYlXI4u1AZvcfv
-X-Gm-Gg: AYBFou2njqCKBPu1fRVzyvmm90BDYKV2cO1xEC48jvuzFI1iUPRZ/QVzQ4rwLl2fdcD
-	mwwRi20OhEGlw2+mz96AY/Fvpt+9GjW8esxzMORhQLpb0cEQ2kkGLQZJhfSTcmNh1yp5A0oSmTr
-	jUT84XsaoKLEfGDXnFIS0ZVodsYku9Vfv9dwEo/OelVZEu2aEAuZ50tEP9LfaMkWScWYkBJW4ql
-	8dcvgOno4hj1Zn/unyOQgsNa8Ud1kxxoP/em5AM++PLmmm+QWIYxgp01OPaMU2Ir9ysBzhSYFVm
-	tl1r0ep2Lk2ka4LJLm8QrQmM0xQH7EzsLNCqOs4csZG5Q0aia8Zf95zZzPSTh15UGg8YM702xHJ
-	4LfMH/2hmxIRYZ1No4DPL1TNEon6u9ETkqsNVngE0jx7B9bOT96cYG3O3qI00KJOPrbvT1L7m6E
-	pxQy4K8TaCPmo5DEn1ah2PcIRllsvSO2g7dk32qP9kz3bUEjNG8MebepmkdpMdAefr9uU7TUeIO
-	Avkiu8UeUvK59YGoWkpBnt+ch+V+TaQZ1F+X4fbLQMgltDrqcGwYAS7OsL+6PItNb7PeYyGDBt0
-	sq3b52qtxecADjNpEKFPPUzuH+KKL8nKYxdONnYgBS1tvqP5PfGYCWCYOaLBtJvU
-X-Received: by 2002:a5d:5f09:0:b0:48d:f730:bda8 with SMTP id ffacd0b85a97d-49c733510e7mr14372013f8f.50.1794732787542;
-        Sun, 15 Nov 2026 00:53:07 -0800 (PST)
-Received: from localhost.localdomain ([2001:8f8:1161:9f6:2001:1fcb:a25d:8f2e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5fe370f8sm13886168f8f.27.2026.11.15.00.53.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 00:53:07 -0800 (PST)
-From: Ximing Zhang <xzhangjr@gmail.com>
-To: Hugo Sales <hugo@hsal.es>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Len Brown <lenb@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFT] cpufreq: intel_pstate: Refresh cpuinfo.max_freq when a CPU goes online
-Date: Sun, 15 Nov 2026 12:52:26 +0400
-Message-ID: <20261115085234.40661-1-xzhangjr@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114-intel-pstate-online-max-freq-v1-1-1bbdae2b4986@hsal.es>
-References: <20261114-intel-pstate-online-max-freq-v1-1-1bbdae2b4986@hsal.es>
+        d=1e100.net; s=20260707; t=1794732865; x=1795337665;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tNFwIny9vR4/dtjp+ZSTec8BndrnFquzWtty+qMHocc=;
+        b=PQaHivbhfK/otlmMDRhWITDUuI9uYWyYfNLkaIQ8CneZNGtQZTp73sQB+VaOEBNWCB
+         xm0MEHnVL/siqXuUKFW8jBt/Ppdp/uB+CSRWHpqOUi1n5vLzVn1JKycxt4W7V7CMs6bs
+         4ykpz1byVtdo4ubfDNbXQnLTzTFGz53BVEbMgmdNPTLBFp7D4nY8RgYZJAyvJ6FoGHgq
+         QL6G0UDIG05k43UUMdkswx3WiB6YFmqqdJa+/nLJcqYLgi9wy+WA/pF4uYt5QBdIrnE4
+         irz+bY1FWSTsvkVjuTT67+BA9XYqo+W+Fj3Vu7UhcEJGXHf0waomwjkTImsn/E38BP0/
+         41IA==
+X-Forwarded-Encrypted: i=1; AL+hErFNxtxvE3xXFV58KHryDWCysXAJhAyJEtlrjIKetbyH60tnCBpL+YWbRjbGxcvzSz9pnqwaDyPQB/mcX1w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+O3QL/clPku5/g2vpwcaJwgniX4tXFmB9o9mZjnDnzmEtf8JTZ
+	kmX8t5jVPjmQzBEVJzDK3I1fNTUwQvhJd1BbttE9zT45/I3PiMNxvynk
+X-Gm-Gg: AYBFou3XleNeNM98RKqWzjzGkjVcBtLhIo2YZNhtmNHxJCkw0Moi9v5dCXtLD8+fodD
+	LH1+k7kk7NCa+BBuw+h4v8J1nJgE6P7iUY9WLnWvBLsomitxfkgkDO4owf6nGM2KVFbU5vjH5oT
+	AKT3pEAr1xvg85/X0t6jPs7kjzmsOy00hpe76RDBNx3f0k66jU3CqrDAwzpLAosMUiU1t1lqfIm
+	QWmi014OR00M42FwD0psTurTe068B/LpChsGGwku2ZehOH3J9mp06qMZDxx7iAKQk0IlQkAsJ9g
+	lu9Lus4lQwO7R5eZ1alXMGagquGWERCd+36WVKUmFYMHRIFf+lg6zAa4fMnOLgZyhIaegmzjUPn
+	DVPk/9cLZGDDypCS077+oEnPK8+ldDYZyZM4ArzOHFXD9pPw6iKrUGvbM01A9lUIC5JPs1w2aum
+	kPhNhDKL7opeRq4kV4fzjO0mr8ZBSslBoTQpfNQkNSX7sty30PLGZlWtTXLzyaVA2tHNuxHDJjP
+	PUHmK0YLEqCfl7VPqrDc3B+tbkXBNBavSkFWZRAkkIAPj7xMQjHoPFNLgXfpCPF5O3KiZ0uU7oT
+	5iZgJ1uSmknEBOIkVdi27whHJj12sP35yxUGc4STccTieYGM5nQVND3aNJ0EIFyCO5M+mUHFG5Q
+	YYEb6zMU+tpInkDHhlegekhe0luPRIE8UdOH2EgA92Egwkr+m7X6YQl9jQUY=
+X-Received: by 2002:a05:693c:4141:10b0:36a:15cb:30bf with SMTP id 5a478bee46e88-37966b52639mr7954428eec.13.1794732865444;
+        Sun, 15 Nov 2026 00:54:25 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm22437361eec.26.2026.11.15.00.54.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:54:25 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: davem@davemloft.net
+Cc: edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	yuantan098@gmail.com,
+	n05ec@lzu.edu.cn,
+	ylong030@ucr.edu,
+	andrew@lunn.ch,
+	f.fainelli@gmail.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH net-next v2] vlan: remove MII ioctl forwarding
+Date: Sun, 15 Nov 2026 08:53:43 +0000
+Message-ID: <20261115085343.53218-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,23 +107,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026, Hugo Sales wrote:
-> I have no HWP machine, so the HWP capability path is untested
+VLAN devices forward SIOCGMIIPHY, SIOCGMIIREG and SIOCSMIIREG to the
+lower device. This exposes the lower device's PHY through the VLAN
+even when the two devices are in different network namespaces.
 
-The patch fixed the stale cpuinfo_max_freq on my Core i7-10510U with
-intel_pstate in active mode and HWP enabled.
+Bonding used MII ioctls as a fallback for link monitoring. Commit
+23a6037ce76c ("bonding: Remove support for use_carrier") removed
+that fallback.
 
-The test changed no_turbo while CPU 7 was offline, then brought CPU 7
-back online. These are policy7/cpuinfo_max_freq readings in kHz:
+Remove vlan_dev_ioctl() and its ndo_eth_ioctl hook so MII ioctls on
+VLAN devices return -EOPNOTSUPP. Applications that need PHY access
+can issue these ioctls on the lower device.
 
-  Turbo change   Unpatched   Patched
-  off to on        1800000   4900000
-  on to off        4900000   1800000
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+v2:
+  - Remove MII ioctl forwarding entirely and target net-next.
+v1: https://lore.kernel.org/netdev/20261106124639.12584-1-dennylin0707@gmail.com/
 
-Both patched readings matched CPU 7's reference with all CPUs online.
-CPU 0 stayed online and reported the expected maximum in both cases.
+ net/8021q/vlan_dev.c | 24 ------------------------
+ 1 file changed, 24 deletions(-)
 
-Tested-by: Ximing Zhang <xzhangjr@gmail.com>
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index bca0a3693636..cff36d3fc6c8 100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -406,29 +406,6 @@ static int vlan_hwtstamp_set(struct net_device *dev,
+ 	return generic_hwtstamp_set_lower(real_dev, cfg, extack);
+ }
+ 
+-static int vlan_dev_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
+-{
+-	struct net_device *real_dev = vlan_dev_priv(dev)->real_dev;
+-	struct ifreq ifrr;
+-	int err = -EOPNOTSUPP;
+-
+-	strscpy_pad(ifrr.ifr_name, real_dev->name, IFNAMSIZ);
+-	ifrr.ifr_ifru = ifr->ifr_ifru;
+-
+-	switch (cmd) {
+-	case SIOCGMIIPHY:
+-	case SIOCGMIIREG:
+-	case SIOCSMIIREG:
+-		err = dev_eth_ioctl(real_dev, &ifrr, cmd);
+-		break;
+-	}
+-
+-	if (!err)
+-		ifr->ifr_ifru = ifrr.ifr_ifru;
+-
+-	return err;
+-}
+-
+ static int vlan_dev_neigh_setup(struct net_device *dev, struct neigh_parms *pa)
+ {
+ 	struct net_device *real_dev = vlan_dev_priv(dev)->real_dev;
+@@ -1105,7 +1082,6 @@ static const struct net_device_ops vlan_netdev_ops = {
+ 	.ndo_set_rx_mode	= vlan_dev_set_rx_mode,
+ 	.ndo_change_rx_flags	= vlan_dev_change_rx_flags,
+ 	.ndo_work		= vlan_dev_work,
+-	.ndo_eth_ioctl		= vlan_dev_ioctl,
+ 	.ndo_neigh_setup	= vlan_dev_neigh_setup,
+ 	.ndo_get_stats64	= vlan_dev_get_stats64,
+ #if IS_ENABLED(CONFIG_FCOE)
 
-Thanks,
-Ximing
+base-commit: d1f4b7c6b997c29de67ad7178ababac2328cb1b4
