@@ -1,53 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794780393;
-	b=JEyD+glZ5WyE2MRlLLA1NhdFzuKguw2F0GtIY4kWt9zdVl+yZcj0/ymXUmzhgSozjxwT
-	 SJqwVaKZ2V0sU7rtXtc2eeMQI6Qfv4KKJqT6wKi8UZ4MDSnAeR/trBJEV+4Bx0id7yDKi
-	 scNWD6Yp9G2e65C1d4zezv+jsY9CEx+vmrfZU7Wtc4caoyug0wR1fHpVsJOHE62AXQ1Px
-	 IZD6WfLuZGi16IpbjW1gCktJ19+6ds7faAcu3K/62RH+4oqdeYFSmHp1HtYegx57bJZTB
-	 CX2nWKa8Hc43RbyPA3KWJ5WjmXmC8K4zOKP7G6j+rbxhpun1nyUVkJLs6mHQtTYbCAw==
+	t=1794780439;
+	b=imN9VBhvDKNQ4R/xXWxA8IgAo0zDcIbHifT/bO2SxBEE6EFY9csqVpAoQt4B0GoYhcvL
+	 lv6UlEU3QspUNeRbiPt/XzjixEnaaCSaYEWMUT9Tl9Orp80REfM6uCfTOgVnVfGJzgdqL
+	 1LhPa6XzJnVtfwLI19yfVwtBDOqbdE50fIpWgy5nDgSPSA7iQ+rYcr2eZ0kCuZtTKTJlN
+	 BpIZfAHzIaaJMAhn19DyUTd+RTrgd1UjAG3PeIBgqYdSFEFOvJxD8Aog/F4sfWE821uOu
+	 B38C30frJBFyIxI8BFzyZTqqO+FZOkfE4RQutngtlfoE7QgBPvUgFxTBLLkt6iiquhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794780393;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=DvLJmcl7VLDEt19dwLQxbmMUIFAq46s6dA6QGAbxaI8=;
-	b=KLqpM3HwPIX2nwFkvWFLpuXh+Tt8UyL/hw9kkZaY/xobmD6ROKRkWnCCgRrnpGXZEwrD
-	 MMjXQwNZXFyao67U/971GqNUhMKjGEHfsS9oZbrdWj6eg8Xl1GQMGbeg+dzENrV8C/m0h
-	 9ABGaWHuyu9JFngleP5BlAT7TC5xdHRaoqitVDcm8GZVSyBWYae22578XZ999VTlJBWN0
-	 SPl8IHZwvG69dkapk76H0FIt2gAIknimUWKD6GbcxHEVexxse2x/7fYw0xtGGEJtt0iDG
-	 0cMNyxW9aKrCqpHW1WOgP+j5nRgOdInakEfHqhe7cPs21nZxD//UGTlNi/7afzYrSOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794780439;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=5W01Jex11VQtppQbL033Zph4yYpJZEMJCMwbW5eknkA=;
+	b=oauZi8vLDQ12QSuugaQsJjnHbMdTGybic72IKEkg/Vi6KsRBVlq52FszCAzZM5HIloRI
+	 jOk5RGEfIKR1J+Pt8sX9adTFjyLBF83mDegOGuF2fPJn8ReYY7IEt+lM5bA4zqXbiCSUj
+	 zrQWHlWgweAfBlNMuzDATKrjK2U48AHIa/LvfaADTj0VxWybeULlj+QbJAc3SblUzgYMk
+	 6SJonpaGKtOZrhaTeOFs/TnG4yTv8o36xJ5qMLpg7LSkxEcf2L/ttQ+bzvazikUw1+bVD
+	 yQlNVyvoFtplj8fU4PaXB/fjXxgdjgeWAuGO06WW5kcokGue7sm0Jyclg3aJf416/dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=squebb.ca;
+	spf=pass smtp.mailfrom=squebb.ca;
+	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=mc88zSGs;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=05SdAPkl;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A015606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A015606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e9eso3633616b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:06:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794780392; x=1795385192;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DvLJmcl7VLDEt19dwLQxbmMUIFAq46s6dA6QGAbxaI8=;
-        b=odZIwH5G8/hRaGSF29BCeaI0ir1LKgAA45nUpMYrmv2/g9QoSxw+5H9xspmCNO9QQb
-         TXJMLa/nM5es3qtY8S2q/GKx1TqjioXH7Fd+eew9pvUlDfd74MEijPrW742bBq3cCKc8
-         zhHNyHCF332TbMEwoUMvubA1yzGJpxsAk6RV6PFtKBpBM4TTodjWQix+1TGcS++34vMI
-         14/Jxaa76JjmOgqvUYvtiVt7XHrVavxTbjnaSNzdDlaxxLsmju8MJAvPrnjILopyOyNp
-         yksAWdDJUQ6/oCW4qq4x08XZ2/1n5ET6WsB1+jY9Ll0Ni6jpXSKLmWD2+7lpl4LBqwdd
-         7wlw==
-X-Gm-Message-State: APuU4Z8K0zqLdO4iMcBTv7cP40I9+DM1Kg8W+++8ku92jxGv+9cwTrWk
-	dxXXzNrUPM7OxnYi+9hwT5cFk321+z2pTNLADVu4mSdS+NMFLZlea/o2tIaoabVt6BKId4cE8dB
-	9bKbLmg8kuH2gPSge1DWcOQEiby68KnXii3YLeaDOyWEGkQAp91nF+QYcQek=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6061606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6061606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=mc88zSGs;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=05SdAPkl
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 1C8361D00100
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:07:18 -0500 (EST)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Sun, 15 Nov 2026 17:07:18 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1794780437;
+	 x=1794866837; bh=5W01Jex11VQtppQbL033Zph4yYpJZEMJCMwbW5eknkA=; b=
+	mc88zSGs9nmztGJJ+zV6pW3mZZj3pGgxnjODpgPGzoHx8ldpQtVDSJwsAiQFVDII
+	bKX5qxAcdkxXhjFt1Y0Qa3pD/sNbBLMK+a0waAUBNpcq4l3koASt0ilS/5jdNuLx
+	6yAkJMjt4E+aEOs9e2GGplzBtTmS0NWLrl5lnMLyI8eOE6HsmWTtuqEwXbGr0etN
+	WL1M0zqNuDjDTLUb/LSetENPh2yzG9v+lfHj3V8VVFTrYZJmlsPdtkc3u+zE6byi
+	oRrMdRuFwbEohWFClpc9CQObomquZH0ZHZ32AaDXLLdU8m7uvPTyT/sp73G4kQti
+	6cmTvI691brh3hDMcv/aGg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794780437; x=
+	1794866837; bh=5W01Jex11VQtppQbL033Zph4yYpJZEMJCMwbW5eknkA=; b=0
+	5SdAPklVZXNeazpTPqZntoIwgQWyptqVkNjHNTGnM0PS4cc3Y9NFuW75oya+y2as
+	eWo2ybFGnW4X3R43XpWZ8koKIEBymYsuFzy44Fwy5vQg4Junov+jZwDQimp2Cje0
+	x4rHSKWCmGyerfqJzWAcQY7wRCU0QZORknWfzrTxSwtPFvygM0g0ZuuJYlAV45K4
+	M9WdbBURq5UWzROfw8rawivBC0Ha4Odnbdr96ihkfyrbs1ZdU6+gqwtjieGxZEyB
+	7PwpcI9qnheJjHc8KuX+MbI2FKds16ICVJqt8LW5EiZDhoIE6rUOT6zfdhyJ35Mv
+	Uy6XZRsNtXuFl055QqcVQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794780437; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:B7nAYg9ksQHMLjcss5VDp3d257GOA0bt9WdFCgbZTMr7kfe
+	+231TozHWk4LUikgA3jX80jtBeaJK1PI9SDGHq4O8v/jVcsBD6AxR63ATVP5NH++
+	iJgYTqlLhziVOJHDbQFYz8nbFmkz/sUlf/27cPJKR9fJAD8MS0M2SFBjvGCQrNkW
+	Wu5rdbBH0Gmhe4KyHso3WbTWYEK6UajIiG7Zfhlpj3PrBA8VgF5S9JclbwbZJtVv
+	7vw7JC0Rnfscywexf4JwZ5dnfBk7MkBGDD+ULlCsDDWlEhkPxZOkRdPshylQyyau
+	ZlLzmuSxnlSPjClHVxyKl7lYjBNItw1CNPuDGDg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Pt0CFkdgPMlEc2VAsDgUwpz89PHbAVOPKiU8IbEFVGI=:ZSNZo0+hChThxLpKlQUJ174hlSoBCxsNplUkPEIpqMQ=;
+X-ME-Sender: <xms:FC36amqvWr8xs5EjNvWu4Amw59oZMIDn5xacFAW6KUhUQqL4PePzdA>
+    <xme:FC36ave_fHAKe0sLoH3OyOZJ-k3EV3gz-t4XSgLeztiHg6CgC4I9DlEvQoMh-eNDp
+    ra6qmzv1nHZacof5BDuw1lHppAALq-Ys_RutbRHVviCCJGLj8wzQDbe>
+X-ME-Proxy-Cause: dmFkZTEIQE6KcsOrNFJqF7WeLEWNoLGQ8ajl9vzMqe2ynHyuUugJ6xwqqdUT6/IVHtuD35
+    XOdJ4TP+jciU9bPs5GBFqcFGEHmkTa8SJquEUiWk+ZJBsOJF7cY1LHxv5ic2XGlAGY7kCB
+    /fmYpkFGvUjhHucbuTPqo0s1gjJutM8XF3UQLjLBGq62WcQNmiKrzXNrSwWIq6yoouYDUb
+    yXef7ugmyeyfTa6fYXSOODlNMbsgTZ9b2D4nsPPM3sKgGVHZqu/M236IJtfxoUAKMLRVIe
+    /wHMcMayIEn+I5p5zpe/7reNOyXawGo2AnuiXBVZNGq4Bhv+YB8WQKsUypHKrGPZQf7qlX
+    eIiEYl46UtomK+fSvaj3skIW/LOVuye3/hGtTLb8ERoSUiDHb670n+fDJy1wkL5l+V53vi
+    HtBhWJ2eZBMmUJMaenjXGz4T2oF7VmpjVAl1tIC3+Et1TEmsgZEX2LA34OwnXbU3QOj1Yw
+    XfbIHlx3JFO9M2LFZO5waOT+UpsaIC2ppPTPSiPXFB/Ph8czsrpb1yS07+hiwKTQywMt5i
+    pzq9n4wMcu3Pe9RX3H6Wmlh46bRBIDqKZ0vdXX9VycF+nDBcjdpF0UQQi6N+F/t4tgTmwc
+    OYjJ3unITZ9q4Xvna0gBfgh5SYew1cDxqetWeKs6ApQp6M6i9jdThCsKmn3A
+X-ME-Proxy: <xmx:FS36aspJPiosGkVEmwlZWkJEXCeTfpWB6L4EctTKfovAcBJX-k_oOA>
+    <xmx:FS36au-witJWUAtvc4yeuTI_V_2f4wZnGuirIBrtLHnmpp87UKcfoA>
+    <xmx:FS36ai2yTVh4wvxhTODHaCFyWCjGLWKSaj3SehDJVNRkGy0imd5lSA>
+    <xmx:FS36ahAK6vfktcNan94528F3j30v6GMoNNpDlin5478daikwL45Igg>
+    <xmx:FS36apov10NU0FCRQE8P2IuiuYZMGdZID9dl1VdifWqHLS_WHh8nJKok>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id BE50F2C00085; Sun, 15 Nov 2026 17:07:16 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,173 +115,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1310:b0:539:a2c2:aba3 with SMTP id
- 5614622812f47-56e65f64f62mr7251247b6e.52.1794780392359; Sun, 15 Nov 2026
- 14:06:32 -0800 (PST)
-Date: Sun, 15 Nov 2026 14:06:32 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afa2ce8.920b2b3a.148c65.0040.GAE@google.com>
-Subject: [syzbot] [raid?] KASAN: slab-out-of-bounds Read in super_90_validate
-From: syzbot <syzbot+c5969d7e0a934b384fd6@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
-	syzkaller-bugs@googlegroups.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    2800868f6322 Merge tag 'sound-7.4-rc3' of git://git.kernel..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=17a6353d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=c5969d7e0a934b384fd6
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=159fc9ad580000
-
-AI-generated root cause summary:
-When creating a non-persistent RAID array (`not_persistent = 1`) via
-`SET_ARRAY_INFO` (`md_set_array_info()`), `mddev->max_disks` is left
-uninitialized as 0. When a new disk is added via `md_add_new_disk()`
-(`ADD_NEW_DISK`), `mddev->persistent == 0` causes `md_import_device()` to
-allocate an uninitialized `rdev->sb_page` without loading superblock data, and
-`bind_rdev_to_array()` assigns `rdev->desc_nr` from `mddev->raid_disks` without
-enforcing `MD_SB_DISKS` (since `max_disks == 0`). For array personalities
-lacking `hot_remove_disk` (such as `md-linear`) or when journal devices are
-added, `add_bound_rdev()` unconditionally calls
-`super_types[mddev->major_version].validate_super()`, executing
-`super_90_validate()` without checking `mddev->persistent`. In
-`super_90_validate()`, `desc = sb->disks + rdev->desc_nr` is accessed without
-checking that `rdev->desc_nr < MD_SB_DISKS` (27), leading to an out-of-bounds
-read beyond the 4KB superblock page into adjacent kernel memory.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=c5969d7e0a934b384fd6
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c5969d7e0a934b384fd6@syzkaller.appspotmail.com
-
-md: md0 stopped.
-md/raid1:md0: active with 1 out of 35 mirrors
-md0: detected capacity change from 0 to 4096
-=========================
-==================================================================
-BUG: KASAN: use-after-free in super_90_validate+0x178b/0x18c0 drivers/md/md.c:1592
-Read of size 4 at addr ffff888073d36390 by task syz-executor291/6009
-
-CPU: 1 UID: 0 PID: 6009 Comm: syz-executor291 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- super_90_validate+0x178b/0x18c0 drivers/md/md.c:1592
- add_bound_rdev+0x274/0x390 drivers/md/md.c:3012
- md_add_new_disk+0xca1/0x1820 drivers/md/md.c:7666
- md_ioctl+0x2c1d/0x3700 drivers/md/md.c:8525
- blkdev_ioctl+0x5ad/0x6f0 block/ioctl.c:798
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:598 [inline]
- __se_sys_ioctl fs/ioctl.c:584 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f27a95100ab
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007ffd4383a800 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f27a95100ab
-RDX: 00007ffd4383a890 RSI: 0000000040140921 RDI: 0000000000000003
-RBP: 00007ffd4383a890 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f27a956cfc7
-R13: 0000000000000002 R14: 00007f27a9594cc0 R15: 0000000000000002
- </TASK>
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x73d36
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-page_type: f0(buddy)
-raw: 00fff00000000000 ffffea0000d5ae88 ffffea0000d5af88 0000000000000000
-raw: 0000000000000000 0000000000000000 00000000f0000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as freed
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xcc0(GFP_KERNEL), pid 5639, tgid 5639 (syz-executor), ts 63888746915
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1860
- prep_new_page mm/page_alloc.c:1868 [inline]
- get_page_from_freelist+0xdae/0x2c80 mm/page_alloc.c:3950
- __alloc_frozen_pages_noprof+0x2ad/0x31e0 mm/page_alloc.c:5492
- __alloc_pages_noprof mm/page_alloc.c:5532 [inline]
- alloc_pages_bulk_noprof+0x77e/0x1420 mm/page_alloc.c:5349
- ___alloc_pages_bulk mm/kasan/shadow.c:345 [inline]
- __kasan_populate_vmalloc_do mm/kasan/shadow.c:370 [inline]
- __kasan_populate_vmalloc+0xf0/0x210 mm/kasan/shadow.c:424
- kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
- alloc_vmap_area+0x963/0x2bc0 mm/vmalloc.c:2151
- __get_vm_area_node+0x1ed/0x350 mm/vmalloc.c:3281
- __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4112
- vmalloc_user_noprof+0x9e/0xe0 mm/vmalloc.c:4307
- kcov_ioctl+0x4d/0x750 kernel/kcov.c:756
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:598 [inline]
- __se_sys_ioctl fs/ioctl.c:584 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 5356 tgid 5356 ts 65501624162 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1402 [inline]
- __free_frozen_pages+0x7b1/0x10f0 mm/page_alloc.c:2958
- kasan_depopulate_vmalloc_pte+0x5d/0x80 mm/kasan/shadow.c:484
- apply_to_pte_range mm/memory.c:3536 [inline]
- apply_to_pmd_range mm/memory.c:3580 [inline]
- apply_to_pud_range mm/memory.c:3616 [inline]
- apply_to_p4d_range mm/memory.c:3652 [inline]
- __apply_to_page_range+0xb1d/0x1520 mm/memory.c:3688
- __kasan_release_vmalloc+0xd7/0xe0 mm/kasan/shadow.c:602
- kasan_release_vmalloc include/linux/kasan.h:593 [inline]
- kasan_release_vmalloc_node mm/vmalloc.c:2312 [inline]
- purge_vmap_node+0x210/0xb40 mm/vmalloc.c:2334
- __purge_vmap_area_lazy+0x90a/0xc00 mm/vmalloc.c:2424
- drain_vmap_area_work+0x27/0x40 mm/vmalloc.c:2458
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff888073d36280: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff888073d36300: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff888073d36380: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                         ^
- ffff888073d36400: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff888073d36480: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
+X-ThreadId: AKLRvfems1kF
+Date: Sun, 15 Nov 2026 17:06:56 -0500
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Qiling Zhu" <kmatzkaczor244@gmail.com>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>, "Rong Zhang" <i@rong.moe>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>
+Cc: "Andrea Rabbaglietti" <rabbagliettiandrea@gmail.com>,
+ "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>,
+ "Griffin Kroah-Hartman" <griffin@kroah.com>,
+ "Vishnu Sankar" <vishnuocv@gmail.com>, "Vishnu Sankar" <vsankar@lenovo.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ ibm-acpi-devel@lists.sourceforge.net, linux-leds@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <4fdab3d8-4ea5-40f4-bf91-9ce4caf028e3@app.fastmail.com>
+In-Reply-To: <20261114174814.62153-5-kmatzkaczor244@gmail.com>
+References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
+ <20261114174814.62153-1-kmatzkaczor244@gmail.com>
+ <20261114174814.62153-5-kmatzkaczor244@gmail.com>
+Subject: Re: [PATCH v3 4/7] platform/x86: thinkpad_acpi: Detect auto-mode capability
+ via MLCG
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On Sat, Nov 14, 2026, at 12:48 PM, Qiling Zhu wrote:
+> The upper bits of the MLCG return value carry capability information.
+> Bit 20 indicates whether the EC supports the auto mode of the keyboard
+> backlight (0 = manual levels only, 1 = auto mode available), as defined
+> by the firmware.
+>
+> Record it in tp_features.kbdlight_auto, in preparation for using it to
+> gate the auto-mode trigger registration and the LED suspend/resume
+> skipping in subsequent changes.
+>
+> Link: 
+> https://lore.kernel.org/r/CABxCQKuEP5wMSstO0MK1MhaqXTKrPhUSN3V2mrE_42j4cXsXZQ@mail.gmail.com
+> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
+> ---
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c 
+> b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> index 657a19d11..681b340a1 100644
+> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> @@ -363,6 +363,7 @@ static struct {
+>  		TP_HOTKEY_TABLET_USES_GMMS,
+>  	} hotkey_tablet;
+>  	u32 kbdlight:1;
+> +	u32 kbdlight_auto:1;
+>  	u32 light:1;
+>  	u32 light_status:1;
+>  	u32 bright_acpimode:1;
+> @@ -5161,6 +5162,13 @@ static bool kbdlight_is_supported(void)
+>  	}
+> 
+>  	vdbg_printk(TPACPI_DBG_INIT, "kbdlight MLCG returned 0x%x\n", status);
+> +
+> +	/*
+> +	 * MLCG bit 20 indicates auto mode support: 0 = manual levels only,
+> +	 * 1 = auto mode available (per the firmware definition).
+> +	 */
+> +	tp_features.kbdlight_auto = !!(status & BIT(20));
+> +
+>  	/*
+>  	 * Guessed test for keyboard backlight:
+>  	 *
+> -- 
+> 2.56.1
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Looks good to me.
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Mark
