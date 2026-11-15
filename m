@@ -1,65 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794701473;
-	b=LC0u0iw10oFYamZzhXSJSzOgdtXIn7qcxKpImSoOr0fn5AKHpN3iniA3OLyF0SrqXi9h
-	 VLYYZ3mUSed0YNUg9GM3uMBjidpIDDGr6eKzhRhA8HL+uzWwVqY60koXxAWBOpkHY9jFA
-	 9tXtFw0nIX3JhB4j0xEIAGxelQDAn5oiOVfmFc4ZITc2Rk8OHaAKS0EcbblhgwoXWQDyo
-	 snID+6iMx/4CH6K2Y+YPE3ADgsjV6ZDxBGHa5Mbi3XENpzFWFFrqP5WUBjotD0mlmEnAJ
-	 C8qn8CnNyF1jZnA1k1FLGUwmgyeG81IkZgORAU8Qeg0P67Gq10C8I3/NtUEp7rFCYqQ==
+	t=1794701585;
+	b=E2OdmgCbrW2WU6jlz+UCmC4ZcwvLKy+W+JjSXHsvR92+M0NPfGntfzBUAjz9GZKpsBkP
+	 Fro8+pJ1oe7L3NjlyvAqoj/pZ89czuhWiZCkg/fIE/b9vEjSFYtA/Btjz+TVGsoQqpoS+
+	 FqStbI2CBtuX/hEAxhkgiMqwbvEMh9mJkF5ajWpiCV9Z0Gl+sJAoPMOn9R8eY5JfOrGX5
+	 Vuqw7jxAxSMyS3V2CeS0A/upPSNc7HNJl1rJCMpQelIadprnkmkpnRBh7XrfjfnOhJPyT
+	 WDXp6uYiz+1G55rNcBqf2LXOCUujfBKtADuMBa8jjXnVUPmr6RXHZo0Ji/ucvL1QJHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794701473;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Debian-User;
-	bh=DP8Fud0aitYtm0WeT7qB38AzPuoqfPmxd/HrKwDPkJY=;
-	b=qqnsKkrHbjq8P3TmbyqIov98mCOCmiNhfrrJ1vOWvLofwk0cDs1X+hm8AhZBqlBxn0ua
-	 xsaB67TemEFB7OXVVGMnNVIHOaGnlZ4MsXvMtUokMF8AirWM95xH2NCU+ZtFomdERdGuF
-	 cXWdP7s39l+duUUM563xIjgazPLjlcYj/SwVvneAmHAMYdkY4aLpmASWr6VkHkv6NpQU9
-	 /xMFC40uZUPXtFK9JrypyefXknkuktHBEDNrmuwOydsMVifQxlWbLN9ehErRCZt6s/+QM
-	 XUyObbUK3kuDHjWxD6BLJRRjlGf3qwRk5UjxWCiXXldxfE+ixoJo97uF66FVwwgR0lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794701585;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Rspamd-Queue-Id;
+	bh=zfyroGzkNGL4W30JLb+5vyu/PrDiYb5tYKlfqHvbl2E=;
+	b=0I/RKEbpulI31/5a4SVpkUfMMp1yn/JFps3q7/e84D1qTwY3Khw8qsYYs8CO8O3l9bWR
+	 c1i51XSJPbR/YR2GeMybIcOiThqYg/WnY1wiHQ21q/PuJELQIBSsjN6oNI1fhD/1kGhFD
+	 5maHFyvA0OkxA28U5Z5ua0iFXbUoYfbCcXn3YQI+e24eLw/YlWsiGfmqVyAzWJbmracR8
+	 ZslYAPJU1IqZ/l/NZvPOXCgmaOevqPmGuqf1lJxHYiCn3KdbUotK4hc11jBVLU2Uy68kQ
+	 H9+SxVoCXUedIYd2onKXFCdEnb8/6eMklestdjrbEI30Xvs5ElcvuJpJ0K5gTjL4/ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="faxk/Djw";
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=amieiro.net;
+	spf=pass smtp.mailfrom=amieiro.net;
+	dkim=pass header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=UwW5TSuX;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92AA606A329;
-	Sun, 15 Nov 2026 00:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C92AA606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22DE606A330;
+	Sun, 15 Nov 2026 00:13:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E22DE606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=faxk/Djw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
-	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=DP8Fud0aitYtm0WeT7qB38AzPuoqfPmxd/HrKwDPkJY=; b=faxk/Djw7exjo2IIJq14qNYzS5
-	LMvHbWbuUNAjrA9PlCALaBgEdhUEapXaK29XABsPX/0NBp6jIFgCcSg3B3d52teAHIJfpJlmi4s+H
-	2sF58//HLJDaSnu0baDdd5AjQNFePCMZXE+wPiqFbAWGLpCEh6VCjv7E1KZN6brzx0I07EJ3rSsxY
-	quUffal8jUt6bYnzoevdMigZre9EpoyXppoGk5NFBouKO7vuyYr9rwGntrODpVpCXeX9o8PWB9uhs
-	hwm8uQ2M6h63+dyxjSZM+0/rb3lFl5eeG76V7HfTljX0c5G98EeAnCQW7P3JpD96scKXBWLD2Gn5q
-	2A1RpQTA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xSNpp-00FvGQ-37;
-	Sun, 15 Nov 2026 00:11:06 +0000
-From: Emfox Zhou <emfox@debian.org>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] HID: intel-thc-hid: intel-thc: restore PRD table capacity
-Date: Sun, 15 Nov 2026 08:11:00 +0800
-Message-ID: <20261115001100.313270-1-emfox@debian.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=UwW5TSuX
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jRrzq00Y2zMlqj;
+	Sun, 15 Nov 2026 01:12:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
+	t=1794701575;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zfyroGzkNGL4W30JLb+5vyu/PrDiYb5tYKlfqHvbl2E=;
+	b=UwW5TSuXIYrIW0epGUdFWUOpiHYxGkq6ImsXY04lCECk/zEmP+6dbQhUv6YWQygarSmiid
+	AiWMVL0ixvteZ4TATGl422tlfN7ndcPlDyExzntmCimkk4cA5SahhDQoyL3NzXzgExO3c7
+	Pg1L+BNIeLM1KVaeTHOklWWvr46AT3QkQ4A3AraapDaGw5OdnhkjHzERDG2v3k0naznyud
+	SHLpLpiTFQtoGDRPcOxIdr/izLs1hUfPoRBq0iAQGZN1Rf9KrRaKk/RqKxkHiwPV/OnJaU
+	2IEVHqJYGbg4TERp/B3CqAViaHTf8YCF4XJUemaCM+whxCbryqxDQLks3ebjMQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=flavio@amieiro.net
+From: Flavio Amieiro <flavio@amieiro.net>
+Subject: [PATCH v5 0/2] leds: Add support for the is31fl3206 LED driver
+Date: Sat, 14 Nov 2026 21:12:19 -0300
+Message-Id: <20261114-add-is31fl3206-support-v5-0-332db80233df@amieiro.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,66 +67,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Debian-User: emfox
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NwWrDMAzG8VcpPs/FlhIn7anvUXZwZHnV2JJgp
+ 2Gj5N3ntAw2tkKPH0i//0VlTsJZ7TcXlXiWLENfRv20UXTy/QtrCWUrMOCssaB9CFoy2viGYJz
+ O53Ec0qRDXTexdeh3jVfleUwc5eMKH59vO5+7V6Zp1daLk+RpSJ/X8mzXu+8I3ovMVhttWjLOE
+ UFlw8G/C0satj1Pas3M8BgEBSJvAnSxblqMfyF8DMICOecbBx7Jwj9Q9QOC9i5UFYgRLTHvInX
+ 4G1qW5Qvax769qwEAAA==
+X-Change-ID: 20261012-add-is31fl3206-support-d557f863a97a
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Flavio Amieiro <flavio@amieiro.net>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2692; i=flavio@amieiro.net;
+ h=from:subject:message-id; bh=GaSDExbClgmHiJCppCphbXgKmOXG5JSGmiBs0bbKiD4=;
+ b=owGbwMvMwCX2bmrBFGnZ5lDG02pJDFk/fvxT2aVd+fkj672W2PgJiQlbgm4Lr9z1Pt9oF5OBZ
+ LSOnSN3RykLgxgXg6yYIgtLGUuZd/vB5t3TVkvCzGFlAhnCwMUpABPx12D4X8X6XO3pn60b2y8W
+ qnbY7v9nfWR/s83f/U9+zIjt2V0T+puR4ZVex/OCdOk/kvfL5jfMSnjFsLrkQIfI91fvljPM+xa
+ 9jhkA
+X-Developer-Key: i=flavio@amieiro.net; a=openpgp;
+ fpr=047604764B87C183BB96AB19EE9570941B1D8355
+X-Rspamd-Queue-Id: 4jRrzq00Y2zMlqj
 
-The controller writes the frame length into the PRD entry it filled and
-marks the end of the frame there; only the read path puts the capacity
-back. thc_reset_dma_settings() rewinds the read pointers, so the ring
-reads as empty while the entries keep those lengths, and the next frame
-that does not fit runs past the end of its table: the controller reports
-a buffer overrun, which is a transfer error and leads back into the same
-reset, with the tables untouched.
+This patch series adds support for the is31fl3206 LED driver to the
+already existing is31fl32xx driver.
 
-Restore the receive tables where the pointers are rewound, which covers
-the RxDMA reset, the resume path and the SWDMA round trips in one place.
-Every caller has the engines paused: the reset and the SWDMA paths wait
-for them, a resume finds them stopped by the suspend, and a probe has
-just rebuilt the tables anyway. thc_copy_sgls_to_prd() returns early for
-a channel that has no tables.
+The main difference between this specific variant and the others in
+the series is that the LED Control Register controls not only the
+enable status of the channel, but also the maximum output current for
+it.
 
-Fixes: 1d46b8d40655 ("HID: Intel-thc-hid: Intel-thc: Add API to reset read DMA")
-Signed-off-by: Emfox Zhou <emfox@debian.org>
+This patch allows the chipdef to define at which offset the LED enable
+bits are inside the LED Control Register, so when calculating the
+value to write to the register we can offset it to the correct
+position in the register for ICs like the IS31FL3206.
+
+The patches keep the behavior of the drivers for the other ICs in the
+family: initializing the LEDs by enabling all of them and setting
+output current to maximum and then using only the PWM registers to
+control the brightness of the LEDs.
+
+Signed-off-by: Flavio Amieiro <flavio@amieiro.net>
 ---
+Changes in v5:
+- Fix spelling in the documentation for the new attribute
+- Rebase onto newest for-leds-next
+- Use assignment operator for left shift
+- Remove unecessary line wrap
+- Link to v4: https://patch.msgid.link/20261028-add-is31fl3206-support-v4-0-e331cee9fcb3@amieiro.net
+
+Changes in v4:
+- Changes approach from pointers to functions (used in v3) to
+  describing the LED control register layout.
+- Link to v3: https://patch.msgid.link/20261013-add-is31fl3206-support-v3-0-66a762a3c12f@amieiro.net
+
+Changes in v3:
+- Reorganizes the commits so the dt-bindings are documented before using
+  them
+- Link to v2: https://patch.msgid.link/20261013-add-is31fl3206-support-v2-0-ca0d2bf5783f@amieiro.net
+
 Changes in v2:
-  - Move the restore into thc_reset_dma_settings() so every pointer rewind
-    is covered, and add the Fixes tag.
+- Avoid double initialization when enable_all_channels is non-NULL
+- Add missing entry in the i2c_device_id table
+- Link to v1: https://patch.msgid.link/20261013-add-is31fl3206-support-v1-0-08c066cc241d@amieiro.net
 
-Link: https://lore.kernel.org/r/20261114231733.3916070-1-emfox@debian.org
+To: Lee Jones <lee@kernel.org>
+To: Pavel Machek <pavel@kernel.org>
+To: Griffin Kroah-Hartman <griffin@kroah.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-leds@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
 ---
- drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Flavio Amieiro (2):
+      dt-bindings: leds: Add issi,is31fl3206 to leds-is31fl32xx
+      leds: is31f132xx: Add support for is31fl3206
 
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-index c80ef8c20..544bf3a6b 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-@@ -211,6 +211,9 @@ static void thc_copy_sgls_to_prd(struct thc_device *dev,
- {
- 	unsigned int i;
- 
-+	if (!config->is_enabled)
-+		return;
-+
- 	memset(config->prd_tbls, 0, array_size(PRD_TABLE_SIZE, config->prd_tbl_num));
- 
- 	for (i = 0; i < config->prd_tbl_num; i++)
-@@ -285,6 +288,16 @@ static void thc_reset_dma_settings(struct thc_device *dev)
- 	regmap_write_bits(dev->thc_regmap, THC_M_PRT_READ_DMA_CNTRL_SW_OFFSET,
- 			  THC_M_PRT_READ_DMA_CNTRL_TPCPR,
- 			  THC_M_PRT_READ_DMA_CNTRL_TPCPR);
-+
-+	if (!dev->dma_ctx)
-+		return;
-+
-+	/*
-+	 * Pointers back at the start while the entries keep the lengths the
-+	 * controller wrote: restore the capacity for the frames that follow.
-+	 */
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA1]);
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA2]);
- }
- 
- static void release_dma_buffers(struct thc_device *dev,
+ .../devicetree/bindings/leds/leds-is31fl32xx.txt   |  1 +
+ drivers/leds/leds-is31fl32xx.c                     | 30 ++++++++++++++++++++--
+ 2 files changed, 29 insertions(+), 2 deletions(-)
+---
+base-commit: 4e88404a72e5e26720539e5555c383069cefb486
+change-id: 20261012-add-is31fl3206-support-d557f863a97a
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+Best regards,
+--  
+Flavio Amieiro <flavio@amieiro.net>
+
