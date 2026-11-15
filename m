@@ -1,61 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794752762;
-	b=QrikrxTwm25bFx6NH1A9byGFVQYkAEGL51Do2PglaVZZo76I/eRADXYNwP1132jzCokA
-	 C2FZLxxQf13tDLPXr+CzqWqRIuM+S7lZvdGQ/GFe9KTXPrWD5iZijGLbxZUSEcwEqfN+B
-	 BTLo73zyPoSGpi8tpbn9xeuiV5IaiaMJlQkVeW1u09t+9KjqGArpZtWn4s1WFRWjcmLhw
-	 NYsiWWyzUsiRNt9uKAzBmn58Q8/23XmUZ1EIkyxj+OqCKjhdc1zmetAU/UQmhyqBsy/qn
-	 +NgAMXUprSiz3gY9yPQTbNhPC1YR1x+P3HKRVpwU6bK+LXUGcNUe+zqaYnP1wlMj7Pg==
+	t=1794752808;
+	b=FR1i1JxNM+PA2WmbhPEH/2JgzVzTVAr1+VwP7P6SbcUU5beW0xNRApMkQphClBVlMQlZ
+	 A3EGtVcxzzsrcYtKq1v8vSw20ddBkQRgPGqMCWwhfhCcFm6m242WFvzwBUX08xNOsn9Xp
+	 SrTOro3bWPC/elRDHsQyqPsx1Th+ShQMCOULZl+hYnSUcGJDT7Ado7UlB9csg/YThwZi6
+	 LPfDw3eyERDjlWZ0RiZHCRSOArxBKLTBBIokx9VXMaiSyYRazPn2qcrtS/CzPlEXmBiTc
+	 IPI0RBm7IKCo4pL6y1lxHImNSLRXkyVbx1lNM963d6zdzXw0/1rz+vkMnDZHrbWSxDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794752762;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
-	 DKIM-Signature;
-	bh=ShjgCvqqZNLaBDF7Bo4oAbg7L5sjoWh7XMVc+AD2/Yw=;
-	b=xVqB3hyvBUgCCcuukZbeI+VSxSSp5F+jxhNLDW4/OYgnl7fFAeLFHb5ZpGir9z5Rf7M4
-	 fu/e65xmn/CVT1gDRa/udqZh0fUX5Pc90YK1OLzM0pq7/LX8+vO09XeKKZKdE51gzCs9t
-	 lyN3ERHeCBapV3634/4XmIcdiblgAFNV0IIezvMPjsXl4MkokbpHAqnK3atgxfohkWHF5
-	 tQYzyMvakUTirviqRMVw79vcx7KYEBiINqHR3AzV/3fajg6AEF+zKIXwng6ITJYG7kgVF
-	 zzLdy2aGZ9t6r7nlV9eUllKBye4L9dyk+sGpEu0cnws3a0jBFBWqC9sKusqjYSLOCQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794752808;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VY80GYMWmN2X/cRBWnIR5x01adoLIi2PeDOmn18ACWo=;
+	b=US9mKm3QPpqCfMqrFCkTvz35y7Ot1yCdYoieEpViL9/n+7vqU5vOXR2VXmnQ3mznZObH
+	 8cuyM8nXYagaXeSIQXuoUEh6hBDRl7LaeAw1tJiwJePtt3PirhoHWUamWhO0peUe4EtKp
+	 A7eBojMMReNJmtLpeZVlAL1JDAaeWNvyKNkcYMe483F00T2AlDo8oOLICpWjdO5a1YGXm
+	 SoTGRDE+c5UpmqenIPPDOwtFtcNOLZmYESenPY/5i3diBkkjnXuAB7c9Mqklsx2DS35z7
+	 egvCz7lfoN0+Yg6gkT/McfPMMSfoLHr2P37qMgMt6tz+njCJgVcJUlW7jKVejdZLp2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Fijdk6XF;
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87a7mX7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43D1606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B43D1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC3D606A883
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:26:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Fijdk6XF
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 3F02A60D4F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:26:00 +0100 (CET)
-Received: (qmail 24959 invoked by uid 990); 15 Nov 2026 14:26:00 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 15 Nov 2026 15:25:59 +0100
-From: Leonard Lausen <leonard@lausen.nl>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: leonard@lausen.nl,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	linux-wireless@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] wifi: rtw88: sdio: combine free TX page register reads
-Date: Sun, 15 Nov 2026 14:23:32 +0000
-Message-ID: <20261115142330.359247-6-leonard@lausen.nl>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261115142330.359247-2-leonard@lausen.nl>
-References: <20261115142330.359247-2-leonard@lausen.nl>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87a7mX7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8D11F000CB
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:26:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794752807;
+	bh=VY80GYMWmN2X/cRBWnIR5x01adoLIi2PeDOmn18ACWo=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=P87a7mX7trSCmaFCHcQyFDIH8UjDbYHKiubFgXqc/gTsY3yQkpA/dB9cGBqmVFbxX
+	 Dqxfi/F/zSteHwNitFJtoynvjmCM+ozfM5mXCzGsZMVLTDIL0T+8u99p2v6FHHdq13
+	 IwxtiqQ/clUTuo0ze/095tLCo9wYv1nqLk654UgsNNPE3x7j3ChAuxZWQIXR7BpNZO
+	 E0ziDZXqmnvymoFPg0oclQTXlwWXH69CS2V/RvOpUjIcY24X3VQF0veaVB4Gb7/G8k
+	 2PpA7Q0PKL/j15UfpIFf83IdUYNm1B+jUA4rQTJGoWL0gp5ClBqnZNacLP/ENO1lH4
+	 /KXwg8m67qEXw==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3adfc004920so28849011fa.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:26:47 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEbUCxQse20ARItozHd3S97aFLtTsRPLK4n9yg2a0fQJ8avYHXUiJPdxAFHmUNrbcvJSX8kStV2d0A/9ww=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/XkObBTLey1US6zAVZgBZAHxo2sRVAqAsW1wyqzy1pbMcqyMBx
+	T/sd6KJmyxbvaracvfSxrXRysDKP/Zz6LnPu3EHI6lX1B1asetmZHX1GYgC9tsTcNZqdUY4lJ7d
+	N3cLj8mWZz8HUPP4hRlBh1QT7NqRpYas=
+X-Received: by 2002:a05:651c:41d7:b0:3ad:de02:e9a6 with SMTP id
+ 38308e7fff4ca-3ae2b4cda67mr25514401fa.16.1794752806007; Sun, 15 Nov 2026
+ 06:26:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,155 +59,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: -----
-X-Rspamd-Report: REPLY(-4) BAYES_HAM(-3) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -5.6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=qQro4BPyHAD9tgg6RcpreG2vwjlqZkQarO5Fq3srUEE=;
-	b=Fijdk6XFsoszXGzwojm16N9Wwk5P6TWeHsr5PF6iwx1cMyostFAss2Eig7cimO/b0Zr2CRqNwO
-	IXzLWzwAyAwv0mppekeJuMAEaurfsim/y6wrVfezxfEQKGHPch9OzGf1EFf4D/89el5vPgAlZdkI
-	Y/nHeu16DLxcvQEC2pqB6p4WzRhA5uPcC7NvPLZF9dLseqoGMDTVFGaRNpcmIRI6UO8Bs90tHvys
-	gpQCp1mUm8Snqv+uWm7eLCkornvrCmCLMVyiVlngusLdiyf4mDNlFwT44mnlLu9IxQ64t7yHXJ8a
-	9f+3nXmIIAMDiiy6qvGc07v5TebtOKecjskmaOONycxyZ15GPea5IkBvz0GY4luhl6s116qcILEa
-	A6QEE2tlDzzhp12rzkDZFdhSD1KVt05pavxNR7+dT3RUFDwD0FU+Say30WzivRFjrlFH+Ji+g3/5
-	hSuaTxQjAauFh21YxebhwmoI822pxo+oiSEEgEgAxEyueE0GU6+lrPwoXdKDaSItooHL0cJNa1xt
-	P3lKhFoIbpJFnWTLrirhNNdb0mSMCSlRQ5hJcpGlODTQULtBCAJUaPbbJkPaFY7sFPkJ77aDOKKU
-	tGfWTK8P8KigXjHQ8raac0SiJAeAK4Pih5Q5MDJ/x9k/PApq43ZWIORgqWUPRkERtCw1bhg832DB
-	Q=
+References: <20261115061102.229680-1-jernej.skrabec@gmail.com> <20261115061102.229680-9-jernej.skrabec@gmail.com>
+In-Reply-To: <20261115061102.229680-9-jernej.skrabec@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 22:26:32 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64wZv7TV1Jb-r0qtvRz=dWWO_YkhYxMwxBNcyVUoKi9VQ@mail.gmail.com>
+X-Gm-Features: AclHuK-JOP2IDOiEi7PmqaWN9O63FgTmRJcOIwMzfvjNDqgeqpiwUNzW1M1IK3U
+Message-ID: <CAGb2v64wZv7TV1Jb-r0qtvRz=dWWO_YkhYxMwxBNcyVUoKi9VQ@mail.gmail.com>
+Subject: Re: [PATCH v3 8/8] drm/sun4i: Switch DE33 to split plane bindings
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
+	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
+	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, sboyd@kernel.org, 
+	Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-TX capacity checks on non-8051 chips read three adjacent 32-bit registers
-in separate SDIO requests. Combine them into one 12-byte CMD53 read when
-the existing power/alignment check permits it, with the per-register
-fallback otherwise. Propagate read errors before checking queue capacity.
+On Sun, Nov 15, 2026 at 2:11=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
+l.com> wrote:
+>
+> The shared plane driver and split register resources are now in place.
+> Switch DE33 mixer discovery to the new bindings and remove the legacy
+> per-mixer plane setup. Mixer register space now covers only display
+> blending control, so limit its regmap accordingly.
+>
+> The old DE33 binding is not supported anymore, since it can't describe
+> shared planes and was never used by any device tree. If it's detected,
+> print an error asking the user to update the device tree, instead of
+> failing silently or misusing the plane register space as blender
+> registers.
+>
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> ---
+>  drivers/gpu/drm/sun4i/sun8i_mixer.c | 195 ++++++++++++++++++++--------
+>  drivers/gpu/drm/sun4i/sun8i_mixer.h |  10 +-
+>  2 files changed, 140 insertions(+), 65 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_mixer.c b/drivers/gpu/drm/sun4i/=
+sun8i_mixer.c
+> index dbde80b32080..0970be6aa035 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_mixer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_mixer.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+>  #include <linux/of_graph.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/reset.h>
+>
+> @@ -25,6 +26,7 @@
+>  #include <drm/drm_probe_helper.h>
+>
+>  #include "sun4i_drv.h"
+> +#include "sun50i_planes.h"
 
-Allocate a DMA-safe buffer at probe and copy its little-endian values
-into the caller's array before releasing the host. Holding the host
-through the read and copy serializes access to the shared buffer.
+Nit: doesn't seem to follow the order we use elsewhere. I think we normally
+would do:
 
-On RTL8822CS/NanoPi M5 at 198 MHz SDR104, median TCP upload increased
-from 170 to 186 Mbit/s (+9%) with this patch alone, and from 258 to
-287 Mbit/s (+11%) when added after control-frame filtering.
+    sun4i_drv.h
+    sun8i_*
+    sun50i_planes.h
 
-A separate download test  measured 241 to 262 Mbit/s (+8%) with this
-patch alone, and 263 to 274 Mbit/s (+4%) when added after filtering.
+>  #include "sun8i_mixer.h"
+>  #include "sun8i_ui_layer.h"
+>  #include "sun8i_vi_layer.h"
 
-Assisted-by: LLM
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++++++++++--
- drivers/net/wireless/realtek/rtw88/sdio.h |  1 +
- 2 files changed, 55 insertions(+), 4 deletions(-)
+[...]
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index dc2fd0f8f9fff..4aeff250a6d6a 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -26,6 +26,7 @@
- #define RTW_SDIO_TX_FIFO_HIWATER			16
- #define RTW_SDIO_TX_FIFO_LOWATER			8
- #define RTW_SDIO_TX_RETRY_DELAY			msecs_to_jiffies(1)
-+#define RTW_SDIO_FREE_TXPG_COUNT			3
- 
- static bool rtw_sdio_is_bus_addr(u32 addr)
- {
-@@ -675,6 +676,40 @@ static atomic_t *rtw_sdio_8723bs_free_txpg(struct rtw_dev *rtwdev, u8 queue)
- 	}
- }
- 
-+static int rtw_sdio_read_free_txpg(struct rtw_dev *rtwdev, u32 *free_txpg)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+	bool bus_claim = rtw_sdio_bus_claim_needed(rtwsdio);
-+	u32 addr = rtw_sdio_to_bus_offset(rtwdev, REG_SDIO_FREE_TXPG);
-+	int i, ret;
-+
-+	if (bus_claim)
-+		sdio_claim_host(rtwsdio->sdio_func);
-+
-+	if (!rtw_sdio_use_memcpy_io(rtwdev, addr, sizeof(u32))) {
-+		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++) {
-+			free_txpg[i] = rtw_sdio_readl(rtwdev, addr + i * sizeof(u32), &ret);
-+			if (ret)
-+				break;
-+		}
-+		goto out;
-+	}
-+
-+	ret = sdio_memcpy_fromio(rtwsdio->sdio_func, rtwsdio->free_txpg, addr,
-+				 RTW_SDIO_FREE_TXPG_COUNT * sizeof(__le32));
-+	if (!ret) {
-+		/* Copy the shared DMA buffer before releasing the host. */
-+		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++)
-+			free_txpg[i] = le32_to_cpu(rtwsdio->free_txpg[i]);
-+	}
-+
-+out:
-+	if (bus_claim)
-+		sdio_release_host(rtwsdio->sdio_func);
-+
-+	return ret;
-+}
-+
- static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
- 				    size_t count)
- {
-@@ -727,11 +762,14 @@ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
- 		/* add the pages from the public queue */
- 		pages_free += (free_txpg >> 24) & 0xff;
- 	} else {
--		u32 free_txpg[3];
-+		u32 free_txpg[RTW_SDIO_FREE_TXPG_COUNT];
-+		int ret;
- 
--		free_txpg[0] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG);
--		free_txpg[1] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 4);
--		free_txpg[2] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 8);
-+		ret = rtw_sdio_read_free_txpg(rtwdev, free_txpg);
-+		if (ret) {
-+			rtw_warn(rtwdev, "Failed to read free TX pages: %d\n", ret);
-+			return ret;
-+		}
- 
- 		switch (queue) {
- 		case RTW_TX_QUEUE_BCN:
-@@ -1777,6 +1815,7 @@ int rtw_sdio_probe(struct sdio_func *sdio_func,
- {
- 	struct ieee80211_hw *hw;
- 	struct rtw_dev *rtwdev;
-+	struct rtw_sdio *rtwsdio;
- 	int drv_data_size;
- 	int ret;
- 
-@@ -1798,6 +1837,17 @@ int rtw_sdio_probe(struct sdio_func *sdio_func,
- 	if (ret)
- 		goto err_release_hw;
- 
-+	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+	if (!rtw_chip_wcpu_8051(rtwdev)) {
-+		rtwsdio->free_txpg = devm_kmalloc_array(rtwdev->dev,
-+							RTW_SDIO_FREE_TXPG_COUNT,
-+							sizeof(*rtwsdio->free_txpg), GFP_KERNEL);
-+		if (!rtwsdio->free_txpg) {
-+			ret = -ENOMEM;
-+			goto err_deinit_core;
-+		}
-+	}
-+
- 	rtw_dbg(rtwdev, RTW_DBG_SDIO,
- 		"rtw88 SDIO probe: vendor=0x%04x device=%04x class=%02x",
- 		id->vendor, id->device, id->class);
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
-index 6e7e6009744b0..8310bf6d54b59 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.h
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.h
-@@ -181,6 +181,7 @@ struct rtw_sdio {
- 	atomic_t tx_oqt_free;
- 	/* one writer at a time between the credit check and the accounting */
- 	struct mutex tx_credit_lock;
-+	__le32 *free_txpg;
- };
- 
- extern const struct dev_pm_ops rtw_sdio_pm_ops;
+> @@ -566,12 +582,34 @@ static int sun8i_mixer_bind(struct device *dev, str=
+uct device *master,
+>         if (!mixer->cfg)
+>                 return -EINVAL;
+>
+> +       if (mixer->cfg->de_type =3D=3D SUN8I_MIXER_DE33) {
+> +               /*
+> +                * The original DE33 binding described planes as part of
+> +                * the mixer, which can't work with more than one mixer.
+> +                * It was never used by any device tree, so it's not
+> +                * supported.
+> +                */
+> +               if (of_property_match_string(dev->of_node, "reg-names",
+> +                                            "layers") >=3D 0 ||
+
+No need to wrap this bit.
+
+> +                   !of_property_present(dev->of_node, "allwinner,planes"=
+))
+> +                       return dev_err_probe(dev, -EINVAL,
+> +                                            "Unsupported DE33 mixer bind=
+ing, please update the device tree\n");
+> +
+> +               mixer->engine.ops =3D &sun50i_engine_ops;
+> +       } else {
+> +               mixer->engine.ops =3D &sun8i_engine_ops;
+> +       }
+> +
+>         regs =3D devm_platform_ioremap_resource(pdev, 0);
+>         if (IS_ERR(regs))
+>                 return PTR_ERR(regs);
+>
+> -       mixer->engine.regs =3D devm_regmap_init_mmio(dev, regs,
+> -                                                  &sun8i_mixer_regmap_co=
+nfig);
+> +       if (mixer->cfg->de_type =3D=3D SUN8I_MIXER_DE33)
+> +               mixer->engine.regs =3D devm_regmap_init_mmio(dev, regs,
+> +                                                          &sun50i_mixer3=
+3_regmap_config);
+> +       else
+> +               mixer->engine.regs =3D devm_regmap_init_mmio(dev, regs,
+> +                                                          &sun8i_mixer_r=
+egmap_config);
+
+At some point we need to move most of the bind function to the probe functi=
+on.
+None of the devm_* stuff gets released if the bind function fails.
+
+We can also switch to the combined devm_* helpers for clks and resets.
+
+>         if (IS_ERR(mixer->engine.regs)) {
+>                 dev_err(dev, "Couldn't create the mixer regmap\n");
+>                 return PTR_ERR(mixer->engine.regs);
+> @@ -588,17 +626,6 @@ static int sun8i_mixer_bind(struct device *dev, stru=
+ct device *master,
+>                         dev_err(dev, "Couldn't create the top regmap\n");
+>                         return PTR_ERR(mixer->top_regs);
+>                 }
+> -
+> -               regs =3D devm_platform_ioremap_resource_byname(pdev, "dis=
+play");
+> -               if (IS_ERR(regs))
+> -                       return PTR_ERR(regs);
+> -
+> -               mixer->disp_regs =3D devm_regmap_init_mmio(dev, regs,
+> -                                                        &sun8i_disp_regm=
+ap_config);
+> -               if (IS_ERR(mixer->disp_regs)) {
+> -                       dev_err(dev, "Couldn't create the disp regmap\n")=
+;
+> -                       return PTR_ERR(mixer->disp_regs);
+> -               }
+>         }
+>
+>         mixer->reset =3D devm_reset_control_get(dev, NULL);
+> @@ -638,6 +665,40 @@ static int sun8i_mixer_bind(struct device *dev, stru=
+ct device *master,
+>
+>         clk_prepare_enable(mixer->mod_clk);
+>
+> +       if (mixer->cfg->de_type =3D=3D SUN8I_MIXER_DE33) {
+> +               struct platform_device *pdev;
+> +               struct device_link *link;
+> +               struct device_node *np;
+> +               void *data;
+> +
+> +               np =3D of_parse_phandle(dev->of_node, "allwinner,planes",=
+ 0);
+> +               if (!np) {
+> +                       ret =3D -ENODEV;
+> +                       goto err_disable_mod_clk;
+> +               }
+> +
+> +               pdev =3D of_find_device_by_node(np);
+> +               of_node_put(np);
+> +               if (!pdev) {
+> +                       ret =3D -EPROBE_DEFER;
+> +                       goto err_disable_mod_clk;
+> +               }
+> +               mixer->planes_dev =3D &pdev->dev;
+> +
+> +               data =3D platform_get_drvdata(pdev);
+> +               if (!data) {
+
+"device_is_bound(&pdev->dev)" is probably more straightforward.
+
+> +                       ret =3D -EPROBE_DEFER;
+> +                       goto err_put_device;
+> +               }
+> +
+> +               link =3D device_link_add(dev, &pdev->dev,
+> +                                      DL_FLAG_AUTOREMOVE_CONSUMER);
+> +               if (!link) {
+> +                       ret =3D -EINVAL;
+> +                       goto err_put_device;
+> +               }
+> +       }
+> +
+>         list_add_tail(&mixer->engine.list, &drv->engine_list);
+>
+>         /* Reset registers and disable unused sub-engines */
+> @@ -672,6 +733,10 @@ static int sun8i_mixer_bind(struct device *dev, stru=
+ct device *master,
+>
+>         return 0;
+>
+> +err_put_device:
+> +       put_device(mixer->planes_dev);
+
+Should you have matching "if (mixer->cfg->de_type =3D=3D SUN8I_MIXER_DE33)"
+like in the .unbind callback?
+
+Once fixed,
+
+
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
