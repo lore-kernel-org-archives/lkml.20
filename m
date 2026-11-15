@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794757267;
-	b=4wNIVix159M4079R9tXqMWHJfLvX9GSPCZIpHphljjqgBfUD+40FKoY2+ksDeXZSGud1
-	 Zy29V73krffXaBMivxekQIjqdNXqznGbPqL67EYa0efFIbVQSn2FTq/xJZD28/rk2Niz5
-	 AoFzlYVRkl2UhFpOt3PtXQOHfcwy8o64vG8UUdSzMmiz/kCe0eQ2USufhymVZRTWMPj+s
-	 TIfrrLdZ9gEvuV/TkJ1Z/x8vA0T4gVlvtTPmwGndcsJck2wIq/dh0Iqa8Wcofbxkhhjlc
-	 Peo4f9rdvvH8V2DKUMHvXJQDQxn6SIyeswJIG9pnTG1HJfGPZBSMuA1NzI9DgEHtuVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794757267;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794757321;
+	b=CBToE09ZAFIleoxIS/RhFOVG8J3CK93w0hJG0Wb3L+EJbELFDsY3QQQ5Rzcngx+VRe6L
+	 EEEI5TDwILq8RjTmZFNuN9WOjcOFMGdiT2FR+Nt2roCjgNQcAbXzVicSoqiFrirNtqJy1
+	 EPHiCrEMBb46vhbIvG0SoxTMCKcWxYekcwfcx8MoVUii6TXPJ/U8Ny2qkGFWKL1Y12zxu
+	 TqKZdddZ5IT18Hg6HbqVOawhBQV005wrK4a2CIZUvsnjQ7gCCGA9RciQ2rRo0gN+YQbn3
+	 zhJluzLLvsTPn2i8uAi72SayZv/Wp/kP+Q6vYZTCvKbJ/sywLdPl5W2X5q/zS+Nn3Vw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794757321;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=PVuohZ8xLFR5YiCoEYGFhyPTULZBGZj7Wpwh1r3TICY=;
-	b=axG/EWNPdRMhcCUScmezKjFE0tNB1erJHhc1TafoAEBleozPTwPMsEsAVh814VLBQOH3
-	 5SeCCfrI8FwgsBNCtSgyrdgn6sYE5807SvF4EanqOhQ8Vbph+4bs5qyjp8Hzjq0uNEK5w
-	 ZFg8VE6GT0dW6cEen3meFzo8/9OO+BF28aZ2TYZh+GFlSE8ti4MPDYWGsgQyP3TQI7Vk0
-	 C+9N+0umM91tNigAzmZNtM8IYgp/jrCAbfQcCShgwNYeWv5z3gw/i+y+f8HM//9jfoIz6
-	 LBKqOnBAOTvLCbyKoBqgkyzcgftqgOpT0U5GWPJPHPyChagFz0rBQKt4Hj9cLI32WrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JcnXBjQ6;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Y0shGZ6hyhRZI7u9lKNPwzmsqe7OyakFksQ4HOiAHG4=;
+	b=bsfvsqan+KP+6x0PR1xXHwjF/9qHQzowZTfcpjHhyiX5lyegpeb1RX6BjmFrjgIw9soN
+	 fNKc6vnulOwb0Zy9Jp3jk2LcvW0oZFcB7f3u2Ev8SquKqtsXuCsUerROur5OSydqKvv4o
+	 /meh75ZhT8QF6j/KZGe5FQ5CILbGU3zfN/YjPE/R0K7SeAAl/q7pQ+D/tBEjYYPjiA/tD
+	 Bnb9AqvV7gWg2awGCqH2Z+fihabx0lEyeNTKdlQKCowObR7rrVYLgw31JBz1Oi8YKQJHV
+	 AV/QGMFVdb3LHlK6VuTVBMPMHngqVBWZP2+dm5LJZuP+7lM8MleLWuR/99KzzHCP9gQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u+Lw0+fG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECE2606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:41:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CECE2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEA9606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BEA9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JcnXBjQ6
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so1287119f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:41:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u+Lw0+fG
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67c6a0abc2eso2730543d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:42:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794757320; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E7UHNJYJUO+jG3pRBTRQIg8P+59j4M74t1M8IfslDYaVGfLO7eoSuBZIvLmA+aLmh3
+         9n193U0w+F+0Kmrll8SNcjlrSVkLgO5Le1fJ/Nfuks5rXNkCfWiwGcKekC5gpZmkINIO
+         ZZLirpfQc0g5Lx2EwH7f0oRp5hyAkKbZul2UzxjOUItEyTH4QihSe56UjvHqaJgrKzjB
+         psykT6l9bM/0PWaTCMPLj+2aSMiFhJsvxqV3BLht8BKONDVZrs8rPIUTN64V9/Chmxpp
+         /G2suGE/EffH3h7i4ft7LJY6YNdW+HMhZI2B3Kzr9hQ7YwRWlyPHmK4IaSHoqPPsgNXG
+         jd1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Y0shGZ6hyhRZI7u9lKNPwzmsqe7OyakFksQ4HOiAHG4=;
+        fh=h5cZS6zOZY5kBYR2jzxXAVw6+UW/RrCvfVk0DBAUVNQ=;
+        b=IRvlKQYnKOfeF5GWJgsUpqT0OoLhSduKGewUwiUPsY/8eANIXBKKlQxK0x8C3rDjaF
+         borrN0j0bmh/S8a47gEeUoDtGwpyNH2zH5WEPkxIpnsec+DFTWxkT/39ob+g4TmQk2GW
+         uqb5yujG49wngA7mgtorkHsjqplwPYI2H7km6accLiF/dKEKhpvlz7p9mfS2Jj/pr52c
+         5QIahxxbJqkb8Zs6I2Z60p5EbqEjOUJuoB032k1l+Kv+3l03PtbkEusM3hUGdVUcDf1v
+         zNjCtvsdIIKHcdcNppfKxCk6kD2kk4Ft4jHHljKLnLoSM81Iqoc6q/noUVz3b6wfsAV8
+         k7yA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794757264; x=1795362064; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794757320; x=1795362120; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=PVuohZ8xLFR5YiCoEYGFhyPTULZBGZj7Wpwh1r3TICY=;
-        b=JcnXBjQ6oVs3WO6WxsJjlXF3Srfn+XWnPXlN0yzPpJsvcbjAwiYznR2yVsrq+dIF0J
-         W9K1hDH1dg4Rq7lZSMIhfD3gchU0KLGorPdGJ+zlQeEucdr7nNce45CvydySUCY90PWY
-         Xyu/qB9TRVQV4d6tUrWZIxOCTwwDWe69IsTtjWCZjxdP2vvALjzMAogu8SPoZHkOZyaF
-         zuC9NuaXKcHS/ydQMct1JDP/0pjhpMGbTARWR/YcAz+Qib3t24DwWdP7jNV5O7sXEqo0
-         nlPhnW30vWk79ZmVTGvnuZbrJ2Vgh12vhrZe5Vz+JkN4iiK2dMUW8v2WdxiY8cHNmbsu
-         Y4BA==
+        bh=Y0shGZ6hyhRZI7u9lKNPwzmsqe7OyakFksQ4HOiAHG4=;
+        b=u+Lw0+fGEwnsMts5plO615IBT8mWkOZSG19nR+eOkB1ARvLDkFzNhwCHkTIk1uaLYN
+         NxBVG223K6iHF5QqFD1WRsXx/u/f3GXhApT+6SIApEwIW/N/HI8o2RxWC/Eh5ByEaeQz
+         oHzDBBcQaXmpug2I9j6SR5oFS2IU2WVQGT7/o0p1nVgtfTaI8oNYxJRzVZjLMcGx5saL
+         o1y7TFOryoG4Z/zPF7xcXhxhJwUlle51sRjt4ohFJim3lGD0cWFGE4a/9Qa0VNwGfSi3
+         sIaM2vyeso0PJSx5g8oGO10tsLpv4Apmf5i6arpUjnsOoFIbdkfw+mdWUjQ6o+nZMRyy
+         XHwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794757264; x=1795362064;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794757320; x=1795362120;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PVuohZ8xLFR5YiCoEYGFhyPTULZBGZj7Wpwh1r3TICY=;
-        b=PueSNYSuwADuntZlcX0MnkHesHxUrIYZ5QCA78jAbIk4vnYTEhZUQ+1q0kDdekSggK
-         4UPBIlC6qnAY9jU179ic1xiB0pg0cx9otXC+E0DSKwiEG7/AlWbNk22cGEAtM6zAlhJQ
-         qcAXGL2TyiV03ASa218Q22KuRQatQd+U+Ku4KlxlDkOfhYgQG3gwu3VpgDQtfTslYFKc
-         FKvSTCbzpAgPopYYjVeqwHUKiO/en0EFEcMPIS+DGXOZoqckIITh/KWMoQnSF0Vj3VbE
-         uXZjNEsOW7A9ZsVeQ7wzCKi+QfKvXtymiSUEaP25gPUaEhj590jAbPvbiWlXi3g35ZbQ
-         Vd6Q==
-X-Forwarded-Encrypted: i=1; AL+hErEjuOOrj4Kj+JmoBiHT70hHUrUvrEG9fW+RtK65Ii+1ma9lldnov/IusMMEACkNevKpTlhlAI+h7I/4tSw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wvadbsCgVAoRyFGtDkOdSygimH69RkgbnBNfDO4ApPzsRYipw
-	xeZVIoXHrQTrsSsa8QZv6PL7WxkOmVHzKwOq7DmbZFAGBjZt3gzHKcJ0z+OnRpw7dzY=
-X-Gm-Gg: AYBFou2U0lNyH5Zmx0/uvRwgT2YxQLvt5cNi6s+f+oDa49ZdiaNvL7C36MeNeBE/6gp
-	DcdeN3kP94PkPj8HPZQ0vxTOnufHyEsr+HcmDhb1N+UK5athr289HSVOn8QYWWh9jcgxvapoZsP
-	mfQliVEiAn64nd5v7RGZ2N8LH0XdGIIOVKi/1IrpHfYrQ3KsV1ctxXfRqvRAEkWveXGiQro4G/I
-	IIoS7W/rsOPghBpIm3cTq7zhB/ui9BhRMLIqIDz6aEhrb0tsm+Pb4vYRrFQelDt6QNYkjlJg8FI
-	fWXCrpNYbMNiJZmV9taglAzGY/Y1Gcjx2BjUIMbF3jmYwu3+w4dL2FlqZpBCPFkfDprLZCfXLY7
-	rFmahAHo0wLiAFFcb2hvHwmJWVb96y7bd1q8oR9uxxj/vfa+ngSpP4IQum+zYUlvqomVdt1kxT8
-	/e8geejBEuIJWaO8uJhbsd7KoqCJckdbzyOBwyjLuhdgTakoIMk8x9MC0+ajCUHms0tosDSGuu0
-	RcsoTMwMFYyilCzEQqoBNy2h70/Q/s9iZx/DdebvKsT7goHyiC5zFJ8TCZT+k7eCXMd06x8K++A
-	7WNTYloaEpvxfVOXJudomDXCEkUxaykBV40=
-X-Received: by 2002:a05:6000:2c04:b0:48e:d36:77 with SMTP id ffacd0b85a97d-49c6fc9db5bmr19465481f8f.4.1794757264141;
-        Sun, 15 Nov 2026 07:41:04 -0800 (PST)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-49c888b90d4sm16462060f8f.9.2026.11.15.07.41.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 07:41:03 -0800 (PST)
-Date: Sun, 15 Nov 2026 16:41:01 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: gaohan@iscas.ac.cn
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
-	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, 
-	Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, linux-csky@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 14/19] pinctrl: sunxi: add support for the Allwinner V861
- PIO
-Message-ID: <avnR67LnZo4Mo0Tf@monoceros>
-References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
- <20261114-v861-v1-14-eb71ec3ee523@iscas.ac.cn>
+        bh=Y0shGZ6hyhRZI7u9lKNPwzmsqe7OyakFksQ4HOiAHG4=;
+        b=JZzF2TXvJirHoN5WecR3iqI8oghIlCOk64aWJ62NuWYMfCzkxBg8lXrafUr2JyLjwt
+         ZWuerQiB48uG5usNnsWPzqCtT5WotynUAhpNdcDa4twPy4/Fh3+/KpFryfJ1JdthFitu
+         yqeniEf1ZDiuZKmkG8aT4vfUzlvYij30ZqAB0KdTrhbDpktZU5mkqvLmJ6Pdygibl4YU
+         l7sTR9k79SetTxq+2v8tuKY3xUP1NhgQEhZkV0T8gdDx6rqc4ambSpMvlh3eyawJc2OT
+         ngD/YEPpCEWp7AvrgFmc2bcHzIgwQ72lKYfGjBoqeFfLSq//d+0M8euy5RkAlgxa4R7s
+         FkmQ==
+X-Forwarded-Encrypted: i=1; AL+hErGnHWzMRm0sgfi2BtXAijl42O5ICZzngRlkJOG7R2oaYX3TJwbFWGmRLTfaKiZiMA2p1ehSc004Iq9r+VY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MDo7hcIykIOs6WOy5MRcY1c4BEQViOYNJYG+AfrKDviKo8l2C
+	qOPh7bHM3e48/LtQalhpiZDVxsoby4GQSrITF7pggllHbIBO7yiyVhuR9irQL1lzfmfkU2u8EjB
+	msgr3yMXmSZo21MSoiIvcfBnNO72+22w=
+X-Gm-Gg: AYBFou0mKIfVzs9Umt/kKiNcSd2DAb2eHMRQr71GqH8klQSek12iTTuSvPLT/OL1SpW
+	DVeG4EYHArLFrkXr9elBBhMFFOXG2POn1i6nTmGVW0dxui+Puj1eyut2juCgQCSf8mst77rnC0f
+	HMbhArqTB422NKTjkF+WbE+7SMxok7oLQ0hWK1/9WMYlqPk4wm2I6vyDJFCVNvM8SK6RBf5dGSY
+	YYGtVlbFt3C1kVdpLeqqIinSYar27I7uBYJaGofDSuKm9NTpylKu8o2ARMjjqIRCzYRrQrqp3dN
+	cHFIOvbdWjXZ2tPrlnAUqzVPGDvCJDfsRRNdxaWTZDX4VE8mQOmWKZJ7xHK6WP09UqLh9tZ+gNl
+	NgmIHxlEUKH0ZzkZIHAYcLX4f2gcZPhf0GMAl2uRMK+7sy+ZSWpzVn4UgiVUUTrBaLqmT/nI=
+X-Received: by 2002:a05:690e:419c:b0:67c:443b:7437 with SMTP id
+ 956f58d0204a3-67d8972f769mr4176218d50.81.1794757320129; Sun, 15 Nov 2026
+ 07:42:00 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,68 +104,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fgskattfdxvvv7hb"
-Content-Disposition: inline
-In-Reply-To: <20261114-v861-v1-14-eb71ec3ee523@iscas.ac.cn>
+References: <20261114-nyan-wifi-32k-v1-1-311c6f2163d4@gmail.com>
+In-Reply-To: <20261114-nyan-wifi-32k-v1-1-311c6f2163d4@gmail.com>
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+Date: Sun, 15 Nov 2026 15:41:49 +0000
+X-Gm-Features: AclHuK9XI2phd4ElF0I4ZWo1qXh6X3hb82lItzI21-3DRYQCtspJfYTGO2-pD7I
+Message-ID: <CAN1s30rP9jkTp8rmyFBjp9FtmZO9QTXNXqawpJ1nZbusFw59bw@mail.gmail.com>
+Subject: Re: [PATCH] ARM: tegra: nyan: Enable the 32 kHz clock for the Wi-Fi module
+To: volodymyrchapman@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Dear all,
 
---fgskattfdxvvv7hb
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 14/19] pinctrl: sunxi: add support for the Allwinner V861
- PIO
-MIME-Version: 1.0
+In the interest of transparency, (and to meet the kernel AI policy
+outlined in Documentation/process/generated-content.rst), I was
+assisted by Claude Code (Anthropic) in creating the patch described.
 
-Hello,
+It inspected the device tree and clock state of the device (HP
+chromebook 14 G3: nyan-blaze), identified the missing 32 kHz PMC blink
+clock and drafted the change and commit message. Warm reboots were
+scripted by Claude over SSH and cold boots were performed by me. I
+have reviewed the change, understand it and take full responsibility,
+acknowledged through my sign-off.
 
-On Sat, Nov 14, 2026 at 06:33:40AM +0800, Han Gao via B4 Relay wrote:
-> new file mode 100644
-> index 000000000000..742465076d86
-> --- /dev/null
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sun252i-v861.c
-> @@ -0,0 +1,49 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Allwinner V861 SoC pinctrl driver.
-> + *
-> + * Copyright (c) 2026 Han Gao <gaohan@iscas.ac.cn>
-> + */
+My best wishes,
+Volodymyr
+
+On Sat, Nov 14, 2026 at 2:13=E2=80=AFPM Volodymyr Chapman via B4 Relay
+<devnull+volodymyrchapman.gmail.com@kernel.org> wrote:
+>
+> From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+>
+> The Marvell SD8897 Wi-Fi/Bluetooth module on the Nyan Chromebooks needs
+> a 32.768 kHz sleep clock, which these boards take from the PMC blink
+> output (CLK_32K_OUT_PA0). Nothing in the device tree requests that
+> clock, so whether it is running when the SDIO card is brought up
+> depends on the state the firmware left it in. On warm reboots it is
+> usually off, and every attempt to bring up the card fails with:
+>
+>   mmc2: error -110 whilst initialising SDIO card
+>
+> leaving the system without Wi-Fi. Toggling the reset GPIO on each retry
+> does not help.
+>
+> Describe the clock in the SDIO power sequence, as the Tegra30 Asus
+> Transformer and Nexus 7 device trees already do for their Wi-Fi
+> modules, so that mmc-pwrseq-simple enables it before releasing the
+> module from reset.
+>
+> Tested on an HP Chromebook 14 G3 (nyan-blaze) running v6.6.144: with
+> this change Wi-Fi came up on 8 out of 8 warm reboots, against 1 out of
+> 22 before, and on 5 out of 5 cold boots (4 of them on battery), and
+> the clock summary shows pmc_blink enabled by pwrseq-sdhci0 (ext_clock).
+> nyan-big shares this file but was not tested.
+>
+> Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
+> ---
+>  arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi b/arch/arm/boot/=
+dts/nvidia/tegra124-nyan.dtsi
+> index 89a749c..c98de0d 100644
+> --- a/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
+> +++ b/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
+> @@ -645,6 +645,9 @@
+>         sdhci0_pwrseq: pwrseq-sdhci0 {
+>                 compatible =3D "mmc-pwrseq-simple";
+>
+> +               clocks =3D <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
+> +               clock-names =3D "ext_clock";
 > +
-> +#include <linux/mod_devicetable.h>
-
-Don't include <linux/mod_devicetable.h>. <linux/platform_device.h>
-already provides of_device_id with less dependencies, so please just
-drop including <linux/mod_devicetable.h>.
-
-> +#include <linux/platform_device.h>
-> +#include <linux/pinctrl/pinctrl.h>
-> +
-> [...]
-> +static const struct of_device_id v861_pinctrl_match[] = {
-> +	{ .compatible = "allwinner,sun252i-v861-pinctrl", },
-> +	{}
-> +};
-
-Please drop the comma before the closing } and add a space in the list
-terminator.
-
-Best regards
-Uwe
-
---fgskattfdxvvv7hb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr50okACgkQj4D7WH0S
-/k78BwgAggANSfiR3lIax5U5QxcHapAeEwjkuu5kUUd7ThVymu6geBziPkTKM9LN
-kV1vp14gkKuMuThllE6yPhDE+jBai3H2dmZPRAVxRmkHkRXaCGvN2Qy6QvjG7hn+
-pKrIhNm9FD3gtJcf3syW5npYiRAxG/6TkK+Gz1PXPgmg9Yj7puOzJ5ZZsZ+kBOcS
-xiSHHn5ujqEIP4jnBc7Dv7UpeDH4NxdbQ6ssuWEYpdmNKvGpbP4Xi4tlxo4RAMXF
-XWXJcAtussx3dylMOghSQ5VBKABwOqksAb/tX5/oaY13ScR8Lg/M3WzfjwXPwvtR
-yRXJHXEAk7lxYPB9WoXGrz3bVWm0dg==
-=Eo1Y
------END PGP SIGNATURE-----
-
---fgskattfdxvvv7hb--
+>                 reset-gpios =3D <&gpio TEGRA_GPIO(X, 7) GPIO_ACTIVE_LOW>;
+>         };
+>
+>
+> ---
+> base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+> change-id: 20261114-nyan-wifi-32k-9964d3513b7e
+>
+> Best regards,
+> --
+> Volodymyr Chapman <volodymyrchapman@gmail.com>
+>
+>
