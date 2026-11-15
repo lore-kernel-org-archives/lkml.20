@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702145;
-	b=yUuKXw4g6ndWdbsUSuNh7+pcquU4a6E2k3vGqHtzmYM0hI5CvMdsbvWTVSdOm9tkxIOw
-	 Cj8SZgj9Exh1YosYHj2dZc6HPyKuye8ZYipfjJ17ZhU43raTl5NWhYCfn7BPvMbotjjP1
-	 X2Mc+qJUyVH+1nQsUKdlZfWn6wsZjPV5X7SL8vfWOtcKN73XJ1GmSeXEkXVmNJ3mrYzES
-	 9g+yjhv7CahbX3BAzc3vrm8QwVih6lkZnQ/tPVXqDGYe/a93et79dOQBMVekFcQmyV1Ew
-	 wok86i/cq62xnaopHppehAfwxpD8+tEb5MLhG9iQ6kk8s678hxOzDPb0vQM/kTjM7VQ==
+	t=1794702208;
+	b=C3H4w/83aVSVklc8OEARSOW1p00Rrsrzidgd1AUzIMXg0UiyJCW5tWrQXdsDz1X6KOwL
+	 NR9jBMcEpKZO9LvYjRH98ofFDexW4860ti09NjQiDxCka/8r0Mxtlg12/ddX0I/majhr3
+	 w8XXhLtXvzGvg8brizqqEUBVCFWBdIZil8zwfzaEyVkuSaFZr3oDRzs+ZX001b752x2VU
+	 XJBKtFOhoaM0VaGeKmLCAw8jzKUE5iZ5HWjTMwKyXqzbZ0ZLwdaHtjSKM/bA+nta+wPBN
+	 J7+71rWUCh4RW4oiI/qvUwDxj+mAZTTTCOwB9D4RfI9qDNRiq6fIfkDAxGr55aAk9gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702145;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wCcIvzsuQGx469LziUohYtgxI/06BzX+ClZShOsYgGA=;
-	b=Q6deaHmidEdZPGSptQI4B59BjgLM1Yg0+xfslNYUI8z6zjAO8IAtyfv9Has1/9CVUEnI
-	 ezdUf2gkMpxcLQ+GFnWuqbUY7dOF7cqMiUHcafzmtu2A/xPwnPR1cgyQSXFxbV1ux2rv5
-	 +UPgpIyXLD2+H4pRA6R7diC2NLLNizAZlmb4Jj7CP7py+aQCrYqjsNCQTXnqh4oIsF1aj
-	 74ptZR0mMN9Od/Vbqim1bMAke1Ge9Dy4LfRd59hU8rUnM/TwfG/LFm4xioT1zDeqqqk4B
-	 upuK3LQWnBELa+DyBqNcWvjDd5BIGynoP81Tq8PK5sAP2VoE8PvQwKPnwtxD+VG0eFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702208;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=upNdzqa2Yr+dsS/pV1xOv7YPOmRw/ecj+eAdrBYpC0k=;
+	b=rBVu5DoKySQo086x42sa1ZYOy/YpmFHOehoJPFu5BNK4NQst80bIRGXsA/SwkRJdP5nu
+	 K5mQqLqw6Gyln5j3hR8bXZCX9nny23tBt1XFq47cdMGfNYdtyqbRks1qhvyB+qlxeRV/3
+	 syAL3nt2lwGAo4h9QYdLQ1X4j1P7j6fdKRKsEa67Z2YYWsoQGZGzg9lWcmFYYYDjwvLQ7
+	 uZuPR2kyzaAyp6GZAn78sMhGla5cly2xJ9RkYBqCYITIT/W0PeEZw77eeoaTKx2GKnG70
+	 BsrYuCaflS9pjqmCD0wF0u3uP8fdQH1U0KYaamgG1P2HNAq6r5GfGMFA9fvjsry0rOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CPvFgnyZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btjXOEBZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38AF606A32D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:22:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3715E606A323;
+	Sun, 15 Nov 2026 00:23:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CPvFgnyZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379B51F000C7
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:22:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btjXOEBZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12CC1F000C4;
+	Sun, 15 Nov 2026 00:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794702145;
-	bh=wCcIvzsuQGx469LziUohYtgxI/06BzX+ClZShOsYgGA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CPvFgnyZ5W27IwipTs1lpzasnMKBpDj2OYZEWrdZsQcmuR5GUK7QPFrcxO2YRCGcR
-	 1OL/M2Vmj4vbmrVHaFCSlKAg45vBp7QIXxSj1jEzylpalMxFmgdaxUzgAjvt/eVTrb
-	 uBWxd8s56c38p2ftsiP3bbM3II0ZVwT3TtJ9ZmZ0SAcVvgrZiUupBcOmBX+05II1Ai
-	 sSTzmYWguMahfyw/V6AKrMhxlA6vRVW7hTOnYegLNAzdGzsGZgUP9ulwsGD4wwtqI4
-	 ComjppMaYRmfxL6eRouSiVjd4+bzB6iB/+GmTuXlbMGpvnWgf7PCtoNIULFLaZPVPx
-	 YWstHq4spjTDw==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d28f75d62so473951266b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:22:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF14qTl87kssjuu/Wo9mQ4+EBo0ljeXpJf4kI4zIB53hlJtHscL+5K8xFUR4hP/Ptys8juHTJPxlUEHZE0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uCM+U24Jbh4FVRsLpyUN0fnm4fmkaJKdo2RhI9u11sOSPod8+
-	Loevl183a4FnMnrOslKIPukfHiMRj5NL7ApjjB7KToxGAufRiORMFu+UrEbQUCkLcwdgykCjY60
-	LQDqwuMkfELnKgthGCEXulZUJxd876x4=
-X-Received: by 2002:a17:907:3d92:b0:c27:420b:7c79 with SMTP id
- a640c23a62f3a-c50964057a4mr574674866b.48.1794702143794; Sat, 14 Nov 2026
- 16:22:23 -0800 (PST)
+	s=k20260515; t=1794702208;
+	bh=upNdzqa2Yr+dsS/pV1xOv7YPOmRw/ecj+eAdrBYpC0k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=btjXOEBZ9004Sp+/BokRY0GmO1d0Dl+Uhz2yMQAEILSt4orkFjrN0Avg3vNZ377lH
+	 iiEe/RCVBfAY0VyR9yp1DKOH9bEfrSs9EXVcsNpeHED/ZMk1/SLBdny3Ml33l/OH35
+	 cTEyKBX3MIHD2HKZzhhst2qJRJ2CMzz+WJId6B7/o09kkTBCQCNZLIhdAXLm5afAVR
+	 3V/n6le+/2g9VDmuyezrvpdwrtHdopxbiG92wW6eU6ZcDCzm9ooLDfsxVdzO81KGBO
+	 Nu97dr88GL9Hshc2Gzn5h1d90U3jXgbsDD20MEPqeqERNQxtYf07uszcCzqgonWmu9
+	 PC7SLeuDnzErQ==
+Date: Sun, 15 Nov 2026 00:23:20 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josef Bacik
+ <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable <stable@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH 01/15] iio: buffer: let the block keep its DMA fence
+Message-ID: <20261115002320.78ade93e@jic23-hlaptop>
+In-Reply-To: <-TPmKHsgTdWh1jJ4sxKceg@bootlin.com>
+References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
+	<20261027-llm-char-misc-iio-v1-1-0d818334f6c7@linuxfoundation.org>
+	<-TPmKHsgTdWh1jJ4sxKceg@bootlin.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,67 +64,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114012736.639171-1-koray.fra@gmail.com> <20261114160332.2228435-1-icb@fastmail.org>
-In-Reply-To: <20261114160332.2228435-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 15 Nov 2026 09:22:11 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_qe-dLq6o7XdJzG8orYiKRioAtfEsLjxj33Ca3=PzGjw@mail.gmail.com>
-X-Gm-Features: AclHuK8sng4ajcW81oalTmmeANU3J1j-6EE0UYzK1YRlD-i3CkmDWMr44z7UGTs
-Message-ID: <CAKYAXd_qe-dLq6o7XdJzG8orYiKRioAtfEsLjxj33Ca3=PzGjw@mail.gmail.com>
-Subject: Re: [PATCH v2] ksmbd: decode and honor DOS attribute validity flags
-To: Ian Bridges <icb@fastmail.org>
-Cc: koray.fra@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
-	chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 15, 2026 at 1:03=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
-e:
->
-> Hi,
->
-> There is an existing bug that matters when enabling these checks.
->
-> ksmbd stores DOS attributes and the client's creation time in
-> user.DOSATTRIB. The xattr also contains flags saying which fields
-> are valid. Currently, ndr_decode_dos_attr() reads the values but
-> discards those flags.
->
-> When the sparse or compression code updates an existing xattr,
-> it writes the creation time back but sets only
-> XATTR_DOSINFO_ATTRIB. The time is still on disk, but its validity
-> flag is missing. This has not affected the reported creation time
-> because ksmbd currently reads it without checking the flag.
->
-> Your patch preserves the flags on future updates. However, the new
-> read-side checks also apply to xattrs that ksmbd has already written.
-> Those files will stop reporting their stored creation time.
->
-> For example, with DOS attribute storage enabled:
->
-> 1. On the unpatched server, create a file over SMB and set its
->    creation time to a date different from its filesystem birth time.
-> 2. Make the file sparse. Its xattr retains the requested time, but
->    now has only XATTR_DOSINFO_ATTRIB set.
-> 3. Upgrade to the patched server and reopen the file.
->
-> The server now reports the filesystem birth time instead of the
-> client's time. Directory listings change too. On a filesystem without
-> birth time support, the fallback is ctime.
->
-> The affected writers are fsctl_set_sparse() and
-> __ksmbd_vfs_set_compression(). Their existing-xattr path differs from
-> the no-xattr case in the commit message: it writes flags 0x01, not
-> 0x51.
->
-> I am not sure whether handling these old xattrs belongs in this patch
-> or in a separate one. Namjae, what do you think?
-Agreed. separate patch in the same series is fine, but the
-compatibility handling should land together with the read-side checks
-to avoid changing the creation time reported for existing files.
+On Thu, 29 Oct 2026 16:43:14 +0100
+Beno=C3=AEt Monin <benoit.monin@bootlin.com> wrote:
 
-Thanks!
->
-> Thanks,
-> Ian
+> On Tuesday, 27 October 2026 at 17:19:05 CET, Greg Kroah-Hartman wrote:
+> > From: Josef Bacik <josef@toxicpanda.com>
+> >=20
+> > iio_buffer_enqueue_dmabuf() hands a plain pointer to the fence to the
+> > buffer implementation, which keeps it in block->fence, and since the fix
+> > for the fence leak it drops the initial reference right after
+> > dma_resv_add_fence(). The only reference left is the one of the
+> > reservation object.
+> >=20
+> > That one does not last until the fence is signalled. dma_resv_add_fence=
+()
+> > replaces and puts a fence as soon as a later fence of the same context =
+and
+> > the same usage is added. All the fences of an attachment share a contex=
+t,
+> > and an enqueue on an output buffer only waits for the writers, not for =
+the
+> > read fence of the enqueue before it. A second IIO_BUFFER_DMABUF_ENQUEUE=
+ of
+> > a buffer which is still queued is refused by iio_dma_can_enqueue_block(=
+),
+> > but by then its fence has taken the place of the first one. When the DMA
+> > is done, iio_buffer_signal_dmabuf_done() signals a fence which has been
+> > freed and schedules the work item in it.
+> >=20
+> > The leak came from the reference which iio_buffer_signal_dmabuf_done()
+> > takes and iio_buffer_cleanup() drops: with it nobody dropped the initial
+> > one. Do not take it, and leave the initial reference to the block until
+> > the cleanup.
+> >=20
+> > Fixes: a09399935508 ("iio: buffer: Fix DMA fence leak in iio_buffer_enq=
+ueue_dmabuf()")
+> > Cc: stable <stable@kernel.org>
+> > Cc: David Lechner <dlechner@baylibre.com>
+> > Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
+> > Cc: Andy Shevchenko <andy@kernel.org>
+> > Cc: "Beno=C3=AEt Monin" <benoit.monin@bootlin.com>
+> > Cc: Paul Cercueil <paul@crapouillou.net>
+> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > --- =20
+>=20
+> Having the block and the reservation each hold a reference to the fence i=
+s a
+> better fix than mine.
+>=20
+> Reviewed-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+
+I lost track of this one (just doing a check on stuff outstanding in patchw=
+ork)
+ but seems folk are happy who know more about this bit of code than I do!
+
+Applied to the fixes-togreg branch of iio.git
+
+>=20
+> >  drivers/iio/industrialio-buffer.c | 15 +++++++--------
+> >  1 file changed, 7 insertions(+), 8 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrial=
+io-buffer.c
+> > index 4294101810fd..a2386dba497c 100644
+> > --- a/drivers/iio/industrialio-buffer.c
+> > +++ b/drivers/iio/industrialio-buffer.c
+> > @@ -1931,9 +1931,14 @@ static int iio_buffer_enqueue_dmabuf(struct iio_=
+dev_buffer_pair *ib,
+> >  	if (ret)
+> >  		goto err_queue_unlock;
+> > =20
+> > +	/*
+> > +	 * The reservation object takes a reference of its own, and drops it =
+as
+> > +	 * soon as a later fence of this attachment takes the place of this
+> > +	 * one. The initial reference stays with the block, which points to t=
+he
+> > +	 * fence until iio_buffer_cleanup() has run.
+> > +	 */
+> >  	dma_resv_add_fence(dmabuf->resv, &fence->base,
+> >  			   dma_to_ram ? DMA_RESV_USAGE_WRITE : DMA_RESV_USAGE_READ);
+> > -	dma_fence_put(&fence->base);
+> >  	dma_resv_unlock(dmabuf->resv);
+> > =20
+> >  	cookie =3D dma_fence_begin_signalling();
+> > @@ -1989,18 +1994,12 @@ void iio_buffer_signal_dmabuf_done(struct dma_f=
+ence *fence, int ret)
+> >  		container_of(fence, struct iio_dma_fence, base);
+> >  	bool cookie =3D dma_fence_begin_signalling();
+> > =20
+> > -	/*
+> > -	 * Get a reference to the fence, so that it's not freed as soon as
+> > -	 * it's signaled.
+> > -	 */
+> > -	dma_fence_get(fence);
+> > -
+> >  	fence->error =3D ret;
+> >  	dma_fence_signal(fence);
+> >  	dma_fence_end_signalling(cookie);
+> > =20
+> >  	/*
+> > -	 * The fence will be unref'd in iio_buffer_cleanup.
+> > +	 * The reference of the block will be dropped in iio_buffer_cleanup.
+> >  	 * It can't be done here, as the unref functions might try to lock the
+> >  	 * resv object, which can deadlock.
+> >  	 */
+> >=20
+> >  =20
+>=20
+>=20
+>=20
+
