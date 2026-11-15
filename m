@@ -1,101 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794710649;
-	b=0RvX2uqbCMr1Z86XH65heZxXL7g82vonaFeX6RJ4sBtPT13OZPsScAAqQ5tZE0uIhSAE
-	 fd3/ayoKBXZGoit4XmgDTTsM1c4KrNK/eKv/Hipu45rH07Pp6/hh9NwPGBPkGntiABlFx
-	 xLFTu3PVAuiU4CnqKPkoj5SzqjKRO8b52j+sic0cZIE1IKPwNeZK8M2d3iEaXEbcwXYJ4
-	 WOGgbygvlFGqRRouvPq8q+xKgzqRin+kh+kGFwuDDidTXrLdwCe/4zGNo1FzCjA5y0VDr
-	 HZV1n9yDcD9OHzAy2eEhWwtciY8Y60HFoccDkV55LVJNTj72seafpM/hprlGYBBM1rA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794710649;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WImIugUvsCB3dULRzrcWqUtpzfjQNdC7aiK6me5zFHM=;
-	b=swzWBqot/FSs2scQUccnhDIawb9elVb6Aeb7BLtm7LVdtX+FRsHoO3SocfDQ6ykZyWif
-	 yfzMjv0K/jjT3UJT8GgPv2TddpeTJl+k9dtV3M5xNqdLA5gphIAM84b9e3OqQPkL/33Nz
-	 QTGGLSh5mBXPaz+fszZwtidm8J7cjPUIUgWlo6HlFnNjlGfRFKdTESQmNojyfmO0wqeq3
-	 ZPhhT7U3MNK3aYowRKP81idjT1ZRWQ2HmKUY7TzUCJHNLvwfg7PJOVkL3MHM/nj0TDxKT
-	 OZwNLXqHmD0qOG9sSyPfMBC753lsZYxC1uS40GU6fPebworia0UZsEdFrhrZbkpBbUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RJnm5XLx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.7
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794710814;
+	b=0sRNJu2tsJpnphFPVJigGgfuaIXrrRnHI1xUnf7DBZh7LRMV4ZH/j0eILg6jGVFJ77+r
+	 C+0uoUHSY2ZZPxY1eSpshBN/PZ/Br3KbVOjIwKtvZGKCpoXsAitRequFSkUy1RACy03Vd
+	 rc0+tFR6Smp3ZN8IBkgKZH1Oqd9QJPNJ7ay8eJgbg2TPmzPUO5ICDW9Mv7vRMy2E187Ge
+	 iMEcTBVOuq/v09MbewwkSrycLiYkYOcAJz9mCCx4kcecTuAGT/Na0+/x/1M0ni1thVNJN
+	 4ekGRj7QUen4HdbfkczUJOK1joslLJA7RpPTzthDDPldmXaw1vGb7U/71MbEcCXhgEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794710814;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
+	 X-CM-SenderInfo;
+	bh=r8xUXS0A9Zx5562ccafC+4FXG6fYzwvM8bL3muSMq8g=;
+	b=McwkvXr2Fxyvucfl+kMduyDBYMmSfT5p9vD5BxfnYFTLQLIfV4PBw4OZaOYh7Ml3kLQS
+	 n3Eg3H4A3W8DgB/VOk2nYPgdWrNVHR1Fo/t499qN35ceVqyTIQu8GXtfM4pn/ZtTexG4K
+	 0IvaV7KOUrRhB5kc0wQSIhijFhLC1YOC+4S9SOBzvEnrtmHM+UfbAqucdQNHuloUhYpB3
+	 nXPH6snNWKfLeG2ELZTZm+Xf5yJQl7sjCTkHhe9uUERFS2wQ6Kf4wVjEGZ10jbx4817c2
+	 mmiuZiHa4DsYHjDt5QVDRTcjUZd+7hntPydwzXUU/LXTxvWoz7YnyCdM4PRCs3sFJlg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=xiaomi.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="XchkAXl/";
+	arc=none smtp.remote-ip=117.135.210.7
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B73606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:44:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B73606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D4D606A323;
+	Sun, 15 Nov 2026 02:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32D4D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RJnm5XLx
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3adfcafaabbso25613931fa.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:44:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794710647; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O2MWMUeMkYpcu2katVDVS2nsGTm1h85t3b+0uBqVy3Bfv2gv7OTeZD4vEMiBNAYBsA
-         TUZ53s87g7VXSYtnhUbdoE/MXv5wiihLuy+SNm5XAKDt2DnDKkIvJhNSjPFWbzC6IjkW
-         OFrIecXQpHQx1BoMEmAU2WxRNWXtY0ri0B7s9IRpaIrA4n1pE5eT54YlYQNoPP3psf5B
-         mfH/xBk6CT7QH6jpw1oEZJdLucj3mA+iBX2cqL6C7lo+Xi5Hn3lu4tRrCXmOL+sbeWNC
-         qEgANk9DgG1K++ZoSIoWpBfVtCxTjS0Ic6NBUuKHjPnSSSYmCMXIkkbmMDmvCgN4Bevl
-         TpqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WImIugUvsCB3dULRzrcWqUtpzfjQNdC7aiK6me5zFHM=;
-        fh=cdrMP7rwr3LYwTBVcVHQxHs8uNhFEuhBePL1zPjFWKs=;
-        b=RI0kzoCX6dvXuG0oOo5HktllfC77DWMBTzWI7B4QKh2/2nk6i9klFRaRHp1HXyYtLz
-         Fyca7wdvcchKyL2JJ74ddUv6Pq6W++x/3r0SK/raiqfHgVVb5rZEVg80QGgdUUsQ42qV
-         kO6GrL1h4MgDsWaO27qjnETOAwfIUqGR7hb5/P+MDB1BcJ3KmadAkr7L5yKcPtNw+gQK
-         kNkB40pMHcnwEvF4t7aevT1A4QSs4da7p68z6vJYEvSKzE4PJo1LcbtfegChEbNtCnIk
-         Cvte6X1+wbZ414yqJwON2qvSLEibdssWRscdBj4FQeBQFFOvnR6vGIkuwHYUkzVIGl9D
-         2NQA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794710647; x=1795315447; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WImIugUvsCB3dULRzrcWqUtpzfjQNdC7aiK6me5zFHM=;
-        b=RJnm5XLxoNK866TvF2CkdY9AW+tb0cJ1wYfWzlZZh4X3OnWmWeykxS1NvAKwM8nW4T
-         R0GTMYqQAqdx2m+VPUhijNqDi8cWar7oJaJKzJJHy3fk2ZhupkgqBuEO2Dm1/9fLTVli
-         B4TTFx8z1iautbvXT5v2AYyLPiC1D5IFu0cThMCSZq2yjUxVximJ9/eQK3h4Y8PNalZJ
-         T0bhpinyLP3mCG8jD9SPRJAwIQG6O46nBkuNR5hDYOKD8kgPQNHFOx2jEmOVhY8xIlii
-         X65pjY/kWAjU8ccru4oBjZFJoMbyWVKnyH3W5/nrAP0JqE/t4MtEabZ0HgYpG0dll8c1
-         OYAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794710647; x=1795315447;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WImIugUvsCB3dULRzrcWqUtpzfjQNdC7aiK6me5zFHM=;
-        b=d4QEwnn54ZMdbADxgFqZU7yS3OOLCc10+RKrYlQPj7dWq2voXvj7/XCVupgth/pm3X
-         YLW1XKHOVPxeEzEgswt04g6n378UpYYsR+fXaHkGI1o4WDXZAg8Hbu/i9soums9t8cBW
-         MhQUjAps3IkpTyp2+vDZC9jGMZBkd+XcHiI1hgE8uEgULzHqyTB11W2PiFmD/umNYVby
-         hBlgiZ0lXxvn5kEANTPE7Llexd3XrZ8BMT+Ef5OyK+vamBwnH7LlcWVAJl3QQlK6wzkr
-         eMzWFUmfnVfDhxpXP98bbw01dnGKyEzy147df4vF4ylCQCPFpeeEnonY7zSj97uXP2sS
-         1dfg==
-X-Forwarded-Encrypted: i=1; AL+hErGSkA+HwlODCvuSc5AFzssCRPm9YO54p0z8CV24p90juTTJ6ZOpiwXfFcLxD+ex56XP4XujuWDcVxmjwsA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xz1axiggoF+tvdaqHDLTHnV/7MUbIukfuFiX52OqezM3YKdtR
-	q8Egaltm4d5dEUZb63BJrMFMBc96FJF0tWlK0awaku2V3BSuziIHYd5cyj94G9OW92yKTzFb4RF
-	DOT0Pf2LDRmxWrxy7uztq0o68JwHQYow=
-X-Gm-Gg: AYBFou3UbrVHB1/Iw4xvlKsuzukF6JT6iKjb1N9HGv30/UsYObVUyqkJFCU1HFqW3CV
-	SoN0/OeREaRRsfiY+8VpT7DCQTEgiwlUN+C/93G5msmYXO/dxniBrU8C4fuDJ9g92VPBpHUKzSa
-	voPHTQJzRR5cm042U9b5ATLnP3gC4r7MmFcZCc0+rqf/b5yH968qJZFZ13oyQNeluj+YfxtJJMr
-	Ee7Qq2bz03p7l7IqVY3/obLYEFt0+Hb5Vay6Pd17MMBjXdD91ctBpBUGEHXNsTGglJ3YeFGm3rP
-	+25bRT9auKc1bBtNWorz0nHtxCzzw64ar9ja6U1k2DV48pvPFrd/oTUtUHTv1MzkxRgYd6G+SL3
-	2GjfuyCkG5Bb7QpOED8TlqgAsnytxUeLA3deJrYQuL+Qe4rYyENwGlKF2oftcYaseYdIcJoqHPH
-	9E4P5+9BRkNcniVx1iaaFj
-X-Received: by 2002:a2e:bc90:0:b0:3aa:ee7a:5466 with SMTP id
- 38308e7fff4ca-3ae2b4f52f0mr22163651fa.16.1794710647252; Sat, 14 Nov 2026
- 18:44:07 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=XchkAXl/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=r8
+	xUXS0A9Zx5562ccafC+4FXG6fYzwvM8bL3muSMq8g=; b=XchkAXl/0DuW1oDJeR
+	yQyJF1sQql/YPr2uJd3G5R7JbEIOo7jnJ/B+ouEdfu5V/2iiZDLDQvzOoU1v97S2
+	pZYQOu36hTxd1eLrICYymhCa53Cg532muNNnLcMBbQlRy1aAUmDLn82VBEFmvrfh
+	rsawr31gLZJ+i2IAhGQzgIOQw=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgD3H_OtHPlq+ob+DQ--.31738S5;
+	Sun, 15 Nov 2026 10:45:21 +0800 (CST)
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Barry Song <baohua@kernel.org>,
+	linux-mm@kvack.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Minchan Kim <minchan@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Ying Huang <ying.huang@intel.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Kanchana P Sridhar <kanchana.p.sridhar@intel.com>,
+	Wajdi K Feghali <wajdi.k.feghali@intel.com>,
+	Bala Seshasayee <bala.seshasayee@linux.intel.com>,
+	Nick Terrell <terrelln@fb.com>,
+	Tangquan Zheng <zhengtangquan@oppo.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Subject: [RFC PATCH v4 3/4] zram: backend_zstd: use multi-page size for zstd parameter setup
+Date: Sun, 15 Nov 2026 10:44:50 +0800
+Message-ID: <20261115024455.1465726-4-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261115024455.1465726-1-zhaonanzhe@xiaomi.com>
+References: <20261115024455.1465726-1-zhaonanzhe@xiaomi.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,38 +85,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114-marvel-env-v1-0-890328e4b7e5@gmail.com>
- <20261114-marvel-env-v1-1-890328e4b7e5@gmail.com> <4d69d3e9-9e05-485d-87e2-428616cd5d9d@roeck-us.net>
-In-Reply-To: <4d69d3e9-9e05-485d-87e2-428616cd5d9d@roeck-us.net>
-From: Matt Turner <mattst88@gmail.com>
-Date: Sat, 14 Nov 2026 21:43:55 -0500
-X-Gm-Features: AclHuK-rDAmxPKOpteTkagDnbYP3PTwmOyt-Q5uXcex0poBTc5yw5ifEj6zGwJs
-Message-ID: <CAEdQ38E=+Yb2hJs3L1KHgR1Kbe796NDD2z=n=7YytQ+uiJJWEg@mail.gmail.com>
-Subject: Re: [PATCH 1/7] alpha: marvel: report environmental events without VERBOSE_MCHECK
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Magnus Lindholm <linmag7@gmail.com>, 
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PikvCgD3H_OtHPlq+ob+DQ--.31738S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zry7XFy8Ww15WrW8Gw4fAFb_yoW8XF4rpF
+	yxu34jk3W8KF10vrs5X3yI9F15Can2qFy7W3yxtw48ZrW3tFyDuFnrKw1fZFyUK3yrXF47
+	XF9rGF4Fk3y7CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTQ6JUUUUU=
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsAFQIGr5HMEvLAAA3M
 
-On Sat, Nov 14, 2026 at 6:01=E2=80=AFPM Guenter Roeck <linux@roeck-us.net> =
-wrote:
->
-> On 11/14/26 09:39, Matt Turner wrote:
-> > The service processors report temperature, fan, voltage and power suppl=
-y
-> > alarms as system event (0x680) logout frames. The frame is already
-> > classified as reportable, but without CONFIG_VERBOSE_MCHECK only the
-> > header line reaches the log, which does not say which sensor or what
-> > happened. Print the subpackets unconditionally.
-> >
-> > Assisted-by: Claude:claude-opus-5-5
->
-> For all patches: This is obsolete. Please base your patches on the latest
-> kernel and ask the agent to follow AGENTS.md.
+From: Barry Song <baohua@kernel.org>
 
-Sorry about that. The series is on v7.4-rc1, which already has the
-removal, so the trailer was my mistake rather than a stale base. In v2
-I've dropped it from every patch and mentioned the tool use in the
-cover letter instead.
+zstd_setup_params() passes PAGE_SIZE to zstd_get_params() and
+zstd_get_cparams() as the source size hint. When multi-page compression
+is enabled, compressing 16 KiB blocks with 4 KiB-tuned parameters limits
+zstd's match window to a single page and prevents it from finding
+cross-page redundancy.
+
+Pass ZCOMP_MULTI_PAGES_SIZE instead of PAGE_SIZE so that zstd configures
+its parameters for the multi-page block size.
+
+Signed-off-by: Barry Song <baohua@kernel.org>
+Co-developed-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+---
+ drivers/block/zram/backend_zstd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/block/zram/backend_zstd.c b/drivers/block/zram/backend_zstd.c
+index d55615f34300..9438691791ef 100644
+--- a/drivers/block/zram/backend_zstd.c
++++ b/drivers/block/zram/backend_zstd.c
+@@ -73,12 +73,12 @@ static int zstd_setup_params(struct zcomp_params *params)
+ 		goto error;
+ 	}
+ 
+-	zp->cprm = zstd_get_params(params->level, PAGE_SIZE);
++	zp->cprm = zstd_get_params(params->level, ZCOMP_MULTI_PAGES_SIZE);
+ 
+ 	zp->custom_mem.customAlloc = zstd_custom_alloc;
+ 	zp->custom_mem.customFree = zstd_custom_free;
+ 
+-	prm = zstd_get_cparams(params->level, PAGE_SIZE,
++	prm = zstd_get_cparams(params->level, ZCOMP_MULTI_PAGES_SIZE,
+ 			       params->dict_sz);
+ 
+ 	if (!params->dict || !params->dict_sz)
+-- 
+2.43.0
+
