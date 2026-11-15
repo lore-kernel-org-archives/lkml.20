@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743759;
-	b=QKcVGGq/GOBZc+m046oKn6baavwn+14APucpKD3tc0pCFkuye457rwKOjk/LLz6Mxsou
-	 2ucBQj5qxCKi+38rOzkEeJgIdP2VUQJm/MVPIfVx6O8sg2Zm/RHKyl6zMNk5qaEoVwP0R
-	 EulltgogonCDUe9hChRJOgieLXLBec1DZTPjIQ5l/m+3Ddz5elerYeOjjJORmkMx7aZFs
-	 HH8lejmhDhQ5SRsQTkcQcqpW08JGXRMZIFEX57fCQ1oXML48oBgpw9dGrjuKzAt/qPuIr
-	 +nJGfqV+iBkP+ANv1ZnRugyr9FLJBcTNAL6pM8/LZPtnDrHNi+FROXWgqon56ZFq7iQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743759;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794743763;
+	b=khqpTBkQT8Bu1XBOvp3EFNa+/uK+se6eu9rUxkASt2vJ8nM+k2K5aaTa6LO7BTKyFZQD
+	 3a16FI2XYZ6IWIKPl+pjWuITDYK63vpZ1E8sdKmUq8IwiaK/RvlEbDZOE2lWauMZG79gz
+	 y7ePfgajug8SeCNfvFdgT5h9seXs9bGKgJOrbQEXEmmd/sZHpNhrvwnkQZdK0lYMaLEDi
+	 +6ji6f5dpR3VS4ygTv9DGVDOBVsUdECbLt9lg7x77RXBvJHWFSMb1pzgc9x+kjC47IETk
+	 skTP210h9k65b4d+TFniNf+yDGbAzxVH4sw+83rbuOibwRi3+M2SO8q2tHe+v41w9fw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743763;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=U4XOjwAQ2BOIbW/PJ0TA8j9BUAT0ghRUzuZuG7wBy1w=;
-	b=o7JopuIzokFD7skKLxLZzsR5N+CKL7wp+1F+Qzywy0Hmgmcrcdy6TQePmtsvg1Y+kMpl
-	 INV2icBqSj6dhTG9rWRcaXC8m7mjAhbWQDMQVM3yn7oKWoWQLOAQZtNjkR811KYF9w4MT
-	 9eCDs81JYP0e/EURDznzsh1E4yK+41mWSSo0rVGzIJ7v5oKS3k1dYJKSul8cl9ohS4wBW
-	 cl2H0iJcqFjSG1Wv9Ftl1fLfi7ZpW6cr9gBsCeSunwnHcFc65i6R/CCgrw+DQZjvTk53A
-	 A3/Gce84zXPPcNMC7XPgsrItvrRKGiFyehRHkRFu29dbO1yZGYMY5R2J36w87F0zFKA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DcZj323bZhr2RPb3W8Nx/e4hADQ8eqTgk8RkWPbabR4=;
+	b=ptIdsUlC/u2tzkeN8oWDTAYCCrWEx/08M1kYiSXRr2iLUYc7ZRlxM7GebEzm76XNSKhZ
+	 QVZAIlicOKzi4LJk0Y/Vp5HdJQFK2qdPNDLEZi9xD0d4Bh9ErdKqV/csMfHvPeFEu83Q2
+	 9ix1yPq0DMlw+z9EH1T6eF2DPRm0GKCBQ/v3D2NEJoIpt9DVTQuE6bbFUH9Z9qxwDjQRx
+	 8oQsemQsX2bxyKcZTVhEI9DBs5jids5qSpoy4vtrZjbkbZzCl13brmcSf6oYG0SCd0rPq
+	 HRlyF0IFKHAiXTbntdIoFkJACfhS11NyecRkNTr3ClX4aVwRuZBKbvj0KRSz0mDWo/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z1wXDAzh;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y9Q+sl4U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61740606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:55:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61740606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDA0606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFDA0606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z1wXDAzh
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e987a2ba0cso13478145ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:55:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y9Q+sl4U
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c50dd1e2f11so1751466b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:56:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794743761; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TMQWCJniqAqRdXYeIww55jyBzHlU/1IhSRgq4sLILfJ12pVLlWW+lgQP+zaRG1C1zc
+         msN2OGM9s49fGAlpqqZ9TskQ6wVRBZHdYU4s/pGAtg97qch2K3MD4TMGbOjmIUDMdKPG
+         AVRByWmdDGQnJ6e2TbBwph9rmZblswgc4VACYx5rD7clrz4T5ip321xMqVX11r50gB6P
+         rTc3b9Yt/ZJSAmQbwtj4TamBqZsUb5lLhZ6l1FVF7Ai/S3DnuaV6g0O6xTPMTZraZlZo
+         f6GWqbBJ5qFEWVYeTurro09+M3mCnUhDqrQwMHXInca7CJ0NZp0/mRphE0mhsMdx+ucZ
+         Og3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=DcZj323bZhr2RPb3W8Nx/e4hADQ8eqTgk8RkWPbabR4=;
+        fh=KFHHQFHtVRi0SAFwiUVgR2okel5vHDuEunlEtBFa6h4=;
+        b=ciHeLhwQ2k9YU0f8EYIOzySFxS5o5/RVoS8bn95wk2B46hH49o4p5tIIFkW9gNjZxp
+         6l9QEOd2/OAeXbYUW2AZfTTRXvpuwNJvjZqJwlprbW4/HrYHzvvd/uDEJpotqVc/pVef
+         KrzIO2UyuAGsF0o9bCqg9XIQd/Fc7N00TA2CAoO+5KabIk3GBau8v2qjcWC3q9mXN9JH
+         StMkb8mZ4vAJsuDc2MjrSCOQcZdXZSRqEHmZit+y65OG1YwybkYfwz2CMo032jeWw6aL
+         ujwVmlUHmXxeYL5QoCSO+IH9Sc0PWxvxuKueqSrd57oQ0uG56UboqXOUTP76aOahoSBd
+         kHrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794743758; x=1795348558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U4XOjwAQ2BOIbW/PJ0TA8j9BUAT0ghRUzuZuG7wBy1w=;
-        b=Z1wXDAzhjNVI10WIK7v/6AqSuIruRxpc0Sbim4L5OLsdEqHcPd2U7tyQu+itwpcOI8
-         Fle9AwKV7de8cp725gHnsJkpkRWJmNiYhyBphFBjExB+GmIG0F/VVwBuClxlYvogXA3P
-         HNYhNW59TFSoX/Kzf/90k9bTRK4teCIfcMgtPFaTD28u0jM4e9KS33O7wVFRSB9rtpml
-         6VY10sdSCgnU/oXhSOn3vm/18C2C7Ma7k+kcRaEZzebYACJqza34wN8TJjzeeBYO4bpK
-         QqqtOWGx1hq8tcP5/kefneB4iQfbH/4p537R8wf388nF3JIHF5DgYd0iJkaraCIYBEXH
-         a9Uw==
+        d=gmail.com; s=20260707; t=1794743761; x=1795348561; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DcZj323bZhr2RPb3W8Nx/e4hADQ8eqTgk8RkWPbabR4=;
+        b=y9Q+sl4UDdP1dZ+RGdjjMnFg1HIgE9Gjk8kPMowSI1RTz8naQMREXIHKlXV9N8aX2q
+         eZhrPrcocLRcLN9WYCTOsQ1HOddvv/LB0Z8bttXyZMAi3uS2IjYD6TEAIt8wG2lKW5Hx
+         i7wVarSD8JGN1r9thN+JGyAxfZdG/vHHwwJF6A0CtDX5KTKsbagnBtJlxHla/RwbBAHa
+         mx6JPXQ9a5gOLBs1EDW5IBC9JvVtWd+7qEDdjdrpNe8OmkhzDSbZn0gsce2/wK9yKHTJ
+         vSAAjPwnT5qWMFwSMwEsVSMuUhhvtzlj4QCT/+oP3kA64IjTouyy/VsJ7uLwwEH6P7wQ
+         qC6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794743758; x=1795348558;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U4XOjwAQ2BOIbW/PJ0TA8j9BUAT0ghRUzuZuG7wBy1w=;
-        b=Np3o496Wc8NxnrRIeS7XPsXbRJSWX4NQ0E0OvU5NMaCF82iFEzrFoDQK0gizERT1Ow
-         5GctPdXUBtY4wNJ0jpLyc7ajXt+0Nd2+amIFriFVmO12xmZ7uyFSPb49v/cjZdNEnJNu
-         NSf0IxStGWYV6jJDFUPsskvLanpg4AM/CFxGaV6gVsrRWSoidyFKGygZr8CzWD7McShG
-         vTr3zUEXQSnHmuuSM/X2fnjH0miyN1q40Pi6yXnEsAgWOwlZTnwY+aKSV84USmK3OIFa
-         hnL5nr5aApvJZKnFm4xzckpQZEkbTczbFkOCkzdn6rAOoYKCvGom3CGY5iB48mq5M/9m
-         GYvA==
-X-Forwarded-Encrypted: i=1; AL+hErH4fmEJiVAnr2lnuefCogG0sN9CbxCzlstVeeQNJ84KHbToXm70GrVaCUKlr5Sa+k6U05B+VRR3izUJaQ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8l+yvbX8OlirjKfCS4aIzG5yw+zMU6ntoddGd9X+UZ+W5m7fUb
-	NNyTJhb1Ala90bmFlPv4CumjGIbGSRA2oIVHEXJwXrVPJTlEwNfhqgInYmaua+pDetY=
-X-Gm-Gg: AYBFou3TlOchIF/mH/tGvWMEa9hdaETqPcR5A0X27PSAiGAFuV9ALhC84hQvGKtp3+j
-	Jp3y3cGjwHenOtrEZUV0h4vP5XRaFiO5Xn590afz6DfGWmZW9NnYRyyWRcEpDdoUluSHkBBZeyN
-	SIYWua6rWpBvC9S88oOQpgaFcPWD4Acu90vCSPru4mfkYRpMGEzdPe7/ymPRq6DurarecaKsjTj
-	R5WDDMZoveHuwNPSh5JidAjkn1lB6JKLRAg0XIKIb3zTjkvsrY1xOPvDUiEUzl+3OcponuOCZZf
-	FLRBLLSIglOK7humOLQe5OjlcydYXlACKWZvI2W/j95TWJkEB7Of4f4/aAOZQY/41HqwslfvtjD
-	cIh/XANS6N+eyetdQqhnCPhPnqnz4+lQfdb0mMRsozLojAQSaM/eEIjryB/pLHpiBZC6MQKmTOQ
-	WlErdD4C4Q7kGlpEwQ812HgRLw75qWdfYkxMiq03twGsJE95KytLMQVQQwn0OWrAgGn5odUq79D
-	fytkyoztrL6PEvm5XZ3Wpzjfkc/Jwu7q5otsS85WljSlUK8PGfxnoGlmFZ11eGAoKyHqNOauugm
-	GOWWnI39AneubWbhGN6hDOwZszlAcDKhNqnCTdUczueG3qEDowdIotODR7S6g4U1bQ/7+MGi0Oh
-	0ubaOKtYpChJKa4H5f5nF8VbDPqIinhAqWxx3dYOMSs26BakXof2i1m14SGpg3JnX
-X-Received: by 2002:a17:90a:e7d0:b0:398:c3ca:1ebc with SMTP id 98e67ed59e1d1-3b1b0a1be73mr6848483a91.18.1794743757542;
-        Sun, 15 Nov 2026 03:55:57 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:5ade:5fb:5602:326b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3ac294bsm5853901a91.2.2026.11.15.03.55.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 03:55:56 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Ho Jie Feng <hjf3108@gmail.com>
-Subject: [PATCH rtw-next v4 0/7] wifi: rtw88: extend 88xxA support
-Date: Sun, 15 Nov 2026 19:43:26 +0800
-Message-ID: <20261115114336.1739863-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1794743761; x=1795348561;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DcZj323bZhr2RPb3W8Nx/e4hADQ8eqTgk8RkWPbabR4=;
+        b=pQEG8ZU20SCho83sddIwygFpRHwpqnQ/PfxHMnMC87DV+L3DsQEykzzWMDehWTTlbW
+         HPxA1n52pPpRiteWTVbKXUv5Xzu18n1eSDaGBZyG0jlFH+cl63baPeF4a1bjA95lAonN
+         rPfnHbPm4cg1VytvKGI6Tqs1xnF63+9eKj1jYfF8NfJpl/7wFb8I/IxwctjxvoHQdQrm
+         pcozrpxV6PYff89dBZ0CVvVni+67YY79QxZ2OfUOpfikYzTkLWc9Cvgjn/2u4KQDDPhm
+         jAwxpJ0KHf0LA/1xM95Dhq0eWIV74I+U7q0VvivfOyce0AUP5urJenxwK2Ru3Jzo9Ryl
+         OOpA==
+X-Forwarded-Encrypted: i=1; AL+hErFEDxc6/yCKSV+mkS3mslQepkYFHzQVJ4F7DwebunnsLSSJyXshaLKhbGFjGhXcTqjQmfvyzuj5V98aE1w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ysmn7ETWz5xUX1pPT1Xz0PAcJllGAcKHidwujfMf6UxIEHw6R
+	W4EBvh/mbKVd4FceopjSZgyFVsnHPtZ4089JjWu0J5Tc6pr0P08/NX1E+UqjONrZWDxR+PHwP5c
+	uQPt1FajNlgN392PlnSzEsfGnxarl9n0=
+X-Gm-Gg: AYBFou2TbM8QmTcrrNVJA41DJ3O104dLl0sFlt6aYXRd75h7Mk0ne0Du3vr8+FVpdyK
+	B9ep7UEaqqSV76rmmnq8NnNFA1CrInNH7Prumfjk7gQTH2H5EscJqqJ3jOExsJQJtkbJKTAfh3R
+	mLpVkXer9Tm2pzgiHcuCFs3+HaHaoNsBpBbmekw02IRa+R77W9dekmmcMJGNoX47tbJt03cCCoz
+	Crh4IMgKQfM10nHJKFPbYYXl9eSOkhwivK14NlZ6hp83w5hxRq7L8cQNmf+gWa1U5oHcaoLy4ez
+	JGQZVDqWo+eMsRt7Q+e7+OG+B20znGTfQgZINljBQEQ7NSzfAJuFJ8LKYZZ/yz96d5TadX5p9rC
+	iUURI4RvBTPZjcL1ivnjkKnCIoTGdl7VygrjyRd4=
+X-Received: by 2002:a17:907:60d3:b0:c46:d493:501a with SMTP id
+ a640c23a62f3a-c50963427abmr712093866b.22.1794743761122; Sun, 15 Nov 2026
+ 03:56:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,67 +103,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: skyedryv <skyedryv@gmail.com>
+Date: Sun, 15 Nov 2026 19:55:49 +0800
+X-Gm-Features: AclHuK_8g57vUNNcN8WCMoxcQIvtE3ah3lY4yYDivjNSAjpdIXdf2fRwg08yWIQ
+Message-ID: <CA+Bqb3R2ZCrZZr6pUqLmw3qXMSA13Ft3nYqCx7jv+5PDEuH0uw@mail.gmail.com>
+Subject: Re: [PATCH v4] platform/x86: asus-wmi: fix camera key LED on Zenbook S14
+To: i@rong.moe, jose.guilherme.cr.bh@gmail.com, git@turtledev.nz
+Cc: denis.benato@linux.dev, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
+	linux-kernel@vger.kernel.org, luke@ljones.dev, 
+	platform-driver-x86@vger.kernel.org, corentin.chary@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This series enables HT STBC transmission, VHT SU beamformed reception
-and carrier-frequency-offset correction on supported 88xxA devices.
+Hi Rong, Zane, Jos=C3=A9,
 
-Tested on RTL8812AU:
-TX went from 136.0 to 144.2.
-RX went from 215.5 to 249.2.
+On Wed, 2026-10-21 at 20:34 +0800, Rong Zhang wrote:
+> Still, could you confirm whether pressing the camera key during s2idle
+> toggles the camera state without emitting a WMI event or not? If so, a
+> resync should be performed on resume.
 
-Changelog v4:
-- Restore "wifi: rtw88: correctly expose beamformee capabilities"
-- Add a patch to skip the dynamic CSI rate on chips without a
-  cfg_csi_rate op.
-- Describe magic numbers
-- Link to v3: https://lore.kernel.org/linux-wireless/20261112173246.3201729-1-hjf3108@gmail.com/
+Data from another model: Zenbook S14 UX5406AA (Panther Lake), BIOS
+UX5406AA.310. I applied v4 to the asus-wmi in CachyOS's 7.3.4 kernel
+(cachyos-7.3.4-1) and loaded it in place of the stock module.
 
-Changelog v3:
-- Remove EDCCA commits since it causes problems in some situations
-- Beamformee: gate on spatial streams instead of the RX antennas,
-  in case an antenna is disabled
-- Beamformee: writes RTL8814A use rtw_write32_mask() instead of
-  an unaligned 16-bit write
-- Beamformee: drop the chip ID from the debug message, style fixes
-- CFO: add RTW_XCAP_MASK to phy.h
-- CFO: use 0x20 as the RTL8814A crystal cap when the efuse is empty,
-  following the vendor driver
-- CFO: add comment on why min(...,2) is needed for rtl8814
-- A-MPDU: set BIT(31) of REG_AMPDU_MAX_LENGTH, like the vendor driver
-- A-MPDU: limit RTL8821A with IEEE80211_VHT_MAX_AMPDU_64K
-- Link to v2: https://lore.kernel.org/linux-wireless/20261031070950.425176-1-hjf3108@gmail.com/
+On this machine, pressing the camera key during s2idle does toggle the
+camera, and the WMI event isn't lost, so v4's event-driven resync covers
+it. I tried it twice:
 
-Changelog v2:
-- Split correcting beamform caps into its own commit
-- Adjust EDCCA threshold on scan to avoid high latency
-- Link to v1: https://lore.kernel.org/linux-wireless/20261029055212.84711-1-hjf3108@gmail.com/
+  - Stock asus-wmi, with a userspace logger on KEY_CAMERA: the press did
+    not wake the machine. On resume, KEY_CAMERA (WMI 0x85) arrived
+    within about a second of "PM: suspend exit", and the camera was
+    disabled.
+  - v4: the camera was enabled and the LED off before suspend. The press
+    during s2idle lit the LED straight away (it seems to have woken the
+    machine this time), and after resume asus::camera read 1, matching
+    the camera state. No userspace resync was involved: a CAMERA_LED_NEG
+    read a second after resume returned the "LED on" value, so the LED
+    was already correct by then.
 
-Ho Jie Feng (7):
-  wifi: rtw88: 8812a, 8814a: enable STBC for HT transmissions
-  wifi: rtw88: skip the dynamic CSI rate without a cfg_csi_rate op
-  wifi: rtw88: correctly expose beamformee capabilities
-  wifi: rtw88: 88xxa: receive VHT SU beamformed transmissions
-  wifi: rtw88: prepare frequency-offset correction for more chips
-  wifi: rtw88: 88xxa: correct carrier-frequency offset
-  wifi: rtw88: 8812a, 8821a: respect peer A-MPDU size limits
+With v4, the rest also behaves as described:
 
- drivers/net/wireless/realtek/rtw88/bf.h       |   7 +
- drivers/net/wireless/realtek/rtw88/main.c     |  17 ++-
- drivers/net/wireless/realtek/rtw88/phy.c      | 109 +++++++++++++++-
- drivers/net/wireless/realtek/rtw88/phy.h      |   8 ++
- drivers/net/wireless/realtek/rtw88/reg.h      |   1 +
- drivers/net/wireless/realtek/rtw88/rtw8812a.c |  17 ++-
- drivers/net/wireless/realtek/rtw88/rtw8814a.c |  75 ++++++++++-
- drivers/net/wireless/realtek/rtw88/rtw8821a.c |  16 ++-
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 100 +--------------
- drivers/net/wireless/realtek/rtw88/rtw8822c.h |   3 -
- drivers/net/wireless/realtek/rtw88/rtw88xxa.c | 120 ++++++++++++++++--
- drivers/net/wireless/realtek/rtw88/rtw88xxa.h |   3 +
- 12 files changed, 353 insertions(+), 123 deletions(-)
+  - asus::camera is registered (max_brightness 1). CAMERA_LED
+    (0x00060079) is absent here, as on the UX5406SA
+  - the LED matches the camera state at load
+  - on camera key presses, the LED, brightness and brightness_hw_changed
+    follow the camera (1 =3D disabled), and video goes black and comes
+    back
+  - KEY_CAMERA still reaches userspace (WMI code 0x85)
 
+Cold boot: on this model the firmware re-enables the camera across a
+full power-off. With the camera disabled (LED lit) before shutting
+down, it came back enabled (UVC privacy 0, video working), with the
+camera and mic-mute LEDs both dark, which is correct. So the "dark LED
+with the camera disabled after cold boot" case doesn't occur here. Not
+tested: anything on a model that has both device IDs.
 
-base-commit: 61a5eb87b2d9b4d5e353780b781cf691f39ba9e1
--- 
-2.53.0
+Tested-by: Sky Dy <skyedryv@gmail.com>
 
+I worked through this with help from an AI assistant (Claude); the
+observations and logs are from my own laptop.
+
+Thanks,
+Sky Dy
