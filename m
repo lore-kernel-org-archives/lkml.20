@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794747012;
-	b=2FtENufXz+BL4H1gsRuF54XMOYyijyvPBWJcQHTCrF6Yp1YVkwS+4Dl3sFHBNYi1XyfU
-	 9On+58nUICPfq8QmdlJemN3Z7uphUDlyQoRYpxthRyxf5NJ0uAmEMGA2JE9mUCP5NC3rW
-	 ftnVAiHL71uO+kTY7U9M2yfjUxhRMKHRLfmezCL/zy6mTgmZ5dqcqEmP6vpZ8MI1cn9/F
-	 +AOaFqPjfMPg+BC1oX1/floGNYGjxVFz/mx0g1bP4KPDVZsFGXNp2B2IXekPJa8rEhH+j
-	 qYUqOowDlPl2zHtLd0SpfVf+5S7xq9IgswY5HE2Sd8Zs/MgK0t2WZvOZY2OJTRXuP/Q==
+	t=1794747133;
+	b=bgLgu8EOdVRQK+Ve3s27SQfdv7kOtiIOa/g382ZC94h3iP2IKrNdAt5tAKHX3ACwsZz/
+	 JxckA/Z0V8ZTcqW25h2WwgtkDv9837z/ZYe8H+VsOXLnYvFvyFA/5/FZ9KHI1qu7i2DeA
+	 f/E2XzEy/mCot2KFpMVSR2+Mjwnkfwk9DcV5TudepBwqe3kUX8PnIk5U/T6SaGTymJvsk
+	 jS4y9BXLbcQ/2RRTPqFrZ0DBQEtXq52ylsq/s0WZ5f7j1A8iXtVRMVVZS244yyfw4hRu8
+	 FS3ZZGib5QmuzentqVALdFVlTsmVLn0su5qPtSO+Opk/xlpTgXUhmmtesmz7IrrVHDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794747012;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=mVNyqoZPmWVu3SKQuwZrHrfUspenGyNr7ONwhLH90yo=;
-	b=jI6qlidWFLDjDsrLR4zuWNhqobtEpD+sFVkZaFQ/MgoDCxeoKhu/235ECW+rEHeVnUag
-	 e5UFbX26zKUqWfAFv0d0rmH1RUBC++3o8dD+LWylqrb3C6mUdo9LO1A9FYSmcC2u2lqAR
-	 8VjWd6FWQaGKxm2cYDOrIhKIzhRSpQ6KA0n59dN/gSluQjlZYYhHVqwn/xti7GyxVRXwr
-	 a7VR1RXrwcSvMlhoeAuurmf3YVTSY5Vymrl7KNAfTvb3pE49pwSOVcKuWGgqkP68p05jk
-	 kHRk+p9EvDQuoJgPoA0IsExIx63cMy1BkkONXNVNLjCqv/ZpKe9r987+/eurK35nsEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794747133;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=KParxGsc7XRf1tM5678gFtw4cILsa1rzhE0kGfy39CY=;
+	b=VGG3rxc3ZhDaKanPHTKF4IZQdtXmSqTShZj/Uu3/H1IhVSIk9UJbKB7qPTHyTmRlVLko
+	 QGsBKQaHUbn/xo/+/UZtcGMYG3NCzLGJFabpzez0Jxl8PKn0jk8f2G1JqfcgYm9lgDcyh
+	 iyThAdVhDngAEtp0+kjHosq9oO+gGtIrqnU7ss+MSPOHw6H4UiTbwgHJsxCRoo+K28OTd
+	 +1FkpW8Ew1GKTgaRG36l86d3p8dHoWw10ox8AvtOhGh0s/QYucMvXMuH3x8EDQXBCJtCR
+	 6iUz4umoE5EoLQPiekJGIi9t7ZqfIdsW41e57qacAHPNGqguE4T2ekbdZfmRfvrw26w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=feldt.systems;
-	spf=pass smtp.mailfrom=feldt.systems;
-	dkim=pass header.d=feldt.systems header.i=@feldt.systems header.a=rsa-sha256 header.s=protonmail2 header.b=Z6rO7xwO;
-	arc=none smtp.remote-ip=185.70.43.17
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+kj1pyJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88727606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:50:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88727606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=feldt.systems
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=feldt.systems
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE90606A31A;
+	Sun, 15 Nov 2026 12:52:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=feldt.systems header.i=@feldt.systems header.a=rsa-sha256 header.s=protonmail2 header.b=Z6rO7xwO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=feldt.systems;
-	s=protonmail2; t=1794747008; x=1795006208;
-	bh=mVNyqoZPmWVu3SKQuwZrHrfUspenGyNr7ONwhLH90yo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Z6rO7xwOeaCPF1nl2j/O0ICdnwWkRxg7BDBC24YB/dCJaOzTh7lN8mOIwUnFE7x0m
-	 QlmwWE8RMW+4XMGkXUXANKxIsMFkFZOE6UqZ/vJqNv1adRtH8U/m3LFOK2xzynVDwt
-	 4/44dv4E/awHfcgHCwWVdW5CF5bv4CPVpM1qcjOqe7iAyDJd5fAKK0GhyQ7glao2MZ
-	 Cg2D9U8fl6G3k7B5w6jZe9RIqkFJnc4LuaPjSptsiZiuHKVDfWZ2SgyxRnfXLCnN1x
-	 Oxv9yjTksvsdk3/wnpvaB1Sae4rIaBIXuvPihdeexW1SB/93gyXAXRAIUfGhW+4tAz
-	 A5y8IhP1V4ikg==
-Date: Sun, 15 Nov 2026 12:50:02 +0000
-To: Shakeel Butt <shakeel.butt@linux.dev>
-From: Noah Feldt <noah@feldt.systems>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm: mglru: splice all generations when reparenting a memcg
-Message-ID: <20261115124954.7146-1-noah@feldt.systems>
-In-Reply-To: <20261111000913.22943-1-shakeel.butt@linux.dev>
-References: <20261111000913.22943-1-shakeel.butt@linux.dev>
-Feedback-ID: 113045274:user:proton
-X-Pm-Message-ID: 7a8d2dffe38d7e29b15abfa03649c45efb904402
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+kj1pyJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508DD1F000C4;
+	Sun, 15 Nov 2026 12:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794747132;
+	bh=KParxGsc7XRf1tM5678gFtw4cILsa1rzhE0kGfy39CY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=S+kj1pyJzfBBW6hbKdfqruu/v61PhCNuJ+vgYrJkiWd7msnFgARmlXfbIVQ0OxYcG
+	 +KVTNTNUvkj+KitytSnTu3DP8dv68hRbh4hT6hUbrh+xABUIHUdgSMh5df7CyYMnM+
+	 pzO+xAXJzmSJ8aAl1n1mY3rZEP7L1xndbFwcrQa4DqjCm2i1EFRFcJcOLvpFenlLdh
+	 W3vS5s3+1lDR+ZA+Fb8qvy5atIUobJ2qycf+SHqlGlkbQ7Tn10tpFeo7hbEiQNIXG/
+	 r9+mB8JfAMbLtRKGgUUVSGuSx2hzC+f2N16Dr4ImjyaPqbXwHnwqhe3fLUPONBWob3
+	 J82sSPAWavx7w==
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>, 
+ Junyoung Jang <graypanda.inzag@gmail.com>
+Cc: Jeffin Philip <jeffinphilip14@gmail.com>, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261109200330.2361828-1-graypanda.inzag@gmail.com>
+References: <20261109200330.2361828-1-graypanda.inzag@gmail.com>
+Subject: Re: [PATCH] RDMA/iwpm: fix memory leak in iwpm_add_remote_info()
+Message-Id: <179474713016.1305087.6552754506457256588.b4-ty@kernel.org>
+Date: Sun, 15 Nov 2026 07:52:10 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,84 +59,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9"; charset=utf-8
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9
-Content-Type: multipart/mixed;
- boundary=05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c
-From: Noah Feldt <noah@feldt.systems>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: mglru: splice all generations when reparenting a memcg
-Date: Sun, 15 Nov 2026 13:49:53 +0100
-Message-ID: <20261115124954.7146-1-noah@feldt.systems>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261111000913.22943-1-shakeel.butt@linux.dev>
-References: <20261111000913.22943-1-shakeel.butt@linux.dev>
-MIME-Version: 1.0
-
---05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-On Wed, Nov 11, 2026, Shakeel Butt wrote:
-> Noah reported list_del corruption on single-node hosts running 7.2.11,
-> which already has commit bf4ade7dbd76 ("memcg: keep folio's objcg same
-> as its node"). The bad pointer is an MGLRU list head in a freed
-> mem_cgroup_per_node:
-
-I have already rolled this patch out on our servers. Since then the
-panics and resulting restarts from my report have stopped, and we have
-not noticed any other unusual behaviour.
-
-Tested-by: Noah Feldt <noah@feldt.systems>
-
---05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - noah@feldt.systems -
- 0x9B02BBB4.asc"; name="publickey - noah@feldt.systems - 0x9B02BBB4.asc"
-Content-Type: application/pgp-keys; filename="publickey - noah@feldt.systems
- - 0x9B02BBB4.asc"; name="publickey - noah@feldt.systems - 0x9B02BBB4.asc"
-
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
-ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRVpuV2ZveFlKS3dZQkJBSGFS
-dzhCQVFkQWpjOWlieHJoOExkN2E3YjdBM1hXUnZSdGt6V2cwcEZUaUpDTgoza3J1ZnM3TkoyNXZZ
-V2hBWm1Wc1pIUXVjM2x6ZEdWdGN5QThibTloYUVCbVpXeGtkQzV6ZVhOMFpXMXpQc0tNCkJCQVdD
-Z0ErQllKbWRaK2pCQXNKQndnSmtFQlN1OWFxLzJDcUF4VUlDZ1FXQUFJQkFoa0JBcHNEQWg0QkZp
-RUUKbXdLN3RGM0s0QUt5ZXdZWVFGSzcxcXIvWUtvQUFFSjdBUURaRlZLOGpTa3FDSk9oS1NsTVp6
-T01Ibk4vQjhyYwpHZzlXei9UdW1lejVwQUQvV2l6V2xGem4xT3NibzBzV0U3L25FLzRMaXRKS2k0
-bjlObUVGczRob01BVE9PQVJtCmRaK2pFZ29yQmdFRUFaZFZBUVVCQVFkQTc4U0JLZkc1Ymd6SjQw
-bVZxTmNGUnhqc0lTT0ovVW4rZU1TaC83MkQKVUVJREFRZ0h3bmdFR0JZS0FDb0ZnbVoxbjZNSmtF
-QlN1OWFxLzJDcUFwc01GaUVFbXdLN3RGM0s0QUt5ZXdZWQpRRks3MXFyL1lLb0FBTWJHQVA0anZ3
-YlBacnFSY3dzRk5VdWI3aSthSFVTY2pwQTJIazFUdTBKTG5HWTlMQUVBCjRBOGQrWGNsdEVhUEtp
-Vi9sbzh2RFdPaFBBQVBhbTFuQi8wQWhlenh1UTA9Cj1jQkVoCi0tLS0tRU5EIFBHUCBQVUJMSUMg
-S0VZIEJMT0NLLS0tLS0=
---05e0afd5b3cdf604dd06ded9ef01d0c6e448bf611d31394ba37e012cc31c--
-
---------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wqsEARYIAF0Fgmr5qnoJEEBSu9aq/2CqNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmcJY1tpAvGYVk58XJVYWNHrFiEEmwK7tF3K4AKy
-ewYYQFK71qr/YKoAAElkAP9khqOtjveDcbwTuViuCxaBhfOSAVQoH+cQF9d0
-ekfMBwD/XqKUWZwBK1v+fl/e6jrZ0dwuxvsCOdhSvhM1UKKP4g0=
-=TNjw
------END PGP SIGNATURE-----
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
 
---------b27fb500e8faeb49fb14a6758c7ae9d2468896a3db128a3af62cfaa1f52b3fb9--
+On Tue, 10 Nov 2026 05:03:28 +0900, Junyoung Jang wrote:
+> NETLINK_RDMA accepts requests addressed to kernel port ID 0 from a local
+> unprivileged socket. The IWCM RDMA_NL_IWPM_REMOTE_INFO callback has no
+> RDMA_NL_ADMIN_PERM flag, and RDMA netlink routes this IWCM opcode to its
+> dump callback even without NLM_F_DUMP.
+> 
+> iwpm_remote_info_cb() parses the six required attributes and only checks
+> that the local and mapped-local sockaddr_storage families match and that
+> the remote and mapped-remote families match. Four family-255 addresses
+> pass those checks. The callback allocates an iwpm_remote_info object
+> with GFP_ATOMIC and passes it to iwpm_add_remote_info(). There,
+> get_reminfo_hash_bucket() accepts only AF_INET and AF_INET6, so the
+> family-255 lookup returns NULL. The object is neither linked into
+> iwpm_reminfo_bucket nor freed, and the callback returns -EINVAL after
+> this allocation side effect.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] RDMA/iwpm: fix memory leak in iwpm_add_remote_info()
+      https://git.kernel.org/rdma/rdma/c/4b14bd5d913b16
+
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
