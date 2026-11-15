@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749203;
-	b=2CXbstThHaQaJ32tGfN2eFQ/0jvxhTWgo1gp9FisK9o8C5BRVTDUtzqjWYr9+/UYIEx2
-	 HKTxRRl3NqYnZ/oTFKkNSIcYSPJRAvBhd0x080yqeX7/+1BPN9xX1EM8t7zPmjc6qvGv2
-	 I4isf3ns5hNSSgaHkt6Xra+KYUJS5M5D5r3hgPyNNyttLLLqpGPjL8aNF2bHMmmkxQkBB
-	 1LlW8Xz9vRTpq0VPR1LvAEZVUp9SAdjyjaHw4lyubeCYR3t9Z3CXPxsAN4Mg/lMPaik3+
-	 d3Gj0+9m0UCXne9VP11Jmh7aPqAVC0q7xKZBHjHHmqv/9cagxt7z3bx6YxF73RpfZaQ==
+	t=1794749204;
+	b=GU/UxM6LfiiXo6oBYH8MNpzD+rA5Y9576j91KGcDxN4+rPEuyRe3pSxYdxpsFmOf2d/f
+	 NQN1lVK2KY+nl8aW6LDCSNXdNxs4cxYg0kWzHsIV5DthhkOmfb5Ce/ZxlnlYtlZ1/I4rE
+	 Of8sQpSCHT2sGScvLoPpOy8YaMTBFh4T0lReO8xo/EQ3MiILU8LhoZf0TW8C3IIJkbEOy
+	 IsJKqZwVGRf4NzV6tpkh5MdWZQompOxXtvw1+CYQwEjsiDnrxct44+9HpMyRK0e5WTJe3
+	 GN4JkP3y5ZOhFvI00iDRDZD2SKSumao+3dAhTU/RydBo2zACj/3/2faT+OAjdKcPiXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749203;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749204;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=XXJaXzxHBixcD1q9auniGUIiTqL7+5xpVycMghx+12U=;
-	b=xDWGRuUNgM6Ug2DlIXBfARf+Z/Mjg9BsB85IOLgOH8hYY8EljWsf5ZC/Jqtc54Cz8X5Z
-	 +mU0gxG0IynexDMStd6RlBtWs8U5lbNApQjDbPUUMBmU7PRvMjIR0EueX4naXLtJaOM+C
-	 r/zP4DeknOUsNpMOtnhs3hXWpsvqSrN4dH9q6GNAco/l56KgpiRkMjewagMmGV9BsF4FO
-	 h13QZQi5sYBIkx7HGO94ZmHyU2ttdSXSDlkIf8eL65RBOh2BVQrEVeNGkMYK5uEJzWdkc
-	 0kUciKiBr/qycQERTV8MynTqsAZ8TctOYroOi5cFxAE6AmDE0dRIsID2RksbmAYJulw==
+	bh=kKg/9kwKNY2ZO/UoqGeyH2Gnh0wgDsd0MkIzDgaumFs=;
+	b=buKuHf79BRwnJ98pytVgRc5IN9pP+0TftoWmq9XywPK0Xj/Se4pgs+b7ozm926YqASVf
+	 mlJecyQWOPr32ymCcVeVdNzuSHXqfvgvi3cV6cB5Bylyhm5Yg5Fwe/U6BLF34fPBQuXpS
+	 v0ZMaYjpzigZBeflsjsYyHja7poVx6Ejj9R9T1wUnn9B0/M/hV7DRpMMPy+HH5+jqLysE
+	 dFU2jKzlK4PScuI08/aXEodtDNAtjQ9qR13AI8dnKtr3vSwilrW/jeskUACV3Pk1TGk8P
+	 VIwkHIduSMr6t7ctsLf2noOv7eT4XEyOh+sqkv7pnSJo1ufN88WpC5ya49gXRNG+yfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ncYlHkse;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RSSp0hF1;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93603606A338
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93603606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B57606A32E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6B57606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ncYlHkse
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RSSp0hF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=XX
-	JaXzxHBixcD1q9auniGUIiTqL7+5xpVycMghx+12U=; b=ncYlHkse/xtlj5hXIc
-	HDksTLqfaWjMA2yjE2huq5BcHyR2uHIjcNcFDb9hDgGRy1r7n/Nug9ZSM0r9gz6v
-	/xI2CeT0o0CeP4bD4vmGnh605rFDWnNnS+muSzFyFQ8dF01tZTvAK5T+eSp1Ykgb
-	lmSV4gUqAYCUlQVlj0CnaZ/6k=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=kK
+	g/9kwKNY2ZO/UoqGeyH2Gnh0wgDsd0MkIzDgaumFs=; b=RSSp0hF1JZl4i5nKta
+	pNFwCj480A3FgFHp0JHV9gPCCxdvrRyf0ENPyPTb8vd8A0ZEYIEcTsK340KGiPD5
+	DIcI6xLSaL4lMwq9sgErp5IP7WeMROPy3xYzCFBoQbZ8+WgkrFuo4/9h1Nk58hex
+	ntl4unMKExhHhIgcTSj6P1Db0=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S4;
-	Sun, 15 Nov 2026 21:26:14 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S6;
+	Sun, 15 Nov 2026 21:26:15 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Dandan Wu <wudandan@kylinos.cn>,
+	Xuewen Wang <wangxuewen@kylinos.cn>,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 02/12] ntfs: discard attribute inodes after failed initialization
-Date: Sun, 15 Nov 2026 21:25:59 +0800
-Message-ID: <20261115132609.209957-3-liubaolin12138@163.com>
+Subject: [PATCH v4 04/12] ntfs: remove remaining attribute lists on creation failure
+Date: Sun, 15 Nov 2026 21:26:01 +0800
+Message-ID: <20261115132609.209957-5-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261115132609.209957-1-liubaolin12138@163.com>
 References: <20261115132609.209957-1-liubaolin12138@163.com>
@@ -66,54 +66,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AFy7KFy5ArWrKFWrtw4DXFb_yoW8WrWUpF
-	Z7Cry3KwnrAr47Kan3JF4UXa40934UCF4Utry8WrnrA3Z5G3ZFvFy0q340q3ZrtFWrKw4j
-	qF1qg3y7XFW29rDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jDzVbUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RYDzWr5svZtUgAA3Z
+X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S6
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw17ZF48CFW3GFyUWFyUKFg_yoW8tw4Dpa
+	1fuw47AwsrXw1IganakF40934IgrWkGrWUGr4UJ3WSya4kKw1S9asrKF1jkFs3JFZ5GrsF
+	qr4DKr17JrWDuFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2FALUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RcDzWr5svdtcAAA37
 
-From: Dandan Wu <wudandan@kylinos.cn>
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-When nonresident attribute initialization fails, ntfs_attr_add() removes
-the records but can leave the inode cached with its old runlist and base
-inode reference. After creation rollback frees the MFT record, reuse can
-find stale attribute state and fail even after space becomes available.
+Creation rollback can leave an ATTRIBUTE_LIST inode cached after freeing
+the base and extent MFT records. MFT reuse can find that stale inode;
+dropping it under another inode's record lock can trigger a lockdep
+warning.
 
-After successful removal, clear the attribute inode's dirty state and
-link count and remove it from the inode hash before dropping its
-reference.
+Remove any remaining ATTRIBUTE_LIST before freeing extent records to
+release its storage and invalidate the cached inode. Drop the returned
+reference after releasing the record locks.
 
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Fixes: af0db57d4293 ("ntfs: update inode operations")
 Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
 New in v4.
 
-Tested repeated creation with a 3236-byte inherited ACL on full volumes
-with 512-byte/4 KiB clusters. After freeing space, regular-file, O_TMPFILE,
-directory and FIFO creation succeeded without stale EA state.
+Tested rollback with large ACLs and long names forcing attribute lists
+and extent records. Offline reclamation checks, space counts and retries
+passed with 512-byte/4 KiB clusters.
 
- fs/ntfs/attrib.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/ntfs/namei.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index a18d74a9f685..a88dc62c6a4e 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -3039,8 +3039,13 @@ int ntfs_attr_add(struct ntfs_inode *ni, __le32 type,
- 		(val && (ntfs_inode_attr_pwrite(attr_vi, 0, size, val, false) != size))) {
- 		err = -EIO;
- 		ntfs_error(sb, "Failed to initialize just added attribute");
--		if (ntfs_attr_rm(attr_ni))
-+		if (ntfs_attr_rm(attr_ni)) {
- 			ntfs_error(sb, "Failed to remove just added attribute");
-+		} else {
-+			NInoClearDirty(attr_ni);
-+			clear_nlink(attr_vi);
-+			remove_inode_hash(attr_vi);
-+		}
- 		iput(attr_vi);
- 		goto err_out;
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index a84d7bc9bc28..abb3675757e9 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -429,7 +429,7 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 	struct mft_record *ni_mrec, *dni_mrec;
+ 	struct super_block *sb = dir_ni->vol->sb;
+ 	struct inode *rollback_data_vi = NULL, *rollback_sd_vi = NULL;
+-	struct inode *rollback_rp_vi = NULL;
++	struct inode *rollback_rp_vi = NULL, *rollback_al_vi = NULL;
+ 	__le64 parent_mft_ref;
+ 	u64 child_mft_ref;
+ 	__le16 ea_size;
+@@ -748,6 +748,10 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 				     &rollback_rp_vi))
+ 			ntfs_error(sb, "Failed to roll back REPARSE_POINT attribute.");
  	}
++	if (NInoAttrList(ni) &&
++	    ntfs_attr_remove(ni, AT_ATTRIBUTE_LIST, AT_UNNAMED, 0,
++			     &rollback_al_vi))
++		ntfs_error(sb, "Failed to roll back ATTRIBUTE_LIST attribute.");
+ 	/*
+ 	 * Free extent MFT records (should not exist any with current
+ 	 * ntfs_create implementation, but for any case if something will be
+@@ -772,6 +776,8 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
+ 	mutex_unlock(&dir_ni->mrec_lock);
+ 	mutex_unlock(&ni->mrec_lock);
+ 
++	if (rollback_al_vi)
++		iput(rollback_al_vi);
+ 	if (rollback_rp_vi)
+ 		iput(rollback_rp_vi);
+ 	if (rollback_data_vi)
 
