@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749199;
-	b=OpQ/NVMPedjGjMYv6izkuLVwfypt5RLdP+V1ODpOPRAFWyZgsfuKS5jDplQna4LFLkrA
-	 tyteq4FklTl0Q4tjvGZLxqlDUfEv9mnL7S7Qvx55Hs2z0RKZWhyczcr25UUNpU0Ec6eWH
-	 bKV3EogjdDeVDuuezZH8lLZL+UwflyKeRCCoVNfADhZMRKAeHnpdee3qVECCNMKXPcSQ8
-	 C/bFa6AFq+7q7plpe+KpkujnTS612tQqVA/KZCPznMyqUBXCbJZaZ1UN0BbJZlwtLkIMl
-	 GPwfgxZ2FiuVuOMf4Y7KxprrW9rXhilKyRjmrU4StimupJK8nMAE2HAWX/yWUjOKDTw==
+	t=1794749207;
+	b=xVnNiVEP2QOafZKNI6xdw34+VOYvOW2cRsPntYJAit7ZiTJLbV7QbeQKBXAruHTiNmpM
+	 DfJNJc1CUAzOvqBfiJtWv5hrTEGpS7XbzI0fYnpuGLPfGQlsJT0ErfJJthLEM+HKBLaMh
+	 0JmKpCboYoCU/K22+Vj47jCuy8J8vjJGTc0TvPFyp6GX2BvgqyrgrJEVqHLa2q/ReDBx6
+	 tu91SwZHSz1tpsOeAY/ad+mow27qjxm3J7wqH2X14whFPjD03C733sBPfcbs1VK1FdKfn
+	 USDl6sM1tfaRMEUf/sv6zJWSz7bgBxMfyitpTSB2NlS6lcAUX6gXQnl938Sp0728QAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749207;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=r3FCEkbHpguBbj6tYBETaEBD/jS71Hm5EM8ENzIuC98=;
-	b=V3HiCFVSKe5iHr8j9x0w4hBFCkl49+E4UuxKWtR01JYHnAyuaIL/Bq9LNLXfstZgBv4G
-	 wSpfcroXzOTZW0HDZdRmvk4CUD6hn99zSUffKHrNtvwYFQ2bLeX2/pwO1YaOW4R50YuSU
-	 JOV1cp7JSqMatmUUlxzOo3cWp6PXXPxhLRw0RPrJmknVSDLENZAGk/F/5VVlBHXuFhsm8
-	 9FFc8k1YJPBbSmF28UGVeLEI+c6Ogr3FVgYGY9w616YGgMghBb7OEc9OWSRkPSyH5d6AP
-	 OKvfXh8avaxvIA7rNBHyKUxzIXKFUOHDYeT6hH7V8QUPMVk703PszABZZWDV1Nhl8TA==
+	bh=fJ54AZ8kyr59gug8UziG62hUVeqhH61HdqqjIRIFVek=;
+	b=IUHRFlrguhkK4XsO8bj/u39Fc2zEM+89exA3L2Adl7kcv8DluDKH0+nppcu2ILbcQHOX
+	 5Y0K3R/4RoXmE5MObfLr33aMwoaF9qmRTAqpXFlvnWll9Kqs82yBeX05FqqHFh+2Dh5QQ
+	 ve+zMfVlQZakPOnPlhMJA8Q/X5c5QbTBEKvWspw4C/7LAw6JnfOZxyGCu2el39j+SE6Gp
+	 Cv9hda5RzkWY7EN3bLNGEHRW2eGJH5IoOoixA3zuMgE8MKbeBIBGJsbdw9YDvsIK/HS81
+	 gPfNhml8T7+Q52Vz7vMCCf7jVXi8KNG6fEta9O6wPimOU5P4A3d4eB1vyKkjZjeiBkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RPHlaL0Y;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mTgfCIiO;
 	arc=none smtp.remote-ip=220.197.31.5
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5837606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5837606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B057606A330
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B057606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RPHlaL0Y
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mTgfCIiO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=r3
-	FCEkbHpguBbj6tYBETaEBD/jS71Hm5EM8ENzIuC98=; b=RPHlaL0YY2PUFY9rl4
-	LRATTk6ioWDBF1FjOnuFVllrDI6sFCwQGAwW4MAMEH3VucCNFftHKBT4MEquoT/x
-	NZtIsTiokikgbJrkjOL/c22CulC1lwfU3YAGtJKWw/Jbrt6dFMs82kzElNw3wijy
-	KsZErO1gXaqYHITJrATpw3HU4=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=fJ
+	54AZ8kyr59gug8UziG62hUVeqhH61HdqqjIRIFVek=; b=mTgfCIiOLIROMyqLDj
+	iWAyq0yMRi3qsSNb4mV9uHlOiidL2Hos5fLVMiHv5kr/SjKAEeeBbA7za5uocibH
+	kxyCF9Rrna4j9wZLHJhmUIs81dgweW3p1xaxRxvITicSe7HyBH6JRkj2PSFSBZ+1
+	hy704s5838NLejOzrSEwFEOkU=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S5;
-	Sun, 15 Nov 2026 21:26:15 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S3;
+	Sun, 15 Nov 2026 21:26:14 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Xuewen Wang <wangxuewen@kylinos.cn>,
+	Dandan Wu <wudandan@kylinos.cn>,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 03/12] ntfs: discard reparse attributes when creation fails
-Date: Sun, 15 Nov 2026 21:26:00 +0800
-Message-ID: <20261115132609.209957-4-liubaolin12138@163.com>
+Subject: [PATCH v4 01/12] ntfs: return zero after removing nonresident attributes
+Date: Sun, 15 Nov 2026 21:25:58 +0800
+Message-ID: <20261115132609.209957-2-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261115132609.209957-1-liubaolin12138@163.com>
 References: <20261115132609.209957-1-liubaolin12138@163.com>
@@ -66,72 +66,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw1rKw1fJFW8uF4kArW3trb_yoW5JF18pa
-	93u3yIkwn7X34I9rnakr4F9r12g3ykWF4UGr4UJ3WSywn5Kw1Sva4kKr1j9Fs3ArWrKryq
-	qF4UtrnrJFZ8uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jdEfOUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RcDzWr5svdtWwAA3Q
+X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFy3WryrWrWkArWkGr1kGrg_yoW8Wry7pF
+	Z2k34fK3y7Jw17Jws7t3ykXa4Fga18WF4jq345Gw12y3Z8tw4xt345tFy0gw1xKryDK3Wj
+	qr4jgw47ury3ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzOJnUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RYDzWr5svZtOQAA3y
 
-From: Xuewen Wang <wangxuewen@kylinos.cn>
+From: Dandan Wu <wudandan@kylinos.cn>
 
-Creation rollback removes the reparse index entry but leaves the
-REPARSE_POINT attribute inode cached. The inode retains the old base
-inode and MFT sequence number after the MFT record is freed.
+ntfs_cluster_free() returns the number of freed clusters on success.
+ntfs_attr_rm() retains that positive value after removing the attribute
+records. ntfs_attr_remove() treats it as an error and skips invalidating
+the cached attribute inode.
 
-When the record is reused, later index removal can use that stale
-sequence number and leave reparse index entries referring to freed
-records. Remove the attribute after deleting its index entry, and drop
-the returned inode reference after releasing the record locks.
+Store the cluster count in an s64 and propagate only negative errors,
+so successful removal returns zero and the caller invalidates the inode.
 
-Fixes: af0db57d4293 ("ntfs: update inode operations")
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
 Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
 ---
 New in v4.
 
-Injected FIFO creation failures after ACL and FILE_NAME setup with
-512-byte/4 KiB clusters. Offline checks found no leftover reparse-index
-entries or allocated MFT records; space counts and retries passed.
+Tested 1536 injected creation failures with small/large inherited ACLs
+and 512-byte/4 KiB clusters. Free-cluster/free-MFT counts and offline
+reclamation checks passed.
 
- fs/ntfs/namei.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ fs/ntfs/attrib.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index b46fe44b63b5..a84d7bc9bc28 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -429,6 +429,7 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 	struct mft_record *ni_mrec, *dni_mrec;
- 	struct super_block *sb = dir_ni->vol->sb;
- 	struct inode *rollback_data_vi = NULL, *rollback_sd_vi = NULL;
-+	struct inode *rollback_rp_vi = NULL;
- 	__le64 parent_mft_ref;
- 	u64 child_mft_ref;
- 	__le16 ea_size;
-@@ -740,8 +741,13 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 			ntfs_error(sb, "Failed to roll back DATA attribute.\n");
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index 9266a3ea3b0f..a18d74a9f685 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -5515,6 +5515,7 @@ int ntfs_attr_rm(struct ntfs_inode *ni)
+ 	/* Free cluster allocation. */
+ 	if (NInoNonResident(ni)) {
+ 		struct ntfs_attr_search_ctx *ctx;
++		s64 freed;
+ 
+ 		err = ntfs_attr_map_whole_runlist(ni);
+ 		if (err)
+@@ -5525,10 +5526,12 @@ int ntfs_attr_rm(struct ntfs_inode *ni)
+ 			return -ENOMEM;
+ 		}
+ 
+-		ret = ntfs_cluster_free(ni, 0, -1, ctx);
+-		if (ret < 0)
++		freed = ntfs_cluster_free(ni, 0, -1, ctx);
++		if (freed < 0) {
++			ret = freed;
+ 			ntfs_error(sb,
+ 				"Failed to free cluster allocation. Leaving inconstant metadata.\n");
++		}
+ 		ntfs_attr_put_search_ctx(ctx);
  	}
  
--	if (rollback_reparse)
--		ntfs_delete_reparse_index(ni);
-+	if (rollback_reparse) {
-+		if (ntfs_delete_reparse_index(ni) < 0)
-+			ntfs_error(sb, "Failed to roll back reparse index entry.");
-+		if (ntfs_attr_remove(ni, AT_REPARSE_POINT, AT_UNNAMED, 0,
-+				     &rollback_rp_vi))
-+			ntfs_error(sb, "Failed to roll back REPARSE_POINT attribute.");
-+	}
- 	/*
- 	 * Free extent MFT records (should not exist any with current
- 	 * ntfs_create implementation, but for any case if something will be
-@@ -766,6 +772,8 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 	mutex_unlock(&dir_ni->mrec_lock);
- 	mutex_unlock(&ni->mrec_lock);
- 
-+	if (rollback_rp_vi)
-+		iput(rollback_rp_vi);
- 	if (rollback_data_vi)
- 		iput(rollback_data_vi);
- 	if (rollback_sd_vi)
 
