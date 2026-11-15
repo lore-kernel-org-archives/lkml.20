@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794760662;
-	b=gI752qr9i2VDN6gs7I8VWlAPY7Mep6QuRbjbht+EIsAli2ud9zM0tD1A4rohM+lMFCnr
-	 XggFTpGIA9i7a8M/7C3/n7qcHx2Rr2pOxqTL6vo53Kn1/JN5Y15pvv5eUYbRFkTGcq+8w
-	 HRD8yrJjTwILEgog/Oin5QtGaRZP10VX4jh/q/6nvmPs5JHNmfAajvWXsJZXgO+zyU6/B
-	 6H1Vi+5bJKpaNsfWT58RXxTmlGZnOUiPvFECa5W96GG1baSSEXRcMy3FEpe3Mxh4zyhJB
-	 t1bTNHXuDCLPJ/nmjPmEHxwUpTgYf7OshB6y5Ez7wX66fpi9/x1KHTR4mwqvHIbQPEg==
+	t=1794760670;
+	b=EoiBaBkzQMUIdCOEU/Fgfwur4JRCV5XuNbmkWXoCama/PC+IpGxRwLxROKvbj9AiNEr5
+	 ic0PUDg36XMHFuptrMSicXSzmW4unot4ZdS9onO1gy/KEwHxdUniMFeONwUvWgOgFUAnJ
+	 DCNcwQfjGYUmNn0r6OB6iB2U1EO+DHs4oYrQxjagFqXis78O2ECX6vm3dDh97SU16u47X
+	 4yqTm6SjhLhrpY1COiRmoHcEsiwRQf+hm3Xg8qROTqduZ9Bop/aUwblvkiRdquVSuXmCU
+	 CvZKbQqZCXkKmizHa1C4+17LpjolQBd/uIvyUoZgp095e5HwBLgl406V+yW4s1EgYrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794760662;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794760670;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=K+gvpLnHAWCS2qej9/dKDbqHpvb2Unj69ztz/dYZD4I=;
-	b=GKORE2tAtR5BnLzwR0dW3BzQ6RzLlAVhTs7XYxPH7aRrsLIrpQ7myha2CNU1pJENZqlg
-	 a0XLpKQl5geRHIDI4ztr4dmx+tP/oDlviomWZriVFdb2EIHHo0EdzTaYCz03mw49/hOC2
-	 auNDgQ8t41apB9B1g8UzgxIWxJI+0sCgJGm11tYlzl5sjYz6jIZ70v4PcTczGyuQ2UfAH
-	 dIcN6FytZmxbiHBCijcaw6xexgZCw1qU6qwc7v2zmEDX1Nrtx+c6UuDkyP2rLamu7BhJd
-	 x2v383BA5bTzFdziEZ1qndmugZdH+v80KTtDp4o86+eWyZch0zGB0AFz3Oq4dpdp1Sg==
+	bh=1U+yE/obeyFMHp1b1KSSrPt1HPsDkzs4IHk8voDIqqk=;
+	b=TVLssJc5vFbtDAcp/kpt5Sqr3GoZuJx2hwCMGD3IsEhngBkGYkAbbzAzV3ZLp4Rkcx1B
+	 WzFSAO1mLq7SM8LTd8g+a5rj6KOd1QF24gAE1j5f+Es6aNIsixrIAu3vOX1g057S7uTJc
+	 YE4XLK0qConrohyDHfowgAg8Hp7OzixyP0vl2THAsunY6e0s77PKig6s2WBBD0C1OUdPf
+	 O/pogBiSAG8PrYOS6PNNKbHCVbZFyEWXJ5g7Ose27Us1gfv1dFRbj+anDiqz/syLy3eS1
+	 1uBjBO4zvOc3M2sReWVUW44ne4jd63UK6noj5Y36FsAps8Ouu7DVPxWrOqM4/o3aIgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="TAVMfL/F";
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KBSlBA0N;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60C7606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60C7606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD6B606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:37:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD6B606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TAVMfL/F
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so2781528c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:37:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KBSlBA0N
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3791619605cso5287375eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:37:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794760661; x=1795365461; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794760670; x=1795365470; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K+gvpLnHAWCS2qej9/dKDbqHpvb2Unj69ztz/dYZD4I=;
-        b=TAVMfL/FjyLswmQ1OblEHRo8HslRF3gicwrmde1Gm215hLqGigb1ZoLJ8PZV/CS4Gb
-         ilniSrB7HYZYBWzDpptKEH8rbtveWPXCIzkrlVwtCwDTl+kdC8t50LXkxKBy+akDCell
-         tjmcSNXsP7AGvI7U1ZN+NhVuycyA2TfbKsOJR/mjZdkVGHJ2UiQtKk/2F+4A0dPZXN+b
-         VIDphpsSG92z7rSMlzU6wn0Cwy9JQlbouj2kon93XxBEWDWjTXuEbSaLnsA0XtXKl7Wn
-         PvrwlbJUfWbnaWo5nUd5b4yLb4Fl8UsHBX9FIhPz15QW8R4osAe8KJJCn8+7Rhg4J2oQ
-         /DLA==
+        bh=1U+yE/obeyFMHp1b1KSSrPt1HPsDkzs4IHk8voDIqqk=;
+        b=KBSlBA0NYi/reGrFtBdgslKCW+KFEUrvv0yINuj0NG4mI1M06no7/8D5igBpPX2ywK
+         0ltdZN/YeBVG0mn/1fYetWgtMYZ2CmyLnXz4tUY2OyzW4SPeR/6S4gwhLaEvoYh9nZDd
+         ovTZ7XN/jIF5qInhAg4JgjWtCqOhfVw+JXk3KTkL4+iDKymOxQLFz5A9vPuu91CGlErT
+         JlTrwDE9eQCa7qbuADH0Z6trj35q8luOmOfLbl7KNkT6Nc9oBcEeT7ycQqor84MUjBfj
+         JUca+BaXyVVM+WTB9hNRNJAOPbcg7OKMCdtiEs92J3gRUo0ovA6WT7a9WY7bIfaVeXgQ
+         pBlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794760661; x=1795365461;
+        d=1e100.net; s=20260707; t=1794760670; x=1795365470;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=K+gvpLnHAWCS2qej9/dKDbqHpvb2Unj69ztz/dYZD4I=;
-        b=asLjXp1RYxq0P+9YKeFxMFk0uEHY9jjLgX/HwN5JlbidJRSIGArkGe0u0n1KTUR6lE
-         Xc4H5SrFp97qj7echKgh2E6M7BCchBsxRYEfmgj7JUqfC8QQrA4loLIDNNDgDwDIMoh0
-         rkTpaXOr4kXWUqfGjd3vrtI+iWLYm7dHwoq0oggNTxHwOlWRe0mz/g7XkTDyjb/XxKcq
-         WUPs1aH2pdx6WARV/ExwKfJmgTavgCwHq5lXuBbChZnekhr6a+PiAmwJhIyIVlr1ROK0
-         v97gtw9HP8UlJ8UGayM5Pnh5NgsVEAxjbxc0xHTGD+vHpgnWFV9XynnJ6ifC0/BkUilv
-         Hjvw==
-X-Forwarded-Encrypted: i=1; AL+hErHBcdYz9Q+4mtcrrT+Pjw9+3KgiV9LMpqoJrLws5L5A1tuthMrm5Fuwh3paagMhc3/HspSyWWF1yZYHN20=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8k814L1tHMEm0X163Jz0FP+JkJqmkfCPvMcuLsiBs0RlmL9cQ0
-	8pArhwRu1NVX0S89biVC5l8AhLYy4wiXOZnOFSJxJMHHb4p3oCwAHsOe
-X-Gm-Gg: AYBFou06D2khiMGgrckM1RofrHrCpEvZwbpn8oWxLxWWNdv62mBI8n00wtlJb09pAJ9
-	A2Edd/WiEjXWspUxyl68DdM4b749DSFG6IYJvbc0zi13F4paMjmSpe5EjUmLDF1YYNdcq480Sq3
-	H/ZHSvbihj9aCiA9/XDvORURosE3RMK/ybdCEuSPzjbO2GeW+kBpI8csoOpIPYNLoATaQsbpZAD
-	hIRfVgRAiU1Gn1abTQ/FvrfDKHMRTP5sNvanE8Jicdj6MoyXdqmWau1j75zj6LCTtFsXSmaVHpe
-	+T7NQq5ZCnng11yonpWfSsJ4CyJiT9Y+hA7WZfDWQDJ+XHiTk81DYcUje63v2+eiP+MgjgBJsqj
-	6EM7AzIuYB3HMMxi+hWDN4sLGrXWMDxdyaPSp6hTaK7tHE4/Cv96u7ZrKUCHBOLkhaZVIcIfxgC
-	4Rm8SlwS68aBIosNuYq8rB6VvIKlOcY4DQxW4GtDB8Vd2PzeRcsc7a0yijX5HPQywDGPI5c2stW
-	W6v9+OlarYnjaFZNuE0QnfPn51hiVpH1yB3jO6KNQc85U4+QDH0ltKJYqwr39u3L9zZEQ1pEEJy
-	p+v0U/KhDVpdgbfLXlNmo8nwGRs3jsZqT4jgRVUZehSNMraRZ4E6RqVmRRwWfWtrhQvu
-X-Received: by 2002:a05:7022:3a87:b0:18c:e014:6f1d with SMTP id a92af1059eb24-1b503068f8cmr8823437c88.1.1794760661026;
-        Sun, 15 Nov 2026 08:37:41 -0800 (PST)
+        bh=1U+yE/obeyFMHp1b1KSSrPt1HPsDkzs4IHk8voDIqqk=;
+        b=icjJjZF3VqaGZdR7QWIzOumRCCTcu1kc0Tihbia4qsZs83LXvTiqaPRkKb08a0Pqxg
+         1y1LsarJqYKHC+rL7IU1sPCXNZEQpCNutbTzVhBJ06P4iJVTckv3s4gIJu4WS+0EsPUH
+         EEJE4iQ614+lTu4IaP5oBcknUh1dlF9p2JwS+ocVoGcSsNmIKKpMS5aJnMLezo1kNKsR
+         KUdF+t44qUiUrdQ+Y74RJ99tXQd5LVhoUkXGdRiMLkDXdd5Zh+w/yIsA6UJkQtv7E3wJ
+         VfK9VpG/8fkZCjcfoNplIUj2i8AF4kW/ka4Fpq4z+cVN/C70QqS3qqbmnAdOZMbCD84t
+         fybA==
+X-Forwarded-Encrypted: i=1; AL+hErErg8eGztl8ZrB1HMMivtJR+GDW2O2iqAjCX9oR7OtQGRNxjXP13aEXEJS37T7C7ZderpuhARBGf9vGoNI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8c4Da5o/IbTKd2beNvVEkNw33tQBxatW0IHX43u9M7xZgrQlHq
+	NykMfRyOAHHIr9kuYOdbHe9lmjBxcZ3bltxVRdZ12ghOxuWj65OxljaJ
+X-Gm-Gg: AYBFou2BsUZD26T8SRhs3VpFfIDOHFvjdh0kbBE0UuA8JZQphFcZ+NGbz8bUTElTsTJ
+	UjQ4Sywx7i9BDAkPfi/WN+Xd7AUNDCd/4xeJAbTNe2GNgfjFuoa1cUSGZDyi62FpTAz++q+fSsK
+	Wjzip3dc3xfVQ/Nwv/f1wcjVa27rbYYufmrUPTgbnmrWmGZsE1uhhJkX1o6fKZV3mY5rMUrIEUN
+	W0vT3//7UiQo2IHsWs4XnzaR6osOXnPnDuLXGGVGwWW/BjN98P1QaODptcQWib0Xka3Q7qggLFt
+	DV/FPwMfMcWZuuxwH44sxQRa6qXBq9z1JHICLOdvyhcTEl6h9xAscS1EdAKTVyFiuzJcw1oWDMm
+	PF3vsDG/I4hiTFGJN2fuUjGmJEmEENwdbvq8/LL6Gg2HF0NuWrEKmNe9D6QFhV5nPxaAna4J4mp
+	3BNlP++N0ZOvl+VBF2dTDaLJE3m6SxUOQPfvDtLdeOsDD/PUCcQeoNi0NqF72JurTtifqJv1C4u
+	4SQihY80QRcLS5deHr1vzBzm3mPjcr3UaHnZiB94hOqOZfOtbbJF/TE5xKiubEl/i2bt12mrVPk
+	agFxehY3+lrBpgPrGUS7v8m2QGHtRscgnT5qDO6WaymZnZrD+rnWvdNqj2fPr2MnML1l
+X-Received: by 2002:a05:701b:4508:20b0:163:c5eb:d42f with SMTP id a92af1059eb24-1b503060401mr8812803c88.5.1794760669556;
+        Sun, 15 Nov 2026 08:37:49 -0800 (PST)
 Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm28775558eec.23.2026.11.15.08.37.38
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b98e5sm26440037c88.14.2026.11.15.08.37.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 08:37:40 -0800 (PST)
+        Sun, 15 Nov 2026 08:37:48 -0800 (PST)
 From: Cheng Yongkang <teel4res@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>
 Cc: kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] KVM: x86: INIT leaves a stale RTC pending EOI
-Date: Sun, 15 Nov 2026 08:37:33 -0800
-Message-Id: <20261115163733.227072-1-teel4res@gmail.com>
+Subject: [BUG] KVM: irqfd: resampler EOI can go to the wrong GSI
+Date: Sun, 15 Nov 2026 08:37:41 -0800
+Message-Id: <20261115163741.227220-1-teel4res@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,54 +99,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Sean, Paolo,
+Hi Paolo, Sean,
 
-I hit a corner case in the in-kernel IOAPIC RTC EOI tracking. It needs
-a vCPU to get INIT before it EOIs an RTC interrupt, APICv to be
-inactive, and a VMM that injects GSI 8 with KVM_IRQ_LINE_STATUS, so it
-may be rare in practice.
+I hit two corner cases with resampling irqfds. Both need the VMM to
+set up IRQ routing in an unusual way, so they may not be worth fixing.
+They come from the same mechanism, so I am putting them in one mail.
 
-When a vCPU accepts the RTC interrupt, ioapic->rtc_status records it
-in map and pending_eoi. If that vCPU then processes INIT,
-kvm_lapic_reset() clears IRR and ISR but does not touch rtc_status.
-The guest can no longer EOI that vector, so pending_eoi stays above 0
-and rtc_irq_check_coalesced() treats every later GSI 8 injection as
-coalesced. Only KVM_SET_LAPIC or KVM_SET_IRQCHIP clear it, through
-kvm_rtc_eoi_tracking_restore_*(). The lazy repair in
-ioapic_lazy_update_eoi() only runs with APICv active, so nothing
-repairs the stale entry when APICv is inactive.
+On EOI, KVM maps the irqchip pin back to a GSI and signals that GSI's
+resamplefd. The reverse map only keeps one GSI per pin, the last one
+set up, and it follows the current routing table, not the one in use
+when the interrupt was asserted.
 
-On v7.3 with kvm-amd.avic=N, running nested (the KVM under test is
-inside a QEMU guest), with IOAPIC pin 8 edge-triggered, vector 0x50,
-physical dest 0, and GSI 8 routed only to the IOAPIC, 6 out of 6 runs
-gave:
+1) Routing changed while a level interrupt is pending
 
-  KVM_IRQ_LINE_STATUS(GSI 8)              -> status 1
-      LAPIC: SVR=0x1ff, IRR[0x50]=1, ISR[0x50]=0
-  INIT through KVM_SIGNAL_MSI, processed by KVM_RUN
-      LAPIC: SVR=0xff, IRR[0x50]=0, ISR[0x50]=0
-  guest re-enables the LAPIC: a stub in 32-bit protected mode
-  (set with KVM_SET_SREGS/KVM_SET_REGS) writes SVR=0x1ff through the
-  APIC MMIO page and exits with "out"
-      LAPIC: SVR=0x1ff, IRR[0x50]=0, ISR[0x50]=0
-  deassert, KVM_IRQ_LINE_STATUS(GSI 8)    -> status 0 (coalesced)
-  control: KVM_SET_LAPIC with the same LAPIC state, so
-  kvm_rtc_eoi_tracking_restore_one() drops the stale entry
-  deassert, KVM_IRQ_LINE_STATUS(GSI 8)    -> status 1
+GSI 16 asserts I/O APIC pin 16 through a resampling irqfd. Userspace
+then swaps the routes of GSI 16 and GSI 17 with KVM_SET_GSI_ROUTING.
+On EOI of pin 16, KVM signals GSI 17's resamplefd, and GSI 16's
+resamplefd is never signalled.
 
-The entry is edge-triggered, so remote_irr is not involved, and GSI 8
-goes only to the IOAPIC, so the status does not come from the PIC. In
-the 0 and the 1 case the LAPIC is enabled and its IRR is empty; the
-only difference is the stale rtc_status entry.
+2) Two GSIs routed to the same pin
 
-The code is unchanged in next-20261113. Xiang Zheng's "KVM: x86: Fix
-stale RTC pending-EOI tracking under AVIC" only changes
-ioapic_lazy_update_eoi(), so it does not cover the APICv-inactive
-case.
+GSI 24 and GSI 25 are both routed to I/O APIC pin 9, and each has a
+resampling irqfd. When GSI 24 is asserted and the guest EOIs, KVM
+signals GSI 25's resamplefd, and GSI 24's is never signalled.
 
-One option is to call kvm_rtc_eoi_tracking_restore_one() from the INIT
-path of kvm_lapic_reset(), as kvm_apic_set_state() already does. I
-have not tested that.
+Both were seen on v7.3. In both cases the owner of the silent
+resamplefd is never told about the EOI, although api.rst says that
+when the irqchip is resampled "the gsi is de-asserted and the user is
+notified via kvm_irqfd.resamplefd". I could not find anything in the
+KVM_IRQFD or KVM_SET_GSI_ROUTING documentation that forbids either
+routing. setup_routing_entry() and the EOI path are unchanged in
+next-20261113.
+
+A fix probably needs two parts: reject a resampling irqfd, or a
+routing table, that would make the pin resolve to a different GSI, and
+keep a routing update from changing a pin that a resampler has
+asserted. I have a draft series for that but it has not been built or
+tested on the current tree, so I am asking first whether you want
+this fixed and in which direction.
 
 Thanks,
 Cheng Yongkang
