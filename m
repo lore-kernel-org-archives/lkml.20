@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.208
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794728796;
-	b=zlmnp3QbYXU3yZFOHKW2YPtSoZy4f6en8ygo3mPMVEhc+zDXFaxAbGThAa5FS1FvfvxJ
-	 DgiO0HszRI07CkvNg5zL1yd2w29TGsa/HJhaRayEX4owu3tHGlecicRu6Y2UFf/+CG+5I
-	 nvYE16nDONEaAI1fsQEYZbRFPIv7IPYGfCOJmLfqkJnMrCKPhJqlnORpy7TC2RVPMfe+B
-	 ipkmfYBw20hh+/6CLrgKq0Gw7WvifZYFb3c0Uo+av+3QLcHsoWh7sfs93orqQTpIcqvUy
-	 oanpvmnPoHaT+Xyk8qfZgr0Wwrd0pg7WkzaZ0DHQPzmjgU4dyGzPflLraSK2++swToQ==
+	t=1794728832;
+	b=KBNrOs3bGnyu8eQ0UeHUHzCbsjf4neUp6QY6/9BYdipz54iDCO25kY7GlFL5hhIvh6Bw
+	 qLNBHLcxd2NO8P9fuT2fYEjnUGPLCKDlgApwE8FfWaqKW3se0K3KD7fkdtsmOS2jY7P2i
+	 nO4Fco8+x6DAZDMzI25U0VTgLLxTjv052GZFYKX65efvXybGBqXxP1daJlrcJIHri1YQk
+	 Fib+aBbrwwW4eNX1p5IDRUSJpsmcbd2q+BSghC25eolK2wjIdRmwKpUsKyaGJT9/3Yk3U
+	 6/5RT7ztWLjI+quGFPsDDdIYnQqgY65iPFHRZMu7Pu3IoWIRJgo3O96bIKktTmxz7eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794728796;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=DK+L45fLM0eTFpXkrDmE+xve33EF/t7QiHzPin4KYzg=;
-	b=J3WaEXlLow7NLTjQILDDuKupChbkQH6xiSA2Xt7v7I0ZgYIMcoFqyx0kFOBB8eOuQrCN
-	 UIjeOdMTDpYGy2XF8/mIaTU3izBOZrcoPpizde1ZDs+/oANIcbsoTQ3r8AK3ZsylV2net
-	 +B2eRtlFeiHxCVvMftAdPAL1Rbwd98QmIgd/iKzMGlQbQI1pZMPpZ+SA7Mh8C+9gMPTZf
-	 bSWOhlwx4mdlVw6ab1eNQKilUht0F0577FJ2FfxUEfDk58rOPnFpV8XDU+FrnDipkanVR
-	 6IbTZ9P0fzYV33iZFL/+dqcTDsGzu78LaOk2ipTJY8385/VxWJElV15SJ1GhGiVJ3Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794728832;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QaisxT3Fa6hlWE5Ty6mdpOvqQQNuxHko9RuFnaPX8Uo=;
+	b=Xx0Uk3H7YSuIfIwE4XiTNjjB29TPGt5mthFSaSUuEoeUA09cuTk6rzpdi0yypCI8IyIc
+	 jGn/mgcOkocE+FeJyd+0ByrJAAgbGNHunj5f1W1KiJcscvb4ie5wybE2rUwG/Wd/9VfKF
+	 wOwgTFtyjkebXMto/WoxOb/RDe+9RGSxXBTYW0S5YACqL6wQJsIvIU/8MFb8IY9lMWkpg
+	 PVjeMejV99jamcra3Sf+hR4AOBDUBLw8ZRwZiZheIuIyqfCgkmRSILdIIE4i902S9Q3dq
+	 vooGaXf6++G78Q/xT1g5mPVtYSYpyWv3V+lgCTpR0kW9ZsGVeaCnvvPbhLSXtZj7Trg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n9p1g7x2;
-	arc=none smtp.remote-ip=95.215.58.208
-Received: from mta1.migadu.com (out-208.mta1.migadu.com [95.215.58.208])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxRcPY1r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62EF4606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62EF4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAD3606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n9p1g7x2
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yF7XHudIlIhypmUU5oxh4ylUNM+N6uQezOp9runcKhI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794728792; v=1; x=1795333592;
- b=n9p1g7x2kHBX7I8RnjxwfQyilnfieit86jtKgXYGOl3Ttm9zXtgtDfERuRj0wghj51/bcYWH
- mn/dsEd/sS8mBN8HTMIqbnAkeSeq2ONqn5CUP0g4G46XUg7Hbr/79CPN1fqF8vytTYF9dz6u//D
- NBGRRclkoAPP5ontmpu7aAYU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id b9e7cdb8db06deaa;
-	Sun, 15 Nov 2026 07:46:31 +0000
-X-Mizu-Trace-ID: b9e7cdb8db06deaa
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxRcPY1r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53C21F000C4
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:47:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794728832;
+	bh=QaisxT3Fa6hlWE5Ty6mdpOvqQQNuxHko9RuFnaPX8Uo=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=YxRcPY1rW49gUfNAfsKTB7Smi931kj4k6CMZR9FdhEcYnTWoIdHqHQkqyo9FR5ggN
+	 YtuYGe/GE/iN+HAKtoscrzMj4s4bRq1i1kyV5VQNneO9yuPYW4T47UhXj7hPgGYDaq
+	 Z4Z5BhwEkwWPigcem8SLjMVZp/98qvAd8MEEsLLSOaQzVqr/V3S0qsj7L/1o18HPV5
+	 XQCGCVqNq5kqdcyy3IySeIRyD9O5/ePgCPFDMi7qfRhk64g+mMSfOmqNkHYUclTEVs
+	 ZF66ztw/L3Oiwk2/qAd6ZANfQxieVAdVy16Q1KXL6VLRDVXF+/h6rKoKh94yd8AeST
+	 9mM1AHhC0R1zw==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3adf9b1f5aeso35988461fa.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:47:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHVjJLKzQHQHxHS4YgPanAq56TfjTx5snk0qQefcMzFIUIYZ5w5jwQxc8FvJ2UZCp6SoQWGRXBdSWJchxw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TFfSnn9nt/gSLyQhRSlpqbMXBsnK+11fKycy3Xt54BZAaNE4v
+	0C+I8rKlK35rs2Kot1V9l6+FCmgFnxjXAJFIu6oBRFWYIS2Ijq69J+7UU5xMO/nQsdvkpT7G9wu
+	xxJ8/bbAKHH35Qffy8TiUE8I5qN/kY4o=
+X-Received: by 2002:a05:651c:e18:b0:3ab:185f:575d with SMTP id
+ 38308e7fff4ca-3ae2b4bada8mr16065201fa.4.1794728829847; Sat, 14 Nov 2026
+ 23:47:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,134 +58,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 3/3] kmsan: fix metadata loss during HugeTLB struct page
- reinitialization
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261114222347.227199839f5ffa44@chrisdown.name>
-Date: Sun, 15 Nov 2026 15:46:06 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Alexander Potapenko <glider@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>,
- David Hildenbrand <david@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Zi Yan <ziy@nvidia.com>,
- Sang-Heon Jeon <ekffu200098@gmail.com>,
- Mostafa Saleh <smostafa@google.com>,
- Ketan <ketan.kishore@oss.qualcomm.com>,
- Usama Arif <usama.arif@bytedance.com>,
- kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>
-Content-Transfer-Encoding: 7bit
-Message-Id: <B8C10EFD-DC12-4388-9228-DC460CAA5632@linux.dev>
-References: <20261114104150.58424-1-songmuchun@bytedance.com>
- <20261114104150.58424-4-songmuchun@bytedance.com>
- <20261114222347.227199839f5ffa44@chrisdown.name>
-To: Chris Down <chris@chrisdown.name>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn> <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
+ <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me> <G7_h6i47RcuqvaGeHxw_dw@gmail.com>
+In-Reply-To: <G7_h6i47RcuqvaGeHxw_dw@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 15:46:54 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66t+PuaBsANs4wEuH8rGs9zyT7GpviSkoRE3jdPKE_GFw@mail.gmail.com>
+X-Gm-Features: AclHuK8xqthT2mk78Qu4LiOErq4MI1hrWtnj6E-DaIslpwgy2sOPNhpmEiJiSYo
+Message-ID: <CAGb2v66t+PuaBsANs4wEuH8rGs9zyT7GpviSkoRE3jdPKE_GFw@mail.gmail.com>
+Subject: Re: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861 SoC
+To: gaohan@iscas.ac.cn
+Cc: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, linux-sunxi@lists.linux.dev, 
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
+	linux-csky@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, Nov 15, 2026 at 3:32=E2=80=AFPM Jernej =C5=A0krabec <jernej.skrabec=
+@gmail.com> wrote:
+>
+> Dne nedelja, 15. november 2026 ob 06:11:31 Srednjeevropski standardni =C4=
+=8Das je Icenowy Zheng napisal(a):
+> > =E5=9C=A8 2026-11-14=E5=85=AD=E7=9A=84 06:33 +0800=EF=BC=8CHan Gao via =
+B4 Relay=E5=86=99=E9=81=93=EF=BC=9A
+> > > From: Han Gao <gaohan@iscas.ac.cn>
+> > >
+> > > Add myself as maintainer for the V861 bindings, clock and pin control
+> > > drivers and device trees.
+> >
+> > I think traditionally sunxi do not add maintainers for specific SoCs.
+> >
+> > Maybe you should patch the regexp of "ARM/Allwinner sunXi SoC support"
+> > item instead.
+>
+> Usually no entries are added at all.
 
+If you do want to help out and review, please add yourself as the
+reviewer instead (since you aren't the one taking the patches).
 
-> On Nov 15, 2026, at 14:23, Chris Down <chris@chrisdown.name> wrote:
-> 
-> Hi Muchun,
+ChenYu
 
-Hi,
-
-> 
-> I can reproduce the crash and the series fixes it, and I think page_ext is
-> the right place for these pointers. I do have a few comments, though.
-> 
-> Muchun Song writes:
->> -	struct page *kmsan_shadow;
->> -	struct page *kmsan_origin;
-> 
-> This takes struct page from 80 bytes to 64 on a KMSAN kernel, which means
-> that hugetlb_vmemmap_optimizable_size() no longer returns 0 and HVO can be
-> used there for the first time. From a quick check with
-> hugetlb_free_vmemmap=on it seems to work, but nobody would guess that from
-> the subject, so I think the changelog should mention it.
-
-Make sense. Going forward, KMSAN can now work with HVO.
-
-> 
-> Documentation/dev-tools/kmsan.rst also still describes the two pointers as
-> members of struct page, under "Metadata allocation", so that needs
-> updating as well.
-
-Right.
-
-> 
->> +ifdef CONFIG_KMSAN
->> +KMSAN_SANITIZE_page_ext.o	:= n
->> +KCOV_INSTRUMENT_page_ext.o	:= n
->> +UBSAN_SANITIZE_page_ext.o	:= n
->> +CFLAGS_page_ext.o		+= -DDISABLE_BRANCH_PROFILING
->> +CFLAGS_REMOVE_page_ext.o	= $(CC_FLAGS_FTRACE)
->> +endif
-> 
-> This takes the instrumentation away from all of page_ext.c, when the only
-> thing that needs it is the lookup. page_ext_size is already visible in
-
-Absolutely right!
-
-> page_ext.h for page_ext_next(), so I think page_ext_lookup_raw() could be
-> a static inline there instead. That way it gets compiled into
-> mm/kmsan/shadow.c with the right flags already and needs none of the
-> finagling above, and it saves a call on a very hot path as well.
-
-I'll include this change in the next version.
-
-> 
->> +	preempt_disable_notrace();
->> +	page_ext = page_ext_lookup_raw(page_to_pfn(page));
->> +	if (page_ext)
->> +		meta = *(struct page_metadata *)page_ext_data(page_ext, &kmsan_ops);
->> +	preempt_enable_no_resched_notrace();
-> 
-> This is quite a lot more work than the two loads from struct page that it
-> replaces, and kmsan_get_shadow_origin_ptr() has to go through it twice
-> for every instrumented access to direct-mapped memory, because it calls
-> kmsan_get_metadata() once for the shadow and then again for the origin.
-> You might think that's a bit academic, but it does add up. For example, on
-> a 2 CPU VM, perf bench sched pipe -l 30000 goes from about 1.37s to about
-> 1.58s with the series applied, perf bench syscall basic -l 300000 from
-> about 0.66s to about 0.75s, and a dd of 300000 blocks of 512 bytes from
-> /dev/zero to /dev/null from about 1.63s to about 1.90s.
-
-Good catch, and the numbers are hard to argue with.
-
-> 
-> 1/3 says that keeping the pair together lets callers avoid duplicate
-> lookups, but the caller that matters most doesn't make use of that yet.
-
-Sorry, that's my oversight.
-
-> From a quick hack that has kmsan_get_shadow_origin_ptr() look the page up
-> once and take both pointers from the result, the same three come out at
-> about 1.38s, 0.62s and 1.54s, which is no worse than before the series.
-> Could you do something like that here?
-
-That's a fair point. I'll amend patch 1 so that kmsan_get_shadow_origin_ptr()
-uses the shadow/origin pair introduced there and obtains both pointers from a
-single page metadata lookup.
-
-Thanks very much for your review.
-
-Muchun
-
-> 
-> Thanks!
-> 
-> Chris
-
+> >
+> > Thanks,
+> > Icenowy
+> >
+> > >
+> > > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > > ---
+> > >  MAINTAINERS | 12 ++++++++++++
+> > >  1 file changed, 12 insertions(+)
+> > >
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 93abbb315065..dfc300dc1eb2 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -24031,6 +24031,18 @@ F: drivers/irqchip/irq-riscv-intc.c
+> > >  F: include/linux/irqchip/riscv-aplic.h
+> > >  F: include/linux/irqchip/riscv-imsic.h
+> > >
+> > > +RISC-V ALLWINNER V861 SoC SUPPORT
+> > > +M: Han Gao <gaohan@iscas.ac.cn>
+> > > +L: linux-riscv@lists.infradead.org
+> > > +L: linux-sunxi@lists.linux.dev
+> > > +S: Maintained
+> > > +F: Documentation/devicetree/bindings/clock/allwinner,sun252i-
+> > > v861-ccu.yaml
+> > > +F: arch/riscv/boot/dts/allwinner/sun252i-v861*
+> > > +F: drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
+> > > +F: drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
+> > > +F: include/dt-bindings/clock/sun252i-v861*.h
+> > > +F: include/dt-bindings/reset/sun252i-v861*.h
+> > > +
+> > >  RISC-V ANDES SoC Support
+> > >  M: Ben Zong-You Xie <ben717@andestech.com>
+> > >  S: Maintained
+> >
+> >
+>
+>
+>
+>
+>
