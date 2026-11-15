@@ -1,74 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743151;
-	b=cPeNR1INnfnkPSEUZ8yHQMzhUmmCQup6fLJRbu0BPhLScQzUjV6hMRrez3GKIzZ4+bh0
-	 BAWn5usqB7Hgv6ISgbOq9fIi9BawZhm1zKeCgtik+Ujm72hZqJPPRiP/hpvQw5J8hMY/5
-	 AODROVyc0n4rQw4zAv/1jUX9R1y7yuYw1vj85sLRGOKThmiHPj1ZJK2KRwHQUsP0uVTtS
-	 G/Ub8rW9F9ybw08LFa4xkk1hFiEZEHBogNPoLVahpvDEabhDnsMsnM6FwYu7R1cCJTd9B
-	 Jrj3tCqx0iXxtsjuT9w5s4+5oanRQaIlF93mf8IqoqIdvg6YNW6e04mU3qAhrQTa7oA==
+	t=1794743166;
+	b=jBgR15DRmiks09F/HFGxHQTQiwtXdBSuo163LWEtDJo0MPZPa0WBw/Z2ra+NRQYYQPHG
+	 pDW0+bo84p2tTu3z5UvxR4UawZA5aQA7x3VLmGF+PD+7s+syfZZaHrKMZ7THDHYnxIEOC
+	 UiY7KNGqrMvinVnkV1OuAnoesmCWzXHAH2Tpdar4JJ+SPF+r8QBX8AbsywYaCy1lZMNYY
+	 WhQvi5+Sl/QQ6hJe+Q1tsXqwT10I2TrgnDAnW8onBmm4aV7vllE0sna2y7XYc0X4Qahqs
+	 3vtjbNUaFPe7bdY4hzQTIrSMiZtTlEzzvY3N/9E5484UjPwKQLxfTxFAr/oiYISYuLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743151;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8ZCc0kYbccT1j2j1nFYSj16fkgBLnDHoEzJYA6Hd1Dg=;
-	b=j7xd1vnVx1fqHb88b8H8m7at+gEvVmnl0kXjd0N9h1pil3DJIl6Y5+v6rQnIkAyL4DB9
-	 OU4MoCDKMm4qqN+giEajGj+pDkTndkFixvLQ6HTXYzb4lI5MhX7FhOelNJXDnsNl2tBtE
-	 pvNi0oJKDC/T9CQgeg/pDTT0wElH8VwyW5PCqOaeR13mer0OUx8cxupizEzLgFvC+plfn
-	 O3DbAieTf4cq8y9sUzJrCuitDnJM9efUPsaMkX3z7Yy/V+RXYeEL1UOyCo1E3fytzuZfo
-	 4RL/ixbHXU4sUzcWjSyUoPKkhJSV9T4azgFpU/5wQlPQ23O8MiUIlEfsfLGtn6iO/Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743166;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
+	bh=E2qAcR3rEBfe73Lo3oxL5x8qblh3Zs/YTkiFBzYgfAo=;
+	b=fuDSA4OJNsDfV44FnlDVTcmW8Q2Irw06Q09yuoLBWUO4HvlXNF5aEMiekqQEcXPjmhOs
+	 9WI9My9kAnUPrHOI4H8uXZvgTJjOS8fjwviPqQp5qmZ+BeUtddYZkowWOn5GPr4Mr4ALN
+	 CBP2taMsv5gP3ZMEP6zs4qg/ieq5ZP1V9fHVBXKu2HhUzWZFreFu5YBdbgvRi0q67LuRB
+	 E+lfxzMFBeGH+586CmsEhD2XHoICSKzxfoPjaTNDHrbaVymSjFg9fySXyfIQUjLym86aQ
+	 jXIiYwhRxcTsPSepTY9t1Ogr6Hta9uGa/yoAaQ7T1OMYwbiEKVOUs+GFRLT50ePU+RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ak4ncVZc;
-	arc=none smtp.remote-ip=212.27.42.1
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=hBMYvwQt;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2728606A31E;
-	Sun, 15 Nov 2026 11:45:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2728606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB2D606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:46:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB2D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ak4ncVZc
-Received: from L30177.local (unknown [78.242.88.98])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp1-g21.free.fr (Postfix) with ESMTPSA id 4BB8AB0051B;
-	Sun, 15 Nov 2026 12:45:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794743149;
-	bh=8W7U3lk1daoKKwP7PjlQ54EL6MrGZ5IE9j29Mm2B3/w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ak4ncVZcgW2qLwK9X4/zElIA1HMdni3U+8SbMT5UJn4dFCQlROXyKI8G9BQvCqj/C
-	 85l6Z4oISGhzno9CeY6PTrTRE16V7rEvBAopAKZHId28/ngsYuwohsm5rhE03spsP4
-	 nID1pNcGQt1JAF+7EOp6kDRnQEx8qPLR5JJB2oheBDRAzcy1WKl8vf3sph6+E6QF72
-	 Oyjb3pyxSWpoFKCVmPAMDn5Eok8cg5T+kAEmQdHs7+LTQNZ+5guh1S2uQc3OBOUn5Q
-	 6lMfFyadDcci1ncA09egoRaOrl0cflBClFU7y+lWlhikwoJ5lZuqMlNVeo3IrjQP72
-	 SlnDToNGaCUuA==
-Date: Sun, 15 Nov 2026 12:45:23 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v5 4/5] pinctrl: freescale: add the LX2160A RCW pad-mux
- driver
-Message-ID: <avmbUyfeTd_VMSYH@L30177.local>
-References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr>
- <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-4-d246166ea469@free.fr>
- <avmX2HwOji6MBuhj@skbuf>
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=hBMYvwQt
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 4648660D50
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:45:56 +0100 (CET)
+Received: (qmail 18858 invoked by uid 990); 15 Nov 2026 11:45:55 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 15 Nov 2026 12:45:55 +0100
+From: Leonard Lausen <leonard@lausen.nl>
+To: netdev@vger.kernel.org
+Cc: leonard@lausen.nl,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Shuah Khan <shuah@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 0/2] ipv6: honor prefix-length suppression in raw FIB lookups
+Date: Sun, 15 Nov 2026 11:44:30 +0000
+Message-ID: <20261115114434.10343-2-leonard@lausen.nl>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,23 +73,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avmX2HwOji6MBuhj@skbuf>
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -
+X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.996479) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -1.596479
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=wAe5ZC7Fm6uGqNNB9AvG9s41KNLGeyY8d6FFjcwChUQ=;
+	b=hBMYvwQtliYC27OwjBCkct5rQ5I9TOX82SHf5qDl1W8KWgAMU8Dwo3hKcwL2oSc4E4HUo0y0ZQ
+	/KcaJsGFQDKhnf+Hkx+PJnhV5289P5LXk58ma+9qsebA9sEkhcEZdvQpEshq9R+mq6WrV4ZlXWLi
+	evq4QHZOlv6A1AQD84xXR7UV9sX/UwYmGI3Lkb1pg/jOeufGDxvkBOgdHytO3nLGuZrQk9bWRLUa
+	XVgxc40D2krSPa0VykTp6y/KGb3qjfdlATHCQnnMIFT3GW4oU31Rz/CsqC85YPtEH1oowlJba+6a
+	Pr6ohGrjMwDWEz6+dH7AzUa4vxKucYWJ9FyAd52N6Yd+kwYXARZqXVFJj7XTXcyqEEd9sIA/7Pv1
+	L5TZanwBKVIfYBiT5bRZEd4rKVnU+TMGx+zDFeMowNcPgDaT6uKQQMmbDpCBbutCdq/SroHWNwvE
+	hHF9wW/9Ug6y1FM5Co0MLOnuOFyBDwU7Tamufr5sK+V6qQqUKzPSEwiFGs/jfe1fqOKTGWSbfdVJ
+	4qtc4hMFGyfaUlGFc/yM61ya/08xigQCGrgQM77mWtv/CAnmxrCGAPTb9alG7KvTMHqIxQoq21xl
+	g5bbjy93bmLZHfA1c3bfSyPT9m+eSVPgEQkQn/eIj8MeesAwS4YQTDwoGurDFoLmn1auhJOGLxWc
+	M=
 
-Hi Vladimir,
+Following Sashiko's automated review, v2 is limited to
+suppress_prefixlength. The review identified that v1 evaluated
+suppress_ifgroup before final multipath selection; I reproduced the
+resulting disagreement between raw and ordinary lookups. Interface-group
+suppression needs separate work and is left unchanged in this revision.
 
-> Did you see my feedback on this patch for v4? Comments?
-> https://lore.kernel.org/lkml/avjaK3cOj3iQ6G6w@skbuf/
+Prefix suppression is sufficient for the reported VPN failure: nftables
+can otherwise return a main-table default that an ordinary lookup
+suppresses before continuing to the VPN table. Strict reverse-path
+filtering then drops replies arriving through the VPN.
 
-No !, for some reasons, I did miss it..., thanks.
+Patch 1 adds a raw prefix-length check while preserving RTF_REJECT results
+and leaving dst-based handling unchanged. Patch 2 extends nft_fib.sh with
+six checks using its existing topology and counter helper.
 
-I can prepare a new serie to make it a bit more generic,
-but I'd need NXP/your reviews for those CPUs, since I
-cannot test.
+Changes since v1:
+- Drop raw suppress_ifgroup support and its tests. Table lookup can return
+  a different nexthop from the final multipath selection used by ordinary
+  routing and BPF, so suppression cannot safely use that initial device.
+- Install the router's logging RPF rules after the suppression checks and
+  policy-rule cleanup. This prevents neighbour advertisements from being
+  logged and dropped during intentionally different reverse-route states.
+- Add a blackhole nexthop-object case, which distinguishes rejection flags
+  in the lookup result from those in the FIB entry.
 
-It seems to be quite easy to update, I'll just
-run some basic checks.
+V1: https://lore.kernel.org/netdev/20261110131638.15004-3-leonard@lausen.nl/
 
-best regards,
-  Vincent
+Tested on the rebuilt v7.4-rc2-based kernel: all six added checks pass,
+and the full nft_fib.sh run exits 0. A run with an eight-second delay also
+passes, allowing neighbour discovery to complete. Separate probes confirm
+that reject routes remain terminal and raw interface-group suppression
+is unchanged.
+
+OpenAI Codex assisted with investigation, reproduction, implementation,
+tests and descriptions. The prompts asked it to investigate the
+Wireguard VPN failure.
+
+Leonard Lausen (2):
+  ipv6: honor prefix-length suppression in raw FIB lookups
+  selftests: netfilter: cover IPv6 FIB prefix suppression
+
+ net/ipv6/fib6_rules.c                         |  9 ++-
+ .../selftests/net/netfilter/nft_fib.sh        | 63 ++++++++++++++++++-
+ 2 files changed, 70 insertions(+), 2 deletions(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.55.0
+
