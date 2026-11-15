@@ -1,89 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794713108;
-	b=DtAZVsWp4Ws4YiYTWKDZDegxB4gWnRtnYYhN4xY/wJdHm31t7fOSKgdF1mqWwxZPuPGQ
-	 YUxbZa2G5kjX+smHt/v9TTuTfP37Qs+bbpzM+xkzrYw4i5YX+m46ybzjAQZDu9rdstUKw
-	 0BBGga9D/iO2Qtjgl7dp9ORMcna3YiE9YkvQuyJ9w0j5oQ9Mmysj6twF1b/ZWHffl/sSF
-	 6jtYCyQ39bn4fsJcEanoUPjuQo/c/7RtoOtEXKCMxdxjs0Ue+YcfrgIvwVhuJ3GJGfKrh
-	 Zr34sSAK3ZeZu+9VXIRPE0E9td+yS1KaMXnDYJuOQv+VxiTcxzML/Iac0XBRC2M9NXw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794713108;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
-	b=bKPy1jqaBh0Sq7ISdnxfoZQEfNSsWS+mNnmzUn9tqMMHR1AWQfPmO6iyXBvK9I9w8r50
-	 YODutM6Eof/fZ8GoosA/vam75W/IItpdHR4Vx9IhpwASW9qZbTNGVHwt3BRlQ1AOm5Dbv
-	 F1uofokoLiZHQ2m1/DHoott4mc8WdKua//6YIdJvjpl7NjgAB6Ge9DbHwq+HB8zwA51LT
-	 ec9UGrIL9NSXhexPW1ORvTNfbi6ps8S/viotTfpiU9gST1huarNtIQNWt5QGYv5zOt+P0
-	 nbYOIOLSuEqSjEgk/7+b1VHn9OwRp1O0EqtmGTwbKtvBoT2/OGH+htSxKPFsI+I9sdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MhbsYhlf;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794713162;
+	b=t1yW1IKcutwyhQBcKDjFcxxuUfEymFf+z8j0w+60sQ56CpMay3eliJTVRzRtVogGQhob
+	 VLxuF1rZ+mjBK0ZxuqhBb5ScUMFN1f2Q0zHI2ECUo/GjJnXWI0dU5w+UKvwLQak8o7aru
+	 gtR/GWHTBqcsXharRjQzF5uxMKT/+904sjiZxu0EBlQDCKWw9Ml/4Aqv0V891F3OW/8qI
+	 lOMIl2+DMQhBVJafuzcAACIUS96/uPw4RT52n6cWSXLVHxSdGZM6KTCg3E6qBgQEU0vwU
+	 q/msTydoJCD5HrLcT+RMiDti7o4z2P7xXfCm+9oL42jQ1T89OWrtx3pmYrLFY8TQaUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794713162;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
+	 X-ZohoMailClient;
+	bh=fCr4vk87uIVxv+fnbM3PawDMY6ycKwKe/urALmU/BHM=;
+	b=I7ENaqqr+OpepffNDVtTSDwlFNfiB6gHo5236GLyakVUDpoHDHNWK3YO9UCrBWDou5Qj
+	 z7cEWPu/xzoAlhj3XlmpOUbRGw6RaTq3s3rXoAaYzGCZxxSvMxNlChiJEGTNKT3UKLGWK
+	 SXun6MEpjt/INmkukdoSiWPOlP4y2dwCu0El886J/JeBSSTth2jLT27E4HgSzI0eJBiFB
+	 jAZKHWiz5DEtnTwGp5dBNK1yiR3AwrUhrHAA80TJjz9UpibGRJBSFS6kAHTBhUiQ+PRs9
+	 qbdsGYv/HPihq3Ndnvp/bv5IvNENjo9JpMRWHWOkIhOM4eAmKGs09Rf6pnWUL5uR5cw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Cy8fGPlD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5B4606A32E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE5B4606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929D9606A323;
+	Sun, 15 Nov 2026 03:26:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 929D9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MhbsYhlf
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-55d30c054dfso3100971cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:25:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794713106; x=1795317906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
-        b=MhbsYhlfIboDlJO0nr8sWHoWk4QYWrxgr1DjannNHaSkkSgGBBcYSs3djiqkqFC1/6
-         m0ZUne9cIuREQdr+58Uva+zsdg7kB5jgVKFXT6YY5hMIQlk7C9QTgBmy54+Hsr1PeRq2
-         2XOw+re1SXRO4deRkyfpCKCg9/tFNYIwb1FHKXZIa8tBcGgxkRV+CABQxMzK11Ij9vXa
-         SJMpOs4QIBCCiBaHDKjfNDYhy9HIsKamrxfvjAbVPx35B15vgPxKu6Gx0VOqpzzktnT5
-         3CYJZ8VOssDKKYsXLUo5CP3y6tt+shDW+HAXFmMdCBoh8/v5nTcNrF2sm8DK9wyREbNj
-         MrpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794713106; x=1795317906;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
-        b=dSNxnb8mVSEADogQIcXV0cs1LK7WH2VWoM0tygm976ngQBPt/fZaWr+MdcRV8PWxZ5
-         ebNKszf1ggWIQIKeWPfkHY630189OVCHtedJ1+EvPbMpLYXpg7uQ0ipGZBjj0tZ8cV44
-         4m2aQ21Ny++h1+CjiSNyXEnYHVrydISj58ZhaMSZfLkTZuFL37Ieju3uireTbyVFXcwQ
-         N9ANYKUPMsmBbP75C9jaS/yKdFmY+h/jcDyfILN0h1VRBq/uXeJXDFHDBQ7rGOpbeJvw
-         cCdhwig1UxASNg3Njk45bW8d4ngVKqf5tvTU3Zvh4opA70xUVIsOEwMTfGq/Jl42rLA2
-         a8/Q==
-X-Forwarded-Encrypted: i=1; AL+hErGKDFHPSi6mbOLzWQfp7rx2D1vk4xAGkqOQ2ddvasPdNjWplWWtfWOjfOwWPmJBLR8aCghSuZMnaKMZtTI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9o4PFQoEYH0ZDtu/bsBsNR9NHN8nwWyzEQI4GJTnyvBNS9yCiU
-	jf+ugc/XOmo7v/LQjTJfAz+VoXaJFh3uiNMm2oL0UDciT3UP8iynXJXX
-X-Gm-Gg: AYBFou02BI56Xu0Urd5s9ts88HdmY1s813UIsedw5IrMyRVBEFqLn7AeWPsBSw2Thdi
-	1z6/bSIPCY3UrdE/VE7zrD5layzZctvOetZaBKUsc36cSfd29HyniLwqTkVH8ZujX5mvSi2M0wt
-	bUiDZOlGpgDXTc4ua3CHd/qMF4Q1MuVSwZaLpA6tKZejSytb13j48mjoBNfIqWOuFuNPNvc2bZC
-	CtK8oQ904UJohJdOnBnyx3pq/mOjohj0I5HPUvqjf7Lv6e/hRgI2gIODJHCj38bzgg2WQeOgxxq
-	U1cboSchN/kTxoPnBUhCPGwlE3DCNVbODqWcMbXWbPGt0ougRhWAni9FPoxJhu+Sye0nQaBFQk8
-	YPAd8zxW0sg/wKl9qQIvi+JqA66lZ3uEIidg+sDYXcjUz4cEpt4W6CwsHRjjrWXblDK3Z6/8qD9
-	VsqUhAAEWDcFOSo16Xi+m4AGxzeOIr5v3/bDKuTo+/q0QIKN8OJUQk2+9PW8si/3krEXTE70uSJ
-	17Q06GnzySTKkqXEP8BXEYE/y3pBvV3iVVhYV8SORHaEi4hrC9w6P//uyh/2/sJN+1TJ0eeVAOP
-	F2JMTeUnFjG4n6nq7RMbIbGfxS827eW6tCEgQ4mxhkWkNZPBWQ26QxkreGKQchWSOdOMbrMMifu
-	muKHRDKlWGpkUHYEpWUbbe49FpWB2VlCZFmoZvZZBwkKgtC7eRPeZ
-X-Received: by 2002:a05:622a:228a:b0:54a:6b3:488d with SMTP id d75a77b69052e-55ac7172abamr111430891cf.21.1794713106562;
-        Sat, 14 Nov 2026 19:25:06 -0800 (PST)
-Received: from ?IPV6:2600:4040:5abf:f200::9dd? ([2600:4040:5abf:f200::9dd])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d6193esm55747396d6.19.2026.11.14.19.25.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 19:25:06 -0800 (PST)
-Message-ID: <81ac592f-18a2-4715-a34a-1f639ff7a454@gmail.com>
-Date: Sat, 14 Nov 2026 22:25:04 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Cy8fGPlD
+ARC-Seal: i=1; a=rsa-sha256; t=1794713142; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=RnYPPLKJ0/JhnoarrVShf55nqGCNKuZ4WoBuHA6NEs5Xc5b1ff9d1DK3GvFZdYAztmwTHcPgKhF5wJvJRBSLl6xR9j+8MUixo3g0XrQwLewxsgTwBUPQogunBrThGIwuvfDONLvy0FH1+vkfV1oqVfopM7aAG8Q6ZlmJnz707P0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794713142; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fCr4vk87uIVxv+fnbM3PawDMY6ycKwKe/urALmU/BHM=; 
+	b=Z8Ln1fTR8MuZALc6w55eEJxfgTmKP8k+G2dL8sAfrh/zjGI/Llr10jCqdyR26DfnLygPLP2h19jF7u3vt17SYc5Nrfs9jbBPzXC2l4TA7xOEUYbntjmSdLkWjTQCtApEsvXWi+3plfDqKgvRVoLT6DMATP8PZJD+cB+eqHWRdWY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: a=rsa-sha256; b=Cy8fGPlDwJoV1lzxCVd82pP5Lwlmxrv8CDIda94qu3b26750NDRwUcK+fnWcQ/by5A4oWCURxo9JP1aSRk/2ugkrTG2J+o4ICTj/inUb423AsBqQ6aMNrNd8LWKjyqsBQGtUbvKWycCa/yDkSJ32QRiwyWmk/bqMIbXEZL6Dv1k=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=fCr4vk87uIVxv+fnbM3PawDMY6ycKwKe/urALmU/BHM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794713140424547.7867298639073;
+	Sat, 14 Nov 2026 19:25:40 -0800 (PST)
+Message-ID: <2e8e3f34-b252-415f-8eb5-ceb1db668175@zohomail.com>
+Date: Sun, 15 Nov 2026 11:25:28 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,38 +60,248 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
- Pro X
-To: Val Packett <val@packett.cool>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
-References: <20261104070441.74127-1-val@packett.cool>
- <20261104070441.74127-2-val@packett.cool>
-Content-Language: en-US
-From: Haipeng Lin <jimmie.lin@gmail.com>
-In-Reply-To: <20261104070441.74127-2-val@packett.cool>
+Subject: Re: [PATCH v17 02/19] cxl: Share CXL port upstream PCI device lookup
+To: Dave Jiang <dave.jiang@intel.com>,
+ Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <iweiny@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Joshua Machauer <machaujo@amazon.de>,
+ Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org,
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+References: <20261105185917.2667656-1-smadhavan@nvidia.com>
+ <20261105185917.2667656-3-smadhavan@nvidia.com>
+ <f67ecd0e-1eae-41b1-8a61-d06eb062e523@zohomail.com>
+ <70b69d4c-34b2-4166-9e3c-fbd9e21daf75@intel.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <70b69d4c-34b2-4166-9e3c-fbd9e21daf75@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227ad363084d4183c4ef58ab89800004bcd12f20718ed38e92b1557a58da56d825851b8e75eaace76:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-On 11/4/26 2:04 AM, Val Packett wrote:
-> The Surface Pro X tablet was listed as a single generic compatible in
-> dt-bindings, but a device tree using it has not landed upstream.
-> 
-> Replace it with three model-specific compatibles:
-> * microsoft,cambria for the orginal SQ1 model (with cellular)
-Nit: "orginal" -> "original"
+On 11/13/2026 11:50 PM, Dave Jiang wrote:
+>
+> On 11/10/26 6:36 AM, Li Ming wrote:
+>> 在 2026/11/6 02:59, Srirangan Madhavan 写道:
+>>> read_cdat_data() resolves a CXL port's upstream device to its backing PCI
+>>> device. HDM cache updates need the same mapping.
+>>>
+>>> Factor the lookup into cxl_port_get_uport_pci_dev() and return a referenced
+>>> PCI device to make caller ownership explicit.
+>>>
+>>> Use automatic reference cleanup in read_cdat_data(), as suggested by
+>>> Li Ming, so early returns release the PCI device reference.
+>>>
+>>> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+>>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>>> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+>>> Reviewed-by: Richard Cheng <icheng@nvidia.com>
+>>> Reviewed-by: Li Ming <ming.li@zohomail.com>
+>>>
+>>> ---
+>>> Changes in v17:
+>>> - Use an explicit pci_dev_put() on a single exit path in
+>>>    read_cdat_data() instead of mixing __free() with goto cleanup
+>>>    (Sashiko)
+>>>    https://sashiko.dev/#/patchset/20261029145703.2185231-1-smadhavan@nvidia.com?part=2
+>> Reviewed-by: Li Ming <ming.li@zohomail.com>
+>>
+>>
+>> I still think the new goto makes the code harder to follow. But I saw your discussion in v13[1], both Jonathan and Dave agree with your current changes. I post my proposal here which can eliminate all goto labels. If there is no response from them, or if they disagree with my changes, we can continue with your implementation.
+>>
+>> [1]: https://lore.kernel.org/all/fb513893-7c6c-408c-811f-1eae20f0436c@intel.com/
+>>
+>> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+>> index 9d807c1a002c..fbf4b56a39c4 100644
+>> --- a/drivers/cxl/core/pci.c
+>> +++ b/drivers/cxl/core/pci.c
+>> @@ -573,17 +573,8 @@ void read_cdat_data(struct cxl_port *port)
+>>         size_t table_length, length;
+>>         int rc;
+>>
+>> -       if (is_cxl_memdev(uport)) {
+>> -               struct device *host;
+>> -
+>> -               cxlmd = to_cxl_memdev(uport);
+>> -               host = cxlmd->dev.parent;
+>> -               if (dev_is_pci(host))
+>> -                       pdev = to_pci_dev(host);
+>> -       } else if (dev_is_pci(uport)) {
+>> -               pdev = to_pci_dev(uport);
+>> -       }
+>> -
+>> +       struct pci_dev *pdev __free(pci_dev_put) =
+>> +                               cxl_port_get_uport_pci_dev(port);
+>>         if (!pdev)
+>>                 return;
+>>
+>> @@ -606,30 +597,32 @@ void read_cdat_data(struct cxl_port *port)
+>>          * bytes for the DOE header. Table data starts afterwards.
+>>          */
+>>         buf = devm_kzalloc(dev, sizeof(*buf) + length, GFP_KERNEL);
+>> -       if (!buf)
+>> -               goto err;
+>> +       if (!buf) {
+>> +               dev_err(dev, "Failed to allocate CDAT buffer.\n");
+>> +               return;
+>> +       }
+>>
+>>         table_length = length;
+>>
+>>         rc = cxl_cdat_read_table(dev, doe_mb, buf, &length);
+>> -       if (rc)
+>> -               goto err;
+>> +       if (rc) {
+>> +               devm_kfree(dev, buf);
+>> +               dev_err(dev, "Failed to read CDAT.\n");
+>> +               return;
+>> +       }
+>>
+>>         if (table_length != length)
+>>                 dev_warn(dev, "Malformed CDAT table length (%zu:%zu), discarding trailing data\n",
+>>                         table_length, length);
+>>
+>> -       if (cdat_checksum(buf->data, length))
+>> -               goto err;
+>> +       if (cdat_checksum(buf->data, length)) {
+>> +               devm_kfree(dev, buf);
+>> +               dev_err(dev, "Failed to validate CDAT.\n");
+>> +               return;
+>> +       }
+>>
+>>         port->cdat.table = buf->data;
+>>         port->cdat.length = length;
+>> -
+>> -       return;
+>> -err:
+>> -       /* Don't leave table data allocated on error */
+>> -       devm_kfree(dev, buf);
+>> -       dev_err(dev, "Failed to read/validate CDAT.\n");
+>>  }
+>>
+>>
+> How about something like this? I think it's cleaner:
 
-> * microsoft,carina for the Wi-Fi-only (SQ1) model[...]
-Nit: ,carina -> ,caspar
+Hi Dave,
 
-Wi-Fi-only has both SQ1 and SQ2, please see reply to 2/2 in series.
 
-Thanks,
-Haipeng
+Your implementation also works for me.
+
+
+Ming
+
+>
+> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+> index 905892cfedef..c924904faec4 100644
+> --- a/drivers/cxl/core/pci.c
+> +++ b/drivers/cxl/core/pci.c
+> @@ -556,6 +556,27 @@ static unsigned char cdat_checksum(void *buf, size_t size)
+>  	return sum;
+>  }
+>  
+> +static int cxl_cdat_read_validate(struct device *dev,
+> +				  struct pci_doe_mb *doe_mb,
+> +				  struct cdat_doe_rsp *buf, size_t *length)
+> +{
+> +	size_t table_length = *length;
+> +	int rc;
+> +
+> +	rc = cxl_cdat_read_table(dev, doe_mb, buf, length);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (table_length != *length)
+> +		dev_warn(dev, "Malformed CDAT table length (%zu:%zu), discarding trailing data\n",
+> +			 table_length, *length);
+> +
+> +	if (cdat_checksum(buf->data, *length))
+> +		return -EIO;
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * read_cdat_data - Read the CDAT data on this port
+>   * @port: Port to read data from
+> @@ -564,13 +585,13 @@ static unsigned char cdat_checksum(void *buf, size_t size)
+>   */
+>  void read_cdat_data(struct cxl_port *port)
+>  {
+> -	struct pci_dev *pdev = cxl_port_get_uport_pci_dev(port);
+>  	struct device *dev = &port->dev;
+>  	struct pci_doe_mb *doe_mb;
+>  	struct cdat_doe_rsp *buf;
+> -	size_t table_length, length;
+> -	int rc;
+> +	size_t length;
+>  
+> +	struct pci_dev *pdev __free(pci_dev_put) =
+> +		cxl_port_get_uport_pci_dev(port);
+>  	if (!pdev)
+>  		return;
+>  
+> @@ -578,14 +599,14 @@ void read_cdat_data(struct cxl_port *port)
+>  				      CXL_DOE_PROTOCOL_TABLE_ACCESS);
+>  	if (!doe_mb) {
+>  		dev_dbg(dev, "No CDAT mailbox\n");
+> -		goto out;
+> +		return;
+>  	}
+>  
+>  	port->cdat_available = true;
+>  
+>  	if (cxl_cdat_get_length(dev, doe_mb, &length)) {
+>  		dev_dbg(dev, "No CDAT length\n");
+> -		goto out;
+> +		return;
+>  	}
+>  
+>  	/*
+> @@ -593,31 +614,15 @@ void read_cdat_data(struct cxl_port *port)
+>  	 * bytes for the DOE header. Table data starts afterwards.
+>  	 */
+>  	buf = devm_kzalloc(dev, sizeof(*buf) + length, GFP_KERNEL);
+> -	if (!buf)
+> -		goto err;
+> -
+> -	table_length = length;
+> -
+> -	rc = cxl_cdat_read_table(dev, doe_mb, buf, &length);
+> -	if (rc)
+> -		goto err;
+> -
+> -	if (table_length != length)
+> -		dev_warn(dev, "Malformed CDAT table length (%zu:%zu), discarding trailing data\n",
+> -			table_length, length);
+> -
+> -	if (cdat_checksum(buf->data, length))
+> -		goto err;
+> +	if (!buf || cxl_cdat_read_validate(dev, doe_mb, buf, &length)) {
+> +		/* Don't leave table data allocated on error */
+> +		devm_kfree(dev, buf);
+> +		dev_err(dev, "Failed to read/validate CDAT.\n");
+> +		return;
+> +	}
+>  
+>  	port->cdat.table = buf->data;
+>  	port->cdat.length = length;
+> -	goto out;
+> -err:
+> -	/* Don't leave table data allocated on error */
+> -	devm_kfree(dev, buf);
+> -	dev_err(dev, "Failed to read/validate CDAT.\n");
+> -out:
+> -	pci_dev_put(pdev);
+>  }
+>  EXPORT_SYMBOL_NS_GPL(read_cdat_data, "CXL");
+
+
