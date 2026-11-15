@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727277;
-	b=FVgB9SyWXFtultqspuCED0s+VSIk27HP+ivEgHM1XpUXkBKk0eq7Tx+UsBanq29cP5wm
-	 kyppAe2K2pn34dYAFkJ3rOBhszGxkIacHRYEosExdZzRFYjOCd9Tnlr86adnOnjKbUo84
-	 zbLoERQprrw/gc11RKrL8SKpJW2RYalF4jkgDoEGBnqvAO6tKFKjEi6cBp9vqEXxHaqOK
-	 YLIUqMaVKo1zRS40+gMQhrcGFRkKOQYf6Qt0Dj8fVvB1tXS9lI2hB9uUFZyzprN2EbzWT
-	 BqLbp71Z7PCZm3kQe/06V7PKSs8jKPoKgD0mcMg+4OyIcceOXjiQKmi4G4WhqH+rn6w==
+	t=1794727273;
+	b=jbbFXDxC9XtLctDRxfIVOpjWsxAT5/MCqNZkXQagia+F5mRAQCk9dbsD05RJNdebO6Av
+	 GevcoCyQI09WPEB/c5WaL2mYTdBlKIeQ/oXczrpmf/9utOjfJh9U1nXaB8RcslXVLM0ay
+	 lyiCVHXKnaiS41pVlxv0hB0GzD37fb3dBrMTcOwHydlxOJ8CG5Kx0eww8SOWaQcVzkgif
+	 Ua+3DTcZoYl1gCp+bEqOKfdhIUHSAX7FQasbaF0jwO0SwEybmuS1vuNrx4Ndh1bXXUTUI
+	 EjkpQFb9OATOR624kIWIcdLVasM50cKE5uv1Fz/LYkkUFKfVHhB63CdFFEgNaCaugog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727277;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727273;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=1wIaAoqveAUksE+imNE0AFXmAQw+PL+pfe8nYBhWq84=;
-	b=sON8D346ChDCHa9cV0JJAj2UELdGU+8SxweVVY1XnNAGhs2eMXcSpo1iDzHmKQPoRwt4
-	 t0UwGFYOQs4OFIOtf2c1/Uwmg0xaabix/nUst1aGV4mf6YDSBrvORmuWZ5jsnFSDPf5FD
-	 RCaPFb01N3aFA0uc8eOgrNfXx6YpCZkQGYRr/YkjjAh4YMiM5b7sy0isZQfckTLlB5k/f
-	 KNgt9ei8BIYkTofSzN3VoR/ZhxhZCaKHLARaAMpgtn7QdWccwjQ/v/AZnW5yjpOQpz5KY
-	 1ZiH6G6B4b0T5MiSvxOaPHA2ZpuhS+17s11W594/c7ah3gWV0B2sea0RlPmvIUdX8tw==
+	bh=rQkXsM7aTK1ejfcEgqQ8A28+qA/EL1BgfPpRxPrkcmM=;
+	b=srEtkfBKrYmn6xG4n/O1XAGu8gQBNdjJdUdlNgq0OapqPixAp/TB+ZU+2Q50VCTxys0U
+	 a6T7W9EuBKQPLLKZ1fbcnSAJKpzS+02Y60bCRCReIQiyhr4S29sQqz4eMw79i8zxh5SCP
+	 VSiULkgZMDn9ucg3zJNpYPpuWfO0iO9dKBelgXYPPo8EH8+/dYT68N75OjPLWFdk+Lx9M
+	 z84ax29T3RjFDMQaWDbo8kTohSIdX8F7DqHMdrx5pLyetGxHX7UX2A9NU4VBj8t0muMzt
+	 4kJ5KPfxkd1VheXd6TxoFj85ypr8QB9Ip7sJXyGtZw36HmH8836+7JFjuLIFyXivqig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWSx1ymw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WBSPv3/5";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CE8606A884;
-	Sun, 15 Nov 2026 07:21:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FECE606A31A;
+	Sun, 15 Nov 2026 07:21:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWSx1ymw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CADDD1F000C4;
-	Sun, 15 Nov 2026 07:21:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBSPv3/5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EECE1F000C4;
+	Sun, 15 Nov 2026 07:21:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794727277;
-	bh=1wIaAoqveAUksE+imNE0AFXmAQw+PL+pfe8nYBhWq84=;
+	s=k20260515; t=1794727273;
+	bh=rQkXsM7aTK1ejfcEgqQ8A28+qA/EL1BgfPpRxPrkcmM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lWSx1ymwqRfPvPk1GLXLzUv7x3SCPAxEYESanV567uUw+AKA7q8979FM4nIo5zA3N
-	 Tf/4Jy8c7fwHIVvYdzppVxuol+fjZKIUz7vBXFR+h/eKPM/Yx+V1Mo0wYZ6Rq4OQI9
-	 cQ96d1Xk3cjOaZbjoY/T7bkCBDlgGRloIoCCKvWXpupUsfUXm8BVrFWMOR9/ABbiu/
-	 onHdby1te+yFR3QzWs7DEDzmcpQbbRzEFAUzDOQaGYXqm4CpP5bavHYQC/1IJglldP
-	 yQYrDwOmcIDAdh8TZy6I8TnYgGbKVgWHIJB+9T1NX9/fWb669T9P0lOT2b0F/jRZR9
-	 EB2x/JjGGZb3g==
-Subject: Re: [PATCH net v5 6/8] selftests: drv-net: psp: test ipv6 tcp socket
- with extension headers
+	b=WBSPv3/5mQQn/Yr4p7hQKzQf7t7BgsLBY8A33mwoBMkC0Ii9VhGPbcAf09pKp370X
+	 rnM1l/BKKXKK+ou24cATlwOfI/ng7SWcSRH2/z46EVqAJyxZeZMaC6cu4gg1uZ0jJW
+	 XSmgn+5s21FPyV8UXQ92yW7tY2zY7kTI1dtOved2V6o+ylxLhii5Z7n6ev9abEFD7c
+	 Dj30pR/mdGkkiA4Lx6UjxbzZtiQoEJvkz4QUtyFngEjS+wJ7oC41K/2KjfArbAT/8d
+	 RlrYkvA96cF1fhuuIV3B3xnyMrbkdKEe1yRtFJuv/0rTFsLfT0tWELgocdbCLnFwVt
+	 s3uZPPf1+khVQ==
+Subject: Re: [PATCH net v5 4/8] ipv4: icmp: don't quote decrypted payload in
+ icmp errors
 From: netdev-bot+sashiko@kernel.org
 To: toddfreed@meta.com
 Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
@@ -54,11 +54,11 @@ Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
  rrameshbabu@nvidia.com, sd@queasysnail.net, saeedm@nvidia.com,
  shuah@kernel.org, horms@kernel.org, tariqt@nvidia.com, weiwan@google.com,
  willemdebruijn.kernel@gmail.com
-Date: Sun, 15 Nov 2026 07:21:15 +0000
-Message-ID: <179472727541.2199510.15003590884466629301@kernel.org>
-In-Reply-To: <20261111001831.3710881-7-toddfreed@meta.com>
-References: <20261111001831.3710881-7-toddfreed@meta.com>
-X-sashiko-severity: Low
+Date: Sun, 15 Nov 2026 07:21:10 +0000
+Message-ID: <179472727079.2199510.11728930190494845454@kernel.org>
+In-Reply-To: <20261111001831.3710881-5-toddfreed@meta.com>
+References: <20261111001831.3710881-5-toddfreed@meta.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -71,93 +71,107 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-- [Low] In data_send_ipv6_exthdr()
-  (tools/testing/selftests/drivers/net/psp.py), the finally block runs…
-- [Low] Concern: the commit message overstates coverage ('a variant for
-  each extension header a socket can set') because there is no…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] Incomplete fix, and the commit message is wrong about which
+  reject paths it covers.
 
 --
 
-selftests: drv-net: psp: test ipv6 tcp socket with extension headers
+ipv4: icmp: don't quote decrypted payload in icmp errors
 
-This adds a PSP selftest that sends data on an IPv6 PSP TCP socket in
-three phases: with no extension header, with one set (IPV6_DSTOPTS,
-IPV6_HOPOPTS or IPV6_RTHDR), and after the option is removed. After each
-phase it checks the device's tx-packets and a tc flower UDP counter on
-the remote. It also adds a helper that waits for stats to quiesce, and
-adds CONFIG_NET_ACT_GACT to the config.
+This patch makes __icmp_send() skip the ICMP error when the invoking
+skb has skb->decrypted set. The one exception is a locally originated
+skb whose error is routed to a local address. The goal is to stop
+device-decrypted kTLS or PSP data from being quoted back onto the
+network in cleartext.
 
-> diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
-> index 473500901879b..7e251439a2fd9 100755
-> --- a/tools/testing/selftests/drivers/net/psp.py
-> +++ b/tools/testing/selftests/drivers/net/psp.py
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023234640.1459291-1-toddfreed%40meta.com
 
-[ ... ]
+> diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
+> index 90c0e22c29bea..e11008aa4cecd 100644
+> --- a/net/ipv4/icmp.c
+> +++ b/net/ipv4/icmp.c
+> @@ -979,6 +979,18 @@ void __icmp_send(struct sk_buff *skb_in, int type, int code, __be32 info,
+>  	if (rt->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
+>  		goto ende;
+>  
+> +	/* Don't send parts of a decrypted skb onto the network. A received skb
+> +	 * was decrypted by the device, and the transport header may have been
+> +	 * encrypted. The different offloads can't be distinguished in all cases
+> +	 * so simply don't send the error.
+> +	 *
+> +	 * A locally originated skb to be encrypted may be quoted if its source
+> +	 * address (target of the error) is local.
+> +	 */
+> +	if (unlikely(skb_is_decrypted(skb_in)) &&
+> +	    (skb_in->skb_iif || !(rt->rt_flags & RTCF_LOCAL)))
+> +		goto ende;
 
-> @@ -658,6 +710,95 @@ def removal_device_bi(cfg):
+[Severity: High]
+Does this check cover every reject path the commit message names? The
+commit message says:
 
-[ ... ]
+    a reject rule (iptables REJECT, nft reject) sends its icmp error with
+    icmp_send(), through nf_send_unreach(). so now, a received packet which
+    the device decrypted, and which hits a reject rule in the INPUT or
+    FORWARD chain, is now dropped without a reply, like a drop rule.
 
-> +@ksft_variants(_ipv6_exthdr_variants())
-> +def data_send_ipv6_exthdr(cfg, opt, val):
-> +    """ Test that PSP drops IPv6 packets with an extension header """
+That is true for iptables REJECT and for the nft ip and inet families.
+The nft netdev and bridge families are different. They build their own
+ICMP error and never reach __icmp_send():
 
-[ ... ]
+nft_reject_netdev_eval()
+  nft_reject_netdev_send_v4_unreach()
+    nf_reject_skb_v4_unreach()
+    nft_reject_queue_xmit()
+      dev_queue_xmit()
 
-> +        # 2. With the option: dropped, not counted, and nothing reaches the
-> +        # peer. The data stays queued.
-> +        s.setsockopt(socket.IPPROTO_IPV6, opt, val(peer))
+nft_reject_br_send_v4_unreach()
+  nf_reject_skb_v4_unreach()
+  br_forward()
 
-[ ... ]
+nf_reject_skb_v4_unreach() copies the original packet into the error
+and has no skb_is_decrypted() check:
 
-> +    finally:
-> +        # With the option, the queued data, the FIN and the ACKs would be
-> +        # dropped, leaving an orphan holding the association
-> +        s.setsockopt(socket.IPPROTO_IPV6, opt, b'')
-> +        _close_psp_conn(cfg, s)
-
-[Severity: Low]
-What happens to this cleanup in data_send_ipv6_exthdr() when the test
-runs without CAP_NET_RAW, for the dstopts and hopopts variants?
-
-ipv6_set_opt_hdr() checks the capability before it reaches the
-zero-length removal path. That means clearing the option with b'' can
-also fail with EPERM:
-
-net/ipv6/ipv6_sockglue.c:ipv6_set_opt_hdr() {
+net/ipv4/netfilter/nf_reject_ipv4.c:nf_reject_skb_v4_unreach() {
     ...
-	/* hop-by-hop / destination options are privileged option */
-	if (optname != IPV6_RTHDR && !sockopt_ns_capable(net->user_ns, CAP_NET_RAW))
-		return -EPERM;
-
-	/* remove any sticky options header with a zero option
-	 * length, per RFC3542.
-	 */
-	if (optlen > 0) {
+	/* RFC says return as much as we can without exceeding 576 bytes. */
+	len = min_t(unsigned int, 536, oldskb->len);
+    ...
+	skb_put_data(nskb, skb_network_header(oldskb), len);
     ...
 }
 
-In that case the phase 2 setsockopt raises PermissionError first. Then
-the setsockopt in the finally block raises a second PermissionError, so
-_close_psp_conn() never runs.
+Take an nft netdev reject rule on the ingress hook of a NIC that does
+kTLS or PSP RX offload. The ingress hook in __netif_receive_skb_core()
+sees the skb after the driver has decrypted it.
 
-When that happens, psp_responder never gets the "data close" command and
-keeps its data socket open. The local PSP socket isn't closed explicitly
-either, and the original exception ends up chained under the second one.
-The following test cases share cfg.comm_sock and the responder state, so
-they could be affected.
+Wouldn't the ICMP error then send the decrypted TCP payload (kTLS), or
+the TCP header plus payload (PSP), out in cleartext?
 
-The rthdr variant isn't affected because IPV6_RTHDR skips the capability
-check.
+The new nskb has decrypted == 0, so nothing later on the tx path stops
+it. The bridge family uses the same helper. A decrypted skb on a bridge
+port is less likely, but the code doesn't rule it out.
 
-Could the option removal be guarded separately, for example with a
-nested try/finally, so that _close_psp_conn() always runs?
+The rest of the series doesn't seem to close this gap either. The ipv6
+follow-up, "ipv6: icmpv6: don't quote decrypted payload in icmpv6
+errors", seems to leave the same gap in nf_reject_skb_v6_unreach() for
+the netdev and bridge families.
+
+Should the check also go into nf_reject_skb_v4_unreach() and
+nf_reject_skb_v6_unreach(), or into their callers? If not, could the
+commit message be narrowed to the reject paths that are actually
+covered?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111001831.3710881-1-toddfreed%40meta.com
