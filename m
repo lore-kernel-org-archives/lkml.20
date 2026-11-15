@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794745614;
-	b=VJUtpT1+RkpkeHAX5S0NagyqMwDaT1Ki2yE+X/7PHRLKXbliM/k/D3As5UP2qSDHrw7B
-	 2CAYNYLXRLhirC8aUY3ibBr2SqV+xd7ibVPBRBU4mM3xtFKC/hfPxXg8qVZlGouJCiPKM
-	 oZiM8jqH+BZ1XiGJe//iaeIq0KAY+KteRly8lliIjXNC0tHDgNP2BPrPSjNORwQqGEmr6
-	 xsR8vUAoMJiKqvvj7Wy6zj2CgHEoO+pDXgIVrZ/6AlpHFWK14Ln81XBcT1RBbLfhvkcXq
-	 dbOKEZu0dTMQP47Pbp+jpptSlV9lVD/Gxi14nAm5dVGVWy1IiMMJ0t2UdzSD/2+GV4w==
+	t=1794745641;
+	b=LAJQb5ImPRQnxQDTSo/sDomWosm/yUJ/AWApToF7rLY8vvqhOjHAKEYSQ1a8ZjL6pnH7
+	 IgsfWzorRLkE2PpVNuntSfkl/RO/xf0tXQOLjA2g1II+ob+s4AmpOJ1OJ9LcvLu52diPX
+	 Lb5KJ/sTxIwrnVeiU2ounxNQRJ9kkgCHtNPl0zH7jB1axuys04s7DnE7Z5VebUinWEF1E
+	 gGBjp0Lx3QrY8V2D/zta1bAOuOkEhYQSJLdrNIdJEediM8thKGjWTsrQR3G51VzoOYJkq
+	 CsLGH+WgOR7UQyZIQ1R5xe8hYX7ALoblWAdbPNMPS6C/4Iqh7KIwsPmXBCuVR3vz7YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794745614;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=v3tRCO+T6yH239JtCPScAIb2R7inVO9f6F3uBtqXpus=;
-	b=ZowebVXYohUxRPsRSn3XZakbnB6S+fi2O5krJe3Bs25SwcY/JRUbUahQRfLv5CfpkbtY
-	 jR4JjluyNH2eVm85z+DVKEeE55EsBBipbwR++wgdTboXAfmCGxGoeGsC8WfunxXhDx6ml
-	 f9Dq/5cwE84zOm1wHqcrUUmUG897WehtpRsaCX9bSQVZDGq6q4cY28jmKEVREJhOHBU4Z
-	 TFtGJgoDu/lYSCpxc5CV/K41l3rubm2POnXSfsgtBLv1pLHXu7EsijS2yKA9zOQD92der
-	 y8hfQ2Brg1pCNfsV0SX3NJ2iMWZZ/TydVEd8r5N5RxeG98zlrJFmqyBLs7NUBlGUoTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794745641;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NB1w2u3xkVvO+2PGAHEd0slXbgnQ5oCjDxu5kM2qVSI=;
+	b=Mif2vWue3+4X2/tyzWB3SzSnPgECoBSVathXS0/2QIrA/YVbKGu2AA8RWe/k5i9sxfvq
+	 EjpiDiSfBau/uTTKbq4FopUCE2KC+tOVHY0XtrFLznsB2GG9LMTBi7tIJlZdvawufdmuX
+	 Jo3z5yH7mcrh8zM16aD2wY6H5kj6+DZ4T95uIu5kVuU3/R7p1dRwKyl+Un9tBRbO0JkUE
+	 Iwg9nTibyy57iLVUGWdvKYKAxwzSl/z92GLOhdvypI9RYqCZHTMHb69E2CZzYxxgicmvS
+	 9cnHKAv1EFWXecMm8qavykXbA9elfUyMtycK1uRDiXsIg6UBvUzdazmIFMDWpSqxboQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="cb/pT3pt";
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAVPNL5f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D511E606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D511E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406D8606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:27:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cb/pT3pt
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-378722fd4a3so2994732eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:26:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794745613; x=1795350413; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:date:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v3tRCO+T6yH239JtCPScAIb2R7inVO9f6F3uBtqXpus=;
-        b=cb/pT3ptJht0aPuXK0g2XKaj13NxO3SUsOioiewxXUyFd+Sj4UXUSiFaGjWUVuchu2
-         9MXHGRkluO3tglky4j32DWYk1gydT6qMdsN2kQ7YOuhJNjA0SGGhI8HQhRXDJP9X0n4v
-         Z4DUug7zcmpeG0jMB2tQQ5b+TiEQY0vDzlf4rcICW5GHtXFh7y7TqMd7HYG7j7CED/GM
-         74dRdMI/itGGGf0rlLkf5E6fRgf2a7rFm5ogwPaHwWZ7lGNPFx5xcH9Bw8vg5uXVEIio
-         ohPAlD3DvYhW9uSYRnW4JfflItaqW33KplsbTdLt2osMwAUSTbFyY7onE/uuwLYa56+e
-         NrAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794745613; x=1795350413;
-        h=content-type:cc:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v3tRCO+T6yH239JtCPScAIb2R7inVO9f6F3uBtqXpus=;
-        b=vI/BZuPCn6MPynby5tC2dPPYKjICH1/tYHNQAbQ+WTgcyvNpPRDsqFWcwJ56iO9FLy
-         pO05N/6gqx0oD6zab6GNqZvnXBFyAth3LRAszyZaqveokozBGkK5ZSKKphV9U8+Yag/v
-         fWktLQWo9SBuf2BzTwY/hXrDeez+Hh2opUKXLmqRETudr0GgsiSU7yy+siiK8kHXvZWW
-         9E66RHYR8kmWm+Lw0W0+6ek7BOfJ51nWf9/aec4M2fh9ojHhdUCalw7Sm3WP1UdCXL2h
-         J7aNYkzMl4mhc3mfIlGiLdtfXH/kQzvkBNx3Z4Vgd2Qfn2rDAZ/5tDM5AiH1eO7L2zSn
-         WWbA==
-X-Forwarded-Encrypted: i=1; AL+hErHMJQ8t8Xr/uIbm0hcb1IhUgJ2h+F/0N9nJqjQKNsvELRNq+kxXx6B+JhOSdSS/o+lMuhX+qOSvGgp+hIs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tGde+slmXXM+cRt8u0CaND20fRp0NJ8xDEoYCrPbWQaplqtq7
-	Zd6D9VCa/oRopA5e3JfkjvTO5EU2bq+jE98BULI2sLZnxVLJF7xKqmIVuqeEaHPdcDIL7Kj44W9
-	GPxriXpg3z30z8bjjjbS5dVT+TG50Qg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAVPNL5f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE631F000C4
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:27:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794745640;
+	bh=NB1w2u3xkVvO+2PGAHEd0slXbgnQ5oCjDxu5kM2qVSI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HAVPNL5foOLNcdJ+vKehkfHmP0fyD2Wg7r9vpcM38dNhK2Dpmo07pNhjCwm3bAV+Q
+	 gVd3bPx1cSZr+7rIEC5hf84cDqNy6KLMSpbNhQg7XkB39+plcKdI7pafTLVxMnA/UP
+	 75aczzQht9Ra7/s/ftjt/iXRE5K7w5pwmKwVFDOpT3x6/ja6WI9Z0r7Y1zG5vVXVhE
+	 i+TvPKh8Y54vGkjrt87Sxxe54UGz0En3rkM7V4U+X6zKxQA6Z25yPRmOnRoubUocW5
+	 yvvDZK9IulRnfZx3xdfFdmVqbNBgT3Qr7EUQK3U7tjNx4Ibk16FOiSc4HHZiY+tKYL
+	 KoymE4smzg4MA==
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67da69e7c31so701106d50.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:27:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEtC/FrgEDpLJrWoyL7GWm5eq7Sq1HdAKqpVUSeHKZfVfHBiOVt2Ev8rg4d+/3gIyPjG9Zud9Fqe/3zgDs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ydt7CHrOqCP8JN6kFQ933npFq/YuEFDHSdbgTVEVoXkG5VIbx
+	rRMItXncOIs7i0hAVpjyDue/6AvJG7JIRHoMJ99vZd2TMnRhDpl/42AbIXePN6WH5I+YVB1D80I
+	tazHMo2Qn1WFo2nu6CS59qLPNq2xct9o=
+X-Received: by 2002:a05:690e:190c:b0:67d:b0df:909b with SMTP id
+ 956f58d0204a3-67db0df9d31mr693683d50.21.1794745640119; Sun, 15 Nov 2026
+ 04:27:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,138 +59,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: from dlec2-n1.prod.google.com ([2002:a05:701b:4282:10b0:1a7:2bf1:46cc])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:418c:10b0:1a8:ff0b:a4e1 with SMTP id a92af1059eb24-1b5030fc737mr7854539c88.18.1794745612616;
- Sun, 15 Nov 2026 04:26:52 -0800 (PST)
-Date: Sun, 15 Nov 2026 12:26:51 GMT
-Message-ID: <18e837a02ddbadb6.3137322e32332e3235332e313736.1b3220.0000sendgmr@google.com>
-Subject: [PATCH] sched/pelt: Skip redundant decay and divisions when sched_avg
- is zero
-From: Chris Wiseman <chriswiseman@google.com>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Qais Yousef <qyousef@google.com>, John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org, 
-	Chris Wiseman <chriswiseman@google.com>
+References: <20261114012736.639171-1-koray.fra@gmail.com> <20261114160332.2228435-1-icb@fastmail.org>
+ <CAKYAXd_qe-dLq6o7XdJzG8orYiKRioAtfEsLjxj33Ca3=PzGjw@mail.gmail.com>
+ <DMVECM7B14I1.3GF2HZB9KRUX@gmail.com> <20261115030707.2275633-1-icb@fastmail.org>
+In-Reply-To: <20261115030707.2275633-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sun, 15 Nov 2026 21:27:00 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd93sDtx_nzvB3B3aqgScFjMN82u9vpePTCsuPk+uEPtWA@mail.gmail.com>
+X-Gm-Features: AclHuK-O0RszS51_FPFPfSFdYdy5xBvfaWWwn-CxRpe0JOJmF1xY1ntdTYz5fr4
+Message-ID: <CAKYAXd93sDtx_nzvB3B3aqgScFjMN82u9vpePTCsuPk+uEPtWA@mail.gmail.com>
+Subject: Re: [PATCH v2] ksmbd: decode and honor DOS attribute validity flags
+To: Ian Bridges <icb@fastmail.org>
+Cc: koray.fra@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
+	chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit d040e0734fb3 ("schied/fair: Skip calculating @contrib without
-load") skipped __accumulate_pelt_segments() inside accumulate_sum() when
-load is zero, noting that ___update_load_sum() is called with load == 0
-45x more often than with non-zero load.
-
-However, when load is zero and sa->load_sum, sa->runnable_sum,
-sa->util_sum, and sa->load_avg have already decayed to zero,
-accumulate_sum() still executes decay_load(0, periods) three times and
-returns periods > 0 whenever a 1024us PELT period boundary is crossed.
-Consequently, ___update_load_sum() returns 1 and the caller invokes
-___update_load_avg(), performing three divisions of zero (0 / divider)
-and reporting a false decay to callers such as
-__sched_balance_update_blocked_averages() -> cpufreq_update_util()
-(wired up in commit bef69dd87828 ("sched/cpufreq: Move the
-cfs_rq_util_change() call to cpufreq_update_util()")).
-
-In addition, update_irq_load_avg(rq, 0) unconditionally invokes a second
-___update_load_sum(rq->clock, &rq->avg_irq, 1, 1, 1) call even when
-running == 0. Because the first ___update_load_sum() call already
-advanced last_update_time to rq->clock & ~1023ULL, the second call sees
-delta < 1024 and always returns 0 after redundant clock and capacity
-scaling arithmetic.
-
-When !load and unlikely(!(sa->load_sum | sa->runnable_sum |
-sa->util_sum | sa->load_avg)), update sa->period_contrib and return 0
-directly from ___update_load_sum(), while still flushing any pending
-rate-limited cfs_rq->tg_load_avg_contrib in __update_blocked_fair().
-In update_irq_load_avg(), skip the capacity scaling and second
-___update_load_sum() call when !running.
-
-Evaluating update_other_load_avgs() over 1,000,000 randomized steps
-confirms bit-for-bit identical sched_avg state across all fields, while
-10,000,000-iteration microbenchmarks on x86_64 show:
-
-  Regime (1ms blocked-avg updates)      Base (cyc)  Patched (cyc)   Delta
-  ------------------------------------  ----------  -------------  ------
-  Idle RT/DL/HW/IRQ                          72.53          18.33  -74.7%
-  100% active RT+DL+HW+IRQ (worst)           99.21          99.68   +0.5%
-
-Spurious decay returns from update_other_load_avgs() when RT, DL, HW,
-and IRQ averages are already zero drop from 100% of 1ms updates to 0.
-
-Signed-off-by: Chris Wiseman <chriswiseman@google.com>
----
- kernel/sched/fair.c |  2 ++
- kernel/sched/pelt.c | 28 +++++++++++++++++++++-------
- 2 files changed, 23 insertions(+), 7 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index f77e722..83d3928 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -11538,6 +11538,8 @@ static bool __update_blocked_fair(struct rq *rq, bool *done)
- 
- 			if (cfs_rq == &rq->cfs)
- 				decayed = true;
-+		} else if (cfs_rq->tg_load_avg_contrib) {
-+			update_tg_load_avg(cfs_rq);
- 		}
- 
- 		/* Propagate pending load changes to the parent, if any: */
-diff --git a/kernel/sched/pelt.c b/kernel/sched/pelt.c
-index 779eb58..935b8a4 100644
---- a/kernel/sched/pelt.c
-+++ b/kernel/sched/pelt.c
-@@ -214,8 +214,18 @@ ___update_load_sum(u64 now, struct sched_avg *sa,
- 	 *
- 	 * Also see the comment in accumulate_sum().
- 	 */
--	if (!load)
-+	if (!load) {
-+		/*
-+		 * Skip decay and divisions when sums are already zero; check
-+		 * load_avg for newly forked tasks (init_entity_runnable_average).
-+		 */
-+		if (unlikely(!(sa->load_sum | sa->runnable_sum | sa->util_sum |
-+			       sa->load_avg))) {
-+			sa->period_contrib = (delta + sa->period_contrib) % 1024;
-+			return 0;
-+		}
- 		runnable = running = 0;
-+	}
- 
- 	/*
- 	 * Now we know we crossed measurement unit boundaries. The *_avg
-@@ -437,8 +447,10 @@ int update_irq_load_avg(struct rq *rq, u64 running)
- 	 * clock_task. Instead we directly scale the running time to
- 	 * reflect the real amount of computation
- 	 */
--	running = cap_scale(running, arch_scale_freq_capacity(cpu_of(rq)));
--	running = cap_scale(running, arch_scale_cpu_capacity(cpu_of(rq)));
-+	if (running) {
-+		running = cap_scale(running, arch_scale_freq_capacity(cpu_of(rq)));
-+		running = cap_scale(running, arch_scale_cpu_capacity(cpu_of(rq)));
-+	}
- 
- 	/*
- 	 * We know the time that has been used by interrupt since last update
-@@ -455,10 +467,12 @@ int update_irq_load_avg(struct rq *rq, u64 running)
- 				0,
- 				0,
- 				0);
--	ret += ___update_load_sum(rq->clock, &rq->avg_irq,
--				1,
--				1,
--				1);
-+	if (running) {
-+		ret += ___update_load_sum(rq->clock, &rq->avg_irq,
-+					1,
-+					1,
-+					1);
-+	}
- 
- 	if (ret) {
- 		___update_load_avg(&rq->avg_irq, 1);
--- 
-2.52.0.rc1
+On Sun, Nov 15, 2026 at 12:07=E2=80=AFPM Ian Bridges <icb@fastmail.org> wro=
+te:
+>
+> On Sun Nov 15, 2026 at 2:34 AM CET, koraynilay wrote:
+> > Hello, so I should include the legacy handling in this same patch and
+> > separate the bugfix for sparse/compression in another one?
+>
+> One option might be to keep it all in this patch, with a few changes
+> so that it stays compatible with the xattrs older ksmbd has already
+> stored.
+>
+> When sparse or compression updates an existing xattr, it keeps the
+> creation time, but ndr_decode_dos_attr() discards the flags. The
+> writer then stores the time with only XATTR_DOSINFO_ATTRIB set.
+> Checking CREATE_TIME on read would hide creation times that ksmbd
+> reports today.
+>
+> Your changes to decode the flags and keep the existing fields are
+> useful. On top of those, something like this might work.
+>
+> - Read the stored attributes unconditionally, including a value of 0.
+>   Samba also reads the attributes without checking ATTRIB.
+>
+> - Use a non-zero stored creation time even when CREATE_TIME is clear,
+>   and fall back to the filesystem timestamp when it is 0. A comment
+>   could explain that older ksmbd writers lost the flag.
+>
+> - When rewriting an xattr, preserve the other fields and flags, set
+>   ATTRIB, and restore CREATE_TIME if the time being written is non-zero.
+>
+> > The problem I had found when trying this approach (I originally wanted
+> > to send PATCH 1/2 to fix sparse/compression and 2/2 for the decode/read
+> > fixes) is that with only the sparse/compression patch applied, ksmbd
+> > clobbers the time on reading by reporting 0, since it doesn't check
+> > the flags and reads the timestamp anyway.
+>
+> With the reader change in the same patch, a creation time of 0 would
+> select the filesystem timestamp. That handles attribute-only xattrs,
+> but it would not make the writer change safe to apply on its own.
+>
+> > Please tell me if I wasn't clear, this patch/bug is quite confusing for
+> > me since it touches a few bugs and they all depend on each other.
+> > (And one fix introduces another bug fixed by the next fix).
+>
+> Keeping the current no-xattr initialization would avoid that ordering
+> problem altogether. We could fix preservation of existing xattrs here
+> and consider changing newly written xattrs separately.
+>
+> It might also be best to leave changes to ITIME validity policy out of
+> this fix. I don't think ksmbd uses the itime for anything it reports, so
+> those changes would not affect this bug.
+>
+> Namjae, would accepting a non-zero creation time despite a missing
+> flag be a reasonable compatibility rule for existing ksmbd xattrs?
+Yes, that is reasonable for compatibility.
+Thanks.
