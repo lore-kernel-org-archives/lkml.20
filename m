@@ -1,78 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794713880;
-	b=eYWtRoMUqAuHHjVA/DW6pUsg8CBPS9iv6SrQwzJaMf6Q+2v/Lu1t4m++tXZw6nodUTe8
-	 GKuYsdvXuu07a9NetuY2rl7ox9EOqMRiO8FFe9bwO/+QRuOaGDkNRHa/rG0C8t28UEqe5
-	 dq5bpFLfUdafCtMWKhuFaKlGbYmrL+g9Vqiw1hFeiwVMFRyeN103hxCCs7JIJuj0o5N9V
-	 aLlidRRgxyAlx6DLB1saH/KP5gEo5L6q3Wjt0QRDB6+AL7p873Ho084QUDUmylJnwZT8R
-	 +W/oXlzn6B+j4SKc/xleLTs0UeyXWdKQFL3L4DERGWLRRWqh1CmXLPKWxLGfW7SJ1HA==
+	t=1794713934;
+	b=KW/v8XseMxWgJOnLuC5D7VsDGURvq1dwdQnY0aKSJedIMY81H097k/d3Ue4AvDLD9/xo
+	 rkxRTsSQ9S7sUf1HjtEuqMsKGm3rDkZoEKeiFclzwkykM+cZLWgQ1xKpkM2/eTn9XYXQh
+	 RrdUKQZR3lWMXtdmrGUGA1Iv84qriAICSV6WQSwQ9X0cKvv1hUttWUhfvQSrWqOWMccIN
+	 kilupn5MVPpBwLdaRlIM1wFlU+xA/e0dMQIG+blaAkZhnCDA/xKwLFGL3XrHAQK30w8Uq
+	 mIbe5AVXDFJbPazbuwmp3GgJOjLrhDM4D0qQ0cuizg6/ITfNevuRemLh9Gsj9AMsLpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794713880;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/1T6bTXwk3JqyIk3KCM5DkYhYn4GwL7gAgdTwegmW8g=;
-	b=NNwFu+BjzfyA4awEbZcMxsmhNBv/GwRjXa8nOvPvtEsSeMbK/CRner53O28HtX1Qrm3l
-	 uLDrNy4a4Bpoq8FSriOTcXi6MijZN1SzSypy3lgLkUirE7N9rMhJ2wqUgG/9T+pv1hEo4
-	 XDLzT+JCEKsPt6de5W5lPMzy3x+0CV4sW/m1+s06lbKmDUxZR026GvnCsYaRwxylmxQR1
-	 8PFUTUhQtepftONizQd48hq9ekP2Lro6mWUXZUN2vxbaTkY/RQiS8mRNqVNdWKtLs1g7w
-	 nvgkiUoPC0aemymJeCCVYhtG17Ssn4ZcfBDX6FMN1s/4Yf2vtIT8chqcyCTQTUjkzmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794713934;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=uk5lzCLDi3H6OTW1SSMZSRJZN5jAhPDao+5nLQ3/Wn8=;
+	b=psnH/XriyvmiN5BMeNau/s55lKNX1fp77SjRCvXoTAqMPo+ZZAq68Sda3ady3HrwGIoC
+	 /PTFMdnyBLcYArvboLSUkAFSfOJP+zKvDY1QT8F3zDlhOlNoxZJ7pF9JMvMIflIb+QxV7
+	 rem+VH/StZNPHSQQzA6UMfvsnUEPKiKeTTs0jUKLcXhpMkKggM9JyM4ZJmbIWVRtaiP9W
+	 PG7fJpPibqKA+F67IGXESyYwYBHqgmJLMe7ds+cxLJ6lWUo6lSuTRgcnHyZ082ml7Abx5
+	 SvFP3wS51ThoTunVdhj6VfqFN41K+e0EMLyRqzRYERK5l6wCdOdwYBtqUeJUEuEuROQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=udXbnvDD;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8058606A327;
-	Sun, 15 Nov 2026 03:37:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8058606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="ICLVsd/s";
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D262606A327;
+	Sun, 15 Nov 2026 03:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D262606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=udXbnvDD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=udXbnvDDvz9rSvZInRSvnmA90R8dT6++woplHICTfQ9u4jE1Kpj5G5bG5gjZnAL8NRPhc+okC244R
-	 sDaRgwMttLXQfqOOrup0gq8aK6Rc+IuoB1mck4MEt66HIdEygiGqrq3J/GLMD/J96FHqaUGfkUBfMZ
-	 tr0opztbdESVdjF0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af92907915-f9e95;
-	Sun, 15 Nov 2026 11:37:52 +0800 (CST)
-X-RM-TRANSID:2ee96af92907915-f9e95
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHD-W7400297 (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af9290ea3f-577f1;
-	Sun, 15 Nov 2026 11:37:52 +0800 (CST)
-X-RM-TRANSID:2ee86af9290ea3f-577f1
-From: Aibing Chen <chenaibing@cmss.chinamobile.com>
-To: bvanassche@acm.org
-Cc: axboe@kernel.dk,
-	chenaibing@cmss.chinamobile.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	josef@toxicpanda.com,
-	kuba@kernel.org,
-	kuniyu@google.com,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nbd@other.debian.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com,
-	willemb@google.com
-Subject: Re: [PATCH] nbd: do not reinitialize a live socket lock when reclassifying
-Date: Sun, 15 Nov 2026 11:37:49 +0800
-Message-ID: <20261115033749.827-1-chenaibing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <426d5936-54aa-4b4a-b70f-73f506c5a902@acm.org>
-References: <426d5936-54aa-4b4a-b70f-73f506c5a902@acm.org>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ICLVsd/s
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AF3cjEA32152940, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794713925; bh=uk5lzCLDi3H6OTW1SSMZSRJZN5jAhPDao+5nLQ3/Wn8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ICLVsd/stKEXCQHv5iNsrW70eSSvhXy5nH+dRFWMRsyd65KE89leFKI2P+BFyTaZx
+	 hpdzFaea1Z8K3yHuhS7Xeq1gzo7kA/UpeqWJSO7N09F0A4IxwOvvxUrTVwj6AUTK+/
+	 jEVV3Jm3NE3n7kuLxT8vPtPHrb1va7z+HhUiOMUTXMvwQyfCn0RVcCVdaIwkXW4uux
+	 DhBNW5SPDf1zipyYS7tpMOjocBIqWM9h4wJfUbkgVTXH6RWiFtChdbzIjZt0U1Ba13
+	 UMcDRR3MeaIGvLV9BtfdQ/Z7UQMh6Ari/9nDzWDu+B8w01L7D4ANsVNW5w64G61Md5
+	 J1zTFdO/C0abg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AF3cjEA32152940
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 15 Nov 2026 11:38:45 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 11:38:46 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 11:38:45 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Sun, 15 Nov 2026 11:38:45 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Enver Ikromov <owner@ph4ntom-rev.uz>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v5 02/10] wifi: rtw89: handle negative rate index
+ for injected frames
+Thread-Topic: [PATCH rtw-next v5 02/10] wifi: rtw89: handle negative rate
+ index for injected frames
+Thread-Index: AQHdc8o8ufzHhPN8dkKa3qV8PVPRnbcufA/A
+Date: Sun, 15 Nov 2026 03:38:45 +0000
+Message-ID: <5360bf7242ef43c995f09d161486a330@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
+ <20261113235211.1911-3-owner@ph4ntom-rev.uz>
+In-Reply-To: <20261113235211.1911-3-owner@ph4ntom-rev.uz>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,38 +87,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Bart,
+Enver Ikromov <owner@ph4ntom-rev.uz> wrote:
+> When the radiotap header of an injected frame carries no rate,
+> info->control.rates[0].idx is -1.
 
-Thanks for the detailed review - all three points are valid, and I
-agree the reclassification approach cannot be made safe for a live
-socket:
+> rtw89_core_tx_update_injection()
+> stores the index in a u8, so the value becomes 0xff and is added to
+> the CCK1/OFDM6 base, programming an invalid hardware rate into the TX
+> descriptor.
 
-1. Right - sock_allow_reclassification() is an unsynchronized check
-   and lockdep_init_map_type() clears lock->class_cache[] without
-   synchronization.  I also missed that lock_sock_nested() keeps
-   sk->sk_lock.dep_map acquired in lockdep while sleeping in
-   __lock_sock(), so reinitializing the dep_map while another task
-   holds it breaks match_held_lock().
+I don't prefer to describe function name in commit message. Just
+describe the problem you encountered and how to fix it.
 
-2. Right - sk_owner_set() calls __module_get() unconditionally, so
-   repeated NBD_SET_SOCK on the same fd leaks module references.
+For this patch, you want to handle the rate idx < 0 case, and solution
+is set rate to 1M and 6M for 2GHz band and others respectively, right?
 
-3. Understood: as long as userspace can still issue sendmsg() on the
-   socket, the original sk_lock -> mmap_lock -> fs_reclaim cycle is
-   recreated regardless of the lock class, so reclassification does
-   not fix what d532cddb6c60 aimed at.
+I guess LLM help to generate this. Code flow is not important to
+commit message. The patch should explain the flow itself.
 
-I will drop this patch.  Are you (or Eric) planning to prepare the
-revert of d532cddb6c60 and 9280e6edf656 together with the TX/shutdown
-deferral to a workqueue, or would you like me to prepare it?  If you
-would like me to prepare it, I would appreciate your guidance on the
-workqueue design (nbd_queue_rq() currently transmits inline via
-nbd_handle_cmd()).
+>=20
+> Use a signed index. If it is negative, keep the rate already selected
+> by rtw89_core_tx_update_mgmt_info() for management frames, and fall
+> back to data_retry_lowest_rate (or OFDM6 when
+> IEEE80211_TX_CTL_NO_CCK_RATE is set) for data frames.
+>=20
+> Fixes: e96abe4fd7cd ("wifi: rtw89: consider data rate/bandwidth/GI for in=
+jected packets")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
+> ---
+>  drivers/net/wireless/realtek/rtw89/core.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wire=
+less/realtek/rtw89/core.c
+> index b7df97e..527593e 100644
+> --- a/drivers/net/wireless/realtek/rtw89/core.c
+> +++ b/drivers/net/wireless/realtek/rtw89/core.c
+> @@ -1239,12 +1239,25 @@ static void rtw89_core_tx_update_injection(struct=
+ rtw89_dev *rtwdev,
+>         enum mac80211_rate_control_flags flags =3D info->control.rates[0]=
+.flags;
+>         struct rtw89_tx_desc_info *desc_info =3D &tx_req->desc_info;
+>         const struct rtw89_chan *chan;
+> -       u8 idx =3D info->control.rates[0].idx;
+> +       s8 idx =3D info->control.rates[0].idx;
+>         u8 nss, mcs;
+>=20
+>         desc_info->use_rate =3D true;
+>         desc_info->dis_data_fb =3D true;
+>=20
+> +       /* No rate was given in the radiotap header. Management frames
+> +        * already carry the rate from rtw89_core_tx_update_mgmt_info(), =
+so
+> +        * only data frames need a fallback.
+> +        */
+> +       if (idx < 0) {
+> +               if (tx_req->tx_type =3D=3D RTW89_CORE_TX_TYPE_DATA)
+> +                       desc_info->data_rate =3D
+> +                               info->flags & IEEE80211_TX_CTL_NO_CCK_RAT=
+E ?
+> +                               RTW89_HW_RATE_OFDM6 :
+> +                               desc_info->data_retry_lowest_rate;
+> +               return;
+> +       }
+> +
 
-Thanks again,
+How about just set idx =3D 0 if idx < 0? The existing code can select valid=
+ rate,
+since any rate is well for the case idx < 0.
 
-Aibing Chen
-
+>         if (flags & IEEE80211_TX_RC_160_MHZ_WIDTH)
+>                 desc_info->data_bw =3D 3;
+>         else if (flags & IEEE80211_TX_RC_80_MHZ_WIDTH)
+> --
+> 2.56.0.windows.4
+>=20
 
