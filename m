@@ -1,61 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794701018;
-	b=Y64u2MTmncLsEVrY9OMNtit8eYZQ50bOorqJl1dIE8yoCfF3ZWmsgVL8sxo5zWJ/5tOx
-	 /scdp6zayjrpgm3Nndjf4y8LW68sYsysBP9xYIEv6DxqltrREInhAX1r9DDhUXc5UvEl2
-	 rag62n0XrW6AIWYgzCnlE3wC4F6yfuCWkxknmuva79crov66idBvDDeCS9rlESdyxaK46
-	 t27GGnDz/kpLvsnay0g4tsml9Eu1H84vB5RGLwizrs1b69wd6XV1aDt8nDi1naqOJ4X2e
-	 66DUvOXKSBuOFRqL/B0PqcCynr+XEhMQdZ6OAaZSeyYsmKBOyG+DMxn6f2f8sijjK3Q==
+	t=1794701473;
+	b=LC0u0iw10oFYamZzhXSJSzOgdtXIn7qcxKpImSoOr0fn5AKHpN3iniA3OLyF0SrqXi9h
+	 VLYYZ3mUSed0YNUg9GM3uMBjidpIDDGr6eKzhRhA8HL+uzWwVqY60koXxAWBOpkHY9jFA
+	 9tXtFw0nIX3JhB4j0xEIAGxelQDAn5oiOVfmFc4ZITc2Rk8OHaAKS0EcbblhgwoXWQDyo
+	 snID+6iMx/4CH6K2Y+YPE3ADgsjV6ZDxBGHa5Mbi3XENpzFWFFrqP5WUBjotD0mlmEnAJ
+	 C8qn8CnNyF1jZnA1k1FLGUwmgyeG81IkZgORAU8Qeg0P67Gq10C8I3/NtUEp7rFCYqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794701018;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AoS9IxBx+LlzwzmBEk/xBLg8sOv3s2W03U4hrlihHlk=;
-	b=FQAk29sAis+HWB8E7f+CuirQTfTPnhhBwozalExdiwIAI0Zi9Y1Ke/5AUBjxgSWRnfVq
-	 YcSy7YOhBe+zEI0CKOEmHXmN6BXqdOwlxw2iqkbFsqrvIacSWPlFfCgA90bW7WWpQEyvc
-	 0gaJ0BszFxC8n9VhaC5Si42uPuv6eODD6D9CnghVeHH6eg2CL7/l29t+bnWrSoAFzFiCG
-	 kvkx2SvWLGWYvUmTSUsjD8sEsIoAFfIKZ1M+K1ghuUyslARNRRP0XrgV4uUdlj8LdLB2S
-	 Sl40HoUkJEOKbyZkhjbtTZJL8qq7OAsHwQRW3jtY45sjuFNmVayz1SczI+oORs/2RXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794701473;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Debian-User;
+	bh=DP8Fud0aitYtm0WeT7qB38AzPuoqfPmxd/HrKwDPkJY=;
+	b=qqnsKkrHbjq8P3TmbyqIov98mCOCmiNhfrrJ1vOWvLofwk0cDs1X+hm8AhZBqlBxn0ua
+	 xsaB67TemEFB7OXVVGMnNVIHOaGnlZ4MsXvMtUokMF8AirWM95xH2NCU+ZtFomdERdGuF
+	 cXWdP7s39l+duUUM563xIjgazPLjlcYj/SwVvneAmHAMYdkY4aLpmASWr6VkHkv6NpQU9
+	 /xMFC40uZUPXtFK9JrypyefXknkuktHBEDNrmuwOydsMVifQxlWbLN9ehErRCZt6s/+QM
+	 XUyObbUK3kuDHjWxD6BLJRRjlGf3qwRk5UjxWCiXXldxfE+ixoJo97uF66FVwwgR0lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MzEhF1a1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="faxk/Djw";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5B5606A327;
-	Sun, 15 Nov 2026 00:03:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92AA606A329;
+	Sun, 15 Nov 2026 00:11:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C92AA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MzEhF1a1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8046A1F000C4;
-	Sun, 15 Nov 2026 00:03:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794701018;
-	bh=AoS9IxBx+LlzwzmBEk/xBLg8sOv3s2W03U4hrlihHlk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MzEhF1a1hgM/F/o2TXXcz3t162jyrVVAEDit62gLRV3ApktbDGkMV3pxkvAVVYjCl
-	 5Ema3SFZKQHWPq/B1s8xmOKUsy6kan1tekswfLqsRCXlOjaCuuTHRysXk0xlNMTAHz
-	 jW16u0gVsw5Xlrmw4mSieQ9O3Bx6UzOfd6G7oYFFJUi1Wsd4F+xrooh6HB5e2Fd2DZ
-	 42v4rRX4OydrJSZVQNKWWtOIihqQx5YsDsiQYhf4ewta0SmHoh1kb0zojtPom3nlNG
-	 /3eRRsHVSopxhK9QPu/TS2VpQTld2WJAbmqX4AD5rQFr1NEmaGcfdzYoH+ZBpqV8Jv
-	 dKVQhBnowrhgQ==
-Date: Sun, 15 Nov 2026 00:03:30 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Raffaele Tranfaglia via B4 Relay
- <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
-Cc: raffaele.tranfaglia@gmail.com, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux@analog.com,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: light: adux1020: extract the FIFO byte count
- with FIELD_GET()
-Message-ID: <20261115000330.02910414@jic23-hlaptop>
-In-Reply-To: <20261109-adux1020-measure-fixes-v1-2-fe1ba63f28bc@gmail.com>
-References: <20261109-adux1020-measure-fixes-v1-0-fe1ba63f28bc@gmail.com>
-	<20261109-adux1020-measure-fixes-v1-2-fe1ba63f28bc@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=faxk/Djw
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
+	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=DP8Fud0aitYtm0WeT7qB38AzPuoqfPmxd/HrKwDPkJY=; b=faxk/Djw7exjo2IIJq14qNYzS5
+	LMvHbWbuUNAjrA9PlCALaBgEdhUEapXaK29XABsPX/0NBp6jIFgCcSg3B3d52teAHIJfpJlmi4s+H
+	2sF58//HLJDaSnu0baDdd5AjQNFePCMZXE+wPiqFbAWGLpCEh6VCjv7E1KZN6brzx0I07EJ3rSsxY
+	quUffal8jUt6bYnzoevdMigZre9EpoyXppoGk5NFBouKO7vuyYr9rwGntrODpVpCXeX9o8PWB9uhs
+	hwm8uQ2M6h63+dyxjSZM+0/rb3lFl5eeG76V7HfTljX0c5G98EeAnCQW7P3JpD96scKXBWLD2Gn5q
+	2A1RpQTA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xSNpp-00FvGQ-37;
+	Sun, 15 Nov 2026 00:11:06 +0000
+From: Emfox Zhou <emfox@debian.org>
+To: Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] HID: intel-thc-hid: intel-thc: restore PRD table capacity
+Date: Sun, 15 Nov 2026 08:11:00 +0800
+Message-ID: <20261115001100.313270-1-emfox@debian.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,48 +69,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Debian-User: emfox
 
-On Mon, 09 Nov 2026 11:39:03 +0000
-Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org> wrote:
+The controller writes the frame length into the PRD entry it filled and
+marks the end of the frame there; only the read path puts the capacity
+back. thc_reset_dma_settings() rewinds the read pointers, so the ring
+reads as empty while the entries keep those lengths, and the next frame
+that does not fit runs past the end of its table: the controller reports
+a buffer overrun, which is a transfer error and leads back into the same
+reset, with the tables untouched.
 
-> From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> 
-> adux1020_measure() masks INT_STATUS with ADUX1020_FIFO_STATUS_MASK but
-> does not shift the result down, so it compares 256 times the FIFO byte
-> count against the packet size. A count of 1 would thus be treated as a
-> complete 2-byte proximity packet.
-> 
-> This does not happen on a correctly working device, because the FIFO
-> only stores complete packets and the driver always reads complete
-> packets, so the count is always a multiple of the packet size. Still,
-> use FIELD_GET() so the comparison matches the datasheet's polling
-> procedure and does not depend on that.
-> 
-> Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-Applied this one to the testing branch of iio.git
+Restore the receive tables where the pointers are rewound, which covers
+the RxDMA reset, the resume path and the SWDMA round trips in one place.
+Every caller has the engines paused: the reset and the SWDMA paths wait
+for them, a resume finds them stopped by the suspend, and a probe has
+just rebuilt the tables anyway. thc_copy_sgls_to_prd() returns early for
+a channel that has no tables.
 
-Thanks
+Fixes: 1d46b8d40655 ("HID: Intel-thc-hid: Intel-thc: Add API to reset read DMA")
+Signed-off-by: Emfox Zhou <emfox@debian.org>
+---
+Changes in v2:
+  - Move the restore into thc_reset_dma_settings() so every pointer rewind
+    is covered, and add the Fixes tag.
 
-Jonathan
+Link: https://lore.kernel.org/r/20261114231733.3916070-1-emfox@debian.org
+---
+ drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-> ---
->  drivers/iio/light/adux1020.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/light/adux1020.c b/drivers/iio/light/adux1020.c
-> index cccd509dd18a..dd5230c6dceb 100644
-> --- a/drivers/iio/light/adux1020.c
-> +++ b/drivers/iio/light/adux1020.c
-> @@ -331,7 +331,7 @@ static int adux1020_measure(struct adux1020_data *data,
->  		if (ret < 0)
->  			return ret;
->  
-> -		status &= ADUX1020_FIFO_STATUS_MASK;
-> +		status = FIELD_GET(ADUX1020_FIFO_STATUS_MASK, status);
->  		if (status >= adux1020_modes[mode].bytes)
->  			break;
->  		msleep(20);
-> 
+diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
+index c80ef8c20..544bf3a6b 100644
+--- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
++++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
+@@ -211,6 +211,9 @@ static void thc_copy_sgls_to_prd(struct thc_device *dev,
+ {
+ 	unsigned int i;
+ 
++	if (!config->is_enabled)
++		return;
++
+ 	memset(config->prd_tbls, 0, array_size(PRD_TABLE_SIZE, config->prd_tbl_num));
+ 
+ 	for (i = 0; i < config->prd_tbl_num; i++)
+@@ -285,6 +288,16 @@ static void thc_reset_dma_settings(struct thc_device *dev)
+ 	regmap_write_bits(dev->thc_regmap, THC_M_PRT_READ_DMA_CNTRL_SW_OFFSET,
+ 			  THC_M_PRT_READ_DMA_CNTRL_TPCPR,
+ 			  THC_M_PRT_READ_DMA_CNTRL_TPCPR);
++
++	if (!dev->dma_ctx)
++		return;
++
++	/*
++	 * Pointers back at the start while the entries keep the lengths the
++	 * controller wrote: restore the capacity for the frames that follow.
++	 */
++	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA1]);
++	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA2]);
+ }
+ 
+ static void release_dma_buffers(struct thc_device *dev,
 
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
