@@ -1,88 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794776217;
-	b=0abiWuz968jGToF/5tdBBEQONBxGvALNTD7Hu4Dd6mh6as3oYX8jOHKD3tamA0asa/Lo
-	 c8t30hiqSPESOQEp7o2gSNfKEw5ZcMgAWGJTjdrNUgCE0TSZ8PmI4Z6DY40e9v6wXoL/p
-	 wyb8dONPM0CUxV78xKGD8x9VTHmySTFw9gIcfRYFOqMm+dNAsYah6VcogL3WrXKdMKgjU
-	 bwfL24HaQ9X/D5rBUdbS6SN63Xj7JDHUDlFRxa+BQ38sHAV0c+LzybY/6946NHBbe9YGo
-	 7EqI0OroAv7+n8MRqoq+zafA5+0N2NQdklyNz6G0L5eIuWZx9ZO/ZOTWxOQf6TL4w6g==
+	t=1794776383;
+	b=BlbrvwszrjAgDVAmn6kqe021MrTPZmSlKFGt6kj2F4wTcJQ4qrJS6btwuyqolFkxsVYr
+	 CBCBIj9xoBqTXOuJ53Xc3cqlAuwcxDfAGhM5h/GB0NB46+yQGZkqf+lPzas/NWQgH9TaC
+	 vbDjcjUw2hShpt5QeyiC/nQ1kccTIOHlXcvMkSh61TqJbhrNcU0qZIEQnM+RriZUVtLrQ
+	 AErKIJUY3DJ+RMRLro3beHJB4dPGAmG6stzazQGeFiTu32+xpQfqfH/JGSqitTHLr4Mpo
+	 +R6I7fBEKkFgXPk1VufNqKjq4cnuSyNy/qU4ESB+E8g0Q2P/vydtREqlnph3//PzuNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776217;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=pQ18VYP4e0hHBSYVMyNIzTprFNB1v1N4VsN7V00lXUg=;
-	b=3CwZvSMd8TzqZTPqAe2VQQxUNt03rALBQVHHzGjxhvf8DnWAkKI8wS6Oi0r2nQJfpd2n
-	 02cUodA+UGYR+1ja+lF6H6NGYF4I3jH5ThbZP/TfWgRMn93cTHso0Pk8qX4zd8IkLX0NA
-	 tYodTunxVIIIE/h3cCo+HsBYf0XBqXm3wkMF0VGxnVKs1BsXif6wULTQAjeY0lkiDpPMs
-	 iJtTSJ/UKA88OSWnHhnkPiHVZQchW4iTzy6CaF+JricpuHlQ/AEKYLoV4T5ZNBwzkiru+
-	 zYVAisWaz1dDwRScyuMiASgPkaanAAYujOPDlztJInul1yZXk1QkRfNdXO5EtBDuhkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776383;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=ZaEc514ihvfvk9V5+VuMh0ehlrDQX81AXtOUhrkge+A=;
+	b=vs1zyiOkz/XJ/cls2kipnH6+B2x8MPA8bUWYgD0q6M5RhtNRV2dOHc5I0UxboXVwKSWb
+	 mowPguJHaVDajsjqxCaQMOJZyP81BtjnkrA9v8oB8bDE07zcntVM8+C01/YwoUN9bkBFz
+	 acZvCE4oH4AyqDJ3UdXtLEqhKsKvXh0DUPqdO1xsz/lgqTXPUyoELMFYGJhNhTvazZKG8
+	 +fHZVDMtOgDuCcP/WHOTDdVBM7zJ+iy6JnmElkYS+3B64eULgJPBTLOwCifzYqXLoNS1j
+	 XAtTtxSxbxfHxjICRSPpsZBMMlBDfiteAfWO0W4l7wbBUWM/4M+uGqdJ7p6VlGvAb6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DNC3es+k;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ChaNsDt+;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62DB606A329;
-	Sun, 15 Nov 2026 20:56:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E62DB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825F2606A323;
+	Sun, 15 Nov 2026 20:59:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 825F2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DNC3es+k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794776216; x=1826312216;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=sc4QS5AlKLJP7BylE7BZlLOkn14oXlThBi63pXetv8s=;
-  b=DNC3es+kBTdoPG14pbF0Y+maxDdCtYMhJ3M48Wt/Z2NPk3q0YmcgsZGr
-   gYBh0QwbOjEGLrvUFfRfegBhAq8tM5zsBp+RMUMzNaOH40PC34wFvj+g+
-   XXGY8HHBJ+/9aB84Fqba1Pvd4JeUqCwPYuxYDVPLuuVTGOCTWbwOYRbVU
-   2p+DmgGnVm0x8GeEk7YJkeazXRA2DkjAaMTZJvT1jDxhfZErAr2zfQg1A
-   fJLLxnfYOvqAnMbQsj0l9hrWe0WguKyVSqVWqwGWqAY+TWVQh8hwv8Lab
-   Zy8apvmqCtLnCIS/quwcfmHtN+eUW0k+odp98Q/Ae5HGBFWv0HZBGgDkv
-   Q==;
-X-CSE-ConnectionGUID: 1KHHu8UKSCWMeW6+XLphhQ==
-X-CSE-MsgGUID: v/zwx0YhRDSea7vxppOvjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3419001"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3419001"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 12:56:56 -0800
-X-CSE-ConnectionGUID: SLyD6Io5QK+/e3nuDZYyyg==
-X-CSE-MsgGUID: oJ+ew8+xSnGKaDaj17OI9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="11108114"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 15 Nov 2026 12:56:52 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xShHM-000000017Jc-3JnU;
-	Sun, 15 Nov 2026 20:56:48 +0000
-Date: Mon, 16 Nov 2026 04:55:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Waiman Long <longman@redhat.com>,
-	Ryan Houdek <Sonicadvance1@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-api@vger.kernel.org,
-	kernel-dev@igalia.com,
-	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v8 06/10] futex: Wire up set_robust_list2 syscall
-Message-ID: <202611160433.ySzwblT6-lkp@intel.com>
-References: <20261115-tonyk-robust_futex-v8-6-a4fe47333a28@igalia.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ChaNsDt+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=ZaEc514ihvfvk9V5+VuMh0ehlrDQX81AXtOUhrkge+A=; b=ChaNsDt+/6WNmwdhBfZyPGeAHN
+	lvqWX4m45CErxVseqoveA3sj9SQrqB9sUihwEWp0recnzzHJL2US2uukHEkt+hgcZGbvYGx83utaO
+	EtClqeg9GWiZy63DcFKfFTR0ZqONpOK2oYXqvebBsX4m7jErRs1B/JbW2Wrn1W8xVe5d9vTX8YZw1
+	xdCXfvaDACX47G/5PvBBhV+ij9Luh11fnYvyXgBVptACMEjU8RQhQBBAy7HR01M0mC7/ZBG/aQCli
+	LguNJ4RG/48wZZzGFujY1c5IcaOdph6hUi8Z1y1ObRgWeWCDo8eH+WjeAp5DFHWaAUVkc+7ML75k6
+	CaO8zQNA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Igor Paunovic <royalnet026@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Subject:
+ Re: [PATCH v2 02/11] accel/rocket: number the cores by devicetree position,
+ not bind order
+Date: Sun, 15 Nov 2026 21:59:24 +0100
+Message-ID: <8bRsvcNcRhepz3nNzmBZVw@sntech.de>
+In-Reply-To: <20260922080114.44662-3-royalnet026@gmail.com>
+References:
+ <20260922080114.44662-1-royalnet026@gmail.com>
+ <20260922080114.44662-3-royalnet026@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,39 +74,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261115-tonyk-robust_futex-v8-6-a4fe47333a28@igalia.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi André,
+Am Dienstag, 22. September 2026, 10:01:05 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Igor Paunovic:
+> rocket_job_hw_submit() programs the S_POINTER registers of a core with an
+> extra bit derived from core->index, the way the vendor driver derives it
+> from the hardware number of the core. rocket_probe() sets core->index to
+> the slot the core takes in rdev->cores[], which is the order the cores
+> bind in.
+>=20
+> The two agree only while the cores that bind are a prefix of the core
+> nodes in the devicetree, in devicetree order. Unbind them and bind them
+> back with a different core first, have one core's probe deferred behind a
+> sibling's, or disable a core other than the last one, and every task
+> submitted to a core whose slot is not its hardware number times out after
+> 500 ms. The reset that follows does not help, and the inference finishes
+> with wrong output.
+>=20
+> Observed on an Orange Pi 5 Plus with a KASAN build, over all six bind
+> orders of the three cores: only the devicetree order ran clean. The other
+> five produced 27 to 141 "NPU job timed out". In four of them no output
+> tensor changed with the input, and the harness gave up before its first
+> measured round; the fifth got through a six-second run with 27 timeouts
+> and a wrong top-1 class. All but one of the timeouts land on the cores
+> whose slot is not their hardware number, in proportion to the tasks the
+> scheduler hands them, and in both directions of the mismatch.
+>=20
+> Number the cores by their position among the core nodes in the devicetree
+> instead, which is what the hardware number is.
+>=20
+> The wrong value has been assigned since the driver was added, but it only
+> reached the hardware once the extra bit was introduced, hence the Fixes
+> tag below.
+>=20
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM sparse checkpatch
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 
-kernel test robot noticed the following build errors:
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-[auto build test ERROR on 9f74092fda91ef93c2b07585785c1dc83cd7971f]
+nits: both the commit message, as well as the comment blocks are
+excessivly long, and could be shortened a lot, if a future version is neede=
+d.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/futex-Skip-test_futex_robust_unlock-if-not-supported/20261115-143110
-base:   9f74092fda91ef93c2b07585785c1dc83cd7971f
-patch link:    https://lore.kernel.org/r/20261115-tonyk-robust_futex-v8-6-a4fe47333a28%40igalia.com
-patch subject: [PATCH v8 06/10] futex: Wire up set_robust_list2 syscall
-config: openrisc-allnoconfig (https://download.01.org/0day-ci/archive/20261116/202611160433.ySzwblT6-lkp@intel.com/config)
-compiler: or1k-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160433.ySzwblT6-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611160433.ySzwblT6-lkp@intel.com/
+Heiko
 
-All errors (new ones prefixed by >>):
+> ---
+> Supersedes the standalone posting:
+> https://lore.kernel.org/r/20260905135612.7324-1-royalnet026@gmail.com
+> Same diff. The message now says the numbers come from a KASAN build,
+> corrects the timeout range to 27-141 against the raw log (it said 140),
+> says what the four failed orders showed (the output did not change with
+> the input; it said an oracle rejected the output), notes the one timeout
+> that landed on a matching core, and drops the throughput figure, which
+> was measured under KASAN.
+>=20
+>  drivers/accel/rocket/rocket_core.h |  5 +++++
+>  drivers/accel/rocket/rocket_drv.c  | 31 +++++++++++++++++++++++++++++-
+>  2 files changed, 35 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/ro=
+cket_core.h
+> index f6d7382854ca9..46ed8352a79d2 100644
+> --- a/drivers/accel/rocket/rocket_core.h
+> +++ b/drivers/accel/rocket/rocket_core.h
+> @@ -30,6 +30,11 @@
+>  struct rocket_core {
+>  	struct device *dev;
+>  	struct rocket_device *rdev;
+> +	/*
+> +	 * Hardware number of the core: its position among the core nodes in
+> +	 * the devicetree. Not an index into rdev->cores[] - that slot is what
+> +	 * find_core_for_dev() returns.
+> +	 */
+>  	unsigned int index;
+> =20
+>  	int irq;
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 2bcfe4ab3c68f..7d927bb6b322d 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -157,10 +157,39 @@ static const struct drm_driver rocket_drm_driver =
+=3D {
+>  	.desc			=3D "rocket DRM",
+>  };
+> =20
+> +/*
+> + * The extra bit that rocket_job_hw_submit() sets in the S_POINTER regis=
+ters
+> + * is the hardware number of the core, which is its position among the c=
+ore
+> + * nodes in the devicetree: a disabled core keeps its number. The slot a=
+ core
+> + * takes in rdev->cores[] is the order the cores happened to bind in, an=
+d the
+> + * two only agree while the cores that bind are a prefix of those nodes,=
+ in
+> + * devicetree order. Every task submitted to a core whose slot is not its
+> + * hardware number then times out.
+> + */
+> +static int rocket_core_hw_index(struct device *dev)
+> +{
+> +	struct device_node *np;
+> +	int index =3D 0;
+> +
+> +	for_each_matching_node(np, dev->driver->of_match_table) {
+> +		if (np =3D=3D dev->of_node) {
+> +			of_node_put(np);
+> +			return index;
+> +		}
+> +		index++;
+> +	}
+> +
+> +	return -ENODEV;
+> +}
+> +
+>  static int rocket_probe(struct platform_device *pdev)
+>  {
+> +	int index =3D rocket_core_hw_index(&pdev->dev);
+>  	int ret;
+> =20
+> +	if (index < 0)
+> +		return index;
+> +
+>  	if (rdev =3D=3D NULL) {
+>  		/* First core probing, initialize DRM device. */
+>  		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+> @@ -176,7 +205,7 @@ static int rocket_probe(struct platform_device *pdev)
+> =20
+>  	rdev->cores[core].rdev =3D rdev;
+>  	rdev->cores[core].dev =3D &pdev->dev;
+> -	rdev->cores[core].index =3D core;
+> +	rdev->cores[core].index =3D index;
+> =20
+>  	rdev->num_cores++;
+> =20
+>=20
 
->> ./arch/openrisc/include/generated/asm/syscall_table_32.h:474:16: error: 'sys_set_robust_list2' undeclared here (not in a function); did you mean 'sys_set_robust_list'?
-     474 | __SYSCALL(473, sys_set_robust_list2)
-         |                ^~~~~~~~~~~~~~~~~~~~
-   arch/openrisc/kernel/sys_call_table.c:19:37: note: in definition of macro '__SYSCALL'
-      19 | #define __SYSCALL(nr, call) [nr] = (call),
-         |                                     ^~~~
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+
