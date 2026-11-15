@@ -1,90 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794704197;
-	b=2ETGuAX6+xoB9bhCk48Js8GhZcp4wm356rmB17kAhYMBsdl5f1zrdlpS+sIdKUcIYWiJ
-	 gshZfaRtwlVm+S0bUtih6ua/C9zJgt3Oev0dyF0j8yaacVh8+Y8UsO1oLQbbS4stPpgxV
-	 ymwZXAUd3nyqvHUzv076oNIjKJCgnZ66mgtPEFBcmBxYAGaITXZUYF/T/lqTqreZTeEWR
-	 2d02W6HjRmeZzpgQW4qLg3XE0GTIg+tqKAYdgPx5yPcJbwdPdpHQw2Ej2F7L7UUiAdEiZ
-	 jJP2oKh+ombKAZfEy7bmAAQpMOtG8jcmgc9coDoLu5TeTJM/dzIstFM9URMxIUUm4DQ==
+	t=1794704335;
+	b=JnIJ4K7cIz8PGZKgxncP8yngzYXVIjN3VBWNVM8p1dM4euwWBtiqbh5nrD542BFwqM0r
+	 NaJ8R7qpz41Bas2OoNCAh97bai0EyUPvMmNA/eUSQTuDUs1+LdxcUuy1ZLXjn0Kli+QAU
+	 ztedS21fHTwOkPnW8isSJercT2p+DfXQsa6mSTLYPQEPMtjirkIoIiBpVT7F4fKQ6Tx0U
+	 0xCUNT68RdCKlqYVASpuY3RBG3U/06h7NJzjSeCpuwihmhcUERxH5ha0xqUvzv1/4BQYF
+	 2W5+/m4cdq4MjsswOuWFCP20Z9Tl4dMuw78YTbP/FjOu4jA9c/cA7jcBzpY9zT02CaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794704197;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794704335;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=629gBa24uYFM1oVxvCXDTyLH0hlRq9NoqVbfdidJ5wE=;
-	b=39RNVk4zX4Tw/hqRy2W98emfqXAvgUb9aZvlqm8dWK8wd0OmItSHnSWttXR4K3eJss9N
-	 +9xGTub59VnovRALvkyztT2Dz8rZneznviD5nr5swndMyY6ff6GZ3BAAloEx+qmnouv+d
-	 +6hnXZOvuHnVilYQkHoENe2XJ48EAvDwYqGoxnk9do+hU0eQM7+c21qPUmr7kLtLvn40f
-	 1J47Q3E+VGbmCK/aDsRtdApIKvwei1AzpdaWx5gMDIYruS8APqwzSgP+3QKzOajL/VbwQ
-	 YTs0nzGCF+95zAaszAsMExtldjTFoMnY6pCowfptioOP1AbYd7Pi9N28Hhrhc55NRQA==
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
+	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=k7NOu9mRwqKS6KEdePuU/ewkkmtEQ/cj2Ubt3cKxgyM=;
+	b=Pxbs+3wSRFYr/jvT1LB9shkFhAz5VSyv30g/+4hcDosLRu2Kr86DtcDMR9i1w0h9o3yY
+	 TZ05E93A+tIU6CBTPYmMGaPvPUvVUueNYlnUT2AsLa9tKANncLM9lbD8Z1R68+kqtOgmd
+	 VW7QDurrpOFTnt6J3W02EtnQ7arZ7/BSdJiE8z1J6ECcu4Hj1ujOd1R9HUIZFXF010up8
+	 kw2AzXk2gvdRFCHUxy9H0CZBZ0zE9hOAc9xW+KYoY2UDD96/gRfapfKUcfTgZVxqbFAeK
+	 kxUf7YXPtytHJ+1GJrXwIwLYlNWDXxGQ8UeKa7wZdYLXF4j2BhpSq5l1gqp31Qj2YMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=PzZJc4zK;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VVLoFXwq;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C982606A330
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C982606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F507606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F507606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=PzZJc4zK
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b587538a37so3523951a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VVLoFXwq
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so2971716eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:58:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794704194; x=1795308994; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794704333; x=1795309133; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=629gBa24uYFM1oVxvCXDTyLH0hlRq9NoqVbfdidJ5wE=;
-        b=PzZJc4zK9PakSreCo2Y4fAH99TH+FXKyjxEWsF8WkVqHhM4qh9HC8RS9/lOwdzYq0X
-         T1TuqE+QYVqkjUaA2Txw05JaPVfv0XNsCz1pMOABGEjXV0TmJiGdFN27BKPuNe8Bcsuh
-         i8ip0GY8Z7Ts9rvjbW358xlmXexxjTLUtlroI=
+        bh=k7NOu9mRwqKS6KEdePuU/ewkkmtEQ/cj2Ubt3cKxgyM=;
+        b=VVLoFXwqulWeucnw8PTyUoqoKo1n49Ix8VF4rvFKoBGKRxj3TB3ua9vgyrgU4nL2qi
+         PmkoJxjWcOIms1fceHg+BzbYP5MEl2G9jm9hFUHK9J4QhiCX8Kqo8m67i3mnnhzTZLXu
+         B7koqJKt5c7cKnQFC1prGlQO4bQiXQ5S76HBq9ky8BOQEcznfXKRoOE9o8dtxJKRVfR0
+         jGKlG50HAOdRETaAeo9ct3E1rJju8j5wA5dFycvcn+bvJmkq1Jt0hWkrHPn7nj+pzTI/
+         jt/0qZkh6VIukufGj8bLAWqdzfXdUBhON83OXlbaGjqI7UH1Etad5mwVsjEeyePuQ+u9
+         OC8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794704194; x=1795308994;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=629gBa24uYFM1oVxvCXDTyLH0hlRq9NoqVbfdidJ5wE=;
-        b=esTvucqLTPt1E3M7/oBNqyqkue8dLBmOpgya1kc3GsnFflQ9U4s3IYbxSYJ9DCNv3t
-         XNBlNRzBjWkSSnFNefSdtZ1GzSfZ65zOKUV7Xw7S+SJ5lUCCzZ4r5gr7lNGxin5grkZE
-         SN5+MSZ/pMdbTWUF+LbF+7IbboxZ0ls3sXKocKoSTqbeyhSbNMzsTaxajGl6/C8u4LXs
-         oCYTAPL8Hf8nzUzFsPw8TFoHbXUiohe7vgL1luONQxLW0XKedo3aXkiyYOdfYxbY8oRx
-         1g+PGzOGUCvmsEM0/DsE16gDohIc3G83OSCo7qfan7nwpINaKG/XplB+BQsHTgGZivbb
-         Zmvw==
-X-Forwarded-Encrypted: i=1; AL+hErEU0PU3ljhFQaCL1YjrrC5gKaMAO1Xiv0mBRw7ebIzDAK9YykVMAowt5cZeiiBQmHzvyI1s0h+KhuaLIkk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+88/MmsThOueMhumBeS2rDnahNLp5kucnozozVQGly0WO0Vq1
-	C1Y4vWIFSW1JeuSc6pkZdGc35Bz0c0vlSePSq+cjrI9HUq9ynSJTbFNWuD1M9cPcXVgLC8CJ6Lh
-	vZg7Vs8qftg==
-X-Gm-Gg: AYBFou1vKGx1FOzr2MV+d9L8zL0RArxjw7dp3b7Vw7jIwu7OG1PyROCD0Lf24+hjGXo
-	mcTuGz81huOv3CgxJxPT1zz5HkWrcTtaBbv/QHJy/0YebZyrzaWDRszm1NW08Tfp7P4dL9TeRBz
-	MSFQV1SsLkt3iLLq8yIu/4EJVZBR9saCeIGYObZSxDq7p+WxfrSdPQaDAxhe0fTvB89cW0ceckE
-	x7CfS8xpW0/4cHiyUfgufEADa+RzBbwjUMJzIz8V+GwP2Hw6Djx6LBs9ZnX1Caf3ihUtU3y9Bzt
-	2G6eayKNX6ZGJJ5M4BHbyCD2mWABaPXpq6r7+b9cOfA1AN9RDFGKvOfpOzisDs7QCdV56y/BQG0
-	sgdS4tSJ+0Xjhpgve5+/bP24/Dc29hTKduU05bb7XogYCBFr2wMn6mEpJtE36iyIoK3uXV2XwHc
-	h768g6OnXSsVccBJGcAt1Y4ov25tU0EN4T1AigvdO6D55hnUv5aOhYudv21CxOzWO8KmhH0ViCC
-	wmHBGZafdkZR/FPHVQVKBZexbJJcH3lh6ds0+3b65QDCvPvXc3FPsL8VQ0o2mWDnv1WBQrndlBJ
-	Z/WJtCcX2ghP8N0QSHB9rUihJdmAJ7rfFqozCk7Z97I+sPpJH/5Ps1Ym6E4FBRSYXDSl4nQbZfH
-	/4MQ=
-X-Received: by 2002:a17:907:9612:b0:c29:f5d8:9c75 with SMTP id a640c23a62f3a-c50963fe3dcmr574509566b.36.1794704194608;
-        Sat, 14 Nov 2026 16:56:34 -0800 (PST)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b72868sm257324166b.65.2026.11.14.16.56.33
-        for <linux-kernel@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1794704333; x=1795309133;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k7NOu9mRwqKS6KEdePuU/ewkkmtEQ/cj2Ubt3cKxgyM=;
+        b=s9iTmP/k9+we/PcoPk8XX+N+G0px4A+e85HlO8SnHRhoCs6kDg1mn0zW3On8PLzUHv
+         jM1aQfn41qdbAUbzdiPZ9lIK5ZmbpnvJExsklFzhnpXNSaiGSG8j/vFe+uIqZPC0MTmo
+         Nkzcgz2GWcYSwjTGYbwa+OQ/M6TRyizW+nDsQJyFHTd9/4BeQ3kI9W2hsLJbh5mTrKmB
+         pnR9Y0vnhfd44L9CErX2JC5224boCXWnZqJzDgMRjdWc91mQtkTxcjejoHqyzwjpDvax
+         My/XaFHioXAys8Esv/OIKNcM+ALSIh8l55b+FREF30jlA4BGsjh0jMwXew+I93h43OF/
+         3hIA==
+X-Forwarded-Encrypted: i=1; AL+hErGo6Rb55jsrTYQKiiBDYnP8+0a3fI0JNo02qgf7czZoNgfGOqsoA5mIMG97VxD7MvPz6NRJd1qnTMEFUuw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+n6SqWus134lIKQmxDLrmDP4YWcz4Kd4lm6Br/Xukgz+bR69fJ
+	p6VqQNNo8PIo0kL+LHI6aoM7snocgw/0C1tRNwkQnCmA0tJpAKMsS1ib
+X-Gm-Gg: AYBFou3KDQiCoxDdW4VNoYviO+QJgPDeGJHpliG4rsklFffQDhCZRlhzu9NDtqAte9i
+	66Gy6c7pbcx9JdOHFVjebr7j8Em1ED66RLceWab0IhdjgiUUzQE918NDcYngHoofnXEASYiKzox
+	s1zjUJ2IAxryYKVHfKArR/GcmDS1GNSJmL4j998k6GrP7rqYC0xJ/1GLXld0sjZUCCFxsi7svHc
+	oh+ma38G6XOER9kIcfOcGNGe1YDWrtCfTpF5Qbs54m7dvj841p/CCIqZcjBD31Sk3gCfU9FVhzZ
+	YazPhXIQDDL01bs/0j5+DC3gj1uKlhoaRTwLLNzgU4atJMEK06cNXYPCamcdnIeb74dPgmByaOU
+	d1UgGBnDbJgKBdnc23Nsk9X2JOLEwR7RIC6CA+wTPKmePB0pcwjIMo4Phtv7CdATsps9r2Yx75I
+	pt2TdOZqcTMPuNm01eiztRzQPOoq1MITBvnye0XL/4yoLO8nzP9FKyhOsDQcFwJCM4GbTD7fVU6
+	C2C2FZftdGt+g8C0CPpqw1z2PH0yTJcGIjPl5PtNKDnHzmj4VZvqkaTgmsykZCEMJc7ZNpRSXkE
+	piz08u3BjHTFP6w7/cHxUg03vg23Ovfou4wXe94qXh7BG0EOdW845ceUfSU3h3BOEpY=
+X-Received: by 2002:a05:7300:e9c5:20b0:361:167c:2364 with SMTP id 5a478bee46e88-37966e3ab7cmr7375931eec.8.1794704333340;
+        Sat, 14 Nov 2026 16:58:53 -0800 (PST)
+Received: from [192.168.35.43] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm35679526eec.21.2026.11.14.16.58.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 16:56:33 -0800 (PST)
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so385694766b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGTswcJOwhXgkXXbkt1aMlllzMoB9/AtPhw8NyD8eoZxTlyP5NqGPNECmCJz0tgXEtY2E39WjfjwvzehJg=@vger.kernel.org
-X-Received: by 2002:a17:907:86a6:b0:c4d:4be1:4197 with SMTP id
- a640c23a62f3a-c5096410ca0mr587213566b.41.1794704193440; Sat, 14 Nov 2026
- 16:56:33 -0800 (PST)
+        Sat, 14 Nov 2026 16:58:52 -0800 (PST)
+Message-ID: <0f536451-9f7b-46f7-acca-e10e54dec37e@gmail.com>
+Date: Sun, 15 Nov 2026 09:58:48 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,38 +92,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local>
- <20261113141137.1113517-1-usama.arif@linux.dev> <20261113160300.3f0d0a37@pumpkin>
- <CAHk-=wjmnpCmhyOta1EBR6D8_JFgLNz7Jb2s_PgbPq6cBiQ0wg@mail.gmail.com>
- <E9C129F6-61F5-49CE-8948-064DAE86EF4F@zytor.com> <20261113233703.GCavefHwxVZX8mGFCm@fat_crate.local>
- <628BDCC5-B599-4B70-B512-E13DEE926DFA@zytor.com> <20261114224504.7574f7f0@pumpkin>
-In-Reply-To: <20261114224504.7574f7f0@pumpkin>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 14 Nov 2026 16:56:16 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wj0MtJpBbwNr=NGh4kFPM__Wf9Hq+LZ1Qv1Yv1SCpjaLQ@mail.gmail.com>
-X-Gm-Features: AclHuK_S7A9qxuV0nIVBvLAohnCki6K7LZKgxEK1nLHiWCvuDpnnQxUN9Rwr6s0
-Message-ID: <CAHk-=wj0MtJpBbwNr=NGh4kFPM__Wf9Hq+LZ1Qv1Yv1SCpjaLQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
- CPUs without FSRM
-To: David Laight <david.laight.linux@gmail.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Borislav Petkov <bp@alien8.de>, Usama Arif <usama.arif@linux.dev>, 
-	dave.hansen@linux.intel.com, dsterba@suse.com, linux-kernel@vger.kernel.org, 
-	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org, 
-	kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Reply-To: chanwoo@kernel.org
+Subject: Re: [PATCH v2 3/7] dt-bindings: devfreq: event: rockchip,dfi: add
+ rk3576
+Content-Language: ko
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham
+ <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, kernel@collabora.com
+References: <20260921-b4-rockchip-dfi-rk3576-support-v2-0-04f847016321@collabora.com>
+ <20260921-b4-rockchip-dfi-rk3576-support-v2-3-04f847016321@collabora.com>
+From: Choi Chanwoo <cwchoi00@gmail.com>
+In-Reply-To: <20260921-b4-rockchip-dfi-rk3576-support-v2-3-04f847016321@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 14 Nov 2026 at 14:45, David Laight <david.laight.linux@gmail.com> wrote:
->
-> Otherwise you'll need to spill to stack for even a simple byte copy loop.
+On 9/22/2026 6:15 AM, Sebastian Reichel wrote:
+> From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> 
+> The RK3576 has DFI hardware for monitoring the DDR's bandwidth much
+> like other rockchip SoCs do. Unlike the RK3588 however, it only has two
+> memory channels, so only two per-channel pclks for DFI.
+> 
+> Add a compatible for this SoC's variant, and add it to the conditionals
+> at the bottom of the bindings file.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+>  .../bindings/devfreq/event/rockchip,dfi.yaml          | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
+> index 3450e28b4020..dcf3bbde3e8d 100644
+> --- a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
+> +++ b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
+> @@ -14,6 +14,7 @@ properties:
+>      enum:
+>        - rockchip,rk3399-dfi
+>        - rockchip,rk3568-dfi
+> +      - rockchip,rk3576-dfi
+>        - rockchip,rk3588-dfi
+>  
+>    clocks:
+> @@ -64,6 +65,24 @@ allOf:
+>          - clocks
+>          - clock-names
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - rockchip,rk3576-dfi
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+> +          maxItems: 2
+> +        clock-names:
+> +          minItems: 2
+> +          maxItems: 2
+> +      required:
+> +        - clocks
+> +        - clock-names
+> +
+>    - if:
+>        properties:
+>          compatible:
+> 
 
-I think the optimization should be for the inline case.
+When I applied it, there are some error.
+Could you please resend it on latest commit?
 
-Once you do a call, having a couple of push/pop instructions in the
-target is a complete no-op.
-
-But having extra registers free could help at the call-site, and if
-the 'rep movs' is inlined you only modify rcx/rsi/rdi. I think the
-calling convention should mirror that.
-
-             Linus
+-- 
+Best Regards,
+Chanwoo Choi
+Principal Engineer, Samsung Electronics
