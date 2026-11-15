@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794700762;
-	b=4jwDx2Xv8er17lXdArN8Ls8eEcWvv/T1ukEEdsTQkPTe81ihl9m+8WpgTyCInV+jNr08
-	 W7bsb2Q6uYs5Uxx50W3jHa79RcmcN8vujWpth3WVIgLmF1OGX0SFDix+Gn6ti8102aJOJ
-	 d5qVaqRducCnp/SvjwboRCu5baYJxC3U3PZn0ZavWes1wkcB/WvHLYv10Ldf2Cy1M2AaV
-	 52lk8JEmpDG9bGXUlUKZTowdMUOUN5anQSmCFc0IeO5mZO5tiE3ZgTeAfPYXflO6IM2wr
-	 1eTRPlGbjA1MvLuDlFvL7a9c36wpJMgf8WJpU2x7yf0aDxviyqi4c3FUVoC/M78GblQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794700762;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=nG1w6A1hsSv+6HSXqZDnvdFJiy4dew0fqW8CJFaNN5U=;
-	b=A+Dgm+7be3aBhTa36HjlNAdqygvqYG1gx8733kedV32Ud5AcBcGLhWAuFhzKci+dW0a8
-	 JUNH69aSPUkn7/X/NzwYKDpXo5vxN58eovUar1TpKQdP8WdeepSVB62KHYT7CoAPV49xt
-	 3LDPdXsBB7KEYAMsgTxu+kx5Exr/FfCHjiRuHPpRkjJXBUfCdqWRZW0xuE9XRHR6oMmQK
-	 jhBUxecYPQxBQNbuqc/QM1snegjJTxYi6DZ5MTmr/XZHARAo2hS1wQWvxYj7vdAK4ZfIJ
-	 q1+dd0KwdW5NHUQHmfP++NkftExvtFfVFYSVWL9rn0rNAYm4iw/xndKufuKXELeVZdQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+rmlvnH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794700809;
+	b=Fg/Eav+SNFclf0inEwVABqpjRG8gyrNIAzTOAmAqtrlh5/8ZKa5tKip/ycZiDxGmNAJm
+	 3+aTt6NCgvexv+TzPzFX9nkIyAjEi7qOwUqy6ocdTBECG3L3sFGuwQxD3T/XnHNslrMgz
+	 kYEMWLy0DqNZfNUNc25VJhjdU6O7YaZ6dhI8ZTkT4fkkAq/4Rcj0CvmS1USmuyznbgDNk
+	 khaccFjjmhMMgGu6mox2p2RKgCkmtZIis3zdv9dGFgkiJwewNEW/TfEwroLf/ZrjmGQBa
+	 orRBxJ1wtsIG8Fog+43eh3fipjzj6H32MGd0QQU1Dz2xhrx9RtVC7JgKtPq0wZQJfqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794700809;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=A4p/ZrzWv+7I/PwL/AzZiq9a/zXoUz1s7R6mVyTlBt4=;
+	b=tu5dwIMTI83dvb1lAfPqXEtL31ucUOGl334OpyoSeJjTMaD0ALb34qoGoV2BTue6Ud3o
+	 qyl8HNi7X2qSRHw8vIzqW+J7UBrGqULvx4PYMj/fx3Oh70Y273WraJe9WGtqEwGFPHQJx
+	 jzlgdNMuvvQtsot1BL1Ll6hj6EFYDnbpDAc5156Pq0DhTL9ee6jjTkcmljfiDA+7TpHRm
+	 DxhJDHi4Uv9XXT0t+6K75AH6DB/ht156gclT93z4qbBs4KP7mgbp66f11qPpasG7ix62W
+	 lnPDALBx/OUoC2rCJR/DvRlcJMbKmzHjIhuwmKITw++VI22NUAFqwdU0KHV0expeaMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LCAIASZQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.5
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012005.outbound.protection.outlook.com [52.101.43.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25C3606A33D;
-	Sat, 14 Nov 2026 23:59:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0AB606A323;
+	Sun, 15 Nov 2026 00:00:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D0AB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+rmlvnH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289B01F000C4;
-	Sat, 14 Nov 2026 23:59:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794700761;
-	bh=nG1w6A1hsSv+6HSXqZDnvdFJiy4dew0fqW8CJFaNN5U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=G+rmlvnHDifDWrwvV0m6tN51uQTP+9SsdvrkJ4JEn1eY3AHP4RF90ubqw+REKDF9Q
-	 8gVzrYQAa86pY4/+2bZ6xHC6r1wm4j6bof8XXaTWxZgJtKfVj5Ln7nJJ9+z4o6gerR
-	 TVVnnSkc9o7CL5dBrRQ0OZ+D+cjKi/0WtusfTk38yBFvSXGE2zqxRnFoFtGqTfp8LQ
-	 ZleIVlKK6fAWAdk6TJOXzUqozQQzvHXfAZk81Z4UCQXPyA7ZTlKaZYrBnPhha+w1c0
-	 s4DnBeAjtHRETE0cam+l+q5Qw0qn5cbXBEcVwBL1700Np6KBPXjLshoLr5/EzVb1w9
-	 aNvsyCBlHBTjg==
-Subject: Re: [PATCH net v3 3/7] net: bcm4908_enet: release the TX ring on stop
-From: netdev-bot+sashiko@kernel.org
-To: kudzo51@gmail.com
-Cc: netdev@vger.kernel.org, f.fainelli@gmail.com,
- florian.fainelli@broadcom.com, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Sat, 14 Nov 2026 23:59:20 +0000
-Message-ID: <179470076069.2199510.1686262935220583765@kernel.org>
-In-Reply-To: <20261113235847.517308-4-kudzo51@gmail.com>
-References: <20261113235847.517308-4-kudzo51@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LCAIASZQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Av8KJUKCtHc+zGzV0/6gyeXqm5JvGt5sOfPV47WecDB9A5EW73VzxJ1c8ZUGQSVUXKjaELRHEpnRj3HvqGzMwUjivjkyKXD5OhqjfY8zUxmUQKgaDWFQjbPIipq/qn+m14N4j8ASNRiThZ78wGHbMG/ELHapShq4nhaALDubx0qKqcyuRuRn+WCWXvqKZJFIsd6TAczQDvp9IBfaTANegJ47md1BG/z/nUw3RoFzSey242VExk5afW44uQowVrO34U9+Fgbrorp579Ya/GoLYhyFOhmSBduDePwtf/dUM3i5yXw71VrINkK3WXnLThr1veIMaSw1d8xSlMW6XftzTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A4p/ZrzWv+7I/PwL/AzZiq9a/zXoUz1s7R6mVyTlBt4=;
+ b=lW3qT71LPgWjZplWWvwG2UlHOw8IYvnTV8PtORhmq97FfXwUeGtYDVo3PSyoYINER6ShMD3HmioSi4j7dzbnWJbxuHU2DZm6TCPCubMtX3E1g2IVFeSrY7f0RFgRmrMGjH7VHi58l/CPqlRPafCkswihXX+fwhyDOL9QSFv0qH9cVtKTADR6ipahBty+eXu2y1w2zWWYjFDnmVwE1bnVb6+LjjYBqt/fQ2vFVjsqIL5evKIA/JDI/u9o2Qefglhc0Yv7FZyMvaBmPu4o7//R4H7z0HZhinpHe96HNOfYtaj7zgcRj25cL/0UIC+5IRx7+XrxH+uB25ob6jfmX2Gp/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A4p/ZrzWv+7I/PwL/AzZiq9a/zXoUz1s7R6mVyTlBt4=;
+ b=LCAIASZQc8OliH+5bGA8Em6OKSfO4VcMJpY5T3Q8DX0+KYRfp3sN0FflPtoMSqREEITVCZtFxS0153Xt+l3jEka7myIXpxIXWUCKWeY5D2glV3ON+psJQEUQ4xq7HQbySlDnFXipNcEwLNgz+fFZSx5CgvZlT0DRNvDXFx/FOtLZ/3tW/pf7dYBF6vpSf9XtoxQ6lomBKpw9/BHhbvTx33yLlT+Itok2C5U0rFKk0saIrSDxYwXMM38TbVIWRoTejT75hoWPxxy6kyOjv6maHVJ/+nSR7XkkNttWO8mnP9uCC0+4LFjYpqxYj/RePkD6TKcLR/gAyfIdXuA6Mrp8Gg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by LV2PR12MB966079.namprd12.prod.outlook.com
+ (2603:10b6:408:3a9::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
+ 2026 00:00:06 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.012; Sun, 15 Nov 2026
+ 00:00:06 +0000
+Date: Sat, 14 Nov 2026 20:00:05 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org,
+	david@kernel.org, kas@kernel.org, dave.hansen@linux.intel.com,
+	bp@alien8.de, rppt@kernel.org, stable@vger.kernel.org,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
+Message-ID: <20261115000005.GG3706007@nvidia.com>
+References: <20261113195536.2660763-1-gourry@gourry.net>
+ <20261113200303.GA395967@nvidia.com>
+ <179460249376.482102.14669935557901467762.b4-reply@b4>
+ <20261114002027.GE3706007@nvidia.com>
+ <20261113181025.6e8b9475b29c13d29f59e02e@linux-foundation.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113181025.6e8b9475b29c13d29f59e02e@linux-foundation.org>
+X-ClientProxiedBy: YT4PR01CA0199.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::23) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,200 +102,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LV2PR12MB966079:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c60e239-9d11-4286-bbe8-08df42ab6843
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|4143699003|11063799006|56012099006|261026121527099003|261022075727099003|261021121427099003|261102123227099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	++dRsn/B61Dvn3ujJnYcGqK+7QjOqdpcdKuC1NnguvPrGLS4tSAgVFjAP0yzVjzmcnEfffznd/ez128DKdPbEST2lFg4RolNHo+21rndJ1gl0lx4zRIKFDb4hHka+BsSBw8/y7NVF6PZqW9JpXTAPBgOOvn4k9wwYIhpJ3/PQyZ3ciJiYNN4irh/Tf7uRrZQc/OOPjvw1VmL/6ir3Io2PUX5AzTut+VvAvfIcMS3aHZZb3apGPca0nEliLheyYr1YUq4w+GB3K1yqW+2xkcwnEe9lYPJ6tiZhpExeNBbNYKxgwjTi/gG02mz5+0AwXwZyuiDcr7KziwJoIU2V8Vc+xpD95qklRfwOV3r3h5DX01hqDK8TQbsQ0STK3OoOU3Wirs0SANpaLJ6v2Sfv2wz6aJEWuwZVD4pzqyzbS0rTLLqbJAnppVZcigP+TgkD02u7VZqr1ra4gisaDR6Zc2Ex3UjCDp9S3o1Rzk5MhVAG/dmGjWT3JsLBV04kNhplGFuH/uc5JiBjlHjfXM3nUpqs6+FnWJOIKEUK14JqzZPbcMfxEPfeZeUDmbsku1xNFgDKsf0vBF3CzIMkzOUsnHAal2O1kgOocAqFCTUf/Jrqwct8OikFahW3QPmOFEukZHQMwRQ7D0g9ER+znuYQZydaA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261022075727099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?WSmFnDPMJjDXYgIDWj+HdFw8bpDC8+/z7kWy9iEcRf/FbaOly3plJi1NlqUj?=
+ =?us-ascii?Q?xgvYZ/4uG7t4dtnGZU7d8smJDt+cuApWYFfodauSzJeppPMg76p5Fiqa5Ncw?=
+ =?us-ascii?Q?pqvljfcii2+6w2QVq+QwWE7VwVgO8pRLods3vH6TJJfK5y7mES4Nj+NTRhKu?=
+ =?us-ascii?Q?dGdORrFaEoq52dMwtI/Lo+ScJxNuoncHfWMQUrtbHHHk7DbYvTPorsIyTiwc?=
+ =?us-ascii?Q?ybEBj7FVRVuQrzbgy8zTzr5Rv/SK1ZNmgMHCuVrul7taORPDj5KD3eY/jGxb?=
+ =?us-ascii?Q?fshJpYHRbLwnKpbQufaeXZhhLTpiqlD/GnSBBeTB0hCStcGn2E6lcGxsJ/p8?=
+ =?us-ascii?Q?PGu6rtNJvyB4iDM9kOi5+Ys3ZXnWSlG72C8l3wxWUIX9tGFlOizaBZgWDgbI?=
+ =?us-ascii?Q?gkaxUOPgB9gtenout5btR15+RASjMgaqV7jPEszJ0iv7DzHg7V5XFu2SBxgL?=
+ =?us-ascii?Q?tUw2By0LFK9/dLTGFd9GYpPloDUcS1JLLPCTFmHWx6h9g3uslcFfGKJKWLxV?=
+ =?us-ascii?Q?GNurYEbTRSdqolGxv/ucJjXFsV2T4J/vX8PhlszGHavrcWgTaM8qqlvMgNa6?=
+ =?us-ascii?Q?0LCpmkkZrnHQ02IVwkPwRb+rXahiKzj7K/bqL7tCsi1KrpKgAwwxP4e7oQ0F?=
+ =?us-ascii?Q?l6G+VXaAgC0w5mB5fj6Pv4Gbkq0JXgIthBPKBoQg0iZYmh7kGkoMZI8sYfbz?=
+ =?us-ascii?Q?ZhZk15EfB/GLRah2azOMbA/XhvEViJN4tZmgqwU1FnYD3e1tXxbILKHaO/BE?=
+ =?us-ascii?Q?x401KHxqHxJLZOKeh4Utq7CVYgJAy6AuzWwq4ibxWM5bD8bzaKCysEESsh3V?=
+ =?us-ascii?Q?mjrY/HwEQgQLqy02GGS+I3zO2tdMRv6FRASXkRbJsyLVmLnNriw5zivR/VEK?=
+ =?us-ascii?Q?oD/tQ4FXnQiLAHbtG7ab1CpAppWWthiL1FYYPHfZzPLHddhzYGTW8zy2uchu?=
+ =?us-ascii?Q?zVWF45vPc/25BtgXCMdum4UWQHtQ01ErGrH9Sdze+IDZ87L3QW1oL1OpFKDC?=
+ =?us-ascii?Q?pzgo3DFEaAxO0w6ajPM9XMiXdHdGFPycRpwMDWmVBqLIq+Yh1eDs63El2SWb?=
+ =?us-ascii?Q?x60QacfEQPYNv+9T7n6h2vPKnWj1hLIjtii7mZq4Bg1jr74Wew0ZLAu7w/wr?=
+ =?us-ascii?Q?jVEq3kZgkBXnvdV8++Zf6bXY6GulH+D6oU5ikZ14cvbgORQKjL8JbLSULYXr?=
+ =?us-ascii?Q?KGz0jhGncKzd57mg2wjdH3WyoahzyunjKPhk3Z+0geAz12D8DLgpg06N3dHx?=
+ =?us-ascii?Q?16RZq79E534OskJ9Eynbkq6j9cjLbzwIx0UfaWsE9Q+Vv1uJy6TjpWdLwg2f?=
+ =?us-ascii?Q?pSs3iT+rnQ2AKlwEbBR/ZtDQnM7aFCMdSarCIpQrhnkM2J+G7N4GikKWL5Sj?=
+ =?us-ascii?Q?sb239cCONid08cjXLiLpvbjRurP3tZ7GuSg59xCAvrwZTCfsV+gJlL24D7K6?=
+ =?us-ascii?Q?WS5EgqO7b0JOPO6LrgUT11MX25omDlNqE5xM99D2DWQWgVoY2MvbO4zCGaz8?=
+ =?us-ascii?Q?WGWln5CB+79QgdLJk3UyJuNlbFdrcZHZaLwdGHl7ZMBiqaM3iAuapx5b7o7Q?=
+ =?us-ascii?Q?8q04rDvy7+DpPLQoTKlmYe1rQnstom9FTwVK7AjdGYjfGh+hFwCemmUXk312?=
+ =?us-ascii?Q?Dr+ywzdWqUqk9yGSzALDCxzqqnfLlPpaWdgRCLcoeafgUDh7esTjkX22aLQA?=
+ =?us-ascii?Q?0t+HVbzSJ9ou6gm4hG1I2LmKO+09qUspuvKBdkY6A0MvAVuo?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c60e239-9d11-4286-bbe8-08df42ab6843
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 00:00:06.6799
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vS0zo+EzwEMgz3cpqUfKsYONpdgupQ6RWa2PqCP0s0SbuX66w9De7JPYNuFf6zUR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB966079
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Fri, Nov 13, 2026 at 06:10:25PM -0800, Andrew Morton wrote:
 
-Critical: 0 · High: 0 (3) · Medium: 1 · Low: 0
+> How does this look for an altered changelog?
+> 
+> : On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
+> : rejects ordinary stores to it, but pte_write() reports it writable because
+> : shadow-stack instructions can write it.  HMM consequently sets
+> : HMM_PFN_WRITE, which Nouveau turns into ordinary GPU write permission.  A
+> : process with GPU access can then overwrite its own shadow stack,
+> : potentially corrupting return addresses or bypassing that protection.
+> : 
+> : Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.  A
+> : requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Yes, but it is not just nouveau, RDMA user can do this too and
+that is far more common..
 
-- [Medium] The patch does not fix the TX skb leak when the TX channel
-  times out, and on that path it leaves the hardware running.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it makes the
-  new TX-ring release in bcm4908_enet_stop() unreachable when the DT has…
-- [High] This problem wasn't introduced by this patch, but the patch
-  applies the 'do not free buffers the DMA may still use' reasoning only…
-- [High] This problem wasn't introduced by this patch, but the patch now
-  depends on the code it bypasses.
-
---
-
-net: bcm4908_enet: release the TX ring on stop
-
-This patch makes bcm4908_enet_stop() wait for the TX DMA channel to stop
-and then unmap and free the skbs left in the TX ring. If the channel does
-not stop in time, the free is skipped. It also clears the TX descriptors
-in bcm4908_enet_dma_ring_init(), drops the OWN check from
-bcm4908_enet_start_xmit(), and fixes the RX timeout warning text.
-
-> diff --git a/drivers/net/ethernet/broadcom/bcm4908_enet.c b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-> index b1738d954b91a..bb42b6ecde16a 100644
-> --- a/drivers/net/ethernet/broadcom/bcm4908_enet.c
-> +++ b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-
-[ ... ]
-
-> @@ -313,6 +314,11 @@ static void bcm4908_enet_dma_ring_init(struct bcm4908_enet *enet,
->  	enet_write(enet, ring->st_ram_block + ENET_DMA_CH_STATE_RAM_BASE_DESC_PTR,
->  		   (uint32_t)ring->dma_addr);
->  
-> +	/* A descriptor the stopped DMA never completed still carries OWN */
-> +	if (ring->is_tx)
-> +		memset(ring->buf_desc, 0,
-> +		       ring->length * sizeof(*ring->buf_desc));
-> +
->  	ring->read_idx = 0;
->  	ring->write_idx = 0;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but the TX descriptor clear and index reset
-added here only run if bcm4908_enet_dma_init() gets through the RX buffer
-allocation loop:
-
-bcm4908_enet_dma_init() {
-	for (i = 0; i < rx_ring->length; i++) {
-		err = bcm4908_enet_dma_alloc_rx_buf(enet, i);
-		if (err) {
-			dev_err(dev, "Failed to alloc RX buffer: %d\n", err);
-			bcm4908_enet_dma_uninit(enet);
-			return err;
-		}
-	}
-
-	bcm4908_enet_dma_ring_init(enet, &enet->tx_ring);
-	bcm4908_enet_dma_ring_init(enet, &enet->rx_ring);
-	...
-}
-
-bcm4908_enet_open() ignores that return value:
-
-	bcm4908_enet_dma_reset(enet);
-	bcm4908_enet_dma_init(enet);
-
-	enet_umac_set(enet, UMAC_CMD, CMD_TX_EN | CMD_RX_EN);
-
-	enet_set(enet, ENET_DMA_CONTROLLER_CFG, ENET_DMA_CTRL_CFG_MASTER_EN);
-
-If napi_alloc_frag() or dma_map_single() fails for any RX slot, the
-interface still comes up with MASTER_EN set and the RX channel enabled.
-bcm4908_enet_dma_reset() has just set ENET_DMA_CH_STATE_RAM_BASE_DESC_PTR
-to 0, and nothing programs it again. ndo_open still returns 0.
-
-The OWN check is now removed from bcm4908_enet_start_xmit(), so this
-memset is the only thing that stops start_xmit() from reusing a
-descriptor that still has OWN set. After an earlier timed-out stop,
-wouldn't the stale read_idx/write_idx and OWN descriptors survive this
-path?
-
-Should bcm4908_enet_open() check the result of bcm4908_enet_dma_init()
-and unwind on failure?
-
-[ ... ]
-
-> @@ -509,8 +546,10 @@ static int bcm4908_enet_stop(struct net_device *netdev)
->  	netdev_reset_queue(netdev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can the new TX clean be
-reached when the DT has no "tx" interrupt?
-
-The binding allows a single interrupt (minItems: 1). In that case
-enet->irq_tx is negative and bcm4908_enet_open() skips the TX
-napi_enable():
-
-	if (enet->irq_tx > 0) {
-		napi_enable(&tx_ring->napi);
-		...
-	}
-
-bcm4908_enet_stop() calls napi_disable(&tx_ring->napi) unconditionally,
-just above this hunk. netif_napi_add_weight_locked() sets
-NAPI_STATE_SCHED and NAPI_STATE_NPSVC, and only napi_enable() clears
-them. So napi_disable_locked() would loop forever:
-
-	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
-		usleep_range(20, 200);
-		val = READ_ONCE(n->state);
-	}
-
-That hangs ndo_stop with RTNL held, before bcm4908_enet_tx_ring_clean()
-is reached.
-
-The same configuration also breaks TX. The irq_tx < 0 branch in
-bcm4908_enet_start_xmit() calls napi_schedule() on a NAPI that still has
-SCHED set. napi_schedule_prep() then fails, so bcm4908_enet_poll_tx()
-never runs. After 199 frames the queue stops and nothing wakes it.
-
->  
->  	bcm4908_enet_dma_rx_ring_disable(enet, &enet->rx_ring);
-> -	bcm4908_enet_dma_tx_ring_disable(enet, &enet->tx_ring);
->  
-> +	/* Leave the TX buffers alone if the channel may still read them */
-> +	if (!bcm4908_enet_dma_tx_ring_disable(enet, &enet->tx_ring))
-> +		bcm4908_enet_tx_ring_clean(enet);
-
-[Severity: Medium]
-What happens to the skbs between read_idx and write_idx when
-bcm4908_enet_dma_tx_ring_disable() times out?
-
-On that path bcm4908_enet_tx_ring_clean() is skipped and nothing else is
-done to the hardware. The TX subchannel is not reset through
-ENET_DMA_CTRL_CHANNEL_RESET, and both ENET_DMA_CTRL_CFG_MASTER_EN and
-UMAC CMD_TX_EN stay set.
-
-Nothing frees those slots later either. On the next open,
-bcm4908_enet_dma_reset() clears MASTER_EN, and
-bcm4908_enet_dma_ring_init() resets the channel, clears the descriptors
-and zeroes the indexes. None of that unmaps or frees what is left in
-tx_ring->slots[].
-
-Doesn't that leak the skbs, their DMA_TO_DEVICE mappings and the socket
-memory they hold? The commit message says this leak is fixed.
-
-If the device is unbound instead, the path is bcm4908_enet_remove() ->
-unregister_netdev() -> bcm4908_enet_stop(), then
-bcm4908_enet_dma_free(). That kfree()s tx_ring->slots without freeing
-the skbs. It also calls dma_free_coherent() on the TX descriptor ring,
-although the TX channel was never confirmed stopped or reset.
-
-The comment reads as if the free is only postponed. Could the timeout
-path force the channel idle first (reset the TX subchannel and/or clear
-MASTER_EN, as ring_init() and dma_reset() do) and then clean the ring?
-
->  	bcm4908_enet_dma_uninit(enet);
-
-[Severity: High]
-This is a pre-existing issue, but doesn't the same reasoning apply to RX?
-There the device writes into the buffers.
-
-bcm4908_enet_dma_rx_ring_disable() returns void and only warns on
-timeout. bcm4908_enet_dma_uninit() is then called unconditionally:
-
-bcm4908_enet_dma_uninit() {
-	...
-		dma_unmap_single(dev, slot->dma_addr, slot->len, DMA_FROM_DEVICE);
-		skb_free_frag(slot->buf);
-		slot->buf = NULL;
-	...
-}
-
-The RX descriptors still have DMA_CTL_STATUS_OWN and the buffer bus
-address set by bcm4908_enet_dma_alloc_rx_buf(), and MASTER_EN is not
-cleared.
-
-If the RX channel has not stopped, can received frames be DMA-written
-into pages that have already gone back to the page allocator?
-
-Later patches in this series only change the unmap size in
-bcm4908_enet_dma_uninit() and do not add a guard here.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113235847.517308-1-kudzo51%40gmail.com
+Thanks,
+Jason
