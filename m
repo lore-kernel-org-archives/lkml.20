@@ -1,48 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794777995;
-	b=VvovFNxZe694G/a+FFmbet4/21aNVDjsxt5FL3Jqxnuzu3s4Yp4lU2MO64kkM7Tgd0uw
-	 gNO7vZJ3fI7IZw3ERXyPPwDjBffQrdJY2RkhEVkz3gpTnSJL/t0TH+GrPgg86+0Bw9HS2
-	 p4M3FLZjKNZcEvOWZbB0PrgTu0PoVrRYPyy7LlA6fBZYZvWzQfOuruGj+KhvxmDIxpnR5
-	 3rmHPp4yZd7P3e7UmdYUUScr+nmq2IktlI+B04fdYxV8QrIDU0iC8W3x2TLSYX7eCnKEZ
-	 Pr/UqWjcc8XKIlgB6wu5nM9+JHX3cuwZuFfbAja2JtYY1F646VFMyx7ulSeoirN6pPw==
+	t=1794778018;
+	b=PM3WqW5h5K4xHE3KCNxuT4aJUJM6w4Dn4ppBHkJoWLPS+eanIYBzwgufRRlODoAWbXLO
+	 +oQ9xptfJy/XCT9o2dfOD2wmW/U3EmhR2o7lsb5VOeaFOOsgR4iR9FzBRlW9o5gwSmsEm
+	 xveV7xNA+o+wnWHSF92jqQ7nQgVwhO4f8QKaG0uYrzXviUapgP9q7xD7wvqHyTrLullDn
+	 SaYGSmGzXMaNk+V3D1RITTHR0gPk713iTSgbpNVYhZcCYsqm5n9gfWirlQwbdyrBvmLO5
+	 ql2162bY6HLur1qzjfXMh8s11ravSNvDe8mVSA6aZxolPcaa7xmeWqoNe9egeKF9jxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794777995;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=PuaIHoWEvgowmrhR0iBIgldANWhvuzsLIJwy5SDUW8o=;
-	b=QvggpZ58W8DXiexlrIqPSVOQwri3BMdzNfmT0cjjPGSgSYH/rxwBmJO0eceifV43dbSL
-	 h2zmUgXDfWniK/44YDcToLNwOMclyKth6pDUIuzkRH9S6zUAXV25YNBgaG+CYQF0JJqO3
-	 McuHDnF/RGclzHWTx3fMlHaY2hyWPr3S08nNh5g/sELfMjXpKeC1kHls8E/uiQY9cSWmv
-	 YEaDdqEljDgWVz3kzDzxDkH63RyeFv3ukCDY1Af7bgAIuHL9q+9hm29O09NTTj2ZdJOMv
-	 fkZi0PcCk8QnSggEcyskktWVixdRKIafpHrMFLA8CrQ+Y3bWtoPqjYrT0Tps6WvkF7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778018;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Content-Type;
+	bh=Nwu6vL4nnJhyf28I3Hp9RT6yqlvZkPwzRk4lPxIAvmQ=;
+	b=r1aiW+6yJUJH944Li8IT1TgCqL2xucbOZqPVi4/YBsnxdjImniHq7qL+UmHNWTGushoG
+	 7fifn7sIVR3gZmV/zs9JFEcGgmiUjhtS9clTf2hsIw+BlEsL4IVdDLVl1iIEeYXcfLofz
+	 kBj6EJUa9deB3CLiGi3ex+WiZ7IcsQOkn5MpPsT7RUs/NVTEPeDXFBJqPMR4e/37d5NHq
+	 gQpmUr0S597k+0a3lTu5wWhsEzkZb9uSc3wbX3hI7/l4pWE3294U3Of5CdY088RUaiWwn
+	 yx1ijU1kYm4YLBmQb+KaaZKvZq8KNn8h23U1WKV3ekP5LVXzh4iapBgPIjQMR98gMUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nsL7GhHF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hWAteIYt;
+	arc=none smtp.remote-ip=209.85.218.69
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E382A606A32C;
-	Sun, 15 Nov 2026 21:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEB3606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:26:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FEB3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nsL7GhHF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7B61F000C4;
-	Sun, 15 Nov 2026 21:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794777994;
-	bh=PuaIHoWEvgowmrhR0iBIgldANWhvuzsLIJwy5SDUW8o=;
-	h=From:Date:Subject:To:Cc;
-	b=nsL7GhHFiVF0x7jEGWrr795VGRtQ5EPfIx9obHF0qJJfj2pVDeV280JHyGM+q2VdT
-	 1r8UQLije1kGY18cuKEUEYKpY4K6ZNXDBMdmy9pCT0uf9l9OqFbkcuSyrcVDMLWKIy
-	 Q1qz0ERqOiP2jPuGvpxmtlAMFZS5cXK6mJVYyTny+C0w6y9neEAF880EV830fnUL3u
-	 LDfd4qZfRJP03GkyiPamlHvXDH2mMn9jSKkih0DIXqtRt4H2wONIRoVrnk33m5mFIl
-	 4dvQP9P6MdfRcDvbYAkVDXXqxzEnQeoQcTHUyzJAztXHGrlJ52iBNhF4RymN/HhIOd
-	 Zq28GrUHLMoKQ==
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 15 Nov 2026 22:26:27 +0100
-Subject: [PATCH] dmaengine: ste_dma40: Use power domain for LCLA SRAM
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hWAteIYt
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c50547b4992so210162366b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794778016; x=1795382816; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nwu6vL4nnJhyf28I3Hp9RT6yqlvZkPwzRk4lPxIAvmQ=;
+        b=hWAteIYtvjbr4pgr1FdtepfuwZdmJPP3uv3vfCM9OyjEy6liBMXxN6ZgyLpgTH7Fd0
+         VZTBP8jaCtsA2mroH+cQLnLoCPrUjJZ0ypMHvNZ/6xpNZD7oJ/trT/Hvu7AcVvTwUWVO
+         Fd7ekI244XQYWqbu3iQtdhdyn0P2M/5LDloZjIlbq6eETBFUNYUApcnMa26EIpxWYlNf
+         R0u4sKMygkbPoJo+MvYL0+Pv1EZ8LKLBT1qcDYTK3OHhjh3oEBZVa5pB9PHSyOMJZ0iC
+         vBYzYBzptLDV5FL0Ot7oM4r9BcTJiYGi7vUDoZzVvPZ6h2ktUBJBUgGzQJzP6VW3kQGo
+         nSQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794778016; x=1795382816;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nwu6vL4nnJhyf28I3Hp9RT6yqlvZkPwzRk4lPxIAvmQ=;
+        b=zoXJei4k5YNeq7OIuixv98JxmtpBNCDQ5o2CHpggXoxZh1g/1ac5gqHF1BBNqnJdtj
+         kHoJjMq5OnVgObnr+jQ0cZwu9WopZzWvlfm5Gx8gWPnEKVpeKSXeH4N7/TAoOF4BCdFk
+         h///2uU6QoKKwYGJnSEL6nAbhRbUS54Zaf6C4SPXiQMeFR1q2p8oNPGgct1u9/seIFpc
+         OUaCGzf1EO5KRde10HQ84aQHvYsNhcpkdfC3WTBQiPim1LZXBdGobwEtVGeCHr/BrHfe
+         BVrriMZ+jvSs3ouTNt0UGejEKkPk9pzIixvUwq0/vYpR3DGVUB7JT9DG9hzpMBBIoitb
+         +E1g==
+X-Forwarded-Encrypted: i=1; AL+hErGyrlGXAcqw3rYDKSTut0QB8Z0dSxKJqZr2/g2o+jD8SfLPjnBH6L75/ZVC3Q0vg4fJ32Ya0f0YEGjfNks=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RDVyv9EeooFs16HS4wNT0of+AT8YmzBqkd5SVapYPmOQiMNpf
+	Iph4wLTcI+O4ab2cl7kbmzU6BFXeugVl7vbU6+mCWmY9O3x8TxClqKYr+mXaDS/ah0ZgKyBf5rj
+	rgyF6JdorzZPqBgU3lw==
+X-Received: from ejgh12.prod.google.com ([2002:a17:906:3c0c:b0:c33:b3b5:5260])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:1b2a:b0:c41:285a:46a9 with SMTP id a640c23a62f3a-c5096847651mr661397666b.46.1794778015420;
+ Sun, 15 Nov 2026 13:26:55 -0800 (PST)
+Date: Sun, 15 Nov 2026 21:26:54 +0000
+In-Reply-To: <20261025174017.3870481-1-pasha.tatashin@soleen.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,574 +77,190 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-ux500-dma40-powerdomain-v1-1-da8b6e1a0376@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MOwrDMAwA0KsIzRFISe3BVykdnFpuNcQONvlAy
- N0LfQd4F3Ztph0DXNh0t261YAAZAN/fWD5KljAAjjx6EXG0nY6Z0hIfTGs9tKW6RCskk4vO+5m
- nnHEAXJtmO//z83XfP4rTEwVpAAAA
-X-Change-ID: 20261115-ux500-dma40-powerdomain-135a566b03ff
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>, 
- linux-pm@vger.kernel.org, Frank Li <Frank.li@oss.nxp.com>, 
- Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Mime-Version: 1.0
+References: <20261025174017.3870481-1-pasha.tatashin@soleen.com>
+Message-ID: <9huzzev9n5up.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v2 0/9] kho: add read-only Kexec Handover mode
+From: tarunsahu@google.com
+To: Pasha Tatashin <pasha.tatashin@soleen.com>, linux-kselftest@vger.kernel.org, 
+	rppt@kernel.org, kuba@kernel.org, enelsonmoore@gmail.com, bp@alien8.de, 
+	shuah@kernel.org, david@kernel.org, akpm@linux-foundation.org, 
+	linux-mm@kvack.org, ljs@kernel.org, mhocko@suse.com, 
+	skhan@linuxfoundation.org, linux-doc@vger.kernel.org, vbabka@kernel.org, 
+	dapeng1.mi@linux.intel.com, linux-kernel@vger.kernel.org, corbet@lwn.net, 
+	surenb@google.com, kexec@lists.infradead.org, pratyush@kernel.org, 
+	rdunlap@infradead.org, elver@google.com, graf@amazon.com, 
+	lirongqing@baidu.com, liam@infradead.org, jlayton@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Replace the LCLA ESRAM regulator with runtime PM of the SRAM device
-owning the ESRAM34 power domain.
 
-Use the existing LCLA SRAM phandle instead of the never-set
-use_esram_lcla flag and the obsolete named memory resource.
-The bool indicating if we use LCLA SRAM seems pointless, let's just
-check if it's NULL or not. Simpler.
+IIUC, this series will be pciked after the kho feature flags [1]
+Should it be rebased on top of [1]?
 
-Acquire the SRAM runtime PM reference when allocating a DMA channel,
-before taking its spinlock, and release it when the channel is freed.
-Descriptor preparation can run under a client's spinlock, so it cannot
-synchronously resume the SRAM.
+[1]: https://lore.kernel.org/all/20261110050202.529473-1-tarunsahu@google.com/
 
-Acquiring a handle to the SRAM can fail and then we defer probe.
+~Tarun
 
-Since we can defer probe(), probe() and friends can't be tagged as
-__init anymore, and it's better like this anyway.
+Pasha Tatashin <pasha.tatashin@soleen.com> writes:
 
-Keep a stateless device link for system-sleep ordering without adding
-a runtime PM dependency to the IRQ-safe DMA controller.
-
-Suggested-by: Frank Li <Frank.li@oss.nxp.com>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
-The Ux500 genpd prerequisites have been merged into the powerdomain tree.
-Probably the fix sent earlier should be merged first:
-"dmaengine: ste_dma40: Keep prepared descriptors across termination"
-
-The SRAM driver will be patched separately.
----
- drivers/dma/ste_dma40.c | 253 +++++++++++++++++++++++++++---------------------
- 1 file changed, 142 insertions(+), 111 deletions(-)
-
-diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
-index f1cbc719c4f0..eca1ae95fe1c 100644
---- a/drivers/dma/ste_dma40.c
-+++ b/drivers/dma/ste_dma40.c
-@@ -21,8 +21,8 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/of_dma.h>
-+#include <linux/of_platform.h>
- #include <linux/amba/bus.h>
--#include <linux/regulator/consumer.h>
- 
- #include "dmaengine.h"
- #include "ste_dma40.h"
-@@ -41,7 +41,6 @@
-  * certain use cases.
-  * @num_of_soft_lli_chans: The number of channels that needs to be configured
-  * to use SoftLLI.
-- * @use_esram_lcla: flag for mapping the lcla into esram region
-  * @num_of_memcpy_chans: The number of channels reserved for memcpy.
-  * @memcpy_channels: The event lines used for memcpy.
-  * @num_of_phy_chans: The number of physical channels implemented in HW.
-@@ -52,7 +51,6 @@ struct stedma40_platform_data {
- 	int				 disabled_channels[STEDMA40_MAX_PHYS];
- 	int				*soft_lli_chans;
- 	int				 num_of_soft_lli_chans;
--	bool				 use_esram_lcla;
- 	int				 num_of_memcpy_chans;
- 	u32				 memcpy_channels[D40_MEMCPY_MAX_CHANS];
- 	int				 num_of_phy_chans;
-@@ -301,7 +299,7 @@ struct d40_reg_val {
- 	unsigned int val;
- };
- 
--static __initdata struct d40_reg_val dma_init_reg_v4a[] = {
-+static struct d40_reg_val dma_init_reg_v4a[] = {
- 	/* Clock every part of the DMA block from start */
- 	{ .reg = D40_DREG_GCC,    .val = D40_DREG_GCC_ENABLE_ALL},
- 
-@@ -319,7 +317,8 @@ static __initdata struct d40_reg_val dma_init_reg_v4a[] = {
- 	{ .reg = D40_DREG_LCTIS2, .val = 0xFFFFFFFF},
- 	{ .reg = D40_DREG_LCTIS3, .val = 0xFFFFFFFF}
- };
--static __initdata struct d40_reg_val dma_init_reg_v4b[] = {
-+
-+static struct d40_reg_val dma_init_reg_v4b[] = {
- 	/* Clock every part of the DMA block from start */
- 	{ .reg = D40_DREG_GCC,    .val = D40_DREG_GCC_ENABLE_ALL},
- 
-@@ -413,6 +412,7 @@ struct d40_desc {
-  * struct d40_lcla_pool - LCLA pool settings and data.
-  *
-  * @base: The virtual address of LCLA. 18 bit aligned.
-+ * @esram: I/O mapping when LCLA resides in SRAM instead of system memory.
-  * @dma_addr: DMA address, if mapped
-  * @base_unaligned: The original kmalloc pointer, if kmalloc is used.
-  * This pointer is only there for clean-up on error.
-@@ -423,6 +423,7 @@ struct d40_desc {
-  */
- struct d40_lcla_pool {
- 	void		*base;
-+	void __iomem	*esram;
- 	dma_addr_t	dma_addr;
- 	void		*base_unaligned;
- 	unsigned int	 alloc_order;
-@@ -578,7 +579,8 @@ struct d40_gen_dmac {
-  * to phy_chans entries.
-  * @plat_data: Pointer to provided platform_data which is the driver
-  * configuration.
-- * @lcpa_regulator: Pointer to hold the regulator for the esram bank for lcla.
-+ * @lcla_dev: SRAM device for the ESRAM bank used by LCLA.
-+ * @lcla_link: Device link to keep system PM ordered against LCLA.
-  * @phy_res: Vector containing all physical channels.
-  * @lcla_pool: lcla pool settings and data.
-  * @lcpa_base: The virtual mapped address of LCPA.
-@@ -613,7 +615,8 @@ struct d40_base {
- 	struct d40_chan			**lookup_log_chans;
- 	struct d40_chan			**lookup_phy_chans;
- 	struct stedma40_platform_data	 *plat_data;
--	struct regulator		 *lcpa_regulator;
-+	struct device			 *lcla_dev;
-+	struct device_link		 *lcla_link;
- 	/* Physical half channels */
- 	struct d40_phy_res		 *phy_res;
- 	struct d40_lcla_pool		  lcla_pool;
-@@ -630,6 +633,25 @@ struct d40_base {
- 	struct d40_chan			 phy_chans[];
- };
- 
-+static int d40_lcla_runtime_get(struct d40_base *base)
-+{
-+	if (!base->lcla_dev)
-+		return 0;
-+
-+	return pm_runtime_resume_and_get(base->lcla_dev);
-+}
-+
-+static void d40_lcla_runtime_put(struct d40_base *base)
-+{
-+	if (base->lcla_dev)
-+		pm_runtime_put(base->lcla_dev);
-+}
-+
-+static void d40_transfer_runtime_put(struct d40_base *base)
-+{
-+	pm_runtime_put_autosuspend(base->dev);
-+}
-+
- static bool chan_is_physical(struct d40_chan *chan)
- {
- 	return chan->log_num == D40_PHY_CHAN;
-@@ -859,7 +881,6 @@ static void d40_log_lli_to_lcxa(struct d40_chan *chan, struct d40_desc *desc)
- 	bool cyclic = desc->cyclic;
- 	int curr_lcla = -EINVAL;
- 	int first_lcla = 0;
--	bool use_esram_lcla = chan->base->plat_data->use_esram_lcla;
- 	bool linkback;
- 
- 	/*
-@@ -912,7 +933,6 @@ static void d40_log_lli_to_lcxa(struct d40_chan *chan, struct d40_desc *desc)
- 	for (; lli_current < lli_len; lli_current++) {
- 		unsigned int lcla_offset = chan->phy_chan->num * 1024 +
- 					   8 * curr_lcla * 2;
--		struct d40_log_lli *lcla = pool->base + lcla_offset;
- 		unsigned int flags = 0;
- 		int next_lcla;
- 
-@@ -936,16 +956,17 @@ static void d40_log_lli_to_lcxa(struct d40_chan *chan, struct d40_desc *desc)
- 		 * One unused LCLA in the cyclic case if the very first
- 		 * next_lcla fails...
- 		 */
--		d40_log_lli_lcla_write(lcla,
--				       &lli->dst[lli_current],
--				       &lli->src[lli_current],
--				       next_lcla, flags);
--
--		/*
--		 * Cache maintenance is not needed if lcla is
--		 * mapped in esram
--		 */
--		if (!use_esram_lcla) {
-+		if (pool->esram) {
-+			/* LCPA and LCLA use the same four-word SRAM layout. */
-+			d40_log_lli_lcpa_write(pool->esram + lcla_offset,
-+					       &lli->dst[lli_current],
-+					       &lli->src[lli_current],
-+					       next_lcla, flags);
-+		} else {
-+			d40_log_lli_lcla_write(pool->base + lcla_offset,
-+					       &lli->dst[lli_current],
-+					       &lli->src[lli_current],
-+					       next_lcla, flags);
- 			dma_sync_single_range_for_device(chan->base->dev,
- 						pool->dma_addr, lcla_offset,
- 						2 * sizeof(struct d40_log_lli),
-@@ -1661,7 +1682,7 @@ static struct d40_desc *d40_queue_start(struct d40_chan *d40c)
- 			d40_desc_done(d40c, d40d);
- 			d40c->pending_tx++;
- 			d40c->busy = false;
--			pm_runtime_put_autosuspend(d40c->base->dev);
-+			d40_transfer_runtime_put(d40c->base);
- 			tasklet_schedule(&d40c->tasklet);
- 			return ERR_PTR(err);
- 		}
-@@ -1717,7 +1738,7 @@ static void dma_tc_handle(struct d40_chan *d40c)
- 		if (d40_queue_start(d40c) == NULL) {
- 			d40c->busy = false;
- 
--			pm_runtime_put_autosuspend(d40c->base->dev);
-+			d40_transfer_runtime_put(d40c->base);
- 		}
- 	}
- 
-@@ -2270,7 +2291,7 @@ static int d40_free_dma(struct d40_chan *d40c)
- 		d40c->base->lookup_phy_chans[phy->num] = NULL;
- 
- 	if (d40c->busy)
--		pm_runtime_put_autosuspend(d40c->base->dev);
-+		d40_transfer_runtime_put(d40c->base);
- 
- 	d40c->busy = false;
- 	d40c->phy_chan = NULL;
-@@ -2646,6 +2667,12 @@ static int d40_alloc_chan_resources(struct dma_chan *chan)
- 	struct d40_chan *d40c =
- 		container_of(chan, struct d40_chan, chan);
- 	bool is_free_phy;
-+
-+	/* Preparation and submission may run with the client's spinlock held. */
-+	err = d40_lcla_runtime_get(d40c->base);
-+	if (err < 0)
-+		return err;
-+
- 	spin_lock_irqsave(&d40c->lock, flags);
- 
- 	dma_cookie_init(chan);
-@@ -2703,6 +2730,8 @@ static int d40_alloc_chan_resources(struct dma_chan *chan)
- 	pm_runtime_put_autosuspend(d40c->base->dev);
-  unlock:
- 	spin_unlock_irqrestore(&d40c->lock, flags);
-+	if (err < 0)
-+		d40_lcla_runtime_put(d40c->base);
- 	return err;
- }
- 
-@@ -2725,6 +2754,10 @@ static void d40_free_chan_resources(struct dma_chan *chan)
- 	if (err)
- 		chan_err(d40c, "Failed to free channel\n");
- 	spin_unlock_irqrestore(&d40c->lock, flags);
-+
-+	/* Keep SRAM powered if stopping the channel failed. */
-+	if (!d40c->phy_chan)
-+		d40_lcla_runtime_put(d40c->base);
- }
- 
- static struct dma_async_tx_descriptor *d40_prep_memcpy(struct dma_chan *chan,
-@@ -2877,7 +2910,7 @@ static int d40_terminate_all(struct dma_chan *chan)
- 	 */
- 	d40_term_all(d40c);
- 	if (d40c->busy)
--		pm_runtime_put_autosuspend(d40c->base->dev);
-+		d40_transfer_runtime_put(d40c->base);
- 	d40c->busy = false;
- 
- 	spin_unlock_irqrestore(&d40c->lock, flags);
-@@ -3047,9 +3080,9 @@ static int d40_set_runtime_config_write(struct dma_chan *chan,
- 
- /* Initialization functions */
- 
--static void __init d40_chan_init(struct d40_base *base, struct dma_device *dma,
--				 struct d40_chan *chans, int offset,
--				 int num_chans)
-+static void d40_chan_init(struct d40_base *base, struct dma_device *dma,
-+			  struct d40_chan *chans, int offset,
-+			  int num_chans)
- {
- 	int i = 0;
- 	struct d40_chan *d40c;
-@@ -3123,8 +3156,8 @@ static void d40_ops_init(struct d40_base *base, struct dma_device *dev)
- 	dev->dev = base->dev;
- }
- 
--static int __init d40_dmaengine_init(struct d40_base *base,
--				     int num_reserved_chans)
-+static int d40_dmaengine_init(struct d40_base *base,
-+			      int num_reserved_chans)
- {
- 	int err ;
- 
-@@ -3201,29 +3234,11 @@ static int __init d40_dmaengine_init(struct d40_base *base,
- #ifdef CONFIG_PM_SLEEP
- static int dma40_suspend(struct device *dev)
- {
--	struct d40_base *base = dev_get_drvdata(dev);
--	int ret;
--
--	ret = pm_runtime_force_suspend(dev);
--	if (ret)
--		return ret;
--
--	if (base->lcpa_regulator)
--		ret = regulator_disable(base->lcpa_regulator);
--	return ret;
-+	return pm_runtime_force_suspend(dev);
- }
- 
- static int dma40_resume(struct device *dev)
- {
--	struct d40_base *base = dev_get_drvdata(dev);
--	int ret = 0;
--
--	if (base->lcpa_regulator) {
--		ret = regulator_enable(base->lcpa_regulator);
--		if (ret)
--			return ret;
--	}
--
- 	return pm_runtime_force_resume(dev);
- }
- #endif
-@@ -3313,7 +3328,7 @@ static const struct dev_pm_ops dma40_pm_ops = {
- 
- /* Initialization functions. */
- 
--static int __init d40_phy_res_init(struct d40_base *base)
-+static int d40_phy_res_init(struct d40_base *base)
- {
- 	int i;
- 	int num_phy_chans_avail = 0;
-@@ -3405,8 +3420,8 @@ static void d40_drop_kmem_cache_action(void *d)
- 	kmem_cache_destroy(desc_slab);
- }
- 
--static int __init d40_hw_detect_init(struct platform_device *pdev,
--				     struct d40_base **retbase)
-+static int d40_hw_detect_init(struct platform_device *pdev,
-+			      struct d40_base **retbase)
- {
- 	struct stedma40_platform_data *plat_data = dev_get_platdata(&pdev->dev);
- 	struct device *dev = &pdev->dev;
-@@ -3592,7 +3607,7 @@ static int __init d40_hw_detect_init(struct platform_device *pdev,
- 	return 0;
- }
- 
--static void __init d40_hw_init(struct d40_base *base)
-+static void d40_hw_init(struct d40_base *base)
- {
- 
- 	int i;
-@@ -3640,13 +3655,9 @@ static void __init d40_hw_init(struct d40_base *base)
- 
- 	/* Write which interrupt to clear */
- 	writel(pcicr, base->virtbase + base->gen_dmac.interrupt_clear);
--
--	/* These are __initdata and cannot be accessed after init */
--	base->gen_dmac.init_reg = NULL;
--	base->gen_dmac.init_reg_size = 0;
- }
- 
--static int __init d40_lcla_allocate(struct d40_base *base)
-+static int d40_lcla_allocate(struct d40_base *base)
- {
- 	struct d40_lcla_pool *pool = &base->lcla_pool;
- 	size_t lcla_size = SZ_1K * base->num_phy_chans;
-@@ -3728,8 +3739,7 @@ static int __init d40_lcla_allocate(struct d40_base *base)
- 	return ret;
- }
- 
--static int __init d40_of_probe(struct device *dev,
--			       struct device_node *np)
-+static int d40_of_probe(struct device *dev, struct device_node *np)
- {
- 	struct stedma40_platform_data *pdata;
- 	int num_phy = 0, num_memcpy = 0, num_disabled = 0;
-@@ -3781,13 +3791,70 @@ static int __init d40_of_probe(struct device *dev,
- 	return 0;
- }
- 
--static int __init d40_probe(struct platform_device *pdev)
-+static int d40_lcla_sram_setup(struct d40_base *base)
-+{
-+	struct device *dev = base->dev;
-+	struct device_node *np, *parent;
-+	struct platform_device *sram;
-+	struct resource res;
-+	bool ready;
-+	int ret;
-+
-+	np = of_parse_phandle(dev->of_node, "sram", 1);
-+	if (!np)
-+		return 0;
-+
-+	ret = of_address_to_resource(np, 0, &res);
-+	parent = of_get_parent(np);
-+	of_node_put(np);
-+	if (ret) {
-+		of_node_put(parent);
-+		return ret;
-+	}
-+	if (!parent)
-+		return -EINVAL;
-+
-+	if (!IS_ALIGNED(res.start, LCLA_ALIGNMENT) ||
-+	    resource_size(&res) < SZ_1K * base->num_phy_chans ||
-+	    res.end > U32_MAX) {
-+		of_node_put(parent);
-+		return dev_err_probe(dev, -EINVAL, "Invalid LCLA SRAM region\n");
-+	}
-+
-+	sram = of_find_device_by_node(parent);
-+	of_node_put(parent);
-+	if (!sram)
-+		return -EPROBE_DEFER;
-+	base->lcla_dev = &sram->dev;
-+
-+	device_lock(base->lcla_dev);
-+	ready = device_is_bound(base->lcla_dev);
-+	device_unlock(base->lcla_dev);
-+	if (!ready)
-+		return -EPROBE_DEFER;
-+
-+	base->lcla_link = device_link_add(dev, base->lcla_dev,
-+					  DL_FLAG_STATELESS);
-+	if (!base->lcla_link)
-+		return -ENOMEM;
-+
-+	/* The SRAM driver owns the containing region. */
-+	base->lcla_pool.esram = devm_ioremap(dev, res.start, resource_size(&res));
-+	if (!base->lcla_pool.esram)
-+		return -ENOMEM;
-+
-+	writel(res.start, base->virtbase + D40_DREG_LCLA);
-+	dev_info(dev, "using LCLA SRAM at %pa\n", &res.start);
-+
-+	return 0;
-+}
-+
-+static int d40_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct device_node *np = pdev->dev.of_node;
- 	struct device_node *np_lcpa;
- 	struct d40_base *base;
--	struct resource *res;
- 	struct resource res_lcpa;
- 	void *dmaenginem_reg_group;
- 	int num_reserved_chans;
-@@ -3844,26 +3911,12 @@ static int __init d40_probe(struct platform_device *pdev)
- 		d40_err(dev, "Failed to ioremap LCPA region\n");
- 		goto report_failure;
- 	}
--	/* If lcla has to be located in ESRAM we don't need to allocate */
--	if (base->plat_data->use_esram_lcla) {
--		res = platform_get_resource_byname(pdev, IORESOURCE_MEM,
--							"lcla_esram");
--		if (!res) {
--			ret = -ENOENT;
--			d40_err(dev,
--				"No \"lcla_esram\" memory resource\n");
--			goto report_failure;
--		}
--		base->lcla_pool.base = devm_ioremap(dev, res->start,
--						    resource_size(res));
--		if (!base->lcla_pool.base) {
--			ret = -ENOMEM;
--			d40_err(dev, "Failed to ioremap LCLA region\n");
--			goto report_failure;
--		}
--		writel(res->start, base->virtbase + D40_DREG_LCLA);
--
--	} else {
-+	ret = d40_lcla_sram_setup(base);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to set up LCLA SRAM\n");
-+		goto destroy_cache;
-+	}
-+	if (!base->lcla_pool.esram) {
- 		ret = d40_lcla_allocate(base);
- 		if (ret) {
- 			d40_err(dev, "Failed to allocate LCLA area\n");
-@@ -3879,26 +3932,6 @@ static int __init d40_probe(struct platform_device *pdev)
- 		goto destroy_cache;
- 	}
- 
--	if (base->plat_data->use_esram_lcla) {
--
--		base->lcpa_regulator = regulator_get(base->dev, "lcla_esram");
--		if (IS_ERR(base->lcpa_regulator)) {
--			d40_err(dev, "Failed to get lcpa_regulator\n");
--			ret = PTR_ERR(base->lcpa_regulator);
--			base->lcpa_regulator = NULL;
--			goto destroy_cache;
--		}
--
--		ret = regulator_enable(base->lcpa_regulator);
--		if (ret) {
--			d40_err(dev,
--				"Failed to enable lcpa_regulator\n");
--			regulator_put(base->lcpa_regulator);
--			base->lcpa_regulator = NULL;
--			goto destroy_cache;
--		}
--	}
--
- 	writel_relaxed(D40_DREG_GCC_ENABLE_ALL, base->virtbase + D40_DREG_GCC);
- 
- 	pm_runtime_irq_safe(base->dev);
-@@ -3954,22 +3987,18 @@ static int __init d40_probe(struct platform_device *pdev)
- 		dma_unmap_single(base->dev, base->lcla_pool.dma_addr,
- 				 SZ_1K * base->num_phy_chans,
- 				 DMA_TO_DEVICE);
--
--	if (!base->plat_data->use_esram_lcla &&
--	    !base->lcla_pool.base_unaligned && base->lcla_pool.base)
-+	if (!base->lcla_pool.base_unaligned && base->lcla_pool.base)
- 		free_pages((unsigned long)base->lcla_pool.base,
- 			   base->lcla_pool.alloc_order);
- 
- 	kfree(base->lcla_pool.base_unaligned);
--
--	if (base->lcpa_regulator) {
--		regulator_disable(base->lcpa_regulator);
--		regulator_put(base->lcpa_regulator);
--	}
-+	if (base->lcla_link)
-+		device_link_del(base->lcla_link);
-+	if (base->lcla_dev)
-+		put_device(base->lcla_dev);
- 
-  report_failure:
--	d40_err(dev, "probe failed\n");
--	return ret;
-+	return dev_err_probe(dev, ret, "probe failed\n");
- }
- 
- static const struct of_device_id d40_match[] = {
-@@ -3978,15 +4007,17 @@ static const struct of_device_id d40_match[] = {
- };
- 
- static struct platform_driver d40_driver = {
-+	.probe = d40_probe,
- 	.driver = {
- 		.name  = D40_NAME,
- 		.pm = &dma40_pm_ops,
- 		.of_match_table = d40_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- 
- static int __init stedma40_init(void)
- {
--	return platform_driver_probe(&d40_driver, d40_probe);
-+	return platform_driver_register(&d40_driver);
- }
- subsys_initcall(stedma40_init);
-
----
-base-commit: becfc375b0ee95818c531ed43ecda26c90f7617a
-change-id: 20261115-ux500-dma40-powerdomain-135a566b03ff
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
-
+> This series introduces a read-only Kexec Handover mode, enabled at boot
+> via 'kho_ro=<pa>' pointing to the physical address of the KHO FDT.
+>
+> In standard KHO, the outgoing kernel shuts down or serializes all
+> devices into LUO state, releases machine control, and passes the KHO
+> FDT physical address through the kexec_file_load() reboot path to the
+> next kernel, which becomes the sole "Machine Owner" (MO), initializes
+> struct pages for preserved folios during early boot, and reclaims KHO
+> metadata and preserved pages back into the page allocator as they are
+> restored.
+>
+> In the "Linux Caretaker" (LC) model (as well as inspection kernels or
+> firmware), a minimal LC kernel runs concurrently on dedicated CPUs
+> offlined from the MO scheduler while MO is still active or undergoing a
+> standard KHO-preserved kexec reboot (Live Update). LC is given
+> read-only access to KHO so a minimal VMM inside LC can keep VMs
+> responsive (<30ms VM blackout time) by servicing software-only, fully
+> virtualized devices (such as virtio-console, pvpanic, virtio-rng, etc.)
+> that do not require host hardware interrupts or global machine state,
+> while leaving the preserved KHO tree intact for the incoming MO kernel
+> to retrieve normally once it boots.
+>
+> LC is never MO: it has no PCI support, does not handle device
+> interrupts, and is booted inside a small LUO-preserved memfd region
+> (e.g., ~128MB of RAM on a host with terabytes of memory). Because LC's
+> direct map only covers its own small memory footprint (both for
+> isolation and to avoid struct page overhead for host memory), the KHO
+> FDT, radix tree, and preserved memory all reside outside of LC's direct
+> map. Furthermore, because LC is configured and launched from userspace
+> while MO is still running rather than through a kexec reboot handoff
+> from a shutting-down kernel, userspace reads the KHO FDT physical
+> address from /sys/kernel/debug/kho/out/fdt_phys and explicitly passes
+> 'kho_ro=<pa>' on LC's kernel command line.
+>
+> Both CONFIG_KEXEC_HANDOVER and CONFIG_KEXEC_HANDOVER_READONLY can be
+> compiled into the same kernel image, with the active mode selected at
+> boot via the kernel command line ('kho=on' vs 'kho_ro=<pa>'; passing
+> 'kho_ro=<pa>' disables regular KHO).
+>
+> Overview of the series:
+> - Patch 1 exposes the physical address of the outgoing KHO FDT via
+>   /sys/kernel/debug/kho/out/fdt_phys so userspace tooling can pass it
+>   to a 'kho_ro=<pa>' kernel.
+> - Patch 2 moves the shared radix-tree key encoding, indexing, leaf
+>   lookup (kho_radix_find_leaf()), FDT validation, and
+>   kho_retrieve_subtree() helpers into a shared
+>   kernel/liveupdate/kexec_handover_common.c compilation unit with
+>   declarations in kernel/liveupdate/kexec_handover_internal.h, while
+>   also checking that fdt_totalsize(fdt) does not exceed PAGE_SIZE in
+>   kho_check_fdt() and using get_unaligned() for 64-bit FDT property
+>   reads in kho_retrieve_subtree().
+> - Patch 3 hardens kho_restore_vmalloc() and factors out shared vmalloc
+>   helpers by introducing kho_vmalloc_validate() and kho_vmalloc_walk()
+>   in kernel/liveupdate/kexec_handover_common.c to validate the
+>   preservation metadata header and walk the chunk list.
+> - Patch 4 avoids modifying ser->next and bs->head_pa in kho_block_add()
+>   and kho_block_set_shrink_one() when operating on an incoming block
+>   set, as the chain is already linked and incoming blocks must not be
+>   modified in KHO read-only mode.
+> - Patch 5 adds CONFIG_KEXEC_HANDOVER_READONLY and
+>   kernel/liveupdate/kexec_handover_ro.c. When booted with
+>   'kho_ro=<pa>', the KHO FDT is mapped and validated once in an
+>   early_initcall, and radix-tree nodes, leaves, and folio/vmalloc
+>   mappings are cached on first visit in a unified RCU-protected hash
+>   table for the lifetime of the read-only KHO kernel, providing
+>   kho_is_ro(), kho_ro_lookup_folio_order(), kho_ro_map_folio(), and
+>   kho_ro_map_vmalloc().
+> - Patch 6 wires read-only KHO mode into KHO core (kho_populate(),
+>   kho_memory_init(), and kho_retrieve_subtree()).
+> - Patch 7 updates kho_block to map incoming serialized blocks read-only
+>   via kho_ro_map_folio() in read-only KHO mode.
+> - Patches 8 and 9 extend test_kho and tools/testing/selftests/kho/vmtest.sh
+>   to build a single kernel with both CONFIG_KEXEC_HANDOVER=y and
+>   CONFIG_KEXEC_HANDOVER_READONLY=y and test both standard KHO and
+>   read-only KHO handover when preserved memory lies outside the boot
+>   kernel's initial memory range on x86_64 and arm64.
+>
+> This series is based on liveupdate/next commit 27be83a12b24 ("Merge
+> branch 'lu-pci-preservation' into next").
+>
+> Changelog:
+> v2:
+> - Expand the cover letter with the LC architecture, explaining why
+>   'kho_ro=<pa>' takes the FDT physical address on the command line and
+>   describing the expected users of the read-only KHO APIs (Suggested by
+>   Mike Rapoport).
+> - Patch 2 (Suggested by Mike Rapoport):
+>   - Move the shared radix-tree, FDT, and subtree retrieval helpers into
+>     a dedicated kernel/liveupdate/kexec_handover_common.c file instead
+>     of static inline functions in
+>     kernel/liveupdate/kexec_handover_internal.h, and factor out
+>     kho_radix_find_leaf() for radix leaf lookup.
+>   - Check that fdt_totalsize(fdt) does not exceed PAGE_SIZE in
+>     kho_check_fdt(), drop the "setup: " log prefix from FDT validation
+>     warnings, and use get_unaligned() when reading 64-bit FDT properties
+>     in kho_retrieve_subtree().
+> - Patch 3:
+>   - Move kho_flags_to_vmalloc() to kexec_handover_common.c alongside
+>     kho_vmalloc_validate() and add a shared kho_vmalloc_walk() chunk
+>     walker used by both kho_restore_vmalloc() and kho_ro_map_vmalloc().
+> - Patches 5 and 6:
+>   - Allow CONFIG_KEXEC_HANDOVER and CONFIG_KEXEC_HANDOVER_READONLY to be
+>     compiled into the same kernel image and select the active mode via
+>     the kernel command line ('kho_ro=<pa>' forces regular KHO disabled).
+>   - Split the KHO core integration (kho_populate(), kho_memory_init(),
+>     and kho_retrieve_subtree()) into a separate patch (Patch 6) so
+>     Patch 5 only introduces the read-only KHO backend.
+>   - Map and validate the KHO FDT and preserved-memory-map root once in
+>     an early_initcall so kho_ro_get_fdt() and kho_retrieve_subtree() do
+>     not sleep or map lazily.
+>   - Replace kho_ro_restore_vmalloc() (which allocated RAM and copied
+>     pages) with kho_ro_map_vmalloc() to map preserved kho_vmalloc
+>     regions read-only in place using kho_vmalloc_walk().
+>   - Cache radix-tree node, leaf, folio, and vmalloc mappings in a
+>     unified RCU-protected hash table (kho_ro_map_ht) keyed by address,
+>     size, and protection for the lifetime of the read-only KHO kernel,
+>     and drop kho_ro_unmap().
+> - Patch 9:
+>   - Build the kernel and initrd only once in vmtest.sh with both
+>     CONFIG_KEXEC_HANDOVER=y and CONFIG_KEXEC_HANDOVER_READONLY=y
+>     enabled, running both the standard KHO test and the read-only KHO
+>     test on the same kernel image.
+> Link: https://lore.kernel.org/all/20261019021111.990394-1-pasha.tatashin@soleen.com/ # v1
+>
+> Pasha Tatashin (9):
+>   kho: expose physical address of outgoing FDT
+>   kho: move radix tree and FDT helpers to common file
+>   kho: validate preservation metadata in kho_restore_vmalloc()
+>   kho: do not modify incoming serialized blocks
+>   kho: add read-only Kexec Handover mode
+>   kho: support read-only KHO mode in KHO core
+>   kho: support read-only KHO mode in kho_block
+>   kho: test: support read-only KHO mode in test_kho
+>   selftests: kho: add read-only KHO test to vmtest.sh
+>
+>  .../admin-guide/kernel-parameters.txt         |   8 +
+>  Documentation/admin-guide/mm/kho.rst          |   3 +
+>  Documentation/core-api/kho/index.rst          |   6 +
+>  include/linux/kexec_handover.h                |  44 +-
+>  kernel/liveupdate/Kconfig                     |  10 +
+>  kernel/liveupdate/Makefile                    |   3 +-
+>  kernel/liveupdate/kexec_handover.c            | 284 +++---------
+>  kernel/liveupdate/kexec_handover_common.c     | 298 ++++++++++++
+>  kernel/liveupdate/kexec_handover_debugfs.c    |  22 +-
+>  kernel/liveupdate/kexec_handover_internal.h   |  47 +-
+>  kernel/liveupdate/kexec_handover_ro.c         | 429 ++++++++++++++++++
+>  kernel/liveupdate/kho_block.c                 |  78 +++-
+>  lib/Kconfig.debug                             |   2 +-
+>  lib/test_kho.c                                |  71 ++-
+>  tools/testing/selftests/kho/arm64.conf        |   1 +
+>  tools/testing/selftests/kho/init.c            |  38 +-
+>  tools/testing/selftests/kho/vmtest.sh         |  65 ++-
+>  tools/testing/selftests/kho/x86.conf          |   1 +
+>  18 files changed, 1121 insertions(+), 289 deletions(-)
+>  create mode 100644 kernel/liveupdate/kexec_handover_common.c
+>  create mode 100644 kernel/liveupdate/kexec_handover_ro.c
+>
+>
+> base-commit: 27be83a12b246b6b3783e7d3ac5c378ff7520f25
+> -- 
+> 2.56.0.307.g5fe7bd680c-goog
