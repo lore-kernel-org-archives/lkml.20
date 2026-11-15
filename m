@@ -1,101 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794750569;
-	b=x9nGA91h4tcZjYoYcdocmhVhp6FAPC3Ppw0OEMO844k+h74G18vuJT3y5vLicAFbnXkG
-	 OiVty75DXJsnFQP+WhW68soauCeQPksMyXd1uAsoUOeXX+I0uyVJoGTBHEuGSqCgIU6zH
-	 pkfb75CGpKnDYHGA1wzvPnuI8OPjhEBBOnEXhm4ZjsLlua70mpA0avp0IvANZHWU9K/fa
-	 cLxXnj9XO4N6xk5qg4sQkAANM1X2eWW4GtXxEGYLr4TZXrSCusQF8uqr12Iw6AAufmNJE
-	 /7AE+HwHdl8SCt49hTEvAFv0G1OvCMuSO8DTYFBUihJaVDB0xflvJVC7J4q3mJqGlhA==
+	t=1794750689;
+	b=M4GrgkOcKmTzSAognyRneIc0SvwLqRoB9GDTo9kgjOKolWfc5n4lVtyn8/8qwmrISoUR
+	 m01ykCl+x4WLZx0hH/fW02ApR/SD4gAx9Icw/H/t7RVcXAQ+chrv7fn2Mf4Ib0whlUhi2
+	 16ayWkHzSTYbzA3OxytZCM8DmMXZuNE++CmuPN9T5aDm4s/1T+QlGOdPmouH+3X9c/QPI
+	 2tcwJM01aW1jjrJjHAzroV8RmS/2vYtUw7aKKOsVMfoQ7h1LlR3R6EcdAeyS3i0ds8arR
+	 rMtXEZLHFmy7xkGsNK8Z5w9G3lcKAToRpjVRXJVbz8SxcQe2OMPhT8Dok30HvwS3ltQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794750569;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CIMU95vHnqa1nwXCV6m6LvgiRUwW6SKBilk+Lblrfz8=;
-	b=yZWqhBkAsXyjZPT9v2BfFA2bOG1MFWfNxxzuoheL5ifFvEsC5w4f1pm609tIKzX32YoK
-	 sYut/FYGH9KqYwY0nYMItbpCMi9fGZPiV6cpf3CU20pKnJTlBe4R9vXVJtTQYkF+yRmZT
-	 sATQDZo18F70sNUheBEoI4w+WglJrph7a1te1b+pw+/yNudyQ5wPlnS75ZFhp74hKhno+
-	 U3a0cK787fQ48jpUncogw3Ia9OD80oyG/CGjd8tHeBl54HvD6Uuz154sM40f921cj3qKy
-	 Q08VNKi0daYNedCR+NvKwWvCRPr/0tYvzW39k1TIvdIVRlCymJlXCGLh93iT5Zl4C1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794750689;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2f/XyUW0oOhGaKE1DlyYgsVR8D2NP5OeQR1z9DlMLFk=;
+	b=yPga3QAq35GjCpEKW82HpAB+fT8LUQAc1DiKfW0H8BdsidMqQftUfSCE1cPcOPBj1OAh
+	 T/FOqwghwGvpGzumMm8KmwyuPfXAzqV85O6O0j/EF0z9V37YNb9UhS2TJih8zon7qSqEF
+	 7dJVylh7fFKK4HHM+1P6wcXQG3XqRs6VpBOQY1CNnSoTJir8bDjDhboQXPw0SGrpEanau
+	 i86n0yVHHf6TGmt6hThcRjWFpICdnCG5XjJiaEI+sHSEbTg+qvCQ9w/TwG/5Ma9FRudrt
+	 YopORH0l1d2qvGnBXGZyiWllbep025zkQiXIYZCLXUlnXCA5wy7m6RfKmfhLT7NCo3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AnOtCXqi;
-	arc=none smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD3XwZC1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C5F606A882
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:49:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C5F606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B26606A31A;
+	Sun, 15 Nov 2026 13:51:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AnOtCXqi
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4291446a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:49:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794750567; x=1795355367; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CIMU95vHnqa1nwXCV6m6LvgiRUwW6SKBilk+Lblrfz8=;
-        b=AnOtCXqim/fJfNWxuMpDEXkZ4wmtzv8RFwJ30ImPROwIedf9E2qrWRopIrtzvpUp3b
-         585athtjSaQvFX90AYqLOI8FPluQISyBIRQbO+2HrmJj+fXYYDIT2hSIKvp6eyu4dQxC
-         sab1WyIKsWjfbR0vZ0lhLKE/S378NjgadqXqkG24WAhAoOpV50ZHpVzSF5bZl1HYupo3
-         nse53SoYQpPS1RXhUqKlaaIaKABt3jWmiJ9bvDcmXbnF5pMrV2EtbNj5nejxAt+H8/M8
-         JMR5SG/93IzwJ0GThy4qyKjt5mzpGDerfb6ZIgqrlO9Wto+D2tVuo88IMqEjaz1CkXQI
-         PMXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794750567; x=1795355367;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CIMU95vHnqa1nwXCV6m6LvgiRUwW6SKBilk+Lblrfz8=;
-        b=xFF+7evVEwZl9baJrWA04gu3SYbnXhbVniCbzzTF3PstlwK1Gkktxdom521q0zx+zj
-         Y22cMKtUFdbS2QPmzyez3cdUbF+4Tk5x/4LxDAWsBghpmaV0+8ihekKcuyzXLXuZ9C3K
-         UD3mi+FiFffIYcQldCThTgZSbedwtiQWyOcc9WvFdhckRzhSRRahpT9b0RmAd/wE9tKc
-         NpC2ijWY/XUUcm5OOMe6H0HBdKgnJgEMGmZUsNvJv4bW6Lg4BgUv+Wutlt70OQ1jWAA8
-         TE3cBLqgbdSJ4DCAM1ODg5EGPDEjalg3Bm8mPxc0cEiE9m6Pzu062vW27aFrd6hMBtQN
-         H8bA==
-X-Forwarded-Encrypted: i=1; AL+hErE2GE+1qnajBkNl96DDOAVZpIQ6UTDyAUCZP303ufzP5JD8gsLhWDD1jdo7LE3pd76ZbQF8a0nmgROuq1U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WgH2cB6SKnOALxDbQvswR+ufeV2LqVCkU7R8P2PVwpbYdFnsT
-	aiJhVrPcbkC2aT5hj93azEwByqYf+dsGnfHtPCrWixVCF3lE4q1V+G7M
-X-Gm-Gg: AYBFou0nlVJpgwg8S1qfrMJX3/gStN3kr5FtbIu+48xWgWoin6nivu9y5gSBA1vPhSu
-	y8p7FmneSWbUqKuuDuOwhVniCxYf6Fa1hzQidSXSaHkkG0jy4qqj8M9wk2jnnQkTo7seQ7v8I64
-	qW+bQiEzus+LSACFoUHKf8pBXsyJNm8VC6ZGpSHHqS5C5K/TrcNK4M3LldCd8/I8gWdo+8iPYho
-	P5Ki6DoaReWZtT7fJ1PXPFkThM7jTUhQRp8zYSSLDY88+kYBRH97s05WtgmA6SjS7Ubu+9KhKnv
-	AwAp08oGh5+emsHaJlbWHmFuftI5IT5cMm0ar5FctjbcpNa+JmKZovV0lSW0cIuZadVNToodthM
-	5Vi2F2v11gyIEFER7Y/ZXSCQ1GSqpvEacbV00FX+HQ4/9iwX4hUZm/GkAPDPJA+yGPWw8MwBypU
-	C4wR1Fvem5rTMz1u9FrYf2D5Ht1RX7G7h94hwxku7UXNELHVmMYjc9A8ZY83L//NKCuQAUUNrck
-	8VflOn8XmQiugeGo8TAXrx/zfdzeMtMWaKys6/s3ROpAD7otQB6dffmByVGjvKLbytnZHMu5DWD
-	A+bky/pEF+COg8lFehej0KeCsl6D7DcpflBN8ZHfQRG880n/DdKX6VHjrwR0QA==
-X-Received: by 2002:aa7:cc03:0:b0:6b7:28f:a3ac with SMTP id 4fb4d7f45d1cf-6b7c0957d81mr4194728a12.7.1794750566981;
-        Sun, 15 Nov 2026 05:49:26 -0800 (PST)
-Received: from kordpc.lan ([2a13:e746:396c:c60c::8f9])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c25deb10sm3386556a12.30.2026.11.15.05.49.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 05:49:26 -0800 (PST)
-From: Kordian Chmielewski <kudzo51@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	bcm-kernel-feedback-list@broadcom.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3 3/7] net: bcm4908_enet: release the TX ring on stop
-Date: Sun, 15 Nov 2026 14:49:23 +0100
-Message-ID: <20261115134923.55351-1-kudzo51@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261113235847.517308-4-kudzo51@gmail.com>
-References: <20261113235847.517308-4-kudzo51@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD3XwZC1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E671F000C4;
+	Sun, 15 Nov 2026 13:51:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794750688;
+	bh=2f/XyUW0oOhGaKE1DlyYgsVR8D2NP5OeQR1z9DlMLFk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lD3XwZC1dIsekgv2Ix3LkYPoKVHdbTFRizPAb/500M+htFfXbkvahH+8MvKfNkKfM
+	 oFGR1VVxXzuXCQ5B7CNJs36qSwDQIqtSBg5qgIgT3ZkWeFGjdU61nhDm3y7lokgonU
+	 SIQk0h+zzH51ewwrEP/S9d2id2WNW68iO+REkwV/vaA10fGFAZccuYnhpDBqz8FHqR
+	 gg3FS7JVbqdl8POUypsOpJ5LIv6euGkMldGwzfUCt+ca81PAwIMEkoL+6iNV6SeLRJ
+	 yrZxpDi3M0+5t4JUON6dZbev4PlchTB4bf7ldpHiX/Ru50MS9Cfo+ZN9Tb5NYER3x9
+	 WodcIGccUo6vA==
+Date: Sun, 15 Nov 2026 15:51:23 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Artemy Kovalyov <artemyko@mellanox.com>,
+	Yishai Hadas <yishaih@mellanox.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] RDMA/mlx5: Fix UAF after DEVX DCT create failure
+Message-ID: <20261115135123.GD42525@unreal>
+References: <20261111105346.3220427-1-lee@jaeyeong.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,29 +57,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111105346.3220427-1-lee@jaeyeong.cc>
 
-Sashiko's review of this patch [1] attributes one Medium point to it:
-when the TX channel does not stop in time, the skbs left in the ring
-leak, and on unbind bcm4908_enet_dma_free() frees the slots and the
-descriptor ring while the channel may still be running. It suggests
-forcing the channel idle with ENET_DMA_CTRL_CHANNEL_RESET or by clearing
-MASTER_EN, and then cleaning the ring.
+On Wed, Nov 11, 2026 at 10:53:54AM +0000, Jaeyeong Lee wrote:
+> The DEVX object create handler destroys and frees a hardware object itself
+> when copying the command output or setting up an indirect mkey fails.
+> 
+> For DCT objects, mlx5_core_destroy_dct() can fail while leaving the DCT in
+> qp_table.dct_xa. The error is ignored and the enclosing devx_obj is freed.
+> A later DCT_DRAINED event then loads the stale xarray entry and calls
+> complete() on freed memory.
+> 
+> Mark the uobject as holding a valid hardware object immediately after the
+> DEVX object is initialized. Let the uverbs abort path invoke
+> devx_obj_cleanup() for subsequent failures. If hardware destruction fails,
+> rdma_alloc_abort_uobject() commits the uobject instead of freeing it. This
+> keeps the object alive for cleanup at file close.
+> 
+> A KASAN QEMU reproducer that forces DRAIN_DCT to fail and delivers a
+> DCT_DRAINED event reports:
+> 
+>   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
+>   complete
+>   rsc_event_notifier
 
-The leak after a timeout is on purpose, and the changelog says so. The
-review of v2 suggested either forcing a reset or leaking the buffers.
-I don't know what a channel reset does to a transfer in flight, so I
-chose the leak: it costs memory, but the DMA never reads a freed skb.
-The timeout never fired in my tests; every stop, all made while the
-router was sending at line rate, finished in time. The unbind path is
-older than this patch: before it, stop() did not wait for the TX
-channel at all, and bcm4908_enet_dma_free() kfree()d the slot array
-with the skbs still in it.
+Please resubmit the patch with the full dmesg output and a clear explanation of
+what it fixes.
 
-The review also points out that RX has the same problem the other way
-round: bcm4908_enet_dma_rx_ring_disable() only warns on a timeout, and
-stop() frees the RX buffers anyway, while the DMA may still write into
-them. That one is older too, and I'll add it to the follow-ups, next to
-the ignored dma_init() error in open().
+Thanks
 
-[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113235847.517308-1-kudzo51%40gmail.com
+> 
+> The issue was found with a static analysis tool. OpenAI Codex assisted with
+> reproducer validation and patch preparation.
+> 
+> Fixes: c5ae1954c47d3 ("IB/mlx5: Use mlx5 core to create/destroy a DEVX DCT")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+> ---
+>  drivers/infiniband/hw/mlx5/devx.c | 14 +++-----------
+>  1 file changed, 3 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5/devx.c
+> index fc6f793dcc658..037c2b6ff9714 100644
+> --- a/drivers/infiniband/hw/mlx5/devx.c
+> +++ b/drivers/infiniband/hw/mlx5/devx.c
+> @@ -1535,7 +1535,6 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_CREATE)(
+>  	struct mlx5_ib_ucontext *c = rdma_udata_to_drv_context(
+>  		&attrs->driver_udata, struct mlx5_ib_ucontext, ibucontext);
+>  	struct mlx5_ib_dev *dev = to_mdev(c->ibucontext.device);
+> -	u32 out[MLX5_ST_SZ_DW(general_obj_out_cmd_hdr)];
+>  	struct devx_obj *obj;
+>  	u16 obj_type = 0;
+>  	int err, err2 = 0;
+> @@ -1613,10 +1612,11 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_CREATE)(
+>  	devx_obj_build_destroy_cmd(cmd_in, cmd_out, obj->dinbox, &obj->dinlen,
+>  				   &obj_id);
+>  	WARN_ON(obj->dinlen > MLX5_MAX_DESTROY_INBOX_SIZE_DW * sizeof(u32));
+> +	uverbs_finalize_uobj_create(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_HANDLE);
+>  
+>  	err = uverbs_copy_to(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_CMD_OUT, cmd_out, cmd_out_len);
+>  	if (err)
+> -		goto obj_destroy;
+> +		return err;
+>  
+>  	if (opcode == MLX5_CMD_OP_CREATE_GENERAL_OBJECT)
+>  		obj_type = MLX5_GET(general_obj_in_cmd_hdr, cmd_in, obj_type);
+> @@ -1625,18 +1625,10 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_CREATE)(
+>  	if (obj->flags & DEVX_OBJ_FLAGS_INDIRECT_MKEY) {
+>  		err = devx_handle_mkey_indirect(obj, dev, cmd_in, cmd_out);
+>  		if (err)
+> -			goto obj_destroy;
+> +			return err;
+>  	}
+>  	return 0;
+>  
+> -obj_destroy:
+> -	if (obj->flags & DEVX_OBJ_FLAGS_DCT)
+> -		mlx5_core_destroy_dct(obj->ib_dev, &obj->core_dct);
+> -	else if (obj->flags & DEVX_OBJ_FLAGS_CQ)
+> -		mlx5_core_destroy_cq(obj->ib_dev->mdev, &obj->core_cq);
+> -	else
+> -		mlx5_cmd_exec(obj->ib_dev->mdev, obj->dinbox, obj->dinlen, out,
+> -			      sizeof(out));
+>  obj_free:
+>  	kfree(obj);
+>  	return err2 ?: err;
+> 
