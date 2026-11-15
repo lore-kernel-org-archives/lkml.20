@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794775163;
-	b=oamEbQDWxSImzWD+yPpcU4OsggrjV3VhB4OmW97PQgPtyxyBugcGAcWlbFUfeXsoS+oO
-	 RNF2acXrJsjbRdqSzrwm+mXB0g9T9EKZ0fIFd76Uqxf5W/+txfDbuqZRbQr9BBrZlVQlz
-	 fNiKJuhBqQrATDPlNdolMFXyMIqUBC5XBkae0n5wZX10V6mSFwzfYz0yKE4+W5WaaTusM
-	 ReWgavVN9+3qxuuAnefq3rVFLfWx13MfWbUj+JT+sWhvYmmKYDSWc/UWwEbDcU8rVpBwW
-	 unQrogIcKbzT6gWeSno690B5gv2hVU3SOO2bbIQapc5jftjE876u941CDB/DSAncn8Q==
+	t=1794775496;
+	b=hcTA9xJvxFmnoKd6ujuFB4g9+w5ZsoUIAbNlkHOQMLu9mE3Y45WW2l2leUCBeUCFu3rS
+	 mtn151zYX//ZBhTLknxYngIr9dwd/veXWtSsS476NpTuJ8CEtAb0uWNuUgOqs4/Awr70N
+	 Ph/jY/oHUvS9zc7G3aZ/+bdINEzk1lrxgpUZm21nLSZzTfOEQiajT++qQrlHDXVgU6lLb
+	 s6sbCkLfrqxJPAeTmFW/58Fr2dD3tYh+OlccIbSQXSOx0I7qVKUFm4X+UooaTXsNZM+rm
+	 YQ/o1gNMhFPhjCfC8YHPQI8e4jFkghW3jRrv4zHwKUX92bHADUg7zfRrPjDRY1jCSzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794775163;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=aGe6G0xKdhfQY0JtnV5P5L35DOTPKkJKnFisezZeybM=;
-	b=Xd6ouLz6MZb/Ln1l+SM68QG7T4UfW9Ip7oBilsGiIbBJSzboMpKQO4MqXHBij527WszM
-	 ZK3pbBDcmbvuyVDpNMaYILualCojltFlvnqJT1NqXp0buoC3BwLkZftpqLBvTcAWzZrAN
-	 F2bPdU+jQSUjgFf2LfoSrdxIxpHnmyifq+6/QKFBJXxxzizJND8r6/zwzjLS+uNq83kG6
-	 xOlE/9o5RMX87WeHy4FXv58qSJH+u9zasCSJByc+fNWIReK9S5VJuM72TyI8EE2jHoSDE
-	 noroy9blJdxG+X3/1tw9UTsoKQNqizPhp8NFAXhsYbuk4L2cgnPM6gwzN7rnDJjpNcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794775496;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=6H/ZfWTUyIQTMWA2fhwX+YwMOS18lui744hS2pyAkBU=;
+	b=MTgviYt8rrrlJcbOWSpyPDoj74VuU1KdL171XwX/3nWj6TKRgl5KvAwfhIhUidvNTkH1
+	 oDE5RMobWMm+rr/SE1SiyO+sRPLDCbVRdlHKMD9pqzZ/3dKlB/l/7I2hLuj9WrlWPWxvK
+	 T4uCq9bgJoZGMh2QeNqeaVQHe3hbfrQm1Nuuzwfd8UlJal64E5agbP6vI/0rMzN+RCcja
+	 1rWfgW4id+V1VyPX0Rlh2XcNQB+2HWHNZBArWHrcKS2y9l9wDLYrYU9nrNJb8wT8dBoQZ
+	 ZfVAw+YO4swiSjTjs0+tInBZNvJiueJQ3yuoNsYM4i03XmNk36WIJbzPPfprN304GTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B6f9qJgm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZgAGJiAB;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CACD606A323;
-	Sun, 15 Nov 2026 20:39:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78542606A331;
+	Sun, 15 Nov 2026 20:44:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78542606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B6f9qJgm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264021F000C4;
-	Sun, 15 Nov 2026 20:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794775162;
-	bh=aGe6G0xKdhfQY0JtnV5P5L35DOTPKkJKnFisezZeybM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B6f9qJgm/CcFJIUl3lq6ZZARB7LEAnB7sbDNpc641VS6e5nH21oGU+oXBr6lonRZ6
-	 Y1XvCOS0ETx7UkID+yiB2Xl1n7s8td0+tzETfSNtS3SqFxez+jnaxtBWJfGIvn7SD3
-	 A50zMMmq3fvwebmJMLmc9ZHmjipqN+jFePnTlUfbgfp8bF+bMaQmiVqvx3ujgD1To0
-	 XbcXAQCmqc4N3eiIUcN07T0QMkXjAJt0bpAuZufZX/TNXLt53/q4rGNgXIQQoci1F+
-	 IQ+3zE3L0uWcylFggbjMx8xtz0eOQzBUlbnrNViW7pvgEzHRcMNzjFDMF6LPtxjrqJ
-	 wnOjcskm8UV3Q==
-Subject:
- Re: [PATCH net] net/rds: tcp: bound the message length announced by the peer
-From: netdev-bot+sashiko@kernel.org
-To: weidongw@illinois.edu
-Cc: achender@kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, zijie4@illinois.edu
-Date: Sun, 15 Nov 2026 20:39:21 +0000
-Message-ID: <179477516170.3136.3481236029450144068@kernel.org>
-In-Reply-To: <20261111-h047-send-v1-1-2727a38dbfcd@illinois.edu>
-References: <20261111-h047-send-v1-1-2727a38dbfcd@illinois.edu>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZgAGJiAB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794775496; x=1826311496;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=t9q7P458xE1DAAzTT8YmArYQrAmOpeaMBGCFeonz75w=;
+  b=ZgAGJiABGOHdEfiYwwybTMWhL7goUSvPCH3OmGYBZQxzBLw3652grPZ6
+   3VUHsyM/AOLIZA94tPTsFNOs0pUTEBs1zcciQswvuwT4IxiATQbplK/ID
+   /zDg/qSmYjEq+t81gVqMxUwIMbojgB6e092dIUwO8wu39jPFBiQ3+Wx8b
+   ojWDeVuLukDG8l0cXWRC6YKv5ZiPaQyEnh0yOVE1nSF/t/gREj3g+20/K
+   a9LSvia5Jj2zfj6MU/ddBvlYrDAitzetT7mvHgvwUBrBlR5dkQ0CHknqo
+   bFD4jYIOX7PiVhdAYbeXE/HmvHuGh6bDijlIwkZHh07zxX2XQd8QFqQVs
+   w==;
+X-CSE-ConnectionGUID: jnNZdLWhQZ6uy8pmJx5tKg==
+X-CSE-MsgGUID: IijmjTuPRCGGgU97TMJiwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3501654"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3501654"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 12:44:55 -0800
+X-CSE-ConnectionGUID: tuBMvxGOSPOkyB7OPTsXpA==
+X-CSE-MsgGUID: elTB1/WFSOCf9ocxwmlAiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9808870"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 15 Nov 2026 12:44:52 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSh5k-000000017Iq-0ij2;
+	Sun, 15 Nov 2026 20:44:48 +0000
+Date: Mon, 16 Nov 2026 04:44:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Waiman Long <longman@redhat.com>,
+	Ryan Houdek <Sonicadvance1@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-api@vger.kernel.org, kernel-dev@igalia.com,
+	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH v8 10/10] futex: Use new robust list API internally
+Message-ID: <202611160419.vIdH20Tu-lkp@intel.com>
+References: <20261115-tonyk-robust_futex-v8-10-a4fe47333a28@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,137 +92,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261115-tonyk-robust_futex-v8-10-a4fe47333a28@igalia.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi André,
 
-Critical: 0 Â· High: 0 (1) Â· Medium: 1 Â· Low: 0
+kernel test robot noticed the following build warnings:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+[auto build test WARNING on 9f74092fda91ef93c2b07585785c1dc83cd7971f]
 
-- [Medium] After the new check in rds_tcp_data_recv() fires, the receive
-  path stops consuming data altogether, and this breaks the drain loopâ€¦
+url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/futex-Skip-test_futex_robust_unlock-if-not-supported/20261115-143110
+base:   9f74092fda91ef93c2b07585785c1dc83cd7971f
+patch link:    https://lore.kernel.org/r/20261115-tonyk-robust_futex-v8-10-a4fe47333a28%40igalia.com
+patch subject: [PATCH v8 10/10] futex: Use new robust list API internally
+config: x86_64-allnoconfig (https://download.01.org/0day-ci/archive/20261116/202611160419.vIdH20Tu-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160419.vIdH20Tu-lkp@intel.com/reproduce)
 
-Pre-existing issues:
-- [High] The patch does not cover the RDS IB/RDMA receive path, which has
-  the same flaw it fixes for TCP: the peer-announced h_len is neverâ€¦
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611160419.vIdH20Tu-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> kernel/futex/syscalls.c:75:6: warning: variable 'head' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+      75 |         if (index >= 0) {
+         |             ^~~~~~~~~~
+   kernel/futex/syscalls.c:85:9: note: uninitialized use occurs here
+      85 |         return head;
+         |                ^~~~
+   kernel/futex/syscalls.c:75:2: note: remove the 'if' if its condition is always true
+      75 |         if (index >= 0) {
+         |         ^~~~~~~~~~~~~~~
+   kernel/futex/syscalls.c:48:19: note: initialize the variable 'head' to silence this warning
+      48 |         void __user *head;
+         |                          ^
+         |                           = NULL
+   1 warning generated.
+
+
+vim +75 kernel/futex/syscalls.c
+
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  44  
+5588aabbe40841 André Almeida  2026-11-15  45  static void __user *futex_get_robust_list_common(int pid, bool compat, int index)
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  46  {
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  47  	struct task_struct *p = current;
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  48  	void __user *head;
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  49  	int ret;
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  50  
+a2d2b7acb53d36 André Almeida  2026-11-15  51  	if (index >= FUTEX_ROBUST_LIST2_MAX_IDX)
+a2d2b7acb53d36 André Almeida  2026-11-15  52  		return (void __user *)ERR_PTR(-EINVAL);
+a2d2b7acb53d36 André Almeida  2026-11-15  53  
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  54  	scoped_guard(rcu) {
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  55  		if (pid) {
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  56  			p = find_task_by_vpid(pid);
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  57  			if (!p)
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  58  				return (void __user *)ERR_PTR(-ESRCH);
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  59  		}
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  60  		get_task_struct(p);
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  61  	}
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  62  
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  63  	/*
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  64  	 * Hold exec_update_lock to serialize with concurrent exec()
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  65  	 * so ptrace_may_access() is checked against stable credentials
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  66  	 */
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  67  	ret = down_read_killable(&p->signal->exec_update_lock);
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  68  	if (ret)
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  69  		goto err_put;
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  70  
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  71  	ret = -EPERM;
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  72  	if (!ptrace_may_access(p, PTRACE_MODE_READ_REALCREDS))
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  73  		goto err_unlock;
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  74  
+5588aabbe40841 André Almeida  2026-11-15 @75  	if (index >= 0) {
+5588aabbe40841 André Almeida  2026-11-15  76  		scoped_guard(mutex, &p->futex.exit_mutex) {
+5588aabbe40841 André Almeida  2026-11-15  77  			uintptr_t *rl = p->futex.robust_lists;
+5588aabbe40841 André Almeida  2026-11-15  78  			head = rl ? (void __user *) rl[index] : NULL;
+5588aabbe40841 André Almeida  2026-11-15  79  		}
+5588aabbe40841 André Almeida  2026-11-15  80  	}
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  81  
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  82  	up_read(&p->signal->exec_update_lock);
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  83  	put_task_struct(p);
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  84  
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  85  	return head;
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  86  
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  87  err_unlock:
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  88  	up_read(&p->signal->exec_update_lock);
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  89  err_put:
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  90  	put_task_struct(p);
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  91  	return (void __user *)ERR_PTR(ret);
+6b54082c3ed4dc Pranav Tyagi   2025-09-15  92  }
+af8cc9600bbf22 Peter Zijlstra 2021-09-23  93  
 
 --
-
-net/rds: tcp: bound the message length announced by the peer
-
-This patch adds a check to rds_tcp_data_recv(). Once the header is
-complete, the h_len announced by the peer is compared against
-RDS_MAX_MSG_SIZE. If it is larger, the connection path is dropped and the
-receive actor returns with -EPROTO.
-
-> diff --git a/net/rds/tcp_recv.c b/net/rds/tcp_recv.c
-> index ffe843ca219c7..29db73df84fa3 100644
-> --- a/net/rds/tcp_recv.c
-> +++ b/net/rds/tcp_recv.c
-> @@ -213,6 +213,20 @@ static int rds_tcp_data_recv(read_descriptor_t *desc, struct sk_buff *skb,
->  			}
->  		}
->  
-> +		/*
-> +		 * The payload is queued on tinc until the whole message has
-> +		 * arrived, so a peer must not announce more than a sender is
-> +		 * allowed to send. Check on every pass, not only when the
-> +		 * header completes: the drop is asynchronous and more data
-> +		 * can arrive before the connection is shut down.
-> +		 */
-> +		if (!tc->t_tinc_hdr_rem &&
-> +		    tc->t_tinc_data_rem > RDS_MAX_MSG_SIZE) {
-> +			rds_conn_path_drop(cp, false);
-> +			desc->error = -EPROTO;
-> +			goto out;
-> +		}
-
-[Severity: Medium]
-After this check fires, tc->t_tinc is still set, with t_tinc_hdr_rem == 0
-and t_tinc_data_rem > RDS_MAX_MSG_SIZE. Won't every later call into
-rds_tcp_data_recv() hit the same check straight away and return 0 without
-consuming anything?
-
-__tcp_read_sock() stops on a 0 return:
-
-    used = recv_actor(desc, skb, offset, len);
-    if (used <= 0) {
-        if (!copied)
-            copied = used;
-        break;
-    }
-
-So any payload after the oversized header stays on sk_receive_queue.
-
-The drain loop in rds_tcp_conn_path_shutdown() only exits early when that
-queue is empty:
-
-    rds_tcp_recv_path(cp);
-    } while (!wait_event_timeout(tc->t_recv_done_waitq,
-            (sk->sk_state == TCP_CLOSING ||
-             ...
-             sk->sk_state == TCP_CLOSE) &&
-            skb_queue_empty_lockless(&sk->sk_receive_queue),
-            msecs_to_jiffies(100)) &&
-         ++rounds < 50);
-
-tc->t_tinc is only reset after this loop. Does that mean the loop now
-always runs the full 50 x 100ms (about 5 seconds), even when the peer
-answers our FIN promptly?
-
-Each round goes through this chain and calls rds_conn_path_drop() again:
-
-  rds_tcp_recv_path()->rds_tcp_read_sock()->tcp_read_sock()->rds_tcp_data_recv()
-
-That call does atomic_set(&cp->cp_state, RDS_CONN_ERROR) while the path is
-in RDS_CONN_DISCONNECTING, and it re-queues cp_down_w. The
-DISCONNECTING->DOWN transition in rds_conn_shutdown() then fails and
-returns early. Is a second full shutdown pass forced before the reconnect?
-
-This holds up the path's ordered workqueue, or the shared rds_wq if
-alloc_ordered_workqueue() failed, and it delays reconnect. It would also
-apply to every reconnect cycle of the old-kernel peers that the changelog
-says will now be dropped.
-
-Would it work better to consume and discard the rest of the stream once
-the protocol error is detected, by returning the full len without cloning?
-The drain loop could then finish, and the drop would not be repeated.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the IB transport appears to
-have the same unbounded h_len problem. In net/rds/ib_recv.c,
-rds_ib_process_recv() does:
-
-    memcpy(hdr, ihdr, sizeof(*hdr));
-    ic->i_recv_data_rem = be32_to_cpu(hdr->h_len);
-
-There is no RDS_MAX_MSG_SIZE check. Each fragment is then kept until
-i_recv_data_rem reaches 0:
-
-    list_add_tail(&recv->r_frag->f_item, &ibinc->ii_frags);
-
-Continuation fragments are only checked for a matching header and a
-minimum length. rds_ib_refill_one_frag() allocates a replacement frag for
-each one consumed, with no limit.
-
-The rds_ib_sysctl_max_recv_allocation cap in rds_ib_refill_one_inc()
-counts rds_ib_incoming structures. A single huge message uses only one of
-those.
-
-Can an IB/RoCE peer that sends h_len = 0xffffffff, followed by full-sized
-fragments, make the receiver hold up to about 4 GiB per connection?
-
-rds.h describes RDS_MAX_MSG_SIZE as the limit for "both RDMA and non-RDMA
-RDS message". Should rds_ib_process_recv() get an equivalent check,
-followed by rds_ib_conn_error()?
-
-Since this is tagged for stable, would it also help for the changelog to
-say that only the TCP receive path is bounded?
-
--- 
-Sashiko AI review Â· https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-h047-send-v1-1-2727a38dbfcd%40illinois.edu
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
