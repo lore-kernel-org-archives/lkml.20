@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794749258;
-	b=UChI/90a953KZ6FnoT/E+m97DbJFZRTj6NW0uyfhvXDStWJ3Bh9+8CPu48OTutry9we6
-	 RvBxMZ3VweMRUZ6naFmhe6gSGk6ooBQ59AqhhhpIB+B95u4Qu0tQrvnqvIFAnli6vGdeD
-	 vDLmzqv1FcNfm2eVNycWQyNdfMTaSSBbNaSwpG4ez5itTXdq6i1jPica6YmwZZaZU7xZQ
-	 l/9Pf06fEEudqdBCa4P9WTy1cpGCbqfpBGndzUHXSX/4gWpw9Wa1+5/VpfwfIqKLnPVpj
-	 +A8Keg3NT+EMjNT0lhOzktjAnymPwQJhfj/xnSLXpQGUgKTa0SVNv2v2ztHGXnKGYHA==
+	b=ljvlEVlpp89kc3UTHZni8QDqBvdfoqRlcgNgnItga+M+C2ND6Apm7xz7iBDpAImMxQ0U
+	 S8/IB8cE3Y3xHE6mAQzKdMCKzGf8X3dr/+tkWEbn7/qJvdenMng4vvTMtP3trPnWhsGxp
+	 vxDBVSqLJr8UW458YZddPNE8kGOOCgKXCrweLVtp9F0YWt20bRpY/MnjCEmeMy/cAZn0f
+	 ZNV5R6Vbb6ZBLFZFScjiuh3mxugOi5DDtpXkOAer6JNgy2eGiF+tflMAyMMGMrYY7qEdh
+	 mg7KDv9IMmaGjO7zjsQMVV5br/e9lvWsEvuHmNB4/O1EVtBpaW6YM2o3GKM4nSRBhdA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794749258;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bEv4AHDUm026GE6n1cBpD0QcLMp6c2PdbcmzdzW9Vts=;
-	b=PGBB8ldrbM+FdoOCHRdercR1hZcGnu1G/3KznkTaYF+8DErxDYhweBG3imv+DTbPtdog
-	 KBN6KgX0z9Uh+5zmIRryWa7nrLn8l9s9l89XIllxCPg1Hup6lXjuSXP3Yu18jI9jdoavd
-	 JBKgefLMi8jXt3/wP4N3pUDb/DGZpXVZUDQGRaHp2N34mq4hoBtOmcpZLIQNPIEgUP49H
-	 FGCMN/CuQiUFw9lwqjF29BnM/BSsNM0S+BLGGk5nExH/ULJTL57T43e5FuJn9LrFXEqkv
-	 mooVamtuOInqodPUWk8txuJ3yRy0NCTjGS4XALxr8pmA5k1lrW9amED4kH5QAnGQTgw==
+	bh=sb54/HfUMhBOv9UuKIZwmzNEGKjXNVmRpC/pQQErHmQ=;
+	b=jvx1kpx7KKlLYTWD1sHA6OE7QfwdxAmxOSW6e3FM87zXP9qfrlWXfaumUJTMTs3kvh5d
+	 PFfe0JcvYlokrTHcdB5PWoMdGsRQLzZDFxTLgScFro6njAft7eL0u81CBKORws4FmaEHE
+	 b1cZVOoPiQuK+jAZHS3517GNkwbEBhWN2Wfbykym450EbmU8qa0UKXVb0bEzo/v99h85b
+	 879oWBwE4t2k6AxwPA4D/Unna8HF0AqBDce+GfahhPrjMW2geRrS3Mv65zhTOJU2WtsvC
+	 RDEX4S4/GtlV46gu9O2U5cIwvEi+yLxo1P0idHC/cvItuSJlMV1wC7aUU+Dgg2dpANA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NGuOtdfy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAUEJsYh;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5F4606A891;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AA6606A89F;
 	Sun, 15 Nov 2026 13:27:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NGuOtdfy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAUEJsYh
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794749258;
-	b=VlRiLA2MBzLtsVG6Thr+qnGhph0C0AU5crjulqbq2ynoSRVB3Cquy4phZcH6ljf7p74u
-	 cW+1fWa74o6niFtt/l5l0NJoklF6suBE7NN6aN7PTEzmRVoX2mjpXz2meCqGlNv6GY31I
-	 I5xHpeGD22r7J4vjeLLBWeVbTd/gUvaxi0DQMrLmVSkgP7NOd5UytDuhsyb5mZC1hmSAJ
-	 W1RJHUlTvwN4kEy04O+0RuSk7JF5GVLQ5TuuakLsqyuWl9oppsrnme9g1SbV/dbfRO4RB
-	 4VuAPr8nslGhb8TVTNzY7V6FTD6z/mgvje1ZJDm5R9z9VS9Ie6RoWvJLZ+Bs8tlK60Q==
+	b=ZGaquQX7rVqEHpCVHwHdi8wB+FJ1rpjAeHco9Z3A0aJDaDg+fqpOKttQCzLp9GkkWIXq
+	 NWCCowqEp4eULN9a+sRJe0hX8t+cy0R+DmYjjQGRQ88FI7cxltaM1cyRj3cZenG1fYHKA
+	 OX8zLvLunLFd411nacm39jJR0GKsepZxtFM3viwivKMwOhz5Vr8YAWPGxuWLPyJhD2DCL
+	 XdGvQu6+3mGEyRUGYaH7zJVr+lIaJnW118AdZU56ar3qLv+E7yQs+aa+fF7mWwazYL2op
+	 B+pWsAX4uuuKEvy8LEujQAPVAJA1+BDTsCINwSg+KxOtGOnoJSLLhVVCi5GPajIhcVA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794749258;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bEv4AHDUm026GE6n1cBpD0QcLMp6c2PdbcmzdzW9Vts=;
-	b=MSMTsuz7cwPPUEnKnLfBLk3fjmk/gbHw5e5HRaHTSTR07IcKtX/ek4Ot/0gGVxCX6Amm
-	 i5wFwQ7xsQJxkH2+ERcAcMf9/JhL0Cq3JZk72tjIrDXr6NoWAJubqwUK+dwONWrMtFoP5
-	 HgPHNBL5RFrp34Whn+9BsoEmXQQUzg7kxTTA4QSBIFcv6McClwd87Zg6ALtBZiVo+ncIS
-	 j1YN2Jb8JLQeFOmKlLQ3rVSOLWKj9+GaAgdkHtyOMbrJIWRw7ZyllC4Wsf9b5FGYbM91Q
-	 6EPuxssIemAI6bow/OrxckK2CaxI64UHb/50R33xEzXG7mADnaHcRrMQIVTQ2FO0PyQ==
+	bh=sb54/HfUMhBOv9UuKIZwmzNEGKjXNVmRpC/pQQErHmQ=;
+	b=P1V///C8W6b5UOr8JRhgvp869FAthaDRy1KhK38+zIVF924Ks/U86k1KdHud6GydHufC
+	 eUeIa7zDsegdVGFUAjNALeEdlZLRSzNWNkb6EKvA4abkajLXYgXO2j/D+yAEZcuZhHqEs
+	 SYe8MjF+CQchvqwGQ+dhpUQP+1kbQecCFzljQbpCeytOrCHXuL+OUgl/VEcjQ1aZV/I30
+	 v7kIMx97qhnW9pMwB2vmzr1YB1Vq3zYl+0xVc7CQ1V7ctFoX+9N4XjN5LFqFI45ORjb9y
+	 LiR5VXaxKTiiiI2CgF9PyDIBpJaTgOagNkP60u061XOCgaUlDN2W3XORtmYeqdA3dGg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6DDB61F000C8;
+	by smtp.kernel.org (Postfix) with ESMTPS id 85BD21F000CA;
 	Sun, 15 Nov 2026 13:27:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794749258;
-	bh=bEv4AHDUm026GE6n1cBpD0QcLMp6c2PdbcmzdzW9Vts=;
+	bh=sb54/HfUMhBOv9UuKIZwmzNEGKjXNVmRpC/pQQErHmQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NGuOtdfyMPCBLLVd7wHSmTuqjOzN2CsavEyKDRnO9ZJ81G0UtfTJwwMRrEWb7ChsO
-	 neGqN1dO1oVowcnjyOE7gLdUfWarI2VPHKafQl43DwPJaZstwqv3pF1pafO5orKyKf
-	 F/jtmvUZesm96Zl5HogmcxEaKXvUku6rjrFVRIh0gVE1kLKbVHeG57WqLCGbVGty7a
-	 Z39J5XngGeNOduU3JWoShhhFNBEa7j7wn4NvIHdC+WQx8qBCLTL7QTHUSdy9z7T+iv
-	 2YD8PZ7IbL7RD2ebhLmF4DobNDBzXY4zA05N7tH2pXqJair0AeVnAEH3B6gqZiHypB
-	 PMolp0ZM781hg==
+	b=FAUEJsYhImfR1j9z0crm9coGqaKAnGfqRcG/UIicFmXcFZ+Fzba8HmvSsmTsCNdiK
+	 ekC4EyhpuIM/vvlkzhg61HWki5vjcD1qx1BgjumYZ/Y8y7IQrwrEupx9DwNm0J3IOi
+	 ZNwX6WZZVBYNfT9rUbWLgBvCnFbB0t7I01NXSiOkA9Y6G9xPnqWFEJ0I2ILc2QNtRA
+	 CkTmwsr92NvHGqsFP3ryJrxtp76zNbjgx+DLozgjRc0cZFw8qJAh+qN7Hy5JGemJxY
+	 b84If85quqVktbiuN+E3UCk1GO19hQbMDUh/LDvTDHIW5oRaWF78eel3g404g+ENjL
+	 3cz9itzOgvE6g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D81584A0AE;
-	Sun, 15 Nov 2026 13:27:35 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0F41E4A0BB;
+	Sun, 15 Nov 2026 13:27:36 +0000 (UTC)
 From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Sun, 15 Nov 2026 14:27:31 +0100
-Subject: [PATCH v6 1/5] dt-bindings: pinctrl: add the NXP LX2160A RCW pad
- mux
+Date: Sun, 15 Nov 2026 14:27:33 +0100
+Subject: [PATCH v6 3/5] soc: fsl: guts: add the RCW override of the pad
+ muxes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-1-fbdce4565a5c@free.fr>
+Message-Id: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-3-fbdce4565a5c@free.fr>
 References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
 In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
 To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
@@ -101,11 +101,11 @@ Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  Vladimir Oltean <vladimir.oltean@nxp.com>, 
  Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794749254; l=9059;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794749254; l=6998;
  i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=qg98rjtoU5lxO3S/IIt3AS+9TwVrpblI1bgZQ2hoFnE=;
- b=vm3wjGyac1q+C58SL6FxsMuCzsZvjy2oRB0XQHbx+HG+doRPjp219SVQ+rpV3yyfPs1HgYIo3
- EsleuxYvlExAZ2IG3kbzXBpvmBIlbn1V6Gei+r7uCeATrkSGuVp8CjA
+ bh=EAfTlIXXJf46NHWx03xdq8COiXE++rPvoKlxWRz+NgM=;
+ b=/0gJi+K6iiXORtVxdtibtry4hK1WWZmICUgwRxtrwDv0rLkv/MYzrejM8MCv+e5MbxWQ9z0HN
+ KBn4WT/kBJABZ8u4hJ6bwv184LfFYxIi08MSVbFXTZr3CvEn1JsUNv4
 X-Developer-Key: i=vjardin@free.fr; a=ed25519;
  pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
@@ -116,338 +116,205 @@ Content-Transfer-Encoding: 7bit
 
 From: Vincent Jardin <vjardin@free.fr>
 
-The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ, EVT, EC and USB pads
-from fields of the RCW: read-only in RCWSR12..14 and RCWSR27 of DCFG,
-changed at runtime through the override registers of its DCSR view.
+fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
+the pad-mux fields of the RCW, and for them only:
+ - fsl_guts_pmux_read() reads the pad-mux fields of a status register
+ - fsl_guts_pmux_override() changes pad-mux fields of one under
+   rcwcr_lock and waits for the status register to follow
+ - fsl_guts_pmux_override_supported() tells whether the SoC has pad-mux
+   fields and whether the DCSR view of DCFG, which holds the override
+   registers, is mapped
 
-Describe the pad mux as a child of DCFG at its RCWSR12 to RCWSR14 and
-RCWSR27 windows: the override registers are at the same offsets of the
-DCSR view of the parent. One group per RCW field, one function per
-encoding.
+Each SoC lists in its fsl_soc_data the fields that can be overridden,
+per RCWSR: a register or a field outside of this list is refused, so
+the SerDes protocols stay with fsl_guts_lane_set_mode(). The LX2160A
+lists the pad muxes of RCWSR12 to RCWSR14 and of RCWSR27.
 
-Each function lists the groups that take it, so a pair the driver
-would refuse, such as can on iic1, is refused by the schema.
-
+Suggested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
- .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   | 309 +++++++++++++++++++++
- 1 file changed, 309 insertions(+)
+ drivers/soc/fsl/guts.c   | 125 ++++++++++++++++++++++++++++++++++++++++++++++-
+ include/linux/fsl/guts.h |   3 ++
+ 2 files changed, 127 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
-new file mode 100644
-index 000000000000..f835ebe332a9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
-@@ -0,0 +1,309 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
+index 28361c63e26c..a4b767f1e297 100644
+--- a/drivers/soc/fsl/guts.c
++++ b/drivers/soc/fsl/guts.c
+@@ -53,6 +53,12 @@ struct fsl_soc_serdes_rcw_override {
+ 	int val;
+ };
+ 
++/* Pad-mux fields of the one-based RCWSRn, the ones that may be overridden */
++struct fsl_soc_pmux_mask {
++	unsigned int rcwsr;
++	u32 mask;
++};
 +
-+title: NXP LX2160A RCW pad muxes
+ struct fsl_soc_data {
+ 	const char *sfp_compat;
+ 	u32 uid_offset;
+@@ -62,6 +68,7 @@ struct fsl_soc_data {
+ 	int (*serdes_get_rcw_override)(int index, int lane,
+ 				       enum lynx_lane_mode lane_mode,
+ 				       struct fsl_soc_serdes_rcw_override *override);
++	const struct fsl_soc_pmux_mask *pmux;
+ };
+ 
+ enum qoriq_die {
+@@ -369,6 +376,110 @@ int fsl_guts_lane_set_mode(int serdes_idx, int lane, enum lynx_lane_mode lane_mo
+ }
+ EXPORT_SYMBOL_NS_GPL(fsl_guts_lane_set_mode, "FSL_GUTS");
+ 
++static const struct fsl_soc_pmux_mask *
++fsl_guts_get_pmux_mask(unsigned int rcwsr)
++{
++	const struct fsl_soc_pmux_mask *pmux;
 +
-+maintainers:
-+  - Vincent Jardin <vjardin@free.fr>
++	if (!soc.data || !soc.data->pmux)
++		return NULL;
 +
-+description:
-+  The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ, EVT, EC and USB pads based
-+  on its RCW. The related fields are from the read-only RCWSR12 to RCWSR14 and
-+  RCWSR27 registers of DCFG, and can be changed at runtime by writing the RCW
-+  override registers in the DCSR view of DCFG. The node is a child of the DCFG
-+  node, which owns both views. Its reg are the RCWSR12 to RCWSR14 and the
-+  RCWSR27 windows of the CCSR view, and the override registers are at the same
-+  offsets of the DCSR view.
++	for (pmux = soc.data->pmux; pmux->rcwsr; pmux++) {
++		if (pmux->rcwsr == rcwsr)
++			return pmux;
++	}
 +
-+properties:
-+  compatible:
-+    const: fsl,lx2160a-rcw-pinmux
++	return NULL;
++}
 +
-+  reg:
-+    items:
-+      - description: RCWSR12 to RCWSR14
-+      - description: RCWSR27
++/**
++ * fsl_guts_pmux_read() - read the pad-mux fields of a RCW status register
++ * @rcwsr: one-based index of the status register, as in RCWSR12
++ * @val: the pad-mux fields read, the other fields of the register are 0
++ *
++ * Return: 0 on success, -ENODEV before the DCFG block is mapped, -EINVAL
++ * when the register holds no pad-mux field on this SoC
++ */
++int fsl_guts_pmux_read(unsigned int rcwsr, u32 *val)
++{
++	const struct fsl_soc_pmux_mask *pmux;
 +
-+patternProperties:
-+  '-pins$':
-+    type: object
-+    $ref: pinmux-node.yaml#
-+    additionalProperties: false
++	if (!soc.dcfg_ccsr)
++		return -ENODEV;
 +
-+    properties:
-+      function:
-+        enum: [ asleep, can, evt, flexspi, flextimer, gpio, gtx-clk, i2c,
-+                irq, reset-req, rgmii, sdhc, sdhc-clk, sdhc-data, sdhc-data4,
-+                sdhc-spi, spi, tsec-1588, uart, uart3, uart4, usb ]
++	pmux = fsl_guts_get_pmux_mask(rcwsr);
++	if (!pmux)
++		return -EINVAL;
 +
-+      groups:
-+        items:
-+          enum: [ iic1, iic2, iic3, iic4, iic5, iic6, xspi1-data74,
-+                  xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
-+                  sdhc2-data74, sdhc2-base, uart1-soutsin, uart1-rtscts,
-+                  uart2-soutsin, uart2-rtscts, irq11-8, irq7-4, irq3-0,
-+                  evt4-3, evt2-0, clk-out, asleep, reset-req, ec1, ec2,
-+                  usb-ext, gtx-clk, sdhc1-ds ]
++	*val = fsl_guts_read(&soc.dcfg_ccsr->rcwsr[rcwsr - 1]) & pmux->mask;
 +
-+    required:
-+      - function
-+      - groups
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(fsl_guts_pmux_read, "FSL_GUTS");
 +
-+    allOf:
-+      - if:
-+          properties:
-+            function:
-+              const: asleep
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ asleep ]
++/**
++ * fsl_guts_pmux_override() - override pad-mux fields of the RCW
++ * @rcwsr: one-based index of the RCWSR and RCWCR pair, as in RCWSR12
++ * @val: the new value of the fields, in place
++ * @mask: the fields to change
++ *
++ * Only the pad-mux fields that the SoC lists can be changed: a SerDes
++ * protocol is changed with fsl_guts_lane_set_mode(), and the other fields
++ * of the RCW are refused.
++ *
++ * The fields outside @mask keep the value the status register shows. The
++ * override register is written and the status register polled until it
++ * shows the result, as fsl_guts_lane_set_mode() does for a SerDes lane.
++ *
++ * Context: takes rcwcr_lock, shared with fsl_guts_lane_set_mode(), and
++ * busy-polls the status register a bounded number of times. Does not
++ * sleep, shall not be called from interrupt context.
++ *
++ * Return:
++ * * 0 on success
++ * * -ENODEV before the DCFG block is mapped
++ * * -EOPNOTSUPP without a DCSR mapping of DCFG
++ * * -EINVAL when @mask is not made of pad-mux fields of the register
++ * * negative error otherwise
++ */
++int fsl_guts_pmux_override(unsigned int rcwsr, u32 val, u32 mask)
++{
++	const struct fsl_soc_pmux_mask *pmux;
++	int err;
 +
-+      - if:
-+          properties:
-+            function:
-+              const: can
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic3, iic4 ]
++	if (!soc.dcfg_ccsr)
++		return -ENODEV;
++	if (!soc.dcfg_dcsr)
++		return -EOPNOTSUPP;
 +
-+      - if:
-+          properties:
-+            function:
-+              const: evt
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic3, iic4, evt4-3, evt2-0, asleep ]
++	pmux = fsl_guts_get_pmux_mask(rcwsr);
++	if (!pmux || !mask || (mask & ~pmux->mask))
++		return -EINVAL;
 +
-+      - if:
-+          properties:
-+            function:
-+              const: flexspi
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ xspi1-data74, xspi1-data30, xspi1-base,
-+                        sdhc2-data74, sdhc2-base ]
++	spin_lock(&soc.rcwcr_lock);
++	err = fsl_guts_rcw_rmw(rcwsr - 1, val & mask, mask);
++	spin_unlock(&soc.rcwcr_lock);
++	if (err)
++		pr_err("RCW override of RCWSR%u failed: %pe\n", rcwsr,
++		       ERR_PTR(err));
 +
-+      - if:
-+          properties:
-+            function:
-+              const: flextimer
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, irq7-4, irq3-0, evt4-3, evt2-0, clk-out ]
++	return err;
++}
++EXPORT_SYMBOL_NS_GPL(fsl_guts_pmux_override, "FSL_GUTS");
 +
-+      - if:
-+          properties:
-+            function:
-+              const: gpio
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, iic3, iic4, iic5, iic6, xspi1-data74,
-+                        xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
-+                        sdhc2-data74, sdhc2-base, uart1-soutsin,
-+                        uart1-rtscts, uart2-soutsin, uart2-rtscts,
-+                        irq11-8, irq7-4, irq3-0, evt4-3, evt2-0, clk-out,
-+                        asleep, reset-req, iic1, ec1, ec2, usb-ext, gtx-clk,
-+                        sdhc1-ds ]
++/**
++ * fsl_guts_pmux_override_supported() - can the pad muxes be overridden?
++ *
++ * Return: true when the SoC lists pad-mux fields and the DCFG block is
++ * mapped with its DCSR view, the second reg of the dcfg node, which holds
++ * the override registers
++ */
++bool fsl_guts_pmux_override_supported(void)
++{
++	return soc.dcfg_ccsr && soc.dcfg_dcsr && soc.data && soc.data->pmux;
++}
++EXPORT_SYMBOL_NS_GPL(fsl_guts_pmux_override_supported, "FSL_GUTS");
 +
-+      - if:
-+          properties:
-+            function:
-+              const: gtx-clk
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ gtx-clk ]
+ static u64 fsl_guts_get_soc_uid(const char *compat, unsigned int offset)
+ {
+ 	struct device_node *np;
+@@ -579,6 +690,18 @@ static const struct fsl_soc_data ls1028a_data = {
+ 	.num_serdes_lanes = 4,
+ };
+ 
++static const struct fsl_soc_pmux_mask lx2160a_pmux[] = {
++	{ 12, GENMASK(29, 0) },	/* IIC2..SDHC1_DIR */
++	{ 13, GENMASK(29, 0) },	/* SDHC2_DAT74..EVT43 */
++	{ 14, GENMASK(10, 0) },	/* EVT20..IIC1 */
++	{ 27, GENMASK(7, 0) },	/* EC1, EC2, USB_EXT, GTX_CLK, SDHC1_DS */
++	{}
++};
 +
-+      - if:
-+          properties:
-+            function:
-+              const: i2c
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, iic3, iic4, iic5, iic6, sdhc2-data74, iic1 ]
++static const struct fsl_soc_data lx2160a_data = {
++	.pmux = lx2160a_pmux,
++};
 +
-+      - if:
-+          properties:
-+            function:
-+              const: irq
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ irq11-8, irq7-4, irq3-0 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: reset-req
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ reset-req ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: rgmii
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ ec1, ec2 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, sdhc1-base, sdhc1-dir, sdhc2-data74,
-+                        sdhc2-base, sdhc1-ds ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-clk
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic5, iic6 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-data
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ sdhc1-dir ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-data4
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ sdhc1-base ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-spi
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ sdhc1-base ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: spi
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic5, sdhc1-base, sdhc1-dir, sdhc2-base, sdhc1-ds ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: tsec-1588
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ ec2 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: uart
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ uart1-soutsin, uart1-rtscts, uart2-soutsin,
-+                        uart2-rtscts ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: uart3
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ uart1-rtscts ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: uart4
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ uart2-rtscts ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: usb
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ usb-ext ]
-+
-+required:
-+  - compatible
-+  - reg
-+
-+allOf:
-+  - $ref: pinctrl.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    pinctrl@12c {
-+        compatible = "fsl,lx2160a-rcw-pinmux";
-+        reg = <0x12c 0xc>, <0x168 0x4>;
-+
-+        iic3-i2c-pins {
-+            function = "i2c";
-+            groups = "iic3";
-+        };
-+
-+        iic3-gpio-pins {
-+            function = "gpio";
-+            groups = "iic3";
-+        };
-+    };
+ /*
+  * Table for matching compatible strings, for device tree
+  * guts node, for Freescale QorIQ SOCs.
+@@ -606,7 +729,7 @@ static const struct of_device_id fsl_guts_of_match[] = {
+ 	{ .compatible = "fsl,ls1088a-dcfg", .data = &ls1088a_data},
+ 	{ .compatible = "fsl,ls1012a-dcfg", },
+ 	{ .compatible = "fsl,ls1046a-dcfg", .data = &ls1046a_data},
+-	{ .compatible = "fsl,lx2160a-dcfg", },
++	{ .compatible = "fsl,lx2160a-dcfg", .data = &lx2160a_data},
+ 	{ .compatible = "fsl,ls1028a-dcfg", .data = &ls1028a_data},
+ 	{}
+ };
+diff --git a/include/linux/fsl/guts.h b/include/linux/fsl/guts.h
+index 8d5ffb985fee..ae245afeb7b9 100644
+--- a/include/linux/fsl/guts.h
++++ b/include/linux/fsl/guts.h
+@@ -142,6 +142,9 @@ int fsl_guts_lane_validate(int serdes_idx, int lane,
+ 			   enum lynx_lane_mode lane_mode);
+ int fsl_guts_lane_set_mode(int serdes_idx, int lane,
+ 			   enum lynx_lane_mode lane_mode);
++int fsl_guts_pmux_read(unsigned int rcwsr, u32 *val);
++int fsl_guts_pmux_override(unsigned int rcwsr, u32 val, u32 mask);
++bool fsl_guts_pmux_override_supported(void);
+ 
+ /* Alternate function signal multiplex control */
+ #define MPC85xx_PMUXCR_QE(x) (0x8000 >> (x))
 
 -- 
 2.43.0
