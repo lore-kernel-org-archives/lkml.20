@@ -1,22 +1,22 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.64
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.56
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794726433;
-	b=jF/7IXlHDbM5KrEttXts0fFUxkbZAVUNeDn3SnfJol/v9BDOkN2wuC42TBlfmv+gQhGQ
-	 WHP85I/jp6B/W+iIPsXaThT/aEZ8r34ORH6nAxbXbroI/uMyg5pTGgTzbnvM/lx7TQX0C
-	 k3/qAwPLLLnssEPmHoRuQBcP7VSfBOoG6Ux9Uk+8mK/VF1hHdUerly8BKua1YT12/BaXz
-	 m6+noCF4zVpaYxF7vxhO3SDVGUhvXI7u5TVV546noiH7G10Ld1i2RYq5PHSPhZQutSE9h
-	 VbV6N5DciBtDsL9L87Wmdk1hoGxT6voYtTT2oXOzQpnvSB7q1frRzjMr7vOcKS96o5g==
+	t=1794726687;
+	b=cVCAnVwshzXnNvxA4IT4IOhZscKRuknIdEOKSs6FDxsGkPX8RUnkDAiTBxKiDSH1UJ8K
+	 AlZtKZ0xr9eO+fAdpS/ykFLeG/hvPjS2Y5qBCBdISz7B94RvGpiy7tfJ5rFV0jvRX/VSr
+	 TIBLrmUqwGUnvp9r0vuuV5RvN9Lh9olIj+pMka8ZJCDpVJnNVNkjx3dq8s1NvddlPpQeW
+	 MI6I6UFmkfipV0/01jLop2FXuPn4rxpn8ggZbHt1xL9j7RR0azaKSb1tIGPjb59pPChDD
+	 RsK1Dv6T1CjyI0QMK2nV5Tb8sk2ueF3I2CzOWmSvXMaiBeRqFdHWgOdRZPDEW1mjIBg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794726433;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794726687;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Uw5kwI4jBTRrkjYBJhlQLGf2v/0IXkYIrzxPPgnMUXQ=;
-	b=kwPrlSh2yNzgyBDAGUFJjQ4A2lgASecNVblgHXdzUjc9cm+qxlXvZe53aXUOMtNjk/Y4
-	 5lihk40SmNpAN7PaWthAQ6PHY5j7nlLiY0CbCq22DI5L9xN0tNtHiwxpHj5TXcslq4Mb+
-	 OqJZH6rYAvil8iFBAaBv32JRbqngK8xabG0mUqC+bONPyRkfkPlteHPoQlfb50uvmF6s1
-	 BIHFht8m9+hD3jWPwGayyrL75neQMiyexWbQRojgyPMxkFfB3gy2WXEsTGXxXbTimwoDq
-	 DrbDLVisqRHV2DMbSG7h0DRWtDKJBAJWMGAWiMFM5xXNwK5AWctJCBw/cwNnqA/VN3A==
+	bh=2GbgQzgvWJlqUOcif4RyA/oELuh8Gzk97lKnwlHw4cw=;
+	b=Str2b4pFg2YWQ0jOYMEIsr4YmXpm+B2/4uyCXyoVaJM8gb/eSMbhNdGypvQKbX4ItswV
+	 YhRMX4b9kRar2OuoZdzpZafZ+SsbMdqtFFuUrsJK35tLlZWrb81C143wW+TO8B00/xOGl
+	 o/PggxWjr94jjkBBYvVsd8bveBb8P5pdgvmZGnV4pMWpbSW0FNalWBjUJKhI/pkyKTsk0
+	 1kq9itiy2BPsh9yWMeMwgvJ9uf23dpnpmOEG+VCjDEwCBDwAUrN2KLDGsDGlWoAxbQTws
+	 54Jf33XGNAqnm4csx6iiuJBVSSXNA4oc+cJIgv/534Acu7fxXFfCSDwiJFdZZMkmeQA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="o5k/jggI";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.64
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010064.outbound.protection.outlook.com [52.101.56.64])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rRGcE8cH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.56
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010056.outbound.protection.outlook.com [52.101.61.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D41606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D41606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB60606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:11:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CB60606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=o5k/jggI
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rRGcE8cH
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QxocIbC8yesFCP+8Hi4SUJlzN0IlfSnBrraheyaAFO17gRmwhgtYDMs9WN/SnOrS1n9IQQaF9SpsCi6/s9l3yUtta0YCQ5gY73QfzYd/bLBbwlzp7ad/kTsDcIXfZN16sINcR6VqAmOVexWlISoHyNQo0MoYDWeqHsm5i3B0waFdVKt9HB3pThodGp2CH1AjXxAIJjZe1GHlN1NH9rJj3PNNiWlvzA6PirE+aS9ilWI+uX8ETi+0HheWTRf47/lmcqzfwqx59v1wZ03U8IewZ9dor1YKPGA9FBy/NjMTLVV9j+stez+3DAGKGKtt1TIgYmP4X8ctrX6XxI2mNBYeEA==
+ b=FQp4xigptitE0W74uK1n+EGGMKjWTh76gutIeQ6JmXyJxVMm3iMDz0BZNK1JOrYfofx4TMDGi0JI5rm6PwLvM0t87hjvYF806OQsi6wKjjFpSMVH3kjeCPfIOyTeo2WGEJnvGp32BDh37MGJgaCL3611wwoLJpyUjlzyvMSr/SwZEZJst6PAMiY5YwOLEW4DoUp16erR9eAzqkSoNArvgVwuXXH8gb07t8tlj9GwVEw0DzgKPrz18uSDzyyDdEbl1JVFxX3lFe7Ztqm+4JdUpqYesT+EKPunvKQQDe2IHhuOcgb+B39k6ZsBIyH57euNH0UwbMHusxIKQHxii15Rsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uw5kwI4jBTRrkjYBJhlQLGf2v/0IXkYIrzxPPgnMUXQ=;
- b=ASd20eyVqVNZ+d2Jr1LgOWaBDspfu1P1kpSa7upvF/UnpyirS6hF8Ak0sztj7xZY8Z2k0BlMdfG+YRj/vFu2X+/mb/mqpuv83QxuXomuKwWBigz8BKJt4uymUKHqI8j/Abb1xBW3KpqUgGumIqXlzX8og4bGJv7OuuvkkclWoICzPJQVL4JTc9L2ss2ddtACPTrugqmOeqk7BkhpLdiaWNnAFkw9jDFlCX9/UMf/OAPHbOhBUS0SPLhjKGWLVAOckCGfjdlpmnCKoQ4kPMYjX9N56+SxgHxoT/RSTqluwkCCZEeI6CtWynhnTXFFErsqzhm5gW2+vhM6HPt/Bm5bow==
+ bh=2GbgQzgvWJlqUOcif4RyA/oELuh8Gzk97lKnwlHw4cw=;
+ b=PjdL4UvPrjsN3JSgsZsapI1+GmTwPqyWTFg6L/saE5h/MBcQMoBLLbBsVPPtVbBKJ47HoALAG8QAVAv0jkfYsuALMdA3I8I1qKak6T0Xigmyimj4PRwPVF0h0Ms2J9nSkSG6GvwBY/vZOmOcRJAuZItdvO8d07JgHJgvDwFURBH/q7d1qc+GEebT1i4oYQOKMWn3j6xyzgEOr6Z88TDgN6dxIk+NuETUh64IgqiA+JaIrXUVBMtVMGx994N4EjMpC3l+L913i4EgtTps/hT9Zykg/0Q3sACnZib5/VjJwyPEeQ7r36LxRS2D/J1iqretHNTqXPEEuoIM8skQxAGCpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uw5kwI4jBTRrkjYBJhlQLGf2v/0IXkYIrzxPPgnMUXQ=;
- b=o5k/jggI5HHT5Fulb1gc+Rn2/dEjWVclGYCHz62ILq3Fx2Or0hc795VXwl64TDR+rSiMU+OZV1rYn4oTMO/edHIjGZi+UruYxD2PjD13lAlNdpifCOsUsqo6+zC1ZhbwIA9uMpdY/O5DyMoSBVhv0MNRUXERbUKYUNfRi3yOgOU=
-Received: from CH2PR14CA0004.namprd14.prod.outlook.com (2603:10b6:610:60::14)
- by CY1PR12MB9676.namprd12.prod.outlook.com (2603:10b6:930:104::19) with
+ bh=2GbgQzgvWJlqUOcif4RyA/oELuh8Gzk97lKnwlHw4cw=;
+ b=rRGcE8cH3IwEffOthQg8CsbCL650nBSfIyQ7AeCP3B7mbMXrSXeDGnmUzihzxwpvwGlymBoBHUC3Sc4gJprQpK0rwo/JvENdsyIvNUuUHeChwzN4HxQ++W5bTJ5gOwPSwrpetOhi+xKNbe1T5DGdjNwwulbbhzxW37nGKFzj5p8=
+Received: from CH3P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1e7::35)
+ by PH7PR12MB9067.namprd12.prod.outlook.com (2603:10b6:510:1f5::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
- 2026 07:07:09 +0000
-Received: from CH2PEPF0000014A.namprd02.prod.outlook.com
- (2603:10b6:610:60:cafe::24) by CH2PR14CA0004.outlook.office365.com
- (2603:10b6:610:60::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Sun,
- 15 Nov 2026 07:07:09 +0000
+ 2026 07:10:40 +0000
+Received: from CH2PEPF000166C9.namprd04.prod.outlook.com
+ (2603:10b6:610:1e7:cafe::4c) by CH3P221CA0004.outlook.office365.com
+ (2603:10b6:610:1e7::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Sun, 15
+ Nov 2026 07:10:40 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,28 +80,35 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF0000014A.mail.protection.outlook.com (10.167.244.107) with Microsoft
+ CH2PEPF000166C9.mail.protection.outlook.com (10.167.244.232) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 07:07:09 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 07:10:39 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 15 Nov
- 2026 01:07:08 -0600
-Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 15 Nov 2026 01:07:06 -0600
+ 2026 01:10:39 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 15 Nov
+ 2026 01:10:39 -0600
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Sun, 15 Nov 2026 01:10:36 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Jackie Liu <liu.yun@linux.dev>, Jackie Liu <liuyun01@kylinos.cn>,
-	<harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
-	<christian.koenig@amd.com>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/amd/display: Fix logger leak on perf trace allocation failure
-Date: Sun, 15 Nov 2026 15:08:01 +0800
-Message-ID: <20261115070801.1465490-1-Wayne.Lin@amd.com>
+CC: Paul Menzel <pmenzel@molgen.mpg.de>, Harry Wentland
+	<harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+	<siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Hung
+	<alex.hung@amd.com>, Wentao Liang <vulab@iscas.ac.cn>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/amd/display: Don't warn about vendor infoframe for non-infoframe sinks
+Date: Sun, 15 Nov 2026 15:11:31 +0800
+Message-ID: <20261115071131.1466723-1-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026111047.97178-1-liu.yun@linux.dev>
-References: <20261026111047.97178-1-liu.yun@linux.dev>
+In-Reply-To: <20261027205229.268908-2-pmenzel@molgen.mpg.de>
+References: <20261027205229.268908-2-pmenzel@molgen.mpg.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,70 +118,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000014A:EE_|CY1PR12MB9676:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbb4efad-b1ef-41b6-ee3f-08df42e71086
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166C9:EE_|PH7PR12MB9067:EE_
+X-MS-Office365-Filtering-Correlation-Id: 717e549f-732c-413d-2bb8-08df42e78e1a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|10067099003|56012099006|11063799006|260925022911599003|260925021911599003|260925021311599003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|5023799004|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	l1Vf256RkwJECjTl3Qis2PZcxqX956p3bBa1zO+rhB/g7ci3S9BLc651qkC3RCoFUMIsit4beg/mYhnEOqDcl+2/eeAPwoY2b6fQ3lwk8EXSZuqcS8vsVkof/qIvoG0A3HDZQTLDfyhb6RTWaKtkdWe2I7RUK5bzUhBmKhb4WUNgKRCDePTiDjW0E6oAHycna5OM9JrhQnP4kFCKc2OqtBuS+sifgCSksFIRNDc8P0vGYGNaB8qK9oaU+tOYNTsa6C6nPU9vQWJ0x7IyH91dilRQlGyq1IJ4cKnJyom1snlQ8WU5owxynZfxu2jsUOgmUWwrnm8uIk3dEaJXG2Hvy1B9jCMjlCb3hcnCeT8aRNdwqcXfYj7TwADEclFHrvLXI0zowBKV5TURmLdVd5e0gKIx3CdbxQvRDyNN8t9Fa7h8W6Skok2uiM04Vveuy5JATjk9LSWpwtmhk2Wfg1C69nVBJ3qkwPz2gTKs4OCdtY+UWqKgmgy5U5S6acH03tpsFHrD1/7zgY49c6sS6HRJqUV+GUBnjnyN+ybkwP0akBad7q2pN9+s9XvyVOUaMUnE9/AmxuQXBGLTXbAwwRICv2TUZufpzqeno/ITACXXRGkkFK1ygvqbx6EgOkLmjILpi0SXcjidSV2WqHRxWXsWnqY2d+yH5sLmU6HBA33paFCaTdHSE5ify4ee728y7X7tI0NCNKTPaIuGY0eS+QBI/A==
+	7sfz7rp5yTHY7KUHwcG4ojGv4Ad8XYS0almsxm3XjfSZvmk7bmefyRmlkOLCDVP1hXOL0qbwx8HPc0oBIxCThoe3gSOOKb1bBcFNTA2fVBqZBoeUmgOD1iYBe/mVjoehCEmAgheSu6HFRxoBAhldB6pIG++dZvYm0DyI8X5kkYHyoL3aLokfG/lLx6iouiPfNMTBA9mzMBTobmTnhDvLn54ot35haIGS5S74BIJx6HJKXIY7vRJRvvWh4orOz8ZhygM/5yUnjlWjAzDVntV3osPZ7Xp6D42mh7UELSQJY5+O2SbD34lAT0ZwS0V7c6HTNEeRK7yUeSvwgEfqQaTAqFoNhAg5xVNvwu8b3Wb0VWqRcRa0HbQCpYweMNiLRWRRXbM/G/ge3ytqyuFqmeOJFWTVUIAG/V+2mQXddoi/lJ6rDwcu3qafzrji2pd6nZTSsln1RTdDWDAbMevCW11wqP5vD6XuzJyk4QRr/gXgOjGhXBIaENimoMFIT+e7G7mgErEfPojDApCZK8Kw1a0ly8i/Hp5TxJA+8Jj0ht55XzJCtQN0IF4bpWCr3BCTIvNLrn75+ANm+n1t6hhv+nMNg1j4kbIgaiBLRU5yMs4yuBkznZjfQBGBnHPZlNRxadxjSPMOuC/tPIt70OeSOdtxKA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(10067099003)(56012099006)(11063799006)(260925022911599003)(260925021911599003)(260925021311599003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(5023799004)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	1/JdrIVnHzw3L4BOExqInrH+3PVa7wjkTlDo5v6Mc1DQwdw5mEjd4P62OMfhxCiL9daev0vyTe57wLHlpTDjOAkbaHBQF4boUat2Zn0Bbv8yhIBdmeBJdjHtPeX14oU6samsSIVqEACJhOR30U1Ut8NKrS+HYe3LdruI5OIf2JqlA/H2Rp1903sDlHEJ8aQVIYkbFsOrtLyjZzwDd0WlYR64XcegN9DGGP5gc/pMgfZyOlUhMbKidcvWTlVr1KyVjsj1zeY4C4MAHX84oUFoqiNcKTwd1i57+gENHuG1fgDxmwyxuVoWSfaxjMqRHwpSRjYCK7mVDtntb8dmdxa0WVetwPzZTbuPejGECx4zhHV3u71blnI3B3vX/cOf9KxP4s04NQyRqlGYsOLZl/zJem2uIs5feJDFMV5ZyRY7/1fi5u+f/eHtHpzhQPsV/mqz
+	Up8/L/2pJaRd49RX4LHFyIprMcbX1biKy3nD/OhU1jaMk2GyBnDx3qZ5D6zlW+5URrMfc2hJ8qBek9OiI4n06SKMO4+24Zdk6caiI6AWVTeZVLkTHSNqcSIKCDED3/fiGZUjZoO+0E/ohlJUFQDtmuQDB3Wbp/eKm9+6D7OUDN8bLRXOZtdgef8MJmer9zk/ta9mIcZrqXnIRzQBCIABgZ5PsqA/mYRLp7mYAqcrXCFs7EMDTSZVyYmFxdfdVOFWKE4sXCMz8xx74eUNeRCzGdlTRxOPXLjKMDGY7U5ME06p6ILOUuUh+8SAidaxg6kfSVHyZrrz8SqYUAhudcD09fRXnGVS6IR3qB2zb8h4l4MyiW7WSUlvURA0NMDObkCBFjVTYLqLDz1Wg7rLJflU+SboA6ZHPpBgVmXyfYBKOHkxD0r/ewTdESxLtu8Jk9SA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:07:09.1743
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:10:39.8580
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbb4efad-b1ef-41b6-ee3f-08df42e71086
+X-MS-Exchange-CrossTenant-Network-Message-Id: 717e549f-732c-413d-2bb8-08df42e78e1a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000014A.namprd02.prod.outlook.com
+	CH2PEPF000166C9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9676
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9067
 
 Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 
-On Mon, 26 Oct 2026 19:10:47 +0800, Jackie Liu wrote:
-> From: Jackie Liu <liuyun01@kylinos.cn>
+On Tue, 27 Oct 2026 21:52:22 +0100, Paul Menzel wrote:
+> With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
+> on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
 >
-> dc_construct_ctx() allocates a logger and stores an alias in dc->dml.logger
-> before allocating the performance trace object. If dc_perf_trace_create()
-> fails, the function frees dc_ctx without releasing the logger. Since
-> dc->ctx is assigned only after the trace allocation succeeds,
-> dc_destruct() cannot reclaim the logger on this error path.
+>     amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
 >
-> Free the logger before discarding dc_ctx and clear dc->dml.logger to avoid
-> leaving a dangling alias after the failed construction.
+> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
+> vendor infoframe setup function") started to log the return value of
+> drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
+> being non-NULL, the helper only fails with -EINVAL, if the sink does
+> not support HDMI infoframes, that means, if
+> `connector->display_info.has_hdmi_infoframe` is false, and its
+> kernel-doc says, that this error can be safely ignored.
+> drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
+> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
+> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
+> HDMI_Video_present, triggers the warning, although nothing failed.
 >
-> Fixes: 5d72e247e58c ("drm/amd/display: switch DC over to the new DRM logging macros")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jackie Liu <liuyun01@kylinos.cn>
+> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
+> seven bytes (source physical address, Supports_AI, and a maximum TMDS
+> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
+> the EDID has no HF-SCDB:
+>
+>     67 03 0c 00 10 00 80 32
+>
+> Only warn, if the sink supports HDMI infoframes. The infoframe setup
+> itself is unchanged.
+>
+> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and vendor infoframe setup function")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
+> Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 2 ++
->  1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 1143916391e79..03179633cd036 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -1022,6 +1022,8 @@ static bool dc_construct_ctx(struct dc *dc,
->  
->  	dc_ctx->perf_trace = dc_perf_trace_create();
->  	if (!dc_ctx->perf_trace) {
-> +		kfree(dc_ctx->logger);
-> +		dc->dml.logger = NULL;
->  		kfree(dc_ctx);
->  		ASSERT_CRITICAL(false);
->  		return false;
+> v1 → v2: Add Signed-off-by line.
+>
+> Notes:
+>
+> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
+> commit message.
+>
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index ded8e21897f1c..636dd2dedd73d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -941,7 +941,8 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+>  		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
+>  								  (struct drm_connector *)connector,
+>  								  mode_in);
+> -		if (err < 0)
+> +		/* Sinks without HDMI infoframe support make it fail with -EINVAL. */
+> +		if (err < 0 && info->has_hdmi_infoframe)
+>  			drm_warn_once(connector->dev, "Failed to setup vendor infoframe on connector %s: %zd\n",
+>  				      connector->name, err);
+>  		timing_out->hdmi_vic = hv_frame.vic;
+>
+> base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
 > -- 
-> 2.43.0
+> 2.54.0
 >
 >
