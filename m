@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794783697;
-	b=ts2A35syhgv1vwEN53z7rOAtUxZ+X6KVKpGvA3zvZ0wccf23H56FnSUlSzXJtmu8vqnq
-	 /odLal7ocyzx7VradTEIOWZ0PS75b8OQQFYvr9wCeK/T0v39/NqJDI9MXeW2tvQLo9Qvw
-	 A/izWArYhXdak738PANlgXUjUhW2avfZvIaJds/caDt4zVntRKrmF7D3jQKMaqwys0NXM
-	 BIkGCSNOwwWXhyrRMh3YKFCUbgf+7b5aHiRKLmxtJGtcyqbFxEAH7gkH0esXw0uZB+M+d
-	 4KMmTrza++CioL4q8DiiJ9aATJ6ctGCWl6ZY0S2VpOqI/ZC6uw8unWVShpGEgzmGoRA==
+	t=1794783698;
+	b=gjxnyZa2YbhZotlGmEI/kaOljSuwbJZY3O2ugvd8QLK1PtOYx/KryUTxb7CHiyFEy7Hm
+	 Job4Nq71qIzeeimtmNfTJ0Lh6wAunOpchDnBpkMoL3t4g8JhON58lK7e8N/ck77gWl7oX
+	 59uA4eMEtvzKs/wXXl4s8GETJzzl45VJzHqXqBv55crBMN8U8zP0REWtvVPeuHomkMsRx
+	 FJhwPPoUym1YFXD/GpR5DHQxQFUcTFUCGqdtRfvVLkN9E68Ll1j3GLD8cSXq7m7JGx39s
+	 ZX94WnkDNykWFAwFjvocyXBU/CXD5y/A3HUpEIbix+xChmc1Y75WpuLyPsWFp3Ed+KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794783697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794783698;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=9RKTXa0mNQlc7dJEGQNmec9AiGXENbKZqhKyOZqUSlw=;
-	b=guloqnvBlLXjM20UFWvdQJZd0WuMjgFiK2i0BlX4fvSGMdm8092Q8r6pxxu04gRIRpQN
-	 RSkq+W/engzgrLSD6pGGBXqrp4ia+8q6xvtU9yQAPeE7qrEdX3CqgsfAy3weP/5y9wD8V
-	 79hjE4/3eH37DN2wEZF6Og9ZwfTIV910WiB9JphwDeCaO6v4Ltby38P0OPJqb1iF8K+j+
-	 y/2N0yOXSitvU3TI0Bqav0W/0Xv0kdaayCjO6yeKgPoy/wVuBfcJ59YwSBsx4ShivcOj5
-	 bn4EsEacdcGfFMQTUucjMJ4z8ZcJT3dRe1T8jwr1Vp+vYkeFZJjpTkGMrWRaH9AJTXg==
+	bh=IVGnRXoqXBiU7ETbvXoL7R64i/p8KMatzMxEBMeIuV0=;
+	b=wPWDNzQTkZf2upS51Bq10PP3HilbXoM+oVhcpfAHIcR4HfolAR3DW0L1+E75HHgcepzo
+	 XBq/xR1S40EKnmneajHo9MKCfx+rWCorMUWPLJycLVuj2d+DFZLtG0H3U3ICt079Ue/ke
+	 rWHd7yYCCVTnPIBTEvYfKn8zVnFExNaLvi2ovkj8e2yMSlVJI46xUyAlvhAN3UNRiu2ib
+	 w+z6MGbfJW7lN4ZgS3JvYLYk1hb7+0suFdoafXCoHYl9VHwjp2mQ+zzgwOovoU7vA5DWK
+	 KjfiL8QAijfW+9Zj9cRZ30ymilWZ0oV8lvGJqA53DLqt5yhqUCdP7TxUVPMkUZBBw/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YH0FIjmg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWruc7n7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B072E606A32C;
-	Sun, 15 Nov 2026 23:01:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9D7606A88B;
+	Sun, 15 Nov 2026 23:01:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YH0FIjmg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D7E1F000CB;
-	Sun, 15 Nov 2026 23:01:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWruc7n7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA31B1F000CA;
+	Sun, 15 Nov 2026 23:01:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794783697;
-	bh=9RKTXa0mNQlc7dJEGQNmec9AiGXENbKZqhKyOZqUSlw=;
+	s=k20260515; t=1794783698;
+	bh=IVGnRXoqXBiU7ETbvXoL7R64i/p8KMatzMxEBMeIuV0=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YH0FIjmgCqvZU43dhFqZbEYRGyPV8I0nI6jeXqxq9BpiS6XuitHAUOSJAiZxWafjp
-	 FZkdFSpDtfwlPA20XmTb6T6qQaftCpfSwg2nBJmRMysu+FpYVAf7oh0jT86v38fc4m
-	 5Bz9mdazY6ykKw7tDd2CxhwR5yB5Fur9yYRkA/+ab9h2nOuccgGzAkveW66o6Ngakj
-	 mS+Hdyikk1TXOEshQbDPROR/m+W1EVS+kitfXC6gCoSZ5G45ry2FtB1sc7GttTr/qH
-	 PVBzzGjKDEmYj3wtjgXreZ58nYIqthIVAtqdgfkmtXCGMoiM2bFtQL5nMFaAwoyufJ
-	 aeal/8mJaB0uw==
-Subject: Re: [PATCH net-next v2 05/10] net: dsa: realtek: rtl8365mb: describe
- the ports of each chip
+	b=KWruc7n7sYbh5ua3RvNfycysbM5WxTlN0iuAlSD7iob8wTwtgGq2w865X0kicICZ1
+	 KXiqGMlhoCMlW4dbqiZjSERc9Dp9uo/T0+Q+4RfIsWXKwYMCmasEBNpTkQOjlKcdTB
+	 u2W6IWq+Tzp8hPCScypnp48LYy9RAGdJ2rMrPhRwtpP95JHlh4Pt3F2MhwFSh8MQui
+	 saGJL5KcVnBi61zup90PZobWcMPZEua7jK0ggtYX1Htd5HbIVqmsvbCsRp225Sbovt
+	 DlnKwsfPu22o3YblNKpb+6Ib4v5sDdCNXdBMBu1xt9vcb9ExWb1ZL6y7ax4cKh9/U2
+	 WMeeXhanq2Mbw==
+Subject: Re: [PATCH net-next v2 08/10] net: dsa: realtek: rtl8365mb: program
+ the PCP of untagged frames
 From: netdev-bot+sashiko@kernel.org
 To: o.rempel@pengutronix.de
 Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  pabeni@redhat.com, horms@kernel.org, linusw@kernel.org, luizluca@gmail.com,
  alvin.sipraga@analog.com, andrew@lunn.ch, olteanv@gmail.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Date: Sun, 15 Nov 2026 23:01:36 +0000
-Message-ID: <179478369620.3136.10648334333290440373@kernel.org>
-In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-5-f8e6fbdf8c99@pengutronix.de>
-References: <20261112-rtl8365mb-dcb-ingress-v2-5-f8e6fbdf8c99@pengutronix.de>
-X-sashiko-severity: Low
+Date: Sun, 15 Nov 2026 23:01:37 +0000
+Message-ID: <179478369746.3136.10805769576309531848@kernel.org>
+In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
+References: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,81 +65,91 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] This patch lowers RTL8365MB_MAX_NUM_PORTS from 11 to 8.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] rtl8365mb_qos_set_port_prio()
+  (drivers/net/dsa/realtek/rtl8365mb_qos.c) now does two separate…
 
 --
 
-net: dsa: realtek: rtl8365mb: describe the ports of each chip
+net: dsa: realtek: rtl8365mb: program the PCP of untagged frames
 
-This commit adds a per-chip port_mask to rtl8365mb_chip_info. It reports
-fls(port_mask) to DSA as the port count and rejects devicetree ports that
-the chip does not have. It also lowers RTL8365MB_MAX_NUM_PORTS from 11 to
-8.
+With this patch, setting the port default priority also programs the PCP
+the switch gives to untagged frames. Under PCP trust, that value decides
+how untagged frames are classified. It is also what the switch writes into
+the tag it adds on egress.
 
-> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-> index da06f952a053d..1e6cdc61f6bd3 100644
-> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-> @@ -115,7 +115,7 @@
->  #define RTL8365MB_PHYADDRMAX		7
->  #define RTL8365MB_NUM_PHYREGS		32
->  #define RTL8365MB_PHYREGMAX		(RTL8365MB_NUM_PHYREGS - 1)
-> -#define RTL8365MB_MAX_NUM_PORTS		11
-> +#define RTL8365MB_MAX_NUM_PORTS		8
-
-[Severity: Low]
-This isn't a bug, but is "family maximum" the right description for this
-value?
-
-The commit message says:
-
-  Lower the family maximum to 8 to match.
-
-The constant also still sits under this heading:
-
-  /* Family-specific data and limits */
-
-The file header comment still describes the family as having more ports
-than that, and it lists the RTL8370MB as a member:
-
- * In the same family of chips, some carry up to 8 user ports and up to 2
- * extension ports. Where possible this driver tries to make things generic, but
- ...
- *  - RTL8370MB
-
-Some of the family-generic register handling was also written for port
-indexes above 7. Examples are the 11-bit RTL8365MB_PORT_MASK, the EXT bit
-for the trap port in CPU_CTRL, and the L2 flush code in rtl8365mb_l2.c:
-
-	/* Now issue the flush command and wait for its completion. There are
-	 * two registers for this purpose, and which one to use depends on the
-	 * port number. The _EXT register is for ports 8 or higher.
-	 */
-	if (port < 8) {
-
-With this change, 8 looks like the largest port count among the chips the
-driver supports, not a limit for the whole family. The BUILD_BUG_ON in
-PORT_MASK() reads the same way. So does the later static_assert in this
-series that ties RTL8365MB_MAX_NUM_PORTS to RTL8365MB_QOS_MAX_PORTS.
-
-At the end of the series, the header comment and the placement of the
-constant are still unchanged.
-
-Would it be clearer to rename the constant to something that marks it as
-a driver-supported maximum? Moving it out of the family-limits group and
-updating the comment and commit message would also work.
-
->  /* Valid for the whole family except RTL8370B, which has 4160 entries.
->   * RTL8370B is mentioned in vendor code but it might not even belong
->   * to the same RTL8367C family.
+> diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.c b/drivers/net/dsa/realtek/rtl8365mb_qos.c
+> index 378cd6ed7fe64..2a849d0e4898a 100644
+> --- a/drivers/net/dsa/realtek/rtl8365mb_qos.c
+> +++ b/drivers/net/dsa/realtek/rtl8365mb_qos.c
 
 [ ... ]
+
+> @@ -192,6 +201,13 @@ int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio)
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = rtl8365mb_qos_regmap_update_field(priv,
+> +						RTL8365MB_QOS_PORT_UNTAG_PCP_REG(port),
+> +						rtl8365mb_qos_sel_mask(port),
+> +						untag_pcp);
+> +	if (ret)
+> +		return ret;
+> +
+>  	return rtl8365mb_qos_regmap_update_field(priv,
+>  						 RTL8365MB_QOS_PORT_PRI_REG(port),
+>  						 rtl8365mb_qos_sel_mask(port),
+
+[Severity: Medium]
+What happens to the untagged PCP field if the second write fails?
+
+In rtl8365mb_qos_set_port_prio(), the UNTAG_PCP write goes to the hardware
+before the PORT_PRI write. If the PORT_PRI regmap_update_bits() then fails,
+for example with an SMI ACK timeout from realtek_smi_wait_for_ack() or a
+bus->write() error in realtek_mdio_write(), the error is returned. The
+untagged PCP is not restored.
+
+On that error, the DSA core rolls back the software state:
+
+net/dsa/user.c:dsa_user_dcbnl_set_default_prio() {
+    ...
+	err = ds->ops->port_set_default_prio(ds, port, new_prio);
+	if (err) {
+		dcb_ieee_delapp(dev, app);
+		return err;
+	}
+    ...
+}
+
+dsa_user_dcbnl_del_default_prio() does the same with dcb_ieee_setapp().
+
+After that, dcbnl reports the old default priority. So does
+rtl83xx_port_get_default_prio(), because rtl8365mb_qos_get_port_prio()
+reads back only RTL8365MB_QOS_PORT_PRI_REG. The switch, however, keeps
+using the new untagged PCP: it tags untagged frames on egress with it and,
+with PCP trust enabled, classifies them by it.
+
+Could this leave untagged frames tagged and classified by a priority whose
+request failed, with no way for software to see it, until a later set
+succeeds?
+
+Elsewhere the series avoids this kind of state. For example,
+rtl8365mb_qos_set_apptrust() batches its writes "so a failed write cannot
+leave the trusted table half programmed". Would it make sense to restore
+the previous untagged PCP when the PORT_PRI write fails, or to order the
+writes so that a failure cannot leave the two fields out of step?
+
+The code is still the same at the end of the series.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99%40pengutronix.de
