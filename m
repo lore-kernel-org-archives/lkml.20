@@ -1,56 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794770966;
-	b=ZzC2nixHvxC5pk9yBJj5Pr+Uu6UZVoFkSMDyjs45n1oMgslgC0KYffklPHkdlxQd6ONH
-	 IxWrhVxEujBcZgS2u4zIHDap4M4qxoEu2+kZ+KoprBYtTv7NtSsvsH6RgkZtBM/7m3TCX
-	 V1EemcfJbSxHkHcRtIKCTVf4L3D2akmsPHeD9+phk1daiyBvA/LFtltWiAeV5Y7HTEea8
-	 CFJderkYc78X1gSfoLkg7ceDlsCAGmpXD+F0Pf+DhQieZe78EfL90fKzMXiotylFkvoZL
-	 O35yJDOXPl04szD2or5f7Da3a1sVrUD6TNEThwMdng/XkXLlv3a6XVsqr7igIdYGavQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770966;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=aJG9aj/1TNxRxMtd3MVG3wRoVr7tWOPu4qXnQ1r3U9Q=;
-	b=26L023IgJRYLIZBCtieH0THE/3vt0FMONIZ6FrqHe0qeac2s4+n/odqJ7MunfIspCzye
-	 ePHu4mhhbHPjd0RKtwsoChiRbbqBM+ppwGnyUUczNNlaDRfiyF4xAIizneLi6/YXHYKud
-	 vfyI0H2kWY/TE4OULIRPOeI/qyNUWHVS0TYbbmP8c7/4dCfh9iZHr76ZFq19wK3rurk9Q
-	 obrV2TAILLVJe9DpFnzADczZC1kcd/bP+L7fLsbUlwmNDJMDcEjPCR2l5kH/stwxVKY1L
-	 IwLdF5/B3I58TU5hnqZNUTsUmD9WPCaaVdDmVL49138qdBWOz8d7xra5XWWQE0H4fgA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=B5jHQ2BU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794770969;
+	b=FJCUOCuTmbtoA8kMUbtErJU9q+f5EoXhMHVdPeurILoaRImGFyCfJiZaD36hIZM3nJ7T
+	 jeSzdi45YMhECNPe9ukw0DfNf4piO2fPsFcLCmvaXqziCwx3hgvEzAawG1Xa8f1FjkNvA
+	 ypAvCwKmi/ngY5V3fVhu2co10yN6pw0PRr00KUFQuCNrsGklFrstlDAiDJ47ZnLK1xScz
+	 Tkcb4TSPR/ST+WGebcjao1pXMIMKEWOLoQSbl2x7BB0KEu35SGLKwTdDfPvpoTNcw1Dr8
+	 HUZp9bW4NCNn9WJ2KB+tElaiSppwUjJS9kgElIS6go/XqVA0dtRVZGuPq56cOEHTs5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770969;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=w/Qfye4USoNiVqb39FnhpQx74r97Vedt+PqJLSo2rds=;
+	b=aThSw3cn25Zlul59W03Lco8pnTqJdu7zlRkBfucB7xFENFBm2NWZj3MjaXzmvWCHknk7
+	 KGchBcUSz2yDHTqsyHYKkGbGaAh5Mw9dMPAnh4pkF+xrMiDvSSDEHo1FQbYUWHBIueBQ+
+	 VIZL8yfOUOa6CSVFLJlNzE2QDfNrB9pJQB3dxKUa5bL5wTnbxZsnTy8R8439RHLUYm0gH
+	 Xp7aEzVCvGQHbsHdfRt5NcPxDWkEnguXetdZJOgz7GgjpIO/JsLOxadK0xs/5kxRAP4ZZ
+	 1//wPi0KI4uDl/4zIj4uEd77l3PgV/in7rzstskM2aexkD5C5OpFBGtHnuBxiE32MBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iL3orEa8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294FA606A883;
-	Sun, 15 Nov 2026 19:29:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 294FA606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919D5606A882;
+	Sun, 15 Nov 2026 19:29:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=B5jHQ2BU
-ARC-Seal: i=1; a=rsa-sha256; t=1794770901; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Yu9bYdaTYGLoCt+3inZTQAGJ/AuDdMOU6R4Dn0+CVMlf1RMTdozHkZOjUXYEjebNLLub8W7SDZoruW6dLzgN9Bh0CaB1hfJoY0lhg0TgJIDmJOoj6ELbDCGIz+MbAVj1qtzK9UfRXHmnlYln3kCsRgci7qG0qZwBXn4owKEuZBo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794770901; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=aJG9aj/1TNxRxMtd3MVG3wRoVr7tWOPu4qXnQ1r3U9Q=; 
-	b=ZyZq2lgfBwJn4SjaeQ2hDShwVDDbYu1KALYRdGLVSh9pZXfEKteRc8mWEgRGB/r6MqWuVVU8tSzvlwviIA6UYNODQcP+kMKL8H960KWMkFZmBuK0Wq3KlzUFGbzqswEM+K/MG9x2d9y6sAGnxTKHxB1w1W+AjpbK2CAclG1i9sI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=B5jHQ2BU6sAqbpKBmMPZGjR30jTobn/QWqj6jztBNYP+9R4Pr7wTXhWEmzwPjv86rz5hsFV9Lb6LXkhR+knUYm76ITBHCSWUXu9nRVgHtiZkSCkrkZLPdbyVvviaOI/yYr2NMFFw6/7iCsx1Ev8841UhTUf7h7nEkAugM5KcnpB0Y5tN19+R4GOzspcszkvc5UJapOoJ61hIBtHdnetP5P1vuYWgvUW3TKQpFjGTzH1WRdxrLLrrW6j3UN5sI8OwUJC2qtFJxW9cV30/bV+h346taYf8eWOFDm3c92R+m0kYKhK1XszNqadV9qMGxvbZzg15PpkcGfwx3sbEUCFH7A==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=aJG9aj/1TNxRxMtd3MVG3wRoVr7tWOPu4qXnQ1r3U9Q=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794770898495628.9551538154195;
-	Sun, 15 Nov 2026 11:28:18 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 16 Nov 2026 03:27:08 +0800
-Subject: [PATCH 7/7] platform/x86: ideapad-laptop: Enable ymc_ec_trigger
- for Lenovo Yoga 7 14IRL8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iL3orEa8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473711F000CA;
+	Sun, 15 Nov 2026 19:29:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794770969;
+	bh=w/Qfye4USoNiVqb39FnhpQx74r97Vedt+PqJLSo2rds=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iL3orEa8IbotLOVhN77lMohI7TgLYKV96aiB6KHCbydHlcbxkxiVERcK41dmzSoqZ
+	 y9MKQinGKevxS/Ytec+At+sIh7r6XIETUmOF9rjqmSw31BZVDZNjfFi5WY+4CX41yu
+	 5ZPEykN2dxRTVGfB0OjX8D+7b18605VKM+y5CsyqraqmjldU2odLSjLDHCvokH9AKl
+	 7tfeahqXM3tPWtyG/1rcAkDN9aiy/D+xnXocUfMhX5TIYFKkVbeKt6zPDD94mjLadF
+	 V3vWoTQACEvh53QIWGkbMrlxrIU1wjZe5KnA42DepWTko4YCEnBGCj1QXWZ6Nu/2iE
+	 fiQ8uTWKLAc1g==
+Subject: Re: [PATCH net-next v4 5/5] bnge: create NQ0 during probe and keep it
+ active across open/close
+From: netdev-bot+sashiko@kernel.org
+To: bhargava.marreddy@broadcom.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ vsrama-krishna.nemani@broadcom.com, vikas.gupta@broadcom.com,
+ dharmender.garg@broadcom.com, rajashekar.hudumula@broadcom.com,
+ ramakrishna.koduri@broadcom.com, rahul-rg.gupta@broadcom.com
+Date: Sun, 15 Nov 2026 19:29:27 +0000
+Message-ID: <179477096781.3136.18075947087153422171@kernel.org>
+In-Reply-To: <20261111190011.53437-6-bhargava.marreddy@broadcom.com>
+References: <20261111190011.53437-6-bhargava.marreddy@broadcom.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,54 +67,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ymc-82yl-v1-7-fac1a2b01a84@rong.moe>
-References: <20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe>
-In-Reply-To: <20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Gergo Koteles <soyer@irl.hu>, Ike Panhc <ikepanhc@gmail.com>, 
- Andrew Kallmeyer <kallmeyeras@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mahir Faisal <mahirfaisalantiq33@gmail.com>, Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-ce4c1
-X-ZohoMailClient: External
 
-The Lenovo Yoga 7 14IRL8's EC must be triggered by software on YMC
-events, or else the enable state of touchpad, keyboard, and keyboard
-backlight become out of sync.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Add a DMI quirk table entry for the said device.
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-Reported-by: Mahir Faisal <mahirfaisalantiq33@gmail.com>
-Closes: https://msgid.link/CAGAHqH6o0TUa1HXMrNV6e+HNYwU3xxHkOM665756n8Cp3AzhVQ@mail.gmail.com
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- drivers/platform/x86/lenovo/ideapad-laptop.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-index 4f9dc95d8c65..f9453de6df76 100644
---- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-+++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-@@ -1872,6 +1872,13 @@ static const struct dmi_system_id ymc_ec_trigger_quirk_dmi_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "82N7"),
- 		},
- 	},
-+	{
-+		/* Lenovo Yoga 7 14IRL8 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "82YL"),
-+		},
-+	},
- 	{ }
- };
- 
+- [High] bnge: race between bnge_napi_poll() and bnge_shutdown_nic() on
+  NQ0
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch adds
+  more callers that hit it.
+
+--
+
+bnge: create NQ0 during probe and keep it active across open/close
+
+This commit creates NQ0 and its MSI-X vector once at probe and keeps them
+until remove, so firmware async events and HWRM completions are still
+received while the interface is down. While the interface is up NQ0 is
+serviced by NAPI, and while it is down it is serviced by a new nq0_work
+worker. The BNGE_STATE_NQ0_NAPI bit selects which one is used, and it is
+switched in open and stop.
+
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> index 400ada1023ed6..ab917c0f81b1f 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+
+[ ... ]
+
+> @@ -2963,11 +3057,32 @@ static int bnge_hwrm_if_change(struct bnge_dev *bd, bool up)
+>  	return bnge_hwrm_req_send(bd, req);
+>  }
+>  
+> +/* Hand NQ0 from nq0_work to NAPI. The caller keeps NQ0's IRQ disabled; it is
+> + * re-enabled here.
+> + */
+> +static void bnge_nq0_wq_to_napi(struct bnge_net *bn)
+> +{
+> +	struct bnge_nq_ring_info *nqr = &bn->nq0->nq_ring;
+> +	struct bnge_napi *bnapi = bn->nq0;
+> +	struct bnge_dev *bd = bn->bd;
+> +
+> +	bnapi->in_reset = false;
+> +	bnapi->tx_fault = 0;
+> +	napi_enable_locked(&bnapi->napi);
+> +	set_bit(BNGE_STATE_NQ0_NAPI, &bn->state);
+> +	BNGE_DB_NQ_ARM(bd, &nqr->nq_db, nqr->nq_raw_cons);
+> +	enable_irq(bd->irq_tbl[nqr->ring_struct.map_idx].vector);
+> +}
+
+[ ... ]
+
+> @@ -3017,6 +3141,7 @@ static int bnge_open_core(struct bnge_net *bn)
+>  	set_bit(BNGE_STATE_STATS_ENABLE, &bn->state);
+>  
+>  	bnge_enable_int(bn);
+> +	bnge_nq0_wq_to_napi(bn);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the patch adds more callers
+that run into it. On 32-bit builds, bnge_writeq() takes bd->db_lock with a
+plain spin_lock() and leaves BH enabled:
+
+drivers/net/ethernet/broadcom/bnge/bnge.h:bnge_writeq() {
+#if BITS_PER_LONG == 32
+	spin_lock(&bd->db_lock);
+	lo_hi_writeq(val, addr);
+	spin_unlock(&bd->db_lock);
+    ...
+}
+
+bnge_writeq_relaxed() in bnge_txrx.h does the same thing. Softirq code
+takes the same lock too: bnge_napi_poll() takes it through BNGE_DB_NQ(),
+BNGE_DB_NQ_ARM() and the CQ doorbells, and the xmit path takes it as well.
+
+Here bnge_nq0_wq_to_napi() writes BNGE_DB_NQ_ARM() from process context.
+By that point bnge_enable_int() has already armed NQ1..n with their NAPIs
+enabled. The close path has the same ordering:
+
+bnge_close_core()
+  bnge_nq0_napi_to_wq()
+    bnge_nq0_poll()
+      BNGE_DB_NQ_ARM()
+        bnge_writeq()
+  bnge_disable_napi()    <- NAPI for NQ1..n is only disabled here
+
+Can this self-deadlock on a 32-bit kernel? Suppose an interrupt for one of
+the other NQs lands on the same CPU while process context holds db_lock.
+irq_exit() can then run NET_RX softirq:
+
+process context               same CPU, softirq from irq_exit()
+bnge_nq0_wq_to_napi()
+  bnge_writeq()
+    spin_lock(&bd->db_lock)
+                              bnge_napi_poll()
+                                BNGE_DB_NQ_ARM()
+                                  bnge_writeq()
+                                    spin_lock(&bd->db_lock)  <- spins
+
+With lockdep enabled, this should also be reported as an inconsistent
+{SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} lock state once traffic flows after the
+first open.
+
+The existing process-context callers bnge_enable_int() and
+bnge_disable_int() already followed this pattern before this patch.
+
+Would it make sense to use spin_lock_bh() or spin_lock_irqsave() in
+bnge_writeq() and bnge_writeq_relaxed()? Disabling BH around the
+process-context doorbell writes would also work.
+
+[ ... ]
+
+> @@ -3243,6 +3402,8 @@ static void bnge_close_core(struct bnge_net *bn)
+>  
+>  	timer_delete_sync(&bn->timer);
+>  	bnge_shutdown_nic(bn);
+> +
+> +	bnge_nq0_napi_to_wq(bn);
+>  	bnge_disable_napi(bn);
+>  
+>  	/* Save ring stats before shutdown */
+
+[Severity: High]
+Does this ordering leave a window where NQ0's NAPI is still running
+against rings that firmware is tearing down?
+
+bnge_shutdown_nic() calls bnge_hwrm_resource_free(bn, 1), which calls
+bnge_hwrm_ring_free(bn, 1). At that point NQ0 is still in NAPI mode:
+BNGE_STATE_NQ0_NAPI is set, vector0 is enabled and NAPI is enabled.
+
+On the close path, bnge_hwrm_tx_ring_free(), bnge_hwrm_rx_ring_free()
+and bnge_hwrm_rx_agg_ring_free() point cmpl_ring at the L2 completion
+ring. __hwrm_send_ctx() therefore waits until bnge_napi_poll() reaches
+bnge_hwrm_update_token() through __bnge_poll_work() and
+bnge_hwrm_handler().
+
+The waiter can wake up as soon as the token becomes
+BNGE_HWRM_COMPLETE. bnge_napi_poll() may still be inside its loop and
+may not yet have updated nqr->nq_raw_cons or written the NQ doorbell.
+bnge_hwrm_ring_free() then goes straight to bnge_disable_int_sync() and
+bnge_hwrm_cp_ring_free():
+
+CPU0 (ndo_stop)                  CPU1 (NET_RX softirq)
+bnge_hwrm_ring_free()            bnge_napi_poll() on NQ0
+  rx/agg ring free                 __bnge_poll_work()
+    waits for token                  bnge_hwrm_update_token()
+  <- wakes up                      ...
+  bnge_disable_int_sync()
+    bnge_disable_int()
+      reads nqr->nq_raw_cons
+                                   nqr->nq_raw_cons = raw_cons
+                                   BNGE_DB_NQ_ARM()
+      bnge_db_nq() with old cons
+    synchronize_irq()
+  bnge_hwrm_cp_ring_free()
+
+synchronize_irq() waits only for the hardirq handler, not for the
+softirq poll. Nothing here orders the two doorbell writers, so one of
+two things can happen:
+
+- The mask write goes out with a stale consumer index after the poll
+  has advanced it.
+- The poll re-arms NQ0 after it was masked. This happens while NQ0's
+  completion rings and stat contexts are being freed in firmware, and
+  while vector0 is still routed to NAPI.
+
+Before this patch, NQ0 was freed in firmware on close and re-created
+on open, so any state this race left on the NQ was discarded. Now NQ0
+persists. The same NQ also carries the async events and HWRM
+completions that the worker mode depends on while the interface is
+down.
+
+Is the bnge_nq0_poll() re-arm in bnge_nq0_napi_to_wq() meant to repair
+NQ0's doorbell state after this race? If not, would it be better to
+quiesce NQ0's NAPI, and the other NQs' NAPIs, after the TX/RX/AGG ring
+frees but before bnge_disable_int_sync() and the completion ring frees?
+That would replace doing it only after bnge_shutdown_nic() has
+returned.
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111190011.53437-1-bhargava.marreddy%40broadcom.com
