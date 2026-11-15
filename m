@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753157;
-	b=nE2uWELZNnOwg8cap/dHzShlLkdtk5rsKBTjni9dUfyo2cdW44KgtEDUrENMxAQOMa/C
-	 kZ95SFAB431dv3wVOPUz6vX4EqYn9W2nEKbvI0wnHHNJo73cbfMiK5ZIGL69CrVoR2vVL
-	 FB0OkbLinH/zS6bw+I8j6VSiroUkQXBlwo9+Sjm8Sv5fqI8jYBAp/LF9ivThcGJwP5FBg
-	 xnZLiifq4XR7wnEWMbgL3CHzZg7Z2HWVkLfKd7jBM1Tryg3XIKYBq0tbDZT93MARttBDX
-	 SRtzmoOhD2I+WNVqb2241DR53MRMlvBA1TTpQ3xT1mZbX1w5tfE3uc6ISQ2H4Y42pFA==
+	t=1794753275;
+	b=Ku4sUx+x5wydGY9N6lzAR3VGK0QA7ctT1mAskc1j49kri5XKTHopzYx71Ik7KUHBzZ+P
+	 RqSdISc2+0QbtU9F3tzK1AXvsdGEIE5iR3pMNDpt2PjsCklDLtWQj2jMipLRDe26AByTN
+	 0NbB6bptwqU2lYgAsPa9W7NVBvpKiPr3DfG4RoWdD0gvHwqnJjHNbHxs2i/5zc8zuY0y0
+	 VetSxoAAeCSU4iqnR9G5cYpqjYjGf+KB2lWVGeiKgR9tOe29XUpIO2Vp6scH6TpMxjml0
+	 +tpiJwQ56MrYFZwpbbHIVuzCJSWSRhaTZ2whKtx9ld6udi4rdxzGKhfnsqmB8MLgiRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753157;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:
-	 X-Rspamd-Score:DKIM-Signature;
-	bh=3MBdZCa3+pc0zEIK6T3rmt1yKKRJeNOUk5g02fXUNZc=;
-	b=rDcqR6lNeXRmL4Xx1rfRuKoakiC6q8sjX5yXIm4Tdzowk4oKsY3Le3qRjILYkn/JQ2H2
-	 yblvHYyqEYyKp3a6peyAy1RyGVy50ysnfLiOVeamMQI+sOie7BheB/DUF3B2Z/a1o4sBX
-	 H3W12L4+YRW2OT+f1ROIFAeYLmcD03gMxU99BUzxbAk6R4xK3RWR0GGHSW/uBIGL1y+h3
-	 gvBUugQ5O/72ZlgI8ot1RsdwcC0SB2gDzQ86X8XVkmPlOIT1ScZaUSLGTAWSS+WtbWmhh
-	 IU2yHWd/lc3tyTYByEJ6ZnAQpETn/l89SzaJLKU/qR11YdwOUaM71oprbnBfLeiGUvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753275;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tNzd3USh5F/V2q6XE6vwKSqMU60KollHCRdPjoA6L9w=;
+	b=sCW87/G++qnzeGhWQZHv0MPbTkNtp4FnvhfZR9cWAQ2qiX2Gf9tCxGFV+J6a+WAgg0vx
+	 QYcR+uxHAfWoPnWM9tk3O3AGRy60/tLzKoeV+8BsnXEmzqu4NmcKnjkzROEA+8HYxiP2a
+	 b3klMVyZGhlUlnNcQ/3XzLzOLdTPF83vV1PunhNduUUR0g2151F0f/S3wGym1vczFIIrE
+	 q5zq5MdZijJ6LfIFsdml5q48f0PTKIRbuUbVI0B1GZ9vvKuJ0agrdrQaAVHWM6dHE2spR
+	 TaGcy+8E3Hin8N70cRGn2Abc3RalrfQMT1yJo7AokyBOBM1bMQvTCq94FxqicNL38+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=BXgAcNYY;
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWNepf+F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6DC606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D6DC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D240606A31D;
+	Sun, 15 Nov 2026 14:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=BXgAcNYY
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 9B85060D7C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:32:35 +0100 (CET)
-Received: (qmail 32341 invoked by uid 990); 15 Nov 2026 14:32:35 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 15 Nov 2026 15:32:35 +0100
-Message-ID: <7f2ea700-ddd3-41b9-9500-63a44c321648@lausen.nl>
-Date: Sun, 15 Nov 2026 15:32:34 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWNepf+F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 582A41F000C4;
+	Sun, 15 Nov 2026 14:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794753275;
+	bh=tNzd3USh5F/V2q6XE6vwKSqMU60KollHCRdPjoA6L9w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SWNepf+FKsXuW9Qaef8jRNXzfwf3z4eamYnpgqM5tOpa5RIK7LwRgpvjEN5Ody1Lm
+	 9g8Zey9C2Rt2nRVHWz0px4JBnv2AATKNiABDAtdNmEvy6yq1/pc7N8Wvvo/R3q4tWG
+	 Mdc95ArXylLKf/DZCJ58eS3xME4yTvldULsodz43tDFWoTnYDcjU5MH4WUgEm9/a+k
+	 kYfhOwSYy0VeH1R/H9BpDUU5ibmxvjMKCTdeDArInnsuPMvfha8F/gKVHV45uwMAl+
+	 7auBwQV2NK9yPH8gh9iqCuBwrUCWIKbuU4g6ex8xzhrigQtEyylaN8igFcUGTgeZXs
+	 2qjRUwuFTt1ng==
+Message-ID: <5273baa7-aae5-4364-bb09-dccee581200b@kernel.org>
+Date: Sun, 15 Nov 2026 16:34:30 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,48 +52,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Leonard Lausen <leonard@lausen.nl>
-Subject: Re: [PATCH v2] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
-To: Shawn Lin <shawn.lin@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261025205339.14539-2-leonard@lausen.nl>
- <4b7bd146-93fd-41f8-ad3c-88333adc73b4@rock-chips.com>
- <20261026070821.324094-1-leonard@lausen.nl>
- <e028ba53-0c69-4ba6-9b16-8648b8a787b2@rock-chips.com>
+Subject: Re: [PATCH v4 03/16] dt-bindings: clock: at91: Allow referencing main
+ rc oscillator in DT
+To: Alexander Dahl <ada@thorsis.com>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Ryan Wanner <ryan.wanner@microchip.com>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20261105110715.2486432-1-ada@thorsis.com>
+ <20261105110715.2486432-4-ada@thorsis.com>
 Content-Language: en-US
-In-Reply-To: <e028ba53-0c69-4ba6-9b16-8648b8a787b2@rock-chips.com>
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <20261105110715.2486432-4-ada@thorsis.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Bar: -
-X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) BAYES_HAM(-2.992814) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
-X-Rspamd-Score: -1.582814
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=wEW9XVAV0DUg1t10qy3lbNxLg4TAA4TlBE4rFTXyck4=;
-	b=BXgAcNYYDk0LWEkWPTYakA9wmgidxf1/hV9wTaYI6vyCuqmEP/scby5qY/cCYeDzXWEZconqiN
-	muPFWqC+DU7CNGSzfqcwHPWaObKtp4vQA47ZWJlfrEoh82xWzq8HbgpRXZ8Pyyt4l8eBKh/cSNCg
-	C6ntv2511UkbwaQWWt3isuaFuf/iM/UGPidSups3frU2PQgq5r64se6LLRVlx6O9eBuYn5Q3NquI
-	E1q/eIprbxbg3mIaibNFL0GlFl7UHqi7P4jnf/Sazb2NXY54NIfBaeqWk3oThwOjACmUBtj/PijK
-	PVDGPGylSYucwzjhRFqJhDDROTRDv+cUXgJN8+yjw6tLstrJz05Yldy188qkJcpOMsUTmk0R8PaM
-	fg3hrlMu7uc7h7FVj/xTZkGUULMTaWA6PZ/jRVZdQH7iZgTHYfp2vbEM6n/Rrt00DswvMj4zXx41
-	VXjRH+hue9HpSJuo7pXv4ukSa8skt0sIvEKCKbShq1zgaZ5LFMcdz2c6KxN+tAjh8ceDM4UjFJB7
-	XFHCjNLyH+qRzezA2coUNCd+gdbQv7xl4SvPYy4EbqBVqGmBwjSLS8kV2yiqGxSUNNZLOU0HWtvT
-	ya/xwpBJF2Wr7sKWhWyHUgnKTk5P0Vj12+PZA0IlYF8uBBeK5m3+9+VxmumDlgR7EScC44ui9tD3
-	8=
 
->> The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
->> RTL8822CS-based AC200. The SDIO controller is disabled and the module's
->> power sequence is not described, preventing the card from enumerating.
->>
+Hi, Alexander,
+
+On 11/5/26 13:06, Alexander Dahl wrote:
+> The main rc oscillator will be needed for the OTPC to work properly.
 > 
-> I suspect RTL8822CS doesn't work as-is, unless you need to apply it[1].
-> Please double check it.
+> The new index introduced here was not used on the four affected SoC
+> clock drivers before.
+> 
+> Link: https://lore.kernel.org/linux-devicetree/20250207-jailbird-circus-bcc04ee90e05@thorsis.com/T/#u
+> Signed-off-by: Alexander Dahl <ada@thorsis.com>
+> ---
+> 
+> Notes:
+>      v4:
+>      - change index for sama7g5 and sama7d65 after re-adding unused PLLs in patch 2
+>      
+>      v3:
+>      - adapt to different base changes, added lines are the same
+>      
+>      v2:
+>      - new patch, not present in v1
+> 
+>   include/dt-bindings/clock/microchip,sam9x60-pmc.h  | 1 +
+>   include/dt-bindings/clock/microchip,sam9x7-pmc.h   | 1 +
+>   include/dt-bindings/clock/microchip,sama7d65-pmc.h | 1 +
+>   include/dt-bindings/clock/microchip,sama7g5-pmc.h  | 1 +
+>   4 files changed, 4 insertions(+)
+> 
+> diff --git a/include/dt-bindings/clock/microchip,sam9x60-pmc.h b/include/dt-bindings/clock/microchip,sam9x60-pmc.h
+> index 050e5e774b274..830e247ba2532 100644
+> --- a/include/dt-bindings/clock/microchip,sam9x60-pmc.h
+> +++ b/include/dt-bindings/clock/microchip,sam9x60-pmc.h
+> @@ -10,6 +10,7 @@
+>   #define SAM9X60_PMC_MCK		1
+>   #define SAM9X60_PMC_UPLLCK	2
+>   #define SAM9X60_PMC_MAIN	3
+> +#define SAM9X60_PMC_MAIN_RC	6
+>   #define SAM9X60_PMC_PLLACK	7
+>   
+>   #endif
+> diff --git a/include/dt-bindings/clock/microchip,sam9x7-pmc.h b/include/dt-bindings/clock/microchip,sam9x7-pmc.h
+> index 292c5873e101e..58d2a08116795 100644
+> --- a/include/dt-bindings/clock/microchip,sam9x7-pmc.h
+> +++ b/include/dt-bindings/clock/microchip,sam9x7-pmc.h
+> @@ -10,6 +10,7 @@
+>   #define SAM9X7_PMC_MCK		1
+>   #define SAM9X7_PMC_UPLLCK	2
+>   #define SAM9X7_PMC_MAIN		3
+> +#define SAM9X7_PMC_MAIN_RC	6
+>   #define SAM9X7_PMC_PLLACK	7
+>   #define SAM9X7_PMC_AUDIOPMCPLL	9
+>   #define SAM9X7_PMC_AUDIOIOPLL	10
+> diff --git a/include/dt-bindings/clock/microchip,sama7d65-pmc.h b/include/dt-bindings/clock/microchip,sama7d65-pmc.h
+> index 08581418b9115..17105a6bedb54 100644
+> --- a/include/dt-bindings/clock/microchip,sama7d65-pmc.h
+> +++ b/include/dt-bindings/clock/microchip,sama7d65-pmc.h
+> @@ -19,6 +19,7 @@
+>   #define SAMA7D65_PMC_AUDIOIOPLL		10
+>   #define SAMA7D65_PMC_ETHPLL		11
+>   #define SAMA7D65_PMC_MCK1		13
+> +#define SAMA7D65_PMC_MAIN_RC		14
+>   #define SAMA7D65_PMC_LVDSPLL		15
+>   #define SAMA7D65_PMC_MCK3		16
+>   #define SAMA7D65_PMC_MCK5		17
+> diff --git a/include/dt-bindings/clock/microchip,sama7g5-pmc.h b/include/dt-bindings/clock/microchip,sama7g5-pmc.h
+> index 27668634b0a2b..4a1c4af8ecc9a 100644
+> --- a/include/dt-bindings/clock/microchip,sama7g5-pmc.h
+> +++ b/include/dt-bindings/clock/microchip,sama7g5-pmc.h
+> @@ -19,5 +19,6 @@
+>   #define SAMA7G5_PMC_AUDIOIOPLL	10
+>   #define SAMA7G5_PMC_ETHPLL	11
+>   #define SAMA7G5_PMC_MCK1	13
+> +#define SAMA7G5_PMC_MAIN_RC	14
 
-Thank you, Shawn Confirmed your series fixes SDR104 and improves the 
-wifi throughput. Throughput still stays substantially below the 792 
-Mbit/s raw SDIO bandwidth. I prepared a few commits to remove overhead. 
-First two are at 
-https://lore.kernel.org/linux-wireless/20261115142330.359247-2-leonard@lausen.nl/
+I think we can use 12 instead. Correct me if I'm wrong. Otherwise, you should 
+change also driver code to allocate space for this clock. See 
+pmc_data_allocate() in drivers/clk/at91/sama7g5.c
+
+Thank you,
+Claudiu
