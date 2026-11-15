@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703799;
-	b=oFjg7xpgeUhw6UoNdlV+79Isz1xikWGPElw/I/OXJLB1OAtFgfvpJk6Jd9yeVcnLzAqG
-	 D/BCRDwxkC1cfe0aIs70veJnK5k4HQwjOqbr+sYPBX31z5rL4wYpj4wfDIMF5J8SheWP8
-	 HegC6eekhNKDlyz1HC+KR6ZIxU0N9GsuFcl+E/vaP3NpLWW3d1WemwvlIC4B2IjGTDQ34
-	 8qUZIcPph1yJyMa0Jp0jNw/P8nA//2tUrCjGkq9YN1JCanTKnY/MxzS77JAoX1O2kfuPW
-	 GFZBHt/WUquNrEKJlU6R7HFW+u4DJx7TmRf0aUqzByiH+ILTbqw0Ij5gI+r3LNTf6QQ==
+	t=1794703896;
+	b=Is5Av4yi5Jdsafpuv0sFk2NSsJg4txhtjWqFCNlIWKPc6zMbWkLvCVM/uDk0Dk2QwV1g
+	 c0PpnRpu9hhleeaXRv/l0e0x+JP0Oy1uFxAA71oxuzmalQfAUUsSg1dgyGPUJGhTs7XOz
+	 tTDNnA2MTBQYsryEEsTedmJQ1dT61y4hrvDW0Oi6WsBt4jlRHHtlATDEIzZ4ouom2e8cR
+	 R9rZsYw/9tqYq56Q73KDUoZtGRydYLm7mNLi/cMYTWFLVpAlEq8e8oV2Y+nJ3TFnyOuRF
+	 mCJIutg5V9S2NGHRljr7AP5S8kqA3LgmVZqLrdGjC8d8JRhKErzwqkVVHDd6XrYN0sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703896;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
 	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8HhBoJ0oLDIkG/m3q7iXHnaJgleISQvg2LeUm5lbyGk=;
-	b=vwSFOhW30d9Ab+New7ntv29ic/J3/8wbI7UnmxZbC1DDMeXCn+hr6/bAecFdHQyIx8FZ
-	 Fk9Y1q5ZMMm0sNzKM/m5POJVV0SnaOamVLZ+R52+nzU7xiW5axdnvTVSehWN59zjF0qXP
-	 h+vtLYHw3GxSi1LAH1hq566a/WSornAVHwRUYKt6ILSH8ddguFBssWo3VBlV/2CQ8SV6n
-	 5Q6NTzvtdxS3XVtqSHJqR/u1JB5AELJF1tdy7+cfKfZw8t/OkZia99vAud1e+aCsupDu0
-	 KrsQp8tY2qpjxSYwxoXi/i3uyQ69HINniuYf+QiVHXuQ9LlgheTefq5h4FLvSFD1KbQ==
+	bh=cIQKJ+UG91RHKyYene2ntrB1MHw8caFD+qmGOAO6wSU=;
+	b=vZdGpl9TWy6HouSoYInRQoBHIT4rjqLe5GywbQ9cyx6pR+8Psf/SS+jydBXmmern1cnP
+	 zetb2a+m/FuEjxXmtUlpKwcpVDgaDVqLagVUAIV2mqmrOgJ+ZJ0ysYu18rOp2LFMTiVpN
+	 tSswdrh9svmjlNw2BC0hPoUcJ/rt9S1hGMF/qc3bp/q1k5lAQjZs2bB3cR6Qm/3m27F3i
+	 F01WkZNWKPJLtw4XgWdaDsPCLNllneOf4n1ZaLPc+c0Q4WjBk2w34iKkPZZ2PTZIjd5r1
+	 i5Nn8clWt8SWTQJU5O3IJOqhiVfl1nUxBeach4CDAcsuTRCSbhYfqO6ZiFKuysA8quA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZmF3OfR+;
-	arc=none smtp.remote-ip=91.218.175.125
-Received: from mta0.migadu.com (out-125.mta0.migadu.com [91.218.175.125])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SWe59QkV;
+	arc=none smtp.remote-ip=95.215.58.200
+Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CB0606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95CB0606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3BD606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3BD606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZmF3OfR+
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SWe59QkV
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NSiCSGoCCyJBHjU2+fpDRU4Sn+QKieajStYeP4irVHU=;
+DKIM-Signature: a=rsa-sha256; bh=xFnLsG59GvlRg1cGX6jqXi1P0i1OqXy1k2drts1zmg0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794703795; v=1; x=1795308595;
- b=ZmF3OfR+T9xDVYyAft+FWe6oOImWbibsMqMV6h+4agbLfP/ZYcqkUWE60f5/I1pjL01Zatp6
- rU2DP5nj4VLsddMm0imPHyUoV2tfEXS1bi4a9emY+zGTNScuQJKazJv+1EXKBXWiaDFRKNYR3Ge
- 47A80tS80tUqsjkYFfCsP+ik=
+ t=1794703893; v=1; x=1795308693;
+ b=SWe59QkVUKTpOuhVSRr4ltJFXxocdeMcga7R0GcwcO0EDL0etq+qIs5/TVyfHi6BVNDn7trL
+ imz1lbQV0oqs9d4PGRQ2flu/5KeG5Ck2h36znDAAhUdCaKbTrlRYVhArXQYR0+6Traj224K3d4W
+ MiSpnRv/orIv1JjypQ1hNdnM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a0b98ee2d4f930d1;
-	Sun, 15 Nov 2026 00:49:55 +0000
-X-Mizu-Trace-ID: a0b98ee2d4f930d1
+Received: by smtp.migadu.com with ESMTPS id d6aa2e4d69f7770f;
+	Sun, 15 Nov 2026 00:51:33 +0000
+X-Mizu-Trace-ID: d6aa2e4d69f7770f
 X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 00:49:54 +0000
+Date: Sun, 15 Nov 2026 00:51:33 +0000
 From: Bradley Morgan <bradley.morgan@linux.dev>
-To: wusamuel@google.com
-CC: kernel-team@android.com, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, pavel@kernel.org, rafael@kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_freezer=3A_Check_frozen=28=29?=
- =?US-ASCII?Q?_before_freezing=28=29_in_freeze=5Ftask=28=29?=
-In-Reply-To: <20261115003113.1852160-2-wusamuel@google.com>
-Message-ID: <09C404BB-5914-4658-801E-4DADD3411CF2@linux.dev>
+To: renzo@cs.unibo.it
+CC: akpm@linux-foundation.org, evgsyr@gmail.com, ldv@strace.io, legion@kernel.org,
+ linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, oleg@redhat.com,
+ strace-devel@lists.strace.io, thecharlesjenkins@gmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_ptrace=3A_reject_out_of_range?=
+ =?US-ASCII?Q?_error_values_in_PTRACE=5FSET=5FSYSCALL=5FINFO?=
+In-Reply-To: <20261114184842.373304-1-renzo@cs.unibo.it>
+Message-ID: <2D2A202C-35F8-4200-9110-B0E636216FCF@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,48 +69,89 @@ Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 15 November 2026 00:31:14 GMT, Samuel Wu <wusamuel@google.com> wrote:
->During the freeze stage of suspend, there are multiple passes over the
->same list of tasks. Each pass tries to freeze non-frozen tasks, meaning
->that the number of frozen tasks increase monotonically, and that each
->subsequent pass will mostly be iterating over frozen tasks. Therefore,
->it is faster to *first* check that a task is frozen before other checks,
->especially since the frozen check is computationally trivial.
+On 14 November 2026 18:48:40 GMT, Renzo Davoli <renzo@cs.unibo.it> wrote:
+>When PTRACE_SET_SYSCALL_INFO is used with op == PTRACE_SYSCALL_INFO_EXIT
+>and is_error set, info.exit.rval is passed to syscall_set_return_value()
+>as its "int error" argument.  The only check is that rval fits in a
+>"long", which is a no-op on 64-bit architectures, so:
 >
->Check frozen(p) before !freezing(p) to short circuit the more expensive
->freezing_slow_path() calls, while retaining identical return semantics.
+> - values outside the "int" range are silently truncated;
+> - a value whose low 32 bits are zero, e.g. 0 or 0x100000000, becomes
+>   error == 0, and the system call returns 0 as a success although the
+>   tracer asked for an error;
+> - a positive value is stored as is by some architectures (e.g. x86)
+>   and is not seen as an error by the tracee.
 >
->On a v7.3 Pixel 9 device, this consistently reduces freeze_processes
->latency by ~10% (~4.5 ms).
+>PTRACE_GET_SYSCALL_INFO reports errors as negative errno values, so
+>reject with -ERANGE any error value outside [-MAX_ERRNO, -1].
+>
+>Fixes: 26bb32768fe6 ("ptrace: introduce PTRACE_SET_SYSCALL_INFO request")
+>Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+>Assisted-by: claude-opus-5-5
 
-7.3 PIXEL 9??? WHAT HOW? THE BASE ON STOCK IS 6.12!!!! WOW! (Please do for
-pixel 7, I want flair :c)
+Drop. No longer needed. Annoyingly. Assisted bys aren't needed no more. :(
 
->
->Signed-off-by: Samuel Wu <wusamuel@google.com>
 >---
-> kernel/freezer.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
+>This patch is independent of the PTRACE_SET_SYSCALL_INFO syscall skipping
+>series and applies cleanly either before or after it.
 >
->diff --git a/kernel/freezer.c b/kernel/freezer.c
->index a76bf957fb32..1adf09321389 100644
->--- a/kernel/freezer.c
->+++ b/kernel/freezer.c
->@@ -166,7 +166,7 @@ bool freeze_task(struct task_struct *p)
-> 	unsigned long flags;
+>Tested on x86_64 (QEMU/KVM) with a test program that, at the exit stop of
+>getpid(), calls PTRACE_SET_SYSCALL_INFO with op ==
+>PTRACE_SYSCALL_INFO_EXIT,
+>is_error = 1 and the following rval values:
+>
+>  rval                   without this patch            with this patch
+>                         (getpid() in the tracee)
+>  0                      returns 0, success            -ERANGE
+>  1                      returns 1, success            -ERANGE
+>  ESRCH (3)              returns 3, success            -ERANGE
+>  -MAX_ERRNO - 1         returns -4096, success        -ERANGE
+>  INT_MIN                returns INT_MIN, success      -ERANGE
+>  0x100000000            returns 0, success            -ERANGE
+>  -0x100000000 - ESRCH   fails with ESRCH, but         -ERANGE
+>                         PTRACE_GET_SYSCALL_INFO
+>                         reports rval -3
+>  -ESRCH                 fails with ESRCH              fails with ESRCH
+>  -MAX_ERRNO             fails with errno 4095         fails with errno 4095
+>
+>Without this patch PTRACE_SET_SYSCALL_INFO succeeds in every case, and
+>on x86_64 syscall_set_return_value() stores the error, truncated to
+>"int", as is: values outside [-MAX_ERRNO, -1] become successful return
+>values, so the tracer asks for an error and the tracee sees a success,
+>or a different error than the one requested.  With this patch these
+>values are rejected and the tracee registers are left untouched; valid
+>errno values behave as before.
+
+That's just word puke. I did NOT read all of that, make it TL;DR
+preferably.
+
+>
+> kernel/ptrace.c | 8 ++++++++
+> 1 file changed, 8 insertions(+)
+>
+>diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+>index 3f2fe68ccb14..2fbd0d55b42e 100644
+>--- a/kernel/ptrace.c
+>+++ b/kernel/ptrace.c
+>@@ -1111,6 +1111,14 @@ ptrace_set_syscall_info_exit(struct task_struct *child, struct pt_regs *regs,
+> 	if (rval != info->exit.rval)
+> 		return -ERANGE;
 > 
-> 	spin_lock_irqsave(&freezer_lock, flags);
->-	if (!freezing(p) || frozen(p) || __freeze_task(p)) {
->+	if (frozen(p) || !freezing(p) || __freeze_task(p)) {
-> 		spin_unlock_irqrestore(&freezer_lock, flags);
-> 		return false;
-> 	}
+>+	/*
+>+	 * An error is passed to syscall_set_return_value() as an "int"
+>+	 * and must be a negative errno value: anything else would be
+>+	 * truncated or would make the system call succeed.
+>+	 */
 
-Good good.
+This is very verbose. Like VERY verbose. Maybe a one or two liner comment
+would be way way better
 
-Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
-
-
+>+	if (info->exit.is_error && (rval < -MAX_ERRNO || rval >= 0))
+>+		return -ERANGE;
+>+
+> 	if (info->exit.is_error)
+> 		syscall_set_return_value(child, regs, rval, 0);
+> 	else
 >
 
 --- Thanks!
