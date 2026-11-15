@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755450;
-	b=4fqkQOKQUXXBTLO+5Fb5QK//qSW2owLZdCDdkzfatNzqGs9rXif8Fia6vAn+3nSmBtv4
-	 Z/7N62kCa8Z+lJcQsGGNe12Wv8Wd49/gikRK1dhFNp3tlcUJhuBACi5FBX3b4v0NEcZFe
-	 iVpH1pns94NnkkXjRq71tqpMAEViCGbnAF9OU+b3ByoPx4DoPjEp8VJvB11WNr/l/Zoqm
-	 3585Mesge1gUBkxeROHCeMtfPq92bj92dYFlhXEXDJy9ne3AXV0ZJ+NfnYy42VIe4QGAq
-	 2uBh/iFw8PHisr1QjoA3rJulFLlnVwHnb0YozOjDs93v1vbChnJEFDewGIeVyVBrfew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755450;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eaxEZyXDYRmU5Dprx1kNAyA3+B9VXgQMpA+bJiAtB4A=;
-	b=LOVc956xMgvlkqY4H/t7ALdtqO6eBT2z+RKRj32/U7oPRZvoVF8Q+A7mSRaExLkMg/0r
-	 QZpVLPcUdN3IKwlkaSc4vnaNyIgMN3kcIhkLEYSaqWk/xk36nVHmQz8MaByQF1RDX40JV
-	 wQdvdieQ03is7dTbK16D1sdieTz8ZnhjmrkP4qI8w9UPIGisSWMdWjdkEtL/t7f1eJY8E
-	 1rAQZlmfNRCGZExGnZWv0d3FR75v6xuGj23H2KO7gGRwGVS3zaapquzAwbEjZgchRgKQE
-	 hksFjznyig0fSJsy3HUdEVGLqEMu85FzPyvzwaMfMEfTcZvVEkEMDBHP9lxYcMTTHlA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=S5tl92Wr;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794755503;
+	b=nzSXDiQwwQs6JKYEs3OqW/U8zgoSQIKTbYDiXOHRvVipxLcQlI3LEuDI5f6sFFK5a1zF
+	 dXQ/Li7SJBf35jK++WJdb6U6X3MPKxIEWtFjMHiW6ErCsXVaIk3F0t9+4Dg7FWjUTBcbS
+	 o6CBI0eiY6ugHQgHWd/b4uohIUyobHCaBp2ZGJR2X+TWZ+MnhX3BpSWgItVLDPSOWjMRO
+	 Sd2ztLzsIWDJJeQFUX+8PH0n/+5A95VFPQHzCHmWk2scrVGqO035gXYu2C+/9jeIPcr0P
+	 dNvFosJU/dUnuWptetRL4iCBbOiCIdZJ18lGQifdlpR/XFuZ4zgO07WSZPPyHTC6SQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755503;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=dBDaQS3YuLlX9/tz/mx6HVXCXKV6gxoWF0rGHwlM5YI=;
+	b=SFXNbHl9H+zTsGspIXhfRKgazvJcw23bTyFFqJasYatZ0aeO4qNawXiTwM8Mfs5AJ0dV
+	 g7nK7Xa0nF1KjUXXsKFw0bGGaQkiFdW422KqI/pBysyXNJ3jqidX0S6F2x9hz9mOGKJIv
+	 iBKnKe9Lkha+UbOVKoStvs2iBo8NAA2ucC6Z14pRo4YdKyUrp6rAOiAcstIztRFW31DNs
+	 qGnhfQpL76OCuhAOFy701SsuyTo4VCApqc0zK6u0MidsVQ3S64fhRGjyIR6oe3G2DsJtE
+	 P+2fYviI4sQkfCnDwZr4K+BzVdM71zOjfed6KON1izZ/2B/jqAcij2q46vFLKiOQM9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsHGoUuF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B05F606A31A;
+	Sun, 15 Nov 2026 15:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsHGoUuF
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794755503;
+	b=NHHDzq/shpWBopJoQoXZLRIVvH8gns62d6vVFMnG/I1reTMTSWJtDzsDEwCZyN1r7Vnn
+	 wB7ZFLUyYQL/iaLmt1jc7gIZFoCkOhnE2By8NrEir58fbzqcsCQfznZrgUf9xTBncB2E3
+	 JCAynMI6n4GmDQ1DwsHA9RQsmtaZtp5jt3a18Gh5hbYK390yVv+ErqXPJZW9d9Wr5hfiZ
+	 mEQFWLYcNVgtyxvqyntUTvmgp51nrfg8G9iYV10nI2qIOuU8LbVr0s1p/CiEF3tFb7tfF
+	 alDu0Li6owV5LYjAYDuHS976zMeFQ3wXGxo2zTbs3e3YQbY5JByPGc+ntnefaxh6URg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794755503;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=dBDaQS3YuLlX9/tz/mx6HVXCXKV6gxoWF0rGHwlM5YI=;
+	b=ruqUUwoNFxbV4aB7jxfnXaKaXMlcHKytN7MFc7O2BQi7PJUYmvTzFrzp/8kVo20B697K
+	 dPQ7J8MiuSFUZOogH+FX3KIfCkPEy1kldZsxC5sptTxga5RWs06xZQoVPjdQqy3j42f2U
+	 tfOqO11CWo9om3geaz6fUx9L4Uax13ww6MJ94LYtyWh4efz7AQqAMvRb+yXxrc67mV1KN
+	 e8o1AtAkVuJI8LYwpdw01xDV83fK0VTpnTyWdSfFVJMPM+oMs8jpJu7l7VE7GH5b6BQNv
+	 Kpzv28Qpy5hLUeaJdeern9r9W4EwkrpM88EIR4IH2jZVIx79+Sbls2wCGda2vDzLKZg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C600606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:10:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C600606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=S5tl92Wr
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so2740952c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:10:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794755448; x=1795360248; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eaxEZyXDYRmU5Dprx1kNAyA3+B9VXgQMpA+bJiAtB4A=;
-        b=S5tl92Wr9on2l61eHo+A1t4Eq1oCUdGXafRbi1t5HhQLm3kMyU3JzQ56DoKjpPcS9I
-         vlsIw69+LRFR59sefyKphsOhi9eldOeSLN90ZXpkkHLqNwRrPAqYsWE8vSmdSVSDdXbC
-         kKT11rnPEAzp24Olv00TjYGYd7MINAuS82MsECmzrO6dTcXtDNn1+ZGpFjUm7PRXjabf
-         J3n1fkjdmknHHEbb/ZnVwpqS47giWdJS4hU1CK3OewdFfe23j8i+d7GVp5ZeQ1GbTx6D
-         kYKr6Pm4iD5Imau0Gl5EiyndHLxrPkSI4ES9XYPAt2CQkb0Ib4UIVBQb8GC5YQnrZDtc
-         2jjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794755448; x=1795360248;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eaxEZyXDYRmU5Dprx1kNAyA3+B9VXgQMpA+bJiAtB4A=;
-        b=J2Armj5sujKHyQtipR50wdwHQj/bGVuGY0l7PKRzsr3K/eCSzzKcM36t4OhnlXfZy/
-         vM8i5iwOybWS4pQchaRx21D0q9J7xg0Q7eeETGlgYyi7Psex3FthxPIyGSyYYAIUGbei
-         bhAKZq1ZFTZnZQnq1VQtZN2a49h45s7anpjsaEvf3IpCquOoT+g8zdcj0O1QUOUhalND
-         woMHgL63qYpkwR9tmMXQMifiLtE4pGLlwBzmIZ0jxpoKPoh3Whc7rclxMEGX2nbFFWih
-         mjp0jIm/v74BqQHDBGEpbpkzwRp3pODMAb9Hm8LWdDQG8EKpr5u+0cMw+bQaC6O+0zKk
-         O47w==
-X-Forwarded-Encrypted: i=1; AL+hErGysHrYmgiULP1RQojIxeQYNmPIoLp4RA6VVag5UB7y3XpVG3HtyTnDgavnu5q6SHLVzQY/1y85ZevtDw8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9dUNlOWTTBxfU4OmnuXPeU/5wCWrlyyk9WlCcSZ5M0ZKa1Lo3b
-	yxssCuLmgmjNeIXagXZY3K7jzcWNH4e1jdYFcaqTSdSvwMC7etqZVcHCrQvH4u+GBIY=
-X-Gm-Gg: AYBFou1v9MT519CASEeeNH6t/SAmiAxIA4j1BW0AjHaFLmZKZBG7htDIITEseQZGY2G
-	iWJJ24cGlb1w2Q1+5TxmdPlgXXdQGluMcY9zXj7iNldhd8iG7WOggPyS6l51inqqmHhFa01nYYP
-	DYmUE+fE01SiRZewcG4uBYL3UrYXpVo2gq/E0rmYEfPa2lhgn/WGjrnQWWWuHLVQ7UWCYQqUVg9
-	dUGw6NY0oL4+UJMn6DR22lNB7QaUEAWTTJBezZF61udhSXSU2FMMKoDi+yellFc5UosLAfdHRt0
-	3Lx9YcaB/FwuoN6y9EDYPTYSz/uTYMIvUgmizIriVI9xMMtHW/Ck3sQJ8K8ms1KIIdZGBEhDvKU
-	Xx7fYCfhk2V/AcZkcpertoYxSYCB07z16z24yWgfk1s5U9sDhJQitHsCp/+byP3hsd3yDGHHPa+
-	Sx+LrFy+Fdx4Xw0ljOTIGlJRtJuGtqkF/uyr42UeUV2ZsNzI1bUEgIct1iKKQK7qqROQHsivpOi
-	gn9g8rSZprm3MimZsXhom1f7e7qWXGG8zrTZ5P2vJpnsofI1NW0uaDnJhCDljIBQbUDBx7LNWLy
-	9m4G1dGsuCDKB09aM5IcwBqDTpT6Y3euGTP7P15Y2duEZ3JiVNNnHt6gMwl5at6b26zS6vXrHqt
-	yw/mDzl2fQL0l
-X-Received: by 2002:a05:701b:2402:b0:143:868a:20c1 with SMTP id a92af1059eb24-1b503193011mr7283380c88.46.1794755447423;
-        Sun, 15 Nov 2026 07:10:47 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm28769861c88.5.2026.11.15.07.10.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 07:10:46 -0800 (PST)
-Message-ID: <f462fe3a-229b-4ab3-8138-bc963c72c82f@kernel.dk>
-Date: Sun, 15 Nov 2026 08:10:45 -0700
+	by smtp.kernel.org (Postfix) with ESMTPS id 7E67E1F000C4;
+	Sun, 15 Nov 2026 15:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794755503;
+	bh=dBDaQS3YuLlX9/tz/mx6HVXCXKV6gxoWF0rGHwlM5YI=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=KsHGoUuFwj/bRhnc2pJL7CUBLID48MJC6ObuEhId8S6U86g6jl++nzLEeSbOiXQ5n
+	 2c/zkAAtch77JeT4hzBCX4D9zo5pwrLEJTnTosa0PJ4unXe0E2gGp7KU59a9f+qWPk
+	 xZ/c06tM/1YKT01TYEaa1MQ8XdwFPUUcb366XRl2y1RV0b23L1hzfrPJhQiaSJxHEa
+	 T4MISUDroKCyJRkkL8nd/YmjBvIvVE5dR5JcIx9oIoq6F2ZU+GKtRGCvrXGk/weVad
+	 mEkG7xZW3q1A+/BVclPQYqBlMVWiXjK4kaJXX+aC+fwRl4A55y8vvFBGnhdwciIj3c
+	 13b2gypQv35ug==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D32CB4A0EB;
+	Sun, 15 Nov 2026 15:11:41 +0000 (UTC)
+From: Jonathan Bastari Thamrin via B4 Relay <devnull+thamrinjonathan.gmail.com@kernel.org>
+Date: Sun, 15 Nov 2026 22:11:23 +0700
+Subject: [PATCH sched_ext for-7.4-fixes v2] selftests/sched_ext: Fix flaky
+ rt_stall measurement
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,90 +83,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [io-uring?] WARNING in io_wq_put_and_exit (2)
-To: syzbot <syzbot+b0d54b9e81de55179e47@syzkaller.appspotmail.com>,
- elzeigel@gmail.com, io-uring@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kernel@vger.org,
- syzkaller-bugs@googlegroups.com, tom.leiming@gmail.com, zcgao@amazon.com
-References: <6af9509c.07d0a7c9.39b765.0026.GAE@google.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <6af9509c.07d0a7c9.39b765.0026.GAE@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-scx-rt-stall-v2-1-926678b214c6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NTQqDMBBGryKz7ohjg0m76j2KlGmMOqBNSYJYx
+ Ls32G2Xj+/nbRBdEBfhWmwQ3CJR/CtDfSrAjvwaHEqXGeqqbohIYbQrhoQx8TShZdKNZsNP1UO
+ evIPrZT3u7hDt6LqHW1PR+4C6VPjL2lwcJSYfPod2oaP+37AQEioyhi9nbapG34aZZSqtn6Hd9
+ /0LK0V5WcEAAAA=
+X-Change-ID: 20261114-scx-rt-stall-ca1767a8ab4f
+To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, 
+ Shuah Khan <shuah@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>
+Cc: sched-ext@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Cheng-Yang Chou <yphbchou0911@gmail.com>, 
+ Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794755501; l=6833;
+ i=thamrinjonathan@gmail.com; s=20261102; h=from:subject:message-id;
+ bh=FSo+4bW4QOIKlFrjYLYQ3EtTSbBrBmlB/68VUcbr1ss=;
+ b=FceagnOTWXvzpQtn0WkIGjrgs071OsTsoevYM6tFcOJ4Ll77863C5RVLidcQjy1bR++6XXhUB
+ ZqRnRl+ax0IABPOOhk5TBswMIfOlQCyOYEm4VSKgaUeZZdjt8ZGa5EP
+X-Developer-Key: i=thamrinjonathan@gmail.com; a=ed25519;
+ pk=mr0q5PZVaUIrv8WvTxIfK7QVcAiRSYI8hOByBQL1ZRo=
+X-Endpoint-Received: by B4 Relay for thamrinjonathan@gmail.com/20261102
+ with auth_id=1383
+X-Original-From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+Reply-To: thamrinjonathan@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On 11/14/26 11:26 PM, syzbot wrote:
-> syzbot has found a reproducer for the following issue on:
-> 
-> HEAD commit:    aacb77975041 Merge tag 'ovl-fixes-7.4-rc3' of git://git.ke..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1105ee3d580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-> dashboard link: https://syzkaller.appspot.com/bug?extid=b0d54b9e81de55179e47
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1093cb69580000
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+b0d54b9e81de55179e47@syzkaller.appspotmail.com
-> 
-> ------------[ cut here ]------------
-> time_after(jiffies, warn_timeout)
-> WARNING: io_uring/io-wq.c:1482 at io_wq_exit_workers io_uring/io-wq.c:1482 [inline], CPU#0: syz-executor273/6014
-> WARNING: io_uring/io-wq.c:1482 at io_wq_put_and_exit+0x372/0x9d0 io_uring/io-wq.c:1511, CPU#0: syz-executor273/6014
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 6014 Comm: syz-executor273 Tainted: G S                  syzkaller #0 PREEMPT(full) 
-> Tainted: [S]=CPU_OUT_OF_SPEC
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-> RIP: 0010:io_wq_exit_workers io_uring/io-wq.c:1482 [inline]
-> RIP: 0010:io_wq_put_and_exit+0x372/0x9d0 io_uring/io-wq.c:1511
-> Code: 00 00 0f 85 7d 05 00 00 48 8b 15 e9 74 8a 0a 4d 89 e7 31 ff 49 29 d7 4c 89 fe e8 f9 fd d7 fc 4d 85 ff 79 aa e8 4f 03 d8 fc 90 <0f> 0b 90 eb 9f e8 44 03 d8 fc 4c 8d 63 08 48 b8 00 00 00 00 00 fc
-> RSP: 0018:ffffc90003abfb10 EFLAGS: 00010293
-> RAX: 0000000000000000 RBX: ffff888038fb1000 RCX: 0000000000000000
-> RDX: ffff88802b0d2580 RSI: ffffffff85367db1 RDI: 0000000000000007
-> RBP: fffffbfff1f81e50 R08: 0000000000000000 R09: ffffffffffffd785
-> R10: 0000000000000001 R11: 0000000000000000 R12: 0000000100001f9b
-> R13: 0000000000000064 R14: ffff888038fb1018 R15: ffffffffffffd785
-> FS:  00007f00678c46c0(0000) GS:ffff88812246c000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007ffe270457d0 CR3: 0000000023abe000 CR4: 00000000003526f0
-> Call Trace:
->  <TASK>
->  io_uring_clean_tctx+0x117/0x180 io_uring/tctx.c:261
->  io_uring_cancel_generic+0xa9e/0xb00 io_uring/cancel.c:771
->  io_uring_files_cancel include/linux/io_uring.h:52 [inline]
->  do_exit+0x344/0x2a00 kernel/exit.c:920
->  __do_sys_exit kernel/exit.c:1090 [inline]
->  __se_sys_exit kernel/exit.c:1088 [inline]
->  __x64_sys_exit+0x42/0x50 kernel/exit.c:1088
->  x64_sys_call+0x156c/0x1570 arch/x86/include/generated/asm/syscalls_64.h:61
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x7f00678f9a99
-> Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007f00678c3fd8 EFLAGS: 00000246 ORIG_RAX: 000000000000003c
-> RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f00678f9a99
-> RDX: 00007f00678f9086 RSI: 0000000000000001 RDI: 0000000000000000
-> RBP: 00007f00670c3140 R08: 0000000000000000 R09: 0000001000000008
-> R10: 0000000000000000 R11: 0000000000000246 R12: 00007f00670c3004
-> R13: 00007f006796b0e5 R14: 0000000000000006 R15: 00007f00678c40e0
->  </TASK>
+From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
 
-There's nothing wrong here. Your reproducer has a stuck request, which is an
-IORING_OP_OPENAT on a fuse mount that never responds. Hence it's stuck and
-can't get canceled. This btw is different than the original report,
-which was the usual silly "let's generate giant reads against MSR" where
-MSR reads are really slow, and yes that can then also take a while to
-complete if they are already executing.
+In sched_stress_test(), the DL server budget on CORE_ID is shared with
+other FAIR/EXT tasks, including the parent task when unpinned. The
+parent can also be slow to start as it has to wait for the DL server
+before reaching sleep() while the RT task still runs. The runtime of
+each task is read as a total since fork instead of during sleep() and
+is measured in USER_HZ units (10ms). These 3 factors skew the ratio and
+cause CI flakes. An EXT task got as little as ~0.18s on CI, which is a
+3.0-3.9% share against a minimum 4%.
 
-IOW, they are both bogus, and I think the only sane recourse here is to
-change that WARN_ON_ONCE() to a pr_warn_once() with the necessary
-details. The entry point to the io-wq exit can be gleaned from a bunch
-of minor things like task etc, so won't really lose us anything. But
-it'd prevent noise like this report in the future.
+With the parent pinned to CORE_ID, the RT task had already run for
+~0.95s before sleep(), so it was measured at 5.69s in a 5s window and
+the EXT share dropped to ~4.2% against the 4% threshold.
 
+Measure CPU time using per-task CPU clocks via clock_getcpuclockid()
+with deltas before and after sleep to get an accurate measurement
+window while also pinning the parent off CORE_ID. With the parent
+pinned to another CPU, RT measures ~4.75s and EXT share stays between
+4.86% and 5.10% over 20 runs.
 
+Fixes: be621a76341c ("selftests/sched_ext: Add test for sched_ext dl_server")
+Link: https://github.com/kernel-patches/vmtest/issues/458
+Suggested-by: Andrea Righi <arighi@nvidia.com>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Cheng-Yang Chou <yphbchou0911@gmail.com>
+Signed-off-by: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+---
+Changes in v2:
+- Read CPU time with clock_getcpuclockid() and clock_gettime() instead of
+  /proc/<pid>/stat to avoid USER_HZ rounding (Andrea)
+- Pin parent off CORE_ID so it doesn't share DL server budget (Andrea)
+- Threshold unchanged: 4.86-5.10% over 20 runs, but was unable to 
+  reproduce kthreads noise similar to CI, happy to lower threshold to 3%
+  if needed
+- Link to v1: https://lore.kernel.org/r/20261114-scx-rt-stall-v1-1-4188a9378067@gmail.com
+---
+ tools/testing/selftests/sched_ext/rt_stall.c | 88 ++++++++++++++++++++--------
+ 1 file changed, 65 insertions(+), 23 deletions(-)
 
+diff --git a/tools/testing/selftests/sched_ext/rt_stall.c b/tools/testing/selftests/sched_ext/rt_stall.c
+index a1552b38a6e8..c5027fd6b682 100644
+--- a/tools/testing/selftests/sched_ext/rt_stall.c
++++ b/tools/testing/selftests/sched_ext/rt_stall.c
+@@ -21,6 +21,9 @@
+ #define CORE_ID		0	/* CPU to pin tasks to */
+ #define RUN_TIME        5	/* How long to run the test in seconds */
+ 
++static cpu_set_t old_mask;
++static bool affinity_saved;
++
+ /* Signal the parent that setup is complete by writing to a pipe */
+ static void signal_ready(int fd)
+ {
+@@ -82,43 +85,57 @@ static void set_sched(int policy, int priority)
+ 	}
+ }
+ 
+-/* Get process runtime from /proc/<pid>/stat */
++/* Get process runtime from CPU clock */
+ static float get_process_runtime(int pid)
+ {
+-	char path[256];
+-	FILE *file;
+-	long utime, stime;
+-	int fields;
+-
+-	snprintf(path, sizeof(path), "/proc/%d/stat", pid);
+-	file = fopen(path, "r");
+-	if (file == NULL) {
+-		perror("Failed to open stat file");
++	clockid_t clk;
++	struct timespec ts;
++	int err;
++
++	err = clock_getcpuclockid(pid, &clk);
++	if (err) {
++		fprintf(stderr, "Failed to get clock ID: %s\n", strerror(err));
++		return -1;
++	}
++
++	if (clock_gettime(clk, &ts) == -1) {
++		perror("Failed to get clock time");
+ 		return -1;
+ 	}
+ 
+-	/* Skip the first 13 fields and read the 14th and 15th */
+-	fields = fscanf(file,
+-			"%*d %*s %*c %*d %*d %*d %*d %*d %*u %*u %*u %*u %*u %lu %lu",
+-			&utime, &stime);
+-	fclose(file);
++	return ts.tv_sec + ts.tv_nsec / 1e9;
++}
+ 
+-	if (fields != 2) {
+-		fprintf(stderr, "Failed to read stat file\n");
++/* Move parent off of CORE_ID so it doesn't share DL server budget */
++static int pin_parent_off_core(void)
++{
++	if (sched_getaffinity(0, sizeof(old_mask), &old_mask) != 0) {
++		perror("sched_getaffinity");
+ 		return -1;
+ 	}
+ 
+-	/* Calculate the total time spent in the process */
+-	long total_time = utime + stime;
+-	long ticks_per_second = sysconf(_SC_CLK_TCK);
+-	float runtime_seconds = total_time * 1.0 / ticks_per_second;
++	for (int cpu = 0; cpu < CPU_SETSIZE; cpu++) {
++		if (CPU_ISSET(cpu, &old_mask) && cpu != CORE_ID) {
++			cpu_set_t mask;
++
++			CPU_ZERO(&mask);
++			CPU_SET(cpu, &mask);
++			if (sched_setaffinity(0, sizeof(mask), &mask)) {
++				perror("sched_setaffinity");
++				return -1;
++			}
++			affinity_saved = true;
++			return 0;
++		}
++	}
+ 
+-	return runtime_seconds;
++	return 1; /* No other CPU available */
+ }
+ 
+ static enum scx_test_status setup(void **ctx)
+ {
+ 	struct rt_stall *skel;
++	int err;
+ 
+ 	if (!__COMPAT_struct_has_field("rq", "ext_server")) {
+ 		fprintf(stderr, "SKIP: ext DL server not supported\n");
+@@ -132,6 +149,9 @@ static enum scx_test_status setup(void **ctx)
+ 
+ 	*ctx = skel;
+ 
++	err = pin_parent_off_core();
++	SCX_FAIL_IF(err == -1, "Failed to pin parent CPU");
++
+ 	return SCX_TEST_PASS;
+ }
+ 
+@@ -149,7 +169,7 @@ static bool sched_stress_test(bool is_ext)
+ 	const float expected_min_ratio = 0.04; /* 4% */
+ 	const char *class_str = is_ext ? "EXT" : "FAIR";
+ 
+-	float ext_runtime, rt_runtime, actual_ratio;
++	float ext_runtime_start, rt_runtime_start, ext_runtime, rt_runtime, actual_ratio;
+ 	int ext_pid, rt_pid;
+ 	int ext_ready[2], rt_ready[2];
+ 	bool ret = false;
+@@ -201,6 +221,23 @@ static bool sched_stress_test(bool is_ext)
+ 	if (!wait_ready(ext_ready[0]) || !wait_ready(rt_ready[0]))
+ 		goto out_kill;
+ 
++	/*
++	 * The parent can be delayed before reaching sleep(). Record each task's
++	 * CPU time right before calling sleep() so only time used during the
++	 * measurement window is counted.
++	 */
++	ext_runtime_start = get_process_runtime(ext_pid);
++	if (ext_runtime_start == -1) {
++		fprintf(stderr, "Failed to read %s task runtime\n", class_str);
++		goto out_kill;
++	}
++
++	rt_runtime_start = get_process_runtime(rt_pid);
++	if (rt_runtime_start == -1) {
++		fprintf(stderr, "Failed to read RT task runtime\n");
++		goto out_kill;
++	}
++
+ 	/* Let the processes run for the specified time */
+ 	sleep(RUN_TIME);
+ 
+@@ -218,6 +255,8 @@ static bool sched_stress_test(bool is_ext)
+ 		goto out_kill;
+ 	}
+ 
++	ext_runtime = ext_runtime - ext_runtime_start;
++	rt_runtime = rt_runtime - rt_runtime_start;
+ 	/* Verify that the scx task got enough runtime */
+ 	actual_ratio = ext_runtime / (ext_runtime + rt_runtime);
+ 	fprintf(stderr, "%s task ran %.3fs, RT task ran %.3fs (%.2f%% of runtime)\n",
+@@ -284,6 +323,9 @@ static void cleanup(void *ctx)
+ {
+ 	struct rt_stall *skel = ctx;
+ 
++	if (affinity_saved)
++		sched_setaffinity(0, sizeof(old_mask), &old_mask);
++
+ 	rt_stall__destroy(skel);
+ }
+ 
+
+---
+base-commit: 0021f17128de5dc0b19f1a523f448df2440d8088
+change-id: 20261114-scx-rt-stall-ca1767a8ab4f
+
+Best regards,
 -- 
-Jens Axboe
+Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+
+
