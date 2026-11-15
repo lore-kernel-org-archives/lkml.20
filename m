@@ -1,70 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794779830;
-	b=o0jA2xWjHg8b/Nht9/0ePwFFx6uC/T6AnO9jEHikL1DypBo4Cq5a0ap6FlBivf0UfWmz
-	 d+7jmSyhY206/6UrY4IlOyKl9xpDugQS8MnU7sauhkVDWPAlX/Bjt7dk3JKqspckc8t1z
-	 7T1S4ejzQzh1PxDAZp+/79VrDZkNi2tvP1FAJFv+pEXMIvXxStJrB6gRssPT/yQswN8wM
-	 HwvaqzAhAK4rkAbhuHjK0AmzocXjoFdUMtTH/9PBog4V64L/69Gd/d1q6JOzRmNXpX2jL
-	 fxtMc9y6beF8fXXe97tz2F8VXJfl/v2+hjL6ZODdhZDvjv2m0RV0FYFTduUgYC9ge1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794779830;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BOTklJYt8KH7rFlZVdBoknjaS+NDwDtd3MuPB3oLLOc=;
-	b=GMNp33rwNYf7lD5JV11mTec2CMI6XiJV4NE54TXubmnN1KmOjT4a/NI91zBBjuJZ1+MS
-	 EEzsoXV2eFR3o87tPilEn3HK0PWS4vjBXGyQcco65yWdVIthlhklFV5F/kOf84UTMgop4
-	 LqtaIEozKdub0XeK2+Qoi3fxsmfuy3sVGVDrg+fEqQfqJc5Wd7+omRb9gqiMwO2eWSx/3
-	 danbz8g4fBk0DI/dUYsxvp97Yfonp/eZ1d/NcJR7S+UKcQVqQ27pMVbkkO4HKg0W4QCpU
-	 HmmXtP34qUM53X9oEwLnRkUDNFCXMSipASYJ1BgqWs5ai9YpBVVviBLZkafrNRis7oQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=grapheneos.org;
-	spf=pass smtp.mailfrom=grapheneos.org;
-	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=jQ2E8dSO;
-	arc=none smtp.remote-ip=206.220.120.4
-Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794779831;
+	b=cQj+gGZ6c9Ss9s3PN33VCeHVYNVMUcpjPEozj0f7dKEQKn4nBCn2hsp7QehYC7gecFxx
+	 Es6Lghfy1+CvO6Ioj6lhew9fZNmWd1N4VJ7uhS6ldcukTFEImGBMzzXRSrpR42RyCgwmu
+	 okWQpjI8H20IrSbpEyggM3ViBkV/1HjmlY8gutD6lXuXN0iNL9J5GYgzvsCcd5+VMxsPp
+	 BfHxdgmHURTgImaCzcN3YiarCw9L7HI3UIrtVV5wa0LkzdzydqU4p5B6b8wBy/44sKWfe
+	 I+UQXMQI5Fj0RGDYu7904iBtL/1fneRUBJj/TSeq02zlbDsnZslQhLA7z52dnmTdZfg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779831;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
+	b=nVh432X4hw4PRhXr4rkv7MPUtNQnngPO8Cr12n830ktXsiRz0C7FYNrh3jFkG/ugnJ0K
+	 QQpj1AtW2rmIMrufAKr7lrEkOGmadKYwNJHJFaDEKF4dkq/GRe5fFU+q4BIDqXfaw3Eh1
+	 v/k8WhHdbyE06LRjwlm5vAPcpyo9/P8WVkbIfaMZx7PBHcXxGhwsrosgENSHGoWTqwhfb
+	 kdzhsRN78DCHyuIUuE/Zks/wu/96xwfnbovf5FNppCEtzAD/MZN6bd3ssfiwl4577e/aC
+	 JzavQl21G0k/ZR9jiUqWfxAuGPsRwwKwBoFNYUEaFLBBy5vkAWB/1NXMxKtkeXGUA0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUojU28V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFC6606A33B;
-	Sun, 15 Nov 2026 21:57:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEFC6606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2AA606A890
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:57:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A2AA606A890
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=jQ2E8dSO
-Received: by mail.grapheneos.org (Postfix) id 7E8833C08EE9B;
-	Sun, 15 Nov 2026 21:57:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
-	s=default; t=1794779829;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BOTklJYt8KH7rFlZVdBoknjaS+NDwDtd3MuPB3oLLOc=;
-	b=jQ2E8dSOyEyvR+KXoZTG4ntK4GTZQQAxYDEkpAwh7oT6p6eMp2Y4bdeWU9ijsMerd6WaDX
-	jdveaR6VY7MjGCJL0s4w8AHhHvfm6QMSHMQ276LG47Z12QfrYkvjCfkSQui/pWFGZqeJHT
-	GAV2f3HtdH3qbpWT/IYF6usUHq250tD2eaEWKuzzkQR29KJ6PQyi76f96sVzdw+ygMHEgq
-	rdOA7/GO/SklNRMnJlLxyDFfuyHjOOwkoWj2GRXRNt9dMl1kaKOasX7j3ldjdrtm+mzewS
-	R3Gefcm4EbTy6cXklkXovPp2/mE2v4muHG8AKLmZgnMSBW3oHR46NiRf3dY/Wg==
-From: liamsmith827 <liamsmith827@grapheneos.org>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liam Smith <liamsmith827@proton.me>
-Subject: [PATCH net-next v4 2/4] ipv4: restrict on-link fallback to lookup misses
-Date: Sun, 15 Nov 2026 21:56:38 +0000
-Message-ID: <20261115215640.18728-3-liamsmith827@grapheneos.org>
-In-Reply-To: <20261115215640.18728-1-liamsmith827@grapheneos.org>
-References: <20261115215640.18728-1-liamsmith827@grapheneos.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUojU28V
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-55be673e029so212001cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:57:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794779829; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WdZ+brOAVVbrfHKZgquUMtkP14n0lxEM9uq7m+edYLDOUNiSA9WwUY/igwEm5JbjYa
+         BlXv6n9mPJ3S/csrY7hIMmZnIuIZ5BN1c1t59KhmXlOPGxrfmJVCksPkGBxdhP8gegXh
+         al9IGbJFrcLkSOU8vmPMSmI7llxTPeGd/OfJQR3q92+xVCNZ8Iq5QNGXes8NF+cutolx
+         ZLZsk83kN6jbEE4XVROX70lBFvOq/JbDc1R3ZW3HTXbG34wTiAEhVzmY1yK28eZtyOkt
+         clHwGj4qyDFREhzRHRLDDwycV4JDG2F3N138q1PXfJWxYXlOuqTZFWrM81gz8GHZRBUw
+         NBMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
+        fh=UDybj2EqOzd1tCq0yH8PnKAOqCXIn2lygJeLNikpNkg=;
+        b=plB/WPXuLM4Juq4rtcFAIg5JA+ABj1YlZ4lrij4gZpEEfTQ53+XOJWdZfNzEawIs4l
+         d/DNvue/x9ZoQp0OyatinInxtegGyZzmjE3MhFNDNqMGcozRV2JXPDflLZ8XgBv7FIz6
+         iIFRFu2fvpNME5Pq9YGMX2DOY+ZbcyMHYNFQxLAuuJcACtAZNN8jaIfyk4vWAi7f2YBq
+         F8MYVyVp9Yw2Hr1zGUwa8aUY2fEZYhMQQB2s+xTr44Rk4nUU2niNPX6DQ78HDooWQfjZ
+         Se13vpIU6gAbYzBWBZmz1mVWD9+YClvphFbz7xP+zZKxHEe8Cx8U2T9Gm4vWpsO6A/GP
+         owgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794779829; x=1795384629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
+        b=lUojU28Vd3dqK01eZKmE3yuMAiWpA5SDAF/VehUstM3PbMQD4I0VAIbfuNaxpOlnld
+         9fBXxZqdZ3kCYgu65FpbSSG/KuTR3YWl+ipVx2XjFnc021yflHAQyf7g3FiJEqC++fu1
+         wTowk0eA6n9ssPkLGWGo+JngDkwuuJ+GoZRBDehrTqub4ALdzd1h01HVzvrFkdH8F/8g
+         YOiVfuzIb5Gpw5MSCBnVCoRIo190L0XAc2R45ORsyjSgRac8tUpowxvlYOjekRxJYGEL
+         BjcZjO10JJK0hXzlJu8mAvPT9IDxiTd1fFkb66f83dsWgsjxTIGnF6W5na1/PejqLYNr
+         szcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794779829; x=1795384629;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FrqXa+k3jytZUHGymUrBhmXYifhUZWCqjzRMofnbh4M=;
+        b=TCzDz6anEk8c+fI0Sty6+fQXPyhqNCMbiAwYs33d1uOSJf5gjHMtTDZEmB1QTmlot0
+         vwjVnpMuuDdrgUPGsHixjEMnVtxwO/91lFVYr/Ezkj4IZ8Jb/Wxn2KxVSKOfZWRq/Lmn
+         n2S0p3wYnFdAhHrg0seBKNdPfcGx2Z6l2gQVk8jd6AV42QxS9IVqzmc+xs76FnExIMen
+         7zmRzC5Cn0cLGXzCpBImIY7IGe1bdrvmZDnsDUvs26sA4DuGQmwyyeJvvD+Bpmmb5eKs
+         nOyKkqqjIvbsE6KwhCcJftNZjakWyi1wZumZcI0v3f/jUpfS/tADeDEoz0QYZCQ5JJXr
+         vu7Q==
+X-Forwarded-Encrypted: i=1; AL+hErFqS/DSrHjEyFwY75xCxijZxrbiA63iPmysqmuGYnC3bulpgDf7oZjI6WBjtJR3reTbxqA0d18TTra3SSc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yW9xA4L4xxC18qdVfJg/0uZqpKxTU6KGYSiv25oPiYUktgtZy
+	8HuKunR6dXqeVLz9NLl4qjnBxzMs5+bF5QUOGhbBFiFkSC6THdp59PlNv/EZz7MMQjm8P0bdX+p
+	1bJ8LoMjKvpyJTey4SrTYsNvQuMpn33MdVE1DcUSQ
+X-Gm-Gg: AYBFou1sTt0CFPjnT3H8PMligscTD4wJqe4bpuaHzY1/2SNjrdQoApM4ee+u1zF/83g
+	tTCCLDDK3ho7ScFf+buv17G7nHNxKo7oCcVnrXBignsYRIxgrXlybuFkfO8qWlvrBuPlOhsc8IN
+	sjbveWu+qGxFqvixRo8t0Y4+YpZITMYs3/A81XiW06rSnNkqNSBEq1hQfJeS5My7fmK45C4oo6j
+	Jux4q5waYiKgtVfxGoLGRO/371MHAqLjg81YLV+iicUqPT0j/dAX3Mo7geM3hGf0HUai80fAjvd
+	MTu+hTp0ec4mQnlOtDQO21nxdVcPlddTkLssfA7/bUEBQ/UjRXrrkOorH7hMBqi0fi1xjkhtjRs
+	oyIBVDrr9lW92B4zzVS0pcL1q+WsaBCnbrXJY
+X-Received: by 2002:a05:622a:418d:b0:530:e00f:7768 with SMTP id
+ d75a77b69052e-55c3ef5b118mr30920321cf.0.1794779829101; Sun, 15 Nov 2026
+ 13:57:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,64 +104,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261115014102.2879372-1-acme@kernel.org> <20261115014102.2879372-12-acme@kernel.org>
+In-Reply-To: <20261115014102.2879372-12-acme@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Sun, 15 Nov 2026 13:56:57 -0800
+X-Gm-Features: AclHuK8tUG0HqxJLZwfiHpkrbYOo6UvxhIaokwTCKMzordl012uFYJdKi4dzOyM
+Message-ID: <CAP-5=fUXT0eB-YnozpOXJzYz1K3x+BnDZELU+ipXPp6Oq9BFWg@mail.gmail.com>
+Subject: Re: [PATCH v3 11/12] perf test: Drop samples without an IP in the
+ dlfilter test
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
+	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Liam Smith <liamsmith827@proton.me>
+On Sat, Nov 14, 2026 at 5:41=E2=80=AFPM Arnaldo Carvalho de Melo
+<acme@kernel.org> wrote:
+>
+> Since v7.3 the kernel zeroes PERF_SAMPLE_IP when a userspace-only event
+> skids into kernel mode, so that kernel register state is not exposed to
+> an unprivileged event (166f10836a653dfa "perf/core: Fix kernel register
+> info leak via hardware skid").
+>
+> The test dlfilter keeps those samples, and the check that nothing but
+> test_loop survives then trips on their lines: the comm column reads
+> "perf".  Drop them, which is what the test wants, everything except
+> test_loop must be filtered out.
+>
+> Fixes: 199d5e872a9ce737 ("perf tests script dlfilter: Add a dlfilter test=
+")
+> Cc: Ian Rogers <irogers@google.com>
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-For non-vrf unicast, the on-link fallback currently occurs regardless of
-the particular error returned by fib_lookup(). As a result, routes and
-rules that are supposed to restrict traffic (blackhole, prohibit,
-unreachable) are unable to do so comprehensively.
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-A specific example of this being a problem is within Android, where the
-VPN "kill switch" is implemented with prohibit rules. Any process that
-can set flowi4_oif (SO_BINDTODEVICE, IP_UNICAST_IF, IP_PKTINFO, etc.) is
-able to utilize this fallback, meaning unprivileged Android apps can
-trivially bypass the VPN. This is particularly bad on cellular networks,
-where ARP is often not needed.
+Thanks,
+Ian
 
-Restrict the fallback to routing lookup misses.
-
-This was originally observed on an Android device, by way of packet
-capture.
-
-Tested fcnal-test.sh in UML with CONFIG_IP_MULTIPLE_TABLES both enabled
-and disabled.
-
-Signed-off-by: Liam Smith <liamsmith827@proton.me>
----
- net/ipv4/route.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 595a3b7f1783..03db105303b4 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -2849,12 +2849,13 @@ struct rtable *ip_route_output_key_hash_rcu(struct net *net, struct flowi4 *fl4,
- 		goto make_route;
- 	}
- 
--	err = fib_lookup(net, fl4, res, 0);
-+	err = fib_lookup(net, fl4, res, FIB_LOOKUP_REPORT_MISS);
- 	if (err) {
- 		res->fi = NULL;
- 		res->table = NULL;
- 		if (fl4->flowi4_oif &&
--		    (ipv4_is_multicast(fl4->daddr) || !fl4->flowi4_l3mdev)) {
-+		    (ipv4_is_multicast(fl4->daddr) ||
-+		     (!fl4->flowi4_l3mdev && err == -ESRCH))) {
- 			/* Apparently, routing tables are wrong. Assume,
- 			 * that the destination is on link.
- 			 *
-@@ -2879,6 +2880,8 @@ struct rtable *ip_route_output_key_hash_rcu(struct net *net, struct flowi4 *fl4,
- 			res->type = RTN_UNICAST;
- 			goto make_route;
- 		}
-+		/* Reverse the mapping induced by FIB_LOOKUP_REPORT_MISS. */
-+		err = err == -ESRCH ? -ENETUNREACH : err;
- 		rth = ERR_PTR(err);
- 		goto out;
- 	}
--- 
-2.47.3
-
+> ---
+>  tools/perf/tests/shell/script_dlfilter.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/perf/tests/shell/script_dlfilter.sh b/tools/perf/tests=
+/shell/script_dlfilter.sh
+> index 88222280f6094fd0..797cd9ae84141f64 100755
+> --- a/tools/perf/tests/shell/script_dlfilter.sh
+> +++ b/tools/perf/tests/shell/script_dlfilter.sh
+> @@ -46,7 +46,7 @@ int filter_event(void *data, const struct perf_dlfilter=
+_sample *sample, void *ct
+>         const struct perf_dlfilter_al *al;
+>
+>         if (!sample->ip)
+> -               return 0;
+> +               return 1;
+>
+>         al =3D perf_dlfilter_fns.resolve_ip(ctx);
+>         if (!al || !al->sym || strcmp(al->sym, "test_loop"))
+> --
+> 2.56.0
+>
