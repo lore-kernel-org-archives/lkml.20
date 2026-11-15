@@ -1,55 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794730394;
-	b=Se9+JrPBUSEs6Tlx1aPZ/gfKXXp+m0MfKKgge5RiLekVPgaXexP2hXaJ9iaMHS4GlHOo
-	 w6Q0FyR/qyXYbuDtH6oEfBVo2ZaoRvD88dOVCBhDhy3VPIW5l9PVQQcNXxOeY+o5tviog
-	 4QL6wUl9Rj8pZJstKIxY8ZI1g/iagywMWXM7lg8KkJ/ZVlfJUQgYRzUZgjSuirbE5EJkQ
-	 HUCR9z3oQL4mGSB4e3TVQ3aBIArqk+Y2CWLoXMbXz2N0+03oRCswo6siR/zoYA0YF9h3x
-	 0cQxNH+xKZu/C3h3TbXyhOW44ExfLHunT/gJHrq1/8hq6Dah7OAwCMav5DPgWwexFkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730394;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=58ohGE5HfnaaNE/R5vDAEDTMjYmQAZqLVv8WLaa6z3E=;
-	b=bgqt2BSGmOvcdFIjdJjq5w8TpgYCnsKN+NK/xR1rgO6tn66S3J2ypCtO+1waQRPCY+Qx
-	 62i3VUJGtUUnjOnLHaD0BHBoLj+Z4W9u3BwAlhWxMrf76922MwO4cefDKLPyhIU+8tCXN
-	 ZCzS/YsaMQo41dq/M+ApSuTm6Hs6HbOkktydgcJOifvCu1YvryNRiLpqmFYUT0aesCokG
-	 9IlaO3sQEKYA1q9EYqDhGBRpZt1QRbbVqK0vp50cbbNHZo9HI0Z7DDU9GExBrDj5Cd7xX
-	 mXObHdvGfKbYarIbz85Ner3tdMONUh+GVHuQUIm3GYjSyF1UtvUQkQ7Hj/1ecmjsa3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DzqQvyQ/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794730506;
+	b=FKnJWywUg5vCjk2UORJbp9l8SR72XR3KFm/z/26/z+n/HNAd6mO5t/Azk04ixcrEBxAl
+	 1P5SBoWQEdjuYfRHVRPocPzNLKTaUwT9PaIpteVvUsoOYSzA5H3DWlydkppw3GwBr6n71
+	 WgxuIyo+zMm9gJe7h1l42cmw7A13yb/1rG7hmpjDmuldFp38gtF2OMVT+I+WQv4FW/5wu
+	 +00OHwWCjL7ilCU27klTVy5EhjrJQClKjVJRW2qWM2tV5gzDpd80oSaxV68Z8tgnDlIfh
+	 y/Ob9cu33Q6Xb1+9SZvqa/cLsmzjW9d7oYCnE8zh4nG1in/MBU8hpaqeG1FuErg5C8g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730506;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=uydEahiP1CgfQ+Qejg0zXzNqMoA+gS90z4vYszZCEJc=;
+	b=HP1S1QtzTUEvZT6E5L6n/jEUct1f4PL5BBSqhyAaHsfEWKljgumo/+EB4lnkrwB5ej+H
+	 9E6tKhZykg9r7e+2CsE9geKe4uF4hMecLgGaqyYyOuYhOt4bL61QfK6L4rg+0OJxSsUah
+	 PFbS9G/YaINBptlzS8fj//DscLocaCag9P0vD5Ldzq6pncKR8ffySUm+RI/D2Ovma51eX
+	 erY8nJ+5ER/6oLh1rBsmi7PNyUWYdhI2QvLaafTerg/vyRm9kR+fajGLFz74BDnzRrODi
+	 RlbuDIJQ5pUeD/IWgYB5rQow2ITI+gm6ZsDw5TEEbGVhpnkLAz+iVFFaKvsaEW4uUaQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=F3Z+ZEp4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E308606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:13:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F7C606A323;
+	Sun, 15 Nov 2026 08:15:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F7C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzqQvyQ/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40D11F000CC
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:13:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794730393;
-	bh=58ohGE5HfnaaNE/R5vDAEDTMjYmQAZqLVv8WLaa6z3E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DzqQvyQ/Hu8aJ4p1/1KEMG9Wbg7/uW7Say+9jPsXdxeekBjs4LfuhRocRfXXZlE9H
-	 nmp5nycB3b9rmEzhPwTmLc0P4zwaG9zAyKuKsSHCjNERKC277ZWpp94FDi9RVrHZEg
-	 8bta/hKr4Yi7gEPTITB/MrFswobMoRs9uvyKIxCRmTKqs0jgX9hebW5gvuHEUOr2ZB
-	 Tiq9Hk3/Jho5NblvnjWmABwFqezn3HTED/OraQ/SCoPxdsRXQmTzzLHoiSu/hxvMNE
-	 HyXb1uGSZF5tlOYlYvO67aFz7oTlTudpiPqFYybUoOqFBQoRABP8rB8R4EY6NyNsIb
-	 H+sRi0jN7iwig==
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6df5e315bd1so2799053eaf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:13:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFpSTmN9HQJLswL11E6XpLTAADZxovMeo22ZxPlZ2cv8uUKm1g6Dh4Ke5o/ytPx9b/1W1/JDppmGa6AfKc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kPcRgDVUYUVPoPTBdN/yb4PYxuQUO7BfI0NC59kbtK9P4Almc
-	Dm1dbpgZ40WpmW4qARspqTL/wWiK2BBnMtsDk/nkhmub8jlygIPUK0/jt9uW/nYJTQ/fhdIaeZs
-	++39zzZVG2E1Ou/F4aY2o/goBb48225g=
-X-Received: by 2002:a05:6820:c0d4:10b0:6df:7bd3:21e1 with SMTP id
- 006d021491bc7-71ab5253d8dmr3108400eaf.88.1794730392916; Sun, 15 Nov 2026
- 00:13:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=F3Z+ZEp4
+ARC-Seal: i=1; a=rsa-sha256; t=1794730480; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mVAPIAGPCfYFNKv7rzOTzJh6W42C1ph1JEnYYLlqOt0v9rbKDJQDJ+Lo1Tmm0875rCGf2fw37uYlFC/d1MRZeakLJcueVGViG86rWAOFqurk48qL10sXtx81qZ7u8nhsJL9LDLE9TIRYQRVzCn3edn/brduV7xki89AheRel6cQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794730480; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uydEahiP1CgfQ+Qejg0zXzNqMoA+gS90z4vYszZCEJc=; 
+	b=TcWfl7Xcq39T17TDkSk7tPHUGTYvubIwsDxG/KIYA6fH/6791l2k3jyHlUN07v02Fm5IxRWUCnvJSXcwgJZ//BDaQT7wwoM/k7HNbDQX/Z+2VQX5UUMUpJRRrezpy+JSMeQhq3ZU3Kw5kVNM55+iOP975GHYpQvp+WkWY0f2ufQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=F3Z+ZEp4FVzhCkMg3vufaWg1xO9AqZwDgy3Y0+TgHr3+14rtg+kdPgX5vrPT+S2I+DlshEajokVfAYiMFJu28JResyRM7cKXdI5CgrwOaYYGI2fqB3cKS3adwH7kuz8Maa4FhmGRgFwgfRHwVDWchqn8XVPMkKhp9g/G1IMD8KcInFnj45UhkT0GfsqXaMu+cDGpFRXv1PmGGuAf/51po3lQfeQo0KBvvwuOlZ7nKCxnNIKYG1fvMlmOLdpHlje2QJewHDw+BvkgxpaN5vh1AR7Pm4eYnUrYfvnA9UOpu3YzDWRor+93Szv9MJRVKarO5xuK66ytI4LZAQ9iNbmK4g==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=uydEahiP1CgfQ+Qejg0zXzNqMoA+gS90z4vYszZCEJc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179472957662614.658949649354213;
+	Sat, 14 Nov 2026 23:59:36 -0800 (PST)
+Message-ID: <64525e6fc8bd29dab836a5f6a4249523ef285012.camel@rong.moe>
+Subject: Re: [PATCH v3 1/7] platform/x86: thinkpad_acpi: Report auto
+ keyboard backlight mode as off
+From: Rong Zhang <i@rong.moe>
+To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
+ <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
+ <hmh@hmh.eng.br>
+Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, Lee Jones
+	 <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
+	 <griffin@kroah.com>, vishnuocv@gmail.com, vsankar@lenovo.com, 
+	platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261114174814.62153-2-kmatzkaczor244@gmail.com>
+References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
+	 <20261114174814.62153-1-kmatzkaczor244@gmail.com>
+	 <20261114174814.62153-2-kmatzkaczor244@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 15 Nov 2026 15:53:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,121 +77,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114161248.3428695-1-thaisonphan@google.com> <20261114161248.3428695-3-thaisonphan@google.com>
-In-Reply-To: <20261114161248.3428695-3-thaisonphan@google.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Sun, 15 Nov 2026 09:13:02 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiipd8pVX8Rxkof+29iSmfoAC5tytsOh0afnovEwaZ4NEjQ@mail.gmail.com>
-X-Gm-Features: AclHuK9Ndm_aliyiHUcAgnslWco5EoHUob48WM_5Q4rHVDU5cunncq9BhLB1WPU
-Message-ID: <CAL4Wiipd8pVX8Rxkof+29iSmfoAC5tytsOh0afnovEwaZ4NEjQ@mail.gmail.com>
-Subject: Re: [PATCH net 2/2] tcp: accecn: initialize AccECN fields in
- syncookie path
-To: Thaison Phan <thaisonphan@google.com>
-Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ij@kernel.org>, 
-	Olivier Tilmans <olivier.tilmans@nokia.com>, 
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, Simon Horman <horms@kernel.org>, 
-	Stan Iliev <stani@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-Le sam. 14 nov. 2026 =C3=A0 17:13, Thaison Phan <thaisonphan@google.com> a =
-=C3=A9crit :
->
-> cookie_tcp_reqsk_alloc() and bpf_sk_assign_tcp_reqsk() allocate struct
-> request_sock without __GFP_ZERO, leaving saw_accecn_opt,
-> accecn_fail_mode, syn_ect_rcv, and syn_ect_snt uninitialized. When
-> accecn_ok is negotiated in cookie_{v4,v6}_check(),
-> tcp_ecn_openreq_child() reads all four fields to initialize the child
-> socket's AccECN state.
->
+Hi Qiling,
 
-Right.
+On Sun, 2026-11-15 at 01:48 +0800, Qiling Zhu wrote:
+> The EC keyboard backlight level 3, which selects the auto mode, is
+> passed to the LED classdev verbatim by kbdlight_sysfs_get().  The LED
+> then reports a brightness of 3 with max_brightness 2, both through the
+> brightness sysfs attribute and through brightness_hw_changed
+> notifications.
+>=20
+> This is not only cosmetic: UPower 1.91.x treats the out-of-range value as
+> invalid and stops watching brightness_hw_changed altogether, so the deskt=
+op
+> stops following the Fn+Space hotkey once auto mode has been entered.
+>=20
+> The auto mode is not a brightness level.  Map it to 0, the value it is
+> reported as most of the time anyway, in line with what ideapad-laptop
+> already does for its auto mode.
+>=20
+> Fixes: bb28f3d51ff5 ("thinkpad_acpi: Add support for keyboard backlight")
+> Reported-by: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>
+> Closes: https://lore.kernel.org/r/CAENjc+w0Rqy=3DkDSew7XtNJCSvyPiXPJ5faWd=
+mCr5RGYFhpunCA@mail.gmail.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
 
-> In addition, because the temporary request_sock used to send a cookie
-> SYN-ACK is immediately freed, treq->syn_ect_snt is lost. If the listener
-> marks ECT (e.g. DCTCP), leaving syn_ect_snt at 0 causes
-> tcp_accecn_third_ack() to flag TCP_ACCECN_ACE_FAIL_RECV when the peer
-> reflects ECT, disabling ECT for the rest of the connection.
+Reviewed-by: Rong Zhang <i@rong.moe>
 
-This is a different bug than the uninitialized fields above, with
-a different impact. I would prefer two patches, one per bug, but
-since both Fixes: commits landed in the same release I will not
-insist.
+Thanks,
+Rong
 
->
-> Initialize the AccECN fields in cookie_tcp_reqsk_init() to match
-> tcp_openreq_init(), and set syn_ect_snt from the listener's TOS/tclass
-> in cookie_{v4,v6}_check() to match tcp_{v4,v6}_send_synack().
->
-> Found by code inspection while auditing request_sock initialization in
-> the syncookie path; reproduced without kernel modifications in a KASAN
-> VM (tcp_syncookies=3D2, tcp_ecn=3D3) and tested against the reproducer an=
-d
-> packetdrill AccECN/syncookie selftests.
-
-Same remark as for the LOOPBACK4_IPV6 patch: KASAN does not catch
-uninitialized bitfields. Please say how the failure was observed
-(KMSAN, tcpi_accecn_fail_mode in TCP_INFO on the child, ...).
-
->
-> Fixes: 3cae34274c79 ("tcp: accecn: AccECN negotiation")
-> Fixes: b40671b5ee58 ("tcp: accecn: AccECN option failure handling")
-> Signed-off-by: Thaison Phan <thaisonphan@google.com>
 > ---
->  net/ipv4/syncookies.c | 5 +++++
->  net/ipv6/syncookies.c | 1 +
->  2 files changed, 6 insertions(+)
->
-> diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-> index 4e0ff3b82062..5747f9a5a6d1 100644
-> --- a/net/ipv4/syncookies.c
-> +++ b/net/ipv4/syncookies.c
-> @@ -290,6 +290,10 @@ static int cookie_tcp_reqsk_init(struct sock *sk, st=
-ruct sk_buff *skb,
->          */
->         treq->txhash =3D treq->snt_isn;
->         treq->syn_tos =3D TCP_SKB_CB(skb)->ip_dsfield;
-> +       treq->saw_accecn_opt =3D TCP_ACCECN_OPT_NOT_SEEN;
-> +       treq->accecn_fail_mode =3D 0;
-> +       treq->syn_ect_rcv =3D 0;
-> +       treq->syn_ect_snt =3D 0;
-
-I think syn_ect_snt is always overwritten in cookie_{v4,v6}_check()
-before being read, this line is not needed?
-
->
->  #if IS_ENABLED(CONFIG_MPTCP)
->         treq->is_mptcp =3D sk_is_mptcp(sk);
-> @@ -502,6 +506,7 @@ struct sock *cookie_v4_check(struct sock *sk, struct =
-sk_buff *skb)
->                 ireq->rcv_wscale =3D rcv_wscale;
->         ireq->ecn_ok &=3D cookie_ecn_ok(net, &rt->dst);
->         treq->accecn_ok =3D ireq->ecn_ok && cookie_accecn_ok(th);
-> +       treq->syn_ect_snt =3D READ_ONCE(inet_sk(sk)->tos) & INET_ECN_MASK=
-;
->
->         ret =3D tcp_get_cookie_sock(sk, skb, req, &rt->dst);
->         /* ip_queue_xmit() depends on our flow being setup
-> diff --git a/net/ipv6/syncookies.c b/net/ipv6/syncookies.c
-> index b33011b71fff..7435ebcc366c 100644
-> --- a/net/ipv6/syncookies.c
-> +++ b/net/ipv6/syncookies.c
-> @@ -276,6 +276,7 @@ struct sock *cookie_v6_check(struct sock *sk, struct =
-sk_buff *skb)
->                 ireq->rcv_wscale =3D rcv_wscale;
->         ireq->ecn_ok &=3D cookie_ecn_ok(net, dst);
->         tcp_rsk(req)->accecn_ok =3D ireq->ecn_ok && cookie_accecn_ok(th);
-> +       tcp_rsk(req)->syn_ect_snt =3D READ_ONCE(np->tclass) & INET_ECN_MA=
-SK;
->
->         ret =3D tcp_get_cookie_sock(sk, skb, req, dst);
->         if (!ret) {
-> --
-> 2.56.0.611.g1030f0b940-goog
->
-
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-
-Thanks.
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
+rm/x86/lenovo/thinkpad_acpi.c
+> index 4f81855ad..2c3f8cf32 100644
+> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> @@ -5102,6 +5102,9 @@ static struct ibm_struct video_driver_data =3D {
+>   * Keyboard backlight subdriver
+>   */
+> =20
+> +/* EC level that selects the auto mode for the keyboard backlight */
+> +#define TPACPI_KBD_LIGHT_AUTO_LEVEL 3
+> +
+>  static enum led_brightness kbdlight_brightness;
+>  static DEFINE_MUTEX(kbdlight_mutex);
+> =20
+> @@ -5191,7 +5194,8 @@ static enum led_brightness kbdlight_sysfs_get(struc=
+t led_classdev *led_cdev)
+>  =09int level;
+> =20
+>  =09level =3D kbdlight_get_level();
+> -=09if (level < 0)
+> +=09/* Auto mode is not a brightness level; report it as off. */
+> +=09if (level < 0 || level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
+>  =09=09return 0;
+> =20
+>  =09return level;
