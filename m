@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794778761;
-	b=opt68KOG0EyE51BbJ5ZnintK9nZip3BnEWnZBz0KiXbBJRSipHWMIXK4YOHbtM52t6n/
-	 LwYA/UVzD/Yr0WGx6E91ar8/ZgqVnsqRP5OX13AkkNZLPWbdkjzo7N6L8gN2msq1rgXMT
-	 LVrc9Det2UTMqzp+EVhLE4zREoKOVfvEd6SIi/06RO6wUfsgG/nSnMPD9zDY8OfQOELNo
-	 YSAqPHGf0H/XMg0hBxqb2f2kQWi+KVrrV4hyGV9kj0RmvPmLXmR+b7x1XpgcujgAmZqDq
-	 7u5BV0bpESn4h/qhZ/e89K224j6/wqiBOqodsvz2y8PyF61V31XoeljiKHFy0k2GKfw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778761;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=AgmXiYwsbFtClFrM0wh7o6D+RpJ4fbleaDulYZzEPzs=;
-	b=hPl7o38AqGODgtsiEjbpbh7E/TtRtfAuu3iu7lFTOFFZdQhwFv0TXsvv1GPo30M55KHC
-	 6raXky5Y/rSxmeM425POZI51mS0I0Z1h6OioMyzfZpdol1flfbOu68OuiZlbLT1y8/yvV
-	 Ms45P5wadKrd46ej9Tx+8llTcrwQzr4MH/PQKxRdO7I3vgzMdKcZWFM4gYttaUKQL7ISZ
-	 iykxb3hEfvUOXQmsJcALNY2ZBWqSziW/f9fY4tYPMRqFpk0mU7y8jx05ZiuXAxcKr4ioe
-	 XxSY8w0t0zjettCUI/tUfT+smBcfyWBLqHrZAaN8oMW5uYZ09rBaX34/lpJzJA7713Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWmxyC9b;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794778803;
+	b=VHraiFOMUwt2t5KIxBPLA2D9lcD1B5gmCsxkp1ETIuZn3rhVpvMYbpmwD+mkplPAKz3o
+	 99Rh87T4eAiaqn9RHV1vyIgYp65uXbdt9GVpwQPQo/zlaQecMyzyuJp3GPIjlvXITzVzs
+	 aFdL2utc3oBr5CX0+jnRnNpjveMlGNHIKeM2ZC/hBmbLaT+DKMSX2gVVoF9x2m8D8XGyd
+	 sfRtwKFm8ZcmtQgwvMw5fJZR+UIHtQ/SQN55OSCj2/XJtRO95BMQtAl/bvrucIouBHzki
+	 HCrPHWKFbj4utg0TO7MzxsgXxTKtJlkEH4h6bJidz0Y33iX9PpD8DNxCgs55He4e8xw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778803;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
+	b=1owK+qDy/2RF+uKPsy84lehi4LXIGUT1iT3UT4BnYNBPTeaQcszsRurjYwJClr27hutt
+	 jkDgBr94+ngITQw14oU/pspuZn0PxK7xmxRxRB065Qn3oa6eGAGuQV2HJgNXFsQctKYQh
+	 a3xV3ZoyYOfnlKoJaZIefQ/o1s0c5h9ClaFgSi2RgedVYembufdv1hW8icofxFTw2lkzZ
+	 k0NVDLDOPhcPGW9OWOVbpkuf1MN00FplDByzjo3ef3m6vGyUTAaNfMTCXlNqj2FEF9J/y
+	 t1AH9z8UV2A+v1jbqyjkQ5GXibmHYHrOuTYtT0IdaV00AY+rnVr8epGA9+23D1MQLtw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22528606A329;
-	Sun, 15 Nov 2026 21:39:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15544606A31F;
+	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWmxyC9b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA571F000C4;
-	Sun, 15 Nov 2026 21:39:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794778802;
+	b=CftTzxgyLMJwm3bhBexRcZOHJBaFWxsp8vYFCWCinTzrCkITLfydDSr35THNXpJyiBF+
+	 hOB1Ciuna76PFXLHMcjoAGDws26sj+vPx2r6xgNcfMowo+ai92ruy8njvPRZY7aSTZytx
+	 coQSEXjNCdoVUfKK2IY9PVdAuKGAg1X+1Otv2PbC1sdTEvHnbRg0XVrAZ1QBVvgB1r2VW
+	 NlEuN5pVlfkb/oe+iG+ei4XRYDEsYzHQz6F41kdj0KVt/HVNxMjfDa8QJF3q8NZoGaRBW
+	 4nmAAHFLoQo7dw3qWYXkyW15n8tx6X4aJQcbzYfZoXVW5/RhY9qHWxiTUpq0GG9qU7w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794778802;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
+	b=0QUf1UOk33npcTZknKyyCBniXFHLnQfyiVsQ8cI6pBTBdgx+Rrw7MkPlgfvQ6eDMbqKq
+	 ubkuxe7ee/pJli1LXzjmueEkChv6uipfvhckE9DyqnuziS9t0Vh+y7mQfs6hNjv8suT3r
+	 nlRIZmBT1fUcpjp2kahqnJLm57QfEJD1TfV+E7s/BzKUzYKrtFvMRHpyT4BGPDMeS6NjU
+	 3oPeIO3QOCAclHpkCGe7DunyT3PO/P6+3ZQFCRCdAvQWlnLZNR6hhd0EamhiYIMdIarUa
+	 pH4BT+MM0VLzYmDKXW2kf3ONk9h67sP+tmolIaShnXVbOvlB29itfyM4rz+66aDPSvw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 200EB1F000C4;
+	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794778760;
-	bh=AgmXiYwsbFtClFrM0wh7o6D+RpJ4fbleaDulYZzEPzs=;
-	h=From:Date:Subject:To:Cc;
-	b=gWmxyC9bKog3m9DpNjBIEoKmRHcUJIlDRSRZkKnJ7ncNpBHDUpX7AyQ+/Id+kKvXJ
-	 T/qLkhd2JeTx4IMlwQpDhmdGOVSgJPMhCLyi4JUX79RhLhZEgvlFcpyxlf4lA2KpTf
-	 9OnhnNpVYYH+o69Ht4YjjgSVcmBT3W4nOq4dvSkjXtkWwie1WeOck5/DJZtgACvSXH
-	 pKak/xSHVmsg8F7sKbMIYjALeDs/RxJfazxaF7t+NtcMQDrn/0CosTF1DGS38fXFD4
-	 pLwZaQ5QO/v+k4r/YYpZA1g2kurLBqdCGmNI8zcjBPrQ43eP8UX5G8SvDSMCbou360
-	 +ERuF0paV0NwA==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Sun, 15 Nov 2026 14:39:13 -0700
-Subject: [PATCH] libceph: Avoid unsequenced accesses to jiffies in
- dump_linger_request()
+	s=k20260515; t=1794778802;
+	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=bVYON9nyiNA1ScxrHvAukf882icY23Dl2rKcC1Gf4Zlmxw1gCWNzSz/UOVm9VWm4M
+	 1x1cXO4Rrcu/6fV962cC2v92Yu4WBfsT3mvA1qiKyVIcSxw0wcnNZ2t/TX14CSv/Yb
+	 9NvLtsjKEqCOt3FewQlx77UmOEcYtDNAnS0NE+QQmx0ABUYOQb3Yn1REQoYZPu24RS
+	 7QO3AdP1fAG7fL8eXPjI35qjPtG60negVgJ+KALKsXfOlfEPtqAX9bqERldLBBBb7P
+	 H5Px1YzwHY8R/h5tdw5OgEsCqn+AMwSAerrd9AqQClu1oe7vEfkMmNvGdxBzd6Kd7L
+	 zre8Bx7aPBs7g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 92BB94A205;
+	Sun, 15 Nov 2026 21:40:01 +0000 (UTC)
+From: Phil Williams via B4 Relay <devnull+phil.williams.advisoft.co.nz@kernel.org>
+Date: Mon, 16 Nov 2026 10:40:01 +1300
+Subject: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
+ trim
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,86 +84,91 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1jCQcrQq6AOIXFaQ6BVnFZIi
+ LuTlvEN/++gnIUVbs0Omb+i8lorqG3AP936YJRQDaYzlogsasGkiw26YVGMLqXR+Rl9MBQpEPc
+ dQ43fmaNs//Fwv6yfcWJffjc4jhNT60DqegAAAA==
+X-Change-ID: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
+To: Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
+ Phil Williams <phil.williams@advisoft.co.nz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794778800; l=2231;
+ i=phil.williams@advisoft.co.nz; s=kernel; h=from:subject:message-id;
+ bh=uHlYPZd4leaL6BZM5UhiWipgD8U4U669fNKN8B6lxPA=;
+ b=swvwjnWL3dHnjOwF5N49mxp+jQkSzO5f8iKsDykvNkJoG9nL5N9gOV1dfEDQAgYLgtVenSNDn
+ mmz43EWAIvwD7R8bnl+BqLxRMaYraCgYT3m1eKkeiSTLJO89BB/7Zg6
+X-Developer-Key: i=phil.williams@advisoft.co.nz; a=ed25519;
+ pk=t0M8TApJRlA/rHh3lIu1XTiWO2+evmU8VnO43/qqLPk=
+X-Endpoint-Received: by B4 Relay for phil.williams@advisoft.co.nz/kernel
+ with auth_id=1538
+X-Original-From: Phil Williams <phil.williams@advisoft.co.nz>
+Reply-To: phil.williams@advisoft.co.nz
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-ceph-wunsequenced-v1-1-6910c560ba9b@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQ6CMBBG4auQWduEKWCiVzEuoP0L46Jih6oJ4
- e4WWX6L91ZSJIHStVop4S0qz1jAp4rc1McRRnwx2dqembkzDvNkPjkqXhnRwZu27W3NFx+aEKh
- 0c0KQ7/95ux/WPDzgln1E2/YDSrgGRHUAAAA=
-X-Change-ID: 20261115-ceph-wunsequenced-44a2019df3ff
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Xiubo Li <xiubo.li@clyso.com>
-Cc: Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2758; i=nathan@kernel.org;
- h=from:subject:message-id; bh=eXBp/KB6vBLLPNVJIOG85QieDKCMzM3UE/e2kzkIpmQ=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFm/1Jqd8rRnPOB3yWxdU39yTR5D2pKo+wGKbjz6Vtc8v
- CcuFl/UUcrCIMbFICumyFL9WPW4oeGcs4w3Tk2CmcPKBDKEgYtTACbS9o+RYdGHvU0+FonqRd0s
- ef19h62V3pvLWvqcFQvYuGXN9T8cXIwMs1fuNjty91feosw3J+Z7dVbJs/GmzQhPD990+gHzM5E
- tnAA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-After a recent improvement in clang to warn on unsequenced accesses to
-volatile variables [1], an instance appear in dump_linger_request(),
-which can break the build with CONFIG_WERROR=y / W=e:
+From: Phil Williams <phil.williams@advisoft.co.nz>
 
-  net/ceph/debugfs.c:269:42: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
-    267 |                    req ? jiffies_to_msecs(jiffies - req->r_start_stamp) : 0,
-        |                                           ~~~~~~~
-    268 |                    lreq->is_watch && lreq->committed && !lreq->last_error ?
-    269 |                         jiffies_to_msecs(jiffies - lreq->watch_valid_thru) : 0,
-        |                                          ^
+Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
+calculation") takes the FIFO timestamp scale from ts_sensitivity.
+That field is only filled in for parts that have freq_fine. The
+untagged-FIFO parts are left at zero:
 
-Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
-6.5.2, unsequenced side effects on the same scalar object are undefined
-behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
-function call is indeterminately sequenced, meaning any side effects in
-the arguments are unsequenced.
+  LSM6DS3
+  LSM6DS3H
+  LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
 
-Add a local variable to hold the value of jiffies before the function
-call so that there are no unsequenced side effects, clearing up the
-warning.
+st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
+every sample is published with the timestamp taken when the buffer
+was enabled. The accelerometer and gyroscope values still update.
+Userspace that integrates attitude from the timestamp delta treats a
+stuck timestamp as dt = 0.
 
-Fixes: a407f9961902 ("libceph: include current latency in debugfs osdc dump")
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2200
-Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+These parts have no freq_fine register, so there is no trim to apply.
+Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
+unset. Entries that already set it are left alone.
+
+Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calculation")
+Cc: stable@vger.kernel.org
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
 ---
- net/ceph/debugfs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Resending inline. The first copy went out as an attachment.
+No code changes.
+---
+ drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/net/ceph/debugfs.c b/net/ceph/debugfs.c
-index b068e25f2acc..82270f0e4d7e 100644
---- a/net/ceph/debugfs.c
-+++ b/net/ceph/debugfs.c
-@@ -259,14 +259,15 @@ static void dump_linger_request(struct seq_file *s,
- 	struct ceph_osd_request *req =
- 	    list_first_entry_or_null(&lreq->osd_reqs, struct ceph_osd_request,
- 				     r_private_item);
-+	unsigned long j = jiffies;
+diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+index 823f8ac66..98db90a30 100644
+--- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
++++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+@@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_lsm6dsx_hw *hw)
+ 			return err;
+ 	}
  
- 	seq_printf(s, "%llu\t", lreq->linger_id);
- 	dump_target(s, &lreq->t);
- 
- 	seq_printf(s, "\t%u\t%u\t%u\t%s%s/%d\n", lreq->register_gen,
--		   req ? jiffies_to_msecs(jiffies - req->r_start_stamp) : 0,
-+		   req ? jiffies_to_msecs(j - req->r_start_stamp) : 0,
- 		   lreq->is_watch && lreq->committed && !lreq->last_error ?
--                        jiffies_to_msecs(jiffies - lreq->watch_valid_thru) : 0,
-+                        jiffies_to_msecs(j - lreq->watch_valid_thru) : 0,
- 		   lreq->is_watch ? "W" : "N", lreq->committed ? "C" : "",
- 		   lreq->last_error);
- }
+-	/* calibrate timestamp sensitivity */
++	/*
++	 * Parts with no freq_fine register have no trim and leave
++	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
++	 * A zero gain publishes every FIFO sample with one timestamp.
++	 */
+ 	hw->ts_gain = ts_settings->ts_sensitivity;
++	if (!hw->ts_gain)
++		hw->ts_gain = 25000;
+ 	if (ts_settings->freq_fine) {
+ 		err = regmap_read(hw->regmap, ts_settings->freq_fine, &val);
+ 		if (err < 0)
 
 ---
-base-commit: a407f99619029b76548774af1006319f810bb345
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261115-ceph-wunsequenced-44a2019df3ff
+base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
+change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
 
 Best regards,
 --  
-Cheers,
-Nathan
+Phil Williams <phil.williams@advisoft.co.nz>
+
 
