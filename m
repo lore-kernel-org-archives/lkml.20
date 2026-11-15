@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794754132;
-	b=zcT9xINbdnywYj4fpz1QfPTTzNyA4DhuUOiYXt0XtWw9sAxRJTiHTOizcFWHiU2/56M4
-	 PAMVP/cEfoHr6B+bSAMF3ZZtub59BosCiTIi7vggunoS3tdNdZcE0e81D4D7A7pN9NvhH
-	 hiUP3QRGRUoKACZts8fVt5jstBFEOS50/8TG3QiKZ5kwDc7e7PEg4iElRExrEVssOf8hk
-	 RUA30Tm/gmWEE2+X5qcIcUW3PY6Uu77zsuPGOMPKXAaaLishQzhcAWyqctMS5ZAvC+ZPJ
-	 rIYeZ94dAj9RnkWUdKC+w01qG3zpNUTF3gz1N/Jwx9oC+xohwmAeZJLlPuNzo3xmLkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794754132;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794754290;
+	b=koRs0ykYpBBIzdKzLCkijAmNqDy+ZzKB107vTkUttgIW8k5Oou/ytbejpQEYQuKSzK6b
+	 Z0KVAVg5mbH2P53im18AnFCrrAua2KSyCc34npDMR20o2BSkVeTwiAnK9lxPOTuzuZpsQ
+	 eThLZkW16fxsrh+MH/EOgvkNXxv88igCrLFLSpdjbvABXQ5qbLBLtc3yOzaVJFmQZSTS4
+	 DD37i7snFsUehnXg2c3DCHXsMdrTOY4N5iTZkodCttshF39VChCrSQONwzd589g3HkPRM
+	 hJHr08H21k33alBJccJA9YZgQCIBPcG0GGR2VPXaFQlPzXh0RRYlcBBsSyfqXZsboBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794754290;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=C4gZYNSTU3nUDa0BlNRCYypUaVksPX6JgKJOOi2udkU=;
-	b=tlmrDSQ2IlvFA5IyZEtyHj/6EpBbnHrA/xqLu5CBxOzAG8F0b+jJvIQkepljTBb+77k0
-	 mqjQVOfqFm3X+E6wOEVDHneSpqOp7buTxfTxyR3HhP5cZ9Z84piicDlOhvfBu4KXWQFzy
-	 srk9mVt2f7tDofyuJaxxA5kIHqb321H2eIu+ZysF+Bs+1hMU13ELlp0ed8OEzh2admEsi
-	 Fcv+GbQj8bqvvY/U2POwfVxwDXf/jv37teDDxFZXQH5N08cbPeTBooKgLP3uOs/WNTXgc
-	 U1+0NVctNCycgumdUe9crf86P4x4bjzlGHpkNqUnCNX/VBNU0CzINnxm1r+6xleCyzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1ZfYp2fVOAsovMDBuZ6IFcNyy3aPY7Zpal+R9H3Fzo8=;
+	b=pAG7YqruQYun5XjzMcPEp51vSYLuhRy+jmt5wMVrfQslWZQ/jjbo7We9queDD34IKo8X
+	 dZRQvuKIi6F//Z2EAhwqWxUYs3WmV64Tr13YyUf+7+jWfnFmoYzY9GjIiMdPerltuNQq9
+	 v0r0lW+8pWCEMayaN5HxYeuRjFDYz7WJqjomWD9dvYMnfWXhx0R3aV5jBuqZHhOBCsVoR
+	 LwfzcaXc5Nea0BdG3NI7AuvDVKcqGxWHBQZuSoU6yRu7/E+VWmGPX+FRvI7y7NfnaoiO8
+	 lQVBfVM8kK0/IxjLooC8mtR1VxfiLB2T4R5KTZ27SJa4oZVIrVFxDvkfB7CUIzfdflw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w5g/XQ3c";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a9SIedi3;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C0E606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74C0E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782DA606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:51:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 782DA606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w5g/XQ3c
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b6e7a05225so4030271a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:48:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794754131; cv=none;
-        d=google.com; s=arc-20260327;
-        b=idjwpkxHn9jrxAJxUnxR2Rt8h27ib7K2lPFhnvucJF4t47ln9N1K35J/S0aWwFwDq+
-         sl3vkvO/Wsz9BFbbcfgkZA0sGrZfvR0kB5xfKu0rYpjySnyE1EQZ3y9yb9S9b9FrMeHj
-         WWsVyubomyFRXFdXiJS7/ReA35FDKA6utIDhxx8MsWn/yxQRrteayk+u8gVtr0RXohcg
-         oFOYdAGAfnaHYN/vIizAxzJDs9+cAaoux0IwjXuGMZNMYefY7kjeRL/NdUfaLbzg8IJX
-         Qx53j5ByvptYODWOTLwBfPaspaTxBtMYEaQ/zMEBlCUa6XeSgiRIUpkGn6RUn8EsL5ZB
-         aQDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=C4gZYNSTU3nUDa0BlNRCYypUaVksPX6JgKJOOi2udkU=;
-        fh=rxXD9Rzmf1DLr5XzOmMEszFNDfwxT514PIMIWmO+be4=;
-        b=N1WltNeq84I6SpUBx3ZOU0FqcFPjHXzwq0jPkKQht8vVGZfQvAT9MCjny0ucu/ORFx
-         SYzcpUYKzENHCv3x+1kAlH1U6lJl9RRmsiGwsz8/300LxIEcd2Yp1cCfS4FkJ8RIaS6e
-         PRZWU3rJLvDHFhsbO9a89nGcbNjbHSgVcIyaGrhs+TGifcVVS1avOUNukBqfWS11RCWg
-         U5Frno8MVOf9C2Qg09CvGL2c/cDmM7X/z2eAxX8la3P9FnKvBe7LKvbES7W4id2q6l6j
-         CWCbDeOuM/5qLsq6zOrXmkY/1ylVbsX3LlGp0ab1MJtp+pjkrIO+dg57djf8i1Piu0Br
-         ovZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a9SIedi3
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso14572775ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:51:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794754131; x=1795358931; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C4gZYNSTU3nUDa0BlNRCYypUaVksPX6JgKJOOi2udkU=;
-        b=w5g/XQ3c9k+Vmzjr8H8faYY5EnV44gyfCeTqkUEnB7IDVxBorehzGxTmotRUcFMd2k
-         yEd9UzOdm44dKGOB9vhvuqA14zDF0izirGlMHcIkPmvfAWV6oC7EWoZSr/n7pMgjOayy
-         4XbbykfX2tOLXKQEY71fD4ubWMAf5smyh0PUCbn4ouKSDid+wdpti8tnvMNzC9U0omm7
-         PfP/4oysMFjcZt/QSyQgeX6xWgKvlNh0WDaR4PRzqjFkBPghAucojPZwp0HxO1dsPk5w
-         0TrSxGukXHJtQczzx+u36Zh+VEpUmtRmnvhCaIPp54UmNZzIkin7PEC6+n43usjPmyxQ
-         Zqdw==
+        d=gmail.com; s=20260707; t=1794754290; x=1795359090; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1ZfYp2fVOAsovMDBuZ6IFcNyy3aPY7Zpal+R9H3Fzo8=;
+        b=a9SIedi3C6EHJCF1iS7LlJ9JTawYnDP3geGbLahyMmZbYrRcciEIC5LWSZov4Y4nrU
+         EnIp44EKasSUXQILotvPIDflq2Mq2xRA7WmbmxFmA2JccePPAdK1VCbsUeZYE2Ew2LB+
+         TB6XSaDhRBVzJ9gGln7vw7Nv8zzVIFRPyiz4CHMSgbpxeq9LTLNDlxY6OCky8pyOcmUW
+         xLyt6jqpxoY1DIWqkhsd5j+KsbLfr/7gv/PgfMqSQUxI7V0OTMnpyGgpcf3oT1Ib3E8Y
+         zLw18kCeVI9c6ee8KcvdYtGF5d9j+gpTf3L4i9gMPKLqUppZGKUxN/hUmP1e/MRDhLM+
+         FZZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794754131; x=1795358931;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C4gZYNSTU3nUDa0BlNRCYypUaVksPX6JgKJOOi2udkU=;
-        b=BM8sqSGxPV8IbxT9X3WzTD7jdH7xApZEXAyLcGFLenBlWuCKn3y4JPl0nJpJgacJcX
-         roH7JFTGo/rTJBm/BfHEzqMGXwHCSbv6iZILAw2qY3UMRM5CGdVXs/D6K/Xr0l5QUyqr
-         ZQpehtxMCNXohYIvNrmMZRIWH5Ze7+Avr+1DBPvfLloLPaIw0TDCzYATipiukvM0PA7g
-         w2GkkurkK0t1tIlki4RiqizFapQgdMGnFVR/r7S4F0hcCSw9oig3rMno2aVd6FIApQbI
-         67P/xXYFKGrPo5ojNkn2viriZkPhn6Y3FsqtenSpjbYE6BqMMVfQFbnQK+bV0m8tytqw
-         naGA==
-X-Forwarded-Encrypted: i=1; AL+hErEUXw7x93fvhD0pnmcKXwco/I9mvX1vBFnGr2ml9Ri5w089b/q/qK4ebDez3wwjrVo5ovYqOR9nFilHGD4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aqd4a4ux6GIyhdlMf+x+TKXmt510y7Lr4kHr5hWTVR7r7GpnH
-	SjQoosFRsdtMZla2Kh3bPHWtTwmBEDV0gFcMnjm/WIeGlhcYPCpvCLZW2cvZhruzn8vZgoWo6sy
-	VsPg7mb4hwZBOKraSosZJScYPFCUGWR4=
-X-Gm-Gg: AYBFou0LojORAM8tQKThJJyYzJM8zW1e7T+3NEPa8d+RQ8/K3+g5yhJM7UX1xbjG+GG
-	CTSJ4mAxy011cqBwu8h4cs4KZvxFjAf8Ty91s2w6O8sXoQiJCsle1oZwhrUz7Sdan+3MZVb4pCv
-	WwXrp/bFjKoJiZmujrikqQsOfC9DgHRI7aszdSRTufVJNbvvxNDfiN2LUGuutMaidgPV77DHiQm
-	rwsv2cglCALcq91kmy5S9Hg4KPgBCPHEj9/0edG30C3rGu4KpasKONCx+BpJubIwWKmexUhBygr
-	eYjAtVdoQkUNT59Wg+0F0dz6YUZqFVEQIDlqfKpVdneA6x7BHJ9bcBz2iezpeXqedIw15ZqKRdv
-	5IZf8VIPj1KZO8Gban8j1DhC9BCxAZjs5I3HCk6BKCteCegT3oaLDdXnxGU4KzHLo9KK/CQ==
-X-Received: by 2002:a05:6402:1944:b0:6b6:edd7:790c with SMTP id
- 4fb4d7f45d1cf-6b7c0d2c969mr5932123a12.45.1794754130672; Sun, 15 Nov 2026
- 06:48:50 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794754290; x=1795359090;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1ZfYp2fVOAsovMDBuZ6IFcNyy3aPY7Zpal+R9H3Fzo8=;
+        b=QXzwyKB+1AjoQ3UlNsfGt1qZoZWp5VMtNV0xB6VGbsHJdVZgG8cGcb4oRFHDUR8Ajc
+         WEZzMBty1B/f/cPKPJXFxafCwQOWdN+NFbVc3ETrSRbfl8x18tOTFpQSDPlupN+bEuYZ
+         KB4XwLychdZX7++TzcrLrX9L1N94ENci52BhwoTZlvIBDzOWRz0/iewqeHQBNQXnfx9N
+         JwaL61HWIzXsqcK6Sx7pkTFop+AZ4wRV0mQfkFP36zfNcaWsaYf4zaiZ4cYEfMLTd2Xf
+         AtVNt1mw14a+DVCi273zS5ZgOJ6WFG3LwNS3teMKuSOJCUXQn9htqCA4nYBhVxaZH2J/
+         JQSg==
+X-Forwarded-Encrypted: i=1; AL+hErGdttHZu62Unq208hZdDUumo9nBubRpYwi9+x7n1KW6iJdM63bCe4fCXcIMoEFX9srlC/WW9W/y1nh3N58=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Qc1t7hGGRtFMUHWTORDXtboTmvZHRQAOgNSNsqP8rIRIvF+Jj
+	HzadAbRXIuJwoWoGJP3qyXcZDoIW3v6F1cld+fLE0rNdkZkDY5C2pqHS
+X-Gm-Gg: AYBFou10dQiuZ4MMhsqDj+Nv6JUd2QIDBWgBQgc10VZ5mwcD5qK2Rvw+c05vy43XeNl
+	Efvn3cReVNEhm1YmCGi9G7xaCLJmVA9CJAhoW3qD++8wPzqSb0uY598Zd93FvE+78CICdSQNuxo
+	ERymLFoieODx/jLGpyBhamjBuy5VRRNz7c9mUspOsN9TrVGQbaevfcBWXhxrMFmOlyM5WNzvkzq
+	0PXmFkRB05LvTdcaI5U9HoA0ztrhJRQHVEYqr5/jALpLhLQQ1OGxlspfDM34nhkey4AcJJuS7/T
+	W4i0OgRbk17nv185yC0yIKWoItpSMM+JJlF/yndVPkTx3wkCv4ptfQom4TQ9nQjfpBNTAv8kXAK
+	RrJdcHBsWgRE/AO/0LvtcCxGWiDbKbZRLXJZ4oUlgfwiEtqN21hScCDKZq4QcGr8dOFc/q4BZJB
+	74rKH3l7iCpn3O9VQInsU9PBojai8Qeywmi5ZLOY2jAmldC2UxsBEr5I56Fkv+4qcoEi4kM85mJ
+	WVCUSxX8En8B8xPzK63JweGx5iPlo+8a0MZp26aDqzp7Xep0jDxFmNyIEzCpCrNHSaSo151/6lJ
+	bgRHp1lGqVbl0NHXbtbrzYBzGwDlzn1wcfvudnFfEPuVBxq2
+X-Received: by 2002:a17:90b:1650:b0:3b1:8396:ebf8 with SMTP id 98e67ed59e1d1-3b1b0a4fe2emr7626437a91.36.1794754289600;
+        Sun, 15 Nov 2026 06:51:29 -0800 (PST)
+Received: from localhost.localdomain ([115.76.89.253])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d32ea0sm17353559a91.15.2026.11.15.06.51.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 06:51:29 -0800 (PST)
+From: Nhat Tran <nhat.tranminhk2@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	Olivia Mackall <olivia@selenic.com>,
+	Deepak Saxena <dsaxena@plexity.net>
+Cc: linux-crypto@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nhat Tran <nhat.tranminhk2@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hwrng: omap - Unregister hwrng before disabling the device on remove
+Date: Sun, 15 Nov 2026 21:50:50 +0700
+Message-Id: <20261115145050.88427-1-nhat.tranminhk2@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,92 +99,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115-work-ovl-d_real-v1-0-ca155efbcb2e@kernel.org> <20261115-work-ovl-d_real-v1-11-ca155efbcb2e@kernel.org>
-In-Reply-To: <20261115-work-ovl-d_real-v1-11-ca155efbcb2e@kernel.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sun, 15 Nov 2026 15:48:39 +0100
-X-Gm-Features: AclHuK_loWLpZnEsR5-ArAPNE_f3U8cZmm7GbEpqPveHBdFtxvcWfTtvtccYOKk
-Message-ID: <CAOQ4uxgiwKsadtv1Me3ZkSsTawjNey3wDDWVAnx6U0+Oe+uoQg@mail.gmail.com>
-Subject: Re: [PATCH 11/13] fs: remove d_real_inode()
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Chris Down <chris@chrisdown.name>, 
-	Miklos Szeredi <mszeredi@redhat.com>, linux-unionfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-integrity@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 3:02=E2=80=AFPM Christian Brauner <brauner@kernel.o=
-rg> wrote:
->
-> All callers have been converted to d_real_data_inode() or
-> d_real_metadata_inode(). Remove d_real_inode() so that any user we
-> missed, or one that gets added in another tree, fails to build instead
-> of passing an ERR_PTR() from d_real() to d_inode().
->
-> Add a porting.rst entry.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Commit 3e75241be808 ("hwrng: drivers - Use device-managed registration
+API") switched omap-rng to devm_hwrng_register() and dropped the
+hwrng_unregister() call from the start of omap_rng_remove(). Since then
+the hwrng is unregistered by devres only after omap_rng_remove() has
+returned, i.e. after the device has been runtime suspended and its
+runtime PM disabled.
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> ---
->  Documentation/filesystems/porting.rst | 10 ++++++++++
->  include/linux/dcache.h                | 13 -------------
->  2 files changed, 10 insertions(+), 13 deletions(-)
->
-> diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesy=
-stems/porting.rst
-> index c38f5df755bb5..28a24b702f2a6 100644
-> --- a/Documentation/filesystems/porting.rst
-> +++ b/Documentation/filesystems/porting.rst
-> @@ -1422,3 +1422,13 @@ helpers take a const struct mnt_idmap *. mnt_idmap=
-() and file_mnt_idmap()
->  return one. The idmapping is immutable so nothing should have modified i=
-t
->  anyway. References are taken and dropped via mnt_idmap_get() and
->  mnt_idmap_put() as before, both accept a const pointer.
-> +
-> +---
-> +
-> +**mandatory**
-> +
-> +d_real_inode() is gone. d_real() can fail for D_REAL_DATA now and return=
-s an
-> +ERR_PTR() then, e.g., when overlayfs can't look up the data of a metacop=
-y file
-> +in a data-only layer. Use d_real_data_inode(), which returns the inode h=
-osting
-> +the data or an ERR_PTR(), and handle the error. Use d_real_metadata_inod=
-e() for
-> +the inode hosting the metadata. That one never fails.
-> diff --git a/include/linux/dcache.h b/include/linux/dcache.h
-> index 5b3b34d271bd0..2b15179e9baf9 100644
-> --- a/include/linux/dcache.h
-> +++ b/include/linux/dcache.h
-> @@ -654,19 +654,6 @@ static inline struct dentry *d_real(struct dentry *d=
-entry, enum d_real_type type
->                 return dentry;
->  }
->
-> -/**
-> - * d_real_inode - Return the real inode hosting the data
-> - * @dentry: The dentry to query
-> - *
-> - * If dentry is on a union/overlay, then return the underlying, real ino=
-de.
-> - * Otherwise return d_inode().
-> - */
-> -static inline struct inode *d_real_inode(const struct dentry *dentry)
-> -{
-> -       /* This usage of d_real() results in const dentry */
-> -       return d_inode(d_real((struct dentry *) dentry, D_REAL_DATA));
-> -}
-> -
->  /**
->   * d_real_data_inode - Return the real inode hosting the data
->   * @dentry: The dentry to query
->
-> --
-> 2.53.0
->
+When the omap-rng is the current hwrng, hwrng_unregister() drops the
+last reference and schedules cleanup_rng_work(), which calls
+omap_rng_cleanup() and in turn omap4_rng_cleanup(). That reads and
+writes RNG_CONTROL_REG while the module clock is gated. On a
+BeagleBone Black (AM335x) unbinding the driver triggers:
+
+  # echo 48310000.rng > /sys/bus/platform/drivers/omap_rng/unbind
+  Unhandled fault: external abort on non-linefetch (0x1028) at 0xfa310014
+  Internal error: : 1028 [#1] SMP ARM
+  Workqueue: events cleanup_rng_work
+  PC is at omap4_rng_cleanup+0x14/0x24
+  LR is at cleanup_rng_work+0x30/0x48
+  Call trace:
+   omap4_rng_cleanup from cleanup_rng_work+0x30/0x48
+   cleanup_rng_work from process_scheduled_works+0xf0/0x518
+   process_scheduled_works from worker_thread+0x140/0x2f0
+   worker_thread from kthread+0xfc/0x134
+   kthread from ret_from_fork+0x14/0x28
+
+The worker dies before it completes rng->cleanup_done, so the unbind
+also never returns because hwrng_unregister() waits for that
+completion. The same window lets the hwrng fill thread call
+omap_rng_do_read() on the suspended device.
+
+Restore the original teardown order: register with hwrng_register()
+and call hwrng_unregister() first in omap_rng_remove(), while the
+device is still powered.
+
+Fixes: 3e75241be808 ("hwrng: drivers - Use device-managed registration API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nhat Tran <nhat.tranminhk2@gmail.com>
+---
+ drivers/char/hw_random/omap-rng.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/char/hw_random/omap-rng.c b/drivers/char/hw_random/omap-rng.c
+index 49d7f021fd31..e5b14ab1b7e4 100644
+--- a/drivers/char/hw_random/omap-rng.c
++++ b/drivers/char/hw_random/omap-rng.c
+@@ -493,7 +493,7 @@ static int omap_rng_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_register;
+ 
+-	ret = devm_hwrng_register(&pdev->dev, &priv->rng);
++	ret = hwrng_register(&priv->rng);
+ 	if (ret)
+ 		goto err_register;
+ 
+@@ -520,6 +520,7 @@ static void omap_rng_remove(struct platform_device *pdev)
+ {
+ 	struct omap_rng_dev *priv = platform_get_drvdata(pdev);
+ 
++	hwrng_unregister(&priv->rng);
+ 
+ 	priv->pdata->cleanup(priv);
+ 
+-- 
+2.25.1
+
