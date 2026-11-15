@@ -1,92 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794760589;
-	b=hOxLhVHUONgPnZ77x9G3hva+0RTcTUQqzOUDwipPbmYnaOakw7j1wTOo+UxQDXaCeRD+
-	 QUby5pdzMW2nVK4/CRoED9RJ0OtaShTsuvnWbtST1mWcoYVLnkKVqPBdHfDLK83DBRnBM
-	 sLM5Xosg0/JhOL57+Mlm/9PMfttIi60RqsyqG0r/XwCRaXhHw1uIXHBqQ8bVSitmG9fdE
-	 l0o7qeimarVRA5/flVgV38XvTbh6vLZwINxLObC6Rx2sLfbuDNyLMuyVWE3Z7s1UCiHhR
-	 oN919csqRbexCkyJlvk1TRaTKjvayQ8cSCmpcQMEMPm9I1HwlmZ47K1iQu9BmVzboDA==
+	t=1794760599;
+	b=v7ervQoK2O8njh3eayKqW8wVOCwaajbEhE4EA2h2dN3FinaEcgBQ0E9akEGiv7n/b/cB
+	 BlRiEPQ+As77P8sg9cuZ1UP1fhfLt0LsVDM5rtsfqwYBdzA57u89h7XSZiNJIM/1wLkh+
+	 EIjjSVndVE1KTfZFs00gNyPV1+8wtor4JjBoGi44oqyxpK7BGl0C5pD21cm7TeKAf26A5
+	 xMGP36qAlz1RlGPv73lyzPbt2fSx4QLPAYYkIrm0jYbeJ1eMPdokoj3p+5FHbJaWaU5S2
+	 1v4wcSpcS5udgFm6d4ajx5I6lf3TcoIrdjzuFEVkHGuua234b02LRsB3jaESraPET9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794760589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794760599;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=tmP0MrFrcAmuuhTA1131QnIkXEUazkJUfQgIKsBWJ2w=;
-	b=QFcYa2g7hAwlLmgeZQv72gT6q3axJALIfEoqHnWspBspB9TvYlNTqXjN26rR5XZ/55V6
-	 4CyIYea7xKU3PFJFrh9F0FPbF4L12i9GhWdvPPar/xRl5ddyjANRYKqzm0I04WLB/5GK+
-	 farlzVbCVD5nk2Fz1TpMfMmJsGP2a+9Ts5juI7oystWSx+0UPfNWHp7ynM9DhR2ld12q2
-	 UiBI/V9wK1h3zO2OdyRj0Kwzf0WpNxnOhnk97PsG3YQoQKE3KASn/LzcFfBxUhJeOn/ql
-	 TzPSYTl8UmhJZSbApXg1NXeBaV25Y9fBmelq70bF+gWObppuxH7CnN2N4O15YCL3CFg==
+	bh=mcJ8+QiHfS18UpwkZcfAlWMTf5+8/6l6MYdHWQbUNrY=;
+	b=20Ih3pRR8Z/gi9ybUKU3Z6pQKi0J6IE1OCTAQJDjMm3S5aMSXDEfOZ2Wy9zIQ4Y5Q+an
+	 tMsIKrPN4LKFrMuCxylbHE3zJZbiLHZ2HUQ2R2hvyoj5SVSjAgffrrAkw7m718CXnRhy7
+	 xJTI/qPCekW0y2oegzhsCQ+ZFYSOpKDxrbZzDqZObu2IjDsLAQ14Zj9O7Z0ON4KviiBlF
+	 URIwFxUZctyE7HawCIyuVPaqLmiDrOA19sGIs9M4cnAx5ZB+zHuG8dddZU5Qb+/w+zdEu
+	 D6Ga/YGJ8R+C2qOb4Fz3IJrXnYJlmWitnyT26S4O6O2WKzTcn2DjWJXShAupUmPd9JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JlrNgr19;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L2j17ZL+;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1B6606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:36:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF1B6606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619DE606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:36:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 619DE606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JlrNgr19
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b3ada81853so2324065c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:36:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L2j17ZL+
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso3201687c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:36:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794760588; x=1795365388; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794760598; x=1795365398; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tmP0MrFrcAmuuhTA1131QnIkXEUazkJUfQgIKsBWJ2w=;
-        b=JlrNgr19qouTdtB1fx8LtqYf5Rts+F8e6aG6lxQP1cD2O1n2YYUWEcW1kszo/Cw3fK
-         V5NkbOkZ38vr0E/2v2t8tXY9wALoKMgJQSDLoTQHXECefXkgOClfLL0j2TA1+hhY+cY9
-         Fxw0YOLcW4sfpoUQIApBTitHY9L0ZePiuDF4kxOvLDVJlrqagOC/LleIAn348/hFyKg8
-         LKIza/HMGRv3gmBGOv+CIuo9FCaIZ/iMDuLdeb1AXBH0kt6T4+66DJYakhQnSLeIH5xo
-         qlK4qfRtCki02eK2L2K/+VOWxkaS/snckBp+g2FNsINI/SH8YR50tWrMX+Gu2F4Sd+ep
-         iLeA==
+        bh=mcJ8+QiHfS18UpwkZcfAlWMTf5+8/6l6MYdHWQbUNrY=;
+        b=L2j17ZL+18b2OBG87DnI+1KDb7D7TAb3Aw4q8WzaoBOjXcBmQtsGNSthE2Y4pNzlk7
+         ckFHiYnitlzKUpgLq4K7bNZ0ZDQiXp6MJRQI5psk67JK9B12ywAhFQzpaTTBZh88DhmS
+         JjKxK47NZtgMZRdO8fMBIzEYEsL4v/zATLNacc38fUuScdRYnMnTZNSO5oA5CihXO2pN
+         dN/TVsPB1SjUUrlbW3XdTp1bN2vnjKJfxc/T3u6/inS6K1o0ZUVQAiinYUsikCMYWz1n
+         ofsAmqyoWK0H5NGyvDzQmkU1u6SI6NOXndJaiPLMv1wJCO1XytqQ/LylGHHitfmFkpPF
+         gwOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794760588; x=1795365388;
+        d=1e100.net; s=20260707; t=1794760598; x=1795365398;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tmP0MrFrcAmuuhTA1131QnIkXEUazkJUfQgIKsBWJ2w=;
-        b=nMj7poqRAIYxtVVDIuHB+o0WsvBaizAPbBrRC9ByQzygmi8phPUJVtbr92A/tQTheT
-         9piJ6PCfF1LJa4Kjue20H9gfoLRDTrA3ZYRzkQa2NzyEZA2CVKWoYqIVv1NOzOJk3LyB
-         dD3XY0mx/baZShEDw7BQXfHPiedy2rLnazInIS5Y5/P5roeWIdRGnqauoeH+wdacMBZn
-         chQ+4HuQ0MmyGMEfJg2PsYPClMNk0Fl5ci/Naae+RB/BTLOJjl+A9KHu9z9T+YktQR8i
-         KPvhTlwdTNmqn60PRrz8planYNdegXThQRR3eppy5ZXZDZlZpZ8PnsghTTEwxPu9hBTt
-         Z27g==
-X-Forwarded-Encrypted: i=1; AL+hErEKW5k09fpsvyA2G3P8Rc0kwnsAep36rpxFww+H+PV2yib5pToaI+rxJBHWujLSt2tEDc5xC06P7ergwQM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TOWO4fsHhcgdQvTzvtUuh6had5qlOOixFvsNwiqPFFJK5GIon
-	X+I8awIM8YH/Qd575mDLdaXbVZpZpIP/FyCi8/YWGIAL7p5lds7fr8sBM3xO6kXP0Bw=
-X-Gm-Gg: AYBFou347ev0j+I6jAbjWIS8cyS5yLIyhyR0F1QGSQD3GOXpy/QSSk3Fpg0QuU/GMEv
-	sOtywIpB+9T2YN+GAoIx2Ujcr7VEEzVfJ4fPWqw/LpELHUsxDi9PLNLQ0A/cAQH7ZFeDQ8byW/h
-	z8iMFipuYT6QPdHfJTy3q1mmOL0yPoE6bgmORlS/1a75wnmfLzrgo5DoIrOMehy65OU4z5QJYlQ
-	lsBMihwLASDZCkWEGwBBGNyF88aiEVISQ8p2UXpt+WnSboLpwbodFXfPSfb2pdzxmpuPgyRYYDY
-	iSO+ZAAWaQwojkL/Pb/AzzS9frnz32CA5yPzJ70mXSglxaz6tsdbBO4UH465zYD2RKBKNRWMVYX
-	1kof+8uIlbA2QJJHEeoYGp1pL1JNYmfuCWDO9qA6f89zH/ee0Na10r3NMXfF8jNugTfGEG8IJhX
-	AoUlKcMXi3oO7Z6+zVeBYFu+yINw04fOjzmMqyaHHm/qMU+78ff0nAli3zthZOIb5i57yj+Nl34
-	aDywqrVe1G+l1Sn53Aa8R2vKWJBqODEBZLDR08K+0hLGh4mAo2EvxIqHB0yhLle+Xvg28NGyz/7
-	muiH0xVOiCVK8BbfsbkL+g7XS4MAOQ/XgPh+H/wUoyS7ktKKq4nuJhYsuvRpxAqovkZo
-X-Received: by 2002:a05:7022:7f0f:b0:176:a225:e364 with SMTP id a92af1059eb24-1b50312eb89mr7083533c88.35.1794760587827;
-        Sun, 15 Nov 2026 08:36:27 -0800 (PST)
+        bh=mcJ8+QiHfS18UpwkZcfAlWMTf5+8/6l6MYdHWQbUNrY=;
+        b=2oBUkfMZ7rWCYkaTYof1wY/fuBbVFMQIpIxdA2jqoLZPxefSyd6EBVeU+QHHcFQfiM
+         0S9T2T4qd40vVr8CWm2RFHcMOiLNr+PaQ54CdRTfea3ppCY2vfEVz88FjGkSXmHoR5uL
+         YGGQ2XYJQ4SX1OMGs7tOUr9A51SeCxovOY9O19BjVUeQKPPa6sE7m7FdIFW301hRtcuZ
+         kfv4LPNuvrrx/mryPZdg6YUnvuvHxzWuvWkmPxyuB0WC/7VsV/y5Sg+vt6YKqXRN8tVc
+         MfLgtevIEnIGrYlYHDBnmKjRfl+HYAglBsQ1Yvhe4mdIPsK2Fe6TOiFtDso8aufIaXAl
+         rx0w==
+X-Forwarded-Encrypted: i=1; AL+hErEILW1AsHtOXX4/JqxxETv6GdJKulMVnRawh4NE8tv+3dj7Qsg5BtGjgoPG8xfpeaWQ9Ni4JmVbOGMwmTY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lTLDSZjYmCHbhsMMFfuAZSQqUSVysSwRFFl3a5fS9MSAXDRZq
+	9uWGREmZ4zp/+YALRC5wPqBPZ7LkJ5cYUtXtBDZvgbf4V5esnfrSkNgt
+X-Gm-Gg: AYBFou0xqzVFHIYYsvYT75DlEOzBgGxT1VNaH4aK3fsOnTgMI/hgCusZoXpKSsORbHA
+	qCLxIefn7m6To5P0cfILxsOs9muWc5bKWKO843TKxllOLci9Un7dYEuBc17c4jV1bGGzF8e7JO6
+	GcJ0CZfDmyln17JUMAo/yxsiqJqnmsWiq8ZZT28OGqkc+niUjZEP2TTag4i4ldGjOIDMiJnEz/Y
+	4e9DE5sf3FO6cBSdxkfLM7iZcyy/b7meU+oq8qfTqkcQmSFDkDYAmAGPyvRAO0To2Dhz4GdvbRx
+	2rjBLBfLh2PQul4WzI7lygpSu42oz8TT7IUsONScqta1PPN/ipTJIe4gXF6sis54FI5mHtMrcB5
+	IuNNfuKw4w0BL1bwdTY9x/RQjVbnGY/I6508VDOpyPlvZt/qV3itm+LgNfsdogi1XHdyZ4sr19J
+	LjCyrj0tVCC0vrRXZIHn84/FGjEDsKFob4u4BCbRfcvKkhrZOD9ek8Ry8VkdQ+x9c9Qx2FZiVoC
+	rUNhhiMHAtencOlbIoBiCXPN2PeuAAvtmtADA3YKlA4Qn4zKzcHhqH0Y+N40Rg32+T0+t15Lhez
+	+g0xLBbIuESu9WUMTCvuElREIF1XPFbhiZqv/YwhCQeAwVKGTCqoPcCuiKkQBtG86mz3
+X-Received: by 2002:a05:7022:108c:b0:143:2967:c0b1 with SMTP id a92af1059eb24-1b5030b6178mr6760986c88.25.1794760598420;
+        Sun, 15 Nov 2026 08:36:38 -0800 (PST)
 Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm29298232c88.5.2026.11.15.08.36.24
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm33639439c88.9.2026.11.15.08.36.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 08:36:27 -0800 (PST)
+        Sun, 15 Nov 2026 08:36:37 -0800 (PST)
 From: Cheng Yongkang <teel4res@gmail.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] devpts: lookup racing with devpts_pty_new() can return ENOENT
-Date: Sun, 15 Nov 2026 08:36:20 -0800
-Message-Id: <20261115163620.225761-1-teel4res@gmail.com>
+Subject: [BUG] tty: TIOCSSOFTCAR ignores a locked CLOCAL
+Date: Sun, 15 Nov 2026 08:36:28 -0800
+Message-Id: <20261115163628.225925-1-teel4res@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,55 +99,32 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Al, Christian,
+Hi Greg, Jiri,
 
-I hit a narrow race in devpts. It needs a lookup of /dev/pts/N at the
-same moment pty N is created, and the result is a short-lived ENOENT,
-so it may not matter much in practice.
+I hit a small inconsistency in tty_change_softcar(). It only matters
+if an admin locks CLOCAL with TIOCSLCKTRMIOS, so it may not be worth
+fixing. I am reporting it in case you want it.
 
-bacdf1d70bbe ("primitives for maintaining persisitency") says that
-d_make_persistent() "is always called in strong locking environment
-(parent held exclusive, or, in some cases, dentry coming from
-d_alloc_name())". devpts_pty_new() is the d_alloc_name() case, but it
-does not hold the parent, and the d_alloc_name() dentry never goes
-through the in-lookup hash or i_dir_seq. A lookup of the same name
-that missed the dcache just before can then finish in simple_lookup()
-and add a negative dentry:
+Every other termios change in tty_ioctl.c goes through
+tty_set_termios(), which applies the lock with unset_locked_termios().
+tty_change_softcar() writes tty->termios directly and calls the
+driver's ->set_termios(), so TIOCSSOFTCAR can change a locked CLOCAL.
+It also skips the ldisc ->set_termios() call that tty_set_termios()
+makes.
 
-  lookup                           devpts_pty_new()
-  d_alloc_parallel(root, "N")
-    miss
-                                   d_alloc_name(root, "N")
-                                   d_make_persistent()  -> positive
-  simple_lookup()
-    d_splice_alias(NULL)           -> negative, same name
+I only have a pty to test with, where CLOCAL itself means little. On
+v7.3, root set and locked CLOCAL on a pty and then dropped to uid
+65534, keeping the master fd. TIOCSSOFTCAR(0) returned 0 and cleared
+CLOCAL, while TIOCGLCKTRMIOS still reported it locked. A following
+TCSETS with CLOCAL=1 could not set it back, because the lock now kept
+the changed value. The code is unchanged in next-20261113.
 
-Both dentries are hashed under the same name, the negative one first,
-so stat() or open() of the new pty returns ENOENT until that lookup
-drops it. As far as I can tell, the old d_add() code before
-b4a76faf9d96 ("convert devpts") had the same window.
-
-On v7.3 I ran one thread that opens ptmx and immediately stats the new
-/dev/pts/N, and 16 threads that stat the same path. In 120 seconds the
-opening thread got ENOENT for its own pty 13 times, and the other
-threads saw ENOENT for a pty that existed before and after the call
-26,372 times out of 6.5 million lookups. __d_add() and
-d_alloc_parallel() have changed since v7.3, but the same window is
-still there in next-20261113.
-
-The same commit message says what d_make_persistent() would need if
-it were ever used with the parent held shared and a dentry from
-d_alloc_parallel(): the in-lookup logic of __d_add(). I tried that
-direction for devpts: devpts_pty_new() takes its dentry from
-d_alloc_parallel(), and d_make_persistent() does start_dir_add(),
-__d_lookup_unhash(), end_dir_add() and wakes the waiters when the
-dentry is in-lookup. It takes no parent lock at all, which is weaker
-than what the commit message assumes. With it both counts went to
-zero, and basic pty tests still passed.
-
-You may prefer a different fix, for example creating the dentry with
-simple_start_creating() as mknod_ptmx() does, which I have not tried.
-I can send my version as a patch if you want it.
+One way to fix it is to build the new termios in tty_change_softcar()
+and pass it to tty_set_termios(). The lock and the ldisc call then
+apply as for TCSETS, and the existing C_CLOCAL(tty) != bit check
+returns -EINVAL when the bit is locked. I tested a smaller version
+that returns -EPERM when CLOCAL is locked, not this one. I can send a
+patch in whichever form you prefer.
 
 Thanks,
 Cheng Yongkang
