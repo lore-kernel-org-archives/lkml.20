@@ -1,66 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794764143;
-	b=idFao+XZppSgvhpGPAUIn9o27Fpl7NuUGqBg/pdgFwtNZq6HO5136e3SINu2XGea6Dz0
-	 s9eNCJHPONYNNxz60tmIVp9xGUhB9jzfFjWZs0gwcQs1hcm/V8UdPUos4UvmVsZ7zWCg7
-	 PfG+yCnUJeDxXuKtFvP+GYnxBnTvSE/xC6NfvlrFbFXd/rSHk2rhgxNyKMTBPUjIO40PF
-	 7aHS5UkCI3C2FlQhMwmkeHH8O2EcvvaQxVnqqJb6PTyVW4pmtXsjW9CrDRx649s/yZAtO
-	 i+BDCGGVIDsJxcHIinGzc/7azR/BlcPlm8Ps54K8WKPHLhBnlfC7Un9UQknf0VkC3Jg==
+	t=1794764189;
+	b=uu4ji08gIxTnRnOelHJlv/ItPxrJZmqcPRneuHJaqZ9I/N9o9AHWgTuTrlIk7jRnj+Ji
+	 eCc/AbqyahLUd5ZwMcQNVzUwOXr7mxdQVWljCvBRGP88CpkHkmJVUOL0/k16glNcPf32/
+	 dtxDsL5zA/HONDofMm6d2U4SjjZAkBt0XoAMsjwj0E+NKGjdRd1yYrK/H/lsuahM6OdAo
+	 46HM5ZDEO7YhoDCZw/jE9D5ZbcWQr3PUGx6eDQc9jK5H8pmY9lsMxtNjuLFGi68eE8Q89
+	 0Jq7M6AVHVVo8U7l0Uj+TfnTwu/5LDtfe6hQINnxpbuT4SJjD3AXvV7MpuBtqi5+aFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794764143;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fcvhgN18/XYE74JlLdDetDkiu4aCL1FUsX9bNl85AkY=;
-	b=fNo/U1ljXr8yfOjSPQ4/lh4zjxqIb3lWLQZpddO6y35Txbpn6D3veHT00mSWWfvaWxh+
-	 JhgI+431rvcaVbpx78TdXu+0/GguawW18XFlo9RpPvwlkSbLoneqTvajPyo0T5ChozMBH
-	 xttxK+3II+1JvohqE1HY5Z0xWn8vC+DgmDIjhpZn3uh2trcOIQLPBdlOgRmPdkn6EieOb
-	 OIjWPDwpa43eGMjxzNu0SRFBRLbzZl+fw9AB7pAsiLh99MwTlWzBjyX4ROdReEVSJqDRh
-	 lGKAr8GgeNXWqFizZ9R+SlzaMEeysQb09hyhUTfY68xJkNPQRM5qs02R4KLQqJxuW+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794764189;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ZNxBLwL1MTdrlSOZCD9Lz65uR+T2S5Ys3KIjD8/xcQE=;
+	b=n25k2BJgKW/hCjk5uKVbTnUeAUlmidSlLcb2bnyGlDmhRq34J6LM0rSk/u3baiKIeB6+
+	 kao3ItppEbFFenY2hVJr71GSJxQO2bs7Dqb8zDUfz5nhhvC2ofqUjyjFT1PSJoFWJiG5c
+	 7ZuDOyJg1gGGuIWxJhtxE/Lkk3eyXJNaJNWyq+gIgvyq5kPwMZa/3gRmkj56gc33FisSJ
+	 YieJLNGCZtKL2bARqo/Iu4/vf8TKJ6DDj9uREUg46PHei1rd9cc9E0rZ7FAtFSajgedwt
+	 N0JTalxRwgrr3IBZb3SamVFGcjRcIqZEYPH4ku7o8NhnmcQkICooElgMrDlsn49ENgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ddU/m/1O";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSvGmKed;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406BB606A31F;
-	Sun, 15 Nov 2026 17:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC28606A32C;
+	Sun, 15 Nov 2026 17:36:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddU/m/1O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20351F000C7;
-	Sun, 15 Nov 2026 17:35:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSvGmKed
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1541F000C5;
+	Sun, 15 Nov 2026 17:36:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794764142;
-	bh=fcvhgN18/XYE74JlLdDetDkiu4aCL1FUsX9bNl85AkY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ddU/m/1Ov9hH52C17Sf1BxhZx39khyeZ73nswpSZtY3X610LZRBj0Idbdtnd8O4T/
-	 EN4L7mJHIP90IjKjPaVbuRABJRbCOFNs789jv1X/5x2xRUJV9rkbUsZCBa9T1q7cIu
-	 mXovLK/9jRwlwDkMfLKVRB6VcXBPkMhFXDlxbOv54EPM9joTvwF761sm+dzD5jiPKA
-	 ku00S0Tc0YtsZmBVrp36zvAcqfUSnx0FPUQpd4J20hQkwHNyXRghC2rIG3RrOXVC5u
-	 MOVkj0NIqYJuFV43NNl2an85+Dbj/v1rVbrpoXoYLzDFTOHSo1H/UsUmcXwD1o8oaK
-	 9mR1epb9dYlUQ==
-Date: Sun, 15 Nov 2026 19:35:29 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Tarun Sahu <tarunsahu@google.com>, robin.murphy@arm.com, maz@kernel.org,
-	will@kernel.org, David Matlack <dmatlack@google.com>,
-	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com,
-	loganodell@google.com, arnd@arndb.de, dwmw2@infradead.org,
-	baolu.lu@linux.intel.com, Bjorn Helgaas <bhelgaas@google.com>,
-	oupton@kernel.org, alex@shazbot.org, gle.com@google.com,
-	pbonzini@redhat.com, Andrew Morton <akpm@linux-foundation.org>,
-	kevin.tian@intel.com, joro@8bytes.org, kvmarm@lists.linux.dev,
-	linux-pci@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>,
-	kexec@lists.infradead.org, kvm@vger.kernel.org,
-	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	skhawaja@google.com, sagis@google.com, linux-arch@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/19] kho: block: Record the entry size in the block
- header
-Message-ID: <avntYdLF2xvDh47A@kernel.org>
-References: <20261110050202.529473-1-tarunsahu@google.com>
- <20261110050202.529473-3-tarunsahu@google.com>
- <DMRK0PU0VCN3.15F59WLOQ05P4@soleen.com>
+	s=k20260515; t=1794764188;
+	bh=ZNxBLwL1MTdrlSOZCD9Lz65uR+T2S5Ys3KIjD8/xcQE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=YSvGmKedafXo+3bw0HKmZQOY5NCQ2dgb80DnAhHJID9R8d6/H8xhXMz0/1O8R0A3O
+	 rrsULScmfDP1YsdJxh4HR0mLDlOGv/Gejl0hBTexrieA1cszZIDZs7gjrdcXNGqo3H
+	 Ez/nE7Whrynb62VSZMwd3ZXdowf5r7eapCMqaJt1Ey13oBUkQawveaG9d/I7brDiX4
+	 RaSVqHvJbj3bdeD3uG8akp0q9+tad7LXXYs567PQMJqD5D37tx3eG7ffPUKvXFEnLM
+	 tvxBTYC7yyvDYTHJsgTbD37ADfo5cLyKHDJk/+B7+KNtXe71TBa66QK4Ie/J/ITN7h
+	 Hg/7XjrLoRRKA==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 78E373386D12;
+	Sun, 15 Nov 2026 17:36:16 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,132 +52,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMRK0PU0VCN3.15F59WLOQ05P4@soleen.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH 02/23] ASoC: soc-pcm: add multi_direction_codecs
+ link flag
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Alexey Klimov <alexey.klimov@linaro.org>, 
+ Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261023171433.820092-3-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261023171433.820092-3-srinivas.kandagatla@oss.qualcomm.com>
+Date: Sun, 15 Nov 2026 17:36:09 +0000
+Message-Id: <179476416982.140154.13934302514044276070.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2538; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ssM48ABLW3PnYt4pn6N3J/DP47/v9YtfUwCY0ptG2rQ=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+vu1fdoiZhZH7Zs6FR8xvrt3cxfD7F6vJdDV9yd2NN
+ TeFkww9O0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRrEBGhkuPUv+/7T244rLJ
+ nwMF7+IW7ZrHbzT/upBERUyEhe29x6KMDNu2zbHSfy4uaCNgyrKhJ0Ao7I90idiUlMVPM+wuLLy
+ 0mB0A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Nov 10, 2026 at 08:10:32AM -0500, Pasha Tatashin wrote:
-> On Tue Nov 10, 2026 at 12:01 AM EST, Tarun Sahu wrote:
-> > Subsystems using the KHO Serialization Blocks framework currently do
-> > not record the serialized entry size in the block header. The entry size
-> > is only known to individual callers, which must track and store it in an
-> > owning serialized data structure. If a newer source kernel adds fields
-> > to an entry, the changed entry size breaks the stride when an older
-> > target kernel iterates over blocks.
-> >
-> > Add an entry_size field to struct kho_block_header_ser. On the outgoing
-> > side, record bs->entry_size into every block header during allocation.
-> > During restoration, derive the entry stride directly from the block
-> > header instead of relying on caller-supplied dimensions. The
-> > kho_block_set_init() interface remains unchanged. A zero entry size,
-> > or one that differs between blocks of a set, is rejected during
-> > restoration.
-> >
-> > This change modifies the serialized layout of struct kho_block_header_ser
-> > and shifts the offset of serialized entries within preserved blocks.
-> > Bump KHO_FDT_COMPATIBLE from kho-v4 to kho-v5 so that pre-v5 and post-v5
-> > kernels cleanly reject mismatched handover state during boot. Also
-> > update the stale compatible string example in the documentation.
-> >
-> > Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-> > Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> > ---
-> >  include/linux/kho/abi/block.h          | 10 ++++----
-> >  include/linux/kho/abi/kexec_handover.h |  6 ++---
-> >  kernel/liveupdate/kho_block.c          | 32 +++++++++++++++++++++++---
-> >  3 files changed, 38 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/include/linux/kho/abi/block.h b/include/linux/kho/abi/block.h
-> > index 36bdbaf9b3b8..a40b0906c821 100644
-> > --- a/include/linux/kho/abi/block.h
-> > +++ b/include/linux/kho/abi/block.h
-> > @@ -40,9 +40,10 @@
-> >  
-> >  /**
-> >   * struct kho_block_header_ser - Header for the serialized data block.
-> > - * @next:  Physical address of the next struct kho_block_header_ser.
-> > - * @count: The number of entries that immediately follow this header in the
-> > - *         memory block.
-> > + * @next:       Physical address of the next struct kho_block_header_ser.
-> > + * @count:      The number of entries that immediately follow this header in the
-> > + *              memory block.
-> > + * @entry_size: The size in bytes of each serialized entry in the block.
-> >   *
-> >   * This structure is located at the beginning of a block of physical memory
-> >   * preserved across a kexec. It provides the necessary metadata to interpret
-> > @@ -51,9 +52,10 @@
-> >  struct kho_block_header_ser {
-> >  	u64 next;
-> >  	u64 count;
-> > +	u64 entry_size;
-> >  };
-> >  
-> > -static_assert(sizeof(struct kho_block_header_ser) == 16);
-> > +static_assert(sizeof(struct kho_block_header_ser) == 24);
-> >  static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> >  	      __alignof__(struct kho_block_header_ser) == 8);
-> 
-> The above change goes away once my comment on the previous patch 
-> is addressed.
-> 
-> >  
-> > diff --git a/include/linux/kho/abi/kexec_handover.h b/include/linux/kho/abi/kexec_handover.h
-> > index 2f4fb9c63942..6f12f5037ea5 100644
-> > --- a/include/linux/kho/abi/kexec_handover.h
-> > +++ b/include/linux/kho/abi/kexec_handover.h
-> > @@ -41,7 +41,7 @@
-> >   *   restore the preserved data.::
-> >   *
-> >   *     / {
-> > - *         compatible = "kho-v3";
-> > + *         compatible = "kho-v5";
-> >   *
-> >   *         preserved-memory-map = <0x...>;
-> >   *
-> > @@ -62,7 +62,7 @@
-> >   *     };
-> >   *
-> >   *   Root KHO Node (/):
-> > - *     - compatible: "kho-v3"
-> > + *     - compatible: "kho-v5"
-> 
-> These are just examples, don't update them.
-> 
-> >   *
-> >   *       Identifies the overall KHO ABI version.
-> >   *
-> > @@ -90,7 +90,7 @@
-> >   */
-> >  
-> >  /* The compatible string for the KHO FDT root node. */
-> > -#define KHO_FDT_COMPATIBLE "kho-v4"
-> > +#define KHO_FDT_COMPATIBLE "kho-v5"
-> >  
-> >  /* The FDT property for the preserved memory map. */
-> >  #define KHO_FDT_MEMORY_MAP_PROP_NAME "preserved-memory-map"
-> > diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.c
-> > index 0d2a342ef422..9b148009085e 100644
-> > --- a/kernel/liveupdate/kho_block.c
-> > +++ b/kernel/liveupdate/kho_block.c
-> > @@ -16,6 +16,12 @@
-> >   * array of serialized entries. Multiple blocks are linked together via a
-> >   * physical pointer in the header, forming a linked list that can be easily
-> >   * traversed in both the current and the next kernel.
-> > + *
-> > + * Each block header also records the size of its entries. A newer kernel may
-> 
-> "newer kernel" does not make sense in the documentation comment, as any 
-> kernel can do that. I would suggest "outgoing kernel." 
+> Speaker protection needs the amplifiers' V/I sense capture running
+> whenever the speakers play. Putting the capture codec DAIs on the
+> playback BE link ties the two together, but the core skips codec DAIs
+> whose direction does not match the substream.
 
-My understanding that here "newer" kernel refers to a newer kernel version
-rather than incoming or outgoing. So the docs should say something like
-"different kernel versions may have different size of the entry"
+> Add a multi_direction_codecs link flag. When set, the core also calls
+> .hw_params and .hw_free on codec DAIs of the other direction, with the
+> substream direction switched to theirs for the call under pcm_mutex,
+> and sends the matching stream events so their widgets power up and
+> down. An optional multi_direction_params_fixup callback lets the
+> machine driver set the parameters for those DAIs. Links without the
+> flag are unchanged.
 
-> By the way, in this series you use the terms "source" and "destination"
-> kernel, whereas traditionally we have used "outgoing" and "incoming."
-> While both conventions work, it would be preferable to maintain
-> consistency.
+> +3. Optionally calls ``.multi_direction_params_fixup`` so the machine
+> +   driver can rewrite rate/format/channels on a per-codec copy of the
+
+Probably worth mentioning the ordering with regard to other fixups.
+
+> @@ -986,6 +986,9 @@ static int __soc_pcm_prepare(struct snd_soc_pcm_runtime *rtd,
+>  
+>  	snd_soc_dapm_stream_event(rtd, substream->stream,
+>  			SND_SOC_DAPM_STREAM_START);
+> +	if (rtd->dai_link->multi_direction_codecs)
+> +		snd_soc_dapm_stream_event(rtd, substream->stream ^ 1,
+> +				SND_SOC_DAPM_STREAM_START);
+
+This will update every DAI, including CPU DAIs.  That will mean that a
+CPU DAI could be flagged as actively capturing due to playback or vice
+versa.
+
+> +static int soc_pcm_dai_hw_params_at_stream(struct snd_soc_dai *dai,
+> +					   struct snd_pcm_substream *substream,
+> +					   struct snd_pcm_hw_params *params,
+> +					   int stream)
+> +{
+> +	int saved_stream = substream->stream;
+> +	int ret;
+> +
+> +	if (stream == saved_stream)
+> +		return snd_soc_dai_hw_params(dai, substream, params);
+> +
+> +	substream->stream = stream;
+> +	ret = snd_soc_dai_hw_params(dai, substream, params);
+
+We flipped stream but nothing else, if hw_params checks things in the
+substream->runtime things will get confused.  Usually everything is just
+checking params though.
+
+> @@ -1061,9 +1117,20 @@ static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
+>  	snd_soc_pcm_component_hw_free(substream, rollback);
+>  
+>  	/* now free hw params for the DAIs  */
+> -	for_each_rtd_dais(rtd, i, dai)
+> -		if (snd_soc_dai_stream_valid(dai, substream->stream))
+> -			snd_soc_dai_hw_free(dai, substream, rollback);
+> +	for_each_rtd_dais(rtd, i, dai) {
+
+This has flipping that __soc_pcm_hw_params() doesn't unless I'm
+something?
 
 -- 
-Sincerely yours,
-Mike.
+Mark Brown <broonie@kernel.org>
