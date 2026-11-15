@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794729529;
-	b=wL8XoryGOB5pZgE2BjabcQzCpgI2Kg87gy5iyx/tL5uSJFPvZMPEQZaUygmfYQC9l0Vd
-	 ifbav15rzAVy1toNjwFVvQK73b75KF5+fXXJ7Xu1pr5rMgPpJOB4pJvz/ZP9UB5jQ7fu7
-	 QCSoSczoa21iOHvG4D3SMVL6X64h8uGLac0p08lv/PIrVnEoiLw5r3D5C1K55DL6XTB7v
-	 atQT2DZN//jQDG4GbkUQHmopAkz7Aaf9Y/vwIf0mIcvCXEcWQctLCarUXXA5VNRGzUb+V
-	 KqJPGCmeoOgJThoNu+eLpS8cHpvGvJvrYB2o7NKVFC2lEgNH9bS5lgxU9+bkUcWCgCA==
+	t=1794729589;
+	b=qWznTYVV5otWW7FQ+CtB90rnuF/mHuyF6HqZLPiVN7NoRE7TrbVAt6TipP66q+m6InR0
+	 F0kyNCmWwnnn2aS3VIeI6dcVB0G0BriWb88b2r5WwrSt+DSHNYA1wguEJInMA7SgWUuQX
+	 1OB1o84rieQrB08MBH2YmoO9PZtoefUCqoDsXzv3/bHNQMXzF7mLrMPdpRUFi92ryKbWP
+	 oRzfuWF4mG1STFJmQCLl5lfbb7HTiuTj0z9hP5HAVauGF+4wUJs7PLj1hEpO1GekE41fM
+	 JJ4KcTzI+mQYnT/FeJ+7IG/EdcKNwp6tZeeexMlvNL2YdaSEbnNV10MQlH8EAqdinxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729529;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=GWTDxYXkosCm/4nLdsWs8v5Vb0AUZr9LNbv3Ex6rAGg=;
-	b=oqTR79ssdhWm1lTftjm8l1EPZAjKfqTPNqtxCf5Bhimi3FFEU8Mf428/w7NMhT8Uuty7
-	 ITqc7s1b3eBN6uu85fKUHEyzYYPyvduABAW3zfyxQVhamnKCG0WsSqfGdGjTktcDUKp8Y
-	 9r9jo/uU3W/4v+ftNIIBqQcfJjB0N0IXOW2uvCoA+tDXT1eRhWcgXbpsZFYlSpmKPUKJa
-	 QJ/+3jyr/x17/yWPtuwEd2dqghpjtYF1C/I6qScV2F5dyCbwjIS6QXK8xbrazOIJtbik5
-	 ZaCb1BFJIjeUPXTeS+e8IOPapmt3+Tx4HbIbm6TKDCYzUiW2H4giVFkCJnMWOEaHcxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729589;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=1y5feySbZxYFKfGlVP6b+/eacqeZv86DnLdBtPAZn5k=;
+	b=ncZ4AVjPztnEFWRPCft7dRBluSSwdUtsjQu4XGhSj/x5sOLPfFWFc7xGZeJFsofLxf/R
+	 YFZw1p3ugOPWX3PSOff4gEzqdWOHS3z4IrRMdG40plxdObuuMPaTomN3YcCmJduWeb9k5
+	 VhnyI1HndicNDVEgGg/H88pySolmxFhZT6VwmgDlHvChTIYVQmHpLGBF1Y0fov1ippuwB
+	 ODs/6oqvUBgiawujS+uvxis9SDlnj8yK0wmI6pFS0uY90cPu8vc8GxcZrr5Xn9hfMMSQo
+	 n+rALyCLcPjOCdeqBP2D7J8l2bJWSmdv8/PW4k45FT5lVZ1H8+r7JHyNttee2nbSiqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AP3e9CWV;
-	arc=none smtp.remote-ip=95.215.58.161
-Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06697606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06697606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Kq6fvGzS;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54081606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:59:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54081606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AP3e9CWV
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rgg6s0ozTHu2TZmu+4x+Y8upPU1pTz8M7b83SmtrD+0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794729526; v=1; x=1795334326;
- b=AP3e9CWVGhqI8jrQgcTRPlyQdhwR0hejiyWK/WKsIuPolg+slW4psDHWQDNKSGTJisbfGTdL
- 0IiflADjZkaqyi7r7g33ifpZhFfzHbWwXaHmL9k4GpWe5NpDcrUs6CUw/zMgpCPa983ZpnDWRHZ
- qwSkv/SwBhwHNL8gQOTehhoY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 64c76c5826d27005;
-	Sun, 15 Nov 2026 07:58:46 +0000
-X-Mizu-Trace-ID: 64c76c5826d27005
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: David Hildenbrand <david@kernel.org>
-Cc: chengming.zhou@linux.dev,
-	ljs@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	xu.xin@linux.dev
-Subject: [PATCH v2 0/2] mm/ksm: clean up scan_get_next_rmap_item() initialization
-Date: Sun, 15 Nov 2026 15:58:32 +0800
-Message-Id: <20261115075832.132109-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Kq6fvGzS
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D310143D;
+	Sat, 14 Nov 2026 23:59:43 -0800 (PST)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D161A3F85F;
+	Sat, 14 Nov 2026 23:59:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794729586; bh=RtREhx24vm0xSN0YvyO2whbcheqdh4KYyhiGt77tUTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Kq6fvGzS8bBURKe01268mPdpM12ho4S6qynQTk8jmqiVaRhJfXajAOJIT3pqRfkUs
+	 M43cpozGBFMd398we6ec41e9aChcKPLImqq2CGG8rQJaaYx0uKUbb92OSQWOalzEdk
+	 YIY1ep1quTfxzuB6Kf87xb5/4W8/IuPmHR2p3z8E=
+Date: Sun, 15 Nov 2026 07:59:27 +0000
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Dan Carpenter <dan@cryspen.com>, Eric Auger <eric.auger@redhat.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Sascha Bischoff <Sascha.Bischoff@arm.com>, Timothy Hayes <timothy.hayes@arm.com>, 
+	Jonathan Cameron <jic23@kernel.org>, Christoffer Dall <cdall@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Karthik Bhargavan <karthik@pereq.eu>, =?utf-8?Q?Cl=C3=A9ment?= Blaudeau <clement@cryspen.com>
+Subject: Re: [PATCH v2] KVM: arm64: vgic: Don't truncate offsets in
+ vgic_find_mmio_region()
+Message-ID: <dreynmxfzebsybkwjor74uddje6edmth5joj3rijtezrdh5c6n@i5xwud5ix7t5>
+References: <avRLLMOiudnKoSlk@stanley.mountain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,37 +67,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avRLLMOiudnKoSlk@stanley.mountain>
 
-Currently, scan_get_next_rmap_item() has grown quite large and complex.
-When introducing new features, such as the only-merge-zero-page mode we
-are currently working on, we don't want to add more complexity to it
-and don't want to touch rmap_item structures to avoid unnecessary overhead,
-so we need to extract some common logic.
+On Wed, Nov 11, 2026 at 02:02:04PM +0300, Dan Carpenter wrote:
+> In vgic_its_has_attr_regs() and vgic_its_attr_regs_access() we take a
+> u64 "offset" from the user and pass it to vgic_find_mmio_region() to
+> find the correct region.  The problem is that vgic_find_mmio_region()
+> truncates the "offset" to 32 bits so we might find a region even
+> though really we shouldn't.
+> 
+> Later the untruncated offset is used to calculate "addr".
+> 
+> 	addr = its->vgic_its_base + offset;
+> 
+> For example, an offset of 0x100000084 finds the 64-bit GITS_CBASER
+> register at 0x80, and the write reaches update_64bit_reg() with an
+> offset of 4 into the register and a length of 8.  It exhibits as a
+> UBSAN warning.
+> 
+> [  183.796046] UBSAN: shift-out-of-bounds in arch/arm64/kvm/vgic/vgic-mmio-v3.c:35:10
+> [  183.796198] shift exponent 18446744073709551584 is too large for 64-bit type 'long long unsigned int'
+> 
+> The GICv5 IRS code has the same problem in vgic_v5_has_attr_regs() and
+> vgic_v5_irs_attr_regs_access().
+> 
+> Make vgic_find_mmio_region() and match_region() take the offset as a
+> u64, so an offset of 2^32 or more no longer matches any region.  The
+> other callers only pass offsets which fit in 32 bits so they are not
+> affected.
 
-With these changes, the entry of scan_get_next_rmap_item() becomes much
-cleaner and easier to follow, instead of being cluttered with unrelated
-boilerplate such as stale stable_node pruning and cycle initialization.
+Just wanted to point out that GICv5 IRS could have avoided this if the
+code used reg_attr.addr produced by vgic_v5_parse_attr():
 
-Let's start by cleaning up these two parts at the beginning (where I think
-abstraction is necessary), and we can continue cleaning up further if
-needed later.
+reg_attr->addr = attr->attr & KVM_DEV_ARM_VGIC_OFFSET_MASK;
 
-Changes in v2:
-- Rename scan_begin_new_cycle() to scan_should_start_new_cycle() and keep
-  it simple (David).
-- Keep lru_add_drain_all() in scan_get_next_rmap_item() (David).
-- Use scoped_guard(spinlock, &ksm_mmlist_lock) in scan_get_first_mm()
-  (Lorenzo).
-- Collect Reviewed-by and Acked-by tags from v1.
+This is why GICv3 isn't affected, it uses the masked value.
 
-Xu Xin (vivo) (2):
-  mm/ksm: extract helper functions for scan cycle cleanup
-  mm/ksm: add initialization helpers for scan_get_next_rmap_item()
+However this patch solves the problem in a more fundamental way, making
+using reg_attr.addr produced by vgic_v5_parse_attr() more of a cleanup.
 
- mm/ksm.c | 98 +++++++++++++++++++++++++++++++++++---------------------
- 1 file changed, 62 insertions(+), 36 deletions(-)
+For the patch:
 
--- 
-2.34.1
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
 
+Thanks,
+Wei-Lin Chang
+
+> 
+> Fortunately the effect of this bug is very minor.  The worst case is that
+> the VMM accesses an emulated register and sets something nonsensical
+> and users are already allowed to do that without the bug.
+> 
+> Fixes: 8331c23c28e8 ("KVM: arm64: vgic-its: Implement vgic_its_has_attr_regs and attr_regs_access")
+> Fixes: 71091136d145 ("KVM: arm64: gic-v5: Handle userspace accesses to IRS MMIO region")
+> Signed-off-by: Dan Carpenter <dan@cryspen.com>
+> ---
+> v2: Change vgic_find_mmio_region() to take a u64 instead of rejecting
+>     large offsets in the ITS callers, as Marc suggested.  This also
+>     fixes the GICv5 IRS code which my previous patch didn't.  Drop the
+>     Cc: stable.
+> 
+>  arch/arm64/kvm/vgic/vgic-mmio.c | 4 ++--
+>  arch/arm64/kvm/vgic/vgic-mmio.h | 2 +-
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/vgic/vgic-mmio.c b/arch/arm64/kvm/vgic/vgic-mmio.c
+> index fddb9da0403d..59bdec495cd7 100644
+> --- a/arch/arm64/kvm/vgic/vgic-mmio.c
+> +++ b/arch/arm64/kvm/vgic/vgic-mmio.c
+> @@ -820,7 +820,7 @@ void vgic_write_irq_line_level_info(struct kvm_vcpu *vcpu, u32 intid,
+>  
+>  static int match_region(const void *key, const void *elt)
+>  {
+> -	const unsigned int offset = (unsigned long)key;
+> +	const u64 offset = (unsigned long)key;
+>  	const struct vgic_register_region *region = elt;
+>  
+>  	if (offset < region->reg_offset)
+> @@ -834,7 +834,7 @@ static int match_region(const void *key, const void *elt)
+>  
+>  const struct vgic_register_region *
+>  vgic_find_mmio_region(const struct vgic_register_region *regions,
+> -		      int nr_regions, unsigned int offset)
+> +		      int nr_regions, u64 offset)
+>  {
+>  	return bsearch((void *)(uintptr_t)offset, regions, nr_regions,
+>  		       sizeof(regions[0]), match_region);
+> diff --git a/arch/arm64/kvm/vgic/vgic-mmio.h b/arch/arm64/kvm/vgic/vgic-mmio.h
+> index 38ed730d68ac..6c3c4de6883e 100644
+> --- a/arch/arm64/kvm/vgic/vgic-mmio.h
+> +++ b/arch/arm64/kvm/vgic/vgic-mmio.h
+> @@ -228,6 +228,6 @@ u64 vgic_sanitise_field(u64 reg, u64 field_mask, int field_shift,
+>  /* Find the proper register handler entry given a certain address offset */
+>  const struct vgic_register_region *
+>  vgic_find_mmio_region(const struct vgic_register_region *regions,
+> -		      int nr_regions, unsigned int offset);
+> +		      int nr_regions, u64 offset);
+>  
+>  #endif
+> -- 
+> 2.53.0
+> 
