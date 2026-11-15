@@ -1,58 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703625;
-	b=oPqLIxbXr7D7Iw8NajvRMtgMsGWWSme4bTjrw2mzL8avZmUUobIF7B8Pp8rnUtLnACDb
-	 j/jztvTOew+E3+lroGBc1PsxLjvuFnxusn+eauXoSqDnHYePOU5bu0b5DNQsfmZnUIQ2w
-	 HQrvjayJZNwIclEn1SFLB9HtTEM0Ff0Fz8rs+Tcyicwj/snkZwOOJNEGXBLZ9RwZLTpKv
-	 CwVU9WGXruob7jYFC6srFpDPX2I1/WEOoaC2kfxOf/Z0T16s9/hhrlcKYMdq8fyRwHC5a
-	 WcJKkhNiqUH8q85lkbuICw0Yb/dZWZ4twBbSSPvQQCJx9NNrsZGud+4sdKTSEN1BY4A==
+	t=1794703711;
+	b=go9B+OxF5y4/vnkyFjurFxpM3z1ZykOmYyfO46MJ5MBCZyPBtRGylxtb0xoxKFQ06M2G
+	 x1E3shaLA47VIagfn9/PE+hUW5rpmhEFX4PaN7NVSlSc29HQYffZPUxg453GwBG4JDGIl
+	 sv26qUN1UwaCrck4jvrJlqKOlK8HSfFhz2aSXu8F21EsEQnXHsqghihwYwLjUhwi8M3hh
+	 r5mODnz4mXcPAEIGL1mMXQyYy1POan5d6CDEfTvZV599ux7KSJtUnRguqiXoz8cHqNfYy
+	 y3GkfCoB+4RmH8AEgfVOYReiHrQBzjrhz61ysozPnXVwlE+cKrrdawJXzxu1noRd4gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703625;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CddUsSozhn0aLsLwKkadXFQN9Fn98WgxQqOVl0KlMXE=;
-	b=rnd/r0DHoe+k/3rGTFJSB6vzkqtrz0XtIs4g7wfFLPOaRiT4b5Rz8GSMT4jKSFwzvB1E
-	 HyPobrbs5hI1gWtrfdrRrDsXlFtxpb49CNyjj9+rJmY7IAMYwF3/TMMMQxsK02ncjParU
-	 5HpoiQ1SiGKxu1rfn0tRTLZikbqGh9jkIwJpOKhD60rAzdFbLWeq9i8sYNaAY62Im4U3P
-	 0Y3Cp9QOcY+T4Lz9sqGyWncYrxVFwTWq9nP2WiNCvbkrpT1owbUC4cFR8wthkY7SO7RcI
-	 iFuN+Fd7FhhQCKbIsHlHWWQsxUTxd0FFujJ0pwY4CriPDyx5QJrUHH+mptrLCn62igw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703711;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GNCaXsk/Xt/PN42cfY6qixho/TvY1Q+vI598MxtapPE=;
+	b=0rgLgaFjHSwk7BB5rYlU56ZXAzyQO65ZuCehck5Wvjo5WIH6IjHz64YUTo+kXJfCakXV
+	 SoybUX2mI+HoowsG+ELoyIRWFMYAErvVx1+tjd745kFp0eXKIezXVSGLthdUFgnr4xEJp
+	 l7Jf6vw0vx+4X7EIdsD8n9fDKlTLTZU+9cCVM9NJLcJTc8McMgTx91hMJzw5iPijr/t9i
+	 jlpTIGJyv8monxMU5k7PaudLvBiddSW050Wj/MSFO2Y8uaGj8ygJftI5uF5S6hYbuoaJf
+	 hxITR+wSsrd5Z2dO+0Pla7SJ2LOqqryBIv+SlzYXQgdAhoKj8fFK9IEF8yV4GKu01zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JVB6PpBU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMcqLdbV;
+	arc=none smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42852606A329;
-	Sun, 15 Nov 2026 00:47:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B29606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:48:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B29606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JVB6PpBU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD6F1F000C4;
-	Sun, 15 Nov 2026 00:47:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794703624;
-	bh=CddUsSozhn0aLsLwKkadXFQN9Fn98WgxQqOVl0KlMXE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JVB6PpBUOA5eDNIf3icWlzRCwg0Oo3fe+3fIKoUCDgz8pitRehg9+nBLiUc/VaQai
-	 8MvqPchwRdaXtTItORMn+iEXtl6S7UdfTmaM80imgJuE5WLY5zRybVvkLPAsi77wLV
-	 LcgK5NCgXZTTQVcvPL+9rGESNUC2H0I6/CVdqtG1TV+ExGsJqLQww3JX/7cnztNTDR
-	 WgHGpEul5tYc/iDI6oZB3R5ggZMfGdak+vvCmxty6xDRy92X7HLOLbwI8zKdzKzEPR
-	 /SODn0J0FKK9gSX9TS1NtBm1Seubt3eShkqMLZ3pvyNYweLEPIwpdECd7wwf+Cfu4E
-	 1+6pLfr+VaNbg==
-Date: Sun, 15 Nov 2026 00:46:58 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Changyul Lee <lcy8047@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Lars-Peter Clausen
- <lars@metafoo.de>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: trigger: free hrtimer and loop triggers on
- configfs release
-Message-ID: <20261115004658.29112ab9@jic23-hlaptop>
-In-Reply-To: <20261106180435.2638701-1-lcy8047@gmail.com>
-References: <20261106180435.2638701-1-lcy8047@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMcqLdbV
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b596afb4c5so2751036a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:48:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794703709; x=1795308509; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GNCaXsk/Xt/PN42cfY6qixho/TvY1Q+vI598MxtapPE=;
+        b=DMcqLdbVjGQlExaBwxojv82/j1Te2Q8Gs0X17+IG0qyDhCFq+1Nt0dCxNncZ0loGmW
+         ZfI5Ao6vE177C6wnSiZfUM7gpK6TuV+0KHsIWXhF/pUoR/PEaV8i6FwFa8Va6yqt/LHd
+         h4CEm6Y8C0QXmF+mbfPCvi3DAy7buSqHon2Fx7W1oNtPLWQF4dvDeGIiU8u6lhB8Pti+
+         pTIgV5tBB/eUMPJUVssMgjiqdsIAR0Wbd0u+0ec3qtj9TxZyDqlxy9VfCEv1GId/mNun
+         1Mml1QtgowP/lu9GKK8iFct9z8Y0WG9Rl7uCqfPiyT2DdUYnrbgZKrSzwm5A3UZj7A82
+         ZHag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794703709; x=1795308509;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GNCaXsk/Xt/PN42cfY6qixho/TvY1Q+vI598MxtapPE=;
+        b=B2pZBbgfl3N7grq+wUdAFwc+0xon3uBMVVzjrCEITr3UyZ7dJVynz5GLoIChoBHzLX
+         NLBIINQ21+9WFXXRWCHsV+eHv2uusXwDx/CPnrDH/QU7islVTfLu/V5434Ml8FlgFwkY
+         4XmcmVS+n9+ic94VPB7/3HQ2jgzwCjtjEhnT4YT+Uk/3gmhS9N1RhuUXM+NYucK8AUa2
+         XC3JMo2wpZs7RbRcUsjurEEoRQOKZM6YsxWk/ASd5o1tBc5Flsx0PDrDNuHi0FiSlu7d
+         jFLuS53WuVgqthEDr7YRSXeDjpm0n9Vzw4iDQ7cuiNstt+OOc+nzxLWIYmvXTgWu+C6i
+         n89w==
+X-Forwarded-Encrypted: i=1; AL+hErEvZlAsfAlNP4NcWArgzKp4sKzj54E5fU2hvUKPb7uHU5dBR6o4G2h9XERiMFH77cfx5cVpQoYBs4yZT94=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9A+EAWnRu8+gi16c0y4w86O2m1iBl+2enyYfmrOAaReJ03CdPP
+	68XYoFb6qCKm8yYGVRUOO83tTPFQhuDatVEIlCdEjLd/H82JXn1IHKM=
+X-Gm-Gg: AYBFou02/DP/gDU1rE5A6RF17NDp4forcsMqd3Xrg74x1EmFEh7AchX1xEnAhjCDrSH
+	0eqR4FJQnJRxe77NOpJmTnjEcUAukfV7VZnBHAfmMDwTOTjy+NpzncOAbrOkczP2DDaoTSKWBFe
+	b5rH/DCQrsDsw33Iq8EdW7DGMJHhTy8e9yVuwy/7xs1ZFXTa7CvzP0x1AmndneNl6aWThbSDNVI
+	bVgxjFQpxSB1VKlJSgPm4A8DUKgnI3q2ziFU4EQ61+xVzb7/uKOo9YXj1g9BfIrLHUJNbPuGVmU
+	XU73P7KH/7ph1cI+e6C86eNhqIqlhD20V2nosaUEXj4V8vPDy6v8enYaq1T8qGZK1Xk99NwYtfP
+	ivqvshv7ora2X4adUK4fyo3LRi19ej+3J4w39CfEq8rPEQHY1L+vThVCQvrQ4AwTecfnReqXq6R
+	mV1Jzhb13hLckNXTdh9buv4LOI4NsP6aIelcNQxki10PzJvuDoQQsWP/FquEvn1kJEms7yoYScl
+	taLREHApTBxGA+cxAWY56naxMmZqHv9491rqXZriAgkYuE2aLLAclAonNf0gpVWmYKSUyfmc5dW
+	NTiKy29anIJJbTPA2fc2OXE5YhDAmyOGMel0jGyv/qiX3KGLrFb8JK6niSR9JWL7iCD+z8s6maS
+	ezzBUifd4D6YeFZnt0nhGlvuJNk3IPApwCApS
+X-Received: by 2002:a05:6402:a513:10b0:6b5:6ba3:5860 with SMTP id 4fb4d7f45d1cf-6b7c0c12b08mr3317211a12.17.1794703709333;
+        Sat, 14 Nov 2026 16:48:29 -0800 (PST)
+Received: from sohrab-omarchy.taila18b31.ts.net (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23dde49sm2857574a12.23.2026.11.14.16.48.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 16:48:28 -0800 (PST)
+From: Majid Hajiheidari <majidhhdri@gmail.com>
+To: admin@mswin.me
+Cc: konradybcio@kernel.org,
+	andersson@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	amitk@kernel.org,
+	thara.gopinath@gmail.com,
+	rafael@kernel.org,
+	daniel.lezcano@kernel.org,
+	rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] arm64: dts: qcom: sm6125: add TSENS die temperature sensing
+Date: Sun, 15 Nov 2026 01:48:24 +0100
+Message-ID: <20261115004824.395133-1-majidhhdri@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <a3f071d3-6082-47a1-bb00-9d8e72fa3cdd@mswin.me>
+References: <a3f071d3-6082-47a1-bb00-9d8e72fa3cdd@mswin.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,141 +111,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri,  6 Nov 2026 13:04:35 -0500
-Changyul Lee <lcy8047@gmail.com> wrote:
+Hi Roman,
 
-> Removing an hrtimer or loop trigger through configfs causes a
-> use-after-free:
-> 
->   BUG: KASAN: slab-use-after-free in config_item_put+0x1f/0x60
->   Write of size 4 at addr ffff888001bf322c by task rmdir/71
->   Call Trace:
->    config_item_put+0x1f/0x60
->    configfs_rmdir+0x7b7/0x9f0
->    vfs_rmdir+0x291/0x7b0
->    ...
->   Allocated by task 70:
->    iio_trig_hrtimer_probe+0x46/0x2b0
->    iio_sw_trigger_create+0x11b/0x210
->    trigger_make_group+0x2f/0x70
->    configfs_mkdir+0x477/0xf00
->    ...
->   Freed by task 71:
->    kfree+0x121/0x390
->    iio_trig_hrtimer_remove+0x86/0xb0
->    trigger_drop_group+0x78/0xd0
->    configfs_rmdir+0x7b7/0x9f0
->    ...
-> 
-> On rmdir, trigger_drop_group() calls iio_sw_trigger_destroy(), and the
-> ->remove() callback of the trigger frees the structure that embeds the  
-> config_item. The config_item_put() in trigger_drop_group() and the
-> final config_item_put() in configfs_rmdir() then access freed memory.
-> 
-> Free the structure from the ->release() callback of the
-> config_item_type instead, which configfs calls when the last reference
-> is dropped. Documentation/filesystems/configfs.rst requires this
-> callback for dynamically allocated items.
-> 
-> Fixes: ac5006a2a558 ("iio: trigger: Introduce IIO hrtimer based trigger")
-> Fixes: bc2e1126eccb ("iio:trigger: Experimental kthread tight loop trigger (thread only)")
-> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+On 16.09.2026 10:16, Roman Linev wrote:
+> cpu4..cpu7 are the downstream cpu-1-{0..3} cluster
+> sensors: they get #cooling-cells and per-CPU passive cooling maps, which
+> stay inert until a cpufreq driver registers cooling devices.
 
-This looks correct to me and I'm going to queue it but I would prefer
-to get some more eyes on it even so!
+I have been running the same TSENS description on a Mi A3 (laurel-sprout),
+derived independently from the downstream trinket DT: same TM/SROT
+addresses, 16 sensors, SPI 275/190 and the same sensor map. It currently
+runs on next-20261113 and the zones read sane values.
 
-Applied to the fixes-togreg branch of iio.git.
+I also have cpufreq-hw and CPU idle states for SM6125 working on that
+phone, which is the piece your cooling maps are waiting for. I just sent
+them as "[PATCH 0/3] arm64: dts: qcom: sm6125: Add cpufreq-hw and CPU idle
+states" (you are on Cc) and left #cooling-cells out so that it does not
+conflict with your patch 2/2.
+
+I could only find v2 as a reply inside the v1 thread, without reviews
+since. Did I miss a standalone posting? If not, it may be worth resending
+it as its own series so that it gets picked up. Either way I will test the
+latest version on my phone and reply with a Tested-by.
 
 Thanks,
-
-Jonathan
-
-> ---
-> Found with KASAN.
-> 
-> Reproduced in QEMU (x86_64, KASAN) by running mkdir and then rmdir on
-> an hrtimer trigger and a loop trigger in configfs. Without this patch,
-> KASAN reports the use-after-free on the first rmdir of each. With it,
-> 1000 rounds of mkdir and rmdir on both trigger types give no KASAN
-> report.
-> 
->  drivers/iio/trigger/iio-trig-hrtimer.c | 13 ++++++++++++-
->  drivers/iio/trigger/iio-trig-loop.c    | 17 ++++++++++++-----
->  2 files changed, 24 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/iio/trigger/iio-trig-hrtimer.c b/drivers/iio/trigger/iio-trig-hrtimer.c
-> index 57550b581593..469bd83331b2 100644
-> --- a/drivers/iio/trigger/iio-trig-hrtimer.c
-> +++ b/drivers/iio/trigger/iio-trig-hrtimer.c
-> @@ -29,7 +29,19 @@ struct iio_hrtimer_info {
->  	ktime_t period;
->  };
->  
-> +static void iio_hrtimer_release(struct config_item *item)
-> +{
-> +	struct iio_sw_trigger *swt = to_iio_sw_trigger(item);
-> +
-> +	kfree(container_of(swt, struct iio_hrtimer_info, swt));
-> +}
-> +
-> +static const struct configfs_item_operations iio_hrtimer_item_ops = {
-> +	.release = iio_hrtimer_release,
-> +};
-> +
->  static const struct config_item_type iio_hrtimer_type = {
-> +	.ct_item_ops = &iio_hrtimer_item_ops,
->  	.ct_owner = THIS_MODULE,
->  };
->  
-> @@ -176,7 +188,6 @@ static int iio_trig_hrtimer_remove(struct iio_sw_trigger *swt)
->  	/* cancel the timer after unreg to make sure no one rearms it */
->  	hrtimer_cancel(&trig_info->timer);
->  	iio_trigger_free(swt->trigger);
-> -	kfree(trig_info);
->  
->  	return 0;
->  }
-> diff --git a/drivers/iio/trigger/iio-trig-loop.c b/drivers/iio/trigger/iio-trig-loop.c
-> index 580a465035d1..e6bea96cc565 100644
-> --- a/drivers/iio/trigger/iio-trig-loop.c
-> +++ b/drivers/iio/trigger/iio-trig-loop.c
-> @@ -35,7 +35,19 @@ struct iio_loop_info {
->  	struct task_struct *task;
->  };
->  
-> +static void iio_loop_release(struct config_item *item)
-> +{
-> +	struct iio_sw_trigger *swt = to_iio_sw_trigger(item);
-> +
-> +	kfree(container_of(swt, struct iio_loop_info, swt));
-> +}
-> +
-> +static const struct configfs_item_operations iio_loop_item_ops = {
-> +	.release = iio_loop_release,
-> +};
-> +
->  static const struct config_item_type iio_loop_type = {
-> +	.ct_item_ops = &iio_loop_item_ops,
->  	.ct_owner = THIS_MODULE,
->  };
->  
-> @@ -111,13 +123,8 @@ static struct iio_sw_trigger *iio_trig_loop_probe(const char *name)
->  
->  static int iio_trig_loop_remove(struct iio_sw_trigger *swt)
->  {
-> -	struct iio_loop_info *trig_info;
-> -
-> -	trig_info = iio_trigger_get_drvdata(swt->trigger);
-> -
->  	iio_trigger_unregister(swt->trigger);
->  	iio_trigger_free(swt->trigger);
-> -	kfree(trig_info);
->  
->  	return 0;
->  }
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-
+Majid
