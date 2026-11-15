@@ -1,85 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753635;
-	b=nE7Gnm56NTTfJwWXvbs3/DyJ3LZwcKmmhb6wgMfaq8155WLKG30AzYXzCAUjJoqaVgpJ
-	 Jprh5raJYJgwiFsiPGdnN9SSL0L+6r/u15pIDXUIm07T4Gw0EaYYU6qH+Y09+PsUL4ErK
-	 LWcZcTpbQ6HolXBEomWZjhl4VTZLscUNDzHS5AWbC4yDRYLSEJFzPrkqePNRSxmJjpZQB
-	 XRf2VObg4+pF250AqQ43ZUdW/sGBzMzO/Q+FsA/htZaqsnTzr7JunBCZiMBcMyA6kotNh
-	 yMsHymNcFQpCyUgfpG6tqFWEVsVgDTn/ifxKcL9w0JHetkPJH6w7XW1k7T0rJJ7i0AA==
+	t=1794753750;
+	b=NqrXt1+hmJ5GeS2qnN/ANOD8I+ZAto7+2O4qA/f01zayaEgjupxqToqk1e4io3nP0t+N
+	 h8R9BG6TMALUDibbD4+cjjjKk0s/18XRaKvYvywEEdvcAw9FRwGQtK8RrSRIscP59mqn5
+	 HBNvgrJBsAlEoyrtLb1Xwpdb4yjsdc0uRy857kUxdYEKE+G+eGtEm7PWlFrpx2P8knZHX
+	 Z2mHXbD5APovkwsuemuyrY3gZDxe0V4q7B1UDWHynvIR2qGFPPbbfbxlaY5bnYZWBdkLJ
+	 6dxBy9vL9YMTQW7QWFK7RKfHUb1kW71LZ723/U6MksNabEKmyGUBp/Kr8IxpzXwbZZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753635;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FI3asJNj7qOQlV/TGWUmB60338C7WC/uFNSW9D9/jCI=;
-	b=V+aggnmbcAOu4Llf5AWBPuf2QTlUUI3Z+ZN464wMwIS3PluaUuniiG0UyDehiCPb/ALo
-	 qXk7NA94//zxZ3357LyK93Yfc81lcThlwVnUxmdNqcguqHSG2C424vUgRAezkr9xK7Sjy
-	 xxDNvKlRUfg5ASXFqt/dFFtbgjfHqDSZ5Ri8nazMgppE4CYAUVnwVHf5z7YxmdBOwZ68F
-	 zUfcO0pgqARTUiRJL33lQ029QVNYJB0I1sB3w7xGiHjL+VxbXWdGF4nBbN18EJRSY7OMt
-	 UzhR0FAH7zT9qVfcLVyhJfDCvAwp8tizzBlyCd9UUTM8w98MlsGqImKPJ1tvf8bKl5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753750;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=dAUG9itb1DceZsbgfGeIfItJJItPj5Pk5T2lDscbORM=;
+	b=aepSfn9PdreQCRUxEgnzWzBUofLZovddODrTlgG8rJcWZ5X0qUvmfRUI2hnOAf5pdvQB
+	 SUUmGrrAbp9Y/Aw9ByFWo9RbuqNs0Uo4fy4VBX0mSft0IX1w+YV725v8de1ZPZZEWb7JK
+	 iO+Pvkag4J7E7dxEn0yH85mS26JMRdp9J2JIWHLoY50yTLSHUofEIIDNVVYkvlgQv11Wb
+	 upnfcddFTgAFqq2VhJhkfV7DnomHFCaMCIsqKnxp9mhR7EEP1NpKBo03bsrXvlHNmpWLa
+	 7vQ0la3TaV6oxa2ErwVoS3oNgyKyajzwYge4EaTcnSZPSe0E27NI4b6RfCtdcXXT5lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DMEVOckw;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B1ED606A31E;
-	Sun, 15 Nov 2026 14:40:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B1ED606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e3WHPGu8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DE3606A31A;
+	Sun, 15 Nov 2026 14:42:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DMEVOckw
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B0AE41575;
-	Sun, 15 Nov 2026 06:40:31 -0800 (PST)
-Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id DDDDA3F85F;
-	Sun, 15 Nov 2026 06:40:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794753634; bh=IOwZLzBTzh9eQvjrTuwoQ1OhI4taf+RWz3s7nNKkGsw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DMEVOckw1bncfikR/EnGed2E3Z2HQv6tBEHDD6DNwp5YW2PUslaR2AIXb5/Gq6tCp
-	 8+NsqxFXbKEp9lKCyxiV/D3wB/+ZsWC4gyT8qCCKDGygsZ0gggx8gEsNMAXNSaBPix
-	 efHhX4QG2x37fNTYQWwMb+8DBFYlDIhWS1gCWEg4=
-From: Dev Jain <dev.jain@arm.com>
-To: david@kernel.org,
-	ljs@kernel.org,
-	akpm@linux-foundation.org,
-	hughd@google.com,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	davem@davemloft.net,
-	andreas@gaisler.com
-Cc: Dev Jain <dev.jain@arm.com>,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	pfalcato@suse.de,
-	anshuman.khandual@arm.com,
-	geert@linux-m68k.org,
-	sparclinux@vger.kernel.org,
-	ryan.roberts@arm.com
-Subject: [PATCH v4 9/9] mm, sparc: batch arch_unmap_one()
-Date: Sun, 15 Nov 2026 14:39:04 +0000
-Message-ID: <20261115143905.3045084-10-dev.jain@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261115143905.3045084-1-dev.jain@arm.com>
-References: <20261115143905.3045084-1-dev.jain@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e3WHPGu8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8969E1F000C4;
+	Sun, 15 Nov 2026 14:42:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794753749;
+	bh=dAUG9itb1DceZsbgfGeIfItJJItPj5Pk5T2lDscbORM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=e3WHPGu8uCEixn7WZ5MdPvpjjsenLQwhcdinvIpUi/EM8Mqs3j0lImHKfMEDN9H2J
+	 Td05ACPL6A3FSnHLoSj/4tdTM52SEqkFjyZTZ6Zr8IQqlPE2/DDNYJA+9HYtzoIUlD
+	 jHLkhOKhH6vORFt/DpWu08DPJvC7nZtJM4Yyhcc82iMdSB1BJoARJhcM6a2/vjlHjr
+	 TRTdQ3dILRNix6CxFeIfLRyMiHtvrmw5dlhhLgnqacSm4l/qJXsOaSirSEsh7+St3G
+	 /iYcVwLoxFWLgEL63jpuikWPdjNDt7hi9n/hBH948Q9vxVrn3eHl7sCZQ9squo67zI
+	 HkbC4T1l4mvyg==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Samuel Holland <samuel@sholland.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, bmasney+clk@redhat.com, 
+ jbrunet+clk@baylibre.com, sboyd@kernel.org, 
+ Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-clk@vger.kernel.org
+In-Reply-To: <20261115061102.229680-1-jernej.skrabec@gmail.com>
+References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
+Subject: Re: (subset) [PATCH v3 0/8] drm/sun4i: update DE33 support
+Message-Id: <179475374632.3212936.18354501331414111023.b4-ty@kernel.org>
+Date: Sun, 15 Nov 2026 22:42:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,157 +65,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 
-The anonymous large-folio unmap batching path can clear and replace
-multiple PTEs at once, but architectures like sparc need arch_unmap_one()
-to preserve per-page metadata before swap entries are installed.
-sparc uses this hook to save ADI tags.
+On Sun, 15 Nov 2026 07:10:54 +0100, Jernej Skrabec wrote:
+> This is second series out of tree which aims at properly introducing
+> support for H616 Display Engine 3.3. Previous series [1] reorganized
+> driver so proper DE33 support can be easily implemented.
+> 
+> H616 DE33 support was actually introduced a while back, but it was done
+> without fully understanding hardware design. Issue with existing binding
+> is that it considers planes as resource which is hardwired to each mixer
+> as it was done on older Display Engine generations (DE3 and lower). That
+> is not the case anymore. This series introduces new driver for planes
+> management, which allows doing proper plane assignments.
+> 
+> [...]
 
-Extend arch_unmap_one() to operate on a pte range.
+Applied to drm-misc-next in drm-misc, thanks!
 
-sparc uses the count to walk the PTE range and save ADI tags for entries
-carrying _PAGE_MCD_4V. There is no reverse operation for a partially
-saved range: saving ADI tags only records a copy for later restore, so
-if a later entry fails and the core keeps the original PTEs, there is
-no architectural state to unsave.
+[3/8] drm/sun4i: Add support for DE33 CSC
+      commit: ea008133ef8078934a0dc2924a8263d645f0ee1c
+[4/8] drm/sun4i: vi_layer: Limit formats for DE33
+      commit: b1ba050890684fc7615fe4c7d523f4f46c1696b1
 
-Signed-off-by: Dev Jain <dev.jain@arm.com>
----
- arch/sparc/include/asm/pgtable_64.h | 10 +++++++---
- arch/sparc/kernel/adi_64.c          | 21 +++++++++++++++++++++
- include/linux/pgtable.h             |  6 +++---
- mm/rmap.c                           | 11 +++--------
- 4 files changed, 34 insertions(+), 14 deletions(-)
-
-diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-index 44d1333065a6a..f7dd1872884e4 100644
---- a/arch/sparc/include/asm/pgtable_64.h
-+++ b/arch/sparc/include/asm/pgtable_64.h
-@@ -1037,6 +1037,9 @@ void adi_restore_tags(struct mm_struct *mm, struct vm_area_struct *vma,
- int adi_save_tags(struct mm_struct *mm, struct vm_area_struct *vma,
- 		  unsigned long addr, pte_t oldpte);
- 
-+int adi_save_tags_range(struct mm_struct *mm, struct vm_area_struct *vma,
-+			unsigned long addr, pte_t oldpte, unsigned long nr);
-+
- #define __HAVE_ARCH_DO_SWAP_PAGE
- static inline void arch_do_swap_page(struct mm_struct *mm,
- 				     struct vm_area_struct *vma,
-@@ -1057,10 +1060,11 @@ static inline void arch_do_swap_page(struct mm_struct *mm,
- #define __HAVE_ARCH_UNMAP_ONE
- static inline int arch_unmap_one(struct mm_struct *mm,
- 				 struct vm_area_struct *vma,
--				 unsigned long addr, pte_t oldpte)
-+				 unsigned long addr, pte_t oldpte,
-+				 unsigned long nr)
- {
--	if (adi_state.enabled && (pte_val(oldpte) & _PAGE_MCD_4V))
--		return adi_save_tags(mm, vma, addr, oldpte);
-+	if (adi_state.enabled)
-+		return adi_save_tags_range(mm, vma, addr, oldpte, nr);
- 	return 0;
- }
- 
-diff --git a/arch/sparc/kernel/adi_64.c b/arch/sparc/kernel/adi_64.c
-index 18036a43cf568..ffa378accefe3 100644
---- a/arch/sparc/kernel/adi_64.c
-+++ b/arch/sparc/kernel/adi_64.c
-@@ -9,6 +9,7 @@
- #include <linux/init.h>
- #include <linux/slab.h>
- #include <linux/mm_types.h>
-+#include <linux/pgtable.h>
- #include <asm/mdesc.h>
- #include <asm/adi_64.h>
- #include <asm/mmu_64.h>
-@@ -394,3 +395,23 @@ int adi_save_tags(struct mm_struct *mm, struct vm_area_struct *vma,
- 
- 	return 0;
- }
-+
-+int adi_save_tags_range(struct mm_struct *mm, struct vm_area_struct *vma,
-+			unsigned long addr, pte_t oldpte, unsigned long nr)
-+{
-+	unsigned long i;
-+
-+	for (i = 0; i < nr; i++, addr += PAGE_SIZE,
-+	     oldpte = pte_next_pfn(oldpte)) {
-+		int ret;
-+
-+		if (!(pte_val(oldpte) & _PAGE_MCD_4V))
-+			continue;
-+
-+		ret = adi_save_tags(mm, vma, addr, oldpte);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index 7e62479db5df7..71fa47b60e50c 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -1431,12 +1431,12 @@ static inline void arch_do_swap_page_nr(struct mm_struct *mm,
-  * restored when the page is swapped back in. SPARC M7 and newer
-  * processors support an ADI (Application Data Integrity) tag for the
-  * page as metadata for the page. arch_unmap_one() can save this
-- * metadata on a swap-out of a page.
-+ * metadata on swap-out of one or more pages.
-  */
- static inline int arch_unmap_one(struct mm_struct *mm,
- 				  struct vm_area_struct *vma,
--				  unsigned long addr,
--				  pte_t orig_pte)
-+				  unsigned long addr, pte_t orig_pte,
-+				  unsigned long nr)
- {
- 	return 0;
- }
-diff --git a/mm/rmap.c b/mm/rmap.c
-index a2481323b778a..89dd71f84ff74 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1974,6 +1974,7 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
- 
- 	if (flags & TTU_HWPOISON)
- 		return 1;
-+
- 	if (!folio_test_large(folio))
- 		return 1;
- 
-@@ -1984,11 +1985,6 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
- 	if (pte_unused(pte))
- 		return 1;
- 
--#ifdef __HAVE_ARCH_UNMAP_ONE
--	if (folio_test_anon(folio) && folio_test_swapbacked(folio))
--		return 1;
--#endif
--
- 	/*
- 	 * If unmap fails, we need to restore the ptes. To avoid accidentally
- 	 * upgrading write permissions for ptes that were not originally
-@@ -2183,8 +2179,7 @@ static bool __ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
- 	 * architectures where we could have PFN swap PTEs,
- 	 * so we'll not check/care.
- 	 */
--	if (arch_unmap_one(mm, vma, address, pteval) < 0) {
--		VM_WARN_ON(nr_pages != 1);
-+	if (arch_unmap_one(mm, vma, address, pteval, nr_pages) < 0) {
- 		folio_put_swap_pages(folio, page, nr_pages);
- 		return false;
- 	}
-@@ -2753,7 +2748,7 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 			 * architectures where we could have PFN swap PTEs,
- 			 * so we'll not check/care.
- 			 */
--			if (arch_unmap_one(mm, vma, address, pteval) < 0) {
-+			if (arch_unmap_one(mm, vma, address, pteval, 1) < 0) {
- 				if (folio_test_hugetlb(folio))
- 					set_huge_pte_at(mm, address, pvmw.pte,
- 							pteval, hsz);
+Best regards,
 -- 
-2.43.0
+Chen-Yu Tsai <wens@kernel.org>
 
