@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794766119;
-	b=uOiJaSLzfkqRd1rxDMmhREwG7kDdI1n+7hI+FS7S8225cCjdSEdsnmyadOnD+OoXGTz5
-	 085S32kiDoZDhg5JSo1cmp7lL/6GUGz4wHXD+APohdSIWpwk9hIXxhdW3qLBkF0QXEJb2
-	 pfvTC8K1IPPoFtHpa+trdJtT2GyNCdJMBSzD7o0z6tQZMTUzTzI7teD8Kqet50BzXvh8T
-	 4Dt61m+KbIf0I1EauDhquNPAhgKIHrx6e8Fhm86v+HVgmWPGvsHam0D7ULFrgc8B9GP0n
-	 opYtktkxeakAaM2TidJuwunf1XdGLG2g8oisZzW78QUdH7RULLxMAB29ddWYcV2I7zA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794766119;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AQ6SxbpYlEMvJGXsYYF4IK1woLYsWMG6CmUYzgyb/v8=;
-	b=vgsgCW6Lm7GzaTXktI2fb4jbSMwaPxYswT0XvQ0cMQggE66cNCrOEKAwn9YulfSZHL4q
-	 L8iMs96YeDc9jlynEv4n8t3bdwvb0dLFlp95+G8+KTzTZ35reRntXpSAHYXNRYm0IJtF4
-	 uUfclw5hn2EMN4ByxDQ/01Ab3stEb+h4xeCL8aJPvoNNVWOiM82VAE4qj4T8OvJW4jN8n
-	 78hDgK4MSU0xBi+V5V4Bj+X+DMzPHt9OtsP7W87Vf4ADJF8WR6w99YLbOPqiPsQ2U+FFy
-	 5NtoahGlrhv0EAI/oCJKHguQLqpH2X6wKrD55PQTALMUEqz3xFd8VS3D73TPOhPIzAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=NJYwySQH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794766175;
+	b=hNFaNuhmfh6Hv6eoNdb1oGf0/kMOwLLc33Ax1MjDfD9yNHyusLz2903Vff4oa6Z7j/8+
+	 7e3e9I/4OwIzTca6qn93FZjqveo0tF+si5sowxMlvPMBPCdM8cX8aqKG+kfT4hPLsUs7o
+	 e1Hm0GQPtUZ1y1ndFEIquwU1qJH+kVfVbk2UYMXQnBzRect5Rc4hgv6bCbqA9lcm7+e6Q
+	 sn70B4moVLNRAQu+2C5LqHKC+TLsrKdWn8sbRmhsKb4rJHGpOUdHn8yc7Gst5sSQYutVX
+	 4yy8YmCCzcqGjb3gSATEWj8XQS/wndQJKi3znyXmQwnnWL893fW5sDRt5H4f1bw75Cg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794766175;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=D2+Svi0kHYvgSG9q/RUfK7SbfgBZOy38SUfssP6B2Jc=;
+	b=qTojWlFS+ksXh7ZxVEFkQBYj7+AVzFt16sE3cSFKqj+KRNsYbTCnHZgAsMssdpe/btSk
+	 93v3TNCtF1KyJnC1qyQEZycs2bY2zmUtXcNzU5832onWw0j1CvOuLCPW84mGLOIud0NXL
+	 LLPljLbK65kLQKZ76rgKS8Pg+S5VQLo6M1Kz70RMLq6kqdjy6QzHZGVlgNIbrHSWsxL/g
+	 R5FhtyWjsGvQW75VyNQc1uzstxmptQz3xfG38OuS5Kbd4lUNyvouCej5THGwmAShudPhs
+	 bOH3c+Ps3qmNp/kmtUb7LQifkILT2PvhNaFSSIAMQ1BJPFqBpeZNe4WChtDrs6N4BoQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ECemnQF1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56048606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:08:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56048606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDA5606A31E;
+	Sun, 15 Nov 2026 18:09:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=NJYwySQH
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67c24619b19so1765411d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:08:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794766118; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CHpQBUBMUgEESILY84olEg6JOI/hKt5xMWXw3MwtXtJCsokERk5iEFZ3zhBCTyb5Ss
-         46xicAagppxbhpMVluGnibqoKVwhlzdrpcqbgWZZjZEWY8O1v1WToZ/hhSgLKk2Pj1uN
-         DPUugkCuGdmEWgbkua3KgshlhRFQqSxoHmidSfOJe5tA1SU2c/zrdHQVPOPivAo2o7u/
-         aLSKGPDwmdmV5lHD2qRoLHuN0v6TaNGWJHvZSAmMUsOy/+H9kpN0Mt+FsxphyMGKO6o5
-         IQiUCVa70qYNCyOyJjrIluQytDSoX8P/uXmja3deJTtVpFtwAL5Egw74YxtzxW0Uzlkp
-         bDAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AQ6SxbpYlEMvJGXsYYF4IK1woLYsWMG6CmUYzgyb/v8=;
-        fh=VUgYK2A/nACns1K7O27Fj8gw5ynTG6JRqI4CnFNmMtg=;
-        b=B2J4hms8+hroj8Va7G75J5A1Z8Rkqu2c1xY89+VMndAgemJ0q7LKG1BM1uvm0ozuuM
-         5rVh4h/UmfAzNTksQuQ5IyP75nko2gc2g7IHFQar2VLAYYoWqKh2hqOUg2yFKlstGbH7
-         ZNObtOz3GiR0rAagIa1AjPJlFmLw7hhPfVNgZDAsCv5EbPqaVSAI/KMflOdd6Ig6+vxW
-         FGJCm9Vtklt2+lwt3ZF6wKI3JtP9BxlNy38VZNO6P2FpfL2Tnrkwd1eAp8ah2Jzata1R
-         VWuKn81bWwhok971ar7MTZFc6OecViPRvKdmt62+SQAgMqrWvSOJEsK8p/UbhqnPMk1w
-         M16g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794766118; x=1795370918; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AQ6SxbpYlEMvJGXsYYF4IK1woLYsWMG6CmUYzgyb/v8=;
-        b=NJYwySQHOYs29DzAZoCW8KTTN4Hz5eL3gp2kthjrtMBJgUvZUdGP/E5why6wGsaU1T
-         lMwanMmvalvECH+a+Rz1SKSkRFhICLIOqqH9YtPzk7oiK6IXTb2IZnVO65swhS4C1HpV
-         FX51qZNZ+UnmtU2DHog4Zf7b/XL/rNNkUsklcrv8V65AQML5/oC/q8X6Z0VCPAkcN1P3
-         CwNl0gLixQryZLXt0MUFVFo+fYZ64qmoeV9repPHSkLYAvTOXcuZPCjm8iWsAX0YReE0
-         Z4zQa+WdwkOiCym1+HdcxVrGnXddJi9qjcShaxIi8T5T00Sh/qRgG6exViSshW0pt0lF
-         IWGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794766118; x=1795370918;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AQ6SxbpYlEMvJGXsYYF4IK1woLYsWMG6CmUYzgyb/v8=;
-        b=M5lyBMVVEYdA8HkLF3uaQv1mdjqgH5oVKbg//VW0sWKtoijn1D7hmjLzPm+RU4dN1P
-         i8uDHjvGNdB4wtzQtun5eO1D7HeMwjuY4ut6QQtPGjbuuwiFBITRajjC5Ub4Ah2kOC+w
-         J/fY/jpa2kpoUG3ahTMejcDnS+n9/+W0YXLtDcpYUOat3zWbyGqJ/gxeTiyunPFmhvub
-         DSSBIltWYo4z8EJYMN+cAVVkH3gjkrPl2vKBiSVXzaszBjxhBUfACBUU6MQ9uL0zdkJu
-         tA6LXYkpDvE+WoS6+ygtYpUFGPhI7VnU7QqvYwk88lLkenUaMeJcACj0KYWqJQlv4vQD
-         lZWw==
-X-Forwarded-Encrypted: i=1; AL+hErEpiUdKkvAX+ADshaM8yhH+G+TtReAfKUijwJFjMs/sx2KEblFVyE0m+iYOA+zPF9iv/Bg8Ko8rSRmQ5Fk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/iL0geenjIFFIjoNVLQGzFuHHexDJRr5tihtN6FxUH2U7v7qGs
-	j71TUQcD9/crS/s1iBtGAa+g69yZ6GwuSsY40NZwMI99/mJuySAaOX/LLKNHGwwz2HE1SsKfgKe
-	7GXBo+dNTt3BhLGzcz0JIhP82CoSF0xs=
-X-Gm-Gg: AYBFou3RiqxmpwIulIl2mKV8uiVXRA8sv9EOsvqy9OwX0dCZx0MBbTwTdKsdaR02TUR
-	RS4IxVGyjdL358QNe7Gfb8b8XoRMHVMX0rHj8OOCJEUR8Je4A16NGHb1fhn110ZC0PetSRWI4o3
-	dQevb3HZ5ptaCeI982A984WdfPYemiT9LDyFnoVVP6xvidrxRehjE93q2MR3XcaJRldKZhXbW37
-	4v78YtylVKw8lAwTr7dcgawJyU6wXrm4eIcptP4X+Hr7tdm/2ES7B5h0F/mSSSZshlAW3J/S49O
-	mVAGgf0OXtat0UEZscD9LPaK82fBkgSdS+1o3N/AxxwAf6DSdYnXf60yyrCCo7KzHw/ZuzjO2MT
-	2zkGQm8JF38WggBUWm17evMhAZRy93my9M505razJDiJYiYCRkylKz/jGj5xcPWfWaLHpFA==
-X-Received: by 2002:a05:690e:a4a:b0:67d:a6fc:6ba9 with SMTP id
- 956f58d0204a3-67da6fc6d40mr1650517d50.106.1794766118350; Sun, 15 Nov 2026
- 10:08:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ECemnQF1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E861F000C4;
+	Sun, 15 Nov 2026 18:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794766174;
+	bh=D2+Svi0kHYvgSG9q/RUfK7SbfgBZOy38SUfssP6B2Jc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ECemnQF13rWc22V0N9rtbYuj/f2QbXhKatASZsROFbBaynD+9hFW3EaUgdWXhsntm
+	 vZfkNRtOrUmu/1zZ5MOg0k27df0F/+F1MB9DByeGozv3Ks3JF+pxBgtyBijKBvo3Lk
+	 ifs8N1YTQO2EN1T2LAgBrFyVc9HmRSoqBVCi9dObTIhNTRgnYitKena8HG7+XLzenq
+	 PWssUW3E9Pj/5fptolIRR4dMoHl/x5H2YEPAHAqOi1yGljLlsf2CO00KjXGy1GG762
+	 z9oWCd2o/J17FwHGjaMFnQC6xz8wTXuZMyFthsU1sUgzqiUPGpQCGnlzFXx+C1uq2b
+	 Fc8WfLMflz6tw==
+Date: Sun, 15 Nov 2026 10:09:33 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Yong Liu <pkfxxxing@gmail.com>
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Xin Long
+ <lucien.xin@gmail.com>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] sctp: revalidate association sockets after
+ locking
+Message-ID: <20261115100933.75ae0534@kernel.org>
+In-Reply-To: <20261113032805.1447885-1-pkfxxxing@gmail.com>
+References: <20261110120212.1110283-1-pkfxxxing@gmail.com>
+	<20261110120212.1110283-2-pkfxxxing@gmail.com>
+	<20261113032805.1447885-1-pkfxxxing@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,47 +62,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-8-tanure@linux.com>
-In-Reply-To: <20261113121852.334604-8-tanure@linux.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 19:08:27 +0100
-X-Gm-Features: AclHuK_ca4Ke1rBatVDRggo6mUiIuil3NWD_1WvhT9IQ3QzVWOrT84nkfXuKy0g
-Message-ID: <CAFBinCBZpruWYPrCWhRY146C9fd6ij2cOirJNORqAJFaiGZJ5Q@mail.gmail.com>
-Subject: Re: [PATCH v7 7/7] arm64: dts: amlogic: t7: khadas-vim4: enable the
- ethernet port
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Lucas,
+On Fri, 13 Nov 2026 11:28:02 +0800 Yong Liu wrote:
+> Subject: [PATCH net v2] sctp: revalidate association sockets after locking
 
-On Fri, Nov 13, 2026 at 1:19=E2=80=AFPM Lucas Tanure <tanure@linux.com> wro=
-te:
-[...]
-> +&ext_mdio {
-> +       external_phy: ethernet-phy@0 {
-> +               /* Realtek RTL8211FD-CG */
-> +               reg =3D <0>;
-We've been following this for a long time until someone found out that
-RTL8211F has a broadcast feature.
-Can you check the strapping registers (or simply see if the PHY
-answers on address 1 as well)?
-I'd appreciate it if you could update this patch so we can use this
-approach as reference from now on.
+1. please use the problem you're solving for the subject, don't
+describe the code change, so that the subject doesn't change between
+revisions
+2. please don't send new versions in reply to old ones
 
+> SCTP timer callbacks and ICMP error lookup cache asoc->base.sk before
+> acquiring its BH lock. An accept or peeloff can move the association to
+> a new socket in between. Processing under the old socket lock can then
+> race with an abort on the new socket that tears down the association's
+> queues. Transport and association references do not keep those queues
+> alive. With mdelay() instrumentation widening the race, KASAN reported a
+> slab-use-after-free in sctp_chunk_abandoned() from the T3 retransmit path.
+> 
+> The ICMP error handlers also reread asoc->base.sk after lookup, so they
+> can use the new socket without holding its BH lock. In particular, the
+> PMTU handler can reach the same retransmit path, while protocol-unreachable
+> handling can run the state machine directly.
+> 
+> Recheck the association's socket after locking it in the timer callbacks.
+> Treat a mismatch like a busy socket and use the existing reference-counted
+> retry path. Pass the socket locked by sctp_err_lookup() to both IPv4 and
+> IPv6 error handlers, including their UDP encapsulation callers. Defer PMTU
+> and protocol-unreachable processing and ignore redirects when that socket
+> no longer matches the association. Require a matching socket for immediate
+> error reports as well.
+> 
+> Use READ_ONCE() for the socket pointer reads in the timer, ICMP, receive
+> and backlog paths, paired with WRITE_ONCE() in sctp_assoc_migrate(). Take
+> the new socket reference before publishing its pointer. The cached socket
+> is protected by BH context and the endpoint's RCU-deferred sock_put().
+> 
+> The issue was discovered and fixed by Qihoo 360's Tulongfeng multi-agent
+> system.
 
-Best regards,
-Martin
-
-
-[0] https://lore.kernel.org/all/bc8c7c6a-5d5f-4f7c-a1e2-e10a6a82d50e@lunn.c=
-h/
+3. please remove this, there's no place in commit message for
+advertising
+-- 
+pw-bot: cr
