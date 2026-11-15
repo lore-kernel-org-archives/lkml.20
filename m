@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794731882;
-	b=QKVJGYlaWu1VhW9zkeNmpNkj9sUo2T2q5eUotDBUjUjLs+1pVCFtGx2ILtzS/qEGYPJs
-	 ob9zswRsjFOEq6nTcYphsHlvy+I1UEsQjNMSRuxr6MpM9QAAeJMbjU19cChbeZz3/00Wm
-	 gDUji8Z3G4rz2+DVCRxe2ARUIdA7/Z5aZ1iSl1zbSdszvcS7WS3/6dLQHzDe524Awzedd
-	 DVHKijvq+r60V6IqlldxK7eg2JhZAXCImdimbYTR8GttxMyEBT9+xTvYQksx/8WwMW2qN
-	 ZtUK1S/zM7pcDVZhFCqGAcP3sYZ1gdovh7YYcjvFkvTNOk0pduQYr9k/5f5G1zt0UcQ==
+	t=1794731885;
+	b=LKH04O63Yk4XVySkrhhlufMwrnqgs+uFUll9lUEAd8zGEQ60zIXpq3Ek1yxF3E9EGoJH
+	 YctHF/wN1A8ZPXQhTDoqwkj//FUrPFQ6KQBGx2irwOc8fFaKbVndIlBRmKTMuyBY/Cf0e
+	 fRwlmNff9gRg7h1+cQ2QAEi5RPMR2FpFahJOpyRkipFKlhpfn76am+uNTauYTJc2P19B0
+	 ToJvfai91MthkdaHCkLJoSdnEpr+vhi0hDbagCuGs0L/7M45M20ixH8R1pQzTLE9NNOFa
+	 jiKnqPC7xW0gJxCQWvY/Hfjcd39nApqUweODFgTbJJzetcMNatkCuktNkkr5avSweQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794731882;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794731885;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=wahMUn7lkVoWLk+//TfvQSoTRo4HIjxmomQS8JoF+OY=;
-	b=J3T+Pa3DL/ionps3NK/3+NYTMMwsDZzsaueT1MY/j68DgfiF7CAIh7iWU1iC1gcGFB4d
-	 qTrWA0HdmfcmyX62PKGuDZDrqXVgcl60MHe4G8GZ2Zloqusv7ihB8bz5L40KAHswmFxIk
-	 qn+IP9skug2gL0fPOj0tNwL/xgNyHGi3L05qWnL8EKTLXpSkMvytFYu5oLhMWwyO78YXC
-	 O9d8qrnbFEq2d0rPztSAGb3H3hUZyD1KYi2TOBcgpLYlFhPq6UpgVfe3j0Jfl6IlV7trJ
-	 pZfPucFO3Dz93QQ0HkbTF5nso12+TjpBykyxNaG7RctiT+FA7h71LuWsWqSusl7t8oA==
+	bh=g+JNwiCu6bm0rcLmuJWSYeAtStEl9n5lsa7a5i38a1Q=;
+	b=SdFLVbjvWfQrtk7jNliHlPo/4detc+LjHW6kBSL28GiDYbvyVpGFIcyUXeJpKCrBXkX+
+	 Yv4qyM7Atr827ofkicHGEST+m5lNWnHZJHB8AlxN4WVJRovT70FQ3uIhuxCtEaW54aqt6
+	 UI8X8gAjfcphr+BJc1GeoFj1s/Jq0fN0hyUIldY3nwF7lPyojvaMipkdt88eiMZO9A6o4
+	 iL6lAJMnVXQKEvSIycbo6Py5vnKhUxY6NiFw20jEYIUHITVnCHtlVraPEbM3gVHbIKKBd
+	 LO97vPsWJx5KmzVa1ydurA6RofPkR3mBrqAgmlKwbIdRBuzmu1NiesKNTv4pyq2m3Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MTfaI9aE;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvVKeoHM;
+	arc=none smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5ABE606A893
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:38:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5ABE606A893
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11698606A33D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11698606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MTfaI9aE
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c505b2e1cb9so377786566b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:38:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvVKeoHM
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b81214ab40so265953a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:38:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794731880; x=1795336680; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794731883; x=1795336683; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wahMUn7lkVoWLk+//TfvQSoTRo4HIjxmomQS8JoF+OY=;
-        b=MTfaI9aEMF3OzLwQVnQbXB8NyMbTdlt3VND41vNLrCTmCfPF9BCy39d4WkJgLAeJOI
-         2N9YmMo8KQZ9xzD+hZOfWSuWNaUtCzSbSJrxxHav11/L71i3grd6uZBVTP6yIPaXyvuq
-         RCuyac7ucKuGafA1SPmrjFWUhICKaKuTSQVoJCv7HeYnJ9R9SYUobo9ib1cGcGUXPqjo
-         plguW7aljmVl4kKihHq/n4dei3RdXe1gsodt7cHz8bnTT2HHtmWrmctSuBO/CXRiz3ai
-         sDPew9ELe6H3Y0o7JIoxA2gFrOeC9V3fDENJZ1Te8KfwzZotDgsPsuXUtMmwBoSSmuB8
-         IbSw==
+        bh=g+JNwiCu6bm0rcLmuJWSYeAtStEl9n5lsa7a5i38a1Q=;
+        b=qvVKeoHM4kmAdUefhbLzNsQaTehL/q6/ivDkdZOAGX/7czeIdJxqhrwmPEW8Gh/6F7
+         sbSVMqL0foqRicWhK1ok6tB4VnEe93keo4KAR8lG/m2/3Wwkm5LeTGifc8ZAHmpzbzLF
+         rGUP7AgUkygDQ6beLqTYBhv8JvX1VsTYvy416KjYN4vxzhbUFhxpFKv2km7H2mbH8XN8
+         oHRnQN0UPr/IXDAIFItpyZABunCQGaOI5pDRNb1I8joEPua4W4PM+Hy1Xb9c29rgSLyi
+         4/JBVnhylkZCvfegBFoCUhVZ0SGbSPe8tujYYs5r4yTgwat0TidTciy4GKiI3mrKLx0j
+         MUIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794731880; x=1795336680;
+        d=1e100.net; s=20260707; t=1794731883; x=1795336683;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wahMUn7lkVoWLk+//TfvQSoTRo4HIjxmomQS8JoF+OY=;
-        b=NYzjWjZ0LMaUM1ZvXMPhuCkflbXrInkiIhu0GOaTDLucNnilrFIZ08PzaMo6xQyRAb
-         b5qSkRRQeeLPpVetU2J2+mcKxii6EU7h0fj/wGpiexHhw8HIM0Bqqj1aJXaxNC2h4m6L
-         saUoIzXV4KDo0+x1k2IRw/z+/jpYBMFt6q7z6AALADKaXkICU2Sk0VkIBUDmzN10a9yH
-         eGK52NWYJeX3Fo0k4o+RDi39Y1AKzfi6IoFMdPWIyJAnmEaX8tXBmNuezO79amcsdXkt
-         /Lo6MmBRYSY9uIQfcK47HomfLSmK70I84/bakVj3XbOTgcw1AP/U5BExyQ3mgZg8vTTD
-         18Tg==
-X-Forwarded-Encrypted: i=1; AL+hErEFinzwHJb5sXnZLTkAtsFzuNguM2zw93G41I0z0x9vUiI8UmMYt/5ItMLP8Py/dzgQpwOUvpEOL3xRKU8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9nsNo8wG/1xxw1ohfoyBiDnaExyKbIIOfodLUUzx3tNnnvQEX
-	Vh71utGoYB5e/EK0ZONiuem7yEO0OeTETOQ30jZXbyBlb3GruI0T6UiO
-X-Gm-Gg: AYBFou2/fOlr8iK+yLvkgdwp01MggmgzzNOtFN0Tbn7XIfob1XA/YVvgTe9/QYTUWXN
-	KeCUZ27GM0G/5ECHB6nLszjjVeulmAIoqU/BevdUY5bEEsLGF6MvE2PwpgL13aE7RCBkqtqcsTG
-	7XVD8iAKkk3VSrivVtH5BrxgpRa/6LN2+RRU3S5Yw3a+wYhbIM9mNLX7n+ODTQ8MYJiX/WqA78o
-	7HVHjXS7iUp31AMLza6TWLfL7U2LVEhA3f8sxIkF6/KRCAZSIDjI3tSR/Lb6x2ceKDuACGDXh5X
-	IbB1X6k366M+tIWnRcmVKxqJcLoyED5ODXcxPulA8+F7iotKQQ5ksrPJ8On7JXPVjuAkI2pu4ri
-	W+Jfl/vVw7PttpmNLj/UVhK5FaDlOGo3ev29Txma1XVkDiFabH0lZHmrPoyhtJ1gndpFJsGqG4D
-	Ya9sIf4tl+wgyUojSWT3JBl60AxMXzc/biHCHJo943DPVvD+3w2voZ5NaJkySfew3DAzr/19lRe
-	ZInEg/1RAWC0lCmLVksyaXHOqLpt9uWK0q9ZprzQ2RHTMw06xC3S457Jmq2g4Xrs8zK9I7oqWmn
-	LksZAS4aKn417xZN346Ik1MA0B4qrS/6++Sp7AjCu1vSqifhupO6TgPqK0eBvb4uayLM6RO9paw
-	TlS/5gP/kmw==
-X-Received: by 2002:a17:907:d10:b0:c4c:ddd1:cffa with SMTP id a640c23a62f3a-c5096398ae2mr615143166b.29.1794731880219;
-        Sun, 15 Nov 2026 00:38:00 -0800 (PST)
+        bh=g+JNwiCu6bm0rcLmuJWSYeAtStEl9n5lsa7a5i38a1Q=;
+        b=A61aIIhCXqL7D91ESoO4XPVIYqnen6GwMovOW6aruco1t5V/F/U5Gd/77gi+QIsBFO
+         Gmyjtctr8hBcuFYCCwNtXLssbtZCJlhXSxYPOB3U2UWwEN42/rbZ052sJEpnUFJVXAOJ
+         Tj/gpb9qOG2er35ClZDiHLzSz7NIvTyGpEO/SIQAXucNCZb74izfIZBV8h8h+JEUTGEW
+         nCMv97nCI8X62vkJErp0a40yGM3PACsaho8212+b+S+6yWbMz3qRvJnOZfdgHyOQlAhp
+         J4a6bj6r9fCUYjHYfmQfvALCEzOW3tizh0pxsRBXW3G3sYuGjHx+YsCxt9yEPCtW288x
+         AvFA==
+X-Forwarded-Encrypted: i=1; AL+hErGxUm70wOQR18/DNbJ5UYaJTbsCttaDSIcvV1Mk9+krY5q2HYFFv4a3NsAY+aqX8HEC4q7YMVT9BhFtoP0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gvQHSWhWkF1RKUXuq4TIVkhP/sOYqkUzPKZpKmAa4Y53tuIAT
+	sM77We7XnuiGXEgfhzt5ChbwMyAcbzjimH+v0JQBWAidOYs4bVIoSBwD
+X-Gm-Gg: AYBFou2vN2DV+w0Yl6b1BGVY4fLljfq9zRZJyO/qIH/kRxZVhXNeP4a+VQu4HKS5aGY
+	U0lLPjh103WLJf/kApGDDOhz2URDp1IqEMaklw9fC7Lo/WegtQHmhbFMtk4B5kszCPlNfToykjh
+	v7s54hDQ8438Ru6hpNZLDB5fTFYIJ7rS5pRzCrwUPmft7UaeaVEQzwTQyPb5UkFWBHWbj2/ahML
+	LK+GMjJ3LCt/GXNzHntY11+IxILgg0986cdifJvaH4o5mpee7C0Fpwm+uW/WMuRcUeOYwqAWcJW
+	2nLW9pq4MTOa5NTQ79AlJv5i4YuMmNXjEdCipoQ2yjAGfXLWtr6lzgLZNTdzoPCKXiFEzUivzhV
+	WwZhc0GQkPuvdarwP4Mi99mXL1Tq4kYUHBNVThk4+uBgKB2H3UVhIDL38mhrz5PBsQWWfPt6aUs
+	MoLnXSwhj8X7w4EMbVkJHeerMrFgjzQgwmzhWlof6q+eOok5gRJfvPlxVnyUi03aag22DGClWz1
+	Mx1nQT2Lwy4q7sVPgcNU5KQ3ReVN3OPp+OJl88kF0tCQraRO/8X3GtrixSWnFwch8zQZkdxM29Z
+	zEyCAK9lDwZIOxh7/6d93kF9ComzFdnaL1/a9U2NEQoItblC7KHWVj6qVlDwkLwg96sFNp59rOM
+	7WAETwql6LQ==
+X-Received: by 2002:a17:907:d01:b0:c2d:d4dd:8d0 with SMTP id a640c23a62f3a-c507c3c72b7mr878493266b.16.1794731883335;
+        Sun, 15 Nov 2026 00:38:03 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5ad9esm284815666b.2.2026.11.15.00.37.57
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5ad9esm284815666b.2.2026.11.15.00.38.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:37:59 -0800 (PST)
+        Sun, 15 Nov 2026 00:38:01 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -98,9 +98,9 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/4] iio: light: ltr501: Switch to modern match mechanism
-Date: Sun, 15 Nov 2026 10:37:39 +0200
-Message-ID: <20261115083741.62140-3-clamor95@gmail.com>
+Subject: [PATCH v4 3/4] dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
+Date: Sun, 15 Nov 2026 10:37:40 +0200
+Message-ID: <20261115083741.62140-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261115083741.62140-1-clamor95@gmail.com>
 References: <20261115083741.62140-1-clamor95@gmail.com>
@@ -115,241 +115,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove the chip enum, break the chip list structure into individual
-elements, and pass each element using i2c_get_match_data().
+The LTR-659PS-01 is a proximity sensor similar to the LTR-559ALS-01, but
+without ambient light sensing support.
 
-Preserve the iio_dev name configuration and replace the
-iio_get_acpi_device_name_and_data() call with a simple dev_name(), since
-the former is just a wrapper for the latter in this use case.
-
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/iio/light/ltr501.c | 164 +++++++++++++++++--------------------
- 1 file changed, 74 insertions(+), 90 deletions(-)
+ Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index 3662aed5225bc..bf3cc32a55c3c 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -90,14 +90,6 @@ struct ltr501_samp_table {
+diff --git a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+index 20abd7da080d6..85ac3b540c206 100644
+--- a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
++++ b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+@@ -17,6 +17,7 @@ properties:
+       - liteon,ltr329
+       - liteon,ltr501
+       - liteon,ltr559
++      - liteon,ltr659
  
- #define LTR501_RESERVED_GAIN -1
- 
--enum {
--	ltr301,
--	ltr303,
--	ltr329,
--	ltr501,
--	ltr559,
--};
--
- struct ltr501_gain {
- 	int scale;
- 	int uscale;
-@@ -1178,62 +1170,64 @@ static const struct iio_info ltr501_info = {
- 	.write_event_config = &ltr501_write_event_config,
- };
- 
--static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
--	[ltr301] = {
--		.partid = 0x08,
--		.als_gain = ltr501_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
--		.als_mode_active = BIT(0) | BIT(1),
--		.als_gain_mask = BIT(3),
--		.als_gain_shift = 3,
--		.channels = ltr301_channels,
--		.no_channels = ARRAY_SIZE(ltr301_channels),
--	},
--	[ltr303] = {
--		.partid = 0x0A,
--		.als_gain = ltr559_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
--		.als_mode_active = BIT(0),
--		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
--		.als_gain_shift = 2,
--		.channels = ltr301_channels,
--		.no_channels = ARRAY_SIZE(ltr301_channels),
--	},
--	[ltr329] = {
--		.partid = 0x0A,
--		.als_gain = ltr559_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
--		.als_mode_active = BIT(0),
--		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
--		.als_gain_shift = 2,
--		.no_irq_support = true,
--		.channels = ltr301_channels,
--		.no_channels = ARRAY_SIZE(ltr301_channels),
--	},
--	[ltr501] = {
--		.partid = 0x08,
--		.als_gain = ltr501_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
--		.ps_gain = ltr501_ps_gain_tbl,
--		.ps_gain_tbl_size = ARRAY_SIZE(ltr501_ps_gain_tbl),
--		.als_mode_active = BIT(0) | BIT(1),
--		.als_gain_mask = BIT(3),
--		.als_gain_shift = 3,
--		.channels = ltr501_channels,
--		.no_channels = ARRAY_SIZE(ltr501_channels),
--	},
--	[ltr559] = {
--		.partid = 0x09,
--		.als_gain = ltr559_als_gain_tbl,
--		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
--		.ps_gain = ltr559_ps_gain_tbl,
--		.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
--		.als_mode_active = BIT(0),
--		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
--		.als_gain_shift = 2,
--		.channels = ltr501_channels,
--		.no_channels = ARRAY_SIZE(ltr501_channels),
--	},
-+static const struct ltr501_chip_info ltr301_chip_info_tbl = {
-+	.partid = 0x08,
-+	.als_gain = ltr501_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
-+	.als_mode_active = BIT(0) | BIT(1),
-+	.als_gain_mask = BIT(3),
-+	.als_gain_shift = 3,
-+	.channels = ltr301_channels,
-+	.no_channels = ARRAY_SIZE(ltr301_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr303_chip_info_tbl = {
-+	.partid = 0x0A,
-+	.als_gain = ltr559_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+	.als_mode_active = BIT(0),
-+	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+	.als_gain_shift = 2,
-+	.channels = ltr301_channels,
-+	.no_channels = ARRAY_SIZE(ltr301_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr329_chip_info_tbl = {
-+	.partid = 0x0A,
-+	.als_gain = ltr559_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+	.als_mode_active = BIT(0),
-+	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+	.als_gain_shift = 2,
-+	.no_irq_support = true,
-+	.channels = ltr301_channels,
-+	.no_channels = ARRAY_SIZE(ltr301_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr501_chip_info_tbl = {
-+	.partid = 0x08,
-+	.als_gain = ltr501_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr501_als_gain_tbl),
-+	.ps_gain = ltr501_ps_gain_tbl,
-+	.ps_gain_tbl_size = ARRAY_SIZE(ltr501_ps_gain_tbl),
-+	.als_mode_active = BIT(0) | BIT(1),
-+	.als_gain_mask = BIT(3),
-+	.als_gain_shift = 3,
-+	.channels = ltr501_channels,
-+	.no_channels = ARRAY_SIZE(ltr501_channels),
-+};
-+
-+static const struct ltr501_chip_info ltr559_chip_info_tbl = {
-+	.partid = 0x09,
-+	.als_gain = ltr559_als_gain_tbl,
-+	.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+	.ps_gain = ltr559_ps_gain_tbl,
-+	.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
-+	.als_mode_active = BIT(0),
-+	.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+	.als_gain_shift = 2,
-+	.channels = ltr501_channels,
-+	.no_channels = ARRAY_SIZE(ltr501_channels),
- };
- 
- static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
-@@ -1398,9 +1392,7 @@ static int ltr501_probe(struct i2c_client *client)
- 	struct ltr501_data *data;
- 	struct iio_dev *indio_dev;
- 	struct regmap *regmap;
--	const void *ddata = NULL;
--	int partid, chip_idx;
--	const char *name;
-+	int partid;
- 	int j = 0;
- 	int ret;
- 
-@@ -1481,18 +1473,10 @@ static int ltr501_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return ret;
- 
--	if (id) {
--		name = id->name;
--		chip_idx = id->driver_data;
--	} else {
--		name = iio_get_acpi_device_name_and_data(&client->dev, &ddata);
--		chip_idx = (intptr_t)ddata;
--	}
--	if (!name)
-+	data->chip_info = i2c_get_match_data(client);
-+	if (!data->chip_info)
- 		return -ENODEV;
- 
--	data->chip_info = &ltr501_chip_info_tbl[chip_idx];
--
- 	if ((partid >> 4) != data->chip_info->partid)
- 		return -ENODEV;
- 
-@@ -1512,7 +1496,7 @@ static int ltr501_probe(struct i2c_client *client)
- 	indio_dev->info = &ltr501_info;
- 	indio_dev->channels = data->chip_info->channels;
- 	indio_dev->num_channels = data->chip_info->no_channels;
--	indio_dev->name = name;
-+	indio_dev->name = id ? id->name : dev_name(&client->dev);
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 
- 	ret = ltr501_init(data);
-@@ -1583,29 +1567,29 @@ static int ltr501_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(ltr501_pm_ops, ltr501_suspend, ltr501_resume);
- 
- static const struct acpi_device_id ltr_acpi_match[] = {
--	{ .id = "LTER0301", .driver_data = ltr301 },
-+	{ .id = "LTER0301", .driver_data = (kernel_ulong_t)&ltr301_chip_info_tbl },
- 	/* https://www.catalog.update.microsoft.com/Search.aspx?q=lter0303 */
--	{ .id = "LTER0303", .driver_data = ltr303 },
-+	{ .id = "LTER0303", .driver_data = (kernel_ulong_t)&ltr303_chip_info_tbl },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, ltr_acpi_match);
- 
- static const struct i2c_device_id ltr501_id[] = {
--	{ .name = "ltr301", .driver_data = ltr301 },
--	{ .name = "ltr303", .driver_data = ltr303 },
--	{ .name = "ltr329", .driver_data = ltr329 },
--	{ .name = "ltr501", .driver_data = ltr501 },
--	{ .name = "ltr559", .driver_data = ltr559 },
-+	{ .name = "ltr301", .driver_data = (kernel_ulong_t)&ltr301_chip_info_tbl },
-+	{ .name = "ltr303", .driver_data = (kernel_ulong_t)&ltr303_chip_info_tbl },
-+	{ .name = "ltr329", .driver_data = (kernel_ulong_t)&ltr329_chip_info_tbl },
-+	{ .name = "ltr501", .driver_data = (kernel_ulong_t)&ltr501_chip_info_tbl },
-+	{ .name = "ltr559", .driver_data = (kernel_ulong_t)&ltr559_chip_info_tbl },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ltr501_id);
- 
- static const struct of_device_id ltr501_of_match[] = {
--	{ .compatible = "liteon,ltr301", },
--	{ .compatible = "liteon,ltr303", },
--	{ .compatible = "liteon,ltr329", },
--	{ .compatible = "liteon,ltr501", },
--	{ .compatible = "liteon,ltr559", },
-+	{ .compatible = "liteon,ltr301", .data = &ltr301_chip_info_tbl },
-+	{ .compatible = "liteon,ltr303", .data = &ltr303_chip_info_tbl },
-+	{ .compatible = "liteon,ltr329", .data = &ltr329_chip_info_tbl },
-+	{ .compatible = "liteon,ltr501", .data = &ltr501_chip_info_tbl },
-+	{ .compatible = "liteon,ltr559", .data = &ltr559_chip_info_tbl },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ltr501_of_match);
+   reg:
+     maxItems: 1
 -- 
 2.53.0
 
