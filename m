@@ -1,47 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794773566;
-	b=S5Gp9ySNEC6AFSQwyG3AZGGSZKwGgaeNwxAS2Dx1KH/WAvw/VyuSx/fZVfOcQtBfXHqR
-	 77uWr2/SKMsH3pPPab/c4P6TOURBAIWlbTzQ81LNij0xusksmGet1h2/G9OHKK4T/8Xs+
-	 nr6qFO1gKT5OEuZ5QIFTnNGtrE4b1A7d2s68WEKwKtSxH2TTMR6Gr532SUOnW1LkzVF72
-	 VHxLm6d984J0YJxU3GFSaUGrtg2za3g+1+izfDR4oV8WnTyNgRXrx+aR12W/J2B+UjUGK
-	 Ldma2xx5Ww65/J5FijvImPs27WdTAe8xDmQwzgU25TlQtuhqzIhbZYX52bGcIRYRWiQ==
+	t=1794773634;
+	b=GdXIoi4dlX+M3GmkO3zzO89hF+5p8c4PC5Pm4T5bDV9DcIhJg1vBiHxmE+F9HP+tu85e
+	 x/kFi6JGAidyJVXjBIygKfXFk9Kej26AuEvcW28Cb95ddrpbIW7kb1kzxUy50QVF7EFY+
+	 MpwtNTYWYGmL2mgg3eA9cVfUYgr4NrHW0pZGt+YVaQ1cyHrm8bX86u/SMc4Ix+NHHmGMB
+	 CYFwBKVBd5+bNBVshCWa17nEm4asH8mwRS2eL5tiK6jffw9DVzhps1td5sNMHROeafhmm
+	 OHIJ+yAG0hfEwa8fXUFqW2Db4oLM2wwfm0ZpeCVfvF2PxArfIbHMM7UzEaEbogy4cdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794773566;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=W7R9r3+PwO3HaNMfswYZf8EFH77zBYz1+XEhTJUYx+M=;
-	b=usztSzfK5g5oZarjGhGJYLHupkXtN1cQuZYCv3sMglbE9uI0vMIJKptbgtZVbvmmRhUl
-	 MeOMZkG/g6LnoIwxyU39a4YmEvwkg/eUIyQ2KRgGuqWpRfKYZmsSY3amDQsICoLPnimaA
-	 P6KAZTiQ8zlgUxQinwR8VvOKOtGAU/LkZaFHHVBQohGH0YJC3alWKUpgLwq3MQ9+VW3qf
-	 +yS5USkNqAGEXaoVZM99e9KU4qCk7KJ2lihmoHJcezpeVoDi/32qNFuKxM9weugj5mE9D
-	 zqF2anvXIVjhoYxKsTCizpc+B5K+n3V9R1x6ZHlBENIZlUZ36BplHOopGNaVYpCWnig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794773634;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=f+bQpVSgDI9YHgjl3uDB+ouh3VGlh507cbkdzb6YPLM=;
+	b=Sglw+87pkeE+EGIZOKeTkNejDvtfaGkvtStpzpETTKv0uWMjgIxcVQ92gBdE4DxWd7cT
+	 J+a4BZs5MsFRskgoVnJFbcPa0NEaZIDxYmk7pUd3vP90C3a73ohyDrPnDRDmTBd8Nhtnr
+	 Z4dQLG+wMTysGIvsVp/MvXUXt8wfh8YahgudYNLybMuriM9ObS6aMG8Ui10sgAr8Vy+o1
+	 KdwxCs5Y7TDnOYwbL4kWLwtWoyCBndjwhEn+Hn9sYkDJVOTUfJQbgOFKdv+zyB7CRnZng
+	 MFo1RWYAjesreEfRPrd4NsCo6pxlr7O1dKIVArIufMDMUCUBQZiNUiKZsZdMK0pnyyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDhK48jw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=az0ETHMw;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F04606A31F;
-	Sun, 15 Nov 2026 20:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC40D606A329;
+	Sun, 15 Nov 2026 20:13:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC40D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDhK48jw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D3F81F000C5;
-	Sun, 15 Nov 2026 20:12:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794773566;
-	bh=W7R9r3+PwO3HaNMfswYZf8EFH77zBYz1+XEhTJUYx+M=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=WDhK48jwW1Vx6WX07O0i6SJ9G78dh75BDhksEf6cqhffnI+lX6ecIhFYNAJIa4nTK
-	 VCKyMv/+VPnEKUXymzdGgh26+v/JaBZxv5U/pGc3LWE1+C4Z+hrFMFFgRF/WWGmgeH
-	 Z0/OO3QxkERQpZZhZqMYE8Igjm9upGMEotY1gpeR9YagVZhrOA+euBMkGTdkZCkXD6
-	 XLEazZ4ll7Y5tp4/hqmrnM33rOmvg7RzVml13mfOdCjrZQlQEnDMJ9vUd3MouL8wZJ
-	 822OuaB1IQTHT6I4peHzCpXampCtfXuTvGm9ijwAN+GieVlA5x2MRw1xHkdVGoQNNm
-	 gpciHRwiqx+ww==
-Message-ID: <206de2d5-ef5a-4490-b6b7-c0e98893ec5b@kernel.org>
-Date: Sun, 15 Nov 2026 21:12:43 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=az0ETHMw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794773633; x=1826309633;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4EUxz6kYyIg485rNagv9WP+UBIapCrWnWFgWZ0hpUOI=;
+  b=az0ETHMw4JUUcppgmBRaODCVJYPDZTPZuHfeuBz4nDsTkDFn3Qg7NGGa
+   Sdm5qZmYs6KZcC0ZeZf41OTf5PjF1/bD2gTDmNIDhH/Z9ZlL4GCmrkEzY
+   sEK+kW8Kg3pnau375biOvxw8WsBFeXX31cXHG0i8LC8eaefpsIFsBqzJc
+   TJguz36a4oAqUsZICzHChfwpcK6W6XPqOKQvhAzlXj/0S0IvdD9sXukG/
+   DUYzRupq0yVrGYwuE2yY8e4en2jGIVZuF9almipdL9DIqkBQYmgsZijqU
+   gic1SEx1YSCd67E6/rI15M6J2SPcJSqasi+AkYvVNr1On9qWgKFr1LDVN
+   w==;
+X-CSE-ConnectionGUID: MYThkw/USOS04RMz/6slkw==
+X-CSE-MsgGUID: 4iVJ7AVnSkSHh3PqFECQxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3414809"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3414809"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 12:13:52 -0800
+X-CSE-ConnectionGUID: Hh+oXZIfQaK56gV3BeGD+Q==
+X-CSE-MsgGUID: mU3PirwFTAe18BsffREvew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9713891"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 15 Nov 2026 12:13:49 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSgbh-000000017G4-2KLl;
+	Sun, 15 Nov 2026 20:13:45 +0000
+Date: Mon, 16 Nov 2026 04:12:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>, Guo Ren <guoren@kernel.org>,
+	Pekka Enberg <penberg@kernel.org>,
+	Patrick =?iso-8859-1?Q?St=E4hlin?= <me@packi.ch>
+Cc: oe-kbuild-all@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Subject: Re: [PATCH v4 2/3] riscv: probes: reject probes inside an LR/SC
+ sequence
+Message-ID: <202611160417.wVX1is4j-lkp@intel.com>
+References: <20261115-probes-in-lrsc-v4-2-48b9b036bd1d@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,86 +91,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] platform: lenovo: architecture independent home
- for the Lenovo WMI drivers
-From: Hans de Goede <hansg@kernel.org>
-To: David Cemin <dcemin@nvidia.com>, ilpo.jarvinen@linux.intel.com,
- W_Armin@gmx.de
-Cc: mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com, xy-jackie@139.com,
- ikepanhc@gmail.com, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, ldemarchi@nvidia.com
-References: <20261113222755.1696567-1-dcemin@nvidia.com>
- <e8cef61a-2864-4749-a734-3c42c2f32f28@kernel.org>
- <8aa1533d-8f9c-4c69-aa34-266ea3beb54e@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <8aa1533d-8f9c-4c69-aa34-266ea3beb54e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115-probes-in-lrsc-v4-2-48b9b036bd1d@mobileye.com>
 
-p.s.
+Hi Vladimir,
 
-On 15-Nov-26 21:10, Hans de Goede wrote:
-> On 15-Nov-26 16:33, Hans de Goede wrote:
-> 
-> <snip>
-> 
->>>   b. Should the Fn key event handling stay a separate small driver, or
->>>      be factored out of ideapad-laptop so x86 and arm64 share one path?
->>>      ideapad-laptop handles the event only when its VPC platform driver
->>>      is bound, and the arm64 machines expose none of the VPC interface
->>>      it is built on (no _CFG, VPCR/VPCW, DYTC or HALS/SALS), so making
->>>      it the single driver means gating most of its probe. Two smaller
->>>      options: lift ideapad-laptop's own Fn key wmi_driver and keymap
->>>      into this file and let ideapad-laptop register for the events it
->>>      still wants (Fn lock LED, DYTC cycle), or the hid-asus/asus-wmi
->>>      shape where a companion WMI module exports the event to a
->>>      subsystem driver. The keymap in patch 2 duplicates entries of
->>>      ideapad-laptop's table on purpose until that is decided.
->>
->> IIRC the ideapad-laptop driver is a bit of a mess atm, so factoring
->> a common handling for the the Fn key events out of this and sharing
->> that sounds like a nice cleanup.
->>
->> I see that patch 2/3 uses the new wmi-driver/-bus infra which is
->> nice and clean.
->>
->> So maybe just keep your existing stand-alone driver for both x86_64 +
->> arm64 and drop the WMI event handling from ideapad-laptop.
->>
->> I guess this may hit some problems where WMI event handlig is used
->> in ideapad-laptops integrating with some VPC functionality.
->>
->> For that purpose I think that the new
->> drivers/platform/lenovo/wmi-hotkeys.c could maybe expose some
->> notifier and call that for events it does not handle itself
->> and then ideapad-laptop can depend on some function to register
->> a listener on that notifier (1) and register a notifier handler
->> staying out of WMI handling itself.
->>
->> No idea if this is feasible / how clean the end result will be,
->> just brainstorming and saying yes to doing some refactoring of
->> the somewhat messy ideapad-laptop code.
->>
->> Note that https://github.com/systemd/systemd/blob/main/hwdb.d/60-keyboard.hwdb
->> has some mappings for "Ideapad extra buttons" input devices
->> (+ DMI match), so if any of the buttons remapped there end up
->> under the new WMI driver then that should probably give its
->> input device the same name, to make sure those mappings still
->> apply.
-> 
-> Also see this just posted ideapad-laptop series which does
-> something similar for handling YMC events:
-> 
-> https://lore.kernel.org/platform-driver-x86/20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe/
+kernel test robot noticed the following build warnings:
 
-I see that this routes everything through a new lenovo wmi-events
-helper which uses a single notifier to which interested parties
-like ideapad-laptop can subscribe. I think this models could
-be extended to also handle the hotkeys, assuming all the base
-bits are moved into the new drivers/platform/lenovo/ dir.
+[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
 
-Regards,
- 
-Hans
+url:    https://github.com/intel-lab-lkp/linux/commits/Vladimir-Kondratiev/riscv-kprobes-fix-out-of-bounds-read-in-riscv_probe_decode_insn/20261115-143733
+base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
+patch link:    https://lore.kernel.org/r/20261115-probes-in-lrsc-v4-2-48b9b036bd1d%40mobileye.com
+patch subject: [PATCH v4 2/3] riscv: probes: reject probes inside an LR/SC sequence
+config: riscv-randconfig-1000-20261116 (https://download.01.org/0day-ci/archive/20261116/202611160417.wVX1is4j-lkp@intel.com/config)
+compiler: riscv64-linux-gcc (GCC) 15.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160417.wVX1is4j-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611160417.wVX1is4j-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   arch/riscv/kernel/probes/kprobes.c: In function 'arch_check_kprobe':
+>> arch/riscv/kernel/probes/kprobes.c:72:20: warning: suggest explicit braces to avoid ambiguous 'else' [-Wdangling-else]
+      72 |                 if (tmp == addr)
+         |                    ^
+
+
+vim +/else +72 arch/riscv/kernel/probes/kprobes.c
+
+c22b0bcb1dd024 Guo Ren             2020-12-17  51  
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  52  /*
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  53   * Walk the instructions from the enclosing symbol up to addr to check that
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  54   * addr is an instruction boundary. Then reject a probe inside an LR/SC
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  55   * sequence: the breakpoint trap drops the reservation, so the SC would fail
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  56   * and the loop would hit the probe again on every retry. The sequence is
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  57   * recognised by a forward scan with the constrained-sequence rules, as for
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  58   * uprobes, so an lr that is not followed by an sc (as in __cmpwait()) does
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  59   * not taint the rest of the function.
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  60   */
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  61  static int __kprobes arch_check_kprobe(unsigned long addr)
+87f48c7ccc73af Guo Ren             2023-01-31  62  {
+9e68bd803fac49 Fabian Vogt         2025-09-10  63  	unsigned long tmp, offset;
+9e68bd803fac49 Fabian Vogt         2025-09-10  64  
+9e68bd803fac49 Fabian Vogt         2025-09-10  65  	/* start iterating at the closest preceding symbol */
+9e68bd803fac49 Fabian Vogt         2025-09-10  66  	if (!kallsyms_lookup_size_offset(addr, NULL, &offset))
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  67  		return -EILSEQ;
+9e68bd803fac49 Fabian Vogt         2025-09-10  68  
+9e68bd803fac49 Fabian Vogt         2025-09-10  69  	tmp = addr - offset;
+87f48c7ccc73af Guo Ren             2023-01-31  70  
+87f48c7ccc73af Guo Ren             2023-01-31  71  	while (tmp <= addr) {
+87f48c7ccc73af Guo Ren             2023-01-31 @72  		if (tmp == addr)
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  73  			if (riscv_probe_in_lrsc_body((u16 *)addr, RISCV_LRSC_SCAN_BYTES))
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  74  				return -EINVAL;
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  75  			else
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  76  				return 0;
+87f48c7ccc73af Guo Ren             2023-01-31  77  
+87f48c7ccc73af Guo Ren             2023-01-31  78  		tmp += GET_INSN_LENGTH(*(u16 *)tmp);
+87f48c7ccc73af Guo Ren             2023-01-31  79  	}
+87f48c7ccc73af Guo Ren             2023-01-31  80  
+c0b7e72c7a4b06 Vladimir Kondratiev 2026-11-15  81  	return -EILSEQ;
+87f48c7ccc73af Guo Ren             2023-01-31  82  }
+87f48c7ccc73af Guo Ren             2023-01-31  83  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
