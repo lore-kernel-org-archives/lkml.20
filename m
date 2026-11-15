@@ -1,61 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727838;
-	b=ZdBEsGN3eZwFonDhDKy+FeY5KLmK+5mdHgD6SsQ9ot/Gka6YgxmhsYQKcEdKrHTTCeNa
-	 KN1QfcuPU9jGl3L4nogZ908WBftqNz00exwaGcOReykuBxzRorc6RPlRq2S57h5PsscOe
-	 8cGjV3xeQToh+uRSMg19hVR3BTzKdL9amvrrEHOvY/ZUJae+2Txy8LTSntjuRXOXUBAKG
-	 lodw30hRKskFrSbSuvIfIJ1NL+YoOonYAxGAN4NY0HxostpOBAi8qmasnOgoP00euXK5C
-	 QwANE603Oc/KbCtn1s3udUIu1H+s67//sy5cUQ9ho8kn28GOsezn2SeN2i1ft1N3mVw==
+	t=1794727876;
+	b=Z4+2zEh3oirNftM9BF25tYLP/kzCKfhKJYjC/GkjVbVd/fx+3/Gykwd+gJc+wvJPPBoo
+	 9e0TEBvIaTYymsfs8w/WerltZBnpu2judVVVINQbtOtXWaibyoXs+bryu8OilUqmQR0qU
+	 r+R6swvYmk3D8Aawr9KKLEj/aBxJrphLJFvtcc3maaDTs8TCSOXa0cieZHG8X1GXdsFeR
+	 htehb/agb6U88k5w8T17EVqhq9yL5Sko/pKR3hUKbws5SN+ZyCzcL2zJz0gqGdQIGKx+M
+	 KI6qr7aCypLBvRr6jfehveq73Xo9FY1TYvEYwaB5/Y2K7n845tK1eHqU3hvFhXZkx8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727838;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=wnuFYzbhBXekzIWEaL42aGNHtd+IajpxPPBS5oHSFLw=;
-	b=dzJ0im8/tsTcx/JzqRAmMLtcZKisw9+U86nzOpi0LisGR9Az3PdcpFzGgMKVnI44RsHP
-	 pJtmPh3J7e3ryfdCteqTkRadm3tzqf5zxgjNVpKB/kLKbB4vjQzGdH+/Ff+e13bn3chCX
-	 QGA+OS21u/9F2CIPabg6kNGtwcuZYjGWdmrp8zCcULWyrkHfMYZoXHOBizqjx0ImLq9Ew
-	 5wyAhPqPyuda3zAvfWUBlWLey6RkhqDfw5mr1BAuQzwtnBbnDB1vh2B4sfZOyjvZTclYx
-	 yZSmiwCrIuCe5iAAVz33mk1hXiMFC05iXed80aVbMgbUCZK7vXI8Tw7l/R+RjiwO6Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727876;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=qI3xoqr08MTqFKH89OHdawFy9+IYpxgrM6eMy9hh1r0=;
+	b=Z0ez9izwSRKiiWedAFiepSiwl1HxnjdixbSZhsCBBFkRzQoF19Ox/qD0mtwormF9zHxK
+	 i2iQQVPBp9StELyTFQHKsiflW2WwKgYtp1qlgiAtC+ft8vWRFlDAI2W73Pc3ctRAicRBi
+	 GxjeOLSEngXIIRJCxWfMDQtH3HpCppHu8fviio66l5GqfYezacG/VPbVliVlWUxlfJa0U
+	 Ctd4goBw4IoQafZmRqlX0PNIQP/cOsLG78zz+yhA3NJNT+Ebrbs8O395WE2HWi4cywpvl
+	 Pg2hXNeLznVpZg6Wvv3VnOEDhbsStPNTjzoybCjGgvH3pL21eDAIEcqtAu4SI6SvFog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZN2/yiOV";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfHX33b9;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FEDA606A31A;
-	Sun, 15 Nov 2026 07:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FBB606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:31:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90FBB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZN2/yiOV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8481F000C4;
-	Sun, 15 Nov 2026 07:30:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794727838;
-	bh=wnuFYzbhBXekzIWEaL42aGNHtd+IajpxPPBS5oHSFLw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZN2/yiOVFnaePFSzA+kAesklGPjKiJlJU8Mu1knrXurzxEGSlLb4XITD4+SaXCLSw
-	 bAcXL1kn6TfB+rSp9dE+zvAImUe8bmjFO7bv7S6JIbIl9T8N5cmLEA1p6Oe4wGtorV
-	 cz4vYgSvT8JsJQ2VAgf4UdleM9kmk55gRMc91q3uWKrb0GKJCLbB7Y/r1a9CLUXs4Z
-	 +XST2wNTUaeqLthEnwAJ7JDNCp/F9YsrkGxghdmK1fhI4VJH2EBlXaG4YvttB0QSXs
-	 M0mfmpzqpuxykHPlK76PC2ZrP4GEiH8NsKaFDfEqyzK/nbRWGGwJUC6Y5TcWkCAv1w
-	 dTurQY6RyJkHw==
-Subject: Re: [PATCH net v5] net: ethernet: adi: adin1110: mask the RX IRQ of
- the port being stopped
-From: netdev-bot+sashiko@kernel.org
-To: wuyuehong@cmss.chinamobile.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, kees@kernel.org,
- nuno.sa@analog.com, hkallweit1@gmail.com, nichen@iscas.ac.cn,
- alexandru.tachici@analog.com, lennart@lfdomain.com,
- linux-kernel@vger.kernel.org
-Date: Sun, 15 Nov 2026 07:30:37 +0000
-Message-ID: <179472783713.2199510.12438659767919750066@kernel.org>
-In-Reply-To: <20261111-adin1110-net-stop-v5-1-yuehongwu@cmss.chinamobile.com>
-References: <20261111-adin1110-net-stop-v5-1-yuehongwu@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfHX33b9
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so2719972f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:31:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794727875; x=1795332675; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qI3xoqr08MTqFKH89OHdawFy9+IYpxgrM6eMy9hh1r0=;
+        b=sfHX33b9HzNVq08BaSf4y0sViK/MK0chzVBJ0Q+gvrAe9T8wXjtDwJMVvfNxxjvT9l
+         SEWTWE0sZtcsNwKWEFyXzvLZNe89AQsVdApUgEXQBL0TJsoj+jbScFkEv+3jRZ1lB8vf
+         d/rISxDPp+F/K0bJHknHkk8CXnGYEM/127Yv2NeUvCKPhYO+eTU9rpQmEU6Dd62/EQvB
+         fz0HUNzeHXC6U3b4kz52ODEk3D6rWUXeADFYBeeqPtDrSrS3EHKV1D44l3N4ZEbUKSDw
+         GOdF9hL5WuF6stzHu5B4BcrufdthWBPcUDcNVZnPgxjB1MxYoePPvR2o1eoXKeb9bMzV
+         K9GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794727875; x=1795332675;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qI3xoqr08MTqFKH89OHdawFy9+IYpxgrM6eMy9hh1r0=;
+        b=F/TfEwDHE12rnGI3f+ZhVHac6SEsTzoONQXv9UzOuqB/UIT8WuO2YzjFsdnw0ymZGO
+         MACn9eDzX1x7hi3pETC6xOmFdgmttUmcR1Qn3qYiLFSdf4qNXRcf1Pm95Aj8Wfs45f+o
+         NfBa8AAyFzyj84VAkjo2HKP+G7qYptdIeWKe4Z0reyI10xM+bxJyfujpwO/ZLPld9bnu
+         YTBeK1DB/8Y2/r6U3uIuMs43pcHYQ8HqcDTBQlr9gVrOYRWXXAgFndTtQiVf/XZqnwVZ
+         PnBFgybVfL4Hn8c6diKfMi4GLI2jySYcEd22cEab8pePgz7FzaFXL/KqkUH+iXKmanLX
+         T4nA==
+X-Forwarded-Encrypted: i=1; AL+hErFApf1vL/MghrMNz5nlOIhbFQBXJIvUUjMnTwDPnp5tuz+ytTfs6AM9eAuBysimlVxSpr8OrcZdudFNfHk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vUSS9HABMy3ZBfzYr9EnjsZOSevuAoAcyJnVIYcuNdKxsoMvM
+	Acp2cROhCcYD0aOX6EQ917dDe3jBU2dFNlXPaH+1jvQ9QkFbLty9JFSq
+X-Gm-Gg: AYBFou1Zq8k8X60i3YJcFnnC81MBskxqp49vxwwJ7nnU5/syj/zLhVmR1EsIxfoP/8M
+	y4QEx39L4RoAVn89jrWmQL20HeXR+JUSbg5bA6equJLjufje16ABg+NaTDVVVSpjmpPkLD7GJL1
+	+y9RTjG3le7LSWgBhHL4eRiH+lfF3LLaNe/rngRwvz8fgrwgwamNXN9JObOdvbj4RKEteukf1fk
+	nzXe73baAND/Aj+20o9bNvHeKBQd/ImxiC3DjunZKfIMvcSZG7ZAygnwDlYNYmuQW8pg4QR1LRd
+	eqzTzuEpdNfhBKaugwxNK94Ying3eiaR9ULt5INYFhkSt72wzhWi2ZuQ3rNwZ4YXUDYy2XHMRBg
+	rsxgf6D/Lzwg+pVJpYUqx39RIaCFyulOL0tWsmizLzq0PrYPZiCctYivVNOYBhYsY/Q1EYf5K0/
+	JTJ9ApfTZTvIYBfgSCnnIFPim1oziVrDR3OgRn8HdC0AfQ8wQs6MjQLbpAqpStyq5vHY+z03hn7
+	TKSXOP/CIuvZw6XB+6VD4K6ZAOdY0qj7cJoXrHF8Wn/dFPgzHMasjLBEDCY+TvzzSIUKipVQgEh
+	9GX9lsM238i07g+snzzhhEMCKUrSgM2deumXqvg4aq2kLLoIrtRhXc1yJqWpgafX8dsweExgBam
+	5FXzRtSEuUuRlAXT4mBxgPcUfUaOIcsKXCbt2ZuDz/f/vNh22nxMfWm3aYkeLUBkwTQpXj5Gujj
+	saa6gr18bTUe7piNkW0sAZb3dq6Gaef6ZvKKwrVhs23ww3DkwdXa8ZY8c1Dh+tKl5v9D2b0uxa7
+	hUBY7xA72zohGvDXY5s8Ub7lg==
+X-Received: by 2002:a05:6000:25ec:b0:493:803e:800f with SMTP id ffacd0b85a97d-49c725e5749mr15660384f8f.29.1794727874441;
+        Sat, 14 Nov 2026 23:31:14 -0800 (PST)
+Received: from jernej-laptop.localnet ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c0e31sm12992274f8f.19.2026.11.14.23.31.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 23:31:13 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
+ Han Gao <gaohan@iscas.ac.cn>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Maxime Ripard <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Andre Przywara <andre.przywara@arm.com>, gaohan@iscas.ac.cn
+Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ devicetree@vger.kernel.org, linux-csky@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+Subject:
+ Re: [PATCH 06/19] clk: sunxi-ng: add support for the Allwinner V861 CCU
+Date: Sun, 15 Nov 2026 08:31:11 +0100
+Message-ID: <c8OwiyQSR8ivEFULfFWNow@gmail.com>
+In-Reply-To: <20261114-v861-v1-6-eb71ec3ee523@iscas.ac.cn>
+References:
+ <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-6-eb71ec3ee523@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,119 +121,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Dne petek, 13. november 2026 ob 23:33:32 Srednjeevropski standardni =C4=8Da=
+s je Han Gao via B4 Relay napisal(a):
+> From: Han Gao <gaohan@iscas.ac.cn>
+>=20
+> Add the main CCU driver for the V861, based on the A523 one. The CPU
+> PLL, the CPU subsystem clocks and the E907 clocks are left to the
+> firmware.
+>=20
+> Unlike on the A523, the second divider of the 27 MHz output is a power
+> of two. pll-audio-4x does not pass rate changes up, as its parent also
+> feeds the UART clock mux.
+>=20
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Do you have any user manual for it? Or at least BSP code? It's hard to
+review patches without any of those references.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Best regards,
+Jernej
 
-- [Medium] When adin1110_net_open() fails after it has written IMASK1,
-  the port's own RX-ready interrupt stays enabled even though the port…
 
---
-
-net: ethernet: adi: adin1110: mask the RX IRQ of the port being stopped
-
-This patch changes adin1110_net_stop() so that it masks the RX-ready
-interrupt bit of the port being stopped instead of the peer's bit. It
-also changes adin1110_net_open() so that, on ADIN2111, the peer's
-RX-ready bit is unmasked in IMASK1 only when the peer is running.
-
-> diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
-> index 53fac3dc8be62..c41fad7835d07 100644
-> --- a/drivers/net/ethernet/adi/adin1110.c
-> +++ b/drivers/net/ethernet/adi/adin1110.c
-
-[ ... ]
-
-> @@ -895,12 +896,24 @@ static int adin1110_net_open(struct net_device *net_dev)
->  	if (ret < 0)
->  		goto out;
->  
-> -	val = ADIN1110_TX_RDY_IRQ | ADIN1110_RX_RDY_IRQ | ADIN1110_SPI_ERR_IRQ;
-> -	if (priv->cfg->id == ADIN2111_MAC)
-> -		val |= ADIN2111_RX_RDY_IRQ;
-> +	common = ADIN1110_TX_RDY_IRQ | ADIN1110_SPI_ERR_IRQ;
-> +	own = !port_priv->nr ? ADIN1110_RX_RDY_IRQ : ADIN2111_RX_RDY_IRQ;
-> +	peer = !port_priv->nr ? ADIN2111_RX_RDY_IRQ : ADIN1110_RX_RDY_IRQ;
->  
-> -	priv->irq_mask = val;
-> -	ret = adin1110_write_reg(priv, ADIN1110_IMASK1, ~val);
-> +	/*
-> +	 * The write below is absolute, so only keep the peer port's
-> +	 * RX-ready IRQ enabled while that port is running; a stopped peer
-> +	 * must stay masked until it is opened again.
-> +	 */
-> +	irq_mask = common | own;
-> +	priv->irq_mask = common | ADIN1110_RX_RDY_IRQ;
-> +	if (priv->cfg->id == ADIN2111_MAC) {
-> +		priv->irq_mask |= ADIN2111_RX_RDY_IRQ;
-> +		if (netif_running(priv->ports[!port_priv->nr]->netdev))
-> +			irq_mask |= peer;
-> +	}
-> +
-> +	ret = adin1110_write_reg(priv, ADIN1110_IMASK1, ~irq_mask);
->  	if (ret < 0) {
->  		netdev_err(net_dev, "Failed to enable chip IRQs: %d\n", ret);
->  		goto out;
-
-[Severity: Medium]
-The commit message says "A port's RX-ready IRQ is now enabled only while
-that port is open". Is that still true if adin1110_net_open() fails after
-this IMASK1 write?
-
-This write unmasks the port's own RX-ready bit. Three later steps in
-adin1110_net_open() can still fail, and each one jumps to out without
-masking that bit again:
-
-	ret = adin1110_read_reg(priv, ADIN1110_TX_SPACE, &val);
-	if (ret < 0) {
-		...
-		goto out;
-	}
-	...
-	ret = adin1110_set_mac_address(net_dev, net_dev->dev_addr);
-	if (ret < 0) {
-		...
-		goto out;
-	}
-
-	ret = adin1110_set_bits(priv, ADIN1110_CONFIG1, ADIN1110_CONFIG1_SYNC,
-				ADIN1110_CONFIG1_SYNC);
-
-out:
-	mutex_unlock(&priv->lock);
-
-	if (ret < 0)
-		return ret;
-
-When ndo_open fails, __dev_open() only clears __LINK_STATE_START. It does
-not call ndo_stop, so adin1110_net_stop() never masks the bit either.
-
-The port then ends up in the state the commit message describes as the
-bug. Its RX-ready interrupt is unmasked, but the handler skips the port
-because netif_oper_up() is false:
-
-adin1110_irq()
-    adin1110_port_rx_ready()
-        if (!netif_oper_up(port_priv->netdev))
-            return false;
-
-Any frames left in that port's FIFO keep the level-triggered interrupt
-asserted, so the threaded handler keeps running and drains nothing.
-
-On ADIN1110 this lasts until the next successful open. On ADIN2111 it
-lasts until the peer port is opened. The peer's open sees netif_running()
-as false for this port and masks the bit again.
-
-Could the open error path mask the own RX-ready bit in IMASK1 again while
-priv->lock is still held?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-adin1110-net-stop-v5-1-yuehongwu%40cmss.chinamobile.com
