@@ -1,65 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.234
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794729661;
-	b=2TexzMPMaUZ2l5wdm+mytn344jrBjWDBvKeuOKELg5/PYsH/Ki+w+F70X5ViCB4PVYxC
-	 fLzg2nxii2LwXb2eTK/sSETIgQdGn3KkL014V/RxC8msmbsKTL0M/9Fe1aM/7YYNUjF7k
-	 zPYixuqBkkJhPliw9tYUCKMPTC7c3Yt5n7Q0QQp/NY3Y6TE1hYqcw6FodeyTXtLry0xCT
-	 Ql818HuCBvVfLLgldhujdYZGuFWKlUm1pAbONVU+W4Kma22d1OzECQ4NtdnruhEdiOhLb
-	 A7+ykhSGEM7bBzBzJLWgwhJPgSp4njM0VdCuIGfLeI3eCwl1KRBwxBC2sJtXpZlJcPw==
+	t=1794729702;
+	b=KgNgWH+mZ3ezoYvWyOh4TIm/TpPj+eNmqgJzCKSI8lPtAVni20amyxdn/2B0Cuc5HgPo
+	 jGE1zPExkZhAqqwG3aBGe1KGfXXtm0rdnNzI0YsEns89qWjvJMjmufRRLR7kyYwxycx5m
+	 QyIYz6BggQbKgJAlJCnTc12d3kfSdP0sy/S8aQDV420ktR3g8pk5VGMYPh7iWOB/56+C8
+	 rEEOSNHjaB46xFP+iacaQ5l0Eronhu0Yv9SLBuubR2lms7I8/qdYveTG+AVeoTIgGbgjD
+	 PIbkDscom/ts4WLMFNb+Jmhbe2KZCbzoCBRYBjmKRH5iVgk0wUcbRWj+oW1UxeLy+ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729661;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=60gsrEbAuJheAzPFFTSSLkUWfF1qdMXOYWZtQkOXi6g=;
-	b=jnxYp2cZexC689Wf+kjEM7e89F+PpuKlOQB6+qEKVXEZOx87vWwFrFJ9HibQs7VTkL3d
-	 w+h+65kIgXGKSBW4r4HH4AmyNc0MiWq4Q7ISv/M4oIW8CV93LHjXsgWlq1uhTYE65OIWC
-	 mvOgxUsFdjnMYDEpUan4cEqqLls9X0+F+DDsfuyUU6A1eHAA6kzOC9EdRlj/uCHziyOMu
-	 YoNK9jL2BBEZZhKmJtidD0RfgEwoS94+mLfiBiqisFIKg4P2mR+CQSQoBNXjiZnZJzz88
-	 JO6w/uBpUJKhb/bXauaQrre7mpucXCLlC1E2eCRGyI1HSd+Thl+baoWtn9RXSxWuiKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729702;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
+	b=mVBDMEp4HX2J1VRQ/xgwNGwtoOkSR+yGLNez6wxBnupD4z0p7VFcSAIVmEArB4PeOHa+
+	 H4TI71JuwU+OeHFi9053RUDb3D7CBWLiObozFkTfVaCvePrWHxY3d4CtLs5jSXLDKv/n1
+	 loE44VOj9vCyKgboepeqZO3UiLsncRmA0uJjh1g+/UsCtvkBMC4/i9e1M2/OWHsz1K3o+
+	 5Lv3T5oHARDeT+onbg7JWzw93KBKxe2SG+GjyEcckhGlWa8M/7bbWHGhEFJqD8bNcIrKr
+	 wIKa80VLniKw4FnlrBZ4c3mkp78OZ8YmZ874wVIQ9zetvW6i1ptDw7+SEONbksdbZ8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZymTR8c6;
-	arc=none smtp.remote-ip=95.215.58.234
-Received: from mta1.migadu.com (out-234.mta1.migadu.com [95.215.58.234])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Si/Mdjj7";
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCB5606A33D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFCB5606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFB8606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFB8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZymTR8c6
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LNnxampF1hSfK2nrRVdNwXWnI4MpuaWWr622AzfxeHY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794729656; v=1; x=1795334456;
- b=ZymTR8c684kM9FwzuUp5zPC5YO4vsYRMv/T6Au3x7vpVPdhuI4FKr9CRPjtUQ4QAGj2l3NFQ
- fULjfxof9/4bYc71ZgSp3MQCPkkth4yb/dnNqbjHDEnGTAGgPg6svqBVzmtq4zafU7uI8YcPN9y
- /VHh7yfsgB/e3UxWWJT/k3uY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 6126331626ea888a;
-	Sun, 15 Nov 2026 08:00:56 +0000
-X-Mizu-Trace-ID: 6126331626ea888a
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: xu.xin@linux.dev
-Cc: chengming.zhou@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org
-Subject: [PATCH v2 2/2] mm/ksm: add initialization helpers for scan_get_next_rmap_item()
-Date: Sun, 15 Nov 2026 16:00:49 +0800
-Message-Id: <20261115080049.132515-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261115075832.132109-1-xu.xin@linux.dev>
-References: <20261115075832.132109-1-xu.xin@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Si/Mdjj7
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b1c2c31a6fso252123a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:01:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794729701; x=1795334501; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
+        b=Si/Mdjj768sD2q668cuh3FitL/nAinn/bgSvLZLfFWYX0LpPiohHIGDiNgK5SUCv2s
+         xeLw5794RXcgnMHhCp9xDvPmq/vLHuAQCIQfBAqiBZpAxJ62UaDA+KFyusJFpRvunoJq
+         wsbQCfUKfi1MzsodkZ9wo/XTgxpCFuVehXzLJcv5Agxn4tbDelLymObZhXcrNdgOsKEU
+         LPMC+IkNMD3ZPE1XWM72/Lg1eMbC1nAfx9VdZ81b7fRMYNYu1J9lTGnC8vRjQzRCnjd1
+         LG6cfL95IKft22mmJBQLcDHyAFVRkVTHLbxeaqPNBX0xLpo+yln+zqYLjyWF5axUa047
+         RGRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794729701; x=1795334501;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
+        b=LHva4tZkRC4/ZBKEasoXrTGftry5jlt2fHEnXlZI5EduTf9lEaRaA3dhrvHGZWqslF
+         tkgjpWLSx4hD3nnzhrtFor/UhqtSkIkB/8zYckhj8AhwfA9b5JA5//WtiTnpRjIc/9WG
+         PrTCmDZwsXSOIpImlk6aweYcBwSCzvU7bHUhpmnmW3xzq4VdAvWyfVPaJvRMA8Y1LHsp
+         AOtJYXB4POA/YR0GFnEQ/CGy5utbj/RXhvn6rIkdXRPH7eCZpjD5qHLtopiijFAqIpr7
+         kXKWF9iPIXrByN9qkqZrX89V+ZEcbZyW/AyQkXMZhhhsSUcNxFKNgOnCkMCALPCAO8H7
+         HkZQ==
+X-Forwarded-Encrypted: i=1; AL+hErGlXH70PGMdlln76oa7zcAoEFyu4/zeX+9IqdIPgWbze7HfXuf+FYyZwtUqoKxCn12xZyl6ragceV8MqBA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+A8fQFG4D5eQlroVGhX9cfihuPZL2tR53ks3pCVdBUvWwarIPy
+	lJ+E37cIiLl2awckeAigYuRafmYdnN6OxHXnlHDmb2DjbyDqZs3/TDrn
+X-Gm-Gg: AYBFou3Lrv+GdXP163fzz1aPDnrjKSK3AeCczkX9GbsiBxJ3+Tr+ubnVIX/51RmPjcm
+	fNSLNKpefwAO3YPrCwrL2FZvvnz+Qan++oHR8QXUlGPsHXazPfILV5NfZphuk5ukHTbn9aF44Uk
+	8yyiXluPeA+GrbMRbl2Zc9DhfrB6PZDZHMcvEoE1zOONN9ktCUyjCbD6ty2DVmygF9aM0SsUgp2
+	qVer0Yqo7QjcRrFyrCdA2CUl1XVnYDHnuyrr1NfI4rpTyQf0ztKhYfWgOs3/ES3kxKebXqPPl9O
+	ryFrpYUfnFiXojnqBQfNLekN0Z1SyQs/OhSVPNq+NnK9JYawC11jxKtPGYFNXp/vKtjPvdl680T
+	Dj7RNIPk60RvDo/AZ45Ry+A2dkSTrSsjaMfaMfO017qen/nPHSmn/gSqou2y6rHj798piEj/TIY
+	c4yXOP1Pgk6Ad5O675ob99ahgvSwn16HE+MFepbNmVcgGOVmlS2rgbvi3lqRPNCCqVrc1tV2iXJ
+	1DWgfcqbZARq6pd/yttDxFajmOwZnlPiPaSwjmHTDlTqb7JCHPh/nfhjMgL1VVhRvXHlvZ2Ioo9
+	N7GxvvRUxXhk8K8P29c73KmaLpntbyCHEh+U+yFtAnJDaky4i+BljPiWS9wwd0+FSBeCavL/wTN
+	y+o3Kysk=
+X-Received: by 2002:a17:90a:e7c2:b0:3ac:73c7:9c07 with SMTP id 98e67ed59e1d1-3b1b0608b39mr11786795a91.0.1794729701017;
+        Sun, 15 Nov 2026 00:01:41 -0800 (PST)
+Received: from claudebox.iyengar.cloud ([50.39.139.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3a21769sm6224118a91.4.2026.11.15.00.01.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:01:40 -0800 (PST)
+From: Arun Iyengar <aiyengar1990@gmail.com>
+To: Lukas Splavec <lukas.splavec@puresig.cz>
+Cc: detlev.casanova@collabora.com, ezequiel@vanguardiasur.com.ar,
+ mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] media: rkvdec: Use dma_map_resource() to map RCB SRAM buffers
+In-Reply-To: <20261114094916.28744-1-lukas.splavec@puresig.cz>
+References: <20261114094916.28744-1-lukas.splavec@puresig.cz>
+Date: Sun, 15 Nov 2026 08:01:39 -0000
+Message-ID: <179472969996.3843098.1159119154248532841@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,101 +103,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Extract the new scan cycle check into scan_should_start_new_cycle()
-and add the helper scan_get_first_mm() that advances the scan
-cursor to the first mm_slot.
+Tested on an Orange Pi 5 (RK3588S), rkvdec from media next with this
+patch, KASAN and lockdep on: all RCBs in SRAM now use IOVAs, no IOMMU
+fault or splat, fluster HEVC and H.264 results unchanged.
 
-This keeps the exact execution order intact while making
-scan_get_next_rmap_item() cleaner and easier to follow.
-
-No functional change intended.
-
-Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
-Changes in v2:
-- Rename scan_begin_new_cycle() to scan_should_start_new_cycle() and keep
-  it simple (David).
-- Keep lru_add_drain_all() in scan_get_next_rmap_item() (David).
-- Use scoped_guard(spinlock, &ksm_mmlist_lock) in scan_get_first_mm()
-  (Lorenzo).
-- Keep Lorenzo's Reviewed-by tag as the changes are minor and follow the
-  suggested cleanups (please let me know if you prefer otherwise).
-
- mm/ksm.c | 44 +++++++++++++++++++++++++++++++-------------
- 1 file changed, 31 insertions(+), 13 deletions(-)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 8db6743ece6d..337fcc9c6322 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -2638,6 +2638,34 @@ static void ksm_reset_unstable_trees(void)
- 		root_unstable_tree[nid] = RB_ROOT;
- }
- 
-+static bool scan_should_start_new_cycle(void)
-+{
-+	/* Check if the cursor points to the head. */
-+	return ksm_scan.mm_slot == &ksm_mm_head;
-+}
-+
-+static struct ksm_mm_slot *scan_get_first_mm(void)
-+{
-+	struct ksm_mm_slot *mm_slot = &ksm_mm_head;
-+	struct mm_slot *slot;
-+
-+	scoped_guard(spinlock, &ksm_mmlist_lock) {
-+		slot = list_entry(mm_slot->slot.mm_node.next,
-+				  struct mm_slot, mm_node);
-+		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-+		ksm_scan.mm_slot = mm_slot;
-+	}
-+
-+	/*
-+	 * Although we tested list_empty() above, a racing __ksm_exit
-+	 * of the last mm on the list may have removed it since then.
-+	 */
-+	if (mm_slot == &ksm_mm_head)
-+		return NULL;
-+
-+	return mm_slot;
-+}
-+
- static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- {
- 	struct mm_struct *mm;
-@@ -2650,8 +2678,7 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 	if (list_empty(&ksm_mm_head.slot.mm_node))
- 		return NULL;
- 
--	mm_slot = ksm_scan.mm_slot;
--	if (mm_slot == &ksm_mm_head) {
-+	if (scan_should_start_new_cycle()) {
- 		advisor_start_scan();
- 		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
- 
-@@ -2670,17 +2697,8 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 		ksm_prune_migrate_nodes();
- 		ksm_reset_unstable_trees();
- 
--		spin_lock(&ksm_mmlist_lock);
--		slot = list_entry(mm_slot->slot.mm_node.next,
--				  struct mm_slot, mm_node);
--		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
--		ksm_scan.mm_slot = mm_slot;
--		spin_unlock(&ksm_mmlist_lock);
--		/*
--		 * Although we tested list_empty() above, a racing __ksm_exit
--		 * of the last mm on the list may have removed it since then.
--		 */
--		if (mm_slot == &ksm_mm_head)
-+		mm_slot = scan_get_first_mm();
-+		if (!mm_slot)
- 			return NULL;
- next_mm:
- 		ksm_scan.address = 0;
--- 
-2.34.1
-
+Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
