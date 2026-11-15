@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794712708;
-	b=Rue/wZyvjVb4KeeDT6IOgeDrYCxtG8oAY77z1lCynCbK2jg555lmg35Sm+reI6FsPejX
-	 OA+biqQa/G4CXb3BfnpLBBVTkVUE1x+HUiq7dB4xG6fhCRuSPRtk/gKLJyp3KbCdU+zbe
-	 z6RJ5U5cccnAU5346CJV2dPcf9AEYD7HIcKQ18fllpyYpBNqI2jXslRqoU/7rQjrMyUa2
-	 qkBoJlbYeIB/lpdcRMHKoVQPgAJADIfZHxuzbjee5R9+NBtJAD4GE+0tq59r3/3ZN6MVj
-	 MdB+YQKOKIQGMztlgXj5hOV6uLIiiMUBOMS2C7drYo1iEFAv0pS5cn1hqMtyD5Wt/JQ==
+	t=1794712714;
+	b=x4FzrZDlUB18ykOXeJueQrdSpdaZLcG2474Z7Y/tNSEhrAZFX55uohD5nzbdWFpNZNT1
+	 X6051KtnHRXqKW4Wll3+469o4dy/GAdrdbkclxGIsgf2dGQa7MpzGoeeVvtMQPi8cFYpD
+	 9U2Nz+hqlBFAanS9zAuiKDguOv9InWt//EGeAs3u2CKOKY5EkAFdFdAN6v93KiTxmlj5e
+	 14TLZHdGUr5QijFxBPv4pjqriQUKKTAwcFezn1pav7AuJAghdgUSbMErrVxecVJSyfzlv
+	 j7xLQ00VCBpKrPVFju5jT3r2buuyD1E/CWqRDsb3H3a4XdhzpJWM9cDZHzXEnxsVUxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794712708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794712714;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=6xELBp+yLa1rDoNGymklB/N3IouGpSartu+yBIKoLYM=;
-	b=VBhcc3ZBMqPMBysPDzOryOwO5buF4EFs/S2k8cdodpgAtifZR0/1gqPXgUXXEiExyy0R
-	 NwVW41XRL/hm98R6ZzrAgHh48DF8XJL0x6ZF0HPOkXXyP4F6ixT4xOVz7bDhrcbVDLCN+
-	 WHHkj2Mty628V/kKO3iuszuYbXJLoaO466IrWOBG0z+hZvOwC6l+tn1WH4S5829tErJ/g
-	 ZKHot0JX/SP0LV7hlyAtiBZo5sNkGe9RXVpzi/o+ZlCX+B/BJLkl7O49O/eAUiZzHJq34
-	 hMsSe2p/ysQTPDZUb1aweV7s1XCGshkj5ExU3MWrhlCgmaFv5DiYBT13kEnZArJllAA==
+	bh=+59FBjeC7oJeIISLvvUpOT2DqbU3vKBMYCLmewoC1RI=;
+	b=DqgkJXKyq+rKsY4NfWZVnUzmG0JF0sHm1oPUqbqtZfx/DLCmx0qysU0sHQTJN06mAiAG
+	 HoTq8S6Et/Z0wPxw4qIfiTsgpoUyJRcXQKkNFRt/6s/c7UnmuDYtaxVncCFVJrjwTuVf9
+	 MSiu+MbMtMphSZ43UWJ1qDqw/7+khglhv6N4QDWknRCJzc2DjUXZ/0p0p3GBY5TSRLJRZ
+	 e7bWXCsRC9a6Io2M0cTVcaIs+Qz7EiNfvq4BAQxkgx9WkH8mNKid5iWDbu8OxfXLb0SWO
+	 NmZGHLCS3gtOE8c0pSW9MFVYcjidfu9nXptT25hFkiBlzQ70fhyjeaDumtaUAJFUWhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XE+TbmoL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPuqxtZc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A6660A5BCA;
-	Sun, 15 Nov 2026 03:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8E2606A32D;
+	Sun, 15 Nov 2026 03:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XE+TbmoL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADC411F00925;
-	Sun, 15 Nov 2026 03:18:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPuqxtZc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2740E1F000C5;
+	Sun, 15 Nov 2026 03:18:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794712707;
-	bh=6xELBp+yLa1rDoNGymklB/N3IouGpSartu+yBIKoLYM=;
+	s=k20260515; t=1794712713;
+	bh=+59FBjeC7oJeIISLvvUpOT2DqbU3vKBMYCLmewoC1RI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XE+TbmoLDF9UzbfJoVAvGRVHMKoZ+DrsTGtNSz6uXvziuagHeJEKFqg4bAJNQ7zSW
-	 iJaIpBsWtgEVlRpGLnJ6aMJd9uE+A6Vlff74BcEwIuxUrWrEaypz1JtaByQiqC0Kn4
-	 GVHuN5PgL/pW7Aw5E9WIHzE8C5pShtsKnhHUumSZHuV6Rh6TSAHc3HjnQQg4f55wQB
-	 ykLOsgCxq6lrS4aDUJYkuv0Ka4iDj5x0iGMya6CDArD0NSp7D6qpyOumiUnJB1KAJu
-	 oSDQCYIQQ+7Jv0KVwr4N+o57kNmnyWhCOg/jR93mzO7Co/2ysBSfn7wDdCJUoPAyHp
-	 auJUiVAT7v5lg==
-Subject: Re: [PATCH net-next v1 10/15] net/sched: flower: add psp_spi,
- psp_ver, and psp_dev matches
+	b=UPuqxtZcJdwdzUfuxpVQNuzKP4twGxU2Z6Sz2Z1qo2d6Y0jUrWfOZ6MRuuSsKd2RL
+	 LVkV/zUaQnwK91FoulDf967oMn5AXcJ0zWjEUqT+9oOJV5DjRSYIfoANw/RLLv1gSX
+	 FmZEuAhVI8dNRT2E3vCZnqvA8TXP2IqLmsynZL/1nNLiCtRkbSu+eDg/WM4zwi08TH
+	 Xg8S8g9y/bKIFxMdroqgPEvVvHJoS5EkpdCG5Eizn4ld0QfR6L6vtvo6NuqK0NRZsN
+	 eItDKT458CZMdP6tPF/w6y69DGGCHbJqsDFMz7ED2OqOT/a4GVXJz54H7Vx0/DQtx7
+	 DCY8x+syaNojQ==
+Subject: Re: [PATCH net-next v1 15/15] Documentation: networking: psp:
+ document socket-less associations
 From: netdev-bot+sashiko@kernel.org
 To: toddfreed@meta.com
 Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
@@ -52,11 +52,11 @@ Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
  linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org,
  martin.lau@linux.dev, pabeni@redhat.com, saeedm@nvidia.com, horms@kernel.org,
  tariqt@nvidia.com, weiwan@google.com, willemdebruijn.kernel@gmail.com
-Date: Sun, 15 Nov 2026 03:18:26 +0000
-Message-ID: <179471270629.2199510.9480561958902023552@kernel.org>
-In-Reply-To: <20261111005533.6436-11-toddfreed@meta.com>
-References: <20261111005533.6436-11-toddfreed@meta.com>
-X-sashiko-severity: Medium
+Date: Sun, 15 Nov 2026 03:18:31 +0000
+Message-ID: <179471271167.2199510.6222235735319435450@kernel.org>
+In-Reply-To: <20261111005533.6436-16-toddfreed@meta.com>
+References: <20261111005533.6436-16-toddfreed@meta.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,129 +69,185 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message misstates what a PSP flower rule matches
-  once two key rotations have passed, and it overstates its claim that…
+- [Low] The new psp.rst text says, in the `psp encap assoc ID` bullet,
+  "Encap on ingress is hardware offload only." The header comment of…
+- [Low] In psp.rst, the `psp encap assoc ID` bullet says: "If the
+  association is removed before transmit, or if the packet is…
+- [Low] In the flower paragraph, psp.rst says the `psp_spi`, `psp_ver`
+  and `psp_dev` matches together "tie a decap rule to one Rx…
 
 --
 
-net/sched: flower: add psp_spi, psp_ver, and psp_dev matches
+Documentation: networking: psp: document socket-less associations
 
-This adds a flow dissector key that is filled from the SKB_EXT_PSP Rx
-state of decrypted packets. It also adds flower matches on the SPI (with
-a mask), the PSP version and the PSP device ID. The goal is to let a tc
-rule select the packets of a single Rx association, for example to apply
-psp decap.
+This commit reorganizes the PSP documentation around associations. It
+documents the new netlink commands for socket-less associations, the psp
+tc action and the flower psp_spi, psp_ver and psp_dev matches. It also
+adds sections on fragments and on PSP device statistics.
 
-> diff --git a/net/core/flow_dissector.c b/net/core/flow_dissector.c
-> index 1be6c739e3c71..95d3fa3b1568e 100644
-> --- a/net/core/flow_dissector.c
-> +++ b/net/core/flow_dissector.c
+> diff --git a/Documentation/networking/psp.rst b/Documentation/networking/psp.rst
+> index 0f9b6b73f2447..79b101db5dfc4 100644
+> --- a/Documentation/networking/psp.rst
+> +++ b/Documentation/networking/psp.rst
 
 [ ... ]
 
-> @@ -511,6 +512,32 @@ void skb_flow_dissect_hash(const struct sk_buff *skb,
->  }
->  EXPORT_SYMBOL(skb_flow_dissect_hash);
+> @@ -140,6 +162,55 @@ The PSP assoc state of a socket is not reset when the connection is
+>  torn down. ``connect()`` on a socket that has PSP assoc state will
+>  return ``-EINVAL``.
 >  
-> +void skb_flow_dissect_psp(const struct sk_buff *skb,
-> +			  struct flow_dissector *flow_dissector,
-> +			  void *target_container)
-> +{
-> +#if IS_ENABLED(CONFIG_INET_PSP)
-> +	struct flow_dissector_key_psp *key;
-> +	struct psp_skb_ext *pse;
+> +Socket-less associations
+> +~~~~~~~~~~~~~~~~~~~~~~~~
 > +
-> +	if (!dissector_uses_key(flow_dissector, FLOW_DISSECTOR_KEY_PSP))
-> +		return;
-> +
-> +	pse = skb_ext_find(skb, SKB_EXT_PSP);
-> +	if (!pse)
-> +		return;
-> +
-> +	key = skb_flow_dissector_target(flow_dissector,
-> +					FLOW_DISSECTOR_KEY_PSP,
-> +					target_container);
-> +	key->spi = pse->spi;
-> +	key->dev_id = pse->dev_id;
-> +	key->version = pse->version;
-> +	key->present = 1;
 
-[Severity: Medium]
-Does the commit message describe the right failure mode for rules that
-are still installed after two key rotations?
+[ ... ]
 
-The commit message says:
+> +- ``assoc-del`` deletes an association. tc actions and packets which still
+> +  reference it keep it alive. The device keeps decrypting the SPI of a
+> +  deleted Rx association until its device key is rotated out: remove the
+> +  decap rule to stop taking its packets.
 
-  Together these matches tie a rule to one association, ...
+[ ... ]
 
-and:
+> +- ``psp encap assoc ID`` attaches a Tx association. The packet must then
+> +  be transmitted on the main netdev of the association's PSP device, which
+> +  encrypts it (``mirred egress redirect``). If the association is removed
+> +  before transmit, or if the packet is transmitted on any other device,
+> +  it will be dropped, rather than sent in the clear. Encap on ingress is
+> +  hardware offload only.
 
-  this means that a rule matching packets that correspond to an rx
-  association which is stale (two rotations have passed), can still match.
+[Severity: Low]
+Is the part that says "If the association is removed before transmit ...
+it will be dropped" accurate? It conflicts with the assoc-del bullet above
+and with the assoc-del doc in Documentation/netlink/specs/psp.yaml:
 
-After two rotations the device key for the original association is gone.
-Its packets then fail to decrypt and never get SKB_EXT_PSP, so the stale
-association itself can no longer match.
+    Packets and tc actions which still reference it keep it alive.
 
-The SPI value can be handed out again, though. In netdevsim, for example:
+In the code, psp_nl_assoc_del_doit() only calls psp_assoc_unpublish().
+That removes the ID from the registry and drops the registry's reference:
 
-drivers/net/netdevsim/psp.c:nsim_key_rotate() {
+net/psp/psp_assoc.c:psp_assoc_unpublish() {
     ...
+	if (xa_cmpxchg(&psp_assocs, pas->id, pas, NULL, 0) == pas)
+		psp_assoc_put(pas);
+    ...
+}
+
+The METADATA_PSP dst created by tcf_psp_md_create() keeps its own
+reference. tcf_psp_act() also keeps attaching dst_clone(&params->md->dst)
+to every packet.
+
+On transmit, psp_xmit_md() checks only the device and the MTU. It never
+checks whether the association was deleted:
+
+include/net/psp/functions.h:psp_xmit_md() {
+    ...
+	if (rcu_access_pointer(dev->psp_dev) != pas->psd ||
+	    dev != pas->psd->main_netdev)
+		return -EINVAL;
+    ...
+}
+
+So after assoc-del, packets are still encrypted and sent with the deleted
+association's key until the tc action is removed. A drop seems to happen
+only when the packet loses its METADATA_PSP dst, or when the PSP device
+does not match or has been unregistered.
+
+Would "if the packet loses its association on the way (e.g. its dst is
+replaced)" describe this more accurately?
+
+[Severity: Low]
+Is "Encap on ingress is hardware offload only" accurate for this series?
+act_psp_ops in net/sched/act_psp.c does not set .offload_act_setup:
+
+static struct tc_action_ops act_psp_ops = {
+	.kind		=	"psp",
+	.id		=	TCA_ID_PSP,
+	.owner		=	THIS_MODULE,
+	.act		=	tcf_psp_act,
+	.dump		=	tcf_psp_dump,
+	.init		=	tcf_psp_init,
+	.cleanup	=	tcf_psp_cleanup,
+	.size		=	sizeof(struct tcf_psp),
+};
+
+Because of that, tc_setup_offload_act() in net/sched/cls_api.c rejects the
+action:
+
+	} else {
+		NL_SET_ERR_MSG(extack, "Action does not support offload");
+		return -EOPNOTSUPP;
+	}
+
+In software, tcf_psp_act() always drops encap at ingress:
+
+		if (unlikely(skb_at_tc_ingress(skb)))
+			return tcf_psp_drop(p, skb, SKB_DROP_REASON_PSP_OUTPUT);
+
+So ingress encap cannot work in any configuration today. The flower commit
+in this series says offload will come in a follow-up series.
+
+Should this say that ingress encap is not supported (the packet is always
+dropped) and that hardware offload is future work? The header comment in
+net/sched/act_psp.c makes the same claim.
+
+[ ... ]
+
+> +The flower classifier matches what a packet was decrypted with:
+> +``psp_spi SPI[/MASK]``, ``psp_ver VERSION`` and ``psp_dev DEV_ID``, the
+> +ID of the PSP device which decrypted it. These never match a clear text
+> +packet, so ``psp_spi 0/0`` matches any packet decrypted with PSP.
+> +Together they tie a decap rule to one Rx association.
+> +
+> +Once the device key an SPI was created from has been rotated twice, that
+> +association is considered stale. Unlike sockets, tc does not handle key
+> +rotation. userspace should replace such rules before two rotations.
+
+[Severity: Low]
+Does "Together they tie a decap rule to one Rx association" overstate what
+the match guarantees? The flow key built by skb_flow_dissect_psp() carries
+only these fields:
+
+	key->spi = pse->spi;
+	key->dev_id = pse->dev_id;
+	key->version = pse->version;
+	key->present = 1;
+
+It has no key generation and no association identity. SPI values get
+reused after key rotation. For example, nsim_key_rotate() in netdevsim
+resets the SPI counter:
+
 	if (ns->psp.spi & PSP_SPI_KEY_PHASE)
 		ns->psp.spi = 0;
 	else
 		ns->psp.spi = PSP_SPI_KEY_PHASE;
-    ...
-}
 
-and nsim_rx_spi_alloc() then does:
+After two rotations, the same SPI can be given to a different peer or to a
+socket association under a new key. If the old decap rule is still in
+place, it would strip SKB_EXT_PSP and skb->decrypted from that other
+association's packets and forward them.
 
-	assoc->spi = cpu_to_be32(++ns->psp.spi);
+PSP device IDs are also allocated cyclically in a 16-bit space in
+psp_dev_create():
 
-So a new rx-spi-alloc, possibly for a different peer, can get 0x80000001
-again. skb_flow_dissect_psp() only copies spi, dev_id and version. Given
-that, wouldn't the example rule from the commit message:
+	err = xa_alloc_cyclic(&psp_devs, &psd->id, psd, xa_limit_16b,
+			      &last_id, GFP_KERNEL);
 
-  psp_spi 0x80000001 psp_ver 0 psp_dev 1 action psp decap
+After enough unregister/register cycles, a stale psp_dev match could end
+up matching a different device.
 
-strip PSP state from the traffic of a different, live association? With
-a mirred action instead of decap, it would forward that traffic.
+The next paragraph says userspace should replace rules before two
+rotations. It does not say that a stale rule will match other
+associations' traffic, and it does not mention device ID reuse.
 
-The socket path avoids this because psp_pse_matches_pas() also compares
-the generation:
-
-	return pse && pas->rx.spi == pse->spi &&
-	       pas->generation == pse->generation &&
-	       pas->version == pse->version &&
-	       pas->dev_id == pse->dev_id;
-
-Adding generation to the key would not fully fix this either. The mlx5
-Rx path always passes generation = 0 to psp_dev_rcv(). So it looks like
-(spi, version, dev) cannot identify a single association beyond two
-rotations on any driver.
-
-The "Socket-less associations" text that a later patch in this series
-adds to Documentation/networking/psp.rst has the same gap. It only says
-userspace should replace such rules before two rotations, and it repeats
-that the matches tie a decap rule to one Rx association. No later patch
-in the series adds a generation match or any enforcement.
-
-Could the commit message and the documentation say that a stale rule can
-end up matching a different association that reused the SPI, rather
-than the stale association itself?
-
-[ ... ]
+The flower commit in this series says "the generation of the device key is
+not checked". Could the doc include the same qualification here?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111005533.6436-1-toddfreed%40meta.com
