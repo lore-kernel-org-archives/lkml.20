@@ -1,61 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.237
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753750;
-	b=NqrXt1+hmJ5GeS2qnN/ANOD8I+ZAto7+2O4qA/f01zayaEgjupxqToqk1e4io3nP0t+N
-	 h8R9BG6TMALUDibbD4+cjjjKk0s/18XRaKvYvywEEdvcAw9FRwGQtK8RrSRIscP59mqn5
-	 HBNvgrJBsAlEoyrtLb1Xwpdb4yjsdc0uRy857kUxdYEKE+G+eGtEm7PWlFrpx2P8knZHX
-	 Z2mHXbD5APovkwsuemuyrY3gZDxe0V4q7B1UDWHynvIR2qGFPPbbfbxlaY5bnYZWBdkLJ
-	 6dxBy9vL9YMTQW7QWFK7RKfHUb1kW71LZ723/U6MksNabEKmyGUBp/Kr8IxpzXwbZZQ==
+	t=1794753923;
+	b=2GBsn7ZQlW9UJphEqWnsOuf5DQxP3Cp1W3phmt4fEUiBQ+ojv9gvrbPkTOjgyN2bfuFB
+	 GX4sqivvDIF/zQGJQwGgb+dgk0eggDegdrxAdjUj2DKn4XinoZjIt+BRJ7XVxmWVuIZsS
+	 VPp/5uBxaAjV8WDX3h3Ld6z6qTfxo6Jz90OrkowIfnrXhNSvr5QTFM+KpLb1lYsmFaxnn
+	 HIOLqSOO1xsvZBCo6/LuuDCtaE5YdU3ecI6C8hf0/+dQ8sAt1mXvCbY5R/Bi6nXVZSXk4
+	 LNM+rtvY+5U43C9jYEa9oMGNQNrTkizf0WWr0wL1YIgpIdTOA7ib1A3dJb07U1DfnIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753750;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=dAUG9itb1DceZsbgfGeIfItJJItPj5Pk5T2lDscbORM=;
-	b=aepSfn9PdreQCRUxEgnzWzBUofLZovddODrTlgG8rJcWZ5X0qUvmfRUI2hnOAf5pdvQB
-	 SUUmGrrAbp9Y/Aw9ByFWo9RbuqNs0Uo4fy4VBX0mSft0IX1w+YV725v8de1ZPZZEWb7JK
-	 iO+Pvkag4J7E7dxEn0yH85mS26JMRdp9J2JIWHLoY50yTLSHUofEIIDNVVYkvlgQv11Wb
-	 upnfcddFTgAFqq2VhJhkfV7DnomHFCaMCIsqKnxp9mhR7EEP1NpKBo03bsrXvlHNmpWLa
-	 7vQ0la3TaV6oxa2ErwVoS3oNgyKyajzwYge4EaTcnSZPSe0E27NI4b6RfCtdcXXT5lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753923;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=8/WotbWDHEfmRfuiPjuZcwLPMvVS6lQVakAC3VWoLLU=;
+	b=pYgzCWXUc6iwpAOBcC8qY05y1vYIByqTrcj66zuEl7jqKmJSPnBW6ebH/oo7Z49jlsJV
+	 LWMdLnKP9hHs+LBBifRkUsDcDb+htRaSV/H6hnHJlIv8PINIC9HECs8gs57gAC3B8KAjx
+	 8BhK6dMJiKj/Tr2Js5zOxmYZkz9MwHdYXDT8ulfGlYZZ761vkfPKmPwb0pMBGh4F/pEj3
+	 qvEABIvWlwxccJVqgOz7LhOlGY2+qM/Jzkmwv+AKdG0udIEJOGci3bmV1q8DSEStTUJeb
+	 EAAeAxzHFtWOid7hBxhB5V26tgTP0JTA7KkidnxFUILjquL7TKTsFHz2J67AUDrdymA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e3WHPGu8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="rLqK7cY/";
+	arc=none smtp.remote-ip=91.218.175.237
+Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DE3606A31A;
-	Sun, 15 Nov 2026 14:42:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C3B606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6C3B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e3WHPGu8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8969E1F000C4;
-	Sun, 15 Nov 2026 14:42:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794753749;
-	bh=dAUG9itb1DceZsbgfGeIfItJJItPj5Pk5T2lDscbORM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=e3WHPGu8uCEixn7WZ5MdPvpjjsenLQwhcdinvIpUi/EM8Mqs3j0lImHKfMEDN9H2J
-	 Td05ACPL6A3FSnHLoSj/4tdTM52SEqkFjyZTZ6Zr8IQqlPE2/DDNYJA+9HYtzoIUlD
-	 jHLkhOKhH6vORFt/DpWu08DPJvC7nZtJM4Yyhcc82iMdSB1BJoARJhcM6a2/vjlHjr
-	 TRTdQ3dILRNix6CxFeIfLRyMiHtvrmw5dlhhLgnqacSm4l/qJXsOaSirSEsh7+St3G
-	 /iYcVwLoxFWLgEL63jpuikWPdjNDt7hi9n/hBH948Q9vxVrn3eHl7sCZQ9squo67zI
-	 HkbC4T1l4mvyg==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Samuel Holland <samuel@sholland.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, bmasney+clk@redhat.com, 
- jbrunet+clk@baylibre.com, sboyd@kernel.org, 
- Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org
-In-Reply-To: <20261115061102.229680-1-jernej.skrabec@gmail.com>
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
-Subject: Re: (subset) [PATCH v3 0/8] drm/sun4i: update DE33 support
-Message-Id: <179475374632.3212936.18354501331414111023.b4-ty@kernel.org>
-Date: Sun, 15 Nov 2026 22:42:26 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rLqK7cY/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Lampe3FcPP1WTHHlXMYUS2tntnZofTfaiYWl5Mu2ONA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794753921; v=1; x=1795358721;
+ b=rLqK7cY/1o20YbU1K7jHg6qKoD7PZQEvGUFC5ZUHcNQu4ez9wKZxzuck/QF70idbySHSKSwm
+ yiQHIfoBZphPCCFyDrjkgLIfwDgYLdyzst2X76DRu0XNQn7goUangbnKsgI+ZeUjsjzsamLHYDU
+ 6o7hdcS/h4jjLqhKOMyEFWNo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5fc379baf2e39b51;
+	Sun, 15 Nov 2026 14:45:18 +0000
+X-Mizu-Trace-ID: 5fc379baf2e39b51
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org,
+	paul@paul-moore.com
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Huw Davies <huw@codeweavers.com>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] ipv6, calipso: fix data-race in calipso_cache_add() bucketsize check
+Date: Sun, 15 Nov 2026 22:45:07 +0800
+Message-ID: <20261115144508.71543-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,32 +71,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-On Sun, 15 Nov 2026 07:10:54 +0100, Jernej Skrabec wrote:
-> This is second series out of tree which aims at properly introducing
-> support for H616 Display Engine 3.3. Previous series [1] reorganized
-> driver so proper DE33 support can be easily implemented.
-> 
-> H616 DE33 support was actually introduced a while back, but it was done
-> without fully understanding hardware design. Issue with existing binding
-> is that it considers planes as resource which is hardwired to each mixer
-> as it was done on older Display Engine generations (DE3 and lower). That
-> is not the case anymore. This series introduces new driver for planes
-> management, which allows doing proper plane assignments.
-> 
-> [...]
+Issue found by sashiko when reviewing my data-races patch [1]. This is
+not a plain READ_ONCE() annotation like the rest of that series but a
+real fix, so it is sent separately.
 
-Applied to drm-misc-next in drm-misc, thanks!
+calipso_cache_add() reads calipso_cache_bucketsize twice: the "<= 0"
+guard on entry, then the "size < bucketsize" test after taking the
+bucket lock. A writer can flip it to 0 in between:
 
-[3/8] drm/sun4i: Add support for DE33 CSC
-      commit: ea008133ef8078934a0dc2924a8263d645f0ee1c
-[4/8] drm/sun4i: vi_layer: Limit formats for DE33
-      commit: b1ba050890684fc7615fe4c7d523f4f46c1696b1
+  CPU0                                    CPU1
+  calipso_cache_add()
+    calipso_cache_bucketsize == 10 (> 0)
+                                          proc_dointvec()
+                                            calipso_cache_bucketsize = 0
+    spin_lock_bh(&bucket.lock)
+    size(0) < calipso_cache_bucketsize(0) -> false
+    -> else branch, but the bucket is empty
 
-Best regards,
+On an empty bucket the else branch takes list.prev (the list head
+itself), list_del()s it and then list_add()s through the now poisoned
+head:
+
+ Oops: general protection fault, probably for non-canonical address
+ 0xdead000000000108
+ RIP: 0010:calipso_cache_add+0x2f0/0x380
+ Call Trace:
+  <IRQ>
+  calipso_cache_add+0x4c/0x70
+  netlbl_cache_add+0x4a/0xa0
+  selinux_netlbl_skbuff_getsid+0x1ac/0x280
+  selinux_skb_peerlbl_sid+0x7d/0x100
+  selinux_socket_sock_rcv_skb+0x2d3/0x460
+  security_sock_rcv_skb+0x86/0x150
+  sk_filter_trim_cap+0x56/0x730
+  sock_queue_rcv_skb_reason+0x1e/0x80
+  rawv6_rcv+0x679/0xb20
+  raw6_local_deliver+0x1f0/0x5b0
+  ip6_protocol_deliver_rcu+0x215/0x9a0
+  ip6_input_finish+0xb0/0x1b0
+  ip6_input+0xa8/0x250
+  ipv6_rcv+0x14b/0x1c0
+  __netif_receive_skb_one_core+0x8f/0xe0
+  __netif_receive_skb+0x23/0xb0
+  process_backlog+0x27a/0x950
+  __napi_poll.constprop.0+0x61/0x2c0
+  net_rx_action+0x372/0x800
+  handle_softirqs+0x109/0x570
+  __do_softirq+0x10/0x18
+  do_softirq.part.0+0x47/0xd0
+  </IRQ>
+  <TASK>
+  __local_bh_enable_ip+0xf0/0x120
+  __dev_queue_xmit+0x578/0x23f0
+  neigh_resolve_output+0x278/0x3c0
+  ip6_finish_output2+0x4b1/0xcb0
+  ip6_finish_output+0x2b6/0x6b0
+  ip6_output+0x122/0x400
+  ip6_local_out+0x61/0xb0
+  ip6_send_skb+0xa0/0x260
+  ip6_push_pending_frames+0x2b/0x40
+  rawv6_sendmsg+0x1b7a/0x2750
+  inet_sendmsg+0xa1/0xb0
+  __sys_sendto+0x2fe/0x350
+  __x64_sys_sendto+0x7f/0xb0
+  do_syscall_64+0xe1/0x450
+  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+Snapshot the sysctl into a local once and use it for both tests, like
+cipso_v4_cache_add() has since commit dd44f04b9214 ("cipso: Fix
+data-races around sysctl.").
+
+[1] https://lore.kernel.org/netdev/179428999963.994134.16904544500890053668@kernel.org/
+
+Fixes: 4fee5242bf41 ("calipso: Add a label cache.")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/ipv6/calipso.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/calipso.c b/net/ipv6/calipso.c
+index e399a42e3083..fb79eccafc02 100644
+--- a/net/ipv6/calipso.c
++++ b/net/ipv6/calipso.c
+@@ -263,13 +263,14 @@ static int calipso_cache_check(const unsigned char *key,
+ static int calipso_cache_add(const unsigned char *calipso_ptr,
+ 			     const struct netlbl_lsm_secattr *secattr)
+ {
++	int bkt_size = READ_ONCE(calipso_cache_bucketsize);
+ 	int ret_val = -EPERM;
+ 	u32 bkt;
+ 	struct calipso_map_cache_entry *entry = NULL;
+ 	struct calipso_map_cache_entry *old_entry = NULL;
+ 	u32 calipso_ptr_len;
+ 
+-	if (!calipso_cache_enabled || calipso_cache_bucketsize <= 0)
++	if (!calipso_cache_enabled || bkt_size <= 0)
+ 		return 0;
+ 
+ 	calipso_ptr_len = calipso_ptr[1];
+@@ -289,7 +290,7 @@ static int calipso_cache_add(const unsigned char *calipso_ptr,
+ 
+ 	bkt = entry->hash & (CALIPSO_CACHE_BUCKETS - 1);
+ 	spin_lock_bh(&calipso_cache[bkt].lock);
+-	if (calipso_cache[bkt].size < calipso_cache_bucketsize) {
++	if (calipso_cache[bkt].size < bkt_size) {
+ 		list_add(&entry->list, &calipso_cache[bkt].list);
+ 		calipso_cache[bkt].size += 1;
+ 	} else {
 -- 
-Chen-Yu Tsai <wens@kernel.org>
+2.43.0
 
