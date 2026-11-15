@@ -1,79 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794782035;
-	b=DG/mdg/Fys5oGh9APgga7GDe+1aiGRatDwhBjsfco5/tH57DodoIbGj9dSEEkE6ifyx2
-	 jsLXr3w+0FKw/mVjthZRajQok61t6bX/LeBMwLuaugzvZIkcpSDJAE/uBcDY+5IYtNJNB
-	 x+oEBITq1bxDORxYG32V9fnojIHgwn7N48A8ZnRuuZdJSE9r0udP4xsqp13e46pGep7vs
-	 AeklFx5Yw1up1sPy06EXkWPZruyUM4Xc7taA+bNOkMjlGIcoI6AMrDq6J2ZhivIr/xt/m
-	 gGUFyJ9D2b3hF0xjwMI0tqLzYwOsyawJfU25FVjngx16BMtXxBg2PQ0QSUrXPPUyhbQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794782035;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
-	b=zqK307bBb0Q+hvmPqIF9I4sCMNy6oYa+VtrUX4U5gfdmejKsLwEx2L2YZWb7cO8imsLM
-	 Sdh+f1ZSg6rypGd9R7Jxx1hgR590uchEHnr1gMC2VhXbgXN4YmMF7fHFeCd8im9M+bCCD
-	 eYl6mSLzC20B9Q8lvW3SaEMmCGPB4RHLZVbRCM4aPS8sfxfA2av13SgRQUTKtKOpVuccJ
-	 GMq3eYi8/E7S/OjDBg9qO6q4Hwz0kA2lDa/uZ+bkZo3Od06ecse1XucsWzCfjPnuvsWkK
-	 Jb88bYJeTG391zpzTY1ofcuG2Lg0T/2wOns7Xgj5KPUJHXWBReRiPLz2B+7JBDZx3tQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBCkEjl6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61D0606A31F;
-	Sun, 15 Nov 2026 22:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBCkEjl6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794782034;
-	b=jBgPhXvuyJVOjO4arss6uORcSlpRM9bKiFP/RP3GaRcqyXg/iTOc339GK+SOtG1Wxwwx
-	 E9y39R6RYA2coQRJ2ca3PFOe5h2sWywywwHijwel+rEwyoxMeuZShC7P0wIRbra/Jh+P7
-	 SA7qBLsiw/f/MwZAk3cFtF3DzkIKWBdUdOQrpAhJ2ABQfT2UdLHlJcUM2tiAQx0V3bLS3
-	 UJ9gd55AkA/xEdFZwmLvOcfXPxaipLHThf0MaQatOiX/1zNu7VNhQtK3eif/uGHKbJe2Y
-	 ugU6TkQfQSPzX3h3m7WoyfHrbvep/AT7eDGo09XyiBEZYVRDUmsbRJuUkIntT/oZRsw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794782034;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
-	b=h/VekXOyx2NxgUyOqmZKfRQBVwjJBprbKfUhxISAnDB9gu2pqDQFsacI3fsEJf5RAVYD
-	 O9GwIr9eELv0xfBnzBEsDSaxLvRIheM3wGGwCa/Sr2Tzxg/qJugotRHgniswC24WpK/xt
-	 +mspy/yDe9gZa9e50HfPrIZohiuBBmJPAvewSi0Bxol934mv3Qtfu+IlCtdp3k9xjrb5R
-	 wSCEMUa4QfFHHXKYCgHZDF0+wYpGx98Yzx0NrQzew5kyykDUzag7QafqdBnTIPYawfnSy
-	 KBm4fhV5EsoiomH5c4MNdSnOlEcE6CWZWOgdeZ2Y63v3cbIKCXWoBHh/P+Pv6H3lvQw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794782052;
+	b=l+lFHDP06EaX2crs7cjchAWf+/IZhX9Mc0MGT8WhwaeeqP6qAMU02QiRHafs2tYvbvtR
+	 bQqJ5usfm3fVfPYaqNF7//WbKLntQ/UdLbyEtUhEMd5IWHeH5cPVjEHKfLgCZF2yW7LwI
+	 sfscIPanxZz4xCxyWenFg32c3hfngsoL8H1kol8DXk2C3UdtXdlrRpdMi7aQdc1knN3PT
+	 +XRn/iGatkDyTZ0z+rw0JPG+5IJI5tUpwxk7GOxKURxyZqATUmgX9pmOKOiaudww+HyA/
+	 ymsTwSpIdZhVNCPAzUIOQkJnADIOp8W4Iicn+EckMpzILdAU8SNeXOQV6FJX6ZKjYYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794782052;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=hLJ6bSKi+ZgPvgTZTEL6AiSyPJLqudm0XPJJoELWh0Q=;
+	b=Cm9NMGsZbdYcJ9DUoreICB/SBvKXdoAMrOeJk2xEzTvmfe9lfLhqZmQ6nX4002VG+NO7
+	 SnvWuvM2SLYEWRzZo6xHfNbeyJERGo++kUr9wD70fb7qYinSKEqFWIN7sPUbkOfpdsRWy
+	 XRAA3DOpmSfvgBsxSv9ZWnKime2JziO46UUZ+IKkyRlagVigHsZV/Fy/6FtKlrtAvpHjk
+	 JgEZeI7k6zWuXnY+7EPPL1XNZ35I0KF1eo9EI49BD0akLmNTUMQPErOik2KAwEFoMWOVv
+	 936PAzXYtphctef7OHizcBNH6PzMgCAk39bLz7WBKLDrd9izSKWP0N8wqoEB6UqBrOw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=CJd3QEEj;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 434641F000C5;
-	Sun, 15 Nov 2026 22:33:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794782034;
-	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SBCkEjl6vyo1/AoXpcXHxlSJl3bHD2jvAMvkmMuF/aPhIvYEX3/bF8sQMWToSrRko
-	 GdgUDmbIgahnyqzCAjHR7YbIDyypJJCAqGZZBbTn5MwVX3voZpZjsdV1EupTHvShtC
-	 0CWUmBMUFHYj99Q6iN0YBMnIM+VS8Fas2N4pMghrQ+sNKjJQZirX1iK1fOVz+reaqW
-	 XV1lvRXeK/oa8ykDDJ5elam+G0pRjsIAYMOtFx6BdKPmzBK/r8l3KOkHs1eb6Hwgvw
-	 ATWANPpqqihqsve4L4xxL9JXPDX+9XskGLxPpCOx0qbGzAB+M/dxxqE079iBkxa8AI
-	 qiFxs204dD6Kg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B1B0A4A230;
-	Sun, 15 Nov 2026 22:33:53 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Sun, 15 Nov 2026 17:33:45 -0500
-Subject: [PATCH net-next v4 1/2] dt-bindings: net: dsa: lantiq,gswip: add
- reset-gpios
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34607606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:34:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34607606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=CJd3QEEj
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso6838565e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:34:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794782049; x=1795386849; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hLJ6bSKi+ZgPvgTZTEL6AiSyPJLqudm0XPJJoELWh0Q=;
+        b=CJd3QEEj8pQwODGjB/Hvsm1Kz8XiytWNDpUjUiysP8iwPosQ6yW3gdLOLRH20X4Owa
+         0JtLC5im59ZkIs5S3uiF2dyb1/b0W6sEAIXxh3hqmTeNyMKe7nwPlu17c/gf4iAu6cBU
+         4y0sp2DgHz6LvxI92R/65FyuHGltuJnCbV89+YgAYch/er4OOAO4xTog7mzZDiYoN7/w
+         sRBEaSqnhB/VU7CFPMMVnakJq0S5UBmp9QqWpa4hHjWni9z2K4sonGaN/XYvwXyXKbqW
+         15MumIhxvuJhPEyRyEbNm3tCt2dmSbs/6BsQifBNlgTCuSlf+tnV/IyEeqPPeVV8jLc3
+         /sOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794782049; x=1795386849;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hLJ6bSKi+ZgPvgTZTEL6AiSyPJLqudm0XPJJoELWh0Q=;
+        b=KA38RSFvsG7cLAs/RSMQtD405PF4S/5pJPk1n4xn3ga9RX+rak/MJLRgF9DMKlzq9N
+         T6tJCKBrYc1ZVrPxUOFMnfdZ2Rdb6jjEQnzPUg1cLxp3IQn9iS4omFBiE7JZBly0dpvI
+         g20w+lSXXq2q1nu8r9+VV+DB0QtRiLMWjQZ1EQEmDhnAEqyv94Y/s1tHZMhGxaKYKKL1
+         5cdAlWSU5lziBQleW1vEUvyuAZUgjDbM1negqVdXGZCzHdDJRhFHW3KFZ4mG45SWRkcN
+         SMec5NmUW6so7HHwrcfIiB2p+H53IdRaXJ6b3S8N7PTyucKhKdFFXEU7R+FuXX9aOyFm
+         HDTw==
+X-Forwarded-Encrypted: i=1; AL+hErE6XWZKnpL+OMQUR+0p3MUZ3haMTOlp1zvAeoUqzSSgoTR1jbwwmAjkP4fxgApFInqoT2pI1Lp/tm1mVso=@vger.kernel.org
+X-Gm-Message-State: APuU4Z910deNMBaTv4Ca8lBHpD3cCazlkQGdjf+M/4/XSWR9eFO2mvA3
+	Zfg/VWkDsfassG0lesUpQiJSQJU3eQqST+b3O+/i6kfzLOWGo6hNEobGFKcTMRb69n+iIp/VAeL
+	/Xh82
+X-Gm-Gg: AYBFou0Qfl4amcwXPOMAKImGNmLqXC/zLeAtZngusWycfKg84y2Dj2c+VVayCVYEN0m
+	adHhXsXKERAD4E7Zff8LBs8I4++ApUADJxyDBvC/x4xg0obuyiEM3JNoFRhIc9QTn8S4XWGkamk
+	4B469gn2BAlXiwkjE6jGg+iK/n+nVp2grvIgPO7laQ7H1MXeVcpM+NNUUodGDYgcIiFTidPfJnn
+	phJX8jkQTwcyEf0X0r3vhi8TiWbm/tW2OI906WEalZeBsxHPNM94kt5ExlnbRWzDJS6ceffuteP
+	MaKpgJIxYMHoMoEOGK0zNHwv8gN1Vp6yDtaL/teb+15vQIx34dE5h9K9ivrUIIWaYu5dSami9Zr
+	J78gzloiWnap9uRE36Y6TfVUnRNjkSql1UhUs2t09+AmMcL+MRMJQSKwehvDkEdS/BVeaSIjTVJ
+	uGmuVV75AQRQ/PVnet+hX2VUib3cagXJZnWHKuaStrr7WPJRwQ5kqnvf7slxXE5/H6m6Od2N7fs
+	hkk3cUlQWU8jGMhyxa3mcmuGX7JaulJjCqm0rnYf9a9xBvZzbm+QxURSTVbq2/rundF+dYrCFeQ
+	t1bZ38HJ1dxAKbLSbSKab6ySdN1GFDnmc50cbB1dpMlfrUNT
+X-Received: by 2002:a05:600c:3e0d:b0:4bb:6f41:39be with SMTP id 5b1f17b1804b1-4bb6f413bfbmr46240405e9.15.1794782049461;
+        Sun, 15 Nov 2026 14:34:09 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55acdfebsm222898225e9.7.2026.11.15.14.34.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 14:34:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,95 +91,106 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-mxl-gsw1xx-reset-v4-1-4ecd18c922e2@telaak.dev>
-References: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
-In-Reply-To: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
-To: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Daniel Golle <daniel@makrotopia.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794782033; l=2157;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=4FEhgpkbRSKonFfieQreIMKCdNlc7jHkKu3BjReGMyw=;
- b=wf+IED07LZ4coNs5einWhK0QYYS/vCAJYlBpDQ7Ol3L8GyadA8wsF6sg22m28V6hVUq129D81
- YNJaKeJAtT9ATDub8r3TKD89ASXbjf0UIkCPqxpHc7a01RdMCpkoaVp
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RFC 0/3] clk: Restore the clocks of a provider after a
+ hibernation
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, Taniya Das <taniya.das@oss.qualcomm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+In-Reply-To: <20261028-b4-clk-restore-after-hibernation-v1-0-86cf62747a7f@oss.qualcomm.com>
+References: <20261028-b4-clk-restore-after-hibernation-v1-0-86cf62747a7f@oss.qualcomm.com>
+Date: Sun, 15 Nov 2026 23:33:56 +0100
+Message-Id: <179478203647.13037.1560944178171749849.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3673; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=Ig1JMbXRCmJfdJcT1sGueTmWJmoPRP4AdJybNvm12MY=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFm/jCPjSy54XHH/JcHw7lbPogWvLvcvvvPHcV4z5/k4g
+ 23ccZ+mdpSyMIhxMciKKbLUcFeLv5PU+jJrus5tmDmsTCBDGLg4BWAiOxIY/keyTtq72s/setcz
+ ngy5rDnH4sWbDvWxb7S9uny2/2GP1Q2MDE/Lj7BLzb3MN1Oyfb9IzkeXggVrTYRME/cLcl+U+V/
+ GzAIA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-From: Joseph Telaak <joseph@telaak.dev>
+> When a hibernation image is restored, the clock hardware has been through
+> a power cycle and a boot kernel, while the clock framework in the image
+> still holds the rates, parents and enable state the consumers asked for
+> before the image was created. The consumers ask for the same rates again
+> when they resume, the framework sees no change, and the clocks the boot
+> kernel did not touch keep whatever the boot firmware left in them.
+> 
+> Whether the kernel that loads the image probed a given controller at
+> all depends on whether its driver is built in or available from the
+> initramfs. On the Qualcomm Glymur CRD, the display clock controller
+> driver is a module that it does not probe, so after the restore the DPU
+> runs at the 333MHz the firmware configured the PLL for instead of the
+> 717MHz the framework believes it runs at, underflows, and the panel
+> shows a solid blue screen.
+> 
+> The first patch adds clk_restore_context_dev(), which re-applies the
+> cached state of the clocks registered by a provider device, parents
+> first, as an alternative to the global clk_restore_context() that
+> depends on every clock implementing the restore_context operation. The
+> second one adds a hibernation restore callback to the Qualcomm clock
+> controller common code, which redoes the probe time configuration and
+> restores the clocks, and the third one uses it for the Glymur display
+> clock controller.
+> 
+> Sent as RFC, as the same applies to every clock controller and I would
+> like to know whether this is the right level to handle it at before
+> wiring up the rest. In particular:
+> 
+> - Instead of programming the cached state into the hardware, the
+>   framework could read the parents and rates back from the hardware
+>   after the restore, so that the consumers asking for the same rates
+>   again go through the normal clk_set_rate() path. Would that be
+>   preferred?
 
-The standalone GSW1xx switches have a hardware reset input, and boards
-wire it to a SoC GPIO. Allow describing it. The SoC-integrated GSWIP
-variants have no such pin.
+I would much prefer this approach. IMO, we should not try to restore
+the cached values. There is no way to be sure we would get it right:
+the HW may require a specific sequence to reach the final state,
+intermediate values, timings, who knows what else! I'd rather not go
+down that path.
 
-A reset through it returns the RGMII slew rates to their power-on
-defaults, so say so where the slew-rate properties say that the
-bootloader's configuration is otherwise preserved.
+Consumers know (or should know) what they need, so they should release
+their clocks when suspending and request what they need again when
+resuming.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
----
- Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+On the provider side, it should just resync with the HW from its
+.restore callback: re-read the parents and rates, a bit like
+CLK_GET_RATE_NOCACHE does, as well as the accuracy, phase and duty
+cycle, and re-enable the CLK_IS_CRITICAL clocks.
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
-index 49af5573e4..89f78a1bc1 100644
---- a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
-@@ -40,6 +40,11 @@ properties:
-       - const: mdio
-       - const: mii
- 
-+  reset-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the hardware reset input of a standalone switch.
-+
-   mdio:
-     $ref: /schemas/net/mdio.yaml#
-     unevaluatedProperties: false
-@@ -120,7 +125,8 @@ patternProperties:
-                 1: Slow
- 
-               If not present, the configuration made by the switch bootloader is
--              preserved.
-+              preserved, or the power-on default after a reset through
-+              reset-gpios.
-           maxlinear,slew-rate-txd:
-             $ref: /schemas/types.yaml#/definitions/uint32
-             enum: [0, 1]
-@@ -131,7 +137,8 @@ patternProperties:
-                 1: Slow
- 
-               If not present, the configuration made by the switch bootloader is
--              preserved.
-+              preserved, or the power-on default after a reset through
-+              reset-gpios.
-           maxlinear,rmii-refclk-out:
-             type: boolean
-             description:
-@@ -173,6 +180,7 @@ allOf:
-         mdio:
-           required:
-             - compatible
-+        reset-gpios: false
-     else:
-       properties:
-         reg:
+CCF should provide a helper for this. It is likely going to redo a fair
+share of what __clk_core_init() does. The prototype could be fairly
+simple, something like clk_resume_hw_sync(struct device *dev), to
+resync the clocks registered by that device.
+
+> 
+> - Programming the cached rate of a clock that is not enabled may not
+>   work on every clock type, for example on an RCG whose source is off.
+
+What I'm suggesting should not have such problem I think
+
+> 
+> - The Qualcomm callback finds its state through devres, which only
+>   covers drivers that call qcom_cc_really_probe() once per device.
+> 
+> Clocks left enabled by the firmware but not by the framework stay
+> enabled, and the phase and duty cycle are not restored.
+
+CCF has no sync_state support (yet!), so the unused clocks of providers
+built as modules are never disabled, even on a normal boot. You would
+not be creating a new problem here.
+
+Anything cached needs to be resynced though, including the phase and
+duty cycle, everything else.
 
 -- 
-Git-155)
-
+Jerome
 
