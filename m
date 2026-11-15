@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794722460;
-	b=LIANeW4CMgPdhDK8B3C7B6u6cTGfQr/koEQ110KmjVjIE1kI/l6faQkHfk9uMFdKmypL
-	 3mJTl1SQmhG2bw+qRJOwKvPcLigweXHREbBypBABkUz3WyDOPoeyZiCwD6yC1S7FR679b
-	 DIGXcQ8uCXC47BzU/FhUidT1Eb2iiEcnsDSqHdrQJzfhL6b10Y8R1COHWZRlwmWHLE9hn
-	 Uxw29wvFEFD8AZDTOQiacGiqHJ2CD/xU5SRkNgCotRYAUoj2g/jhNet+AS9VUB1HNs8lZ
-	 iZsKeA6x2f/vTEyVQSIby0Vecu8cUTc9ZuVWHSYetTv7lQMpKy42o2rfS3Qkm6SKROA==
+	t=1794722465;
+	b=oicXePpKZCC2smqoMLrdevUtz2fNpM1d0upjgPwKC0Cp9/JrjN4KjYTVBg1go3+nF7QI
+	 cqspAymovVH+g6wNDJzmyr7s0/u4HhRsjx7L/yvzI+kVNuSB4BGEO0WjAirzCZRSd+UUA
+	 smxyAcCDYbrMYpej8Ixke9EXiKabQE0thuGHk2pqlqSolPklSqqdAl1jCosjro4pKYPNe
+	 dapFj1lgCACJgbiwZgMtT3itt4MuCI8vUA5xP88RrjkwAFXMBoswDA6q/fmPoAEhZyqDX
+	 7ae0xtEob6xegASC+flG9aA6r2lfxNPR8gL2gidQRp0afroone+qZajYGuf/vbV5/SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794722460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794722465;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=sikHWDwwcHY7wUeIPuVUS6zZeaVy/rjClvTT+uODGBI=;
-	b=GmhXFcTFjIim7ria8nI8k82yX5+PKLnYiDusLk+TW1H+M2CutwxosAQfJ8nW57nob6ti
-	 7EyZGdMafskohCZUCSKx9qkeFaNUF8SCAQ/dXMBgj5JPG1XRP1TUMnl38VS7acTLgqtUu
-	 STVEdbQKw+WaW/OG80aBgoQYaiKXZ05W+Q9XpwTmNtVVKzJ6bPfvor7nHAimttQUQl1zc
-	 ehHUasJGM22iBS8AZb9uUQ9SeP6mCKj1Fd9W11SFoBX/QPiy+E8au/edisf6dcPaTt7Ko
-	 HZNHnFoNnC/inQ1BojCRq/aQjvsuZhLm3nCdkbzR0xd1qRVf4tFjh8KirUtmIBVGqYg==
+	bh=evrsLISEmBq3rBFDfEEHLkUem3e6YiI3I6JGfBRstXk=;
+	b=xlVbrTVDjeu6u30dikSNZjKngKFs90Py4RisKU9ZGoRjT9zc3OM13WdUQSckNdMUUP30
+	 18MYPouolC4dqD1vKlGYBVHcz2uNvfUWyIufMFvuqkhOpKba1iqX5NG8lxV9AU7RXWLTL
+	 WRfJ/GRYG4j1ME+oSUMQGV5K05yeaUE2wJPDc7Oerdmzk8vG7Czh9a0dr0t3K78gVWuRU
+	 4O7rFBzDTngOE8d1Pqlf1Z1Yz0BIWbcZ8BDbmrlDyBVrgnqXzjrSK/n5NMEkh3oGh26Yj
+	 kcJoJ6I9IRYBirq3ZUhj4hIZE5+ugZQa4qI9qKqvKyZcL9zr1u/LppkNF9UQ4kO4Phg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AySxjepw;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NJ1OA/M/";
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B30606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:00:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24B30606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A660B606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:01:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A660B606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AySxjepw
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b0bbdeae06so1718351a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:00:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NJ1OA/M/
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b0bbdeae06so1718370a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:01:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794722459; x=1795327259; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794722464; x=1795327264; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sikHWDwwcHY7wUeIPuVUS6zZeaVy/rjClvTT+uODGBI=;
-        b=AySxjepwHPZGrkDowx8EnSp0zug319xmkETWuYn3bTpq+EJxJPH8yQzwb5pM3ylK9B
-         gYXAjXO2Ext1+uLYbWbvqjgmPkZU5jdcaycLY5YywGhRiUPhxmtgyQ4BLBYT9tbSoUWI
-         tJGYwNglgEhpmpzLLVsVz4e97SGWd29m5t+Qomh3OmnE+IPeOkAz0gTAqX6K2x1+7QJS
-         3yiymLWvy/Ntm4Wy+NL8A0fYUvwI3iGucJuHSqHnYHnKgRVp6nhsYJszB73g5Ibpnx7j
-         pw4AakxfKv0N4lqIslG4XHtKThmecL1u4zYQVryifJbNWYtUa5QmHWoBMDOyLCUxadIL
-         Z2/g==
+        bh=evrsLISEmBq3rBFDfEEHLkUem3e6YiI3I6JGfBRstXk=;
+        b=NJ1OA/M/qiQAr1Bi7XV6mumbaEZdT6frXIT11+PEOtSjfoEkO469DUS/Virz30Ts8M
+         LouMWY9TVEEPFrchB5V4WDyyCXaNa1cq/QioPaLsslaYs2x085z7qEw1XuWxgagKQCTB
+         U+R02IJz63ZF/9/MOeKQ/wA6IRsik0w5XcVXkI6pnFb0WEq+sJAce++vMq3PazcJTpJm
+         ajzDZKK81cDRVlFZVxTpQSrxVBZ4XRLTG0nRvkc94uq+i55w5Fk8+E6/ABAqSslemMRt
+         7fduW5sVGmT97cRqGkMbTNkLSNBzt+DW+dtQppqoJ5h23qaW/BhSVDz4RlLiWkyiFNiR
+         6Nvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794722459; x=1795327259;
+        d=1e100.net; s=20260707; t=1794722464; x=1795327264;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sikHWDwwcHY7wUeIPuVUS6zZeaVy/rjClvTT+uODGBI=;
-        b=U7rVXIL3L0DQT3CC3uEfJ5d4jFFMZfcm54fb+94I6GN9iBGLumr83A+7SmNxX63myS
-         M+jGGQ2Aim1zkb9rgzigY+XUJ71ZKFwujpZK0uQbI+7tb6ClfLGg2Kf6/v6ZiZ8rNGnc
-         earZbmbl/rxCGfiafuAo6X/kpGzrCoqKNuU5ijJxQGQahKPXhQOz1tzfgrByYkHU0i7e
-         DNtbfEdFNv9Dwu51UIFQVXhHP4JuSH128kRNIBZVQW+87AfAreDBqnTJTASlH2hCCr7I
-         /9rVPx8/bWfO7B7PY6ZSu5Apb38CUzg6NriQ6ZyMABTolTWIyfp17rWN32Ckus9ODU8V
-         NXlA==
-X-Forwarded-Encrypted: i=1; AL+hErHldo6rgWy4aOAPf92k5WuWF3pUKx+WnApUbENlyy1CkeH5yFi/Z+q71J7eiRkKOOKOYzynqEThEUeiowA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FtR6MxRznt2/HkQMMqW+cWomZ3m5mQ934EsYCOQyyoLe4EsA7
-	wDVpKCWHE69Ev5ApTQ1uAsRWMVc8UzE0+q98gFBZp74Ox6P4al10Q7DR
-X-Gm-Gg: AYBFou3rXndm+LloRaVzC+xt67xn3eiC+L4YOZ7mjLYEi0BvBcwqnry4hqeQBZTcgIa
-	9Uzv55zwRh7yP70xIFrTpd4bJIr37jGBPT7oFLbxa50Y70EmtCk++g7OKou2507iLCfCnHh9i7/
-	KM57cPiytI9CAdoTELPfWhdaRdXI8s9mBq3KZykFLfuhxJCOXWYCFlfI81jkAI0ZFvA+jx092Mo
-	1xAd+fyKNN72l52QTQXkCxHqeEE1KhtxsEhiHkSiUUQH2DeCMq4qiI2Zd+yOKBswMxioKSPpEiz
-	6inUkb3SN3qFOmSPqpjxCn4qPGrSTsLmGQFk32LZz5xQkor7XMs2qNWJJwqtqh/xRd0NXpsRVpu
-	U8y1IKB3yJ+uI2XSZHKPif7moW0vD9NaglKYt3Hpgu69BWdsAnj91ha/Rp6Mp9714wREu6ByUdq
-	o0c9u1DvqQfKqQDgWuBuOOkfjjuZyWkfmZ9gZFz7O4E+zlxf5iivpVsvw1g4MnnSfEoUkjY6d+R
-	hpSxRimkPrYXvvZC66jjeiGN5c4Jtrp3yAYyNSRvC0lF08Aafy3BSqC1FMmwjgR/AcPEFi3L5OA
-	VzKMqCho3BHLOwAyLerXegyKVEMW9TkQy6Lsq999Fah7i9EbWlILaKsfyzO6mfD6g7w6LRTwwKP
-	vGA5+l7fJP3xzJXPi0AcUUw==
-X-Received: by 2002:a17:90b:4483:b0:3ab:413:49bc with SMTP id 98e67ed59e1d1-3b1b0a4c331mr6596624a91.37.1794722459394;
-        Sat, 14 Nov 2026 22:00:59 -0800 (PST)
+        bh=evrsLISEmBq3rBFDfEEHLkUem3e6YiI3I6JGfBRstXk=;
+        b=nbL9x5iuZbmb4n6nBaq9mLK9mNCXzjSCwS4JaJo4letPBRoCYN9cXswz7H1kplZy7w
+         W/TPXycGeSLNVcID0UHGH+qP8Fy0+tX74R2gYwZRcoifQM/ZPTOlfR5Ca7aFT5V14trD
+         1qZtYCT9T1WLfMG/ZTSt0OyRwYC2Ym8AO4BFvzmeWefQTlKrjP/JFPJ2CfChg7qP5RkT
+         aeAAhSEnMqE60jzBX3gYtjPtpwyk+E9OQUQawS8/7ZsACISTYrUWog7LbhDVEqUBhTPh
+         Ya3I87Tc3cszwMKvPoJiUwNfv8hbRIn/eT2qpkwFmrM6xyIajU1SpSli2NQz4NK2cgGM
+         E7Lg==
+X-Forwarded-Encrypted: i=1; AL+hErEm/PUkMSZxw7a7XLBes4NA6dP3vTy7EX4i6KQe+EI+Fl+I9W0qrpclsXKj0s7DiHdMAP6Z+tFc+hpN+rY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92iwgwEFqhH4ZmNJP1hXDdPr/LMnJS0VPq9nrvKTd20LDuIBWA
+	FHSUyHurlTFyVC3gNpf3DRkE/034aQxerFAjxaW1k8N3FGIHvXaXAkqd
+X-Gm-Gg: AYBFou37zjS1LnqjXo/wD3TuE2cNYCBZvGtKc3HTfJBUZSNIrmmTZfPLt94jrPejBQa
+	9B/31B3B7uiA49aD/5oSr1lKUU5IaBHkXo+anaiX7kDAordiHGxsoatXfdahO/gSYeGIpFSdDMT
+	EBvdUv/RUC8i9nForF/Pse6mHXzb48SdPT6CT+iFO39sra/I4P/nLy9BwjRGXelqoDJ8wm/thIO
+	/9NpWh1fdhD3c1j5p9Ja2nV582dA5I63sXLIwSQvBRDHFa0CjOr+2pyemRbE1AXh7bFSlh7fKCk
+	JIMHYnUg8y+muX6hWDM+n0CBBcSUsB4MqSgs7xkc3lo5t68eV1K37jq8vZvkAWNdErcavYkqYwz
+	aQR32fQ/S2LqKT4g+1WaT3FhCufsFub4XZmBpGjYXBqGhDnv2U7ORi5+QWBQRhnhR3KBZfFldpi
+	9bkT6gNJqaktzqHw+jdbw5L83RVYe8clG58hzJsh2YTuB4M1Y39GQ3EVwvKFKRFWWBJoZcc5pxI
+	14yI8FVnyKBu4HCGc/IfQ0Gtv3yibO/Uz7FEfaF1Cf2oXu4V8CqHd6tTa6G40Una7az2RFhDHZO
+	gxiiDNnGUg9jwX3lF7jKiLMW+plU8viq+PJ34RifY+JQkgmXZGGJ5q6pNoEkx3j11KLTWa//l7n
+	9
+X-Received: by 2002:a17:90b:1dc8:b0:3ac:7c52:fb04 with SMTP id 98e67ed59e1d1-3b1b0b5b55bmr6838746a91.44.1794722463886;
+        Sat, 14 Nov 2026 22:01:03 -0800 (PST)
 Received: from not-op-Victus-by-HP-Gaming-Laptop-15-fb3xxx ([2001:4490:48e1:a6d:b698:9913:39f1:6954])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec43699sm10988889a91.10.2026.11.14.22.00.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec43699sm10988889a91.10.2026.11.14.22.01.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 22:00:58 -0800 (PST)
+        Sat, 14 Nov 2026 22:01:03 -0800 (PST)
 From: Akshat Chandra <notmissinge@gmail.com>
 To: linux-iio@vger.kernel.org
 Cc: jic23@kernel.org,
@@ -86,14 +86,10 @@ Cc: jic23@kernel.org,
 	Lukasz Kulga <lukasz.kulga@gmail.com>,
 	David Lechner <dlechner@baylibre.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: iio: chemical: Add Sensirion SGP41 binding
-Date: Sun, 15 Nov 2026 11:29:39 +0530
-Message-ID: <20261115055941.362185-2-notmissinge@gmail.com>
+Subject: [PATCH v2 2/2] iio: chemical: Add support for Sensirion SGP41
+Date: Sun, 15 Nov 2026 11:29:40 +0530
+Message-ID: <20261115055941.362185-3-notmissinge@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261115055941.362185-1-notmissinge@gmail.com>
 References: <20261115055941.362185-1-notmissinge@gmail.com>
@@ -108,64 +104,622 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a Device Tree binding for the Sensirion SGP41 VOC and NOx gas
-sensor, including its VDD supply.
+Add a driver for the Sensirion SGP41 VOC and NOx gas sensor,
+connected over I2C.
+
+Expose raw VOC and NOx signals as resistance channels and
+allow userspace to write temperature and relative humidity
+compensation values.
+
+Run sensor conditioning lazily before the first raw measurement.
+Calculate an estimated VOC index and leave NOx-index calculation
+to userspace.
 
 Signed-off-by: Akshat Chandra <notmissinge@gmail.com>
 ---
- .../iio/chemical/sensirion,sgp41.yaml         | 43 +++++++++++++++++++
- 1 file changed, 43 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml
+ drivers/iio/chemical/Kconfig  |  11 +
+ drivers/iio/chemical/Makefile |   1 +
+ drivers/iio/chemical/sgp41.c  | 542 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 554 insertions(+)
+ create mode 100644 drivers/iio/chemical/sgp41.c
 
-diff --git a/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml b/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml
+diff --git a/drivers/iio/chemical/Kconfig b/drivers/iio/chemical/Kconfig
+index b22afa1f6d59..cbb6a51b1cfd 100644
+--- a/drivers/iio/chemical/Kconfig
++++ b/drivers/iio/chemical/Kconfig
+@@ -210,6 +210,17 @@ config SENSIRION_SGP40
+ 	  To compile this driver as module, choose M here: the
+ 	  module will be called sgp40.
+ 
++config SENSIRION_SGP41
++	tristate "Sensirion SGP41 gas sensor"
++	depends on I2C
++	select CRC8
++	help
++	  Say Y here to build I2C interface to support Sensirion SGP41 gas
++	  sensor
++
++	  To compile this driver as module, choose M here: the
++	  module will be called sgp41.
++
+ config SPS30
+ 	tristate
+ 	select IIO_BUFFER
+diff --git a/drivers/iio/chemical/Makefile b/drivers/iio/chemical/Makefile
+index 2287a00a6b75..90041aaa41fe 100644
+--- a/drivers/iio/chemical/Makefile
++++ b/drivers/iio/chemical/Makefile
+@@ -25,6 +25,7 @@ obj-$(CONFIG_SEN0322)	+= sen0322.o
+ obj-$(CONFIG_SENSEAIR_SUNRISE_CO2) += sunrise_co2.o
+ obj-$(CONFIG_SENSIRION_SGP30)	+= sgp30.o
+ obj-$(CONFIG_SENSIRION_SGP40)	+= sgp40.o
++obj-$(CONFIG_SENSIRION_SGP41)	+= sgp41.o
+ obj-$(CONFIG_SPS30) += sps30.o
+ obj-$(CONFIG_SPS30_I2C) += sps30_i2c.o
+ obj-$(CONFIG_SPS30_SERIAL) += sps30_serial.o
+diff --git a/drivers/iio/chemical/sgp41.c b/drivers/iio/chemical/sgp41.c
 new file mode 100644
-index 000000000000..28528a695cf3
+index 000000000000..f094ba22b7aa
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml
-@@ -0,0 +1,43 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/chemical/sensirion,sgp41.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/iio/chemical/sgp41.c
+@@ -0,0 +1,542 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * sgp41 - Support for Sensirion SGP41 Gas Sensor
++ *
++ * Copyright (C) 2026 Akshat Chandra <notmissinge@gmail.com>
++ *
++ * I2C slave address: 0x59
++ *
++ * Datasheet can be found here:
++ * https://www.sensirion.com/file/datasheet_sgp41
++ *
++ * There are two functionalities supported:
++ *
++ * 1) read raw logarithmic resistance value from sensor
++ *    --> useful to pass it to the algorithm of the sensor vendor for
++ *    measuring deteriorations and improvements of air quality.
++ *    The values can be read from the in_resistance_voc_raw and
++ *    in_resistance_nox_raw.
++ *
++ * 2) calculate an estimated VOC index (0 - 500) and expose it through
++ *    the in_concentration_voc_input attribute.
++ *
++ *    The VOC index is calculated using the raw VOC resistance and a
++ *    configurable calibration bias, exposed through
++ *    in_resistance_voc_calibbias (default 30000).
++ *
++ * The driver does not calculate a NOx index.
++ *
++ * Conditioning runs before the first raw measurement, once per second
++ * for a total of 10 seconds.
++ *
++ * Compensation values for relative humidity and temperature can be
++ * configured through the corresponding output attributes.
++ *
++ * The sensor heater is turned off when the device is removed.
++ */
 +
-+title: Sensirion SGP41 VOC and NOx gas sensor
++#include<linux/cleanup.h>
++#include <linux/crc8.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/iio/iio.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/regulator/consumer.h>
++#include <linux/types.h>
 +
-+maintainers:
-+  - Akshat Chandra <notmissinge@gmail.com>
++#define SGP41_CALC_POWER   14
++#define SGP41_CRC8_POLYNOMIAL		0x31
++#define SGP41_CRC8_INIT		0xff
 +
-+description: |
-+  Sensirion SGP41 indoor air quality sensor measuring raw VOC and NOx
-+  signals over I2C.
++#define SGP41_COND_ITERATIONS		10
++#define SRAW_VOC           1
++#define SRAW_NOX           2
 +
-+properties:
-+  compatible:
-+    const: sensirion,sgp41
++DECLARE_CRC8_TABLE(sgp41_crc8_table);
 +
-+  reg:
-+    const: 0x59
++struct sgp41_data {
++	struct device *dev;
++	struct i2c_client *client;
 +
-+  vdd-supply: true
++	int rht;
++	int temp;
 +
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+additionalProperties: false
++	int voc_calibbias;
 +
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
++	struct mutex lock; /* Protects sensor state and I2C transaction.*/
++	bool conditioned;
++	u8 condition_count; /*Counter for conditioning_cmd sent.*/
++};
 +
-+      gas-sensor@59 {
-+        compatible = "sensirion,sgp41";
-+        reg = <0x59>;
-+        vdd-supply = <&vdd>;
-+      };
-+    };
-+...
--- 
++struct sgp41_tg_measure {
++	u8 command[2];
++	__be16 rht_ticks;
++	u8 rht_crc;
++	__be16 temp_ticks;
++	u8 temp_crc;
++} __packed;
++
++struct sgp41_tg_result {
++	__be16 voc_res_ticks;
++	u8 voc_res_crc;
++	__be16 nox_res_ticks;
++	u8 nox_res_crc;
++} __packed;
++
++static const struct iio_chan_spec sgp41_channels[] = {
++	{
++		.type = IIO_RESISTANCE,/*VOC*/
++		.channel = SRAW_VOC,
++		.extend_name = "voc",
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++			BIT(IIO_CHAN_INFO_CALIBBIAS),
++	},
++	{
++		.type = IIO_RESISTANCE,/*NOX*/
++		.channel = SRAW_NOX,
++		.extend_name = "nox",
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++	},
++	{
++		.type = IIO_CONCENTRATION,
++		.channel2 = IIO_MOD_VOC,
++		.modified = 1,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED),
++	},
++	{
++		.type = IIO_TEMP,
++		.output = 1,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++	},
++	{
++		.type = IIO_HUMIDITYRELATIVE,
++		.output = 1,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++	},
++};
++
++/*
++ * taylor approximation of e^x:
++ * y = 1 + x + x^2 / 2 + x^3 / 6 + x^4 / 24 + ... + x^n / n!
++ *
++ * Because we are calculating x real value multiplied by 2^power we get
++ * an additional 2^power^n to divide for every element. For a reasonable
++ * precision this would overflow after a few iterations. Therefore we
++ * divide the x^n part whenever its about to overflow (xmax).
++ */
++
++static u32 sgp41_exp(int exp, u32 power, u32 rounds)
++{
++	u32 x, y, xp;
++	u32 factorial, divider, xmax;
++	int sign = 1;
++	u32 i;
++
++	if (exp == 0) {
++		return 1 << power;
++	} else if (exp < 0) {
++		sign = -1;
++		exp *= -1;
++	}
++
++	xmax = 0x7FFFFFFF / exp;
++	x = exp;
++	xp = 1;
++	factorial = 1;
++	y = 1 << power;
++	divider = 0;
++
++	for (i = 1; i <= rounds; i++) {
++		xp *= x;
++		factorial *= i;
++		y += (xp >> divider) / factorial;
++		divider += power;
++		/* divide when next multiplication would overflow */
++		if (xp >= xmax) {
++			xp >>= power;
++			divider -= power;
++		}
++	}
++
++	if (sign == -1)
++		return (1 << (power * 2)) / y;
++	else
++		return y;
++}
++
++static void temp_rht_payload(struct sgp41_data *data,
++			     struct sgp41_tg_measure *tg)
++{
++	s64 ticks;
++	u16 ticks16;
++
++	ticks = div_s64((s64)data->rht * 65535, 100000);
++	ticks16 = (u16)clamp_t(s64, ticks, 0, 65535);
++	tg->rht_ticks = cpu_to_be16(ticks16);
++	tg->rht_crc = crc8(sgp41_crc8_table, (u8 *)&tg->rht_ticks, 2,
++			   SGP41_CRC8_INIT);
++
++	ticks = div_s64((s64)(data->temp + 45000) * 65535, 175000);
++	ticks16 = (u16)clamp_t(s64, ticks, 0, 65535);
++	tg->temp_ticks = cpu_to_be16(ticks16);
++	tg->temp_crc = crc8(sgp41_crc8_table, (u8 *)&tg->temp_ticks, 2,
++			    SGP41_CRC8_INIT);
++}
++
++static int sgp41_calc_voc(struct sgp41_data *data, u16 voc_raw, int *voc)
++{
++	int x;
++	u32 exp = 0;
++	int voc_calibbias;
++
++	/* we calculate as a multiple of 16384 (2^14) */
++	scoped_guard(mutex, &data->lock)
++		voc_calibbias = data->voc_calibbias;
++
++	x = ((int)voc_raw - voc_calibbias) * 106;
++		/* voc = 500 / (1 + e^x) */
++	exp = sgp41_exp(x, SGP41_CALC_POWER, 18);
++	*voc = 500 * ((1 << (SGP41_CALC_POWER * 2)) / ((1 << SGP41_CALC_POWER) + exp));
++
++	dev_dbg(data->dev, "voc_raw: %d voc_calibbias: %d x: %d exp: %u voc: %d\n",
++		voc_raw, data->voc_calibbias, x, exp, *voc);
++
++	return 0;
++}
++
++static int sgp41_run_conditioning(struct sgp41_data *data)
++{
++	struct sgp41_tg_measure tg = {
++		.command = { 0x26, 0x12 },
++	};
++	int i;
++	int ret;
++
++	for (i = 0; i < SGP41_COND_ITERATIONS; i++) {
++		if (data->condition_count!= i)
++			i = data->condition_count;
++
++		temp_rht_payload(data, &tg);
++		ret = i2c_master_send(data->client, (const char *)&tg,
++				      sizeof(tg));
++		if (ret != sizeof(tg)) {
++			dev_warn(data->dev,
++				 "i2c_master_send ret: %d sizeof: %zu\n",
++				 ret, sizeof(tg));
++			return ret < 0 ? ret : -EIO;
++		}
++		data->condition_count++;
++		msleep(50);
++
++		if (i != SGP41_COND_ITERATIONS - 1)
++			msleep(950);
++	}
++
++	data->conditioned = true;
++
++	return 0;
++}
++
++static int sgp41_heater_off(struct sgp41_data *data)
++{
++	u8 heater_off_cmd[2] = { 0x36, 0x15 };
++	int ret;
++
++	ret = i2c_master_send(data->client, heater_off_cmd,
++			      sizeof(heater_off_cmd));
++	if (ret != sizeof(heater_off_cmd)) {
++		dev_warn(data->dev,
++			 "i2c_master_send ret: %d sizeof: %zu\n",
++			 ret, sizeof(heater_off_cmd));
++		return ret < 0 ? ret : -EIO;
++	}
++	data-> conditioned = false;
++	data->condition_count = 0;
++	dev_dbg(data->dev, "heater turned off\n");
++
++	return 0;
++}
++
++static int sgp41_measure_raw(struct sgp41_data *data,
++			     u16 *voc_raw, u16 *nox_raw)
++{
++	struct sgp41_tg_measure tg = {
++		.command = { 0x26, 0x19 },
++	};
++	struct sgp41_tg_result tgres;
++	u8 crc;
++	int ret;
++
++	guard(mutex)(&data->lock);
++
++	if (!data->conditioned) {
++		ret = sgp41_run_conditioning(data);
++		if (ret) {
++			sgp41_heater_off(data);
++			return ret;
++		}
++	}
++
++	temp_rht_payload(data, &tg);
++
++	ret = i2c_master_send(data->client, (const char *)&tg, sizeof(tg));
++	if (ret != sizeof(tg)) {
++		dev_warn(data->dev,
++			 "i2c_master_send ret: %d sizeof: %zu\n",
++			 ret, sizeof(tg));
++		return ret < 0 ? ret : -EIO;
++	}
++
++	msleep(50);
++
++	ret = i2c_master_recv(data->client, (u8 *)&tgres, sizeof(tgres));
++	if (ret < 0)
++		return ret;
++
++	if (ret != sizeof(tgres)) {
++		dev_warn(data->dev,
++			 "i2c_master_recv ret: %d sizeof: %zu\n",
++			 ret, sizeof(tgres));
++		return -EIO;
++	}
++
++	crc = crc8(sgp41_crc8_table, (u8 *)&tgres.voc_res_ticks, 2,
++		   SGP41_CRC8_INIT);
++	if (crc != tgres.voc_res_crc) {
++		dev_err(data->dev, "CRC error while measure-voc_raw\n");
++		return -EIO;
++	}
++
++	crc = crc8(sgp41_crc8_table, (u8 *)&tgres.nox_res_ticks, 2,
++		   SGP41_CRC8_INIT);
++	if (crc != tgres.nox_res_crc) {
++		dev_err(data->dev, "CRC error while measure-nox_raw\n");
++		return -EIO;
++	}
++
++	*voc_raw = be16_to_cpu(tgres.voc_res_ticks);
++	*nox_raw = be16_to_cpu(tgres.nox_res_ticks);
++
++	return 0;
++}
++
++static int sgp41_read_raw(struct iio_dev *indio_dev,
++			  struct iio_chan_spec const *chan, int *val,
++			  int *val2, long mask)
++{
++	struct sgp41_data *data = iio_priv(indio_dev);
++	u16 voc_raw;
++	u16 nox_raw;
++	int ret;
++	int voc;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		switch (chan->type) {
++		case IIO_RESISTANCE: {
++			ret = sgp41_measure_raw(data, &voc_raw, &nox_raw);
++			if (ret)
++				return ret;
++
++			switch (chan->channel) {
++			case SRAW_VOC:
++				*val = voc_raw;
++				return IIO_VAL_INT;
++			case SRAW_NOX:
++				*val = nox_raw;
++				return IIO_VAL_INT;
++			default:
++				return -EINVAL;
++			}
++		}
++		case IIO_TEMP: {
++			guard(mutex)(&data->lock);
++			*val = data->temp;
++			return IIO_VAL_INT;
++		}
++		case IIO_HUMIDITYRELATIVE: {
++			guard(mutex)(&data->lock);
++			*val = data->rht;
++			return IIO_VAL_INT;
++		}
++		default:
++			return -EINVAL;
++		}
++
++	case IIO_CHAN_INFO_PROCESSED:
++		switch (chan->channel2) {
++		case IIO_MOD_VOC:
++			ret = sgp41_measure_raw(data, &voc_raw, &nox_raw);
++			if (ret)
++				return ret;
++
++			ret = sgp41_calc_voc(data, voc_raw, &voc);
++			if (ret)
++				return ret;
++
++			*val = voc / (1 << SGP41_CALC_POWER);
++		/*
++		 * calculation should fit into integer, where:
++		 * voc <= (500 * 2^SGP41_CALC_POWER) = 8192000
++		 * (with SGP41_CALC_POWER = 14)
++		 */
++		*val2 = ((voc % (1 << SGP41_CALC_POWER)) * 244) /
++			(1 << (SGP41_CALC_POWER - 12));
++		dev_dbg(data->dev, "voc: %d val: %d.%06d\n",
++			voc, *val, *val2);
++		return IIO_VAL_INT_PLUS_MICRO;
++		default:
++			return -EINVAL;
++		}
++
++	case IIO_CHAN_INFO_CALIBBIAS:
++		switch (chan->channel) {
++		/*For VOC Calibration,*/
++		case SRAW_VOC: {
++			guard(mutex)(&data->lock);
++			*val = data->voc_calibbias;
++			return IIO_VAL_INT;
++		}
++		default:
++			return -EINVAL;
++		}
++	default:
++		return -EINVAL;
++	}
++}
++
++static int sgp41_write_raw(struct iio_dev *indio_dev,
++			   struct iio_chan_spec const *chan, int val,
++			   int val2, long mask)
++{
++	struct sgp41_data *data = iio_priv(indio_dev);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		switch (chan->type) {
++		case IIO_TEMP: {
++			if (val < -45000 || val > 130000)
++				return -EINVAL;
++
++			guard(mutex)(&data->lock);
++			data->temp = val;
++			return 0;
++		}
++		case IIO_HUMIDITYRELATIVE: {
++			if (val < 0 || val > 100000)
++				return -EINVAL;
++
++			guard(mutex)(&data->lock);
++			data->rht = val;
++			return 0;
++		}
++		default:
++			return -EINVAL;
++		}
++
++	case IIO_CHAN_INFO_CALIBBIAS:
++		switch (chan->channel) {
++		/*For VOC Calibration,*/
++		case SRAW_VOC: {
++			if (val < 20000 || val > 52768)
++				return -EINVAL;
++
++			guard(mutex)(&data->lock);
++			data->voc_calibbias = val;
++			return 0;
++		}
++		default:
++			return -EINVAL;
++		}
++
++	default:
++		return -EINVAL;
++	}
++}
++
++
++static void sgp41_remove(struct i2c_client *client)
++{
++	int ret;
++	struct iio_dev *indio_dev = i2c_get_clientdata(client);
++	struct sgp41_data *data = iio_priv(indio_dev);
++
++	iio_device_unregister(indio_dev);
++
++	guard(mutex)(&data->lock);
++	ret = sgp41_heater_off(data);
++	if (ret)
++	dev_warn(data->dev, "Failed to turn off heater: %d\n", ret);
++}
++
++static const struct iio_info sgp41_info = {
++	.read_raw = sgp41_read_raw,
++	.write_raw = sgp41_write_raw,
++};
++
++static int sgp41_probe(struct i2c_client *client)
++{
++	const struct i2c_device_id *id = i2c_client_get_device_id(client);
++	struct device *dev = &client->dev;
++	struct iio_dev *indio_dev;
++	struct sgp41_data *data;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	i2c_set_clientdata(client, indio_dev);
++
++	data = iio_priv(indio_dev);
++	data->client = client;
++	data->dev = dev;
++	data->conditioned = false;
++	data->condition_count = 0;
++
++	crc8_populate_msb(sgp41_crc8_table, SGP41_CRC8_POLYNOMIAL);
++
++	mutex_init(&data->lock);
++
++	/*default values.*/
++	data->rht = 50000;
++	data->temp = 25000;
++	data->voc_calibbias = 30000; /*resistance raw value for voc index of 250*/
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get/enable vdd supply\n");
++
++	indio_dev->info = &sgp41_info;
++
++	if (id)
++		indio_dev->name = id->name;
++	else
++		indio_dev->name = "sgp41";
++
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->channels = sgp41_channels;
++	indio_dev->num_channels = ARRAY_SIZE(sgp41_channels);
++
++	ret = iio_device_register(indio_dev);
++	if (ret)
++		dev_err(dev, "failed to register iio device\n");
++
++	return ret;
++}
++
++static const struct i2c_device_id sgp41_id[] = {
++	{ .name = "sgp41" },
++	{ }
++};
++
++MODULE_DEVICE_TABLE(i2c, sgp41_id);
++
++static const struct of_device_id sgp41_dt_ids[] = {
++	{ .compatible = "sensirion,sgp41" },
++	{ }
++};
++
++MODULE_DEVICE_TABLE(of, sgp41_dt_ids);
++
++static struct i2c_driver sgp41_driver = {
++	.driver = {
++		.name = "sgp41",
++		.of_match_table = sgp41_dt_ids,
++	},
++	.probe = sgp41_probe,
++	.id_table = sgp41_id,
++	.remove = sgp41_remove,
++};
++
++module_i2c_driver(sgp41_driver);
++
++MODULE_AUTHOR("Akshat Chandra <notmissinge@gmail.com>");
++MODULE_DESCRIPTION("Sensirion SGP41 gas sensor");
++MODULE_LICENSE("GPL");
+--
 2.53.0
 
