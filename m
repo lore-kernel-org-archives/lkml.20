@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794747831;
-	b=gVYhySjdC5jgbVu7jeO1rE12dc4E3c9oKXGo3s0yMnPtze5/6MyoyNDTQAUi9xctu7Gy
-	 nd43y+ZyxU7s38Mg2AY724m3aPpJW/aaBwcAjuDx9ery3b9dxm1W4dtpsTL8shDVMfVbP
-	 +M7dRmXSDaxnMLZCS36owabYoWNRgadubLifj0BMqwxQrasNN7LBA7wgT8ZMu0xHFdjJv
-	 wuJKwphNNBwaugm8WPkEfPrgilrlafNfhvhBwVo2pXFBD69md/7xq4qR//t6XsMDLTy6E
-	 M95i7HpBFAaISdVeH4jKXwO8NqBSYKNTtGJPQ44AxIugVqzoFEYN2yI03Q11+0H8HPw==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.221.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794748205;
+	b=VLf3mwrTV2/D7sQ9cUlxIIkk++t2pg6FRErdJHLifV5j1A0nBQqtVUv4f3WY6joWrxXx
+	 MRE2d53TEwsx7VxqvmMG9u14aFXTznHyA0mdyJnF45qkOefMxUY0nOyQVxnJQ6WulIe1K
+	 ukuoXZhF2vGbGg1fv+ISJ0vLhXNLML/ssKjIW5V2NyOezAyevS5O/mNmuHWl89hJd9Gix
+	 PBgRJBO63RHJKaFarzN5bX0dovA0pxcqXy5jm2oGjB+tJR0X/O+vF9W5krACKCqsYJjH1
+	 kwyUu2hQ2Uj3Sk8WFqljNoghDUyTjZK/Az9NJuvtFckQ6NqBxoFgNkYRsj7Pme1nV3Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794747831;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pon4Orxf+wxXpPtJNQHkuozRV8DRO+bVJt+AyFuNNgA=;
-	b=IGSHvNm/ZcTx7qFBWjHJ+jW3rBjF6mwPel1eFqTIH5VbtH1Q00AIw7PtFLMnPo6rzWIa
-	 M8uh9FBtNUuth7UG7DDb0aGIEVWAtMUjrebu5Viw/ifySoyWgA0jNijh7bek+dIxNJw7p
-	 487zvWgHGPAFKevePd6b0YTgWGEsXpKEurJ/iz0+9eytEmK5G1F5Ht4/JQWw7CgC5c34A
-	 X3gGUN7Y2+yxhRml4MyRxA8ZEBHZq9Ov0Tl2X9mJJxl/NLyHHLX39mcCyocQh/XAeY2eC
-	 V/hXN1fmMw3CwVBnBu2WscZCJzuI3k5Lu1c58TRWjOh/TYiKQCCaw6CMJE3vmcXtWNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748205;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
+	b=ZcVfKQsHHOuD9waN3wm7Ad6UOw3KgqVnjedJ67j8Ug002oGIJtxScITnz0tRcSlYwYnd
+	 H9PFczejxtLmjrrXtp/WCDHitGrhvwMqpnooYrFcs9kXYhrRjMjNJL9BJpv3mR7aZgDRm
+	 C/9hblpfR/jMTods7OhP6fDOQvzXoxbEnv7cMXlWg7Os9trVKeOfdcW00pKKG2m8C2Sv/
+	 Lu1WT/j6usyQxD9jlep5AOQfSo30DJN6ktLaj7mpHMoIwh8io8MWBVJVKxzabeyyHtTMM
+	 q64jsbDqP0ZTp8r9GSGgSUDmDHaB/yV/p7I7Ob0yw2l0IX/Jb4JtOy5OnjXv4pDPDtQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFY7bNbw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089E606A31D;
-	Sun, 15 Nov 2026 13:03:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFY7bNbw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794747830;
-	b=OUSONZFJMDovmjRzOroXfDbn33rzW2XFbRIc/4GuTGtdQySrNYMcSSHHYh7PJ57KKZXv
-	 a8R0Sj/qeIwZSlDZZm4PwYGu5u+91rkzQKpRSb+HjB3UrtD3cYD1yY9DqN2Uxy3sMroln
-	 ifKrsJIgM7MffpL/KMDt/ffa6yDNaxhe2GUt78Hqmy55tJ4gPpG8jTXioAYy0lRu85KiU
-	 Boj6LFoL5IQEa9NaDe/j0DvEbiCk/T0F84mnZ3MUmpHb6AOQRnP27+6ypTMn5tAnD2kQ2
-	 q9UoAThK0GnIsZ0htAOyGt3JYGEk+k+J/pRvBynNDU6Im/ZGXeSj6uF/pjR8BViNfZA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794747830;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pon4Orxf+wxXpPtJNQHkuozRV8DRO+bVJt+AyFuNNgA=;
-	b=kAnKTk9er5e3nGLoMvCY9CImUXq8sj/CAcBcY3B4h2I80mxZlZhaoLQLrHxQt35gIIlf
-	 htEFrqafR67XuwSWgpfnRmjCvHIWbJ62o/n1UzQlaU2aW3JRBHCcxYYZjbDe9kRSzA0ft
-	 8E7FwB+jcUkKGL0xpOyarMIhGy/ZuxrYaSFxSUhAyE7uof8XdeCA2jZIH4xfSIqujRGpE
-	 bADcJqUFmY5LbXdinE7t2vFnH+b+WL2mGRrM2YFdk0LZ8fB5L097h4entF2KZfEQkpNk0
-	 rBradvBQQKSMGEZgFxI0Bav42V8YaufbLtszlpInchMZLKA5QwAU9PYAhRu3LN/Uvjw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E3NNkXn7;
+	arc=fail smtp.remote-ip=209.85.221.178
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 47B021F000C4;
-	Sun, 15 Nov 2026 13:03:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794747830;
-	bh=pon4Orxf+wxXpPtJNQHkuozRV8DRO+bVJt+AyFuNNgA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=NFY7bNbw18avbta8RqY+5u9GzDzbq00ccvEyvbnxPMuJo3Y56XBdtw6n0iqENZaAv
-	 v/2wCrRgp3/NKpuB4p6fNjOvkSetxw1TIg/4ccQeU2VSDXDSvhXKj020bJsRhRyLvN
-	 iBf6sXH3VnOXT2eJIamdEyIE86HodgChNM9PpOV7C9Rr4RYLmAEb4SXtoqv23845LI
-	 NQSfmLRLxXbNGXJ+lqW3Rq72AF6I7/Xo6vMW8xdi9Aik9HptaAcRJ/kDuZuFQycRW8
-	 QQ/SvrkK5+koWDh/K/6uVkMDGMjF41tg+dohe/pda2MhlEE2bAJ9e1qW8rKUdel+i9
-	 0WyY+JuRbKUpg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9C0A94A09B;
-	Sun, 15 Nov 2026 13:03:49 +0000 (UTC)
-From: Alexey Skidanov via B4 Relay <devnull+alexeys.xsightlabs.com@kernel.org>
-Date: Sun, 15 Nov 2026 15:03:29 +0200
-Subject: [PATCH net] selftests: drv-net: psp: skip unsupported versions in
- netkit data test
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07973606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:10:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07973606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E3NNkXn7
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so3148198e0c.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:10:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794748204; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hqGnV90efcar4lCNhD16DfN6ScJCdTIR1P+ZHlDoB9b3yy85iz+Gxe6YSErCMJKWiv
+         b01/VnCsdp6T4d/kD2VS+D+eZAzZt73EA283ZFqqA83YGHkXlOkYPX93Sa42UjKFHirw
+         ZattOynmnIFssvlLmtnnxmXPXGv/o/+jSyI9b07A88VAO4GhpZQo8MmmdqjHt6gOaWiI
+         qDmI4Oa7SdbeXti8yYouc1JO+D6mP5/qZa54YDu9A8U5IAF4yZ/OQsWuIC9Zhn4HPbgs
+         bfU12xz4k1V5x4sorYQW5vW8sBL8cs3pTjsg5BX3YC0iMX4bsfJYuGwtitoDIIi/4u0W
+         1huQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
+        fh=rYxOdEtduPsh4TnohB3K2kELLyynGMm+TObu3xYfT0s=;
+        b=GCrWLqkP7dwnduY537FGjxmYW8nSWqt/11sf8PDEtCBo78Jl/7Wb5f6rFsIgJu7Xah
+         C17ARUY1g3g+MZKCRD/c+/4rvFFIpuLpfdACDW472d4Lq8KspSX05wFPNxJE/TxU7ZhS
+         frNCXAiZIarn4B4LcTVxcxTnrcUcCs5N/8YLG7SqQ/8fXVPtqFR7n5u0BsZyfRoLktx3
+         PedBnyn8X9d5EnfjUFUMg+vbVs6mOp8yo1d9JjG+fHQuUE/hdyLLSJ0ztevaB6f//s+m
+         48+oX1tOMPwKtL6/z4xQ/Ntx5QZMP0YnALP78E4RyvtfaCEwiHWPyA3G0lm1YvzZK9Rk
+         nfSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794748204; x=1795353004; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
+        b=E3NNkXn7Kkk9+i4V9F1+LHx0gAzP+7aI5lToB3DkMeqpU0R5DuxoyhKQJLgywIu5Dl
+         Df0+kqpXxGxnqFpfMiN3Cw4aDdKZnL8Z5GcjpLgnIEF18naQolTdZxRkkZeKSJXlV3c0
+         Iv7jXdrdWP/mc85q31sblc2xhS8v9aGVUHRnPJvd7lUHIuNhMVmWNPWGxuDuEEqKb2VE
+         7NwaUDpZzGo9SUCS6XrYGzL8Flo2WbHni3qFe5vAT9O7t1fNcSDG9QBZ00j4OG9X05mi
+         A1/FBzDzs6td7a+PgimezQyLXPXM5wne+L366jhEbQsOWUTIla6UpL/vWfEkDEZMsdiS
+         SsCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794748204; x=1795353004;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
+        b=ml5yrDIRIrwBueCjB6zrI6H/2Zp1nNfY0OZUL8FdjG+IqfOU6rcZdzIYdCmnGAWoUI
+         aVFYyW+Rmm9Vdfy8Rt0wx9qq3OxgTK0TlabueXza9BuTgpmaU2eI/N1zfWZVRyAjAWhV
+         KW4Zmjrzq9T8KoDkoW0/0HXM9AulHahpEWjNlYNlyAb2qJdTZy/Mnp6KDv8VtMl10gFU
+         OvF0ov5iCL2WKzxtxAUm9J0cwT/kjomqH142b2zKTc6Ja3rYM0mRYjyCewsinjJWHyHq
+         l5BvxxSwmW4TWQu2+FjjY1R6yj7zIrNj5RkzEF//tio+WZujD4jWrOyMZbWSwOkuDATG
+         ArQA==
+X-Forwarded-Encrypted: i=1; AL+hErFB9cK9eRZVZEUIPlIlkI7IBuF2+hhZwyDi4errAPxIR4HwaFFUwr6iY6AiNMdxlg95kpMUYcecMJxSKcw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hUHxpbeDAORW7Ft3xadDFywE1olQjNYielzn1RmPewbEd6HUB
+	371kdJ7YDD53FJO2+8cW9sbdGYqsEmhBZRHG9QwGzGgFWhhDxYAYTNY0FWSIf1Yy91ItKsPewS2
+	z8m2RY/8RWDtnEw9mHRItjcYb/1Efe+k=
+X-Gm-Gg: AYBFou31Oy8F3I/ZS7/l9KO4C46f28qZeRXYRbupzANMezyozworpGyMmi4q0rtpUm7
+	FgS6+xsPEGfWFlpzy35VkP26x5X9dcZTeyN47l2HduGlZlXBeKF859IaATOqMIsMgQkwnd0LrcL
+	cHESzTa0sui/pFbCTc621eCr7+qbsMcuvdQG9Jdir+IHh63eKP2rQceDHjEMcHlqVWD4RtFAeLe
+	am13zw7bmKSsYan040ZS9T87IKUmV5zxeEdmCBxGLZGacaWTKK9HPrhQ2tdTaX8ObAm1eXzI74a
+	9fPiX4lCFDmKiJcfPTd9MEh69YPX0Z+UrFrJHM+dSWOItxRbl7ebaIr+IWz59Btz6fMEv0BX+3A
+	culOBnvD4/ttWUApfImPGT/jMDwSPTd5E3aWB
+X-Received: by 2002:a05:6122:1b8d:b0:5ca:856d:cf80 with SMTP id
+ 71dfb90a1353d-5ee34a7e643mr3049835e0c.11.1794748203388; Sun, 15 Nov 2026
+ 05:10:03 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sun, 15 Nov 2026 05:10:02 -0800
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sun, 15 Nov 2026 07:09:20 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,75 +105,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-main-v1-1-7011cd84e54a@xsightlabs.com>
-X-B4-Tracking: v=1; b=H4sIAKCt+WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0NT3dzEzDxdgyRj87SkVNNUwxQjJaDSgqLUtMwKsDHRSnmpJUqxtbU
- AdT6qw1sAAAA=
-X-Change-ID: 20261115-main-0b37fbe5e1d2
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Shuah Khan <shuah@kernel.org>, Wei Wang <weiwan@google.com>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, guyt@xsightlabs.com, 
- Alexey Skidanov <alexeys@xsightlabs.com>, 
- Lior Yizchak <liory@xsightlabs.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794747829; l=1543;
- i=alexeys@xsightlabs.com; s=20261115; h=from:subject:message-id;
- bh=+HHsLPET6WB6VgqdrP9TIelZlMYJuT8XLUrUt8UuqfA=;
- b=vVXw9si6EHE39Eo2dXea6LyskLSwuKQn3lHCXtuRRoLGUziB4aoRDjPgOp+NV7p3TzDUs3tu5
- g/A3NOSYmkgD2g/WBTPcfCZDxW5rub9IeXDMvfNx86udW9Ok7PKo00K
-X-Developer-Key: i=alexeys@xsightlabs.com; a=ed25519;
- pk=ve3muo5qeQ0fgK78LFE9NWqGShBLIHZrMBKOM0exhfY=
-X-Endpoint-Received: by B4 Relay for alexeys@xsightlabs.com/20261115 with
- auth_id=1532
-X-Original-From: Alexey Skidanov <alexeys@xsightlabs.com>
-Reply-To: alexeys@xsightlabs.com
-Content-Transfer-Encoding: 7bit
+From: enderaoelyther@gmail.com
+Date: Sun, 15 Nov 2026 05:10:02 -0800
+X-Gm-Features: AclHuK92OLe_ppBLr7loZS976QSMB3kkhkT0NjtubDh_jhqXCnkEGQD3vj8y5-w
+Message-ID: <CACHPgzwtaykrULWEDNuWU0ZacnNf4s4uSsiYmxE_vJhS4jO0GA@mail.gmail.com>
+Subject: [PATCH wireless] wifi: mac80211: parse wrapper TPE elements without
+ an extension offset
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Alexey Skidanov <alexeys@xsightlabs.com>
+Commit d160663ca2fa ("wifi: mac80211: fix TPE in channel switch wrapper
+parsing") replaced cfg80211_find_ext_elem() with for_each_element_id() for
+Transmit Power Envelope elements inside a Channel Switch Wrapper, but kept
+the offset that skipped the Extension ID. The parser now drops the first
+byte of each element and misreads the rest.
 
-data_basic_send_netkit_psp_assoc() runs for PSP versions 0-3. The
-non-netkit data path already skips versions the device does not
-advertise in psp-versions-cap. The netkit path does not, so those
-cases fail instead of skipping.
+ieee80211_parse_tpe() takes a u8 length, so for a zero-length element
+0 - 1 wraps around to 255 and the parser reads past the element. Received
+beacons are parsed this way when the BSS table is updated, with or without
+a connection, so a frame sent over the air can trigger it.
 
-Version 0 stays mandatory. Skip an unadvertised version before opening
-the PSP connection.
+Pass the element body and length unchanged, as for a top-level Transmit
+Power Envelope element.
 
-Fixes: 43cf629700fa ("selftests/net: psp: add dev-assoc data path test")
-Signed-off-by: Alexey Skidanov <alexeys@xsightlabs.com>
-Signed-off-by: Lior Yizchak <liory@xsightlabs.com>
+AI assistance was used.
+
+Fixes: d160663ca2fa ("wifi: mac80211: fix TPE in channel switch
+wrapper parsing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- tools/testing/selftests/drivers/net/psp.py | 6 ++++++
- 1 file changed, 6 insertions(+)
+Tested the in-tree parser with a ten-case KUnit extension under KASAN,
+applied identically to the base and fixed kernels. The base fails three
+decoding cases and reports a slab-out-of-bounds read for a zero-length
+nested TPE. All ten cases pass with the fix, without KASAN reports;
+the existing TPE suite also passes on both kernels.
 
-diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
-index c114d2245135..7c8fb2200b39 100755
---- a/tools/testing/selftests/drivers/net/psp.py
-+++ b/tools/testing/selftests/drivers/net/psp.py
-@@ -728,6 +728,12 @@ def _data_basic_send_netkit_psp_assoc(cfg, version, ipver):
-     """
-     _assoc_nk_guest(cfg)
- 
-+    # Version 0 is required by spec, don't let it skip
-+    if version:
-+        name = cfg.pspnl.consts["version"].entries_by_val[version].name
-+        if name not in cfg.psp_info['psp-versions-cap']:
-+            raise KsftSkipEx("PSP version not supported", name)
-+
-     # Enter guest namespace (netns) to run PSP test
-     with NetNSEnter(cfg.netns.name):
-         cfg.pspnl = PSPFamily()
+Compile-tested with no new W=1 GCC/Clang, sparse or smatch warnings.
 
----
-base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
-change-id: 20261115-main-0b37fbe5e1d2
+ net/mac80211/parse.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Best regards,
+diff --git a/net/mac80211/parse.c b/net/mac80211/parse.c
+index f3c5a9f6ec7c..7564d655919f 100644
+--- a/net/mac80211/parse.c
++++ b/net/mac80211/parse.c
+@@ -698,8 +698,8 @@ _ieee802_11_parse_elems_full(struct
+ieee80211_elems_parse_params *params,
+ 			for_each_element_id(subelem, WLAN_EID_TX_POWER_ENVELOPE,
+ 					    pos, elen)
+ 				ieee80211_parse_tpe(&elems->csa_tpe,
+-						    subelem->data + 1,
+-						    subelem->datalen - 1);
++						    subelem->data,
++						    subelem->datalen);
+ 			break;
+ 		case WLAN_EID_COUNTRY:
+ 			elems->country_elem = pos;
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
 -- 
-Alexey Skidanov <alexeys@xsightlabs.com>
-
-
+2.56.0
