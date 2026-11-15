@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794751588;
-	b=TNWYS0X0/ps8g+qVkiT27AgkmZrW65UCzUuHgE0a7Y6sFpMs1UElS9qawiH4zG5KYG66
-	 Rjv0mTKMqAhhiYb2DfeDq0Ak2jJ2g6NjY9P2x054z1MRhLajIGWm5LGDvu/9/Cc8GwrdL
-	 1w+F2Y9n1iuhw5a9hC7eKtWOwSdwuTQ7i9ZTtSz6SHMnJ9DxqBMzpfaQnAGEBQFynz3SI
-	 AbjYLgxQLNL0lprm2BO3o0gtKgCdIk5tgHsb7pEkiZ/ji7lox+Vnm/hHkMAsm75/lFNOV
-	 i3y9+F9G3GuQoLjoeVU1IYDZvmpLfZhaDVIW2nluHkgJyhRrop9tLIOyF111p4tmznA==
+	b=EyI0aXk3Zvel8EmqHnc1VkOC9Ddbc/4oO5w2xXHFq8Va8uhOmg7Dwr3lmX7oOkie+0ET
+	 5ypTjW+lQnKypnKqLYOW+rx6QIZxD9dORlUQu311jGOLzgeh3MLAaQDxnG/LoFuUvaTC+
+	 eYIHKLcQLzo2e1MpiaXy2mzYd+ZA4QsL9JpimQzo3rHzZyBiApoKDJq49sYlRrzjinTkC
+	 gRnqpCCLYrUnJ8YN37ioeDTG9l1pX/2qCuD6xTO1VOqEkAHBvtyrsIHXZioMdI94F59gr
+	 fOcV6nA1G31QGVzv70maCghbsOg5gokhoah9Zzz7flF2JdXqkkcJ/yVYIE3LKmfpKXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794751588;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Yjh8Gm7XLBcgfYiYP3LTQh3dAygMMLi9uTvlwpldUyI=;
-	b=irBdIfHWntGgL6Ny7+xccFV063IxtADCbyEBZjgFeIR+MJqFTUe7URfTg+a/vXiX5HFu
-	 s+Z6eYQXo/pz/FFshwPPJm4QlWnafAZoQVfNNUTEXi0yrqqmHlkh8pUSX1aWGH5m7usYF
-	 zlXt2OZuMr51VSPIM2m+JN3dAOTPGlIDj72r3Wao8O0jgNjEkCY6iQwhtQWSFOfCDj66v
-	 9hdd49A+G1+Kw17Rt39jRcDcdVg/hyg95NSre5pFLtKyXBhrr03ZL9iQgTVXqmjq4R9Ht
-	 1gbTDroTHfa035gqnW74QQGFF9rcffz97Tj4iEjIhB9tEWnvJ9UHQdksTUMk85mhnFQ==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Pw6ELLof8sXq1rGGaq/DDPI7LyWqO6k2g8iDxpoOW4k=;
+	b=aiU0SPP/YHith1RP21CEEWy5K2EOUHgOPlOXuq+kMFo9ScCeF4pYu5q+H2j4Ar3jn8Xn
+	 SHuNARDcoVXG8Gjfcr4/bc6W/g+DGj+CO5cu1JZT7DTEVUW4antPOjaHtRx9IuH5k9QeT
+	 Z9XdokYjYeBCCrHMc3t1R6Djw1YRbtWnADTeCQD30KXhsc85IgBtNsWY6BucVku68JCj4
+	 Yr3jii/EZ/nj0WEHQPreWvKmYHXHy7Zp3o9//RWOEnKCdCA+wCuVzUT9uEcPBY7Gn6gyE
+	 HQB8VN5PLYH99Jw4+A/vbm7F8vQq8faNPZuEv3pWtyE57WcozJSHbu+IYtE37LbNqeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz+siG7D;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+iT5rMc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F1E606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8041606A32C;
+	Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz+siG7D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 718671F000D1
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+iT5rMc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D331F000C4;
+	Sun, 15 Nov 2026 14:06:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794751588;
-	bh=Yjh8Gm7XLBcgfYiYP3LTQh3dAygMMLi9uTvlwpldUyI=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=mz+siG7D/yfCsaQUtmvyh2TtPp6RSL+xZHuVfQQpgQhiqnFA2hy66sFqJDYv/zhNN
-	 PZdl2f5jnz2cqc1ntx0TIL/cO1Z0Kh+VIfLZI8tPEkRNIx2NwRPylPxwO04vLWiK/C
-	 S/tzsizO2aQtz305oM/Q/OG/w+H4MHYJduUfF7hKbiu9ouFFLGxed4MMPRDyLH/eDG
-	 hMtlbugIRv5AqQQEF5MAIKv7X7WhfHNaoVQIgvD4XmINyiuNwknyiWuDimQGiag2xB
-	 vmscKeRolp3ztysYOwCMZUOKT9oN5lIzDVQYCH3SP/dTdMtB1CQAPEP/qgiHKxh2iZ
-	 XHTmXMjR20iDA==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3adfc004920so28765341fa.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:06:28 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGqbV5MXDlDi5570rIYqf/rXK3j4fy9PPFEeEJN+UBUCvpmMTGFjGBbbRKRfvBhPIYsGCBMqiMCQ+xg6xU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/58cCPhuSUSakLUyX9UUaU+jUTf9d1hNQQu5+x9ThXiNWo0eHp
-	wUuyWogoD/P02dHbo7ewQVh7jzr411h+FtNfCPaJaJI+ba4voe7dK3HOP08jaVv/Wj1dv0oIM7J
-	37+jnwE1yoskczTNX+VGfhNVBJaaaJWY=
-X-Received: by 2002:a05:651c:41d1:b0:3ab:1207:bd2f with SMTP id
- 38308e7fff4ca-3ae2b4bad8cmr29149331fa.11.1794751586867; Sun, 15 Nov 2026
- 06:06:26 -0800 (PST)
+	bh=Pw6ELLof8sXq1rGGaq/DDPI7LyWqO6k2g8iDxpoOW4k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O+iT5rMcq8IDu1WnLz6Ns8IvESGfuXg4dLg0WX1nCCgR+TdO+YhE0wdkTQhZ04qAi
+	 S1npAWF7syolLd+vdRJB0xkhK+efTUkGld+IO9zwCWA9WWMRHymT0NVtrqLKwutBOe
+	 wcySn0Y5Cni2h5vQGfECL7XAsKmqyyjx3yxrGaFNbM7+aAt9ey4Kwvydre3rF0HWxc
+	 8wGdhw3/8aYarFLuRJrIFQTRip/WaT05OG2ZJzg7j778/ZDORJt9eAP4Tiq173syb+
+	 VvsWq3hmqkcobI4iKQB2riIpZvWKJma9vgU9rPoUeiUVXjBjZISFmvAJOEhk48RXMv
+	 bPoGc2atEpP6A==
+Date: Sun, 15 Nov 2026 16:06:24 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Edward Srouji <edwards@nvidia.com>
+Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+	Mark Bloch <mbloch@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@mellanox.com>,
+	linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Mark Bloch <markb@mellanox.com>,
+	Michael Gur <michaelgur@nvidia.com>,
+	Patrisious Haddad <phaddad@nvidia.com>
+Subject: Re: [PATCH rdma-next 0/5] RDMA/mlx5: Add NIC_RX_CLASS steering
+ domain for RDMA classification
+Message-ID: <20261115140624.GF42525@unreal>
+References: <20261103-rdma-rx-classifier-v1-0-1ad6c8cfe936@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,126 +65,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com> <20261115061102.229680-8-jernej.skrabec@gmail.com>
-In-Reply-To: <20261115061102.229680-8-jernej.skrabec@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 22:06:13 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67Kkiz=ns+DGS-nGeX7c_nT61B-CkXggqq0K2uxXGQ1UQ@mail.gmail.com>
-X-Gm-Features: AclHuK-7yda1JGDc_9OgA1yiAcJwBx1hvDReZ63bJlhLUfk9UlCfGoWhOH0aQLI
-Message-ID: <CAGb2v67Kkiz=ns+DGS-nGeX7c_nT61B-CkXggqq0K2uxXGQ1UQ@mail.gmail.com>
-Subject: Re: [PATCH v3 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
-	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, sboyd@kernel.org, 
-	Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-rdma-rx-classifier-v1-0-1ad6c8cfe936@nvidia.com>
 
-On Sun, Nov 15, 2026 at 2:11=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
-l.com> wrote:
->
-> As it turns out, current H616 DE33 binding was written based on
-> incomplete understanding of DE33 design. Namely, planes are shared
-> resource and not tied to specific mixer, which was the case for previous
-> generations of Display Engine (DE3 and earlier).
->
-> This means that current DE33 binding doesn't properly reflect HW and
-> using it would mean that second mixer (used for second display output)
-> can't be supported.
->
-> Remove layer register space, which will be represented with additional
-> node, and replace it with phandle, which will point to that new, shared
-> node. That way, all mixers can share same layers.
->
-> This change is intentionally not backward compatible and the old binding
-> will not be supported by the driver, for the following reasons:
->
-> - It can't describe the hardware. Plane register space is shared
->   between all mixers, but the old binding puts it in the mixer node, so
->   only one mixer can ever claim it. The second mixer can't be supported
->   with the old binding at all. It also has no way to reference plane to
->   mixer mapping registers, which live in display clocks register space.
->
-> - Supporting it would mean keeping a second, mixer-local plane
->   management path in the driver, with hardcoded plane mapping, which
->   doesn't match the hardware and which can't be tested, since nothing
->   uses it.
->
-> - It was never used. Upstream H616 DT has no Display Engine nodes and
->   the rest of H616 display pipeline (TCON, HDMI, PHY) is not supported
->   upstream yet, so the old binding never produced a working display.
->   Vendor BSP kernels use a completely different DT structure and no
->   other known DT consumer (U-Boot, *BSD, Zephyr, TF-A, ...) implements
->   H616 display support. Only out of tree WIP patches used it and those
->   are updated together with the kernel.
->
-> The driver will print an error, asking to update the device tree, when
-> the old binding is detected.
->
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-
+On Tue, Nov 03, 2026 at 08:12:48PM +0200, Edward Srouji wrote:
+> mlx5 devices recognise RDMA traffic on receive with a fixed classifier: UDP
+> destination port 4791. Packets that match are handed to the RDMA receive path
+> (NIC_RX_RDMA); everything else continues down the normal NIC RX path.
+> 
+> RDMA transports that identify their packet differently don't reach the
+> RDMA receive path as they use a different packet format entirely.
+> 
+> This series adds NIC_RX_CLASS, a new per-vport receive steering domain placed
+> ahead of NIC_RX/NIC_RX_RDMA. It gives a privileged RDMA transport manager a
+> programmable classification stage that supports matching on arbitrary header
+> fields and marking the packet as RDMA.
+> 
+> NIC_RX_CLASS reuses the model used by RDMA_TRANSPORT_RX/TX domains:
+> - one root namespace per vport, owned by the eswitch manager;
+> - targeted from userspace by `ib_port`, as with the existing per-vport
+>   domains;
+> - gated by `rdma_transport_manager`, and by
+>   `rdma_transport_manager_other_eswitch` for the cross-eswitch (LAG /
+>   socket-direct) case;
+> - restricted to callers holding the same UCAP that per-port matchers already
+>   require, so an unprivileged process cannot program another vport's
+>   classification.
+> 
+> A rule in this domain takes no destination: it matches, attaches a
+> modify-header action to mark the packet as RDMA and explicitly allows it
+> onward. ALLOW is the only terminal action the domain accepts; a flow counter
+> may be attached alongside it.
+> 
+> Patch 1 adds the IFC bits, patch 2 fixes ALLOW handling in the FTE merge
+> logic, patch 3 unifies the per-vport root namespace init/cleanup helpers,
+> and patch 4 adds the NIC_RX_CLASS domain itself. Patch 5 exposes the new
+> domain and the ALLOW action to userspace.
+> 
+> Patches 1-4 are mlx5_core changes and are targeted at the shared mlx5-next
+> branch, prefixed accordingly; patch 5 depends on them and is targeted at
+> rdma-next.
+> 
+> Signed-off-by: Edward Srouji <edwards@nvidia.com>
 > ---
->  .../display/allwinner,sun8i-a83t-de2-mixer.yaml  | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-a8=
-3t-de2-mixer.yaml b/Documentation/devicetree/bindings/display/allwinner,sun=
-8i-a83t-de2-mixer.yaml
-> index cbd18fd83e52..064e4ca7e419 100644
-> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
-mixer.yaml
-> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
-mixer.yaml
-> @@ -46,6 +46,10 @@ properties:
->    resets:
->      maxItems: 1
->
-> +  allwinner,planes:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: Phandle of Display Engine 3.3 planes node
-> +
->    ports:
->      $ref: /schemas/graph.yaml#/properties/ports
->
-> @@ -74,22 +78,22 @@ allOf:
->        properties:
->          reg:
->            description: |
-> -            Registers for controlling individual layers of the display
-> -            engine (layers), global control (top), and display blending
-> -            control (display). Names are from Allwinner BSP kernel.
-> -          maxItems: 3
-> +            Registers for display blending control (display) and global
-> +            control (top). Names are from Allwinner BSP kernel.
-> +          maxItems: 2
->          reg-names:
->            items:
-> -            - const: layers
-> -            - const: top
->              - const: display
-> +            - const: top
->        required:
->          - reg-names
-> +        - allwinner,planes
->
->      else:
->        properties:
->          reg:
->            maxItems: 1
-> +        allwinner,planes: false
->
->  required:
->    - compatible
-> --
-> 2.43.0
->
->
+> Michael Gur (5):
+>       net/mlx5: Add NIC_RX_CLASS IFC bits
+>       net/mlx5: fs, treat ALLOW as a conflicting action upon merge
+>       net/mlx5: fs, refactor RDMA transport manager root namespace init/cleanup
+>       net/mlx5: fs, add NIC_RX_CLASS steering domain support
+>       RDMA/mlx5: Expose NIC_RX_CLASS flow table type to userspace
+
+I applied this to mlx5-next and rdma-next.
+
+Thanks
