@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794767967;
-	b=JuF6mGH0KYV79+Mx6US8QJwqICgjbq/Ph+QfulUw4KtoknOe5N9+tNSpWsU3B0UDZaWu
-	 L1+W/ttaZXWXxHd0IsCsnWG0ZqcfkuoOH8SqhkIrWOFZEHP1cgAVM117QN4aI7bMurNw9
-	 HJF1e1earhf3I+BFhxM6ooywp8an/16k3cMjj/qYJhCzkuhOh2yo8kHqEKppUNFy4KWYZ
-	 MfIBAE2S+fB2mhfe9M9iJDmlHibky30GKZanwu+GZCCDOEgNKfeITugz2AEhyIybcrPYH
-	 xyU0yBVqOzW26avmdv9Rkx2/Y/yKYgnxYasQfglTeb68sTRhpG7vSKI9G5GeMjzPwcg==
+	t=1794767996;
+	b=vDiV/g1LXry1915dsz57qszMVjttsXcMDkLthky8tO7vTRSSGMSQ9L7jG3PdBWKRXhJq
+	 GW7eOj+0pOLai43J/0HO5KyJh8raBbWQWmGY6xzN1TddRnA9QXIhmhpnefRNMQt3ZRlIa
+	 RgDAfN+XTbfbtO4O0Z6SEckBJDjmlDXgFUXPJYEu/8NB+CN6ck6nLLtW3aGLb/F61o6gH
+	 qVkhWLZlukKDauv65HVq9mAvLEf3LL/suP2dj3arNZI+TKU8XLWP0TBW/vxXIi4AigaF9
+	 0sx2L0ObeigeY+eTESciWYjCKxhwG0ABu+cyH7I1ZkCcZhjFMCtd/AeWr3TbL3psxLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794767967;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=U0QYZMkI+aHL2rJZs8Panb3OQBENH9JOHq63W5JMa0A=;
-	b=321NfEqghY6l8gmLMN+OqU2CYJQ+VYiX1zzH8bFDNS4fcyIggBesRpXurTvHfrJYtmy+
-	 b2ZZ/sX/VVbnyLvSCBxeXjPrjtKismhCknmuCDtS0b7cRy6zUxS94vN5joX8RT/NZqCpG
-	 TCTeAidTzxP4xLCatHY1d7QPaC4j+3SfiXRvBDEKOU1t4HEUPd8UYoEYn/TC2imto6Tpz
-	 hqOQKPEHAEMJfiWjIShK5s+dBOuiYk+skliGnRPRbZPu+PDDluzlmfPAEYtDFiTxYEVWl
-	 Tj3zzaNgRNIeW/Lvq21WLzkRrzfn5whvkGtqq3lo8xYmalhAaW23pTD4U2p74pBlMIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794767996;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dlZpADIpQe7KCMb/+6RlQ2VbIrVPTUiha7CxAd+TEZ8=;
+	b=31drE7u6LnypqezKiVpV9cR1ujic4uQVqBtSzSVJPSjsW7j17huTYai6JsbfpZpfGNfP
+	 M9BUAcfCLurBZ94DT3kpAdzSG1MzPDDGEwjYjtv5wR0x+PL4gMKJN/G2e/CfqZxbc8us+
+	 MDuwEGV3nrun6yrWuG8mcWfmtGDCevciiljADYLo5CM9UKcbmQX1b4u2T0kx0PLwmYpbg
+	 GXsAwBiHruHmjCtfp4ijvx3xWQLPquw6ixunbTykRtnyBScgjFlrFPzCnzmag1LG2NjwB
+	 PGQqIAikVoLy7qiLte4+gPnVLn+igHKGI86C48UvgUm+svHVerA7ShXiYkZURo1Jhew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qv8J5o1P;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VlJps22F;
+	arc=none smtp.remote-ip=209.85.167.45
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9A5606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBBAB606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:39:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBBAB606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qv8J5o1P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C231F000C9
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794767967;
-	bh=U0QYZMkI+aHL2rJZs8Panb3OQBENH9JOHq63W5JMa0A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Qv8J5o1PQ0O70GFi+RsF9YDWNG0YcQ289szn3ZPVRl2GWdRWNPoYDsXTezmRG7sN8
-	 k7d6nX1GpJSGv/KIXJrZ1er+OLQH7pU55OJkyuwNvOarF1oOyZmv+aSFJvkcg/op9g
-	 vQJgS5vPHmocAvPP4qxzVdd9r1aLDmo6a1fW75LLmINcKwXjRuJ0PiAj7jsMI4uYGM
-	 mqSl5dfG3gBRIJeIC8IBz87NlNmZLMyb+e41D8MpBnlwyz3TneTag6zjRgkblez7jX
-	 Dvr8NbTfpTW1kmHecSoaNsS7UdjafdpEkNaePUaq5toslF3zB62EEzCpUlXPultBJJ
-	 BOT/3kvXkdTEQ==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso2626640e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:39:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG2Lg/y1FOfz9+p+4wxzQkDArl6p+hRB55tuqXPrQHRufwheBMsbO0CjTJzqhuwKFHpsGz7xrz+GLGW0+w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4djZSZSaqIzy3wGFtg6DngIT+TYyg+ctg9IGHKCWgzcNAc7q/
-	4di4nCnPZLuNPcWx9V030LMNNgVnJ1CnxbcHp9ID1cqCxSWwoE6cW8TdnQfL8++EqUF6JtiV0i7
-	SCARoUVa0tz0MGPYp3ap3R2HVJG0DjLw=
-X-Received: by 2002:a05:6512:228d:b0:5c1:79b4:4424 with SMTP id
- 2adb3069b0e04-5c179b4459cmr2054409e87.53.1794767965565; Sun, 15 Nov 2026
- 10:39:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VlJps22F
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c148d4dbfbso2943597e87.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:39:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794767994; x=1795372794; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dlZpADIpQe7KCMb/+6RlQ2VbIrVPTUiha7CxAd+TEZ8=;
+        b=VlJps22FPn47sddPz17DzkkRJRee5hZY1O7X22u8+0EcgI5CnnvVRxSakufd/WoG2H
+         R8WscVnazSdfoSPaKXgY2frrGTQczJ7TJX9G6NOFKhxRjpfYeTwSNymp6h2DLrKhu3ku
+         pKuLZJTtpEEBLeilit4PtYDtflgYqkA+xxGqygF//R7oSSJx0+Csv1kGi0AchKXktmcM
+         UaU7EyHR08uSCNV3l+o+kFImPfPYHICXivwG8NmMQLN9K0+czNEETaDHKr+7IbA2oafT
+         F6F3kw8gZmBHjaNF1aqA4ltciHIBjY+aEER0Y07OTWJkfR61OAoJ694GKj2ILCfkFCDR
+         EnWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794767994; x=1795372794;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dlZpADIpQe7KCMb/+6RlQ2VbIrVPTUiha7CxAd+TEZ8=;
+        b=ynkrtMcUO1idMvZxdw1xLF+B9zHP0zILPdEPg5boI1v6Ychi3LouYzVxWLnsqKA6E2
+         WW26mTktnUsCzJc11kSqEa4ov+c1BLGDUDI74nbBh5Ts+7v5jWF7v3WLJbw9IyMYBVWU
+         yXBRN4M/2NZ1qlxCYf1CXMZUgr1HHoSeeR30JVxbRXBXuxYpucIhjlyOecwAU7NRIn3G
+         OLT160G9MUonX8tyaJ7dJeWlYFRDSrzRVAuguqaP2r2rF6aaAI4YSuAh5S4F4O6Lb1KJ
+         VzZIt5B5QWHanld3OFAMMyGabzEaBd7swp0izg1ZbnOyfzx/EUr7n/yVM7VC2zcqmQlS
+         712w==
+X-Forwarded-Encrypted: i=1; AL+hErGC5uu9MlalnN+kMYCc9rCs+aQ0GXOPtIS2amv3nQUcL1UgHepO0lZ/s7r6YPJD7RQVSYAepGihenUYKiY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hqR3F13SUEBl0gqC9WrG3+XEhFHQPq5nOWw+vmeu3IMVrRvmZ
+	g5fUlO9D7HmfHXM/RjYQBAw5O3Ranrw3jAJP/l08iUtp9b1Aos5Ua7wi
+X-Gm-Gg: AYBFou0SQ49qFAHo/YuD58ZXmL5wLhHH/ZqdNcD4lk3anguH79DFyyqT1PB5incRpiS
+	arSZj8c3wUztplRhOW5ICeLAwSiHHFiY5BnZBULYF1KyCdEjJjHSNdji63z5+dc1PQ81A+spTW8
+	i3veLF1c7nY1enrvqEE2k2t6r4SCVEDoznqh5vqyUDyf9FUQSS+LwADvIC7nKg0pBWxNN/gVbMl
+	Z/fUaiQ/RnvaXbJVu+rg1GrPT8rnq+KlqZZncEYx4q5sEjLHkr7swbXZL1N5lKpRwjuYFCWY79C
+	g1HROQnhTv7LDs3wmEgpQAcHT8EKy9BXWs9+IOayy/+U/sh90PIzUTbc+/OMNrXa3AlYmo0mFMD
+	bf+NoNqEylmxZe4EVl1wzw66I3qwQGWjJ//Mjx7/soBYgAQ3zsoOl7uyD6xv7U/WuaEECIu8hlS
+	JTxGn/XFM/IAurxXOQ/VVoiHrrF/M1IKzpgQU1pPz+tNXbqJZvLkdY7voXABcOu8SxnC6dfkpmI
+	ddv/AQG7K0t7mQu078lMhxnjZA2cyUVB00snWFvLTdvknvFPChNA8i75MUP/ooculHWhkoNdw5m
+	Klf2FcqlVwQhcFgg9beMRWbCAC/qpv9gq+xxTAoRX/wejA0vVdP8qkf/PJiFHMah7tjW6ndOJBk
+	k0KxZMWRHFEAAeqdRGs1BlkO2DsMIZbkNnIN3AlDaiYcUxghzq8eHbmJTq/U=
+X-Received: by 2002:a05:6512:15a6:b0:5bf:b22f:19af with SMTP id 2adb3069b0e04-5c1709991d4mr3424142e87.18.1794767993422;
+        Sun, 15 Nov 2026 10:39:53 -0800 (PST)
+Received: from yantra.. (nekmmqug99g6ubyegcg-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:9e2a:fc94:8694:1840])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1713571aasm2532348e87.73.2026.11.15.10.39.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 10:39:52 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: jic23@kernel.org
+Cc: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new temperature in trigger handler
+Date: Sun, 15 Nov 2026 20:39:49 +0200
+Message-ID: <20261115183949.11591-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261115010203.2a939bd6@jic23-hlaptop>
+References: <20261113230241.82046-1-zoone.rupert@gmail.com> <20261114013817.476f8fb9@jic23-hlaptop> <20261114083525.11972-1-zoone.rupert@gmail.com> <20261115010203.2a939bd6@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,126 +105,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113154001.2081-1-sankara.narayana@intel.com> <dc5506e2d145bf98ea55b861cac74d7805137470.camel@linux.intel.com>
-In-Reply-To: <dc5506e2d145bf98ea55b861cac74d7805137470.camel@linux.intel.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Sun, 15 Nov 2026 19:39:10 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gnYpBs8B9Gok2Lm=00arAyN=+=HcG3HqsHKc1oDnDv0A@mail.gmail.com>
-X-Gm-Features: AclHuK-UZ2oD5yEqZKUPb9JSapjunu6M1-qXX4TN9O_342wenyQn0cJHAr-7Kpw
-Message-ID: <CAJZ5v0gnYpBs8B9Gok2Lm=00arAyN=+=HcG3HqsHKc1oDnDv0A@mail.gmail.com>
-Subject: Re: [PATCH] thermal: int340x: processor_thermal: Fix Nova Lake-S PCI
- device ID
-To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	Sankara Tankala <sankara.narayana@intel.com>
-Cc: daniel.lezcano@kernel.org, rui.zhang@intel.com, lukasz.luba@arm.com, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 6:28=E2=80=AFPM srinivas pandruvada
-<srinivas.pandruvada@linux.intel.com> wrote:
->
-> On Fri, 2026-11-13 at 21:10 +0530, Sankara Tankala wrote:
-> > Nova Lake-S uses the same processor thermal PCI device ID as Nova
-> > Lake-H, 0xD703. The 0xAD03 ID added for Nova Lake-S is the Arrow
-> > Lake-S ID (PCI_DEVICE_ID_INTEL_ARL_S_THERMAL).
-> >
-> > The ARL-S entry comes first in the PCI ID table, so the NVL-S entry
-> > never matched. However, proc_thermal_rfim_add() matches on the device
-> > ID alone, so Arrow Lake-S, which has DLVR, wrongly gets the Nova Lake
-> > DLVR register map.
-> >
-> > Replace the separate NVL_H and NVL_S IDs with a single NVL ID,
-> > 0xD703,
-> > and drop the 0xAD03 entries.
-> >
-> > Fixes: af1b80b94126 ("thermal: int340x: processor_thermal: Add Nova
-> > Lake processor thermal device")
-> > Fixes: dbd911a07f14 ("thermal: intel: int340x: Add DLVR support for
-> > Nova Lake")
-> > Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Sankara Tankala <sankara.narayana@intel.com>
->
->     Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+On Sun, 15 Nov 2026 01:02:03 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Applied as 7.4-rc material, thanks!
+> > Probe value only lasts until the next temperature result. By the
+> > time the buffer starts TMP_RDY is set, so first scan takes a new
+> > temperature anyway (checked on the board, buffer enabled 5 s after
+> > probe). The probe read also covers direct pressure reads.
+> I'm a bit lost.  So how stale can it be in the direct pressure read case?
 
-> > ---
-> >  .../intel/int340x_thermal/processor_thermal_device.h       | 3 +--
-> >  .../intel/int340x_thermal/processor_thermal_device_pci.c   | 7 +----
-> > --
-> >  .../thermal/intel/int340x_thermal/processor_thermal_rfim.c | 3 +--
-> >  3 files changed, 3 insertions(+), 10 deletions(-)
-> >
-> > diff --git
-> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
-> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
-> > index b79937a386ec..87d8ff9c7173 100644
-> > ---
-> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
-> > +++
-> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
-> > @@ -27,8 +27,7 @@
-> >  #define PCI_DEVICE_ID_INTEL_JSL_THERMAL      0x4E03
-> >  #define PCI_DEVICE_ID_INTEL_LNLM_THERMAL     0x641D
-> >  #define PCI_DEVICE_ID_INTEL_MTLP_THERMAL     0x7D03
-> > -#define PCI_DEVICE_ID_INTEL_NVL_H_THERMAL    0xD703
-> > -#define PCI_DEVICE_ID_INTEL_NVL_S_THERMAL    0xAD03
-> > +#define PCI_DEVICE_ID_INTEL_NVL_THERMAL      0xD703
-> >  #define PCI_DEVICE_ID_INTEL_RPL_THERMAL      0xA71D
-> >  #define PCI_DEVICE_ID_INTEL_SKL_THERMAL      0x1903
-> >  #define PCI_DEVICE_ID_INTEL_TGL_THERMAL      0x9A03
-> > diff --git
-> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
-> > c
-> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
-> > c
-> > index 7d6fee59ade2..f218ee247ab4 100644
-> > ---
-> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
-> > c
-> > +++
-> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
-> > c
-> > @@ -501,12 +501,7 @@ static const struct pci_device_id
-> > proc_thermal_pci_ids[] =3D {
-> >         PROC_THERMAL_FEATURE_DVFS | PROC_THERMAL_FEATURE_WT_HINT |
-> >         PROC_THERMAL_FEATURE_POWER_FLOOR |
-> > PROC_THERMAL_FEATURE_PTC |
-> >         PROC_THERMAL_FEATURE_SOC_POWER_SLIDER) },
-> > -     { PCI_DEVICE_DATA(INTEL, NVL_H_THERMAL,
-> > PROC_THERMAL_FEATURE_RAPL |
-> > -       PROC_THERMAL_FEATURE_DLVR | PROC_THERMAL_FEATURE_DVFS |
-> > -       PROC_THERMAL_FEATURE_MSI_SUPPORT |
-> > PROC_THERMAL_FEATURE_WT_HINT |
-> > -       PROC_THERMAL_FEATURE_POWER_FLOOR |
-> > PROC_THERMAL_FEATURE_PTC |
-> > -       PROC_THERMAL_FEATURE_SOC_POWER_SLIDER) },
-> > -     { PCI_DEVICE_DATA(INTEL, NVL_S_THERMAL,
-> > PROC_THERMAL_FEATURE_RAPL |
-> > +     { PCI_DEVICE_DATA(INTEL, NVL_THERMAL,
-> > PROC_THERMAL_FEATURE_RAPL |
-> >         PROC_THERMAL_FEATURE_DLVR | PROC_THERMAL_FEATURE_DVFS |
-> >         PROC_THERMAL_FEATURE_MSI_SUPPORT |
-> > PROC_THERMAL_FEATURE_WT_HINT |
-> >         PROC_THERMAL_FEATURE_POWER_FLOOR |
-> > PROC_THERMAL_FEATURE_PTC |
-> > diff --git
-> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
-> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
-> > index 96279756177f..1832f13634d8 100644
-> > --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
-> > +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
-> > @@ -472,8 +472,7 @@ int proc_thermal_rfim_add(struct pci_dev *pdev,
-> > struct proc_thermal_device *proc
-> >                       dlvr_mmio_regs_table =3D lnl_dlvr_mmio_regs;
-> >                       dlvr_mapping =3D lnl_dlvr_mapping;
-> >                       break;
-> > -             case PCI_DEVICE_ID_INTEL_NVL_H_THERMAL:
-> > -             case PCI_DEVICE_ID_INTEL_NVL_S_THERMAL:
-> > +             case PCI_DEVICE_ID_INTEL_NVL_THERMAL:
-> >                       dlvr_mmio_regs_table =3D nvl_dlvr_mmio_regs;
-> >                       ddr_data_rate_reg =3D &nvl_ddr_data_rate_reg;
-> >                       break;
+One temperature period, so 1 s at the default 1 Hz. A direct pressure
+read takes new temperature result whenever TMP_RDY is set.
+
+Probe read is for a pressure read that comes before first
+temperature result after probe. That one would use temp_raw = 0.
+
+Thanks,
+Rupesh
