@@ -1,97 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794785456;
-	b=S9/6PFwlLNbHR7+vj1ZLvNkxYWql8PYHh2KfMKZ+CWCyQiXbZlmCaC8vvI9aIaGkYwrj
-	 7kczUu+fmK8YnvmUzJ6Eobf0dYJz4iT43nUpv2Ot0t7duRubBQFNstfa8X3eH7KGrUMeP
-	 4UYaNSHD+ZK0jjQiM0P6KuwRG8vjweZwlpP5pua4aQBAUVBKB+BNPGzu3C6LrgOUK3+vD
-	 qs6a6vEJMLef29TLvLI/qrA0zMygN8zYGO0il8aw6MLKqNj/IIXatIVmq2AC5/isfyE1h
-	 msHf4+mVmEVuTh84QojEYih0T/2PPZ+rNZeWn1YAeJtOW3bHZo6sDf0GHLC5Mc/tl0w==
+	t=1794785524;
+	b=IdMlDzNfX4knRAZLqRCiFDbfRzOivtD36xUFz0DfskDflHBZhI2V2s1KVL3vXM6v1y7t
+	 sktG+iW/U8jwW1Q0JsWbg57ojiX6vq1hn/gUUDkZ09qFCCbfME0/F+YTK5RgI2B0r6ZVw
+	 Qdnc/lA8DAabe6zSx8NIzDNuPqMQ7HZa16XNHMmiQ3tcHlxqB44FQlc+3EeInEuUDouG5
+	 LpAULRSiebUrpwPNVThXr18PpCLyBYfZOw2KbXlikm9vDxP6j8WwA3ySYtvbi02tus7Dd
+	 no5PwwnjzabgzhAUqvX4KwpZHxZI2bubbCgnJDK9RYkCXNzHtxNCAHfYb5i1ejzo2Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794785456;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZSTZnzB+/goUmQY4uXfHNp+kvqr8HTYl/TLMJ0sOAss=;
-	b=q3YDLwTtsu30LI8+9kjvg/FcQimWfwNb3z/Yd0PTmWST28Lf62bQVPWEM+y1KKjIZZEE
-	 wIAtEnStVZ6PQ8GV4fdHS7O7CzWm7+PtEf17M8T4BabL6NnceLfN3VRv+Vn060UYUwimO
-	 Hb02Mh3wAYD+aH3VF6hUvuWajMTCEUsFeAx/sAvi9Jhk5FSuOYATTcppRIBzqdkNF0rsd
-	 8A1Dgeg6EkTf6A4rRKsIhoNN4uMXypmZj1DjV+e57pFi5vwgLhye1b9LqP3yG1gOS5z59
-	 xUUpWPi6hlyeuQeKdkVLvgDMDPMe+F1nwZGgQewjYgMCUWmsjCtJ9IOLm/U1LAoO4Dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794785524;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ytIxIwr6br8Q7j4ICaVLl42bA9q2oRyUdCjL5+um0dg=;
+	b=LnxYX5ayiNqgQMiyZpvi5tA6+8fsIzL7nP/MKEWDuaVDu9JcuTiAgO7sW0QFQzN6YmoM
+	 peDJGFVYv4p+MiNwxinYzQZz71YBcoXpDAgbA46yoSki3doetjTGZZZUGstW6Mq8qgZpx
+	 +afr79JmEzaVBBfVyY96jJKRblwF9IBMq2nNCNeOqLMHN3HhniCKljRCPZlp/iOI/+qK2
+	 EaCh/b8BVZ3LOrK3Zih7+5GOcr5/cYxqVzSwLx2QMIncWDmzHGI48VpdZtZ7hfKCk/bCk
+	 NEIxCxxTf9WgO8XX01BPxNbf5sPUMFDG86y2Pt57l5e/yHr/9u63CsC8SkUFciq5Bcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fNVDzV2y;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJC8gV5C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CD4606A338
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:30:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33CD4606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E311A606A31F;
+	Sun, 15 Nov 2026 23:32:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fNVDzV2y
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-49465892f7bso2365845f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:30:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794785454; x=1795390254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZSTZnzB+/goUmQY4uXfHNp+kvqr8HTYl/TLMJ0sOAss=;
-        b=fNVDzV2yhbI5v+oAvz+8NTQSoWex0VwqDLorwGjYQuhEoceRB7X0SQpW60GNb+jDPw
-         wnVmMISErQ0itZ9IhpAqKXbQ+r2mmOSzsEqEkcNAMkRpWqokgxPbqMXETN1MnOZpmBNf
-         PtlupY5ZZtW8jDj+b7E6ufidhR+MltZknhrFT8tl7FKbbPiGBqJnCwPEApDQO3vaj4TN
-         PgXOeCGhEuxDEM1y49UFqNFS18rXc3XmPqAdUBJd8ZNPmdhdtVJHPQzTMmYrvgEB3Pkv
-         ktSl9mhdzy0/p6oJASOBrkXimL8OA1vQbGkhJa7nMVBqbugLvdbqafEKIVec2q3AtkE7
-         Ky+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794785454; x=1795390254;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZSTZnzB+/goUmQY4uXfHNp+kvqr8HTYl/TLMJ0sOAss=;
-        b=u3/Hm6F6pQFZp5N0nS2c4c21NbjOiNkPSa01GDz6tWhQ+VQEBecBneXaXQD5DqDLgX
-         KwFQdbSeyLdYEDiM+UFCVeV2olI0jlZymMROrlwHsrqChiQfu85Wt7F9l1Ct2sV0vu4Y
-         yZcck+PeBSIsVo8IzernAenrpTq9gUK1E8vkxUmrcQDdvry7j3MNCD3I18RtDD0XJl9s
-         sFqDtbBiKvdXs/NxiZbO/kCL6KIQoOdC1drlRlhbI3UdjD4lzz8ZNIswbyXQEEDEjd4I
-         cyjBr3ncWSvLN7Y9t1xR82JTbJZ9dCJyF+VHpdFKUdnc+9mi3JwpGB8xZ5TF1toN+l5n
-         24Ug==
-X-Forwarded-Encrypted: i=1; AL+hErGW71RHCUWku8v9BlshrE77AJuLzxXS+qiZuU9EZ9OWWk0Kqi94+qvu9Llan+/4Uq63gfnR6B4gH+ti6I4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NenuuBBl55v0fmz1RyBNzgGS/20sRT1rrd7Uot7zYS1khY7t3
-	reQU7VTZZhrM7MzDvFVEH8x3CGGaf22K5yyA11AjCHlR8JO1W3m47Y7v
-X-Gm-Gg: AYBFou2iOoQ5J1gdfJdSpClC6p+FZMpnfXJt5yv5NfhBjVXe1wpMhIy76yO3lQ/4YcP
-	AuZQKj3LqEdwyOd4Mslk7fysFRhNy3LW4bpxujmo2kW6HYueEo7KS32zr6VkYieIZE5Vf+d06R/
-	FSKctCLJDD6T8Do4/Un6ZMYbeLT4tZafezkTy8JXdUvt5Ju8IeCK3jrSZy/yvbhnEewnuv2rR06
-	mQy0hUgC4OKc4i+UHGdLSqu33IdixPFNI91vpadiZ+Nn8/W/vBDpbc0ymu4jNAQhuOSNcCIMmtt
-	+v0xXDWzRt0KYVIx9MkDchULKPXTHTtNUy51mTLwoUzGbhuPvVRBs9Jeaq4xaBxMOqueOl9+utn
-	+mGxEHKgfbPH26YDGP5ha/cqYJ+crttRRqVevAfmk36N2IQ0OoVympg4WzWiRMm5AykrCnDW0yo
-	NcN41dlEPxQ1otmCsb8U0HyZ1MgwiTvrZcqA2uAz28JXZVIhn9/O72Ik4wDtcDe/OSeJqNzSvA0
-	Jv4I2rHmKYaiCCBimduXTYG0CSVnghvEDMaOVsT84yQpe2F5HvfEvHZdWU69yXolDlswXIqcIW9
-	6GMMudODbzAePatw5+xwoQvKZLvM0MAQx/5iMaBbN9KLbVG/+GhpE/ESPcLiKUAVmC9w+VafNFL
-	m
-X-Received: by 2002:a05:6000:992:b0:48d:c29e:40c3 with SMTP id ffacd0b85a97d-49c71e3db14mr17535675f8f.33.1794785453654;
-        Sun, 15 Nov 2026 15:30:53 -0800 (PST)
-Received: from DOLFIUS (46.85-87-100.dynamic.clientes.euskaltel.es. [85.87.100.46])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c6d079a2asm16787373f8f.16.2026.11.15.15.30.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 15:30:53 -0800 (PST)
-From: Adolfo Morales Tena <spidermanadolfo@gmail.com>
-To: linux-sound@vger.kernel.org,
-	broonie@kernel.org,
-	lgirdwood@gmail.com,
-	Vijendar.Mukunda@amd.com
-Cc: venkataprasad.potturu@amd.com,
-	perex@perex.cz,
-	tiwai@suse.com,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJC8gV5C
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E4C741F000C4;
+	Sun, 15 Nov 2026 23:32:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794785523;
+	bh=ytIxIwr6br8Q7j4ICaVLl42bA9q2oRyUdCjL5+um0dg=;
+	h=From:To:Cc:Subject:Date;
+	b=EJC8gV5CW1Yu5WUDHiifadjpuZBnFwthH883SK9t2s1KjiK5Dc3fvZ4BoqCNkxQrt
+	 Ub//qOXwD+2s9O8qg9+mN08vvm63bpi5pzevjAxFd6ElUx47N3FPU4biTSKHqqhlf9
+	 /O8pgKSdAKUw1nGxZwFYvBOVTeqer1Lj9/mKACEt/lj9bLoTseowRf4vSaI5M7v6Vx
+	 +xovIVxL/COIMERG+SIvnWdx5nhHcVlPcIZ3xEWp071bcXVH5bIlnVkk3ZLVV0gsNO
+	 4lN/MMBW7NZAvBZcWA6DNPoN/XpLLNiVQ5yHSdf821/DbqxBNOi1imvd/PSgZa4DJl
+	 6t2EK65oAzjyg==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	keyrings@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Adolfo Morales Tena <spidermanadolfo@gmail.com>
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for GIGABYTE EAGLE 9MJ
-Date: Mon, 16 Nov 2026 00:29:42 +0100
-Message-ID: <20261115232942.5820-1-spidermanadolfo@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	linux-security-module@vger.kernel.org,
+	Alec Brown <alec.r.brown@oracle.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	James Morris <jmorris@namei.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan McDowell <noodles@earth.li>,
+	Matthew Garrett <mjg59@srcf.ucam.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Ross Philipson <ross.philipson@gmail.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: [PATCH v2 0/4] Unsorted tpm2-sessions improvements
+Date: Mon, 16 Nov 2026 01:31:52 +0200
+Message-ID: <20261115233156.1485238-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,40 +75,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GIGABYTE EAGLE 9MJ has a digital microphone connected to the
-ACP6x PDM controller, but it is not listed in the quirk table. As a
-result the machine driver does not register the sound card and the
-internal microphone is unusable.
+Collected patches that still make sense from [1] and tweaked where needed.
 
-Add a DMI entry to enable the DMIC. With it, the acp6x card is
-registered and the internal microphone records correctly. The kernel
-log shows:
+[1] https://lore.kernel.org/linux-integrity/20260125192526.782202-1-jarkko@kernel.org/#t
 
-  acp_yc_mach acp_yc_mach.0: Enabling ACP DMIC support via DMI
+CHANGES
+=======
 
-Signed-off-by: Adolfo Morales Tena <spidermanadolfo@gmail.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+v2:
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index e14c73e7e..f636b5ba5 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -969,6 +969,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "TUF Gaming A16 FA607NUQ"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "GIGABYTE"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "GIGABYTE EAGLE 9MJ"),
-+		}
-+	},
- 	{}
- };
- 
+- Based on Sashiko feedback I changed "offset += tpm_buf_read_u16()" into
+  "rc = tpm_buf_read_u16(...)" and "offset += rc". I'm convinced that this
+  was necessary but since it does not have a cost, at least this should
+  mute Sashiko.
+
+VERSIONS
+========
+
+v1: https://lore.kernel.org/linux-integrity/20261115224722.1450498-1-jarkko@kernel.org/
+
+Cc: keyrings@vger.kernel.org
+Cc: linux-integrity@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: Alec Brown <alec.r.brown@oracle.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jonathan McDowell <noodles@earth.li>
+Cc: Matthew Garrett <mjg59@srcf.ucam.org>
+Cc: Mimi Zohar <zohar@linux.ibm.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>
+Cc: Roberto Sassu <roberto.sassu@huawei.com>
+Cc: Ross Philipson <ross.philipson@gmail.com>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+
+Jarkko Sakkinen (4):
+  tpm2-sessions: Drop TPM2_NAME_SIZE
+  KEYS: trusted: Open code tpm2_buf_append_auth()
+  KEYS: trusted: Remove dead branch from tpm2_unseal_cmd
+  tpm2-sessions: Re-orchestrate tpm2_read_public() use
+
+ drivers/char/tpm/tpm-sysfs.c              |   2 +-
+ drivers/char/tpm/tpm2-cmd.c               |   9 +-
+ drivers/char/tpm/tpm2-sessions.c          | 124 +++++++---------------
+ include/linux/tpm.h                       |  18 ++--
+ security/keys/trusted-keys/trusted_tpm2.c |  83 +++++++--------
+ 5 files changed, 95 insertions(+), 141 deletions(-)
+
 -- 
-2.56.0
+2.47.3
 
