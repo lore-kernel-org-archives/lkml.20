@@ -1,78 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743829;
-	b=NzxnL1uLxOazPPQPpVId/MNdw62cm+g7MUcxOjtEGzl3oiN7fxeGrMb3mcgK6BYmGLr4
-	 0uXXe+F+iNO4XU7qJBhP4XfmVIOaCxCERFiTfPXQgkll2cK39dcZ99Pr6sijGCuP5QHyM
-	 331b7M4jChWRHCmD0/GM0Pw/q6nrghZuCL2zS4dFZsBeeX04OTLXBtMupJpAiJUoIwleL
-	 iod9tVrhyrtgYeownVKZ95Cvls+7kpCJErfn5VzyO4ENSIkIewbC89GA0ntSf9+2KWve2
-	 0qoVaqFGmfwpDQXNdCGwfWuT67JOTnuKSIb7whHgfClrkJjdj4DpVhMIyqcg7gjyKxw==
+	t=1794744047;
+	b=Ku796PwmU4AEU8uvsXYvP8WgSwP6Jlol3NQrHLOFGVpEr91ef2kWTrfrvU+nRAgytHWV
+	 UgVIEqI6TbOHxS61v0Xe9lLFIioPWf4MoCFhjqyUXYDuvis+M4iGjvvzgWoytUdMQ75Lr
+	 YI00cMA5+O06fUc3WmCZkabgGP0UW0o/KEGZkTywP6WwMuIquu+RCuTImnHWAtnHBYPyZ
+	 XMZjCcbH5dCIBe7NooKDs7Yyrxu68jbYh2tyXvIPIK9GKmnT1OdwbnyyKx//ku3Gbf+3l
+	 CCHEjWIRfdd7ajxQzc1zGxyERuRWn4W4aA6kN+5v+ahoKMA/IVnrfsgnj8nVQuhIVgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743829;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zhhDm2qyru0LaqxksPFvsWC42WCRzYXUzwovCybxf/w=;
-	b=dMXZZEWls4brzq5rh/pAkNXdKHghCr54OhDaJneEY9EGQeIsETHrWYnmPsnP4PwCLUQe
-	 gcNHuQR66cH1qCNkqhPyNDYg/aiVmOKkYm+UaTJjg12GfyTTRgLOemY3411gc01bSQTrI
-	 smBlQMILfvpi5DLcInzgFBsDX0JMTtmH+idpubdKprEyHGFl+oxhtenFX6xvSRZfG6vNR
-	 QagfM4vDxN+OlgqLcX4XoMqOCi6QAP4ia5+Goxtiv9UB/kCgWOE7pkFDDKGptqLXooy3q
-	 xfsPKcpOd9hqdXDP45MAb6/gxGusxpaYlppHRAMgWacfQb8jeKiXfPDWX7GEoLD08uA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794744047;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=1Y0Mh/YaPXXvxNmz8dhObdzhGRPTzFyPCl8ygTk5WmA=;
+	b=iBYgjnIAlm+U+AYh8JTlv76x54RJ4L4zQjNyjb0p+cC3Mi1veXq8//E4Iq/RjZfGUEGm
+	 85ecbeUvhVYtsiLisfRVpFvuQAEgumzJ5tdb/mRK7T3QIUIbdodVKAw9gHrM7LT7ueMuZ
+	 flgrogcU3aIQNGQs0gGP6F6A6pXVvl9XO2o0xuTOCzxowOyiJPha2xngDxIhMUyUSgRnM
+	 WQ0vbFvpADCaZKLSrTHS+qTB9JUvQSedAHS4o8jw0vkCrjKUMbmZ2++9wkBsDvjFtqMDG
+	 YEELwzZX4a3cnAGloWcwgRT3ZBkUD21SRHYxixf08wta4rVh9tLrheLIUGMRDytFnYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ijmaewX4;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0LzKODUO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SjjwGNvV;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54CC606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:57:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B54CC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553F3606A323;
+	Sun, 15 Nov 2026 12:00:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 553F3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ijmaewX4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=zhhD
-	m2qyru0LaqxksPFvsWC42WCRzYXUzwovCybxf/w=; b=ijmaewX4miP4ddwVG2zc
-	FelrOxzBahZlunioU4qSakWVzoN8fPAagUD6YVAJ0ZOjcjb7/yv/V26nBnSPy/f5
-	aYgQ9ONhYbdH9dKEWGVUN98pvjTap8Au+ouO1fOtBzgwrSHIxhWTWSaNXS89mdiE
-	dxYYYJbHzWSkvfkdJRhHCxZRw62t5bI1k+1FtFb2PulTwIKeIm4jKvjOche8IkOs
-	Q/hxqRt8wzUEEJjBR1XDrm74hJm9zznBOQBZN1TANbnnI8/KDlbMZ1ExM1ot4ARV
-	l24JpZjPcT/mBTM0D/GEFmoUZCtwLC/jJiCpj4kDknMk4FuL+HKzwiqsi22ad4Fp
-	vw==
-Received: (qmail 906437 invoked from network); 15 Nov 2026 12:56:58 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 15 Nov 2026 12:56:58 +0100
-X-UD-Smtp-Session: l3s3148p1@cPS5W09g7qgujnuZ
-Date: Sun, 15 Nov 2026 12:56:56 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: i3c: renesas,i3c: Document analog noise
- filter control
-Message-ID: <avmeCELZRvJVNtyl@shikoro>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
- <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-b7ad60cde650@renesas.com>
- <ate-aNmqsyXCAIX8@lizhi-Precision-Tower-5810>
- <64f604a7-7e70-4a0d-8164-28c5d7b1e509@renesas.com>
- <at-5E3b_wKcnuJ9Z@lizhi-Precision-Tower-5810>
- <f4b8a714-dab8-45d4-b98f-717d010806de@renesas.com>
- <auC06gqa5lGtKPjj@SMW015318>
- <7dea4022-20d8-493b-b560-ee635deb7cbc@renesas.com>
- <auIK38HPyv7PmDJF@SMW015318>
- <db1ad309-c02e-4616-8486-ffa967207d44@renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0LzKODUO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SjjwGNvV
+Date: Sun, 15 Nov 2026 12:00:36 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794744039;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=1Y0Mh/YaPXXvxNmz8dhObdzhGRPTzFyPCl8ygTk5WmA=;
+	b=0LzKODUOFf5ulx+DdfYG3FYhOcbIimD9F/qrJ+ahrn0RGYZwmy17A6sYzQ4DWGvx0gAC5Y
+	SSetyZo+Gwh9K6pMl+Goul03hRPiV0uMckMDZ+6Jv5x+qGdBFbA/peYhxkHFxqCylHPZfU
+	VnsEuCY9B0Y7bmFQOsW1hhPBqn7B9hvgM61X26RNb0AlXlLnWTQguAbQUx/qHWYFaBSKa6
+	aozBle4JTz3MEbBhQPBNTPwiI8JJwNceDr3CPVkCTeC7AJl3h5fVLc4zfEF2b/QQ3DnHP3
+	XWcutzqdKySPCOOC4eG7cZ4xR8HmXfGttNuXaQ72IIOQXJryCb6FalLy+29kSg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794744039;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=1Y0Mh/YaPXXvxNmz8dhObdzhGRPTzFyPCl8ygTk5WmA=;
+	b=SjjwGNvVA1Yp9e0SnOszo8zgKhHd9Nti1+tPBE2aq5kUa29C4O1bLYhKi4ZSzBfzh7cdZR
+	nysy8Czym/dJm5Cw==
+From: "tip-bot2 for Dave Hansen" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/urgent] x86/mm: Ensure write visibility during LDT installation
+Cc: Jaeyoung Chung <jjy600901@snu.ac.kr>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
+ Linus Torvalds <torvalds@linuxfoundation.org>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,  <stable@vger.kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,15 +75,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <db1ad309-c02e-4616-8486-ffa967207d44@renesas.com>
+Message-ID: <179474403679.3191731.3498878914619508052.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the x86/urgent branch of tip:
 
-> In the end we got confirmation from the HW team that the SYS_I3C_CFG
-> register does not actually "exist" and was unintentionally left in the HW
-> manual, meaning that we cannot control if the filter is ON/OFF so this whole
-> discussion and patch series becomes moot.
+Commit-ID:     0dc2a4dac3d04e9e4479aeb0b46172feab1cca0a
+Gitweb:        https://git.kernel.org/tip/0dc2a4dac3d04e9e4479aeb0b46172feab1=
+cca0a
+Author:        Dave Hansen <dave.hansen@linux.intel.com>
+AuthorDate:    Tue, 10 Nov 2026 09:27:39 -08:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Sun, 15 Nov 2026 12:53:02 +01:00
 
-Interesting outcome! But easier for us :)
+x86/mm: Ensure write visibility during LDT installation
 
+During LDT installation, the intent is to overwrite the old per-mm
+LDT value, then send an IPI to the mm user CPUs to have each load
+the new value.
+
+But there is an ordering problem: a new mm user CPU sets itself in
+mm_cpumask() and then reads mm->context.ldt. The LDT-installing CPU
+writes mm->context.ldt and then reads mm_cpumask(). But, there is
+nothing which orders the LDT installation side actions. The CPU
+can read mm_cpumask() before its write becomes visible.
+
+Ensure that new mm user CPUs see the new mm->context.ldt. Make
+mm->context.ldt visible before reading mm_cpumask().
+
+Also convert the smp_store_release() over to a WRITE_ONCE().
+smp_store_release() has an internal barrier which is weaker than
+the new smp_mb(). Avoid an extra barrier by converting it to
+WRITE_ONCE().
+
+Also refresh/correct misleading comments. READ/WRITE_ONCE() do not
+"synchronize" anything themselves.
+
+Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Tested-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
+Acked-by: Linus Torvalds <torvalds@linuxfoundation.org>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: <stable@vger.kernel.org>
+---
+ arch/x86/kernel/ldt.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/arch/x86/kernel/ldt.c b/arch/x86/kernel/ldt.c
+index 4fa7a86..c4bbb41 100644
+--- a/arch/x86/kernel/ldt.c
++++ b/arch/x86/kernel/ldt.c
+@@ -43,7 +43,7 @@ void load_mm_ldt(struct mm_struct *mm)
+ {
+ 	struct ldt_struct *ldt;
+=20
+-	/* READ_ONCE synchronizes with smp_store_release */
++	/* Pairs with WRITE_ONCE() in install_ldt() */
+ 	ldt =3D READ_ONCE(mm->context.ldt);
+=20
+ 	/*
+@@ -422,8 +422,14 @@ static void install_ldt(struct mm_struct *mm, struct ldt=
+_struct *ldt)
+ {
+ 	mutex_lock(&mm->context.lock);
+=20
+-	/* Synchronizes with READ_ONCE in load_mm_ldt. */
+-	smp_store_release(&mm->context.ldt, ldt);
++	/*
++	 * Ensure that new mm user CPUs either see the new LDT value
++	 * or get an IPI. Make the store visible before reading
++	 * mm_cpumask(). New mm users make their mm_cpumask() writes
++	 * visible before reading mm->context.ldt.
++	 */
++	WRITE_ONCE(mm->context.ldt, ldt);
++	smp_mb();
+=20
+ 	/* Activate the LDT for all CPUs using currents mm. */
+ 	on_each_cpu_mask(mm_cpumask(mm), flush_ldt, mm, true);
