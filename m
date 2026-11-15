@@ -1,100 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794777020;
-	b=GUWkGQn3tr5O9sqtVaSczApkLQ/eXOWQPzojHTiaMDAh18xzvn52D/vZJHfBOYWdPbQB
-	 0w0bvSfUPp3oinYd0DKin6DR3AjjqkTwcr9PqJsj21p9jvXYN2wv56hZJnCYXu8wlNlnO
-	 kSD5lRlHGKhppXXLHLWLJNES9tURH0OjcXQMxr2LI8ah0RFQ/amZ0/ZTUphDP/c7BXo5+
-	 /WLiNhqkI7sEbW9MiDwOHvppTjh9XMzCxm+FltFw5zmsXtwOJNVrnRcQZpwTzoCeRnWb9
-	 KFG4wY7qNH4urLcHjdxIDh05upTy97kadYN/LYn+01RKBPml7FG3UrgTFddoq53iKhw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794777020;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/ARd3XR21b98dC+E0q+y0HBDJ/Q/aPk0xOOUSlTPKys=;
-	b=LaaxQtuIi/l/MKpkWjaQkbNYE6/wQNl5t00PS+GQGL1cLoiLcXzvOUTbiCMksKGFM7MJ
-	 ITYHguvIiry0qgmsipaJJ7YwGj5l+UFRWWL2rVBf2Oh1ByrooMQTTHZpW+n1maWhntkz4
-	 beyiGVqadlTd1d7iVwQ576HGKslQB1ebT3iFHkfLFSMM+DIWJIIYmVyL5KfhojB7HDEPK
-	 Le9lAsl1WmdGcQ9qbAKXryye22xoGf8ymNzBKxogPiQKgqMBWvxgPS/HSNRb1qGiy/cMT
-	 LT6A4g+CXoaf5n3JvSbyVuiwDvO9fGO2fFPKAuFP1lsB/WvJOkrJMJMwUcffTLC6tfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zov0bB1B;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794777076;
+	b=BtTi6Yg8ZLfL9c5uFhLUrQoskdT7CKNgCfNKzCnl3e/grVttkV1YnjaJ/sGjrKR4heHW
+	 rqEXwSVNGNW+5VPPqx/HWOMyYD/hrSmfuKON9EblsnJDhRkmGpaXI9Ecj5Hge+A7WyET5
+	 4cFbpHmIflYvrw+bPkfDGdgD7H/SSuwwY+3iJ/vwNsPKh/Y6Ol82fy9xL4Q14JP1iN9S1
+	 2tU1oEy/EFsLoMC5QKyICNUrngz96i7YZ3hh8MkZi0GFPhAvWJ0YCKXzss307fV687vfn
+	 h1QjERl7xMYRyl9kk7sCTTK+yMeVw6D3O3Qsn68vHQVj4vkA4LWlRnwE9V8kS6Fg/gw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794777076;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
+	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
+	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=b77iwUYAJh0ewHoZEG7nauEMCrRKOsPl8v2caBXId18=;
+	b=t0Q048HWAZp80cIaot5EzPmNPqHbsTriGqQn9agfqP9L9T6hBO3WnYlpprS+rI4e0jed
+	 2gj2Yjz3SJo1BdaTSWOP6yKxzXgxlOIKkYXmDaoHym84GT5QMFwKagsxK7kLcf9Kgsieu
+	 fA4yjJdRTMvNqPYQ1+VTWydaIydeX7aPqZqxHXImXUJaKtrH5C+ZPQPy+SCPvzM9Scjgk
+	 bgJPAYDAVAcxhFILlSl2sNqEtdrWs9JH+JUUa5P2lwOhhBi5V64hK5aAS6j3rCbFxwSIF
+	 Wj91denIGrHrNUyA+t5bLdkUMX5EtZyL1YwkoetAODoRMfEGtoVQd0XtZ9rv9NjIO1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b="f6TZ/K8m";
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=Stbe2Bzf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.10
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA5E606A336
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:10:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA5E606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21F8606A323;
+	Sun, 15 Nov 2026 21:11:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A21F8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zov0bB1B
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b3577deeb0so1284528b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:10:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794777019; x=1795381819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/ARd3XR21b98dC+E0q+y0HBDJ/Q/aPk0xOOUSlTPKys=;
-        b=zov0bB1BeWYlvinho67CCGeV5prFtKbwWE5DLx9OjQ9i5m0s4tKX7fcbk9OnyZxscj
-         iiIZn1Pe0QEadl9n0hXFATr+CIi22CgXmZ+ZvhSGE/YNbvnwoYW3b+jMhU13p3BSIjrq
-         Iws/Wvp0ObtM3pHjNj/727/xUe2atB+gxKGMqJsexyGvTKRsfsQ8WfCAAmrbLe7lpXJj
-         OuF1IhLuRSTcEf9foqQkIJ9H59SqT/4n8tm/GfxFgyj2JKwbvMnwCrhqWZcx1uhj9eRV
-         CuCxJaL5IzARj3qrtmPtHCb8HoBRC4gsCO6tTCGHZ3alIWAb9uFhQ/SnTJ+dOYlmYvOe
-         oS0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794777019; x=1795381819;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ARd3XR21b98dC+E0q+y0HBDJ/Q/aPk0xOOUSlTPKys=;
-        b=zI/zOoZ9O0Y4fv0bg4rxZaosejozCKK9UIz/7wnlSWAX8W0qz+YCvlwQy0skCC773+
-         Wbj5VN9zpkHvmzrv2AlnWIIV0262Ovyp+DrVT8tfNYfNQPKmAxt3J/iD+rS+Vvl3tGeM
-         HPjdgFN1cBMNbgtnQM19NFyRUnz8Ev335RqlMOzz6Pnw5+8dhEA3kad6AnVUSa+kjxKD
-         1cqmrZYRV7vgXoOUH+/DfZNBrF1mH6AjyvT+Oroysfv6juwLr1W0IOteX9SG/rRgnYYe
-         ZMBdgYuRcgvnk0fb88+xYQRHGpcqryeDSUW9EYpBvwP5OeH+503dZjuceS2+xzQfc4R7
-         782w==
-X-Forwarded-Encrypted: i=1; AL+hErHZ5rjs7rAmphDp09Vaf+YaeaMOaXfSb222Q/QkAXMVU8mv1ATkJvIC2GRA7ClvA3UDTZsfcIquVGAAmuQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/32epljNAmWWxwLxw/r+JFB+QNtHlsoosJDSJ0E6w3djIQWH3x
-	qnaH620UdiRPQ8qKSS8qq6O/QCnKmqcJnJSuQWHwOgrbIMWHs4/5+GJJ
-X-Gm-Gg: AYBFou2I7z3Ozra0CJMs4Jsz9TErFBQFodjmZ2rlts0lrHQn3hYgEjlwrZFlJ5zabtm
-	TO51ejtZ9YmKLoos4dM8DCHbdJxhXCJC5yt8fwWIHgdJnxCTbPXgWxG3NJtzydNCT/nGE/FLpXY
-	zmkkK+8mBDORQawYYT6Y732PhtRCa8voqiPCsSLnxznfYU/IuvR0+HXCJ3ayKlxmhrKFSSN5w6x
-	Dh6HumEsNvrwj7IoQ6ckDRQmdCFHYyCPexDH3lDleWI5w8vLSMpnYOBEJPf5dOGiWxOlL+1m89g
-	Hberv6kCZ+FyHV2dYeOrl9d6ov5gtU5Hy1qecXOVyqyatEy5VNK+783vG68yZD+yktYlB79wtGC
-	7x9lrcnKwwixK7kRARqk51NUfBIuDgvkhLGERyGdEiZns4F9lNxb0OnZHzajtBhN5lswILY9b2C
-	ArPXfivdocuyoqcf1gp0k6SjY+GUr1OrGSACN+QLcU6WT1XjoVkGgAUpY7Xnt6fVxIwoxXP++5L
-	5XxMgTkYjl9vfsONyYIh9WjCcNWAa5wNSBgKe7X0FuK8zhvRjXy7MaHLMn4ik3gJSN+ldfHjNhs
-	M7dhLb51cNa4xY6l3dfV9Ny0kxqKObQeQViIkhVwgT6oyFLqdg==
-X-Received: by 2002:a05:6a00:1a89:b0:8b1:e8cd:49cf with SMTP id d2e1a72fcca58-8beb619b3f3mr7131715b3a.22.1794777019150;
-        Sun, 15 Nov 2026 13:10:19 -0800 (PST)
-Received: from localhost.localdomain ([112.170.44.210])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6e7f5sm2892615b3a.25.2026.11.15.13.10.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 13:10:17 -0800 (PST)
-From: Junyoung Jang <graypanda.inzag@gmail.com>
-To: Miklos Szeredi <miklos@szeredi.hu>,
-	Jan Kara <jack@suse.cz>
-Cc: Junyoung Jang <graypanda.inzag@gmail.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Gwanhyun Lee <gwanhyunlee@gmail.com>,
-	fuse-devel@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] fanotify: zero-pad copied event names after an embedded NUL
-Date: Mon, 16 Nov 2026 06:09:50 +0900
-Message-ID: <20261115210952.2140036-4-graypanda.inzag@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
-References: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=f6TZ/K8m;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=Stbe2Bzf
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; s=arckey; t=1794777075;
+	 b=IxZTzGxffattt16ulqfCTNRJ21tPvsPTj+TSxCCQv+QbZgmkkQ2VB2fB0T9P5HFxDESnIx+CjS
+	  HXsahaTKtpW72K/q7ANVKr+fuj1ICKTUZhEqDmZPPcJfxERih1i0nAVK8UWUzL8v0/e+/TWWfA
+	  DtHLSYSHxmnNcb0X3FEoTQDQ1nqwnmnRaAH/eXEERDce37nCta/P25uymSS1P1Ub6XnSEzVLCx
+	  ppxWaBcm64Y7HP3o38Tu4ZZZjar2+QshgQC/PlAPKyna39+KPcd2GZPoRz3DPhfjMqJNTCUeEA
+	  kTxPmw+4LA979aWvvGgTG/8Y5BNipg/HXVn4TQF7D41cBA==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; s=arckey; t=1794777075;
+	bh=Wi5IaarPhghlhyqSQAhMSH5yZO4UGYC1tXrfM03jcNQ=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=nwiX0llX69FeWdM+v1Y72eoucGQD2fw4h3ophH9usW4+i0W96nx5VsCTiF5mgUYHmAUL67xrwg
+	  vSlwHG7iWflQCy6OF4Ga35SaovxyV8Qn3bpHMGvgwl3Tr1hBOSa/ygHGM+DbMMG27JTETcR5RV
+	  kWJfYs4zcUD4iL7qOnWSx5I1TPk7mfDZvOWZHKK/Em2dpES331oyqMbBpk4dBeROMKWL4iqGAm
+	  fLxapl8ADrEfKsB/gdQr+eIw5e0pKHeOsTAtKn29M9uDmNNOxkENTwss30HR/O3tCR3R5zw3vv
+	  d/YdrlFNyJAUpBBUGm0y29ZmVanybEPQupqEn0QNoTISbA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=b77iwUYAJh0ewHoZEG7nauEMCrRKOsPl8v2caBXId18=; b=f6TZ/K8mBj6VN/8dheNy6g3Yz0
+	uEzX6DBA9v4OgH2QWMtCzive0ZSRJoCXpwK5Oktn3wTvbTjOEGHGAGICLAJ1d1TbYn0ca0STFqLrc
+	GaF3uDbeE/OeeQo9SDmPjZNg9dr8p4JO7bRTnLBX+i1MrWOQJsTeWb4hFQQzk5qYEyEw=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xShVD-00000005YFI-1j8j;
+	Sun, 15 Nov 2026 21:11:07 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=b77iwUYAJh0ewHoZEG7nauEMCrRKOsPl8v2caBXId18=; b=Stbe2BzfAyhIiXLnHaaURdebdd
+	WmGU0/EfLnyRvYeuBb7QLlmroybk227IxHLJ6Uvu2Xir2P/jzuq55bLYKY8HGdLhs8QY6zee/ZQb7
+	maSe5ECJVbfPGum4Zk778HLHa0f4KsrD/xMp4Xijxdk4E961qMpZVb6BRVdMdZl4Rgpk=;
+Received: from [95.251.96.187] (port=60415 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xShV8-00000000G4s-3mAU;
+	Sun, 15 Nov 2026 21:11:02 +0000
+Date: Sun, 15 Nov 2026 22:11:01 +0100
+From: Francesco Valla <francesco@valla.it>
+To: Chrispine Tinega <dev@chrispinetinega.com>
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] remoteproc: k3: Recover a crashed remote core
+Message-ID: <avoem-QRseasexkV@bywater>
+References: <d22a1ffd-cfbc-4122-b11a-7b680985defd@valla.it>
+ <20261109160431.720498-1-dev@chrispinetinega.com>
+ <avJbc4Aebflkjgap@bywater>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,60 +102,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avJbc4Aebflkjgap@bywater>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: eed9ac54d43cc178fc378b317069e8bb
+X-AntiAbuse: ID - eed9ac54d43cc178fc378b317069e8bb
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xShVD-00000005YFI-1j8j-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-fanotify_alloc_name_event() sizes the variable-length event buffer from
-the qstr lengths and allocates it via kvmalloc() without zeroing.
-fanotify_info_copy_name() and fanotify_info_copy_name2() record
-name->len in info->name_len and info->name2_len, but copy the strings
-with strscpy().
+Hi Chrispine,
 
-If a qstr contains an embedded NUL byte, strscpy() stops at the first
-NUL and leaves the trailing bytes of the allocated name buffer
-uninitialized. copy_fid_info_to_user() then copies name_len + 1 bytes
-to userspace, leaking uninitialized kernel heap memory.
+On Tue, Nov 10, 2026 at 12:55:54AM +0100, Francesco Valla wrote:
+> Hi Chrispine,
+> 
+> On Mon, Nov 09, 2026 at 07:04:30PM +0300, Chrispine Tinega wrote:
+> > Hi Francesco,
+> > 
+> > On Mon, 9 Nov 2026, Francesco Valla wrote:
+> > > If you share details on the Zephyr side of things, I can test this
+> > > against rproc-next on a AM67A (BeagleY-AI).
+> > 
+> > Thank you, that would help. The AM67A has no M4F, so patch 2 does not
+> > apply there. Patch 1 does: the R5F driver uses the same mailbox
+> > callback, and it keeps recovery disabled. So on the main R5F I would
+> > expect this:
+> > 
+> > - Without the series, the crash is only logged, and the core stays in
+> >   "running" until the next boot.
+> > - With the series, the core moves to "crashed", the crash is counted,
+> >   and it can be stopped and started again through sysfs.
+> > 
+> > The Zephyr side is upstream's openamp_rsc_table sample with one file
+> > added. The handler sends RP_MBOX_CRASH over the mailbox before it
+> > halts, and a thread forces a fault 20 s after boot. This builds on
+> > Zephyr v4.5.0 for beagley_ai/j722s/main_r5f0_0, but I have not run it
+> > on that board.
+> 
+> I did run it on the "MCU" R5F, and I think I found a bug... in the Zephyr
+> ti_dmtimer code! With that fixed, the functionality seems to be working
+> as expected, but I'll stress it a bit before declaring a Tested-by.
+> 
 
-This mismatch dates back to
-commit 929943b38daf ("fanotify: add support for FAN_REPORT_NAME") and
-remained after commit 0fdbe845534f
-("fanotify: replace deprecated strcpy in fanotify_info_copy_{name,name2}").
+An update on this. Recovery is definitley _not_ working on R5F remote
+cores in case of crash, because the reset action that is required from
+them to re-start correctly is in do_unprepare(), which the recovery
+action does not call (while sysfs does). This is of course out of the
+scope of your patch set, but has to be considered (maybe deserves a
+note in the commit message?).
 
-Switch both helpers to strscpy_pad() so any trailing bytes up to the
-recorded length are zeroed.
+Regards,
+Francesco
 
-Fixes: 929943b38daf ("fanotify: add support for FAN_REPORT_NAME")
-Cc: stable@vger.kernel.org
-Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
-Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
-Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
----
-Note: default FUSE mounts report a zero fsid (-ENODEV on fanotify_mark()
-with FAN_REPORT_DFID_NAME), so this patch was runtime-tested on tmpfs
-with FAN_REPORT_DFID_NAME create and FAN_RENAME events.
-
- fs/notify/fanotify/fanotify.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.h
-index c25cf5c1fc70..4a1f14aa4974 100644
---- a/fs/notify/fanotify/fanotify.h
-+++ b/fs/notify/fanotify/fanotify.h
-@@ -225,14 +225,14 @@ static inline void fanotify_info_copy_name(struct fanotify_info *info,
- 		return;
- 
- 	info->name_len = name->len;
--	strscpy(fanotify_info_name(info), name->name, name->len + 1);
-+	strscpy_pad(fanotify_info_name(info), name->name, name->len + 1);
- }
- 
- static inline void fanotify_info_copy_name2(struct fanotify_info *info,
- 					    const struct qstr *name)
- {
- 	info->name2_len = name->len;
--	strscpy(fanotify_info_name2(info), name->name, name->len + 1);
-+	strscpy_pad(fanotify_info_name2(info), name->name, name->len + 1);
- }
- 
- /*
--- 
-2.43.0
