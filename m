@@ -1,71 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794714417;
-	b=ufc5U81zkxoikkmrjaR2ZqNq8ZQmmAtWhRnJ75YowaxGsYmegh6baxuOkxjgQR5EIDl9
-	 G89PeJ3YUj0epwlQ8hCSMm1E9r0fMkl1E9tcFQYIddUvPb4LXUjvwT+VtgKs2g4M1t2Mg
-	 j+fQphsYCgOpFqJWIS99EKoSW+yvHZrXaI3Ve6LKriB2DZ++1+1OQMwfv7mb7mX4Js/8K
-	 8Ti+xcYdhP59mDvlWTSfTvjt0SnXOieHRcRamlybEd7+tD+XHQgzBzd9DqLYE+sOR+HMC
-	 w2xzVFpvOyj9WpNeZN1hp0N64kxNUv/h41MO7FWCFi8YzuSd+JsLH/8bgpKu66nXGaw==
+	t=1794714446;
+	b=TzltkWzCmeaMmYqrkCo87TpRHb7/+pdmtNIcBqFg4tLWJZIY/QBD/6KWWJKBX0v0gs93
+	 fng2MTUK90E377xkNMiBnfdI1SWBxCLK2qDoauxNdQ26H/u/Z9JYeTDmQAi6H+zT3Wu3x
+	 zby09lb5mSx2pia8ObsI0mTYt1X+RMYfRro6tA43cPq2E9tEsr0eVoZhrCFxHh2WFnzLV
+	 SllPKfd2vnX842JT7oddGahmmmVEgg6mITl7c2HNqRBFUA/3KN8mE5jG83q6WhlUxNYj5
+	 Vy79GptuhUDHsa2SVBuBepUTlUZP1/+XUnTb2FmAsM+xE5c796gEvSVG2Rx75E2RDlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794714417;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=a59LCBhRE1d9bXmOZ7i0Prcj6qHWyazOhlcg1JcydFs=;
-	b=mutxEYLshJV3jQzXz5e2+grXb0IttoXecX+1KcV+MKQE95S/ZmC4bijPy3rkuRe8oLsf
-	 CabQT2SUqVtdAGiStt0kTqXTzKJeo6LX4XXUOnUU7xgwQzFHllvXDpQ7WUIT0Tjn10KqL
-	 sj4ebxmjHJlctyz6w/wVdVPFHthvKPcQs6gOgSg7O9bTYRdo69Nm3ZLscgfnSve/wUpsD
-	 SlR6OAAeqxMupzBPUa6NsXnaNcUW73BiDWvXXguePsWjSstvVzPZVx8UBfZqy++nODb3J
-	 iIWTgpyU8Y7nbELVqjEQAA50B/uU/nng2s1RtRvr2hgM0nisTUmex0nPTEy8Q2Jnq1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794714446;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4ldjyaGmvMVLM4Vlq8OFYR8G7/wmGOfpzraKbwpWmR4=;
+	b=a35kUruG2CsXAoGIC6Z4dw6ZjEiuOhgviDhZW19vW5PqJ8ZKB/cojyTN7S2vqpNX/BIj
+	 M0c/2WOZHFxy+lPObGv6wt+V5BAMwjg04f/2pBtr4BQH9s/MDYcb1Wdjzla7haR8K8qMn
+	 8kEXl2ioAEKFAf18CD8cQFWy8V1+KH8kY3yqVACaV9EyPCWvffnoinuaTwUNzS+TYsggb
+	 JHjnrPXzsAreM6bBuIAS+QnM95isSwP41fDZUlSS11mGSKqRUAmmjXe3+Z+Y1fP9i4QuC
+	 +GGOOOK4UdMB9PjbeC8dEeAo5FpEmzodfUv1FEZwqvbGdSKHY4pkNStvLgr6YHl7qcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=AuKAC+Sk;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dn4vBdex;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE02606A32D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDE02606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EC5606A323;
+	Sun, 15 Nov 2026 03:47:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=AuKAC+Sk
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id SKqxxIWJo4vCDSRCix2hU0; Sun, 15 Nov 2026 03:46:56 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SRChxGgnISeuLSRChxEWqo; Sun, 15 Nov 2026 03:46:56 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6af92b30
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=jIWYvuuSJCPT6OUaZJ0A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=a59LCBhRE1d9bXmOZ7i0Prcj6qHWyazOhlcg1JcydFs=; b=AuKAC+SkTESO
-	5QXjdOA/fknzd/KhwdAgHqwsz3cNZCyZH/TCa1lMIOZQ9aryKUO48nNAwWn4/uVZA2yB8LcQYl6Ag
-	bvaUV6I4KVxCJ2JgawGietfmn7uNxCUctVetTC64qGkg9W68TuLIhBgsFsXOR3KRsmDJ6B92SSOYo
-	6Lm+i4kDGX/lmsGi7UCi8Ttv/TUnzI+jdLrsSsKJrTP0o59XgJF+ueu+m/5DBlsVvJ0USn0Kvf5+v
-	WAXXtyF4Mx6E9U9GKgwRJ6PZbGli/pCzTUd7vfLPt0whcvsLyCAGskPsUe7YseO1xgazV7Mi4+ygw
-	Y8D9gP3pXV45aicJe1ywyQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:46110)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSRCh-00000000wN7-1XXL;
-	Sun, 15 Nov 2026 09:16:55 +0530
-Message-ID: <3f6d66cf-8a1a-4074-a234-dfe571622aee@roeck-us.net>
-Date: Sat, 14 Nov 2026 19:46:53 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dn4vBdex
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B90341F000C4;
+	Sun, 15 Nov 2026 03:47:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794714446;
+	bh=4ldjyaGmvMVLM4Vlq8OFYR8G7/wmGOfpzraKbwpWmR4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dn4vBdexOC5DTUD2zdya29Swqmnph+JjXeuIZT2PUlgCnG/8lpOVCLRYWKO+q+KS2
+	 W18fpOwp73jvcGk52ZQcwJziCKpCt7VQhYIAJF8sB3tn3KRIcbex/jPHk6uOq4eRgv
+	 +vcA49OHhi3KkRrWEIK9Ba9JUg/aq8Imd85K6DVKgONt8oyikhICsLL3hHFOq7Lzg5
+	 lZUz9Klgnfj+tpLjGa0kyvjcxSuRnOb3/8axaRFI9ew+RMu4xGvfzT/7XmFfr9R15Y
+	 A3fGe0d+hOx7jNvuGUlMnF41xv7FneEJnI1rb8GHFvzuT/Uax++UKJ71qKtCabjXpj
+	 +Yoy6EbuSgt5Q==
+Date: Sat, 14 Nov 2026 19:47:24 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Alireza Haghdoost <haghdoost@uber.com>
+Cc: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 4/5] perf script: Add --lazy-load-symbols to load
+ symbol names lazily
+Message-ID: <avkrTBAE08wB5Qy1@z2>
+References: <20261028-perf-symbol-memory-send-v6-0-7e90415f0101@uber.com>
+ <20261028-perf-symbol-memory-send-v6-4-7e90415f0101@uber.com>
+ <CAP-5=fU9Du9cCge2aTm10ejtwBKX1THQpm=h7EMR=WVQLww6DA@mail.gmail.com>
+ <auacxQZKtlFa9Pc3@z2>
+ <CA+w=M=S-H4d_-KCZJqdPoUCyfYtNDsKLd8t37kT134bwpKD7qw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,104 +70,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] hwmon: Add driver for Marvel AlphaServer
- environmental sensors
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>,
- Magnus Lindholm <linmag7@gmail.com>, linux-alpha@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20261114-marvel-env-v1-0-890328e4b7e5@gmail.com>
- <20261114-marvel-env-v1-5-890328e4b7e5@gmail.com>
- <e8ffe364-5c98-4987-b6bd-c263122aeae8@roeck-us.net>
- <CAEdQ38GEckm8oU9pmg_t-_EC85brP4ghWAE4tYBNEvF+gcqMKA@mail.gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CAEdQ38GEckm8oU9pmg_t-_EC85brP4ghWAE4tYBNEvF+gcqMKA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSRCh-00000000wN7-1XXL
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:46110
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 3
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfK5G3wPLj/TtDYk7rrbL42cKkpfl49/PK5x/repEPX6D4XEGb66Lnzivja8q070srF1If+4Yhw/aLTB0XKxanuf789BqhUJbLoBfb604U4hDHuGXv8AP
- 1ar1IYHtwvScCiSerin6SyxmmHFUg0WEoQvdjmLczLLigtmL2MBVgkF6IVCa6WrjhlZ3/yymsvVbk2y12SX9PqBcdGXNPPp/1Uy3iOKdpm3N1YiDzQSTW1UU
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CA+w=M=S-H4d_-KCZJqdPoUCyfYtNDsKLd8t37kT134bwpKD7qw@mail.gmail.com>
 
-On 11/14/26 18:50, Matt Turner wrote:
-...
->>> +``in[0-*]_alarm``           Sensor is in the warning or fault state
->>
->> Which one is it ? Is it distinct ? A "fault" means
->> that the hardware is broken/defective. An alarm means that
->> the voltage is too high or too low. A faulty channel
->> should not be reported as alarm but as fault.
+On Fri, Nov 13, 2026 at 08:00:55PM -0800, Alireza Haghdoost wrote:
+> On Sat, Oct 31, 2026 at 6:58 PM Namhyung Kim <namhyung@kernel.org> wrote:
+> >
+> > On Fri, Oct 30, 2026 at 08:55:55AM -0700, Ian Rogers wrote:
+> > > I'm thinking this option should really be the default, requiring
+> > > people to opt out.
+> >
+> > Agreed on making it default.  I'm not sure what's the case that needs
+> > eager loading.  We can change the code to load all symbols just before
+> > it (oh, it seems the patch already handles the cases) then no option
+> > would be needed. :)
 > 
-> It is always the voltage being out of range: Warning is the reading
-> outside the warning limits (5% from nominal), Failure outside the
-> failure limits (10%). Both are reported as in_alarm in v2. The limits
-> are not in the console's packet, so they are not exported.
+> Sorry for the slow reply. I wanted to have v7 ready before answering.
+> I agree that lazy loading should become the default, but I would like
+> to keep it opt-in in v7 and flip it in a separate patch later.
 > 
+> While checking what default-on would change, I found that a binary
+> replaced during the run gave wrong names. Lazy loading reads a name
+> later, at the offset the symbol table had at load time. If a deploy
+> replaces the binary in between, or the path resolves to another file
+> because the process of a mount namespace exited, perf read the names
+> from the new file. I reproduced it by swapping the binary under gdb;
+> perf printed names of the other build. Eager loading reads every name
+> at load time, so it is not affected. I fixed that in v7 and kept the
+> device, inode,
+> size and modification time of the file and checks them whenever it opens
+> the file again. If they changed, perf warns once and shows the
+> remaining symbols of that DSO as [unknown].
 
-This could be reported as inX_max_alarm and inX_crit_alarm.
+We have struct dso_id to identify the binary.  The build-ID is the
+preferred method to check it.
+
+> 
+> Also, each batch of names opens the file again, resolves its name and
+> enters the mount namespace. On my test profile this is cheap (1.3 s
+> lazy vs 2.9 s eager, identical output), but I have not measured it for
+> containers or debuglink layouts. The type-aware data cache that we
+> discussed on v5 would remove most of that cost.
+
+Right, having a fd in the cache, would solve many problems.
+
+> 
+> So my plan is to run lazy loading in our continuous profiling at scale
+> first, and then send a patch that makes it the default. By that time,
+> hopefully we will have already added the type-aware data cache.
+> Does that work for you?
+
+Sounds good.  A real world testing would be great.  I'll find time to
+work on the DSO access.
+
+> 
+> > > I'm curious if this is global just to avoid the expense of a mutex per
+> > > symbol or it needs to be global? [...] but perhaps the dso__lock works?
+> >
+> > Probably.  dso__load() already takes the dso lock.
+> 
+> It was global because dso__named_symbols() and dso__sort_by_name()
+> already hold the DSO lock when they load names, and the mutex is not
+> recursive. Nothing that holds the DSO lock looks up symbols, so v7
+> uses it: a lookup takes it only when the symbol it returns still needs
+> its name, and the batch loader requires it held.
+> 
+> > Nit: I'm hesitate to argue about naming, but it seems a bit confusing.
+> > Why does it skip to load when it doesn't have a (lazy) name?  Probably
+> > symbol__needs_lazy_name() would be a little better...?
+> 
+> Agreed, renamed in v7.
 
 Thanks,
-Guenter
+Namhyung
 
