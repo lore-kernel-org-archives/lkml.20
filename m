@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794737601;
-	b=non0hSIcsLjyav+TD8E/+FZKyTi9aYC0O3NzjRfH5K+zMFiW7eeEHojJhyP1GNoff0rG
-	 xbbl3UChnNOK09OF7XrJ3FfBAkaEYSC00FHidcKFJx7gb4OaRIGZRVM62r18bcpnyUe7I
-	 rPuw6Km1AodmvwRWKIm9vgTj923O8GzlMjX7BHdLw+xHpOg8Ase1wfVXbFrbY9i2frDeu
-	 gXGfisyrtobMzfluNXGnPxtchaoQA8f5UEfRSTB5STuo0KSNdu1y3wzqwOXeCcG5E68qx
-	 nUJB7tO+M4ehRGUhm3ONNsiLdk95qljOSD+Nq//e4PcVf4xhBduvIYR/soEL9U/wmog==
+	t=1794737599;
+	b=x4UqVonXhGzlTDkBdMPzmsRYLr7fzFF8Lhw5WKEsRYoLVfx9mKTTF24n29r4dnz6AOS3
+	 jyi4Lj8Zzh3OV4flZNDUieK847OrLM9RLeaF487gJTnQGdi6xp+Zz23EdUd26kg3LmAmq
+	 Pbl5+msHHzz+xY3uQ+nCVnUeh1isHyTRsf0tKx1QddRvvpdk7fgRdSv9smwmb++IWtnVk
+	 JskwqJ48tDG1NTw37XUVHwiCtUoff0TSv3TJ/bkAxSq5OomZPsg24B34pBmA8hlGUiLNj
+	 9iD65JftkAqRHLSs4gZrp6kUEU91sh5898Dm59i0Avv0iVRPz4j7h7VU2netp+p1/8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794737601;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794737599;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=jtnXHcWywjlfBkVLTsyb8zYKyCaVO1U2rJtTlOc5KvQ=;
-	b=ZBnwiCZqgYFvY2Uo0JJgYas1Rm9W6gXH0klx8nOuC5Izyg44RDxKzegtOY0quYEGcmKg
-	 /UpiSevbvkOnKFxluFwkTrXPFkQfkbYL2nrTcAyAI7jsU1gwUUMhCoiYoj+WVDpTDs9wJ
-	 XxDA+QI2F9G+fxnqc8ij64jhGRs1kJiwB0V+ILBGvaTMcSMCTgCEn6oDGS5vWwn35FBEU
-	 ITozTKklXKXibwNsUN9knbvLmvRaPnwyMhr9zKedXVOMzf03z6tsdetFCTk1hr0j4zGOX
-	 +RsCbBhTZxXdt1qoDhyh+wr8a00tcNxbwVPpSWwacWzQDubPdIU41OCeeeS6/dJJjgA==
+	bh=JClN30scvuHZt0OL4jRt3GcrPedNL0m1PyfS3mv6mhw=;
+	b=XUUAkrRLCiB05OvTd/eLr8dQpEHCVbbCyy5O4cE4h3b+zDePVfnAUL140K0y3r5vXyaM
+	 XcFaOHp90iwApiowwtpDdJh5zK8yuKMTOXED+QI3v0piTpGqTMImIvy939ADmsJXpclGq
+	 YSU2IKUPDybO+JNiQjeIEUQu4d3tF7OY1j9O4SOArLFhwZhGoCgCOQb2SXajijZrpEl2r
+	 5V/hNz1Xqt2qPJiW525bZhiqjr7KEgkpZtjANnUwGwL4BnmL6fU2LcHVZdYsFFPLy1g3V
+	 wcUFHtGdno0si3F39DVTVjnExs9ytjz+v8I6ziz0D6sHaYLG2fzYUj9FDjkHLSRUyEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVfcAlFk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5ORWFPb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC78B606A332;
-	Sun, 15 Nov 2026 10:13:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32550606A31A;
+	Sun, 15 Nov 2026 10:13:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVfcAlFk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3B01F000C9;
-	Sun, 15 Nov 2026 10:13:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5ORWFPb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AFE81F000C4;
+	Sun, 15 Nov 2026 10:13:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794737601;
-	bh=jtnXHcWywjlfBkVLTsyb8zYKyCaVO1U2rJtTlOc5KvQ=;
+	s=k20260515; t=1794737598;
+	bh=JClN30scvuHZt0OL4jRt3GcrPedNL0m1PyfS3mv6mhw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aVfcAlFk1paqR72wQl8cNVKs7vs2VIt/BCaW7ml8GhqH9jry/Wec2xv8RkpLZErjh
-	 /PyPbPNz/8tjZCcMaAJe7dxjz9FIOL6nq+ZBCB6FMa5YXHWQ4nceAGmYSvwnvp0ERx
-	 /Cm2A7Ltwg3cqbnimbRwmyZom+QHmpJGQRL3Jrbztdeyw2stxdMNLH/NUa+mJSkMW5
-	 7QgEIZAbcrfKjxC1TA8bhIAI9EUyLAcDML4DlMudWIi2SCGkBzUgfRTcroaqu3AXp0
-	 n6QEAafMa3TCLhWkpVAPzRnFA3esyymC74VBOv8mWku/2X+406Y950nIqXFpZJgyvf
-	 JYB/LOYV9iUOg==
-Subject: Re: [PATCH net-next 2/2] net: sgi: ioc3-eth: fall back to the
- platform MAC address
+	b=Z5ORWFPb0g44qbff4L5kUgDBKrImV6JzRT0MlsNUsDyrR9y7sb0kZwHhw3zi9NpAl
+	 A6GjF3jYv8Pb5QevAg9apCsbesBeTJixpaaTIoFJ0HFRHrW0onD9P+xXTaGTsQdjXc
+	 LrtGXjxIJKJZzd/y3OlTPHrUuaSycoGRl5EeoZCJJDcEYKTCBYhx7KoFeYjF2EbBM1
+	 CAMkqUO498DQB4e976ZqC6q9VlAnilgGhuJ39bTGVu1Wc1IFZm047GKiW+GbyMWRUm
+	 atD+BJWee6+0ItTSuLYgzl2NcgtgSjGwoKXOrpiez/JKU/uKJgMqAkBWxN2Z+En6Ig
+	 Ze3+80XlZi3KA==
+Subject:
+ Re: [PATCH] xfrm: avoid stale tunnel pointers in deferred input callbacks
 From: netdev-bot+sashiko@kernel.org
-To: kaloz@kernel.org
-Cc: tsbogend@alpha.franken.de, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 15 Nov 2026 10:13:20 +0000
-Message-ID: <179473760071.2199510.16065103101920438822@kernel.org>
-In-Reply-To: <20261111095138.1757-3-kaloz@kernel.org>
-References: <20261111095138.1757-3-kaloz@kernel.org>
-X-sashiko-severity: Medium
+To: yaojun8558363@gmail.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ steffen.klassert@secunet.com, herbert@gondor.apana.org.au, dsahern@kernel.org,
+ idosch@nvidia.com
+Date: Sun, 15 Nov 2026 10:13:17 +0000
+Message-ID: <179473759755.2199510.14851805425930865959@kernel.org>
+In-Reply-To: <20261111094629.230568-1-yaojun8558363@gmail.com>
+References: <20261111094629.230568-1-yaojun8558363@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -64,10 +65,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 9 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (2) · Medium: 3 · Low: 0
+Critical: 0 · High: 2 · Medium: 1 · Low: 6
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,274 +76,414 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The new 'or from the platform' fallback in ioc3eth_probe() can
-  never succeed for any ioc3-eth device in the tree.
-- [Medium] The patch puts a permanent random-MAC fallback on every IOC3
-  platform, not just Fuel.
-- [Medium] net: sgi: ioc3-eth: premature platform MAC fallback in
-  ioc3eth_probe()
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  ioc3eth_probe() never calls platform_set_drvdata(pdev, dev).
-- [High] This problem wasn't introduced by this patch, but
-  ioc3eth_probe() registers its handler with…
+- [High] The VTI callbacks look up the tunnel device in the wrong network
+  namespace.
+- [High] The underlay net_device pointer still dangles across the IP-TFS
+  deferral, and the new lookup depends on it.
+- [Medium] The new skb extension ID SKB_EXT_XFRM_TUNNEL takes the last
+  available slot and makes every skb extension object bigger, and the…
+- [Low] The build fails whenever CONFIG_XFRM=n.
+- [Low] IP-TFS inner packets in freshly allocated skbs now get VTI
+  processing, which is a behaviour change the commit message does not…
+- [Low] The commit fixes a user-triggerable use-after-free but has no
+  Fixes: tag (and no Cc: stable).
+- [Low] The XFRM_TUNNEL_INFO_IP6 branch added to xfrm6_rcv_spi() is dead
+  code, and its payload is never read.
+- [Low] The new identity checks in vti_rcv_cb() and vti6_rcv_cb() read
+  tunnel->parms fields (i_key, link, iph.saddr/daddr; or link, proto,…
+- [Low] xfrm: vti_rcv_cb() and vti6_rcv_cb() return 1 on error when dev
+  is gone
 
 --
 
-net: sgi: ioc3-eth: fall back to the platform MAC address
+xfrm: avoid stale tunnel pointers in deferred input callbacks
 
-With this patch, ioc3eth_probe() calls eth_platform_get_mac_address()
-when the 1-wire MAC PROM cannot be read. The probe now defers only while
-driver_deferred_probe_check_state() returns -EPROBE_DEFER. After deferred
-probing gives up, the netdev is registered with a random MAC address.
+This patch removes the ip_tunnel/ip6_tnl pointer that VTI stored in
+skb->cb. In its place, scalar tunnel metadata goes into a new
+SKB_EXT_XFRM_TUNNEL skb extension. The VTI receive callbacks then look up
+the tunnel device by ifindex under RCU and recheck its parameters. If the
+tunnel no longer matches, the packet is dropped.
 
-> diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
-> index 25139cf5ff62c..5296614bf3fb8 100644
-> --- a/drivers/net/ethernet/sgi/ioc3-eth.c
-> +++ b/drivers/net/ethernet/sgi/ioc3-eth.c
+> IP-TFS input can be deferred while its reordering queue waits for a missing
+> sequence number. The VTI receive callback stores a pointer to the tunnel in
+> skb->cb, and the device can be removed and freed before the callback runs.
 
 [ ... ]
 
-> @@ -857,9 +858,16 @@ static int ioc3eth_probe(struct platform_device *pdev)
->  		dev_err(&pdev->dev, "Invalid resource\n");
->  		return -EINVAL;
->  	}
-> -	/* get mac addr from one wire prom */
-> -	if (ioc3eth_get_mac_addr(regs, mac_addr))
-> -		return -EPROBE_DEFER; /* not available yet */
-> +	/* get mac addr from one wire prom, or from the platform */
-> +	if (ioc3eth_get_mac_addr(regs, mac_addr) &&
-> +	    eth_platform_get_mac_address(&pdev->dev, mac_addr)) {
+> Signed-off-by: Jun Yao <yaojun8558363@gmail.com>
+
+[Severity: Low]
+This fixes a use-after-free that users can trigger, but there is no Fixes:
+tag or Cc: stable. Could one be added so stable maintainers know which
+trees need the backport?
+
+The problem being fixed does exist. In __input_process_payload(), the
+"Reuse the received skb" path keeps the original skb->cb while the skb
+sits in w_saved or waits for the drop_timer. That cb includes the raw
+tunnel pointer stored by vti_input()/vti6_input_proto().
+
+Nothing holds a reference on the VTI device during that wait, and
+vti_rcv_cb() dereferences the pointer later. Async crypto completion
+opens a similar window.
+
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6ac3e4..f97412b95c093 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -5044,6 +5044,7 @@ enum skb_ext_id {
+>  #endif
+>  #ifdef CONFIG_XFRM
+>  	SKB_EXT_SEC_PATH,
+> +	SKB_EXT_XFRM_TUNNEL,
+>  #endif
+>  #if IS_ENABLED(CONFIG_NET_TC_SKB_EXT)
+>  	TC_SKB_EXT,
 
 [Severity: Medium]
-Does this ordering let the platform address win before the 1-wire PROM
-has had a chance to appear?
+Does this use up the last skb extension ID? With BRIDGE_NETFILTER, XFRM,
+NET_TC_SKB_EXT, MPTCP, MCTP_FLOWS, INET_PSP and CAN all enabled, enum
+skb_ext_id now has 8 entries. That is the limit checked in
+skb_extensions_init():
 
-eth_platform_get_mac_address() runs as soon as ioc3eth_get_mac_addr()
-fails. That happens before driver_deferred_probe_check_state() is
-consulted at all. On the first probe attempt the PROM nvmem device
-essentially never exists yet:
+	BUILD_BUG_ON(SKB_EXT_NUM > 8);
 
-- mfd_add_devices() registers the ioc3-eth cell before the sgi_w1 cell
-  in ioc3_eth_cells[].
-- sgi_w1_probe() only registers the master with w1_add_master_device().
-  The bus search runs later in the asynchronous w1_process() kthread.
-- The nvmem device only appears once w1_ds250x binds the slave in
-  w1_eprom_add_slave().
+No further extension can be added without widening active_extensions.
 
-The IOC3 MFD cells have no of_node, so eth_platform_get_mac_address()
-falls through to arch_get_platform_mac_address(). That hook takes no
-device argument and returns the same system-wide address to every
-caller.
+There is also a size cost. skbuff_ext_cache objects are sized as
+SKB_EXT_ALIGN_VALUE * skb_ext_total_length(), which is the sum over all
+types. struct xfrm_tunnel_info is 52 bytes, which rounds up to 56. So the
+new skb_ext_type_len[] entry makes every extension allocation in the
+system 56 bytes larger, including sec_path, MPTCP, TC and CAN extensions.
 
-Suppose a platform implements that hook, as I assume the rest of the
-IP35 series does for Fuel. Then every IOC3 in the machine takes the
-system-board address on its first probe and never defers. That covers:
+The VTI and xfrm6 tunnel input paths also change from a plain cb store to
+a GFP_ATOMIC skb_ext_add() or COW, with a new drop path when it fails.
 
-- PCI add-on IOC3 cards such as CAD DUO, MENET or MENET4
-- IOC3s in secondary IO bricks
+Would a narrower fix avoid this system-wide cost, for example holding a
+tracked netdev reference across the deferral? The commit message does not
+mention any of these tradeoffs.
 
-All of these carry their own factory PROM. Their real addresses are
-ignored, and several interfaces end up sharing one MAC. That breaks as
-soon as two of them sit on the same segment. Nothing re-reads the PROM
-later, so the duplicate address stays for as long as the device is
-bound.
+> diff --git a/include/net/xfrm.h b/include/net/xfrm.h
+> index 445223a8dc6f1..defdd4088c552 100644
+> --- a/include/net/xfrm.h
+> +++ b/include/net/xfrm.h
 
-Should the platform address only be consulted once
-driver_deferred_probe_check_state() stops returning -EPROBE_DEFER? If
-that brings back the long boot delay on Fuel, could the platform
-fallback instead be limited to the system-board IOC3 that is known to
-have no PROM?
+[ ... ]
 
-[Severity: Medium]
-Can eth_platform_get_mac_address() ever succeed for this device?
+> @@ -740,14 +741,52 @@ struct xfrm_tunnel_skb_cb {
 
-The ioc3-eth platform device is only ever created by this cell in
-drivers/mfd/ioc3.c:
+[ ... ]
 
-static struct mfd_cell ioc3_eth_cells[] = {
-	{
-		.name = "ioc3-eth",
-		.resources = ioc3_eth_resources,
-		.num_resources = ARRAY_SIZE(ioc3_eth_resources),
-	},
+> -#define XFRM_TUNNEL_SKB_CB(__skb) ((struct xfrm_tunnel_skb_cb *)&((__skb)->cb[0]))
+> +static inline struct xfrm_tunnel_info *
+> +xfrm_tunnel_info_add(struct sk_buff *skb)
+> +{
+> +	return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
+> +}
+> +
+> +static inline const struct xfrm_tunnel_info *
+> +xfrm_tunnel_info(const struct sk_buff *skb)
+> +{
+> +	return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
+> +}
+> +
+> +static inline void xfrm_tunnel_info_clear(struct sk_buff *skb)
+> +{
+> +	skb_ext_del(skb, SKB_EXT_XFRM_TUNNEL);
+> +}
 
-The cell has no of_compatible, swnode or platform_data. So
-mfd_add_device() leaves pdev->dev.of_node NULL and attaches no software
-node.
+[Severity: Low]
+Does this build with CONFIG_XFRM=n? These inlines are not under any config
+guard. SKB_EXT_XFRM_TUNNEL only exists under CONFIG_SKB_EXTENSIONS plus
+CONFIG_XFRM. Also, skb_ext_add() and skb_ext_find() have no stubs in the
+!CONFIG_SKB_EXTENSIONS branch of skbuff.h.
 
-eth_platform_get_mac_address() checks only two sources:
+xfrm4_rcv_spi() and xfrm_tunnel_check() are always compiled and call
+these helpers. Files like net/ipv4/ip_input.c, route.c, tcp_ipv4.c and
+udp.c include <net/xfrm.h> unconditionally. CONFIG_XFRM is a hidden bool
+that is only selected, so INET=y with XFRM=n is a valid config.
 
-net/ethernet/eth.c:eth_platform_get_mac_address() {
-	ret = of_get_mac_address(dev->of_node, mac_addr);
-	if (!ret)
-		return 0;
+skb_sec_path() handles this with an #ifdef CONFIG_XFRM / return NULL
+fallback. Could the new helpers do the same?
 
-	addr = arch_get_platform_mac_address();
-	if (!addr)
-		return -ENODEV;
-	...
+[ ... ]
+
+> diff --git a/net/ipv4/ip_vti.c b/net/ipv4/ip_vti.c
+> index c4f14d42df248..3594254df9de9 100644
+> --- a/net/ipv4/ip_vti.c
+> +++ b/net/ipv4/ip_vti.c
+> @@ -58,10 +58,25 @@ static int vti_input(struct sk_buff *skb, int nexthdr, __be32 spi,
+
+[ ... ]
+
+> +		*info = (struct xfrm_tunnel_info) {
+> +			.ifindex = tunnel->dev->ifindex,
+> +			.i_key = tunnel->parms.i_key,
+> +			.type = XFRM_TUNNEL_INFO_VTI4,
+> +			.ip4 = {
+> +				.link = tunnel->parms.link,
+> +				.saddr = tunnel->parms.iph.saddr,
+> +				.daddr = tunnel->parms.iph.daddr,
+> +			},
+> +		};
+>
+>  		if (update_skb_dev)
+>  			skb->dev = tunnel->dev;
+
+[ ... ]
+
+> @@ -96,18 +111,28 @@ static int vti_rcv_proto(struct sk_buff *skb)
+>
+>  static int vti_rcv_cb(struct sk_buff *skb, int err)
+>  {
+> +	const struct xfrm_tunnel_info *info = xfrm_tunnel_info(skb);
+>  	unsigned short family;
+>  	struct net_device *dev;
+>  	struct xfrm_state *x;
+>  	const struct xfrm_mode *inner_mode;
+> -	struct ip_tunnel *tunnel = XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4;
+> +	struct ip_tunnel *tunnel;
+>  	u32 orig_mark = skb->mark;
+>  	int ret;
+>
+> -	if (!tunnel)
+> +	if (!info || info->type != XFRM_TUNNEL_INFO_VTI4)
+>  		return 1;
+
+[Severity: Low]
+Is it intended that this changes which IP-TFS inner packets get VTI
+processing? The commit message does not mention it.
+
+iptfs_alloc_skb() allocates inner skbs with a zeroed cb. From the outer
+skb it copies only dev and the extensions:
+
+net/xfrm/xfrm_iptfs.c:iptfs_alloc_skb() {
+    ...
+		skb->dev = tpl->dev;
+		__skb_ext_copy(skb, tpl);
+    ...
 }
 
-Only sparc overrides arch_get_platform_mac_address(). On MIPS
-(IP27/IP30/IP35) the __weak default returns NULL, so this call always
-returns -ENODEV.
+Before this patch the cb tunnel pointer was NULL for those skbs, so
+vti_rcv_cb()/vti6_rcv_cb() returned 1. They skipped the VTI policy check,
+the switch of skb->dev to the VTI device, and the VTI stats. Only the
+reused outer skb kept the pointer.
 
-The commit message says "so a platform that knows the address can supply
-it". As far as I can tell, no platform can do that today.
+Now every inner skb gets the tunnel info through the shared extension.
+They all go through xfrm_policy_check() with the i_key mark, then
+skb_scrub_packet() and skb->dev = dev. As a result they can fail with
+-EPERM, or appear on a different netdev than before.
 
-Adding a software node or device property later would not help either,
-because eth_platform_get_mac_address() never looks at fwnode properties.
-That would need something like device_get_ethdev_address() or
-fwnode_get_mac_address().
+Deferred packets are also now dropped when the VTI's i_key, link or
+addresses change, not only when the VTI disappears as the commit message
+says.
 
-On Fuel, every probe therefore goes straight to the deferral logic. The
-device binds only after the deferred probe timeout expires (up to 10
-seconds with CONFIG_MODULES). It then always gets a random MAC that
-changes on every boot.
+The new behaviour may be more consistent. Should the commit message
+describe it?
 
-> +		err = driver_deferred_probe_check_state(&pdev->dev);
-> +		if (err == -EPROBE_DEFER)
-> +			return err; /* not available yet */
+>
+> -	dev = tunnel->dev;
+> +	dev = dev_get_by_index_rcu(dev_net(skb->dev), info->ifindex);
+> +	if (!dev || dev->rtnl_link_ops != &vti_link_ops)
+> +		return err ? 1 : -ENODEV;
+
+[Severity: Low]
+If the VTI device is gone or its parameters no longer match, should
+the error call return 1 here?
+
+When info->type is XFRM_TUNNEL_INFO_VTI4, vti_input() has already
+claimed this packet. The cb_handler dispatchers in xfrm4_rcv_cb() and
+tunnel4_rcv_cb() call the handlers in priority order and stop at the
+first one that returns <= 0. A positive return means "not mine, keep
+going".
+
+Here is the sequence when the device disappears before the callback
+runs:
+
+xfrm_input()
+  xfrm_rcv_cb(skb, family, xfrm_proto, 0)
+    vti_rcv_cb(skb, 0)     -> lookup fails, returns -ENODEV
+  goto drop
+  xfrm_rcv_cb(skb, family, xfrm_proto, -1)
+    vti_rcv_cb(skb, -1)    -> lookup fails again, returns 1
+    xfrmi_rcv_cb(skb, -1)  -> next handler is consulted
+
+The extension is still attached at that point, because
+xfrm_tunnel_info_clear() only runs after a successful callback. An
+earlier transform failure that jumps straight to the drop label ends
+the same way.
+
+The return value of 1 sends the dispatcher on to lower-priority
+handlers such as xfrmi_rcv_cb(). If an xfrmi device matches by if_id
+or collect_md, its rx_errors and rx_dropped get incremented for a
+packet that belonged to the VTI. Before this patch, a non-NULL tunnel
+pointer meant the error path always returned 0.
+
+vti6_rcv_cb() has the same pattern with xfrm6_rcv_cb() and
+tunnel6_rcv_cb().
+
+Would it be better to return 0 whenever err is set and the extension
+says VTI4/VTI6, and simply skip the stats update when the device can
+no longer be found?
+
+[Severity: High]
+Is this lookup done in the right network namespace?
+
+info->ifindex comes from tunnel->dev->ifindex, so it is an index in
+dev_net(tunnel->dev). Here skb->dev is still the underlay device, for two
+reasons. Every vti_input() caller passes update_skb_dev as false. On the
+IP-TFS path, iptfs_alloc_skb() copies tpl->dev. So dev_net(skb->dev) is
+the tunnel's link netns, not the netns the VTI netdevice lives in.
+
+Cross-netns VTI is a supported setup:
+
+net/ipv4/ip_vti.c:vti_newlink() {
+    ...
+	return ip_tunnel_newlink(params->link_net ? : dev_net(dev), dev, tb,
+				 &parms, fwmark);
+}
+
+vti6_newlink() also sets nt->net = params->link_net ? : dev_net(dev).
+Only the fallback devices are netns_immutable. A vti/vti6 device can be
+created with a link netns, or moved with "ip link set vtiX netns B".
+
+In that setup the lookup returns NULL and the callback returns -ENODEV.
+xfrm_input() then drops the packet:
+
+	err = xfrm_rcv_cb(skb, family, xfrm_proto, 0);
+	if (err) {
+		rcu_read_unlock();
+		goto drop;
+	}
+
+That means every decapsulated packet on such a tunnel is thrown away,
+including on the normal synchronous path. Before this patch these packets
+were delivered through tunnel->dev. The remaining check still expects the
+two namespaces to be able to differ:
+
+	skb_scrub_packet(skb, !net_eq(tunnel->net, dev_net(skb->dev)));
+
+The underlay netns could also hold a different vti device with the same
+ifindex, for example one moved in from a third netns. Its tunnel is in a
+different itn, so the -EEXIST duplicate check does not cover it. If its
+i_key, link and addresses match, could the packet be attributed to that
+device and injected into the wrong namespace?
+
+vti6_rcv_cb() does the same lookup with dev_net(skb->dev), so it seems to
+have the same problem.
+
+[Severity: High]
+On the deferred path, is skb->dev itself still safe to dereference here?
+
+On the IP-TFS path the commit message describes, skb->dev is the underlay
+device and nothing holds a reference on it. Packets wait in
+xtfs->w_saved[] or ra_newskb until the drop_timer or a later in-order
+packet drains them.
+
+xfrm_iptfs.c has no dev_hold() or netdev_hold(), and xfrm_input() drops
+its dev_hold() once x->type->input() returns -EINPROGRESS.
+xfrm_dev_unregister() only flushes states offloaded to that device.
+Software IP-TFS states and their queued skbs therefore survive
+unregistration.
+
+Suppose the underlay is deleted while packets are queued, for example
+with "ip link del veth0". The drain path then reads freed memory:
+
+iptfs_drop_timer() / iptfs_input_ordered()
+  ...
+    __input_process_payload()
+      xfrm_input(skb, 0, 0, -2)
+        net = dev_net(skb->dev)
+        ...
+        xfrm_rcv_cb()
+          vti_rcv_cb()
+            dev_get_by_index_rcu(dev_net(skb->dev), ...)
+
+gro_cells_receive() uses skb->dev as well.
+
+The dereference at xfrm_input() entry was there before this patch.
+However, the patch is meant to fix "the device can be removed and freed
+before the callback runs" on this exact path. The new lookup depends on
+the same unreferenced pointer.
+
+For the fix to be complete, does the device or the netns need to be
+pinned across the deferral? That could be netdev_hold()/netdev_put(), or
+storing a netns identity.
+
 > +
-> +		dev_warn(&pdev->dev, "no MAC address, using a random one\n");
-> +		random_mac = true;
+> +	tunnel = netdev_priv(dev);
+> +	if (tunnel->parms.i_key != info->i_key ||
+> +	    tunnel->parms.link != info->ip4.link ||
+> +	    tunnel->parms.iph.saddr != info->ip4.saddr ||
+> +	    tunnel->parms.iph.daddr != info->ip4.daddr)
+> +		return err ? 1 : -ENODEV;
+
+[Severity: Low]
+Can these reads race with tunnel reconfiguration? They are plain loads
+under RCU only. Meanwhile ip_tunnel_update() rewrites saddr, daddr and
+i_key in place under RTNL, and updates link with:
+
+	WRITE_ONCE(t->parms.link, p->link);
+
+Lockless readers such as ip_tunnel_lookup() use READ_ONCE(t->parms.link).
+The new reads of parms.link here and in vti_input() do not, which KCSAN
+would report.
+
+vti6_tnl_change() also rewrites the 16-byte laddr/raddr with plain struct
+stores, and vti6_rcv_cb() does not wait out the synchronize_net() in
+vti6_update(). If the callback sees a half-updated parms set, packets in
+flight (deferred or not) could be dropped with -ENODEV during
+reconfiguration.
+
+[ ... ]
+
+> diff --git a/net/ipv6/xfrm6_input.c b/net/ipv6/xfrm6_input.c
+> index 07edef2589844..9aed0b21d3b02 100644
+> --- a/net/ipv6/xfrm6_input.c
+> +++ b/net/ipv6/xfrm6_input.c
+
+[ ... ]
+
+> @@ -22,7 +23,28 @@
+>  int xfrm6_rcv_spi(struct sk_buff *skb, int nexthdr, __be32 spi,
+>  		  struct ip6_tnl *t)
+>  {
+> -	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = t;
+> +	struct xfrm_tunnel_info *info;
+> +
+> +	xfrm_tunnel_info_clear(skb);
+> +	if (t) {
+> +		info = xfrm_tunnel_info_add(skb);
+> +		if (!info) {
+> +			kfree_skb(skb);
+> +			return 0;
+> +		}
+> +
+> +		*info = (struct xfrm_tunnel_info) {
+> +			.ifindex = t->dev->ifindex,
+> +			.i_key = t->parms.i_key,
+> +			.type = XFRM_TUNNEL_INFO_IP6,
+> +			.ip6 = {
+> +				.link = t->parms.link,
+> +				.proto = t->parms.proto,
+> +				.laddr = t->parms.laddr,
+> +				.raddr = t->parms.raddr,
+> +			},
+> +		};
 > +	}
 
-[Severity: Medium]
-Could IP27/IP30 boards that do have a DS250x MAC PROM end up with a
-random MAC here?
+[Severity: Low]
+This isn't a bug, but can the if (t) branch be reached? Every in-tree
+caller passes NULL. xfrm6_rcv() calls xfrm6_rcv_tnl(skb, NULL), and
+xfrm6_tunnel.c and xfrm_interface_core.c pass NULL to xfrm6_rcv_spi().
+That makes the branch, its kfree_skb() error path, and the new
+<net/ip6_tunnel.h> include dead code.
 
-driver_deferred_probe_check_state() decides using only global state
-(initcalls_done and driver_deferred_probe_timeout). It has no way to know
-whether this device's 1-wire PROM can still appear.
+Even if the branch were reached, xfrm_tunnel_check() and xfrm_input()
+only read type and i_key for XFRM_TUNNEL_INFO_IP6. vti6_rcv_cb() only
+accepts XFRM_TUNNEL_INFO_VTI6. The ifindex, link, proto, laddr and raddr
+fields written here are never checked or used.
 
-ioc3-eth and its PROM provider sgi_w1 are sibling cells in
-ioc3_eth_cells[]. The PROM nvmem only appears after these steps:
-
-- the asynchronous w1_process() kthread runs w1_search_process()
-- the slave gets attached
-- w1_ds250x registers the nvmem device in w1_eprom_add_slave()
-
-SGI_IOC3_ETH and SGI_MFD_IOC3 are bool. W1, W1_MASTER_SGI and
-W1_SLAVE_DS250X are tristate and not selected, so they are often modules
-that udev loads later.
-
-Before this patch, ioc3-eth returned -EPROBE_DEFER until the slave bound,
-so it always picked up the factory MAC. With this patch, the following
-sequence is possible:
-
-deferred_probe_timeout_work_func()
-  driver_deferred_probe_timeout = 0, retrigger deferred probe
-ioc3eth_probe()
-  ioc3eth_get_mac_addr()
-    nvmem_device_find() fails, PROM not enumerated yet
-  driver_deferred_probe_check_state() returns -ETIMEDOUT
-  random_mac = true
-  eth_hw_addr_random(dev)
-
-On CONFIG_MODULES=n kernels, -ENODEV is returned as soon as
-initcalls_done is set. In that case the outcome depends on a race with
-the w1 kthread search.
-
-After this, nothing reads the PROM again, so the random address stays
-for as long as the device is bound. A transient nvmem or 1-wire read
-error in ioc3eth_get_mac_addr() after the deferral window closes has the
-same permanent effect.
-
-Should the random fallback be limited to boards that are known to have
-no PROM?
-
-> @@ -938,7 +946,10 @@ static int ioc3eth_probe(struct platform_device *pdev)
->  
->  	ioc3_mii_start(ip);
->  	ioc3_ssram_disc(ip);
-> -	eth_hw_addr_set(dev, mac_addr);
-> +	if (random_mac)
-> +		eth_hw_addr_random(dev);
-> +	else
-> +		eth_hw_addr_set(dev, mac_addr);
->  
->  	/* The IOC3-specific entries in the device structure. */
->  	dev->watchdog_timeo	= 5 * HZ;
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. Now that
-ioc3eth_probe() can bind on boards like Fuel, which used to defer
-forever, will unbinding the device oops in ioc3eth_remove()?
-
-ioc3eth_probe() never calls platform_set_drvdata(pdev, dev), but
-ioc3eth_remove() depends on it:
-
-drivers/net/ethernet/sgi/ioc3-eth.c:ioc3eth_remove() {
-	struct net_device *dev = platform_get_drvdata(pdev);
-	struct ioc3_private *ip = netdev_priv(dev);
-
-	unregister_netdev(dev);
-	timer_delete_sync(&ip->ioc3_timer);
-	...
-	free_netdev(dev);
-}
-
-Here dev is NULL. unregister_netdev(NULL) and
-timer_delete_sync(&ip->ioc3_timer) therefore dereference a NULL-derived
-pointer. The registered netdev, the timer and the DMA rings are never
-torn down.
-
-Two ways to reach this:
-
-- writing to /sys/bus/platform/drivers/ioc3-eth/unbind (the driver does
-  not set suppress_bind_attrs)
-- unbinding the parent IOC3 PCI device, which goes through
-  mfd_remove_devices()
-
-[Severity: High]
-This is also a pre-existing issue, not one introduced by this patch. The
-patch does make the later probe error paths reachable on Fuel. Is the
-shared IRQ handler safe with the current ordering in ioc3eth_probe()?
-
-The IRQ is requested before the lock and timer it uses are initialized:
-
-	if (devm_request_irq(&pdev->dev, dev->irq, ioc3_interrupt,
-			     IRQF_SHARED, "ioc3-eth", dev)) {
-	...
-	spin_lock_init(&ip->ioc3_lock);
-	timer_setup(&ip->ioc3_timer, ioc3_timer, 0);
-
-	ioc3_stop(ip);
-
-Suppose a shared-line interrupt arrives in that window:
-
-- ioc3_interrupt()->ioc3_tx() or ioc3_error() would take an
-  uninitialized ip->ioc3_lock.
-- ioc3_error() would do ring maintenance while ip->rxr is still NULL.
-
-The IRQ is devm-managed, so it is only released after probe returns.
-Every error path after the request (ring allocation failure, "Didn't
-find a PHY", register_netdev() failure) ends with:
-
-out_free:
-	free_netdev(dev);
-	return err;
-
-At that point the handler is still registered, and its dev_id points at
-the freed net_device. ioc3_interrupt() then reads ip->regs from freed
-memory:
-
-	struct ioc3_private *ip = netdev_priv(dev_id);
-	struct ioc3_ethregs *regs = ip->regs;
-	u32 eisr;
-
-	eisr = readl(&regs->eisr);
-
-With CONFIG_DEBUG_SHIRQ, __free_irq() always calls the handler for
-IRQF_SHARED actions when the devres IRQ is released. So on these error
-paths this use-after-free happens every time.
-
-ioc3eth_remove() has the same ordering: it calls free_netdev() before
-the devres IRQ is released. Today remove oopses before reaching that
-point, because drvdata is never set.
+[ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111095138.1757-1-kaloz%40kernel.org
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111094629.230568-1-yaojun8558363%40gmail.com
