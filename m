@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794761740;
-	b=HTLpMxnR+GKaL5jfOn+uytgbX4DqzQyqWJ/c2Guvuki4xxVXK1eqx/GnCq4l867BqGKz
-	 kFcf8NybwuzRXtur2T0WCkqjRb4+QlRlpGwfHjVVNq4313mdIia2tur2mmvVSNGSM7FpF
-	 8MvF98WKjEP8bkY/ikX8WP6qSy7/EQWHAThvbPxx/8nykemSDv3d4TpZe0YLS4MPIWZax
-	 dO8Qr8sBjmLI9Sv7ONfPXyBfNLkmMrWLRx3b2Zb0IoboH3s27ayRoO+C/v7QSUugGkAYa
-	 wPwvETNfJIv8iEaRRvFN9HSNDsfWOYJfVA+7kzPAz8P0jewdV2ue9qqx3vxFMHd5ttg==
+	b=O/fisgevG/5vvY6Cxd+fnZUjWmhHui1bmd2wy9aC2JKiHmIO1wVIAgbPvA7yss9rFIcz
+	 KFEFfraxfhvv1CYFc17lK9EOQ4AdsG90hPRs6P0jd9q7pEUsdFFOdYxtRvQFeSGp1rRXR
+	 2Oh0ICKsyVuVofJ+UPQ0z2F5E10BiOGBIsqX+nBuqc86rnc9dl3HVkKJOvVYnPRKHptHN
+	 QNTeNTwT2W+UoQ64nOPo4RDzXjuhkxL014dHLyOf9NxPvEqbrBigfTex/uWavxd6NkdIR
+	 4ceaixFtLiu733wK8+HewJYfBeXyUkDgQpK0jZSJ0NZ9rvdhXCam+7IBtroLvbwFn9A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794761740;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tdYE7Lz1hXw9g041ObApzQfqyHIfgtC9mdpdQYGD1us=;
-	b=nPHlshDrdUO1XGtSVjeHiwYe3f+CICg8tvUUWuaRQOwCsEaWJv3FcC7w7aizIAR4VDjU
-	 R+kodemshkhB5QOak7ScLrqiyUZHiUrztUCWQwDParD/cL4z4DqMdSDaCPPZhbybPiRlR
-	 ua/q7z8Gk+COGK6IlVhQw3xyjfqiA6ID1QhWDjSOWqArHEmL1jggRlXaFUpiaxQp1t94U
-	 ky1WW/lpv5yE+623w1qTm1IOzD8kTJDGjNdwwGrnoxyGQycdVws5zDxYjbOsXKxlUG7t9
-	 w2k0X0kaZZsqZpRskU46uNovXvXg/HaYxxliAkMfGrsNhQG1JeJB9/ZuVv5lTMwr33w==
+	bh=V2istHOSxvORKs4DDtqL69eWWwtJsohoPczDGyCEorM=;
+	b=j7khvY2+BB9MORC+MKQBDocWEb8tLdYXbtPvgDfuBhB3cNZm59UfPBwBD/yEGqAp4z45
+	 102cQgW+jD6M++b+ke9l5vgDCbheUw3QJ9IQB1gKLe3UYIYJNnXyQBpsq7bkKhFrKLrsi
+	 TF/EDKsD4YKiGBKK6kMPELX/tOp6vNgGkSMpIVGRu/YZ8p/xKrYlUZWw1R5vOWIV9jEYE
+	 EMz59i+ZX1kb7cD4B7wONSEL/bZur5jeOcIod8VE8Z3Bc6+4BHiURQBvlRUetZBisbY/8
+	 TVsj1AN4VeHuLHmOVdb3F7Xw2yU7OXZprpO3ccZLK+ttTdmIItpp19EmTrfzqcC1opg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxQPvEDv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRihRcmf;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB33606A31F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCD9606A32C;
 	Sun, 15 Nov 2026 16:55:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxQPvEDv
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRihRcmf
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794761740;
-	b=p8+xcwliW7eVnvCDsF0SQI2W4L2BpjKUkOPcC4J2OiVa7cGNcOADGRap2YlX5GacV+XX
-	 cal1ZdKZHlOReBDDqLzoYYaMVwXCp0+/Ulik0oxD4e5dpMypaQ33Nk97+kwLulmo2SJAH
-	 +ceO2ibUA9nn/5pzoDa34eIfpDWSz8upGx5TRvSz43diXyXqR3CnX2dc+C3v66uBMAaYJ
-	 dCZfhiKs/PKt9SqEc89R02+TKoMRjPep1bqncy6Z07iYF3vbF+V4Ef9wSuEwwQ0qFbH9m
-	 PoQ8SwzPVgsOy/fqRQfM6fQ9vZ088L8LzjlKY3lCXIQtnPk6rrI0WHW4JnVKir1IlRw==
+	b=kTxl0hrErvS6YuF+Xbld+lfol6jcBPJh5Qbfu7rNXYcWsk8hyuqbewH0qfV1DOFzTXDk
+	 KmP1+RggRGkjdAExh2SAkiZAiEOfM4kJObWG3SEUn/TXtezgidTe63ufowfUGFt2MeXoJ
+	 FYLP05qS/Z/xKJPsnNeVW7Hm5ZXk5ABtuHNromNEOcF7rdrddAYzg1pK5kmPRp0u+Cb7s
+	 6aaS8ecfK6ggUZyUhqRKQZn1No9K3wUN8ZmNBdKDxIYlr2pe+iGxrFAIi+xhLOYFybhcz
+	 46IZijrQaKWYFnpcqZIIcYVGbl384vIE04FnRN8xxp8VNF6rHMmlLUdFIVZwpzVm+Eg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794761740;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tdYE7Lz1hXw9g041ObApzQfqyHIfgtC9mdpdQYGD1us=;
-	b=cAlMLuV7NMQE3pzwMrgbsE+z//FGbKYqgRFYZuey6jak6h9Jwbr5hDFsv7NTA2bfYh2K
-	 DW82E/8u6qeKQ9J1m1Ego4vgJt1TKjVvvVk+XY4zg9jGZ4iDd0BOyKx3wwcWzIIdKO2gH
-	 M2Ztpe5wyLYOK6hrRKpsnCGPfClHS1kYyN281vb2aXbpubXsr7lwPM96CHgy25u6SFzTF
-	 GfR6HcclecAX9pc38chqVrPVHZY4JcUJe7Wx89lREs++SCufKeGUTVgyku1zVZHSAnhHs
-	 XlfMDaKNaXFjcFcijEp4vVsl6q6aBKk43DS3p6jCIAJ5j2b+8fhmJ3diqqw+Y4ZJIMw==
+	bh=V2istHOSxvORKs4DDtqL69eWWwtJsohoPczDGyCEorM=;
+	b=UX11hw0tuHONza5TOIkSP4jnDQgeUbkzmUW5AQtNSdnWImjMrGHDDE6DLQ1cSOzXJE1W
+	 mlECegXZDLIPXftJl/GXUrmlKtfla/nby/ULl1PqhqyTgQ/944wxPXXTcj4zqhruCYDwX
+	 c9HiEszM8J2FF9dYe1bTwayu35AlA74cdyTJsY24Y3/E8QrXLtwlNwViVdW5zrnbM0Xri
+	 55j5kowR8pH3YUnrgkr9Fn2hjLPXSU411VHKxUAbdH3YEZjczGeqEu0vN0dHDe3sgAM3s
+	 vl9wMlxC7UGCCEn8XZej+8KXZvQLRhAsKneWeN5HJyfyS5DjRBWN17JfJDAbgV7W+/g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 81E281F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id 84C191F000C6;
 	Sun, 15 Nov 2026 16:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794761740;
-	bh=tdYE7Lz1hXw9g041ObApzQfqyHIfgtC9mdpdQYGD1us=;
+	bh=V2istHOSxvORKs4DDtqL69eWWwtJsohoPczDGyCEorM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bxQPvEDv+rFJMfF5lnoXJM9hyv++5pLTscAEoiDeVU3tJ6tl5OJ9+akVG/QAdmq0x
-	 7nGWP37338ZRoiY2dGh2+9denyNBJ3hqbpvg7Gm0FbUHMlyqdZ+n8U9YS57uHQCF+J
-	 U8o8JMvHX7G73/PzIuVpdo7qScwy0bHgf1h9i5+7IfCpAV61IRzsBbHW47jPM2yt/X
-	 yU4211nxLxQxpdUb8ugZnkN6NxPyMOc5LEg/fvPnNn7FU+Kn+vd3uJKHIREnAjizOs
-	 rPxhI/vodEXXrVmJ+TaAj1cTm4dvc4bt+2OPYbkTwKkns6IfTpr2y7m8d2QBOJkzKn
-	 SDSI3gwHpDQiA==
+	b=HRihRcmfWBggsMl6akV7QgH2tzOkYfFffDNLiI9Ydu5aLPkc5r556V1wlx8xozZP/
+	 Y/CUle1ZdS+cbsWH/XnfMV9tYolWh4gESt750mQPTURKzY2u6pDyp7hnToGyWrk6ZM
+	 hZwHeWKuiXbqTkmm2xFpUlLT7TDxnyog3RX/eIpmk8HYrqGfNO/QPeYvQUi9ehmbzy
+	 VW91Iz9QV4/lEzA6Zvus1gNFERf51se3rGr6dh2kzn1PYTcVz6mjsS1R/R4HarIFp8
+	 ZRxnxKmJGwr8pyuwYRF1LKfZ0Km/cN7bmuZ2Ry1V0sJXj6vP0cJKH3xacz33TCUb3x
+	 a7r8gF+r6B/KA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F0C864A102;
-	Sun, 15 Nov 2026 16:55:38 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 129294A11B;
+	Sun, 15 Nov 2026 16:55:39 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 19:55:37 +0300
-Subject: [PATCH v4 1/2] dt-bindings: i2c: Add Cortina Systems CS7542 I2C
- controller
+Date: Sun, 15 Nov 2026 19:55:38 +0300
+Subject: [PATCH v4 2/2] i2c: Add Cortina Systems CS75xx I2C controller
+ driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-cs75xx-i2c-v4-1-4b16eea98a78@gmail.com>
+Message-Id: <20261115-cs75xx-i2c-v4-2-4b16eea98a78@gmail.com>
 References: <20261115-cs75xx-i2c-v4-0-4b16eea98a78@gmail.com>
 In-Reply-To: <20261115-cs75xx-i2c-v4-0-4b16eea98a78@gmail.com>
 To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -94,11 +94,11 @@ Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794761737; l=1877;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794761737; l=12760;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=rtrtjfERWRSSEQV4SOw9IuyiDTovzANcBqx4f0A6z4M=;
- b=9mKRLqx3p+39G3boGf8eJMBmiF5o0mKXufTeQTJN7V+fJVDkucDM6/04owpmronM1HD5oCbzO
- gVcdDkTvGo2BD1HZUceFv8uV9Zslr/7d3PGIo/y3l+h02te6RbYEj/J
+ bh=AogEVdb5Bgfm0I5adf99C9RsZjrZFKijWeO1HQgwhAk=;
+ b=zge1qIIJehurwuyF5K+vfBKwDRnnVOnt2NQXxngWVwr4gyLgjeF3xiHi6MLbsZh4KNijVUj+N
+ 59D1YlVX6PwAIwiiLiJ0zavudyugJelHI4/6HsxoVHeUTMOFOVyh85l
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -109,77 +109,455 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Add a binding for the I2C ("Bi-Wire") controller of the Cortina Systems
-CS75xx SoCs.
+The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx SoCs
+transfers one byte per command, with a command register much like the
+OpenCores one (start, stop, read, write, acknowledge), and raises an
+interrupt when a command has completed.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Messages are sent with a repeated start between them and a stop after
+the last one. Every message needs at least one data byte, so SMBus quick
+commands are not supported. Arbitration loss is reported as -EAGAIN and
+retried by the core.
+
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- .../bindings/i2c/cortina,cs7542-i2c.yaml           | 56 ++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+ drivers/i2c/busses/Kconfig      |  11 ++
+ drivers/i2c/busses/Makefile     |   1 +
+ drivers/i2c/busses/i2c-cs75xx.c | 392 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 404 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/i2c/cortina,cs7542-i2c.yaml b/Documentation/devicetree/bindings/i2c/cortina,cs7542-i2c.yaml
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index 275aaa7f3..db1b218a6 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -550,6 +550,17 @@ config I2C_CPM
+ 	  This driver can also be built as a module.  If so, the module
+ 	  will be called i2c-cpm.
+ 
++config I2C_CS75XX
++	tristate "Cortina Systems CS75xx I2C controller"
++	depends on ARCH_CORTINA_ACCESS || COMPILE_TEST
++	depends on HAS_IOMEM
++	help
++	  Say yes here to support the I2C ("Bi-Wire") controller of the
++	  Cortina Systems CS75xx SoCs.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called i2c-cs75xx.
++
+ config I2C_DAVINCI
+ 	tristate "DaVinci I2C driver"
+ 	depends on ARCH_DAVINCI || ARCH_KEYSTONE || COMPILE_TEST
+diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
+index e5440de0f..f19df25eb 100644
+--- a/drivers/i2c/busses/Makefile
++++ b/drivers/i2c/busses/Makefile
+@@ -49,6 +49,7 @@ obj-$(CONFIG_I2C_CADENCE)	+= i2c-cadence.o
+ obj-$(CONFIG_I2C_CBUS_GPIO)	+= i2c-cbus-gpio.o
+ obj-$(CONFIG_I2C_CGBC)		+= i2c-cgbc.o
+ obj-$(CONFIG_I2C_CPM)		+= i2c-cpm.o
++obj-$(CONFIG_I2C_CS75XX)	+= i2c-cs75xx.o
+ obj-$(CONFIG_I2C_DAVINCI)	+= i2c-davinci.o
+ obj-$(CONFIG_I2C_DESIGNWARE_CORE)			+= i2c-designware-core.o
+ i2c-designware-core-y					:= i2c-designware-common.o
+diff --git a/drivers/i2c/busses/i2c-cs75xx.c b/drivers/i2c/busses/i2c-cs75xx.c
 new file mode 100644
-index 000000000..095e24379
+index 000000000..a7aec20ea
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/cortina,cs7542-i2c.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/cortina,cs7542-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/i2c/busses/i2c-cs75xx.c
+@@ -0,0 +1,392 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Cortina Systems CS75xx I2C ("Bi-Wire") controller
++ *
++ * The controller works one byte at a time: software writes the byte to
++ * transmit and a command (start, stop, read, write, acknowledge) and gets
++ * an interrupt when the command has completed.
++ */
 +
-+title: Cortina Systems CS7542 I2C controller
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/clk.h>
++#include <linux/completion.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/spinlock.h>
 +
-+maintainers:
-+  - Fil Dunsky <filipp.dunsky@gmail.com>
++#define CS75XX_I2C_CFG		0x00
++#define CS75XX_I2C_CTRL		0x04
++#define CS75XX_I2C_TXR		0x08
++#define CS75XX_I2C_RXR		0x0c
++#define CS75XX_I2C_ACK		0x10
++#define CS75XX_I2C_IE		0x14
++#define CS75XX_I2C_INT		0x18
 +
-+description:
-+  The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx (Goldengate
-+  G2) SoCs. It transfers one byte per command and runs from the peripheral
-+  (APB) clock through a 16-bit prescaler.
++#define CS75XX_I2C_CFG_EN	BIT(0)
++#define CS75XX_I2C_CFG_PRER	GENMASK(31, 16)
 +
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
++#define CS75XX_I2C_CTRL_DONE	BIT(0)
++#define CS75XX_I2C_CTRL_NACK	BIT(3)
++#define CS75XX_I2C_CTRL_WRITE	BIT(4)
++#define CS75XX_I2C_CTRL_READ	BIT(5)
++#define CS75XX_I2C_CTRL_STOP	BIT(6)
++#define CS75XX_I2C_CTRL_START	BIT(7)
 +
-+properties:
-+  compatible:
-+    const: cortina,cs7542-i2c
++#define CS75XX_I2C_ACK_AL	BIT(0)
++#define CS75XX_I2C_ACK_BUSY	BIT(1)
++#define CS75XX_I2C_ACK_NACK	BIT(2)
 +
-+  reg:
-+    maxItems: 1
++#define CS75XX_I2C_INT_DONE	BIT(0)
 +
-+  interrupts:
-+    maxItems: 1
++enum cs75xx_i2c_state {
++	CS75XX_I2C_IDLE,
++	CS75XX_I2C_ADDR,
++	CS75XX_I2C_WRITE,
++	CS75XX_I2C_READ,
++	CS75XX_I2C_STOP,
++};
 +
-+  clocks:
-+    maxItems: 1
++struct cs75xx_i2c {
++	struct i2c_adapter adap;
++	struct device *dev;
++	void __iomem *base;
++	int irq;
++	u32 prer;
 +
-+  clock-frequency:
-+    maximum: 400000
-+    default: 100000
++	spinlock_t lock;	/* protects the transfer state */
++	struct completion done;
++	enum cs75xx_i2c_state state;
++	struct i2c_msg *msg;
++	unsigned int pos;
++	bool last;
++	int err;
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
++static void cs75xx_i2c_hw_init(struct cs75xx_i2c *i2c)
++{
++	if (readl(i2c->base + CS75XX_I2C_CFG) & CS75XX_I2C_CFG_EN) {
++		writel(0, i2c->base + CS75XX_I2C_CFG);
++		fsleep(5000);
++	}
 +
-+unevaluatedProperties: false
++	writel(FIELD_PREP(CS75XX_I2C_CFG_PRER, i2c->prer) | CS75XX_I2C_CFG_EN,
++	       i2c->base + CS75XX_I2C_CFG);
++	fsleep(5000);
++}
 +
-+examples:
-+  - |
-+    i2c@f00700e8 {
-+        compatible = "cortina,cs7542-i2c";
-+        reg = <0xf00700e8 0x28>;
-+        interrupt-parent = <&intc>;
-+        interrupts = <11>;
-+        clocks = <&apb_clk>;
-+        clock-frequency = <400000>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+    };
++/*
++ * Reset the controller and enable its interrupt again, with the handler
++ * kept away from the registers meanwhile
++ */
++static void cs75xx_i2c_reset(struct cs75xx_i2c *i2c)
++{
++	disable_irq(i2c->irq);
++	cs75xx_i2c_hw_init(i2c);
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_IE);
++	enable_irq(i2c->irq);
++}
++
++static void cs75xx_i2c_finish(struct cs75xx_i2c *i2c, int err)
++{
++	i2c->err = err;
++	i2c->state = CS75XX_I2C_IDLE;
++	complete(&i2c->done);
++}
++
++/*
++ * End the transfer with a stop condition and complete it only once the
++ * stop is done, so that its interrupt cannot be taken for the next one
++ */
++static void cs75xx_i2c_abort(struct cs75xx_i2c *i2c, int err)
++{
++	i2c->err = err;
++	i2c->state = CS75XX_I2C_STOP;
++	writel(CS75XX_I2C_CTRL_STOP, i2c->base + CS75XX_I2C_CTRL);
++}
++
++/* Start the transfer of the next data byte of the message */
++static void cs75xx_i2c_next_byte(struct cs75xx_i2c *i2c)
++{
++	struct i2c_msg *msg = i2c->msg;
++	bool last_byte = i2c->pos == msg->len - 1;
++	u32 cmd;
++
++	if (msg->flags & I2C_M_RD) {
++		i2c->state = CS75XX_I2C_READ;
++		cmd = CS75XX_I2C_CTRL_READ;
++		/* Do not acknowledge the last byte of a read */
++		if (last_byte)
++			cmd |= CS75XX_I2C_CTRL_NACK;
++	} else {
++		i2c->state = CS75XX_I2C_WRITE;
++		writel(msg->buf[i2c->pos++], i2c->base + CS75XX_I2C_TXR);
++		cmd = CS75XX_I2C_CTRL_WRITE;
++	}
++
++	if (last_byte && i2c->last)
++		cmd |= CS75XX_I2C_CTRL_STOP;
++
++	writel(cmd, i2c->base + CS75XX_I2C_CTRL);
++}
++
++static void cs75xx_i2c_process(struct cs75xx_i2c *i2c, u32 ack)
++{
++	struct i2c_msg *msg = i2c->msg;
++
++	if (i2c->state == CS75XX_I2C_STOP) {
++		cs75xx_i2c_finish(i2c, i2c->err);
++		return;
++	}
++
++	if (ack & CS75XX_I2C_ACK_AL) {
++		cs75xx_i2c_abort(i2c, -EAGAIN);
++		return;
++	}
++
++	switch (i2c->state) {
++	case CS75XX_I2C_ADDR:
++		if (ack & CS75XX_I2C_ACK_NACK) {
++			cs75xx_i2c_abort(i2c, -ENXIO);
++			return;
++		}
++		cs75xx_i2c_next_byte(i2c);
++		break;
++
++	case CS75XX_I2C_WRITE:
++		if (ack & CS75XX_I2C_ACK_NACK) {
++			/* The last byte of the last message carried the stop */
++			if (i2c->pos == msg->len && i2c->last)
++				cs75xx_i2c_finish(i2c, -EIO);
++			else
++				cs75xx_i2c_abort(i2c, -EIO);
++			return;
++		}
++		if (i2c->pos == msg->len) {
++			cs75xx_i2c_finish(i2c, 0);
++			return;
++		}
++		cs75xx_i2c_next_byte(i2c);
++		break;
++
++	case CS75XX_I2C_READ:
++		msg->buf[i2c->pos++] = readl(i2c->base + CS75XX_I2C_RXR);
++		if (i2c->pos == msg->len) {
++			cs75xx_i2c_finish(i2c, 0);
++			return;
++		}
++		cs75xx_i2c_next_byte(i2c);
++		break;
++
++	case CS75XX_I2C_IDLE:
++	case CS75XX_I2C_STOP:
++		/* Late interrupt of a transfer that timed out */
++		break;
++	}
++}
++
++static irqreturn_t cs75xx_i2c_isr(int irq, void *dev_id)
++{
++	struct cs75xx_i2c *i2c = dev_id;
++	u32 ctrl, ack;
++
++	guard(spinlock)(&i2c->lock);
++
++	if (!(readl(i2c->base + CS75XX_I2C_INT) & CS75XX_I2C_INT_DONE))
++		return IRQ_NONE;
++
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
++
++	/* The done flag is cleared by writing it back */
++	ctrl = readl(i2c->base + CS75XX_I2C_CTRL);
++	writel(ctrl, i2c->base + CS75XX_I2C_CTRL);
++
++	ack = readl(i2c->base + CS75XX_I2C_ACK);
++	cs75xx_i2c_process(i2c, ack);
++
++	return IRQ_HANDLED;
++}
++
++static int cs75xx_i2c_xfer_msg(struct cs75xx_i2c *i2c, struct i2c_msg *msg,
++			       bool last)
++{
++	unsigned long time_left;
++
++	spin_lock_irq(&i2c->lock);
++	reinit_completion(&i2c->done);
++	i2c->msg = msg;
++	i2c->pos = 0;
++	i2c->last = last;
++	i2c->err = 0;
++	i2c->state = CS75XX_I2C_ADDR;
++	writel(i2c_8bit_addr_from_msg(msg), i2c->base + CS75XX_I2C_TXR);
++	writel(CS75XX_I2C_CTRL_START | CS75XX_I2C_CTRL_WRITE,
++	       i2c->base + CS75XX_I2C_CTRL);
++	spin_unlock_irq(&i2c->lock);
++
++	time_left = wait_for_completion_timeout(&i2c->done, i2c->adap.timeout);
++	if (!time_left) {
++		spin_lock_irq(&i2c->lock);
++		i2c->state = CS75XX_I2C_IDLE;
++		spin_unlock_irq(&i2c->lock);
++		dev_err(i2c->dev, "transfer timed out, resetting the controller\n");
++		cs75xx_i2c_reset(i2c);
++		return -ETIMEDOUT;
++	}
++
++	return i2c->err;
++}
++
++static int cs75xx_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
++			   int num)
++{
++	struct cs75xx_i2c *i2c = i2c_get_adapdata(adap);
++	u32 val;
++	int i, ret;
++
++	/* Another master may hold the bus for a whole transfer */
++	if (readl_poll_timeout(i2c->base + CS75XX_I2C_ACK, val,
++			       !(val & CS75XX_I2C_ACK_BUSY), 100,
++			       jiffies_to_usecs(adap->timeout))) {
++		cs75xx_i2c_reset(i2c);
++		if (readl(i2c->base + CS75XX_I2C_ACK) & CS75XX_I2C_ACK_BUSY)
++			return -EBUSY;
++	}
++
++	for (i = 0; i < num; i++) {
++		ret = cs75xx_i2c_xfer_msg(i2c, &msgs[i], i == num - 1);
++		if (ret)
++			return ret;
++	}
++
++	return num;
++}
++
++static u32 cs75xx_i2c_func(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_I2C | (I2C_FUNC_SMBUS_EMUL & ~I2C_FUNC_SMBUS_QUICK);
++}
++
++static const struct i2c_algorithm cs75xx_i2c_algo = {
++	.xfer = cs75xx_i2c_xfer,
++	.functionality = cs75xx_i2c_func,
++};
++
++/* A message always carries at least one data byte after the address */
++static const struct i2c_adapter_quirks cs75xx_i2c_quirks = {
++	.flags = I2C_AQ_NO_ZERO_LEN,
++};
++
++static void cs75xx_i2c_disable(void *data)
++{
++	struct cs75xx_i2c *i2c = data;
++
++	writel(0, i2c->base + CS75XX_I2C_IE);
++	writel(0, i2c->base + CS75XX_I2C_CFG);
++}
++
++static int cs75xx_i2c_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct cs75xx_i2c *i2c;
++	unsigned long ref_rate;
++	struct clk *clk;
++	u32 bus_rate;
++	u64 div;
++	int ret;
++
++	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
++	if (!i2c)
++		return -ENOMEM;
++
++	i2c->dev = dev;
++	spin_lock_init(&i2c->lock);
++	init_completion(&i2c->done);
++
++	i2c->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(i2c->base))
++		return PTR_ERR(i2c->base);
++
++	i2c->irq = platform_get_irq(pdev, 0);
++	if (i2c->irq < 0)
++		return i2c->irq;
++
++	clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
++
++	ref_rate = clk_get_rate(clk);
++	if (device_property_read_u32(dev, "clock-frequency", &bus_rate))
++		bus_rate = I2C_MAX_STANDARD_MODE_FREQ;
++	if (!bus_rate || bus_rate > I2C_MAX_FAST_MODE_FREQ)
++		return dev_err_probe(dev, -EINVAL,
++				     "unsupported bus frequency %u Hz\n",
++				     bus_rate);
++
++	div = DIV_ROUND_UP_ULL(ref_rate, 5ULL * bus_rate);
++	if (!div || div - 1 > FIELD_MAX(CS75XX_I2C_CFG_PRER))
++		return dev_err_probe(dev, -EINVAL,
++				     "cannot derive %u Hz from %lu Hz\n",
++				     bus_rate, ref_rate);
++	i2c->prer = div - 1;
++
++	cs75xx_i2c_hw_init(i2c);
++
++	writel(0, i2c->base + CS75XX_I2C_IE);
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
++
++	ret = devm_add_action_or_reset(dev, cs75xx_i2c_disable, i2c);
++	if (ret)
++		return ret;
++
++	ret = devm_request_irq(dev, i2c->irq, cs75xx_i2c_isr, 0, dev_name(dev),
++			       i2c);
++	if (ret)
++		return ret;
++
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_IE);
++
++	i2c->adap.owner = THIS_MODULE;
++	i2c->adap.algo = &cs75xx_i2c_algo;
++	i2c->adap.quirks = &cs75xx_i2c_quirks;
++	i2c->adap.retries = 3;
++	i2c->adap.dev.parent = dev;
++	device_set_node(&i2c->adap.dev, dev_fwnode(dev));
++	strscpy(i2c->adap.name, dev_name(dev), sizeof(i2c->adap.name));
++	i2c_set_adapdata(&i2c->adap, i2c);
++
++	ret = devm_i2c_add_adapter(dev, &i2c->adap);
++	if (ret)
++		return ret;
++
++	dev_dbg(dev, "bus %u Hz, reference %lu Hz\n", bus_rate,
++		ref_rate);
++
++	return 0;
++}
++
++static const struct of_device_id cs75xx_i2c_of_match[] = {
++	{ .compatible = "cortina,cs7542-i2c" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, cs75xx_i2c_of_match);
++
++static struct platform_driver cs75xx_i2c_driver = {
++	.probe = cs75xx_i2c_probe,
++	.driver = {
++		.name = "cs75xx-i2c",
++		.of_match_table = cs75xx_i2c_of_match,
++	},
++};
++module_platform_driver(cs75xx_i2c_driver);
++
++MODULE_DESCRIPTION("Cortina Systems CS75xx I2C controller driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.53.0
