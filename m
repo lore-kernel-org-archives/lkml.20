@@ -1,100 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733321;
-	b=33a3pDAQnHZNejocs5t+ESIAYBg/7bzHTKR6jVabtxR5JVc4Ihjg9ytpUKc/tCppXW+G
-	 vDPS0FAh1I9LvDW9qGZKymZcMfghHogsqNEjk/RZ2OPXEt8uWsMWNvvr1utJeS1mKtU6B
-	 nPzZyu2+oDeNtx4aOYvg8NHBs2+6f66JSvvnQzQPja/rHmRVgAQ96uLYUCqsaOhlnfYbV
-	 PPZksHGfOulzwr4BsOPNnwWaHM6PlbV3dS7cWq2oKPvXVVaGNDPMFOkRf7ZYAByE+vBTz
-	 5TTQveVWHsxQPoddD2EQ4ndCKCDyQNv4JC0mlyD8BkjUewIbgTnTKVmO4YjfXdd1RCA==
+	t=1794733363;
+	b=JOZOS91caO5Oh5MjkwRXdguWehV3XdlfqkdPkf4FNVjGSz4dt2s9hG7hLeORtVHpLsY5
+	 AgEQG/J+Jfaz+PwXTHcAHbEHEPUbgiFW0zsdO6haAaUVSNf7TRrfjPDSTxa1L9q04VJuT
+	 FVQ5DNboyDIIZ0+xmrUWMWNO6QyrsSIlc5wYMPB1X9u3zokcAdYHwON6QI8Rzkj/YhSQ+
+	 68N/2tWqJLqTR/IqZmrpDLYWCbOORfhc8J4uvJbNrbLV6piE2CEe4W52H9QghTqoSaeyr
+	 y7sE5JAI9sVx0FKmKd8WGnc2yiLi+rX0Ef87xhSII/Dhy/iXWY3RuvJnc6X9x5UN6Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733321;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZUURgUr8dXxqKz+c2MEq98G6BmE0uIQKXrceD/LihTE=;
-	b=T8DFsjOy6SFvbdH4lHP3XP8p6yh3865bzNYtHsM2B8ClkqPvvHoJQl++V9UCwoMeDvtd
-	 rVgldwZ8Ghkq3pdndcMh+9v1k0ibZdB9g/92sKwOTTl2+yGj57+RqFeGk7lCOEej1uP1q
-	 w8Ju+lkohs7SHpqXNBpfbruQntwYB4n5tVMeF8XnOH6KWVPaUfiG3faTcSHblT/rlTXJ+
-	 LRFp9N23GfBIwGmi6YEzDWsGWYF84m0TdWs/Wf3soNgNS48U1OMTKi8YQswihL8xKrocA
-	 GcKrg0cjUlOJ8kaGRAmPKzRwawu+nwsVDeBa7YC3pvQxRY6eJLZD5Bq1f48LkJ3nv5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733363;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=IECuPvYqDvrPjFIwkCwuFMCKIO5iJNpL4meqkxu4bcg=;
+	b=5ACSkokmALoMWwZ1z59F2cXlSTvGh8DMGtC3rj3Kea8p8hGTkerXaPMSB2LSGxDKqYKk
+	 R62AkhYkixYfsu/PSNw9guy4o6OupReL1BiLNF3A1gOcFh8vchT4mvB8r6YUEpdQK0Ve2
+	 ro/nBHwqdJuvat3DnxtjQhTMd+ZixotBkKlKFB650/dCXUCxTFgcD7bkl4OD2Ym9sZwpY
+	 PRuwE1M5CexxhJXRi70TDC3th76qMrGpcsnukWNBfbi+5rWep10xf+RiMUY5LfiF9bE+T
+	 vARCHx+xlhWlUIKmkFXcSqXQIhGxzbMjy/S0KKtHWYYP9XQL0o96yHMD8zGeTVJ23xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gNNHiGKv;
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OlMJF/PT";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22A9606A88A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:02:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B22A9606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD478606A31A;
+	Sun, 15 Nov 2026 09:02:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gNNHiGKv
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b56bbf8330so3357945a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:02:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794733319; x=1795338119; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZUURgUr8dXxqKz+c2MEq98G6BmE0uIQKXrceD/LihTE=;
-        b=gNNHiGKvUgdaKK2FtN5sAB7gAUaSGuUc9+154Kg0i5W9IotmqgxUqVCNuAzu4azr2l
-         wluagkfyYAHKAKcLegZKf9F9jBNE/TrzzXL/7g8MpmgiSoEALUZ2WtrAR+HABsjopD+8
-         khbqQhpisvs726Mk/rFdPfM2GGvPL1ZE5fthneDILqnlQrJ8LnaIyfXryrbqf3WTprAT
-         3Z8ckUJd5eiUDngR/kojstglXGvd0jtweFINC8hyavD0NmRlzrXWHJSaTvBNlZsrm7Z8
-         jjIZ73C+eUP/yBr71karcUX48Nl1VlNKkKCC1cxtUeybnM0hayeyIZFQMcDQYmdpxqCJ
-         Wi4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794733319; x=1795338119;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZUURgUr8dXxqKz+c2MEq98G6BmE0uIQKXrceD/LihTE=;
-        b=IvE++7A4o50cr+2lHAq73F7vQDILRw55ROUu5IUhW/ovjusHIT9K250SltJeac8OMA
-         +BE9ITIKFtRA88ZlP0YPhavCh28MZ0FcF4xTauPjR5F2layFw9MxfRrDlESK00+eIeXz
-         WozpV7saSU4MtjFa9DWirjPX/Je6DTkoncp2p6RzW3LYJP9LrDJkvPf+qkcZhmG6YjFD
-         xvH5ss59aYAHSLpS+EPMnvhldY5tZA2ddjVDOG3AxIhlsL4VAQ/yHPy/PW/rkGiFgOQI
-         zn6Ncu+Np6rkKI56OwmR+nUu8ErdDUGDUQWkwKiru+Q9gkOsAIqaxfsX15YYhtndnFEA
-         yuLA==
-X-Gm-Message-State: APuU4Z8YqVLHMBe2f37TDSv2ci8rRHHBbtEVLg1Nde/CT5squuvYfWdy
-	tgX0+xHKxBlWNRIpxJyTHCGR8xgoIuzO8DI26rYtiVqUmGop4Pgc1Ji2
-X-Gm-Gg: AYBFou38iUAjhgpWgM/jN86PBWZfdNKaSa/Af5lUQPT+KEk0H3V+DAqBK91gxy9FXvH
-	RBvt4E0xMssAxEvcFUw5ftpz3WxEFu8Q+67toYeZpsRwSb5VF9S4iZ3MOl4skB7WRM39STHsfe+
-	2gOXCaEkROjIP5P0hs97oZb8NRsJFdB/cny7wRxcz3Jz3bUOANqsjjFoIp9JTQ15bPVkqymPk/7
-	w5ASCsleOS9xK46GEinZ30iJYr15+nPqcvmMXL5p9aOhWVT268KpwOMzIpydCcEfeSAH08gjaki
-	v6AfEe+0lsAlVZWDQt2DyB6k6xNybHJyw2SLDRuIdgU05hccvHGt/eJXjIt4DAm9g8+uaGm30K2
-	nQvTVj5RgHxOSZWqWUQAPqBeI4Oe+NEsE8Z2BOnvAZn0DtPoDkuhPz8AzkuVqMGjsvY8rURXv0a
-	lRafN0Yrz02o7/7G+d4UWDuizsNVYoGDhJ8pARcoJgb3aMKlgFwsWZd2ZVvbWYJKcRsYC9lmYnh
-	n+pDqLWSjp/6ghuUMuQyh7FKhVxjhlDekbe2l003yCS+xhU4h1RN+lOD7mv2c0fiPP0MTpKZYQN
-	8ifj7HLiB8W1ACtvGP4gDI8v1+S9ruCvg6Gur2j8zcJuw1sQCl9lwWAxz8LEylr9zGMaZikF4Ji
-	kG4BSTqLIfQ==
-X-Received: by 2002:a17:907:3d4b:b0:c29:4915:83cb with SMTP id a640c23a62f3a-c50963b2f7bmr651176666b.39.1794733319040;
-        Sun, 15 Nov 2026 01:01:59 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b8651bsm291440966b.78.2026.11.15.01.01.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:01:57 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v5 2/5] mfd: max8907: Remove platform_data based probing
-Date: Sun, 15 Nov 2026 11:01:44 +0200
-Message-ID: <20261115090147.95337-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115090147.95337-1-clamor95@gmail.com>
-References: <20261115090147.95337-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OlMJF/PT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D351F000C4;
+	Sun, 15 Nov 2026 09:02:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794733363;
+	bh=IECuPvYqDvrPjFIwkCwuFMCKIO5iJNpL4meqkxu4bcg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OlMJF/PTCRHcGPHcQfjfaw+o92mAEoZTFwOFGpkjbU6IEQ1fryoEPfgB6agfDmaRX
+	 zCAVDCZlE4DJkgOw3Buy7/cj39S7AoU8NOOAke72savCIM+uYiykYQm91P4RX8kcma
+	 AN3psKsvprZ0Eb5fUSMKOBfr4C6MPM4+mRGPC8oUXfR+OGwgk/vrPutjr+RF1EHeYc
+	 k18skX/CVS1vwF0qeIlLfTGVikGbroWv5rSu8FFDWB6SjbCGwXnYzW2VVovZWBspWB
+	 RKVKsx9bNtbdhq3xpVzzC6UTq9HfOA01XgDc9KFcpOFs9tuvzbBlIRKbmby7xq1ppR
+	 frFb3OTZxy7jA==
+Subject: Re: [PATCH net 1/1] af_packet: Fix wrong timestamps in tcpdump
+From: netdev-bot+sashiko@kernel.org
+To: khai.wen.tan@linux.intel.com
+Cc: willemdebruijn.kernel@gmail.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ richardcochran@gmail.com, vinicius.gomes@intel.com,
+ anthony.l.nguyen@intel.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ yoong.siang.song@intel.com, hong.aun.looi@intel.com, khai.wen.tan@intel.com
+Date: Sun, 15 Nov 2026 09:02:42 +0000
+Message-ID: <179473336203.2199510.3698244415513534220@kernel.org>
+In-Reply-To: <20261111053728.2611070-1-khai.wen.tan@linux.intel.com>
+References: <20261111053728.2611070-1-khai.wen.tan@linux.intel.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,92 +65,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-There are no in-tree users of this driver, but it supports devicetree
-based probing, which means external dtb files may exist that work with
-this.
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-Remove the unused legacy code and make this a DT-only driver.
+Critical: 1 · High: 1 · Medium: 1 · Low: 3
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/max8907.c                 |  8 +-------
- drivers/regulator/max8907-regulator.c | 11 +++++------
- include/linux/mfd/max8907.h           |  5 -----
- 3 files changed, 6 insertions(+), 18 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index ba06a49c9c60c..d5d40d2c7c425 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -184,13 +184,7 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- {
- 	struct max8907 *max8907;
- 	int ret;
--	struct max8907_platform_data *pdata = dev_get_platdata(&i2c->dev);
--	bool pm_off = false;
--
--	if (pdata)
--		pm_off = pdata->pm_off;
--	else if (i2c->dev.of_node)
--		pm_off = of_property_read_bool(i2c->dev.of_node,
-+	bool pm_off = of_property_read_bool(i2c->dev.of_node,
- 					"maxim,system-power-controller");
- 
- 	max8907 = devm_kzalloc_obj(&i2c->dev, struct max8907);
-diff --git a/drivers/regulator/max8907-regulator.c b/drivers/regulator/max8907-regulator.c
-index a9f014eae4d61..5677c59ef5b8e 100644
---- a/drivers/regulator/max8907-regulator.c
-+++ b/drivers/regulator/max8907-regulator.c
-@@ -274,7 +274,6 @@ static inline struct device_node *match_of_node(int index)
- static int max8907_regulator_probe(struct platform_device *pdev)
- {
- 	struct max8907 *max8907 = dev_get_drvdata(pdev->dev.parent);
--	struct max8907_platform_data *pdata = dev_get_platdata(max8907->dev);
- 	int ret;
- 	struct max8907_regulator *pmic;
- 	unsigned int val;
-@@ -312,10 +311,9 @@ static int max8907_regulator_probe(struct platform_device *pdev)
- 		struct regulator_dev *rdev;
- 
- 		config.dev = pdev->dev.parent;
--		if (pdata)
--			idata = pdata->init_data[i];
--		else
--			idata = match_init_data(i);
-+
-+		idata = match_init_data(i);
-+
- 		config.init_data = idata;
- 		config.driver_data = pmic;
- 		config.regmap = max8907->regmap_gen;
-@@ -331,7 +329,8 @@ static int max8907_regulator_probe(struct platform_device *pdev)
- 		case MAX8907_BBAT:
- 		case MAX8907_SDBY:
- 		case MAX8907_VRTC:
--			idata->supply_regulator = mbatt_rail_name;
-+			if (idata)
-+				idata->supply_regulator = mbatt_rail_name;
- 			break;
- 		}
- 
-diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
-index 4be3c2370e2a4..e222250f0cc1e 100644
---- a/include/linux/mfd/max8907.h
-+++ b/include/linux/mfd/max8907.h
-@@ -227,11 +227,6 @@ enum {
- 	MAX8907_IRQ_RTC_ALARM0,
- };
- 
--struct max8907_platform_data {
--	struct regulator_init_data *init_data[MAX8907_NUM_REGULATORS];
--	bool pm_off;
--};
--
- struct regmap_irq_chips_data;
- 
- struct max8907 {
+- [Critical] Wild pointer dereference (oops) in
+  igc_get_tstamp()/tsnep_netdev_get_tstamp() reached from…
+- [High] Kernel pointer leak to user space through tp_sec/tp_nsec is
+  still reachable for stacked devices.
+- [Medium] In tpacket_get_timestamp() (net/packet/af_packet.c:465-471)
+  the patch derives `cycles = sk_tsflags & SOF_TIMESTAMPING_BIND_PHC`…
+- [Low] The commit message understates the impact and does not cover the
+  full scope of the change.
+- [Low] The Fixes: tag points to a later user, not the root cause.
+- [Low] The new early return in tpacket_get_timestamp()
+  (net/packet/af_packet.c:467-472) no longer falls back to the software…
+
+--
+
+af_packet: Fix wrong timestamps in tcpdump
+
+This commit makes the mmap'ed AF_PACKET RX and TX ring paths get hardware
+timestamps through netdev_get_tstamp(). That way, drivers that implement
+.ndo_get_tstamp(), such as igc, report correct values. tpacket_get_timestamp()
+now takes a net_device and the socket's sk_tsflags, and uses
+SOF_TIMESTAMPING_BIND_PHC to pick cycles mode.
+
+> Since commit 97dc7cd92ac6 ("ptp: Support late timestamp determination"),
+> timestamps may need to be retrieved with input from the driver
+> .ndo_get_tstamp(). Support was missing from mmap'ed AF_PACKET sockets.
+>
+> The problem was noticed using the igc driver, that since commit
+> 069b142f5819 ("igc: Add support for PTP .getcyclesx64()") has migrated to
+> use .ndo_get_tstamp() that timestamps were wrong on the receiving side,
+> when using tcpdump.
+
+[Severity: Low]
+Is "wrong timestamps" the whole impact? For igc and tsnep, the
+skb_shared_hwtstamps union holds netdev_data, which is a kernel virtual
+address into the RX buffer. Before this patch, tpacket_get_timestamp()
+wrote that pointer value into tp_sec/tp_nsec in the user-mapped ring.
+
+Could the message say this is a kernel pointer disclosure, so stable and
+security triage can see it?
+
+The message also only mentions the receiving side. The patch also changes
+__packet_set_timestamp() on the TX ring completion path, which now calls the
+driver's ndo_get_tstamp() through skb->dev. Could that change be explained
+as well?
+
+> Fixes: 069b142f5819 ("igc: Add support for PTP .getcyclesx64()")
+
+[Severity: Low]
+Should this Fixes: tag point at 97dc7cd92ac6 instead? The commit message
+names that commit as the origin of the problem. tsnep has also implemented
+.ndo_get_tstamp() with netdev_data since 0abb62b68252 (2022), which is older
+than the igc commit named here.
+
+Stable trees that have tsnep's ndo_get_tstamp() but not 069b142f5819 would
+not pick up this fix from the current tag.
+
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index cf6429f094772..7197236c8a3b3 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -456,15 +456,20 @@ static int __packet_get_status(const struct packet_sock *po, void *frame)
+>  	}
+>  }
+>  
+> -static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
+> -				   unsigned int flags)
+> +static __u32 tpacket_get_timestamp(struct net_device *dev, struct sk_buff *skb,
+> +				   struct timespec64 *ts, unsigned int flags,
+> +				   unsigned int sk_tsflags)
+>  {
+>  	struct skb_shared_hwtstamps *shhwtstamps = skb_hwtstamps(skb);
+>  
+> -	if (shhwtstamps &&
+> -	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE) &&
+> -	    ktime_to_timespec64_cond(shhwtstamps->hwtstamp, ts))
+> -		return TP_STATUS_TS_RAW_HARDWARE;
+> +	bool cycles = sk_tsflags & SOF_TIMESTAMPING_BIND_PHC;
+
+[Severity: Medium]
+Is a ptp_convert_timestamp() step missing here? With cycles set,
+igc_get_tstamp() returns a value based on the free-running timer1:
+
+drivers/net/ethernet/intel/igc/igc_main.c:igc_get_tstamp() {
+    ...
+	if (cycles)
+		timestamp = igc_ptp_rx_pktstamp(adapter, tstamp->timer1);
+    ...
+}
+
+tsnep returns rx_inline->counter. In net/socket.c, __sock_recv_timestamp()
+and skb_get_tx_timestamp() always follow this with a conversion into the
+bound vclock:
+
+		if (tsflags & SOF_TIMESTAMPING_BIND_PHC)
+			hwtstamp = ptp_convert_timestamp(&hwtstamp,
+							 READ_ONCE(sk->sk_bind_phc));
+
+af_packet never reads sk_bind_phc. A packet socket using SO_TIMESTAMPING
+with SOF_TIMESTAMPING_BIND_PHC would then get the raw counter in
+tp_sec/tp_nsec, marked TP_STATUS_TS_RAW_HARDWARE. That value matches neither
+the physical PHC nor the bound vclock.
+
+Drivers without ndo_get_tstamp() ignore BIND_PHC on this path. So the same
+socket setting would give timestamps from different clock domains depending
+on the NIC.
+
+> +
+> +	if (shhwtstamps && shhwtstamps->hwtstamp &&
+> +	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE)) {
+> +		ktime_t tstamp = netdev_get_tstamp(dev, shhwtstamps, cycles);
+
+[Severity: Critical]
+Can this treat a ktime value as a pointer and dereference it?
+netdev_get_tstamp() is called for any non-zero hwtstamp. However, the union
+only holds a driver cookie when SKBTX_HW_TSTAMP_NETDEV is set. Both
+ndo_get_tstamp() implementations dereference netdev_data without any check:
+
+drivers/net/ethernet/intel/igc/igc_main.c:igc_get_tstamp() {
+    ...
+	tstamp = hwtstamps->netdev_data;
+
+	if (cycles)
+		timestamp = igc_ptp_rx_pktstamp(adapter, tstamp->timer1);
+	else
+		timestamp = igc_ptp_rx_pktstamp(adapter, tstamp->timer0);
+    ...
+}
+
+tsnep_netdev_get_tstamp() does the same with struct tsnep_rx_inline.
+
+One way to reach this: a packet arrives on a NIC that stores a plain ktime
+RX hardware timestamp (igb, ixgbe, mlx5, ice, ...). It is then routed,
+bridged or mirred out an igc or tsnep port. Nothing on those paths seems to
+clear skb_hwtstamps(), and the clone made in dev_queue_xmit_nit() shares
+shinfo:
+
+ip_forward / br_forward / tcf_mirred
+  dev_queue_xmit()
+    dev_queue_xmit_nit()
+      deliver_skb(skb2, pt_prev, skb->dev)    /* dev is the igc port */
+        tpacket_rcv()
+          tpacket_get_timestamp()
+            netdev_get_tstamp(dev, ...)
+              igc_get_tstamp()
+                tstamp->timer0                /* tstamp is a ktime */
+
+Take an mmap'ed capture on the igc port that asks for raw hardware
+timestamps, for example tcpdump -j adapter_unsynced. On x86-64, wouldn't
+this dereference a non-canonical address in softirq or xmit context?
+
+A forwarded igc-to-igc or tsnep-to-igc skb would also decode another
+adapter's cookie with the wrong PHC or struct layout. That is because dev
+here is the tap's device, not the device that produced the timestamp.
+
+The socket path guards against both cases in net/socket.c:
+
+		if (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP_NETDEV)
+			hwtstamp = get_timestamp(sk, skb, &if_index);
+		else
+			hwtstamp = shhwtstamps->hwtstamp;
+
+get_timestamp() then finds the producing device with
+dev_get_by_napi_id(skb_napi_id(skb)) under rcu_read_lock(). Could
+af_packet do the same?
+
+Before this patch, af_packet only copied the union value and never
+dereferenced it.
+
+> +
+> +		return ktime_to_timespec64_cond(tstamp, ts) ? TP_STATUS_TS_RAW_HARDWARE : 0;
+
+[Severity: Low]
+Is skipping the software fallback here intended? The old code fell through
+to skb_tstamp() when the hardware branch failed. Now, if ndo_get_tstamp()
+converts the cookie to 0, this returns 0 and never tries the
+SOF_TIMESTAMPING_SOFTWARE branch.
+
+In that case tpacket_rcv() falls back to ktime_get_real_ts64(), and
+__packet_set_timestamp() writes no timestamp. That doesn't match the comment
+in tpacket_rcv():
+
+	/* Always timestamp; prefer an existing software timestamp taken
+	 * closer to the time of capture.
+	 */
+
+The driver conversion has to produce exactly 0 for this to happen, so it
+should be rare.
+
+> +	}
+>  
+>  	if ((flags & SOF_TIMESTAMPING_SOFTWARE) &&
+>  	    ktime_to_timespec64_cond(skb_tstamp(skb), ts))
+
+[ ... ]
+
+> @@ -2424,9 +2434,10 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
+>  	/* Always timestamp; prefer an existing software timestamp taken
+>  	 * closer to the time of capture.
+>  	 */
+> -	ts_status = tpacket_get_timestamp(skb, &ts,
+> +	ts_status = tpacket_get_timestamp(dev, skb, &ts,
+>  					  READ_ONCE(po->tp_tstamp) |
+> -					  SOF_TIMESTAMPING_SOFTWARE);
+> +					  SOF_TIMESTAMPING_SOFTWARE,
+> +					  READ_ONCE(sk->sk_tsflags));
+
+[Severity: High]
+Can the netdev_data kernel pointer still leak into the ring when dev is not
+the device that produced the timestamp? For igc and tsnep RX skbs,
+skb_hwtstamps(skb)->netdev_data points into the RX buffer.
+
+The same skb can reach tpacket_rcv() with dev set to an upper device. One
+case is vlan_do_receive() or an rx_handler returning RX_HANDLER_ANOTHER in
+__netif_receive_skb_core():
+
+		if (vlan_do_receive(&skb))
+			goto another_round;
+
+This walks skb->dev->ptype_all again for the VLAN, macvlan, ipvlan, bond or
+bridge device. Forwarding to a non-igc egress port or a veth peer does the
+same.
+
+Only igc and tsnep implement ndo_get_tstamp(). For any other device,
+netdev_get_tstamp() falls back to:
+
+	return hwtstamps->hwtstamp;
+
+That is the pointer read back as a ktime, and tpacket_get_timestamp()
+reports it with TP_STATUS_TS_RAW_HARDWARE. A direct-map address is a small
+negative s64 in nanoseconds, so the full pointer looks recoverable from
+tp_sec/tp_nsec.
+
+__packet_set_timestamp() passes skb->dev the same way. Would gating on
+SKBTX_HW_TSTAMP_NETDEV and finding the producing device with
+dev_get_by_napi_id(), as get_timestamp() in net/socket.c does, fix both
+callers?
+
+>  	if (!ts_status)
+>  		ktime_get_real_ts64(&ts);
+>
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111053728.2611070-1-khai.wen.tan%40linux.intel.com
