@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794704489;
-	b=zOusGfc4SECA9la2aiZaFDUIk2QHrD/FzHbRZq9UiTeicbRFPPIi+IL8k/nFr2KYrAX9
-	 /j8boUDz8pyUpDYwCCrFIYAXgUa0kw5J6OrXc7PdrkSzEpDKvXjtvYgksHVXyUau70Jez
-	 I1zvPFnsvjvp3F+MUAXkGV9XU+MNZSGpQc5qz1kkZ+pOlLahlA5QWSfELuo9OJs1BzXG0
-	 zaTk6AlaKRaU4XaL6olcmDcR2H7RGoVbyK14ZeHem9Np53GaIHWyDAKQFyhVB7SjsP/Ke
-	 yq57FgqGMpZzWVw9uFE4kU3D37Ypg5xncSI7GfAjdXCZyb8W8oD42hjm+CHfZW3AcCw==
+	t=1794704533;
+	b=aXMZyZH7ybpXKcngjvlyAU3C7uR33pDEnpQnIh4itPaIfrKZYYbeekS13c1Ny9vbxnLu
+	 EU4G7Wc2Jgr6I6w0JT4Sj+OpMlruez4ny5cSsPfvE5OhVXe+NYsdDte05u0YISV1vjM09
+	 6Jk7DA2OUN8ujz9cXbHLqh79GvLENt3bHhM3gJifi1JRGG/lG8sti7QC3YdoE6mrzuoXU
+	 raACBoIgXQtuj/FxClO2jxyJXK4Er/5oqeO51DFd8xc8y9r1+KzUSVXpCd+lRgq/XpxZm
+	 pOeGzsMliSxdq1es+/djTYn4VQDWlovAvFGkmLuZO+Q64sON6saPJfY39ReSqFa6rdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794704489;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794704533;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Z++RwfSOpv1D+is69MtrAgce33j60bZ7b/lnmHz+62o=;
-	b=29njrPJtWNO8F6pcGiLr/YQFVRwDeX09MRG2iw/vpqtYdnUv6kCfyk7XiLh7cr/s6Ldp
-	 CxYLgsXq1viEGhCvdvT7yLG9UuHiPeey9qhXYG/k37Q1AcLMwYSewm+c0RgSbMGaWrUOP
-	 ddO7VLPf7R6J7HwxOq3FXro24yPeHal2LPicpVfxTt/lDp1uG4YJpQmqxrwi0+m35U4RY
-	 TPeDksEUCA3kfDfkdzmcxkZ7/xeK1SEZv7bwbdXuF2qP4hGfQzBvMLshyJhw141IVRhUd
-	 /2TEnKvAtjT7pRLDkYM/53LdUhxie1DPmkHIBImn5QW8a9x61ak860Vd4Qm4RN9xbpg==
+	bh=etWFYi5rHjM4zE+rq0ccelK/W5emNS5ctdYs0StSj0w=;
+	b=Osy3gSd3O5XsTa/FZK+cjTlcFqpRxDcq94RxL9RykX+aMxyQbZcb0pS/XpJtxenjdQFn
+	 aQglP+AOx4U5AbOoeK6vm0jiL5ba76nC+HYu8otRf/Rk7aDsY2JH3KQ79j+m5/ZjOmWHW
+	 YyKcw2KKWJ3FtY/n8Mn3injDtH7qsQElWVGlD/tmoDDExWly6mW5tMH+thpenymmEm4xh
+	 hZpqC3whWuNo709Vk7ahOc3Rygldu3+em2I+qA0cYIYYbfPK9i06/VdxUrpY1XlqwHzhZ
+	 m0L50jAxKAI9G4xL8CI+i79DaoPTUP2Iy2Gd1yR5cxKRMqvUgUa02LSIGxpdHGuholQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=I7+2eveW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtBQkECr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6A3606A327;
-	Sun, 15 Nov 2026 01:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5631B606A323;
+	Sun, 15 Nov 2026 01:02:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=I7+2eveW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4311F000C4;
-	Sun, 15 Nov 2026 01:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794704488;
-	bh=Z++RwfSOpv1D+is69MtrAgce33j60bZ7b/lnmHz+62o=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtBQkECr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56E491F000C5;
+	Sun, 15 Nov 2026 01:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794704532;
+	bh=etWFYi5rHjM4zE+rq0ccelK/W5emNS5ctdYs0StSj0w=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=I7+2eveWTbz5QA7n3oa8l8UmABOwqAo93YJY58ad7Gq6lfHtbMMao8yrMvSF0oQFl
-	 bs0og4THi0b6or62hMXyuP3E44tyHUBRRSFtJmeJ9sRzGhlw+zKU2cPo/7r2WKpkkb
-	 ais8kbBlQ7TTTwDgzm1xVCf3jK/9uNsoJydOuLGI=
-Date: Sat, 14 Nov 2026 17:01:27 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org,
- david@kernel.org, kas@kernel.org, dave.hansen@linux.intel.com,
- bp@alien8.de, rppt@kernel.org, stable@vger.kernel.org,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
-Message-Id: <20261114170127.3d29199864eb352d9045eaba@linux-foundation.org>
-In-Reply-To: <20261115000005.GG3706007@nvidia.com>
-References: <20261113195536.2660763-1-gourry@gourry.net>
-	<20261113200303.GA395967@nvidia.com>
-	<179460249376.482102.14669935557901467762.b4-reply@b4>
-	<20261114002027.GE3706007@nvidia.com>
-	<20261113181025.6e8b9475b29c13d29f59e02e@linux-foundation.org>
-	<20261115000005.GG3706007@nvidia.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	b=VtBQkECrDoQPAA3cegzRbaeMxIo5f1ZHwwQpoUnwiIY8rmvnxJwVwNVuk0UHB4E1H
+	 pyZmB2nLDPO2AISB0T2fv2+58AAEJgghS4XM8dJzMRbadNWnfmeAkNYsvxNWxJmu/Q
+	 H3khWtAT0sCopUgZmbodl3xC4vLw/uJuI9VzMbqPUvjzsh7oKvYNDtABy/QJ5FqOLO
+	 xi1dV7uyXMBPcF01WdGSRfLNg8XlSuns9n8whmfdV3mL4oZ9pdiPMWBO2O/L38FMiM
+	 6mWIM0bh3SuBLqszenBxi+xDKkEio0GpgjX2Zsxim0hsGetvwL0RlHIZ6IrMcYtYoK
+	 UomRtSuUYTScA==
+Date: Sun, 15 Nov 2026 01:02:03 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, Arnav
+ Kapoor <kapoorarnav43@gmail.com>
+Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new
+ temperature in trigger handler
+Message-ID: <20261115010203.2a939bd6@jic23-hlaptop>
+In-Reply-To: <20261114083525.11972-1-zoone.rupert@gmail.com>
+References: <20261113230241.82046-1-zoone.rupert@gmail.com>
+	<20261114013817.476f8fb9@jic23-hlaptop>
+	<20261114083525.11972-1-zoone.rupert@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,40 +65,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sat, 14 Nov 2026 20:00:05 -0400 Jason Gunthorpe <jgg@nvidia.com> wrote:
+On Sat, 14 Nov 2026 10:35:25 +0200
+Rupesh Majhi <zoone.rupert@gmail.com> wrote:
 
-> On Fri, Nov 13, 2026 at 06:10:25PM -0800, Andrew Morton wrote:
+> On Sat, 14 Nov 2026 01:38:17 +0000
+> Jonathan Cameron <jic23@kernel.org> wrote:
 > 
-> > How does this look for an altered changelog?
-> > 
-> > : On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
-> > : rejects ordinary stores to it, but pte_write() reports it writable because
-> > : shadow-stack instructions can write it.  HMM consequently sets
-> > : HMM_PFN_WRITE, which Nouveau turns into ordinary GPU write permission.  A
-> > : process with GPU access can then overwrite its own shadow stack,
-> > : potentially corrupting return addresses or bypassing that protection.
-> > : 
-> > : Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.  A
-> > : requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
+> > > Read pressure first and take the latest temperature, as a direct
+> > > pressure read already does. Wait for temperature only when pressure is
+> > > not in the scan. Read a temperature in probe, so there is a latest one
+> > > from the first scan on.  
+> >
+> > That was potentially a while back.  Why not do it in preenable for the buffer?
+> > Will make the buffer start a bit slow but should 'work' from there on.  
 > 
-> Yes, but it is not just nouveau, RDMA user can do this too and
-> that is far more common..
+> Probe value only lasts until the next temperature result. By the
+> time the buffer starts TMP_RDY is set, so first scan takes a new
+> temperature anyway (checked on the board, buffer enabled 5 s after
+> probe). The probe read also covers direct pressure reads.
+I'm a bit lost.  So how stale can it be in the direct pressure read case?
 
-Thanks.  This?
+Sounds like the buffer one is fine.
 
-On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
-rejects ordinary stores, but pte_write() reports it writable because
-shadow-stack instructions can write it.  HMM consequently sets
-HMM_PFN_WRITE.  Nouveau uses that flag for GPU write permission, and
-RDMA on-demand paging can use it to grant device write permission to a
-registered memory region.  A device, or an RDMA peer with write access
-to that region, can then overwrite the process's shadow stack,
-potentially corrupting return addresses or bypassing that protection.
-
-Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.
-A requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
+J
+> 
+> Happy to move it to preenable if you prefer.
+> 
+> Thanks,
+> Rupesh
 
