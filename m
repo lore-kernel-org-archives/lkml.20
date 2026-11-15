@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.54.77.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794746336;
-	b=tCDLD3GPWoZe1Vf3xwBWnFJ9JH07H1cWlNPx+j3OrQcSCTUpo8OIZtROHLeiIt9cex/g
-	 Qh2u+hIVx3O0+0Yj/kKk3mKd/zYQha6jlw7yNP9wOatxWYSHbl/3tVnT4LyW/DmwzO0hv
-	 xEseaKrwcksqCoX1w07DHNpW944Yn2udrsvjK1zkyhXkVgD08WqHGZ5TgkZvk9CZUk9Sa
-	 EXzbVqu6YI91BbPeZ88CjNfKVu4c3a2pMl0pli9+AuBQVwE04jWRUK7h5we01txVOpnQJ
-	 4ePaC6suasxDeb+N8O5jlAIiAgnR1hzqdM8yTBPnIfHI1SRAXZLLpI3i+4i3tZ3odMA==
+	t=1794746337;
+	b=je3nCl9Oy01/W4SEMcxjLY/hH4QzWT9nlFVWEEIvQThU16wvoKGKiBVu0qtAMe39fter
+	 Q9x8b0YnKTsbCvz8RBTE9c9/4Lr06cw1UxcgiV/COTtPoLv7BzlHUzrM296irNkLgbFw9
+	 NAzDFGIPTo+luMz40S8oZ7fIiJgY23vG0ByZhSfdpPjzQOvXZy+CgJCX3tTPZX8Ad++Ip
+	 peWLtMe6zjf6pZsliNtH+XqsyKSBafs0jkqcrSeJcNnV/0ZVN+tS2MfLa0H6JuvGBBb4x
+	 Bb1SHpkQUwtbf1Zw11HouZG8WFRUGVr3PFHP5vJdeZ9VDzuGkrlGiBQOse5Vc45BqNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794746336;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=9jcJWN0NdKgEN4LDyk1MwP0Pevti1LkkFkttcpC7LC4=;
-	b=QmnvtTHEhGFR5WiGZ8/NdouVVI0krxgeHQMCfDz+jSR9/A0iCnSSPBqfDojNWQj35Ozn
-	 o9vP24FIcY4rc7sfzYK7U/uOrQVm/k+SiO/c/p55fYasYng+Dm76e/+QI6z2XetO8M5wC
-	 Vrhkqp8W7A1iL/bzj3Ll5osupzay9ZlKCHY02qF1Kx8eaEHkMmoqFXLWIwcJjRvHqoOtN
-	 uUXlDXU3E6eNFFSV+HR6fYErW5Mat4lhR+dYKz/mjsRRo4JVuSmz4IiOaRPN170Eu37Dk
-	 MUH8PX+EeUY0csdf19wcGb05I41GvQS+CTfrzv5fd5OpyAFdYE4AsFU1xJCVKS6K1nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794746337;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=GV5q5oyXG7o+6/jvs0rBK3bgCf4MVUtphWiCoyitBwU=;
+	b=G7P2ubu15nL1iSfeBRCdfdnylx0g/I/LfKC97xXc0Q+kyjrkqNeyaH/XLARctRx0feEc
+	 0eiSC44P5PAPNilI0oHyY2A94tqUrdfz/2fY5OAZheXpv1xZRGwkw90WEhDLwng79Jws6
+	 0UsnmM9+38wXUAqqYmH5VmWRVxFxOni3bqt/85ewIFk+kvj8eB/n+EBq1A5EPJF02/smS
+	 dVoPixB28vE41VhQOhEmYVxkwaC7y2ygEVaUwgB3tqSNdd/nKQlPWLiBo6AcvNiiPbo2q
+	 Uyhlbck21Tl9E/Hi0En+OKEL/G9bf2efOqiTVGtIvRzxH8tt1BjaBLNOO+ymz8WSpuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=207.54.77.50
-Received: from esa3.hc555-34.eu.iphmx.com (esa3.hc555-34.eu.iphmx.com [207.54.77.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0FC56606A33F;
-	Sun, 15 Nov 2026 12:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FC56606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1794746344; x=1826282344;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=BUw7JeXvBZLkWxt5vkiT5i6cqwipH2FSgC84R9mmaUA=;
-  b=G9888Hd3/pGuPoczw6iX3Dl5f9sZ2jVEMIMqG/hTNNQhoAEa71h4DQR/
-   374dO/wQud45hviImsThLYUVMuIWrPIzt1lt9St8UCDsCm3Xn+MFCuIcC
-   1GSibJ+6R8fBSVg7ghwSHO9HSuAnvDTQDUzIKpGLg9CgufkbLU+jBu2Hj
-   PWov59HU11UEHe9fIhjw3zmGR+VSZ2hP4iQ8wxi2lqtD0SipKYM11g3dk
-   +ilF22HuBnHJ8YSVTfjHI7rfoTuzsCOEHIgDVCGOZ123oVYQL5zBP/vqQ
-   qoOdKpt9GymJ+lieJPcW5WgRv1ULQxGZ1HDgP16XeP+WXEpStLWwkKuhp
-   Q==;
-X-CSE-ConnectionGUID: aEAkvD/zReCyKrrAwScpaw==
-X-CSE-MsgGUID: Gl6xOM3wRZi07Moj1112gw==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
-  by esa3.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 14:38:53 +0200
-X-CSE-ConnectionGUID: yxI1yTDiRGCBQZJr7fk+nA==
-X-CSE-MsgGUID: 5mDrb12bTFmvJxspl4pAPQ==
-Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
-  by ces03_data.me-corp.lan with SMTP; 15 Nov 2026 14:46:46 +0200
-Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Sun, 15 Nov 2026 14:38:44 +0200
-From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Date: Sun, 15 Nov 2026 14:37:35 +0200
-Subject: [PATCH v4 3/3] riscv: kprobes: add KUnit test for LR/SC sequence
- rejection
+	dmarc=pass header.from=raidlab.org;
+	spf=pass smtp.mailfrom=raidlab.org;
+	dkim=pass header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=w1jUf+GB;
+	arc=none smtp.remote-ip=109.224.244.106
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7530606A339
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:38:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7530606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=raidlab.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raidlab.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=w1jUf+GB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=raidlab.org;
+	s=protonmail; t=1794746333; x=1795005533;
+	bh=GV5q5oyXG7o+6/jvs0rBK3bgCf4MVUtphWiCoyitBwU=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=w1jUf+GBRM0NAa9ars55BdD+jwPqQGhMfMnzBXZblYRn1jX1EffQiP0X1WQgxMYB0
+	 lD1JRh3BiQ0n8YzFMQfhkO6dp9loWacpCUi0IEJbeg8kL6zuaV+EeIStBhMwH88CAg
+	 8qPsRlBwM7MI2CS5e2mTeip0a7NkAzBBxQsniOatABnzbi4mFlcZrD6lgZLncbiRIO
+	 CtO5IlIDoWUBnuQPNN7X/p4EAzshpLtQj3SnWw2HPZ45ZLYwPXcU8k69ctYDyzube+
+	 +oQBPAN9XuGxt4E8P8PaKjYmM0Y+IqVEF9DdiqT12T+1Tq31q+qQURrSO7rVdkAZhS
+	 04rk1o2I2gM6Q==
+X-Pm-Submission-Id: 4jS9XT5PKSz1DDXX
+From: Miroslav Cimerman <mc@raidlab.org>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Namhyung Kim <namhyung@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] md/raid5: fix wrong read data on RAID-4/5 with two failed devices
+Date: Sun, 15 Nov 2026 12:38:17 +0000
+Message-ID: <20261115123817.48388-1-mc@raidlab.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,178 +66,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-probes-in-lrsc-v4-3-48b9b036bd1d@mobileye.com>
-References: <20261115-probes-in-lrsc-v4-0-48b9b036bd1d@mobileye.com>
-In-Reply-To: <20261115-probes-in-lrsc-v4-0-48b9b036bd1d@mobileye.com>
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Guo Ren <guoren@kernel.org>, 
- Pekka Enberg <penberg@kernel.org>, 
- =?utf-8?q?Patrick_St=C3=A4hlin?= <me@packi.ch>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- Palmer Dabbelt <palmerdabbelt@google.com>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-Extend the kprobes KUnit test with a function containing an LR/SC
-sequence and assert that register_kprobe() accepts a probe placed right
-before or right after the sequence, and rejects a probe placed on the
-LR, on an instruction inside the sequence, or on the SC.
+On RAID-4/5, a read of a block on a working member can return wrong
+data, without reading the member, when the stripe has two failed
+devices: the array has failed (MD_BROKEN only stops writes), or it is
+degraded and another member has a bad block in the stripe, for
+example after a write to it failed.
 
-Add never-executed function that imitates s valid LR/SC section, one
-with short and one with maximum valis size body, and section with
-LR and no SC, mimicking __cmpwait where LR is followed by the
-conditional branch.
+fetch_block() computes two missing blocks at once when all but two
+blocks of the stripe are up to date and two devices have failed. That
+needs P and Q, but nothing limits the branch to RAID-6. On RAID-4/5,
+ops_run_compute5() computes sh->ops.target as the XOR of all the other
+blocks, including the second target, which was never read, and
+ops_complete_compute() marks both targets up to date. The read returns
+the XOR of the cached blocks and the unread page, and a later read of
+the second target returns that page instead of an error. The page is
+not cleared, so it can hold data of another block.
 
-Suggested-by: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Commit 93b3dbce6456 ("md/raid5: unite fetch_block5 and fetch_block6")
+brought the branch to RAID-4/5. fetch_block5() computed only one block.
+
+Take the branch on RAID-6 only, with the sh->qd_idx >= 0 test that the
+branch above already uses. On RAID-4/5 the block is then read from its
+member, and reads of failed members are failed by
+handle_failed_stripe() as before.
+
+For example, take a degraded 4-device RAID-5 (left-symmetric, 4 KiB
+chunks, device 1 missing) where block v holds the byte 0x10 + v. A
+write to block 3, on device 3, does a read-modify-write. Its write to
+device 3 fails: md records a bad block, keeps the device and fails the
+write. A read of block 4, on device 0, then returns 0x14 ^ 0x15 ^ the
+unread page (0x01 if it is zero) instead of 0x14, and a read of block
+5 returns the unread page instead of EIO.
+
+Found with FuzzyRAID, a fault-injection tester for RAID.
+
+Fixes: 93b3dbce6456 ("md/raid5: unite fetch_block5 and fetch_block6")
+Cc: stable@vger.kernel.org
+Signed-off-by: Miroslav Cimerman <mc@raidlab.org>
 ---
- arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S | 58 ++++++++++++++++++++++
- arch/riscv/kernel/tests/kprobes/test-kprobes.c     | 32 ++++++++++++
- arch/riscv/kernel/tests/kprobes/test-kprobes.h     |  6 +++
- 3 files changed, 96 insertions(+)
+FuzzyRAID is not public yet. The analysis, the fix, the commit message
+and the reproducer were written with the help of an LLM. I reviewed
+everything and ran the reproducer on md-7.4 with and without this
+patch.
 
-diff --git a/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S b/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S
-index 15e50934bbd7..ca5b9223f885 100644
---- a/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S
-+++ b/arch/riscv/kernel/tests/kprobes/test-kprobes-asm.S
-@@ -198,6 +198,44 @@ SYM_FUNC_END(test_kprobes_c_jal)
- 
- #endif /* CONFIG_RISCV_ISA_C */
- 
-+SYM_FUNC_START(test_kprobes_lrsc)
-+test_kprobes_lrsc_addr0:
-+	nop
-+	/* valid LR/SC sequence */
-+1:
-+test_kprobes_lrsc_addr1: /* expect: rejected */
-+	lr.w t0, 0(a0)
-+test_kprobes_lrsc_addr2: /* expect: rejected */
-+	addi t0, t0, 1
-+test_kprobes_lrsc_addr3: /* expect: rejected */
-+	sc.w t0, t0, 0(a0)
-+test_kprobes_lrsc_addr4:
-+	bnez t0, 1b
-+
-+	/* not a valid LR/SC sequence - no SC */
-+test_kprobes_lrsc_addr5:
-+	lr.w	t0, 0(a0)
-+test_kprobes_lrsc_addr6:
-+	and	t0, t0, a1
-+	xor	t0, t0, a2
-+	bnez	t0, 1f
-+test_kprobes_lrsc_addr7:
-+	nop
-+1:
-+	nop
-+
-+	/* valid LR/SC sequence */
-+test_kprobes_lrsc_addr8: /* expect: rejected */
-+	lr.w t0, 0(a0)
-+test_kprobes_lrsc_addr9: /* expect: rejected */
-+	.rept 16
-+	nop
-+	.endr
-+	sc.w t0, t0, 0(a0)
-+	nop
-+	ret
-+SYM_FUNC_END(test_kprobes_lrsc)
-+
- .section .rodata
- SYM_DATA_START(test_kprobes_addresses)
- 	RISCV_PTR test_kprobes_add_addr1
-@@ -253,3 +291,23 @@ SYM_DATA_START(test_kprobes_functions)
- #endif /* CONFIG_RISCV_ISA_C */
- 	RISCV_PTR 0
- SYM_DATA_END(test_kprobes_functions)
-+
-+.section .rodata
-+SYM_DATA_START(test_kprobes_lrsc_allowed_addresses)
-+	RISCV_PTR test_kprobes_lrsc_addr0
-+	RISCV_PTR test_kprobes_lrsc_addr4
-+	RISCV_PTR test_kprobes_lrsc_addr5
-+	RISCV_PTR test_kprobes_lrsc_addr6
-+	RISCV_PTR test_kprobes_lrsc_addr7
-+	RISCV_PTR 0
-+SYM_DATA_END(test_kprobes_lrsc_allowed_addresses)
-+
-+.section .rodata
-+SYM_DATA_START(test_kprobes_lrsc_rejected_addresses)
-+	RISCV_PTR test_kprobes_lrsc_addr1
-+	RISCV_PTR test_kprobes_lrsc_addr2
-+	RISCV_PTR test_kprobes_lrsc_addr3
-+	RISCV_PTR test_kprobes_lrsc_addr8
-+	RISCV_PTR test_kprobes_lrsc_addr9
-+	RISCV_PTR 0
-+SYM_DATA_END(test_kprobes_lrsc_rejected_addresses)
-diff --git a/arch/riscv/kernel/tests/kprobes/test-kprobes.c b/arch/riscv/kernel/tests/kprobes/test-kprobes.c
-index 027424a3ff7b..ff9d5bb2b998 100644
---- a/arch/riscv/kernel/tests/kprobes/test-kprobes.c
-+++ b/arch/riscv/kernel/tests/kprobes/test-kprobes.c
-@@ -43,8 +43,40 @@ static void test_kprobe_riscv(struct kunit *test)
- 	kfree(kp);
- }
- 
-+static void test_kprobe_riscv_lrsc(struct kunit *test)
-+{
-+	/* probes outside the LR/SC sequence must be accepted */
-+	for (int i = 0; test_kprobes_lrsc_allowed_addresses[i]; i++) {
-+		struct kprobe kp = {};
-+		int ret;
-+
-+		kp.pre_handler = kprobe_dummy_handler;
-+		kp.addr = test_kprobes_lrsc_allowed_addresses[i];
-+
-+		ret = register_kprobe(&kp);
-+		KUNIT_EXPECT_EQ_MSG(test, ret, 0, "location %pS rejected", kp.addr);
-+		if (!ret)
-+			unregister_kprobe(&kp);
-+	}
-+
-+	/* probes on or inside the LR/SC sequence must be rejected */
-+	for (int i = 0; test_kprobes_lrsc_rejected_addresses[i]; i++) {
-+		struct kprobe kp = {};
-+		int ret;
-+
-+		kp.pre_handler = kprobe_dummy_handler;
-+		kp.addr = test_kprobes_lrsc_rejected_addresses[i];
-+
-+		ret = register_kprobe(&kp);
-+		KUNIT_EXPECT_LT_MSG(test, ret, 0, "location %pS accepted", kp.addr);
-+		if (!ret)
-+			unregister_kprobe(&kp);
-+	}
-+}
-+
- static struct kunit_case kprobes_testcases[] = {
- 	KUNIT_CASE(test_kprobe_riscv),
-+	KUNIT_CASE(test_kprobe_riscv_lrsc),
- 	{}
- };
- 
-diff --git a/arch/riscv/kernel/tests/kprobes/test-kprobes.h b/arch/riscv/kernel/tests/kprobes/test-kprobes.h
-index 537f44aa9d3f..93393e77a2cf 100644
---- a/arch/riscv/kernel/tests/kprobes/test-kprobes.h
-+++ b/arch/riscv/kernel/tests/kprobes/test-kprobes.h
-@@ -19,6 +19,12 @@ extern void *test_kprobes_addresses[];
- /* array of functions that return KPROBE_TEST_MAGIC */
- extern long (*test_kprobes_functions[])(void);
- 
-+/* probe points that must be accepted, terminated by NULL */
-+extern void *test_kprobes_lrsc_allowed_addresses[];
-+
-+/* probe points that must be rejected, terminated by NULL */
-+extern void *test_kprobes_lrsc_rejected_addresses[];
-+
- #endif /* __ASSEMBLER__ */
- 
- #endif /* TEST_KPROBES_H */
+Reproducer (needs only standard tools):
 
+#!/bin/bash
+# md RAID 5 with two failed devices for a stripe: a read of a block on a
+# working member returns wrong data, without reading the member, when exactly
+# disks-2 blocks of the stripe are cached.
+# Needs root, mdadm, losetup and GNU coreutils; uses /dev/md99 and 3 loop devices.
+set -e
+D=$(mktemp -d)
+for i in 0 2 3; do
+        truncate -s 64M $D/m$i
+        L[i]=$(losetup -f --show $D/m$i)
+done
+blk() { head -c 4096 /dev/zero | tr '\0' "\\$(printf %o $1)"; }
+for v in $(seq 0 11); do blk $((0x10 + v)); done > $D/pattern   # block v = 0x10+v
+blk 0xaa > $D/aa
+
+# degraded 4-device RAID 5, 4 KiB chunks;
+# stripe 1: block 3 on m3, block 4 on m0, block 5 on m1 (missing), P on m2
+mdadm -C /dev/md99 -R -l5 -n4 -c4 --assume-clean --bitmap=none \
+        ${L[0]} missing ${L[2]} ${L[3]}
+dd if=$D/pattern of=/dev/md99 bs=48k oflag=direct status=none
+mdadm -S /dev/md99                              # empty the stripe cache
+mdadm -A -R /dev/md99 ${L[0]} ${L[2]} ${L[3]}
+
+# read-modify-write of block 3: caches block 3 and P only
+dd if=$D/aa of=/dev/md99 bs=4k seek=3 oflag=direct status=none
+# second failure; md fails m3 and returns EBUSY, the array has failed
+echo faulty > /sys/block/md99/md/dev-${L[3]#/dev/}/state 2>/dev/null || true
+
+rd() { dd if=/dev/md99 bs=4k skip=$1 count=1 iflag=direct status=none | od -An -tx1 -N1 | tr -d " "; }
+echo "block 4 (m0, working), expected 14: $(rd 4)"
+echo "block 5 (m1, missing), expected I/O error: $(rd 5 2>&1)"
+
+mdadm -S /dev/md99
+for i in 0 2 3; do losetup -d ${L[i]}; rm $D/m$i; done
+rm $D/pattern $D/aa; rmdir $D
+
+ drivers/md/raid5.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index efb4b0d37cb0..f71fb0a265e4 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -4019,9 +4019,11 @@ static int fetch_block(struct stripe_head *sh, struct stripe_head_state *s,
+ 			 */
+ 			s->uptodate++;
+ 			return 1;
+-		} else if (s->uptodate == disks-2 && s->failed >= 2) {
++		} else if (s->uptodate == disks - 2 && s->failed >= 2 &&
++			   sh->qd_idx >= 0) {
+ 			/* Computing 2-failure is *very* expensive; only
+-			 * do it if failed >= 2
++			 * do it if failed >= 2. It needs P and Q: RAID-4/5
++			 * computes one block only.
+ 			 */
+ 			int other;
+ 			for (other = disks; other--; ) {
+
+base-commit: 47e1b18f38d74015cb9fd30b5ff2a1eb88e77d31
 -- 
-2.43.0
+2.53.0
 
