@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755244;
-	b=a44THCc/eMqFSeE045yfvJAZB2VOBV71nY8eyRfXiC1CJ1CDbvL7EqdQXlrmm4vyB4oE
-	 HS81a6bv8uTVXlwrsVKbTRtmKskTJrC4yDvcTzKP2Z0LDkrL8yME1qO9N3nEQVSKnqsVM
-	 mwUtsZj/gaAw3mdDoY6Mi/XLKChC4uZ5SWz27D5RLLK2J5xIUHtpTEhRkdXD9myxRDgPR
-	 wc/7XxL2jDhPNu/0mqoS3GZivrlT9TiDsxK3qGJaeDyqBeVmriG5CdvMFbab46jTr8NjN
-	 fxlpLCE/UiMrV3mxUF30s0nLNrS9HAxBut4kHLIF2txZjql8vYbIXlAUwuTkAZ0xJTA==
+	t=1794755247;
+	b=e6AevhyJ7s4YcE+aef+IQKXetSCOTrixH0Oh2Td3clFCRVJwz4VaP7BqEKSfpiYnaFW+
+	 hDACLB4keiIpSlLYjOz9gzOksqdEFghBfUAH/MLv5roTgvhe1a4tb9hWjLd/A1/PjsOUE
+	 Fr0hZBvDx40EhCL7OY+XA0yJgfDU0ZGrWEhTHGZa4d6/+gOTMEzEuLTC+UmTmXNFgaw3Z
+	 G1/6gZSii5ep28lOt4lbwGz+OFjO/6YrJFCuNnDJOIMFw8cLPTGwhvusFLre6NXsb8m2w
+	 6WrO7Ahu+TMWHxQ6mbWQA3AQQ4z8RQbjtM25H3XSNxR1ro1fgOkNkC2L1BeR1DlmpJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755244;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755247;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=cL09+MG0ZraL2bAaQRxHl7M+d42ISuPbh90WavM9X8A=;
-	b=w8aVAEzttccjT/N/ikQU+h3Y9n1VClTeHlBW03a+UOvX5KDeQXeCFScP1S+IW+yuyFi6
-	 ue9LP1dDVy6On1upDgLDNi3KPLm+zBujIb/ftyUDQ+4kJXslEZQA2nyqcq64JW2iBmMxb
-	 crFsvtmanoz0l/wXw8ioLko6addWHJGkLFiBGL64A1BYKhA0xPoy1DH3YgqpcPRj/1WP9
-	 VOTj4yXTknH9H8Q9o/1FNRqsppXEiksHPgc3fuzKJedg+g9hQEQsk+xLkVyyHLa9Ic/w5
-	 Fgk7qQ8a7GFRMxzy/+h+XkJrv94gQpis5jK19PbdQnsBnh/7IQ/VX4cQyYjN+pN0JWA==
+	bh=6raE7EuXz9WU17PRTjvAl0L5ym8soOrbRFnYzh4Vla0=;
+	b=WEYNGCSbboAsAKvN1x8225VZPpmKlQp5+56B1mcmcG8DRcxF1JGXY1vEIGRAH7Rkiutb
+	 FvASjlZtOb9Sx8PgDXeDOBxKm8pZLGQ0+tXp3xpLtHC7T+bSQpMn7FvUfbgLHRrWmmNmx
+	 ltjpLlR6wfZ26eQ06K4GsWe4CyBv3TgmOjZt7aadvPTN2ZxRkqNJNW5CdsSEDZDSgRHWD
+	 BDDvMyu0YMB0nQeHeqrHs0ZjA38qN1xuFxVmX00I5LhMTkat9/TCIy44UtupeQufNUBrJ
+	 inpYMY4NomW1i5eQC4+uN2ePpEBrLXbSs/rsuCSk0fjaOi0CZ1IF2r1oxAasvEOqwAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXLNTbW+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TIr7lunI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98D4606A32D;
-	Sun, 15 Nov 2026 15:07:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5F4606A88E;
+	Sun, 15 Nov 2026 15:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXLNTbW+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299131F000C5;
-	Sun, 15 Nov 2026 15:07:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TIr7lunI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1509E1F000C4;
+	Sun, 15 Nov 2026 15:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794755244;
-	bh=cL09+MG0ZraL2bAaQRxHl7M+d42ISuPbh90WavM9X8A=;
+	s=k20260515; t=1794755246;
+	bh=6raE7EuXz9WU17PRTjvAl0L5ym8soOrbRFnYzh4Vla0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=FXLNTbW+iVvDwNWFgM46HGA4NeJHET4qpPgmsZdNpf3ul3N/NchPopYgjVN5FKY3W
-	 RGgnm1XxSGZPLPWfgRRDlPOy7BgdrDlcuY+xpCqdtTwI8jtmi7ZR/34doybpY1/kep
-	 o3MY/VNoqtMryzzFCfTJwWzE9w5y1RoLKaM7ftymTcCqK4a0ixncPLzkOdO56a+8Vd
-	 cw/uffczcLbgIxHEB+adDO0Lj8nCAaeZC8HgAZTVAS6y69q9+d4AetDXasUOVmYubI
-	 OmUBPMIo/CWZHwC+qFd4zS2Mgz/xp6MbqGA97jde2Xk69LpQuMD9uavdkiZzwG4s9Z
-	 t6azmQ2Mpel6w==
+	b=TIr7lunIUvxEuCpZW8GNFmjj/klx/pfRMyEkyycvEAFbDhl1vbJljndXwKiQz6mRV
+	 Pp42IOwuA840fJh3rsfjwepb7aaGWr++YaJPYuFvVDlmktlHB9XnD1NKCFUJ7pFqeo
+	 ELplCPSgxR312azDwrggLn7PmonMdmhTNthe4eFDMiSTml20u0zBmiAa2hkdOmPwUp
+	 inz2x8rLVB5SvtyWPPB6Z2waZ4SU5DL/VWVlys4uUXO09haOV2LFKB1hweGZdIgRKH
+	 4narH6KqYr1WHGUhe/4CUrhwINJlAVEIRRYeGeMVYY6I0CYqM/DuxVznDDZ9V03nwo
+	 gbZO6n3HmJw1w==
 From: Chen-Yu Tsai <wens@kernel.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Samuel Holland <samuel@sholland.org>, 
  Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261115132215.289236-1-jernej.skrabec@gmail.com>
-References: <20261115132215.289236-1-jernej.skrabec@gmail.com>
-Subject: Re: [PATCH v2 0/3] arm64: dts: allwinner: h6: Enable GPU and CPU
- DVFS on more boards
-Message-Id: <179475524292.3273316.2909957727689381668.b4-ty@kernel.org>
-Date: Sun, 15 Nov 2026 23:07:22 +0800
+In-Reply-To: <20261115150536.16212-1-jernej.skrabec@gmail.com>
+References: <20261115150536.16212-1-jernej.skrabec@gmail.com>
+Subject: Re: [PATCH] arm64: dts: allwinner: yuzukihd-chameleon: Enable the
+ GPU
+Message-Id: <179475524484.3273316.16506023091021816874.b4-ty@kernel.org>
+Date: Sun, 15 Nov 2026 23:07:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,25 +65,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.2
 
-On Sun, 15 Nov 2026 14:22:11 +0100, Jernej Skrabec wrote:
-> Most H6 boards don't use the GPU OPP table, and the Orange Pi One Plus
-> and Lite2 lack CPU DVFS as well, so their GPU and CPU run at a fixed
-> clock rate. This series enables both.
+On Sun, 15 Nov 2026 16:05:36 +0100, Jernej Skrabec wrote:
+> The Mali GPU is supplied by DCDC1, like on other AXP313A based H618
+> boards. Enable it.
 > 
-> Changes in v2:
-> - new patch 1: add regulator-ramp-delay to vdd-cpu and vdd-gpu on the
->   Orange Pi One Plus and Lite2, like on the other AXP805-based H6 boards
 > 
-> [...]
 
 Applied to sunxi/dt-for-7.5 in sunxi, thanks!
 
-[1/3] arm64: dts: allwinner: h6: orangepi: Add regulator ramp delays
-      https://git.kernel.org/sunxi/linux/c/6442683b687c
-[2/3] arm64: dts: allwinner: h6: Add GPU OPP table to all boards
-      https://git.kernel.org/sunxi/linux/c/348a4f82f13b
-[3/3] arm64: dts: allwinner: h6: orangepi: Enable CPU frequency scaling
-      https://git.kernel.org/sunxi/linux/c/6527dd6be62e
+[1/1] arm64: dts: allwinner: yuzukihd-chameleon: Enable the GPU
+      https://git.kernel.org/sunxi/linux/c/c3b0d2bd3ba6
 
 Best regards,
 -- 
