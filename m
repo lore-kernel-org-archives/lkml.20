@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794776985;
-	b=bmu0gWyRLzroOTCS5MY4XgjZ9zXZ1KF3ZNQhZt5Ydq3uYUlVNh93XEwcY0wBSG3TkXn0
-	 DF0VmdWw/YSzmv1kr6zNmRSC2vt0nKNOYqJrfJP/InvaMaze+wJUyEpKrLFJteu5Dgg1X
-	 2+4bJ4DqtbPFP3TplK3UEmx8+t/s5bt2sBx/vRlNDnlPAaovpLJP5RilkIEnrmcdF3fC5
-	 PS99b0173XmJR2hEvxgI2jpKZaeZ/b+BGNTVxnhPQIdAndRXcIo5O43GUa4p7+tfO2FUL
-	 2bbcFYuMAhznjnXsVPgKXa3mLuz0UQCDW9qJ6WQdp5+g/D+oyft3uUsMcoTm5c+RRsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776985;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794777004;
+	b=NDSXMC/Jabl7YYL7vgWX+zypCIz7LShzbNlqV5ntcpFo+GwphMfE5zk+FBq14T8Izvmo
+	 zvOHixbbw5ddiUS1jYfPcrS5Swg4jW5+Y9utiwJBhZypBY+Pu/EXqF+DTj/Vz7uTLKvJR
+	 ups/yt+6y4d010KLILugD4d5ZLB426vbJP+SEu5t9kseco2USRqheWjNYl9hcN+qi8iyq
+	 F6Sdoc9lYYIQoBbfYSFaDZLVhwc5aNRzaJ/RUllkj7sgUIsOZL7WCIDEia6YHIlWUZRkA
+	 RdCAHR9P/5vxSXxBVJnzS3ngELY4WIzNDRdYZprqUPUCUx/Wx2ME4B8vtWVfjO3BCQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794777004;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fFm2AgWq3aMA2NgcD6hx5PZ2S4O3KE/xlXyx3feIpKw=;
-	b=1BdNsetwggVytGHlyg5OHt5oDm92+5tVCgmaoJzR8k0hJdxER676h1O9MBj7ORTDypp3
-	 hUvFkS8mslxfZ7oN3CzJa5WmkB2nZyHfM9pcpLlCp99XNFVBNvhXw6z8T+I7hjuTCSBo+
-	 nkvjTW4NS/1BdQ1+IMp6pN9ZHd9BWXqFNG9TJ+p9+oxaXg25Kqd/SUvZWeJHc1yyrEY9k
-	 8fKlV20pG/P1b9Re0UgFdaUjdbMGO7/2vr6qLuVXC03gtlMo5iwbFcoIFkBN9dqUx6PAc
-	 gXoP370UbbLFXE03Z3lWcwumf9ahei06UZ5ZnUWdeHFvZGPtEMdpqeHUVv2x9tlAQUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Sl1nvHNh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+9JW7J5HjIZOKB44W/FdWPu4us9PkTChnS047FJOEoI=;
+	b=1xqlChRsaNi9QbkFNAzBkHxNXBJdm5Jx+ArwmTZwKBW291Kf1TXYlPFZjSZWsh/RtucD
+	 wVJr/m7k8je/w2281K0CznqfLvpAEKJR2Xtc4ZFxBQfFs4FJ2pbsx7TpUVYEazbBpHPXF
+	 z5sj8TlXCP2NMOHqMDiAkbY/CdB8AXxp7FDpgXNHTJAHDtry2NEnFLwAcstKzCv96LbU7
+	 hbP+NYK8b/p2tYqI029F11Dns1oocLb+r0/2o8QdRQtHPu1ghYvTsfDuOMUNj8UCUvMg6
+	 3Fmk/4TMoGC9ggueiQA+pSXt0jm1mj6Z04aTh64DqFAGyReoH731pWRi8rMz03DynrQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FwJPOjjH;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E59606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:09:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35E59606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3CF606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:10:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E3CF606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Sl1nvHNh
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67db763cec7so270596d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:09:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794776984; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hx03x8MQqWjd+V/D/+1y9C/IzzvQqflKKW1kkg9PYqsB70tiMfMMdvphjnuGtUX2bQ
-         D6NQNZUtxZ2GurRn84xU8sSHavdaMe1mJgj2HJ06m4kjWZ1JtM++EEKxa3+d026is7Lp
-         AzfkPsXo7Q6iWpEm261ZjWf1Ah6Jverv1gxP9Lzch/bzgofYd/jv8RgeLJgXMy0IL+HK
-         Fs19Wn5uYxwSRgGUgqAT7aI6WTDL2Xgc8Uc6jqT3qONw9P7jVRvPgLIbrEDVdYGnzomR
-         3NjVBpyWqeGP+TU2EFhe1nabDi0YfYFs4Nq9f9iemNZrhMH6tTQsQnIJTtC7+vH4IAe9
-         /DMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fFm2AgWq3aMA2NgcD6hx5PZ2S4O3KE/xlXyx3feIpKw=;
-        fh=RV6q7Gi4/ZAWbkqXdOtWjndISwX0D56b1kbz3HoMMAk=;
-        b=GzsQb3df+XLHmv/mTiRrMzcisF/N8DRGBX84uYuBjide2an2pHzk55LIYeYK/PA1L+
-         hy2t+kUxhTt+wNe6nGptGVNZGeF7a16Mjl2h2jRwVZjB8blHQRFfuk10cIyzSge/s6z4
-         3VJFgYVhxMqgxZrXqy5NT27qxPzlWyrHyzdoMZHdz+DPVkKTffRV4gepJJsE4MFESJCd
-         n2BJ75cSeCTdkfIdCUASuXwrFzkEd9zvrdD0CV1rINzqtnRPGIWuCbTGm3S2Nxid1wqe
-         iPd4solgTYKrrUww+oGPFl+BhAbz+RmYURLUoCCrEzZyX5sTHeXD4JA/kx2Ecn3VlDMj
-         mz3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FwJPOjjH
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-89d6bd67045so1228198b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:10:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794776984; x=1795381784; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fFm2AgWq3aMA2NgcD6hx5PZ2S4O3KE/xlXyx3feIpKw=;
-        b=Sl1nvHNhKhAgdXV6eF9snxogwmW2KEFXEoeKXPziOPzyezDqEnjQx3TE0b28sh+Z/V
-         +zUtEMZXBWIL+bImfjhwOY9EzABl/+THfCGwt+VpR5XQUeu7sb/uXXCDApnXxXDNYRfE
-         vBQabVx/xnF0cJVgfBj3S9VV363Q2JmfNtzSPwpluFN19sm79WgEjt9AuobRARUTinxq
-         Iuf78MgXoV0suIFS5xhpesJFOkoQUuABV+Tjhn9yI3IIf4Npj0G7kIhlSSbGzw/vyOrD
-         gC8gzgQhjpgPTpNqfKRM4yz2Oq9/mGxGcRdndxlJwq9y48BmGcPAJzXkgPymQdDGb80K
-         s0Lw==
+        d=gmail.com; s=20260707; t=1794777003; x=1795381803; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+9JW7J5HjIZOKB44W/FdWPu4us9PkTChnS047FJOEoI=;
+        b=FwJPOjjHvrLaPG6Baz9Fuotuorj/J8ft0QxQAijmzxYs9d8Jwk4+cFB1Q5vhcQYEKM
+         O44N8cyMLQPPkcyOVhLnv6jTxGvrJt9Pdki9LTFvmV68PCsVjNbHxM/swxSklM/FiYym
+         4PUrX0wKqG7sX+ZTlyiugh4bgxTF8rh0YeRGGWs1+CfcDuYIpUqWmoNvp9WV7uc/Afnb
+         Lv4qFrhptW4pw6W48q+jdfX+lVzwubXcsi4VwJmHkJQbWct/P/ijvONiJu8WUGIbrwQV
+         ejwv8mEQiK8W49qICSUoseiqTnTWCaCxFHsXFbugdIN/EXtDLNK1hmkGreZGZdCeKC6H
+         BciA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794776984; x=1795381784;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fFm2AgWq3aMA2NgcD6hx5PZ2S4O3KE/xlXyx3feIpKw=;
-        b=MqrvPp7UG5yFOjIY7neKOSZD7OGLuH1siewRRipEdAljXEkSgTS+D8tB4ro/ZgF39x
-         NGIvbkmttbEYP1Qzyh2tUdJwfvObL1CrEB17BojGXjFm3+Gza4PINAxWQMYUVshnWPHR
-         Ip6EofdN3wLleGSJZFnsXzFPMz3/5j5VPE1Go5PJ8LXZmVtPmmZsA4n2o6iyZsjMSOv9
-         m/ctxVOg7cpF5T9H12KOu/eMjGECo0kRNYn21zSQIRA9bLRWmLGSk4WzcRTh3B3T4dTc
-         ccj15+gO7eCPUGV+BJHqefA5z6aNjDfhIh1IZtTK8PX3A9Iig12u8OygfRJqRWKPGcPj
-         fGJg==
-X-Forwarded-Encrypted: i=1; AL+hErF6aE2VMhQ8BWncPici/gXV7ZTW09ENoG8rkc36awdyLPYIK7Qyoho+EZuZSrTguxYOhV7rWuHFNmME0bw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8emOa7z77qqLybwM1oCJwRoshMOBmgsd7X6fFCfdSxuIHBqtjB
-	jMAxb7TkFQfZ8SA9DTDLpUFjWvlyC00b0Hg3uU1NHvFH/CfzhlooGDCrqUnHy9Wuh4t6FXFisqp
-	UniAwp7N9a4XHXvccnrn6iS8mkSJshU8=
-X-Gm-Gg: AYBFou08HBeWA0WQUhPh4S7nhlCdV9Dh4+O2ye6152e/noTrroTaemMFgftv4Xly3Rk
-	XciU8igS0J8BtZmCxgPqcNPoJYFyVK6uugHM+QPFI/lnIr+EYKq9cXNZFWNADUQCiK0oZRtIOid
-	RgX4+TUlDZkGfF8zLEYCd4oN+1qcFHWaeliztgGzx7bA8RlbkLqK90bA+YRc13CmV2hnuqa+B9+
-	j2a6LPm2Ox7M3uY7nmYG/s8kbvONGW+PhA2K0LJLL+Yf5lp+gbpuuB2+yNp5D+uqk2DvxyaGdBg
-	bbgbQ4RIt2N90MoKvAQtvBqjsVO0GoJFJlZLkhzW8PszPJ/Wrv5EYdMEKrTP5Lx2QwWP3l/ZqX7
-	1px+dtL19hT1EcPPOmRtxGOFnr3erDDl/Fz0VpaGzA2L9F6cMfs1kf86a5Pg34xf0r2uvhA==
-X-Received: by 2002:a53:ac9a:0:b0:67c:cd5:f5aa with SMTP id
- 956f58d0204a3-67d89731e46mr4496105d50.122.1794776984233; Sun, 15 Nov 2026
- 13:09:44 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794777003; x=1795381803;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+9JW7J5HjIZOKB44W/FdWPu4us9PkTChnS047FJOEoI=;
+        b=BoIC4duAgo+A7gMbtvApobyFkE7C6haUM6rM5gF45AD+JlfC2roZvBLv8n+yKCiLSH
+         IpGnljxoHu/PuFtwhvpYh22hiTR7TREXBjaNyky/Lbw55CbGEnGyDmRXipL+j7Ajaxtx
+         f0pzwP1Q78mxj4ujOOhfM6qLqTVnAfDrnBi4VN48/qB4jOoeZSTW0hr1lEc0MricW/CH
+         D6RVWZQtpfUBtop9bgNc0jO1eR6FqisY3I9/zFHH0Q4ntXVAGj4c3mpYhC1BUIpdG42w
+         gR6R3okdwo4vabBpC1OowF8sk+XON1yvm5DIcWGBHIN7/UByb008wgXTs5rj5cozKkXu
+         caig==
+X-Forwarded-Encrypted: i=1; AL+hErEDTluXy9/pVVGVEh7dtp6X80wLD72++WwnSTVUoG3z/45tvmWS8zmYncxWMESGpfR6/B9M8YFJdYH0f/Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+9a8/A56FunG8wD0s+MkJC2LCGVuhQu7Z3ZOAV02vMLnysD93n
+	KpuVXn6nEhUiZrv2/HvQOFubMBLo+BYzcuZJ7HO1qQ4TkJzGiX+owh0p
+X-Gm-Gg: AYBFou0SCoQx7flVemA7QZqV4x4zBbiq6sVF9SZZRElH7Ix1CM2eOizw0lBzregl0F0
+	VJdQ4WcSL++Qh0K6tSIZ144KFGqAL9nHLGHCrgAMj2feP4AXAhzp6X/imzrWSHd65ZmnyZCTD8U
+	qQO9n+NpAJAUDPp1OjkujK092jA4FensJSZ+zePG+9GVvSWv9Nx5bYQqSo0hsjqbLVEQjvC9H6O
+	+Jm72R79TnIULpUGZRkLJXiBBQBjgo9bUdalwYHykJTvAGy3SRCm0l04ehrIl5urbT9Zv6fjE9Z
+	TFkU6PKPGgAMOhKvQOYoaPTd16/LqwFfX8IVbiO8ePgqnZR9urT9SvBLDUNen4rdJh2YC6K+7Dx
+	8Z7a1bbYs0WU7bI/VLmovbTO0edROCCzTJE1TChxIX/fC5efbLsZ0rTr8X6Nz/cXXCnM1hrxyrw
+	neaQ5ae3Id5cFQZPevwkvipeS8CokKBv4j640nEY8jpJjAPksRwhiX3v1DdJjimQh3RpJNSs6EN
+	vmWmZTrCB72b+sfhV3s1B+vq1QzaW8+VfT5umIsPQ5eyC0qRLgCXCdqmApXQ2vfSvoiD4UlyCGh
+	C2QXu28CjLNHjq/CZoqmqMTkwc6KSKUXGlmv4jFrbj7rs3GJZg==
+X-Received: by 2002:aa7:888a:0:b0:888:cf3:e4b6 with SMTP id d2e1a72fcca58-8beb7f0b151mr5424463b3a.30.1794777002725;
+        Sun, 15 Nov 2026 13:10:02 -0800 (PST)
+Received: from localhost.localdomain ([112.170.44.210])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6e7f5sm2892615b3a.25.2026.11.15.13.09.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 13:10:00 -0800 (PST)
+From: Junyoung Jang <graypanda.inzag@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	Jan Kara <jack@suse.cz>
+Cc: Junyoung Jang <graypanda.inzag@gmail.com>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Matt Bobrowski <matt@bobrowski.net>,
+	Gwanhyun Lee <gwanhyunlee@gmail.com>,
+	fuse-devel@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] fuse, fsnotify: handle embedded NUL names safely
+Date: Mon, 16 Nov 2026 06:09:47 +0900
+Message-ID: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,46 +100,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com> <20261018-audin-v5-3-4b8cc13a1b22@baylibre.com>
-In-Reply-To: <20261018-audin-v5-3-4b8cc13a1b22@baylibre.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 22:09:33 +0100
-X-Gm-Features: AclHuK_ZuEq6J89mo54PdzP1OnTq4mPljqW6aT-mLz76EZXNOrQC8XCfvE0QC_0
-Message-ID: <CAFBinCDB93uLnY9V-tLt4n77Oh5keji=rwA-VNbHm6V8rkYkJA@mail.gmail.com>
-Subject: Re: [PATCH v5 3/7] ASoC: meson: aiu-encoder-i2s: ensure clk divider
- gets disabled in hw_free
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 12:18=E2=80=AFPM Valerio Setti <vsetti@baylibre.com=
-> wrote:
->
-> A recent Sashiko review [1] on this code revealed the following problem:
->
->   If a user opens both streams so snd_soc_dai_active(dai) evaluates to 2,
->   and explicitly calls SNDRV_PCM_IOCTL_HW_FREE before closing them,
->   snd_soc_dai_active(dai) remains 2. This skips disabling the clock
->   divider.
->   When the streams are subsequently closed, the ALSA core skips invoking
->   hw_free again because the state was already changed to
->   SNDRV_PCM_STATE_OPEN. This would leave the clock divider permanently
->   enabled, potentially draining battery or blocking system suspend.
->
-> This commit resolves this problem by using the 'clk_enabled' field of
-> 'struct gx_stream'. In particular when 'hw_free()' is called on a stream
-> the code check what is the status of the other stream and then only if
-> both are off the clock divider is disabled.
->
-> [1]: https://lore.kernel.org/all/20260917212019.4ECE61F00893@smtp.kernel.=
-org/
->
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+FUSE readdir and readdirplus parse dirent->namelen without checking for
+embedded NUL bytes. Through READDIRPLUS (fuse_direntplus_link()), such a
+name can instantiate or alias a dentry in dcache whose qstr length
+extends past the first NUL.
+
+When fsnotify records that dentry name, both inotify and fanotify size
+the event buffer from qstr->len and copy that full length to userspace,
+but populate the buffer with strscpy(). Because strscpy() stops at the
+embedded NUL, the trailing heap bytes remain uninitialized.
+
+Patch 1 rejects dirent names containing embedded NULs in FUSE.
+Patch 2 zero-pads inotify event names through their recorded length.
+Patch 3 zero-pads fanotify event names through their recorded lengths.
+
+Each patch applies and builds independently on mainline commit
+23c62304dde2, so the FUSE and fsnotify changes can go through their
+respective trees separately.
+
+Testing on x86_64 QEMU:
+  - 1/3: Crafted FUSE READDIR and READDIRPLUS entries with embedded NUL
+         names were accepted before the patch and rejected with -EIO
+         afterward.
+  - 2/3: With Patch 1 omitted, FUSE READDIRPLUS + inotify leaked stale
+         slab bytes past the embedded NUL to userspace before the patch,
+         and returned zeroes afterward.
+  - 3/3: Default FUSE mounts report a zero fsid, so fanotify_mark() with
+         FAN_REPORT_DFID_NAME returns -ENODEV on the FUSE setup;
+         regression-tested FAN_REPORT_DFID_NAME create and FAN_RENAME
+         events on tmpfs.
+
+A custom LLM agent assisted with initial discovery and reproducer
+setup; all root-cause analysis, patches, and runtime tests were
+manually reviewed and verified by the authors.
+
+Junyoung Jang (3):
+  fuse: reject embedded NULs in readdir entry names
+  inotify: zero-pad event names after an embedded NUL
+  fanotify: zero-pad copied event names after an embedded NUL
+
+ fs/fuse/readdir.c                    | 12 +++++++++---
+ fs/notify/fanotify/fanotify.h        |  4 ++--
+ fs/notify/inotify/inotify_fsnotify.c |  2 +-
+ 3 files changed, 12 insertions(+), 6 deletions(-)
