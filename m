@@ -1,83 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794712991;
-	b=QgIShUHI1BBjiE8RyvjHy++eP9pdeuVrlH2KSz5vQlhNFMJR4kyNHLIIa3Iu8YRtAMI2
-	 ClZc3Bh8nVZXgXfWkUzzAwWw+PpGeE7nLC2+JIQ3ueepCs0sVfZInxhCTE0hxgv5oDUEa
-	 1bJ12QCLtQrFnf5XuHrgZlponPBsgb+kX/5c/dlR8i2OK+qY2Sydl/mjOQ3LmEypWsGMA
-	 9kPH0zASQ7pqQQS4sWJ2s7liAT8ldw0cfDg/qK8nVltvJ4f+YzWrVJvmKF4pqcLdqOw/i
-	 syhy8MC/FBNQwWp0Ge4STXHJ1teBNWQlUaOrS6YGqc2ksKMnJXOWpAtDsBhoaNOnZmg==
+	t=1794713018;
+	b=2chpVe0Q2RcSuorSA0o40p6kIswglWBfk93xIHD16lq+ThTsojoGO8NdxMkGQVSgBkUC
+	 xaxk502ZZ1navmWoAeW/4rBrOAHCKLCiIkmesg+ab/qRIdHagdsNo2gevVzp8gu+d32hI
+	 LyG6GSVJR91Q3YzozHZH6jJu6i/TEi8VlOgawNNZfqKJ3BrjTPHDJR+BhtuxZ9CR2Ap4c
+	 Iwxuvg9RmlxhMSWwlrQZ3yU3z2fx6jqz3j5ocazOV8ujP/mWFQ4CRS3QfCWybE7cUZ1L3
+	 hayVWJxX+ixecXlCtJ4ebgu/0Z4cGQD2lodAw2o5ZOitf1yzx7fyM4499VDloVNeb6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794712991;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=AuLe4SvPpmOvc7Ef20gJacEwY2tzBKFGTQkf2B+4uAI=;
-	b=uu+7GdvlhvNk50NissAn6BW0Q4QJVm4KzX+Ifv3S27zIl1kmQDs8QatiwPC78UaVVBpn
-	 jRZR+DKYop5U4Avr3WRdvKwuc/mg42iSJaETyvb+Hf+gCsbWBBYwWl+M8qDyQkpflKz8w
-	 Gw11c6/GUN9GrXV0dAG37s0Fxd/h20nVMbTLw9j9R4t/h0cZ4CGUkOO5QZNLUU3VlcGOa
-	 q2Qf918n2YOH2cU+P7qlqagf2FXFaWtci7ZIOYdmCfAuNU4ovexdHxT59FFJ0aoPCyt0v
-	 1tICrUn1HqQFAJGKkys6hXsggFN7Ohhdmt8Xbc7/SWjpp3DgGeMkfU+IhITwgBA42Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794713018;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=kl79L3c9rNpYrweCRtWHwKdmqJ86B/vjP/tYTMzC8GY=;
+	b=44yXUf3iXMfKCJ+4Z+7C7ttL1nFgctDZTT/YlPDuCZJWZDWUTz9k2HBqsIQNrPaEeLrm
+	 Io7uKhApnd84kNG/jSUAG+ODWyJD871jQEVXihbxmTQA7NbJf9KGZ5ZLgY44yFK7FLVlw
+	 2fGE6WUmchaW+4fRqTjsoq/zDzcFFhoeRYC3m5rLrFONj46e/PjaC+X3vW2Q6Geuv87re
+	 HfXNdQipcO5V0q8yQRMRlTXUaUGw0wKQhkmwwiK98J8VT9XOo+IwOp4cdbGJl5Ex58E4c
+	 NJj0CHF5HqjLHd3UOXJeS41wYpLv0r7Nn1LGQAdMlH4eaVpSA27O/ITvewHHo3NZMtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=NSlSI2sk;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=fastmail.com;
+	spf=pass smtp.mailfrom=fastmail.com;
+	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=XxL9Nu7G;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FNJ6DBUo;
+	arc=none smtp.remote-ip=103.168.172.139
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BB0606A323;
-	Sun, 15 Nov 2026 03:23:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15BB0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B26606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:23:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2B26606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=NSlSI2sk
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AF3N3hY42148903, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794712984; bh=AuLe4SvPpmOvc7Ef20gJacEwY2tzBKFGTQkf2B+4uAI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=NSlSI2sk9kMPg46x0OTeqQwpX3QjOY2gpzEWzc8wuUXB7C+i/wkWMbCYQqKfMFLHb
-	 8efH9tLXfT8+oh2RIB0VHDo8IdJjymUZfvaJ4NWPQ1OzJlN+JeKZU/MP5iYQpqS1fx
-	 A9wIXBo/ONT7IiMn18UMoiJDR4O575KjVXDTA0Nsm0+cgpSYJlVRf075NI1ymGGB5o
-	 GcIbFd0sZOJMx6kryaYAZlmACKGrOPFd2npSWDikXivT30Lqk3W/jOHA3gZkqA5wFv
-	 dCG6B2K5RfcjeM1rXKqQ1OG7yixQOYMjmx5twnTvoqwwEKBX1ptywLNuPFBjLc/xYR
-	 TBOf9Jt38uh1A==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AF3N3hY42148903
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 15 Nov 2026 11:23:03 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 15 Nov 2026 11:23:04 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 15 Nov 2026 11:23:04 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Sun, 15 Nov 2026 11:23:04 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Enver Ikromov <owner@ph4ntom-rev.uz>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v5 01/10] wifi: rtw89: avoid NULL vif dereference
- in rtw89_ops_tx()
-Thread-Topic: [PATCH rtw-next v5 01/10] wifi: rtw89: avoid NULL vif
- dereference in rtw89_ops_tx()
-Thread-Index: AQHdc8omVyiZbNM+1UOQel0vHjr0i7cudqcA
-Date: Sun, 15 Nov 2026 03:23:04 +0000
-Message-ID: <c80463b1951045f39883136b130e20ef@realtek.com>
-References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
- <20261113235211.1911-2-owner@ph4ntom-rev.uz>
-In-Reply-To: <20261113235211.1911-2-owner@ph4ntom-rev.uz>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=XxL9Nu7G;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FNJ6DBUo
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailflow.phl.internal (Postfix) with ESMTP id 237EA1381DC0
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:23:36 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Sat, 14 Nov 2026 22:23:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1794713016; x=
+	1794720216; bh=kl79L3c9rNpYrweCRtWHwKdmqJ86B/vjP/tYTMzC8GY=; b=X
+	xL9Nu7GB6+Cwz8lcw+649TLD8kh06GJD7XSVqJszq7DUZScURiyN3E29Ykq3XWSf
+	KKukg0d0sPq4Q4DfZbWk/Br9/IMYZ5r+ECb9sTalID3F1KAh5kMuqpm3orLfNfn+
+	rpeDOsp9Xztf1sI9O9HcZ8jQre+hOcgJ5kRwoKl8Rpi1/qc5YutDr2uDVXIdXLrK
+	TRCK3aD16QKw/MO8lkmun/1q0mMiNil4zKYpKMwN4MVkSL14pr62Kvb0UEDe5JoW
+	IdZLalQZpAcsK0a+mZaPCOZ9IxWbuudFP/pPmIT3VRXRSAIoAKk5HWzs7Wn1Zlle
+	OqYo6z60ILcWdNmZBU2dw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794713016; x=1794720216; bh=k
+	l79L3c9rNpYrweCRtWHwKdmqJ86B/vjP/tYTMzC8GY=; b=FNJ6DBUoOpTZ1aJkv
+	TePq/UO0fXrv+Apxp67YGRdkhHq24jyKESvawKOJQ6/2JiaYH+/7ax4SNYNyPuqb
+	dgeEHOc7v0KZrna1mV8hW1JLibrw2HtV9OBTtJXE615FgSb8m/Gcsc7nUEZWwwIo
+	Q8x3O0g7eeNUUOBvoq40FV8KfX0pSWtT3PBPTSr1z6pbpm5RSbouUVulXaBUC4jr
+	BhNBInCHMezo25W4h/Z8THbp6ndo7I4G/gBJeF85cfjCPT8yXHE4pLRj7wWmTfZ8
+	j7BB8x6VSUiorS1eCk0ruO/QvXIr1zxJU0P2hGrjG83cOrjTB2tcqFgxGnwESiYL
+	V74vg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794713016; d=fastmail.com;
+	mf=PGdyZWVuLmtvYWxhMjk3OUBmYXN0bWFpbC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Jtz7OXcpr+HxmFWGkVwI1wAysw82oA4jHy74DqcWePS+rjF
+	0SJCEzD5xXR1l13wVYxofopXZwNvNYz2xgg7GTl2vqWFSpq2e0pKYxctVPvM00+H
+	Lr0Ybvn5m72/9BcKawuHuDFDD5ZegYxP52o7h5G7GOjfDmwt1UVxf8ST5o+WHvnD
+	JVQsbffOJdR5aeFH+JGRQnQTHgzk+QwCb2LLAUGsoMpdNCWQ47z9iAMzZSmz0cya
+	4oNjjl5mTaeAYsJOnbBEgu8LjJLKBGueGxRJ+67UloGwtIfF8t2upO4TEGdfElgi
+	VgTLdSdtjAv++ryMvb6baKqbT4/ZZmCJjuGn2Ew==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:JDpOq7XsTkL1ppG+bzM/oDLmCYvlXRCEO1jFnbfWZXA=:cswWuoCL1+p6v9Q7lgHE4XIDrdHHjiSMQaUzcNNvjTU=;
+X-ME-Sender: <xms:tyX5asV5uwUe5-At_oc067L34AnFI3Kb-NHISR6JdVquN-cYBGRcLg>
+    <xme:tyX5ap5Gw9sfA8NUgVZa45jd44YHJBjOD3KWdtGgh3YOpB1RIDIUIbI6F92i-X5l1
+    P5UGviunJYbeoLhNPjWoxKeANEyrTdsR97gzaa8_tz9uqhG4cfmPewy>
+X-ME-Received: <xmr:tyX5anrUtIe3A0ARx3wLIPrHN8yH0IPJ2KkKJcBj4Y13CAeqTwRbVaDQuxo27TANdtyeZ5Hpnb1VjaffZiSc9CHkhJRQ__hEFS-fd345c1fneq8>
+X-ME-Proxy-Cause: dmFkZTGYamLCE26H9dh/TW+9QFJBmNBXpcW+/bioom/h3o8y6x6Xc8Q81U1oCKWPRybk5s
+    5B2Hw243lz5JYaGMm8nX7m1VREuShWzNSWhKbLhN71ArlIG/Yl8/R1ORlL5ga3f9yxR0Ic
+    mDp2Xq7OPLAPADwhWrExV+NVD56tUQvakz3N6LqZmA+fB7t0wjqPLTLbu7GV9ZWyuvF47E
+    o3ffz/g7X6FKZntGNvI4MIQ14++APaN/kKvrika04leUqM1c8zelc6ptRjqU/a6v2Uloe0
+    xnxaGIQ/U2dfwmqiYBW1Kw89zdWZxHe+jWvCmy08MqWoPJdthKKvd/tMCJSxnlcUfmGKQy
+    2quMhRKkCNIpsa9+eRzMsYD0YUDQQyV1Rcs8tJ7XQzlUIYlbs9rgLvqeTNiRkC0lB2vi4i
+    g1L2RVQ2bxq+H5mI5DEU0AFA5uuXIp/Eo/VNLZHge/Cyshi7udy4oiNKMqpz53zAv6gQzq
+    hv+ZF1B77bA0JxzSefNuEb1fWo1kTuQkEWRNewwntjUPSgZMkPvR5tw0GeOlJx8CZ7LCPM
+    KFSYNPb88Q7PkLOtUbE/38AZrLdEomfC4vXy6ALDeZu1n2nscMG79WIyuDIv0sllC/VPcy
+    pcVMuR+DGxf2e5jU7WNy8cHxpaYQIAemV6kydMm4FcXuYcTYyfzZFcfZsGJg
+X-ME-Proxy: <xmx:tyX5askyjHr1CvQ75jNS5sk0SoF5Uh9fFhzg0_AzG9BHMxAdDhd8SA>
+    <xmx:uCX5ajOsplCkyeAwqNV7v-zx4aH1cmYILJviaQSWZzQSG3F7DQEiRg>
+    <xmx:uCX5agMofw3zpDkLtMxJstZjBdu93rTnU5mmhBJNxGYMoM-LC_Mw5g>
+    <xmx:uCX5akiXHmXydsNzprrxX3mZhJ4UfSqTilxTPhezBCD8F4p9--tMqw>
+    <xmx:uCX5aiYQgGFYhV83I9YRwuTczgDp0qCpXKOSLhhilIvAALdbd3t0opI->
+Feedback-ID: ib51446d9:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 22:23:34 -0500 (EST)
+From: Ana Veto <green.koala2979@fastmail.com>
+To: derekjohn.clark@gmail.com,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Ana Veto <green.koala2979@fastmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] HID: hid-msi: Send a uevent when the MCU changes the mode by itself
+Date: Sun, 15 Nov 2026 03:23:14 +0000
+Message-ID: <20261115032314.7094-1-green.koala2979@fastmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114221440.12580-1-green.koala2979@fastmail.com>
+References: <20261114221440.12580-1-green.koala2979@fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,64 +128,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Enver Ikromov <owner@ph4ntom-rev.uz> wrote:
-> rtw89 sets IEEE80211_HW_WANT_MONITOR_VIF but not
-> IEEE80211_HW_QUEUE_CONTROL.
+The MCU of the MSI Claw changes the M-key function by itself once a
+second while View+LB is held, and the controller can end up in desktop
+mode, where the sticks drive the mouse. The MCU reports the current
+mode and M-key function in a GAMEPAD_MODE_ACK report, unsolicited after
+such a change and in reply to a query, and the driver stores both, but
+userspace is not told. udev rules that keep the controller usable run
+only on add, change and bind (for example InputPlumber's rules that
+switch desktop mode back to xinput and set the M-keys to macro), so the
+controller stays in desktop mode or with M1/M2 disabled until it is
+probed again.
 
-Will this cause vif =3D NULL? What is their relation?
+Emit KOBJ_CHANGE from a work item whenever a report changes the stored
+mode or M-key function. Store the new values after a successful
+SWITCH_MODE write as well, so that the driver's own writes raise no
+event, unless a report came in during the write: that report may
+already show a newer state, so it stays.
 
-> For frames transmitted on a monitor
-> interface, ieee80211_tx_frags() therefore passes
-> info->control.vif =3D=3D NULL to the driver whenever local->monitor_sdata
-> does not exist, e.g. when a raw frame is sent on a monitor interface
-> while a station interface is also up and the frame's addr2 does not
-> match any running interface.
->=20
-> rtw89_ops_tx() unconditionally converts the vif with vif_to_rtwvif()
-> and dereferences rtwvif->offchan, so such a frame makes the kernel
-> access memory at a small offset from NULL.
->=20
-> Drop frames without a vif, as there is no MAC ID or port they could
-> be transmitted on.
->=20
-> Fixes: a0e97ae3f332 ("wifi: rtw89: add ieee80211::remain_on_channel ops")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
-> ---
->  drivers/net/wireless/realtek/rtw89/mac80211.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtw89/mac80211.c
-> b/drivers/net/wireless/realtek/rtw89/mac80211.c
-> index 9134cdc..5a12639 100644
-> --- a/drivers/net/wireless/realtek/rtw89/mac80211.c
-> +++ b/drivers/net/wireless/realtek/rtw89/mac80211.c
-> @@ -23,11 +23,18 @@ static void rtw89_ops_tx(struct ieee80211_hw *hw,
->         struct rtw89_dev *rtwdev =3D hw->priv;
->         struct ieee80211_tx_info *info =3D IEEE80211_SKB_CB(skb);
->         struct ieee80211_vif *vif =3D info->control.vif;
-> -       struct rtw89_vif *rtwvif =3D vif_to_rtwvif(vif);
+Tested on an MSI Claw 8 EX AI+ (0db0:1901) with a v7.3.3-based kernel and
+InputPlumber's rules. The controller was switched to desktop mode by a
+SWITCH_MODE report written to hidraw, bypassing the driver. A read of
+gamepad_mode then returned desktop and raised a change uevent, and the
+rule wrote xinput 66 ms later. After another such switch, View+LB made
+the MCU report mode 4 by itself, and the rule wrote xinput within
+0.3 s. While View+LB was held in xinput mode, the MCU reported the
+M-keys disabled once a second, and the M-key rule set macro again each
+time.
 
-Use vif_to_rtwvif_safe().
+Fixes: a9517958e828 ("HID: hid-msi: Add MSI Claw configuration driver")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ana Veto <green.koala2979@fastmail.com>
+---
 
->         struct ieee80211_sta *sta =3D control->sta;
->         u32 flags =3D IEEE80211_SKB_CB(skb)->flags;
-> +       struct rtw89_vif *rtwvif;
->         int ret, qsel;
->=20
-> +       if (unlikely(!vif)) {
-> +               ieee80211_free_txskb(hw, skb);
-> +               return;
-> +       }
-> +
-> +       rtwvif =3D vif_to_rtwvif(vif);
-> +
->         if (rtwvif->offchan && !(flags & IEEE80211_TX_CTL_TX_OFFCHAN) && =
-sta) {
->                 struct rtw89_sta *rtwsta =3D sta_to_rtwsta(sta);
->=20
-> --
-> 2.56.0.windows.4
->=20
+Notes:
+    Based on hid.git for-next. This changes lines near "HID: hid-msi: Drain orphan MCU ACKs by issuing a query" (v2, posted 2026-11-14); the two patches apply in either order.
+    
+    v3: a GAMEPAD_MODE_ACK that arrives during the SWITCH_MODE write is no longer overwritten by the values the driver sent (claw_switch_mode now stores them only if no report was stored meanwhile).
+    v2: https://lore.kernel.org/r/20261114221440.12580-1-green.koala2979@fastmail.com
+
+ drivers/hid/hid-msi.c | 51 +++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 49 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/hid-msi.c b/drivers/hid/hid-msi.c
+index 3225d3b..6404de8 100644
+--- a/drivers/hid/hid-msi.c
++++ b/drivers/hid/hid-msi.c
+@@ -350,6 +350,8 @@ struct claw_drvdata {
+ 	/* Gamepad Variables */
+ 	enum claw_mkeys_function_index mkeys_function;
+ 	enum claw_gamepad_mode_index gamepad_mode;
++	struct work_struct mode_event; /* uevent when the MCU changes the mode */
++	unsigned int mode_reports; /* Mode reports stored, guarded by mode_lock */
+ 	u8 m1_codes[CLAW_KEYS_MAX];
+ 	u8 m2_codes[CLAW_KEYS_MAX];
+ 	u8 rumble_intensity_right;
+@@ -387,17 +389,40 @@ static int get_endpoint_address(struct hid_device *hdev)
+ 	return -ENODEV;
+ }
+ 
++static void claw_mode_event_fn(struct work_struct *work)
++{
++	struct claw_drvdata *drvdata = container_of(work, struct claw_drvdata, mode_event);
++
++	kobject_uevent(&drvdata->hdev->dev.kobj, KOBJ_CHANGE);
++}
++
+ static int claw_gamepad_mode_event(struct claw_drvdata *drvdata,
+ 				   struct claw_command_report *cmd_rep)
+ {
++	bool changed;
++
+ 	if (cmd_rep->data[0] >= ARRAY_SIZE(claw_gamepad_mode_text) ||
+ 	    !claw_gamepad_mode_text[cmd_rep->data[0]] ||
+ 	    cmd_rep->data[1] >= ARRAY_SIZE(claw_mkeys_function_text))
+ 		return -EINVAL;
+ 
+ 	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		changed = drvdata->gamepad_mode != cmd_rep->data[0] ||
++			  drvdata->mkeys_function != cmd_rep->data[1];
+ 		drvdata->gamepad_mode = cmd_rep->data[0];
+ 		drvdata->mkeys_function = cmd_rep->data[1];
++		drvdata->mode_reports++;
++	}
++
++	/*
++	 * The MCU changes the mode or M-key function by itself, e.g. while
++	 * View+LB is held. Userspace learns of changes only through uevents.
++	 */
++	if (changed) {
++		guard(spinlock_irqsave)(&drvdata->registration_lock);
++		/* Pairs with smp_store_release from cfg_setup_fn and claw_remove */
++		if (smp_load_acquire(&drvdata->gp_registered))
++			schedule_work(&drvdata->mode_event);
+ 	}
+ 
+ 	return 0;
+@@ -656,11 +681,14 @@ static int claw_hw_output_report(struct hid_device *hdev, u8 index, u8 *data,
+ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field, u8 val)
+ {
+ 	struct claw_drvdata *drvdata = hid_get_drvdata(hdev);
++	unsigned int reports;
+ 	u8 data[2];
++	int ret;
+ 
+ 	guard(mutex)(&drvdata->cfg_mutex);
+ 
+ 	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		reports = drvdata->mode_reports;
+ 		switch (field) {
+ 		case CLAW_FIELD_GAMEPAD_MODE:
+ 			data[0] = val;
+@@ -673,8 +701,23 @@ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field,
+ 		}
+ 	}
+ 
+-	return __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
+-				       ARRAY_SIZE(data), 0);
++	ret = __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
++				      ARRAY_SIZE(data), 0);
++	if (ret)
++		return ret;
++
++	/*
++	 * The driver's own change is no change to report. A report that came
++	 * in during the transfer may already show a newer state; keep it.
++	 */
++	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		if (drvdata->mode_reports == reports) {
++			drvdata->gamepad_mode = data[0];
++			drvdata->mkeys_function = data[1];
++		}
++	}
++
++	return 0;
+ }
+ 
+ static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
+@@ -1871,6 +1914,7 @@ static int claw_probe(struct hid_device *hdev, u8 ep)
+ 	INIT_DELAYED_WORK(&drvdata->cfg_resume, &cfg_resume_fn);
+ 	INIT_DELAYED_WORK(&drvdata->cfg_setup, &cfg_setup_fn);
+ 	INIT_DELAYED_WORK(&drvdata->rgb_queue, &claw_rgb_queue_fn);
++	INIT_WORK(&drvdata->mode_event, &claw_mode_event_fn);
+ 
+ 	/* For control interface: open the HID transport for sending commands. */
+ 	ret = hid_hw_open(hdev);
+@@ -1946,6 +1990,9 @@ static void claw_remove(struct hid_device *hdev)
+ 		smp_store_release(&drvdata->rgb_registered, false);
+ 	}
+ 
++	/* gp_registered is false now, so no new mode event can be queued */
++	cancel_work_sync(&drvdata->mode_event);
++
+ 	if (gp_registered)
+ 		device_remove_group(&hdev->dev, &claw_gamepad_attr_group);
+ 
+-- 
+2.56.0
 
