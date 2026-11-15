@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.26
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794786457;
-	b=f/SQgFydKXQiUGbEdGVh3xmoSbM8Gep2Nd0pAzdeplC/0qmsqdC/wZ7DQTbwfu1fQ+rz
-	 ImNtnJGGTtm9B4Bv475NnqoybNnsKk951xxaET5PgpNBVm+JXqj58J9hxG4nXZ6VpH7KP
-	 7Ol+ZUwTJGzDFmGFyuhdLVcRWhz60adLjJGT2sAZQ5P81eRnNeVIeg85yTTo1jeSeT+Az
-	 A8w4RuMBr8IkpQIAWRKo50FHCtg0KHdhmoW01OTEX7+IXB4+1HuIbvvMwmDZICx4SJMtR
-	 ORhY4hcFJ9tE7sTJ8pyIwvLkH0wquwu+bn7w86NSU1p7qfMWTQN2QRFEZBuOyRyVgnw==
+	t=1794786461;
+	b=xv5R8jZ8dWNmNHOoRZQjwslIl/+kIPmAk8OoVZaIRtPRhhQYCKFW0bpVaR+Z2yskCGSa
+	 pvHy4K0HMS7l5Frz4fobJWQgwdxoE21aNJx74Cgf2g9j6kw66cUVVOgxADte0HICYrCzc
+	 eXrSGJXohoJt4Klzb1gwIYwBfnimw7GzAR5Koi0w1TqhKWi9G2EuG+q2gxGnXrt4MzKPY
+	 DkpMC9183uGqX50yBV8fWasekbnqFaTJP9A9FSt4SVsZArdO0sAA6vv3kHGR/aa0AEOm+
+	 ECV99xP1Dd2Dn7cI7Gd6h79CgS7xRhG28y8RMlDofF2zTLSZsPlezdsxZHBF5ij8m1A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794786457;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IpGkUdlcLy3swrJPGP30Co4bi1+OWXaYXd/HrZ4FCb4=;
-	b=m3vLjLyFHA9EdNGp6ItgEYO81loJkYSpZM0J8LsBoz0/pduN97mtO0/hvGallFdVK2JB
-	 mAs/WFFJfshmAVQxkoZ46HWfQ92M294vmQL3xljOO8o8HnNhoDi0Y2C55BLq+55L3Hd7P
-	 CqAKeuefrPhRQjUMqdUXov8G/a81FOjRr7wqRW/V6oHOVuwSboEFnCgyfspTvyXQz9wOw
-	 8+3eeGTCvs/nin4nMgwrFLnnNH2g8wwmjNQOqauGY3ri/gC83dAkJ28LpqfhwjToCo6XE
-	 6vqURerJv3vXUQEQGI748GK4B1vt0LwOJEuAhd7EK2DfQ0TTwB5TOiVXqbWOnPNC8Eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794786461;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=g1xPnIsX/qon71ekIa3b2Fhf/asc8240gRK7bVj6l/c=;
+	b=ITvLUUDcbKKrjVmH+oXGZAkW/7KUih07UPIf5vTJ8g+lXhQV7GmR7P0c0tDIwgA4CJyg
+	 jHLpH1a63Mf62lluTqTQKMipHBzyG1LnDbtKtXCx0tVgnWrNLscM3XbrAVSalDXUMwI8X
+	 dXR3C/+hnn1kddSj2vr/15WmMxx+2xEqxYt/oUidBIsDqJruroSsPgkY80Ry372GIY8xE
+	 dugLMBt8oo4/vSxBt8XTTP2qSwZHkr6sGtZo5LaQ41xZ4h+r1a32fGferO3kChGkRnCfA
+	 WC5QjTglSq/RodItATozVR7Np4aVknoeoACkVcDXQSAk00RvPMiNn00/zi/QR1uc30g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XoldhR2Q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MdUPQ0w0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.26
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012026.outbound.protection.outlook.com [40.107.200.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E748D606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E748D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED2D606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ED2D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XoldhR2Q
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ed2f163a2fso773676e0c.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:47:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794786456; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pjlefhsJQ/jIfl0imsDwrI4k6wZvwsu1+rK2SThemJG5c9dTbifgrqlWMEbdYcvq0w
-         SBo/l6pOMZk4roSEMnzPPhCvn7wMEpVKnzrRCHYeVIzCLMe9jIcA7pYAhwevcWTWcyAd
-         NymbEPSaDeGKThOkuK7T/WS+X9SpEd45CV/5bYcuPmafuCs4mOJr1Z70xXEQDvL0dfnu
-         LvpKXkavzjCDzo01iru6EvYs1DWRKaAN4zIU6l32T4auArKFY8NuP6Hkf3eRyH9kGl51
-         Gc6jMblNbbJ44pTkPbPFINcKvzpinmyKCmpsVPWtyV6KcZ+FOnUlS+qNvlsNkNx2OaTi
-         bLHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IpGkUdlcLy3swrJPGP30Co4bi1+OWXaYXd/HrZ4FCb4=;
-        fh=+96esyl6s7iyNTO4tMsnNhjsRAdDwIXwjSRjFr3xVpg=;
-        b=CLRWJDcP2RJkfgGK58+x59LAHBXIm8tR7VszDxtvVMH5xiZBWb4VwJO6zBAElAlULp
-         XvyMUsGtYG7R9f2PNvU8/jnGknVEgstE86Yq1BICkao1kB/T7TPCkyRiBoe2pvzb8+lL
-         bfNUZx65OnLKp7gW5HFfsdEQUezY2e+cJf3wDU1bH5v2EjR695jfQWGG45uFNDY9nv6R
-         VbywhKIRZ6UVtdxEFQrvXkcGCg8woBQK44tTLgu4vKAVVfgl31bPUvsFzhKcXw+xOKLF
-         t81My6iT8+R5IjTQgXe1K8MM4nyXt7axnlq0Gg+jNKmgcgAqo3xCjkpDJTl51IP4lZoM
-         NliQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794786456; x=1795391256; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IpGkUdlcLy3swrJPGP30Co4bi1+OWXaYXd/HrZ4FCb4=;
-        b=XoldhR2QdxIVYHVR+tB5A9SYaPPON7NsSeGt/0YIkW21beaqhXkmH2cdBZ5Ld9WGMi
-         E/0gE6DQEBzReQClaOzAPjXMQRNDXnQ4Ac5H+zlo+9MFaAR1T4enLx/fVdEnSQtKqg2j
-         LvSi9UQ+gWk6wGyzl5J91Mg8lXN8G1VgvfSC46mEaalBYndL+AKAdUrbOfkK6PoshHgK
-         Hr1JSDAYV2kRnBnY1MsczrkKOlxTtUTQhOVGR1J482EJJjoWSes/q39Y0lSGz2qeFxNb
-         /xF2n8TNkEtMSHC58rWdM9T/NhGCDr8qx8eqnFLmYJv3T5P+ahkSfylsyhKDZgJf2jwv
-         4dfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794786456; x=1795391256;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IpGkUdlcLy3swrJPGP30Co4bi1+OWXaYXd/HrZ4FCb4=;
-        b=GSaxNHBt+4QoAaXUw7v8zGgCnwerGbKfu7L+TvimvQwdZNGEZDzjFAZYifGk36B/Oi
-         p3MJWcD+NElJpRmpzsC0X4PbGlmvcl4Q6VIckff5okjTKC2eh1aqgmHIYzcbuF3EfV31
-         hMOEIs7xCbY8L370os5MrIggC1wv+3jRqnW5s6x4T/ajc+m5hYPzGPHjVVfKuIw+VaXp
-         mImMjlGj6Cfb0SZRLqlwI8IBGwFhopwq4ycSMp6BG9tmXL1ETyjdrO7BQXCDu2F5ZA9k
-         wZ8h75/+7n6juwKkBbrGSKsujYHGaF6EnfPeHV8+zefluDL98OUrlpqBfY3paseDLk25
-         siWw==
-X-Forwarded-Encrypted: i=1; AL+hErEe2RJ7u6VXBuPKvUXBJx4ndZ2/7966E9Zf9PSVE5VSVxZdMHHpJNsWiCf5IHZT862TBbnx0sTJqUwcJf0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zxHkCEPd2k3gMckCYcmIgfbPapfpHtvjj4XEk3Id6hjqv0Bmk
-	iSBL9AYieuZcHPBUQVliV9qN+fAatpvIx3J/hh6kkgUHIOAaZohUSZJn+X3az7Qov64aVGaV1XK
-	U3kH8z1zOeaNlTUYG1G/kYC8vuA4bRiA=
-X-Gm-Gg: AYBFou2Yv5plkQ5wKFD+hQcy+AeoGHcw6ANPx4rlaRvR9EbjsQ0lg0tpVZPXxVQrA/q
-	89X0IISKBVYP4PO1TNdds1NAQf9nwNVqn71fdvZJ5uoefPtPy0u4+/hSO/VLThJ2JB9NxDvVTOD
-	onIM9lCoJ8WRVoVJ2X2Ph1Fmew9XKqQdGA2vU0XS+UU4Sj+20OyDpZnixp7PpRrejAoJ5k3UVsw
-	FcQZjaDBX7t5+40GjW1pLEVvpcEKKiYuPzrk7ijnHu2lJl7fpB/qfkEcAjrGn4usTfZk/nQrRax
-	UJGl6W+FJ35T+aRfwFTNX3noEPV3MvU1az91xKupCytmf2cTgTd1gYnOywIjCggT9PabssKS5PX
-	muUZ2bv7OvAp1SwAsJ0TIuEVCDTNORgyL2XHialEtj9S7itJkF8enIvbvXvtR+ObviN+1zA==
-X-Received: by 2002:a05:6122:e252:b0:5ea:b04a:cefd with SMTP id
- 71dfb90a1353d-5ee3492592bmr2763172e0c.7.1794786455702; Sun, 15 Nov 2026
- 15:47:35 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MdUPQ0w0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GUc+1aPlE8+N0pZxmlUs73RzeJh2bhJ8ThtTqz9aMjeOkJxBcNUIOH7hSOiR6F0qagirlfonpUBNB6Bz686mwlPRpCy9qCDP9+kpihC2a3mPcZbDuCInGrz3RnxZio/ep8XiWi5U7EwBbaqujSC39jbZwgPjiyHiZ1rIRLg4BPsVIpl8w8PEFPg9t97IT7LQbRkmI+6MZ7KbTyKFWZpfjfzjzTpNqQIzey6HUjNmml7aHlGgqFHwj9ATN8UoDFcN8BJvRFurKOkeEdIiO3i0zCik7ga4VZe9vQ53SUnA4ftIlfQJGq8rJwDvj8zBEUKmUBqVjT0eL9OoCbkrGglmTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g1xPnIsX/qon71ekIa3b2Fhf/asc8240gRK7bVj6l/c=;
+ b=VjRKvjB36l9i2NOEEVrjyCWtpVof1BzafVDq6qmy/h3YaE9zjWIPRfvUXy6+A2PtLRM1zcSv0tPUZSlPpbaxDr7ZDAuPI/rzIPKlgSw/WQorbDwqLjc7e/rL8PryjbL+xHltfV2Gk+QVdiks6+87vqgTvBu7jGLrBOSkr3WPrYQw8NV40XufpZCyhVwlEDRB67Kn3AhesIgk04hUoBPL3QU4JkrwRP7yS2E7QajWrbbCBdCayylMsDaXo4JHrG9rYt0V9TCFaj3N2Xr+IfMb+fTy6uh28IAWIWBXuNZ+Jo7ST69rsvDC6Sxj6j4G8yDO+TgEpsXv/03vKbunNyzZ4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=g1xPnIsX/qon71ekIa3b2Fhf/asc8240gRK7bVj6l/c=;
+ b=MdUPQ0w0X92GK5z8lOTyKBvvWDLDyBJDxlriwRAMNX9KhJ0NJHBHb0iEUgH6ycefvEhjBIE1QHIHbXesGXim7Ht2UZQjSzo2RL4/u8HxUAuhnez4vbsT8vpLBvVeyZgf3YjLtgSY/eDgn0afA98pcb8c3VGxNYhMrhuidGVqoN4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11) by CY5PR12MB6036.namprd12.prod.outlook.com
+ (2603:10b6:930:2c::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Sun, 15 Nov
+ 2026 23:47:37 +0000
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0615.013; Sun, 15 Nov 2026
+ 23:47:37 +0000
+Message-ID: <fd0f7746-ff00-4dc9-a5a5-c10611b94aad@amd.com>
+Date: Mon, 16 Nov 2026 07:47:24 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Restore PSR-SU guard in power module
+To: Egor Perevoshchikov <rickbatra0z@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mario Limonciello <mario.limonciello@amd.com>
+References: <20261031040051.46100-1-rickbatra0z@gmail.com>
+Content-Language: en-US
+From: Ray Wu <ray.wu@amd.com>
+In-Reply-To: <20261031040051.46100-1-rickbatra0z@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0058.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::17) To CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,529 +101,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
- <20261026-sunxi-orangepi-3-lts-v3-2-98fef4f75184@gmail.com> <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com>
-In-Reply-To: <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com>
-From: Cristian Filipescu <filipescu.cristian@gmail.com>
-Date: Sun, 15 Nov 2026 16:47:24 -0700
-X-Gm-Features: AclHuK9GwipEKQmV68VRLfJX3c26HaUYWWpWxUZtxdSSAauzw99s1YYplzkCPcA
-Message-ID: <CAH87RzSWDuiA9w8-ZkZXjVmQ_3EbRGKu8dKUzBf=KhNJHZFgjA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
-To: wens@kernel.org
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|CY5PR12MB6036:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5e180ac-5d54-42a8-44e8-08df4372d408
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|5023799004|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	MKqatpU7mQ9zxT7Pg7Norh3tYu9dQorTjbQkQDiU+3npj/vvXVN+r+GivtrYjBNrWcLRuyQ/H0U6WnyXF4ErnpL2P6ZiDxolkS3lxtc7VtJv+22wO4Jig52k1JqtlGNnoMYmVD4pXFOVMU8A2qlpRuhN7Y7joNmdhb2aDX+iLgyarUu8oalSoD5l716vFqlFqJL3OqBzxhg/+W5KvZUfj2+zbbK/fmIkKXuRAj9SilkhqXcVHwnX0xpk4rqPmf3f3lTQCN2Q8fnjwFFAiu/XYxIhPkiB+VvOFnzAFnoLTkYPrhOJQipgYTVhOCX1m3pTy+Vwgb9kuGDy3vkHa9IUt4ZUPa/1LhcVBxSZBgO+Jzv6nC4YHIEWH0jqidBw2yn7Z9O/MfbB1Xb4D8Bi4nIMKdjYe0l55DqLLPnOSYOnWw6Ac5Ov8vdII0VzmdoS5yCrnujyBNvwvme6KRD5O1SvofnSVLlgxoNyWXSsy7mUSS0cc2Rons8FOC+LMmz+kjJ85jS6fh7NsvWWZJmT3pR5FuD1UtdSjyLEWO1CMqJVojgNGw7pi+7+nmTG1AdmRkV/8ZwaQUSW5CCnfCG/YWqDCV6a6sXpVUfbCO0IF5ByxJg0pLsGWQ7nrxUha10jBssu
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999225.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(5023799004)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L01GcGdWRksrZkNBRmJtTTdSQlBtQU5iU2VOMzVRc3plbVJLRmp2RXgyTllm?=
+ =?utf-8?B?anNvRFVlZXRlc2oyZHBmN1dmdFFzaEdmbU1ZRFlLNmZ6RW52NlV2RmptZC8x?=
+ =?utf-8?B?OFVSeUNRTEtkd3UrRFpVb3BzREhBeHIycVYrdFNDVnpBdTVvVzVhY1Z0T0pB?=
+ =?utf-8?B?U29NU2lrR1lrSmQ2ZU92M3R6UXVKN05zNHFVWEpMNHVmM3Ivcy92WjEyMUY0?=
+ =?utf-8?B?SFB1VmVXR0tnY2owRnFmRFhCdzBGNldNaHhmSzlxaFp3aVhtK3d2enhyQmNn?=
+ =?utf-8?B?eW5PK2w4VmYxdWpkZWU3cWI0NExLY2hMRVhhbm5sV2ErTzgrV010ZW5QZk5Q?=
+ =?utf-8?B?b0JLZ3ZLR09TV3lDRUJQM2tLTkV1QU12MGNCU0VmUmxaVTRjQzV4YVNHMWRY?=
+ =?utf-8?B?ZXFzS01GS0F4aHAxNGJqd1NZMjNCZzd3QXY1Vi9HWnBhWExrODMyR1huU1BJ?=
+ =?utf-8?B?L0N0ZFJ4QnZtZUJBNWRFZXRqU2l4R3FoOEVHRmxQNmpscFJpakpVdGpFa2Nm?=
+ =?utf-8?B?d1pGSkplK1oyRFlZWXhOZlUvV1RJV3NqckhqM2Q0TEJvM1MxR0RzY1Zaek5q?=
+ =?utf-8?B?N05RN1pXN1RVNjhmbjdpOG82REN5K1JhNkU5Z2ZLWTE3STZ1cnBjRmxWOTV1?=
+ =?utf-8?B?d29sUWFpc01LeDUxSmNRZFUxam1Ka2VrRldrMjZtYzQ5L29RQ1FmZVZUanlB?=
+ =?utf-8?B?WjI5L09WVFFOWHV1WDFWaDk4ck1paDR2REVqd0lyUzRyNlZaRnRaTWR1TytF?=
+ =?utf-8?B?VGRuaEhMVGpaRXgzVWhwWEFhTEFKcFJSKyt5US9oZG1vcmZYdjFlRFMwOS9y?=
+ =?utf-8?B?SjV2QWhPdzlXekJBaWNuVHdrWGtJcHA4TUcwTFlXSFM3MFVBQU0rYW82RTRi?=
+ =?utf-8?B?UklwV2REM1pJU21SUXRNbzQ2U0dOWDBBNVlNeFFmRmJHNTVKKzJ1cEMwVGtz?=
+ =?utf-8?B?WTRQZHdCdi9yYmoyWG1lQUJQWlhyTGszc2ZtVTNVa2t4L1dIM0crbzJYblV3?=
+ =?utf-8?B?SDdCNFhxZlR4OVNibnNmanAwRk90cStycENzWW1KeGI3UGZhOElkdWx0dVdZ?=
+ =?utf-8?B?SGtwdXZ0K3B2NjJoU0crV2pVYnNiVFYwTGxEMGkyK3JGOXhISmwzTUVUUnVy?=
+ =?utf-8?B?UUo2S2d5ZEdIcmZObjhpMlQxTVBRQzdidE5CZm9QU2FwczB6eTl6VUhtWS9I?=
+ =?utf-8?B?dnJDcW1QUkFHS3p3Qlg0Y05nSzU0VWNVLzZ0b2pIdWowY2ttTWNjanFud0JB?=
+ =?utf-8?B?aStCbHg1Ymh4dlBDUVBuRnhZNUd2c3VmTHdOeGt0M20xMmhia3pqcmFHLzlW?=
+ =?utf-8?B?LzlqNjd6QTFzRUl1NnNuRloxVjVRWGM2Y041RHFYeDVQZ0dJbTNOaHdabHZV?=
+ =?utf-8?B?TUQxV0dENFR6eE56WFk5enZNcnJzSzNRQXZRWW1wSHFFVWNhbGlqYnR5V1pa?=
+ =?utf-8?B?djRzU2dMVHcxTGpVWVRDOWM4dDBtMEtxbDBmK284a0tORzA5M0Z0SFZKckQ0?=
+ =?utf-8?B?czExQkN0RlVsc1ZpVkQvQ3JCbnpqTXFYOGFQTUI1UVhQZTB3cnVWUFk2cS9O?=
+ =?utf-8?B?OTVaaVlrT2xJS2hpSjM2OU5wTkhPclpFK3pYZHhZVWdlUXNvK01PV3JqZGRQ?=
+ =?utf-8?B?VUFXRjNEQVBoeHpvNnlFMGtIVXVSdERNd2pzVFpmR3JOQjJYaXlXYU9tT2lX?=
+ =?utf-8?B?SkVDV0lnRVdhZVh1MkgzczlWaHVldjA1NzZFQmkrTDkwd3ZhUXlZeXV5ajN4?=
+ =?utf-8?B?TVBjeDd4TWNNZXNJRHZabDErMXJ2ZGpETDNLMkdKTUN1MDMwSXNFSmhmK1pj?=
+ =?utf-8?B?SFl3RytXd0NITDdRK1ZOM1FldG9aZlpjaGtBWHpTTE9FRE81NnA0WTBURHNT?=
+ =?utf-8?B?STVsSjVlclVvaUROR09SQS9HNEkrajVFRjhQbi93NkpSdmJCWFo0RHcrK1hW?=
+ =?utf-8?B?SUMwd3psU2VxYVd1OVB2c2ZHUHVQdVhXbXNQVFpVQWphdjU0a3FnRE9wOWVu?=
+ =?utf-8?B?VWlENnBVRFJ2VGZ3anZaeUxrY3JHd3FTNEhkdTkrSXB2aXJKRm83c1hLUE9i?=
+ =?utf-8?B?WnpkSTJWb3k3RE95Qk5MOXRhY09YN1NtRlMwWTNwbDA0T0dwTW4rYzBscmhP?=
+ =?utf-8?B?U0VHR2J1UjJ4emxTcWt0Z3BUVzBUbTFzdi9CY2F1SkNpSy9BcFdkVmhLR0d6?=
+ =?utf-8?B?UTF0dktydENiRzNvMjlRUXU4dXlrWWRrM043QUhkS0huNlhzdk9sL0x4UkJu?=
+ =?utf-8?B?MDI2QXZKRHVPR0J5NlZVNmVmOWtzMGV2b216SzVVeDMwUytvWmtGWFNqaUNz?=
+ =?utf-8?B?SHV0bDlHSVZmRG1iazJNQkZzWWZraXZNTmduUmEyR3ZSN0RTNDNSQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5e180ac-5d54-42a8-44e8-08df4372d408
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 23:47:37.3952
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nksVriRW0Dd6r47xSFFFz5dPYTNwfJI1iLNqzBYC8OaDVWERl49u3DHuXXZ+Q/E2cDnJlGUc0becUuEUrzrsuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6036
 
-Hi Chen-Yu,
+Reviewed-by: Ray Wu <ray.wu@amd.com>
 
-On Sun, Nov 15, 2026 at 3:14=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wrot=
-e:
+On 10/31/2026 12:00 PM, Egor Perevoshchikov wrote:
+> [You don't often get email from rickbatra0z@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 >
-> On Tue, Oct 27, 2026 at 7:34=E2=80=AFAM Cristian Filipescu via B4 Relay
-> <devnull+filipescu.cristian.gmail.com@kernel.org> wrote:
-> >
-> > From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> >
-> > Add the board description for the Allwinner H6-based Orange Pi 3 LTS,
-> > including its regulators, storage, Ethernet PHY, LEDs and USB ports.
-> >
-> > Specify the Motorcomm YT8531C PHY ID to avoid early ID autodetection,
-> > which failed on MAC driver rebind. Reset the sole PHY at MDIO bus
-> > registration and keep reset outside interface detach so its configured
-> > 125 MHz clock output is retained. Use PHY-internal RGMII delays.
-> >
-> > Select the weakest GPIO drive level for both LEDs. Enable 1.8 V eMMC
-> > DDR52 and HS200 modes; retain the H6 maximum frequency of 150 MHz.
-> >
-> > Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-jernej=
-.skrabec@gmail.com/
-> > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/allwinner/Makefile             |   1 +
-> >  .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 379 +++++++++++++=
-++++++++
-> >  2 files changed, 380 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/d=
-ts/allwinner/Makefile
-> > index aa21f58a4..7ea136380 100644
-> > --- a/arch/arm64/boot/dts/allwinner/Makefile
-> > +++ b/arch/arm64/boot/dts/allwinner/Makefile
-> > @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero=
--plus.dtb
-> >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-plus2.dtb
-> >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-beelink-gs1.dtb
-> >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3.dtb
-> > +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3-lts.dtb
-> >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-lite2.dtb
-> >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-one-plus.dtb
-> >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-pine-h64.dtb
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts=
- b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
-> > new file mode 100644
-> > index 000000000..e2ca41b94
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
-> > @@ -0,0 +1,379 @@
-> > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > +// Copyright (C) 2025 Jernej Skrabec <jernej.skrabec@gmail.com>
-> > +// Based on sun50i-h6-orangepi-3.dts, which is:
-> > +// Copyright (C) 2019 Ond=C5=99ej Jirman <megous@megous.com>
+> Commit a5ce8695d6d1 ("drm/amd/display: Avoid configuring PSR granularity
+> if PSR-SU not supported") restricted DSC slice-height configuration to
+> PSR-SU. The power-module integration removed that guarded caller. Its
+> replacement in mod_power_psr_notify_mode_change() calls
+> psr_su_set_dsc_slice_height() unconditionally and ignores its return value.
 >
-> We now have a common sun50i-h6-orangepi.dtsi file. You really should
-> rewrite this patch to just use that as a base.  It is mostly the same
-> across all the OrangePi H6 boards.
-
-v4 now uses that include and keeps the LTS-specific additions
-and overrides. I compared the resolved DTBs to check the inherited
-properties and preserved the LTS electrical settings, except for the
-review changes described below. Common naming cleanups are deferred.
-
+> On PSR1 links with a DSC slice configuration, this applies a PSR-SU-only
+> alignment check even though selective update is not enabled. If the
+> calculated DSC slice height is not a multiple of the nonzero advertised
+> SU Y granularity, the helper triggers an assertion. It also sets
+> dsc_slice_height before failing the check, so the caller passes this
+> SU-specific value into PSR1 setup despite the failure.
 >
-> > +
-> > +/dts-v1/;
-> > +
-> > +#include "sun50i-h6.dtsi"
-> > +#include "sun50i-h6-cpu-opp.dtsi"
-> > +#include "sun50i-h6-gpu-opp.dtsi"
-> > +#include <dt-bindings/gpio/gpio.h>
-> > +#include <dt-bindings/leds/common.h>
-> > +
-> > +/ {
-> > +       model =3D "OrangePi 3 LTS";
-> > +       compatible =3D "xunlong,orangepi-3-lts", "allwinner,sun50i-h6";
-> > +
-> > +       aliases {
-> > +               ethernet0 =3D &emac;
-> > +               ethernet1 =3D &aw859a;
-> > +               serial0 =3D &uart0;
-> > +       };
-> > +
-> > +       chosen {
-> > +               stdout-path =3D "serial0:115200n8";
-> > +       };
-> > +
-> > +       connector {
-> > +               compatible =3D "hdmi-connector";
-> > +               ddc-en-gpios =3D <&pio 7 2 GPIO_ACTIVE_HIGH>; /* PH2 */
-> > +               type =3D "a";
-> > +
-> > +               port {
-> > +                       hdmi_con_in: endpoint {
-> > +                               remote-endpoint =3D <&hdmi_out_con>;
-> > +                       };
-> > +               };
-> > +       };
-> > +
-> > +       ext_osc32k: ext-osc32k-clk {
-> > +               #clock-cells =3D <0>;
-> > +               compatible =3D "fixed-clock";
-> > +               clock-frequency =3D <32768>;
-> > +               clock-output-names =3D "ext-osc32k";
-> > +       };
-> > +
-> > +       leds {
-> > +               compatible =3D "gpio-leds";
-> > +
-> > +               led-0 {
-> > +                       function =3D LED_FUNCTION_STATUS;
+> Restore the PSR version guard and failure handling in the new caller.
+> PSR1 proceeds with the zero-initialized DSC slice height, while PSR-SU
+> retains its alignment validation and stops setup if that validation fails.
 >
-> The schematic (v1.4) calls this the "PWR" LED.
-
-Corrected: red PL4 is power/on and green PL7 is status/off. These roles,
-defaults and existing H6 labels are inherited from the common include;
-the LTS only adds the per-LED pinctrl states for drive strength 10.
-The running board reports the expected names/defaults and drive settings.
-
+> Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3027
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Egor Perevoshchikov <rickbatra0z@gmail.com>
+> ---
+> Tested on a Xiaomi Redmi Book Pro 15 2023 (TM2209), Ryzen 7 7840HS /
+> Radeon 780M, BIOS RMAPH5B0P0909, with Linux 7.3.0 on NixOS.
 >
-> > +                       color =3D <LED_COLOR_ID_RED>;
-> > +                       pinctrl-names =3D "default";
-> > +                       pinctrl-0 =3D <&led_red_pin>;
-> > +                       gpios =3D <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4=
- */
-> > +               };
-> > +
-> > +               led-1 {
-> > +                       function =3D LED_FUNCTION_POWER;
+> The tested panel uses PSR1. Its 2000-line mode has 16 vertical DSC slices,
+> giving a slice height of 125, which is not a multiple of its advertised
+> SU Y granularity of 4.
 >
-> And this one the "STATUS" LED. So you have the two functions swapped.
+> Before the patch, boot produced:
 >
-> > +                       color =3D <LED_COLOR_ID_GREEN>;
-> > +                       pinctrl-names =3D "default";
-> > +                       pinctrl-0 =3D <&led_green_pin>;
-> > +                       gpios =3D <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7=
- */
-> > +                       default-state =3D "on";
+>    WARNING: .../display/modules/power/power_psr.c:666
+>      psr_su_set_dsc_slice_height+0x7e/0xa0 [amdgpu]
+>      mod_power_psr_notify_mode_change+0x1b7/0x270 [amdgpu]
+>      mod_power_notify_mode_change+0x160/0x1d0 [amdgpu]
 >
-> And this should go to the power LED.
+> After rebuilding and booting with the patch, that warning is absent.
+> With VRR disabled, repeated debugfs reads report psr_state=6 (PSR_STATE3)
+> both with and without the patch. PSR remains functional in both cases.
 >
-> > +               };
-> > +       };
-> > +
-> > +       reg_gmac_3v3: gmac-3v3 {
-> > +               compatible =3D "regulator-fixed";
-> > +               regulator-name =3D "gmac-3v3";
-> > +               vin-supply =3D <&reg_vcc5v>;
-> > +               regulator-min-microvolt =3D <3300000>;
-> > +               regulator-max-microvolt =3D <3300000>;
-> > +               startup-delay-us =3D <150000>;
-> > +               enable-active-high;
-> > +               gpio =3D <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
-> > +       };
-> > +
-> > +       reg_vcc5v: vcc5v {
-> > +               /* board wide 5V supply directly from the DC jack */
-> > +               compatible =3D "regulator-fixed";
-> > +               regulator-name =3D "vcc-5v";
-> > +               regulator-min-microvolt =3D <5000000>;
-> > +               regulator-max-microvolt =3D <5000000>;
-> > +               regulator-always-on;
-> > +       };
-> > +
-> > +       reg_wifi_3v3: wifi-3v3 {
-> > +               /* 3.3V regulator for WiFi and BT */
-> > +               compatible =3D "regulator-fixed";
-> > +               regulator-name =3D "wifi-3v3";
-> > +               vin-supply =3D <&reg_vcc5v>;
-> > +               regulator-min-microvolt =3D <3300000>;
-> > +               regulator-max-microvolt =3D <3300000>;
-> > +               enable-active-high;
-> > +               gpio =3D <&pio 7 7 GPIO_ACTIVE_HIGH>; /* PH7 */
-> > +       };
-> > +
-> > +       wifi_pwrseq: wifi-pwrseq {
-> > +               compatible =3D "mmc-pwrseq-simple";
-> > +               clocks =3D <&rtc CLK_OSC32K_FANOUT>;
-> > +               clock-names =3D "ext_clock";
-> > +               reset-gpios =3D <&r_pio 1 3 GPIO_ACTIVE_LOW>; /* PM3 */
-> > +               post-power-on-delay-ms =3D <200>;
-> > +       };
-> > +};
-> > +
-> > +&cpu0 {
-> > +       cpu-supply =3D <&reg_dcdca>;
-> > +};
+> The older dsc2_disable warning in #3027 is no longer reproduced on this
+> kernel. This patch addresses the remaining psr_su_set_dsc_slice_height
+> warning; it does not modify the dsc2_disable path.
 >
-> Set the supply on all cores.
-
-Done. All four running CPU nodes reference DCDCA, and all four CPUs are
-online with the shared cpufreq policy.
-
+> The patch is based on the mainline v7.3 release:
+>    c03c1a14507dfaf8b856c2608f9ac216021fc222
+> This matches the kernel release used for hardware testing. The original
+> power_psr.c is identical to the Linux 7.3 source used for the
+> hardware-tested patch.
+> The patch also applies to drm-next-2026-10-31:
+>    f94ed3d7cba3c83eef50b1a96d630d63cf54f69c
 >
-> > +
-> > +&de {
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&dwc3 {
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&ehci0 {
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&ehci3 {
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&emac {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&ext_rgmii_pins>;
-> > +       phy-mode =3D "rgmii-id";
-> > +       phy-handle =3D <&ext_rgmii_phy>;
-> > +       phy-supply =3D <&reg_gmac_3v3>;
-> > +       allwinner,rx-delay-ps =3D <0>;
-> > +       allwinner,tx-delay-ps =3D <0>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&gpu {
-> > +       mali-supply =3D <&reg_dcdcc>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&hdmi {
-> > +       hvcc-supply =3D <&reg_bldo2>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&hdmi_out {
-> > +       hdmi_out_con: endpoint {
-> > +               remote-endpoint =3D <&hdmi_con_in>;
-> > +       };
-> > +};
-> > +
-> > +&mdio {
-> > +       reset-gpios =3D <&pio 3 14 GPIO_ACTIVE_LOW>; /* PD14 */
-> > +       reset-delay-us =3D <15000>;
-> > +       reset-post-delay-us =3D <100000>;
-> > +
-> > +       ext_rgmii_phy: ethernet-phy@1 {
-> > +               compatible =3D "ethernet-phy-id4f51.e91b";
-> > +               reg =3D <1>;
-> > +
-> > +               motorcomm,clk-out-frequency-hz =3D <125000000>;
-> > +               rx-internal-delay-ps =3D <1950>;
-> > +               tx-internal-delay-ps =3D <1950>;
-> > +       };
-> > +};
-> > +
-> > +&mmc0 {
-> > +       vmmc-supply =3D <&reg_cldo1>;
-> > +       cd-gpios =3D <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
-> > +       disable-wp;
-> > +       bus-width =3D <4>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&mmc1 {
-> > +       vmmc-supply =3D <&reg_wifi_3v3>;
-> > +       vqmmc-supply =3D <&reg_bldo3>;
+> Additional validation covered eight cases in an isolated C harness using
+> the actual setup and slice-height functions with hardware calls stubbed.
+> The original PSR1 warning was reproduced; the patch avoids it, retains
+> valid PSR-SU setup, and prevents setup after failed SU alignment
+> validation.
+> The patched translation unit was also compiled against Linux 7.3 headers.
+> PSR-SU behavior has not been tested on PSR-SU-capable hardware.
 >
-> Something is fishy here. The schematic also shows vcc-wifi-io (on the aw8=
-59
-> side) directly derived from vcc-wifi (reg_wifi_3v3). I suggest at least
-> checking with a multimeter to confirm what the voltage is on the VDDIO
-> pin of the module.
+> LLM assistance: source history tracing; stubbed software tests; submission
+> checks.
 >
-
-Regarding the AW859A I/O supply, I traced U60 pin 22 (VDDIO) to
-VCC-WIFI-IO, which is connected to BLDO3 in the schematic. I measured
-1.8 V at an RW1 pad relative to board ground. This supports keeping the
-existing BLDO3 vqmmc assignment; I have left it unchanged.
-
-> > +       mmc-pwrseq =3D <&wifi_pwrseq>;
-> > +       bus-width =3D <4>;
-> > +       non-removable;
-> > +       status =3D "okay";
-> > +
-> > +       aw859a: wifi@1 {
-> > +               reg =3D <1>;
-> > +       };
-> > +};
-> > +
-> > +&mmc2 {
-> > +       vmmc-supply =3D <&reg_cldo1>;
-> > +       vqmmc-supply =3D <&reg_bldo2>;
-> > +       mmc-ddr-1_8v;
-> > +       mmc-hs200-1_8v;
-> > +       cap-mmc-hw-reset;
-> > +       non-removable;
-> > +       bus-width =3D <8>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&ohci0 {
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&ohci3 {
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&pio {
-> > +       vcc-pc-supply =3D <&reg_bldo2>;
-> > +       vcc-pd-supply =3D <&reg_cldo1>;
-> > +       vcc-pg-supply =3D <&reg_bldo3>;
-> > +};
-> > +
-> > +&r_ir {
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&r_pio {
-> > +       vcc-pm-supply =3D <&reg_bldo3>;
-> > +
-> > +       led_green_pin: led-green-pin {
-> > +               pins =3D "PL7";
-> > +               function =3D "gpio_out";
-> > +               drive-strength =3D <10>;
-> > +       };
-> > +
-> > +       led_red_pin: led-red-pin {
-> > +               pins =3D "PL4";
-> > +               function =3D "gpio_out";
-> > +               drive-strength =3D <10>;
-> > +       };
-> > +};
-> > +
-> > +&r_i2c {
-> > +       status =3D "okay";
-> > +
-> > +       axp805: pmic@36 {
-> > +               compatible =3D "x-powers,axp805", "x-powers,axp806";
-> > +               reg =3D <0x36>;
-> > +               interrupt-parent =3D <&r_intc>;
-> > +               interrupts =3D <GIC_SPI 96 IRQ_TYPE_LEVEL_LOW>;
-> > +               interrupt-controller;
-> > +               #interrupt-cells =3D <1>;
-> > +               x-powers,self-working-mode;
-> > +               vina-supply =3D <&reg_vcc5v>;
-> > +               vinb-supply =3D <&reg_vcc5v>;
-> > +               vinc-supply =3D <&reg_vcc5v>;
-> > +               vind-supply =3D <&reg_vcc5v>;
-> > +               vine-supply =3D <&reg_vcc5v>;
-> > +               aldoin-supply =3D <&reg_vcc5v>;
-> > +               bldoin-supply =3D <&reg_vcc5v>;
-> > +               cldoin-supply =3D <&reg_vcc5v>;
-> > +
-> > +               regulators {
-> > +                       reg_aldo1: aldo1 {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <3300000>;
-> > +                               regulator-max-microvolt =3D <3300000>;
-> > +                               regulator-name =3D "vcc-pl-led-ir";
-> > +                       };
-> > +
-> > +                       reg_aldo2: aldo2 {
-> > +                               regulator-min-microvolt =3D <3300000>;
-> > +                               regulator-max-microvolt =3D <3300000>;
-> > +                               regulator-name =3D "vcc33-audio-tv-ephy=
--mac";
-> > +                       };
-> > +
-> > +                       /* ALDO3 is shorted to CLDO1 */
-> > +                       reg_aldo3: aldo3 {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <3300000>;
-> > +                               regulator-max-microvolt =3D <3300000>;
-> > +                               regulator-name =3D "vcc33-io-pd-emmc-sd=
--usb-uart-1";
-> > +                       };
-> > +
-> > +                       reg_bldo1: bldo1 {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <1800000>;
-> > +                               regulator-max-microvolt =3D <1800000>;
-> > +                               regulator-name =3D "vcc18-dram-bias-pll=
-";
-> > +                       };
-> > +
-> > +                       reg_bldo2: bldo2 {
-> > +                               regulator-min-microvolt =3D <1800000>;
-> > +                               regulator-max-microvolt =3D <1800000>;
-> > +                               regulator-name =3D "vcc-efuse-pcie-hdmi=
--pc";
-> > +                       };
-> > +
-> > +                       reg_bldo3: bldo3 {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <1800000>;
-> > +                               regulator-max-microvolt =3D <1800000>;
-> > +                               regulator-name =3D "vcc-pm-pg-dcxoio-wi=
-fi";
-> > +                       };
-> > +
-> > +                       bldo4 {
-> > +                               /* unused */
-> > +                       };
-> > +
-> > +                       reg_cldo1: cldo1 {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <3300000>;
-> > +                               regulator-max-microvolt =3D <3300000>;
-> > +                               regulator-name =3D "vcc33-io-pd-emmc-sd=
--usb-uart-2";
-> > +                       };
-> > +
-> > +                       cldo2 {
-> > +                               /* unused */
-> > +                       };
-> > +
-> > +                       cldo3 {
-> > +                               /* unused */
-> > +                       };
-> > +
-> > +                       /* DCDCB is polyphased with DCDCA. */
-> > +                       reg_dcdca: dcdca {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <800000>;
-> > +                               regulator-max-microvolt =3D <1160000>;
-> > +                               regulator-ramp-delay =3D <2500>;
-> > +                               regulator-name =3D "vdd-cpu";
-> > +                       };
-> > +
-> > +                       reg_dcdcc: dcdcc {
-> > +                               regulator-enable-ramp-delay =3D <32000>=
-;
-> > +                               regulator-min-microvolt =3D <810000>;
-> > +                               regulator-max-microvolt =3D <1080000>;
-> > +                               regulator-ramp-delay =3D <2500>;
-> > +                               regulator-name =3D "vdd-gpu";
-> > +                       };
-> > +
-> > +                       reg_dcdcd: dcdcd {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <960000>;
-> > +                               regulator-max-microvolt =3D <960000>;
-> > +                               regulator-name =3D "vdd-sys";
-> > +                       };
-> > +
-> > +                       reg_dcdce: dcdce {
-> > +                               regulator-always-on;
-> > +                               regulator-min-microvolt =3D <1200000>;
-> > +                               regulator-max-microvolt =3D <1200000>;
-> > +                               regulator-name =3D "vcc-dram";
-> > +                       };
-> > +
-> > +                       sw {
-> > +                               /* unused */
-> > +                       };
-> > +               };
-> > +       };
-> > +};
-> > +
-> > +&rtc {
-> > +       clocks =3D <&ext_osc32k>;
-> > +};
-> > +
-> > +&uart0 {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&uart0_ph_pins>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&usb2otg {
-> > +       dr_mode =3D "host";
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&usb2phy {
-> > +       usb0_id_det-gpios =3D <&pio 2 15 GPIO_ACTIVE_HIGH>; /* PC15 */
+>   drivers/gpu/drm/amd/display/modules/power/power_psr.c | 9 ++++++---
+>   1 file changed, 6 insertions(+), 3 deletions(-)
 >
-> This isn't connected to anything but a pull-up. And you already specified
-> host mode only above.
-
-Removed usb0_id_det-gpios with /delete-property/ so the common include's
-PC6 setting is removed too. USB0 remains fixed to host mode. The running
-DT confirms the ID GPIO property is absent and dr_mode is host.
-
+> diff --git a/drivers/gpu/drm/amd/display/modules/power/power_psr.c b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+> index 96bb77fff05..7139395b5c0 100644
+> --- a/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+> +++ b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+> @@ -94,9 +94,12 @@ bool mod_power_psr_notify_mode_change(struct mod_power *mod_power,
+>           * The value of DSC slice height is determined in DSC Driver but it does not
+>           * propagated out here, so we need to calculate it as below 'slice_height'.
+>           */
+> -       psr_su_set_dsc_slice_height(dc, link,
+> -                               (struct dc_stream_state *) stream,
+> -                               &psr_config);
+> +       if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1) {
+> +               if (!psr_su_set_dsc_slice_height(dc, link,
+> +                                                (struct dc_stream_state *)stream,
+> +                                                &psr_config))
+> +                       return false;
+> +       }
+>
+>          dc_link_setup_psr(link, stream, &psr_config, &psr_context);
 >
 >
-> ChenYu
->
-> > +       usb0_vbus-supply =3D <&reg_vcc5v>;
-> > +       usb3_vbus-supply =3D <&reg_vcc5v>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&usb3phy {
-> > +       status =3D "okay";
-> > +};
-> >
-> > --
-> > 2.47.3
-> >
-> >
-
-
-Regards,
-Cristian Filipescu
-------------------------------------
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> --
+> 2.56.0
