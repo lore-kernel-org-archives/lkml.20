@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733551;
-	b=pB8FbWSeeohW9zBXfivadGhGnomDEyxnbs7PgYeWcUMkYM/G86mkuWkic/1RZcmVcm9l
-	 vvrJJmbT1Tx4LV+SMXAdyAe98eQG510m35AAUeS1tMBr6k6+fINkvF1AjiJYYAde06lvX
-	 3NLIOIHffpp6aavgc+ZiyncuN2E/tlWi2www3pa8qkhuDjFw5DNgGLIdonXkKIchvBZA4
-	 bkHF+NYTtzoSxbQ6P4B19VTCjPso+En/0pdkxyjxfohxyr2Q3b8UzcBL6ozriVQVGvgrj
-	 Xjwgz6eERYikX679YvrzdFy6uB3j7gFf0Rmh3FYLCk10Drn/4UCbo5cmgrqsZxsyeaQ==
+	t=1794733552;
+	b=hWMxJ6o+spzsl64ea/18aJ2cfPfhuF+dz4EoycJOIUh17kjYI+nVpLuvTvGMQbDGAYqV
+	 63r1tp2f0J+IPDhQLl88THWnlZKg0hZ8HYJo2xtgy5vjXWNXNsylJtP1n4ibC9/fYbu0i
+	 rEONhI+f7yPfzk8klo00dqd+CXgfBD+eyHp1x/ah80I2imGWtz4/8VUYEVtW8k1+WoLe+
+	 N6kYFswpDIxDtVYG2sQ+2UhBpY9QCANkQ0/W9cafkRRtdKovf/NVmedlJjcYY8d9ObqQv
+	 JkR1+tCd0MAPFVUbe1Ksq6hYZh0bjTpgu+DMkQUV56OYgrsm3Kb+sVWuQScDBDD+7Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733552;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=Zf72ZQ+w95POj6DWynx7TH8s1lmsxub+ZoagEDrITyE=;
-	b=XoZvXearzvXbBNo2jqRURx1qaSZWtK7iZ/qXlhsww0uj14eOWktIcr2KcrQf0N9EY+jo
-	 Jn5rpgW4M3/J+MlyQZmeTuGYuUfH/UQSSw7U+ac3c2E1KHVWpd69eXUuII3GM6kuTYSSE
-	 bZ0++bRdfDZc0rUk3eYuAYu/gGJhhaFRmsTq+DA5WA3usIypkLxNZvRqPY8bgZOYIgief
-	 nLOxzsflrrg/zMVeN0LqqFQ5FZf8nJwPhReScbp9FR1WEoVVVw7g3F71O+pzBWnWzD8x8
-	 1YvMriVai/TtPz1kZvXgql0wxeOZycHUgTYKwUwrf1kqaCVf/wp877Goz48j25ToRkQ==
+	bh=TKt998PVRVHncZl+m90gE7o67vZ5t7x6XEqDnaaR7Xg=;
+	b=h4mUdfqvMpKm4qHLGcCXRGov+hY86Qw+6/nW+CQ+FzeStKCEcnR13gsJllxTM95EM9SE
+	 c4LxwoXEMLaoEZZaLTXTN50zN/jI4Yam3sGExdYZd49i7tHeMurwQac73bM6nxrKYe4fi
+	 Y/p/+Bdv7EH7kaKsMtOm/6MhZXOq2fAEoKho6r3Qzg9aNK6xAQGcJK9ri8anH4BA8IS3T
+	 GcxicGRKI8L+74UA2pyg0XCUn2XVyQebsElc/gP4kVC6lp/4MfGrmBb25UQrINzpSr0r0
+	 ZziKV6oTXEkU/QeO/cHjIJayByJ8IRfpEOwiea2JdzK9TITysVxCEZmUJ6Qdi49XNkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHSLhI7q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ocOCCOnh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644EA606A33A;
-	Sun, 15 Nov 2026 09:05:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A59606A339;
+	Sun, 15 Nov 2026 09:05:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHSLhI7q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495541F000CB;
-	Sun, 15 Nov 2026 09:05:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ocOCCOnh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D53F1F000C4;
+	Sun, 15 Nov 2026 09:05:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794733551;
-	bh=Zf72ZQ+w95POj6DWynx7TH8s1lmsxub+ZoagEDrITyE=;
+	s=k20260515; t=1794733552;
+	bh=TKt998PVRVHncZl+m90gE7o67vZ5t7x6XEqDnaaR7Xg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MHSLhI7qPjvmgcPZxdLZqoGGBzZ9zwoErz0k+Kuf/0Entg5KUdIMulTx8CAkArbJ9
-	 ZHPU0ca84ZNTAxWmwLk8OjCZnXvddkmziGrzvn/jKO3fkJ/7ZGxW61mVTWTXW2SyMT
-	 E662tF5kYn/7ctAuCG/ciB0Raal+0LLBVIMWHkX5P2Co3PzIFqARIT7CO2Ksb0VwtB
-	 GUxcRpzxmj68bvwx5thg/Wrwkd3qFCO4MXTH55tTUIPwcRTwLNLrL7PTLQ1jPuQ4sL
-	 6qjFAXDMc4w/pEJMuk113KNkrDGBnknz5lUuDS8q2L/Htjy84VShqPCo8MX/rn0meA
-	 6DsplvJ4Jlc6g==
-Subject:
- Re: [PATCH net-next v2 1/2] net: phy: realtek: add PTP clock for RTL8127a
+	b=ocOCCOnhdZ7vm6x0ecBZtDleYrZhtoDLV5ri6qJFXop5gbe/6LYqEFKOi5hZfBCmz
+	 cpB4PTprwtBtlt+2kpR3MR7LLagt377as1O0z0Kg2JXdm8O+9E2soel2Kp8CLhZnju
+	 gVZuhyLlYeCUj9QPkHvVnel6z7loQ6gsDRGGx9/5nPt9zL1c9ZQYbM7ZIyDKKl94Ox
+	 iHuayAGnucv97oR7cJhE4QidQ6E2iQhaQ4SQGq60K2VH5bHVxTcKsi6svRFSbkSI6I
+	 6g4weI+0LRnhWzURPd+RDDyEW3UvHtnu7IxyMsorkmEcln2SN5zNa9Ckr9PtgZqnBU
+	 Lu5TSAtk7BHtw==
+Subject: Re: [PATCH net-next v2 2/2] net: phy: realtek: add hardware
+ timestamping for RTL8127a
 From: netdev-bot+sashiko@kernel.org
 To: javen_xu@realsil.com.cn
 Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
@@ -49,11 +49,11 @@ Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
  freddy_gu@realsil.com.cn, nb@tipi-net.de, maxime.chevallier@bootlin.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, daniel@makrotopia.org,
  vladimir.oltean@nxp.com
-Date: Sun, 15 Nov 2026 09:05:49 +0000
-Message-ID: <179473354983.2199510.8206567516875465231@kernel.org>
-In-Reply-To: <20261111083807.1529-2-javen_xu@realsil.com.cn>
-References: <20261111083807.1529-2-javen_xu@realsil.com.cn>
-X-sashiko-severity: Medium
+Date: Sun, 15 Nov 2026 09:05:51 +0000
+Message-ID: <179473355118.2199510.17549901451639410191@kernel.org>
+In-Reply-To: <20261111083807.1529-3-javen_xu@realsil.com.cn>
+References: <20261111083807.1529-3-javen_xu@realsil.com.cn>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,10 +66,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential
+Thank you for your contribution! Sashiko AI review found 12 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 2
+Critical: 0 · High: 3 · Medium: 7 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,298 +77,548 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] rtl8127a_ptp_remove()
-  (drivers/net/phy/realtek/realtek_ptp.c:365-374) unregisters the clock…
-- [Medium] The patch adds a PHC whose callbacks
-  (gettimex64/settime64/adjtime/adjfine) can reach the PHY's GPHY_OCP…
-- [Medium] The PHC is registered at PHY probe and stays reachable from
-  userspace for the whole binding.
-- [Medium] The PHC is seeded in .config_init, which runs from
-  phy_init_hw() before the rest of r8169's PHY bring-up.
-- [Low] rtl8127a_ptp_hwtstamp_enable() ends with
-  `rtl8127a_ptp_modify(ptp, 0xa640, 0, BIT(15))` (realtek_ptp.c:216),…
-- [Low] In rtl8127a_ptp_gettimex64() (realtek_ptp.c:290-293),
-  ptp_read_system_prets() and ptp_read_system_postts() bracket the whole…
+- [High] rtl8127a_ptp_txtstamp()
+  (drivers/net/phy/realtek/realtek_ptp.c:508-526) hands the driver's…
+- [High] rtl8127a_ptp_remove() (lines 702-719) clears phydev->mii_ts with
+  a plain store and immediately tears down: ptp_clock_unregister()…
+- [High] rtl8127a_ptp_rxtstamp() (lines 528-553) takes ownership of every
+  received PTP event packet and queues it on ptp->rx_queue with…
+- [Medium] While a TX timestamp is pending, rtl8127a_ptp_do_aux_work()
+  (line 494) returns 0.
+- [Medium] rtl8127a_ptp_config_init() (lines 645-659) runs on every
+  phy_init_hw(), for example from rtl8169_init_phy()…
+- [Medium] rtl8127a_ptp_egress_time() (lines 229-265) treats a failed or
+  ambiguous TX-ready poll as if a Sync timestamp were ready.
+- [Medium] rtl8127a_ptp_hwtstamp_set() stores the new state
+  (`WRITE_ONCE(ptp->tx_type, ...)` and `ptp->rx_filter = ...`) before…
+- [Medium] RX timestamps are read late from what the register interface
+  shows as one capture per message type (TRX_TS_STA SEL_RX + MSGTYPE ->…
+- [Medium] rtl8127a_ptp_hwtstamp_set() reprograms the hardware without
+  coordinating with an in-flight TX timestamp.
+- [Medium] The driver tracks a single TX timestamp in software, but the
+  PHY timestamps every outgoing event message, and nothing ties the…
+- [Low] The patch changes REALTEK_PHY_PTP to `depends on PTP_1588_CLOCK
+  && NETWORK_PHY_TIMESTAMPING` (drivers/net/phy/realtek/Kconfig:19).
+- [Low] rtl8127a_ptp_ts_info() (lines 622-643) advertises rx_filters
+  NONE, PTP_V2_EVENT, PTP_V2_L4_EVENT, PTP_V2_SYNC, PTP_V2_L4_SYNC,…
 
 --
 
-net: phy: realtek: add PTP clock for RTL8127a
+net: phy: realtek: add hardware timestamping for RTL8127a
 
-This patch registers a PTP hardware clock for the internal PHY of RTL8127A
-(RTL8261C, PHY ID 0x001cc890). The PHY's free-running clock is read, set,
-stepped and frequency-adjusted through vendor MMD registers, and a driver
-mutex serializes multi-register sequences. The clock is seeded from system
-time in config_init each time the PHY is initialized.
+This commit adds mii_timestamper support to the RTL8127A internal PHY so
+that the PHY hardware timestamps PTPv2 event messages. The PTP aux worker
+reads both TX and RX timestamps over MDIO. Only one TX timestamp can be
+pending at a time, and it is dropped after 15 seconds.
+
+> diff --git a/drivers/net/phy/realtek/Kconfig b/drivers/net/phy/realtek/Kconfig
+> index 93a8fb552834f..ab375c42a7f22 100644
+> --- a/drivers/net/phy/realtek/Kconfig
+> +++ b/drivers/net/phy/realtek/Kconfig
+> @@ -16,12 +16,12 @@ config REALTEK_PHY_HWMON
+>  config REALTEK_PHY_PTP
+>  	bool "PTP support for Realtek PHYs"
+>  	default y
+> -	depends on PTP_1588_CLOCK
+> +	depends on PTP_1588_CLOCK && NETWORK_PHY_TIMESTAMPING
+
+[Severity: Low]
+Does this remove the existing PHC support on configs that don't enable
+NETWORK_PHY_TIMESTAMPING?
+
+NETWORK_PHY_TIMESTAMPING in net/Kconfig is a bool with no default. Its
+help text says "If you are unsure how to answer this question, answer N."
+
+Take an existing .config with PTP_1588_CLOCK=y but no
+NETWORK_PHY_TIMESTAMPING. olddefconfig will now silently set
+REALTEK_PHY_PTP=n, and the RTL8127A PHC goes away even though it only
+needed PTP_1588_CLOCK before.
+
+Only the mii_timestamper part seems to need PHY timestamping. Could that
+part be made conditional instead? If not, could the commit message
+mention that the PHC now needs this option?
+
+[ ... ]
 
 > diff --git a/drivers/net/phy/realtek/realtek_ptp.c b/drivers/net/phy/realtek/realtek_ptp.c
-> new file mode 100644
-> index 0000000000000..bd5c0d6988dae
-> --- /dev/null
+> index bd5c0d6988dae..5e02707620064 100644
+> --- a/drivers/net/phy/realtek/realtek_ptp.c
 > +++ b/drivers/net/phy/realtek/realtek_ptp.c
-> @@ -0,0 +1,374 @@
 
 [ ... ]
 
-> +static int rtl8127a_ptp_read(struct rtl8127a_ptp *ptp, u16 reg)
+> @@ -171,6 +206,64 @@ static int rtl8127a_ptp_write_time(struct rtl8127a_ptp *ptp,
+
+[ ... ]
+
+> +static int rtl8127a_ptp_trx_ts_cmd(struct rtl8127a_ptp *ptp, u16 cmd)
 > +{
-> +	return phy_read_mmd(ptp->phydev, MDIO_MMD_VEND2, reg);
-> +}
+> +	int ret;
 > +
-> +static int rtl8127a_ptp_write(struct rtl8127a_ptp *ptp, u16 reg, u16 val)
+> +	ret = rtl8127a_ptp_modify(ptp, RTL8127A_PTP_TRX_TS_STA,
+> +				  RTL8127A_PTP_TRX_TS_SEL_RX |
+> +				  RTL8127A_PTP_TRX_TS_MSGTYPE,
+> +				  RTL8127A_PTP_TRX_TS_RD | cmd);
+
+[ ... ]
+
+> +static int rtl8127a_ptp_egress_time(struct rtl8127a_ptp *ptp,
+> +				    struct timespec64 *ts)
 > +{
-> +	return phy_write_mmd(ptp->phydev, MDIO_MMD_VEND2, reg, val);
-> +}
+
+[ ... ]
+
+> +	val = rtl8127a_ptp_poll(ptp, RTL8127A_PTP_TRX_TS_STA,
+> +				RTL8127A_PTP_TX_RDY, true);
+> +	if (val < 0)
+> +		val = 0;
+> +
+> +	switch (val & RTL8127A_PTP_TX_RDY) {
+
+[ ... ]
+
+> +	case RTL8127A_PTP_TX_SYNC_RDY:
+> +	default:
+> +		msgtype = PTP_MSGTYPE_SYNC;
+> +		break;
+> +	}
 
 [Severity: Medium]
-Do these accesses need more than the MDIO bus lock to stay serialized
-against r8169? The PTP accessors end up on the MAC's GPHY_OCP register:
+What happens here when the poll fails, or when more than one ready bit is
+set?
 
-phy_read_mmd()
-  rtl822x_read_mmd()
-    rtlgen_read_mmd()
-      rtlgen_read_vend2()
-        __mdiobus_c45_read()
-          r8169_mdio_read_reg_c45()
-            r8168_phy_ocp_read()
+If rtl8127a_ptp_poll() gets an MDIO error or times out after 1 ms, val
+becomes 0. If several of bits 12-15 are set, none of the single-bit cases
+match. Either way the code takes the default branch, latches the Sync
+capture, and rtl8127a_ptp_egress_time() returns 0.
 
-r8169 loads the RTL8127A PHY firmware through the same register, and that
-path does not take the MDIO bus lock:
+rtl8127a_ptp_tx_tstamp() then hands that value to
+skb_complete_tx_timestamp() as a valid hardware timestamp, whatever the
+pending skb's real message type is. For example, a Delay_Req could get
+an earlier, unrelated Sync's egress time.
 
-rtl8169_up()
-  rtl8169_init_phy()
-    r8169_hw_phy_config()
-      rtl8127a_1_hw_phy_config()
-        r8169_apply_firmware()
-          rtl_fw_write_firmware()
-            rtl_writephy()
-              r8168g_mdio_write()
-                r8168_phy_ocp_write()
-                  RTL_W32(tp, GPHY_OCP, OCPAR_FLAG | (reg << 15) | data);
+More than one ready bit can be set because the hardware still
+timestamps frames whose clones were dropped while the slot was busy.
+Should the poll failure and the ambiguous case return an error instead?
+The pending skb's msgtype is also never recorded, so there is nothing to
+compare against.
 
-/dev/ptpN exists from PHY probe onward. A gettimex64, settime64, adjtime
-or adjfine call could arrive from phc2sys or a chrony PHC refclock during
-interface open, the reset worker, or runtime/system resume. Its GPHY_OCP
-transactions could then interleave with the firmware patch writes.
-
-Could that lose or redirect a firmware write, or hand the other
-transaction's data back to the PTP code?
-
-The unlocked firmware loader in r8169 predates this patch. This patch adds
-a path that userspace polls continuously.
+Also, rtl8127a_ptp_trx_ts_cmd() does a read-modify-write of TRX_TS_STA.
+That writes the TX_*_RDY status bits back along with the command bits.
+If those bits are write-1-to-clear, could an RX latch clear a fresh TX
+ready bit?
 
 [ ... ]
 
-> +static int rtl8127a_ptp_hwtstamp_enable(struct rtl8127a_ptp *ptp, bool enable)
+> @@ -306,6 +399,101 @@ static int rtl8127a_ptp_settime64(struct ptp_clock_info *info,
+
+[ ... ]
+
+> +/* Returns true if no TX timestamp is pending anymore */
+> +static bool rtl8127a_ptp_tx_tstamp(struct rtl8127a_ptp *ptp)
 > +{
 
 [ ... ]
 
-> +	if (ret)
-> +		goto out;
+> +	if (time_is_before_jiffies(ptp->tx_start + RTL8127A_PTP_TX_TIMEOUT)) {
+> +		rtl8127a_ptp_write(ptp, RTL8127A_PTP_INSR,
+> +				   RTL8127A_PTP_INT_TX_TS);
+> +		mutex_unlock(&ptp->lock);
 > +
-> +	ret = rtl8127a_ptp_modify(ptp, 0xa640, 0, BIT(15));
+> +		rtl8127a_ptp_tx_complete(ptp, NULL);
+> +		return true;
+> +	}
+> +
+> +	ret = rtl8127a_ptp_read(ptp, RTL8127A_PTP_INSR);
+> +	if (ret < 0 || !(ret & RTL8127A_PTP_INT_TX_TS)) {
+> +		mutex_unlock(&ptp->lock);
+> +		return false;
+> +	}
+> +
+> +	ret = rtl8127a_ptp_write(ptp, RTL8127A_PTP_INSR,
+> +				 RTL8127A_PTP_INT_TX_TS);
+> +	if (!ret)
+> +		ret = rtl8127a_ptp_egress_time(ptp, &ts);
 
-[Severity: Low]
-This isn't a bug, but what does BIT(15) of 0xa640 control? The register is
-outside the 0xe4xx PTP block and has no define or comment.
+[Severity: Medium]
+How is the TX_TS event tied to the skb in ptp->tx_skb?
 
-Both the enable and the disable branch reach this write. Probe and remove
-only call rtl8127a_ptp_hwtstamp_enable(ptp, false), but they still set the
-bit, and nothing ever clears it.
+The driver tracks one TX timestamp in software, but the PHY timestamps
+every outgoing event message. When the slot is busy,
+rtl8127a_ptp_txtstamp() frees the clone. The original frame is still
+sent and timestamped, which sets its TX_*_RDY bit and INSR TX_TS.
 
-If the bit turns on some PHY-core timestamping function, does it stay on
-after disable, remove() and driver unbind? The later hardware timestamping
-patch in the series keeps the same unconditional write.
+Suppose an untracked frame raises TX_TS after the INSR clear above. The
+next armed skb can see TX_TS on the worker's first pass, possibly before
+its own frame has left the MAC, and get the untracked frame's timestamp.
 
-> +out:
-> +	mutex_unlock(&ptp->lock);
+An untracked frame of the same type can also overwrite the per-type
+capture before the pending skb is latched. One of a different type
+leaves a stale ready bit, which later sends rtl8127a_ptp_egress_time()
+into the SYNC fallback.
+
+The timeout path clears only INSR TX_TS, not the latched ready bits.
+Nothing clears stale TX_TS or ready state when rtl8127a_ptp_txtstamp()
+arms a new skb, and the skb's msgtype and sequenceId are never recorded
+or compared.
+
+Can this attach TX timestamps to the wrong packet when two event
+messages go out close together? Examples are multiple PTP instances,
+overlapping P2P Pdelay_Req/Resp, or ptp4l moving on after its
+tx_timestamp_timeout.
 
 [ ... ]
 
-> +static int rtl8127a_ptp_gettimex64(struct ptp_clock_info *info,
-> +				   struct timespec64 *ts,
-> +				   struct ptp_system_timestamp *sts)
+> +static void rtl8127a_ptp_rx_tstamp(struct rtl8127a_ptp *ptp,
+> +				   struct sk_buff *skb)
+> +{
+
+[ ... ]
+
+> +	mutex_lock(&ptp->lock);
+> +	ret = rtl8127a_ptp_trx_ts_cmd(ptp, RTL8127A_PTP_TRX_TS_SEL_RX |
+> +					   FIELD_PREP(RTL8127A_PTP_TRX_TS_MSGTYPE,
+> +						      msgtype) |
+> +					   RTL8127A_PTP_TRX_TS_EXEC);
+> +	if (!ret)
+> +		ret = rtl8127a_ptp_read_time(ptp, RTL8127A_PTP_TRX_TS_TIME,
+> +					     &ts);
+> +	mutex_unlock(&ptp->lock);
+> +
+> +	if (!ret)
+> +		skb_hwtstamps(skb)->hwtstamp = timespec64_to_ktime(ts);
+
+[Severity: Medium]
+Can this give the skb another packet's ingress time?
+
+The register interface appears to hold one RX capture per message type,
+and the aux worker reads it here some time after the frame arrived. The
+code does not check INSR RX_TS or any valid flag. It does not compare the
+sequenceId, and it does not acknowledge RX_TS, even though
+rtl8127a_ptp_hwtstamp_enable() unmasks it in INER.
+
+If two event messages of the same type arrive before the worker handles
+the first one, the first skb gets the second packet's time. A frame the
+hardware did not capture gets a stale value, which is still reported as
+a valid hardware timestamp.
+
+rtl8127a_ptp_rxtstamp() also does not reject PTPv1 frames. For v1,
+ptp_get_msgtype() returns the control field, so v1 frames with control
+<= 3 are queued and latched against the v2 per-type captures.
+
+Anyone who can send event messages to UDP port 319 can trigger this.
+Could a remote sender make ptp4l's genuine Sync or Delay_Req carry the
+arrival time of the sender's own packet?
+
+I could not confirm whether the hardware keeps one register per type or
+a FIFO.
+
+> +
+> +	netif_rx(skb);
+> +}
+> +
+> +static long rtl8127a_ptp_do_aux_work(struct ptp_clock_info *info)
 > +{
 > +	struct rtl8127a_ptp *ptp = container_of(info, struct rtl8127a_ptp, info);
-> +	int ret;
+> +	struct sk_buff *skb;
 > +
-> +	mutex_lock(&ptp->lock);
-> +	ptp_read_system_prets(sts);
-> +	ret = rtl8127a_ptp_clkadj(ptp, RTL8127A_PTP_DIRECT_READ);
-> +	ptp_read_system_postts(sts);
+> +	while ((skb = skb_dequeue(&ptp->rx_queue)))
+> +		rtl8127a_ptp_rx_tstamp(ptp, skb);
+> +
+> +	/* Keep polling until the pending TX timestamp is available */
+> +	return rtl8127a_ptp_tx_tstamp(ptp) ? -1 : 0;
+> +}
+
+[Severity: Medium]
+Does returning 0 here make the aux worker busy-poll MDIO?
+
+ptp_aux_kworker() requeues the work with the returned delay:
+
+drivers/ptp/ptp_clock.c:ptp_aux_kworker() {
+    ...
+	delay = info->do_aux_work(info);
+
+	if (delay >= 0)
+		kthread_queue_delayed_work(ptp->kworker, &ptp->aux_work, delay);
+}
+
+So while a TX timestamp is pending, the worker runs again immediately.
+Each pass takes ptp->lock and reads RTL8127A_PTP_INSR over MDIO. That
+competes with phylib, and with gettimex64/adjfine/adjtime calls from
+phc2sys and ptp4l.
+
+TX_TS may never arrive: the frame was dropped, the link is down, the
+packet was not an event message, timestamping was disabled, or
+rtl8127a_ptp_hwtstamp_enable() cleared INSR. In that case the polling
+lasts the full 15 second RTL8127A_PTP_TX_TIMEOUT, and every other TX
+timestamp request is dropped in the meantime.
+
+Would a non-zero delay be more appropriate here? The commit message only
+says:
+
+    A pending TX timestamp is dropped after 15 seconds.
+
+It does not mention the busy polling, or that TX timestamping is blocked
+during that time.
+
+[ ... ]
+
+> @@ -314,8 +502,146 @@ static const struct ptp_clock_info rtl8127a_ptp_info = {
+
+[ ... ]
+
+> +static void rtl8127a_ptp_txtstamp(struct mii_timestamper *mii_ts,
+> +				  struct sk_buff *skb, int type)
+> +{
+> +	struct rtl8127a_ptp *ptp = container_of(mii_ts, struct rtl8127a_ptp,
+> +						mii_ts);
+> +
+> +	/* Only one TX timestamp can be pending at a time */
+> +	if (READ_ONCE(ptp->tx_type) != HWTSTAMP_TX_ON ||
+> +	    test_and_set_bit_lock(RTL8127A_PTP_TX_IN_PROGRESS, &ptp->state)) {
+> +		kfree_skb(skb);
+> +		return;
+> +	}
+
+[Severity: High]
+Can an unprivileged sender take the only TX timestamp slot here?
+
+skb_clone_tx_timestamp() calls ->txtstamp() for every socket-owned skb
+the core classifies as PTP, whether or not a hardware timestamp was
+requested. The classifier accepts any UDP datagram to destination port
+319 regardless of messageType, and any L2 0x88F7 frame without the
+general bit.
+
+This check does not parse the PTP header and does not reject non-event
+message types, which rtl8127a_ptp_rxtstamp() does on the RX side. It
+also does not check the PTP version or SKBTX_HW_TSTAMP.
+
+So while ptp4l runs with HWTSTAMP_TX_ON, an unprivileged local user can
+send a UDP/319 datagram with a non-event messageType:
+
+  sendto() to UDP dport 319
+    rtl8169_start_xmit()
+      skb_tx_timestamp()
+        skb_clone_tx_timestamp()
+          rtl8127a_ptp_txtstamp()   <- takes the slot
+
+The hardware does not timestamp that datagram. Every ptp4l Sync or
+Delay_Req clone sent afterwards fails test_and_set_bit_lock() and is
+freed.
+
+The hardware still timestamps ptp4l's frame and raises INSR TX_TS.
+rtl8127a_ptp_tx_tstamp() then attaches that egress time to the other
+user's skb and queues it on that socket's error queue.
+
+If no later event message is sent, the slot stays held for the full 15
+second timeout while the aux worker polls MDIO. Should this path check
+SKBTX_HW_TSTAMP and filter with ptp_parse_header() and
+ptp_get_msgtype(), as the RX side does?
+
+[ ... ]
+
+> +	/* Only event messages are timestamped by the hardware */
+> +	msgtype = ptp_get_msgtype(hdr, type);
+> +	if (msgtype > PTP_MSGTYPE_PDELAY_RESP)
+> +		return false;
+> +
+> +	RTL8127A_PTP_SKB_CB(skb)->msgtype = msgtype;
+> +	skb_queue_tail(&ptp->rx_queue, skb);
+> +	ptp_schedule_worker(ptp->clock, 0);
+
+[Severity: High]
+Is anything limiting the length of ptp->rx_queue?
+
+skb_defer_rx_timestamp() runs in the RX softirq for any frame the
+classifier marks as PTP, from any sender: a UDP datagram to port 319 or
+a non-general L2 0x88F7 frame. Every event message is queued here with
+no length cap, drop policy or expiry.
+
+The only consumer is rtl8127a_ptp_do_aux_work(). It handles one skb at a
+time under ptp->lock: a read-modify-write of TRX_TS_STA, a poll with a
+timeout of up to 1 ms, and five time register reads. Each of these goes
+through r8169's OCP accessors.
+
+While queued, these skbs bypass netdev_max_backlog and socket memory
+accounting. Could a remote host flooding UDP/319 over a 10GbE link make
+this queue grow without bound, so that the worker's while loop never
+exits?
+
+[ ... ]
+
+> +	if (ptp->tx_type != config->tx_type ||
+> +	    ptp->rx_filter != config->rx_filter) {
+> +		WRITE_ONCE(ptp->tx_type, config->tx_type);
+> +		ptp->rx_filter = config->rx_filter;
+> +		ret = rtl8127a_ptp_hwtstamp_enable(ptp, enable);
+> +	}
+> +	WRITE_ONCE(ptp->rx_enabled, rx_enabled);
+
+[Severity: Medium]
+What happens to the cached state if rtl8127a_ptp_hwtstamp_enable()
+fails?
+
+tx_type and rx_filter are updated before the hardware is programmed.
+rx_enabled is updated whatever the return value is.
+
+rtl8127a_ptp_hwtstamp_enable() is a series of separate MDIO
+read-modify-writes (SYNCE_CTL, INER, GEN_CFG, INSR, CTL, 0xa640) with no
+rollback. An -ETIMEDOUT partway through can leave the block half
+configured, for example with INER unmasked but CTL not enabled.
+
+After such an error:
+
+- rtl8127a_ptp_txtstamp() sees HWTSTAMP_TX_ON and arms TX timestamps
+  that never arrive.
+- rtl8127a_ptp_rxtstamp() sees rx_enabled and attaches stale captures.
+- rtl8127a_ptp_hwtstamp_get() reports a configuration the hardware is
+  not running.
+
+A retry with the same configuration then matches the cached state,
+skips the reprogramming and returns 0. Should the new state be stored
+only after the hardware has been programmed successfully?
+
+[Severity: Medium]
+Is a pending TX timestamp handled during this reconfiguration?
+
+Any filter change while TX is on calls rtl8127a_ptp_hwtstamp_enable(ptp,
+true), which does:
+
+	ret = rtl8127a_ptp_write(ptp, RTL8127A_PTP_INSR, 0xffff);
+
+That clears a TX_TS event latched for ptp->tx_skb before the aux worker
+reads it.
+
+tx_type is also set to HWTSTAMP_TX_ON before the hardware is enabled. A
+concurrent rtl8127a_ptp_txtstamp() can therefore arm the slot for a
+frame that goes out before PTP is enabled.
+
+Switching TX off does not cancel a pending tx_skb either. That includes
+one armed by an rtl8127a_ptp_txtstamp() call that read the old tx_type.
+
+In each case RTL8127A_PTP_TX_IN_PROGRESS stays set until the 15 second
+timeout. Every new TX timestamp request is freed during that time, and
+rtl8127a_ptp_do_aux_work() keeps polling INSR under ptp->lock.
+
+[ ... ]
+
+> +	info->rx_filters = BIT(HWTSTAMP_FILTER_NONE) |
+> +			   BIT(HWTSTAMP_FILTER_PTP_V2_EVENT) |
+> +			   BIT(HWTSTAMP_FILTER_PTP_V2_L4_EVENT) |
+> +			   BIT(HWTSTAMP_FILTER_PTP_V2_SYNC) |
+> +			   BIT(HWTSTAMP_FILTER_PTP_V2_L4_SYNC) |
+> +			   BIT(HWTSTAMP_FILTER_PTP_V2_DELAY_REQ) |
+> +			   BIT(HWTSTAMP_FILTER_PTP_V2_L4_DELAY_REQ);
 
 [Severity: Low]
-Should prets/postts surround only the EXEC write that latches the counter?
-rtl8127a_ptp_clkadj() first does an MDIO read of CLK_CFG inside
-rtl8127a_ptp_modify(), then the EXEC write, then a read_poll_timeout()
-(1us sleep, 1ms timeout) until EXEC clears.
+Should the L2 filters be listed here too?
 
-All of that falls inside the system-time window. The window is wider than
-it needs to be, and its midpoint is shifted away from the actual latch
-point.
+rtl8127a_ptp_hwtstamp_set() accepts HWTSTAMP_FILTER_PTP_V2_L2_EVENT,
+HWTSTAMP_FILTER_PTP_V2_L2_SYNC and HWTSTAMP_FILTER_PTP_V2_L2_DELAY_REQ,
+and rtl8127a_ptp_rxtstamp() handles PTP_CLASS_L2 frames. ethtool -T and
+the tsinfo netlink reply will not report the L2 filters as supported.
 
-Taking prets just before the EXEC write and postts just after it, then
-polling, would avoid this.
-
-> +	if (!ret)
-> +		ret = rtl8127a_ptp_read_time(ptp, RTL8127A_PTP_CFG_TIME, ts);
-> +	mutex_unlock(&ptp->lock);
-
-[ ... ]
-
-> +int rtl8127a_ptp_config_init(struct phy_device *phydev)
-> +{
-> +	struct rtl8127a_ptp *ptp = phydev->priv;
-> +	struct timespec64 ts;
-> +
-> +	if (!ptp)
-> +		return 0;
-> +
-> +	/* (Re)start the clock from the system time whenever the PHY is
-> +	 * (re)initialized, e.g. each time the MAC driver brings it up.
-> +	 */
-> +	ktime_get_real_ts64(&ts);
-> +
-> +	return rtl8127a_ptp_settime(ptp, &ts);
-
-[Severity: Medium]
-Does the time written here survive the rest of the r8169 PHY bring-up?
-config_init runs from phy_init_hw(), before the firmware load and the soft
-reset:
-
-drivers/net/ethernet/realtek/r8169_main.c:rtl8169_init_phy() {
-	phy_init_hw(tp->phydev);
-	phy_resume(tp->phydev);
-	r8169_hw_phy_config(tp, tp->phydev, tp->mac_version);
-	...
-	genphy_soft_reset(tp->phydev);
-}
-
-rtl8127a_1_hw_phy_config() starts with r8169_apply_firmware(), which loads
-the PHY MCU patch and polls for BMCR_RESET. It then writes a number of PHY
-parameters.
-
-If the firmware load or the BMCR soft reset resets the PTP block, the
-commit message would no longer hold:
-
-  "The clock is started from the system time each time the PHY is
-  initialized."
-
-The probe-time programming in rtl8127a_ptp_hwtstamp_enable() (SYNCE_CTL,
-INER, CTL, 0xa640) would be lost as well.
-
-With the later hardware timestamping patch, the PTP_CTL/INER/GEN_CFG setup
-written by rtl8127a_ptp_hwtstamp_set() is never re-applied after
-rtl8169_up() either (open, reset worker, resume). hwtstamp_set() only calls
-rtl8127a_ptp_hwtstamp_enable() when tx_type or rx_filter change, so
-re-issuing the same configuration would not restore it.
-
-Could hardware timestamping then stop silently after a MAC reset or
-resume? The code alone doesn't show whether these registers are actually
-cleared; that depends on the hardware.
-
-> +}
-> +
-> +int rtl8127a_ptp_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct rtl8127a_ptp *ptp;
-> +	int ret;
-> +
-> +	ptp = devm_kzalloc(dev, sizeof(*ptp), GFP_KERNEL);
-> +	if (!ptp)
-> +		return -ENOMEM;
-
-[ ... ]
-
-> +	ptp->clock = ptp_clock_register(&ptp->info, dev);
-> +	if (IS_ERR(ptp->clock))
-> +		return PTR_ERR(ptp->clock);
-
-[Severity: Medium]
-What happens to PHC users while the r8169 PCI function is
-runtime-suspended? The clock stays registered for the whole PHY binding.
-r8169 schedules a runtime suspend 10s after the interface goes down or
-loses carrier:
-
-drivers/net/ethernet/realtek/r8169_main.c:rtl8169_runtime_idle() {
-	...
-	if (!netif_running(tp->dev) || !netif_carrier_ok(tp->dev))
-		pm_schedule_suspend(device, 10000);
-	...
-}
-
-In D3hot, r8168_phy_ocp_read() returns 0xffff. r8168_phy_ocp_write() times
-out and logs a rtl_loop_wait error, but r8169_mdio_write_reg_c45() still
-returns 0.
-
-Every PHC operation (clock_gettime, settime, adjtime, adjfine, and
-PTP_SYS_OFFSET_EXTENDED with up to 25 samples) would then send MMIO to a
-suspended device. It would busy-wait through the write timeouts and the
-1ms EXEC poll and then fail with -ETIMEDOUT.
-
-Other userspace-reachable r8169 paths guard against this: the LED ops use
-pm_runtime_resume_and_get() and get_stats64 checks pm_runtime_active().
-This PHY-side path has no such guard.
-
-When the link comes back, the resume path re-seeds the clock:
-
-rtl8169_runtime_resume()
-  rtl8169_up()
-    rtl8169_init_phy()
-      phy_init_hw()
-        rtl8127a_ptp_config_init()
-
-That steps the PHC to CLOCK_REALTIME. A ptp4l/phc2sys session would see
-errors while the cable is unplugged and then a clock jump. This is still
-the case at the end of the series.
-
-> +
-> +	phydev->priv = ptp;
 > +
 > +	return 0;
 > +}
 > +
-> +void rtl8127a_ptp_remove(struct phy_device *phydev)
-> +{
-> +	struct rtl8127a_ptp *ptp = phydev->priv;
-> +
-> +	if (!ptp)
-> +		return;
-> +
-> +	rtl8127a_ptp_hwtstamp_enable(ptp, false);
-> +	ptp_clock_unregister(ptp->clock);
-> +}
+>  int rtl8127a_ptp_config_init(struct phy_device *phydev)
+>  {
+>  	struct rtl8127a_ptp *ptp = phydev->priv;
 
 [Severity: Medium]
-Should phydev->priv be cleared here? rtl8127a_ptp_probe() allocates ptp
-with devm_kzalloc() on &phydev->mdio.dev. Devres frees it right after
-remove() returns, but phydev->priv still points at it.
+Should rtl8127a_ptp_config_init() also restore the timestamping
+configuration?
 
-rtl8127a_ptp_config_init() and rtl8127a_ptp_remove() treat any non-NULL
-priv as a live object. Consider this sequence:
+It runs on every phy_init_hw(), for example from rtl8169_init_phy() on
+open, reset and resume, but it only steps the clock again:
 
-  - the realtek PHY driver is unbound through sysfs while r8169 stays
-    attached
-  - it is rebound, and the probe fails before phydev->priv = ptp
-    (devm_kzalloc() failure, an MDIO timeout in
-    rtl8127a_ptp_hwtstamp_enable(), a ptp_clock_register() failure, or a
-    hwmon init failure in rtl822x_probe())
+drivers/net/phy/realtek/realtek_ptp.c:rtl8127a_ptp_config_init() {
+    ...
+	/* (Re)start the clock from the system time whenever the PHY is
+	 * (re)initialized, e.g. each time the MAC driver brings it up.
+	 */
+	ktime_get_real_ts64(&ts);
 
-phy_probe() sets phydev->drv before calling drv->probe and does not clear
-it on the out_reset path. The next rtl8169_up() would then do:
+	return rtl8127a_ptp_settime(ptp, &ts);
+}
 
-rtl8169_init_phy()
-  phy_init_hw()
-    rtl8127a_ptp_config_init()
-      rtl8127a_ptp_settime()
-        mutex_lock(&ptp->lock);
+That comment suggests the PTP block's state may not survive a PHY
+re-init. If CTL and INER are reset as well, ptp->tx_type, ptp->rx_filter
+and rtl8127a_ptp_hwtstamp_get() still report timestamping as enabled
+while the hardware has it off. TX skbs then wait out the 15 second
+timeout with busy polling, and RX skbs get stale captures.
 
-Wouldn't that be a use-after-free on the devres memory? The later hardware
-timestamping patch keeps the same remove() and only clears mii_ts and
-default_timestamp, so the problem remains at the end of the series.
+Sending the same SIOCSHWTSTAMP again does not help.
+rtl8127a_ptp_hwtstamp_set() only reprograms the hardware when the
+requested config differs from the cached one.
 
-Setting phydev->priv = NULL in rtl8127a_ptp_remove() would avoid it.
+Stepping the PHC here while timestamping is active also means captures
+pending across the step can mix two timebases.
+
+I could not confirm whether PHY re-init or power-down actually clears
+these vendor PTP registers.
+
+[ ... ]
+
+> @@ -369,6 +706,14 @@ void rtl8127a_ptp_remove(struct phy_device *phydev)
+>  	if (!ptp)
+>  		return;
+>  
+> +	phydev->mii_ts = NULL;
+> +	phydev->default_timestamp = false;
+> +
+>  	rtl8127a_ptp_hwtstamp_enable(ptp, false);
+> +	/* Also stops the aux worker */
+>  	ptp_clock_unregister(ptp->clock);
+> +
+> +	if (ptp->tx_skb)
+> +		rtl8127a_ptp_tx_complete(ptp, NULL);
+> +	skb_queue_purge(&ptp->rx_queue);
+>  }
+
+[Severity: High]
+What stops the datapath from still using ptp after this function
+returns?
+
+phydev->mii_ts is cleared with a plain store, and teardown follows
+straight away. There is no synchronize_net() or RCU grace period, and
+rtnl_lock is not taken. devres frees ptp after remove returns.
+
+phy_remove() calls drv->remove() without detaching the netdev. A sysfs
+unbind of the PHY driver can therefore run this while traffic is
+flowing.
+
+skb_clone_tx_timestamp() and skb_defer_rx_timestamp() read
+phydev->mii_ts without locking. A CPU that has already loaded it can
+still call rtl8127a_ptp_txtstamp() or rtl8127a_ptp_rxtstamp() after this
+point. Those calls could:
+
+- call ptp_schedule_worker() on a destroyed kworker
+- touch the devm-freed struct
+- leak a TX clone that holds a socket reference, if it is published
+  after the ptp->tx_skb check
+- queue an RX skb after the purge
+
+rtl8127a_ptp_ts_info(), rtl8127a_ptp_hwtstamp_get() and
+rtl8127a_ptp_hwtstamp_set() run under rtnl, which this path does not
+take. They can also call ptp_clock_index() on a freed clock.
+
+There is a second case. If the PHY was selected as hwprov through
+ethtool tsconfig, dev->hwprov is only cleared in phy_detach(), not on
+driver unbind. After this remove, skb_defer_rx_timestamp() takes the
+hwprov path, skips phy_is_default_hwtstamp(), and then dereferences the
+now NULL mii_ts:
+
+net/core/timestamping.c:skb_defer_rx_timestamp() {
+    ...
+	mii_ts = phydev->mii_ts;
+	if (likely(mii_ts->rxtstamp))
+		return mii_ts->rxtstamp(mii_ts, skb, type);
+    ...
+}
+
+Would any received PTP frame then oops in the RX softirq?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111083807.1529-1-javen_xu%40realsil.com.cn
