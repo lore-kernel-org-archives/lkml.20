@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794767928;
-	b=cf5tb63O6G9eKCfK9p0WdvQaCyrSk+1KoZuAl+HKc1+8e02IeK7/tDbHjeMeT7W3dgar
-	 dF+QjEhwDGI5PeqYecJVNOldQEi5zm7H3vlwMCPZ7wcLN66pCpCINjDuVP3ps4FE4i1xq
-	 w8Id9nb0wuL8tDaj1rL0tTEVKrJo69HDIh6nWS1kiV4iajgnA6RigJUzbFdAAFQuRTft0
-	 wVDbRpKtKDeMC0JrLacsCP/54j8xffKQ8r+8P3sdkokpXQBJ23RRBC6woA2OErP08LI88
-	 AwgiqaITMak9p1mY+MGRJlIflm/lPcPUEI7ET4/HXQ/fYaeFjmp0krDgGQD4OYk17bQ==
+	t=1794767967;
+	b=JuF6mGH0KYV79+Mx6US8QJwqICgjbq/Ph+QfulUw4KtoknOe5N9+tNSpWsU3B0UDZaWu
+	 L1+W/ttaZXWXxHd0IsCsnWG0ZqcfkuoOH8SqhkIrWOFZEHP1cgAVM117QN4aI7bMurNw9
+	 HJF1e1earhf3I+BFhxM6ooywp8an/16k3cMjj/qYJhCzkuhOh2yo8kHqEKppUNFy4KWYZ
+	 MfIBAE2S+fB2mhfe9M9iJDmlHibky30GKZanwu+GZCCDOEgNKfeITugz2AEhyIybcrPYH
+	 xyU0yBVqOzW26avmdv9Rkx2/Y/yKYgnxYasQfglTeb68sTRhpG7vSKI9G5GeMjzPwcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794767928;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=n38R8THVBERh6YX8fumxgq2SeV93NHDPiTWFfSKg6qw=;
-	b=C5p5x0UX1SWJZABW4wHhAhRBPlSyZtOI6oha84x6p5T9P7TmN8tLUVCdzkkl25QLWHAP
-	 yX3hsSvf6xUo+vAQziI1n7Uo87QXuysvYnVIU+y37M0P1aUuJat7BQVU4xs2Xv8vLbYk9
-	 Ucg5PpBm4ZKzPqkY+nbkuVqGvtPwGAcoTVPfEoT/gLQlvh6JI651EjCt67mr3Xe5wUyUt
-	 hXI56OeD+EW+qVHcJImGgPweIzvqOzIz4yVNmu3NxfUugGBzUg+TdP+Q7jLq8m1q+Z3mF
-	 Cohg9fYIFi3+YS8AeQruhdeb25y9K6TNB7g0GL7xEyr9DY0ozrFQwsuKr7HjaYpAogA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794767967;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=U0QYZMkI+aHL2rJZs8Panb3OQBENH9JOHq63W5JMa0A=;
+	b=321NfEqghY6l8gmLMN+OqU2CYJQ+VYiX1zzH8bFDNS4fcyIggBesRpXurTvHfrJYtmy+
+	 b2ZZ/sX/VVbnyLvSCBxeXjPrjtKismhCknmuCDtS0b7cRy6zUxS94vN5joX8RT/NZqCpG
+	 TCTeAidTzxP4xLCatHY1d7QPaC4j+3SfiXRvBDEKOU1t4HEUPd8UYoEYn/TC2imto6Tpz
+	 hqOQKPEHAEMJfiWjIShK5s+dBOuiYk+skliGnRPRbZPu+PDDluzlmfPAEYtDFiTxYEVWl
+	 Tj3zzaNgRNIeW/Lvq21WLzkRrzfn5whvkGtqq3lo8xYmalhAaW23pTD4U2p74pBlMIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PWPpc8v9;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qv8J5o1P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C6F606A31E;
-	Sun, 15 Nov 2026 18:38:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C6F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9A5606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PWPpc8v9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794767928; x=1826303928;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ho9p6bSo8pi1QrenazGvesf4HhUNwYmhTsTzMNwIz5w=;
-  b=PWPpc8v9wuWuUQd/mGlRblIC6Z39upTInKfSshMXSibsdCxMwFctkljF
-   new8rJp0SjLEghvOHrv81o2O6Od4d7BVTOWWyqGS/L9w4yOvLokopvCoP
-   +s19EHL9IEiVu7vNfOukaFfJMvt8f3Ai1lmFShkJP+ZE3rfcovL+Qk4Lu
-   8cBEVQNruP7OfJEiz2a9imx4VB5x6mailoRjgG7es8lwNtAqxb7bWmJNn
-   Gr6elVwdu8icibNdjzjqYvdWv4uc7sknbRYIy0zypFje6vWyLF1g1FiLd
-   2WsL57KLKb0mWpRGBonidsJlrMe8LU1NN5hUYSqv/WCdy29RVmPUb8A9R
-   g==;
-X-CSE-ConnectionGUID: mFGiRjrNQFqCtcYDzXABvQ==
-X-CSE-MsgGUID: bFD1NG5DS2mDRjEp3dF6Tg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3498583"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3498583"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 10:38:47 -0800
-X-CSE-ConnectionGUID: xgioXYEnTiuMMwCr8er90g==
-X-CSE-MsgGUID: i+uioB1WQR2VnUR4b4a0wQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="9372476"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 15 Nov 2026 10:38:44 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xSf7g-000000017C8-1yn4;
-	Sun, 15 Nov 2026 18:38:40 +0000
-Date: Mon, 16 Nov 2026 02:37:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>, Guo Ren <guoren@kernel.org>,
-	Pekka Enberg <penberg@kernel.org>,
-	Patrick =?iso-8859-1?Q?St=E4hlin?= <me@packi.ch>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Subject: Re: [PATCH v4 2/3] riscv: probes: reject probes inside an LR/SC
- sequence
-Message-ID: <202611160252.d58noD11-lkp@intel.com>
-References: <20261115-probes-in-lrsc-v4-2-48b9b036bd1d@mobileye.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qv8J5o1P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C231F000C9
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:39:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794767967;
+	bh=U0QYZMkI+aHL2rJZs8Panb3OQBENH9JOHq63W5JMa0A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Qv8J5o1PQ0O70GFi+RsF9YDWNG0YcQ289szn3ZPVRl2GWdRWNPoYDsXTezmRG7sN8
+	 k7d6nX1GpJSGv/KIXJrZ1er+OLQH7pU55OJkyuwNvOarF1oOyZmv+aSFJvkcg/op9g
+	 vQJgS5vPHmocAvPP4qxzVdd9r1aLDmo6a1fW75LLmINcKwXjRuJ0PiAj7jsMI4uYGM
+	 mqSl5dfG3gBRIJeIC8IBz87NlNmZLMyb+e41D8MpBnlwyz3TneTag6zjRgkblez7jX
+	 Dvr8NbTfpTW1kmHecSoaNsS7UdjafdpEkNaePUaq5toslF3zB62EEzCpUlXPultBJJ
+	 BOT/3kvXkdTEQ==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso2626640e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:39:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG2Lg/y1FOfz9+p+4wxzQkDArl6p+hRB55tuqXPrQHRufwheBMsbO0CjTJzqhuwKFHpsGz7xrz+GLGW0+w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4djZSZSaqIzy3wGFtg6DngIT+TYyg+ctg9IGHKCWgzcNAc7q/
+	4di4nCnPZLuNPcWx9V030LMNNgVnJ1CnxbcHp9ID1cqCxSWwoE6cW8TdnQfL8++EqUF6JtiV0i7
+	SCARoUVa0tz0MGPYp3ap3R2HVJG0DjLw=
+X-Received: by 2002:a05:6512:228d:b0:5c1:79b4:4424 with SMTP id
+ 2adb3069b0e04-5c179b4459cmr2054409e87.53.1794767965565; Sun, 15 Nov 2026
+ 10:39:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,87 +59,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115-probes-in-lrsc-v4-2-48b9b036bd1d@mobileye.com>
+References: <20261113154001.2081-1-sankara.narayana@intel.com> <dc5506e2d145bf98ea55b861cac74d7805137470.camel@linux.intel.com>
+In-Reply-To: <dc5506e2d145bf98ea55b861cac74d7805137470.camel@linux.intel.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Sun, 15 Nov 2026 19:39:10 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gnYpBs8B9Gok2Lm=00arAyN=+=HcG3HqsHKc1oDnDv0A@mail.gmail.com>
+X-Gm-Features: AclHuK-UZ2oD5yEqZKUPb9JSapjunu6M1-qXX4TN9O_342wenyQn0cJHAr-7Kpw
+Message-ID: <CAJZ5v0gnYpBs8B9Gok2Lm=00arAyN=+=HcG3HqsHKc1oDnDv0A@mail.gmail.com>
+Subject: Re: [PATCH] thermal: int340x: processor_thermal: Fix Nova Lake-S PCI
+ device ID
+To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	Sankara Tankala <sankara.narayana@intel.com>
+Cc: daniel.lezcano@kernel.org, rui.zhang@intel.com, lukasz.luba@arm.com, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vladimir,
+On Fri, Nov 13, 2026 at 6:28=E2=80=AFPM srinivas pandruvada
+<srinivas.pandruvada@linux.intel.com> wrote:
+>
+> On Fri, 2026-11-13 at 21:10 +0530, Sankara Tankala wrote:
+> > Nova Lake-S uses the same processor thermal PCI device ID as Nova
+> > Lake-H, 0xD703. The 0xAD03 ID added for Nova Lake-S is the Arrow
+> > Lake-S ID (PCI_DEVICE_ID_INTEL_ARL_S_THERMAL).
+> >
+> > The ARL-S entry comes first in the PCI ID table, so the NVL-S entry
+> > never matched. However, proc_thermal_rfim_add() matches on the device
+> > ID alone, so Arrow Lake-S, which has DLVR, wrongly gets the Nova Lake
+> > DLVR register map.
+> >
+> > Replace the separate NVL_H and NVL_S IDs with a single NVL ID,
+> > 0xD703,
+> > and drop the 0xAD03 entries.
+> >
+> > Fixes: af1b80b94126 ("thermal: int340x: processor_thermal: Add Nova
+> > Lake processor thermal device")
+> > Fixes: dbd911a07f14 ("thermal: intel: int340x: Add DLVR support for
+> > Nova Lake")
+> > Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Sankara Tankala <sankara.narayana@intel.com>
+>
+>     Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-kernel test robot noticed the following build warnings:
+Applied as 7.4-rc material, thanks!
 
-[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Vladimir-Kondratiev/riscv-kprobes-fix-out-of-bounds-read-in-riscv_probe_decode_insn/20261115-143733
-base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
-patch link:    https://lore.kernel.org/r/20261115-probes-in-lrsc-v4-2-48b9b036bd1d%40mobileye.com
-patch subject: [PATCH v4 2/3] riscv: probes: reject probes inside an LR/SC sequence
-config: riscv-randconfig-1000-20261115 (https://download.01.org/0day-ci/archive/20261116/202611160252.d58noD11-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project ca14e3d05c4e63d6e8103945c86b958ed2f55d5f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160252.d58noD11-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611160252.d58noD11-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In file included from arch/riscv/kernel/probes/kprobes.c:5:
-   In file included from include/linux/kprobes.h:28:
-   In file included from include/linux/ftrace.h:10:
-   In file included from include/linux/trace_recursion.h:5:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/riscv/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/riscv/include/asm/io.h:148:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> arch/riscv/kernel/probes/kprobes.c:75:4: warning: add explicit braces to avoid dangling else [-Wdangling-else]
-      75 |                         else
-         |                         ^
-   2 warnings generated.
-
-
-vim +75 arch/riscv/kernel/probes/kprobes.c
-
-    51	
-    52	/*
-    53	 * Walk the instructions from the enclosing symbol up to addr to check that
-    54	 * addr is an instruction boundary. Then reject a probe inside an LR/SC
-    55	 * sequence: the breakpoint trap drops the reservation, so the SC would fail
-    56	 * and the loop would hit the probe again on every retry. The sequence is
-    57	 * recognised by a forward scan with the constrained-sequence rules, as for
-    58	 * uprobes, so an lr that is not followed by an sc (as in __cmpwait()) does
-    59	 * not taint the rest of the function.
-    60	 */
-    61	static int __kprobes arch_check_kprobe(unsigned long addr)
-    62	{
-    63		unsigned long tmp, offset;
-    64	
-    65		/* start iterating at the closest preceding symbol */
-    66		if (!kallsyms_lookup_size_offset(addr, NULL, &offset))
-    67			return -EILSEQ;
-    68	
-    69		tmp = addr - offset;
-    70	
-    71		while (tmp <= addr) {
-    72			if (tmp == addr)
-    73				if (riscv_probe_in_lrsc_body((u16 *)addr, RISCV_LRSC_SCAN_BYTES))
-    74					return -EINVAL;
-  > 75				else
-    76					return 0;
-    77	
-    78			tmp += GET_INSN_LENGTH(*(u16 *)tmp);
-    79		}
-    80	
-    81		return -EILSEQ;
-    82	}
-    83	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> > ---
+> >  .../intel/int340x_thermal/processor_thermal_device.h       | 3 +--
+> >  .../intel/int340x_thermal/processor_thermal_device_pci.c   | 7 +----
+> > --
+> >  .../thermal/intel/int340x_thermal/processor_thermal_rfim.c | 3 +--
+> >  3 files changed, 3 insertions(+), 10 deletions(-)
+> >
+> > diff --git
+> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+> > index b79937a386ec..87d8ff9c7173 100644
+> > ---
+> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+> > +++
+> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.h
+> > @@ -27,8 +27,7 @@
+> >  #define PCI_DEVICE_ID_INTEL_JSL_THERMAL      0x4E03
+> >  #define PCI_DEVICE_ID_INTEL_LNLM_THERMAL     0x641D
+> >  #define PCI_DEVICE_ID_INTEL_MTLP_THERMAL     0x7D03
+> > -#define PCI_DEVICE_ID_INTEL_NVL_H_THERMAL    0xD703
+> > -#define PCI_DEVICE_ID_INTEL_NVL_S_THERMAL    0xAD03
+> > +#define PCI_DEVICE_ID_INTEL_NVL_THERMAL      0xD703
+> >  #define PCI_DEVICE_ID_INTEL_RPL_THERMAL      0xA71D
+> >  #define PCI_DEVICE_ID_INTEL_SKL_THERMAL      0x1903
+> >  #define PCI_DEVICE_ID_INTEL_TGL_THERMAL      0x9A03
+> > diff --git
+> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> > c
+> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> > c
+> > index 7d6fee59ade2..f218ee247ab4 100644
+> > ---
+> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> > c
+> > +++
+> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> > c
+> > @@ -501,12 +501,7 @@ static const struct pci_device_id
+> > proc_thermal_pci_ids[] =3D {
+> >         PROC_THERMAL_FEATURE_DVFS | PROC_THERMAL_FEATURE_WT_HINT |
+> >         PROC_THERMAL_FEATURE_POWER_FLOOR |
+> > PROC_THERMAL_FEATURE_PTC |
+> >         PROC_THERMAL_FEATURE_SOC_POWER_SLIDER) },
+> > -     { PCI_DEVICE_DATA(INTEL, NVL_H_THERMAL,
+> > PROC_THERMAL_FEATURE_RAPL |
+> > -       PROC_THERMAL_FEATURE_DLVR | PROC_THERMAL_FEATURE_DVFS |
+> > -       PROC_THERMAL_FEATURE_MSI_SUPPORT |
+> > PROC_THERMAL_FEATURE_WT_HINT |
+> > -       PROC_THERMAL_FEATURE_POWER_FLOOR |
+> > PROC_THERMAL_FEATURE_PTC |
+> > -       PROC_THERMAL_FEATURE_SOC_POWER_SLIDER) },
+> > -     { PCI_DEVICE_DATA(INTEL, NVL_S_THERMAL,
+> > PROC_THERMAL_FEATURE_RAPL |
+> > +     { PCI_DEVICE_DATA(INTEL, NVL_THERMAL,
+> > PROC_THERMAL_FEATURE_RAPL |
+> >         PROC_THERMAL_FEATURE_DLVR | PROC_THERMAL_FEATURE_DVFS |
+> >         PROC_THERMAL_FEATURE_MSI_SUPPORT |
+> > PROC_THERMAL_FEATURE_WT_HINT |
+> >         PROC_THERMAL_FEATURE_POWER_FLOOR |
+> > PROC_THERMAL_FEATURE_PTC |
+> > diff --git
+> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
+> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
+> > index 96279756177f..1832f13634d8 100644
+> > --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
+> > +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
+> > @@ -472,8 +472,7 @@ int proc_thermal_rfim_add(struct pci_dev *pdev,
+> > struct proc_thermal_device *proc
+> >                       dlvr_mmio_regs_table =3D lnl_dlvr_mmio_regs;
+> >                       dlvr_mapping =3D lnl_dlvr_mapping;
+> >                       break;
+> > -             case PCI_DEVICE_ID_INTEL_NVL_H_THERMAL:
+> > -             case PCI_DEVICE_ID_INTEL_NVL_S_THERMAL:
+> > +             case PCI_DEVICE_ID_INTEL_NVL_THERMAL:
+> >                       dlvr_mmio_regs_table =3D nvl_dlvr_mmio_regs;
+> >                       ddr_data_rate_reg =3D &nvl_ddr_data_rate_reg;
+> >                       break;
