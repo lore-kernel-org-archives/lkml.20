@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794762281;
-	b=buzl2u29pYRuqCmFNJJGLRNGovV79T5KN7La2NmWb20JdGqxjLaEWvZpgorrnAI7JbG3
-	 eenH9i/Uhc2pI3zwJXgOabz+H3ZYTxgAKS7f1EPhjwLBvqcL6p+7bTxi+Ln3EFW84Zwke
-	 2C1GNMdOJLOqzFg6IiLJj9Ag7HRp+bxfkCeFP/0N3WjJw2FBrSo01NSpR9Le61Psr8vLq
-	 H0cKRSUQxyVIEjqV3HE8VPIZ4hHCizNgeZmwEoYEu3NlsL7TDmwC7NyrNhMsjck1JGiyM
-	 G5ki1xk9SiJ9QZO4z/i5xX11HiDRcs2hxrDuJjl4eUy+ZbJHt3qoKnbeZdbryiDdjug==
+	t=1794762421;
+	b=cWopual7BmFsimeLH0C6A8hXtCtOTwVJ/LdFrciNkXzTbYC7NFdT/JH5EkIyYvpqDkPP
+	 Ym5ft1w2zsXFhmnF63qdJfn7XsZx2KA9SfIZehs/Q+P2o4dfbOkU57KPtyYumE+g3gO00
+	 q1AIGNbcSwFfyGjfarvKENy9YqUBlYJf46p0IWMfhRboSTfO/7udFq1TANfCxbVwqKS8U
+	 Bt0ya6vIffHc1SG/rW9H1yDQhqFoQX4OoVxqM+QhXh4SaM2f64jIIV/xh/v1D8BHSlQPt
+	 i2cIhoisyUgjpvBk8shtkfDrAwh5bJNrXP+QqgwkTj4Fqm8U9sk7B1Sek2/FZEblpfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794762281;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=J6V0Kz0XMpC5wJkQlSs9iIsGa6Tot3NeP2rg3wU4mYg=;
-	b=xqu6cEWADUeqW2DLlONQe3Rlh9FTe4a0wZ/tH7Wp8hwDHA4nXPpsYPIXeIsoP8DPZRvw
-	 5gktPf9ElSAFkfgX9Qh5WqEG1aRQ9Bx/erJwheiPYK6wJF1KiXKTB1XaMs6QzMDqvFLPt
-	 j4B0JNLqJHGi0g/RHQzqTbUiBZH+UgI8HvIGiuPiJPBYfpEm5qKLnQm13iQBIwLRqe1Vk
-	 +UwcGTjW6NFNAKJo444TWdLfhoKImJZvA2QIfEiZQRb3pPsupTsqHg9rImX1jwTnFKBMr
-	 Tqom9pQh1hnF/RUgdj2V67VxWDVGTU30++0Nr4wl4WswxAhFMEgfvXEMR+bfVwd1s9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794762421;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=94l3N9AWBADZVlj1Q/uea2ritj8vF6vyqwsDKMg7bls=;
+	b=naG7SDZ5YzeRNxO2LRJqtSGDbsrNInsNmImNR2uBdcHDmwHDjnde3wgLlQUzk7SUjv5i
+	 5fRX/un1asO9bqjmG3+8nYjtOU+VXc/rUhGw6u4zpMOEvNbtZ6GAocnr0FZLdafS6vf5p
+	 pZ0OiwzgDKvXS2FZWx3bTsYZcGUVRBBrH7aoC6Igq+n4zw6kZeWyNMQi2zpEeLxsROhJz
+	 KfR8OGdNjLCPXqW3yamZW0ZcHIq3cTRQrZVweDiYQRQnC61PAOEoivW7W2HAekhgGSSbn
+	 Q5ACqXCz/V+hiXm2XDiST8SMHZ8iR+9W5n8QDxBHfcayelc7AmSGzE5K/oNasfDfzXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="hR/6g12X";
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3pJ73Lj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA68606A31D;
-	Sun, 15 Nov 2026 17:04:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA68606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3DD606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:07:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hR/6g12X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=J6
-	V0Kz0XMpC5wJkQlSs9iIsGa6Tot3NeP2rg3wU4mYg=; b=hR/6g12XkkFjrk/aoh
-	7V/vYb0LTdmLsPVEY4FqXUexd13Y0Swxc12TEw5r0RXVnsOrflAwrmfNvNm7q7vR
-	VlEdoVbVg2TXgJL1jTlwjw/81Wm9bzczCY9D1ps77txnl8RDYgv776BaVdWaGMyj
-	WRacK4GJpKzsXJfsD6NoWsKQ0=
-Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgAXb0L75flqS77DGA--.57717S2;
-	Mon, 16 Nov 2026 01:03:55 +0800 (CST)
-From: Ziheng Wei <zihengw03@163.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: reject non-PHY mdio devices in phy_connect()
-Date: Mon, 16 Nov 2026 01:03:54 +0800
-Message-ID: <20261115170354.944219-1-zihengw03@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <04781560-2b66-4ac2-9e7c-a786be43fc10@lunn.ch>
-References: <20261115161811.941022-1-zihengw03@163.com> <06c3990a-8f2d-4e8c-931f-6ad77a79a84b@lunn.ch> <20261115164233.942709-1-zihengw03@163.com> <04781560-2b66-4ac2-9e7c-a786be43fc10@lunn.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3pJ73Lj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356861F000C4
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794762421;
+	bh=94l3N9AWBADZVlj1Q/uea2ritj8vF6vyqwsDKMg7bls=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=A3pJ73LjdREijtEM8PpzpLcnagufO0XvuKAPCVVqv6qXZUveQOEN3VlrZu7PXq9KA
+	 WRsK0Od/OeiQgz+gKc36Ekztx48AArPysXXpOCk1G5Ww99NzQ79fowPBjCLerDhI/p
+	 y6YaALTmEis1m60RhWIUXz8PoRQjWr0V2NPgox43P3wWV0rqX9H3K5ahqLJMIxWRoB
+	 znPT44qaTVlkt5Dit/TaTDlTv3wdV6/UXcU1g5wl2588gFZtf8bdO0NSY7lV62rmCG
+	 P1VOQwkgDr7fVTgcHHG1fAqpQxzgNUHDA5Efv9Qt4jBD/kk5yJb2pFjpCgWBL3aDff
+	 2urqqBgU9Rwxw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so2732361e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:07:01 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFUKM2jhqP1ok/LxV5kpLf8vpaPusGhjiyACg1nA0Qjp02X3rDPtPriy7eb6NBfInvl0dQ4h1QLIPAQqv4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KhNHRc1C9C8i1WJ9zEb39/JMUEk3coXUSqCaM+HM1xFuT4zKI
+	oM4ushHmTbBIIgIuOQfIRbFaodPMbGxLoWrNzLOWaoMc6W5RmStbBdv/oKXNWYX9cdkQIAKuwOS
+	JTzLieXhhUzotTgfDkTXzui2nWQBxgh8=
+X-Received: by 2002:a05:6512:220b:b0:5bf:d226:8c41 with SMTP id
+ 2adb3069b0e04-5c170b365bdmr3199074e87.29.1794762419642; Sun, 15 Nov 2026
+ 09:06:59 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,17 +59,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgAXb0L75flqS77DGA--.57717S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUTYhFUUUUU
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7hvQIWr55ftAkQAA3Y
+References: <20261115091221.2217-1-lirongqing@baidu.com>
+In-Reply-To: <20261115091221.2217-1-lirongqing@baidu.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Sun, 15 Nov 2026 18:06:47 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hBVwOksptV2ThK9iCpHbSZDh0Z+R3dtojCtkze4_0eQg@mail.gmail.com>
+X-Gm-Features: AclHuK9XPcUJ0mrDHIaDue0lT0yDTr2aABBQOGeL_rqJ2XyI8JCYu-HCtCU78iE
+Message-ID: <CAJZ5v0hBVwOksptV2ThK9iCpHbSZDh0Z+R3dtojCtkze4_0eQg@mail.gmail.com>
+Subject: Re: [PATCH v2] PCI/ACPI: Check the found handle in acpi_get_rc_resources()
+To: lirongqing <lirongqing@baidu.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, linux-acpi@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 15, 2026 at 05:53PM +0100, Andrew Lunn wrote:
-> You have to defend your own patch. Do you think it is worth having?
+On Sun, Nov 15, 2026 at 10:12=E2=80=AFAM lirongqing <lirongqing@baidu.com> =
+wrote:
+>
+> From: Li RongQing <lirongqing@baidu.com>
+>
+> acpi_get_devices() returns AE_OK even when the namespace walk finishes
+> without a match, in which case the return_value argument is not written.
+> The caller passes an uninitialized acpi_handle and hands it to
+> acpi_fetch_acpi_dev(), which dereferences it as an ACPI node.
+>
+> Initialize the handle and reject a missing match.
+>
+> Fixes: 169de969c018 ("PCI/ACPI: Provide acpi_get_rc_resources() for ARM64=
+ platform")
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
+> ---
+> Diff with v1: add fixes tag
+>
+>  drivers/pci/pci-acpi.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
+> index e260089..e90e749 100644
+> --- a/drivers/pci/pci-acpi.c
+> +++ b/drivers/pci/pci-acpi.c
+> @@ -82,7 +82,7 @@ int acpi_get_rc_resources(struct device *dev, const cha=
+r *hid, u16 segment,
+>  {
+>         struct acpi_device *adev;
+>         acpi_status status;
+> -       acpi_handle handle;
+> +       acpi_handle handle =3D NULL;
+>         int ret;
+>
+>         status =3D acpi_get_devices(hid, acpi_match_rc, &segment, &handle=
+);
+> @@ -92,6 +92,9 @@ int acpi_get_rc_resources(struct device *dev, const cha=
+r *hid, u16 segment,
+>                 return -ENODEV;
+>         }
+>
+> +       if (!handle)
+> +               return -ENODEV;
 
-No. Without a real user hitting it, I don't think it is worth the
-churn. Please drop it, and thanks for the review.
+acpi_fetch_acpi_dev() will return NULL if handle is NULL, won't it?
 
-Ziheng
-
+> +
+>         adev =3D acpi_fetch_acpi_dev(handle);
+>         if (!adev)
+>                 return -ENODEV;
+> --
