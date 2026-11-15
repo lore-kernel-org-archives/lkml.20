@@ -1,101 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794701934;
-	b=KZQ312yZxheRAxMWqyd9GoPu6jpI7PwC3OlzYv7WiYdCGs4L0R6vomc1fl2wEbaMgaCC
-	 zBpL0/Qnhb64ayNaZ7owXfvspKwCJiOYgXB4sdD3O42zS7tvrzi343+t4KFPvhUVuLuko
-	 fI4P+kFxxTopk38lrbBr9Z8VxZHoHqyKnfPpwDLZrQ6Si+jXnW2G/G9BSWhNypBdlCvtv
-	 qx9NFyaeZDsQeBwA0HqSOTxajFhkP55594SA8odGCehS4d2RRws0UsyW6sHNJy3PJ6csV
-	 5maUNaQeSgX9CWU1wa8Xig1iiwEauhAS/4qdmH7tL/F1hSO4nrvlNTdKhBIMaO6aSpQ==
+	t=1794701936;
+	b=1CxiPMVNkNrl7NacGhePIfFh7EO50TMMVmBKU2DvHfKSl6Tl5eo3dAd2J5pRD7yqsmV8
+	 EG4QKgeOS+Hi3+kAR1WjafJFIOx9+rjIeWiVMBoMBgchuPy9SiW5NMRV8YPE3hVYsXruQ
+	 9agNPK/oYYyYaXolI8ytE4scuve3cp8f3B+U1fdjjEJbHhasCGYJpGZOi9FsOmw2VZZix
+	 8i8/8rqE9qZp0ms8PRjg3xNBCOD+Lyy33VVR8q83LpR3KKaWuds20j/7OKza1kG0YbpMt
+	 fo0nq25CDoMg8ElU8OnfT5e9D9A+GFNG8G7T9Xx/YQ06OvVnlfeJK7VdNzuzAn/jUbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794701934;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JejavGOhT29+kYZxPl7g8FlCzMWntZ9rMxIL0KrRCgg=;
-	b=wDreR4v8uxNeaDrNN1QanCvKjXkWkxYRdaiwrnX4E3ohQV1kG0nmUS/0pxDRYCjefiZz
-	 4bOB1DNRvF2mlnU3f2bCW3908T7MY13L7/FmVdSXg3VaGOq6uLDvGqZuPjHQeDHF8OeSr
-	 68AytRIdLipC+9Kmbp3SkkukIgYmBaGEeQ3bUFsY5u80Tzeh6BQvDHIKEihZbIh2uJ09l
-	 dHsAWdbvKJ9cjFJXhQpsHTkPLKaIvDvzRq22qhB1HHDmZijaBtLw1xmKFZx5IjjV1pGLC
-	 2MrP/hgJODWogWSOeaKHByjrVs8pkoG1gYnu4Q80X3jWLlzKO7MFDRkVBxnTa+wt/4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794701936;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EZxe3fLIr15GcaixYMlvps3d1PnaVZ20JcGF+Wr3YZ8=;
+	b=dKahy3dA8blxVhVUK4PIX+tvAe4Bjl15/JOXNGat+FuE4MOxTp+paIOhSRhVXsiYbSeM
+	 JyR6q2XM7upzeIVx6AgAp3qCXlku7/7Rgv+m9dPtes91H+RoC59UlsVv2tDu/c5nWrBOT
+	 2gRw/pVzWRHlmOk6JPGn34alExx5AcehTOe6qv1SRFViU0NL9ecIMxafUSIYozemDIjE7
+	 odX1hJ1dlxQ6baj94YPcADzsa0Q6ZgXn7D7QNSZwB16VB0XprQh0uA0AksAt8xPyisSec
+	 4qTItAtteP+cWLJylZP4OpiTXP59yVER5zmzNlbD5EomIi4t/ejvfJXb6q+NtFXYhVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=CLZiqkUi;
-	arc=none smtp.remote-ip=209.85.222.170
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwRn2o9P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10C6606A32E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E10C6606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2793E606A330;
+	Sun, 15 Nov 2026 00:18:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=CLZiqkUi
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f22a8515eso272248785a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:18:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794701933; x=1795306733; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JejavGOhT29+kYZxPl7g8FlCzMWntZ9rMxIL0KrRCgg=;
-        b=CLZiqkUiy/GqoMK+wOyDEYP2H1dJ227AZJ9Z8XC3+j1I4tBq57Tz++CXSvWNkYlb1I
-         VH2/IrtUDdGMYYvSoMK49waU3rQ192zmkKPi5Wg9y4HR5rwHpUHO1D5pTrHi/mjEW9ct
-         GjKEr6kPgjPz7Ih1wSoqksm3BM/X1CgQs/Nd7pC9tQm3Eg//Y544Zu37OsmxUkHS3zwG
-         v6YsLfw9Z91eCnVaMbOCLeTv8KXuhpzuciXLUppvC8Iecs9A3aeapVStAQ1VxeYMJ7qc
-         l1ArYTSfSCx9dF6vfeVBrF9tsGfoKDta0ay7l7p2DzlbvCgV7rpqxyL6obw1+5WQeRbb
-         OTkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794701933; x=1795306733;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JejavGOhT29+kYZxPl7g8FlCzMWntZ9rMxIL0KrRCgg=;
-        b=MNTpM4Shy0Cx0WSYbXOZ13Le//k+U0JA66ZC+aYyCiw54i6ZrGf2BulRZXPnrG9y4y
-         2LWcCCvey4ouNs7HA3ndcku+HJRTbIi4PTWCZjcScUS5eIG70viFjyRvFmq+bVDiQoul
-         VYAxs6vwyrHHMt3k6ew8KgzwD0x4hE2fD5ecODRyNr7Qbxq2TVYRJG63ml0lWmFJjygW
-         iskWBhfeLNwHhod3pxP/eQeII/cEnA3KwNNMJwJm7CLESAD74paX6LwNPQ0GaCjhzFIC
-         Ny8eAL8gPPT1yq9VHgieBnEvb46/YxNgStHFrqBviMoceEf+JVXBgpjdZZVO+nEtarDZ
-         ujQg==
-X-Forwarded-Encrypted: i=1; AL+hErHToIbzxhHISY9d94beZmNI/fNjCZWh8tFuv8rnjdOuuEnhL/HQKoeGXWLQpoJIRV2kBUeohDSYVT9bTg8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NBB4UPrIDFIMDBQ9NjbbK16IJpRAuoLUEXfWYDJUNA7D1T1jg
-	peQ1kmYZccCH8QHd4CXXUj5+XsBOFTEQyKGTucaR48wzodCm9bbqiySFD7nbLEf5YvE=
-X-Gm-Gg: AYBFou37vZGV9mySl0CBauueISuuY6rduXMn8AqbU66yJspsYixdG6Ow34/dadcdRtE
-	ZJg3i6CwOJfkanxUTb5NRDyfsI/yyDego7KRMfnxKNSQJ2KaHLI5eLmuvP4/wBfZoVxw/wbQ90y
-	TSLEx/IJ660BUDde3l+e95S5EZjKktVyoC3VxF+CeKKhujWKChV54zMGLQBPOkVECRDuPapIuP5
-	s9bhdk6TGs0HUwwhKp8cU8Kb0A1ivIiLu6nGKYzOVgu9KPyI0zPtHJeyTdgC+6/fqO3J2NTuV94
-	CoOpkyi7lzn7GPeojGM/skLy3G/kdj8DMKHJWLIXRAuavGxXBP+bWvCUl/Ues/WPv86T4T17TMV
-	UoJPEr/7Sj/LIKvZmWACs4tjpdaFnl3DJGnWqy060GO1R765ImSMmbnOEhRNuH/r3dRsipDbUMn
-	F0SWgFlQkNfQPsIOEkD3cebJP6EInZlLqUaZun5VXgs6Q9Fjl4gu/8gpENoSk1MCz/YRAkcRuC3
-	B4gK9CBn0KsvhtpykeaD+8sMJ6cXL7rAX+lRwfICUStNNpKTdqIGUkLD3klZkm6zhlyFSRrMDC3
-	nQECPg==
-X-Received: by 2002:a05:620a:2b96:b0:93e:5fbf:a41c with SMTP id af79cd13be357-9494bbb7e8dmr1069300885a.16.1794701932860;
-        Sat, 14 Nov 2026 16:18:52 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8f92bbsm512903785a.40.2026.11.14.16.18.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 16:18:52 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xSNxL-00000005ESx-1JsN;
-	Sat, 14 Nov 2026 20:18:51 -0400
-Date: Sat, 14 Nov 2026 20:18:51 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Aibing Chen <chenaibing@cmss.chinamobile.com>
-Cc: leon@kernel.org, achender@kernel.org, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux-rdma@vger.kernel.org,
-	netdev@vger.kernel.org, rds-devel@oss.oracle.com,
-	linux-kernel@vger.kernel.org, hdanton@sina.com,
-	hackerowskiy@gmail.com,
-	syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
-Subject: Re: [PATCH] RDMA/cma: add rdma_destroy_id_wq() and use it from RDS
-Message-ID: <20261115001851.GH2532299@ziepe.ca>
-References: <20261114150541.1908-1-chenaibing@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwRn2o9P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329351F000C6;
+	Sun, 15 Nov 2026 00:18:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794701936;
+	bh=EZxe3fLIr15GcaixYMlvps3d1PnaVZ20JcGF+Wr3YZ8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AwRn2o9PJPdY4Tsh8f7dj4K/jfCtYiXAKcWLF0yQ0QLmDqxcF9BGCWNZxE6Bj2NIn
+	 XdwEkc/MHOgMrlCheM4punrxGrDokcTG1uhVaU+DiH2gVgVvbhS53D3X7cF47QVBbp
+	 cRZ4N7IOemShmlDKlVb8zfUDmzoHSPgVLg48sPmNtyI20H4lCtejLmjm8B970Cx2RE
+	 0dbQCcf+hj4gB4YkN5uFUq3mAPJGv+NqA57memdEMrOGlOCsAr82vqQEushYZf51c2
+	 TaLFps8Tt0tFlvCYDKgoZeyOSGvZ7/SF1ZbkEQjhV0bycOVX1oHJbYrg6VsKkx9eSC
+	 8VMn+oxSdhmNw==
+Date: Sun, 15 Nov 2026 00:18:49 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Archit Anant <architanant5@gmail.com>
+Cc: dlechner@baylibre.com, andy@kernel.org, nuno.sa@analog.com,
+ u.kleine-koenig@baylibre.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v6 11/11] iio: adc: ti-ads1015: Replace custom shift
+ macros with FIELD_PREP/GET
+Message-ID: <20261115001849.17c18851@jic23-hlaptop>
+In-Reply-To: <20261109165805.31160-6-architanant5@gmail.com>
+References: <20261109165805.31160-1-architanant5@gmail.com>
+	<20261109165805.31160-6-architanant5@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,35 +63,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114150541.1908-1-chenaibing@cmss.chinamobile.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 14, 2026 at 11:05:41PM +0800, Aibing Chen wrote:
-> syzbot reported a possible circular locking dependency between
-> rds_trans_sem and the RDMA CM handler mutex:
-> 
->   CPU0 (bind path)                    CPU1 (CM callback path)
->   ----                                ----
->   down_read(&rds_trans_sem)           mutex_lock(&handler_mutex)
->   rds_ib_laddr_check()                cma_ib_req_handler()
->     rdma_destroy_id()                   rds_ib_cm_handle_connect()
->       mutex_lock(&handler_mutex)          rds_conn_create()
->                                             rds_trans_get_preferred()
->                                               down_read(&rds_trans_sem)
-> 
-> rds_ib_laddr_check_cm() destroys the CM id from inside
-> rds_trans_get_preferred()'s read-side critical section, while CM
-> callbacks create RDS connections (taking the same read lock) from
-> under handler_mutex.
-> 
-> Break the cycle by destroying the CM id asynchronously: add
-> rdma_destroy_id_wq(), which queues the destruction on cma_wq, and
-> switch rds_ib_laddr_check_cm() to it.  The destroy work is embedded
-> in struct rdma_id_private, which keeps the id alive until the work
-> runs; rds does not touch cm_id after the destroy call.
+On Mon,  9 Nov 2026 22:28:05 +0530
+Archit Anant <architanant5@gmail.com> wrote:
 
-This doesn't seem like it should be the core codes problem? Why can't
-rds do the workqueue?
+> The driver currently uses custom _SHIFT macros and manual bitwise
+> operations to read and write to the configuration register.
+> 
+> Modernize the bitwise logic by replacing all manual shifts with the
+> standard FIELD_PREP() and FIELD_GET() macros from <linux/bitfield.h>.
+> This improves readability and prevents potential bitwise errors.
+> 
+> Remove the now-unused _SHIFT macros from the top of the file.
+> 
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Archit Anant <architanant5@gmail.com>
+> ---
+>  drivers/iio/adc/ti-ads1015.c | 79 ++++++++++++++++++++----------------
+>  1 file changed, 44 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
+> index 2c3ba1b91aac4..8f7ec61314363 100644
+> --- a/drivers/iio/adc/ti-ads1015.c
+> +++ b/drivers/iio/adc/ti-ads1015.c
+> @@ -11,6 +11,7 @@
+>   *	* 0x4B - ADDR connected to SCL
+>   */
+>  
+> +#include <linux/bitfield.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/delay.h>
+>  #include <linux/i2c.h>
+> @@ -38,15 +39,6 @@
+>  #define ADS1015_LO_THRESH_REG	0x02
+>  #define ADS1015_HI_THRESH_REG	0x03
+>  
+> -#define ADS1015_CFG_COMP_QUE_SHIFT	0
+> -#define ADS1015_CFG_COMP_LAT_SHIFT	2
+> -#define ADS1015_CFG_COMP_POL_SHIFT	3
+> -#define ADS1015_CFG_COMP_MODE_SHIFT	4
+> -#define ADS1015_CFG_DR_SHIFT	5
+> -#define ADS1015_CFG_MOD_SHIFT	8
+> -#define ADS1015_CFG_PGA_SHIFT	9
+> -#define ADS1015_CFG_MUX_SHIFT	12
+> -
+>  #define ADS1015_CFG_COMP_QUE_MASK	GENMASK(1, 0)
+>  #define ADS1015_CFG_COMP_LAT_MASK	BIT(2)
+>  #define ADS1015_CFG_COMP_POL_MASK	BIT(3)
+> @@ -382,17 +374,24 @@ int ads1015_get_adc_result(struct ads1015_data *data, int chan, int *val)
+>  
+>  	pga = data->channel_data[chan].pga;
+>  	dr = data->channel_data[chan].data_rate;
+> -	mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
+> -		ADS1015_CFG_DR_MASK;
+> -	cfg = chan << ADS1015_CFG_MUX_SHIFT | pga << ADS1015_CFG_PGA_SHIFT |
+> -		dr << ADS1015_CFG_DR_SHIFT;
+>  
 
-Jason
+I'm probably being inconsistent across versions, but at least
+looking at it this time, I prefer the building up common cfg
+and mask first, then adding the extra bits in the following.
+
+>  	if (ads1015_event_channel_enabled(data)) {
+> -		mask |= ADS1015_CFG_COMP_QUE_MASK | ADS1015_CFG_COMP_MODE_MASK;
+> -		cfg |= data->thresh_data[chan].comp_queue <<
+> -				ADS1015_CFG_COMP_QUE_SHIFT |
+> -			data->comp_mode <<
+> -				ADS1015_CFG_COMP_MODE_SHIFT;
+> +		mask = ADS1015_CFG_COMP_QUE_MASK | ADS1015_CFG_COMP_MODE_MASK |
+> +		       ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
+> +		       ADS1015_CFG_DR_MASK;
+> +		cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
+> +		      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
+> +		      FIELD_PREP(ADS1015_CFG_DR_MASK, dr) |
+> +		      FIELD_PREP(ADS1015_CFG_COMP_QUE_MASK,
+> +				 data->thresh_data[chan].comp_queue) |
+> +		      FIELD_PREP(ADS1015_CFG_COMP_MODE_MASK,
+> +				 data->comp_mode);
+> +	} else {
+> +		mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
+> +			ADS1015_CFG_DR_MASK;
+> +		cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
+> +		      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
+> +		      FIELD_PREP(ADS1015_CFG_DR_MASK, dr);
+>  	}
