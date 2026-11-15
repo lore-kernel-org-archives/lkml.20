@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794777440;
-	b=C/YCwsaqPSwVjQ8duRSgA3zJA22tio4qjKzVT2wa7dPNzpSPES9aTtPgDRdRHynKj5Lm
-	 4Tuww+RlEXbM5xzMVNezcWXAZeJ1CbTqmcHIapnEcRclRjJ7w4d8m+rpm0kj1cGMB9J7k
-	 SlW2hq7slLNeoGGV7vMQWqpNFiTZykijalVTELR/PUzUIm3iafY0GokxuRtFPQbbofmXb
-	 SAqJqpLS99SnUn787Tzja1T+rwtz3NwGlqkM7ah1rsUantnX6e+eJYJQARhIsdRRUll0K
-	 NeUXDNhf5r2ZaHAw3YoO6VOTCwzXOSaccEh1tyruCFnpPUR47R9mTPCFDuO3ErdXD6Q==
+	t=1794777503;
+	b=bv65qTfhwSb7dPQwLrw+Yst1yhlFWcOahGOhbZFj7j/PK6K0LCu51qFLtW2DY9Ce3ytd
+	 +hzRVV/aDxFz48U/C3QWj0c2rK2qn1kMKWKW2WzqwUGQS2uCiOvtC/1NIGqTqSm9OaOE+
+	 lfLOmkdo5Ut11E8isvR/D09MdEzMN/dhmPt4gR6+RR/uAu6EpvemdKByl0urgsBfreLcn
+	 kLBsV2jmS84wJN+/FXrDt7EqfmEME3QK8z7ZAYXY6FnajiEjlXnDZNRuZL7c56vwmbkRy
+	 vkCta3YRjleyDob4E90OnK3O0DbcUIaYiVF3MMvQJyGg0bSf466jvtY0kbiw99zcp+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794777440;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=snAv07gew46Xhl1loCUgd9ZlVWZGnZKNBwigTvTVPYo=;
-	b=CwydZca0pvZlSeDkd5aaAHuDXfBcRV866yPNoSRD6sY1vFhZGFaXUcNxwKCZm+ajGExf
-	 9V/MyD7Qye77DSRTxaoqHbiL//ZQnTYdhKhvFaMKhatkdt7rDZ4g6xYR1FQyBY3i3HoYJ
-	 T8qGNwI6mns5UFgppaASUzcqrBu4WoZWmKsU9yASwYeP3KJovz6GqtcyKkGLf/81Kd+KQ
-	 0sw3lNtbz+HALA0l0YmrQqIB2dsIPfQDuyJ9Krp5HVHun+S/cUH8iUHSbdSeJe5ZGOhAV
-	 C7Pq5MOaDLVzwzIwjNsFt/r0ERg34FILUvf4YA4miamxVQb1gb5dLKrTJSZpJKHiz7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794777503;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=4NmVekp5AF3TQlvKfhhoRjPEWciyBwoXsOkkxZlyMuo=;
+	b=Zixe/hV+EdkILhAyiU9JZZvMDw+8FqFJMj2FOe3sBiZkYf/b8WsWRTIGXo688RSjaplm
+	 KQ3Gm9816PHj4S9LZ6poZoUjz8FaV57ppsyLt8LW8sbZwoFu2wDIqvrBeTjf2fo8lAjNF
+	 Fcvclc7a7LtBG0pDh2F0RdUIsJPgaG7yrRRP7cdXxWirXPmFAMWagai51CBCYv6hz1wPy
+	 4hERNxVSpg5PBFYpv90fkzLivFx3hNv6cgaJn509wCoQd0tqAJHUzpl8N9D9CwUdCC0CS
+	 PC5690OjinszKbMEFFQ+C9ew4ZsWgM+ckFQ1guy3t5k7Ouoil4WV1iGXymXBvRrJTpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Epc8fusx;
-	arc=none smtp.remote-ip=91.218.175.57
-Received: from mta0.migadu.com (unknown [91.218.175.57])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EwsrI/yS";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534DC606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 534DC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7AF606A32C;
+	Sun, 15 Nov 2026 21:18:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Epc8fusx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=M+LcePhBxHg+Eafiox2nA2slqAPf1Jr8suZ4SxZKH9c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794777430; v=1; x=1795382230;
- b=Epc8fusxzQLnQuKq91gGP+xQikQ7eSiK4sytpW1MlNVGuVrIGMEjQd718QdBZnn0mCmWRind
- 2H7dtV4ft2vioq+N5GT6Hx63tRTZZBgNEJCbLLCktDXyVLCZuFd15sgOzqdLb5X65kK0fTj685u
- mMyCXmlxr9bgrxjHvXUmwErw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 81722368df45ad00;
-	Sun, 15 Nov 2026 21:17:06 +0000
-X-Mizu-Trace-ID: 81722368df45ad00
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 21:16:58 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-CC: atomlin@atomlin.com, da.gomez@kernel.org, dsterba@suse.com,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-modules@vger.kernel.org, mcgrof@kernel.org, nathan@kernel.org,
- nsc@kernel.org, petr.pavlu@suse.com, samitolvanen@google.com,
- terrelln@fb.com
-Subject: Re: [PATCH v2] module: Add LZ4 module compression
-In-Reply-To: <74f6ca7a-6171-4d21-b382-49dc4c4753e7@molgen.mpg.de>
-References: <F2B70664-1E9A-427C-9132-A0F5F586F731@linux.dev> <74f6ca7a-6171-4d21-b382-49dc4c4753e7@molgen.mpg.de>
-Message-ID: <5AB07CE7-6CB0-4CBE-A61F-7C444C9DF4E9@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwsrI/yS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E02E61F000C4;
+	Sun, 15 Nov 2026 21:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794777503;
+	bh=4NmVekp5AF3TQlvKfhhoRjPEWciyBwoXsOkkxZlyMuo=;
+	h=From:Date:Subject:To:Cc;
+	b=EwsrI/ySyvB20G0OXm5ps0iHqCR5WTS32bYIMIkp6kAmcrqApUPqMEqq+cvOy00uX
+	 ho4vyv2AUSFdsaQKdjVayMoQTcfrB2xGxXN0Vp4peDzCY5TJYQI/eBXKlFblLqQmt0
+	 KckZyexpMFRvAR69YKm3wSJvWv1t2w6N3uZv6OppxZOw4UpobFwa2tv7WeOXTgLIyA
+	 Cxo02L3wPE8NOgJ/ynLbsnCI+iNFz9fa/IC8fnU2wrGrux6Foj5P1tJ/d4POnE7C/k
+	 7uhcJ9BKJJZA9zrKIor1VA+oNivY260M9LERoMcVdvJGdzk1Ad/pat33zeEoN7bUvg
+	 pmMteI/xmOSxg==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Sun, 15 Nov 2026 14:18:07 -0700
+Subject: [PATCH] powerpc/xmon: Avoid unsequenced accesses to tsk in
+ show_task()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,532 +53,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261115-xmon-wunsequenced-v1-1-42ae3fe45bf4@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQrCMBBG4auUWRvoRBrBq4iLmP7VEZxqptFC6
+ d0bdfkt3lvIkAVGx2ahjLeYjFrBu4bSLeoVTvpq8q0PzNy5+TGq+xQ1vAo0oXfs24iYhkPYB6r
+ dM2OQ+fc8nf+2crkjTd8RresGh06aTXUAAAA=
+X-Change-ID: 20261115-xmon-wunsequenced-120aeacf7636
+To: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2438; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=n3wmVZOyMNsX0uk3IiniOVaUBJnF2oOZEtO24z2uNpg=;
+ b=kA0DAAoWHWsmkXHAGpYByyZiAGr6IZihRZbffcT0Cn4l0kQ9p2gOZzFH1xiWaOwkQ4z9Dio1B
+ Ih1BAAWCgAdFiEEe+MlxzExnM0B2MqSHWsmkXHAGpYFAmr6IZgACgkQHWsmkXHAGpZYQAEA+JcF
+ h7PyeMAe3s4nhbTb5HJ8VLD36RDIdTWqIVyIciABAI7Ee9Nul+Wz3OwRJenTiDaR5Ht50X9ChFl
+ /YY2LYwQI
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 15 November 2026 21:09:09 GMT, Paul Menzel <pmenzel@molgen.mpg.de>
-wrote:
->Dear Bradley,
->
->
->Thank you for commenting on v2.
->
->
->Am 15.11.26 um 18:35 schrieb Bradley Morgan:
->> On 15 November 2026 12:04:13 GMT, Paul Menzel wrote:
->>> XZ modules are small but slow to decompress in the kernel. Therefore,
->>> support modules compressed in the LZ4 frame format (.ko.lz4), as
->written
->>> by lz4(1). Decode block by block into a scratch buffer and copy into
->the
->>> module pages. Linked blocks keep the last 64 KiB of output in front of
->>> the scratch buffer as the dictionary. Verify the header checksum, block
->>> checksums, content checksum and content size when the frame has them.
->>> Frames with a dictionary ID are rejected.
->> 
->> .ko.lz4? when would this be used..?
->
->With the first sentence and the table below, it would be used, if fast
->boot times are more important than space.
->
->>> modules_install uses `lz4 -12 -B4 -BD`: 64 KiB linked blocks are as
->>> small as 4 MiB blocks (i915.ko: 3587140 vs 3585364 bytes) and keep the
->>> scratch buffer at 128 KiB.
->>> 
->>> Userspace needs kmod with LZ4 support for depmod and modprobe [1].
->>> 
->>> On a Dell XPS 13 9310 with an Intel Core i7-1165G7 (Tiger Lake) and an
->>> NVMe SSD, decompressing and checking the signatures of the 237 modules
->>> loaded during boot takes 624 ms of CPU time with XZ (i915: 91 ms) and
->>> 131 ms with LZ4 (i915: 12 ms), measured by calling finit_module() again
->>> for each loaded module. The LZ4 modules take 20.3 MB instead of 11.0
->MB.
->>> Both kernels are v7.4-rc1 with the same patches, including pending
->>> lib/xz decoder speed-ups. Ten alternating boots of each kernel:
->>> 
->>>   | ms (median)                               |  XZ  | LZ4  | change |
->>>   +-------------------------------------------+------+------+--------+
->>>   | early-i915 (modprobe i915 + dependencies) |  295 |   90 |   -205 |
->>>   | first i915 message                        |  738 |  547 |   -192 |
->>>   | GDM autologin                             |  973 |  876 |    -96 |
->>>   | GRUB start to autologin                   | 1292 | 1197 |    -94 |
->>> 
->>> QEMU 11.1.2 (KVM, AMD EPYC 7763, 8 vCPUs, module.sig_enforce=1, 10
->>> rounds), loading the same 237 modules in dependency order:
->>> 
->>>   | median                   |   XZ    |   LZ4   | uncompressed |
->>>   +--------------------------+---------+---------+--------------+
->>>   | one at a time            | 2082 ms | 1499 ms |      1461 ms |
->>>   | 8 in parallel, like udev |  619 ms |  573 ms |       593 ms |
->> 
->> This table doesn't look very nicely formatted for me.
->
->“nicely” is quite subjective, so it’d be great if you suggested your
->preferred format.
+After a recent improvement in clang to warn on unsequenced accesses to
+volatile variables [1], an instance appears in show_task(), which can
+break the build with CONFIG_PPC_WERROR=y / CONFIG_WERROR=y / W=e:
 
-It looks very mangled to me.
+  arch/powerpc/xmon/xmon.c:3262:3: error: unsequenced accesses to volatile qualified 'tsk' [-Werror,-Wunsequenced]
+   3261 |         printf("%16px %16lx %16px %6d %6d %c %2d %s\n", tsk,
+        |                                                         ~~~
+   3262 |                 tsk->thread.ksp, tsk->thread.regs,
+        |                 ^
 
->
->>> Link: https://github.com/kmod-project/kmod/pull/505 [1]
->>> Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
->>> ---
->>> 
->>> Notes:
->>>     Changes in v2:
->>>     - Declare retval as ssize_t, so output of 2 GiB or more is not
->>>       truncated (Sashiko). The zstd decoder has the same bug, fixed by
->>>       the separate patch "module/decompress: Use ssize_t for the zstd
->>>       decompressed size".
->>>     - Reject empty frames with -EINVAL; v1 failed vmap() of 0 pages
->with
->>>       -ENOMEM (Sashiko).
->>>     - Describe the decoder and link the frame format specification,
->group
->>>       the definitions by FLG byte, BD byte and block size field,
->compare the
->>>       version with FIELD_GET(), rename LZ4F_DICT_SIZE to
->LZ4F_WINDOW_SIZE,
->>>       look up the block maximum size in a table, shorten the dictionary
->>>       comment (Bradley Morgan).
->>>         v1:
->https://lore.kernel.org/all/20261113144233.193782-1-pmenzel@molgen.mpg.de/
->>>         Claude Opus 5.5 (Claude Code) wrote the decoder, the v2
->>>     changes and this message. Tests: W=1 compile (GCC 16.2, Debian
->config
->>>     for x86_64, tinyconfig for i386); QEMU with module.sig_enforce=1:
->11 LZ4
->>>     frame variants (64 KiB-4 MiB, linked/independent, block/content
->>>     checksums, content size, stored blocks) load, 9 corrupt, truncated
->or
->>>     empty files are rejected with EINVAL or EKEYREJECTED (v1: ENOMEM
->for the
->>>     empty ones); the 237-module boot set loads in QEMU. v1 also loaded
->on a
->>>     Dell XPS 13 9310 (20 boots); v2 was not booted on hardware.
->> 
->> Could you do a favour and test patches you submit, just in case of the
->> edgecases :)
->
->v1 was tested on real hardware, and for the v2 changes, I deem the QEMU
->tests enough.
->
->>> kernel/module/Kconfig      |  13 +-
->>> kernel/module/decompress.c | 243 +++++++++++++++++++++++++++++++++++++
->>> scripts/Makefile.modinst   |   6 +
->>> 3 files changed, 261 insertions(+), 1 deletion(-)
->>> 
->>> diff --git a/kernel/module/Kconfig b/kernel/module/Kconfig
->>> index 43b1bb01fd273..36f12612c74dd 100644
->>> --- a/kernel/module/Kconfig
->>> +++ b/kernel/module/Kconfig
->>> @@ -344,7 +344,7 @@ config MODULE_COMPRESS
->>> 	  This is fully compatible with signed modules.
->>> 
->>> 	  The tool used to work with modules needs to support the selected
->>> -	  compression type. kmod MAY support gzip, xz and zstd. Other tools
->>> +	  compression type. kmod MAY support gzip, xz, zstd and lz4. Other tools
->>> 	  might have a limited selection of the supported types.
->>> 
->>> 	  Note that for modules inside an initrd or initramfs, it's more
->>> @@ -377,6 +377,15 @@ config MODULE_COMPRESS_ZSTD
->>> 	  Support modules compressed with ZSTD. The installed modules are
->>> 	  suffixed with .ko.zst.
->>> 
->>> +config MODULE_COMPRESS_LZ4
->>> +	bool "LZ4"
->>> +	help
->>> +	  Support modules compressed with LZ4. The installed modules are
->>> +	  suffixed with .ko.lz4.
->>> +
->>> +	  LZ4 modules are larger than XZ or ZSTD ones but decompress
->>> +	  several times faster.
->>> +
->>> endchoice
->>> 
->>> config MODULE_COMPRESS_ALL
->>> @@ -394,6 +403,8 @@ config MODULE_DECOMPRESS
->>> 	select ZLIB_INFLATE if MODULE_COMPRESS_GZIP
->>> 	select XZ_DEC if MODULE_COMPRESS_XZ
->>> 	select ZSTD_DECOMPRESS if MODULE_COMPRESS_ZSTD
->>> +	select LZ4_DECOMPRESS if MODULE_COMPRESS_LZ4
->>> +	select XXHASH if MODULE_COMPRESS_LZ4
->>> 	help
->>> 	  Support for decompressing kernel modules by the kernel itself
->>> 	  instead of relying on userspace to perform this task. Useful when
->>> diff --git a/kernel/module/decompress.c b/kernel/module/decompress.c
->>> index cce098671be97..028b411015f21 100644
->>> --- a/kernel/module/decompress.c
->>> +++ b/kernel/module/decompress.c
->>> @@ -287,6 +287,249 @@ static ssize_t module_zstd_decompress(struct
->load_info *info,
->>> 	kvfree(wksp);
->>> 	return retval;
->>> }
->>> +#elif defined(CONFIG_MODULE_COMPRESS_LZ4)
->>> +#include <linux/bitfield.h>
->>> +#include <linux/lz4.h>
->>> +#include <linux/sizes.h>
->>> +#include <linux/unaligned.h>
->>> +#include <linux/xxhash.h>
->>> +#define MODULE_COMPRESSION	lz4
->>> +#define MODULE_DECOMPRESS_FN	module_lz4_decompress
->>> +
->> 
->> Oh these includes mid file are a MESS! No, please no. Good to if
->defined,
->> but I'm sure the maintainer wouldn't mind if you ifdefed those includes
->on
->> the TOP of the file. Like any other normal kernel file.
->
->It’s done the same way for the other variants, so I keep it.
->
->Why so many includes? Unlike zstd, xz and zlib, lib/lz4 has only the block
->API (LZ4_decompress_safe*()), no frame decoder, so this parses the LZ4
->frame format (v1.6.x) itself: frame descriptor, block sizes and the xxh32
->header, block and content checksums. I am going to add that to the commit
->message of v3.
->
->>> +/*
->>> + * Decoder for the LZ4 frame format written by lz4(1), see
->>> + * https://github.com/lz4/lz4/blob/dev/doc/lz4_Frame_format.md
->>> + *
->>> + * Each block is decoded into a scratch buffer and copied into the
->module
->>> + * pages. A linked block may reference up to 64 KiB of the output
->before
->>> + * it, so that much output is kept in front of the scratch buffer.
->>> + */
->> 
->> Well, I suggested something better,
->> 
->> /* Decoder for the lz4 frame format,
->>   * written by lz4 [1]
->>   * This code adds support for lz4
->>   * modules inside the kernel, so
->>   * that lz4 modules can be used.
->>   *
->>   * [1] - (your link, lz4 frame format src??)
->>   */
->> 
->> What about this?
->> 
->> I say bikeshed, but let's not make it TOO sloppy, you reckon?
->
->No, I don’t. The other variants don’t have such a generic comment. So, I’d
->keep.
+Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+6.5.2, unsequenced side effects on the same scalar object are undefined
+behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+function call is indeterminately sequenced, meaning any side effects in
+the arguments are unsequenced.
 
-fine.
+tsk was made volatile in commit a2305e3de819 ("powerpc: mark local
+variables around longjmp as volatile") to ensure its value in
+show_tasks() was properly restored after returning from a potential
+longjmp(). Aside from that, the value is not being modified through
+other means, so rename the volatile parameter and add a local variable
+named tsk to hold its value throughout show_task(), clearing up the
+warning.
 
->
->>> +#define LZ4F_MAGIC		0x184d2204
->>> +
->>> +/* Frame descriptor, FLG byte */
->>> +#define LZ4F_FLG_VERSION	GENMASK(7, 6)
->>> +#define LZ4F_FLG_BLOCK_INDEP	BIT(5)
->>> +#define LZ4F_FLG_BLOCK_CSUM	BIT(4)
->>> +#define LZ4F_FLG_CONTENT_SIZE	BIT(3)
->>> +#define LZ4F_FLG_CONTENT_CSUM	BIT(2)
->>> +#define LZ4F_FLG_RESERVED	BIT(1)
->>> +#define LZ4F_FLG_DICT_ID	BIT(0)
->>> +
->>> +/* Frame descriptor, BD byte */
->>> +#define LZ4F_BD_BLOCK_MAXSIZE	GENMASK(6, 4)
->>> +#define LZ4F_BD_RESERVED	(BIT(7) | GENMASK(3, 0))
->>> +
->>> +/* Block size field: the top bit marks a block stored uncompressed */
->>> +#define LZ4F_BLOCK_UNCOMPRESSED	BIT(31)
->>> +
->>> +#define LZ4F_WINDOW_SIZE	SZ_64K
->>> +
->>> +/* Block maximum sizes for the BD byte's Block MaxSize values 4 to 7
->*/
->>> +static const u32 lz4f_block_max[] = { SZ_64K, SZ_256K, SZ_1M, SZ_4M };
->>> +
->>> +static int module_lz4_copy_out(struct load_info *info, const u8 *src,
->>> +			       size_t len, size_t *total)
->>> +{
->>> +	while (len) {
->>> +		size_t offset = *total % PAGE_SIZE;
->>> +		size_t chunk = min_t(size_t, len, PAGE_SIZE - offset);
->>> +		struct page *page;
->>> +
->>> +		if (offset)
->>> +			page = info->pages[info->used_pages - 1];
->>> +		else
->>> +			page = module_get_next_page(info);
->>> +		if (IS_ERR(page))
->>> +			return PTR_ERR(page);
->>> +
->>> +		memcpy_to_page(page, offset, src, chunk);
->>> +		src += chunk;
->>> +		len -= chunk;
->>> +		*total += chunk;
->>> +	}
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +static int module_lz4_verify_content(struct load_info *info, size_t
->total,
->>> +				     u32 expected)
->>> +{
->>> +	void *data;
->>> +	u32 csum;
->>> +
->>> +	data = vmap(info->pages, info->used_pages, VM_MAP, PAGE_KERNEL_RO);
->>> +	if (!data)
->>> +		return -ENOMEM;
->>> +	csum = xxh32(data, total, 0);
->>> +	vunmap(data);
->>> +
->>> +	if (csum != expected) {
->>> +		pr_err("LZ4-compressed data is corrupt (content checksum)\n");
->>> +		return -EINVAL;
->>> +	}
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +static ssize_t module_lz4_decompress(struct load_info *info,
->>> +				     const void *buf, size_t size)
->>> +{
->>> +	const u8 *in = buf, *end = in + size, *desc;
->>> +	size_t block_max, total = 0, dict_len = 0;
->>> +	u64 content_size = 0;
->>> +	u8 *scratch, *out;
->>> +	bool linked;
->>> +	u8 flg, bd;
->>> +	ssize_t retval;
->>> +
->>> +	if (size < 7 || get_unaligned_le32(in) != LZ4F_MAGIC) {
->>> +		pr_err("not an lz4 compressed module\n");
->>> +		return -EINVAL;
->>> +	}
->>> +
->>> +	desc = in + 4;
->>> +	flg = desc[0];
->>> +	bd = desc[1];
->>> +	in = desc + 2;
->>> +	if (FIELD_GET(LZ4F_FLG_VERSION, flg) != 1 ||
->>> +	    (flg & LZ4F_FLG_RESERVED) || (bd & LZ4F_BD_RESERVED) ||
->>> +	    FIELD_GET(LZ4F_BD_BLOCK_MAXSIZE, bd) < 4) {
->>> +		pr_err("LZ4-compressed data has an unsupported frame descriptor\n");
->> 
->> When would this be reached?
->
->This would only be reached for input lz4/liblz4 never write. The frame
->format specification requires a decoder to reject. The Block MaxSize part
->also guards the lz4f_block_max[] index below, and as decompression runs
->before the signature check, the header has to be validated here. I'll
->split the bounds check out with its own comment in v3 to make this
->clearer.
+Cc: stable@vger.kernel.org
+Fixes: a2305e3de819 ("powerpc: mark local variables around longjmp as volatile")
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2199
+Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ arch/powerpc/xmon/xmon.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Thx
+diff --git a/arch/powerpc/xmon/xmon.c b/arch/powerpc/xmon/xmon.c
+index cb3a3244ae6f..90a8d7a8f42d 100644
+--- a/arch/powerpc/xmon/xmon.c
++++ b/arch/powerpc/xmon/xmon.c
+@@ -3240,8 +3240,9 @@ memzcan(void)
+ 		printf("%.8lx\n", a - mskip);
+ }
+ 
+-static void show_task(struct task_struct *volatile tsk)
++static void show_task(struct task_struct *volatile vol_tsk)
+ {
++	struct task_struct *tsk = vol_tsk;
+ 	unsigned int p_state = READ_ONCE(tsk->__state);
+ 	char state;
+ 
 
->
->>> +		return -EINVAL;
->>> +	}
->>> +	if (flg & LZ4F_FLG_DICT_ID) {
->>> +		pr_err("LZ4-compressed data needs a dictionary\n");
->>> +		return -EINVAL;
->>> +	}
->>> +	if (flg & LZ4F_FLG_CONTENT_SIZE) {
->>> +		if (end - in < 8)
->>> +			goto truncated_header;
->>> +		content_size = get_unaligned_le64(in);
->>> +		in += 8;
->>> +	}
->>> +	if (end - in < 1)
->>> +		goto truncated_header;
->>> +	if (*in != ((xxh32(desc, in - desc, 0) >> 8) & 0xff)) {
->>> +		pr_err("LZ4-compressed data has a corrupt frame descriptor\n");
->> 
->> Is there a mechanism in the future in order to understand the garbled
->crap
->> and fix it to make it manageable? (This can be future patch)
->
->No mechanism is planned.
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261115-xmon-wunsequenced-120aeacf7636
 
-Ok.
+Best regards,
+--  
+Cheers,
+Nathan
 
->
->>> +		return -EINVAL;
->>> +	}
->>> +	in++;
->>> +
->>> +	block_max = lz4f_block_max[FIELD_GET(LZ4F_BD_BLOCK_MAXSIZE, bd) - 4];
->>> +	linked = !(flg & LZ4F_FLG_BLOCK_INDEP);
->>> +
->>> +	scratch = kvmalloc((linked ? LZ4F_WINDOW_SIZE : 0) + block_max,
->>> +			   GFP_KERNEL);
->>> +	if (!scratch)
->>> +		return -ENOMEM;
->>> +	out = scratch + (linked ? LZ4F_WINDOW_SIZE : 0);
->>> +
->>> +	for (;;) {
->>> +		u32 block_size;
->>> +		size_t len;
->>> +		int ret;
->>> +
->>> +		if (end - in < 4)
->>> +			goto truncated;
->>> +		block_size = get_unaligned_le32(in);
->>> +		in += 4;
->>> +		if (!block_size)
->>> +			break;
->>> +
->>> +		len = block_size & ~LZ4F_BLOCK_UNCOMPRESSED;
->>> +		if (len > block_max) {
->>> +			pr_err("LZ4-compressed data has an oversized block\n");
->>> +			retval = -EINVAL;
->>> +			goto out;
->>> +		}
->>> +		if ((size_t)(end - in) < len +
->>> +		    (flg & LZ4F_FLG_BLOCK_CSUM ? 4 : 0))
->>> +			goto truncated;
->>> +
->>> +		if ((flg & LZ4F_FLG_BLOCK_CSUM) &&
->>> +		    xxh32(in, len, 0) != get_unaligned_le32(in + len)) {
->>> +			pr_err("LZ4-compressed data is corrupt (block checksum)\n");
->>> +			retval = -EINVAL;
->>> +			goto out;
->>> +		}
->>> +
->>> +		if (block_size & LZ4F_BLOCK_UNCOMPRESSED) {
->>> +			memcpy(out, in, len);
->>> +			ret = len;
->>> +		} else if (linked) {
->>> +			ret = LZ4_decompress_safe_usingDict(in, out, len,
->>> +							    block_max,
->>> +							    out - dict_len,
->>> +							    dict_len);
->>> +		} else {
->>> +			ret = LZ4_decompress_safe(in, out, len, block_max);
->>> +		}
->>> +		if (ret < 0) {
->>> +			pr_err("LZ4-decompression failed\n");
->>> +			retval = -EINVAL;
->>> +			goto out;
->>> +		}
->>> +
->>> +		retval = module_lz4_copy_out(info, out, ret, &total);
->>> +		if (retval)
->>> +			goto out;
->>> +
->>> +		if (linked) {
->>> +			/* Keep the last 64 KiB as the next block's dictionary. */
->>> +			size_t keep = min_t(size_t, dict_len + ret,
->>> +					    LZ4F_WINDOW_SIZE);
->>> +
->>> +			memmove(out - keep, out + ret - keep, keep);
->>> +			dict_len = keep;
->>> +		}
->>> +
->>> +		in += len;
->>> +		if (flg & LZ4F_FLG_BLOCK_CSUM)
->>> +			in += 4;
->>> +	}
->>> +
->>> +	if (!total) {
->>> +		pr_err("LZ4-compressed module is empty\n");
->>> +		retval = -EINVAL;
->>> +		goto out;
->>> +	}
->>> +
->>> +	if (flg & LZ4F_FLG_CONTENT_CSUM) {
->>> +		if (end - in < 4)
->>> +			goto truncated;
->>> +		retval = module_lz4_verify_content(info, total,
->>> +						   get_unaligned_le32(in));
->>> +		if (retval)
->>> +			goto out;
->>> +		in += 4;
->>> +	}
->>> +
->>> +	if (in != end) {
->>> +		pr_err("LZ4-compressed module has trailing data\n");
->>> +		retval = -EINVAL;
->>> +		goto out;
->>> +	}
->>> +
->>> +	if ((flg & LZ4F_FLG_CONTENT_SIZE) && content_size != total) {
->>> +		pr_err("LZ4-compressed data has a wrong content size\n");
->>> +		retval = -EINVAL;
->>> +		goto out;
->>> +	}
->>> +
->>> +	retval = total;
->>> +	goto out;
->>> +
->>> +truncated:
->>> +	pr_err("LZ4-compressed data is truncated\n");
->>> +	retval = -EINVAL;
->>> +out:
->>> +	kvfree(scratch);
->>> +	return retval;
->>> +
->>> +truncated_header:
->>> +	pr_err("LZ4-compressed data is truncated\n");
->>> +	return -EINVAL;
->>> +}
->>> #else
->>> #error "Unexpected configuration for CONFIG_MODULE_DECOMPRESS"
->>> #endif
->> 
->> My concern here is that some of these gnarly functions are uncommented,
->so
->> when a noob reads this code, "Oh no! What does this do! Oops... I broke
->my
->> module"
->> 
->> Maybe comment for functions that are gnarly and you think a reader would
->> need to understand to be able to operate/contribute.
->
->I think the decompressor is straight forward, and the other compression
->variants don’t do either, so I won’t add comments unless the maintainers
->ask me to.
->
->>> diff --git a/scripts/Makefile.modinst b/scripts/Makefile.modinst
->>> index 9ba45e5b32b18..aebc5e89d0e75 100644
->>> --- a/scripts/Makefile.modinst
->>> +++ b/scripts/Makefile.modinst
->>> @@ -57,6 +57,7 @@ ifdef CONFIG_MODULE_COMPRESS_ALL
->>> suffix-$(CONFIG_MODULE_COMPRESS_GZIP)	:= .gz
->>> suffix-$(CONFIG_MODULE_COMPRESS_XZ)	:= .xz
->>> suffix-$(CONFIG_MODULE_COMPRESS_ZSTD)	:= .zst
->>> +suffix-$(CONFIG_MODULE_COMPRESS_LZ4)	:= .lz4
->>> endif
->>> 
->>> modules := $(patsubst %.o, $(dst)/%.ko$(suffix-y), $(modules))
->>> @@ -151,6 +152,8 @@ quiet_cmd_xz = XZ      $@
->>>        cmd_xz = $(XZ) --check=crc32 --lzma2=dict=1MiB -f $<
->>> quiet_cmd_zstd = ZSTD    $@
->>>        cmd_zstd = $(ZSTD) --rm -f -q $<
->>> +quiet_cmd_lz4 = LZ4     $@
->>> +      cmd_lz4 = $(LZ4) -12 -B4 -BD --rm -f -q $< $@
->>> 
->>> $(dst)/%.ko.gz: $(dst)/%.ko FORCE
->>> 	$(call cmd,gzip)
->>> @@ -161,6 +164,9 @@ $(dst)/%.ko.xz: $(dst)/%.ko FORCE
->>> $(dst)/%.ko.zst: $(dst)/%.ko FORCE
->>> 	$(call cmd,zstd)
->>> 
->>> +$(dst)/%.ko.lz4: $(dst)/%.ko FORCE
->>> +	$(call cmd,lz4)
->>> +
->>> PHONY += FORCE
->>> FORCE:
->
->Thanks,
->
->Paul
->
->
->PS: Just a wish, that you’d use a more motivating commenting style. Still: Thank you for taking time to review patches.
-
-Wdym?
-
->
-
---- Thanks!
