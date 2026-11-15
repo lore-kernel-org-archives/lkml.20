@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727465;
-	b=J8Vjils+VPrOfO67hYs8AH4jdPKrWIPnNp8MP94CMbPqVGz9RS9iEwI0ULsEXND3EWPZ
-	 Zn2nS3GCvKMuyYX7uRmvkC4Ao6rR0ub09w0LoLFb01tTCrlBg5f9zmzTkAPR4GA5RuaK7
-	 rp3ZOxwCzYFVU3BQdTcUXMd3hvgb2vLpCALX+Gl9ldkkZyqIakCDXvMsd4shurAk3Mot4
-	 0yOHIw684JLNnWfff89l7xQsz44GTqb6qtcsQwI39m+nXHskNS9TyxLEka0Q0D4Ou/O8S
-	 8Jn5IQf/rD2ugLwma3lo/R3GpWx2SRjkl0tb9QOUeUdzUmm+Qve/+n8QumsyVH6CZyg==
+	t=1794727466;
+	b=zKEKz/gRmACB8QX6aQzdH3TXgvDCKvqM6b26n0Ml1oYzljsbRMoF4lx8Ax0dUN77+K0Y
+	 dpGSOfNz93tQLHYYDkvgh5PAIUZIJVI3wzHFVHTWngXczqJ4c4uhNgjyPr33W0e85LyaI
+	 AR/DjMWkICc+7TG6N5tE4z8SKbifCsH4UndEy7ZIW9VHer3yhczuNBzSnOLbIMAPK3yCc
+	 Mh3KAnfWp8sFhY4q9SK9Yfh4x76Yv61SJ66EkUUcYdgcoPgAfM99Tc1FjSBQOaJCLy6Q3
+	 dvqZPbzQGBFT5OCbSI9fVfDuSv7tm7bQh0/vulhL1prG8vCjuryZeR92UapqEUymlWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727465;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727466;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=AidHs0Awemb2NZ24itVBVZKYL6ptkEfvldQHKQBgGl0=;
-	b=LcIq85woFkwLiMGsCxgIEF+PAOBwYg01+p0QipVFwac+7/q6HMDKNl4VCDlpYY0oA9Ur
-	 fMarRQOrqv2h561n1p/Tq0td6ZkNECensrFTjMhe+ImUUMGeKFg9eU84ogK9OIg7oZEf/
-	 oMXwVC6ox1f6K9C7Gcig3orOn6l3qY7Lcac5ftQMN90L61hrsdZS00GJ3HBMZZc1kd37V
-	 1mBxavSvx580Tj0B0EDDWRAvjVjHvL9gvqpgeQUeFbKbT4ti2EMFmKT+K4e6NJC1pc3ld
-	 3hsRG5wPp0qsHfG+1Xtizyi9Xzt4CP71IEt4ldDNFeMAmeLZoQPEH8b9Lgt90ZqJ29g==
+	bh=NzpBRw/cBkBhGgg5TTiPsQ+nsl4pu7G97F49dIghoks=;
+	b=0YHEtgavu2JtFakOlxDarnYlutZ25newXbrbCJD0kFBTAfQ3cUfafUs/A3q3gPyVSlbd
+	 Q52BCRajeqr4kDCLB4+memsKaJ04LpLp7KBN876KJGSR5M2/TjAEvF3isN601BLMVPXjt
+	 zz+JIUNOjqSbuVAyBwgyVaDdex6s/22NpuuOlDXbKZr3iiMj8OukdtmfkpUl0znbdGF6v
+	 Py5URiZSy9Fyjznccxs8gJd0LvDvzeTHx15U+jah7TqsvlXaZCxsk+TuiddkIGU17P3lV
+	 T8MRE2bRBmNn/a/kPhECVHB8Q2e0rqZeXp3cquT6D+ewiZjxwWyLuSesNrmV1NL1fWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9D0afPn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDfdSkQN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C71606A327;
-	Sun, 15 Nov 2026 07:24:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA50606A339;
+	Sun, 15 Nov 2026 07:24:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9D0afPn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E50281F000C4;
-	Sun, 15 Nov 2026 07:24:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDfdSkQN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815CF1F000C4;
+	Sun, 15 Nov 2026 07:24:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794727464;
-	bh=AidHs0Awemb2NZ24itVBVZKYL6ptkEfvldQHKQBgGl0=;
+	s=k20260515; t=1794727466;
+	bh=NzpBRw/cBkBhGgg5TTiPsQ+nsl4pu7G97F49dIghoks=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=J9D0afPnqD/0sfW+WAvE5yqR5xx4q5F1P40g3fB8SgXIXt03kybektbsmLTAz7ka8
-	 BJYYsvbzT8Gdg0OhCrqbtEy+XcVDpZ4a35cEv0HPLPFVVlWZ2kK2ZYzkgU6PBTirG1
-	 jdCVoZEWD0S9FFoVdgkaVOATKn2i8CeA3IzhKCKpMnzmgcnYKup3qc6NCqFxO158/Q
-	 bOMhJB9UPKjOH9abL0QMfx5HzjwGol/FqCgZ6VhfPZ4ncbzwmrJcNpR2zNlZsoGppH
-	 kNItHofx6sfPkth1MoRpH8Jm8k98VOgu0i6oqaAtlej0fdJtp+KlOy7Q++TodO8fYd
-	 flN96cmOMKOQg==
-Subject: Re: [PATCH v7 net-next 4/9] net: dsa: netc: tie setup resources and
- reset to DSA setup/teardown
+	b=eDfdSkQNh1lPjw015Splx3gPWiIVtpKuozkc9f7ptmS8U5jifBLBq29LFmeK6rDoQ
+	 HqNK+c4xZVVvkdXR1fuMvjE3k1+c2hYzHGEsaoWcD5KVvNK+s7yDfFLgELibpBtmgW
+	 JKx5k4iIS0dVnPhszuxMvoB/2fFLA5RlyMjhmKI4EI6XTmNHkJlgT41ja0wAgevt/4
+	 i/XQntGJDMRKhFmWCPN8Q18duYH3juIRoCFMz3/voMvNGNbgQ0+wjXWDE9oTtYjD4d
+	 1kkQcJVUhPkRDLurQzaMYbi5Frvx3SYtADB/Nn7TEOKsoE+d1JaBiSY3aPD3Bt8viY
+	 Ct0cgORoJdbQQ==
+Subject: Re: [PATCH v7 net-next 6/9] net: dsa: netc: check return value of
+ ntmp_ipft_delete_entry()
 From: netdev-bot+sashiko@kernel.org
 To: wei.fang@oss.nxp.com
 Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
@@ -51,10 +51,10 @@ Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
  wei.fang@nxp.com, imx@lists.linux.dev, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-arm-kernel@lists.infradead.org
-Date: Sun, 15 Nov 2026 07:24:23 +0000
-Message-ID: <179472746345.2199510.13684304240938201686@kernel.org>
-In-Reply-To: <20261111062753.1397582-5-wei.fang@oss.nxp.com>
-References: <20261111062753.1397582-5-wei.fang@oss.nxp.com>
+Date: Sun, 15 Nov 2026 07:24:25 +0000
+Message-ID: <179472746510.2199510.5500169981091992734@kernel.org>
+In-Reply-To: <20261111062753.1397582-7-wei.fang@oss.nxp.com>
+References: <20261111062753.1397582-7-wei.fang@oss.nxp.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -68,10 +68,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -79,99 +79,172 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch makes the first netc_setup() skip the reset
-  (priv->configured == false) on the grounds that "the probe path…
+- [Medium] netc_port_remove_host_flood()
+  (drivers/net/dsa/netc/netc_main.c:1874-1898) keeps np->ipft_hf_eid on…
+- [Medium] The new retry loop in netc_port_set_host_flood()
+  (drivers/net/dsa/netc/netc_main.c:1943-1952) sends another IPFT ADD…
+- [Low] The commit message says that if adding the new host flood rule
+  fails, the driver will "log an error to help users find out why host…
 
 --
 
-net: dsa: netc: tie setup resources and reset to DSA setup/teardown
+net: dsa: netc: check return value of ntmp_ipft_delete_entry()
 
-This patch adds netc_switch_reset(), which netc_setup() calls first so
-each DSA setup starts from a clean hardware state. The first setup skips
-the reset and relies on the probe-time FLR. The patch also turns the
-setup-path devm_ allocations into explicit alloc/free calls, released in
-netc_teardown() and on the error paths.
+This patch makes netc_port_remove_host_flood() return errors from
+ntmp_ipft_delete_entry(), and it only clears the tracked entry ID after
+the delete succeeds. Host flood rule replacement changes from
+add-then-delete to delete-then-add, with a retry loop on the add. Bridge
+join now fails if the existing host flood rule cannot be deleted.
 
 > diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-> index 77077352c1a57..c291123f53170 100644
+> index d23cfa076e842..6756bf9edfdb2 100644
 > --- a/drivers/net/dsa/netc/netc_main.c
 > +++ b/drivers/net/dsa/netc/netc_main.c
 
 [ ... ]
 
-> +static int netc_switch_reset(struct netc_switch *priv)
-> +{
-> +	struct pci_dev *pdev = priv->pdev;
+> @@ -1877,32 +1871,37 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
+>  	return err;
+>  }
+>  
+> -static void netc_port_remove_host_flood(struct netc_port *np, u32 entry_id)
+> +static int netc_port_remove_host_flood(struct netc_port *np)
+>  {
+>  	struct netc_switch *priv = np->switch_priv;
+> -	bool disable_host_flood = false;
+> +	u32 entry_id = np->ipft_hf_eid;
 > +	int err;
-> +
-> +	if (!priv->configured) {
-> +		/* The hardware will be configured after netc_switch_reset()
-> +		 * is called, so set priv->configured to true.
-> +		 */
-> +		priv->configured = true;
+>  
+>  	if (entry_id == NTMP_NULL_ENTRY_ID)
+> -		return;
 > +		return 0;
-> +	}
+>  
+> -	if (np->ipft_hf_eid == entry_id)
+> -		disable_host_flood = true;
+> +	/* The command BD ring is always enabled here, with the ring
+> +	 * enabled, the hardware completes a command well within 1 ms,
+> +	 * so -ETIMEDOUT cannot happen here. Any error therefore means
+> +	 * that the entry has not been deleted, so keep tracking it.
+> +	 */
+> +	err = ntmp_ipft_delete_entry(&priv->ntmp, entry_id);
+> +	if (err)
+> +		return err;
 
 [Severity: Medium]
-Can the first netc_setup() start on stale hardware tables if the FLR in
-probe failed?
+Does the NTMP command layer actually guarantee what this comment assumes?
 
-The commit message says:
+ntmp_ipft_delete_entry()->ntmp_delete_entry_by_id() passes back whatever
+netc_xmit_ntmp_cmd() returns. In netc_xmit_ntmp_cmd() in
+drivers/net/ethernet/freescale/enetc/ntmp.c, the BD goes to hardware
+before the completion poll starts:
 
-    The probe path already performs a FLR in netc_switch_pci_init(), so
-    the first setup will skip the reset because the priv->configured flag
-    is not set.
+	netc_write(cbdr->regs.pir, i);
 
-But netc_switch_pci_init() ignores the pcie_flr() return value:
+	err = read_poll_timeout(netc_read, val,
+				(val & NETC_CBDRCIR_INDEX) == i,
+				NETC_CBDR_DELAY_US, NETC_CBDR_TIMEOUT,
+				true, cbdr->regs.cir);
+	if (unlikely(err))
+		return err;
 
-drivers/net/dsa/netc/netc_main.c:netc_switch_pci_init() {
-    ...
-	pcie_flr(pdev);
-	err = pcim_enable_device(pdev);
-    ...
-}
+On -ETIMEDOUT the BD stays queued, so hardware could still carry out the
+delete later. NETC_CBDR_TIMEOUT is exactly the 1 ms this comment relies
+on, with no margin.
 
-pcie_flr() can fail. It returns -ENOTTY if config space is not
-accessible or if pci_dev_wait() times out. It can also fail through
-pci_dev_reset_iommu_prepare() for an ATS-capable device behind an IOMMU.
+The -EIO returns (NETC_CBDRCIR_SBE and the writeback error status) are
+only raised after hardware has consumed the BD. Only -ENOMEM and -EBUSY
+seem to prove that the command never reached hardware.
 
-Suppose that happens after an unbind/rebind:
+Suppose the delete did take effect but np->ipft_hf_eid is kept. Wouldn't
+every later delete of that ID fail?
 
-netc_switch_probe()
-  netc_switch_pci_init()
-    pcie_flr()            <- fails, error ignored
-  dsa_register_switch()
-    netc_setup()
-      netc_switch_reset() <- returns 0 early, !priv->configured
+In that case netc_port_set_host_flood() would always return early. Also,
+netc_port_bridge_join() would always fail with "Failed to delete host
+flood rule", so the port could not join a bridge again until the driver
+is reloaded. Before this patch, the error was ignored and the state was
+cleared.
 
-The FDB, VLAN filter, IPFT, BPT and ETT entries from the previous binding
-would then stay in hardware. netc_setup() builds empty software state on
-top of them, and the driver has no record of those entries to remove.
+IPFT entry IDs are assigned by hardware. Could a freed ID be reused by
+another rule? Examples are the PTP trap entries tracked in
+np->ptp_ipft_eid[] later in the series, or another port's host flood
+rule. A later netc_port_remove_host_flood() would then silently delete
+that unrelated entry and report success.
 
-Later setups treat an FLR failure as fatal, so a failed first FLR is
-handled differently. Should the probe path check the pcie_flr() result
-and fail probe? Alternatively, priv->configured could be set only after
-a successful FLR, so that the first setup retries the reset.
+The commit message's statement that "the software state always stays
+consistent with the hardware" seems to depend on this assumption holding.
 
-> +
-> +	/* Block user space config access and other PCI resets, which take
-> +	 * pci_cfg_access_lock() via pci_dev_lock(), during the FLR.
+[ ... ]
+
+> @@ -1919,19 +1923,33 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
+
+[ ... ]
+
+> +	/* Restoring the previous configuration is pointless because
+> +	 * .port_set_host_flood() returns void, so the upper layer cannot
+> +	 * detect the error and the RX flags have changed. Furthermore, we
+> +	 * cannot guarantee that we can successfully restore the previous
+> +	 * state.
 > +	 */
-> +	pci_cfg_access_lock(pdev);
-> +	err = pci_save_state(pdev);
-> +	if (err)
-> +		goto unlock_cfg_access;
+> +retry:
+> +	if (netc_port_add_host_flood_rule(np, uc, mc)) {
+> +		if (retry_num++ < 2) {
+> +			usleep_range(100, 110);
+> +			goto retry;
+> +		}
+
+[Severity: Low]
+This isn't a bug, but the commit message only says it will "log an error
+to help users find out why host flooding is not working". Neither the
+commit message nor a code comment mentions this retry loop with
+usleep_range(). Could the reason for it be documented?
+
+The loop retries no matter which error code is returned. Errors that will
+fail the same way again, such as -EIO from a writeback error status when
+the table is full, get retried too. Each retry also widens the
+delete-to-add window that the commit message calls "very short".
+
+The other add sites don't retry: the restore path in
+netc_port_bridge_join() and the add in netc_port_bridge_leave(). Is that
+difference intentional?
+
+[Severity: Medium]
+Can this retry leave an untracked IPFT entry behind?
+
+netc_port_add_host_flood_rule()->ntmp_ipft_add_entry()->netc_xmit_ntmp_cmd()
+writes PIR before polling. On -ETIMEDOUT, or on -EIO after the BD has been
+consumed, hardware may still carry out the ADD. In that case
+ntmp_ipft_add_entry() returns before reading back the entry ID:
+
+	err = netc_xmit_ntmp_cmd(cbdr, &cbd, &swcbd);
+	if (err) {
+		...
+		goto unlock_cbdr;
+	}
+
+	resp = (struct ipft_resp_query *)req;
+	entry->entry_id = le32_to_cpu(resp->entry_id);
+
+netc_port_add_host_flood_rule() also records np->ipft_hf_eid only on
+success.
+
+The retry then queues another ADD. If that one succeeds, only its ID is
+tracked. Up to two FLTFA=REDIRECT / NETC_HR_HOST_FLOOD entries keyed on
+this source port could be left with no tracked ID. ntmp_ipft_delete_entry()
+would never remove them.
+
+netc_port_bridge_join() deletes only np->ipft_hf_eid, so such an entry
+would survive bridge join. The comment at the top of
+netc_port_set_host_flood() says this kind of entry sends bridged ingress
+frames straight to the CPU, which skips FDB lookup and learning.
+
+Isn't this the untracked-entry problem the commit message says the patch
+removes? The -ETIMEDOUT argument in netc_port_remove_host_flood() covers
+only the delete path, but this loop retries the add on any error code.
+
 > +
-> +	err = pcie_flr(pdev);
-> +	if (err)
-> +		dev_err(priv->dev, "FLR failed: %pe\n", ERR_PTR(err));
-> +
-> +	pci_restore_state(pdev);
-> +
-> +unlock_cfg_access:
-> +	pci_cfg_access_unlock(pdev);
-> +
-> +	return err;
+> +		dev_err(ds->dev,
+> +			"Failed to add host flood rule on port %d\n", port);
+> +	}
 >  }
 
 [ ... ]
