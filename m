@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794774013;
-	b=QSgm2tzyXjf0EgT3Eoje74DWkKuI1qeqerhwRVEIx3kP9u+6s7RI9PkvSEG0SW9BsfYN
-	 7JxHGJeni36qIlQ4/vWSPUYHLQvosa9jJ4x4wkqvJFx7wkj4a3Z490F/cX9QCHqtHEaNn
-	 nCEPIoNfPmUm2BU1p9gZsc3pDl4j5Tf1PJhDSRYRopWpzN/Hn1PH5BLzUTsuheFUd3Avq
-	 QFEjPLlWUG7h0m+DVs6jyr71RuPyLyMV5d3oTFls16UiUpTAtV0AkI/vAYsnjR5/EajvB
-	 cjCvXtTjSctOGDVex8OYGzMYGvScX9bNe4AaBJFzPSjcFqOgoMKqzClPsUFr3PLnQnw==
+	t=1794774024;
+	b=mLoHY7b7S9gsA8m/IfLcz42Mpcu7HvUbJD4Y7IAKyDZ8HdUnZ/gj+BkuA+XDriTALyit
+	 PpxMGrhTT8zaxzklxSnDw92kHSiRujBQ+hS2DFM91chWQaVm8IZKbpSjxBreQRXDYHoip
+	 mxNiHdwZS931P0YuXdnpUFCEpKf/gvvdj26/7ttAvLrvctRo8pn3DqTBGhL1Wei2zl+Mn
+	 hfxymIWnkidYzaPQ8muC8DeAeFNpkavpv5d3jIQ/1UBLhZ4oEVn3jwN4lS0a/W943A2He
+	 D22zlVbB8ddaVjgKP7C2NRdvKSWggmzeiPexTJmDU3Egaxjs4HM7G7UeBzeHEY7aSIw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774024;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=g3K97sEmGQmx0N2tRmZrilaSVqjc2FRNQycCOBJOnTw=;
-	b=nRCub1L9cZhrI+Q9ZSVgpvsKFwel8eLzmEe4uVZOk8OmrPOXreZPlIFIpRp7qilxUL2A
-	 rix8K1VD/lK2qn2ktsrpZe/nK8ak9kbWZu5rwAQJiJnVERibCWb0h1crpkIZQ1Gbd+KjI
-	 HXsupt90Rdg407ZM/OGp6nWB4HBEWgd9k2jNbbaPfyJvDRvbwG/iom+zUvsu0hZwBSK1Z
-	 Vdr+rDM1f+DB3zS1Odjk4xMKoexgvSdTxyytYzfgo6tMLKZio2ka9X/tvZTgIsDcNelSw
-	 1x8xkJMIUTC48jpna2Ef0QbXtCL0tYtpkYOZNjjDEgRe9Prqtf7lZROAX4YkqDDTyfQ==
+	bh=FciyfdlyV1GuCQuOWY6R0EjzDWoTRRgQD09Av1cYKoQ=;
+	b=yrVcaeVsXxHfjx6z1mMTDR9lyJW+03A80mORn+gzm/wP01oWykGwlC/oU6l8LMrvO2qc
+	 HXJPOK+yc9Y80olA2IyYm0aSo6gBbfzwQifBbfzW+84/TaFFsf2T5fWBYI5meJpNtnA58
+	 BZTv9CWx0BZwqI2vAhf9gE4HE3sIr+CpRDgx4v6dek0eebcYC0UMRBLfVeiB/aTzF3zJy
+	 YKBniuTfle2Gt2Pk4wV20t4MJF1Z9ohsIhsYx3wXEFqaS+9TZyEaHTA7b3mLo0wqJy2SR
+	 xJeyeZ8Yfmfw+y8hfxp77wixH52Oe6vrPuF/B+5TUq6ogyprZoYMPGvPmOlQcLRsiJg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BANuQbCY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSCfPs0w;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF160A2611;
-	Sun, 15 Nov 2026 20:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1864260A6F4F;
+	Sun, 15 Nov 2026 20:20:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BANuQbCY
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSCfPs0w
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794774013;
-	b=vRmXm3Nh9RhY+EvCxvqCPNqo2SDxa/Vocf+OcR3hSKHr87Bkqdr0eYaoRayiQbJBzVuj
-	 IB7fQLrGbxTR0xb3ix8v95CR2dpNVHch+DlcOL82KOYzSV0Genh8ax4YZaVEFadjk1sb/
-	 KBCihLSpybzpp9FldgE/1ZH6szhlI95kHVThCOROcsu8A0IbEjSk09HNQ/rXHktAHr7+A
-	 3wcAV6qdbO0FkXzHagBr7tsbnRTHHibteWrWsV7xxD2WR3ysLdwV2k6yuvWznTUl3A5Si
-	 S2+/irE/9l+xvbSwGdd4jD6z1+cxfKanJtb9GD/pss1lvsk1kt9RogMZlKDYuip3Jww==
+	t=1794774024;
+	b=fDm8Hz0lt0+230TVsLyJZV4EQFjGqhv5nVFlOlNpsixB0SLOyk1vzrnHfZUW97ljFiTA
+	 TCLjoKDqAsBXh0S2t98K3ZK8i5fm6Jhjp7KAGUumNUaEvjqC1SOJSfA9GSGGGGxVYm0WO
+	 8QuRGG6AC8+CPXFiNuz8P0gowBUzDSbqpfE6/EtDSE9/0quJ8wzH15uTEjTwAddhA8JKD
+	 p3M9ljN/s0Pw59VRlyqra9IHJXlqVPl4Ka7lDTlQPQDMZ/2Zy+McCVx2mxXXUSBK0yOI7
+	 J8Vx/wViwsaZBZ7FOJuLw1xJBgJ8NguFJUVU+Y0HCRSt4SvkgA3aacAB2HCulC+QseQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794774013;
+	c=relaxed/relaxed; t=1794774024;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=g3K97sEmGQmx0N2tRmZrilaSVqjc2FRNQycCOBJOnTw=;
-	b=YbJ8he/Vv1m+qXxYMHK3FBc1DsBiC3FH7g2s5KiI8qAwKyjO9hQNfg2pxnJO1AEiaWmM
-	 3jQCiEnq5VCWb7lxf+Ek3JnLSkk4xTnoBgG9uX7OL888HJmwQLqDnojQsqoo4D1IHItCj
-	 Nfq0pVdP7LlUsZvtkVVOx8MGsrwW2i37UC+O6J2ysfC58f/foeT/2vhTYf8gTsxfxwQAx
-	 PTem4B8wLv1fHyPD2JW1k12uhPaMfCo7soo8xpylcJ9Gdon32peUOjOIb2gJEZWFTZPYT
-	 4XphTYSKH5pyi1DiTUEQH00q3yKMeIr0jMbo3GXKm4DU0BRCe/6/38T3joP3kPXyp1Q==
+	bh=FciyfdlyV1GuCQuOWY6R0EjzDWoTRRgQD09Av1cYKoQ=;
+	b=zGKnJBQ28AoeQcYAgC/GLefVNYdrdiPv75DEhZ+2cKr1ZoAD5MJEEornIK4mrqfBDafZ
+	 LXNWv6a02ktg9oYgPzTuLTcEpUFJb0gUvVcjp6wGCocepDlE9H30z2l+Z1vCW9eGujkBK
+	 MgSsE/lakZWhq5Wv3TCq2iqJ6MkVrtQW2mkFmZyC1s+a4kM0S3uqeEHQXjVXGiAVCaLC2
+	 6swTNP2a7RlP3KcMx4jGkBNS2dPqv0qyy7sYhPUSUctwjoNaqlZKxWpzl0K3b4Inh9KLu
+	 VoQ+W3Y9nZVZjY0HqA0cMZVcqZx7ej0V+WvHI6BlJ7OBYeD/vNKehvFbtCLkrshFimA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 82EB51F000CA;
-	Sun, 15 Nov 2026 20:20:12 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 448431F0089E;
+	Sun, 15 Nov 2026 20:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774013;
-	bh=g3K97sEmGQmx0N2tRmZrilaSVqjc2FRNQycCOBJOnTw=;
+	s=k20260515; t=1794774023;
+	bh=FciyfdlyV1GuCQuOWY6R0EjzDWoTRRgQD09Av1cYKoQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BANuQbCYg4ejxjH3CjKsOz2E8y2pCZd/B5pcCJ4peUTiroU4Ez+9+r7Mc9/m0ygMj
-	 Awet3/dUkCYxirhfw7GQHOL5bWfQDchURFqowhmhRFyNTmM9ZDvWxUnfidJ9c0MPcr
-	 46Lqi2u01jye0JqnMTAgqSIPdLtOis6gVblHXtTMBJaHDYBmXn/sI5NM6YqxtqOQ6A
-	 LTPyn+kzgyUTjGTTCv60Jh6hfg/11GK2Mp9d7fEmn0yj5ZbX1/hKwTsAoX6zLbE7O9
-	 BkJH3UCnnAW2khVtzUxW0JjAr4wy/Kof8EALlXWuoHWdmFzZ4zQjgvMX4ULVv8fztk
-	 H5RoSXQBN67SA==
+	b=CSCfPs0wApbAzoGwei1jVDJhCDrsUhhjqUhTSnOC3f6RB/WtUPjKO0R8ku3g8SMW5
+	 ymgghb7uz7UT7YRnm/Q91yWP6mvizrH9qZI1H7ytKHdsRORjnWv/YYzGocG0G1MGk1
+	 5bXlqCeEM2+DHo6616KLCIHNeqcRJtM48Wyk9KpLayKPs2LoquQR5LAW1jcNZFaTf9
+	 aFNfzj6+vzsELCKZPjJ0GG456F9sbqxnnSCA3VXmQ7DiEVftzr0zZLVh80WMjZ8sb1
+	 VbReU2qG+UBD4IfY6Tol1L0QFCcWqZlCYSeNZFuX7lED6vuTOrM1prxuapK/CLPy+A
+	 S1+uHDloIbUeQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E876D4A1C7;
-	Sun, 15 Nov 2026 20:20:10 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C911C4A1B3;
+	Sun, 15 Nov 2026 20:20:21 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 01:50:17 +0530
-Subject: [PATCH 09/11] arm64: dts: qcom: Add Molokai (SM8845) SoC dtsi
+Date: Mon, 16 Nov 2026 01:50:22 +0530
+Subject: [PATCH 2/2] drm/panel: Add Ilitek ILI97680A DSC command mode panel
+ driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,24 +84,25 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-molokai-soc-v1-9-3b2ee920fa3b@yahoo.com>
-References: <20261116-molokai-soc-v1-0-3b2ee920fa3b@yahoo.com>
-In-Reply-To: <20261116-molokai-soc-v1-0-3b2ee920fa3b@yahoo.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+Message-Id: <20261116-vantage-panel-v1-2-30b95bd49216@yahoo.com>
+References: <20261116-vantage-panel-v1-0-30b95bd49216@yahoo.com>
+In-Reply-To: <20261116-vantage-panel-v1-0-30b95bd49216@yahoo.com>
+To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774008; l=5077;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774020; l=24550;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=dN4ehkKmhYmopR/D8W5OecyyWoWfD4UaBoOxVLeHzzI=;
- b=9dKCVynVqyOJlCguxOpqqvHvWzuLNcP4IJkVG4WKs0Md64rVCqAWC1r9aSFpW/gKaAF/SR+dw
- Aa3Fy5XnUroDNwsk3cBz8TPK4IYT496Yj+oLbAQn+SERoA29trYOBUW
+ bh=ooNLDlItE3PZijHO5fXg3hjtZ/rD6M1LJnPjEBYVuTA=;
+ b=xCKX8MqBXYfN6kuyqFZaRmP7flO11q6i9NHWOx/Ckrhb2Bk2oQaPzxCNNrLvAzbAWdE7KYweS
+ 4TuLCYH50huA9pxkmz8ZByHtnIbli/DB4+IfJYsKMWSxgv9s2WlFJJH
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
@@ -111,233 +113,562 @@ Content-Transfer-Encoding: 7bit
 
 From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-Molokai is a Kaanapali derivative. Describe it on top of the Kaanapali
-dtsi: it has its own TLMM, with different pins for most serial engines
-and a different GPIO to PDC wakeup map, and a PDC with one more interrupt
-range. It has neither the I2C master hub nor the fourth QUP wrapper, and
-QUP3 SE5 does not exist. Its graphics clock controller is not compatible
-with the Kaanapali one.
+Add a driver for the 1264x2780 BOE AMOLED panel driven by an Ilitek
+ILI97680A, found in the Motorola Signature. The panel runs in DSI
+command mode on four lanes with DSC 1.2 at 10 bits per component and
+8 bits per pixel, two 632x20 slices per line.
 
-The SDC2 lines are muxed on regular GPIOs instead of dedicated pins, so
-the Kaanapali SDC2 pin states are dropped; boards using SDC2 describe
-their own.
+The picture parameter set is not taken from the standard DSC PPS packet
+but written to a vendor register on command page 7. Brightness is
+controlled through DCS with a range of 0 to 16180.
 
 Assisted-by: LLM
 Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
- arch/arm64/boot/dts/qcom/molokai.dtsi | 204 ++++++++++++++++++++++++++++++++++
- 1 file changed, 204 insertions(+)
+ drivers/gpu/drm/panel/Kconfig                  |  16 +
+ drivers/gpu/drm/panel/Makefile                 |   1 +
+ drivers/gpu/drm/panel/panel-ilitek-ili97680a.c | 494 +++++++++++++++++++++++++
+ 3 files changed, 511 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/molokai.dtsi b/arch/arm64/boot/dts/qcom/molokai.dtsi
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 26ffa2378f55..070f152f01e2 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -353,6 +353,22 @@ config DRM_PANEL_ILITEK_ILI9488
+ 	  Say Y if you want to enable support for panels based on the
+ 	  Ilitek ILI9488 controller.
+ 
++config DRM_PANEL_ILITEK_ILI97680A
++	tristate "Ilitek ILI97680A-based DSC command mode panels"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DSC_HELPER
++	select DRM_DISPLAY_HELPER
++	help
++	  Say Y here if you want to enable support for Ilitek ILI97680A-based
++	  DSI command mode panels with DSC, such as the 1264x2780 BOE panel in
++	  the Motorola Signature. The panel is driven in command mode with
++	  Display Stream Compression and its brightness is controlled over DCS.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called panel-ilitek-ili97680a.
++
+ config DRM_PANEL_ILITEK_ILI9805
+ 	tristate "Ilitek ILI9805-based panels"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 365f2e73f6b4..3ac5685662e3 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -34,6 +34,7 @@ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7836A) += panel-ilitek-ili7836a.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9488) += panel-ilitek-ili9488.o
++obj-$(CONFIG_DRM_PANEL_ILITEK_ILI97680A) += panel-ilitek-ili97680a.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_CORE) += panel-ilitek-ili9806e-core.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_DSI) += panel-ilitek-ili9806e-dsi.o
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili97680a.c b/drivers/gpu/drm/panel/panel-ilitek-ili97680a.c
 new file mode 100644
-index 000000000000..82fd31bda1d9
+index 000000000000..e7fca51d70d5
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/molokai.dtsi
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: BSD-3-Clause
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili97680a.c
+@@ -0,0 +1,494 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Copyright (c) 2026 Venkat Yadlapati <venkat.yadlapati@yahoo.com>
++ * Ilitek ILI97680A based DSI command mode panel with DSC, as found in the
++ * Motorola Signature (BOE 1264x2780).
 + *
-+ * Molokai (SM8845) is a Kaanapali derivative with its own TLMM: the pins of
-+ * most serial engines and all the GPIO wakeup interrupts are different. It
-+ * has no I2C master hub, no fourth QUP wrapper and no QUP3 SE5, and its PDC
-+ * maps one more interrupt range. The SDC2 lines are muxed on regular GPIOs
-+ * instead of dedicated pins, and the GPU is an Adreno 829 instead of the
-+ * Adreno 840.
++ * Copyright (c) 2026 Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 + */
-+#include "kaanapali.dtsi"
 +
-+/delete-node/ &gpi_dma4;
-+/delete-node/ &i2c_master_hub;
-+/delete-node/ &qupv3_4;
-+/delete-node/ &uart18;
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/regulator/consumer.h>
 +
-+/delete-node/ &hub_i2c0_data_clk;
-+/delete-node/ &hub_i2c1_data_clk;
-+/delete-node/ &hub_i2c2_data_clk;
-+/delete-node/ &hub_i2c3_data_clk;
-+/delete-node/ &hub_i2c4_data_clk;
-+/delete-node/ &qup_i2c19_data_clk;
-+/delete-node/ &qup_i2c20_data_clk;
-+/delete-node/ &qup_i2c21_data_clk;
-+/delete-node/ &qup_i2c22_data_clk;
-+/delete-node/ &qup_i2c23_data_clk;
-+/delete-node/ &qup_spi19_cs;
-+/delete-node/ &qup_spi19_data_clk;
-+/delete-node/ &qup_spi20_cs;
-+/delete-node/ &qup_spi20_data_clk;
-+/delete-node/ &qup_spi21_cs;
-+/delete-node/ &qup_spi21_data_clk;
-+/delete-node/ &qup_uart18_cts_rts;
-+/delete-node/ &qup_uart18_default;
-+/delete-node/ &sdc2_default;
-+/delete-node/ &sdc2_sleep;
++#include <drm/display/drm_dsc.h>
++#include <drm/display/drm_dsc_helper.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
 +
-+&gpucc {
-+	compatible = "qcom,molokai-gpucc";
++#include <video/mipi_display.h>
++
++#define ILI97680A_SWITCH_PAGE		0xff
++#define ILI97680A_PPS			0x81
++/* The panel takes the PPS through a vendor register, without its tail */
++#define ILI97680A_PPS_LEN		94
++
++struct ili97680a {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct drm_dsc_config dsc;
++	struct gpio_desc *reset_gpio;
++	struct regulator_bulk_data *supplies;
 +};
 +
-+&pdc {
-+	compatible = "qcom,molokai-pdc", "qcom,pdc";
-+	qcom,pdc-ranges = <0 745 38>,
-+			  <40 785 11>,
-+			  <51 527 4>,
-+			  <58 534 2>,
-+			  <61 537 20>,
-+			  <84 559 14>,
-+			  <98 609 32>,
-+			  <130 717 12>,
-+			  <142 251 5>,
-+			  <147 796 16>,
-+			  <163 783 2>,
-+			  <165 531 2>,
-+			  <167 536 1>,
-+			  <168 557 2>,
-+			  <170 415 1>,
-+			  <171 438 1>,
-+			  <172 579 1>,
-+			  <173 703 1>,
-+			  <174 708 1>,
-+			  <175 714 1>,
-+			  <176 68 1>,
-+			  <177 86 1>,
-+			  <178 96 1>,
-+			  <179 249 1>,
-+			  <180 504 9>;
++/* In power-on order */
++static const struct regulator_bulk_data ili97680a_supplies[] = {
++	{ .supply = "vddio", .init_load_uA = 300000 },
++	{ .supply = "vdd", .init_load_uA = 300000 },
++	{ .supply = "vci", .init_load_uA = 100000 },
 +};
 +
-+&qup_i2c0_data_clk {
-+	pins = "gpio32", "gpio33";
++static inline struct ili97680a *to_ili97680a(struct drm_panel *panel)
++{
++	return container_of(panel, struct ili97680a, panel);
++}
++
++#define ili97680a_switch_page(dsi_ctx, page) \
++	mipi_dsi_dcs_write_seq_multi((dsi_ctx), ILI97680A_SWITCH_PAGE, \
++				     0x5a, 0xa5, (page))
++
++static void ili97680a_reset(struct ili97680a *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(3000, 4000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	msleep(20);
++}
++
++static void ili97680a_send_pps(struct mipi_dsi_multi_context *dsi_ctx,
++			       const struct drm_dsc_config *dsc)
++{
++	struct drm_dsc_picture_parameter_set pps;
++	u8 buf[1 + 5 + ILI97680A_PPS_LEN] = { ILI97680A_PPS };
++
++	drm_dsc_pps_payload_pack(&pps, dsc);
++	memcpy(&buf[6], &pps, ILI97680A_PPS_LEN);
++	mipi_dsi_dcs_write_buffer_multi(dsi_ctx, buf, sizeof(buf));
++}
++
++static void ili97680a_on(struct ili97680a *ctx,
++			 struct mipi_dsi_multi_context *dsi_ctx)
++{
++	dsi_ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	ili97680a_switch_page(dsi_ctx, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x4d, 0x01);
++	ili97680a_switch_page(dsi_ctx, 0x4f);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa2, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0xa4);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa4, 0x0a);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa5, 0x48);
++	ili97680a_switch_page(dsi_ctx, 0x71);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x00, 0x80, 0x0a, 0xf3, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x00, 0x66, 0x09, 0x8f, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x87, 0x00, 0x60, 0x09, 0x36, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x00, 0x53, 0x08, 0x84, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x00, 0x46, 0x07, 0xd2, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x00, 0x80, 0x18, 0xb3, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8b, 0x00, 0x66, 0x17, 0xc2, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8c, 0x00, 0x60, 0x17, 0x86, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8d, 0x00, 0x53, 0x17, 0x0e, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0x00, 0x46, 0x16, 0x95, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x00, 0x80, 0x26, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x00, 0x66, 0x25, 0x99, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x91, 0x00, 0x60, 0x25, 0x80, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x92, 0x00, 0x53, 0x25, 0x4c, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x93, 0x00, 0x46, 0x25, 0x19, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x94, 0x00, 0x80, 0x04, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x95, 0x00, 0x66, 0x04, 0x00, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x96, 0x00, 0x60, 0x04, 0x00, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x97, 0x00, 0x53, 0x04, 0x00, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x98, 0x00, 0x46, 0x04, 0x00, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x99, 0x0c, 0x19, 0x00, 0x80, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9a, 0x0a, 0x7b, 0x00, 0x66, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9b, 0x0a, 0x13, 0x00, 0x60, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9c, 0x09, 0x43, 0x00, 0x53, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9d, 0x08, 0x74, 0x00, 0x46, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9e, 0x04, 0x00, 0x0a, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0x04, 0x00, 0x16, 0x80, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa4, 0x04, 0x00, 0x16, 0x00, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb2, 0x19, 0xec, 0x00, 0x80, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb3, 0x18, 0xbd, 0x00, 0x66, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb4, 0x18, 0x71, 0x00, 0x60, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb5, 0x17, 0xda, 0x00, 0x53, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb6, 0x17, 0x42, 0x00, 0x46, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcb, 0x25, 0xb9, 0x00, 0x80, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcc, 0x25, 0x61, 0x00, 0x66, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x25, 0x4b, 0x00, 0x60, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x25, 0x1f, 0x00, 0x53, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcf, 0x24, 0xf2, 0x00, 0x46, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe4, 0x04, 0x00, 0x00, 0x80, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe5, 0x04, 0x00, 0x00, 0x66, 0x04, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x04, 0x00, 0x00, 0x60, 0x14, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe7, 0x04, 0x00, 0x00, 0x53, 0x24, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe8, 0x04, 0x00, 0x00, 0x46, 0x04, 0x00);
++	ili97680a_switch_page(dsi_ctx, 0x49);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe0, 0x01);
++	ili97680a_switch_page(dsi_ctx, 0x5b);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc8, 0x03, 0x06, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc9, 0x04, 0x07, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xca, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcb, 0x06, 0x07, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcc, 0x01, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x09, 0x09, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcf, 0x03, 0x02, 0x02);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd0, 0x02, 0x01, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd1, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd2, 0x16, 0x12, 0x13);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd3, 0x09, 0x07, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd4, 0x07, 0x06, 0x06);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd5, 0x03, 0x03, 0x02);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd6, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd7, 0x19, 0x15, 0x16);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd8, 0x0b, 0x08, 0x08);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd9, 0x09, 0x07, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xda, 0x04, 0x04, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdb, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdc, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdd, 0x24, 0x21, 0x1f);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xde, 0x13, 0x10, 0x0d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdf, 0x10, 0x0e, 0x0c);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe0, 0x09, 0x09, 0x06);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe1, 0x01, 0x02, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe2, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe3, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe4, 0x2e, 0x2b, 0x26);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe5, 0x1b, 0x17, 0x12);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x18, 0x15, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe7, 0x0e, 0x0f, 0x09);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe8, 0x04, 0x04, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe9, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xea, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xeb, 0x00, 0x00, 0x00);
++	ili97680a_switch_page(dsi_ctx, 0x5c);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x02, 0x02, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0x02, 0x02, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x04, 0x04, 0x02);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x08, 0x07, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x87, 0x02, 0x02, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x01, 0x01, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x13, 0x11, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8b, 0x07, 0x07, 0x05);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8c, 0x06, 0x06, 0x04);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8d, 0x01, 0x02, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x16, 0x14, 0x12);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x09, 0x08, 0x06);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x91, 0x07, 0x07, 0x04);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x92, 0x02, 0x02, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x93, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x94, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x95, 0x30, 0x2c, 0x18);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x96, 0x0e, 0x0d, 0x08);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x97, 0x0b, 0x0b, 0x06);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x98, 0x05, 0x05, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x99, 0x01, 0x01, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9a, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9b, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9c, 0x45, 0x33, 0x1d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9d, 0x12, 0x11, 0x09);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9e, 0x0f, 0x0f, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9f, 0x07, 0x08, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa0, 0x01, 0x01, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa2, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x10, 0x18, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcf, 0x10, 0x18, 0x10);
++	ili97680a_switch_page(dsi_ctx, 0x06);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc6, 0x01);
++	ili97680a_switch_page(dsi_ctx, 0x08);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd2, 0x05);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xed, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x45, 0xff);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xee, 0xff, 0xfd, 0xff, 0xfd, 0xf9, 0xfa, 0xbe, 0x76);
++	ili97680a_switch_page(dsi_ctx, 0x00);
++	ili97680a_switch_page(dsi_ctx, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x01, 0x80, 0x23);
++	ili97680a_switch_page(dsi_ctx, 0x08);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe0, 0x22);
++	ili97680a_switch_page(dsi_ctx, 0x09);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0x03);
++	ili97680a_switch_page(dsi_ctx, 0x1e);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc1, 0x70);
++	ili97680a_switch_page(dsi_ctx, 0x05);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x01);
++	ili97680a_switch_page(dsi_ctx, 0x1c);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe1,
++				     0x10, 0x80, 0x9a, 0x65, 0x59, 0x54, 0x69, 0x95,
++				     0x56, 0x6a, 0x55, 0x99, 0x9a, 0x55, 0x55, 0x25,
++				     0x58, 0x55, 0x66, 0xa2);
++	ili97680a_switch_page(dsi_ctx, 0x20);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd5, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbc, 0x06);
++	ili97680a_switch_page(dsi_ctx, 0x02);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xab, 0xaf, 0x86);
++	ili97680a_switch_page(dsi_ctx, 0x4b);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xee, 0x10);
++	ili97680a_switch_page(dsi_ctx, 0x03);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbd, 0xd1);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbb, 0x29);
++	ili97680a_switch_page(dsi_ctx, 0x1c);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd3, 0x43);
++	ili97680a_switch_page(dsi_ctx, 0x08);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc8, 0x62);
++	ili97680a_switch_page(dsi_ctx, 0x21);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa4, 0x38);
++	ili97680a_switch_page(dsi_ctx, 0x23);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x15);
++	ili97680a_switch_page(dsi_ctx, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x08);
++	ili97680a_switch_page(dsi_ctx, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x61, 0x08);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x20);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x00, 0x00);
++	ili97680a_switch_page(dsi_ctx, 0x24);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0x31);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0x31);
++	ili97680a_switch_page(dsi_ctx, 0x2d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x55);
++	ili97680a_switch_page(dsi_ctx, 0x24);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x00);
++	ili97680a_switch_page(dsi_ctx, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x20);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x00);
++	ili97680a_switch_page(dsi_ctx, 0x2d);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x98, 0x01, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x01, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf2, 0x01);
++	ili97680a_switch_page(dsi_ctx, 0x07);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8b, 0x21, 0xe0);
++	ili97680a_send_pps(dsi_ctx, &ctx->dsc);
++	ili97680a_switch_page(dsi_ctx, 0x00);
++	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
++	mipi_dsi_msleep(dsi_ctx, 120);
++	ili97680a_switch_page(dsi_ctx, 0x53);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x3d);
++	ili97680a_switch_page(dsi_ctx, 0x51);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa1, 0xac, 0xac, 0xac, 0xac, 0x22, 0x22);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa2, 0xac, 0xa5, 0xa5, 0xa5, 0x22, 0x22);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa3, 0xa5, 0x98, 0x98, 0x98, 0x22, 0x22);
++	ili97680a_switch_page(dsi_ctx, 0x52);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0xe2, 0x94, 0x77, 0x77, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x77, 0x76, 0x76, 0x76, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x76, 0x6e, 0x6e, 0x6e, 0x00, 0x00);
++	ili97680a_switch_page(dsi_ctx, 0x00);
++	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
++	mipi_dsi_msleep(dsi_ctx, 20);
++}
++
++static int ili97680a_off(struct ili97680a *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	ili97680a_switch_page(&dsi_ctx, 0x00);
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 20);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 190);
++
++	return dsi_ctx.accum_err;
++}
++
++static int ili97680a_prepare(struct drm_panel *panel)
++{
++	struct ili97680a *ctx = to_ili97680a(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(ili97680a_supplies), ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	ili97680a_reset(ctx);
++	ili97680a_on(ctx, &dsi_ctx);
++	if (dsi_ctx.accum_err) {
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		regulator_bulk_disable(ARRAY_SIZE(ili97680a_supplies), ctx->supplies);
++		return dsi_ctx.accum_err;
++	}
++
++	return 0;
++}
++
++static int ili97680a_unprepare(struct drm_panel *panel)
++{
++	struct ili97680a *ctx = to_ili97680a(panel);
++	int ret;
++
++	ret = ili97680a_off(ctx);
++	if (ret < 0)
++		dev_err(&ctx->dsi->dev, "Failed to un-initialize panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(ili97680a_supplies), ctx->supplies);
++
++	return 0;
++}
++
++static const struct drm_display_mode ili97680a_mode = {
++	.clock = (1264 + 31 + 16 + 32) * (2780 + 58 + 2 + 42) * 60 / 1000,
++	.hdisplay = 1264,
++	.hsync_start = 1264 + 31,
++	.hsync_end = 1264 + 31 + 16,
++	.htotal = 1264 + 31 + 16 + 32,
++	.vdisplay = 2780,
++	.vsync_start = 2780 + 58,
++	.vsync_end = 2780 + 58 + 2,
++	.vtotal = 2780 + 58 + 2 + 42,
++	.width_mm = 72,
++	.height_mm = 157,
++	.type = DRM_MODE_TYPE_DRIVER,
 +};
 +
-+&qup_i2c1_data_clk {
-+	pins = "gpio36", "gpio37";
++static int ili97680a_get_modes(struct drm_panel *panel,
++			       struct drm_connector *connector)
++{
++	return drm_connector_helper_get_modes_fixed(connector, &ili97680a_mode);
++}
++
++static const struct drm_panel_funcs ili97680a_panel_funcs = {
++	.prepare = ili97680a_prepare,
++	.unprepare = ili97680a_unprepare,
++	.get_modes = ili97680a_get_modes,
 +};
 +
-+&qup_i2c4_data_clk {
-+	pins = "gpio48", "gpio49";
++static int ili97680a_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return ret;
++}
++
++static const struct backlight_ops ili97680a_bl_ops = {
++	.update_status = ili97680a_bl_update_status,
 +};
 +
-+&qup_i2c5_data_clk {
-+	pins = "gpio72", "gpio73";
-+	function = "qup1_se5_mira";
-+};
++static struct backlight_device *ili97680a_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 7001,
++		.max_brightness = 16180,
++	};
 +
-+&qup_i2c10_data_clk {
-+	pins = "gpio8", "gpio9";
-+};
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
++					      &ili97680a_bl_ops, &props);
++}
 +
-+&qup_i2c11_data_clk {
-+	pins = "gpio12", "gpio13";
-+};
++static int ili97680a_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct ili97680a *ctx;
++	int ret;
 +
-+&qup_i2c12_data_clk {
-+	pins = "gpio117", "gpio118";
-+	function = "qup2_se4_mirb";
-+};
++	ctx = devm_drm_panel_alloc(dev, struct ili97680a, panel,
++				   &ili97680a_panel_funcs, DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
 +
-+&qup_i2c14_data_clk {
-+	pins = "gpio68", "gpio69";
-+};
++	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ili97680a_supplies),
++					    ili97680a_supplies, &ctx->supplies);
++	if (ret < 0)
++		return ret;
 +
-+&qup_i2c15_data_clk {
-+	pins = "gpio80", "gpio81";
-+};
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
 +
-+&qup_i2c16_data_clk {
-+	pins = "gpio76", "gpio77";
-+};
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
 +
-+&qup_i2c17_data_clk {
-+	pins = "gpio52", "gpio53";
-+};
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB101010;
++	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS;
 +
-+&qup_spi0_cs {
-+	pins = "gpio35";
-+};
++	ctx->panel.prepare_prev_first = true;
++	ctx->panel.backlight = ili97680a_create_backlight(dsi);
++	if (IS_ERR(ctx->panel.backlight))
++		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++				     "Failed to create backlight\n");
 +
-+&qup_spi0_data_clk {
-+	pins = "gpio32", "gpio33", "gpio34";
-+};
++	drm_panel_add(&ctx->panel);
 +
-+&qup_spi1_cs {
-+	pins = "gpio39";
-+};
++	/* This panel only works with DSC */
++	dsi->dsc = &ctx->dsc;
++	ctx->dsc.dsc_version_major = 1;
++	ctx->dsc.dsc_version_minor = 2;
++	ctx->dsc.slice_height = 20;
++	ctx->dsc.slice_width = 632;
++	ctx->dsc.slice_count = 1264 / ctx->dsc.slice_width;
++	ctx->dsc.bits_per_component = 10;
++	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
++	ctx->dsc.block_pred_enable = true;
 +
-+&qup_spi1_data_clk {
-+	pins = "gpio36", "gpio37", "gpio38";
-+};
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		drm_panel_remove(&ctx->panel);
++		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
++	}
 +
-+&qup_spi4_cs {
-+	pins = "gpio51";
-+};
++	return 0;
++}
 +
-+&qup_spi4_data_clk {
-+	pins = "gpio48", "gpio49", "gpio50";
-+};
++static void ili97680a_remove(struct mipi_dsi_device *dsi)
++{
++	struct ili97680a *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
 +
-+&qup_spi5_cs {
-+	pins = "gpio75";
-+	function = "qup1_se5_mira";
-+};
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
 +
-+&qup_spi5_data_clk {
-+	pins = "gpio72", "gpio73", "gpio74";
-+	function = "qup1_se5_mira";
-+};
++	drm_panel_remove(&ctx->panel);
++}
 +
-+&qup_spi10_cs {
-+	pins = "gpio11";
++static const struct of_device_id ili97680a_of_match[] = {
++	{ .compatible = "ilitek,ili97680a" },
++	{ }
 +};
++MODULE_DEVICE_TABLE(of, ili97680a_of_match);
 +
-+&qup_spi10_data_clk {
-+	pins = "gpio8", "gpio9", "gpio10";
++static struct mipi_dsi_driver ili97680a_driver = {
++	.probe = ili97680a_probe,
++	.remove = ili97680a_remove,
++	.driver = {
++		.name = "panel-ilitek-ili97680a",
++		.of_match_table = ili97680a_of_match,
++	},
 +};
++module_mipi_dsi_driver(ili97680a_driver);
 +
-+&qup_spi11_cs {
-+	pins = "gpio15";
-+};
-+
-+&qup_spi11_data_clk {
-+	pins = "gpio12", "gpio13", "gpio14";
-+};
-+
-+&qup_spi14_cs {
-+	pins = "gpio71";
-+};
-+
-+&qup_spi14_data_clk {
-+	pins = "gpio68", "gpio69", "gpio70";
-+};
-+
-+&qup_spi15_cs {
-+	pins = "gpio83";
-+};
-+
-+&qup_spi15_data_clk {
-+	pins = "gpio80", "gpio81", "gpio82";
-+};
-+
-+&qup_spi16_cs {
-+	pins = "gpio147";
-+};
-+
-+&qup_spi16_data_clk {
-+	pins = "gpio76", "gpio77", "gpio146";
-+};
-+
-+&qup_spi17_cs {
-+	pins = "gpio55";
-+};
-+
-+&qup_spi17_data_clk {
-+	pins = "gpio52", "gpio53", "gpio54";
-+};
-+
-+&tlmm {
-+	compatible = "qcom,molokai-tlmm";
-+	gpio-ranges = <&tlmm 0 0 206>;
-+};
++MODULE_DESCRIPTION("DRM driver for Ilitek ILI97680A based DSC command mode panels");
++MODULE_LICENSE("GPL");
 
 -- 
 2.56.0
