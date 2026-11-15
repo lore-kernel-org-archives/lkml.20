@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794747133;
-	b=bgLgu8EOdVRQK+Ve3s27SQfdv7kOtiIOa/g382ZC94h3iP2IKrNdAt5tAKHX3ACwsZz/
-	 JxckA/Z0V8ZTcqW25h2WwgtkDv9837z/ZYe8H+VsOXLnYvFvyFA/5/FZ9KHI1qu7i2DeA
-	 f/E2XzEy/mCot2KFpMVSR2+Mjwnkfwk9DcV5TudepBwqe3kUX8PnIk5U/T6SaGTymJvsk
-	 jS4y9BXLbcQ/2RRTPqFrZ0DBQEtXq52ylsq/s0WZ5f7j1A8iXtVRMVVZS244yyfw4hRu8
-	 FS3ZZGib5QmuzentqVALdFVlTsmVLn0su5qPtSO+Opk/xlpTgXUhmmtesmz7IrrVHDw==
+	t=1794747218;
+	b=v9GzxthLMD8FmEWXD5ff0obqfroYRPCDagzLK/expH2Vcc/TmkygSwvwE5sF1f35qDFR
+	 oX8HICBpbR9sGc1fogmaqoOBXRIFALCvZWAXNepJaMX7VXscHXCT/1NIy/BNQnYbWwEov
+	 J/X1OmMIm7PH5/vwlik6UziiwiYmI5l0jMm4Rh8fLqlevIrbldKGyS0WCkVHeGYbjFU3k
+	 DeLCnBNMaoag0xxOXBkFbVjcrpBFFsi+xYZlwEnXH1WnwHISeS6vOFUBaAsnoZVOuMPgf
+	 upXcl6TMJstV7lGXVA2m5Hl5A6NMs9WqTS3zUsjBiBu8k1TWIPdxg8+PUS2YGejyDZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794747133;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=KParxGsc7XRf1tM5678gFtw4cILsa1rzhE0kGfy39CY=;
-	b=VGG3rxc3ZhDaKanPHTKF4IZQdtXmSqTShZj/Uu3/H1IhVSIk9UJbKB7qPTHyTmRlVLko
-	 QGsBKQaHUbn/xo/+/UZtcGMYG3NCzLGJFabpzez0Jxl8PKn0jk8f2G1JqfcgYm9lgDcyh
-	 iyThAdVhDngAEtp0+kjHosq9oO+gGtIrqnU7ss+MSPOHw6H4UiTbwgHJsxCRoo+K28OTd
-	 +1FkpW8Ew1GKTgaRG36l86d3p8dHoWw10ox8AvtOhGh0s/QYucMvXMuH3x8EDQXBCJtCR
-	 6iUz4umoE5EoLQPiekJGIi9t7ZqfIdsW41e57qacAHPNGqguE4T2ekbdZfmRfvrw26w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794747218;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=4/rq2agXROmOwSeZ3U7PlpKJ4dgPBVpEYHZz+QxPf5A=;
+	b=RbLo6Le6iEWLDN+QgklBYkuGP+8jcW8ZJIgRaf/Ug/G31a/DCoxIpjOHswDgVeVemB4L
+	 sfSVCArqJJHXY8GaKs94CMrxCA5++1JHQFqicwiVYQnI2C70wkkYdEhGsFrN3pc06MYxT
+	 LBFk5Es1KBO7ha1GIPicSi+i+rl5diivsOTWD5w5gOeVsmPoxRhZv7aGjZxyuK+UFFdTD
+	 pT4MrCieGp9fFvjYBEx7g5cZDg2dimkpFZb+JXIm2z2VqBp8Ai5YpSaSgR4NFQ/p+8Bis
+	 hS+BHifMvLS0r5IZXOe7m5Z0ght2/EhfMyxHFLiB5vKQMXaF3U+T5CA6N0hOM//OwHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+kj1pyJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f1RcW7Ky;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE90606A31A;
-	Sun, 15 Nov 2026 12:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335F0606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:53:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 335F0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+kj1pyJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508DD1F000C4;
-	Sun, 15 Nov 2026 12:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794747132;
-	bh=KParxGsc7XRf1tM5678gFtw4cILsa1rzhE0kGfy39CY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=S+kj1pyJzfBBW6hbKdfqruu/v61PhCNuJ+vgYrJkiWd7msnFgARmlXfbIVQ0OxYcG
-	 +KVTNTNUvkj+KitytSnTu3DP8dv68hRbh4hT6hUbrh+xABUIHUdgSMh5df7CyYMnM+
-	 pzO+xAXJzmSJ8aAl1n1mY3rZEP7L1xndbFwcrQa4DqjCm2i1EFRFcJcOLvpFenlLdh
-	 W3vS5s3+1lDR+ZA+Fb8qvy5atIUobJ2qycf+SHqlGlkbQ7Tn10tpFeo7hbEiQNIXG/
-	 r9+mB8JfAMbLtRKGgUUVSGuSx2hzC+f2N16Dr4ImjyaPqbXwHnwqhe3fLUPONBWob3
-	 J82sSPAWavx7w==
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, 
- Junyoung Jang <graypanda.inzag@gmail.com>
-Cc: Jeffin Philip <jeffinphilip14@gmail.com>, linux-rdma@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261109200330.2361828-1-graypanda.inzag@gmail.com>
-References: <20261109200330.2361828-1-graypanda.inzag@gmail.com>
-Subject: Re: [PATCH] RDMA/iwpm: fix memory leak in iwpm_add_remote_info()
-Message-Id: <179474713016.1305087.6552754506457256588.b4-ty@kernel.org>
-Date: Sun, 15 Nov 2026 07:52:10 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f1RcW7Ky
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794747219; x=1826283219;
+  h=date:from:to:cc:subject:message-id;
+  bh=lbKIPl0TIThwlE1opQq8QdIMgDKHSrK/w7B4xG4Kbdo=;
+  b=f1RcW7Kyt7ICxUKJVX67the3G3n60qvjYZSYrFUOo4FggK+V5ik0aezO
+   XQB63lYWbR5Z+du3mzofdfy7CJdORF1KyLMZRfcIMvLJaRgkFSGKTbtnf
+   XFClAEi5uV/gU1PG/S7c9LWYeJuNkQpJrgn3ILB3eM9NigW98CXNEm3Nm
+   R/LjknFdceDACxNzphFiFSEbbdLzjf7NVJBptUJQq4ZvmewlYziJUuQWq
+   IRmj1QIPuxM4meCbRfnDkIK/Qk4UW1BCaiuwcNeZX2rawiukYgysChxqJ
+   Lhgsx8f7KzOl9SbvvWkli9L8MN02x8Fr7tj68pRP1tRFiIC7WfM9gVFA7
+   g==;
+X-CSE-ConnectionGUID: 2glOzNeeT16HyhMw1AsevA==
+X-CSE-MsgGUID: FAqe5prQR++y4izDKwcFvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3486968"
+X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
+   d="scan'208";a="3486968"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 04:53:38 -0800
+X-CSE-ConnectionGUID: dUd0X0L+RUe5m+jRY2zMZw==
+X-CSE-MsgGUID: ey1BBB8YSZaotdc9ZrBHbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
+   d="scan'208";a="11048780"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by fmviesa012.fm.intel.com with ESMTP; 15 Nov 2026 04:53:37 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSZjh-000000002BM-3Nwv;
+	Sun, 15 Nov 2026 12:53:33 +0000
+Date: Sun, 15 Nov 2026 13:52:33 +0100
+From: kernel test robot <lkp@intel.com>
+To: Eduard Zingerman <eddyz87@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alexei Starovoitov <ast@kernel.org>
+Subject: {standard input}:2813: Error: register save offset not a
+ multiple of 4
+Message-ID: <202611151335.qjG1sZIV-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,36 +80,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
 
+Hi Eduard,
 
-On Tue, 10 Nov 2026 05:03:28 +0900, Junyoung Jang wrote:
-> NETLINK_RDMA accepts requests addressed to kernel port ID 0 from a local
-> unprivileged socket. The IWCM RDMA_NL_IWPM_REMOTE_INFO callback has no
-> RDMA_NL_ADMIN_PERM flag, and RDMA netlink routes this IWCM opcode to its
-> dump callback even without NLM_F_DUMP.
-> 
-> iwpm_remote_info_cb() parses the six required attributes and only checks
-> that the local and mapped-local sockaddr_storage families match and that
-> the remote and mapped-remote families match. Four family-255 addresses
-> pass those checks. The callback allocates an iwpm_remote_info object
-> with GFP_ATOMIC and passes it to iwpm_add_remote_info(). There,
-> get_reminfo_hash_bucket() accepts only AF_INET and AF_INET6, so the
-> family-255 lookup returns NULL. The object is neither linked into
-> iwpm_reminfo_bucket nor freed, and the callback returns -EINVAL after
-> this allocation side effect.
-> 
-> [...]
+FYI, the error/warning still remains.
 
-Applied, thanks!
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   23c62304dde29abe92013d85910d03a77dada35d
+commit: bf0c571f7feb6fa05a512e2a5e50702501849d61 bpf: introduce forward arg-tracking dataflow analysis
+date:   7 months ago
+config: m68k-randconfig-r2106-20261115 (https://download.01.org/0day-ci/archive/20261115/202611151335.qjG1sZIV-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261115/202611151335.qjG1sZIV-lkp@intel.com/reproduce)
 
-[1/1] RDMA/iwpm: fix memory leak in iwpm_add_remote_info()
-      https://git.kernel.org/rdma/rdma/c/4b14bd5d913b16
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: bf0c571f7feb ("bpf: introduce forward arg-tracking dataflow analysis")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611151335.qjG1sZIV-lkp@intel.com/
 
-Best regards,
+All errors (new ones prefixed by >>):
+
+   {standard input}: Assembler messages:
+>> {standard input}:2813: Error: register save offset not a multiple of 4
+   {standard input}:2814: Error: register save offset not a multiple of 4
+   {standard input}:2815: Error: register save offset not a multiple of 4
+   {standard input}:2816: Error: register save offset not a multiple of 4
+   {standard input}:2817: Error: register save offset not a multiple of 4
+
 -- 
-Leon Romanovsky <leon@kernel.org>
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
