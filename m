@@ -1,54 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794717991;
-	b=leck9DP08h9J3NBmRMy67sVG3VdyjIVNQNEyzS/UtrnTly6GmmKzXqRl/HjzJm1DsMgu
-	 7mrE5qeZ0TIZhvbatD7Chmp2rXrDwhWvWuhANvLYMU9v0W30TIbXXPwhHiMs+f22/YEhV
-	 hHMxIU0asLwruIYAfU/OmpNZFACM26uphsn+W2jVUHcKBHITIs8BD5kjbfADOD+nJIvLP
-	 epevcyRRThXOPVGjJEjKvy/ZR1qOWbAYWg0BadwU6Eqv5QXmmHaBA5fyWcPmGKfYu71YL
-	 uemIgABSIfkHvoKymwFMIhFlTkIv5DqpsoTugfIfEXDij6iqyyE0wrJt7NPP2ZAsjXw==
+	t=1794718084;
+	b=c79ZoL58FAxNootw5OlHxaQIFYQrXlPNYDulDphE+u+NvWqMCnQKdTOM7Gir4p7AdB9l
+	 WRwHq0ANpHp9WvW6TXMaLaJVBcj3ckqoFQFHaUeK49QX1kkJjlN0BIhz2C7ECelRe1EcO
+	 sTyZ4EuuuOsD6yNMdHpLxWuKTqPcLYwPQg5WeiVD7A3IaG+GquDQFRykQwC+lU7QeBxh/
+	 bjRBE0cMgyRaYSuk6CwGx4NTeBGcP7sY/iP9W6QoGhm9emdkRAruiniZi4Qydz9LOpCb7
+	 LNHy8NzCHaJAWwPVtl9NxfXlAHDWXjFJ96XQQW3uvcnw39btg7lKvKfkUumdyPyQjdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794717991;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=vXetaywFPW1Yinuw2ycsyGtH55hrBzKpFTa6lRlcTRQ=;
-	b=sKX+rIcLidsZK74rwCxga+3YHq42nJgmYmos/vntjHcEV30Zp0kJADsiDBhP1pVL90ie
-	 IZFxT/IuxtAxe95FGvqoB2XdiTv49TDsEmxxVOOFUxJsrWsac6jgBtRQJP6zuviycnqk1
-	 VtNraIaryDvzwiLzfYq6qRQTe+ZUZWFyEbBoJL4rO+ZqL+qd1peZwImNXdgaAN2eXKMnJ
-	 dUe7+b/3/3micw4aK5jQfqzkcozVme4m98CvbI/YVOLmRwpmbBCtHu7qQeVT/uNNsk/8h
-	 kI2BOdaCECg9DUDDTnurhxy61ieM4Wg+HC8JAlg0Pxd/CuwN9zgVbj5y2nu5APSZ+fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794718084;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LLWhkWwyzjalnr3Z5HU+EI8soyzPleNcaIf48jvo+8k=;
+	b=OE+jSdnRcwBmGcn5fleAhdZ6/w7dOJt2dZIbyYxpIlSmlHKJUXipifMM5ovJOROjW0KB
+	 atlArbZ2ddinaq0gKyX+H1xJ7BUoqpTSCG5+t/+jtHf6YAmweNKJu+ryJFUWuJWhNm1aL
+	 GFsNzGSc1cLnuexpFc42rN6nVjDDGLnCLC+ZDta69WLgVG2CXZ1Jq/FSU871sfm4XCZuk
+	 ZLkAXHQq3wq9szchbvJsg6GChHd0UZXqOuxSU5n0cORy83By/PYZUFcsuixLb/xihz5sG
+	 njtR1+EVlFeK2BtjnSzBTkGQ1WxIauIRKg5KfFmZPoEGMLEesq9c375Jgky7QQfjT/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gr7hYVng;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAECD606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:46:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAECD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5641cd2cc13so2820420b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:46:30 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A8E606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73A8E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gr7hYVng
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-37d424f1ae8so713582eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:48:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794718083; x=1795322883; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LLWhkWwyzjalnr3Z5HU+EI8soyzPleNcaIf48jvo+8k=;
+        b=gr7hYVngQK6NJq9yA2v+gGbTEwh31r7Z03cC50+nLDAcSL4j8BpNmyQ9UriPZmMqU7
+         lCkT0ia7P58p++lgzfCH8Gnc7L+rNjAYDRLQ/QAld9jDMcEWZxsU9KuiR2XWtEJlW27a
+         W7RPJG8H5fCAxEYRM3NO1LbNtMfl6R0ElnZYRoHuTd3xCgoVocVaPByKn0ZORWLE+QpG
+         wFCrAbq3eqeN3Opc5kopqBiaMgadWJeq/BiuqNxSzTdTHktZELDzynM7G/7rgM9GIjQf
+         rzwg2sKN/VH6mvR/+uDj+Jpu1/SD3ThVFUGtQyg+5m2cR33Y5g5HKiJONUyXmMLOLour
+         pE4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794717990; x=1795322790;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vXetaywFPW1Yinuw2ycsyGtH55hrBzKpFTa6lRlcTRQ=;
-        b=rpFQcNv7i1eM56PSfsZgyAsdeGenfbsaIAu2/FgzB3F0mN2/sYiqdaIx/wMd+SJPtu
-         B8M/RI8iA+aIEsykVUxtI2AFcdon4BleH71bsPxIDC+uqlUaLWaRD02KIr4Wh8Ncrdwm
-         Uj1l/Foh96g3ZJVw30Qy5w0I5qXXRixX2NxxMbIabZkYwgnVlDjJtF5lxkFq35C9adrN
-         NJSNdKyn+SMGBdJSoxy1vtA151J+rpNU/ceLSlur4EYfht/NGGBS6w/FZJ4y55zHb/1n
-         LzBtxuJ636KIX7sMOjGDNRJqZIWx4fb/TI6zhj/eWPUDnB8n+Oje3657g9PPr+oW0fdx
-         GmoA==
-X-Forwarded-Encrypted: i=1; AL+hErGiJ+KYWvMKamKotz/KxvAwtWoDuGUJgQVxId8EYLM1q7a44BslAb6QugPBbVsJpnI7Ym5tMSB87YxhD70=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/opRR/TjUEM9dKG0FkgfFZAM3pLwnTRfRwL2u6fX5+kYy7yRh7
-	2GpUAHd39rlAPhoJ68JURnopzt0sO6Pc1GlGnsnss+YomiiZfXgSr8GJQ0D5GstC/64e0J2y9Y2
-	OBgtDnRrmRpFMYyptorSZjbN8RZ66vkbJLTyspI2US+R6HZ2ji463NYy/Etw=
+        d=1e100.net; s=20260707; t=1794718083; x=1795322883;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LLWhkWwyzjalnr3Z5HU+EI8soyzPleNcaIf48jvo+8k=;
+        b=rYtQQaNFT6Jx2QyuY5XrHWFCKDaSmun/GFOxhh0ZLx5sMqxDZwP6kTse0/WRe5Rn+7
+         nu1jvq5UVvUddzc5dA84RCNv9kgOHYCquaJItXUVx/Knn88laluLCATXlPvtI1HmbDjR
+         2XB6yCELnNq//XoNlXdR5IQgr1cU6naIdBaTmBrXXBrEyfu5M7BMrPGmxu/JAO7ZNNPk
+         Ccy6wTZxMJQlb1Nr7CqKct8W3dOqUTZqGf4DocSUSsyZhInmye7zcdk0zWb7IecHR3g0
+         WgjZEX5b9B/7RfxB6/QGFwgXSpt+TN1XEiSeJdbO10atdfIpmFW6I51md8rs8E5cKicU
+         BEcQ==
+X-Forwarded-Encrypted: i=1; AL+hErFhapAychgC1wBXEO8kmk6OMSrnuQKHAPah3OYsdokht7WEJw4Kk1+QzYLhvLRB5QT2JiaIgz2Akekm2tY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DKqH14Wvd+nF8nhkG93+31Kc19f7IdyKxfe2qTSpxiOliW72I
+	YJrsrCrPjhZa9Qvq4nkPyaepPslLzt6uMLLgkHZEepUjauc1cgFeGYci
+X-Gm-Gg: AYBFou1iIM80ZfngIvzDba+D7+p0IkOPVEhqBAtA1SHfqyfu69k5skVbYuqlLaekOSA
+	TJapIBLeES0sOR/UV0FEMuEfDuTcrB+0Y1RpIw3y6OkdfhA+UNhi0D17szgQj3wtlsMNF2G954e
+	UtgEfhMthXGLrJIs8g0+0I2s2dQ86JqtDC0ZEv92GBH5JFMW0fFWR9TsfkUp2Yfz5Wd1P0jNsfl
+	Cfl3xC8DNdShFcXzs5wzPEO5km6yweEv3AjvPqsUqeNBGG5CqLqhZbYZmYeR+M3I70ALrpYtsvK
+	9fGbjKNXdkTFwc4R6q32MPuitNsWQzdetiq87WhyTVuDX3NWAuZgM6Z76X1o7XSFhGvRYcXSCzr
+	F5Ncc+oA7QNE61LfJ0uYahrNMwZSw9A+7Yk9tcXak8I/hOVJsYlv3fBWpN/4kBo9iirFJKTFjZK
+	BM0HUdYKBJD3BHBR7Z6X/lCodbBMwxt9SFWz5DVxgzJ7Q++mkDX8sIoNpq/Ylx3aehuvX04jlhd
+	XJBAzkUwVCLbZgdyQjj4aAYr4TUOsNVXwD4A2BFItsgRz0eDhcHX9fdik1iOi87KfGy2FhQwGEa
+	d2GlhU8RDmDVwqiqyJZWD/juyPv074MY2VCzzRQ=
+X-Received: by 2002:a05:7301:d189:b0:376:2ddd:2ab1 with SMTP id 5a478bee46e88-37963660405mr7150743eec.4.1794718083366;
+        Sat, 14 Nov 2026 20:48:03 -0800 (PST)
+Received: from arch.localdomain ([152.175.35.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955a1c5c2sm22624099eec.14.2026.11.14.20.47.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 20:48:02 -0800 (PST)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	Damon Ding <damon.ding@rock-chips.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: [PATCH v4] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
+Date: Sun, 15 Nov 2026 12:47:53 +0800
+Message-ID: <20261115044755.395888-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,1129 +110,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1790:b0:4d6:90f4:48b7 with SMTP id
- 5614622812f47-56e6542e6d8mr7132893b6e.57.1794717989883; Sat, 14 Nov 2026
- 20:46:29 -0800 (PST)
-Date: Sat, 14 Nov 2026 20:46:29 -0800
-In-Reply-To: <6af79f77.98e60839.1e023a.00d6.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af93925.aa201734.33d248.000a.GAE@google.com>
-Subject: Re: [syzbot] [bluetooth?] WARNING in l2cap_chan_le_send_credits
-From: syzbot <syzbot+9dc8780713b11155dd74@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+The DP PHY is optional: the Rockchip RK3288/RK3399 eDP controllers use the
+built-in PHY of the Analogix DP controller, which is programmed through
+the GRF registers, so their DT nodes have no "phys"/"phy-names"
+properties. devm_phy_get() therefore returns -ENODEV and the driver logs
+a misleading "no DP phy configured" error before falling back to a NULL
+phy.
 
-HEAD commit:    ad3fc05c7e65 arm64: suspend: Only track cpuidle context fo..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=108eebfd580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4e8e6c1701ad8af2
-dashboard link: https://syzkaller.appspot.com/bug?extid=9dc8780713b11155dd74
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13a329ad580000
+Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+absent and propagates any other error, and drop the open-coded -ENODEV/
+-ENOSYS handling and the spurious error message.
 
-AI-generated root cause summary:
-In net/bluetooth/l2cap_core.c, l2cap_chan_le_send_credits() allocates an L2CAP
-transaction identifier via l2cap_get_ident() and unconditionally calls
-ida_free(&conn->tx_ida, ident) after transmission under the assumption that
-L2CAP_LE_CREDITS never expects a response. However, if the remote peer rejects
-the packet with L2CAP_COMMAND_REJ or sends a signaling response bearing that
-identifier, the asynchronous RX signaling handler l2cap_put_ident() sees the ID
-as currently allocated and frees it first. When l2cap_chan_le_send_credits()
-then executes ida_free() on the already-released identifier, ida_free() detects
-that the ID is not allocated and triggers the warning in lib/idr.c.
+The behaviour is unchanged for both CONFIG_GENERIC_PHY settings, because
+the real implementation never returns -ENOSYS:
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=9dc8780713b11155dd74
+- CONFIG_GENERIC_PHY=n: devm_phy_optional_get() is a stub returning NULL
+  (devm_phy_get() returns -ENOSYS, which the old code mapped to NULL).
+- CONFIG_GENERIC_PHY=y, no PHY described in DT: devm_phy_optional_get()
+  converts -ENODEV to NULL, exactly like the old code, which mapped
+  -ENODEV to NULL in its open-coded check.
+- CONFIG_GENERIC_PHY=y, any other error: still propagated, as before.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9dc8780713b11155dd74@syzkaller.appspotmail.com
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+---
+Changes in v4:
+  - Rework the commit message to explain why the behaviour is unchanged
+    for both CONFIG_GENERIC_PHY settings, with one bullet per case, as
+    requested by Luca Ceresoli.
+  - Link to v3: https://lore.kernel.org/dri-devel/20261110023721.2014061-1-jerrysteve1101@gmail.com/
 
-------------[ cut here ]------------
-ida_free called for id=3 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 0000000000000003 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000003 x19: 0000000000000000 x18: 00000000ffffffff
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008b586000
-x14: 000000000000067b x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 8486
-hardirqs last  enabled at (8485): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (8486): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (8478): [<ffff8000800204f4>] __do_softirq+0x14/0x20 kernel/softirq.c:703
-softirqs last disabled at (8455): [<ffff8000800204f4>] __do_softirq+0x14/0x20 kernel/softirq.c:703
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=5 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 0000000000000005 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000005 x19: 0000000000000000 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008b586000
-x14: 00000000000006c5 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 8834
-hardirqs last  enabled at (8833): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (8834): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (8818): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (8816): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (8816): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=8 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 0000000000000008 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000008 x19: 0000000000000000 x18: 1fffe000359cf228
-x17: ffff800123625000 x16: ffff80008f910000 x15: 0000000000000001
-x14: 000000000042ed3e x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff7000129e4eb8 x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : 0000000000000000 x6 : 0000000000000000
-x5 : 0000000000000001 x4 : 0000000000000008 x3 : ffff8000803cfd0c
-x2 : 0000000000000001 x1 : ffff0000d8109d80 x0 : 0000000000000001
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 9170
-hardirqs last  enabled at (9169): [<ffff8000803cfcbc>] raw_spin_rq_unlock_irq kernel/sched/sched.h:1719 [inline]
-hardirqs last  enabled at (9169): [<ffff8000803cfcbc>] finish_lock_switch kernel/sched/core.c:5314 [inline]
-hardirqs last  enabled at (9169): [<ffff8000803cfcbc>] finish_task_switch+0x234/0x858 kernel/sched/core.c:5432
-hardirqs last disabled at (9170): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (9150): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (9148): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (9148): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=10 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 000000000000000a x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 000000000000000a x19: 0000000000000000 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008996b3e0
-x14: 0000000000000760 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 9406
-hardirqs last  enabled at (9405): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (9406): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (9390): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (9388): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (9388): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=12 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 000000000000000c x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 000000000000000c x19: 0000000000000000 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008996b3e0
-x14: 00000000000007af x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 9622
-hardirqs last  enabled at (9621): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (9622): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (9606): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (9604): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (9604): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=156 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 000000000000009c x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 000000000000009c x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 00000000000007fa x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 24500
-hardirqs last  enabled at (24499): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (24500): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (24488): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (24486): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (24486): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=220 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 00000000000000dc x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000dc x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000845 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 31398
-hardirqs last  enabled at (31397): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (31398): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (31386): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (31384): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (31384): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=235 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 00000000000000eb x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000eb x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000890 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 33188
-hardirqs last  enabled at (33187): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (33188): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (33176): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (33174): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (33174): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=237 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 00000000000000ed x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000ed x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 00000000000008db x13: 0000000000000001 x12: ffff800123625000
-x11: ffff0001ace79308 x10: 0000000000000001 x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 33428
-hardirqs last  enabled at (33427): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (33428): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (33408): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (33406): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (33406): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=166 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 00000000000000a6 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000a6 x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000926 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 53042
-hardirqs last  enabled at (53041): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (53042): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (53030): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (53028): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (53028): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=172 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 00000000000000ac x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000ac x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000971 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 53782
-hardirqs last  enabled at (53781): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (53782): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (53770): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (53768): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (53768): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=224 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 00000000000000e0 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000e0 x19: 0000000000000000 x18: ffff800123625000
-x17: ffff0001ace95387 x16: ffff0000d8109d94 x15: 0000000000000001
-x14: 00000000000009bc x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 59336
-hardirqs last  enabled at (59335): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (59336): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (59316): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (59314): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (59314): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=239 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 00000000000000ef x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000ef x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000a07 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 60986
-hardirqs last  enabled at (60985): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (60986): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (60974): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (60972): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (60972): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=6 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 0000000000000006 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000006 x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000a52 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 63392
-hardirqs last  enabled at (63391): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (63392): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (63380): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (63378): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (63378): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=109 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000cc x27: 1fffe0001aec2a11
-x26: 000000000000006d x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 000000000000006d x19: 0000000000000000 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008996b3e0
-x14: 0000000000000a9d x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 74376
-hardirqs last  enabled at (74375): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (74376): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (74346): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (74344): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (74344): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=24 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000c2 x27: 1fffe0001aec2a11
-x26: 0000000000000018 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000018 x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000aea x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 142656
-hardirqs last  enabled at (142655): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (142656): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (142644): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (142642): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (142642): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=156 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000be x27: 1fffe0001aec2a11
-x26: 000000000000009c x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 000000000000009c x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000b35 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 158266
-hardirqs last  enabled at (158265): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (158266): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (158254): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (158252): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (158252): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=180 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000b9 x27: 1fffe0001aec2a11
-x26: 00000000000000b4 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000b4 x19: 0000000000000000 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008996b3e0
-x14: 0000000000000b80 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 161840
-hardirqs last  enabled at (161839): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (161840): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (161824): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (161822): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (161822): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=137 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000b9 x27: 1fffe0001aec2a11
-x26: 0000000000000089 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000089 x19: 0000000000000000 x18: ffff800123625000
-x17: ffff0001ace95387 x16: ffff0000d8109d94 x15: 0000000000000001
-x14: 0000000000000bcb x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 204974
-hardirqs last  enabled at (204973): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (204974): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (204956): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (204954): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (204954): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=132 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000b5 x27: 1fffe0001aec2a11
-x26: 0000000000000084 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000084 x19: 0000000000000000 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: 0000000000000001
-x14: 0000000000000c17 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 253844
-hardirqs last  enabled at (253843): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (253844): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (253832): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (253830): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (253830): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=233 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000b5 x27: 1fffe0001aec2a11
-x26: 00000000000000e9 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 00000000000000e9 x19: 0000000000000000 x18: ffff800123625000
-x17: ffff0001ace95387 x16: ffff0000d8109d94 x15: 0000000000000001
-x14: 0000000000000c62 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 288938
-hardirqs last  enabled at (288937): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (288938): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (288918): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (288916): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (288916): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=24 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000b7 x27: 1fffe0001aec2a11
-x26: 0000000000000018 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000018 x19: 0000000000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 0000000000000cad x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 293428
-hardirqs last  enabled at (293427): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (293428): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (293416): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (293414): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (293414): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=67 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules linked in:
-CPU: 0 UID: 0 PID: 5073 Comm: syz-executor357 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ida_free+0x24c/0x2d4 lib/idr.c:594
-lr : ida_free+0x24c/0x2d4 lib/idr.c:594
-sp : ffff800094f27880
-x29: ffff800094f27910 x28: 00000000000000b4 x27: 1fffe0001aec2a11
-x26: 0000000000000043 x25: dfff800000000000 x24: ffff800094f27880
-x23: ffff7000129e4f10 x22: 0000000000000001 x21: 0000000000000000
-x20: 0000000000000043 x19: 0000000000000000 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008996b3e0
-x14: 0000000000000cf8 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff70001135360e x9 : b56adb3a1390ea00
-x8 : b56adb3a1390ea00 x7 : ffff8000804a121c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030d4c8
-x2 : 0000000100000000 x1 : ffff0000d8109d80 x0 : 0000000000000000
-Call trace:
- ida_free+0x24c/0x2d4 lib/idr.c:594 (P)
- l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
- l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
- l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c:-1
- l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
- sock_recvmsg_nosec net/socket.c:1154 [inline]
- sock_recvmsg+0xd4/0x170 net/socket.c:1176
- __sys_recvfrom+0x1ec/0x31c net/socket.c:2333
- __do_sys_recvfrom net/socket.c:2348 [inline]
- __se_sys_recvfrom net/socket.c:2344 [inline]
- __arm64_sys_recvfrom+0xec/0x10c net/socket.c:2344
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 298612
-hardirqs last  enabled at (298611): [<ffff8000804a47b4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (298612): [<ffff800086954060>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:484
-softirqs last  enabled at (298596): [<ffff800084c8f174>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:699
-softirqs last disabled at (298594): [<ffff800084c8f15c>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (298594): [<ffff800084c8f15c>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:698
----[ end trace 0000000000000000 ]---
-------------[ cut here ]------------
-ida_free called for id=69 which is not allocated.
-WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594, CPU#0: syz-executor357/5073
-Modules l
+Changes in v3:
+  - Add missing changelog entries and reference links
+  - Link to v2: https://lore.kernel.org/dri-devel/20261013134659.335829-1-jerrysteve1101@gmail.com/
+
+Changes in v2:
+  - Added comments to explain the changes made.
+  - Link to v1: https://lore.kernel.org/dri-devel/20260924020417.868588-1-jerrysteve1101@gmail.com/
+
+ .../drm/bridge/analogix/analogix_dp_core.c    | 22 ++++++-------------
+ 1 file changed, 7 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df6963740d2..637b1bff0f6c 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1426,21 +1426,13 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	dp->phy = devm_phy_get(dp->dev, "dp");
+-	if (IS_ERR(dp->phy)) {
+-		dev_err(dp->dev, "no DP phy configured\n");
+-		ret = PTR_ERR(dp->phy);
+-		if (ret) {
+-			/*
+-			 * phy itself is not enabled, so we can move forward
+-			 * assigning NULL to phy pointer.
+-			 */
+-			if (ret == -ENOSYS || ret == -ENODEV)
+-				dp->phy = NULL;
+-			else
+-				return ERR_PTR(ret);
+-		}
+-	}
++	/*
++	 * RK3288/RK3399 use Analogix DP controller built-in PHY,
++	 * no extra PHY configuration is required.
++	 */
++	dp->phy = devm_phy_optional_get(dp->dev, "dp");
++	if (IS_ERR(dp->phy))
++		return ERR_CAST(dp->phy);
+ 
+ 	dp->clock = devm_clk_get(&pdev->dev, "dp");
+ 	if (IS_ERR(dp->clock)) {
+-- 
+2.56.0
+
