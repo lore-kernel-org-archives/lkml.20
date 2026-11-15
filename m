@@ -1,91 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794763771;
-	b=MZZwhCxKSLxRGXtqvwnmccizMcGf1ezIybneUzJ5wUnA/mcFMy63JUtq+clTJjA43PRA
-	 GpVmUHVQltKn3iXHe2BOwZxF1H4lNGHPYyPfluiT+4XzGl5DdwPzYeGeBiASrEQOLDxZo
-	 sy/xRpQnUGQzmuaZCq+5KdNesTkLLDKpXEwhGkTPiJx6HYMzXMw8bFVWuZu6E4IeOcIRW
-	 ctRsKIIzswVpOtrw1jahJ2QjoGw8nnsZejFpwC8q8cWrrFz/nmenH8FZqHZqU7+9h1YY6
-	 5augElGYRfJagaOP4aSt/U82qvktI1Aj97eY4XOluixtnSMYS8ufKfgUKbB64hqEa/Q==
+	t=1794763804;
+	b=XZVtCNw0ro/APi3Y+Q4St6YO0TfyQR7I2Rmgos56zvY+WpTDgrAHusYuZnNVLFWBKCDA
+	 xF2jU81U2vRj187kIpcnULvdacjXeOLlY8934uiYrXZ8zx5ZbNhmzwO/jN4Q0d6OmSWgw
+	 qRDrURJV2Oj8qckalV8zUMqM2KlaCSKxc2ery0LSh+aKsZ9h/5wUXTkRnxSCk7lfTbu76
+	 Dh+yhL0cXaMK3sX7VE/7cFy4WV8KW3R8k0BYzMknFbN2zTqNbVWcgiVW8bMirSpTv+M+H
+	 +dmiR5QmfByKJ2AU6IYNOm6WNScyYq1Rr1zjXmOMinBHJmbzxFmaylycK93Fl4Mc2UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794763771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794763804;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=jvMlJhDXY1LlyG4gb02Ic1MIpoYztJSwDH532cBBfm0=;
-	b=q1VMY32MRGzzGxBZHp+1GtjVnLPstV44RCV/e8enHisyoMMcfMk+c/Te0WSJOav7A1Qz
-	 +H2NXMR+23F2MaTh3vcoUhnZUTdZkXJ/YtmUclOrLq6+rlIvt3uR2t+zm/Yg9RksuDh3i
-	 r/pWr+TAaXjUg55ZxnHzwXpkg93UxSMRlHeVe1pb0iYtomQe1qlO3er2GEBMoV4V4Z2/a
-	 SCH8AlhsAsnBvJhliWu8AK7+v5lxxviVFmL5O2qlMo4GhS96hFZyMSi8OxBOsAVyX7MmB
-	 QvJm1RannPvMPU5PR9YA8llhEMxDlkbrBWVKtnIGVti59zirSSvVO6cJD0jDXr9M7Qw==
+	bh=szgcaEhdSRPZIuPAcY7l9sBqu/oTESFGpiwwqKxq15Q=;
+	b=GKgaeXxP4tqL5txS/C8gigKELuA3d0tMi/FqiLhDf0z9YQPc9q6F4TZzQOptdpQ0Mpns
+	 lNtRHnLwtriCGX/8GVduKZQtYmNOsORN7D3jm7g6u+S6uBQ62k2v8ZWMdx8POImKpM6Hm
+	 P66WwsnHnr3/wpN5/KMMwLLzqpwZotxfWISlMGpYi/4reTzDlNxBOXaLgy3wY+i/0S7iz
+	 YhzoSTOkOuclFX3lqzUWM6GQWcaEmaQ0QMg0QsH+D1WXL+foVPy/3iDVzo3u2N032v2Jx
+	 CqZsNS6O2QQq2VKIkHHO/fFzcG7OkWR7I7rP9HYzkugUQMmu4B4HbFachHa4RvHVy+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ppQiZeoh;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CdOuHLlA;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1563606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:29:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1563606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F94606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:30:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76F94606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ppQiZeoh
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3acec6677so3526959c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:29:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CdOuHLlA
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso30695565e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:30:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794763770; x=1795368570; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794763803; x=1795368603; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jvMlJhDXY1LlyG4gb02Ic1MIpoYztJSwDH532cBBfm0=;
-        b=ppQiZeoh0FVdpP9Xa16prSfNu4WSWlx0pUU7ZTLLdekdoDM5MR9lSrn149hnYlv0Cl
-         4IHqfGMh1kMpLXX7FLL0zgIfJBsjmzdJAJqrlnCcirq3JuzwiaMVCRay/9UexxUsHuaI
-         nt4/0wdpv/159NkuQI21t8FxWblMHWUhMA7F2QmyHow7YupO0nNzfB4KUkb/1FVEYFmo
-         Llys6INOmxBlPq8m1w9aCOKs3TNk9e+eAc+H5BY/+bW7vcPwoj60RVrUgl0mgku6HmXH
-         WZpwaIrDFB1ljuG1B+2QIplym/fASICwbOIcHvkEAFuafTXTDwgsJpo03UDKeFt/UjFd
-         kdAg==
+        bh=szgcaEhdSRPZIuPAcY7l9sBqu/oTESFGpiwwqKxq15Q=;
+        b=CdOuHLlAakazeGhkkf2UaaseAoVmuBV09Btvp9cCTQXz3QAEUjgPCPGjPEo5gsYu5H
+         22hSfetLo8AtHFBhPAg0IUM1929l/PqnVEWM4I9i/07KGYAGi3jnQWoebZbTiripLdKV
+         zIkQV0ifsKtNyEHeLyhkxGSDu1A4ZP467Dh1SnnL70xh7o7jqnfWysVOuzZlMsONQ2Cy
+         sUwDaRA8WxDPMXAiDr60FAS5ZrTLDFfJuXWMHHgYB3gw+StFXGUoERXM6mbGMFIhJkeb
+         VURkopOesP648kw9juO02jLew8fzVTliCgpkl5P1NsHZaL/dVIRlaiTtiY0qXcdk2Ssp
+         r4/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794763770; x=1795368570;
+        d=1e100.net; s=20260707; t=1794763803; x=1795368603;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jvMlJhDXY1LlyG4gb02Ic1MIpoYztJSwDH532cBBfm0=;
-        b=sVkT6QJGaWd/4oCiXz+7JQf4KrZmKVaJxj3vRO2hmcMBLnGq0OBwUkx1+ixLYqOzIn
-         v6Uf7tmcve2DnVlA30pdX4wJY0DI0BnBNEbD3eborQXqIUagFM5sy/pfNYWjispy4vy/
-         BwSG/F3mAMkgAl1kGjjscgdm/e0qTMKMpSoMZAeYyKcctNHqSmmRTuCmGpMPMncM7rtO
-         Q7g27zG19PDRKDyBWceIc31SB8xHh/VUSW7vvFeGbNaulETq1n/hxA2MojW8drh1hmHU
-         Q4Y0M7fmk4zZvFs0rAKznK3q4KifecatpbHeLYu+u5dY/AYp2a+gTBhxa9AoQurMqfqk
-         Jo3g==
-X-Forwarded-Encrypted: i=1; AL+hErHEKEKfOO2mKiuc2WKmAGMN9MjcqezDWDE+tqFrDeYY28BRbWZpsa4SxVTZdHVoXDxh6Fo9Tnm+VmyISZU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/af7bz5O/SS6Aamc5XluvC2ON6GAsUJ8QHLO+QnVc2x/fWzScD
-	HvUPID6RWfEzCCUo4HsgC9+CtJjKwL7cZTUCfNZCchT530OgdKMyInEK/vjNhyt9
-X-Gm-Gg: AYBFou02JUvdxXPy1Qs6FUWTi82Dr0n655VYwqZjWTnVWrW8fnR2JHk9CyAVF4ERWFT
-	e+ggIok+Yzt/7e1l/SEH62XNDoTvwvFKk8mXQuQKPeZ1qmTDq6ACEoPJ7vqRRc+xSa/xTdBA8z9
-	cglAazb2MHHfY8YHeci/5+p9HFgsVxN+SCBJjgdOkwUPGZGpn+zcpBrWTDUUcS6sNB1hOEWRwtx
-	3wNTcGT1/dKjmDIfDt3dtQynu2grVghJM6bU7Lh3nJSmAQRCtYEOCotjn4QgR4Sia2yZ4rPlerO
-	mnKKVyImBmFe2C3nI7K0/FDBdR9dNw4Qc6KEpJPYYAETweNxwVIVvYfbyhHlf1FEhVnb/JfldEd
-	WSHooBzxuMNXIEtLIceYI0fouFQpMlPBKTfBch6Zs+25Djl+HlJziwqMkhFzSr0RwLhm7v9ZV07
-	nKlYXzv1MFJYTEnv6rg83DuRWwZMv2ZZqVbZroq6ZdvczWmyCl6MlIuq0ED4bxi1IeksbVVSqVJ
-	AVWvSrSy/k168AZDLUjD6q7bp3/p86hziQfxg/HSXzZQi4cicUt+yoMEMSKAGF3SW/8DguGzk/5
-	jzwzAmNoaCKd286m28sLEfKaVoAqu+IDKDY3ZL2UtMSS4t89eOvv44sSMBgR
-X-Received: by 2002:a05:701b:208d:b0:136:c443:80e5 with SMTP id a92af1059eb24-1b5030555a6mr7011216c88.6.1794763769666;
-        Sun, 15 Nov 2026 09:29:29 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:d1be:2710:af83:9beb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b2b5sm21618268c88.1.2026.11.15.09.29.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 09:29:29 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Po-Hao Huang <phhuang@realtek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: rtw89: update PN state only from correctly decrypted frames
-Date: Mon, 16 Nov 2026 01:27:54 +0800
-Message-ID: <20261115172754.35124-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
+        bh=szgcaEhdSRPZIuPAcY7l9sBqu/oTESFGpiwwqKxq15Q=;
+        b=HMpVUTawnJkSglG3fJwx/rEpua+DIk/TSIhSA77ulm0+cn36MLLbdV0XeeAKGafCEs
+         8ZBJLJMVHDSt/q0WuYRX41Y/upuWDDczHXimsPtlfW+QvUeVTwAmbe6B4ayqb+q6N3xn
+         PjVnJkXq5pZLjcZkdwR/jiMhCfbPQ/SbnQ5MhFYXUqqQbMC/H5hv5nXfDsUGkf7baM1b
+         4V8bbuowOcyO+P/VJhe29Pczr24ZibSm6XmCrGtNJNopa4dteoa9WUlaFzly/Ivu1qxi
+         /OUoHt5s++8joGfgbnh61GGRzkZtB2ABmFESoso6a/PWvmo8fHkxZfRQiiw/x7GkoFo9
+         iYeQ==
+X-Forwarded-Encrypted: i=1; AL+hErEcKFpPpPSSi+4grFizM5vXz4bXU3eulz2snJaf5PxQ9seYP3zPGh501HAvTDHxmVHpmLHYO38Cf5Bh+NQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+f/GmQt3QbqEB5owHluVA2ERwpl4HBgVklmUOflaJyXylb7USo
+	j+xykr2x2pVUkAOo4a4vYu1AfuV3vs8E9j4bOGi0cZCUYPqvo0dNkKAX
+X-Gm-Gg: AYBFou377akNnpUEPhRIxTC3ut5V5zxPG0ppKDVnBc2UbraI2aRBogUIOK1NmPGDCmc
+	BN70ZP5cAeaRNFrYImAkfw0J3HK66kG+3dk+INrcrjbJ6LpnSwvNZO3hm83szTiDM5PNB66PwTM
+	Y7Tl7adDrXPQxtI8/cuDgeAhtveus8VU2gemIMur0FIzpLwLGc+/R7BJTaDs/uYzt3k4svVCcA1
+	5q3viEDRCJnhKqTK6S9/PiyNcdUEe7PKaSmNBRUlbr56t28Ig2ZqF/1WzUxLxFpbN4gvey4oxym
+	SA1a674fqT5d6Whh/Ze+HAfE2SkvAYolPLV3o2pbwRcDRqXR+Vdd/ChuU6u8jRRJbLWJNqwDDVv
+	1JJWtc8tG1tD/biad74/Q9SGV3w+V2KQQVOp/WQMGEyl/8BLb8cHRTbp9xB+tiGlERv7GmhYAZV
+	Odruys5PVG52+Lp4vLISbcNjtqQSBP5BNol3AIvpTerwVhX5V4ZCvwNxY9Bl6+UMB8sJmk9GrH5
+	AqrXWTyuIt4+J0oDQ0oue5BzsTiK5t2VMLTxEz04gMtV0uipRnC1uv0iFihllhnTnUZFrOPfty5
+	FJDxHKasEAdirRb5/76yqWkQPVL3qFbZ
+X-Received: by 2002:a05:600c:8b23:b0:4bb:6f6a:1976 with SMTP id 5b1f17b1804b1-4bb6f6a1e5amr36800135e9.2.1794763802544;
+        Sun, 15 Nov 2026 09:30:02 -0800 (PST)
+Received: from LAPTOP-AVI.. ([147.234.100.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55acdccfsm236147315e9.8.2026.11.15.09.30.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 09:30:02 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: rafael@kernel.org
+Cc: pavel@kernel.org,
+	lenb@kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] PM: hibernate: Fix partial snapshot reads
+Date: Sun, 15 Nov 2026 19:29:52 +0200
+Message-ID: <20261115172951.35889-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,46 +99,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rtw89_core_skb_pn_valid() records the sequence and packet numbers of
-hardware-decrypted QoS data frames so that it can drop frames whose
-sequence number goes backwards while the PN advances. It runs before
-mac80211 discards frames with an ICV/MIC or FCS error and requires only
-hw_dec, so a frame that failed decryption still updates last_sn and
-last_pn. Such a frame need not come from the peer. One with an advanced
-sequence number and a PN between the recorded PN and the peer's next
-one makes the check drop the peer's following valid frames until their
-sequence numbers catch up.
+After a partial read, snapshot_read() passes the remaining page
+length to simple_read_from_buffer(). The helper interprets this
+length as the total buffer size and subtracts the offset again,
+causing premature EOF while image data remains unread.
 
-Skip frames that rtw89_core_update_rx_status() does not report to
-mac80211 as decrypted, or reports with an FCS error.
+Pass PAGE_SIZE so the helper accounts for the offset only once.
 
-Found by code review and not reproduced; compile-tested only.
-
-AI assistance was used.
-
-Fixes: bda294ed0ed0 ("wifi: rtw89: Drop malformed AMPDU frames with abnormal PN")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Fixes: d3c1b24c50e8 ("PM / Hibernate: Snapshot cleanup")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/net/wireless/realtek/rtw89/core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ kernel/power/user.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index 58ee5efc3b5e..a173253d51ff 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -3950,7 +3950,8 @@ static bool rtw89_core_skb_pn_valid(struct rtw89_dev *rtwdev,
- 	if (!ieee80211_is_data_qos(hdr->frame_control))
- 		return true;
+diff --git a/kernel/power/user.c b/kernel/power/user.c
+index 6e4f40e49319..d5e2b8d0b55b 100644
+--- a/kernel/power/user.c
++++ b/kernel/power/user.c
+@@ -154,7 +154,7 @@ static ssize_t snapshot_read(struct file *filp, char __user *buf,
+ 		if (res <= 0)
+ 			goto Unlock;
+ 	} else {
+-		res = PAGE_SIZE - pg_offp;
++		res = PAGE_SIZE;
+ 	}
  
--	if (!desc_info->hw_dec || !desc_info->addr1_match)
-+	if (!desc_info->hw_dec || desc_info->sw_dec || desc_info->icv_err ||
-+	    desc_info->crc32_err || !desc_info->addr1_match)
- 		return true;
- 
- 	guard(rcu)();
+ 	res = simple_read_from_buffer(buf, count, &pg_offp,
 
-base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
-2.56.1
+2.43.0
 
