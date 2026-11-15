@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794751333;
-	b=CNpPD8fbSRTABeOvJ7Kb7b1SJtArBo34+OfZFVvNSdliiV4gAgVlZSVMZSZyopanhsGA
-	 32Yyn+mwdT7kNiqk82nb1+5t8IdvuW472i3i3b7m0sWmM6yDHKENRkjOU9NQo6hwGzO5+
-	 +YddV4Her5I1cXd7dSE4vq93ZOHj7DktxwwcyKVR+IYxNrY45m9tEh6wLAu4Qz3EoF+92
-	 x9ys2K5aqPXcdEBMicmufvfajFjfqbjPizi4gxlQmfsneWV27DBrQJbMe5o52SjZLyQqC
-	 RiFrf0B4F6JmF3tA8Y6t5dFT8bM8Ogcoz2R9Oy9cMXsRiAHe4BlHDrq6xusGxTbTgEw==
+	b=gOcqrr008jr0lmSy4sQlOfCga4d64py5MxBwfnfrFARwW6yas912Mobv1s6kGKy3CNLH
+	 xnbi2vhAZj6cL1I+fwj73DqcPhmo4uS0j5uzggom1pp9QNB3zQeMOjmyC5rhGak5UoYxg
+	 pIhHb1aCFEtwKKTClRB5rZ/PWg4kbXluMVgc9LmAO9PWmyb7TNjWZkqKyMs1fII0mWTBM
+	 cjlUPuhDTPG5NRtfMdS3ReOR//JgZgv8JPBFCaXAj4ATEmN8eNy0MXQGHnAKtmucnnTTr
+	 Kf7v5NMPPy2snlEEPhcdiJOlJmVyS1FHpOYOT43pXUhHHvuY1AO6AnCn7AN5HlIpCJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794751333;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=z2MWIKnJJ/fCIM3N2m1iMGulOZFzm+PJBkPqJtMbyaA=;
-	b=L9XtynAa26MAf1X6lKxHfzaW3v/5kRj4sYxYAo0PG0G1hxtAeGTe4syUe7iA0igykqGP
-	 DZxpjMf/PspnR+vrJSRiKb5+93F//Ao/Ak2dUT5h5hyaWtzcRk6ALJY3yX+pe+hkM++5A
-	 aMXwukAMVzI9a7D8PA2qyL7Yup/p6HkUWvQtIqhg4DCkWZq1qsfA6Duzgu+6hu667+ygl
-	 WxlLMO7MTogFlF9XIUOAHl6hw3LjAdd5eVJZQ1A4ZCkUzhn9ya8Y2e8UFqB1itNwk+nfe
-	 0kMZ6Df+RNZgceQl2eSTMp95P1dku1/1vpNO11YWmQOPTfb4Ja3eJNJLfyxTiQrsVtg==
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=C0hZCZ1HlArCnNua5WGJXPR4s/dAC6fjh9Brf5xLf/I=;
+	b=W/3U+seu0eiSNU1FhefTu/lo879ac/tagtIXPJ+Egy6yptHA16acTNbzsIY8sT8Qkej1
+	 82ZFGcjFLYfCwRjO0nYeNiyg8ggVf1xCSxSzaGRlW0n2beTNTw5adLuBuw2gwFUApebBA
+	 nihxPmruiCGh3vbacdlaGAhqU4bi6NJnt8n82n+TV6YOnI6NLlfN5qlOIUmYSZxmO7TdN
+	 SiIyTb/XBS8AFu24g6OYcmCtDv7LEPttKJNqMiSaZ8xTauRQSq8jki7V4+U/tqfeaijOs
+	 gzLjPtj4IuZhD2xi9BMwdpijlz6UYA3+/qp9oMxUkdjvuOsPCLTatwMcPuaBizJ8lIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LawYJ4Tw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCmT3vgU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D603E606A338
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C644606A31D;
+	Sun, 15 Nov 2026 14:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LawYJ4Tw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC3C1F000CC
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:02:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCmT3vgU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7041F000C4;
+	Sun, 15 Nov 2026 14:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794751333;
-	bh=z2MWIKnJJ/fCIM3N2m1iMGulOZFzm+PJBkPqJtMbyaA=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=LawYJ4TwvGqTNp8ftm33rlEmgQF3Qu6fFx3HWWsA9SN0Im34MzTtzf+j+A1wyPCvh
-	 Xls3Csqza885jSb8m5SaSsvHhLX7T7R9cY1ePWG8q88y/y4SrvOpjryA/Pzfzv2QDq
-	 SvUyiZGySPrGLe81mdDVZ4xavICgQm/qLcFzSLMwzUzdE9MOe58Y/11qdqmAo7bbBo
-	 5pJFIn4m0CD+T0u20JZE8hf3jFa0rZ5mVRd+8kPDRNevX/5z2h/8KYif0rQzxhhPJT
-	 wv5qsH7JSwFoacej9r/wLZ4I/mrxC8tYnaEUIZAn8FW7a6vzb57KGFtlWXlVo34iOZ
-	 dxCJqkKh44ApQ==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3adfed9a887so21575831fa.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:02:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFNzxSIUuTsfNR0NC8aymLa83ei4cnFomeldoFUgiz/PxZLaOxMZYTJc9lfzWTt3pEKSSt8kFgYOk+KB5o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ylwspF1EyU8ygxm7zsww5Td2gVIJSb4uTB49PzRK48v5p70mw
-	gaFZXhdO5oxgUCBRyiyHQCL6mea27H+FIUSy52D+f4+VQ9NBtnOOcj1WpCDUbGaAENtfDav/+N0
-	byFewr2EQxFiaxxuV2aEVwYZlLt2ZGAQ=
-X-Received: by 2002:a05:651c:a150:b0:3a9:d70c:f75e with SMTP id
- 38308e7fff4ca-3ae2b4a1dd7mr26302241fa.7.1794751332015; Sun, 15 Nov 2026
- 06:02:12 -0800 (PST)
+	bh=C0hZCZ1HlArCnNua5WGJXPR4s/dAC6fjh9Brf5xLf/I=;
+	h=From:Subject:Date:To:Cc;
+	b=lCmT3vgUByzTeA9R757hy9aa0HZE4kCVK0A5FBSbwAooKZHJJK5oK2QqoPEHWyoRJ
+	 swdVTlXDdJUVBnvWkHnXkipTzyAaAqAS70tC39ZUzbXkKiiE+btYREERd5StseDTbn
+	 zcWzdziNnXo7X8mLYhlfZiPFvM6GhaTPKVNQ4SNKWtudv3284JWjz5NKhzyuvhykbo
+	 ovdYHOZj3BYLhEEY0IXslCiJifUqNJRF1mJ/5GrBXZVB7wuVcQMnbQQ4wxPOeBmK1F
+	 BFH5jgiZxb185bU/PJcIc3uCfdbR8kKmCpMNI1ltjBdq0NvcTQJfswD215TGXdMxuI
+	 HmHiQHeWiNVOg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 00/13] fs: let d_real() fail
+Date: Sun, 15 Nov 2026 15:01:30 +0100
+Message-Id: <20261115-work-ovl-d_real-v1-0-ca155efbcb2e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,384 +53,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com> <20261115061102.229680-7-jernej.skrabec@gmail.com>
-In-Reply-To: <20261115061102.229680-7-jernej.skrabec@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 22:01:58 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64X2hbU4wjv7C4NNkQ6W=0PW5C0xSUp1bzdDiAGrJF+ww@mail.gmail.com>
-X-Gm-Features: AclHuK8-o_bvwblkCzsTqNM8KJ9djH1Jg7AEAEwZv4SuwLt3JJu8d-EKluowQT0
-Message-ID: <CAGb2v64X2hbU4wjv7C4NNkQ6W=0PW5C0xSUp1bzdDiAGrJF+ww@mail.gmail.com>
-Subject: Re: [PATCH v3 6/8] drm/sun4i: Add DE33 shared plane driver
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
-	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, sboyd@kernel.org, 
-	Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMWw6CMBBA0a2Q+XYaWoJJ3YoxpI9BqqQ1U0UTw
+ t5p5fPO46yQiQNluDQrMC0hhxRLyFMDbjLxThh8aVCtOkspe/wmfmJaZvQDk5lRSa271o+aXAf
+ l68U0ht9fvN6Ozh/7IPeuTL2wJhNaNtFNdVRBUUBxgKKuYdt2HWulIpoAAAA=
+X-Change-ID: 20261115-work-ovl-d_real-219930df9ec3
+To: Amir Goldstein <amir73il@gmail.com>, linux-fsdevel@vger.kernel.org
+Cc: Chris Down <chris@chrisdown.name>, Miklos Szeredi <mszeredi@redhat.com>, 
+ linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-mm@kvack.org, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3833; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=pa24T6yCoOSBNbgGCY6AwfmcBlLS5Ar6zkTbMn0Wgmg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT93O2vqVrhsEVk8w8bwRPB9mu2b58txH/6hPzbCzOYZ
+ 7yfu3bL5Y5SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJ7DvK8D+374Hlzv9ipvZl
+ Rq1dFcfahVq2mU5V8n4bsrj5WOOGjjhGhnYt3WqWp77Lo13D994t4tVteLmD2d3HMMT838fvTsd
+ uMAAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Sun, Nov 15, 2026 at 2:11=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
-l.com> wrote:
->
-> DE33 makes its plane channels shared resources that mixers select through
-> routing registers in the display clock block. The existing mixer-local
-> plane initialization cannot represent that topology.
->
-> Add a component that owns the shared plane register space, programs the
-> default channel-to-mixer mapping and creates each mixer's DRM planes
-> from that mapping.
+overlayfs looks up the data of a metacopy file in a data-only layer
+lazily and validates its verity digest when it's first needed. Both can
+fail but d_real() has no way to report it. So ovl_d_real() warns and
+hands back the overlayfs dentry and every caller silently works with an
+inode that doesn't host the data:
 
-Just some nits.
+- uprobes get created just fine and fail later with a bogus -EIO. Every
+  new uprobe warns again for each of them. With panic_on_warn that's a
+  panic.
+- IMA skips detecting changes to the backing file and hands out a cached
+  verdict.
+- IPE evaluates its policy against an inode that has none of the
+  dm-verity or fs-verity properties of the real file.
 
-This should mention that this driver only gets hooked up in the last
-patch of the series. This patch alone doesn't register the driver.
+And that's not limited to files nobody opened yet. A metadata-only
+copy-up of an open file makes overlayfs validate the digest again.
 
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> ---
->  drivers/gpu/drm/sun4i/Makefile        |   3 +-
->  drivers/gpu/drm/sun4i/sun50i_planes.c | 215 ++++++++++++++++++++++++++
->  drivers/gpu/drm/sun4i/sun50i_planes.h |  43 ++++++
->  3 files changed, 260 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.c
->  create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.h
->
-> diff --git a/drivers/gpu/drm/sun4i/Makefile b/drivers/gpu/drm/sun4i/Makef=
-ile
-> index bad7497a0d11..501e3d867918 100644
-> --- a/drivers/gpu/drm/sun4i/Makefile
-> +++ b/drivers/gpu/drm/sun4i/Makefile
-> @@ -16,7 +16,8 @@ sun8i-drm-hdmi-y              +=3D sun8i_hdmi_phy_clk.o
->
->  sun8i-mixer-y                  +=3D sun8i_mixer.o sun8i_ui_layer.o \
->                                    sun8i_vi_layer.o sun8i_ui_scaler.o \
-> -                                  sun8i_vi_scaler.o sun8i_csc.o
-> +                                  sun8i_vi_scaler.o sun8i_csc.o \
-> +                                  sun50i_planes.o
->
->  sun4i-tcon-y                   +=3D sun4i_crtc.o
->  sun4i-tcon-y                   +=3D sun4i_tcon_dclk.o
-> diff --git a/drivers/gpu/drm/sun4i/sun50i_planes.c b/drivers/gpu/drm/sun4=
-i/sun50i_planes.c
-> new file mode 100644
-> index 000000000000..22b9f104a391
-> --- /dev/null
-> +++ b/drivers/gpu/drm/sun4i/sun50i_planes.c
-> @@ -0,0 +1,215 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/* Copyright (c) 2025 Jernej Skrabec <jernej.skrabec@gmail.com> */
+As Amir pointed out the correct fix is to teach the callers to deal with
+an error. So d_real() may now fail for D_REAL_DATA and all callers
+handle it: uprobes fail when they're created, IMA treats it like failing
+to hash the file, IPE denies and the bpf kfunc returns NULL. Then
+d_real_inode() goes away so nobody can ignore the error again. The first
+patch only drops the WARN.
 
-Need to update the year.
+This came out of the same work as the freeze protection fixes for
+backing files (cf. [1]). I ran into it with the pseudo filesystem
+series (cf. [2]) where file_check_backing() looks at the file hosting
+the data of O_PATH files registered for fuse passthrough. With this
+series it can just return the error. But this stands on its own.
 
-> +
-> +#include <drm/drm_device.h>
-> +
-> +#include <linux/device.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
+[1]: https://lore.kernel.org/r/20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org
+[2]: https://lore.kernel.org/r/20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org
 
-> +#include <linux/of_graph.h>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (13):
+      ovl: don't warn when the lazy lowerdata lookup fails in ovl_d_real()
+      fs: add d_real_data_inode() and d_real_metadata_inode()
+      tracing/uprobes: handle errors from resolving the real inode
+      bpf: handle errors from resolving the real inode in uprobe_multi
+      selftests/bpf: handle d_real_data_inode() errors in bpf_testmod
+      ima: handle errors from resolving the real inode
+      ima,evm: use d_real_metadata_inode()
+      ipe: handle errors from resolving the real inode
+      bpf: return NULL from bpf_real_data_inode() on errors
+      ovl: return the error from the lazy lowerdata lookup in ovl_d_real()
+      fs: remove d_real_inode()
+      selftests/ftrace: add uprobe tests on overlayfs
+      selftests/bpf: add uprobe_multi test on overlayfs without data
 
-This is unused. Leftover from an older version?
+ Documentation/filesystems/porting.rst              |  10 ++
+ Documentation/filesystems/vfs.rst                  |   6 +
+ fs/bpf_fs_kfuncs.c                                 |  13 +-
+ fs/overlayfs/super.c                               |  19 ++-
+ include/linux/dcache.h                             |  47 ++++++-
+ kernel/trace/bpf_trace.c                           |   9 +-
+ kernel/trace/trace_probe.h                         |   1 +
+ kernel/trace/trace_uprobe.c                        |  57 +++++++--
+ security/integrity/evm/evm_crypto.c                |   2 +-
+ security/integrity/ima/ima_api.c                   |  17 ++-
+ security/integrity/ima/ima_main.c                  |  11 +-
+ security/ipe/eval.c                                |  15 ++-
+ security/ipe/eval.h                                |   1 +
+ .../selftests/bpf/prog_tests/uprobe_multi_test.c   | 141 +++++++++++++++++++++
+ .../testing/selftests/bpf/test_kmods/bpf_testmod.c |  11 +-
+ .../test.d/dynevent/add_remove_uprobe_overlayfs.tc |  92 ++++++++++++++
+ 16 files changed, 408 insertions(+), 44 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261115-work-ovl-d_real-219930df9ec3
 
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "sun50i_planes.h"
-> +#include "sun8i_ui_layer.h"
-> +#include "sun8i_vi_layer.h"
-> +
-> +static const struct sun50i_planes_quirks sun50i_h616_planes_quirks =3D {
-> +       .def_map =3D {
-> +               {
-> +                       .map =3D {0, 6, 7},
-> +                       .num_ch =3D 3,
-> +               },
-> +               {
-> +                       .map =3D {1, 2, 8},
-> +                       .num_ch =3D 3,
-> +               },
-> +       },
-> +       .cfg =3D {
-> +               .de_type        =3D SUN8I_MIXER_DE33,
-> +               /*
-> +                * TODO: All planes support scaling, but driver needs
-> +                * improvements to properly support it.
-> +                */
-> +               .scaler_mask    =3D 0,
-> +               .scanline_yuv   =3D 4096,
-> +       },
-> +};
-> +
-> +static const struct of_device_id sun50i_planes_of_table[] =3D {
-> +       {
-> +               .compatible =3D "allwinner,sun50i-h616-de33-planes",
-> +               .data =3D &sun50i_h616_planes_quirks
-> +       },
-> +       { }
-> +};
-> +MODULE_DEVICE_TABLE(of, sun50i_planes_of_table);
-> +
-> +struct drm_plane **
-> +sun50i_planes_setup(struct device *dev, struct drm_device *drm,
-> +                   unsigned int mixer)
-> +{
-> +       struct sun50i_planes *planes =3D dev_get_drvdata(dev);
-> +       const struct sun50i_planes_quirks *quirks;
-> +       struct drm_plane **drm_planes;
-> +       const struct default_map *map;
-> +       unsigned int i;
-> +
-> +       if (!of_match_node(sun50i_planes_of_table, dev->of_node)) {
-> +               dev_err(dev, "Device is not planes driver!\n");
-> +               return ERR_PTR(-EINVAL);
-
-return dev_err_probe();
-
-> +       }
-> +
-> +       if (!planes) {
-> +               dev_err(dev, "Planes driver is not loaded yet!\n");
-> +               return ERR_PTR(-EINVAL);
-
-return dev_err_probe();
-
-> +       }
-> +
-> +       if (mixer > 1) {
-
-Use ">=3D MAX_DISP" or  "!(mixer < MAX_DISP)" here?
-
-> +               dev_err(dev, "Mixer index is too high!\n");
-> +               return ERR_PTR(-EINVAL);
-
-return dev_err_probe();
-
-
-> +       }
-> +
-> +       quirks =3D planes->quirks;
-> +       map =3D &quirks->def_map[mixer];
-> +
-> +       drm_planes =3D devm_kcalloc(drm->dev, map->num_ch + 1,
-> +                                 sizeof(*drm_planes), GFP_KERNEL);
-> +       if (!drm_planes)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       for (i =3D 0; i < map->num_ch; i++) {
-> +               unsigned int phy_ch =3D map->map[i];
-> +               struct sun8i_layer *layer;
-> +               enum drm_plane_type type;
-> +
-> +               if ((i =3D=3D 0 && map->num_ch =3D=3D 1) || i =3D=3D 1)
-> +                       type =3D DRM_PLANE_TYPE_PRIMARY;
-> +               else
-> +                       type =3D DRM_PLANE_TYPE_OVERLAY;
-> +
-> +               if (phy_ch < UI_PLANE_OFFSET)
-> +                       layer =3D sun8i_vi_layer_init_one(drm, type, plan=
-es->regs,
-> +                                                       i, phy_ch, map->n=
-um_ch,
-> +                                                       &quirks->cfg);
-> +               else
-> +                       layer =3D sun8i_ui_layer_init_one(drm, type, plan=
-es->regs,
-> +                                                       i, phy_ch, map->n=
-um_ch,
-> +                                                       &quirks->cfg);
-> +
-> +               if (IS_ERR(layer)) {
-> +                       dev_err(drm->dev,
-> +                               "Couldn't initialize DRM plane\n");
-> +                       return ERR_CAST(layer);
-
-return dev_err_probe();
-
-
-Otherwise,
-
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-
-> +               }
-> +
-> +               drm_planes[i] =3D &layer->plane;
-> +       }
-> +
-> +       return drm_planes;
-> +}
-> +
-> +static void sun50i_planes_init_mapping(struct sun50i_planes *planes)
-> +{
-> +       const struct sun50i_planes_quirks *quirks =3D planes->quirks;
-> +       unsigned int i, j;
-> +       u32 mapping;
-> +
-> +       mapping =3D 0;
-> +       for (j =3D 0; j < MAX_DISP; j++)
-> +               for (i =3D 0; i < quirks->def_map[j].num_ch; i++) {
-> +                       unsigned int ch =3D quirks->def_map[j].map[i];
-> +
-> +                       if (ch < UI_PLANE_OFFSET)
-> +                               mapping |=3D j << (ch * 2);
-> +                       else
-> +                               mapping |=3D j << ((ch - UI_PLANE_OFFSET)=
- * 2 + 16);
-> +               }
-> +       regmap_write(planes->mapping, SUNXI_DE33_DE_CHN2CORE_MUX_REG, map=
-ping);
-> +
-> +       for (j =3D 0; j < MAX_DISP; j++) {
-> +               mapping =3D 0;
-> +               for (i =3D 0; i < quirks->def_map[j].num_ch; i++) {
-> +                       unsigned int ch =3D quirks->def_map[j].map[i];
-> +
-> +                       if (ch >=3D UI_PLANE_OFFSET)
-> +                               ch +=3D 2;
-> +
-> +                       mapping |=3D ch << (i * 4);
-> +               }
-> +               regmap_write(planes->mapping, SUNXI_DE33_DE_PORT02CHN_MUX=
-_REG + j * 4, mapping);
-> +       }
-> +}
-> +
-> +static const struct regmap_config sun50i_planes_regmap_config =3D {
-> +       .name           =3D "planes",
-> +       .reg_bits       =3D 32,
-> +       .val_bits       =3D 32,
-> +       .reg_stride     =3D 4,
-> +       .max_register   =3D 0x17fffc,
-> +};
-> +
-> +static int sun50i_planes_probe(struct platform_device *pdev)
-> +{
-> +       struct platform_device *clk_pdev;
-> +       struct device *dev =3D &pdev->dev;
-> +       struct sun50i_planes *planes;
-> +       struct device_node *np;
-> +       void __iomem *regs;
-> +
-> +       planes =3D devm_kzalloc(dev, sizeof(*planes), GFP_KERNEL);
-> +       if (!planes)
-> +               return -ENOMEM;
-> +
-> +       planes->quirks =3D of_device_get_match_data(dev);
-> +       if (!planes->quirks)
-> +               return dev_err_probe(dev, -EINVAL, "Unable to get quirks\=
-n");
-> +
-> +       np =3D of_parse_phandle(dev->of_node,
-> +                             "allwinner,plane-mapping", 0);
-> +       if (!np)
-> +               return dev_err_probe(dev, -EINVAL, "Missing mapping phand=
-le\n");
-> +
-> +       clk_pdev =3D of_find_device_by_node(np);
-> +       of_node_put(np);
-> +       if (!clk_pdev)
-> +               return dev_err_probe(dev, -EPROBE_DEFER, "Unable to get m=
-apping\n");
-> +
-> +       /* Regmap is registered by display clocks driver during its probe=
-. */
-> +       planes->mapping =3D dev_get_regmap(&clk_pdev->dev, NULL);
-> +       if (!planes->mapping) {
-> +               platform_device_put(clk_pdev);
-> +               return dev_err_probe(dev, -EPROBE_DEFER, "Unable to get r=
-egmap\n");
-> +       }
-> +
-> +       if (!device_link_add(dev, &clk_pdev->dev,
-> +                            DL_FLAG_AUTOREMOVE_CONSUMER)) {
-> +               platform_device_put(clk_pdev);
-> +               return dev_err_probe(dev, -EINVAL, "Failed to create link=
-\n");
-> +       }
-> +       platform_device_put(clk_pdev);
-> +
-> +       regs =3D devm_platform_ioremap_resource(pdev, 0);
-> +       if (IS_ERR(regs))
-> +               return PTR_ERR(regs);
-> +
-> +       planes->regs =3D devm_regmap_init_mmio(dev, regs, &sun50i_planes_=
-regmap_config);
-> +       if (IS_ERR(planes->regs))
-> +               return PTR_ERR(planes->regs);
-> +
-> +       sun50i_planes_init_mapping(planes);
-> +
-> +       dev_set_drvdata(dev, planes);
-> +
-> +       return 0;
-> +}
-> +
-> +struct platform_driver sun50i_planes_platform_driver =3D {
-> +       .probe          =3D sun50i_planes_probe,
-> +       .driver         =3D {
-> +               .name           =3D "sun50i-planes",
-> +               .of_match_table =3D sun50i_planes_of_table,
-> +       },
-> +};
-> diff --git a/drivers/gpu/drm/sun4i/sun50i_planes.h b/drivers/gpu/drm/sun4=
-i/sun50i_planes.h
-> new file mode 100644
-> index 000000000000..7be969491f9c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/sun4i/sun50i_planes.h
-> @@ -0,0 +1,43 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-> +/* Copyright (c) 2025 Jernej Skrabec <jernej.skrabec@gmail.com> */
-
-2026 now (and almost over ...)
-
-> +
-> +#ifndef _SUN50I_PLANES_H_
-> +#define _SUN50I_PLANES_H_
-> +
-> +#include "sun8i_mixer.h"
-> +
-> +/* mapping registers, located in clock register space */
-> +#define SUNXI_DE33_DE_CHN2CORE_MUX_REG 0x24
-> +#define SUNXI_DE33_DE_PORT02CHN_MUX_REG        0x28
-> +#define SUNXI_DE33_DE_PORT12CHN_MUX_REG        0x2c
-> +
-> +#define MAX_DISP       2
-> +#define MAX_CHANNELS   8
-> +#define UI_PLANE_OFFSET        6
-> +
-> +struct regmap;
-> +struct drm_device;
-> +
-> +struct default_map {
-> +       unsigned int map[MAX_CHANNELS];
-> +       unsigned int num_ch;
-> +};
-> +
-> +struct sun50i_planes_quirks {
-> +       struct default_map      def_map[MAX_DISP];
-> +       struct sun8i_layer_cfg  cfg;
-> +};
-> +
-> +struct sun50i_planes {
-> +       struct regmap                           *regs;
-> +       struct regmap                           *mapping;
-> +       const struct sun50i_planes_quirks       *quirks;
-> +};
-> +
-> +struct drm_plane **
-> +sun50i_planes_setup(struct device *dev, struct drm_device *drm,
-> +                   unsigned int mixer);
-> +
-> +extern struct platform_driver sun50i_planes_platform_driver;
-> +
-> +#endif /* _SUN50I_PLANES_H_ */
-> --
-> 2.43.0
->
