@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794776396;
-	b=NhzTOLuCKvHyNUGzD5NTONHeNFwoZX/JzMEGbkQyyONIDAt638wYAfi2h6ZKoCe+xs83
-	 FkSTWCZcCazs/mZZQ33HIqDsgowHwPFbLvRU8/MIF9ERgeQZS96cfmuK+J0zmgi26tkFY
-	 dHS4BFRE5qX25ADEmiLx1S3WS9s9kcCDSniUSqnyGOkPgLjUv009QN4At+aV8wRb98UJU
-	 Mz8cUAe+mGDNEZMHOpBOnZPEDNU8G1KMG/3ljKC7+UljOJCUP+iQfl/OE79Me5/bAShJA
-	 X8uQEUk5aSafACkYtrTlS3AwMBO1JVMv1eIuKtuSg467RoYF8fe6htATDP116HV7qLg==
+	t=1794776405;
+	b=SfPt2DefOlTbQs4xHfbRZiCr4QtMuNqocGiNZIyfZaXvKDy4N3dOrJel/swuxxlcH3Wr
+	 tzm7P53qwYgCxMWsABjHO26aojN/Qqeyd632EWrhv5uJqrGB8N5azDTwPzjP2PkArjCCD
+	 5swU7iNFUXCU7wTpZOVY7VGTy6Vg3oJvgry58bSeKKYjr8qYx4qk3RIIbZ90bTzAOvcBa
+	 2WPfPyL4aPgnosbr7k1S/FP/Oy1ZdR9XN4NBhtSRyGCEGHJ5JTQtB6KWhL95sgfH5Mmk7
+	 zxYCPyvsVnw3+6LOuLfgMYJZ5yaOduEDPIAE33qeg0SCGTbMwjS9ykcl71yIy0HTmrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776396;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776405;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=2/WlrLv3rx637/xLB2mJR6zPnrKBFs2t8412/Tv2urE=;
-	b=xkDKIYlPHFTyG4q74E2MGo6k1gIMo1coeEU7yrol5DN7MLGRVvJxPraMhs06DiEn+TTL
-	 EIVQYZlNoRqc4zeov7qDWSy3mKdFt1sdhYT131WYCWE59pDpeTWyDo//VxRo5biVg4HEs
-	 ekBmeH3Bz+xadVtVUwBymoPr+Nso9slXy2Kf7CrK0u462ztW97EaDugryFM+YFelF/ujZ
-	 W+N03usYdVk//q1LpDnXN9TjLxoV20bTPORIdLwuPodPjTNE9NPQva1yOPx1XihV+VKJg
-	 cnY+/1xsxcbAoYWFVKKLQ6Py10uAcKnDU+y8BboJk3GvKz3PjA/cype3uLWkRSKfr8Q==
+	bh=LeV6YEX2bH1ZNj9o0DW+0ahAYdvJN/jsXTtdRU8/9AI=;
+	b=NzvVo5bwMrAnAzQcUHkcYpHFkDJoxflIg56MKSOQE09xOSIEs8rGWF35YyCiLF0Purec
+	 8xgzGc/M5FQ0ew3XWbtN/fy0cQaADljygyNS3XbGefyvMqL9I1DmqzWtm8T5eR0P1/bGf
+	 K+uqO+kxfCGM+EjjuzNurjeH6eCcZieNNkKgPcOHz9KpAIW2d5s1iEM4Vs3NHnbQP6BhD
+	 Fk45fJSkM3jVjroV57s0TaV142L2CtlJdpiEYMAWK1gAxhHHq5EghQa+MSzjf+8hji6R5
+	 hWbDsNR3RoiF53WtubK+N7YlPHnDL/D9XaaOr9kKT7TlT961gyA/9z7xKUzU+B15vzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmoMRSyn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2cip6gm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E575606A329;
-	Sun, 15 Nov 2026 20:59:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB12606A323;
+	Sun, 15 Nov 2026 21:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmoMRSyn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F7751F000CA;
-	Sun, 15 Nov 2026 20:59:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2cip6gm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B013D1F000C9;
+	Sun, 15 Nov 2026 21:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794776395;
-	bh=2/WlrLv3rx637/xLB2mJR6zPnrKBFs2t8412/Tv2urE=;
+	s=k20260515; t=1794776405;
+	bh=LeV6YEX2bH1ZNj9o0DW+0ahAYdvJN/jsXTtdRU8/9AI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FmoMRSyn036wQYRqY5I+q4VSwo4/lBASPt41y6c/GBJQUlqh07IoWYwCn9X4nxXI/
-	 qTaMQRml85ZoyJcTubYBZfcA0o6XZpkS+dhfd7n6xRfrTdT4C3b6n9PnJYiwpGg3ed
-	 gQIwHwnsR+eOlfKO6Isx/4vkrhVZBnwXLiVrttByb/bcev5Q6UewDo/FTJaS9JfoUd
-	 gjxC9yC/CUn209JAXsxVPBVb9Eg6mk0ZBptQbm2t8iG3/nPkyu/ThcM6lihl2kHYp4
-	 Y0b+1tr7u6WhWEQeedg+HoFehDV1uV7CqM/Ju1qk+q+sXkk9WpkQ8/dMdUAoOKZ4BE
-	 1WrBcEWXtH6bA==
+	b=T2cip6gm8gB5h95y1ybRRsuA+GQPaDaTHCotw5DYJinkceb7agyh9YzpHtd/ZEFQb
+	 m2LT8aDhL4DfNsxEZNB9+VGr+mEgYXQdLRGIo8WCwWeZuj5gGy2RjGH9U6KEFJX417
+	 /JxhVXOHxbIt1IMPriPNrf0/4Qyw0v4mzLZ7z0Mg58Y2UCXk7U7pgSFCDgzsxQ9kTC
+	 U8m2Fdyz1h8vxmjkgh+hOD/1cK7MT52qmKyujfXFv+UDn/JVUOruPqpLYtU5MMCNGH
+	 CSMCTJEhIzT8RMee8Cuy8IF9YrQHecKhSHE0j3z4hBVvgBARrEygKu0+QcQKpInfF7
+	 Wa5ztp6frLqxg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sun, 15 Nov 2026 20:58:20 +0000
-Subject: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
- walk_to_pmd()
+Date: Sun, 15 Nov 2026 20:58:22 +0000
+Subject: [PATCH 3/3] mm/huge_memory: only compare PFNs of huge entries on
+ huge fault insert
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
+Message-Id: <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
 References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
 In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -76,60 +76,83 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1634; i=ljs@kernel.org;
- h=from:subject:message-id; bh=thuYM+ra89Xe+thgF7+RwlppoUyXwhIzMtQWcpO6kLg=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJ+yTqJv/r0hfu0/9+HsxgMt5kf+MRadqeo5bl7Ylamz
- yO5JZ+5O0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRLZMZGRrkfHaIz+9aJNFV
- +O9cePA58WabQwH1Xb55J6Uv1l7K+M/I8MNu2xO9BQxCPzIXON19sDigaKbytjf/r+xeUT1ZKyr
- jHQ8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2744; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=WviD5NyuI8opANfsL1TGM2rHrGogh6uBq1tLgREc0rU=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJ+yTrZHDqktpfZQmBWYV1LwAvx+w+yrrsrn5JO1fm76
+ //3l7++dpSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAim6wZGdb/XdPJ9UmSpWa7
+ UvJV+YwdybaGkhE9SxhW7+ZdZGaxU5iR4cner53/r/R9P5FSLKSasu3KK1HNtJWbjjuvnHTj3wG
+ xrZwA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Eliav Farber <farbere@amazon.com>
+A driver that implements both ->fault and ->huge_fault must anticipate
+concurrent use of both.
 
-walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
-so without holding the PMD lock, so the assertion is only valid if nothing
-can concurrently install a huge PMD entry in the range.
+This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+concurrent with faulting, as that only holds the mmap write lock and thus
+does not exclude faulting threads stabilised by VMA lock.
 
-This is not the case for a VMA whose driver implements both ->fault and
-->huge_fault and which invokes vmf_insert_pfn() from the former.
+insert_pmd() and insert_pud() have issues with this as they both assume
+that, if the page table entry being populated is not empty, it must a
+present huge entry.
 
-The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
-takes the mmap write lock and faults taken under the VMA lock are
-unaffected by this.
+This is problematic as if it is a write fault, it compares its PFN against
+the one being inserted, warning if they differ, on the assumption that the
+entry is a huge leaf.
 
-This can result in two concurrent threads faulting the same thing
-disagreeing as to whether to attempt a huge fault and thus ->fault and
-->huge_fault running at the same time and triggering this assertion.
+Since the entry may be a page table, this is invalid and can result in
+spurious warnings.
 
-So just remove the assert.
+Equally, the entry might be non-present. Nothing can install such an entry
+in the VMAs that reach this code today, but there is no reason to rely upon
+that.
 
-Target the commit which introduced the first driver able to do this for the
-fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
-them using its own mapping entry lock.
+Therefore only examine the PFN if the entry is both present and huge, and
+otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
+at the appropriate level.
 
-Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
-Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+This is what already happens for a read fault, for which the existing entry
+is not examined at all.
+
+Target the commit which introduced the first driver which both mixes fault
+orders and passes the write flag for the fix (since this commit, both
+drm_gem_shmem and panthor are prey to this issue).
+
+Reported-by: Eliav Farber <farbere@amazon.com>
+Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
+Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eliav Farber <farbere@amazon.com>
-[ ljs: rewrote commit message ]
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/memory.c | 1 -
- 1 file changed, 1 deletion(-)
+ mm/huge_memory.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 3a20d64fd276..e03110906aa8 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2384,7 +2384,6 @@ static pmd_t *walk_to_pmd(struct mm_struct *mm, unsigned long addr)
- 	if (!pmd)
- 		return NULL;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 0d589be136d2..da632c3e834b 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1643,6 +1643,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+ 		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+ 					  fop.pfn;
  
--	VM_BUG_ON(pmd_trans_huge(*pmd));
- 	return pmd;
- }
++		/* We may have raced a fault which installed a page table. */
++		if (!pmd_present(*pmd) || !pmd_trans_huge(*pmd))
++			goto out_unlock;
++
+ 		if (write) {
+ 			if (pmd_pfn(*pmd) != pfn) {
+ 				WARN_ON_ONCE(!is_huge_zero_pmd(*pmd));
+@@ -1770,6 +1774,10 @@ static vm_fault_t insert_pud(struct vm_area_struct *vma, unsigned long addr,
+ 		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+ 					  fop.pfn;
  
++		/* We may have raced a fault which installed a page table. */
++		if (!pud_present(*pud) || !pud_trans_huge(*pud))
++			goto out_unlock;
++
+ 		if (write) {
+ 			if (WARN_ON_ONCE(pud_pfn(*pud) != pfn))
+ 				goto out_unlock;
 
 -- 
 2.56.1
