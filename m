@@ -1,57 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794713756;
-	b=tmyu65s8DL/aEZJUqr9P9s1Eica454fhagjdQKXx+6Cv0Zt2JdyTrqND4PLBwZPrpDsl
-	 Nun8kA5LIz8pQDoOjzIUOw1p++GIordyjDaPDoZTwA28988SBa4clUBxfZ0u/HUHRM66c
-	 IKXi5BjnrPA8qAUiT8IuQZJzWq5WPHe0coMAcZZHfV/BQ1ibTxnR5HexY+YOPrpD7Zrmo
-	 lnHb1YpXBNTbFcCIRU0YJD0EMBoG2sM0jCZFnDNQohPQvQigAtoOBeYAO0laQKGoMwe7V
-	 +38J+eREZ2PGEFRlqQGC+rySzaUGXBsYN6LU9RRT9N4K80uboo0PdrCTrnWkB86MDYw==
+	t=1794713794;
+	b=41JR5IVTMGP1yskRXFHvjxOhB54lHTAzUOhjDaXJDkPiU+75WsHbj4yJZbHThAeuUfPY
+	 knYoupE6IcCVkxR03SMS7gtR6Zr5zfu6lk8p/TGKMKcRGVvNpMi0MKjCJ+it0HbaavR5M
+	 5ANYcqXbrUv70k8WmelIDymbw9J3oOEKKJTj4Qp6bVRgNVaRJrRmWtBdm3eIzXy6LTm+T
+	 6EoJOGBkgeMEPaoPOecMGXhzZtf2j815QN5aHYxcIsZBSeUxc19G+/Onl/TVn3XYyVlnV
+	 Mnsq/BGd2TK3vrk63x58F5Hsh7/E6WAqw+R2n50R7XMGCTG7yKqXTH/V2rpPCSs6Kvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794713756;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xj85yJAZaXoh6bgVlC9M6LWcwat1hk8ga6yA/c8AFw0=;
-	b=nExlv/IBzCownHRDjCz+mpMzctJHbPHaIsIumC6SyR5s48iw5zzq0kibb40TjtsJBu0E
-	 YU9NQhTkmBMnlK66rwOdv5n1EikbbnoKEiZ6CirtDtgFMNXJPAuuRulHcOwkf6CLU+aDc
-	 y/HJncwfqkUn7zOxEIgHp701YJynHvWdIShEo1yvIM2nyo07WqZhl8454lDbygGrth4oP
-	 nDMn57X7MxAKjeWPw2hRG5O+dtpgqKXza0DF4Ppl+TBY0aUcA86JvPPmvA3MUxqPeMVEx
-	 c6KJ/evtkOSPBquG9JNtmb1iK1nFBD0ciTTJkd2zHuv1MDS16osRlXC7U/vouFAOGew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794713794;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=bqR0RcC9v5qQRowJ7OkJmMT8g0ibCUrIqL4iY9KFnZA=;
+	b=1yOeV5CkUGGyg5QyzwFR0+0lLPguJ711JrL6HTOfIKYWKz9277eg2gmTtqnrfE0SOsGX
+	 3pnGBYi54xjzGszJQ2HB+kzeHN88QycKa0Jq9lCVRqWHnatA7tf0KPEdoJAJXEjXd4Z+5
+	 ZkgQZOt1nBBMQMMzeo3Vf/m7ymtyLbF2g08E8aUgd1X+HdFs7cGcc9NqfF0LUSFkdsqWr
+	 1Oi8D1Elv1z55Gp/jW9/iL2+C9T1PP4vrmw4ZX8R2qbM5dBKohMkbQR5/2rjadD9O8n0a
+	 +qOsZulH+uksD1mxPgYpMTLu/44FgcU4vVObeFgYDCVbACfJxiJX7rQFcPnVIRLJ/GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QnA5ai1p;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=E3L+3dPb;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13DC606A327;
-	Sun, 15 Nov 2026 03:35:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B89F606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:36:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B89F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QnA5ai1p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2E51F000C4;
-	Sun, 15 Nov 2026 03:35:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794713755;
-	bh=xj85yJAZaXoh6bgVlC9M6LWcwat1hk8ga6yA/c8AFw0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QnA5ai1poblvRX4quMSLEYeTOn17d9k8mahBftE5XXYhuUNkhzXLJfguwLM/NWbF0
-	 j1ir0LqqAoxyfEYDB8ReU3qjUBGgN4Qm5aoKIkMen/zNKB8D3wsKMEBmZzLBMesOtm
-	 SVAQRrV7dv/uUVBHxN+jONsDH7ilRX1Tlh0aJgtX6gx9nWeDRBcwpVTEVG/B7wrs+t
-	 +PhOswdKs+EPndryuCXkvxFYwp6b8SATf28sobHpNnj2XggdQXZpWoFsqLQ8saOgMR
-	 hXiKqiRddtz2ij42D8MEEwPeNc/jlu5SD1qL637xIzsrvcC0h+uVy7HcW+Fz6r4T/8
-	 AmY2kEuhKwWOw==
-Date: Sat, 14 Nov 2026 19:35:53 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Alireza Haghdoost <haghdoost@uber.com>
-Cc: Ian Rogers <irogers@google.com>, acme@kernel.org,
-	adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org
-Subject: Re: [PATCH v4 00/23] perf symbol: Sorted arrays, DSO-owned
- lifetimes, and memory shrinking
-Message-ID: <avkomXhSg5evA7c3@z2>
-References: <20261110220803.2503416-1-irogers@google.com>
- <20261113171734.2188066-1-irogers@google.com>
- <CA+w=M=SnFtEHA9NhSM8gyCGuA19Oazpx6X7yYTtgatsi3rKfCg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=E3L+3dPb
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso2951120eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:36:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794713793; x=1795318593; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bqR0RcC9v5qQRowJ7OkJmMT8g0ibCUrIqL4iY9KFnZA=;
+        b=E3L+3dPbIJSiv27ubSBF0gyvXUf48aR2N6ImxJxnZsMgcC40Ck2hVFrVZzk6/rKn79
+         PikIBfYyJbBQBWXyxuhHGCH/etL8VkZOGeDbpZ+GYorTEiw8wLyVjKVrxAbtqlCoUJIr
+         3iEOeXYP5UNqpd8EDxuy+t02Ue0FL054ka2q9YxdPZXVz2a+d7bxIIQGjUFoisu6Is6F
+         2FuqIxp5Et+2RKIJCU9KX9jUKLnoD24idOv4zUckRr610e14r3zhN+m9H9z7Ff/GvQyJ
+         VJfJc1yH/AwRhL8WO5HwoSZgNERXObaYE83nFqr4nLYWF1Kyyl58etCa26dCtjqTPcXU
+         GKnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794713793; x=1795318593;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bqR0RcC9v5qQRowJ7OkJmMT8g0ibCUrIqL4iY9KFnZA=;
+        b=GIGmjpxwnTFoX7eSkRClbV/qSWu089Aq1O10OuQmH0oFmQnp3EmrA6JxB6vOWKfrQi
+         bgjwvsLq+S01GwqkBaZJe/eufqeMc5VoW7gh5cZm9SMfjJPiLPXa3ynZR8KLETelbMO6
+         /1Nykm2j1Qi3pPzzN75fuhEYVvzeVzGy809NO4INKaJ3YXOutoeUOY5a44ION1NFbDYB
+         btLySElYAaFdfn4o3+yzrPnLw4OsbuC7R7iSTMXuuWqPkHz0L2XDmdwueOeefiNCCz2q
+         xUsX0y+HynLEkCh96RlTIMz+eskV4sfQyICTHx/fU5UW2f1nTr2VfY03GpLZIgIqc4Ia
+         a9WA==
+X-Forwarded-Encrypted: i=1; AL+hErGcWonnpA1c98VEkRGUcpJRohqYGJcUOC6k7Q2cOM85Kvpyoh9+i8sF0M9Y/QtvexdigNIYTwrfc2543MM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88C+9T1vn7iZOrpCEk+Ju5Nbp0RPYEmCwOy5r0bs9+HJ51JNm9
+	SVCH1VDuCUtfkGlRhI/RfOoZCPVQXc+n8ULsVnDNXegX+5hNVDTML4C0MYJQWqHg9oKWsxnhIPN
+	aYuyFAQLrYSAQc+W+T5T7yMYYdKkl2w==
+X-Received: from dycne10.prod.google.com ([2002:a05:7301:c8a:b0:369:f864:c5e])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:b14:b0:37b:4a2b:81a with SMTP id 5a478bee46e88-37b4a3a4b7emr2845579eec.4.1794713792906;
+ Sat, 14 Nov 2026 19:36:32 -0800 (PST)
+Date: Sun, 15 Nov 2026 03:36:32 GMT
+In-Reply-To: <20261115023115.GA3752240@joelbox>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,50 +77,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CA+w=M=SnFtEHA9NhSM8gyCGuA19Oazpx6X7yYTtgatsi3rKfCg@mail.gmail.com>
+Mime-Version: 1.0
+References: <18e815d3ba49a353.3137322e32332e3235332e313736.192c60.0000sendgmr@google.com>
+ <20261115023115.GA3752240@joelbox>
+Message-ID: <18e81aaf93650e1b.3137322e32332e3235332e313736.231b55.0000sendgmr@google.com>
+Subject: Re: [PATCH] rcu/nocb: Keep lazy timer intact on second lazy callback
+From: Chris Wiseman <chriswiseman@google.com>
+To: Joel Fernandes <jfern@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, Joel Fernandes <joel@joelfernandes.org>, 
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
+	Boqun Feng <boqun@kernel.org>, Josh Triplett <josh@joshtriplett.org>, 
+	Tze-nan Wu <Tze-nan.Wu@mediatek.com>, Cheng-jui Wang <cheng-jui.wang@mediatek.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hi Joel,
 
-On Fri, Nov 13, 2026 at 09:25:34PM -0800, Alireza Haghdoost wrote:
-> On Fri, Nov 13, 2026 at 9:17 AM Ian Rogers <irogers@google.com> wrote:
-> >
-> > When profiling large binaries or long-running workloads with many DSOs and
-> > threads, symbol and DSO tables frequently dominate perf's memory footprint
-> > and startup latency.
-> [...]
-> 
-> Hi Ian,
-> 
-> Thanks for v4, and for pulling the three fixes out; they are in
-> perf-tools-next now. I posted v7 of the lazy loading series on current
-> perf-tools-next. I apologize for the late turnover.
-> 
-> Lazy loading stays opt-in there for now (just don't have confidence
-> yet to make it default, see
-> my reply on v6 4/5). From reading v4, the two series overlap in three places:
-> 
-> - Both use bit 14 of the symbol flags: SYMBOL_FLAG_ANNOTATED in 11/23
->   and SYMBOL_FLAG_LAZY_NAME in v7 3/4. Bit 15 is the last free one.
-> - 18/23 replaces the rb-tree. v7 3/4 walks it in two places during
->   loading: the alias name loading before symbols__fixup_duplicate(),
->   and the check that skips a .dynsym entry copying a lazy .symtab
->   symbol. Both would become walks over the sorted array.
-> - 15/23 defers elf_sym__name() in dso__load_sym_internal(), the loop
->   where v7 records the name offset instead of the name. Both want the
->   name as late as possible, so this looks mechanical.
-> 
-> Namhyung, which order do you prefer? lazy loading v7 is four patches;
-> if Ian's v4 goes
-> first, I'll rebase v7 on it.
+> Looks reasonable to me. Is there a test case that you added to find this, or any
+> power savings that you found with this added patch?
 
-Thanks for understanding.  I have no preference and will merge whatever
-ready first.  It seems your v7 needs some updates.  I think I'll merge
-some of Ian's patches first but it seems that's not part of the
-conflicts.  Let me take a look. :)
+I spotted this while tracing idle rcuog wakeups with CONFIG_RCU_LAZY=y
+and rcu_nocbs=all, where rcuog kept waking up after 1 jiffy whenever a
+second CPU in the group queued a lazy callback.  I verified it with
+rcutorture (NOCB01) and measured a light background callback workload on
+an arm64 system:
+
+                        Before          After           Delta
+rcuog wakeups:          1,885           1,174           -37.7%
+1-jiffy timer resets:     739               0          -100.0%
+SoC power (CPU+DSU):   94.1 mW         76.5 mW          -18.6% (-17.5 mW)
 
 Thanks,
-Namhyung
-
+Chris
