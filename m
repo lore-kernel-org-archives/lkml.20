@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794718614;
-	b=zGg2TLIP6QomuaF52Oti1Oo+flgf3IF8p1hAHWZG0oz8TeMZ4VHfzjridRXWVo9lzr98
-	 homJtiMg6p69ENWUk7lYY7IBx14aL9JycqBd8U+glpB+84gssbI8zvjgnwSPhEU0jP6ak
-	 fxcLI+iXONH8KleDQVBSvN6BnN0qIlqHeJDxb5rFWcW7NdNX+RzxZMlJlxb18QnA0KNoR
-	 prW04FHdwRmaj5br/E6LkBBPKXktswp45BmfUN8XIQzNx3QlsXkyBSjiGr1RKPEtmoPPF
-	 QFyzXugEIuBjl/co28lnMb1dy/tmzjEuZmckZY8yjMGRR9Z5PBYGZrc8ch7smKsXajQ==
+	t=1794718619;
+	b=EP+wLXe3LFye5Kd6EmIWo4ou0nsCgMx/RJ7NGE1nV/aUSA4064Uc7Fzv4ycaEUs5CGmf
+	 otuj7w+qxYLeIDcDMGb+yFox7kq/QwJNdXnpUPY/g6Du7eck4iQ7IxR9qWv3t1YzJVg8+
+	 mrkTb3+OPm5TE+mGIf7AO7qKf/svz5VAVDQz9j9lT3fpMX69H54EOk/LmobyDL0HnoK7n
+	 W+KXeIjAlLlKbuuauiq5+ObTsuKjNpL3k0gb2SZ+SLtr+OrcIoTG5QPx5OUiSSkKaoZOR
+	 l4/cPAWt5ig3uQHGpqTQ7eh18lZXyzLdxskLTB7ea+FkGdh3rC6cpzpkSTHG7IB03ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794718614;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794718619;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=OfjSECZG3khnXVUvbjv+JW4zvsO+5SX6UimzwnRfK0s=;
-	b=a7ERDzYHq+fQd80jejzSNHQimspnY7cShEf26A+Valq3MIUUxTMx1aULg2NJoYFcYDz+
-	 Y64leSLgYABo3cLhM7sOl9tCXE9T7daY2QqwZJjOPzB5eeHoBEdBbBct7IAkvNRLXTWZA
-	 W1zCheRDIC5mPJRxFaZc9GjODFVT1EQEh3MVRU/wU3ERP/MsAqyeOk912l9g3EemsCYkG
-	 Fj0LvjYFFQrX4h4evSLsNxUqBhqIFaY4jjdrv6729aOKMZN8zb5oyjVpWfTYUSjrBpqoL
-	 oUzRQZx1M4GqMaOPmGcb537fEBhoi21HGVLOFxil9PGcoIAZ7QbspqDNIQARBahx/DQ==
+	bh=tI6zfMdxE7bLEfk7tQngRwcxVxwJBB6L+Hi89v7P2eQ=;
+	b=e/xRFfmmfRlxLk74MbNZTAZG78kK4uZLmk/IhcPhEKQSyiLUdueyCVo69NuOKc7C+YVd
+	 I0lZLcoeBXJTa/xwyOaJlhWX22Tw1zLfa7tZk5SPbc2K+DfCAoMl6K7t2stefoBgGzA1X
+	 LehDl+hF++VOQ7qEwZ0SDbh5n+Nf5z8LQN2X2IZdG4KXu8ybQGdfQdCKDO7jhak0NcPFe
+	 +UOHjYf3gyNHQEmNxF5dApJ7QyZ54vmCJ8nqoRANMZaapzLjJDl+nsGI6Wfdy+fs5X7ZA
+	 bTKmcqlVdHZmBv5eDmjjHjXROkitaKAHsmOEnfdL9ZoPQYAlRmalg+E4hz32syo8/Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkbBO0En;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYijmX9C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858A1606A33B;
-	Sun, 15 Nov 2026 04:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0C460A2613;
+	Sun, 15 Nov 2026 04:56:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkbBO0En
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AC71F000C5;
-	Sun, 15 Nov 2026 04:56:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYijmX9C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8057C1F000CA;
+	Sun, 15 Nov 2026 04:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794718614;
-	bh=OfjSECZG3khnXVUvbjv+JW4zvsO+5SX6UimzwnRfK0s=;
+	s=k20260515; t=1794718619;
+	bh=tI6zfMdxE7bLEfk7tQngRwcxVxwJBB6L+Hi89v7P2eQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MkbBO0EnTAA+Y6eex7CAZuS4MTNAAVcavLhFOn7FNMIz0jvFLf8Dul/XPS5v9PUya
-	 hzST9iXqtPgt/4KMlEW5jlYyRdLnVocaK+FFiLnHpkLIvzfRXy7T1sB7LpQcZiKtrW
-	 9SZ8Ev7P3S3QfeSSY0rEXkFn7y3XdToaRn3finoDZvllS5v4WYyx1XDGmOFrjUmyMH
-	 HnmGQofHAu9VIR4qgEUcdyZfAsZZX0CtTMYCaFa9gKvo8+GL30z8EDoJdJaZ184zkO
-	 72G2XiXSeZoMvuzIs9J4qps1slbXa0d8jm2qiTP2jJLer041j8oiwdNRMsIvcgiyg/
-	 Gdpps9Clxp62Q==
-Subject: Re: [PATCH net-next v02 2/5] hinic3: Avoid concurrent updates on
- 32-bit systems.
+	b=TYijmX9CknZ2FtlQaD0z4+LrV1K2wBSCGiihIVaXyzivKXJRyYRZZx5iar5COqbyW
+	 yKyTXgq+GQEqyd6fawtPodVS7PQCyE4vOOp0FxJD5A5MHm93ACyecQNMIe1aGCGoal
+	 JnptMkOmyZwL7zVuOcmWgXCzvl/hkdt0weB7SYHs2EBQPmiPrcti8H+ES67ZX3vZFn
+	 545zKEmmMMvBOGGVsvhDItsHjaWLzqJc8+crHyZLMAO1g3bRUwgwcj8xyvNSeyeNr4
+	 NWEY1UuMEhzMRhYlJeLbheOsct8lwYnHdL2Com7zJYTb+AXyTDMBRuwFEUHJAOlK/D
+	 j7JCMDTyXrryQ==
+Subject: Re: [PATCH net-next v02 5/5] hinic3: Ensure that the value of max_qps
+ is not changed
 From: netdev-bot+sashiko@kernel.org
 To: gongfan1@huawei.com
 Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
@@ -52,11 +52,11 @@ Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
  larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Sun, 15 Nov 2026 04:56:52 +0000
-Message-ID: <179471861282.2199510.12155151522849226893@kernel.org>
-In-Reply-To: <3c49f9de764a5d8c463706882e191a945f376518.1794371175.git.gongfan1@huawei.com>
-References: <3c49f9de764a5d8c463706882e191a945f376518.1794371175.git.gongfan1@huawei.com>
-X-sashiko-severity: Low
+Date: Sun, 15 Nov 2026 04:56:58 +0000
+Message-ID: <179471861806.2199510.11943795385941858718@kernel.org>
+In-Reply-To: <f29963a1b343ec749f566decbbdb67e7e018860f.1794371175.git.gongfan1@huawei.com>
+References: <f29963a1b343ec749f566decbbdb67e7e018860f.1794371175.git.gongfan1@huawei.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,138 +69,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] The patch is titled "Avoid concurrent updates on 32-bit systems",
-  says the `+=` inside the u64_stats retry loop of hinic3_get_stats64()…
-- [Low] After this patch, struct hinic3_rxq_stats::csum_errors
-  (hinic3_rx.h:36) has no consumer anywhere in the tree.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch has a Fixes: tag, so it will be treated as a stable
+  bug fix.
 
 --
 
-hinic3: Avoid concurrent updates on 32-bit systems.
+hinic3: Ensure that the value of max_qps is not changed
 
-This commit changes hinic3_get_stats64() to read the per-queue counters
-by assignment inside the u64_stats retry loop and add them into
-rtnl_link_stats64 after the loop. It also removes csum_errors from
-rx_errors, removes the NULL checks on nic_dev->txqs and nic_dev->rxqs,
-and removes the dead stores before the loops.
+This patch stops hinic3_try_to_enable_rss() from setting nic_dev->max_qps
+to 1 when RSS setup fails. On that path it now sets only
+nic_dev->q_params.num_qps to 1. It also changes the max_qps <= 1 check to
+max_qps == 1.
 
-> hinic3: Avoid concurrent updates on 32-bit systems.
+> nic_dev->max_qps is used to allocate hardware resources. Therefore,
+> it is assigned the value 1 only when its value is abnormal. In other
+> scenarios, the value cannot be changed. However, the value of
+> nic_dev->q_params.num_qps can be dynamically changed.
 >
-> Within the while loop of hinic3_get_stats64(), the counters between
-> u64_stats_fetch_retry and u64_stats_fetch_begin are incremented by +=.
-> This operation will cause repeated counting of the counters on a 32-bit
-> system. Therefore, change += to + and the counters are incremented
-> out side the wile loop.
+> Fixes: 1f3838b84a63 ("hinic3: Add Rss function")
 
-[ ... ]
+[Severity: Medium]
+Is this description accurate? The users of nic_dev->max_qps appear to
+size only software arrays:
 
-> Fixes: f47872bed40f ("hinic3: Add .ndo_tx_timeout and .ndo_get_stats64")
+hinic3_alloc_txqs()          -> nic_dev->txqs
+hinic3_alloc_rxqs()          -> nic_dev->rxqs
+hinic3_init_intr_coalesce()  -> nic_dev->intr_coalesce
+hinic3_setup_num_qps()       -> nic_dev->qps_msix_entries
 
-[Severity: Low]
-Can the double counting described here happen in this driver?
+The hardware queue capacity comes from nic_io->max_qps, which is set on
+its own:
 
-The hinic3 Kconfig entry only allows 64-bit builds, and COMPILE_TEST
-does not remove that limit:
-
-drivers/net/ethernet/huawei/hinic3/Kconfig:
-	depends on X86 || ARM64 || COMPILE_TEST
-	depends on PCI_MSI && 64BIT
-
-When BITS_PER_LONG == 64, the retry helper always returns false:
-
-include/linux/u64_stats_sync.h:
-static inline bool __u64_stats_fetch_retry(const struct u64_stats_sync *syncp,
-					   unsigned int start)
-{
-	return false;
+drivers/net/ethernet/huawei/hinic3/hinic3_nic_io.c:hinic3_init_nic_io() {
+    ...
+	nic_io->max_qps = hinic3_func_max_qnum(hwdev);
+    ...
 }
 
-So each do/while body in hinic3_get_stats64() runs exactly once, and the
-old += loop already gave correct totals.
+The removed nic_dev->max_qps = 1 assignments never change that value.
 
-Even on a hypothetical 32-bit build, nothing would force a retry. The
-only u64_stats_update_begin()/u64_stats_update_end() sections in hinic3
-seem to be the init-time zeroing helpers hinic3_txq_clean_stats() and
-hinic3_rxq_clean_stats().
+What failure does the Fixes: tag refer to? hinic3_try_to_enable_rss() has
+one caller, hinic3_sw_init(). It runs before hinic3_alloc_txrxqs(), and
+before hinic3_setup_num_qps() at open time. So with the old code, every
+array sized from max_qps was sized at 1 after an RSS failure, and the
+sizes matched.
 
-The new reader pattern is fine as a cleanup. Would it be better to
-describe the patch as a cleanup, drop the Fixes: tag and target net-next?
+At open, hinic3_config_num_qps() also forces num_qps to 1 whenever RSS is
+disabled:
 
-With the tag, a change that has no runtime effect goes to stable. It
-would also bring along the NULL check removal, the dead store removal
-and the change to what rx_errors reports.
+drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c:hinic3_config_num_qps() {
+    ...
+	if (!test_bit(HINIC3_RSS_ENABLE, &nic_dev->flags))
+		q_params->num_qps = 1;
+    ...
+}
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> index da73811641a9d..d1fd91d97ccfc 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
-> @@ -791,49 +791,35 @@ static void hinic3_get_stats64(struct net_device *netdev,
+So after an RSS failure the device runs one queue, both before and after
+this patch.
 
-[ ... ]
+The only visible change seems to be on the RSS failure path: the
+per-queue software arrays are now sized for the hardware maximum instead
+of 1.
 
->  	for (i = 0; i < nic_dev->max_qps; i++) {
-> -		if (!nic_dev->rxqs)
-> -			break;
-> -
->  		rxq = &nic_dev->rxqs[i];
->  		rxq_stats = &rxq->rxq_stats;
->  		do {
->  			start = u64_stats_fetch_begin(&rxq_stats->syncp);
-> -			bytes += rxq_stats->bytes;
-> -			packets += rxq_stats->packets;
-> -			errors += rxq_stats->csum_errors +
-> -				rxq_stats->other_errors;
-> -			dropped += rxq_stats->dropped;
-> +			bytes = rxq_stats->bytes;
-> +			packets = rxq_stats->packets;
-> +			errors = rxq_stats->other_errors;
-> +			dropped = rxq_stats->dropped;
-
-[Severity: Low]
-The commit message says:
-
-    csum_errors and other_errors are not the same things. csum_errors will
-    go to csum_bad in netdev netlink qstats.
-
-Does hinic3 have a qstats path for this? I couldn't find netdev_stat_ops,
-get_queue_stats_rx or csum_bad anywhere under
-drivers/net/ethernet/huawei/hinic3/.
-
-That means this line removes the last reader of csum_errors in struct
-hinic3_rxq_stats.
-
-The field has no writer either. hinic3_rx_csum() detects the checksum
-error but returns without counting it:
-
-	if (unlikely(csum_err)) {
-		/* pkt type is recognized by HW, and csum is wrong */
-		skb->ip_summed = CHECKSUM_NONE;
-		return;
-	}
-
-The only other reference is the zeroing in hinic3_rxq_clean_stats().
-
-Removing checksum errors from rx_errors does match the rx-csum-bad
-definition. Could the commit message be corrected, or the qstats
-reporting be added along with an increment in hinic3_rx_csum()?
-
-As things stand, csum_errors is declared and zeroed but never counted
-or reported. If a writer is added later, checksum errors still won't
-show up in any user-visible interface until qstats support exists.
-
-> +		} while (u64_stats_fetch_retry(&rxq_stats->syncp, start));
-> +		stats->rx_packets += packets;
-> +		stats->rx_bytes   += bytes;
-> +		stats->rx_errors  += errors;
-> +		stats->rx_dropped += dropped;
-
-[ ... ]
+Could the commit message name the symptom being fixed, or the later change
+that needs max_qps to stay at the hardware capacity? If neither exists,
+would this fit better in net-next as a cleanup without the Fixes: tag?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794371175.git.gongfan1%40huawei.com
