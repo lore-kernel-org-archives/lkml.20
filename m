@@ -1,48 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794782299;
-	b=Q180Xyh8oQPF23NnTLj6xwk+7W7+W8F6wx2+X8ABVywpLw98oYUIBy0d9sjwJH3vI2fK
-	 gveC5AF/pmyelq9hCBxw7SHK2DZbgneL+UanbKZO9glqufZAiyedxPQ7hon1N47zfWqMs
-	 0K9Q9VkV7PEmRJPpma6vZVn3AYo7kUTBFarpxOV9WDil3QKpR2F/03jQRGnfBluWTGGTW
-	 5i0VRTfBnpB29FDZtyRdCtsAMvDTKl1B5kcOMa5V5qtAy2VZP8Ivjw9LFr7gDLaJsBC7k
-	 nUNwnMBPwtb9kAG7nD5xa+ZcpdtaRi16Z3kFpsRGnKwxO0nxfkt91mnTHyGCM4XetoA==
+	t=1794782304;
+	b=AIKAxrPfQLQfVQii0j8CQBKgv5K0alH9AloaaPTpObzTRCQY709kp++f7E9wem5kL018
+	 yuGxN8oGoPBjquSN3YlF4+OLOE4i8p6doXedWTr6UMANpRzRSsHHMPg1EJPPf7fwO+gyA
+	 79JJVAUc7GKSfjZJJjU3E1P9Pdqr/qhb5uuUgAn4Bx6GPOmANbTZlWoKR+7drcOD2Dfq0
+	 fqM2xTNfyKhJ0zkSdaQ5dyNHiBxLXGyLxjRPT8tC54p3tQ6e+ceqwEXgGhQX/xOnf/kd/
+	 DHLYNOmT+iA21AD7KjLelUoXZKDuxDAz6AZiu59Tm0HhJmDktZKHEVHxN+dEVEo62Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794782299;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=cIRRH0DaCFDYPcExE0sOQlYcNb7utp+2evRSM+ZndUA=;
-	b=fUBB7Xv33cEI4CLdG4Qq0x+Y1P8YevVYx7oHXdSMFt5UVzOOpm/jLpmvxkM24RTWvexa
-	 bFuYsVnSDV6yCYnxGomQ3tbHNaYPVfFG7xqFjfuoTCtLWUvXT3ryeoqlEAr0xTP3P07Ot
-	 aruSj2WTG1Yg589pyihRAHmBNoGIrU/eiXsV2Ahryt1mVGBoUJJbk4iQkrUkWTyeEBs1o
-	 ZTcjsVaAhiPjPiUe/9QuZAkN/cpySLHCwdz0yXdYEsZ6gajjDRQukU+MuIgAPX7C5lzvV
-	 rr55mdseXk7M6AcT0RpC/OEi6cIkfmcx2YNlMwSwhU6O1ZYQv/gOocR54inAseoRl7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794782304;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=jP2BTh7rVpWo9Im/wV5enbfenEoL6kTHcUKyx3s6YMc=;
+	b=sBcwHjVEe1bUoq//JjrwKcMRUEAcMG0Aq+bzsPq8O5sJuhiM3+y+eKiqlALRQChlrbLn
+	 UNSPHeZbLx5YuxDL37a4SrlEvaadys4BTmQdb0qg6rn4cIHgf9zK13lM1gw5wSBLOs/Bo
+	 giwozAflqpPPp7FupwhoJSunxQv/Dnh0kEYnd+F0j2OEEmjdaTp+SVszVlvaHtmlQn2KV
+	 cVKwCkTvbMXmIbOqRUpAzh9/lQaV55E8GAD/UN6tHMZQ2zp0eRPwQ6AgSNhI7474GGG3L
+	 oS2gIi1oJyR+x9frykw9gVI5romKDXOsqlDwqgZwQFs2XOypaIhWr2FKWBw5YB5pAyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRLNTMXg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3lG3ihj;
+	arc=none smtp.remote-ip=209.85.167.50
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155F8606A330;
-	Sun, 15 Nov 2026 22:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF013606A331
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:38:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF013606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRLNTMXg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA241F000C4;
-	Sun, 15 Nov 2026 22:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794782298;
-	bh=cIRRH0DaCFDYPcExE0sOQlYcNb7utp+2evRSM+ZndUA=;
-	h=From:Date:Subject:To:Cc;
-	b=YRLNTMXgmt2oJMA4V7rIIJZi4gR4X4RMyudzb8/j7pAzcoEQN2tqristf/NKbLrUE
-	 65/OTt/Q79jxUe09lwAwMmlK0bzyaQX9d97+mDD0UVnm525SBYP3B1tNWobmCN6mcA
-	 zcmm6VZSqzbFW4QmrTO2BKUC0uBTMGVX4IvmwsbwGfDL1+1bi6wqjDZ4mii4LfioY8
-	 D2nCwt8FSTPwFNXFMDwu2JsNN/eYftwRNpc1FWYs1/QsNIdjSm9SQcsNdOF25x66vs
-	 N5jVPrCRwnws4W4QzWkUTEwoMgnlq7ysnqOcSCGRLOhXT53nyJQe2iZq3s5XuTPDgs
-	 YZ2ajevXrV74A==
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 15 Nov 2026 23:38:14 +0100
-Subject: [PATCH] ASoC: ux500: Drop the VAPE regulator
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3lG3ihj
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c158c4c15fso3546937e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:38:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794782302; x=1795387102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jP2BTh7rVpWo9Im/wV5enbfenEoL6kTHcUKyx3s6YMc=;
+        b=j3lG3ihjCmXBRSjnJqfN6ORSYkKfksPwGSeBXneAiBHnDt/KFj6KriUjeYuN+YiuXs
+         K++zqwRNb760hiJ7UBo40cdx23MOLJ4f1kvArUpP358FKJPhYZk7Bw+6FmKzYG/w/DoI
+         8r9a+IiyvkRU8BR6uhKUMmLUIr0jnPUncUyY28/0J4JK6wSG7U3pVfMIkUgHCIX0nwPK
+         +/wlx0iNi7+k3XCyauiBMkhYq8F4xiN3Z8o/bjO2gC0c5fUQZvPVUY8ycrp/9hlbAzHg
+         xi35KmSe/ag7cDkawGFUCb/G4pQzByS0eb1GIxnoPwvB2Wmn9ylnYl6XRcMdnHAf6vdK
+         SDew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794782302; x=1795387102;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jP2BTh7rVpWo9Im/wV5enbfenEoL6kTHcUKyx3s6YMc=;
+        b=tEkNTFsn6LZnwaUTzdcFsy/4s84uuzvQ3k/ztFZWhkVNXoiiqtUK/bXkQ23k1fyeyD
+         sgIKK9UVBh42TSnwHp/Y/3e8UOffR+1TJ/BEX4Du48FdiexLayYbyTQl9Q8FE3x02Mu+
+         3bByjz27C1tS0NtRqImODtypCmNnxUc6om3/eUL9FPET1RNtNm3UWj2AhVXpuEOLEW0r
+         PLOySTXODionsa6VbN7DUNKNyWAyhs0lzmPQp1cspu8TQBBcm8bOWIXAJdr2sFp8J1xE
+         NJNkFpTWgSRTNJnLcdzPMM7KyMfabnpj4sJ+IrGjztTV43QiPE5gbw2h9JdbNbL/wOqW
+         s5Ew==
+X-Forwarded-Encrypted: i=1; AL+hErGJvwJ6HnX/dkmiFqdyu6TLsPHG/y8HmZBa7FbqbZEV2dEf2JytnbfZ2cTD/2RBWYXP5NIqaFyTwIL2cR4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Sg4VkdWgSNBti9/IgVL/SeMQuVx+1vlv9k7miy0zdTQj7gYek
+	uXjqTJE9yD6VdDcpcaJ6ZgHV/JkoIsqVoZ7ef6+iUaWZD1kruLQPW1eeRJHKgiBj
+X-Gm-Gg: AYBFou1xk88oJcYiG/hpFklx4C+eyVDxz1FD+xSIWdVwcryyzwJAToVDDphmhDEv+MM
+	8ywelj0MLxhcZoJd0wd3SfA3agZT5V67bqaHHlMaI21j33K+3xu3UM3n21jmEkhXym3A1kiAfSt
+	AeXli+ZImC+fFKsbeUJnA9V+7g5+wjLj/D9r/lhrcxfBiTSrO4Uh8sN7aupkN9WqvTNW5jhraqw
+	Mw5Yr2JK6Df6eTWaWfq9lLszKP7/+6L2Epjhl/f4MJhFbpgl+J96zOSt9LfghntGEJmV2U0gvJG
+	lFDv4dGoEfUOdNTv5n057jan5nqQ3D6Nd6r+L0B+Q5SQbECcjY2Gr32Uq3U3b/FH1JoA2y3aZpv
+	kRp20ShMEKFjrJy477i4zxr/8XiBg80a9tekgaE99J1OQUQix5qOdvsG+XXog7RZD5jJAg0Z/nB
+	3Ea+kVy3/2dYV6iz4jpyNZPNcRJEfPZ63q6/s91eMgC7HEx/61zDpbFCMCWLkJngDwMp4/awCRx
+	4JsMZD8g4GK75T6cXKMxQN1luUhCdYI0sj0GX5tOddOD4VtEZdqKm6Ul5AiNutEKztHiZ6ZqLII
+	40/5ccdRmNPJG4DlevgYKpIvtzUsdxgtus6IWCByX75Q9FyPnmb/OQHv0snpczAVC85otpWUVrk
+	R4ovkfVphG+3FMut6gay5eOltOSZ8GEpn4kbxFZM=
+X-Received: by 2002:ac2:4bd1:0:b0:5c1:4817:2c03 with SMTP id 2adb3069b0e04-5c164ebe9cdmr3717369e87.36.1794782301710;
+        Sun, 15 Nov 2026 14:38:21 -0800 (PST)
+Received: from yantra.. (nekmmqvelexmc8nt5ae-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:dce3:b876:6f6e:9706])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171357477sm2759609e87.74.2026.11.15.14.38.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 14:38:21 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: jic23@kernel.org
+Cc: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new temperature in trigger handler
+Date: Mon, 16 Nov 2026 00:38:17 +0200
+Message-ID: <20261115223817.10568-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261115203150.7faed0b1@jic23-hlaptop>
+References: <20261113230241.82046-1-zoone.rupert@gmail.com> <20261114013817.476f8fb9@jic23-hlaptop> <20261114083525.11972-1-zoone.rupert@gmail.com> <20261115010203.2a939bd6@jic23-hlaptop> <20261115183949.11591-1-zoone.rupert@gmail.com> <20261115203150.7faed0b1@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,144 +105,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-ux500-asoc-drop-vape-v1-1-46315e14642d@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqEMAwF0KuEvzbQKI7Qqwwugo0z2djSogji3
- QXfAd6FZtWtIdKFaoc3zxsiSUdY/rr9jD0hEvrQf0Rk5P0cQ2BteeFUc+FDi7GsmnQaNEyW0BF
- KtdXPt/3O9/0Afy+ThmYAAAA=
-X-Change-ID: 20261115-ux500-asoc-drop-vape-1fada73a07ed
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-The MSP devices now describe their VAPE power domain in the device tree.
-The platform core attaches and powers on this domain before probing the
-driver. Runtime PM remains disabled, keeping the domain powered while
-the device is bound.
+On Sun, 15 Nov 2026 20:34:11 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Remove the obsolete v-ape regulator lookup and stream enable/disable
-calls, together with the regulator handle and error cleanup. This avoids
-requesting a dummy regulator when the EPOD regulator nodes and supply
-properties are removed.
+> That all sounds good.  I tried to apply it to the testing branch of iio.git
+> but I'm getting some build errors (+ a load of fuzz). I guess this
+> has dependencies that I'm missing?  If they are fixes, then I may just have
+> to wait until I can merge back into my tree (after they are upstream).
 
-Keep the existing clock sequencing and VAPE OPP constraints unchanged.
+No dependencies. It is based on fixes-togreg. On testing probe
+hunk no longer matches and with fuzz it lands in
+dps310_fifo_interval(). git am -3 gets it right there and it builds.
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
-The Ux500 genpd prerequisites have been merged into the powerdomain tree.
-Please take this driver conversion through ASoC.
+I can send a version on testing if that is easier.
 
-The genpd, binding and DTS prerequisites are kept below the cover letter
-and excluded from this submission. These include the MSP power-domain
-assignments in "ARM: dts: ux500: Add power domains", which must be present
-before the driver stops managing the legacy VAPE regulator.
----
- sound/soc/ux500/ux500_msp_dai.c | 29 +----------------------------
- sound/soc/ux500/ux500_msp_dai.h |  1 -
- 2 files changed, 1 insertion(+), 29 deletions(-)
-
-diff --git a/sound/soc/ux500/ux500_msp_dai.c b/sound/soc/ux500/ux500_msp_dai.c
-index c135a77766ca..df3c9494698e 100644
---- a/sound/soc/ux500/ux500_msp_dai.c
-+++ b/sound/soc/ux500/ux500_msp_dai.c
-@@ -13,7 +13,6 @@
- #include <linux/platform_device.h>
- #include <linux/clk.h>
- #include <linux/of.h>
--#include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- 
- #include <sound/soc.h>
-@@ -350,21 +349,13 @@ static int ux500_msp_dai_startup(struct snd_pcm_substream *substream,
- 	dev_dbg(dai->dev, "%s: MSP %d (%s): Enter.\n", __func__, dai->id,
- 		snd_pcm_stream_str(substream));
- 
--	/* Enable regulator */
--	ret = regulator_enable(drvdata->reg_vape);
--	if (ret != 0) {
--		dev_err(drvdata->msp->dev,
--			"%s: Failed to enable regulator!\n", __func__);
--		return ret;
--	}
--
- 	/* Prepare and enable clocks */
- 	dev_dbg(dai->dev, "%s: Enabling MSP-clocks.\n", __func__);
- 	ret = clk_prepare_enable(drvdata->pclk);
- 	if (ret) {
- 		dev_err(drvdata->msp->dev,
- 			"%s: Failed to prepare/enable pclk!\n", __func__);
--		goto err_pclk;
-+		return ret;
- 	}
- 
- 	ret = clk_prepare_enable(drvdata->clk);
-@@ -377,15 +368,12 @@ static int ux500_msp_dai_startup(struct snd_pcm_substream *substream,
- 	return ret;
- err_clk:
- 	clk_disable_unprepare(drvdata->pclk);
--err_pclk:
--	regulator_disable(drvdata->reg_vape);
- 	return ret;
- }
- 
- static void ux500_msp_dai_shutdown(struct snd_pcm_substream *substream,
- 				struct snd_soc_dai *dai)
- {
--	int ret;
- 	struct ux500_msp_i2s_drvdata *drvdata = dev_get_drvdata(dai->dev);
- 	bool is_playback = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK);
- 	unsigned int configured = is_playback ? PLAYBACK_CONFIGURED :
-@@ -408,13 +396,6 @@ static void ux500_msp_dai_shutdown(struct snd_pcm_substream *substream,
- 	/* Disable and unprepare clocks */
- 	clk_disable_unprepare(drvdata->clk);
- 	clk_disable_unprepare(drvdata->pclk);
--
--	/* Disable regulator */
--	ret = regulator_disable(drvdata->reg_vape);
--	if (ret < 0)
--		dev_err(dai->dev,
--			"%s: ERROR: Failed to disable regulator (%d)!\n",
--			__func__, ret);
- }
- 
- static int ux500_msp_dai_prepare(struct snd_pcm_substream *substream,
-@@ -701,14 +682,6 @@ static int ux500_msp_drv_probe(struct platform_device *pdev)
- 	drvdata->rx_mask = 0x01;
- 	drvdata->slot_width = 16;
- 
--	drvdata->reg_vape = devm_regulator_get(&pdev->dev, "v-ape");
--	if (IS_ERR(drvdata->reg_vape)) {
--		ret = PTR_ERR(drvdata->reg_vape);
--		dev_err(&pdev->dev,
--			"%s: ERROR: Failed to get Vape supply (%d)!\n",
--			__func__, ret);
--		return ret;
--	}
- 	drvdata->pclk = devm_clk_get(&pdev->dev, "apb_pclk");
- 	if (IS_ERR(drvdata->pclk)) {
- 		ret = PTR_ERR(drvdata->pclk);
-diff --git a/sound/soc/ux500/ux500_msp_dai.h b/sound/soc/ux500/ux500_msp_dai.h
-index aae582030d95..7ca7144f5652 100644
---- a/sound/soc/ux500/ux500_msp_dai.h
-+++ b/sound/soc/ux500/ux500_msp_dai.h
-@@ -34,7 +34,6 @@ enum ux500_msp_clock_id {
- 
- struct ux500_msp_i2s_drvdata {
- 	struct ux500_msp *msp;
--	struct regulator *reg_vape;
- 	unsigned int fmt;
- 	unsigned int configured;
- 	unsigned int tx_mask;
-
----
-base-commit: 7a98d525145a130fcd86f1519e2b9317a3bad27c
-change-id: 20261115-ux500-asoc-drop-vape-1fada73a07ed
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
-
+Thanks,
+Rupesh
