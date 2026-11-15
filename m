@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794759540;
-	b=SHsbcTUbMne3nyRzruH5AuYrChzkxaIoeoPf4pjuJKzlLTRkNNnbcVrsgcrI0aBGrbnM
-	 WuenjmeCgv/Euc2nzRon/J3DYX3+GnR+9Ifiam6WEW3BHuzwcOApB3aNyACVfTN4veq+l
-	 8QkmiyeoR0n/GP4bw0gFB8yYJyMQRmKf2HLzd63sRI12fV+0TXb6KlDKZW535DEMgWy9k
-	 wWeoLA4ERHDusJEX0IGwmUXjj5ra8rveXu7cYFtOdBxNjCcajs3Uje1I7ZdKv1q8CAuSL
-	 fDktEGhnvLLvMb0h9aE9UQI3pxwgA4X1TqTCRvQFceS4ALWHqNv8dSm2QxphI5yQTAg==
+	t=1794759821;
+	b=dlz60tKq0Vd4lTCGigevyqUl4x1l9q+OsjMTYDCla/7XD4o7JlNPcAraVWE9c66hRRkr
+	 rLmEi5OUrigyAFN9V4k910/9x+QI7LOnN4iP/xHWxsI3phIlILbTV/09duC0f7vPRM0J1
+	 lzPj/CUQwbWGPiCVjuBHCay0oAq/q23tii+F5gd9jrYMvbVfyHNp4wxt+M/2sacH5/Yjt
+	 TNVcOzoKQLiQD2n6J3nlXodZbFHZ7ET3OVy2+mPVejdU2AyX4wiG6avfwfjss0Yi5PlQI
+	 HLFhtuxavteL0y/aueIFv7zVuRE5sW77JWqWU95VtIcjH4xOwVyw9rhiQZYeFQubO8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794759540;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=j9WU+1CjSv2jxs9dt8exoheP8N0Wgk/Y19soIda22ZI=;
-	b=wCpw/+mfDUtxohBEVcOx+cftW8XL/2l6U9CAIFlVVPvJlq4T2kjE0EHxs0X2G3ZXaA7e
-	 osSpEL6cYyUzRzB/jzbQKduzXSw4ef5rGgmUh823T4/uqDh18JBYbpVN0BydxGtMvyI9g
-	 G8CEQoJYTT+YUsbEn8mY2PLBngd3Vo0d0pFL62kdY5iOk8j/ko8E/Kd43KAr7rBOIHBwP
-	 Cvvhq7QcwgCq58gfEqcmyn02YnO5EQXAVXS3h+jjiHgkym7tkW3zk9h4aq2MzoGOMjVpq
-	 9dR+b20NwuRsRrTRBf8CbjfGcTS1DVOs/gm26+3OkZBzPIhJlR+ZGufhwvFCXZwFusw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794759821;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MxOvBed5GGE4Yq6nl8AVfIl0sUWw1AmYogyR7OLRNz4=;
+	b=Ulq1el/AFGNsDpMOpPxiQvIzbE5ySJMQAvGJf+88d7BvhYE6S7RHnETyqzyH06Vhvfyi
+	 8G2X4i5dXuWuovbG/kCUhd+di8TndeqAQVS8u/hgUr6SbsTEOZm8ewTdnXLM3OGenPBZp
+	 j6a6rhxWo9rha39XR8avlQFETG3/EJZHBrMX69q+qz40IDrMnYulM13IBSTRPOp5zE7sF
+	 LTayT9LiYXNpsOBO+o6+zWyDu5/4JfKExabB3yEni/PgIaE43YRWwfLjFjQ8kBOOPrI5S
+	 EwfhojQUpE/ifVoJQYBejl0wdem1aAdTRB38xFResxRaALpfSDtv/OnRo0yL38c9e2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b="C/l6sHzq";
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqzrH4rY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E67606A897;
-	Sun, 15 Nov 2026 16:19:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E67606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513F1606A31D;
+	Sun, 15 Nov 2026 16:23:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=C/l6sHzq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=j9WU+1CjSv2jxs9dt8exoheP8N0Wgk/Y19soIda22ZI=; t=1794759539; x=1795969139; 
-	b=C/l6sHzqC+IlM1CIhKhhVA/OFVQnOq9fPJb0xTivZ+hXE4m2/yNLaiHxDLkNb4LYmnmiQEjzvD3
-	RVOJNIVsGqs5EWqXZyv0cPLnJSluAgZgVy0LqXJpTrXF2E0kXOKPeWvzg0EiwMAF17MnIXQ9dg83P
-	cQQbf3Kk7fNgrIPits/Xbcv6edKfEldpbzLi4/CH/Nye6RlQefdZKF43udq2RopibMmJochxc8gx6
-	0SopXENGDLks12d2IExq8gVed+yBN4uDZJNXhb84hebf7KPURTun+rmS3C5LwaxlvsjVS6iG23QfC
-	pDJ4SXT6FJr47XlZY8pegnuIdjgVjW8ee5CA==;
-Date: Sun, 15 Nov 2026 17:18:43 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Nhat Tran <nhat.tranminhk2@gmail.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, Olivia Mackall
- <olivia@selenic.com>, Deepak Saxena <dsaxena@plexity.net>,
- linux-crypto@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] hwrng: omap - Unregister hwrng before disabling the
- device on remove
-Message-ID: <20261115171843.063c11c9@kemnade.info>
-In-Reply-To: <20261115145050.88427-1-nhat.tranminhk2@gmail.com>
-References: <20261115145050.88427-1-nhat.tranminhk2@gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqzrH4rY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4A41F000C4;
+	Sun, 15 Nov 2026 16:23:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794759820;
+	bh=MxOvBed5GGE4Yq6nl8AVfIl0sUWw1AmYogyR7OLRNz4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aqzrH4rYlEfuW9A3xWkU/baXHkADNA8cR70sXjQl//kXt/DQYFhE6BGslKuvvAibS
+	 bbRuR6PeqQjsYLBi5nGeaQI18EBA/4G8fSLIz5MWSdt4k8KZs4df7wPjbhbEMnBBnZ
+	 E2XOgPedoIGRXBVKZllw/5cHn+ZJUmCViY4zCmZzMkN/37cjSkLj5xLJHEAOT3Vnw7
+	 9vDNRS0CE4ZIYNwQ9dAJaSN8+2ZUL75MibnIKD5LAPr3DcDGu1sZCB7bcx+aBB6oLI
+	 Gx5jzOm+hvJaLefF65jqz7ec/n/AYWevCCXwkd4vtBzOGK+Tv/QkI7L6Jkrn3lJ1Ie
+	 hF6twFmrGiPMw==
+Date: Sun, 15 Nov 2026 17:23:36 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 18/19] treewide: s/\<strends\>/strsuffix/g
+Message-ID: <avnb5iabDyCnXxpZ@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <3cad861d30901777d9bdafec1ccf113e0a3fcfa7.1794667407.git.alx@kernel.org>
+ <43c991a975d649c11706714e05ab9bd438e0d7d5.camel@perches.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,81 +58,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Sun, 15 Nov 2026 21:50:50 +0700
-Nhat Tran <nhat.tranminhk2@gmail.com> wrote:
-
-> Commit 3e75241be808 ("hwrng: drivers - Use device-managed registration
-> API") switched omap-rng to devm_hwrng_register() and dropped the
-> hwrng_unregister() call from the start of omap_rng_remove(). Since then
-> the hwrng is unregistered by devres only after omap_rng_remove() has
-> returned, i.e. after the device has been runtime suspended and its
-> runtime PM disabled.
-> 
-> When the omap-rng is the current hwrng, hwrng_unregister() drops the
-> last reference and schedules cleanup_rng_work(), which calls
-> omap_rng_cleanup() and in turn omap4_rng_cleanup(). That reads and
-> writes RNG_CONTROL_REG while the module clock is gated. On a
-> BeagleBone Black (AM335x) unbinding the driver triggers:
-> 
->   # echo 48310000.rng > /sys/bus/platform/drivers/omap_rng/unbind
->   Unhandled fault: external abort on non-linefetch (0x1028) at 0xfa310014
->   Internal error: : 1028 [#1] SMP ARM
->   Workqueue: events cleanup_rng_work
->   PC is at omap4_rng_cleanup+0x14/0x24
->   LR is at cleanup_rng_work+0x30/0x48
->   Call trace:
->    omap4_rng_cleanup from cleanup_rng_work+0x30/0x48
->    cleanup_rng_work from process_scheduled_works+0xf0/0x518
->    process_scheduled_works from worker_thread+0x140/0x2f0
->    worker_thread from kthread+0xfc/0x134
->    kthread from ret_from_fork+0x14/0x28
-> 
-> The worker dies before it completes rng->cleanup_done, so the unbind
-> also never returns because hwrng_unregister() waits for that
-> completion. The same window lets the hwrng fill thread call
-> omap_rng_do_read() on the suspended device.
-> 
-> Restore the original teardown order: register with hwrng_register()
-> and call hwrng_unregister() first in omap_rng_remove(), while the
-> device is still powered.
-> 
-> Fixes: 3e75241be808 ("hwrng: drivers - Use device-managed registration API")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nhat Tran <nhat.tranminhk2@gmail.com>
-> ---
->  drivers/char/hw_random/omap-rng.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/char/hw_random/omap-rng.c b/drivers/char/hw_random/omap-rng.c
-> index 49d7f021fd31..e5b14ab1b7e4 100644
-> --- a/drivers/char/hw_random/omap-rng.c
-> +++ b/drivers/char/hw_random/omap-rng.c
-> @@ -493,7 +493,7 @@ static int omap_rng_probe(struct platform_device *pdev)
->  	if (ret)
->  		goto err_register;
->  
-> -	ret = devm_hwrng_register(&pdev->dev, &priv->rng);
-> +	ret = hwrng_register(&priv->rng);
->  	if (ret)
->  		goto err_register;
->  
-> @@ -520,6 +520,7 @@ static void omap_rng_remove(struct platform_device *pdev)
->  {
->  	struct omap_rng_dev *priv = platform_get_drvdata(pdev);
->  
-> +	hwrng_unregister(&priv->rng);
->  
->  	priv->pdata->cleanup(priv);
->  
-what about going forward add add a devm_add_action_or_reset() for this instead.
-And use some devm_runtime for enabling runtime?
-
-I guess we are done then.
-
-Regards,
-Andreas
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cjurcdw4ztz667rg"
+Content-Disposition: inline
+In-Reply-To: <43c991a975d649c11706714e05ab9bd438e0d7d5.camel@perches.com>
 
 
+--cjurcdw4ztz667rg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 18/19] treewide: s/\<strends\>/strsuffix/g
+Message-ID: <avnb5iabDyCnXxpZ@devuan>
+References: <cover.1794667407.git.alx@kernel.org>
+ <3cad861d30901777d9bdafec1ccf113e0a3fcfa7.1794667407.git.alx@kernel.org>
+ <43c991a975d649c11706714e05ab9bd438e0d7d5.camel@perches.com>
+MIME-Version: 1.0
+In-Reply-To: <43c991a975d649c11706714e05ab9bd438e0d7d5.camel@perches.com>
+
+Hi Joe,
+
+> Date: 2026-11-15 08:15:52-0800
+> From: Joe Perches <joe@perches.com>
+>
+> On Sat, 2026-11-14 at 16:24 +0100, Alejandro Colomar wrote:
+> > Except for the changes to "lib/tests/string_kunit.c", this was
+> > a scripted change:
+> >=20
+> > 	$ git ls-files \
+> > 	| grep '\.[ch]$' \
+> > 	| grep -v -e ^tools/ -e ^scripts/ -e ^include/ \
+> > 	| xargs grep -l strends \
+> > 	| xargs sed -i 's/strends/strsuffix/g';
+>=20
+> You should really use coccinelle (spatch)
+
+For less trivial stuff, I'd go for a semantic patch, but given this is
+a simple textual replacement, sed(1) seems simpler, and good enough.
+Do you expect any differences between them?
+
+> and this should probably be 2 patches.
+
+Ok; I'll split them.  I'll first adapt the tests, and then the script
+will work fully automated.
+
+>=20
+> https://coccinelle.gitlabpages.inria.fr/website/docs/main_grammar016.html
+>=20
+> something like:
+>=20
+> @@
+> expression a1;
+> expression a2;
+> @@
+>=20
+> -	strends(a1, a2)
+> +	strsuffix(a1, a2)
+
+Thanks for the semantic patch!
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--cjurcdw4ztz667rg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr53IgACgkQ64mZXMKQ
+wqnvlw/9GPQ/Uu1KDN1uQRg7ZX1LZzWWCfY63mXANkNS9rSlFDH7buXW7DoT+vu2
+31W/yM3up79VUUXQXXcmGDkWv8kjv0iPzFRT/aCeUZJaoHZ/hrANGmBOLnZdrgy8
+nsSZue1C5sgZ2a0XiPQNI7dIk840+Nnu5orOfw9yOnW9ISrmz6SK6jl2X+hhsDfM
++au2Bq3H3sbnO1Bkgpcu221AgHz6JcJB5leM4FiDTxJ5jQJTSCmAedN/x+YN+Up6
+p3yOeM9qFhmW+4ep4xDC2wsSwupcrjmueHlWM3gRKa9DLMmydyH3Y7OmHOSsaP0y
+hXRcvBmQdtdL1ku3RwXaNWuXUWn6VwISJFCpQt/L+ut9EQYKe09bVAZmNIxb95od
+Wpg42HwtU5W/Yd4NaGN9P/LJm6/neEqbcZORQKfJZAE0Bq5luKsOBlbsfKWlgO4u
+GPZzrNICS3xKMtCqFh7wll6g5oAFXgzGC9M2Lh6VssrS822pwDqQt6aHfVnps8TV
+KeGx8PlPWqtqbRU/HZ9lplS/VEyLlHj56J/yAqD3AInPCZZiDqgl6n79h7gaOWnd
+jg9MwIY80i+24QmTmOmJwDbOm2BBuKuwvNiLn9wN9cRS2RQ1QUmvD1L62yNqHBNV
+1JPlGnjTtR0uGtdMB8rsHx3vLQUD/687x+ehJdeTP+YQ3BFJqmE=
+=wbQw
+-----END PGP SIGNATURE-----
+
+--cjurcdw4ztz667rg--
