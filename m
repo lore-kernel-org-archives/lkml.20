@@ -1,70 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794772380;
-	b=ABKxPPxramBrUmaAhIuoFwOOqyOqkdfQyL69c96RTWWRVHVJrnIGXroSR5hOETQMQeyS
-	 nWIUHIkkUUGdXQt7ZfIPKTt4CaSLMSA/ZKKU5p0jIM9+E5T699rjBGaAyWCZqWzBDLKbE
-	 ACvBjMtsY37RhWNgUDEs/Ht0FUsYhv4ash1YA8VeJHc/UYaDhg24fEFDDjcr8QsnjB5kH
-	 4ClUIe6XhS2rLOQGVlvaqFAzgcvOdOH6l9HZjMet76O8ygKu+skTAdrPtjDuF7Y3cdS0W
-	 kS4of/7eZyGYvHPaQXBIrv4KsvpxqC8B02l3vr4CXU6X+m9LNPf0zdI+b8RbHovWltw==
+	t=1794772404;
+	b=uXdSvzdlDd8nLUiJnt3DTH0KhJEOcbC7p8d9IbohJM4M4zslV/Bj6vySlUu/ypxLbsta
+	 UEEWjE5TlJEVjyKA+VQMLoT2gnePRGF/lekM9N1cbu+mJdSie787GheQvgy85mByBvAje
+	 kDE+RZDjQK+c90NK6qkeuYj2gAXJgSaApvbld2FbsyD+hu7+wa1JtrWDTk3CalrVYKd3/
+	 CPVEFBSo/lKPO2zvtxcIgUSU8agmf57LFx+fcP1CBrcs1mlGXDKswrMbNChxi4gqFFo3H
+	 uD20aeGv+BsqUFK4VJuvsIsyKlgjKIt2lZ6ju690KlHAk+ovrJA67EJFRVJO8OjsQpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794772380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794772404;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=XE3u2B+pN0Clq+eTAS8Vx72LY4D/+Nfyr3FEdeu11rA=;
-	b=VR3Ln+cIyXrn/KkaR9fMbF8QFD0YeCmDieSeIFvTZ3CAYoozmBqFTRnsp+3kB9GDlNXU
-	 tvLDygcmkCJyfrmf0axqb50MofjASzV6I3j/3xlDMjb/NZpZ8JGhAPBfJLEpPhAfo9hU8
-	 nKTllYvnbBL7vHm7rxaaf+rf1kUvMEo5z3SQ3o8FVBE916x2v5F+UOGq8AzuRT0cglhUv
-	 teoVXVNSUTYWwwkMAsD8Ldh22Vc3pN+77C2w/RpgPm8bApxVT3C6VrVCM6PW1LpEeg7Ue
-	 YCLxW9t8SzCZ9LvgOwjD07k5QDKyLKhfvW9RIBz2Ql+XEKfpTDZZAuykPGWRzM9ligg==
+	bh=z8Udy+gpKS3X/0jkZQA4Y95ag0ehIFXEGZWv/GeBkw8=;
+	b=ibmp4/mmoYwhML4Sjh3/tNlGHBvfQYWqQ/f/zLz8B3hZ4zDjUQIWe6+AC5FjZkteCGtk
+	 j4/hrSafMX43hoBcS03feu0VqQ0n8iU1SugNzBK/5bO5bbMmBSJ0lV0v/vZyOHVayuo1u
+	 RFWrr6YErNKZDK6wt3ajiJxoi9w21IWaWlDMXGYMXyJX0jjZ3t0yvbq7f8ookDah6jnYF
+	 15UTIXfCobp7z/t2IYoi0Sg2F6ZAOij0OeY1EU4Yg0sy2w+UDTymFwa97Tsd3zGtbJnD+
+	 zWAYoEwSBQX6OzwIlrerIXf/iXa07bTdtu3svuYQL+oQERndCtXtFBO7IP8Th4kNsrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=freeshell.de;
 	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=Qo7L399l;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=cZ2PH9iF;
 	arc=none smtp.remote-ip=116.202.128.144
 Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DAF606A31F;
-	Sun, 15 Nov 2026 19:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3DAF606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B393C606A32F;
+	Sun, 15 Nov 2026 19:53:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B393C606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=Qo7L399l
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=cZ2PH9iF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1794772319;
-	bh=XE3u2B+pN0Clq+eTAS8Vx72LY4D/+Nfyr3FEdeu11rA=;
+	s=s2025; t=1794772326;
+	bh=z8Udy+gpKS3X/0jkZQA4Y95ag0ehIFXEGZWv/GeBkw8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Qo7L399l9NleUXCjnlQXkzYIlH8zOC8RAfz2zIV7GAeI4Xu9xnbXqPK48kq+nadTM
-	 WvHdHm8lRIuMherfpTsMGpX33q4LXZKgV2fmz4s/NhrLpvAl7H1C6w8Iz14VBmomZ/
-	 8GPkp+Ym0XpN7Lh2+Ypslp5Vil6YKcqY+QlT51ekbBtbBxAO1edNyvTr1qSTeVfoZ2
-	 Hc+f22wkhvJ0aEmgrXKnVLQ1yZV+s31YaCCgJyOOXKK/KVlshSy0WOfBsQeXlxbFnp
-	 frBxiSsPMbHGw9KOSewDiL+F9VbXwHb6DlCZtKhDCx+Vaa3BOloWJ5V6OwxOzgW44v
-	 p00aaLIywnLoA==
+	b=cZ2PH9iFTQ+VBRORVMazOMTts1QCCspB2vi1ekqjU7ulTotDrWL0V/vxpVwTyazPf
+	 PGGnG1ooq8tKWntpZZsSq+1DfyP0euayW6/VY+pYx1YONH9K7GFlKBMRpZWpse9rmf
+	 4dne2atDuWxKvKPkAQJt2ftQ2s9++5mFD3NsX2leEx0nUYDHiCsOoXA109nQoBNnD2
+	 +WCk+pY6RoOBAw75TuPS/ktgY9skbEL8aByrzTOlKnbTf764Xc7ImcVyhl+dsj48LI
+	 gY4KXZ+aVIBUw94/O+mVKmVppT1vCgBT8Xz5SYhnxPR8osj7pKg/6aYVQSPZUAhrAt
+	 E7oE0KQmU29Qw==
 Received: from hay.lan (unknown [IPv6:2605:59ca:364f:d400:6ecf:39ff:fe00:8375])
 	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 371DEB220212;
-	Sun, 15 Nov 2026 20:51:56 +0100 (CET)
+	by freeshell.de (Postfix) with ESMTPSA id 55773B2202E6;
+	Sun, 15 Nov 2026 20:52:03 +0100 (CET)
 From: E Shattow <e@freeshell.de>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
 	Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
 Cc: linux-riscv@lists.infradead.org,
 	spacemit@lists.linux.dev,
 	E Shattow <e@freeshell.de>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] riscv: dts: spacemit: k3: use com260 8gb memory configuration
-Date: Sun, 15 Nov 2026 11:50:59 -0800
-Message-ID: <20261115195112.32120-2-e@freeshell.de>
+Subject: [PATCH 2/2] riscv: dts: spacemit: k3: use pico-itx 8gb memory configuration
+Date: Sun, 15 Nov 2026 11:51:00 -0800
+Message-ID: <20261115195112.32120-3-e@freeshell.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261115195112.32120-1-e@freeshell.de>
 References: <20261115195112.32120-1-e@freeshell.de>
@@ -85,14 +85,14 @@ configuration of 8gb is the most compatible option.
 
 Signed-off-by: E Shattow <e@freeshell.de>
 ---
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 2 +-
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index 054bfff7413a..c18680b963a4 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -14,7 +14,7 @@ / {
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index dda420900aa2..8d1cd468cf8c 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -25,7 +25,7 @@ chosen {
  
  	memory@100000000 {
  		device_type = "memory";
@@ -100,7 +100,7 @@ index 054bfff7413a..c18680b963a4 100644
 +		reg = <0x1 0x00000000 0x2 0x00000000>;
  	};
  
- 	reg_5v_sys: regulator-5v-sys {
+ 	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
 -- 
 2.53.0
 
