@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794756861;
-	b=EQ7ErdaNgXWrpCGNewH+wlsbhuGQPLvtaQZoYQc+yqhrV1tvq/1j3uF2fyCYyLGStR78
-	 GUHdTuQRhTYHAmUn5BbLJXkDCAOnkmKtECzKJh3UcV1rzR6OYe4Z2BlfymYVsm7zpOqud
-	 7c+sJVaGhWC7d7pVUsbDQRIHUmleBnF8zJ5kTXrAkxDd2S318aKUVsduPLf26wevmP/N9
-	 hJPArUT0toBWX/+wKXlC5iiyQLKQJcyp/6oOfujgjTfcIj4y5XQY+nqvCtzDXW+Tkt+bf
-	 BfUw4cIA07qzBWiREU0iHl4tK+fzOvTM+2BUxXb3K3CZLAU6+DlxUl01ttYHOx9QVQQ==
+	t=1794756874;
+	b=0x7+tbb8Q2C0Bxsb0kK+4qv8c0EJBVnS3DfKSm2i0FvvpBaz7i7G1FErVHmi0pOZI1re
+	 SS4XdRiBWXkJIkCV2u1ygyao3oQa+xbeOTiyN+DKU+Osrosvltgjw7vJj4NvQj+lZALPH
+	 hBPPsEtmFH+yCCsDz7r94Jm9EhmEbvkPZjsMEIidFaQMDScFNPKRnBVYMdm8A3NLF99lS
+	 LeRsCpHc7V30KvLTBtlgG9O7rUvCK147SJtpQFe1ikmByX2VjptXdwkzg5AX8T3KF8FiU
+	 pAm0k5NLj+ZKmmrip19U9UOdfDbhnkJtSHbxlTjWJ2eYbRPzteko58Mg/eXNS2lR/TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794756861;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=D9eYfMQniN4MTERSNCoJWid+KzRgcjYDpVDX0WIaOcs=;
-	b=FlpcvjS9FM78CR0HwM9GBkNU5zp4bFlEwQaCzA0Dr3jhg9t9i1AoOsNfKjimtmR9MF5K
-	 LFfdisOeZsqbYkFzN80PVlUhpYwukv2mJU/CKbq8oyJIG5vxA2+661dIEL9B4UBpre8/H
-	 G9khoAVbLlOrweZOeC2I1vCxtQXSY3bUvbxfM8sdNwnrQpuxPlxaaEo6CTMcrwsCIghRM
-	 URhkCfjN8D+nsocUv+A2BL13WPPPB89dZ0mygWG+eAzM4pRjJiP5418yrPGv1oO/Kg5AH
-	 JskdIvUIxhQsOlMaYIMcO25B5kJAECjGcn7nQRDThC/d0ebMSTLFUMLWzta7L43EKrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794756874;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fgl4RblzZJ8So9KBu3tfGKhQR2hNoBDCy44F1/CLS0c=;
+	b=Y2g5MWS9zwax/sv2F4LE2PDFvXusp7ZFEP1MELYcAd0AT4tLTo2cdq4PqMJFAl7JOgcD
+	 vX9QpA5WLJ4Lokf6n55KqprJRuGUZ7jrXUz0cw/C1+MX+YNHQILZo9tR3em6vnxHI04Dv
+	 g5IZMPwoALZVMHPLVATKdlkPKQwftsPTIU3l6Z7uw0n7xTNEMKmHpqC1KADnN1qD0Huz8
+	 +5ToU5jLdibcxb5HFIa32LknS9oGG9YmN8QAqdCTTfe3Vaj4FpsbuoCILbTUJUAmY0sNL
+	 mjsfd855pmXwx47rfbQQ9HmgWaAMdQ1NKF/04KTCWlj/wuTjFUMhMY2nzlC31DsNTyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QOQ5B2UQ;
-	arc=none smtp.remote-ip=95.215.58.63
-Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WFV324J/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB201606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB201606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D7F606A334;
+	Sun, 15 Nov 2026 15:34:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QOQ5B2UQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=D9eYfMQniN4MTERSNCoJWid+KzRgcjYDpVDX0WIaOcs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794756857; v=1; x=1795361657;
- b=QOQ5B2UQUdcw2pVPpUCjj4AzTtujU0vVL/9lS/ybwhefeK0OL1KDpz5YyyEQT32Tld+5tlWQ
- o/n1ZUi7xHptYeppnRU11jU6bGNnkp9pzXyYX6MkVDZSvWmAlB+LzYHsm6neXixTKCVmbTNhJco
- D3+nId2JmO73KCc4Zgw1eVec=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d21ea3c6ecf23a6a;
-	Sun, 15 Nov 2026 15:34:17 +0000
-X-Mizu-Trace-ID: d21ea3c6ecf23a6a
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: will@kernel.org,
-	aneesh.kumar@kernel.org,
-	akpm@linux-foundation.org,
-	npiggin@gmail.com,
-	peterz@infradead.org,
-	arnd@arndb.de,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	jack@suse.cz,
-	zwisler@kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	mason@kernel.org
-Subject: Re: [PATCH] mm/huge_memory: flush dirty file PMDs before removing rmap
-Date: Sun, 15 Nov 2026 23:34:11 +0800
-Message-ID: <20261115153411.87967-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
-References: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFV324J/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BC71F000C4;
+	Sun, 15 Nov 2026 15:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794756874;
+	bh=fgl4RblzZJ8So9KBu3tfGKhQR2hNoBDCy44F1/CLS0c=;
+	h=From:To:Cc:Subject:Date;
+	b=WFV324J/Xjc7fwLn1nE30tsmFLUDWySOdzGUwijIhPBX52FjhkrGnzvUS4x7W8dW9
+	 LrBxap8M9GhwHvWB3LwoZbcWQcAwB8BI7stIIzBVdwCOmvN3O0Mq3KB04v93E2sDfW
+	 F6BekJwAm1s4CrMxJ+a9xmp9AK86l8LUSlcn/q/gVcdpUbwvNFRpfFvibNbq3Pl6yI
+	 v524esditEE9EKkgWxOzz0zZkZiOikAI8PsaLfPoNtUTfezSd8kohpOa8vEzxNeisZ
+	 3KXwFFBHmJLDJQMZkhAGMVTktxdHbsgj8APn4xhlArnha4gb2mbuMi5M/V4Sr7o+hS
+	 wXsQfRBEQKuug==
+From: Sasha Levin <sashal@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Petr Mladek <pmladek@suse.com>,
+	linux-hardening@vger.kernel.org,
+	llvm@lists.linux.dev,
+	oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] seq_buf: always inline seq_buf_terminate()
+Date: Sun, 15 Nov 2026 10:34:29 -0500
+Message-ID: <20261115153430.1607764-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,63 +62,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Commit 7b8cd26b6aab8 ("seq_buf: Mark a seq_buf overflowed when terminating it
+loses a byte") made __seq_buf_terminate() bigger, and clang no longer inlines
+seq_buf_terminate() into its two callers in kernel/trace/trace_events.c. Both
+pass bootup_event_seq, which is __initdata, so the out-of-line copy sits in
+.text with that address in it and modpost warns:
 
-On Fri, Nov 13, 2026 at 06:15:26PM +0100, David Hildenbrand (Arm) wrote:
->Unmapping a file PMD can lose concurrent stores when it races with
->writeback. zap_huge_pmd() removes rmap and drops the PMD lock before the
->gather flushes the TLB. Writeback can then clean the folio while another
->CPU can still write through a stale writable TLB entry. Those stores do
->not fault and dirty the folio again. Filesystem DAX has the same problem
->with its dirty tags.
->
->Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
->has been flushed") fixed the same race for PTEs by adding delayed rmap
->removal to the mmu_gather infrastructure. The PMD path still removes
->rmap before flushing.
->
->Flush the TLB under the PMD lock before removing rmap for dirty file
->PMDs. Skip the early flush at address-space teardown, when no users
->remain, and for mappings without writeback, including shmem and device
->DAX.
->
->Use tlb_can_delay_rmap() to share the PTE path's architecture checks.
->On s390, clearing the entry already handles TLB synchronization, and
->__tlb_remove_page_size() immediately drops the mapping reference, so
->rmap must be removed first. UP cannot have concurrent stores from
->another CPU while holding the page table lock. Make the predicate
->side-effect-free and set the gather's delayed_rmap flag when an entry
->is actually queued for delayed rmap removal.
+  WARNING: modpost: vmlinux: section mismatch in reference: seq_buf_terminate+0x12 (section: .text) -> bootup_event_seq (section: .init.data)
 
-Right, I'd expect tlb->delayed_rmap to mean the gather still has rmaps to
-remove :)
+Both callers are __init, so nothing uses the buffer after it is freed.  But the
+warning shows up in allmodconfig builds, and it is an error with
+CONFIG_SECTION_MISMATCH_WARN_ONLY=n.
 
->Queue the folio before the early flush, while the gather still has a
->valid range. Keep batching references and drain a full batch only after
->dropping the PMD lock. The early flush resets the gather's TLB state,
->so draining the batch does not flush that range again.
->
->Although writing to files through mmap is generally discouraged,
->unmapping such mappings may become slower: each dirty file PMD now
->requires a TLB flush under the PMD lock. Future work should properly
->extend the delayed-rmap machinery to PMDs and hold the PMD spinlock
->across multiple entries, so their TLB invalidations and rmap removals
->can be batched.
+Mark seq_buf_terminate() and __seq_buf_terminate() __always_inline.  Marking
+only seq_buf_terminate() is not enough, as the same thing then happens to
+__seq_buf_terminate().
 
-Nice work!
+Fixes: 7b8cd26b6aab8 ("seq_buf: Mark a seq_buf overflowed when terminating it loses a byte")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202611110802.zPIiPSnJ-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202611120138.Fwm5Ljmj-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202611122226.vTBpAmtr-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202611122323.IvGv8FYK-lkp@intel.com/
+Suggested-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+7b8cd26b6aab8 is on both for-next/kspp and for-linus/hardening.
 
->Fixes: 4b4bb46d00b3 ("dax: clear dirty entry tags on cache flush")
->Cc: stable@vger.kernel.org
->Reported-by: Kiryl Shutsemau <kas@kernel.org>
->Link: https://lore.kernel.org/linux-mm/aoWw_iKEDLjKL2jr@thinkstation/
->Reported-by: Chris Mason <mason@kernel.org>
->Suggested-by: Lance Yang <lance.yang@linux.dev>
->Suggested-by: Usama Arif <usama.arif@linux.dev>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+ include/linux/seq_buf.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Nothing jumped out at me, so:
+diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
+index 6b915c67d2358..f72dd258206fb 100644
+--- a/include/linux/seq_buf.h
++++ b/include/linux/seq_buf.h
+@@ -134,7 +134,7 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
+  *
+  * Returns: the offset of the NUL.
+  */
+-static inline size_t __seq_buf_terminate(struct seq_buf *s)
++static __always_inline size_t __seq_buf_terminate(struct seq_buf *s)
+ {
+ 	size_t end;
+ 
+@@ -240,7 +240,7 @@ static inline size_t seq_buf_strlen(struct seq_buf *s)
+  * After this function is called, s->buffer is safe to use
+  * in string operations.
+  */
+-static inline void seq_buf_terminate(struct seq_buf *s)
++static __always_inline void seq_buf_terminate(struct seq_buf *s)
+ {
+ 	if (s->size == 0)
+ 		return;
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+base-commit: 7b8cd26b6aab8cf147165610d13964f79200a5a7
+-- 
+2.53.0
+
