@@ -1,85 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794752316;
-	b=d/YB28omnl5/DYF8B0AmkQODVOObryBjCsEgUy9T5iap3fEITV64WdTftBXmNrg6wdp8
-	 Hjec0Q4P5gAgx7PtIrIk0Pxmmm30sx6UZTHZw7I6UfruJCDtruL/IztEAfRnWL/rdRZia
-	 3ARwCbI/wrxzT7bvxzdUiF4b9yKLMvS0uDJ9XtMw+aL2WA1xwp9y5snERULIEQ+pHM7iN
-	 TZNq084T6PX+wcUHM/pHiMABeJkgLa55q+XnR9lJ7iCx7unbr2ntnd7sHu7ngN8Mb5DiV
-	 gaisHlPf3bSygHygCdJPKpme5VHx5FLGriGZksgcHDtdChP8Khc6Cu8EA1kP+1D8T5w==
+	t=1794752317;
+	b=aNY0/JgeSQAttRNID2Jbp/YpevoT1s9V6N9jS5B055H52+IGL6G0dul8pT/lGvEQwoJd
+	 CIwSfVcnttXcSnR+3cFv0DJ2vRreAB8FOgPI1pGm3nSyiPBmSMRLjmiYigDVl2MZpwxiW
+	 9iJeRC3fyjnyEbRn/h3CDGZTQRGjJLEs3hjZV00gp3OG3l+7NPCfANhbH1v9RPP6MSjNu
+	 4EULV+x39mt1jovOIqWQYhVxwTMhQIWvR1LIfjdi/pC/syLHmXyfTmgtslOqbExnTMO5F
+	 ruU+S+B+aT98XeKICUHvsx4tPNYxRCpb2jBgZhd4tHhUQryCK5sgYDMH/T86r04Ik9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794752316;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794752317;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
 	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=S704AU5qbUN5VbRr+2O0ZeqFrfEN5c1p3S93iVWr7So=;
-	b=3/b1loUZPLdzYAtVZ+DjizYtkaAoVSXCoSlmDz7ybviMMLsbR5F6rASS0FHXHecIOADW
-	 5zQB17YjmXWLyIQYZgrw6I0LOQ3qhFnQgNkSBmTPsgmph1cfq3nf5iJQuaE968uSvEpyT
-	 g/PawniBfm/T4vbBGCRMUZl31R0JkWEhejhx3hG+hr7xT4z+xMud0CSpk12oPBB0eizL7
-	 2tvLVAS2hnBGdlTAYghbIWV5lpzsHB+wWE/rHf49DH2RmVu2hX73Gs1cVqLo3uo7SHdEb
-	 NJULoCbufs6RLgzrkzkDbNEKiC8BBxSj5pMKcLIFOt5wIVdfGITSsFub/D2/EKOqXoA==
+	bh=WQoftNx1+ky9AuggiK3VoWKz8ajkaLtdnex4l8Hd7yE=;
+	b=rG2AX7dtFINwL8uvkdkzF1HpXToaOXSjPphUPRWKJadDZM7FHZPz4iGBeeW8OxGJDrPt
+	 d/B8BybsnXyxNTw+MRovkOOkXC5BUkQQoMNea17aLLhunQWLEWItDI8BPQe0l3t74cbTL
+	 L1us/SpvIbJ5bkMdSr7h3FdjntKPcRvbVsfRTnx93Oo2HLNQ+ZLIRblfcu7SK4Lshti5q
+	 LAsJzjIpw9nPa7djJlv9sM/wjIKttkUh8RnS08rNtX1iEpkjWCl139vs2N9hBpMbTlFXx
+	 CEPrvzLcdZfhhzwL3V/YPguVF56F4AtSjG4bAETwIs5Xe+2uOuT/9UflYY34kH6uOeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=AEKq45wr;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jpcm5JZ0;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B341606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:18:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B341606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CA6606A330
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16CA6606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=AEKq45wr
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso28108525e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:18:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jpcm5JZ0
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so1188115e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:18:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794752313; x=1795357113; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1794752315; x=1795357115; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=S704AU5qbUN5VbRr+2O0ZeqFrfEN5c1p3S93iVWr7So=;
-        b=AEKq45wrETpWcBoHsbmJ3tPNJ6GNH1SiKODswaqPbUOk8UJjpTOgLMM8Zt6QrBgel0
-         gsHKx5HXdyfDJofwu9Vq8Fz+XJeesKYdOmSbgGGxrRgRNmLWfFEnZeus7L2SInTqmd2c
-         lfQOTVjgmimMrzi7sU3sYmd7ieAFjA6Y/aoafEsWK9LXYMW/Kj2c5Csg6DqWq3Vbh6BT
-         Z0ZbhCTeu3UyZLpDFEcs8R1YsoYR/OIMI9GG9+oT8cGDLozprBpjqroQeVZYkBC/VP2H
-         hx3X/Sgsu1XszM5xS1/5BQbqI6C93q8OsfbqDsudSSalaloJxrVjARxbviFFI5hDS7k7
-         Rsgg==
+        bh=WQoftNx1+ky9AuggiK3VoWKz8ajkaLtdnex4l8Hd7yE=;
+        b=jpcm5JZ0Yp9TZw3bmop2xrImBXAEdl5HF3fIdnf/p/jaHBcWWEtqMOWu42+dbUGDF+
+         Klk+ayFUq4iR5j0O/GXvBGp0w0hx3wh7jIP51b2WNhLPvVSS9nnnXyy0X96uycjWWfV9
+         2U2auiXd4grLhzE2gRmz9Vt8GH7xJOtNyoIY4BU6rFzi7L5vmCe6VazYuEqjdCi0MbaZ
+         C1jw5911LgiOQaKMoTY6z/LeWwnTyJPq0cNxSgV0DRI1BcfaXYrfZfyZtx3qqvYJLOTp
+         agNbLtZdn5Th5smVTdlqUI2EytYkal+H3UeDDU/s6QcScLRT5bLyQxm0EH5nB1b86q4X
+         dKoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794752313; x=1795357113;
+        d=1e100.net; s=20260707; t=1794752315; x=1795357115;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S704AU5qbUN5VbRr+2O0ZeqFrfEN5c1p3S93iVWr7So=;
-        b=WEXLebPuN3xwB8BS6JwXUSr40AhbK2WFoo20bevZ2as4QRhkJ91nB6PQ2RdfVhzeMV
-         KuEYl4NM1Xsxm0XuR4v/WkHrbwxIb+f140f+3aZV/bJlfsGn2n7QU3PN06lZczj+PmSZ
-         2p8UGTMc1Mjarox18yuGTcfkWwwv1lTMXQLkzYnzYhFeWAPge7KY0b8/LkEAaVq8e05O
-         ACSPfhxEnR6m9b3Qd/krrfAQZ3AUXoYI9HSxpjKpq3k/8Aay0FHjGl15DliB8MOrhY2y
-         d9rMbPyAeEthu89YCFrMamF0Jd5JDOcIn/2eJ3iWtrSDGszIVWaKgPprk0LsNkweIAvC
-         nORw==
-X-Forwarded-Encrypted: i=1; AL+hErEyhBxfEJi3Gv7RQ2glpjykX0zt2htwS84ucUZRud7R8sTllqsM/yCZz8I2p1jS2FLN9psNKNL248f88ig=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87KEeW0bHIDHpYs2FpyNIKNkruqkZwS8hSWaTnqQWPt0Okf99K
-	DnDY2un4BhXyzlCDADqyU0sLq2xwDnAn1fRSIPUhWRXwMaynJA7/eGJjQKHZmDbp2iI=
-X-Gm-Gg: AYBFou2bY8N5swnyV9ekkBZNT7eLCP29ZHOhvuW7QvE4j1D7s/7zl07aK+Y6IhWijY3
-	001LMIMEGddsxOD+UwSdmu/VP32zDY+T+53jqYZSjnN6dV50E3Qbp0ttINsJZo/OgOT6YJFdKQd
-	n6D55HhbNXQlj0TllRhmwj6VYU9G1gWSRmufYu17AWVaZEHyZ6ONvC2Rhlw0zi1VOZSQFjf8N7b
-	mWLHifcm9UUd9mXNGD6pPChd0sMO1IDICTYxs6SEPOW3/a6CgozYgLLzRxH2kjtguNxaDlTYbe9
-	ExUkf1rNvmRIlEUtGrrx2Z4+7RMZH0jdXb6+Q/KUXZ4ajYJGrvozPG+yaDg+f55gENubSxrs+xD
-	AZTPwrYSQAeNzj5KoMP0O7XMTo8gyuaGCewvRKXvRYL81sozVqfjBB/cN+OhpS8MEOuLPTrXuVH
-	ILImGx2lS503M26dPUZLanXgD78uyI59be8P3kVeqJGp3nacIs1T/q+BZBZXVG20L2tq7lolOkE
-	SH2QsDNWEWEacmIDgCKfTvZ2TyAP8huDKvGzZqDXJ6fUIoH3Hi0nz3GxrhP5Wb1AVqO/kc4kM6K
-	ga7wZfX4h7cGm9uoKkoiWfCvXG4st5Rc2wOkGCLOpQxVI94KTw==
-X-Received: by 2002:a05:600c:34d6:b0:4bb:5c92:ce22 with SMTP id 5b1f17b1804b1-4bb5c92d047mr132126085e9.8.1794752313396;
-        Sun, 15 Nov 2026 06:18:33 -0800 (PST)
+        bh=WQoftNx1+ky9AuggiK3VoWKz8ajkaLtdnex4l8Hd7yE=;
+        b=ZIiGcpIYo1wauaDUpjOjhdD0v/tWmaKI462IuwKcFu8aqNd5DcVfMwq9lMm21zbA5n
+         gYWj0keRh9VgrzUj7ANkDX8qHcHdaahDqpTSyqbFG/wOj0FnxE1LqyTlNKQ2oA2czIfR
+         T0HEkvdd1QTSgYhhXPicxZjR8s9gY9uwHdKL7bKjjfVVvDDMSkOhpV7pdL8NWVJjKNxs
+         n1DxRLw+I3IWUZRY6j13046CF4Whk4sTMirEBiENnPANmvo9OqCtjwzGYCowO2h0+Wnl
+         +HEzJVUVSwl4jj9tCDwnRPlYfKJraOM0NDuq40K6xVzC9xIhwhtjCY8lOSGFFcb0Gjcu
+         9mOQ==
+X-Forwarded-Encrypted: i=1; AL+hErFdwK2Uk4jlgcA6C6ctWZqFuYGlhJ/SaXxpf/9jv+FnPWDpoBY+SQkLpSd4ESCdIJ87E+n9KBxIL1lCxog=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pc4MDBIQht0+PDkVTUJUOUdA41O/+F5lWERUKd9LZsOX7luTY
+	CD0SU/OTc0StUcFWaK6Z98ssG+ybbinTq2MBzcut4yJXD5e9xVp+T+PqnJFhMWWQOOpxhM524e2
+	+WAuP
+X-Gm-Gg: AYBFou1JJ3H9770Mo2slVpVcoFqA5sJNTFHbXNT0wYNqdJRLx88ZVrB15zSp4YaWNTc
+	AhSh8RFanXccCUqqM8CZzXq4Pp1J6kYqU2rlJjtM9T5kHlTh0hbyyhVFlqCaCv+egRXQYs8rDBv
+	8uZBnG4zy0KpBkpHSZFi4jGvrqNu0+q1A+pjrTyJ3btxX3VSvuhDBVpcuw/Wru+TPIW/hCcGQJN
+	Damw5AAaF6Dc1CfQQ8upgeptaoN+gxyZZhCnbLLfu+Ye1ZBQX8acSU57SHLMvFSvwLvZrw2KZmi
+	qWK2jzXdWukc95+Kyuji7kilNx9eYuI6m4lzPKib9aWMj3/PmNlhxzFAbaRd30Qjj0VY/0M7jM+
+	HaRIZ2Mru0Fu3JoRykDHcVlKohB/1OA7hA/lQk3s/1tZwJCTihJ+dcbi45Y+kNRuZsxnxKqeVjQ
+	SJfi5E2MLW92NX53ydaCtoRt51hwCZbLwzcYIDsIuhkxGMJwxVleCf4rlb8u3BnWwKzn2GmjWcg
+	ZdhL2zd7x4U9SqEs5jEQyYxbNjfOYo3sJNYwTIq/zOHCY8O9eHQGnr8Ld+/KNZT2m1ruY0VuWmK
+	GBnKk8zU4T3VTWbYv9LoZh2zh6VAGCfYFBETCJ/eqh5INzfl
+X-Received: by 2002:a05:600c:4e43:b0:4a7:c366:d791 with SMTP id 5b1f17b1804b1-4bb559f24ffmr166728745e9.1.1794752315503;
+        Sun, 15 Nov 2026 06:18:35 -0800 (PST)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223b21sm18530520f8f.2.2026.11.15.06.18.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56f97257sm137451805e9.4.2026.11.15.06.18.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 06:18:32 -0800 (PST)
+        Sun, 15 Nov 2026 06:18:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,8 +92,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v1 2/6] clk: starfive: jh71x0: Move reset controller
- registration to jh71x0 common code
+Subject: Re: [PATCH v1 3/6] clk: starfive: jh71x0: Add generic CRG probe
+ helper
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Changhuang Liang <changhuang.liang@starfivetech.com>
 Cc: Brian Masney <bmasney@redhat.com>, 
@@ -103,84 +104,205 @@ Cc: Brian Masney <bmasney@redhat.com>,
  Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
  Hal Feng <hal.feng@starfivetech.com>
-In-Reply-To: <20261013102707.9207-3-changhuang.liang@starfivetech.com>
+In-Reply-To: <20261013102707.9207-4-changhuang.liang@starfivetech.com>
 References: <20261013102707.9207-1-changhuang.liang@starfivetech.com>
- <20261013102707.9207-3-changhuang.liang@starfivetech.com>
+ <20261013102707.9207-4-changhuang.liang@starfivetech.com>
 Date: Sun, 15 Nov 2026 15:18:28 +0100
-Message-Id: <179475230833.3873592.13070196353304136001.b4-review@b4>
+Message-Id: <179475230833.3873592.10035326269756392801.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3026; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=SzFQdbzAtEZ1BnfFOUSY0w8toQFX6y0M+FCu3Ru7vsw=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFk/95vzHzn/Wm9uzcPMf6oFG0Wunll3x/DbhM5fr+XsQ
- iez9HiKdpSyMIhxMciKKbLUcFeLv5PU+jJrus5tmDmsTCBDGLg4BWAiLqEM/ysdn089x/jq+N6j
- 4Q1p+dVaEm9m6+e/vf7hfrst902ebEGGv3Lhkd56y34ulv/k/zPkvat185OPuy6rGDg9z594TP/
- BXFYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6706; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=VtBrKLm2TGieOwhTBnDIxjnhWjQzoOwdJZi+yiLRkd8=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFk/95vPYUsyZ/7yQy20T9Joyetv7rvPOPozxi4JOp3Q4
+ 7L08PygjlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenAEyk+DDD//CnhTkpiXPL93+f
+ ueJR2HcFJf5vL036zX4qGTRPDXS/5MDIcMDvy+VbPzd6fk0rdHtUvzTgu8N1zS28M/+xvN9ps8t
+ 1BQsA
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-> jh7110_reset_controller_register() is only tied to the JH7110 system
-> clock driver by its location. Its logic is generic: hand the CRG
-> register base to the reset driver through an auxiliary device.
+> The StarFive JHB100 SoC has several clock and reset generators (CRGs)
+> which share the same probe flow: map the registers, register all the
+> clocks described by a table, add the clock provider and register the
+> auxiliary reset device.
 > 
-> Move it to clk-starfive-jh71x0.c as jh71x0_reset_controller_register()
-> so that the clock drivers of other StarFive SoCs can reuse it, and make
-> CLK_STARFIVE_JH71X0 select AUXILIARY_BUS accordingly.
+> Add jh71x0_crg_probe() together with struct jh71x0_crg_domain_info so
+> that each CRG driver only needs to provide its clock table, external
+> clock names and reset auxiliary device name. The reset auxiliary device
+> is registered with jh71x0_reset_controller_register().
 > 
-> While at it, replace the open-coded auxiliary device allocation, init,
-> add and release handling with devm_auxiliary_device_create(), which
-> already implements all of it. The register base is now passed to the
-> reset driver as platform data of the auxiliary device, so struct
-> jh71x0_reset_adev and the embedded auxiliary device go away.
+> Parents that refer to an external clock are tagged with
+> JH71X0_EXT_CLK_FLAG in the parent index, so the external clock indexes
+> of a driver do not depend on how many clocks the CRG provides and do
+> not shift when a clock is added to the binding.
 > 
-> The auxiliary device ID is dropped: every CRG already uses a distinct
-> auxiliary device name, so the ID is not needed to keep the device names
-> unique, and it is always 0 now.
-> 
-> Since the helper now lives in clk-starfive-jh71x0.c, the auxiliary
-> device names are prefixed with "clk_starfive_jh71x0" instead of
-> "clk_starfive_jh7110_sys". Update the auxiliary_device_id table of the
-> JH7110 reset driver in the same patch to keep the tree bisectable.
+> The clock index space of these CRGs is sparse, so also make
+> jh71x0_clk_get() reject indexes that were never registered when the
+> domain info is available.
 > 
 > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 > ---
->  drivers/clk/starfive/Kconfig                  |  2 +-
->  .../clk/starfive/clk-starfive-jh7110-aon.c    |  2 +-
->  .../clk/starfive/clk-starfive-jh7110-isp.c    |  2 +-
->  .../clk/starfive/clk-starfive-jh7110-stg.c    |  2 +-
->  .../clk/starfive/clk-starfive-jh7110-sys.c    | 59 +------------------
->  .../clk/starfive/clk-starfive-jh7110-vout.c   |  2 +-
->  drivers/clk/starfive/clk-starfive-jh7110.h    |  4 --
->  drivers/clk/starfive/clk-starfive-jh71x0.c    | 24 ++++++++
->  drivers/clk/starfive/clk-starfive-jh71x0.h    |  2 +
->  .../reset/starfive/reset-starfive-jh7110.c    | 19 +++---
->  include/soc/starfive/reset-starfive-jh71x0.h  | 10 ++--
->  11 files changed, 45 insertions(+), 83 deletions(-)
+>  drivers/clk/starfive/clk-starfive-jh71x0.c | 96 +++++++++++++++++++++-
+>  drivers/clk/starfive/clk-starfive-jh71x0.h | 21 +++++
+>  2 files changed, 114 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig
-> index bd29358ffeec..51716655554f 100644
-> --- a/drivers/clk/starfive/Kconfig
-> +++ b/drivers/clk/starfive/Kconfig
-> @@ -2,6 +2,7 @@
+> diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.c b/drivers/clk/starfive/clk-starfive-jh71x0.c
+> index 37bab563c5e0..52c5ae737dbd 100644
+> --- a/drivers/clk/starfive/clk-starfive-jh71x0.c
+> +++ b/drivers/clk/starfive/clk-starfive-jh71x0.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/debugfs.h>
+>  #include <linux/device.h>
+>  #include <linux/io.h>
+> +#include <linux/property.h>
+>  #include <soc/starfive/reset-starfive-jh71x0.h>
 >  
->  config CLK_STARFIVE_JH71X0
->  	bool
-> +	select AUXILIARY_BUS
+>  #include "clk-starfive-jh71x0.h"
+> @@ -333,10 +334,14 @@ struct clk_hw *jh71x0_clk_get(struct of_phandle_args *clkspec, void *data)
+>  	struct jh71x0_clk_priv *priv = data;
+>  	unsigned int idx = clkspec->args[0];
 >  
->  config CLK_STARFIVE_JH7100
->  	bool "StarFive JH7100 clock support"
-> @@ -32,7 +33,6 @@ config CLK_STARFIVE_JH7110_PLL
->  config CLK_STARFIVE_JH7110_SYS
->  	bool "StarFive JH7110 system clock support"
->  	depends on ARCH_STARFIVE || COMPILE_TEST
-> -	select AUXILIARY_BUS
->  	select CLK_STARFIVE_JH71X0
->  	select RESET_STARFIVE_JH7110 if RESET_CONTROLLER
+> -	if (idx < priv->num_reg)
+> -		return &priv->reg[idx].hw;
+> +	if (idx >= priv->num_reg)
+> +		return ERR_PTR(-EINVAL);
+>  
+> -	return ERR_PTR(-EINVAL);
+> +	/* Index space is sparse: reject holes that were never registered. */
+> +	if (priv->info && !priv->info->clk_data[idx].name)
+> +		return ERR_PTR(-ENOENT);
+> +
+> +	return &priv->reg[idx].hw;
+>  }
+>  EXPORT_SYMBOL_GPL(jh71x0_clk_get);
+>  
+> @@ -361,3 +366,88 @@ int jh71x0_reset_controller_register(struct jh71x0_clk_priv *priv,
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(jh71x0_reset_controller_register);
+> +
+> +int jh71x0_crg_probe(struct platform_device *pdev)
+> +{
+> +	const struct jh71x0_crg_domain_info *info;
+> +	struct jh71x0_clk_priv *priv;
+> +	unsigned int idx;
+> +	int ret;
+> +
+> +	info = device_get_match_data(&pdev->dev);
+> +	if (!info)
+> +		return -ENODEV;
+> +
+> +	priv = devm_kzalloc(&pdev->dev, struct_size(priv, reg, info->num_clk),
+> +			    GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	spin_lock_init(&priv->rmw_lock);
+> +	priv->info = info;
+> +	priv->num_reg = info->num_clk;
+> +	priv->dev = &pdev->dev;
+> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->base))
+> +		return PTR_ERR(priv->base);
+> +
+> +	for (idx = 0; idx < info->num_clk; idx++) {
+> +		u32 max = info->clk_data[idx].max;
+> +		struct clk_parent_data parents[4] = {};
+> +		struct clk_init_data init = {
+> +			.name = info->clk_data[idx].name,
+> +			.ops = starfive_jh71x0_clk_ops(max),
+> +			.parent_data = parents,
+> +			.num_parents =
+> +				((max & JH71X0_CLK_MUX_MASK) >> JH71X0_CLK_MUX_SHIFT) + 1,
+> +			.flags = info->clk_data[idx].flags,
+> +		};
+> +		struct jh71x0_clk *clk = &priv->reg[idx];
+> +		unsigned int i;
+> +
+> +		if (!init.name)
+> +			continue;
+> +
+> +		if (init.num_parents > ARRAY_SIZE(parents))
+> +			return dev_err_probe(priv->dev, -EINVAL,
+> +					     "clock %s: too many parents (%u > %zu)\n",
+> +					     init.name, init.num_parents, ARRAY_SIZE(parents));
+> +
+> +		for (i = 0; i < init.num_parents; i++) {
+> +			unsigned int pidx = info->clk_data[idx].parents[i];
+> +
+> +			if (pidx & JH71X0_EXT_CLK_FLAG) {
+> +				pidx &= ~JH71X0_EXT_CLK_FLAG;
+> +				if (pidx >= info->num_ext_clk)
+> +					return dev_err_probe(priv->dev, -EINVAL,
+> +							     "clock %s: invalid external parent %u\n",
+> +							     init.name, pidx);
+> +
+> +				parents[i].fw_name = info->ext_clk[pidx];
+> +			} else {
+> +				if (pidx >= info->num_clk)
+> +					return dev_err_probe(priv->dev, -EINVAL,
+> +							     "clock %s: invalid parent index %u\n",
+> +							     init.name, pidx);
+> +
+> +				parents[i].hw = &priv->reg[pidx].hw;
+> +			}
+> +		}
+> +
+> +		clk->hw.init = &init;
+> +		clk->idx = idx;
+> +		clk->max_div = max & JH71X0_CLK_DIV_MASK;
+> +
+> +		ret = devm_clk_hw_register(&pdev->dev, &clk->hw);
+> +		if (ret)
+> +			return dev_err_probe(priv->dev, ret, "Failed to register clock %s\n",
+> +					     init.name);
+> +	}
+> +
+> +	ret = devm_of_clk_add_hw_provider(&pdev->dev, jh71x0_clk_get, priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return jh71x0_reset_controller_register(priv, info->rst_name);
+> +}
+> +EXPORT_SYMBOL_GPL(jh71x0_crg_probe);
+> diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.h b/drivers/clk/starfive/clk-starfive-jh71x0.h
+> index 322a05157faf..666d44e6a752 100644
+> --- a/drivers/clk/starfive/clk-starfive-jh71x0.h
+> +++ b/drivers/clk/starfive/clk-starfive-jh71x0.h
+> @@ -5,6 +5,7 @@
+>  #include <linux/bits.h>
+>  #include <linux/clk-provider.h>
+>  #include <linux/device.h>
+> +#include <linux/platform_device.h>
+>  #include <linux/spinlock.h>
+>  
+>  /* register fields */
+> @@ -29,6 +30,16 @@ struct jh71x0_clk_data {
+>  	u8 parents[4];
+>  };
+>  
+> +/*
+> + * Parent indexes with this bit set refer to an external clock, i.e. an entry
+> + * of jh71x0_crg_domain_info::ext_clk, instead of a clock provided by the CRG
+> + * itself. This keeps the external clock indexes independent of the number of
+> + * clocks the CRG provides, which in turn must stay below the flag; drivers
+> + * check this with a static_assert() on their clock table.
+> + */
+> +#define JH71X0_EXT_CLK_FLAG	BIT(7)
 
-You've switched to imply for the new controller you are introducing later in this series.
-You should probably be consistent and align this one too. Not in this change though, it would
-be unrelated.
+I'm really not a fan of this hack.
+In addition to being hackish it will limit your controllers to 127 internal clocks
+which I'm pretty sure is a limit you'll hit eventually.
 
-This change otherwise looks good to me. It requires Philipp's opinion as it is touching reset too.
+I'd prefer if a parent was defined by a struct of yours, something like
+
+struct jh71x0_parent_data {
+	const char *fw_name; // <= external if not NULL
+	unsigned int internal_id; // <= id in your table if the above is NULL
+}
+
+With this, the bit, the macro that goes with and the table of external clock
+can all go away.
+
+I suppose it means some change in your existing drivers too
 
 -- 
 Jerome
