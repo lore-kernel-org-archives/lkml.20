@@ -1,88 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794748827;
-	b=l5YxNaXsb5ZtCaO49qDCPHyZFyob/2isD+0izFM5hxoyvqguA8E8JvZyQL0jSzc2Ty4l
-	 JJxQ1BUU7KAaQC2ZnL4zR5fT63LwBe4bMjM2MhlGkyMLx85gszCqTgEuida3J0fdB7NcQ
-	 0twQzmkCoTbOR7/bd1vg7adcg3NfRd6uLtSJVhbQU7dWqUZZ46S2uZCQ3ECEyVCvcP8uU
-	 KbXGFEO5sw8r6a4HROQamkUVzjERPW3myxT1Mehmkq0vqO0VOWxXEDrc00aTWDhYV2KGO
-	 mGJ7HqosDFIesImKNCeGcTui7M+mVHrC1ATEvU02uAaVSawS1OrL+kh5TIGABC5cglQ==
+	t=1794748846;
+	b=yCDsXY8uM+73Hwfo0sruOaFq6tQk84Clg+DO71LBBQ/n4r+3F7DQW9qBh4Eo+Dgt8I9P
+	 8fzmH1EDtdOUCtjX7zqbqcQzKIDXPNZRF5dT/2spdW9uqQ2+jngxnbizvoXEZ+qWy/CvC
+	 EGuLlRtfvPi+bk8lVQaOp7GImkSqVxFUZ+6lGQ0SkVgg+ykUkxJbR5BrvRC94JwkMz9EU
+	 strfznZPNFRWWLIP9UoGXaRj8kdYIiVhNL3znBvwJ+YFXj3xngFZpU/E0nUYuGI63CsbJ
+	 Ad2R8PaOvqwrPRoyYIBesheOn+b+jqEZEYwmk4zdBWKkUoNzz9soeW/zOW9aCYYicEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748827;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
-	b=r4+a+88VzwoK7aFC+ltyLYsE/KkXwXGK+mPUsecnvnY/bzUFaq1Au0rRI/3MUt1wQWa+
-	 EzdsuGXxlSkgLSwQoyz8qwa3rjcTNh1LOcAnEd+Ew1jJhyh0UB7fcFq3/KOMjGWGVbAPU
-	 XdXWo1uw7cMXGVdApz72j/31Dj0kFMw5VCmJILEgKTjCeZOVKk4IwgSSwEW2Tr2N3LGD4
-	 g8HHX3NkHDbNWw07kqrqAFpEvY8ntFlHJjIgoW8EVD7lkLyorAiY3vX0HKbb9S0UWjRmg
-	 waOVpY6XtWP+Q+HZvXvapmFfI60Ot1I2vluImP+gbpdgBMWgY6fkIAGIzOnzTxYqThg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748846;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3HSpYZj6YASoJA+imXKaJoXcMOdYb9Ti1RP9kq2Y2hg=;
+	b=mW1IhsgH+dEI0c+81V7XTgHXJbGCP4IMootAISrPvwwbEZOYzGfUAZ84DEumMmFu6rKE
+	 PmstZse2sjp8o25xeGLvVXMiGBZVVdB0UPMuBFw+QF/deygS9WqT211wJXApHBLBF0P6p
+	 L9Vq8DQXEg5bewXzKh3DsDk5EXRsf/m++E7iiOBvgNAHGmlejHoSvmIFpeTvPVjVjObks
+	 +KROkg9zyWVigfl525HtqMqycqzHL+CtRFSrVvIzx3ktrGHn3/y0JZoneEB0gshEX4g1k
+	 nlUyzg9WcZo8BeY9dSCBz9wxFqz7Cevxe3mgur+ccBBWYmY2YXdSsvJVaEHCc+gk/QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYyWL4GB;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRjjD37o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79C8606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:20:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C79C8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8012D606A31A;
+	Sun, 15 Nov 2026 13:20:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYyWL4GB
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so2822080c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:20:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794748826; x=1795353626; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
-        b=zYyWL4GBuf0DsAdvhYGsk1HKtQ4dzGXDITV2wnSBhAUnJTmKOesAjxxSywEZ2hHpzq
-         llR+jTI4Z1JZxjB9Zs0fQVKGcq7BQFZZHAXztEp/1F0X6UaDtEtWTPCGHc89IEy566yp
-         KA62XuLoFmxtWbwk/nye62TtvNTJZWospqclUElyMRJjlHq5ON5zlaLp3WAxDHFfiefR
-         xCc5jg/iosd6Uivwmng7ZT2W/KXXSPREMO6aEKpdQDmj6tLVYqjK0ys3pGi9AjM8db0U
-         5fifSAbg1/WkWX0MF0Ed+a6jZRero+oWYiNrPY0Jdu0dBlXkIjwPEWAEbIcliiwPxzni
-         Vp3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794748826; x=1795353626;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
-        b=AWoL0C6cYY1cVQiOivMm+jJrSJpNTzMKo5sm8YbojhbPTNgLoHhqSyYGQyIA4VHFq+
-         OtoT440uh9iEK0G3qYwhq9dmysTHfNKwfEvauAG7SiavoSSEfFvtufnYEOVsR8PEqtnj
-         hEQGpnDCoVAH4E2UsyTa2dA+2Bj7G6yuX4lVddJXsdBTGvTQIg11jUiU9xUjulWi3cWu
-         xwkHMToRLL15DFM3BpnzgN2wK9h0R4Ts1kKc0ncEyfrqPZuxq5VJSmL38uWscQMzoXPc
-         VtkxAcnXriTQDR6gwcxn+8UUNGklXQa0ujyFuVbfA7ZGTBJUZ+VkIqKmp5WXfHAmwcYZ
-         TdDg==
-X-Forwarded-Encrypted: i=1; AL+hErHcs043HNzpr0sK3L015ua2oMdnzhqzId7rp2KOlp/CXdakeCurgzR0P2+d7EEBv4+iEwFA9rguRpNJujQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dvp5K0vPwipbVQGLUlmEo5D40scjH6545vk3RVY88xsPF9joH
-	d4Ml4n5p4ivamkxSKOgCpwm/IsRasdL5AYep2SI9t3hToUUvR1NtdD+G
-X-Gm-Gg: AYBFou3Ueann4CWa5P2eAhQfW11OOL2CWKZzXV49KKv0TakYsUG91ZEXf0JU5qi+igo
-	dCfxzhhiLd8UbkIMjaoVHbARmr/ywUQMEeljHt/vp3CcmH+54AlD52ceVxu6LEoOJRsfZY8loLC
-	TFrhkK1rapGPnJUZH1rqZWznUsBNK2jmTg+quJlPsndOjMS8nEtxFuZ7NwsmOMmht0GxcLgcEw7
-	EPYKj6HvEWyrrh83iPhau9EwIkwdWqxUa/SbQDQ9mHYLX0AK1hgtq5e/R6U5zRQ4+vcw3ixTss0
-	mNRzZkkHM/A4e4Bi3TNSyG1kY0LrNygDI5W+qXxw4/ZVcOEGnD0PLfDtMrsrW80/sF8Q1+YqFNy
-	033EMWPTWVjiEo6Wk3EPx9SpSqq7NnRCULk4pyodEs8gp9yi1NUkvpcdOczQVXKt1j6OY78Hys/
-	UvQzSNQ73qjYp0Oe0wEzrtQluzmGVS768v39DYfViyglObhgocbvBKAeT0ZrKrj29PSCJudMJ7x
-	OwqcyrozcFoZoog38lZ7dz/BcWqhX66+f0s4ljO/u9jTntJfsjkWBBz/BWWDkS5CqBpgE7vKbWY
-	kuf8WQpPatn+nrsg+4KqIiTgye+nDxVGQCi1zQc9J+iEtrLMfrKvxwbm5jR9DxjDMs9e
-X-Received: by 2002:a05:701a:c9c1:20b0:1ae:e7c4:9a15 with SMTP id a92af1059eb24-1b51828ef74mr4571335c88.3.1794748825692;
-        Sun, 15 Nov 2026 05:20:25 -0800 (PST)
-Received: from [192.168.35.213] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d3e37sm28084123eec.24.2026.11.15.05.20.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 05:20:25 -0800 (PST)
-Message-ID: <9f85f4a5-ee4a-4c0e-b902-abea050bb204@gmail.com>
-Date: Sun, 15 Nov 2026 22:20:20 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRjjD37o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70FA1F000C5;
+	Sun, 15 Nov 2026 13:20:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794748846;
+	bh=3HSpYZj6YASoJA+imXKaJoXcMOdYb9Ti1RP9kq2Y2hg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DRjjD37o9epMl9rk++f6bxSbCSOylmn8X7S+JIBOaotMK/yq/ad86XJXU6Tx889av
+	 7JFOn/doiAJ1dCfAxgMQoi6QHqXNO3KHdQYaCTvDEwU3QHe67DCPbcHpd01kUOeZAQ
+	 2dhgQfZLgdawl5jkYieWz/gj+I3Vg2u7DFBu1mkQ9UU27HcpoJnCJDTM8o67T+4glw
+	 G5KqZsTL2Rdkjp17sKIxEHEolEcG6sTtZ66w4TI6zWkMBiVtfK1t0kCaEOtpse0CnB
+	 Y20RM1wwrg1TVRpjG16LjHhUHSt8f6X7EaQ5q6W6RiH6Y6QEDGhzY7Ux26AGrwho7X
+	 /vBXHf7wO+6kA==
+Date: Sun, 15 Nov 2026 13:20:33 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: Re: [PATCH v2 11/13] percpu: fix contig hints that are too low
+Message-ID: <avmpMjM-nrzifxYP@gremlin>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+ <20261113-mason-migrate-et-al-fixes-v2-11-50a2ed382b61@kernel.org>
+ <20261114115708.18fff016c293a57b@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,78 +75,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH v2 0/8] PM / devfreq: rockchip-dfi: cleanups
-Content-Language: ko
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham
- <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, kernel@collabora.com
-References: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114115708.18fff016c293a57b@chrisdown.name>
 
-On 9/22/2026 5:32 AM, Sebastian Reichel wrote:
-> This adds proper handling of the RK3588 clocks required for DDR memory
-> monitoring, which involves adding them to the clock driver and the DT
-> bindings first. The change is done in a backwards compatible way by
-> marking them as CLK_IGNORE_UNUSED and using optional clock get in the
-> DFI driver. The series also applies a few cleanups to the DFI driver
-> while at it. This is done in preparation for RK3576 support, which
-> will also come with some DFI specific clocks.
-> 
-> As everything is done backwards compatible, patches do not need to
-> be merged together. So Heiko can take the Rockchip specific patches
-> and Chanwoo Choi can take the DFI driver patches.
-> 
-> Changes in v2:
-> - Link to v1: https://patch.msgid.link/20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com
-> - DT binding: Do not specify maxItems in the generic part as it has a list
->   of items
-> - DT binding: Only set minItems/maxItems for specific SoCs
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-> Nicolas Frattaroli (8):
->       dt-bindings: clock: rk3588: add PCLK_DDR_MON_CH clocks
->       dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
->       PM / devfreq: rockchip-dfi: move to per-variant const structs
->       PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
->       PM / devfreq: rockchip-dfi: use bulk clock APIs
->       clk: rockchip: rk3588: add PCLK_DDR_MON_CH gate branches
->       PM / devfreq: rockchip-dfi: make RK3588 use its clocks
->       arm64: dts: rockchip: add dfi clocks on RK3588
-> 
->  .../bindings/devfreq/event/rockchip,dfi.yaml       |  70 +++++++--
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   4 +
->  drivers/clk/rockchip/clk-rk3588.c                  |   8 ++
->  drivers/devfreq/event/rockchip-dfi.c               | 160 ++++++++++++++-------
->  include/dt-bindings/clock/rockchip,rk3588-cru.h    |   4 +
->  5 files changed, 184 insertions(+), 62 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260917-rockchip-dfi-cleanup-feae6eefae9c
-> 
-> Best regards,
-> --  
-> Sebastian Reichel <sebastian.reichel@collabora.com>
+Chris - a lot of your replies here seem LLM-generated, and this one in
+particular seems especially so.
 
+I've been working evenings and weekends to help with the workload doing
+_human_ passes over already AI-generated fixes, so please have a little
+consideration for that + keep replies to technical points and as succinct
+as possible, thanks.
 
-When I tried to apply them, there is conflict on devfreq-next branch.
-I'd like you to resend this series on based on devfreq-next and [PATCH v2 0/7] PM / devfreq: rockchip-dfi: RK3576 support.
+On Sat, Nov 14, 2026 at 11:57:08AM -0800, Chris Down wrote:
+> Hi Lorenzo,
+>
+> Lorenzo Stoakes (ARM) writes:
+> > Secondly, when a free stays within one block,
+> > pcpu_block_update_hint_free() passes the end of the free area to the
+> > chunk hints as a block offset rather than a chunk offset, so in any block
+> > but the first the chunk hints are not updated at all.
+>
+> Joonwon Kang sent this part earlier this year as "percpu: Fix wrong chunk
+> hints update" [1]. It has Dennis' Reviewed-by, but as far as I can tell it
+> was never picked up. The rest of that series goes after the scan_hint
+> problems by fixing how pcpu_block_update() maintains scan_hint, rather
+> than by dropping the promotion, and Dennis was still reviewing that in
+> May [2]. It touches the same code as the first case here, so the two won't
+> apply on top of each other. It's probably worth adding Joonwon to Cc and
+> working out between you which one goes in first.
 
--- 
-Best Regards,
-Chanwoo Choi
-Principal Engineer, Samsung Electronics
+I'm sorry this is (AI-generated?) nonsense, that's not at all how kernel
+development works.
+
+This is a series that got stalled 6 months ago and does things other than
+this fix. That doesn't put an indefinite hold on future work in the area,
+nor does it give the submitter a veto or say on future work.
+
+So the submitter is welcome to resend and rebase on the fix.
+
+In general, given that this is a drive-by review, with respect, please try
+to stick to technical issues, thanks.
+
+>
+> > Thirdly, that free area stops at the block boundary, even if the free
+> > bits continue into a neighbouring block.
+>
+> Wasn't this one deliberate? The comment this patch removes says that
+> chunk_md->contig_hint may be off by up to a page, as a tradeoff to avoid
+> iterating over the block metadata on every free. I don't mind changing
+> that, but it'd be good for the changelog to say so, because any free
+> whose area reaches a block boundary now ends up in
+> pcpu_chunk_refresh_hint().
+
+'I don't mind' :)) for some reason you (or rather persumably your LLM) has
+adopted the tone of a component owner which isn't quite appropriate here,
+let's maybe try to avoid that in future thanks.
+
+The changelog already covers this, it states that a contig_hint must never be
+smaller than the largest free area, and lists this as the third way in
+which that is violated.
+
+That it was done on purpose doesn't make it less of a bug - the hint being
+too low is what causes pcpu_find_block_fit() to reject a chunk that fits.
+
+>
+> > Fix these by always rescanning when a contig_hint is broken, passing the
+> > correct offset, and refreshing the chunk hints whenever a free area
+> > reaches a block boundary.
+>
+> Similarly, da3afdd5bb54 ("percpu: use block scan_hint to only scan
+> forward") and d33d9f3dd96b ("percpu: use chunk scan_hint to skip some
+> scanning") added the scan_hint promotion to avoid exactly these rescans,
+> so do you have any numbers for what always rescanning from first_free
+> costs on the allocation path?
+
+Nope, I am reworking AI-generated fix patches and this is currently broken,
+it doesn't require perf numbers. It needs to be made right first.
+
+In any case the block rescan is bounded at PCPU_BITMAP_BLOCK_BITS and this
+issue only happens if a contig_hint is broken.
+
+>
+> The result does look right to me, though. From a quick check with the
+> hint code lifted into a userspace harness and random allocations and
+> frees thrown at it, contig_hint regularly ends up below the largest free
+> area before this patch (for both blocks and the chunk) but is fine after
+> this patch is applied.
+
+OK thanks.
+
+>
+> [1] https://lore.kernel.org/r/20260513085117.1024175-1-joonwonkang@google.com
+> [2] https://lore.kernel.org/r/ahVWu38ymnSeLnv3@palisades.local
+>
+> Thanks!
+>
+> Chris
+
+--
+Cheers, Lorenzo
