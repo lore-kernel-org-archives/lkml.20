@@ -1,65 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794744882;
-	b=yV0YyOZZvJGCHF8mlbKIuk3z1pe0hiQBBUp5yidHc+OzpSf5mjtb6bpxgMJjv2J53HQz
-	 1e24BQrd8SVfsSZY/w23v13WZA0kXOrtWuSDEz+BM/Ieg5NVKHF884K9A+lZbVc8a34Zp
-	 FejSKnBbp7QCEE6HQCK2G98/CyYZj8MnfUxHej3fjnr54DeDS6C+kuSrUuKk4n+S3K6vB
-	 GFL4iHZ9uRvNC0uMZLwPWQIUUjHGoWb1ZgzHR8sBXWQFgUYxnCwrnMfpqim/IjTXC6+6c
-	 0BOFxh5DbYGVuuHYyamHmNkRNUgOkFIHfyEGAxz7ZqijAHiqBsTcXabA6GZcDDFVWyQ==
+	t=1794744890;
+	b=1652mBidFJ4PF9ImXvW93S3vmxCxHTZtkAMzp4z9vcggkDMyF847lvFkxNHSOpcCBBcn
+	 0NDg3slLSxV1r0o1mItypszHgKNtY5R1pJCZvzUKVVfqsAIxZq4+KvLB6ny5SLDMSu1ph
+	 RtjBSRbefXBmHcSWdMwPwQHiLipMrwpGmuk01MU/FvLW9Q0E6uZmHxm7T53IoMxRU1XvF
+	 fT+e6qKpqb9XyIAH2lqXRnZygPS7RkP0gtH5vPu6HyIV8V6BafPr+6gvPOtj1vYCayItY
+	 r9lhCCzOlYOnetd7hqnxyxzmWO0Y4IxIn8bL+juWmZNI6W+YzSdvbhEej7DK+cQvQyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794744882;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=16uiMZGEYqtdM9NRhPkjaUuYRhIfbHL3nYIwwi6x9iQ=;
-	b=HSJZHgInuvmCHkh1U9WIIqOpmgn+A/d3sUuQOqhczqZLlaC67q7eZMOPFSt4fExR8DGz
-	 1uU6+VtxW0a081UL/OBBrpWdjrY/goqRCF+f20cq+Sc/DSuTFY+0ZrsmREqbFPbB1m5h+
-	 SGLUZj3IiQ3x7d7xp1Hl7H012B7pcutENYuTFxCHKhFDnLbeEAAmX5DsAZVRnbQ680neO
-	 YF/S60wmW+JsZKHat7xoDWlWDJv9JgdJ0mkRxqxiDQ1Ozo/W0U+49yL8ltK/Qe3R96fVX
-	 Vd+NitqZup/7izaKVhMJAulnuCok67vXan1A8FJZ58lpYSnWubL+UwVkZenfR2NnLfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794744890;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=uGgu6l3Ky8kvEE8GWOoo1yyQfvRZHOX/bqL3OvucLGQ=;
+	b=Ikuao800AFAYfebYehhxmj0ArQMrolyuMKIDMnwFM3sqzer/WejF8DORQdnmdlWLNZB0
+	 +E2E8aNYAODSMY/symmb7uBkbcQcNyyq72WTFEBSYOLqB7GtOyc8wMVzn0CxRZe3mb59E
+	 CnrTAKgSDZvvHiVdoUYeRaE2tjE0zuV05aDZU3PlijB0jJDwzXK7FIRnFb29OGIgQ1AiF
+	 IaUorVpPVYCEEN7xj5QKXklqMZyLTMNtzZCCbU+tkwRIdY7a37xBQ0Yagt9yF4Rszngum
+	 Io3Ji5hRj+giyt3KGID+KeXc0yVz5FNjmWvXJQfGEetUaTZ2UjvyGbp3CMx0QcGzJUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DAzDV2p4;
-	arc=none smtp.remote-ip=91.218.175.154
-Received: from mta0.migadu.com (out-154.mta0.migadu.com [91.218.175.154])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eJL4Fmsl;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99257606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99257606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0776606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:14:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0776606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DAzDV2p4
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uFLWPmWqsT6B6WbJ8DCw2sV+WVJ8VdcEQ7C090NXB38=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794744879; v=1; x=1795349679;
- b=DAzDV2p4qpjAPWpnnHppLGPgLD/QNNusTJc1y++BaV+tUoomNY52RFFeZFfGTKXRMiJ3FMfi
- kA9+icxul7vgt2mLgyzrBhsOVq+znLrecv1OnsYiE8Ql/aDRYXJ7aP0uL6ZPyNbGBS6dpc1gHu/
- Y/by4BcQltXpqWlhQRGFEOD8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f4054e74a4849b3c;
-	Sun, 15 Nov 2026 12:14:39 +0000
-X-Mizu-Trace-ID: f4054e74a4849b3c
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 12:14:35 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: Renzo Davoli <renzo@cs.unibo.it>, linux-kernel@vger.kernel.org
-CC: Oleg Nesterov <oleg@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
- "Dmitry V . Levin" <ldv@strace.io>, Alexey Gladkov <legion@kernel.org>,
- Eugene Syromyatnikov <evgsyr@gmail.com>,
- Charlie Jenkins <thecharlesjenkins@gmail.com>, strace-devel@lists.strace.io,
- linux-api@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_ptrace=3A_reject_out_of_rang?=
- =?US-ASCII?Q?e_error_values_in_PTRACE=5FSET=5FSYSCALL=5FINFO?=
-In-Reply-To: <71963633-481A-4C74-AF99-043C0C694FB1@linux.dev>
-References: <2D2A202C-35F8-4200-9110-B0E636216FCF@linux.dev> <20261115082540.385386-1-renzo@cs.unibo.it> <71963633-481A-4C74-AF99-043C0C694FB1@linux.dev>
-Message-ID: <A2368AD5-68C7-4377-B1A9-5371053AC186@linux.dev>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eJL4Fmsl
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so13107645e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:14:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794744888; x=1795349688; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uGgu6l3Ky8kvEE8GWOoo1yyQfvRZHOX/bqL3OvucLGQ=;
+        b=eJL4FmsljjmbthQTxR+1os6ehdA7HrXEazEQbHBtVieR0VPO2U/151cbAENNQpoh6i
+         ghPT2cNYVo/lKqchdC0hTr2bHtSoCLidj7k1RSNtzrGC2aEcv0oQykcRlSDYypHCGxWV
+         oN9107GYTlhdT2MgiIYtt8UXLvULIASeEkedrMlyX2xy2b8jmEPafnLnSNvUY5lvOeTo
+         NXPWb6KvUlNbVtI1IKG8AeHSgzyPBKF3JHGZ8q3aDJQRXenTqEfz5BJ3U/dokIfbdvcf
+         Slsbh7fCBGjSc7Gf77SUlg4j2wDW8AntcikkdGFAmrFijCPF0/nFgH21Qncq2ebCqEGD
+         f3DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794744888; x=1795349688;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uGgu6l3Ky8kvEE8GWOoo1yyQfvRZHOX/bqL3OvucLGQ=;
+        b=sDg59DVoHpwWgFXbve2IqX500bxM18oRFHMEI/oHwiPZez7JRS6xTi+4tMiNb+yLg8
+         fRbHrYUyzf3k5Zba0SQeYPe8tv8vHsi2O6RpIARCy8tvcugGWXryxOtYrnVMog3nFA2T
+         VPvktLre+zyqwv7i13e6ZlxhGM2CjFHGoPQ+5l/RPVSRWqKC1SaupKf9wrKLuSW3oTTI
+         xfsDrgimVExSTgQRcDgFzm4gB8HNm8fsn2hgMEGFP7azZpqj6mhkFIP5X6n0pm5+KAJQ
+         55tBULFjWFj6C9tIisV5IEyqsLDkbKW+ibRI7sKR1JMgi5aEl/IyiiUmenNhqRgsH6e4
+         /4eg==
+X-Forwarded-Encrypted: i=1; AL+hErE0nPWu/9p5v4HL8utwIUjyK/c89Q0ZPgzExxWR5uUWADuCv1F9/OoLXCzOzSDVQUeEz3AWXEHbKAg3E78=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8N+NHUrVhHHK+dt7hPUsPOJhe9ZhaYhrgF2lzsqUZX3gB24zG+
+	aNdRbhqwhMEt1g3fBN5qoDCSj7rjwE2o+AgRzihsl72TBgf8CVuEWe4eg9aiTcF0Ksw=
+X-Gm-Gg: AYBFou1NTDZTmT951K2qWrdRSOq7aHLB1zFcCF13f/ZPEj1pLYUETeUWbSkCbEWxBnO
+	6qfv1FJgXcgk1Y7uhucGD28ddNOxNkMeHwktBtcG00BAlZuV3vMhQ0o/0fNw+x6Js92SODb5M1x
+	CYLnKFCocKZSxdf7nwz6LEo9Y8yYy4iMACkP7EeXarYS/KZ1SL7gPncVYswCvaKlu3luX3S/Eku
+	iVzBP/pSJ6ShyUJADuxBnf3hYwgmMNbOwHCyLFEQeJNFEUf8w7D/2mIJCouUNKJil1B05mhlS88
+	JqzodSJgpsY2uskzYHm16L71AM5B2VRd3q+KbDlaQFYL3uHM3hn8aILrRu+TIF7H7MQ3EGBAvRO
+	Fq3LGxrqniJfoDx4MEis3y4BMHXlirSbVwHh9g+aCDdDGSfOGA9tx07vJNjNIHLdOflnyAzRVYc
+	KudT8oYQ0clveWCD7l5iB6X5lxIonIc0Cxx+8JTA9hZbO/t58P8G7IGHxtMCxKqH8CYptSXaVqN
+	99QOCxCBjQtzMVluiEQLRs+5qPebDV6lVMm6nsc2vVRAPQYhu9Zt8EkpAH75cb+lJuk2s+EdzQT
+	YQ0mO2CjfU8CtUanViYS0trvZGhxuPa583EVPbgiel4T
+X-Received: by 2002:a05:600c:548e:b0:4bb:5c92:ce12 with SMTP id 5b1f17b1804b1-4bb5c92cedemr125712795e9.17.1794744888294;
+        Sun, 15 Nov 2026 04:14:48 -0800 (PST)
+Received: from [192.168.0.167] ([78.152.238.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49dc430fa15sm10124007f8f.13.2026.11.15.04.14.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 04:14:47 -0800 (PST)
+Message-ID: <130fecb6-5372-44d9-8261-c3ac88248631@linaro.org>
+Date: Sun, 15 Nov 2026 12:14:44 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,71 +90,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 10/23] media: qcom: camss: csid: Add support for CSID
+ 980
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
+ <20261114-add-support-for-camss-on-sm8750-v7-10-8ff2a11835f6@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261114-add-support-for-camss-on-sm8750-v7-10-8ff2a11835f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 15 November 2026 12:14:04 GMT, Bradley Morgan <bradley.morgan@linux.dev>
-wrote:
->On 15 November 2026 08:25:39 GMT, Renzo Davoli <renzo@cs.unibo.it> wrote:
->>With is_error set, PTRACE_SET_SYSCALL_INFO passes info.exit.rval to
->>syscall_set_return_value() as an "int" error without checking it: a
->>positive value, or on 64-bit one outside the "int" range, turns the
->>error into a success or is truncated.
->>
->>Reject with -ERANGE any error value outside [-MAX_ERRNO, -1].
->>
->>Fixes: 26bb32768fe6 ("ptrace: introduce PTRACE_SET_SYSCALL_INFO request")
->
->CC:stable?
->
->Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
->
->
->>Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
->>---
->>v2: shorter commit message and comment, dropped Assisted-by (Bradley
->Morgan)
->>v1:
->https://lore.kernel.org/lkml/20261114184842.373304-1-renzo@cs.unibo.it/
->>
->>Tested on x86_64: rval 0, 1, 3, -4096, INT_MIN and 0x100000000 with
->>is_error set are now rejected with -ERANGE; -ESRCH and -4095 still work.
->
->I don't know why ai does these kinds of sections tbf. I think testing is
->like a basic requirement, like so basic that it wouldn't need to be added
->as a section 
->
->>
->> kernel/ptrace.c | 4 ++++
->> 1 file changed, 4 insertions(+)
->>
->>diff --git a/kernel/ptrace.c b/kernel/ptrace.c
->>index 3f2fe68ccb14..1ffacfcef8d4 100644
->>--- a/kernel/ptrace.c
->>+++ b/kernel/ptrace.c
->>@@ -1111,6 +1111,10 @@ ptrace_set_syscall_info_exit(struct task_struct
->*child, struct pt_regs *regs,
->> 	if (rval != info->exit.rval)
->> 		return -ERANGE;
->> 
->>+	/* An error must be a negative errno value. */
->>+	if (info->exit.is_error && (rval < -MAX_ERRNO || rval >= 0))
->>+		return -ERANGE;
->>+
->
->please consider Renzos comment and add a test case.
+On 14/11/2026 11:29, Wenmeng Liu wrote:
+> +			for (k = 0; k < CAMSS_INIT_BUF_COUNT; k++) {
+> +				__csid_addr_update(csid, i);
+> +				__csid_reg_update(csid, i);
+> +			}
 
-oops Dmitry.. sorry, consider dmitrys comment
+Why does this run twice for the same index ?
 
->
->> 	if (info->exit.is_error)
->> 		syscall_set_return_value(child, regs, rval, 0);
->> 	else
->>
->>base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
->>
->
->--- Thanks!
-
---- Thanks!
+---
+bod
