@@ -1,86 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702453;
-	b=M9KvQkc8Q01+ROp53z7R+59l2G7TlQnauMxR/yIOH2uTtb+566Mv7NTNEMdlyPrEsuMq
-	 dqWYRjZR9czLsS3IbTW0yluzYI8SlMDEGGAiOOIpqfpMsjUJAO8SVouAWRH/8Stpm7FX8
-	 tw8XAz6+btTyLdxopORUgrTSwHvDuiHBDwSwL7Da2apviOTKZvNEwcdWlwEM9pTG/Cmtl
-	 b3CtuhuMZpCWDlN+G5LpEzFvdmXP6YDeRoNtsU/RwLIfIQFAPTQ/KyD6b/C3KvLKmm9FB
-	 P3zkmVMNt3Ph2/9fzlBm6Nw1FMGYRmaCO/KvSx5BFVFIzKq7sWcsjnAsZew0IR838+g==
+	t=1794702596;
+	b=J87V21ncaQAPmrMH96t+k1k6NemZuLA3Sqd/jcYoaHtfqXSSbBMZPKmqVIUclhuXBcNN
+	 PGrckQaJMure+x6lrLIYIeMSGjzwUmmCnUdFfWx2lS1DVoIBz4+6brPBEzAdlytAmugjW
+	 CNZSFjPXxi7RrigQ6TMxAQ1ei3EFi6F0I/dWnlWCETpfhZFDwsPtaJ1pJgcfJer7ncvZ4
+	 0jk9Q25kBQc0WmrnYqiEMXsct5ZIYwtMjz26hGqareVHschwSrwC6giFE4pzLqW9X78KJ
+	 NDhi1o314KXXhQ0Rq3rGySIDFqmlQiEfn23GcC8GVS61Mezy0mncqpBwsPOldigf67w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702453;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Reply-To:Subject:Content-Language:To:Cc:
-	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=u9+e/eGHjR73QRvGijIdIOH0R/G/DJBbLevQ8HFggAw=;
-	b=3oFAzwb2K/DFqlzgU2dKaXBoDinWDiNy/zbpDy4O2yIY4anFjx3wsFLkdz2cib+KRkhB
-	 jMM1Nd8rRdS49gzr0GE5w2vGKkZtCCcJ+bLrJ/gjnA6Z4H7zS3KhdjX+wWA3Ca8HPJjLH
-	 V6XG7BZ+qZp9N3BMw4aOwM42RcBW7r8HWqIggy6UhYkqLSgYKSUR7U5jdef0Y9sIqlUsS
-	 +IOk4Jjjk4wgy/XsnuRjZOOLYoqJSAPDJn7o4VJzlrpjoXz3ZKTtqM8l/3Y4nkvdMmsGS
-	 ZxBNw2H4WZO1xO7OfaPppU7cZitOuBGooMusFoK/jHAbIzM1S9JBescsbMqPXQzVMKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702596;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=enBhx9VQimcvOxaezFBJwJ0l0s5cxrvOgc+zxqU4vkc=;
+	b=u1GmWSAhs/rYXu23YVkHyJaxntsZaINyoAE6F0TUhbt0Q9YYp5/AgcAZTZSGln68I0uu
+	 p2uWpiJArL3RohKnX8jNG+Hnmr6foDujniHZpPlVZ//t0qwZZNQjKvJDxOHZJbjnBDPL2
+	 CVGPqSVYZKF9QuhoZniALRJZciyPlZXuqHV9F/0Fwew25AlcwMDIxS8DU5sJz8tt0GGLJ
+	 SallV7SsYNJ8XuhuY1EJTZcx0ijYsmCG3g/0xxsEdo2d+vTS/4BnxyE3qCD9lkQRg/Ja7
+	 FZaiVV32Wc/4TLNMZqzebyW8rjPb4hrmrKcGHqsbJm6JSnDoVed9Zamk15yOBQD2iBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mnISHfT1;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAkZs5v1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F91606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:27:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1F91606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE63606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:29:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mnISHfT1
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15dd124bbe7so2098530c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:27:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794702452; x=1795307252; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u9+e/eGHjR73QRvGijIdIOH0R/G/DJBbLevQ8HFggAw=;
-        b=mnISHfT1ZwT0S7pwLXfYK1XT8B5W1NMnt3+b8uJOvqsR3PYKLTCSH9RRGvexEqN1lW
-         nbT/vGpIItUzSDwYG9pODU/ijNVun87sN2/1zYWxWPAQR0dOFnbm9C00imDKHW4ZtKHG
-         bv/JRjQ71fdigYHckXAvtGV/BMvLaKO3g2V8uwu1On8416qhMLS6szR2NYAnUHmT39ec
-         +d/MOVCbzYoH9+yslnPNfgKNYHlady3TvmJn4VQ0D4hRRs4lUlBEunWSWJyzKMJKAt/t
-         k6lufnxWNXtDyiC/LTVudEaspBO7HW+slPZ5ROwqH5+wIzx2sZF4Wtgr0A64iLWj2avV
-         XVFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794702452; x=1795307252;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u9+e/eGHjR73QRvGijIdIOH0R/G/DJBbLevQ8HFggAw=;
-        b=UGhwuH5UMZ3EiKmV49Wa/LkZQIrZFCojBMKC0HG4/Z2aLgdNvyN2LaFUlu67ujYgFi
-         JX+PbgzO/SnrQkCVwleonuozD4CjZx3UlFOEEq1NqjVEmzIKvSs4fjysLvfchWqgHMEz
-         1BHjEZmY+lQOFIEm6XuajNOlCj+wbzscumF5vmt16RzaawWlD5ESzCt1DHgHrQiU82Gx
-         FJ6LDYMMEiVZdcNlYbngOPnx+YwHjdhEJeSfj9PhTXmpgeTUTh6cuZGcN7Y9AvcwK7Jn
-         o0Uz/MQD1C+YTTt15ViD1BiJCqYAkbz1qazTIISIZPZaCE3JGRbFTVvC6RDs65wznvGQ
-         Lmaw==
-X-Gm-Message-State: APuU4Z/in/2Ki/j+u2Kxtm/3CaU0m4xAzRjQhkjXMZRh29pbQlnpbi0Y
-	ptZy2BO4pMKy3WH43UE1QCNSAbKMp7oSzZEpWsFCn2bto6+Z6ndM+KaW
-X-Gm-Gg: AYBFou28geqJmSGo370wT5Ffo0ZmFd/uoSAktvqVlvkjhOViZlgvCx921wID5Fos/XR
-	qiL6fXFdZfwMMxuao+LN58yCXBAMn+srTgzcYyCXfWaNV8Vc7ebjBcGiSBL8cxxOgAS1NDj8VEK
-	osH0dB/c3s84887ugO3+xZVtx/reRmfOd0ArhwU2v9kIvQYNvC9rEYi6/P26lwVxfZwLegGXk44
-	L2Hjtmj0WQOYRCpbTu1AjmUh9hHnwlH+8l9VaC6/eLQoedddkClsrlAokWfiI470IJ++BoLq+OG
-	FrdIBdB9UXDRqTo+nqImmq14mwkhTAEY5fh+U3ntuUN9p+DU+c+mcbHvY1WH1F9Gj/Jxp6M7lR9
-	Ad9RvZEEABItYf1jOsYCp9Nv0hSQSRSju4wHgyFLcPILyvboEF7RKyIg4AoIyOh2CXq68AjGD+G
-	0sb6mkn4S+7r9kRQ5vDa3wx2ZqD73zCzDIN8Uvb7dHR3hCPiNyrPe5pdGlNxKebl/qBsrpIe/2R
-	fQ/mLZgXXepo+DnvENEc9rhoHzGUuGYzBMd9iyKfnXqYc/esrll/hkivdHAawxi9XWVsoyynmGV
-	pR2kAP3tub8YM8TOH/0iX0R/F5JhzDpjvJHG+/9bd6AY+EHhvmBpKDBV3LgQDk4CATE=
-X-Received: by 2002:a05:7022:2529:b0:1b4:fa58:9d8 with SMTP id a92af1059eb24-1b5031759b2mr9369895c88.20.1794702451866;
-        Sat, 14 Nov 2026 16:27:31 -0800 (PST)
-Received: from [192.168.35.43] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b2b5sm16613754c88.1.2026.11.14.16.27.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 16:27:31 -0800 (PST)
-Message-ID: <2771f4fa-5c55-40f2-8105-0d72a715ee3c@gmail.com>
-Date: Sun, 15 Nov 2026 09:27:27 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAkZs5v1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C23B1F000C4
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:29:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794702596;
+	bh=enBhx9VQimcvOxaezFBJwJ0l0s5cxrvOgc+zxqU4vkc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lAkZs5v1XjB0EGqNipWP9Yxvhrwg/oaCSXGwoZzKsIQ8q2Ils+eZnEziSuHaKavSU
+	 GIgfQ3FADf07Sy095edgyeBPu9H5cdnDk420H07oR7XrK5/LsWc+XnvjAeN71rpHtI
+	 9L5FzFCcV/9hCP79aMiUyAjY6Lw/B9c4EUpFfxdUwOuFPePubtNQWR6BHnL/RJ+6Sd
+	 K/ET7+pWkgqo5zeZfLhq48sdLVdWl9Sghj0hI6TPlKtqmzVHoV1+mtgFH+M9QMWLPP
+	 1cF4oVO/Po4VZreRkUMdTHc+u0CJnWHIkUeo3rj6XgSDWgGtM02Zm9Y7pTXDjqX8rr
+	 iQODlsRjxVHSQ==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d21051042so408140966b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:29:56 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEfNpGvQw6/EdQ9Mek4QE4M2nBbuDBfuBVEP84dLwIIgoyPoBKD+Vibfd8tkLutX5Hkkj8Znyhs2ZdYktU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bHs8ehSCLUFGW60AJea3pUsaJVohbMeUhfRIq2dZYVpQGv8Pj
+	LvEipgrVLBvwn+FUJ2Ja88iCA+tcis92MWy1SYc+HQIQY1HqaXy00/FjTRdLfOuogrC7StFY/4b
+	kazdD9/ccWRBQOy2VGbO7TwlttNpw7cE=
+X-Received: by 2002:a17:906:ee85:b0:c4d:2895:e492 with SMTP id
+ a640c23a62f3a-c509636a10dmr492344866b.21.1794702594951; Sat, 14 Nov 2026
+ 16:29:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,67 +59,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH v2 2/4] PM / devfreq: Add more details to the
- get_cur_freq() comment
-Content-Language: ko
-To: Bean Huo <beanhuo@iokpp.de>, linux-pm@vger.kernel.org,
- linux-scsi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, "Martin K . Petersen"
- <mkp@kernel.org>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Stanley Jhu <stanleyjhu@google.com>,
- Bean Huo <beanhuo@micron.com>
-References: <20260907192140.2701755-1-beanhuo@iokpp.de>
- <20260907192140.2701755-3-beanhuo@iokpp.de>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20260907192140.2701755-3-beanhuo@iokpp.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261109173229.1921147-1-wahidzk0091@gmail.com> <20261114073451.367708-1-wahidzk0091@gmail.com>
+In-Reply-To: <20261114073451.367708-1-wahidzk0091@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sun, 15 Nov 2026 09:29:42 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9s8NSv9oa=ZLKXDD8UdB25SZ8ftTYO0Xij=dF6hSvL9A@mail.gmail.com>
+X-Gm-Features: AclHuK-m-Sdmrwl51aOuB0L1ae5zj9gizIwQS7njO6zY9g4NU8zJZfCUozdHAng
+Message-ID: <CAKYAXd9s8NSv9oa=ZLKXDD8UdB25SZ8ftTYO0Xij=dF6hSvL9A@mail.gmail.com>
+Subject: Re: [PATCH v9] ntfs: convert a named $DATA stream safely when making
+ room in a record
+To: Wahid Khan <wahidzk0091@gmail.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/8/2026 4:21 AM, Bean Huo wrote:
-> From: Bean Huo <beanhuo@micron.com>
-> 
-> The comment for ->get_cur_freq() only says that the device should
-> provide the frequency at which it is operating. It does not tell the
-> driver author which unit to use, what the return value means, or that
-> the frequency should be one of @freq_table. These have to be found by
-> reading the devfreq core.
-> 
-> Add these details to the comment.
-> 
-> Signed-off-by: Bean Huo <beanhuo@micron.com>
-> Reviewed-by: Avri Altman <avri.altman@sandisk.com>
-> ---
->  include/linux/devfreq.h | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/devfreq.h b/include/linux/devfreq.h
-> index dc1075dc3446..809ef29b9af5 100644
-> --- a/include/linux/devfreq.h
-> +++ b/include/linux/devfreq.h
-> @@ -90,8 +90,11 @@ struct devfreq_dev_status {
->   *			use this directly. Instead, governors are recommended
->   *			to use devfreq_update_stats() along with
->   *			devfreq.last_status.
-> - * @get_cur_freq:	The device should provide the current frequency
-> - *			at which it is operating.
-> + * @get_cur_freq:	The device should provide the frequency, in Hz, at
-> + *			which it is currently operating, and return 0, or a
-> + *			negative errno on failure. The frequency should be one
-> + *			of @freq_table, as it is used for the transition
-> + *			statistics.
->   * @exit:		An optional callback that is called when devfreq
->   *			is removing the devfreq object due to error or
->   *			from devfreq_remove_device() call. If the user
-
-Acked-by: Chanwoo Choi <cw00.choi@samsug.com>
-
--- 
-Best Regards,
-Chanwoo Choi
-Principal Engineer, Samsung Electronics
+On Sat, Nov 14, 2026 at 4:35=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> =
+wrote:
+>
+> When an attribute has to grow and the mft record is full,
+> ntfs_resident_attr_resize() walks the other resident attributes and
+> converts them to non-resident ones. For $DATA it always opens the
+> unnamed data inode of the base inode, even if the attribute found is a
+> named stream:
+>
+>   tvi =3D ntfs_iget(sb, base_ni->mft_no);
+>   ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
+>
+> value_len is the length of the stream, so it does not match the
+> attribute that ntfs_attr_make_non_resident() looks up for the unnamed
+> inode, and the WARN_ON() on entry fires:
+>
+>   WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
+>    ntfs_resident_attr_resize
+>    ntfs_attr_expand_locked
+>    ntfs_expand_for_write
+>    ntfs_file_write_iter
+>    vfs_write
+>
+> It does not need a damaged volume. A file with an alternate data stream
+> whose record has no room left is enough.
+>
+> Open a named stream by name with ntfs_attr_iget(), as is done for the
+> other attribute types in this loop, and keep ntfs_iget() for the
+> unnamed one. The loop runs with the mft record lock held and takes no
+> lock of the stream inode, so converting a stream from here needs more
+> care than the plain lookup gives:
+>
+> - A reader of the stream holds the folio lock and then takes the mft
+>   record lock in ntfs_read_iomap_begin_resident(), the conversion takes
+>   them the other way round and waits for folio 0. Take the folio with
+>   FGP_NOWAIT in this loop and skip the attribute if it is busy. The loop
+>   only tries to free space. The same inversion exists for the conversion
+>   of the attribute being resized, which waited for folio 0 with the lock
+>   held and hangs against an mmap fault or splice reader. Use FGP_NOWAIT
+>   there too. The resize then fails with -EBUSY while such a reader is
+>   stuck on the lock, instead of hanging.
+>   Do not look for room in other attributes either: the reader keeps the
+>   folio until the lock is dropped, so the attribute can neither be
+>   converted nor written without waiting for it, and the loop would only
+>   convert other attributes for nothing.
+>   FGP_NOWAIT also fails when the folio can not be allocated, so on
+>   failure look the folio up: only one that is there means a busy folio,
+>   otherwise return -ENOMEM.
+>
+> - A stream that is in the inode cache can be open, being written, being
+>   removed or already unlinked. A write that passed its residency check
+>   before the conversion carries on with a non-resident attribute, and
+>   a stream in the middle of ntfs_stream_finish_remove() is converted
+>   under its feet. Convert only a stream that is not cached.
+>
+> - An attribute inode of a file that has no links left is evicted on the
+>   last iput() with its dirty folio, so what was converted is lost and
+>   an open file reads its extended attributes back as missing. Convert
+>   nothing, of any type, in a file that is being deleted or has no links
+>   left.
+>
+> - The unnamed data is converted through the file's own inode, whose
+>   i_rwsem only a resize of the unnamed data itself holds. When a stream
+>   or an extended attribute is being resized, a writer of the file can
+>   have passed its residency check and carry on with a non-resident
+>   attribute (iomap_iter warnings, recursive mrec_lock). When the
+>   unnamed data is the attribute being resized, its conversion was just
+>   tried by the caller. Do not convert the unnamed data from this loop.
+>
+> - Do not convert the attribute that is being resized either. Its
+>   conversion was just tried and failed, for instance on a busy folio,
+>   and a second try that succeeds leaves the resize to go on with the
+>   resident layout of a record that is now non-resident.
+>
+> - The lookup of a stream ignores case, so a stream whose name differs
+>   only in case from an earlier one resolves to that one and the length
+>   does not match again. Compare the names exactly.
+>
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> Cc: stable@vger.kernel.org # v7.1+
+> Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+Applied it to #ntfs-next.
+Thanks!
