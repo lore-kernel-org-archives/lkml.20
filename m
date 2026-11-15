@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794774549;
-	b=pHUNACxDt/r0nyMtcr43lV+x9TghS4Dvj3KLY12ZO+pXb6nNT68nG2wmA+GRP5ApPKPc
-	 7uinyfbJ8a2A3C6/H9p4Fea96qpNgeUzVYmeJ0LACaUr1QTBbMG3ax5EM8j5aw3bW7/Jp
-	 Wj/zWwFbfSFvegepux6VdBFyPuMPWHXK+u/3IQpxRam0WF10RheyukakXdkFrITLPXy6d
-	 JPpWZH4BhiQplZfAjgZZCsEfeedeBWywx9UmvV59lVRXc6sDxVi8xTehKcTeF+ccNb9wW
-	 j6760vrVean+FbneskTOY7yRtJOWaQaPWKHrfkO3pIGGXeU2050+kobcWAU25zCof0w==
+	t=1794774550;
+	b=EvRE96bS+NGEDQVHiTXYoMJYLue4bnPQfI7TJu3NhySILSaMOk4ZRibUyXseNK6QpCm6
+	 SfQFFjvnTYVNTKEY2ajnnEzxwM6gigUT0rjyXyhzxxu91b+eXbrcDOW2GatWp1JIVd5qN
+	 L+8+k41d5AylwB8s+MZMltVLNrT//mUAJM7guehqAfvYzJf6yclWHr96a/7p1g9mirqg8
+	 7eunEJUJPKT86d1d88urITXB6j1mw6K4YdB8X5xKpfuOrvDJogsmV8v3ovA5B+GhqUOjf
+	 qdmJCy1Zi5OTqJwpyEv4KO+jr1LolgyO4hWyS4Se4cGlXlR5KtTP0zvwvzu3Smt6rUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774550;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ARYlsg/n7vm9LXNMaknzvoX3MBFuukEjb8T+Kwqr2mA=;
-	b=ziHRRtWjv8ANT0bGPjm2UTh3bGQCTCyHpBWM3ApMqjuaBO+oQk0/N2TRxt9jj1xXrX4f
-	 cA08Wo62bY7T93wJ3Wm7mqm+zrLK3mmojHzoremRZPw1ls/t1dlJVExHwz5EbRyuyiN9t
-	 5GrkFchPvoOWXflsZFpzZzHbSTGLEaOKk99jsPJX4EsOuXTRoOVxriMD5bDpHjUy05YrY
-	 TRmC/FSkk+M5TFcKEGuqitJJiuT779AF+E+Ro0zoF1yoRLtRwE0etdD813wWr6fSi63ok
-	 fvFZJjOUSTMWcpKufFVEtIGVfvOlAncpUZYr1n3nAh0SzoqnSqPBvzbtbTuWPeD3JmQ==
+	bh=sRVXEo9+L3IOL49loDwH1nSlcsh8gFIjIUafHWHgJ4s=;
+	b=ZpddpT9Oc3E5kCou8PnlJyFEdvUv9PeV23+dgfiE84ldlaf6DSCDVNjrBm3oaNU4CZkS
+	 8I4eS7gpr6mtLavvmLAZGUpHlKcxSRlzqBY65omm7foXE2qvg9B3hZZTbsNlLi/SBkDgT
+	 Ym7ZeH2ZqTRYfiOFRIN+8/KdU5XQaQac18Ulbj0WQYjrEUY771SnhHWq7GcvVf5PgbMaL
+	 0z8x9UlGuwrv2wlk3Vr11wSsR7c1GN5AnkdDoByWB6CIzif/dISMoYVfGOgTdYf5R9lOf
+	 +jrw0g5Q8rot7m5Xfn0FrFGs6Lr7F1NMAaTeFoOGoZzZ9pP4aYzoGHwsfJ+nnhuoknw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FrYHf+aD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsucGbY5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5507A606CC95;
-	Sun, 15 Nov 2026 20:29:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D29606B1C7;
+	Sun, 15 Nov 2026 20:29:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FrYHf+aD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15DEE1F000C6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsucGbY5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC311F000C7;
 	Sun, 15 Nov 2026 20:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774549;
-	bh=ARYlsg/n7vm9LXNMaknzvoX3MBFuukEjb8T+Kwqr2mA=;
+	s=k20260515; t=1794774550;
+	bh=sRVXEo9+L3IOL49loDwH1nSlcsh8gFIjIUafHWHgJ4s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FrYHf+aDyjeGulLS0Qi/lr/Lu6h/exWci9yJRgjUqTadEBun+0tUWoAWrHVaSKecq
-	 vleP6oiOGjHlDrFOL6lvW0FkNKpZmrV+WIlGXRLlF3mGoba7abva5MdOLTTvn+/+5T
-	 9wRJNtJNZkYqpmWm0fPM2Vj+9Ht3o4lUb6LY8jW0DMf/IPEBSdDPrOITEfXQGr1sRH
-	 URxrvfroT/gOz4jbXJeWlA5uY0OEVKT6t2mssWJkwuevSLbaUH7zpj0Z74iOxtwZpg
-	 ZT31ZvOkTwXq1/YHuMA1e+Vlo/A3dtr4RJXGDOWlfgVo56n3b0Bo8EYL0xatGwG7ka
-	 1H8ZwfTSIwT4w==
+	b=JsucGbY5PO0b0X2gdfNJLj7lr72dlBZusO/zeQGYSlouPpwvHXUVB9qA60l/jsLO6
+	 V2t1XdUQGqKZd0robpScWriS+bKO7CIhthDVrxO5Ul4jJz5HTdRjRhdnLH/F2US+Mx
+	 hSHIfg8lGPM1dNjKMk4KAPx9PWV+b2OfpUbAo98kP3oIu53fgKLcd7uMa2ZCXGEXjQ
+	 JA8c4Q5wCnwAfbXHTRO9KMlpE/GsyKI+R3xKhs2G7idJCz900lwi71USWiOYh6Cm2V
+	 TsTj+pDTstRodDHYUElmdoG+fbZKnYW+kritct46+02IJrDAiEZb9p2hVyf0tnSAvq
+	 xQV4xdjFXTsVA==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 20/27] mm/damon/api: introduce user_report report type
-Date: Sun, 15 Nov 2026 12:28:38 -0800
-Message-ID: <20261115202849.99134-21-sj@kernel.org>
+Subject: [RFC PATCH 23/27] mm/damon/sysfs: implement submit command for report producer
+Date: Sun, 15 Nov 2026 12:28:41 -0800
+Message-ID: <20261115202849.99134-24-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261115202849.99134-1-sj@kernel.org>
 References: <20261115202849.99134-1-sj@kernel.org>
@@ -62,31 +63,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Users could know some data attribute information and willing to provide
-that to DAMON.  Introduce a new damon_report_type,
-DAMON_REPORT_TYPE_USER_REPORT, for such user-provided reports.
+Let users manually submit a report of a data attribute for a given
+address range of memory.  Let producer_state receive "submit" input for
+that.  For the input, generate the report based on user inputs that are
+written to the appropriate sysfs files and submit to DAMON using the
+core API, damon_submit_report().
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- include/linux/damon.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ mm/damon/sysfs.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 0e43b669dfc49..329d8202b41db 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -753,9 +753,11 @@ struct damon_intervals_goal {
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 5f9bb1955dfd5..0049aac6ab974 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -3107,13 +3107,26 @@ static ssize_t producer_state_store(struct kobject *kobj,
+ {
+ 	struct damon_sysfs_producer *producer = container_of(kobj,
+ 			struct damon_sysfs_producer, kobj);
++	struct damon_report report;
++	int err;
  
- /**
-  * enum damon_report_type - Type of &struct damon_report.
-+ *
-+ * @DAMON_REPORT_TYPE_USER_REPORT:	User-generated report.
-  */
- enum damon_report_type {
--	NR_DAMON_REPORT_TYPES,
-+	DAMON_REPORT_TYPE_USER_REPORT,
- };
+-	if (sysfs_streq(buf, "on"))
++	if (sysfs_streq(buf, "on")) {
+ 		producer->enabled = true;
+-	else if (sysfs_streq(buf, "off"))
++	} else if (sysfs_streq(buf, "off")) {
+ 		producer->enabled = false;
+-	else
++	} else if (sysfs_streq(buf, "submit")) {
++		if (!producer->enabled)
++			return -EINVAL;
++		if (producer->report_type != DAMON_REPORT_TYPE_USER_REPORT)
++			return -EINVAL;
++		report.type = DAMON_REPORT_TYPE_USER_REPORT;
++		report.addr_range = producer->addr_range;
++		err = damon_submit_report(&report);
++		if (err)
++			return err;
++	} else {
+ 		return -EINVAL;
++	}
+ 	return count;
+ }
  
- /**
 -- 
 2.47.3
