@@ -1,59 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794773192;
-	b=1b6aoIq6tnjDIkoEsHNOAW+bqljBzCZ2YOB66ZeoHrcWloXORlP+Xz4ELbNnNUTl0/uQ
-	 Aro48KpPDRRDbxrdVLiyGHDro9T4tiGe22jixuoCr+6bRPyk4Pm3+Pu2TkNLPEghacJiy
-	 bCDkDq0Lp0aJwnYyKy3lmCb6TLtcmJmz0pD46ZGxq1O0wsyl01n4nsuET1cu3SuMuTX9L
-	 yJ/GeUrVHl+pJJ/Zr+r0J2DW8XH0UAfDULleBy8QlCabKTGxOKkaqx/wEN53I3uT303hg
-	 iKEcKTiJtlIr4Ojc8mzfkX916d6PslAW52p0IWyc/qwlkxKv87Yi/cSPmDafg5b02cA==
+	t=1794773203;
+	b=OxYmcVUpZ3J53bSctqXE+V+1NU66p+830W87td94Pka2RG41lF8YsYSSwlsuaHuJVbhc
+	 Z9iafLuFXRUpj5aGy9zC75IlMS1WE4Xiokq1oJND1Qh7E7wZV8Gb3n7oXh069rs02/Z8O
+	 OTU0JoewLpTl9Wyyc0MZk270xod7mCPXDIlFOMc5HXOl3bmEEDOXJWS/yRaggH7SISnOM
+	 ZLCKYi9KuH3J/3fTD9ZKVaZqiias/G8CFgBnPNLIDBxGPFtURldWaLYK6HNKX2OXEzROG
+	 L4UNgZFma25ikWMt3w/fe/WawPhvZuh17GYL2bN8B1xiaqrHgg1kvBfPYCqEZLvHxzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794773192;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794773203;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
 	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
-	b=E/untW6/reUPvy+egSfmvXLBKfxdiV8HsdFInEzIGw8m0VAZztzMg2d5uycQm0NrC0TY
-	 JO3EvAVg7kNxaEIr0sjg3rWs621AW7PglG2ogwQw0zMJu/e1L19/mLrBIHfTKSHBdj8QW
-	 JbG5Ui3hQQaxaVPapgtZzW80Xnvo+TvEeRmdBjPekH+g6960wmu3jXYBRSHFlQ5zf+oTs
-	 jJI3SjEfU7i33UMGZrEcvyHkNpUyoPo9G05OWCY+thOQuq1kBGlcuhIDxa0v/+dMWafxB
-	 5J5yLb9K1gauId6AwzsGRxvgEhNxsEe6nCbIGw6BJsLEHC/4c0ZPW1tH2neptV6R23w==
+	b=FegrIPvODOEzqKHv8Rsml+EnC09v68w3H734EdRf0fT0aesYN+B19FsZ5wGUBNG8jiU6
+	 NDJ7tof8Mg0IhheOGtaHkS6E1RpwUwoATf5pkPbRHT3b9yz8HORIMysQwKQbXDLU23s85
+	 lV0R4JyvDG6kFaxcO4vbbK4HYvvVXTjrWr+KERHN0tHm2eXFcF96RgtR9WHc2RCMy8q9b
+	 KidYcB3a8SfHGuPTOkC5Tg0FeACDwrCC+C76dY1A3im9xjMfUPCzoft+WQgwtbGmSIb06
+	 8lm7afTz/16CqCeSl+groo7Tqy5Pxu2G46r4oG12Ldf4EelMqomvA1nb7S1v2xw3tLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3SIcwOC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkz+ZLjM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA09F606A31F;
-	Sun, 15 Nov 2026 20:06:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDAC606A323;
+	Sun, 15 Nov 2026 20:06:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3SIcwOC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD551F000C4;
-	Sun, 15 Nov 2026 20:06:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkz+ZLjM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676D01F000C8;
+	Sun, 15 Nov 2026 20:06:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794773192;
+	s=k20260515; t=1794773203;
 	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K3SIcwOCpAW1rB3gE+koWlEgwQPfWeE4wSA4j5bsLpplLrp/TwNqFxfcFSUwO97BD
-	 Vi5ix5BPyoSmmghUJjFLN1OkZxU3pLMyJ6aK8sL+OZwGszNAa4z4+XlirOqJrSl5PM
-	 h6rQPR0CDfXLF4Xo/vmLaT3eOY492B+zlR7vs844VbM2nB4ewcUiiO63akYV3pXkkN
-	 wKJ94Irp1NK7xQ2P5KpnoiZP4Rinp8xpjmrVZShkutTw3/qIG35wZ+xCwT5Fv1oIaV
-	 /UAUthcyDi9XqHC3BEK/QVXH8niUHXxIp6NM2DXBGp6LEvmVCAfHX1ZTKufaxHY21A
-	 d30cgOUAzuNwQ==
+	b=mkz+ZLjMQQbWj3jrrdh2wqUEdfHCES6fcwj6quLYq2oPcpHhVEkpk28Ai8q13VLpt
+	 puqsQB7qBEyhTBMPRydgOUgNIGieSiMGR7A0XOpJhSgWY3WrWhLoWxdeRRhUjLG49+
+	 cMBpAiI5qihDdSCNzfNPUjMXd9fzaVNcERYAAi6CCDWMRJSDO22yL6XPJQsM4prkeZ
+	 +prUQ215c/ssZ6UA3LzDe2LRPny3uKazM+X7Wt9AAllEJruJQdVbUGsUEmBDfxWZaT
+	 uQqyk01HZNw2xUwPouzjS+lyRYlXiEnL/FUDEgrgCiTf6M9lTD4uvxpUtc8gpDDI53
+	 y9XGfBdMc0N+Q==
 From: netdev-bot+sinfo@kernel.org
-To: Daniel Wade <danjwade95@gmail.com>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+To: Julius Bairaktaris <julius@bairaktaris.de>
+Cc: Nikolay Aleksandrov <razor@blackwall.org>,
+ Ido Schimmel <idosch@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org,
+ bridge@lists.linux.dev, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: af_key: fix use-after-free in dump_sp() on
- policy migrate
-Date: Sun, 15 Nov 2026 20:06:31 +0000
-Message-ID: <179477319143.3291.12335649021318391220@kernel.org>
-In-Reply-To: <20261114223529.1791-1-danjwade95@gmail.com>
-References: <20261114223529.1791-1-danjwade95@gmail.com>
+Subject: Re: [PATCH net-next v2 0/2] net: dsa: fix host fdb refcount when an
+ entry roams
+Date: Sun, 15 Nov 2026 20:06:41 +0000
+Message-ID: <179477320197.3291.2172653342533166243@kernel.org>
+In-Reply-To: <cover.1794696608.git.julius@bairaktaris.de>
+References: <cover.1794696608.git.julius@bairaktaris.de>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
