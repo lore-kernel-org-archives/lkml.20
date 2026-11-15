@@ -1,110 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794737424;
-	b=Ou0j5cG62dec6lPsgg6EjfOErw8aOx1tgVLmhcjIfs7fjipuzHAYP9OYoBpzuD/Kav9G
-	 mOpGKUQaeKPLiWps/9ifzc8OznfGJ3ihP3mfECsttVQnpgULcVl/XNo8FY6vv8OZ0uCik
-	 9ET+DAcZW1IF2Hu4NjhB+/s4r/cxx+vnpz6EKjAqZTf+b393qSkiROZZi4YT2dDJ3HLQf
-	 6RezhsLlDnCWnsEls+MVB5t4a5Yk22G+NXI+6eok6VlPLx8F+HaLJCF4zvQHIHGPxP8Oo
-	 5JXX4vu25x7wbs5Onjs4GulA9QoziKhji/4Zug0OR2bFmYHL3kn3LOnMGuSCPCwxEiA==
+	t=1794737601;
+	b=non0hSIcsLjyav+TD8E/+FZKyTi9aYC0O3NzjRfH5K+zMFiW7eeEHojJhyP1GNoff0rG
+	 xbbl3UChnNOK09OF7XrJ3FfBAkaEYSC00FHidcKFJx7gb4OaRIGZRVM62r18bcpnyUe7I
+	 rPuw6Km1AodmvwRWKIm9vgTj923O8GzlMjX7BHdLw+xHpOg8Ase1wfVXbFrbY9i2frDeu
+	 gXGfisyrtobMzfluNXGnPxtchaoQA8f5UEfRSTB5STuo0KSNdu1y3wzqwOXeCcG5E68qx
+	 nUJB7tO+M4ehRGUhm3ONNsiLdk95qljOSD+Nq//e4PcVf4xhBduvIYR/soEL9U/wmog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794737424;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=jZbPE80Um1vaL8XJX138DxP5RpxO+K91varTjkhX3aQ=;
-	b=PrClgKVcF6R0bT2JrT1SZNVdioKxL2kvQ50kW/qv3tr7AU6TT3+f2Af4UrLeyHhS20V5
-	 k3zNfgTQWtmUh2mqmDLq4UyPm9gpGZfVkCGN9V+c3X4MAU9eTXFT+VniVTeSCWjpe6AKf
-	 ju1gcHTf6DtYzWhdMer5NqFP05K5eZ1H4Q/M86tKJKqcdN5k1m5nk5WpcVgBEdMK70c5h
-	 WJm7TFPukkbRn9OszjF4Vw0DNPtsRaugCbD+d2HqKCCkikxkhT16vdX4R8Qq3as6zjr89
-	 Ttm1xgARcF/+lllHESgr0Whn/Gc2oGeEBsniI95VTIzK25AC9cJKrFLyaYnCeKGShxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794737601;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=jtnXHcWywjlfBkVLTsyb8zYKyCaVO1U2rJtTlOc5KvQ=;
+	b=ZBnwiCZqgYFvY2Uo0JJgYas1Rm9W6gXH0klx8nOuC5Izyg44RDxKzegtOY0quYEGcmKg
+	 /UpiSevbvkOnKFxluFwkTrXPFkQfkbYL2nrTcAyAI7jsU1gwUUMhCoiYoj+WVDpTDs9wJ
+	 XxDA+QI2F9G+fxnqc8ij64jhGRs1kJiwB0V+ILBGvaTMcSMCTgCEn6oDGS5vWwn35FBEU
+	 ITozTKklXKXibwNsUN9knbvLmvRaPnwyMhr9zKedXVOMzf03z6tsdetFCTk1hr0j4zGOX
+	 +RsCbBhTZxXdt1qoDhyh+wr8a00tcNxbwVPpSWwacWzQDubPdIU41OCeeeS6/dJJjgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Hz9JkJwT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UQ5usyu5;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVfcAlFk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01871606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:10:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01871606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC78B606A332;
+	Sun, 15 Nov 2026 10:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Hz9JkJwT;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UQ5usyu5
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AF7xRBS538660
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:10:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jZbPE80Um1vaL8XJX138DxP5RpxO+K91varTjkhX3aQ=; b=Hz9JkJwT/gzveF3G
-	3VNvnsO9hYMAqIaKP7R0fbgt0tUmRuINmVcKxUCy4ytg3J8cAe8DQYisIj4FT9cR
-	3ZHIIY1EMknBi/UMGuLeASZALvPJtlMLs2JxTLH/GItVc2dMaO3dj4Gv2zT2GF1U
-	ddo6M2aQzYthjFVNCVhwSLSvlgU9maHO70YTuTRtVRZiTeBsvC6j3ISjhhxDTdLQ
-	i1kjw4hnvztF/u0fSfyFUBvMHgetZfD7POFJVZXYkeoWVScfOOIeQKSbBNsnvAgd
-	98Q8updj2DkR8V6Sy8EWbljWLnqLXctHtZHz17Q4pbW+JAla74ykoeud3EjjJWit
-	nGQpUw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhmcapnc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:10:22 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f2373e9b4so264819385a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:10:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794737421; x=1795342221; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jZbPE80Um1vaL8XJX138DxP5RpxO+K91varTjkhX3aQ=;
-        b=UQ5usyu53iyPHsHm3/gNETB4mL2TnBACysh2K3oZo3v1AInamTdjnbLTHRPQFVJYL5
-         WSS3dJYFv/IlV5UzjzdAtM1P08eLMl9eJoAzRsdXYw5foMe5rmG/+QpVKEK1sX8TjQBH
-         nI9kzLtYxEzMJsZDbpCDCTVedXn4D5s0y3lr+GV8UbSHCBYOwvjfTmqFrUMLOCvVtqh6
-         bYPPPFbN51CbeqWO4jY4z/VFUjalRKU3jeVg++GJ1bXmfANxfaNwQfyCEZCW3uL0qpa9
-         LEV1x+niCKvBu6k7D8ItaIQvND8Ndaz7QG5a9Z2Zfbb/HbEFMgtd73TdVDBepMHGzCE7
-         oZ3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794737421; x=1795342221;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jZbPE80Um1vaL8XJX138DxP5RpxO+K91varTjkhX3aQ=;
-        b=z0A5dSa2CeBQt3KTiTA+vWzPao7pFkU7MvMTxrBk2lugIaHIsFs792YKINn7M8u1Ra
-         JgAAFKiyAGdGT+Y70xQkjN8wYIxM/niDPT8nC7rz0zAcDEHmIQzISALYx3b1KOSaSWol
-         SFvq/ilcniOfi82hqFFNAgtNn8CECWCH+6rWpNmXixOro/WaVwya+wP6HWggrQqCTcHS
-         mPkpspV4hTQw6gn3wnlXa/37Xd/tAW2pja05mACWhlPGnb6TO6xesoG1vuDOYmFfjyAC
-         6xga8kDV7GaWTrXCr5dJmgegPnZilGj2KhYQpkTaCOGguZKXExLu5pMpQ3Y2Tp48Rx4O
-         OQDA==
-X-Forwarded-Encrypted: i=1; AL+hErFdZfJ2lb75WnrxJcqF1hnCLvstZTJ/dSgDZg6QMTL8JSGvZbeWRu/PBXhpmVQ9seJlf8hHZ3bFT9trPQA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/22UlibzfnsAel41HKYi3IEjjp3qhl6hy+nZx+CtC6QygTrLsc
-	VfjymsreqBCKt4dbyY3gYY53NQWZ8dheJ4NZhovUA+kc3W3nzt63GzRtupEguy7kPQEXZTY2h9c
-	CvoiWWwV5hczUleej1sHrwTqnY85352t58mG/kz8dJfoB8ENakdaoZtZszBpfT1tQnnM=
-X-Gm-Gg: AYBFou1tsMXZqUUVsbiG2Z1N7dSW0q/BT7zuLwA8knDOO1UtioNk4NAVbSYTFWdtbcD
-	Jn/mpf7nzyEmz16yROrmpg/LoAGq/FISvH9zRy+qnqLIYw1Ec1zi5iv+4tbYHQzncv5x2O2+TPG
-	+ztU/HEAac8RSyDE68MGSqkRxZBybxRFuLzMwP9bdinm6HAFy/bjrjA1RiLUHcPeaVpd4C8HT0V
-	Ozcp3NTXYHC3J3ov20mqZIRsyoVfUe/YxrG542AY9jdfQX/VlMhkXA+kHxEG0cK3Mfk8pDWuybk
-	Ha5pfllqa34yi3uhsWUuUx9jwz6nTWpq8b/93TsfuLLe/q0SwpU4hRXr6e7jh/3sEH33Er+FAdK
-	aY5ayGpDmjzYWiD8cByv2KW5pnU0EtOBVpJZRy6oCs+gj4CrBBr96VHn79AvBcLt4Fo+B35ZFxP
-	biCAKGf7Ruiq1DDEOWfg==
-X-Received: by 2002:a05:620a:439b:b0:93f:228c:52fc with SMTP id af79cd13be357-9494bc410f7mr1140000785a.58.1794737420857;
-        Sun, 15 Nov 2026 02:10:20 -0800 (PST)
-X-Received: by 2002:a05:620a:439b:b0:93f:228c:52fc with SMTP id af79cd13be357-9494bc410f7mr1139997885a.58.1794737420210;
-        Sun, 15 Nov 2026 02:10:20 -0800 (PST)
-Received: from [172.20.10.5] (82-132-234-47.dab.02.net. [82.132.234.47])
-        by smtp.googlemail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23cf6e9sm3264633a12.20.2026.11.15.02.10.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 02:10:18 -0800 (PST)
-Message-ID: <ae296de2-15fb-4c9d-8fec-26a370b167b4@oss.qualcomm.com>
-Date: Sun, 15 Nov 2026 10:10:14 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVfcAlFk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3B01F000C9;
+	Sun, 15 Nov 2026 10:13:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794737601;
+	bh=jtnXHcWywjlfBkVLTsyb8zYKyCaVO1U2rJtTlOc5KvQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aVfcAlFk1paqR72wQl8cNVKs7vs2VIt/BCaW7ml8GhqH9jry/Wec2xv8RkpLZErjh
+	 /PyPbPNz/8tjZCcMaAJe7dxjz9FIOL6nq+ZBCB6FMa5YXHWQ4nceAGmYSvwnvp0ERx
+	 /Cm2A7Ltwg3cqbnimbRwmyZom+QHmpJGQRL3Jrbztdeyw2stxdMNLH/NUa+mJSkMW5
+	 7QgEIZAbcrfKjxC1TA8bhIAI9EUyLAcDML4DlMudWIi2SCGkBzUgfRTcroaqu3AXp0
+	 n6QEAafMa3TCLhWkpVAPzRnFA3esyymC74VBOv8mWku/2X+406Y950nIqXFpZJgyvf
+	 JYB/LOYV9iUOg==
+Subject: Re: [PATCH net-next 2/2] net: sgi: ioc3-eth: fall back to the
+ platform MAC address
+From: netdev-bot+sashiko@kernel.org
+To: kaloz@kernel.org
+Cc: tsbogend@alpha.franken.de, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 15 Nov 2026 10:13:20 +0000
+Message-ID: <179473760071.2199510.16065103101920438822@kernel.org>
+In-Reply-To: <20261111095138.1757-3-kaloz@kernel.org>
+References: <20261111095138.1757-3-kaloz@kernel.org>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,423 +63,286 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ASoC: qcom: lpass macro / soundwire: retry deferred
- clock acquisition
-To: yass27106 <yass27106@gmail.com>, andersson@kernel.org, broonie@kernel.org,
-        srini@kernel.org, konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
-        tiwai@suse.com, perex@perex.cz, lgirdwood@gmail.com,
-        pierre-louis.bossart@linux.dev, yung-chuan.liao@linux.intel.com,
-        abelvesa@kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <5cfd0705da5845b88ffe6d9e8bfeb966@gmail.com>
- <90d9d32bd8d44c4f97ca3af4e1bc5481@gmail.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <90d9d32bd8d44c4f97ca3af4e1bc5481@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDA0MCBTYWx0ZWRfXyQR6rYio5ffy
- telv1BtnfHZ1+U+3vX+81KF2IyeliQmaGwQHS1G0IZCroCHnUzExchR1oAgA/sGv4CQwE7f9sQt
- YNZdyspuCHYj6qohjP8n2bqp00nT7BU=
-X-Proofpoint-ORIG-GUID: uf0yLyXckyvHPgMRHIkATt5O_ye1w9F5
-X-Proofpoint-GUID: uf0yLyXckyvHPgMRHIkATt5O_ye1w9F5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDA0MCBTYWx0ZWRfX78tFR11b5gt8
- c8QI+olsvAmd1LgHvf8SgjYBljAZ9BVBcTs6sr9JNpIjNfqWaVMwfl1hUEkm7TEfAUPOSB4oFMD
- F9fliI3ITvqHkeVprZT344DI/UKBLD+pZWZrKPNoff0mS6XlDyCr0mDTeZ3H2edCYz2UcrTRexM
- Ct9CM15TiYL03A4p1p4nVdhWzmxzcCcH38m1xrg69Q3VwjJAS1B2tPA9VNz463X/+HnEpwC5MJW
- Vkce4F0/nqBUyIJM5HOT1hU8tLxWvDiOnkaUGKtNZUKLLh1jOr7IC2qi3RjO52+IrzDqumDL4y7
- Kw48Kk06bMePlDVbUOUCM4z5uk5Kz49pbd4WFcIl1BlIedzv0m3mDdqpIAvnQXN239sxEbOyEWf
- Q5xqohjlOcIe9k3RcEvovka0ZlNTV8Y9F99X7Lr+wOqjHilVEE/np2mtdtFrURzoxJvrYR+rn1z
- OVhNeAJerRDmZmtPHQw==
-X-Authority-Analysis: v=2.4 cv=Vpy2kO2n c=1 sm=1 tr=0 ts=6af9850e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=AI3hfGQ59aOwaD8qyfpUrw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=ZP6RTSIIFES_E-Ul-7cA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-15_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0
- phishscore=0 priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611150040
 
-On 11/13/26 1:24 PM, yass27106 wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 (2) · Medium: 3 · Low: 0
 
-Please explain the problem, its hard to review this without a commit log.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
---srini
+- [Medium] The new 'or from the platform' fallback in ioc3eth_probe() can
+  never succeed for any ioc3-eth device in the tree.
+- [Medium] The patch puts a permanent random-MAC fallback on every IOC3
+  platform, not just Fuel.
+- [Medium] net: sgi: ioc3-eth: premature platform MAC fallback in
+  ioc3eth_probe()
 
-> drivers/soundwire/qcom.c           | 37 +++++++++++++++++++++++-
->  sound/soc/codecs/lpass-rx-macro.c  | 45 ++++++++++++++++++++++++++----
->  sound/soc/codecs/lpass-tx-macro.c  | 45 ++++++++++++++++++++++++++----
->  sound/soc/codecs/lpass-va-macro.c  | 43 +++++++++++++++++++++++++---
->  sound/soc/codecs/lpass-wsa-macro.c | 45 ++++++++++++++++++++++++++----
->  5 files changed, 195 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 6e0c5fb10ef..cb50cf239cd 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -21,6 +21,41 @@
->  #include <sound/pcm_params.h>
->  #include <sound/soc.h>
->  #include "bus.h"
-> +#include <linux/delay.h>
-> +
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registration
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-> +
-> +static struct clk *clk_get_retry_optional(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get_optional(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
->  
->  #define SWRM_COMP_SW_RESET					0x008
->  #define SWRM_COMP_STATUS					0x014
-> @@ -1669,7 +1704,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->  		goto err_init;
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  ioc3eth_probe() never calls platform_set_drvdata(pdev, dev).
+- [High] This problem wasn't introduced by this patch, but
+  ioc3eth_probe() registers its handler with…
+
+--
+
+net: sgi: ioc3-eth: fall back to the platform MAC address
+
+With this patch, ioc3eth_probe() calls eth_platform_get_mac_address()
+when the 1-wire MAC PROM cannot be read. The probe now defers only while
+driver_deferred_probe_check_state() returns -EPROBE_DEFER. After deferred
+probing gives up, the netdev is registered with a random MAC address.
+
+> diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
+> index 25139cf5ff62c..5296614bf3fb8 100644
+> --- a/drivers/net/ethernet/sgi/ioc3-eth.c
+> +++ b/drivers/net/ethernet/sgi/ioc3-eth.c
+
+[ ... ]
+
+> @@ -857,9 +858,16 @@ static int ioc3eth_probe(struct platform_device *pdev)
+>  		dev_err(&pdev->dev, "Invalid resource\n");
+>  		return -EINVAL;
 >  	}
->  
-> -	ctrl->hclk = devm_clk_get(dev, "iface");
-> +	ctrl->hclk = clk_get_retry(dev, "iface");
->  	if (IS_ERR(ctrl->hclk)) {
->  		ret = dev_err_probe(dev, PTR_ERR(ctrl->hclk), "unable to get iface clock\n");
->  		goto err_init;
-> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-> index c41eb8de616..5d893960dd8 100644
-> --- a/sound/soc/codecs/lpass-rx-macro.c
-> +++ b/sound/soc/codecs/lpass-rx-macro.c
-> @@ -18,6 +18,41 @@
->  #include <linux/clk-provider.h>
->  
->  #include "lpass-macro-common.h"
-> +#include <linux/delay.h>
-> +
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registration
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-> +
-> +static struct clk *clk_get_retry_optional(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get_optional(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
->  
->  #define CDC_RX_TOP_TOP_CFG0		(0x0000)
->  #define CDC_RX_TOP_SWR_CTRL		(0x0008)
-> @@ -3780,25 +3815,25 @@ static int rx_macro_probe(struct platform_device *pdev)
->  	if (!rx)
->  		return -ENOMEM;
->  
-> -	rx->macro = devm_clk_get_optional(dev, "macro");
-> +	rx->macro = clk_get_retry_optional(dev, "macro");
->  	if (IS_ERR(rx->macro))
->  		return dev_err_probe(dev, PTR_ERR(rx->macro), "unable to get macro clock\n");
->  
-> -	rx->dcodec = devm_clk_get_optional(dev, "dcodec");
-> +	rx->dcodec = clk_get_retry_optional(dev, "dcodec");
->  	if (IS_ERR(rx->dcodec))
->  		return dev_err_probe(dev, PTR_ERR(rx->dcodec), "unable to get dcodec clock\n");
->  
-> -	rx->mclk = devm_clk_get(dev, "mclk");
-> +	rx->mclk = clk_get_retry(dev, "mclk");
->  	if (IS_ERR(rx->mclk))
->  		return dev_err_probe(dev, PTR_ERR(rx->mclk), "unable to get mclk clock\n");
->  
->  	if (flags & LPASS_MACRO_FLAG_HAS_NPL_CLOCK) {
-> -		rx->npl = devm_clk_get(dev, "npl");
-> +		rx->npl = clk_get_retry(dev, "npl");
->  		if (IS_ERR(rx->npl))
->  			return dev_err_probe(dev, PTR_ERR(rx->npl), "unable to get npl clock\n");
->  	}
->  
-> -	rx->fsgen = devm_clk_get(dev, "fsgen");
-> +	rx->fsgen = clk_get_retry(dev, "fsgen");
->  	if (IS_ERR(rx->fsgen))
->  		return dev_err_probe(dev, PTR_ERR(rx->fsgen), "unable to get fsgen clock\n");
->  
-> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-> index 6deaaabe43a..4b8635cc2b2 100644
-> --- a/sound/soc/codecs/lpass-tx-macro.c
-> +++ b/sound/soc/codecs/lpass-tx-macro.c
-> @@ -16,6 +16,41 @@
->  #include <linux/clk-provider.h>
->  
->  #include "lpass-macro-common.h"
-> +#include <linux/delay.h>
-> +
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registration
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-> +
-> +static struct clk *clk_get_retry_optional(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get_optional(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
->  
->  #define CDC_TX_CLK_RST_CTRL_MCLK_CONTROL (0x0000)
->  #define CDC_TX_MCLK_EN_MASK		BIT(0)
-> @@ -2258,25 +2293,25 @@ static int tx_macro_probe(struct platform_device *pdev)
->  
->  	tx->data = device_get_match_data(dev);
->  
-> -	tx->macro = devm_clk_get_optional(dev, "macro");
-> +	tx->macro = clk_get_retry_optional(dev, "macro");
->  	if (IS_ERR(tx->macro))
->  		return dev_err_probe(dev, PTR_ERR(tx->macro), "unable to get macro clock\n");
->  
-> -	tx->dcodec = devm_clk_get_optional(dev, "dcodec");
-> +	tx->dcodec = clk_get_retry_optional(dev, "dcodec");
->  	if (IS_ERR(tx->dcodec))
->  		return dev_err_probe(dev, PTR_ERR(tx->dcodec), "unable to get dcodec clock\n");
->  
-> -	tx->mclk = devm_clk_get(dev, "mclk");
-> +	tx->mclk = clk_get_retry(dev, "mclk");
->  	if (IS_ERR(tx->mclk))
->  		return dev_err_probe(dev, PTR_ERR(tx->mclk), "unable to get mclk clock\n");
->  
->  	if (tx->data->flags & LPASS_MACRO_FLAG_HAS_NPL_CLOCK) {
-> -		tx->npl = devm_clk_get(dev, "npl");
-> +		tx->npl = clk_get_retry(dev, "npl");
->  		if (IS_ERR(tx->npl))
->  			return dev_err_probe(dev, PTR_ERR(tx->npl), "unable to get npl clock\n");
->  	}
->  
-> -	tx->fsgen = devm_clk_get(dev, "fsgen");
-> +	tx->fsgen = clk_get_retry(dev, "fsgen");
->  	if (IS_ERR(tx->fsgen))
->  		return dev_err_probe(dev, PTR_ERR(tx->fsgen), "unable to get fsgen clock\n");
->  
-> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-> index 03d6434a4a1..fda1bbada11 100644
-> --- a/sound/soc/codecs/lpass-va-macro.c
-> +++ b/sound/soc/codecs/lpass-va-macro.c
-> @@ -19,6 +19,41 @@
->  #include <sound/tlv.h>
->  
->  #include "lpass-macro-common.h"
-> +#include <linux/delay.h>
-> +
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registration
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-> +
-> +static struct clk *clk_get_retry_optional(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get_optional(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
->  
->  /* VA macro registers */
->  #define CDC_VA_CLK_RST_CTRL_MCLK_CONTROL	(0x0000)
-> @@ -1557,15 +1592,15 @@ static int va_macro_probe(struct platform_device *pdev)
->  
->  	va->dev = dev;
->  
-> -	va->macro = devm_clk_get_optional(dev, "macro");
-> +	va->macro = clk_get_retry_optional(dev, "macro");
->  	if (IS_ERR(va->macro))
->  		return dev_err_probe(dev, PTR_ERR(va->macro), "unable to get macro clock\n");
->  
-> -	va->dcodec = devm_clk_get_optional(dev, "dcodec");
-> +	va->dcodec = clk_get_retry_optional(dev, "dcodec");
->  	if (IS_ERR(va->dcodec))
->  		return dev_err_probe(dev, PTR_ERR(va->dcodec), "unable to get dcodec clock\n");
->  
-> -	va->mclk = devm_clk_get(dev, "mclk");
-> +	va->mclk = clk_get_retry(dev, "mclk");
->  	if (IS_ERR(va->mclk))
->  		return dev_err_probe(dev, PTR_ERR(va->mclk), "unable to get mclk clock\n");
->  
-> @@ -1610,7 +1645,7 @@ static int va_macro_probe(struct platform_device *pdev)
->  		goto err;
->  
->  	if (va->has_npl_clk) {
-> -		va->npl = devm_clk_get(dev, "npl");
-> +		va->npl = clk_get_retry(dev, "npl");
->  		if (IS_ERR(va->npl)) {
->  			ret = PTR_ERR(va->npl);
->  			goto err;
-> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-> index 899c8bee464..437a0876a8b 100644
-> --- a/sound/soc/codecs/lpass-wsa-macro.c
-> +++ b/sound/soc/codecs/lpass-wsa-macro.c
-> @@ -19,6 +19,41 @@
->  
->  #include "lpass-macro-common.h"
->  #include "lpass-wsa-macro.h"
-> +#include <linux/delay.h>
-> +
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registration
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
-> +
-> +static struct clk *clk_get_retry_optional(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
-> +
-> +	for (i = 0; i < 60; i++) {
-> +		c = devm_clk_get_optional(dev, id);
-> +		if (!IS_ERR(c) || PTR_ERR(c) != -EPROBE_DEFER)
-> +			return c;
-> +		msleep(500);
-> +	}
-> +	return c;
-> +}
->  
->  #define CDC_WSA_CLK_RST_CTRL_MCLK_CONTROL	(0x0000)
->  #define CDC_WSA_MCLK_EN_MASK			BIT(0)
-> @@ -2701,25 +2736,25 @@ static int wsa_macro_probe(struct platform_device *pdev)
->  	if (!wsa)
->  		return -ENOMEM;
->  
-> -	wsa->macro = devm_clk_get_optional(dev, "macro");
-> +	wsa->macro = clk_get_retry_optional(dev, "macro");
->  	if (IS_ERR(wsa->macro))
->  		return dev_err_probe(dev, PTR_ERR(wsa->macro), "unable to get macro clock\n");
->  
-> -	wsa->dcodec = devm_clk_get_optional(dev, "dcodec");
-> +	wsa->dcodec = clk_get_retry_optional(dev, "dcodec");
->  	if (IS_ERR(wsa->dcodec))
->  		return dev_err_probe(dev, PTR_ERR(wsa->dcodec), "unable to get dcodec clock\n");
->  
-> -	wsa->mclk = devm_clk_get(dev, "mclk");
-> +	wsa->mclk = clk_get_retry(dev, "mclk");
->  	if (IS_ERR(wsa->mclk))
->  		return dev_err_probe(dev, PTR_ERR(wsa->mclk), "unable to get mclk clock\n");
->  
->  	if (flags & LPASS_MACRO_FLAG_HAS_NPL_CLOCK) {
-> -		wsa->npl = devm_clk_get(dev, "npl");
-> +		wsa->npl = clk_get_retry(dev, "npl");
->  		if (IS_ERR(wsa->npl))
->  			return dev_err_probe(dev, PTR_ERR(wsa->npl), "unable to get npl clock\n");
->  	}
->  
-> -	wsa->fsgen = devm_clk_get(dev, "fsgen");
-> +	wsa->fsgen = clk_get_retry(dev, "fsgen");
->  	if (IS_ERR(wsa->fsgen))
->  		return dev_err_probe(dev, PTR_ERR(wsa->fsgen), "unable to get fsgen clock\n");
->  
+> -	/* get mac addr from one wire prom */
+> -	if (ioc3eth_get_mac_addr(regs, mac_addr))
+> -		return -EPROBE_DEFER; /* not available yet */
+> +	/* get mac addr from one wire prom, or from the platform */
+> +	if (ioc3eth_get_mac_addr(regs, mac_addr) &&
+> +	    eth_platform_get_mac_address(&pdev->dev, mac_addr)) {
 
+[Severity: Medium]
+Does this ordering let the platform address win before the 1-wire PROM
+has had a chance to appear?
+
+eth_platform_get_mac_address() runs as soon as ioc3eth_get_mac_addr()
+fails. That happens before driver_deferred_probe_check_state() is
+consulted at all. On the first probe attempt the PROM nvmem device
+essentially never exists yet:
+
+- mfd_add_devices() registers the ioc3-eth cell before the sgi_w1 cell
+  in ioc3_eth_cells[].
+- sgi_w1_probe() only registers the master with w1_add_master_device().
+  The bus search runs later in the asynchronous w1_process() kthread.
+- The nvmem device only appears once w1_ds250x binds the slave in
+  w1_eprom_add_slave().
+
+The IOC3 MFD cells have no of_node, so eth_platform_get_mac_address()
+falls through to arch_get_platform_mac_address(). That hook takes no
+device argument and returns the same system-wide address to every
+caller.
+
+Suppose a platform implements that hook, as I assume the rest of the
+IP35 series does for Fuel. Then every IOC3 in the machine takes the
+system-board address on its first probe and never defers. That covers:
+
+- PCI add-on IOC3 cards such as CAD DUO, MENET or MENET4
+- IOC3s in secondary IO bricks
+
+All of these carry their own factory PROM. Their real addresses are
+ignored, and several interfaces end up sharing one MAC. That breaks as
+soon as two of them sit on the same segment. Nothing re-reads the PROM
+later, so the duplicate address stays for as long as the device is
+bound.
+
+Should the platform address only be consulted once
+driver_deferred_probe_check_state() stops returning -EPROBE_DEFER? If
+that brings back the long boot delay on Fuel, could the platform
+fallback instead be limited to the system-board IOC3 that is known to
+have no PROM?
+
+[Severity: Medium]
+Can eth_platform_get_mac_address() ever succeed for this device?
+
+The ioc3-eth platform device is only ever created by this cell in
+drivers/mfd/ioc3.c:
+
+static struct mfd_cell ioc3_eth_cells[] = {
+	{
+		.name = "ioc3-eth",
+		.resources = ioc3_eth_resources,
+		.num_resources = ARRAY_SIZE(ioc3_eth_resources),
+	},
+
+The cell has no of_compatible, swnode or platform_data. So
+mfd_add_device() leaves pdev->dev.of_node NULL and attaches no software
+node.
+
+eth_platform_get_mac_address() checks only two sources:
+
+net/ethernet/eth.c:eth_platform_get_mac_address() {
+	ret = of_get_mac_address(dev->of_node, mac_addr);
+	if (!ret)
+		return 0;
+
+	addr = arch_get_platform_mac_address();
+	if (!addr)
+		return -ENODEV;
+	...
+}
+
+Only sparc overrides arch_get_platform_mac_address(). On MIPS
+(IP27/IP30/IP35) the __weak default returns NULL, so this call always
+returns -ENODEV.
+
+The commit message says "so a platform that knows the address can supply
+it". As far as I can tell, no platform can do that today.
+
+Adding a software node or device property later would not help either,
+because eth_platform_get_mac_address() never looks at fwnode properties.
+That would need something like device_get_ethdev_address() or
+fwnode_get_mac_address().
+
+On Fuel, every probe therefore goes straight to the deferral logic. The
+device binds only after the deferred probe timeout expires (up to 10
+seconds with CONFIG_MODULES). It then always gets a random MAC that
+changes on every boot.
+
+> +		err = driver_deferred_probe_check_state(&pdev->dev);
+> +		if (err == -EPROBE_DEFER)
+> +			return err; /* not available yet */
+> +
+> +		dev_warn(&pdev->dev, "no MAC address, using a random one\n");
+> +		random_mac = true;
+> +	}
+
+[Severity: Medium]
+Could IP27/IP30 boards that do have a DS250x MAC PROM end up with a
+random MAC here?
+
+driver_deferred_probe_check_state() decides using only global state
+(initcalls_done and driver_deferred_probe_timeout). It has no way to know
+whether this device's 1-wire PROM can still appear.
+
+ioc3-eth and its PROM provider sgi_w1 are sibling cells in
+ioc3_eth_cells[]. The PROM nvmem only appears after these steps:
+
+- the asynchronous w1_process() kthread runs w1_search_process()
+- the slave gets attached
+- w1_ds250x registers the nvmem device in w1_eprom_add_slave()
+
+SGI_IOC3_ETH and SGI_MFD_IOC3 are bool. W1, W1_MASTER_SGI and
+W1_SLAVE_DS250X are tristate and not selected, so they are often modules
+that udev loads later.
+
+Before this patch, ioc3-eth returned -EPROBE_DEFER until the slave bound,
+so it always picked up the factory MAC. With this patch, the following
+sequence is possible:
+
+deferred_probe_timeout_work_func()
+  driver_deferred_probe_timeout = 0, retrigger deferred probe
+ioc3eth_probe()
+  ioc3eth_get_mac_addr()
+    nvmem_device_find() fails, PROM not enumerated yet
+  driver_deferred_probe_check_state() returns -ETIMEDOUT
+  random_mac = true
+  eth_hw_addr_random(dev)
+
+On CONFIG_MODULES=n kernels, -ENODEV is returned as soon as
+initcalls_done is set. In that case the outcome depends on a race with
+the w1 kthread search.
+
+After this, nothing reads the PROM again, so the random address stays
+for as long as the device is bound. A transient nvmem or 1-wire read
+error in ioc3eth_get_mac_addr() after the deferral window closes has the
+same permanent effect.
+
+Should the random fallback be limited to boards that are known to have
+no PROM?
+
+> @@ -938,7 +946,10 @@ static int ioc3eth_probe(struct platform_device *pdev)
+>  
+>  	ioc3_mii_start(ip);
+>  	ioc3_ssram_disc(ip);
+> -	eth_hw_addr_set(dev, mac_addr);
+> +	if (random_mac)
+> +		eth_hw_addr_random(dev);
+> +	else
+> +		eth_hw_addr_set(dev, mac_addr);
+>  
+>  	/* The IOC3-specific entries in the device structure. */
+>  	dev->watchdog_timeo	= 5 * HZ;
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch. Now that
+ioc3eth_probe() can bind on boards like Fuel, which used to defer
+forever, will unbinding the device oops in ioc3eth_remove()?
+
+ioc3eth_probe() never calls platform_set_drvdata(pdev, dev), but
+ioc3eth_remove() depends on it:
+
+drivers/net/ethernet/sgi/ioc3-eth.c:ioc3eth_remove() {
+	struct net_device *dev = platform_get_drvdata(pdev);
+	struct ioc3_private *ip = netdev_priv(dev);
+
+	unregister_netdev(dev);
+	timer_delete_sync(&ip->ioc3_timer);
+	...
+	free_netdev(dev);
+}
+
+Here dev is NULL. unregister_netdev(NULL) and
+timer_delete_sync(&ip->ioc3_timer) therefore dereference a NULL-derived
+pointer. The registered netdev, the timer and the DMA rings are never
+torn down.
+
+Two ways to reach this:
+
+- writing to /sys/bus/platform/drivers/ioc3-eth/unbind (the driver does
+  not set suppress_bind_attrs)
+- unbinding the parent IOC3 PCI device, which goes through
+  mfd_remove_devices()
+
+[Severity: High]
+This is also a pre-existing issue, not one introduced by this patch. The
+patch does make the later probe error paths reachable on Fuel. Is the
+shared IRQ handler safe with the current ordering in ioc3eth_probe()?
+
+The IRQ is requested before the lock and timer it uses are initialized:
+
+	if (devm_request_irq(&pdev->dev, dev->irq, ioc3_interrupt,
+			     IRQF_SHARED, "ioc3-eth", dev)) {
+	...
+	spin_lock_init(&ip->ioc3_lock);
+	timer_setup(&ip->ioc3_timer, ioc3_timer, 0);
+
+	ioc3_stop(ip);
+
+Suppose a shared-line interrupt arrives in that window:
+
+- ioc3_interrupt()->ioc3_tx() or ioc3_error() would take an
+  uninitialized ip->ioc3_lock.
+- ioc3_error() would do ring maintenance while ip->rxr is still NULL.
+
+The IRQ is devm-managed, so it is only released after probe returns.
+Every error path after the request (ring allocation failure, "Didn't
+find a PHY", register_netdev() failure) ends with:
+
+out_free:
+	free_netdev(dev);
+	return err;
+
+At that point the handler is still registered, and its dev_id points at
+the freed net_device. ioc3_interrupt() then reads ip->regs from freed
+memory:
+
+	struct ioc3_private *ip = netdev_priv(dev_id);
+	struct ioc3_ethregs *regs = ip->regs;
+	u32 eisr;
+
+	eisr = readl(&regs->eisr);
+
+With CONFIG_DEBUG_SHIRQ, __free_irq() always calls the handler for
+IRQF_SHARED actions when the devres IRQ is released. So on these error
+paths this use-after-free happens every time.
+
+ioc3eth_remove() has the same ordering: it calls free_netdev() before
+the devres IRQ is released. Today remove oopses before reaching that
+point, because drvdata is never set.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111095138.1757-1-kaloz%40kernel.org
