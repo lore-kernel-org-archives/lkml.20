@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794771573;
-	b=Up1Pqj/G5z7dwqgMeC+YNnjM81yMxamNVqa5siZaHN0BYNYlcV4ZZi1hpi0GHFHgrrSn
-	 pbdhrR4YA+L2BcBkunGNIbcbM/1+myVksQMBLtWZtBM94i0PrrwAtNs7I0fXZ2rqbED7N
-	 5R2FKb8jtSKNP/1ufaJ8zHrEcnz5yr5NeGlOM6YTfjZo+qLcaelfBVkY7vgzELYHnZEDk
-	 6rHncFLTsGNLCQjxLCCAHYtAkwaeLYx6Nr5jSXtPx0tGPZ6ObIvfpG3IbRKJttA5nTntT
-	 vYeQbuIsXzSpwCiLgyRx8HI73XCvAsBohs2vBED4xw7va5sjooN+WevAiZG7Ug9INkg==
+	t=1794771658;
+	b=FzRdJzr/lkxPsMvlZPa4HaWa2G9tiPZjnGrzyLSstTsfGYQuL67V/MFx8ns+b3TGbJRu
+	 6wsE4P5iHm5tv4gG0mcL6rwXTWF/Q5oU61xFbkpuMrHvffBTdmWJzSusiZAp9vgUGx5+3
+	 pCD506kUqYkP+9YVNE1E2r4bPQcgiNfoorB4Iz2pCfw1T9UDuuUlonoLhEG/e7fYZpDTq
+	 y2fJGGUBhdt3cjgRBy1cDTDm3FUo7QG/6bkThIvoyR2+VamFufRrARcP7t5inGejIIh2H
+	 TTRu8nwCcmDaKH9MlKC/4iqnZn0GZKVGcdnxKoYmDwdWDdOiVIzPJlp3TBRH3vaQ5OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794771573;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794771658;
 	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
 	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=jWvcQguugJJmaOTWfGcO5C8vl8bBwsJMp17FuaFFPd8=;
-	b=HPVZda1SvkSKgHNVKkotHJm1Pczccu1kjucv+AMBWYAJVeNOJ7Eic/rQhulAONKlT6XU
-	 ZxeRgrsJWrBqN3smfN+c2788AKEeLQ7VaEYSnepQSbfXbi3BbwNLTbrSfS4tAijdCfJnI
-	 qj5cfYeRslxtRGhG9YfXmSfXGCZc76SGjwM6NgpNPtg+DaU+8b4GXTTQHu3N6u/E3IaJ8
-	 6hbSATBp64/uTcO8gy5RS//yinNrUvanJXBF8ZsU4vXzU44rRxdMb1oWKdzHYyTAdjFx/
-	 rFEkkmiQV4SnDmjQgYV2WqKxPUzR1P4LDFUkoFfs9sTy7Um2xy3C7/Syuj2AiX4jt9A==
+	bh=9Z/SeLigb7cKZ8AenGFKvsGPiHPN7jeIOZeKFYBKPbY=;
+	b=n6C6cptDivGLhiLcDBQbjTqlRv5bUwyShudveKw3dfMpHBE8kFI7r+Ybp1J7BuoeP2rn
+	 siY4dTNP0P5ZWzeJtRSX6jlgAvpg3nIdj1xHjWphecTYkIZQJWeYgsHF7g1xlkCHKPEL7
+	 duoUiodPLXGiBnNzFqHVKKgm2j7IPHOCrgcbAs2oKKq55cOvmCnstuBu2WromMx6ZIOYk
+	 3rAYKssJVP3rMvF/czKuJ1iyZxXnByWNtRta2iJSqPFsbl78moCqrtGkQIYZyzxVenaUG
+	 /QJtw8LmBe1AVw2sbLV23z4KqBkEhpJLoROe6dz7QYg5HGQvl1fTEVyq7B5YGyZhK/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=tipi-net.de;
 	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=g+NJQwOj;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=yWY28+xR;
 	arc=none smtp.remote-ip=194.13.80.246
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AAC606A881;
-	Sun, 15 Nov 2026 19:39:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34AAC606A881
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A146606A31F;
+	Sun, 15 Nov 2026 19:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A146606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=g+NJQwOj
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D7757A1649;
-	Sun, 15 Nov 2026 20:39:22 +0100 (CET)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=yWY28+xR
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57395A15A5;
+	Sun, 15 Nov 2026 20:40:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794771564; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1794771656; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=jWvcQguugJJmaOTWfGcO5C8vl8bBwsJMp17FuaFFPd8=;
-	b=g+NJQwOjR1M5zeuXwatlNshn+nXRLYrqnCyBYGIZznNDkD/VFqCwESuWkyS8wi8wo65nmU
-	KoaQ9V5PQCEwp8eY3LRzro3yrOzUBOQqD/cRr3yoCLtNsiTVQQKMq8SSxi0jzsJdRZevPC
-	7c9Sb4sD9YK7if4n2zkB8kdq7akvuT6vrXCABP35LT9VO7j23p0i2svN0hzM1/SBlTrGDW
-	sQ1Cr3301piW+w7zpxzobifeK1iIpNSo/EdX4hJXivqiaMo31Z2QvBcfJn6ysT6HTqNJuu
-	aqXMK+O/fdmSwZCytVmlzr3Pnq7whVaY31rPCdS0GUxCiMhJw1E5LGP7+9fu1w==
+	bh=9Z/SeLigb7cKZ8AenGFKvsGPiHPN7jeIOZeKFYBKPbY=;
+	b=yWY28+xR+uME0tIkAhr6W+D54FEYTar3UfmQ29bGapl8Xt9Us9v6la1EqRQx8CzrCHhk2s
+	OgE7SYbSdMA8NVXaRbQDaQWAid9YLmvbFu3LavUJPUYkMi1D3i6+fPotd8cn7oIbtg4aiD
+	CnniVTMDuscpm8DXyfF/TVgnueGb0N47PECPFb160IkU5NVCZtXaNh4xFM6kDGSNnxx2x3
+	DRuo57WoaKekYx0wX+vT0zh63ZYfNbgY2KNFfizynNwuPpX5PC4bN5KzfBT5FLN1zj11I1
+	Pof4Fl4n4aI5ctvJeBu7LcW+QbGpivOkSeXuNXDdtd1F7lszO3CZuKhUqpp/VA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,7 +53,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sun, 15 Nov 2026 20:39:22 +0100
+Date: Sun, 15 Nov 2026 20:40:55 +0100
 From: Nicolai Buchwitz <nb@tipi-net.de>
 To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
 Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
@@ -66,48 +66,60 @@ Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
  <gregory.clement@bootlin.com>, =?UTF-8?Q?Beno=C3=AEt_Monin?=
  <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH net-next v6 1/2] net: macb: implement
- ethtool_ops.get|set_channels()
-In-Reply-To: <20261113-macb-set-channels-v6-1-5de59d9e7f02@bootlin.com>
+Subject: Re: [PATCH net-next v6 2/2] net: macb: distribute evenly Tx SRAM
+ segments
+In-Reply-To: <20261113-macb-set-channels-v6-2-5de59d9e7f02@bootlin.com>
 References: <20261113-macb-set-channels-v6-0-5de59d9e7f02@bootlin.com>
- <20261113-macb-set-channels-v6-1-5de59d9e7f02@bootlin.com>
-Message-ID: <0d65e4cc9a68684cd69ffa7feb5b7440@tipi-net.de>
+ <20261113-macb-set-channels-v6-2-5de59d9e7f02@bootlin.com>
+Message-ID: <00aea741bd079eb9168fb2ef9b656f25@tipi-net.de>
 X-Sender: nb@tipi-net.de
 Content-Type: text/plain; charset=UTF-8;
  format=flowed
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Théo
-
 On 13.11.2026 18:32, Théo Lebrun wrote:
+> GEM has registers to configure the Tx SRAM segments distribution across
+> queues. The reset value is apprioriate (even spread) but we need to
+> care if/when number of active queues is modified (or if we inherited
+> unevenly initialised hardware from bootloader).
+> 
+> To distribute segments, we take as input the number of queues
+> (ctx->num_queues) and the number of segments (found inside DCFG6).
+> Its output is a number of segments for each queue, formatted as
+> powers-of-two (eg 2 for queue 0 means it has 2^2=4 segments).
+> 
+> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+> ---
+>  drivers/net/ethernet/cadence/macb.h      | 14 ++++++
+>  drivers/net/ethernet/cadence/macb_main.c | 76 
+> +++++++++++++++++++++++++++++++-
 
 > [...]
 
-> @@ -3351,16 +3374,21 @@ static void macb_context_swap_end(struct macb 
-> *bp,
+>  static void macb_init_hw(struct macb *bp)
+>  {
+>  	u32 config;
+> @@ -3465,6 +3522,20 @@ static void macb_init_hw(struct macb *bp)
+>  	if (bp->caps & MACB_CAPS_JUMBO)
+>  		bp->rx_frm_len_mask = MACB_RX_JFRMLEN_MASK;
 > 
->  	lockdep_assert_held(&bp->mac_cfg_lock);
-> 
-> -	/* Swap contexts & give buffer pointers to HW. */
-> +	/* Swap contexts & give buffer pointers to HW.
-> +	 * !new_ctx means that the swap failed and we keep the old context.
+> +	/* Distribute Tx SRAM segments evenly based on active number of 
+> queues.
+> +	 * TXQSEGALLOC is only documented for some GEM integrations.
 > +	 */
+> +	if (bp->caps & MACB_CAPS_TXQSEGALLOC) {
+> +		unsigned int num_segments;
+> +		u32 val;
 > +
-> +	if (new_ctx) {
-> +		old_ctx = bp->ctx;
-> +		WRITE_ONCE(bp->ctx, new_ctx);
-> +		wmb(); /* ensure IRQ enabled below read the new context */
-> +	}
-> 
-> -	old_ctx = bp->ctx;
-> -	WRITE_ONCE(bp->ctx, new_ctx);
-> -	wmb(); /* ensure IRQ enabled below read the new context */
->  	macb_init_buffers(bp);
+> +		num_segments = 1U << GEM_BFEXT(SEGMENTS_BIT_SIZE,
+> +					       gem_readl(bp, DCFG6));
+> +		val = gem_sram_distribute_segments(bp->ctx->num_queues,
+> +						   num_segments);
+> +		gem_writel(bp, TXQSEGALLOC_LOWER, val);
 
-The NULL case reuses the old rings without mog_init_rings(). The HW
-restarts at descriptor 0 but head/tail don't, so Tx stalls after a
-failed ethtool -L? macb_hresp_error_task() reinits the rings first.
+This only runs on open, not on a context swap. So ethtool -L on a
+running interface keeps the old split until the next down/up?
 
 > [...]
 
