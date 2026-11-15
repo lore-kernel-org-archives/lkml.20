@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794739234;
-	b=sowdso5wPOTyZhlCL3ioTxMOsVPW5Xcz7yzjr73As246uQtgCzuu6IdzP/8dxPioi/lN
-	 oaVPOTylOOeAKmpwbmbF0HQR/ffGdmXBhRor4t9UlWhksugNGKKeMXGJrYINpxeSSleed
-	 9T76TtBzky/ismNUKse9S4tSVhDj5tQnhin7J3E86nQL2jHi9LgPuM6nZ8Gl84I1xxez7
-	 H0e0Smsd0NkkugN7HO8FRuYpQk/Hvl6T8ka+1whTQNmNt0GmEPTQOCy+N7YCBVX/pQcnt
-	 iTp5zw81sKsdz0bnozYss57dOyDNDdGQOT6g9cZ/YDwvZwSRp99ouTfLEDJHzo3Brfw==
+	t=1794739237;
+	b=o4jEi3KVIKQ0gG49B2+k4+fTD4hfYeILWlGmq+CAvv4c7/k8rHgSQei2IxNf6NweZYB1
+	 92zJzrA4XvrTPJt2Fa015oMyvzZt2uUnPNsoj/MjXB1W7uNQ2DdnBUXeS9rM5+vgOfayu
+	 slgQt+N3vfxe/7Zd8S02qpP4Ac7Ob9bQRyE4l7F+7YhlW1acLWibe2jP50gxUjhI81hpv
+	 +ZX2SX+ZRiBMSUOd6MhOJt1PKg9MooT9kjaUq0egx3yQZUpwUFeooALQil6SdMUsbi9s5
+	 wumdt+rjnVKkwYeHkM9New9Ww1EL6zX4a8THNx39+zHGLVpsBzPTNuN89ynPaqlxiLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794739234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794739237;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SexY85KTBkcPpSSz9lzCXLt6aG4hGRBeEAEDC3GPaE4=;
-	b=kYrSiEqqUK+wtStQeZtmcgxbhTq7E8j9QDOJj/lxg+L8Ek77+7izBv/rD8PnUrylcxN3
-	 cFkFOvzCh1svpI2mPU1CbCyioWaLHFa2P+7fs+ZqAc60hGW3tVEG17/cvMB/bq3aMBqgz
-	 E34w5NqNI/nhVXR7fzGdRQGS/7ACSdbv1AcK6YuhT9poAchjMUkro+t+xsMXRKCdeVuHh
-	 7qQdz4tsw5k5UUSgoMUDfHSCecmgYjXPhMzCYa0ZyHL/6oZuUt2BE0HJdREt/p1G2zL8a
-	 TZxQZWJrMuXI49kObqM3n4+2+w2vGza8XQhzGf57H3gD8cN76knvVc0j670NIna4JRQ==
+	bh=/1IWe8gInvdcuTWrTU6z/g4cIXLgMuNATfLiV9YVy2E=;
+	b=Nsg4kmbiVjNrGD7ItI98v1lh69IqyWN48AzJZTy6zxx2FFT4I4vfqfe9SRoe06MSoitb
+	 G1wjnfcwxoqmWQi7GGoo8gqGBJ0lUeNCpjBUomICfjAQcWyRz0kjzCZfjlF9xuQzu5vEb
+	 o3W3T3/5wH7U5iLW18TMnq3RDJHPlGWBa3lOpb365fvoO3SWR4xWHnU67yzSXHELmDLL5
+	 TIJb2BCBxVIf3u0vy/5CZ575Ly6fnLMxh6j0rxZo3Msg+pc238uZvErX+ze3+W8nJyXtp
+	 cWtwy8JFFRLcTKIj6UxwEOd6uxC+67L3aGreM5Hetjnw9jjSSCR9jBebNCTPJCtwD4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aJz93gn6;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bDnUNxt4;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B0D606A886
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3B0D606A886
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59096606A886
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:40:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59096606A886
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aJz93gn6
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b37951a397so573841a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:40:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bDnUNxt4
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ede7cb02daso24700125ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:40:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794739233; x=1795344033; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794739237; x=1795344037; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SexY85KTBkcPpSSz9lzCXLt6aG4hGRBeEAEDC3GPaE4=;
-        b=aJz93gn60oQrWRhk19r5rrqgl8h5ouq1q2TpxrDF7I6W2npEFiCPrMR0obV/dLg3Dh
-         A34f8HBYPYnaBH7KUORMLnYN2Lp9fJO722RkkKVl0Du9O1Ra/Vb9Jh/UGHCvYGoYO8h+
-         9P9mVa2mvaSXPAi+kkVW1K4ZvvQ/oec4lA0DehAdTrQB5M6nefO0QGxW5UPCUo1+t/Ae
-         /aS2wv3XadJ5jkgluS49wzJGuifg0EkX00tfBSQipRiFTLNAVeItRIG4Dpk5yez0yaDi
-         6Xs/Q7tXzW+qfUbCtuE30eGn8Pv+Hj9mPIoVojsvsNsAV3z5uPuFwe7ywT/o1okGjF0e
-         psQQ==
+        bh=/1IWe8gInvdcuTWrTU6z/g4cIXLgMuNATfLiV9YVy2E=;
+        b=bDnUNxt42MdUo2Zb7O3parBP6QMgnfGLe6YXHTjpJsRspFxZCnpuf83r66u7yrijlm
+         9dC9mpJPJlCavJ3ol0iy5DkMTH6GjUTCkQnp1it0HWW2CFsR4LnDKgaKjJeOZBHHEwtq
+         9/iodWhctkEkGuPTc+D5vwIX/9DwDKGRjmTMRzqs2aUtj+ISZcPOD/3gzCl/i/pcf7iL
+         n34Mu9MLjgQU+A2fmFDZCz1QPt23LEDapIbUELpxyaAad6esSyE72ksv3LAy2ZgqRUhm
+         wPJ7DCijhfP7zkbGF7hZ7y3Uq0v9v5WVzh0DKXj5YHroojhYt2iTReytLhw+2rV39vI9
+         qo1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794739233; x=1795344033;
+        d=1e100.net; s=20260707; t=1794739237; x=1795344037;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SexY85KTBkcPpSSz9lzCXLt6aG4hGRBeEAEDC3GPaE4=;
-        b=KgJQltw1Iq/dE+6MIUo9bI4UAVO5DEVO/+lUym+dzv7e8984XS37X0hE4YuV3gWwyx
-         ImKbs+sS/XSwmvB5NFhMsCyIvl0u7wzjZqL8Fa1i/96IdAUqdqx4KnmZ/RJLUUjcN+R3
-         d6IenJ/BqVfFToVfM21g8/oXy/c8Y19RKtxHoUpRyLs7muKPSCS/0DvkJVX8E9tjxbt4
-         n0hd/Kpl1kwYwGwW74qreBZqC/SDqyo6+X+FsVpklAhjyjd2pl29YsNY7K5iNFX9wYL0
-         pJ8NGP/4KMFyQMcNMd5lg7QJOvfynN2lguvTXU+X1S3u9uevcQetvvf6nqrYtMaSZJj8
-         ld6Q==
-X-Forwarded-Encrypted: i=1; AL+hErGzES473obMOaqElkh+cWDl7/6oznBDSuVjRVV2iDiMszCVQ0v20LvbJzSWiTqqzARoaVSyLhRBPMtJ9Rs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xxmdT1CEUxfXWrSSEkyFl64SymIDO73sAks8o5oU2IUUwx8ac
-	7jllCjAOennSjWAem7aRfRz2Egj9NS7My8n6w4UmDODncTARR/Ej0ZrJ
-X-Gm-Gg: AYBFou2GwO1R5ledYC6l+5YNMaKe0u33XMuDi4bBP1UlgDcuqeHu7TPoW6uDsh63luM
-	Aaz/JH4CWIS+XPJQCTt+I1YJ8yM9ADbb0eVmbb0JRo9/F22spISBw4jOZcY6sS3oFdB8xLyfkya
-	MLqQzu7ory9FxbZFGtqW81TnSm0c8qVC9j4M3oHUWidMeiIdvqFw/GigaFi/TyOC/8T5WeqTkZT
-	hZXXe7tbnFf0reElDTSxo07inZVTanFXv1P7YbVzwmC0PlrSRRGu5cuXnvhlYGz1o0IfQlXRiQu
-	R7pYv9e+NRXaRnITq+Bkps6L640G7YZzBxOFbq3yATB8a4gkVE2vzpDw1sDKHSjCXWfdu3aOJ0D
-	L/Dy5m+TFO/GDozaK5OnC+0xUarAl8pjDE4ZdE0xafuJWYwsQNkGDgXX/AtYW6wnkczjsVCHUIr
-	crg1JubQQVDKvN8lt6Ix8dNdRqr2LcpzLH54w1911VmjUln5IzdwzKTsvmBJXUs30Le6Fpo8crs
-	kxK3xWFLX/rkNSsZDghCZ+iyth2MQmMyAHFV6s23CYGAE6zw2ouPeloY+IpDRuS4GnBM+BaJSZx
-	tF4BXqeN9dS9n83rBPJbHnLERY0yQQbPqlSaiJfmZukSVpIR6NcV9X5wZC0YwwRWYrxLT8/Wy+j
-	9meOVVcuZgvuh3/d1mt6UxLwVqmKHc5CCw29tn2LCmMjYXOi6ZYMXbLq9R+yMJdKEzHEc75IADv
-	HI+MQLhNcOT1T3t22silHeZYtenBy4Sjm0GJhWPGTgO5f1fUYhnG8eGVLOD31+3eCreyMqqCPAW
-	402aRSEY2oLAvoEBmTzsEkvupDSl5Mb6xZdhz+Z0vUMzk+2OM5aRCXKfBVyof85
-X-Received: by 2002:a17:90b:5107:b0:3ac:9d83:885e with SMTP id 98e67ed59e1d1-3b1b0d06feamr7368179a91.52.1794739233252;
-        Sun, 15 Nov 2026 02:40:33 -0800 (PST)
+        bh=/1IWe8gInvdcuTWrTU6z/g4cIXLgMuNATfLiV9YVy2E=;
+        b=DyyZFXG8h/2EJYVpN+uw6nTxRCa6rRBm5CwrjmgKW+XAyxC5Q9XES2wDLr6jmjMVuc
+         oQtu+JmDGOJqWJFZwUok9U05MyqXJ5p1dh9btOqsWUMk4Jc2STFeet1fDb2mSg1clhvn
+         Zkp84KcSpbd8a2GRQtVawLKVZA8ug3XyPE7u9KXjY7BeD0/QeLAzBuw/ufUqc/dQGNOQ
+         gw23azhGeqGCoERsR5lCe5sUZ6G6dWQure3cdui8MWfhbMpisOGVA9/B5aD/LyQLwcfY
+         b/XN5EP2ApxvrKb6QGoVeGxspsN6EgKG58FJgc21sw68wO1KKZIzycEw/K4KwzkZ62Ij
+         5L4w==
+X-Forwarded-Encrypted: i=1; AL+hErE0KSX+Xz8z4QItDSihuqnZLnhODejBrEr83FrEhaZNneNHBjGI4vgeeRwYt21YyTtC4At/+IndVQyTj/I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MrZdECOZ3KISh8HD5YcaKL7UebuuUZuZcYGwV1KjWOgD0hs8l
+	GqbL3NKqopkAV5L6esG08tlewBcyrabL1LLIFilgUySCeu13b8hS76pM
+X-Gm-Gg: AYBFou2VQ10FMnzLkLAm9xH+iyhhJ0AfSxFUWvTov5n06wZDtWZTwnT9VVNtDtkBm8K
+	M8TaeUrtZYC04xjN4/5vX7fqhgBsQUb+YyOrIotC0V8KGauKiYRbGwvrlKNaHZQ3X4lLiRunf9Q
+	Sk6XBkpaLwNSSxlzl/kOpqxMt/XqwOP/FqJkr+HvIqkPiXFeEHl3Q3H6YNZ0VnJL+QRwNIzSd7O
+	t/LcrDvltfUnbLXyaGwOxO1xxjH2yJrnKTU3WxA6d0n/KWx3ywwOjX71NnG75sm86s7tizt0lMq
+	/Uyt1Vqtjts6TUxAXpuTfjoVAHUIjpgu+BC11eLZJoAgMNP6mg/SOrwGyHxkla4TwAtsrV35s6b
+	R3ammM4Ok7HZHfTyuBLbZc+/rx1CckZTJ7s8Sfu1K1GTALYLd74rWOp3l2as2JhAaNwYERvtBZV
+	OFwTgYxoECJoDeAOmvgmGGTOeSkhKGZDA2Ler2QNmwHkMDHuopakwvqDhYY5QFdOQLTfYvjx3Yr
+	IUcDB+kLMDcICiOz+K2i/N9IsJg6dj5uJDGv2Y+m8PrGcQG99Gzjre7qkDNJHErH1afxyy0xhfv
+	WZb1uOLim32tRW4mPmPjay6gyQG1DsuPu0d1Cyno9hgCY7vND6HeKH9bU2c5SE8MksviHpuZ3+D
+	wCqcAlJdJmrWn8QPR1Xk4CdbR/HC3qoZIRKBtqKgg4k6q29VShNVqvxHaJWnGPydfMJMmSau23D
+	kr573exkKxzFrwhZQcLNCmC8x041C4DdOxfKa3157yBpTXcocBipXFgOE8KneaiKlSLymEHUrWZ
+	LsohxCaBZQBaPneSItbaNYn5Y3FGJBAcTRVJJbcToRFBIfSmRVbXyqrVi0utRqbHg==
+X-Received: by 2002:a17:903:f8c:b0:2e8:6540:11b6 with SMTP id d9443c01a7336-2ee0de633a5mr51336935ad.37.1794739236503;
+        Sun, 15 Nov 2026 02:40:36 -0800 (PST)
 Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8d4612sm26739145ad.57.2026.11.15.02.40.30
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8d4612sm26739145ad.57.2026.11.15.02.40.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 02:40:32 -0800 (PST)
+        Sun, 15 Nov 2026 02:40:36 -0800 (PST)
 From: Daniel Wade <danjwade95@gmail.com>
 To: "Martin K. Petersen" <mkp@kernel.org>
 Cc: Maurizio Lombardi <mlombard@redhat.com>,
@@ -89,9 +89,9 @@ Cc: Maurizio Lombardi <mlombard@redhat.com>,
 	linux-scsi@vger.kernel.org,
 	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] scsi: target: iscsi: factor out iscsit_stop_kthreads()
-Date: Sun, 15 Nov 2026 21:10:05 +1030
-Message-Id: <e6199ca99e81a80af4c4c8f43885c628377b22d2.1794739041.git.danjwade95@gmail.com>
+Subject: [PATCH v2 2/3] scsi: target: iscsi: don't attach a connection to a closing session
+Date: Sun, 15 Nov 2026 21:10:06 +1030
+Message-Id: <35c3a401f78f153f5f36cec7072c83da11902664.1794739041.git.danjwade95@gmail.com>
 X-Mailer: git-send-email 2.39.0.windows.2
 In-Reply-To: <cover.1794739041.git.danjwade95@gmail.com>
 References: <cover.1794739041.git.danjwade95@gmail.com>
@@ -106,89 +106,183 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iscsi_target_do_tx_login_io() stops a connection's RX and TX kthreads
-and releases its thread-set bitmap slot inline on its error path. The
-next patch needs that same teardown from iscsi_post_login_handler(), so
-move it to a helper beside iscsit_start_kthreads().
+iscsi_login_non_zero_tsih_s2() finds a session on tpg_sess_list, skips it
+if it is already marked for teardown, and takes a usage count it holds
+across the whole login negotiation.  That skip is sampled once, before
+the negotiation, and never re-evaluated.
 
-No functional change.
+If the session's last connection goes away while the login is still
+negotiating, iscsit_close_connection() sees ->nconn reach zero, commits
+to the free under ->conn_lock and calls iscsit_close_session(), which
+sleeps in iscsit_check_session_usage_count() on the reference the login
+holds.  iscsi_post_login_handler() then attaches the new connection,
+arms its NOP-In timer and drops that reference, which is what releases the
+free.  conn->sess is left dangling and the timer walks the freed session:
 
+  BUG: KASAN: slab-use-after-free in iscsit_allocate_cmd+0x6de/0x780
+   iscsit_handle_nopin_timeout <- call_timer_fn <- run_timer_softirq
+  Freed by task ...: kfree <- iscsit_close_session
+                     <- iscsit_close_connection
+                     <- iscsit_take_action_for_connection_exit
+
+MaxConnections does not prevent this.
+iscsi_login_post_auth_non_zero_tsih() tests
+(atomic_read(&sess->nconn) + 1) > MaxConnections after the reference is
+taken, and ->nconn is 0 here, so (0 + 1) > 1 is false even at the
+default of 1.
+
+iscsit_close_connection() tests ->nconn under sess->conn_lock and
+iscsi_post_login_handler() attaches under the same lock, so publishing the
+close decision in that critical section and re-testing it in the one that
+attaches makes the two mutually exclusive.  ->session_close is already
+that flag: only ever set, never cleared, and the logout and explicit close
+branches already require it.  Set it in the ERL=0 fall-back branch too.
+
+Re-test there everything iscsi_login_non_zero_tsih_s2() tested, not just
+->session_close: iscsit_handle_time2retain_timeout() reaches
+iscsit_close_session() with only ISCSI_TF_EXPIRED set, and the multi
+connection ERL=0 path with only ->session_fall_back_to_erl0.  The timer
+flag needs se_tpg->session_lock, which the zero_tsih path in this function
+already holds across its own attach.
+
+conn_state is published inside both attach critical sections instead of
+up front.  At the gate the connection is therefore still
+TARG_CONN_STATE_IN_LOGIN, so iscsi_target_tx_thread() leaves the cleanup
+to this context rather than entering iscsit_close_connection() to wait on
+a conn_usage_count the refusal is about to drop.  Every reader of
+conn_state that walks sess_conn_list holds sess->conn_lock, so none
+observes an attached connection that is not yet LOGGED_IN.
+
+The refused connection is torn down here because its kthreads were started
+before the final login response went out.
+
+Tested on mainline with KASAN and lockdep: unpatched, the reproducer
+produces the report above and then a general protection fault; with the
+series applied the login is refused, it no longer triggers, lockdep is
+silent and the target stays usable.
+
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
 Cc: stable@vger.kernel.org
 Signed-off-by: Daniel Wade <danjwade95@gmail.com>
 ---
- drivers/target/iscsi/iscsi_target_login.c | 17 +++++++++++++++++
- drivers/target/iscsi/iscsi_target_login.h |  1 +
- drivers/target/iscsi/iscsi_target_nego.c  | 17 ++---------------
- 3 files changed, 20 insertions(+), 15 deletions(-)
+ drivers/target/iscsi/iscsi_target.c       |  6 +++
+ drivers/target/iscsi/iscsi_target_login.c | 56 +++++++++++++++++++++--
+ 2 files changed, 59 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index 124ff269b8e..ee7df7f2723 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -4431,6 +4431,12 @@ int iscsit_close_connection(
+ 	 */
+ 	if (!atomic_read(&sess->session_reinstatement) &&
+ 	     atomic_read(&sess->session_fall_back_to_erl0)) {
++		/*
++		 * Publish the close decision under ->conn_lock so a non-leading
++		 * login attaching in iscsi_post_login_handler() sees it.  The
++		 * branches below already require ->session_close.
++		 */
++		atomic_set(&sess->session_close, 1);
+ 		spin_unlock_bh(&sess->conn_lock);
+ 		complete_all(&sess->session_wait_comp);
+ 		iscsit_close_session(sess, true);
 diff --git a/drivers/target/iscsi/iscsi_target_login.c b/drivers/target/iscsi/iscsi_target_login.c
-index c282b6a7029..f4df5518171 100644
+index f4df5518171..556ae5d2d50 100644
 --- a/drivers/target/iscsi/iscsi_target_login.c
 +++ b/drivers/target/iscsi/iscsi_target_login.c
-@@ -643,6 +643,23 @@ int iscsit_start_kthreads(struct iscsit_conn *conn)
- 	return ret;
+@@ -660,6 +660,33 @@ void iscsit_stop_kthreads(struct iscsit_conn *conn)
+ 	spin_unlock(&iscsit_global->ts_bitmap_lock);
  }
  
-+void iscsit_stop_kthreads(struct iscsit_conn *conn)
++/*
++ * Drop a connection whose kthreads are already running but that must not enter
++ * full feature phase.  conn->sess must not be touched once this returns.
++ */
++static void iscsi_post_login_fail_conn(struct iscsit_conn *conn)
 +{
-+	if (conn->rx_thread && conn->rx_thread_active) {
-+		send_sig(SIGINT, conn->rx_thread, 1);
-+		complete(&conn->rx_login_comp);
-+		kthread_stop(conn->rx_thread);
++	/*
++	 * The login is refused before conn_state leaves
++	 * TARG_CONN_STATE_IN_LOGIN, so iscsi_target_tx_thread() still leaves
++	 * the cleanup to this context and cannot be inside
++	 * iscsit_close_connection() waiting on conn_usage_count.
++	 */
++	iscsit_stop_kthreads(conn);
++	iscsit_dec_conn_usage_count(conn);
++
++	if (conn->sock) {
++		sock_release(conn->sock);
++		conn->sock = NULL;
 +	}
-+	if (conn->tx_thread && conn->tx_thread_active) {
-+		send_sig(SIGINT, conn->tx_thread, 1);
-+		kthread_stop(conn->tx_thread);
-+	}
-+	spin_lock(&iscsit_global->ts_bitmap_lock);
-+	bitmap_release_region(iscsit_global->ts_bitmap, conn->bitmap_id,
-+			      get_order(1));
-+	spin_unlock(&iscsit_global->ts_bitmap_lock);
++	if (conn->conn_transport->iscsit_wait_conn)
++		conn->conn_transport->iscsit_wait_conn(conn);
++	if (conn->conn_transport->iscsit_free_conn)
++		conn->conn_transport->iscsit_free_conn(conn);
++
++	iscsit_free_conn(conn);
 +}
 +
  void iscsi_post_login_handler(
  	struct iscsi_np *np,
  	struct iscsit_conn *conn,
-diff --git a/drivers/target/iscsi/iscsi_target_login.h b/drivers/target/iscsi/iscsi_target_login.h
-index 03c7d695d58..02c5f6ecbec 100644
---- a/drivers/target/iscsi/iscsi_target_login.h
-+++ b/drivers/target/iscsi/iscsi_target_login.h
-@@ -20,6 +20,7 @@ extern int iscsit_get_login_rx(struct iscsit_conn *, struct iscsi_login *);
- extern int iscsit_put_login_tx(struct iscsit_conn *, struct iscsi_login *, u32);
- extern void iscsit_free_conn(struct iscsit_conn *);
- extern int iscsit_start_kthreads(struct iscsit_conn *);
-+extern void iscsit_stop_kthreads(struct iscsit_conn *);
- extern void iscsi_post_login_handler(struct iscsi_np *, struct iscsit_conn *, u8);
- extern void iscsi_target_login_sess_out(struct iscsit_conn *, bool, bool);
- extern int iscsi_target_login_thread(void *);
-diff --git a/drivers/target/iscsi/iscsi_target_nego.c b/drivers/target/iscsi/iscsi_target_nego.c
-index b03ed154ca3..d56b28446d3 100644
---- a/drivers/target/iscsi/iscsi_target_nego.c
-+++ b/drivers/target/iscsi/iscsi_target_nego.c
-@@ -362,21 +362,8 @@ static int iscsi_target_do_tx_login_io(struct iscsit_conn *conn, struct iscsi_lo
- 	return 0;
+@@ -676,9 +703,6 @@ void iscsi_post_login_handler(
+ 	iscsit_collect_login_stats(conn, ISCSI_STATUS_CLS_SUCCESS,
+ 			ISCSI_LOGIN_STATUS_ACCEPT);
  
- err:
--	if (login->login_complete) {
--		if (conn->rx_thread && conn->rx_thread_active) {
--			send_sig(SIGINT, conn->rx_thread, 1);
--			complete(&conn->rx_login_comp);
--			kthread_stop(conn->rx_thread);
--		}
--		if (conn->tx_thread && conn->tx_thread_active) {
--			send_sig(SIGINT, conn->tx_thread, 1);
--			kthread_stop(conn->tx_thread);
--		}
--		spin_lock(&iscsit_global->ts_bitmap_lock);
--		bitmap_release_region(iscsit_global->ts_bitmap, conn->bitmap_id,
--				      get_order(1));
--		spin_unlock(&iscsit_global->ts_bitmap_lock);
--	}
-+	if (login->login_complete)
-+		iscsit_stop_kthreads(conn);
- 	return -1;
- }
+-	pr_debug("Moving to TARG_CONN_STATE_LOGGED_IN.\n");
+-	conn->conn_state = TARG_CONN_STATE_LOGGED_IN;
+-
+ 	iscsi_set_connection_parameters(conn->conn_ops, conn->param_list);
+ 	/*
+ 	 * SCSI Initiator -> SCSI Target Port Mapping
+@@ -689,7 +713,28 @@ void iscsi_post_login_handler(
+ 		iscsi_release_param_list(conn->param_list);
+ 		conn->param_list = NULL;
  
++		spin_lock_bh(&se_tpg->session_lock);
+ 		spin_lock_bh(&sess->conn_lock);
++		/*
++		 * iscsi_login_non_zero_tsih_s2() sampled these before the
++		 * negotiation and never looked again.  Re-test all of them under
++		 * the lock that serialises against the ->nconn test in
++		 * iscsit_close_connection(), and before this connection reaches
++		 * sess_conn_list or TARG_CONN_STATE_LOGGED_IN.
++		 */
++		if (atomic_read(&sess->session_close) ||
++		    atomic_read(&sess->session_fall_back_to_erl0) ||
++		    atomic_read(&sess->session_logout) ||
++		    (sess->time2retain_timer_flags & ISCSI_TF_EXPIRED)) {
++			spin_unlock_bh(&sess->conn_lock);
++			spin_unlock_bh(&se_tpg->session_lock);
++			pr_err("iSCSI session is closing, failing login on CID: %u\n",
++			       conn->cid);
++			iscsi_post_login_fail_conn(conn);
++			/* Last access to @sess: this lets close_session() free it. */
++			iscsit_dec_session_usage_count(sess);
++			return;
++		}
+ 		atomic_set(&sess->session_continuation, 0);
+ 		if (sess->session_state == TARG_SESS_STATE_FAILED) {
+ 			pr_debug("Moving to"
+@@ -707,7 +752,10 @@ void iscsi_post_login_handler(
+ 		pr_debug("Incremented iSCSI Connection count to %d"
+ 			" from node: %s\n", atomic_read(&sess->nconn),
+ 			sess->sess_ops->InitiatorName);
++		pr_debug("Moving to TARG_CONN_STATE_LOGGED_IN.\n");
++		conn->conn_state = TARG_CONN_STATE_LOGGED_IN;
+ 		spin_unlock_bh(&sess->conn_lock);
++		spin_unlock_bh(&se_tpg->session_lock);
+ 
+ 		iscsi_post_login_start_timers(conn);
+ 		/*
+@@ -755,6 +803,8 @@ void iscsi_post_login_handler(
+ 	pr_debug("Incremented iSCSI Connection count to %d from node:"
+ 		" %s\n", atomic_read(&sess->nconn),
+ 		sess->sess_ops->InitiatorName);
++	pr_debug("Moving to TARG_CONN_STATE_LOGGED_IN.\n");
++	conn->conn_state = TARG_CONN_STATE_LOGGED_IN;
+ 	spin_unlock_bh(&sess->conn_lock);
+ 
+ 	sess->sid = tpg->sid++;
 -- 
 2.39.0.windows.2
 
