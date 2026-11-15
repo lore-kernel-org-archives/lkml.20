@@ -1,104 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794770217;
-	b=lAAZzFKafw86SFCnQuYRfkiEghgpDcE0R+FWdlYX4M4x0zEXJCa8+KGQ11rRY+R9eLLz
-	 efqLljlI05dRrhd2OUJ845obAVaVMFrmBs1B3dtDKqPCToVh4gEgzmnP+GoiFY7k8Afo1
-	 wTG0+p3p776V+f0+acCMfLl3ihSzUzrOtIAXwcJRo+HDoGtNZAfac5Y3YeiAci5uA9kvf
-	 r81RIYbcaTinqGYo/54T0mlcxDTpGGrwSObEPQQRXZmg2FdPg4xuDW6k6KA5G87Y2pd8w
-	 /EPCYR1XOsbDuXuEyJiVsRS4choyhutTfr0hV4SnoTqWFpvB7NmzJ2BWTCRde2RJisg==
+	t=1794770243;
+	b=JPQ3p0F4pfHRJXHyge2ZhsjM+2fJNNXvohqq5saBeoGvU9iRpKbXtFgbWLhHlA3SxZH7
+	 Hi5ygeuaBBbFb5JFw3tdiaD4q3WnZ7pgV/SAPJVJMOHxMc8ypWSgavo11kdzr7Drj8XVL
+	 pPjYq3wnrOpDbn3yNykNmno+pRUJ9phYkzClZs5E3zWmNwEcV5Lc59y9ysnjKcyWvSQMY
+	 JQkKeewKH8s4uQZSmjHDN8q/I306/VC/GX4aqKVegfjMCv5zlX0zuI9l6WejuND7ZzxDI
+	 J9rK+59nrRWsIKXvib/a1oXdnDofTSqtjLDRrCSbAI5I27NwwSXxL7O5TpNC+8QLHNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770217;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=gj/STAif1P9RZJBVspyigsA9jI1Pz88cJGa45owyE14=;
-	b=dhWboOmUZhQdE5OsUmcjnFGtEiEq4h3IDsO4oB+SK32w3Miqxm3YFW4nHwwB2SO+yva9
-	 7qhdAa4B9skTlaE5ZRr8JhzIzdIAO2eJqYRUkyQ/bperAURARX0w5XXeQb5YoqnJPQG6d
-	 HPvsPjU1PTttDtE22c9F7MYNNYHtsjzWKcszqvGhgqp+DDhCoiiTC6a06zvtfT9mUwbCT
-	 dtX8EAs2vm4qE0/P97Y7M+IQlVhKDlnhkp9pTUVCBhtrG3s7C7RyHSQsB57E55kV0e3VM
-	 JTqidkokho6S2uF86bzNysmX2ae4FHlwIwe6LrC0Bpbvb6AvvHUanLdT7fhl2D5tbMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770243;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=syiaQMJ04df2CAPDd9TxgmwagOaCksS43FztMaZSoj4=;
+	b=YI9DW0o84/btgXhcFZC57hmxJfpLJ3uUOz0d10lR3SoNfKVikJylVoTxgADjGgBFwtat
+	 v5jr5alAwc9YhCs25HAwJUWQdQQJ6ud+Uh6p8LaiEXjRONHo+WKOySObDUp9Om7akayAS
+	 q7jZksPe3KAJaUNSqu3Kl38PiFFVJrMYojpaPduqXh++/c/AJTwFphhSgw07Bafsls9tF
+	 xNOJxnogng7KVh5pMIfTxJLbgPcqpXKphda0RYPkqHQB1oekLTvvoltIO2i7/c36qPi0P
+	 +JBhi19AhhX5YbKS5AGsmM+YPUsG7v+if3ArWRZJ1NjQbBcC0U1LNxmi7RyI9c7nh3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NFRqlvca;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fQzbBMrP;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NFRqlvca;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fQzbBMrP;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ2RTQiU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844A6606A31F;
-	Sun, 15 Nov 2026 19:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 844A6606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203CB606A323;
+	Sun, 15 Nov 2026 19:17:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NFRqlvca;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fQzbBMrP;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NFRqlvca;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fQzbBMrP
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 30C011F453;
-	Sun, 15 Nov 2026 19:16:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794770214; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gj/STAif1P9RZJBVspyigsA9jI1Pz88cJGa45owyE14=;
-	b=NFRqlvcaRg6/6Yg9Vbo1fs6+OtdRO1OF52jH6rmaLsrLo7pRJ3alJel+EZwvzTEdovbnf2
-	EpGj64g5vhi91s7GQ/nVLmhzfKNYZMC0mrIcHgHT/g0zhKuBn4/UWDCk48ApC/T0kMiZmO
-	/Szmwot3zrtutZsPWHyPJRc+h/ac+QU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794770214;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gj/STAif1P9RZJBVspyigsA9jI1Pz88cJGa45owyE14=;
-	b=fQzbBMrPOhGBR+R3g4cRtqMN6L6rfItNZzKtBVYpWJlusQyrxF2MW/06F6sN8k4lEHY+OP
-	K60XtcWKDst97DDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=NFRqlvca;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fQzbBMrP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794770214; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gj/STAif1P9RZJBVspyigsA9jI1Pz88cJGa45owyE14=;
-	b=NFRqlvcaRg6/6Yg9Vbo1fs6+OtdRO1OF52jH6rmaLsrLo7pRJ3alJel+EZwvzTEdovbnf2
-	EpGj64g5vhi91s7GQ/nVLmhzfKNYZMC0mrIcHgHT/g0zhKuBn4/UWDCk48ApC/T0kMiZmO
-	/Szmwot3zrtutZsPWHyPJRc+h/ac+QU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794770214;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gj/STAif1P9RZJBVspyigsA9jI1Pz88cJGa45owyE14=;
-	b=fQzbBMrPOhGBR+R3g4cRtqMN6L6rfItNZzKtBVYpWJlusQyrxF2MW/06F6sN8k4lEHY+OP
-	K60XtcWKDst97DDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8D07013408;
-	Sun, 15 Nov 2026 19:16:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id VsV1DyUF+mpdTQAAD6G6ig
-	(envelope-from <clopez@suse.de>); Sun, 15 Nov 2026 19:16:53 +0000
-Message-ID: <4873551e-05d8-47e0-a034-2dbc75fb3459@suse.de>
-Date: Sun, 15 Nov 2026 20:16:52 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ2RTQiU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBF11F000C4;
+	Sun, 15 Nov 2026 19:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794770242;
+	bh=syiaQMJ04df2CAPDd9TxgmwagOaCksS43FztMaZSoj4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=NQ2RTQiUkooIEv2aFmxn0mSejwHAVan7OoLwkXp7+EqL2JE0uyg24oNE/w8/BPWGU
+	 hOkEUqIcDLeoy6OECB08uAAAqUGy6jJbvGmrZQE1k0fPw5aiUyeVkPyTKP6ZLr8hhJ
+	 znImMXQFXrHoaun4DzvCTiTsjpny2ultaPf0sLdeCuE6xqS0qb+FGZLDa7+wyuAKiv
+	 NuTb3IfidJO8ZktYh+I8f6+utWgwo5Mv+YUTMcv9JSMRBm9cDgointBeyQ2h166T9t
+	 a1q+nUh0ZUqUIJQX914bGraPwGIETtkpad3nVgRfq6u6rtlguO+PxFoX7biiqEnA0U
+	 BPqgK4+7YLhXA==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com,
+ sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, alexanderduyck@fb.com,
+ kernel-team@meta.com, andrew+netdev@lunn.ch, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, ast@kernel.org, daniel@iogearbox.net,
+ john.fastabend@gmail.com, asml.silence@gmail.com, axboe@kernel.dk,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ almasrymina@google.com, mike.marciniszyn@gmail.com, bestswngs@gmail.com,
+ razor@blackwall.org, dw@davidwei.uk, aleksander.lobakin@intel.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, stuclar@meta.com
+Subject: Re: [PATCH net-next v1 06/11] page_pool: Coordinate refill with
+ memory providers
+In-Reply-To: <179443689325.2199510.6016244708978672874@kernel.org>
+References: <20261110102039.1002605-7-bjorn@kernel.org>
+ <179443689325.2199510.6016244708978672874@kernel.org>
+Date: Sun, 15 Nov 2026 20:17:19 +0100
+Message-ID: <87ld6thpkw.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,110 +71,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: SVM: Sync CR8 to the local APIC after marking the
- VMCB clean
-To: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Stefano Garzarella <sgarzare@redhat.com>, Chris Oo <cho@microsoft.com>
-References: <20261113162556.461390-1-seanjc@google.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>
-In-Reply-To: <20261113162556.461390-1-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TO_DN_SOME(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 30C011F453
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/13/26 5:25 PM, Sean Christopherson wrote:
-> From: Chris Oo <cho@microsoft.com>
-> 
-> Sync CR8 from the VMCB to the TPR *after* marking all VMCB fields as clean,
-> as syncing CR8 can toggle the CR8 write intercept and thus mark INTERCEPTS
-> as dirty.  Clobbering the dirty bit can result in KVM failing to detect CR8
-> writes if the underlying "hardware" uses the clean bits to optimize VMRUN,
-> e.g. when KVM is running on Hyper-V.
-> 
-> Failure to intercept CR8 usually manifests as hangs when running Windows as
-> L2, as KVM's view of vTPR stays high and so KVM never injects pending IRQs.
-> 
-> Fixes: bb365a506b1e ("KVM: x86: Unconditionally recompute CR8 intercept on PPR update")
-> Cc: stable@vger.kernel.org
-> Cc: Carlos López <clopez@suse.de>
-> Cc: Stefano Garzarella <sgarzare@redhat.com>
-> Not-signed-off-by: Chris Oo <cho@microsoft.com>
-> [sean: rewrite changelog, massage comment]
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+netdev-bot+sashiko@kernel.org writes:
 
-Looks good, thanks!
+[...]
 
-Acked-by: Carlos López <clopez@suse.de>
+> Should netif_mp_napi_del() also clear rxq->napi when it matches, or
+> should netif_mp_update_napi() only publish a NAPI that is still
+> listed? If drivers are expected to clear the association themselves,
+> could netmem.rst item 8 say so?
 
-> ---
-> 
-> Chris, as mentioned, I need your SoB.
-> 
->  arch/x86/kvm/svm/svm.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> index 581bc3a23c95..3152846a6ccd 100644
-> --- a/arch/x86/kvm/svm/svm.c
-> +++ b/arch/x86/kvm/svm/svm.c
-> @@ -4726,8 +4726,6 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
->  	if (unlikely(svm->vmcb->control.exit_code == SVM_EXIT_NMI))
->  		kvm_after_interrupt(vcpu);
->  
-> -	sync_cr8_to_lapic(vcpu);
-> -
->  	svm->next_rip = 0;
->  	if (is_guest_mode(vcpu)) {
->  		nested_sync_control_from_vmcb02(svm);
-> @@ -4758,6 +4756,13 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
->  			       vcpu_to_pmu(vcpu)->global_ctrl);
->  	}
->  
-> +	/*
-> +	 * Note!  Any action that might dirty the VMCB must be done *after*
-> +	 * marking all VMCB fields as clean, e.g. syncing CR8 can toggle the
-> +	 * CR8 write intercept and thus mark the intercepts field dirty.
-> +	 */
-> +	sync_cr8_to_lapic(vcpu);
-> +
->  	/* if exit due to PF check for async PF */
->  	if (svm->vmcb->control.exit_code == SVM_EXIT_EXCP_BASE + PF_VECTOR)
->  		vcpu->arch.apf.host_apf_flags =
-> 
-> base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+The first. v2 drops mp_napi, so wakeups use rxq->napi itself, under RCU,
+and the core clears it when the NAPI is deleted.
 
+[...]
+
+> Should the documented contract require that, or should the core handle
+> the disabled-NAPI case itself?
+
+The contract. fbnic polls the vector right after napi_enable()
+(FBNIC_INTR_SET), so the queue refills once, from the reuse stack or
+FILL, and refill_done marks it starved again if both are empty. A wakeup
+lost on a stopped queue doesn't matter then. v2 documents that a driver
+polls the queue once after enabling its NAPI.
+
+> Could uses_need_wakeup be cached in struct xsk_pp when it is created, or
+> read only after pp->fq is confirmed under pp->lock?
+
+Same root cause as the failed removal in 05, and the same fix. The pool
+then stays until the queue DMA has stopped, and no refill runs after
+that.
+
+> Should the error path arm from the configuration that is running
+> again, or should __netif_mp_open_rxq() and __netif_mp_close_rxq() call
+> netif_mp_update_napi() once they have settled rxq->mp_params?
+
+Neither is needed -- with mp_napi and mp_armed gone in v2, there is no
+wakeup target to arm from the wrong configuration.
+
+
+Bj=C3=B6rn
