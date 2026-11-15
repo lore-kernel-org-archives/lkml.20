@@ -1,67 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794769347;
-	b=SOAf901PQFhgFvru0jciwpwX6vGrO/rlx9phkTLvL3ETBoVVVY11Ty0edw4QC6mBCsj+
-	 aaUGbqWUJ9GphsuPABxueriGMit+hFs11bJCU8ltPyEOTG28OZTwGLt12HDTyflGp38mK
-	 Cvj7lZcT4k5SQzgJHLiZr/OVGIkvnj8TwRY1EJFULA6RFoznPsf6dPpXcvvm399jWggD6
-	 Y1hGmhJaSgW/JCehrPUU2UFqolTPyQfV22XEp9iI6NncMOdgfnnC+9raHQhLvmGdSos/L
-	 JMkBJC556pvSSujaRBvp9ArgqbxeGPaImqVj28ZnBXkiIv8XnhhN8rZR/io/gqKyIxQ==
+	b=O46ei1Dc1ZVJXO2Z+JqjC+B96nl8pNl65XhrbwRCAahY+EDhZaEDrg5ms1AWRuYu1TcE
+	 PQd6QXqIZC9wVQL6miBbz+zOjF8G2Ag/RVUx3mMwwfAXwAi0Qf6TFT98G3m5eAbdbShDo
+	 lb6Y4kdyt2epeM9RBJUyu8+PF+iiEy38PRZTloG+3cOeav4q5EikADO95yioTf8LdhAOk
+	 fhifoCMx/72voQSppIpoFgkqk/rMQ3ho9/X7quDzH2+TGFPhCrxfwuTZiFuUGTr/e1kCQ
+	 LiwMSrSmjto8mY308r86WLrf6gdi3C7TFKy4xlrQvg113GVEz5W7jDeG0Gor6t4vPMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794769347;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Q/hyJs7suUsQWM9rDMdP2P/X/6Nyzlv7hmi1/xYG81U=;
-	b=0EzuiauqZgNhVYSgUwAmNaBAdTsS/4RpLDUiv9JbAsvBvrzvoOYUU20r4mNu9YHziv3c
-	 Bk+9Z3j5HmITazqtXj43kvieeBrL8Bps2deSNpXOtuyxXVjdHcKE3omiKYzG1YSGB9NZA
-	 IcPCmm8C8tgMwrVJn7fZHsgHRt9Iq2JxS76q7eUrIq8sB2Lqrp1g4DfMM9+/IXjXbjj8C
-	 QlsDiSqmPI8B80k9dMCRGor6cVgFIcXY2kpEpDmqiCeUfh+LuVdav4aFJOj3j0MPkYdFI
-	 aP8HC7ii4jm1T/BFrUiOMQb29EK/81AigMRZrO1jU0UrUbax5kBR9jbiy5q0ufnu0Xw==
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=71suhnOQ187ewHE/PuoqWfe+otthECsrCZEY2F7KU/s=;
+	b=at18+fwP3Y1d4fg6uqzddyzGtI84JUFdWgV12+/vjncZS9IUgzzH5+oDnMn2+L0AWy6v
+	 BD7GHjhg8OQ/VGzTbLIpKaJ6I3rgpTld8rEihrBpoDPaiLtPAVCPk2B485r3FnmddoVJp
+	 1JymX/0Dgw7/PijU8HJoykjLV0Dc2fV6iMCI6dwGe0KzHWFCrbLGmR+WGDK2Q5KufK5SS
+	 DR/kp84xIBVPi+9jJiAYC7wbZBS+jtBgXy4MfO2UAy6j2YDrUbhu80aR3WwCYFLd74pdi
+	 YQ8gKnzelVNRcVxU4XkfGY/mgCiTiEMyPOd4GKETkZyYyT4TgpIyxdxoFCL5F/WsyBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCitSQMY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blDNmVKo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7187C606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71761606A31F;
 	Sun, 15 Nov 2026 19:02:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCitSQMY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7757C1F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blDNmVKo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47521F000C5;
 	Sun, 15 Nov 2026 19:02:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794769347;
-	bh=Q/hyJs7suUsQWM9rDMdP2P/X/6Nyzlv7hmi1/xYG81U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=jCitSQMY9Tb/nXzJc/Rl5/ebOalpmPIig30aTEvEKnFOfNmqb45l+Mp0RQmNW9EKV
-	 UzwdX+vPG8NlYqsLZQLjYm1Z9yKMJzUMxdiEwqb0ZL34wD72xTu7XNnpUMfc+zgZ4Y
-	 3uP5YWR4Zx9PrNG96nCKjOCYVHXYgCIBiwLBodX3o+LRQ9P/F6JvoiNQYYJCf75Rn2
-	 y/XPI2f7UB1/9HbGShF0QJhwwojOJ7nnflYYQeDikv8MlOvMFe+O+M59HDLeSEB79W
-	 X48CkpEKcHQa0qIva1yk9RnPpl7BBoS/y7RSVHceJP4/xOam+VJME5HnvQtoAQ/BYh
-	 wlf+4ym7G1U/A==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com,
- sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, alexanderduyck@fb.com,
- kernel-team@meta.com, andrew+netdev@lunn.ch, hawk@kernel.org,
- ilias.apalodimas@linaro.org, ast@kernel.org, daniel@iogearbox.net,
- john.fastabend@gmail.com, asml.silence@gmail.com, axboe@kernel.dk,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- almasrymina@google.com, mike.marciniszyn@gmail.com, bestswngs@gmail.com,
- razor@blackwall.org, dw@davidwei.uk, aleksander.lobakin@intel.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, stuclar@meta.com
-Subject: Re: [PATCH net-next v1 03/11] xdp: Copy buffers with restricted
- lifetime
-In-Reply-To: <179443688445.2199510.2127044982916637399@kernel.org>
-References: <20261110102039.1002605-4-bjorn@kernel.org>
- <179443688445.2199510.2127044982916637399@kernel.org>
-Date: Sun, 15 Nov 2026 20:02:24 +0100
-Message-ID: <87cxs5j4u7.fsf@all.your.base.are.belong.to.us>
+	bh=71suhnOQ187ewHE/PuoqWfe+otthECsrCZEY2F7KU/s=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=blDNmVKoT+2L6E3h1NQY0dK0VShq2C3snAqOuMXWvOPSKTqiYf2DCSQcltZ8XTSOg
+	 J+yvoRW4WweMJZyqVfcdSU481T8OISjMYTpxy3oO1DKhlUOL6o3P8o11/uHtN4+Ibj
+	 9Q3FWbldUzWWQCaui3pQy9F/xSVhgef8g9BhTUnbVb4XOarT722a00w+R8lnQ/1jJ+
+	 Zr1qtR6edrofnHAvO2UdT2t/6X370u/WxpjJFnA2j2THam0ygzbfedALxuEgEiN2sy
+	 tw+FnV6GiTUHPC0HQFHgspqBSexJ66751ep20GyduEO7fCWARASc0tZTRWBFnbYnlS
+	 MKaU9DV3P+f3w==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 440533438C02;
+	Sun, 15 Nov 2026 19:02:22 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,45 +52,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 08/19] spi: cadence-quadspi: add PHY tuning support
+From: Mark Brown <broonie@kernel.org>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, miquel.raynal@bootlin.com, richard@nod.at, 
+ vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org, 
+ takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, praneeth@ti.com, sebin.francis@ti.com, 
+ u-kumar1@ti.com, srikanth.boyapally@amd.com, m-shah@ti.com
+In-Reply-To: <20261105105832.2134313-9-s-k6@ti.com>
+References: <20261105105832.2134313-1-s-k6@ti.com>
+ <20261105105832.2134313-9-s-k6@ti.com>
+Date: Sun, 15 Nov 2026 19:02:20 +0000
+Message-Id: <179476934046.140154.1891166104571142429.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1086; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=hQT5utl8foco5MPE7XQ4r4AsB6YHll0nIcrWwSLcj/A=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+Me5LlHOY03L3y7n/kzT2q71MnDqn+dbf5kMRpmxZX
+ Vvdv8x801HKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJiGxmZHhnckp9cxazigWX
+ 6nv1t3NkmRjfxf878bpq5smWhvi5LicZ/mk5lCb8PdjNtDH+bDdvC3vR0f/fks4H7HgrOKlLvfL
+ dXk4A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-netdev-bot+sashiko@kernel.org writes:
+> The Cadence QSPI controller supports a delay-line PHY for high-speed
+> operation. Without calibration the PHY is unused and read capture relies
+> on a fixed delay, limiting throughput at frequencies above the base
+> operating speed.
 
-[...]
+> +static int cqspi_am654_ospi_execute_tuning(struct spi_mem *mem,
+> +					   struct spi_mem_op *read_op,
+> +					   struct spi_mem_op *write_op)
+> +{
 
-> With XDP_FLAGS_EXT the head chunk no longer holds the shared info at
-> all. Does anything still keep data_end below xdp_data_hard_end() for
-> these buffers? If not, len alone can run past skb->end, since
-> __skb_put() does not check.
+> +	f_pdata->phy_read_op.max_freq = mem->spi->post_config_max_speed_hz;
 
-Yes. fbnic's MAX_HDR leaves the same tailroom, and bpf_xdp_adjust_tail()
-stops at xdp_data_hard_end().
+Do we need to validate with the reference clock here?  AIUI in PHY mode
+we bypass the divider we set in cqspi_configure() so we might be
+overclocking things.  There's also an awful lot of Sashiko reports on
+this, some of which looked plausible.
 
-> Should the destination size be derived from the copy instead of
-> xdp->frame_sz? For example: headroom + LARGEST_ALIGN(len) +
-> SKB_DATA_ALIGN(sizeof(struct skb_shared_info)). Or should this path
-> copy exactly len bytes?
+> @@ -1587,9 +3308,15 @@ static int cqspi_of_get_flash_pdata(struct platform_device *pdev,
+>  		return -ENXIO;
+>  	}
+>  
+> -	if (of_property_read_u32(np, "spi-max-frequency", &f_pdata->clk_rate)) {
+> -		dev_err(&pdev->dev, "couldn't determine spi-max-frequency\n");
+> -		return -ENXIO;
 
-Yes, but that's pre-existing. XSK buffers without XDP_USE_SG have no
-tailroom at all, so it's worse there. It's the head sizing from
-Clement's thread [1]. A fix that sizes the head by its contents and
-copies exact lengths goes to net, and v2 sits on top of it.
+This is a bit surprising?
 
-[...]
-
-> Could xdp_build_skb_from_zc() compute the metadata size the way
-> xdp_copy_buff_to_frame() does? That means treating unsupported
-> metadata as zero length and copying from xdp->data.
-
-Yes. Nothing hits it today, as fbnic marks the metadata valid, but this
-patch makes it a generic path. Will fix.
-
-pw-bot: cr
-
-
-Bj=C3=B6rn
-
-[1] https://lore.kernel.org/bpf/20260629072300.1664622-1-clecigne@google.co=
-m/
-
+-- 
+Mark Brown <broonie@kernel.org>
