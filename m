@@ -1,54 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794779851;
-	b=P8JenTaj1QmSVBooJYFj2PmfuSjuo91SA2bz0e2H9nlOmNHjovgvbqPDiX0u5sWMIv7o
-	 QAJIdXeqfhQ+yv3RbEKl/YoDQ13LAnvAKqg58cYVrAIAw/XZQV+UC+EnzBCFpLVXSDJRa
-	 QWl7huiaobPUFVItbgN6AaW8cH53Le/qWrZkd63DevNFf9apQRyiAooS/0y3h/bexT2b/
-	 HGLe+28vtR6e1Eo2xGzDE4WnUQCzMqi5/KX7zbUVTIFhzwtDQWMsp+Eep5SLN8LserSLc
-	 qs2rPE7yispwlhXY4/xzEu3DvVlYdsZfvw9AQIuYE6TlgJJ27IqfU/mBMF/bW9PzoNA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794779851;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=eCxx5RHXq7WPqDK7xKRDc6BR9/+tnHIZsgY3LJnVcoU=;
-	b=xq2DjzWkZQkzAu+LA3DRHS3Bkw95ThPb2PN6szK9qjZaC1GWlEsMT7xa636qmJZfyObl
-	 zuWr5LZ0hbhFZPjCnA0RcUNbKI0Qc42eRedvqbxXq7L1wFGkKCmoBb8hPfXCvfrhr8Ghv
-	 V2CG7GYwDSQhkhaIzFeKcPhzSFxhW9FSATSpmHXiPss70eXMlryjU2nlSxMYP4uHFcYZJ
-	 xajbGhNc+BQEHd1v/0bo/j1JajRwU7uwyLv4hNp+SoHiyYmfyLvkHe7BicYc9bNKTYDHN
-	 UpuyRo/8lkdqowhBuIrcwzWxBSO1FWKSQyZtUJuj+fC4lApDs6xi375atZhi6x1ym9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794779887;
+	b=fnRzoasst2yTji9Ch1YpPUkCO69Q9aZSwkwDr4INgI/0t6IzzpfLVcpTCir3VINqyStw
+	 m/rUQ+0VEOwni//ly0RHjMdm75Z5/ev3Eoh7D6hctz4POAh26J31wKoXozrVkkiCdlbU4
+	 CqDqDVeyBa9tG7TdPA8tjU2oxCHGMzufhva74ThE7zBQHvH4GUsHaoDy0eObPvbrFnNjk
+	 USAhSc7yAVUz+9V2/nHJynsk72aCC21+V4Q/kfoW+vbYK4MSiwiTl92/cKS5rkE+R9TVf
+	 LHaA2Tp72/WCzVU9H5a/TfnLHDltpOYrkSZ0Fxk4vOj5WKWbFWV+uXN9wmfE41SlSGA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779887;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=zC0jEKFFiQwJqwDfM8bkisZ+K2Ui8bcK+/e64jpjSfk=;
+	b=MU9L4YOKtR9dULAq3T2n9jZsTTo7re+4jbkIgZ/9FKLsz164fOMf7cPVOtz7Mqyqjz6O
+	 a+R5J0Ans+Pz1IefmnNFkEQnbr3AM/+k6yEvjXVso+1BkUP+Vr6JYeBYd2V9NoCOYDpmk
+	 OjaNntCDrI0wWjicfZO4F8Lc9bZP4zPJByNr+Dji9ojxGBWvSDyQiyejQ4FRx42+awqdk
+	 c5SJn8G1pVfn4igHx5PK33mFgVXXFcjCojSmk6M8L1Z1hQ17494D0pNwrskgZAFkjpxBi
+	 SuP3RlWg4uBBc29dA/VeFnwm3iL7N2CWrLmBM0W4YNLf4+ZPlKBSGdrHZZW//oUdCGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g0DgfEqj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED163606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:57:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED163606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4fb73e868aaso4119735b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:57:30 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD5B606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CD5B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g0DgfEqj
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c40f29667e6so499353066b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:58:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794779885; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KAspPzoLJxuVtxNdpXeMdXancaQU3kPt4LExyo5flnhPYgU7hj682MEwH0/q5bw/6X
+         W1Qd0OOLGpiOjVbZGv5DJP9oIobCV1CIMlSwfpGBAAp0wA4KfecMY+ds6dE3mDV9gqlR
+         P6IvvIgZMbVD3Fw+1ZXbtycd9AjlfJRCtAW7RCuGyBl7SkXvSvJSrNz3Zg0SRHga8ib6
+         qfAzgE884BUy+7XK1SCFEYCD9X70/5u3XPIUJI0SNi2+cx/qZOFqrGMzSz2CktLS8QZA
+         iSFfj5FSl0T/1PQ5cHsjXyBg/oZjfkY9qaQeQZsFaD+l6tU3eejM1CWmA1de/EstGWY7
+         aFnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zC0jEKFFiQwJqwDfM8bkisZ+K2Ui8bcK+/e64jpjSfk=;
+        fh=QqAPDXajx8thCNPZituBXONfX3fLzx60rty+q/KwKVk=;
+        b=A+gGWyJNt+VGwb3m1sec5DG03hrrvyvm4+qF60FoKMgmYjVX7+vpe592Bjp/7G/vSD
+         eLJGrXkuzwM0JbbAp73BZp39iOToOTa5ygQCPDnu6vJ1MVlnXMZwQFlI/K0tON9fefcr
+         MbxHyUahftyynCYVRUwBOdH6VZieheebxwLOvmCDSe33rFMriWqzDEND5zcWDuVUBv81
+         o9vk88rTOKAv1IW2BGES4h2QW8ioOQxgewjaNSES4Hd/dGtx1vHYGPdc7Sc1HNTSwctH
+         y76AmI1eD0Sv8ovgcz2G5pXYYH5xfb9v27wz/HyACgS+90ILMRVdGtjKAXlHnbLaSO/e
+         +VJA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794779885; x=1795384685; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zC0jEKFFiQwJqwDfM8bkisZ+K2Ui8bcK+/e64jpjSfk=;
+        b=g0DgfEqjzMWXsftR44d0Dy0SYVoCd3xi8wR53WRE9xCsmnNa/C6jG4xVvyvuVJh8oo
+         rcsHhhbRuZeOCqYpanhOnj9it6mtQo2GkZB4sNAC50q3+0KpIucc7z9OTSCspoG+qM9F
+         LO+BNUvgFSlXHhgUBfufMFIgLCaqp8yGPtdIf29nKt5vgsgZBNg6L95A5RCo+VPOrhD4
+         Ku774WyX9m63aOIv6RvPjPketj+JGD6VJ7vG/MmkJABEpZMv4O0EDiHQtawBKzMIPT+G
+         i5sCfye4mrzHTC0xQ1zVpIjn9F/bCIHWkvcOxgha1pv1SPIk7uf/YlZ8WiPxxVCswJLK
+         CwnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794779850; x=1795384650;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1794779885; x=1795384685;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eCxx5RHXq7WPqDK7xKRDc6BR9/+tnHIZsgY3LJnVcoU=;
-        b=yuyBZ8h93B4/7cHQyI7rZ/bjIzEX6mJYyazxFhSUcpahUASJdKI+pua+8bGW9IYSZT
-         s5hTuZUcWoUR0+fpSAsBG9CveKLPbQw3GxC+y5wbE6lczViM3pHArFM3MSJo8fUC3vIv
-         8emtzpRF+4p8AQka33lJ8zmn/js+O47z+F5yPyiVk0ahoI29hiz41ByUs2QQ9n2tAD/a
-         SX6jOzEq8fMIhEOv7PMiPhCL6J+OciR60NXwogRxOGOjwS5CDFiu7+sdAcCxqpjcfRLk
-         RFDrZCv1CGFJEo6Hy6OI2LrRtWJagR2Xm/gm+nG86kR2RbZZLlNgao9ZMa3U8Z2SOBfS
-         QADg==
-X-Forwarded-Encrypted: i=1; AL+hErEz9lVTSmG3NB39yBavshueBH5hLN5sdsqoZRrXq2VxQsTp1LKJr0VTbd5xO1LT6ddGS8+x2W54Uo1RmRQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+P7JqG9WcblUkPEnxcbyhA1qoY6ZEBwKPExGyGomL4u43EJWTT
-	Z4lDLxw64aVVSYTiMO/4oQYSUCC2+dzWOWuhSCzE0ZGTJ9DkxZ5+H3hxgBVsRa0pDtEn5Wv6jCP
-	Vph0DttJGW+lyYAqGZYPs7hWax9WrjjcN96aztdBm67UHdcm62JJzicaNquA=
+        bh=zC0jEKFFiQwJqwDfM8bkisZ+K2Ui8bcK+/e64jpjSfk=;
+        b=ldOxd2jNSsj+Zh74EdVWWHapNIoPscAbcUdsB7FjpnuYnZbQsbRpSfNN8HY2ypC7Po
+         J1IRdwbQm2xyoifaGfgKuy4LWa3eHGt3z1VvQzdYtGilDHo2ircJMN6lnEAuSfav+tZQ
+         7EBiavN1iCkxk2RFYszFJrzmCBoP2av1sxRFcKK6aaEew7uOWrPcysP6s52CU2PZOplI
+         p71aLPK2yFi5BBUZverI1q7T+PcaV3lyWM1/CoXV4aMrYt6fLRi/YYhQ2kde5Jhf2Lq9
+         pQim6LTGD9+lT2H/bJLTAoR/nCJXQfdiGKFut9PzpkotaIHZt2kMbMKZQbn59tYXtuYs
+         2+5A==
+X-Forwarded-Encrypted: i=1; AL+hErF0m1N104Baa85tST4jrOIy9KsPHM+9olcAx6Ry9nMUXSgELBOdD3M3I7e9ZDqfT4hUUg9NcBBefm+3m/A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RJovDw5vEUUA61ZIvr9nfVjkQQtoy9eSH2748mShH61kha/kB
+	1n/kGc7aeAC+eQVfCPrydP2zZcnTczbFYJ57jUf12hs8kOz1nIAAGwDsUBxFH4pS7pD9rw0KjQM
+	ULTNnfQDqFZd+aibW5ib5CNOxzZvPSB0tMiKpTTA=
+X-Gm-Gg: AYBFou03Ld1ntoz3J48PtgbS12YgmY1nSEUHxEzoL0urbouglQTGRUnPTYr+utmo68H
+	+wVrauzkQhxzcD8Yb+8Ny5ZXd3kwzHpC+SZJv0vX74GyLxbtSnJ/xJmlqrNiH0h6xceZ/VRI+Wq
+	/LtDqt1fUiThytQQA1kNPUAeYm96A4nNpQ9LQPQbEseFxPLmyptj7l6tgn64E0yv2K90JblOxON
+	DEtvgpMq7FT1ljEpF7daZjYerTwfus+9UmFCfzwpi8RuyFWpZLA83jUF44Lukv39I359tbE88K8
+	5WA9zbf/bG/VZnL2xP4+0VL6OV+1neDh3PC/ROg05Lolj2FamuK6IgjxL9sTrmvYOXigJF7RIjV
+	B03+0ZXxSFC0zNRLkuEnw3i851knepato98zC8CdEwu9Nc6wqu5kl2o2L2Lhrz5wI
+X-Received: by 2002:a17:907:60d3:b0:c40:b59:f with SMTP id a640c23a62f3a-c5096645662mr739948166b.47.1794779885499;
+ Sun, 15 Nov 2026 13:58:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,157 +103,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:811b:b0:572:878:fccf with SMTP id
- 5614622812f47-5720878fd52mr3149115b6e.59.1794779849999; Sun, 15 Nov 2026
- 13:57:29 -0800 (PST)
-Date: Sun, 15 Nov 2026 13:57:29 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afa2ac9.920b2b3a.148c65.003f.GAE@google.com>
-Subject: [syzbot] [squashfs?] general protection fault in step_into_slowpath
-From: syzbot <syzbot+d393ed2b27449be4992b@syzkaller.appspotmail.com>
-To: brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, phillip@squashfs.org.uk, 
-	squashfs-devel@lists.sourceforge.net, syzkaller-bugs@googlegroups.com, 
-	viro@zeniv.linux.org.uk
+References: <20261115205408.99849-1-vitorhg20080@gmail.com> <e0b7871e-5dae-438a-bde1-327fe450dc8d@roeck-us.net>
+In-Reply-To: <e0b7871e-5dae-438a-bde1-327fe450dc8d@roeck-us.net>
+From: =?UTF-8?B?VsOtdG9yIFNpbHZh?= <vitorhg20080@gmail.com>
+Date: Sun, 15 Nov 2026 21:57:54 +0000
+X-Gm-Features: AclHuK_I07mNuDxkTMjytS5O01bXoYI6oBnxDcDLkarMnqDVv93PfhL_twBznYk
+Message-ID: <CAOhXrFe3PQy9j1cJQni8+JFSx79ByhMdP-CAgbOBrpp7Nj2-tA@mail.gmail.com>
+Subject: Re: [PATCH] watchdog: intel_oc_wdt: Add INTC109C ACPI ID
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Diogo Ivo <diogo.ivo@siemens.com>, 
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+You are absolutely right. It made no sense to not test it.
+I ran an expiry test and it worked:
 
-syzbot found the following issue on:
+I have set up a 60 seconds timeout, kept the watchdog
+device open without sending keepalives.
+It forced the reset right after it timed out.
 
-HEAD commit:    84abb955b101 Add linux-next specific files for 20261113
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=16da293d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d9d5eeb0ba036071
-dashboard link: https://syzkaller.appspot.com/bug?extid=d393ed2b27449be4992b
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=132b7fa5580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12dfd4d9580000
+Thanks for the quick reply,
+V=C3=ADtor
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/ffae1d4a717e/disk-84abb955.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/fd2a35a63abf/vmlinux-84abb955.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/039ccf647778/bzImage-84abb955.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/39a0c2b38acc/mount_1.gz
-
-AI-generated root cause summary:
-In squashfs_lookup() (fs/squashfs/namei.c), the local variable int err is
-declared uninitialized and receives a positive return value (number of bytes
-read) from preceding successful calls to squashfs_read_metadata(). When
-directory boundary checks via squashfs_dir_space() fail, execution jumps
-directly to the read_failure label rather than data_error (which sets err =
--EIO). Consequently, squashfs_lookup() returns ERR_PTR(err) holding a small
-positive integer (e.g., (struct dentry *)0x6) or uninitialized stack data, which
-VFS path resolution treats as a valid dentry pointer and subsequently
-dereferences at offset 0 (d_flags) in traverse_mounts(), causing a kernel crash.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=d393ed2b27449be4992b
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d393ed2b27449be4992b@syzkaller.appspotmail.com
-
-loop0: detected capacity change from 0 to 8
-SQUASHFS error: Unable to read directory block [0:26]
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-CPU: 1 UID: 0 PID: 5644 Comm: syz-executor134 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-RIP: 0010:traverse_mounts fs/namei.c:1665 [inline]
-RIP: 0010:handle_mounts fs/namei.c:1777 [inline]
-RIP: 0010:step_into_slowpath+0x112/0x810 fs/namei.c:2146
-Code: 24 1f 00 49 bf 00 00 00 00 00 fc ff df 43 0f b6 04 3c 84 c0 0f 85 75 05 00 00 45 8b 75 00 4c 8b 6c 24 48 4c 89 e8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 0f 85 76 05 00 00 45 8b 6d 00 44 89 ee 81 e6
-RSP: 0018:ffffc90003ba7a40 EFLAGS: 00010247
-RAX: 0000000000000000 RBX: ffffc90003ba7c20 RCX: ffff888037d43e80
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc90003ba7af0 R08: ffff888078fd331f R09: 1ffff1100f1fa663
-R10: dffffc0000000000 R11: ffffed100f1fa664 R12: 1ffff92000774f8b
-R13: 0000000000000006 R14: 0000000000000001 R15: dffffc0000000000
-FS:  0000555564c07400(0000) GS:ffff8881234cd000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fff34166e74 CR3: 000000007b074000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- step_into fs/namei.c:2194 [inline]
- walk_component fs/namei.c:2331 [inline]
- lookup_last fs/namei.c:2839 [inline]
- path_lookupat+0x433/0x8c0 fs/namei.c:2864
- filename_lookup+0x265/0x5d0 fs/namei.c:2893
- user_path_at+0x40/0x160 fs/namei.c:3692
- do_mount fs/namespace.c:4467 [inline]
- __do_sys_mount fs/namespace.c:4683 [inline]
- __se_sys_mount+0x2dc/0x420 fs/namespace.c:4660
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x00007fdbf37e4949
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff0f8baee8 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 0000200000000000 RCX: 00007fdbf37e4949
-RDX: 0000000000000000 RSI: 00002000000000c0 RDI: 0000000000000000
-RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000004000 R11: 0000000000000246 R12: 00007fff0f8baf20
-R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007fdbf384404b
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:traverse_mounts fs/namei.c:1665 [inline]
-RIP: 0010:handle_mounts fs/namei.c:1777 [inline]
-RIP: 0010:step_into_slowpath+0x112/0x810 fs/namei.c:2146
-Code: 24 1f 00 49 bf 00 00 00 00 00 fc ff df 43 0f b6 04 3c 84 c0 0f 85 75 05 00 00 45 8b 75 00 4c 8b 6c 24 48 4c 89 e8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 0f 85 76 05 00 00 45 8b 6d 00 44 89 ee 81 e6
-RSP: 0018:ffffc90003ba7a40 EFLAGS: 00010247
-RAX: 0000000000000000 RBX: ffffc90003ba7c20 RCX: ffff888037d43e80
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc90003ba7af0 R08: ffff888078fd331f R09: 1ffff1100f1fa663
-R10: dffffc0000000000 R11: ffffed100f1fa664 R12: 1ffff92000774f8b
-R13: 0000000000000006 R14: 0000000000000001 R15: dffffc0000000000
-FS:  0000555564c07400(0000) GS:ffff8881234cd000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fff34166e74 CR3: 000000007b074000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	24 1f                	and    $0x1f,%al
-   2:	00 49 bf             	add    %cl,-0x41(%rcx)
-   5:	00 00                	add    %al,(%rax)
-   7:	00 00                	add    %al,(%rax)
-   9:	00 fc                	add    %bh,%ah
-   b:	ff                   	lcall  (bad)
-   c:	df 43 0f             	filds  0xf(%rbx)
-   f:	b6 04                	mov    $0x4,%dh
-  11:	3c 84                	cmp    $0x84,%al
-  13:	c0 0f 85             	rorb   $0x85,(%rdi)
-  16:	75 05                	jne    0x1d
-  18:	00 00                	add    %al,(%rax)
-  1a:	45 8b 75 00          	mov    0x0(%r13),%r14d
-  1e:	4c 8b 6c 24 48       	mov    0x48(%rsp),%r13
-  23:	4c 89 e8             	mov    %r13,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 0f b6 04 38       	movzbl (%rax,%r15,1),%eax <-- trapping instruction
-  2f:	84 c0                	test   %al,%al
-  31:	0f 85 76 05 00 00    	jne    0x5ad
-  37:	45 8b 6d 00          	mov    0x0(%r13),%r13d
-  3b:	44 89 ee             	mov    %r13d,%esi
-  3e:	81                   	.byte 0x81
-  3f:	e6                   	.byte 0xe6
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Guenter Roeck <linux@roeck-us.net> escreveu (domingo, 15/11/2026 =C3=A0(s) =
+21:29):
+>
+> On 11/15/26 12:54, V=C3=ADtor Hugo Silva wrote:
+> > The Lenovo laptops with an Intel Core 7 240H (Raptor Lake)
+> > exposes its OC watchdog as 'INTC109C', leaving the device
+> > unbound, because this ID is not present from the driver's
+> > ACPI intel_oc_wdt_match table.
+> >
+> > The firmware selects INTC109C or the already supported
+> > INTC1099 from the same CWDT object's _HID method,
+> > depending on the processor signature. Both paths share a
+> > four-byte I/O resource at PMBS + 0x54.
+> >
+> > Add INTC109C to the match table to use the existing implementation.
+> >
+> > I have tested as a module on Fedora kernel 7.3.3-300.fc45.x86_64.
+> > I did verify device binding, timeout configuration, start,
+> > keepalive, explicit stop and magic close. Register reads
+> > confirmed the enable and timeout fields. Expiry-triggered
+> > reset was not tested.
+> >
+>
+> Why not ? That means you don't know if the code actually works.
+>
+> Thanks,
+> Guenter
+>
+> > AI assistance was used for development of the test harness
+> > and 'peer-review' the patch.
+> >
+> > Signed-off-by: V=C3=ADtor Hugo Silva <vitorhg20080@gmail.com>
+> > ---
+> >   drivers/watchdog/intel_oc_wdt.c | 1 +
+> >   1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/watchdog/intel_oc_wdt.c b/drivers/watchdog/intel_o=
+c_wdt.c
+> > index 0b012aeb1..a78fe1e5f 100644
+> > --- a/drivers/watchdog/intel_oc_wdt.c
+> > +++ b/drivers/watchdog/intel_oc_wdt.c
+> > @@ -215,6 +215,7 @@ static int intel_oc_wdt_probe(struct platform_devic=
+e *pdev)
+> >   static const struct acpi_device_id intel_oc_wdt_match[] =3D {
+> >       { "INT3F0D" },
+> >       { "INTC1099" },
+> > +     { "INTC109C" },
+> >       { },
+> >   };
+> >   MODULE_DEVICE_TABLE(acpi, intel_oc_wdt_match);
+> >
+> > base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+>
