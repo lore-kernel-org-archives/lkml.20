@@ -1,65 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794729643;
-	b=Hr9PuGY6lNeLnzjnAq8PUve2Oy5dcXUjBcNBJgrCYhJ6X3t7z7b7Vv+cu51BnOIWkSxm
-	 VzqHH9P5XmSl7kp1yBrFVIK/f/x2JTs9MDeUwhoDB6B/WMPLu84f9ptIFXMxHi9E1s7n7
-	 EJmJqcZhdrYHOnCfm2cHHyX5NYPcN5NzpF21yi3F6R6OvFNe8eOdEwRr8LduYBzES1CHf
-	 GkhdiRZtnw9KNhuNaLIzDMcoKpw/qoaeqQi7hYEkiFmq03RL9jvOl0cz9dscjfOjwcahm
-	 Knt7mR7wWOBKOigmuloqlIWnqbkrdFAw/Q3vC9o7FrkSH8ErWNth7iXAouhkcIaYnig==
+	t=1794729657;
+	b=n8jiPPWRnBIA7js/RqjcO1xBJcosccX7zDqImaLMNt59iSDFgqVDIYHVF/R4ciZ/25/3
+	 F2CeVyJm4O4uZ3jJQDUguyDs0YNl97kV+C7+3+7n1WVvjriDCBCl5L+0Y2PxVJqv6hkoV
+	 sMwf7gVHvsEhg4cmJ0o9voJ+uRXEqrYn12pzi4/LO8OUM0C5QAVUXll8zP6esRv4DDgZg
+	 vVBqDoKL3FXPrn6QAHe3jw2QYoB0iRaYfw0wkUYwihAlSPWLcW1ICZrcYXZJ11Lk86H3X
+	 l5yb87MnMQvFDmSiZaMiZ/wlkPPW6ltFpNFVTihC2BsRZXXGHKSfx1jJcqZW1imHPcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729643;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Pt8xvDwKeZFNbSLqDy3OvpUkDSrTrAmd4jUA7dH+Zmk=;
-	b=vhy2NlUdeAHB9f3nlQL03a7jgVkm9HJBDMrwBv0E4YwGsuTZT6dz+5JDMBKk+joL2GHG
-	 KN6WaFPZWjiSXw+lFLZzBnvacgo19aMt8uNMyiLHzSmtdVR9YwdDHFo+cBJyHi9zsyz0c
-	 YbiIulEy5oumbklBB2SoSvholVWzWlZcaJitLlVEK5kf2qZdqAjJvJsOdejiBRaiKJRzs
-	 XIH9lEf3/yoFyZl9Kd0/xf5++WclLnFssFxbgTvKBe5wbwT9oEQ7vJdCWnTYPYKOsdHFL
-	 SY1U0DGFGM3TXQMUkN2giC0zY4qcezxfjUxuwsL2xT8fAhFtA3NI4KTQ2GoX3GxnnuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729657;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=wvcPZqOydbJbZA93vSX5EHd5IDhKbwwDJ1uTA6X1prk=;
+	b=gh6Fn/m5mief5Heu3GysS5TCgN8BYS+QauNsdrRb60K+rtFHLyfS87Fp1Bwj6exfScrG
+	 kyjm+4Tr7YnQoxyED69sViXVGIBsjKAQGp8CcXJnAVRGZVm6KQd17cSvzVwf+6SdWOG+i
+	 VvJ7JajD66FLdElDY84wJUJsW0UQtUr72g40IKr8qjU1QBMgiIysBz8jfBEQBUfcsSDGI
+	 A8M7CmlWVqlfAhw4KWIXff29k5DoI2CktTySvRDRmX6mwmaCwtRmFPYNmyMb4QYZ8Q0EM
+	 cVMQYj3riXJkmaWK0p9RfmJM++2f1JybDERdUoq15o/ElOhaTHdhxvKx5DMFOmO2xpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="o5/eFKoU";
-	arc=none smtp.remote-ip=91.218.175.84
-Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sEKYv2q5;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BF0606A899
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:00:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9BF0606A899
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E32606A33B
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78E32606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5/eFKoU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KsT5VlOouw8+wlbQGGPvciVPDA8AmFbkB9L6Bo0igYA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794729639; v=1; x=1795334439;
- b=o5/eFKoUpKx8HigQzKWUi4AYgpp0HzJrxq3jRocTYu/5tfZUv0eMO3lj7PYBkPmYqRf9zbOS
- bzA8rXYvZU0HTcGOIEG+F1fF8Ra1F6/vW9rwQPVXJ+/uKn0SVGE9zI32MvhGtQddvSpwHz+VJAI
- MUf0lSMKVeqD57ZdXrfOb9JQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 8fe9c4ef923e859d;
-	Sun, 15 Nov 2026 08:00:39 +0000
-X-Mizu-Trace-ID: 8fe9c4ef923e859d
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: xu.xin@linux.dev
-Cc: chengming.zhou@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org
-Subject: [PATCH v2 1/2] mm/ksm: extract helper functions for scan cycle cleanup
-Date: Sun, 15 Nov 2026 16:00:32 +0800
-Message-Id: <20261115080032.132397-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261115075832.132109-1-xu.xin@linux.dev>
-References: <20261115075832.132109-1-xu.xin@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sEKYv2q5
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3acb1224533so393158a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:00:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794729657; x=1795334457; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wvcPZqOydbJbZA93vSX5EHd5IDhKbwwDJ1uTA6X1prk=;
+        b=sEKYv2q5F5cStHly1PzXhg2pDNY7ud1RE71OLiZ1wg52oYeVgF4GSLnfD36SWbv7gn
+         KEWjaDeR48gOyq1IsILAAJykEUmn7TVJXA2ETl2z+W+0CgWywOKV9Qj+iUdk3SvGdylE
+         Fwnw8ctZagJ//lUFXAACsOmAmUroHCTexpDEF5NwXjwzXMDppFMXsDRYd3dLcUej5QJ7
+         mqe5Y6WlDlpzWW712NINam4esUU5TLte1ROKn5lxuer1+rKf6Jw2sog7HOzMy3PmvtDR
+         WalG0ozetnCcep3jorPIV+z9d3eAWOuFKlRYLZ6Wda0jc06COV8Z6T1/zwF9QTbH6lF4
+         uG7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794729657; x=1795334457;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wvcPZqOydbJbZA93vSX5EHd5IDhKbwwDJ1uTA6X1prk=;
+        b=xEtv9oJybylird9LhOzySBjKxDsuJqa+JOxH4Wd+e2b91DoZt6HKcKPcbpeawlRlAP
+         0xPHv8pb6d76bf0iZla74mD/Y4dtXYuM9wqO8TsFYiPHyQEXHmZvAokn4LnVCOSAFTwQ
+         6BA95Ulj41fwxF7FjLQOL1o9hN+LDkgi3chhlwknrCiPy00anjxbUy/w6Ao3z9RAh+BI
+         Uzo+j6h3SvNWCOYMwOzeycw/Y26CT/MUn0GfSa/KergxmiCDgHlFZqlJerYnJVxoXx5y
+         ER+CR/0hkFuhxCBmggQrBlDtu3MoOJHYZQnbUt+YK0fP2pXA/nxZNkcPw4bGDG3xB9aU
+         FQmQ==
+X-Forwarded-Encrypted: i=1; AL+hErEdayUPqarrCnf3stLYm3i1CPsfInuuFPpywO9780tRUv916eo3H15CDTQ9gBvvBcPh9RutaMwciPejY8Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AIcNlO251moReaWGWejjkTUqKVSf+/AU2uoV0mE8pjVJ29vQ9
+	MIxieJXs2At/+c4nKos+2NxtcQueIrXc79uFxdbxD2isqfng/6ByfpY/
+X-Gm-Gg: AYBFou0YU0wL77u5ayHXaIdzuTLTWqLOvTfQxDhp6ioMLdvmgS8YImQMT5uhGV2vJfQ
+	WvSVVxzDn8ayjFMd4FUqOyMzm6VMn7otfvF/+BKPoqFctgcL6EP8xkGAmFdK35e0iTi2OU056E9
+	vcWjt3NR5JFpJeMXRwtN3ps7wuLIhSv9Mer19vDlfYcbr8EpZVVT8OZ7qNS78VJgfqdEnLfEAIt
+	iYVPESgPXFTD1wcuoysF5b+UFTj6UTiYm72zoJolCbIcQWihK0PTz4oAvmJ2IJ2IfDeEo3W3deL
+	W5F8yGvOfd2IeRmJTB6H4J45x9fMye69fxYtQar6MMXH5Qy4EnoKsfow1LwP6Q2YNfLzlpakz/Q
+	/+vvL2lO8xVH5BhLUTAmEB5ULbLIGTaqvTBP4LbKYlnPq1yUoZPbAq031Jo1b7yaMA/QtVXa6Ci
+	s8CwmdLphpp0lNb3AAud2RB+FQ/mHpVMKYsWDRnIm1NW7I2u7yEPgJgZQaUWFSUUMtA+ZArLjGH
+	ipF82crBQfkz8uUDXb4qWNyJqBB+5iC2Ar1MdRkElJ+/Y9+6PTBsUzi6Dhtp16+b6tBbJsEO1KX
+	q2HVoQ75wjXp6eBT5htmXNnb+fjIDpXiGqNVHofYqEklWbYtRPaaWvJNgO85JESUH7vnHYDhGpB
+	l3JwoiQ==
+X-Received: by 2002:a17:90b:5844:b0:3ac:a7ee:6785 with SMTP id 98e67ed59e1d1-3b1b081cd6amr12270088a91.1.1794729656691;
+        Sun, 15 Nov 2026 00:00:56 -0800 (PST)
+Received: from claudebox.iyengar.cloud ([50.39.139.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm11795937a91.4.2026.11.15.00.00.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:00:56 -0800 (PST)
+From: Arun Iyengar <aiyengar1990@gmail.com>
+To: Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, hverkuil+cisco@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/4] media: rkvdec: Add VP9 support for VDPU381 variant
+In-Reply-To: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
+References: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
+Date: Sun, 15 Nov 2026 08:00:55 -0000
+Message-ID: <179472965541.3841740.13087399923892139638@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,101 +106,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Since scan_get_next_rmap_item() is getting too large, extract two new
-helper functions, ksm_prune_migrate_nodes() and ksm_reset_unstable_trees(),
-to reduce indentation levels, isolate local variables, and improve the
-readability of the main scan loop.
+Tested on an Orange Pi 5 (RK3588S), media next 48fe5a7834cc with this
+series, KASAN on, GStreamer 1.28.6: fluster VP9 224/305 as in your
+cover, Profile 2 output md5-identical to FFmpeg and libvpx, HEVC
+unchanged at 146/147, v4l2-compliance 0 failures, no KASAN or IOMMU
+fault. Not tested: 8K, long runs.
 
-No functional change intended.
-
-Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/ksm.c | 54 +++++++++++++++++++++++++++++++-----------------------
- 1 file changed, 31 insertions(+), 23 deletions(-)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 5e24b5ca8dc8..8db6743ece6d 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -2609,6 +2609,35 @@ static struct mm_walk_ops ksm_next_page_ops = {
- 	.walk_lock = PGWALK_RDLOCK,
- };
- 
-+static void ksm_prune_migrate_nodes(void)
-+{
-+	struct ksm_stable_node *stable_node, *next;
-+	struct folio *folio;
-+
-+	if (ksm_merge_across_nodes)
-+		return;
-+
-+	/*
-+	 * Whereas stale stable_nodes on the stable_tree itself
-+	 * get pruned in the regular course of stable_tree_search(),
-+	 * those moved out to the migrate_nodes list can accumulate:
-+	 * so prune them once before each full scan.
-+	 */
-+	list_for_each_entry_safe(stable_node, next, &migrate_nodes, list) {
-+		folio = ksm_get_folio(stable_node, KSM_GET_FOLIO_NOLOCK);
-+
-+		if (folio)
-+			folio_put(folio);
-+		cond_resched();
-+	}
-+}
-+
-+static void ksm_reset_unstable_trees(void)
-+{
-+	for (int nid = 0; nid < ksm_nr_node_ids; nid++)
-+		root_unstable_tree[nid] = RB_ROOT;
-+}
-+
- static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- {
- 	struct mm_struct *mm;
-@@ -2617,7 +2646,6 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 	struct vm_area_struct *vma;
- 	struct ksm_rmap_item *rmap_item;
- 	struct vma_iterator vmi;
--	int nid;
- 
- 	if (list_empty(&ksm_mm_head.slot.mm_node))
- 		return NULL;
-@@ -2639,28 +2667,8 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 		 */
- 		lru_add_drain_all();
- 
--		/*
--		 * Whereas stale stable_nodes on the stable_tree itself
--		 * get pruned in the regular course of stable_tree_search(),
--		 * those moved out to the migrate_nodes list can accumulate:
--		 * so prune them once before each full scan.
--		 */
--		if (!ksm_merge_across_nodes) {
--			struct ksm_stable_node *stable_node, *next;
--			struct folio *folio;
--
--			list_for_each_entry_safe(stable_node, next,
--						 &migrate_nodes, list) {
--				folio = ksm_get_folio(stable_node,
--						      KSM_GET_FOLIO_NOLOCK);
--				if (folio)
--					folio_put(folio);
--				cond_resched();
--			}
--		}
--
--		for (nid = 0; nid < ksm_nr_node_ids; nid++)
--			root_unstable_tree[nid] = RB_ROOT;
-+		ksm_prune_migrate_nodes();
-+		ksm_reset_unstable_trees();
- 
- 		spin_lock(&ksm_mmlist_lock);
- 		slot = list_entry(mm_slot->slot.mm_node.next,
--- 
-2.34.1
-
+Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
