@@ -1,94 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794735304;
-	b=LIR9w9y1DN3QyRa6VE9KncY7580JG/WxZM6x9AasatOXDBWTeEi+Fy2NhScBoXE/eyBI
-	 aGqjYzkL8kU/3D8hv7rcUQDKNzhxEAXEOHzSx2io/IpNLYdLmcnoZxISPuLDSkKWUI/fY
-	 qXxUX2K9la1iQ2wom8wkBgUyXVHriZT9UtBvjZWZTAmzI6erm2316whjypoVUslnEgJah
-	 HCdH4KY1ZlO1XR+5xeM7RTLDEAmRFkAeV6j4mV2OX4Z4JrZDrwJp/bQwGg/6vZBGmrb8H
-	 n2avThlKEmLluUzDB3uChb/4Y7h+ZgWDbGHPnYxuJoG8ykviU5zjsb8Ko8k3YdU+9WA==
+	t=1794735483;
+	b=ym7pY1Y7W0uZJjwyONiNpDfu/LaIePnuCensqZEkmaTpjmyVY19l78bYu0N7aGQWpAIV
+	 6utkHlbTT4Z3dLB4ekofvc31170vnpAZbJENcMtvE/eLtRpK0SpNBWGCZ5eEA5e2CAIaD
+	 kbSp4YDkJ4FJ4yms0x9Na184o/LXkyYYEbXYsvT77+UqKq4leuahInswAPOW2ZJKyH9Mz
+	 lcX41PmyNQgDhQSH5TlrbTkenNMIpzHz4yllOhXVQPeTnYEPseT84o2FGascUFklQNEi0
+	 4p01BjhW+2mJOyELN3dbRgWEdduCiCMNlPBGU/hE31VgTl4dga11krOM6iu/6/y+9mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794735304;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794735483;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8qOsEVx0lNcqncRsI92WD8XITRb8ty6XS3PW5jLkLOA=;
-	b=uchDzKgo605ZLluAyn105DygP8KkCzF5KV/Unf7eKp6dN6W4N1kdkhxHNhQRB/p+WsYF
-	 /mKsoOX1V/rF/Vx1sLC5GRvZpfMxeVCWFznQgmSTzdcveA0iY6XTjud5cdju7Qrcb2gW/
-	 Fnt7DqWGU13gx4YZeGy0TxcM5V1soPkdH6+WHJLAxoKcnZ8o1ybFrkwxucC99OYR3rF8P
-	 rrVdjoXraACsUS+lSCgRIdLiwaGUuYvh4TvbwPhNHuUZixChLorvWKtgSRE2s1oiG5vJQ
-	 ZGxxDmS5ETXHImWIhyPbdi3OAkaN7bOd+O5Xkzz5XQJP1miXo/HXe5CkpphkWsQDcFA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=L7xE73YnacVCImHadDlbM9nSN9zvnBeeDbefiAX2ogU=;
+	b=LHO/mn1anCSeB61aMKkgfnilaDeXr9I2tL0T0yaEzP0kJZzkcGNqOwIbvwb7ZbCYmySd
+	 RAyVuMW403EpvJBMZ8s8k14YL+UCh9vwA8EsMOJ94JhJHxI/JFsnCag7xpReQRxVPqQFK
+	 G1rUvdns5uqY1yG6sbA/zWkM6f1a4f78fx1t9MS/wu5d+qaNNsyaTAy9em/Ka7X0/3nQs
+	 r5cCNIdXZpkRGJVuJ7bi36y7SnykbD2RhB5JdZlPAztkT6tfw4AUseBkBsVXPL7CXTRpR
+	 oqUagGi8Qx0fhQw1OSiPWIuL+W3Pg9vKiaOWj7/hrMao+kbb6RTblRjLaA2qyJFy40w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OH9Ha2/i";
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihMTyoyf;
+	arc=none smtp.remote-ip=209.85.208.178
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B629606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B629606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C4E606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:38:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2C4E606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OH9Ha2/i
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so3563125c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:35:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihMTyoyf
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3adfc004920so27888481fa.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:38:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794735303; x=1795340103; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8qOsEVx0lNcqncRsI92WD8XITRb8ty6XS3PW5jLkLOA=;
-        b=OH9Ha2/imUV/OnHLqHUoaeryW5odeCWmwi9sYyHkCX6FHUC+26UCLGHFvTIdIUdwiR
-         BOf1LrbfYSQUP1q4zV9KJT/EdnOl3/bHokfdLXU5n7VJjk+CvZJ1pk8yTd+Qdz4iGROl
-         Wg4xRNR8JEimOQxpFrHk+XwmhANCXtH+zNDEAQ2bWB6kwIOnPkdU8iITQPeCqlcFLJ6r
-         BpMBeO7lTVJsutserfG4onnRJb/43I6pB7akUYt07GY3SNNTKq+ruGE5G05PvpanWIFZ
-         tjmVtqr03c3z28AIfFSE7274GFiTY3oh0NNPml3SF4GiYieyId6+jfNTmKeyToOAXpRz
-         RdAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794735303; x=1795340103;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794735481; x=1795340281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8qOsEVx0lNcqncRsI92WD8XITRb8ty6XS3PW5jLkLOA=;
-        b=YXGPjBS1D1kQeAKFn6D5vkmIGfWLylrseMHG60R2a/9Q5Q/VUyXwsve9roVSiAuXNr
-         rLzdYlULN3HkjtLlcxWbES/nk/BpinZqB93wYVVwyKtlRuNoZaxrLvQzlpEOfvd8Y6hE
-         nK/bm88T9SrbNc1kW5xm8mCm7JJIw3gEsZRHHs3s92Xtshw9IH47sGNq+UvB6vFfq1OC
-         IGz/Nhg1kQVIK8p5fw/t5LVmx/r8gZb+gFybDj0IJLy5vgYe4bVYC/kPv6VGokjqI5iy
-         mEI9haVVZa3710dBMOQDgo87jtO5klSk8nNqZAMLmdxvkumC0k7Km5M3DzzcBPz/+6Gj
-         a8/A==
-X-Forwarded-Encrypted: i=1; AL+hErEtjt9aZ+jm8NVX8/kYkpgVobC+9HlOkaNhs0FMar4cdq6PZ5kRo//5RTcScFnOcVdN5YW6pJaTYght5/8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sVMn2HpBPtuu3fkLyT1BDLIFaQn/m88wNoL6htDjuTz7dF4Fc
-	f1htjQ5X/+S+OhOvLyh/N3kB8dnyDbvWMfq43JbZvmKP4GPWyxBGDgbS
-X-Gm-Gg: AYBFou0m/UtmdygbN9HL9Qg4p6i4/9VhtpAoO/rL1+SxPXXNhvZBXMwpuagUVoCAuIx
-	b0F0tNndMzZPLhFlU3JtXXCmRolgXWKnFKv66El8aC1aST+eE9KFv5yuxJEkYfOChEAbxVRt8BD
-	wDJHdo/PevePC5z2PbVn7w6DQLaPKc5TNuIQdNaWDuXQI5SDaMgrZa42V1x+NILZINc0tA4VViF
-	pyWp8ygD8vOJJWkPWgtdcPFiVvB1vzwLNxS84ED5jRntDQhanRvjSUAG4yUJ41cmLneaZkD3ZzL
-	mygBdaNASIFxbE4xD/00GkQhTblWn7JQZVcHxjKxUr2H3lcYoj08EEEhCUvxxbGLCVQGU1kA3mT
-	+wyB7WmOUL/a1/lUC7rBBt7rFn7btNWjkdT/gPlr3AecsdnjUHQ2/YoKKZ7wPRV1SAJIaYW7T4b
-	QqFc1tK8x8RUKclqew2Qn317bMezqJW+MpOOZB6juzOum5n7kCvedk0Ma2wdvF3hVTPspDhT3t5
-	B3IEQOVRo6NabWv804ioaAtxb/lX3iZ4AUmHWGa+3m03QlnVrgI+i36B9Fdcf2N4zu1YBvOjMdV
-	iQqBqPAjSR6MLafQJGpVFKToH2BxIFLTKojNPvcxFsGoOY8sNTiwZE5ofp+Sag7aC31kPmBLFEa
-	p0ck5dGieYGbTUvvD+DzpZSy9esQQ
-X-Received: by 2002:a05:7300:c01c:20b0:36e:b05e:9a74 with SMTP id 5a478bee46e88-37967dd6078mr7137823eec.30.1794735302432;
-        Sun, 15 Nov 2026 01:35:02 -0800 (PST)
-Received: from codespaces-2362ac.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net ([207.46.224.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d3e37sm26298603eec.24.2026.11.15.01.35.00
+        bh=L7xE73YnacVCImHadDlbM9nSN9zvnBeeDbefiAX2ogU=;
+        b=ihMTyoyfTelnyWJfpjFKLs2RK0I/f5OSe5JMBADPOP6k30mgnOysCtRMeLcAjaD1Ls
+         4Y7vuH46kqGe4IqbEw/YybIgQYi1ZWgc+2rIV28P/lB3eEM4dVPLKBHFCRYxznSnTslY
+         qvt2t9hrZl9Vzsd9qU5AlsUPzfqqeEwZItiR8D+alWt3rqbT+fhybik4hq5DKKY0NM45
+         JRDMRYjPaLVmBTBq6Cma4Cgzo2L16nRxyg8fjEFOIOe3mC+SC2RHkeqkcCpudGwgq0LI
+         ajdMX8dm/PvU6eKSboImzVgAMq0BfDML1d86rRUPltoe/9bpU4Ar4Z66bGT7WVS4qlrr
+         WAag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794735481; x=1795340281;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L7xE73YnacVCImHadDlbM9nSN9zvnBeeDbefiAX2ogU=;
+        b=ykSf28Eh1GIWwPJzilkldBwBzOmhudkRLjsgFc9UQb61iyLOlYbD3Z7bkuiH9e+vU1
+         911hK/cgHrj9b4YvXfT/VQ3I81PhdtLe3FUN0DCqSDATrzJ/Kp4sR92HfG1EEAj6gR5j
+         zsYyWh7tPwys+mtNG1pupwhwCib65TU3Mxntc/VOVz/89MOgOE+FQo23z0fZWCsa6h6a
+         PVA5KzNDbdu8z1IRx7uaUitIADr+XTn332LAXAynP7vNAeSmAnjK1WOTwJiS4fev/rTB
+         ql3Gx9X5ea1a4UkSPQOrD9yHVg0PM7S3NmKBUiXYeiN58+4sf+rj+KeCg0Y+UMLA/j0R
+         G2+Q==
+X-Forwarded-Encrypted: i=1; AL+hErEzIhcamogbfzH1EY9aQKZJXA3vHF+jeSJ0BKxYuGtB7HEut+CDtxVapzAq+YBhlSClXPJnrvL+OVElHuY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QgVW0daZyVv3lssnYWm2s9Y/AHs1BvdaDBugZbqAYCIVKYhRk
+	X169HkXBCSr/o2k69flFFgdArSMYKbjnltUzgv8KVBQWB47N9Rx9bCn8
+X-Gm-Gg: AYBFou3jjWV1xhYD7elkdaF25w0sUQwt/9GJ2TsOu4neqiXmu94xvgyrsA24KKnp8PP
+	2CPvo6AiXPRljozhjiukpElugFBymzHRZvEZtVHL2EK7aEtVTsbmUKTB7zQD/mNJG/DqMH/T3+k
+	LqrnQbhKEYdskCIM/ln8hASlQFvg9uD+wyhbya0cgfLogvsImpW6tWBudE8sTgB8YFgWbIKC9gA
+	01yGVItJZWXwiSqQl+w+FATDTzsH5UR67TJoKwKNc7AfvagDkmfukRrgjnhLjM2R3N6HkXZGLHY
+	4RPEd6y43uMMW0zcP4aUtkpItyqFjcDB2rb7zGFDhYBA5su0pfXpQQYZpJMOgGjSd9TEqCsUx9n
+	RzgaueNovJv7kMzKdnRab81+MVrweUXKnn20AoZchO/VhddV30ha0tZsGPJLX+ZBrweXJLyCdIt
+	3kPt8rzojCy8IW1IYyoIhpWkFdopliimoeAYRZJDuuV/4jFrewcwyAnbnIp6aLF1jgGBJLJRJnQ
+	slh4dlPjyVglz6y0v+oZf4/CSZj0qs3Sfg4KpfUBseGUCODYpT2XBqHvM5kg8P24RTQdSzZXcim
+	7qm3Qx5U/oAuHjqnV34tFE4nClN4Z3zyMsgNyhlBAy7QMt7zdKacVckjxM20bW3S0HLsnmk=
+X-Received: by 2002:a05:651c:b0e:b0:3ab:4014:884b with SMTP id 38308e7fff4ca-3ae2b40f63bmr24055211fa.1.1794735480777;
+        Sun, 15 Nov 2026 01:38:00 -0800 (PST)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7ae92dsm23598851fa.23.2026.11.15.01.37.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:35:01 -0800 (PST)
-From: Seongjae Jeong <jsjlee1020@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
+        Sun, 15 Nov 2026 01:38:00 -0800 (PST)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Seongjae Jeong <jsjlee1020@gmail.com>,
-	stable@kernel.org
-Subject: [PATCH] f2fs: fix to use atomic write for strict fsync on the inode update path
-Date: Sun, 15 Nov 2026 09:34:13 +0000
-Message-ID: <20261115093413.118399-1-jsjlee1020@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com
+Subject: [PATCH v4 1/1] alpha: Add support for HAVE_ARCH_JUMP_LABEL
+Date: Sun, 15 Nov 2026 10:37:48 +0100
+Message-ID: <20261115093752.1287968-2-linmag7@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261115093752.1287968-1-linmag7@gmail.com>
+References: <20261115093752.1287968-1-linmag7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,88 +101,221 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In strict fsync mode, f2fs_do_sync_file() uses atomic node writes
-for OPU to preserve ordering between data and node writes and
-prevent data corruption after a sudden power loss.
+Implement static key (jump label) support for Alpha. Emit jump table
+entries and patch instruction sites between NOP and BR, synchronizing
+instruction caches after each update.
 
-When an inode update is needed, f2fs_do_sync_file() calls
-f2fs_write_inode() and jumps to go_write, bypassing the check that
-sets atomic. This can lead to non-atomic node writes even after an OPU
-in strict fsync mode.
+Warn and leave the instruction unchanged if the target is outside the
+signed 21-bit branch displacement range.
 
-Move the OPU and strict fsync checks before the inode update branch
-so that atomic mode is enabled before the jump to go_write.
+This relies on kernel and module text being writable; Alpha does not
+implement STRICT_KERNEL_RWX or STRICT_MODULE_RWX.
 
-Cc: stable@kernel.org
-Fixes: 278799151646 ("f2fs: fix to force keeping write barrier for strict fsync mode")
-Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Matt Turner <mattst88@gmail.com>
 ---
- fs/f2fs/file.c | 31 +++++++++++++++++--------------
- 1 file changed, 17 insertions(+), 14 deletions(-)
+ .../core/jump-labels/arch-support.txt         |  2 +-
+ arch/alpha/Kconfig                            |  1 +
+ arch/alpha/include/asm/jump_label.h           | 65 +++++++++++++++
+ arch/alpha/kernel/Makefile                    |  1 +
+ arch/alpha/kernel/jump_label.c                | 79 +++++++++++++++++++
+ 5 files changed, 147 insertions(+), 1 deletion(-)
+ create mode 100644 arch/alpha/include/asm/jump_label.h
+ create mode 100644 arch/alpha/kernel/jump_label.c
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 05061254c3b2..3b51d84177e0 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -372,6 +372,7 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
- 	int ret = 0;
- 	enum cp_reason_type cp_reason = 0;
- 	unsigned int seq_id = 0;
-+	bool has_append;
+diff --git a/Documentation/features/core/jump-labels/arch-support.txt b/Documentation/features/core/jump-labels/arch-support.txt
+index 683de7c15058..119c71b7cec0 100644
+--- a/Documentation/features/core/jump-labels/arch-support.txt
++++ b/Documentation/features/core/jump-labels/arch-support.txt
+@@ -6,7 +6,7 @@
+     -----------------------
+     |         arch |status|
+     -----------------------
+-    |       alpha: | TODO |
++    |       alpha: |  ok  |
+     |         arc: |  ok  |
+     |         arm: |  ok  |
+     |       arm64: |  ok  |
+diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
+index 6ccb2d230326..e7e7cb37d670 100644
+--- a/arch/alpha/Kconfig
++++ b/arch/alpha/Kconfig
+@@ -28,6 +28,7 @@ config ALPHA
+ 	select PCI_DOMAINS if PCI
+ 	select PCI_SYSCALL if PCI
+ 	select HAVE_ARCH_COMPILER_H
++	select HAVE_ARCH_JUMP_LABEL
+ 	select HAVE_ASM_MODVERSIONS
+ 	select HAVE_DEBUG_KMEMLEAK
+ 	select HAVE_GUP_FAST
+diff --git a/arch/alpha/include/asm/jump_label.h b/arch/alpha/include/asm/jump_label.h
+new file mode 100644
+index 000000000000..df0b59530c85
+--- /dev/null
++++ b/arch/alpha/include/asm/jump_label.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0
++ *
++ * Alpha architecture jump label (static key) definitions
++ *
++ * Defines patch site emission and jump table layout for
++ * Alpha static key support.
++ *
++ * Copyright (C) 2026 Magnus Lindholm <linmag7@gmail.com>
++ */
++
++#ifndef _ASM_ALPHA_JUMP_LABEL_H
++#define _ASM_ALPHA_JUMP_LABEL_H
++
++#ifndef __ASSEMBLER__
++
++#include <linux/types.h>
++
++#define JUMP_LABEL_NOP_SIZE 4
++
++typedef u64 jump_label_t;
++
++struct jump_entry {
++	jump_label_t code;
++	jump_label_t target;
++	jump_label_t key;
++};
++
++static __always_inline bool arch_static_branch(struct static_key *key, bool branch)
++{
++	asm goto("1:\n\t"
++		 "nop\n\t"
++		 ".pushsection __jump_table, \"aw\"\n\t"
++		 ".align 3\n\t"
++		 ".quad 1b, %l[l_yes], %0\n\t"
++		 ".popsection\n\t"
++		 :
++		 : "i"(&((char *)key)[branch])
++		 :
++		 : l_yes);
++
++	return false;
++l_yes:
++	return true;
++}
++
++static __always_inline bool arch_static_branch_jump(struct static_key *key, bool branch)
++{
++	asm goto("1:\n\t"
++		 "br $31, %l[l_yes]\n\t"
++		 ".pushsection __jump_table, \"aw\"\n\t"
++		 ".align 3\n\t"
++		 ".quad 1b, %l[l_yes], %0\n\t"
++		 ".popsection\n\t"
++		 :
++		 : "i"(&((char *)key)[branch])
++		 :
++		 : l_yes);
++
++	return false;
++l_yes:
++	return true;
++}
++
++#endif /* __ASSEMBLER__ */
++#endif /* _ASM_ALPHA_JUMP_LABEL_H */
+diff --git a/arch/alpha/kernel/Makefile b/arch/alpha/kernel/Makefile
+index 850f1265cc55..279616993fb9 100644
+--- a/arch/alpha/kernel/Makefile
++++ b/arch/alpha/kernel/Makefile
+@@ -19,6 +19,7 @@ obj-$(CONFIG_SRM_ENV)	+= srm_env.o
+ obj-$(CONFIG_MODULES)	+= module.o
+ obj-$(CONFIG_PERF_EVENTS) += perf_event.o
+ obj-$(CONFIG_HAVE_PERF_REGS) += perf_regs.o
++obj-$(CONFIG_JUMP_LABEL) += jump_label.o
+ obj-$(CONFIG_RTC_DRV_ALPHA) += rtc.o
  
- 	if (unlikely(f2fs_readonly(inode->i_sb)))
- 		return 0;
-@@ -392,6 +393,21 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
- 		return ret;
- 	}
- 
-+	has_append = is_inode_flag_set(inode, FI_APPEND_WRITE) ||
-+		     f2fs_exist_written_data(sbi, ino, APPEND_INO);
+ ifdef CONFIG_ALPHA_GENERIC
+diff --git a/arch/alpha/kernel/jump_label.c b/arch/alpha/kernel/jump_label.c
+new file mode 100644
+index 000000000000..69475e840e46
+--- /dev/null
++++ b/arch/alpha/kernel/jump_label.c
+@@ -0,0 +1,79 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Alpha architecture jump label (static key) support
++ *
++ * Implements runtime patching of static key sites by replacing
++ * a NOP instruction with an unconditional branch and vice versa.
++ *
++ * Copyright (C) 2026 Magnus Lindholm <linmag7@gmail.com>
++ */
++
++#include <linux/cacheflush.h>
++#include <linux/jump_label.h>
++#include <linux/kernel.h>
++
++/*
++ * Alpha instruction encoding helpers.
++ *
++ * Branch format:
++ *   [31:26] opcode
++ *   [25:21] Ra
++ *   [20:0 ] disp (signed, in instructions; hardware multiplies by 4)
++ *
++ * Unconditional branch:
++ *   BR opcode is 0x30.  We use Ra=r31 so no link register is written.
++ *
++ * Updated PC semantics:
++ *   Target = (pc + 4) + (disp << 2)
++ * so disp = (target - (pc + 4)) >> 2.
++ */
++#define ALPHA_OP_BR	0x30
++#define ALPHA_RA_R31	31
++#define ALPHA_BR_DISP_MASK	((1u << 21) - 1)
++
++#define ALPHA_INSN_NOP	0x47FF041Fu /* BIS r31,r31,r31 */
++
++static inline bool alpha_br_insn(unsigned long pc, unsigned long target,
++				 u32 *insn)
++{
++	long off_bytes = (long)target - (long)(pc + 4);
++	long disp = off_bytes >> 2;
 +
 +	/*
-+	 * for OPU case, during fsync(), node can be persisted before
-+	 * data when lower device doesn't support write barrier, result
-+	 * in data corruption after SPO.
-+	 * So for strict fsync mode, force to use atomic write semantics
-+	 * to keep write order in between data/node and last node to
-+	 * avoid potential data corruption.
++	 * 21-bit signed displacement: range is [-2^20, 2^20-1] instructions.
++	 * If this trips, the site/target are too far apart for a BR.
 +	 */
-+	if (!atomic && has_append &&
-+	    F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT)
-+		atomic = true;
++	if (WARN_ON_ONCE(disp < -(1L << 20) || disp > ((1L << 20) - 1)))
++		return false;
 +
- 	/* if the inode is dirty, let's recover all the time */
- 	if (!f2fs_skip_inode_update(inode, datasync)) {
- 		f2fs_write_inode(inode, NULL);
-@@ -401,8 +417,7 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
- 	/*
- 	 * if there is no written data, don't waste time to write recovery info.
- 	 */
--	if (!is_inode_flag_set(inode, FI_APPEND_WRITE) &&
--			!f2fs_exist_written_data(sbi, ino, APPEND_INO)) {
-+	if (!has_append) {
- 
- 		/* it may call write_inode just prior to fsync */
- 		if (need_inode_page_update(sbi, ino))
-@@ -412,18 +427,6 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
- 				f2fs_exist_written_data(sbi, ino, UPDATE_INO))
- 			goto flush_out;
- 		goto out;
--	} else {
--		/*
--		 * for OPU case, during fsync(), node can be persisted before
--		 * data when lower device doesn't support write barrier, result
--		 * in data corruption after SPO.
--		 * So for strict fsync mode, force to use atomic write semantics
--		 * to keep write order in between data/node and last node to
--		 * avoid potential data corruption.
--		 */
--		if (F2FS_OPTION(sbi).fsync_mode ==
--				FSYNC_MODE_STRICT && !atomic)
--			atomic = true;
- 	}
- go_write:
- 	/*
++	*insn = (ALPHA_OP_BR << 26) |
++		(ALPHA_RA_R31 << 21) |
++		((u32)disp & ALPHA_BR_DISP_MASK);
++	return true;
++}
++
++static inline void alpha_patch_text(u32 *site, u32 insn)
++{
++	WRITE_ONCE(*site, insn);
++	/*
++	 * Alpha needs an I-cache sync after patching executable text.
++	 */
++	flush_icache_range((unsigned long)site, (unsigned long)site + sizeof(*site));
++}
++
++void arch_jump_label_transform(struct jump_entry *entry,
++			       enum jump_label_type type)
++{
++	u32 *site = (u32 *)jump_entry_code(entry);
++	u32 insn;
++
++	if (type == JUMP_LABEL_JMP) {
++		if (!alpha_br_insn((unsigned long)site, jump_entry_target(entry),
++				   &insn))
++			return;
++	} else {
++		insn = ALPHA_INSN_NOP;
++	}
++
++	alpha_patch_text(site, insn);
++}
 -- 
-2.53.0
+2.43.0
 
