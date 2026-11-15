@@ -1,60 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794745127;
-	b=mk4/NHAll4XW4ibVQAO8dyMaPKs+EvnkRxNUwcDQCgDUNB2W4uk4bcWfP6pwOrOwPkQE
-	 bw//kpcRIoRWd7PtMijjnCN65yCRunEcalPD7dSFLB0FUCsHL7mh5Q2BtPaIaK5SS/5BP
-	 UXnCeoGvyEtaXvP6gF7FD9P9awUHcw3VW1xULIczQawZU5ociTS30NMeJLR1aE8zH24TP
-	 VkZlx0dqsUBdo3YOx58CmJ1K8DGW8xXewGkjD6Ry4GsdVqm5C2LLxNvuVEFtDxcT9O8tZ
-	 +CK3SlAyLDw4qV+ObcqsVTBw4E2xHnBBZgMonM0AWmz6gyPu3XVQJnEB1SjQmrlfp5Q==
+	t=1794745202;
+	b=BMbxSRRZk94Jy58nFJfI9J9GvOaNlXe0K+wPlU42XDhvPVgA8xGh+bRdnG0t846zzd4j
+	 Qijh6JN1BmVbFVY9ZNoNeQjTnvkx3CYdzXZxBz1fZJwU5Zx8U6clSU9CNvaa9fZg2D0n0
+	 RJorzo8ixILKKxRX847/I14wsLaglqN5HkAxIfUCUIrMoIjj3pTshsT/DrMcNbIBu9n3D
+	 6b7CR57hOcxJDon0Dbrcg2bSE49Wqwxw+Vw7XdkTps2IK265v9wDFFX7dpoa5fTjHf0M5
+	 tHWTHDPQxCBrpUdHOcw/bADeuCO3Jx+QdLXfBtg8D9iJGQYkzd9M1nkKzwGSF1L9YYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794745127;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=f/kL4XOMsZ9Q2OoJp1n7JQq062LRbdy4py7z1SqZZRE=;
-	b=XGoRSQZwyEn2rkFXbediuXxye7K5VzTKhmawomlUdK2tVDuBfqZwm2qkGHJUBQNBSPvU
-	 haHL+f8RPn4I49iUf5QcNy/tuZyrCzB38pv79l599O4wJFuMzV7vUHjKF/RTygW2kfDR8
-	 aplZR+vOFQkefaQ7vd+vz0MntpW1VCFuLsPQiQWP3ZmE6C4I/J0cYxNX+zpLhyWqHgS8Z
-	 Khp5gQoV7TZLF7ixi+rLMQXhwboKlJ8nciai0oBnYGbrdmqHFH4WoyZ4VopfTIhhtsHPG
-	 671iqtdseLp8HkUdHZTWzk8uM+evFns3MQHXAo035aNdjxmjWSt/uzPNgrF6p+fUMaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794745202;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vMtDV7rOGp9GHf0YCHtgLarvT5GW2vxnwIEbixUsoT4=;
+	b=p8/auqJ13He/zYpSwISA8leIsGLebY/RoNpq1DeDqq/tgAlnvBVDk+O1WPcWrbba+Vvg
+	 cqYEI0mSdgOSkNkpSiLFcg0UxNJFEdRQopOqnH++p2PWZam0JA5Fkkhk1UAMFl+gkpzLf
+	 lLir3kRnT++rB7f3gaxYEaFXw3KHsXFfBqHEwe5WW1m1g9LIHxUfKh6OMfsv7cFeOdMiu
+	 SS8Defb0MFUVJh8JRPcib1YxnQEbnvaSZkOmNmcu6Sn0vXIHrXgBUbtYYMLBb8v1fuWkq
+	 iqudKBGAXoNRws3aHZujZoE6UpjCV5q3oo05oJHRa5vemjs++m4jgpTN9bBz6Qgj7Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwsEEZRq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=e8FODNei;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBA7606A31D;
-	Sun, 15 Nov 2026 12:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE73606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:20:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CE73606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwsEEZRq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615031F000C4;
-	Sun, 15 Nov 2026 12:18:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794745127;
-	bh=f/kL4XOMsZ9Q2OoJp1n7JQq062LRbdy4py7z1SqZZRE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lwsEEZRq2dLzC1q8knVOYYlT3cxdy6vS3O2GUoZ0XiKX0MwhbbedfMtX/5CFpcHYK
-	 noRkiYaS0G6Oy5v9iNHoaoJER30PS2igFSnkDxPZLEwOsCn1C7S5iG6UHRST2c3Jm3
-	 Wv7Ac9khDssihy0ihWKJ/rFfvL7enQr1CNXHupzYb/diqdI9B8S3azkVpmcwy42riR
-	 sXF6oWCs8efhyY+6UT6oON6yjc1oeE8m4EqMJcI1kgY3FUF+q/wA50JthseYqa1tuS
-	 Zw47stTdXF7WdPSipelQw20oePlFusAcOikJDvyKjujScIePoNuWQLgnWkd3/Dopdw
-	 rxM9KhrLbHuGg==
-Subject: Re: [PATCH net v2] net: validate IPv4 checksum start in
- skb_csum_hwoffload_help()
-From: netdev-bot+sashiko@kernel.org
-To: zeil@nebius.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- NB-CoreTeam@nebius.com, mst@redhat.com, davem@davemloft.net,
- willemb@google.com, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, stable@vger.kernel.org
-Date: Sun, 15 Nov 2026 12:18:45 +0000
-Message-ID: <179474512587.2199510.5717585858244093678@kernel.org>
-In-Reply-To: <20261111120448.49979-1-zeil@nebius.com>
-References: <20261111120448.49979-1-zeil@nebius.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=e8FODNei
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdb628232d2so2263061a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:20:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794745200; x=1795350000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vMtDV7rOGp9GHf0YCHtgLarvT5GW2vxnwIEbixUsoT4=;
+        b=e8FODNeitMi8AkmSLQb+kOB+CQNYthu7VoVGdkmiYZ97b35+1SPwbACfCdEGL1sk4e
+         ut1YLlAH7suj9MzxuNUcGxnvaFrSfPHvJrLKGZwDtGTRGjVneQe7P72a2hxI5LXmuLUz
+         LFQVN9LPrl7PZKiYzWAHzGJHnDVFglYZZUY669BPvfDSBQoAGFdoUVWHcD0JTta4VX80
+         CM4xCMeh6ecKHfg497xmesD5kwIdiYssww/ilnzv1MSqRigsoUVUHMaGLutehwxoPMGv
+         0H1momRZLLE5l9+5mspzCgZXG/gQD/t5LysciU6ziwCG+8GUh0xAnF7m1aUN7L8yTZZs
+         dhKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794745200; x=1795350000;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vMtDV7rOGp9GHf0YCHtgLarvT5GW2vxnwIEbixUsoT4=;
+        b=zFOdVNFnKqZ5Ul0TICsJz6uzTZUTJau2RsB2JaBiDkRkF9lbuZUOw5aj17pTx83Flf
+         /zM7TBfBq3MxRqpxcDPHy4ySLLjvgGR9p4/DUnYkf3YatZMA1KYHLuAXpPe4Oup1mAy8
+         24dcIZRR7mSt5YHjZqPlf5qmm7ACxoyM/LGqQWgwBimfZlWxEjq5BJQarMWO3vHXKXC9
+         KMHNIT6oMD0vw2UW045uA7ao81pdNB0yZ1RfJRuidHXgSDyL8mnZV88bsI19pE80WMp4
+         nLhJnq8AW8Q/nCL34jmeibbp8irizkBs52i7agU/o1rS8/IBUkusaEsatFCH5d6ejtry
+         yLrA==
+X-Forwarded-Encrypted: i=1; AL+hErGoiEHXIp30oXPmdpJCWF/il8fx8+Yba684fkVDl0Gwf+RF+rtuzxC2wKrpy5FFKfzw8z2hMYvnk6AgI+Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nDsG7CI3wH4IFVyjqBmvvEfpRRnZ4pzwVHkFsOjHV7Xj8+SfJ
+	UUWwC8wiv9PY/iUbnZwydwwNhT9HFOnn5fsJz+O4xudODULpzIYCBGbXQoGNtXtGXY4=
+X-Gm-Gg: AYBFou3iDXmQoPQeZR0t6uKsYw5u85D/zUcdbnTgT5XGMAve09+pe/kXwpcMXzdYUkJ
+	P+x98mcFgIvdWMfA4dlLPAzNbQ3isk92t1ZkEx0d49wf/tDTwO6FGIlPo0zhbVdiWWXBXa9J4Lc
+	b3UpXeHfULJelJ1jen0lz8d4hm8zrpvd0DVMU6QKR2/uHCIQ+9C7mCeq0dPV9d/v8UNUlFsOdyZ
+	WRESwFiHgMw7Ew8PCEt+aXkscn5Rv9561h0mxLOgETY39N1BLY+xkVXePZ2Or2n1uKQITxt9aks
+	cpP8MECOs1dHbbkmTvHxm+CHHfEtrfEiv0ZV4ETvcznMtINj6ONLRHiP0MA/1mhYrIbMS8wk92O
+	FlMG7IPVrE5s7t8SCQId314bMNGi1qh/t1/7gYIHL0bpR+oPQ7yqNsPMMyO7RtJtJ4tuwFJ9LH6
+	JDR/mYlJPeLPnO708cUFT0KRLuE+NeGa+jD+GzYfqdH06uGp8i3OkIHfRhL8IVc476JpGUxE49M
+	4xp4LucpagYWG/1jfLbwYV573zbc1jpvIkAeO7pFONPdzbAZNmsEAD70IvS0LmgDX7lEkh3UWMI
+	ZTSN5mUNBTcWusG6h3pXfUxqbGLLovreZIYZFihlNTO0/eDMhh2V7qLiD4Dluv1ur7AQ4JrPTmw
+	dXy+DufwoIK8GXsb1l1OyAftkUMzxNrPmKXphLGScYa1P+ymI1tpIxZygUak=
+X-Received: by 2002:a17:90b:4b10:b0:3b0:cc6f:1046 with SMTP id 98e67ed59e1d1-3b1b0dce88cmr7411321a91.67.1794745200156;
+        Sun, 15 Nov 2026 04:20:00 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:35d0:694a:1071:9bae])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d27d26sm17099781a91.13.2026.11.15.04.19.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 04:19:59 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org
+Cc: michael.christie@oracle.com,
+	bvanassche@acm.org,
+	target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: target: iscsi: run the Time2Retain handler in process context
+Date: Sun, 15 Nov 2026 21:19:43 +0900
+Message-ID: <20261115121943.1446744-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,183 +98,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+iscsit_handle_time2retain_timeout() is a timer callback, so it runs in
+timer softirq context, and from there it closes the session:
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+	iscsit_handle_time2retain_timeout()	<- timer softirq
+	  iscsit_close_session(sess, false)
+	    transport_deregister_session()
+	      target_for_each_device(target_release_res, se_sess)
+	        mutex_lock(&device_mutex)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+transport_deregister_session() has walked the device list under
+device_mutex since commit 80647a89eaf3f2 ("scsi: target: core: Release
+SPC-2 reservations when closing a session").  The can_sleep argument that
+the handler passes as false only guards iscsit_check_session_usage_count();
+the transport_deregister_session() call below it runs either way.
 
-- [High] The new check in skb_csum_hwoffload_help()
-  (net/core/dev.c:4136-4153) decides whether a packet is IPv4, and where…
-- [Medium] When skb->protocol is 802.1Q/802.1AD, the new check finds the
-  IPv4 header with __vlan_get_protocol() (net/core/dev.c:4139).
+The callback also takes se_tpg->session_lock in softirq context, and it is
+the only code that does, which makes that lock SOFTIRQ-safe.
+iscsit_start_time2retain_handler() takes tpg->tpg_state_lock with plain
+spin_lock() under it, so lockdep reports an inversion as well.  Both the
+softirq acquisition and the plain spin_lock() are as old as the driver,
+commit e48354ce078c ("iscsi-target: Add iSCSI fabric support for target
+v4.1").
 
---
+An initiator needs nothing but a session to get there: log in, then send a
+Logout with reason CLOSE_CONNECTION.  iscsit_close_connection() leaves
+session_fall_back_to_erl0 clear for a Logout, so instead of closing the
+session it arms the Time2Retain handler, which runs DefaultTime2Retain
+seconds later because the session is never resumed.  Three such logouts on
+a KASAN + PROVE_LOCKING + DEBUG_ATOMIC_SLEEP guest give three of these:
 
-net: validate IPv4 checksum start in skb_csum_hwoffload_help()
+  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 0, name: swapper/0
+  preempt_count: 101, expected: 0
+  RCU nest depth: 0, expected: 0
+  INFO: lockdep is turned off.
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc2-00563-g97d73c825122 #1 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Call Trace:
+   <IRQ>
+   dump_stack_lvl+0x80/0xa0
+   __might_resched+0x31c/0x520
+   __mutex_lock+0x10e/0x24e0
+   target_for_each_device+0x6c/0xc0
+   transport_deregister_session+0x19c/0x250
+   iscsit_close_session+0x20c/0x540
+   call_timer_fn+0x15a/0x4b0
+   __run_timer_base.part.0+0x5e3/0x930
+   run_timer_softirq+0x12c/0x210
+   handle_softirqs+0x1ff/0x8e0
+   __irq_exit_rcu+0x153/0x1e0
+   irq_exit_rcu+0x9/0x20
+   sysvec_apic_timer_interrupt+0x6b/0x80
+   </IRQ>
 
-This patch adds a check at the sw_checksum label of
-skb_csum_hwoffload_help(). It rejects IPv4 packets whose csum_start falls
-inside the IPv4 header, and returns -EINVAL so callers drop them. The IPv4
-header is found at the depth returned by __vlan_get_protocol(), ihl < 5 is
-rejected, and the check is skipped when the network offset is negative.
+and, once per boot, this:
 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 3c58db732761a..095b1fd38b8b2 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
+  WARNING: possible irq lock inversion dependency detected
+  7.4.0-rc2-00563-g97d73c825122 #1 Not tainted
+  --------------------------------------------------------
+  swapper/0/0 just changed the state of lock:
+  ffff88800ec14148 (&se_tpg->session_lock){+.-.}-{3:3}, at: iscsit_handle_time2retain_timeout+0x46/0x1a0
+  but this lock took another, SOFTIRQ-unsafe lock in the past:
+   (&tpg->tpg_state_lock){+.+.}-{3:3}
+  Chain exists of:
+    &se_tpg->session_lock --> &sess->conn_lock --> &tpg->tpg_state_lock
 
-[ ... ]
+Move the body of the handler into a delayed work item on system_dfl_wq, so
+that nothing in iscsi_target takes se_tpg->session_lock in softirq context
+any more and the inversion goes away with the invalid sleep.
+mod_delayed_work() and cancel_delayed_work() do not sleep, so
+iscsit_start_time2retain_handler() and iscsit_stop_time2retain_timer() keep
+calling them with se_tpg->session_lock held; cancel_delayed_work() does not
+wait for a work that has already started running and need not, because
+ISCSI_TF_STOP is set under se_tpg->session_lock and the work rechecks it
+under the same lock before it touches the session, and the one thing left
+to wait for - a work on its way out of that check - is waited for in
+iscsit_close_session() before the session is freed, unless it is that work
+itself and can_sleep is false.
 
-> @@ -4130,6 +4133,26 @@ int skb_csum_hwoffload_help(struct sk_buff *skb,
->  	}
->  
->  sw_checksum:
-> +	offset = skb_network_offset(skb);
-> +	protocol = skb->protocol;
-> +	if (eth_type_vlan(protocol))
-> +		protocol = __vlan_get_protocol(skb, protocol, &offset);
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
+Fixes: 80647a89eaf3f2 ("scsi: target: core: Release SPC-2 reservations when closing a session")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/target/iscsi/iscsi_target.c       | 11 +++++++++--
+ drivers/target/iscsi/iscsi_target_erl0.c  | 12 ++++++------
+ drivers/target/iscsi/iscsi_target_erl0.h  |  2 +-
+ drivers/target/iscsi/iscsi_target_login.c |  4 ++--
+ include/target/iscsi/iscsi_target_core.h  |  3 ++-
+ 5 files changed, 20 insertions(+), 12 deletions(-)
 
-[Severity: Medium]
-Can skb->mac_len be relied on at this point? __vlan_get_protocol() starts
-parsing at skb->mac_len - VLAN_HLEN:
-
-net/core/skbuff.c:__vlan_get_protocol_offset() {
-	unsigned int vlan_depth = skb->mac_len, parse_depth = VLAN_MAX_DEPTH;
-    ...
-}
-
-Nothing on the transmit path keeps mac_len current. In
-validate_xmit_vlan()->__vlan_hwaccel_push_inside(), the tag is pushed and
-protocol is set to 0x8100, but mac_len is left unchanged.
-__dev_queue_xmit() only resets mac_header. __skb_gso_segment() calls
-skb_reset_mac_len() before doing the same kind of parse; this code does
-not.
-
-GRE devices that use ipgre_header_ops (NBMA GRE with no remote, or
-multicast GRE) are one source of a stale mac_len. __ipgre_rcv() calls
-skb_pop_mac_header(), which leaves mac_header at the outer IPv4 header.
-dev_gro_receive() or __netif_receive_skb_core() then set mac_len to 20
-plus the GRE header length (24 or 32).
-
-Suppose such a CHECKSUM_PARTIAL packet (e.g. from a local veth or virtio
-sender) is forwarded out a VLAN subinterface. The real device has no TX
-VLAN insertion and ends up at sw_checksum. One way to get there is a real
-device with only NETIF_F_IPV6_CSUM: vlan_dev_fix_features() promotes the
-VLAN device to HW_CSUM, and harmonize_features() strips IPv4 checksum on
-the real device. The egress frame then looks like this:
-
-  MAC 0-11, TPID 12-13, TCI 14-15, 0x0800 16-17, IPv4 18-37, TCP 38-
-
-With mac_len=24, the parser reads a vlan_hdr at offset 20, so the
-encapsulated protocol comes from the IPv4 ID field. When the ID is 0x0800,
-protocol becomes ETH_P_IP at offset 24. ihl then comes from the low nibble
-of the frag_off high byte, which is 0 with DF or no flags, so the packet
-gets -EINVAL.
-
-With mac_len=32, the parser reads saddr[0..1]. Any source in 8.0.0.0/16
-gives ETH_P_IP at offset 32, and every such packet is dropped.
-
-Before this patch, these forwarded packets were checksummed in software
-and sent. Would calling skb_reset_mac_len() first, as __skb_gso_segment()
-does, avoid this?
-
-> +
-> +	/* Use the parsed VLAN depth: network_header may point at an inner
-> +	 * tag. If the network offset is negative, network_header refers
-> +	 * to bytes preceding the current packet data and cannot be used
-> +	 * to locate the IPv4 header being validated.
-> +	 */
-> +	if (offset >= 0 && protocol == htons(ETH_P_IP)) {
-> +		const struct iphdr *iph;
-> +
-> +		if (!pskb_may_pull(skb, offset + sizeof(*iph)))
-> +			return -EINVAL;
-> +		iph = (const struct iphdr *)(skb->data + offset);
-> +		if (iph->ihl < 5 ||
-> +		    skb_checksum_start_offset(skb) < offset + iph->ihl * 4)
-> +			return -EINVAL;
-
-[Severity: High]
-Can the sender steer this check both ways? For AF_PACKET, and for tun
-IFF_TUN with packet info, the sender sets both skb->protocol and
-network_header. Nothing compares them with the frame bytes:
-
-net/packet/af_packet.c:packet_snd() {
-    ...
-	if (proto != htons(ETH_P_ALL))
-		skb->protocol = proto;
-    ...
-}
-
-net/packet/af_packet.c:packet_parse_headers() {
-    ...
-	if (!skb->protocol && sock->type == SOCK_RAW)
-		skb->protocol = dev_parse_header_protocol(skb);
-    ...
-}
-
-drivers/net/tun.c:tun_get_user() {
-    ...
-	skb->protocol = pi.proto;
-    ...
-}
-
-packet_parse_headers() reads the real ethertype only when skb->protocol
-is 0. Its VLAN network_header fixup runs only when skb->protocol is
-already a VLAN type. For non-GSO NEEDS_CSUM, __virtio_net_hdr_to_skb()
-checks csum_start and csum_offset only against headlen.
-
-The first problem is new drops. Take a SOCK_RAW packet socket bound to
-ETH_P_IP with PACKET_VNET_HDR. It sends an 802.1Q-tagged IPv4/TCP frame
-(csum_start=38, csum_offset=16) on a device without checksum offload.
-eth_type_vlan(ETH_P_IP) is false, so offset stays at 14. ihl is then read
-from the low nibble of the TCI high byte (VID bits 11..8):
-
-  VID < 0x500:  ihl < 5, rejected
-  VID >= 0x700: 38 < 14 + ihl * 4, rejected
-
-An IPv6 frame labelled ETH_P_IP is rejected the same way, because ihl
-becomes the traffic class nibble.
-
-Before this patch, skb_checksum_help() checksummed these frames correctly.
-Now validate_xmit_skb() drops them on -EINVAL. Is that intended?
-
-The second problem is a bypass. A PACKET_VNET_HDR sender puts a real IPv4
-header in the frame (ethertype 0x0800). It sets sll_protocol to
-ETH_P_IPV6, or to a non-IP value such as ETH_P_802_3, and points
-csum_start inside the IPv4 header (e.g. 24). protocol == htons(ETH_P_IP)
-is false, so the check is skipped. skb_checksum_help() still writes the
-folded checksum into the IPv4 header.
-
-That looks like the case the commit message says is now covered for
-AF_PACKET with PACKET_VNET_HDR.
-
-In the mislabelled VLAN case, the sender also chooses the TCI bits that
-ihl is read from. VID 0x5xx gives ihl=5, so any csum_start >= 34 passes.
-That includes 34..37, which are inside the real IPv4 header at 18..37.
-
-The commit message also says:
-
-  "network_header still points at the inner VLAN tag, and ihl would be
-  read from the TCI."
-
-That avoidance only holds when skb->protocol matches the frame.
-
-Could the IPv4 header be located from data the sender doesn't control
-instead of skb->protocol? For example, use the frame's own ethertype on
-Ethernet devices plus an iph->version == 4 check.
-
-> +	}
->  	return skb_checksum_help(skb);
->  }
->  EXPORT_SYMBOL(skb_csum_hwoffload_help);
-
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index 124ff269b8e759..2cb9eb6711e739 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -4504,8 +4504,8 @@ int iscsit_close_session(struct iscsit_session *sess, bool can_sleep)
+ 
+ 	/*
+ 	 * If any other processes are accessing this session pointer we must
+-	 * wait until they have completed.  If we are in an interrupt (the
+-	 * time2retain handler) and contain and active session usage count we
++	 * wait until they have completed.  If we are the Time2Retain work
++	 * (can_sleep is false) and contain and active session usage count we
+ 	 * restart the timer and exit.
+ 	 */
+ 	if (iscsit_check_session_usage_count(sess, can_sleep)) {
+@@ -4535,6 +4535,13 @@ int iscsit_close_session(struct iscsit_session *sess, bool can_sleep)
+ 	sess->sess_ops = NULL;
+ 	spin_unlock_bh(&se_tpg->session_lock);
+ 
++	/*
++	 * Wait for a Time2Retain work that was cancelled after it started
++	 * running; can_sleep is false only when that work is the caller.
++	 */
++	if (can_sleep)
++		cancel_delayed_work_sync(&sess->time2retain_work);
++
+ 	kfree(sess);
+ 	return 0;
+ }
+diff --git a/drivers/target/iscsi/iscsi_target_erl0.c b/drivers/target/iscsi/iscsi_target_erl0.c
+index 24db6b07493e62..9db833f3eeaec2 100644
+--- a/drivers/target/iscsi/iscsi_target_erl0.c
++++ b/drivers/target/iscsi/iscsi_target_erl0.c
+@@ -741,10 +741,10 @@ int iscsit_check_post_dataout(
+ 	}
+ }
+ 
+-void iscsit_handle_time2retain_timeout(struct timer_list *t)
++void iscsit_handle_time2retain_timeout(struct work_struct *work)
+ {
+-	struct iscsit_session *sess = timer_container_of(sess, t,
+-							 time2retain_timer);
++	struct iscsit_session *sess = container_of(work, struct iscsit_session,
++						   time2retain_work.work);
+ 	struct iscsi_portal_group *tpg = sess->tpg;
+ 	struct se_portal_group *se_tpg = &tpg->tpg_se_tpg;
+ 
+@@ -791,8 +791,8 @@ void iscsit_start_time2retain_handler(struct iscsit_session *sess)
+ 
+ 	sess->time2retain_timer_flags &= ~ISCSI_TF_STOP;
+ 	sess->time2retain_timer_flags |= ISCSI_TF_RUNNING;
+-	mod_timer(&sess->time2retain_timer,
+-		  jiffies + sess->sess_ops->DefaultTime2Retain * HZ);
++	mod_delayed_work(system_dfl_wq, &sess->time2retain_work,
++			 sess->sess_ops->DefaultTime2Retain * HZ);
+ }
+ 
+ int iscsit_stop_time2retain_timer(struct iscsit_session *sess)
+@@ -811,7 +811,7 @@ int iscsit_stop_time2retain_timer(struct iscsit_session *sess)
+ 	sess->time2retain_timer_flags |= ISCSI_TF_STOP;
+ 	spin_unlock(&se_tpg->session_lock);
+ 
+-	timer_delete_sync(&sess->time2retain_timer);
++	cancel_delayed_work(&sess->time2retain_work);
+ 
+ 	spin_lock(&se_tpg->session_lock);
+ 	sess->time2retain_timer_flags &= ~ISCSI_TF_RUNNING;
+diff --git a/drivers/target/iscsi/iscsi_target_erl0.h b/drivers/target/iscsi/iscsi_target_erl0.h
+index 2a877d13977d24..66d5cb779aa8a1 100644
+--- a/drivers/target/iscsi/iscsi_target_erl0.h
++++ b/drivers/target/iscsi/iscsi_target_erl0.h
+@@ -12,7 +12,7 @@ extern void iscsit_set_dataout_sequence_values(struct iscsit_cmd *);
+ extern int iscsit_check_pre_dataout(struct iscsit_cmd *, unsigned char *);
+ extern int iscsit_check_post_dataout(struct iscsit_cmd *, unsigned char *, u8);
+ extern void iscsit_start_time2retain_handler(struct iscsit_session *);
+-extern void iscsit_handle_time2retain_timeout(struct timer_list *t);
++void iscsit_handle_time2retain_timeout(struct work_struct *work);
+ extern int iscsit_stop_time2retain_timer(struct iscsit_session *);
+ extern void iscsit_connection_reinstatement_rcfr(struct iscsit_conn *);
+ extern void iscsit_cause_connection_reinstatement(struct iscsit_conn *, int);
+diff --git a/drivers/target/iscsi/iscsi_target_login.c b/drivers/target/iscsi/iscsi_target_login.c
+index c282b6a7029684..c1e7891365ad45 100644
+--- a/drivers/target/iscsi/iscsi_target_login.c
++++ b/drivers/target/iscsi/iscsi_target_login.c
+@@ -248,8 +248,8 @@ static int iscsi_login_zero_tsih_s1(
+ 	spin_lock_init(&sess->session_usage_lock);
+ 	spin_lock_init(&sess->ttt_lock);
+ 
+-	timer_setup(&sess->time2retain_timer,
+-		    iscsit_handle_time2retain_timeout, 0);
++	INIT_DELAYED_WORK(&sess->time2retain_work,
++			  iscsit_handle_time2retain_timeout);
+ 
+ 	ret = ida_alloc(&sess_ida, GFP_KERNEL);
+ 	if (ret < 0) {
+diff --git a/include/target/iscsi/iscsi_target_core.h b/include/target/iscsi/iscsi_target_core.h
+index 51ca80abacf7ba..486e1c1528c61d 100644
+--- a/include/target/iscsi/iscsi_target_core.h
++++ b/include/target/iscsi/iscsi_target_core.h
+@@ -7,6 +7,7 @@
+ #include <linux/sched.h>
+ #include <linux/socket.h>            /* struct sockaddr_storage */
+ #include <linux/types.h>             /* u8 */
++#include <linux/workqueue.h>         /* struct delayed_work */
+ #include <scsi/iscsi_proto.h>        /* itt_t */
+ #include <target/target_core_base.h> /* struct se_cmd */
+ 
+@@ -681,7 +682,7 @@ struct iscsit_session {
+ 	struct completion	reinstatement_comp;
+ 	struct completion	session_wait_comp;
+ 	struct completion	session_waiting_on_uc_comp;
+-	struct timer_list	time2retain_timer;
++	struct delayed_work	time2retain_work;
+ 	struct iscsi_sess_ops	*sess_ops;
+ 	struct se_session	*se_sess;
+ 	struct iscsi_portal_group *tpg;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111120448.49979-1-zeil%40nebius.com
+2.43.0
+
