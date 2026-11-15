@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749446;
-	b=Mm7vQ8G7zjGiixiDuS5ge8Vd8gu2dSljNXtECUr7ExVsD2z8sniMRnYxXtB+8+l7pMjK
-	 1lc6mIru2gEsAj/a6uo80Vmn5SSsL/zwiyevGM/3SMCXuDVNrLyoFSQQBoRH5LSSsFEYT
-	 67rRozlrqffmq2TBUndcu+jLEzTNA2gyApPZdJaQBVY6z37gTn3FSb1W+wgi9qvSHUCOo
-	 OVT24j/vnOJ/o/fL66qoD2RSMYjjjN5zc995u+a97DwQg+TzDs1YUT8Z9+KH0CB0ine1N
-	 L6Y6KkPRio3JPdGoHFh983UEffUcAGU3xsgetqJy7K5a+jEaoBX4kdE15jV17nBGUWg==
+	t=1794749563;
+	b=qaVglolbn8JOO7ywq9h8Q2LKhwU+mIu1gTu3TOElueFxeMaMNJjZUzuPzFsnqQYZ92Eb
+	 KtFvnfVITmPf/0u8Stg1xfC/ygwqkdsFqH3tGHsEKp/Bg+04pvllbtx7Se1bVuPZDEibH
+	 tOffPlHBIJLFp2HVC07aYyeI5IpBFMbeJwUtAZb/QqZpP7wtL9xfG/D3zplA0jN8z9TNw
+	 iLjsUc4mbJ1lhUmLl71nUlFP2aARRwH9bZAWg57ABuxWOh2RqjCFvN1HlTKcuBpmQToK9
+	 Hf5O3GAysmSQXMG4Y5Oq13FqON/4pxFR3pwBWyH0yBBfeQZ7Fbh6q+dVQPJrmN/mBYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749563;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BFJvKVhH5INfNQgu/CQEYJJqodEEEvt0XMiAlZaDCO8=;
-	b=D4bNT89/4cE8vXyK/aTQStFxqdpMncR2VN4b+yq8ogvboljdvVsXTH8WsORurY4FZRQx
-	 cZfEkwLDRk/FFyiTUc4R0i/gLE75mBjR2a7m27Kl2jCKaXHxG9mY3teUaLpBg95iUTMnk
-	 BVk2HkslfzMnUJ4QFWtXtXwtrQU4ltbnvpi93Ej3bKCGT1qJrgcHLPj/w07yGmexYRiaT
-	 wOMREstB9W4DUNewxrToij55hxOYcquMTR1OQ+RUzmMSV/Iy7UlrkD/3N6c69L0o2iuOi
-	 SPvCKPHDIOsDJhp+mQECCH6aRqWaWn7cJJih6ASsds7Z068d/5VlAdnxSVK9E67ZwhA==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DOuKLQTv6yFSfHDgE4gwPAhy1aGA7qa0gtGA9y3WDVU=;
+	b=K0ScnedrLg3JYUMww0SUuobQsjfEE7kel+UPRCBfo6Anv3EfrT7sH9D9BgrNOPa59eCi
+	 yPTNddaAFbefRnmLjY/SR1518+TWi3p4+MWf41qbAElnES25nvkCluvJjwsRY93S3ee90
+	 2acOt4PGyg9PlDuoIQiovsKKxL8PdEShmHUU/Zkhg5sHQl1aVTny/47Z9QHPO7fA0ynrY
+	 6RLxO5RPURG+U11+bJbcZgQmzdOMs8TPnzQpE4Gayb0ZgsYN4Ur6s54xbFEX0IpDHfYyt
+	 2+lGvnnqLB62BOELEojwQPGCx+HERuh/UYui0YwBdPd6Wl40i104LpgolCNN/bLlBmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=biO4OCoT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYZNTrwz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C6D606A31D;
-	Sun, 15 Nov 2026 13:30:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 61DA2606A327;
+	Sun, 15 Nov 2026 13:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=biO4OCoT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28411F000C4;
-	Sun, 15 Nov 2026 13:30:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYZNTrwz
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7A2301F000C4;
+	Sun, 15 Nov 2026 13:32:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794749445;
-	bh=BFJvKVhH5INfNQgu/CQEYJJqodEEEvt0XMiAlZaDCO8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=biO4OCoT9LK26HFXawWMg47PKjOOhQ5lxWOn54+c57WmYerA/vMo8s0/Lg5iNYRtv
-	 xcK69kSqZJhOvmlEIE4rZgCsi7VO6RLU7h088yTrlTQ07V/YXANYaycrb89nO4YwkL
-	 p34tVDjyD1rVQiFwB30bHusvCUpZ+JuDPJ/frXBhKtMjtXWbcLHc88Xt5/tnb9+UEQ
-	 CRjPURYSob1TXUgmPyruC88XMfAX35fXj2ETOeRvqRqojpUE7OKVU78VZyQEuOiFcp
-	 DtxB+UjDBwDe5v6hJeNdNNIKwdStzJIvEjpgO9paba/tU2UaFa08FU7KwGWAK6aQcs
-	 1miF+YJuZ/9/Q==
-Date: Sun, 15 Nov 2026 21:10:23 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: PaulCercueil <paul.cercueil@bootlin.com>, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	Tanmay Jagdale <tanmay@marvell.com>,
-	George Cherian <gcherian@marvell.com>
-Subject: Re: [PATCH v3 6/6] spi: cadence-xspi: Add workaround for old Marvell
- firmwares
-Message-ID: <avmvP5EQqMV_FKqI@xhacker>
+	s=k20260515; t=1794749563;
+	bh=DOuKLQTv6yFSfHDgE4gwPAhy1aGA7qa0gtGA9y3WDVU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dYZNTrwzCzvsmlvCKwiOB52eIoDDv/uMnNNFHuR9K21pgNtP5jQ2fiLmqSWkcgC6/
+	 JJY/F2Vd1QOnFfeviaLg3LA+9l+6GDh5FkprS4WzlZwH6Yz1OJiZUGl5FT7auVNtzY
+	 3MCB1x4jwybHNtlx4cTNcla47ijKkBEWvi/1VjhevTYkjaovg7gLg5nIJ3z0s+5oxR
+	 hTYDTvqSZxYhILTFp0r613hnQITDD3FO8nL6aUb6vzRhLHj4fJAb4QwNe61+RB3SSl
+	 F4QDBuBqU+2XeM0lx9szir6IiwzegEfNwZQTBRxCNfR/e6KQ2d9Vu/TaRAgq5ZjmSX
+	 2Gkbe/scHQmXA==
+Date: Sun, 15 Nov 2026 15:32:39 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Stuart Yoder <stuart.yoder@arm.com>, apais@microsoft.com,
+	rachelmenge@linux.microsoft.com, hargar@linux.microsoft.com,
+	linux-integrity@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/4] tpm: tpm_tis: Use cached tpm2_acpi_start_method
+Message-ID: <avm0d4iOX6V9O0-p@kernel.org>
+References: <20261115013456.212141-1-sidchintamaneni@gmail.com>
+ <20261115013456.212141-4-sidchintamaneni@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,133 +63,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112143050.53347-7-paul.cercueil@bootlin.com>
+In-Reply-To: <20261115013456.212141-4-sidchintamaneni@gmail.com>
 
-On Thu, Nov 12, 2026 at 03:30:50PM +0100, Paul Cercueil wrote:
-> From: Tanmay Jagdale <tanmay@marvell.com>
+On Sun, Nov 15, 2026 at 01:34:55AM +0000, Siddharth Chintamaneni wrote:
+> Use the cached tpm2_acpi_start_method value instead of mapping and
+> unmapping the ACPI TPM2 table again during probe. Remove
+> check_acpi_tpm2() and open-code the start method check directly in
+> tpm_tis_init(), returning -ENODEV when the device does not use
+> ACPI_TPM2_MEMORY_MAPPED.
 > 
-> Older firmwares from Marvell used the cdns,xspi-nor compatible string
-> for the Marvell-specific xSPI IP, which is incompatible.
-> 
-> Add a workaround to support this case, checking for a Marvell board in
-> the DTB or the ACPI tables.
-
-+ DT maintainers,
-
-I want to query a rule here: does mainlined driver need to care
-about out-of-tree dtb bug?
-
-> 
-> Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-> Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> 
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 > ---
+>  drivers/char/tpm/tpm_tis.c | 45 +++++---------------------------------
+>  1 file changed, 6 insertions(+), 39 deletions(-)
 > 
-> v2: Replace the workaround based on the presence of the "xfer" resource
->     with a mechanism that identifies a Marvell SoC based on the board's
->     compatible string on DTB, and the DSDT table on ACPI.
-> 
-> v3: Wrap ACPI specific code with CONFIG_ACPI guards, as some of the
->     functions and structs aren't defined without CONFIG_ACPI.
-> ---
->  drivers/spi/spi-cadence-xspi.c | 41 +++++++++++++++++++++++++++++++++-
->  1 file changed, 40 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-> index 8fa58a0412e3..7b06b95af794 100644
-> --- a/drivers/spi/spi-cadence-xspi.c
-> +++ b/drivers/spi/spi-cadence-xspi.c
-> @@ -2,6 +2,7 @@
->  // Cadence XSPI flash controller driver
->  // Copyright (C) 2020-21 Cadence
->  
-> +#include <linux/acpi.h>
->  #include <linux/completion.h>
->  #include <linux/delay.h>
->  #include <linux/err.h>
-> @@ -11,11 +12,13 @@
->  #include <linux/iopoll.h>
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/property.h>
->  #include <linux/spi/spi.h>
->  #include <linux/spi/spi-mem.h>
-> +#include <linux/string.h>
->  #include <linux/bitfield.h>
->  #include <linux/limits.h>
->  #include <linux/log2.h>
-> @@ -775,7 +778,6 @@ static void cdns_xspi_print_phy_config(struct cdns_xspi_dev *cdns_xspi)
->  		 readl(cdns_xspi->auxbase + CDNS_XSPI_CCP_PHY_DLL_SLAVE_CTRL));
->  }
->  
-> -#ifdef CONFIG_64BIT
->  static struct cdns_xspi_driver_data marvell_driver_data = {
->  	.mrvl_hw_overlay = true,
->  	.dll_phy_ctrl = MARVELL_REGS_DLL_PHY_CTRL,
-> @@ -788,6 +790,7 @@ static struct cdns_xspi_driver_data marvell_driver_data = {
->  	.rfile_phy_dll_slave_ctrl = MARVELL_RFILE_PHY_DLL_SLAVE_CTRL,
->  };
->  
-> +#ifdef CONFIG_64BIT
->  static const int cdns_mrvl_xspi_clk_div_list[] = {
->  	4,	//0x0 = Divide by 4.   SPI clock is 200 MHz.
->  	6,	//0x1 = Divide by 6.   SPI clock is 133.33 MHz.
-> @@ -1228,6 +1231,33 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
->  }
+> diff --git a/drivers/char/tpm/tpm_tis.c b/drivers/char/tpm/tpm_tis.c
+> index 6f8344894ea5..df2d8c1c2be0 100644
+> --- a/drivers/char/tpm/tpm_tis.c
+> +++ b/drivers/char/tpm/tpm_tis.c
+> @@ -127,45 +127,11 @@ static inline int is_itpm(struct acpi_device *dev)
 >  #endif
 >  
-> +#ifdef CONFIG_ACPI
-> +static const struct acpi_platform_list mrvl_platform_list[] = {
-> +	{
-> +		.oem_id = "MRVL  ",
-> +		.oem_table_id = "CN10K",
-> +		.table = ACPI_SIG_DSDT,
-> +		.pred = all_versions,
-> +	},
-> +	{ }
-> +};
-> +#endif
-> +
-> +static inline bool cdns_is_marvell(struct device *dev)
-> +{
-> +	const char *compatible;
-> +
-> +#ifdef CONFIG_ACPI
-> +	if (has_acpi_companion(dev))
-> +		return acpi_match_platform_list(mrvl_platform_list) >= 0;
-> +#endif
-> +
-> +	if (of_machine_read_compatible(&compatible, 0) < 0)
-> +		return false; /* shouldn't actually happen */
-> +
-> +	return strstarts(compatible, "marvell,");
-> +}
-> +
->  static int cdns_xspi_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-> @@ -1249,6 +1279,15 @@ static int cdns_xspi_probe(struct platform_device *pdev)
->  	if (!cdns_xspi->driver_data)
->  		return -ENODEV;
+>  #if defined(CONFIG_ACPI)
+> -#define DEVICE_IS_TPM2 1
+> -
+>  static const struct acpi_device_id tpm_acpi_tbl[] = {
+> -	{"MSFT0101", DEVICE_IS_TPM2},
+> +	{"MSFT0101"},
+>  	{},
+>  };
+>  MODULE_DEVICE_TABLE(acpi, tpm_acpi_tbl);
+> -
+> -static int check_acpi_tpm2(struct device *dev)
+> -{
+> -	const struct acpi_device_id *aid = acpi_match_device(tpm_acpi_tbl, dev);
+> -	struct acpi_table_tpm2 *tbl;
+> -	acpi_status st;
+> -	int ret = 0;
+> -
+> -	if (!aid || aid->driver_data != DEVICE_IS_TPM2)
+> -		return 0;
+
+
+Jason, can you remind me what was the deal with this flag?
+
+> -
+> -	/* If the ACPI TPM2 signature is matched then a global ACPI_SIG_TPM2
+> -	 * table is mandatory
+> -	 */
+> -	st = acpi_get_table(ACPI_SIG_TPM2, 1, (struct acpi_table_header **)&tbl);
+> -	if (ACPI_FAILURE(st) || tbl->header.length < sizeof(*tbl)) {
+> -		dev_err(dev, FW_BUG "failed to get TPM2 ACPI table\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	/* The tpm2_crb driver handles this device */
+> -	if (tbl->start_method != ACPI_TPM2_MEMORY_MAPPED)
+> -		ret = -ENODEV;
+> -
+> -	acpi_put_table((struct acpi_table_header *)tbl);
+> -	return ret;
+> -}
+> -#else
+> -static int check_acpi_tpm2(struct device *dev)
+> -{
+> -	return 0;
+> -}
+>  #endif
 >  
-> +	if (IS_ENABLED(CONFIG_64BIT) &&
-> +	    !cdns_xspi->driver_data->mrvl_hw_overlay &&
-> +	    cdns_is_marvell(dev)) {
-> +		/* Some old firmwares use the base compatible string... */
-> +
-> +		dev_warn(dev, "Using the cdns,xspi-nor compatible string on a Marvell SoC. Please fix firmware!\n");
-> +		cdns_xspi->driver_data = &marvell_driver_data;
-> +	}
-> +
->  	host->mem_ops = &cadence_xspi_mem_ops;
->  	cdns_xspi->sdma_handler = &cdns_xspi_sdma_handle;
->  	cdns_xspi->set_interrupts_handler = &cdns_xspi_set_interrupts;
+>  static int tpm_tcg_read_bytes(struct tpm_tis_data *data, u32 addr, u16 len,
+> @@ -222,11 +188,12 @@ static int tpm_tis_init(struct device *dev, struct tpm_info *tpm_info)
+>  {
+>  	struct tpm_tis_tcg_phy *phy;
+>  	int irq = -1;
+> -	int rc;
+>  
+> -	rc = check_acpi_tpm2(dev);
+> -	if (rc)
+> -		return rc;
+> +#ifdef CONFIG_ACPI
+> +	if (acpi_match_device(tpm_acpi_tbl, dev) &&
+> +	    tpm2_acpi_start_method != ACPI_TPM2_MEMORY_MAPPED)
+> +		return -ENODEV;
+> +#endif
+>  
+>  	phy = devm_kzalloc_obj(dev, struct tpm_tis_tcg_phy);
+>  	if (phy == NULL)
 > -- 
-> 2.47.3
+> 2.45.4
 > 
+
+Br, Jarkko
