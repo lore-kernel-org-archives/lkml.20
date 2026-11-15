@@ -1,92 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794760654;
-	b=oXEy+J02bqurywp5EpDHCeypbnkFe1fnExdHckz0wNiDQzxwlH46JmhXsAycC1LP+8Pz
-	 IgTTH3FOvYqYCKEi255+9bxGFRC8PLfucXfmw2y6fG146bf2XI6RRtU9IPiU+vBiNrNIS
-	 ceVgoJsVCQbMHNAKcAFPngcVSIIx56pfNsrO8lX90WlxcV+eGWF11x2eeaJBW+JkIJSq3
-	 +6TXezCz4CmtO4gg9NJbdyNMjyHOeY8Bg9Ourf+hOXlN9TwNEvHJhaLnBHegsAkhks2hQ
-	 98ljgnSRn5G4LxAjcPfwRMid0WH0nFGPTwFJw9CoQKvJutCiXgvDXX+F9HQeI+xro7w==
+	t=1794760662;
+	b=gI752qr9i2VDN6gs7I8VWlAPY7Mep6QuRbjbht+EIsAli2ud9zM0tD1A4rohM+lMFCnr
+	 XggFTpGIA9i7a8M/7C3/n7qcHx2Rr2pOxqTL6vo53Kn1/JN5Y15pvv5eUYbRFkTGcq+8w
+	 HRD8yrJjTwILEgog/Oin5QtGaRZP10VX4jh/q/6nvmPs5JHNmfAajvWXsJZXgO+zyU6/B
+	 6H1Vi+5bJKpaNsfWT58RXxTmlGZnOUiPvFECa5W96GG1baSSEXRcMy3FEpe3Mxh4zyhJB
+	 t1bTNHXuDCLPJ/nmjPmEHxwUpTgYf7OshB6y5Ez7wX66fpi9/x1KHTR4mwqvHIbQPEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794760654;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794760662;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=dlc8V/OOB/QQSWru42A5t6SnexLXK3CKb+t63ASV9wU=;
-	b=OVq5yAl/bR0mvD0J0AhmMarHYOBqdc4FCKzYqaOYxXmTssSUDhhO4JbzqWoBmHxaIN1P
-	 oPFNV9cHmAD/kHkwtUKkzuYxgmLf1DoszZGUHdXSipiFu0rtuC+jqxsljcbNo5i3W+Amo
-	 5m3h00y4NGrdAAj57zULXgCkkXKxCMrIHxUdsMcgU8p7vO+DExw4D2pNHLL+XcL7aGTGn
-	 boShooQwWSDN2O1goY+ZMkKzQ5N+IS9UODnIJtoVK0ZwSjuEgtEHeAkcmPkrMYNjj/ivk
-	 /HcaUAQxfBYHO5dhpMzw2PHR1F4ZjMZ0fnPIeKQ9zyn3vvvrrGaFn24oMi19ero5aeQ==
+	bh=K+gvpLnHAWCS2qej9/dKDbqHpvb2Unj69ztz/dYZD4I=;
+	b=GKORE2tAtR5BnLzwR0dW3BzQ6RzLlAVhTs7XYxPH7aRrsLIrpQ7myha2CNU1pJENZqlg
+	 a0XLpKQl5geRHIDI4ztr4dmx+tP/oDlviomWZriVFdb2EIHHo0EdzTaYCz03mw49/hOC2
+	 auNDgQ8t41apB9B1g8UzgxIWxJI+0sCgJGm11tYlzl5sjYz6jIZ70v4PcTczGyuQ2UfAH
+	 dIcN6FytZmxbiHBCijcaw6xexgZCw1qU6qwc7v2zmEDX1Nrtx+c6UuDkyP2rLamu7BhJd
+	 x2v383BA5bTzFdziEZ1qndmugZdH+v80KTtDp4o86+eWyZch0zGB0AFz3Oq4dpdp1Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tp2W7hcO;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="TAVMfL/F";
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78040606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:37:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78040606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60C7606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:37:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60C7606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tp2W7hcO
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37986eb6fa2so2940184eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:37:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TAVMfL/F
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so2781528c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:37:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794760654; x=1795365454; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794760661; x=1795365461; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dlc8V/OOB/QQSWru42A5t6SnexLXK3CKb+t63ASV9wU=;
-        b=Tp2W7hcOhv5cQ0psdzWW/uwVX1iuSTEd8Ak1Lgec5yLNuRjNWH+a2jbeFWflA+x7mD
-         yxI4eLhsyhSlsVwO2L4MHdUNNrKj4T/lIbEmrFK/Lz7W/DzbRPj6sDqVbDmRciOxfF/3
-         rY79RjFmpv02qOH8+pYclbn7u6OnGvSaP6NwOxCOnCkoEoWqSkQYsIQHFDTBahBqdpBe
-         I2wPWD/7vHuuSjlDt1tsMoLnLe0szQn04JqXgCYTpD8kveTvHC/gG29khdWlhEl6AZHZ
-         scBG5wyBUhXY0SVDhWbI8DFP+/yl3eunIqrey3iwjGsx30iJvtVCrBsqfUDGdDpG7U23
-         xceQ==
+        bh=K+gvpLnHAWCS2qej9/dKDbqHpvb2Unj69ztz/dYZD4I=;
+        b=TAVMfL/FjyLswmQ1OblEHRo8HslRF3gicwrmde1Gm215hLqGigb1ZoLJ8PZV/CS4Gb
+         ilniSrB7HYZYBWzDpptKEH8rbtveWPXCIzkrlVwtCwDTl+kdC8t50LXkxKBy+akDCell
+         tjmcSNXsP7AGvI7U1ZN+NhVuycyA2TfbKsOJR/mjZdkVGHJ2UiQtKk/2F+4A0dPZXN+b
+         VIDphpsSG92z7rSMlzU6wn0Cwy9JQlbouj2kon93XxBEWDWjTXuEbSaLnsA0XtXKl7Wn
+         PvrwlbJUfWbnaWo5nUd5b4yLb4Fl8UsHBX9FIhPz15QW8R4osAe8KJJCn8+7Rhg4J2oQ
+         /DLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794760654; x=1795365454;
+        d=1e100.net; s=20260707; t=1794760661; x=1795365461;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=dlc8V/OOB/QQSWru42A5t6SnexLXK3CKb+t63ASV9wU=;
-        b=SZQh+X355YLXZl4RsuCJR0u9rBFBXy9mi+l4Vuj0Imb/pItXHdZhd7u3Bb/FRptmBS
-         PAtEMyvq8n5B/jUB+uOmFzgUmxrTrQcbkZB5vxFhI3P15KVWqgdt6Zsg4QhnOaNBQ8Yu
-         I6EV1Bz9IHRzuvsWj+wx9GEdp8l6FlYGpZQTVIyTuSWpaS7Jxnei2+FOuv9xW4s6uwM5
-         k+iZqKn+iZk1+qif9WJ56TAF699xp4dLed5EHmVFOLr6TkiIRwxNl5U3ISoi2/UMFrO1
-         kR7S47VW/DrF4LTKgzN5yo4D+/N9DwxWyjuj6Ws7jPzvgOPPj3JivrRxruiuBZnU6c7+
-         yiHA==
-X-Forwarded-Encrypted: i=1; AL+hErGm8/2Wl88JUDWzp0OOIyLaiXrFvGJiNkI2UN0hfE7ZxtqZ/hEYkuRthDTFw4ZtFfls81K1sh14J9Yor8o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eZX0MM0Bd7u9smF2lNG9T8qb1fgm+zBjENaYf1kmyoitlskHQ
-	jCzhFKFfFPh2sHAfD7Rqey9tDQCwsz825Nc6Ihe0JRch6SPHd+azT0jI
-X-Gm-Gg: AYBFou0i5Aj6d1hqReQ2Z6z1ZriFKxHCkUVpBo3VzxvKATF0qzJk9LoDU39WPa4x57m
-	RGU/OdQNP6g9k8UWnqc/Q5SBIUxz2zs3vqqimZwydqG8Grr/vxHD1LvsB3RfOuBw0SlmNlVSuJG
-	8U7qsXjET/661VuDsxc+YkJON+C30+3l23xdXjTSsqF/McyfidiJ5QkdBOMaxy+JfkE2cX5ROtE
-	/1rfSre4/sU07rH4AVCVMHky15d9rnO7xfzFJ3R1BgPnjLoGQrM9095u3RBsg0gS8OfyHuALpGs
-	OsggWghtl8qQIE9cfg+h4sbZTSlHo6lmmy2OSIBxMbeQdPL4PrZRWCsewWySEnKy+jH2FlIt6ds
-	8txv8+iKK49XWBVsc/3ywQSuRaPVi26YRArWIq7v1aUcsqIr7imWe71vFX/ZRcVAycJ95/Pa1oX
-	Zq+VYghPFSLM4mzgP8/IIuHs+3amYzFYFgTJoegxgDhZ+EmzQbY838qA9Pu6/3T62EQTrYAOnl+
-	GB+CYBwkwYAcpf/7w6mxNZaMapPlln5y3r67NwnM6OvppzCQ4ET+MKr54bOH3QF3DRQy6DK8fCC
-	OfgCCVlqPlnxmSDv7HToQSO972WBntl4YVY9bGjoW/PgvddRJcqYzTbNgUJNGX5KWx9A
-X-Received: by 2002:a05:7300:c8c5:b0:379:e0a2:1a1 with SMTP id 5a478bee46e88-379e0a20687mr7936822eec.35.1794760653398;
-        Sun, 15 Nov 2026 08:37:33 -0800 (PST)
+        bh=K+gvpLnHAWCS2qej9/dKDbqHpvb2Unj69ztz/dYZD4I=;
+        b=asLjXp1RYxq0P+9YKeFxMFk0uEHY9jjLgX/HwN5JlbidJRSIGArkGe0u0n1KTUR6lE
+         Xc4H5SrFp97qj7echKgh2E6M7BCchBsxRYEfmgj7JUqfC8QQrA4loLIDNNDgDwDIMoh0
+         rkTpaXOr4kXWUqfGjd3vrtI+iWLYm7dHwoq0oggNTxHwOlWRe0mz/g7XkTDyjb/XxKcq
+         WUPs1aH2pdx6WARV/ExwKfJmgTavgCwHq5lXuBbChZnekhr6a+PiAmwJhIyIVlr1ROK0
+         v97gtw9HP8UlJ8UGayM5Pnh5NgsVEAxjbxc0xHTGD+vHpgnWFV9XynnJ6ifC0/BkUilv
+         Hjvw==
+X-Forwarded-Encrypted: i=1; AL+hErHBcdYz9Q+4mtcrrT+Pjw9+3KgiV9LMpqoJrLws5L5A1tuthMrm5Fuwh3paagMhc3/HspSyWWF1yZYHN20=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8k814L1tHMEm0X163Jz0FP+JkJqmkfCPvMcuLsiBs0RlmL9cQ0
+	8pArhwRu1NVX0S89biVC5l8AhLYy4wiXOZnOFSJxJMHHb4p3oCwAHsOe
+X-Gm-Gg: AYBFou06D2khiMGgrckM1RofrHrCpEvZwbpn8oWxLxWWNdv62mBI8n00wtlJb09pAJ9
+	A2Edd/WiEjXWspUxyl68DdM4b749DSFG6IYJvbc0zi13F4paMjmSpe5EjUmLDF1YYNdcq480Sq3
+	H/ZHSvbihj9aCiA9/XDvORURosE3RMK/ybdCEuSPzjbO2GeW+kBpI8csoOpIPYNLoATaQsbpZAD
+	hIRfVgRAiU1Gn1abTQ/FvrfDKHMRTP5sNvanE8Jicdj6MoyXdqmWau1j75zj6LCTtFsXSmaVHpe
+	+T7NQq5ZCnng11yonpWfSsJ4CyJiT9Y+hA7WZfDWQDJ+XHiTk81DYcUje63v2+eiP+MgjgBJsqj
+	6EM7AzIuYB3HMMxi+hWDN4sLGrXWMDxdyaPSp6hTaK7tHE4/Cv96u7ZrKUCHBOLkhaZVIcIfxgC
+	4Rm8SlwS68aBIosNuYq8rB6VvIKlOcY4DQxW4GtDB8Vd2PzeRcsc7a0yijX5HPQywDGPI5c2stW
+	W6v9+OlarYnjaFZNuE0QnfPn51hiVpH1yB3jO6KNQc85U4+QDH0ltKJYqwr39u3L9zZEQ1pEEJy
+	p+v0U/KhDVpdgbfLXlNmo8nwGRs3jsZqT4jgRVUZehSNMraRZ4E6RqVmRRwWfWtrhQvu
+X-Received: by 2002:a05:7022:3a87:b0:18c:e014:6f1d with SMTP id a92af1059eb24-1b503068f8cmr8823437c88.1.1794760661026;
+        Sun, 15 Nov 2026 08:37:41 -0800 (PST)
 Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm26204965eec.3.2026.11.15.08.37.31
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm28775558eec.23.2026.11.15.08.37.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 08:37:32 -0800 (PST)
+        Sun, 15 Nov 2026 08:37:40 -0800 (PST)
 From: Cheng Yongkang <teel4res@gmail.com>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Qu Wenruo <wqu@suse.com>,
-	linux-btrfs@vger.kernel.org,
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] btrfs: oversized compressed disk_num_bytes is not rejected
-Date: Sun, 15 Nov 2026 08:37:23 -0800
-Message-Id: <20261115163724.226922-1-teel4res@gmail.com>
+Subject: [BUG] KVM: x86: INIT leaves a stale RTC pending EOI
+Date: Sun, 15 Nov 2026 08:37:33 -0800
+Message-Id: <20261115163733.227072-1-teel4res@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,80 +99,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi David,
+Hi Sean, Paolo,
 
-I hit a corner case with crafted images. It needs a compressed file
-extent whose disk_num_bytes is far above what btrfs ever writes, so it
-may not matter much in practice. I found two consequences of the same
-missing check.
+I hit a corner case in the in-kernel IOAPIC RTC EOI tracking. It needs
+a vCPU to get INIT before it EOIs an RTC interrupt, APICv to be
+inactive, and a VMM that injects GSI 8 with KVM_IRQ_LINE_STATUS, so it
+may be rare in practice.
 
-check_extent_data_item() only checks that disk_num_bytes is sector
-aligned, and the zlib read path does not limit its input to
-BTRFS_MAX_COMPRESSED the way lzo_decompress_bio() does. Both cases
-below are on v7.3.
+When a vCPU accepts the RTC interrupt, ioapic->rtc_status records it
+in map and pending_eoi. If that vCPU then processes INIT,
+kvm_lapic_reset() clears IRR and ISR but does not touch rtc_status.
+The guest can no longer EOI that vector, so pending_eoi stays above 0
+and rtc_irq_check_coalesced() treats every later GSI 8 injection as
+coalesced. Only KVM_SET_LAPIC or KVM_SET_IRQCHIP clear it, through
+kvm_rtc_eoi_tracking_restore_*(). The lazy repair in
+ioapic_lazy_update_eoi() only runs with APICv active, so nothing
+repairs the stale entry when APICv is inactive.
 
-1) disk_num_bytes == 0x100000000
+On v7.3 with kvm-amd.avic=N, running nested (the KVM under test is
+inside a QEMU guest), with IOAPIC pin 8 edge-triggered, vector 0x50,
+physical dest 0, and GSI 8 routed only to the IOAPIC, 6 out of 6 runs
+gave:
 
-After mounting with rescue=all and reading the file,
-btrfs_submit_compressed_read() stores em->disk_num_bytes in an
-unsigned int compressed_len, which becomes 0. No folio is added, and
-the zero-length bio hits the assertion in btrfs_submit_bbio() (seen
-with CONFIG_BTRFS_ASSERT=y):
+  KVM_IRQ_LINE_STATUS(GSI 8)              -> status 1
+      LAPIC: SVR=0x1ff, IRR[0x50]=1, ISR[0x50]=0
+  INIT through KVM_SIGNAL_MSI, processed by KVM_RUN
+      LAPIC: SVR=0xff, IRR[0x50]=0, ISR[0x50]=0
+  guest re-enables the LAPIC: a stub in 32-bit protected mode
+  (set with KVM_SET_SREGS/KVM_SET_REGS) writes SVR=0x1ff through the
+  APIC MMIO page and exits with "out"
+      LAPIC: SVR=0x1ff, IRR[0x50]=0, ISR[0x50]=0
+  deassert, KVM_IRQ_LINE_STATUS(GSI 8)    -> status 0 (coalesced)
+  control: KVM_SET_LAPIC with the same LAPIC state, so
+  kvm_rtc_eoi_tracking_restore_one() drops the stale entry
+  deassert, KVM_IRQ_LINE_STATUS(GSI 8)    -> status 1
 
-  assertion failed: IS_ALIGNED(logical, blocksize) &&
-  IS_ALIGNED(length, blocksize) && length != 0, in fs/btrfs/bio.c:895
-  (root=5 inode=257 logical=9437184 length=0)
-  kernel BUG at fs/btrfs/bio.c:895!
-   btrfs_submit_compressed_read
-   btrfs_readahead
+The entry is edge-triggered, so remote_irr is not involved, and GSI 8
+goes only to the IOAPIC, so the status does not come from the PIC. In
+the 0 and the 1 case the LAPIC is enabled and its IRR is empty; the
+only difference is the stale rtc_status entry.
 
-2) zlib extent with disk_num_bytes == 4 MiB
+The code is unchanged in next-20261113. Xiang Zheng's "KVM: x86: Fix
+stale RTC pending-EOI tracking under AVIC" only changes
+ioapic_lazy_update_eoi(), so it does not cover the APICv-inactive
+case.
 
-With num_bytes == ram_bytes == 0x100002000 and a zlib stream that
-inflates to about 4.3 GB, reading the page at file offset 0xFFFFF000
-makes bvec_offset + bv_len wrap to 0 in the u32 arithmetic of
-btrfs_decompress_buf2page(). copy_len is then computed from the
-wrapped value, and memcpy() reads past the 4 KiB zlib workspace
-buffer:
-
-  BUG: KASAN: slab-out-of-bounds in btrfs_decompress_buf2page+0x3e0/0x650
-  Read of size 4096 at addr ffff8881114049f8 by task kworker/u8:2/41
-   __asan_memcpy
-   btrfs_decompress_buf2page
-   zlib_decompress_bio
-   end_bbio_compressed_read
-   btrfs_check_read_bio
-  Allocated by task 9375:
-   zlib_alloc_workspace
-  The buggy address is located 2552 bytes inside of
-   allocated 4096-byte region [ffff888111404000, ffff888111405000)
-
-The 4 MiB compressed bio only fit into its 32 vecs when the pages were
-physically contiguous, so before reading I filled 16 pipes with 1 MiB
-each. Without that the read failed with -EIO or SIGBUS instead.
-
-Both paths are unchanged in next-20261113. zstd no longer calls
-btrfs_decompress_buf2page() there, but zlib and lzo still do.
-
-Compression and encoded writes never create a compressed extent larger
-than BTRFS_MAX_COMPRESSED, so the tree checker could reject such an
-extent for all compression types, which stops both cases:
-
-  +	if (unlikely(btrfs_file_extent_compression(leaf, fi) != BTRFS_COMPRESS_NONE &&
-  +		     btrfs_file_extent_disk_num_bytes(leaf, fi) > BTRFS_MAX_COMPRESSED)) {
-  +		file_extent_err(leaf, slot,
-  +	"invalid disk_num_bytes for compressed file extent, have %llu expect <= %u",
-  +				btrfs_file_extent_disk_num_bytes(leaf, fi),
-  +				BTRFS_MAX_COMPRESSED);
-  +		return -EUCLEAN;
-  +	}
-
-With this change the tree checker reports the leaf of the first image
-as corrupt and the mount fails with -EIO, and normal zstd, zlib and
-lzo files still read back correctly. I have not run the second image
-on it; its disk_num_bytes is 4 MiB, above the limit. Separately, the
-u32 arithmetic in btrfs_decompress_buf2page() could be done in u64 as
-hardening. I can send patches if you want them.
+One option is to call kvm_rtc_eoi_tracking_restore_one() from the INIT
+path of kvm_lapic_reset(), as kvm_apic_set_state() already does. I
+have not tested that.
 
 Thanks,
 Cheng Yongkang
