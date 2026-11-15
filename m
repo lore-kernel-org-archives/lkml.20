@@ -1,87 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.183.194
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794781242;
-	b=pBRKYWr7F5QFlp+qvGj+/igYvrZRR7JGudVSEKqsr5k7cReBr1+HVklCpEmXPX67j79b
-	 8DV4Zu7OecHMox+PCILbg8Z/V6aqpr8OHDmMnzogHM63ukv+6tCNOY5OlQU6wLz1CiBVm
-	 FwD0I8KUd7qON3zR+f7ARUT4Hp19c6i19vjEFsww7fO0qNxUgsA1X0QE3OD5H1DA6StfB
-	 F1j2aETzyipor44NdRPmOMnEzzpZN05YgGs8TjHgK8sYMKSVt37gh6NIkA6ySr+1XVImZ
-	 kGS3CXD+4VK2LrHMD8mxX38/skkdXfi06Re2B1JmGvB58+1xl/8JsACIqHbKeYPYKcg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794781242;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-GND-Sasl:X-GND-State:
-	 X-GND-Score:X-GND-Cause;
-	bh=uVVWpXtmmKaz/e4u5ACa4C96jB5l+frR7pn7W/z1ssQ=;
-	b=xpvsYXQu89bN1E/g5cDC9Txw7Dk1PgRho4MZNH+z3MTzf0jLeypjNloBzdKPJeJOwcHE
-	 XKxb4kfNmfjyZ9aqs3zdmXmT4I5mayz0iwQTkYlXnYS73uDzj4bxOEtJf4RrGB0es+AIi
-	 EGIuQXAuUdOLVeWKpZfoV2VSYadFSo0/qhM55kpuHABTPzuQtrDuO5Ap1PtfJIdB3ReYr
-	 h2+GCUkodvG8Ep3e0QZJv9AESPRbDsWo25CMf3ntTFVFUpYT8nvS4ORf3AdZuVg9ncst8
-	 VemIISRVM/zLVMquiIKLLB7bawxxR5tNYTId/9wJHuvFSCK1b4TqPbvPYsIgVDfgOzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=a-marquet.fr;
-	spf=pass smtp.mailfrom=a-marquet.fr;
-	dkim=pass header.d=a-marquet.fr header.i=@a-marquet.fr header.a=rsa-sha256 header.s=gm1 header.b=PCcS4G01;
-	arc=none smtp.remote-ip=217.70.183.194
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794781266;
+	b=yPObbs/bX5RGN8GPwZoH37vWbcgMtmsxe77G2MZ9lmh1+nDL/SFaW90Tlkh6hmBCPRLJ
+	 FJOf/04cu8RtYyErjgrW4DQ+yKWjeHKRzRNloEbuHrP1GV8ADBK3v5QMsvr1KUjWOrySc
+	 zOXK/Xjw9NF8Qgcq+2ddDvcXndldQSXlBnOAtb8d7rmiG1w3ifw4+JgS+/m9LnMy4DOea
+	 bWJ9Ky5eypp0pnFKRwEq/GPA+5jqsFazKLbFQwRLhmRmgbWpPtXfphwjQyRAi1cmPKqIW
+	 4DI6RYUc2oMNRkbTPzlwNDAO7tuf/PQlSZpwv50yezWnQ2VQupPunl4F2DhttlhF2oQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794781266;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
+	b=pPeDs2TIalc9YdQrPaR7igRaRD98PZYVU6TW7atUpGVmDyJefdO4cmqhvGljre7fnhEc
+	 xH2L4W6dI8tcHA56Usmy2TtzbgV2ZGNkhEvBzpDt18Z+JAdmTNqAFf8yRJhQUgFuJ6oO8
+	 60HwQIoisSG3QDJTa/7BQAID2kxprkzW8XuRUcPXMr6UgjlrD4jnqJZQxgxbQD5N52r8b
+	 Yv3ajVuGGq4DnWegMQmtWfAtjHMtupyq0qEDyGpUV8bNrWzmyP8aCvXFDhCDmbNXPQ8gn
+	 LnT24snL9n7YZH4SyIxNK+i6s6bkKpKUCZbEdVUIqm6MvIAMs9nvjHHU8wlKAYIa3EA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=ohRWuzLs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB12606A31F;
-	Sun, 15 Nov 2026 22:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DB12606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=a-marquet.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a-marquet.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7EE606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:21:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7EE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=a-marquet.fr header.i=@a-marquet.fr header.a=rsa-sha256 header.s=gm1 header.b=PCcS4G01
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 6FEE1429A6;
-	Sun, 15 Nov 2026 22:20:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=a-marquet.fr;
-	s=gm1; t=1794781233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uVVWpXtmmKaz/e4u5ACa4C96jB5l+frR7pn7W/z1ssQ=;
-	b=PCcS4G01N/7oc+BSzISLMHLPlWllbCGKxopRR+PPW5K62whwu18llqJYWI3KZt+nvD8ZUV
-	MG2w2BYr9WXXuHfLPZw7vPkTsf6Kg7P6FeUE1zBmT3k1bu8/C8sIPD83HgJYvatZZfEDH3
-	mXrrmk6d+H9E+MxwGuBIa0W8BR7SCHwuJsG1NlxKn4K305MAQXmT2cFkOUfnHTBvlYV0ni
-	AsbT9VgQWDYn6uS68+28Z9AEZ2Yrup+g+MdqlTrCv2BofwlpTknfXF4BWCS9WMOvHcNVUv
-	AMnTiTUaBfQanm0ie0DUSDBTuneTa11fQpleRspM0dIoYuowRNNXWbkqoe8QjA==
-Date: Sun, 15 Nov 2026 23:20:24 +0100
-From: Alexandre Marquet <tb@a-marquet.fr>
-To: Inki Dae <daeinki@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	Lukas Timmermann <linux@timmermann.space>,
-	Henrik Grimler <henrik@grimler.se>,
-	Hendrik Noack <hendrik-noack@gmx.de>
-Subject: Re: [PATCH 1/3] drm/bridge: analogix_dp: deassert DP_PHY_PD on
- power-on for exynos
-Message-ID: <avowKMv2v5gCxkIT@laptop-218>
-References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
- <20261027-drm-misc-next-manta-auxbus-v1-1-3a45c3cf531d@a-marquet.fr>
- <CAAQKjZPYAn98+8Wtjesr7GCh1s_pX8mWizW=HoY5Pj9xO9St=Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=ohRWuzLs
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67db35e7953so451268d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:21:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794781264; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G3LZreVfftUnzJuGtopNh1Mei0cJSW7xjhghB64JXIGKn/fACd4Z+RnV3EayPfJEps
+         UeB745DHv2E57NRT/ItmbZO9KBqjD/lbTZXlUcD48FrNNWPGfeS65n4nmEyg8aLieGrP
+         ToR5n55fY7ov22PWuGX26zNoveSFjBJlGsrhZJMbtMJs5WbtrkJJZyAqIZfDJDeM2ccj
+         xR7sDy+2MrXpH8uv6LyQQjc1dW5DlULpt/FYO5BSnsQA5MQefIOt5MKPIBjcsm5BuJAV
+         Gd00KQqhNcITffBVHF6mAusH4OGk6DJm6MlzcU0PelVj6ZCHshThAc0dLD8+fkWtbGAv
+         eOWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
+        fh=beB7+VNaGgNtCRUdA9KTh0CafLh/u+tHWacvvvvPiLU=;
+        b=aeU8kqoSOZnjNWcab2A7o3GmQ92UeE9hYmTWBRzIz3Wol4VUHtOePJX295DQrSc5G9
+         Q0b2GKE7JzFGpT0j560/4A3nrr1OkgVoFuEcEJiYyJILOZt3td4b2appuWSxuR4oXMXS
+         Pc2Opobwe8l0CK3QVY46TmtsnlTYsvQvWtvH3S/W9jRhBbhOXRpHvax3pyn+SXKCKv1+
+         TrEZCCNt3aEpnC3SEjyp6uNMeLFRq9JBAvlRXarLHPfkiM/V+37lpMV49sVmXpBPoU4w
+         X0seq1qCGlH8WWyNmF+YjKjPkZzXoYWEGRxIZ5srJnYdWiLx2R9LtaOTPiU1mAM+6EFx
+         +dUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794781264; x=1795386064; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
+        b=ohRWuzLskucdZexyQNJ+heplSWXTaJEIIm7suUD2DWYYOw3bnEfYiwHRYTQCmL/v3E
+         xwwWqRiJ+eBb7u6IhQcghQVUllcYPsaVimvlgY2YtViPXRF14a83f8Bjd/3xDRDYBNhN
+         TVIZ8Hr0BlNeaTbuAdwZpKqiPpAAhqBi1bLs/CvCjludvcbtIj9zZ1VdNoUt8W0SJJA3
+         GBkVqjX6DJAHOT7fGd9fRQcmI+yShx/YpUiWjyImkVDlCzoW0hSM/eaJVZIrdq6T5ScQ
+         wMrz5zB4WQX2HfdLQlBr9kqUa12qUbNMbA/VVh59+oT6rDVABxNJxxVOaQZXOMOmQ1h0
+         HrPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794781264; x=1795386064;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
+        b=dN1HonkYivqrnOOrQPquzTit0OqHlSCGHA7xbE43Nud5Klxxh8aVBZpVuaRcwpDcMg
+         Cw+bEWJQ1F2Vc4sKBgQpOdfGn5ihWbfl+wQYlsQE1zxY2I2HWZQFQdOXPBMDjhVRuFb3
+         mFlNz8YxXU7CYyyx7viM6gzDVH32ZYIGLRHTJwLyfXWwDiB21KDVU3gmD8kDQwQfcnyL
+         NjA1Bc9StjnGMyg07N/40mi4BxOXmBszfpNfsjk1kpNg9jTyVXWc2qWgA8EuvbtrMYo8
+         uZP0wAeZrLYYVYlS4XTCWu0WcfWxc5iVXNjGRAlJAdBxKImM9Rk+kWRQw6SPh0p0B7SD
+         QSzA==
+X-Forwarded-Encrypted: i=1; AL+hErH/XFGOywXuy3WFtdNlt6iu55CY08xrOyS45k4zc3PDyQLCqEDqrGVGV3LOp6WhKQkXGz0GJVtrRjEN678=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3f7ZEp5wOVXGK+q24z5eR1g9Wf47++taidcvzBYVimkwpM3j+
+	mHPgOIoEFyGon6rfee3o3Uii2+iFLGbMMnYUByKcloePxD3bULfQWh2A2QM0CwUMML2c5M0uQFK
+	KLIBhwMz+sgFgSwEV+bW2pA9bDWKIYvE=
+X-Gm-Gg: AZFdTZfXB+DI6JWBRFlBSt1rQKHf9sigWu72/0WSbEGG62bOkRl/kdXvt578XZvqdlS
+	6bO1KuJNWasNeim3PBJ99eCE8qIUqdklYX1hDIbqGWS6vtpeOSlMujZiPwFihT/R0VtUYfZvOCh
+	0WNtsAh0sGf2cokRNJa4UCpOGZhc9ZqlJbumlRJI9CbmqaeZuwfrdaYTZ/ObIBYpLLi9zWXLgs8
+	C2tx6gF/2Jyg2XkJTIRLFzI4iEsXUeXE10j4z2UIHVuoIys5DP2/5htPBR0qHLxmcPSrM0uDrKL
+	BujXrg1JiM/oUu8s6XgVHRNVexjAMDFn7jyO2yVS+iAQnbZQ2XjMpbFrD42r2kpeLsaqilEhGDT
+	WVJ54s3v1Ysm/DL9gT9ZXvnx6pq2GWikg8BZC6mpztSnSpnhEKJY3rZn5njxgSs4NLuW+TKLsWL
+	qaGUALqLLsFyK8Ppc=
+X-Received: by 2002:a05:690e:4086:b0:67d:a3f0:7dac with SMTP id
+ 956f58d0204a3-67da3f0917amr1936855d50.14.1794781264626; Sun, 15 Nov 2026
+ 14:21:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,191 +105,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAQKjZPYAn98+8Wtjesr7GCh1s_pX8mWizW=HoY5Pj9xO9St=Q@mail.gmail.com>
-X-GND-Sasl: tb@a-marquet.fr
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTGffJcFJiJh/3cNGj1MflHHS8lHdWXQPN/F7+YeyQJd8apnbMT9uBaByhqhThT3SwSVwNViRvDZ1+RgV+72iZnsonfba4nb1Pso/LksWX/AIFh1o2tFyEBZwEwylvkV2m00Wuq4XMPZVOIfhtkT/XAriiWqu2LuJOgzHDkx4fVGchrJJN2SgPl5n5EFxfF1t2x5qAqZjPK3pZZyUahNEXQ43z0OD31N8LVKJj+uSBRrdEEuXtK2g8aN9YrTUMWWhxvvz4Mc+Ym/xs51O/ER2UlTWDHcRJthgSMGcG7v7jaRGhaCruc/1h10IIgErJSdU+lLK9X5GSvqi4m87VUsAOdNF+IivHZ7Qt6xuB9wDS1TVLJQyQPd6oYlZ4hkOFnTNcBksvPZD+DLyMJuVg3GrKtJ+BbXrJMDTSYKxoGOxZiXl5TVijW2F72/PvNMLyAi08fKM6ngyOu1btKB0josxYaFF5MxqR8uQgUj2wsxF/0wu2yjk4ty+aZJ2hZzYJzheVb9CvEfsA7kq5kM4c2ZN+h0ZdQuFkizyHgZH0edpsDbeqKdO8l+ZFw3auOHTa4fkgZ6pBCqSmk37k1P9SoORMvsJvxLm2hfUcnpR7eMEJ6iMX3qF0+0o4l1GZnbrIjXvOYvGJ9+mOfDUHmLYcyviwKmbyAjU0DLkmErHS2nvuuRxQ
+References: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr> <20261001-add-t7-sys-pwm-clk-v4-3-8ed2b1e0cdfe@aliel.fr>
+In-Reply-To: <20261001-add-t7-sys-pwm-clk-v4-3-8ed2b1e0cdfe@aliel.fr>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 15 Nov 2026 23:20:53 +0100
+X-Gm-Features: AclHuK-51aJAWSj3WTQV4S_5nCaT5gjYIQp2CQlsLrogi8Dpichyl4UfpyRzP20
+Message-ID: <CAFBinCCf2x3Ear_iOg9=KYXd5jbvAh2LdQb3uOME=Lry8Wm4HA@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] arm64: dts: amlogic: a1-c3-s4-t7: Add bus clock to
+ PWM controller nodes
+To: linux-kernel-dev@aliel.fr
+Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Thu, Oct 1, 2026 at 6:56=E2=80=AFPM Ronald Claveau via B4 Relay
+<devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
+>
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>
+> Describe the system clock of each PWM controller as a third clock,
+> and add the clock-names property expected by the updated binding:
+> "channel-a", "channel-b" and "bus".
+>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 
-Thank you for this feedback.
-
-Le Mon, Nov 09, 2026 at 02:15:25PM +0900, Inki Dae a écrit :
-> Hi,
-> 
-> 2026년 10월 27일 (화) 오후 9:17, Alexandre Marquet via B4 Relay
-> <devnull+tb.a-marquet.fr@kernel.org>님이 작성:
-> >
-> > From: Alexandre Marquet <tb@a-marquet.fr>
-> >
-> > On exynos platforms at least, calling
-> > analogix_dp_set_analog_power_down() to power on (with enable=false) CH0
-> > to CH3 or the AUX bus currently produces no effect, unless the function
-> > is first called to power on everything (by setting block to POWER_ALL or
-> > ANALOG_TOTAL). The reason for this is that DP_PHY_PD being asserted
-> > (which is its default state) renders every other register bit
-> > ineffective.
-> >
-> > This is particularly an issue for AUX bus initialization, that tends to
-> > happen before anything else (e.g., to request EDID), and thus, before
-> > anything has any chance to request a power on of the whole analog
-> > section of the chip.
-> >
-> > This commit allows analogix_dp_set_analog_power_down() to power on any
-> > block, by deasserting DP_PHY_PD if needed.
-> >
-> > Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-> > ---
-> >  drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c | 19 +++++++++++++------
-> >  1 file changed, 13 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> > index c1344a3f013a..9f634d4e4793 100644
-> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> > @@ -256,6 +256,19 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
-> >         if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-> >                 phy_pd_addr = ANALOGIX_DP_PD;
-> >
-> > +       reg = readl(dp->reg_base + phy_pd_addr);
-> > +
-> > +       if (dp->plat_data && (dp->plat_data->dev_type == EXYNOS_DP)) {
-> > +               /* On exynos, register AUX_PD and CH[0-3]_PD have no effect if
-> > +                * DP_PHY_PD is asserted. So, when powering any of them up, we
-> > +                * need to deassert DP_PHY_PD first.
-> > +                */
-> > +               if (!enable && (reg & DP_PHY_PD)) {
-> > +                       reg &= ~DP_PHY_PD;
-> > +                       reg |= AUX_PD | CH0_PD | CH1_PD | CH2_PD | CH3_PD;
-> > +               }
-> 
-> When DP_PHY_PD is set, this path clears it but leaves the bandgap
-> power-down bits unchanged. If the register retains 0xff from
-> POWER_ALL(true), an AUX_BLOCK, false call produces 0xcf; both
-> DP_INC_BG and DP_EXP_BG remain set. Could you check whether AUX can
-> operate in that state?
-
-It can. But what happens is that after calling POWER_ALL(true) (thus
-setting the register to 0xff), when reading the register again, then I
-get 0x7f.  Hence, after calling AUX_BLOCK(false), we get 0x4f and not
-0xcf.  And although DP_INC_BG remains set as a result, AUX still works.
-That being said, it sounds wrong not to deassert DP_INC_BG. This was
-likely added to POWER_ALL for a reason... DP_EXP_BG, on the other hand,
-does not seem to have any effect (and is not used anywhere, as far as I
-can tell).
-
-> I suggest limiting the new handling to AUX_BLOCK and CH[0-3]_BLOCK.
-> When the bandgap bits are set, keep the other blocks powered down,
-> release DP_INC_BG, wait as the existing POWER_ALL(false) path does,
-> and then release the remaining required bits and the requested block.
-> This also avoids changing ANALOG_TOTAL, false, which currently only
-> clears DP_PHY_PD.
-
-Right, in this case I'm leaning towards writing a small helper function
-for AUX_BLOCK and CH[0-3]. Something like (not tested):
-
-void analogix_dp_write_analog_power_down(struct analogix_dp_device *dp,
-					 u32 phy_pd_addr,
-					 u32 mask,
-					 bool enable)
-{
-	u32 reg = readl(dp->reg_base + phy_pd_addr);
-
-	if (enable)
-		reg |= mask;
-	else {
-		if (reg & DP_INC_BG)) {
-			reg |= AUX_PD | CH0_PD | CH1_PD | CH2_PD | CH3_PD;
-			writel(reg, dp->reg_base + phy_pd_addr);
-			usleep_range(10, 15);
-			reg &= ~DP_INC_BG;
-			writel(reg, dp->reg_base + phy_pd_addr);
-			usleep_range(10, 15);
-		}
-
-		if (reg & DP_PHY_PD) {
-			reg |= AUX_PD | CH0_PD | CH1_PD | CH2_PD | CH3_PD;
-			reg &= ~DP_PHY_PD;
-		}
-
-		reg &= ~mask;
-	}
-
-	writel(reg, dp->reg_base + phy_pd_addr);
-}
-
-Also, since DP_INC_BG looks functionally equivalent to DP_PHY_PD on
-rockchip, I'm tented to make the behaviour consistent accross exynos and
-rockchip. But I have no rockchip board to test.
-
-> 
-> Thanks,
-> Inki Dae
-> 
-
-Best regards,
-Alex.
-
-> > +       }
-> > +
-> >         switch (block) {
-> >         case AUX_BLOCK:
-> >                 if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-> > @@ -263,7 +276,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
-> >                 else
-> >                         mask = AUX_PD;
-> >
-> > -               reg = readl(dp->reg_base + phy_pd_addr);
-> >                 if (enable)
-> >                         reg |= mask;
-> >                 else
-> > @@ -272,7 +284,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
-> >                 break;
-> >         case CH0_BLOCK:
-> >                 mask = CH0_PD;
-> > -               reg = readl(dp->reg_base + phy_pd_addr);
-> >
-> >                 if (enable)
-> >                         reg |= mask;
-> > @@ -282,7 +293,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
-> >                 break;
-> >         case CH1_BLOCK:
-> >                 mask = CH1_PD;
-> > -               reg = readl(dp->reg_base + phy_pd_addr);
-> >
-> >                 if (enable)
-> >                         reg |= mask;
-> > @@ -292,7 +302,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
-> >                 break;
-> >         case CH2_BLOCK:
-> >                 mask = CH2_PD;
-> > -               reg = readl(dp->reg_base + phy_pd_addr);
-> >
-> >                 if (enable)
-> >                         reg |= mask;
-> > @@ -302,7 +311,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
-> >                 break;
-> >         case CH3_BLOCK:
-> >                 mask = CH3_PD;
-> > -               reg = readl(dp->reg_base + phy_pd_addr);
-> >
-> >                 if (enable)
-> >                         reg |= mask;
-> > @@ -321,7 +329,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
-> >                 else
-> >                         mask = DP_PHY_PD;
-> >
-> > -               reg = readl(dp->reg_base + phy_pd_addr);
-> >                 if (enable)
-> >                         reg |= mask;
-> >                 else
-> >
-> > --
-> > 2.43.0
-> >
-> >
-> >
+> ---
+>  arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi | 28 +++++++++++++++++++++--=
+-----
+>  arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 28 +++++++++++++++++++++--=
+-----
+>  arch/arm64/boot/dts/amlogic/meson-a1.dtsi   | 12 +++++++++---
+>  arch/arm64/boot/dts/amlogic/meson-s4.dtsi   | 20 +++++++++++++++-----
+note: a single patch per SoC is easier for me to review but we don't
+have a strict rule.
