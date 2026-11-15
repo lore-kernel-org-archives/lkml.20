@@ -1,56 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769404;
-	b=mEniK4ceGatrS9m/X2dzHn897vmhmIrLD3PFPao3PfLnsE14z7lcEJB0C0CjspuBo+FN
-	 a6YJswvjBHN8OyGXv/koYFg5wFaxmn/jo16VmOMOGwtCj6ykxeRWV9zz9s0F9KFsahyE/
-	 6pelPu2gdN3EjhP8Qv9hAkT6nVXzE8FyfgTQUgWDdHX7mT3OPf9Xknzz+aVe660+tXiDJ
-	 JhRrOKHaAY56EqN7dDVxw42/Olv7OMzxa5GxQTQH+igaFwH9v6c309bwMKyWqlrz1NY5e
-	 DZabGGDxTDQSk+A23VtoXKJMXQ6mzJOOQvdlBQJq8+BBrp4rO012ucpUSXJfR4kI/ug==
+	t=1794769507;
+	b=U+KqE+pzx2cGKnf8FfbzQG2Y1CsmeWgGCBbZUeNRl91wDy/kIMKdHReywJ7opOv9lsfR
+	 HFrQP3oDo6LAK0Ezc9SQqqlnDIjefelVLLzp7WrmkJieaFc7N0x/lv0uAWIk5aAQ4aObX
+	 Z4QVimUVtHJQ2TtJ2Dwv0RoBlbLrfbCgBMEU18rdqcBnri/n27Qrp3ppJAP69m7+ppXug
+	 nT2yrbgmU6GKFd9eeu/PRK+N+4OGtczTFBeTfwNlAm2OvC9QG1MSQtAjqrf154W7/GLRq
+	 hJKWlqEMwar3Ou0ZlQjiwyMSj/NILPzgIHferFMREtuQf3f95e0K+sPjqKrTrkGGjlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769404;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VpsaYfALPxj3JTxUOmv1u6KeYeosvi0HWzXshqy6gK0=;
-	b=25J54zpRUlB1akTE3rjR/L1aPNCJGNHzbswDThBCIDNW4Z08VFU3XTug79qstJD9yDqK
-	 8y8TI1N80l+UkvYjwEViB9LOrIge5HY2PCT1HkaWiXW+sYaVTIWPZuuTfnevEaDJ36B5N
-	 P5n8WpM/OAbj0IUUa50E6ze50lh0wCzQhRiXvVOHtwS3GNuiG2P5TvXSM18m6glldRFtF
-	 eu7rzlbJwCHN0vx6hntctk+Y56JGZLls9sopPIvy2UBtfN1xNsCEvBoog6JHZNIyNA6Op
-	 NIkDpE+OwuLWSKcfK7fyI5zWFo8zUVVTXpbvUrg+egqQ8bb8F3zQTJeX+SV9abSgipg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769507;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=zXGiTJrEwntGV8op4MyBOAbCJ8yVIiAFp8O5PQ3b1D8=;
+	b=dkaH9ipexsV9y4AtgvMmqmaSEgOyBjq4ipwMf6ywMHOQmlMU5dx2/RNDsZXLbBIC0pcy
+	 X4bnhgn9/vtagO3NKXUW3l2WCbdpuaX71qNVIBA+PbZ9w7n8K1IaxUeRSAMldJultRCFS
+	 xBEgCDJnWHGoo4kskEdIdR3x9m16zTubBt0EfZ+oPdQQiir2k7r6Kic6A2sWwQBNtP/V9
+	 P+tewcd+xc2Do93JvbPe/4m6FlKk9OurTzSn8iwnqhwnPdzkkxguADqDwNZPnCrWjCr48
+	 Xasx0poKdYDXJArnuagRwzHBFLre2yNMgAnL3AzuPFrusX5CWw/zDPbT3k2kZC9CpWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aoLklo3U;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D32Rf1mu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27684606A31F;
-	Sun, 15 Nov 2026 19:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69019606A31E;
+	Sun, 15 Nov 2026 19:05:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aoLklo3U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362D01F000C4;
-	Sun, 15 Nov 2026 19:03:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D32Rf1mu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715B81F000C4;
+	Sun, 15 Nov 2026 19:05:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794769404;
-	bh=VpsaYfALPxj3JTxUOmv1u6KeYeosvi0HWzXshqy6gK0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aoLklo3Uur6KcFCrrNOsALrm6OryaVPwObMEdMqL4XhedzpTehgl03zLu66uzjfNh
-	 x4np44MbqMsZ4VBru1LE94RfxUBlx35JXfkfbWSwR3FjNeLuNhgx2htAd8fWRWOdeC
-	 DAEmT+5GKKgunM4f2v8ivYgKh0QmAjtzWcOTc/aZTCeLXxbIp1jyI3jKlxscYu5bBQ
-	 qx37/W06MFIiEnIaH+Anykv+1rLEmN+m/woA+/cVsT/rEBlle3pk5WkjIlACTOV1XK
-	 6FSKTa1VgQllE0sHkZutdJZ86GUJ2UJZwHdcupRU4aGDjKGRe+21/mOo4BJR1e7FCL
-	 FZlAuuxBN6fxw==
-Date: Sun, 15 Nov 2026 21:03:19 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: jgg@ziepe.ca, ynachum@amazon.com, yishaih@nvidia.com,
-	edwards@nvidia.com, mrgolin@amazon.com, hemanth.selam@gmail.com,
-	michael.j.ruhl@intel.com, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] RDMA/uverbs: Free all radix tree nodes in
- uverbs_destroy_api()
-Message-ID: <20261115190319.GI42525@unreal>
-References: <20261115142911.21321-1-kartikey406@gmail.com>
+	s=k20260515; t=1794769506;
+	bh=zXGiTJrEwntGV8op4MyBOAbCJ8yVIiAFp8O5PQ3b1D8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=D32Rf1munNBT2NK3EMTmueeDc6pHo5E4eKLEPb0TwrTkEFVIJDbN9uxfIEQcyBKBm
+	 1gqfJjeY5xf4KniLWlD8AJPKBDWHhgKyen/269r3W3paujA7r/qkuewnkWUahD+LW0
+	 WLWsLk6+RcOaLY2b3YSMwWVfhZJC8DYJRZtiUaW+NdOoczaqwyQex8B5yINbmdbcv7
+	 P2KY3hsXjTbKetgXMiXxOhaGktl81Iix98zKS0iWgJtglG69z21LDkVBNwHf96zdGz
+	 7QHMeAt0W32rWWHOWCUa19SopATjMfIye9oTIltZHlVjz+IoxJrnrNyjdSdFGpVNYv
+	 q+qtQkW0hKG7Q==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com,
+ sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, alexanderduyck@fb.com,
+ kernel-team@meta.com, andrew+netdev@lunn.ch, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, ast@kernel.org, daniel@iogearbox.net,
+ john.fastabend@gmail.com, asml.silence@gmail.com, axboe@kernel.dk,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ almasrymina@google.com, mike.marciniszyn@gmail.com, bestswngs@gmail.com,
+ razor@blackwall.org, dw@davidwei.uk, aleksander.lobakin@intel.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, stuclar@meta.com
+Subject: Re: [PATCH net-next v1 05/11] xsk: Install UMEM page pool providers
+ in the core
+In-Reply-To: <179443689029.2199510.2604170089798059237@kernel.org>
+References: <20261110102039.1002605-6-bjorn@kernel.org>
+ <179443689029.2199510.2604170089798059237@kernel.org>
+Date: Sun, 15 Nov 2026 20:05:01 +0100
+Message-ID: <875wxxj4pu.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,62 +71,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115142911.21321-1-kartikey406@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 15, 2026 at 07:59:11PM +0530, Deepanshu Kartikey wrote:
-> syzbot reported a memory leak of radix_tree_node objects allocated
-> while registering a siw device:
-> 
->   radix_tree_node_alloc+0x81/0x1a0 lib/radix-tree.c:276
->   radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
->   uapi_add_elm+0x61/0x140 uverbs_uapi.c:41
->   uverbs_alloc_api+0x85/0xc50 uverbs_uapi.c:659
->   siw_newlink+0x36a/0x3f0 siw_main.c:433
-> 
-> radix_tree_insert() can fail with -ENOMEM after it has already linked
-> intermediate nodes into the tree, leaving them with no entries.
-> uverbs_destroy_api() only removes populated slots through
-> uapi_remove_range(), and radix tree nodes are freed only as a side
-> effect of deleting an entry, so these empty nodes are leaked when the
-> uapi is destroyed.
-> 
-> Call xa_destroy() after removing the entries so that all remaining
-> nodes are freed.
-> 
-> Reported-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d60be66dd00b4490fa96
-> Fixes: 9ed3e5f44772 ("IB/uverbs: Build the specs into a radix tree at runtime")
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
-> Changes in v2:
-> - Drop the dummy insert/delete workaround in uapi_add_elm()
-> - Call xa_destroy() in uverbs_destroy_api() to free all remaining
->   nodes, as suggested by Jason
+netdev-bot+sashiko@kernel.org writes:
 
-AFAIK, Jason didn't suggest to call to xa_destroy().
+[...]
 
-Thanks
+> Should xsk_pp_detach() be skipped, or the DMA unmap and UMEM release be
+> deferred until pp->nr_pools drops to zero, when the close fails?
 
-> 
-> Compile tested only.
-> ---
->  drivers/infiniband/core/uverbs_uapi.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/infiniband/core/uverbs_uapi.c b/drivers/infiniband/core/uverbs_uapi.c
-> index b67db3790f03..77a4eb494936 100644
-> --- a/drivers/infiniband/core/uverbs_uapi.c
-> +++ b/drivers/infiniband/core/uverbs_uapi.c
-> @@ -621,6 +621,7 @@ void uverbs_destroy_api(struct uverbs_api *uapi)
->  		return;
->  
->  	uapi_remove_range(uapi, 0, U32_MAX);
-> +	xa_destroy(&uapi->radix);
->  	kfree(uapi->write_methods);
->  	kfree(uapi);
->  }
-> -- 
-> 2.43.0
-> 
+Deferred. A failed restart leaves the old queue running on the provider.
+I have a net fix that keeps the provider on such a queue and retries the
+removal, which also covers netif_rxq_cleanup_unlease(); I might add a
+fix in v2 that unmaps and releases the UMEM only once the queue DMA has
+stopped.
+
+[...]
+
+> Should the xsk_pp pin the buffer pool and the UMEM, and do the DMA
+> unmap in xsk_pp_free(), so they outlive the last page pool? Or should
+> xsk_bind() defer releasing the pool in this case?
+
+This case can't happen. The page pools of a failed open never hold a
+chunk. fbnic fills its rings only in ndo_queue_start(), which can't
+fail, so a failed open frees empty pools, and they're destroyed at once.
+pool->pp protects nothing there, so v2 drops that branch for a WARN.
+
+
+Bj=C3=B6rn
