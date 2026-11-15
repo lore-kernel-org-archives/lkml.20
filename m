@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.240.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769253;
-	b=ZyUHQbaQ6oXvmZCczeoBqVu0VeSltq5ISENwVSB255PE+9+kzZ59Y9fBI9Z4gtDRPbu2
-	 dx750ubX9zk/fPcW1k/4SAGkUz2IeC9kAXHNr4mC3KW1fcHBOWxiUSWKMF1cpgPHP2fTX
-	 dL1nD8FX4MO2OGCpVASTNVSUQZ79plvWFl+BeeFwHcihfeVhBubTOyifPjNan04BrKNSF
-	 XfMqGzTMtF4XZOPfL0qqcCYitn6SWChCBSngmQC8EFSf4/Dj5N19S/YPCqaPbNNF6RonH
-	 I7unAMgVWpDpKA9SQCMZ798DVnvJFB0h+FDvyXD5+Ciqgd4LMz59f4j5KULosGpt4VA==
+	t=1794769301;
+	b=sA3Ehat5ExsdaHwN58CeedGrhfNqXLvFHsXJSEIEZjHJwqwyeHiRjvuoNQ9MyMVP+7fu
+	 Emm9i0DO0skyAy5MmlHG8V9qT4H7tleiblownKl10C4LdjiYzQIqt/a5D9Jm9Xv2dayT5
+	 uG5xEKpctqVpgwP0Rh/C1tFAu+ZQZbvd+1FQi03AcIymAPgU050mpXAQHGlYuk2TmyY2d
+	 zhD8vREzBiBA/EfoI2XY1GEnN0z7j0ZaR4hbtyNJAXYFkCkKmzboVdHVyKuz192mmebFc
+	 1fhS28+z2us46eUJKFtyYBW1KL1srWgI8UOqkblW0mFi1RZmZRlMELLNFDx49jvqqFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769253;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R6szs5w9Uz9ymZ3V+5ITu+1dXPrkQ566vnE3nCeyQ5A=;
-	b=OJ/vpoxyV1ojlnrLepWLWPfiu14W0zkTrwM3xkcXQy8m9yxhWYx+hZFPDOE3ecqX6CQj
-	 HK6ot6fVVb9z8hEUjAPx1+9Lg7jseXOUVIPlZxCmi+fw3/+MGi4y+fHdxCZZ7SpJ0rPVC
-	 Rq/eAKvdUZS04LvLSB3by/YYJFq0MWehPFRfsIjmsNJEZCaImIeNOygx9Fom1hHT0EG7H
-	 14smhUmLao6qoqwMuE8E1kugo3oY4l+QKmy1hFBafFd28AWMS4u0fM5b2xq6Uq/HJvLXv
-	 ETVGPVEQvcAWB5++juwMg3MnGJidb1gmdaM+9Hdmb2md1+NMv2OQjzCtrbx7uRI8+fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769301;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=i6aXJFxheMBmQpoYN3uuGJFUEJUWShe+IIjU3HSWCjA=;
+	b=sqOXfb5ldL3zuKciqYcWskkdzRSkLt8TJvNBdp5zR0zTCr1M7ybkv4NBa3rb4X8faPMX
+	 e86TmJuVnf+nY86dodxC8Qk5nJke2M7jAD6b0U6/izrTHeXJp4oqk2pK068u20efStEct
+	 BhlTmBWyE+B/fq83oM3P22jIimY9dORnjJqIlViCfdljQyn9W6N1puO/kKBdrWVMaDyPK
+	 ugeRZL2qbSIRhPY4Sh5jvc7+S4IPE/CKNxGBbWGGf2ygkyiJ2vdKnNBiPhQL28w97jZPC
+	 v5r9T2LsiWJrS6l8Dv43hMA78X0QpWpUXq9Jzrs7BPb4A5Mj/xV6+3DpIC1L8818e4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sraa.de;
-	spf=pass smtp.mailfrom=sraa.de;
-	arc=none smtp.remote-ip=85.214.240.192
-Received: from sraa.de (sraa.de [85.214.240.192])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWJSDEKn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD24606A32C;
-	Sun, 15 Nov 2026 19:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFD24606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sraa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sraa.de
-Received: from [161.142.148.162] (helo=ryzen)
-	by sraa.de with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <basti@sraa.de>)
-	id 1xSfSt-00Fxrp-Mz; Sun, 15 Nov 2026 20:00:36 +0100
-Date: Mon, 16 Nov 2026 03:00:28 +0800
-From: Sebastian Raase <basti@sraa.de>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Sebastian Raase <linux@sraa.de>, Hans de Goede <hansg@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Helge Deller
- <deller@gmx.de>
-Subject: Re: [PATCH 2/2] dt-bindings: display: simple-framebuffer: Document
- mono format
-Message-ID: <20261116030028.32753ba3@ryzen>
-In-Reply-To: <8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
-References: <cover.1793758480.git.linux@sraa.de>
-	<258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
-	<8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED8E606A31A;
+	Sun, 15 Nov 2026 19:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWJSDEKn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4A81F000C4;
+	Sun, 15 Nov 2026 19:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794769300;
+	bh=i6aXJFxheMBmQpoYN3uuGJFUEJUWShe+IIjU3HSWCjA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hWJSDEKnalsdke3N5pJJ5OLMUOmSNVeL8/ZP66/Lb6aVB4Thip181TnPh8OuRmWnD
+	 wQEqQlJbV9YxFRiHYHsK/3521Lbk1TKv0drP9y5eKiePM1RRfJbBMakAaykrWINb9o
+	 Dvr364d1/LGYpUSRTg2Nz3gjdMeP9OxLDX/BkBJUgVCoe4hUi2HbjqNA+nC100h6V/
+	 MrdkZBG5Vuv+7DlQL8XX4mZRc+2p/b7jrbRigsB5xRu5blftaxOkLwBsICwDIyVi/A
+	 EivhUDioTbPEuc908QuF+R6s8rqxOZ0wFctMa+3mpcYttCdvG6b3ovIlijILIIg8et
+	 XaeZEmDuJJeBg==
+Date: Sun, 15 Nov 2026 21:01:35 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, hemanth.selam@gmail.com,
+	yishaih@nvidia.com, edwards@nvidia.com, mrgolin@amazon.com,
+	michael.j.ruhl@intel.com, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
+Subject: Re: [PATCH] RDMA/uverbs: Fix radix tree node leak in uapi_add_elm()
+Message-ID: <20261115190135.GH42525@unreal>
+References: <20261106013908.21789-1-kartikey406@gmail.com>
+ <20261110004550.GT663069@ziepe.ca>
+ <CADhLXY7HKNvAM9=2J+VOVynDW39_PU=ohUKZkvwsqj=ZxSLbrw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,98 +62,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADhLXY7HKNvAM9=2J+VOVynDW39_PU=ohUKZkvwsqj=ZxSLbrw@mail.gmail.com>
 
-Hi,
-
-On Thu, 12 Nov 2026 08:35:59 +0100
-Thomas Zimmermann <tzimmermann@suse.de> wrote:
-
-> Hi
->=20
-> Am 04.11.26 um 03:34 schrieb Sebastian Raase:
-> > This is a 1 bit-per-pixel monochrome format, with 8 pixels/byte.
+On Sun, Nov 15, 2026 at 08:00:25PM +0530, Deepanshu Kartikey wrote:
+> On Tue, Nov 10, 2026 at 6:15 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
 > >
-> > Signed-off-by: Sebastian Raase <linux@sraa.de>
-> > ---
-> >   .../devicetree/bindings/display/simple-framebuffer.yaml         |
-> > 2 ++ 1 file changed, 2 insertions(+)
+> > On Fri, Nov 06, 2026 at 07:09:08AM +0530, Deepanshu Kartikey wrote:
+> > > syzbot reported a memory leak of radix_tree_node objects allocated
+> > > while registering a siw device:
+> > >
+> > >   unreferenced object 0xffff88810d78f488 (size 576):
+> > >     radix_tree_node_alloc+0x81/0x1a0 lib/radix-tree.c:276
+> > >     radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
+> > >     uapi_add_elm+0x61/0x140 drivers/infiniband/core/uverbs_uapi.c:41
+> > >     uverbs_alloc_api+0x85/0xc50 drivers/infiniband/core/uverbs_uapi.c:659
+> > >     ib_uverbs_add_one+0x1b1/0x350 drivers/infiniband/core/uverbs_main.c:1196
+> > >     ib_register_device+0x4fe/0x7f0 drivers/infiniband/core/device.c:1503
+> > >     siw_newlink+0x36a/0x3f0 drivers/infiniband/sw/siw/siw_main.c:433
+> > >
+> > > radix_tree_insert() can fail with -ENOMEM after __radix_tree_create()
+> > > has already linked intermediate nodes into the tree, leaving them with
+> > > no entries. uapi_add_elm() frees the element on failure, but nothing
+> > > frees these empty nodes: uverbs_destroy_api() only removes populated
+> > > slots, and radix tree nodes are freed only as a side effect of
+> > > deleting an entry. The nodes are therefore leaked when the uapi is
+> > > destroyed.
+> > >
+> > > On -ENOMEM, populate the same key with a dummy entry and delete it
+> > > again so that radix_tree_delete() reclaims the empty node chain.
 > >
-> > diff --git
-> > a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > index 45ffdebc9d86..c627ec088434 100644 ---
-> > a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > +++
-> > b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > @@ -94,6 +94,7 @@ properties: format: description: > Format of the
-> > framebuffer:
-> > +        * `mono` - 1-bit packed pixels, 8 pixels/byte =20
->=20
-> I don't object the change, but I really object the naming.
+> > That seems like an absurd thing to do, can we fix
+> > uverbs_destroy_api() to free the entire tree rather just populated
+> > slots somehow?
+> >
+> > Jason
+> 
+> Hi Jason,
+> 
+> Agreed. Since radix_tree_root is now an alias for struct xarray,
+> uverbs_destroy_api() can call xa_destroy() after removing the
+> populated slots, which frees all remaining nodes. I'll send a v2
+> with that and drop the dummy insert/delete.
 
-I fully agree, but could not think of a better name at the time.
+Can you please elaborate more about this sentence "which frees all
+remaining nodes"?
 
-As Sashiko pointed out, "mono" neither describes the endianness nor the
-polarity.
+Thanks
 
-> Mono is not a good name because it doesn't describe the format's
-> pixel layout. For example, RGB with only 2 colors is also mono in
-> some sense.
-
-A two-color RGB format sounds like a contradiction, although bi-color
-LEDs are very common.
-
-> The common names used in the Linux kernel for this type of color
-> format are C1 and R1. More generally speaking,
->=20
->  =C2=A0- Cn describes an n-bit format with a palette. The pixel bits inde=
-x=20
-> into the palette.=C2=A0 Pixels are packed.
->  =C2=A0- Rn describes an n-bit format with a single color channel. The=20
-> channel has linear color gradient. Pixels are packed.
->=20
-> In your case, you'd define 'r1'. While at it, we can also define r2,
-> r4, and r8.=C2=A0 The terminal supports up to 16 colors, so implementing
-> r4 might be of interest to some simple hardware.
-
-Sounds like a good idea; I can test those for simplefb (not simpledrm).
-Do you have a suggestion on endianness and polarity in the name?
-
-Today, we have grayscale/color in mind, so the obvious polarity is
-0=3Ddark and 1=3Dbright. But the other approach uses 0=3Dpaper (white) and
-1=3Dink (black), which leads to reverse video hardware. It's uncommon, so
-we can probably ignore this.
-
-Endianness is basically the same difference as RGBA vs. ABGR in 32-bit
-color formats.
-
-So far, I have only tried stride values which were multiples of 8, to
-align them with byte boundaries. Any restriction would apply to r1, r2
-and r4 formats.
-
-If I send a v2 patch, should that be a follow-up of this email thread,
-or a completely new thread?
-
-> Best regards
-> Thomas
->=20
->=20
-> >           * `a1r5g5b5` - 16-bit pixels, d[15]=3Da, d[14:10]=3Dr,
-> > d[9:5]=3Dg, d[4:0]=3Db
-> >           * `a2r10g10b10` - 32-bit pixels, d[31:30]=3Da, d[29:20]=3Dr,
-> > d[19:10]=3Dg, d[9:0]=3Db
-> >           * `a8b8g8r8` - 32-bit pixels, d[31:24]=3Da, d[23:16]=3Db,
-> > d[15:8]=3Dg, d[7:0]=3Dr @@ -106,6 +107,7 @@ properties:
-> >           * `x8r8g8b8` - 32-bit pixels, d[23:16]=3Dr, d[15:8]=3Dg,
-> > d[7:0]=3Db
-> >           * `x8b8g8r8` - 32-bit pixels, d[23:16]=3Db, d[15:8]=3Dg,
-> > d[7:0]=3Dr enum:
-> > +      - mono
-> >         - a1r5g5b5
-> >         - a2r10g10b10
-> >         - a8b8g8r8 =20
-
-Best Regards,
-Sebastian
+> 
+> Thanks,
+> Deepanshu
