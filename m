@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794765740;
-	b=q0q+lgUlwueQDZcP7S+OJb0CLlt0kx1HCHxJRMfBbyJe9RY99hLXlZf+0Xo1ltS6wlvU
-	 Kbtms8pqpUO1iOYg1wBMnYMj6IVSA9SO6IfOYBncE5S0TDseT+1gwvkVJHmQv2HeNWVRf
-	 KvORhB7736vVG5ERRcYSjzrKryBpvZaczup0e8k0ut0JImZQkPHK1KKkAywQM4rs3J6SX
-	 2A1HQjUm/TQ+M0Bq7JSDjFbp5dzF36k6YKMMTUN/TfmBG9GIT//t7K12VWvLDC6IvENUZ
-	 8ZQR/7cV+DF+thmxZNVUIs28v19n0ESK6TN/aD7ipt7m1wgMbUdSlwTy9jcxP+XVV1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794765740;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
-	b=F77cblnmdJdi/WDhRhLKnCsOYWzGyyLbHg/wfVHNSq3vwmaoO+COxklkZ2QR+2MAmGk6
-	 wOVxlL3fYfEokXjrovbYpoy82qLfLccdBqxGO3a+zZrW/IXnO9CtZjya8hiAtuAzlTEtd
-	 X4GoFLHdGBE4uAJjK5JEI7FZqxX31yPEhhpBp4qv2EemSdAVcK9czbNA2vQSOpzHMqVxQ
-	 7FfSEK9fiWkxWY+y7vnpjN3xjUFC3qcRzQHWog+dp5w5YZ5RtRiJAi94NABd20sJjkcgG
-	 XdeeLVlpl+GfaX8ygn4VTXHbis3tISk9e5rbDqTc9VpVY6UN+vJpDkfJURz8/aMaNzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=trcjy1Js;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794765752;
+	b=d5W5QuD5VwijpQoJQv8YX22YceSQPgHo7FDBHTz9T3Uc+RvtE8UDOZtz+nbzVbRH0L5H
+	 /ZBVLL5ez/wznY4+kR+JDHdPWMsaSusMDc8nSO2Pte9stC56eoXN+XL9VhHXWja/OscPr
+	 YG79rl8RWhOcoPtfuaadlebwHEDpuDFGoz4eGlVR7LIPj/viKTCY7yAsS00XXTylGyqcO
+	 wxp+jo2hEQilFHoyszueozSTNiXmA8oElPCv5yacQwQkO1F1RLS1VnQ34mcLNUpQX5lQL
+	 ELfFFuYYLFgjpFRbfE+jLn+uG0+4okI3g7gr3h+aafsAH1Xm4Mn5J54QV0NgHwmE8Lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794765752;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bGUvCNwOyhlg4c1ooaZecAH9izpaNsFVB2oGdDFZw8s=;
+	b=aQRQbUgTuqgSPsXA9MURrySAmKChcwusSG2U1ima3/51cmWdtZnMxN5+Flm1eBTzOMHr
+	 u+rSJ2pWRO72tsdaEbLd9qG19Wrun8Ix4kVyaNaMXP0LPMX6Q5TJktInwsaNdngGexnKm
+	 HqbgSKtMDGaZrSh3Hept+1uVR7CuMGEw7urpJBdKjq+x6SngmKhGG+QDYq2UP+wadDz5l
+	 40YrkMsByzEyq6/GZYr4P87MNI86fg20NqOzUSNsi/Iq/Md+YWA78qgl91cnXvVaL/lY8
+	 s/hJ4GNMrRA2UhtUWxW+c4Ww7w5UrQALXAVSIbBlNw5z4UqfTT3qRg47eox0mK9T7TQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7N5QY5P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01D8606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E01D8606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66494606A31D;
+	Sun, 15 Nov 2026 18:02:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=trcjy1Js
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67c0ffaae1dso3541914d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:02:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794765739; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JQpPNr6DDNmXPZ1IVPK5ztxK1mER9+rXkyY1xmgZmmlgg/r4dhihcXWX2J+0zQyZmO
-         JjrKe72RRI+tOFS21Gv6oIEdCrhJMSFoct9J6psNiwh3Lmg+o5CPZPw/3BDUuwxU88dv
-         TPyvz/gpOmTnQx5w1YzFOrk/ohzbtC/R/Ek7H6hHj2GydvIi1U8b1GlJepAf62mZWJC/
-         z6xk6UVm45RyyhQPYGuKDnIujHNStZfmGjT0Fg8XPlWbC4xcvyFMOcftMvUcPc2coF9v
-         EU2fx8hAWXyrtJbXTAfGczDCl6pK72d63ofORvav/WcFYIMO1XS19CYTkhk9pzwgbtgk
-         3jew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
-        fh=vmN20oI6LDFZmEbkTeVpgAIZUSleThi1jOsFxWtTtAM=;
-        b=Syin+TDvDwRlPZPbBw6CDGBE9U3BweMVInWkSy19FY1bBTj6+KW8A8kF8yptWEDegT
-         K30IFrPXI9nL+SvaO6UdXfPo/oAfAaOeu0R+zQKtFM+xZQHG6wxyQq46LpL+Z+ygtNZZ
-         RU1z/Pt8wtUhL9FqD1tUKHWEJEbU91OSwH6SSA6TOLuE6xwkrrro9p6rVKLeckz4ZGO2
-         1MU3fcuNMGHMqPcJyVEnC0PcSquO9d18k6CNo6yVt2N0VxUa1G97oBnDlWGh9uuACw2c
-         D2cJaZMbpgvSTMRFNKluBEkKZrHOCOXKBxsSLBICkhS6Hu6r7/6tht7qzoFwtefH2Yzp
-         xrIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794765739; x=1795370539; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
-        b=trcjy1Jsu6uraAxeRq1k2El7wn6wlXZF2ZLBh9CCWP5wataRKIvera4oeEeA9Z1su2
-         s9rEizFFkNLrERo4aaXhfnjn9AWhTpvcK1Yv9W0dwusaSCKr1DmtYB4pptoKFiiVgmtB
-         7hGbZtwRP+sl5/0vR4DNalGHry3ANAx1LFtAl7jvxdJbXSEuMHW8hiy13yP8hv9Xt/Cv
-         CPD6SmiUfnDj9w2N5G5lbCdciKToWR/8X2PQEb2Hc/GXJJ4Yxrt8NzSvaMVaXY9adj0r
-         kQLWGvZTOyb6rns6/kjEKSUdPkshaXES9quCICOwsSJfLfP+Gk90Je4Ts65VttVf4grr
-         oFMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794765739; x=1795370539;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
-        b=HCkSA5lvaSnMdu3ORUbLNLpHjZ0nOu10mpYVgnH7Qw2MthX8RnQt35HhgXbUHCNxOs
-         PBfl3C8mn3bQ+7r3rF0O+47XKuHUpVuE8/USIlKvEA8++G22++hFnUF07pNmh2SR+9Jt
-         JscdmtU7wXn87Nf5M8AnLaZP6GvnsS9OTNBLuWyzhwaqpbA6AY3AwBrUzqF6bA+1L7tl
-         hI9/29Zc95AAT4n/PTw4V1+BZluFXUzB8VugwuBZXorhl4+zrH5F3/8Qzm3gaTTJTFXh
-         HUyxnnt8tB7g4t+dxuKIEmyT+lXOAoVKO4jpiSP94cs0e3GqTccwNtUSPFS261MKaxr5
-         +CaA==
-X-Forwarded-Encrypted: i=1; AL+hErF0Fn1ojjhuxx3rGx5Hycba+/kyWMrcOwj2h+bw4Bie+iCaPOkf/06cWQkUfXnGPo4DWx/3YFD8QmwxlfU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DZexdRIpt2KaSUWdMAjlhqVxEV6YOu4Cg+ytxINemerZgQfiX
-	hOXQktlzWX7LEsCLsonN6bT1gqEey/+E/lpxjUiIKlWWLl7/jpXpUXX5124cUC24w0419NFvmGK
-	+k4e9etMuhaRjFqTDoyKvVZbXLV15lqg=
-X-Gm-Gg: AYBFou3xjWqFj95X5dEXHSJqJu8BnVvjS+3H4nUL8WFcL34YHg5wqw3El2egDKlEIXe
-	GKUa960z74x1I+m8qxjZua6tw5nBbjBLUVVrC+8/fGf2SNQ38kseGRoNCxNDJ6EfpAVrs3kGi7y
-	HICWKTbQKI7XeL+r33EH9vJVHDL+p3yJ/wfjSIBRggLsPenvG06eBT7ByRX/8SaJHZ/OAqugU1T
-	Ku2hTUwonmyPpPEEdY6MiTubzFGgplsz0YM/eyNHq1rYrleRnau8YE1Kmle8rO9wE9Vwkp21heK
-	oJpsEYQgjwCUkbvy96YImYrOE6jXeRxsyLuL3FTMUor2bzjJ3D6dlCpWWgDs9Kk+2FQV7xlZNts
-	7ACZXz2KUpDNN1L7Ajz7cmHA8b1/FfKKoxE5qD7xdhIJlNdBcVIXca6U36ES04mAIQjbeaw==
-X-Received: by 2002:a05:690e:c8b:b0:67d:9fef:d62e with SMTP id
- 956f58d0204a3-67d9fefe0ebmr2566936d50.6.1794765738737; Sun, 15 Nov 2026
- 10:02:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7N5QY5P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16721F000C9;
+	Sun, 15 Nov 2026 18:02:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794765752;
+	bh=bGUvCNwOyhlg4c1ooaZecAH9izpaNsFVB2oGdDFZw8s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=a7N5QY5PBMM0HjL1GkeLZrL8hTFUkXwxKmP2ORiG3P5I9dP0hp8kM1hlaOroqOYqT
+	 rdKfEeM09IBw57YT/v3LEcBYi0T8Prh06WvAC0RwRsnTH3qmOXgBXlNblI2Ritlp0/
+	 qn41bseJoXG/8gBM2Kux7MjzxoxhP5zJG/hQKryX27nIamCWao4JM5Qpq2xDcn3z/T
+	 LrOSw2c6rkZfUzTZHvA/WDt9QT/pAYaFBJ/PXbt76YqdOiVh+OzFXiL7CqgGxYcnKq
+	 drZWYXh2PFJbwFEqMB7K6vw9vffjGwLjvUxzXcvtIDXYg2sErx/6ssLmPsBibAqnEt
+	 7sVdYrTmIQ8vw==
+Message-ID: <26f44428-80fe-4533-aeda-5cbf11b90de9@kernel.org>
+Date: Sun, 15 Nov 2026 19:02:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,34 +51,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-7-tanure@linux.com>
-In-Reply-To: <20261113121852.334604-7-tanure@linux.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 19:02:07 +0100
-X-Gm-Features: AclHuK982JSfMQyLz3Nt-omny5MSefKP7dqRCWJKkI82T-Lx69OJ3UT6uTKWWOc
-Message-ID: <CAFBinCBFfs85ZgYLq0Hbx-E22twLYMZztk3inRuRLaBB+MXsOg@mail.gmail.com>
-Subject: Re: [PATCH v7 6/7] arm64: dts: amlogic: t7: add the ethernet controller
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/3] platform: lenovo: architecture independent home
+ for the Lenovo WMI drivers
+To: Armin Wolf <W_Armin@gmx.de>, David Cemin <dcemin@nvidia.com>,
+ ilpo.jarvinen@linux.intel.com
+Cc: mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com, xy-jackie@139.com,
+ ikepanhc@gmail.com, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ldemarchi@nvidia.com
+References: <20261113222755.1696567-1-dcemin@nvidia.com>
+ <e8cef61a-2864-4749-a734-3c42c2f32f28@kernel.org>
+ <8f6eee63-a0f0-4c16-a622-310e695fe7a5@gmx.de>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <8f6eee63-a0f0-4c16-a622-310e695fe7a5@gmx.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 1:18=E2=80=AFPM Lucas Tanure <tanure@linux.com> wro=
-te:
-[...]
-> +                       eth_phy: mdio-multiplexer@28000 {
-> +                               compatible =3D "amlogic,g12a-mdio-mux";
-I think this has to get a T7 specific compatible string (dt-bindings
-only, no driver change needed):
-  compatible =3D "amlogic,t7-mdio-mux", "amlogic,g12a-mdio-mux";
+Hi,
 
-If we find differences in T7's mdio-mux compared to G12A then we'll be
-able to manage them.
+On 15-Nov-26 17:02, Armin Wolf wrote:
+> Am 15.11.26 um 16:33 schrieb Hans de Goede:
+> 
+>> <sorry for any double-send (first reply incomplete) Thunderbird has a new Ctrl+s send
+>>   shortcut which I sometimes fat-finger when copy/pasting>
+>>
+>> Hi,
+>>
+>> On 13-Nov-26 23:27, David Cemin wrote:
+>>> Lenovo now ships ACPI based arm64 laptops whose firmware exposes the
+>>> same ACPI-WMI interfaces as the x86 IdeaPad and Legion machines: the Fn
+>>> key event GUID consumed by ideapad-laptop, the hotkey utility GUID used
+>>> for the microphone mute LED, and the GameZone, Other Mode and capability
+>>> data GUIDs behind the thermal operation modes. Since 884d53763d30
+>>> ("platform/wmi: Remove dependency on CONFIG_X86") the ACPI-WMI core
+>>> builds on arm64, but the Lenovo WMI drivers still live under
+>>> drivers/platform/x86, which is gated by X86_PLATFORM_DEVICES, so none of
+>>> that code can be used where the firmware is.
+>>>
+>>> This series:
+>>>    1. moves the architecture independent Lenovo WMI drivers into a new
+>>>       drivers/platform/lenovo directory, following drivers/platform/surface
+>>>       which exists for the same reason (Surface ships x86 and arm64);
+>>>       ideapad-laptop, thinkpad_acpi, think-lmi and the Yoga tablet drivers
+>>>       stay under x86 because they need i8042, port I/O or x86 only devices;
+>>>    2. adds a small WMI hotkeys driver for the Fn key event GUID on machines>      where ideapad-laptop cannot bind;
+>>>    3. makes ideapad-laptop's own WMI event driver decline the GUIDs when
+>>>       the IdeaPad VPC device is absent, since it can never report events
+>>>       there.
+>>>
+>>> Patch 2 was tested on a Lenovo Yoga 9 2-in-1 16 (arm64): microphone
+>>> mute, airplane mode, the Smart Key, the Smart Connect key and the Fn+Q
+>>> operation mode key all report input events. The same key set is dead on
+>>> a Lenovo Yoga Pro 9 (arm64) today and uses the same GUID.
+>>> Patches 1 and 3 are compile tested on x86_64 and arm64 (defconfig plus
+>>> all LENOVO_WMI options as modules).
+>>>
+>>> Two questions I would like the maintainers' view on before this goes
+>>> further:
+>>>
+>>>    a. Is a vendor directory (drivers/platform/lenovo, like surface) the
+>>>       right home, or should the architecture independent Lenovo WMI
+>>>       drivers move under drivers/platform/wmi next to the core instead?
+>> I think that drivers/platform/lenovo makes sense since eventually we may
+>> want more then just WMI drivers, e.g. the thinkpad_acpi driver which
+>> actually sort of works on Qualcomm Snapdragon laptops when booting these
+>> with my experimental DT-ACPI hybrid mode patches:
+>>
+>> https://github.com/jwrdegoede/linux-sunxi/commits/acpi-dt-hybrid-v0.4/
+> 
+> Agreed, the drivers/platform/wmi directory should only contain core WMI
+> infrastructure code and maybe some generic drivers like wmi-bmof.
+> 
+>>>    b. Should the Fn key event handling stay a separate small driver, or
+>>>       be factored out of ideapad-laptop so x86 and arm64 share one path?
+>>>       ideapad-laptop handles the event only when its VPC platform driver
+>>>       is bound, and the arm64 machines expose none of the VPC interface
+>>>       it is built on (no _CFG, VPCR/VPCW, DYTC or HALS/SALS), so making
+>>>       it the single driver means gating most of its probe. Two smaller
+>>>       options: lift ideapad-laptop's own Fn key wmi_driver and keymap
+>>>       into this file and let ideapad-laptop register for the events it
+>>>       still wants (Fn lock LED, DYTC cycle), or the hid-asus/asus-wmi
+>>>       shape where a companion WMI module exports the event to a
+>>>       subsystem driver. The keymap in patch 2 duplicates entries of
+>>>       ideapad-laptop's table on purpose until that is decided.
+>> IIRC the ideapad-laptop driver is a bit of a mess atm, so factoring
+>> a common handling for the the Fn key events out of this and sharing
+>> that sounds like a nice cleanup.
+>>
+>> I see that patch 2/3 uses the new wmi-driver/-bus infra which is
+>> nice and clean.
+>>
+>> So maybe just keep your existing stand-alone driver for both x86_64 +
+>> arm64 and drop the WMI event handling from ideapad-laptop.
+>>
+>> I guess this may hit some problems where WMI event handlig is used
+>> in ideapad-laptops integrating with some VPC functionality.
+>>
+>> For that purpose I think that the new
+>> drivers/platform/lenovo/wmi-hotkeys.c could maybe expose some
+>> notifier and call that for events it does not handle itself
+>> and then ideapad-laptop can depend on some function to register
+>> a listener on that notifier (1) and register a notifier handler
+>> staying out of WMI handling itself.
+>>
+>> No idea if this is feasible / how clean the end result will be,
+>> just brainstorming and saying yes to doing some refactoring of
+>> the somewhat messy ideapad-laptop code.
+>>
+>> Note that https://github.com/systemd/systemd/blob/main/hwdb.d/60-keyboard.hwdb
+>> has some mappings for "Ideapad extra buttons" input devices
+>> (+ DMI match), so if any of the buttons remapped there end up
+>> under the new WMI driver then that should probably give its
+>> input device the same name, to make sure those mappings still
+>> apply.
+>>
+>> Regards,
+>>
+>> Hans
+> 
+> I like the idea of using a notifier to allow ideapad-laptop to consume WMI
+> events from wmi-hotkeys. This would even allow ideapad-laptop to override the
+> sparse keymap inside wmi-hotkeys by simply returning NOTIFY_STOP when "catching"
+> an WMI event that has to be handled internally (like event 0x3D (Performance Key)).
+> wmi-hotkeys can check for this return value and not emit a key code in such a case.
+
+Ah yes, I was thinking about only calling the notifier after not finding
+an entry in the sparse keymap, but calling it before allowing notifier
+handlers to return NOTIFY_STOP and filter out further processing is
+a good idea.
+
+Regards,
+
+Hans
+
+
