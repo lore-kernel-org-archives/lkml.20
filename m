@@ -1,56 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794775559;
-	b=q91J97f2tNLq+T4JdbTPrNRVZdSD2vBBRt8Kd0hiMKG3U7B8d2ADX0Tu0/6x0nVOMFnk
-	 MQaaewU6PME9TgL7VYadzfQUbB2CvZjX0CIjbbyYHdxiN1y/xh3Iw9DpGY0UAucqMrpDS
-	 IXNDLZXUAyDL0iWGsAij5ZRjiOtpWbSMgigsIOuEQ+z8d+3+bVd5TRd14JkDjDgiDiCQh
-	 0piEIY9e5XRBXqJz8CF4LUsqGPZvFm4H66s2qAoxC5vjP4jo/rDkt6GE3JyWU0r0V6WLy
-	 PYpqRIcfSOTptTqxQG/fJ4k87jvzRNBBuCVbDi7vXEeSfkVy3DV30L8Ergg/V5u1OGA==
+	t=1794775723;
+	b=W5VoyJZI8b3epZPNUAs0kbfP3ZYwjOf7hCNr9UF3JUUG334RFfHXZP7vREU9ALpTTsum
+	 SAF67a0wSTnFscndlOAMcZYf7n8fppLF5NTce6je6biv6ORsOo9eIcNmE27hioGD3aF7j
+	 k95CvvvbSN8lZkp6E3diWQ73pfw7iKAF1aMrkP5zxaI1rsg5ODS5YjdOS08q42oshgqjk
+	 bsAvX7ROJ1PywwGz/YDSO5Pm8EEtw6eB+mSAymunapItL+0lI6XTDnqKsU/EN86QkRhFL
+	 +tXeKSBlg7LW65Uy0H2IGgOTIpPk6yJafWPkuarov+kGYNXb2w+EIWwoDPvH3+W1yaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794775559;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jouxlhOzLpqepWHajds1z8FuAnArg4ZPk+Xi5qk90og=;
-	b=3+ch1WH39cIn+2uWMAQacVlIa1AFFvDNq45NH6gRtd8jJ5a9Ro0sJFT7KtZZ8o4qpnxp
-	 9uxpMwB3RgfxCJrzbwthyzCdCzlgocvEphI7bBiaw1FRFn2J8Pkm6O27lxHq4xOInzKEb
-	 KSEUVjn4qG3/kJr+igqRS6btOGCshRY1W2gAyeMhMn5yIpaYb2Qydzhhhcc2Vc1ciFTlw
-	 bssN3Exw5RDtUV0F7EpZj2fzULGBgEJQzKwW2BOWdXxShKgBjgQh7tYuXWyAH+mne3i8g
-	 gZRnRU6yy4Kf2d9nbEiE5cyHM45Jl2MSh0IdVw2vHyGxatDjMUahxGIcKEvPDZSW0tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794775723;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject;
+	bh=YXZFSoyqHDpxDPbL85Hd+JvHtAklYY9AhdF+mYJH6M4=;
+	b=xT6A3qcJBhOIb+xJ7z+oK0bMFzl7k43TgleNKWCSFGqAT8RgeDPlwNTcmA/4y0u+b4lE
+	 V80w90Y/java2aLaH/a0R/ZtzQBWN+Xyz6iz/AeSAQ7R955byn/byqKQUbrJKtXTOpI6c
+	 zZT+3uzkv2IwmoPrZ6BFejrjUFvyWBQBJaTJ2WMX/HUdp/LVfNkKZVkjuf824UJdwwcsJ
+	 MDXU07Ri13pvsld1yO06EUHVhmjSO4Po0psw6H6WVC/Z5Mp9puSjMaCEzLTwchspZfp+N
+	 lQ8V/5w9ysFqQb72au2XDHlz191PX3Wy+9VMzqBGrMzsmoLeRKL4wbnOx87V+P9OjSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PamrlYar;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CL3+OQ3K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4921606A32C;
-	Sun, 15 Nov 2026 20:45:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAF8606A323;
+	Sun, 15 Nov 2026 20:48:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PamrlYar
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C69E1F000C6;
-	Sun, 15 Nov 2026 20:45:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CL3+OQ3K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A39DA1F000C4;
+	Sun, 15 Nov 2026 20:48:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794775559;
-	bh=jouxlhOzLpqepWHajds1z8FuAnArg4ZPk+Xi5qk90og=;
-	h=From:To:Cc:Subject:Date;
-	b=PamrlYarhMPhcfvheFoctcVhWuu5/mxJwW5usODJ6fVZbrLqj+/ArkyGwRtVe/Hw8
-	 GFD0CAVbzUb+D81Ahf5R7RM5tCnvGJNHwRcN1xMv10Nuwtj7u3NUnviPO8yP+yJgG9
-	 uKXoq90DzMMfTbcUp0SHm5gqsA1ykj8k8rPNjvjnNWMDAhPpaR9OHAQ2sGezDRAJXA
-	 JkJkGTMkHwl1p6qReioqZOFB1V/RImzbIAXSe5p1QhfznvtDQgh3C2JD7JdtoMyk4b
-	 KkSJWKRcl0DmHTemduFnS4DeybVgSuFXFO45ZSywkDk8shAqHPgwGN2ZWjSoK0mtSE
-	 /Wg0pCwiVD03w==
-From: Jonathan Cameron <jic23@kernel.org>
-To: linux-iio@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH] iio: adc: max1027: complete the EOC wait when using an external trigger
-Date: Sun, 15 Nov 2026 20:45:51 +0000
-Message-ID: <20261115204551.2783884-1-jic23@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	s=k20260515; t=1794775722;
+	bh=YXZFSoyqHDpxDPbL85Hd+JvHtAklYY9AhdF+mYJH6M4=;
+	h=Date:From:To:Cc:Subject;
+	b=CL3+OQ3Kg1EMfhonk48DtoCk4qu0AVNYDJxGCbKtLtAGloK7rDD+Or0Fh1HofXf7t
+	 I/Q3V0IbNaBqF8gG5jQhTutrZSsucOx6IemfHnEFaVqV9V+0QC2EUnvNJfoNLBJtIp
+	 zv4HUuY/M7M3HOit9QGea8+HQCzinOX3Q1VN95nRexRCva/yZqNWdHd0Cc0OXpFVjy
+	 L5q30ZnOJJdXh1UhFw0/yqcpPDOmPP0Pt3SO3250fGycYLBr9ivvZ1/V7MvZQb/fKf
+	 ov+7e9mKiSB3SEzWUPmg+ewc5bC9WTKXd/S7sgOj0s0RAY9OxdPZGY7Tm39Q6BJNS8
+	 o9RN2AZETuSlA==
+Date: Sun, 15 Nov 2026 10:48:42 -1000
+Message-ID: <7a3f079589dddf1444f015b874f1b9ed@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>,
+ Waiman Long <longman@redhat.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [GIT PULL] cgroup: Fixes for v7.4-rc2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,56 +54,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Hello,
 
-When an external trigger is in use, max1027_trigger_handler() starts the
-conversion and then waits in max1027_wait_eoc() for the end of conversion
-interrupt to complete(&st->complete). However max1027_handler() only
-completes it when the buffer is disabled. With the buffer enabled it
-instead polls the current trigger, which is the external trigger
-that is still being handled, so the poll does nothing,
-the wait times out and every sample fails with -ETIMEDOUT.
+The following changes since commit 518cec2def9992192291f5028edc077fb2e475e9:
 
-Complete the wait when the buffer is enabled but the device's own
-trigger is not in use, as the comment above the check already
-describes.
+  cgroup/cpuset: Integrate compute_partition_effective_cpumask() into compute_effective_cpumask() (2026-10-26 07:44:43 -1000)
 
-Fixes: 075d3280b4a1 ("iio: adc: max1027: Allow all kind of triggers to be used")
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+are available in the Git repository at:
 
----
+  https://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup.git tags/cgroup-for-7.4-rc2-fixes
 
-The comment clearly states that we should just complete for
-triggers other than the one provided by this device, but the
-code doesn't do this. Ideal would be if someone has the part and
-can test this.
+for you to fetch changes up to acec9637e03ca54bd3c3a0c1a6ad5c6dfa07c0df:
 
-LLM spotted the issue whilst doing some other cleanup and
-prepared the patch.
+  cgroup/cpuset: Don't revive invalid partition without active CPU on hotplug (2026-11-15 10:15:12 -1000)
 
-I think the reason this got past testing was that the code was
-fixed to actually return an error on timeout whereas a bug
-previously meant it always dropped through and carried on.
----
- drivers/iio/adc/max1027.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+----------------------------------------------------------------
+cgroup: Fixes for v7.4-rc2
 
-diff --git a/drivers/iio/adc/max1027.c b/drivers/iio/adc/max1027.c
-index d475cc91108d..65a0e85faca9 100644
---- a/drivers/iio/adc/max1027.c
-+++ b/drivers/iio/adc/max1027.c
-@@ -478,7 +478,7 @@ static irqreturn_t max1027_handler(int irq, void *private)
- 	 * with another device. The core will then call the relevant handler to
- 	 * perform the data processing step.
- 	 */
--	if (!iio_buffer_enabled(indio_dev))
-+	if (!iio_buffer_enabled(indio_dev) || !iio_trigger_using_own(indio_dev))
- 		complete(&st->complete);
- 	else
- 		iio_trigger_poll(st->trig);
+- A file notification racing the file's removal could re-arm the
+  notification timer after it was shut down, corrupting the timer wheel or
+  firing on freed memory.
+
+- The v1 freezer could leave an exiting task frozen forever after its cgroup
+  was thawed or removed.
+
+- With memcg built without the block cgroup controller, memcg reclaim waited
+  on writeback and could deadlock against a filesystem freeze. memcg now
+  selects the controller.
+
+- cpuset partition state could go wrong when CPUs move between nested
+  partitions or go offline: isolated CPUs leaked or went missing, invalid
+  partitions kept exclusive CPUs or came back with no usable CPU, and
+  expanding a remote partition could fail. Separately, a forked child could
+  inherit a corrupted memory node mask.
+
+----------------------------------------------------------------
+Chen Ridong (1):
+      cpuset: add early empty cpumask check in partition_xcpus_add/del
+
+Christian Brauner (1):
+      memcg: make MEMCG select BLK_CGROUP
+
+Mani Tofigh (2):
+      cgroup: arm the notify timer only while the file exists
+      cgroup/freezer: walk exiting tasks in the v1 freezer
+
+Ridong Chen (5):
+      cgroup/cpuset: Reset partition data when an invalid partition stays invalid
+      cpuset: settle isolation state when CPUs are given back to parent
+      cpuset: generalize the validate_partition() interface
+      cgroup/cpuset: Remove redundant WARN_ON_ONCE() in remote_cpus_update()
+      cgroup/cpuset: Don't revive invalid partition without active CPU on hotplug
+
+Tejun Heo (1):
+      cgroup/freezer: Fix exiting tasks left frozen forever after rmdir
+
+Waiman Long (6):
+      cgroup/cpuset: Fix incorrect CPU accounting with parent's effective_xcpus expansion
+      cgroup/cpuset: Recompute effective cpumask in update_cpumasks_hier() after calling update_parent_effective_cpumask()
+      cgroup/cpuset: Do housekeeping check when isolated child with root parent may get more xcpus
+      selftests/cgroup: Fix "test_cpuset_prs.sh -v" failures
+      cgroup/cpuset: Protect current->mems_allowed read in cpuset_fork()
+      cgroup/cpuset: Correctly set isolated_cpus when switching partition state
+
+ init/Kconfig                                      |   1 +
+ kernel/cgroup/cgroup.c                            |  22 +-
+ kernel/cgroup/cpuset.c                            | 316 +++++++++++-----------
+ kernel/cgroup/legacy_freezer.c                    |  40 ++-
+ tools/testing/selftests/cgroup/test_cpuset_prs.sh |  46 +++-
+ 5 files changed, 251 insertions(+), 174 deletions(-)
+
 -- 
-2.56.1
-
+tejun
