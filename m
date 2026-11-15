@@ -1,111 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794780706;
-	b=Ysb9bthoUtGpQSWOuSKXf1SDJjGEfJ8PX7Gw2sU75/QnyhMkKDGIVzR/qzK77xE9MO2q
-	 sRNK6fePjdWm3l+QDsHXs+pi1S4X5QND446PrOjda/jNqLiWe7kHtmAp+t4XRJLUduwpw
-	 vextcvgcpEUI0f9auHny+sf4qL9HKN4DfUidoNpezu2oiWOwPg93xsNJ4ravqFww+Mf4B
-	 VA87cP2GpkTGh4xx8xI/DNY+dV9+bQ261Jy0r+VX1mkfGo5KjcbvTsLKvcJ+54VGxP6oJ
-	 ogofhBauNeTA2IDV+RcmvF3dmwvC/eRTu/+2MfS2v1xFE8oc2jo0JL2oUtJ0RQtiBnA==
+	t=1794780728;
+	b=ArPRbO/AG9k9TUZWjdhpSX9Uv9b/3NRQ5SpT0zzAQz/DVThUhL2eFgxsGUiZfoc4HuhW
+	 siDO039QPcbvLjCZQqRRmofo2fZ/VVKpJRsamJXe2jILVL2L+CWlRDXeGJOVupWfVYgrF
+	 417VWPspxnKldGh4/o3TG1ndSKURu2/KPcrBEdpbsWrbP+FCXE7MkexQQilQU0LGXpsyi
+	 mmRfxjJCYe8EB6Zhe4djwoLNtHk8DONO6h5zeyEDEInoD+SCWGG3A3L7R4jOb73Tu4ytO
+	 t2eePRqjGf0sAfI/k+7JgsTVJf5Rc4PoagIDvgphHuc0VBVn3kUyHzwzrOVMDB9kwiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794780706;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=O/nL3M7QYBQAodm3V+Vr2qZZcDJ4sjVU3UHjK9V9fTU=;
-	b=nFSHFnHD3UnHG5H/teYObNX5D0mO9c2dGGMchexb0SStk4XHC32tJM2HpnVwd4/y/3bN
-	 Qz6eOedD1zwvglRvfqZ8MDk279CYpC6b/FE/VGDTrKgr23fSl2QXaIjRB8RahrdFi3ZeO
-	 7n5HicPj4Js8oq6NL96v+jjtwjhAUObIi+v6ZRvcbftI+NeXzHI140vY5tRUOKF71mB4S
-	 +ZkVOxfr2FhRdKg9aA3YBJmeL6EDDVp+toBeJlj8mBkvDfQvX6Ntyrt6W8AtsSMecpYqM
-	 1LHzy440N5mn1cjaNqxkNy202jzxElhk1bJqBMp4PCJGE1Oj3c1eRp4FEcoLZkUT4KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794780728;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=q9s42YVPhc56VTV+G1TekC9EyggoNH/5JmNGm6Xx0OY=;
+	b=G3NlcQpPNgauL0GS5F2pFxEtsGmPB+LqiVlzu7kYfwpExO1OtVu9M4O+XKW3+lcWOqST
+	 5mbbOHpG+Lnl0l77pFK/ZBlcbpFbPvjwL0HVwwZ0MUKreobC6vHi3k3AOkgbp6tdbXvYw
+	 zc36R7UT1gCrpgYUJjv8s/JXUgZikIXwIrsqj0di9ApGALpr6QJHGzp2ZIndN4n1Y78qI
+	 l+fEveVqsON2uO8mqdHWdfll8glmTVPJVPKRluOypNG5Ce3KswQF6goDqiaSHBr5Ndp6d
+	 9CFLmVIdSnQQPOC2cLXVuqavXMUqS96v4I1YGeG2ceJuZhFHK7Gk/dCIPDOFG8qn4Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squebb.ca;
-	spf=pass smtp.mailfrom=squebb.ca;
-	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=lt8V+v3f;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Nx4Q63HR;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2dU+DbgF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45153606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:11:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45153606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B646606A31F;
+	Sun, 15 Nov 2026 22:12:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=lt8V+v3f;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Nx4Q63HR
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfout.stl.internal (Postfix) with ESMTP id A8F2E1D000D5
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:11:45 -0500 (EST)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Sun, 15 Nov 2026 17:11:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1794780705;
-	 x=1794867105; bh=O/nL3M7QYBQAodm3V+Vr2qZZcDJ4sjVU3UHjK9V9fTU=; b=
-	lt8V+v3fSzzVbE2skIBfYPzRADbJBnSw7HNAUmHQYgi4GtElH85SEbfmSQ8Q3Bik
-	uddrcKz2Y7ejXntuH5+8Q6wp1mutEswUPxhjEanO4qAHnZQaG0lYFLf96GomGxLK
-	6I21D7GrvyFqza2fpzcNP/HXinPJjb052IVyjODdT0tGxGCV/b8pOkalN80u1ZxK
-	l9mEDLhRLqXNLH7MiThoAYAOjGrti4eJZf/S1/Si6KJ8QxXJIVlINoaqa+7Lvqh9
-	5LexmMtN8sNRTNS9cMMAw3TplJvDlsSzWKkLtj0sQOJrz77OZtQjXq8iS6w8Wypj
-	AMp6FFjCNO/kNi+IRCJ+xw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794780705; x=
-	1794867105; bh=O/nL3M7QYBQAodm3V+Vr2qZZcDJ4sjVU3UHjK9V9fTU=; b=N
-	x4Q63HRxBtM5XGOr8RL2uX1PnI0StNFDtNudjKe91DVwv/z2vV+nxeW5MYCgYJLQ
-	CARFbLms5StNohJwr7ZzCRiMY1xu3vBvKIXYh5dO1QDifo35paN0GiScf/Y9EgPY
-	a+AHdy4mmWlERgnwsX0WV3fvZkUf8EYkRgOjpyvlih1fZWLpLpFpBsbCnPCeFHqy
-	qdgwxs3UiERgZjgccBH86Vos/E37D10wz5FRXVcM6iCBiE81Gwr7vmnGayhEVWdC
-	A2Nv1oZxooQ2EBTwpabMrF1n1WOBiwfpQtidBCCLKMUR+BSxAmcex//wBe3nMRow
-	zzrX/KVNIPVksRC8IjNUA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794780705; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:jR/Txxy1qmugcnhoi56dyP6vT89B1FizW9Xo3Vxti6ptvlp
-	oVCJE5wEVNrK+8dqygUOZ0zIc0YbH6uwC4qbs27WQ3XTagMHzmFXel6b4tP79KBw
-	bdAdwlXQtg+Gyd25fsxTbK5tlt8gwVFlsKTlfgf6xHT5sSsdVc3z0uh2NElvPS05
-	XXeeor3ReaSF5nbLzmI/t5WZN01YOX/VdVcsoxptvwojkEiJ3r/cLs6m+mZ/nAN3
-	W1rdauMxGNnKpGy49q4U8kLleCqfd8Ue7Od/dL16NbML++DnGasktAdeLuJeUUat
-	qaD5Ef2jzHE0SBGLFH84WV/LGt/92A4xuxNvB3A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:KVZvsApqV5Ig4aK4yHKugk3U4ol5sxOe2S8OcbJHZ+o=:+87jI7xacTI71GzUKbwU/NH5cO+WgmjEnOpMP0Zpnik=;
-X-ME-Sender: <xms:IS76ahqS3uhKvDtgZGeBHxIvI67w4LE8xNqYn8VbotEPTKS_WcqMYg>
-    <xme:IS76audkjjX7RNhEsebzEBMO35df10Gw7IC3abe-BAxrk9adLUuqoxMpr2vhdLpaX
-    zAsqUuiAECkkBqpedjqy4plcFocgiuNbTUN42ggq8z6FFjCJHpZ9nXr>
-X-ME-Proxy-Cause: dmFkZTEdEb2TWn2K42vj3B8C4jJQVPCuEH8W65ZVF4lwEB/v+MEt8dWRPZCBoLFurw+xUK
-    l1CIbThZi6KdBJpjFusZix73OrbuJm40mYg46RJWsZexfsALzdyDJ5qUB4+bS/zO1+QmME
-    4v1Nie4dkcnJG/33G3qthWqLpXdQ8IsVJ24Wgco1vBDxqb4UMK5aGwexCkl8b9Ta0+R335
-    Sb0yvC70w3hkXqxEEgCky0Ch9efdLXHQQNe8ikCzIHGyAMFy5p6GdJxXJI74xqNSMN3bFS
-    nXmSKt+T4eOFjvv4qQLlC7A6B5y5k5VT9FV90qvvm39W6/JAnxpjmaBQ22quD6yl0Z85o4
-    g0+9ApHy7QOW+nmct/m+J7KO8xDr6Kbh65wt5S0cy6TC/7lfouAk0FuZcDPmwFSvNQNjZk
-    MMxknXEv++3qmQZ/O10AAuUNkLMam//C7fE9IgWVry1sT7Dng41VffBk7Tu6ikkHO2mLbi
-    6WxQ4WUtxuTxBQmPvZ7JFuvhQNmsPhadiaIVJXdquMkuHc65/BtCuSvIwNpdnzVZaOFbuV
-    l7TemLYIOX2Sms+e1X+Z88yKSbwzAYqiezL0qX/OEuJVZlt4199v/7nQPM9MjCBHO71TVB
-    Ybpz9PPSYnKLtyqZSxB0gAgj/HDx41w5ABde+Xep1zrqAs/noP5izqyEDrrQ
-X-ME-Proxy: <xmx:IS76avoUWTBU2oeMsIBxIHZKINMVB8Ktih2aHyNGzjBuIxXHXuVyyQ>
-    <xmx:IS76al9UwG7uK3ktLCxlK4xnKgaVAmntAt0aOZtFg4T6YSpyGdkQCg>
-    <xmx:IS76at3oOteUyTFumaxwqQlkqc_ibStFN43ysfgZUTGJQaqrePGOmg>
-    <xmx:IS76agBzTCw6sWNCnZRWkTL_lj1pnqLQH3D5qdYiiEl3XKrpeSYg0Q>
-    <xmx:IS76agorhQ3oNAWonNZUROHbrJCdExoJWI2TOyI1WWLBmntwCUkEROWu>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 34EF32C0008C; Sun, 15 Nov 2026 17:11:45 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2dU+DbgF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80C81F000C4;
+	Sun, 15 Nov 2026 22:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794780727;
+	bh=q9s42YVPhc56VTV+G1TekC9EyggoNH/5JmNGm6Xx0OY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=2dU+DbgFDrqSj3PWmmULOFhMRJrMipQby1pDwXNQGxLi46AXNwWZX7utTYV4vHXMw
+	 OuPTqGy1iRd0KdBcAa+7e2q56eUOyyVc+qL8yfUS0ZDGXQiZX1nqa8ER3jfu0eQFvY
+	 gnkUjz6mfockveWho3dsBBhBNdBl3oqMsZUPEw20=
+Date: Sun, 15 Nov 2026 14:12:06 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov
+ <legion@kernel.org>, "Eric W . Biederman" <ebiederm@xmission.com>, Vasily
+ Averin <vasily.averin@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Michal =?ISO-8859-1?Q?Koutn=FD?=
+ <mkoutny@suse.com>, Michal Hocko <mhocko@suse.com>, Alejandro Colomar
+ <alx@kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+ "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+ "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+ Davidlohr Bueso <dave@stgolabs.net>
+Subject: Re: [PATCH v5 0/3] ipc/sem: account dynamic sops arrays and
+ validate SEMOPM
+Message-Id: <20261115141206.920bdc8c5a84073712bb5c3b@linux-foundation.org>
+In-Reply-To: <cover.1793250194.git.x-professor@outlook.com>
+References: <cover.1793250194.git.x-professor@outlook.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,90 +66,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: AXiTsbB6wUso
-Date: Sun, 15 Nov 2026 17:11:25 -0500
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Rong Zhang" <i@rong.moe>, "Qiling Zhu" <kmatzkaczor244@gmail.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>
-Cc: "Andrea Rabbaglietti" <rabbagliettiandrea@gmail.com>,
- "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>,
- "Griffin Kroah-Hartman" <griffin@kroah.com>,
- "Vishnu Sankar" <vishnuocv@gmail.com>, "Vishnu Sankar" <vsankar@lenovo.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- ibm-acpi-devel@lists.sourceforge.net, linux-leds@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <8184c823-eb90-4b71-9892-4e8eeec143fd@app.fastmail.com>
-In-Reply-To: <0cd54ba6673168ed2f6542d31c03a02f467a416a.camel@rong.moe>
-References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
- <20261114174814.62153-1-kmatzkaczor244@gmail.com>
- <20261114174814.62153-8-kmatzkaczor244@gmail.com>
- <0cd54ba6673168ed2f6542d31c03a02f467a416a.camel@rong.moe>
-Subject: Re: [PATCH v3 7/7] platform/x86: thinkpad_acpi: Reconcile EC level on resume
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Thu, 29 Oct 2026 05:03:24 +0000 Yingjie Wang <x-professor@outlook.com> wrote:
 
+> Shakeel, thanks for the suggestion.
 
-On Sun, Nov 15, 2026, at 3:20 AM, Rong Zhang wrote:
-> Hi Qiling,
->
-> On Sun, 2026-11-15 at 01:48 +0800, Qiling Zhu wrote:
->> The firmware does not always restore the keyboard backlight level across
->> sleep: after hibernation from auto mode the EC comes back with the
->> backlight off, without emitting a notification.  The cached level and a
->> possibly still-active auto trigger then desynchronize from the hardware
->> until the next user action.
->> 
->> Check the EC level on resume on auto-mode machines and route it through
->> the regular notification path, which also deactivates the auto trigger
->> if the firmware left auto mode.
->> 
->> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
->> ---
->>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 11 ++++++++++-
->>  1 file changed, 10 insertions(+), 1 deletion(-)
->> 
->> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
->> index f11e61417..802e0d53b 100644
->> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
->> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
->> @@ -5395,13 +5395,22 @@ static void kbdlight_suspend(void)
->>  	led_classdev_suspend(led_cdev);
->>  }
->>  
->> +static void kbdlight_notify_change(void);
->
-> Nooooo. Add it to the right position in PATCH 2.
->
->> +
->>  static void kbdlight_resume(void)
->>  {
->>  	if (!tp_features.kbdlight)
->>  		return;
->>  
->> -	if (tp_features.kbdlight_auto)
->> +	if (tp_features.kbdlight_auto) {
->> +		/*
->> +		 * The firmware may not restore auto mode: after hibernation
->> +		 * from level 3 it comes back with the backlight off.  Check
->> +		 * the EC level and reconcile.
->> +		 */
->> +		kbdlight_notify_change();
->
-> If the LED core doesn't detach the trigger before hibernation, please
-> restore the last hw brightness instead of notifying any change.
->
-> If using led_classdev_{suspend,resume}() causes pain when it comes to hw
-> control trigger, we can get rid of them completely (i.e., on all models)
-> by tracking the suspend status and restoring hw brightness properly
-> ourselves. With your previous changes to kbdlight_brightness, doing so
-> should be easy.
->
-I was wondering the same. I can bet we'll end up with FW 'bugs' where some platforms don't put it back as they should.
-I'll get those fixed whenever possible....but I'm thinking maybe if we just check/set in SW anyway that's not a bad thing.
+Thanks.  Shakeel, please review [1/3]?
 
-Mark
+> Patch 1 now uses GFP_KERNEL_ACCOUNT for every dynamically allocated sops
+> array. The first 64 operations still use the existing stack buffer. The
+> fixed 1000-operation exemption and its conditional allocation flags have
+> been removed.
+> 
+> I compared this version with v4 in a 4-vCPU KVM guest. The benchmark process
+> was pinned to one vCPU. Each number is the median of 21 samples from three
+> fresh boots of each kernel. In a leaf memory cgroup, the changes were:
+> 
+>                                       65       500      1000
+>   successful semop()                   +3.2%     +3.2%     +2.3%
+>   allocation-focused invalid semid     +5.6%     +9.1%    +11.9%
+> 
+> The invalid-sem-id case allocates and copies the operation array before
+> returning EINVAL, so it emphasizes allocation overhead. The 64-operation
+> stack controls changed by 0.9% and 0.5%, respectively. The already-accounted
+> 1001-operation controls changed by 1.0% and -0.2%. Successful calls in the
+> root cgroup changed by at most 2.3%, including the controls.
+> 
+> The sysctl handler parses writes into a temporary array while holding a
+> per-IPC-namespace mutex. The mutex covers the snapshot, validation, and
+> publication, so a failed write leaves the live settings unchanged and a
+> partial write cannot restore fields from an older snapshot. The snapshot and
+> publication use READ_ONCE() and WRITE_ONCE(), and reads continue through
+> proc_dointvec(). The unused sem_check_semmni() helper is also removed.
+> 
+> The UAPI warning about physical fragmentation is obsolete now that the
+> operation array uses kvmalloc(). The header describes SEMOPM as the
+> compiled-in default and retains the uniform <= INT_MAX range comment.
+> 
+> Patches 2 and 3 are unchanged from v4 and retain Manfred's Reviewed-by tags.
+> The series is based on 7be4bc52fd9e ("Merge tag 'driver-core-7.4-rc1' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core").
+
+Thing is, the above is largely about what-changed-since-last-time. 
+It's useful info, but it's short-term development-time stuff.  Most of
+this is inappropriate for the long-term kernel record.
+
+I had LLM suggest a replacement [0/N].  wdyt?
+
+: An IPC namespace owner can raise SEMOPM and make semop() allocate a large
+: operation array.  A blocked call retains the array.  These allocations are
+: currently uncharged to the caller's memory cgroup, so repeated calls can
+: consume host memory beyond a container's limit.  In one test, a call
+: retained 60,936,448 bytes while a 32 MiB cgroup recorded less than 1 MiB. 
+: Sixteen concurrent calls retained 100,860,416 bytes while the cgroup
+: recorded about 1.3 MiB.
+: 
+: The SEMOPM sysctl also accepts negative values.  Because the operation
+: count is unsigned, SEMOPM=-1 becomes an effective limit of UINT_MAX. 
+: Separately, a rejected kernel.sem write can leave earlier fields changed:
+: an invalid SEMMNI can return ERANGE after setting SEMOPM to zero, causing
+: subsequent nonempty semop() calls in that IPC namespace to fail with
+: E2BIG.
+: 
+: Patch 1 charges dynamically allocated operation arrays in the regular
+: semop() path to the caller's memory cgroup.  Patch 2 parses and validates
+: kernel.sem writes before publishing them and serializes writers within
+: each IPC namespace.  Patch 3 removes the obsolete warning that SEMOPM
+: above 1000 risks physical memory fragmentation; the operation array uses
+: kvmalloc().
+: 
+: Accounting contains the large-array case when the caller's memory cgroup
+: has an effective limit.  The series does not impose a maximum on positive
+: SEMOPM values, so a root or unlimited cgroup can still request large
+: allocations.
+: 
+: Validation included x86-64 and i386 builds, initial and user-owned IPC
+: namespace checks, concurrent sysctl writes, operation-count boundaries,
+: and allocation cleanup on success and error paths.  In a limited memory
+: cgroup, accounting increased median successful-call time by 2.3% to 3.2%
+: for 65, 500 and 1000 operations; the allocation-focused invalid semaphore
+: ID case increased by 5.6% to 11.9%.
+
+Also, [1/3] and [2/3] are cc:stable but include no clear description of
+why we're recommending backports.  Backportable patches should clearly
+state the userspace-visible runtime effects of the bug which is being
+fixed.  Our downstream people (-stable maintainers and further
+downstream) are swamped with bugfixes, so let's help them out!
+
+So for [1/3] I inserted this statement:
+
+: A caller can raise SEMOPM and keep large, uncharged operation arrays alive
+: in blocked semop() calls.  Repeating this from a memory-limited cgroup can
+: exhaust host memory outside that cgroup, causing reclaim, stalls, or OOM
+: kills of unrelated processes.  Charging the arrays lets an effective memcg
+: limit contain that memory use.
+
+and for [2/3] I inserted
+
+: A negative SEMOPM becomes a large unsigned limit in semop(), allowing
+: operation counts that the configured limit should reject.  Separately, a
+: kernel.sem write can return ERANGE for an invalid SEMMNI while leaving
+: earlier fields changed; if it leaves SEMOPM at zero, subsequent nonempty
+: semop() calls in that IPC namespace fail with E2BIG.  Validate the whole
+: write before changing the live settings.
+
+Please check these also.
+
