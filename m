@@ -1,60 +1,32 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794770427;
-	b=K+MvwBMi4zZBWyc7PJsEj5BvM7jZhGJ8RP45k7FWSiiOiQMzD225gwbm9bK8lADI067H
-	 SWbcsDk0i8hxj7dJmYr4sAXQw7RRDOwzMVVdW3YwLITfe1lAJZ/zbtu9jwPXGBzEMmyxF
-	 tekdWDOYoT3wmv+TCnR7gGm7slM/FKsqXwnY92ssxvdnvsvDQge1mbNZbsMFPY2ShSSjv
-	 LUvavCBOKSQBUAqlyJOVzsS851Mm5MdELoQAf5dc12OVzLJmgkhCFlDRSJvhtf+WI7GT5
-	 opbDAqANsAPipzfapneiihcNgeMY8yA4C2im/MN0y/OyQ/1lsceE/fBAMvgRuLqLsJg==
+	t=1794770467;
+	b=TQO+YscYgRxKOOv1l0LvYigYMjShEpwLgbMaTPiS18FYZYQiovHdfxo+WpcbjgME15qE
+	 LrUbhWxDWeZVDC31XXRkoslariA427nbsB/RO/UEJ8aLBB6z9DGjSxJMOkBDTuB9DW4y2
+	 GHvvSEKkT7ozHcHh1+rLrRHweO0xKy3GIYuu8L4YNkEPDjKcu+JOmwEp76tt+NXrHWcDx
+	 4wADvDISnuPvYzGcg04Cyvp3Dn+gPGmZqQ5LwHqjfjXFqtpTh0cBu9BU0JitxlcbuwU3R
+	 dn8jbdkmANb9MXGFi+Px72tky0TylU0/PCHEG+fe3t5DYE5UtkwFPZDchKdhJKbpeew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770427;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fLaQUPcYKxXkir2twg3fsW7g9Gg8lBOZ22Z32cylxH0=;
-	b=XqPQYNQwW5ujlNjS2GQGwL/zp3KvvvpktpWgYp90h7PiqlF5JeIjcviyta3CW4d/AGIF
-	 m428aUS4eUHkB5JnCzEFdPpciEWh+iNly5Awz8lftvDslPYkdxQJABnDTL7C4xzbb0sMm
-	 i9ak7oLL8vwj81IFaN7knkxyDGlt08hDjVBolDb80MEyExxSV9Ya/6aQCs35EGYrCw9sH
-	 vsz9v3CO87bThzEgS5/m3c3OEif1E13RrtzkZuALtGXOciQzHypmMdBZmAxsaA32OAJo0
-	 IHc6lcb7raA06N/eTvuPLI8XgfJwJGa+EhDXfokXeWw8eBFllgUawZ9mn+W7bKFqpog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770467;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=U+51QAUSyzB+DcRMoMVMr+zf+XTPZAFIXU5itFRU/J8=;
+	b=sFEMvOaXSs77ZM07jV7QMjmL2MQG/ZFMGLDpu7PAc/i9wZ1aRtSLZx4hxUG2hvJUeIZ8
+	 Gb1Wx2BMxXvEFyRdfjN410Di1tBKDhj80GL/TQZcMhWyd5+/G9SRs6bl2Z1CiqEFFO4iF
+	 L0f2RGOukUh0WDdOyphN7NtF/h1aTTLqD/dTy+t7s67YpbuuU9qzW1NzsQm+jv0B3idBp
+	 bgBH+MggkI6UyvKlY5TjFPEairQO0mwFEUXAzByotPuIPNyu+DNHO5FuZS0dkFbbej3q/
+	 Nj8UOjxQOyzPxG5ehtUZgOMExkBG+pP9oiLfP8EjixjZmTv2mf+rQwEzlnfxPYugoPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhLu85Ua;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05E5606A32C;
-	Sun, 15 Nov 2026 19:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhLu85Ua
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC921F000C4;
-	Sun, 15 Nov 2026 19:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794770427;
-	bh=fLaQUPcYKxXkir2twg3fsW7g9Gg8lBOZ22Z32cylxH0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XhLu85Ua2c6WZLlLlAlu41R/VyenJMuIzs9+HeEnHjow/dZUNr5fsUxv33MVe0xR9
-	 NiqKgGZojOd6z653AmlAbwBWSNz0Y/J4dsO9oqMstKyh/UAzeOwqo1F24tatjYGczh
-	 Q0qBu2kvlSa0F8oIVuhxCAoOMhwI/hK6jFz/WnzR0a+3Y8LmbXpxRwMM+kxXmZY1iq
-	 25w3eguzUz3kcvSwQsQNl1CFRImzluQwZPqKEdduaE+/HXoeSbYwThL2YZMJLNU1I0
-	 E3zvrbGwhP652mJ1OL7CToELmOQZpBOaxBkQTr+i8KiSeA8Qj626ksqR9/Ha+aLwjb
-	 //TVlKyt3smmQ==
-Date: Sun, 15 Nov 2026 21:20:16 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
-	m.szyprowski@samsung.com, jenswi@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, mark.rutland@arm.com,
-	robin.murphy@arm.com, hch@lst.de, ryan.roberts@arm.com,
-	sumit.garg@kernel.org, sudeep.holla@kernel.org, ardb@kernel.org,
-	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, op-tee@lists.trustedfirmware.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/8] arm64: Add support for MEMBLOCK_PTEMAP
-Message-ID: <avoF8IbOxVJ9Uh8Y@kernel.org>
-References: <20261111110738.872947-1-vdonnefort@google.com>
- <20261111110738.872947-3-vdonnefort@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B838606A32C;
+	Sun, 15 Nov 2026 19:21:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8555E1F000C4;
+	Sun, 15 Nov 2026 19:21:03 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,92 +36,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111110738.872947-3-vdonnefort@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] dt-bindings: phy: qcom: Add SA8797P eUSB2 PHY
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Hiren Gohel <hiren.gohel@oss.qualcomm.com>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <0032f652-4ba1-4a52-9241-635207f0caa1@oss.qualcomm.com>
+References: <20261026094118.3264112-1-hiren.gohel@oss.qualcomm.com>
+ <20261026094118.3264112-2-hiren.gohel@oss.qualcomm.com>
+ <0032f652-4ba1-4a52-9241-635207f0caa1@oss.qualcomm.com>
+Date: Sun, 15 Nov 2026 11:20:55 -0800
+Message-Id: <179477045510.107393.16167606981222781332.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1276;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=CmDdC5yIx2xWLSRLzs1ukzwBn8nzVj0C0NkdH037HDk=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+gYZimshdPDzOc4sRn6gnSD/oT3DoXrlvEjdO
+ 15rkiPgtheJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoGGQAKCRBVnxHm/pHO
+ 9eOEB/sHtI5U7bRC2uNbuJ7/GYjoeaJ8CAINi7Q6/Xt6MxNRMpbXi3g7+C7o+tlVxa6f94KyB8I
+ Pny3DgHE91A9vhgrv8GTx1xw/OAZmJRc8PkHuERYkmHBJHKno/Us7XASR0jebuvIRj6/C3XfNGE
+ gJDfAZi/Wxjp/7jCDT+THFGgKMMLOWL8IZd7QaAao77Mn2X2J0tsL7VhusXUcLyo83jjeY+2nK2
+ bVedOn9DtCzb8qnUA7KPocb2eGo0PJWM8nprAMNgpS/Dr4Gy9U3R+ok+15ZrUK6JWCV2maucAVv
+ 2ha2fQK1Zy+LL5Qy0YeH8KYga2HZG313QGtoBMkvsVVBOx5+
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Wed, Nov 11, 2026 at 11:07:32AM +0000, Vincent Donnefort wrote:
-> With the MEMBLOCK_PTEMAP flag, force a PTE-level mapping. This also
-
-I'd expand this to "Force a PTE-level mapping for memblock regions with
-MEMBLOCK_PTEMAP flag set".
-
-> disables contiguous PTEs to make sure any page from the memblock can be
-
-                                     and memblock region here ^
-
-> safely unmapped from the linear map.
+On 2026-10-27 12:00 +0100, Konrad Dybcio wrote:
+> On 10/26/26 10:41 AM, Hiren Gohel wrote:
+> > SA8797p platform abstracts resources such as resets, clocks and
+> > regulators in firmware. The SCMI firmware exposes multiple protocols to
+> > control such resources which are identified by protocol_id.
+> > 
+> > For this USB phy, 2 SCMI protocols are exposed by the firmware:
+> > * power domain management protocol (protocol_id=0x11)
+> > * performance domain management protocol (protocol_id=0x13)
+> > 
+> > The power domain has 2 indices: 'core' and 'transfer'.
+> > * core controls the regulators, the clocks and the reset
+> > * transfer only controls the clocks
+> > 
+> > For example, to power on/off the PHY, we should use the 'core' domain.
+> > To disable data transfer and keeping power enabled, we should use the
+> > 'transfer' domain.
+> > 
+> > Add a new binding for the Synopsys eusb2 High-Speed USB PHY
+> > found in SA8797P.
+> > 
+> > Note: the performance domain (0x13) exposes opaques values (0xa to 0x11)
+> > for which we don't have any information.
 > 
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> ---
->  arch/arm64/mm/mmu.c | 22 +++++++++++++++-------
->  1 file changed, 15 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 140520b351e2..a4cafafa1d82 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -1184,9 +1184,8 @@ static void __init map_mem(void)
->  	phys_addr_t init_begin = __pa_symbol(__init_begin);
->  	phys_addr_t init_end = __pa_symbol(__init_end);
->  	phys_addr_t kernel_end = __pa_symbol(__bss_stop);
-> -	phys_addr_t start, end;
->  	int flags = NO_EXEC_MAPPINGS;
-> -	u64 i;
-> +	struct memblock_region *r;
->  
->  	/*
->  	 * Setting hierarchical PXNTable attributes on table entries covering
-> @@ -1226,9 +1225,14 @@ static void __init map_mem(void)
->  		       flags);
->  
->  	/* map all the memory banks */
-> -	for_each_mem_range(i, &start, &end) {
-> +	for_each_mem_region(r) {
-> +		phys_addr_t start, end;
-> +		int rflags = flags;
-> +
-> +		if (memblock_is_nomap(r))
-> +			continue;
->  		/*
-> -		 * for_each_mem_range may return sub-page-aligned boundaries
-> +		 * for_each_mem_region may return sub-page-aligned boundaries
->  		 * after memblock_mark_nomap() splits regions at byte precision.
->  		 * __create_pgd_mapping_locked aligns phys down to PAGE_MASK,
->  		 * which could accidentally map no-map memory on the boundary.
-> @@ -1237,17 +1241,21 @@ static void __init map_mem(void)
->  		 * regions. The cost is at most one page of unmapped gap at
->  		 * each boundary.
->  		 */
-> -		start = PAGE_ALIGN(start);
-> -		end = end & PAGE_MASK;
-> +		start = PAGE_ALIGN(r->base);
-> +		end = (r->base + r->size) & PAGE_MASK;
-
-Nit: as we anyway change the assignment to end, PAGE_ALIGN_DOWN() is
-slightly more explicit.
-
->  		if (start >= end)
->  			continue;
-> +
-> +		if (memblock_is_ptemap(r))
-> +			rflags |= NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS;
-> +
->  		/*
->  		 * The linear map must allow allocation tags reading/writing
->  		 * if MTE is present. Otherwise, it has the same attributes as
->  		 * PAGE_KERNEL.
->  		 */
->  		__map_memblock(start, end, pgprot_tagged(PAGE_KERNEL),
-> -			       flags);
-> +			       rflags);
->  	}
->  }
->  
-> -- 
-> 2.56.0.542.g3ef89b7020-goog
+> How come we don't have any information for what the firmware
+> that ""we"" wrote does?
 > 
 
--- 
-Sincerely yours,
-Mike.
+And it always puzzles me how each peripheral invents its own ABI for power
+domains :/
+
+- Mani
+
