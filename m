@@ -1,114 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.56
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794726687;
-	b=cVCAnVwshzXnNvxA4IT4IOhZscKRuknIdEOKSs6FDxsGkPX8RUnkDAiTBxKiDSH1UJ8K
-	 AlZtKZ0xr9eO+fAdpS/ykFLeG/hvPjS2Y5qBCBdISz7B94RvGpiy7tfJ5rFV0jvRX/VSr
-	 TIBLrmUqwGUnvp9r0vuuV5RvN9Lh9olIj+pMka8ZJCDpVJnNVNkjx3dq8s1NvddlPpQeW
-	 MI6I6UFmkfipV0/01jLop2FXuPn4rxpn8ggZbHt1xL9j7RR0azaKSb1tIGPjb59pPChDD
-	 RsK1Dv6T1CjyI0QMK2nV5Tb8sk2ueF3I2CzOWmSvXMaiBeRqFdHWgOdRZPDEW1mjIBg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794726687;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2GbgQzgvWJlqUOcif4RyA/oELuh8Gzk97lKnwlHw4cw=;
-	b=Str2b4pFg2YWQ0jOYMEIsr4YmXpm+B2/4uyCXyoVaJM8gb/eSMbhNdGypvQKbX4ItswV
-	 YhRMX4b9kRar2OuoZdzpZafZ+SsbMdqtFFuUrsJK35tLlZWrb81C143wW+TO8B00/xOGl
-	 o/PggxWjr94jjkBBYvVsd8bveBb8P5pdgvmZGnV4pMWpbSW0FNalWBjUJKhI/pkyKTsk0
-	 1kq9itiy2BPsh9yWMeMwgvJ9uf23dpnpmOEG+VCjDEwCBDwAUrN2KLDGsDGlWoAxbQTws
-	 54Jf33XGNAqnm4csx6iiuJBVSSXNA4oc+cJIgv/534Acu7fxXFfCSDwiJFdZZMkmeQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rRGcE8cH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.56
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010056.outbound.protection.outlook.com [52.101.61.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794726784;
+	b=UHEPj9m47rdMlzSwfKVQS29TAL6IpXEzkf1CUYtURBWoJ1/TVY57QUz1wxyE8pt/eHkf
+	 TYySCgV/h/uNV70Z1EDIbVCTdBxxcExZdOhWbr9rl3aJW34bh1gT0N/OuDolE5OAlW7Ye
+	 yJiywrW7B2b5VUvEqqo7kw/55T+9H2+gdJ0+kVb446LYjEXLvidK7WHhJszaQJc+mF7xH
+	 1kuFr+mt+qme4aE7jGlJx8SDjg5tqQG4NORz+i8ok2H0UATognYqhrU3k7H4lLMxphdds
+	 MT1uRFyWBe9YJSWbH0V1S55wZjc2cbj6YZFmb6JpiUh9Vv3ZvBXZQps4GfDhEW1/LAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794726784;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0Z+TaypX6Nv4nbH4lcelIKsz6XBKBS8H3IpTVaphkkM=;
+	b=OJnE7uGIStzq55WXDvmYlTmiMIOP1xRIUbzv8BS7mSUKV4W8hwheLneicxUg0mUPZmim
+	 lf6GnO6P+mC3Ucm3P/ADMc9Oaek06AdQaTjBa/gIX3HQDajmX5u3x4lCsWqhxVfMdaKMv
+	 Q1Tcjrco7mUd8y98AgwEUzFRv4NibqIiK5ImhG2QcN06kOxL7bYf+87j6aaZouB7FAt+E
+	 cABDuR8v5WCx7VTlTMXkY6ITvrOO5k6xy5nTJ6mBibJnWW5Sk3EEWyX53XV8U4TawQCRN
+	 oAMVa4pbU5prypbA2WZUVclMfmXd6+IkRCzCtv/7dTh/1Kk8vBfjBz6E+15FP3/6Bdw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xytmkvBI;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB60606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:11:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CB60606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613BB606A32C
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:13:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 613BB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rRGcE8cH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FQp4xigptitE0W74uK1n+EGGMKjWTh76gutIeQ6JmXyJxVMm3iMDz0BZNK1JOrYfofx4TMDGi0JI5rm6PwLvM0t87hjvYF806OQsi6wKjjFpSMVH3kjeCPfIOyTeo2WGEJnvGp32BDh37MGJgaCL3611wwoLJpyUjlzyvMSr/SwZEZJst6PAMiY5YwOLEW4DoUp16erR9eAzqkSoNArvgVwuXXH8gb07t8tlj9GwVEw0DzgKPrz18uSDzyyDdEbl1JVFxX3lFe7Ztqm+4JdUpqYesT+EKPunvKQQDe2IHhuOcgb+B39k6ZsBIyH57euNH0UwbMHusxIKQHxii15Rsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2GbgQzgvWJlqUOcif4RyA/oELuh8Gzk97lKnwlHw4cw=;
- b=PjdL4UvPrjsN3JSgsZsapI1+GmTwPqyWTFg6L/saE5h/MBcQMoBLLbBsVPPtVbBKJ47HoALAG8QAVAv0jkfYsuALMdA3I8I1qKak6T0Xigmyimj4PRwPVF0h0Ms2J9nSkSG6GvwBY/vZOmOcRJAuZItdvO8d07JgHJgvDwFURBH/q7d1qc+GEebT1i4oYQOKMWn3j6xyzgEOr6Z88TDgN6dxIk+NuETUh64IgqiA+JaIrXUVBMtVMGx994N4EjMpC3l+L913i4EgtTps/hT9Zykg/0Q3sACnZib5/VjJwyPEeQ7r36LxRS2D/J1iqretHNTqXPEEuoIM8skQxAGCpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2GbgQzgvWJlqUOcif4RyA/oELuh8Gzk97lKnwlHw4cw=;
- b=rRGcE8cH3IwEffOthQg8CsbCL650nBSfIyQ7AeCP3B7mbMXrSXeDGnmUzihzxwpvwGlymBoBHUC3Sc4gJprQpK0rwo/JvENdsyIvNUuUHeChwzN4HxQ++W5bTJ5gOwPSwrpetOhi+xKNbe1T5DGdjNwwulbbhzxW37nGKFzj5p8=
-Received: from CH3P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1e7::35)
- by PH7PR12MB9067.namprd12.prod.outlook.com (2603:10b6:510:1f5::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
- 2026 07:10:40 +0000
-Received: from CH2PEPF000166C9.namprd04.prod.outlook.com
- (2603:10b6:610:1e7:cafe::4c) by CH3P221CA0004.outlook.office365.com
- (2603:10b6:610:1e7::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Sun, 15
- Nov 2026 07:10:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF000166C9.mail.protection.outlook.com (10.167.244.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 07:10:39 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 15 Nov
- 2026 01:10:39 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 15 Nov
- 2026 01:10:39 -0600
-Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 15 Nov 2026 01:10:36 -0600
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Paul Menzel <pmenzel@molgen.mpg.de>, Harry Wentland
-	<harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
-	<siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Hung
-	<alex.hung@amd.com>, Wentao Liang <vulab@iscas.ac.cn>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/amd/display: Don't warn about vendor infoframe for non-infoframe sinks
-Date: Sun, 15 Nov 2026 15:11:31 +0800
-Message-ID: <20261115071131.1466723-1-Wayne.Lin@amd.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xytmkvBI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794726773; bh=0Z+TaypX6Nv4nbH4lcelIKsz6XBKBS8H3IpTVaphkkM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=xytmkvBI4I1yUosmCtKrJ62gocZgx8c8HQqpRle8x2vIu1oSSNVkilMqAfTZLHPSV
+	 HjoCSExMB49b6zGK+iMoyd6CwyDIVKlDjRSZT2Mn2l4PVQ30i+Xo1a58julnSPxggq
+	 CMfom4kyIzty+CvxYzOvjUQYAY5jko4Oibu2T5wI=
+Received: from ubuntu.. ([112.3.92.91])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 331A3A28; Sun, 15 Nov 2026 15:12:49 +0800
+X-QQ-mid: xmsmtpt1794726769tl3iiugjm
+Message-ID: <tencent_2A5F8EBA9EC78CA99CD080386A68EE90B506@qq.com>
+X-QQ-XMAILINFO: NdB5/PuY7PjGlSs9wjl/U+WvFpZYh9a6snnY723MQPkFp3jWEfdaUypSk6u9iO
+	 UvE9UPD6/PP5l71k3VtBz8cfNcAa12joolprQjDypB06mvYblW86l8ZLdLRf39PZPN4161mefRqn
+	 Q6saEYAAdxuYtKNRWlt6qPIyqkpX54tyfsvs1A4erDfb8DY4EVMiEvAL0npmAmbVziBM/oL5712Q
+	 rMv+3Ni4mrtNS5xMIbgbmsiwn/qG7xOGQ5EtA7CLSabl/PWxeL+rw+Ja6PV/Zac0/fC7L+TIOTop
+	 7y1PNLN40oQrgg0albd0+0OUF6YJXWEnb4rt8kEsb7KGMdAsFImo2SR+6jxsTZnO83a3v2wEIAc7
+	 hXpZV4sS+JNEkgjW4qtt5Lt+ThUaLNmMoNxZqzRjwpu8gjLpIXDogx61wY+LYYo+R2FXVEck+/1P
+	 1o5UooS9L+d0c2Mq4yCBQp5/G/C436vMIfxElG1UwR3G8OSz08h+4eWiN1myiqac3tjWkITiJDuD
+	 jZcEMnIve2iAbC/s+9CKTd2GQN0g4oEn2ngtCarzsvuSLrJjgUUM5/50bdHcS2ogsNodcrsdpBiL
+	 0n/nn/dedKobCFvgydIuVhRjt9UCKgI+YmNxZYh/EPU2yTQMSlg7En4UoWdhtPwHOL9jRTWkHy0c
+	 4vGW0xKK0Y1CV3EMYK587SDQM5vghaD3WqYUNeuVxSs3y30f5wc6qzylLUwfO79On4BIjjfh70fl
+	 oxXNNcSN9AhElrjAQuf3146s95kFPoLQq1pun5pbu5xKSojIfmHzRa9gYUxYVYbo944onVluCZbs
+	 o/ZbTaZO3DjYoVkJX1OX8xbE/CV+PNBtx4rE1j3Ps/XS9PBh70yAnVCdDxcykw8UhFkv4PLCrNFR
+	 K/4KgsZ4gt3mmncUsPGPMYD7Afrd5FYsbGxB+QhWEKaTbTq7e194Kv3w+CwcWt5StnktRh72BU4j
+	 s0lPAJ787awXGjxqqADtAToXlOeYC28j5ul6iCcTdv4Mk7mP2px7mOI5PyhzQBAgAdD89fv0ipNG
+	 Ru5i2x+CQebhLTidbIafsg7BZtHIeZrwkIZCfJCxtW4LIc5wznE461GF1M/KTK9uzSY/2rObMUyr
+	 ZbP9g+s9PP++VvNDk=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Congjie Zhou <zcjie0802@qq.com>
+To: netdev@vger.kernel.org
+Cc: mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zcjie0802@qq.com
+Subject: [PATCH net v2 1/2] net: napi: add completion with an ordered IRQ mask callback
+Date: Sun, 15 Nov 2026 15:12:45 +0800
+X-OQ-MSGID: <20261115071246.9096-1-zcjie0802@qq.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261027205229.268908-2-pmenzel@molgen.mpg.de>
-References: <20261027205229.268908-2-pmenzel@molgen.mpg.de>
+In-Reply-To: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,97 +91,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166C9:EE_|PH7PR12MB9067:EE_
-X-MS-Office365-Filtering-Correlation-Id: 717e549f-732c-413d-2bb8-08df42e78e1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|5023799004|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	7sfz7rp5yTHY7KUHwcG4ojGv4Ad8XYS0almsxm3XjfSZvmk7bmefyRmlkOLCDVP1hXOL0qbwx8HPc0oBIxCThoe3gSOOKb1bBcFNTA2fVBqZBoeUmgOD1iYBe/mVjoehCEmAgheSu6HFRxoBAhldB6pIG++dZvYm0DyI8X5kkYHyoL3aLokfG/lLx6iouiPfNMTBA9mzMBTobmTnhDvLn54ot35haIGS5S74BIJx6HJKXIY7vRJRvvWh4orOz8ZhygM/5yUnjlWjAzDVntV3osPZ7Xp6D42mh7UELSQJY5+O2SbD34lAT0ZwS0V7c6HTNEeRK7yUeSvwgEfqQaTAqFoNhAg5xVNvwu8b3Wb0VWqRcRa0HbQCpYweMNiLRWRRXbM/G/ge3ytqyuFqmeOJFWTVUIAG/V+2mQXddoi/lJ6rDwcu3qafzrji2pd6nZTSsln1RTdDWDAbMevCW11wqP5vD6XuzJyk4QRr/gXgOjGhXBIaENimoMFIT+e7G7mgErEfPojDApCZK8Kw1a0ly8i/Hp5TxJA+8Jj0ht55XzJCtQN0IF4bpWCr3BCTIvNLrn75+ANm+n1t6hhv+nMNg1j4kbIgaiBLRU5yMs4yuBkznZjfQBGBnHPZlNRxadxjSPMOuC/tPIt70OeSOdtxKA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(5023799004)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Up8/L/2pJaRd49RX4LHFyIprMcbX1biKy3nD/OhU1jaMk2GyBnDx3qZ5D6zlW+5URrMfc2hJ8qBek9OiI4n06SKMO4+24Zdk6caiI6AWVTeZVLkTHSNqcSIKCDED3/fiGZUjZoO+0E/ohlJUFQDtmuQDB3Wbp/eKm9+6D7OUDN8bLRXOZtdgef8MJmer9zk/ta9mIcZrqXnIRzQBCIABgZ5PsqA/mYRLp7mYAqcrXCFs7EMDTSZVyYmFxdfdVOFWKE4sXCMz8xx74eUNeRCzGdlTRxOPXLjKMDGY7U5ME06p6ILOUuUh+8SAidaxg6kfSVHyZrrz8SqYUAhudcD09fRXnGVS6IR3qB2zb8h4l4MyiW7WSUlvURA0NMDObkCBFjVTYLqLDz1Wg7rLJflU+SboA6ZHPpBgVmXyfYBKOHkxD0r/ewTdESxLtu8Jk9SA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:10:39.8580
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 717e549f-732c-413d-2bb8-08df42e78e1a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166C9.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9067
 
-Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
+napi_complete_done() can clear SCHED, arm the watchdog and return false
+when deferring hard IRQs. A false return therefore does not guarantee
+that the caller still owns NAPI. Masking interrupts after this return
+can overwrite the interrupt state established by a successor poll.
 
-On Tue, 27 Oct 2026 21:52:22 +0100, Paul Menzel wrote:
-> With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
-> on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
->
->     amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
->
-> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
-> vendor infoframe setup function") started to log the return value of
-> drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
-> being non-NULL, the helper only fails with -EINVAL, if the sink does
-> not support HDMI infoframes, that means, if
-> `connector->display_info.has_hdmi_infoframe` is false, and its
-> kernel-doc says, that this error can be safely ignored.
-> drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
-> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
-> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
-> HDMI_Video_present, triggers the warning, although nothing failed.
->
-> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
-> seven bytes (source physical address, Supports_AI, and a maximum TMDS
-> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
-> the EDID has no HF-SCDB:
->
->     67 03 0c 00 10 00 80 32
->
-> Only warn, if the sink supports HDMI infoframes. The infoframe setup
-> itself is unchanged.
->
-> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and vendor infoframe setup function")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
-> Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
-> ---
->
-> v1 → v2: Add Signed-off-by line.
->
-> Notes:
->
-> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
-> commit message.
->
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index ded8e21897f1c..636dd2dedd73d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -941,7 +941,8 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
->  		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
->  								  (struct drm_connector *)connector,
->  								  mode_in);
-> -		if (err < 0)
-> +		/* Sinks without HDMI infoframe support make it fail with -EINVAL. */
-> +		if (err < 0 && info->has_hdmi_infoframe)
->  			drm_warn_once(connector->dev, "Failed to setup vendor infoframe on connector %s: %zd\n",
->  				      connector->name, err);
->  		timing_out->hdmi_vic = hv_frame.vic;
->
-> base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
-> -- 
-> 2.54.0
->
->
+Add napi_complete_done_with_irq_mask() with a mask callback that runs on
+false-return paths before ownership can be handed off. The callback
+must be non-sleeping, idempotent and leave NAPI state unchanged, since
+a state-update retry may invoke it more than once.
+
+Keep napi_complete_done() as a wrapper without a callback, and inline
+the shared implementation to eliminate the callback path for existing
+callers.
+
+Signed-off-by: Congjie Zhou <zcjie0802@qq.com>
+---
+Changes in v2:
+ - Add the Fixes tag to patch 2/2; no code changes in either patch.
+
+v1: https://lore.kernel.org/netdev/tencent_74EA7A2E8BF5758E9C5EF18C9B1CED401D06@qq.com/
+Bug report: https://lore.kernel.org/netdev/tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com/
+Discovery and validation: https://lore.kernel.org/netdev/tencent_4DBDF69909B9FD811F54F2DC0E6BAC1C0507@qq.com/
+
+ include/linux/netdevice.h | 18 ++++++++++++++++++
+ net/core/dev.c            | 29 +++++++++++++++++++++++++++--
+ 2 files changed, 45 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 435be7880..810527cd8 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -601,6 +601,24 @@ static inline void napi_schedule_irqoff(struct napi_struct *n)
+  */
+ bool napi_complete_done(struct napi_struct *n, int work_done);
+ 
++/**
++ * napi_complete_done_with_irq_mask - complete with an ordered IRQ mask callback
++ * @n: NAPI context
++ * @work_done: number of packets processed
++ * @mask: non-sleeping, idempotent device interrupt mask callback
++ * @data: callback argument
++ *
++ * Like napi_complete_done(), but call @mask on false-return paths before
++ * releasing NAPI ownership. Drivers which prepare interrupt rearming before
++ * completion must not mask interrupts after ownership has been released.
++ * The callback must not modify NAPI state and may run more than once if the
++ * state update is retried.
++ *
++ * Return: false if device interrupts have been masked by the callback.
++ */
++bool napi_complete_done_with_irq_mask(struct napi_struct *n, int work_done,
++				      void (*mask)(void *data), void *data);
++
+ static inline bool napi_complete(struct napi_struct *n)
+ {
+ 	return napi_complete_done(n, 0);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index df1a840b0..4ba9e4c1b 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -7001,7 +7001,10 @@ void __napi_schedule_irqoff(struct napi_struct *n)
+ }
+ EXPORT_SYMBOL(__napi_schedule_irqoff);
+ 
+-bool napi_complete_done(struct napi_struct *n, int work_done)
++/* Inline so the legacy API eliminates the optional mask callback path. */
++static __always_inline bool
++__napi_complete_done(struct napi_struct *n, int work_done,
++		     void (*mask)(void *data), void *data)
+ {
+ 	unsigned long flags, val, new, timeout = 0;
+ 	bool ret = true;
+@@ -7013,8 +7016,11 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
+ 	 *    the guarantee we will be called later.
+ 	 */
+ 	if (unlikely(n->state & (NAPIF_STATE_NPSVC |
+-				 NAPIF_STATE_IN_BUSY_POLL)))
++				 NAPIF_STATE_IN_BUSY_POLL))) {
++		if (mask)
++			mask(data);
+ 		return false;
++	}
+ 
+ 	if (work_done) {
+ 		if (n->gro.bitmask)
+@@ -7047,6 +7053,13 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
+ 	do {
+ 		WARN_ON_ONCE(!(val & NAPIF_STATE_SCHED));
+ 
++		/*
++		 * A false result is not proof of retained ownership. Mask
++		 * before the state transition lets another CPU enter poll.
++		 */
++		if (mask && (!ret || (val & NAPIF_STATE_MISSED)))
++			mask(data);
++
+ 		new = val & ~(NAPIF_STATE_MISSED | NAPIF_STATE_SCHED |
+ 			      NAPIF_STATE_SCHED_THREADED |
+ 			      NAPIF_STATE_PREFER_BUSY_POLL);
+@@ -7069,8 +7082,20 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
+ 			      HRTIMER_MODE_REL_PINNED);
+ 	return ret;
+ }
++
++bool napi_complete_done(struct napi_struct *n, int work_done)
++{
++	return __napi_complete_done(n, work_done, NULL, NULL);
++}
+ EXPORT_SYMBOL(napi_complete_done);
+ 
++bool napi_complete_done_with_irq_mask(struct napi_struct *n, int work_done,
++				      void (*mask)(void *data), void *data)
++{
++	return __napi_complete_done(n, work_done, mask, data);
++}
++EXPORT_SYMBOL(napi_complete_done_with_irq_mask);
++
+ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
+ {
+ 	struct llist_node *free_list;
+
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+-- 
+2.43.0
+
