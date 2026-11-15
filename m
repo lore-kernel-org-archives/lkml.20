@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794760958;
-	b=qLFLTQ2129IdCQpUoYIXGrNP0NaUL481n0Flzo9NwiNZ5eOihO6jFpTn2HlGlduY9/e/
-	 RwG4Q2mWTakYA1oZ0bd+L0Cdim7FGpbt+UxeNDLU5JyRafTJZUFO1Zaua0Tkm68Ea3IwS
-	 S9yqZSmKNTd0aENzZ5WIKw1hnvX1R3JbBLIJFFn0bAoj3uO2NNW7Hxs5KvRefi8vfryUy
-	 y61MUTkMW/4NUYl5aNrcCNdonVKdjoEdxNHgsTKRbo+kD8D7A9gO4Rx8ZMJN8F4FM5rcM
-	 vVaNN/mF4mhuy+QVUIKjVO9TNtLogCes8pI3urNtGK4ylJypKcdf7THXckfZ2P63j0g==
+	t=1794760960;
+	b=Pf+DVRIHlBw8z5lLGv4H6Gd6YGcZWlCaNUUO4D/KRhhpB1b1IX0OrZ+zsEnuFL3muP5j
+	 NkRYgvGYAJc2r+gALjZ44ltdiW7wU1E9S3xHEIfy20M1sB834SaF5SE/P9NlTac58FpNQ
+	 uS7OTzRQxfEF6sz4+jIc1djoyGi9n/LaxRERIqNne0O8PG8qIeTP7+eddETJFx3bm1MeS
+	 NtVjJODvy4obr/sPEeXaiP3wDiTT+emm2KyIGR1kfsSOYlaijoiy66wJRmkxbWfs4k2ol
+	 H4QcfkPialMzp0DlJ7/LVgvt9pBcAMB3Ptm5HK+ca/x2nMEsWbz4Z3RXGhdNZd0SaPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794760958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794760960;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=SKT44NERHrbeiUkH8IFwuUOsyFYZL/+SFv7p0N27XuU=;
-	b=4jErt6a/D2DWnHvMId9HvskFWT7YqCDdSTsdKeg7JMvaE6c9bFsRiOl6lxMmHypfw7rD
-	 YOLiMADEIsEZpcJuJlXdS1qrQ4IqTYEhozUzMx7tMR5Wsoh3iXsjYn2j878HkGGfVCWa1
-	 pd9fAg1Ru3UCl8NMcMXeHnK7VHX6QgqimFfNDxanUaz1LmxGTfVTEiyy4ZdOCtMRG+NHQ
-	 zCm/NC/5s3Ck0P3Qk8SltNs9IyPVXxd167BLruiEFMEZWKaIbvOh2yENL780jVW+smx0B
-	 BRwxnogxq7XP172u7+tOK5Xufcc0PfmcVdtpeLfBqugr3TJZewCz/XlZ2RPaFJi4u8g==
+	bh=gWeY517Ke0uGVHUv0TVgDQAs3UNrX8FLyLwTiu4EloA=;
+	b=1Mm/AGrlqBAK1kjSedPWwC8KlnmYdCWxyZFt55OHHkxi0ZkXMIDE8cxX+CX10deH6yZR
+	 0ACAqg9WxYoCNoZJhRJxZFEhk5I7bxGtObVh2Q4Dk2XA5piqu8psWgJLSuF4NzVNPpyQi
+	 3RQtPzAFubiCFODgdErr9qGimeX9dSGqx5hMbgsb3jjI7BpdFU3Y/jcOblCZLuTxj9FS9
+	 KglX4Lknsar1EVEZLVCc6eer3QliW9+elcP8tBUhV+SvmeHFOxjIGlRYiq8k4wxz0MkNY
+	 XeUbWjZT8R+Y2VrBKdfNoL5BTdrLrQ2Qea/waZSILuqhfItbS8AdDCZUdePDW6TcKVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eOdFwUnk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeQahA+l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8816C606A329;
-	Sun, 15 Nov 2026 16:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFF7606A337;
+	Sun, 15 Nov 2026 16:42:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eOdFwUnk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D2C1F000C7;
-	Sun, 15 Nov 2026 16:42:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeQahA+l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80331F000C8;
+	Sun, 15 Nov 2026 16:42:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794760958;
-	bh=SKT44NERHrbeiUkH8IFwuUOsyFYZL/+SFv7p0N27XuU=;
+	s=k20260515; t=1794760960;
+	bh=gWeY517Ke0uGVHUv0TVgDQAs3UNrX8FLyLwTiu4EloA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eOdFwUnkinp7pD4T0EhYZE5hfW+BRu4bJKbxxvYRX/QFt4ToY8aFl8Mo9rq2xdjcc
-	 nPoeud+wPqXQzdOGu1PPAHHdG3NYjQqbxIJdI6eKzG64DSkp5puyrT1PJDsc4mzmiT
-	 g9t+tEbuJW7PaetNeKKIZyplOYEzH90ZqU6xYIaAmj4OgNSYnuzyA9eUYVdEglT7yK
-	 uwhFVzBHWBkYDoNC1PbW9mv6Wd8eTqQHSopBx90eEEA7LLnnVgzFfpSZaBZCTkwGNV
-	 QMA91KF3EUeCVT8iRxtJ132g3bqZJ/5/GOA58A9sAVl0Y5tX5ArIeD2txlb3U4AQc+
-	 XjN7qA08bI8vg==
-Subject: Re: [PATCH net-next v17 2/4] dt-bindings: net: dsa: add Microchip
- LAN9645x switch
+	b=jeQahA+lxYYyOfLeiHudF2Q59ebsIsygaAoe87xAPFPiR8y9ZQdQ4HvmHKwUUGeUe
+	 eXXApPZ0heuigybhyIeqcel8MWbbiYvI6QEkFuGwCAGEr4jDOlx6DQww8iFLbnkQxr
+	 +s8S1NjPV9lxz7p4hAbtNt88ijBC/odZvvQSQG9Y84XfCOHTOiwc6XusT9OGi4F1bj
+	 SCIGCKB0sL7L2AeCin55wPaktjzXmTzWp3q8zF0EIyDalfaINgmvtktKwVGcrx7sOw
+	 433t4XXH9SiO21XqE3yxXAWeUgdO8AiDWY3QRBUdDGFyPujVvD8WbWJ2InYKOwnAJG
+	 ltZ4kagFLcjQA==
+Subject: Re: [PATCH net-next v17 4/4] net: dsa: lan9645x: add basic dsa driver
+ for LAN9645X
 From: netdev-bot+sashiko@kernel.org
 To: jensemil.schulzostergaard@microchip.com
 Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
@@ -53,11 +53,11 @@ Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
  richardcochran@gmail.com, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org
-Date: Sun, 15 Nov 2026 16:42:36 +0000
-Message-ID: <179476095646.2199510.9931492504412224156@kernel.org>
-In-Reply-To: <20261111-dsa_lan9645x_switch_driver_base-v17-2-83a471c5bddb@microchip.com>
-References: <20261111-dsa_lan9645x_switch_driver_base-v17-2-83a471c5bddb@microchip.com>
-X-sashiko-severity: Low
+Date: Sun, 15 Nov 2026 16:42:38 +0000
+Message-ID: <179476095835.2199510.1283236817441472762@kernel.org>
+In-Reply-To: <20261111-dsa_lan9645x_switch_driver_base-v17-4-83a471c5bddb@microchip.com>
+References: <20261111-dsa_lan9645x_switch_driver_base-v17-4-83a471c5bddb@microchip.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -70,161 +70,267 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-- [Low] Rob Herring's Reviewed-by is kept on the binding patch in Documen
-  tation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml,…
-- [Low] The schema does not actually limit port indexes to 0-8.
-- [Low] The binding seems to leave out the register-based extraction
-  interrupt.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The driver never explicitly initializes the analyzer MAC table
+  or VLAN table.
+- [Low] Several comments and register writes in this patch describe
+  features the driver does not have.
+- [Low] In lan9645x_phylink_mac_link_up() (lan9645x_phylink.c), the
+  comment above the DEV_CLOCK_CFG write gives the…
+- [Low] For the NPI port, lan9645x_port_set_maxlen() (lan9645x_port.c)
+  adds both LAN9645X_IFH_LEN_BYTES (28) and LAN9645X_LONG_PREFIX_LEN…
 
 --
 
-dt-bindings: net: dsa: add Microchip LAN9645x switch
+net: dsa: lan9645x: add basic dsa driver for LAN9645X
 
-This adds a DT binding for the Microchip LAN9645x DSA switch family. The
-SKU variants fall back to microchip,lan96455s-switch. The binding
-describes 24 register targets through reg/reg-names, three interrupts and
-the per-port RGMII internal delay constraints, and adds the file to
-MAINTAINERS.
+This adds a basic DSA driver for the Microchip LAN9645x switch. The driver
+gets named regmaps from a parent device. All ports run as standalone ports,
+with phylink integration for the internal CuPHYs on ports 0-4 and RGMII on
+ports 7-8. SerDes modes are left for follow-up patches.
 
->     Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
->     Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
->     Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
->
-> ---
-> Changes in v14:
-
-[ ... ]
-
-> - Describe all switch register targets in reg, and the analyzer and
->   PTP interrupts.
-
-[ ... ]
-
-> Changes in v12:
-> - Remove Rob's Reviewed-by
-
-[ ... ]
-
-> - Describe the switch register targets in reg, with a matching reg-names,
->   following mscc,vsc7514-switch.yaml.
-
-[Severity: Low]
-Does Rob's Reviewed-by still apply to this version?
-
-In v14, reg/reg-names becomes a fixed, ordered list of 24 targets. v14
-also adds new interrupts and interrupt-names properties ("ptp", "ptp-ext",
-"ana"). All of this is new DT ABI.
-
-The v12 changelog dropped this tag for a similar reg/reg-names change.
-Here the tag sits after the Signed-off-by, which suggests it was carried
-over from an earlier posting.
-
-Did Rob review v14? If not, should the tag be dropped so that the new
-reg-names order and interrupt-names get DT maintainer review?
-
-> diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 > new file mode 100644
-> index 0000000000000..517bc4c00de30
+> index 0000000000000..0eee05034458b
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml
-> @@ -0,0 +1,208 @@
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> @@ -0,0 +1,464 @@
 
 [ ... ]
 
-> +  reg:
-> +    items:
-> +      - description: General configuration block target
-> +      - description:
-> +          CPU device queue system target, the register based frame injection
-> +          and extraction interface
-
-[ ... ]
-
-> +  interrupts:
-> +    items:
-> +      - description: PTP timestamp ready interrupt
-> +      - description: PTP synchronization interrupt from the PTP pins
-> +      - description: Analyzer interrupt
+> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
+> +{
+> +	u32 rst_cfg, val = 0;
+> +	int err;
 > +
-> +  interrupt-names:
-> +    items:
-> +      - const: ptp
-> +      - const: ptp-ext
-> +      - const: ana
+> +	/* The parent must reset the whole chip before instantiating its
+> +	 * children, so the switch core is disabled when we get here. The
+> +	 * sequence below must not run more than once: initializing the
+> +	 * memories on a running core corrupts pointers inside the queue
+> +	 * system, which eventually fills up and stops passing traffic. If the
+> +	 * core is already enabled the chip was not reset, so skip it.
+> +	 */
+> +	err = regmap_read(lan_rmap(lan9645x, SYS_RESET_CFG),
+> +			  lan_rel_addr(SYS_RESET_CFG), &rst_cfg);
+> +	if (err)
+> +		return err;
+> +
+> +	if (SYS_RESET_CFG_CORE_ENA_GET(rst_cfg))
+> +		return 0;
 
-[Severity: Low]
-Is an interrupt for register-based extraction missing here?
+[Severity: Medium]
 
-The qs entry in reg is described as "the register based frame injection
-and extraction interface". However, interrupts lists only ptp, ptp-ext and
-ana, and there is no minItems.
+If CORE_ENA is already set, this returns before SYS_RAM_INIT. That is the
+only memory or table initialization in the driver. On this path, is anything
+clearing the analyzer MAC table and the VLAN table?
 
-The other bindings for this switch IP family all describe an xtr interrupt
-next to the QS block:
+ANA_MACACCESS and ANA_VLANACCESS are defined in lan9645x_regs.h, but no
+driver file uses them. lan966x runs the same RAM_INIT sequence and then
+issues MACACCESS_CMD_INIT (lan966x_mac.c) and VLANACCESS_CMD_INIT
+(lan966x_vlan.c) as separate steps.
 
-  mscc,vsc7514-switch.yaml:      ptp_rdy, xtr, fdma
-  microchip,lan966x-switch.yaml: xtr, fdma, ana, ptp, ptp-ext
-  microchip,sparx5-switch.yaml:  xtr, fdma, ptp
+This path can be reached after kexec, because lan9645x_shutdown() only
+calls dsa_switch_shutdown() and leaves the core enabled with the tables
+populated. It can also be reached with a bootloader that leaves the switch
+running.
 
-The commit message names mscc,vsc7514-switch.yaml as the model. The driver
-in this series also sets up manual extraction through QS_XTR_GRP_CFG(0) in
-lan9645x_port_cpu_init().
+The driver depends on flooding to deliver host traffic: learning is
+disabled, PGID_SRC + p is 0, and PGID_UC/MC/BC include the CPU port
+module. Suppose the analyzer behaves like ocelot and lan966x, and a stale
+unicast entry points at another front port. Would DEST resolve to that
+port, PGID_SRC then mask it to nothing, and the frame be dropped before
+the CPU sees it?
 
-If LAN9645x routes an xtr interrupt, how would this binding describe it?
-Since the list is fixed, adding it later would need a fourth item plus
-minItems: 3. I could not tell from the tree whether the hardware has a
-separate xtr line, so this may be fine as it is.
+Dynamic entries would age out through ANA_AUTOAGE after about 300 seconds.
+Static entries would never age out.
 
-> +  ethernet-ports:
-> +    type: object
-> +    additionalProperties: true
-> +    patternProperties:
-> +      "^(ethernet-)?port@[0-8]$":
-> +        type: object
-> +        description: Ethernet switch ports
-> +        additionalProperties: true
+lan9645x_setup() also sets ANA_PGID_CFG.OBEY_VLAN on every destination
+PGID. Does the CPU copy then depend on inherited VLAN table contents, such
+as VLAN_PGID_CPU_DIS, that the driver never programs?
 
 [ ... ]
 
-> +$ref: dsa.yaml#/$defs/ethernet-ports
+> +static int lan9645x_setup(struct dsa_switch *ds)
+> +{
+
+[ ... ]
+
+> +	/* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
+> +	lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
+> +	       ANA_AGGR_CFG_AC_DMAC_ENA,
+> +	       lan9645x, ANA_AGGR_CFG);
+
+[ ... ]
+
+> +	/* Disable learning for frames discarded by VLAN ingress filtering */
+> +	lan_rmw(ANA_ADVLEARN_VLAN_CHK_SET(1),
+> +		ANA_ADVLEARN_VLAN_CHK,
+> +		lan9645x, ANA_ADVLEARN);
+
+[ ... ]
+
+> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
+> +	 * use the same masks. Control frames are redirected to CPU, and
+> +	 * the network stack is responsible for forwarding these.
+> +	 * The dataplane is forwarding according to the offloaded MDB entries.
+> +	 */
 
 [Severity: Low]
-Does this actually limit port indexes to 0-8?
 
-ethernet-ports has additionalProperties: true, so the local pattern only
-constrains nodes that match it. The top-level $ref adds the broader
-pattern from dsa.yaml:
+This isn't a bug, but this comment says control frames are redirected to
+the CPU and the dataplane forwards according to offloaded MDB entries. Does
+the driver set up either of these in this patch?
 
-Documentation/devicetree/bindings/net/dsa/dsa.yaml:
-          "^(ethernet-)?port@[0-9a-f]+$":
-            description: Ethernet switch ports
-            $ref: dsa-port.yaml#
-            unevaluatedProperties: false
+Nothing sets ANA_CPU_FWD_CFG_IGMP_REDIR_ENA or
+ANA_CPU_FWD_CFG_MLD_REDIR_ENA. lan9645x_switch_ops also has no port_mdb_add
+or port_mdb_del.
 
-So nodes such as ethernet-port@9 or ethernet-port@10 pass
-dt_binding_check. They also skip the local RGMII rule that limits
-rx/tx-internal-delay-ps to [0, 2000].
+Some other writes look left over from functionality the v16 changelog
+says was dropped:
 
-A DT like that only fails at probe time, in dsa_switch_parse_ports_of():
+  - The ANA_AGGR_CFG write under "Link Aggregation Mode:
+    NETDEV_LAG_HASH_L2". There are no LAG ops.
 
-net/dsa/dsa.c:dsa_switch_parse_ports_of() {
-    ...
-		if (reg >= ds->num_ports) {
-			dev_err(ds->dev, "port %pOF index %u exceeds num_ports (%u)\n",
-				port, reg, ds->num_ports);
-			of_node_put(port);
-			err = -EINVAL;
-			goto out_put_node;
-    ...
+  - The ANA_ADVLEARN VLAN_CHK write. lan9645x_port_setup() disables
+    learning on every port with ANA_PORT_CFG_LEARN_ENA_SET(0).
+
+  - ANA_PGID(PGID_CPU) in lan9645x_port_cpu_init(). It is written once and
+    never used as a destination.
+
+The comment in include/linux/dsa/lan9645x.h, added by the tag driver patch
+earlier in this series, has the same mismatch:
+
+  /* Chip has 8 cpu queues. The cpu queues used by a frame are passed as a mask in
+   * the IFH on extraction. We use this to avoid classifying BPDU, IGMP and MLD
+   * frames in the tag driver.
+   */
+
+The switch driver only programs LAN9645X_CPUQ_TRAP, for BPDUs through
+ANA_CPUQ_8021_CFG. LAN9645X_CPUQ_COPY and the IGMP/MLD queues in
+ANA_CPUQ_CFG are never configured.
+
+Could these comments and writes be dropped or changed to match what the
+driver does now?
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
+> new file mode 100644
+> index 0000000000000..7ca4a67d154e9
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
+> @@ -0,0 +1,315 @@
+
+[ ... ]
+
+> +static void lan9645x_phylink_mac_link_up(struct phylink_config *config,
+> +					 struct phy_device *phydev,
+> +					 unsigned int link_an_mode,
+> +					 phy_interface_t interface, int speed,
+> +					 int duplex, bool tx_pause,
+> +					 bool rx_pause)
+> +{
+
+[ ... ]
+
+> +	fc_spd = lan9645x_speed_fc_enc(gspeed);
+
+[ ... ]
+
+> +	/* Take out the clock from reset. Note this write will set all these
+> +	 * fields to zero:
+
+[ ... ]
+
+> +	 * This linkspeed field has a slightly different encoding from others:
+> +	 *
+> +	 * - 0 is no-link
+> +	 * - 1 is both 2500/1000
+> +	 * - 2 is 100mbit
+> +	 * - 3 is 10mbit
+> +	 *
+> +	 */
+> +	lan_wr(DEV_CLOCK_CFG_LINK_SPEED_SET(fc_spd),
+> +	       lan9645x,
+> +	       DEV_CLOCK_CFG(p->chip_port));
+
+[Severity: Low]
+
+fc_spd comes from lan9645x_speed_fc_enc(). That helper is documented as
+the PFC_CFG.FC_LINK_SPEED encoding, and it maps 2500 to 0:
+
+lan9645x_main.h:lan9645x_speed_fc_enc() {
+	...
+	case LAN9645X_SPEED_2500:
+		return 0;
+	...
 }
 
-renesas,rzn1-a5psw.yaml, which this binding follows, has the same pattern.
+The comment just above says this field uses a different encoding, where
+0 means no-link. Should DEV_CLOCK_CFG.LINK_SPEED have its own encoding
+instead of reusing fc_spd?
+
+For 10/100/1000 the two encodings agree. SPEED_2500 cannot reach this code
+today, because lan9645x_phylink_get_caps() does not advertise MAC_2500FD
+and the speed switch returns early for anything else.
+
+When 2500BASE-X support is added, would DEV_CLOCK_CFG be programmed as
+no-link? For reference, lan966x uses one encoding for both registers, with
+2500 mapped to 1.
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
+> new file mode 100644
+> index 0000000000000..4d2d922bacba6
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
+> @@ -0,0 +1,166 @@
+
+[ ... ]
+
+> +/* VLAN tag overhead is handled by DEV_MAC_TAGS_CFG */
+> +int lan9645x_port_set_maxlen(struct lan9645x *lan9645x, int port, size_t sdu)
+> +{
+> +	struct lan9645x_port *p = lan9645x_to_port(lan9645x, port);
+> +	int maxlen = sdu + ETH_HLEN + ETH_FCS_LEN;
+> +
+> +	if (port == lan9645x->npi) {
+> +		maxlen += LAN9645X_IFH_LEN_BYTES;
+> +		maxlen += LAN9645X_LONG_PREFIX_LEN;
+> +	}
+
+[Severity: Low]
+
+Is LAN9645X_LONG_PREFIX_LEN needed here? lan9645x_npi_port_init()
+configures injection with no prefix:
+
+	lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LONG) |
+		SYS_PORT_MODE_INCL_INJ_HDR_SET(LAN9645X_TAG_PREFIX_NONE),
+
+lan9645x_xmit() in the tag driver only pushes the 28-byte IFH. The long
+prefix is only used on extraction.
+
+ocelot_port_set_maxlen() sizes the NPI MAXLEN from the injection prefix
+(npi_inj_prefix). If DEV_MAC_MAXLEN_CFG works the same way on this chip,
+the NPI port accepts frames 16 bytes longer than needed. The pause
+watermarks derived from 4 * maxlen and 6 * maxlen would also be slightly
+larger than intended.
+
+If MAXLEN here also limits frames sent with the extraction header, could a
+comment say why the extraction prefix is counted?
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-dsa_lan9645x_switch_driver_base-v17-0-83a471c5bddb%40microchip.com
