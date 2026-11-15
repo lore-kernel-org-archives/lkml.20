@@ -1,59 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=69.169.232.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794741277;
-	b=wx7zpPw56M4t1Bzuhj6LU66ceSCQ9UyEeq0vX+xK+TV31fmL08TBpgARwhp1vJUttsfD
-	 dlh2tgBcbGeDsgecpQtCMvrKyfzpaF0zHnZLxR/uqdskfUOwTZrn3cezUwBhsIHamTr3Z
-	 0ZE3h+iYphHhXAab46Sr47OfxCdsD4v8zCbAyWjmWgtlSEDhMOC1Q0VZidRqpOzKzyeg9
-	 98oHhkYvHj6XizMCrfxhQFHNmAZJQRXqIZKgjRneiz/6UD5bVgwU7dyZBI1ARpFPe/XQR
-	 kb+U4qHm3beFRUnj33nt2m64aBtxvXNKDRC+F4fZCzORRcxVafkntbDNyZUO3zO8dJA==
+	t=1794741579;
+	b=h5OaNHA2Uv236bp6aCqN9HW0C56ScovIAXz4fEuUtB89OBfDcE0ROxxJ3zk+rezTIkoi
+	 8OD/G+1bU6JqtmXTl/+EOCcW/6pCEKQvWxeBXwamHJN9WDyzzAjLPqT7Qtg+g5CDz7r8M
+	 qwud9TRtGvk2mGy2T0WojvmJ4jDeF8DsrKhjAi0rumkYTyUl62xskkJLlPzTlkaoEp5d1
+	 2wwvegZD11j/rC9luqNvpdeII44ZalkM3QYigNuIbdo2/uwZswdYnYfLxcL3mvgDnYCqI
+	 Nb//fotXdJeCuYnprs17DcQihK8MY3IwuQVyw+FpDQZPQXe6yAvkAbaYHIMM3TnwSWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794741277;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:From:To:Subject:Message-ID:Date:Feedback-ID:
-	 X-SES-Outgoing;
-	bh=zBsToA1sJhl0/g42r+zRRSO074/hDd+8CLQ+6dp7Kp8=;
-	b=cvIqNy0X/LQOzLp90L6Jb2uhNtiWjg/LbC2vE2w2XyL1qTvw6zM9qu3uLueV7CDGZCDb
-	 kTxf1GAIvG4DepcszEanq+8/zRtV6qZZCqIBCcNqBszFeXsoIeqfsufyx7Mnf653bDU6+
-	 nX1LDV6tFQuVkHGXtFYThXeXvpbzB+WucO9t7MUSuLnPGJJn69h0Payqt0P9afsR/sIky
-	 1WWG4JItK7fhuqudw3eQnzmFGJnlV9yT22UfL0wVBZF8lEnRP6rfKJXaVncSlZLKLQxcI
-	 c6uqcDTavAAWpD/FQ7qth8t/IvsBnThVYjjPX+kMr6FqY1QqJCWysSgqHcJEPU1Oglg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794741579;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=I6M9drfNN7zCNsaSrSObIiphbvQS2j9fYF//SvIIVu0=;
+	b=0CeFJTSL4ePFM7sJiXn3TElcxLlwu4Pq6rS2sGDO/Q1QQK3XjBsmeuSzy4XBuLQhjp+Z
+	 5bs0mQGybkv0e2QF6akeC/0+EWGa824NeAiqlBWVZARiQyFFvBuztW7ZIajBrPhHbf6Hc
+	 eGMfggoHSOLPPCU+BEltq1OIPSq/fNHkY5pl8alsaMimOlEZdT5tulTQp1WBVHbRxQ1nJ
+	 xiWRMKzaHQSc4+TZHYeUl3etwW1N5iMwMhcj12o2/G1zclIT+D87SBDyRnIPMa88tloPX
+	 jfRGAng5Y73stYs07xcquwW7nj/EmrLr1W0UgWPwj1u/eH73uh891sJf8d+8qqi61Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zebrametal.com;
-	spf=pass smtp.mailfrom=bounce.zebrametal.com;
-	dkim=pass header.d=zebrametal.com header.i=@zebrametal.com header.a=rsa-sha256 header.s=nyjwfx4jgwp5qerntowxrjbdgeyixnds header.b=R5iESbVE;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=ulrbq2zjesb42hdt6rpnifgor3epinsy header.b=CaEF6iEl;
-	arc=none smtp.remote-ip=69.169.232.12
-Received: from b232-12.smtp-out.ap-southeast-2.amazonses.com (b232-12.smtp-out.ap-southeast-2.amazonses.com [69.169.232.12])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ik6dsrXJ;
+	arc=none smtp.remote-ip=212.27.42.1
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E68606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 11:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80E68606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zebrametal.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.zebrametal.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB8A606A31A;
+	Sun, 15 Nov 2026 11:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB8A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zebrametal.com header.i=@zebrametal.com header.a=rsa-sha256 header.s=nyjwfx4jgwp5qerntowxrjbdgeyixnds header.b=R5iESbVE;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=ulrbq2zjesb42hdt6rpnifgor3epinsy header.b=CaEF6iEl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=nyjwfx4jgwp5qerntowxrjbdgeyixnds; d=zebrametal.com; t=1794741274;
-	h=Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Subject:Message-ID:Date;
-	bh=zBsToA1sJhl0/g42r+zRRSO074/hDd+8CLQ+6dp7Kp8=;
-	b=R5iESbVEqXgcm4pgTsRGXBNLuPLacJgNyTt3lJI0uAAA+XG0WDdFBljj3MKXHo6L
-	XIl7yL4/94OC0YInpyvHF1EB275SmrIP8PqU4jvnWGanxmuEq80ScVdu77FCpq+5Sua
-	G3mRpW2qtLt2HL6/rJmbAu5KWtdIfUrBfzaSojEhyHvaMD3HTL+D83YsAMs/zcTxXn/
-	aAkS1qWwEMJdjEeUlvv2UvqZzMC+iBAKFHzayPgC5BY/xkvpsPMLbTUK5Bk/BSLGtk2
-	46bEnhcYw4KlpSeAgg9PDkeezPFc+34Z2MzpjBaUg9wGMf/IcATcspFncNV7bmYieRu
-	KlumoGKoGw==
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=ulrbq2zjesb42hdt6rpnifgor3epinsy; d=amazonses.com; t=1794741274;
-	h=Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Subject:Message-ID:Date:Feedback-ID;
-	bh=zBsToA1sJhl0/g42r+zRRSO074/hDd+8CLQ+6dp7Kp8=;
-	b=CaEF6iElv8FvArsjuJ0wTudL+4z23hkC9F6Iv5OAp+xsDk+O490FLAqE5E4/oKth
-	wv9n0FaVQSOclQp+bwHyWpjELpPqu92BkX0JoHlzSWNsMBjr70H3ljhOLPBjVc49a+b
-	YMKxarVRegziW1KTFoPzmXF3VMkJgPr7NzPrilIk=
-Authentication-Results: auth=pass smtp.mailfrom=sales@zebrametal.com; 
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ik6dsrXJ
+Received: from L30177.local (unknown [78.242.88.98])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp1-g21.free.fr (Postfix) with ESMTPSA id D792CB0051B;
+	Sun, 15 Nov 2026 12:18:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1794741571;
+	bh=JQD3/EFXCa4lxF1FzAPYk7PWu+NKW3cxCD9tTy0x1cs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ik6dsrXJYrk/VQXyRed2GD1Pp5tDkQSbJ83ictljm1FKfb4Ox8x+nlLt0T2YU9kJR
+	 rvmjalYzY7TiZJfQAbCUy1e2Zt84pL9OLjTa20g1DK2yews6kwKo/vq20kUD9jonZL
+	 C46MPyDT7DhMhbvQOOqe6zl38xuHODDxKCvm8MTp8HuV003/CEC1zxqnvfncFbp4uR
+	 TOIgfbpbbZ1do+E1PYz0KZTcBnbc79rLlddNWRWGBeCMkjN3nAjd7ARCpRdywXrX63
+	 xo/tKnRt+jx2nfY5H7izHPB8sfV3RfaNPrIK0MBzXPHbN/jYZbsEyHnJBMRKnw+v7t
+	 Gn8OC0dkrijwg==
+Date: Sun, 15 Nov 2026 12:18:57 +0100
+From: Vincent Jardin <vjardin@free.fr>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v4 3/5] soc: fsl: guts: add the RCW override of any RCWSR
+Message-ID: <avmVIb5-l2DUq75m@L30177.local>
+References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-3-eefcea066a55@free.fr>
+ <avi9N8P34X5uel7a@skbuf>
+ <avjy-lCL2A9gEhcL@L30177.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,26 +78,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: sales@zebrametal.com
-To: linux-kernel@vger.kernel.org
-Subject: =?utf-8?q?Stainless_steel_work_for_your_projects?=
-Message-ID: <010801a1deea8824-e82f843d-a9c8-4219-86c9-d6a31d3b7cff-000000@ap-southeast-2.amazonses.com>
-Date: Sun, 15 Nov 2026 11:14:34 +0000
-Feedback-ID: ::1.ap-southeast-2.tOZ9FI0g7BPZI76kDbACN8yugNhwLBoAXSfrYjrBs6I=:AmazonSES
-X-SES-Outgoing: 2026.11.15-69.169.232.12
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avjy-lCL2A9gEhcL@L30177.local>
 
-SGkgW1BBVENIIHY0IDQvOF0gaW92X2l0ZXI6IHVzZSBidmVjIGl0ZXJhdG9yIHRvIGltcGxlbWVu
-dCBpdGVyYXRlX2J2ZWMoKSwKCkkgc2F3IHlvdXIgaG90ZWwgcHJvamVjdCBhbmQgd2FudGVkIHRv
-IGludHJvZHVjZSBhIG1hbnVmYWN0dXJpbmcgcmVzb3VyY2UgZm9yIGN1c3RvbSBzdGFpbmxlc3Mg
-c3RlZWwgd29yay4KCldlJ3JlIFplYnJhbWV0YWwsIGEgQ2hpbmEtYmFzZWQgbWFudWZhY3R1cmVy
-IG9mIHN0YWlubGVzcyBzdGVlbCBjYWJpbmV0cnkgYW5kIGZ1cm5pdHVyZS4gV2UgcHJvZHVjZSB0
-byB5b3VyIGRyYXdpbmdzIGFuZCBzaXRlIGRpbWVuc2lvbnMsIGluY2x1ZGluZyBPRU0gd29yaywg
-d2l0aCBhIGZvY3VzIG9uIGNyYWZ0c21hbnNoaXAgYW5kIGZpbmlzaGluZyBkZXRhaWxzIGZvciBo
-aWdoLWVuZCBpbnRlcmlvcnMuCgpXZSBhbHNvIGZhYnJpY2F0ZSBjdXN0b20gc3RhaW5sZXNzIHN0
-ZWVsIHBpZWNlcyBmb3Igb3ZlcnNlYXMgaG90ZWwgcHJvamVjdHMsIGluY2x1ZGluZyB3aW5lIGNh
-YmluZXRzIGFuZCBkb29yIGFuZCB3YWxsIHBhbmVsIHN5c3RlbXMuCgpXb3VsZCBpdCBiZSB1c2Vm
-dWwgaWYgSSBzZW50IGEgZmV3IGV4YW1wbGVzIHJlbGV2YW50IHRvIHlvdXIgcHJvamVjdHM/CgpC
-ZXN0IHJlZ2FyZHMsClN0b25lClplYnJhbWV0YWwKCuKAlApJZiB5b3UnZCBwcmVmZXIgbm90IHRv
-IGhlYXIgZnJvbSB1cyBhZ2FpbiwgcmVwbHkgInVuc3Vic2NyaWJlIiBhbmQgd2UnbGwgc3RvcCBj
-b250YWN0aW5nIHlvdS4=
+Hi Vladimir,
+
+Le 15/11/26 00:47, Vincent Jardin a écrit :
+> Hi Vladimir,
+> 
+> > I cannot agree with your API proposal. It exports to the rest of the
+> > kernel a blanket API for RCW override of any RCWSR1-RCWSR31 register,
+> > *including* the SerDes fields for which the fsl_guts module already
+> > exposes an API. So with your proposal, what can be done with
+> > fsl_guts_lane_set_mode() can also be (un)done with fsl_guts_rcw_override().
+> > The possibilities of abusing this API design are endless, and I don't
+> > want to have to deal with them when I can avoid them.
+> > 
+> > At a minimum, I would recommend renaming the API as fsl_guts_pmux_override(),
+> > and make guts enforce which register fields it permits overriding via
+> > this API. Example:
+> > 
+> > static const struct fsl_soc_pmux_mask lx2160a_pmux[] = {
+> > 	{ 12, GENMASK(29, 0) }, /* IIC2..SDHC1_DIR */
+> > 	{ 13, GENMASK(29, 0) }, /* SDHC2_DAT74..EVT43 */
+> > 	{ 14, GENMASK(10, 0) }, /* EVT20..IIC1 */
+> > 	{ 27, GENMASK(7, 0) },  /* EC1, EC2, USB_EXT, GTX_CLK, SDHC1_DS <- your series is missing these */
+> > 	{}
+> > };
+> 
+
+I did test it on the board and sent the related v5 based on your suggestion.
+
+For instance, when I did a forced bus recovery of IIC1, it
+moves only its related field of RCWSR14, and the first override of RCWCR27
+does not touch USB3_CLK_FSEL.
+
+The v5 is here:
+https://lore.kernel.org/all/20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr/
+
+thanks for you help,
+  Vincent
