@@ -1,79 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794733402;
-	b=TYuCqthqfu+iFWuFJg1t411K2mkfXpPaiglPtNvKrphrLygT05GoRRDdHKB14hVulBho
-	 uJi1tSWUu3uwMBm8uKXKHnNlS3BCDsasbIHQRHyw4E9LQbO7FaA9cOCrWoIH1PVi2nSMa
-	 EFHOGz5a7SK4QdkicJ0oWZNAoAYxCm12SD7V8XhIDSO/Ai0jgSmI65OeZf/OEj5F5lsSq
-	 ooyy54JWToxsAsstBsnL9x6KTmo9WVpjFPYFVFgOizQdVMdBdXNPjxyoxSfboEgtrXQNp
-	 JN1PHZI1CTvf/ZJMtUwPpqQ3TKOGmMhp0aehnUKsgti9teAFO65++Fu7bAU8ayVOrYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733402;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pMba/fAQ9LV5HZY7mVQeguaGAhXHEn/TxlAqRbl3dpI=;
-	b=gcene4qXefznucPohBSCMzzIlzHICIAJhKhDFcLJBZLLGogk1f61nzH/N228piMMqA/V
-	 InXmiqJnNvdRYhoLowzwKRM63qoPHWN4eUdDjDfW52lsdAjuLH+n5x5wW2SoloIQusLXh
-	 magtsVhA+lguaR/euXyttKAM1GKrnYDx1LCY/yOLnN6LtUgkN9vBPgkOu96NF6ZESiOfs
-	 ROOa1hDWQyDXodC6Jp0soJV4HttuY8Y40m7gHpzyivkZt39DPZxeUVoFTvR3fOl1yF4AW
-	 klJfZnRUmtrowWvdWSiRMn0iSEisd8mtaU1UQKE/KaXIGSsLWW4r+4bgzxgX8KUsY1g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYH9GlQy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794733458;
+	b=ZGASormr6Vmt3dEtXe6cHDa1m5+4UQKK/QMzX1EF3/VzkJJcYQgBBeA8GjUf8tA2BNQ3
+	 f6gkennDoPCPvytk1S3U4783TeZnBfDWN/5BQuj6bXFQJtRHVb7YGwWtHyIxUtUwztqXW
+	 9clAc1K7MAuqLwcpOK0VVH0VFVWE2mbqXRTBq0jVH98K8LPKYdDjUJ+l1l5QdRNPjW3MY
+	 9Kl8jH75fyd13VxkDGZfZhDpEOIOxFBcTyMmfLmPqtA+yKKvW9nYTzC/VYSxaZDCcH0GI
+	 pAqfU+kST4BuLE+qVSOKtsgP6oyW3AQhIrY9Zp6rXoCX/3UkqhF3PG4oiwE3Tm0nBqg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733458;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=zMr9VEC9jx04l1WtuGYLEQYRNw2eskJQNarxTF7YWss=;
+	b=e1mlFo1pRxffyUAMKG0HkK1hRHkYR3WoFlF9q4zUw9w1seFMGM4W0MgeeNGJQX44GCYO
+	 qq3QGdiLs5+UHhMXokGQTh/fu1xlWo7Bq1Ei5za2piKiy4r6y3lSr1cBZ+3X0FWecnF05
+	 J/iLoGwGDS0EkLhhG8PjHUHqrx9WRRojUqx2HZDzqKBd+mKikBSxTwlizqfyU4VD8dVam
+	 c7Cl1GTkHoftw4HfqzEX0P19Ay+by+s/gXyC6C7PCH535SPAYe8X6CD/wNBm2LX/N1kN6
+	 OTA3nUNaxZJ5BuInJdtcL3EZGbYpo05Xwvz5+ONRjBNYhA2gDy0Yqif51XUnyYRYJBA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e1Q6dq7F;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96AE606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66AF606A31E
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:04:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C66AF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYH9GlQy
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794733402;
-	b=bVKVw+qZVYU7HAJ/OhAFDDbArUUBOd15wGMpQZ1u1mpvTpZRSNh58trMWGu/t1A3nwva
-	 sMsFmzjaKND213mujfG3F9frt2DRaswVG83sU5eW2j4U5MrTYfwjgTsbtS8i5BIwyiYJf
-	 /f9cY6aHSPG1U5wkPB4yeSYAvTSTkSH5MdwbfTfbxs3r2c34RNGxKwGWUknPABZNElgQ5
-	 CddhaB69NypJplqCYCs7sRgGqD2zGmTCYl3mOAP51AdK7HbqAF0mUoaqG5oGxOpch8XKb
-	 NXF7U//xGntI11bqbTtI6nhX5zdKJo/8y/Mwd/zONrwVJqdH7H67TpT93YxXU/YOIfw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794733402;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pMba/fAQ9LV5HZY7mVQeguaGAhXHEn/TxlAqRbl3dpI=;
-	b=KLX65OM9lhiAkPpMnLgW1FdtxWuT4DbIY/MoA3joAcZTWXTDm/TiC9rD5BVpNEEMdCd3
-	 nuhR8DfsbYsykrCqAJGGa+y7JQuCYfMPIZe5MLKvOuiZFnNArAWMVzK2tdGPSa6wgqE+u
-	 0ak2JMtbfLFM+TJDsv6WLPSYr7RSRy8FquQeDy9PpQ1DqytU2vXUVl4U0//d3KxePOwHl
-	 41oyKE/gNW7/0rELD2COc92co6vCTTsjrcB34ct76rOxHibDESmpYcQLHM/0fbFtpkxmL
-	 qzTG6X/eopNM2qgFWotDcXuvsa3GsgT/1cvu+ywP3azR4XB/A/6q7qaQh9/C3YlPOMQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B40DF1F000C4;
-	Sun, 15 Nov 2026 09:03:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794733402;
-	bh=pMba/fAQ9LV5HZY7mVQeguaGAhXHEn/TxlAqRbl3dpI=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=CYH9GlQyHnMYy2R6GVab9NhUWATMxFt1X5zbUR03c46dHBajNGwNbafA0pbyeCDA7
-	 +1ZSYYLL6aPa1eeuM9gBu3U0n4kvC+Qu0OwPWBtr1FEYC8/Hz6h/FjJbcidCKv07tJ
-	 cDTIu9R1eWUXLurBMZbMbPL9iscBhjDrOfnRGYY6tYZUKzbrAche0iD0c1kZIzlNA3
-	 1Hvj2jTJr8S8Z4Hx4RIH2LsbEDqcBW53kos7J81X4P15jxI7SE8eM5eai6zPF5VTLP
-	 oeMxlXfmLDKj+UpTI7lxIagU7gJlVm66HBndWZ3RoTt30y7dGzhhc+q3h6pt+JmUnj
-	 pgn1uGHMrLTxg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 155CE49FF3;
-	Sun, 15 Nov 2026 09:03:21 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 09:03:21 +0000
-Subject: [PATCH] tee: optee: release the supplicant when its device file is
- closed
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e1Q6dq7F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794733456; x=1826269456;
+  h=date:from:to:cc:subject:message-id;
+  bh=aqrDhGBw6awt1GcMiz7VivETGnuOsbiT6Ebkgoy+UlU=;
+  b=e1Q6dq7F7SXcuQmQYmhx045XbhAYP952msSIeG9H/RfuQgIvE09NRO0B
+   VVFoqA4J/b8TZh++C0YAeF3QqIcMnRsO3BtoUzH5EELRcZcR6d9FXzDrG
+   6dQ/i+IrQ4wntNLR8XsVkyL14xv7GPhZCVGzYAGU8/wxlhj3JwvdLq0Bv
+   foA9WLbc5jqC+BmrvrP0UryfkMxha/MBfHDBwn4dWtcmpbC4PvZ561XXe
+   HfHte9UkXrIdEGuOg8JPrsx2ERSMWlQKygEeb6Onb17wiO9Yl09auAA1+
+   0+0NjW2pKZkhGRkhiR9aLN4I3LIbFQjPmP89GDFLQiAMDgj1I7MV+8ISN
+   g==;
+X-CSE-ConnectionGUID: zddJG0wMRauZ7YpiMmUchw==
+X-CSE-MsgGUID: pdfw+MHbS4+blXtNLGo/eQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3362621"
+X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
+   d="scan'208";a="3362621"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 01:04:16 -0800
+X-CSE-ConnectionGUID: MIr6e99dQ4ijCcyhwEle7w==
+X-CSE-MsgGUID: uSj7WmMGS62+oALnRG8K9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
+   d="scan'208";a="9625686"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 15 Nov 2026 01:04:15 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSW9k-000000016bK-1qDJ;
+	Sun, 15 Nov 2026 09:04:12 +0000
+Date: Sun, 15 Nov 2026 17:03:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [paulmck-rcu:dev.2026.11.12b] BUILD SUCCESS
+ 6e4584110547d13fd58e17a4a5a15d367721ee6c
+Message-ID: <20261115170337.ljwiF6Cw-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,122 +79,139 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-optee-supp-close-v1-1-4e0b14f3a97c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrDtgrGbhVUoXNf6xU8SEjEpBv
- LtRl9/ivY0USaDUFhslrKISpgzzKMh9P9MAlj6bqrKyxpiGQ5wB1iVGdmNQcN30vvQe1nZPyll
- M8PK/lq/3bV26H9x8fmjfD+bgvR90AAAA
-X-Change-ID: 20261115-optee-supp-close-45df0ffe66b3
-To: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794733400; l=3584;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=9VPYkWm0p8RjYbs/Xy1bmWk92a26aVMFxpnV9Mp2w/8=;
- b=Vm2WeCPp3VonzpMnH8cSV0X4bM7QePHJCcJnN8/8V3p/J8S5tIPV75Yzfj2bQyixAoHBBl+cj
- 5m4ij9PXa/eDzjhvstMuhbyySZ/N+4LeOcDVuOzlQsJd+4UKXIfGMLU
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git dev.2026.11.12b
+branch HEAD: 6e4584110547d13fd58e17a4a5a15d367721ee6c  torture: Use ${:+} to save a few lines in torture.sh's torture_one()
 
-optee_supp_release() runs only on the context's last reference, which
-RPC shared memory can hold. If tee-supplicant exits during an RPC, the
-next request waits forever and a new tee-supplicant gets -EBUSY.
+elapsed time: 3012m
 
-Detach the supplicant in .close_context instead.
+configs tested: 119
+configs skipped: 1
 
-Fixes: 217e0250cccb ("tee: use reference counting for tee_context")
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Tested on an Orange Pi 5 (RK3588S, SMC ABI), 7.3-based KASAN + lockdep
-kernel: tee-supplicant stopped and restarted during fTPM NV writes, no
-hung task; the fTPM TA then stays dead until a reboot. FF-A is
-build-tested only.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-message. I reviewed it.
----
- drivers/tee/optee/core.c          | 4 +---
- drivers/tee/optee/ffa_abi.c       | 3 ++-
- drivers/tee/optee/optee_private.h | 2 +-
- drivers/tee/optee/smc_abi.c       | 3 ++-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+tested configs:
+alpha        randconfig-2200-20261113    gcc-8.5.0  smatch
+alpha       randconfig-r2104-20261113    gcc-16.2.0 cocci
+arc          randconfig-2000-20261113    gcc-16.2.0
+arc          randconfig-2001-20261113    gcc-10.5.0
+arc          randconfig-2002-20261113    gcc-16.2.0
+arc          randconfig-2003-20261113    gcc-10.5.0
+arc          randconfig-2004-20261113    gcc-12.5.0
+arc          randconfig-2005-20261113    gcc-10.5.0
+arc         randconfig-r2108-20261113    gcc-11.5.0 cocci
+arc         randconfig-r2311-20261113    gcc-16.2.0 sparse
+arm          randconfig-2000-20261113    gcc-14.4.0
+arm          randconfig-2001-20261113    gcc-12.5.0
+arm          randconfig-2200-20261113    clang-24   smatch
+arm         randconfig-r2302-20261113    clang-24   sparse
+arm         randconfig-r2308-20261113    gcc-13.5.0 sparse
+arm64        randconfig-2000-20261113    clang-24
+arm64        randconfig-2001-20261113    gcc-8.5.0
+arm64        randconfig-2002-20261113    gcc-15.3.0
+arm64        randconfig-2200-20261113    gcc-8.5.0  smatch
+csky         randconfig-2200-20261113    gcc-10.5.0 smatch
+hexagon      randconfig-2200-20261113    clang-17   smatch
+hexagon     randconfig-r2307-20261113    clang-24   sparse
+i386         randconfig-2000-20261113    gcc-14
+i386         randconfig-2001-20261113    gcc-12
+i386         randconfig-2002-20261113    gcc-14
+i386         randconfig-2003-20261113    gcc-14
+i386         randconfig-2004-20261113    clang-22
+i386         randconfig-2005-20261113    gcc-14
+i386         randconfig-2100-20261113    clang-22   cocci
+i386         randconfig-2101-20261113    gcc-13     cocci
+i386         randconfig-2102-20261113    gcc-14     cocci
+i386         randconfig-2103-20261113    clang-22   cocci
+i386         randconfig-2104-20261113    gcc-14     cocci
+i386         randconfig-2105-20261113    clang-22   cocci
+i386         randconfig-2200-20261113    clang-22   smatch
+i386         randconfig-2300-20261113    gcc-14     sparse
+i386         randconfig-2301-20261113    gcc-14     sparse
+i386         randconfig-2302-20261113    gcc-14     sparse
+i386        randconfig-r2100-20261113    gcc-14     cocci
+loongarch    randconfig-2000-20261113    gcc-16.2.0
+loongarch    randconfig-2001-20261113    clang-24
+loongarch   randconfig-r2306-20261114    clang-18   sparse
+loongarch   randconfig-r2307-20261114    clang-20   sparse
+m68k        randconfig-r2310-20261114    gcc-14.4.0 sparse
+microblaze   randconfig-2200-20261113    gcc-8.5.0  smatch
+mips         randconfig-2000-20261113    clang-18
+mips         randconfig-2001-20261113    clang-22
+mips         randconfig-2002-20261113    gcc-14.4.0
+mips         randconfig-2200-20261113    clang-24   smatch
+mips        randconfig-r2309-20261113    clang-24   sparse
+nios2        randconfig-2000-20261113    gcc-8.5.0
+nios2        randconfig-2001-20261113    gcc-8.5.0
+nios2        randconfig-2200-20261113    gcc-10.5.0 smatch
+nios2       randconfig-r2103-20261113    gcc-8.5.0  cocci
+nios2       randconfig-r2303-20261113    gcc-9.5.0  sparse
+openrisc     randconfig-2000-20261113    gcc-16.2.0
+openrisc     randconfig-2001-20261113    gcc-14.4.0
+openrisc     randconfig-2002-20261113    gcc-16.2.0
+openrisc     randconfig-2200-20261113    gcc-14.4.0 smatch
+openrisc    randconfig-r2101-20261113    gcc-13.5.0 cocci
+openrisc    randconfig-r2105-20261113    gcc-13.5.0 cocci
+openrisc    randconfig-r2106-20261113    gcc-11.5.0 cocci
+openrisc    randconfig-r2309-20261114    gcc-16.2.0 sparse
+parisc       randconfig-2000-20261113    gcc-10.5.0
+parisc       randconfig-2001-20261113    gcc-8.5.0
+parisc       randconfig-2200-20261113    gcc-16.2.0 smatch
+powerpc      randconfig-2200-20261113    clang-24   smatch
+powerpc     randconfig-r2102-20261113    gcc-11.5.0 cocci
+powerpc     randconfig-r2107-20261113    clang-24   cocci
+powerpc     randconfig-r2305-20261113    gcc-8.5.0  sparse
+powerpc     randconfig-r2308-20261114    clang-24   sparse
+powerpc64    randconfig-2200-20261113    gcc-10.5.0 smatch
+riscv        randconfig-2000-20261113    gcc-13.5.0
+riscv        randconfig-2001-20261113    gcc-15.3.0
+riscv        randconfig-2002-20261113    clang-24
+riscv        randconfig-2003-20261113    gcc-11.5.0
+riscv        randconfig-2004-20261113    gcc-9.5.0
+riscv        randconfig-2005-20261113    gcc-8.5.0
+riscv       randconfig-r2110-20261113    gcc-8.5.0  cocci
+s390         randconfig-2000-20261113    gcc-13.5.0
+s390         randconfig-2001-20261113    clang-18
+s390         randconfig-2002-20261113    gcc-13.5.0
+s390         randconfig-2003-20261113    gcc-8.5.0
+s390         randconfig-2004-20261113    clang-24
+s390         randconfig-2005-20261113    gcc-11.5.0
+s390         randconfig-2200-20261113    clang-24   smatch
+sh           randconfig-2200-20261113    gcc-14.4.0 smatch
+sh          randconfig-r2301-20261113    gcc-16.2.0 sparse
+sparc        randconfig-2000-20261113    gcc-8.5.0
+sparc        randconfig-2001-20261113    gcc-14.4.0
+sparc        randconfig-2200-20261113    gcc-14.4.0 smatch
+sparc       randconfig-r2311-20261114    gcc-12.5.0 sparse
+sparc64      randconfig-2000-20261113    clang-24
+sparc64      randconfig-2001-20261113    clang-20
+sparc64     randconfig-r2111-20261113    clang-22   cocci
+um           randconfig-2000-20261113    clang-21
+um           randconfig-2001-20261113    clang-24
+um           randconfig-2200-20261113    clang-24   smatch
+um          randconfig-r2300-20261113    gcc-14     sparse
+um          randconfig-r2306-20261113    gcc-14     sparse
+x86_64       randconfig-2000-20261113    clang-22
+x86_64       randconfig-2001-20261113    gcc-14
+x86_64       randconfig-2002-20261113    clang-22
+x86_64       randconfig-2003-20261113    gcc-14
+x86_64       randconfig-2004-20261113    gcc-14
+x86_64       randconfig-2005-20261113    gcc-12
+x86_64       randconfig-2100-20261113    clang-22   cocci
+x86_64       randconfig-2101-20261113    clang-22   cocci
+x86_64       randconfig-2102-20261113    clang-22   cocci
+x86_64       randconfig-2103-20261113    gcc-14     cocci
+x86_64       randconfig-2104-20261113    gcc-14     cocci
+x86_64       randconfig-2105-20261113    clang-22   cocci
+x86_64       randconfig-2200-20261113    clang-22   smatch
+x86_64       randconfig-2300-20261113    gcc-14     sparse
+x86_64       randconfig-2301-20261113    clang-22   sparse
+x86_64       randconfig-2302-20261113    gcc-14     sparse
+x86_64      randconfig-r2304-20261113    gcc-14     sparse
+xtensa       randconfig-2200-20261113    gcc-12.5.0 smatch
+xtensa      randconfig-r2109-20261113    gcc-8.5.0  cocci
 
-diff --git a/drivers/tee/optee/core.c b/drivers/tee/optee/core.c
-index a52c1f498b99..f446b40d7827 100644
---- a/drivers/tee/optee/core.c
-+++ b/drivers/tee/optee/core.c
-@@ -184,12 +184,10 @@ void optee_release(struct tee_context *ctx)
- 	optee_release_helper(ctx, optee_close_session_helper);
- }
- 
--void optee_release_supp(struct tee_context *ctx)
-+void optee_close_context_supp(struct tee_context *ctx)
- {
- 	struct optee *optee = tee_get_drvdata(ctx->teedev);
- 
--	optee_release_helper(ctx, optee_close_session_helper);
--
- 	optee_supp_release(&optee->supp);
- }
- 
-diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
-index 702da7d98fbc..155ce9856de9 100644
---- a/drivers/tee/optee/ffa_abi.c
-+++ b/drivers/tee/optee/ffa_abi.c
-@@ -957,7 +957,8 @@ static const struct tee_driver_ops optee_ffa_supp_ops = {
- 	.get_version = optee_ffa_get_version,
- 	.get_tee_revision = optee_get_revision,
- 	.open = optee_ffa_open,
--	.release = optee_release_supp,
-+	.close_context = optee_close_context_supp,
-+	.release = optee_release,
- 	.supp_recv = optee_supp_recv,
- 	.supp_send = optee_supp_send,
- 	.shm_register = optee_ffa_shm_register, /* same as for clnt ops */
-diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
-index 94a4f251f5cf..6495e0f07deb 100644
---- a/drivers/tee/optee/optee_private.h
-+++ b/drivers/tee/optee/optee_private.h
-@@ -370,7 +370,7 @@ void optee_set_dev_group(struct optee *optee);
- void optee_remove_common(struct optee *optee);
- int optee_open(struct tee_context *ctx, bool cap_memref_null);
- void optee_release(struct tee_context *ctx);
--void optee_release_supp(struct tee_context *ctx);
-+void optee_close_context_supp(struct tee_context *ctx);
- 
- static inline void optee_from_msg_param_value(struct tee_param *p, u32 attr,
- 					      const struct optee_msg_param *mp)
-diff --git a/drivers/tee/optee/smc_abi.c b/drivers/tee/optee/smc_abi.c
-index 51624443359b..0278dc6b0119 100644
---- a/drivers/tee/optee/smc_abi.c
-+++ b/drivers/tee/optee/smc_abi.c
-@@ -1264,7 +1264,8 @@ static const struct tee_driver_ops optee_supp_ops = {
- 	.get_version = optee_get_version,
- 	.get_tee_revision = optee_get_revision,
- 	.open = optee_smc_open,
--	.release = optee_release_supp,
-+	.close_context = optee_close_context_supp,
-+	.release = optee_release,
- 	.supp_recv = optee_supp_recv,
- 	.supp_send = optee_supp_send,
- 	.shm_register = optee_shm_register_supp,
-
----
-base-commit: e21989d08e0d6abacfff71387d0cb36dd96a4079
-change-id: 20261115-optee-supp-close-45df0ffe66b3
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
