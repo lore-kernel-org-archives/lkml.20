@@ -1,100 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794778151;
-	b=xjHnqjF0pv1TYH9SNTaSJ5YyAnQmg5JORsXBckwADPhzx60wY8bCVdbaV9f/nLPEM44P
-	 9IUtqfKwt0BdhRi1Z2Z5A1+ZqC89MnALJHJ/bO7jB1s9disfFsmD+lFzZVAfU69lel7Py
-	 CXQKugsWocYYVYsNGdFpg84IzevclvJ65k259kBi6zFXbUtTXb2SArYK0PjtBnTaty9GN
-	 5zSb0TjoZgdqMz01dVzhjfARzpz2nLNyfffBNkvUuuGtAzAdyFNJGOuWQRQIgciQLasfo
-	 SzzYtpUBnSHU/kvoRToRhjQlZFkDUS4mh7loSPb6LgnJwNJWgP+KQSLSA/giajkJhFg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778151;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LDJ9mV97bkkNMHmuEk5zxwCzRbf60DW+NGGRcWDMJuA=;
-	b=iTxczTh2vOyoOdKaCEXGoAHWtMRgyfYk0ubrIgzbV8V20lcMPYhX7cra2xg5LDV5cmSa
-	 W7U6GjRcuYjsejqdRQDVzSBskWXF75W3UfXnYd1WGHuGe7GN5gHz+7c9N8AOG/kQsOxqV
-	 rjfxChozBOb9gADZR45fGbR+S/f8OCR/FT0TqJWq6xoQeksVeJc3w7PK15fZ0av6B3xfz
-	 sWxRwMW+QPGoOaOBEiOgzU4JpshBKIcQQ+FBQzu25L43BSC1sVUxrVjIl9PtaPZsfH+sC
-	 g1hLMM4mj7Rbe+qEHJcxFkxm9rM3SxnqNiHDKxYuTqDgqQJxSe5B/mUcsIirpoRuLjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=rV5+gU+N;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794778181;
+	b=QCiosq9mc02MZbZ8k8YOO/PiFq96HXTmc3vKXcf/ZdjuK/OdMH80TQ3BfoJeV2ZMmJ8l
+	 eHYsK9MMwkR0LuRwLreTEBczKAmZlj2ORg6/zULt2PXST2Kzkm1+51C8Z6qylWYmcIQ8t
+	 wFqgByMW7qWTtqjGjMrA9vAD/BU91Lx9RomIYOxUGaRHfZmjGsqgi8W4iGX9Ej/AAnp3X
+	 LHcssKXbVFZrOc5ZBIchs/ZUX0Tak34mJZyqiWSO8NeojjpwH9oZTJO5vp49n/wlvHXMd
+	 AXf3pE+rYOsfJtL6wccx5udgnOtEG7AlgPG37ss4FpuCL+RTSfCmOx/HvmiUBJ3gIqw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778181;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=P9VrrWxvRwU4UhUNuvsViyvt2ldk3Lk1/YlnZNzZ1NQ=;
+	b=p/qcfm1jxNtUalsPlWJ8xy5sY5IydIiVKrDOXK6SHk61mhj8wUE7gbi9bZE/bhUhHgR2
+	 FYbwA79ftioEyVcCw88p8Vo9EzXaFh6pQ16D4ixQhURCI4W99QiCpuZpc0kVOf1cyiscy
+	 gpXV5E9K8cGl5d625ecJRGLHAbSxFxM62L9RH3Oj/1d7srzmYD1CxNwPLEFiN63EmLELy
+	 HThPa7kNu9f7ufpUXwzRcGPAvj7x8joecuksk4IMklQExpd95ywfS3FzKgPqlsCrpcZoG
+	 UJVdsKUbUNf47sF4J8DGo4sZZcrNU8g8+9Nvr4IicOKTd1v9xPc0hwlEOmerGfZdAmw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="a8ia/Zjf";
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1914606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1914606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B5E606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:29:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3B5E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=rV5+gU+N
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-67da7d18f2fso978975d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:29:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794778150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gIVmIxTE0/urvftjxtH/FNd26dqCYoOthUlkRIvS8wNKEvkgdeAh/cpamXvnELxMHp
-         LpkuJ3T/lKEDDwp3NEDhRcqMtagdegVXnH4GwlY/V905Tgu1/JRgwDZuIBpNN8fuTs9R
-         cGDnaarkLbedZB8yVZRPMdqqom/ridRuLcM+P1IYDgMd13tlHxp9VC7xfV4A89Dkwmup
-         xQH1qzJRTjXdg2mOc4EacsPSr3oMQvKJkRs9vU2WLt4gj7b03t0Y6zpvnvcx3fPOX9zq
-         uLziMD4um34/o4wAnExoKkB85OBigRmOQs/BwRUZp6mG1PUhyLOz2Ntdq++jDYXe8EOj
-         fz6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LDJ9mV97bkkNMHmuEk5zxwCzRbf60DW+NGGRcWDMJuA=;
-        fh=ItALQXhX7t3LelisBmuMthvXEHyen9MhPefoR7iuM5U=;
-        b=rqh9Pl0Lp7d0IQy8upp1SBOQmZu/lPEItLO2/Y1FVpLh3SnPd7OeUmyceQ5okiNBzJ
-         BCdVSuAHU43o7GHMyd1LLhWLlFlH/wXIRXAK+geqS4GbBzsXVRNYreY+51xm8Xa8LBYX
-         Jn/7a1X2Y5nzXMwikOUdoVMRFkJ3S5NYChBk6TFlHYhcKSXwOiIYA0gFitzRjpLcGphv
-         M5w6NiGELik+EGSL+M3bofeHlU+lCArjwQBZGbOpps2j+gI9SlL+GnNDvf6s9SYIaAeX
-         y6KDNOtPVtBWJbBVEjRkXneq8hqQT4PTpyUxRPgyrPZIy43EYi6VSXAf1k/ooCVtA7K9
-         8OFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794778150; x=1795382950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LDJ9mV97bkkNMHmuEk5zxwCzRbf60DW+NGGRcWDMJuA=;
-        b=rV5+gU+NHij2v89bHwlyKY5Noir/2v24z3w0oIAEvARkSvIG7vd/YfqLUzMP3cmaSz
-         PzFU2lykEHbheQDsK2BYl9l6VKCgo+IPgPrlACsHsPnzpircwB7z66RcO+XSwDhtaY3z
-         MFTJUjF4CAJNRHves/bvOhHnzbyjw3EEc+Vvgnq6Hz7qcZtjZBBHAvwAJIp+uFsJIF83
-         CM4IQwPYCq88iOcwLOA1AH+yprNaPnJsRhjVEWeC+oRWid4DKMiIJ6g5EGBx7Lrqd3dB
-         uhQF/ypFr1l+xUXc2mErccQhwwC3ejk8Gv7Bn3/FCqlQVwXKMf41TDdqc6KjtqWlcFAV
-         mRQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794778150; x=1795382950;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LDJ9mV97bkkNMHmuEk5zxwCzRbf60DW+NGGRcWDMJuA=;
-        b=OXelUaDVj8c73qYE0oUfGpK4+uRKAnf8inXe+LLEcskM/su/Qftf+xbb6x391JqR5f
-         6RWVCaSbPo1H102MElJbTPnbor1opuhW9swDdkdRuGd23G4R/MF5PSQc8bTwh23nschT
-         k3Y0YgeClAP77EFoEUFEztV/Bs7+JpQbEz8lueoqOe03WTQOItHBg8U/KSoZZhQFKLqm
-         412vuN6Y7bbyGO/SX639zS/uErM55PTsq6Qenk+VnYOy+tsguRXjX79b15xmQt8oxLMd
-         +rUyv9YuFVnY1M/EO6YNUjeQ9qd1O0EfkhbAnYmK+Ppw4vjJIaibOpPRUd66J5UUGjTh
-         i98Q==
-X-Forwarded-Encrypted: i=1; AL+hErHenV3nBfoqCcCaqikyQGcobEWPU+0FZeq/vgFgbt931wOewTVLjfvlshyRfCRRSzEZoIglCz6UwZR1GV4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Sc/szt5MfxYDg+fxKtDia7SVYMgEQrQ3Y+grztIPAjpzkz9hF
-	hCJhbVJyw/G9bqVL6pCVVUQo1Al2P3DRTtlNcEaRSa4iZQ2rDAhsIDS7wHQ4tbfgNeuFRqYwDt8
-	a+j+Iio55cc1lZE40v9ANadQ1CGEQ+go=
-X-Gm-Gg: AYBFou3zWCXWRVpD9Pld8kt9xWkO+3QOxw2cHS/ZoaI6TGlz1OZUhLAWyGwe7ZdqxOu
-	cIlswIMxhkUAwvWxdkVWL5E/nxcstb7BChfr7L4DCnHruD6AeKBOcjRfZok5RP/J1wOLxzyRdzC
-	WlnkH3kvoGUbOaMQGdC58aNJwzAuJ0OAHxNjG/yac+FCAG/7XiydHcOFieQvbyUvQo9xo+J9/ru
-	hb6qfyseC/Pez0GEuymnk+dPKr5l542m27z1sJcB3hTPTYD/i+xo5VjcotzpDtuHQoquLse6oq0
-	ThSAFtvTtbBcwWpBMr2frnUjMBL4fXNMlCdjEDgttbRg9B2TyQbD59WRyxHLReE7+RGtwdl7jrD
-	O5hGWKbIbJNg/osH+X6j6uS9ERFT6dhhHGXsXe6BNP2u/hIVn5zvdnFVFn7pHy3uRn/gviQ==
-X-Received: by 2002:a05:690e:1c0f:b0:67d:b0a1:c9c3 with SMTP id
- 956f58d0204a3-67db0a1d2ebmr1094277d50.32.1794778149875; Sun, 15 Nov 2026
- 13:29:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=a8ia/Zjf
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id SdYOxu1siAR1iShnAxTx3i; Sun, 15 Nov 2026 21:29:40 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Shn9xTf4rGh2BShn9xUPSI; Sun, 15 Nov 2026 21:29:40 +0000
+X-Authority-Analysis: v=2.4 cv=Aszu3P9P c=1 sm=1 tr=0 ts=6afa2444
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=p17y3UlcgzNCgfqtCmUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=P9VrrWxvRwU4UhUNuvsViyvt2ldk3Lk1/YlnZNzZ1NQ=; b=a8ia/ZjfSx20
+	Qi+cH483HSfKAPFiFXR9AtiYwatCNqcQUjsaFqMvm+Gz9FnoS/BqoKguHvBQLIcmkrMhzgfdh3PjT
+	5onE7JjcAxCn6dPq5HO4UVEIW0WAPY4cbx1xPe8peIVvykLmJ/lW5CoQU6IUycoY3KNyCQdfXMHRl
+	W+8DIffN9DQ8Dp/ZdbrcOk1quQ24K+Eu4cCwAJ56HdL8RDYCiOvMmNuzKuNoOabct7m6wlEbyKYDD
+	3DCzSr1JUyixKN3aNcBNX+hO8PrNKfEgvCT5lRMl1fDR9ajkrXSuIBw9sZV9QzaFC/3vbI8fcFLI2
+	e4oRjZeAFcIGOJkVInxshQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50840)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xShn9-00000000FTn-1jFW;
+	Mon, 16 Nov 2026 02:59:39 +0530
+Message-ID: <e0b7871e-5dae-438a-bde1-327fe450dc8d@roeck-us.net>
+Date: Sun, 15 Nov 2026 13:29:38 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,30 +76,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com> <20261018-audin-v5-6-4b8cc13a1b22@baylibre.com>
-In-Reply-To: <20261018-audin-v5-6-4b8cc13a1b22@baylibre.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 22:28:59 +0100
-X-Gm-Features: AclHuK_mrwYOs88jQPUihYmd8k-bNvXzF9c0J2wcB0Lmj_2uDGdqbd4QCFY5NB0
-Message-ID: <CAFBinCA12FvOi=9gB1xj3MDvNWstx1N4TtyyrrndJ_JT5eLX=Q@mail.gmail.com>
-Subject: Re: [PATCH v5 6/7] ASoC: meson: gx-card: add support for audin FIFO
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] watchdog: intel_oc_wdt: Add INTC109C ACPI ID
+To: =?UTF-8?Q?V=C3=ADtor_Hugo_Silva?= <vitorhg20080@gmail.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: Diogo Ivo <diogo.ivo@siemens.com>, linux-watchdog@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261115205408.99849-1-vitorhg20080@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261115205408.99849-1-vitorhg20080@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xShn9-00000000FTn-1jFW
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:50840
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfH6oxV6C9HOupeDfTw28wyOJTgZa0dtY3fTyAV/sDu6GU2da8tisoHkZHM9hY34MIeGtRpAtBSNSoyPFg8sLSYpVq8LFueTll3bCUPP/3yaye3F3IQ3P
+ 4Qxla7cN/rRiudAHdRwMZ1MR/W1DlfmDb09Pu9pyZZnmpUUcKfOwm2ItaKrb8EIseY6uckNXSXzIt7KLUfL6WGIQ6sNv/MDN5JPHzGdkCJECTkt+e5Bj5L/Y
 
-On Sun, Oct 18, 2026 at 12:18=E2=80=AFPM Valerio Setti <vsetti@baylibre.com=
-> wrote:
-[...]
-> +       if (gx_card_cpu_identify(dai_link->cpus, DT_PREFIX "gxbb-audin", =
-"FIFO"))
-> +               return meson_card_set_fe_link(card, dai_link, np, false);
-I suggest using the "audin" prefix. AIU / audin seem close enough on
-all supported SoCs that we don't need a SoC generation prefix  in
-there to handle this differently.
+On 11/15/26 12:54, Vítor Hugo Silva wrote:
+> The Lenovo laptops with an Intel Core 7 240H (Raptor Lake)
+> exposes its OC watchdog as 'INTC109C', leaving the device
+> unbound, because this ID is not present from the driver's
+> ACPI intel_oc_wdt_match table.
+> 
+> The firmware selects INTC109C or the already supported
+> INTC1099 from the same CWDT object's _HID method,
+> depending on the processor signature. Both paths share a
+> four-byte I/O resource at PMBS + 0x54.
+> 
+> Add INTC109C to the match table to use the existing implementation.
+> 
+> I have tested as a module on Fedora kernel 7.3.3-300.fc45.x86_64.
+> I did verify device binding, timeout configuration, start,
+> keepalive, explicit stop and magic close. Register reads
+> confirmed the enable and timeout fields. Expiry-triggered
+> reset was not tested.
+> 
+
+Why not ? That means you don't know if the code actually works.
+
+Thanks,
+Guenter
+
+> AI assistance was used for development of the test harness
+> and 'peer-review' the patch.
+> 
+> Signed-off-by: Vítor Hugo Silva <vitorhg20080@gmail.com>
+> ---
+>   drivers/watchdog/intel_oc_wdt.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/watchdog/intel_oc_wdt.c b/drivers/watchdog/intel_oc_wdt.c
+> index 0b012aeb1..a78fe1e5f 100644
+> --- a/drivers/watchdog/intel_oc_wdt.c
+> +++ b/drivers/watchdog/intel_oc_wdt.c
+> @@ -215,6 +215,7 @@ static int intel_oc_wdt_probe(struct platform_device *pdev)
+>   static const struct acpi_device_id intel_oc_wdt_match[] = {
+>   	{ "INT3F0D" },
+>   	{ "INTC1099" },
+> +	{ "INTC109C" },
+>   	{ },
+>   };
+>   MODULE_DEVICE_TABLE(acpi, intel_oc_wdt_match);
+> 
+> base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+
