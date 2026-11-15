@@ -1,79 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794781807;
-	b=FeBzxX5eC6LKsq5tJzkHNCwOcdMkCDxczk+yKeF4mFl418+3X2l47TgbNch+gyHU6Rp4
-	 MHOWK8N3W6JnDnne6hw6wGMiB0rD3S9jLKoII2y0EIagd2X+SPhnKae9yTd/5keDbaUbl
-	 j2YeTroF4zIUkBe35O4YAi2iJNV6NmBgb3BcZ4vnEwVH5TufH2yEdbjK8Tb6JEgQ77c96
-	 KMyrg9C0pf5QQIIbpUWb+sYpu3FPHSfODB5fe8Eoqi9nU82VYPsjxS0T9J+qfcMzPK1Jt
-	 GkJuf8CYmeUBOmtnuakkDFOIkA7TKA9gRSjPDleFLlBK5Uf/d2rPFP9GV+fM7fCruNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794781807;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FS5qk1dfpPCEIZP1LBaj3fIaB9aWxROaAsOBlHXojYo=;
-	b=FeUA2nTy1NlChiJ0wZc+ISekJ9Ensa3AiK4gt4N6wArLlvqwqSX80CXoR2LhRzDB/qY+
-	 O9Ts+adSST/b3zYxzHVaLTGQZ4wNIKI7AE5lpbowh+XB33F+yQemHv6lSo7JxU4UPSFEr
-	 NRP257ZDByLSGoRTyeLuEnNX471pgFJWG8UOu1d45xZ9ig+8k3ZCpnhQJYiJCsz54yhGe
-	 1IVhgm7iLrTroOs8FFUG6mw5qmAypEXMhJ/AjGx+8Po6uThlhvx0WpT4mhD19L1PlNatv
-	 LKfl+9Ra5E+lTrDn3BWlVkCkZB+Vj+J0BscNLhhDEEjRcVGfBkHkcZPaURoB7yLq/OQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=onN03JHn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2C3606A880;
-	Sun, 15 Nov 2026 22:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=onN03JHn
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794781807;
-	b=WVHAJvAf5JAz8UF7hb/vBq0X0vl/OjPaGh9uvP/EVPTq+k3CSVKBhpnjjums1yrISma8
-	 L9IuT+nGqozV9zaqG5kf/GdRVTNO7XC7BpcaPqUpg7tDEKU7DJPCEV6svsZFAu/3wOSKa
-	 CZ+Z1H3a7BT0nVEQ2PPFMUx7fxM/lFJPtV1fCLKlvsYRONoSBB3Fai7ezahK/3gfLkqQO
-	 lr9DinSHlLzp2WEPK93PRfj6wpYlM++MrCbnlUVoT7uRyqcraZmRjb1YeS6kZSpXzt+Iz
-	 1/3lescUv8ww0ftY6OuuZRYDu/o9aQsvt+Svh5kW0F0najy6GGXYCA6N6xcakKAJiwQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794781807;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FS5qk1dfpPCEIZP1LBaj3fIaB9aWxROaAsOBlHXojYo=;
-	b=Hia/U/qWzg84LjsfU8CUxpk1YK+R8Vo1btPnfKT2VzmR7KAVcqLQDeTJsWHZOjlN8qMU
-	 dMbAzN/LgzzTmgPqmy/qw61EXKtrVH4eV1DTU6ADB6q/f+l7ZjznAVYwnnwJ8tbn2t6Gg
-	 I+2tqnA6+YBzWlrc46AN7002NK/5uVazp54gTjyNTJW0a6SMkHaPUKyY3xkCJQOh9AJRi
-	 JUTQK7rsjW+KJOpBbssMnXtDgrDcreD3ELjTlkFu/AQiesP/13A5sTfR/O5eki3ienFnp
-	 5aF37I9qnfDb880ub5+oAwt/4e/mMhot3usmzIZOQPv0InI63En1t62PNmzsOguQZaw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794781898;
+	b=ywMWznv/fmyqqPnEgN6r8Axtmx3u1k2eMPxB6yYcWxWNvEhoabyheABSlE9zkHbgYx/M
+	 lCXHbISjCxsfJ4Bt2ewltsJrbA/NJnOhK2B2Hw1Lfrjb58E/px5gFDsoqt8wNXO/IREIO
+	 RW3gTdP5iip5iQ4MYvwF/KqvpmS57U1HhGHV3aX7a2H4uCbz9q61qgvZ5PTRdRZLBh7oJ
+	 nc1Mh+UCOIQ8nZONiFemGh6DGx1Ps1TAMZa1VVy1q7UfCW41o+EVrdhv5yHpRUKnCin78
+	 SkMnTf48iiZ0WU+Rv3GjtyFIRiBGh6iLmxc+KWiIXYNBSAX7CvvCEle9UAy9+FjIo2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794781898;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Originating-IP:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version;
+	bh=ykt8FTUNX1/fdxCk4A4DHYN7Y2tblUILl4FGUFZzAXY=;
+	b=03a5KAE2CN0t5oTwV80OaJ9MaMDUZ1/taIWbJgGW0HLIELIjyMX/bvNjwLFaFfYf/GFj
+	 6i3YG1uyIvw1BTCYNr4oXg5Pnlcajo++j4J2bVEh8GIXi1EVy8vcptJQKkxpjRbphRgAZ
+	 XxdBEcu/eHInIxE9GwrRk7n78hj8s+Q8shvL3VB1mCnnQnU78PJtOE4jeDXFFYGXTHwsr
+	 47bmRibCCi5sEacfYV3SL3EGeCD5aTMMssFr6HmkorQxRqDtg9+d4m2SkSQzFAHoitDIG
+	 oR6chvl6P3B78gtmOaIWVHBOttplJ6MVrR+bX+UorBBYpT59gXU9CPjgUgSOQYPTpsg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=SJ1mxSb+;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E5E4E1F000C4;
-	Sun, 15 Nov 2026 22:30:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794781807;
-	bh=FS5qk1dfpPCEIZP1LBaj3fIaB9aWxROaAsOBlHXojYo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=onN03JHnCpN3S1pZurlORqIoIlBe4plxDSkxaNH1/7nM29RFJjMMarvZ2ubzBmwXf
-	 8MQbe7Od7ueElMWe2pQAHI7pLr32VxXm5eKmO7xUEDCS9RpT7TvtFJL6JjSw6kZ9Cu
-	 2/TuCAdkTO4FHDEg85V05ZyHMbwM5M/hLqNvYgdBhDDB+m23G5qXQDF3n2Xz7u398m
-	 Leb6pSTE0yolFDL2RQRVmppuAvBMBW5JPYM0BDIkAPrdulZbdauGVTKXMcWQNpGY9y
-	 hFUubB6X5eo3AIgkuBFo3iwlD1ikfU5rZgvhBeE1bmMEAwN3xnqL86HiQ0UEGPNRvY
-	 mEem60uL0vk5g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5F7584A20F;
-	Sun, 15 Nov 2026 22:30:05 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Sun, 15 Nov 2026 23:29:36 +0100
-Subject: [PATCH 1/7] arm64: dts: amlogic: t7: Add ranges to periphs pinctrl
- node
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0DF606A323;
+	Sun, 15 Nov 2026 22:31:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E0DF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=SJ1mxSb+
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AFLmgRp538015;
+	Sun, 15 Nov 2026 14:31:16 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=ykt8FTUNX1/fdxCk4A4DHYN7Y2tblUILl4FGU
+	FZzAXY=; b=SJ1mxSb+jBspwpZ+RoOy/Lr5CS/7QRNeo6OhUzjml3l34B3DOQryV
+	YTrD7iaqc9bgjeOvKGchb/xXrv6VyJK/Gnz553rSSAdGLesUpyD5Iz2tjzkhAy3E
+	AiQphbyhg194wLcmkgxeLVgI8XyXEp9YyBcP0aAXzVQgJQUXnKZErZIoGmaclPQE
+	xGshwi14J+WZvgkcMRCwpNXSsDFUyFSi8i6x4g5eKeCkVNk/jhnHQntZSJqtPYaC
+	tvixv1d5+1mVFqDxanbVp8+94a3/32sOffAJJp0HYLsn4xOrSypZSbsV/oTIJabd
+	VFAOlvk4X4FxeeglzrPDyjhY9FIx+7AUA==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hxmj45x9v-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Sun, 15 Nov 2026 14:31:15 -0800 (PST)
+Received: from localhost (2620:10d:c0a8:fe::f072) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Sun, 15 Nov
+ 2026 22:31:14 +0000
+Date: Sun, 15 Nov 2026 14:31:13 -0800
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <sgarzare@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, <horms@kernel.org>, <corbet@lwn.net>,
+        <skhan@linuxfoundation.org>, <stefanha@redhat.com>, <mst@redhat.com>,
+        <jasowangio@gmail.com>, <xuanzhuo@linux.alibaba.com>,
+        <eperezma@redhat.com>, <shuah@kernel.org>, <rdunlap@infradead.org>,
+        <donald.hunter@gmail.com>, <edumazet@kernel.org>,
+        <georgezhang@vmware.com>, <acking@vmware.com>, <dtor@vmware.com>,
+        <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <kvm@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+        <sargun@sargun.me>, <jlinbox@meta.com>
+Subject: Re: [PATCH net-next v6 5/8] vsock: add a netlink command to assign
+ the g2h device to a netns
+Message-ID: <avoysWTR++rTKfKL@devvm29614.prn0.facebook.com>
+References: <20261113-vsock-guest-ns-v6-5-3737ce4673c0@meta.com>
+ <179471528940.2199510.18137700517588437955@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,69 +85,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-fix-amlogic-dt-warnings-v1-1-94cbd67a32ea@aliel.fr>
-References: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
-In-Reply-To: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1247;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=8C9vs4EiUCOX/M/ReYqYBqsGbRJMK4l65oqDaqs3hj4=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9Yvo+TKBd5Trrkoms/NmDrPhu2C6aP6kCePFEVEU/r3p
- +x2c53eUcrCIMbFICumyNI/1/LEu8tHz3zdo54CM4eVCWQIAxenAEwkS4fhn8Lew7/3NBy8/f2l
- 8bZJKrN2yLH9ca+Zs8lA/fy3RacCL9Yy/E+8n/k7yejnqe5Pa95zlavPc/ogtDZ6uXsDQ9B5HpO
- tc/gA
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179471528940.2199510.18137700517588437955@kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDA4OSBTYWx0ZWRfX+ZQB0ppP8ScL
+ 5zEoQ8ohV0T1CuBY5u/tqmj8DzX5Ljagf1soUB7AVYidkRKRsqhQDkRRZp+pVhEMtjBS5jfK7P+
+ ZeO7st34x107s/XRqb/3LcQol9zeezk=
+X-Proofpoint-ORIG-GUID: DnfmZE2Va31yL9pMIgnnC5detjkL3Jk6
+X-Proofpoint-GUID: DnfmZE2Va31yL9pMIgnnC5detjkL3Jk6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDA4OSBTYWx0ZWRfX0OsD6yWxMwIx
+ 0eZPLstlNAs7lKlPNceGqzSKTDjDVlTQ8eyUjLvERfU+AVrymQITadzDMNe6//+ObxP4VVoDsDi
+ PtfEjV5VvmmKEO4UOE1nDpJKK7pde2D2jZcbeeQKi7FhIJbhCt1Zn96tR09NcwGm0DrG79aUI2w
+ 7waXvI2nBWmzsmdvP5m6fUzi7e3AEmTbPRlkkM71iU3BQgwiFM7HvNnj/FbQxMrsWfSzRWxnyYl
+ RmIoL8BgU+5gLMYoTLNjeqpjs4r9t4zqlQEtiuRu48++m8CutKsrxmTLLDA412TrOZTRGeO/9qu
+ tWqdZPESNn+B8cvuFQMHhjqGoRus/Z9jPR7eMtzSatOkjYmg/TBUTQ1pwPhlVuVRqoVWo1a5Ykt
+ ZpDhImJHp4PlMvxMImAYZlfqBSypP+uKOi3oo55f5oAk3IstOyhBmlaRPMHE8us4htBgO9vLvxr
+ DalggzfOW7SMsENxYvA==
+X-Authority-Analysis: v=2.4 cv=Vp+2kO2n c=1 sm=1 tr=0 ts=6afa32b3 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=tpM8CJlwf7uhpglF1g9U:22 a=VwQbUJbxAAAA:8
+ a=9R54UkLUAAAA:8 a=VabnemYjAAAA:8 a=RAyg9Hr4hlSmefgnMj4A:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=YTcpBFlVQWkNscrzJ_Dz:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-15_07,2026-11-11_03,2025-10-01_01
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+On Sun, Nov 15, 2026 at 04:01:29AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] The new `vsock` generic netlink family defines `dev-netns-set`
+>   (VSOCK_CMD_DEV_NETNS_SET) as a do-request with no reply.
+> 
+> --
+> 
+> vsock: add a netlink command to assign the g2h device to a netns
+> 
+> This patch adds a vsock generic netlink family. VSOCK_CMD_DEV_NETNS_SET
+> moves the guest's G2H vsock device into a given network namespace, and
+> VSOCK_CMD_DEV_NETNS_GET reports the assignment as an nsid relative to
+> the caller. Connected sockets that can no longer reach the device are
+> closed with ECONNRESET, and an assignment that would cause a CID
+> collision is refused.
+> 
+> Link: https://lore.kernel.org/all/20200427142518.uwssa6dtasrp3bfc@steredhat/
+> 
+> > diff --git a/Documentation/netlink/specs/vsock.yaml b/Documentation/netlink/specs/vsock.yaml
+> > new file mode 100644
+> > index 0000000000000..f260ee88b1402
+> > --- /dev/null
+> > +++ b/Documentation/netlink/specs/vsock.yaml
+> 
+> [ ... ]
+> 
+> > +operations:
+> > +  list:
+> > +    -
+> > +      name: dev-netns-set
+> > +      doc: |
+> > +        Set the network namespace of the guest's vsock device.
+> 
+> [ ... ]
+> 
+> > +        The assignment holds a reference on the namespace.
+> > +      attribute-set: vsock
+> > +      flags: [admin-perm]
+> > +      do:
+> > +        request:
+> > +          attributes:
+> > +            - netns-fd
+> > +            - netns-pid
+> 
+> [Severity: Low]
+> This isn't a bug, but should dev-netns-set have a reply block here?
+> 
+> The spec gives dev-netns-set a request and no reply. As a result,
+> vsock_nl_dev_netns_set_doit() only returns an errno and the caller gets a
+> bare ACK.
+> 
+> The netlink guidance for new families says every operation should reply
+> with a full message that identifies the resulting object. It also says
+> that once a command only ACKs, the ACK-only behaviour becomes uAPI and
+> cannot be changed later.
+> 
+> The v3 revision replied with netns-id. The v5 changelog says the reply
+> was dropped at Stefano's request, so this looks deliberate. Since this
+> family has not been released yet, could that decision be checked once
+> more?
+> 
+> A netns-id reply would tell the caller where the device ended up,
+> relative to its own namespace, without a second dev-netns-get request.
 
-Building the amlogic DTBs with W=1 reports the following warnings
-for the periphs pinctrl node:
+Actually, now that we're taking a netns-fd/netns-pid, the reply makes
+sense because it can be something besides the current netns.
 
-  amlogic-t7.dtsi:317.34-615.6: Warning (unit_address_vs_reg):
-  /soc/bus@fe000000/pinctrl@4000: node has a unit name, but no reg
-  or ranges property
-  amlogic-t7.dtsi:317.34-615.6: Warning (simple_bus_reg):
-  /soc/bus@fe000000/pinctrl@4000: missing or empty reg/ranges property
+pw-bot: cr
 
-The pinctrl node has no reg property of its own, and its empty
-"ranges;" does not describe which address space is translated to the
-children.
+-Bobby
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 52e106d931db..aacdd0db1ca2 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -318,7 +318,7 @@ periphs_pinctrl: pinctrl@4000 {
- 				compatible = "amlogic,t7-periphs-pinctrl";
- 				#address-cells = <2>;
- 				#size-cells = <2>;
--				ranges;
-+				ranges = <0x0 0x4000 0x0 0x4000 0x0 0x2e0>;
- 
- 				gpio: bank@4000 {
- 					reg = <0x0 0x4000 0x0 0x0064>,
-
--- 
-2.43.0
-
-
+> 
+> > diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+> > index 37abde1ca26cd..d4d88c8cf142f 100644
+> > --- a/net/vmw_vsock/af_vsock.c
+> > +++ b/net/vmw_vsock/af_vsock.c
+> 
+> [ ... ]
+> 
+> > +int vsock_nl_dev_netns_set_doit(struct sk_buff *skb, struct genl_info *info)
+> > +{
+> 
+> [ ... ]
+> 
+> > +	err = vsock_g2h_net_assign(net, info->extack);
+> > +	put_net(net);
+> > +
+> > +	return err;
+> > +}
+> 
+> This is where a reply would be built, for example by reusing
+> vsock_nl_dev_netns_fill() as vsock_nl_dev_netns_get_doit() does.
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-vsock-guest-ns-v6-0-3737ce4673c0%40meta.com
