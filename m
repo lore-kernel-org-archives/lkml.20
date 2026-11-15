@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794783693;
-	b=ryEAA+dCOZ135tHqr0PMl9b/ZiK8/YjxnxY5PtLxdYAKScMZldmS3PF6cMssoSgnNQGR
-	 Sr++XQ1u29ZZAAs7Ki+JBnSd5Jr+V2Krfgrw7QbN7ub7q8rkiQu7syHwTMV5/pApOX9CZ
-	 u+/Wk9yMTQajOcp7BKVRYtlqXsLWyCkhEm9uFnouzM5st4os1J7aPcMO8ISLEgcPl98xz
-	 kV3+QQuXuVsdcQ/37E+CAKQ/ZSJ7zSwVWT9KRuquNSdADSyFYYa1CWt87L3FxTpI6f5Ck
-	 j8X19Mcc6GAqAKHcFtNIN8X/guxoo28D11iw/LMvNh44argK9vBbaGquVmeQOQ8kQ2Q==
+	t=1794783697;
+	b=ts2A35syhgv1vwEN53z7rOAtUxZ+X6KVKpGvA3zvZ0wccf23H56FnSUlSzXJtmu8vqnq
+	 /odLal7ocyzx7VradTEIOWZ0PS75b8OQQFYvr9wCeK/T0v39/NqJDI9MXeW2tvQLo9Qvw
+	 A/izWArYhXdak738PANlgXUjUhW2avfZvIaJds/caDt4zVntRKrmF7D3jQKMaqwys0NXM
+	 BIkGCSNOwwWXhyrRMh3YKFCUbgf+7b5aHiRKLmxtJGtcyqbFxEAH7gkH0esXw0uZB+M+d
+	 4KMmTrza++CioL4q8DiiJ9aATJ6ctGCWl6ZY0S2VpOqI/ZC6uw8unWVShpGEgzmGoRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794783693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794783697;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=+estSKTP5vos6ferPHC7vSoZbFx1RtdPQ+GvGUrze6E=;
-	b=CQmLuWDAbNnhHlVlMmyO/OZMfGdvcRHDG7r82ZG1h+6xYqRIKe5FpGtUBn69ko+0HkS4
-	 cBmYIsSi4cMpq2bIAoeUgmXnq3zRHRcEaTPMQ6ubpU9nA0ASITOnZ3JkY3lmjqRuYUhPL
-	 aMDBIiyPifb29EBo4fY77KW1uOMIxFkd89ZMXzt2RaBBTIzyeXBrVi0v3ZXEFehIj3Z6E
-	 phvuAr1OSnX4kTLCtzZDRPDYcAFuqSVtjctj9grG5ZaL5a30WfuWw+Rp/Qt6b9fs7/iQc
-	 KTN8nh7rfqNUHwpnMPuSZhuJjueNupyqUrXcWT92yJWH2EwAUUltX5fPk4jyUHiiSYQ==
+	bh=9RKTXa0mNQlc7dJEGQNmec9AiGXENbKZqhKyOZqUSlw=;
+	b=guloqnvBlLXjM20UFWvdQJZd0WuMjgFiK2i0BlX4fvSGMdm8092Q8r6pxxu04gRIRpQN
+	 RSkq+W/engzgrLSD6pGGBXqrp4ia+8q6xvtU9yQAPeE7qrEdX3CqgsfAy3weP/5y9wD8V
+	 79hjE4/3eH37DN2wEZF6Og9ZwfTIV910WiB9JphwDeCaO6v4Ltby38P0OPJqb1iF8K+j+
+	 y/2N0yOXSitvU3TI0Bqav0W/0Xv0kdaayCjO6yeKgPoy/wVuBfcJ59YwSBsx4ShivcOj5
+	 bn4EsEacdcGfFMQTUucjMJ4z8ZcJT3dRe1T8jwr1Vp+vYkeFZJjpTkGMrWRaH9AJTXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx3hwOTh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YH0FIjmg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E846606A335;
-	Sun, 15 Nov 2026 23:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B072E606A32C;
+	Sun, 15 Nov 2026 23:01:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx3hwOTh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B935F1F000C4;
-	Sun, 15 Nov 2026 23:01:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YH0FIjmg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D7E1F000CB;
+	Sun, 15 Nov 2026 23:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794783693;
-	bh=+estSKTP5vos6ferPHC7vSoZbFx1RtdPQ+GvGUrze6E=;
+	s=k20260515; t=1794783697;
+	bh=9RKTXa0mNQlc7dJEGQNmec9AiGXENbKZqhKyOZqUSlw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Nx3hwOThc9u41gYjCnWnze4IknSu0jwtA5857xSfUL65VKEt1dbhsVSO7Xl8InBGS
-	 +Yndk6v/GZvJ7B4bxbXZCUIy+zU4qwYI5XIBvJbg4PeSKnIeShEx7qc4RxSYsevxJZ
-	 s27JM8hECFLb0NdfOcrGgxrUJ7x4jCLJCoS/pIDg7c7sfGZ/t8KMYZ038DDHh0n2v7
-	 5xhj2nrnakPK/xNUHRB50gxoZQTqE5qPjAsXw1XmzGwr7UdhV+YXYVIR2ZPuM467Ir
-	 DrXl62MRVnoRo3FUkrDNOvFpWKZQTcBgrJF90GtuNj+9q4NR1bS6tNCsy9Dt7hsoYe
-	 6y0UW9pNMRP4g==
-Subject:
- Re: [PATCH net 3/3] net: dsa: motorcomm: Use VID 0 as the unaware PVID
+	b=YH0FIjmgCqvZU43dhFqZbEYRGyPV8I0nI6jeXqxq9BpiS6XuitHAUOSJAiZxWafjp
+	 FZkdFSpDtfwlPA20XmTb6T6qQaftCpfSwg2nBJmRMysu+FpYVAf7oh0jT86v38fc4m
+	 5Bz9mdazY6ykKw7tDd2CxhwR5yB5Fur9yYRkA/+ab9h2nOuccgGzAkveW66o6Ngakj
+	 mS+Hdyikk1TXOEshQbDPROR/m+W1EVS+kitfXC6gCoSZ5G45ry2FtB1sc7GttTr/qH
+	 PVBzzGjKDEmYj3wtjgXreZ58nYIqthIVAtqdgfkmtXCGMoiM2bFtQL5nMFaAwoyufJ
+	 aeal/8mJaB0uw==
+Subject: Re: [PATCH net-next v2 05/10] net: dsa: realtek: rtl8365mb: describe
+ the ports of each chip
 From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Sun, 15 Nov 2026 23:01:32 +0000
-Message-ID: <179478369229.3136.1576101942763120343@kernel.org>
-In-Reply-To: <20261111234110.1449602-4-mmyangfl@gmail.com>
-References: <20261111234110.1449602-4-mmyangfl@gmail.com>
-X-sashiko-severity: High
+To: o.rempel@pengutronix.de
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, linusw@kernel.org, luizluca@gmail.com,
+ alvin.sipraga@analog.com, andrew@lunn.ch, olteanv@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Date: Sun, 15 Nov 2026 23:01:36 +0000
+Message-ID: <179478369620.3136.10648334333290440373@kernel.org>
+In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-5-f8e6fbdf8c99@pengutronix.de>
+References: <20261112-rtl8365mb-dcb-ingress-v2-5-f8e6fbdf8c99@pengutronix.de>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -64,232 +65,81 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] In the most common case the fix never takes effect.
-- [Medium] A port that leaves a VLAN-aware bridge ends up standalone with
-  PVID 0 instead of 4095.
-- [Medium] The patch removes the setup-time write in
-  yt921x_chip_setup_dsa() that set the VID 0 VLAN entry to LEARN_DIS,…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  yt921x_vlan_filtering(), yt921x_dsa_port_vlan_add() and…
+- [Low] This patch lowers RTL8365MB_MAX_NUM_PORTS from 11 to 8.
 
 --
 
-net: dsa: motorcomm: Use VID 0 as the unaware PVID
+net: dsa: realtek: rtl8365mb: describe the ports of each chip
 
-This patch changes the PVID of VLAN-unaware bridge ports in the yt921x
-driver from 4095 to 0. The goal is for the switchdev FDB entries, which are
-reported with VID 0, to be hit by hardware lookups. It also removes the
-setup-time programming of the VID 0 VLAN entry, and standalone ports keep
-PVID 4095.
+This commit adds a per-chip port_mask to rtl8365mb_chip_info. It reports
+fls(port_mask) to DSA as the port count and rejects devicetree ports that
+the chip does not have. It also lowers RTL8365MB_MAX_NUM_PORTS from 11 to
+8.
 
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index d84e1f6dad843..5cc8a21c9d55f 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
+> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+> index da06f952a053d..1e6cdc61f6bd3 100644
+> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
+> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+> @@ -115,7 +115,7 @@
+>  #define RTL8365MB_PHYADDRMAX		7
+>  #define RTL8365MB_NUM_PHYREGS		32
+>  #define RTL8365MB_PHYREGMAX		(RTL8365MB_NUM_PHYREGS - 1)
+> -#define RTL8365MB_MAX_NUM_PORTS		11
+> +#define RTL8365MB_MAX_NUM_PORTS		8
 
-[ ... ]
+[Severity: Low]
+This isn't a bug, but is "family maximum" the right description for this
+value?
 
-> @@ -962,7 +961,7 @@ yt921x_vlan_filtering(struct yt921x_priv *priv, int port, bool vlan_filtering)
->  	bdev = dsa_port_bridge_dev_get(dp);
->  
->  	if (!bdev || !vlan_filtering)
-> -		pvid = YT921X_VID_UNWARE;
-> +		pvid = 0;
+The commit message says:
 
-[Severity: High]
+  Lower the family maximum to 8 to match.
 
-Does this assignment run when a standalone port joins a VLAN-unaware
-bridge?
+The constant also still sits under this heading:
 
-yt921x_port_setup() calls yt921x_userport_standalone(), so the port starts
-at PVID 4095. The join path never touches PORTn_VLAN_CTRL:
+  /* Family-specific data and limits */
 
-yt921x_dsa_port_bridge_join()
-  yt921x_bridge_join()
-    yt921x_userport_bridge()   /* only clears YT921X_PORT_LEARN_DIS */
-    yt921x_bridge()            /* only rewrites PORTn_ISOLATION */
+The file header comment still describes the family as having more ports
+than that, and it lists the RTL8370MB as a member:
 
-The DSA core then calls dsa_port_vlan_filtering(dp, false) from
-dsa_port_switchdev_sync_attrs(). That call returns early because the port
-is already unaware, and the driver sets neither
-needs_standalone_vlan_filtering nor vlan_filtering_is_global:
+ * In the same family of chips, some carry up to 8 user ports and up to 2
+ * extension ports. Where possible this driver tries to make things generic, but
+ ...
+ *  - RTL8370MB
 
-net/dsa/port.c:dsa_port_vlan_filtering() {
-    ...
-	if (dsa_port_is_vlan_filtering(dp) == vlan_filtering)
-		return 0;
-    ...
-}
+Some of the family-generic register handling was also written for port
+indexes above 7. Examples are the 11-bit RTL8365MB_PORT_MASK, the EXT bit
+for the trap port in CPU_CTRL, and the L2 flush code in rtl8365mb_l2.c:
 
-So yt921x_vlan_filtering() is never called. The replayed default_pvid VLAN
-goes to yt921x_pvid_set(), which also skips the PVID write when the port is
-not filtering:
-
-	if (vlan_filtering) {
-		res = yt921x_port_set_pvid(priv, port, vid);
-		...
-	}
-
-In the default "ip link set lanX master br0" case with vlan_filtering=0,
-does the hardware keep classifying untagged and priority-tagged frames to
-VID 4095? If so, the VID 0 entries installed by yt921x_dsa_port_fdb_add()
-would still never be hit, which is the problem this patch sets out to fix.
-
-Before this patch, standalone and unaware ports both used 4095, so join did
-not need a PVID write. Should yt921x_bridge_join() or
-yt921x_userport_bridge() now set PVID 0 when the bridge is not VLAN
-filtering?
-
-[Severity: Medium]
-
-The !bdev case now gets PVID 0 as well. What happens when a port leaves a
-VLAN-aware bridge?
-
-The commit message says "The standalone default of 4095 stays". However,
-dsa_port_bridge_leave() runs things in this order:
-
-dsa_port_bridge_leave()
-  dsa_port_bridge_destroy()           /* dp->bridge = NULL */
-  DSA_NOTIFIER_BRIDGE_LEAVE
-    yt921x_bridge_leave()
-      yt921x_userport_standalone()    /* PVID 4095 */
-  dsa_port_switchdev_unsync_attrs()
-    dsa_port_reset_vlan_filtering()
-      dsa_port_vlan_filtering(dp, false)
-        yt921x_vlan_filtering(priv, port, false)
-
-At the last step dsa_port_bridge_dev_get(dp) returns NULL, so this branch
-overwrites 4095 with 0. The old code wrote 4095 here.
-
-Can the standalone port then classify into FID 0, which the VLAN-unaware
-bridges now use? The comment in yt921x_chip_setup_dsa() says port
-isolation is applied after the FDB lookup. A frame on the standalone port
-whose DA hits a FID 0 entry for a bridged port would then be dropped by
-isolation, rather than trapped to the CPU as unknown unicast.
-
-The standalone PVID also starts to depend on history. It is 4095 after
-setup or after leaving an unaware bridge, but 0 after leaving an aware
-bridge. Should the !bdev case keep 4095?
-
->  	else
->  		br_vlan_get_pvid(bdev, &pvid);
-
-[Severity: High]
-
-This isn't a bug introduced by this patch, but is br_vlan_get_pvid() given
-the right device here?
-
-bdev comes from dsa_port_bridge_dev_get(dp), so it is the bridge master.
-For a bridge master, br_vlan_get_pvid() returns the PVID of the bridge's
-own VLAN group:
-
-net/bridge/br_vlan.c:br_vlan_get_pvid() {
-    ...
-	else if (netif_is_bridge_master(dev))
-		vg = br_vlan_group(netdev_priv(dev));
-    ...
-}
-
-That is the host PVID, not the PVID of the port being configured. When
-vlan_filtering is enabled, a port set up with pvid 10 would get the
-bridge's PVID (for example 1) written into PORTn_VLAN_CTRL.CVID.
-
-yt921x_dsa_port_vlan_add() and yt921x_dsa_port_vlan_del() make the same
-comparison:
-
-		bdev = dsa_port_bridge_dev_get(dp);
-		if (bdev) {
-			br_vlan_get_pvid(bdev, &pvid);
-			if (pvid == vid)
-				res = yt921x_pvid_clear(priv, port);
-		}
-
-Take the common sequence "bridge vlan add dev lanX vid 10 pvid untagged;
-bridge vlan del dev lanX vid 1". When vid 1 is deleted, the bridge
-master's PVID is still 1.
-
-Would that call yt921x_pvid_clear(), write PVID 0 and set
-CVLAN_DROP_UNTAGGED? All untagged ingress on lanX would then be dropped,
-while the software bridge still thinks lanX has PVID 10.
-
->  	res = yt921x_port_set_pvid(priv, port, pvid);
-
-[ ... ]
-
-> @@ -2336,15 +2333,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
->  	if (res)
->  		return res;
->  
-> -	/* Tagged VID 0 should be treated as untagged, which confuses the
-> -	 * hardware a lot
-> -	 */
-> -	ctrls[0] = YT921X_VLAN_CTRLa_LEARN_DIS | YT921X_VLAN_CTRLa_PORTS_M;
-> -	ctrls[1] = 0;
-> -	res = yt921x_reg64_write(priv, YT921X_VLANn_CTRL(0), ctrls);
-> -	if (res)
-> -		return res;
-> -
-
-[Severity: Medium]
-
-VID 0 is now the classification VLAN and FID for every VLAN-unaware
-bridge. With this write removed, what programs the VID 0 entry?
-
-The entry is left at hardware reset defaults for learning, membership and
-untag. yt921x_dsa_port_vlan_add() and yt921x_dsa_port_vlan_del() have no
-special case for VID 0, so the 8021q auto VID 0 can rewrite it.
-
-8021q adds VID 0 through vlan_vid0_add() on NETDEV_UP when
-NETIF_F_HW_VLAN_CTAG_FILTER is set. DSA sets that feature while the port
-is VLAN filtering. The add reaches yt921x_vlan_add(priv, port, 0, false),
-which sets the port and CPU member bits and clears UNTAG_PORTn.
-
-When the bridge then switches to vlan_filtering=0:
-
-dsa_user_manage_vlan_filtering(false)
-  vlan_for_each(user, dsa_user_clear_vlan, user)
-    yt921x_dsa_port_vlan_del(vid 0)
-      yt921x_vlan_del(priv, port, 0)
-
-and yt921x_vlan_del() does:
-
-	masks[0] = YT921X_VLAN_CTRLa_PORTn(port);
-	masks[1] = YT921X_VLAN_CTRLb_UNTAG_PORTn(port);
-
-	return yt921x_reg64_clear_bits(priv, YT921X_VLANn_CTRL(vid), masks);
-
-Does this remove the port from the VLAN entry that the unaware bridge now
-forwards in?
-
-VLAN-aware ports with no PVID also classify to VID 0, through
-yt921x_pvid_clear() or yt921x_vlan_filtering() with pvid 0. LEARN_DIS is no
-longer set on VID 0. Can frames accepted there, such as priority-tagged
-frames if CVLAN_DROP_UNTAGGED does not cover them, be learnt into the FID 0
-table that the unaware bridges use?
-
-The comment in yt921x_dsa_port_vlan_add() also looks stale for VID 0:
-
-	/* CPU port is supposed to be a member of every VLAN; see
-	 * yt921x_vlan_add() and yt921x_port_setup()
+	/* Now issue the flush command and wait for its completion. There are
+	 * two registers for this purpose, and which one to use depends on the
+	 * port number. The _EXT register is for ports 8 or higher.
 	 */
+	if (port < 8) {
 
-Apart from 8021q, nothing adds the CPU port to VLAN 0 any more.
+With this change, 8 looks like the largest port count among the chips the
+driver supports, not a limit for the whole family. The BUILD_BUG_ON in
+PORT_MASK() reads the same way. So does the later static_assert in this
+series that ties RTL8365MB_MAX_NUM_PORTS to RTL8365MB_QOS_MAX_PORTS.
 
->  	return 0;
->  }
+At the end of the series, the header comment and the placement of the
+constant are still unchanged.
+
+Would it be clearer to rename the constant to something that marks it as
+a driver-supported maximum? Moving it out of the family-limits group and
+updating the comment and commit message would also work.
+
+>  /* Valid for the whole family except RTL8370B, which has 4160 entries.
+>   * RTL8370B is mentioned in vendor code but it might not even belong
+>   * to the same RTL8367C family.
+
+[ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111234110.1449602-1-mmyangfl%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99%40pengutronix.de
