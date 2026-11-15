@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794725289;
-	b=F722NQwu4B5RiyU4h63QtHBFlTm5uak3B9ph4lUFZc3uDDKbiar015uG0MTljeLlqO6q
-	 p+A2mhkJefW9TkNvrRTvC1769sJgAMbvh08me2bzHzheRGDptEax+udkXSKpp1vjs8DRq
-	 qAk282XpYRGIkpRTOikeY5txNwXQ9ti0p+uZyng3aFT43R+8OUSzrmjVzJUyfH2A0imMC
-	 ovXn5wpz9bYL+vkDBwoVYz6W4ki+BmeOGoxgeveIVNnOsMTMAv+8lWhmrK3K5WzIZVbwE
-	 Cc+20W2ps3QVBtlRI7xludxqB7X3hhjBVfwPWI41O9iLGoHrdWgJkBDZVWVyZe7CTLA==
+	t=1794725296;
+	b=W2kCMgsBY30tCB13CaJ2C+m4SuuY7hyVgSQwUpPMHVQRgibX21zblGbAyp2z6V50y9MU
+	 TroOlmmaLZPbtYzOeAyLeRusjsnUsWJuodWh/kwvLJL8g7EIo4Ic981z+DKOZMzfDE+4u
+	 K4O0sk24TFujSHU9wYpLRnGy34X7G74TCFVXVbfpfU5qLouZuFRu9di2E9svTb1PXXODR
+	 k9PQ9B62Y1kNY/TLuB5UI8oJwAbAch6iB3BuIHisuwL/QKpJZuD2r4a51cFfXbhDg1Cxh
+	 LtV52JVW4QwT9d/MQ7oI6nbjF6syWZ/OK7MHPFiSBrcQR2MmAeOTgGdSJ1YMRgp9leQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794725289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794725296;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Hlklr9HjlYj9YlI7wKU2ZXzvdmAz50MqQ9W4xUO0aG4=;
-	b=H8TUXwmce0t3+c1Cp91/Qrn5vn9gWvRj3C1txBSviszY5YDg1+c9Yi/lOOLYtaOrM7XA
-	 hnRma5dGy8QJu1pp+vvbxyRS/E6oCyCbWVy0F4aIjMEIiEkR4pM7NVxPzmR69Kkc3Dsmq
-	 VUD9PS7VhRkhpZkeQEsFrQiJquXa/X5ckZdZq7VR0o1fXTqfCp/RqD7DV8IYgbEirHSoW
-	 gpz46ZQSDWxgRPqMyAlXsWCS/PsoDMREk3p3PGGZMLsRtmcZsSbKzGSVf8mFJI1ZGcm1R
-	 CfhaNOS8UEn2gWwIJVFjgxItez+4EM1sZxW1UIpi9elqBUurokzVtsqmpX+DAe4K8dw==
+	bh=dyenbPZNtGuUfwVU+kdmxfuV+o4Dxas+l3oqGSTufiY=;
+	b=3x61dRzYm9oSuGny1SKUnuDLWgtjEhR+e8RV3Iea54hv82K1Lq7Xw1IGjvMzDDqnXDoA
+	 X25tdL8vG92lI50P/5/NJz5U0BOlSS6k3MZ7wHNnPwDLfB/1rYReg8xo+JYsR1leJA6DH
+	 TQXY8g1CMhle5Pr4dquMaWwnpnm/Wtjr4XJO/5EhYMkdV64lkn6rTv1+7Ge2h2atyDC07
+	 n4IKxMmAsvmYlpZgOQreFg2k0YWbPHACFxagQB6cyBB9Kb+eE9qCngZHed8XbtcJ9KvN8
+	 zHDdLwt1kMKL8P5nhlJ5u13j8HEOgfjUY3ktlCVwZoJT7D6NoHGFH68n4hiDyERNhVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a9gytPI8;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="k/WRPb0z";
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8682C606A331
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:48:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8682C606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47028606A32F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:48:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47028606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a9gytPI8
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso2221894a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:48:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k/WRPb0z
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b179528d56so1110154a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:48:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794725288; x=1795330088; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794725294; x=1795330094; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hlklr9HjlYj9YlI7wKU2ZXzvdmAz50MqQ9W4xUO0aG4=;
-        b=a9gytPI81Y5foG3FbMZfapMHQLFw/iePnUs0Q5D/44GskmTDm6XBcWBdqvsg5LM340
-         FcBM7Z2R7P7GRkYRAp4dcDWU9P37xQkU3NgnbzemWocCSc9w8wBaOsYy8pxYobfT4ROk
-         y3Hir9CT9bKutG0H+uCM7CydErlvmWjvfIlB96WBoCUYxNFqEl0N2mtVZeQ0jL9Iqj/f
-         akRfFOCRWa1ZDffzQNqniOuYO6ooVDvn91GFvNIftsvyjBQu7hghG/JI9o2ShopuPGPN
-         AuCQ0xegRRutDrYJx/mAIrTV+5QpJU763oR/U5+kT3Gere4MN+I47Pd3V9f2FGPcp2A4
-         m5ug==
+        bh=dyenbPZNtGuUfwVU+kdmxfuV+o4Dxas+l3oqGSTufiY=;
+        b=k/WRPb0zHWBZf1QiP72VaQpemhqNKerApg2KK1po+DTMJKAcfP6CVsyjWUXKiWkqWS
+         oYl4wtKoQPLWlq+UIhnicENs1ZanTCxO6GcThB7fUwj0sIvEFY7UIzwkM4bxPxqU1tgp
+         1ZieLik0fruRBHQiCVEJc3ORgY3XjuqNSobx6OKZdDlWym74jUPegxFqHvkWatwi8xRn
+         Q+SJhGnCU05I3iu84fHcEapWJwda9STXKJbe7+szKx6DmW38cvPU7+l0yk3A8LXxP46T
+         ARzhyW+IPmYxxCnZ2+PHMVAjWvHuq0jK2HgC5J3xVwg55pxXD9EkL/CeXF9+35leSOZ5
+         u6gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794725288; x=1795330088;
+        d=1e100.net; s=20260707; t=1794725294; x=1795330094;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Hlklr9HjlYj9YlI7wKU2ZXzvdmAz50MqQ9W4xUO0aG4=;
-        b=v3JUnPP1xyOoTmY1kcWAMBndAxYMGmFNkBaQGxvC6AtGttoz0AyQ0iqcWKdfIRAj9N
-         8i8RipWkLozpDZVYmqwuPQ3qXfiJdLpISW0rMe6hAdRoPO/1vjGnJTP3gcLLEsBUkFeX
-         nyVxONX4TnPl9VDARJBRqv/ENoPQTCHyESJOI98AE/+ztzElDJUuQRJ/GdVgiPwLI6+M
-         SDoLQ9mX/0fbhEHq94WzehW7quIxFoVqEbZHvsuYXG4elVih9GBzC01VSzEhSf3yQ4ub
-         D9rtDORvZCC4kcpXPCVPIYgCvs8gdIcAofwHyBgJMnmaLDJl1vlh1kegGr/aDbfna5Pm
-         sOVw==
-X-Forwarded-Encrypted: i=1; AL+hErEK8ckhfrGDQg/LqHeCPlkUgpth+Sg66cXlUmdIBs8nFqwhKywax2EVUo9iOkSiJK4nqIea758jOMXkeuE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KFGRIWQqKz0FeUUizBVa0SaaqWYQOFA5hln3uLpqWHuXQpday
-	obT9uobwIKLDCBvTauu+YTdYqmRwe0z4yDV39dZRtigVYE+TgPTXBoMO
-X-Gm-Gg: AYBFou020x7fqMUkMjbDVw6HbrcFSCje1+j0es8mU/6bZAAXXY27wJMTgum0a8ZWXRY
-	v6dTzkiCqfYRfdextF6nnPio6/9AFM6zVxGbbQB5awHUDHLyw/C7+jXzX6r0Z6jmkb14ZIdbPzn
-	ogiQ17Mm4zpO6PdfteGYGiRxbLJY3bbjY568ak84iuYgT7diyjylHiTnVsVqIWxWDuVT7I8CIUa
-	NO35ARvZQDdU9eAmA4Z3IU9NQkocOxDgH/wrQf/EXjlN3Dtk/2NvDcxUDUccriL/6UpxPDlj9CU
-	PmVuw/30A5hURnN2LUxuvht7SeGglgF7xyMRk/NrLfL9tGJNhle6iFGYjXaCl4OgCd+ZiDcqFpp
-	VqB6d4Zbx+VZ27xNW3BWUlz8gV5dfYGjFi2n5sO/2gj12zcIx9/to/0cQA+Oy7xZ88KPKuT74fi
-	+txQT9BI+PLha4pvAFgp/DEiIA/52DvFzU/FXgwt+lLsg7dM1xiprt5B2tt4ViYo3awryTMsl/x
-	HWwX9B7Gd+8sDIrNsQnMhLmAhEs729QXADpFJBlC6ZJ9y6lrHQeQl81sE45EBUCvwDfKB3f9eGT
-	zp3/2FzzurI6B46PgImf75xytnTd+npj5HQz1q7UcI3Aa3a45lCwQoI4eAZUq6gGqh7lI1VktaO
-	K0tZ+3BeJ+jfY1p6BOm7wEt8n2XEBuO3kl4+JbglCBhdr/lFWApn7NiVGgA==
-X-Received: by 2002:a17:90b:4cc9:b0:3b1:82fb:7e03 with SMTP id 98e67ed59e1d1-3b1b09e665emr7066042a91.11.1794725287676;
-        Sat, 14 Nov 2026 22:48:07 -0800 (PST)
+        bh=dyenbPZNtGuUfwVU+kdmxfuV+o4Dxas+l3oqGSTufiY=;
+        b=LGK6M6HwGGLvkBCMUqnBk0tqM9UWDWXA37ImBYO+c3X3lHpPl2WjbOlgFXrUP7Qwqy
+         edswnJY60Qo5FV7reNRFuJjyfQbGEpzlD7SnrYIquxScm3T8SIKUkHvdP2pfEksw2bz1
+         cRz8Z4y+sS+smEQqX4+ovD/6cNuHtc8zwkkJhLUnbxtiJVs6w1Ukb4HzB2BU9dO/5MiF
+         2QYIhElui13xe95xnAUBLsuEFK+4x1gVlQIALl4wqx6ea3vud2/Rr8UR3V+/QLjxT7kO
+         2TZFcFy2krkSR0lbhHeDmw1yfFVzgZn01DPc3nsQOly5N+1L2Fg0sEeeXEUKn9TgXEfR
+         6IbA==
+X-Forwarded-Encrypted: i=1; AL+hErGJ/tLfnEc8RQRzaIOjtdCMNrjVfHRR392KjSLYbLVgw2zl2anXtXOfEuCkmGWozTEg0lT5JNam6aTxeMo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NcPzsi8cb6ErTX3jCLiwOZwrKoO9YysKgg2hKA4rwxjk9+m7I
+	MHj+0tocIHOfknR0TJpnfhmjhvtGnrxWJ5gEzTS/DQM1xcfU06d6sDjf
+X-Gm-Gg: AYBFou12SQQPcVzfq04vHpqsWfTPhQYu5BKM5VsVYbGv8G6PhXdxa71rG6aHpQV8S33
+	a6q85ydYJPDznpPClyL5sG4FZAhClJSDHK4OUK7eyZVKbqRIBaXNE7n1EgK/gb0Uk2QMWEk5Zxy
+	Ssy4X0HSzznhhXxI1d4yA5p1cxZOxhJfezu6oJ1QVU8rpoWKrGYSTLIEKSsoO3qQarP2XussY4W
+	uv4WObsducsM1ov8XRTetDbtlTn0F743DoYe2Yb+6u/m27bjccwRBuSeAfjx8mFcGTy6IditjWp
+	Qw9sJmwZRT8z3lL3N4CA8aLiyDW7PlTbu861KozK+YAm3BBAv2nhbVdzjs+2dwNP5jJDcKi4KXj
+	j2n1ayXqwwRVwe+EcIIW4y4q1jBBkBOJ4xTcg32VqZR3ELr4TjdVidRP5F6sBE+3498n91Lke/q
+	OkQ/w5uya1LT77F3NAgPrnsQzxhX2X+kMJrHL9LtIBtD/3jUraW/YDSN7dbvw1yvROjOrl/PyXH
+	hapTdhTPxm9FhkkFMbl3tGUX4UTNCra1INmWYWhyE61OdIYY0jHNDg9oHW40WaXCFlJMm+bQ6K9
+	wZteZyhtXpo/hc4e0SzyBY9cSQMHIUSJlxmD8fHEBgtvo5sSBKm6BElgtJX9Q2/vouZPA3YaKi2
+	9xL5eXdynkr71uEYKiKXESzwyPHgYDc2ADvPaT7P8KQT2Ppn9Ucze8yzn
+X-Received: by 2002:a17:90b:3806:b0:3a8:f70f:2437 with SMTP id 98e67ed59e1d1-3b1b0b53ad8mr6483603a91.50.1794725294505;
+        Sat, 14 Nov 2026 22:48:14 -0800 (PST)
 Received: from [169.254.3.1] ([143.248.188.96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d27d26sm16136309a91.13.2026.11.14.22.48.01
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d27d26sm16136309a91.13.2026.11.14.22.48.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 22:48:07 -0800 (PST)
+        Sat, 14 Nov 2026 22:48:14 -0800 (PST)
 From: SeungJong Ha <engineer.jjhama@gmail.com>
-Date: Sun, 15 Nov 2026 15:47:37 +0900
-Subject: [PATCH RESEND net-next v2 2/3] rust: net: phy: make Device generic
- over a lock context
+Date: Sun, 15 Nov 2026 15:47:38 +0900
+Subject: [PATCH RESEND net-next v2 3/3] rust: net: phy: pass a MaybeLocked
+ device to soft_reset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-exp-phy-rs-maybelocked-v2-2-8fa7897a0352@gmail.com>
+Message-Id: <20261115-exp-phy-rs-maybelocked-v2-3-8fa7897a0352@gmail.com>
 References: <20261115-exp-phy-rs-maybelocked-v2-0-8fa7897a0352@gmail.com>
 In-Reply-To: <20261115-exp-phy-rs-maybelocked-v2-0-8fa7897a0352@gmail.com>
 To: FUJITA Tomonori <fujita.tomonori@gmail.com>, 
@@ -117,277 +117,84 @@ Cc: netdev@vger.kernel.org, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, SeungJong Ha <engineer.jjhama@gmail.com>
 X-Mailer: b4 0.15.2
 
-Some PHY driver callbacks run without `phy_device->lock`, but every
-callback gets a `Device` whose type says the lock is held.
+phy_init_hw() calls `soft_reset` both with and without
+`phy_device->lock`, but `soft_reset_callback` hands the driver a
+`Locked` device and its SAFETY comment says the lock is held.
 
-Make `Device` generic over a lock context, `Locked` (the default) or
-`MaybeLocked`, as `device::Device` is over its device context, and move
-the methods that do not need the lock to both contexts. Update the
-documentation and SAFETY comments to match. The next patch uses
-`MaybeLocked`.
-
-No functional change.
+Pass a `&mut Device<MaybeLocked>` instead and correct the SAFETY
+comment. Update ax88796b_rust, the only implementation.
 
 Signed-off-by: SeungJong Ha <engineer.jjhama@gmail.com>
 ---
- rust/kernel/net/phy.rs     | 141 ++++++++++++++++++++++++++++++---------------
- rust/kernel/net/phy/reg.rs |  17 +++---
- 2 files changed, 105 insertions(+), 53 deletions(-)
+ drivers/net/phy/ax88796b_rust.rs | 8 ++++----
+ rust/kernel/net/phy.rs           | 7 +++----
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/net/phy/ax88796b_rust.rs b/drivers/net/phy/ax88796b_rust.rs
+index 2d24628a4e58..88e6e3c88b44 100644
+--- a/drivers/net/phy/ax88796b_rust.rs
++++ b/drivers/net/phy/ax88796b_rust.rs
+@@ -30,7 +30,7 @@
+ // BMCR_RESET bit and poll for the reset bit to be cleared.
+ // Toggle BMCR_RESET bit off to accommodate broken AX8796B PHY implementation
+ // such as used on the Individual Computers' X-Surf 100 Zorro card.
+-fn asix_soft_reset(dev: &mut phy::Device) -> Result {
++fn asix_soft_reset(dev: &mut phy::Device<phy::MaybeLocked>) -> Result {
+     dev.write(C22::BMCR, 0)?;
+     dev.genphy_soft_reset()
+ }
+@@ -85,7 +85,7 @@ fn resume(dev: &mut phy::Device) -> Result {
+         dev.genphy_resume()
+     }
+ 
+-    fn soft_reset(dev: &mut phy::Device) -> Result {
++    fn soft_reset(dev: &mut phy::Device<phy::MaybeLocked>) -> Result {
+         asix_soft_reset(dev)
+     }
+ 
+@@ -115,7 +115,7 @@ fn resume(dev: &mut phy::Device) -> Result {
+         dev.genphy_resume()
+     }
+ 
+-    fn soft_reset(dev: &mut phy::Device) -> Result {
++    fn soft_reset(dev: &mut phy::Device<phy::MaybeLocked>) -> Result {
+         asix_soft_reset(dev)
+     }
+ }
+@@ -127,7 +127,7 @@ impl Driver for PhyAX88796B {
+     const NAME: &'static CStr = c"Asix Electronics AX88796B";
+     const PHY_DEVICE_ID: DeviceId = DeviceId::new_with_model_mask(0x003b1841);
+ 
+-    fn soft_reset(dev: &mut phy::Device) -> Result {
++    fn soft_reset(dev: &mut phy::Device<phy::MaybeLocked>) -> Result {
+         asix_soft_reset(dev)
+     }
+ }
 diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
-index 7ca3f2329e6a..105a1b727a08 100644
+index 105a1b727a08..46602798e8ac 100644
 --- a/rust/kernel/net/phy.rs
 +++ b/rust/kernel/net/phy.rs
-@@ -50,6 +50,51 @@ pub enum DuplexMode {
-     Unknown,
- }
+@@ -358,9 +358,8 @@ impl<T: Driver> Adapter<T> {
+     /// `phydev` must be passed by the corresponding callback in `phy_driver`.
+     unsafe extern "C" fn soft_reset_callback(phydev: *mut bindings::phy_device) -> c_int {
+         from_result(|| {
+-            // SAFETY: This callback is called only in contexts
+-            // where we hold `phy_device->lock`, so the accessors on
+-            // `Device` are okay to call.
++            // SAFETY: `phydev` is valid for the callback. `phy_init_hw()` calls `soft_reset` both
++            // with and without `phy_device->lock`, which is the `MaybeLocked` context.
+             let dev = unsafe { Device::from_raw(phydev) };
+             T::soft_reset(dev)?;
+             Ok(0)
+@@ -575,7 +574,7 @@ pub trait Driver {
+     const PHY_DEVICE_ID: DeviceId = DeviceId::new_with_custom_mask(0, 0);
  
-+/// A trait implemented by all contexts a [`Device`] can be used in.
-+///
-+/// - [`Locked`]: Serialized against every access made under `phy_device->lock`. The default
-+///   context of [`Device`].
-+/// - [`MaybeLocked`]: `phy_device->lock` may or may not be held.
-+pub trait PhyContext: private::Sealed {}
-+
-+/// The [`Device`] context of every [`Driver`] callback that does not take a
-+/// [`Device<MaybeLocked>`].
-+///
-+/// PHYLIB calls these callbacks in one of three ways:
-+///
-+/// - With `phy_device->lock` held: every callback not listed below.
-+/// - Without the lock, but where PHYLIB ensures by other means that no other path accesses the
-+///   instance: [`Driver::probe`] and [`Driver::get_features`], which are called from
-+///   `phy_probe()`, and [`Driver::suspend`] and [`Driver::resume`].
-+/// - Without the lock, possibly on an unbound device or one bound to another driver:
-+///   [`Driver::match_phy_device`], which therefore only gets a shared reference.
-+///
-+/// # Invariants
-+///
-+/// For the lifetime of a `&mut Device<Locked>`, no other thread accesses the state of the
-+/// `phy_device` that `phy_device->lock` protects.
-+pub struct Locked;
-+
-+/// The [`Device`] context of callbacks that PHYLIB calls both with and without
-+/// `phy_device->lock` held.
-+///
-+/// A callback in this context must not take `phy_device->lock`.
-+///
-+/// # Invariants
-+///
-+/// None beyond those of [`Device`].
-+pub struct MaybeLocked;
-+
-+mod private {
-+    pub trait Sealed {}
-+
-+    impl Sealed for super::Locked {}
-+    impl Sealed for super::MaybeLocked {}
-+}
-+
-+impl PhyContext for Locked {}
-+impl PhyContext for MaybeLocked {}
-+
- /// An instance of a PHY device.
- ///
- /// Wraps the kernel's [`struct phy_device`].
-@@ -57,6 +102,9 @@ pub enum DuplexMode {
- /// A [`Device`] instance is created when a callback in [`Driver`] is executed. A PHY driver
- /// executes [`Driver`]'s methods during the callback.
- ///
-+/// `Ctx` is the [`PhyContext`] of the callback. Methods that rely on the exclusive access that
-+/// [`Locked`] describes are implemented for [`Device<Locked>`] only.
-+///
- /// # Invariants
- ///
- /// - Referencing a `phy_device` using this struct asserts that you are in
-@@ -71,34 +119,9 @@ pub enum DuplexMode {
- // [`Driver::resume`] and [`Driver::suspend`] also are called where only one thread can access
- // to the instance.
- #[repr(transparent)]
--pub struct Device(Opaque<bindings::phy_device>);
-+pub struct Device<Ctx: PhyContext = Locked>(Opaque<bindings::phy_device>, PhantomData<Ctx>);
- 
- impl Device {
--    /// Creates a new [`Device`] instance from a raw pointer.
--    ///
--    /// # Safety
--    ///
--    /// For the duration of `'a`,
--    /// - the pointer must point at a valid `phy_device`, and the caller
--    ///   must be in a context where all methods defined on this struct
--    ///   are safe to call.
--    /// - `(*ptr).mdio.dev` must be a valid.
--    unsafe fn from_raw<'a>(ptr: *mut bindings::phy_device) -> &'a mut Self {
--        // CAST: `Self` is a `repr(transparent)` wrapper around `bindings::phy_device`.
--        let ptr = ptr.cast::<Self>();
--        // SAFETY: by the function requirements the pointer is valid and we have unique access for
--        // the duration of `'a`.
--        unsafe { &mut *ptr }
--    }
--
--    /// Gets the id of the PHY.
--    pub fn phy_id(&self) -> u32 {
--        let phydev = self.0.get();
--        // SAFETY: The struct invariant ensures that we may access
--        // this field without additional synchronization.
--        unsafe { (*phydev).phy_id }
--    }
--
-     /// Gets the state of PHY state machine states.
-     pub fn state(&self) -> DeviceState {
-         let phydev = self.0.get();
-@@ -177,17 +200,6 @@ pub fn set_duplex(&mut self, mode: DuplexMode) {
-         unsafe { (*phydev).duplex = v as c_int };
+     /// Issues a PHY software reset.
+-    fn soft_reset(_dev: &mut Device) -> Result {
++    fn soft_reset(_dev: &mut Device<MaybeLocked>) -> Result {
+         build_error!(VTABLE_DEFAULT_ERROR)
      }
  
--    /// Reads a PHY register.
--    // This function reads a hardware register and updates the stats so takes `&mut self`.
--    pub fn read<R: reg::Register>(&mut self, reg: R) -> Result<u16> {
--        reg.read(self)
--    }
--
--    /// Writes a PHY register.
--    pub fn write<R: reg::Register>(&mut self, reg: R, val: u16) -> Result {
--        reg.write(self, val)
--    }
--
-     /// Reads a paged register.
-     pub fn read_paged(&mut self, page: u16, regnum: u16) -> Result<u16> {
-         let phydev = self.0.get();
-@@ -206,14 +218,6 @@ pub fn resolve_aneg_linkmode(&mut self) {
-         unsafe { bindings::phy_resolve_aneg_linkmode(phydev) };
-     }
- 
--    /// Executes software reset the PHY via `BMCR_RESET` bit.
--    pub fn genphy_soft_reset(&mut self) -> Result {
--        let phydev = self.0.get();
--        // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Self`.
--        // So it's just an FFI call.
--        to_result(unsafe { bindings::genphy_soft_reset(phydev) })
--    }
--
-     /// Initializes the PHY.
-     pub fn init_hw(&mut self) -> Result {
-         let phydev = self.0.get();
-@@ -276,7 +280,52 @@ pub fn genphy_read_abilities(&mut self) -> Result {
-     }
- }
- 
--impl AsRef<kernel::device::Device> for Device {
-+impl<Ctx: PhyContext> Device<Ctx> {
-+    /// Creates a new [`Device`] instance from a raw pointer.
-+    ///
-+    /// # Safety
-+    ///
-+    /// For the duration of `'a`,
-+    /// - the pointer must point at a valid `phy_device`, and the caller
-+    ///   must be in the `Ctx` context, see [`Locked`] and [`MaybeLocked`].
-+    /// - `(*ptr).mdio.dev` must be a valid.
-+    unsafe fn from_raw<'a>(ptr: *mut bindings::phy_device) -> &'a mut Self {
-+        // CAST: `Self` is a `repr(transparent)` wrapper around `bindings::phy_device`.
-+        let ptr = ptr.cast::<Self>();
-+        // SAFETY: By the function requirements the pointer is valid for `'a`. `Opaque` permits
-+        // other `&mut` to the same `phy_device`, e.g. in a concurrent `MaybeLocked` callback.
-+        unsafe { &mut *ptr }
-+    }
-+
-+    /// Gets the id of the PHY.
-+    pub fn phy_id(&self) -> u32 {
-+        let phydev = self.0.get();
-+        // SAFETY: `phydev` is valid by the type invariant of `Self`. `phy_id` is set by
-+        // `phy_device_create()` and never written afterwards.
-+        unsafe { (*phydev).phy_id }
-+    }
-+
-+    /// Reads a PHY register.
-+    // This function reads a hardware register and updates the stats so takes `&mut self`.
-+    pub fn read<R: reg::Register>(&mut self, reg: R) -> Result<u16> {
-+        reg.read(self)
-+    }
-+
-+    /// Writes a PHY register.
-+    pub fn write<R: reg::Register>(&mut self, reg: R, val: u16) -> Result {
-+        reg.write(self, val)
-+    }
-+
-+    /// Executes software reset the PHY via `BMCR_RESET` bit.
-+    pub fn genphy_soft_reset(&mut self) -> Result {
-+        let phydev = self.0.get();
-+        // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Self`. The C
-+        // function does not require `phy_device->lock`; PHYLIB itself calls it without the lock.
-+        to_result(unsafe { bindings::genphy_soft_reset(phydev) })
-+    }
-+}
-+
-+impl<Ctx: PhyContext> AsRef<kernel::device::Device> for Device<Ctx> {
-     fn as_ref(&self) -> &kernel::device::Device {
-         let phydev = self.0.get();
-         // SAFETY: The struct invariant ensures that `mdio.dev` is valid.
-diff --git a/rust/kernel/net/phy/reg.rs b/rust/kernel/net/phy/reg.rs
-index 80e22c264ea8..e6892f3b855f 100644
---- a/rust/kernel/net/phy/reg.rs
-+++ b/rust/kernel/net/phy/reg.rs
-@@ -8,7 +8,10 @@
- //! Ethernet management interface clauses 22 and 45 register namespaces, as
- //! defined in IEEE 802.3.
- 
--use super::Device;
-+use super::{
-+    Device,
-+    PhyContext, //
-+};
- use crate::{
-     build_assert::build_assert,
-     error::*,
-@@ -44,10 +47,10 @@ pub trait Sealed {}
- /// ```
- pub trait Register: private::Sealed {
-     /// Reads a PHY register.
--    fn read(&self, dev: &mut Device) -> Result<u16>;
-+    fn read<C: PhyContext>(&self, dev: &mut Device<C>) -> Result<u16>;
- 
-     /// Writes a PHY register.
--    fn write(&self, dev: &mut Device, val: u16) -> Result;
-+    fn write<C: PhyContext>(&self, dev: &mut Device<C>, val: u16) -> Result;
- 
-     /// Checks the link status and updates current link state.
-     fn read_status(dev: &mut Device) -> Result<u16>;
-@@ -104,7 +107,7 @@ pub const fn vendor_specific<const N: u8>() -> Self {
- impl private::Sealed for C22 {}
- 
- impl Register for C22 {
--    fn read(&self, dev: &mut Device) -> Result<u16> {
-+    fn read<C: PhyContext>(&self, dev: &mut Device<C>) -> Result<u16> {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call, open code of `phy_read()` with a valid `phy_device` pointer
-@@ -116,7 +119,7 @@ fn read(&self, dev: &mut Device) -> Result<u16> {
-         Ok(ret as u16)
-     }
- 
--    fn write(&self, dev: &mut Device, val: u16) -> Result {
-+    fn write<C: PhyContext>(&self, dev: &mut Device<C>, val: u16) -> Result {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call, open code of `phy_write()` with a valid `phy_device` pointer
-@@ -196,7 +199,7 @@ pub fn new(devad: Mmd, regnum: u16) -> Self {
- impl private::Sealed for C45 {}
- 
- impl Register for C45 {
--    fn read(&self, dev: &mut Device) -> Result<u16> {
-+    fn read<C: PhyContext>(&self, dev: &mut Device<C>) -> Result<u16> {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call.
-@@ -206,7 +209,7 @@ fn read(&self, dev: &mut Device) -> Result<u16> {
-         Ok(ret as u16)
-     }
- 
--    fn write(&self, dev: &mut Device, val: u16) -> Result {
-+    fn write<C: PhyContext>(&self, dev: &mut Device<C>, val: u16) -> Result {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call.
 
 -- 
 2.54.0
