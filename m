@@ -1,59 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794785064;
-	b=1jl0EN20D1G1Rl3ntoZf6bFF0WtFU6aiE/wv02FvwjpMbTbQ2BLuQUFtcEiwAmNdr1vB
-	 v4xaPwZ7KBTjt0MRwiDF9loVu3knHsrhxnUZQGcZ3wAiFY8juI6o5LQ0wri8K4RB8diCR
-	 ClxP3w0A/c9OZ4TU2AcpLzlzxxlVc7YgSHIy5POaG4Uc1kHGudLAH8CfXeItz4QTLVYrd
-	 nTokbybKRV5mMRPJRu/x5hxlVN9yqBy20ll8EQroXOYP5QR9f8N2Hp5Sui5q7UvH0FYRZ
-	 PhYZpDpF6LS5z5SjgNUCCcCus5QU4iFlWgv3DnOKclegxYpGQqQ1Ra6mfvy+SRTeo2g==
+	t=1794785200;
+	b=WsPbCt4KDLL64M8gSSK72vibfubNSteTlNMbv0biO9KnxTMaC5Rk/H0BTISexUpmS3Ce
+	 /GSPHGdvnH9d+YrRAHvFK3rtRk/jacP3oMc4ZKNGHbJNiJbDV11YVm+UogloC8CJr9KB+
+	 RnBpw/E8fLkqor57IxxG/2P0w6SEzYJzJjT1LS7/co/ENaX5VoBRdmvt3h4S9Jgfi3b2i
+	 mUBp9hXTRvLK354p0m1I4PK0huqHsG1Dt6UmnE7dctj8f5DZK5jmQHpWfEPdFj5dIQNvJ
+	 NLY4FUHJXDz+YXlmKSna+DmzGxa4irlqosGn4+/WPIAIVm11gt9clYJuKHq9zPpE37A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794785064;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=zIRCMnCmh0TbW9Y3nfJjlNJQfeeJ3tQBoST3rj6Xuhw=;
-	b=eq8xUGUa8XuUuLfHg77HmYT30eWL8DRzcZbfQ/3B04ABZeXoyWJ7XxDZJvqEobX+BcA+
-	 2R8+8yqWhoxbbTc5fqmrx5KeXnwrcX1fKcaTj+a3NC13ENBt3kuyFtMoYvW7IEy755vr7
-	 Kk+9CwrsXYfoQm89sE1B37Rq8gJYBwYrpIInsZqm+1uPzmdktGFjQRUk5bI2+mRkco8m2
-	 2dkYybP7CyGbT2y2h0bduA6yWU7gWkvnWuk9ip1/nkvkWEkGgR6zYtHBEC32fBm92zHtW
-	 4bJsJTqi7/5Yya0EEy+x8Z1pBFXDfYZJlgavx8IK6Rd7w8t+tY9qQvajtaRsMJ2FmZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794785200;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=20xh83TZY5Uy9+3Rpue534EqUQXyz0SBbzg5tu3uVBA=;
+	b=qaiKkduqbm258h1D3NKh841LRKgKQhlRUc+Vqc2qoEC+K4gh+kURe89DfC4m4vOxD+vW
+	 WUmBXtSbgLCL1VL6D1qRRHYTcDSMgcfLNEgxqkJ5lQ+dg3P/4jK6baRFR7mCOSriEpVF2
+	 QAI55LPI6gQhtarUCCn1QVYvRRdcCrm+OdrFB9g+1lH/Nd9TFVKkEO90Y1mArX0B0cp0C
+	 jnDbBcCa5a6Off109HyD0ztb7fswuG9qKSnaBiwZfYx79uH4XC1bdOaeJmyZFaRzQknGQ
+	 jHLJYzAbiZtD2k2wwDu24xeyak+wrgc+i7Hj2qAxKbLG5hk1Zrj2t0jH35vFNbBRiJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raidlab.org;
-	spf=pass smtp.mailfrom=raidlab.org;
-	dkim=pass header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=hGiMC94b;
-	arc=none smtp.remote-ip=185.70.43.170
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gj10Swzo;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8920F606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:24:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8920F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=raidlab.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raidlab.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0CC606A330
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:26:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A0CC606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=hGiMC94b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=raidlab.org;
-	s=protonmail; t=1794785060; x=1795044260;
-	bh=zIRCMnCmh0TbW9Y3nfJjlNJQfeeJ3tQBoST3rj6Xuhw=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=hGiMC94bZXbyf8rQVvkDJrHhY3ZgkNPcgFNdVXOopKogfIoh4PYNfUUsMBOOthRlD
-	 BBg1jH3xCgf7oOTCVNEAqGuiXsm97gOZlYLET95RFip9H78LYl4gwrIpr18hLzwv1l
-	 mK72QJmSWpl3EMgC7Im9QMYY+Ev/w1jLgkh40/u9sd/gm+6LKrxP9Oro3l+LvqDUHe
-	 bSUXO8rNUtxajPOWgIlbKXXg8Ahz+NfnEEpGE/slzq89DD3xomq1VmJyZLoZTL55fD
-	 4DNncxwGmOK53rv854LQzNSueAe2ZRtnoDjsp1wXCR4MheANTCTGZtZhZkDQ+STwE1
-	 SLEuE3B5f31yg==
-X-Pm-Submission-Id: 4jSRsF0L0nz1DDLP
-From: Miroslav Cimerman <mc@raidlab.org>
-To: linux-btrfs@vger.kernel.org
-Cc: David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	Qu Wenruo <wqu@suse.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] btrfs: raid56: fix use-after-free when waking up the rbio I/O waiter
-Date: Sun, 15 Nov 2026 23:23:57 +0000
-Message-ID: <20261115232358.58163-1-mc@raidlab.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gj10Swzo
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cddac941ed1so1265566a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:26:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794785199; x=1795389999; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=20xh83TZY5Uy9+3Rpue534EqUQXyz0SBbzg5tu3uVBA=;
+        b=gj10SwzoKMqoqx9yr7X2Fju4cNBju2Oqd5X0Ay4Y61hHfD7PCDp9yiFRZZggUUCphi
+         EgquiXzLIx6aY4R2RTd5ZLyzF7a+dFyArlFGpwOF8hzIuQxpoF1rvqBPTA90bbQtiSc3
+         ZX0RVckXRZHz0dFR0n/+vn5BPOC/cB4YcRGnL/oyILEIke66Jod48SG+Qv5PIZtk+cJ3
+         a4jGk58g4rcuy6H/nHZi7pTcKmRSJIlcgRxeZ8a/8BRn14ucVJyS4iEkzUGGbVSfsTxE
+         PA1L6L9cE4UDQma31GznSkYOnY4WfVQEo52nxdxOSnQrrOnmbWew4sNB0BE/xLjNWEuG
+         NuZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794785199; x=1795389999;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=20xh83TZY5Uy9+3Rpue534EqUQXyz0SBbzg5tu3uVBA=;
+        b=AbNlVTMdHsXXP76SmtnhK4+m8WbjMjXqwsyANrfAdohnG+g9naV0ZBpQaJ6aa04+lI
+         R0B8zqV4iUmq0a4m03wTP654Q8geEyQrocAtrEq99EPej6sW+c4Re4HIlmedsvpBK+Lo
+         fh4Dx9QwPiC+r7aORwS9xLy7t1MZhi2bSIoEXM1knQvEoEVr/L3NjpSctoE4PCxxWulI
+         gSB4APElBWJGemvIIYt4Zka3VgLmc21iROLG3Dk77YhksqaORjdtaZM+c97hGsJqvrqw
+         LTYt2+GE2sM8LkO6RsnxTMRI5XsdwigduO911mog0UVQh9ZnDAxsHiCgapgMqFehl6CN
+         Yvpg==
+X-Forwarded-Encrypted: i=1; AL+hErHYj4F7bVIUv0+lU5bF8A5+pMKV7PP6M6NDSZ4DbYLJJqfo4QY/1p6zo3S4+4FV3wLPu101wp0prXl6D9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Im70IeClbWDdCg4MwGBdxtfuAqnc/tUNpZy5o9LnhruhPw4Lw
+	9YVXFVgzbrxUiMF8wGDpxUA1VbQukF+tOWH7J/ElC+uyR5p3DV4CrUML
+X-Gm-Gg: AYBFou1uG3AOWl6Qiur+oOkiepoJvi5TMMl2Cz6EcfU0h+mpO0pb7CmRjPKLBu+myJT
+	tbL6IeoaqzIqXlg2MWrS1MB64b8XQXdYSlOtEyRwgeB6RTI/mGVAXcbAbsi7AmoED3dgZ9j5Y6k
+	NwKpKhSGx+WDh2Qsc0p0KU+94o76esMje69Ruw1ni/80bmgM1df4jes7E8v/7L+ali/A/twpUzL
+	3B1MaxNIaDBRgWqGZsIijp4P8m09wzZguyKQj79ZkniMw2dUbIpMMSal8G+tpSSB95YnW9eYA2x
+	VvVPySQwuuEzhynUlBS+AGVuGYFS0JJu5vJvgfToJBg0dU/cfc/oBQ1g03O6Z785SVB2/H6eiVf
+	hP/iJLvEH/afWbVaAicOZYRUdM8Ut+TfrlSXMN2YLKmUqvGO6mAACVTWBXaxd37MCHUxF1842qT
+	ldxnAwXmGcSM9LkvIliXSi2R6ANcGE7+6e9TtGvcUU6e3BDhuuwVfuhecwXsIWkLhTP9u8O/Zyf
+	6G4tahrRFuspU+QZqlLGnKMjIpTkyUFLiZHAaMOeKixYg3gvthEcucWmvf3i8MTYaZxLfwNEGFO
+	R+YMgseaqfZ3b+haA3Ciyj5VBGokLSiabyx3NPVdJMcDpp10yAYxUw5owQuTlKGi1FdLOwKYbdl
+	GTNL5f3HHwapcvoNztJn20CKsuvgdZM8X7w==
+X-Received: by 2002:a17:90b:2e06:b0:3ac:8897:7bab with SMTP id 98e67ed59e1d1-3b1b07e1cd4mr8163612a91.6.1794785199420;
+        Sun, 15 Nov 2026 15:26:39 -0800 (PST)
+Received: from localhost ([153.61.198.241])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3f09b92sm6832094a91.4.2026.11.15.15.26.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 15:26:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,191 +88,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 15 Nov 2026 23:26:38 +0000
+Message-Id: <DMW695ICRVGM.2YJJUJQ12T0V6@gmail.com>
+Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, "Sashiko" <sashiko-bot@kernel.org>
+Subject: Re: [PATCH bpf-next v3 0/8] bpf, sockmap: Restrict iter-context
+ sockmap updates to sockmap iterators
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Michal Luczaj" <mhal@rbox.co>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>, "John
+ Fastabend" <john.fastabend@gmail.com>, "Eric Dumazet"
+ <edumazet@kernel.org>, "Kuniyuki Iwashima" <kuniyu@google.com>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Willem de Bruijn" <willemb@google.com>, "Jakub
+ Sitnicki" <jakub@cloudflare.com>, "Jiayuan Chen" <jiayuan.chen@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>, "Jakub Kicinski"
+ <kuba@kernel.org>, "Simon Horman" <horms@kernel.org>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap"
+ <rdunlap@infradead.org>, "Stanislav Fomichev" <sdf@fomichev.me>
+X-Mailer: aerc 0.20.1-355-gf870624f6c37
+References: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
+ <DMV5NLOEYFGF.C7ITHCRCNA7P@gmail.com>
+ <e8f1736e-3f13-4f92-ad69-8b166c41e68a@rbox.co>
+In-Reply-To: <e8f1736e-3f13-4f92-ad69-8b166c41e68a@rbox.co>
 
-The end_io functions of the RAID56 read and write bios decrement
-rbio->stripes_pending and call wake_up(&rbio->io_wait) when it drops
-to zero. The submitter waits with wait_event(rbio->io_wait,
-atomic_read(&rbio->stripes_pending) == 0).
+On Sun Nov 15, 2026 at 11:10 PM UTC, Michal Luczaj wrote:
+> On 11/14/26 19:45, Alexei Starovoitov wrote:
+>> On Sat Nov 7, 2026 at 5:58 PM UTC, Michal Luczaj wrote:
+>>> Follow-up to Sashiko's report [1] and the decision to restrict which
+>>> iterator may perform sockmap updates [2]. Series started short: remove
+>>> about-to-be-stale test, restrict updates, add a negative test. Then it
+>>> expanded: mark bpf_iter__sockmap::sk as PTR_TRUSTED, restrict
+>>> bpf_sock_destroy() callers to iter/{tcp,udp}, few little tweaks.
+>>>
+>>> [1]: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
+>>> [2]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
+>>>
+>>> Signed-off-by: Michal Luczaj <mhal@rbox.co>
+>>> ---
+>>> Changes in v3:
+>>> - Drop RFC prefix
+>>> - Update bpf_iter_reg::feature docs
+>>> - Fix tcp_request_sock BTF build error
+>>> - Restrict allowed callers of bpf_sock_destroy() to iter/{tcp,udp} (Ale=
+xei)
+>>> - Link to v2: https://patch.msgid.link/20261102-sockmap-update-limit-it=
+er-v2-0-e96a63c43b39@rbox.co
+>>=20
+>> Sorry for the delay. Applied.
+>
+> No problem, thanks.
+>
+> To follow up on bpf_iter__unix::unix_sk, looks like there's a single help=
+er
+> that will become unusable from iter/unix (once plain-PTR_TO_BTF_ID is
+> gone): bpf_get_socket_cookie(). PTR_TRUSTED then?
 
-wait_event() checks the condition before it sleeps, without the wait
-queue's lock. If the submitter checks it after the last decrement and
-before the wake_up(), it does not sleep, finishes the operation and
-can drop the last reference to the rbio, which frees it. Even when
-the submitter sleeps, the wake-up removes it from the wait queue, so
-finish_wait() returns without taking the queue's lock while wake_up()
-may still hold it. Either way, wake_up() then uses a wait queue in
-freed memory, in interrupt context. On 6.12.117 (bio_endio() and the
-end_io function are tail calls, so they do not show in the trace):
+I have a patch that 'forks' bpf_get_socket_cookie() into two helpers.
+One for trusted and one for untrusted.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:__wake_up_common+0x25/0xa0
-  Call Trace:
-   <IRQ>
-   __wake_up+0x31/0x60
-   blk_update_request+0xfd/0x410
-   blk_mq_end_request+0x1d/0x1a0
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-With KASAN on v7.4-rc2 and a test-only delay between the decrement
-and the wake-up:
-
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x76/0xe0
-   __wake_up+0x1c/0x60
-   raid_wait_read_end_io+0x132/0x10f0
-   blk_update_request+0x21e/0xea0
-  Allocated by task 82:
-   alloc_rbio.isra.0+0xa8/0xbf0
-   raid56_parity_recover+0x10a/0x9c0
-  Freed by task 84:
-   kfree+0x154/0x420
-   rbio_orig_end_io+0x1c4/0x340
-   recover_rbio+0x393/0x590
-
-Wait with a completion instead. complete() wakes the waiter under the
-completion's lock and does not touch it afterwards, and
-wait_for_completion() returns only after taking that lock, so the
-rbio may be freed as soon as the wait returns. The parity scrub waits
-for its writes only when finish_parity_scrub() submitted them.
-
-Found with FuzzyRAID, a fault-injection tester for RAID.
-
-Fixes: d817ce35d24a ("btrfs: raid56: switch recovery path to a single function")
-Fixes: 5eb30ee26fa4 ("btrfs: raid56: introduce the main entrance for RMW path")
-Fixes: 6bfd0133bee2 ("btrfs: raid56: switch scrub path to use a single function")
-Cc: stable@vger.kernel.org # 6.2+
-Signed-off-by: Miroslav Cimerman <mc@raidlab.org>
----
-FuzzyRAID is not public yet. The analysis, the fix, the tests and the
-commit message were prepared with the help of an LLM. I reviewed
-everything.
-
-The crash: 4 of 10,711 fault-injection scenarios on a 3-device data
-RAID5 in QEMU (6.12.117). With KASAN on v7.4-rc2, a test-only delay
-(20 ms between the last decrement and the wake-up, 0.5 ms before the
-read wait) shows the use-after-free above in the first pass of reads
-over the RAID5 with one device dead. With this patch and the same
-delay there is no report and every block reads back correctly.
----
- fs/btrfs/raid56.c | 30 ++++++++++++++++++++++--------
- fs/btrfs/raid56.h |  4 +++-
- 2 files changed, 25 insertions(+), 9 deletions(-)
-
-diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
-index a8a8004bb14c..60f270c3a339 100644
---- a/fs/btrfs/raid56.c
-+++ b/fs/btrfs/raid56.c
-@@ -1019,7 +1019,7 @@ static struct btrfs_raid_bio *alloc_rbio(struct btrfs_fs_info *fs_info,
- 	}
- 
- 	bio_list_init(&rbio->bio_list);
--	init_waitqueue_head(&rbio->io_wait);
-+	init_completion(&rbio->io_done);
- 	INIT_LIST_HEAD(&rbio->plug_list);
- 	spin_lock_init(&rbio->bio_list_lock);
- 	INIT_LIST_HEAD(&rbio->stripe_cache);
-@@ -1619,7 +1619,19 @@ static void raid_wait_read_end_io(struct bio *bio)
- 
- 	bio_put(bio);
- 	if (atomic_dec_and_test(&rbio->stripes_pending))
--		wake_up(&rbio->io_wait);
-+		complete(&rbio->io_done);
-+}
-+
-+/*
-+ * Prepare to wait for the nr bios about to be submitted. With none there is
-+ * nothing to wait for.
-+ */
-+static void rbio_prepare_io_wait(struct btrfs_raid_bio *rbio, int nr)
-+{
-+	reinit_completion(&rbio->io_done);
-+	atomic_set(&rbio->stripes_pending, nr);
-+	if (nr == 0)
-+		complete(&rbio->io_done);
- }
- 
- static void submit_read_wait_bio_list(struct btrfs_raid_bio *rbio,
-@@ -1627,7 +1639,7 @@ static void submit_read_wait_bio_list(struct btrfs_raid_bio *rbio,
- {
- 	struct bio *bio;
- 
--	atomic_set(&rbio->stripes_pending, bio_list_size(bio_list));
-+	rbio_prepare_io_wait(rbio, bio_list_size(bio_list));
- 	while ((bio = bio_list_pop(bio_list))) {
- 		bio->bi_end_io = raid_wait_read_end_io;
- 
-@@ -1640,7 +1652,7 @@ static void submit_read_wait_bio_list(struct btrfs_raid_bio *rbio,
- 		submit_bio(bio);
- 	}
- 
--	wait_event(rbio->io_wait, atomic_read(&rbio->stripes_pending) == 0);
-+	wait_for_completion_io(&rbio->io_done);
- }
- 
- static int alloc_rbio_data_pages(struct btrfs_raid_bio *rbio)
-@@ -2329,7 +2341,7 @@ static void raid_wait_write_end_io(struct bio *bio)
- 		rbio_update_error_bitmap(rbio, bio);
- 	bio_put(bio);
- 	if (atomic_dec_and_test(&rbio->stripes_pending))
--		wake_up(&rbio->io_wait);
-+		complete(&rbio->io_done);
- }
- 
- static void submit_write_bios(struct btrfs_raid_bio *rbio,
-@@ -2337,7 +2349,7 @@ static void submit_write_bios(struct btrfs_raid_bio *rbio,
- {
- 	struct bio *bio;
- 
--	atomic_set(&rbio->stripes_pending, bio_list_size(bio_list));
-+	rbio_prepare_io_wait(rbio, bio_list_size(bio_list));
- 	while ((bio = bio_list_pop(bio_list))) {
- 		bio->bi_end_io = raid_wait_write_end_io;
- 
-@@ -2444,7 +2456,7 @@ static void rmw_rbio(struct btrfs_raid_bio *rbio)
- 	/* We should have at least one bio assembled. */
- 	ASSERT(bio_list_size(&bio_list));
- 	submit_write_bios(rbio, &bio_list);
--	wait_event(rbio->io_wait, atomic_read(&rbio->stripes_pending) == 0);
-+	wait_for_completion_io(&rbio->io_done);
- 
- 	/* We may have more errors than our tolerance during the read. */
- 	for (sectornr = 0; sectornr < rbio->stripe_nsectors; sectornr++) {
-@@ -2915,7 +2927,9 @@ static void scrub_rbio(struct btrfs_raid_bio *rbio)
- 	 * and writeback the good content.
- 	 */
- 	ret = finish_parity_scrub(rbio);
--	wait_event(rbio->io_wait, atomic_read(&rbio->stripes_pending) == 0);
-+	/* It submitted its writes if and only if it returned 0. */
-+	if (ret == 0)
-+		wait_for_completion_io(&rbio->io_done);
- 	for (sector_nr = 0; sector_nr < rbio->stripe_nsectors; sector_nr++) {
- 		int found_errors;
- 
-diff --git a/fs/btrfs/raid56.h b/fs/btrfs/raid56.h
-index 8700910b8dc9..6c82a975eb68 100644
---- a/fs/btrfs/raid56.h
-+++ b/fs/btrfs/raid56.h
-@@ -12,6 +12,7 @@
- #include <linux/spinlock.h>
- #include <linux/bio.h>
- #include <linux/refcount.h>
-+#include <linux/completion.h>
- #include <linux/workqueue.h>
- #include "volumes.h"
- 
-@@ -175,7 +176,8 @@ struct btrfs_raid_bio {
- 
- 	atomic_t stripes_pending;
- 
--	wait_queue_head_t io_wait;
-+	/* Completed by the last end_io when stripes_pending drops to zero. */
-+	struct completion io_done;
- 
- 	/* Bitmap to record which horizontal stripe has data */
- 	unsigned long dbitmap;
-
-base-commit: 3aefd67f08f8ed59ed0fa90619b25856df415031
--- 
-2.53.0
+Also have a patch set that removes legacy ptr_to_btf_id for good.
+Hopefully will send today or tomorrow.
 
