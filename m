@@ -1,64 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794774860;
-	b=E1mMX7ZpACysVYoimuN8O9IiciiZMRwWRjkmFVHdNDBpXLJRkS96sLTL3xQ0+mhfNZka
-	 hZo8g97Dr68Vx3cdN9xNgjZfGM9m5WylS8HtRvfrNJGRsMIB5eLiX/oMV/CsID3ggvO37
-	 CUll1O2SovsqOu5S3IenQU80AXV7smF5efP60z0P7p4B2CFv8M4Zm+REGfyj4m2AFgiro
-	 17re7ZPJOthHJAOK8qWuxogBJKiQNiDAdPe9cN2/CzDFx4TWP9o6VvfGmKJKPK86CW/m3
-	 o5j4C/U3jra+KW2fqCycBUKKmNgC0iX9ENjUI/Ud+MiEU9c+WgFcLo7mPpUSG1EJciA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774860;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0nGt0KgN7ZwITYkYsID+jJGz08PG7bgk+SBDh8jIF88=;
-	b=RHogT9b2I3pCKzQz7CD1kY11NeKmI2aFh3c2d4g0AuTyC8QrS3EutkZXvf7E1a8JOGuk
-	 KqH7S60sN+Ru/XW5q0XbK26zyE4tZOLpdNeliODJW7mTBc/SDeNxPYxOb24uJTFpfEcCr
-	 cQfxJXXx0uH+2sprAcQAjcRmQidDzBFfI6RoQMT+wEYJyBmSPa6gbnWEn/AsD7zyvf2L2
-	 5XdsKZLgD+lo33fuN0NHk5bDPmAAhT/6bDSG5lXpE+zSvRJAmjx9+aMiw5C47DNVr/dYu
-	 nEYYK2merAmE6mUbzaeZRFmv7U7udlg9Dc2oA0ozSPXIuXOfBAt+4RLh+u8whemHJTQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWVdNDT2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794774913;
+	b=tur6bxpiA1wt+YM+mtnx7jtfIyj69edYmFwiKjGDGM+Gug7wkmxfFUsjvPrwznm6SWSD
+	 4TROJhIhpvlBOSp8ib0fuGlzUen2cN4Qlwywrm78qz2Nv8O708mEBgUdPmcwjR8fy24mP
+	 XMQlypZXpJAOi6jJGNunAgi3t5TJQZCuKbHi3hHqVSIgW6sbGcVP5mAy5iSFfdkcyNj/q
+	 9imGVCcfG8SEaV/JhkCQEAkpaSAJ3R/9O6dggzfsul+WBoSZIpSuRitrUfzGXnJURU5Bh
+	 33ol/SS3bGsjwCL8vvVdpkL8lMk6BTgpV7Zik2+DsqSZa8qxs8W2B3TjbR4UO5Antcw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774913;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hfoGaPOvarXU+50W/KFhlCJQD8hal54gXW4WmBlLFMM=;
+	b=mjInQ7Hez+5qYL/iVoKERXlvnFr6LKibiekMTpKFcQQpsWrcDR9qOtiFiLpIgVotDfj1
+	 Cy7Crmya3NeHuS9qxL2Z2OOhuhAT4QhxF7nOTMIYj3EbsSsrnibZGBTfGO9iTOlJvMaXM
+	 VKeuaUZCS3xdx1gIqyMFAYcyFAVmNVIyl8hcV86tl5Usylkr8wHIiQmpa1wvIia+1Cj5O
+	 irmwMIp/BUDIIg2/2t6v4jZ23tu3Kkwt0MoibOhSiKU/JshefkXEO3jZF09IvKdEpW/nX
+	 AQdpjx57m3W7eIZNScr5voaNkA5as9vuKmXL8zBw/dLEFvcNnlFRsVVPGlbCVSvc12w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=TzBK7im3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C0C606A323;
-	Sun, 15 Nov 2026 20:34:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE95606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:35:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE95606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWVdNDT2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8554E1F000C4;
-	Sun, 15 Nov 2026 20:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774860;
-	bh=0nGt0KgN7ZwITYkYsID+jJGz08PG7bgk+SBDh8jIF88=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BWVdNDT2I6Vk73xHewDziaQdUL7i+7Wcy7QoU8sELD4SGUV/LqLPt1h0eRNM1zYUP
-	 aIpnBwyP5RxS49grL0FB/aFKqnXnxfzXR+rkNqL/0v+oyzbDjjT/h1ZriCssh6dsk7
-	 ysttIUEGJoTHeF/l19M3PMM0ma59B1oMLm3CX2NHy+Mi5vbwNqd7ZlLYbwC3uLdD9O
-	 6tnsoTSqMVE5Dfy5b89s6uoTDnx/VPhoWvHOeG5Dcoy2mJ/tJU1khRMI+ZCyW8v9Gt
-	 PE38ipo/EtN3gMMjnLfCseIjA4AluzPKpms8rrzXTjpG6t3kuFI8uaKW5xfNHRg1J/
-	 g0amq3n3z0nfQ==
-Date: Sun, 15 Nov 2026 20:34:11 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, Arnav
- Kapoor <kapoorarnav43@gmail.com>
-Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new
- temperature in trigger handler
-Message-ID: <20261115203150.7faed0b1@jic23-hlaptop>
-In-Reply-To: <20261115183949.11591-1-zoone.rupert@gmail.com>
-References: <20261113230241.82046-1-zoone.rupert@gmail.com>
-	<20261114013817.476f8fb9@jic23-hlaptop>
-	<20261114083525.11972-1-zoone.rupert@gmail.com>
-	<20261115010203.2a939bd6@jic23-hlaptop>
-	<20261115183949.11591-1-zoone.rupert@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=TzBK7im3
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b4c2da74c0so4156507b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:35:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794774912; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mzPJbegwT2hydk8BcCxUKYXsa6kv5OW4Y7sXVnrjSukL6//Zz4s2BlZe85Th3AjlCq
+         Fu6axPvoRVU/wMQds1pwtnLB7WLDiHz6tcqwUQmX8b9oyjUZCLF1nfoup/nOdvchY0Wc
+         l/tMbGgX23C41yq3z6lHagvIJinOG/nZld1puLgcAsNoP/kF3sOs87nLWfKmBTc8mg8W
+         j8KT+llKe43/JMIdx3w7WzPV84DPI56QOysqXORNpuZ+G3oaOszcjT33ILPNSRGUvawd
+         OA9kHXR9Pmmf9Re9E2lAPqnAcIS+Pnq2OK+DridhQ4+5t0Rsmil9o5q0v86kC25yF7tk
+         6dqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hfoGaPOvarXU+50W/KFhlCJQD8hal54gXW4WmBlLFMM=;
+        fh=On7R+nc2vtckB4PUhsjkLYHOceM9SA3mfG6hZexM5aA=;
+        b=cjNDlnEWfqmykaLgvm3ta++ayavwAa9ljwX35nxGhe68CUL5Isi1OaLhCKRgA8MkG9
+         Q9Z57jYXIJ9uMGZnWSPJiYNPu729q7XhACUXC3/mzbIrRaVaOuuwwArFsGXgESBgKvae
+         wLsm24C9AplRZsNUuGRKs6vOGvlpR+gSKw2pmZunm/VpwSYu14Tnp9KIMJWGtt74tL2B
+         v5w1zZpgGtGQeNEjSPwBxzyds57CtF7bGuR+YPbC41T08gH57ag0eeNf0zd0ew4l3IyW
+         QCOtfZ1YVV1g92c6RWH1nY/VwAcndhYtVCVGMlFRhYPJhzOzrFvKOYyg9O72++tZmMTi
+         22ww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794774912; x=1795379712; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hfoGaPOvarXU+50W/KFhlCJQD8hal54gXW4WmBlLFMM=;
+        b=TzBK7im3+A4TiHE8I1qr19R9+l0rNSyHA0FD1ldcuLLKw1GjH6aCJNIaK1H04kn3Kt
+         tq5BWmYEFXeGwK6Fw/3kFe9rGnRajOyFIVndChGVmR1Aw2BDigzZbBodCm5A6Cc9bStB
+         W4UbsLi0e0KPaOH3/AkiJO+gXsar0r5vtdsMi3Qy/czfHW0hhWap/KazaPCqm5oDF9Fm
+         II/ddsLBDRW1iVoWxcLCNHuYP8V9XU6Xqtk7aCd/drSvKhv1VS7TxCvq8iWt56MZeDlH
+         EDlSJ5KYossvwEWcFTNeNxEeCBnlYEqok51o3nrg83hAKJp6+arb9VvCD7nM0gaePGSV
+         Oqzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794774912; x=1795379712;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hfoGaPOvarXU+50W/KFhlCJQD8hal54gXW4WmBlLFMM=;
+        b=V9tqmTIqMSFnZ52IMvzybj8K1UbvYvE7S7JvPxqbvtm+yclavgIuJBF0e6XOkh/NQ9
+         gu1EJ4a3Fu0/tc0xTYkIh+MvLGCvmu4VVXfKOOrQnE0Z+fJ+cCj/Dw54z0lZLEGa+Hti
+         maMnyB3970FiCzK4boK6BnlfMqvi4sLg9BoGaWzuVjTduGC5hTvOUnTyZlwiyIQevPER
+         SX4KV2qAIrsiUROqYOaOww4ROXTx9Nj17FUgveDDn7vVmABub0P+X9Ox+Nk5B3Fok8Ot
+         slmaPHKDuiaQESWLkTvpLHKmaWfLl/E2151g2wQmVQtWmqtW9iFoeAvTFMkBc8puseMJ
+         pYeA==
+X-Forwarded-Encrypted: i=1; AL+hErF1vHF1c+YYhYeWuZB4Ojgk5uHNCYm7nepuOZckhM0Tnxc/m50aruDMk0yAOA/mJMU0+ksbshkVUhwl9aA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wQTrADHfa+X3OarSk82ckq/JuCPEpGOVyT0DOiBRfEwu2o9Ho
+	AVGuqz6+L7GvTlpU72w0XWrXksL+XevBeOd197aICJlaqYHqSA3xUmAcOoIXcURlCJKdwtEByxn
+	eIqSKMlbj2YMCvVNt+8wCVIB0dkiYKyY=
+X-Gm-Gg: AYBFou3UoqX1zagUZvZlCb3HA79a72TUmLFb5+574ex7jm6y/whFOLZ/cLehbQoFRdF
+	IK1G5QbynyCMS9QLRCLe/z18/1tKhIy/Hw1XVspCUnzzWBQNAKaWgFHoq6IE2LZZWextyYRdy3C
+	FeeeCumKT0I4tty4HQ31LFoWMbvLutDSxvFqtCAHHaWo4MshgYSNRuDGc9uQd0z7VLCHz/GFHvN
+	cyw1gcCCrY/4URNZvCllO63ZchmdE6+9GGtMfvhzVycuYGfrJVjN3uAvVHGPiutggy9jun8GIEN
+	JzW90wRq8tS9Sopp0fPqVBwGo9+vsSkD0PsKGBVEt9rMrVe4jnWMpHenUUCDOACfRp1VLmhGl5Y
+	JKv8Q5jRcKD/kWP9jbzI52/BHA44X9asZ3mGd/lioXDfC3kdex3RepcaqeNTBKwcpQto6wA==
+X-Received: by 2002:a05:690e:12cb:b0:67d:b94b:6021 with SMTP id
+ 956f58d0204a3-67db94b66dcmr213466d50.143.1794774911740; Sun, 15 Nov 2026
+ 12:35:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +104,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261106104632.54161-1-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261106104632.54161-1-christian.koever-draxl@student.uibk.ac.at>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 15 Nov 2026 21:35:01 +0100
+X-Gm-Features: AclHuK-bZ0RnQfOiBUZa9VF3gQt02asaFssBFzc6vFvqnEmYWhTqvHFuHS-Culc
+Message-ID: <CAFBinCDfE9J7fFnvJ2YqeFx1ZijY+5aFjGcpcBLMDrnpU8OipA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: usb: amlogic,meson-g12a-usb-ctrl: add S4 support
+To: christian.koever-draxl@student.uibk.ac.at, krzk+dt@kernel.org
+Cc: gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org, 
+	neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, 
+	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 15 Nov 2026 20:39:49 +0200
-Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+On Fri, Nov 6, 2026 at 11:46=E2=80=AFAM
+<christian.koever-draxl@student.uibk.ac.at> wrote:
+>
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+>
+> The S4 USB glue is the G12A one, but it fronts an xHCI host controller
+> instead of a DWC3 core, with two USB2 PHYs and no USB3 PHY. Add an S4
+> compatible with the G12A one as fallback, and allow a generic xHCI
+> child node.
+Krzysztof, I have have a question regarding the last sentence:
 
-> On Sun, 15 Nov 2026 01:02:03 +0000
-> Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > > Probe value only lasts until the next temperature result. By the
-> > > time the buffer starts TMP_RDY is set, so first scan takes a new
-> > > temperature anyway (checked on the board, buffer enabled 5 s after
-> > > probe). The probe read also covers direct pressure reads.  
-> > I'm a bit lost.  So how stale can it be in the direct pressure read case?  
-> 
-> One temperature period, so 1 s at the default 1 Hz. A direct pressure
-> read takes new temperature result whenever TMP_RDY is set.
-> 
-> Probe read is for a pressure read that comes before first
-> temperature result after probe. That one would use temp_raw = 0.
-
-That all sounds good.  I tried to apply it to the testing branch of iio.git
-but I'm getting some build errors (+ a load of fuzz). I guess this
-has dependencies that I'm missing?  If they are fixes, then I may just have
-to wait until I can merge back into my tree (after they are upstream).
-
-Anyhow, if you can figure out what I have wrong wrt to patches before this
-then let know!  + add that info to future patches.
-
-Thanks,
-
-Jonathan
-
-> 
-> Thanks,
-> Rupesh
-
+[...]
+>      oneOf:
+>        - $ref: dwc2.yaml#
+>        - $ref: snps,dwc3.yaml#
+> +      - $ref: generic-xhci.yaml#
+Does this mean we need to the allowed child-nodes to the compatible
+string (so only S4 allows generic-xhci and G12A only allows dwc2/dwc3
+but not generic-xhci)?
