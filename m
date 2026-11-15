@@ -1,104 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703169;
-	b=T+Y0/a9IUOKQjFvkzZVp+ulGJ4wCSeJeTQlV8+orWDQCuI40jdZ018vdOCEL6Y5GVEQ3
-	 ar0l7/mfdusCWuQChN0DVgKAV7JAsXWHJk+KQOe9wQZ9qgk7FpbdWPXa4zHR7VlsYRs95
-	 LRtferSfQ4Sj7mhKy6btYG5nMeqJNEQsjQ1VEp+QJHOXmT56sENJ8jQGrS9rsjBirexgM
-	 3CUsHZbaqDnEdljxpH2ndxuRbl4djJTws3g8/Yj4Pks+8IR8Xhj7k5prM/fJcLp/sfkR+
-	 rY9Lw6/bYU8sLnxXfJPM1KkcBrRFRQpcqDOLp3UTLgUMPfg9pZAnJ4w5W/JIi9GGarQ==
+	t=1794703205;
+	b=cWzuheuMYu23wh4MHxKK8/anvBvAdSzvjznCQqlXqyEw7sqrWRZsZDMSWhhXPmtLQBJb
+	 QxCwRNgGjjT9zo1DrwvhlrXJBMAZF+psuQOxm+pFdZh75LUPvR3dE+QiWsTdSZM9f0FdY
+	 uNLGFmLjEvyB+FRcwc9I2hfLuvGw8g2wpJv3H+eVLeNyITa7+we7tsHY4+1tT5B+bqIyl
+	 h+vY1Gn/df8p1to0SXUIPip/OupfkfmfWvXOF0fUKtExwqLsbmf3T2gy5Co47lVMXzPt0
+	 Lednf3ZdH5QfX12tvNpFhmCZdQrebfPTesc5trNsg/yjGw0hlaPA0+QBrWomZFnBoPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703169;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703205;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tG3TwJW+J1JqnPjNeoFVDsdxOoEFkP+pmJh5VpZnCWI=;
-	b=vUoZgSVQO/Vp0tmszVHddXZmSJ7xQ3xEDjI4b3liRONLyzhR52QiZVkdi4/qEcAgeR4s
-	 iUHINBZlf7lipO02aOTO5q50Wr/ij7czkjec8Pjfz/cjRifwu9ot+YeAafrkMIQFHL9PJ
-	 l66mmhOeaGvicnrI+Q75cWAlraV5slv7Srrbo1Yvni6cov15zcBA0u7GWyw/tjErruWSG
-	 xP2j9Dd3d12KadKolv9ArwtaU/+rrlAflv/UzzYy6svuMf9N/CpGcL0Ca/+70uTo/sJMA
-	 X4vFje1YvBeTpkwP4puTajV1QcizscmkEDuFWgsG8GRNv4P30ZRfjyJvKUL0tjgiy1Q==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ghyyyMShfprSIjcu4sKZdV7cO51zD2ouEy83EYOaPGc=;
+	b=v1hTNRKlO1cB31EqNg/8d1YHvZ103xop6GbXCVZwnxCrIGyG5qH3DqvuJdOqCmIAogLc
+	 5PI3BPxRTaG3CCvaUkzNeAvXkZTiBAsWFO5dyHprKB6lD/v4BsnCQUNTbUL1P4C3+7LZq
+	 mKWE4euDCCvHkXzQPspRRmdeVlW9euTQFtpGpbycDIXXGFtrqNWIzh2U8xmMDM7PSdrc4
+	 Q4lxnErQbbk3HE+bVqgzYbMiKVyFeQf3/IrkWTD5BEuHhq/kUEe3UIXStTiq3hj5ExwFw
+	 U7IAvrTD5GY6xINAjyo9kIxHvLXBqpmcrWTMAADsebuLcJDzX3956owYz/xfDe2QSGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="SyTLNdZ/";
-	arc=none smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MZwvnFYm;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DA3606A8A5
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66DA3606A8A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BB4606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:40:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25BB4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SyTLNdZ/
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67921b515a7so2292779d50.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:39:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MZwvnFYm
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so3545107eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:40:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794703168; x=1795307968; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tG3TwJW+J1JqnPjNeoFVDsdxOoEFkP+pmJh5VpZnCWI=;
-        b=SyTLNdZ/vXgZ8RGN6nqVHTfHG3FbZfmpMUqY+8D14IGlGoWN5Lgxyz4hZATbXm9eHD
-         65LHjRh9mb6cF5UlTqBZqrSMCV5TLQUNJLragsX6RF4JmVvH5nmFbm0vpXyF+ZW5cCTk
-         rDnYulxbTSuXEoMc0uwbq1GnF9MOLHDuSckxL6U0aXDXQU5BnR7ekPXqPvHmFodGNajS
-         pF8F7uS/G2LsF7C8QJcSKko3aAeGKKflJ2dEJrdnEhe6WBrRpKhgDqcOc+58QhXzUyHC
-         M6aueTtlR8ege5+NEeEvwyEQdWHHxoWX3c5YpkwTMI6ddF9200XUkKJhIr04mzTzhF9o
-         SKdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794703168; x=1795307968;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1794703204; x=1795308004; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tG3TwJW+J1JqnPjNeoFVDsdxOoEFkP+pmJh5VpZnCWI=;
-        b=favp3VMCfb/xELZP0rDndRtulzPBhw0wjOE8BYoIpQhKoHJ6S+nU62e106rJLjh09Z
-         3mWY3hnS4pLb+au69xKwM9LyYNJHcIJxDsCK8f3mPjzc8+qgOwJ5QQ6V6ElhCjN/Fe0w
-         VXM366rOLL1ctPpjKWf5toxJp1l09rYpM3rFvAbasTk+AMWusTmE8xowVgwnJ/fTWSii
-         lrB8N2/zmFyk7jM33D45ci3unAT6zLnyBsgLgYR9PpYdBhe6QeRiJp/TLnMwYZhAKQ1i
-         av4+WMHdp7l687a0BIZY3iTkEYidwyFtuf4w/SwjBideNpYa9g1mPKJqE48pmfpn0xkd
-         BuLg==
-X-Forwarded-Encrypted: i=1; AL+hErF9RQdO/3uu1SXFpAmaGCYoEjbhgiOL155cDsyEBvylam7HB+XdwOHkH8GTsfbX5Za7fGkJ2MYN9xVEqN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8SIMqOVoScGHk39KCnhVdlTPTXvcyzwj96bZLTXXj+mHixHSB
-	bgL2P0RpUV2+k1jDKfhNANWIVhN9vb1Uq8c0aD6TaW5bJ1JSOCvDltny
-X-Gm-Gg: AYBFou0c5XPHK1RgrH3Hy7aqA4eNLZJdVPpkmHvVww3tyiZ+AkBLbVRpXb+5exnuWAF
-	AGTbKYSxCyCvJBbQUVh3NVMlC+FcNhm0jU+haq2r+ZbI/zZVy8ShsmVSjEJH5mbFZ2Ltg7o0h7G
-	oYmubm/4z11vV2Tn4rGDyGlWxmnTGRgtWx4CsJc2RaWsnYsE7YOh0A85Mhd2n7HB8sB5qlN5PGd
-	qt91Jbo7a5VRr0VylcTnyvdWt4gXzmnMxhW+mzII+LvliUGVGUAzLUPaFuxmShqe13/rDwEEIwP
-	c+RHnatvj63zkTVCRQviCyNMX/tgVVIiKW2j5762WILIdbiYaor5oCJLGJtwvMs8hdgKr24MOkm
-	9n2hVPLK9DhPP9NVntfQMChH6Hfiyt6fBykt8L9SM/PAbtUEiYjm69o8G5gNvVRXKBJxcPgt5hM
-	Yv1Llh74ONahAnJopB19Q3ABXWmU4rC3pgTKBjUxpaQk1kn2Zi2TpBEYpq6sj5kzHxFMxsBfWYD
-	sWPLN/6UcuODSeISYniYsh5enx5og0BQD1Qzxs/3pedP89g6Whrgf0EZvPtikKEvZ4QiLjtdT42
-	zV983ADmsYEIiDjK43d0fYsyL7QDJAq5zGAagl7M7+gZ+GcytZQVjP9yCcHDiXgx2yR8QJE6x7V
-	mpg==
-X-Received: by 2002:a05:690e:419c:b0:67c:1b89:b117 with SMTP id 956f58d0204a3-67d8972ec68mr4388147d50.77.1794703168379;
-        Sat, 14 Nov 2026 16:39:28 -0800 (PST)
-Received: from codey.attlocal.net ([2600:1700:22f5:3930::a])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67db0361f39sm189602d50.19.2026.11.14.16.39.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 16:39:28 -0800 (PST)
-From: Lalit Maganti <lalitmaganti@gmail.com>
-To: acme@kernel.org,
-	namhyung@kernel.org,
-	irogers@google.com
-Cc: adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	jolsa@kernel.org,
-	mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lalit Maganti <lalitmaganti@gmail.com>
-Subject: [PATCH 4/4] perf python: Compress the traces of the perfetto script
-Date: Sun, 15 Nov 2026 00:39:16 +0000
-Message-ID: <20261115003916.1873857-5-lalitmaganti@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261115003916.1873857-1-lalitmaganti@gmail.com>
-References: <20261115003916.1873857-1-lalitmaganti@gmail.com>
+        bh=ghyyyMShfprSIjcu4sKZdV7cO51zD2ouEy83EYOaPGc=;
+        b=MZwvnFYmxpp2tcKd/0nL+1w1Rpi02N0UkeZ8PdILp6gi7OqcpteY7kpG3l6iLpFEz+
+         L/4Bb3lHZepII5+VdiXeeMd+0x+6TFyTK1DKFvgG36mwRcGMR89IvAJDXcBX65i+EX3p
+         Bsify0hVZW4j4HRPdvfoOC6ZqovC+hJ8j+3cP1t/UYoUCGpoPETHleNkUrpHZBtp5NXF
+         10QGbRTD0VKX3YCTdFU3029PAnR/ATC+Tr6/oRcLqOY+QtWg3fh/E6kVt41pLsT1rAVd
+         /fvuiJ4B3xxEHjqZQ2ueVxZ3BOVhtWbfVXsEKotrgLK4Dq+rLiQQ6RzuZ444BwEHt0PG
+         iUfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794703204; x=1795308004;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ghyyyMShfprSIjcu4sKZdV7cO51zD2ouEy83EYOaPGc=;
+        b=v2qNiVK9x/Y5XIESAS186ygcT6K00EQPizUxIa1s8ofAuazm0w3mqz3pKdm0/SkVZj
+         ZZbOhbkH9tfF4lM78sBoHTd+dtDIzWbF1d6s0FABFY+FCrPqGQv9YSFEUSvE5ztolelZ
+         rfcs/Vr86w7HLbgrrFvm/41uj+Myj3JGs2STF0HcQdlzuUmkP+LXf7dRcLIcR+djteyu
+         tRFDE9kBctXpOMBaMwDnFe83OXgrAzqDoP1TmUybq4KbCblHeTMN0+GMBUm3U7DK8OJf
+         DZnlH5LyGAsL4fGBTO5D+JcgVBX7OwmjjHrAzCpOOvwo+SCXJSSQEAdCGnd2QgcKKVDW
+         7rPg==
+X-Forwarded-Encrypted: i=1; AL+hErG05ogx4u6p0PSRZaI+vvmE40wWfuaR64ur4iHzKMdH/yQ2yx5A96uNrRZexALZNpzpQ2Y4x194AMo2p7M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9v3pvWriIPW//ElD7l8CiWGT8XbBVm8CByKdZXLlW8ulR53i19
+	LWGVSxf/O39CyepsNfFkE8W7K89i8iamCllPkx4F/R7RmK3+mbSPci1ADd4iI+NV4NY+gVUlTmk
+	aJ2XPTL6Zh5mjavP9/Xx29W7UGQ==
+X-Received: from dyp9.prod.google.com ([2002:a05:693c:65c9:b0:366:233a:49c7])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:1285:b0:376:6aea:ab with SMTP id 5a478bee46e88-3796337238amr8971605eec.3.1794703203810;
+ Sat, 14 Nov 2026 16:40:03 -0800 (PST)
+Date: Sun, 15 Nov 2026 00:40:00 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,227 +75,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261115004003.3695475-1-almasrymina@google.com>
+Subject: [PATCH net-next v5 0/3] net: prevent mixing incompatible memory
+ providers in skbs
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, Eric Dumazet <edumazet@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+	Willem de Bruijn <willemb@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Pavel Begunkov <asml.silence@gmail.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>
+Content-Type: text/plain; charset="UTF-8"
 
-Perfetto reads zstd and gzip traces directly, so compress the output by
-default. Add a -c/--compression option:
- - auto (default): zstd if Python has compression.zstd (3.14+), else
-   gzip, so only the standard library is needed
- - zstd: level 9
- - gzip: level 6, with no time or file name in the header so the output
-   is reproducible
- - none
+Enforce that all fragments in a nonlinear skb come from compatible
+memory providers (and for devmem, the exact same binding).
 
-Without -o, the output file gets a matching extension: perf.pftrace.zst,
-perf.pftrace.gz or perf.pftrace.
+Patch 1 fixes skb->unreadable propagation in skb_split() and skb_shift().
+Patch 2 adds skb_net_iov_provider(), skb_mem_provider_compat(), and
+skb_frags_can_coalesce(), and enforces provider/binding compatibility
+across TX, TCP, GRO, skb_shift(), and skb_try_coalesce().
+Patch 3 propagates the skb_zcopy() uarg to the probe skb in
+tcp_mtu_probe() / tcp_clone_payload() and rejects coalescing across
+different uargs.
 
-For 4496 samples of a two-thread workload, the trace is 127KB
-uncompressed, 37KB with gzip and 30KB with zstd. Compressing takes a few
-milliseconds.
+v4 -> v5:
+- Drop skb_has_net_iovs() and check skb_frags_readable() and
+  skb_shinfo(skb)->nr_frags directly in skb_net_iov_provider() and
+  net_devmem_skb_binding().
+- Add patch 3 to propagate the skb_zcopy() uarg in tcp_mtu_probe() /
+  tcp_clone_payload().
+- v4: https://lore.kernel.org/netdev/20261108013838.1454450-1-almasrymina@google.com/
 
-The shell test now checks every compression the Python running it
-supports.
+v3 -> v4:
+- Fold skb_shinfo(skb)->nr_frags into skb_has_net_iovs() and drop
+  redundant nr_frags checks in skb_net_iov_provider() and
+  net_devmem_skb_binding() (Stanislav Fomichev).
+- Remove the empty-skb check and redundant !skb_has_net_iovs(skb1)
+  branch from skb_mem_provider_compat(), and add a comment on the
+  early skb_has_net_iovs() check (Stanislav Fomichev).
+- Propagate skb->unreadable and compare skb_frag_netmem() directly in
+  tcp_clone_payload() instead of rejecting unreadable skbs in
+  tcp_can_coalesce_send_queue_head().
+- v3: https://lore.kernel.org/netdev/20261104042521.3979880-1-almasrymina@google.com/
 
-Assisted-by: LLM
-Signed-off-by: Lalit Maganti <lalitmaganti@gmail.com>
----
- tools/perf/python/perfetto.py             | 64 ++++++++++++++++++++---
- tools/perf/tests/shell/script_perfetto.sh | 58 ++++++++++++++------
- 2 files changed, 99 insertions(+), 23 deletions(-)
+v2 -> v3:
+- Drop patch 2 ('netmem: store memory provider private pointer directly
+  in struct net_iov') and compare net_iov_owner(niov) (for devmem) /
+  niov->desc.pp (for other net_iov providers) directly in
+  skb_mem_provider_compat() (Stanislav Fomichev).
+- Squash the skb_frags_can_coalesce() helper patch into its caller patch
+  (Stanislav Fomichev).
+- v2: https://lore.kernel.org/netdev/20261102231827.4088254-1-almasrymina@google.com/
 
-diff --git a/tools/perf/python/perfetto.py b/tools/perf/python/perfetto.py
-index e168b146e538..3fd3857bde13 100755
---- a/tools/perf/python/perfetto.py
-+++ b/tools/perf/python/perfetto.py
-@@ -10,12 +10,18 @@ The protobuf wire format is simple enough that the few messages needed are
- encoded by hand below, which avoids a dependency on the protobuf package and
- generated bindings. The field numbers in this file are taken from the .proto
- files under protos/perfetto/trace/ in the Perfetto repository and are stable.
-+
-+Perfetto reads zstd and gzip compressed traces natively, so the trace is
-+compressed with whichever the Python standard library has (zstd since 3.14).
- """
- from __future__ import annotations
- 
- import argparse
-+import gzip
- import http
- import http.server
-+import importlib
-+import io
- import os
- import sys
- import time
-@@ -24,10 +30,26 @@ import webbrowser
- from collections.abc import Hashable
- from dataclasses import dataclass, field
- from enum import IntEnum
--from typing import BinaryIO, Dict, Optional, Tuple
-+from types import ModuleType
-+from typing import Dict, Optional, Tuple
- 
- import perf
- 
-+# zstd in the standard library, available since Python 3.14. Imported by name so
-+# that the script also type checks with older versions.
-+try:
-+    ZSTD: Optional[ModuleType] = importlib.import_module('compression.zstd')
-+except ImportError:
-+    ZSTD = None
-+
-+# Levels that compress traces close to the maximum at a fraction of its cost.
-+ZSTD_LEVEL = 9
-+GZIP_LEVEL = 6
-+
-+# The default trace file name, extended with the compression's file extension.
-+DEFAULT_OUTPUT = 'perf.pftrace'
-+COMPRESSION_EXTENSIONS = {'zstd': '.zst', 'gzip': '.gz', 'none': ''}
-+
- # The only port that the Content Security Policy of ui.perfetto.dev allows
- # fetching traces from.
- UI_FETCH_PORT = 9001
-@@ -388,7 +410,7 @@ class Sequence:
- class PerfettoWriter:
-     """Writes perf samples to a Perfetto trace file."""
- 
--    def __init__(self, out: BinaryIO) -> None:
-+    def __init__(self, out: io.BufferedIOBase) -> None:
-         self.out = out
-         self.session: Optional[perf.session] = None
-         self.sequences: Dict[str, Sequence] = {}
-@@ -523,9 +545,22 @@ class PerfettoWriter:
-                            varint_field(TracePacketField.TIMESTAMP_CLOCK_ID, clock))
- 
- 
--def convert(input_path: str, output_path: str) -> PerfettoWriter:
-+def open_output(raw: io.BufferedIOBase, compression: str) -> io.BufferedIOBase:
-+    """Returns a file that compresses what is written to it into raw."""
-+    if compression == 'zstd':
-+        assert ZSTD is not None
-+        out: io.BufferedIOBase = ZSTD.ZstdFile(raw, mode='wb', level=ZSTD_LEVEL)
-+        return out
-+    if compression == 'gzip':
-+        # No file name or time in the header, so the output is reproducible.
-+        return gzip.GzipFile(filename='', mode='wb', fileobj=raw,
-+                             compresslevel=GZIP_LEVEL, mtime=0)
-+    return raw
-+
-+
-+def convert(input_path: str, output_path: str, compression: str) -> PerfettoWriter:
-     """Converts a perf.data file to a Perfetto trace file."""
--    with open(output_path, 'wb') as out:
-+    with open(output_path, 'wb') as raw, open_output(raw, compression) as out:
-         writer = PerfettoWriter(out)
-         session = perf.session(perf.data(input_path), sample=writer.process_sample)
-         writer.session = session
-@@ -593,16 +628,31 @@ def main() -> int:
-         description='Convert perf.data to a Perfetto trace and open it in the Perfetto UI')
-     parser.add_argument('-i', '--input', default='perf.data',
-                         help='perf.data file to read (default: perf.data)')
--    parser.add_argument('-o', '--output', default='perf.pftrace',
--                        help='Perfetto trace file to write (default: perf.pftrace)')
-+    parser.add_argument('-o', '--output',
-+                        help=f'Perfetto trace file to write (default: {DEFAULT_OUTPUT} '
-+                        'with the extension of the compression)')
-+    parser.add_argument('-c', '--compression', default='auto',
-+                        choices=['auto', *COMPRESSION_EXTENSIONS],
-+                        help='compression of the trace; auto is zstd if Python has it '
-+                        '(3.14 or later), else gzip (default: auto)')
-     parser.add_argument('-n', '--no-open', action='store_true',
-                         help='only write the trace, do not open it in the Perfetto UI')
-     parser.add_argument('--origin', default='https://ui.perfetto.dev',
-                         help='Perfetto UI to open the trace in (default: https://ui.perfetto.dev)')
-     args = parser.parse_args()
- 
-+    compression = args.compression
-+    if compression == 'auto':
-+        compression = 'zstd' if ZSTD is not None else 'gzip'
-+    elif compression == 'zstd' and ZSTD is None:
-+        print('zstd compression needs Python 3.14 or later, use --compression gzip',
-+              file=sys.stderr)
-+        return 1
-+    if args.output is None:
-+        args.output = DEFAULT_OUTPUT + COMPRESSION_EXTENSIONS[compression]
-+
-     try:
--        writer = convert(args.input, args.output)
-+        writer = convert(args.input, args.output, compression)
-     except (OSError, TypeError, ValueError) as err:
-         # The perf module reports events it cannot handle as TypeError or
-         # ValueError. Do not leave a truncated trace behind.
-diff --git a/tools/perf/tests/shell/script_perfetto.sh b/tools/perf/tests/shell/script_perfetto.sh
-index 87797b377922..503563d77982 100755
---- a/tools/perf/tests/shell/script_perfetto.sh
-+++ b/tools/perf/tests/shell/script_perfetto.sh
-@@ -47,25 +47,51 @@ if ! perf record -o "${perfdata}" -e cpu-clock -g -- perf test -w noploop > /dev
- fi
- nr_samples=$(perf script -i "${perfdata}" -F tid | wc -l)
- 
--echo "Converting ${nr_samples} samples"
--if ! output=$("${PYTHON}" "${script}" --no-open -i "${perfdata}" -o "${trace}"); then
--  echo "perf script perfetto test [Failed: conversion]"
--  exit 1
--fi
--echo "${output}"
-+# Writes a trace of any compression the script supports, decompressed, to stdout.
-+decompress() {
-+  "${PYTHON}" - "$1" <<'PYEOF'
-+import gzip, importlib, sys
-+data = open(sys.argv[1], 'rb').read()
-+if data[:2] == b'\x1f\x8b':
-+    data = gzip.decompress(data)
-+elif data[:4] == b'\x28\xb5\x2f\xfd':
-+    data = importlib.import_module('compression.zstd').decompress(data)
-+sys.stdout.buffer.write(data)
-+PYEOF
-+}
- 
--if ! echo "${output}" | grep -q "Wrote ${nr_samples} samples"; then
--  echo "perf script perfetto test [Failed: expected ${nr_samples} samples]"
--  exit 1
--fi
-+test_compression() {
-+  local compression=$1
- 
--# Interned strings are stored as is in the trace, so the source of the samples,
--# the event and the symbol of the workload must all be in there.
--for expected in linux.perf cpu-clock noploop; do
--  if ! grep -q "${expected}" "${trace}"; then
--    echo "perf script perfetto test [Failed: no ${expected} in trace]"
--    exit 1
-+  echo "Converting ${nr_samples} samples with ${compression} compression"
-+  if ! output=$("${PYTHON}" "${script}" --no-open --compression "${compression}" \
-+                -i "${perfdata}" -o "${trace}"); then
-+    echo "perf script perfetto test [Failed: ${compression} conversion]"
-+    return 1
-   fi
-+  echo "${output}"
-+
-+  if ! echo "${output}" | grep -q "Wrote ${nr_samples} samples"; then
-+    echo "perf script perfetto test [Failed: expected ${nr_samples} samples]"
-+    return 1
-+  fi
-+
-+  # Interned strings are stored as is in the trace, so the source of the
-+  # samples, the event and the symbol of the workload must all be in there.
-+  for expected in linux.perf cpu-clock noploop; do
-+    if ! decompress "${trace}" | grep -qa "${expected}"; then
-+      echo "perf script perfetto test [Failed: no ${expected} in ${compression} trace]"
-+      return 1
-+    fi
-+  done
-+}
-+
-+compressions="none gzip auto"
-+if "${PYTHON}" -c "import compression.zstd" 2> /dev/null; then
-+  compressions="${compressions} zstd"
-+fi
-+for compression in ${compressions}; do
-+  test_compression "${compression}" || exit 1
- done
- 
- echo "perf script perfetto test [Success]"
+v1 -> v2:
+- Generalize the check across TX, TCP collapse, GRO, IP defrag,
+  skb_shift(), and skb_try_coalesce() by storing mp_priv directly in
+  struct net_iov and introducing skb_frags_can_coalesce().
+- Fix skb->unreadable propagation in skb_split() and skb_shift().
+- Add KUnit coverage for cross-provider and cross-binding rejection.
+- v1: https://lore.kernel.org/netdev/20261008034027.1403188-1-almasrymina@google.com/
+
+Mina Almasry (3):
+  net: fix skb->unreadable propagation in skb_split() and skb_shift()
+  net: prevent mixing frags from different memory providers or bindings
+  tcp: propagate skb_zcopy() uarg in tcp_mtu_probe()
+
+ include/linux/skbuff.h | 55 ++++++++++++++++++++++++++++++++++++++++++
+ include/net/tcp.h      |  5 ++--
+ net/core/datagram.c    |  4 +--
+ net/core/dev.c         | 14 ++++-------
+ net/core/devmem.h      | 22 +++++++++++++++++
+ net/core/gro.c         | 16 ++++--------
+ net/core/net_test.c    | 42 +++++++++++++++++++++++++++-----
+ net/core/skbuff.c      | 32 ++++++++++++------------
+ net/ipv4/tcp.c         |  3 ++-
+ net/ipv4/tcp_output.c  |  9 +++++--
+ 10 files changed, 153 insertions(+), 49 deletions(-)
+
+
+base-commit: 6964ff21c5d8b75649211a52dbfd92753e605649
 -- 
-2.56.0
+2.56.0.611.g1030f0b940-goog
 
