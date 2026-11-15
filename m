@@ -1,103 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733538;
-	b=wTseRllQzyXtNr7/aourF473XLuzE0gC7r0WHIc39VySLN7+8TvfoJmIdiHdjyZg2Agq
-	 7Zssj7SCzNEquAps6x8vxnfeoerPHgUt1pGInCI/WQ43a4Y4Yo81+0+aHguNDXJgo8gkj
-	 Uu2C91klWmo8dC1/oYcyQw5HE9urD7gRKwR+t0zJNsVaPbcMxehsJrP/ocGJ5vohZYnU5
-	 ZnoyIh22SyF1CJjj5eXEY2TW3zxSpn36l34CbXSDHGujUZzWc+AnGc9pwZ1ND5PvPqwVE
-	 ZeL2ZWM0sH0FskaHPnyaboanEZQdnFJ1GF7t9JQoot+sclGAZOk4EzlXy+XO/si4Dhg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733538;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3VGERR6jVyCku7AFWTdZ88nDE2sfH6pB8YTCSrSJIH0=;
-	b=e+xuQsKuasAN2CWKPyLkYlMXcDV511FzYe8tKDI0Aib6nDZoUi7+6DhuWNQT92lPisSa
-	 CVl72gTd6dA2Gnr1SQbUug7Uz8Ryc8Jxh8JGwsrXcWx7PJU9kwR/pd7rgNvKYZiTExQ5f
-	 9W6aFy37qoZAKAaN9ub1kzNl2O+B5cTMAmKx6aMFtK2Ll55OvBHj+tcV+405eJcTJx8GJ
-	 04e4Mz7zQAv8XJXHjOblsla5frJh3yPAwmi3LpNoHkJn+akUMx1qZm84Zy7xXyKWc+VYS
-	 z1rW6SGKavr2lXwylTOQV3hiHXQRflQs78fqiZZ5cuJ/6lFQfnERNH1IISreU/SGs6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n+VIalj0;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794733544;
+	b=BjVPWm78gcFCNwZ/j8QtT1j1Lk8AWJlPE/zh4bQwfWqEgROrabvYCpmMALYpi/eIdVkb
+	 aTqTY9ouXxa54NzWY3MsuA3lNzFSPgGHMO0kzmBFYxP8+fg3/h4ACVwDLnus+PlPMIsFv
+	 Rfsj86CbIVwQQkfiaLnXmXuV4DB3kYtwQvgAWsSp238UHZL8N9f/gJthVxDpTZdypeTdU
+	 xmWEeV/eHZg9HDJ3R5y8iGhTbeGWxG0TB3UcgNrWCkz0hd3gDiF3mhSvrx5kSZgpAvKys
+	 CDjd0kPbGXbok7uoLkmAQQC2SZ/rR05B2c+cm3hfroQ0iptX6Kf4d2Hbu3TfStk+Q2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733544;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=07WOKYUWzc5l6SRYMycvBjujniheSXKsXpF0DlJErRc=;
+	b=H61yXSXloU6UDb3Somrxn2d7Ah1SelkZff2CHc7WOnL0/5xrVctQMjAXYjebTl8dh0D1
+	 B5nfBkaIb5vBtuGas4gVt/P4AfrLUwpsNMQa3mYvZShYGhNliK9GzhEAjv5d6+/+b6OTn
+	 /qD0jR3z9VJbf0/sXpS+JzIJPJt3+ORncRiANcKQewrqA0VC9lFQBlMOJld2ic9QtoSIE
+	 MoLqHkPl9BozujOagR5a3cB8+IIsmel1CzxEFN38TbsnQ9/OE5PsLyxsazR8OtKQ3ebv0
+	 16Mhr0b2EBdYC51jQbjREkz12qdSMZAmQn6R6A52jgdHfl+Pg/a0aRN9Q1SZIpZeZug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b="lCCe/zC0";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.36
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013036.outbound.protection.outlook.com [52.101.83.36])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88ED606A8A7
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:05:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B88ED606A8A7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BBD606A887;
+	Sun, 15 Nov 2026 09:05:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91BBD606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n+VIalj0
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4d473cfff6so343106766b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:05:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794733536; x=1795338336; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3VGERR6jVyCku7AFWTdZ88nDE2sfH6pB8YTCSrSJIH0=;
-        b=n+VIalj0TasjhIfTTf5UY2D+tyfAVqLrVCiWdkKqppita1mkmg/p5t7LxJc1e4ehdN
-         Ls3s9M69wPhAeB9pqo1RvAEflRLqORiTs4xlj4z6AX9I3Ompp77/hm0e+tof/H4Qt1dh
-         aumUrir8j8VfgnZiMfGY9n9+/jZuL90k0flDnv+UgD2uF4OHYkKg+265ZibJ6QZiprkC
-         FhGFfdgMFJ6U46rbjUqhj0JyLEOda5rmqwmhO7IjSGvKJX8hZGTrXuD94Eo/zdxg1OxA
-         OhAcHAo/eBd1UHq96f6W8tA28A0bs+WFfve8QxaznXc0CHXY2uomeAT0Upahrqu7uQZo
-         H6Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794733536; x=1795338336;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3VGERR6jVyCku7AFWTdZ88nDE2sfH6pB8YTCSrSJIH0=;
-        b=oIxiEkX4En8yvUJVRa1ZepWvJiUlj/I1Fx0iyYBxE1tUpawoHvpn+wMhLculIXopoV
-         roEmL807jNIqH+q4M5BRXCyUgg1y1lJkRe2k/5QUGGGrCr0ld7wUFZOjNJ33zvW4vhMg
-         We8QR1yvno/s69YNZdLQQIxwfYqrxGhg1G2J1PzUQJQlcewfjln5CaiNEid40udeZYMx
-         a2IpluUBhsZJXy2jCMa++Kbu0hmpLJHNo9HG0oRJyTE24Sfs5IC2EX2LXC14+NAf/yqE
-         3nQHNlS6RMl+72DSvX9cxmB0LqApeGYO6w8eCZBvgi4nNNGrPQhBBSd+XJCZkDH7SOKz
-         SP1w==
-X-Gm-Message-State: APuU4Z9EbQptdc5ZXQCKxr382+UyudzdgnpYt7Co267tHPdYJADTcxn3
-	gcO2dl6zOZjFMH5iHaLK02R7K04cW4T1XTUvjTbPnh7Ab4/W2Q2OgWlP
-X-Gm-Gg: AYBFou3BODfXi+TW2EVpeS+p/8OtSBpABDj2qvR68rck/jCN6wS1TBjg0q9zOLsktzw
-	GP/sUpG2OI6m+AUcx728xiMnvwusZcg5mQxwAgpp1BtIxyT4iCh0AqI5XpmqaUSvW+u81JuIVax
-	vk4X5HhByn5usXCkDBYSrXLg82edsCNDFyX5eRbVurFSxVbMCFmV7qKF7gUQJ2G/Kj0MEvAgTje
-	S+kZooMJvHSrfth//ZY5Yh6yFXJAF87w1Tu1aVzpBj+6nvFDcOjuXgWwh0FS05bl3bhfi6jnYix
-	/EtHDyLCiH+0TTkhXzJcaU0/hBBhcxQ/pOqF+Sfj6q/NftFG2k6oVIaYik2G4ZNqlrhciKhcH4S
-	RgaVYFQQ0+9x4VLwSkhOVGEDDZu+qTk3m/j6q0jocgvXlBwYRnbNhL+7LtR9MS+oKF9axSgtODs
-	5e4LMV0WC1R+YcFJLUNEnag9pngdCv7nCL15saszkxfYG/0Ukni+Vo4bpnDqNLMOAUjWcskJt+o
-	i9ehG0OZBfew58ymUQE6OslZd7b8Oh2BN3wBIz6iIXB57ljSXA9nOU54Ok7qvJlPZMbG1MqMV8a
-	WV5Z50T9kYFK83133sbdnbGB7yx3RVrRJqUk3602MKmWnW8h6Xnvec215+14mayEpvnaZSi821S
-	ZPHzyEqvOvg==
-X-Received: by 2002:a17:907:6d02:b0:c46:9ca9:f524 with SMTP id a640c23a62f3a-c50963b6917mr589522666b.32.1794733536111;
-        Sun, 15 Nov 2026 01:05:36 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c4b7sm288103466b.1.2026.11.15.01.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:05:35 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v6 3/3] mfd: max8907: Add LED cell
-Date: Sun, 15 Nov 2026 11:05:20 +0200
-Message-ID: <20261115090520.102216-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115090520.102216-1-clamor95@gmail.com>
-References: <20261115090520.102216-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=lCCe/zC0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BI2ML/2GV+lsbfV8Il5uJCijrPpZn1O1Xxg+i30MqcAQLIwltSuDjskSeMGEfBaDDZLkAlBgkNSXIDr3qRlTa7hFfc1qTbZTDAGw/EJFNwvgnhW/zGq1fv1+xOaJhlScxSxhAbgzAs14jPJfw2ZchJoHg9Wfom9TOgM0lERWF23Yb/Fx9tI1PR5EPIwKYtRTtgbJEul1j32j5OEAzU6elrPY4VRPMnMsypbe4n42JtgG9bZff9ZP/oKXZDjKjm73NUEwav3xqZRsTETxwe3rVsgBv7jYCMtPP74EiKtM7jFEfWLIHr8X9iI5r15NuSXMFzsidkF9TrpaGqZLYP07jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=07WOKYUWzc5l6SRYMycvBjujniheSXKsXpF0DlJErRc=;
+ b=tbKVMtGv/v7ch2cOBriH3FIjtEcwi3ghPqDTfY874ikt7TU8QCCaKux+Ceos9bcI7lvUEY25Kyea87UBHi1EmPmLtf8jhY6jZ+XKJxSeffsWfe5E0xa5/QFEqwm9vNcV6e8xF/cBblPI+M131JMsuC1XZ2fQFAJOllJt9ZWl5XeWav111rjz9ftAEqYj61HbiVfTxMXvOxWFS3yRrKEzwT9B9PwX0ib9w9uNu8IBWkvqyqg9OM1Ox6tY0QR2YAHVO+65pMK0HSelztqU/R4KndzB9C2pbi4ssEr/DXr5c5NPsk/UfOKVD4gDSklEhhSRfxoZvtDYgLRyNQSzPG3VLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=07WOKYUWzc5l6SRYMycvBjujniheSXKsXpF0DlJErRc=;
+ b=lCCe/zC0q8M1BMfQ8wOoowEINuz+BkMGFVYGzzM0YuK5+fPGSQnSk0RV0CdYT2MQSDziVWvZP0SYBESuakn9dsJDCSQ54M447yM9wfQUdRMl/5aq3H1yquek1Y5ju82RMkwYAO8z+0jnQWE4qO2QagRbA6deJD1yyAMtiuwr16sfPglrEDhMxhgAsvGFhixKmWEZiRzAD69hQwdAYYAsTCiDeEawl/uFEw6lU2PgdxhhfTVMTkxvw2envlIdMsrMoR/CHGNe9rMzdcS6zZ/nm+f0KzJ8mig4AbOwFRPfrgVLw1ju3E0o7W3dxJH9JH17RKyIenvDZzplUA2u1r2ONQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by DB9PR04MB8446.eurprd04.prod.outlook.com (2603:10a6:10:2ce::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
+ 2026 09:05:40 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0615.012; Sun, 15 Nov 2026
+ 09:05:39 +0000
+Date: Sun, 15 Nov 2026 11:05:35 +0200
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v4 4/5] pinctrl: freescale: add the LX2160A RCW pad-mux
+ driver
+Message-ID: <avjaK3cOj3iQ6G6w@skbuf>
+References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+X-ClientProxiedBy: WA0P291CA0016.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1::28) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,27 +107,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DB9PR04MB8446:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9758e83-962e-4103-7fb1-08df42f79eaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261022105027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|3023799007|41080700001|15866825006;
+X-Microsoft-Antispam-Message-Info:
+	XDIrN0D2pHLSQxl0uOMAvnEcSTebakSzkQw6nU5frKdmdB31sjmaoDN+EeTEAqwlVIa+/J3vkBvm+ER8IUTMZNoyi2Fi4wUTH6gbv/m2ttTr7FRFB6HcIkV3FpykYC14gzfKHu/X9MY+f824hQqoxauVxSRVp8TBDVw2RI+m1G2PkwUXNgLPox0JLe86+PmXJfJLKo6TkKEYYJ0ohkthwRAYYYYgf9y+0tjI7K14mmQzLcoz9o4j2Mg5M0kbXHMvzvorsBqngVq9qBKqMm6EHVMbIrUhYmwwlz3uiVOs+tDxrvUUhcWE214XyAq9fW+SNozhupGUNRnj3mPG9h32792SB1IOwRPv3mNu5EN1Mm9Uu8V+bwFZKqBkzpdAQWwJzGCXVyRgTaQKcUH3Bt6JmISHtPCMBS7Q6QniowJdkVyIMy945czP+P6ePzI9Qa3X/xiNFQTVZD1qkEy2m+wuJIaZvjETw+XMFFzU0uIAWCQ5fFIfGhgZ8rRi9/1YRO244IiVthCpGxy2bHpAdxtoMs+15HENROQRKWuvUtmPlz6owiEEmL2Gruv7JTDDdG37huS4uuJInjQjQh8Gz2uAsHMgzIbG1guDm+PsZph9x7RiTD5y15oQ57V7A5gpafJ9DIjXaDWYwD7keUiLR6SFEO2bo2sxmcswgUDkrzUyQiZ/fCmPEvEKAdiLR4AtPvoXalqqnjuZxqRGzJGGgDE0btlOCpN63b/+dygoj75HN3VIYuPH0IKfZSzsyYgF/Ihd
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007)(41080700001)(15866825006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?so3WQjPWcmwII292CZo/EAYB4KR6dIV+MfPdNQfY/WnvR/cVKRpQrRwhPLiM?=
+ =?us-ascii?Q?SpTvmt6IBHCdsoY3IXZ3EUWsyrPcaGHZMzEars3hzMBVFt3JurM2uqqjBo0s?=
+ =?us-ascii?Q?1CwPUsaWPTVjoBSnqvABoQVroT5DHwXwvlTtQMXNJXjcSY3ftI3RKFIV/8nC?=
+ =?us-ascii?Q?BLOhJ7Sbq4Qm5eCdGWQ5Ui6GzJyIYl04sqmZrJLxzCYXYZWqXRTCNq+6evUX?=
+ =?us-ascii?Q?SrkDZrv5WmLgX32Fnh4iHfCmgy4OcgYXqoDtoOJrvqZdZSCgnp4oswNFAjos?=
+ =?us-ascii?Q?at0DAzz5ow2gyvAaXem0SeqvfBKRJC/FoBpXeKYfhbcDmKmsNfpTAKvbjmA8?=
+ =?us-ascii?Q?oYfp922qLZeWBNOjFUUlL2p5jrTMkpDdEJfk90iYsL7bvwigudsUzPwFXNPG?=
+ =?us-ascii?Q?9DQLlmcrb/OMmTY5BDUyrSudiBTq1dNhaCygXtBcizKNMTfkpzB/MrCowmle?=
+ =?us-ascii?Q?HDGweRqr7/gWr/pzvHnzn2cwAOcToFoOq3L/hy7OvSskAnJhj2HEweIvXXey?=
+ =?us-ascii?Q?vEcg8buzF3LSrxqWxdxnsSiSmjVbjkmF3rr5TrOaQXgB7SE934arl2ZklQXu?=
+ =?us-ascii?Q?fyjhZcXWmTuZzCm7h9fXkjKY1SnnZWreBk6RVYQu0N+alx/fZnwYNsVrFqiQ?=
+ =?us-ascii?Q?EXSP2mDMU8C0mjagT80BHNAPuPSp1FUGUyvLoht5EDMhrZ+c6YBLONQv8wbl?=
+ =?us-ascii?Q?uosrXYHfKTsOKxNlV24ghQJBSaCOd0pox9/x4w2ZRO2u5rtINKGgPHLW8tOC?=
+ =?us-ascii?Q?GzCx6DE5PfGRdpy77yJa4ilDPsfcLuwM4JY3yfdW8ooHKjownFUPN5x0WsJH?=
+ =?us-ascii?Q?6auuoUnAQ959MJVsLJsqMXTLprF82ADTr1/ugETrMBz3JgPIt/gZCnCbLbA0?=
+ =?us-ascii?Q?ZEIiYz/os4H7mgLyWDVE0CG+bZHp11M+CxJz6qe5LpgsklaQsHgxX4Hku05q?=
+ =?us-ascii?Q?GYQzjtzT2GUWHF/QJgworp9TbxiXQXvxLP7OfTdHlcgcuaRjickrp254+P+h?=
+ =?us-ascii?Q?/R8iK3UUD08Wr46gwAMp1d6+GZX9THJMG8vGqEKadEOR0sRNF91tqvxYa3wz?=
+ =?us-ascii?Q?u7Yn1058HyCAwSYKHXREqHcNCBkuZUg2UPIurizgjKJ1BcpIJtRMExWOxxcI?=
+ =?us-ascii?Q?AEB5caV1AY1QZvkxIa6I1upXmKhybcqyv7EXGpaLQhlsJK2kuHhkq9Rwcrr7?=
+ =?us-ascii?Q?QA1tp7O1ZMPg1JvXFcDvynZCf2OYmSJmJFyOsH49h56b0VNjGaQ0SAyc6Fqn?=
+ =?us-ascii?Q?mwNuDFYAGpO+DWVDQOOf0iTCynNOYt3wkvwM0e2d2x8pCBc60K7epEkPELYh?=
+ =?us-ascii?Q?ogv6sjk6UzifN+yYPbtHjtKIhBYLFpzpjFiw5+AQwr7sLI0nWhkBGJFbtw71?=
+ =?us-ascii?Q?hRJ54y1tS+38RVT2l6laA5/T59co/e0fOQQVDLoOo/XKK8enmTksGlsSlh8U?=
+ =?us-ascii?Q?tj/K/y9N2UyGB/0AU3w45xQ6sTFjHgyCZoTDhygj/FyoWl5aHGvKi0hjfvM7?=
+ =?us-ascii?Q?95LxlbAVREtZFK6QIePaZ2C4QpMJzgC0mGoxmnRUm6Gr3nrxyBiMEbNfQHFG?=
+ =?us-ascii?Q?/wL/3mAoTS0XdM9kZB0gzV/M5XpBs+tvBWIeiRNPBShmrETaiotvPSlJeB72?=
+ =?us-ascii?Q?bFDWClbuUvojJUsKhW5yJnUUBrf9WDEIUlcvy7oSlaFKyCxVeRbSo1ykwpEj?=
+ =?us-ascii?Q?Bvllys0v69dsfdP5ermvYhfEx9Dyg8Cm+/YaM4fg4xvf0yJiZk7lV4grJL2j?=
+ =?us-ascii?Q?bHZ0aad4vti1kJvOlR60zTJnyisgWjj62tAbFP+rIWwBrBr9HZZBlB+GxHHE?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4nNRGeLfM8jOEei3DzE8y14+Sl6VcY+C06E=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9758e83-962e-4103-7fb1-08df42f79eaa
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 09:05:39.7843
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yGlyP9vtN1+NGbtW82T+SKSCNl6ea5y7iFcnlAP5DMPNZyfeQHkUNJ5crYFnNnmx2ALU19lqYuDq7MqLUIIRVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8446
 
-Add the LED cell name to the list of MAX8907 cells.
+On Sat, Nov 14, 2026 at 10:12:31AM +0100, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+> 
+> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
+> fields of the RCW, read-only in RCWSR12..14 of DCFG and changed at
+> runtime through the same fields of the override registers in its DCSR
+> view, which read 0 until written.
+> 
+> Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
+> gpio to support bus recovery") Linux drives them with pinctrl-single on
+> the override registers, so its first pin state clears every other field
+> of the word: a board whose RCW programs a non-zero pad mux loses those
+> pads at the first I2C probe.
+> 
+> Add a driver for the pad mux as a child of the DCFG node: the fields
+> of RCWSR12..14 and their encoding.
+> Then pin states select them with the generic function and groups
+> properties, and every change goes through the RCW override
+> of fsl-guts, which reads the status register, writes the override and
+> waits for the status register to follow.
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
+>  MAINTAINERS                                 |   8 +
+>  drivers/pinctrl/freescale/Kconfig           |  15 ++
+>  drivers/pinctrl/freescale/Makefile          |   1 +
+>  drivers/pinctrl/freescale/pinctrl-lx2160a.c | 368 ++++++++++++++++++++++++++++
+>  4 files changed, 392 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..106a0cc7f25c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20207,6 +20207,14 @@ F:	Documentation/devicetree/bindings/clock/*imx*
+>  F:	drivers/clk/imx/
+>  F:	include/dt-bindings/clock/*imx*
+>  
+> +NXP LX2160A RCW PAD-MUX DRIVER
+> +M:	Vincent Jardin <vjardin@free.fr>
+> +L:	linux-gpio@vger.kernel.org
+> +L:	imx@lists.linux.dev
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
+> +F:	drivers/pinctrl/freescale/pinctrl-lx2160a.c
+> +
+>  NXP NETC ETHERNET SWITCH DRIVER
+>  M:	Wei Fang <wei.fang@nxp.com>
+>  R:	Clark Wang <xiaoning.wang@nxp.com>
+> diff --git a/drivers/pinctrl/freescale/Kconfig b/drivers/pinctrl/freescale/Kconfig
+> index fd53cf5bb843..a3222714c970 100644
+> --- a/drivers/pinctrl/freescale/Kconfig
+> +++ b/drivers/pinctrl/freescale/Kconfig
+> @@ -283,3 +283,18 @@ config PINCTRL_IMXRT1170
+>  	select PINCTRL_IMX
+>  	help
+>  	  Say Y here to enable the imxrt1170 pinctrl driver
+> +
+> +config PINCTRL_LX2160A
+> +	bool "NXP LX2160A RCW pad-mux driver"
+> +	depends on OF
+> +	depends on ARCH_LAYERSCAPE || COMPILE_TEST
+> +	default ARCH_LAYERSCAPE
+> +	select FSL_GUTS
+> +	select GENERIC_PINCTRL_GROUPS
+> +	select GENERIC_PINMUX_FUNCTIONS
+> +	select GENERIC_PINCONF
+> +	help
+> +	  Say Y here to mux the IIC, XSPI, SDHC, UART, IRQ and EVT pads of the
+> +	  LX2160A at runtime. The pads are muxed by fields of the RCW:
+> +	  the driver changes it in the DCSR view of the DCFG that fsl-guts
+> +	  drives, and is what the I2C bus recovery of the LX2160A needs.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/max8907.c | 1 +
- 1 file changed, 1 insertion(+)
+I'm sorry if this was discussed before, but did you consider targeting a
+wider range of Layerscape SoCs with this driver? It's pretty generic
+apart from the pinmux functions and groups, which are all data, not code.
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index b57c497334ea6..f492ade8e4cf1 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -20,6 +20,7 @@
- #include <linux/slab.h>
- 
- static const struct mfd_cell max8907_cells[] = {
-+	{ .name = "max8907-leds", },
- 	{ .name = "max8907-regulator", },
- 	{ .name = "max8907-rtc", },
- };
--- 
-2.53.0
+For example LS1028A, which is part of the same chassis 3.2 as LX2160A,
+has a pretty similar pinmux group layout (subset of LX2160A except for
+SoC-specific pinmuxing in RCWSR27). The functions are a superset of
+LX2160A though (for example IIC3_PMUX and IIC4_PMUX can also take the
+values of 3 and 4).
 
+The older chassis have a dissimilar layout to LX2160A/LS1028A, but
+similar among themselves (they have a two-level I2C_EXT + I2C_BASE
+system), and their core mechanism remains through the same RCW override
+API.
+
+I'm not saying to add driver support for those other platforms, but to
+have them in mind and to leave some space so that they could be added to
+the same driver without having to rename it and most of the code.
