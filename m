@@ -1,101 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.221.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794748205;
-	b=VLf3mwrTV2/D7sQ9cUlxIIkk++t2pg6FRErdJHLifV5j1A0nBQqtVUv4f3WY6joWrxXx
-	 MRE2d53TEwsx7VxqvmMG9u14aFXTznHyA0mdyJnF45qkOefMxUY0nOyQVxnJQ6WulIe1K
-	 ukuoXZhF2vGbGg1fv+ISJ0vLhXNLML/ssKjIW5V2NyOezAyevS5O/mNmuHWl89hJd9Gix
-	 PBgRJBO63RHJKaFarzN5bX0dovA0pxcqXy5jm2oGjB+tJR0X/O+vF9W5krACKCqsYJjH1
-	 kwyUu2hQ2Uj3Sk8WFqljNoghDUyTjZK/Az9NJuvtFckQ6NqBxoFgNkYRsj7Pme1nV3Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type;
-	bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
-	b=ZcVfKQsHHOuD9waN3wm7Ad6UOw3KgqVnjedJ67j8Ug002oGIJtxScITnz0tRcSlYwYnd
-	 H9PFczejxtLmjrrXtp/WCDHitGrhvwMqpnooYrFcs9kXYhrRjMjNJL9BJpv3mR7aZgDRm
-	 C/9hblpfR/jMTods7OhP6fDOQvzXoxbEnv7cMXlWg7Os9trVKeOfdcW00pKKG2m8C2Sv/
-	 Lu1WT/j6usyQxD9jlep5AOQfSo30DJN6ktLaj7mpHMoIwh8io8MWBVJVKxzabeyyHtTMM
-	 q64jsbDqP0ZTp8r9GSGgSUDmDHaB/yV/p7I7Ob0yw2l0IX/Jb4JtOy5OnjXv4pDPDtQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E3NNkXn7;
-	arc=fail smtp.remote-ip=209.85.221.178
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.143
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794748257;
+	b=rXrGFvRupW3W/3rfuQYqJfSC88s6uSdFFKuLTfgZe3LmIMafTM9/Mws+UE5Zo9A2uJF5
+	 BlxBUPWMeFemgaI2z/Ok1BtoCCfde1IBsEwfr8AXeDVpHuC4nACuykDdIfQcXsAq50fLA
+	 l9FwyDnA/2LpOvwtyjfwC/oktWLLj4vo3XBZjPNsbY7xiWdzMScdSjiK9lCFKQWjxiqBf
+	 +qiNQfnGzsS0/ZS8IL4HOcl6RK+7lGDHUwXrJ1PzAS2rIxT1Iq6C/LqMSid5vbIoTLY4d
+	 GkaaI0zw/R7PB9HNqoieTmPQwRDR0VhmkJE4qThmdWj4aw5EVKaNJCG6KjM1ku6X9Sg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748257;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OT4FeXl35Wtg7prNe9t4q4OanVhGByEupJ8DCWW0Zu0=;
+	b=08KfWHErUl8UWW4flB4NqnYyMx0H/9uMyl2tazXURvjH58Wifiv3sjA+nOitWUso+rmp
+	 jvtdgr1CuDHlI8+5wk+GS8sB1ZImCx7ZRWRT7mP6fZaYsm+rxCt6vopQablUk5A02d3K0
+	 DFhP+XOX/yb6rcolM5ohoV7UQ7NrqCKyVyjt4zGmbEvMruoutq7bfaxiNB0oOgeeIPM8T
+	 ZXepbgD6nEnR8+xkxNuaO8RdtWj4BWzyND1XmJw6NgItAPfuq6fjOStFr7HpIEe7YmgWU
+	 2ldrxWQe4Ota3UtLWbQf42qV+QuQbwOWP2qeAmRJmiafcvruooZ6Kz3issMFMmpcMkQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=VBAvAFaG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QpGATdJa;
+	arc=none smtp.remote-ip=103.168.172.143
+Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07973606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:10:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07973606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4029606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:10:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4029606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E3NNkXn7
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so3148198e0c.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:10:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794748204; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hqGnV90efcar4lCNhD16DfN6ScJCdTIR1P+ZHlDoB9b3yy85iz+Gxe6YSErCMJKWiv
-         b01/VnCsdp6T4d/kD2VS+D+eZAzZt73EA283ZFqqA83YGHkXlOkYPX93Sa42UjKFHirw
-         ZattOynmnIFssvlLmtnnxmXPXGv/o/+jSyI9b07A88VAO4GhpZQo8MmmdqjHt6gOaWiI
-         qDmI4Oa7SdbeXti8yYouc1JO+D6mP5/qZa54YDu9A8U5IAF4yZ/OQsWuIC9Zhn4HPbgs
-         bfU12xz4k1V5x4sorYQW5vW8sBL8cs3pTjsg5BX3YC0iMX4bsfJYuGwtitoDIIi/4u0W
-         1huQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
-        fh=rYxOdEtduPsh4TnohB3K2kELLyynGMm+TObu3xYfT0s=;
-        b=GCrWLqkP7dwnduY537FGjxmYW8nSWqt/11sf8PDEtCBo78Jl/7Wb5f6rFsIgJu7Xah
-         C17ARUY1g3g+MZKCRD/c+/4rvFFIpuLpfdACDW472d4Lq8KspSX05wFPNxJE/TxU7ZhS
-         frNCXAiZIarn4B4LcTVxcxTnrcUcCs5N/8YLG7SqQ/8fXVPtqFR7n5u0BsZyfRoLktx3
-         PedBnyn8X9d5EnfjUFUMg+vbVs6mOp8yo1d9JjG+fHQuUE/hdyLLSJ0ztevaB6f//s+m
-         48+oX1tOMPwKtL6/z4xQ/Ntx5QZMP0YnALP78E4RyvtfaCEwiHWPyA3G0lm1YvzZK9Rk
-         nfSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794748204; x=1795353004; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
-        b=E3NNkXn7Kkk9+i4V9F1+LHx0gAzP+7aI5lToB3DkMeqpU0R5DuxoyhKQJLgywIu5Dl
-         Df0+kqpXxGxnqFpfMiN3Cw4aDdKZnL8Z5GcjpLgnIEF18naQolTdZxRkkZeKSJXlV3c0
-         Iv7jXdrdWP/mc85q31sblc2xhS8v9aGVUHRnPJvd7lUHIuNhMVmWNPWGxuDuEEqKb2VE
-         7NwaUDpZzGo9SUCS6XrYGzL8Flo2WbHni3qFe5vAT9O7t1fNcSDG9QBZ00j4OG9X05mi
-         A1/FBzDzs6td7a+PgimezQyLXPXM5wne+L366jhEbQsOWUTIla6UpL/vWfEkDEZMsdiS
-         SsCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794748204; x=1795353004;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1NInRpWewM21xnm9EH4eimZBPH/P0aEOMo3UtLkqsvc=;
-        b=ml5yrDIRIrwBueCjB6zrI6H/2Zp1nNfY0OZUL8FdjG+IqfOU6rcZdzIYdCmnGAWoUI
-         aVFYyW+Rmm9Vdfy8Rt0wx9qq3OxgTK0TlabueXza9BuTgpmaU2eI/N1zfWZVRyAjAWhV
-         KW4Zmjrzq9T8KoDkoW0/0HXM9AulHahpEWjNlYNlyAb2qJdTZy/Mnp6KDv8VtMl10gFU
-         OvF0ov5iCL2WKzxtxAUm9J0cwT/kjomqH142b2zKTc6Ja3rYM0mRYjyCewsinjJWHyHq
-         l5BvxxSwmW4TWQu2+FjjY1R6yj7zIrNj5RkzEF//tio+WZujD4jWrOyMZbWSwOkuDATG
-         ArQA==
-X-Forwarded-Encrypted: i=1; AL+hErFB9cK9eRZVZEUIPlIlkI7IBuF2+hhZwyDi4errAPxIR4HwaFFUwr6iY6AiNMdxlg95kpMUYcecMJxSKcw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hUHxpbeDAORW7Ft3xadDFywE1olQjNYielzn1RmPewbEd6HUB
-	371kdJ7YDD53FJO2+8cW9sbdGYqsEmhBZRHG9QwGzGgFWhhDxYAYTNY0FWSIf1Yy91ItKsPewS2
-	z8m2RY/8RWDtnEw9mHRItjcYb/1Efe+k=
-X-Gm-Gg: AYBFou31Oy8F3I/ZS7/l9KO4C46f28qZeRXYRbupzANMezyozworpGyMmi4q0rtpUm7
-	FgS6+xsPEGfWFlpzy35VkP26x5X9dcZTeyN47l2HduGlZlXBeKF859IaATOqMIsMgQkwnd0LrcL
-	cHESzTa0sui/pFbCTc621eCr7+qbsMcuvdQG9Jdir+IHh63eKP2rQceDHjEMcHlqVWD4RtFAeLe
-	am13zw7bmKSsYan040ZS9T87IKUmV5zxeEdmCBxGLZGacaWTKK9HPrhQ2tdTaX8ObAm1eXzI74a
-	9fPiX4lCFDmKiJcfPTd9MEh69YPX0Z+UrFrJHM+dSWOItxRbl7ebaIr+IWz59Btz6fMEv0BX+3A
-	culOBnvD4/ttWUApfImPGT/jMDwSPTd5E3aWB
-X-Received: by 2002:a05:6122:1b8d:b0:5ca:856d:cf80 with SMTP id
- 71dfb90a1353d-5ee34a7e643mr3049835e0c.11.1794748203388; Sun, 15 Nov 2026
- 05:10:03 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sun, 15 Nov 2026 05:10:02 -0800
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sun, 15 Nov 2026 07:09:20 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=VBAvAFaG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QpGATdJa
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailflow.phl.internal (Postfix) with ESMTP id D8DDB13819D4
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:10:55 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-07.internal (MEProxy); Sun, 15 Nov 2026 08:10:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794748255; x=1794755455; bh=OT4FeXl35Wtg7prNe9t4q
+	4OanVhGByEupJ8DCWW0Zu0=; b=VBAvAFaG2NxOtSxitihLNpDtxRhSTqGiPm+2b
+	OyGb8uz4h3kyw9gtRbxTpt7enq4s7JyIAVXVgMFsWHYYho9+1VRd2dP3ol9jGw8X
+	TnVyTrRcOioznZxlEOQP/Wk48+xKYwJEONcIRB/MZtQNy7ucOo0lNt2Uw1GkZrYK
+	NGT1+meNKtioVCfvb2N3vfzBeneZQs4EnMe1JwVV6Jg36qkoGSVNqnSwhwv7IXas
+	xarfuNQIPvMSv36pCW97GqglN1k/MCF2pT+wS0AVwNCVqpjt3stvM/E9PxOETLT8
+	fplEjdM6BFj9f4//adA6bLgFbJvOAqOixgBoRxbDUmpV7xpvQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794748255; x=1794755455; bh=OT4FeXl35Wtg7prNe9t4q4OanVhGByEupJ8
+	DCWW0Zu0=; b=QpGATdJasvCIxdd7OqsE+1+ojDS2Yc0J2czZBP0eebTsmUqa2Sr
+	oN90V7c+hYKNDSbDjMBOYONuOU3gqC1Cair05CFkKIzCV198tWcgdcFeuXZjc2OW
+	vwq127miOTCWIjiGur/bKR2IVv37lC4B44+M7JT3nkX0HHko8C1a9Y9n2abpeCiu
+	vPsPs26kGyh/DbxV0Ccc1VCIiLM//zhW2c7ThoFgIkvdPD4eCCmyRy1yyYrAHGcT
+	ZCpmC4v36oQksOlaJjKtRPqKpufOsm98AgHe2KzuzgAug1nvq7gWLP514q2uni0o
+	vQx+cJRdpeNzGL9Rh+A0D7ODjhy5OxDLWWA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794748255; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:qQN0rn5j74wke+bDf5WmZ2OU9oNcYkPRLjvQpMPTX9rpLop
+	rE6OySJSiLjkBATY3T7wD77DbqSTOLxVPGIPEM4vxvJacXJE8p4ANcOtn2qGftp8
+	kj/EsFhcWa+jNzlUHfoR6IQtPnMZBotd6TBDGxd2ghMGlmPeOveyL6NIivZ63BjE
+	eamsdI3oUWz6NjwG4w6Tv9CileC8iI3sdmAJuFpADqy+0+IDvdoYfNImy0tt9hO1
+	bCsJMjVoHbma92BEhoQ7/eV1Q4k44QMEWcCGepHuz14uQHE02//LeNNJJ3xj2ne6
+	Zq/rXsyLxa5TDJLi1Sdi8wt8Y8DEZv2iOLku9Fw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:O8NH1FAPmoca8ODKi9/z5j8obHXtjHqqOLT4jqdvk7g=:kc8jFrtHGOCCuXz0LhqwqZVS1P4n1jlyVi1qGpltCp0=;
+X-ME-Sender: <xms:X6_5aifvhwe3M2YueZ3YErh4mneyU5oLa1gzXgNioVLQtXf4_uOtHQ>
+    <xme:X6_5aoPbaYAg9lhcOm676mWvhIrfVOCcjrFYevwQ2yYnEgvrWJeuN72dHImlOleyZ
+    2l5d6I8SJ_DN6CNR3Il5qUKUo0rTkDG4QnydNmcdstCPzzm3ZPszy8>
+X-ME-Received: <xmr:X6_5alt50UF5teFP36MV0tlJQXfW9o4JKvN4gXXnoVBVja0kebOhPQqVPPXhLJK3>
+X-ME-Proxy-Cause: dmFkZTGPkveAdfc5w2ZRKxtHShmO68327dXLVpOEFJzba+fXOBZCJ9NDlEESf6ERyUzj3x
+    kprTj0F1LHjUz47eZg6J6ex0YNYInfQozJZBKdXWoMKMBOpVl+raMJDhDKd0AwuDLlIeuo
+    xdRWeI31Kg3v08ndDS0g6FIppPlY+MnPKljgamQdHFgveNvkROi8NS7pawEH5tIztHBzic
+    sivyUg+63B5x9f3VatMOCtaT76oyxVDYejPyNmtPlUA34Xff8Devw64Nbcjv+Ed+bPAWiV
+    qfR7zbL9Yk4Vi+PIS2Y3IAKCEjErGIpO7L4PEbzGvvf1VDonOj192IfsVE29cyqO4djECO
+    oOp5kut41//YxJalsKAQWQc7sR4CDQPT8ASGchY5GLsAwxln0Uxwbf8ZHAAHzu7FaGM51N
+    nTEdc8dSO1ugrYx4NT/V98E813ytn2XCVneEeVmA0F38N0dyx3pPrcriUpvYc4LFwMJMLZ
+    miQAGDDpKrXCXKCcV8ADv6k4I6s0q2Sm+VLdOBCPojuQBNerboDS5SnpN7dSQ2rCNx7JgU
+    HBYv9v804kvlSeJ2xPeIq2UjjCUdKauxFgxTwapTI0hoxtUB7H/p237ed80frRzfQvLadi
+    AAmOrGElWwV1iGZ9bDqgVz7nFbjKxoypZ0qak3EGYJezBTJZ1ZrRiHAugpkg
+X-ME-Proxy: <xmx:X6_5ahBO0DV_VGDTfrwu1vJ2L0Jz3nc0tDEtqfN2yU_tZIZwnpvIBA>
+    <xmx:X6_5asZxsW2yWe3fqZrmvMwloJd9q2m-Kqkb1Gt1svkmui-eEboJ5w>
+    <xmx:X6_5asUK2sRY7RGlNf6VDmdN-Z2PRVVcz2dSu6A7drx-OuPYZjybpA>
+    <xmx:X6_5arPDn_vKCAXxWOUfsUwkDdcjJaKcoLpRIymJr0mLlzNLTJUdvQ>
+    <xmx:X6_5aiAi9pNtLPSQ1sy5reKSDLIQSZJAxh5ZlqnrYa74DCJZG8OmBLgN>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 15 Nov 2026 08:10:54 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: fix smb2_cancel() use-after-free during request decompression
+Date: Sun, 15 Nov 2026 07:10:47 -0600
+Message-ID: <20261115131047.2338285-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,65 +126,206 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: enderaoelyther@gmail.com
-Date: Sun, 15 Nov 2026 05:10:02 -0800
-X-Gm-Features: AclHuK92OLe_ppBLr7loZS976QSMB3kkhkT0NjtubDh_jhqXCnkEGQD3vj8y5-w
-Message-ID: <CACHPgzwtaykrULWEDNuWU0ZacnNf4s4uSsiYmxE_vJhS4jO0GA@mail.gmail.com>
-Subject: [PATCH wireless] wifi: mac80211: parse wrapper TPE elements without
- an extension offset
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Commit d160663ca2fa ("wifi: mac80211: fix TPE in channel switch wrapper
-parsing") replaced cfg80211_find_ext_elem() with for_each_element_id() for
-Transmit Power Envelope elements inside a Channel Switch Wrapper, but kept
-the offset that skipped the Extension ID. The parser now drops the first
-byte of each element and misreads the rest.
+smb2_cancel() finds the request to cancel by reading the SMB2 header in
+the request_buf of each queued struct ksmbd_work. A queued request may
+still be in preprocessing. smb3_decrypt_req() decrypts it in place, and
+ksmbd_decompress_work_request() frees request_buf and replaces it with
+the decompressed buffer. Neither runs under conn->request_lock. A
+concurrent CANCEL can therefore compare a transform header as if it were
+an SMB2 header, or read freed memory.
 
-ieee80211_parse_tpe() takes a u8 length, so for a zero-length element
-0 - 1 wraps around to 255 and the parser reads past the element. Received
-beacons are parsed this way when the BSS table is updated, with or without
-a connection, so a frame sent over the air can trigger it.
+  BUG: KASAN: slab-use-after-free in smb2_cancel+0x73b/0x840 [ksmbd]
+  Call Trace:
+   smb2_cancel+0x73b/0x840 [ksmbd]
+   handle_ksmbd_work+0xa90/0x2110 [ksmbd]
+  Freed by task 53136:
+   ksmbd_decompress_work_request+0x10d/0x180 [ksmbd]
 
-Pass the element body and length unchanged, as for a top-level Transmit
-Power Envelope element.
+Record the MessageId and Command of each request in its struct
+ksmbd_work, under conn->request_lock. A plain SMB2 request gets them
+when it is queued, because its request_buf does not change. An encrypted
+request gets them once it is decrypted and decompressed. smb2_cancel()
+matches on these fields and skips a request that does not have them yet.
+It no longer reads the request_buf of another request.
 
-AI assistance was used.
-
-Fixes: d160663ca2fa ("wifi: mac80211: fix TPE in channel switch
-wrapper parsing")
+Fixes: 6639b6928ba2 ("ksmbd: handle encrypted compressed requests")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 ---
-Tested the in-tree parser with a ten-case KUnit extension under KASAN,
-applied identically to the base and fixed kernels. The base fails three
-decoding cases and reports a slab-out-of-bounds read for a zero-length
-nested TPE. All ten cases pass with the fix, without KASAN reports;
-the existing TPE suite also passes on both kernels.
 
-Compile-tested with no new W=1 GCC/Clang, sparse or smatch warnings.
+Notes:
+    The bug needs an authenticated client on an SMB 3.1.1 connection with
+    encryption and compression negotiated. The client sends an encrypted,
+    compressed request. An SMB2_CANCEL on the same connection is then
+    processed while that request is being decompressed.
+    
+    A reproducer is available on request.
+    
+    Tested on ksmbd-for-next dc6eabb1bd40 under KASAN. The race window was
+    widened with a temporary msleep() in ksmbd_decompress_work_request(),
+    not part of this patch. A CANCEL sent during decompression no longer
+    triggers the report. A sync CANCEL still finds an in-flight request by
+    its MessageId, and an async CANCEL of a pending blocking lock still
+    returns STATUS_CANCELLED. smbtorture results are unchanged.
+    
+    This fix was developed with LLM assistance.
 
- net/mac80211/parse.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/smb/server/connection.c | 27 +++++++++++++++++++++++++++
+ fs/smb/server/connection.h |  1 +
+ fs/smb/server/ksmbd_work.h |  7 +++++++
+ fs/smb/server/server.c     |  2 ++
+ fs/smb/server/smb2pdu.c    | 18 +++++++++---------
+ 5 files changed, 46 insertions(+), 9 deletions(-)
 
-diff --git a/net/mac80211/parse.c b/net/mac80211/parse.c
-index f3c5a9f6ec7c..7564d655919f 100644
---- a/net/mac80211/parse.c
-+++ b/net/mac80211/parse.c
-@@ -698,8 +698,8 @@ _ieee802_11_parse_elems_full(struct
-ieee80211_elems_parse_params *params,
- 			for_each_element_id(subelem, WLAN_EID_TX_POWER_ENVELOPE,
- 					    pos, elen)
- 				ieee80211_parse_tpe(&elems->csa_tpe,
--						    subelem->data + 1,
--						    subelem->datalen - 1);
-+						    subelem->data,
-+						    subelem->datalen);
+diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
+index 0fcf90b877ae..01e5cc13a12a 100644
+--- a/fs/smb/server/connection.c
++++ b/fs/smb/server/connection.c
+@@ -352,6 +352,32 @@ bool ksmbd_conn_lookup_dialect(struct ksmbd_conn *c)
+ 	return ret;
+ }
+ 
++/* Caller holds conn->request_lock */
++static void __ksmbd_conn_set_request_id(struct ksmbd_work *work)
++{
++	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
++
++	if (hdr->ProtocolId != SMB2_PROTO_NUMBER)
++		return;
++
++	work->req_mid = hdr->MessageId;
++	work->req_cmd = hdr->Command;
++	work->req_id_valid = true;
++}
++
++/*
++ * Record the MessageId and Command of a request whose request_buf now holds
++ * a plain SMB2 header, after decryption and decompression replaced it
++ */
++void ksmbd_conn_set_request_id(struct ksmbd_work *work)
++{
++	struct ksmbd_conn *conn = work->conn;
++
++	spin_lock(&conn->request_lock);
++	__ksmbd_conn_set_request_id(work);
++	spin_unlock(&conn->request_lock);
++}
++
+ void ksmbd_conn_enqueue_request(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+@@ -363,6 +389,7 @@ void ksmbd_conn_enqueue_request(struct ksmbd_work *work)
+ 	atomic_inc(&conn->req_running);
+ 	if (requests_queue) {
+ 		spin_lock(&conn->request_lock);
++		__ksmbd_conn_set_request_id(work);
+ 		list_add_tail(&work->request_entry, requests_queue);
+ 		spin_unlock(&conn->request_lock);
+ 	}
+diff --git a/fs/smb/server/connection.h b/fs/smb/server/connection.h
+index e202bf7f3b98..6855c1ab691e 100644
+--- a/fs/smb/server/connection.h
++++ b/fs/smb/server/connection.h
+@@ -242,6 +242,7 @@ int ksmbd_conn_rdma_write(struct ksmbd_conn *conn,
+ 			  void *buf, unsigned int buflen,
+ 			  struct smbdirect_buffer_descriptor_v1 *desc,
+ 			  unsigned int desc_len);
++void ksmbd_conn_set_request_id(struct ksmbd_work *work);
+ void ksmbd_conn_enqueue_request(struct ksmbd_work *work);
+ void ksmbd_conn_try_dequeue_request(struct ksmbd_work *work);
+ void ksmbd_conn_init_server_callbacks(struct ksmbd_conn_ops *ops);
+diff --git a/fs/smb/server/ksmbd_work.h b/fs/smb/server/ksmbd_work.h
+index 1ab9ddd20506..27c8705910fe 100644
+--- a/fs/smb/server/ksmbd_work.h
++++ b/fs/smb/server/ksmbd_work.h
+@@ -36,6 +36,13 @@ struct ksmbd_work {
+ 
+ 	/* Pointer to received SMB header */
+ 	void                            *request_buf;
++	/*
++	 * MessageId and Command of the request, set under conn->request_lock
++	 * once request_buf holds a plain SMB2 header, for smb2_cancel()
++	 */
++	__le64                          req_mid;
++	__le16                          req_cmd;
++	bool                            req_id_valid;
+ 	/* Response buffer */
+ 	void                            *response_buf;
+ 
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index e91e3a1459e5..962f12e969ba 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -295,6 +295,8 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
+ 			ksmbd_conn_abort(conn);
+ 			return;
+ 		}
++
++		ksmbd_conn_set_request_id(work);
+ 	}
+ 
+ 	if (conn->ops->allocate_rsp_buf(work))
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index d8da0b259cfd..dda5f4ddbb43 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -10698,7 +10698,6 @@ int smb2_cancel(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+ 	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
+-	struct smb2_hdr *chdr;
+ 	struct ksmbd_work *iter;
+ 	struct list_head *command_list;
+ 
+@@ -10715,8 +10714,6 @@ int smb2_cancel(struct ksmbd_work *work)
+ 		spin_lock(&conn->request_lock);
+ 		list_for_each_entry(iter, command_list,
+ 				    async_request_entry) {
+-			chdr = smb_get_msg(iter->request_buf);
+-
+ 			if (iter->async_id !=
+ 			    le64_to_cpu(hdr->Id.AsyncId))
+ 				continue;
+@@ -10736,7 +10733,7 @@ int smb2_cancel(struct ksmbd_work *work)
+ 			ksmbd_debug(SMB,
+ 				    "smb2 with AsyncId %llu cancelled command = 0x%x\n",
+ 				    le64_to_cpu(hdr->Id.AsyncId),
+-				    le16_to_cpu(chdr->Command));
++				    le16_to_cpu(iter->req_cmd));
+ 			if (iter->cancel_fn)
+ 				iter->cancel_fn(iter->cancel_argv);
  			break;
- 		case WLAN_EID_COUNTRY:
- 			elems->country_elem = pos;
+@@ -10747,10 +10744,13 @@ int smb2_cancel(struct ksmbd_work *work)
+ 
+ 		spin_lock(&conn->request_lock);
+ 		list_for_each_entry(iter, command_list, request_entry) {
+-			chdr = smb_get_msg(iter->request_buf);
+-
+-			if (chdr->MessageId != hdr->MessageId ||
+-			    iter == work)
++			/*
++			 * request_buf of another work may be replaced while
++			 * it is decrypted or decompressed, so match on the
++			 * MessageId recorded under request_lock instead.
++			 */
++			if (iter == work || !iter->req_id_valid ||
++			    iter->req_mid != hdr->MessageId)
+ 				continue;
+ 
+ 			if (cmpxchg(&iter->state, KSMBD_WORK_ACTIVE,
+@@ -10760,7 +10760,7 @@ int smb2_cancel(struct ksmbd_work *work)
+ 			ksmbd_debug(SMB,
+ 				    "smb2 with mid %llu cancelled command = 0x%x\n",
+ 				    le64_to_cpu(hdr->MessageId),
+-				    le16_to_cpu(chdr->Command));
++				    le16_to_cpu(iter->req_cmd));
+ 			if (iter->cancel_fn)
+ 				iter->cancel_fn(iter->cancel_argv);
+ 			break;
 
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+base-commit: dc6eabb1bd40c0655837844c58432ae9095f6979
 -- 
-2.56.0
+2.47.3
+
