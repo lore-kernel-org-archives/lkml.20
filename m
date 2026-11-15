@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794746010;
-	b=M3YxeqRGbNUubM0snwfl8skwylWRA4dPvCUprZNGRgqz2T/OLhXZlQa+ast8waVKSQMK
-	 qHkduGKwaUiI0R3tJ8vonh4XM90z/us5GkpWXAR96UPll+qEf4GT0oIYgI1xcEDuPuu79
-	 B3d3k1nwcA1cTEEg2XXQZhMsIz3J4WDMhm/JB0BJ6VrIxclpph/4X7NCbT1qKKCD+cWKW
-	 h6fBY/aawed3C8eanBBooZ/eVHCG7JuHWSjuT3s7QFUnHmdm99JuiEWGj/Jb6GbIXxCch
-	 sIfh85OTBrrXNGjo+g36OWJCHMWWxUJkt7NLhuZ14WDeQM8tLCkiRGlye06jfAcKTHQ==
+	t=1794746016;
+	b=H8eaa1RuxBsxmRn6QFAl9f7BA1KYts2Ww5vih9tGNeo7b05l1jRUAqtQn2SF2F7DXVF2
+	 NydZ0pb4WAaQMgdOVakIZXIvUmyY6+sdVbpzJyuKgl8nbt74BbzFjuQiG1dHCgh7Fzksa
+	 +oscYZifxcet2BWzfsI5EArs9PSRrWjWXpMpLyyud0GfksMAnRbqpQoEG2ylH4n040uxp
+	 hcwSJPsqbHuoZdAE05sv3dHD0FV/hVXgBLqwtldnF2ojH4jxR761jBZIDzPwACZDm/v1c
+	 MUd2JvKJkUDFxYCdaP4OEdUdG6ylc4m+ZBunJqREEyjTTRkeOQasH/WfNMgZdguq/hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794746010;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=P0L0ftbj+kIt53ureHmiQ7Y/IcbNESkfV8kHEr8QUa8=;
-	b=gGVWFUbTpeO54op7OYdVtoU3r/6xF+tMc7wz5/egsY6SIsAVa/AaHqZDJFlU8dG+LUc6
-	 JDAH7IiD2ldppuVCqKLqn03YYw0BlTHnANI4Ya5vR+2xXdyNTYmdjgGHwZ/U/neLccXCt
-	 9RZ7NkLKU1FtmCeblOef9fkaf90K081AkGudgUibpKTjkVoJ59hlU7WT1jWybz0+Ak5Cf
-	 deSkR/ficp2f+QaR/wa5//I2zGQ55XnELzfcHw1HWY0oBT29HdzBgbYpwGWG0vJC2Qy8t
-	 BmYdVlBCIgSTqYTDvCcdRv5BqJrMUcZL7vZEUfcO5yv/8M1u8qDowUPWuLmwNCUk1nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794746016;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BO246RphuzY/DrEjzoUVe0XefTBKEGV6YAQpWNCx62M=;
+	b=NXQFC6b7EWWjTiogyslw/hqUiXnyFB7ndSt8tFrhw5xrjBlBMhxLV2du6X9Yq/o8zXfP
+	 jiAhW6LqXP7mjNOnNYla1O3sygTtoCzcPCwupTdplB3uUqXZ6V1ecX0PoohB7eAYCf10z
+	 We1l4pJUMRM9LZLWtepXoA4pMo/+b9xiIypwnGt1CkvECiorZn2BtU1FshyfuLD+t8QrV
+	 sEe3ML4Ypmv6YWVWiY3MZgAHT75RCj+p0/eyE4a8RtioX/7hF8QkfCideYdBG+pTq/59Z
+	 cV9vP6MoWaAZf9IHnYUiadunQvTihhtgqTvFvCK9ksU/OP1yixF2P83CFwqnAEgJhBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtJ6RtOK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A74606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 12:33:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30A74606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5735cd94235so314541b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 04:33:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794746009; x=1795350809;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P0L0ftbj+kIt53ureHmiQ7Y/IcbNESkfV8kHEr8QUa8=;
-        b=egUViNr1B2ZPRgeUypuE/eKG9FXFKrRnpvQ2oZeiWd8Ispy03GEBz+YQ8JwdE+8JiG
-         CGXhCvTDPIywXpvv78qkUQ5r1JSyAOSSAfw3VNZ4jDxwuj4OnTW1DL7G8mvFB+ad9T6J
-         hknTwMr7Iintt0ASaHvgVdT0jSFtOMU+LheUBgQWnE0LNqnmwGUIva3mPOMrvTV7iUIJ
-         pfDWgTpJuq8hq3lFoZFpAIgaROLyTJ/QVWTVxCLQcRGyqHphMKHViYxgNElHaM+K2u8V
-         2pTsVMyB4ICztJiqfJzum+vbHGvl7WWZlhc+ba2gUfvfwV6uL1cyGEpFGmaZNrYqoGCK
-         u64Q==
-X-Forwarded-Encrypted: i=1; AL+hErGVfmmquHmQkRkHciYffOWvVyee4Sa/rvJhcxW0MfYyeqBw8SNspE09dPrZP6RqF8gIuz2Ze9wWCOz90rs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nIHp4bwihicocsmf9vg8Pqio+4tQ+OrhFnseBfv95JaF23mS2
-	u2sshPQxCSaMS3S1glXNqHD36J6mqWphEnqF/MrT+Njmf1WJInc9Qh4R+GAr1+yd/CMGmhaG6X2
-	MvHRStUUsyG3ev5xXgrFdXla5ZrG3/orIelb6LaGySgRAqSF4dIkiSjxP3M4=
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id F25B7606A31E;
+	Sun, 15 Nov 2026 12:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtJ6RtOK
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4A7A11F000C9;
+	Sun, 15 Nov 2026 12:33:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794746015;
+	bh=BO246RphuzY/DrEjzoUVe0XefTBKEGV6YAQpWNCx62M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LtJ6RtOKs02Otv7TADMcCxrEypSYbPf1GlT0OwXOP6go1fD6hhlIGU2b95psS2kvK
+	 OvZeeFpUy6zC40XrC8lneqtdEEynPJUkruWd1oIGhzhFapepYik9op9hEBL/2cCIaX
+	 CNYEl8VL/2RL/o5m7PtVEyKWmNTQs2e8JWcmdakpDjXO26F3r2jY0tBLi5BJmwIzEl
+	 R6sNfFWNbVBUcckyqWd8B0Xu/+fvuKplo//9J5AdzYaaIXo1q3Ee3NXmXOrN24BOwE
+	 jqTgNuUlqR5Tx8USYyDbnWMK/ls9g+1qsVLEUXkC9vGkqymQfSDFLOKAJLJjnsL9IM
+	 V+yLIf/mzbFLw==
+Date: Sun, 15 Nov 2026 14:33:32 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Sinan Turunc <enscrpt@pm.me>
+Cc: David Howells <dhowells@redhat.com>, paul@paul-moore.com,
+	jmorris@namei.org, serge@hallyn.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] keys: serialise instantiation against keyctl_chown_key
+Message-ID: <avmmnHsz2vDUk8HO@kernel.org>
+References: <20261115121722.206-1-enscrpt@pm.me>
+ <avml2-lpRCJYlHOp@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,48 +59,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:e88:b0:55c:8ed:4db8 with SMTP id
- 5614622812f47-56e65a413efmr5878322b6e.62.1794746009242; Sun, 15 Nov 2026
- 04:33:29 -0800 (PST)
-Date: Sun, 15 Nov 2026 04:33:29 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af9a699.78cd6c47.117a81.0005.GAE@google.com>
-Subject: [syzbot] Monthly wireguard report (Nov 2026)
-From: syzbot <syzbot+listd270b2ab9f81057c7dc8@syzkaller.appspotmail.com>
-To: Jason@zx2c4.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, wireguard@lists.zx2c4.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avml2-lpRCJYlHOp@kernel.org>
 
-Hello wireguard maintainers/developers,
+On Sun, Nov 15, 2026 at 02:30:23PM +0200, Jarkko Sakkinen wrote:
+> Please review the LLM generated patch yourself at first and write
+> a commit message thta you can understand yourself.
+> 
+> Plus, remove spurious inline comment changes. I'm only then going
+> to review this.
 
-This is a 31-day syzbot report for the wireguard subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/wireguard
+I.e., I have serious concerns that you might not know what you're
+doing. Well-formed commit is the way to get evidence on that.
 
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 5 issues are still open and 21 have already been fixed.
-There is also 1 low-priority issue.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 111     Yes   BUG: workqueue lockup in wg_packet_encrypt_worker
-                  https://syzkaller.appspot.com/bug?extid=ce2a09d03fdc079a46e9
-<2> 60      Yes   BUG: workqueue lockup in wg_packet_decrypt_worker
-                  https://syzkaller.appspot.com/bug?extid=d0d2f1a65f45b319d25d
-<3> 21      Yes   INFO: rcu detected stall in wg_packet_handshake_receive_worker (3)
-                  https://syzkaller.appspot.com/bug?extid=48f45f6dd79ca20c3283
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+br, Jarkko
