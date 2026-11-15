@@ -1,52 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794750169;
-	b=Hq4uUWNwHJqgK6v6TPMwGEiFkmWQRDp0oyw4Alpg3fy5oC/MMjRghShyrlGbJX4g3SAG
-	 bA/GXTqNCUgAfmsKc6bMOzB9nIkYpqUdo02+ERfPYtFkG3spLsObIzuVuQzCq6M1Ent4C
-	 MwKSEvPxpIIfU0lGylDy9s21u37nmlG4g2uUSj+SABxbWrbwogF4VnvBs3eS3XQEgKzNd
-	 KFghL986BxF6LitZxwKallQ1riKvY7/43qmHWhpa99yMQGg6jgeaAEOkpR3/cIuE9B+Er
-	 aMrHkMS4hhr7BOXPPcemOXTq5ZHQkgKZg0R/FrwkofTmXSLxniT/QlqNXJ7jFU1re6g==
+	t=1794750216;
+	b=bx6TMgNJAhM5qWtuUs3LX0pZyiaaUs2HHPp7R5PANmsS14H6EejkiXLcAC3b09N8OPkA
+	 Tj7N03eQ/9nfJR0Av9zkXFp1y4PQ8xDDR1mJd7WbMEqIPyelbZo0YngP5BSSTTsIxOI2T
+	 5d0IDnl4C12g+FG6mNH2qd7lI51GG535gAmEBgHOvECGjW8mJgWqCNUZwMt5VpK14iwde
+	 tPX1i/MjUJaq4oCr9ayQwslCFaypwPVrQCIkceCd7MKLUeR/W5I3+B2D4wCix3tHPoWv+
+	 TkS7cPGCZg6Q43ucLBPB9zFwYZdlVirqBXcnMXySpoZzfZSVxnQQ5yubIzq2G3Z4Oyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794750169;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=21E6zrB8ozWrQ/A3H3YZJaHcRgH59KtHBfeSZHAvgWY=;
-	b=rx/rQF3kssp4XZ7KNo2z6CZUshMHIhs3fVMRUpRM+SvYi9gVeGuypJ1W6H/9oyvtvrko
-	 x6Tz9oHil5Ztp2KeHXdzhNPcZXXAAcz3bZk+uPBmyMXLWPe833XuSBisYoOGfB8SWM18c
-	 tP/bKeo5iTiQpHdh1qd16VJbbJ2vrck5R9MvP6dfQ9ZwqPrtgv8gA6VPtTue/lsXdzXUK
-	 1HAiqUXuRcBfn69Hu/PAPBT/BpTm9mZDY8rNJjCv3dj/YCec7kxRrTgSAHiRBtmNqev9y
-	 SKqCndbOiPnmHWlAUl0zTOhWGR4cL24DKnHyBLBhbmg30tDSsTp/Qz64IVa2SCeJR6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794750216;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=r1BWchFZ0F6U4eL8O5cOuqHAnPS3YQCASCANNaxwnwE=;
+	b=NjgZYK4/rTElD2jtyM9Sme//X5UcvOxp5d40j7iW00vcp+0QiWYLlMmLBTPolgzcUmI4
+	 Lo+RgDXyqY+qCkyW1BkqpZ6Ts96onvZjYlkpd57DJPS0fUSu28UGOV/+SJK4G1NeZqbRM
+	 zH08XtcPE7785GdsyrUAbt/tK9AvJa865ejZ8pPo+7jxAi15B86CHo7/F3TwREXSYBfQJ
+	 PhU08bUt+e/NnB8wXm0CtqRrwWKHrlYP23FGf2MMs8rbJmUd41brfsWR/HORyg9txwtM8
+	 jAK6FvaWp8+LNSCN/pDjxur5MRRS+mCxVlnp0FjRv9DUgP7lyv0ByHJCo10fNjCJYiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=seu.edu.cn;
-	spf=pass smtp.mailfrom=seu.edu.cn;
-	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=h39VGpmw;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=spfOm6x7;
+	arc=none smtp.remote-ip=91.218.175.103
+Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239A3606A331;
-	Sun, 15 Nov 2026 13:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 239A3606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF037606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:43:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF037606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=h39VGpmw
-Received: from [192.168.17.1] (unknown [124.79.98.159])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54b8d4a0b;
-	Sun, 15 Nov 2026 21:42:41 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net v2 0/2] net: plip: fix private work lifetime and balance
- the controller IRQ
-Date: Sun, 15 Nov 2026 21:42:38 +0800
-Message-ID: <179475015898.114908.1534399014158681174@seu.edu.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=spfOm6x7
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=r1BWchFZ0F6U4eL8O5cOuqHAnPS3YQCASCANNaxwnwE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794750213; v=1; x=1795355013;
+ b=spfOm6x7sfenH13qNLn8ER6w5DV/ryfpEuDUr6k65eZ0IyHssOKHvWFKP5H8wSFHWD4aa2IL
+ bnOOtMo4ckeH71SbJnOt4KCzb4y+meL9n+3rII5AOGVdALJhDiSNfSAo4iGeM8N02QQ3iaQqDfC
+ gk5ehHnQbHaRrLv0eWS9908E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8dc64cd74b0b1ec3;
+	Sun, 15 Nov 2026 13:43:33 +0000
+X-Mizu-Trace-ID: 8dc64cd74b0b1ec3
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 14:43:32 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v4_7/7=5D_wifi=3A_rtw88=3A_88?=
+ =?US-ASCII?Q?12a=2C_8821a=3A_respect_peer_A-MPDU_size_limits?=
+In-Reply-To: <20261115114336.1739863-8-hjf3108@gmail.com>
+References: <20261115114336.1739863-1-hjf3108@gmail.com> <20261115114336.1739863-8-hjf3108@gmail.com>
+Message-ID: <68091FA5-A6C0-4485-A01E-E1D3C2132552@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,32 +66,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa1df72218103a1kunm6a37fc6bc5347
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTE5KVhhCTB1LTx9ITEkZGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VTEJVQkNVSk5CWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=h39VGpmwuP/CLtvr3jZqvxwhZCHTEV+7IX02zFMFAi00Io2z11tCgHX8SClTtvvEn6nnXHxsQU17pfgzGOs8J7Da9wu+Uds97NTLe1YQwed9ci/DPYdnxoe1GPLsvC2aVDdWrizORUQzU0l1HOvO6oNfpGCzVZsqVwDGGywHILQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=21E6zrB8ozWrQ/A3H3YZJaHcRgH59KtHBfeSZHAvgWY=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Patch 1 keeps the private plip work disabled unless the interface is
-open, so teardown cannot race a work item that touches the parport or
-the skb queues.  Patch 2 gives close a tracked IRQ-disable reference
-and releases it exactly once, and restores the port state while the
-driver still owns it.
+Hi Jie Feng,
 
+I have one comment on this description as well.
 
-Hongyan Xu (2):
-  net: plip: quiesce private work before releasing resources
-  net: plip: balance the controller IRQ when closing a transfer
+On November 15, 2026 12:43:33 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
+wrote:
 
- drivers/net/plip/plip.c | 193 +++++++++++++++++++++++++++++++---------
- 1 file changed, 151 insertions(+), 42 deletions(-)
+> Honor the peer-advertised receive limit for transmitted A-MPDUs.
 
--- 
-2.50.1.windows.1
+Could you mention that these chips had no set_ampdu_factor callback, so
+rtw_set_ampdu_factor() returned before programming the peer's limit?
 
-Discovery: found by the author's in-house static analysis tool.
+I think it would also help to explain that the new setters clamp the
+factor to the chip limit before updating REG_AMPDU_MAX_LENGTH.
+
+Best regards,
+Luka Gejak
