@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794774545;
-	b=qjKeNopnKCMXBbjVZToye5JMUubQtLhx302Gpezl7CTX7+gB8Rf31S9KOHEJkkMJsGk/
-	 QfO8GWCD07QGbLYswX/1Hv83HrthQBEtRGS1N3W/oSU7cTn/GzeXQYxgLMHFHNs/JDf1Y
-	 QMZNhrzMobdztpmmnfWRCpR3bXLNOJGKw86NpfP01+b3RCRaajjEhbfv8qCU2sl2E+xY6
-	 jWQmZI17640yA2tpGvNMbR/FBKNh5Cl5HqQsWMDkslIzSLQtJNgilbrXkR7BKWRwufW4m
-	 73TCrV+QbhAJllPAb970z7ZRUcMnNgsqx8ACSrcmnrhxY97C7w5T5cTc5fTFdlIljwQ==
+	t=1794774551;
+	b=N0DtgjRcFtB0/r3Boqnw1ZLKuAV5iMiykVSXv08uPD/knBQpmBa2UxnT72LnQLXSCUDZ
+	 PGHYMv3wU25q7hzv8H1UpOACC6aYZcRFXynHh+4+CPsvjQ2pPWIsF8laMpH8tCzFzl4rc
+	 d1B1DBm+O25KhPQt8US3+fF93mgfcmHgHygJ8gtlbTcAYZ2ofQ1b34Cxr3L6Ug41bIICU
+	 PyMZo3K9QqIEkJYe3tMazyN6WTxCQexDea0KcyIMzcclUrj1umdOPx+qZvsXnd6NguZwH
+	 UE9Mv19LxIDQFyxwNH723CvxrPOPH52u0a7ppqwIaEcUmQQSIapPcuc/vXtva/Y+SNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774545;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774551;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zP3OQTBwwZIUAg7M62K45RlVQXlG65CAYmOvuJfQHXQ=;
-	b=kRuqwApDAejuvXnaye0bb53koN1Fh3hMs3zdb2aGHFR+wwLs1BZLA8ePxXZkS7KwBSSf
-	 X4Qt9aDqnhUE/bbHMChTbBkrqJKpTRXCe5WV+/NDgfOnhfV+SzF/ZwK/VVi3Yb17aN4wj
-	 MvWxfz7R6fUXy6AaF1lSmm0pqpmAghRjv0lbAWvK2W0kCwPT8DJxhUZUGmovTsvMscMc2
-	 HDf42f+vT+3zqd78cHY/6NjbgawiZpUHgUPwKUcsyjkee87CIO79SKZOdc0jXo5GekXMz
-	 Lh0wI+eOwzll7xEWkIV+a/W5zV7H3865s0gIQF/I0VCse5851kiI1vTXdptE1jDkZ8g==
+	bh=m32SW2Gde9+gzbvdZVnXzz0kef4/aUNp9r/u29SR630=;
+	b=vs4WXcJt6WQ5eaoCdSsVOoTlyIrOVrvJLhqdPmRMTqfQGI6fvxtZYMfPMrKR54lxw1AE
+	 xpJ/WJA4yhNkI0lZSPjVerg6iGg2QgOLQznazcHofcnS88ShMfk4GXogO93omRoCWD7+c
+	 7MHPlhr1UWQiNOZQRa1qy2v1ZEeiyiKA79feDO8hLcpRchmQPXaM1Vk4mTucM8zlmPhJS
+	 OalHcpZ7MXWWYHLInqz4p68avAnPp+LLSbTmi86YzMI+g0J2Ee989e0p7idO0LGT+OMSL
+	 jRGztD2ZkWx6UinBpIj+p6zPQS4ZGqM6/BWu2CD3yC1zEPlJakdbXtVYUvabL3AjjWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViDAqTj4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXpLkgB1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E32460A261D;
-	Sun, 15 Nov 2026 20:29:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010A5606B1EF;
+	Sun, 15 Nov 2026 20:29:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViDAqTj4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A921F000D4;
-	Sun, 15 Nov 2026 20:29:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXpLkgB1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992571F000C9;
+	Sun, 15 Nov 2026 20:29:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774545;
-	bh=zP3OQTBwwZIUAg7M62K45RlVQXlG65CAYmOvuJfQHXQ=;
+	s=k20260515; t=1794774550;
+	bh=m32SW2Gde9+gzbvdZVnXzz0kef4/aUNp9r/u29SR630=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ViDAqTj4fNcGKWq3m5uAhNzR12CpaStaV2OmctpHyhD2VE1y3cZ09WR2UZN8up0bY
-	 5MlLqz2jI02tsmPfx7SozKGSrtcg5P1kzTcW9Aco1YNZN3rN6myTnwq4Es/kgoCh92
-	 aBC6jyIAiwsAi1FJ7nJIQB+FIeh5W6I8Ym6KBxke/eJR6Xd0oYui0VxqeFhzS5zkqC
-	 cF7/nCNk6JtEwWderHTNSJsg49d2PjyqhOZtisHGgmjwjd6hhSsPyS5MategtTqOm3
-	 /gc9zRuXYzg8y9Tktx3+lT+9zcm4xxuZ7LzF+QeIk8/CcMDjYwzMXRKckoF0jFFYyN
-	 JtwDaUqTTX1pg==
+	b=RXpLkgB1dtmnhdNpwrfTlCXKs0BJA24fyiWuoBW3FDNWaELoId5zB21+s+3ggKc0D
+	 UhF/uCep+xw0+VdBPGt2TCNCjo2nz0qjeKpadbh0P4NzaA7xqqffNSYoxrSCTqLPJc
+	 tlpWLEqcBcoax5uoRq73xzvmPy3oSbLgSJLIkRr9dQFpsPxfhka7BSClk0cV7uMiFG
+	 iN7UF8+vr1LWfnmWKHQL37YJY9OUC3fU1GYxoyHEVVs/x4E3V+POkyqpYaxZcyZVEv
+	 Vgng8evr/daFU2Mkh54152pSaKFlIYTt6/vxj17AmKBfK+A3Iu5wJe24cOc0+NGOXt
+	 BNIax5xAW60+A==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -49,9 +49,9 @@ Cc: SJ Park <sj@kernel.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 09/27] Docs/mm/damon/design: update for report system
-Date: Sun, 15 Nov 2026 12:28:27 -0800
-Message-ID: <20261115202849.99134-10-sj@kernel.org>
+Subject: [RFC PATCH 25/27] Docs/mm/damon/design: update for user report support
+Date: Sun, 15 Nov 2026 12:28:43 -0800
+Message-ID: <20261115202849.99134-26-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261115202849.99134-1-sj@kernel.org>
 References: <20261115202849.99134-1-sj@kernel.org>
@@ -66,46 +66,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Update DAMON design for the data attribute report system.
+Update DAMON design document for the newly aded user_report type data
+attribute reports.
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- Documentation/mm/damon/design.rst | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ Documentation/mm/damon/design.rst | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index b676be6971589..e0eb53d7694f7 100644
+index 68cd80e2788cd..3f6779cd6ed48 100644
 --- a/Documentation/mm/damon/design.rst
 +++ b/Documentation/mm/damon/design.rst
-@@ -356,6 +356,32 @@ monitoring.
- Refer to the :ref:`admin guide <damon_usage_sysfs_probes>` to know how users
- can use the mode.
+@@ -382,12 +382,25 @@ can generate and submit reports of the given type.  The generations and
+ submissions could be done automatically by the kernel or manually by the user,
+ depending on the type of the report.
  
-+.. _damon_design_attr_reporting:
+-For now, no report type is supported.
++Below report types are supported.
 +
-+Data Attributes Reporting
-+~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+DAMON-external entities such as other kernel components and users may have
-+special data attribute information.  DAMON provides a system that let them
-+report such information to DAMON.
-+
-+DAMON provides the kernel API for submitting a report of data attribute
-+information to DAMON.  A report describes what type of the report is,
-+representing the reporting data attribute type.  A report also describes the
-+address range of the memory that the report is made for.  Depending on the
-+report type, the report can have additional information.  The report is saved
-+in DAMON's internal queue.  The queue is automatically managed by DAMON with
-+its best effort.
-+
-+DAMON provides the user :ref:`ABI <damon_usage_sysfs_reports_producers>` for
-+configuring report producers.  Each producer is configured for a specific
-+report type.  Users can dynamically enable and disable those.  When enabled, it
-+can generate and submit reports of the given type.  The generations and
-+submissions could be done automatically by the kernel or manually by the user,
-+depending on the type of the report.
-+
-+For now, no report type is supported.
++- ``user_report``: User-provided report.  To use this, the user should set the
++  address range of the memory to report for.  This type of report is not
++  automatically generated and submitted to DAMON.  The user should manually
++  generate and submit each report using the interface.
+ 
+ The data attribute probe supports the reports.  The probes can be configured to
+ hit for a given memory region if a specific type of valid reports that are
+ associated with the probing memory exist in the reports queue.
+ 
++For example, users can run DAMON in the classical page table accessed bits
++based access monitoring.  In addition to that, users could find hot data that
++might not be able to found by DAMON.  DAMON might not able to find that due to
++limitations in page table accessed bits or its overhead control mechanism.
++Users may be able to find that using their access to workload source code,
++experiment results or other tools.  Users can complement monitoring results by
++feeding the information as user reports.
 +
  Dynamic Target Space Updates Handling
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
