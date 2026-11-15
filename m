@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794714487;
-	b=3dVjdXwhgF/vWUKAdIpULTp5c9L0QHooGncWQpiySkpG92g09tareAfuJO0P+5NAPCOT
-	 1OR4iyyaWC0F8n8RfEWJFoeMrXX+1Kc/L6kHW3iUmIGJ1eTR3EapR7GDXIiv0jQgFSLEV
-	 yx2nOEctLoP0UAZc8L0AXrR7BtWs5lGn+ohgvyeW9FAC4JavItunUQe4NFOkQIPCkHBXx
-	 82z6DmSxNt7KYZ/7oAuxwneZc1vdeFZIf+1vj20YmqThJvTW1mjFu5aOPn4J3wc+vCvhT
-	 K5qrhLN+R8ITN3PK7BnnBnEj01J25amJOpp03iNgsePtFP26nZSugeRR7ngJ/PknvNQ==
+	t=1794714506;
+	b=QfMCoDsE3NqhYIO3sFiubyzgSZpjUzaW1WdU1kgTj0LVpM8Oneb8vAHyIctzx4lX2QjT
+	 hPh6/WheB1Fz15+3KyCj8Madc+HtscgP1ZhdTI+eNJvb3jSjzTMiGUG1xkGPhiv+zIgZD
+	 0ikB7eqcuqvPJ7D23/Vtz2bFIPfUBj2xJbtc1aywSZiiHA4LCTmMtWR1Q156n2zlCBW3I
+	 VKe/P0YUqcVXkQ1+iVL+TnYFn3EfKrTZLdoo13PFnmqIMY993VMrX61ad+XrFzI9EmsEk
+	 Oh4VXRdyNIqI0c38FxLRv347e9Oty/nG1XY7LbNTuj7dIat91u3mVgNwuMgHeNjbOJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794714487;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=koJgHflpF8SlmhITyVQWyV+LPgkeAJc/hP06L9RsOYI=;
-	b=F2V+Kfo7xccuWcNBgYKhzWR31sKQP/lQpYL7HAc1HBCKqJENfAughtGdBI3tJ28msDZ6
-	 5mthmcRbjF02QT8poOsYMXQH+aiK3F8U5yzHDzIfutdCwUD+/QbGutLtOsTLRotfwXRHL
-	 2BT5kmpqlYWvYMzAl63bPoCXO6zu2lamHfthWNtwxPuWdf43hGuvACzrCgNCCYLxD36Ne
-	 IfWB/fCx6EAwHg/RBH/M/uk2PFKeuFX83TJkvd1JofUK72uK1yfCD1OT9zvWXr5qOmz7d
-	 ZBEb2COCf9RUuaPZNc8TH5URdRjq3EFJ3ygI03SwL/WeykeXihoc4/vdDV1ROmZiltw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794714506;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=a/Mrfr4ISwwE9/cPnl/X6Xi1B/jwM+RLsIX+oM4Qzjc=;
+	b=Mos2me8Y5HllfEN3XWzLtNVlLmV1nGxW2/dUt7UssaCJ7dEY36Qe8k8Tl51fKEvP9vhN
+	 644j/QYXcekrXm9unv1xiKXpop/Zv5XT4cxj9UWBTUfvMUPJ7RBUnpoXmuTEhnym/eApr
+	 MkzJYe0oMz8ggLSMlgHQHo4zGpc1NHEWRZX1QBgVWKToZIUDsDQlEsgtURbKq3bPafOlS
+	 7f0QUeyb7y+JUFh/7PXZ8HIe5QyXx+GA3pcsayeRNYQsPUk4TDBMh9+QeNR5foy4/3Fd8
+	 7YAymxEWIzC7K9H6e9xczPOv9v3daEbHEsYKeLbN+itKtgg/BiJ263SUTyHy7BxWx7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b183+LWr;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="DMWxL86/";
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4665D606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:48:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4665D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461F3606A323;
+	Sun, 15 Nov 2026 03:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461F3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b183+LWr
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36e795af1d4so1704487eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:48:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794714485; x=1795319285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=koJgHflpF8SlmhITyVQWyV+LPgkeAJc/hP06L9RsOYI=;
-        b=b183+LWrZFM0bv0LIXdbfL6FW/5eUn2mEGH7ooYlP86N7E5uEfzcrKvKo4HKAKacxv
-         GqV0dysJkB7meYrGx87aZE+fCxomVCXUMduyJD73Zgmcj0puzmcUhF0MzKt+RM8cE8u3
-         /3szSVzA9HIR4/XE9TJh7h9/5vMbEMJLeweZtnrZfKdEGc2AWJZQF6XvYh1jee0OGNVP
-         lSdaRpAbzDg4CCbLX71SNKq1wJzqX4tAwesTMwSbeo60lSD7M1Lqk6AP2QWG4W5ZIh6b
-         pO9+2qonCSweRR7vdT+SZWk+WOSn/Wz6alFcj6r4EWTisZAITnDRhwDSI1XIOongLCYf
-         yXoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794714485; x=1795319285;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=koJgHflpF8SlmhITyVQWyV+LPgkeAJc/hP06L9RsOYI=;
-        b=au+rLs1vo4P0JMgKZUYmeadE1SkFbQKDSlSslDxUG9OKuG8r4Kl89pjc27R3eDJHOY
-         8W1EOs24XJBDprY2OD0DjBZTchxCl1QZXLyo+apQqEumJNnr+53EFIOPqrMYOz8RzeVi
-         xpajw3N9ukaBc1WxrtecywMn25+iCZms4T+Znu3+TXLvyoNgFdwDmuWLC5TKBOzXxTIL
-         GhDY5i6nQMnMds3RWylvMAR8ceAlm7WkwBMgjzi4hru0R/cqk7ZpLLnkYeyXxtw0+6Wt
-         WydTId5RFAx/RnhFBMUiO15oJtnH3iU5Jhu3s82hcVlvX7QPe/ryWF2z5yY/bSc+AAu1
-         N5BQ==
-X-Forwarded-Encrypted: i=1; AL+hErEO4+h8F4qIRfnE1AyjIl+hblsMNebaj+I/WMl0q/AyxiKt/GwKwnDTKhJEe5zCgRHNQD3AVpMK5t1+qeU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TimBsnx4blT3cdxhKlSTfJXussPmzTip6d1N6mxvstxeflQzO
-	6rfdBleczZq+nJViruCm+WNcMvcGcbE799gQiZzwbe9QQVd3Nxtb6F+O
-X-Gm-Gg: AYBFou0oqJu7GAGGNHcZK0PvAXlIRMEWUe45gXLos8uP2J8piEw+IFzUJdeYRy5y0sK
-	2QjrJl7HVzJWeOvtZehW6tmn7itfINps64Op8Ij49rvbsZbLfMpfi1ZG4yALH+vqnLIjbdHh3eR
-	80Jt7xJZY6A/yTOmxuH0d2/9EnGKYBeparoXRauJRhqxfSOgBIWW3PNMpVpynhqWBsc4jHFQL5w
-	2FKmQ2bB+CApHfULeZ0olMYq5NzasSD8Gdyyg/OCatbLr0oA6ve0vvzpDJaQ7txJuubJiVWoBXn
-	lclHYXCt7Cd1byJIxGBz85sEkFVj5PlH7FD91j7Q+GitFS5H14I4To3vBHgMaFEUZKPbk44fekJ
-	6SXezBpWgEakzyOjXnKeElM56uvUgouULrKG+COm8UvSBqPXxSfPavWwoF9cFHpxDW17+aDIHSM
-	tFx8OHxmEWW8YGb5ctsMXcQ9TgARg9ZohWPSrWHhXzashQmL0MxW7b/TkRHUL6IKFPRgOQMdYl6
-	fjWN+itpR+ZCBGqMQIRrbMZ17vhFl2myk/LBvvh2yk/0J3UHUPyKut0YYLi2aMvQMouSKPuxh+t
-	5YqS5hY0zkMNauiTVmrYEqmN+KeWFtZqew==
-X-Received: by 2002:a05:7300:c00b:10b0:36a:647b:2d7a with SMTP id 5a478bee46e88-377db7c8ac3mr10822333eec.0.1794714485325;
-        Sat, 14 Nov 2026 19:48:05 -0800 (PST)
-Received: from [192.168.100.6] ([121.144.254.242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm37381434eec.21.2026.11.14.19.48.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 19:48:04 -0800 (PST)
-Message-ID: <84aaed30-5259-47cc-88b2-437b81efc90f@gmail.com>
-Date: Sun, 15 Nov 2026 12:48:00 +0900
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=DMWxL86/
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AF3mJyN52156102, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794714499; bh=a/Mrfr4ISwwE9/cPnl/X6Xi1B/jwM+RLsIX+oM4Qzjc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=DMWxL86/94db//Neq/bk6gekZVNCA/9YKOUkLSpgD4D0iIXCC9yW8tqLb6DxSRK79
+	 5OfspxacqKZFwKXCcNy5MWe0ouFuCMLcZ1mOTDkW/PzEVirguGXVx6XHEGftw2Hk0W
+	 h7H6zVmD8B85ZZ9ZRCIDQRrSWXb3wsrtMm9vCStAZyShOUbur8RigPanrWj29SZeEz
+	 ZePCOCcNYVq4YRGC5/9q89GS8dAbJY6kJvb6RmKPH0VAdqhIwKvZ21Z788RLmpbpyN
+	 NR4mCiYMLYbm5Yt54z0a0kMERgm+qVqVzvtzcgaDoHgh2oQg35jsEL4Zr8GD4qy3mY
+	 m4jDFTnwnLAGA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AF3mJyN52156102
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 15 Nov 2026 11:48:19 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 11:48:20 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Sun, 15 Nov 2026 11:48:19 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Enver Ikromov <owner@ph4ntom-rev.uz>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v5 03/10] wifi: rtw89: fix RX filter
+ configuration for monitor mode
+Thread-Topic: [PATCH rtw-next v5 03/10] wifi: rtw89: fix RX filter
+ configuration for monitor mode
+Thread-Index: AQHdc8pMdgCLaTs82ESX+TiwL0Qf/bcufleg
+Date: Sun, 15 Nov 2026 03:48:19 +0000
+Message-ID: <0a6a486d052e43c0adfb7fc6445b2026@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
+ <20261113235211.1911-4-owner@ph4ntom-rev.uz>
+In-Reply-To: <20261113235211.1911-4-owner@ph4ntom-rev.uz>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,50 +83,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261113153820.902362109@linuxfoundation.org>
-Content-Language: en-US
-From: Joungmin Lee <leejm516@gmail.com>
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/14/26 12:42 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.64 release.
-> There are 686 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
-> Anything received after that time might be too late.
-> 
+Enver Ikromov <owner@ph4ntom-rev.uz> wrote:
+> When entering monitor mode or enabling FIF_OTHER_BSS,
+> rtw89_ops_configure_filter() updates B_AX_SNIFFER_MODE or clears
+> B_AX_A_A1_MATCH in hal.rx_fltr, but leaves hardware target-address,
+> multicast, address CAM, beacon check, and UID drop masks active unless
+> specific FIF_* flags happen to toggle:
 
-Hi, Greg:
+Please describe your purpose. For example, describe which kind of=20
+packets you want to capture, but current settings misbehavior. Then,
+I can ask internally to know if you patch is necessary or not.
 
+>=20
+> - B_AX_A_UC_CAM_MATCH and B_AX_A_BC_CAM_MATCH are only cleared when
+>   FIF_PROBE_REQ changes, dropping unicast and broadcast frames from
+>   arbitrary BSSs without a CAM entry in hardware.
+> - B_AX_A_MC is only cleared when FIF_ALLMULTI is set, and
+>   B_AX_A_MC_LIST_CAM_MATCH is never cleared, dropping multicast frames
+>   when a monitor socket is opened without IFF_PROMISC.
+> - B_AX_UID_FILTER_MASK is initialized in DEFAULT_AX_RX_FLTR and
+>   DEFAULT_BE_RX_FLTR via mac->default_rx_fltr and is never cleared by
+>   any FIF_* flag.
+> - B_AX_A_A1_MATCH, B_AX_A_BC, and B_AX_A_BCN_CHK_EN must stay cleared
+>   whenever B_AX_SNIFFER_MODE or FIF_OTHER_BSS is active, including
+>   after rtw89_hw_scan_complete_cb(), rtw89_roc_end(), or MAC reinit
+>   writes rtwdev->hal.rx_fltr back to R_AX_RX_FLTR_OPT /
+>   R_BE_RX_FLTR_OPT.
+> - FIF_CONTROL and FIF_PSPOLL are masked out of *new_flags even though
+>   rx_fltr_init_ax() and rx_fltr_init_be() already forward control
+>   frames to the host via R_AX_CTRL_FLTR / R_BE_CTRL_FLTR.
+>=20
+> Retain FIF_CONTROL and FIF_PSPOLL in *new_flags, record FIF_OTHER_BSS
+> in hal.rx_fltr_other_bss so active monitor interfaces with
+> MONITOR_FLAG_OTHER_BSS (and concurrent passive monitors) receive
+> arbitrary-BSS frames without setting B_AX_SNIFFER_MODE, and add
+> rtw89_mac_refine_rx_fltr() to clear the drop masks without mutating
+> baseline rtwdev->hal.rx_fltr across mode transitions. The bit positions
+> in R_AX_RX_FLTR_OPT and R_BE_RX_FLTR_OPT are identical.
 
-6.18.64-rc1 successfully built and booted in my system without any notable
-regressions.
+Can you reword commit message generated by LLM? Just point the key
+point. Reading lots of stuff spends my time.
 
-Distribution: Gentoo Linux
-Architecture: x86_64 (ASUS Zenbook UM3504DA)
-CPU: AMD Ryzen 7 7735U
-iGPU: AMD Radeon 680M
+>=20
+> Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
+> ---
+>  drivers/net/wireless/realtek/rtw89/core.h     |  1 +
+>  drivers/net/wireless/realtek/rtw89/mac.c      |  3 ++-
+>  drivers/net/wireless/realtek/rtw89/mac.h      | 16 ++++++++++++++++
+>  drivers/net/wireless/realtek/rtw89/mac80211.c |  5 ++++-
+>  drivers/net/wireless/realtek/rtw89/mac_be.c   |  3 ++-
+>  5 files changed, 25 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw89/core.h b/drivers/net/wire=
+less/realtek/rtw89/core.h
+> index 7f84ee5..7be8810 100644
+> --- a/drivers/net/wireless/realtek/rtw89/core.h
+> +++ b/drivers/net/wireless/realtek/rtw89/core.h
+> @@ -6499,6 +6499,7 @@ struct rtw89_hal {
+>         u8 cv;
+>         u8 cid; /* enum rtw89_core_chip_cid */
+>         u8 acv;
+> +       bool rx_fltr_other_bss;
+>         u16 aid; /* enum rtw89_core_chip_aid */
+>         u32 antenna_tx;
+>         u32 antenna_rx;
+> diff --git a/drivers/net/wireless/realtek/rtw89/mac.c b/drivers/net/wirel=
+ess/realtek/rtw89/mac.c
+> index 41796bf..06fb263 100644
+> --- a/drivers/net/wireless/realtek/rtw89/mac.c
+> +++ b/drivers/net/wireless/realtek/rtw89/mac.c
+> @@ -2681,6 +2681,7 @@ void rtw89_mac_set_rx_fltr(struct rtw89_dev *rtwdev=
+, u8 mac_idx, u32 rx_fltr)
+>         u32 reg;
+>         u32 val;
+>=20
+> +       rx_fltr =3D rtw89_mac_refine_rx_fltr(rtwdev, rx_fltr);
+>         reg =3D rtw89_mac_reg_by_idx(rtwdev, mac->rx_fltr, mac_idx);
+>=20
+>         val =3D rtw89_read32(rtwdev, reg);
+> @@ -2706,7 +2707,7 @@ static int rx_fltr_init_ax(struct rtw89_dev *rtwdev=
+, u8 mac_idx)
+>                 if (ret)
+>                         return ret;
+>         }
+> -       mac_ftlr =3D rtwdev->hal.rx_fltr;
+> +       mac_ftlr =3D rtw89_mac_refine_rx_fltr(rtwdev, rtwdev->hal.rx_fltr=
+);
+>         plcp_ftlr =3D B_AX_CCK_CRC_CHK | B_AX_CCK_SIG_CHK |
+>                     B_AX_LSIG_PARITY_CHK_EN | B_AX_SIGA_CRC_CHK |
+>                     B_AX_VHT_SU_SIGB_CRC_CHK | B_AX_VHT_MU_SIGB_CRC_CHK |
+> diff --git a/drivers/net/wireless/realtek/rtw89/mac.h b/drivers/net/wirel=
+ess/realtek/rtw89/mac.h
+> index db42e33..b4a7cb7 100644
+> --- a/drivers/net/wireless/realtek/rtw89/mac.h
+> +++ b/drivers/net/wireless/realtek/rtw89/mac.h
+> @@ -1494,6 +1494,22 @@ void rtw89_mac_set_edcca_mode_bands(struct rtw89_d=
+ev *rtwdev, bool normal)
+>         rtw89_mac_set_edcca_mode(rtwdev, RTW89_MAC_1, normal);
+>  }
+>=20
+> +static inline u32 rtw89_mac_refine_rx_fltr(struct rtw89_dev *rtwdev,
+> +                                          u32 rx_fltr)
+> +{
+> +       if ((rx_fltr & B_AX_SNIFFER_MODE) || rtwdev->hal.rx_fltr_other_bs=
+s)
 
-[    0.000000] Linux version 6.18.64-rc1-900-myllvm+
-(user1@gentoo-zenbook) (clang version 23.1.5, LLD 23.1.5) #3 SMP
-PREEMPT_DYNAMIC Sun Nov 15 12:36:52 KST 2026
+Can we just do additional in rtw89_ops_configure_filter() under the
+condition
+   rtwdev->hw->conf.flags & IEEE80211_CONF_MONITOR
+?
 
-Tested-by: Joungmin Lee <leejm516@gmail.com>
+> +               rx_fltr &=3D ~(B_AX_A_A1_MATCH |
+> +                            B_AX_A_BC |
+> +                            B_AX_A_MC |
+> +                            B_AX_A_UC_CAM_MATCH |
+> +                            B_AX_A_BC_CAM_MATCH |
+> +                            B_AX_A_MC_LIST_CAM_MATCH |
+> +                            B_AX_A_BCN_CHK_EN |
+> +                            B_AX_UID_FILTER_MASK);
+> +
+> +       return rx_fltr;
+> +}
+> +
+>  void rtw89_mac_set_rx_fltr(struct rtw89_dev *rtwdev, u8 mac_idx, u32 rx_=
+fltr);
+>  void rtw89_mac_update_rts_threshold(struct rtw89_dev *rtwdev);
+>  void rtw89_mac_flush_txq(struct rtw89_dev *rtwdev, u32 queues, bool drop=
+);
+> diff --git a/drivers/net/wireless/realtek/rtw89/mac80211.c
+> b/drivers/net/wireless/realtek/rtw89/mac80211.c
+> index 5a12639..2a3adf0 100644
+> --- a/drivers/net/wireless/realtek/rtw89/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw89/mac80211.c
+> @@ -335,7 +335,10 @@ static void rtw89_ops_configure_filter(struct ieee80=
+211_hw *hw,
+>         rtw89_leave_ps_mode(rtwdev);
+>=20
+>         *new_flags &=3D FIF_ALLMULTI | FIF_OTHER_BSS | FIF_FCSFAIL |
+> -                     FIF_BCN_PRBRESP_PROMISC | FIF_PROBE_REQ;
+> +                     FIF_BCN_PRBRESP_PROMISC | FIF_PROBE_REQ |
+> +                     FIF_CONTROL | FIF_PSPOLL;
+> +
+> +       rtwdev->hal.rx_fltr_other_bss =3D !!(*new_flags & FIF_OTHER_BSS);
+>=20
+>         if (changed_flags & FIF_ALLMULTI) {
+>                 if (*new_flags & FIF_ALLMULTI)
+> diff --git a/drivers/net/wireless/realtek/rtw89/mac_be.c
+> b/drivers/net/wireless/realtek/rtw89/mac_be.c
+> index fa35caf..7147679 100644
+> --- a/drivers/net/wireless/realtek/rtw89/mac_be.c
+> +++ b/drivers/net/wireless/realtek/rtw89/mac_be.c
+> @@ -1328,7 +1328,8 @@ static int rx_fltr_init_be(struct rtw89_dev *rtwdev=
+, u8 mac_idx)
+>         rtw89_mac_typ_fltr_opt_be(rtwdev, RTW89_DATA, RTW89_FWD_TO_HOST, =
+mac_idx);
+>=20
+>         reg =3D rtw89_mac_reg_by_idx(rtwdev, R_BE_RX_FLTR_OPT, mac_idx);
+> -       rtw89_write32(rtwdev, reg, rtwdev->hal.rx_fltr);
+> +       rtw89_write32(rtwdev, reg,
+> +                     rtw89_mac_refine_rx_fltr(rtwdev, rtwdev->hal.rx_flt=
+r));
 
-Best,
-Joungmin
+This is just initial state. I suppose rtw89_ops_configure_filter() can chan=
+ge
+to proper setting by *new_flags passed from mac80211.
+
+>=20
+>         reg =3D rtw89_mac_reg_by_idx(rtwdev, R_BE_PLCP_HDR_FLTR, mac_idx)=
+;
+>         val =3D B_BE_HE_SIGB_CRC_CHK | B_BE_VHT_MU_SIGB_CRC_CHK |
+> --
+> 2.56.0.windows.4
+>=20
 
