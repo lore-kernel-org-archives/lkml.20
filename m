@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794718613;
-	b=pWm7JQydbWHMqXnZTlKszrt1q+TNbrevaSLtQXf3eNhqC4Kob2yRi3SD0BA5tDka01eZ
-	 LS6/VMfQEA5fYYtpM6dpBG9eMw/anju/HIQ46fTPCqY8Vm9WZt3HEed6m9GGg0ef/0GQg
-	 vDEIvZgLdODQXsrMPqarE8bg3DZVRlek0jv023tocOdwRCt5GXqXNelrJLZNkoOGff49W
-	 iLgkFnQSrtW3eM256dQEH84uv83dkifNI0Z/hwkEYj/tAmfIeGyb3kZiKh+pXQtisMagy
-	 kc5xYcdTJSnGQw/+kuSUdait/YySbbGsTLJVuNhJGAWAbNRZCj0I6bxGCTtISI0z6Xw==
+	t=1794718616;
+	b=CUFcF5Jkpxkg0M2wiPBG3EQcxtm2lOzjgOms5QpglLL6juPHFK4gjkHxnqJUzWLvZvVv
+	 nzSDG4QgTfdpa6647jS5+JOw10A+JaIkddHnY2IQJLxTR+atkG5X035V8qF21Xu8JZWQr
+	 ZtcmwO642sgG2oyYglkmTARA3c6aW0CwZ27HMsVhS6ya23bmjpyPOxpFB04nXUJPUd21K
+	 OV9ZLfNdV3ijKAhYdeioeHG2uZ9Qbp0oD7/sXlJ62ciOOA9qpCbCJvRjqZ4HVI59rV76r
+	 gvcI81aC6zkDxX0r1e0cBICkG0R0u4lCvJjOjOnztNtihtjmYnlFdP+kCQWrPn0c6EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794718613;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794718616;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=khASVnuhY+rY9MqIwmoGx90/W2kY6N1cqw0vv22kJ+c=;
-	b=E0FW8TN+BHRGqYKiuMPYgemoX6rOr4hQ/8ldx5A28wjOrfxo8cL5FFdtzevHtrztDpoO
-	 2eqen5NxY5m0M/tE4zHDoVMdwIQopk04BYCgAx1yVV/jabAdROhEIC06uA26c/8tOqgk8
-	 b/90trhpx2SO7MiXcEwdJrXKyjJG9YitpIkh3zfCKgm2UZTkZTDIH7d3ZTZ62RRD3Gg7i
-	 O/Zboih5P17jtEtiDfuFVFRj/k0IjV4fKjWdUnSBMPkdONWrLYPb01c2zt1XbhiEjZL9e
-	 G9LoycfqYPdEsLHEETGV6ZeT8s6T7rnGlMGT6h82+58gdlWnIrlr8YKdh6Vqj38d5Hw==
+	bh=/fmDDtqLSG4Bq7qUyj2IQPO7WGyW7QN3QsMqxKbW2rU=;
+	b=U2CIQEsVCbYZVGbxj47SQ9366KAwV3N27AfTSRCCUl9Mgcko1FXUTB3MLcUJX/BOFhu9
+	 wTu3pUIy2Yl0q6lUuFVhGtb1+wVutFRi+0YgQBfooONl3EW6HXoGUI1yAgd7QW9A1hF4e
+	 VWoEzUgui1bbMBikPG9c5yPpK4hyl80VSNOF4yM96wBHp7es0dnYcjRLhk42VYG0qC00V
+	 NOqkZtr9I4oFjpCSiPKm8Kd9eiKMqo9m07lFlrTLk8Lcv+WXIw9LeFPePYO19C2JHE1aM
+	 9lCQBNgRoq2I3OK4Fz8mahhl6CBHsYFDzCnoN5D7NXn0MfrwtuIr1khtsw835o9L3+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6gl0zM1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIgFDQNC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20422606A329;
-	Sun, 15 Nov 2026 04:56:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB7F606A89F;
+	Sun, 15 Nov 2026 04:56:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6gl0zM1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EF961F000C4;
-	Sun, 15 Nov 2026 04:56:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIgFDQNC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3FBC1F000C4;
+	Sun, 15 Nov 2026 04:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794718612;
-	bh=khASVnuhY+rY9MqIwmoGx90/W2kY6N1cqw0vv22kJ+c=;
+	s=k20260515; t=1794718616;
+	bh=/fmDDtqLSG4Bq7qUyj2IQPO7WGyW7QN3QsMqxKbW2rU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=n6gl0zM18YZKj3v0mhvMmdw3XwY9U2//3h7j2rRa76QNIwaUQOoKGEJZNgunE7+D9
-	 MmoFVaxn9yFuCyEzvKYGo5s8f8w9PkKZN8mYhW9g6WtQ1Ox37HIo++C6z3Ai1gl+ZJ
-	 Z7GyMzqrVnPFP3+1DIoDl7h1YkjY2O0pr/aAI+pF6+cUpPTq+DbDrR+EGPT9JWIURN
-	 C3j7veOyYyKFlsJWy+zcJxI0+4RlNd29I5zQCniohZ0DspeBNJi2Ens8Z3gH1CaQQg
-	 n/OWOFkjoRF0EgZXYSL3r0gLr4eq9Yr4HQIBV5XeZ8EWJyiRPmDrFDbBq0W121NAua
-	 ibl70NJKqdj6A==
-Subject:
- Re: [PATCH net-next v02 1/5] hinic3: Solve an stall issue in hinic3_rx_poll()
+	b=LIgFDQNCDwCzENyuWP9mZTSbKM1WfkSuvHNEHhpLRsUPG2Yv0EO5A2E5datvG9cuL
+	 j1aKD2T3wJ0ZRHoTNYC85BYEVY2yqzxKkr7Ab6AQduc6v3ZzbmnKYa+Dfl2+z18SWz
+	 VWIif5+YgQ85rBGEts22Im13N0Oi80b//Q1DbV2rho4T1RcM26QzUwf4NKdo9262KG
+	 1Qm8D/q9PThXUX5yZHWSKcmQ7ZCFDWszwyw61kcxD3RUUrtjbgjWqRHm9iWsEk9S6x
+	 vOfRoXzyTmd5scF04OtdzBEmftkdql00HR/2Qjo3WoxUFOWWM1qlpLRZ0SsfdXfxKV
+	 AHst4D/6SCRZQ==
+Subject: Re: [PATCH net-next v02 3/5] hinic3: fix some checkpatchs.
 From: netdev-bot+sashiko@kernel.org
 To: gongfan1@huawei.com
 Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
@@ -52,11 +51,11 @@ Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
  larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Sun, 15 Nov 2026 04:56:50 +0000
-Message-ID: <179471861093.2199510.12521678349103517689@kernel.org>
-In-Reply-To: <7b1857bfd040c90baa1777c4c18be56551c4c1b0.1794371175.git.gongfan1@huawei.com>
-References: <7b1857bfd040c90baa1777c4c18be56551c4c1b0.1794371175.git.gongfan1@huawei.com>
-X-sashiko-severity: High
+Date: Sun, 15 Nov 2026 04:56:54 +0000
+Message-ID: <179471861453.2199510.9158722374869867897@kernel.org>
+In-Reply-To: <a9a5d01e087f5240b514bdf878162a3f42f7291a.1794371175.git.gongfan1@huawei.com>
+References: <a9a5d01e087f5240b514bdf878162a3f42f7291a.1794371175.git.gongfan1@huawei.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,137 +68,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch does not close the WQE-starvation stall that its
-  commit message describes.
-- [Low] When napi_alloc_skb() fails, hinic3_rx_poll() now returns
-  `budget` even if zero packets were processed (the poll_again path at…
+- [Low] The commit "hinic3: fix some checkpatchs." changes only style,
+  but it carries `Fixes: 73f37a7e1993 ("hinic3: Queue pair resource…
+- [Low] The commit message is only the subject "hinic3: fix some
+  checkpatchs." plus the `Fixes:` tag and sign-offs.
 
 --
 
-hinic3: Solve an stall issue in hinic3_rx_poll()
+hinic3: fix some checkpatchs.
 
-This patch makes hinic3_rx_poll() return the full budget in two cases:
-when recv_one_pkt() fails, and when the LRO replenish threshold is hit.
-In both cases hinic3_poll() then keeps NAPI scheduled instead of calling
-napi_complete_done() while an unprocessed CQE sits at the head of the
-ring.
+This commit renames the trxq_params parameter to q_params in
+hinic3_alloc_channel_resources() and hinic3_free_channel_resources().
+It also moves the return type of both functions onto its own line.
+Nothing else in the code changes.
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> index 309ab59013797..f2262cdd66287 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-
-[ ... ]
-
-> @@ -571,8 +572,10 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
->  
->  		vlan_len = le32_to_cpu(rx_cqe->vlan_len);
->  		pkt_len = RQ_CQE_SGE_GET(vlan_len, LEN);
-> -		if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status))
-> +		if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status)) {
-> +			poll_again = true;
->  			break;
-> +		}
+> hinic3: fix some checkpatchs.
 
 [Severity: Low]
-This isn't a bug, but a note on this path. When napi_alloc_skb() fails,
-the CQE stays in place and hinic3_rx_poll() now returns budget even when
-nr_pkts is 0. hinic3_poll() then repolls the same head CQE until an
-atomic skb allocation succeeds.
+This isn't a bug, but the commit message has nothing besides the subject
+and the tags.
 
-This matches the "return failure ? budget : total_rx_packets" idiom in
-i40e/iavf/ice. net_rx_action() also bounds it, so it isn't a livelock.
+It doesn't say which checkpatch warning is being fixed. The old
+continuation lines were about 87 columns wide. Default checkpatch
+(max_line_length=100) doesn't flag that, so only an 80 column run would
+report them.
 
-Should this failure be counted somewhere? rxq_stats has an alloc_skb_err
-field, but hinic3_rxq_stats_init() only ever sets it to zero, so these
-retries can't be seen from userspace.
+It also doesn't mention the trxq_params -> q_params rename, or that the
+change has no functional effect.
 
-[ ... ]
+Could a short description be added? checkpatch itself warns when the
+commit description is missing.
 
-> @@ -581,12 +584,14 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
->  
->  		rx_cqe->status = 0;
->  
-> -		if (num_wqe >= nic_dev->lro_replenish_thld)
-> +		if (num_wqe >= nic_dev->lro_replenish_thld) {
-> +			poll_again = true;
->  			break;
-> +		}
->  	}
->  
->  	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE)
->  		hinic3_rx_fill_buffers(rxq);
->  
-> -	return nr_pkts;
-> +	return poll_again ? budget : nr_pkts;
+> Fixes: 73f37a7e1993 ("hinic3: Queue pair resource initialization")
 
-[Severity: High]
-Can the RQ still stall for good if hinic3_rx_fill_buffers() can't post
-any buffers here?
+[Severity: Low]
+Is the Fixes: tag appropriate here?
 
-The commit message describes this case: "WQEs cannot be replenished in
-time. The chip will drop packets due to lack of WQEs ... Furthermore,
-the NAPI instance will not be polled again". However, the return value
-of hinic3_rx_fill_buffers() is ignored, and poll_again is never set
-when the refill falls short.
+In drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c, the diff
+renames trxq_params to q_params. It also re-wraps the signatures of
+hinic3_alloc_channel_resources() and hinic3_free_channel_resources().
 
-hinic3_rx_fill_buffers() stops at the first page_pool failure and rings
-the doorbell only for the buffers it actually posted:
+No expressions, calls, ordering or error paths change. The callers are
+untouched, and the generated code should be the same.
 
-drivers/net/ethernet/huawei/hinic3/hinic3_rx.c:hinic3_rx_fill_buffers() {
-    ...
-		err = rx_alloc_mapped_page(rxq->page_pool, rx_info,
-					   rxq->buf_len);
-		if (unlikely(err))
-			break;
-    ...
-	if (likely(i)) {
-		hinic3_write_db(...);
-		rxq->delta -= i;
-    ...
-}
+Commit 73f37a7e1993 did add these functions, but this patch doesn't fix
+a bug in them.
 
-Suppose the device has used up every posted WQE, all CQEs have been
-processed, and page_pool_dev_alloc_frag() returns NULL. The loop then
-exits on !RXDONE, poll_again stays false, and nr_pkts < budget is
-returned. hinic3_poll() then completes NAPI and re-arms the vector:
+The other patches in this series are fixes aimed at net. Examples are
+"hinic3: Solve an stall issue in hinic3_rx_poll()" and "hinic3: Avoid
+concurrent updates on 32-bit systems.".
 
-drivers/net/ethernet/huawei/hinic3/hinic3_irq.c:hinic3_poll() {
-    ...
-	if (likely(napi_complete_done(napi, work_done))) {
-		hinic3_net_dim(nic_dev, irq_cfg);
-		hinic3_set_msix_state(nic_dev->hwdev, irq_cfg->msix_entry_idx,
-				      HINIC3_MSIX_ENABLE);
-	}
-    ...
-}
+With the tag, could this cosmetic change be taken into net? Could stable
+or AUTOSEL then pick it up for every tree that contains 73f37a7e1993?
 
-With no WQEs posted, the device writes no CQE and raises no interrupt,
-so NAPI never runs again.
-
-hinic3_rx_fill_buffers() is only called from hinic3_configure_rxqs() and
-hinic3_rx_poll(). hinic3_periodic_work_handler() only logs TX timeout
-events. Nothing else refills the ring once memory recovers, and the
-queue stays dead until the interface is reset. rx_buf_empty and
-alloc_rx_buf_err are also never incremented, so the stall is silent.
-
-i40e/iavf/ice handle this by folding the refill failure into the return
-value ("failure = failure || iavf_alloc_rx_buffers(...)"). Could
-poll_again also be set when hinic3_rx_fill_buffers() posts fewer than
-rxq->delta - 1 buffers, or could a deferred refill be scheduled?
-
->  }
+Would it be better to drop this patch from the fix series, or to resend
+it to net-next without the Fixes: tag?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794371175.git.gongfan1%40huawei.com
