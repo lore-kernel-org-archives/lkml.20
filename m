@@ -1,59 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749867;
-	b=l6T02FeXyVxg6ljpCbwBzGCaR8lkOdYQh6AReGM4t5pNVeG3voj/ph3tacKDQ8z/H3/h
-	 lQeQD79iAb0VswG5RyRYx2xBtxcmgl9XiXwp+kFe874IEz/EoSMdAwPNVipdxJsoxzvR5
-	 KZnju1rkuScg2VGEsR0JjoF2ZKTqsDJpImr71izY1WEbIi0j1SoQ9nEOGBtlWqt6F+J80
-	 sjqXWW0dJqi6RXq2FMgsWnue62y0PWPOGIn835CBOpNW4e+djpqOQUl3LJoHxb5XCYKH8
-	 +1ppp8mH3ziwdB2bcYaq9rFKlAeyC9s7j4n7L0AsvC+PgAkETkjcW5H0nK5qB9NE9Sg==
+	t=1794749870;
+	b=O9BKrqOzpdGh3g2/L+xwJiOyL8feFqzyvB+qjD5poThRmaDjwdf9HWYQ9X6DUU8Psgz3
+	 O8IJzHtK+lKFyXPA4p+hNKVPZdTO7q7NFJkt4P/8uh/IVwFAJtfB9sfpsjwMZ07n2Mmvf
+	 puNz3cPBsikcig4hlE0+f8vSx+rnLPKy7gjETcwff4RW1PsqHXow5v/cLpsifXK/VSj8y
+	 llEe9X7PeWB00W2QxC46QbKNWsJBt4H/XMjmFHJolz4VZcOLHoA5cnsblyQKIXaZ52Q+3
+	 M0ACm2daDOCdiuKTN9HnHghuNLg1UAmPqVPI8iR54zo173p91rH1SECbBpObn+aajYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749867;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=DXgbDNc8MoITwG6XL1PCwv3Ndt81BI1V9dNVTbanmzk=;
-	b=LowPOYTBfrQKLDloSLSMbQvEin+C7YXvtk5K3WXIwnq0LwsMiiHnFEG0A6I4MJKHdm0e
-	 p3nwx5p4+2CSIkD5u5TZFeicmIdVd5gHPaUs5+yZUcwAKCS93vwWSSj8Y8vkniBwr7DDN
-	 bscON/9k3FR32h2UToqXLIiddJ0Uzd3dGILRRRyaDi/jeHNKkayK6kIufqvW3cCOgIerD
-	 ehhL+dSiZdspgI8S0z0aHGEI9tIb0Ku/haXWlhurFA6lQNBGaXc7CGuYl4KW1eReKKGB1
-	 2wYonrUswK+3g0wRDrmq27IPcAgSJ8pFoDxtAjUGZzSwuGSzkShiU4AQSB6MYddGrDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749870;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Bn5vgqOLSInNgO9Dzy0nos5aKacNrhet+KuyEtFe0Z4=;
+	b=h7Y5iO884ba9N7NQamXWC3rrpRN4kaEMwZHSf9jHrE5AwgJdJyIbQ5u1mf+FrhvXomUf
+	 XXzAGIa5F6sYBz2icyXlqpdicuxF7rCUiLtsKNcVqb70BQRx1SM5DXsarCc+5VgYNrhU7
+	 Bvj/swoOnks7YpsRu5Z08RMpOtmIkOhSzom1CPfFSpBH8UGGN3SFomxONMNkbf0z4jedn
+	 FQlAcZpIHmqCdGHNB583FkYTqJq8R7o+c3+zBGc+uWCdb3yT+zNOkZm2Ptet9R45JndBW
+	 75aBYeaiR+E+trvAM3mOr9Ag26xdkrslhAWVVWPrGMU/uhT1pCXoX0suJL9pEDlwxLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gk3Q0jML;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aaQPcYJW;
+	arc=none smtp.remote-ip=91.218.175.49
+Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A32606A31D;
-	Sun, 15 Nov 2026 13:37:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFBE606A333
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:37:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CFBE606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gk3Q0jML
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7B91F000C4;
-	Sun, 15 Nov 2026 13:37:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794749866;
-	bh=DXgbDNc8MoITwG6XL1PCwv3Ndt81BI1V9dNVTbanmzk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gk3Q0jMLYFrsl1YQVVuzwPX+5aGWkqyiQPTGZFIoSQNti/ScEKUtUjGZsYP2z2YpU
-	 JFf9GLi1+wbT8VAgtPsIQ5BQGlUsBlvLigWgAltZokkfgZ824BXNIlxXYoY9Wshhq0
-	 sMSTKT9Whm6M7oQ9v9od4g60+kOvtqa3EfEg29HHZ5Jhi+ccunjf70jGmKu4WITR+T
-	 dZX4hlzC/aT7BTU3+OiBZXfBUDnpVV7x0N/SrglI0r5YKs5tJ0gJYWJiKiXYTFFNXk
-	 sC1pUW+LcO0eYgo3jeQGEWFpX7q8T8GLxCK+ZcUuvU92tOjD2yCRvy1G+rBB4NF0LK
-	 8zqztGW7akXwg==
-Date: Sun, 15 Nov 2026 21:17:26 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Mike Rapoport <rppt@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
-	linux-riscv@lists.infradead.org, bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] riscv: mm: Pre-allocate module page tables for execmem
-Message-ID: <avmw5hzuVxEk__WR@xhacker>
-References: <20261016102847.96530-1-kmehltretter@gmail.com>
- <avgpqlpWf01mwo9P@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aaQPcYJW
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Bn5vgqOLSInNgO9Dzy0nos5aKacNrhet+KuyEtFe0Z4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794749868; v=1; x=1795354668;
+ b=aaQPcYJWZ9DpRi4Ysh9U62DP4LXNYZxctwtztlL8csL5ahiQFnXBIQGn0u1+CNdMMIlebiNE
+ HvwN5qScfKgfOsMslcSHxxkRSXcbYQ/6ks8jZIvj/qECAtkjMipDE/out2V7zXR15Sz3pJW5a6S
+ /O+L4Kyg53KOEj3n81NIgZek=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e523b9ebdd69c396;
+	Sun, 15 Nov 2026 13:37:48 +0000
+X-Mizu-Trace-ID: e523b9ebdd69c396
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 14:37:46 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v4_3/7=5D_wifi=3A_rtw88=3A?=
+ =?US-ASCII?Q?_correctly_expose_beamformee_capabilities?=
+In-Reply-To: <20261115114336.1739863-4-hjf3108@gmail.com>
+References: <20261115114336.1739863-1-hjf3108@gmail.com> <20261115114336.1739863-4-hjf3108@gmail.com>
+Message-ID: <1F34F485-2BCF-4285-9C7C-189DF4E5FED9@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,47 +66,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <avgpqlpWf01mwo9P@gmail.com>
 
-On Sat, Nov 14, 2026 at 10:29:29AM +0100, Karl Mehltretter wrote:
-> On Fri, Oct 16, 2026 at 12:28:47PM +0100, Karl Mehltretter wrote:
-> >   Unable to handle kernel paging request ...
-> >   [ffffffff78000000] pgd=0000000000000000
-> >   ...
-> >   bpf_jit_fill_hole_with_zero
-> >   bpf_prog_pack_alloc
-> > 
-> > Use CONFIG_EXECMEM for the module-range pre-allocation, as powerpc does
-> > for its execmem page-table setup. Both CONFIG_MODULES and CONFIG_BPF_JIT
-> > select it.
-> > 
-> > Fixes: 2c9e5d4a0082 ("bpf: remove CONFIG_BPF_JIT dependency on CONFIG_MODULES of")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> > Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > Acked-by: Björn Töpel <bjorn@kernel.org>
+Hi Jie Feng,
 
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+Thanks for the patch. One comment on the description below.
 
-> > ---
-> > Changes in v2:
-> > - State that the BPF JIT region lies inside the module region (Mike).
-> > - Add Acked-by tags from Mike Rapoport and Björn Töpel.
-> > - No code changes from v1.
-> > 
-> 
-> A friendly ping on v2 of this RV64 execmem page-table fix.
-> 
-> Is anything else needed from my side?
-> 
-> Thanks,
-> Karl
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+On November 15, 2026 12:43:29 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
+wrote:
+
+> Implement beamformee support for 88xxa since they have
+> support for it.
+
+Could you expand this a little to explain what was missing? As far as I
+can see, the chips had no config_bfee callback, and this adds the SU
+beamformee setup for RTL8812A, RTL8821A and RTL8814A.
+
+I think a short explanation of the sounding and CSI report setup would
+make the change easier to follow.
+
+Best regards,
+Luka Gejak
