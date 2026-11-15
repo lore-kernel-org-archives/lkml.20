@@ -1,72 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794778181;
-	b=QCiosq9mc02MZbZ8k8YOO/PiFq96HXTmc3vKXcf/ZdjuK/OdMH80TQ3BfoJeV2ZMmJ8l
-	 eHYsK9MMwkR0LuRwLreTEBczKAmZlj2ORg6/zULt2PXST2Kzkm1+51C8Z6qylWYmcIQ8t
-	 wFqgByMW7qWTtqjGjMrA9vAD/BU91Lx9RomIYOxUGaRHfZmjGsqgi8W4iGX9Ej/AAnp3X
-	 LHcssKXbVFZrOc5ZBIchs/ZUX0Tak34mJZyqiWSO8NeojjpwH9oZTJO5vp49n/wlvHXMd
-	 AXf3pE+rYOsfJtL6wccx5udgnOtEG7AlgPG37ss4FpuCL+RTSfCmOx/HvmiUBJ3gIqw==
+	t=1794778264;
+	b=jVvmAEIaig7IZIjQjkTK9B8h3kO7xZWICL54FF7zQH7uTsL0AUDvy2hn4ZATtmWIr58y
+	 +v9Nw1jX2Hv7TwTsIJgEFENmC8cd4Djm6vkBpLdmiZIflG9S9UgU/t8l5ioN0HXKeLqvU
+	 dz+tRNNlaaxmd7FjbT6rU7UynJRZ8eMPI//aojI4dgdzR/gWCo6GELlOScQ6m+XuVL7l1
+	 PabUEOPLsNeVPZlFMW1l+jzUIxHkLHpJSnV09GQ6+Ww3BtRkFOi/PO8r/XW2ot7lintWU
+	 ua6dOI68vUCqsoaAazuxTg9pj7LqnH49j+A5jvy9othxbUc7EgcZirBX/LaPnyzkivA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778181;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=P9VrrWxvRwU4UhUNuvsViyvt2ldk3Lk1/YlnZNzZ1NQ=;
-	b=p/qcfm1jxNtUalsPlWJ8xy5sY5IydIiVKrDOXK6SHk61mhj8wUE7gbi9bZE/bhUhHgR2
-	 FYbwA79ftioEyVcCw88p8Vo9EzXaFh6pQ16D4ixQhURCI4W99QiCpuZpc0kVOf1cyiscy
-	 gpXV5E9K8cGl5d625ecJRGLHAbSxFxM62L9RH3Oj/1d7srzmYD1CxNwPLEFiN63EmLELy
-	 HThPa7kNu9f7ufpUXwzRcGPAvj7x8joecuksk4IMklQExpd95ywfS3FzKgPqlsCrpcZoG
-	 UJVdsKUbUNf47sF4J8DGo4sZZcrNU8g8+9Nvr4IicOKTd1v9xPc0hwlEOmerGfZdAmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778264;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=gI3pT+vyemFy2bR8tG+tuc3UaQlX4B8AkgTSVPpKmCY=;
+	b=sckvIKkkv59YBBCrtLZlJOoB5Z+IC9978c7iO7h4o8fVbB7MCKY0tahnsoTyMOMJHL2N
+	 HOeM/Z+wnE8tLUoFkgVO72fLYa5QjVRR6JVl9KPrnFlHcfq0iWLczR+rX83NB644Gor/6
+	 eALxvZ4m3ixdjE3v1C5Ch55KzFGzkih0wyttWHuAlueU9kCJnrSj3SMUXdipaU1MM+jY4
+	 yVSbIiEFGXhVmlNgXEpvzvcmpJIa+r4W5WJON+0Ie9PJ93LimNL9l14KTsNgV7OpFWBxd
+	 YdZaZgs4Ka84hiU4C6di3jOzplG691a+MCL1Dgt4ssorXDCh3cWrLiWcbD+tlvVC3vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="a8ia/Zjf";
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TD+YLUMO;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B5E606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3B5E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01380606A323;
+	Sun, 15 Nov 2026 21:31:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01380606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=a8ia/Zjf
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id SdYOxu1siAR1iShnAxTx3i; Sun, 15 Nov 2026 21:29:40 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Shn9xTf4rGh2BShn9xUPSI; Sun, 15 Nov 2026 21:29:40 +0000
-X-Authority-Analysis: v=2.4 cv=Aszu3P9P c=1 sm=1 tr=0 ts=6afa2444
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=p17y3UlcgzNCgfqtCmUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=P9VrrWxvRwU4UhUNuvsViyvt2ldk3Lk1/YlnZNzZ1NQ=; b=a8ia/ZjfSx20
-	Qi+cH483HSfKAPFiFXR9AtiYwatCNqcQUjsaFqMvm+Gz9FnoS/BqoKguHvBQLIcmkrMhzgfdh3PjT
-	5onE7JjcAxCn6dPq5HO4UVEIW0WAPY4cbx1xPe8peIVvykLmJ/lW5CoQU6IUycoY3KNyCQdfXMHRl
-	W+8DIffN9DQ8Dp/ZdbrcOk1quQ24K+Eu4cCwAJ56HdL8RDYCiOvMmNuzKuNoOabct7m6wlEbyKYDD
-	3DCzSr1JUyixKN3aNcBNX+hO8PrNKfEgvCT5lRMl1fDR9ajkrXSuIBw9sZV9QzaFC/3vbI8fcFLI2
-	e4oRjZeAFcIGOJkVInxshQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50840)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xShn9-00000000FTn-1jFW;
-	Mon, 16 Nov 2026 02:59:39 +0530
-Message-ID: <e0b7871e-5dae-438a-bde1-327fe450dc8d@roeck-us.net>
-Date: Sun, 15 Nov 2026 13:29:38 -0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TD+YLUMO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794778264; x=1826314264;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=jCKBvtDwsyaFaVJiupvEpl5700EKZdPVw5dmNxMVuSs=;
+  b=TD+YLUMOnp++488g7wSsWJ0ThD7ZUhZZrt2FwQ+vCNbhKFmazb6zjQwj
+   giAAeJfrUpPTe8uJ8T6nGUYqT1lQxhNSDBUAxI5fPK4346GSjFx4WCfZH
+   dozPqUdWuonnecNfEevhuPj+GOx+wIKkBxcFHnO0egL19PbZreeW8+Cr3
+   IPI4RUERSSiqA8zExqSvJMYeSE3Wor45n0C2hJhrjX/vuY3b+Ry+R/JDl
+   5XCb6By/JKONm/unI4zzmiONb6Y4gGl+5/4gM0/f0FrymXOnggUv+Efb6
+   tnfYhJkVYTpFkvJ+dpK7i+csrkc823lI95zhlpRWg2+vMAtmBAMSA9wup
+   g==;
+X-CSE-ConnectionGUID: B3Rr7MApSwSgoLcdBj0/8w==
+X-CSE-MsgGUID: oV7OuvJ1S8KBPOai3//Uug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3403312"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3403312"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 13:31:03 -0800
+X-CSE-ConnectionGUID: bfSLt/uHSn+iE3PZ81FKKw==
+X-CSE-MsgGUID: EdM1X6NaTzWv3nFMBfQyZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9722593"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 15 Nov 2026 13:31:00 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xShoP-000000017LS-0Ahq;
+	Sun, 15 Nov 2026 21:30:57 +0000
+Date: Mon, 16 Nov 2026 05:30:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Waiman Long <longman@redhat.com>,
+	Ryan Houdek <Sonicadvance1@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-api@vger.kernel.org,
+	kernel-dev@igalia.com,
+	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH v8 06/10] futex: Wire up set_robust_list2 syscall
+Message-ID: <202611160554.MGBENVam-lkp@intel.com>
+References: <20261115-tonyk-robust_futex-v8-6-a4fe47333a28@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,127 +92,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] watchdog: intel_oc_wdt: Add INTC109C ACPI ID
-To: =?UTF-8?Q?V=C3=ADtor_Hugo_Silva?= <vitorhg20080@gmail.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: Diogo Ivo <diogo.ivo@siemens.com>, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261115205408.99849-1-vitorhg20080@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261115205408.99849-1-vitorhg20080@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xShn9-00000000FTn-1jFW
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:50840
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfH6oxV6C9HOupeDfTw28wyOJTgZa0dtY3fTyAV/sDu6GU2da8tisoHkZHM9hY34MIeGtRpAtBSNSoyPFg8sLSYpVq8LFueTll3bCUPP/3yaye3F3IQ3P
- 4Qxla7cN/rRiudAHdRwMZ1MR/W1DlfmDb09Pu9pyZZnmpUUcKfOwm2ItaKrb8EIseY6uckNXSXzIt7KLUfL6WGIQ6sNv/MDN5JPHzGdkCJECTkt+e5Bj5L/Y
+In-Reply-To: <20261115-tonyk-robust_futex-v8-6-a4fe47333a28@igalia.com>
 
-On 11/15/26 12:54, Vítor Hugo Silva wrote:
-> The Lenovo laptops with an Intel Core 7 240H (Raptor Lake)
-> exposes its OC watchdog as 'INTC109C', leaving the device
-> unbound, because this ID is not present from the driver's
-> ACPI intel_oc_wdt_match table.
-> 
-> The firmware selects INTC109C or the already supported
-> INTC1099 from the same CWDT object's _HID method,
-> depending on the processor signature. Both paths share a
-> four-byte I/O resource at PMBS + 0x54.
-> 
-> Add INTC109C to the match table to use the existing implementation.
-> 
-> I have tested as a module on Fedora kernel 7.3.3-300.fc45.x86_64.
-> I did verify device binding, timeout configuration, start,
-> keepalive, explicit stop and magic close. Register reads
-> confirmed the enable and timeout fields. Expiry-triggered
-> reset was not tested.
-> 
+Hi Andr�,
 
-Why not ? That means you don't know if the code actually works.
+kernel test robot noticed the following build errors:
 
-Thanks,
-Guenter
+[auto build test ERROR on 9f74092fda91ef93c2b07585785c1dc83cd7971f]
 
-> AI assistance was used for development of the test harness
-> and 'peer-review' the patch.
-> 
-> Signed-off-by: Vítor Hugo Silva <vitorhg20080@gmail.com>
-> ---
->   drivers/watchdog/intel_oc_wdt.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/watchdog/intel_oc_wdt.c b/drivers/watchdog/intel_oc_wdt.c
-> index 0b012aeb1..a78fe1e5f 100644
-> --- a/drivers/watchdog/intel_oc_wdt.c
-> +++ b/drivers/watchdog/intel_oc_wdt.c
-> @@ -215,6 +215,7 @@ static int intel_oc_wdt_probe(struct platform_device *pdev)
->   static const struct acpi_device_id intel_oc_wdt_match[] = {
->   	{ "INT3F0D" },
->   	{ "INTC1099" },
-> +	{ "INTC109C" },
->   	{ },
->   };
->   MODULE_DEVICE_TABLE(acpi, intel_oc_wdt_match);
-> 
-> base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/futex-Skip-test_futex_robust_unlock-if-not-supported/20261115-143110
+base:   9f74092fda91ef93c2b07585785c1dc83cd7971f
+patch link:    https://lore.kernel.org/r/20261115-tonyk-robust_futex-v8-6-a4fe47333a28%40igalia.com
+patch subject: [PATCH v8 06/10] futex: Wire up set_robust_list2 syscall
+config: xtensa-allnoconfig (https://download.01.org/0day-ci/archive/20261116/202611160554.MGBENVam-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160554.MGBENVam-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611160554.MGBENVam-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> ./arch/xtensa/include/generated/asm/syscall_table.h:474:16: error: 'sys_set_robust_list2' undeclared here (not in a function); did you mean 'sys_set_robust_list'?
+     474 | __SYSCALL(473, sys_set_robust_list2)
+         |                ^~~~~~~~~~~~~~~~~~~~
+   arch/xtensa/kernel/syscall.c:31:44: note: in definition of macro '__SYSCALL'
+      31 | #define __SYSCALL(nr, entry)    (syscall_t)entry,
+         |                                            ^~~~~
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
