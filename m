@@ -1,73 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794730261;
-	b=UZZU/ajjru+nQ12QbZYEEA3N8a+n8VW4MyfD8QTjYaisPZbyKfNeW5N49IaR/7PTqfvu
-	 D3HsJeMdreYMfpfBLTzZDGjiL3ht6/PyxmCqqLu2mZEyRI7er/oP8NOloyUQzjhR+oVrf
-	 Mmdj8aR8AgeDXgLlCZeGtaEl1fPB5+iTS8AtZoAg9WzyxkBUNUWR5qkO0ePvwTfZK0blJ
-	 3HF1BS811TVVbr0SZXYv/LuktzeFbD/U0yXjT0i7TjuMwb4IhKA17jnt+SCWmLVHQMVtT
-	 WKQU6P8pYvuouyjW9wntA2dj/jAJJqNHUBChPd3w5W3X7PitnRNac6rfvZJ8yKdhocg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730261;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=kJT09pvCBTtbQI/0vVu9v6aSrAM1U/36HarANVoKMKE=;
-	b=ZQ1d7psmTe4WU8kVG+Gm57gqUERChwEgg7dcZfS/gHKz/YzL+YGnJACM3qmk4/tdrBrq
-	 pBlEktBd/ETBUfmHLBCuFuzUK5eZdHXHFABTNtqvUmNzmoIN7duWpGRbKCNuP587nBhnl
-	 9Fm/cDEwnySAnrW61FSJw1XklxaQJNXj4UYuNMf7YOuLJmLe8xiWOZfKJjJcBliXKJh6V
-	 IUqCbevPKC/+i+ABw9wBd9QXzipPMHpogDuuyID804Me2ooem3d7s3HwUYWL0s6mNbW/U
-	 T6YaDB664nn77r90gKpPmFq1peYX6H3RmAEfiNhtxxFb5/BwMEu8mREqRoGufVsuffw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=m6kLPRvs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794730328;
+	b=jKsYk8McN8if+BC8NYnHfGPxD+lwSr5e/qRyCiuOZDk4Y7Z+PS8PWgAsXNpt3Q8U5DBX
+	 zJcli+knOSbWt/R1nJ63ih3zaxgJ9RXVV8PdAu6hYH0MU93/Z90adEXpIYrws9O80wSvp
+	 2MsTFnqwyMeXot8GEr7LuIfJJENFbP3h1xedCLnHxt5Ajt57/HJDFcSqOw/bDwrQq3I05
+	 2NTOhzyHjErO+m7Vfr/4MR5LKgszatOeMHM3TpS4CfffFn2uklbSpAfnWb5zCXQkPD5M2
+	 70WJvsyJzgG8wipov5P2WGXxTylRZORkj/x8DUPxQkBXrUCgwJ8ZR3qaSXdop/LjIyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730328;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=fUa0H0ztFNFxbRvfr5CH/40+4HwV2xqZXcXOuIDf7nY=;
+	b=p1T1nxNz1C6x/TjN6H7g99XP7ndq0XAXADLzSwRtlQ6n1DDNUZZl62KGi3v/lVuomU0E
+	 4q6+jSAmp3PIvYF2Zkv4U0sxKi4wQr/yd5AsiEQ2svUQX20dwOes5qywmjXAM+tky5i/K
+	 Vi9EXw3Rc9tnA1oTONlxg5spxInVyY7ARlHY1IFOLqWXAa9rz+sx147CfdqHbvWAyWJWN
+	 2Ar6MTJYn3+KB1V+zuZLAobz3ovK/Pya0EjXdeCiuELCWBY7A1Lb2eGrImxIn6S59s0q4
+	 vBSH2PTgfczQmeB4j33R6Q+m9SvFvgXloc01CcHwPiLSm00SKBWeGiQ/xAeUDncSzeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i62iclQZ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C327606A323;
-	Sun, 15 Nov 2026 08:11:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C327606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C983606A31A;
+	Sun, 15 Nov 2026 08:12:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C983606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=m6kLPRvs
-ARC-Seal: i=1; a=rsa-sha256; t=1794730238; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=S8O6ACBvgk8lyymsZPCQ6B5RqHncVpm0pywJpoIg7dNxM7IsLsOMG/JJ1z+NN4oQp3jAakSlB+mrn7fVCYXo3vF8cZz3b1m2sTThbM9E2wg3x1DAtfTZy4l9acI27qBc6F6wBirE7Fqi1ka9aN8qZuglNpG58ntZNv2d5utcrnc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794730238; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kJT09pvCBTtbQI/0vVu9v6aSrAM1U/36HarANVoKMKE=; 
-	b=N3A7GYh7l1D3AskD2q2MnQyPLbjlWTPzvCZBqz45ZJA17il2qygNMxXtTlwpYyLZdW4vdhfgH7gzdBEFxs0P6OJGAZ0WJ04lOaq8duVWT2ztHad0odB07lJ8W0ZYV29JC8kPZ4YGM7pd9ED21MVdaOlraXa9erSl8+lrkBm8N1U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=m6kLPRvspjp2kNNNBVZ0hmRUbfF4Mne4mjn4gbu4XGkk6jwCxkcoyqbvMNyR4n461xx518zGFLH+Z/pwG5S9zuPFfjgGpM9TE9wKeWpjeIAhY1Fc838MMWOO6KKz2svObFzHl3DjBJ1zCG2jmdSBGrnBEI/znB9W1Ck/P3YBXO6qCuZZv9+aPwfCJ/p4Y+K/eBkqLRaDZ+MZznT3dAh+H2cmZa9INAtBgbAKaRvS9SNHBXbhngUOzs90Vm5KdejgMPtIRcxR3QxDx3EM6IpK70z5MzZu7wnv6UpFttv0UJRU3tHobjUEcfOLSZJora8eMEM7//1txGCiGR2DLW2isA==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=kJT09pvCBTtbQI/0vVu9v6aSrAM1U/36HarANVoKMKE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794730235830887.3843527419489;
-	Sun, 15 Nov 2026 00:10:35 -0800 (PST)
-Message-ID: <34d2115e347e5c33df2027ac26cfa259fc47091a.camel@rong.moe>
-Subject: Re: [PATCH v3 3/7] platform/x86: thinkpad_acpi: Sync LED core
- state on level writes
-From: Rong Zhang <i@rong.moe>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
- <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
- <hmh@hmh.eng.br>
-Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, Lee Jones
-	 <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
-	 <griffin@kroah.com>, vishnuocv@gmail.com, vsankar@lenovo.com, 
-	platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261114174814.62153-4-kmatzkaczor244@gmail.com>
-References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
-	 <20261114174814.62153-1-kmatzkaczor244@gmail.com>
-	 <20261114174814.62153-4-kmatzkaczor244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 16:05:28 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i62iclQZ
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AF7vviY2205269;
+	Sun, 15 Nov 2026 08:11:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=fUa0H0ztFNFxbRvfr5CH/40+4HwV2xqZXcX
+	OuIDf7nY=; b=i62iclQZDxxp/ozqj9EOgfArEp6xpaFMkgRosd357rXah9VU2B+
+	5YLPQsPLWAY0pHLsE7E6f1Za6/2pMl869w2nUWtF1YX5AA0VYP4jobldKnoco8Lw
+	iJ099NgEiUEs0iIZAtfG0/zUN2EieojtjJ3TFnwjRaBmqo00/baibTMpRbnC+YTi
+	4gK9sZkzD4EhyRv0ijGw3ROrdnWoD5k1pRDvSlX9IsYhx6nqROObMANqZYo5WwZX
+	1w1FdUQ8mJfthy706N3cqgcyDSaEzIMCs8q8KTyx0uwdp1BQDVEr1TzpOc4srtsL
+	OEQvdts+6FpzLmhbNwzl4HD0uHtzC3GK+IA==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhk22k1m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 15 Nov 2026 08:11:53 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AF8BofP2472710;
+	Sun, 15 Nov 2026 08:11:50 GMT
+Received: from hu-devc-blr-u24-a.qualcomm.com (hu-anuppate-blr.qualcomm.com [10.131.36.165])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AF8Bo7n2472702
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 15 Nov 2026 08:11:50 +0000 (GMT)
+Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 486687)
+	id ACC01248E2; Sun, 15 Nov 2026 13:41:49 +0530 (+0530)
+From: Anup Patel <anup.patel@oss.qualcomm.com>
+To: Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+        Atish Patra <atish.patra@linux.dev>,
+        Andrew Jones <andrew.jones@linux.dev>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Anup Patel <anup@brainfault.org>,
+        kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Anup Patel <anup.patel@oss.qualcomm.com>
+Subject: [PATCH v2] RISC-V: KVM: Convert IMSIC vsfile_lock to a raw spinlock
+Date: Sun, 15 Nov 2026 13:41:49 +0530
+Message-ID: <20261115081149.901590-1-anup.patel@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,146 +83,297 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: rt763E9qN95eSkS-VYNd9oSGTjgbV9Q0
+X-Authority-Analysis: v=2.4 cv=QanzLcbv c=1 sm=1 tr=0 ts=6af96949 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=tOZApgkiDm8jHLQLuvUA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDAzMiBTYWx0ZWRfXz1twMmDAI67m
+ 93+/0v6JlKlCoh9rmjAH1fvgHno6x2LVMfHHASHeEV7BYpW7GFoZEM1ttkPwHCrleT6I2fXozfZ
+ RrvqRJk8bo/lLD5QEqM4oEoMKvTuZhD6YtimpgA9qgmzxC2JW0sKUhwE9h26jBp6WnJWxdug7bz
+ yPWSXkra1QuKRjyiFja0VN3GB6dbivXDUz6Icn2C1o/1MutYcPEWP2BWnlGekXvVIgLzLkdNgEY
+ VB05jYVka7Yy7bSMT/8BUgG3CNbUJ8xTkI3yfeJcWvfi2RiwhyFe+yOLPMaU+fQPJBKzBpb3HiZ
+ GKoCih61Wb+Vtban2dvFj6T2nk2xkjO20yFPGXt1u9G0ARYuWmFYn1fnJL2d/vw8qNp5umE/cST
+ mxsY0AD4tBrTXjFXMBlaEIXG1oX6yF7ZB1nSEYrG+P7+ZS1XPbxyLY6Wfz9UqAyBXxTDjtlvoVx
+ Xz5afzp2X4+GAbIeG+g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDAzMiBTYWx0ZWRfXwqyJ1ELKz4x6
+ I4FanG0zWiT1K4AG9vRxrUMSP/84aMn2lttNHR5QHdX8jkYqSiOasuoC0Y6RNRKOlTtG83SQ8fZ
+ h44F1PfQiFrm42oQY+bKCzKuAYkgblk=
+X-Proofpoint-GUID: rt763E9qN95eSkS-VYNd9oSGTjgbV9Q0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-15_03,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611150032
 
-Hi Qiling,
+The kvm_riscv_vcpu_aia_imsic_put() runs from the scheduler preemption
+notifier with the raw runqueue lock held, so it must not take vsfile_lock,
+an rwlock_t, which sleeps on PREEMPT_RT. All vsfile_lock critical sections
+are short, so a raw spinlock is fine.
 
-The title is confusing. How about:
+In addition, converting vsfile_lock to raw spinlock allows us to drop
+the vsfile_hgei_lock and the raw_spin_unlock() will internally call
+mmiowb_spin_unlock() which in-turn drains the write-buffer at the time
+of releasing vsfile_lock.
 
-   Don't poke keyboard backlight's LED core brightness
+Co-developed-by: Andrew Jones <andrew.jones@linux.dev>
+Signed-off-by: Andrew Jones <andrew.jones@linux.dev>
+Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+---
+Changes since v1:
+ - Use writel() instead of writel_relaxed() because mmiowb_spin_unlock()
+   will be only called by raw_spin_unlock() when writel() is called from
+   critical section.
+ - Use swfile_extirq_lock in imsic_swfile_read() to serialize clearing
+   IRQ_VS_EXT.
+---
+ arch/riscv/kvm/aia_imsic.c | 82 +++++++++++++++++++++-----------------
+ 1 file changed, 45 insertions(+), 37 deletions(-)
 
-On Sun, 2026-11-15 at 01:48 +0800, Qiling Zhu wrote:
-> kbdlight_set_level_and_update() pokes the led_classdev brightness cache
-> directly after writing the new EC level, without notifying userspace and
-> without any locking.  Commit 06da5325d02e ("platform/x86: thinkpad_acpi:
-> Stop setting led_classdev brightness directly") already removed this
-> pattern from the sysfs path but had to keep it for the proc interface,
-> which has no LED core path of its own.
->=20
-> Move the LED core state update into kbdlight_notify_level(): stop
-> updating the cached level in kbdlight_set_level() and have both the
-> sysfs and the proc write paths go through kbdlight_set_level_and_update()=
-,
-> which writes the EC level and updates the cache under kbdlight_mutex,
-> and reports the new level through the LED core, like commit
-> 07f48f668fac ("platform/x86: ideapad-laptop: add FnLock LED class
-> device") did for the ideapad FnLock LED.
->=20
-> As a result, writing a level through either interface now emits a
-> brightness_hw_changed notification, so userspace listeners see level
-> changes from both of them.
->=20
-> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
+diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
+index 302938972aa0..c5966019cd1f 100644
+--- a/arch/riscv/kvm/aia_imsic.c
++++ b/arch/riscv/kvm/aia_imsic.c
+@@ -47,9 +47,7 @@ struct imsic {
+ 	 */
+ 
+ 	/* IMSIC VS-file */
+-	rwlock_t vsfile_lock;
+-	/* Writers hold both locks; scheduler-out only takes vsfile_hgei_lock. */
+-	raw_spinlock_t vsfile_hgei_lock;
++	raw_spinlock_t vsfile_lock;
+ 	int vsfile_cpu;
+ 	int vsfile_hgei;
+ 	void __iomem *vsfile_va;
+@@ -490,17 +488,6 @@ static void imsic_vsfile_local_update(int vsfile_hgei, u32 nr_eix,
+ 	csr_write(CSR_VSISELECT, old_vsiselect);
+ }
+ 
+-static void imsic_vsfile_set_hgei(struct imsic *imsic, int cpu, int hgei)
+-{
+-	unsigned long flags;
+-
+-	/* Serialize the CPU/HGEI pair with scheduler-out's wakeup setup. */
+-	raw_spin_lock_irqsave(&imsic->vsfile_hgei_lock, flags);
+-	imsic->vsfile_cpu = cpu;
+-	imsic->vsfile_hgei = hgei;
+-	raw_spin_unlock_irqrestore(&imsic->vsfile_hgei_lock, flags);
+-}
+-
+ static void imsic_vsfile_cleanup(struct imsic *imsic)
+ {
+ 	int old_vsfile_hgei, old_vsfile_cpu;
+@@ -512,13 +499,14 @@ static void imsic_vsfile_cleanup(struct imsic *imsic)
+ 	 * VCPU is being destroyed.
+ 	 */
+ 
+-	write_lock_irqsave(&imsic->vsfile_lock, flags);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
+ 	old_vsfile_hgei = imsic->vsfile_hgei;
+ 	old_vsfile_cpu = imsic->vsfile_cpu;
+-	imsic_vsfile_set_hgei(imsic, -1, -1);
++	imsic->vsfile_cpu = -1;
++	imsic->vsfile_hgei = -1;
+ 	imsic->vsfile_va = NULL;
+ 	imsic->vsfile_pa = 0;
+-	write_unlock_irqrestore(&imsic->vsfile_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
+ 
+ 	memset(imsic->swfile, 0, sizeof(*imsic->swfile));
+ 
+@@ -553,6 +541,7 @@ static void imsic_swfile_read(struct kvm_vcpu *vcpu, bool clear,
+ 			      struct imsic_mrif *mrif)
+ {
+ 	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
++	unsigned long flags;
+ 
+ 	/*
+ 	 * We don't use imsic_mrif_atomic_xyz() functions to read and
+@@ -561,11 +550,15 @@ static void imsic_swfile_read(struct kvm_vcpu *vcpu, bool clear,
+ 	 * a temporary MRIF on stack.
+ 	 */
+ 
++	raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
++
+ 	memcpy(mrif, imsic->swfile, sizeof(*mrif));
+ 	if (clear) {
+ 		memset(imsic->swfile, 0, sizeof(*imsic->swfile));
+ 		kvm_riscv_vcpu_unset_interrupt(vcpu, IRQ_VS_EXT);
+ 	}
++
++	raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
+ }
+ 
+ static void imsic_swfile_update(struct kvm_vcpu *vcpu,
+@@ -606,7 +599,7 @@ bool kvm_riscv_vcpu_aia_imsic_has_interrupt(struct kvm_vcpu *vcpu)
+ 	 * only check for interrupt when IMSIC VS-file is being used.
+ 	 */
+ 
+-	read_lock_irqsave(&imsic->vsfile_lock, flags);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
+ 	if (imsic->vsfile_cpu > -1) {
+ 		/*
+ 		 * This function is typically called from kvm_vcpu_block() via
+@@ -621,7 +614,7 @@ bool kvm_riscv_vcpu_aia_imsic_has_interrupt(struct kvm_vcpu *vcpu)
+ 		else
+ 			ret = !!(csr_read(CSR_HGEIP) & BIT(imsic->vsfile_hgei));
+ 	}
+-	read_unlock_irqrestore(&imsic->vsfile_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
+ 
+ 	return ret;
+ }
+@@ -646,10 +639,10 @@ void kvm_riscv_vcpu_aia_imsic_put(struct kvm_vcpu *vcpu)
+ 	if (!kvm_vcpu_is_blocking(vcpu))
+ 		return;
+ 
+-	raw_spin_lock_irqsave(&imsic->vsfile_hgei_lock, flags);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
+ 	if (imsic->vsfile_cpu > -1)
+ 		csr_set(CSR_HGEIE, BIT(imsic->vsfile_hgei));
+-	raw_spin_unlock_irqrestore(&imsic->vsfile_hgei_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
+ }
+ 
+ void kvm_riscv_vcpu_aia_imsic_release(struct kvm_vcpu *vcpu)
+@@ -663,13 +656,14 @@ void kvm_riscv_vcpu_aia_imsic_release(struct kvm_vcpu *vcpu)
+ 		return;
+ 
+ 	/* Read and clear IMSIC VS-file details */
+-	write_lock_irqsave(&imsic->vsfile_lock, flags);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
+ 	old_vsfile_hgei = imsic->vsfile_hgei;
+ 	old_vsfile_cpu = imsic->vsfile_cpu;
+-	imsic_vsfile_set_hgei(imsic, -1, -1);
++	imsic->vsfile_cpu = -1;
++	imsic->vsfile_hgei = -1;
+ 	imsic->vsfile_va = NULL;
+ 	imsic->vsfile_pa = 0;
+-	write_unlock_irqrestore(&imsic->vsfile_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
+ 
+ 	/* Do nothing, if no IMSIC VS-file to release */
+ 	if (old_vsfile_cpu < 0)
+@@ -726,10 +720,10 @@ int kvm_riscv_vcpu_aia_imsic_update(struct kvm_vcpu *vcpu)
+ 		return 1;
+ 
+ 	/* Read old IMSIC VS-file details */
+-	read_lock_irqsave(&imsic->vsfile_lock, flags);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
+ 	old_vsfile_hgei = imsic->vsfile_hgei;
+ 	old_vsfile_cpu = imsic->vsfile_cpu;
+-	read_unlock_irqrestore(&imsic->vsfile_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
+ 
+ 	/* Do nothing if we are continuing on same CPU */
+ 	if (old_vsfile_cpu == vcpu->cpu)
+@@ -779,11 +773,12 @@ int kvm_riscv_vcpu_aia_imsic_update(struct kvm_vcpu *vcpu)
+ 	/* TODO: Update the IOMMU mapping ??? */
+ 
+ 	/* Update new IMSIC VS-file details in IMSIC context */
+-	write_lock_irqsave(&imsic->vsfile_lock, flags);
+-	imsic_vsfile_set_hgei(imsic, vcpu->cpu, new_vsfile_hgei);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
++	imsic->vsfile_cpu = vcpu->cpu;
++	imsic->vsfile_hgei = new_vsfile_hgei;
+ 	imsic->vsfile_va = new_vsfile_va;
+ 	imsic->vsfile_pa = new_vsfile_pa;
+-	write_unlock_irqrestore(&imsic->vsfile_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
+ 
+ 	/*
+ 	 * At this point, all interrupt producers have been moved
+@@ -874,6 +869,7 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
+ 	struct imsic *imsic;
+ 	struct kvm_vcpu *vcpu;
+ 	int rc, vsfile_hgei, vsfile_cpu;
++	bool swfile_update = false;
+ 
+ 	if (!kvm_riscv_aia_initialized(kvm))
+ 		return -ENODEV;
+@@ -893,7 +889,7 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
+ 	}
+ 	isel = KVM_DEV_RISCV_AIA_IMSIC_GET_ISEL(type);
+ 
+-	read_lock_irqsave(&imsic->vsfile_lock, flags);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
+ 
+ 	rc = 0;
+ 	vsfile_hgei = imsic->vsfile_hgei;
+@@ -902,13 +898,16 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
+ 		if (write) {
+ 			rc = imsic_mrif_rmw(imsic->swfile, imsic->nr_eix,
+ 					    isel, NULL, *val, -1UL);
+-			imsic_swfile_extirq_update(vcpu);
++			swfile_update = true;
+ 		} else
+ 			rc = imsic_mrif_rmw(imsic->swfile, imsic->nr_eix,
+ 					    isel, val, 0, 0);
+ 	}
+ 
+-	read_unlock_irqrestore(&imsic->vsfile_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
++
++	if (swfile_update)
++		imsic_swfile_extirq_update(vcpu);
+ 
+ 	if (!rc && vsfile_cpu >= 0)
+ 		rc = imsic_vsfile_rw(vsfile_hgei, vsfile_cpu, imsic->nr_eix,
+@@ -959,6 +958,7 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
+ 	unsigned long flags;
+ 	struct imsic_mrif_eix *eix;
+ 	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
++	bool swfile_update = false;
+ 
+ 	/* We only emulate one IMSIC MMIO page for each Guest VCPU */
+ 	if (!imsic || !iid || guest_index ||
+@@ -970,17 +970,26 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
+ 	if (imsic->nr_msis <= iid)
+ 		return -EINVAL;
+ 
+-	read_lock_irqsave(&imsic->vsfile_lock, flags);
++	raw_spin_lock_irqsave(&imsic->vsfile_lock, flags);
+ 
+ 	if (imsic->vsfile_cpu >= 0) {
++		/*
++		 * We must use writel() over here because the raw_spin_unlock()
++		 * below will do mmiowb_spin_unlock() which in-turn drains the
++		 * write-buffer ensuring the write is visible to the CPU owning
++		 * the target IMSIC VS-file.
++		 */
+ 		writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
+ 	} else {
+ 		eix = &imsic->swfile->eix[iid / BITS_PER_TYPE(u64)];
+ 		set_bit(iid & (BITS_PER_TYPE(u64) - 1), eix->eip);
+-		imsic_swfile_extirq_update(vcpu);
++		swfile_update = true;
+ 	}
+ 
+-	read_unlock_irqrestore(&imsic->vsfile_lock, flags);
++	raw_spin_unlock_irqrestore(&imsic->vsfile_lock, flags);
++
++	if (swfile_update)
++		imsic_swfile_extirq_update(vcpu);
+ 
+ 	return 0;
+ }
+@@ -1036,8 +1045,7 @@ int kvm_riscv_vcpu_aia_imsic_init(struct kvm_vcpu *vcpu)
+ 
+ 	/* Setup IMSIC context  */
+ 	imsic->nr_msis = kvm->arch.aia.nr_ids + 1;
+-	rwlock_init(&imsic->vsfile_lock);
+-	raw_spin_lock_init(&imsic->vsfile_hgei_lock);
++	raw_spin_lock_init(&imsic->vsfile_lock);
+ 	imsic->nr_eix = BITS_TO_U64(imsic->nr_msis);
+ 	imsic->nr_hw_eix = BITS_TO_U64(kvm_riscv_aia_max_ids);
+ 	imsic->vsfile_hgei = imsic->vsfile_cpu = -1;
+-- 
+2.43.0
 
-Sashiko complains:
-
-   Does replacing the led_cdev->brightness update with
-   kbdlight_notify_level() leave tpacpi_led_kbdlight.led_classdev.brightnes=
-s
-   stale after writes to /proc/acpi/ibm/kbdlight?
-  =20
-   kbdlight_notify_level() calls
-   led_classdev_notify_brightness_hw_changed(), which only sets led_cdev-
-   >brightness_hw_changed and never updates led_cdev->brightness.  When
-   kbdlight_write() changes the level via procfs, in-kernel consumers that
-   read led_cdev->brightness without calling led_update_brightness(), such
-   as led_set_software_blink(), will see the old brightness value.
-
-IMO this is acceptable. Please add a section separated with `---' after
-your Signed-off-by, explaining why this is acceptable.
-
-> ---
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 23 +++++++++++++--------
->  1 file changed, 14 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
-rm/x86/lenovo/thinkpad_acpi.c
-> index c8098f317..657a19d11 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -5108,17 +5108,17 @@ static struct ibm_struct video_driver_data =3D {
->  static enum led_brightness kbdlight_brightness;
->  static DEFINE_MUTEX(kbdlight_mutex);
-> =20
-> +/*
-> + * Caller must hold kbdlight_mutex.
-> + */
-
-Annotate it with lockdep.
-
->  static int kbdlight_set_level(int level)
->  {
->  =09if (!hkey_handle)
->  =09=09return -ENXIO;
-> =20
-> -=09guard(mutex)(&kbdlight_mutex);
-> -
->  =09if (!acpi_evalf(hkey_handle, NULL, "MLCS", "dd", level))
->  =09=09return -EIO;
-> =20
-> -=09kbdlight_brightness =3D level;
->  =09return 0;
->  }
-> =20
-> @@ -5183,10 +5183,12 @@ static bool kbdlight_is_supported(void)
->  =09return status & BIT(9);
->  }
-> =20
-> +static int kbdlight_set_level_and_update(int level);
-
-The function is modified a lot. Let's simply move it.
-
-> +
->  static int kbdlight_sysfs_set(struct led_classdev *led_cdev,
->  =09=09=09enum led_brightness brightness)
->  {
-> -=09return kbdlight_set_level(brightness);
-> +=09return kbdlight_set_level_and_update(brightness);
->  }
-> =20
->  static enum led_brightness kbdlight_sysfs_get(struct led_classdev *led_c=
-dev)
-> @@ -5245,18 +5247,21 @@ static void kbdlight_exit(void)
->  =09led_classdev_unregister(&tpacpi_led_kbdlight.led_classdev);
->  }
-> =20
-> +static void kbdlight_notify_level(int level);
-
-What not add it to the right position in PATCH 2?
-
-> +
->  static int kbdlight_set_level_and_update(int level)
->  {
->  =09int ret;
-> -=09struct led_classdev *led_cdev;
-> +
-> +=09guard(mutex)(&kbdlight_mutex);
-> =20
->  =09ret =3D kbdlight_set_level(level);
-> -=09led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
-> +=09if (ret)
-> +=09=09return ret;
-> =20
-> -=09if (ret =3D=3D 0 && !(led_cdev->flags & LED_SUSPENDED))
-> -=09=09led_cdev->brightness =3D level;
-> +=09kbdlight_notify_level(level);
-
-Nah. I didn't mean this. We only want to notify brightness_hw_changed on
-procfs kbdlight writes, but you are notifying it on sysfs LEDs writes.
-
-Please call kbdlight_notify_level() in kbdlight_write() instead of
-messing up with this function.
-
-This function should only update kbdlight_brightness (when
-!LED_SUSPENDED).
-
-Thanks,
-Rong
-
-> =20
-> -=09return ret;
-> +=09return 0;
->  }
-> =20
->  static int kbdlight_read(struct seq_file *m)
