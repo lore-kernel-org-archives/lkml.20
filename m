@@ -1,85 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=141.14.17.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794754571;
-	b=e/W1vwahQQnPO2vDS5d6BOck029csRmvSwJKP1RvicGo0URR41aKT6u3VWeeKpxdJSuu
-	 zF0lrSmn/PGNi+/1tvm802bkKqBM2YPeQsSUnd8W01jK1nwZSGAAQ4CTdM58WMKvE4N1n
-	 jraGgpj3HqSsIfZttWgVRDMDOhl3cJTCRBMXmNfPi8dwKEUTcBM4+6AfNI5OWPhJyDHgp
-	 RUkbVJ5kqStQQfiC8vweULN2ChNQfpgpqnVihOJm8M4M3P/LB0UQtVBBgvNZVtQbEaS4Q
-	 L6CCXl7VJT18tVSV9lDIBx24P2S9OjFGKWyaOGY305KfNHejeiVT1fi9GUe5D/atl7Q==
+	t=1794754596;
+	b=SySPdBOPmmytziwMzVbZOBCXOYKjoSTP7gm1iH6X/DN9WlbVZBcPeCKhEKGt2tOcLG3k
+	 aR3kSusBgCrLIlIonBu3H9E+PBVlD5TC7hzCoM6lOT7jO/1HoWExzAzJXYuk6kDNnytP0
+	 OTxeejmMNtaHSS24v5QZGnozP+1vvCql9pMnykozQaeIWPvm/EeGWjPZwhCaK9Vw+D7Js
+	 USSNF55Ja7O8Wr51oTqKXSqOGkGSmrMxttk5JMvZLzQLsQZo87TTz2ao2sdGBtiXcvljw
+	 F8+skZhMkPWqgRj05MZEozb7jXW+mFkKpE2zcg+v2rugeRm6pRvMkQrccdfyaTEIhxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794754571;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=66KrluPErA73yZ5oWO4/Se+YF4oLxRzv02FOs2NcGy0=;
-	b=aoPj+wcR7x6gZa73NaH+TTiFQJcS1icLHvUrXb360HYHL9m06yIE1LHm9gXmL/XtDiSg
-	 brAyv3o47l8PAx07uye0hiI49GRAmVSECOuTB6kq1QDAQWW62gNNsZAvH4XxBemR6ew5f
-	 zMtYB65MVFSZogshFkYhL1OiZkC5byGSvb+kq95rKzibyPdIi/X2M4rV2+KKy5o7pBdZd
-	 0VmAWDst0+cCly8KlplpnezE2hIvQoW5/ZzCBMyxW+XUM3bp1DV2dwb6SYdt54L5fOury
-	 aq2u/Cjv2z/6v5Z4Bmk2fVixilVk634Wlcxg7kt7YvXo//Z97yGwF5Skzmfhi/XI+lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794754596;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:DKIM-Signature;
+	bh=hlQkFYMUmOSzD0lV/MmKoqgoD5EZFAViZ3TfGoz2DyE=;
+	b=wnmvcdlIiW3qduyZhJLbuiqy9IyPkrdbc/09cb/OvebxanHQsfE6UOWJupXu8lBAw+Vz
+	 yYRkZSoEJy12QbupXjhdHorKbuPr8K8WzmZCLKc9R7wgS74QF929KM4mlHKqdXorIrj4l
+	 jN8IyUcDVfuYwX4DQYQsc6qU3Icj7rc/jkrCs8H39QqMFssxvQPauhLjfuEM1nIHn4eZ3
+	 l0zHuSiEntFuZa3sFxpeh9rqvk1UH31r4XDGAiwBgcpORZMN6qDq4r72eMk99BkLmlAib
+	 y1mdFvY7PlZMEJPDZ/1edEOjV1hOuj+7qb41xXF2LryNUUfnldg9+cSqyW+NTh9iF6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=MdjyCQDg;
-	arc=none smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=molgen.mpg.de;
+	spf=pass smtp.mailfrom=molgen.mpg.de;
+	dkim=pass header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=NzkoSdV+;
+	arc=none smtp.remote-ip=141.14.17.11
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB757606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB757606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D00606A31D;
+	Sun, 15 Nov 2026 14:56:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66D00606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=MdjyCQDg
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-86210f31496so2290685a34.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:56:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1794754568; x=1795359368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=66KrluPErA73yZ5oWO4/Se+YF4oLxRzv02FOs2NcGy0=;
-        b=MdjyCQDgymuxq21YTzEo9I02h9xhfqBitfXT2rvxDMXO7aai4bGGI7wS9F9l9TXhuh
-         tsSff63SYcMwrTPUqLh3CZM8wcRXZNZabZ7uKKHRXyd7W0T6ypagmMWJOJYMZoGWVRd8
-         xeKYKWZxNvg+IGCJo+FCvsYm7x0fFgFGH6RDs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794754568; x=1795359368;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=66KrluPErA73yZ5oWO4/Se+YF4oLxRzv02FOs2NcGy0=;
-        b=G1AQU4pr+I+9I4YsqVSXeJezpPcivRZvvEYWniRf7ws8KLoYX6mBut5y6A/Os50SgG
-         N1z3MGlchsLxAfbhiTyM6W023ND9Mz5NDeqx1QULLQhBbEniLThkNad4I3A7cBmgUzD8
-         Wlv6V/n37hzliLbUvcVPzmVA8apdqLVXxvnPCmFoIfMgnYsUR3qTshtysABkBqaNN8L2
-         1OgCpKCpWsNeHWMx7/1I/IclbhOdD/v5oGqW7ggvFakhz6ZEXtG1cgaX1HDUF0tu6yKg
-         7QeOnrVzxOoXsxaxrLoprRuOz6x0H6r8Ir9+CF14hu9QiQnRkXdkLpjkBstlnW2c7yZJ
-         0JsQ==
-X-Forwarded-Encrypted: i=1; AL+hErFBSVcTm1lUcG8fVegBlHysk7WxUeG8Rykezgol3VqeKMYA4Z7VbORs5QbtMEMizaAS2gnk6EV7McE8dHw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UYNt0kKcARu7BVsIWdPF3/R/0SLDy5YzEQGbQelI+lMR83nCC
-	rE0zD5bdpRWZpgswSjnwHYqtwBBLwBUuGws8i6sxaTrrFX8sJcX4LC7T0cemb642aw==
-X-Gm-Gg: AYBFou2IxwksUlVA05Pui3GZafX78fUnc2D/nWHOkX3Ww/DBjjjGvd6wyWRZPIhrssk
-	BrW+7i5y+IuVMdogHVTtE1vm6Fj50/fPSIRjMCSkQqgob7DuISzqNXeQp/nN1S7Ma7scK8GoFT2
-	x2ahBD+j3mKrVq/cwVah5uhXDnKGLt9fL98IDLxk7EjiGqzsqPym94WI8A3+wK4HBwp9BBIsxKK
-	l6WC12diyUvCaldyIM5EEjnhE6Dcr/WNu/Ky7WdTFuwtROZWX9D9u0vtj3fHZwSVOmZkylD/pKy
-	lQSi2gYfJUyV/d6SSLdMOOlB8c5qvoU5b7uBwKjO4d3bT6S4VvPo+nOCV7ed0Colo+fS8DNjhRJ
-	q7bkIK0lBQkCd35qebV+nBKsxQWkNL7Jl7rtzg6nFCr4/MPzihiYCXFU2tm2BXylPYbJCjtwcyy
-	I8FJhUQPujXZ6DRf7Tu0bz1pf0+cb9qkiwCLSM+Skz+NwnQRvGWxTTE8lBUzTbQzf1yWj75BSSk
-	ujDS7JpFb5baIQ9T7Sgm7M87+vopnsbbiz1fpWmUIsgTt1FqMMNw1ysowQgFpPQ5mtQTk7IkVOB
-	DR1DdFKq07KQF15tP9NUOMEJ
-X-Received: by 2002:a05:6830:3495:b0:85f:31f:7643 with SMTP id 46e09a7af769-8628981ad1emr8483076a34.7.1794754568555;
-        Sun, 15 Nov 2026 06:56:08 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-8628812e44esm8317981a34.15.2026.11.15.06.56.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 06:56:04 -0800 (PST)
-Message-ID: <b304a5dd-f6b9-4cd8-9d2a-8ca398119a41@ieee.org>
-Date: Sun, 15 Nov 2026 08:56:01 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=NzkoSdV+
+Received: from abreu (unknown [62.214.191.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 454034C442F7F1;
+	Sun, 15 Nov 2026 15:56:07 +0100 (CET)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Nick Terrell <terrelln@fb.com>,
+	David Sterba <dsterba@suse.com>,
+	Piotr Gorski <lucjan.lucjanov@gmail.com>,
+	Stephen Boyd <swboyd@chromium.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] module/decompress: Use ssize_t for the zstd decompressed size
+Date: Sun, 15 Nov 2026 15:55:56 +0100
+Message-ID: <20261115145559.262878-1-pmenzel@molgen.mpg.de>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,82 +66,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] greybus: verify the received message size covers the
- message header
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>, dan@pereq.eu
-Cc: elder@kernel.org, gregkh@linuxfoundation.org,
- greybus-dev@lists.linaro.org, johan@kernel.org,
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-usb@vger.kernel.org,
- syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com
-References: <avV8I97uZJgX8Osk@stanley.mountain>
- <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
+	t=1794754568; 
+	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
+	bh=hlQkFYMUmOSzD0lV/MmKoqgoD5EZFAViZ3TfGoz2DyE=; 
+	b=NzkoSdV+zCaiy/ZONvldJSqu57+w/Bp1BDuyMk++7CJs8IjY4rsQiuns2rjVW3/5JjzFDu0lk4qp
+	GBPKAHlGxn/bKukgr4Sgf75KbBkUDx9NGUoOgMuTG15IFnXAg+V/2tVb1jXArAuvg8fESmLU8tz48/
+	KqNmnfm75LrHx325I8H6utagcmtF6l+XMYnS4s6RO7dX10B01ihTi3Tf4Fq9/7uuHM1JjP1duNQ9bB
+	Qf6zDlYHx4w9K8zNDFhgnPEFhinS/9N9TpvESvmjmesoRLz+XzRm9WeS+8QZN9kVRxkSA8UY9EHxun
+	VQ9Xdei1DxV0WQ3S1wY6R2tGApkM+LCg==
 
-On 11/13/26 5:47 PM, Shunbo Shi wrote:
-> In gb_connection_recv(), the size of the received data is checked
-> against sizeof(struct gb_operation_msg_hdr) and against the message
-> size encoded in the header (msg_size), but msg_size itself is never
-> checked against the header size.
-> 
-> If a peer sends a message whose header claims a size smaller than
-> the header itself (e.g. header.size == 3), the two existing checks
-> both pass (size >= sizeof(header) and size >= msg_size), and the
-> message is dispatched with the undersized msg_size.
-> 
-> In gb_operation_create_incoming(), this leads to an unsigned
-> integer underflow in:
-> 
-> 	request_size = size - sizeof(struct gb_operation_msg_hdr);
-> 
-> The underflowed request_size then wraps back around in
-> gb_operation_message_alloc():
-> 
-> 	message_size = payload_size + sizeof(*header);
-> 
-> causing kzalloc() to allocate a buffer that is too small to hold
-> the message header.  When the response is later prepared in
-> gb_operation_response_alloc(), reading
-> request_header->operation_id reads past the end of the undersized
-> allocation, triggering a KASAN slab-out-of-bounds report.
-> 
-> Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
-> Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-> Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+module_zstd_decompress() returns ssize_t, but keeps the decompressed
+size in the int retval. Output of 2 GiB or more becomes a negative
+value that is not an errno, and output of 4 GiB or more can also be
+truncated to a positive size smaller than the pages mapped to
+info->hdr. Declare retval as ssize_t like module_gzip_decompress() and
+module_xz_decompress() do, and print it with %zd.
 
-Looks good!
+The Sashiko AI review found the same bug in the proposed LZ4 decoder,
+which is modelled on the zstd decoder [1].
 
-Reviewed-by: Alex Elder <elder@riscstar.com>
-> ---
-> Changes in v3:
-> - combine the two separate conditions and unify the error message
->   as suggested by dan. Thanks!
-> 
->   drivers/greybus/operation.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index 7e12ffb2dd60..74429f3745bb 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -1047,9 +1047,9 @@ void gb_connection_recv(struct gb_connection *connection,
->   	/* Use memcpy as data may be unaligned */
->   	memcpy(&header, data, sizeof(header));
->   	msg_size = le16_to_cpu(header.size);
-> -	if (size < msg_size) {
-> +	if (msg_size < sizeof(header) || msg_size > size) {
->   		dev_err_ratelimited(dev,
-> -				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
-> +				    "%s: invalid message 0x%04x of type 0x%02x received (%zu < %zu)\n",
->   				    connection->name,
->   				    le16_to_cpu(header.operation_id),
->   				    header.type, size, msg_size);
+The x86_64 build boots in QEMU/KVM, and finit_module() with
+MODULE_INIT_COMPRESSED_FILE and module.sig_enforce=1 decompresses the
+237 .ko.zst modules without error.
+
+Fixes: 169a58ad824d ("module/decompress: Support zstd in-kernel decompression")
+Link: https://sashiko.dev/#/patchset/20261113144233.193782-1-pmenzel@molgen.mpg.de?part=1 [1]
+Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+---
+
+Notes:
+    Claude Opus 5.5 (Claude Code) noticed that the zstd decoder has the
+    bug Sashiko reported for the LZ4 patch, and wrote this patch and
+    message. Tests: W=1 compile with GCC 16.2 for x86_64 (Debian config)
+    and i386 (tinyconfig), both with MODULE_COMPRESS_ZSTD. Run time: the
+    x86_64 build boots in QEMU/KVM, and finit_module() with
+    MODULE_INIT_COMPRESSED_FILE and module.sig_enforce=1 decompresses the
+    237 .ko.zst modules of a laptop's boot set without error; 223 load,
+    14 fail in their init for lack of hardware, as with xz. The bug itself
+    is not exercised; it needs a module that decompresses to 2 GiB or more.
+
+ kernel/module/decompress.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/module/decompress.c b/kernel/module/decompress.c
+index cce098671be97..ac4ff0e04f716 100644
+--- a/kernel/module/decompress.c
++++ b/kernel/module/decompress.c
+@@ -216,7 +216,7 @@ static ssize_t module_zstd_decompress(struct load_info *info,
+ 	ZSTD_DStream *dstream;
+ 	size_t ret;
+ 	size_t new_size = 0;
+-	int retval;
++	ssize_t retval;
+ 
+ 	if (size < sizeof(signature) ||
+ 	    memcmp(buf, signature, sizeof(signature))) {
+@@ -276,7 +276,7 @@ static ssize_t module_zstd_decompress(struct load_info *info,
+ 	} while (zstd_dec.pos == PAGE_SIZE && ret != 0);
+ 
+ 	if (retval) {
+-		pr_err("ZSTD-decompression failed with status %d\n", retval);
++		pr_err("ZSTD-decompression failed with status %zd\n", retval);
+ 		retval = -EINVAL;
+ 		goto out;
+ 	}
+-- 
+2.54.0
 
