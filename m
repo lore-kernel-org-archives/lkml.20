@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703167;
-	b=5HR3VLCUdZgZRmo8WyieJh2EJtK+7Oz3DdUviaf1Qqy0sEKFylkFE6xl1CsPCG/Pey+o
-	 OqqQ7crGdGsgxiKn+3JdluLw+T/7pSy39G3CGjqD8Oq58XKXCx+e/hVZJneNABALA5y1S
-	 CegewKymRDbl8t3pktaxrlRnjeSuoNbN6EaXznF9LCDMlpORB/l6blGUTA5vZyW3Ch+fk
-	 ZQd7S8OlZT+ICqEffqRU8AvMczDYf+VpwxNOqeo3qLFLdr4Vts47zs9cDJiVvX7wP6cp0
-	 RgyJeymNu1AG7BiwoNbTr47I95fTWAQUWxr49QrBHy2r5LQOCzIcHbtlzKC78EdB9xg==
+	t=1794703169;
+	b=Cacjq40XhTBIjjTdkijkDCKuWMC10++lhgGP48c5K/JaoUxWfj+St9GRGiX45BPcYLoF
+	 YPtGHf2on7r/1xBMJvu84F7m/uzRZ2QFAIONTj7loeoBE26KLBJbQ44ml6Ykj9SOMNUYH
+	 o/7r5kkhznJv/yTV/Guwt6xnZOuZa1pO/OkiOPPcKsLnHLyjJsQhFzdELQfq7LFpehgkD
+	 F4X2gf/H+zQh/KZ5L6EebXXUUnKy33Ci0REoZ5v5Ptzpl4995+Kj4FeBestG47nFPV6kq
+	 ZURti93cQ/eROIq02j4n+Iekm+uicl0MJI2gCYgeQo/Vo5UsRqGB3mWS2JrzDuMdo4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703167;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703169;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=In7taLgVFQA5m5lyqlspkXmcysL0qzWGD5dgQ5EARs8=;
-	b=dNOjJssvXlMSXiGsZLma2/sfz/3WMPawQubop/Pji/Dcekd7r99KzsQomxDTGGafEOUs
-	 0hJyoDrb+VNwWJC+1ARAqjiScb51UOhJ92JHB6HWlhrSgFYtflcE3JeQOlCODUU1StmLW
-	 tgAtf8n+lvjxCrSzMpCqis0pYHkX4iW8wYEqArVZRD3pF65jlseKrQqO3DHkiTpmMNstr
-	 i4606ydn8l9KsIw0ZRkf+JUwqiDhNYBrx4iCA3SdJek27aFCZdB34a1gxS6/y3wgPuoq5
-	 2cO2O+pd1usjekTfaRfgIWPEZXJaIG0Je47zLvmhDLVCA3M2PELiA/i7NkhE0LnBtGA==
+	bh=vkh9Qcnvd2+Wy0yqcxo4GZOIZmHPFgQnQw+LiX9oMsU=;
+	b=LQYps97jqgAL8AwYBBmcqMalU6+nMIWLTynW73G94Y/UaG5QXyCV0L8IYKaTDLwKRdob
+	 7FjI0JdHYEYYCBQ8ucY2dzmlFp3bowMMAJUN56ExZAdJMB5h8A4BtQLJFzeTiHuz9+Tu0
+	 UgfDo7BvNk1QebP61gTuWgzQ3Pm0X+h2jISrGTm+kBF7xqyuJXsAgXnBTeVu7VlAgpi5W
+	 eSO2YLzP3J6qJetpFlleYgqUyWNkdFDrDQCneL7w05rdP1dUWyuNtw4UQso/G5UZXlPUL
+	 PAgasRTPsfgpgOXBtyUIm6S7w+uMxuYdwyU5kNkvpbQwA2SpFDbw+e9M0n9/6BMllDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wY4VLEuA;
-	arc=none smtp.remote-ip=74.125.224.46
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wAVBCeK9;
+	arc=none smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72638606A88F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2054C606A89A
 	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:39:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72638606A88F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2054C606A89A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wY4VLEuA
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67dae7d3f7dso121195d50.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wAVBCeK9
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67dae7d3f7dso121201d50.2
         for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:39:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794703166; x=1795307966; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794703167; x=1795307967; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=In7taLgVFQA5m5lyqlspkXmcysL0qzWGD5dgQ5EARs8=;
-        b=wY4VLEuAA/KIJHVw2y14bVt/1IvnsO/2lsrfS8dK4/JtUzG3xMEW6snsr/3mCLEXD7
-         /mJQynQBbXcOLNoWe8G4R7cHwLNgJ+XEkbok9KTiv7iB0AswS6KrWpmRRgN1R0kts5sM
-         hkw65/63Aayu0Ktdr9sZk3nB7aNJRQ7ua3qC0jQBuvUgKUgNycGdIdUZVDo/qDV1t1/o
-         iq2gM5zcEyGIov259kJSpHRB0K+hDEoSS6KbQT/khsZiv4SwtbyIPbo4iIWiQWJBL8bY
-         cBB5gsSykgmAICevP72uRUoeEwN4wGdJ329zOmhH2UsGLFpIkFAV1RNmq1bRVYDtOdWK
-         R/+Q==
+        bh=vkh9Qcnvd2+Wy0yqcxo4GZOIZmHPFgQnQw+LiX9oMsU=;
+        b=wAVBCeK9ikq5GjYbHsSDptg+7XOwbMAXgKgFFzNMlOVJI+AZoGWS/lyca49nffH/Jz
+         Y9RQhnqMQWwPR4Onrs1Yp4WtjoJY9uLQHy8nxfQOCG5uaoaPv3C7/tmnS24CddKnxn8b
+         v4I3S2OfoOBnuYdrgvfPVc3FUPSssU8CH51ura9LD5Jsv7Vee+RaN9qdpb0QzZ73UQx6
+         q1GsMr96L0mPBgr/3Gjgz807D5RDszWo1+danhcZk5ZAujJAuiXZ+tyWbdMQbbXPSmwb
+         XT70y2Fh7kH6mvZwkD0e5DTQa3BRq1WOnFOyIB34Kypo8x7s25Ha8kLIXfY19XTMXi+P
+         jqfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794703166; x=1795307966;
+        d=1e100.net; s=20260707; t=1794703167; x=1795307967;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=In7taLgVFQA5m5lyqlspkXmcysL0qzWGD5dgQ5EARs8=;
-        b=wvJVfMEtb1mY3YHNoEwDG9/iXL/jjiKRrTC/K5sRNXLT69lXtblZJi1ri2S6gY+c7v
-         6G5kGa/ZiieeRGN+Ik5/3JpMfCgoFrf5hCmBnh37aOl/zRoZKJ82nmxtZvI6SMfVlgEf
-         BZZy4cXhhlmgKARb0E+fx7EXr6rq4RruV2CdF2ChQ9QDLkYQOrUXoMuGEreNc9rbh556
-         T+IEr1cmYlY+5klMKHjR9b7/54lHNkQQ7A2kUFqXZanR7bnDWAmqqt0wmiNSKHCdnsoa
-         JT9332fRezdAhxcfjF4fQX+Fs4QVeTbJqpPig/VvxCJjegYvVkq67J9Nw2wi5kg0RVha
-         oiyw==
-X-Forwarded-Encrypted: i=1; AL+hErEkTXsrU1cHusJkQHpWyqmoeXIef0II63qiwHJ3C8OVE9rraNw3d81Jdkn2suuKDUj3Q4HlBsoiRhboAlo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FhStVBeZkCfxLCuXQPxntoXrPLSsnB+gF9pQDqyy9NLLKYttp
-	KABRo3f8xFvb8jH2L9cruUNnH6NAldAMltI/BrmIDzOnerYP2aL/PSKx
-X-Gm-Gg: AYBFou21oGuiMttQWb7PWEIz0i6Ul12XAB+6Hif0lrvs2bTvJGaGeZ153jOywgmHL5n
-	UcQHMfR3I8qq4wxOlWnXgzX5Yq0OaFeOD1uT1w7SbIKAUss/giHOf7E1w34NmM9q5eG4pAAPY7W
-	s+pkXO9GLp3NF8ya92noFX4xHQhvUFn76AJy5sD3VmRmq+tFGoZ29KOYqq2nBaaWVjVdqZCK50l
-	qkFeHTb/Xa/vN/XwQ75Y3fs3HZRu1EkwCRlg1X2E0A2VNfqicyB1HkG9KUSH18lt9pkmFAhKClm
-	YfiUnbkhtepKPG0ciYOf4xHfTD+1sY8npWqFztQBTe8tVbNUAL18DFTKnAPo3gZeB3Y4OVRgAaq
-	KUWk3K/oNKDMDZtjDJC7KTGuTcSzQjL4Ie45rTBKE9SY7UIBxcVdxL/jzvqg/xoqqqU7ss91EL6
-	YTz4XlYBcTSxPCYVbC5wDwWUnSO6dsV25wEXM413C0lQgiWb0C+SmDLQ1MQkBT7fXX7qq1XGCSQ
-	NTQROC6lmsYgqNlqOBuArG+b+59UjYso5X/bmiYFtelCUnqpvsOlgvfWEHxSTlCDniffSMqx2F+
-	OaE3Fn1FC4maJxetWCQsD8OYHEm7TjjPo8pB7Fr/J3Avh1Bf+xZkmHji
-X-Received: by 2002:a05:690e:4894:20b0:676:a43e:ea5d with SMTP id 956f58d0204a3-67d89716d43mr2084844d50.94.1794703165433;
-        Sat, 14 Nov 2026 16:39:25 -0800 (PST)
+        bh=vkh9Qcnvd2+Wy0yqcxo4GZOIZmHPFgQnQw+LiX9oMsU=;
+        b=fL8HYPNtk9q+XTAxKUF9ceqfbTVt3yz0a8cpSJZK6WuQVtYc3ld5ZYfEbfaVR25YkJ
+         R5dX2rU8LYBEA2WRwqSRQmz7krLGMg/Vkjs8gedxDxj2aTG+qRyo3jw7BG7OZAdpqawf
+         K3q/y7iHCBizlVUpC1qyESTb8zRkf805FePO+b7rXqWxxM7FjoibFaPoOVXiwiYTigov
+         yvYuojnUnO/bRgdSv25Uu8QewqE0XvH7WBzWThVWO3GSdiB6luF6NDuZE9I30BRSVs6J
+         fLdElwX1d89p8XISka0piHATWqSXYZVJXkY+cKiQlhqNOQCGMUSRFbXk7VpWEC4JLizy
+         ifJA==
+X-Forwarded-Encrypted: i=1; AL+hErFmdJe9NKeq7gMN+NbIdSmT0+0JJHNsRXVKQ0Nu9QHfQgFqZW5g3QTpNwUV4xTSun5lZj6oAiBogxQJAkk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uzpY7kJMuTJ0GoG4GjJcyqPanN06DDLUVQwHOx7mVFIqoZe3W
+	uENGZGWhD7V3SvPmUNGNbU4Ch11k4iMQn3wEg9HdHADUPt2gp4xpTUqi
+X-Gm-Gg: AYBFou3lY4i0tRygteYKH1OhddMj1jCECNs0Jcbrldx2SX3RfW/eRD1l6I38hFnRsJb
+	5PwmQbVMnvl4w1Zn1RbVGMktc7olCHuHRJgHoxRPFPaxne2Knz20qztveqFtAgQ1urs/U6ZXqCb
+	dpVnQ8QU7abvCyD0qAEM7X78nUKxW4cWHsdP+Kos6O+G7jgpACYcdFjxPHDUbISuwRlI3n7HkFm
+	0j3kGNmi2a4lT6TdJVuFBrDloE3dWN6AT3+8lHMDXK9j+ujZ3zGcF9/HCZADf9gxuRR2QVjwF1/
+	OkV6JIKEzilMsO2T34tuFIavohP+7LEL6PnAqZvgESbeqhzAHr63v/tHgw8QSF6QgY6mAAzIe92
+	l9tUMaXsO5jomxkCnaDEu/1LB/mtHW6q6pcZilmUMKZl5Pn7jhQGkpHVFvkgtE6q7BzN/ZJLGv/
+	q+px4mhOQrvaFTwzzDbKGRAkybBg23lHPi3wifT6/ITbnditJwyjq+XLh09AD/f56KDvlqJG+P1
+	/xDNDHK7u1Ier1BjcCKnb70AnI9OJd8qtfl7nyn1x1xONVPTSwgCtw/79rWt7U+J2wkh0Vo7S/i
+	plTyDENmXhVjY1iWscYxM8Jkl6/sZQtHVYuevbz8gZXmpIpiUf0M97kE
+X-Received: by 2002:a53:ac8e:0:b0:675:617e:6c2b with SMTP id 956f58d0204a3-67d896b224cmr2964635d50.77.1794703167029;
+        Sat, 14 Nov 2026 16:39:27 -0800 (PST)
 Received: from codey.attlocal.net ([2600:1700:22f5:3930::a])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67db0361f39sm189602d50.19.2026.11.14.16.39.24
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67db0361f39sm189602d50.19.2026.11.14.16.39.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 16:39:25 -0800 (PST)
+        Sat, 14 Nov 2026 16:39:26 -0800 (PST)
 From: Lalit Maganti <lalitmaganti@gmail.com>
 To: acme@kernel.org,
 	namhyung@kernel.org,
@@ -92,9 +92,9 @@ Cc: adrian.hunter@intel.com,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lalit Maganti <lalitmaganti@gmail.com>
-Subject: [PATCH 2/4] perf python: Add clockid attribute to session
-Date: Sun, 15 Nov 2026 00:39:14 +0000
-Message-ID: <20261115003916.1873857-3-lalitmaganti@gmail.com>
+Subject: [PATCH 3/4] perf python: Add perfetto script to open profiles in the Perfetto UI
+Date: Sun, 15 Nov 2026 00:39:15 +0000
+Message-ID: <20261115003916.1873857-4-lalitmaganti@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261115003916.1873857-1-lalitmaganti@gmail.com>
 References: <20261115003916.1873857-1-lalitmaganti@gmail.com>
@@ -109,52 +109,760 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With perf record -k/--clockid, sample times come from the given clock
-instead of the perf clock, and the clock is saved in the perf.data
-header. perf.session doesn't expose it, so a script can't tell which
-clock its timestamps are in.
+Add a script that converts the samples in a perf.data file to a
+Perfetto trace and opens it in the Perfetto UI (https://ui.perfetto.dev):
 
-Add a "clockid" attribute with the clockid_t from the header, or None
-if the default perf clock was used.
+  $ perf record -g -- ./workload
+  $ perf script perfetto
+  Wrote 4496 samples to perf.pftrace
+
+Unlike a flame graph, the trace keeps the time of every sample, so the
+UI can show what each thread was running over time, as well as flame
+graphs for any time range, thread or process.
+
+Samples are written as StackSample packets [1], one stream per perf
+event. Each sample has:
+ - the pid, tid and comm of the thread
+ - the cpu, if recorded, and user or kernel mode
+ - the callchain (symbol, DSO and kernel/user for each frame), or just
+   the sampled symbol if there is no callchain
+ - the period as its weight
+
+Timestamps use the clock from perf record -k if one was given, and the
+perf clock otherwise.
+
+The few protobuf messages needed are encoded by hand, so the script
+doesn't depend on the protobuf package. Strings, frames and callstacks
+are interned as samples are read, so only the interning tables stay in
+memory.
+
+The UI can only fetch traces from http://127.0.0.1:9001, so the script
+serves the trace there, only to the UI, until it has been fetched.
+-n/--no-open just writes the file.
+
+Also add a shell test that converts a recording of the noploop
+workload and checks the sample count and the strings in the trace.
+
+[1] https://github.com/google/perfetto/blob/main/protos/perfetto/trace/profiling/stack_sample.proto
 
 Assisted-by: LLM
 Signed-off-by: Lalit Maganti <lalitmaganti@gmail.com>
 ---
- tools/perf/python/perf.pyi | 1 +
- tools/perf/util/python.c   | 8 ++++++++
- 2 files changed, 9 insertions(+)
+ tools/perf/python/perfetto.py             | 625 ++++++++++++++++++++++
+ tools/perf/tests/shell/script_perfetto.sh |  72 +++
+ 2 files changed, 697 insertions(+)
+ create mode 100755 tools/perf/python/perfetto.py
+ create mode 100755 tools/perf/tests/shell/script_perfetto.sh
 
-diff --git a/tools/perf/python/perf.pyi b/tools/perf/python/perf.pyi
-index 5b68d70c5216..71bc7719ac5c 100644
---- a/tools/perf/python/perf.pyi
-+++ b/tools/perf/python/perf.pyi
-@@ -500,6 +500,7 @@ class session:
-         ...
-     e_machine: int
-     is_64_bit: bool
-+    clockid: Optional[int]
-     def process_events(self) -> None:
-         """Process all events in the session."""
-         ...
-diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
-index 3ba3ce0e651c..274c66c28c1c 100644
---- a/tools/perf/util/python.c
-+++ b/tools/perf/util/python.c
-@@ -5330,6 +5330,14 @@ static PyObject *pyrf_session__getattro(struct pyrf_session *psession, PyObject
- 			return PyBool_FromLong(sizeof(void *) == 8);
- 		}
- 	}
-+	if (!strcmp(name_str, "clockid")) {
-+		/* The clockid_t of perf record -k, None for the perf clock. */
-+		struct perf_env *env = perf_session__env(psession->session);
+diff --git a/tools/perf/python/perfetto.py b/tools/perf/python/perfetto.py
+new file mode 100755
+index 000000000000..e168b146e538
+--- /dev/null
++++ b/tools/perf/python/perfetto.py
+@@ -0,0 +1,625 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++"""perfetto.py - Convert perf.data samples to a Perfetto trace and open it in the Perfetto UI
 +
-+		if (!env->clock.enabled)
-+			Py_RETURN_NONE;
-+		return PyLong_FromLong(env->clock.clockid);
-+	}
- 	return PyObject_GenericGetAttr((PyObject *) psession, attr_name);
- }
- 
++Samples are written as Perfetto StackSample packets, a stable trace format for
++callstack samples from any profiler:
++https://github.com/google/perfetto/blob/main/protos/perfetto/trace/profiling/stack_sample.proto
++
++The protobuf wire format is simple enough that the few messages needed are
++encoded by hand below, which avoids a dependency on the protobuf package and
++generated bindings. The field numbers in this file are taken from the .proto
++files under protos/perfetto/trace/ in the Perfetto repository and are stable.
++"""
++from __future__ import annotations
++
++import argparse
++import http
++import http.server
++import os
++import sys
++import time
++import urllib.parse
++import webbrowser
++from collections.abc import Hashable
++from dataclasses import dataclass, field
++from enum import IntEnum
++from typing import BinaryIO, Dict, Optional, Tuple
++
++import perf
++
++# The only port that the Content Security Policy of ui.perfetto.dev allows
++# fetching traces from.
++UI_FETCH_PORT = 9001
++
++# perf reports these when the sample type lacks PERF_SAMPLE_CPU/TID/TIME.
++NO_CPU = 0xffffffff
++NO_ID = 0xffffffff
++NO_TIME = 0xffffffffffffffff
++
++# Values of the enums in the Perfetto protos used below.
++
++
++class BuiltinClock(IntEnum):
++    """perfetto.protos.BuiltinClock."""
++    REALTIME = 1
++    MONOTONIC = 3
++    MONOTONIC_RAW = 5
++    BOOTTIME = 6
++    PERF = 10
++
++
++class SequenceFlags(IntEnum):
++    """perfetto.protos.TracePacket.SequenceFlags."""
++    SEQ_INCREMENTAL_STATE_CLEARED = 1
++    SEQ_NEEDS_INCREMENTAL_STATE = 2
++
++
++class FrameKind(IntEnum):
++    """perfetto.protos.Frame.Kind."""
++    KIND_NATIVE = 1
++    KIND_KERNEL = 2
++
++
++class StackSampleMode(IntEnum):
++    """perfetto.protos.StackSample.Mode."""
++    MODE_USER = 1
++    MODE_KERNEL = 2
++
++
++class StackSampleUnit(IntEnum):
++    """perfetto.protos.StackSample.Unit."""
++    UNIT_NANOSECONDS = 1
++    UNIT_CPU_CYCLES = 2
++    UNIT_INSTRUCTIONS = 3
++    UNIT_PAGE_FAULTS = 5
++    UNIT_CACHE_MISSES = 6
++    UNIT_CACHE_REFERENCES = 7
++    UNIT_BRANCH_MISSES = 8
++    UNIT_COUNT = 9
++
++
++# Field numbers of the messages in the Perfetto protos used below.
++
++
++class TraceField(IntEnum):
++    """perfetto.protos.Trace."""
++    PACKET = 1
++
++
++class TracePacketField(IntEnum):
++    """perfetto.protos.TracePacket."""
++    PROCESS_TREE = 2
++    CLOCK_SNAPSHOT = 6
++    TIMESTAMP = 8
++    TRUSTED_PACKET_SEQUENCE_ID = 10
++    INTERNED_DATA = 12
++    SEQUENCE_FLAGS = 13
++    TIMESTAMP_CLOCK_ID = 58
++    TRACE_PACKET_DEFAULTS = 59
++    STACK_SAMPLE = 135
++
++
++class TracePacketDefaultsField(IntEnum):
++    """perfetto.protos.TracePacketDefaults."""
++    TIMESTAMP_CLOCK_ID = 58
++    STACK_SAMPLE_DEFAULTS = 100
++
++
++class ClockSnapshotField(IntEnum):
++    """perfetto.protos.ClockSnapshot."""
++    CLOCKS = 1
++    PRIMARY_TRACE_CLOCK = 2
++
++
++class ClockField(IntEnum):
++    """perfetto.protos.ClockSnapshot.Clock."""
++    CLOCK_ID = 1
++    TIMESTAMP = 2
++
++
++class InternedDataField(IntEnum):
++    """perfetto.protos.InternedData."""
++    FUNCTION_NAMES = 5
++    FRAMES = 6
++    CALLSTACKS = 7
++    MAPPING_PATHS = 17
++    MAPPINGS = 19
++    STACK_SAMPLE_TASK_CONTEXTS = 48
++    STACK_SAMPLE_EXECUTION_CONTEXTS = 49
++
++
++class InternedStringField(IntEnum):
++    """perfetto.protos.InternedString."""
++    IID = 1
++    STR = 2
++
++
++class MappingField(IntEnum):
++    """perfetto.protos.Mapping."""
++    IID = 1
++    PATH_STRING_IDS = 7
++
++
++class FrameField(IntEnum):
++    """perfetto.protos.Frame."""
++    IID = 1
++    FUNCTION_NAME_ID = 2
++    MAPPING_ID = 3
++    KIND = 7
++
++
++class CallstackField(IntEnum):
++    """perfetto.protos.Callstack."""
++    IID = 1
++    FRAME_IDS = 2
++
++
++class TaskContextField(IntEnum):
++    """perfetto.protos.StackSample.TaskContext."""
++    IID = 1
++    PID = 2
++    TID = 3
++
++
++class ExecutionContextField(IntEnum):
++    """perfetto.protos.StackSample.ExecutionContext."""
++    IID = 1
++    CPU = 2
++    MODE = 3
++
++
++class StackSampleField(IntEnum):
++    """perfetto.protos.StackSample."""
++    TASK_CONTEXT_IID = 2
++    EXECUTION_CONTEXT_IID = 4
++    CALLSTACK_IID = 6
++    PRIMARY_WEIGHT = 11
++
++
++class StackSampleDefaultsField(IntEnum):
++    """perfetto.protos.StackSampleDefaults."""
++    SOURCE = 1
++    PRIMARY_DESCRIPTOR = 2
++
++
++class CounterDescriptorField(IntEnum):
++    """perfetto.protos.StackSample.CounterDescriptor."""
++    NAME = 2
++    UNIT = 3
++
++
++class ProcessTreeField(IntEnum):
++    """perfetto.protos.ProcessTree."""
++    PROCESSES = 1
++    THREADS = 2
++
++
++class ProcessField(IntEnum):
++    """perfetto.protos.ProcessTree.Process."""
++    PID = 1
++    CMDLINE = 3
++    CMDLINE_IS_COMM = 9
++
++
++class ThreadField(IntEnum):
++    """perfetto.protos.ProcessTree.Thread."""
++    TID = 1
++    NAME = 2
++    TGID = 3
++
++
++# The BuiltinClock of the clockids that perf record -k accepts.
++CLOCKID_TO_BUILTIN_CLOCK = {
++    time.CLOCK_REALTIME: BuiltinClock.REALTIME,
++    time.CLOCK_MONOTONIC: BuiltinClock.MONOTONIC,
++    time.CLOCK_MONOTONIC_RAW: BuiltinClock.MONOTONIC_RAW,
++    time.CLOCK_BOOTTIME: BuiltinClock.BOOTTIME,
++}
++
++# The unit of the sample period of perf events. The period of events that are
++# not listed is a plain count of the event.
++EVENT_UNITS = {
++    'cpu-clock': StackSampleUnit.UNIT_NANOSECONDS,
++    'task-clock': StackSampleUnit.UNIT_NANOSECONDS,
++    'cycles': StackSampleUnit.UNIT_CPU_CYCLES,
++    'cpu-cycles': StackSampleUnit.UNIT_CPU_CYCLES,
++    'instructions': StackSampleUnit.UNIT_INSTRUCTIONS,
++    'page-faults': StackSampleUnit.UNIT_PAGE_FAULTS,
++    'faults': StackSampleUnit.UNIT_PAGE_FAULTS,
++    'cache-misses': StackSampleUnit.UNIT_CACHE_MISSES,
++    'cache-references': StackSampleUnit.UNIT_CACHE_REFERENCES,
++    'branch-misses': StackSampleUnit.UNIT_BRANCH_MISSES,
++}
++
++
++class WireType(IntEnum):
++    """The protobuf wire types used below."""
++    VARINT = 0
++    LEN = 2
++
++
++# A field's tag is its number shifted above the wire type bits.
++WIRE_TYPE_BITS = 3
++
++# A varint stores 7 bits per byte, with the top bit set on all but the last.
++VARINT_PAYLOAD_BITS = 7
++VARINT_PAYLOAD_MASK = (1 << VARINT_PAYLOAD_BITS) - 1
++VARINT_CONTINUATION = 1 << VARINT_PAYLOAD_BITS
++
++
++def varint(value: int) -> bytes:
++    """Encodes a non-negative integer as a protobuf varint."""
++    out = bytearray()
++    while value > VARINT_PAYLOAD_MASK:
++        out.append((value & VARINT_PAYLOAD_MASK) | VARINT_CONTINUATION)
++        value >>= VARINT_PAYLOAD_BITS
++    out.append(value)
++    return bytes(out)
++
++
++def tag(field_id: int, wire_type: WireType) -> bytes:
++    """Encodes the tag that starts a protobuf field."""
++    return varint((field_id << WIRE_TYPE_BITS) | wire_type)
++
++
++def varint_field(field_id: int, value: int) -> bytes:
++    """Encodes a protobuf field with the varint wire type."""
++    return tag(field_id, WireType.VARINT) + varint(value)
++
++
++def bytes_field(field_id: int, value: bytes) -> bytes:
++    """Encodes a protobuf field with the length-delimited wire type.
++
++    This is the encoding of strings, bytes and nested messages.
++    """
++    return tag(field_id, WireType.LEN) + varint(len(value)) + value
++
++
++def string_field(field_id: int, value: str) -> bytes:
++    """Encodes a protobuf string field."""
++    return bytes_field(field_id, value.encode('utf-8', errors='replace'))
++
++
++def event_unit(event: str) -> int:
++    """Returns the StackSample.Unit of the sample period of a perf event."""
++    # Reduce names such as "cpu_core/cycles/ppp" and "cycles:u" to "cycles".
++    parts = event.split('/')
++    name = parts[1] if len(parts) == 3 else event
++    return EVENT_UNITS.get(name.split(':')[0], StackSampleUnit.UNIT_COUNT)
++
++
++@dataclass
++class Sequence:
++    """The interning state of a Perfetto packet sequence.
++
++    There is one sequence per perf event so that each is its own stream of
++    samples in Perfetto. Messages that repeat between samples are written once
++    in the InternedData of the first packet that needs them and are referred to
++    by their interning id (iid) afterwards.
++    """
++    seq_id: int
++    # The iids of the interned messages of each InternedData field.
++    iids: Dict[int, Dict[Hashable, int]] = field(default_factory=dict)
++    # InternedData that no packet has carried yet.
++    pending: bytearray = field(default_factory=bytearray)
++
++    def _intern(self, field_id: int, key: Hashable) -> Tuple[int, bool]:
++        """Returns the iid of key in an InternedData field and if it is new."""
++        table = self.iids.setdefault(field_id, {})
++        iid = table.get(key)
++        if iid is not None:
++            return iid, False
++        iid = len(table) + 1
++        table[key] = iid
++        return iid, True
++
++    def _add(self, field_id: int, message: bytes) -> None:
++        """Queues an interned message for the next packet."""
++        self.pending += bytes_field(field_id, message)
++
++    def _string(self, field_id: int, value: str) -> int:
++        """Interns an InternedString."""
++        iid, new = self._intern(field_id, value)
++        if new:
++            self._add(field_id, varint_field(InternedStringField.IID, iid) +
++                      string_field(InternedStringField.STR, value))
++        return iid
++
++    def _mapping(self, dso: str, kernel: Optional[bool]) -> int:
++        """Interns a Mapping, the Perfetto equivalent of a DSO."""
++        # Perfetto knows the kernel image by the path "/kernel".
++        path = 'kernel' if kernel and dso == '[kernel.kallsyms]' else dso
++        iid, new = self._intern(InternedDataField.MAPPINGS, path)
++        if new:
++            path_iid = self._string(InternedDataField.MAPPING_PATHS, path)
++            self._add(InternedDataField.MAPPINGS,
++                      varint_field(MappingField.IID, iid) +
++                      varint_field(MappingField.PATH_STRING_IDS, path_iid))
++        return iid
++
++    def frame(self, symbol: str, dso: str, kernel: Optional[bool]) -> int:
++        """Interns a Frame. kernel is None if it is not known."""
++        iid, new = self._intern(InternedDataField.FRAMES, (symbol, dso, kernel))
++        if new:
++            name_iid = self._string(InternedDataField.FUNCTION_NAMES, symbol)
++            frame = (varint_field(FrameField.IID, iid) +
++                     varint_field(FrameField.FUNCTION_NAME_ID, name_iid) +
++                     varint_field(FrameField.MAPPING_ID, self._mapping(dso, kernel)))
++            if kernel is not None:
++                kind = FrameKind.KIND_KERNEL if kernel else FrameKind.KIND_NATIVE
++                frame += varint_field(FrameField.KIND, kind)
++            self._add(InternedDataField.FRAMES, frame)
++        return iid
++
++    def callstack(self, frame_iids: Tuple[int, ...]) -> int:
++        """Interns a Callstack of Frame iids, outermost frame first."""
++        iid, new = self._intern(InternedDataField.CALLSTACKS, frame_iids)
++        if new:
++            callstack = varint_field(CallstackField.IID, iid) + b''.join(
++                varint_field(CallstackField.FRAME_IDS, frame_iid) for frame_iid in frame_iids)
++            self._add(InternedDataField.CALLSTACKS, callstack)
++        return iid
++
++    def task(self, pid: int, tid: int) -> int:
++        """Interns a StackSample.TaskContext."""
++        iid, new = self._intern(InternedDataField.STACK_SAMPLE_TASK_CONTEXTS, (pid, tid))
++        if new:
++            self._add(InternedDataField.STACK_SAMPLE_TASK_CONTEXTS,
++                      varint_field(TaskContextField.IID, iid) +
++                      varint_field(TaskContextField.PID, pid) +
++                      varint_field(TaskContextField.TID, tid))
++        return iid
++
++    def exec(self, cpu: Optional[int], mode: Optional[StackSampleMode]) -> int:
++        """Interns a StackSample.ExecutionContext."""
++        field_id = InternedDataField.STACK_SAMPLE_EXECUTION_CONTEXTS
++        iid, new = self._intern(field_id, (cpu, mode))
++        if new:
++            context = varint_field(ExecutionContextField.IID, iid)
++            if cpu is not None:
++                context += varint_field(ExecutionContextField.CPU, cpu)
++            if mode is not None:
++                context += varint_field(ExecutionContextField.MODE, mode)
++            self._add(field_id, context)
++        return iid
++
++
++class PerfettoWriter:
++    """Writes perf samples to a Perfetto trace file."""
++
++    def __init__(self, out: BinaryIO) -> None:
++        self.out = out
++        self.session: Optional[perf.session] = None
++        self.sequences: Dict[str, Sequence] = {}
++        # The pid and comm of each tid. Processes are the entries with tid == pid.
++        self.threads: Dict[int, Tuple[int, str]] = {}
++        # The BuiltinClock of sample times and the time of the first sample.
++        self.clock: Optional[Tuple[int, int]] = None
++        self.nr_samples = 0
++        self.nr_skipped = 0
++
++    def _write_packet(self, packet: bytes) -> None:
++        """Writes a TracePacket. A trace is a stream of Trace.packet fields."""
++        self.out.write(bytes_field(TraceField.PACKET, packet))
++
++    def _write_clock(self, first_time: int) -> Tuple[int, int]:
++        """Declares the clock of sample times as the clock of the trace."""
++        assert self.session is not None
++        clockid = self.session.clockid
++        clock = BuiltinClock.PERF
++        if clockid is not None:
++            clock = CLOCKID_TO_BUILTIN_CLOCK.get(clockid, BuiltinClock.PERF)
++        # Perfetto drops packets that are in a clock that no ClockSnapshot
++        # relates to the trace clock, so make the sample clock the trace clock.
++        snapshot = (bytes_field(ClockSnapshotField.CLOCKS,
++                                varint_field(ClockField.CLOCK_ID, clock) +
++                                varint_field(ClockField.TIMESTAMP, first_time)) +
++                    varint_field(ClockSnapshotField.PRIMARY_TRACE_CLOCK, clock))
++        self._write_packet(bytes_field(TracePacketField.CLOCK_SNAPSHOT, snapshot))
++        return clock, first_time
++
++    def _sequence(self, event: str, first_time: int) -> Sequence:
++        """Returns the sequence of a perf event, starting it if it is new."""
++        seq = self.sequences.get(event)
++        if seq is None:
++            seq = Sequence(seq_id=len(self.sequences) + 1)
++            self.sequences[event] = seq
++            if self.clock is None:
++                self.clock = self._write_clock(first_time)
++            descriptor = (string_field(CounterDescriptorField.NAME, event) +
++                          varint_field(CounterDescriptorField.UNIT, event_unit(event)))
++            sample_defaults = (
++                string_field(StackSampleDefaultsField.SOURCE, 'linux.perf') +
++                bytes_field(StackSampleDefaultsField.PRIMARY_DESCRIPTOR, descriptor))
++            defaults = (
++                varint_field(TracePacketDefaultsField.TIMESTAMP_CLOCK_ID, self.clock[0]) +
++                bytes_field(TracePacketDefaultsField.STACK_SAMPLE_DEFAULTS, sample_defaults))
++            self._write_packet(
++                varint_field(TracePacketField.TRUSTED_PACKET_SEQUENCE_ID, seq.seq_id) +
++                varint_field(TracePacketField.SEQUENCE_FLAGS,
++                             SequenceFlags.SEQ_INCREMENTAL_STATE_CLEARED) +
++                bytes_field(TracePacketField.TRACE_PACKET_DEFAULTS, defaults))
++        return seq
++
++    def _update_names(self, pid: int, tid: int) -> None:
++        """Records the current comm of the sampled thread and its process."""
++        assert self.session is not None
++        for task in (tid, pid) if pid not in self.threads else (tid,):
++            thread = self.session.find_thread(pid, task)
++            comm = thread.comm() if thread is not None else None
++            if comm is not None:
++                self.threads[task] = (pid, comm)
++
++    def process_sample(self, sample: perf.sample_event) -> None:
++        """Writes a perf sample as a StackSample packet."""
++        if sample.sample_time == NO_TIME:
++            self.nr_skipped += 1
++            return
++        self.nr_samples += 1
++        event = str(sample.evsel)
++        if event.startswith('evsel(') and event.endswith(')'):
++            event = event[len('evsel('):-1]
++        seq = self._sequence(event, sample.sample_time)
++
++        stack_sample = b''
++        pid, tid = sample.sample_pid, sample.sample_tid
++        if NO_ID not in (pid, tid):
++            self._update_names(pid, tid)
++            stack_sample += varint_field(StackSampleField.TASK_CONTEXT_IID, seq.task(pid, tid))
++
++        # perf callchains are innermost frame first, Perfetto's are the reverse.
++        leaf_kernel: Optional[bool] = None
++        callchain = sample.callchain
++        if callchain is not None and len(callchain) > 0:
++            leaf_kernel = callchain[0].kernel
++            frames = tuple(
++                seq.frame(node.symbol or '[unknown]', node.dso or '[unknown]', node.kernel)
++                for node in reversed([callchain[i] for i in range(len(callchain))]))
++        else:
++            frames = (seq.frame(sample.symbol or '[unknown]',
++                                sample.dso or '[unknown]', None),)
++
++        cpu = sample.sample_cpu if sample.sample_cpu != NO_CPU else None
++        mode: Optional[StackSampleMode] = None
++        if leaf_kernel is not None:
++            mode = StackSampleMode.MODE_KERNEL if leaf_kernel else StackSampleMode.MODE_USER
++        if cpu is not None or mode is not None:
++            stack_sample += varint_field(StackSampleField.EXECUTION_CONTEXT_IID,
++                                         seq.exec(cpu, mode))
++
++        stack_sample += varint_field(StackSampleField.CALLSTACK_IID, seq.callstack(frames))
++        stack_sample += varint_field(StackSampleField.PRIMARY_WEIGHT, sample.sample_period)
++
++        packet = (varint_field(TracePacketField.TIMESTAMP, sample.sample_time) +
++                  varint_field(TracePacketField.TRUSTED_PACKET_SEQUENCE_ID, seq.seq_id))
++        if seq.pending:
++            packet += bytes_field(TracePacketField.INTERNED_DATA, bytes(seq.pending))
++            seq.pending.clear()
++        packet += varint_field(TracePacketField.SEQUENCE_FLAGS,
++                               SequenceFlags.SEQ_NEEDS_INCREMENTAL_STATE)
++        packet += bytes_field(TracePacketField.STACK_SAMPLE, stack_sample)
++        self._write_packet(packet)
++
++    def finish(self) -> None:
++        """Writes the names of all sampled processes and threads."""
++        if self.clock is None:
++            return
++        tree = b''
++        for tid, (pid, comm) in self.threads.items():
++            if tid == pid:
++                tree += bytes_field(ProcessTreeField.PROCESSES,
++                                    varint_field(ProcessField.PID, pid) +
++                                    string_field(ProcessField.CMDLINE, comm) +
++                                    varint_field(ProcessField.CMDLINE_IS_COMM, True))
++            tree += bytes_field(ProcessTreeField.THREADS,
++                                varint_field(ThreadField.TID, tid) +
++                                string_field(ThreadField.NAME, comm) +
++                                varint_field(ThreadField.TGID, pid))
++        # The names apply to the whole trace, so timestamp them with its start.
++        clock, first_time = self.clock
++        self._write_packet(bytes_field(TracePacketField.PROCESS_TREE, tree) +
++                           varint_field(TracePacketField.TIMESTAMP, first_time) +
++                           varint_field(TracePacketField.TIMESTAMP_CLOCK_ID, clock))
++
++
++def convert(input_path: str, output_path: str) -> PerfettoWriter:
++    """Converts a perf.data file to a Perfetto trace file."""
++    with open(output_path, 'wb') as out:
++        writer = PerfettoWriter(out)
++        session = perf.session(perf.data(input_path), sample=writer.process_sample)
++        writer.session = session
++        try:
++            session.process_events()
++            writer.finish()
++        finally:
++            # Break the reference cycle through the bound method callback.
++            writer.session = None
++    return writer
++
++
++class TraceServer(http.server.HTTPServer):
++    """A HTTP server that serves a single trace file to the Perfetto UI."""
++
++    def __init__(self, trace_path: str, origin: str) -> None:
++        super().__init__(('127.0.0.1', UI_FETCH_PORT), TraceRequestHandler)
++        self.trace_path = trace_path
++        self.trace_url_path = '/' + urllib.parse.quote(os.path.basename(trace_path))
++        self.origin = origin
++        self.served = False
++
++
++class TraceRequestHandler(http.server.BaseHTTPRequestHandler):
++    """Serves the trace of a TraceServer and nothing else."""
++    server: TraceServer
++
++    def do_GET(self) -> None:  # pylint: disable=invalid-name
++        """Serves the trace file if that is what was requested."""
++        if self.path != self.server.trace_url_path:
++            self.send_error(http.HTTPStatus.NOT_FOUND)
++            return
++        with open(self.server.trace_path, 'rb') as trace:
++            data = trace.read()
++        self.send_response(http.HTTPStatus.OK)
++        self.send_header('Content-Type', 'application/octet-stream')
++        self.send_header('Content-Length', str(len(data)))
++        self.send_header('Access-Control-Allow-Origin', self.server.origin)
++        self.send_header('Cache-Control', 'no-cache')
++        self.end_headers()
++        self.wfile.write(data)
++        self.server.served = True
++
++    def log_message(self, format: str, *args: object) -> None:  # pylint: disable=redefined-builtin
++        """Silences the per request logging of the base class."""
++
++
++def open_in_ui(trace_path: str, origin: str) -> None:
++    """Serves the trace on localhost until the Perfetto UI has fetched it."""
++    TraceServer.allow_reuse_address = True
++    with TraceServer(trace_path, origin) as server:
++        trace_url = f'http://127.0.0.1:{UI_FETCH_PORT}{server.trace_url_path}'
++        url = f'{origin}/#!/?url={urllib.parse.quote(trace_url, safe="")}'
++        if not webbrowser.open(url):
++            print('No web browser found. If this machine is remote, forward the port with\n'
++                  f'  ssh -L {UI_FETCH_PORT}:127.0.0.1:{UI_FETCH_PORT} <this machine>')
++        print(f'Waiting for the Perfetto UI to fetch the trace, open:\n  {url}')
++        while not server.served:
++            server.handle_request()
++
++
++def main() -> int:
++    """Converts perf.data to a Perfetto trace and opens it in the Perfetto UI."""
++    parser = argparse.ArgumentParser(
++        description='Convert perf.data to a Perfetto trace and open it in the Perfetto UI')
++    parser.add_argument('-i', '--input', default='perf.data',
++                        help='perf.data file to read (default: perf.data)')
++    parser.add_argument('-o', '--output', default='perf.pftrace',
++                        help='Perfetto trace file to write (default: perf.pftrace)')
++    parser.add_argument('-n', '--no-open', action='store_true',
++                        help='only write the trace, do not open it in the Perfetto UI')
++    parser.add_argument('--origin', default='https://ui.perfetto.dev',
++                        help='Perfetto UI to open the trace in (default: https://ui.perfetto.dev)')
++    args = parser.parse_args()
++
++    try:
++        writer = convert(args.input, args.output)
++    except (OSError, TypeError, ValueError) as err:
++        # The perf module reports events it cannot handle as TypeError or
++        # ValueError. Do not leave a truncated trace behind.
++        print(f'Failed to convert {args.input}: {err}', file=sys.stderr)
++        if os.path.exists(args.output):
++            os.unlink(args.output)
++        return 1
++    if writer.nr_skipped:
++        print(f'Skipped {writer.nr_skipped} samples without a time, record with -T',
++              file=sys.stderr)
++    print(f'Wrote {writer.nr_samples} samples to {args.output}')
++    if writer.nr_samples == 0:
++        return 1
++    if not args.no_open:
++        open_in_ui(args.output, args.origin.rstrip('/'))
++    return 0
++
++
++if __name__ == '__main__':
++    sys.exit(main())
+diff --git a/tools/perf/tests/shell/script_perfetto.sh b/tools/perf/tests/shell/script_perfetto.sh
+new file mode 100755
+index 000000000000..87797b377922
+--- /dev/null
++++ b/tools/perf/tests/shell/script_perfetto.sh
+@@ -0,0 +1,72 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# perf script perfetto tests
++
++set -e
++
++shelldir=$(dirname "$0")
++# shellcheck source=lib/setup_python.sh
++. "${shelldir}"/lib/setup_python.sh
++
++# An uninstalled perf has the python module next to it, as in python-use.sh.
++module_dir=$(dirname "$(which perf)")/python
++if [ -d "${module_dir}" ]; then
++  export PYTHONPATH="${module_dir}${PYTHONPATH:+:${PYTHONPATH}}"
++fi
++
++# Find perfetto.py in the install directory or, failing that, the source tree.
++script="${PERF_EXEC_PATH}/python/perfetto.py"
++if [ ! -f "${script}" ]; then
++  script="${shelldir}/../../python/perfetto.py"
++fi
++
++perfdata=$(mktemp /tmp/__perf_test_script_perfetto.perf.data.XXXXX)
++trace=$(mktemp /tmp/__perf_test_script_perfetto.pftrace.XXXXX)
++
++cleanup() {
++  rm -f "${perfdata}" "${trace}"
++  trap - EXIT TERM INT
++}
++
++trap_cleanup() {
++  echo "Unexpected signal in ${FUNCNAME[1]}"
++  cleanup
++  exit 1
++}
++trap trap_cleanup TERM INT
++trap cleanup EXIT
++
++if ! "${PYTHON}" -c "import perf" 2> /dev/null; then
++  echo "perf script perfetto test [Skipped: no perf python module]"
++  exit 2
++fi
++
++if ! perf record -o "${perfdata}" -e cpu-clock -g -- perf test -w noploop > /dev/null 2>&1; then
++  echo "perf script perfetto test [Skipped: failed to record cpu-clock]"
++  exit 2
++fi
++nr_samples=$(perf script -i "${perfdata}" -F tid | wc -l)
++
++echo "Converting ${nr_samples} samples"
++if ! output=$("${PYTHON}" "${script}" --no-open -i "${perfdata}" -o "${trace}"); then
++  echo "perf script perfetto test [Failed: conversion]"
++  exit 1
++fi
++echo "${output}"
++
++if ! echo "${output}" | grep -q "Wrote ${nr_samples} samples"; then
++  echo "perf script perfetto test [Failed: expected ${nr_samples} samples]"
++  exit 1
++fi
++
++# Interned strings are stored as is in the trace, so the source of the samples,
++# the event and the symbol of the workload must all be in there.
++for expected in linux.perf cpu-clock noploop; do
++  if ! grep -q "${expected}" "${trace}"; then
++    echo "perf script perfetto test [Failed: no ${expected} in trace]"
++    exit 1
++  fi
++done
++
++echo "perf script perfetto test [Success]"
++exit 0
 -- 
 2.56.0
 
