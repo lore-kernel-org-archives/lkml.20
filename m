@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794706868;
-	b=zIzw7yQd+cn60rCR7/CzmrsmZqcOeHgqL0UUeCmrJSJ5PJRMY4bC3qrJuFtHOtuEdzAQ
-	 XOEYdkcWDUEqwgtJOMQQh0pNg1qZNGswpZUYK8sZIn/WezR+xiEAWg8AqX5Hg37yZjv46
-	 EP9RR/tgq8loF7z2J8KliRAm8BAk00wT8il0ZgkylCffrrT4fkZool2yQQqtnlmRUAF7z
-	 cDmeyWexq7IJZb2nWMCu2yUx9KIO+bzY6GCy2K2dnL7Ml73nXa0pj4gRtPkFuo0IIBenS
-	 nUjiUO097689TQkVqZF9OHEycF8HvDEtwi+V+GIMeAtvw16hqD5Q0ImjNlQtbh5mx5g==
+	t=1794706874;
+	b=3hjtt482JqZDq7n2ZlDw98J30Q3w49FMo1Rbb8XuXmjK0Hr1Ct1z0v54XlQczcNl1cCd
+	 lVX2Kvw7+j8XcC8pPxOy54sCtpA3flzFRaYM4ufb21RNQCssgj9Uu+toncH/lei+KYhuH
+	 bDRNceE1XFHGhKpNTa0HofJZyTrCjsZER002K2ksZsJh82P2Je1g14eBJkrJ+dT23+tMP
+	 Vi1XRNX6mJP8QsmWEiASIhovrRJO/+Jr/QtMBWTyD8VBkggOaVBEvxZysQYRCzRbXipR2
+	 49q2DN2Wyv4d/pFO6mmnPoE1zwzcs3e8593TN8RCOUIXXcB6C3gb7QOcjeVO4NVd6yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794706868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794706874;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/hy7qDQ+11+JAbMYqroO1C/ylKcjMHmYNkw/Y+qhCI4=;
-	b=hz1syLsbALi1Swb9mF50H0t86PS7bClOg7DIhwz4F9gzy9SrOCf77sNxGa7ixfVtu2Lj
-	 D5mBsMapAMj387qt1Dq4bZr0EEBzfyKhYkUsCHFetZZzjvsqux10eR/eLeMqm1P4F9MDU
-	 6+xD6e+EBlaBxe7sGQWR8mpHUL43G1nKtDtF2cH11/x/JIAsd8zP7GUXdosRB47+G1Zh+
-	 9mcWY/iAomjeUSr3X5PFRATFStJ0XD1OQQvfwHKQWbuBXVlFvY+ZJtd/GAiorVQSWIF/R
-	 Wn+H1A6fbt/GLbBBz/J4FkxIFF0aGn8Z7tjmXsomqUNofUH2fgkR90BwbSbk1z14kJw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=E35K9K39zctrqz1uDeaaQPmr4VKQVSrP8XLVA9lUfgQ=;
+	b=3NsYKoRlp8tpe/ZG3y/Jl9iKSvookWIdxlYpPTNzGZdqaKQEeZsCnTi62GjE81ACMpdd
+	 C65f6OS8Y1tra7zjqkIkuUFXBTlCiKX8L+8DWsDZajSBtEtDLuFpqDFcKQlix1rRH6iU1
+	 I4THz0UwAKk0m/S+YkMOyluY/KQYYsMRIAvg3H78ePGrk3CA/lm/oPHVKn8cAuZjC1fOG
+	 f4Cg3OWeNURGa1uNpi5tYPOJEoaGSAHth3x5EHWqICl+CCJELh7nJYLXf8wN6yngwID47
+	 /sj2SoDVVGjNucmkGDAA8udMg3qOcvYxr1/JTr+3wso0H5BGVGdq+1x/lNhI6QYbkQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HtQHX/bl";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dHDwuJj4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08FB606A32C;
-	Sun, 15 Nov 2026 01:41:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6071606A330;
+	Sun, 15 Nov 2026 01:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtQHX/bl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439471F000C4;
-	Sun, 15 Nov 2026 01:41:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dHDwuJj4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA781F000C7;
+	Sun, 15 Nov 2026 01:41:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794706868;
-	bh=/hy7qDQ+11+JAbMYqroO1C/ylKcjMHmYNkw/Y+qhCI4=;
-	h=From:To:Cc:Subject:Date;
-	b=HtQHX/blS0uw9mCm9YHUDetpGA8kWPasSyL2goU0qhcG2fjXusMxghDzjXktSyNhy
-	 Tsvc8uGj1MpiI7DGl/9vxEMRxobRI6CMmqNey8m0qjLEgc0E3v/VfRV8djE8McKLPa
-	 vymXbi69yX0NmWNb1e8152KxZQ/iZzMCsd0n1U9en36l08V1gImEhej9AVG6xfdhTg
-	 tMXcq5dqaGXpo8dfL1eEEKNmAkKgB9U5NqCp+u9MF1FtNbaiYCqWjigIQ66HmakR/p
-	 OqeqVWHbY3nO9Jwzv5CHDmgj009wbRxmFZkAFAam4VDRLxO5ZX940ifGQFXOj0gqxQ
-	 ua6L3jWrpvpSA==
+	s=k20260515; t=1794706874;
+	bh=E35K9K39zctrqz1uDeaaQPmr4VKQVSrP8XLVA9lUfgQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dHDwuJj4UUIUQkoVeAJW2x98aEnIbcpbKdwBWQ8wkvk1msN61W0OA+X7/t8+YuKMO
+	 qrG9kWq0Eqgwti8fOO79/dnpt2qSCU0RfFjT9JElzZP9HEpGwrsr6vmu7u4Qm9rqBm
+	 krxsNEo4MvwllE088dhaqd7j0uCZd786/QZl42AKgleDx2Ihf/C3gBhHaa2xPKvC+j
+	 cmIGdtNzON3ZR2kMNZ8EUeT9HUZtn8gOlUFe83OkotPf+AHcrHFQl4m3DezIIdBMHX
+	 F3XXZdVh7A3xs5wzu1w/fbZ9J69upRrh0B6fbIclHTzdRGF7loVSRrL6kheclVj9ks
+	 xkiT7nOYBbb/g==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -50,11 +50,14 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	Clark Williams <williams@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>
-Subject: [PATCH v3 0/12] perf coverage: A harness for perf, and the fixes it found
-Date: Sat, 14 Nov 2026 22:40:48 -0300
-Message-ID: <20261115014102.2879372-1-acme@kernel.org>
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: [PATCH v3 02/12] perf annotate: Handle absolute addressing in data type profiling
+Date: Sat, 14 Nov 2026 22:40:50 -0300
+Message-ID: <20261115014102.2879372-3-acme@kernel.org>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261115014102.2879372-1-acme@kernel.org>
+References: <20261115014102.2879372-1-acme@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,128 +69,192 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+32-bit x86 accesses globals with absolute addresses, like
+"movl %eax,0x8c73448", but the operand parser only recognized the
+offset(reg) forms, so the operand had no memory reference, the resolver
+saw a zero data address and resolved nothing.
 
-Nothing measured how much of perf the test suite reaches.  Patch 1 adds
-tools/perf/scripts/coverage.sh: it builds perf with clang source based
-coverage, runs the complete perf test suite and reports line and function
-coverage, optionally against a baseline, with --table and --html like
-pahole's coverage_table.py.  Also as 'make -C tools/perf coverage',
-'coverage-prep' and 'coverage-table'.
+Parse a bare number as an absolute memory operand, leaving jumps and
+calls out, use the address in the resolver, and let the instruction
+tracking record the type of an absolute global load in the destination
+register.  The displacement is sign extended for 64-bit objects, as the
+CPU does, and zero extended for 32-bit ones; a zero address is skipped
+by both users, since it is what an unrelocated operand looks like.
 
-The rest is what the first runs found, in the code, the build and the
-tests:
+With bare numbers being memory operands, a frame base register of -1,
+"none", would also compare equal to the -1 "no register" of an absolute
+operand and take it for a stack access, so guard those comparisons.
 
-  - 32-bit x86 accesses globals with absolute addresses, which the data
-    type resolver did not handle (patch 2).
-  - clang DWARF 5 describes globals with DW_OP_addrx, which was not
-    resolved (patch 3).
-  - The flexible array member had no test; one showed the struct row at
-    0.00% while the member said 100.00% (patches 4-5).
-  - Resolving a struct pointer that -O2 keeps in a register from its
-    DWARF location had no test (patch 6).
-  - --insn-stat was printed before the loop that accounts the samples,
-    so --code-with-type showed zeros (patch 7).
-  - The libbfd probe printed a missing bfd.h error five times per
-    build-test run (patch 8).
-  - FEATURE-DUMP didn't record llvm-perf and rust, disabling both in the
-    build-test builds (patch 9).
-  - The Intel PT virtual LBR check lost every aux sample with a single
-    data page (patch 10).
-  - The dlfilter test kept samples whose IP the kernel now zeroes on a
-    userspace-to-kernel skid (patch 11).
-  - The LBR inline unwinding check failed instead of skipping when the
-    AMD PMU rejects branch sampling (patch 12).
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ tools/perf/util/annotate-arch/annotate-x86.c | 41 ++++++++++++++++++--
+ tools/perf/util/annotate.c                   | 20 +++++++++-
+ tools/perf/util/annotate.h                   |  6 +++
+ 3 files changed, 62 insertions(+), 5 deletions(-)
 
-In a root run on this box the suite covered 51.12% of perf's 205,007
-lines.  The only failure is the POLL_HUP tracepoint regression, in code
-this series does not change.
-
-The harness and the tests were developed with an AI coding assistant
-(OpenCode), which drafted the script and the tests and helped debug the
-failures; I reviewed every change and reproduced each failure before
-fixing it.
-
-What changed from v2:
-
-  - Patch 2 is new: absolute addressing is resolved, so the new data type
-    tests pass on 32-bit non-PIE builds and skip on 32-bit PIE.
-  - Patches 3, 4 and 6: the C programs became 'perf test -w' workloads
-    (global_data, flex_array, regptr), the shell tests no longer compile
-    anything (Ian Rogers).
-  - Patch 6: regptr uses long long members, so the offsets are the same
-    on ILP32 and LP64.
-  - Patch 5: add the missing annotated_member__extent() stub, so a
-    build with slang but without libdw works (sashiko-bot); it is now
-    a method of struct annotated_member.
-
-What changed from v1:
-
-  - Patch 9 (cs-etm) is gone: Leo Yan's series replaces it.
-  - Patch 1: O= is accepted by all targets, the Python extension is in
-    the report, -f is normalized and the delta matches its baseline.
-  - Patch 5: the TUI browser counts flexible array accesses too.
-  - Patch 7: the stats test skips without libdw.
-  - Patches 10 and 12: Fixes tags corrected.
-
-Best regards,
-
-- Arnaldo
-
-Arnaldo Carvalho de Melo (12):
-  perf scripts: Add a coverage harness for perf
-  perf annotate: Handle absolute addressing in data type profiling
-  perf annotate-data: Resolve DW_OP_addrx global variables
-  perf tests: Exercise the flexible array member path
-  perf annotate-data: Count flexible array accesses for the whole struct
-  perf tests: Exercise data type resolution from a register
-  perf annotate: Print the stats after the annotations
-  perf tests: Silence the libbfd probe in build-test
-  perf build: Record the display-only features in FEATURE-DUMP
-  perf tests: Fix the Intel PT virtual LBR check
-  perf test: Drop samples without an IP in the dlfilter test
-  perf test: Skip the LBR inline unwinding check when unsupported
-
- tools/perf/.gitignore                         |   1 +
- tools/perf/Makefile                           |  11 +-
- tools/perf/Makefile.config                    |   4 +
- tools/perf/Makefile.perf                      |   4 +
- tools/perf/builtin-annotate.c                 |  10 +-
- tools/perf/scripts/coverage.sh                | 722 ++++++++++++++++++
- tools/perf/tests/builtin-test.c               |   3 +
- tools/perf/tests/make                         |   2 +-
- tools/perf/tests/shell/addr2line_inlines.sh   |   9 +-
- tools/perf/tests/shell/annotate_stats.sh      |  64 ++
- .../perf/tests/shell/data_type_flex_array.sh  | 108 +++
- tools/perf/tests/shell/data_type_global.sh    |  70 ++
- tools/perf/tests/shell/data_type_register.sh  |  64 ++
- tools/perf/tests/shell/script_dlfilter.sh     |   2 +-
- tools/perf/tests/shell/test_intel_pt.sh       |   9 +-
- tools/perf/tests/tests.h                      |   3 +
- tools/perf/tests/workloads/Build              |   6 +
- tools/perf/tests/workloads/flex_array.c       |  54 ++
- tools/perf/tests/workloads/global_data.c      |  55 ++
- tools/perf/tests/workloads/regptr.c           |  60 ++
- tools/perf/ui/browsers/annotate-data.c        |   7 +-
- tools/perf/util/annotate-arch/annotate-x86.c  |  41 +-
- tools/perf/util/annotate-data.c               |  24 +-
- tools/perf/util/annotate-data.h               |   8 +
- tools/perf/util/annotate.c                    |  20 +-
- tools/perf/util/annotate.h                    |   6 +
- tools/perf/util/dwarf-aux.c                   |  42 +-
- 27 files changed, 1380 insertions(+), 29 deletions(-)
- create mode 100755 tools/perf/scripts/coverage.sh
- create mode 100755 tools/perf/tests/shell/annotate_stats.sh
- create mode 100755 tools/perf/tests/shell/data_type_flex_array.sh
- create mode 100755 tools/perf/tests/shell/data_type_global.sh
- create mode 100755 tools/perf/tests/shell/data_type_register.sh
- create mode 100644 tools/perf/tests/workloads/flex_array.c
- create mode 100644 tools/perf/tests/workloads/global_data.c
- create mode 100644 tools/perf/tests/workloads/regptr.c
-
-base-commit: cc905a18a647a8e3ad42cd1596baa0e08fba26eb
-v1-head: 3f5465bea8f5a97a
-v2-head: 9706c488afffeb6d
+diff --git a/tools/perf/util/annotate-arch/annotate-x86.c b/tools/perf/util/annotate-arch/annotate-x86.c
+index e38a4e7a54d5585c..297f2fe9bec79c83 100644
+--- a/tools/perf/util/annotate-arch/annotate-x86.c
++++ b/tools/perf/util/annotate-arch/annotate-x86.c
+@@ -230,6 +230,11 @@ static bool vtable_get_rettype(Dwarf_Die *class_die, int offset,
+ 	return die_get_real_type(&func_die, type_die) != NULL;
+ }
+ 
++static bool is_stack_or_fb_reg(struct type_state *state, int fbreg, int reg)
++{
++	return (fbreg != -1 && reg == fbreg) || reg == state->stack_reg;
++}
++
+ static void update_insn_state_x86(struct type_state *state,
+ 				  struct data_loc_info *dloc, Dwarf_Die *cu_die,
+ 				  struct disasm_line *dl)
+@@ -437,7 +442,7 @@ static void update_insn_state_x86(struct type_state *state,
+ 		invalidate_reg_state(tsr);
+ 
+ 		/* Case 1: Based on stack pointer or frame pointer */
+-		if (sreg == fbreg || sreg == state->stack_reg) {
++		if (is_stack_or_fb_reg(state, fbreg, sreg)) {
+ 			struct type_state_stack *stack;
+ 			int offset = src->offset - fboff;
+ 
+@@ -626,7 +631,7 @@ static void update_insn_state_x86(struct type_state *state,
+ 
+ retry:
+ 		/* Check stack variables with offset */
+-		if (sreg == fbreg || sreg == state->stack_reg) {
++		if (is_stack_or_fb_reg(state, fbreg, sreg)) {
+ 			struct type_state_stack *stack;
+ 			int offset = src->offset - fboff;
+ 
+@@ -741,6 +746,29 @@ static void update_insn_state_x86(struct type_state *state,
+ 				     insn_offset, addr, dst->reg1);
+ 			pr_debug_type_name(&type_die, tsr->kind);
+ 		}
++		/* Or an absolute address, as used by 32-bit code */
++		else if (annotated_op_loc__is_abs(src)) {
++			struct map_symbol *ms = dloc->ms;
++			u64 ip = ms->sym->start + dl->al.offset;
++			u64 addr = annotated_op_loc__abs_addr(src, map__dso(ms->map));
++			int offset;
++
++			if (!get_global_var_type(cu_die, dloc, ip, addr, &offset,
++						 &type_die) ||
++			    !die_get_member_type(&type_die, offset, &type_die)) {
++				invalidate_reg_state(tsr);
++				return;
++			}
++
++			tsr->type = type_die;
++			tsr->kind = TSR_KIND_TYPE;
++			tsr->offset = 0;
++			tsr->ok = true;
++
++			pr_debug_dtp("mov [%x] global addr=%#"PRIx64" -> reg%d",
++				     insn_offset, addr, dst->reg1);
++			pr_debug_type_name(&type_die, tsr->kind);
++		}
+ 		/* And check percpu access with base register */
+ 		else if (has_reg_type(state, sreg) &&
+ 			 state->regs[sreg].kind == TSR_KIND_PERCPU_BASE) {
+@@ -827,7 +855,7 @@ static void update_insn_state_x86(struct type_state *state,
+ 	/* Case 3. register to memory transfers */
+ 	if (!src->mem_ref && dst->mem_ref) {
+ 		/* Check stack variables with offset */
+-		if (dst->reg1 == fbreg || dst->reg1 == state->stack_reg) {
++		if (is_stack_or_fb_reg(state, fbreg, dst->reg1)) {
+ 			struct type_state_stack *stack;
+ 			int offset = dst->offset - fboff;
+ 
+@@ -931,7 +959,7 @@ static int extract_reg_offset(const struct arch *arch, const char *str,
+ }
+ 
+ static void extract_op_location_x86(const struct arch *arch,
+-				    struct disasm_line *dl __maybe_unused,
++				    struct disasm_line *dl,
+ 				    const char *op_str, int op_idx __maybe_unused,
+ 				    struct annotated_op_loc *op_loc)
+ {
+@@ -960,6 +988,11 @@ static void extract_op_location_x86(const struct arch *arch,
+ 			op_loc->offset = strtol(s + 1, &p, 0);
+ 			if (p && p != s + 1)
+ 				op_loc->imm = true;
++		} else if (isdigit(*s) && !ins__is_jump(&dl->ins) &&
++			   !ins__is_call(&dl->ins)) {
++			/* Absolute address, as used by 32-bit code */
++			op_loc->mem_ref = true;
++			op_loc->offset = strtoull(s, NULL, 0);
+ 		}
+ 	}
+ }
+diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
+index 86a4beec6528e9bd..56fffe598634c441 100644
+--- a/tools/perf/util/annotate.c
++++ b/tools/perf/util/annotate.c
+@@ -2605,6 +2605,19 @@ int arch__dwarf_regnum(const struct arch *arch, const char *str)
+ 	return reg < 0 ? -1 : reg;
+ }
+ 
++bool annotated_op_loc__is_abs(const struct annotated_op_loc *op_loc)
++{
++	return op_loc->mem_ref && op_loc->reg1 == -1 && op_loc->reg2 == -1 &&
++	       op_loc->segment == INSN_SEG_NONE && op_loc->offset != 0;
++}
++
++/* The disp32 of a 64-bit object is sign extended, a 32-bit one is not */
++u64 annotated_op_loc__abs_addr(const struct annotated_op_loc *op_loc,
++			       const struct dso *dso)
++{
++	return dso__is_64_bit(dso) ? (u64)(s64)op_loc->offset : (u32)op_loc->offset;
++}
++
+ /**
+  * annotate_get_insn_location - Get location of instruction
+  * @arch: the architecture info
+@@ -2622,7 +2635,7 @@ int arch__dwarf_regnum(const struct arch *arch, const char *str)
+  *   mov  (%rax), %rcx   # src_reg1 = rax, src_mem = 1, src_offset = 0
+  *                       # dst_reg1 = rcx, dst_mem = 0
+  *
+- *   mov  0x18, %r8      # src_reg1 = -1, src_mem = 0
++ *   mov  0x18, %r8      # src_reg1 = -1, src_mem = 1, src_offset = 0x18
+  *                       # dst_reg1 = r8, dst_mem = 0
+  *
+  *   mov  %rsi, 8(%rbx,%rcx,4)  # src_reg1 = rsi, src_mem = 0, src_multi_regs = 0
+@@ -2894,6 +2907,11 @@ __hist_entry__get_data_type(struct hist_entry *he, const struct arch *arch,
+ 			dloc.var_addr = annotate_calc_pcrel(ms, dloc.ip,
+ 							    op_loc->offset, dl);
+ 		}
++		/* Absolute addressing, as used by 32-bit code */
++		else if (annotated_op_loc__is_abs(op_loc)) {
++			dloc.var_addr = annotated_op_loc__abs_addr(op_loc, map__dso(ms->map));
++			op_loc->reg1 = DWARF_REG_PC;
++		}
+ 
+ 		/* This CPU access in kernel - pretend PC-relative addressing */
+ 		if (dso__kernel(map__dso(ms->map)) && arch__is_x86(arch) &&
+diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
+index 1b47c1156b9a72e1..43d365807daf2107 100644
+--- a/tools/perf/util/annotate.h
++++ b/tools/perf/util/annotate.h
+@@ -18,6 +18,7 @@
+ #include "branch.h"
+ #include "evsel.h"
+ 
++struct dso;
+ struct hist_browser_timer;
+ struct hist_entry;
+ struct map;
+@@ -638,6 +639,11 @@ struct annotated_insn_loc {
+ 	     i < INSN_OP_MAX;						\
+ 	     i++, op_loc++)
+ 
++/* Bare number operand, as used by 32-bit code to access globals */
++bool annotated_op_loc__is_abs(const struct annotated_op_loc *op_loc);
++u64 annotated_op_loc__abs_addr(const struct annotated_op_loc *op_loc,
++			       const struct dso *dso);
++
+ /* Get detailed location info in the instruction */
+ int annotate_get_insn_location(const struct arch *arch, struct disasm_line *dl,
+ 			       struct annotated_insn_loc *loc);
 -- 
 2.56.0
 
