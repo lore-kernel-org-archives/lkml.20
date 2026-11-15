@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794725118;
-	b=bhC9ScEjFb98JtbDoOsoAQ58yqqx5azVAY7dom+pW+nKNYH/d10ATVry/yvKUHWdP0eF
-	 gZlg1JLC2MNm4jBJZMVNeeheidjF6vls3hWe8ygqB2hP5TvjeAYYcq+I3KmFtEB0oy/Nj
-	 bx7jVwt2LHkmMyuHVD9igaGmz+HtGowZpI2Ykx3uxS8nBvarUQ+1uFEJtxoA0qfaRAqO1
-	 Lc+GnYm8AyjvSKPIX+VjB5dQuK5uiN2kOMGF4CGMEzROv25w2cJZMw3UY4m9ib3p49wQy
-	 RzBsSQYpH+GLz9lGmNaI/SdbfuDkShwepWYZ3SPo95aCDZwNvQRe7BflFFe+TVXxqpw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794725118;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=Ae1bG6w+qmEf9x2v/m2p04gxYPsvd0s6dg1OJhqCxXE=;
-	b=iZYznWPkfG8Zw5oRyEQtJJ3ZVKMjztF6hfDcTyagJQ8VjZFcY74sUfx7UYeLlNS4uxVW
-	 4QG/mrvsw0+J0iFSgrT4YLSrlyJsv38m3sOZ/+TUQxIKW86Uhr3QjIVuvRL/FoT04qtfd
-	 tYhrkKNeSoun3Q6uqjSmsIapGO8aBH0ETULfLozMAI8BOTPDzFhz5Br9fpUjJJYLP2zOZ
-	 jZXx3gdyZPEOBYqMGRpI0jrtSDWtykYzUcl8TL+l9ilcoKC+UNtqZ5TTAYbHcWN/oZtrD
-	 H4owIr0yxT4/SXCx0/EZ/mFVzm2OUfFPdvfNt6Pfy9n16P9gHPt9HMVTHzfzADYjbsg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DU+Afu0Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794725121;
+	b=ngvy8R6pXsrn3O80aEmOwkpMIr72kxXIczBwWRUoevAoJxP8muHGl1jWdqhFCphyU/T4
+	 G7aneHhUR7xd3Iyip5srRDNKiS0US1iW0625AI7kdumCvniQYfQWCmRD1rCxAjhrFv+MH
+	 P3AreosypWc4iK3JOgeqfZ545P68fDBBLAX95VWbce4xv2Mdxq2Xcy2UBH3Cn5s1uUhL7
+	 uu7WxPBvQnG0qdR99nPE2F3MV/+/lmn+0nAZSPceUkgQuM8+bqWbzajncbHi9Yvw/aHwR
+	 YTpJKJ0GaOy9AyJJllLravHwd4PE18wRgeBxqP62izjNThRtjY9yJJ/IBLCbe4fZvEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794725121;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=Hy9lM7OviU25g29M4jtdgfdBG7/TUKoGJ32oQNZu2Rk=;
+	b=mk6GrkE6lA9zvWA9DBFsJXQJuOmP0KYu/PaKi7iJsBiorkgCIVd3HDv9y6B6LDFCmU2y
+	 73rg5tw38PkZN0xcV84lkbp04gXLqJSzfchD8iwIEq7RI2MbjCD7om9ynl8XN0vlqQHfs
+	 w5Csoma4RwKCwg9Jg6if/5qAkX326JdQzVYekSAQGiJsxiQJTk0GRUN9Jc3SHiq0CQFaX
+	 qWUSBe7QjZ8k0iO4CPpbo8LysD+S2CcmdV1eatG2CiMs+qYefE82jG7dvLVp+igHr9/2z
+	 qNoggLp78vl10e6z97zARMLwuW5TfXg2UzMu2AEg5M5SqrNRm92cW1tvbdHs8DKWSbQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="pi/7Vgk/";
+	arc=none smtp.remote-ip=95.215.58.175
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECB7606A331
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:45:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ECB7606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4C5606A332
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:45:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D4C5606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DU+Afu0Z
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-55d30c054dfso4166211cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:45:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794725116; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z1EaBo180wefSqRWRtJTHyyJXpUDQAd8330mGzFOcy/D8TKHi5sixMCXbBg3MYAhbl
-         uF8XxFCd1fofrARc61YAjlXnYYAkm5Vaq7IOc/DTlIpQVwgJztLXi0+DS2njtVZYTyUr
-         iB7R3gKygbjFyatGkAUNPGqQFcolyd41hu4eZTRUZYEUKLZ7gy0Cm1dz4OssmHqP8Qjk
-         GXJAzi8ex+eQUc9N5rkvJfK6kZziB8JStFzz7A4FdWrTh1DmvuRPYXrnUSvexzzwh0eA
-         BB0S6baPx47OjUDglpcOQ5irjsgEneGTpPmWDVRcERqLMyF8JrHTg/9JYwjO8paqTutX
-         73gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Ae1bG6w+qmEf9x2v/m2p04gxYPsvd0s6dg1OJhqCxXE=;
-        fh=B6PPKT6QmhNB5pD1PDq9SMJHRcwQ8ePuA0bINuUFFew=;
-        b=UZfI6NCWonvpFDVLuiKXKJKfgG4Ec9nJt4gFU9l7DiTB4kO43/hSf0EeUv7qypdgie
-         8jT9Z81ZL3l0+XFOgFzbD/Sh4tCNbKjRs6HvU72jpd8LKUx2xmRch5UJVJJglJ2Cpqwa
-         C0Rf4R1YkYmOZX4SGdNd3IDdly8ZtloH09fXXNNIc+I333dlsSug8pLEeokrv23crd3k
-         88mHvdyFRbxEEdTk4+UpPvK5gUBWbmpaIfhefU5FWISQvIzMdFQy2Xcbt9KETrim5m1Q
-         WGL2Jv6cuFzbmLVleIZZrD2/JvrwvnXspb9uXjaVvobZpDU/1F8TAw16E8DT48DbxZpt
-         bTEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794725116; x=1795329916; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ae1bG6w+qmEf9x2v/m2p04gxYPsvd0s6dg1OJhqCxXE=;
-        b=DU+Afu0ZgNA9yXhZ8KR4EngJKn0WxkkXbUhsa0hi50w1I2Nlbm6ZrKS/IcVN7ak5g0
-         OTEmjv/GK9rwiaDcwlKuK5j5DticBoUjjbnJXaCQLmRb/Y99GX5PdGTNqwKxsXkj4CK3
-         AgWTmjohjo5DX0+nj3hl0rmiPXkHlxBy+nBzggrLGqenbSlt8ycKYHz3cwycBIlAqjBi
-         c+V7g9Q3mctPU9lcfl/T8mPOgL1+Z3wCkj0ach4FnurmMFNMYJaddL51x3YWfsYs73li
-         PfE4eOo/ef0ivZ16/2tFQJfBSJ7+kWxxcAtmMWdKCcCT/IG5jwrEug+0yv+japjPexvM
-         QATQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794725116; x=1795329916;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ae1bG6w+qmEf9x2v/m2p04gxYPsvd0s6dg1OJhqCxXE=;
-        b=rKl7n0vj9UeK4tcEIOaVPh7xNKONzsAdfZ+pXboqLIx/L62h6rAYfOPnRLHblLYWIV
-         F91gjU/cljY9Vcr5RE3lUecazd/ic+ZGiOLRtyjktDp5bsDQ9VNPNqENwwAcMimcB6t0
-         Dl4T5UgRxGLs/AQ46ZiOlqinkhUYHagR0R2pw2JoajgNSfwvUonGQnYSetuaWapbDJbf
-         Xbs7YzBpYo/FiTUzQX9nUle12hxc4arA/IXCh58xvIAwBflkw+jh3yfrYEqukKOKfyRL
-         NbunNf+Ha5iMpeS2JjfpPntQePMN3vMvPdFdReRS2iwf78ir+di3eGXXW5AML1/pVNgK
-         eLUw==
-X-Forwarded-Encrypted: i=1; AL+hErFqLSx1l1Nk+Heli7PljFK6zYj5s0X0s6K85IKVZ+diV/cp3nd5+SZRPizLQ3HUJzsqYdnmTAKMYEDWB2U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZW9qfjVcg3nUQleeMYHc2TWGTAIlfP/j6X6YI/wsIj/PtdNEE
-	ZnGLaFl1f/5IPlDSWyoRHf4BHbd4rKtoJ4cvbRTix9d0tU1gRpupuVlvKtgUNGwW8A/YNk2629S
-	JafxEN/mywe2LaMNW1EkyxesRR3GUmdU=
-X-Gm-Gg: AYBFou2szIni1bWP4kubZNnCan7UcKGBLQdPyM7QYmFArq2nG5d8us9jjjYKBn7y4hS
-	WT9W/qFrLwhMKy98pYvqfMADOZ5dCQKdnE0BRhEyGsf6/WGk7wEaHgeoYr3otFGmfcScwSgj+hO
-	VDTL/UpREMXNlaTsDguF7e275VtR00pSHcqQjbtUH9btyZkZsBcr61TrTzoDSjs6KzU4fKwsKMj
-	X3HeSTTWyzTMEGGZ0aAuPaEtG2+tgVcpECXdqB+/MsV3Kcy0Uhiv3nIbn6JO1KHtUX3Hjd0xa+8
-	QkaE/cggsgFGOdS59vQW6aq+pmJlGnxLeWn6/IOjnJze9JlgfjGtOEs+dAVRaNHC7W3tLS3/kKk
-	FBuan2h5x1yrWPhECoTjrfeXdq9CuVudrFhs/+5CQVE8cKYfS3SgRghNw4Z9c4dWO1JVx
-X-Received: by 2002:ac8:5746:0:b0:535:a5fb:644f with SMTP id
- d75a77b69052e-55ac9877608mr106957761cf.73.1794725116540; Sat, 14 Nov 2026
- 22:45:16 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pi/7Vgk/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5XwkqcHFhPzVcZzlFSKG0JJJqOr0gHJXncGteFyJ/mA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794725118; v=1; x=1795329918;
+ b=pi/7Vgk/vReb8RlEMiv3d7thFIcJAVGv1rywzYoz+LpmJdUTWrjcsvBySOGJz0YTLpCSZxyW
+ 1xF6iADHJjmvvy6H8rYGb+5+1V6imgFGwVuVWkqngD01ZotbUyughQEEOu19omZzq0/bjArPChf
+ 3m/3Tu9qfjr7ApiL5j6oucv8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 84e8d21794d04bb6;
+	Sun, 15 Nov 2026 06:45:15 +0000
+X-Mizu-Trace-ID: 84e8d21794d04bb6
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,50 +57,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-From: Alex Guo <alexguo1023@gmail.com>
-Date: Sun, 15 Nov 2026 14:45:05 +0800
-X-Gm-Features: AclHuK-2co-82s-DL-Ir9lk3bEMvqaIe8ZDqkSHlEPOMFzGbM_JIO5KSnIMrJc8
-Message-ID: <CAAi4Z-d5eV8FM5sYJj1gqudWyioF++fG8P6uGX_LxbiKSXjekw@mail.gmail.com>
-Subject: [PATCH] dmaengine: owl: Check IRQ lookup result
-To: vkoul@kernel.org, afaerber@suse.de, mani@kernel.org
-Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH 2/3] mm/page_ext: support early allocation for SPARSEMEM
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261114222344.e65dbc73bf2c9276@chrisdown.name>
+Date: Sun, 15 Nov 2026 14:44:45 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Zi Yan <ziy@nvidia.com>,
+ Sang-Heon Jeon <ekffu200098@gmail.com>,
+ Mostafa Saleh <smostafa@google.com>,
+ Ketan <ketan.kishore@oss.qualcomm.com>,
+ Usama Arif <usama.arif@bytedance.com>,
+ kasan-dev@googlegroups.com,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <90DD8319-BE49-4355-8CFF-36B7AA9BA4EA@linux.dev>
+References: <20261114104150.58424-1-songmuchun@bytedance.com>
+ <20261114104150.58424-3-songmuchun@bytedance.com>
+ <20261114222344.e65dbc73bf2c9276@chrisdown.name>
+To: Chris Down <chris@chrisdown.name>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-owl_dma_probe() passes the result of platform_get_irq() to
-devm_request_irq() even when the lookup fails. The request can replace
-the original error with -EINVAL.
 
-Return the lookup error before requesting the DMA interrupt, so a
-deferred probe can be retried.
 
-A similar issue was fixed in commit 47c3e06ed95a
-("spi: tegra210-quad: Fix missing IRQ check in tegra_qspi_probe").
+> On Nov 15, 2026, at 14:23, Chris Down <chris@chrisdown.name> wrote:
+>=20
+> Hi Muchun,
 
-Fixes: 47e20577c24d ("dmaengine: Add Actions Semi Owl family S900 DMA driver")
-Signed-off-by: Alex Guo <alexguo1023@gmail.com>
----
-Build-tested the affected driver object with Clang 18 for arm64.
-No hardware test was performed.
+Hi,
 
- drivers/dma/owl-dma.c | 3 +++
- 1 file changed, 3 insertions(+)
+>=20
+> This looks good to me in general, I only have a few small things.
 
-diff --git a/drivers/dma/owl-dma.c b/drivers/dma/owl-dma.c
-index 31a6c6e01a75..daea82718229 100644
---- a/drivers/dma/owl-dma.c
-+++ b/drivers/dma/owl-dma.c
-@@ -1156,6 +1156,9 @@ static int owl_dma_probe(struct platform_device *pdev)
-         * simplification.
-         */
-        od->irq = platform_get_irq(pdev, 0);
-+       if (od->irq < 0)
-+               return od->irq;
-+
-        ret = devm_request_irq(&pdev->dev, od->irq, owl_dma_interrupt, 0,
-                               dev_name(&pdev->dev), od);
-        if (ret) {
---
-2.43.0
+Thanks for taking a look.
+
+>=20
+> Muchun Song writes:
+>> -	/*
+>> -	 * page_owner must be initialized after buddy is ready, and also =
+after
+>> -	 * slab is ready so that stack_depot_init() works properly
+>> -	 */
+>> -	page_ext_init_flatmem_late();
+>=20
+> Not a big deal, but this means that on FLATMEM the init callbacks now =
+run
+> after vmalloc_init() rather than straight after kmem_cache_init(). I =
+can't
+> see anything that depends on the old place, but FLATMEM isn't what the
+> patch is about, so it'd be good to say in the changelog that this =
+moves.
+
+Sure. The new behavior is aligned with the non-FLATMEM case. It should =
+be fine.
+
+>=20
+>> +	if (!slab_is_available()) {
+>> +		addr =3D memblock_alloc_try_nid(size, PAGE_SIZE, 0,
+>> +					      MEMBLOCK_ALLOC_ACCESSIBLE, =
+nid);
+>=20
+> Maybe this should pass __pa(MAX_DMA_ADDRESS) as min_addr, like
+> alloc_node_page_ext() does, so that the tables stay out of ZONE_DMA =
+when
+> there's room elsewhere?
+
+Make sense.
+
+>=20
+>> +	page =3D virt_to_page(addr);
+>> +	if (PageReserved(page)) {
+>> +		memmap_boot_pages_add(-nr_pages);
+>> +		kmemleak_free_part_phys(__pa(addr), table_size);
+>> +		free_reserved_area(addr, addr + table_size, -1, =
+"page_ext");
+>> +		return;
+>=20
+> free_reserved_area() prints "Freeing page_ext memory" when it's given =
+a
+> name, and this runs once for every section, so offlining a few =
+gigabytes
+> would put dozens of those in the log. I think it should pass NULL =
+instead.
+
+Good point. I'll pass NULL in v2.
+
+>=20
+> Did you manage to get this branch to run, by the way? KMSAN is the =
+only
+
+No. I only verified that the KMSCN kernel boots successfully.
+
+> user of need_early, and from a quick check offlining a memory block on =
+a
+> KMSAN kernel fails with EBUSY, presumably because the metadata pages =
+can't
+> be migrated, so I couldn't exercise it myself.
+
+I'll exercise this code on this path and report back.
+
+>=20
+> Once the changelog and the log message are fixed, please feel free to =
+add:
+>=20
+> Reviewed-by: Chris Down <chris@chrisdown.name>
+
+Thanks for your review.
+
+Muchun
+
+>=20
+> Thanks!
+>=20
+> Chris
+
