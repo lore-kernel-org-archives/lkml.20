@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794781898;
-	b=ywMWznv/fmyqqPnEgN6r8Axtmx3u1k2eMPxB6yYcWxWNvEhoabyheABSlE9zkHbgYx/M
-	 lCXHbISjCxsfJ4Bt2ewltsJrbA/NJnOhK2B2Hw1Lfrjb58E/px5gFDsoqt8wNXO/IREIO
-	 RW3gTdP5iip5iQ4MYvwF/KqvpmS57U1HhGHV3aX7a2H4uCbz9q61qgvZ5PTRdRZLBh7oJ
-	 nc1Mh+UCOIQ8nZONiFemGh6DGx1Ps1TAMZa1VVy1q7UfCW41o+EVrdhv5yHpRUKnCin78
-	 SkMnTf48iiZ0WU+Rv3GjtyFIRiBGh6iLmxc+KWiIXYNBSAX7CvvCEle9UAy9+FjIo2A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794781898;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Originating-IP:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version;
-	bh=ykt8FTUNX1/fdxCk4A4DHYN7Y2tblUILl4FGUFZzAXY=;
-	b=03a5KAE2CN0t5oTwV80OaJ9MaMDUZ1/taIWbJgGW0HLIELIjyMX/bvNjwLFaFfYf/GFj
-	 6i3YG1uyIvw1BTCYNr4oXg5Pnlcajo++j4J2bVEh8GIXi1EVy8vcptJQKkxpjRbphRgAZ
-	 XxdBEcu/eHInIxE9GwrRk7n78hj8s+Q8shvL3VB1mCnnQnU78PJtOE4jeDXFFYGXTHwsr
-	 47bmRibCCi5sEacfYV3SL3EGeCD5aTMMssFr6HmkorQxRqDtg9+d4m2SkSQzFAHoitDIG
-	 oR6chvl6P3B78gtmOaIWVHBOttplJ6MVrR+bX+UorBBYpT59gXU9CPjgUgSOQYPTpsg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=SJ1mxSb+;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794782035;
+	b=PtB0OMZ4oshxMMQKYG0bj42kxPze2KzlUI/I5PdCxcxeunJzoHdcyPpwlEHO9VLnrrQ4
+	 LCK/fH34/GbsjTWJfZ6/PxFJqh8Qn3OoSkQAqokYchlUG1oCHv4yqcPTDKTzj0b43x/o8
+	 +hCImxze5sQlr2bZAh+ijAkVg9TgOurJcUcpnEuevhXyIdEGIMNbYQhe1Pg3jF1QSdF3z
+	 yf4gmGRIeuq4tbmdnFWvk74fxc8/4ZiMbdvVa7Gw76TFDMX3YodMn9R/nWH2n/XjEJkGf
+	 vER+EKB5N0vmMdxpY4hSzvsCS/T1xryJe/nvJ0jPyK7vm1xKeCMJOqHn/FSHEUFrveQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794782035;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=IsHAAFBlkVM6ou59b2piqx85V+e+bsPHreAZwXUu6no=;
+	b=bRvle28v3f900U1eNQjz8Vk9Q1SJbohRkwdTLWAfNqmnPwTZ49/hrIyYOX9iqvetRAJP
+	 511QJbuPLcxLpPvjcgxAwvJAlvrM3JfTLlESGnL5pk4Xs1BoHZ5AZ8SoE/9qt3YY5vTRb
+	 QgK0gbNzT4ZpQ4EFx461Vm2ukGP1Qp35FZZPtX9Dy3Sh/jV918hxDm8q9nzR/moVqN0u+
+	 XvtOb/WVgpnv4jtTiCmIIJgiEODrA3uWFjj5ji2Z+sqSf5XrrGVqu+s3tSOOZ+3/K5Nor
+	 XngEQmFTEAlrI4TSHT69bBVxIzrQcGgHj0mCZNz/XB45/JVdp9gkJbxyvEautcr6NIQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YAi9+saa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B599606A331;
+	Sun, 15 Nov 2026 22:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YAi9+saa
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794782034;
+	b=mM7YE7KFobUjh0uthVGS1+jwUlzF+2lBt2ryI4W0RerzMU/bKnuI18VYXEw/a6wW0dFV
+	 eziRR4ZiL35W9ev3/0h9A+YbIag16ph3EP9On1Zx5Qo5nT77CedhdaoPFq8F53PoN5DIP
+	 FrHUmLrDtOI6c6rTN1PSBYYtrXmFrUVVLiARqkaZ94nWA7BrM/MfwwNfOXtiNIYVEVoO5
+	 cQMx0xSWGZteMvldSvNoqoGO6rsTh48L5u57So1G4xGA5f0Eih//QbrvnrtS+SQ7IQjIH
+	 4uRZTvTKabiT06SEUC6aYgfEAt2tTO0B1TrcuKhyjeIMaPqVh7KVsmVrZcuSym1BYcA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794782034;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=IsHAAFBlkVM6ou59b2piqx85V+e+bsPHreAZwXUu6no=;
+	b=S7s+RZ5CVGXgiDkzV6cD1iZbp7zsrDsFHPjP79sIxCKgIyxBpXZMIje1D9FPaUUT3EAw
+	 M8YpehQY9/c/Q7/f9VDLaP7yyBaGnqBSS6CTIeb/TKucFMWM3N6BpgLgBJJbNSMzT2zqL
+	 06zjoAt7SQa5wBJ6U3VTitLfHKCj+sShpmnVyRMwlTCbOpdaKhbCNPdYb8NdXnqvNBUXD
+	 Nl2mHe3f1FLfr9R+IX9v6BrgM7LPFMhhc5xjzENxqlFCnshew2GY7hYRq/N8T7Y0l48xZ
+	 J9QgG/7oObf6JvTZxX8k71jItfwS8Hm1w+nZws2vOAcmyiGEz6pd+Aw4e3Fb9UDU62A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0DF606A323;
-	Sun, 15 Nov 2026 22:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E0DF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=SJ1mxSb+
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AFLmgRp538015;
-	Sun, 15 Nov 2026 14:31:16 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=ykt8FTUNX1/fdxCk4A4DHYN7Y2tblUILl4FGU
-	FZzAXY=; b=SJ1mxSb+jBspwpZ+RoOy/Lr5CS/7QRNeo6OhUzjml3l34B3DOQryV
-	YTrD7iaqc9bgjeOvKGchb/xXrv6VyJK/Gnz553rSSAdGLesUpyD5Iz2tjzkhAy3E
-	AiQphbyhg194wLcmkgxeLVgI8XyXEp9YyBcP0aAXzVQgJQUXnKZErZIoGmaclPQE
-	xGshwi14J+WZvgkcMRCwpNXSsDFUyFSi8i6x4g5eKeCkVNk/jhnHQntZSJqtPYaC
-	tvixv1d5+1mVFqDxanbVp8+94a3/32sOffAJJp0HYLsn4xOrSypZSbsV/oTIJabd
-	VFAOlvk4X4FxeeglzrPDyjhY9FIx+7AUA==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hxmj45x9v-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Sun, 15 Nov 2026 14:31:15 -0800 (PST)
-Received: from localhost (2620:10d:c0a8:fe::f072) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Sun, 15 Nov
- 2026 22:31:14 +0000
-Date: Sun, 15 Nov 2026 14:31:13 -0800
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <sgarzare@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
-        <pabeni@redhat.com>, <horms@kernel.org>, <corbet@lwn.net>,
-        <skhan@linuxfoundation.org>, <stefanha@redhat.com>, <mst@redhat.com>,
-        <jasowangio@gmail.com>, <xuanzhuo@linux.alibaba.com>,
-        <eperezma@redhat.com>, <shuah@kernel.org>, <rdunlap@infradead.org>,
-        <donald.hunter@gmail.com>, <edumazet@kernel.org>,
-        <georgezhang@vmware.com>, <acking@vmware.com>, <dtor@vmware.com>,
-        <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <kvm@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-        <sargun@sargun.me>, <jlinbox@meta.com>
-Subject: Re: [PATCH net-next v6 5/8] vsock: add a netlink command to assign
- the g2h device to a netns
-Message-ID: <avoysWTR++rTKfKL@devvm29614.prn0.facebook.com>
-References: <20261113-vsock-guest-ns-v6-5-3737ce4673c0@meta.com>
- <179471528940.2199510.18137700517588437955@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 434521F000C4;
+	Sun, 15 Nov 2026 22:33:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794782034;
+	bh=IsHAAFBlkVM6ou59b2piqx85V+e+bsPHreAZwXUu6no=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=YAi9+saaDqGhp8edWfmy9p/dBNYsCZbJiEqDE91uPgiDdQMYPYrJpDFI9l9xB1hcG
+	 lRmEgsVBq9Ui+ydSeBidLjeFQcIbqwSzjGuAGnPh9UlJWlcYHixHstCTvYxe2fhsf5
+	 kMRjsCJ7puUVe6+QQld39tCiQhO/0P9xKmytSLM8KSYlZv0Jc+m0JgMw1E8xDoeUyU
+	 hPbDqtmYXxMU4+vYxGFiNGLX9UcFHkUyopycqnymlRsEnL56+nqTxsy64kADVwqLSA
+	 kadAKNQuyfneqcPJ+j38b9AMWr3QQ405rYYzRJ5OZzg/SkJvleczO48EZtiw3E4GuI
+	 pdHuIlTuJ8JxA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 975624A21F;
+	Sun, 15 Nov 2026 22:33:53 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Subject: [PATCH net-next v4 0/2] net: dsa: mxl-gsw1xx: reset the switch
+ through reset-gpios
+Date: Sun, 15 Nov 2026 17:33:44 -0500
+Message-Id: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,130 +84,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179471528940.2199510.18137700517588437955@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDA4OSBTYWx0ZWRfX+ZQB0ppP8ScL
- 5zEoQ8ohV0T1CuBY5u/tqmj8DzX5Ljagf1soUB7AVYidkRKRsqhQDkRRZp+pVhEMtjBS5jfK7P+
- ZeO7st34x107s/XRqb/3LcQol9zeezk=
-X-Proofpoint-ORIG-GUID: DnfmZE2Va31yL9pMIgnnC5detjkL3Jk6
-X-Proofpoint-GUID: DnfmZE2Va31yL9pMIgnnC5detjkL3Jk6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDA4OSBTYWx0ZWRfX0OsD6yWxMwIx
- 0eZPLstlNAs7lKlPNceGqzSKTDjDVlTQ8eyUjLvERfU+AVrymQITadzDMNe6//+ObxP4VVoDsDi
- PtfEjV5VvmmKEO4UOE1nDpJKK7pde2D2jZcbeeQKi7FhIJbhCt1Zn96tR09NcwGm0DrG79aUI2w
- 7waXvI2nBWmzsmdvP5m6fUzi7e3AEmTbPRlkkM71iU3BQgwiFM7HvNnj/FbQxMrsWfSzRWxnyYl
- RmIoL8BgU+5gLMYoTLNjeqpjs4r9t4zqlQEtiuRu48++m8CutKsrxmTLLDA412TrOZTRGeO/9qu
- tWqdZPESNn+B8cvuFQMHhjqGoRus/Z9jPR7eMtzSatOkjYmg/TBUTQ1pwPhlVuVRqoVWo1a5Ykt
- ZpDhImJHp4PlMvxMImAYZlfqBSypP+uKOi3oo55f5oAk3IstOyhBmlaRPMHE8us4htBgO9vLvxr
- DalggzfOW7SMsENxYvA==
-X-Authority-Analysis: v=2.4 cv=Vp+2kO2n c=1 sm=1 tr=0 ts=6afa32b3 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=tpM8CJlwf7uhpglF1g9U:22 a=VwQbUJbxAAAA:8
- a=9R54UkLUAAAA:8 a=VabnemYjAAAA:8 a=RAyg9Hr4hlSmefgnMj4A:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=YTcpBFlVQWkNscrzJ_Dz:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-15_07,2026-11-11_03,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEgz+moC/23PQQ7CIBAF0Ks0rMUAUyt15T2MC0qnitbWACLG9
+ O4iujDqcjLz38/ciUNr0JFVcScWg3FmHNJQzgqi92rYITVtmolgouKcCXqKPd25K4+RWnToKSy
+ VllA1wDskKXa22JmYyQ0Z0sGA0ZPta+MuzQG1f4rP271xfrS33B54TryLyt+iwCmjC5BQN91CS
+ 4lrj71Sx3mLIftBfAryjyCSUFaat4rVIGv4EeBD4H+eDZAEWQFKwZbltzBN0wNBZSIkUQEAAA=
+ =
+X-Change-ID: 20261102-mxl-gsw1xx-reset-37ac836b31fe
+To: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>, 
+ Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Daniel Golle <daniel@makrotopia.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794782032; l=4542;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=G9njGy7AXdGTSeQCneHiMCT3l8HgskeAPEcXYBj6wA8=;
+ b=paHsuqgUXc4UJcePEFHJhWbSe01y6yUv4QUDa/hjvXEgElhewJmCeaUFkoEGLmfki/+wYfLwb
+ DjNK5D97MlGDzubluveEfHLBBoU3YU8GjqmE0hqMlOyPLrv4DBmv259
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 
-On Sun, Nov 15, 2026 at 04:01:29AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] The new `vsock` generic netlink family defines `dev-netns-set`
->   (VSOCK_CMD_DEV_NETNS_SET) as a do-request with no reply.
-> 
-> --
-> 
-> vsock: add a netlink command to assign the g2h device to a netns
-> 
-> This patch adds a vsock generic netlink family. VSOCK_CMD_DEV_NETNS_SET
-> moves the guest's G2H vsock device into a given network namespace, and
-> VSOCK_CMD_DEV_NETNS_GET reports the assignment as an nsid relative to
-> the caller. Connected sockets that can no longer reach the device are
-> closed with ECONNRESET, and an assignment that would cause a CID
-> collision is refused.
-> 
-> Link: https://lore.kernel.org/all/20200427142518.uwssa6dtasrp3bfc@steredhat/
-> 
-> > diff --git a/Documentation/netlink/specs/vsock.yaml b/Documentation/netlink/specs/vsock.yaml
-> > new file mode 100644
-> > index 0000000000000..f260ee88b1402
-> > --- /dev/null
-> > +++ b/Documentation/netlink/specs/vsock.yaml
-> 
-> [ ... ]
-> 
-> > +operations:
-> > +  list:
-> > +    -
-> > +      name: dev-netns-set
-> > +      doc: |
-> > +        Set the network namespace of the guest's vsock device.
-> 
-> [ ... ]
-> 
-> > +        The assignment holds a reference on the namespace.
-> > +      attribute-set: vsock
-> > +      flags: [admin-perm]
-> > +      do:
-> > +        request:
-> > +          attributes:
-> > +            - netns-fd
-> > +            - netns-pid
-> 
-> [Severity: Low]
-> This isn't a bug, but should dev-netns-set have a reply block here?
-> 
-> The spec gives dev-netns-set a request and no reply. As a result,
-> vsock_nl_dev_netns_set_doit() only returns an errno and the caller gets a
-> bare ACK.
-> 
-> The netlink guidance for new families says every operation should reply
-> with a full message that identifies the resulting object. It also says
-> that once a command only ACKs, the ACK-only behaviour becomes uAPI and
-> cannot be changed later.
-> 
-> The v3 revision replied with netns-id. The v5 changelog says the reply
-> was dropped at Stefano's request, so this looks deliberate. Since this
-> family has not been released yet, could that decision be checked once
-> more?
-> 
-> A netns-id reply would tell the caller where the device ended up,
-> relative to its own namespace, without a second dev-netns-get request.
+The GSW1xx driver never resets the switch, and the MDIO core does not
+handle reset-gpios for non-PHY devices, so the driver works with whatever
+the bootloader configured. On the GL.iNet GL-SFT1200 (Siflower SF19A2890 +
+GSW150), nothing answers at internal MDIO address 0 after the bootloader,
+and each port's address answers with the neighboring port's PHY, so the
+WAN port has no PHY. Describing the PHYs at the addresses they answer at
+is not enough: with them at 1 to 3 and no reset, neither LAN port passes
+traffic. A hardware reset puts the switch back in its power-on state, as
+GL.iNet's own firmware does from Linux.
 
-Actually, now that we're taking a netns-fd/netns-pid, the reply makes
-sense because it can be something besides the current netns.
+Patch 1 allows reset-gpios in the binding for the standalone switches.
+Patch 2 pulses it at probe. A device tree without reset-gpios behaves as
+before.
 
-pw-bot: cr
+Tested on a GL.iNet GL-SFT1200 (Intel GSW150 / PEB7084 at SMI address
+0x1f, reset on an active-low SoC GPIO), on OpenWrt's 6.18 kernel with
+the lantiq_gswip and mxl-gsw1xx drivers backported from mainline and
+CONFIG_RESET_GPIO=y: after a warm reboot and after a cold power-on, all
+three ports find their PHYs at addresses 0 to 2 and link at 1 Gbit/s.
+Without the patch, port 0 fails with -ENODEV after every boot.
 
--Bobby
+There is no in-tree user yet, and mainline can't run this board's
+switch yet: it sits on the MDIO bus of the SoC's GMAC, which mainline
+does not support. The GL-SFT1200's device tree is under review on
+linux-mips without the switch, which follows once the GMAC is.
 
-> 
-> > diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-> > index 37abde1ca26cd..d4d88c8cf142f 100644
-> > --- a/net/vmw_vsock/af_vsock.c
-> > +++ b/net/vmw_vsock/af_vsock.c
-> 
-> [ ... ]
-> 
-> > +int vsock_nl_dev_netns_set_doit(struct sk_buff *skb, struct genl_info *info)
-> > +{
-> 
-> [ ... ]
-> 
-> > +	err = vsock_g2h_net_assign(net, info->extack);
-> > +	put_net(net);
-> > +
-> > +	return err;
-> > +}
-> 
-> This is where a reply would be built, for example by reusing
-> vsock_nl_dev_netns_fill() as vsock_nl_dev_netns_get_doit() does.
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-vsock-guest-ns-v6-0-3737ce4673c0%40meta.com
+---
+Changes in v4:
+- Cover letter: explain that describing the PHYs at the addresses the
+  bootloader leaves them at is not enough (Andrew, Daniel), drop the
+  unrelated reference to commit 82e2c7db0830 (Andrew), and correct the
+  tested kernel: v3 said v7.4-rc1, but the board runs OpenWrt's 6.18
+  with the drivers backported from mainline.
+- Patch 2: say the same in the commit message.
+- Patch 2: imply RESET_GPIO, which reset-gpios needs, and say so in the
+  help text. Without it the reset core skips the optional reset.
+- Patch 2: say that the GSW150 timing is used for all the GSW1xx parts,
+  as no other is known.
+- Patch 2 keeps the reset controller API, as Daniel asked for in v1,
+  rather than requesting the GPIO itself.
+- Patch 2 still pulses the reset in probe, so a deferred probe repeats
+  it. This matches the realtek DSA drivers, and moving it into setup
+  would also mean redoing the SGMII and pin mux writes and the SMDIO
+  page cache that probe sets up.
+- Patch 2 doesn't assert the reset on remove or after a failed probe:
+  the switch was left running there before, as in the realtek DSA
+  drivers. The reset-assert-us and reset-deassert-us properties are
+  for the MDIO core's own reset handling, which covers only PHYs, so
+  the timing stays in the driver.
+- Patch 1 keeps the GSW1xx switches in lantiq,gswip.yaml. Splitting the
+  schema would be a change of its own.
+- Rebase on net-next.
+- Link to v3: https://patch.msgid.link/20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev
+
+Changes in v3:
+- Patch 1: say in the slew-rate descriptions that, without the
+  properties, a reset through reset-gpios leaves the power-on defaults.
+  Rob's Ack is kept: reset-gpios itself is unchanged.
+- Patch 2: say the same in the commit message, and wrap a line over 80
+  columns.
+- Cc Philipp Zabel for the reset controller API.
+- Link to v2: https://patch.msgid.link/20261108-mxl-gsw1xx-reset-v2-0-46c1da093893@telaak.dev
+
+Changes in v2:
+- Use the reset controller API, so reset-gpios goes through reset-gpio,
+  instead of driving the GPIO from the driver (Daniel).
+- Use the vendor driver's reset timing, 250 ms asserted and 1 s before
+  the first access. v1 gave 2 ms and 100 ms as the vendor's, which they
+  are not.
+- Patch 1: add Rob's Ack.
+- Link to v1: https://patch.msgid.link/20261104-mxl-gsw1xx-reset-v1-0-53839bf5c88e@telaak.dev
+
+---
+Joseph Telaak (2):
+      dt-bindings: net: dsa: lantiq,gswip: add reset-gpios
+      net: dsa: mxl-gsw1xx: reset the switch through reset-gpios
+
+ .../devicetree/bindings/net/dsa/lantiq,gswip.yaml  | 12 ++++++++--
+ drivers/net/dsa/lantiq/Kconfig                     |  5 +++++
+ drivers/net/dsa/lantiq/mxl-gsw1xx.c                | 26 ++++++++++++++++++++++
+ drivers/net/dsa/lantiq/mxl-gsw1xx.h                |  6 +++++
+ 4 files changed, 47 insertions(+), 2 deletions(-)
+---
+base-commit: 6964ff21c5d8b75649211a52dbfd92753e605649
+change-id: 20261102-mxl-gsw1xx-reset-37ac836b31fe
+
+Best regards,
+--  
+Joseph Telaak <joseph@telaak.dev>
+
+
