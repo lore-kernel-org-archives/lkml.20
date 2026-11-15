@@ -1,89 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794712587;
-	b=okcnJ5PjFCxI/iKGUriGofRe7vgiTbVXewY/z+trkT+K7kj2fns6xCnk/EFjIJkiadE+
-	 cqQ+55ELBTvIb/M1iUmjlCH5JscMr7tFa5qk1fZtx9Y+oe1M1CNaPofKyVKXSB/UBBpHe
-	 9LX0vfVSJxPqYbvJY4pP2NjidUxd/snwtQ3PdtGfDHpwLcTfJTzlY847sZK3UhIjIQSaj
-	 Xp2qGfcbZDZIukateqd9pXHk93zaVpnIHl3XdCzx0aMEAVQouWzI2qLEScZe7lRab2kmy
-	 a7hpUa64eWPGA3DpG0hP56TiT89XlNjDYyiS3kTJVzVAC5LgGWzA81efAIPHP8Ihl4Q==
+	t=1794712697;
+	b=29edEMgNlNGYtWuXXmVbPV8FM1uZk2j9sFrSgPhB8MGd0Pq6p6y7R1hit81fC2aoyLdQ
+	 bLR2AmEWEBK5+X0piA1vzHgQy0DdGocCOA3suiPrJPP/nqXTn3mB7E31+5EH2N7ESi95D
+	 RqVEyt47hsWlsGlZFtyzGK8a0uXFCf3cmpDuGV3fT/PB+LLgg7JpXXiLnByCaSs2cUbtN
+	 /2F5Swu0GMHU1JP7sTejF4RPd+isKuhSRbi55Lv8Xennha9cHSQk9oX2lbDC5QCtDWgzx
+	 Rh8mEWdwlvQPGgjBUmEYRhI1FFDGDLOcWGQnqw+3Xznfia59fFSdsyYmEGGOdEI91Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794712587;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CcJ012d98pXUSkoe1frivs9auTK2SIP4GqFrJm7lBB0=;
-	b=Qc4+EQqcPm6hj/tq9kkEZXT08mE8O2pzQB/MQ7fGHZdSmpAoH/d1y0+uEKL7UHJHeRsx
-	 spHKt8nQWIeETQfCDqMTaociOG8lc9eY3cX74zn5aJ891IRmQDpl0aViKbymB2WvBCG2F
-	 C3vYZucPNorCPWzRB04HfTFqC7T6p/mown4U0AOws54im+gRLUJhM7SkXr19l+qiXGCPF
-	 rq6QGHRp7oDmWqPoVB50lW2nR/KBGkOIQJHrB8X26NLnx4+i5Lf6d96x+oEZT3KV1K1Yz
-	 ANfB92rLW/Fh9fPBLFrKUstpRR7L1gayLwPEt9Lo+rXKxvGC8dZFnvNT/z5edLDifOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794712697;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=RHK+oDroh+BWIdQDKlDOU+2VRgKkyUtO9u0OdXOwLJs=;
+	b=LgMMv5u1cUfGuW/MbKwCZh1EYLnBIg9ZuXqtIVridXGX12pcrrbX4u/NGh1zKF18Mb8k
+	 alsLkkUFkmePrxd+KJB8OC1pdx1jaEBvhGNKhzjzWKhosdxahuj052m6jQnGnLASa4RvU
+	 TUzoZA29DqHdWNl9RxIVEvIcvkKpFPRICxQRNp32qddWrbz3uA6Ri9oQeXh/40X0meIm4
+	 vk3bW6sI/v5VMslyxi8IkJrAVR+GiiHrXOiyb568CUpE6Y3k2HpAJnpo+t6sV01M4Jeli
+	 Mo54X5y7GwaOzXn7i6/BAmYYNivp0h6jsVsarMJKDUTyI3b7f58Ql1B+z9HJIZXRKvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nDn0QXj2;
-	arc=none smtp.remote-ip=209.85.160.174
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=guf6ZVDm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A282606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:16:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A282606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4663606A889;
+	Sun, 15 Nov 2026 03:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nDn0QXj2
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-55c35262674so9126161cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:16:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794712586; x=1795317386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CcJ012d98pXUSkoe1frivs9auTK2SIP4GqFrJm7lBB0=;
-        b=nDn0QXj28VQiPE4K98zv5Xh4Yjwm7t62UjfcLenYcqhOo5h0hOqiS5xRcIA+4og9N2
-         RQnaKdJY7YvgPODxmsSwlcrY5e5hmYdGYAcDU3VLp8O2fanyyBW03GWvOAseg3YKVdur
-         kJfGd1SrZPthJUpnDRewkGPwhaYIaPPNTbbS56apxaAVCCfxkUMWfqQHbKpJT8YqXfv5
-         Mcyw0FRhIlWfUUIL+x+uCTrj/JwnpVeszdWxBl+iAw38yG/4doOmbb0ThJSXidy1DVyR
-         TYVJLU/lLzVbaP8O7bmJVWScaD1ks1j524vQgyhJAKOpZjMA3R6pnDA3WPVQyVZEngmE
-         gcQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794712586; x=1795317386;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CcJ012d98pXUSkoe1frivs9auTK2SIP4GqFrJm7lBB0=;
-        b=RtSh1nc1BuGzFmOFeT1HEqhJfVovQO51nP6f7MWUmC1q0XcC/7+045pvOWGZhy0nW7
-         vYE0q9c5f1gIzHetfMHb+58OfJwAmL9hLTvENTrBFJWDvJVhVrExz7LfBy4CjssEGqgB
-         NlubZYGvKRrMCHdg2mGjVV4UPTto2y2YFiIIMBG+Yrkhwp6e6eg3bkPjyLXUHGkkC8ZN
-         Zul8MXz4Vc8HRzj28WZ6o6aV2N5L56Vs0ttksPAZju52i+DTBTQeKsmt7vcZ9Xj9pkyP
-         f6b8iLtXKj8L8W8e/sSz6eUhVANpiqGEtY0V0RAprb4YOlE3vIA/fOwM17YNoZmRpxKf
-         8fIQ==
-X-Forwarded-Encrypted: i=1; AL+hErEVd+L04VgrAnFDRjGV42j1Cfyz2Kn1B1h2LnZRngrfLmXWFZprPnpmX8ghGz87yKuZ/u8+atOgl4rvkms=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BE1u9gWaZ57SyjMPRNJN+pXwsqRthKPnpVGjNQRIhLAhmdd1A
-	LrnTdjmksiNoEKf71h9OkzXDmxhPn4cjxYH+4MouwLtQ/qyJFhnbVzuY
-X-Gm-Gg: AYBFou27aHxj+o10fc72NGBTsx4rVD1+o4Rt9SIksRtXAnXRV7Dvzpko47verM9YYK7
-	wpKaLZteBbkSDuXPEO2vXyyve9kNld8e43fNOAgN41Mahq2BHXTYBmeR70IeHQnw3g7Xe8//CUf
-	ZdSX1dAPbDH93UISVZPFKTQISGRr6wfqWRjk4yEyLBRSyDTM0zCpfYZvHQAqQzPZRA4yqKvacbl
-	wCI+Lk5PzigopTdTVeUlkqWu39XC5y+DuLiTe177FS3nQ8r7vLAELyTkc5RsCIDsxl0SByvU3UH
-	bOQjfv6KYmmJMslO3LQo26RxvpeLqSMWTZhH7afvhRkr1PzPx7H15xuSCLDcTSRwj0qGV1VrHHM
-	DXC//Lsctkim85W7TsLMbkrLku82OTyZ5zh8TmtcYW4pF5zuWazJ92Q/lnNBEjisjl7xR3N55JM
-	L7pdj5VvS9ZUNLq5UgwomhIzJDvqDEAW+RcsLo4mw4uSdh4i/uNDkDgKFqtPNufFjEcxTL8/u8w
-	AmXPj7N9L+TsIEYg0ple5t3YG9aJva2uTVg9ZKqKptBGnPRTUmtZngS4UHVJzL+xmDnvIQSSFO2
-	GjuUr1IDcSoz/XPxRbOLAC6QCtwFRa5mPjn7E8r+xKrIwNSMLjU8ohTojnm9fmjvTQ1K40gm7z0
-	1SqYKIX4Z5Fc/tg2OICy4CvwDRrVX1p0/GFUpgUuqkcey1UMMrucgrQ==
-X-Received: by 2002:a05:622a:451:b0:55d:13c7:c232 with SMTP id d75a77b69052e-55d13c7c737mr38400571cf.51.1794712585934;
-        Sat, 14 Nov 2026 19:16:25 -0800 (PST)
-Received: from ?IPV6:2600:4040:5abf:f200::9dd? ([2600:4040:5abf:f200::9dd])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad1b13917sm52366751cf.29.2026.11.14.19.16.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 19:16:24 -0800 (PST)
-Message-ID: <64e7afd3-50e5-4134-9bf6-92c4aa740bd7@gmail.com>
-Date: Sat, 14 Nov 2026 22:16:23 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=guf6ZVDm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76E1D1F000C4;
+	Sun, 15 Nov 2026 03:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794712696;
+	bh=RHK+oDroh+BWIdQDKlDOU+2VRgKkyUtO9u0OdXOwLJs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=guf6ZVDmwaky8SEJp57VkXtN6Ss2A0cMWAFtCpeJkNgcuac1a0hgIhGyT7sas1KCS
+	 1tXHkr0a09hmP/DodxQD7dfLH6N69ho5Wro6/JB0OeDs396wIrERLXi6qHFWZZ6Qjc
+	 LoAel+Pp780j4ZGXc/H6v4iWnGWrvKjc0zcfsStIVQqKSZsfK2fHoWAbR5rsCifQSX
+	 vSZ6ovuAVU3mnVw1UtlXD3ViRNRDkNQV0UCdX6rLp+bcyVAKdbnpzhgU9Lq++VvkyB
+	 AQ+EJIpRrTQ4Yk7HRxxPCodwE5kA2GBr1TP7qwyx9U/YFsb2IE51b0x6VqyTapRsBY
+	 r7Jze/vdNp5/g==
+Subject: Re: [PATCH net-next v1 04/15] psp: add support for socket-less psp
+ associations
+From: netdev-bot+sashiko@kernel.org
+To: toddfreed@meta.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
+ bjorn@kernel.org, bpf@vger.kernel.org, daniel@iogearbox.net,
+ daniel.zahka@gmail.com, donald.hunter@gmail.com, edumazet@kernel.org,
+ kuba@kernel.org, jhs@mojatatu.com, jiri@resnulli.us, john.fastabend@gmail.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-rdma@vger.kernel.org,
+ martin.lau@linux.dev, pabeni@redhat.com, saeedm@nvidia.com, horms@kernel.org,
+ tariqt@nvidia.com, weiwan@google.com, willemdebruijn.kernel@gmail.com
+Date: Sun, 15 Nov 2026 03:18:15 +0000
+Message-ID: <179471269504.2199510.18115986956046547098@kernel.org>
+In-Reply-To: <20261111005533.6436-5-toddfreed@meta.com>
+References: <20261111005533.6436-5-toddfreed@meta.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,118 +68,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] arm64: dts: qcom: sc8180x: Add Microsoft Surface Pro
- X
-To: Val Packett <val@packett.cool>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
-References: <20261104070441.74127-1-val@packett.cool>
- <20261104070441.74127-3-val@packett.cool>
-Content-Language: en-US
-From: Haipeng Lin <jimmie.lin@gmail.com>
-In-Reply-To: <20261104070441.74127-3-val@packett.cool>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/4/26 2:04 AM, Val Packett wrote:
-> From: Maximilian Luz <luzmaximilian@gmail.com>
-> 
-> Introduce a device tree for the Surface Pro X tablet in all 3 variants
-> (SQ1 with cellular, SQ1 Wi-Fi only, SQ2 with cellular).
-[...]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-I believe there is also a Wi-Fi only SQ2 variant. Looking at the WoA
-drivers for 8180_CAS (Caspar, Wi-Fi only)
-https://github.com/WOA-Project/Qualcomm-Reference-Drivers/tree/master/Surface/8180_CAS/200.0.31.0
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-This variant is the only that has both SurfaceSMF_SQ1.cab and 
-SurfaceSMF_SQ2.cab. Only 8180_CAS MPSS INF maps the no-modem subsystem
-ID (SUBSYS_MSNM8180 -> qcmpss8180_nm.mbn), the 8180_CAR (Carina) only
-lists the cellular MSWW/MSJP/MSCN IDs.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-My SQ2 Wi-Fi boots with the caspar dts in this patch fine but the
-gold cluster is pinned at SQ1's top clocks because the 3.072 / 3.1488
-GHz OPPs are only in carina.dts.
+- [Medium] The commit message misdescribes how keys are handled by the
+  new socket-less association API.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
-> new file mode 100644
-> index 000000000000..5d155c69907a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
-> @@ -0,0 +1,50 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +
-> +/dts-v1/;
-> +
-> +#include "sc8180x-microsoft-surface-pro-x.dtsi"
-> +
-> +/ {
-> +	model = "Microsoft Surface Pro X (SQ2)";
-> +	compatible = "microsoft,carina", "qcom,sc8180x";
-> +};
-> +
-> +&cpu4_opp_table {
-> +	opp-3072000000 {
-> +		opp-hz = /bits/ 64 <3072000000>;
-> +		opp-peak-kBps = <8368000 51609600>;
-> +	};
-> +
-> +	opp-3148800000 {
-> +		opp-hz = /bits/ 64 <3148800000>;
-> +		opp-peak-kBps = <8368000 51609600>;
-> +	};
-> +};
-> +
-[...]
+--
 
-Would it make sense to move opp-3072000000 and opp-3148800000 into the
-shared sc8180x-microsoft-surface-pro-x.dtsi? qcom-cpufreq-hw disables
-all DT OPPs first and only re-enables freqs present in the hardware LUT
-so this would work for SQ1 and caspar.dtb will cover both the SQ1 and
-SQ2 Wi-Fi models out of the box and carina.dts won't need its own
-&cpu4_opp_table override.
-> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
-> new file mode 100644
-> index 000000000000..17fb01c6b164
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
-[...]
-> +&smb2351_2 {
-> +	status = "disabled";
-> +};
-> +
-> +&smb2351_a {
-> +	status = "disabled";
-> +};
+psp: add support for socket-less psp associations
 
-Confirmed on hardware that labeling pmic@2 and pmic@a in
-sc8180x-pmics.dtsi fixes the dtc build failure here.
+This commit adds a registry of PSP associations that are not bound to a
+socket. Each one is either an Rx or a Tx association and is referenced
+by an ID. It also adds the rx-spi-alloc, assoc-add, assoc-del and
+assoc-get netlink commands, which are admin-only, to manage these
+associations.
 
-[...]> +&uart13 {
-> +	pinctrl-0 = <&uart13_state>;
-> +	pinctrl-names = "default";
-> +
-> +	status = "okay";
-[...]
+> key material enters through netlink and is never reported back. no key
+> is stored for rx associations, and users reference associations by id
+> and never handle keys
 
-On linux-surface, ad1bb617a15a from Maximilian Luz had
+[Severity: Medium]
+Is this paragraph accurate? The code in this patch seems to do the
+opposite in two places.
 
-&qupv3_id_2 {
-  status = "okay";
-};
+psp_nl_rx_spi_alloc_doit() in net/psp/psp_nl.c returns the
+device-derived Rx key to user space:
 
-Would it be helpful to add here? I confirmed on hardware that adding it
-allows uart13 (WCN3998 Bluetooth) and uart15 (SAM EC) to populate and
-probe properly.
+net/psp/psp_nl.c:psp_nl_rx_spi_alloc_doit() {
+    ...
+	if (nla_put_u32(rsp, PSP_A_ASSOC_ID, pas->id) ||
+	    nla_put_u32(rsp, PSP_A_ASSOC_DEV_ID, psd->id) ||
+	    psp_nl_put_key(rsp, PSP_A_ASSOC_RX_KEY, version, &key)) {
+    ...
+}
 
-Thanks,
-Haipeng
+psp_nl_put_key() emits PSP_A_KEYS_KEY with key_sz raw key bytes. The
+rx-spi-alloc doc in psp.yaml says the same thing: the key "must be
+passed to the peer out of band".
 
+psp_nl_assoc_add_doit() also requires user space to supply the raw Tx
+key bytes:
+
+net/psp/psp_nl.c:psp_nl_assoc_add_doit() {
+    ...
+	err = psp_nl_parse_key(info, PSP_A_ASSOC_TX_KEY, &key, key_sz);
+    ...
+}
+
+So user space does handle keys, and rx-spi-alloc does report key
+material back.
+
+The code only seems to guarantee two narrower things. No Rx key is
+stored in the association, and assoc-get reports only the SPI.
+
+Could the commit message describe that more precisely? For example:
+"the Rx key is returned once, by rx-spi-alloc, and is never stored or
+reported by assoc-get".
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111005533.6436-1-toddfreed%40meta.com
