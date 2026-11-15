@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794752699;
-	b=ue9XJvSDK9+IwsnP0FN6ah0nQ00ONGOsQTHYmy1OryOSGiaUxlhEhQZTZMvrFIzYDRg5
-	 mQ+vkP9NRQTZzM5pMq5uKXV6pepP2CW6diEOqpK9INVk7fHAifQ4uuglHXNwbbhCGKwQP
-	 rd0kWQFgiYJLG8NrWKtDji7FHj9UR2mEeaVdWwl8Ir/B9E5t80q12tLMYKV5U0fOYiY7f
-	 Y0uXHLVfaNXAvB3xBDuCy7jjfWGdGzfm4He6n1jZkzYk/rdG9YsVzb9NuFHgtJp+tJczW
-	 rIgV6Q/tCkGBOZwFkvkDXuh8EzG5ltsAcP6OTWwFvjlsG2GPIBlnS+K+fb6udH20g3Q==
+	t=1794752762;
+	b=QrikrxTwm25bFx6NH1A9byGFVQYkAEGL51Do2PglaVZZo76I/eRADXYNwP1132jzCokA
+	 C2FZLxxQf13tDLPXr+CzqWqRIuM+S7lZvdGQ/GFe9KTXPrWD5iZijGLbxZUSEcwEqfN+B
+	 BTLo73zyPoSGpi8tpbn9xeuiV5IaiaMJlQkVeW1u09t+9KjqGArpZtWn4s1WFRWjcmLhw
+	 NYsiWWyzUsiRNt9uKAzBmn58Q8/23XmUZ1EIkyxj+OqCKjhdc1zmetAU/UQmhyqBsy/qn
+	 +NgAMXUprSiz3gY9yPQTbNhPC1YR1x+P3HKRVpwU6bK+LXUGcNUe+zqaYnP1wlMj7Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794752699;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=ZI/jWFSUpK9WyTo+E+G27clHiH6WPIOS6hDg2pOWU8E=;
-	b=174GXK8k4U1liWKUa9vRwhvzv8A4eVLiF7MCzp3i6ksYZqb7QOr0nXhMA3oxmurG8Lqe
-	 CNlRT5uloZAU4oTvpIsSqT2Y3kREPdAJAck+OXetrONWvtoM7rqaVTiq9BFPTVmhFYdD3
-	 pMqi+ZC0hdUo3UMzUbZxh6S/VEGpVMsNEL0EEE9+XJbxAZofgWEPdNOAGrz+gE5jneEQt
-	 IrHF5CviaaWxw3q7tTalLv4GkgBpGol6Egp5sg4MLX9doFY4wbdiTwJER5KZiFAwX0cXS
-	 qzspCv6gAd05BjFIgFY/jxbffGYejn0aLvGH1u8RzSGNVtreQgS0nxdmWifn+fGLjIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794752762;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
+	 DKIM-Signature;
+	bh=ShjgCvqqZNLaBDF7Bo4oAbg7L5sjoWh7XMVc+AD2/Yw=;
+	b=xVqB3hyvBUgCCcuukZbeI+VSxSSp5F+jxhNLDW4/OYgnl7fFAeLFHb5ZpGir9z5Rf7M4
+	 fu/e65xmn/CVT1gDRa/udqZh0fUX5Pc90YK1OLzM0pq7/LX8+vO09XeKKZKdE51gzCs9t
+	 lyN3ERHeCBapV3634/4XmIcdiblgAFNV0IIezvMPjsXl4MkokbpHAqnK3atgxfohkWHF5
+	 tQYzyMvakUTirviqRMVw79vcx7KYEBiINqHR3AzV/3fajg6AEF+zKIXwng6ITJYG7kgVF
+	 zzLdy2aGZ9t6r7nlV9eUllKBye4L9dyk+sGpEu0cnws3a0jBFBWqC9sKusqjYSLOCQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Fijdk6XF;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF24606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF24606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-568249fbf5eso3148308b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:24:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794752698; x=1795357498;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZI/jWFSUpK9WyTo+E+G27clHiH6WPIOS6hDg2pOWU8E=;
-        b=LA9x5W+GUFmUZ3H3E8NotnU2knWjPwIeUp3FfGv1Dm5H69xlWZdOjTtZb6CFSfprVX
-         tRfaY3YdXAAJW6MRwTOiWmmBEGw/bovMbbhp+cpESk+YV5aNIZGIgLFAXPzYGiHHQROC
-         mgTQoYEpgHuNWUuyvCLFpk6MsCUgyPMRV5n02q+UJmJEMBi0OxpaJ5wjteCFx+C0ISHz
-         pp3/AXVJSkHesrwQDnkdkflvaIO68t06gGWy+I9t0i2xyarIrNu9Rj41ptwkW9zbWEre
-         vNbPNZOTTEQfsQOCSDLAp2t8gYJuq1jcJMPtmuq6SH/ohju9TT4qDzMS8YPkg6Vel+6G
-         tXUw==
-X-Forwarded-Encrypted: i=1; AL+hErFmVntLe/9dVvOY8CJbHmPAIGFvPAcB0IFueTE2ZhTcrQOXBXlJTBvrq9vfcZvqEkPBz781uNauxQVEy0s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9V9BbJOJUttfFYKQ+O3dh1gTcCkXrclnYkHV6mgcPyzocKq54V
-	38q0CkzUkE/2Rh2uSKCJ1DzIIAlH/1xiFeE8gC+usf0saCZNBuErNeCDl45tQgw8F+hkJstJBZM
-	62BeDHaOh3s/MD8aByhgBaIcS7b+vnt6Gtm/9oBQ7ZS+DB0B9QUMfKdCvpTk=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43D1606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:26:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B43D1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Fijdk6XF
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 3F02A60D4F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:26:00 +0100 (CET)
+Received: (qmail 24959 invoked by uid 990); 15 Nov 2026 14:26:00 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 15 Nov 2026 15:25:59 +0100
+From: Leonard Lausen <leonard@lausen.nl>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: leonard@lausen.nl,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-wireless@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] wifi: rtw88: sdio: combine free TX page register reads
+Date: Sun, 15 Nov 2026 14:23:32 +0000
+Message-ID: <20261115142330.359247-6-leonard@lausen.nl>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261115142330.359247-2-leonard@lausen.nl>
+References: <20261115142330.359247-2-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,72 +65,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:244f:b0:4e9:7d56:846f with SMTP id
- 5614622812f47-56e640bc904mr6950073b6e.41.1794752698457; Sun, 15 Nov 2026
- 06:24:58 -0800 (PST)
-Date: Sun, 15 Nov 2026 06:24:58 -0800
-In-Reply-To: <20261115142448.21160-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af9c0ba.920b2b3a.148c65.0027.GAE@google.com>
-Subject: Re: [PATCH v2] RDMA/uverbs: Free all radix tree nodes in uverbs_destroy_api()
-From: syzbot <syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com
-Cc: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -----
+X-Rspamd-Report: REPLY(-4) BAYES_HAM(-3) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -5.6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=qQro4BPyHAD9tgg6RcpreG2vwjlqZkQarO5Fq3srUEE=;
+	b=Fijdk6XFsoszXGzwojm16N9Wwk5P6TWeHsr5PF6iwx1cMyostFAss2Eig7cimO/b0Zr2CRqNwO
+	IXzLWzwAyAwv0mppekeJuMAEaurfsim/y6wrVfezxfEQKGHPch9OzGf1EFf4D/89el5vPgAlZdkI
+	Y/nHeu16DLxcvQEC2pqB6p4WzRhA5uPcC7NvPLZF9dLseqoGMDTVFGaRNpcmIRI6UO8Bs90tHvys
+	gpQCp1mUm8Snqv+uWm7eLCkornvrCmCLMVyiVlngusLdiyf4mDNlFwT44mnlLu9IxQ64t7yHXJ8a
+	9f+3nXmIIAMDiiy6qvGc07v5TebtOKecjskmaOONycxyZ15GPea5IkBvz0GY4luhl6s116qcILEa
+	A6QEE2tlDzzhp12rzkDZFdhSD1KVt05pavxNR7+dT3RUFDwD0FU+Say30WzivRFjrlFH+Ji+g3/5
+	hSuaTxQjAauFh21YxebhwmoI822pxo+oiSEEgEgAxEyueE0GU6+lrPwoXdKDaSItooHL0cJNa1xt
+	P3lKhFoIbpJFnWTLrirhNNdb0mSMCSlRQ5hJcpGlODTQULtBCAJUaPbbJkPaFY7sFPkJ77aDOKKU
+	tGfWTK8P8KigXjHQ8raac0SiJAeAK4Pih5Q5MDJ/x9k/PApq43ZWIORgqWUPRkERtCw1bhg832DB
+	Q=
 
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+TX capacity checks on non-8051 chips read three adjacent 32-bit registers
+in separate SDIO requests. Combine them into one 12-byte CMD53 read when
+the existing power/alignment check permits it, with the per-register
+fallback otherwise. Propagate read errors before checking queue capacity.
 
-Patch testing via #syz test is temporarily disabled.
-See https://github.com/google/syzkaller/issues/8122 for details.
+Allocate a DMA-safe buffer at probe and copy its little-endian values
+into the caller's array before releasing the host. Holding the host
+through the read and copy serializes access to the shared buffer.
 
->
->
-> syzbot reported a memory leak of radix_tree_node objects allocated
-> while registering a siw device:
->
->   radix_tree_node_alloc+0x81/0x1a0 lib/radix-tree.c:276
->   radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
->   uapi_add_elm+0x61/0x140 uverbs_uapi.c:41
->   uverbs_alloc_api+0x85/0xc50 uverbs_uapi.c:659
->   siw_newlink+0x36a/0x3f0 siw_main.c:433
->
-> radix_tree_insert() can fail with -ENOMEM after it has already linked
-> intermediate nodes into the tree, leaving them with no entries.
-> uverbs_destroy_api() only removes populated slots through
-> uapi_remove_range(), and radix tree nodes are freed only as a side
-> effect of deleting an entry, so these empty nodes are leaked when the
-> uapi is destroyed.
->
-> Call xa_destroy() after removing the entries so that all remaining
-> nodes are freed.
->
-> Reported-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d60be66dd00b4490fa96
-> Fixes: 9ed3e5f44772 ("IB/uverbs: Build the specs into a radix tree at runtime")
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
-> Changes in v2:
-> - Drop the dummy insert/delete workaround in uapi_add_elm()
-> - Call xa_destroy() in uverbs_destroy_api() to free all remaining
->   nodes, as suggested by Jason
-> ---
->  drivers/infiniband/core/uverbs_uapi.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/infiniband/core/uverbs_uapi.c b/drivers/infiniband/core/uverbs_uapi.c
-> index b67db3790f03..77a4eb494936 100644
-> --- a/drivers/infiniband/core/uverbs_uapi.c
-> +++ b/drivers/infiniband/core/uverbs_uapi.c
-> @@ -621,6 +621,7 @@ void uverbs_destroy_api(struct uverbs_api *uapi)
->  		return;
->  
->  	uapi_remove_range(uapi, 0, U32_MAX);
-> +	xa_destroy(&uapi->radix);
->  	kfree(uapi->write_methods);
->  	kfree(uapi);
->  }
-> -- 
-> 2.43.0
->
+On RTL8822CS/NanoPi M5 at 198 MHz SDR104, median TCP upload increased
+from 170 to 186 Mbit/s (+9%) with this patch alone, and from 258 to
+287 Mbit/s (+11%) when added after control-frame filtering.
+
+A separate download test  measured 241 to 262 Mbit/s (+8%) with this
+patch alone, and 263 to 274 Mbit/s (+4%) when added after filtering.
+
+Assisted-by: LLM
+Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++++++++++--
+ drivers/net/wireless/realtek/rtw88/sdio.h |  1 +
+ 2 files changed, 55 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index dc2fd0f8f9fff..4aeff250a6d6a 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -26,6 +26,7 @@
+ #define RTW_SDIO_TX_FIFO_HIWATER			16
+ #define RTW_SDIO_TX_FIFO_LOWATER			8
+ #define RTW_SDIO_TX_RETRY_DELAY			msecs_to_jiffies(1)
++#define RTW_SDIO_FREE_TXPG_COUNT			3
+ 
+ static bool rtw_sdio_is_bus_addr(u32 addr)
+ {
+@@ -675,6 +676,40 @@ static atomic_t *rtw_sdio_8723bs_free_txpg(struct rtw_dev *rtwdev, u8 queue)
+ 	}
+ }
+ 
++static int rtw_sdio_read_free_txpg(struct rtw_dev *rtwdev, u32 *free_txpg)
++{
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	bool bus_claim = rtw_sdio_bus_claim_needed(rtwsdio);
++	u32 addr = rtw_sdio_to_bus_offset(rtwdev, REG_SDIO_FREE_TXPG);
++	int i, ret;
++
++	if (bus_claim)
++		sdio_claim_host(rtwsdio->sdio_func);
++
++	if (!rtw_sdio_use_memcpy_io(rtwdev, addr, sizeof(u32))) {
++		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++) {
++			free_txpg[i] = rtw_sdio_readl(rtwdev, addr + i * sizeof(u32), &ret);
++			if (ret)
++				break;
++		}
++		goto out;
++	}
++
++	ret = sdio_memcpy_fromio(rtwsdio->sdio_func, rtwsdio->free_txpg, addr,
++				 RTW_SDIO_FREE_TXPG_COUNT * sizeof(__le32));
++	if (!ret) {
++		/* Copy the shared DMA buffer before releasing the host. */
++		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++)
++			free_txpg[i] = le32_to_cpu(rtwsdio->free_txpg[i]);
++	}
++
++out:
++	if (bus_claim)
++		sdio_release_host(rtwsdio->sdio_func);
++
++	return ret;
++}
++
+ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
+ 				    size_t count)
+ {
+@@ -727,11 +762,14 @@ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
+ 		/* add the pages from the public queue */
+ 		pages_free += (free_txpg >> 24) & 0xff;
+ 	} else {
+-		u32 free_txpg[3];
++		u32 free_txpg[RTW_SDIO_FREE_TXPG_COUNT];
++		int ret;
+ 
+-		free_txpg[0] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG);
+-		free_txpg[1] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 4);
+-		free_txpg[2] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 8);
++		ret = rtw_sdio_read_free_txpg(rtwdev, free_txpg);
++		if (ret) {
++			rtw_warn(rtwdev, "Failed to read free TX pages: %d\n", ret);
++			return ret;
++		}
+ 
+ 		switch (queue) {
+ 		case RTW_TX_QUEUE_BCN:
+@@ -1777,6 +1815,7 @@ int rtw_sdio_probe(struct sdio_func *sdio_func,
+ {
+ 	struct ieee80211_hw *hw;
+ 	struct rtw_dev *rtwdev;
++	struct rtw_sdio *rtwsdio;
+ 	int drv_data_size;
+ 	int ret;
+ 
+@@ -1798,6 +1837,17 @@ int rtw_sdio_probe(struct sdio_func *sdio_func,
+ 	if (ret)
+ 		goto err_release_hw;
+ 
++	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	if (!rtw_chip_wcpu_8051(rtwdev)) {
++		rtwsdio->free_txpg = devm_kmalloc_array(rtwdev->dev,
++							RTW_SDIO_FREE_TXPG_COUNT,
++							sizeof(*rtwsdio->free_txpg), GFP_KERNEL);
++		if (!rtwsdio->free_txpg) {
++			ret = -ENOMEM;
++			goto err_deinit_core;
++		}
++	}
++
+ 	rtw_dbg(rtwdev, RTW_DBG_SDIO,
+ 		"rtw88 SDIO probe: vendor=0x%04x device=%04x class=%02x",
+ 		id->vendor, id->device, id->class);
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
+index 6e7e6009744b0..8310bf6d54b59 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.h
++++ b/drivers/net/wireless/realtek/rtw88/sdio.h
+@@ -181,6 +181,7 @@ struct rtw_sdio {
+ 	atomic_t tx_oqt_free;
+ 	/* one writer at a time between the credit check and the accounting */
+ 	struct mutex tx_credit_lock;
++	__le32 *free_txpg;
+ };
+ 
+ extern const struct dev_pm_ops rtw_sdio_pm_ops;
