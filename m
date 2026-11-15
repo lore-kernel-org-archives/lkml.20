@@ -1,80 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794731988;
-	b=h/0j+v5ULDWTenaV47piUfMvrc9UoZ0HmJqat7HkTek9AOl2ihz8jyZR+CspoSWWYRkd
-	 ahOoV4OvSEL3H5lS03u17fFE1CqbltGVrtBzr9DFanRXRlFYw8ZSUkh5aw+aDEvZGeNA+
-	 zw5ixON7+5VP9AiNNkoxpjGtBVRJzbcjpxQyrYiON4XiMHkAxbL/o7gys+g56NzdX4K6C
-	 907cfA0hSuXUuYuRC900xnOCuU6/Z5a2/+qZiz+R7eCfsFUElV3RQjZKNeC14lfOhI70K
-	 5H5W03y0GhAKhesXufyQZNWdnYG3AzK+jlT6ze/8NLl8a+GAUrkNNUul56cjdXTDywg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794731988;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
-	b=fbZ+SqVX1u6yZsWOK/YvTjCAqeSS+VOluYLGj80HgIq1t7YVu3YE7T/3+EKrJyIA3zGD
-	 WH3v7gCRt3uzZ6eHSXlZGE+8Z3A3VSYB9wnXZOlJ41JX7W+nFZeT96wLMs1e/hop4t3RA
-	 wsZjIfkxmNvDWKTx3W6hHpQySQGn5QFI083zce9V3aVIyljtoRPXSw20EG79DaFpY3mZ0
-	 glLfYIaIUKdMpWfSjSjaWWgw9++o6YL2WAPIk1c85NFuvHKc4JLe0nKM8gphZqGMRElXp
-	 4pGlrQPXhou3BOeJ4K9x/9iYHty7M9Zb7c74MNAHZqY9cKlxld2QWxnPbVtbe0TeRaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktmLE8v6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A76606A31D;
-	Sun, 15 Nov 2026 08:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktmLE8v6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794731987;
-	b=hgeT4rSJrfvcuuBDLhOdIafhnNnt8VqRzOnOadG4eBPvFdSi8g7fX9C5LYxdL9qe2VK5
-	 Bie3HhP9E8Jqdw7R24zkDHgr8ID1uuB2b1HhFvUB+KyopgOVwhrx41GNsOLQnwfEyEdaH
-	 73BelQgGsI5AMmqVPK5dJv9XDU6627fBBAwoJW/KvgCDGm3QYbgua9vUm0M7EWnAKlCO2
-	 vXDo+yizpv/zQ4UoSaJ/SlY8jCRatDlhDnw92gYPOXTsqfIJaIyvu9pwKyeT6sdwe4D5/
-	 xmQNj+U9NmP/DQzU+hgoRIbZ/OVDspyxmJp6OJkFjeRsuCTKTW/coy4bujN3HqL/ESQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794731987;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
-	b=anR3PReuSgfqF1ZMkSb8uvMlY4X0jNvam6WvJ/a0cLRby9kUR6m5AV4qVpgEpPj5Lv68
-	 3Iohsq0rHNHSNPGTn4p7bB5dQuZPWjyoqlp2eRZVmJAssmJeUVFJ5X3ZDIhroro//540z
-	 jG+chJAEHvYqY13HjmatV3iCV1SqoPjRVJzog/QTkGTE79X+4VrOon7VBF6JA624sN1A4
-	 VjHNu0KPjcCtIo0RpMR9Ax1SPKYxoU87YaVJVCQkmoxBA1TkS4OSAsyRCnitDrQ26/qkI
-	 G7LFXwx13RfT1wV5fE9ojUHLdpgrlMu+AKNaWdoIjRp1k21yFhMly/FU2i4HWgOqI+g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794732164;
+	b=Xl8igeni+NHlVePG+OUa0jYbmuRpKfk/1BPFvt8umf3rbodI9BRyJyn5gsAtCCiw/5WT
+	 y6sS1BAdd4UgmPu1TS2tFC8LgIxnWzLzy4PDHW+3DQcvFt7yd1799kztHdK9QGdwpjjWj
+	 rPQyUqofGwLJAWprD6JDedJ/OUtnqXSMaI68KmMXb4vaTvZ3QJMQIf+lBVblT8NCKZBed
+	 YO0rQtAzpWKf93dSkZp7DAuXZGDQK5eTpSXFhcg3m/9sj7QWmv94vP2NOBWRQlYNh3Gxh
+	 VPSySZqafJher0LZiewxmebYW2bpNQW+N2jOYsXQOx2Fy2SM5G/xrnDwLfHY2twKZEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794732164;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=J0LNhcS3twbB9Ya/CltyDMpIsNPzAzolhCjKnYk9xMA=;
+	b=vCrkhL/mvG6jDM3lYKjhTpRt/QNsr/zjziAG4FBJMwFMkyyGknAuxoHwCAiv+HFGCAt0
+	 OsvfQ42lP6AWY9h1nuAJmmDjgUj26xLSPdJHjAxsmvGIHCcTWW3gHHBu5GN16l7fzOlEH
+	 jgu8b/WvCpzz/9mcwmg3JswUb8V9ylIDRewvTUgp5UBykErNJ4pMj3XgAtN7+TOshmrXv
+	 kSBhHbJsfB7P4YPDPvwlSNkG5bwkyi+d030Wge/zRE+dw+cLLoiPVBcY7iYuhiYesPIO9
+	 wM8smcmT7UP8KreBz/Cs+6BH1dCZY2Z/zxE/tG+rgz1KfRzeQ+JRa8dCKUBgnZY8ZHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VjtatNVy;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 011241F000C4;
-	Sun, 15 Nov 2026 08:39:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794731987;
-	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ktmLE8v6EPy3nnzVEgF205RPmo+vRcXS3TffguDg9PMtecfb8CGavNUsex/ur5ojo
-	 uOLonktkHCLViz4RORQhf6p5G6/yKAsnVSOgPDZAQezUQdNEwM1+/eCEtshAmJfjld
-	 e04P69Mlk6qSs4aQTy0JIXqFV0A3/tXNPzdxryo8fCRyxPGVBHT2yTQegrSFYZCaus
-	 M1JAF7lMvOQNWCaa5cfEr6FPUiTu56rgqbAy3LD4IolJiYDarReTsIRaN0My9QyFF2
-	 E7BhjHMi8sviSdybNi6QWyegGk/SyBl3B87I0J9YQyzGojcK9vkcWr0036+ghFcqL8
-	 qPx7cm8ETjJ5A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5141549FEF;
-	Sun, 15 Nov 2026 08:39:46 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/4] media: verisilicon: Keep the CAPTURE format in line
- with the decoder
-Date: Sun, 15 Nov 2026 08:39:45 +0000
-Message-Id: <20261115-hantro-fixes-v2-0-bfecfb07a3e7@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34253606A31F;
+	Sun, 15 Nov 2026 08:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34253606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VjtatNVy
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AF7w6PT2139781;
+	Sun, 15 Nov 2026 08:42:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=J0LNhcS3twbB9Ya/CltyDMpIsNPzAzolhCj
+	KnYk9xMA=; b=VjtatNVyDZhHOVTCkPyatQe1NwohGti/dVNiwvXCuuTpXovgXVx
+	sjHvP+JQfPeJOv5C6zM3OIhiWEB532o19ZG816kH+WhkTIo5xF9Orf9A1/bu5gZH
+	GSuj0uxSW2HDjIIW1HVG7RUgU+zLZn4vQ4qG7lauftMcdxvBCOoTzypGZS+9S/+h
+	pEFBnTbmOP4Nw/pG48t4qUTWpkHVqcbLxCwDK91/xzleNibdMbIbXUYdl1OYNCB7
+	/eecTBg5fyP7bAjbf6O2soYJcrZMxBI2K5xj2WBW25pZO8kabRN4wEhBujVqoHfX
+	jNY4S8pDjD5x+Qq4Qm+1hUgwQnDEgDLyTDw==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhhjtqgh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 15 Nov 2026 08:42:23 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AF8gKFh2516207;
+	Sun, 15 Nov 2026 08:42:20 GMT
+Received: from hu-devc-blr-u24-a.qualcomm.com (hu-anuppate-blr.qualcomm.com [10.131.36.165])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AF8gJBH2516198
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 15 Nov 2026 08:42:19 +0000 (GMT)
+Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 486687)
+	id 4DAE022C67; Sun, 15 Nov 2026 14:12:19 +0530 (+0530)
+From: Anup Patel <anup.patel@oss.qualcomm.com>
+To: Sunil V L <sunilvl@oss.qualcomm.com>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Atish Patra <atish.patra@linux.dev>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Alexandre Ghiti <alex@ghiti.fr>, Len Brown <lenb@kernel.org>,
+        Anup Patel <anup@brainfault.org>, Will Deacon <will@kernel.org>,
+        Mark Rutland <mark.rutland@arm.com>, linux-acpi@vger.kernel.org,
+        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Anup Patel <anup.patel@oss.qualcomm.com>
+Subject: [PATCH v8 0/1] Common csr_read_num() and csr_write_num() for RISC-V
+Date: Sun, 15 Nov 2026 14:12:17 +0530
+Message-ID: <20261115084218.951411-1-anup.patel@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,74 +85,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6CMBBFr0Jm7Zi2IhJX3sOwaMsIY4SSFomG9
- O62GBcu35//36wQyDMFOBcreFo4sBsTqF0BttdjR8htYlBCVVLKA6Zw9g5v/KKAWlsSZXtUVW0
- gTSZP2yEtrs2Xw9Pcyc7ZkRs9h9n59/Zvkbn3U5f/6kWiQG3MqVZVWQtJl27Q/NhbN0ATY/wAr
- ST8D7oAAAA=
-X-Change-ID: 20261113-hantro-fixes-aace04d5268b
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794731985; l=1704;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ieijxoJ+Z395DXW1QlEoaITK3L8xF7mWwBby8wJ+DGk=;
- b=/uVlZ6ozpByZ8clNwP0NjCB4JDtnqv9NzXnKK2vpfHhw2ZdhGxVR0IoF5sT99Iw0cgW+z9uWP
- bIah0ICOwAMCLAlDAPAGWgscLLinzYElFp68cno5uNHbTyMNHyC1wx7
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDAzNCBTYWx0ZWRfX1oZ2TSV9Li3M
+ kVNk1aarmZO+9PqanKNI7ranfeS73xZwwJiCpLovGlFxyczeLhd6SAW1+2hc0zHIzZkpSz4m+u1
+ zMVQLE/oAEceWd6FcbGS985WmjgUM/75EHkLUoE7wRs6I3j9Tl2STlToP33zOVpMQX12mFUcWBw
+ IVHyQaSdMjC4LsDJ1/4BThI9Hd9Kh1YhndBWW/C4WyhDhZ9vkZ/7Vz3QHCHrD46Tubijq74vZDl
+ o4sxj86MTwsi8z9wF+n2ygrcUEtXJEuVKJCFt5L64YdufAjQ3Vv8dRNz2DEM782Mz2NXzXoYI2J
+ HboapCfnX8I1AuBz1rs1ZrPovDO5FZm1PfBZOBkTKejnLKtmfNRLSqmcRfyny0WQs9aq46ajtis
+ 1gmsQTmyRIc2rRie3kY7Zfd0fktxgwI/Gxm+3Xgc7477nIHlWn8GzsP5YfsyYha/77AQGkb7Yzx
+ /buYouWz+LzzpxkidfA==
+X-Proofpoint-ORIG-GUID: CD2fYL8w91xyA3ycraO2rOy8cY8pqc4E
+X-Proofpoint-GUID: CD2fYL8w91xyA3ycraO2rOy8cY8pqc4E
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDAzNCBTYWx0ZWRfX5BfEk3q1S+D/
+ GMFCpX3OOPm9McfSd4NvEWdCL0ciR/Y33uOZONNtE5CBDAdspD+C6wiD4JzMwMSZF4cNDhOQktE
+ 0GazZAaL41h7igcu6T7u4mbJSA+siJk=
+X-Authority-Analysis: v=2.4 cv=X9rHu2Te c=1 sm=1 tr=0 ts=6af9706f cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=NEAV23lmAAAA:8 a=97VCTQuGHz7arqyciaAA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-15_03,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ adultscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611150034
 
-Fixes for cases where the decoder writes past the CAPTURE format or an
-auxiliary buffer, found by Sashiko on hantro-dec-size-check v1 [1].
+Some of the RISC-V drivers (such as RISC-V PMU and ACPI CPPC) need to
+access CSR based on CSR number discovered from somewhere. Add common
+RISC-V csr_read_num() and csr_write_num() functions under arch/riscv
+for such drivers.
 
-Tested on an Orange Pi 5 (RK3588S) with AV1: the CAPTURE format is right
-after film grain is turned off and for 10-bit streams; VP8 and AV1
-fluster show no new failures. The overrun in patch 1 was not reproduced.
-HEVC and VP9 are untested (the RK3588 has no G2 core).
+These patches can be found in the riscv_csr_read_num_v8 branch at:
+https://github.com/avpatel/linux.git
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
+Changes since v7:
+ - Rebased on Linux-7.4-rc2
+ - Preserve the CSR range check in riscv_pmu_ctr_read_csr().
+ - Added #if CONFIG_32BIT for cycleH CSR in csr_read_num().
 
-[1] https://lore.kernel.org/r/20261112-hantro-dec-size-check-v1-1-e5f1180b625f@gmail.com
+Changes since v6:
+ - Rebased on Linux-7.4-rc1
 
----
-Changes in v2:
-- 3/4: also replace a native format when post-processing; second Fixes tag (Sashiko)
-- 4/4: check the control returned by v4l2_ctrl_new_custom() (Sashiko)
-- Shorter commit messages, fewer code comments
-- Link to v1: https://patch.msgid.link/20261114-hantro-fixes-v1-0-abb78264801e@gmail.com
+Changes since v5:
+ - Rebased on Linux-7.2-rc5
 
----
-Arun Iyengar (4):
-      media: verisilicon: Size the VP8 segment map for the largest frame
-      media: verisilicon: Set need_postproc before resetting the CAPTURE format
-      media: verisilicon: Keep the CAPTURE format at the stream's bit depth
-      media: verisilicon: Set the bit depth again when its control is rewritten
+Changes since v4:
+ - Rebased on Linux-6.19-rc6
 
- drivers/media/platform/verisilicon/hantro_drv.c  | 12 ++++++++++--
- drivers/media/platform/verisilicon/hantro_v4l2.c | 20 +++++++++++++++++---
- drivers/media/platform/verisilicon/hantro_vp8.c  |  4 ++--
- 3 files changed, 29 insertions(+), 7 deletions(-)
----
-base-commit: ad6549a46748d00818483b535e5cd2a704685c98
-change-id: 20261113-hantro-fixes-aace04d5268b
+Changes since v3:
+ - Rebased on Linux-6.18-rc7
+ - Updated commit decription of PATCH1 to reflect the fact that
+   we are removing sanity checks on CSR number which are already
+   taken care by csr_read_num() and csr_write_num().
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+Changes since v2:
+ - Rebased on Linux-6.18-rc1
+ - Added reviewed-by tags
 
+Changes since v1:
+ - Make "out_err" mandatory for csr_read_num() and csr_write_num()
+   in PATCH2 as suggested by Sunil and Drew. This also helps further
+   simplify csr_read_num() and csr_write_num().
+
+Anup Patel (1):
+  RISC-V: Add common csr_read_num() and csr_write_num() functions
+
+ arch/riscv/include/asm/csr.h |   3 +
+ arch/riscv/kernel/Makefile   |   1 +
+ arch/riscv/kernel/csr.c      | 167 +++++++++++++++++++++++++++++++++++
+ drivers/acpi/riscv/cppc.c    |  17 ++--
+ drivers/perf/riscv_pmu.c     |  52 +++--------
+ 5 files changed, 188 insertions(+), 52 deletions(-)
+ create mode 100644 arch/riscv/kernel/csr.c
+
+-- 
+2.43.0
 
