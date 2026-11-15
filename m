@@ -1,71 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794748846;
-	b=yCDsXY8uM+73Hwfo0sruOaFq6tQk84Clg+DO71LBBQ/n4r+3F7DQW9qBh4Eo+Dgt8I9P
-	 8fzmH1EDtdOUCtjX7zqbqcQzKIDXPNZRF5dT/2spdW9uqQ2+jngxnbizvoXEZ+qWy/CvC
-	 EGuLlRtfvPi+bk8lVQaOp7GImkSqVxFUZ+6lGQ0SkVgg+ykUkxJbR5BrvRC94JwkMz9EU
-	 strfznZPNFRWWLIP9UoGXaRj8kdYIiVhNL3znBvwJ+YFXj3xngFZpU/E0nUYuGI63CsbJ
-	 Ad2R8PaOvqwrPRoyYIBesheOn+b+jqEZEYwmk4zdBWKkUoNzz9soeW/zOW9aCYYicEw==
+	t=1794748855;
+	b=JAWbFKBStnulD613aDAksk3Iwc6VcoOMoGQ0mvrIFaMTN8xceFmlIRcSQQ9qA2rNvqRM
+	 iMfFHejHAgdAonkDCUaMYxPWb2jqg2eZoIrJUW5v7c5+/ZyJ4hEcsC7+HxrYjBQG59iA1
+	 EKjFQmgJxUie5j4bNl897L+MnI0knZr6UfA5iOYBoT6rs0OTMpi4PuOeb9nwRbIBhTBMl
+	 GJN/RxfTycKqWkxzCJqAOBDUuIE81jSi1mc1wrh9k76DapcYQtNJOOp4r60uXjPjKq1ll
+	 dDnQl3V9osPuIR5U4bh/PsUo+EJYyHknZafiSVHbdeAZXkv4F6NO3z6OiTds3M4fBMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748846;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3HSpYZj6YASoJA+imXKaJoXcMOdYb9Ti1RP9kq2Y2hg=;
-	b=mW1IhsgH+dEI0c+81V7XTgHXJbGCP4IMootAISrPvwwbEZOYzGfUAZ84DEumMmFu6rKE
-	 PmstZse2sjp8o25xeGLvVXMiGBZVVdB0UPMuBFw+QF/deygS9WqT211wJXApHBLBF0P6p
-	 L9Vq8DQXEg5bewXzKh3DsDk5EXRsf/m++E7iiOBvgNAHGmlejHoSvmIFpeTvPVjVjObks
-	 +KROkg9zyWVigfl525HtqMqycqzHL+CtRFSrVvIzx3ktrGHn3/y0JZoneEB0gshEX4g1k
-	 nlUyzg9WcZo8BeY9dSCBz9wxFqz7Cevxe3mgur+ccBBWYmY2YXdSsvJVaEHCc+gk/QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748855;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=s1JMiRvDoE19gVu2Q2CgaLevtlb7RBGaKMgtJkRYiVc=;
+	b=EYhoOZTdmwh2OjmqaxejaJmKY2Tx/M47FGEEpahvKNSIM6WKEtQZ2SiJs2K6wgirWCHg
+	 9l4LI9IpAxYULSnhot5QyAnUkPGzV0YuIszATDrLOtUnid6ja1W4D0ooFztgkDgFCbWoJ
+	 iiVGMnyjLHUi8w42Wn3CeIjYkFPWbJj+9m+nonpxWZEOFlbcIpb4i+xK22Q8LkGWYXvCb
+	 aB4eOoykOtXWUQOYwq4VO7PM8+x+1EHS1v1Y2PsOr8zRc0V9jZjsFE1m8ctqwSQxKQVfC
+	 hYSDWD05kIM6HT/xrvN3QYTQj1/P1/WQujzrRED7nlcbQgcQiaH/sAAlP2GfKnEOtlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRjjD37o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KQ3I8DpK;
+	arc=none smtp.remote-ip=91.218.175.179
+Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8012D606A31A;
-	Sun, 15 Nov 2026 13:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD5D606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:20:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CD5D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRjjD37o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70FA1F000C5;
-	Sun, 15 Nov 2026 13:20:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794748846;
-	bh=3HSpYZj6YASoJA+imXKaJoXcMOdYb9Ti1RP9kq2Y2hg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DRjjD37o9epMl9rk++f6bxSbCSOylmn8X7S+JIBOaotMK/yq/ad86XJXU6Tx889av
-	 7JFOn/doiAJ1dCfAxgMQoi6QHqXNO3KHdQYaCTvDEwU3QHe67DCPbcHpd01kUOeZAQ
-	 2dhgQfZLgdawl5jkYieWz/gj+I3Vg2u7DFBu1mkQ9UU27HcpoJnCJDTM8o67T+4glw
-	 G5KqZsTL2Rdkjp17sKIxEHEolEcG6sTtZ66w4TI6zWkMBiVtfK1t0kCaEOtpse0CnB
-	 Y20RM1wwrg1TVRpjG16LjHhUHSt8f6X7EaQ5q6W6RiH6Y6QEDGhzY7Ux26AGrwho7X
-	 /vBXHf7wO+6kA==
-Date: Sun, 15 Nov 2026 13:20:33 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
-Subject: Re: [PATCH v2 11/13] percpu: fix contig hints that are too low
-Message-ID: <avmpMjM-nrzifxYP@gremlin>
-References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
- <20261113-mason-migrate-et-al-fixes-v2-11-50a2ed382b61@kernel.org>
- <20261114115708.18fff016c293a57b@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KQ3I8DpK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EIe7qYUzPgt9ngz8hEFCi+hqiS+bLwWpcow6+/IWcYk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794748852; v=1; x=1795353652;
+ b=KQ3I8DpKrWSuk1T6RMKsxVGl/hwAX7tuuZaFdZW6a5KIYSxx5IK+GOqAMY5AOZulFDtMfmDH
+ DIvSnlOzcAsTsLPG6jzhcANhgOqH5LW9dbqugIOnvV4tKG+5F/ZuHZbfWJd/wLBTsxnraBzLpvq
+ cBPVI6kc3lRDHzXOMURpPpTc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1b01f535dd91abac;
+	Sun, 15 Nov 2026 13:20:52 +0000
+X-Mizu-Trace-ID: 1b01f535dd91abac
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 14:20:51 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
+CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v4_6/7=5D_wifi=3A_rtw88=3A?=
+ =?US-ASCII?Q?_88xxa=3A_correct_carrier-frequency_offset?=
+In-Reply-To: <20261115114336.1739863-7-hjf3108@gmail.com>
+References: <20261115114336.1739863-1-hjf3108@gmail.com> <20261115114336.1739863-7-hjf3108@gmail.com>
+Message-ID: <8ADDD0B3-609F-4E66-925E-997B11112E4C@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,103 +66,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114115708.18fff016c293a57b@chrisdown.name>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Chris - a lot of your replies here seem LLM-generated, and this one in
-particular seems especially so.
+Hi Jie Feng,
 
-I've been working evenings and weekends to help with the workload doing
-_human_ passes over already AI-generated fixes, so please have a little
-consideration for that + keep replies to technical points and as succinct
-as possible, thanks.
+Thanks for the patch. One comment below.
 
-On Sat, Nov 14, 2026 at 11:57:08AM -0800, Chris Down wrote:
-> Hi Lorenzo,
->
-> Lorenzo Stoakes (ARM) writes:
-> > Secondly, when a free stays within one block,
-> > pcpu_block_update_hint_free() passes the end of the free area to the
-> > chunk hints as a block offset rather than a chunk offset, so in any block
-> > but the first the chunk hints are not updated at all.
->
-> Joonwon Kang sent this part earlier this year as "percpu: Fix wrong chunk
-> hints update" [1]. It has Dennis' Reviewed-by, but as far as I can tell it
-> was never picked up. The rest of that series goes after the scan_hint
-> problems by fixing how pcpu_block_update() maintains scan_hint, rather
-> than by dropping the promotion, and Dennis was still reviewing that in
-> May [2]. It touches the same code as the first case here, so the two won't
-> apply on top of each other. It's probably worth adding Joonwon to Cc and
-> working out between you which one goes in first.
+On November 15, 2026 12:43:32 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
+wrote:
 
-I'm sorry this is (AI-generated?) nonsense, that's not at all how kernel
-development works.
+> diff --git a/drivers/net/wireless/realtek/rtw88/rtw88xxa.c b/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
+> --- a/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
+> +++ b/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
 
-This is a series that got stalled 6 months ago and does things other than
-this fix. That doesn't put an indefinite hold on future work in the area,
-nor does it give the submitter a veto or say on future work.
+[ ... ]
 
-So the submitter is welcome to resend and rebase on the fix.
+> @@ -1632,6 +1637,17 @@ void rtw88xxa_query_phy_status(struct rtw_dev *rtwdev, u8 *phy_status,
 
-In general, given that this is a drive-by review, with respect, please try
-to stick to technical issues, thanks.
+[ ... ]
 
->
-> > Thirdly, that free area stops at the block boundary, even if the free
-> > bits continue into a neighbouring block.
->
-> Wasn't this one deliberate? The comment this patch removes says that
-> chunk_md->contig_hint may be off by up to a page, as a tradeoff to avoid
-> iterating over the block metadata on every free. I don't mind changing
-> that, but it'd be good for the changelog to say so, because any free
-> whose area reaches a block boundary now ends up in
-> pcpu_chunk_refresh_hint().
+> +             rtw_phy_parsing_cfo(rtwdev, pkt_stat);
 
-'I don't mind' :)) for some reason you (or rather persumably your LLM) has
-adopted the tone of a component owner which isn't quite appropriate here,
-let's maybe try to avoid that in future thanks.
+[ ... ]
 
-The changelog already covers this, it states that a contig_hint must never be
-smaller than the largest free area, and lists this as the third way in
-which that is violated.
+> @@ -2020,6 +2036,21 @@ void rtw88xxa_phy_pwrtrack(struct rtw_dev *rtwdev,
 
-That it was done on purpose doesn't make it less of a bug - the hint being
-too low is what causes pcpu_find_block_fit() to reject a chunk that fits.
+[ ... ]
 
->
-> > Fix these by always rescanning when a contig_hint is broken, passing the
-> > correct offset, and refreshing the chunk hints whenever a free area
-> > reaches a block boundary.
->
-> Similarly, da3afdd5bb54 ("percpu: use block scan_hint to only scan
-> forward") and d33d9f3dd96b ("percpu: use chunk scan_hint to skip some
-> scanning") added the scan_hint promotion to avoid exactly these rescans,
-> so do you have any numbers for what always rescanning from first_free
-> costs on the allocation path?
+> +     crystal_cap = rtw_phy_cfo_xcap_track(rtwdev, RTW_XCAP_MASK, bt_hold);
+> +     if (crystal_cap == cfo->crystal_cap)
+> +             return;
+> +
+> +     cfo->crystal_cap = crystal_cap;
+> +     rtw88xxa_set_crystal_cap(rtwdev, crystal_cap);
 
-Nope, I am reworking AI-generated fix patches and this is currently broken,
-it doesn't require perf numbers. It needs to be made right first.
+Could the shared helper discard the samples while sta_cnt != 1? In AP
+mode, frames from both clients match the interface BSSID, so these new
+calls keep adding their CFO samples. But rtw_phy_cfo_xcap_track() returns
+through rtw_phy_cfo_tracking_reset() before clearing the sums or counts.
 
-In any case the block rescan is bounded at PCPU_BITMAP_BLOCK_BITS and this
-issue only happens if a contig_hint is broken.
+So if I read it right, when one client leaves, the first adjustment still
+includes samples from that client. For example, on each reporting path,
+a +12 sample from the remaining client and a -48 sample from the other,
+followed by another +12, give an average of -20 kHz. The remaining client
+alone gives +30 kHz, so the first correction goes the wrong way.
 
->
-> The result does look right to me, though. From a quick check with the
-> hint code lifted into a userspace harness and random allocations and
-> frees thrown at it, contig_hint regularly ends up below the largest free
-> area before this patch (for both blocks and the chunk) but is fine after
-> this patch is applied.
+This was already present on 8822c, and this patch makes it reachable on
+88xxa too. I think the fix belongs in rtw_phy_cfo_xcap_track(), before
+these new callers start using it. Could the sums and counts be reset
+there when there is no single peer to track?
 
-OK thanks.
-
->
-> [1] https://lore.kernel.org/r/20260513085117.1024175-1-joonwonkang@google.com
-> [2] https://lore.kernel.org/r/ahVWu38ymnSeLnv3@palisades.local
->
-> Thanks!
->
-> Chris
-
---
-Cheers, Lorenzo
+Best regards,
+Luka Gejak
