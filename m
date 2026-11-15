@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794732727;
-	b=tHdXLHYWB7lqbK809LyJjfqADkHy4+Q0lUXx3UWoBCJMyuP0uVZ+JKMYxCpHNhbKsIAW
-	 b4tQk1KNjondlq17ki8jzU3xDZBQzbQQysCrF4W9q4ztzgPttlhhlqwPqGA48L+IejP4N
-	 O7mzxnjV8a8+QkMrW12VEzMPFmbBnOkNf8FWMY6oKIQ5IxGJyBouAQ2d80Zt3SGzeAac5
-	 u9H249LzG48MfVxpNwQOPG/GqQoROMdJSj8zD87e4xC0l1ceVKb8WEGg+8UMeUnzenNgw
-	 BeXgU85X5qK2dXmfJOfVGTmvWS5O4JQI6twU/ULuyE4kLKUKsLwN6VaIMdETCsOvDRQ==
+	t=1794732789;
+	b=mCzBMZXQTe5p50Gjn4tWwpbDTv1bB+IJfiFiLu0ic9tOop6v7h3hHifVJeXYQMB4M2Ny
+	 mA2VjkzU9ZtRVhG+VjTFXy9A0S7Kpdz3aNwGAbyxV1Ag9wBHgUGnkioaJrKUCGHL2irWV
+	 80zYDNLDfGouQIuL7aOryACXUUd01NTwaebG46a5/HKIN5Xvr5/h9JAA82pjOErX1Uduh
+	 zv2Rlf3Zi6HU2AdVUPHnoSAuedepqVlbVZWbJLw7hIEhi7O5IOGVvA53HSKU63dvckfXM
+	 wCeiUWErX2JWEFpZWZYVeT5+nVID6zEN18GdSy1/JVubnxuUrPu21n6OKmoTthtNknA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794732727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794732789;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cVjBt24AZadG8lfyxs4mRXI5N5Rh1ABfAQ7ljq9C298=;
-	b=oA2DfDDqzN+DmQ+OBLInijPQQRJnLsYl4Hf/i3Xw0B+d1Q7cOcCU1S2iuZMb9Dm96ZJZ
-	 uJfYWSgSEKwlDov5sb0L5egxjv5DYyN+W8t/8nrK/UKSc0mvX/YWMTlWwmiKI1WyiUebu
-	 SSxabUzmSTrQNuZin5ACyVyYUIoeZESmT3bne4aZtgWKprxW1dBDQggbV5xS0WVPhY/H9
-	 6TCWIjKJrmYTMrTKj6gu1VtAqAdIAVuStgLgRLOpGgeTjgu07FzE9o25OzlSSh2lA83pG
-	 5J7w+M6b33k2Q3NpxJvpqoNGcs9zPpp81P8kXvFRxqPvwj8v/MmjP0xt2yaSaaDelPA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wNHsMSnqXLNqxHaUvaHElX48eJyvQ5UchZoPNPKizhU=;
+	b=nXAP/uO2/poqKj8k0kKG2dIRxN27demKVeTIdWZvcFmOMHCZIzdkynb5DYiRElw5NJqj
+	 QCg9AlK4l1f1Bx8NvJuSRCPY+uxxr7t4uDEsXS1H80f2/MObB/fTnUN+h1IjW4SQ/9JjB
+	 1XL7IVPP1a1Fj1zthty9XlSV/pfK7+ay+hEJx6UGIr/s9/ir2Z3gCgAffhBgWQKBvyPVk
+	 7QhLwYnQOfqSr4dCxjLOAZBTc78kh5rBmZA91ysIEaJHE0DBkHmvG5rywantFb7lxHaCG
+	 lPJt2yrmPxCArRtJg+M2JB0iSav/QGu4lHaPhv17ZJ6Nc5cSmnV3M8jld2gQgWuZaGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N5CnSrK5;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QuNZbqws;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F30606A31E
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:52:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12F30606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56457606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56457606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N5CnSrK5
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so3725452a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:52:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QuNZbqws
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-49134c8509fso2512008f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:53:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794732725; x=1795337525; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cVjBt24AZadG8lfyxs4mRXI5N5Rh1ABfAQ7ljq9C298=;
-        b=N5CnSrK5PjiERs3XjuKDct+r3kV34T7huuhONym/1t3LnJYualzj+8qkB9FrYdMblM
-         P6baO2JIy7weNaQydD95hE5qUYCRTOukJsL4oayCT3+b/qkM7ASLzNAsewK/S7deP9Cp
-         r3sXX+4hrNNOXxvkxQPYgEBVa96ti22mNqKXdHm7+Ia2DrlGbCyxtwVlkzoKAmVFKtze
-         f/l9qSpNSwOYTkUavOSit24BwqzL3DwlnzavyoYeCC5UpHVV/gYYbOp4Hq/pAEwuFtc+
-         YF0FMewXCAHh5MAzS1pjq16Bxm+KjC1oGRbnUcLFAoD/iU0vqHNOD8+vb8OzMIX4QPLi
-         3B+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794732725; x=1795337525;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794732788; x=1795337588; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cVjBt24AZadG8lfyxs4mRXI5N5Rh1ABfAQ7ljq9C298=;
-        b=V8Ycb5ZCd8MTi3lybJhlDPG745+/El5DMjEUOQCfMvv/4NgoAdDiMH1yv6UfRwkgz3
-         v3HwTfji1RzFzwWZ95uNRCHdPGFFVdL13Nhv0PB1DYgj8HNuDlKnG2B0Gwep5XLbUktA
-         hzEGVCq1zNO8Qcb4Kx9TgolHt88DO207p/aYTFWiYkzSWH32NwNo/WCOuxVnrfp1Su/d
-         z5zoCD6R2SGy8R0tWMCAGXcJrHgquWbYUQxHE3q9bWMxtIg7wMjt0uVOrRj0VMOFb3Ur
-         BlDzHd0pqviiSf1Iny6GZegOH7rIpx6Q0lU7S4r5TJ3tXKPggzW9X0tbS59tV6iC2XoC
-         2INQ==
-X-Forwarded-Encrypted: i=1; AL+hErFJqdvhyTg/YyFEYokXoNoyTSmmghGluusPiEHe8u2menVm0phrR78eQzgVuHiXBFHriLd+s+zNIudBLMo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//hAV356hbANucBDto+zN/euDjRyVWrHBCGu2ImTjkrDZXxE7v
-	MmPzsfusZvCjQI5l8/OpLIb+Deg+YCwe9T/hEI4ANrnM6ePs+ltjU2HS
-X-Gm-Gg: AYBFou2spCo5IWLTfs9mF2lt5skm3XAnZTMxcT/RC9zHULk1E7Ql1SgZRihFMtvQngt
-	xwSX0cH3HgxIxZIGVWdWG1RckzlHQk7MDUN3QWaMITCntbXfo8p7hYA1pZ7cjk/iF3zAeaboYve
-	ptGu90ZFCyAa3ZiNTaUGP4XwoCcsaFEXnLv0JW/Swr64e33dM4Ach09lqDUT5xzk3oX2z2PG4CO
-	DyA8R5FQJCGwXp3dWZTu6LpLeHGI0liQfI35tc6/0NDmHC6sEGd4s9hcZthBe1mUK80f+zy/bFj
-	y45H5K0V5Xcehi2B/pEwuMsL766ZOBptZRFYvg+iHk1D+ADJISYhF2+Yfwp4M3xfegWRVtCP27L
-	d99zdElifjY5PM1Xk7KK81nkj1cg5686der0RvUAPuGGEIVKRh2JAG0dqVZsNDPH400KKcsaqZM
-	tzADBhR44MJW7A+p0Y/DomWlE7VI9rKVL1S5V360npWFqCuOFz4Hxu8pFd0xykaCFfKdQpFjIwg
-	Lb9bp4agraAJ/OWyCxHRwyBlCT4pYF5UNd5jRcpUbXD372kih9Q9tME8+riEUJl+xQ5K9uYpPH3
-	oZ6rvr8x+zyKxe5acIauo9hq7vOHf2m8NhGSK6eY/+X7INBSMi3RC8au9RT//CKeQXgv046XETA
-	8z0H/TV8nWA==
-X-Received: by 2002:a05:6402:42c7:b0:6b7:eda4:e136 with SMTP id 4fb4d7f45d1cf-6b7eda4e281mr1999786a12.41.1794732725246;
-        Sun, 15 Nov 2026 00:52:05 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23c672asm3090610a12.15.2026.11.15.00.52.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:52:04 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Helge Deller <deller@gmx.de>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
+        bh=wNHsMSnqXLNqxHaUvaHElX48eJyvQ5UchZoPNPKizhU=;
+        b=QuNZbqwsBNxNnipsn4hLIE9NyeFCT6idEXbwgrzgEnYTHXbw73p6jGLvh/aQmuBd2Y
+         XaOxgSrfRJwL4Xu3A7HbpjXc8fVo63nWtteDG48RgGTBE3oLu/8g55GsggyMUwox2XVF
+         9mEeCpnEzAcVwR7gg/oIgdD4UETZVqz54cDW6oS0OGpD/JuxBQ8HcNcWZHxtkXvBzQRD
+         /WsCHS7+dkzaTZa8PdFiosc41ct7scbG071Y8M7V/SxuNb4J/uxyoJl/432pHWd1antS
+         FgMHSc4ONoEpAzxUZG/emyrTgJRh12Xgfkc/FCYrpC8FWyuODcgdPYiIfSVlGesSoGoB
+         6w7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794732788; x=1795337588;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wNHsMSnqXLNqxHaUvaHElX48eJyvQ5UchZoPNPKizhU=;
+        b=VCvaXLzKwVWvVvPO3gNi29pF2DnWBRvdzRFeZXCZiYrwjhRlK4PPp5iSHFLBHLPwdm
+         8875+P6NBPUco3LjJGT5nOAZT1QFrjiiNNMNFJD3Eq//J5Nqi9e53MHidyj7YidbBX3o
+         ewmWIHecz7pcUoJsbDmCEo9ThLnbDby5HXz7M/CNUS8RLnDv5cYBxzN6M5flay5xPKSy
+         mTBAA7zxW2UdJGxCD8OExyYJ9PKcCzxnY5KcYxu2dH+/7T0log2guUMDfae8OzZ7o5Bd
+         wQHHr9xdsqJ/beQ73pB1ikPJUTsJv03N0mHeDErZINlbES+rM4+Vz7SHmqS3IFCG/7v+
+         GBAw==
+X-Forwarded-Encrypted: i=1; AL+hErEysX97MRR799lU0aIhFetlPQ6o3xEoXVOrWC4kKzSZxcL8A/W/f9Cf6GlYiEM/RajDAF1Xxpa8do0Ex9I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RK4eNcKhO8Us8Afs659I+CUf1ndEOWcwEzxFklLnqGyKLV3rS
+	DH/uZvGp99R1JZJ2eYr2HuSA+mwz57gaAOmlyI8ro4yYlXI4u1AZvcfv
+X-Gm-Gg: AYBFou2njqCKBPu1fRVzyvmm90BDYKV2cO1xEC48jvuzFI1iUPRZ/QVzQ4rwLl2fdcD
+	mwwRi20OhEGlw2+mz96AY/Fvpt+9GjW8esxzMORhQLpb0cEQ2kkGLQZJhfSTcmNh1yp5A0oSmTr
+	jUT84XsaoKLEfGDXnFIS0ZVodsYku9Vfv9dwEo/OelVZEu2aEAuZ50tEP9LfaMkWScWYkBJW4ql
+	8dcvgOno4hj1Zn/unyOQgsNa8Ud1kxxoP/em5AM++PLmmm+QWIYxgp01OPaMU2Ir9ysBzhSYFVm
+	tl1r0ep2Lk2ka4LJLm8QrQmM0xQH7EzsLNCqOs4csZG5Q0aia8Zf95zZzPSTh15UGg8YM702xHJ
+	4LfMH/2hmxIRYZ1No4DPL1TNEon6u9ETkqsNVngE0jx7B9bOT96cYG3O3qI00KJOPrbvT1L7m6E
+	pxQy4K8TaCPmo5DEn1ah2PcIRllsvSO2g7dk32qP9kz3bUEjNG8MebepmkdpMdAefr9uU7TUeIO
+	Avkiu8UeUvK59YGoWkpBnt+ch+V+TaQZ1F+X4fbLQMgltDrqcGwYAS7OsL+6PItNb7PeYyGDBt0
+	sq3b52qtxecADjNpEKFPPUzuH+KKL8nKYxdONnYgBS1tvqP5PfGYCWCYOaLBtJvU
+X-Received: by 2002:a5d:5f09:0:b0:48d:f730:bda8 with SMTP id ffacd0b85a97d-49c733510e7mr14372013f8f.50.1794732787542;
+        Sun, 15 Nov 2026 00:53:07 -0800 (PST)
+Received: from localhost.localdomain ([2001:8f8:1161:9f6:2001:1fcb:a25d:8f2e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5fe370f8sm13886168f8f.27.2026.11.15.00.53.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 15 Nov 2026 00:53:07 -0800 (PST)
+From: Ximing Zhang <xzhangjr@gmail.com>
+To: Hugo Sales <hugo@hsal.es>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Len Brown <lenb@kernel.org>,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] video: leds: backlight: lm3533: Support getting LED sources from DT
-Date: Sun, 15 Nov 2026 10:51:55 +0200
-Message-ID: <20261115085155.80043-1-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH RFT] cpufreq: intel_pstate: Refresh cpuinfo.max_freq when a CPU goes online
+Date: Sun, 15 Nov 2026 12:52:26 +0400
+Message-ID: <20261115085234.40661-1-xzhangjr@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261114-intel-pstate-online-max-freq-v1-1-1bbdae2b4986@hsal.es>
+References: <20261114-intel-pstate-online-max-freq-v1-1-1bbdae2b4986@hsal.es>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,118 +103,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+On Sat, Nov 14, 2026, Hugo Sales wrote:
+> I have no HWP machine, so the HWP capability path is untested
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
----
-This was part of the original LM3533 controller DT/OF conversion patchset,
-but it appears to have been accidentally separated during the final iteration.
-Therefore, I am sending it as a follow-up.
+The patch fixed the stale cpuinfo_max_freq on my Core i7-10510U with
+intel_pstate in active mode and HWP enabled.
 
-Changes in v2:
-- leds: switch to macros in regmap_update_bits() calls to apply 0xff mask
-  since regmap writes may cause unwanted writing.
+The test changed no_turbo while CPU 7 was offline, then brought CPU 7
+back online. These are policy7/cpuinfo_max_freq readings in kHz:
 
-Changes in v3:
-- leds part moved into a separate patchset
-- switched to dev_err_probe()
-- for loop moved out of if condition
----
- drivers/video/backlight/lm3533_bl.c | 44 +++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+  Turbo change   Unpatched   Patched
+  off to on        1800000   4900000
+  on to off        4900000   1800000
 
-diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-index fd6e7f4f1f61c..cb9df6ff73001 100644
---- a/drivers/video/backlight/lm3533_bl.c
-+++ b/drivers/video/backlight/lm3533_bl.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
- 
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/platform_device.h>
-@@ -21,6 +22,7 @@
- #define LM3533_HVCTRLBANK_COUNT		2
- #define LM3533_BL_MAX_BRIGHTNESS	255
- 
-+#define LM3533_REG_OUTPUT_CONF1		0x10
- #define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
- #define   CTRLBANK_AB_BCONF_ALS(n)	BIT(2 * (n))
- #define   CTRLBANK_AB_BCONF_MODE(n)	BIT(2 * (n) + 1)
-@@ -35,6 +37,9 @@ struct lm3533_bl {
- 	u32 max_current;
- 	u32 pwm;
- 
-+	int num_leds;
-+	u32 led_strings[LM3533_HVCTRLBANK_COUNT];
-+
- 	bool have_als;
- 	bool linear;
- };
-@@ -236,6 +241,8 @@ static const struct attribute_group *lm3533_bl_attribute_groups[] = {
- static int lm3533_bl_setup(struct lm3533_bl *bl)
- {
- 	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
-+	u32 output_cfg_val = 0;
-+	u32 output_cfg_mask = 0;
- 	int ret;
- 
- 	ret = regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
-@@ -243,6 +250,21 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
- 	if (ret)
- 		return ret;
- 
-+	for (int i = 0; i < bl->num_leds; i++) {
-+		if (bl->led_strings[i] >= LM3533_HVCTRLBANK_COUNT)
-+			continue;
-+
-+		output_cfg_val |= ctrlbank << bl->led_strings[i];
-+		output_cfg_mask |= BIT(bl->led_strings[i]);
-+	}
-+
-+	if (bl->num_leds) {
-+		ret = regmap_update_bits(bl->regmap, LM3533_REG_OUTPUT_CONF1,
-+					 output_cfg_mask, output_cfg_val);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
- 	if (ret)
- 		return ret;
-@@ -320,6 +342,28 @@ static int lm3533_bl_probe(struct platform_device *pdev)
- 
- 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
- 
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default HVLED or is not linked to any HVLED at all.
-+	 */
-+	bl->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+	if (bl->num_leds > LM3533_HVCTRLBANK_COUNT)
-+		return dev_err_probe(&pdev->dev, -EINVAL,
-+				     "num of LED sources %d exceeds max %d\n",
-+				     bl->num_leds, LM3533_HVCTRLBANK_COUNT);
-+
-+	if (bl->num_leds < 0)
-+		bl->num_leds = 0;
-+
-+	if (bl->num_leds > 0) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     bl->led_strings,
-+						     bl->num_leds);
-+		if (ret)
-+			return dev_err_probe(&pdev->dev, ret,
-+					     "failed to get led-sources\n");
-+	}
-+
- 	ret = lm3533_bl_setup(bl);
- 	if (ret)
- 		return ret;
--- 
-2.53.0
+Both patched readings matched CPU 7's reference with all CPUs online.
+CPU 0 stayed online and reported the expected maximum in both cases.
 
+Tested-by: Ximing Zhang <xzhangjr@gmail.com>
+
+Thanks,
+Ximing
