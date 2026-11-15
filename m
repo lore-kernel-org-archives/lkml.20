@@ -1,49 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794775556;
-	b=0rX6Y548lg5wZ8nyRqVFA4/2BwSagzZ+3TwM57SKgo1aCvgYSGtfifEm2XQWw2WXTnpt
-	 rMOGcYGHfAEqs09AgB14QFJZGW7TLRixAJ2Z0SXMz8HScAB+pd7qGq1N+CUzn0KQuVxhm
-	 hU/G//Hg/Hb+alXayuRTOnFyUWOAkuPE4KGIc9puOhrGBZGdGeTAH9JfnDoOmFatlbxDb
-	 5XxrQs1CI3w04X7XKf8EoGFxWXYyiTW4xz/JSA1X1KWBS9wHnB+cuMaUmCSer+sy/vXhr
-	 48pNSwlvG8pgZC9w9PNe/UIcLHZh0j5xKbw0jWE87XTW0i0DI3KLZV7vDkFuufx0vXQ==
+	t=1794775559;
+	b=q91J97f2tNLq+T4JdbTPrNRVZdSD2vBBRt8Kd0hiMKG3U7B8d2ADX0Tu0/6x0nVOMFnk
+	 MQaaewU6PME9TgL7VYadzfQUbB2CvZjX0CIjbbyYHdxiN1y/xh3Iw9DpGY0UAucqMrpDS
+	 IXNDLZXUAyDL0iWGsAij5ZRjiOtpWbSMgigsIOuEQ+z8d+3+bVd5TRd14JkDjDgiDiCQh
+	 0piEIY9e5XRBXqJz8CF4LUsqGPZvFm4H66s2qAoxC5vjP4jo/rDkt6GE3JyWU0r0V6WLy
+	 PYpqRIcfSOTptTqxQG/fJ4k87jvzRNBBuCVbDi7vXEeSfkVy3DV30L8Ergg/V5u1OGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794775556;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject;
-	bh=zGDVcdUxEOy2e55YJEes7/sNySa6uwXNeFrtXBRwhcw=;
-	b=tCY+xIT6aUUeO6GcocydW419c1cd4Yzy9S/yOPXXl18Z3Q0cekd6ZEwjr9ImCCAvGphF
-	 JRTCTB6BXLDsAUc+3KBix4YLm/1Gj6xyIlUb9OJ8vWA/aKaPxzjPpr8EmirZgqu+Wyo6K
-	 bI4FAd9InzI1b2werAa6YZq40aaqH4olqo2wT3mX5BUcPcaLjebPcX0iAocv89S8PWlTJ
-	 BhyQ6K1BJN2kzJd/Jm6iq6XOiwmYzKB45fDo4FiVVOlLLdTYSP2fRhRwjpxuJYTdKFs/g
-	 zdoFvuGhnzppP6lIiaPTnXTygU02pgqFVU4CcsyOWJdHnsTeOxDMGLQTfcDSDbV4Sew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794775559;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=jouxlhOzLpqepWHajds1z8FuAnArg4ZPk+Xi5qk90og=;
+	b=3+ch1WH39cIn+2uWMAQacVlIa1AFFvDNq45NH6gRtd8jJ5a9Ro0sJFT7KtZZ8o4qpnxp
+	 9uxpMwB3RgfxCJrzbwthyzCdCzlgocvEphI7bBiaw1FRFn2J8Pkm6O27lxHq4xOInzKEb
+	 KSEUVjn4qG3/kJr+igqRS6btOGCshRY1W2gAyeMhMn5yIpaYb2Qydzhhhcc2Vc1ciFTlw
+	 bssN3Exw5RDtUV0F7EpZj2fzULGBgEJQzKwW2BOWdXxShKgBjgQh7tYuXWyAH+mne3i8g
+	 gZRnRU6yy4Kf2d9nbEiE5cyHM45Jl2MSh0IdVw2vHyGxatDjMUahxGIcKEvPDZSW0tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CXLW/XHn";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PamrlYar;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA544606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4921606A32C;
+	Sun, 15 Nov 2026 20:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXLW/XHn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610711F000C4;
-	Sun, 15 Nov 2026 20:45:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PamrlYar
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C69E1F000C6;
+	Sun, 15 Nov 2026 20:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794775556;
-	bh=zGDVcdUxEOy2e55YJEes7/sNySa6uwXNeFrtXBRwhcw=;
-	h=Date:From:To:Cc:Subject;
-	b=CXLW/XHnYVDKIFbodzFL8Bd5LS0tjzDck03MdpawY+3c4KkIoxwW+dOG/0aWFVx/I
-	 73TJT+pLDZxdqeY65qhGNDyLzscZf147gqiB41vWQ2CFKFj5IeHe+mjqJdW/oCKqER
-	 K+iVwxjlt3M4v3aefik0J++FZtFweQfnfbJaH/ARZou6p3LLUI44eiwsNp/YyX7zPi
-	 XDmRLmdqbkFLCVvNT/DptT0Gob70DytmB8R09AIrxFp9BPPuvCjaHF1y2tnlqV7Lhs
-	 5jB5D2jNyjTSZDpmbQHjJd/2p90tdTrkFCePgMC18ooGboA6iDj/KQRhQDBjDHXa9O
-	 R88o45/znF7vg==
-Date: Sun, 15 Nov 2026 10:45:55 -1000
-Message-ID: <fb224bad9baf5f44cf17e1d664776a4e@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] workqueue: Fixes for v7.4-rc2
+	s=k20260515; t=1794775559;
+	bh=jouxlhOzLpqepWHajds1z8FuAnArg4ZPk+Xi5qk90og=;
+	h=From:To:Cc:Subject:Date;
+	b=PamrlYarhMPhcfvheFoctcVhWuu5/mxJwW5usODJ6fVZbrLqj+/ArkyGwRtVe/Hw8
+	 GFD0CAVbzUb+D81Ahf5R7RM5tCnvGJNHwRcN1xMv10Nuwtj7u3NUnviPO8yP+yJgG9
+	 uKXoq90DzMMfTbcUp0SHm5gqsA1ykj8k8rPNjvjnNWMDAhPpaR9OHAQ2sGezDRAJXA
+	 JkJkGTMkHwl1p6qReioqZOFB1V/RImzbIAXSe5p1QhfznvtDQgh3C2JD7JdtoMyk4b
+	 KkSJWKRcl0DmHTemduFnS4DeybVgSuFXFO45ZSywkDk8shAqHPgwGN2ZWjSoK0mtSE
+	 /Wg0pCwiVD03w==
+From: Jonathan Cameron <jic23@kernel.org>
+To: linux-iio@vger.kernel.org,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH] iio: adc: max1027: complete the EOC wait when using an external trigger
+Date: Sun, 15 Nov 2026 20:45:51 +0000
+Message-ID: <20261115204551.2783884-1-jic23@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,34 +59,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-The following changes since commit d89e1d186ec9271bf78e62771779e9fc03bf0fc3:
+When an external trigger is in use, max1027_trigger_handler() starts the
+conversion and then waits in max1027_wait_eoc() for the end of conversion
+interrupt to complete(&st->complete). However max1027_handler() only
+completes it when the buffer is disabled. With the buffer enabled it
+instead polls the current trigger, which is the external trigger
+that is still being handled, so the poll does nothing,
+the wait times out and every sample fails with -ETIMEDOUT.
 
-  Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/linux (2026-10-29 14:00:23 -1000)
+Complete the wait when the buffer is enabled but the device's own
+trigger is not in use, as the comment above the check already
+describes.
 
-are available in the Git repository at:
+Fixes: 075d3280b4a1 ("iio: adc: max1027: Allow all kind of triggers to be used")
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/tj/wq.git tags/wq-for-7.4-rc2-fixes
+---
 
-for you to fetch changes up to c7d64f52bffaca093acfb34277877138f6ec243a:
+The comment clearly states that we should just complete for
+triggers other than the one provided by this device, but the
+code doesn't do this. Ideal would be if someone has the part and
+can test this.
 
-  workqueue: Fix drain_workqueue() missing work items chained across pwqs (2026-11-02 08:06:21 -1000)
+LLM spotted the issue whilst doing some other cleanup and
+prepared the patch.
 
-----------------------------------------------------------------
-workqueue: Fixes for v7.4-rc2
+I think the reason this got past testing was that the code was
+fixed to actually return an error on timeout whereas a bug
+previously meant it always dropped through and carried on.
+---
+ drivers/iio/adc/max1027.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Draining a workqueue could return while a work item queued by another work
-  item was still pending, making workqueue destruction warn and leak the
-  workqueue.
-
-----------------------------------------------------------------
-Tejun Heo (1):
-      workqueue: Fix drain_workqueue() missing work items chained across pwqs
-
- kernel/workqueue.c | 68 ++++++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 51 insertions(+), 17 deletions(-)
-
+diff --git a/drivers/iio/adc/max1027.c b/drivers/iio/adc/max1027.c
+index d475cc91108d..65a0e85faca9 100644
+--- a/drivers/iio/adc/max1027.c
++++ b/drivers/iio/adc/max1027.c
+@@ -478,7 +478,7 @@ static irqreturn_t max1027_handler(int irq, void *private)
+ 	 * with another device. The core will then call the relevant handler to
+ 	 * perform the data processing step.
+ 	 */
+-	if (!iio_buffer_enabled(indio_dev))
++	if (!iio_buffer_enabled(indio_dev) || !iio_trigger_using_own(indio_dev))
+ 		complete(&st->complete);
+ 	else
+ 		iio_trigger_poll(st->trig);
 -- 
-tejun
+2.56.1
+
