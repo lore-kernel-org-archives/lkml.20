@@ -1,99 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794729702;
-	b=KgNgWH+mZ3ezoYvWyOh4TIm/TpPj+eNmqgJzCKSI8lPtAVni20amyxdn/2B0Cuc5HgPo
-	 jGE1zPExkZhAqqwG3aBGe1KGfXXtm0rdnNzI0YsEns89qWjvJMjmufRRLR7kyYwxycx5m
-	 QyIYz6BggQbKgJAlJCnTc12d3kfSdP0sy/S8aQDV420ktR3g8pk5VGMYPh7iWOB/56+C8
-	 rEEOSNHjaB46xFP+iacaQ5l0Eronhu0Yv9SLBuubR2lms7I8/qdYveTG+AVeoTIgGbgjD
-	 PIbkDscom/ts4WLMFNb+Jmhbe2KZCbzoCBRYBjmKRH5iVgk0wUcbRWj+oW1UxeLy+ww==
+	t=1794729753;
+	b=n8xCwamyrHsjvS7asWNjWCNBYa6YRuQnxvY7Ihz9Kmyb2FYeJELN8DpYycxcI/3Lr59U
+	 Kq9YSW/uasiU0vR/3z9RC/Ww7Co5lDgVgJxvxXQUxuqgjqwAqJsEjLXXc31SLQrkeYWx2
+	 2chLRVobLoS56PJRa6BIcbAcBf6Xy6ngHzdaTU37nrFM+cFqeyMmSewpI8ZUkD1Uyp+DO
+	 67p/YqXYftEMY9F+vwimamo7LkQac3HIuiZVZpVlZBAahI8aBVWBcw0OdyMIu8q8+dF3y
+	 crYJ9RIF5ByAi8VbzwhjwAc9Qv8RHu7X/EXcuFxuycNM4xh/ZauS2tFDykMVKKK9IPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729702;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
-	b=mVBDMEp4HX2J1VRQ/xgwNGwtoOkSR+yGLNez6wxBnupD4z0p7VFcSAIVmEArB4PeOHa+
-	 H4TI71JuwU+OeHFi9053RUDb3D7CBWLiObozFkTfVaCvePrWHxY3d4CtLs5jSXLDKv/n1
-	 loE44VOj9vCyKgboepeqZO3UiLsncRmA0uJjh1g+/UsCtvkBMC4/i9e1M2/OWHsz1K3o+
-	 5Lv3T5oHARDeT+onbg7JWzw93KBKxe2SG+GjyEcckhGlWa8M/7bbWHGhEFJqD8bNcIrKr
-	 wIKa80VLniKw4FnlrBZ4c3mkp78OZ8YmZ874wVIQ9zetvW6i1ptDw7+SEONbksdbZ8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729753;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=qIBe1IptJdEw3mbiQ59WdvqMuyWgbSIYKmhp3SuEzqE=;
+	b=NQ4NOSDGKhbKmM1LCvc2psNmpKnbDr44veKAsmV+C2M9A1lt/XkOZ7Glna/kprqvQ82I
+	 xsOQGI3Xyn99RWAmThfQTQhP/KbMA7gENvbwxem0lG5T1oWNGp9iagx0WJPfWXuXMRUnU
+	 z/kyx72DCzhP4Cld23yYGLxqKztle0Tc9qtD/7eb087HofWMWOMWm9m9TNZDpOmrU3uUW
+	 l0tBV/yuth7Tlqbx/5yUqmuGLUa6PdNDZr6xtq3hhXCAwttp10KwrEv5qV8shfXnHmmD+
+	 h0ETAFcNTktqW8Gbag0Lvls9hf3A4Xuu9Kg5/Lz6h1HIJkSElLANRS0tcoJuO2E1/kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Si/Mdjj7";
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=f2xM5+4A;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFB8606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFB8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D0D606A31D;
+	Sun, 15 Nov 2026 08:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68D0D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Si/Mdjj7
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b1c2c31a6fso252123a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:01:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794729701; x=1795334501; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
-        b=Si/Mdjj768sD2q668cuh3FitL/nAinn/bgSvLZLfFWYX0LpPiohHIGDiNgK5SUCv2s
-         xeLw5794RXcgnMHhCp9xDvPmq/vLHuAQCIQfBAqiBZpAxJ62UaDA+KFyusJFpRvunoJq
-         wsbQCfUKfi1MzsodkZ9wo/XTgxpCFuVehXzLJcv5Agxn4tbDelLymObZhXcrNdgOsKEU
-         LPMC+IkNMD3ZPE1XWM72/Lg1eMbC1nAfx9VdZ81b7fRMYNYu1J9lTGnC8vRjQzRCnjd1
-         LG6cfL95IKft22mmJBQLcDHyAFVRkVTHLbxeaqPNBX0xLpo+yln+zqYLjyWF5axUa047
-         RGRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794729701; x=1795334501;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
-        b=LHva4tZkRC4/ZBKEasoXrTGftry5jlt2fHEnXlZI5EduTf9lEaRaA3dhrvHGZWqslF
-         tkgjpWLSx4hD3nnzhrtFor/UhqtSkIkB/8zYckhj8AhwfA9b5JA5//WtiTnpRjIc/9WG
-         PrTCmDZwsXSOIpImlk6aweYcBwSCzvU7bHUhpmnmW3xzq4VdAvWyfVPaJvRMA8Y1LHsp
-         AOtJYXB4POA/YR0GFnEQ/CGy5utbj/RXhvn6rIkdXRPH7eCZpjD5qHLtopiijFAqIpr7
-         kXKWF9iPIXrByN9qkqZrX89V+ZEcbZyW/AyQkXMZhhhsSUcNxFKNgOnCkMCALPCAO8H7
-         HkZQ==
-X-Forwarded-Encrypted: i=1; AL+hErGlXH70PGMdlln76oa7zcAoEFyu4/zeX+9IqdIPgWbze7HfXuf+FYyZwtUqoKxCn12xZyl6ragceV8MqBA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+A8fQFG4D5eQlroVGhX9cfihuPZL2tR53ks3pCVdBUvWwarIPy
-	lJ+E37cIiLl2awckeAigYuRafmYdnN6OxHXnlHDmb2DjbyDqZs3/TDrn
-X-Gm-Gg: AYBFou3Lrv+GdXP163fzz1aPDnrjKSK3AeCczkX9GbsiBxJ3+Tr+ubnVIX/51RmPjcm
-	fNSLNKpefwAO3YPrCwrL2FZvvnz+Qan++oHR8QXUlGPsHXazPfILV5NfZphuk5ukHTbn9aF44Uk
-	8yyiXluPeA+GrbMRbl2Zc9DhfrB6PZDZHMcvEoE1zOONN9ktCUyjCbD6ty2DVmygF9aM0SsUgp2
-	qVer0Yqo7QjcRrFyrCdA2CUl1XVnYDHnuyrr1NfI4rpTyQf0ztKhYfWgOs3/ES3kxKebXqPPl9O
-	ryFrpYUfnFiXojnqBQfNLekN0Z1SyQs/OhSVPNq+NnK9JYawC11jxKtPGYFNXp/vKtjPvdl680T
-	Dj7RNIPk60RvDo/AZ45Ry+A2dkSTrSsjaMfaMfO017qen/nPHSmn/gSqou2y6rHj798piEj/TIY
-	c4yXOP1Pgk6Ad5O675ob99ahgvSwn16HE+MFepbNmVcgGOVmlS2rgbvi3lqRPNCCqVrc1tV2iXJ
-	1DWgfcqbZARq6pd/yttDxFajmOwZnlPiPaSwjmHTDlTqb7JCHPh/nfhjMgL1VVhRvXHlvZ2Ioo9
-	N7GxvvRUxXhk8K8P29c73KmaLpntbyCHEh+U+yFtAnJDaky4i+BljPiWS9wwd0+FSBeCavL/wTN
-	y+o3Kysk=
-X-Received: by 2002:a17:90a:e7c2:b0:3ac:73c7:9c07 with SMTP id 98e67ed59e1d1-3b1b0608b39mr11786795a91.0.1794729701017;
-        Sun, 15 Nov 2026 00:01:41 -0800 (PST)
-Received: from claudebox.iyengar.cloud ([50.39.139.68])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3a21769sm6224118a91.4.2026.11.15.00.01.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:01:40 -0800 (PST)
-From: Arun Iyengar <aiyengar1990@gmail.com>
-To: Lukas Splavec <lukas.splavec@puresig.cz>
-Cc: detlev.casanova@collabora.com, ezequiel@vanguardiasur.com.ar,
- mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] media: rkvdec: Use dma_map_resource() to map RCB SRAM buffers
-In-Reply-To: <20261114094916.28744-1-lukas.splavec@puresig.cz>
-References: <20261114094916.28744-1-lukas.splavec@puresig.cz>
-Date: Sun, 15 Nov 2026 08:01:39 -0000
-Message-ID: <179472969996.3843098.1159119154248532841@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=f2xM5+4A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=qI
+	Be1IptJdEw3mbiQ59WdvqMuyWgbSIYKmhp3SuEzqE=; b=f2xM5+4ADtDFI9vSU+
+	2yFfp/aOFvBszez/p+L2uEIq5gSEeuEpy3MoQVXH4qmZq/lZY/cjiO3S2uKdMNcD
+	JV5bYTQxI08Q67bM2NsTOo+P5LBmMhA4PZ0y2a3tEUwbrTAqbQdPtwXsZAe7YKil
+	cTCbpHF2OV8SxPc21gm4USON4=
+Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3v4f8ZvlqxKXvHg--.43707S5;
+	Sun, 15 Nov 2026 16:02:07 +0800 (CST)
+From: Ziheng Wei <zihengw03@163.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Marc Hulsman <m.hulsman@tudelft.nl>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 3/3] hwmon: (w83792d) Fix incorrect struct cast in show_temp1() and store_temp1()
+Date: Sun, 15 Nov 2026 16:02:03 +0800
+Message-ID: <20261115080203.910033-4-zihengw03@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261115080203.910033-1-zihengw03@163.com>
+References: <20261115080203.910033-1-zihengw03@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,9 +64,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v4f8ZvlqxKXvHg--.43707S5
+X-Coremail-Antispam: 1Uf129KBjvJXoWxArWUuw4rurWfWw15JF47Arb_yoW5AF4kpF
+	WkGaySk3ykGrs7WrW7Za1Dua4Ygr1rCay5Grn0kw1Skr1UJas7Jas8Jayjvw1ayrs8AFW8
+	Gr4qqryUWFWkZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bxfOwUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7h-xQmr5Zv+hiQAA3g
 
-Tested on an Orange Pi 5 (RK3588S), rkvdec from media next with this
-patch, KASAN and lockdep on: all RCBs in SRAM now use IOVAs, no IOMMU
-fault or splat, fluster HEVC and H.264 results unchanged.
+On big-endian architectures, accessing the temp1_max and temp1_max_hyst
+sysfs attributes in the w83792d hardware monitoring driver uses a huge
+out-of-bounds index, because show_temp1() and store_temp1() downcast the
+attribute to the wrong struct.
 
-Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
+The driver defines the temp1_* attributes with SENSOR_DEVICE_ATTR_2(),
+which initializes them as struct sensor_device_attribute_2 (where the
+index is an 8-bit u8). The temp1_input attribute has index 0, temp1_max
+has index 1 and temp1_max_hyst has index 2. However, show_temp1() and
+store_temp1() downcast the attribute to struct sensor_device_attribute
+(where the index is a 32-bit int) and use it to index data->temp1[].
+
+Because both structs start with struct device_attribute, container_of()
+resolves to the same base address, but the field widths differ. On
+big-endian architectures, reading the 32-bit int from the memory layout
+of the two u8 fields yields index << 24: 0x01000000 for temp1_max and
+0x02000000 for temp1_max_hyst, instead of 1 and 2. data->temp1[] has
+only 3 elements, so the access runs off the end of the array by up to
+32 MiB.
+
+Fix the type casts in show_temp1() and store_temp1().
+
+Confirmed on a big-endian s390x QEMU guest with the driver bound to an
+emulated chip: temp1_max and temp1_max_hyst read 0 instead of the
+register values. Not tested on real hardware.
+
+Fixes: 1f8dae31fe8d ("[PATCH] hwmon: w83792d use arrays of attributes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ziheng Wei <zihengw03@163.com>
+---
+
+Notes:
+    The changelog was drafted with an AI assistant from my analysis;
+    I have reviewed the code, the fix and the text.
+
+ drivers/hwmon/w83792d.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hwmon/w83792d.c b/drivers/hwmon/w83792d.c
+index 2de6d7b68..cba907713 100644
+--- a/drivers/hwmon/w83792d.c
++++ b/drivers/hwmon/w83792d.c
+@@ -487,7 +487,7 @@ store_fan_div(struct device *dev, struct device_attribute *attr,
+ static ssize_t show_temp1(struct device *dev, struct device_attribute *attr,
+ 				char *buf)
+ {
+-	struct sensor_device_attribute *sensor_attr = to_sensor_dev_attr(attr);
++	struct sensor_device_attribute_2 *sensor_attr = to_sensor_dev_attr_2(attr);
+ 	int nr = sensor_attr->index;
+ 	struct w83792d_data *data = w83792d_update_device(dev);
+ 	return sprintf(buf, "%d\n", TEMP1_FROM_REG(data->temp1[nr]));
+@@ -496,7 +496,7 @@ static ssize_t show_temp1(struct device *dev, struct device_attribute *attr,
+ static ssize_t store_temp1(struct device *dev, struct device_attribute *attr,
+ 				const char *buf, size_t count)
+ {
+-	struct sensor_device_attribute *sensor_attr = to_sensor_dev_attr(attr);
++	struct sensor_device_attribute_2 *sensor_attr = to_sensor_dev_attr_2(attr);
+ 	int nr = sensor_attr->index;
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 	struct w83792d_data *data = i2c_get_clientdata(client);
+-- 
+2.43.0
+
