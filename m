@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794763804;
-	b=XZVtCNw0ro/APi3Y+Q4St6YO0TfyQR7I2Rmgos56zvY+WpTDgrAHusYuZnNVLFWBKCDA
-	 xF2jU81U2vRj187kIpcnULvdacjXeOLlY8934uiYrXZ8zx5ZbNhmzwO/jN4Q0d6OmSWgw
-	 qRDrURJV2Oj8qckalV8zUMqM2KlaCSKxc2ery0LSh+aKsZ9h/5wUXTkRnxSCk7lfTbu76
-	 Dh+yhL0cXaMK3sX7VE/7cFy4WV8KW3R8k0BYzMknFbN2zTqNbVWcgiVW8bMirSpTv+M+H
-	 +dmiR5QmfByKJ2AU6IYNOm6WNScyYq1Rr1zjXmOMinBHJmbzxFmaylycK93Fl4Mc2UA==
+	t=1794763896;
+	b=jtlWwmX6F608EBRSfOrwVn6j27SiLPvTwt4CYbxyEmQWSOCYIKO92k5fVLXffazQOo4A
+	 lHC1X/oq+cgFvSN0OJwDGjAWeEH6T8syh+4HCE3KtqtmJ+UtWGNzRH6rvxqnHoSIwbYag
+	 2nqLQS3QVOQHXq+g6hwbPJ2aWtRxFHYEX7FPkqS9twjq+z/oHl+xzOpKXjEGK2YJ5lSI9
+	 7M+wJsygFVgc9Yw315j9FcBVg0CRUbMMP+Ibjj35k39qI+zDc3sdb3iqAXwcy//u1Okd4
+	 F4YonAbxR6ZjA0agsWE5i1VyQFQNdFl6L4f/8SUmsEgBn0dNBh8uA7VaC618rQ4C4+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794763804;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=szgcaEhdSRPZIuPAcY7l9sBqu/oTESFGpiwwqKxq15Q=;
-	b=GKgaeXxP4tqL5txS/C8gigKELuA3d0tMi/FqiLhDf0z9YQPc9q6F4TZzQOptdpQ0Mpns
-	 lNtRHnLwtriCGX/8GVduKZQtYmNOsORN7D3jm7g6u+S6uBQ62k2v8ZWMdx8POImKpM6Hm
-	 P66WwsnHnr3/wpN5/KMMwLLzqpwZotxfWISlMGpYi/4reTzDlNxBOXaLgy3wY+i/0S7iz
-	 YhzoSTOkOuclFX3lqzUWM6GQWcaEmaQ0QMg0QsH+D1WXL+foVPy/3iDVzo3u2N032v2Jx
-	 CqZsNS6O2QQq2VKIkHHO/fFzcG7OkWR7I7rP9HYzkugUQMmu4B4HbFachHa4RvHVy+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794763896;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=C3bbnymH/AHGYpcpFk8/j247A/7fyrb+hVFtH4yEx/A=;
+	b=UEoArF0sjfUnnQt9oiy5c3CV0hKKU8e9/5ehErpJ6PkCePHQaUz+sVHJanwjc4NegJq/
+	 6p4Z1Ro8FZ35B2ha1fydsZOmnqDv0CGYVsvCYook8NI4Mm1gqY/g44Yzv2wGaECwmzeKE
+	 LadrdCsj9QaHuVGT8nIe7SHuqtReE+VJ23ziWxGWEefKJNpjj++QAp6OXfi+V9bQqE20i
+	 JWok8w1AxX5KRZBC2Quq2YwU1Nq0H6Sc+M9OrMzM54eRcblx5ecyoe0gQ4Mol17HdQeBy
+	 x7L8k+959qrl5ifg3XHdkphyVDrB/7GfG/H4k520xPx/qwvhMXAEECg/YX6Y6Nw2L3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CdOuHLlA;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Ik1pJb2Z;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F94606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 17:30:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76F94606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32063606A31E;
+	Sun, 15 Nov 2026 17:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32063606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CdOuHLlA
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso30695565e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:30:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794763803; x=1795368603; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=szgcaEhdSRPZIuPAcY7l9sBqu/oTESFGpiwwqKxq15Q=;
-        b=CdOuHLlAakazeGhkkf2UaaseAoVmuBV09Btvp9cCTQXz3QAEUjgPCPGjPEo5gsYu5H
-         22hSfetLo8AtHFBhPAg0IUM1929l/PqnVEWM4I9i/07KGYAGi3jnQWoebZbTiripLdKV
-         zIkQV0ifsKtNyEHeLyhkxGSDu1A4ZP467Dh1SnnL70xh7o7jqnfWysVOuzZlMsONQ2Cy
-         sUwDaRA8WxDPMXAiDr60FAS5ZrTLDFfJuXWMHHgYB3gw+StFXGUoERXM6mbGMFIhJkeb
-         VURkopOesP648kw9juO02jLew8fzVTliCgpkl5P1NsHZaL/dVIRlaiTtiY0qXcdk2Ssp
-         r4/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794763803; x=1795368603;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=szgcaEhdSRPZIuPAcY7l9sBqu/oTESFGpiwwqKxq15Q=;
-        b=HMpVUTawnJkSglG3fJwx/rEpua+DIk/TSIhSA77ulm0+cn36MLLbdV0XeeAKGafCEs
-         8ZBJLJMVHDSt/q0WuYRX41Y/upuWDDczHXimsPtlfW+QvUeVTwAmbe6B4ayqb+q6N3xn
-         PjVnJkXq5pZLjcZkdwR/jiMhCfbPQ/SbnQ5MhFYXUqqQbMC/H5hv5nXfDsUGkf7baM1b
-         4V8bbuowOcyO+P/VJhe29Pczr24ZibSm6XmCrGtNJNopa4dteoa9WUlaFzly/Ivu1qxi
-         /OUoHt5s++8joGfgbnh61GGRzkZtB2ABmFESoso6a/PWvmo8fHkxZfRQiiw/x7GkoFo9
-         iYeQ==
-X-Forwarded-Encrypted: i=1; AL+hErEcKFpPpPSSi+4grFizM5vXz4bXU3eulz2snJaf5PxQ9seYP3zPGh501HAvTDHxmVHpmLHYO38Cf5Bh+NQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+f/GmQt3QbqEB5owHluVA2ERwpl4HBgVklmUOflaJyXylb7USo
-	j+xykr2x2pVUkAOo4a4vYu1AfuV3vs8E9j4bOGi0cZCUYPqvo0dNkKAX
-X-Gm-Gg: AYBFou377akNnpUEPhRIxTC3ut5V5zxPG0ppKDVnBc2UbraI2aRBogUIOK1NmPGDCmc
-	BN70ZP5cAeaRNFrYImAkfw0J3HK66kG+3dk+INrcrjbJ6LpnSwvNZO3hm83szTiDM5PNB66PwTM
-	Y7Tl7adDrXPQxtI8/cuDgeAhtveus8VU2gemIMur0FIzpLwLGc+/R7BJTaDs/uYzt3k4svVCcA1
-	5q3viEDRCJnhKqTK6S9/PiyNcdUEe7PKaSmNBRUlbr56t28Ig2ZqF/1WzUxLxFpbN4gvey4oxym
-	SA1a674fqT5d6Whh/Ze+HAfE2SkvAYolPLV3o2pbwRcDRqXR+Vdd/ChuU6u8jRRJbLWJNqwDDVv
-	1JJWtc8tG1tD/biad74/Q9SGV3w+V2KQQVOp/WQMGEyl/8BLb8cHRTbp9xB+tiGlERv7GmhYAZV
-	Odruys5PVG52+Lp4vLISbcNjtqQSBP5BNol3AIvpTerwVhX5V4ZCvwNxY9Bl6+UMB8sJmk9GrH5
-	AqrXWTyuIt4+J0oDQ0oue5BzsTiK5t2VMLTxEz04gMtV0uipRnC1uv0iFihllhnTnUZFrOPfty5
-	FJDxHKasEAdirRb5/76yqWkQPVL3qFbZ
-X-Received: by 2002:a05:600c:8b23:b0:4bb:6f6a:1976 with SMTP id 5b1f17b1804b1-4bb6f6a1e5amr36800135e9.2.1794763802544;
-        Sun, 15 Nov 2026 09:30:02 -0800 (PST)
-Received: from LAPTOP-AVI.. ([147.234.100.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55acdccfsm236147315e9.8.2026.11.15.09.30.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 09:30:02 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: rafael@kernel.org
-Cc: pavel@kernel.org,
-	lenb@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] PM: hibernate: Fix partial snapshot reads
-Date: Sun, 15 Nov 2026 19:29:52 +0200
-Message-ID: <20261115172951.35889-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Ik1pJb2Z
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=C3bbnymH/AHGYpcpFk8/j247A/7fyrb+hVFtH4yEx/A=; t=1794763894; x=2110123894; 
+	b=Ik1pJb2ZpTJXEQP5eyihMUnDflRc+OsmYCdTZsrd7V42iVix5XveYf+RFeul7LCQksHBzbmpXXl
+	dhc9m/Qt1EHRSoX7ytrDc5rskvKXAqLuev9ZkGVyYA5t4TOUdEbr+aPCCAvHkwPHi21dG9fm9RtqN
+	vc6cn6MpKns7mliuhNCS5d7a/cx3OlNY8GvsCmeOvwFLc+nBKJlTP+H2ggseEvKEFmOo3dmXoT0E8
+	zW0dp5+4LzCe3sGXWzLScP75UeCYFfT2zRuLXYyvyjy0dhriN7l1BkCuCDmttRkXZYxpyQMR8e3MO
+	x0RuPKizhEFBHsUPtLEcACgUvgDG1rF7xDXg==;
+Received: from [177.172.124.218] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xSe4U-00B0BK-0I; Sun, 15 Nov 2026 18:31:18 +0100
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Sun, 15 Nov 2026 14:31:10 -0300
+Subject: [PATCH v8 01/10] futex: Skip test_futex_robust_unlock() if not
+ supported
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,36 +59,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261115-tonyk-robust_futex-v8-1-a4fe47333a28@igalia.com>
+References: <20261115-tonyk-robust_futex-v8-0-a4fe47333a28@igalia.com>
+In-Reply-To: <20261115-tonyk-robust_futex-v8-0-a4fe47333a28@igalia.com>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Waiman Long <longman@redhat.com>, Ryan Houdek <Sonicadvance1@gmail.com>, 
+ Thomas Gleixner <tglx@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-api@vger.kernel.org, kernel-dev@igalia.com, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.15.2
 
-After a partial read, snapshot_read() passes the remaining page
-length to simple_read_from_buffer(). The helper interprets this
-length as the total buffer size and subtracts the offset again,
-causing premature EOF while image data remains unread.
+Skip test_futex_robust_unlock() if FUTEX_ROBUST_UNLOCK operation is not
+supported.
 
-Pass PAGE_SIZE so the helper accounts for the offset only once.
-
-Fixes: d3c1b24c50e8 ("PM / Hibernate: Snapshot cleanup")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- kernel/power/user.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/futex/functional/robust_list.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/power/user.c b/kernel/power/user.c
-index 6e4f40e49319..d5e2b8d0b55b 100644
---- a/kernel/power/user.c
-+++ b/kernel/power/user.c
-@@ -154,7 +154,7 @@ static ssize_t snapshot_read(struct file *filp, char __user *buf,
- 		if (res <= 0)
- 			goto Unlock;
- 	} else {
--		res = PAGE_SIZE - pg_offp;
-+		res = PAGE_SIZE;
- 	}
+diff --git a/tools/testing/selftests/futex/functional/robust_list.c b/tools/testing/selftests/futex/functional/robust_list.c
+index 87217c549361..ddb610149857 100644
+--- a/tools/testing/selftests/futex/functional/robust_list.c
++++ b/tools/testing/selftests/futex/functional/robust_list.c
+@@ -792,6 +792,9 @@ TEST_F(futex_op, test_futex_robust_unlock)
+ 	ret = sys_futex_robust_unlock(futex, FUTEX_ROBUST_UNLOCK | variant->op, tid,
+ 				      &head.list_op_pending, variant->val3);
  
- 	res = simple_read_from_buffer(buf, count, &pg_offp,
++	if (ret == -1 && errno == ENOSYS)
++		SKIP(return, "No support for FUTEX_ROBUST_UNLOCK");
++
+ 	ASSERT_EQ(ret, 0);
+ 	ASSERT_EQ(*futex, 0);
+ 
 
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
-2.43.0
+2.56.1
 
