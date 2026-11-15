@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794767923;
-	b=K8sM1ZZy2mO8du6wF+w0Xa7Bj2hEovs+zAp1zVI9XJdk+UeSZrwHU3diS0dxnh75jqhC
-	 rVkuqOUMWM3Xft8LaxH07x8jakx1kmZ5mV0FPHRLU+0u2DJVTO5H+wQQK+qewJnnnuD/H
-	 3YyYTzIkA6fIt5WT5AtSKfpVgvhtOSaRSJuACHJOUbsaRgFdaEVt/f7x/TeAqOnxf9TpK
-	 bWCUJ+A1qAy4SjwMP8hd7A86VyvyyxXECldaQdndp9T0YSihJ6mmNWMYrmjOAYIqHAleO
-	 c/8vKxgMM0fA0iM1KHS/v3mJ+FdyFKXXVtx7uU1oKH9fvP7grj93RLsR1CHBm5X8OwA==
+	t=1794767928;
+	b=cf5tb63O6G9eKCfK9p0WdvQaCyrSk+1KoZuAl+HKc1+8e02IeK7/tDbHjeMeT7W3dgar
+	 dF+QjEhwDGI5PeqYecJVNOldQEi5zm7H3vlwMCPZ7wcLN66pCpCINjDuVP3ps4FE4i1xq
+	 w8Id9nb0wuL8tDaj1rL0tTEVKrJo69HDIh6nWS1kiV4iajgnA6RigJUzbFdAAFQuRTft0
+	 wVDbRpKtKDeMC0JrLacsCP/54j8xffKQ8r+8P3sdkokpXQBJ23RRBC6woA2OErP08LI88
+	 AwgiqaITMak9p1mY+MGRJlIflm/lPcPUEI7ET4/HXQ/fYaeFjmp0krDgGQD4OYk17bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794767923;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=arPSgjHS15vPHb0JCnqy9OouR7YuHrSqzN7k0IpSy4Y=;
-	b=CQmg2uW/uMFJVnZ7u+kARDe+6KIEVCyxEHQI9z6OLj+OMqwMobNJflAxjCAycVQHol21
-	 fcYlfRwSc42tfrFOINFaFG7d5vDVfnOrSPGDN223BOFyPzAT8m9iWHOkolpQjUPkApwls
-	 PxJUf228Ll3oGwM19jJzdHSlLJM/z9OPMtwcELmJiCmxcUHmnGt4gO2HArKKJ63gjlVub
-	 MMvNGPan/nJrR6tzsR1KBiNz5m6PgXaPCndun1UJzyRFfUm1HB1u4/cmp3Zul48ccoFD7
-	 qmG3yG4wXzv0KtOnlU3gc5YHCizAwotWj+uaSPsYAs+Qm0hxQjgVVsthDsREJBlmvNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794767928;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=n38R8THVBERh6YX8fumxgq2SeV93NHDPiTWFfSKg6qw=;
+	b=C5p5x0UX1SWJZABW4wHhAhRBPlSyZtOI6oha84x6p5T9P7TmN8tLUVCdzkkl25QLWHAP
+	 yX3hsSvf6xUo+vAQziI1n7Uo87QXuysvYnVIU+y37M0P1aUuJat7BQVU4xs2Xv8vLbYk9
+	 Ucg5PpBm4ZKzPqkY+nbkuVqGvtPwGAcoTVPfEoT/gLQlvh6JI651EjCt67mr3Xe5wUyUt
+	 hXI56OeD+EW+qVHcJImGgPweIzvqOzIz4yVNmu3NxfUugGBzUg+TdP+Q7jLq8m1q+Z3mF
+	 Cohg9fYIFi3+YS8AeQruhdeb25y9K6TNB7g0GL7xEyr9DY0ozrFQwsuKr7HjaYpAogA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4RBcK4Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PWPpc8v9;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117F9606A31A;
-	Sun, 15 Nov 2026 18:38:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C6F606A31E;
+	Sun, 15 Nov 2026 18:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C6F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4RBcK4Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63B01F000C4;
-	Sun, 15 Nov 2026 18:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794767922;
-	bh=arPSgjHS15vPHb0JCnqy9OouR7YuHrSqzN7k0IpSy4Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I4RBcK4ZAnk1QwAXA56mz6tfAD7cwMoY/DmdBdyNp/MCDke1j0K/iqhm2TnulUyRT
-	 paudavJLRFoqY3/kXQ6WVI1qOvGarxQU9eZZWzNV5NBqBqZb4NjtiP3ZOCusbJ7AGK
-	 KLjVXP0f5GcuKSrk+B5xeMcu4WSIv3e+w2MX9FH06EMoNy5BreKICjuE5d5bobeV4B
-	 7wthe7OE1Dz0rYq6dImjBWzvPgBakFh6KJZk5eJczAreOd3RNl3fOWWFNN7XeL4cNl
-	 WkDBLVHUC6lMXJfuspSxAMTsJteDaLTe2gNw5o4N+PdsnPSEyB8lB1bCA1azrx4P0I
-	 o+K/AezXHHqyg==
-Message-ID: <cadadedb-1de1-46f0-9bfd-35eb8bdfa85b@kernel.org>
-Date: Sun, 15 Nov 2026 19:38:35 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PWPpc8v9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794767928; x=1826303928;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ho9p6bSo8pi1QrenazGvesf4HhUNwYmhTsTzMNwIz5w=;
+  b=PWPpc8v9wuWuUQd/mGlRblIC6Z39upTInKfSshMXSibsdCxMwFctkljF
+   new8rJp0SjLEghvOHrv81o2O6Od4d7BVTOWWyqGS/L9w4yOvLokopvCoP
+   +s19EHL9IEiVu7vNfOukaFfJMvt8f3Ai1lmFShkJP+ZE3rfcovL+Qk4Lu
+   8cBEVQNruP7OfJEiz2a9imx4VB5x6mailoRjgG7es8lwNtAqxb7bWmJNn
+   Gr6elVwdu8icibNdjzjqYvdWv4uc7sknbRYIy0zypFje6vWyLF1g1FiLd
+   2WsL57KLKb0mWpRGBonidsJlrMe8LU1NN5hUYSqv/WCdy29RVmPUb8A9R
+   g==;
+X-CSE-ConnectionGUID: mFGiRjrNQFqCtcYDzXABvQ==
+X-CSE-MsgGUID: bFD1NG5DS2mDRjEp3dF6Tg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3498583"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3498583"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 10:38:47 -0800
+X-CSE-ConnectionGUID: xgioXYEnTiuMMwCr8er90g==
+X-CSE-MsgGUID: i+uioB1WQR2VnUR4b4a0wQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9372476"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 15 Nov 2026 10:38:44 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSf7g-000000017C8-1yn4;
+	Sun, 15 Nov 2026 18:38:40 +0000
+Date: Mon, 16 Nov 2026 02:37:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>, Guo Ren <guoren@kernel.org>,
+	Pekka Enberg <penberg@kernel.org>,
+	Patrick =?iso-8859-1?Q?St=E4hlin?= <me@packi.ch>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Subject: Re: [PATCH v4 2/3] riscv: probes: reject probes inside an LR/SC
+ sequence
+Message-ID: <202611160252.d58noD11-lkp@intel.com>
+References: <20261115-probes-in-lrsc-v4-2-48b9b036bd1d@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,121 +92,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
- sharing EL2 for Apple Silicon
-To: Ard Biesheuvel <ardb@kernel.org>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, asahi@lists.linux.dev
-References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
- <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
- <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
- <aplk2hHRB7Yw9FWW@willie-the-truck>
- <eb75b82a-8910-4198-b89a-5c8b487c0fd5@app.fastmail.com>
-Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <eb75b82a-8910-4198-b89a-5c8b487c0fd5@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115-probes-in-lrsc-v4-2-48b9b036bd1d@mobileye.com>
+
+Hi Vladimir,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Vladimir-Kondratiev/riscv-kprobes-fix-out-of-bounds-read-in-riscv_probe_decode_insn/20261115-143733
+base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
+patch link:    https://lore.kernel.org/r/20261115-probes-in-lrsc-v4-2-48b9b036bd1d%40mobileye.com
+patch subject: [PATCH v4 2/3] riscv: probes: reject probes inside an LR/SC sequence
+config: riscv-randconfig-1000-20261115 (https://download.01.org/0day-ci/archive/20261116/202611160252.d58noD11-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project ca14e3d05c4e63d6e8103945c86b958ed2f55d5f)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160252.d58noD11-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611160252.d58noD11-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from arch/riscv/kernel/probes/kprobes.c:5:
+   In file included from include/linux/kprobes.h:28:
+   In file included from include/linux/ftrace.h:10:
+   In file included from include/linux/trace_recursion.h:5:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/riscv/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:12:
+   In file included from arch/riscv/include/asm/io.h:148:
+   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
+         |                                                   ~~~~~~~~~~ ^
+>> arch/riscv/kernel/probes/kprobes.c:75:4: warning: add explicit braces to avoid dangling else [-Wdangling-else]
+      75 |                         else
+         |                         ^
+   2 warnings generated.
 
 
+vim +75 arch/riscv/kernel/probes/kprobes.c
 
-On 03.09.26 15:25, Ard Biesheuvel wrote:
-> On Thu, 3 Sep 2026, at 14:15, Will Deacon wrote:
->> On Thu, Sep 03, 2026 at 12:42:39PM +0100, Mark Rutland wrote:
->>> On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
->>>> On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
->>>>> This series adds a custom EFI table that points to a PSCI entry point
->>>>> (plus some other stuff that has to be available before EFI runtime
->>>>> services are set up) and adds support for this new conduit to the psci
->>>>> code. We can't directly use the normal EFI runtime path because that one
->>>>> takes a sleeping lock and we need to be able to call into PSCI from
->>>>> atomic context during e.g. cpu bringup or during idle.
->>>>> It also adds support for specifying the specific MAIR attributes for EFI
->>>>> runtime mappings as defined in the latest UEFI spec since Apple Silicon
->>>>> is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
->>>
->>>>>        dt-bindings: arm: psci: Add EFI conduit
->>>>>        arm64/efi: Add and parse custom PSCI EFI configuration table
->>>>>        efi: Add EFI_MEMORY_ISA_{MASK,VALID}
->>>>>        arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
->>>>>        firmware/psci: Add EFI runtime conduit
->>>>>        arm64: dts: apple: t8103: Add PSCI and CPU idle states
->>>>>
->>>>
->>>> I've picked up patches #3 and #4, which are useful in their own right.
->>>>
->>>> I'm not sure if the arm64 maintainers will want to consider this, but
->>>> I think it's a reasonable compromise, as it puts the abstraction in
->>>> the right place.
->>>
->>> Sorry for the late reply; I've been away almost all of August and I'm
->>> slowly catching up on things.
->>>
->>> As with last time this was proposed (in abstract), I am not happy about
->>> bodging an EFI conduit into PSCI, given that the manner in which state
->>> is managed is completely different from SMCCC.
->>>
->>> If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
->>> that's one thing we can consider. I don't think we should pretend that
->>> it is PSCI.
->>
->> What do you have in mind for an alternative mechanism? I understand your
->> objection to this proposal, but at least it keeps the interface fairly
->> high-level and avoids opening the flood gates for a bunch of SoC-specific
->> idle routines. Are you thinking of extensions to the PSCI spec or
->> something else?
->>
-> 
-> I can't speak for Mark, of course, but I could imagine EFI being used as a
-> conduit to provide a callable set of interfaces (with a rigorously defined
-> set of constraints such as the ones in this patch, i.e., reentrancy, no FP
-> or SIMD, not relying on ISA features that the OS needs to know about and
-> enable, etc).
-> 
-> There is prior art here in ACPI PRM, which does something similar, and this
-> also relies on EFI runtime services.
-> 
-> You'd still need to implement the CPU ops and a cpuidle driver afaict (no
-> expert here), but at least those would be coded against an interface that
-> the kernel itself specified, and can be made as generic as we choose to.
-> 
-> Not saying this is all great, but it might be a worthwhile compromise to
-> consider.
+    51	
+    52	/*
+    53	 * Walk the instructions from the enclosing symbol up to addr to check that
+    54	 * addr is an instruction boundary. Then reject a probe inside an LR/SC
+    55	 * sequence: the breakpoint trap drops the reservation, so the SC would fail
+    56	 * and the loop would hit the probe again on every retry. The sequence is
+    57	 * recognised by a forward scan with the constrained-sequence rules, as for
+    58	 * uprobes, so an lr that is not followed by an sc (as in __cmpwait()) does
+    59	 * not taint the rest of the function.
+    60	 */
+    61	static int __kprobes arch_check_kprobe(unsigned long addr)
+    62	{
+    63		unsigned long tmp, offset;
+    64	
+    65		/* start iterating at the closest preceding symbol */
+    66		if (!kallsyms_lookup_size_offset(addr, NULL, &offset))
+    67			return -EILSEQ;
+    68	
+    69		tmp = addr - offset;
+    70	
+    71		while (tmp <= addr) {
+    72			if (tmp == addr)
+    73				if (riscv_probe_in_lrsc_body((u16 *)addr, RISCV_LRSC_SCAN_BYTES))
+    74					return -EINVAL;
+  > 75				else
+    76					return 0;
+    77	
+    78			tmp += GET_INSN_LENGTH(*(u16 *)tmp);
+    79		}
+    80	
+    81		return -EILSEQ;
+    82	}
+    83	
 
-Finally getting back to this series...
-
-
-I'd definitely like to keep mapping the resident firmware using EFI 
-runtime services because otherwise I'd have to duplicate a whole lot of 
-tricky code to do the same thing via some other means (e.g. a device 
-tree nodes that contains all mappings + callbacks) and I just don't see 
-much value in that.
-
-I'm happy to just drop the PSCI part though and replace that with a 
-simple and somewhat generic "efi-rt" (or similar) cpuidle driver and 
-make that one have similar requirements like I added for this RFC series 
-and expose bunch of generic callbacks (that will just happen to resemble 
-PSCI functions very much ;)) via a custom EFI table. That would keep 
-PSCI out of all of this but come at the cost of an additional cpuidle 
-driver.
-
-I don't think that would open any flood gates for SoC-specific drivers 
-since we could just point them to the generic one and tell them to use 
-that one if they can't do PSCI for some reason.
-
-
-Now before I go off and prototype this: Would this approach be fine in 
-general with you, Mark and Will?
-
-
-
-Sven
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
