@@ -1,55 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.222.135.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794767206;
-	b=pbK1RjQQWmhzE2CPWEKV4kZLH73ySRK62/vasJUN56lPS6tcQ0JTK9uumYD2WNsI9jYt
-	 epM62fCnk06a+eMhgTRw8Uiki8dvz7uWfl3Yc3Cp4xDga0kl91fP1JHb8T6rD/eQ3xS4i
-	 o2OqI299veKJJMSp0ce8X3b5F8pVtqQKQ7RGidCsaG9ReqpYPQDxi2Zb0XdRnenJngwDl
-	 M2FJk0+bqpjzsMcE6lpuP+kyFkBFVJxLB3+29hoRSvJA+nbj1ZGdcDop/ZjDK9JV2RdX2
-	 pg1ZzjEQtCHkYzwhGBpPQBNqPvbLzx+yfkZZYKS+iWLso7Ra5N05Ow/ZMSVEAzbLvlg==
+	t=1794767236;
+	b=3CYA64HNbD9qfJRjvIMI8cELOBMW47crH7DapFV7GCxbPdKWGxg6okcx3MR0C8V0kZnw
+	 r7fWAootES0ta71+KQbarEJIQkCFPSBchSEdsBS+baDZunz+xPbaIEevTaocGW+upw1KC
+	 DfwaOUb8L06qxY5UpizDOUKc0gs4b1cLM15nJRHkpkZYU1PncqljIamyeBqwXoV6emAkQ
+	 gYrBBmS83klNLQMwP5WV8U4NttwnJZTqzSAY6NgchZZHwlkJvB2cj1sZf2VP3RIomw8nu
+	 oiUeiJq03rrlVHlvokolUG05gavHnBUx3PW7OjU+pdTEoV7FstHGZUIUUP1RMKpp5/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794767206;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-WP-MailID:X-WP-AV:X-WP-SPAM;
-	bh=d6Mw+ubXF8sNdhhSz6FQxX5iaQzd+/Pf5yiAG6Xqtuo=;
-	b=aKs6RRyWnyE2CRoSp3Hr1wCzJmZq30i5DFGoy0EcRjkYJrSWgsFPizDRxiIeosd9qpEl
-	 VG2vxNstvbhZjhBuUrXQ012OP28Hmmdq/hkmN5Obgl9zQQQtmpRAf83RUQnYcnqPsTRhL
-	 n2SZjQK4PuK3XhI0UShtLKPZD1J5NZIdlkegbwtqfKxkN8lr5k9y41XfKP2pAecQOjtdu
-	 xLMWjUR5LBPHLnUZhMQ4a47l2O4aUt5cD8ggjmgrewYCU++z176jlxWv+Dt5KzLtPREV5
-	 SAMO20uQ0lj2rsRuYGBlIK/PkE8CQO8qpE6DzX4NxPerQljRXgRTsOpC5dMdH2aznGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794767236;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=4v9kEdXT9EbKxbjfyQTCBXpQmQO0tv1S0oBUI2ZRadY=;
+	b=Vzi/5i8vOCxS2FKJB2hbGYKgRf1a7rmYgZi1RR6VIaShjeYpDDc8/Qgsdklnz2ivf77L
+	 jcsLqdTSTvxCpjdZhiT9/MxJA3ww8BtbxAshKPWI+wt2cqOGCRWaWDToSQNF+nKQ3zfLR
+	 k9urju0yBycEHKQxzZMnwWpIx03B/RQMV/GrjnsKZU/7lS/KDsQZtildZxu+CbfjJNugn
+	 KK5gLA7o5PXH6TIf5DXMcEfRMJT3nBsugPZ1PjeIm5GDeW171is8SJoPOwfozv9AhIYzv
+	 g/zuFhpcDAl/oC0yOKU7dWIrmyrwVcppi/ccArKzIlT7sKNuOF/wF4UbVYvN88hEGpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=o2.pl;
-	spf=pass smtp.mailfrom=o2.pl;
-	dkim=pass header.d=o2.pl header.i=@o2.pl header.a=rsa-sha256 header.s=s20261001 header.b=AWKwe+4m;
-	arc=none smtp.remote-ip=193.222.135.158
-Received: from mx-out.tlen.pl (mx-out.tlen.pl [193.222.135.158])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hs2wFkU6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A795F606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:26:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A795F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=o2.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=o2.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B2B606A323;
+	Sun, 15 Nov 2026 18:27:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=o2.pl header.i=@o2.pl header.a=rsa-sha256 header.s=s20261001 header.b=AWKwe+4m
-Received: (wp-smtpd smtp.tlen.pl 41060 invoked from network); 15 Nov 2026 19:26:31 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=o2.pl; s=s20261001;
-          t=1794767191; bh=d6Mw+ubXF8sNdhhSz6FQxX5iaQzd+/Pf5yiAG6Xqtuo=;
-          h=Subject:To:Cc:From;
-          b=AWKwe+4mwqxLmslMtGtvuifajW+ZAgiOmWlm0GNIpHdB2oDLh0rix+p9oogXI+aOn
-           73Lzanp04BhOvi2KiDdzwKNYuYAzNjlV231AZpa3zzLt9qCOuAorIWDltCqJxNTTHT
-           Y+9BgzHWtnVNV/EjZYl7Xf5CgO00zJKv6V+uei/RltlcmtcD/mVMgJ9w2Ut9n2CxSw
-           Wyx6s+jnXqGX6qrxzkGnYHi+/WvsXLH3CgmE/tGPEL+UFqmgFvl04ch9fNlHWh+TSj
-           tweyyBA02IESsN2qHPcbL/mwVjBedvrPm+sls9evWxX3hFtcQkNgL0l8pGehQa7Rgb
-           4DWImfTUlrxfA==
-Received: from [192.168.1.22] (apn-78-30-67-84.dynamic.gprs.plus.pl [78.30.67.84])
-          (envelope-sender <mat.jonczyk@o2.pl>)
-          by smtp.tlen.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <stern@rowland.harvard.edu>; 15 Nov 2026 19:26:31 +0100
-Message-ID: <ae7ce6c0-d1ad-459d-a526-1d52fbb445b6@o2.pl>
-Date: Sun, 15 Nov 2026 19:26:29 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hs2wFkU6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6721F000C4;
+	Sun, 15 Nov 2026 18:27:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794767236;
+	bh=4v9kEdXT9EbKxbjfyQTCBXpQmQO0tv1S0oBUI2ZRadY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Hs2wFkU62DxMVcVeVK/hAY2ufoadWt+Durtr+oAEZEZAHVRiIPzUn8lVsPDt5Gn6A
+	 LCjm667oyvLp/6VsY85AeLD12M/krbIKIgKoosrrjyCH8Bs+p2meRhASbg+kMC2cvM
+	 QzOEgYrkeLy0x/CLwV2gYxtqqx1ssQUFYhJbA8s+gu69qB0zN2CezYt1IxGO1LmOcQ
+	 ChvTkCD2Egs8VWSW4BrQHtHenMBDdDB7z4bhmmoqPKGANygD0zgisrIdYkxydir576
+	 UAuL+0VtHWziRhbhZ1qJB9384CqIX5ydm0HVaLZ2YWAeT6u2+v9nTXAYzi/wxW+YGW
+	 95lD+ddDCxnWw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 4E20633D38DA;
+	Sun, 15 Nov 2026 18:27:01 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,113 +52,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: uas: expose US_FL_NO_ATA_1X in sysfs as
- deny_ata_passthrough
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Oliver Neukum <oneukum@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- linux-kernel@vger.kernel.org, smartmontools-support@listi.jpberlin.de,
- Christian Franke <Christian.Franke@t-online.de>
-References: <20261115124046.5286-1-mat.jonczyk@o2.pl>
- <1e731b43-93ad-4230-833a-df6949c7d4c6@rowland.harvard.edu>
-Content-Language: en-GB, pl
-From: =?UTF-8?Q?Mateusz_Jo=C5=84czyk?= <mat.jonczyk@o2.pl>
-Autocrypt: addr=mat.jonczyk@o2.pl; keydata=
- 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
- TANkZ3QqXNX2
-In-Reply-To: <1e731b43-93ad-4230-833a-df6949c7d4c6@rowland.harvard.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-WP-MailID: a7c25a38ebf7bf4f20a8e77008d68389
-X-WP-AV: skaner antywirusowy Poczty o2
-X-WP-SPAM: NO 000000A [8eOU]                               
+Subject: Re: [PATCH v4 00/22] Add speaker and headset jack support for
+ Apple Silicon Macs
+From: Mark Brown <broonie@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, 
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Hector Martin <marcan@marcan.st>, Sasha Finkelstein <k@chaosmail.tech>
+In-Reply-To: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+Date: Sun, 15 Nov 2026 18:27:00 +0000
+Message-Id: <179476722024.140154.15587190322612964079.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=317; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ytHYPz0XriWoB7CgG8WB4aH/P5ex9L4TMTkLssWLVm4=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+/iz9N/mHi728XsdGBVdR5aNnVf4dbTT4IdmRdP2n0
+ KttyacyOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRD6wM/9S72z3mLK8tSzx9
+ 4NSkAKUV6/Z/7dTSuuv6b3nhkq3KnrMZ/uk++dB/R291D1tVuZfLHucp3HoXysLSk7c6Jx4XL/4
+ swAwA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-W dniu 15.11.2026 o 16:52, Alan Stern pisze:
-> On Sun, Nov 15, 2026 at 01:40:46PM +0100, Mateusz Jończyk wrote:
->> The uas driver blocks access to ATA passthrough commands for some
->> devices it considers buggy (via the US_FL_NO_ATA_1X flag in
->> unusual_uas.h and uas_detect.h). However, it does not expose any
->> meaningful information whether the command was blocked by the driver or
->> is genuinly not supported by the hardware. This creates a problem for
->> the smartmontools program and makes it difficult for it to provide a
->> useful error message (with instructions to disable UAS on the drive to
->> get SMART readings).
->>
->> So, expose the information in sysfs as deny_ata_passthrough. Other
->> quirks may be added in the future if there is any demand.
->>
->> Link: https://www.smartmontools.org/wiki/SAT-with-UAS-Linux
->> Signed-off-by: Mateusz Jończyk <mat.jonczyk@o2.pl>
-> Why was this change made to uas but not to usb-storage?  Was it because
-> some devices can handle ATA passthrough commands over the Bulk-Only
-> transport but not over the UAS transport?  Note that the
-> US_FL_NO_ATA_1X flag applies to both transports.
->
-> Alan Stern
+> Hi folks,
+> 
+> This series adds the machine driver and related bindings for the
+> primary audio subsystem on Apple Silicon Macs. The macaudio
+> machine driver is based on an RFC sent many years ago
+> by Martin Povišer[1]. 
 
-There are only very few devices that cannot handle ATA passthrough commands
-over the Bulk-Only transfer (and with them it's impossible to get ATA
-passthrough by disabling UAS). But that's a fair point, will fix it in v2.
+This needs a rebase against current code.
 
-Considering the US_FL_NO_ATA_1X flag:
-
-- I suspect that many more devices would accept the ATA passthrough 
-commands in
-   UAS mode if these would be issued in isolation (if uas_queuecommand_lck()
-   would stop all other transfers while doing them). After all, Windows
-   apparently does not carry such quirks for modern devices. I do not 
-have the
-   hardware to test, though.
-
-- Since 2017, it is set unequivocally for all Seagate drives, even 
-though most
-   likely modern drives / firmware versions do not need it. I do not see 
-a way
-   out, though.
-
-Greetings,
-
-Mateusz
-
+-- 
+Mark Brown <broonie@kernel.org>
