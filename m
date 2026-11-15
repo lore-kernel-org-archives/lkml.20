@@ -1,115 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794708170;
-	b=IcINnEHXPVjT5Z8xsEGqvHJRqGUlfQR31aW8XAttXv8ZcdxkpAIfprYWxRKg8Y0as1w/
-	 AzjO7evJwiDmjrnR2wiRKYtj+KKTOgEBIYpyT8Hjf3KEGuvqWKRP0m0QaUQ+gafUDW1VO
-	 ZWA8F3BKjyLLFQy7Oux7GZ5yCnhoVj040hyBIWdUlkwoG2NoxHctprqw8lL+m1WkyGQ9s
-	 h9VuX4w6McfbpSDcwHI5Pc6+M6Y1m7nyPEvxAbqWavwXCiLHBM5PoCH4jwxQFwa6KG6/R
-	 cFGPOMPcwNGH7x2AdgbgRJLwa/LFU34uaO8vDuptqEpSIZOykKMG8gfQBo782+RqjTQ==
+	t=1794708309;
+	b=R1LWNau6KUNo7Iu5ZPg4NRaJxMKhnFwx9afOxgcd3vr4kLGC+BqqtzLoBBgXsE9Ge/fb
+	 TkxviVq3LlDrOxDfbipll2350u+d5QVKNFV4VRiisDO1oRWhfXa6CAEF8yV1vz8kiNr9C
+	 /8XtqkZWTslmy0Bstb/agSX/jspAxc+8LWRkFqKR7XwrxQneDCQMk+YQopkasQruTQO/t
+	 TjXQn+GOhET8TK72duM6OXnqLzb5tdFN1Pnb927pBWItz/RICNYmqa4aL/AWD6umaknp3
+	 SubkfKssNaqNFL04jb/nsxPrQJ5gERw729elCa3JVxCSUhHjlKRRh+VtA0nwf1e2t1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794708170;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=;
-	b=TxN1S0+iOPMt+dZwP7cdPgOYmeZJZPQdVtNfj+xO6q9tORNSGRjP/4stA3bj0OM+2+YK
-	 g85oOp/oYEGCSQUYr0kZHH5BUTEfKAT8qf5QXysWg/xfe8viOjMRJn6VO11VOw+4rbpsO
-	 fhfuBBa+m3gl4wYvJb9nTyYdpiHcnXUT1bWfJeC4HkyvIXJrWAUb11b8PKzsv5t6sUMqW
-	 D/0/0kDYns9YxD1Tq1yr85n/s58KRp9fwQH425rXSMAm88k/3g3CJK1NbeVebDf4XpJvY
-	 kqabtsNKN5TIaBqe/WL1Q3HcWEH6xyt2FtfLO6JgeNl+xUMxfXJOqZ4Np6UDUusWUMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794708309;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=BRUqir4+XC4RCLw0cgSXRJ/4jat7SaP4F3cbFYh0QNY=;
+	b=Q1iSvpQKAJ1iAERM8CmlBiyyA6qMLVvHfqhje9lKHpxTPIMhXMtkNkfuFeuknK3IfWOy
+	 w1imbym6Lue92/RUxx1JTlK2tgCUe9IdE6tjUqffJI65IExG7MZVSX5/ZQsYj7sHDgAwR
+	 Tkj/abAbo4EHAvkxC+RASeL2GWQ/KNPZ4bu9Pj2Nc1rFK4hdf4KEDnyEZytiqfSUh1NBx
+	 SGYRTLIPBusMgBusrE1wTaXyPZVwcJUcx/KOaGtxatEK7d8X88e733tDEB59bI6fq0MTe
+	 L0jgavJCZE8sYEBNzdXG7grhSgSDM1qiQKz+w/u51jegC2a9bGAa0HnH+XuLsq7Ylow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=jpltLqPc;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4haMV33o;
-	arc=none smtp.remote-ip=103.168.172.155
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jiiLQTIH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38872606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38872606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC70606A323;
+	Sun, 15 Nov 2026 02:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=jpltLqPc;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4haMV33o
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5B058140003E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 21:02:48 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-09.internal (MEProxy); Sat, 14 Nov 2026 21:02:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794708168;
-	 x=1794794568; bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=; b=
-	jpltLqPc+1cMXe8U/4NNjhTBF07N1HJLp5JaxV4gXQzRZlv5sIGERY9JKds5Z9yg
-	Nzdj38K1xBxpbWkwksuFK8KcawJQlmhNS+ATLBTxA48j++/Sk4gFO6lNyX+g3J7T
-	ejVxjv4QrYjpuPKwlPWKXJ8oiiKPcSu/36V2ynaqITfJlbcSpW1wo7YsjyQvzuV2
-	pXWt7HDtSdo59RBgtPtVIRnpyoOdyUG7uQmqP1ev7Dn/cCYL+BHg1WH3EBmwP4il
-	wYSj2vktsd6pmlz2VYwAkrsACUysRUgmeLUU10AhRgrsjbjuZAfLKoF8+LV/IKtl
-	OTH+h/WjRBXZ2nxltvgBnQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794708168; x=
-	1794794568; bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=; b=4
-	haMV33o8rJYNBBtMSnF5ghWdDrsxgk8USzpPZBdpgN9cVMu10LFy1Ycqwx9PBmvy
-	4L5ooYYTLRZYUdwkWdGJJWzulrt1cnKTmYMW3wb6eYAPz3jaYkyOoO/71TLdJE3V
-	HeSBxANeu2etF6Hvoz7m5JTXUFOjusTuP+ivB2yVawfqmhI7sUHxE5V/6YqVOZua
-	5TgvHFOzRouLwJRAW4PAwd/+PsfV7WkIETOUYQI/V07mI/+yFF5YQNRQAKWfJyuF
-	tsp4j/UzyfUBXlTry0R0x4MkX8TMSFmEYDwk020PuKTeOSrdSkwcoGE/bfmTu7wN
-	qava5rk2qrlZXNDGQw8pA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794708168; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:BGGn5XOAfybA8E9xi9r6uKGuQghhts/cs72MFmELx2oxs2W
-	bES8Z1CF2QSLJ/25bPicyOfjjcs3FB/F2uN/lG2Kmj4DcbhfU0iPi3KxEfbcUVcc
-	O+PBd2C/kEBNe92vUwxQG60FVJhXqjRErHgLegcr1M08EoP0vb+vhWpLgdoyEH1U
-	JLJuSYQlVR5r0W34wfSs8YQiiuCeLJwAwMtyKwO+L9gFhCRo9jOeIN/Jk8vf4Lwt
-	P4VWY8Ccm26zAyH9jbEhzFqITr8cMJBgwWWSTOY5ozZzP/C/TY6ZOM7l2ecAfrCW
-	MSkgkyy1WJ6c0mPMR5prTGanIdrD/0lhQyMlU0A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:FFMOKhGJ9p5eEH2DWlocJU0y0igLo2sjuCpJrZ4TlrE=:Tpw3Non5gE6pOfwR95MYUuG0UIe4k4tfuqOTIQe75TI=;
-X-ME-Sender: <xms:xxL5aq1nOGhKMVoze3UkOdBNoD2EMM_t8CGYGS-hySl20DKiv8FEVA>
-    <xme:xxL5ao_hqIIuhdC8obRYOMqsZxyOXvwAZvFYjmXiRq3t_Cgq3kH7TY5HWnnb6wWAc
-    pQ_lBdgRiuXAqJOB9WrUgvoEQZNCW_4H7GLUmSRJkrRU6ofbSy9E6E>
-X-ME-Received: <xmr:xxL5auZqdlfqnyRwfOHAKdmJObz2InV71Aa9dE3azzW4fr6aNCNurzR-lwswTFVOrNslPb--TTerz5ywjrHfF0fWBby-h989>
-X-ME-Proxy-Cause: dmFkZTEBnDdc4pznVckitJbI95Pg4sruqJ/c4GzT1RFlylgcChDtglOD1navQFQG9T4WdT
-    LXPCzMsSu7+oOpY/tjKnfqRsuvXzo79H7cOA+v8kIeagruBSfkGe1+uq5oeBHFGJxFr+36
-    AL1dyct1h4wr3rBmLn9Mb4ldooOvCJeU/TUZucAGYD3qu7WQf20bmLL323jDt17o5E5bJd
-    APKGrDsMvQH8nXrriEODv1pzjIWhRVRoWXpqc25IvCd8u8I1ys+BU52SWIU1KX0u7NkRcN
-    f8RnJ7Er57suWh3UQVFeSXdvs5JOoNqt9S4CjwofcljgVELRsd3VxZ+7ZrtCw/esE8y3b7
-    /dBG2vrnnO8SKWNmcG3dsndWf1biHJlej4f1ljsec9wVKAjrb18RMjAeRD/aCOyrHW99mS
-    4pqtfeJI13SWVbp5YsBkIOU4sSMXmsaQ6+3BoEeICygVGxS6PKpRE+WGCOAVrLLRekQB6w
-    bNEwAO7Q2Vm2URk9D9lKEXS8/m4ue1ZonxwuXy9SIfJA2GyuAQ/qR+EibuGeYL7xKQYKn8
-    /68V8pfketRlDNN1dqxK6g0tQDk1a9VgKMR1jEAhZ+caP/o0JQfG3Zoxauh0eWxxhpIgAf
-    xfbPJJQHuln0cm5vVodt+hvcDl3V1Gbu+LMxwnbVatrU6X8R06xC5DoMLqPg
-X-ME-Proxy: <xmx:xxL5avwR8fRZofkKhc99HzlOq0JBscni2uz8TmbXvJMNUgbhlO1G-Q>
-    <xmx:xxL5ak_JiHhyG6a4W6jMxbHylA_JRapgiQs_nroXTeNngL3MfeFB6A>
-    <xmx:xxL5ajxHSg7--_Eot-wiG4yOrh7X_x5udtjzNeiHP6V3DSy9taSfMg>
-    <xmx:xxL5ahteuo7yxBCJEaPn2OVoilGuzOCBCqcWERFosfuSNtuwqiQf7Q>
-    <xmx:yBL5anIzwXDe2ioczJ87icRmiKppHm2Y2h8Is0__2b-fCef22e2ytdAH>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 21:02:44 -0500 (EST)
-Message-ID: <e750f93e-1378-412c-b213-4d0e1408c067@pobox.com>
-Date: Sat, 14 Nov 2026 18:02:43 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jiiLQTIH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765CA1F000C4;
+	Sun, 15 Nov 2026 02:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794708309;
+	bh=BRUqir4+XC4RCLw0cgSXRJ/4jat7SaP4F3cbFYh0QNY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jiiLQTIH1zRdVTiXG6m9kIpxsdt/6RLomExIF2A8cMe+kEBt2lv5y8OysV51d0iK9
+	 +qKf3cRANqTnABEffkGQPrMqIaV/dtLKHwP6eKZ78SlekNKVlt0UZSSkQ6+sGR/5+V
+	 Kks4JPVtC9CGb51pjuvYzrDnFx/yhco2G2LNnzWQhk/df/CwzOyAyvtoRj2sc9O1dJ
+	 n0h3kYi7B/0mV9swiLO9g4o7FLQwiWJ45yuZgvi0yD0poSWv+m47+zsfh3sHc7sBTX
+	 bsavxbcDi/zPZ45/P3AJY+YDPVnD1GBxZ5T4YYTFKouitUItL5hyToqxbHFLf5sYsj
+	 b3yw97vyiyRnw==
+Message-ID: <db43c948-68d0-402b-841b-2dd649a80c5a@kernel.org>
+Date: Sun, 15 Nov 2026 11:05:04 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,45 +52,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261113153820.902362109@linuxfoundation.org>
+Subject: Re: [PATCH RESEND 0/5] ata: fix platform driver probe, removal and
+ locking issues
+To: shao.mingyin@zte.com.cn, cassel@kernel.org, linux-ide@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
 Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/13/26 7:42 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.64 release.
-> There are 686 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 11/14/26 03:03, shao.mingyin@zte.com.cn wrote:
+> The ATA platform drivers in this series have independent defects in
+> their probe, removal or locking paths.  They share the same shape:
+> state established in probe is not checked, torn down or serialized
+> consistently.
 > 
-> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
-> Anything received after that time might be too late.
+> Patch 1 fixes recursive locking in the IXP4xx CF PIO callback, which
+> can hang the first data transfer, including IDENTIFY during probe.  Patch 2
+> returns the host activation error from the Buddha probe path instead of
+> reporting a successful bind.  Patch 3 makes the QorIQ and Seattle
+> drivers inherit ahci_platform_ops so that host teardown runs host_stop.
+> Patch 4 stops only the Gemini SATA bridges that started successfully.
+> Patch 5 serializes the controller-wide SGPIO update in the Seattle LED
+> callback.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.64-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
+> Each patch touches one driver, except patch 3, which covers the QorIQ
+> and Seattle AHCI platform drivers.  The patches are independent and any
+> subset can be applied; the order lists the more severe failures first.
 > 
-> thanks,
-> 
-> greg k-h
+> All five patches carry QEMU A/B test descriptions after the --- line.
 
-Tested on my Lenovo ThinkPad T14 Gen 1 and an arm64 virtual machine.
-Working well, no regressions observed.
+For the series:
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+Damien Le Moal
+Western Digital Research
