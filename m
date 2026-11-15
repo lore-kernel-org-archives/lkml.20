@@ -1,80 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794774033;
-	b=zfz7gzZQuyweaMFW3IZRDBGtQ9PaxK4zwdy6/Mwe4PRsgVobyJcwNMGDm51O7ApKWpi0
-	 eUqiah0dUlslcPW8vMxvx2hulFLPhjn1lehRnEetwxsB26q3p7NlR+7QQYjQt9lfH9Kby
-	 g3u7+JYPHG8dahTsodTfndvpoYW+rGqbMonCFVfNSc3l18AV+Ey/PpFx5N9p5kEh253CZ
-	 72n5u6KTooCUkTm0wVD9wMgPkTVIdyVpjdOhddk9gV7Nu+00SFevJANEEd9hY7IrL07EH
-	 GeaA49DEALOTISm/oUI13VwC9/xn+qZU0h+aFPi38uG7QeoPFmfAtL8jhziAsEezmiQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774033;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=XFSAxk3juS9e3coMttEko94B/1B32DBuduycYcreYnU=;
-	b=sGYSAv9633EOsR0wS1qiD/J+rhMSTrauK/x1RNYEftx9XyHmx2hIb+JTw/Jv/tJeekzk
-	 U7/OVmizsNvViy4p2fIjIvHTUNWUK/mUqP9alMmCrYqiulx3+DIJEwVPfY28zXaw2JiW1
-	 +E2mcHKwa6XZW7RTN2tlzFisODKCvaJx5bluUhlYubzJPeFtkHozp3ePylvmc2UnFWys8
-	 NabFEi6J7AIx3ooAMgIfAc9M3A+rFcNpBxxMMzv6tZ05q2esA7tJ4yfVNVKA8HRTwwQXP
-	 Th+rTgfP6wTQqfm70DaS5jHdRmj29Ifag1XKNOqaIaxGF5yz9llVIsO4CBD4UCJCocQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YIlmLB+j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F96606B070;
-	Sun, 15 Nov 2026 20:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YIlmLB+j
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794774033;
-	b=iY5DMA/t0U3rdi8dK7JgQaRLAneiRD9WFkR9FbYgnCckvuAvvVTOyCeClHghX7d9RyZg
-	 rLy/kYziUKYkt7BRQfQYo0qTaS0IGdT7MZh9n82mkIIlTmbO/lkVssPDYD23i4BAPGaAL
-	 5lvwoOzOmDZ+QPgmmg5PjKm9WT0zPmyQlY92GehVdXOSvao8nvG5SCjJezDFp0qwsNWYR
-	 URBoZnKIc3dzn5/BiF5dKoCPPECi1VEfTz1L0TA35XzS+UUAvSMET0oRKlaGMyTCX4J8/
-	 Af8g96L5bUSV1eTUw7P5J2yWTpND7q/MNEuttHW5HO2fyNIOD6kp4+rET0g+sKR0p3g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794774033;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=XFSAxk3juS9e3coMttEko94B/1B32DBuduycYcreYnU=;
-	b=rLVSFCnYG371j4WEv0iz/Nht0ZnKkU318qlGEt6Iwvm06702hcO1cYRckzk4p1kKgmRE
-	 egPTfBHYCY2nVMytWdW9FZqO/89r3M2u2q08JVL66uX7Qfn2D1U8heGhtX6REBxrHaRwc
-	 Riy02CiHJcSA0uAYDI8yquZs0rruooRz9vy9VDjnetPpEyxpbHvd0LXAi9eq4swtmWaQs
-	 tfQhWGIFpF5p1xlhKE6SFYkUqYYgQmVSA/CtngqgHGvEE9BJtp2HumdlWUp3l+wxd4HY6
-	 6GMGxfpg7zexqSAPIB65ii+O1ugFy2Y0ZMjv88JX/m+3M3FQ7m87t8j14odkB1dklJQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794774109;
+	b=knMV/F9QZ9oirHiBuug+h0zvUV0DHROwFlKt1jvAf2j88cQfp/wosTW9nXFuf0E1+f8Q
+	 vifoqgtbY+RQcdZ8AyH/4aexR/vnfcEdaZddhg/Ufwt2qdV6URI3vjVgQxSLBJINP3XNh
+	 SszN/G5RqgJYmHiVJPR7GJo+zRbsJLcBHBZDplrgYjGY0kXttm7U8t7yJd4XrBcysO1DE
+	 COGeSGirgoe5/nIG782/MGgKffSmd5ff6Rw3ANfCuhzPPunakjE7HeqApLDlyH1agGfMd
+	 p5x4oJe+eFFMPu7kN6Yye3yQJN6UyobJVFC/LPSlyei+Lj86GANCG10voiQyq7Mr9Yg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774109;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=u0PsfBl18AWyK4iQSGjFIhiNJ5cYD9CJo88yPJo17Sw=;
+	b=0z31+o2WyVz9ZkNqfGZSkSZC0nrHR/aUO8k5kevLbOKK7RU9IPBqPg54XyhdGHhHBJrU
+	 3gNxHysrlBrcgcXGLyg95OCW/t8cpNbQfNfZ1UJxtyVl4nkPcpokMgr+rAfthyQnXqnqV
+	 OZWlNUX/J4UWjsVhxEq4uH2Hh9N17BE405UrLYBFmIWVPKgv7y4PWzSCzqHhzf4NZ9fJT
+	 bvgA2c1WxLRckeY/BHInKcSCVSlIzFeDE+ycb3Fdgnh9flnzq5T8zC3ZMI9v0OesAeHBd
+	 HUK5/Loe6VUUpF7opQQJxBlY7eRM5INlf09tBGgyuw3hM+RnHLEa5OaE3Oh32Vb0oXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=XvrNMgnd;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5FD681F02801;
-	Sun, 15 Nov 2026 20:20:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774032;
-	bh=XFSAxk3juS9e3coMttEko94B/1B32DBuduycYcreYnU=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=YIlmLB+j/qaiPUIhHYCL4MoqwQOGZG+49BF3W/SJYblJwAmDIlkc9u2czwc1zIk9e
-	 LqSoBHOeElip5zt1VdUq8Pyqsq3GgV27rUdsPgoDtj7i8cdzEvvzv68giicje4uWWk
-	 JdIL2fLL9R8rkeStcFjWXnaoqlU3vTAxLvi+PGsSk/cpoXNdEVu3fe1AmRkfIp36BH
-	 CQ6tcu1hCQ3UEAtafVGFBQPL0ETi2zMDM9bwv2nJUEsyX4lqj4Ij+myPC6r8kgQK9C
-	 uhvqtP9TxGIZFZDOSCDSRzFgsAPDINaqUkFteTXwhzpzdA1noOSO3L7zdJB+SPJyWY
-	 0bwh6SnXmwKCw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E57F04A181;
-	Sun, 15 Nov 2026 20:20:31 +0000 (UTC)
-From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Subject: [PATCH 0/2] power: supply: qcom_battmgr: Apply the USB host
- current limit early
-Date: Mon, 16 Nov 2026 01:50:31 +0530
-Message-Id: <20261116-vantage-battmgr-v1-0-7b59157377b7@yahoo.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844F2606A32C;
+	Sun, 15 Nov 2026 20:21:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 844F2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=XvrNMgnd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=u0PsfBl18AWyK4iQSGjFIhiNJ5cYD9CJo88yPJo17Sw=; b=XvrNMgndHaNpZ6nydqFHt5ym3I
+	JoO6LfNPmqvNLCvCUtifefbs196ApVghVh+ssI8jAiqOxccoeJTLFfV7Eythu/RswNAKG3qs92MRZ
+	TqZh3qJ5g16usg7xcFH2pdIGn15MMB1kK2fGyE3Ik4Se/WXqpHCYfR65QrJmTCAhIDbj4dg9tDUM1
+	0Gu2sN9xI87vKJJVwCXn0K5OCJShN/bXqKgL3lF7xcijbGCDAbRvcO1nF57pzjSjQQZyD0Xdw0xvX
+	Zom1Ye3XPrS64aYtqiSq0py8QIMNrvXzV+usP4aBPkzll3p49qfPkBMXb0GV2kDxr86UHqUKXyBRR
+	XWxyxKog==;
+Received: from [::1] (port=43856 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xSgjN-00000002LVQ-29rC;
+	Sun, 15 Nov 2026 21:21:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,60 +60,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWuiRV1eRSyqBiNR0pZIxLsrl
- t9Jzn+BQ0vooI4usHiQo9UE8DgCPSkzIqM+GEQiJOdcskMZr8LcKe+X0bIqy1EKWZSpziC8Nos
- DnV+xaX+7vZtR+zcD9/0Ac6sFo3MAAAA=
-X-Change-ID: 20261116-vantage-battmgr-945e626783c4
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joonhoe Kim <26rote@gmail.com>, 
- Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774031; l=1416;
- i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=4Urtgqt3DqUBR0q/xYpN0Q5CeFpW3WhiyAQifuY4zz4=;
- b=oiAr1lkrlROgaSED6IMbLGrsZ+fPVW8VaNMJWSreoHIIGGaY9xwgB7oKgKlEd4IjI45ZQ0pP1
- LsQJaq6q3AHACFCYc6r/sRcUeGE8sn886WSTMx13ueeyHkFvUkrDWwc
-X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
- pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
-X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
- with auth_id=1303
-X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-Reply-To: venkat.yadlapati@yahoo.com
+Date: Sun, 15 Nov 2026 21:21:39 +0100
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Pedro Falcato
+ <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Zi Yan
+ <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>, Nico Pache
+ <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain
+ <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau
+ <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond i_size
+In-Reply-To: <795b8d8a-4f6f-451f-9274-ccb8380e03dd@linux.alibaba.com>
+References: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <avYBFPhB46XWAG4A@pedro-suse.tail5790ac.ts.net>
+ <20261112145036.97f74a828755d5b9178a3e3a@linux-foundation.org>
+ <795b8d8a-4f6f-451f-9274-ccb8380e03dd@linux.alibaba.com>
+User-Agent: Roundcube Webmail/1.6.20
+Message-ID: <824c33ead7a2baf08715fe01a4c88714@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On the Motorola Signature the battery manager firmware keeps the input
-current limit of a USB host port at the 100 mA allowed before
-enumeration, so the phone discharges while it is connected to a
-computer. The dwc3 controller reports the current the host grants
-through usb-psy-name, and commit be5e7367bceb made the limit writable.
+On 2026-11-13 03:42, Baolin Wang wrote:
+> On 11/13/26 6:50 AM, Andrew Morton wrote:
+>> On Thu, 12 Nov 2026 18:11:35 +0000 Pedro Falcato <pfalcato@suse.de> 
+>> wrote:
+>> 
+>>> On Thu, Nov 12, 2026 at 02:23:35PM +0000, Jérémy Jean wrote:
+>>>> MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
+>>>> filled with zeros. It does not check i_size, which allows one 
+>>>> present
+>>>> page to become a huge mapping that covers the whole collapse range,
+>>>> including pages beyond EOF. This makes those pages writable. A later
+>>>> file extension can expose their contents after F_SEAL_WRITE.
+>>>> 
+>>>> Hold inode i_rwsem in read mode while collapsing shmem so i_size
+>>>> cannot change. Reject a collapse if its page range extends past
+>>>> i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
+>>>> page-cache XArray lock because its 32-bit SMP reader is not IRQ
+>>>> safe.
+>>> 
+>>> I don't think this is an issue. shmem/tmpfs purposefully maps with 
+>>> large pages
+>>> across i_size, and collapsing across i_size is a feature, not a bug.
+> 
+> Yes. finish_fault() even has comments explaining the special case for 
+> shmem/tmpfs.
+> 
+> 	/*
+> 	 * Do not allow to map with PTEs beyond i_size and with PMD
+> 	 * across i_size to preserve SIGBUS semantics.
+> 	 *
+> 	 * Make an exception for shmem/tmpfs that for long time
+> 	 * intentionally mapped with PMDs across i_size.
+> 	 */
+> 	needs_fallback = !shmem_mapping(mapping) &&
+> 		file_end < folio_next_index(folio);
+> 
+>> hoo boy, this again, See
+>> https://lore-kernel.gnuweeb.org/linux-mm/nwkpojnictbg6jicccpxyfi63ol4tmfajrlx24u5xxoxx7lv5f@jkw3o7j6tlfs/T/
+>> and enjoy.
+>> 
+>> It's not good that this sequence permits non-zero data to be exposed 
+>> in
+>> areas which ftruncate() created - the ftruncate() contract says it
+>> doesn't do that.
+> 
+> That's a valid concern and this is a known issue for shmem/tmpfs. Brian 
+> previously posted a patchset to fix it:
+> https://lore.kernel.org/all/20251112162522.412295-1-bfoster@redhat.com/
 
-The controller reports it before the battery manager service is up
-though, so the first patch keeps the limit and applies it once the
-service comes up. The second one applies it only to SDP, CDP and USB PD
-ports, like the downstream driver, so a dedicated charger is never
-throttled to what the controller reports.
+Hello,
 
-Tested on a Motorola Signature: connected to a computer it charges after
-enumeration instead of discharging.
+Thank you all for the quick feedbacks. I unfortunately did not find
+and read the links you shared nor the historical discussions before I
+prepared the patch. I'm sorry for reheating what it seems to me like
+a sensitive subject; it was definitely not my intention.
 
-I used an LLM (Claude) to help write these patches and their commit
-messages. I reviewed all of them and tested the result on the device.
+> Jérémy , you haven't explained why this matters.  Is there some
+> userspace code which is encountering problems because of this?
+> Why did you propose cc:stable backporting?
 
----
-Venkat Yadlapati (2):
-      power: supply: qcom_battmgr: Apply a USB input current limit set early
-      power: supply: qcom_battmgr: Don't limit the input current of chargers
+My initial understanding was that there was a security boundary
+crossed, and that's why I submitted the patch and added stable in the
+exchange, so that it could get backported. While I'm now a bit
+confused about the situation, I have no problem in accepting that I
+was wrong and I'm totally fine with just dropping the patch if there
+was already a discussion and suggest patches.
 
- drivers/power/supply/qcom_battmgr.c | 61 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 53 insertions(+), 8 deletions(-)
----
-base-commit: 7071d4750856abbc68dfe431acc58a1d45dd42e8
-change-id: 20261116-vantage-battmgr-945e626783c4
-
-Best regards,
---  
-Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-
-
+Regards,
+Jérémy
