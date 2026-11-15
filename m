@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749255;
-	b=W5DQCCtnyP06LXbsx5SOp9ELZaNu99mCHdQ7xPQqDU730ckeyTJjYm0Nze0gxz/fdjw7
-	 LvB8CFExek/uqJ8Hu7h6X24eu/CZTvtbCBTX0qFlCyLohd7Jm1P3HlwyhW1ezdCZiynIH
-	 Id96el1vDbXz8Z8itASt0A+8NsTUSwNx7Jx9y3zxjJIOjqMUFauvWgOclgY0TE77fCANZ
-	 zpK1jvEUZ1GsvE6wGhUdpbGHUZvZmUItX+EnE/HklfmmpU8S81gxiu4kPuw1IhjmQ7CzS
-	 jkWrVQQL/tv8eIvsS6fPXcZ14bwBoKUUUdmSoiIM5CPcBZg3qW0r6kxgyZe3/pBvsRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749255;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=1jFE1IGMcuyCuZXQl2Is0ps1VLwkmCGSQjEBczV5rqA=;
-	b=f0uXdNdqUExrCraNVo1VEeyUP6Dejax0eHxoo2uXZTVDYsrkkpshVVHB+EPBqTPalavw
-	 oCUtRrWTmfQ9AU58eFQyI25h5f0TVz4t/OGt9Y3C1fhbSvfVJ+j7CLfQIakD/l/L9W71E
-	 JcUMLJGkagPD+ntqvaqJYLarcAgymiW1jrHJGnsSf2vlSQtNNwSV/Dt1LgMu+iHbA7G/j
-	 0nYK9lTP3DWWeYv1vJqMhpGxaVkIi0wHk2dmaTeNaNEkLCtkw5tFHSU+jPrQZiJ1pxl0G
-	 +AR6dooiHPT1ZdpQOayARJrgOHPouJ0fDZPvDh08fnBLd6RjsNsbTldHRqfMaydBEvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PVvisqBE;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794749257;
+	b=s8IY9OxzoGFmV2f3Un7TFawWs9CEXCcGSX0/UHWiorkYHEI/wy0joxI7Glby2z+jvU8b
+	 zwnt6letCuvxcqKP5RJ1QO5Uw5LsOk94pnbnSDys0HREsDNu24hxfGFpLTV7wGOngivFu
+	 KRZO6LxEzuZ8TOOGGAul+kNYF6Cm56h4uG6f2J+XbM3g1mcxeqY8jEuCesymZxTUnlJfN
+	 H3AUB8wHg76QWX8hyfzfSgOizdmbQBDzEGzzuA+fukfMlo74KMabp6Lf8QILFQ44R6O69
+	 fgc6IVGX5CewOkNCn90weEiwao9AudIgeSqVzC399/cJl/ICQj3Ha+RLPQztmWPAEEA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749257;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qxCmilCZAfa92h6cZG6evZorYW89HH9VZP60+AaswCI=;
+	b=GExjNqDdfe5J7nYLjGG9Nd/f2fyGf7wBNRShehYMNuA6lAMAlD4NVV88kAkRAVzGksBB
+	 VkoOlzW7aSwbrP/lfNPLjRoFfo5UwCYWxFq9kKgFYYVK62y0oQJGs4VzxxOAXFSwlfhVi
+	 EREqGdczjowo26h3iqhoq77XP8X6HfSCDqMJv41laoBQNXud53XV5Mx7pcxprGUcBXSMD
+	 c2inBHETpXFqq5hWNYndIRepgaAPiAyCSmKXKcmzseOdPZUj0ZFU+HUqf/LQjeTWEX9/z
+	 2UCJ3fKIG/OdwmVQQ+kA0CEyLWpqCRZGNU+VUYaqxaI0ey7sG/WV7KgrST2v96n5R0A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGYOumrN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0C0606A31A
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:27:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F0C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8607A606A33B;
+	Sun, 15 Nov 2026 13:27:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PVvisqBE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=1j
-	FE1IGMcuyCuZXQl2Is0ps1VLwkmCGSQjEBczV5rqA=; b=PVvisqBEAKPMfSdUHG
-	jEbkgZojMl8o8FQa1bDrVQVEUu5dWaCWS3vpDSUuOtzrVRNdd25T+wKidvb8+6jN
-	PrnRkPSQ18lKKOnaWnTBGX3InQw/aVf6fX0whL6AhoqR0uz0wjSQxr3oEfveNNfm
-	+v2ErsBKw/J+y+F92ARcNP338=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXP_A1s_lqfjtyIQ--.47831S4;
-	Sun, 15 Nov 2026 21:27:19 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Xuewen Wang <wangxuewen@kylinos.cn>,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 10/12] ntfs: write unlinked file attributes before dropping their cache
-Date: Sun, 15 Nov 2026 21:26:07 +0800
-Message-ID: <20261115132609.209957-11-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261115132609.209957-1-liubaolin12138@163.com>
-References: <20261115132609.209957-1-liubaolin12138@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGYOumrN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794749257;
+	b=RVRunVpk9xrPhyVMM6OdPVLmANjA3QeEayxZfCJuPHSdoitS2FC6kdu2X24PsPkui5TS
+	 aGiDKOJH5hd+twfAByRPPNSeiRqf9uF/KJYjfRyfl2f3+l4qV0fjQ9hnfvVH0xsgJzb9I
+	 MvKz6uad4Bq+y2AOoXsaBx4mV+epdCmT5iA80+0w4sBC+Q0DgaTr322KbXZuu3oz+sKB4
+	 3CiU5fjlzPODOvt197Hb0VOKZTc9NMj+DGRfljP6f3RiRuOPCOeniTkayj17Mdbl7YT0o
+	 crvpe533eGUImSZRHTMZIxAue3LUKUGWodKbHJyiJsJte0XPHfpXwk5ZC1c3v7aSfgQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794749257;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qxCmilCZAfa92h6cZG6evZorYW89HH9VZP60+AaswCI=;
+	b=JwevuFBGP1x/aAGEOVlRpXbokMteU/yeEynfNAm0VXU4oB1g6zIYRT6wtcYXuseLHR+/
+	 F3wWxsBw/yfesnl3+BBT2ENZOn+NfzNb7hViqScBp9gDMs9W1xgYqvmg2yOyFyZ9JEmkz
+	 6HS6U1mTt4GFpdQrLnuvjhil8EBWicH5vVIkxy6jUu6GBSkikNwknwcuaXOteO2vwQcJk
+	 LQFiATbrLJJsXd3JKyEf1Gs1SslZmMi2FNts+1vErcWv6PCzcOHdIBEkiIv7MCNWmyM8o
+	 tmPzgwDrzjS430eb3VCEBbe3bxCqpHm2BsdZPr+8wW9hGUSqWnHq8w5WUu8AAcYQmww==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 732371F000C9;
+	Sun, 15 Nov 2026 13:27:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794749257;
+	bh=qxCmilCZAfa92h6cZG6evZorYW89HH9VZP60+AaswCI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=SGYOumrNg83OYrL/6mrzN/pOn19eLy+goLjlD8SUfTMmk33iWxEW63UGo7ZIywpZd
+	 F0AMeBLT0MlLjMX81I0s5xliSS6p6jdNVXZIl5xnNSZ2iHdmbCqeUGaYfpaKLJ0kfU
+	 gMmsYz3lyfyQizpAD5hRXDyk5a0q3mqIgbZZMPXO5/MeMiOSFar08UpTj1a35e6ClX
+	 6Ec2myPSrpVID3NLTHtdRHNlXrez+oZyKVXablooCBnIvRJHVqKOT7FAB5w7YVyRX1
+	 YMzxum/avIQEMQj8SDa7kRimxzaYNDFDrS3tV71nlmpmIPL+KozN2zyn5IihHphtQu
+	 Afa0tjMFWViwA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EE6614A0B7;
+	Sun, 15 Nov 2026 13:27:35 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Sun, 15 Nov 2026 14:27:32 +0100
+Subject: [PATCH v6 2/5] dt-bindings: soc: fsl: layerscape-dcfg: add the
+ LX2160A pad-mux child
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,173 +83,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXP_A1s_lqfjtyIQ--.47831S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKF1ftr1UuFWDWrW8Jr4DXFb_yoW7Aw1fpF
-	Z3CrZxtr4DXw12gws3ta1jq3WSq34xKr4UJry7Gr17A3ZYqr12gFWIk348tF1ftrWDWrWq
-	qr4q9r4xuFWxXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jDwIDUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RcT3Wr5szd1XgAA3M
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-2-fbdce4565a5c@free.fr>
+References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
+In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
+To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794749254; l=1675;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=rINtrhuavppUlRpXg6MQkeI27TcZ5wfEkTX3E6hc7Y8=;
+ b=OiWIs6Jpbhy+7yJvjsGKgfipFgGthExM6sYdvd5Shf/MzGz75jknjv63HZ6tuo4IsNb6vl6Uz
+ 79UpTFqEoafB96PnnLmgmu5QHsLfXKL0Vt2StSCy2UUcoEOFsmTE6H7
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-From: Xuewen Wang <wangxuewen@kylinos.cn>
+From: Vincent Jardin <vjardin@free.fr>
 
-Zero-link internal attribute inodes are evicted at the final iput(),
-discarding dirty folios while the base file may still be open.
+On the LX2160A the DCFG node holds the pad mux, overridden through its
+DCSR view. Allow fsl,lx2160a-dcfg with simple-mfd, so that the child is
+populated, and the pinctrl child, on the LX2160A only.
 
-Make writes and conversions synchronous when the attribute inode's own
-link count is zero, even after O_TMPFILE publication. Preserve the named
-stream writeback path.
-
-Write converted data before committing the nonresident layout so
-failures preserve the resident value. Propagate conversion I/O errors
-while still skipping busy candidates.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
-Changes since v3: check the attribute inode's own link count in both
-write paths. Adapt to the merged named-stream conversion fix, retaining
-NOWAIT and skipping busy candidates while propagating I/O errors.
+ .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml          | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-Tested publication/rewrite while fsync held a zero-link EA inode, SD/EA
-persistence with 512-byte/4 KiB/8 KiB clusters, and block-write EIO during
-EA conversion. The resident value and free space were preserved on EIO;
-retry and reboot passed. Locked fallback folios, conversion errors and
-uncached named-stream conversion also passed.
+diff --git a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+index fc14fd0bf84b..bb9dbcfec188 100644
+--- a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
++++ b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+@@ -32,6 +32,7 @@ properties:
+       - items:
+           - enum:
+               - fsl,ls1028a-dcfg
++              - fsl,lx2160a-dcfg
+           - const: syscon
+           - const: simple-mfd
+ 
+@@ -66,10 +67,27 @@ patternProperties:
+   "^clock-controller@[0-9a-f]+$":
+     $ref: /schemas/clock/fsl,flexspi-clock.yaml#
+ 
++  "^pinctrl@[0-9a-f]+$":
++    $ref: /schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
++    description:
++      The pad muxes of the RCW on the LX2160A, at their RCWSR12 to RCWSR14
++      and RCWSR27 windows, overridden through the DCSR view of this block.
++
+ required:
+   - compatible
+   - reg
+ 
++allOf:
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: fsl,lx2160a-dcfg
++    then:
++      patternProperties:
++        "^pinctrl@[0-9a-f]+$": false
++
+ additionalProperties: false
+ 
+ examples:
 
- fs/ntfs/attrib.c | 58 ++++++++++++++++++++++++++++++++++++++++++++++--
- fs/ntfs/inode.c  |  8 +++++++
- 2 files changed, 64 insertions(+), 2 deletions(-)
+-- 
+2.43.0
 
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index a88dc62c6a4e..af044ea895fc 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -16,6 +16,7 @@
-  * Copyright (c) 2010 Erik Larsson
-  */
- 
-+#include <linux/bio.h>
- #include <linux/string_choices.h>
- #include <linux/writeback.h>
- #include <linux/iomap.h>
-@@ -1961,6 +1962,40 @@ int ntfs_resident_attr_value_resize(struct mft_record *m, struct attr_record *a,
- 	return 0;
- }
- 
-+/* Write the resident value to its new clusters before committing conversion. */
-+static int ntfs_attr_write_conversion(struct ntfs_volume *vol, struct folio *folio,
-+				      const struct runlist_element *rl, u32 size)
-+{
-+	unsigned int offset = 0;
-+
-+	size = round_up(size, vol->sector_size);
-+	while (size) {
-+		struct bio *bio;
-+		unsigned int len;
-+		int err;
-+
-+		if (!rl->length || rl->lcn < 0)
-+			return -EIO;
-+		len = min_t(s64, size, ntfs_cluster_to_bytes(vol, rl->length));
-+		bio = bio_alloc(vol->sb->s_bdev, 1, REQ_OP_WRITE | REQ_SYNC,
-+				GFP_NOIO);
-+		bio->bi_iter.bi_sector =
-+			ntfs_bytes_to_bio_sector(ntfs_cluster_to_bytes(vol, rl->lcn));
-+		if (!bio_add_folio(bio, folio, len, offset)) {
-+			bio_put(bio);
-+			return -EIO;
-+		}
-+		err = submit_bio_wait(bio);
-+		bio_put(bio);
-+		if (err)
-+			return err;
-+		offset += len;
-+		size -= len;
-+		rl++;
-+	}
-+	return 0;
-+}
-+
- /*
-  * ntfs_attr_make_non_resident - convert a resident to a non-resident attribute
-  * @ni:		ntfs inode describing the attribute to convert
-@@ -2004,6 +2039,7 @@ static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_s
- 	int mp_size, mp_ofs, name_ofs, arec_size, err, err2;
- 	u32 attr_size;
- 	u8 old_res_attr_flags;
-+	bool sync;
- 
- 	if (NInoNonResident(ni)) {
- 		ntfs_warning(vol->sb,
-@@ -2028,6 +2064,8 @@ static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_s
- 		base_ni = ni;
- 	else
- 		base_ni = ni->ext.base_ntfs_ino;
-+	sync = NInoAttr(ni) && !vi->i_nlink &&
-+		!ntfs_inode_is_named_stream(ni);
- 	m = map_mft_record(base_ni);
- 	if (IS_ERR(m)) {
- 		err = PTR_ERR(m);
-@@ -2150,6 +2188,18 @@ static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_s
- 		folio_mark_uptodate(folio);
- 	}
- 
-+	/*
-+	 * A zero-link attribute inode can be evicted by the caller's iput().
-+	 * Write its data before changing the record so an I/O failure leaves
-+	 * the resident value intact. Normal writeback would take mrec_lock,
-+	 * which callers may already hold.
-+	 */
-+	if (folio && sync) {
-+		err = ntfs_attr_write_conversion(vol, folio, rl, attr_size);
-+		if (err)
-+			goto rl_err_out;
-+	}
-+
- 	/* Backup the attribute flag. */
- 	old_res_attr_flags = a->data.resident.flags;
- 	/* Resize the resident part of the attribute record. */
-@@ -2238,7 +2288,8 @@ static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_s
- 	unmap_mft_record(base_ni);
- 	up_write(&ni->runlist.lock);
- 	if (folio) {
--		iomap_dirty_folio(vi->i_mapping, folio);
-+		if (!sync)
-+			iomap_dirty_folio(vi->i_mapping, folio);
- 		folio_unlock(folio);
- 		folio_put(folio);
- 	}
-@@ -5040,8 +5091,11 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
- 			continue;
- 		}
- 
--		if (__ntfs_attr_make_non_resident(NTFS_I(tvi), value_len, true)) {
-+		err = __ntfs_attr_make_non_resident(NTFS_I(tvi), value_len, true);
-+		if (err) {
- 			iput(tvi);
-+			if (err != -ENOSPC && err != -EPERM && err != -EAGAIN)
-+				goto put_err_out;
- 			continue;
- 		}
- 
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 885818f00b78..4a4d7d36ad34 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -4090,6 +4090,14 @@ s64 ntfs_inode_attr_pwrite(struct inode *vi, s64 pos, s64 count, u8 *buf, bool s
- 
- 	WARN_ON(!NInoAttr(ni));
- 
-+	/*
-+	 * A zero-link attribute inode is evicted at the final iput(), even
-+	 * if its base file has since been linked. Write its data before
-+	 * eviction can discard the dirty pages.
-+	 */
-+	if (!vi->i_nlink && !ntfs_inode_is_named_stream(ni))
-+		sync = true;
-+
- 	if (ntfs_inode_is_named_stream(ni)) {
- 		if (NInoEncrypted(ni))
- 			return -EACCES;
 
