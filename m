@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794749208;
-	b=Zpa/U2l33B2wozcHNgbulaSSJmV5lnviJtw81X4Zqh4rJaTp1LT+UZ6vPvDZZpv2LCTY
-	 Si7K4+PEPmuwYjLI3TneFib/Rv1xDLUg3wRgMnnh08gXmeDGXOnqaCv5kOgSPjuLG36VE
-	 S7YEDoO7jrUavc/G+J7n3M27PF3JInfGcS4gCvA9+PuOJg0FEaC1RQTV4VFqn89w+UcVY
-	 8xJidM+A8gtMuOe8YIFT64FV9SiA42JoHg5SZkZ5aHgJreroGqCnoHcO57tWX87aZPJ+v
-	 3ILcBZYZK2mbEUwgiG1tXz1FSMOVsdty71dfny5RfD7pf+vhGv4cHPYG4gMmR40PsUg==
+	t=1794749211;
+	b=hEuLCE8/P4aIhhhnrTYWur80Fx4d2TFqBIXTghdjoHHAIDN45aUXzO9CX4qAxD/uBDuH
+	 35/BI3iwuUay73yV2oclqgja+N3FUTi3+l7htopfxOwytBjhWwaQI4y87eElS2K+LHImi
+	 m+wQoTbJwTFzDsZoS1xo8KHaOfj9OtiUNXJQGqQlNRMhUsPuIcDOx0qGrsSRn9rM77dwu
+	 E6r6RT+KeCxO+blMzYCTcSYXC5APkUK8DASrSHP2E98Akniej9T9piM4g9sb7p0j++unS
+	 IaZ8ZH5XhE+L8Bh3y9pu5ary6P3YsAatJAyWM0nTe4tWPIE2d4JmkcVU0V5mEPnhW1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749208;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=fJJmyTJJU6B4xJ3D+kZJnm4N1NYcGuJE8y1bildXa/g=;
-	b=wKkTyozbfLLtAui5ZnOvCpldWxAXWFy3HGNLztKl15QT7eyo93dLIk+CIWHbnyLP/pDx
-	 jzS71cgaA6JeLp4qIMtlTg/xKyx6eriib0hMIuNWOcGj199yZSC8Np8TrsHaeGFkiqJDL
-	 qGr9XMB1rl6Ve4Q/x0hLHeRrckgISRpx1rcojjnbFNEzb91WUTIUlttja/+HaFbXlBvRA
-	 M/eVrKuCSn2llqTLalmhDXspIvnXZRcglAgo8mtupyAIEKRtSB2VN79zE/1rd5R9lm5xh
-	 Lab+ypbC42vFTYGGp5cHbOvdXF5QNepLB+8K2gNQcBD24A/bDmvTWuisd9oaJ2etv7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749211;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jY3xGG57GVWa+wMl7oxhpSIomPcM/kWyJWqi5RR6jzk=;
+	b=v0JDcRcomyqnELvZvX8t8rlryLIs4gUuxNkQROLBFD5VffIN7+6qEaaP/m6FBhk/7vbD
+	 u2+MoLxigbr6IHyXGOV22LW1amKBbjPei4PvlF0/RdPHegWTvatnAPd8o9srchiaApaSG
+	 z/eJM4ze63WDRorzJJaNMiawsDSREqAilRN+Lhl2QZyxTGrY09i3ePh5ZTwbcq0LktXIt
+	 9uTK4Nmt+3lToh8ldl6tJBpISoUZKvK8tDwN8RrLIpkMqWFctxv7sEJG9FYXoEdrAd/eJ
+	 7ICAh3n0gV4uUgAVGzKXrbgCMqhNL+fKRN7HLNHj476MCsAM2/9YFiQtUOpDx6jNt8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=np2+izFu;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=sung-woo.kim;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51B1606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E51B1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=np2+izFu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=fJ
-	JmyTJJU6B4xJ3D+kZJnm4N1NYcGuJE8y1bildXa/g=; b=np2+izFu255g8Dirp6
-	cKyAzEvfNAeVHv7M5WZD2HxO35bBAgch4kK9pA5sKNNocZNn7n9f/lCpXDfICXu0
-	jT0647VX1NsQ+6oI7Ve0LwJp6qm3lV3Dol8kxfNsXtqRBS/mY86bAIPfjRTI8qYH
-	FciatNgW8rrBnyM7hX6JA8S3Y=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD33yHzsvlqXCkHHw--.36757S2;
-	Sun, 15 Nov 2026 21:26:12 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 00/12] ntfs: support O_TMPFILE
-Date: Sun, 15 Nov 2026 21:25:57 +0800
-Message-ID: <20261115132609.209957-1-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12965606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:26:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12965606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=sung-woo.kim
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c247f6687dcso485540666b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:26:50 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794749209; x=1795354009;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jY3xGG57GVWa+wMl7oxhpSIomPcM/kWyJWqi5RR6jzk=;
+        b=C0iNgYUn/prBZFaOnXUhPSdtQtI7gBggywzlLOPoiaVilEzxGw3PX0ipIJXTOMS7BF
+         mpuZ+WGqee+qjsDtnJ8L6lAnACVtLQ8JwBVW6YQusMzcn9JCLU2cz7JRNr6XMdaaVHlT
+         i08DUqlx4L1rD9m84XK76sBV0IlLgoxsbi8vCecp6K53ISdomUdFR/XwIGEV2HsltaAQ
+         oU9GRpRdkOO/JtuqURAbL/SXa2/UQEaDql+ebv2DQxaswapItxpP9JuxKacO0uJb3ZHu
+         ya0JRFxQeIG0oNXbMOVFcp9HM8q+wkP+ayxkmNF3tVA/ZRwToaWGQGO5BpEMzi7B0zZE
+         XkuQ==
+X-Forwarded-Encrypted: i=1; AL+hErGUn9knXJWQsGVHJ7F+Tl1pf//5VuLwPjYBhc/il/n8Bh4InM3QUtwNkljEr+D5Jk4+lB0qUlvZ10wNp08=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Q4tCwf+Bbk7T8RNil+u1FZZ8wgKuhWO9N//NQQLGfp8O3/LAU
+	Zbfa3m+tdVCzdfAovA6+lKPZzYlBEgXNL74d/VuDNB+bn0B8zEXt3mP8w1amygNWl4Y=
+X-Gm-Gg: AYBFou0ov6KwQvBwNrTfRa/3aau7Q04A3r8sR26F9bpI8hisvJZ45D9ayf8rHNRh+bd
+	zFLrlWRn3M0rZ0afVhZulaqEzEUs6Qj5yrW08yUpW4u1yiMrh8cOqvWjkkiaYr9joaEflDVxnI/
+	l1KNTyDlLkxyCWLqM+lP3pOaWzy9d6ZZa0cTGYhxUv2XkEkDcilqnQo6eVdj3Yph6b4eTYlz9fr
+	Jf3Nqmxst1msKMMP9QudS/UaBVHih1oql6VsFKtZCnXAa8MZCUPPlUEIDRx4lANvJnLKEPWNmvP
+	46opetvjuYCWjSSZIXhj63dWrVLH+uj9bIeti8ktYkurze0448bQKIIIK087cgYYHJ+mPNQkb6o
+	aEY0t8t5J/dDPeaD/eM9fRXVnPiA+JFtoiqoF6MDnV0M7poRg/ss75CgkL3QiYyBk9oYxS/1uyU
+	lLjFX9iW9mPJfFadpAEvL5rGb9l31R4cLM+X3t0FyqQbHKM0neOpsrT3lu8afr5DeIABxmmge7L
+	1xVVfprp0lj1DlZf0XK+QqBNvzgABANp2E63ljdAXb2wOLHFyXrk92gIzHOmfmPsKwlO8kSNjme
+	bVt25qFFefpOa0H+k+NJO+X3IUZfMefq8qqX/vwFgDwo6VuqWn3n0QFHJyqeVVvnktxGjf/Hd/3
+	gOr1rsHDPPBpxBJT/JA==
+X-Received: by 2002:a17:906:dc89:b0:c26:1648:a06b with SMTP id a640c23a62f3a-c509642fa78mr654139966b.38.1794749209132;
+        Sun, 15 Nov 2026 05:26:49 -0800 (PST)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com. [209.85.221.47])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b57c5bsm307855366b.49.2026.11.15.05.26.48
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 05:26:48 -0800 (PST)
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso914319f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 05:26:48 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHdEPJ134cwRUg9aQQp4dYW/2+YS8tCzZkfsr0rfjKMj/P38iFsx+baLahZiUa4YFJYifmlZRufQMLs+Qw=@vger.kernel.org
+X-Received: by 2002:a05:6000:1848:b0:48f:bcbf:26f8 with SMTP id
+ ffacd0b85a97d-49c7390fcbamr17525357f8f.48.1794749208648; Sun, 15 Nov 2026
+ 05:26:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,92 +82,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33yHzsvlqXCkHHw--.36757S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1fuw1fXw18WrW8GFW8tFb_yoWrWr13pF
-	Z3Wry5K347tw17K397Za1xXr1F9a93GF47Jw13W3W7Z3Wqq3WqvrW8Kw10qa48CrZ3Z34j
-	qr48JFZ7Cry5uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U9iSJUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hUDzWr5svUBwgAA3m
+References: <20261115132215.4084031-2-iam@sung-woo.kim>
+In-Reply-To: <20261115132215.4084031-2-iam@sung-woo.kim>
+From: Sungwoo Kim <iam@sung-woo.kim>
+Date: Sun, 15 Nov 2026 08:26:32 -0500
+X-Gmail-Original-Message-ID: <CAJNyHpK8ZpP5uAK0tgtswKVvD3=Z=d+2dR148RSNw-L7X_ih0w@mail.gmail.com>
+X-Gm-Features: AclHuK89S0biKagP1-Gmz3zw0cKplorvpQTCrvEikzedtHJQEI8ZvWsTk-6J-VQ
+Message-ID: <CAJNyHpK8ZpP5uAK0tgtswKVvD3=Z=d+2dR148RSNw-L7X_ih0w@mail.gmail.com>
+Subject: Re: [RFC PATCH] ALSA: hda/realtek: fix missing chained flag in fixup
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Dave Tian <daveti@purdue.edu>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+One more, ALC668_FIXUP_ASUS_Nx51_HEADSET_MODE in alc662.c also has the
+same issue (missing .chained=3Dtrue)
 
-This series adds O_TMPFILE support to fs/ntfs. Applications can prepare
-a regular file's data and metadata before publishing it with linkat().
-Unpublished files are reclaimed when their last reference is released;
-O_EXCL prevents publication.
-
-Patches 1-4 fix creation rollback; patch 5 moves ACL initialization after
-MFT allocation. Patches 6-7 fix large ACL reads and cold-cache ACL lookup.
-These changes make inherited ACLs persistent and clean up failed creation.
-Patches 8-9 preserve timestamps and packed EA size when publishing a file.
-Patch 10 writes internal attributes before zero-link inode eviction.
-Patch 11 flushes previously dirtied attributes before ordinary unlink or
-rename-overwrite; patch 12 adds anonymous creation. The five v3 patches
-are now numbered 5, 8, 9, 10 and 12.
-
-Changes since v3:
-- Include the six cleanup and ACL lookup fixes to address the review
-  concerns about the creation path.
-- Also fix the preexisting loss of dirty internal attributes on unlink:
-  flush before removing names, rescan under the MFT locks, and return
-  writeback errors before changing the namespace.
-- Guard writeback with I_CREATING after failed creation clears I_NEW.
-- Check the attribute inode's own link count for synchronous writes and
-  conversion, since it can remain zero after the base file is published.
-- Rebase onto b028412297e6, which includes Wahid Khan's named-stream v9.
-  Retain its NOWAIT and zero-link protections and propagate conversion
-  I/O errors while skipping busy candidates.
-- Add Fixes tags. Drop Reviewed-by from the changed ACL initialization
-  patch; retain it on the unchanged hard-link, packed-EA and O_TMPFILE
-  code. The FILE_NAME/index ctime update requested in v1 review is retained.
-
-The final series was tested in QEMU with four CPUs, NTFS debug and lockdep.
-generic/004 and generic/389 passed, along with creation, publication,
-cleanup, permissions, idmapped mounts, EAs, streams, mmap, direct I/O,
-concurrency, full-volume retries, and persistence checks.
-
-Unlink and rename-overwrite preserved dirty EAs with 512-byte/4 KiB/8 KiB
-clusters. Directory removal/replacement, hard links and concurrent EA/fsync
-tests passed. Injected EA writeback EIO left names and link counts unchanged;
-writing new data and retrying succeeded.
-
-Earlier validation of the preceding fixes covered cold-cache/large ACLs,
-1536 injected creation failures, offline reclamation, failed-creation
-writeback, publication with a retained zero-link EA inode, SD/EA conversion
-and block-write EIO, and the named-stream conversion paths. These patches
-are unchanged in this update. Test-only hooks are not included.
-
-v3: https://lore.kernel.org/r/20261106063059.2904988-1-liubaolin12138@163.com
-v3 review: https://sashiko.dev/#/patchset/20261106063059.2904988-1-liubaolin12138%40163.com
-
-Baolin Liu (5):
-  ntfs: initialize inherited ACLs after allocating the MFT record
-  ntfs: read ACLs using their stored size
-  ntfs: load uncached ACLs through get_inode_acl
-  ntfs: flush internal attributes before unlinking a file
-  ntfs: support O_TMPFILE
-
-Dandan Wu (2):
-  ntfs: return zero after removing nonresident attributes
-  ntfs: discard attribute inodes after failed initialization
-
-Xuewen Wang (5):
-  ntfs: discard reparse attributes when creation fails
-  ntfs: remove remaining attribute lists on creation failure
-  ntfs: preserve timestamps when creating hard links
-  ntfs: initialize packed EA size when creating hard links
-  ntfs: write unlinked file attributes before dropping their cache
-
- Documentation/filesystems/ntfs.rst |  15 ++
- fs/ntfs/attrib.c                   |  72 ++++++++-
- fs/ntfs/ea.c                       |  23 +--
- fs/ntfs/ea.h                       |   3 +-
- fs/ntfs/file.c                     |   4 +-
- fs/ntfs/inode.c                    |  14 ++
- fs/ntfs/namei.c                    | 227 ++++++++++++++++++++++++-----
- 7 files changed, 304 insertions(+), 54 deletions(-)
-
-
-base-commit: b028412297e640db52195df2649368c1910e8e4b
-
+On Sun, Nov 15, 2026 at 8:23=E2=80=AFAM Sungwoo Kim <iam@sung-woo.kim> wrot=
+e:
+>
+> The fixup specifies a chain_id but does not set the chained flag,
+> which prevents the chained fixup from being executed.
+>
+> Should chained be set to true here?
+>
+> This was identified through static analysis and has not been tested
+> on actual hardware.
+>
+> Signed-off-by: Sungwoo Kim <iam@sung-woo.kim>
+> ---
+>  sound/hda/codecs/realtek/alc269.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek=
+/alc269.c
+> index 96fa8c2782bb..1be2e609c28d 100644
+> --- a/sound/hda/codecs/realtek/alc269.c
+> +++ b/sound/hda/codecs/realtek/alc269.c
+> @@ -6431,6 +6431,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
+>                         { 0x1e, 0x411111f0 },
+>                         { }
+>                 },
+> +               .chained =3D true,
+>                 .chain_id =3D ALC269_FIXUP_DMIC,
+>         },
+>         [ALC269_FIXUP_CZC_TMI] =3D {
+> @@ -6449,6 +6450,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
+>                         { 0x20, 0x8000ffff },
+>                         { }
+>                 },
+> +               .chained =3D true,
+>                 .chain_id =3D ALC269_FIXUP_DMIC,
+>         },
+>         [ALC269_FIXUP_CZC_L101] =3D {
+> @@ -6467,6 +6469,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
+>                         { 0x1e, 0x411111f0 },
+>                         { }
+>                 },
+> +               .chained =3D true,
+>                 .chain_id =3D ALC269_FIXUP_DMIC,
+>         },
+>         [ALC269_FIXUP_LEMOTE_A1802] =3D {
+> @@ -6485,6 +6488,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
+>                         { 0x21, 0x03214020 },
+>                         { }
+>                 },
+> +               .chained =3D true,
+>                 .chain_id =3D ALC269_FIXUP_DMIC,
+>         },
+>         [ALC269_FIXUP_LEMOTE_A190X] =3D {
+> @@ -6497,6 +6501,7 @@ static const struct hda_fixup alc269_fixups[] =3D {
+>                         { 0x1b, 0x0201401f }, /* front lineout */
+>                         { }
+>                 },
+> +               .chained =3D true,
+>                 .chain_id =3D ALC269_FIXUP_DMIC,
+>         },
+>         [ALC256_FIXUP_INTEL_NUC8_RUGGED] =3D {
+> --
+> 2.47.3
+>
