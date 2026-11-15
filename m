@@ -1,73 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794729626;
-	b=kaB09Gh78OfBS5LhASB/LrJA1OcD9eqwFN4bVIPCQC3Gvz6JzjXzYQ4cr7lpy6St1/Sf
-	 ZnM8JBIDUrverZM3oZkjDWDe/xOHsL/hLVK2InpOVJMh2JSiXJSgS3Zz69QytK665Rdvv
-	 5T9HkMjXq+TnC1DFAdRTmvW97HHCfbWh536z0AWY4wmqHWOnqOc3KWtxH+kphMob8q7Yu
-	 Gyc7RcAl8JQ1Ob28FM4B1Ihb2sQkEHyIl6VGyekE7V8EP+bIs1tjiPEFl1wb2RXpvErPl
-	 1oxeKwt5MbMY7NigVhUZJpZzgMR+zA9U0+w5I25dUUGd+iaVfgmXIqqs6BeWBc6eCrg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729626;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=myjoLXazwLDRkDTG3hloKil1Y8hRKK3sJ0fuXOKFC4I=;
-	b=aKaQe5wDqzrhPSuydSa3ojChNbsrpjz65ONjt2+DpWknM1236saSMbLbHoLhPTN4p9yO
-	 zJsYhMt6xCGtAMMgjg0uJ2KcJ9HGZnIFfmYIrs5nj9Kso6USFpJelm2mgjpHuxfwSZUgV
-	 1kowqMBA1NfI8Gx/i5f0hSxU3Yw8YMyYp855M3UOGVSKD/tFyVjClchqsaC+HLpMKxSfH
-	 CL0bK1EBHwpbNdUJuKKIz15lUdhXkZ1+kASQI6OmNsheok6nriWN4vy6ew6+kPOnNtDl2
-	 hf7coGHBpQk6pBLepJPZvFp7iTcntfIPwp1yiKTo9iYBwmpSjgj3izGC8HLxDeCQePg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=jBMuGrT6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.84
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794729643;
+	b=Hr9PuGY6lNeLnzjnAq8PUve2Oy5dcXUjBcNBJgrCYhJ6X3t7z7b7Vv+cu51BnOIWkSxm
+	 VzqHH9P5XmSl7kp1yBrFVIK/f/x2JTs9MDeUwhoDB6B/WMPLu84f9ptIFXMxHi9E1s7n7
+	 EJmJqcZhdrYHOnCfm2cHHyX5NYPcN5NzpF21yi3F6R6OvFNe8eOdEwRr8LduYBzES1CHf
+	 GkhdiRZtnw9KNhuNaLIzDMcoKpw/qoaeqQi7hYEkiFmq03RL9jvOl0cz9dscjfOjwcahm
+	 Knt7mR7wWOBKOigmuloqlIWnqbkrdFAw/Q3vC9o7FrkSH8ErWNth7iXAouhkcIaYnig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729643;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Pt8xvDwKeZFNbSLqDy3OvpUkDSrTrAmd4jUA7dH+Zmk=;
+	b=vhy2NlUdeAHB9f3nlQL03a7jgVkm9HJBDMrwBv0E4YwGsuTZT6dz+5JDMBKk+joL2GHG
+	 KN6WaFPZWjiSXw+lFLZzBnvacgo19aMt8uNMyiLHzSmtdVR9YwdDHFo+cBJyHi9zsyz0c
+	 YbiIulEy5oumbklBB2SoSvholVWzWlZcaJitLlVEK5kf2qZdqAjJvJsOdejiBRaiKJRzs
+	 XIH9lEf3/yoFyZl9Kd0/xf5++WclLnFssFxbgTvKBe5wbwT9oEQ7vJdCWnTYPYKOsdHFL
+	 SY1U0DGFGM3TXQMUkN2giC0zY4qcezxfjUxuwsL2xT8fAhFtA3NI4KTQ2GoX3GxnnuQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="o5/eFKoU";
+	arc=none smtp.remote-ip=91.218.175.84
+Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325AC606A880;
-	Sun, 15 Nov 2026 08:00:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 325AC606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BF0606A899
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:00:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9BF0606A899
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=jBMuGrT6
-ARC-Seal: i=1; a=rsa-sha256; t=1794729597; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Zybz6GG/9n4CpLrvLN/T23j/kwqAi63vqgXhKFQxXalMBnUUs2XaULc1/atztLOEMrP5z7Ary2FhAJwse3XRiZfbi6LEaFomo+5qYpPhJLc1t07wmkibdyvWJzBmdam2DYzHR2jZrPOF5Qgy7jrnPxaC+aPVWWpZYZUt6KP1IHc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794729597; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=myjoLXazwLDRkDTG3hloKil1Y8hRKK3sJ0fuXOKFC4I=; 
-	b=JaEfl/UZoUdZ8RoNvCpkVjjb+aWg0/HAv0faoP0K88YLnelsspOUir8PBXWZeMzBw+RaOhrrXM9y9sTklVP/ZKRP2x6Nbelp5qJGQR3oBbtsih9zWiBKKAjBj5Y8SYvFO32iNBxTyj08CftPMwJZba1dhbCmVUopzJ+87VN6/vU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=jBMuGrT6NDMeabv6H6M7VUvobawAYc6M9b3MtXULJmEHKnqTf+LK4/sZEvrUmRqkRFOAoZwKcPr785fKO0pQtajmZ2WF6xf31pHM6/06f5WkwflVsY2Net+MEZrws3JYJEQ8zaR+21YHywBA7OMx6axIa8kaiLWd4zZ8IcS82Jech0ZDPrRgVtfcikLh5VXsFXmb6+iu9lEH91sBXMAVM9tLPLEmVap2crFN1u25sSeGWZ1kSJLs+wHrg4KKx5Ww+0r3tkk1QRm982okc9Clrj/G2gGn69StO78XiKNTUOlP3VcqbHX8QOiblGQFkZl0wocwpOa+/FKJHelxrJjxjw==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=myjoLXazwLDRkDTG3hloKil1Y8hRKK3sJ0fuXOKFC4I=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794729595779702.6758341281636;
-	Sat, 14 Nov 2026 23:59:55 -0800 (PST)
-Message-ID: <ac0a08c2f831dab0e08fe0097ddfa77a32b8b04d.camel@rong.moe>
-Subject: Re: [PATCH v3 2/7] platform/x86: thinkpad_acpi: Extract
- kbdlight_notify_change() helpers
-From: Rong Zhang <i@rong.moe>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
- <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
- <hmh@hmh.eng.br>
-Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, Lee Jones
-	 <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman
-	 <griffin@kroah.com>, vishnuocv@gmail.com, vsankar@lenovo.com, 
-	platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261114174814.62153-3-kmatzkaczor244@gmail.com>
-References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
-	 <20261114174814.62153-1-kmatzkaczor244@gmail.com>
-	 <20261114174814.62153-3-kmatzkaczor244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 15:53:16 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5/eFKoU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KsT5VlOouw8+wlbQGGPvciVPDA8AmFbkB9L6Bo0igYA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794729639; v=1; x=1795334439;
+ b=o5/eFKoUpKx8HigQzKWUi4AYgpp0HzJrxq3jRocTYu/5tfZUv0eMO3lj7PYBkPmYqRf9zbOS
+ bzA8rXYvZU0HTcGOIEG+F1fF8Ra1F6/vW9rwQPVXJ+/uKn0SVGE9zI32MvhGtQddvSpwHz+VJAI
+ MUf0lSMKVeqD57ZdXrfOb9JQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 8fe9c4ef923e859d;
+	Sun, 15 Nov 2026 08:00:39 +0000
+X-Mizu-Trace-ID: 8fe9c4ef923e859d
+X-Migadu-Flow: FLOW_OUT
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: xu.xin@linux.dev
+Cc: chengming.zhou@linux.dev,
+	david@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org
+Subject: [PATCH v2 1/2] mm/ksm: extract helper functions for scan cycle cleanup
+Date: Sun, 15 Nov 2026 16:00:32 +0800
+Message-Id: <20261115080032.132397-1-xu.xin@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261115075832.132109-1-xu.xin@linux.dev>
+References: <20261115075832.132109-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,104 +69,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Qiling,
+Since scan_get_next_rmap_item() is getting too large, extract two new
+helper functions, ksm_prune_migrate_nodes() and ksm_reset_unstable_trees(),
+to reduce indentation levels, isolate local variables, and improve the
+readability of the main scan loop.
 
-You are extracting two helpers with different names. Let's retitle:
+No functional change intended.
 
-   Extract kbdlight notify helpers
+Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/ksm.c | 54 +++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 31 insertions(+), 23 deletions(-)
 
-On Sun, 2026-11-15 at 01:48 +0800, Qiling Zhu wrote:
-> TP_HKEY_EV_KBD_LIGHT handling in tpacpi_driver_event() reads back the EC
-> level, updates the cached brightness and notifies the LED core inline.
-> Extract this block into separate kbdlight_notify_level() and
-> kbdlight_notify_change() helpers, in preparation for reusing the former
-> when writing a level through the proc interface in a subsequent change.
->=20
-> kbdlight_notify_level() expects the caller to hold kbdlight_mutex;
-> kbdlight_notify_change() queries the EC and notifies under the same
-> mutex, like the original inline code did.
->=20
-> No functional change intended.
->=20
-> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
-> ---
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 40 +++++++++++++--------
->  1 file changed, 26 insertions(+), 14 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
-rm/x86/lenovo/thinkpad_acpi.c
-> index 2c3f8cf32..c8098f317 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -5317,6 +5317,31 @@ static void kbdlight_resume(void)
->  =09led_classdev_resume(&tpacpi_led_kbdlight.led_classdev);
->  }
-> =20
-> +/*
-> + * Caller must hold kbdlight_mutex.
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 5e24b5ca8dc8..8db6743ece6d 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -2609,6 +2609,35 @@ static struct mm_walk_ops ksm_next_page_ops = {
+ 	.walk_lock = PGWALK_RDLOCK,
+ };
+ 
++static void ksm_prune_migrate_nodes(void)
++{
++	struct ksm_stable_node *stable_node, *next;
++	struct folio *folio;
++
++	if (ksm_merge_across_nodes)
++		return;
++
++	/*
++	 * Whereas stale stable_nodes on the stable_tree itself
++	 * get pruned in the regular course of stable_tree_search(),
++	 * those moved out to the migrate_nodes list can accumulate:
++	 * so prune them once before each full scan.
++	 */
++	list_for_each_entry_safe(stable_node, next, &migrate_nodes, list) {
++		folio = ksm_get_folio(stable_node, KSM_GET_FOLIO_NOLOCK);
++
++		if (folio)
++			folio_put(folio);
++		cond_resched();
++	}
++}
++
++static void ksm_reset_unstable_trees(void)
++{
++	for (int nid = 0; nid < ksm_nr_node_ids; nid++)
++		root_unstable_tree[nid] = RB_ROOT;
++}
++
+ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ {
+ 	struct mm_struct *mm;
+@@ -2617,7 +2646,6 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 	struct vm_area_struct *vma;
+ 	struct ksm_rmap_item *rmap_item;
+ 	struct vma_iterator vmi;
+-	int nid;
+ 
+ 	if (list_empty(&ksm_mm_head.slot.mm_node))
+ 		return NULL;
+@@ -2639,28 +2667,8 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 		 */
+ 		lru_add_drain_all();
+ 
+-		/*
+-		 * Whereas stale stable_nodes on the stable_tree itself
+-		 * get pruned in the regular course of stable_tree_search(),
+-		 * those moved out to the migrate_nodes list can accumulate:
+-		 * so prune them once before each full scan.
+-		 */
+-		if (!ksm_merge_across_nodes) {
+-			struct ksm_stable_node *stable_node, *next;
+-			struct folio *folio;
+-
+-			list_for_each_entry_safe(stable_node, next,
+-						 &migrate_nodes, list) {
+-				folio = ksm_get_folio(stable_node,
+-						      KSM_GET_FOLIO_NOLOCK);
+-				if (folio)
+-					folio_put(folio);
+-				cond_resched();
+-			}
+-		}
+-
+-		for (nid = 0; nid < ksm_nr_node_ids; nid++)
+-			root_unstable_tree[nid] = RB_ROOT;
++		ksm_prune_migrate_nodes();
++		ksm_reset_unstable_trees();
+ 
+ 		spin_lock(&ksm_mmlist_lock);
+ 		slot = list_entry(mm_slot->slot.mm_node.next,
+-- 
+2.34.1
 
-Annotate it with lockdep instead of comments.
-
-> + */
-> +static void kbdlight_notify_level(int level)
-> +{
-> +=09struct led_classdev *led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
-> +
-> +=09/*
-> +=09 * Check the brightness actually changed, setting the brightness
-> +=09 * through kbdlight_set_level() also triggers this event.
-> +=09 */
-> +=09if (level =3D=3D kbdlight_brightness)
-> +=09=09return;
-> +
-> +=09kbdlight_brightness =3D level;
-> +=09led_classdev_notify_brightness_hw_changed(led_cdev, level);
-> +}
-> +
-> +static void kbdlight_notify_change(void)
-> +{
-> +=09guard(mutex)(&kbdlight_mutex);
-> +
-> +=09kbdlight_notify_level(kbdlight_sysfs_get(NULL));
-> +}
-> +
->  static struct ibm_struct kbdlight_driver_data =3D {
->  =09.name =3D "kbdlight",
->  =09.read =3D kbdlight_read,
-> @@ -11586,20 +11611,7 @@ static bool tpacpi_driver_event(const unsigned i=
-nt hkey_event)
->  =09=09return false;
->  =09case TP_HKEY_EV_KBD_LIGHT:
->  =09=09if (tp_features.kbdlight) {
-> -=09=09=09enum led_brightness brightness;
-> -
-> -=09=09=09guard(mutex)(&kbdlight_mutex);
-> -
-> -=09=09=09/*
-> -=09=09=09 * Check the brightness actually changed, setting the brightnes=
-s
-> -=09=09=09 * through kbdlight_set_level() also triggers this event.
-> -=09=09=09 */
-> -=09=09=09brightness =3D kbdlight_sysfs_get(NULL);
-> -=09=09=09if (kbdlight_brightness !=3D brightness) {
-> -=09=09=09=09kbdlight_brightness =3D brightness;
-> -=09=09=09=09led_classdev_notify_brightness_hw_changed(
-> -=09=09=09=09=09&tpacpi_led_kbdlight.led_classdev, brightness);
-> -=09=09=09}
-> +=09=09=09kbdlight_notify_change();
->  =09=09}
-
-Remove the {}.
-
-With them fixed,
-
-Reviewed-by: Rong Zhang <i@rong.moe>
-
-Thanks,
-Rong
-
->  =09=09/* Key events are suppressed by default hotkey_user_mask */
->  =09=09return false;
