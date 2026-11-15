@@ -1,127 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794712037;
-	b=znjIzB1ba4u/t5vLpvZTT62SC/j04lDgSudb1sUigl1IGFk/YW847DTp0I4uqVWoCzSW
-	 tDP5yfJ9nP2jBt4I2Tv3LCEkxtnFQvR1sDgBjBL01s6wznzMAL8xpNnKO5cmw8VblEfPe
-	 d1yNRaswBO7Aapb5vghDdP3L4qo0Pbc/zT/dCzy8w/XU3XcyJkhRlZCXiNp1s0ll/z75p
-	 mdKM67sjhYLNFYzOXwymcIzfrmQrVOtl7imHtuDF+s1gZBUXgVoQCaRhimE1xx9htS/gN
-	 pX++wIl0fHTyJhBil9yywVwWepb+7JPhcDpCo24RbWwLw0YB9ghxPkGj1wtROhNcpAA==
+	t=1794712139;
+	b=OMF/Z8NIcPLegiotfb1wpDebmmM9bHYnY+otQsxHpOUdw1G2R8VDhOh5C07tG5mE2CZv
+	 +ztyOod7iLwRyPUWljXY/DxDyd1dappsBLmDrX0KafObE8555LMWGs26O52svXevkERZr
+	 kWHxIfgz4pBh6goe87O0h/4WXwx4BgETc4DfSwxuM/yZYa1d1Fa9uHJPgYxrmjoYuI/gU
+	 IlQ4ynCWwaJNcVjrd44icLT6sxwB3FV4KgTB+kkYJwoXsjnQdIv5kMUZOW2OJEfrpSBqE
+	 FXmg3tIFbrq6tBX6stkwGvcB8M5RKlmwbOgSaAeTvVRLO26YSvLbqzFpbWpTUurFYkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794712037;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=gKN6VwWTajjvlUFrRVGdiB8bfxUd1ncQwyi3goNdenM=;
-	b=W2mCDd6F0T5RGfjLzIKkebpnnFVO+daT4vGywhUw2/CKqhHAjfgVBg2sNZOPIR4MEp/Q
-	 0ua6MZZmZwBt06J88kCdcAlUpzFZK3f5isR1hbVJlYMiNJhtZi8tp1R9+p8takmP64AH3
-	 m39CpzmUtw5nzjOBisRiUvzLYLalMKK+2JCOzq99nsuPX+0LQVRIlaPv2g9RH7s/KXl96
-	 LoJR8peN0tgi0uzR7pEEzzoFePQJhIrjQthvSRTi1MIgMPE0YRuK1Rn7FFrcBZicvww9f
-	 dT/8x15khOUEDfjHaNdF6UkidNofZ1WSPfbMVv7jc8g31lTtUhDJtxfWxhjNBOPFfaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794712139;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XYng5pWI4USr1KWNzMKOzbrap54zZqn6X9wIRG9MW9w=;
+	b=acqxQ3fpeL7q0mLJ7PzQKdyMT5lxo5Icj0O19kpMiWo+HfQDoUjQP7AjTcED+Je/V0tb
+	 ipBYYsNKHG0hEitGeg2L3w7P6RJwfeQY4t1Qqiwh4URIrnZeZpPbSoZdPPY4sUy+YaJES
+	 RnHXrKWyCD6euzcxru7fo9wCB9qVs2yjbnqIOyLwYzXVbXbUSh68II3Z+VmQzoy6xZDqw
+	 gOMCeOPnui5CDlIccBS1AQ6MTvgYbGCnjVNopt96zEC62z+pe4EhjgRFM52rgxx0lkCvQ
+	 5Tkx98qz8X3jtz8KhoYOKqNDh1hBY1dEFxZh3m8T2JHkRLOSUiDYJKsqoF+wXYm9yZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=KJABPBQL;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=C+T1zwq7;
-	arc=none smtp.remote-ip=103.168.172.140
-Received: from flow-a5-smtp.messagingengine.com (flow-a5-smtp.messagingengine.com [103.168.172.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=charmerstraining.com;
+	spf=pass smtp.mailfrom=pythoncharmers.com;
+	dkim=pass header.d=charmerstraining.com header.i=@charmerstraining.com header.a=rsa-sha256 header.s=google header.b="otr+/RE0";
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5718606A32D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5718606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B85606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:08:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9B85606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=charmerstraining.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pythoncharmers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=KJABPBQL;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=C+T1zwq7
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.phl.internal (Postfix) with ESMTP id 19F5D1381D6B
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:07:16 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Sat, 14 Nov 2026 22:07:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794712036; x=
-	1794719236; bh=gKN6VwWTajjvlUFrRVGdiB8bfxUd1ncQwyi3goNdenM=; b=K
-	JABPBQLg5NoVSoqI5rAeD+skAVRekxAf+DU/sDQcSDo/hJFgvZ95P/eANzp9iQLF
-	UAZ2B9xkDcsQY8iO/CYdG5kbEG/g8ahFsvSXdH9Yt3zkKI5EduBmZwdie/PwJuYN
-	pr1nB0wwaTyAblHINm1kduiiToh1n4/j/pmnDr6jrVEOL7vuhvQtnl4HrOD0i+Qz
-	VJNI9Qs7Z7g/sV1OgO+07SQFs26pkiTSP3Vs60Gkl3NfIhLPjnQ+GIU3l5ZcSMYY
-	6BUrfLEmvcHATBcpnr0Sd/AgOFMyv61EQ6sM1H/SQz550508xTh/pdmQHOStFSC0
-	jPBnhFmy4QnsJpm+0UlzQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794712036; x=1794719236; bh=g
-	KN6VwWTajjvlUFrRVGdiB8bfxUd1ncQwyi3goNdenM=; b=C+T1zwq7icCIFknb3
-	BIG4jj7WX4TMmdwIUWJHKWSC5MP5FgSOyj6ns0HOXIH2T5YPfN1pXKHLvRJTcCXF
-	4RAfPlQFyaDVvKQjalvWxA4LjJ/6qVhuc95J9QdhnzKhyqGYbskG4iu3zE191pxw
-	WwDwbbTMZ9727IA7maRC0f7969JGpM6O0GDPLjigmcmkhji8OdG0q35gF+hW194f
-	3C6eO2tZZstn27vPqTyWBu8Kl65YabNpMXiXmJOgt3UinjDRAwVd6HRY84Qb8gEy
-	JCXoIx71tjY+5Gw+8DNq279NyDAebk1uTlroKTom4Wr16JwSv/Q0lnbxelj1fm4V
-	PzmoA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794712036; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:fGB9sKS2ZxxPOu6Jey38fGkUPxbp6hBqcsK8kGJlqVImAoN
-	L/KJ21aAbad4UFRpq7y2f+Rmw5qyJqeQhWuGyzj/gz1iu4XkWsPibA1gHbgVW9BD
-	Yuaa+kgDzPzxt3nngOcwR3327YK/YmWGiLMuKXsQfNNcf6IjDPrnoJV6Ap8N3ugW
-	nLZNqxgk3Yj4/di0UfOwevfEpFUXT/POcWMbZEKiISWWsgA3FUdoUBE7ESheq/ac
-	6E39KF/+S/Wk0lgLq7vzn+WoC2QpTnh+SwZnQpB6jNlQD/5WIDtaZdn0m5r1JQgN
-	ufwwmoPzYuboRZHUljjPNP7oTbDzEzbpoLHlnAA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:qU66T9RqzEc/y2kIWw23BwyWdGtBWvSxZnwtdXiF8Ss=:hXDVL1qdwuzv6gV0BtJj9GTi8M/VnQk4yRzSODQdsqo=;
-X-ME-Sender: <xms:4yH5aoOSUaVeymwqj7UWvMp8iXIBRkho5J6ZLAlSRXzcZUXwLs4FGA>
-    <xme:4yH5aplDodm1QFOwYsvjA4WZNJuXuztd29NqToRt-R13Q_sveAw5_a4KN3ywR5Ebe
-    NTAdG5j9iksa7k5vda7q-8yBjABUPMAdPYWLVanFRcolBhJIEN_bLSR>
-X-ME-Received: <xmr:4yH5alT0Ep0DPq8_3aiYw54l-eB5XCtJJ-cKgoZ0JVbPkeFnYyYMqwcf9oERuDa5>
-X-ME-Proxy-Cause: dmFkZTEmAQAs53JP0iZyMPv0h/fG6Xq16Gu2IYoashXOzhNO9jFCRsH4vMrd+HZz7QG80G
-    9XhEriyQdLjPfnGHNVzSfRbiMNADgBJkGTmYdzQg/vxpb/wvvP8bfHkAzsiuWXXygOlWkf
-    8yOfk8yvUc+0YjzWoLH9/Y/8zqLIw2ufdO6YEWSAdyodgZOLx1g4CdK1+4TLpE0P7nlmK4
-    YmfuypoXYRoTraxv4pu5WGIiIJVVDtZCpbG5ixSkiq56zVHcMIL1lQANdEtfF5W/6s9fpr
-    KuRExUlT6YMw/i1oNIayOom1b2SOCwpnP0D6f9fOqlX7BbTtzJEemPUPG/IXd/S/3ht8bb
-    4Kk1LQ3R5/ChSaxB7RUpXQG8F/Df1I8fcwi5XBzV7C5p1dthAuiFkypzNAvOqUeX2Yu30H
-    x0IJW2SjmJ0UdRDEmXGeHv0ciT8o4l14rVtyczokKTn9rHM01YyZCof+AKxfKXjiAd1bPR
-    92kXs7krOYyB1KFSiURKrzduMoxwwFgOECrDphX48ku432g25T3pxzoycmc16eaxW+V2Hl
-    mAkJ3oWwm+xaXPEv9Rfkvgenmd9S7R8B3hJB00qhe2ACWUKTOST0tlo3bp8XeeJjQ7lK8e
-    SULpw6jkvdhidJl/Xz4D4u+Edd0y7FY0FJaNbHTS0eDKJp864MJPY5cRxbYg
-X-ME-Proxy: <xmx:4yH5agV8DMdFQnScn6NlqNzWlsRKU67NfRpY0PE0zpW_jvAAF01mmQ>
-    <xmx:4yH5ahIzJRpf-0wwKglGpNRoup8eKEkDkTn78uJ5Ygk8KNM2h9ByQQ>
-    <xmx:4yH5ao0j97GyAMMP1Pjo8J6lHU4sCTefoDZD4Uun3rXoXkY-9-mGJw>
-    <xmx:4yH5amLSmwxD7h-26U445Nrgbi0wG60LkqQ15yxCXbpPo06xdlu3wQ>
-    <xmx:5CH5akwoD7N5qymM2ghAkpUWD0beaUABhW3qf1drfNLSMUmDg7Y5Rsl3>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 22:07:13 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: koray.fra@gmail.com,
-	linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH v2] ksmbd: decode and honor DOS attribute validity flags
-Date: Sat, 14 Nov 2026 21:07:07 -0600
-Message-ID: <20261115030707.2275633-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <DMVECM7B14I1.3GF2HZB9KRUX@gmail.com>
-References: <20261114012736.639171-1-koray.fra@gmail.com> <20261114160332.2228435-1-icb@fastmail.org> <CAKYAXd_qe-dLq6o7XdJzG8orYiKRioAtfEsLjxj33Ca3=PzGjw@mail.gmail.com> <DMVECM7B14I1.3GF2HZB9KRUX@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=charmerstraining.com header.i=@charmerstraining.com header.a=rsa-sha256 header.s=google header.b=otr+/RE0
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso2588275a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:08:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=charmerstraining.com; s=google; t=1794712138; x=1795316938; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XYng5pWI4USr1KWNzMKOzbrap54zZqn6X9wIRG9MW9w=;
+        b=otr+/RE0BqvlFd8IX1bR3mOoLTwt9V4RJF5t755jpLkG4vg9lpAmTZ8l9TOj6jLBTW
+         xHKBv6NF42ksaeQwjnesqxb77yO7uKj643lXOm0ULV56oVTkJ8ywHhvVzbVPVqUdgkYH
+         Zx6sSWhGRRqGs1U/Gcz45JaPAAahwRpJOXuiSZxuNnzzwUS+ITSQgAVA8/oUa8Z90QLh
+         Dqaran/d2T8uRKQORmallc41cMp5PGkPDKpeoTJOHPR7lyy0WrIF0A6gMI0DFmiTjOmQ
+         ZYdipZiXpzmX/EiwchHD2qGPCJunsso9ihSPbIlDLNB7ESevzlU1AIgcWbeiaNCf0VUR
+         SQSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794712138; x=1795316938;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XYng5pWI4USr1KWNzMKOzbrap54zZqn6X9wIRG9MW9w=;
+        b=l9/4MVytOkC8ICwEQ1k11hYNh5OhsqB6T0EOCMfNKfx+yJMSPL7cPZ/cFjWXKygfW/
+         gDGgbfs7WtETc4C8BWIgcHiQppvNHV7k4caAjFwxgxnB4WevEjuW9RDIheTauLIDs+qi
+         /WH/RP3A7hLgD2haEH1gNV5Ib6v2TQojilig0fBP11sKRoUmu9XowGmlLnKAUMq80a8+
+         LoukUopu1+Ejh0rcBdj0OdHw8BduFv1/6EVZ1WWP3P9ZqTQbHqEh5wWgY72Nnkejh8OI
+         T90nq4tYTlgyPoddwj/xs4OH5UK16vsyCGHCVD6u1lVK1rjWvmzW5Gaq40MlMz3GwQqs
+         MozQ==
+X-Forwarded-Encrypted: i=1; AL+hErG/uwc6ZxSjQLXAfGs6w2UVTkPD6/8kUyYBHnWrClBxavZ492c5y+zuhvI0mmyrdbZunWJdNui/uRgV8JA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BKK2MjXw5m+jH1jbOI7AGi2ULriWGLPvcN08MWzh6347izdBg
+	ez584a3IA10IDdmWTf34TmiXPrUEzq7b4I+p/q9FMjhE4BfBPuXKR51Le4f4R5Z9qqA=
+X-Gm-Gg: AYBFou3NJK8LsPRne8Iu+Cl+ZzfnuST8sJ4T7wy9XGwiNZxI8U+fT7ebfKxH0DQcEZf
+	b4k5Gi8sX5XDOoAPDQPnfuXghzHIf+8DVIE6/5mqhuz7dlq2EF21jUkv+NfDHme7LBvm0WmlKbG
+	VuXU/AFJF0QieJGXSQwBljfJ3SxlkTA2vITrnyQ1FPL7lsY/WLUfrGsy3XlHFpxCzMIbfJPbGfg
+	AH/EDM7O+KPqisb8Cv9ceavkRPjtqMWfc8xUMcwbMpNmrSgRcWwWEfXpWdaUAWtxRhkeXl0p1DL
+	RwUUh+GEc5iu8vNjYMEQP/3RNLdFVZcB6+FIAWV9iDguuGDVmHCYE9ItE5vlVP2TIJJaVPD2DfF
+	DahugqcCKVc1g5i2lsDiEo3RSH56l1TXKFABJfpygaKkeMF72sbnQbwEkDvcmxpudWtQiY+RaJR
+	2381jig/pm8sALi3jDsOIkzuKzLFP6PhT0UrqNWgrkocMhrZXvGAl7s4Im7i/e41tKWIfcW2VqQ
+	OdFGh358+fRJyoRzWRqozLL1KAGAfLzoRW37lVE5GN5oHfA0edH46AG4xnkDVClC/wkHi/Wg2K0
+	dTn+e3KjxobgXLIxt6m4RxmEvN5QiMDDaL+WJ5FL6Ku8tYIe97ycQOJrm49Twsl6kCNed3flleB
+	Q5aD5xjGJJ4NIU4tsaizfJxKFb34C0IxiCHRVgA4vIcQ2myFD6tuA2UsU6NL2lU3JwMpkqJVOBk
+	GjQdhKbaRFjm1hvsYw7125u12KS5yVlhl+5zeH+hz9HD7CtZ7hL4K97w==
+X-Received: by 2002:a17:90b:4c49:b0:3ab:4f1:4f7e with SMTP id 98e67ed59e1d1-3b1b0b8ef0fmr6902713a91.28.1794712138264;
+        Sat, 14 Nov 2026 19:08:58 -0800 (PST)
+Received: from ip-192-168-20-3.ap-southeast-2.compute.internal (2403-5803-1750-0-d1fd-685c-f50c-5901.ip6.aussiebb.net. [2403:5803:1750:0:d1fd:685c:f50c:5901])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d32ea0sm15422530a91.15.2026.11.14.19.08.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 14 Nov 2026 19:08:57 -0800 (PST)
+From: Ed Schofield <ed@charmerstraining.com>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Doitall <diainquiries@protonmail.com>,
+	Andre Eikmeyer <dev@deq.rocks>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
+Date: Sun, 15 Nov 2026 14:08:48 +1100
+Message-ID: <20261115030848.17705-1-ed@charmerstraining.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,57 +111,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun Nov 15, 2026 at 2:34 AM CET, koraynilay wrote:
-> Hello, so I should include the legacy handling in this same patch and
-> separate the bugfix for sparse/compression in another one?
+Hi Atharva,
 
-One option might be to keep it all in this patch, with a few changes
-so that it stays compatible with the xattrs older ksmbd has already
-stored.
+Thanks for posting this. I've built v2 unchanged and tested it on my
+iMac20,1 over the weekend (on 7.3 plus the t2linux patches).
 
-When sparse or compression updates an existing xattr, it keeps the
-creation time, but ndr_decode_dos_attr() discards the flags. The
-writer then stores the time with only XATTR_DOSINFO_ATTRIB set.
-Checking CREATE_TIME on read would hide creation times that ksmbd
-reports today.
+It works well in normal use. I ran automated tests over 32 boots, 55
+display off/on cycles and about 40 suspend/resume cycles, and both
+halves of the panel came back at 2560x2880 and 10 bpc every time,
+including from scaled modes.
 
-Your changes to decode the flags and keep the existing fields are
-useful. On top of those, something like this might work.
+However, your v2 hangs the GPU when the two halves are set to different
+modes. This happened 3 times out of 3, just as with my very similar "r2"
+variant that I described in [1].
 
-- Read the stored attributes unconditionally, including a value of 0.
-  Samba also reads the attributes without checking ATTRIB.
+To reproduce this, leave the left half (eDP) at 2560x2880, set the right
+half (DP-1) to 2048x2304, which its EDID advertises, then start a
+second program that uses the GPU. Each time the log showed:
 
-- Use a non-zero stored creation time even when CREATE_TIME is clear,
-  and fall back to the filesystem timestamp when it is 0. A comment
-  could explain that older ksmbd writers lost the flag.
+  amdgpu: SMU: No response msg_reg: 2a resp_reg: 0
+  amdgpu: Failed to disable gfxoff!
+  (repeated four times, about 4 s apart)
+  amdgpu: ring sdma1 timeout, signaled seq=17, emitted seq=19
+  amdgpu: Ring sdma1 reset failed
+  amdgpu: GPU reset begin!
 
-- When rewriting an xattr, preserve the other fields and flags, set
-  ATTRIB, and restore CREATE_TIME if the time being written is non-zero.
+The reset never finishes and the machine has to be rebooted. Since the
+halves are separate connectors, anything that sets modes per connector
+can trigger this.
 
-> The problem I had found when trying this approach (I originally wanted
-> to send PATCH 1/2 to fix sparse/compression and 2/2 for the decode/read
-> fixes) is that with only the sparse/compression patch applied, ksmbd
-> clobbers the time on reading by reporting 0, since it doesn't check
-> the flags and reads the timestamp anyway.
+I think the cause is the early "return true" in
+resource_are_streams_timing_synchronizable(), which tells DC the two
+streams are synchronized even when their timings differ. Taking the
+shortcut only when the timings really match avoids the hang:
 
-With the reader change in the same patch, a creation time of 0 would
-select the filesystem timestamp. That handles attribute-only xattrs,
-but it would not make the writer change safe to apply on its own.
+        if (stream1->ctx->dc->config.imac5K_support &&
+            stream1->timing.h_total == stream2->timing.h_total &&
+            stream1->timing.v_total == stream2->timing.v_total &&
+            stream1->timing.pix_clk_100hz == stream2->timing.pix_clk_100hz &&
+            ((stream1->signal == SIGNAL_TYPE_EDP && ...
 
-> Please tell me if I wasn't clear, this patch/bug is quite confusing for
-> me since it touches a few bugs and they all depend on each other.
-> (And one fix introduces another bug fixed by the next fix).
+With that check, the same test passed 9 times out of 9 on a kernel
+("r3" [2]) that is otherwise very close to your v2, and the normal 5K
+case still takes the shortcut. Without the check it failed 7 times out
+of 7 before v2, so the result is consistent. Dropping the shortcut
+altogether also passed (8 of 8, "r1" [3]).
 
-Keeping the current no-xattr initialization would avoid that ordering
-problem altogether. We could fix preservation of existing xattrs here
-and consider changing newly written xattrs separately.
+Could you add that check in v3? I'm happy to retest quickly.
 
-It might also be best to leave changes to ITIME validity policy out of
-this fix. I don't think ksmbd uses the itime for anything it reports, so
-those changes would not affect this bug.
+One note: my Tested-by and Signed-off-by tags were added before
+I had seen or tested this version. I'm glad to give both for a version
+with the check above. Please use ed@charmerstraining.com.
 
-Namjae, would accepting a non-zero creation time despite a missing
-flag be a reasonable compatibility rule for existing ksmbd xattrs?
+Thanks again for all your work on this!
 
-Thanks,
-Ian
+Ed
+
+[1] https://github.com/t2linux/wiki/issues/743#issuecomment-6588960822
+[2] https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
+[3] https://github.com/edschofield/linux-t2-patches/blob/5d3775923bf481c487ff96efc8fb3e24ecf8c9cd/7003-amdgpu-add-support-for-5K.patch
