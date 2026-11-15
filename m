@@ -1,80 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794780923;
-	b=DRtgsqvU1Z9x0GXuILlUJ0ff9MKxxmTmEmS8Cm6GwtWkxR+MxnKMuIxY0jba7B8Es8LA
-	 O1elVEYh3oDaWt7eWnzy5Ww9gqcncDchJGTkp0up/fqi90fo1NTbJ36+dBwPKAshCmXHh
-	 UT+/Km8c1A5V7TZ8xsOxe5hT6rT9zxy/r1beLiKuJXg/Kd4+XhIfdUodRJLKluS/Pkv1M
-	 65YtAzUBNky26F639EywsjD23jDPvpxp6CrOuRCjNvM8LjjDewlTeCu9fZxoSlHjuvbRp
-	 7Hr6timIrAoHe7c0C8OiAjyHuJ39klwjQwBxyhlGa+LeJnefuHR9GkYYr4lzAp9qjxA==
+	t=1794781113;
+	b=R9lq0OiCYAs+V2a22nMx0yy1XCu8DoYJxlAkkP/kxuzQevdpzhsGghRkAm4f394IWI5x
+	 /yJqgWb2iQ0KmqzRwbTTo/Uf5lTx14T+2mviH/bT79/py29IEEgdwmHjfthA4G+0dSbcj
+	 SSYfp5nPM1psugA6elPbu9NHC8L7mIQgurkwGE0NaYiLFv7IgY4ZrtXGthn2vC9q32I9t
+	 suh4uvY3VFymVTxxDzYbEl+APvpN0qBfVr35UbMQkjJeZF7YYFj927w3/VvYgMPWBamiE
+	 vajk0U94STs8kYn4v/6E7pCIJHiT6+cTq7YPJ+YyUkXKivE88Cf/jwCQKXZGLjmR8sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794780923;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 References;
-	bh=2F2z0ZuZcbyuAjZU7VnocXFK2M42aX34gNp3ecJ79HQ=;
-	b=efFYTcz2DffGkN8QuIX/B/bud6zO6gKxmYj3fzDea1o6n4GUwLRbIw2nGeo3/ZKkhzdH
-	 Ua/KOgw+WuOSOqjOE7yGu40JodNByzpKbi0BYXUOU+rpOaltnErUiKwZ0tcG45XOKYVp/
-	 DAPKWaxgjkvLoDuc9I4LtODjv8rO5TQWc++D1AqL3xrmg1GS5HDkgaIn3fUdy6bPlVxBj
-	 QI5npNExZfbOAjCE6W/IluqBD9oULd4wGvW2TxdQfZxLDAIjueuwSuuRLFV9Pu6ZcXEgh
-	 pdASSSLQAx+nf2Iq1sWxemwB1PoKrSyDOfEKcYrqyyfmAwj8EYtRERZYKEWhDX5WULg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794781113;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MpshBwpP8nrcyZIgCaEpwnlsFopChh0GnbxP5EKQpwM=;
+	b=pYq7CqoOlUqy/2tItu4capt9Yp0NgGby+Hf9qlA4LhMOzyMpj/x/CPYJR2QxR8DoTzWR
+	 FNEJSUVWgVUIkeF4uVr7pcatVshDGRD0oRU+v8YhoQzktF0AsDIniQp5IYJFY7lB7PelI
+	 kssIwcB5qSoh79/3B9jgo+Uo2Cz2Ep9NZW1+lgmmw4Sn4/nytZMl35RdFN3wHepQ4b6lt
+	 awzYjJ1FO36QM6WnUhUQ9lBz5UReXieF34/2a0C9Pi6lbO7BWcW/VaReDV9JhA/pLJbsC
+	 mfO6wA8gcOIdN0TZ6ECql/wN0ZfbLUv1WC6+x3X1mYhPUXqOmq9Pyf8JwncFW3557lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.pl;
-	spf=pass smtp.mailfrom=yahoo.pl;
-	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=S9cTi6Lh;
-	arc=none smtp.remote-ip=34.2.82.16
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hl12hccU;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7092A606A331
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7092A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B04606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:18:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79B04606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=S9cTi6Lh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794780920; bh=2F2z0ZuZcbyuAjZU7VnocXFK2M42aX34gNp3ecJ79HQ=; h=From:Date:Subject:Content-Type:To:Cc:References:From:Subject:Reply-To:Content-Type; b=S9cTi6LhY2apmj7BjKqKoB6081fiDVvPkhdFmk6IwYe/09zZLaOALZS+Dgd39bOOaURQXTmpUXUNTeGq6AapHsf6rFcejEiMyrOnGlpP3G347uE/xqLWTG7kVIbX8CZcl/m2TugR3VWfHHYQ1e0G7exbuFw/5E9baKIRDRvbpTfL5fjNRNyONjgApKeJJBd428H85pJBkXIGpNvPqmSUrTkx3LG5DkNnz91ZeKR211hJ55XGzsQv2oZPWyC6jXvqVZ++VGlWB6kBnN1GSf6F+Ye2DT4Tno+M1PwRsKKe1BZEuicwof73VUu4zbgrvg1oziaukydIYavc0NXVoGeGpg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794780920; bh=8io4HMmBHjf90ncS3kftgptXmHBAbxhh8oY345FWlNT=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=BgYWuToiTRfg8CGs5ho8lBXG0m6MxIayP55YOLU24JCSnH5KZcEGxc/emTtCNbnIIxTkcbKAe3qSp4LCBai7PAXFjiwwlCrihLx7G8LkcYfVegDz2DBW/ycqvYZRkbAV+BJUR2vYhfXaiMUnQDE4K2UNhg4OnqoopMhBOd/OFoRic3zHXh9WZ/NPpprNRJnUTMH8LBtmLXmlfuAtqz5ouqTWUZNbMXtQ/56Lt5oPRWO3rudL96J5bHBC9IaHSjGw8ZibxYrfXQwBkX/fmfI5XOx0ICypgiQhHiOgDsj8Z3BZXuPfDeyOCTNLitzllj+NWTN1mX0riP6Nc4pKk2pPXw==
-X-YMail-OSG: cKdOGDwVM1nsX0eogjTveVDoZYwLm_y6FI.Lo4VvAN2AVen6dCWuS3SKdH8QymF
- HeJz658itmZov0GrRBecn.AnHGSmNhlVPkLpFcVLhDHZp65m0SpLum7F0c8I6VN095Ni6vJA0yvu
- aR13Ze84FTAL8N71GQ2rcTkzY3FR.ywrLd7V5SxvHaMPoaM8r_bF8Ocy8cdLjt3Wcra2YvWY41nN
- Y0i9u6K1puJGacQTAfFBOAw8646rzO.MEiGkEPr85mUrnXyqqVRQgULk1AJFF7bMPM9c4wT_1e3B
- nUVnNAR0g_NZlSemHcWAV1HDRLUpNKMy8.uwby7FpgcmVuRB7jqjWUkHGvUZ7UNDrSljjqYY8jc8
- LYDJyZXqK2xSiEaIRpAxf9ZqSQFCW._7kuXjXI1wrAhA7oLup7M_1r9wD3vZyODwJb5efhm_9qfY
- 0_WPdJxsMklP.dgbiwQHyztaGnc7A1GA2GX2rmS73yRiIPRiZV2r923nXBDYRwPcatT2SYMtbHWQ
- N7zm1.F__3c9DGGAz9JmACjUNI2VIb3Ugsl_cJmDVI2GZ5oCVhZrOjlvSOkYPcA7tSjca9zQLmWe
- LcOuTlNd18fUalEYUqcBmwaYTfhBOWna0PbTRkCDB6VWo4eQINDGVezm2JrKrASq0tfJcCloJ829
- 7ZayR39ZYVjrll5hGGKl68BINKvC7Iv7UatLzhoyjaNJB3AeKP7QfixrLX4_7rHcExm4PTleGxKw
- vXC03llRSI7HTYrLGpZhVS45_duPX_jr1wtrd3sajsHb4nQXSR1cSKEZBBGBL6P_x8VQiHFdPiAE
- DQeY0oDEgDbuwcQWqrpZEMpKB1_j.aYtNoIf2HKkAy1c1I_dM4uNzuG2M0_AvAoWsJ9JdlzGBvHB
- hoCbZ270BCJ3mS4KhQy3.LpBXg4Fk6qdS.bzvyHxEMEiMtQpeX8qddNMEQFGLX1PBQgCKIQm3vq1
- toB910W0hy_5BuY3AH69x06uPh0JV6FBrbhy0vg0RLhq.h8q4vYjwG8isaL8Mrpwh8CIAHzOB5Bn
- nEH2xcYQ2gxXANdy_jfdbWyaVc1GkMSgAp3co9JJJHoK4E6LH3PxjqeVYMjTJ_d8XkxiXAPG_oMo
- 8Idse8deYm181fMvYMo5ust2.FJbJVxd18dDmEahAOLt9mvmYgtEIgaSADih0kIwyVVjJnNUSGZW
- LvKoNECYZO319rDu3YIIV_IE7Q0zY3cRmNvOsKOxMRX5v9_y4u3rRRlELD1C1eD0E4xKLpm8c3CU
- 6AgoMdd9IWse3SrmH2PyvmxqbgurRd.mJNSLx.nWnJOYddYQf5Bgn1P50oduQrV_0mzg7MTC05fO
- 153eHdM1PiEnaEglv4J_98E_dBDkJmzxlUNQ_OxW5I1S6XVoN.mRj0t7P5LfK3o1bZdx5DqU83T9
- FoCdZQ_g62dmz9M.yIF9alxZvegJLc2X_LCRK0in2aD1C3N4WVRFw.92KTHkzjOUnXAVnsUBZl4H
- SZKmiVSsIxiU0j1_XmQD3AP0rJbMLGJz3uRvixs5gBTtUyaf6yU5epo9HnqhYzRDX_KqQN2SRX.r
- KIzDNSHcxvy9AgdBm0W5p7sELB6lF3ZAza7U9cIGvjZsO_Lj7bShCJJMZUWNpwy44kDxsoHghqM.
- ZjsWLg1_2riOdlWLtkADNqzTnSPUdhVl5MCHrlvi9p1cgpz0eBSn7iXvqepF6WojlLKzV7rK0Axj
- I_b1VOMumhlWN7MNIZoLHjDpZcfLObnD06PsT3G3_JRgpJ_V2YgAfun9wr6DDHWtUfGBUwT69n5z
- 5k1sMhrA5FNYYXTNH3mCNrBYND13Rs_fvJsFRXRAHxvj6SCchMevNSkuJPcTXsOj6jJ3t93sOXhh
- JZCYhc97StbFWZI8bC8n8rBnA6TViv_Tk8P20cibLUy4abFCEXHY8qClTTzroImtoGNRhn1lf3QK
- wfvfvV0tGYz8R.C9kKFj3r67Zfir17KzJ9osLThKbAwzxpBBOLeb5M52ArZK3jde8qrjmyxu8pyB
- JFPkDhQ20RVFpKTj93t95wgE-
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 49e5a92c-a159-440c-ab6e-d16bcb01beff
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-104 with HTTP; Sun, 15 Nov 2026 22:15:20 +0000
-Received: from dip25.lsn.ir2.yahoo.com ([87.248.99.34])
-          by hello (SMTP) with SMTP ID c8d60a975a832e99b8d64eff3def6a17;
-          Sun, 15 Nov 2026 22:15:17 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Sun, 15 Nov 2026 23:15:15 +0100
-Subject: [PATCH] dmaengine: bcm2835-dma: Add missing
- of_dma_controller_free()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hl12hccU
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36ecc11bd26so313118eec.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:18:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794781112; x=1795385912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MpshBwpP8nrcyZIgCaEpwnlsFopChh0GnbxP5EKQpwM=;
+        b=hl12hccUVxYDW0zF3xMwx12XdbjOy1q+DGTYEWZSnlgIWtx+BujqEXwWaVXtzPlegq
+         bBhJ4ocHjqdY3Ke1M7V2xqG8xCocseWx1EiWPoJ7sx83k/LSezEAltYKQ2leyxJYC/U7
+         8jgtz7kNV564uccTFQ3bZAJX8EEpj8bfIGtd0Y3b1gENQeeVYnb+a/E5ZlsYd/4adn/5
+         zajP+pg/4c0hSzmG0evdfN+0Dgj4U9iDdjJv3BmY9uBBPnkI2JpbHEq2NqtSOWhdJhmd
+         o+fpnFU9sJ7PJn9kP6s2y/ChrCbF9BWlRCaArArgdZfY/PR0zy63hhmxZcks7dunZGaJ
+         ybJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794781112; x=1795385912;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MpshBwpP8nrcyZIgCaEpwnlsFopChh0GnbxP5EKQpwM=;
+        b=IPW21GXUyrSgE/4DiY4HoPQ2fckWrPUC+j1xTkkJfK/afNPDe794ExPwYdfA/aNGme
+         sC/pX+8Yp8/6VMeMZ7TrBgv+v8T6u/X9w4QIzhu+DtglD4EfM8xzBlHWMKAsQ8vNxZ0O
+         6pKPnyd3mD9qrdNMcwJ41ZLVuLvUpQk94Z8B+7fyMQBDdtfohFX5XatPtur460t3zv/n
+         fNPeAJ88sZMU37ABqdQQ/JgX4tkf2DuGVMtOg3wcte5VZEPgdtOFQCsBKAI0BheLOlfo
+         hMgluX6ju2P1zqAAvPLrril7N6hxdfQudu5L22HmfL8m45drEt10Odj656VLHmlDhi/2
+         svDw==
+X-Forwarded-Encrypted: i=1; AL+hErH7Rpvf8KetvO0xxPuLR8SFQDoofdCtok+EJHmmAMeOq+pTZ/0RudQ7/RwHK7Z/jJgPyGh+++SGJw9J7hw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jQcQoDm+vZltpE0rb+E0z8GhReP+jH32Hd2Qp0Le/hUomtiJa
+	CS/vqWimBDuArZqtyJk5y+hyaJD1mTEjC1kFcn/3+zp8ffGaFjX3z//p
+X-Gm-Gg: AYBFou3hX63ds6Cc0Gwl3b7sQ2pMHN3YksQ47y5ag7C5ZFrvAbBwvpe36/QOcZ8qqlu
+	Sb/ElCCPR+y9xE80ARzuow8g0Ohj9U1cywvr5mvJmGY9DcN8g/y9A2DV3lKDjJkzuTW6UncAOyx
+	oaUorfj56ijkVA41TvB+k/wrrDu59KdNtlcK6+JwWPWffeejrEl3UI0nMd4hsLZETRWTeFcc4+4
+	5ePrAzhnR8NSMWQU7mVcwO4Q/A62RWuuyRrBqfSWqpKTxGbPEo06ExpWWVCz9cdBLU7wSMHX2Me
+	vFhvPy41GVnCQyAR8YDAxIwyhVofP3t8Ykh98tvkUUlY1L8Ia0tCMuepP/INKT/5lh3njaTOEtm
+	x+occkGvDFJ7LoXD+226ukF9wP5gwerQKn/uC60AyNU4rEglBNUblPDpd04ZJjDHhTErO6cVXEc
+	89qIbUe65DpXfGephNYAp8m5igmStIYCiKO68X0tWxGcmpOQbBSR2kdAGRxY93BjuT2/p9xU0d7
+	YeJNZvZ3RgUGM0TgJX93b+RO7LVVwjZozaWuX6yfzX51JOJQq74tdBycwSfDTITMMuTt/DLEYgv
+	duBg31PH4Y9nY/Wp/lnq0kKyMZkPz4+ctAObkxORKn1WA4SSDd/jzleXueeWmxgd0F5VK3Xm/hQ
+	Yqrvz0qV3ANnTc76w+ejaQbgDGPaFe+ZhloXNgwG+RDDMgLvY3UYH21R3u6xX6ULHcgGHapS9pI
+	MU9o+uoZ6kSdcvtzIRw2pvZiJGqIULB8p0
+X-Received: by 2002:a05:7301:a0a:b0:36c:a1bc:6114 with SMTP id 5a478bee46e88-3796038259fmr12826511eec.0.1794781112527;
+        Sun, 15 Nov 2026 14:18:32 -0800 (PST)
+Received: from esteban.tail1178e6.ts.net ([240b:c020:610:7dd7::e91])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3797f98b9b2sm26765616eec.6.2026.11.15.14.18.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 14:18:32 -0800 (PST)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: firassharary3@gmail.com
+Cc: linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	djrscally@gmail.com,
+	dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/9] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
+Date: Mon, 16 Nov 2026 07:18:21 +0900
+Message-ID: <20261115221821.2928690-1-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261115175301.8516-1-firassharary3@gmail.com>
+References: <20261113024059.1087031-1-antoine.pichot@gmail.com> <20261115175301.8516-1-firassharary3@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,117 +107,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-bcm2835-dma-of-dma-free-v1-1-d539234bfec5@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWXfAiY2XvkrpQuOJnYIXklYK4
- rs31dXhW5x/o4igiHTLNgpYNeo8JcglI/dspwGsfTKZ3JQiYrlzo6kLy/3Y8uyP8QFg+NpWVen
- yRq6U3kuA1+9Rvj9Ox0/3gnv/c7TvPwce4ll7AAAA
-X-Change-ID: 20261115-bcm2835-dma-of-dma-free-ef85776c0914
-To: Vinod Koul <vkoul@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Frank Li <Frank.Li@kernel.org>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- dmaengine@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794780915; l=3260;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=jV0a/9DTGW1SPvNbP0Mt26tL8Imf7uBrc5dwl3yGkZM=;
- b=CscCH9wbwWmQedrCZPpnmGMn+DkzApvTh/R9gV9+S6vD7i2g0um3z09nUEFA3pGeMASBZjqbA
- dpj+AHnai5fDlH/VxgdEU7Wo+HF8NFz+66pNTc7PPRNQXcZNozKTnGp
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20261115-bcm2835-dma-of-dma-free-v1-1-d539234bfec5.ref@yahoo.pl>
+Content-Transfer-Encoding: 8bit
 
-bcm2835_dma_probe() registers the controller with
-of_dma_controller_register(), but of_dma_controller_free() is never
-called, neither when dma_async_device_register() fails nor in
-bcm2835_dma_remove().
+Hi Firas,
 
-The entry stays on the global of_dma_list and keeps a pointer to the
-driver data, which is devm-allocated and freed when the device is
-unbound. The next DMA channel request for this node is passed to
-bcm2835_dma_xlate() with the freed structure and, depending on what
-that memory holds by then, either fails or crashes. As the stale entry
-is found first, this still happens after the controller has been bound
-again.
+On Sat, Nov 15, 2026 at 05:53:01PM +0000, Firas Sharary wrote:
+> Tested-by: Firas Sharary <firassharary3@gmail.com> # Surface Pro 7+
 
-On a Raspberry Pi 4 Model B, unbinding vc4 and the DMA controller and
-then binding vc4 again results in:
+Thanks for the test, I'm glad it works as expected.
 
-  Unable to handle kernel NULL pointer dereference at virtual address
-  0000000000000018
-  Call trace:
-   find_candidate+0x64/0x210 (P)
-   dma_get_any_slave_channel+0x64/0xd0
-   bcm2835_dma_xlate+0x24/0x48
-   of_dma_request_slave_channel+0x178/0x2a8
-   dma_request_chan+0x20c/0x380
-   snd_dmaengine_pcm_register+0xa4/0x2a0 [snd_soc_core]
-   devm_snd_dmaengine_pcm_register+0x60/0xc0 [snd_soc_core]
-   vc4_hdmi_bind+0x4d4/0x8e8 [vc4]
-
-Free the controller on the probe error path and in remove. In remove,
-do it before unregistering the DMA device, so that no channel can be
-requested through the node while the device is going away.
-
-The bug was found and the fix drafted with the help of an AI coding
-assistant (Claude).
-
-Fixes: 96286b576690 ("dmaengine: Add support for BCM2835")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5-2
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
-Verified on a Raspberry Pi 4 Model B: without the patch the sequence
-described in the commit message oopses; with it, binding vc4 while the
-controller is unbound is deferred and HDMI audio gets its DMA channels
-back once the controller is bound again. Both paths (remove and a forced
-dma_async_device_register() failure) were also run under KASAN in QEMU
-raspi4b: slab-use-after-free in find_candidate() without the patch, no
-report with it.
----
- drivers/dma/bcm2835-dma.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
-index 06d830d36882..cf29d897450e 100644
---- a/drivers/dma/bcm2835-dma.c
-+++ b/drivers/dma/bcm2835-dma.c
-@@ -1011,13 +1011,15 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
- 	if (rc) {
- 		dev_err(&pdev->dev,
- 			"Failed to register slave DMA engine device: %d\n", rc);
--		goto err_no_dma;
-+		goto err_of_dma;
- 	}
- 
- 	dev_dbg(&pdev->dev, "Load BCM2835 DMA engine driver\n");
- 
- 	return 0;
- 
-+err_of_dma:
-+	of_dma_controller_free(pdev->dev.of_node);
- err_no_dma:
- 	bcm2835_dma_free(od);
- 	return rc;
-@@ -1027,6 +1029,7 @@ static void bcm2835_dma_remove(struct platform_device *pdev)
- {
- 	struct bcm2835_dmadev *od = platform_get_drvdata(pdev);
- 
-+	of_dma_controller_free(pdev->dev.of_node);
- 	dma_async_device_unregister(&od->ddev);
- 	bcm2835_dma_free(od);
- }
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261115-bcm2835-dma-of-dma-free-ef85776c0914
-
-Best regards,
---  
-Tomasz Unger <tomasz.unger@yahoo.pl>
-
+Thanks,
+Antoine
