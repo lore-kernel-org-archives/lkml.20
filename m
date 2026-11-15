@@ -1,90 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794735206;
-	b=yC+RiZ9Rvm4PcAfCSrYVKaE7MWttVtzqLFntqgEdInWpRxbSdTTv3f1LcycrKh3f1tKr
-	 dXqHmYrDxnQ8itI+4Il9XQP5NOl5nh8Km5R3Ax8j0axAafDhYd9Fq9kzoKuIm/xgYcsHF
-	 gCX5SNY1+1ePdwSZRQwZlbKN/OwlKJR4QlgTLKXzSScEHSph0MOfXgxT6LFAk0P/Leciy
-	 aRiNU4X7mBs05l3HwCleFX4aifL6H0qcwdcMdGMStahZEPw7aGgwP8c2xLisYgXMisnC8
-	 0+8qUiByTSGeXJRazJ0ll8H23hBKkhp9xsFVHBUg4ufbl/f7lYjhDSv8TiP4RJpZrtw==
+	t=1794735304;
+	b=LIR9w9y1DN3QyRa6VE9KncY7580JG/WxZM6x9AasatOXDBWTeEi+Fy2NhScBoXE/eyBI
+	 aGqjYzkL8kU/3D8hv7rcUQDKNzhxEAXEOHzSx2io/IpNLYdLmcnoZxISPuLDSkKWUI/fY
+	 qXxUX2K9la1iQ2wom8wkBgUyXVHriZT9UtBvjZWZTAmzI6erm2316whjypoVUslnEgJah
+	 HCdH4KY1ZlO1XR+5xeM7RTLDEAmRFkAeV6j4mV2OX4Z4JrZDrwJp/bQwGg/6vZBGmrb8H
+	 n2avThlKEmLluUzDB3uChb/4Y7h+ZgWDbGHPnYxuJoG8ykviU5zjsb8Ko8k3YdU+9WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794735206;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794735304;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=PuczV2jozFUeyJsXtX8bgTt59XDEa5cGyADBIgej+KE=;
-	b=sxXl9ti49GndgZ6/KJufVPRmjU/92jmUs3JKGNFv1HmmD1RPpowz1W0sYIKtH8CjqN9D
-	 vqUIfk7skKjVO9Qeaovc/DiUEYifKpudf4DUbyJdJ8Py9ctX3BC5q6as75hKVicY2DHIc
-	 Z3bwrJANxmnCi7NFYZ4vRFq45NA78NqtjUyEH8RKxNXc1qHUesiLarS3EsQi/GjB5voJW
-	 H0xclJCS/+Y4ktUxFnIRb7ui1jlltOKwHbecWfEN2wFioyN2TkGWA8Yi+21F+VXH4MjjR
-	 5C5PxQgHQ4806z6/CWI4X4wZnmaZnEu1LGMnCwTHeqsjjMyqWCFO+SF2O+aVp+qXHPQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8qOsEVx0lNcqncRsI92WD8XITRb8ty6XS3PW5jLkLOA=;
+	b=uchDzKgo605ZLluAyn105DygP8KkCzF5KV/Unf7eKp6dN6W4N1kdkhxHNhQRB/p+WsYF
+	 /mKsoOX1V/rF/Vx1sLC5GRvZpfMxeVCWFznQgmSTzdcveA0iY6XTjud5cdju7Qrcb2gW/
+	 Fnt7DqWGU13gx4YZeGy0TxcM5V1soPkdH6+WHJLAxoKcnZ8o1ybFrkwxucC99OYR3rF8P
+	 rrVdjoXraACsUS+lSCgRIdLiwaGUuYvh4TvbwPhNHuUZixChLorvWKtgSRE2s1oiG5vJQ
+	 ZGxxDmS5ETXHImWIhyPbdi3OAkaN7bOd+O5Xkzz5XQJP1miXo/HXe5CkpphkWsQDcFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PEj59C2r;
-	arc=none smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OH9Ha2/i";
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1EF60A2603
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:33:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D1EF60A2603
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B629606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 09:35:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B629606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PEj59C2r
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-71acdd32a53so428024eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:33:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OH9Ha2/i
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so3563125c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 01:35:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794735205; x=1795340005; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PuczV2jozFUeyJsXtX8bgTt59XDEa5cGyADBIgej+KE=;
-        b=PEj59C2rYSl+quIcKTy9dV9+5SuhTpvAT2KDDAuzgsQBLvmnNlEET4u5uAC76Sf1Zy
-         3/4PovDy8uKhKxBxSv/cVQ9f0/SN5gyLl4odEOi0edPTRaX4ELapu9bk6C5dHaBvrWmK
-         1GVI2tHz0bvRCmFCFu1EhCeB0qJqsoCXnYOURXflf5yMk/7A4WNZrmSVgghBKzN6QTOe
-         sknbs2Rk157BMvySDqe1jemIz1GfnoPBt7Un3s7sIcrH/b8aMVoUiL6gkKRHNnTXAb3z
-         HjnpREoNDWwbPivwwr0bSzHqnpV30LT+sEcZCCUVnnZD6nsaPu0TMDI9rR8n3t6oFshk
-         bgZA==
+        d=gmail.com; s=20260707; t=1794735303; x=1795340103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8qOsEVx0lNcqncRsI92WD8XITRb8ty6XS3PW5jLkLOA=;
+        b=OH9Ha2/imUV/OnHLqHUoaeryW5odeCWmwi9sYyHkCX6FHUC+26UCLGHFvTIdIUdwiR
+         BOf1LrbfYSQUP1q4zV9KJT/EdnOl3/bHokfdLXU5n7VJjk+CvZJ1pk8yTd+Qdz4iGROl
+         Wg4xRNR8JEimOQxpFrHk+XwmhANCXtH+zNDEAQ2bWB6kwIOnPkdU8iITQPeCqlcFLJ6r
+         BpMBeO7lTVJsutserfG4onnRJb/43I6pB7akUYt07GY3SNNTKq+ruGE5G05PvpanWIFZ
+         tjmVtqr03c3z28AIfFSE7274GFiTY3oh0NNPml3SF4GiYieyId6+jfNTmKeyToOAXpRz
+         RdAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794735205; x=1795340005;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PuczV2jozFUeyJsXtX8bgTt59XDEa5cGyADBIgej+KE=;
-        b=tDw9N+bLKSHLfj8QCHgUZ2zAruB9+MoD+wd8wZutwSEBx6RgmdtgBA5X5+cw6seCeK
-         8hkTRNLzsLHiQegb4UXGHkkBPRR2vBShz+hgwfBvyOK7u17YAV3qWzIwfp11fZieu0V4
-         /GNaAymfTfv+Z/sO98Pzv5GsF21d3ZQ97roqrWl82SchLwUX0FkYpVUKtgTl0Mh/bHAk
-         tnoRzwoM2ugEkg90WZJ2D7dRtQE1ykC4feS6o/z7OceV3tsoSElxl231hI2ykjRRCIqg
-         +FGJWpF3EZcLbMh6Cn6T520SLkVHeuIJAvGln0sJSdjSUAyFaQq3pe1VQKv/lqDg2C/R
-         qthA==
-X-Forwarded-Encrypted: i=1; AL+hErHlq0vxCjdygKscjnz9qMI/AaABkxI56gQOJkmnsZQPL5DPluLnon6rQyjqu2i5mWceECPQJ1ikU9S/vXQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZwHJXm+TQ9o0s3ifO/S9S6yDpuvUxT/ADWfNRwGtug6rYv8Xa
-	uS3HnlQisX4uiX4alDuZXaJ3wiq/Hdixv5DTS4GErTQHlw2KoWvTv5Om
-X-Gm-Gg: AYBFou1nrPGC6B4G0iw3ygdyHhhUR7O1qkcaKf+vfEDlSV1cqaIu9HAMJ5EKu52eKLv
-	FGPpPHIUXQRma2EBwM90aeqTtLx2u34IliAestuqrBGyPL1el7zUwzFP792BdbadGD0BsCKt6Vf
-	bNnK4UL1npxDo9hv/R0yMNPdVywMgrCUsoABVT1GqxC3fagGiT4adZuKzV3DSfsVqj0oFu37y+N
-	qKI/hEg8T8RmFAdfFxpW4KAaIeKVJb0gP8D8vlIv5deqsuqyawLr6h8ZRKHWp3KOPtKRS5/N71J
-	GLlhLP2G2BP+Vh2xDsZ6GZJq2Mb3i0oH5ZiFPH5PFZ9ImbgfWbKSjPbRDqrH7qV3c1+h/G6E0Up
-	1e60sTpyrsF7jhtEG5oermP8nXDyVp+D0BzrEsG2o1XqAQBXOMiQnwt9o3gB8OTqs00CnJjmrpd
-	Idzf3IaSPkJpS5TkR88Zx46Lo6jXwhmzPkAxWXglT5FX+Eplj4L18C1zaYY64wgegY1BUZA2omr
-	a8CFJhqQX+4Zxxy7qLk5JdPt79yMvlJQsJznXu02jcDuEjzdozFzjOhPfQtvbg7VUceSRiiYryU
-	Np6ZFccAW6PEtcpfUDwZTDTfXkXuGJpPFDCx848ni9wfBcti6mX3fGnDCCHRl8mW99P7jPpTNR5
-	qpwYmW/NV38/BNwvgxliuxOUGfhbQojWtFjOnR/oJam2oe6MsBvxfH9qSmZPytz9ULwPfRcXCAo
-	5SzrmoHrejZdmB4Y32AXeFyQhllnFsUWzm6qAEvaWuzY4N0FRIuUI=
-X-Received: by 2002:a05:6820:5604:20b0:716:c2df:d9a2 with SMTP id 006d021491bc7-71ab505077cmr2942230eaf.44.1794735204957;
-        Sun, 15 Nov 2026 01:33:24 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab43347b9sm5933617eaf.12.2026.11.15.01.33.23
+        d=1e100.net; s=20260707; t=1794735303; x=1795340103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8qOsEVx0lNcqncRsI92WD8XITRb8ty6XS3PW5jLkLOA=;
+        b=YXGPjBS1D1kQeAKFn6D5vkmIGfWLylrseMHG60R2a/9Q5Q/VUyXwsve9roVSiAuXNr
+         rLzdYlULN3HkjtLlcxWbES/nk/BpinZqB93wYVVwyKtlRuNoZaxrLvQzlpEOfvd8Y6hE
+         nK/bm88T9SrbNc1kW5xm8mCm7JJIw3gEsZRHHs3s92Xtshw9IH47sGNq+UvB6vFfq1OC
+         IGz/Nhg1kQVIK8p5fw/t5LVmx/r8gZb+gFybDj0IJLy5vgYe4bVYC/kPv6VGokjqI5iy
+         mEI9haVVZa3710dBMOQDgo87jtO5klSk8nNqZAMLmdxvkumC0k7Km5M3DzzcBPz/+6Gj
+         a8/A==
+X-Forwarded-Encrypted: i=1; AL+hErEtjt9aZ+jm8NVX8/kYkpgVobC+9HlOkaNhs0FMar4cdq6PZ5kRo//5RTcScFnOcVdN5YW6pJaTYght5/8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sVMn2HpBPtuu3fkLyT1BDLIFaQn/m88wNoL6htDjuTz7dF4Fc
+	f1htjQ5X/+S+OhOvLyh/N3kB8dnyDbvWMfq43JbZvmKP4GPWyxBGDgbS
+X-Gm-Gg: AYBFou0m/UtmdygbN9HL9Qg4p6i4/9VhtpAoO/rL1+SxPXXNhvZBXMwpuagUVoCAuIx
+	b0F0tNndMzZPLhFlU3JtXXCmRolgXWKnFKv66El8aC1aST+eE9KFv5yuxJEkYfOChEAbxVRt8BD
+	wDJHdo/PevePC5z2PbVn7w6DQLaPKc5TNuIQdNaWDuXQI5SDaMgrZa42V1x+NILZINc0tA4VViF
+	pyWp8ygD8vOJJWkPWgtdcPFiVvB1vzwLNxS84ED5jRntDQhanRvjSUAG4yUJ41cmLneaZkD3ZzL
+	mygBdaNASIFxbE4xD/00GkQhTblWn7JQZVcHxjKxUr2H3lcYoj08EEEhCUvxxbGLCVQGU1kA3mT
+	+wyB7WmOUL/a1/lUC7rBBt7rFn7btNWjkdT/gPlr3AecsdnjUHQ2/YoKKZ7wPRV1SAJIaYW7T4b
+	QqFc1tK8x8RUKclqew2Qn317bMezqJW+MpOOZB6juzOum5n7kCvedk0Ma2wdvF3hVTPspDhT3t5
+	B3IEQOVRo6NabWv804ioaAtxb/lX3iZ4AUmHWGa+3m03QlnVrgI+i36B9Fdcf2N4zu1YBvOjMdV
+	iQqBqPAjSR6MLafQJGpVFKToH2BxIFLTKojNPvcxFsGoOY8sNTiwZE5ofp+Sag7aC31kPmBLFEa
+	p0ck5dGieYGbTUvvD+DzpZSy9esQQ
+X-Received: by 2002:a05:7300:c01c:20b0:36e:b05e:9a74 with SMTP id 5a478bee46e88-37967dd6078mr7137823eec.30.1794735302432;
+        Sun, 15 Nov 2026 01:35:02 -0800 (PST)
+Received: from codespaces-2362ac.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net ([207.46.224.87])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d3e37sm26298603eec.24.2026.11.15.01.35.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:33:24 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 15 Nov 2026 02:32:57 -0700
-Subject: [PATCH v4 9/9] dmaengine: sun6i: keep cyclic state with the
- prepared descriptor
+        Sun, 15 Nov 2026 01:35:01 -0800 (PST)
+From: Seongjae Jeong <jsjlee1020@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Seongjae Jeong <jsjlee1020@gmail.com>,
+	stable@kernel.org
+Subject: [PATCH] f2fs: fix to use atomic write for strict fsync on the inode update path
+Date: Sun, 15 Nov 2026 09:34:13 +0000
+Message-ID: <20261115093413.118399-1-jsjlee1020@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,107 +98,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-submit-sun6i-dma-lifetime-next-v1-v4-9-043cd476a45f@gmail.com>
-References: <20261115-submit-sun6i-dma-lifetime-next-v1-v4-0-043cd476a45f@gmail.com>
-In-Reply-To: <20261115-submit-sun6i-dma-lifetime-next-v1-v4-0-043cd476a45f@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Arnd Bergmann <arnd@arndb.de>, 
- Maxime Ripard <mripard@kernel.org>, Jens Kuske <jenskuske@gmail.com>, 
- Jean-Francois Moine <moinejf@free.fr>
-Cc: Hongling Zeng <zenghongling@kylinos.cn>, 
- Chengfeng Ye <cyeaa@connect.ust.hk>, 
- Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, 
- dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Preparing a cyclic transfer sets vchan->cyclic before the descriptor is
-submitted. A finite transfer on that channel can then select package
-interrupts and take the cyclic callback path instead of completing its
-cookie. Merely preparing an unrelated future transfer must not change
-the active transfer or the meaning of queued descriptors.
+In strict fsync mode, f2fs_do_sync_file() uses atomic node writes
+for OPU to preserve ordering between data and node writes and
+prevent data corruption after a sudden power loss.
 
-Store the flag in sun6i_desc and consult the active descriptor when
-selecting interrupts, completing a transfer and terminating it. Finite
-descriptors retain their zero-initialized flag. This also makes callback
-retirement depend on the descriptor whose lifetime is being ended.
+When an inode update is needed, f2fs_do_sync_file() calls
+f2fs_write_inode() and jumps to go_write, bypassing the check that
+sets atomic. This can lead to non-atomic node writes even after an OPU
+in strict fsync mode.
 
-The shared state was identified during the H616 cyclic UART RX review.
+Move the OPU and strict fsync checks before the inode update branch
+so that atomic mode is enabled before the jump to go_write.
 
-Fixes: a90e173f3faf ("dmaengine: sun6i: Add cyclic capability")
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Cc: stable@kernel.org
+Fixes: 278799151646 ("f2fs: fix to force keeping write barrier for strict fsync mode")
+Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
 ---
- drivers/dma/sun6i-dma.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ fs/f2fs/file.c | 31 +++++++++++++++++--------------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index 8f8443e14719..7316631545c3 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -191,6 +191,7 @@ struct sun6i_desc {
- 	struct virt_dma_desc	vd;
- 	dma_addr_t		p_lli;
- 	struct sun6i_dma_lli	*v_lli;
-+	bool			cyclic;
- };
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 05061254c3b2..3b51d84177e0 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -372,6 +372,7 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
+ 	int ret = 0;
+ 	enum cp_reason_type cp_reason = 0;
+ 	unsigned int seq_id = 0;
++	bool has_append;
  
- struct sun6i_pchan {
-@@ -207,7 +208,6 @@ struct sun6i_vchan {
- 	struct sun6i_pchan	*phy;
- 	u8			port;
- 	u8			irq_type;
--	bool			cyclic;
- 	bool			paused;
- };
- 
-@@ -509,7 +509,7 @@ static int sun6i_dma_start_desc(struct sun6i_vchan *vchan)
- 			     (DMA_IRQ_HALF | DMA_IRQ_PKG | DMA_IRQ_QUEUE) <<
- 			     (irq_offset * DMA_IRQ_CHAN_WIDTH));
- 
--	vchan->irq_type = vchan->cyclic ? DMA_IRQ_PKG : DMA_IRQ_QUEUE;
-+	vchan->irq_type = pchan->desc->cyclic ? DMA_IRQ_PKG : DMA_IRQ_QUEUE;
- 
- 	irq_val = sun6i_read_irq_en(sdev, irq_reg);
- 	irq_val &= ~((DMA_IRQ_HALF | DMA_IRQ_PKG | DMA_IRQ_QUEUE) <<
-@@ -612,7 +612,7 @@ static irqreturn_t sun6i_dma_interrupt(int irq, void *dev_id)
- 			desc = pchan->desc;
- 			if (vchan && desc && (status & vchan->irq_type)) {
- 				spin_lock(&vchan->vc.lock);
--				if (vchan->cyclic) {
-+				if (desc->cyclic) {
- 					vchan_cyclic_callback(&desc->vd);
- 				} else {
- 					/* Completion transfers ownership to virt-dma. */
-@@ -913,7 +913,7 @@ static struct dma_async_tx_descriptor *sun6i_dma_prep_dma_cyclic(
- 
- 	prev->p_lli_next = txd->p_lli;		/* cyclic list */
- 
--	vchan->cyclic = true;
-+	txd->cyclic = true;
- 
- 	return vchan_tx_prep(&vchan->vc, &txd->vd, flags);
- 
-@@ -1003,13 +1003,12 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
- 		struct virt_dma_desc *vd = &pchan->desc->vd;
- 
- 		/* A cyclic callback may still hold this descriptor outside vc.lock. */
--		if (vchan->cyclic)
-+		if (pchan->desc->cyclic)
- 			vchan_terminate_vdesc(vd);
- 		else
- 			list_add_tail(&vd->node, &head);
+ 	if (unlikely(f2fs_readonly(inode->i_sb)))
+ 		return 0;
+@@ -392,6 +393,21 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
+ 		return ret;
  	}
  
--	vchan->cyclic = false;
- 	vchan->paused = false;
- 	/* Leave terminated cyclic descriptors for the sleepable synchronize. */
- 	list_splice_tail_init(&vchan->vc.desc_allocated, &head);
-
++	has_append = is_inode_flag_set(inode, FI_APPEND_WRITE) ||
++		     f2fs_exist_written_data(sbi, ino, APPEND_INO);
++
++	/*
++	 * for OPU case, during fsync(), node can be persisted before
++	 * data when lower device doesn't support write barrier, result
++	 * in data corruption after SPO.
++	 * So for strict fsync mode, force to use atomic write semantics
++	 * to keep write order in between data/node and last node to
++	 * avoid potential data corruption.
++	 */
++	if (!atomic && has_append &&
++	    F2FS_OPTION(sbi).fsync_mode == FSYNC_MODE_STRICT)
++		atomic = true;
++
+ 	/* if the inode is dirty, let's recover all the time */
+ 	if (!f2fs_skip_inode_update(inode, datasync)) {
+ 		f2fs_write_inode(inode, NULL);
+@@ -401,8 +417,7 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
+ 	/*
+ 	 * if there is no written data, don't waste time to write recovery info.
+ 	 */
+-	if (!is_inode_flag_set(inode, FI_APPEND_WRITE) &&
+-			!f2fs_exist_written_data(sbi, ino, APPEND_INO)) {
++	if (!has_append) {
+ 
+ 		/* it may call write_inode just prior to fsync */
+ 		if (need_inode_page_update(sbi, ino))
+@@ -412,18 +427,6 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
+ 				f2fs_exist_written_data(sbi, ino, UPDATE_INO))
+ 			goto flush_out;
+ 		goto out;
+-	} else {
+-		/*
+-		 * for OPU case, during fsync(), node can be persisted before
+-		 * data when lower device doesn't support write barrier, result
+-		 * in data corruption after SPO.
+-		 * So for strict fsync mode, force to use atomic write semantics
+-		 * to keep write order in between data/node and last node to
+-		 * avoid potential data corruption.
+-		 */
+-		if (F2FS_OPTION(sbi).fsync_mode ==
+-				FSYNC_MODE_STRICT && !atomic)
+-			atomic = true;
+ 	}
+ go_write:
+ 	/*
 -- 
 2.53.0
 
