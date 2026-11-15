@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755144;
-	b=ogv55RCk+HI7id89uOPOubq7GSieP1vEtkBtj5APCku+P4jmJjSEkM4zjkhcnrup9kpx
-	 UIHuZJ/wPubh/djLfE5gDk2meYKXK3KJvniOfIVt4C3F9zY8SxongAksoTtXjuHsHmdQp
-	 rzWWEZDozV3Jif2dGGxcKlV33BaiuMgiRaNHALKz3so517v16LJ/0KAeXkgvCFuoYGW1D
-	 UyIMgSVtJ0zRpGbdTL96dZ9M9XgENB7WNrvkStyvkK5epEXKlEo+fb2u4TxJz/i0sB3nH
-	 niBCQ1F8KimbFxAJeiPfe2PKBIhnPwIfr90lclznLn1C+4i3ir4ojDiRfE6OuNNIAuQ==
+	t=1794755197;
+	b=tRJktpxpCwmZFgxg0c72jS18yEGYrGtzIS/uesk23hdoIui5xMY9uo8KPupyZjfwNHId
+	 phZ8Wm+F4CA7sepx3wgKlI/xtmZDLxXmAKvYVLF1TTHH4xvDkafG8XPUGAqGGTKexueOn
+	 LmZpvbpObahyQyfbQC7cyK6PsTS2hwVNL57E6tSp4i3LBFQz2nwYbflmORLKmB8ho8q9B
+	 o4VPSBnQSuBb1659/rzPHHgV4//MGTPb2m9l0Bz9xasIkV0j3n5cAHLZA6xFk9ZsI6aZB
+	 P3S16dOrWAIOjk6dHdVs9O9VPRGPEHY9Kk2SJSCfdctnnsOw5pZ9FpfSrS/tfHR6DrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755197;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LNKJPtzHb1J7PqtXpGxzA28qSovY5i1QlYlXq6WtWl8=;
-	b=1UiS74loItvJXMj9nyomk3vg8SUwxbiOGtQFnWTjgAqHIsc/HpMT7l0HK9cRuTDqUUou
-	 EJ7zFBSm9LYQDcUvv28Co7vCZOhIMah7HwxZZP2oW4dFgO6Zl+QlMMDb7eCBwoELHRFsg
-	 WyLy2bI7gF1sETntE8zyycOtjUlPRde4B7jTLMU4MYdqh+H4OD9q506q4ASTPOLI1Xdq7
-	 3ErsLB0HyM2DxIL6b+E/ZFfzJExgoGWcsioPeKQbjPh5cDivNo8Q9L6Ch7vW280QD0DK3
-	 P2Otga70hTUikB3bpK6rDpMjCADjGeXkiFDIFuf11JzKowIER+kUTIlS+Vjdpva5vfQ==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=y/hOIyUcvAfKlaaXm+bgaXHbjM9PJioyHvxOcCFmCQQ=;
+	b=oTr2QXIzuszp0tHDFAfyYHkqxRzwbLs7JR2swWi5YAzDXzzL21UdcSH1XIuhGvB72OUq
+	 NMvaW45x0XpwHs+KK7+b7iDXZuTPuVI1BPG5LKugUdI3M58TGdsTxx9U5DrU6J/o2gxbh
+	 271PMhe/voEU607N1mXPNh6DmL00XkqYbq34xHhM4EElsxTmf4oLrnPWp1IFyYBmG1voO
+	 dpTULRKIvuiIZNqpEAqCEa8fD4ZgCozYsVvN8tr3c02TlgRm70zatFkuIpC06BGLUwq/y
+	 KyuL16C+5PhjvBcAbL8cBHRI/CyeQowcgEy8bh5OIsAySp+ipLJu3NvCQpn8VudYZlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fca1iXU1;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A2CxOg0u;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36444606A31D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:05:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36444606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4A6606A31D
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:06:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E4A6606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fca1iXU1
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so14894965e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:05:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A2CxOg0u
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so7681545e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:06:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794755142; x=1795359942; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LNKJPtzHb1J7PqtXpGxzA28qSovY5i1QlYlXq6WtWl8=;
-        b=fca1iXU1Z15peVjSm+PNEsPgkQf2AEotII2E+OLuHx4uwukngxu6ypGXIW9zTyKHAn
-         /XFKOxq90k0saJagNt/ypJTyVeLaXZ5+9OHqgmnIevW5sKS2GaYvI8k49gDIYxtqau71
-         hdB8Tyu2SaTGVvStSFxP9cPRoF1eNnBxmvelpeNf1D9wSx6HV4XOSuqGSOqSDZnm0XFK
-         7/+Kkczsf8RPXVUDDEU1eLTedkk0eHubWhjEviZ8G3wVbke4LXfcgAx2Ps8ZaSACbhRX
-         o14V1Ee0i3g6YNlYDjQgctQWh00nVh/69pImTODhlcZk5JxVI06+NTPihq9+kOauQTzb
-         4dHQ==
+        d=gmail.com; s=20260707; t=1794755195; x=1795359995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y/hOIyUcvAfKlaaXm+bgaXHbjM9PJioyHvxOcCFmCQQ=;
+        b=A2CxOg0u4nA5j2QwWMCX2xov6hIZN16xt8onwYD8iiyiAmefaUJoMWy7xFANfTWq3e
+         b2Vw1nSe0DtU76RQo6cvDZJfosmWeIYVTT4tvIbqCA21YFldIqfypY4/lOVrBjY5f5Ws
+         4fRK9yBDQMVa/LTBdWIjf4ivi1vmColGKsZo/1rnE83gpKiU/Hwvi2dCjToI04dcUG99
+         5Cs/R7e51IBr6ubNPMl7niPd4VnEjeUzqhpbUDoyd1rAVesZRug/8vJFXr8RgwdKvQ8o
+         L417AZpEqKuwBbhYDbV7yLkjyrKK8uoDyka2WiK/Joc7HZfWKIaZ0UcTG0SeY7b3XiFb
+         kBGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794755142; x=1795359942;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LNKJPtzHb1J7PqtXpGxzA28qSovY5i1QlYlXq6WtWl8=;
-        b=O39LQ2boRnVooB96M5bqoIQHNomPoUi2TwfA7Gq9SrbuV7HUQ8TWnyZYnM64nVoZgV
-         4woNCYsgbrlZNwjEugf4wt1cXcaw27Ff8Nd/B/FHo+Zi1GN37R/0KGzfz3A/DerDhhvt
-         Lf7/tqYaV9YCKddlw6sCx5qELJvn11kyNZGOg9ZCp/L/QAwBceUwoGWoeyCUwWYt71gg
-         UhO0l/4s4Q2+oAbWVC6iCgdZt5wdmnISaaPBSypd/Z4IFKMso3HWSJC4YKRONHuAPwga
-         n7GkB0jzje9R+3Fv9dh8kzYyMK1jBAfLAolw8wJVhrOT0OFTrDKi8vLAzo571AQSIO1D
-         3q/Q==
-X-Forwarded-Encrypted: i=1; AL+hErF9k5wEyQRtzGbBZlh/TNfhv6bYqs/iXDx+eelmq6BEFKrhDW+3FvfwEia8VLoYK8YZRkgMRvndo/vXc0s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8W/mkIEr6fXiy53xA2lkCK7XQ6u696dhcNXXR9Fit7q2rkHCWj
-	yYFkhyRZZK04sXxCFKZuCuER352CU8Re607a75vAQydPaCK/VwGk/IfH
-X-Gm-Gg: AYBFou1wp8pEbOn8rFb7LowT/FOiAhF5MdXDv0f6ozBKnY6eod/yk9uJGbOd08UGEix
-	c2RsR1w0Tub+SX6fXncEhXwOOv8ABp9kUgosiafq5z8I4egSqMhAgwnHHm/dUH3rNWeTKv0Oiy3
-	ZFbyglRAJpiMr0Tky7r0SZlFhnFFGJ7CbTXEyHTulNhpq5im+YW46sSEfRG2GR9WOWdArWpNhZV
-	Q87fxV+l5+OCY8mPJCVIAO2uFWGV7m2mki5WYWsVMVwRw2Pa6cufQFwc5GCXxAyD7Ue8EW36Cx8
-	4aXPA0moYasKQc5gE09DPM+VgqPOWf7jGhQlVslskhhT2yEi0hhBupYw0hGiZbrCokdbNYw+D8e
-	vZk/vKa7m8x5oM/Hb3TB0qai28ouYxdYC4X060n/4TuSjQ9xBHm3c0pHktLaRS+c+ndZqCwIY2D
-	rGTtcH29zVSZlq9uOUVPMvkJA8totCv3SCdQv0A7iq2YKa+FoHYGYUUe2eOFcYVJAOP3kG38lCl
-	EOMmnavQ+1sMFIpBDnYjqeyLfVpkMUyH1cyWwRtI128i/vfxV/nY4WvDa/ezyJc0gt8j21mWqpU
-	3Vt7zzfSZP5eT8sCcqBUAT2ABIZtHbPbgYZz7R0xsPii/fwlejhstr7Y/nKG38WKNyJQFAmKp/w
-	wmXuL9I3+HTSEzHB/RYzIQfln99JCfzaegpPRKrsxeSMxXT+rHkUn1o7fIZmSScuhSH55OmJuV2
-	S1LxbQeKsEau0g8x5xwxAAHAg783hkWIZMGRfdr8uyGIaIhQomqEm2GB82W3BLXX+EC6kZIT38c
-	PLypzXYYIl6Bfw=
-X-Received: by 2002:a05:600c:3114:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4bb55a5de41mr169387015e9.21.1794755142424;
-        Sun, 15 Nov 2026 07:05:42 -0800 (PST)
-Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e293540sm313567485e9.8.2026.11.15.07.05.41
+        d=1e100.net; s=20260707; t=1794755195; x=1795359995;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y/hOIyUcvAfKlaaXm+bgaXHbjM9PJioyHvxOcCFmCQQ=;
+        b=Fxk7AjE5/6V6ws8ItmGV/ocdG1Mh8fBi3j/CV36lUcbqj8KipcHJe/K1m+LU2Mjzwl
+         wcr1eNF/KVTN6k2ZZb8v4ZDRPGVIEyn7nFlQH3SDDAbOBEL/l4ZmPfDSQTFQnB3fzOAc
+         Ph4T8TKpHLjHsSyAovnyLE/dRPQTy5MZz8vnm93ezafx+mh1dpUG8OkqjzHkySfrO1MB
+         mY2GMYtEa1UqFyDt9B6MqavJhXNlmKWB9zssiOkYxk638OvRK+Hxj6JzsiwXmejnRBA9
+         x5FXWLG19xQzpFoF1ync633ThecbgEKtCaJAJL1DTzyWjlxGCruCtYTPpsRy+q7TXTIN
+         Nvkw==
+X-Forwarded-Encrypted: i=1; AL+hErEibo67l3QNOsJxgEY5hFL8KQLO/thsd7l01v7NRGVp5/7MSuQ46gLxsXIILW/gYABaomdfBRRN8IOmZQM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3bwMqpcinzhGPPp01zQ5NYS2QG+PSHKoJtDH+uxL+z53LoamU
+	hTyA9qoqGDDUnu/0g6qNnH3S9zUHasZDMghFoMCRKkilry0wlQbhB3pa
+X-Gm-Gg: AYBFou3sENt4PzUgE5dk5Q/XlFm4sFaomknZsS2HH3lYoxoKvdJqvEonpePaLZtPJmE
+	VCY+0mIROchFnTckl0EDMwHI/84AdUgWQUNGle8ecNSPjnq8d0QvWqZcQWPT/q5INJL0qXOs/7B
+	aJIv1eHkoLdnQlOgwYMyK/JocriwOv5ULl8evJlvOHIcBXvZVzs1T4jOGeorPY/9qA8NSup/ldr
+	lW6w6bfh/uTyKCTgXIwjCsKub0sA97cfGrFPnk8uI8lsjmNjoXnNdl9TxdOzWZGPRuoJzR4zHVo
+	ICXyJEV7CRRyqgTQD2LkqeaFnGpCcNXTa8zcP3wfYPMiEpOVC/Dp54qWHAjjO4RrfBLxjXw89SR
+	kcsK6RU9s7e4nNyQc9/mSBeBQobYZF2JnSlJczbQ50lJzFHZ4+mdHDq6edNHCFdQU1/O5uRXaHV
+	OgiFb54aJ44jT24GPxpB3e5QzkwFxL4OulPT5fRKe/pzC9ETYE2nG8srtEK2MrrHlcgTbkee5lQ
+	/dpak8vg56ytCrwS+dqtJbPNxkmQH5FyeKuzdG9hC3PtTxnMJ++Al15LbA3rcNpVqZEPTYGP9EH
+	xxwUnMePETphXWlwxxujEKAuykmLp/mJdohQzCKUUIQxRtucb3MFNWI5+yj0enO3TQ==
+X-Received: by 2002:a05:600c:3551:b0:4bb:534b:ada4 with SMTP id 5b1f17b1804b1-4bb55abdc18mr178633625e9.33.1794755194903;
+        Sun, 15 Nov 2026 07:06:34 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2be55sm17236146f8f.28.2026.11.15.07.06.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 07:05:41 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] arm64: dts: allwinner: yuzukihd-chameleon: Enable the GPU
-Date: Sun, 15 Nov 2026 16:05:36 +0100
-Message-ID: <20261115150536.16212-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.1
+        Sun, 15 Nov 2026 07:06:33 -0800 (PST)
+Date: Sun, 15 Nov 2026 15:06:31 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: andrii@kernel.org, bpf@vger.kernel.org, ast@kernel.org,
+ daniel@iogearbox.net, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ alan.maguire@oracle.com, shuah@kernel.org, alexis.lothore@bootlin.com,
+ luisflavieira@gmail.com, ameryhung@gmail.com,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next v2 1/2] libbpf: Fix sign extension of unaligned
+ enums in btf_dump_get_enum_value()
+Message-ID: <20261115150631.3854c17c@pumpkin>
+In-Reply-To: <20261115084923.53182-2-dennylin0707@gmail.com>
+References: <20261115084923.53182-1-dennylin0707@gmail.com>
+	<20261115084923.53182-2-dennylin0707@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,34 +105,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The Mali GPU is supplied by DCDC1, like on other AXP313A based H618
-boards. Enable it.
+On Sun, 15 Nov 2026 08:49:22 +0000
+Hungyu Lin <dennylin0707@gmail.com> wrote:
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- .../boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts    | 5 +++++
- 1 file changed, 5 insertions(+)
+> btf_dump_get_enum_value() reads unaligned enum values through
+> btf_dump_get_bitfield_value() with a zero bit size. That makes
+> right_shift_bits 64 in
+> 
+> 	*value = (num << left_shift_bits) >> right_shift_bits;
+> 
+> which is undefined behavior for a __u64 on both endians. The path also
+> bypasses the signed loads used for aligned data, so a negative value of
+> a signed enum can lose its enumerator name when the data is unaligned.
+> 
+> Fix this by copying unaligned enum data into an aligned buffer, as
+> btf_dump_int_data() does, and reading it with the same loads as aligned
+> data.
+> 
+> Fixes: 920d16af9b42 ("libbpf: BTF dumper support for typed data")
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  tools/lib/bpf/btf_dump.c | 13 ++++---------
+>  1 file changed, 4 insertions(+), 9 deletions(-)
+> 
+> diff --git a/tools/lib/bpf/btf_dump.c b/tools/lib/bpf/btf_dump.c
+> index bbe86928b3ec..a80762a70cd0 100644
+> --- a/tools/lib/bpf/btf_dump.c
+> +++ b/tools/lib/bpf/btf_dump.c
+> @@ -2329,16 +2329,11 @@ static int btf_dump_get_enum_value(struct btf_dump *d,
+>  				   __s64 *value)
+>  {
+>  	bool is_signed = btf_kflag(t);
+> +	char buf[8] __attribute__((aligned(8)));
+>  
+> -	if (!ptr_is_aligned(d->btf, id, data)) {
+> -		__u64 val;
+> -		int err;
+> -
+> -		err = btf_dump_get_bitfield_value(d, t, data, 0, 0, &val);
+> -		if (err)
+> -			return err;
+> -		*value = (__s64)val;
+> -		return 0;
+> +	if (t->size <= sizeof(buf) && !ptr_is_aligned(d->btf, id, data)) {
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts b/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts
-index eae56908b9b4..9e275f0217ec 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts
-@@ -68,6 +68,11 @@ &ehci3 {
- 	status = "okay";
- };
- 
-+&gpu {
-+	mali-supply = <&reg_dcdc1>;
-+	status = "okay";
-+};
-+
- &mmc0 {
- 	bus-width = <4>;
- 	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
+Do the alignment check first, you don't expect the size check to fail.
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+David
+
+> +		memcpy(buf, data, t->size);
+> +		data = buf;
+>  	}
+>  
+>  	switch (t->size) {
 
