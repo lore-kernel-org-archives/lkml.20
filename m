@@ -1,32 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794770467;
-	b=TQO+YscYgRxKOOv1l0LvYigYMjShEpwLgbMaTPiS18FYZYQiovHdfxo+WpcbjgME15qE
-	 LrUbhWxDWeZVDC31XXRkoslariA427nbsB/RO/UEJ8aLBB6z9DGjSxJMOkBDTuB9DW4y2
-	 GHvvSEKkT7ozHcHh1+rLrRHweO0xKy3GIYuu8L4YNkEPDjKcu+JOmwEp76tt+NXrHWcDx
-	 4wADvDISnuPvYzGcg04Cyvp3Dn+gPGmZqQ5LwHqjfjXFqtpTh0cBu9BU0JitxlcbuwU3R
-	 dn8jbdkmANb9MXGFi+Px72tky0TylU0/PCHEG+fe3t5DYE5UtkwFPZDchKdhJKbpeew==
+	t=1794770524;
+	b=1/afN4O+YnzH3DhsWuSkON/Bz9McuVtMQTVK415+vwCxFCB1AitcMfG72pRq7Tls/RaO
+	 qUU5bw8BpC7QWeIazZzjSmpcYzkIJ7+4icb7/HvxkKTjZ7eMLwdDPyC2oZvcHpYbsePAQ
+	 M856kvUoDTXnVjZywm4AAjxuDVAkVltJRnOIoGZLJhwvtdgpnTS02fXEDmS01omHOz1cv
+	 EHsloJCnvl2RYQQ2rbGXAZZFF+1QTKl/MgDC/DgHlIhgx0/Y5tn/PnqWfdnEmIzyzzumm
+	 oW1qNQti/DI93aBVJkYmtLypWAyLQwaW7Dq3H9uKu9gYsadTDFP/wyNeMufUHErZ1Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770467;
-	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=U+51QAUSyzB+DcRMoMVMr+zf+XTPZAFIXU5itFRU/J8=;
-	b=sFEMvOaXSs77ZM07jV7QMjmL2MQG/ZFMGLDpu7PAc/i9wZ1aRtSLZx4hxUG2hvJUeIZ8
-	 Gb1Wx2BMxXvEFyRdfjN410Di1tBKDhj80GL/TQZcMhWyd5+/G9SRs6bl2Z1CiqEFFO4iF
-	 L0f2RGOukUh0WDdOyphN7NtF/h1aTTLqD/dTy+t7s67YpbuuU9qzW1NzsQm+jv0B3idBp
-	 bgBH+MggkI6UyvKlY5TjFPEairQO0mwFEUXAzByotPuIPNyu+DNHO5FuZS0dkFbbej3q/
-	 Nj8UOjxQOyzPxG5ehtUZgOMExkBG+pP9oiLfP8EjixjZmTv2mf+rQwEzlnfxPYugoPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770524;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TIMpcp5q0yTDtJcCpdNxmcyuVAuHnxRcCai9kzJu3Mg=;
+	b=SUv0IDl9F4Jp9AaasVpk137YD6Wbrz9K4n6Q/xPIAjxi+lB7IlZVnRfzvfrfe7SwAbO9
+	 XxX5JTM9bNDVvkpYz3os1SbebvoUr9vGmj2g7Qq9ENWDfgpvN3WVXt94I3ir/+ku6nYwm
+	 TmciVHLa12f6qd0Q++sp605Iy36gJPmS+fAaoBFK0A1N0mfT0KxmtwLK6RD56XX7Gk9Td
+	 OFIbgY2c1pKcTzs+T+ZvqsyOetaDW6KePmarzssTQ12+vVZrXxYRfDneK9yvDuuYdF9vX
+	 OIjoNDcImptjZDL2IcthyodwuHYYsSplFRVJE2bjIRiNUMUVrGT4hPYv82jl3DFUiHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYkZvG7T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B838606A32C;
-	Sun, 15 Nov 2026 19:21:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8555E1F000C4;
-	Sun, 15 Nov 2026 19:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1852D606A329;
+	Sun, 15 Nov 2026 19:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYkZvG7T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877A31F000C4;
+	Sun, 15 Nov 2026 19:21:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794770523;
+	bh=TIMpcp5q0yTDtJcCpdNxmcyuVAuHnxRcCai9kzJu3Mg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YYkZvG7TDza6ISUNrA5UxvkwMkMaTYDOKtlTjJFwt5WNutN24VaxlsSYmqhTVY9li
+	 mIZTkFQTGnBegqSkt7a9Ipe9CeKF14uY8FAe0wFb0LP22FzQ67JY+dckJsIF+yidHR
+	 SlTuALfyn43kZRzSCEvulKt5vwiT2jphAkIg9eZwP7a32TCNO212ENSsJz4QQtyUZj
+	 1uKDAouRdv8wY7F0SKuAiAd48ic38IeJ+YXUSFfSTn1IENOSTLTqYFK9EJ/6mtwox+
+	 84H0dI6au4UnWReLyQSXq7WX9642Fp1ZeDtPe87f1hFUOQ5oASWAQ6wHAa68wYrhKu
+	 nF6Tbtja0p8lQ==
+Date: Sun, 15 Nov 2026 21:21:56 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	George Guo <guodongtai@kylinos.cn>, Kexin Liu <liukexin@kylinos.cn>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Mukesh Pilaniya <mpilaniy@redhat.com>
+Subject: Re: [PATCH v3 0/5] kho: fix bootmem sizing
+Message-ID: <avoGVI3Ja6ZgRBL6@kernel.org>
+References: <20261112-kho-bootmem-sizing-v3-0-f0c8d00295d5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -36,68 +66,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/2] dt-bindings: phy: qcom: Add SA8797P eUSB2 PHY
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Hiren Gohel <hiren.gohel@oss.qualcomm.com>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <0032f652-4ba1-4a52-9241-635207f0caa1@oss.qualcomm.com>
-References: <20261026094118.3264112-1-hiren.gohel@oss.qualcomm.com>
- <20261026094118.3264112-2-hiren.gohel@oss.qualcomm.com>
- <0032f652-4ba1-4a52-9241-635207f0caa1@oss.qualcomm.com>
-Date: Sun, 15 Nov 2026 11:20:55 -0800
-Message-Id: <179477045510.107393.16167606981222781332.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1276;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=CmDdC5yIx2xWLSRLzs1ukzwBn8nzVj0C0NkdH037HDk=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+gYZimshdPDzOc4sRn6gnSD/oT3DoXrlvEjdO
- 15rkiPgtheJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoGGQAKCRBVnxHm/pHO
- 9eOEB/sHtI5U7bRC2uNbuJ7/GYjoeaJ8CAINi7Q6/Xt6MxNRMpbXi3g7+C7o+tlVxa6f94KyB8I
- Pny3DgHE91A9vhgrv8GTx1xw/OAZmJRc8PkHuERYkmHBJHKno/Us7XASR0jebuvIRj6/C3XfNGE
- gJDfAZi/Wxjp/7jCDT+THFGgKMMLOWL8IZd7QaAao77Mn2X2J0tsL7VhusXUcLyo83jjeY+2nK2
- bVedOn9DtCzb8qnUA7KPocb2eGo0PJWM8nprAMNgpS/Dr4Gy9U3R+ok+15ZrUK6JWCV2maucAVv
- 2ha2fQK1Zy+LL5Qy0YeH8KYga2HZG313QGtoBMkvsVVBOx5+
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-kho-bootmem-sizing-v3-0-f0c8d00295d5@kernel.org>
 
-On 2026-10-27 12:00 +0100, Konrad Dybcio wrote:
-> On 10/26/26 10:41 AM, Hiren Gohel wrote:
-> > SA8797p platform abstracts resources such as resets, clocks and
-> > regulators in firmware. The SCMI firmware exposes multiple protocols to
-> > control such resources which are identified by protocol_id.
-> > 
-> > For this USB phy, 2 SCMI protocols are exposed by the firmware:
-> > * power domain management protocol (protocol_id=0x11)
-> > * performance domain management protocol (protocol_id=0x13)
-> > 
-> > The power domain has 2 indices: 'core' and 'transfer'.
-> > * core controls the regulators, the clocks and the reset
-> > * transfer only controls the clocks
-> > 
-> > For example, to power on/off the PHY, we should use the 'core' domain.
-> > To disable data transfer and keeping power enabled, we should use the
-> > 'transfer' domain.
-> > 
-> > Add a new binding for the Synopsys eusb2 High-Speed USB PHY
-> > found in SA8797P.
-> > 
-> > Note: the performance domain (0x13) exposes opaques values (0xa to 0x11)
-> > for which we don't have any information.
+On Thu, Nov 12, 2026 at 12:38:52PM +0200, Mike Rapoport (Microsoft) wrote:
+> There were several reports about issues with KHO bootmem sizing.
 > 
-> How come we don't have any information for what the firmware
-> that ""we"" wrote does?
+> The bootmem areas are sized from overlapping views of the memory reserved
+> in memblock, so on NUMA systems memory allocated on a node is accounted
+> twice and with CONFIG_NUMA=n the lowmem and the global areas are accounted
+> once again in the area of node 0. Besides, the lowmem and the global areas
+> are reserved even when they are empty.
 > 
+> ---
+> Mike Rapoport (Microsoft) (5):
+>       kho: reject zero bootmem scale
+>       kho: walk bootmem areas in address order
+>       kho: skip zero-sized lowmem and global bootmem areas
+>       kho: fix bootmem sizing
+>       kho: docs: update description of bootmem regions
+> 
+>  Documentation/core-api/kho/index.rst |  31 +++--
+>  kernel/liveupdate/kexec_handover.c   | 225 +++++++++++++++++++++--------------
+>  2 files changed, 158 insertions(+), 98 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261103-kho-bootmem-sizing-5d6aed47a243
 
-And it always puzzles me how each peripheral invents its own ABI for power
-domains :/
+I took this version to the liveupdate tree.
 
-- Mani
-
+-- 
+Sincerely yours,
+Mike.
