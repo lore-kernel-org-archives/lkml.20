@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794778264;
-	b=jVvmAEIaig7IZIjQjkTK9B8h3kO7xZWICL54FF7zQH7uTsL0AUDvy2hn4ZATtmWIr58y
-	 +v9Nw1jX2Hv7TwTsIJgEFENmC8cd4Djm6vkBpLdmiZIflG9S9UgU/t8l5ioN0HXKeLqvU
-	 dz+tRNNlaaxmd7FjbT6rU7UynJRZ8eMPI//aojI4dgdzR/gWCo6GELlOScQ6m+XuVL7l1
-	 PabUEOPLsNeVPZlFMW1l+jzUIxHkLHpJSnV09GQ6+Ww3BtRkFOi/PO8r/XW2ot7lintWU
-	 ua6dOI68vUCqsoaAazuxTg9pj7LqnH49j+A5jvy9othxbUc7EgcZirBX/LaPnyzkivA==
+	t=1794778403;
+	b=AmLF4l1q0MD2J279iYTA4aN8fmylEW9a4rBy4sCKity6KmKbr+h32H4LqnMf5pxAlIHt
+	 uctoceOkCoxLBQGIyb3pA75vB7TzxZ3zU7dKlVG2Uj3Epmhr0fyrU/DHcIlFeOvBkogtf
+	 VNL9vG/bsrJdRRp4HHcJO4k8Wd2wcKmtL1SaL/+XR0MzZHxVNxZoRxbQwdvcrn+zF8AxM
+	 CK5ReBWQ8zRtNyIQkC5CMrjTBxnvcL0fogwjJw+QBxJS3E5qPkmXiKT7/tQooJXTWvgRL
+	 7aCS4vD5PY3F7o46iJBv6Ekk6vPcgSgbYDtSxAqBJ1gl8/uW4wZpc6CxpupcSa4clvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778264;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=gI3pT+vyemFy2bR8tG+tuc3UaQlX4B8AkgTSVPpKmCY=;
-	b=sckvIKkkv59YBBCrtLZlJOoB5Z+IC9978c7iO7h4o8fVbB7MCKY0tahnsoTyMOMJHL2N
-	 HOeM/Z+wnE8tLUoFkgVO72fLYa5QjVRR6JVl9KPrnFlHcfq0iWLczR+rX83NB644Gor/6
-	 eALxvZ4m3ixdjE3v1C5Ch55KzFGzkih0wyttWHuAlueU9kCJnrSj3SMUXdipaU1MM+jY4
-	 yVSbIiEFGXhVmlNgXEpvzvcmpJIa+r4W5WJON+0Ie9PJ93LimNL9l14KTsNgV7OpFWBxd
-	 YdZaZgs4Ka84hiU4C6di3jOzplG691a+MCL1Dgt4ssorXDCh3cWrLiWcbD+tlvVC3vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778403;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=wMHKKEbZ5qkIB3H9zWO4Epb/GYr+RAZqg3mXa7IL7nY=;
+	b=C0E8eQcxjrM3lgkMTd7uE5Y0uqg06CZSUmhKlKc2TGlzP/RmpgHk186hHaOGNEuPmtGA
+	 bJDDEm6N5xrChej7lUVlONnbvm1V7u7aOCByxlsP87wXvjL8JazKds5BGh3jnIEEOQdTC
+	 eSOcl+3FPkoBnGvT3CVSqowJNyyRgQutg4cyWm5Idn9A3K/94dTrmy7TbjDOatDaxIYiz
+	 DDC2TIOAnveg1DKlPFth36o1GA5z7Xpia5UjzRj5Cj8KrCAgCWbu19NyMLktRzTvFGESN
+	 DRuFnAVGK7UguB6vsYhAwZD9Nw8rx58Xs/hrIVeEjCIOVCED0UiKarQgcb7v+IR512g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TD+YLUMO;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01380606A323;
-	Sun, 15 Nov 2026 21:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01380606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TD+YLUMO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794778264; x=1826314264;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=jCKBvtDwsyaFaVJiupvEpl5700EKZdPVw5dmNxMVuSs=;
-  b=TD+YLUMOnp++488g7wSsWJ0ThD7ZUhZZrt2FwQ+vCNbhKFmazb6zjQwj
-   giAAeJfrUpPTe8uJ8T6nGUYqT1lQxhNSDBUAxI5fPK4346GSjFx4WCfZH
-   dozPqUdWuonnecNfEevhuPj+GOx+wIKkBxcFHnO0egL19PbZreeW8+Cr3
-   IPI4RUERSSiqA8zExqSvJMYeSE3Wor45n0C2hJhrjX/vuY3b+Ry+R/JDl
-   5XCb6By/JKONm/unI4zzmiONb6Y4gGl+5/4gM0/f0FrymXOnggUv+Efb6
-   tnfYhJkVYTpFkvJ+dpK7i+csrkc823lI95zhlpRWg2+vMAtmBAMSA9wup
-   g==;
-X-CSE-ConnectionGUID: B3Rr7MApSwSgoLcdBj0/8w==
-X-CSE-MsgGUID: oV7OuvJ1S8KBPOai3//Uug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3403312"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3403312"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 13:31:03 -0800
-X-CSE-ConnectionGUID: bfSLt/uHSn+iE3PZ81FKKw==
-X-CSE-MsgGUID: EdM1X6NaTzWv3nFMBfQyZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="9722593"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 15 Nov 2026 13:31:00 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xShoP-000000017LS-0Ahq;
-	Sun, 15 Nov 2026 21:30:57 +0000
-Date: Mon, 16 Nov 2026 05:30:11 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Waiman Long <longman@redhat.com>,
-	Ryan Houdek <Sonicadvance1@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-api@vger.kernel.org,
-	kernel-dev@igalia.com,
-	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v8 06/10] futex: Wire up set_robust_list2 syscall
-Message-ID: <202611160554.MGBENVam-lkp@intel.com>
-References: <20261115-tonyk-robust_futex-v8-6-a4fe47333a28@igalia.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FE5606A329
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0FE5606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a41f46d629so4603850b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:33:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794778402; x=1795383202;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wMHKKEbZ5qkIB3H9zWO4Epb/GYr+RAZqg3mXa7IL7nY=;
+        b=Rmpct4rEPD9e/b8LqmyoCg8kbhi+oBrfWQ+//IkrgQumVi1/CTmu7LAz0Zfow3Ffup
+         wbNmyh/ktqKAh6Sjn1cSM5R3b3KFSDy1XbGCXQaqexcnI/FRt7SKBIceEXZ8fZoIGWCr
+         vWfjTEiFw1f/NUjU1jwQhDlRuJFbDBxfLmUl6qDnUFzhf2Ul94UYqeyftOctPQZeWs8c
+         sbALEzsgG69RVzWsFqRls0z69rQNWwG8ddGXoLQGkVehESdZx4EYpYQS2HnLeZ/E7oKl
+         UN+/49Xfj7ealLEA3Ip2Xvhyuhh3RLps2fCJxv8Fv//1S8xYhEAD2s8jiI8gdkQx6pCj
+         tzZA==
+X-Forwarded-Encrypted: i=1; AL+hErEFTBYCSL5U6Ncv66xCf1URdoeH/hwUk5FSUsLild1obzvg4b7MkbS7bTw5V9QtN57sWAKEARe9/A9eF08=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8r3v/dRP5pqur/4svlh5P7buXe2l+AIcQJchc/McWjJMoLDDoy
+	kfmw+QbTRPc8xouiylvdJw3nZOgNMSk8jAMSer/wfb+qowJyU66YnCJ034ivObdsMO6A384pu37
+	+zMKPl8WHb6m88oiQVGT7SoAUP5mG+co6Lt/dWU4guvaDNDbkpNeW3IukJv4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,39 +58,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261115-tonyk-robust_futex-v8-6-a4fe47333a28@igalia.com>
+X-Received: by 2002:a05:6808:1310:b0:4ab:230c:5faa with SMTP id
+ 5614622812f47-56e6389948bmr7585004b6e.18.1794778401926; Sun, 15 Nov 2026
+ 13:33:21 -0800 (PST)
+Date: Sun, 15 Nov 2026 13:33:21 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6afa2521.84fe3b82.798c4.0005.GAE@google.com>
+Subject: [syzbot] [ext4?] BUG: unable to handle kernel paging request in jbd2_journal_file_inode
+From: syzbot <syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com>
+To: jack@suse.com, jack@suse.cz, kartikey406@gmail.com, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, tytso@mit.edu
+Content-Type: text/plain; charset="UTF-8"
 
-Hi André,
+Hello,
 
-kernel test robot noticed the following build errors:
+syzbot found the following issue on:
 
-[auto build test ERROR on 9f74092fda91ef93c2b07585785c1dc83cd7971f]
+HEAD commit:    9d66f26fefac Merge tag 'vfs-7.4-rc3.fixes.2' of git://git...
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=15ee2a3d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d16c0eae9c338e3c
+dashboard link: https://syzkaller.appspot.com/bug?extid=9c29b92a3b6500bb347d
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1185c4c3580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1585c4c3580000
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/futex-Skip-test_futex_robust_unlock-if-not-supported/20261115-143110
-base:   9f74092fda91ef93c2b07585785c1dc83cd7971f
-patch link:    https://lore.kernel.org/r/20261115-tonyk-robust_futex-v8-6-a4fe47333a28%40igalia.com
-patch subject: [PATCH v8 06/10] futex: Wire up set_robust_list2 syscall
-config: xtensa-allnoconfig (https://download.01.org/0day-ci/archive/20261116/202611160554.MGBENVam-lkp@intel.com/config)
-compiler: xtensa-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611160554.MGBENVam-lkp@intel.com/reproduce)
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/74b7d989ed20/disk-9d66f26f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/181fa79fbd3e/vmlinux-9d66f26f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/83339d886058/bzImage-9d66f26f.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/8e682084d20b/mount_0.gz
+  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=1685c4c3580000)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611160554.MGBENVam-lkp@intel.com/
+The issue was bisected to:
 
-All errors (new ones prefixed by >>):
+commit ed9356a30e59c7cc3198e7fc46cfedf3767b9b17
+Author: Deepanshu Kartikey <kartikey406@gmail.com>
+Date:   Sat Feb 7 04:36:07 2026 +0000
 
->> ./arch/xtensa/include/generated/asm/syscall_table.h:474:16: error: 'sys_set_robust_list2' undeclared here (not in a function); did you mean 'sys_set_robust_list'?
-     474 | __SYSCALL(473, sys_set_robust_list2)
-         |                ^~~~~~~~~~~~~~~~~~~~
-   arch/xtensa/kernel/syscall.c:31:44: note: in definition of macro '__SYSCALL'
-      31 | #define __SYSCALL(nr, entry)    (syscall_t)entry,
-         |                                            ^~~~~
+    ext4: convert inline data to extents when truncate exceeds inline size
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=16d2f5a1580000
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=15d2f5a1580000
+console output: https://syzkaller.appspot.com/x/log.txt?x=11d2f5a1580000
+
+AI-generated root cause summary:
+In ext4, path-based truncate(2) bypasses ext4_file_open(), leaving
+EXT4_I(inode)->jinode as NULL if the file has not been opened for writing. When
+truncating an inline-data file to a size larger than its inline capacity,
+ext4_setattr() calls ext4_convert_inline_data() to convert the file to extent
+storage without first attaching a jinode. During conversion,
+ext4_convert_inline_data_nolock() allocates a block via ext4_map_blocks(), which
+in data=ordered mode invokes ext4_jbd2_inode_add_write() with
+EXT4_I(inode)->jinode (NULL), causing a NULL-pointer dereference when
+jbd2_journal_file_inode() accesses jinode->i_flags.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=9c29b92a3b6500bb347d
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com
+Fixes: ed9356a30e59 ("ext4: convert inline data to extents when truncate exceeds inline size")
+
+EXT4-fs (loop0): mounted filesystem 00000000-0000-0000-0000-000000000000 r/w with ordered data mode. Quota mode: journalled.
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000005: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+CPU: 1 UID: 0 PID: 5626 Comm: syz-executor342 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+RIP: 0010:jbd2_journal_file_inode+0x10e/0x5c0 fs/jbd2/transaction.c:2717
+Code: 94 ff 49 8b 06 48 89 44 24 08 48 8d b8 e8 08 00 00 48 89 7c 24 30 e8 21 08 d1 08 48 8b 04 24 48 8d 78 28 48 89 f8 48 c1 e8 03 <80> 3c 28 00 74 05 e8 87 30 94 ff 48 8b 1c 24 4c 09 7b 28 4c 8d 7b
+RSP: 0018:ffffc90004c17690 EFLAGS: 00010206
+RAX: 0000000000000005 RBX: 0000000000000000 RCX: ffffffff9ada4a01
+RDX: 000000009c34c801 RSI: ffffffff8bed2560 RDI: 0000000000000028
+RBP: dffffc0000000000 R08: ffffffff8b781fe2 R09: 0000000000000000
+R10: dffffc0000000000 R11: fffffbfff21ab398 R12: 1ffff110067de680
+R13: 00000000000007ff R14: ffff888033ef3400 R15: 0000000000000006
+FS:  000055556ada1400(0000) GS:ffff888124811000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd3ee05c74 CR3: 00000000426c8000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ ext4_jbd2_inode_add_write fs/ext4/ext4_jbd2.h:336 [inline]
+ ext4_map_blocks+0x161e/0x1c60 fs/ext4/inode.c:967
+ ext4_convert_inline_data_nolock+0x25d/0x980 fs/ext4/inline.c:1139
+ ext4_convert_inline_data+0x484/0x5c0 fs/ext4/inline.c:2012
+ ext4_setattr+0xef2/0x1560 fs/ext4/inode.c:7104
+ notify_change+0xbb8/0xec0 fs/attr.c:556
+ do_truncate+0x1c2/0x250 fs/open.c:68
+ vfs_truncate+0x4ba/0x540 fs/open.c:118
+ ksys_truncate+0xf3/0x1c0 fs/open.c:142
+ __do_sys_truncate fs/open.c:154 [inline]
+ __se_sys_truncate fs/open.c:152 [inline]
+ __x64_sys_truncate+0x5b/0x70 fs/open.c:152
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f518900a909
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffefc2154d8 EFLAGS: 00000246 ORIG_RAX: 000000000000004c
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f518900a909
+RDX: 00007ffefc215360 RSI: 0000000002fffffd RDI: 00002000000033c0
+RBP: 0000000000000001 R08: 0000000000000000 R09: 000055556ada2560
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffefc215500
+R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007f518906a04b
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:jbd2_journal_file_inode+0x10e/0x5c0 fs/jbd2/transaction.c:2717
+Code: 94 ff 49 8b 06 48 89 44 24 08 48 8d b8 e8 08 00 00 48 89 7c 24 30 e8 21 08 d1 08 48 8b 04 24 48 8d 78 28 48 89 f8 48 c1 e8 03 <80> 3c 28 00 74 05 e8 87 30 94 ff 48 8b 1c 24 4c 09 7b 28 4c 8d 7b
+RSP: 0018:ffffc90004c17690 EFLAGS: 00010206
+RAX: 0000000000000005 RBX: 0000000000000000 RCX: ffffffff9ada4a01
+RDX: 000000009c34c801 RSI: ffffffff8bed2560 RDI: 0000000000000028
+RBP: dffffc0000000000 R08: ffffffff8b781fe2 R09: 0000000000000000
+R10: dffffc0000000000 R11: fffffbfff21ab398 R12: 1ffff110067de680
+R13: 00000000000007ff R14: ffff888033ef3400 R15: 0000000000000006
+FS:  000055556ada1400(0000) GS:ffff888124811000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd3ee05c74 CR3: 00000000426c8000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess), 2 bytes skipped:
+   0:	49 8b 06             	mov    (%r14),%rax
+   3:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+   8:	48 8d b8 e8 08 00 00 	lea    0x8e8(%rax),%rdi
+   f:	48 89 7c 24 30       	mov    %rdi,0x30(%rsp)
+  14:	e8 21 08 d1 08       	call   0x8d1083a
+  19:	48 8b 04 24          	mov    (%rsp),%rax
+  1d:	48 8d 78 28          	lea    0x28(%rax),%rdi
+  21:	48 89 f8             	mov    %rdi,%rax
+  24:	48 c1 e8 03          	shr    $0x3,%rax
+* 28:	80 3c 28 00          	cmpb   $0x0,(%rax,%rbp,1) <-- trapping instruction
+  2c:	74 05                	je     0x33
+  2e:	e8 87 30 94 ff       	call   0xff9430ba
+  33:	48 8b 1c 24          	mov    (%rsp),%rbx
+  37:	4c 09 7b 28          	or     %r15,0x28(%rbx)
+  3b:	4c                   	rex.WR
+  3c:	8d                   	.byte 0x8d
+  3d:	7b                   	.byte 0x7b
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
