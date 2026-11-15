@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794752228;
-	b=ZLhdlV+ag2rJRhrYTBn+HmBTR5rLmmjl0TQIy/+umZSi9axxBKm/LiD5LarzUp3+hfXI
-	 B9m3WwoaI+3ZOSPNZ/RamCdNUthITA8IQb78bh441lNuCblXEpdK6AWZ2U7vGJ7Fon6vi
-	 LwgioeBWHi/J0FqUfzJ1DB8QC8ee1bKgSQM1JP9xT3Fa9H+dqlp6uHilUTlS9Y3v4cn/c
-	 a05XXD+Psr9tA8h+8QoREeZ0LTxoGzr1Y+kwMOxiGrPczRK/UP4BeTPMpMp6fsENGc6BN
-	 /cgqTwAqx3CvF2nQp91aADoiXnzVBuqwZUB+Fz5XtiVLtXcatdRZxlBPX0gGgW7UKOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794752228;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=gS08nx6E+GdMwUKMxQlq7yy6Ruq9fXBNYObCE0ELEws=;
-	b=yhMwaySM/ED6Kf/F5xxoIf3HPqzUbZgaRmVmwf0AkLfMHv/oFrX0d7wHjPlADLflALti
-	 s6cRgEQXoV1lTJuLrZviTpyY0sSU7LRhPFYz57yWoj/Sn7t+t4pt5LxKB6wzuYBOiznFN
-	 uuBtHZ7m1HZX1abj/d4Mu+NcQJWb8GgFf7Nkmwyk8rFExENOgAN5BGYgfQf/GxLOKU+nT
-	 Sh73xZKFBG++UCIMw6rNkpYK8Lb0yqiNkUuiE/g4kaJ1f94ceLXjiT6D4Agz7s9o1zXB0
-	 tLwhM59EOckF9AfZAH5onfk4mal8uDSPWxHyrZQJOlwmpDo+pm+emKI+ykfE2GZkVYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=Stma9F5U;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794752244;
+	b=e4PV80CXhUa3mLqoC/FpDnyl+nDBofOmXMajEtK3vH9AI8Q3nVJtV6Momu9nJQksgQDc
+	 mRX+u3ZNBb7Ndnhih7G4KkhZ3ePclfXTtU3YtR9rEXYX8wX8hWV+lCUspm3kcM7G7r69i
+	 YSNRI7ieaq33qg5yqy4dUpOjE76U4h1pryi/Xo+jeWrKJ8cyxqsS8EjCgmuewIk2WFMDd
+	 8Xy/7MJwHb/fRWQ94p/QLA8PHmFMZkhmxOGnl3EBr9NZDrzEfcaS8kl8D+eiYiRK///Vi
+	 Vd3mk6ULh+LsImmMd3ASgJMr675m3bIwUUavpOU9/Qq4Vwy/VDrQcRM2jdR7garTxXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794752244;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tuFV+XEN7D66vesPgjSYtko0sLVrset89I2Mvwf/XZ8=;
+	b=RUbhML/XE8Inl+vFvqoH3NtgPRNs27hVkxhmqu3JRU2f7v4X2VX4mRREEYwiC/DlfCuW
+	 qCO0D75Pn8XrhhmdaamVoCWpgyfF4P8lAY6Gmmo+uOZG2YM7kVScq4GJ5oEO0hEZ+vFrA
+	 wew90J8wk5y0ohMHhRroo8drCpt1NmiOzWpE9YUEALZoy6zaigkvvNV/Lqg66GtVWaYne
+	 mNIo5dMDmd1Mvt1UL5NiuE7HDQBenUiPfzEENxaB0SVlIPFK2kwYXhLM8JiYdMUU7dI5Q
+	 Ay35ZZnVPeoDunNvRwiRvIExh4zXn80FIIEPCGfDy9d7R1smJltkZM/tZAdw9h1X/sQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTWvWV4B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDB4606A329
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:17:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FDB4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7643606A31A
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:17:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=Stma9F5U
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id SCQMxK6s5VK9USb2YxqQrN; Sun, 15 Nov 2026 14:17:07 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id Sb2YxVknxYskhSb2Yx4r0H; Sun, 15 Nov 2026 14:17:06 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6af9bee2
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=1ZHqKQNBhTtskWZSVtoA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=gS08nx6E+GdMwUKMxQlq7yy6Ruq9fXBNYObCE0ELEws=; b=Stma9F5UZHhgevnmeD9nA02mr1
-	Gj/1oNQz30asqs/8yuH01YseY5TvROFF0P2/iIXTuuV2zeuPlD/UMPTli/NBtiW74BmjwWi5V8L4k
-	ojJq/6m4NKAkRkmxHmlxOENvYMgJyQVssTHwxxzBobGIwHWKNarsHNfpjdQibEprhH6q619A7ioof
-	DmM/CuUB9ARCXiDJoyOV5tOlP6wqFIC0ZiliZZj8Hdj1XnysSYuEvWqkm670dsY226ubpJpF51Twt
-	3IXi4l2BnQIWEg3dLuaB8P4E7EXyGTfszwPM8VmLwaDBeCKD5W53l3F4r42SRuQZsfGh8Wxah5xla
-	3Yy6r3zg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:37548 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xSb2X-00000003QmG-0bGR;
-	Sun, 15 Nov 2026 07:17:05 -0700
-Message-ID: <e87f68d9-da69-4528-82ef-be044758282a@w6rz.net>
-Date: Sun, 15 Nov 2026 06:17:03 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTWvWV4B
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794752244;
+	b=pxcmhhL5KaPamUMdYacKPcsJkpIkg4BFw1F4UscUGLL8J+Y347gltPfIg78lP47LKM3E
+	 gW699Gs1q2HOyIv4RGifybfEhPPCURE+JlnDrTrY44zoOUyFKKv/5b9L3Il+z9/F1WIv5
+	 cEYZBc2qpqShBGyqJn1a+cPokwiePsfRN3ICOIBILbP4S+hBoo87EkyoV3Wz/RcF1LALq
+	 Oqz7OWaustylZQq159tAFlmIePv5QRPMMTvjXZAAlvwe2DUeF8xUaLZmhyrDJ/rl193IA
+	 AsJVk2wMbF3YJsKZojJ8k2MfW95mdFgEqTLbWUHVotx80aJU5DyeSICC2jgXMLcQJUw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794752244;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tuFV+XEN7D66vesPgjSYtko0sLVrset89I2Mvwf/XZ8=;
+	b=k3gc+1z4hC3fb7UUJe43aPoKiq7VkNetBLsw6QZNodfUpE4HcJYFDOEWAuvcmG1oZBUK
+	 RZ8JzoDqbm05+agruG4iRTLCbt+351Amif6OzZL1RaBnAhi3FZIQurVt5MJa8+H/YutLY
+	 bPVsFv/URmw6eyg+13yd1hQh9gk1NyePHaxrEemxpUMpv2Gaii9J22T+Egzq3aU97l4sB
+	 3Iy1TR0iJhHsM4ZqNbGab72cLm9eFLjymBCpqwbWZDC0lYk0H4BBtDzD2mHfTkmK1ss+t
+	 kH+VWPly/xxxk4CYkquAL3vll76y+uDPnRHwCRlZ852CKit983Pz5WgfpDQ9CfgcpyQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 062181F000C4;
+	Sun, 15 Nov 2026 14:17:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794752244;
+	bh=tuFV+XEN7D66vesPgjSYtko0sLVrset89I2Mvwf/XZ8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=NTWvWV4BlqW4ldn1wq8k/vSqNf34ztytm0VVtw0r2R0NE+ye1XO5lyvBLWL/k4Ebx
+	 M81ktg0yv3gtF4D+Pc0e7TRhFHlh7eTQkp4hdvRK11NMKLThlKxcXtNjfVfB3BkCEo
+	 dRGkp1GmISdPeTUEmWu3J/THbZMKrTV2uS2DAkkOYGDOja5rwABJn0ROowjWdiAkIn
+	 ddG3T7dfZvqsOijVaMMkG1IsusEhO0BabKFXXiAnXMTUIo8NaDxEoG/iWOqmY0Hkv8
+	 lhAovuoDSonrcNEzI5KQCUhmMyaRadgPX4iEsxuf3gWkOFbow1Ikzamv0MF3/KyIO/
+	 dzXUfEeilsY+w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 886F64A0CD;
+	Sun, 15 Nov 2026 14:17:23 +0000 (UTC)
+From: Erwin Springer via B4 Relay <devnull+aot.lerwin.gmail.com@kernel.org>
+Date: Sun, 15 Nov 2026 15:17:23 +0100
+Subject: [PATCH] drm/i915/display: Ignore disabled planes in async flip
+ checks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,63 +83,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261113153820.902362109@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-i915-async-planes-v1-1-d13498d0b6be@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0NT3UxLIJFYXJmXrFuQk5iXWqybYmpslJxoaZKcZpysBNRXUJSallk
+ BNjM6FsIvLk3KSk0uARmkVFsLAPxI58N1AAAA
+X-Change-ID: 20261115-i915-async-planes-d532ca94cf3c
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Erwin Springer <aot.lerwin@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794752243; l=2902;
+ i=aot.lerwin@gmail.com; s=20261115; h=from:subject:message-id;
+ bh=zbrZwdXv7Ir3puhwTmXxiOvcf/QUh3Wwkm5UJD4mpNU=;
+ b=/Y1rbzSeLH0RL6DqX86DomEbAF3/KtOl6K9zeSeVWCkZ8rAzXDeICQIgXEs3z5M9SMsuHktqz
+ xo999STbvl6BkdCYmOKoMeztiIImAzh8bordzpbvnhzAczdZzzPzb9q
+X-Developer-Key: i=aot.lerwin@gmail.com; a=ed25519;
+ pk=nbZwBfXFrLeFJg8vZmODCUcYskhldfPhOapnbey95tI=
+X-Endpoint-Received: by B4 Relay for aot.lerwin@gmail.com/20261115 with
+ auth_id=1534
+X-Original-From: Erwin Springer <aot.lerwin@gmail.com>
+Reply-To: aot.lerwin@gmail.com
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xSb2X-00000003QmG-0bGR
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:37548
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 37
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHlhlIFK8XKlsw+MPhvOHt1o50D6mOUdcFXp7Xc9RfY2EWI/a8dbf3sA/7nd8oQ+WwHvFhjU1sX/OG/Y+rII5hNDVz4gSf4oieBPhMM05wK4gwZaVE8s
- W9SyPd0Z074T3dmj+7Cw4OuXSeoDMwmkjCBWYLrH371ifZ/MKb8RBd6z0zhUXorNdQ2W/ejZG05FeQ93ssFJyuZqENiwa9bsXCM=
 
-On 11/13/26 07:42, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.64 release.
-> There are 686 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.64-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+From: Erwin Springer <aot.lerwin@gmail.com>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Atomic async flips may carry properties that don't change, so compositors
+tend to send their whole plane state with every commit. KWin for example
+adds all planes of the pipe, including the ones that are disabled and stay
+disabled (CRTC_ID=0, FB_ID=0).
 
-Tested-by: Ron Economos <re@w6rz.net>
+intel_async_flip_check_uapi() fails the commit as soon as the state
+contains any plane of the pipe that can't do async flips:
+
+  [drm:intel_atomic_check [i915]] [PLANE:66:plane 2A] async flip not supported
+  [drm:drm_atomic_check_only.cold] atomic driver check for ... failed: -22
+
+So with such a compositor tearing never works on a pipe with sprite or
+cursor planes, even though only the FB of the primary plane changes. KWin
+silently falls back to vsynced flips, about 60 rejected commits per second.
+
+A plane without a framebuffer before and after the commit takes no part in
+the flip. Skip it in both async flip checks.
+
+Tested on Raptor Lake-U (Iris Xe) with the patch applied to the i915 of
+Linux 7.3.4, unmodified KWin 6.8.2 and a fullscreen client that requests
+tearing through wp_tearing_control_v1. Before, none of about 350 frames per
+run was presented without vsync. With the patch 3334 of 3340 frames tear
+and the message above is gone. What is still rejected is the first flip
+after the modifier or format changed, once per run, as intended.
+
+Signed-off-by: Erwin Springer <aot.lerwin@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f4d9148ef..58f45dd68 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6281,6 +6281,14 @@ static int intel_async_flip_check_uapi(struct intel_atomic_state *state,
+ 		if (plane->pipe != crtc->pipe)
+ 			continue;
+ 
++		/*
++		 * Userspace may add planes it doesn't change to the commit.
++		 * A plane that is disabled and stays disabled takes no part
++		 * in the async flip.
++		 */
++		if (!old_plane_state->uapi.fb && !new_plane_state->uapi.fb)
++			continue;
++
+ 		/*
+ 		 * TODO: Async flip is only supported through the page flip IOCTL
+ 		 * as of now. So support currently added for primary plane only.
+@@ -6346,6 +6354,10 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
+ 		if (plane->pipe != crtc->pipe)
+ 			continue;
+ 
++		/* Disabled planes that stay disabled take no part in the flip. */
++		if (!old_plane_state->hw.fb && !new_plane_state->hw.fb)
++			continue;
++
+ 		/*
+ 		 * Only async flip capable planes should be in the state
+ 		 * if we're really about to ask the hardware to perform
+
+---
+base-commit: 419bb0e4cadd214a0847010c02ade95e5fc511f7
+change-id: 20261115-i915-async-planes-d532ca94cf3c
+
+Best regards,
+--  
+Erwin Springer <aot.lerwin@gmail.com>
+
 
