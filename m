@@ -1,93 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794757376;
-	b=vLY5K+UCUAfXeOq6KgAApeRQarUIoQIkgQfzoLSXar9AHx6VPGjHYXw374ljsI0ghIVT
-	 55y8Q7g35NmFta+g17X4Xmi3GaB/wktNZw7YDUY15Bv1XJRKmLUjy1zUrd36BKrwGU7G/
-	 pZnu1r8oqRJvUO29iMpg8KFUUzyw4RPAk2Bi4E8uOPVddOt0ifYOV6J8NYqYdZLOOG23j
-	 NL75zkseFLvi5ta4To37+A4UfQm2yXxIXAYmh4s6qS93I90FACBQJr2fnelkcG/SB1crb
-	 ZbmRLLU/emV8YmQL/sAZVsS++YUXbecrnvFiy0MzUBo2/AkZhlqvlFaPv/hJOuJutiw==
+	t=1794757401;
+	b=Ftfn1T6cVLrWPnB/L5zlF/O1AIFwPVhzn7tkUlKy04Z5j8omzFkGg2e2KEFabZ8ch6Nk
+	 7t992rs59gcYuC6Nozaa2j6d3i7qqvhohvCq2iBXiV0p5TwU5ex2BGWWSyMxUUfFgcWLp
+	 J3jBR3Ps67fQJLV/k3K32kmARnCnF0noa6r1kgz0KwPq1HiG2SSJos16OhWr5LYjsshlU
+	 MuQaqnMWvV+UZO2TNsXYfg0yb+J9cRojJHEAYkouXNginLBrEd/yUBpfOqRMmlKdnRm9Z
+	 GaZt5o9XHCupLgCfLMeS1ZDXXMPE0L1IeJweyAPBm9ObUOYTzBtFqWCwRgR/iAwrqeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794757376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794757401;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=aqeGITPxpcHpkId0HH9peiiOdA9mpAaQxrSJsRn67Ek=;
-	b=C9PVIDgh22zQmX3ceK0+TNAZwJPpayMlcA98wZb0+HGjCEIbMWm8U8wCcTOKviyawkP9
-	 N9+YkcbGFRDKLdp5axgV4C80AXTs0gaRDWHdpKOw93727nopdYKTkbuoJuw72A5Hlx7Ga
-	 +xwD7JgSL3zMHuZGbTz7pG/k9YdNd97dcxgg5IvDiTd2CxqVvrDGX85BEF44WueixFlaT
-	 RCvjwBgBLyb0rClzpvDVbr6IN8IyG97wwAou8CA9GJm8dlV8plUphd/oEZaDPlf4AOcxT
-	 CxAW0RkLNaNEI5e2LwOAEX3NnUFsmJE8Ebx4cWwZmK0GZn/TDWpKkhX0rx0zmBYtVXA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=hziuiiMUYFT/Qu2Fwgb6Sb0cIY/xqbSxPRQl/HG5KA0=;
+	b=YXEGaZuJCmpaE1Vh8D8aByAYKzv9hiLPYsrACZHaE/FTWVmszD6mQeTxozwoSpL9aXyD
+	 G2Zl8GnXj/I7n9R0I0LbrTWScS1t3kypDSYykQTXIkz8FZlYpLTL3BZoh5EtZzuMKtgNG
+	 xCTW1k0B4nHxcuj6rsvfD3GJoYDeSWweRIpncqanRjjiRHGo1aYelzUJfV/MhmND8XD32
+	 nCIbrgTVwcEXMC5zajzYdOh1XRSL7Y7gDS6JpOT4yC4xzGGNcJuKjvNC+K5SMvzi0xF3L
+	 xBMO8cOpCijiEBvm1hKZ3raP9Qwvf9CksArUf4Sntlv6WsZjmdoXmG4j06ZBElB9Uvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=RVZ4xz7V;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=HBYr2ghe;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF6A606A31F
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:42:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEF6A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886DF606A338
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 15:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 886DF606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=RVZ4xz7V
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3791619605cso5243793eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:42:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=HBYr2ghe
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a210470b49so20585715e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:43:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794757374; x=1795362174; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aqeGITPxpcHpkId0HH9peiiOdA9mpAaQxrSJsRn67Ek=;
-        b=RVZ4xz7VwgdjyDQ7h+ObpA+VorY79ve6v1/hnkcVvxC/D/6sEwHi/zQWbH24Egg+gL
-         GaK151jv9jIB9fhsITqc/V37B3oBgHFvq9/vaVey2FsJJh+bqyMIsJIt1NR/WWw46uRc
-         teQ52j63Z8B0irzlyv3UA+f8qLe7fBQVzL+ElKrutmZnbvAIZkUkXzQTrzIqq/4hCrj9
-         L7Y3CsP6qS4KK33mlaXFbBiuf+dHcwOD2Lp7RXc7XrMYmNNJBi2pdesYP3w7FksbDpIQ
-         wb7atQYCEhvaOumKBjv88Ywlop+8zAy0hhFyn9CkLGC4bhg4oJylsZtb5KztMn5lqK8Z
-         /TkA==
+        d=baylibre.com; s=google; t=1794757399; x=1795362199; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hziuiiMUYFT/Qu2Fwgb6Sb0cIY/xqbSxPRQl/HG5KA0=;
+        b=HBYr2gheQUl7c26Y3yfqksOaTOYrIFYUyEUzlZUZhWSZy+HAESqRcXZrP+TZZhM8z9
+         75y4g55klpFlA/Qulr9Yg7kYDWq1+w93Piu62izk5f8edZNdPTqmw53yQIcVZJ8POpjR
+         FCFDGpFCG+XXUQSOtyP6WZHieYuBpqKKanKZ3wnDH3I4OGAaLXxf7XH2XvGb65akJdzr
+         QUEsYnB0UF1WTP5FCzRnWQED5TK5P0HAm0HJ7Hpeq/wgtIM84HN+PLhoAeYrZah9RjSs
+         zqZK2w+ADZMGUpKyIfEL5w7Zfqyz1Z40uP2rSoJOgyF58OsUuKjbbaFJV/9eOLQrvgqB
+         Q1HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794757374; x=1795362174;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794757399; x=1795362199;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aqeGITPxpcHpkId0HH9peiiOdA9mpAaQxrSJsRn67Ek=;
-        b=MQRxPx1HOGmbXZqlt4b8KzSP+vD5Lr/K9+szNG2a9PqRQhoyimtQoW99CDQCPklKcz
-         G2jjrwjldywDDf9w3Ik3wEruD5NApwB/HL7QdsAR1TCPTMg2tnjOAMKMbzkEVt7Mimmu
-         Uv+i9JcG+dIWOQjPrZ9oZNHEZbEoQANoqwKT2SJMBMeHs2dZV5bLIrzi91Q/w0cVr4XW
-         FNgqWh+d/D33nUhFhF4lHQOAqgwKCtPnXdkoTrjhq4qffFxpzPNeILVS/pZik3Ww1U1e
-         9jaltJMqkauLbu3T/jZ5ccmUKBBNIZzZSy9VIx34WJOJp0/4lDwum+xF5OSbBHJ8ryqk
-         CQPQ==
-X-Gm-Message-State: APuU4Z/qyUt9dlPtj4PQhciAbstZywjpFea56vBTByFmwsbMzLl26eaN
-	RM5YUPEWwIQOAtauqNA5lEbwAsd5F+ZZf96t5R802nyBp4UPn0Ye6azwvdvg91hnWwk=
-X-Gm-Gg: AYBFou1AUQ7M4QIdeQjQ6wWUXEHtkK6a8usIp0xGlzn4BnTPcwkRJcGHpuu9iGnV5ux
-	OfpqLOwG2+Yp7Q7J9QyiztRZm0EqrMBqNkUC/1YngqomNbP8IFIcEZur0DGNotArV4+TbSGVg7M
-	SYRAo3XUkb5p9LOjYt5+ZlVdr6vG3ACSLQHWQHfZROisSIJWqJol10SLEavyuhv12PnmetCcjf/
-	gj2Uo8YkRNsxRUnmxABlGRf1hPz05J4Iejh7FtP15h+OKYGaygAFwEy6AeP5RGJb/rm0ijgBdk1
-	NLtYbBwL2R+fcF6dWTKvcRv2QtpU2H7azgly1+0BZ3qSEg3vtoQXutZ8nDAi81UpDtvojryT2J8
-	mCxNb2RLmWaR18aW7sXgRNLcV1zNVjYCtJJ7K14w4bNqei+BmNf96d3/rceIvB+0nUtP+BTWpm1
-	uoEpA1uovp4eo/wbE/42cx7cXtZQSTt5bqHYNoXc7igzF6RNJj3KByo+vbqiW3zIzyGqieX2GhA
-	W+OVWRaltw+gmecUMUzfnijStguGJKGhbc2BDxJh3c/B6ylruizByvgNzINgHn0CKCdXTnPuyEe
-	Ju9g1mdsRHEE6SNeEmx5bprDBtR6ByuIUR6aUSLdm3VHGFr4xXbFFraRgzS+B2aRW0a46zIjWL0
-	9Wd28h8oexMXu6K6iS6QHeK19/wgm/iv02Q==
-X-Received: by 2002:a05:7300:6da8:b0:36f:14ef:ad08 with SMTP id 5a478bee46e88-37965abb5bbmr10280527eec.9.1794757373805;
-        Sun, 15 Nov 2026 07:42:53 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379558231eesm25665134eec.12.2026.11.15.07.42.53
+        bh=hziuiiMUYFT/Qu2Fwgb6Sb0cIY/xqbSxPRQl/HG5KA0=;
+        b=PrDqV4OUUBPVaOQEEXT/ntdiNvc6ydKMWRq4oqx4WeS372IUh+iXXJzasRAvS7N79g
+         6Ks3SmiiM7ebnGsRpptWvMHC2EpUTenDRfbbNY65VxDJ1as7ddzjeSfR7/rI+WzNF2cU
+         1eCzQr+cLAVTdxom+DCEH1eFMluDTDfLPMvuSzvIiA6yBW1iGFKT00RQsgCrHnOzL6RW
+         7ibPAenFfD27grGqF7RTQ/BWVUVi8bhEQOEWWJfs/zu1E27N5fVw+jPR3cA7GvXOS3R9
+         ZyczJys0fNM1NiTHPk5uilIr7iZsgs5X+ysUVC0H9BeYhsTw2/yO2RT9tvxlxGIaNllB
+         7Z5w==
+X-Forwarded-Encrypted: i=1; AL+hErE6AMvllrzlaNQ9CuSsxki/Ai0dLbp7rypeq4HTFDVJ0RpaVXTQWsIsH9TyxMbzp6mIKoTrMWdonQrKs6I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lhZpczbMmDADmIAPdE8EMR+5xtRaTGj0IItK25i7sdmwX/Ztz
+	h5cDfhrfYobT6eLG5wuvY68dXKfZoPg6N/HXlyS3k8M8ukR/z4kIx1MuPy7I5zoXikE=
+X-Gm-Gg: AYBFou1AS7Um96QSstcnW2A6kONqjOdD4KerT5SPzsUHMBaVE7PePLTwcaNwq2XEJ5C
+	wPUEY9u9zWCSVOl0dEq9YvCSUvbW/UyUsZ+W38u+xMbndRqI8Vha+MnpdQSCbKeR+lPHGM14BfT
+	j8LuhHdQzi8pRuAQVxAn6b2IYfHPlIBIDzTPqo5EXIJ+L1PNKA0CDVWzP4awO5pNru2nIrYr6bb
+	fUATRqYXgwgtOWhAajuUqlVRY2jNjFg77p14UO5E9PqkaZUEJHAuauOmEXE5wKlQD2yQaX1bVKt
+	/cknvGOYMd/Pd3Zs1Cj4za1D4Uy4wQZEx6QvrvEacUWNYxA58LSpboNOLVZDotgJEuEHsEAdcz4
+	Sw9+kbyhhnr8JHY19aL1GUMJ6Q7IDpBctUMiifXcyZC27cURwSfrN9J+8FIkn4tQwwhC2hIta/Q
+	EpwaxGCAYEIyiYQiodIUgtyfse7oOt0x1c6HUCW5peIMdpUARrVc4EEUU8IqjrMH4cvH/0ZZofN
+	/ZecRuOWQ388Y+gycl0g4MpJ/F08a9FN7Zoj9DdbUmTd2nHUaTVlYQ8zt4mmfXnHzzYXz1qts6f
+	aW016lQnD9lJZ3+fVlX42//8RcIO4/nF7Utli8b96bX2vMjQ7y/kEiKa
+X-Received: by 2002:a05:600c:608c:b0:4bb:680f:9a3 with SMTP id 5b1f17b1804b1-4bb680f0a64mr77590835e9.2.1794757398894;
+        Sun, 15 Nov 2026 07:43:18 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb68c00b10sm52646085e9.0.2026.11.15.07.43.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 07:42:53 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: tom.leiming@gmail.com, linux-block@vger.kernel.org, 
- shao.mingyin@zte.com.cn
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <20261115003349683IFDCSTYhPzQtBozUiO8qN@zte.com.cn>
-References: <20261115003349683IFDCSTYhPzQtBozUiO8qN@zte.com.cn>
-Subject: Re: [PATCH] ublk: validate all parameters for zoned devices
-Message-Id: <179475737299.32615.7778013887179668898.b4-ty@b4>
-Date: Sun, 15 Nov 2026 08:42:52 -0700
+        Sun, 15 Nov 2026 07:43:17 -0800 (PST)
+Date: Sun, 15 Nov 2026 16:43:16 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: gaohan@iscas.ac.cn
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, 
+	Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 15/19] pinctrl: sunxi: add support for the Allwinner V861
+ R-PIO
+Message-ID: <avnSl53KHJWGrBcE@monoceros>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-15-eb71ec3ee523@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,29 +112,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nd4yu7xpyaelhc7q"
+Content-Disposition: inline
+In-Reply-To: <20261114-v861-v1-15-eb71ec3ee523@iscas.ac.cn>
 
 
-On Sun, 15 Nov 2026 00:33:49 +0800, shao.mingyin@zte.com.cn wrote:
-> ublk_validate_params() returns as soon as zoned parameters are valid,
-> skipping the subsequent DMA alignment, segment and integrity checks.
-> SET_PARAMS therefore accepts combinations that it rejects for a
-> non-zoned device, including integrity parameters without UBLK_F_INTEGRITY.
-> Invalid parameters may reach disk creation or advertise an integrity
-> format that the server cannot access.
-> 
-> [...]
+--nd4yu7xpyaelhc7q
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 15/19] pinctrl: sunxi: add support for the Allwinner V861
+ R-PIO
+MIME-Version: 1.0
 
-Applied, thanks!
+Same feedback as for patch #14: Don't include <linux/mod_devicetable.h>
+and please fix the spacing in the of_device_id array.
 
-[1/1] ublk: validate all parameters for zoned devices
-      commit: 78c4f290e2637f8039e2124a174a24a341b38b1e
+Best regards
+Uwe
 
-Best regards,
--- 
-Jens Axboe
+--nd4yu7xpyaelhc7q
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr50xEACgkQj4D7WH0S
+/k7FQQf9GMWHvRPfVzE3vnOHAT8nN1+INki1D4kL4uwlHr3JU4yutcwFkaHKLsQU
+b4DbnyStL4d7i466zTUN7GaSuTfs5LByLE0hKNibeGI5Wa+bHdhPXZw6poTITVON
+f2BwjcuK+Zq5YQKqimrjo/4tbchvvRaJ2tX4FrpWxIYNSEVPVDu3Ku1FTeQTjQiW
+q3iSJsE9FH4VZAUg2tViVg4jIzTIj6ncm2+HvaOFr/vv8gwncEBYp0IlMVPyqH3A
+a+UAaIoEVNFvPPDDjTGrnHlPAjkkKoP4p3OAxBnC1l6qyEx0qCChV2gqtkPof0ba
+XuoM97TKUIIJOGjYertizBLa8GJ32A==
+=5u67
+-----END PGP SIGNATURE-----
 
+--nd4yu7xpyaelhc7q--
