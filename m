@@ -1,87 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794779060;
-	b=zEcZgmhwcyS1JusyWyolbL/iXr+bjR0rjUAochGYF7Uye6Y+G7JjrTCllCcjeY18mdfT
-	 skkwEPCoIao98cKERWl8tdKRhXOfo/tfm411ndwVO7vM/MH38GOVgQVthNCnU6krZieZU
-	 tptuWqBZdbqT9D+FZdpIDl/kAl6ceoItpbP71il9MskO8Wc6hpoggY7uprCO1gceHBZMd
-	 lq4myfk7G/y+soGZkxandZ6frlD9negDYorG1K/SzJ+Zsxc8A+MjjPp3XT0zRceBqnb98
-	 CYSUW8sSnoptdkueml4ZZSCHZBhAl+eUZz7FVTZjGsPPcDjIb8GgDkAHkugzc1gP8Lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794779060;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=lTUq/hzrw8M8IHlLvI7YipJykdXFLSWs3sx6wTWyHKY=;
-	b=fqc9I6fA+J9iPWnIXj/o/tA3x5oP6ZvbBcEU8l8lfTxk3AbD0k2jBPz2Ia1RlEpqzp9D
-	 TSCdXtoAVWBQzmLKv7H/BzSsImDDOZSPoDIWr5G+mbGUrQQpIf1Tyvi8ilIeWbQPOa51O
-	 V3W3Otbulf7NWjk7LbyG+vj+KgKdeA8GIVXbyiG616Jc444Y2Nrlzfc4NeSOKh6egq/eH
-	 KmO//lBTte4bk3Cz/qqhFQqAUtlJvxSHRhEp+Jgx00QR3hxNW2MZMpluA9kHq7MQ+7TSK
-	 L0L7yxBGwzH8gzBtsKyFkHajKzToS5iquJ2cfIJAMEAMpxZYJXi1RxrN9CFtaGat8Ug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.li;
-	spf=pass smtp.mailfrom=gmx.li;
-	dkim=pass header.d=gmx.li header.i=arc@gmx.li header.a=rsa-sha256 header.s=s31663417 header.b=SRJMr64e;
-	arc=none smtp.remote-ip=212.227.17.20
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794779100;
+	b=40wElUotm1b/DvtDZdBQJQ6qypDF1bza6TxbJhRAfEl5FyK3DSOqA+G/tOMT9tIdiTnm
+	 ZccScRB4FQ0bUqT/gNyYutVlhSS31xEVQ49xg1WegwL45ULEHVzl1vFkVQ4zb0Egffrq9
+	 Dt6+Ljt45y07QmBN7suzR1vGnmhSIBZppryfiJhElscRcFZeFzY8BTevdlMO00rFdhkpj
+	 oX0i1Cqcmz8FE0L2XvQbqqpSJVjiuyFWzFqtpf2VLPhxgwA+QYJh+GyGfbhZ1mM5WZIl3
+	 z4xScU5+FrmqfPevNcZvTtH+z4Zqa3LaOTCMDj2YfiQDRXRe+NG/p0WuIiUp3eB3yJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779100;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=be7RYON33IZYwY05Ih0DYtMbkJURt0+kxYVAtPk1w1E=;
+	b=o06Wk5dmK42T0HyXRB70KTqmPt0se2/qcg3qbKQA24RzHtO7FSR31IviGQMQ3xH3/NX5
+	 BOqtbh3YObDNgPJYZw+m1AzWaWoW/ixvtsgtCXTCzlk7UGmWTEAR51iBr0rAweNHwHA+f
+	 jOoxB3N3ISax6mUy/BRYknYOhuiH8HF97jLwgsv3ritHslsfhMfaLJvUN61gdvfe1cKi7
+	 51hxruq1w44YuxohkEBA0hlfEpiAEWgyebA4TAjdnUmGfsOejAGB+POtKB4SGNpev8dbe
+	 3JJhV4iEwX+m5nSraB41sQ+v14k85/WczlJQWjkSJI9WKz+ZOnQc0u7Zhp1FGjdY+uA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aobyeNiu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FE3606A8AE
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:44:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00FE3606A8AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.li
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.li
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7B5606A323
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:44:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE7B5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.li header.i=arc@gmx.li header.a=rsa-sha256 header.s=s31663417 header.b=SRJMr64e
-DKIM2-Signature:  i=1; m=1; t=1794779057;
- mf=PGFyY0BnbXgubGk+;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.li;
- s=s31663417:rsa-sha256:ovy7+0piTvpwsC5GOeYoWQKtNiSi
-   vPgV9UORwnveeXL2IEaRWkpNae3H2df5EUU3vka6EayS87Pz2u/h1RF4/14bszugOLzhYeipFPo
-   xO1jUL23gFVR7bXSSlYmY6dVfJjGqVCLCb4MPqUDhIvK1w4gSENOMGfGAq4PWZk/+4y2W2TSjCX
-   HW6YzjFwKN74TYn4wGQLCqY0ggpPCLOtbXIeID1jxpd8wJdUxxSQB/kqXnkXNpEvEPeUYeZ4/ll
-   /VUNhWybrDcmoYZkyI3os7kSIhJd5JoGfoRphFJkQ54Dbw0Y/yynF3nbii1a7PZt3g/IbnCxVMI
-   lRh5hbwoYpKvpw==;
-Message-Instance:  m=1;
- h=sha256:
-   TFFItN2BP3EPAXy1y9krifLBB0khL/DtDcRC72PGyW0=:
-   Odjoos8Qz45AysfPzR1HikpAWW9dfsftAaSvUxZRRAI=,
-  sha512:
-   ZU+MHzkVsiKrpEM7K6AUpINBfMwvyqYvdI0Eho71zdEsZt353u8jrk6f6z8PUOQ4LJqBkpyOZGO/0CqbFIQAJw==:
-   SOMNuvdmx2r9Mw5VXzTedCykWOPy/Yp4d37XXUiKUKxSjPWcdiT4LPyctnJuQ+VKt9SQ4sIqjlAc6Z0ZyF8dtg==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.li;
-	s=s31663417; t=1794779021; x=1795383821; i=arc@gmx.li;
-	bh=lTUq/hzrw8M8IHlLvI7YipJykdXFLSWs3sx6wTWyHKY=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=SRJMr64e43qfuH6T/LjY7mt1Yl1Qw9Q4zo3V+UP7S/PEh/VZpo6nqyKf68A3z3zT
-	 KAiXq4q+h5tjzO4n7n8w6/y3ou+yP+UIlp73p4xhQLaHez6K4F2P9KkWxC0WeOmdi
-	 2KVwrQf0gIexKu35UCcAdOI74ufLxIqEtIkwDT0ayz9jIdeXXh6yeKpuSzM9J6HWL
-	 R4htlBi4HfuFWkJSHiT7N5I/aWkS8ifsD/Of8Sh62MEcye3i0UANjqqxRioGZ4yEE
-	 qN8ZvnmLZUK/hAfoZcnIZnqJnqHm1svL/82MEVLvm72O5dwrpT9Fi2yObOmf+JhxY
-	 ReDW+y08HAJGFAFFYA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MAfYm-1xHgSi2jQu-00CZoC; Sun, 15
- Nov 2026 22:43:40 +0100
-From: Christian Ruppert <arc@gmx.li>
-To: Will Porter <mrwillporter@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Neil Andrews <neil@androos.io>,
-	Christian Ruppert <arc@gmx.li>
-Subject: [RFC V4 PATCH 01/19] ALSA: rename mixer_evo to mixer_audient
-Date: Sun, 15 Nov 2026 22:43:18 +0100
-Message-ID: <20261115214336.17917-2-arc@gmx.li>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261112023720.1503814-1-mrwillporter@gmail.com>
-References: <20261112023720.1503814-1-mrwillporter@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aobyeNiu
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-55c7445cf85so207951cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 13:44:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794779099; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OC0J2M0ybiICV9fqO4v9+YAaQN5CBmXc5MxDpGMfHpP9Zxv8ogld4PjZW2+593oV3X
+         0mOrkbSuicBKf8GGmMR0S/W1GnekKkGZWZP6CHk3HsNsq0frsLj9JMx5x6y3nhLDJY0R
+         02JdybIheyFyPdfklUa2PJAVEkjnrzYQyHJjm3PzQCVZSkkGcwP0Wwil6lKbHhjMxH9x
+         lvXFSyBBwUgacjmyfirPInT2NrveDIImKckHv9EQs3I7Gj/duGCZgmT93umI3qhob9g+
+         ihs8JmT4LNFL4XgnwkIa++wE0Qh3jIvz2x52Kb1895eRMB9uDd5V5gQpEX5KbNdmT3l3
+         /+WQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=be7RYON33IZYwY05Ih0DYtMbkJURt0+kxYVAtPk1w1E=;
+        fh=wJxemvalRcm7L23xWF13qLxm2UWfCMzIyiXYjbUZI70=;
+        b=FaghXbPrRZXX7ku44Ld/Wb87N3440w6Wl5V8mTIDFbyfbJzQgQlf1lJAvh3trWeqtx
+         xM4z6jAUEzLuZ/hNZ9aVrHq0NVlpZaZaRN1QwT+ikKMZauUp1fFUqk2qONPCdymQJqcO
+         04qRD4hyYplBYAT0LyWEiS4jpT0TWDPwKdV4nI7Zhon9TSEKfHKU/W3eDVXi/4lrrCwG
+         7UCVuQK+lFLY0pASj3VV4kgDp1jtJZS5QjfYNwJ4r+8r/NiV/3Bb/dI+yd6Kmt1BpDGT
+         9HqZPYLmnQVUXSgnl0VGs8z7p93yL6AUwUiJJgkcqy1kaOSrtMdXUjOxxPJeH+Hy3zlK
+         14/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794779099; x=1795383899; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=be7RYON33IZYwY05Ih0DYtMbkJURt0+kxYVAtPk1w1E=;
+        b=aobyeNiuFxZ0QpZ5sABollx3XfzOUTfd6DznyhHb3X07g9Rt1qqMFFW/HlQKo8nTZV
+         SDm0mBKLcsOhzX4in3ai4akwfnqVBfY99apYZ7qhNvNNtnnQoc8UMBLeiEh+1yNr4aal
+         snr4kCizgzgFa3RxvzaV9vEPF8Ez8zit67X0qiSG51RW+dzfhp+Jc80+0HK5Fh9muowY
+         fXzUKY/x8zLbhqMFw5l9172r4pUjAEe1jWhS8yBzi4qshYlZFFilKXFdkj5rQZadDSgX
+         k7gqNi3/AlnWh7Z4E+yPzp4lab1hcj7baEF92igOWy0HipoSeHwP2F3yUDx553/NBM/w
+         o0Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794779099; x=1795383899;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=be7RYON33IZYwY05Ih0DYtMbkJURt0+kxYVAtPk1w1E=;
+        b=Kwx7CbdmygQuiFJY4op02VqnNomCQtOKNJCM/nD96uzCQTIU2npM5FvAtxAznEGlpO
+         J6lRhTXYvtL5FRSsPxrZcT0QT2N8J4GG6DbpPuhdIX3PoQZS+GumN0ICCDiVX0cvBama
+         ZpeEnkprkWETmFr62DJsYamKIwVKfJSNXGjlhisR++jb5JGoXtz0iBxs/Ljfzh7jhqbW
+         7trJlrhLdVNvTHvMZvGEtp3pRTYVi72O3JpD5W6TnOno+0lPaIP7o6M7h1MVIeXDQkpY
+         lyksbYVB9GmIb/e0wzJhCTksWOk78ynOYHF16/KocKCBgBm5zelgcxXjkRI7zNDX075Y
+         a70g==
+X-Forwarded-Encrypted: i=1; AL+hErH6i02sL+26FpLvhID7aBzmq28N+qgnkM+WcETcOOgsY0IXmd6wRCMwhX8uifQgFD+55zkc4BLmwEKYabo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Qw7E3mc9BJr0fnOxaD0+NCPNuVMaQsT5rnvWVidKEepiNHhj8
+	IpILjAiPhp58VJS7XQnBWLxjxqYfVgDdPBc7cVYWZn4TTkBJtIipST1/v5xc79QFO9hnwb7sLgt
+	Gl+8O9nEH2XwozfIZpEmiYkXZSM0V+zJtaf/p757v
+X-Gm-Gg: AYBFou1htLrtaLNVPpKWZpcRfQ+a+UP9Rr7rLS1lIaZDz9Ueo/0QpQnoQJw5DVu1HTZ
+	pgXSbyCGzzLcygKGb45BYui/XOehf+zg3iorPihu67Uf7f+UVMIiLmnv21SF2BEzt8bypDkNsXV
+	e3/MfuHiXAaF4+RNK4eLY5zltBtpQGomNe4isnpxaFazi9VjixQiAEN3A13eS/u//Uyyz/qmXzb
+	r92p5H4BSmISZjihkcXaHbtQBOAVnmR998JH07Rb4KoSeq3CFLUc6ZN2ML6TkByPOMF7jevmOS0
+	mtI3Z6Bzt/uStLve7Z+t/ohYm2DUASNpoD9ncpuBAZO5s1OmA1rQxW/DOskJf2+JqO5ATO9UXqk
+	UNTo5S6r5/XebrYjGtBW3V1mzZ6H0Qlaf/DAf
+X-Received: by 2002:a05:622a:5c16:b0:536:3ee4:81cd with SMTP id
+ d75a77b69052e-55c45b33181mr25356941cf.4.1794779097967; Sun, 15 Nov 2026
+ 13:44:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,828 +104,966 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261115014102.2879372-1-acme@kernel.org> <20261115014102.2879372-2-acme@kernel.org>
+In-Reply-To: <20261115014102.2879372-2-acme@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Sun, 15 Nov 2026 13:44:46 -0800
+X-Gm-Features: AclHuK-0mXPWqU_0pb3rSqKkwXlzYInIwSXAtyBChBeSz_b32j07FBSHXTfzdBw
+Message-ID: <CAP-5=fW0OQqtazaM8xn8m3ZEqbp1XF+RKjuOSvxa_QFy3FEsrA@mail.gmail.com>
+Subject: Re: [PATCH v3 01/12] perf scripts: Add a coverage harness for perf
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
+	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:YAxvrvV1UHSU7O3a5XbNNXRq7kpfPOJ+t2tGctKOo/XLqe4eAbr
- C3O/ZhthZMFHHtsw0+7DNdMWkFYEUHJfzeuJ+5NfgXmDFlzyiFVGvPuTMCEq8l7MOUf/Tl/
- RDZJvMrB3qQaKCG8QpjZ9NBb8O7co2yxnlgmfNAGDchVUlUZupCeIXe4I3dYmUPFwhhh4xN
- Cl7tSElFm+1UK6EIVzQag==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:giJzUocXs04=;nzb8JmfXLdseTEEjHcqhWKRI65V
- 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
 
-Rename mixer_evo files and functions to *_audient in preparation of a more
-generic driver for audient devices.
+On Sat, Nov 14, 2026 at 5:41=E2=80=AFPM Arnaldo Carvalho de Melo
+<acme@kernel.org> wrote:
+>
+> Build perf with clang source based coverage, run the complete perf test
+> suite, merge the raw profiles and report line and function coverage for
+> perf, optionally against a baseline.  This is pahole's
+> coverage/coverage.sh + coverage-diff.sh merged into one script, wired as
+> 'make -C tools/perf coverage' and listed in 'make help'.
+>
+> Without -f the report lists the files with the most uncovered lines,
+> which is where new tests should try to get more coverage; -t narrows
+> the tests, -f focuses on specific files, --html writes a browsable
+> report and --table/-T, also available as 'make -C tools/perf
+> coverage-table', prints the last run as an ASCII table with the
+> per-file line and function coverage, like pahole's coverage_table.py.
+>
+> The build can be split from the test run: 'make -C tools/perf
+> coverage-prep' builds the instrumented perf and records the build
+> directory, and a later run as root, which needs no make, checks that
+> build, runs the tests and renders the report, or prints the table with
+> --table.  This is for running the tests that need root on the bare
+> metal host while the instrumented perf is built in the development
+> container.
+>
+> It is a maintainer tool and it already paid for itself: the first run
+> found the clang DWARF 5 data type test failing (the DW_OP_addrx gap,
+> fixed in patch 3; the default build is DWARF 4, --dwarf-version 5 hits
+> it), and the uncovered line list is what drove the
+> tests in the rest of the series.
+>
+>   $ scripts/coverage.sh
+>   ...
+>   Total: 67436 of 201128 lines covered (33.53%)
+>
+>     largest uncovered files (>=3D 100 lines)
+>     file                                            lines     cover    mi=
+ssed  fn-cover
+>     builtin-trace.c                                  3657     4.24%      =
+3502     0.51%
+>     util/intel-pt.c                                  3237     0.00%      =
+3237     0.00%
+>     util/intel-pt-decoder/intel-pt-decoder.c         3208     0.00%      =
+3208     0.00%
+>     builtin-sched.c                                  3737    19.72%      =
+3000    11.35%
+>     ui/browsers/hists.c                              2730     0.00%      =
+2730     0.00%
+>     util/probe-event.c                               2765     5.39%      =
+2616    10.68%
+>     builtin-script.c                                 3212    29.98%      =
+2249    33.06%
+>     ...
+>   Report:  /tmp/build/perf-coverage/cov/report.txt
+>
+> The run above was unprivileged, so tests that need root are skipped or
+> fail; the report still points at the gaps.
+>
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Signed-off-by: Christian Ruppert <arc@gmx.li>
-Signed-off-by: Will Porter <mrwillporter@gmail.com>
-=2D--
- MAINTAINERS                                |   7 +-
- sound/usb/Makefile                         |   2 +-
- sound/usb/{mixer_evo.c =3D> mixer_audient.c} | 249 +++++++++++----------
- sound/usb/mixer_audient.h                  |  12 +
- sound/usb/mixer_evo.h                      |  12 -
- sound/usb/mixer_quirks.c                   |   4 +-
- 6 files changed, 148 insertions(+), 138 deletions(-)
- rename sound/usb/{mixer_evo.c =3D> mixer_audient.c} (54%)
- create mode 100644 sound/usb/mixer_audient.h
- delete mode 100644 sound/usb/mixer_evo.h
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..94a594e17498 100644
-=2D-- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4448,12 +4448,13 @@ F:	drivers/net/ieee802154/at86rf230.h
- F:	drivers/net/ieee802154/atusb.c
- F:	drivers/net/ieee802154/atusb.h
-=20
--AUDIENT EVO MIXER DRIVER
-+AUDIENT MIXER DRIVER
- M:	Christian Ruppert <arc@gmx.li>
-+M:	Will Porter <mrwillporter@gmail.com>
- L:	linux-sound@vger.kernel.org
- S:	Maintained
--F:	sound/usb/mixer_evo.c
--F:	sound/usb/mixer_evo.h
-+F:	sound/usb/mixer_audient.c
-+F:	sound/usb/mixer_audient.h
-=20
- AUDIT SUBSYSTEM
- M:	Paul Moore <paul@paul-moore.com>
-diff --git a/sound/usb/Makefile b/sound/usb/Makefile
-index 2e842dcc73de..44f4e4c820fb 100644
-=2D-- a/sound/usb/Makefile
-+++ b/sound/usb/Makefile
-@@ -11,7 +11,7 @@ snd-usb-audio-y :=3D 	card.o \
- 			helper.o \
- 			implicit.o \
- 			mixer.o \
--			mixer_evo.o \
-+			mixer_audient.o \
- 			mixer_quirks.o \
- 			mixer_scarlett.o \
- 			mixer_scarlett2.o \
-diff --git a/sound/usb/mixer_evo.c b/sound/usb/mixer_audient.c
-similarity index 54%
-rename from sound/usb/mixer_evo.c
-rename to sound/usb/mixer_audient.c
-index c1e0332232f2..e2700b08cf80 100644
-=2D-- a/sound/usb/mixer_evo.c
-+++ b/sound/usb/mixer_audient.c
-@@ -1,9 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * Audient EVO driver for ALSA
-+ * Audient driver for ALSA
-  * Copyright (C) 2026 Christian Ruppert <arc@gmx.li>
-  *
-- * Based on the work of Ivan Hazucha for audient-evo-py.
-+ * EVO4 support is based on the work of Ivan Hazucha for audient-evo-py.
-  * https://github.com/vanzaho/audient-evo-py/
-  */
-=20
-@@ -20,22 +20,22 @@
- #include "mixer.h"
- #include "mixer_quirks.h"
- #include "helper.h"
--#include "mixer_evo.h"
-+#include "mixer_audient.h"
-=20
-=20
--enum snd_evo_type {
--	SND_EVO_TYPE_MONITOR =3D 0,
--	SND_EVO_TYPE_PHANTOM,
--	SND_EVO_TYPE_MUTE,
--	SND_EVO_TYPE_MUTE_OUT,
--	SND_EVO_TYPE_MIXER,
--	SND_EVO_TYPE_NCTYPES
-+enum snd_audient_type {
-+	SND_AUDIENT_TYPE_MONITOR =3D 0,
-+	SND_AUDIENT_TYPE_PHANTOM,
-+	SND_AUDIENT_TYPE_MUTE,
-+	SND_AUDIENT_TYPE_MUTE_OUT,
-+	SND_AUDIENT_TYPE_MIXER,
-+	SND_AUDIENT_TYPE_NCTYPES
- };
-=20
- /* Mixer matrix: -128dB (mute) to +6dB */
--static const DECLARE_TLV_DB_MINMAX_MUTE(snd_evo_tlv_mixer, -12800, 600);
-+static const DECLARE_TLV_DB_MINMAX_MUTE(snd_audient_tlv_mixer, -12800, 60=
-0);
-=20
--static const struct snd_evo_ctrl_type {
-+static const struct snd_audient_ctrl_type {
- 	snd_ctl_elem_type_t type;
- 	bool invert;
- 	union {
-@@ -47,8 +47,8 @@ static const struct snd_evo_ctrl_type {
- 	const unsigned int *tlv;
- 	u16 wValue;
- 	u16 wIndex;
--} snd_evo_ctypes[SND_EVO_TYPE_NCTYPES] =3D {
--	[SND_EVO_TYPE_MONITOR] =3D {
-+} snd_audient_ctypes[SND_AUDIENT_TYPE_NCTYPES] =3D {
-+	[SND_AUDIENT_TYPE_MONITOR] =3D {
- 		.type =3D SNDRV_CTL_ELEM_TYPE_INTEGER,
- 		.min.integer =3D 0,
- 		.max.integer =3D 127,
-@@ -56,7 +56,7 @@ static const struct snd_evo_ctrl_type {
- 		.wIndex =3D 0x3800,
- 		/* no TLV here because we can't describe the cross-fader */
- 	},
--	[SND_EVO_TYPE_PHANTOM] =3D {
-+	[SND_AUDIENT_TYPE_PHANTOM] =3D {
- 		.type =3D SNDRV_CTL_ELEM_TYPE_BOOLEAN,
- 		.invert =3D false,
- 		.min.integer =3D 0,
-@@ -64,7 +64,7 @@ static const struct snd_evo_ctrl_type {
- 		.wValue =3D 0x0000,
- 		.wIndex =3D 0x3A00,
- 	},
--	[SND_EVO_TYPE_MUTE] =3D {
-+	[SND_AUDIENT_TYPE_MUTE] =3D {
- 		.type =3D SNDRV_CTL_ELEM_TYPE_BOOLEAN,
- 		.invert =3D true,
- 		.min.integer =3D 0,
-@@ -72,7 +72,7 @@ static const struct snd_evo_ctrl_type {
- 		.wValue =3D 0x0200,
- 		.wIndex =3D 0x3A00,
- 	},
--	[SND_EVO_TYPE_MUTE_OUT] =3D {
-+	[SND_AUDIENT_TYPE_MUTE_OUT] =3D {
- 		.type =3D SNDRV_CTL_ELEM_TYPE_BOOLEAN,
- 		.invert =3D true,
- 		.min.integer =3D 0,
-@@ -80,135 +80,135 @@ static const struct snd_evo_ctrl_type {
- 		.wValue =3D 0x0100,
- 		.wIndex =3D 0x3B00,
- 	},
--	[SND_EVO_TYPE_MIXER] =3D {
-+	[SND_AUDIENT_TYPE_MIXER] =3D {
- 		.type =3D SNDRV_CTL_ELEM_TYPE_INTEGER,
- 		.min.integer =3D -128 * 256,
- 		.max.integer =3D 6 * 256,
- 		.wValue =3D 0x0100,
- 		.wIndex =3D 0x3C00,
--		.tlv =3D snd_evo_tlv_mixer,
-+		.tlv =3D snd_audient_tlv_mixer,
- 	},
- };
-=20
--#define SND_EVO_FLAGS_DIRECTION (1L<<0)
--#define SND_EVO_FLAGS_CAPTURE (1L<<0)
--#define SND_EVO_FLAGS_PLAYBACK (0L<<0)
-+#define SND_AUDIENT_FLAGS_DIRECTION (1L<<0)
-+#define SND_AUDIENT_FLAGS_CAPTURE (1L<<0)
-+#define SND_AUDIENT_FLAGS_PLAYBACK (0L<<0)
-=20
--struct snd_evo_ctrl {
-+struct snd_audient_ctrl {
- 	char *basename;
--	enum snd_evo_type type;
-+	enum snd_audient_type type;
- 	unsigned int channels;
- 	unsigned int hwchannels;
- 	unsigned int val_offs;
- 	unsigned long flags;
- };
-=20
--static const struct snd_evo_ctrl evo4_controls[] =3D {
-+static const struct snd_audient_ctrl snd_audient_evo4_controls[] =3D {
- 	{
- 		.basename =3D "Master",
--		.type =3D SND_EVO_TYPE_MUTE_OUT,
-+		.type =3D SND_AUDIENT_TYPE_MUTE_OUT,
- 		.channels =3D 1,
- 		.hwchannels =3D 1,
- 		.val_offs =3D 0,
--		.flags =3D SND_EVO_FLAGS_PLAYBACK,
-+		.flags =3D SND_AUDIENT_FLAGS_PLAYBACK,
- 	},
- 	{
- 		.basename =3D "Mic",
--		.type =3D SND_EVO_TYPE_MUTE,
-+		.type =3D SND_AUDIENT_TYPE_MUTE,
- 		.channels =3D 4,
- 		.hwchannels =3D 2,
- 		.val_offs =3D 0,
--		.flags =3D SND_EVO_FLAGS_PLAYBACK,
-+		.flags =3D SND_AUDIENT_FLAGS_PLAYBACK,
- 	},
- 	{
- 		.basename =3D "Monitor",
--		.type =3D SND_EVO_TYPE_MONITOR,
-+		.type =3D SND_AUDIENT_TYPE_MONITOR,
- 		.channels =3D 1,
- 		.hwchannels =3D 1,
- 		.val_offs =3D 0,
--		.flags =3D SND_EVO_FLAGS_PLAYBACK,
-+		.flags =3D SND_AUDIENT_FLAGS_PLAYBACK,
- 	},
- 	{
- 		.basename =3D "Mic 1",
--		.type =3D SND_EVO_TYPE_MIXER,
-+		.type =3D SND_AUDIENT_TYPE_MIXER,
- 		.channels =3D 2,
- 		.hwchannels =3D 2,
- 		.val_offs =3D 0,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{
- 		.basename =3D "Mic 2",
--		.type =3D SND_EVO_TYPE_MIXER,
-+		.type =3D SND_AUDIENT_TYPE_MIXER,
- 		.channels =3D 2,
- 		.hwchannels =3D 2,
- 		.val_offs =3D 2,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{
- 		.basename =3D "Master Left",
--		.type =3D SND_EVO_TYPE_MIXER,
-+		.type =3D SND_AUDIENT_TYPE_MIXER,
- 		.channels =3D 2,
- 		.hwchannels =3D 2,
- 		.val_offs =3D 4,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{
- 		.basename =3D "Master Right",
--		.type =3D SND_EVO_TYPE_MIXER,
-+		.type =3D SND_AUDIENT_TYPE_MIXER,
- 		.channels =3D 2,
- 		.hwchannels =3D 2,
- 		.val_offs =3D 6,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{
- 		.basename =3D "Loopback Left",
--		.type =3D SND_EVO_TYPE_MIXER,
-+		.type =3D SND_AUDIENT_TYPE_MIXER,
- 		.channels =3D 2,
- 		.hwchannels =3D 2,
- 		.val_offs =3D 8,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{
- 		.basename =3D "Loopback Right",
--		.type =3D SND_EVO_TYPE_MIXER,
-+		.type =3D SND_AUDIENT_TYPE_MIXER,
- 		.channels =3D 2,
- 		.hwchannels =3D 2,
- 		.val_offs =3D 10,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{
- 		.basename =3D "Mic 1 Phantom",
--		.type =3D SND_EVO_TYPE_PHANTOM,
-+		.type =3D SND_AUDIENT_TYPE_PHANTOM,
- 		.channels =3D 1,
- 		.hwchannels =3D 1,
- 		.val_offs =3D 0,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{
- 		.basename =3D "Mic 2 Phantom",
--		.type =3D SND_EVO_TYPE_PHANTOM,
-+		.type =3D SND_AUDIENT_TYPE_PHANTOM,
- 		.channels =3D 1,
- 		.hwchannels =3D 1,
- 		.val_offs =3D 1,
--		.flags =3D SND_EVO_FLAGS_CAPTURE,
-+		.flags =3D SND_AUDIENT_FLAGS_CAPTURE,
- 	},
- 	{ 0 }, /* sentinel */
- };
-=20
--static const struct evo_devinfo {
-+static const struct audient_devinfo {
- 	u32 usb_id;
--	const struct snd_evo_ctrl *controls;
--} evo_devinfo[] =3D {
-+	const struct snd_audient_ctrl *controls;
-+} audient_devinfo[] =3D {
- 	{
- 		.usb_id =3D USB_ID(USB_AUDIENT_VID, USB_EVO4_PID),
--		.controls =3D evo4_controls,
-+		.controls =3D snd_audient_evo4_controls,
- 	},
- 	{ 0 } /* sentinel */
- };
-=20
-=20
--static inline unsigned long snd_evo_kctl_priv(enum snd_evo_type type,
--					      u8 valoffs, u8 hwchannels)
-+static inline unsigned long snd_audient_kctl_priv(enum snd_audient_type t=
-ype,
-+						  u8 valoffs, u8 hwchannels)
- {
- 	unsigned long type_l =3D type & 0xFF;
- 	unsigned long valoffs_l =3D valoffs & 0xFF;
-@@ -218,22 +218,24 @@ static inline unsigned long snd_evo_kctl_priv(enum s=
-nd_evo_type type,
- }
-=20
- static __always_inline
--const struct snd_evo_ctrl_type *snd_evo_kctl_type(struct snd_kcontrol *kc=
-tl)
-+const struct snd_audient_ctrl_type *snd_audient_kctl_type(struct snd_kcon=
-trol
-+							  *kctl)
- {
--	return &snd_evo_ctypes[kctl->private_value & 0xFF];
-+	return &snd_audient_ctypes[kctl->private_value & 0xFF];
- }
-=20
--static __always_inline u16 snd_evo_kctl_valoffs(struct snd_kcontrol *kctl=
-)
-+static __always_inline u16 snd_audient_kctl_valoffs(struct snd_kcontrol *=
-kctl)
- {
- 	return (kctl->private_value >> 8) & 0xFF;
- }
-=20
--static __always_inline u16 snd_evo_kctl_hwchannels(struct snd_kcontrol *k=
-ctl)
-+static __always_inline
-+u16 snd_audient_kctl_hwchannels(struct snd_kcontrol *kctl)
- {
- 	return (kctl->private_value >> 16) & 0xFF;
- }
-=20
--static inline u16 snd_evo_kctl_channels(struct snd_kcontrol *kctl)
-+static inline u16 snd_audient_kctl_channels(struct snd_kcontrol *kctl)
- {
- 	struct usb_mixer_elem_info *info =3D kctl->private_data;
-=20
-@@ -241,43 +243,45 @@ static inline u16 snd_evo_kctl_channels(struct snd_k=
-control *kctl)
- }
-=20
-=20
--#define EVO_REQ_CUR (0x01)
--#define EVO_REQTYPE_SET (USB_DIR_OUT | USB_TYPE_CLASS | USB_RECIP_INTERFA=
-CE)
--#define EVO_REQTYPE_GET (USB_DIR_IN  | USB_TYPE_CLASS | USB_RECIP_INTERFA=
-CE)
-+#define AUDIENT_REQTYPE_SET (USB_DIR_OUT | USB_TYPE_CLASS \
-+					 | USB_RECIP_INTERFACE)
-+#define AUDIENT_REQTYPE_GET (USB_DIR_IN  | USB_TYPE_CLASS \
-+					 | USB_RECIP_INTERFACE)
-=20
--static inline int snd_evo_get_cur(struct usb_mixer_interface *mixer,
--				  u16 value, u16 index,
--				  void *buf, size_t len)
-+static inline int snd_audient_get_cur(struct usb_mixer_interface *mixer,
-+				      u16 value, u16 index,
-+				      void *buf, size_t len)
- {
- 	struct usb_device *const dev =3D mixer->chip->dev;
-=20
- 	return snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
--			       EVO_REQ_CUR, EVO_REQTYPE_GET,
-+			       UAC2_CS_CUR, AUDIENT_REQTYPE_GET,
- 			       value, index, buf, len);
- }
-=20
--static inline int snd_evo_set_cur(struct usb_mixer_interface *mixer,
--				  u16 value, u16 index,
--				  void *buf, size_t len)
-+static inline int snd_audient_set_cur(struct usb_mixer_interface *mixer,
-+				      u16 value, u16 index,
-+				      void *buf, size_t len)
- {
- 	struct usb_device *const dev =3D mixer->chip->dev;
-=20
- 	return snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
--			       EVO_REQ_CUR, EVO_REQTYPE_SET,
-+			       UAC2_CS_CUR, AUDIENT_REQTYPE_SET,
- 			       value, index, buf, len);
- }
-=20
-=20
--static int snd_ctl_evo_boolean_get(struct snd_kcontrol *kctl,
--				   struct snd_ctl_elem_value *ctl_val)
-+static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
-+				       struct snd_ctl_elem_value *ctl_val)
- {
- 	struct usb_mixer_elem_list *const list =3D snd_kcontrol_chip(kctl);
- 	struct usb_mixer_interface *const mixer =3D list->mixer;
-=20
--	const unsigned int nchan =3D snd_evo_kctl_channels(kctl);
--	const unsigned int hwchan =3D snd_evo_kctl_hwchannels(kctl);
--	const struct snd_evo_ctrl_type *const ctype =3D snd_evo_kctl_type(kctl);
--	const u16 value =3D ctype->wValue + snd_evo_kctl_valoffs(kctl);
-+	const unsigned int nchan =3D snd_audient_kctl_channels(kctl);
-+	const unsigned int hwchan =3D snd_audient_kctl_hwchannels(kctl);
-+	const struct snd_audient_ctrl_type *const ctype
-+						=3D snd_audient_kctl_type(kctl);
-+	const u16 value =3D ctype->wValue + snd_audient_kctl_valoffs(kctl);
- 	const u16 index =3D ctype->wIndex;
-=20
- 	int i;
-@@ -290,8 +294,8 @@ static int snd_ctl_evo_boolean_get(struct snd_kcontrol=
- *kctl,
- 		u32 buf;
- 		int ret;
-=20
--		ret =3D snd_evo_get_cur(mixer, value + i, index,
--				      &buf, sizeof(buf));
-+		ret =3D snd_audient_get_cur(mixer, value + i, index,
-+					  &buf, sizeof(buf));
- 		if (ret < 0)
- 			return ret;
-=20
-@@ -309,15 +313,16 @@ static int snd_ctl_evo_boolean_get(struct snd_kcontr=
-ol *kctl,
- 	return 0;
- }
-=20
--static int snd_ctl_evo_boolean_set(struct snd_kcontrol *kctl,
--				   struct snd_ctl_elem_value *ctl_val)
-+static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
-+				       struct snd_ctl_elem_value *ctl_val)
- {
- 	struct usb_mixer_elem_list *list =3D snd_kcontrol_chip(kctl);
- 	struct usb_mixer_interface *mixer =3D list->mixer;
-=20
--	const unsigned int hwchan =3D snd_evo_kctl_hwchannels(kctl);
--	const struct snd_evo_ctrl_type *const ctype =3D snd_evo_kctl_type(kctl);
--	const u16 value =3D ctype->wValue + snd_evo_kctl_valoffs(kctl);
-+	const unsigned int hwchan =3D snd_audient_kctl_hwchannels(kctl);
-+	const struct snd_audient_ctrl_type *const ctype
-+						=3D snd_audient_kctl_type(kctl);
-+	const u16 value =3D ctype->wValue + snd_audient_kctl_valoffs(kctl);
- 	const u16 index =3D ctype->wIndex;
-=20
- 	int changed =3D 0;
-@@ -335,7 +340,7 @@ static int snd_ctl_evo_boolean_set(struct snd_kcontrol=
- *kctl,
- 		if (ctype->invert)
- 			buf ^=3D cpu_to_le32(0x1);
-=20
--		ret =3D snd_evo_get_cur(mixer, value + i, index,
-+		ret =3D snd_audient_get_cur(mixer, value + i, index,
- 				      &rbuf, sizeof(rbuf));
- 		if (ret < 0)
- 			return ret;
-@@ -343,8 +348,8 @@ static int snd_ctl_evo_boolean_set(struct snd_kcontrol=
- *kctl,
- 		if (rbuf !=3D buf) {
- 			changed =3D 1;
-=20
--			ret =3D snd_evo_set_cur(mixer, value + i, index,
--					      &buf, sizeof(buf));
-+			ret =3D snd_audient_set_cur(mixer, value + i, index,
-+						  &buf, sizeof(buf));
- 			if (ret < 0)
- 				return ret;
- 		}
-@@ -353,16 +358,17 @@ static int snd_ctl_evo_boolean_set(struct snd_kcontr=
-ol *kctl,
- 	return changed;
- }
-=20
--static int snd_ctl_evo_integer_get(struct snd_kcontrol *kctl,
-+static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
- 				   struct snd_ctl_elem_value *ctl_val)
- {
- 	struct usb_mixer_elem_list *const list =3D snd_kcontrol_chip(kctl);
- 	struct usb_mixer_interface *const mixer =3D list->mixer;
-=20
--	const unsigned int nchan =3D snd_evo_kctl_channels(kctl);
--	const unsigned int hwchan =3D snd_evo_kctl_hwchannels(kctl);
--	const struct snd_evo_ctrl_type *const ctype =3D snd_evo_kctl_type(kctl);
--	const u16 value =3D ctype->wValue + snd_evo_kctl_valoffs(kctl);
-+	const unsigned int nchan =3D snd_audient_kctl_channels(kctl);
-+	const unsigned int hwchan =3D snd_audient_kctl_hwchannels(kctl);
-+	const struct snd_audient_ctrl_type *const ctype
-+						=3D snd_audient_kctl_type(kctl);
-+	const u16 value =3D ctype->wValue + snd_audient_kctl_valoffs(kctl);
- 	const u16 index =3D ctype->wIndex;
-=20
- 	int i;
-@@ -376,8 +382,8 @@ static int snd_ctl_evo_integer_get(struct snd_kcontrol=
- *kctl,
- 		s16 val;
- 		int ret;
-=20
--		ret =3D snd_evo_get_cur(mixer, value + i, index,
--				      &buf, sizeof(buf));
-+		ret =3D snd_audient_get_cur(mixer, value + i, index,
-+					  &buf, sizeof(buf));
- 		if (ret < 0)
- 			return ret;
-=20
-@@ -391,15 +397,16 @@ static int snd_ctl_evo_integer_get(struct snd_kcontr=
-ol *kctl,
- 	return 0;
- }
-=20
--static int snd_ctl_evo_integer_set(struct snd_kcontrol *kctl,
-+static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
- 				   struct snd_ctl_elem_value *ctl_val)
- {
- 	struct usb_mixer_elem_list *list =3D snd_kcontrol_chip(kctl);
- 	struct usb_mixer_interface *mixer =3D list->mixer;
-=20
--	const unsigned int hwchan =3D snd_evo_kctl_hwchannels(kctl);
--	const struct snd_evo_ctrl_type *const ctype =3D snd_evo_kctl_type(kctl);
--	const u16 value =3D ctype->wValue + snd_evo_kctl_valoffs(kctl);
-+	const unsigned int hwchan =3D snd_audient_kctl_hwchannels(kctl);
-+	const struct snd_audient_ctrl_type *const ctype
-+						=3D snd_audient_kctl_type(kctl);
-+	const u16 value =3D ctype->wValue + snd_audient_kctl_valoffs(kctl);
- 	const u16 index =3D ctype->wIndex;
-=20
- 	int changed =3D 0;
-@@ -414,16 +421,16 @@ static int snd_ctl_evo_integer_set(struct snd_kcontr=
-ol *kctl,
- 		s16 buf =3D cpu_to_le16(ctl_val->value.integer.value[i]);
- 		int ret;
-=20
--		ret =3D snd_evo_get_cur(mixer, value + i, index,
--				      &rbuf, sizeof(rbuf));
-+		ret =3D snd_audient_get_cur(mixer, value + i, index,
-+					  &rbuf, sizeof(rbuf));
- 		if (ret < 0)
- 			return ret;
-=20
- 		if (rbuf !=3D buf) {
- 			changed =3D 1;
-=20
--			ret =3D snd_evo_set_cur(mixer, value + i, index,
--					      &buf, sizeof(buf));
-+			ret =3D snd_audient_set_cur(mixer, value + i, index,
-+						  &buf, sizeof(buf));
- 			if (ret < 0)
- 				return ret;
- 		}
-@@ -432,23 +439,25 @@ static int snd_ctl_evo_integer_set(struct snd_kcontr=
-ol *kctl,
- 	return changed;
- }
-=20
--static int snd_ctl_evo_info(struct snd_kcontrol *kctl,
-+static int snd_ctl_audient_info(struct snd_kcontrol *kctl,
- 			    struct snd_ctl_elem_info *uinfo)
- {
--	const struct snd_evo_ctrl_type *const ctype =3D snd_evo_kctl_type(kctl);
-+	const struct snd_audient_ctrl_type *const ctype
-+						=3D snd_audient_kctl_type(kctl);
-=20
- 	uinfo->type =3D ctype->type;
--	uinfo->count =3D snd_evo_kctl_channels(kctl);
-+	uinfo->count =3D snd_audient_kctl_channels(kctl);
- 	uinfo->value.integer.min =3D ctype->min.integer;
- 	uinfo->value.integer.max =3D ctype->max.integer;
- 	return 0;
- }
-=20
-=20
--static int snd_evo_add_ctrl(struct usb_mixer_interface *mixer,
--			    const struct snd_evo_ctrl *ctrl)
-+static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
-+			    const struct snd_audient_ctrl *ctrl)
- {
--	const struct snd_evo_ctrl_type *ctype =3D &snd_evo_ctypes[ctrl->type];
-+	const struct snd_audient_ctrl_type *ctype
-+					=3D &snd_audient_ctypes[ctrl->type];
- 	char name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
- 	struct snd_kcontrol_new knew =3D { 0 };
- 	struct snd_kcontrol *kctl;
-@@ -456,9 +465,9 @@ static int snd_evo_add_ctrl(struct usb_mixer_interface=
- *mixer,
-=20
- 	knew.iface =3D SNDRV_CTL_ELEM_IFACE_MIXER;
- 	knew.name =3D name;
--	knew.info =3D snd_ctl_evo_info;
--	knew.private_value =3D snd_evo_kctl_priv(ctrl->type, ctrl->val_offs,
--					       ctrl->hwchannels);
-+	knew.info =3D snd_ctl_audient_info;
-+	knew.private_value =3D snd_audient_kctl_priv(ctrl->type, ctrl->val_offs,
-+						   ctrl->hwchannels);
- 	knew.tlv.p =3D ctype->tlv;
- 	knew.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE
- 			| SNDRV_CTL_ELEM_ACCESS_VOLATILE
-@@ -466,20 +475,20 @@ static int snd_evo_add_ctrl(struct usb_mixer_interfa=
-ce *mixer,
-=20
- 	switch (ctype->type) {
- 	case SNDRV_CTL_ELEM_TYPE_INTEGER:
--		knew.get =3D snd_ctl_evo_integer_get;
--		knew.put =3D snd_ctl_evo_integer_set;
-+		knew.get =3D snd_ctl_audient_integer_get;
-+		knew.put =3D snd_ctl_audient_integer_set;
- 		break;
- 	case SNDRV_CTL_ELEM_TYPE_BOOLEAN:
--		knew.get =3D snd_ctl_evo_boolean_get;
--		knew.put =3D snd_ctl_evo_boolean_set;
-+		knew.get =3D snd_ctl_audient_boolean_get;
-+		knew.put =3D snd_ctl_audient_boolean_set;
- 		break;
- 	default:
- 		return -EINVAL;
- 	}
-=20
- 	snprintf(name, sizeof(name), "%s %s %s", ctrl->basename,
--		 ((ctrl->flags & SND_EVO_FLAGS_DIRECTION)
--			=3D=3D SND_EVO_FLAGS_CAPTURE) ? "Capture" : "Playback",
-+		 ((ctrl->flags & SND_AUDIENT_FLAGS_DIRECTION)
-+			=3D=3D SND_AUDIENT_FLAGS_CAPTURE) ? "Capture" : "Playback",
- 		 (ctype->type =3D=3D SNDRV_CTL_ELEM_TYPE_BOOLEAN)
- 			? "Switch" : "Volume");
-=20
-@@ -503,12 +512,12 @@ static int snd_evo_add_ctrl(struct usb_mixer_interfa=
-ce *mixer,
-=20
-=20
- /* called from mixer_quirks.c */
--int snd_evo_controls_create(struct usb_mixer_interface *mixer)
-+int snd_audient_controls_create(struct usb_mixer_interface *mixer)
- {
--	const struct evo_devinfo *info;
--	const struct snd_evo_ctrl *ctrl;
-+	const struct audient_devinfo *info;
-+	const struct snd_audient_ctrl *ctrl;
-=20
--	for (info =3D evo_devinfo; info->controls; info++)
-+	for (info =3D audient_devinfo; info->controls; info++)
- 		if (info->usb_id =3D=3D mixer->chip->usb_id)
- 			break;
-=20
-@@ -516,7 +525,7 @@ int snd_evo_controls_create(struct usb_mixer_interface=
- *mixer)
- 		return -ENODEV;
-=20
- 	for (ctrl =3D info->controls; ctrl->basename; ctrl++) {
--		const int ret =3D snd_evo_add_ctrl(mixer, ctrl);
-+		const int ret =3D snd_audient_add_ctrl(mixer, ctrl);
-=20
- 		if (ret < 0)
- 			return ret;
-diff --git a/sound/usb/mixer_audient.h b/sound/usb/mixer_audient.h
-new file mode 100644
-index 000000000000..db4f31e02b5e
-=2D-- /dev/null
-+++ b/sound/usb/mixer_audient.h
-@@ -0,0 +1,12 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __USB_MIXER_AUDIENT_H
-+#define __USB_MIXER_AUDIENT_H
-+
-+#include "mixer.h"
-+
-+#define USB_AUDIENT_VID (0x2708)
-+#define USB_EVO4_PID (0x0006)
-+
-+int snd_audient_controls_create(struct usb_mixer_interface *mixer);
-+
-+#endif /* __USB_MIXER_AUDIENT_H */
-diff --git a/sound/usb/mixer_evo.h b/sound/usb/mixer_evo.h
-deleted file mode 100644
-index 7fe7e197185c..000000000000
-=2D-- a/sound/usb/mixer_evo.h
-+++ /dev/null
-@@ -1,12 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef __USB_MIXER_EVO_H
--#define __USB_MIXER_EVO_H
--
--#include "mixer.h"
--
--#define USB_AUDIENT_VID (0x2708)
--#define USB_EVO4_PID (0x0006)
--
--int snd_evo_controls_create(struct usb_mixer_interface *mixer);
--
--#endif /* __USB_MIXER_EVO_H */
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 4c7d68311f20..c250ebea5af5 100644
-=2D-- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -39,7 +39,7 @@
- #include "mixer_scarlett2.h"
- #include "mixer_us16x08.h"
- #include "mixer_s1810c.h"
--#include "mixer_evo.h"
-+#include "mixer_audient.h"
- #include "helper.h"
- #include "fcp.h"
-=20
-@@ -4781,7 +4781,7 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixe=
-r_interface *mixer)
- 		break;
-=20
- 	case USB_ID(USB_AUDIENT_VID, USB_EVO4_PID): /* Audient EVO 4 */
--		err =3D snd_evo_controls_create(mixer);
-+		err =3D snd_audient_controls_create(mixer);
- 		break;
-=20
- 	case USB_ID(0x041e, 0x323b): /* Creative Sound Blaster E1 */
-=2D-=20
-2.56.1
+Thanks,
+Ian
 
+> ---
+>  tools/perf/.gitignore          |   1 +
+>  tools/perf/Makefile            |  11 +-
+>  tools/perf/Makefile.perf       |   4 +
+>  tools/perf/scripts/coverage.sh | 722 +++++++++++++++++++++++++++++++++
+>  4 files changed, 737 insertions(+), 1 deletion(-)
+>  create mode 100755 tools/perf/scripts/coverage.sh
+>
+> diff --git a/tools/perf/.gitignore b/tools/perf/.gitignore
+> index 3b968c5158b822ce..9052f25597ac9489 100644
+> --- a/tools/perf/.gitignore
+> +++ b/tools/perf/.gitignore
+> @@ -27,6 +27,7 @@ stats-*.csv
+>  cscope*
+>  config.mak
+>  config.mak.autogen
+> +.coverage-build-dir
+>  *-bison.*
+>  *-flex.*
+>  *.pyc
+> diff --git a/tools/perf/Makefile b/tools/perf/Makefile
+> index 00baf90e5bda7123..8df8e9ed37f0a8f5 100644
+> --- a/tools/perf/Makefile
+> +++ b/tools/perf/Makefile
+> @@ -140,6 +140,15 @@ check-headers:
+>  sync-headers:
+>         @./scripts/sync-headers.sh $(SYNC_HEADERS_ARGS)
+>
+> +coverage-prep:
+> +       @./scripts/coverage.sh --prep $(if $(FULL_O),--build-dir=3D$(FULL=
+_O)) $(COVERAGE_ARGS)
+> +
+> +coverage:
+> +       @./scripts/coverage.sh $(if $(FULL_O),--build-dir=3D$(FULL_O)) $(=
+COVERAGE_ARGS)
+> +
+> +coverage-table:
+> +       @./scripts/coverage.sh --table $(if $(FULL_O),--build-dir=3D$(FUL=
+L_O)) $(COVERAGE_ARGS)
+> +
+>  #
+>  # All other targets get passed through:
+>  #
+> @@ -147,4 +156,4 @@ sync-headers:
+>         $(print_msg)
+>         $(make)
+>
+> -.PHONY: all clean tags TAGS FORCE Makefile build-test build-test-tarball=
+ check-headers sync-headers
+> +.PHONY: all clean tags TAGS FORCE Makefile build-test build-test-tarball=
+ check-headers sync-headers coverage coverage-prep coverage-table
+> diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
+> index b74b534e1153ffcb..782929b0ba10d8f3 100644
+> --- a/tools/perf/Makefile.perf
+> +++ b/tools/perf/Makefile.perf
+> @@ -873,6 +873,10 @@ help:
+>         @echo '  check-headers          - check which header copies are o=
+ut of sync with the kernel'
+>         @echo '  sync-headers           - sync those header copies with t=
+he kernel, creating commits'
+>         @echo '                   (SYNC_HEADERS_ARGS=3D"..." passes optio=
+ns to the script)'
+> +       @echo '  coverage-prep          - build perf with clang coverage,=
+ ready for a root test run'
+> +       @echo '  coverage               - build perf with clang coverage,=
+ run the tests and report'
+> +       @echo '  coverage-table - print an ASCII table of the last covera=
+ge run'
+> +       @echo '                   (COVERAGE_ARGS=3D"..." passes options t=
+o the script)'
+>
+>
+>  DOC_TARGETS :=3D doc man html info pdf
+> diff --git a/tools/perf/scripts/coverage.sh b/tools/perf/scripts/coverage=
+.sh
+> new file mode 100755
+> index 0000000000000000..2f248d61a733938a
+> --- /dev/null
+> +++ b/tools/perf/scripts/coverage.sh
+> @@ -0,0 +1,722 @@
+> +#!/bin/bash
+> +# SPDX-License-Identifier: GPL-2.0
+> +#
+> +# Copyright (C) 2026, Red Hat Inc, Arnaldo Carvalho de Melo <acme@redhat=
+.com>
+> +#
+> +# LLVM source-based coverage for perf: build with clang instrumentation,
+> +# run the complete perf test suite and report line/function coverage for
+> +# perf, optionally comparing it against a previously saved report.  -t
+> +# narrows the tests and -f adds files to the per-file table; without -f
+> +# the report lists the files with the most uncovered lines, which is
+> +# where new tests are needed.  --table prints the last run as an ASCII
+> +# coverage table, like pahole's coverage_table.py.  The build can be
+> +# split from the test run: --prep builds the instrumented perf and
+> +# records the build directory, and a later run as root uses that build,
+> +# skips the build and goes straight to the tests.  The sampling based
+> +# tests move the percentages by a percent or two between identical runs.
+> +
+> +set -euo pipefail
+> +
+> +# awk prints dots and printf/sort parse them: keep the numeric locale fi=
+xed
+> +# so --table doesn't abort where the decimal separator is a comma.
+> +export LC_ALL=3DC
+> +
+> +PERF_DIR=3D$(cd "$(dirname "$0")/.." && pwd)
+> +
+> +DEFAULT_BUILD_DIR=3D/tmp/build/perf-coverage
+> +BUILD_DIR=3D${BUILD_DIR:-}
+> +COV_DIR=3D${COV_DIR:-}
+> +BUILD_DIR_SET=3D0
+> +COV_DIR_SET=3D0
+> +[ -n "$BUILD_DIR" ] && BUILD_DIR_SET=3D1
+> +[ -n "$COV_DIR" ] && COV_DIR_SET=3D1
+> +JOBS=3D${JOBS:-$(nproc 2>/dev/null || echo 1)}
+> +LLVM_PROFDATA=3D${LLVM_PROFDATA:-llvm-profdata}
+> +LLVM_COV=3D${LLVM_COV:-llvm-cov}
+> +
+> +DEBUG_BUILD=3D1
+> +SKIP_BUILD=3D0
+> +REPORT_ONLY=3D0
+> +PREP=3D0
+> +TABLE=3D0
+> +HTML=3D0
+> +USE_BASELINE=3D1
+> +BASELINE=3D
+> +UNCOVERED=3D${UNCOVERED:-20}
+> +TOP=3D${TOP:-20}
+> +MIN_LINES=3D${MIN_LINES:-100}
+> +DWARF_VERSION=3D${DWARF_VERSION:-4}
+> +TESTS=3D()
+> +
+> +FOCUS=3D()
+> +
+> +ROOT=3D0
+> +[ "$(id -u)" =3D 0 ] && ROOT=3D1
+> +
+> +say()  { printf '\033[1;34m=3D=3D>\033[0m %s\n' "$*"; }
+> +warn() { printf '\033[0;33mwarning:\033[0m %s\n' "$*" >&2; }
+> +die()  { printf '\033[0;31merror:\033[0m %s\n' "$*" >&2; exit 1; }
+> +
+> +usage()
+> +{
+> +       cat <<EOF
+> +Usage: scripts/coverage.sh [options] [test name fragment...]
+> +
+> +Builds perf with clang source-based coverage, runs the complete perf
+> +test suite and reports coverage for perf.  Use -t to run a subset and
+> +-f to focus the per-file table.
+> +
+> +Options:
+> +  -b, --build-dir DIR    perf build directory (default: $DEFAULT_BUILD_D=
+IR)
+> +  -c, --cov-dir DIR      profiles and reports (default: BUILD_DIR/cov)
+> +  -j, --jobs N           parallel build jobs (default: $JOBS)
+> +  -t, --tests "A;B"      test name fragments, ';' separated (default: al=
+l)
+> +  -f, --focus FILE       add a file to the per-file table (repeatable)
+> +      --top N            when no -f is given, show the N files with the
+> +                         most uncovered lines (default: $TOP, 0 to disab=
+le)
+> +      --baseline FILE    baseline report (default: COV_DIR/baseline.txt)
+> +      --no-baseline      do not compare against or update a baseline
+> +      --uncovered N      uncovered line numbers per focus file (default:=
+ $UNCOVERED)
+> +      --skip-build       reuse the existing build, just run the tests
+> +      --report-only      reuse build and profiles, just render the repor=
+t
+> +      --prep             build the instrumented perf and stop; run the
+> +                         tests later as root with this script
+> +  -T, --table            print an ASCII table of the last run and exit,
+> +                         like pahole's coverage_table.py
+> +      --optimized        build with perf's default -O3 instead of -O0 -g
+> +      --dwarf-version N  DWARF version for the instrumented build (defau=
+lt: $DWARF_VERSION)
+> +      --html             also write an HTML report
+> +  -h, --help             show this help
+> +
+> +Environment:
+> +  BUILD_DIR, COV_DIR, JOBS, LLVM_COV, LLVM_PROFDATA, UNCOVERED, TOP,
+> +  MIN_LINES, DWARF_VERSION
+> +
+> +As root, without --prep, the script skips the build, checks the perf
+> +prepared by 'make coverage-prep', runs the tests and renders the
+> +report.  The prepared build is recorded in tools/perf/.coverage-build-di=
+r.
+> +
+> +Through make:
+> +  make -C tools/perf coverage COVERAGE_ARGS=3D"-t 'perf annotate'"
+> +  make -C tools/perf coverage-prep O=3D/tmp/build/perf-tools-next
+> +  make -C tools/perf coverage-table
+> +
+> +Examples:
+> +  scripts/coverage.sh                       # full suite, fresh build
+> +  scripts/coverage.sh --prep                # build only, test later as =
+root
+> +  scripts/coverage.sh --report-only         # re-render the last run
+> +  scripts/coverage.sh --table               # ASCII table of the last ru=
+n
+> +  scripts/coverage.sh -t "perf annotate"    # a single test fragment
+> +  scripts/coverage.sh -f util/evsel.c       # add a file to the table
+> +EOF
+> +}
+> +
+> +while [ $# -gt 0 ]; do
+> +       arg=3D$1
+> +       optval=3D
+> +       case "$arg" in
+> +       --*=3D*) optval=3D${arg#*=3D}; arg=3D${arg%%=3D*} ;;
+> +       esac
+> +
+> +       case "$arg" in
+> +       -b|--build-dir)   BUILD_DIR=3D${optval:-${2?missing value}}; BUIL=
+D_DIR_SET=3D1
+> +                         [ -z "$optval" ] && shift ;;
+> +       -c|--cov-dir)     COV_DIR=3D${optval:-${2?missing value}}; COV_DI=
+R_SET=3D1
+> +                         [ -z "$optval" ] && shift ;;
+> +       -j|--jobs)        JOBS=3D${optval:-${2?missing value}}; [ -z "$op=
+tval" ] && shift ;;
+> +       -f|--focus)       FOCUS+=3D("${optval:-${2?missing value}}"); [ -=
+z "$optval" ] && shift ;;
+> +       --baseline)       BASELINE=3D${optval:-${2?missing value}}; [ -z =
+"$optval" ] && shift ;;
+> +       --uncovered)      UNCOVERED=3D${optval:-${2?missing value}}; [ -z=
+ "$optval" ] && shift ;;
+> +       --top)            TOP=3D${optval:-${2?missing value}}; [ -z "$opt=
+val" ] && shift ;;
+> +       --dwarf-version)  DWARF_VERSION=3D${optval:-${2?missing value}}; =
+[ -z "$optval" ] && shift ;;
+> +       -t|--tests)       IFS=3D';' read -r -a _t <<< "${optval:-${2?miss=
+ing value}}"
+> +                         TESTS+=3D("${_t[@]}"); [ -z "$optval" ] && shif=
+t ;;
+> +       --no-baseline)    USE_BASELINE=3D0 ;;
+> +       --skip-build)     SKIP_BUILD=3D1 ;;
+> +       --report-only)    REPORT_ONLY=3D1; SKIP_BUILD=3D1 ;;
+> +       --prep)           PREP=3D1 ;;
+> +       -T|--table)       TABLE=3D1; REPORT_ONLY=3D1; SKIP_BUILD=3D1 ;;
+> +       --optimized)      DEBUG_BUILD=3D0 ;;
+> +       --html)           HTML=3D1 ;;
+> +       -h|--help)        usage; exit 0 ;;
+> +       -*)               die "unknown option: $arg (see --help)" ;;
+> +       *)                TESTS+=3D("$arg") ;;
+> +       esac
+> +       shift
+> +done
+> +
+> +#
+> +# The build directory is recorded by --prep (and by a full run) so a
+> +# later root run, which does not build, finds it without arguments.
+> +#
+> +if [ "$BUILD_DIR_SET" =3D 0 ] && [ -z "$BUILD_DIR" ] && [ "$PREP" =3D 0 =
+] &&
+> +   { [ "$ROOT" =3D 1 ] || [ "$SKIP_BUILD" =3D 1 ] ||
+> +     [ "$REPORT_ONLY" =3D 1 ] || [ "$TABLE" =3D 1 ]; } &&
+> +   [ -f "$PERF_DIR/.coverage-build-dir" ]; then
+> +       read -r BUILD_DIR < "$PERF_DIR/.coverage-build-dir"
+> +fi
+> +[ -n "$BUILD_DIR" ] || BUILD_DIR=3D$DEFAULT_BUILD_DIR
+> +
+> +if [ "$COV_DIR_SET" =3D 0 ] && [ -z "$COV_DIR" ] &&
+> +   [ -f "$BUILD_DIR/cov/state" ]; then
+> +       COV_DIR=3D$(awk -F=3D '$1 =3D=3D "COV_DIR" { print $2; exit }' \
+> +               "$BUILD_DIR/cov/state")
+> +fi
+> +[ -n "$COV_DIR" ] || COV_DIR=3D$BUILD_DIR/cov
+> +
+> +# The tests run from the kernel tree root, so keep these absolute.
+> +abspath()
+> +{
+> +       case "$1" in
+> +       /*) printf '%s\n' "$1" ;;
+> +       *)  printf '%s/%s\n' "$PWD" "$1" ;;
+> +       esac
+> +}
+> +BUILD_DIR=3D$(abspath "$BUILD_DIR")
+> +COV_DIR=3D$(abspath "$COV_DIR")
+> +
+> +[ -n "$BASELINE" ] || BASELINE=3D$COV_DIR/baseline.txt
+> +[[ $TOP =3D~ ^[0-9]+$ ]] || die "--top wants a number, not '$TOP'"
+> +[[ $MIN_LINES =3D~ ^[0-9]+$ ]] || die "MIN_LINES wants a number, not '$M=
+IN_LINES'"
+> +
+> +# Root does not build: use the perf prepared by coverage-prep.
+> +if [ "$ROOT" =3D 1 ] && [ "$PREP" =3D 0 ] && [ "$TABLE" =3D 0 ]; then
+> +       SKIP_BUILD=3D1
+> +       say "Running as root, using the coverage build in $BUILD_DIR"
+> +fi
+> +
+> +BUILD_LOG=3D$COV_DIR/build.log
+> +TEST_LOG=3D$COV_DIR/tests.log
+> +REPORT=3D$COV_DIR/report.txt
+> +PROFDATA=3D$COV_DIR/perf.profdata
+> +# Discovery point for a later root or --table run, so it stays under
+> +# BUILD_DIR even when --cov-dir points elsewhere.
+> +STATE_FILE=3D$BUILD_DIR/cov/state
+> +POINTER=3D$PERF_DIR/.coverage-build-dir
+> +
+> +#
+> +# Sanity checks
+> +#
+> +[ -d "$PERF_DIR" ] || die "$PERF_DIR not found"
+> +
+> +if [ "$TABLE" =3D 0 ]; then
+> +       if [ "$PREP" =3D 0 ]; then
+> +               command -v "$LLVM_COV" > /dev/null ||
+> +                       die "$LLVM_COV not found (set LLVM_COV)"
+> +       fi
+> +       if [ "$SKIP_BUILD" =3D 0 ]; then
+> +               command -v clang > /dev/null ||
+> +                       die "clang not found, it is the only compiler wit=
+h -fcoverage-mapping"
+> +       fi
+> +       if [ "$PREP" =3D 0 ] && [ "$REPORT_ONLY" =3D 0 ]; then
+> +               command -v "$LLVM_PROFDATA" > /dev/null ||
+> +                       die "$LLVM_PROFDATA not found (set LLVM_PROFDATA)=
+"
+> +       fi
+> +       mkdir -p "$COV_DIR"
+> +fi
+> +
+> +#
+> +# Build: clang, DEBUG=3D1 gives -O0 -g like pahole's coverage build, whi=
+ch
+> +# keeps the line mapping honest at the cost of slower test runs.  DWARF =
+4
+> +# is the default; --dwarf-version 5 describes the workloads linked into
+> +# perf with DW_OP_addrx, the encoding clang uses for globals in DWARF 5.
+> +#
+> +check_coverage_build()
+> +{
+> +       [ -x "$BUILD_DIR/perf" ] ||
+> +               die "no $BUILD_DIR/perf, run 'make -C $PERF_DIR O=3D$BUIL=
+D_DIR coverage-prep' first"
+> +       if command -v nm > /dev/null; then
+> +               # No -q: grep reads all of nm's output, so pipefail does
+> +               # not see a SIGPIPE from an early exit.
+> +               nm "$BUILD_DIR/perf" 2>/dev/null |
+> +                       grep '__llvm_profile' > /dev/null ||
+> +                       die "$BUILD_DIR/perf was not built for coverage, =
+run coverage-prep"
+> +       else
+> +               warn "nm not found, cannot verify that $BUILD_DIR/perf is=
+ instrumented"
+> +       fi
+> +}
+> +
+> +write_state()
+> +{
+> +       mkdir -p "$(dirname "$STATE_FILE")" ||
+> +               die "could not create $(dirname "$STATE_FILE")"
+> +       {
+> +               printf 'BUILD_DIR=3D%s\n' "$BUILD_DIR"
+> +               printf 'COV_DIR=3D%s\n' "$COV_DIR"
+> +               printf 'DEBUG_BUILD=3D%s\n' "$DEBUG_BUILD"
+> +               printf 'DWARF_VERSION=3D%s\n' "$DWARF_VERSION"
+> +       } > "$STATE_FILE" || die "could not write $STATE_FILE"
+> +
+> +       if ! printf '%s\n' "$BUILD_DIR" > "$POINTER" 2>/dev/null; then
+> +               warn "could not write $POINTER, root runs will need -b $B=
+UILD_DIR"
+> +       fi
+> +}
+> +
+> +build_perf()
+> +{
+> +       if [ "$SKIP_BUILD" =3D 1 ]; then
+> +               check_coverage_build
+> +               return
+> +       fi
+> +
+> +       say "Building perf in $BUILD_DIR"
+> +       mkdir -p "$BUILD_DIR"
+> +       local debug=3D()
+> +       [ "$DEBUG_BUILD" =3D 1 ] && debug=3D(DEBUG=3D1)
+> +
+> +       if ! make -C "$PERF_DIR" O=3D"$BUILD_DIR" CC=3Dclang \
+> +               "${debug[@]+"${debug[@]}"}" \
+> +               EXTRA_CFLAGS=3D"-fprofile-instr-generate -fcoverage-mappi=
+ng -gdwarf-$DWARF_VERSION" \
+> +               -j"$JOBS" > "$BUILD_LOG" 2>&1; then
+> +               tail -20 "$BUILD_LOG" >&2
+> +               die "build failed, full log in $BUILD_LOG"
+> +       fi
+> +       tail -1 "$BUILD_LOG"
+> +       write_state
+> +}
+> +
+> +#
+> +# Run the selected tests with the instrumented perf in PATH: the shell
+> +# tests, the workloads and 'perf test' itself all come from there.
+> +#
+> +run_tests()
+> +{
+> +       if [ ${#TESTS[@]} -eq 0 ]; then
+> +               say "Running the complete perf test suite"
+> +       else
+> +               say "Running perf tests: ${TESTS[*]}"
+> +       fi
+> +       rm -rf "$COV_DIR/raw"
+> +       mkdir -p "$COV_DIR/raw"
+> +
+> +       set +e
+> +       # The shell tests only get discovered from the kernel tree root.
+> +       (cd "$PERF_DIR/../.." &&
+> +               PATH=3D"$BUILD_DIR:$PATH" \
+> +               LLVM_PROFILE_FILE=3D"$COV_DIR/raw/perf-%p-%m.profraw" \
+> +                       "$BUILD_DIR/perf" test -v \
+> +                               "${TESTS[@]+"${TESTS[@]}"}") 2>&1 | tee "=
+$TEST_LOG"
+> +       test_status=3D${PIPESTATUS[0]}
+> +       set -e
+> +
+> +       # 'perf test' exits 0 even when tests fail, only the summary tell=
+s.
+> +       if [ "$test_status" =3D 0 ] && grep -qE '^Failed tests +: +[1-9]'=
+ "$TEST_LOG"; then
+> +               test_status=3D1
+> +       fi
+> +
+> +       grep -E '^(Passed|Skipped|Failed) .*:' "$TEST_LOG" || true
+> +       [ "$test_status" =3D 0 ] ||
+> +               warn "some tests failed or were skipped, coverage is stil=
+l collected"
+> +       if [ "$test_status" !=3D 0 ] && grep -q 'Access to performance mo=
+nitoring' "$TEST_LOG"; then
+> +               warn "perf_event_paranoid=3D$(cat /proc/sys/kernel/perf_e=
+vent_paranoid 2>/dev/null)" \
+> +                    "denied events to tests recording with callchains;" =
+\
+> +                    "run as root or lower it for the full suite"
+> +       fi
+> +}
+> +
+> +#
+> +# Merge the per-process profiles and render the text report.
+> +#
+> +merge_profiles()
+> +{
+> +       local count size
+> +       count=3D$(find "$COV_DIR/raw" -name '*.profraw' | wc -l)
+> +       size=3D$(du -sh "$COV_DIR/raw" 2>/dev/null | cut -f1)
+> +       [ "$count" -gt 0 ] ||
+> +               die "no .profraw files, was perf rebuilt with -fprofile-i=
+nstr-generate?"
+> +
+> +       say "Merging $count profile files ($size)"
+> +       "$LLVM_PROFDATA" merge -sparse "$COV_DIR"/raw/*.profraw -o "$PROF=
+DATA" ||
+> +               die "llvm-profdata merge failed"
+> +}
+> +
+> +llvm_cov_objects()
+> +{
+> +       echo "$BUILD_DIR/perf"
+> +       local so
+> +       for so in perf.so libperf.so libperf-jvmti.so; do
+> +               [ -f "$BUILD_DIR/$so" ] && echo "--object=3D$BUILD_DIR/$s=
+o"
+> +       done
+> +       # The Python extension is named after the interpreter ABI and liv=
+es
+> +       # in its own directory.
+> +       for so in "$BUILD_DIR"/python/perf*.so; do
+> +               [ -f "$so" ] && echo "--object=3D$so"
+> +       done
+> +}
+> +
+> +render_report()
+> +{
+> +       local objects
+> +       mapfile -t objects < <(llvm_cov_objects)
+> +
+> +       say "Generating report"
+> +       "$LLVM_COV" report "${objects[@]}" --instr-profile=3D"$PROFDATA" =
+> "$REPORT"
+> +}
+> +
+> +#
+> +# Line coverage of a full report for one file: "lines missed cover fn%".
+> +# Report paths are relative to the build directory, so match the request=
+ed
+> +# path as a suffix: a build outside the source tree gives
+> +# ".../tools/perf/..." and one inside gives "tools/perf/...".
+> +#
+> +# -f takes the path as it shows in the report, or a tools/perf/ relative=
+ one.
+> +focus_path()
+> +{
+> +       case "$1" in
+> +       *tools/perf/*) printf '%s\n' "${1#*tools/perf/}" ;;
+> +       *) printf '%s\n' "$1" ;;
+> +       esac
+> +}
+> +
+> +file_cov()
+> +{
+> +       awk -v f=3D"$2" '
+> +               function perf_relpath(p) {
+> +                       if (p ~ /(^|\/)tools\/perf\//)
+> +                               sub(/^.*tools\/perf\//, "", p)
+> +                       return p
+> +               }
+> +               {
+> +                       g =3D f
+> +                       sub(/^.*tools\/perf\//, "", g)
+> +                       rel =3D perf_relpath($1)
+> +                       if (rel =3D=3D f || rel =3D=3D g || $1 =3D=3D f) =
+{
+> +                               print $8, $9, $10, $7
+> +                               exit
+> +                       }
+> +               }' "$1"
+> +}
+> +
+> +total_cov()
+> +{
+> +       awk '$1 =3D=3D "TOTAL" { print $8, $9, $10 }' "$1"
+> +}
+> +
+> +total_delta()
+> +{
+> +       local prev=3D$1 cur=3D$2 old cur_cov
+> +       [ -f "$prev" ] || return 0
+> +       old=3D$(total_cov "$prev" | awk '{print $3}')
+> +       cur_cov=3D$(total_cov "$cur" | awk '{print $3}')
+> +       [ -n "$old" ] && [ -n "$cur_cov" ] || return 0
+> +       awk -v cur=3D"$cur_cov" -v old=3D"$old" 'BEGIN {
+> +               sub(/%$/, "", cur); sub(/%$/, "", old)
+> +               printf "%+.2f%%", cur - old }'
+> +}
+> +
+> +report_delta()
+> +{
+> +       local prev=3D$1 cur=3D$2 label
+> +       local cur_cov old_cov delta
+> +       label=3D$(focus_path "$3")
+> +       cur_cov=3D$(file_cov "$cur" "$label" | awk '{print $3}')
+> +       [ -n "$cur_cov" ] || return 0
+> +
+> +       if [ -f "$prev" ]; then
+> +               old_cov=3D$(file_cov "$prev" "$label" | awk '{print $3}')
+> +               if [ -n "$old_cov" ]; then
+> +                       delta=3D$(awk -v cur=3D"$cur_cov" -v old=3D"$old_=
+cov" 'BEGIN {
+> +                               sub(/%$/, "", cur); sub(/%$/, "", old)
+> +                               printf "%+.2f%%", cur - old }')
+> +               else
+> +                       delta=3D"(new)"
+> +               fi
+> +       else
+> +               old_cov=3D"-"
+> +               delta=3D"-"
+> +       fi
+> +       printf "  %-36s %8s  %8s  %9s\n" "$label" "${old_cov:--}" "$cur_c=
+ov" "$delta"
+> +}
+> +
+> +#
+> +# With no -f, show where the uncovered lines are: the files with the mos=
+t
+> +# missed lines are where new tests should try to get more coverage.
+> +#
+> +print_worst_files()
+> +{
+> +       [ "$TOP" -gt 0 ] || return 0
+> +       local rows missed lines cover fn path
+> +       rows=3D$(awk -v min=3D"$MIN_LINES" '
+> +               $1 ~ /(^|\/)tools\/perf\// && $8 >=3D min && $9 > 0 {
+> +                       path =3D $1
+> +                       sub(/^.*tools\/perf\//, "", path)
+> +                       printf "%s %s %s %s %s\n", $9, $8, $10, $7, path
+> +               }' "$REPORT" | sort -k1,1nr -k2,2nr | sed -n "1,${TOP}p")
+> +       [ -n "$rows" ] || return 0
+> +
+> +       printf "  largest uncovered files (>=3D %s lines)\n" "$MIN_LINES"
+> +       printf "  %-44s %8s  %8s  %8s  %8s\n" \
+> +               "file" "lines" "cover" "missed" "fn-cover"
+> +       while read -r missed lines cover fn path; do
+> +               printf "  %-44s %8s  %8s  %8s  %8s\n" \
+> +                       "$path" "$lines" "$cover" "$missed" "$fn"
+> +       done <<< "$rows"
+> +}
+> +
+> +print_summary()
+> +{
+> +       local lines missed cover delta file cov
+> +       read -r lines missed cover < <(total_cov "$REPORT")
+> +       printf "\n\033[1mTotal:\033[0m %s of %s lines covered (%s)" \
+> +               "$((lines - missed))" "$lines" "$cover"
+> +       if [ "$USE_BASELINE" =3D 1 ] && [ -f "$BASELINE" ] &&
+> +          ! cmp -s "$BASELINE" "$REPORT"; then
+> +               delta=3D$(total_delta "$BASELINE" "$REPORT")
+> +               [ -n "$delta" ] && printf "  (previous %s, %s)" \
+> +                       "$(total_cov "$BASELINE" | awk '{print $3}')" "$d=
+elta"
+> +       fi
+> +       printf "\n\n"
+> +
+> +       if [ ${#FOCUS[@]} -eq 0 ]; then
+> +               print_worst_files
+> +               return
+> +       fi
+> +
+> +       printf "  \033[1m%-36s\033[0m %8s  %6s  %6s  %8s\n" \
+> +               "file" "lines" "cover" "missed" "fn-cover"
+> +       for file in "${FOCUS[@]}"; do
+> +               file=3D$(focus_path "$file")
+> +               cov=3D$(file_cov "$REPORT" "$file")
+> +               if [ -z "$cov" ]; then
+> +                       printf "  %-36s %8s\n" "$file" "not covered"
+> +                       continue
+> +               fi
+> +               printf "  %-36s %8s  %6s  %6s  %8s\n" "$file" \
+> +                       "$(echo "$cov" | awk '{print $1}')" \
+> +                       "$(echo "$cov" | awk '{print $3}')" \
+> +                       "$(echo "$cov" | awk '{print $2}')" \
+> +                       "$(echo "$cov" | awk '{print $4}')"
+> +       done
+> +
+> +       if [ "$USE_BASELINE" =3D 1 ] && [ -f "$BASELINE" ] &&
+> +          ! cmp -s "$BASELINE" "$REPORT"; then
+> +               printf "\n  per file delta since %s\n" "$BASELINE"
+> +               printf "  %-36s %8s  %8s  %9s\n" "file" "previous" "curre=
+nt" "delta"
+> +               for file in "${FOCUS[@]}"; do
+> +                       report_delta "$BASELINE" "$REPORT" "$file"
+> +               done
+> +       fi
+> +}
+> +
+> +#
+> +# --table: render the report of the last run as an ASCII table, like
+> +# pahole's coverage_table.py.  Without -f the rows are the TOP files wit=
+h
+> +# the most uncovered lines, sorted by line coverage; --top 0 lists every
+> +# file with at least MIN_LINES lines and uncovered lines.  The total is
+> +# the whole report, which also counts the libraries perf links with.
+> +#
+> +bar()
+> +{
+> +       local pct=3D$1 width=3D$2 filled i out=3D
+> +       filled=3D$(awk -v p=3D"$pct" -v w=3D"$width" 'BEGIN { printf "%d"=
+, p * w / 100 }')
+> +       for ((i =3D 0; i < filled; i++)); do out+=3D=E2=96=88; done
+> +       for ((i =3D filled; i < width; i++)); do out+=3D=E2=96=91; done
+> +       printf '%s' "$out"
+> +}
+> +
+> +center()
+> +{
+> +       local left=3D$(( ($2 - ${#1}) / 2 ))
+> +       printf '%*s%s%*s' "$left" '' "$1" "$(( $2 - ${#1} - left ))" ''
+> +}
+> +
+> +dashes()
+> +{
+> +       local s
+> +       printf -v s '%*s' "$1" ''
+> +       printf '%s' "${s// /=E2=94=80}"
+> +}
+> +
+> +table_row()
+> +{
+> +       awk -v f=3D"$2" '
+> +               function perf_relpath(p) {
+> +                       if (p ~ /(^|\/)tools\/perf\//)
+> +                               sub(/^.*tools\/perf\//, "", p)
+> +                       return p
+> +               }
+> +               {
+> +                       g =3D f
+> +                       sub(/^.*tools\/perf\//, "", g)
+> +                       path =3D perf_relpath($1)
+> +                       if (path =3D=3D f || path =3D=3D g || $1 =3D=3D f=
+) {
+> +                               printf "%s\t%s\t%d\t%d\t%.2f\t%s\t%d\t%s\=
+n",
+> +                                      path, $8, $8 - $9, $9, $10, $5, $5=
+ - $6, $7
+> +                               exit
+> +                       }
+> +               }' "$1"
+> +}
+> +
+> +table_rows()
+> +{
+> +       if [ ${#FOCUS[@]} -gt 0 ]; then
+> +               local file
+> +               for file in "${FOCUS[@]}"; do
+> +                       table_row "$REPORT" "$file"
+> +               done | sort -t$'\t' -k5,5gr
+> +               return
+> +       fi
+> +
+> +       awk -v min=3D"$MIN_LINES" '
+> +               $1 ~ /(^|\/)tools\/perf\// && $8 >=3D min && $9 > 0 {
+> +                       path =3D $1
+> +                       sub(/^.*tools\/perf\//, "", path)
+> +                       printf "%s\t%s\t%d\t%d\t%.2f\t%s\t%d\t%s\n",
+> +                              path, $8, $8 - $9, $9, $10, $5, $5 - $6, $=
+7
+> +               }' "$REPORT" |
+> +               sort -t$'\t' -k4,4nr |
+> +               if [ "$TOP" -gt 0 ]; then sed -n "1,${TOP}p"; else cat; f=
+i |
+> +               sort -t$'\t' -k5,5gr
+> +}
+> +
+> +print_table()
+> +{
+> +       local rows total path lines hit missed pct funcs funcs_hit func_c=
+ov
+> +       local row_fmt w d_file d29 d13 d10 d8
+> +
+> +       rows=3D$(table_rows)
+> +       [ -n "$rows" ] ||
+> +               die "no coverage data in $REPORT for the requested files"
+> +       total=3D$(awk '$1 =3D=3D "TOTAL" {
+> +               printf "%s\t%d\t%d\t%.2f\t%s\t%d\t%s\n",
+> +                      $8, $8 - $9, $9, $10, $5, $5 - $6, $7
+> +       }' "$REPORT")
+> +
+> +       w=3D4
+> +       while IFS=3D$'\t' read -r path _; do
+> +               if [ ${#path} -gt "$w" ]; then
+> +                       w=3D${#path}
+> +               fi
+> +       done <<< "$rows"
+> +
+> +       d8=3D$(dashes 8)
+> +       d10=3D$(dashes 10)
+> +       d13=3D$(dashes 13)
+> +       d29=3D$(dashes 29)
+> +       d_file=3D$(dashes $((w + 2)))
+> +
+> +       printf '=E2=94=8C%s=E2=94=AC%s=E2=94=AC%s=E2=94=AC%s=E2=94=AC%s=
+=E2=94=AC%s=E2=94=AC%s=E2=94=90\n' \
+> +               "$d_file" "$d8" "$d8" "$d8" "$d29" "$d13" "$d10"
+> +       printf '=E2=94=82 %-*s =E2=94=82 %6s =E2=94=82 %6s =E2=94=82 %6s =
+=E2=94=82 %s =E2=94=82 %11s =E2=94=82 %8s =E2=94=82\n' \
+> +               "$w" "File" "Lines" "Hit" "Miss" \
+> +               "$(center 'Line Coverage' 27)" "Funcs" "FuncCov"
+> +       printf '=E2=94=9C%s=E2=94=BC%s=E2=94=BC%s=E2=94=BC%s=E2=94=BC%s=
+=E2=94=BC%s=E2=94=BC%s=E2=94=A4\n' \
+> +               "$d_file" "$d8" "$d8" "$d8" "$d29" "$d13" "$d10"
+> +
+> +       row_fmt=3D$(printf '=E2=94=82 %%-%ds =E2=94=82 %%6s =E2=94=82 %%6=
+s =E2=94=82 %%6s =E2=94=82 %%s %%5.1f%%%%' "$w")
+> +       row_fmt+=3D' =E2=94=82 %5s/%-5s =E2=94=82 %8s =E2=94=82\n'
+> +
+> +       while IFS=3D$'\t' read -r path lines hit missed pct funcs funcs_h=
+it func_cov; do
+> +               printf "$row_fmt" "$path" "$lines" "$hit" "$missed" \
+> +                       "$(bar "$pct" 20)" "$pct" "$funcs_hit" "$funcs" "=
+$func_cov"
+> +       done <<< "$rows"
+> +
+> +       printf '=E2=94=9C%s=E2=94=BC%s=E2=94=BC%s=E2=94=BC%s=E2=94=BC%s=
+=E2=94=BC%s=E2=94=BC%s=E2=94=A4\n' \
+> +               "$d_file" "$d8" "$d8" "$d8" "$d29" "$d13" "$d10"
+> +       while IFS=3D$'\t' read -r lines hit missed pct funcs funcs_hit fu=
+nc_cov; do
+> +               printf "$row_fmt" "TOTAL" "$lines" "$hit" "$missed" \
+> +                       "$(bar "$pct" 20)" "$pct" "$funcs_hit" "$funcs" "=
+$func_cov"
+> +       done <<< "$total"
+> +       printf '=E2=94=94%s=E2=94=B4%s=E2=94=B4%s=E2=94=B4%s=E2=94=B4%s=
+=E2=94=B4%s=E2=94=B4%s=E2=94=98\n' \
+> +               "$d_file" "$d8" "$d8" "$d8" "$d29" "$d13" "$d10"
+> +}
+> +
+> +print_uncovered()
+> +{
+> +       [ "$UNCOVERED" -gt 0 ] || return 0
+> +       [ ${#FOCUS[@]} -gt 0 ] || return 0
+> +       local objects file out lines header=3D0
+> +       mapfile -t objects < <(llvm_cov_objects)
+> +
+> +       for file in "${FOCUS[@]}"; do
+> +               file=3D$(focus_path "$file")
+> +               # No report row means the file was not built: print_summa=
+ry()
+> +               # already said so, llvm-cov show would dump the whole pro=
+file.
+> +               [ -n "$(file_cov "$REPORT" "$file")" ] || continue
+> +               out=3D$("$LLVM_COV" show "${objects[@]}" --instr-profile=
+=3D"$PROFDATA" \
+> +                       "$PERF_DIR/$file" 2>/dev/null |
+> +                       awk -F'|' '$2 ~ /^[[:space:]]*0[[:space:]]*$/ {
+> +                               gsub(/[[:space:]]/, "", $1); printf "%s "=
+, $1 }')
+> +               lines=3D$(echo "$out" | wc -w)
+> +               [ "$lines" -gt 0 ] || continue
+> +               if [ "$header" =3D 0 ]; then
+> +                       printf "\n  uncovered lines (first %s per file)\n=
+" "$UNCOVERED"
+> +                       header=3D1
+> +               fi
+> +               printf "  %-24s %4s lines: %s\n" "$file" "$lines" \
+> +                       "$(echo "$out" | cut -d' ' -f1-"$UNCOVERED")"
+> +       done
+> +}
+> +
+> +save_html()
+> +{
+> +       [ "$HTML" =3D 1 ] || return 0
+> +       local objects
+> +       mapfile -t objects < <(llvm_cov_objects)
+> +       say "Writing HTML report to $COV_DIR/html"
+> +       "$LLVM_COV" show "${objects[@]}" --instr-profile=3D"$PROFDATA" \
+> +               --format=3Dhtml --output-dir=3D"$COV_DIR/html" \
+> +               --show-line-counts-or-regions --show-branches=3Dcount
+> +}
+> +
+> +check_stale()
+> +{
+> +       [ "$REPORT_ONLY" =3D 1 ] || return 0
+> +       if [ ! -f "$PROFDATA" ]; then
+> +               [ "$TABLE" =3D 1 ] && return 0
+> +               die "no $PROFDATA, run without --report-only first"
+> +       fi
+> +       local newer
+> +       newer=3D$(find "$PERF_DIR" -name '*.c' -newer "$PROFDATA" -print =
+-quit 2>/dev/null)
+> +       if [ -n "$newer" ]; then
+> +               warn "profiles are older than source changes (e.g. $newer=
+), results may be stale"
+> +       fi
+> +}
+> +
+> +update_baseline()
+> +{
+> +       [ "$USE_BASELINE" =3D 1 ] || return 0
+> +       [ "$REPORT_ONLY" =3D 1 ] && return 0
+> +       [ -f "$BASELINE" ] && mv "$BASELINE" "$BASELINE.prev"
+> +       cp "$REPORT" "$BASELINE"
+> +       printf "\nBaseline saved: %s\n" "$BASELINE"
+> +}
+> +
+> +test_status=3D0
+> +
+> +if [ "$TABLE" =3D 1 ]; then
+> +       [ -f "$REPORT" ] || die "no $REPORT, run coverage first"
+> +       check_stale
+> +       print_table
+> +       exit 0
+> +fi
+> +
+> +if [ "$PREP" =3D 1 ]; then
+> +       build_perf
+> +       write_state
+> +       say "Coverage build ready: $BUILD_DIR/perf"
+> +       printf "As root: %s/scripts/coverage.sh\n" "$PERF_DIR"
+> +       exit 0
+> +fi
+> +
+> +if [ "$REPORT_ONLY" =3D 0 ]; then
+> +       build_perf
+> +       run_tests
+> +       merge_profiles
+> +else
+> +       check_coverage_build
+> +       check_stale
+> +fi
+> +
+> +[ -f "$PROFDATA" ] || die "no $PROFDATA, run without --report-only first=
+"
+> +
+> +render_report
+> +print_summary
+> +print_uncovered
+> +save_html
+> +update_baseline
+> +
+> +printf "\nReport:  %s\n" "$REPORT"
+> +[ "$HTML" =3D 1 ] && printf "HTML:    %s\n" "$COV_DIR/html/index.html"
+> +
+> +exit "$test_status"
+> --
+> 2.56.0
+>
