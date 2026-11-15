@@ -1,128 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794765864;
-	b=qTWE1apBqUPN0zuHV40Bf79/e47RtwKaAYUwbv5CgE/O0TCy06CqPNIOZTQFIc/rc5+o
-	 6P+AhM1dL25gBgz/lk5nNPaxRkfeKWu0DrER3+iO3Uk2UWmx9L6bA6gtHqZmIe3sZHl8a
-	 Xi1vUnQ64BpOJvXJDP3iAzwvmtAyjj1gywVjZYp0D2dPu68S53ldtJJcZbNoG5+7KryZL
-	 w0gsZ3mjqro4AIZrd/5ewHau/g4adAgXPxKjhkcioyBA0ubO3O4+AQQzWbX9Wg0ypd3Zs
-	 b8gls5q5qMT70lxZCcr3rkgd0XRIAPGcrGdEA6gJ0oQCRlr5CxWXpR6+8IrnszgnL7w==
+	t=1794765903;
+	b=0QYdxZUbvd0nachCwS7Pzh4KVRevYmhcpY4ppJaIeE4QIRbkQ6m4D5E+J9ZNfkdN8wdn
+	 7p7UOocjHYQYpvo3VXijERgrI7jbMhzYxITSpl6pj72o895acZ/0WnH4yvKuzdcrSLSgs
+	 w73PjcVgtZm1Jzs42jBBwn8EFPJENp0boSp20EmmUtAzvXRx+Syg81V6DiNZEetmURvev
+	 xHJJdc9Pr3dKWtfVtOzk6bmBZj7nTv9mROzxbWxbqSnE/jK7pJ8mekouJhzySoaxoyKAB
+	 q1tCZZGmgVlsYBWJn1GbBach8hOnWz05hA7YHUmSG9p+JhUveBqTgfP/dtzdovUKuSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794765864;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=lxukKPljbLBMj2KQ1RVi2fh6LR+mPswpZnw+yWTHXAg=;
-	b=0bZOWY6jYs9AaJ3lQGWg5x+lA7ClWb1JS5yFHd9wPEDHi2jbbuNt9xzHAODwoOlU1kK3
-	 y17Gvvt2Dt/0nQQa21G6A/HkbjpY5KQh2fRWNYlaX1CEp0eP27InJEA0SoqoT2Vl0A9Br
-	 4/bE6u/qxsMIgCzkRlszW2Mpq4bAtxpLHv/KYCKS6j1bgUVrFZTuNixktWKV9AdnZQXwd
-	 gOSDCjmCsLAMY81zLUqWbDDZhx8VSYq0sM065imCpAosjZANpzi8j36kzDrrK73lYPsEk
-	 roDto2AKRuRAxPVrTWxyN66el7qe0JT8iaUPXviMqUOjcDNAfu92Qnb8sgX01KkSNeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794765903;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FJvm5/zzuNKuQVsdQQwncA9TdHL9pGAG2/TLNuHbhRk=;
+	b=fLPOvNX+02+Tmy0LJ/bB2WR1Z5TI18uIIciBwu/K7CvYBimGGCfb5pcWF2vyNAHpxR6H
+	 NwJKwOtCHUDGjVZD4HjULGdZRsZGI98736nZIpQM+K5Lu3o6y42wuBv2/w5ErgfX/d8IM
+	 TZOewjC6V8MpHB8hVKNVcnLCQLEwCTiNhm1b5tGUYS2VXC1tBcy1UAvalOCopuEgvaDwE
+	 w3GqFLS4opVMgteEaXAhu4ybJ8LFG5AAcUw+Ir3CrHeXij/a0ROiXbQNOAQjQyOwAeA9/
+	 dPp/zGBRPjwr6rogUpx2IyOl2po4VikPNu/9Bj3Kb0uArT8pcE8jXFkYDmrEE0KAUUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOC6fRFx;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JgkiFtmg;
+	arc=none smtp.remote-ip=95.215.58.114
+Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6C3606BAF3
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:04:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B6C3606BAF3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2228F606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:05:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2228F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOC6fRFx
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb61185057so8492965e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 10:04:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794765861; x=1795370661; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lxukKPljbLBMj2KQ1RVi2fh6LR+mPswpZnw+yWTHXAg=;
-        b=DOC6fRFxtVO3+ChQZzvIui929ReJBuZRd50VNbS4+FpLPzHiYUk0WUdqprK6YJ0H9P
-         stgxUdPJV/firlryJZiPgcjbYfkVubXUmYUllYeWbRbQj0/cU5mkXT5om3kdyMQmazN9
-         rSzbjQkUbitjYgmgKsWufTocTnMfvmkDAI3Oxgjdc/MAagWI/qQz5Ra6UjVwmcaHZeVm
-         RH2isjXoghK2pAMewo3C0p+jKCU0hHuAnA5pmR6eYCj9i2rADSzBqE9st7UzJZGd+ArT
-         tNWRMhr+eF01OpI7T/wIq6nvVSPeZcy8RRet4KfN8DcM1geWKJD9t7OMvDUoWoupSPqc
-         /XLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794765861; x=1795370661;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lxukKPljbLBMj2KQ1RVi2fh6LR+mPswpZnw+yWTHXAg=;
-        b=J9kVz7tqAY70sF4xYyLykAI1l1KKHATt+gr0kAGQFlE6gsIzm/CovUxCWAzFD8smAO
-         IPY1xXt2U8bhruNtUKZMrxcPl2weN1kaJwO7XHmsOudbT5FJ/IMxLlY4LoFyrN2u28M9
-         ArQSZaTjxtAvMwbTILXjysntjzQwd7htELQWokOLKEG8m5jaugAyfh3pPPasUYbrW8p3
-         8U2nfh9pQ68LPZXb3PB4kpsfDY7cnmCA1h9kXk/7gH/AzNxopJjGnmoFpSrxpnq0z8pm
-         FacLDoXcaSe+kcLhRcYp31te/WWi5YsgjNwZ0Wm5UALuHRQdJ7BpbzhpHw3+oi7SPD0V
-         iSyQ==
-X-Forwarded-Encrypted: i=1; AL+hErGMFTUpIvjA/nLxPJ4D8HKLh0bJtHgJZVRNGBHsuVhMBPXbfgWpmYZYuGcHaWDVuYaZ5JTSOp251fNrLRI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1F0scbl3/F1k5yOTYnpt4TrYS1ybVXmZJkwZDiHnoUyBhcn/L
-	lfChLyeiu9M3GLsFDMGX/Qp4E3HpEp6vXajkgojwW+GnJJ1P/EXVy5WW
-X-Gm-Gg: AYBFou2sKFOUZEVFaVAaNaNpyoZRhlSxtQGc1xeLpEezsPvZ+5yMJEicNlqKcMw85XC
-	TrKXVeeRQdrceEt//jhXsE6dSukE03Ja9bIiqwkHQ+RURCYY39ThO7thXFnjJPsq5S5EuFCQ9q4
-	v4DSpTdhZ609rBjmwKzT2J2K05ydIG35z+fXLxeIkvw+VbSaEtaC1lbMXdxc5Ocy84y/wsLtgFf
-	LV6J7sCZ5KvXf20qhRi9qb8PSw4JEXn8Kx5EQIp3r+v6M8hA7fR3PX3OX1F+8GpqUv3YKFcarbh
-	1uYjvFH1QgQ27WRXorPjIY0f9f53wrVcsRgwuMMm1KTmA1FrN5tuNs88oj2MyyPqzwg2r3iGds/
-	G6nUO8uSuRYzNTN5RD03gUL6wourKx2zd8gk2DadGyjV15XbYM69qrNzNji2OWP6MTquqzCC3dv
-	KLRTtHPJmnEc0d4nw/XJr6oQuw2hKERiUuVP9qsnZ4gREonHwMuHehJvXAfkHkVs7FqzccwCKK1
-	fivepgofr6UGpRY6e2Kn43VAe2kvVqoTRZekHSm8yLYDKvxnIzdP62ReyhbyZP6KMwDlrR8LPxa
-	Mrn59K5DpHqX9wtkbdiipgFnqeHec2W5qkke6OkmatooQQ==
-X-Received: by 2002:a05:6000:461b:b0:48d:f7c0:97c0 with SMTP id ffacd0b85a97d-49c71b5c656mr18500790f8f.50.1794765861443;
-        Sun, 15 Nov 2026 10:04:21 -0800 (PST)
-Received: from infinity ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8c248sm17980448f8f.58.2026.11.15.10.04.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 10:04:20 -0800 (PST)
-From: koraynilay <koray.fra@gmail.com>
-To: David Sterba <dsterba@suse.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Paulo Alcantara <pc@manguebit.org>
-Cc: Chris Mason <mason@kernel.org>,
-	Yuezhang Mo <yuezhang.mo@sony.com>,
-	Jan Kara <jack@suse.cz>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Sean Smith <defendthedisabled@gmail.com>,
-	Andrey Albershteyn <aalbersh@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Amir Goldstein <amir73il@gmail.com>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	exfat@lists.linux.dev,
-	ntfs3@lists.linux.dev,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	koraynilay <koray.fra@gmail.com>
-Subject: [RFC PATCH v4 10/10] cifs: add provenance time (ptime) and map it to SMB's CreationTime
-Date: Sun, 15 Nov 2026 19:03:43 +0100
-Message-ID: <20261115180343.576773-11-koray.fra@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261115180343.576773-1-koray.fra@gmail.com>
-References: <20261115180343.576773-1-koray.fra@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JgkiFtmg
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2IH1/X6CTvt0313Vz/VAWwJDEFN/f/O4dyfh9jni4TM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794765900; v=1; x=1795370700;
+ b=JgkiFtmgYEe7oNWrKZ9TGdmjzzT9V0itTqKf4Ur9WzTSV5cHjOexXjN7SlbyRUqE9wFPn9oj
+ ExFMY8ZBmi5AnK7XWRSgM8rx3zxEEM+JcU+d3a3H5EocJAa8BTt5vETxFS7cC4Be6SS5/iPe2SP
+ KRsteUsVlo3PIqziI0FEhB+k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id d1d3b2979402012a;
+	Sun, 15 Nov 2026 18:05:00 +0000
+X-Mizu-Trace-ID: d1d3b2979402012a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <37cb0b01-0c6a-4b3d-b3d8-c4e5a45977a8@linux.dev>
+Date: Sun, 15 Nov 2026 18:04:54 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,221 +58,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: scsi_dh_alua: set handler_data before
+ alua_initialize()
+To: Laurence Oberman <loberman@redhat.com>,
+ "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Bart Van Assche <bvanassche@acm.org>, Martin Wilck <mwilck@suse.com>,
+ Hannes Reinecke <hare@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261109201120.1067815-1-loberman@redhat.com>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20261109201120.1067815-1-loberman@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Implement provenance time (ptime) in cifs, as introduced in a
-previous commit ("vfs: add provenance time (ptime)").
+On 11/9/26 20:11, Laurence Oberman wrote:
+> Since commit 50759b881e1d ("scsi: device_handler: alua: Call
+> scsi_device_put() from non-atomic context"), alua_rtpg_queue() only
+> queues an RTPG when sdev->handler_data points at an alua_dh_data whose
+> port group matches:
+> 
+> 	struct alua_dh_data *h = sdev->handler_data;
+> 	...
+> 	if (h && rcu_dereference(h->pg) == pg) {
 
-Map it to SMB's CreationTime, making it settable from userspace and
-propagating it to the SMB server via FILE_BASIC_INFO.
+Do we still require this check (for h being non-NULL) after the change 
+in this patch? I assume that we flush any calls to this function prior 
+to unsetting sdev->handler_data.
 
-Support reading ptime via statx(2) and fileattr_get() from the cached
-CreationTime.
+> 
+> However alua_bus_attach() only assigns sdev->handler_data after
+> alua_initialize() returns, and alua_initialize() -> alua_check_vpd()
+> is where the initial RTPG is queued. At that point handler_data is
+> still NULL, so the initial RTPG is silently dropped: no RTPG is sent,
+> nothing is logged, and sdev->access_state keeps its zeroed default of
+> active/optimized for every path.
+> 
+> With dm-multipath this goes unnoticed, as pg_init calls
+> scsi_dh_activate() once the map is loaded, which queues an RTPG after
+> handler_data is set, and multipathd's alua prioritizer issues its own
+> RTPG from userspace. Anything relying on sdev->access_state without a
+> subsequent activate (sysfs access_state/preferred_path, native SCSI
+> multipath path selection) sees every path as active/optimized until a
+> Unit Attention or rescan triggers an RTPG.
+> 
+> Seen on an HP P2000 G3 FC array (implicit ALUA, two port groups, four
+> paths per LUN) with dm-multipath not in use: sg_rtpg reports port group
+> 0 active/non-optimized and port group 1 active/optimized, but
+> /sys/class/scsi_device/H:C:T:L/device/access_state reads
+> active/optimized on all four paths after boot, and no
+> "alua: port group XX state ..." message is logged. Writing "activate"
+> to dh_state sends the RTPG and corrects access_state.
+> 
+> Kernels without commit 50759b881e1d queue the attach-time RTPG
+> unconditionally and are not affected.
+> 
+> Fix by assigning sdev->handler_data before calling alua_initialize(),
+> and clearing it again on failure. sdev->handler is only set once
+> scsi_dh_handler_attach() sees ->attach() succeed, so no handler
+> callback can observe the partially initialised alua_dh_data. On the
+> failure paths of alua_initialize(), h has not been added to a port
+> group and no RTPG has been queued, so freeing it is unchanged.
+> 
+> Fixes: 50759b881e1d ("scsi: device_handler: alua: Call scsi_device_put() from non-atomic context")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Laurence Oberman <loberman@redhat.com>
+> ---
+> 
+> Notes:
+>      Tested on an HP P2000 G3 FC array (30 LUNs, 4 paths each): with this
+>      patch the "alua: port group 00 state N ..." messages are logged during
+>      boot and access_state shows two active/optimized and two
+>      active/non-optimized paths per LUN without any manual activate.
+>      Without it, all paths read active/optimized until an RTPG is triggered.
+>      
+>      I found this while testing John Garry's native SCSI multipath series
+>      (v9) on an HP P2000 G3 FC array (30 LUNs, 4 paths each, dm-multipath
+>      not in use). Native multipath uses sdev->access_state for path
+>      selection, and every path showed active/optimized, although sg_rtpg
+>      and dm-multipath (alua prio 50/10) both report port group 0 as
+>      active/non-optimized. No "alua: port group XX state ..." message was
+>      logged at boot. Writing "activate" to dh_state corrected access_state,
+>      which pointed at the attach-time RTPG never being queued.
+>      
+>      With this patch, the port group state messages are logged during boot
+>      and access_state shows two active/optimized and two
+>      active/non-optimized paths per LUN without any manual activate.
+>      
+>      This fix is independent of the native multipath series. It affects any
+>      user of access_state/preferred_path, and ALUA prep_fn fast-fail, on
+>      kernels with 50759b881e1d where nothing calls scsi_dh_activate()
+>      after attach.
+>      
+>      v9 series: https://lore.kernel.org/linux-scsi/20261108204733.557995-1-
+>      john.garry@linux.dev/
+> 
+>   drivers/scsi/device_handler/scsi_dh_alua.c | 9 ++++++++-
+>   1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/scsi/device_handler/scsi_dh_alua.c b/drivers/scsi/device_handler/scsi_dh_alua.c
+> index 87ac0a6d63e5..84ff3aed2c46 100644
+> --- a/drivers/scsi/device_handler/scsi_dh_alua.c
+> +++ b/drivers/scsi/device_handler/scsi_dh_alua.c
+> @@ -1233,13 +1233,20 @@ static int alua_bus_attach(struct scsi_device *sdev)
+>   	INIT_LIST_HEAD(&h->node);
+>   
+>   	mutex_init(&h->init_mutex);
+> +	/*
+> +	 * alua_rtpg_queue() only queues an RTPG when sdev->handler_data
+> +	 * points at this alua_dh_data, so set it before alua_initialize()
+> +	 * otherwise the initial RTPG issued from alua_check_vpd() is
+> +	 * silently dropped and sdev->access_state is never populated.
+> +	 */
+> +	sdev->handler_data = h;
 
-Update cifs_fileattr_set() to check xflags instead of only legacy flags
-and add the cifs_set_file_crtime() helper to wrap the RPC call to the
-SMB server.
+Note: I was checking which members of alua_dh_data are not initialized 
+prior to publishing sdev->handler_data, and alua_dh_data.group_id is 
+never accessed at all AFAICS.
 
-Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.5.7
-Signed-off-by: koraynilay <koray.fra@gmail.com>
----
- fs/smb/client/cifsfs.c |   8 +++
- fs/smb/client/inode.c  |   7 ++-
- fs/smb/client/ioctl.c  | 109 ++++++++++++++++++++++++++++++-----------
- 3 files changed, 94 insertions(+), 30 deletions(-)
-
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 8cff7857b450..c2f557e406d3 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1307,6 +1307,14 @@ int cifs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
- 	if (READ_ONCE(CIFS_I(inode)->cifsAttrs) & ATTR_COMPRESSED)
- 		fa->flags |= FS_COMPR_FL;
- 
-+	/* Report provenance time (ptime) to userspace */
-+	if (CIFS_I(inode)->createtime) {
-+		fa->fsx_xflags |= FS_XFLAG_PTIME;
-+		fa->fsx_xflags_mask |= FS_XFLAG_PTIME;
-+		fa->fsx_ptime =
-+		      cifs_NTtimeToUnix(cpu_to_le64(CIFS_I(inode)->createtime));
-+	}
-+
- 	/*
- 	 * FS_CASEFOLD_FL is defined by UAPI as a folder attribute,
- 	 * and userspace tools (e.g., lsattr) display it only on
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 2647785ec1e4..f0b20a72b9c2 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -222,6 +222,7 @@ cifs_fattr_to_inode(struct inode *inode, struct cifs_fattr *fattr,
- 
- 	cifs_i->cifsAttrs = fattr->cf_cifsattrs;
- 	cifs_i->reparse_tag = fattr->cf_cifstag;
-+	cifs_i->createtime = fattr->cf_createtime;
- 
- 	if (fattr->cf_flags & CIFS_FATTR_NEED_REVAL)
- 		cifs_i->time = 0;
-@@ -2958,7 +2959,8 @@ int cifs_getattr(const struct mnt_idmap *idmap, const struct path *path,
- 	 * We need to be sure that all dirty pages are written and the server
- 	 * has actual ctime, mtime and file length.
- 	 */
--	if ((request_mask & (STATX_CTIME | STATX_MTIME | STATX_SIZE | STATX_BLOCKS)) &&
-+	if ((request_mask & (STATX_CTIME | STATX_MTIME | STATX_PTIME
-+			     | STATX_SIZE | STATX_BLOCKS)) &&
- 	    !CIFS_CACHE_READ(CIFS_I(inode)) &&
- 	    inode->i_mapping && inode->i_mapping->nrpages != 0) {
- 		rc = filemap_fdatawait(inode->i_mapping);
-@@ -2992,6 +2994,9 @@ int cifs_getattr(const struct mnt_idmap *idmap, const struct path *path,
- 		stat->result_mask |= STATX_BTIME;
- 		stat->btime =
- 		      cifs_NTtimeToUnix(cpu_to_le64(CIFS_I(inode)->createtime));
-+		stat->result_mask |= STATX_PTIME;
-+		stat->ptime =
-+		      cifs_NTtimeToUnix(cpu_to_le64(CIFS_I(inode)->createtime));
- 	}
- 
- 	stat->attributes_mask |= (STATX_ATTR_COMPRESSED | STATX_ATTR_ENCRYPTED);
-diff --git a/fs/smb/client/ioctl.c b/fs/smb/client/ioctl.c
-index bb8808289a46..19a9556d39b4 100644
---- a/fs/smb/client/ioctl.c
-+++ b/fs/smb/client/ioctl.c
-@@ -181,6 +181,41 @@ static int cifs_set_compression(unsigned int xid, struct dentry *dentry,
- 					    compression_state);
- }
- 
-+static int cifs_set_file_crtime(unsigned int xid, struct dentry *dentry,
-+				struct cifs_tcon *tcon, u64 crtime)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	struct TCP_Server_Info *server = tcon->ses->server;
-+	FILE_BASIC_INFO	info_buf = {};
-+	const char *full_path;
-+	void *page;
-+	int rc;
-+
-+	if (!server->ops->set_file_info)
-+		return -EOPNOTSUPP;
-+
-+	info_buf.CreationTime = cpu_to_le64(crtime);
-+
-+	page = alloc_dentry_path();
-+	full_path = build_path_from_dentry(dentry, page);
-+	if (IS_ERR(full_path)) {
-+		rc = PTR_ERR(full_path);
-+		goto out;
-+	}
-+
-+	rc = server->ops->set_file_info(inode, full_path, &info_buf, xid);
-+	if (rc == 0) {
-+		CIFS_I(inode)->createtime = crtime;
-+		CIFS_I(inode)->time = 0;
-+		inode_set_ctime_current(inode);
-+	}
-+
-+out:
-+	free_dentry_path(page);
-+	return rc;
-+}
-+
-+#define CIFS_SUPPORTED_XFLAGS (FS_XFLAG_PTIME)
- int cifs_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		      struct file_kattr *fa)
- {
-@@ -193,49 +228,65 @@ int cifs_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	bool enable_compression;
- 	struct cifs_tcon *tcon;
- 	unsigned int xid;
--	int rc;
-+	int rc = 0;
- 
--	if (!fa->flags_valid)
-+	if (fileattr_has_fsx_mask(fa, CIFS_SUPPORTED_XFLAGS))
- 		return -EOPNOTSUPP;
- 
--	/*
--	 * chattr writes back all flags returned by fileattr_get(). Accept
--	 * FS_CASEFOLD_FL only when it reflects the share's casefold state.
--	 */
--	if (fa->flags & FS_CASEFOLD_FL) {
--		rc = cifs_fileattr_get(dentry, &current_fa);
--		if (rc)
--			return rc;
--		if (current_fa.flags & FS_CASEFOLD_FL)
--			allowed |= FS_CASEFOLD_FL;
--	}
--	if (fa->flags & ~allowed)
-+	if (fa->fsx_xflags_mask & ~CIFS_SUPPORTED_XFLAGS)
- 		return -EOPNOTSUPP;
- 
--	enable_compression = fa->flags & FS_COMPR_FL;
--	compression_state = enable_compression ? COMPRESSION_FORMAT_DEFAULT :
--						 COMPRESSION_FORMAT_NONE;
-+	if (fa->flags_valid) {
-+		/*
-+		 * chattr writes back all flags returned by fileattr_get(). Accept
-+		 * FS_CASEFOLD_FL only when it reflects the share's casefold state.
-+		 */
-+		if (fa->flags & FS_CASEFOLD_FL) {
-+			rc = cifs_fileattr_get(dentry, &current_fa);
-+			if (rc)
-+				return rc;
-+			if (current_fa.flags & FS_CASEFOLD_FL)
-+				allowed |= FS_CASEFOLD_FL;
-+		}
-+		if (fa->flags & ~allowed)
-+			return -EOPNOTSUPP;
-+	}
- 
- 	tlink = cifs_sb_tlink(cifs_sb);
- 	if (IS_ERR(tlink))
- 		return PTR_ERR(tlink);
- 	tcon = tlink_tcon(tlink);
--
- 	xid = get_xid();
--	rc = cifs_set_compression(xid, dentry, tcon, NULL, compression_state);
--	free_xid(xid);
--	cifs_put_tlink(tlink);
- 
--	if (!rc) {
--		spin_lock(&inode->i_lock);
--		if (enable_compression)
--			CIFS_I(inode)->cifsAttrs |= FILE_ATTRIBUTE_COMPRESSED;
--		else
--			CIFS_I(inode)->cifsAttrs &= ~FILE_ATTRIBUTE_COMPRESSED;
--		spin_unlock(&inode->i_lock);
-+	/* modern xflags */
-+	if (fa->fsx_valid) {
-+		if (fa->fsx_xflags_mask & FS_XFLAG_PTIME) {
-+			rc = cifs_set_file_crtime(xid, dentry, tcon,
-+						  cifs_UnixTimeToNT(fa->fsx_ptime));
-+			if (rc)
-+				goto out;
-+		}
-+	} else if (fa->flags_valid) { /* legacy flags */
-+		enable_compression = fa->flags & FS_COMPR_FL;
-+		compression_state = enable_compression ? COMPRESSION_FORMAT_DEFAULT :
-+							 COMPRESSION_FORMAT_NONE;
-+
-+		rc = cifs_set_compression(xid, dentry, tcon, NULL, compression_state);
-+
-+		if (!rc) {
-+			spin_lock(&inode->i_lock);
-+			if (enable_compression)
-+				CIFS_I(inode)->cifsAttrs |= FILE_ATTRIBUTE_COMPRESSED;
-+			else
-+				CIFS_I(inode)->cifsAttrs &= ~FILE_ATTRIBUTE_COMPRESSED;
-+			spin_unlock(&inode->i_lock);
-+		}
-+		cifs_dbg(FYI, "set compress flag rc %d\n", rc);
- 	}
- 
--	cifs_dbg(FYI, "set compress flag rc %d\n", rc);
-+out:
-+	free_xid(xid);
-+	cifs_put_tlink(tlink);
- 	return rc;
- }
- 
--- 
-2.56.0
-
+Thanks,
+John
