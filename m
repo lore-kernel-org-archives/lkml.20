@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794726208;
-	b=VJNATaytKlPgX0Iplzh40TgD1zTdvYBBSYQm5/tT5AQ13xNrhqZYJrHHd/KRQYu/vJ9f
-	 KGfEVFP3wWvvCV3K/f0sAyz6ijH8NOLEmbV5rv5ZBiFsFNsE6U+7ua8cHKl6gG3SYsQPF
-	 40l+NEE72oIkDEhYgdLfbFTuVDVGmjB+CT69pONBmISpxPgKXUGuCuRsI/VdGljZHxTIl
-	 JBkojxXxsBok2Tr0n1LufHVaUM1UTaaCO09kTHGppyZrPxPLkLQBd2htko5Hh8nkNDL8D
-	 7038BHfL4rpG4dbq0jwTe1q/KQ+1R4VZKn5LLjpRx6Y15EIY3VR+dKCwFaZYyD403Kg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794726208;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=a0wnVTzo2SMTqUhE+Yi1XoqVrkmPjT5CK9ef37B0JVo=;
-	b=D5ztemP97wHCykKEedTawzyWWFq8T9tEOaN2wQ+ofq2in775iGiKtNjbwgoGqnUUU+rz
-	 5y0yAOay+kvErWdoog4HJxngSTaos4sei6LN9r9Uvhm0xqKQmqsW0xx8N/25ib2sONpHB
-	 Ub2ui56T/YgXBOpJhFOB3gykeDqXvdHL+es7eAyutEZSsNyyS0VKZD0yxxtfxyPJhgYs2
-	 SilVNuMHMB1DrPNTllVUEplOBKjoGxD4C17yVZ2a10irPZ+E6UYcx0ZRaxh4zuODymdo8
-	 Wp81RZmu+x3pb4KzXklOYnWSsJntQXgplIArdkBJQKdeaAs3U9oVpQoGh8bbZyePN9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KHnA/YKk";
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794726321;
+	b=bLF/Za50zsn1JeKBh6CRfCBravj3DtM7mP9p+NORgP0STRriOSoaNdqITEIfnf7cu7cq
+	 UYbZrHfzRHs5a1RWebGSp1FzBsTlDKUSPk+buGaWWmFuusTmng7DcWNTIMX8cH1XfFK4B
+	 1xefMk7OmUL3iUkcZ01gHEOzWU/0qw2vdDpQn49bNbp15ikn5vYsrSamBnxS1kjOEgunQ
+	 1tcvGBxEFWCcueIlWuHtcJNkFBHeg62ROfQYNQL2QHDtjrueQFX5IdYFLahbjBRHv5n7S
+	 +lTz7jwLJ6M/zI1TODhVH9Vw/ht5czqzmU1cV5cTKri+fDqJBrZcM+0D/AnRnqbuZ3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794726321;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=oJk2U7sYzXBmSdICHzSjvZnousE20TadLP2gkREvEfQ=;
+	b=olSXR8np7lF0L+k2w9m1gZMG0L6zXQP/Q5qpR1LqZI8F4hyJ3XYOmerCDNNdqvy/YtoL
+	 8OVYMlo+nK0b1EAhvWHIDLIc0OSGZCa3Vjjbsv1vzd5nDeJVUErm/Gpj7Dgpl4H5uvVnE
+	 vEtfK3OEGp1miIBVuKgsZUc6+erLjfUrf4NUMflaC5U1q0SptXD9F4KJnTziEQX8Z2XCn
+	 sgFyrpRomr4POEpYIFRxiy9LlyjzEOiFtLg+TiW1i89M3gaNEHuHvWHz+fvwA5GlQ+g1e
+	 2nFz8YOARkcehNlvpKs9syzAV9/jNgE+4i7D1tr1ESt4UJRznzm1a2JnqgBBe/BChTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YUM5jmGz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.12
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013012.outbound.protection.outlook.com [40.107.201.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5225606A32C
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5225606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707A9606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 07:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 707A9606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KHnA/YKk
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so6529455e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:03:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794726206; x=1795331006; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a0wnVTzo2SMTqUhE+Yi1XoqVrkmPjT5CK9ef37B0JVo=;
-        b=KHnA/YKklGJIxa0kJ8/uPpiypIOP1BDnfL44ExRGNmJC8MfDs8cWMEIseZMYZfK6H0
-         4OjzdwBj0SLY3+gKqeWIFCqtoVeOhsjbk2WGupMtXaiSGxmVFyEPk8Z3AxppEpFGRU1s
-         RkygTQGAoHek5T9RDo6mQgTWDrL0/MEPk3eCK0w7IH3868+KDzId6EAySbenPnLSX08h
-         BdkPJ8aEnV5JnPPmGCocv//35onidcvdnz7en7j/y70R9KKxBrCC1cASzt6ALGEwr9MZ
-         kJ8gjkymKKNGfG5NIZaSUL8JV6E1LB4IQu+GsBWD6NBx+Gg/SPov7IxR3b49wvtz36Og
-         37SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794726206; x=1795331006;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a0wnVTzo2SMTqUhE+Yi1XoqVrkmPjT5CK9ef37B0JVo=;
-        b=tkfhX98KE16PdXgyTCNHxY+JP2bJKHSi/vEcaSPbZRgpfYbY95lAhZvEIzidbLvMnF
-         6OLG1oDKxuuN5vLQuvj3hTy3+ZdU6TPDrJQauehiosuiqHt8b2J1ItkrEYdYggeejUhJ
-         +ajfFIc3YKOzX3+rCWZz6igWIxjYyfQEEmh79LHbIJ/KAyAPFtGhBRU0eqk/kKh2uIiy
-         RGcyixQ5/LC0XiM4BDVx2vFdBDhFPgVpgZzHjTe94slk82uGlR1Y4LfZYRFp3HSGLfW7
-         EWH0uzaDNuTK0Faurk0FQa8vfOJM/aJNRsp2/VwS/hzz8fcFE7EbpBJgHPs27v956i0t
-         M1kw==
-X-Forwarded-Encrypted: i=1; AL+hErHeSDqoAPcC4cCAjo+tqcY2XTDRYzddb7jR+INnJQNvCt20igexbxxrXCTSBdBOsHf6GLa/EGiuwDMaZIo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HGS77nqp83gMRm4gtWE2gaEiG3xUkIf7KwhG9slR1n7dwtVat
-	heWhMoD8pX3kI+HOaDZpfdWBO+MY1QBPXe3sII4qax7XUgHCBTHjCbHd
-X-Gm-Gg: AYBFou0MmdJq22o/OlVdYlQLe1ns9lfwVsh2seFCHPoE/WzTRCtiqiKEgGo8Ra8wHtX
-	KmGq713b3XblaBHN+Rq50Ynyd+4j+asjqBJ30dCYFL+wJssZgoQbBoc975u3/uN2ALW0jmI2kW1
-	0rVHkpytFfaIInxAsgtGSOA9/fXB8k8vgiw6ndInwc9qu0dZ4WxlxgOk/47XWeOd1yN+TrV3+wC
-	b3/osuvMThyys9f2OC1c+8JydCh16vMeIJVzn5n549d1QBK47/Jr9gz6oA+jh2SzOpRQrR6+cRr
-	Z9Sm/kPuM3j8qsJKw3FMbftelgq5VVL1ESq6sQlCPv/rKRccFU9F8sCJ0X9ZftRFjz8BdDWNCoX
-	jcD955Ex5aDww2CkrpQPZctuqkNV+0VCp3Xl6kYIdukTfXR6y8H5Wa6VOxb935H6+EXj0NA/wLQ
-	CMFxFH079kx37uZ53bgH/6WHme6dSiyP8WbtjJ91EEo/IvZoFoegHJWIQvg8j6zPNbrOrrtNPKC
-	KM7K8+dSM6iyEsEstSDPN/90asSSZf4WTb2q3w/sdkCUl+JV+fWkRS3ovUMXOoG8ex/DD/AjuAq
-	cHUGTJKUs04W9Er9q8a3kOEdwTIK8ELEDgWioUuovUn547kR/FD3KSPO0Otapuw0xwvLkt7ctSg
-	NxPZYl16HaoIlmgvnmdF99FsykMm72Gh3g/QJGb9gvMoPeAtNIIy/etZ0r9WuIDrXcUud5m55nz
-	InZ5FWbSkB4k+cpBVedrR34ELzy8y85XsnQ0BnL8sdAJizsqht1r91ftJikJzxt7NDLcdHr8icp
-	apaaZzAgLEgHc9K3loYv3xL4gyNTt8fWjqsxZeyrh7F3Ac=
-X-Received: by 2002:a05:600c:840c:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-4bb5599bda8mr154094045e9.0.1794726205780;
-        Sat, 14 Nov 2026 23:03:25 -0800 (PST)
-Received: from jernej-laptop.localnet ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608d10b2sm25768458f8f.44.2026.11.14.23.03.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 23:03:25 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Romain TISSERAND <romain.tisserand@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Maxime Ripard <mripard@kernel.org>,
- Frank Oltmanns <frank@oltmanns.dev>, linux-clk@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, sashiko-reviews@lists.linux.dev
-Subject:
- Re: [PATCH] clk: sunxi-ng: nkm: avoid 32-bit overflow in rate calculations
-Date: Sun, 15 Nov 2026 08:03:21 +0100
-Message-ID: <TB0DvSOtTYKNXNEXzDrlwg@gmail.com>
-In-Reply-To: <20261101203336.1360239-1-romain.tisserand@gmail.com>
-References: <20261101203336.1360239-1-romain.tisserand@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YUM5jmGz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XBUdH8bszINnSQEWkYaaeR2eoUp8xZx0Qyma98NRrHZyVzKtEz8m8tOoEKrzJwp/Arv+PR+oj/us+ewf+rnzFWb1R9fcpksG3/OTQg3bIyC+yi7Jn0mz21tIrkbLlgxD6XHi6kcQnCtZ1yns7VflOfqEdAbmDLVNdQ/TzsjctItjN7bfHltUWXYmhiNvkCWacBdnDzacxgeWKJcKifytMVRTpeeqNsnzOAgSRzDh1AsdKu7Y3FGZXndSOQHs/KUV5/9Tv3tx+b6cXE9vm6vqXTgZ6WaPLwwFKBcL24sTv4JCCL5UCfo6TW4auL9eHv09PLr98sVMBKQa47gNVDJi7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oJk2U7sYzXBmSdICHzSjvZnousE20TadLP2gkREvEfQ=;
+ b=RVnX5KoMxuhpxFJnbpENwH3Wxpxq4xKQSw39NKC+H4FWv4XJSnRg2pQklAIB4sTlu1IcWTYzmJQOt5Wewz+MSKjfN93svrojONtN7k+QO5tHszCnz4Esj7ZM6IdLG+yuTXZA3SAOqPRQGORuPeD6STgMkwO8xr8tWFVaZ1aK2bLYhI252m+cO/oiqKBUsGxl6Gc4NUPatJJB0jbP+K8c6iDzdk8LQLZdx9q0lbnrntlRp/4THZee0w4Dd3dF2V92Vp4wP/9bSDrupkH0G0JiYSaabyFGzRj0i4H6MJzJUzdXB+EtB6UMQ1VElFQbxY2j4mk3JXG7YcGz7l8gennrFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oJk2U7sYzXBmSdICHzSjvZnousE20TadLP2gkREvEfQ=;
+ b=YUM5jmGzXlttRKBn4hdeBjUia9wKTbJZB5J4Ohoy0bk8Jo8pRP4lHkNPqkZxMRQxOBkUJUDt0zdVDioN7tol4ytIvE9kEpaRb22fOOLSLzEF0xorsWmG+A4sOo6wGWiqzNhWxJIPfASS+4YHaogLHacsOymeM13e0j64i8zdDP4=
+Received: from CH2PR20CA0029.namprd20.prod.outlook.com (2603:10b6:610:58::39)
+ by MN2PR12MB4319.namprd12.prod.outlook.com (2603:10b6:208:1dc::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
+ 2026 07:05:16 +0000
+Received: from CH2PEPF00000143.namprd02.prod.outlook.com
+ (2603:10b6:610:58:cafe::3b) by CH2PR20CA0029.outlook.office365.com
+ (2603:10b6:610:58::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Sun,
+ 15 Nov 2026 07:05:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF00000143.mail.protection.outlook.com (10.167.244.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 07:05:15 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 15 Nov
+ 2026 01:05:15 -0600
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Sun, 15 Nov 2026 01:05:12 -0600
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Weijie Yuan <kernel@wyuan.org>, Weijie Yuan <wy@wyuan.org>, Harry Wentland
+	<harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+	<siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Harry VanZyllDeJong
+	<hvanzyll@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Sreeja Golui
+	<sreeja.golui@amd.com>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/amd/display: Use a plain comment for panel polarity declarations
+Date: Sun, 15 Nov 2026 15:06:12 +0800
+Message-ID: <20261115070612.1464433-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <dfd520477e9987eca7719e537b2865f4abe43043.1793362629.git.wy@wyuan.org>
+References: <dfd520477e9987eca7719e537b2865f4abe43043.1793362629.git.wy@wyuan.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,155 +115,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000143:EE_|MN2PR12MB4319:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8c65625-015e-45a1-da8f-08df42e6cce6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	ePX0QQXCBTb9ro6qnLYn3bYT0rNupSDFj/u7/HzCCvE+F40Bnk5cswh3A7BTyci+vmjShCCpVOrN5XZkPLvdvs6zIMChz6nE4bAh/JstGEOmzgIUegjJCLrj8uzUSFqQE4hj8ahKJegiwl/m9Iz3VlpVeWIrunFu2A61lSse26U7Cj1P6qTpC4VNff9nvtkuXz2AIgXjY8lF5gzXS/mNpgxYE+E99lR4VDPyAIUbmKj7tmuki+XdEyxmTjZ49v09h1dypovEZj9rK//nmTYFXaJO3vX/NnwWtvpFhig8sbKkaulLIOhVYI+ZRfPw0gnVGTO7Wq1dn33eq0q+q+H+ftkU69QUaJiDA9K1C+xzo/joFTsYcSZhtWjG8gpWUwmWjmJPsLKUOaoWcZb1h24q3y3kJg1YQfa6Ls9J6GptAs0ukEvH+DB+JWgk5wGH597ArvRLCHzTsdpYZSxMSYxEmLtrKnhmqrI+i4ytZk0egAhRtKGLp4z/QxXk//Pra8j6PScoKyp8tRq27IKaD4dFYUuED1Tn/aiHV13ky/GaRXiIvbONsV+8+al8fxq7/FDXQOz8+fKvlpjonEvxX5tToBaQ4/AroN24OFWUGanofWwQh+cg9Av0EgneaZihCBQ5Xes75Lp7cN7y08WMV3TZ+rSsCjGMBr3HuBL+Wh7qup37WPLbTzuNY5Ewyfk99bJ4T7hl9SmWBAgYvAXKOVb+Ag==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	uqLv1tkQaEduzojk7574uqo7tAJdAZVsy91vDgIQIPdz5DETuYk/tpZDhrXQq/kwLetTHwwdxo256djmhiZnHJDbP3HU23LLnYu0jziK5Bt9NtZFGYzF5PBIZNlo2DVFAv0SGshHgU/Nob94bsQ/aNQnRl0naKD+00HUZzbzXghzXVEyL7zjLBPJudYFEngYgDOAHTAlJtG89/9E2VYNp4JZzSWaWrmZAN20gV4DG4GdYtb/onvCGj7BWRieNjXZNt8wzchv8sTK5aWODRR4kd4lqRF9QuB+Qpb0alIEi9unnIOgwJ9021AE10NDFDHSWm5ZS+CTtwjZ0hCWJwUoNEGT3fFtdK5t5MJ7gcXcJni+JHexlwaP9SQf+keXr3SX+bw9QHl2eukJDlfFVISYecbiUgzQ03tGcfDEx3F8AKUEC0Ip9Uwf0hygOOnlxVea
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:05:15.7180
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8c65625-015e-45a1-da8f-08df42e6cce6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000143.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4319
 
-Dne nedelja, 1. november 2026 ob 21:33:36 Srednjeevropski standardni =C4=8D=
-as je Romain TISSERAND napisal(a):
-> The N-K-M rate code computes parent * n * k / m in an unsigned long,
-> which wraps on 32-bit ARM as soon as parent * n * k passes 4.29 GHz.
->=20
-> On the A33, pll-mipi (parent pll-video at 297 MHz) with N =3D 14, K =3D 2,
-> M =3D 14 runs at 594 MHz, but 297 MHz * 14 * 2 wraps around to
-> 4021032704 and the code computes 287.2 MHz. ccu_nkm_find_best() then
-> picks these factors for a 288 MHz request, and clk_get_rate() reports
-> 287.2 MHz while the PLL runs at twice that. On a PocketGo S30 (A33,
-> ILI9488 panel on one MIPI-DSI lane) the lane ended up at about
-> 594 Mbit/s instead of 288 and the picture broke up.
->=20
-> Do the multiplications in 64 bits, saturating at ULONG_MAX, in
-> ccu_nkm_recalc_rate(), in both best-rate searches, and for the parent
-> rate request of the parent-adjusting search, where rate * m overflows
-> the same way.
->=20
-> Without the saturation, a candidate above 4.29 GHz in the search would
-> be truncated again on return and could look like a valid low rate.
->=20
-> 64-bit kernels are not affected. On 32-bit ones, every N-K-M clock can
-> hit it (A31, A23, A33, R40, H3, V3s and F1C100s use them), whenever the
-> parent rate times N * K goes above 2^32.
->=20
-> Fixes: df6561e60244 ("clk: sunxi-ng: Add N-K-M Factor clock")
-> Fixes: 3492e4f6db5f ("clk: sunxi-ng: nkm: consider alternative parent rat=
-es when determining rate")
-> Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-Best regards,
-Jernej
-
+On Fri, 30 Oct 2026 20:27:13 +0800, Weijie Yuan wrote:
+> Hi, when running 'make htmldocs', Sphinx complains:
+>
+> WARNING: ./drivers/gpu/drm/amd/display/dc/dc.h:3883 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+>  * Panel Polarity Control
+>
+> But since I am not familiar with your workflow, if this is duplicate,
+> please feel free to ignore.
+>
+> Also for this file:
+>
+> WARNING: ./drivers/gpu/drm/amd/display/dc/dc.h:329 struct member 'max_gamut_remap_coeff' not described in 'mpc_color_caps'
+> WARNING: ./drivers/gpu/drm/amd/display/dc/dc.h:2225 struct member 'u' not described in 'dc_probe_status'
+> WARNING: ./drivers/gpu/drm/amd/display/dc/dc.h:329 struct member 'max_gamut_remap_coeff' not described in 'mpc_color_caps'
+> WARNING: ./drivers/gpu/drm/amd/display/dc/dc.h:2225 struct member 'u' not described in 'dc_probe_status'
+>
+> Thanks.
+>
+> -- >8 --
+> From: Weijie Yuan <wy@wyuan.org>
+>
+> The Panel Polarity Control heading introduces several declarations
+> rather than documenting a single function. Its kernel-doc opener
+> causes a warning because the heading is not a valid kernel-doc block.
+>
+> Use an ordinary block comment for this section heading.
+>
+> Fixes: 7dcd85c2241f ("drm/amd/display: eDP panel polarity control and test support")
+> Signed-off-by: Weijie Yuan <wy@wyuan.org>
 > ---
-> Notes:
-> - Testing: built with W=3D1 for arm (multi_v7_defconfig with the A31, A23,
->   A33, R40 and H3 CCUs) and arm64 (defconfig), SUNXI_CCU=3Dy and =3Dm, no
->   warnings; on arm the 64-bit divisions go through __do_div64 (no libgcc
->   helper). Tested on a PocketGo S30 (A33) running 6.18.54 with this
->   change, without the ULONG_MAX saturation (same results for rates that
->   fit, which is the only case the hardware hits): before, pll-mipi was
->   programmed with N =3D 14, K =3D 2, M =3D 14 (594 MHz measured as a 2x l=
-ane
->   rate) while clk_get_rate() returned 287216621; after, N =3D 15, K =3D 1,
->   M =3D 16, 278437500 Hz in both the register and clk_get_rate(), and the
->   panel picture is right. This version, with the saturation, then on
->   the same board on 7.3.1: pll-mipi again programmed with N =3D 15, K =3D=
- 1,
->   M =3D 16 (278.4 MHz from the 297 MHz pll-video0) and the picture is
->   right. Not tested on the other SoCs.
-> - Tool disclosure: this patch was prepared with Claude Opus 5.5
->   (Anthropic) as a coding assistant, in an interactive session where I
->   asked it to bring up the PocketGo S30 display. It found the mismatch
->   between the pll-mipi register and the rate the clock framework
->   reported, traced it to this overflow and drafted the fix and the
->   message. I reviewed and understand the change and tested it as
->   described above.
->=20
->  drivers/clk/sunxi-ng/ccu_nkm.c | 30 ++++++++++++++++++++++++++----
->  1 file changed, 26 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/clk/sunxi-ng/ccu_nkm.c b/drivers/clk/sunxi-ng/ccu_nk=
-m.c
-> index 401fbb7524..e5a8f22d50 100644
-> --- a/drivers/clk/sunxi-ng/ccu_nkm.c
-> +++ b/drivers/clk/sunxi-ng/ccu_nkm.c
-> @@ -6,6 +6,7 @@
-> =20
->  #include <linux/clk-provider.h>
->  #include <linux/io.h>
-> +#include <linux/math64.h>
-> =20
->  #include "ccu_gate.h"
->  #include "ccu_nkm.h"
-> @@ -30,6 +31,26 @@ static bool ccu_nkm_is_valid_rate(struct ccu_common *c=
-ommon, unsigned long paren
->  	return true;
->  }
-> =20
-> +static unsigned long ccu_nkm_calc_rate(unsigned long parent,
-> +				       unsigned long n, unsigned long k,
-> +				       unsigned long m)
-> +{
-> +	u64 rate =3D (u64)parent * n * k;
-> +
-> +	do_div(rate, m);
-> +	return min_t(u64, rate, ULONG_MAX);
-> +}
-> +
-> +static unsigned long ccu_nkm_calc_parent_rate(unsigned long rate,
-> +					      unsigned long n, unsigned long k,
-> +					      unsigned long m)
-> +{
-> +	u64 parent =3D (u64)rate * m;
-> +
-> +	do_div(parent, n * k);
-> +	return min_t(u64, parent, ULONG_MAX);
-> +}
-> +
->  static unsigned long ccu_nkm_find_best_with_parent_adj(struct ccu_common=
- *common,
->  						       struct clk_hw *parent_hw,
->  						       unsigned long *parent, unsigned long rate,
-> @@ -44,12 +65,13 @@ static unsigned long ccu_nkm_find_best_with_parent_ad=
-j(struct ccu_common *common
->  			for (_m =3D nkm->min_m; _m <=3D nkm->max_m; _m++) {
->  				unsigned long tmp_rate, tmp_parent;
-> =20
-> -				tmp_parent =3D clk_hw_round_rate(parent_hw, rate * _m / (_n * _k));
-> +				tmp_parent =3D ccu_nkm_calc_parent_rate(rate, _n, _k, _m);
-> +				tmp_parent =3D clk_hw_round_rate(parent_hw, tmp_parent);
-> =20
->  				if (!ccu_nkm_is_valid_rate(common, tmp_parent, _n, _m))
->  					continue;
-> =20
-> -				tmp_rate =3D tmp_parent * _n * _k / _m;
-> +				tmp_rate =3D ccu_nkm_calc_rate(tmp_parent, _n, _k, _m);
-> =20
->  				if (ccu_is_better_rate(common, rate, tmp_rate, best_rate) ||
->  				    (tmp_parent =3D=3D *parent && tmp_rate =3D=3D best_rate)) {
-> @@ -87,7 +109,7 @@ static unsigned long ccu_nkm_find_best(unsigned long p=
-arent, unsigned long rate,
-> =20
->  				unsigned long tmp_rate;
-> =20
-> -				tmp_rate =3D parent * _n * _k / _m;
-> +				tmp_rate =3D ccu_nkm_calc_rate(parent, _n, _k, _m);
-> =20
->  				if (ccu_is_better_rate(common, rate, tmp_rate, best_rate)) {
->  					best_rate =3D tmp_rate;
-> @@ -154,7 +176,7 @@ static unsigned long ccu_nkm_recalc_rate(struct clk_h=
-w *hw,
->  	if (!m)
->  		m++;
-> =20
-> -	rate =3D parent_rate * n  * k / m;
-> +	rate =3D ccu_nkm_calc_rate(parent_rate, n, k, m);
-> =20
->  	if (nkm->common.features & CCU_FEATURE_FIXED_POSTDIV)
->  		rate /=3D nkm->fixed_post_div;
->=20
-> base-commit: 5243bd55dfe63a5f806622878f6fbdd78172fac9
->=20
-
-
-
-
+>  drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index d3c484f45333..03286f6aa651 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -3880,7 +3880,7 @@ unsigned int dc_override_memory_bandwidth_request(
+>  		struct dc *dc,
+>  		unsigned int bw_mbps);
+>  
+> -/**
+> +/*
+>   * Panel Polarity Control
+>   */
+>  void dc_link_set_panel_polarity_enable(struct dc_link *link, bool enable);
+> -- 
+> 2.56.0.438.g30c3f27cb8
