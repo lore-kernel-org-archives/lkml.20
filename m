@@ -1,95 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794708467;
-	b=M4g7hvGE1R2aJlkit9Ad3Sa7bmh9Y/DLhf3DKxBz7RZIHB56vq1aDXppBPnHHvTVjMdD
-	 ujiTlUv8vZSTQKHv7DawFgRwMlZqyoPowZZVDx71cyjbfeo+BKqYks7epDkdkpAV+d1Zb
-	 vugZUOqHFf3NnUC0QmjpZsw8E7qtRS5FZb2xV+2NwxzaJIoBwkF+YYIWRF3j84H/h6QpV
-	 /meJih61tGUC0bMpsAHQ1JOiFODjeahYzTGTVO2GZhQvTiO2d+iyGmgyLEW9sNS2oWHIk
-	 NMJ9+7hK9xq7Ne607RG1Pb9sr6s+sdclR1yO/CVRiIztl4qxNJaRb26V9quz52W4tVA==
+	t=1794708626;
+	b=EGCmJ651EGbxC+L2J+d8unFe7nyErBKFJAtI6wdu35p/zMNns4/sTLemmYgsF6at0wQ6
+	 7rtJehzz+oYkcAmt4f4ZW6ejPBvEZd7QM8x5i0YeQBHGZOKBcDHeYalYI6kLi3u03zTMb
+	 Ag76BtgLZfneGdenu9lPdhx0HGc2Ip5T9cfaBqGkXt/G+8/jrg3WFgj3yeIH1CbmYfqh7
+	 1PQojHHZh50TNTgT4fKY2Xsqgvxx2tK6fMpVKvT0zcNZBbDIhqGxKTbIubhPfXgBfqTSm
+	 8Kjl6nJoBap0nnzGVCHwpJbaj6q9nOOslfThyd7O60aoy1XFymxSnJ9NVzr6qQ5FJ9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794708467;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794708626;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rnqu5ao9YJwk94NMnB9wLTZ5Ww11Mzaq96WX6a9SCys=;
-	b=uDZWig0NV0b4KGN1qHpqRKFZfAEJtuLgnO+dpOBo0f3sRhNquQRwB2SUt/neyDS/e8af
-	 F7lT/9eWyyFpeOCfGKxCyIv+yy5wkEHCCIWoREkCEthddqxBS+XJU7n+IANHC22ll01T1
-	 U7hdKvDEdkGBuogTRDN2Oc27CzvsSg15MsfIQDWE49w31LKR5YjLJ5E0vbsXzG/Gku7+t
-	 LNP8PwYYyIRl7p2k+YJoAW6hDLYh2THowSwowFYm/HqYwaVukMZrHoL4VGtc4OskhSaP6
-	 41y+Jleuae8UdYUOh1oDF7V1TQaSLwqMR+0Hnn465I7stE6xusVZa+FfRNCCmiov7oQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Dlr8BYW4D9uRE2kBdvPJxDIlvh4ufcRQvKzhTZs/K1Y=;
+	b=YAbZZmhzk+M/SfU1lSr4ivDH2HJ0eEI/vIukTdbnotAU9xwYIJrFIN2hcFfxap/XDveX
+	 nLhnne1Z8wtMLS/4JIHmtVxHXGeo0+uRdj34p2q8u1OdWlJkOybeD5ajS10BQci1aANgz
+	 bHpP8d466Ad1e5+Az4ZPVWmqo+NwHmEF35IKJceVj8sjVrrgd/s0eR3L0lqNtgdXfgSwP
+	 XCAFKxzIQw5+u6pt/QFR605KBY2t6CqXranx12ytjrNepXYKSl2dRERi++kQtQRO3TLFa
+	 EAaqy/0TkmtOqukARxiSZk1M806TcgGRZVvuD9v7gqecn0SUIoqybPBKxouyrWi8ECg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hLnlNQK8;
-	arc=none smtp.remote-ip=209.85.210.44
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=txxkvDyO;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18FE606A327
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A18FE606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102A0606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 02:10:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 102A0606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hLnlNQK8
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-862aca1ed4dso232893a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:07:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=txxkvDyO
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4697404c2bso332794966b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:10:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794708465; x=1795313265; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794708624; x=1795313424; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=rnqu5ao9YJwk94NMnB9wLTZ5Ww11Mzaq96WX6a9SCys=;
-        b=hLnlNQK8veP334z+eVkUDAES3G1yQmoS+IwKg8o4QOrZ6P44r8AkjMZlynKd27RZbc
-         p+nb1wVMj174+IPPxl8ZBp7Mmc5FGxR09y5xaFBVcsIF2IQaee1ma6hxIbz88svT+mr5
-         SyMgE+EeIY8vD06U/mS1vcAuJz4LjrTAHL6vptfjVDeAtuat+fAIJPECALmQi7y9O38M
-         BhwxmXVSzb7x5q4nPK3ol/34LXAE4t3yqVJf97ZATIecE+cbI1sOQjsLhYaURc6YgJuI
-         vV/WeenOkKeTh4I3Vqb081WEucdnNXZ3sgcwyW30M3qGGscFejT1hmq2KswuO8nwqZgf
-         2y1w==
+        bh=Dlr8BYW4D9uRE2kBdvPJxDIlvh4ufcRQvKzhTZs/K1Y=;
+        b=txxkvDyOusSB3/VwzuNOTJgzeLQw9KkCBACEspjdt3MsKzdy9hdSWY85SJ4YE5Wjna
+         /h4bpo/UXO06tEB2cLUjjB/MI8OtA0++yvXfTUcmj+K48YDI17uQGUGCzNcU/3h8daBa
+         6DNisaR0TU58PV6uwD8Yjn/qbhvdiexoVERZJi4nEyo1U/ahQEtYFyaI+A4+tnvZ4Xxr
+         SHHSG7rHXn5UkQrpK/SNmoPSjbcxN0C780tLp4XD/IOvxl0Hq28F8mOCDyLMsYqwoQQL
+         MpFCujzcEfpXMnx/VgnyCZn/FxOK792bWWuhLEOCsfRfUGsNBPuCgVyAVqn8ksxBSNl6
+         A54A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794708465; x=1795313265;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794708624; x=1795313424;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rnqu5ao9YJwk94NMnB9wLTZ5Ww11Mzaq96WX6a9SCys=;
-        b=bxAc9SP4lm/On7oJFZG/Zc+9McAGIv3zExb2bWwWnc0aBWjllhgYzAFSIyAO9xzVUW
-         etSbFljGanIQpfFH9NfvabM+HrTXdbkULgSzzVTmfiM+h9JSlVp5OxhxGfsMJ5x1wWmK
-         pO5sekxcE5zkxaaR1DIQ/JkeQSi5mj4Zv+NPjDSWvAK4t3SrcU+Eldj2ImGycdFAP6H+
-         ZUc21jntdBpcSq9zA5s29A1CDLNhRlfDZve4QxfpCLDEa/MHBrKBCuAdY7jGaf+k783d
-         dTfIfNtYGNtF7+axYOq4FFRFDuzweOHfitDjKBGlKr+h8YUG53Mq8i5N+9vEgputnrdD
-         ScRw==
-X-Forwarded-Encrypted: i=1; AL+hErGbdMippcrA/6qLNvv+jYGukBQlnsVc6rov2uLnRF6XaX1uo9XEyu58jDp/fjyDiKhrzMdUeOETa7qpy3s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lvrCAfjUCWQle2OjMnUv6zmGIbmBqjbabeMqGBnpYpRjo/EbV
-	dfW7dD6prWRk3c2/XdiMz1NQ4tcvf6NcAMbn9tO2lwK01wAAdnYO+mie
-X-Gm-Gg: AYBFou12m10smzuV5YFqcE3DTJzFmue/YQaYddTuJvIdBfccIdF01tMSD3BdwaQpcUT
-	APPgak6ZOpEBrLDAbKBudWufobu4q22Yz7lN75Q8PBPLlsmNpfcyu4ZSfYFQ4D+HFOpFoPSnKOk
-	vt3n+dCt5hHx59LuTbHLs48BhUoZWyPnZ+rxbIhRATl2ut9pp8hlqoofHKOHJn4CjdCTbRSIQkr
-	MGGKVgjQF+TgpIglNlfXLiTLdaEU1F9NXn8+RTd43bTLSL3/OChrX5l1gzzOSFQ0lMPTm4Zo2n3
-	tdzZf9Bjj3M9z2ugStAgZYuNhgA5TdAc5lZD5GnQ9f9zDoSCjA+O+QQIGpm5cvFXnU6vDrGWSfN
-	4qUlsshMES5UayQ0vfLCObW0QlrDSmWdWDGxD571CdgUKHEavckizX04KqACkfES12gUrHI6gKV
-	2YbeKdFlKZi7/QKQwPNhbhGeDxZd03XS90v3ODRqorDsWgwHm7ZHLgSQaHDIoZKVaKgrykGzMav
-	hWNFWN9JQZqQV7r1YRSzYax/PP4plQei5SUnl6VvSFyVjSyjx3PUpa6X0kILmX0xP6NK0eXate2
-	NkDXcFpMWJ/wC4CEaHkQnKN6DUGhP52c2rJykQ1PilReL2DZsh8E4kzCr1OMfjAqWhCiTGuQSGV
-	qZYbOw4czgzhJGpL1QuDApG/HzKvSPkMu
-X-Received: by 2002:a05:6830:4104:b0:822:527e:f653 with SMTP id 46e09a7af769-862898681aemr7487703a34.13.1794708465542;
-        Sat, 14 Nov 2026 18:07:45 -0800 (PST)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880a5298sm7113595a34.7.2026.11.14.18.07.40
+        bh=Dlr8BYW4D9uRE2kBdvPJxDIlvh4ufcRQvKzhTZs/K1Y=;
+        b=S7BsWNtnJFfJVASRA4jL/d/lSu95oHzW8vKqW3e12Oa8kriL4TCLNgyfZL7HQKuPuw
+         P43L+iyHXDbmEwqeJkPZPpPwliE2e1+80dwAeMctPYQiPqgoP7klKDYq+pJ0SVLEANsw
+         Gt16Hc+CxRfKYW32U2iw5W1tKY6HSVWWQcKUPy3Fxzfyy6QyZl3vwZsqGW43Dd2uAsxB
+         iuHqcjdBfgMctTi4+6sm253GoqNLYqIvgrfjD14++v+a2N35kjTR4CDy/JTor9SJYZXX
+         fz9mv9XJpUXrsNeeN9J/1SfIemY6Srcjf66PO3JzfmbzptNNzTl30YHJEGurV1Y4uR/W
+         ebLQ==
+X-Forwarded-Encrypted: i=1; AL+hErFPYtmBM2YHcXz53+XUS1mS65Q+wJ6BuLBL9DBPzc9nm98vnt0q+oR0VTfOl/nQKm7AOF9fHyfUJBByen8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+faPCKcrfbCEnoVnEhhbiagwvUPfQAhowwpeZAPIuYmfV4+GnM
+	LpXc/VC4dyxZaUajij7ygRuKUDeZpCTN5CMJu3WgqIKu2w0zz4vBGBY=
+X-Gm-Gg: AYBFou1du72n0+ffOopmszslecKqbP5nSavLciHnZHT7x01dkZbw9IRgOY4RgsVm8zA
+	HZarf4SW+NN0XOSiIIVbcrVWLoKT4CcTIj3Jn9wZZO0ZWH+ptIPOzyHTRRSEb5zxIHplB5bE5kA
+	mfi8UvRkUdgBoUB2wPK/B0Ggj/0YjGoL0O02gusQMpeUPINndB1kljwT99lY+kOJBhHzi6L8MDk
+	nY73FAUmu3Ovk5y/fy/5nwESX5A/ugS0DlWYdT/sPt7Ictg/JGAqWI/kaO+A05b6IuYFl3QJoSb
+	zhuPLrBp1M0PQRrTCO+AHXlGeB0oOfYmW2ZYALPV+ABfLMFpMaS/xjIqy3571goMs75BCL6aoix
+	grJ8Ec+KfgVd/hNJQ9tuOCyTulssny92/lO6C4rI2hoSYZfkfZk2Tn0R0uP4nfYDvNx8J2BXYQ2
+	QNOj8LW2LHu5pNl2quxQZgof/zRBrkO9tOgyxj/MKWhnMxHp9PlQqVOwg9LQEMW4jqunddgwUoF
+	P+YwF3bBldtsjwYE1XSPcKN6e8j0nwROGS2+EzaIB13kFF4V8B7MmjUn1Jvwv9P0Ecfj7l3Io8R
+	bYWT7HtForOqEeyTbdWXn+tfz3ZkMb2WNCJa4efhIfMptGakcbKU47t8Ru+/DvYzV00YImp5FN1
+	L0dCsIjdFMSSS8atn1KheDjLu9A==
+X-Received: by 2002:a17:906:f5a8:b0:c50:5e90:5ea7 with SMTP id a640c23a62f3a-c5096853f0cmr525580166b.49.1794708624326;
+        Sat, 14 Nov 2026 18:10:24 -0800 (PST)
+Received: from sohrab-omarchy.fritz.box (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c6a5924bsm2665270a12.18.2026.11.14.18.10.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 18:07:44 -0800 (PST)
-Date: Sat, 14 Nov 2026 20:07:35 -0600
-From: Ming Lei <tom.leiming@gmail.com>
-To: shao.mingyin@zte.com.cn
-Cc: shuah@kernel.org, linux-block@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] selftests: ublk: propagate stress worker failures
-Message-ID: <avkT5yu3hJgi-YWb@fedora-laptop>
-References: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
- <20261111225759742pwhACD8p_0GdXSYIk_Ob6@zte.com.cn>
+        Sat, 14 Nov 2026 18:10:23 -0800 (PST)
+From: Majid Hajiheidari <majidhhdri@gmail.com>
+To: barnabas.czeman@mainlining.org
+Cc: andersson@kernel.org,
+	konradybcio@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	abelvesa@kernel.org,
+	mani@kernel.org,
+	admin@mswin.me,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] arm64: dts: qcom: sm6125: Add cpufreq-hw and CPU idle states
+Date: Sun, 15 Nov 2026 03:10:11 +0100
+Message-ID: <20261115021019.731462-1-majidhhdri@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261115003158.391171-1-majidhhdri@gmail.com>
+References: <20261115003158.391171-1-majidhhdri@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,30 +111,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111225759742pwhACD8p_0GdXSYIk_Ob6@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 10:57:59PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> The stress tests update ERR_CODE in background subshells and use a bare
-> wait in the parent. A worker can therefore fail while the parent still
-> prints PASS and exits successfully. Calling _show_result() from a worker
-> also removes backing files shared with other workers.
-> 
-> Generalize the recovery PID collector and use it to wait for every stress
-> worker in the parent. Return errors from the worker helpers, leave result
-> reporting and cleanup to the parent, and reset the PID array after each
-> batch. Keep failures ahead of skips when collecting worker exit statuses.
-> 
-> Fixes: bb2cabf23568 ("selftests: ublk: run stress tests in parallel")
-> Reported-by: Ming Lei <tom.leiming@gmail.com>
-> Link: https://lore.kernel.org/all/avJ0Vn9G7XhZv-XL@fedora-laptop/
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
+Hi Barnabás,
 
-Reviewed-by: Ming Lei <ming.lei@redhat.com>
+I should have put you on Cc of this series, sorry. After sending it I
+looked at your sm61x5 7.3-develop branch and saw that you have cpufreq
+for SM6125 there as well, done differently, so I would like to sort this
+out with you rather than have two versions on the list.
+
+The differences as far as I can see:
+
+- Your branch gives qcom,sm6125-cpufreq-hw its own soc data in the
+  driver (lut_max_entries = 12) and makes the clocks optional, with
+  19.2 MHz and 300 MHz as defaults. This series uses the generic
+  qcom,cpufreq-hw fallback like SM6115 does, and takes "xo" from rpmcc
+  and "alternate" from GCC GPLL0_OUT_EARLY, so it needs no driver change.
+
+- I booted your branch (cdcfb1386, plus the laurel-sprout board part
+  for mpss and wifi) on my Mi A3 to compare. Both versions give exactly
+  the same tables:
+
+    policy0: 300000 614400 864000 1017600 1305600 1420800 1612800 1804800
+    policy4: 300000 652800 902400 1056000 1401600 1536000 1804800 2016000
+
+  With the generic data the LUT read stops at the first repeated row, so
+  the 40 row limit is never reached on this phone. Did you see it cause
+  a problem on another device, or is the 12 from the downstream
+  max-lut-entries? If some SM6125 board fills all 12 rows I see why the
+  limit matters, and I am happy to rework this series or to drop the
+  cpufreq part in favour of yours, whichever you and the maintainers
+  prefer.
+
+Beyond cpufreq: on that boot your mpss and wifi nodes worked on
+laurel-sprout with only the board enablement added (firmware-name and
+the four WCN3990 supplies): the modem came up and wlan0 associated. Two
+things I noticed, in case they are useful:
+
+- the modem crashed twice during startup ("fatal error without message"
+  at 103 s and 145 s), recovered both times and then stayed up;
+- ModemManager did not find a modem. On my own tree, which also has the
+  IPA node and a dynamically allocated rmtfs region, it registers and I
+  see no crashes. I have not tried to find out which difference matters.
+
+I have modem, WiFi, ADSP/CDSP, Bluetooth and IPA device tree running on
+this phone on next-20261113, but since you have modem and WiFi in
+progress I will not post those. I can test your patches on laurel-sprout
+and reply with Tested-by, and if it helps I can send the parts you do
+not have yet (for example Bluetooth, ADSP/CDSP or the laurel-sprout
+board enablement). Just tell me what would be useful.
 
 Thanks,
-Ming
+Majid
