@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794752682;
-	b=t1lrbvSynd7Ofg3sgXkQVFZc03b+vfx3xjOVGPTIIesa0hOKiPPC7Lhs14RVffXaNoAS
-	 fLSQlP6MAdcBQa+j6DbMJrjs5go2XnO7ioIDDDqKkxodiN7e8Hsf7oHcr/i1hdLDp50a3
-	 9oJhqRvvZTfoP8LTBaE8aBkVNLQ4G4bGst56g4hY/SSzlKi1IdAqpx0E+WLrW6SRT4Moz
-	 DrqrnmQAKJoLNosisrT71mQxggYND3gUtpqi6PFFIiGH5Ia7oiQkpuB67I5n7gPhmg+5t
-	 dkmdKQ20DtjrZEB+tbwX92KhdWe/3O2WAikL4eROLJ85aTWQMbs1L01+mvhVKwNJrxA==
+	t=1794752699;
+	b=ue9XJvSDK9+IwsnP0FN6ah0nQ00ONGOsQTHYmy1OryOSGiaUxlhEhQZTZMvrFIzYDRg5
+	 mQ+vkP9NRQTZzM5pMq5uKXV6pepP2CW6diEOqpK9INVk7fHAifQ4uuglHXNwbbhCGKwQP
+	 rd0kWQFgiYJLG8NrWKtDji7FHj9UR2mEeaVdWwl8Ir/B9E5t80q12tLMYKV5U0fOYiY7f
+	 Y0uXHLVfaNXAvB3xBDuCy7jjfWGdGzfm4He6n1jZkzYk/rdG9YsVzb9NuFHgtJp+tJczW
+	 rIgV6Q/tCkGBOZwFkvkDXuh8EzG5ltsAcP6OTWwFvjlsG2GPIBlnS+K+fb6udH20g3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794752682;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=BrhTUW8fO+vcw4Vv2AeL7c2TqR5hb5priFcmIXtft+s=;
-	b=l3YQYEtKs4N3/bMEF8zcur99zOL+6SKmSd2iBTsxxnsbIqhpfgQynizp4zfuxMeyPFzD
-	 hd5/Ht5rjFU4gkhm/5XLKVXN8PS2/P3JBZTb1CQgb/8RhiQd8NH5eMWE1JlNjlUe22Byx
-	 WUDa4c5FxYUM77bBxpXoI9uRQyhXRpTj8cuU2pwtrk6W4Lez5hneZ8hSsEUinPPusS3AM
-	 ywvX746GWb68i6m+CAj+P3j+pP8nF3nYWv1cKfYSzSsVgXsj0R3NreSiSwcBf1C2SjoYi
-	 S1ilIEWg+pA3KaE1u3I1HJHINj0D8jxaZvybcAhgOmJufvGBXdJcwSpIODcfbSUkrwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794752699;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=ZI/jWFSUpK9WyTo+E+G27clHiH6WPIOS6hDg2pOWU8E=;
+	b=174GXK8k4U1liWKUa9vRwhvzv8A4eVLiF7MCzp3i6ksYZqb7QOr0nXhMA3oxmurG8Lqe
+	 CNlRT5uloZAU4oTvpIsSqT2Y3kREPdAJAck+OXetrONWvtoM7rqaVTiq9BFPTVmhFYdD3
+	 pMqi+ZC0hdUo3UMzUbZxh6S/VEGpVMsNEL0EEE9+XJbxAZofgWEPdNOAGrz+gE5jneEQt
+	 IrHF5CviaaWxw3q7tTalLv4GkgBpGol6Egp5sg4MLX9doFY4wbdiTwJER5KZiFAwX0cXS
+	 qzspCv6gAd05BjFIgFY/jxbffGYejn0aLvGH1u8RzSGNVtreQgS0nxdmWifn+fGLjIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b="TnBj0/n3";
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD56606A33D
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DD56606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=TnBj0/n3
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id SaFJxtaWHAR1iSb9mxSLEX; Sun, 15 Nov 2026 14:24:34 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id Sb9lx9jBCdRrRSb9mxGkwI; Sun, 15 Nov 2026 14:24:34 +0000
-X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6af9c0a2
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=1ZHqKQNBhTtskWZSVtoA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=BrhTUW8fO+vcw4Vv2AeL7c2TqR5hb5priFcmIXtft+s=; b=TnBj0/n3PFhFHXX/5t3jqzs3dE
-	oaDXxr/SgZ3AtgEjxkPBG7QNlPUOC3cf6+bfpSW7Uq0X6OhprYk/1kuTdtRb26Hkr+/pDcgj6Fxq/
-	QbwrbSlEW6it7ilfEC4xNNFVRl1wIxrdeeqsRqYv071mDtifUF/hp8wsb1tn7PIEuzezxJVyKgKMV
-	14pTg6VUNA8UD/pK9DDdq/1A989nFIwfRwlIQJfuDDy/Hl2hPIK0wGxRoulCVNIG+fILO4GKrRgnV
-	C2/pEM1w1wm7c8H27f735POYAEWKcdXgnv9xs65xCHHsmNUzWeAgypH8YT7jw7l1bX1MT3jKqDM1/
-	Fj87iXkg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:37292 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xSb9l-00000003Sp9-0GqD;
-	Sun, 15 Nov 2026 07:24:33 -0700
-Message-ID: <f5817ba1-8048-46ec-837e-b502ed10cf2f@w6rz.net>
-Date: Sun, 15 Nov 2026 06:24:31 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF24606A31F
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 14:24:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF24606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-568249fbf5eso3148308b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 06:24:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794752698; x=1795357498;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZI/jWFSUpK9WyTo+E+G27clHiH6WPIOS6hDg2pOWU8E=;
+        b=LA9x5W+GUFmUZ3H3E8NotnU2knWjPwIeUp3FfGv1Dm5H69xlWZdOjTtZb6CFSfprVX
+         tRfaY3YdXAAJW6MRwTOiWmmBEGw/bovMbbhp+cpESk+YV5aNIZGIgLFAXPzYGiHHQROC
+         mgTQoYEpgHuNWUuyvCLFpk6MsCUgyPMRV5n02q+UJmJEMBi0OxpaJ5wjteCFx+C0ISHz
+         pp3/AXVJSkHesrwQDnkdkflvaIO68t06gGWy+I9t0i2xyarIrNu9Rj41ptwkW9zbWEre
+         vNbPNZOTTEQfsQOCSDLAp2t8gYJuq1jcJMPtmuq6SH/ohju9TT4qDzMS8YPkg6Vel+6G
+         tXUw==
+X-Forwarded-Encrypted: i=1; AL+hErFmVntLe/9dVvOY8CJbHmPAIGFvPAcB0IFueTE2ZhTcrQOXBXlJTBvrq9vfcZvqEkPBz781uNauxQVEy0s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9V9BbJOJUttfFYKQ+O3dh1gTcCkXrclnYkHV6mgcPyzocKq54V
+	38q0CkzUkE/2Rh2uSKCJ1DzIIAlH/1xiFeE8gC+usf0saCZNBuErNeCDl45tQgw8F+hkJstJBZM
+	62BeDHaOh3s/MD8aByhgBaIcS7b+vnt6Gtm/9oBQ7ZS+DB0B9QUMfKdCvpTk=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,63 +58,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/670] 6.12.118-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261113153811.177190860@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xSb9l-00000003Sp9-0GqD
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:37292
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 57
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBMweWTwjAPC6gHRl/ShaE3jBE02TD2DReynqIJaoGKloQodB0E56EcppJ/s2wUdbESsX+RKcTmU98WO2GyjqgcvONGZklk35kzCRfaxigpflx7FbrfL
- AusS95xzkywPYlZTZiBConPBci/eD3MF4GQ7+nUoWfshzW3wTDrqjn2wYdWS9157E/zFSEr83Hzsswe0deprMZGofnyv+6UNc+Y=
+X-Received: by 2002:a05:6808:244f:b0:4e9:7d56:846f with SMTP id
+ 5614622812f47-56e640bc904mr6950073b6e.41.1794752698457; Sun, 15 Nov 2026
+ 06:24:58 -0800 (PST)
+Date: Sun, 15 Nov 2026 06:24:58 -0800
+In-Reply-To: <20261115142448.21160-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af9c0ba.920b2b3a.148c65.0027.GAE@google.com>
+Subject: Re: [PATCH v2] RDMA/uverbs: Free all radix tree nodes in uverbs_destroy_api()
+From: syzbot <syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com
+Cc: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/13/26 07:42, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.118 release.
-> There are 670 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.118-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Patch testing via #syz test is temporarily disabled.
+See https://github.com/google/syzkaller/issues/8122 for details.
 
-Tested-by: Ron Economos <re@w6rz.net>
-
+>
+>
+> syzbot reported a memory leak of radix_tree_node objects allocated
+> while registering a siw device:
+>
+>   radix_tree_node_alloc+0x81/0x1a0 lib/radix-tree.c:276
+>   radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
+>   uapi_add_elm+0x61/0x140 uverbs_uapi.c:41
+>   uverbs_alloc_api+0x85/0xc50 uverbs_uapi.c:659
+>   siw_newlink+0x36a/0x3f0 siw_main.c:433
+>
+> radix_tree_insert() can fail with -ENOMEM after it has already linked
+> intermediate nodes into the tree, leaving them with no entries.
+> uverbs_destroy_api() only removes populated slots through
+> uapi_remove_range(), and radix tree nodes are freed only as a side
+> effect of deleting an entry, so these empty nodes are leaked when the
+> uapi is destroyed.
+>
+> Call xa_destroy() after removing the entries so that all remaining
+> nodes are freed.
+>
+> Reported-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=d60be66dd00b4490fa96
+> Fixes: 9ed3e5f44772 ("IB/uverbs: Build the specs into a radix tree at runtime")
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+> Changes in v2:
+> - Drop the dummy insert/delete workaround in uapi_add_elm()
+> - Call xa_destroy() in uverbs_destroy_api() to free all remaining
+>   nodes, as suggested by Jason
+> ---
+>  drivers/infiniband/core/uverbs_uapi.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/infiniband/core/uverbs_uapi.c b/drivers/infiniband/core/uverbs_uapi.c
+> index b67db3790f03..77a4eb494936 100644
+> --- a/drivers/infiniband/core/uverbs_uapi.c
+> +++ b/drivers/infiniband/core/uverbs_uapi.c
+> @@ -621,6 +621,7 @@ void uverbs_destroy_api(struct uverbs_api *uapi)
+>  		return;
+>  
+>  	uapi_remove_range(uapi, 0, U32_MAX);
+> +	xa_destroy(&uapi->radix);
+>  	kfree(uapi->write_methods);
+>  	kfree(uapi);
+>  }
+> -- 
+> 2.43.0
+>
