@@ -1,71 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.90
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794715159;
-	b=j1F/nrxF7q6SYelFabwsYHVS2qL7bTcBFd70S+bNjfSi/80liwDr30hFNjaLliqzqsip
-	 6KWewQGkjWaUn0UcBc45gl5lPW10Xgb12qh29wgkOxb6s5o0n2BwM0rZWCX9nJPw2q7fM
-	 fIA8l/Icf49U4O0+j9o2rPs9n2Zzx1aK9np08UyQKQHEKtpsa9mrjny0m2LFlXv8w18XG
-	 FoPep2QIzcG+KGR2AruI6ZND1eSibCtwyxH4Hr/LVhGJJvQVhZDoG8QRTi3EsZiDIhG87
-	 /v0TqhZzi+yzZdc8B4yzNt4fsTZTJCbI37O9YaA/gYJBako3TGM3Zl/dZTbw13dP85g==
+	t=1794715238;
+	b=zouYdHoCORyPWqLxB8GCMdH6CXBUYfoLhU2YTg+Quegb3L51QnWu/cFQ9rHkkN6i0fFr
+	 CqmWPi3Bxdcexy+kVre5a5QqBF+wdmFZFSFebu73FfuYBBuLzr7x4PJWK4zBQ0Ngm7Vg3
+	 /plImAQJHJ8DsrZgHEiMBNiGnj+ndnlcZiN9BulIabdilAjwW+3Jj+yTY86pYrnBRq0Fj
+	 q1UHH2aDvGWW89bQFLpugNKUUccuoupYyRbjwse5ITWQbJfgYDgaQb+FNRIV3ydHZKsXx
+	 8KYxA1Q9nmzWTBgN9oECqBSFQYP04Nivllg/niwpZVoBMfgyuro84W9PA3ax/M6V9pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794715159;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NuAsvnMR46sR9gI8SLtAR5XP8K/1vM6PT6/lJtess+Q=;
-	b=TcZaXzeHq8aMDmhvYiYVBpEEzAlVWC7IgOljgUPvmwc2njolf+rFzEWOymYLstbImB7Q
-	 UFULyd0lAvibDgo62+hvJLX6WqM69F2wHeS0oYu24kX7PzG/fSmODg7TZ66hHAgPohYd5
-	 4WsPID51mmhNykfi0Au0OzuT57HLEh3QFVwyddQnz05pudjxWyTwth78mxWXC7HbQiWF3
-	 MICmVWRmE26TBMtlICjeQs9R7z4KXtjK9qniERO2DbL9u/Q4/wjzVila6QGrUs+k0eStv
-	 t4y1e3MRdl9RrPShS2SIb/4BUXvxsDc2vVy4w4QpHPIpbHiZm7wt+Pr81fkIzo3a3qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794715238;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=sr4TE+zBIeg6HV1l24H9m0OXY5tB60cmXmFjwzmKetM=;
+	b=bd9WGBWKNeXUMjqV1ypsJIESN1IHIDYUaIAJa2pNJm2Dqp4RTwMwPyxcBWQGnDy283/S
+	 EdTbgj/rpLYSsccXZEX6cf8LSk2NvH2jIs1Xjb99J9JhjhYv7zV8sjQIPG2i7Tv+a/Ulh
+	 rHuYSUPTZveLCAcTO4xb3OIa2vvoPqhEqIOm680+3vyvdXpArTfq4OWUUKbSv6wp1bDUJ
+	 4tzd3/B5UA/W7kpEm5hCdviDL2n0Tq+jdqD6WOEghjYXK7SDnpKwriYk4Y/epe82RK9cq
+	 p7DywF4JWtJf3cLOJSaYiUeNVYxiI4F6pU64aGart36Nnfh08K4o6eTSJ0yn509u/rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CCSjqSpJ;
-	arc=none smtp.remote-ip=91.218.175.90
-Received: from mta0.migadu.com (out-90.mta0.migadu.com [91.218.175.90])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=vHkXu2gF;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6338606A323
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 03:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6338606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6DF606A327;
+	Sun, 15 Nov 2026 04:00:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C6DF606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CCSjqSpJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mQcoS9Sc2UpTDrIzI6WgudKQuxjCFSShhOz3XNpcbaU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794715155; v=1; x=1795319955;
- b=CCSjqSpJkXYD+ZZgMXqXg2CXi47zfff8c36Uqhm3hg/Kkne/Ov0IVHp3lNX4Gi3Kb5qXpHvV
- PZA8NacX1OSVelXsdpEY+JLcDuUAkf68d2kFQPnoXSyrVjR0Nq2X8EFOvNsOu1mk+c3IcooC54/
- 59jOVjI4F8ImdnVSv4cIw8rE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d52f7bc876b3b586;
-	Sun, 15 Nov 2026 03:59:14 +0000
-X-Mizu-Trace-ID: d52f7bc876b3b586
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-To: K Prateek Nayak <kprateek.nayak@amd.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Qiliang Yuan <qiliang.yuan@linux.dev>,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] sched/fair: Avoid re-syncing runtime_enabled on root domain changes
-Date: Sat, 14 Nov 2026 22:59:06 -0500
-Message-ID: <20261115035906.1185642-1-qiliang.yuan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <e1a63a3c-3975-4b05-8ab4-518c37d867d6@amd.com>
-References: <20261111-bug-sched-fair-offline-active-v1-2-4f54523c5a70@linux.dev> <20261112105624.GM2668804@noisy.programming.kicks-ass.net> <20261112125947.GZ1813469@noisy.programming.kicks-ass.net> <e1a63a3c-3975-4b05-8ab4-518c37d867d6@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=vHkXu2gF
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AF40SHd82160052, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794715228; bh=sr4TE+zBIeg6HV1l24H9m0OXY5tB60cmXmFjwzmKetM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=vHkXu2gFyVV2tp6ySwRp4sm+rWSX3n45Rk3iiL0h4hwNaTtSgMhVKPKoF1bu1VOvG
+	 aB/x/07W+ZQok3EzXrEeiDJSNhIyLcY0aYn3R07Q1aqhd88G9BzGotEHYbnWpzUYij
+	 azUMcN/p3QoeGbtDEoco+zB6kuqqnMJAusnJqi87pXXwqFON4PxOznxGDTjXGgOwXT
+	 B6Z8sJcY2IkzK/1F8owZ5gZeM9jTXxjT+J28p1Q5KDzUK72gojjuX13uorOrpQwPqB
+	 U2kDKLAGpcVipdf9zk8wyuEdJG+xTHfFisqNR7WQ7c9Tk9dUin9pbrBWzul5IPY7Nx
+	 vWhqNq/0s2fjg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AF40SHd82160052
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 15 Nov 2026 12:00:28 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 12:00:28 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 12:00:28 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Sun, 15 Nov 2026 12:00:28 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Enver Ikromov <owner@ph4ntom-rev.uz>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v5 04/10] wifi: rtw89: protect
+ pure_monitor_mode_vif with RCU
+Thread-Topic: [PATCH rtw-next v5 04/10] wifi: rtw89: protect
+ pure_monitor_mode_vif with RCU
+Thread-Index: AQHdc8pjc1EkrMM5Z0STupfIgg6D0rcugZUA
+Date: Sun, 15 Nov 2026 04:00:28 +0000
+Message-ID: <ac552fa2a85d421eb5828f85366162f3@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
+ <20261113235211.1911-5-owner@ph4ntom-rev.uz>
+In-Reply-To: <20261113235211.1911-5-owner@ph4ntom-rev.uz>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,46 +87,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 11:57:54AM +0530, K Prateek Nayak wrote:
-> Question: Why do we need to do rq_offline_fair() + rq_online_fair()
-> during cpuset for active CPUs since fair doesn't have any accounting
-> linked to rd at all?
->
-> For deadline and RT it makes sense for bandwidth accounting and
-> rto_mask updates on new rd but fair, and ext shouldn't really
-> care for a rd change.
->
-> Would it make sense to separate the offline / online bits from
-> a root domain switch? It won't speed up hotplug but it should
-> speed up cpusets causing domain rebuilds.
-[...]
+Enver Ikromov <owner@ph4ntom-rev.uz> wrote:
+> A following patch reads rtwdev->pure_monitor_mode_vif from
+> rtw89_ops_tx(), which runs without the wiphy lock, while interface
+> add/remove updates the pointer under the wiphy lock.
 
-Agreed, fair has nothing to redo when an active CPU only moves to a
-new root domain.
+Did you actually have rtwdev->pure_monitor_mode_vif for the case
+vif =3D=3D NULL?
 
-Peter, I have a v2 that follows your earlier suggestion: rq_online()
-and rq_offline() get a bool that says whether the CPU changes state,
-and fair skips both walks when it doesn't. Hotplug gets faster as well,
-since every hotplug rebuilds the domains and moves the other active
-CPUs. With 4000 cpu cgroups on a 32-CPU VM, switching a 4-CPU cpuset
-to a partition root and offlining or onlining one CPU take (median of
-20 partition switches and 16 hotplug operations):
+For wlan0 + mon0 concurrency, there is no monitor vif, no?
 
-  operation         before (ms)  after (ms)  change
-  partition root          19.73        1.19    -94%
-  cpu offline             44.93       12.83    -71%
-  cpu online              37.03       12.94    -65%
+>=20
+> Annotate pure_monitor_mode_vif with __rcu, convert existing readers to
+> rcu_access_pointer() and rcu_dereference_protected(), and recompute
+> the pointer via rtw89_recalc_pure_monitor_vif() and
+> rtw89_set_pure_monitor_vif().
+>=20
+> Whereas mac80211 only creates local->monitor_sdata while no other
+> interface is open, a monitor interface opened with MONITOR_FLAG_ACTIVE
+> is passed directly to drv_add_interface() even alongside an active
+> station or AP interface. Walking rtwdev->rtwvifs_list ensures
+> pure_monitor_mode_vif is published if and only if a single monitor
+> interface is the sole active driver vif, and unpublishes it with
+> synchronize_rcu() before its link, port, and MAC ID are released.
+>=20
+> Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
 
-Prateek's split should give the same results and keeps the root domain
-switch out of rq_online()/rq_offline(), which reads cleaner. One
-difference: with it, a CPU coming up gets rq_online() from
-sched_set_rq_online() after the rebuild, while today and in my v2 it
-gets it from rq_attach_root() during the rebuild.
+[..]
 
-Which way would you prefer? I can post the v2 as it is, or rework it on
-top of Prateek's patch.
+> @@ -241,8 +282,7 @@ static int rtw89_ops_add_interface(struct ieee80211_h=
+w *hw,
+>         if (ret)
+>                 goto unset_link;
+>=20
+> -       rtwdev->pure_monitor_mode_vif =3D vif->type =3D=3D NL80211_IFTYPE=
+_MONITOR ?
+> -                                       rtwvif : NULL;
+> +       rtw89_recalc_pure_monitor_vif(rtwdev, NULL, true);
 
-Thanks,
-Qiliang
+I don't see the difference from this change. For virtual monitor mode, ther=
+e
+is one monitor vif at most.
+
+>         rtw89_recalc_lps(rtwdev);
+>         return 0;
+>=20
+
+
