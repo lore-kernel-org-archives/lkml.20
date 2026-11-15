@@ -1,78 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794730889;
-	b=KcZX6cj5FT27DYB7yxKLdpJBFWrVgrepMsHY0tawliQhCb019hh6mKMm4PVzxgmz0X4s
-	 wKTiwp9hVdZ/j7/4AN0qEN6vP+hCd6B+pXNC127W9ssh59uMYPYLZ8HoCjUmBhMZOKb7x
-	 tTrpkBbqCkGi+B+IltJAI1Xzc3gw2yOGthAS6Z5zvcwtuLRRafl/LkB5OdJvw/wW3nSdL
-	 fASy7KWR6JZl8ORvuzqe+9xaZDwUfFACbLXdtdPrvVVSnXLbImUPex70JZWt6gkuPVvr1
-	 nfp3XbdPCxSurmxbNmwuZj8tyHqKBIgEAMyXihDQgsXmazcLc3ON384l1Coqye67ucA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730889;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
-	b=tEIQIvf95A9PnPFSegkdAlWXlTKvHJHUakG+JvryAFLKE1ZvyF3ccrPfVHDgPnCVBEyP
-	 iog6XXN7igSOlA1BN9Jws1rfWLcDEa7eNfEp3VY16GbeiHxCDze62BXdVUaUo0jaDbF0W
-	 //ZAMVHd/tn91X9WDuxyKgonaYXvio16VwY3/wllKveAoJFo6gDjlBhZ5bfCT9V5geaSU
-	 IxNO8W6G7XHJebdcWZoVAf4Ju8Ds7bf/nfFZ94NovTQgbf5k6vneZnyLTcn4PAaFkPeDy
-	 P8GnEPStqlVV5GFwCI87nUy49aMx6HRSBgt16cbvJwD2LZRSdEpz38fD8KfOZ7nNicA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQa4+kUx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0FC606A323;
-	Sun, 15 Nov 2026 08:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQa4+kUx
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794730889;
-	b=uIHTxWgxHeav0Yah/4gpId49IAp5ODUymgmPHXQE5K0anOjcH6ONa6Wd2bA5erPAVKLT
-	 wO6CyjB8o9k/m/8ZcyN4zTRWMfKQKj7hrrCu6ZebHIpMP24j4i7+JeGjWm/M7rXwfSQ7L
-	 2RsZS1lA9ZTLVLXt2THibsuzFqeacSOoE0UG2jGP3IiPeYa6OEwvz3Ivwftv2vGIitRoK
-	 uVwJn1LNzKxITF2m+Kn3CkorSGQJtmYutkCpHWj84rk+9iqF3CvO71FVlayZ8WXBXyvoW
-	 /YWtD9nUjLC2z3r9Vw2hDdNyEyPWGtk/wTJSWKm/6L6TfujPYB8u5BzeytlCzHCF84g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794730889;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
-	b=Tx+TI57z0cW7qt3QAPtdWY5bgjD7wMextmhgcf3uuOVpnr+5WUlheQ2ITnpXL1xC7car
-	 fb1gC62NhFE+QjVfwwBk7htrEh+quFoyEzgk7+BydCB8yVdOH3sqb5Bp8EYopffEzF7qB
-	 48iXEyuF1943RyJM0ToYZVRyKwRZXw5LujJhHXIrxiEbPC8a6j605SYdhxPrB+h7oMHGn
-	 noYTcWC3WEW9Mkfqn0xU99kVAeApq/wOGrxmR/XNl1IFNqqabtMg5Y2d50JZPhxgbYRwg
-	 yT1joulCfeRkdDLIQ6H2SLynqNsJQuAI3TXXV0aZnIwlPlRYT6iSsy+sdNOu9tZRXpg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794730962;
+	b=zwxkfk8FlSxoqvjG/6F535T8Vzr/bApAxXndTjpIjMoRPSdvcnN6ejApnvDiBgZILanL
+	 Ehm2kOJedqmdnoG08U7xFQchomgZaasFc8EbnB2slCSHI4BSAFK6Uh/jW7Y2dVClTEpza
+	 5c5LMs58HkzACbZ2TBz9lcthHORFrA1OGgQKt9L4vveapQNujn1xkouEO40SoXX4xC5fO
+	 sQRHT0ZM5eauMfxOqH2+qCGbaAq/hIX2i2S0QWnDnufWngWw/nAHLNxnoGbFemZI0SaWY
+	 edEvYUWGcQU/JG0jChj8eX2GKnzosxN9AtGBVMfxPyY7QR0ZAgRWXSmreF862grZ74A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730962;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+	b=sB07RPo7txdyUSe+EA9bL7miHTiYfb8SyH+vUJCJMQw0AkKjDtafFjfIsZZKIREm5F2p
+	 uezZjD0jtlOLCuxcASVRRR7fcwzlLwFHCdPTRH/x51wIWuGfeXVED1GyUhUAdVh6MppDi
+	 g1jLgU881RSOZzzyy/64KDh7tQjK+efOqyMxd0unKCAF3kA/R67Hdtp8NUy9LLazcEDWv
+	 6T/BFYoltC++V/iIRkjd3vako2aUm1GQpNwd8W8+x/0jxRM1VVAJwYKZFrpTyjIAJJ5ri
+	 l+HY/Fi+FfW9ACvytb0DF8Qf5txo4N74fwOfp+0YuVCCPi16cAbbdtzV36dU5HACsIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C15851F000C5;
-	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794730889;
-	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=EQa4+kUxwoSm9bMxJWdOF2lrV3sywmd78fJbBbFuqIFqg7TXwDKWdmPNstZb2kKoD
-	 nekLO+7ZKZjzuzLL2G5jCZVLXzaHJEHCX1iQr2JalLZlTnr7cidKwhwBt5aXkfm3Fl
-	 n376W0CXfOTPkrSkamWmTCoq1KgkljBxs/rGBPJ/NqiAUHUZQUJ2+aliOv3Z7Qvbqs
-	 /vi+TeiMyq3Ni6NqliLMvlKnIs8dKSTGHntVUTuotKEqAlNOwgsbqh8O6ErVardLrd
-	 dnu8cla1wrg2RGo3UbtT1DGOBWP4oThavLPBC2PhpfRNUF8WLn4jNOXT1FkC7vA4hM
-	 Kv1V51l9eUaLw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4C40949F69;
-	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 08:21:28 +0000
-Subject: [PATCH 1/2] media: rkvdec: Stop the VDPU381 core on timeout
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA98A606A327
+	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 08:22:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA98A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794730960;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+	b=fzae79s4r33XIm4X0Qplugnvzcx6gmPVHrx9mtrZBkRTm4nlRPUcw1+SPvXJg7RI2vN7db
+	cMANMWjWd4+a8HcnjUfAdloBcKJBlC61C8d9w+Yj3H6YmqZPNcP33FoP1P7YrLhbM37cjL
+	fv+ZjYa3kgtVouWIOS3xtRXdYH3jv8s=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-638-R669S21hNp2jwKBBZ1kp6A-1; Sun, 15 Nov 2026 03:22:39 -0500
+X-MC-Unique: R669S21hNp2jwKBBZ1kp6A-1
+X-Mimecast-MFC-AGG-ID: R669S21hNp2jwKBBZ1kp6A_1794730958
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4916d47eeb5so2204555f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 00:22:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794730958; x=1795335758; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+        b=DmTM11z2mj0Ygyj+SNk4FmJDtfZr0mpv1PUS2jGNBIKf8NMHOQcQqCCVH78jJnYr8w
+         BcLd6CjxdqglHGwJ5zLoZ2EH+AXT5DksN/YWmNfMWshEiGPfB5wbL3ur3RXMt+eak/bo
+         AJU3htHY47nwfMp58dD7JeMtvLCU83xjPwW+zQGwNZUK53OG10JeUWhK4dqc4phQswdW
+         Ar/lr9h7EaYwautyYFc1ZvinugH7pbRkEDJxsZ/bXqOBotJbEZcAGAiALRAhePW6TbLY
+         iL0iS/8I5xz+qWtOxPYrgduXx37RHZ69MBAqu39Tu6g0e1g5xBYYkd11SclSGtv3Hsdb
+         8IOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794730958; x=1795335758;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+        b=n+xNNmRctsEZA634WSS4tQTirIFbf3cX58IKSDP4GAlBOq4IyXvcPzzkbxIesjPsYY
+         VApJ2IXem762H+WNYiDqqe/mkfBwlo871s1lgVydhPtq0qjBtobLz3PY38bby2p5H6Ia
+         dVESUqynyvSiSuXoDRFCj1Hpnp7XGQyIF1o5lbve3A89zroRaYtnN0npamr813svn7Uv
+         1dlDUzhowCUWj5+I0Jhz/52206GCBhneTozX+pA3gUtMgK9YSzxUtyur+9xHggNEDPlu
+         KA5orV3w21xoaYQZ4u98fqtRU0q4M6J/YxUNi6GidrHD5s16HtddJijMPhO9fGCuSvNo
+         w//A==
+X-Forwarded-Encrypted: i=1; AL+hErEV3YhVzqHw0uLuBn6se5FnDt4cV7mzfqo9sKuMun1YqKa+h4MA6G1ixGFP0bDVqksapU2YFKzKW9G+Kxg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qYmzqvzsCovMxfLKA8um2688+Wjh9irxQpvYJ32MUuXoIEkoJ
+	8r8fmEFD0fI1orwbZVqo/Tou5gisTwGH3e0nBs0sbNGRQA8yRGN6TMDgVvKn7WgdfFE5B8yYy+u
+	PNr60ZJ83DAlKb0lVoZVV8TubuukVt4QFTHfhr+9Pw8ySbSiSqPmS3h1o0z9dAo6s8nkgHUAUPP
+	DM69I=
+X-Gm-Gg: AYBFou3x1hCLXc3AXvCfe9f/G3ekhi2VMooxNtCB3tCLVx9gQJu6jRRRY7wAhQE/miq
+	DdsPcZAHTgrt9umSjYeCQHZb28WQDMdO8N9CnC92NN7TP8IsLz31hBTgkYNAvF+zgJrcg4Upyjf
+	QJDykiRdygjN7pVGlStFL7CEqZuZ/S4+gt/8i/GCqlpSFNIhZWnYwhZuTwpb6Aw9NPQOsomhVaY
+	4BTTGV7BmJz0XPYx4WkRpMMYJsKPtY9ICZCIQ1ZeVGLeqJ7l+qsdslH0mpkm/8ALWMFFw/XE7Tp
+	FqB7Q+yJvvo/LdjRrAsQ5ERlacWQMjgpcwELiC18vwNWGtp4621/ksUiloW0yKOiULhVNCNm++B
+	OFwVAJNl9zK+jbFmrkKmGYdAtlXOJIt1BIOyWWAjkLuXxBM01SEGWyg==
+X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906615e9.34.1794730958283;
+        Sun, 15 Nov 2026 00:22:38 -0800 (PST)
+X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906215e9.34.1794730957813;
+        Sun, 15 Nov 2026 00:22:37 -0800 (PST)
+Received: from sgarzare-redhat ([193.207.75.235])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm297980195e9.15.2026.11.15.00.22.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:22:36 -0800 (PST)
+Date: Sun, 15 Nov 2026 09:22:22 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Sergio Lopez <slp@redhat.com>
+Cc: Bryan Tan <bryan-bt.tan@broadcom.com>, 
+	Vishnu Dasa <vishnu.dasa@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, 
+	netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] vsock/vmci: reject datagram binds in local network
+ namespaces
+Message-ID: <avlpwYZr4pSpunEl@sgarzare-redhat>
+References: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,228 +121,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-rkvdec-wdt-stop-v1-1-59e687c6cc63@gmail.com>
-References: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
-In-Reply-To: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Alex Kazinsky <a.kazinsky@ideco.ru>, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794730887; l=6869;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=L/ZVI8Exe59G7uEuqh1qHfrONjucBNmbBZOMQ/y3hf8=;
- b=HW1zDX/AQ/P2BPCCM5lbu9Oq0SQoERVPUY7+uECcih2+7wLgaVBIDWQcI9C4newUPBc91Mh9S
- LBnSiGvM4DjBO/s6XKM1s72rRVd96U45suz86+hul4DXcIEguGLSs5X
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Fri, Nov 13, 2026 at 06:04:40PM +0100, Sergio Lopez wrote:
+>VMCI already rejects datagram sends from local network namespaces, but a
+>datagram bind still creates a receive handle in VMCI's global port space.
+>A VMCI sender outside the namespace can therefore deliver to the local
+>socket. Its handle also prevents a global-namespace socket from binding
+>the same port.
+>
+>Reject VMCI datagram binds in local namespaces. No namespace-local
+>datagram transport exists, so EOPNOTSUPP reflects the available receive
+>paths. The receive callback also rejects any local-mode socket as a
+>defensive check.
+>
+>In a KASAN/lockdep QEMU guest, a reproducer observed cross-namespace
+>delivery and the global port collision before the fix. After the fix,
+>local bind returns EOPNOTSUPP, the global bind succeeds, and a global
+>VMCI datagram still reaches the global socket.
+>
+>Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
+>Cc: stable@vger.kernel.org
+>Link: https://lore.kernel.org/all/sashiko-outbox-212907@kernel.org/
+>Signed-off-by: Sergio Lopez <slp@redhat.com>
+>---
+> net/vmw_vsock/vmci_transport.c | 6 ++++++
+> 1 file changed, 6 insertions(+)
+>
+>diff --git a/net/vmw_vsock/vmci_transport.c 
+>b/net/vmw_vsock/vmci_transport.c
+>index 1f186e8f8364..282131544c42 100644
+>--- a/net/vmw_vsock/vmci_transport.c
+>+++ b/net/vmw_vsock/vmci_transport.c
+>@@ -627,6 +627,8 @@ static int vmci_transport_recv_dgram_cb(void *data, struct vmci_datagram *dg)
+> 	 * outside of the create and destruct socket functions.
+> 	 */
+> 	vsk = vsock_sk(sk);
+>+	if (!vsock_net_mode_global(vsk))
+>+		return VMCI_ERROR_NO_ACCESS;
+> 	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
 
-On a timeout, rkvdec_watchdog_func() writes RKVDEC_IRQ_DIS to
-RKVDEC_REG_INTERRUPT, an RK3399 register. On VDPU381 that offset is
-another register, so the core keeps running after the job completes
-and its IOMMU and power domain are suspended. On RK3588:
+Why duplicating the VMCI_ERROR_NO_ACCESS return? Can we just put them in 
+OR ?
 
-  Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: cpu_suspend+0x380/0x3d0
+The rest LGTM, if you respin, maybe we should mention that also 
+connect() and sendmsg() are affected since they call vsock_auto_bind().
 
-Add a ->stop() variant op, called with the IRQ disabled. VDPU381 soft
-resets the core as the Rockchip BSP does, with the reset lines as a
-fallback, and reprograms the IOMMU, which the reset leaves in bypass.
-VDPU383 is fixed separately.
+@Bryan, @Vishnu PTAL.
 
-Fixes: e5aa698ea659 ("media: rkvdec: Add H264 support for the VDPU381 variant")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- .../platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h |  4 ++
- drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 64 +++++++++++++++++++++-
- drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  3 +
- 3 files changed, 70 insertions(+), 1 deletion(-)
+Thanks,
+Stefano
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
-index 6da36031df2d..57ab23d76d73 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
-@@ -34,6 +34,7 @@
- 
- #define VDPU381_REG_IMPORTANT_EN	0x02c
- #define VDPU381_DEC_IRQ_DISABLE	BIT(4)
-+#define VDPU381_SOFT_RESET_EN		BIT(20)
- 
- #define VDPU381_REG_STA_INT		0x380
- #define VDPU381_STA_INT_DEC_RDY_STA	BIT(2)
-@@ -41,6 +42,9 @@
- #define VDPU381_STA_INT_TIMEOUT		BIT(5)
- #define VDPU381_STA_INT_SOFTRESET_RDY	BIT(9)
- 
-+#define VDPU381_REG_DEBUG_INT		0x440
-+#define VDPU381_DEBUG_INT_BUS_IDLE	BIT(0)
-+
- /* base: OFFSET_COMMON_REGS */
- struct rkvdec_vdpu381_regs_common {
- 	struct {
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 4e3a706f74f6..a8fdad2850fb 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -14,12 +14,14 @@
- #include <linux/genalloc.h>
- #include <linux/interrupt.h>
- #include <linux/iommu.h>
-+#include <linux/iopoll.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/pm.h>
- #include <linux/pm_runtime.h>
-+#include <linux/reset.h>
- #include <linux/slab.h>
- #include <linux/videodev2.h>
- #include <linux/workqueue.h>
-@@ -1592,6 +1594,56 @@ static void vdpu383_flatten_matrices(u8 *output, const u8 *input, int matrices,
- 	}
- }
- 
-+static int rkvdec_pulse_resets(struct rkvdec_dev *rkvdec)
-+{
-+	int ret;
-+
-+	if (!rkvdec->resets)
-+		return -ENODEV;
-+
-+	ret = reset_control_assert(rkvdec->resets);
-+	if (ret)
-+		return ret;
-+	udelay(5);
-+	return reset_control_deassert(rkvdec->resets);
-+}
-+
-+static void rk3399_stop(struct rkvdec_dev *rkvdec)
-+{
-+	writel(RKVDEC_IRQ_DIS, rkvdec->regs + RKVDEC_REG_INTERRUPT);
-+}
-+
-+static void vdpu381_stop(struct rkvdec_dev *rkvdec)
-+{
-+	void __iomem *regs = rkvdec->regs;
-+	u32 status;
-+	int ret;
-+
-+	/* Soft reset needs an idle bus: let a busy core finish first. */
-+	readl_poll_timeout(regs + VDPU381_REG_STA_INT, status, status,
-+			   100, 100 * USEC_PER_MSEC);
-+
-+	writel(VDPU381_DEC_IRQ_DISABLE | VDPU381_SOFT_RESET_EN,
-+	       regs + VDPU381_REG_IMPORTANT_EN);
-+	ret = readl_poll_timeout_atomic(regs + VDPU381_REG_STA_INT, status,
-+					status & VDPU381_STA_INT_SOFTRESET_RDY,
-+					1, 100);
-+	writel(0, regs + VDPU381_REG_STA_INT);
-+	if (!ret)
-+		ret = readl_poll_timeout(regs + VDPU381_REG_DEBUG_INT, status,
-+					 status & VDPU381_DEBUG_INT_BUS_IDLE, 1, 1000);
-+
-+	if (ret) {
-+		dev_warn(rkvdec->dev, "soft reset failed\n");
-+		if (rkvdec_pulse_resets(rkvdec)) {
-+			dev_err(rkvdec->dev, "cannot reset the core\n");
-+			return;
-+		}
-+	}
-+
-+	rkvdec_iommu_restore(rkvdec);
-+}
-+
- static void rkvdec_watchdog_func(struct work_struct *work)
- {
- 	struct rkvdec_dev *rkvdec;
-@@ -1602,7 +1654,9 @@ static void rkvdec_watchdog_func(struct work_struct *work)
- 	ctx = v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
- 	if (ctx) {
- 		dev_err(rkvdec->dev, "Frame processing timed out!\n");
--		writel(RKVDEC_IRQ_DIS, rkvdec->regs + RKVDEC_REG_INTERRUPT);
-+		disable_irq(rkvdec->irq);
-+		rkvdec->variant->ops->stop(rkvdec);
-+		enable_irq(rkvdec->irq);
- 		rkvdec_job_finish(rkvdec, VB2_BUF_STATE_ERROR);
- 	}
- }
-@@ -1652,6 +1706,7 @@ static int rkvdec_disable_multicore(struct rkvdec_dev *rkvdec)
- 
- static const struct rkvdec_variant_ops rk3399_variant_ops = {
- 	.irq_handler = rk3399_irq_handler,
-+	.stop = rk3399_stop,
- 	.colmv_size = rkvdec_colmv_size,
- 	.flatten_matrices = transpose_and_flatten_matrices,
- };
-@@ -1696,6 +1751,7 @@ static const struct rcb_size_info vdpu381_rcb_sizes[] = {
- 
- static const struct rkvdec_variant_ops vdpu381_variant_ops = {
- 	.irq_handler = vdpu381_irq_handler,
-+	.stop = vdpu381_stop,
- 	.colmv_size = rkvdec_colmv_size,
- 	.flatten_matrices = transpose_and_flatten_matrices,
- };
-@@ -1723,6 +1779,7 @@ static const struct rcb_size_info vdpu383_rcb_sizes[] = {
- 
- static const struct rkvdec_variant_ops vdpu383_variant_ops = {
- 	.irq_handler = vdpu383_irq_handler,
-+	.stop = rk3399_stop,
- 	.colmv_size = vdpu383_colmv_size,
- 	.flatten_matrices = vdpu383_flatten_matrices,
- };
-@@ -1813,9 +1870,14 @@ static int rkvdec_probe(struct platform_device *pdev)
- 
- 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
- 
-+	rkvdec->resets = devm_reset_control_array_get_optional_exclusive(&pdev->dev);
-+	if (IS_ERR(rkvdec->resets))
-+		return PTR_ERR(rkvdec->resets);
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
-+	rkvdec->irq = irq;
- 
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					rkvdec_irq_handler, IRQF_ONESHOT,
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-index 894c18eeb795..d9acf85e5acc 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-@@ -74,6 +74,7 @@ vb2_to_rkvdec_decoded_buf(struct vb2_buffer *buf)
- 
- struct rkvdec_variant_ops {
- 	irqreturn_t (*irq_handler)(struct rkvdec_dev *rkvdec);
-+	void (*stop)(struct rkvdec_dev *rkvdec);
- 	u32 (*colmv_size)(u16 width, u16 height);
- 	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int row_length);
- };
-@@ -139,6 +140,8 @@ struct rkvdec_dev {
- 	void __iomem *link;
- 	struct mutex vdev_lock; /* serializes ioctls */
- 	struct delayed_work watchdog_work;
-+	struct reset_control *resets;
-+	int irq;
- 	struct gen_pool *sram_pool;
- 	struct iommu_domain *iommu_domain;
- 	struct iommu_domain *empty_domain;
-
--- 
-2.55.0
-
+> 		return VMCI_ERROR_NO_ACCESS;
+>
+>@@ -1697,6 +1699,10 @@ static int vmci_transport_dgram_bind(struct vsock_sock *vsk,
+> 	u32 flags;
+> 	int err;
+>
+>+	/* VMCI handles are global and cannot serve local namespaces. */
+>+	if (!vsock_net_mode_global(vsk))
+>+		return -EOPNOTSUPP;
+>+
+> 	/* VMCI will select a resource ID for us if we provide
+> 	 * VMCI_INVALID_ID.
+> 	 */
+>
+>---
+>base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+>change-id: 20261113-vsock-vmci-netns-isolation-7e46732dcd73
+>
+>Best regards,
+>-- 
+>Sergio Lopez <slp@redhat.com>
+>
 
