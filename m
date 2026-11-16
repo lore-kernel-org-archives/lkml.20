@@ -1,88 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828752;
-	b=xYQpmO9VUstCbVlqIYbCapM0bIwYwdCvFyJQRQYtt0e4THmUhhbrmNDCkHycuTMVS8EZ
-	 D4RYpFy0RajdfYnCYiZIAa4nmbY+Br7UtGeCuqRJXnNmGRWNAyGjxdh/lRrDQ3w0it4HQ
-	 bQYMWuAwkCcB2q3H5zZ4o1REPpg9TNvDFSS8DWBvGA4pa4rD1CaP09lJHQwzFO54Zl4qi
-	 QMeCl55+8wDO/FDWm+veAiZ/Yh0xaIE0ypifVSCLD+cmpTK+q7JRChYJCiToV+ItAGWLS
-	 PJcSIxsOU+JGDFgrsfvOpz6+9hNua4ZiO/+CWSmyUo9NF78ulk+Ul+BcMa37P2z7YSw==
+	t=1794828764;
+	b=Hgn8re39r7grBnheU0GVyXir0uI8YNu1CHGivo4mVOH3wa+bTCCrNAHx1K6vAizjoR9h
+	 mVRS1fEkM7MADhhul+hTvhkyZa59K4OcDIllQMrrMNVCgijGrOBZv7ugF580oyUn5wTSH
+	 w9LLglq7VWc4JRBQoEJRpu/6SyzyJDC2/CmiwK3aEax3RILwGS0rdpEMOmQJ71TJ+exmv
+	 Jj/8zTi3IA9zbtHm9Ye8eZ9DfxIIIJ2C5F4480ht2rGuTPZu/zTeVEbsLPQhi9Vk4V7rA
+	 gAPe/o0OXxHTcJe2ptSivg/dS/FJEyrvg2qfO/uCb09hANu6qc9nxAsbeJD/CVkj9BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828752;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=EeT6kKORp+5IdL68nhIk7h7EYxlyRMPSL0xvT3ad40w=;
-	b=OGa5RwWJFt8YWRjMwShM7MVyZGCTSf6n9ali+te7pMulNqPKSOetEHMW025H5a1eUIa9
-	 RXgddK97zw2SCCpKmoMQ7RzKJPlTgKhoSBMz9m3eQT+O+ms+ocICFTmHSRBw9MxJXBIHW
-	 yCifzB/h3uk8WXZTeS+KFh1rdRSZp9ZR7rTvKmR8NJFPT0WcbDzuqGn5iugNPnf2nis+E
-	 mYdFvmMKf35qQOKkKOQAES9ZKuQpN06DxxT3ATUM19XiWDpy6Bawik2702zMFMijw+0uI
-	 6qU3ISYN+WZngzWUA8j/0iY80T9bTRyLULUnff9BjiyIhGw0vd4+ADQCP1mK4dc1oKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828764;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=Uken2bPihuMdCrwPkCgP3IGwX1lpQRkERvwjisD/E0c=;
+	b=3yM7DZH69lmiek1jEuYyZDwKv3YZ5nWMMhnC4xIQ9hzVgHNH3wlepfFeCf79BHRZW8zg
+	 PiBKYZmFtsaq3cT1eOBtgvj28y6xywF6veJjRJxwGDfRwb8vqcd/PjT6oBfzBLF8bNBOy
+	 XDBPb8upYnnk7QOw3+pN9XewXmql3xtfOlbpuKC0hADACFh07Rax06hoBwPG/G5vepYxY
+	 x13/i+8SnobPukFZhacRsjZfPxP/ZAPFNRUt/Veo17yaHm0sS53QEm+MebPHrpyo3DRNk
+	 S4rtQ80nlGaq0eVQeTWR0mJQDb6QBH9FNMltTj/wcwuzAYpE1anyFxHRYT2uyP3+TDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nbXFqPbU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=phT42UFz;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6F8606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:32:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B544606A334;
+	Mon, 16 Nov 2026 11:32:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nbXFqPbU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895011F000C5;
-	Mon, 16 Nov 2026 11:32:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794828752;
-	bh=EeT6kKORp+5IdL68nhIk7h7EYxlyRMPSL0xvT3ad40w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nbXFqPbUFgikhQltv9KVm7AYfntXSmMhyP2ptNZ7XZcaUhJWXCq+tBZLpVem/2UJ1
-	 Ps98KoKbT6QiMMS4vs/E6KbLop3BvT9sLOwYgLE6LKrjNh794YIBk0rrEhNibL604r
-	 TchceIgB0MB0gDC/s4sEaBlSojaX9RnlEklYyVk5tq6jdU3rjMKjyd+XiHOqO8e31Y
-	 xuT/VadTJYfLbgQdhO1HlQ1dBpFUPKEjlqeGA73No5yd01PlWCFScX/UMC6Yy0ScWP
-	 Oye5nqVSMBt+aPYc6guaDfuqsCl/IPwnmLMJ7ZPWnX9gGH7Z/Va8t+AcocHpaBDV2T
-	 W4W7nWGxuVdUA==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id DB699198003A;
-	Mon, 16 Nov 2026 06:32:27 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Mon, 16 Nov 2026 06:32:30 -0500
-X-ME-Sender: <xms:y-n6asylUYQScB8se0cYa3FE6o5crBxcd-JzaBnNcyWX6gyVI66Tng>
-    <xme:y-n6ah97JQWHxzDFHgnFdzb7Bt4Ge4G6_TYc-WBONKM7Dl6m7L9584ZQobVUhMPx_
-    H0yo1iU9tgqU6qY_3G-HJ0xWUaSZN5aBnUR6PgSBAK0jAcYDKsO_P3M>
-X-ME-Received: <xmr:y-n6ahz3JT2PjepyCEOl-Ucmuj3gyH6hJbT7WjJknPmawVxpRCcBfE4mwXw>
-X-ME-Proxy-Cause: dmFkZTFXHyoiJGy6ZheZQtG51M2OBrJvqTYDsP4f8xxpys1dt6NQaTyvvweOFtaEPik+vQ
-    yr6QXvtB0HIxI8n7fKDLJ5RqRzNhxnYwuzh50Veq5YzqTxIMGFfTg4wL65iADIy5+4Ta4+
-    DgS4IEG70qfReP94PChc72OASrq0cCdmmY7HSQ5K1Yb2pepzb/nuNjO/jtrWTZNNv1JgYs
-    5XF9G+BJdbdG54i7naOBq2tCTyaeCgfoiARkjD09pR24EsfVX4MMlTdJiSxdUEoPaZ+ekE
-    cbsS+wBXRRz0NCLLwDKp1nBESbFkVfQbFgysIXEWVZy6FOndR6Utv+79EZN8a65+cvmXSK
-    ul7Zenz6zPBX9yFoIiEhzOlNqTBfqMomqEwbX8+IUkTplOirjz2bdnXlSqjPbeqPtxCqE0
-    wX8/t5VrNrb33g56kerRgG0GKQKrhBUNRbrWv8BhOnZIi21PKoPSlQ3YsP9ZhNIkpv9WsB
-    9EQSjiQTIlNnMSkgQc9Q2C0CrlOmO0hDU+9S6g8TiJpZvsu/xGbJb+7iCE7r/YmsiLQKIW
-    IeL75mQKMbPuq0Hs0eas7lo/ZPZimvE0cGET3Z1n1Zt7tqkHxGJXwyMzIxQhT91rsQAQTo
-    fmcNQHUlJHwq62FdoJiwbJoy7MJHzE3EaVg7wiEjMDlXXNyelmnb+WR+DXXw
-X-ME-Proxy: <xmx:y-n6aqVUbJTX42ukVJWrl__eKiHs6DnypN7yPXptDUOk8RQo3PNJTQ>
-    <xmx:y-n6akaltKjsO5miz18UsGU2PK2iuJBuJUaFsBsorVG3BoF_8RozwA>
-    <xmx:y-n6avTB0VJckj_hauQx4Ypj9wcGNfJwP5fIutoOFOphWTUfkIZ_9g>
-    <xmx:y-n6asTTWHNor-VGA7cBy0Gnl2apYej2fgSZmSrnQGglA1T6itjG0w>
-    <xmx:y-n6aq35dAN-tbw1UCtITSkQ6ceyuz_jMbkXJvk-yjOUu27Z3r_dmZht>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 06:32:26 -0500 (EST)
-Date: Mon, 16 Nov 2026 11:32:25 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
-	Mel Gorman <mgorman@techsingularity.net>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
-	Zi Yan <ziy@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm/compaction: sample empty pageblocks again from a
- random offset
-Message-ID: <avroysmflhyRZ42p@shutemov.name>
-References: <20261104101747.2485913-1-kas@kernel.org>
- <28a340e0-76f5-416f-a74e-f74f4a2c2d36@arm.com>
- <d92f9b62-5d2a-44af-908a-ef80fc8e1766@kernel.org>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=phT42UFz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=Uken2bPihuMdCrwPkCgP3IGwX1lpQRkERvwjisD/E0c=;
+	t=1794828763; x=1796038363; b=phT42UFzf4pBlFAh4oNJaLzUzj0Cj+5xzMoLfO0oTw+ii2T
+	iH0CmA419yD+OVuC1lMHVyArwkwXvcLOT+rycrUU/iAsn+Bg/xgTIaaFL+2q7K7489l38LYc1XzgD
+	iMPeE7Tnxw9eFJMR3LToKB6gTi0FX9IjEJUAq4MV6ns7xK1nUtrxDONyRbtAyvr/v5Vzv3RHYXleL
+	CtGVOt2bDeSPEjq1NZBGuP1Gk5hBH21c5cn5CNBUD1aBcKOAp1whIPhmdIhWGCUHTCXvd7UlVyqde
+	UuXrlnlZ8Z34WA5Ex5kMfRk7IfT7MOOX+JLvMxgG6QdVfWFFaWwgiN+Cb0pSz5Dg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xSuwy-0000000Gaa3-0frj;
+	Mon, 16 Nov 2026 12:32:40 +0100
+Message-ID: <13d0d8d00897f425ace949084cc0644d52a0e504.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless-next v4 14/21] wifi: mac80211: add driver_op
+ for SMD substate changes
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 12:32:39 +0100
+In-Reply-To: <a743c654-14f8-435f-9b83-bccdf2865615@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-14-62e39487f51a@oss.qualcomm.com>
+	 <9016700a02b45e18e06525b338fcce52a1e341e3.camel@sipsolutions.net>
+	 <a743c654-14f8-435f-9b83-bccdf2865615@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,33 +71,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d92f9b62-5d2a-44af-908a-ef80fc8e1766@kernel.org>
+X-malware-bazaar: not-scanned
 
-On Mon, Nov 16, 2026 at 09:38:29AM +0100, Vlastimil Babka (SUSE) wrote:
-> > IOW I think the probability this patch is going to have a downside is
-> > more than that of upside.
-> 
-> Agreed. This seems to all be based on a hypothetical scenario, only
-> constructed artificially to demonstrate it. A real-life motivation is needed.
+On Sat, 2026-11-14 at 00:50 +0530, Pooventhiran G wrote:
+>=20
+> > > +void sta_info_reset_smd_state(struct sta_info *sta, bool notify)
+> > > +{
+> > > +	if (sta->smd_state =3D=3D IEEE80211_STA_SMD_NONE)
+> > > +		return;
+> > > +
+> > > +	/* DRAIN -> NONE, EXEC -> NONE or PREP -> NONE */
+> > > +	WARN_ON_ONCE(sta_info_move_smd_state(sta, IEEE80211_STA_SMD_NONE,
+> > > +					     notify));
+> >=20
+> > How is that even useful? If we're talking about a sub-state while in
+> > state 4, then surely moving out of state 4 simply invalidates that, why
+> > bother?
+> >=20
+>=20
+> True, thought I could clean up the roam states before that exact invalida=
+tion
+> happens. I will remove it from state 4->3 transition.
+>=20
+> > > +	clear_sta_flag(sta, WLAN_STA_SMD_PREP_TARGET);
+> > > +	clear_sta_flag(sta, WLAN_STA_SMD_EXEC_CURRENT);
+> > > +	clear_sta_flag(sta, WLAN_STA_SMD_DL_DRAIN);
+> >=20
+> > Understand that you need to clear the stale flags, but for the driver
+> > that just seems strange?
+> >=20
+>=20
+> So, this is also called from state 4->3 transition so clearing the stale =
+flags
+> seems necessary. For the drv_sta_smd_state op as well, if we don't clear =
+the
+> state in mac80211, there will be inconsistency between driver and mac8021=
+1.
 
-Fair enough, let's drop it.
+Wait, which way is it then? Anyway I'm not sure I see a lot of value in
+moving the driver down when the whole state 4 is left later?
 
-It is not entirely made up, though.
+> > > +	case IEEE80211_STA_SMD_EXEC:
+> > > +	case IEEE80211_STA_SMD_DRAIN:
+> > > +		err =3D drv_sta_smd_state(local, sta->sdata, &sta->sta,
+> > > +					IEEE80211_STA_SMD_NONE,
+> > > +					IEEE80211_STA_SMD_EXEC);
+> > > +		if (err)
+> > > +			goto rollback;
+> > > +
+> > > +		if (new_ss =3D=3D IEEE80211_STA_SMD_DRAIN)
+> > > +			err =3D drv_sta_smd_state(local, sta->sdata, &sta->sta,
+> > > +						IEEE80211_STA_SMD_EXEC,
+> > > +						IEEE80211_STA_SMD_DRAIN);
+> > > +		break;
+> >=20
+> > you do realize "fallthrough" exists?
+> >=20
+>=20
+> I am afraid I am not able to understand how fallthrough helps here.=C2=A0
 
-I stepped on it while testing another series. A fragmentation stress
-test gave bimodal results: no direct reclaim in most runs and hundreds
-to thousands of allocstalls in others.
+My bad, sorry! I mixed up the order of operations.
 
-It was confusing and looked like a regression in that series.
+> > > +	/* if EXEC -> DRAIN failed in the driver, notify EXEC -> NONE */
+> > > +	WARN_ON_ONCE(drv_sta_smd_state(local, sta->sdata, &sta->sta,
+> > > +				       IEEE80211_STA_SMD_EXEC,
+> > > +				       IEEE80211_STA_SMD_NONE));
+> >=20
+> > I'm not a fan of sticking whole blocks of code into a WARN, but I'm als=
+o
+> > not sure this whole "model what should be a one-way sub-state based on
+> > sta_state" was a good idea in this patch.
+> >=20
+> Could you please kindly clarify "model what should be a one-way sub-state
+> based on sta_state"? Would you prefer if the driver was able to directly
+> update the state as well?
 
-It took a bisection to find that the only thing that mattered was where
-the free pages fell relative to the stride grid. The test in the
-changelog was built after that, to show it on purpose.
+Ah, no, I was just mostly thinking about the above discussion, and also
+the whole substates.
 
-The workload is very artificial, but the fix looked simple enough to
-post.
+For station _state_ I think it makes sense (mostly) to go have the
+"ladder" of states (notexist <-> none <-> auth <-> assoc <-> authorized)
+and clearly modelled it based on that.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+But does that makes sense here? Why even go 4 -> 4b -> 4c as a substate
+etc. Wouldn't it be a lot simpler to just say "this is the new substate"
+deal with it? There's not a lot of "ladder" going on, the substates
+don't really depend on each other as fundamentally. In fact, for 4a vs.
+b/c they're not even a ladder anyway since that's completely different
+use cases.
+
+johannes
