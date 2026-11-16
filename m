@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851929;
-	b=dA4lfMzMIS0MZje4RIhBbm7lkra4cdJYPN5kBLJnwDm4zhF2NMr5GuL6FrdzU4CSlL5U
-	 uUZr4f1EL7NcRHxKlt0bKKiz6fnHc9TXMw0ZSrkP/UlKXCyqqdfaK1hHAPWbExSX6Jfqc
-	 +RQc0HxjyCbPE03Y6dDOUaZ0v2Cxw//4wZTxJ+RdfdlIH/h2XHXRV2pbdOGBv9RQjMPYs
-	 XcSsBS9jPqeS78wmK+MdCB0i6173d3nxXDaNUxDmnUMTQaXQru6hLGV8ObnsFABvrPmUj
-	 MQq/eZKdY+xK/qcmj3Kkwgvx6stpi5x2pJFotvdMmI+CpiHyYAByoUKK2m6e/FfW8Ug==
+	t=1794851975;
+	b=baMDguVrgZ0lk4RTtGq1AWLLnrUleBkJtYMUfWQBeTUcjEU2z/l665QW1cYEG67atVGT
+	 c7tUnKC02IYWlZyGolXM4J7hBdRZiN8tSEAHJKMxftA/OTn0P4SOIQpRJSXoqIqaQlm8k
+	 dvFVgYB31ZLMhUzkHPrJfUTqxcuKlvvUMSQcvBnxVnLx6pyMO0vawFWweuO8r+JLElGEg
+	 FIDzayxa+LprN0XxwWzSmZQnumBKQBik2cufiz30yMjCHCRAf8xMgRiC0L2ezIB4xrBuM
+	 wK2HV1BPSaeQ35THlJJBpmqLN9F1k78NIlGtcMRlmt6DD8P6tKdLOp0M+ucpv/09vWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851975;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=m6gUtX6ff6h8dx/Z60Kd+xo5KMp1HfTClHuuO+KE208=;
-	b=u/IrVsm9iu99ERvNX36zULNr1MqzMWWgNHt4Kyl/NtpaBNXW6q1BN9kt6Vp8TDyIKENO
-	 AdBdboXp+CMsfnIEUqJ1KVvyic3K6unvSaXmsBhRgRj4/sh8BsgZDArXiXg/AWeXd9oy6
-	 6ESKePaxknsw77QlKFUa5DsVmodBx+p++c3chmVhvRYTv1SlXmM8hZfLxOV4FNbybgFIr
-	 20CnkfgrEhvj14RP6ZMbe19DDi8QIz6q04OZrbpn6R7eBJYd65/T7AcWClxb+KYZlzVtt
-	 4drha6/qwSStB6CozRlHgkBdMMdMW5DoaqTro5uP0SvZhGPNuyRLQiRhLGjKCLSk9FQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=+nvE593UQ9d0U2IPo3a1ExhnUFrCrkM14breEsOZj/U=;
+	b=eWZH0RbmaeDFsCRlRf1udRSKMZBedRo+65vrlBEY5gFUDuUD2QIEDxDHlW/fZDNoKA1g
+	 cR6u5bcLqe1TN8G/WcAq1x/LoTMqSRdHVUeyyu6RQRJK17rKR5CdqzpGLbuQdXfzi4zvm
+	 RuEyFRtM3B6z35hW0l049USFx0zneOD6S8uB0UbrpUw+lkQcYKc2p8XW7ySzE6ODQ+RnW
+	 NnGh0vCXWOV6CAEBZ+XYTlzKwb7zvNyAyb8cC4AIjVey6tKu5Ge4niP+PN8TcEhrR621l
+	 RgvQVM6wrkHFLs+kzS6HL56oh8qrWZ7GKv9yaBaw3WRCw4GIrLADZ7ILUSSFbGsnB8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Nsc7m/2a";
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tUGhZBRQ;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC48606A894
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:58:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC48606A894
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A1D606A336
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:59:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A1D606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nsc7m/2a
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-497614c95f0so1813750f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:58:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tUGhZBRQ
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso862475e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:59:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794851922; x=1795456722; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m6gUtX6ff6h8dx/Z60Kd+xo5KMp1HfTClHuuO+KE208=;
-        b=Nsc7m/2aYHWLD35CNEWLYIGzTRtzPuGCtwMoRKpLkd5KLK+tTZZus24QOMY/67UY+U
-         9sjpDWYUOxdCczR3F18jfAkyNGnY7EUVzwITRHfLbtA7YV0+xbdwkY2VpsBWqLmJeSe0
-         wi8H1qdUCk0WCZ9klAExyy1qr6G34DUW84gzB7ZLdV4E8ktjxXv9xdySH/eBXQ3yn99f
-         PpPKAzpYgp16NTRAZktauePNf8HLeWryfY+cccHbz4hpMoT9q0DE8UJTuVJ971YkcQTN
-         USkVKtJ9aHLARL71Gb/a3ipFtqFaH8Jo4BcEriZoNm5iBr1MdJjDU8jlfnONS3Pmp6/G
-         9Qag==
+        d=gmail.com; s=20260707; t=1794851973; x=1795456773; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+nvE593UQ9d0U2IPo3a1ExhnUFrCrkM14breEsOZj/U=;
+        b=tUGhZBRQZ0lPiurakct8TUDeJCPJwiKNmIgg2g/8DtVBDzVQERlreUcHlb2e73VL1+
+         BpVMRbdh6Zwu/OaPuoEyYeuaJWsRqfAztKK6tmEwC51Qa+g0WzfNa+L4zs8s7xc58Yqa
+         g6vb/aU20b86L4c88uA+mzwEeKNAjmQx5xlqNJAQeD6Q0eB+ntYHiYWMTUS+fUDXWlNP
+         PGaVITVZgITbxk9Tu4dZaf2e1eBJIVK5mMvVx/QmerATJ5dqXyWtvjqwPjaa2p4J5X9K
+         kHusHaMDMztT9Dj05Xck3P5pAK+aFlRvhVmnveaMZQHGmhNdO7UqRVojyfKHALpJ1VkA
+         pcXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851922; x=1795456722;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m6gUtX6ff6h8dx/Z60Kd+xo5KMp1HfTClHuuO+KE208=;
-        b=xQfb+aYFd0vFLHA0O+5DaJ5d6DLAOsMPj2U3S0u02tcD2vpAyWnxQy7Vmveur0SZyZ
-         0j16dbHoDq7EmFziGu0Y4EKXzfTzkR8OtrKdawD1GVpeSzLc4JzZa3N+5M78LGYGlSdh
-         EZKXItwBOPCOrriumMiElCLchtUwnhM2tVbozw6c73mRC0sfQGNYx6NK455DshhoNk2W
-         RxcjsIh/WqskvXyNz9h2ZysXgTZwMmi7Z2eqjqvjIgIdSJLeCpJCdOIfvnwGcLMRgYRD
-         ejTLN1pqkrXffhOfhdxzm2K1skkPWIKjlGt0GcEJSIZZbup777lyTN2d59O11F3fYrcN
-         3WBQ==
-X-Forwarded-Encrypted: i=1; AL+hErG/tBPGhujPDllcGxF2p1rMmi05hF/K3y1HQlWEyRYezd5r9kfOXi48d0wb6ZkMDqWiuRRZNCGH3ImhiSw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hl2AMj8Y+erJj0pQBS4qvVv9XKagrEpgxVRUt8jDMbcGuHfkD
-	jjAsAN8k7mLHPgX67rW9R0b1vW7qO4JezhEAxRovND0I+av0MsEnaQAd
-X-Gm-Gg: AZFdTZe3wDpqg9F0tFLuL0FnwQUtto/POQHPl+chUGNwHaWDm0Fvj5DJuVDVqKu6J98
-	OgDHbGFRO9YYhqL2SjQpaMg20AAei+q6hGXExQoDGwjyqsi04L8xGGqRvRsvxW4R/Ni/7hRkLx7
-	UKPQfmh6k0IlJAOLDsZ0jGWSOy8C0LrLfkWqWaijzjlN2NAXqi3aSQJHe4gmAg/4qHU++rv91Xr
-	orafYq53jSZtFHdGOULxBrQ9XGho6S69DfjqHxF/nV4YHGmjp+C9vqDL6YMkJVg6525JQF4x4lL
-	59JXEoYiaq7zy2PEkBdMhO6dTNI0KOwL1R7FFwqANm45ldrh8AGM2h4/8KyqOrtnHWvUmXrjOy+
-	IwKtDvDb6sKxiV2Udki6c24IgKW46aju49hASHHo4SZNHOn0RvPoK+p2BNxPgKxF/Z4zka9TTLs
-	3GlnE4Xq2iOFCcm74BIAYueTeqvG4eVyhTICuyUZBQij7Ei606/bYpxFSa/aJwSVEqCtRh6/dIC
-	carH8+8KP0f7fI694tJ+RQd8jSKkRpUhVnhrTpzCgxgNejffdSNwTPQG0SKuJM+Ih4Ne32cyG+r
-	EtMmvE+ONMlyXP8M4UR9sZ2vWZllLeHyEl3ObNpglhW3xw==
-X-Received: by 2002:a05:6000:1862:b0:48b:a21:87f7 with SMTP id ffacd0b85a97d-49c7439bd78mr26344360f8f.44.1794851922165;
-        Mon, 16 Nov 2026 09:58:42 -0800 (PST)
-Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d22394esm24171374f8f.3.2026.11.16.09.58.41
+        d=1e100.net; s=20260707; t=1794851973; x=1795456773;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+nvE593UQ9d0U2IPo3a1ExhnUFrCrkM14breEsOZj/U=;
+        b=IHCFxL3WsBc7hCn7EJ0An/ahEORuBRqo2vfjpEZf4ZAtgiscANx7cBMyb3n+439kGn
+         a+xTD89LT3lxmo66zjX++22h+OaQRdeKcepvF9biwuDdylcc5TUbcdoiurxqc2LTvAfz
+         cmNp8fSpOoCw6NpzBzSjy+wW2j9qCfpKQGvSEoWhTlHhY/KuVXC8v1zABTHcwIzfa7EB
+         r9MQj7AtQtYXWbEd1N0R1cu8mW9L3MNMcpVXWpCb/qPSBsdxwV+2QvzI2wwjkPAcVkAc
+         7v9+D+P4s300AsEmuA/5T9hNOvXmreVE1D9qFuCL6DhUtOlOH50FekpbSLL4FgwHCKLF
+         VmqQ==
+X-Forwarded-Encrypted: i=1; AL+hErHATvwSxs09YwP1a4R0GhkjJCudtFe3zIKVsPbY3dT+dj4Mv3I5XiUpRhBgy4S1vn5D2Oa34E7kljPeFBQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sXe1rSmXpyB/pJnQg2ttLGWvwN6G6ohas3N66pTzmenGXOwFx
+	i9Qsbd7odZdQukqx2/bCgq0QfgEhSEvYQBL/zfE4bq/bgNwhhfigKu1A
+X-Gm-Gg: AYBFou1cJRFw8VVxboKkOo9WHpLeRBAMHMj5yoRlOPIE2NZy30pgtrf6asCkiCxKAKs
+	dU7MD+UotqH9QIbCRBI4tnHtq9fF8jVnZSw5eTsoKq9HUIFjnI19DiC+2Sqg4WRRFHzzjqFu3bn
+	KFxABH6qdGxqL1MVs6nprv2eTLKsrElwk0k0dgcUCRYzonhyaxMKtnz3XLKQci913esrR8p3fHo
+	1dj4NOIguScuUnE2L48nQ46Bq2YARcGqMzdovEfP3hGpFWf4MIjE9YJgOHrDCeMitfFihkefNWP
+	mj04uUiB9ku0Xa4agtJORuJ0LpCW8+hJ14JX6asLYEC/KSw64M4ESX5lca3Yh7wDPh+5qiGQJvZ
+	HevFsRAC4e91spWj019BK3MM91u2ZsAR6QxVQug9w9W1RXL+KqZg4qrAj2JsUcta7pNNtPYZat8
+	+IXucAOfQVAuRpnhEwoVlLYRQR6gdREMGui3h7i1DVEtEyQqYY9RLTtxJf5qpc19livQtekXFfq
+	R3UEAESEUtyx/0fPMCM9HiGbpa9LUzsGyhDuRVIk8HHngqoFJ4ncYAEjZ7iS9XkS5Rk
+X-Received: by 2002:a05:600c:678a:b0:4a1:d49e:9ce with SMTP id 5b1f17b1804b1-4bb78372a20mr8533235e9.2.1794851972940;
+        Mon, 16 Nov 2026 09:59:32 -0800 (PST)
+Received: from eichest-laptop ([2a02:168:af72::cb4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm22431108f8f.21.2026.11.16.09.59.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:58:41 -0800 (PST)
-From: Volodymyr Chapman <volodymyrchapman@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Volodymyr Chapman <volodymyrchapman@gmail.com>
-Subject: [PATCH 1/2] media: atomisp: Don't enumerate frame sizes the preview pipe can't output
-Date: Mon, 16 Nov 2026 17:57:49 +0000
-Message-ID: <20261116175750.21905-2-volodymyrchapman@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116175750.21905-1-volodymyrchapman@gmail.com>
-References: <20261116175750.21905-1-volodymyrchapman@gmail.com>
+        Mon, 16 Nov 2026 09:59:32 -0800 (PST)
+Date: Mon, 16 Nov 2026 18:59:30 +0100
+From: Stefan Eichenberger <eichest@gmail.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+	linux-i2c@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH] i2c: imx: acknowledge the count byte of an atomic block
+ read
+Message-ID: <avtEgpw9YpIzCj5p@eichest-laptop>
+References: <20261116122707.1349139-1-mehmet.fide@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,84 +103,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116122707.1349139-1-mehmet.fide@gmail.com>
 
-In preview mode atomisp_try_fmt() limits the size to 1920x1440, since the
-preview pipeline cannot output anything larger. For sensors without crop
-support atomisp_enum_framesizes() however passes on all sensor sizes,
-minus the padding, so VIDIOC_ENUM_FRAMESIZES lists sizes for which
-VIDIOC_S_FMT returns a different, smaller size.
+On Mon, Nov 16, 2026 at 01:27:06PM +0100, Mehmet Fide wrote:
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+> 
+> i2c_smbus_xfer_emulated() sends the read message of an SMBus block read
+> with a length of 1 and I2C_M_RECV_LEN. i2c_imx_prepare_read() clears
+> I2CR_TXAK only for a message longer than one byte, so the atomic read
+> does not acknowledge the count byte. The target stops sending, the rest
+> of the block is read as 0xff and the transfer reports success.
+> 
+> The test for I2C_M_RECV_LEN was dropped when the read was split into
+> i2c_imx_prepare_read() and its callers. Commit a5d0b9e32745 ("i2c: imx:
+> fix emulated smbus block read") added it back to the interrupt driven
+> read only. The DMA read never gets an I2C_M_RECV_LEN message.
+> 
+> Fixes: b460b15b3cc2 ("i2c: imx: separate atomic, dma and non-dma use case")
+> Cc: stable@vger.kernel.org # v6.13+
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+> ---
+> 
+> Notes:
+>     Reported by the Sashiko review of "i2c: imx: test the block read flag of
+>     the message that is read":
+>     https://sashiko.dev/#/bug/linux-09e3015b-fc03-4410-809b-82964cdfac9c
+>     
+>     Tested on a Colibri VF50 on the Iris carrier, kernel at this base, with
+>     the M41T0 RTC at 0x68. The core takes the atomic path only after
+>     SYSTEM_RUNNING, so a test-only hook called xfer_atomic() with interrupts
+>     disabled, with the two messages that i2c_smbus_xfer_emulated() builds
+>     for a block read. Register 0x04 (0x13) as count byte: without the patch
+>     0x13 and then 0xff (50 of 50, return 2); with it the next registers,
+>     the same bytes as the interrupt driven read (50 of 50). With a count
+>     byte of 1 (register 0x05): 01 ff before, 01 01 after (50 of 50 each).
+> 
+>  drivers/i2c/busses/i2c-imx.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+> index ccf08cd63151..1a3fc245d6ba 100644
+> --- a/drivers/i2c/busses/i2c-imx.c
+> +++ b/drivers/i2c/busses/i2c-imx.c
+> @@ -1283,7 +1283,7 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
+>  	 * Reset the I2CR_TXAK flag initially for SMBus block read since the
+>  	 * length is unknown
+>  	 */
+> -	if (msgs->len - 1)
+> +	if ((msgs->len - 1) || (msgs->flags & I2C_M_RECV_LEN))
+>  		temp &= ~I2CR_TXAK;
+>  	if (use_dma)
+>  		temp |= I2CR_DMAEN;
+> 
+> base-commit: 25e7ab89f4774b0f842cee0e8a20c11f755924d5
+> -- 
+> 2.56.0
 
-Userspace which picks the largest enumerated size and then checks that
-S_FMT gave it that size fails. For example PipeWire's V4L2 source cannot
-negotiate a format with Firefox for the IMX175 rear sensor of a Lenovo
-ThinkPad 10, which lists 3264x2448 and 1624x1216: Firefox picks
-3264x2448, S_FMT returns 1624x1216 and the stream fails with "error set
-output format: -22 (Invalid argument)".
+Thanks for the fix.
 
-Skip the sizes which do not fit the preview pipeline when in preview mode,
-so that only sizes which S_FMT can set are enumerated.
-
-Tested on a Lenovo ThinkPad 10 (20C3, Atom Z3795) with this file built out
-of tree against a 7.2.15 kernel: ENUM_FRAMESIZES for the IMX175 now lists
-only 1624x1216, and Firefox 160 streams from both the IMX175 and the
-OV2722 front sensor through PipeWire. This was build-tested on top of
-media.git next.
-
-The problem was investigated and this patch drafted with the help of an
-AI coding assistant (Claude); the testing was done on the hardware by the
-submitter.
-
-Fixes: d86c33af672d ("media: atomisp: Clamp width to max 1920 pixels when in ATOMISP_RUN_MODE_PREVIEW")
-Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
----
- .../staging/media/atomisp/pci/atomisp_ioctl.c | 22 ++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-index 50366bf10..046a95857 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-@@ -532,11 +532,11 @@ static int atomisp_enum_framesizes(struct file *file, void *priv,
- 	struct atomisp_sub_device *asd = atomisp_to_video_pipe(vdev)->asd;
- 	struct atomisp_input_subdev *input = &isp->inputs[asd->input_curr];
- 	struct v4l2_subdev_frame_size_enum fse = {
--		.index = fsize->index,
- 		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
- 		.code = input->code,
- 	};
- 	struct v4l2_subdev_state *act_sd_state;
-+	unsigned int valid_sizes = 0;
- 	int ret;
- 
- 	if (!input->sensor)
-@@ -546,8 +546,24 @@ static int atomisp_enum_framesizes(struct file *file, void *priv,
- 		return atomisp_enum_framesizes_crop(isp, fsize);
- 
- 	act_sd_state = v4l2_subdev_lock_and_get_active_state(input->sensor);
--	ret = v4l2_subdev_call(input->sensor, pad, enum_frame_size,
--			       act_sd_state, &fse);
-+	for (fse.index = 0; ; fse.index++) {
-+		ret = v4l2_subdev_call(input->sensor, pad, enum_frame_size,
-+				       act_sd_state, &fse);
-+		if (ret)
-+			break;
-+
-+		/*
-+		 * Skip sizes the preview pipeline cannot output, for which
-+		 * atomisp_try_fmt() would return a smaller size.
-+		 */
-+		if (asd->run_mode->val == ATOMISP_RUN_MODE_PREVIEW &&
-+		    (fse.max_width - pad_w > 1920 ||
-+		     fse.max_height - pad_h > 1440))
-+			continue;
-+
-+		if (valid_sizes++ == fsize->index)
-+			break;
-+	}
- 	if (act_sd_state)
- 		v4l2_subdev_unlock_state(act_sd_state);
- 	if (ret)
--- 
-2.43.0
-
+Reviewed-by: Stefan Eichenberger <eichest@gmail.com>
