@@ -1,77 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794801422;
-	b=bssQvk2J4iikyPK1rruZYoyYpybDklFjGpGKSLvTxNCrVlzkcq4+E5uSw8zqImCch6JH
-	 FALsQv3FAMna+UdzQK/67c+TYfTKhTzVq0LEA/nuB1OXGdhT/MecuNRed3rOaxuzQsTxo
-	 q2iJthXSp+cmIWF2xhz8pUraqNox7j4YRSYDFkLEAuKKD6uvS+BuSShdoo3IEUkxGgUnV
-	 8fQjuCD8Ll6+xpQmK7D0Y6Ncx33pLORFAGro7O/fY2u2PDRm2ql3N02OQqfn6bMbmAf7y
-	 MEJ3FGVsFHobMbdCvXNmoLzKVmBZGu1xKTcyk97IeXWOSi9XwfjZTdE4xX3K6AjI+Ag==
+	t=1794801473;
+	b=lo2SxEJOjeyHNtX+hPmX8MpgH41SSghTSqxnFSHI9fmt8vuvkrkUPirrXJvxV7Fu+vuh
+	 XzEAccqkxwqnJMsmhAtkCc4NL2s7OaKEPAaD0BBNhLZIwFTe+CT75b7NmTR0eZOnDJrRP
+	 HPm6+eNi+ec6X4sKe0ly+YMYSu4Nrr8i+wU7bPREAxnejvcy/lVp3/SdupAjX1szT6Xub
+	 JefmISZK89vraVixOYDD3/+Y8ryU0g//eNRDcuu6ko8znGYiGVE4xoBeGfRXWnLX5MZ3h
+	 VCwPDAyQ9n/bDKq2xFwu+FdB5Q74fdTCBLKpECTl4IJwaI6Bd8JdGb0lhm0QKanVRXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801422;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ONRHn8KrnSDZjpgJxYbGmgk6UH+b2w2T6gpubSrL9lY=;
-	b=pumofxd+TZ5608RrnF9SUzCDTBL4gBUlz71Dop5Pix7WJ7wg5WrLN99GP9vdVsCGeYrn
-	 +SgijuoQSc3Nmae2HTE/RTQ9XddZ1aDGdnIFpZTF3WBCheBWFRalLkhn0etAyD41JbZMR
-	 pUMCn3YD80SmV17SuGH4MH/8QPJfQHrVA/fjQOIX9G6UgyVCqPcm2ACOTsLM72o7hJ2vq
-	 k1SBAvrBD+JMX+HzYB4OY+0UaEw6ZBfs7eLmEp9UpNTLuULVS3anVr+ot05ibRwaIhbCy
-	 Gf487z2ruK6Q4eQlIUBi1ebv5nHv7BCJml1+3Jg/r2IgDyBn3ixpCOMmWqBv2WkDmXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801473;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:Subject:To:Cc:MIME-Version:Content-Type:
+	 Content-Disposition:User-Agent;
+	bh=iwVZGsgKAQDdbtbiaa6vbIgpmM6oKh5tzoDRi/Aw59E=;
+	b=R8BFD03Tfa7bIJ6f3viW3Osl1qvpS7jhAfd496iU7PDOGI2oHOsh9JWKBb2aAb1oIURI
+	 4XZn5tOV6/BML6t0ZF82BotdagImKBphEpUSVRe/jtGZL7TM4K+U88Q9yoGxii0X8M0E3
+	 AaQ3TOuay8nZFuQ2Uzkl1rIDNzKVK8LlukhLFKbLSyUxYWTBKv5CXKdb3RG/fVw0+aesB
+	 kV4VFiVDurtF1sk561HOm1d0d6ptBSX7hqDVov1U0cm877oYUIyOW4gJMIJx6mnb8w5r5
+	 HDPZDxoqQaYWO8i5mIlontmTu51Wn0QC1HochiIUcrAXgyz4+lduXaQZXKQNkuaUvnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=q+nzBpJV;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32890606A323;
-	Mon, 16 Nov 2026 03:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32890606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=pXUuGH1T;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A538606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:57:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A538606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=q+nzBpJV
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=pXUuGH1T
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-37628596783so5007380eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:57:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=q+nzBpJVvf+i4X+4CS658jFqNDVV2NxH8Rz/Tj5eT+Vx0MRiIpVqpaOdJ5Jkfo5G8kqg2HIZowoSD
-	 IThzpREiRCyDQk70J1UwO90b8ohs7g+I2zmPXMiYx3zzstVfbDdwhcULgfw0l0ogFT5otracktGSVL
-	 iqmioPcfW5riHYVI=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86afa7f0c2db-9b761;
-	Mon, 16 Nov 2026 11:57:00 +0800 (CST)
-X-RM-TRANSID:2ee86afa7f0c2db-9b761
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[74.82.203.40])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afa7ee7fb3-7c019;
-	Mon, 16 Nov 2026 11:56:59 +0800 (CST)
-X-RM-TRANSID:2ee66afa7ee7fb3-7c019
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mina Almasry <almasrymina@google.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Willem de Bruijn <willemb@google.com>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Narcisa Vasile <narcisav.kernel@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 2/2] net: add a KUnit test for the alloc_skb_with_frags() tail split
-Date: Mon, 16 Nov 2026 20:56:20 +0900
-Message-ID: <20261116115620.18151-3-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116115620.18151-1-yanhaishuang@cmss.chinamobile.com>
-References: <20261116115620.18151-1-yanhaishuang@cmss.chinamobile.com>
+        d=chrisdown.name; s=google; t=1794801472; x=1795406272; darn=vger.kernel.org;
+        h=user-agent:content-disposition:content-type:mime-version:cc:to
+         :subject:from:message-id:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iwVZGsgKAQDdbtbiaa6vbIgpmM6oKh5tzoDRi/Aw59E=;
+        b=pXUuGH1T9exwQcrwhbSZrLclSn0IWrK+PCRBc/KdKoTlWFPxdjgreeQ1+APKhspKwS
+         HmqF1BZdKZR9OP7azT5beKtMmat/vhp6olqwbUZeGf5u/1b39oKZbvVK9EqEv5J8rQID
+         24wNYBs8s+ihpD/hp4t8V0NvT5OMsgDTX4FQw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794801472; x=1795406272;
+        h=user-agent:content-disposition:content-type:mime-version:cc:to
+         :subject:from:message-id:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iwVZGsgKAQDdbtbiaa6vbIgpmM6oKh5tzoDRi/Aw59E=;
+        b=E2+wiyC42zYT+b9zti7T7JPi3nmX1eLNsSt4KqbPA9dD3U6Fbzu0B7x347Si/PDHlS
+         h9fIhjpQr9YG0pQz1bXDYpCLo3aeBSGdINgCgZdsQxiza6vTvQc4Eb40Lo5JvAwnmuxe
+         hovNvKgiI+voZn43ycLvBkvKIVTCYO2y01i3+j8HsOPtajdkZLgb4//6OPAypksfv24A
+         ZfvhzDjpHuYTjNCx3o++ID152s6unAfDx7xDOLW0VOEa32Hh7ycDa38PKTx8e8LxeT+y
+         9RvMdKqZOOKqbH2eBseb3qL8A1oBf0mBM9L/Xgu18v5y110kd0zAt4gNkUSHuXqjeWKj
+         mD4w==
+X-Forwarded-Encrypted: i=1; AL+hErHtaiY9sJawnKz9FZzDueNwACenmikaYYQJHMXTliaTLWrI8FiLA9KbkrcbKsxoMH79QhAEqPGC5spn75I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TPOgWb/QtIxqMuEB344f+k7vcOHOjoFwmZOwhzX3P0bcQILMW
+	SDe20aEPUwCrLyW9nTWR9uKdecJUD+vRmPj5Zi3LIDM15PoL/vR7NdlunESdvboX64U=
+X-Gm-Gg: AYBFou0jBphZFMT2iUKbPh0o2+zqbatoHjILQ7So5jcvHQR3em/KZNnZz/h55/WfL20
+	ikHrWGvtXx/kRKGrZYaV62U83SEToQ5Ry85qehuqDnG6cQaU+84O+Wdl4cfr08SG2x+mc/B5yZc
+	S90bdGqvG1Iuc/+hjSPIF3LGUg++vVd2WHBXPYcpQP0nsIU/lVzuzo323BPmjw03TTCkUKE6X85
+	nWoiYpejfK5XvkiPNK6miYaNVfGsqJWvw32lmY4GSZcyQI/MW2sD33HLV418fQ8fibFFRWrf7Z8
+	mDF/D/CIFfdrQyKw7LeVq9DLfJmTxfESV2ZVrd34LlF1MW1+Zdyg7U6lTQUoDq5MxL4zn8bcE0B
+	Y0seQVVTaVy8xbHuwC2o64jPqeMOg7zgvrNqwUZFhegtk99CNqHeXYRmdgXMaqcaExN0lnM362p
+	2DAX7WNhOKNJ3R907kDUgmmpM/F4SHeirYdNzTmuNcnqnxYe8HBYTpkcqjTywiBDtyJkTQmTJr8
+	tDh0Vw53wQk7Q9NSKHCjFTCw8gPNdET0oz4wHesfbj0kwfwBvDMUYb4PKUJhgHaRHvmzANqBOjU
+	3/WzYbxRgLbNubqlpB8eh4uKcBdDLW0bvGtvkuGyEj4GLQmqeS5oAG2dcc/OX3x8nhE7vudzFxL
+	JPg4aWu1kCj3h6bin0lkIdz+96OmwU0Mzk3QfJJjvU8prL1Hzquq2zYWHqaCl/E3H4TWOK0jKSZ
+	fzZsC95Mx5eN66oKrgUOJIf4IK/hqn5pGcHShkw2XSS78bYzSzTARdyHkW/lpbXqoD
+X-Received: by 2002:a05:7301:b06:b0:36a:1089:9836 with SMTP id 5a478bee46e88-3796628ce32mr8377652eec.15.1794801472427;
+        Sun, 15 Nov 2026 19:57:52 -0800 (PST)
+Received: from [172.18.0.2] ([172.56.232.151])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm29451214eec.29.2026.11.15.19.57.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 19:57:51 -0800 (PST)
+Date: Sun, 15 Nov 2026 19:57:48 -0800
+Message-ID: <a8474f0e2d0ef5ea9d53aa6649c7e9c9ea6f15c2.1794800574.git.chris@chrisdown.name>
+From: Chris Down <chris@chrisdown.name>
+Subject: [PATCH v2] proc/kcore: allow disabling /proc/kcore at boot
+To: Omar Sandoval <osandov@osandov.com>,
+    Andrew Morton <akpm@linux-foundation.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+    Shuah Khan <skhan@linuxfoundation.org>,
+    Randy Dunlap <rdunlap@infradead.org>,
+    linux-debuggers@vger.kernel.org,
+    linux-fsdevel@vger.kernel.org,
+    linux-doc@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    kernel-team@meta.com
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,85 +100,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-Allocate MAX_SKB_FRAGS - 2 full order-3 chunks plus a 7 page tail, which
-needs one frag too many if the tail is rounded down to 4 + 2 + 1 pages.
+/proc/kcore lets any process with CAP_SYS_RAWIO read all of kernel
+memory. That's a pretty large read primitive for anyone who obtains
+CAP_SYS_RAWIO (and it also gives away the KASLR layout).
 
-If the allocation fails, skip the test unless MAX_SKB_FRAGS - 1 order-3
-pages can be held at once, so that fragmented memory is not reported as
-a failure.
+For this reason on some hosts we want to turn /proc/kcore off. In terms
+of what it can read, /proc/kcore isn't any more concerning than other
+ways to read kernel memory, like BPF with CAP_BPF and CAP_PERFMON. The
+distinction is that a process with CAP_SYS_RAWIO doesn't necessarily
+have CAP_BPF and CAP_PERFMON, because CAP_SYS_RAWIO may be needed for
+hardware access without necessarily wanting to grant general RAM access.
+CONFIG_STRICT_DEVMEM already makes that possible for /dev/mem, but
+/proc/kcore gives the same capability to do general purpose RAM reading
+anyway.
 
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+However, on a kernel built with CONFIG_PROC_KCORE=y the only ways to
+block it today are lockdown=confidentiality (which also disables many
+other things we perhaps don't want to disable, like kprobes and
+bpf_probe_read_kernel()), or an LSM. That's annoying, because on the
+majority of hosts we do want it on for things like drgn/crash, so today
+we build two separate kernels.
+
+Let's add a "kcore=" boot parameter so that this can be disabled at
+boot, which lets us preserve those choices while using the same kernel
+image.
+
+Signed-off-by: Chris Down <chris@chrisdown.name>
 ---
- net/core/net_test.c | 51 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+v1 at https://lore.kernel.org/r/auAmuqZyUodq3iqk@chrisdown.name
 
-diff --git a/net/core/net_test.c b/net/core/net_test.c
-index 2b5080c226636..118866f3e28c3 100644
---- a/net/core/net_test.c
-+++ b/net/core/net_test.c
-@@ -1721,7 +1721,58 @@ static void netmem_ref_test_tcp_devmem_recv(struct kunit *test)
- #endif
+v2: Give more justification in changelog (Omar)
+
+ Documentation/admin-guide/kernel-parameters.txt |  6 ++++++
+ fs/proc/kcore.c                                 | 12 ++++++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd9..b4c43d2cae03 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -2902,6 +2902,12 @@ Kernel parameters
+ 			parameter KASAN will print report only for the first
+ 			invalid access.
+ 
++	kcore=		[KNL,EARLY]
++			Enable or disable /proc/kcore on kernels built with
++			CONFIG_PROC_KCORE=y.
++			Format: <bool>
++			Default: on
++
+ 	keep_bootcon	[KNL,EARLY]
+ 			Do not unregister boot console at start. This is only
+ 			useful for debugging when something happens in the window
+diff --git a/fs/proc/kcore.c b/fs/proc/kcore.c
+index 3264c99bd68a..4251a9ef868b 100644
+--- a/fs/proc/kcore.c
++++ b/fs/proc/kcore.c
+@@ -69,6 +69,7 @@ static size_t kcore_notes_len;
+ static size_t kcore_data_offset;
+ DEFINE_STATIC_PERCPU_RWSEM(kclist_lock);
+ static int kcore_need_update = 1;
++static bool kcore_enabled __initdata = true;
+ 
+ /*
+  * Returns > 0 for RAM pages, 0 for non-RAM pages, < 0 on error
+@@ -722,8 +723,19 @@ static void __init add_modules_range(void)
+ }
  #endif
  
-+/* Can @nr pages of @order be allocated and held at the same time? */
-+static bool alloc_skb_with_frags_test_have_pages(unsigned int nr,
-+						 unsigned int order)
++static int __init parse_kcore(char *str)
 +{
-+	struct page *pages[MAX_SKB_FRAGS];
-+	unsigned int i, n;
++	return kstrtobool(str, &kcore_enabled);
++}
++early_param("kcore", parse_kcore);
 +
-+	for (n = 0; n < nr; n++) {
-+		pages[n] = alloc_pages(GFP_KERNEL | __GFP_NOWARN |
-+				       __GFP_NORETRY, order);
-+		if (!pages[n])
-+			break;
+ static int __init proc_kcore_init(void)
+ {
++	if (!kcore_enabled) {
++		pr_info("/proc/kcore disabled on command line\n");
++		return 0;
 +	}
-+	for (i = 0; i < n; i++)
-+		__free_pages(pages[i], order);
 +
-+	return n == nr;
-+}
-+
-+static void alloc_skb_with_frags_test_tail(struct kunit *test)
-+{
-+	/* MAX_SKB_FRAGS - 2 full chunks plus a 7 page tail: rounding the
-+	 * tail down to 4 + 2 + 1 pages would need one frag too many.
-+	 */
-+	unsigned long len = (MAX_SKB_FRAGS - 2) *
-+			    (PAGE_SIZE << PAGE_ALLOC_COSTLY_ORDER) +
-+			    7 * PAGE_SIZE;
-+	unsigned long frags_len = 0;
-+	struct sk_buff *skb;
-+	int err, i;
-+
-+	skb = alloc_skb_with_frags(0, len, PAGE_ALLOC_COSTLY_ORDER, &err,
-+				   GFP_KERNEL);
-+	/* The full chunks can't fall back to smaller pages here, so the
-+	 * call needs up to MAX_SKB_FRAGS - 1 order-3 pages at once. Don't
-+	 * report a lack of them as a failure.
-+	 */
-+	if (!skb && !alloc_skb_with_frags_test_have_pages(MAX_SKB_FRAGS - 1,
-+							  PAGE_ALLOC_COSTLY_ORDER))
-+		kunit_skip(test, "not enough order-%d pages",
-+			   PAGE_ALLOC_COSTLY_ORDER);
-+	KUNIT_ASSERT_NOT_NULL_MSG(test, skb, "err %d", err);
-+
-+	for (i = 0; i < skb_shinfo(skb)->nr_frags; i++)
-+		frags_len += skb_frag_size(&skb_shinfo(skb)->frags[i]);
-+	KUNIT_EXPECT_EQ(test, frags_len, len);
-+
-+	kfree_skb(skb);
-+}
-+
- static struct kunit_case net_test_cases[] = {
-+	KUNIT_CASE(alloc_skb_with_frags_test_tail),
- 	KUNIT_CASE_PARAM(gso_test_func, gso_test_gen_params),
- 	KUNIT_CASE_PARAM(ip_tunnel_flags_test_run,
- 			 ip_tunnel_flags_test_gen_params),
+ 	proc_root_kcore = proc_create("kcore", S_IRUSR, NULL, &kcore_proc_ops);
+ 	if (!proc_root_kcore) {
+ 		pr_err("couldn't create /proc/kcore\n");
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
 -- 
-2.43.0
-
-
+2.56.1
 
