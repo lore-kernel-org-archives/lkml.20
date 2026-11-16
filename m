@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812526;
-	b=tS+epVgegNbf2pOpdwsRq3OudrqzNlfbUFnbdwqLdkrQakESZtj5mJrf72CFaOgMs6DX
-	 X5aOBGRInaUu4sETRJUqaJfCJRZTB3wfoiY7v6/FEfxX+WczGDFjFmf9gIW9DTC/FMhfM
-	 z0c+FFVsJxSrNm6znvULN/rP3gI+IQ8fkUw6GUblOZy0nCegcw1DK2rUFJAi5a8pTA8qJ
-	 55+6R/ixc4aqYCvIvTBTq0sBsKo8g3cBlADzTYqCzt6JBNOmIZbibEsaIk01Cu+0LV02W
-	 L97/svFuX+N8q1WBtv70mmDw6lJI24Pl8gT4X4wwrGbq72TYJf/90oDhnPUfal81MZg==
+	t=1794812528;
+	b=073CGnneKU5tkhIp8BLLT/aQMLTl2CMLXgz6lBLSJNRlerO1C7ixkIBIbS1n3mSmrJAq
+	 BL+ZC+NJbpw9ajoJ+MY7HT1URt57Ajri4CZwM+vyXv05U+tDzdMgUZeR3gSvpY3glcAec
+	 aS9mwaZAX60sMt9EgreHwsYIWTrrencLsdqKPnQIyJFdob/gBUA5ujQWJgHDKe49BZy2y
+	 jxZbo0RCLf8mtwto1aGycx2+3p+g3DaEPUs5DrA8z1f48ozA9Kpie/iH01QIYg0jRZCha
+	 bubISLMbgL7DjoweJKfnk23XXOH2LL4Eeu7LqzWsblaq210SwVt9ZkP9lDLVf7lLErg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812528;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=cF1GhVGbCRbU0hezkwXtJ7kkSIkuwbbIzIGbBkJTIA0=;
-	b=AdtrIeH32nHT+KTj+Wnmdlh0VcxnpEAfua+x+N9jVGPMrTpddG/UO6iVHcFEPJz3gpzA
-	 cXjA1Lt9AfG/5hIkf//cnXN6E8z/KNtzdr7vKUX7Zk7Ps4GpTw6JdoDXCrHqZsL+dmTiX
-	 tb9TFIDiU/1A5VAAvQz/dftRMeyalu0hfwH0XFNZJ0+CBSa0WZ5dKxT2YKANdd3IT4CEL
-	 T3Z0ErKCkMQboEa51exzMsQfOofKiJqWqW246zN94O/jcLXVpmlVukOO6HtOImoiATAri
-	 GYomvUQ8hE6eYtHYoOtjXfauU13RoiEhpIFlnVRr8rHOTQS3zbqFyfvJZQDmuSkvgNg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=1a057U2J7N5A4aKwBVpCP+lBtdjy76b6V/ljwVaKjFg=;
+	b=rn1ZyVme252/yD5elhIgNtkhF49+BZN+oJ19itsFwk4tGc6E5dPIkGPP6tNDiNg4ES5s
+	 H0zqU7ztKVRm7cyG/MwVsOKteDOQKLpZKP9Yez8l1HDqBLnyrXL5p+0bxoKEuXdwKvg+X
+	 XMI3dCufP62hzZYdcVC/SHlyuZ960DMBCP4Gp2JO0wZug7RaBHEyZNoYkzw9WvSQNDBPC
+	 u0adcx/9cW5qoLRoKO0NnzrXgf3WiMqPcPo3QldagDYcpPuxsctdKBGUv2qcVZIaBA3zf
+	 UU24tZB5JhVGirtVHliCdXWxjoLDlgKFTLHOV7X3qrFIr7FjNQLfuFdfxQbuhHSNGXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="MN7/MvbJ";
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FEDzlz76;
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAB3606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBAB3606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5821A606A334
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:02:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5821A606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MN7/MvbJ
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso3968219eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:02:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FEDzlz76
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so1345491c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:02:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794812525; x=1795417325; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cF1GhVGbCRbU0hezkwXtJ7kkSIkuwbbIzIGbBkJTIA0=;
-        b=MN7/MvbJZpqBkfKVjaUwZoD87Sl1vBDgxdNBQ5s4p0KyDugQE5EqJoa1zojPEDu+T4
-         0UP+WbRaHqKcmoVwMAwkz2t5NMjK9HqUVPD03YztL3uWrcUG/TS+5jQV+LGNKplse7CM
-         9pEsi/yMJsVp+7lTyKPUTYfBtTyQ82itZ40072LfMFcSad65z+2vWrYpXbFJZf7XGcQo
-         INUNGrRlHKbjuS3/FbF3fk4frJ0f2hCVY0AgVZfbLQB1bGjvvs6lz/Xz4Z5j/7Gk3Pol
-         cCgCg94CAN7aFvrCR9+NknA3kId10AEiQOEBkNvL/UmwJ+CGpYwUL3YWifRDATP7hAR9
-         DXIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794812525; x=1795417325;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794812527; x=1795417327; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cF1GhVGbCRbU0hezkwXtJ7kkSIkuwbbIzIGbBkJTIA0=;
-        b=U7KVJYKVevrZBJ3qYdvVvDw2PPjm75xUJHxCsImzrSSC/BaPBmhEGvdd4jDyvpmnYb
-         ZPqGFCKRa67U0G8aTRFkb1fCECWr1v8V/PV/ZEbgMH1mooeSGIri/tSCrZkT6rL2JPU5
-         L6qxYUHtj7DM8fRs7/1Lw4NGOLbcPBOcfidHVHfntK+Frx0LiOVGGgeh3STj4gP3B7yo
-         GodQB5+EL1kRmPjoR6lw4iHfV6PZHtFThPF0soToS17Ma3ws+MPFpaUhDAiq2gvbj4bu
-         +keSccO5ieTV+w3euZvYq6g4cYPi046aJKWqVN/Ubqcjy7jioeKUPufMvZPjKWbQ0MRU
-         P9AQ==
-X-Forwarded-Encrypted: i=1; AL+hErGbMtK/62IIqxuHTQwxt0WkzjWm7/QEJlei5oOOukbaCiij5KDj8bSxjanG5azahiZLNRxdnIDJ8FyhzpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hgQ9qlLVjkN5Idtt2biKcvOoyyKEW50K+3C0nEYmKgbRIFbTW
-	iOa+0cc1AbzIUHf0kKUv8iQ/OOXvtDpVSG0cR7tzPpgytMGm10UTgjhFFblCzOe0KbSHAzKPCak
-	8yPaal023kw==
-X-Received: from dybkz20.prod.google.com ([2002:a05:7301:1a14:b0:370:948e:79b2])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:820d:b0:36b:d3dd:2e85
- with SMTP id 5a478bee46e88-379676f8641mr9615570eec.36.1794812524383; Sun, 15
- Nov 2026 23:02:04 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:01:46 -0800
+        bh=1a057U2J7N5A4aKwBVpCP+lBtdjy76b6V/ljwVaKjFg=;
+        b=FEDzlz76PEhDKGzlEWom6rS7HL8UxgjzcvA6Ol78B7luw79ZdMajaKV+4KY0P4cjOC
+         zdvqsENy8LrK3YgZZSXJ0z39L95i6JsSVSR3kY1P60fCSQHVOBj7bqrz8HnXXSfR/ftk
+         2OEjgN1T8xOKiFItG1voBDHefjD3nSm5VmT3jFG37Viha9DK8F06T4qg6RykPILaU1L4
+         53T1I3cTFPN2/xzw4iEWUMgCXLJNdTZnFVFVQuM2PsbTDDiD0rSqtMNv1aN1e5/5UyPx
+         lUKkmUujjgE9HKrJZ3omSdHJVlVNNK6clHg9m+HCu4zBg6vBKIusth9TJVqmUomUQTT3
+         XkEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794812527; x=1795417327;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1a057U2J7N5A4aKwBVpCP+lBtdjy76b6V/ljwVaKjFg=;
+        b=dK3V3lEqCm4l4mmh3bl+mu6s4nLySqeOZhEfXTpNYitHLG9vMmJBWqwMG3dQokdgAK
+         HJ0Q1miby33dyVcG72cGqA22RWnY35TEbmydHDeK9uRtAamU9z8Bfz+qgUAnnS6uG/gG
+         JJq//CHAtO03bv16sIOq6Aacf4vn0Ao5IpO+pfRRZpFoSyh5FeviDEVdsW4pwA83Pak5
+         WW2WjOr3ZYKKL2jkhvS+gf+DzmHShNN8ZWJg5sysIVv2NDTGfXaEuMWcYpr6i6sLaNPH
+         EmMIQwBzCOrASBM8l8h5moEeWpeBWTKUQvA9gJzP6epZ03Q5xsldZM/l/U4YryqFNZ9X
+         5F0w==
+X-Forwarded-Encrypted: i=1; AL+hErHN3YUCc+atgViDvGiVvVv9v7lVdmsjkKVcYBELNjWZxO2TGqt+RmyrwllE4f10OLOMdFjZJZ93BgFYTVA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Xarm+wDEAW4N6YFAEDuQrX0SswPD458j+wGqIMWnxKOmy210M
+	zaKXtMLdHRdO+PjQzwUUFTxZ3kDVCpHFC9aEcihnTNmp0NhJQIlpTLDjnU30CVVpOzXnJlazQpx
+	9/JVMvlXS/A==
+X-Received: from dybox22.prod.google.com ([2002:a05:7300:ec96:b0:377:a5e3:b669])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3a06:b0:184:19ee:1fdd
+ with SMTP id a92af1059eb24-1b503068266mr11087474c88.5.1794812526195; Sun, 15
+ Nov 2026 23:02:06 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:01:47 -0800
+In-Reply-To: <20261116070200.2972362-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261116070200.2972362-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116070200.2972362-1-irogers@google.com>
-Subject: [PATCH v2 00/11] perf pmu: Layered sysfs-style PMU event and metric directories
+Message-ID: <20261116070200.2972362-2-irogers@google.com>
+Subject: [PATCH v2 01/11] perf pmu: Generalize pmu_alias_info_file() and lazy
+ single-event sysfs loading
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -87,229 +92,644 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
 	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Currently perf resolves PMU event aliases from two hardcoded sources
-(/sys/bus/event_source/devices/<pmu>/events/ and compiled-in jevents.py
-C tables) while metricgroup.c reads metrics and metricgroup descriptions
-directly from compiled-in pmu_metrics_table arrays without associating
-them with struct perf_pmu. As a result:
+Prepare struct perf_pmu_alias and sysfs event loading for layered
+filesystem overlays while keeping struct perf_pmu_alias private to
+pmu.c:
 
-1. Adding, overriding, or testing PMU event encodings, descriptions, or
-   metrics requires editing JSON files and recompiling perf.
-2. Single-event parsing ('perf stat -e cycles true') eagerly runs
-   readdir() across /sys/bus/event_source/devices/<pmu>/events/ rather
-   than probing <pmu>/events/<event> on demand via openat().
-3. Metrics cannot be overridden or supplied via runtime directory trees
-   alongside PMU events.
+1. Add enum pmu_event_file_kind and pmu_event_file_kind() in pmu.c,
+   teaching pmu_alias_info_file() to recognize extended sidecar
+   extensions (.scale-unit, .desc, .long-desc, .topic, .compat,
+   .deprecated, .legacy-terms, .retire-lat-mean, .retire-lat-min, and
+   .retire-lat-max) alongside existing kernel sysfs sidecars (.unit,
+   .scale, .per-pkg, and .snapshot).
+2. Switch sidecar attribute readers to openat() relative to an open
+   events directory fd, allowing boolean sidecars to express both 0
+   and 1 and marking alias->info_loaded once read so sidecars are not
+   re-opened repeatedly.
+3. Make perf_pmu__find_alias() lazily open only the requested event
+   (trying exact, lowercase, and uppercase names) and its sidecars via
+   openat() instead of calling pmu_aliases_parse() to readdir() and
+   open every file in <sysfs>/<pmu>/events/ on a single-event lookup.
 
-This series (built on top of the perf jevents block-indexed string
-compression series, which packs compiled-in event and metric strings
-into independently compressed ~8 KiB blocks decompressed on demand by
-(block_id << 16) | sub_offset) unifies PMU events, metrics, and
-metricgroup descriptions behind a stateless, openat()-driven layered VFS
-stack on struct perf_pmu, configurable via pmu-events.dir:
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/util/pmu.c | 365 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 252 insertions(+), 113 deletions(-)
 
-  Highest:  1. User directory layers (pmu-events.dir, left-to-right)
-            2. Compiled-in CPUID / sys JSON tables (libpmu-events)
-            3. Kernel sysfs (/sys/bus/event_source/devices/)
-  Lowest:   4. Compiled-in default_core / common JSON tables
-
-This preserves the existing util/pmu.c precedence: CPUID- and identifier-
-matched JSON events override sysfs encodings (allowing architectures such
-as RISC-V to map legacy event names to CPU-specific encodings in JSON
-without bloating the kernel PMU driver), while sysfs events (such as
-/sys/bus/event_source/devices/<pmu>/events/cycles) override generic
-legacy-hardware and legacy-cache fallback encodings in common JSON
-(which remain available in alias->legacy_terms).
-
-User Directory Layout and CPUID Resolution
-------------------------------------------
-
-Each directory <root> in colon-separated pmu-events.dir supports both
-portable multi-CPU trees (keyed by literal CPUID or uncore identifier
-with POSIX symlinks) and host-direct PMU overrides, with no runtime
-mapfile.csv or regex engine:
-
-  <root>/
-  |-- cpus/
-  |   |-- GenuineIntel-6-4E -> ../models/x86/skylake
-  |   |-- GenuineIntel-6-5E -> ../models/x86/skylake
-  |   |-- GenuineIntel-6-8F -> ../models/x86/sapphirerapids
-  |   |-- GenuineIntel-6-8F-8/          # stepping-specific override
-  |   |   `-- cpu/events/inst_retired.any.desc
-  |   |-- 0x00000000410fd490 -> ../models/arm64/arm/neoverse-n2-v2
-  |   `-- 0x489-0x8000000000000007 -> ../models/riscv/sifive/bullet
-  |-- sys/
-  |   `-- 0x00000030 -> ../models/arm64/hisilicon/hip09/sys
-  |-- models/
-  |   |-- x86/skylake/{default_core,uncore_imc,...}/{events,metrics}/...
-  |   `-- arm64/arm/neoverse-n2-v2/default_core/{events,metrics}/...
-  |-- default_core/metrics/my_ipc{,.desc}
-  |-- <pmu>/{events,metrics}/...
-  `-- metricgroups/<group>.desc
-
-Within each <root>, perf probes three scopes top-down:
-
-1. <root>/cpus/<cpuid>/:
-   Queries each PMU's CPUID (using perf_cpu_map__min(pmu->cpus) so
-   hybrid PMUs such as cpu_core and cpu_atom use their own CPU's CPUID,
-   and honoring PERF_CPUID). perf probes the exact CPUID first and then
-   deterministic base CPUIDs stripped of stepping or revision fields:
-   - x86 ('-' delimited):    GenuineIntel-6-8F-8 -> GenuineIntel-6-8F
-   - s390 (',' delimited):   IBM,8561,703        -> IBM,8561
-   - RISC-V ('-' delimited): 0x489-0x8000000000000007-0x1
-                               -> 0x489-0x8000000000000007
-   - ARM64 64-bit hex MIDR:  0x00000000411fd493  -> 0x00000000410fd490
-                             (Variant[23:20] and Revision[3:0] zeroed)
-   - PowerPC 32-bit hex PVR: 0x00800200          -> 0x00800000
-                             (Revision[15:0] zeroed)
-   Each <root> stops at the first matching cpus/<candidate> directory
-   so a stepping override (e.g. cpus/GenuineIntel-6-8F-8/) does not
-   accidentally merge coarser model events from the same <root>, while
-   unset sidecar attributes and unoverridden events still merge from
-   subsequent directories in pmu-events.dir (for example
-   ~/.perf-events/local:/opt/pmu-events), compiled-in JSON, and sysfs.
-   Because openat() traverses POSIX symlinks in the kernel VFS, multiple
-   CPUIDs sharing a microarchitecture point to a single canonical
-   models/<arch>/<model>/ directory.
-2. <root>/sys/<id>/:
-   Matches pmu->id from /sys/bus/event_source/devices/<pmu>/identifier.
-3. <root>/ (host-direct and cross-CPU fallback):
-   Matches <pmu> (exact name, alias_name, default_core for core PMUs,
-   or suffix-stripped uncore prefix such as uncore_imc) plus
-   <root>/metricgroups/<group>.desc.
-
-Exporters materialize both layouts:
-- 'perf list --export-dir <dir>' writes the running machine's active
-  PMUs into host-direct <dir>/<pmu>/{events,metrics}/ for quick local
-  edits.
-- 'perf list --export-dir <dir> --export-cpuid <cpuid|arch[/model]|all>'
-  exports compiled-in tables for any CPUID, model, or architecture (or
-  'all') directly from the perf binary into <dir>/models/<arch>/<model>/
-  with relative <dir>/cpus/<cpuid> and <dir>/sys/<id> symlinks (for
-  example, to inspect or migrate metrics across architectures/models).
-- 'jevents.py --output-dir <dir>' exports unbuilt kernel source JSON
-  trees into the same <dir>/models/ + <dir>/cpus/ + <dir>/sys/ layout
-  (also usable on NO_JEVENTS=1 setups).
-
-Key changes across the series:
-- Lazy sysfs probing and struct perf_pmu metric storage (Patches 1-2):
-  - Patch 1 generalizes pmu_alias_info_file() to probe single event
-    files and sidecars on demand via openat() before falling back to
-    readdir(), keeping struct perf_pmu_alias private out of pmu.h.
-  - Patch 2 adds metrics and metricgroups hashmaps on struct perf_pmu
-    while keeping struct perf_pmu_metric and struct perf_pmu_metricgroup
-    private out of pmu.h (so tool, drm, hwmon, and tp PMUs are
-    unaffected).
-- Stateless struct pmu_layer VFS and pmu-events.dir (Patches 3-6):
-  - Patch 3 introduces struct pmu_layer (sharing internal alias/metric
-    representations privately between pmu.c and pmu-layer.c via
-    pmu-layer.h) and wraps compiled-in CPU/sys and common pmu-events
-    tables as the builtin layers.
-  - Patch 4 implements the openat() directory layer supporting extended
-    event and metric sidecars, %2F escaping for '/' in names, and
-    literal cpus/<cpuid> and sys/<id> POSIX symlink lookup.
-  - Patch 5 adds the colon-separated pmu-events.dir perf config option
-    (supporting -c pmu-events.dir=..., ~/.perfconfig, and PERF_CONFIG).
-  - Patch 6 switches util/pmu.c alias resolution and enumeration over to
-    pmu-layer.c, removing ~600 lines of legacy merge plumbing.
-- PMU-routed metrics, exporters, and tests (Patches 7-11):
-  - Patch 7 routes metricgroup.c, print-events.c, builtin-list.c,
-    builtin-script.c, and util/python.c metric and metricgroup lookups
-    through struct perf_pmu and perf_pmus helpers using public struct
-    pmu_metric.
-  - Patch 8 adds 'perf list --export-dir <dir>' (host PMUs) and
-    'jevents.py --output-dir <dir>' (unbuilt JSON trees).
-  - Patches 9-10 add compiled-in model/sys table iterators in jevents.py
-    and 'perf list --export-cpuid <cpuid|arch[/model]|all>' so any
-    architecture or CPU model's events and metrics can be exported
-    directly from the perf binary.
-  - Patch 11 adds C unit tests ('Layered PMU directory overlays' in
-    tests/pmu.c) and CLI shell tests (pmu_events_dir.sh) covering
-    lossless JSON round-tripping, overlay priority, file deletion
-    restoring lower-layer defaults, CPUID stepping symlinks,
-    '--export-cpuid' cross-architecture/model export, and heterogeneous
-    multi-instance PMU sub-metric resolution.
-
-v2:
-- Rebase onto latest perf-tools-next and v2 of the perf jevents
-  block-indexed string compression series (picking up NVIDIA Tegra410
-  uncore PMU suffix handling and updated Zen 6 / Tegra410 JSON tables).
-- v1: https://lore.kernel.org/linux-perf-users/20261113211105.3118281-1-irogers@google.com/
-
-AI Assistance Disclosure (per Documentation/process/coding-assistants.rst
-and Documentation/process/generated-content.rst):
-- Tools used: Antigravity coding assistant and Sashiko automated patch
-  review.
-- Summary of prompts and assistance: Interactive design and
-  implementation of the stateless struct pmu_layer stack, openat()
-  directory layer and literal CPUID/sys symlink resolution,
-  pmu-events.dir config support, struct perf_pmu metric routing and
-  encapsulation, 'perf list --export-dir', 'perf list --export-cpuid',
-  and 'jevents.py --output-dir' exporters, documentation, unit/shell
-  tests, and Sashiko review fixes.
-- Testing performed: Built standard (mypy, pylint, shellcheck),
-  NO_JEVENTS=1, and DEBUG=1 + AddressSanitizer/LeakSanitizer builds;
-  ran perf test (including Sysfs PMU tests, PMU JSON event tests, Hybrid
-  event merging, perf list, pmu-events.dir, and metricgroup suites) and
-  scripts/checkpatch.pl.
-
-Ian Rogers (11):
-  perf pmu: Generalize pmu_alias_info_file() and lazy single-event sysfs
-    loading
-  perf pmu: Add metric and metricgroup storage on struct perf_pmu
-  perf pmu-layer: Introduce stateless struct pmu_layer abstraction and
-    builtin adapter
-  perf pmu-layer: Add openat-based directory layer with literal
-    CPUID/symlink lookup
-  perf config: Add pmu-events.dir configuration option
-  perf pmu: Switch alias resolution and enumeration to layered PMU stack
-  perf metricgroup: Route metric and metricgroup lookups through struct
-    perf_pmu
-  perf list, jevents: Add --export-dir and --output-dir sysfs-style
-    exporters
-  perf jevents: Add compiled-in model and sys table iterators
-  perf list: Add --export-cpuid to export compiled-in CPU models
-  perf tests: Add round-trip export, CPUID symlink, and pmu-events.dir
-    overlay tests
-
- tools/perf/Documentation/perf-config.txt |   52 +
- tools/perf/Documentation/perf-list.txt   |   44 +-
- tools/perf/builtin-list.c                |  366 +-
- tools/perf/builtin-script.c              |    2 +-
- tools/perf/pmu-events/README             |   19 +
- tools/perf/pmu-events/empty-pmu-events.c |   36 +
- tools/perf/pmu-events/jevents.py         |  432 ++-
- tools/perf/pmu-events/pmu-events.h       |   15 +
- tools/perf/tests/pmu.c                   |  959 ++++++
- tools/perf/tests/shell/pmu_events_dir.sh |  236 ++
- tools/perf/util/Build                    |    1 +
- tools/perf/util/config.c                 |   15 +
- tools/perf/util/metricgroup.c            |  369 +-
- tools/perf/util/pmu-layer.c              | 3894 ++++++++++++++++++++++
- tools/perf/util/pmu-layer.h              |  199 ++
- tools/perf/util/pmu.c                    |  872 ++---
- tools/perf/util/pmu.h                    |   32 +-
- tools/perf/util/pmus.c                   |  239 +-
- tools/perf/util/pmus.h                   |   13 +
- tools/perf/util/print-events.c           |   33 +-
- tools/perf/util/python.c                 |    5 +-
- 21 files changed, 7091 insertions(+), 742 deletions(-)
- create mode 100755 tools/perf/tests/shell/pmu_events_dir.sh
- create mode 100644 tools/perf/util/pmu-layer.c
- create mode 100644 tools/perf/util/pmu-layer.h
-
-
-base-commit: b7ff10b9ddec8da75304c40fe4abf1ee4f9f0a43
-prerequisite-patch-id: 380517d80b75a79f1831ac666c124fcef5cbf519
-prerequisite-patch-id: 5e284ee3a3af71e8bfe3e40719396cf60fbece96
-prerequisite-patch-id: 941dcc66edb6a846cc15ccc2c87c0955b000d5e4
-prerequisite-patch-id: 447412f5e17799157dc8981ffa28378bc5f7fe72
-prerequisite-patch-id: bbb89f0b8a053b7f91d00e834489285060b69ddc
-prerequisite-patch-id: 8c306425c73d176dfeeede044b57f7ed383e19d1
-prerequisite-patch-id: dfce7f2910fbd18bc8dc3965c52cf6b08a825180
-prerequisite-patch-id: 4730aa572afe4e6d47f6aceaff92fccc15327881
-prerequisite-patch-id: 17cb0dd6eaa58cec5d6309dda84f122c6e381d4d
-prerequisite-patch-id: 8cc6043b4dd7c81151adcc8d602f93c644c5743a
+diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
+index 1ae8bcf71c68..d97653e4c168 100644
+--- a/tools/perf/util/pmu.c
++++ b/tools/perf/util/pmu.c
+@@ -10,9 +10,11 @@
+ #include <unistd.h>
+ #include <errno.h>
+ #include <stdbool.h>
++#include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <strings.h>
+ #include <dirent.h>
+ #include <api/fs/fs.h>
+ #include <api/io.h>
+@@ -54,9 +56,28 @@ enum event_source {
+ 	EVENT_SRC_SYS_JSON,
+ };
+ 
++enum pmu_event_file_kind {
++	PMU_EVENT_FILE_BASE,
++	PMU_EVENT_FILE_UNIT,
++	PMU_EVENT_FILE_SCALE,
++	PMU_EVENT_FILE_PER_PKG,
++	PMU_EVENT_FILE_SNAPSHOT,
++	PMU_EVENT_FILE_SCALE_UNIT,
++	PMU_EVENT_FILE_DESC,
++	PMU_EVENT_FILE_LONG_DESC,
++	PMU_EVENT_FILE_TOPIC,
++	PMU_EVENT_FILE_COMPAT,
++	PMU_EVENT_FILE_DEPRECATED,
++	PMU_EVENT_FILE_LEGACY_TERMS,
++	PMU_EVENT_FILE_RETIRE_LAT_MEAN,
++	PMU_EVENT_FILE_RETIRE_LAT_MIN,
++	PMU_EVENT_FILE_RETIRE_LAT_MAX,
++};
++
+ /**
+- * struct perf_pmu_alias - An event either read from sysfs or builtin in
+- * pmu-events.c, created by parsing the pmu-events json files.
++ * struct perf_pmu_alias - An event either read from sysfs, a directory
++ * overlay, or builtin in pmu-events.c, created by parsing the pmu-events json
++ * files.
+  */
+ struct perf_pmu_alias {
+ 	/** @name: Name of the event like "mem-loads". */
+@@ -74,7 +95,7 @@ struct perf_pmu_alias {
+ 	char *terms;
+ 	/**
+ 	 * @legacy_terms: If the event aliases a legacy event, holds a copy
+-	 * ofthe legacy event string.
++	 * of the legacy event string.
+ 	 */
+ 	char *legacy_terms;
+ 	/**
+@@ -82,8 +103,10 @@ struct perf_pmu_alias {
+ 	 * differ from the PMU name as it won't have suffixes.
+ 	 */
+ 	char *pmu_name;
++	/** @compat: Optional uncore/system PMU identifier match pattern. */
++	char *compat;
+ 	/** @unit: Units for the event, such as bytes or cache lines. */
+-	char unit[UNIT_MAX_LEN+1];
++	char unit[UNIT_MAX_LEN + 1];
+ 	/** @scale: Value to scale read counter values by. */
+ 	double scale;
+ 	/** @retirement_latency_mean: Value to be given for unsampled retirement latency mean. */
+@@ -111,7 +134,7 @@ struct perf_pmu_alias {
+ 	bool deprecated;
+ 	/**
+ 	 * @legacy_deprecated_checked: Legacy events may not be supported by the
+-	 * PMU need to be checked. If they aren't supported they are marked
++	 * PMU and need to be checked. If they aren't supported they are marked
+ 	 * deprecated.
+ 	 */
+ 	bool legacy_deprecated_checked;
+@@ -119,6 +142,26 @@ struct perf_pmu_alias {
+ 	bool from_sysfs;
+ 	/** @info_loaded: Have the scale, unit and other values been read from disk? */
+ 	bool info_loaded;
++	/** @resolved: Fully resolved across all PMU layers. */
++	bool resolved;
++	/** @terms_from_legacy: @terms was promoted from @legacy_terms. */
++	bool terms_from_legacy;
++	/** @has_scale: Has scale been explicitly set by a layer? */
++	bool has_scale;
++	/** @has_unit: Has unit been explicitly set by a layer? */
++	bool has_unit;
++	/** @has_per_pkg: Has per_pkg been explicitly set by a layer? */
++	bool has_per_pkg;
++	/** @has_snapshot: Has snapshot been explicitly set by a layer? */
++	bool has_snapshot;
++	/** @has_deprecated: Has deprecated been explicitly set by a layer? */
++	bool has_deprecated;
++	/** @has_retire_lat_mean: Has retirement_latency_mean been explicitly set? */
++	bool has_retire_lat_mean;
++	/** @has_retire_lat_min: Has retirement_latency_min been explicitly set? */
++	bool has_retire_lat_min;
++	/** @has_retire_lat_max: Has retirement_latency_max been explicitly set? */
++	bool has_retire_lat_max;
+ };
+ 
+ static int pmu_aliases_parse(struct perf_pmu *pmu);
+@@ -295,28 +338,64 @@ int perf_pmu__convert_scale(const char *scale, char **end, double *sval)
+ 	return parse_double(scale, end, sval);
+ }
+ 
+-static int perf_pmu__parse_scale(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
++static const struct {
++	const char *suffix;
++	size_t len;
++	enum pmu_event_file_kind kind;
++} pmu_event_suffixes[] = {
++	{ ".unit",		5,  PMU_EVENT_FILE_UNIT },
++	{ ".desc",		5,  PMU_EVENT_FILE_DESC },
++	{ ".scale",		6,  PMU_EVENT_FILE_SCALE },
++	{ ".topic",		6,  PMU_EVENT_FILE_TOPIC },
++	{ ".compat",		7,  PMU_EVENT_FILE_COMPAT },
++	{ ".per-pkg",		8,  PMU_EVENT_FILE_PER_PKG },
++	{ ".snapshot",		9,  PMU_EVENT_FILE_SNAPSHOT },
++	{ ".long-desc",		10, PMU_EVENT_FILE_LONG_DESC },
++	{ ".scale-unit",	11, PMU_EVENT_FILE_SCALE_UNIT },
++	{ ".deprecated",	11, PMU_EVENT_FILE_DEPRECATED },
++	{ ".legacy-terms",	13, PMU_EVENT_FILE_LEGACY_TERMS },
++	{ ".retire-lat-min",	15, PMU_EVENT_FILE_RETIRE_LAT_MIN },
++	{ ".retire-lat-max",	15, PMU_EVENT_FILE_RETIRE_LAT_MAX },
++	{ ".retire-lat-mean",	16, PMU_EVENT_FILE_RETIRE_LAT_MEAN },
++};
++
++static enum pmu_event_file_kind pmu_event_file_kind(const char *name, size_t *base_len)
++{
++	size_t len = strlen(name);
++
++	for (size_t i = 0; i < ARRAY_SIZE(pmu_event_suffixes); i++) {
++		size_t slen = pmu_event_suffixes[i].len;
++
++		if (len > slen && !strcasecmp(name + len - slen, pmu_event_suffixes[i].suffix)) {
++			if (base_len)
++				*base_len = len - slen;
++			return pmu_event_suffixes[i].kind;
++		}
++	}
++	if (base_len)
++		*base_len = len;
++	return PMU_EVENT_FILE_BASE;
++}
++
++static inline bool pmu_alias_info_file(const char *name)
++{
++	return pmu_event_file_kind(name, NULL) != PMU_EVENT_FILE_BASE;
++}
++
++static int perf_pmu__parse_scale_at(int events_dir_fd, const char *event_name,
++				    struct perf_pmu_alias *alias)
+ {
+-	struct stat st;
+ 	ssize_t sret;
+-	size_t len;
+ 	char scale[128];
++	char filename[NAME_MAX + 16];
+ 	int fd, ret = -1;
+-	char path[PATH_MAX];
+-
+-	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
+-	if (!len)
+-		return 0;
+-	scnprintf(path + len, sizeof(path) - len, "%s/events/%s.scale", pmu->name, alias->name);
+ 
+-	fd = open(path, O_RDONLY);
++	scnprintf(filename, sizeof(filename), "%s.scale", event_name);
++	fd = openat(events_dir_fd, filename, O_RDONLY);
+ 	if (fd == -1)
+ 		return -1;
+ 
+-	if (fstat(fd, &st) < 0)
+-		goto error;
+-
+-	sret = read(fd, scale, sizeof(scale)-1);
++	sret = read(fd, scale, sizeof(scale) - 1);
+ 	if (sret <= 0)
+ 		goto error;
+ 
+@@ -326,25 +405,22 @@ static int perf_pmu__parse_scale(struct perf_pmu *pmu, struct perf_pmu_alias *al
+ 		scale[sret] = '\0';
+ 
+ 	ret = perf_pmu__convert_scale(scale, NULL, &alias->scale);
++	if (!ret)
++		alias->has_scale = true;
+ error:
+ 	close(fd);
+ 	return ret;
+ }
+ 
+-static int perf_pmu__parse_unit(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
++static int perf_pmu__parse_unit_at(int events_dir_fd, const char *event_name,
++				   struct perf_pmu_alias *alias)
+ {
+-	char path[PATH_MAX];
+-	size_t len;
++	char filename[NAME_MAX + 16];
+ 	ssize_t sret;
+ 	int fd;
+ 
+-
+-	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
+-	if (!len)
+-		return 0;
+-	scnprintf(path + len, sizeof(path) - len, "%s/events/%s.unit", pmu->name, alias->name);
+-
+-	fd = open(path, O_RDONLY);
++	scnprintf(filename, sizeof(filename), "%s.unit", event_name);
++	fd = openat(events_dir_fd, filename, O_RDONLY);
+ 	if (fd == -1)
+ 		return -1;
+ 
+@@ -359,6 +435,7 @@ static int perf_pmu__parse_unit(struct perf_pmu *pmu, struct perf_pmu_alias *ali
+ 	else
+ 		alias->unit[sret] = '\0';
+ 
++	alias->has_unit = true;
+ 	return 0;
+ error:
+ 	close(fd);
+@@ -366,45 +443,57 @@ static int perf_pmu__parse_unit(struct perf_pmu *pmu, struct perf_pmu_alias *ali
+ 	return -1;
+ }
+ 
+-static bool perf_pmu__parse_event_source_bool(const char *pmu_name, const char *event_name,
+-					      const char *suffix)
++static int perf_pmu__parse_bool_at(int events_dir_fd, const char *event_name,
++				   const char *suffix, bool *out_val)
+ {
+-	char path[PATH_MAX];
+-	size_t len;
++	char filename[NAME_MAX + 32];
++	char buf[16];
++	ssize_t sret;
+ 	int fd;
+ 
+-	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
+-	if (!len)
+-		return false;
+-
+-	scnprintf(path + len, sizeof(path) - len, "%s/events/%s.%s", pmu_name, event_name, suffix);
+-
+-	fd = open(path, O_RDONLY);
++	scnprintf(filename, sizeof(filename), "%s.%s", event_name, suffix);
++	fd = openat(events_dir_fd, filename, O_RDONLY);
+ 	if (fd == -1)
+-		return false;
++		return -ENOENT;
+ 
+-#ifndef NDEBUG
+-	{
+-		char buf[8];
++	sret = read(fd, buf, sizeof(buf) - 1);
++	close(fd);
++	if (sret <= 0)
++		return -EINVAL;
+ 
+-		len = read(fd, buf, sizeof(buf));
+-		assert(len == 1 || len == 2);
+-		assert(buf[0] == '1');
+-	}
+-#endif
++	while (sret > 0 && isspace(buf[sret - 1]))
++		sret--;
++	buf[sret] = '\0';
+ 
+-	close(fd);
+-	return true;
++	if (!strcmp(buf, "1") || !strcasecmp(buf, "true") || !strcasecmp(buf, "yes")) {
++		*out_val = true;
++		return 0;
++	}
++	if (!strcmp(buf, "0") || !strcasecmp(buf, "false") || !strcasecmp(buf, "no")) {
++		*out_val = false;
++		return 0;
++	}
++	return -EINVAL;
+ }
+ 
+-static void perf_pmu__parse_per_pkg(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
++static void read_alias_info_at(int events_dir_fd, struct perf_pmu_alias *alias)
+ {
+-	alias->per_pkg = perf_pmu__parse_event_source_bool(pmu->name, alias->name, "per-pkg");
+-}
++	bool val;
+ 
+-static void perf_pmu__parse_snapshot(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
+-{
+-	alias->snapshot = perf_pmu__parse_event_source_bool(pmu->name, alias->name, "snapshot");
++	if (!alias->from_sysfs || alias->info_loaded || events_dir_fd < 0)
++		return;
++
++	perf_pmu__parse_unit_at(events_dir_fd, alias->name, alias);
++	perf_pmu__parse_scale_at(events_dir_fd, alias->name, alias);
++	if (perf_pmu__parse_bool_at(events_dir_fd, alias->name, "per-pkg", &val) == 0) {
++		alias->per_pkg = val;
++		alias->has_per_pkg = true;
++	}
++	if (perf_pmu__parse_bool_at(events_dir_fd, alias->name, "snapshot", &val) == 0) {
++		alias->snapshot = val;
++		alias->has_snapshot = true;
++	}
++	alias->info_loaded = true;
+ }
+ 
+ /* Delete an alias entry. */
+@@ -418,6 +507,7 @@ static void perf_pmu_free_alias(struct perf_pmu_alias *alias)
+ 	zfree(&alias->long_desc);
+ 	zfree(&alias->topic);
+ 	zfree(&alias->pmu_name);
++	zfree(&alias->compat);
+ 	zfree(&alias->terms);
+ 	zfree(&alias->legacy_terms);
+ 	free(alias);
+@@ -438,13 +528,22 @@ static void perf_pmu__del_aliases(struct perf_pmu *pmu)
+ 	pmu->aliases = NULL;
+ }
+ 
++static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
++			       const char *desc, const char *val, int val_fd,
++			       const struct pmu_event *pe, enum event_source src,
++			       int events_dir_fd);
++
+ static struct perf_pmu_alias *perf_pmu__find_alias(struct perf_pmu *pmu,
+ 						   const char *name,
+ 						   bool load)
+ {
+-	struct perf_pmu_alias *alias;
+-	bool has_sysfs_event;
+-	char event_file_name[NAME_MAX + 8];
++	struct perf_pmu_alias *alias = NULL;
++	char path[PATH_MAX];
++	char lower_name[NAME_MAX];
++	char upper_name[NAME_MAX];
++	const char *candidates[3];
++	size_t nr_candidates = 0, name_len, path_len;
++	int events_dir_fd;
+ 
+ 	if (hashmap__find(pmu->aliases, name, &alias))
+ 		return alias;
+@@ -452,29 +551,61 @@ static struct perf_pmu_alias *perf_pmu__find_alias(struct perf_pmu *pmu,
+ 	if (!load || pmu->sysfs_aliases_loaded)
+ 		return NULL;
+ 
+-	/*
+-	 * Test if alias/event 'name' exists in the PMU's sysfs/events
+-	 * directory. If not skip parsing the sysfs aliases. Sysfs event
+-	 * name must be all lower or all upper case.
+-	 */
+-	scnprintf(event_file_name, sizeof(event_file_name), "events/%s", name);
+-	for (size_t i = 7, n = 7 + strlen(name); i < n; i++)
+-		event_file_name[i] = tolower(event_file_name[i]);
++	name_len = strlen(name);
++	if (name_len == 0 || name_len >= NAME_MAX || name[0] == '.' ||
++	    strchr(name, '/') || pmu_alias_info_file(name))
++		return NULL;
+ 
+-	has_sysfs_event = perf_pmu__file_exists(pmu, event_file_name);
+-	if (!has_sysfs_event) {
+-		for (size_t i = 7, n = 7 + strlen(name); i < n; i++)
+-			event_file_name[i] = toupper(event_file_name[i]);
++	path_len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
++	if (!path_len)
++		return NULL;
++	scnprintf(path + path_len, sizeof(path) - path_len, "%s/events", pmu->name);
+ 
+-		has_sysfs_event = perf_pmu__file_exists(pmu, event_file_name);
++	events_dir_fd = open(path, O_DIRECTORY | O_RDONLY);
++	if (events_dir_fd == -1) {
++		if (errno == ENOENT)
++			pmu->sysfs_aliases_loaded = true;
++		return NULL;
+ 	}
+-	if (has_sysfs_event) {
+-		pmu_aliases_parse(pmu);
+-		if (hashmap__find(pmu->aliases, name, &alias))
+-			return alias;
++
++	candidates[nr_candidates++] = name;
++	for (size_t i = 0; i < name_len; i++) {
++		lower_name[i] = tolower((unsigned char)name[i]);
++		upper_name[i] = toupper((unsigned char)name[i]);
+ 	}
++	lower_name[name_len] = '\0';
++	upper_name[name_len] = '\0';
+ 
+-	return NULL;
++	if (strcmp(lower_name, name) != 0)
++		candidates[nr_candidates++] = lower_name;
++	if (strcmp(upper_name, name) != 0 && strcmp(upper_name, lower_name) != 0)
++		candidates[nr_candidates++] = upper_name;
++
++	/*
++	 * Lazily open only the requested event and its sidecars via openat()
++	 * rather than scanning every file in sysfs/events/.
++	 */
++	for (size_t i = 0; i < nr_candidates; i++) {
++		struct stat st;
++		int fd = openat(events_dir_fd, candidates[i], O_RDONLY);
++
++		if (fd < 0)
++			continue;
++		if (fstat(fd, &st) == 0 && !S_ISDIR(st.st_mode)) {
++			if (perf_pmu__new_alias(pmu, candidates[i], /*desc=*/NULL,
++						/*val=*/NULL, fd, /*pe=*/NULL,
++						EVENT_SRC_SYSFS, events_dir_fd) == 0 &&
++			    hashmap__find(pmu->aliases, name, &alias)) {
++				read_alias_info_at(events_dir_fd, alias);
++				close(fd);
++				break;
++			}
++		}
++		close(fd);
++	}
++
++	close(events_dir_fd);
++	return alias;
+ }
+ 
+ static bool assign_str(const char *name, const char *field, char **old_str,
+@@ -497,21 +628,30 @@ static bool assign_str(const char *name, const char *field, char **old_str,
+ 
+ static void read_alias_info(struct perf_pmu *pmu, struct perf_pmu_alias *alias)
+ {
++	char path[PATH_MAX];
++	size_t len;
++	int events_dir_fd;
++
+ 	if (!alias->from_sysfs || alias->info_loaded)
+ 		return;
+ 
+-	/*
+-	 * load unit name and scale if available
+-	 */
+-	perf_pmu__parse_unit(pmu, alias);
+-	perf_pmu__parse_scale(pmu, alias);
+-	perf_pmu__parse_per_pkg(pmu, alias);
+-	perf_pmu__parse_snapshot(pmu, alias);
++	len = perf_pmu__event_source_devices_scnprintf(path, sizeof(path));
++	if (!len)
++		return;
++	scnprintf(path + len, sizeof(path) - len, "%s/events", pmu->name);
++
++	events_dir_fd = open(path, O_DIRECTORY | O_RDONLY);
++	if (events_dir_fd == -1)
++		return;
++
++	read_alias_info_at(events_dir_fd, alias);
++	close(events_dir_fd);
+ }
+ 
+ struct update_alias_data {
+ 	struct perf_pmu *pmu;
+ 	struct perf_pmu_alias *alias;
++	int events_dir_fd;
+ 	bool legacy;
+ };
+ 
+@@ -522,7 +662,10 @@ static int update_alias(const struct pmu_event *pe,
+ 	struct update_alias_data *data = vdata;
+ 	int ret = 0;
+ 
+-	read_alias_info(data->pmu, data->alias);
++	if (data->events_dir_fd >= 0)
++		read_alias_info_at(data->events_dir_fd, data->alias);
++	else
++		read_alias_info(data->pmu, data->alias);
+ 	assign_str(pe->name, "desc", &data->alias->desc, pe->desc);
+ 	assign_str(pe->name, "long_desc", &data->alias->long_desc, pe->long_desc);
+ 	assign_str(pe->name, "topic", &data->alias->topic, pe->topic);
+@@ -559,8 +702,9 @@ static int update_alias(const struct pmu_event *pe,
+ }
+ 
+ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+-				const char *desc, const char *val, int val_fd,
+-			        const struct pmu_event *pe, enum event_source src)
++			       const char *desc, const char *val, int val_fd,
++			       const struct pmu_event *pe, enum event_source src,
++			       int events_dir_fd)
+ {
+ 	struct perf_pmu_alias *alias, *old_alias;
+ 	int ret = 0;
+@@ -607,8 +751,10 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 		ret = parse_double(pe->retirement_latency_max, NULL,
+ 				   &alias->retirement_latency_max);
+ 	}
+-	if (ret)
++	if (ret) {
++		perf_pmu_free_alias(alias);
+ 		return ret;
++	}
+ 
+ 	if (val_fd < 0) {
+ 		alias->terms = strdup(val);
+@@ -621,6 +767,7 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 		ret = io__getline(&io, &alias->terms, &line_len) < 0 ? -errno : 0;
+ 		if (ret) {
+ 			pr_err("Failed to read alias %s\n", name);
++			perf_pmu_free_alias(alias);
+ 			return ret;
+ 		}
+ 		if (line_len >= 1 && alias->terms[line_len - 1] == '\n')
+@@ -631,6 +778,7 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 	alias->long_desc = long_desc ? strdup(long_desc) : NULL;
+ 	alias->topic = topic ? strdup(topic) : NULL;
+ 	alias->pmu_name = pmu_name ? strdup(pmu_name) : NULL;
++	alias->compat = (pe && pe->compat) ? strdup(pe->compat) : NULL;
+ 	if (unit) {
+ 		if (perf_pmu__convert_scale(unit, (char **)&unit, &alias->scale) < 0) {
+ 			perf_pmu_free_alias(alias);
+@@ -647,6 +795,7 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 			struct update_alias_data data = {
+ 				.pmu = pmu,
+ 				.alias = alias,
++				.events_dir_fd = events_dir_fd,
+ 				.legacy = false,
+ 			};
+ 			if ((pmu_events_table__find_event(pmu->events_table, pmu, name,
+@@ -681,28 +830,11 @@ static int perf_pmu__new_alias(struct perf_pmu *pmu, const char *name,
+ 	return 0;
+ }
+ 
+-static inline bool pmu_alias_info_file(const char *name)
+-{
+-	size_t len;
+-
+-	len = strlen(name);
+-	if (len > 5 && !strcmp(name + len - 5, ".unit"))
+-		return true;
+-	if (len > 6 && !strcmp(name + len - 6, ".scale"))
+-		return true;
+-	if (len > 8 && !strcmp(name + len - 8, ".per-pkg"))
+-		return true;
+-	if (len > 9 && !strcmp(name + len - 9, ".snapshot"))
+-		return true;
+-
+-	return false;
+-}
+-
+ /*
+  * Reading the pmu event aliases definition, which should be located at:
+  * /sys/bus/event_source/devices/<dev>/events as sysfs group attributes.
+  */
+-static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd)
++static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd, bool eager_info)
+ {
+ 	struct io_dirent64 *evt_ent;
+ 	struct io_dir event_dir;
+@@ -713,7 +845,7 @@ static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd)
+ 		char *name = evt_ent->d_name;
+ 		int fd;
+ 
+-		if (!strcmp(name, ".") || !strcmp(name, ".."))
++		if (!strcmp(name, ".") || !strcmp(name, "..") || name[0] == '.')
+ 			continue;
+ 
+ 		/*
+@@ -730,8 +862,14 @@ static int __pmu_aliases_parse(struct perf_pmu *pmu, int events_dir_fd)
+ 
+ 		if (perf_pmu__new_alias(pmu, name, /*desc=*/ NULL,
+ 					/*val=*/ NULL, fd, /*pe=*/ NULL,
+-					EVENT_SRC_SYSFS) < 0)
++					EVENT_SRC_SYSFS, events_dir_fd) < 0)
+ 			pr_debug("Cannot set up %s\n", name);
++		else if (eager_info) {
++			struct perf_pmu_alias *alias;
++
++			if (hashmap__find(pmu->aliases, name, &alias))
++				read_alias_info_at(events_dir_fd, alias);
++		}
+ 		close(fd);
+ 	}
+ 
+@@ -758,7 +896,7 @@ static int pmu_aliases_parse(struct perf_pmu *pmu)
+ 		pmu->sysfs_aliases_loaded = true;
+ 		return 0;
+ 	}
+-	ret = __pmu_aliases_parse(pmu, events_dir_fd);
++	ret = __pmu_aliases_parse(pmu, events_dir_fd, /*eager_info=*/false);
+ 	close(events_dir_fd);
+ 	return ret;
+ }
+@@ -774,7 +912,7 @@ static int pmu_aliases_parse_eager(struct perf_pmu *pmu, int sysfs_fd)
+ 		pmu->sysfs_aliases_loaded = true;
+ 		return 0;
+ 	}
+-	ret = __pmu_aliases_parse(pmu, events_dir_fd);
++	ret = __pmu_aliases_parse(pmu, events_dir_fd, /*eager_info=*/true);
+ 	close(events_dir_fd);
+ 	return ret;
+ }
+@@ -1075,7 +1213,7 @@ static int pmu_add_cpu_aliases_map_callback(const struct pmu_event *pe,
+ 	struct perf_pmu *pmu = vdata;
+ 
+ 	perf_pmu__new_alias(pmu, pe->name, pe->desc, pe->event, /*val_fd=*/ -1,
+-			    pe, EVENT_SRC_CPU_JSON);
++			    pe, EVENT_SRC_CPU_JSON, /*events_dir_fd=*/ -1);
+ 	return 0;
+ }
+ 
+@@ -1128,7 +1266,8 @@ static int pmu_add_sys_aliases_iter_fn(const struct pmu_event *pe,
+ 				pe->event,
+ 				/*val_fd=*/ -1,
+ 				pe,
+-				EVENT_SRC_SYS_JSON);
++				EVENT_SRC_SYS_JSON,
++				/*events_dir_fd=*/ -1);
+ 	}
+ 	return 0;
+ }
 -- 
 2.56.1.703.gf848ed807c-goog
 
