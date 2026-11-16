@@ -1,102 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814284;
-	b=bRD75X8UfBQ5FEK7Nzl/tDtB9jeN/fBTqcFLZeR4ZFx5eklslx9oVXR1ZrETc6+8C6EJ
-	 gnLezq+1ghMA2bkB6BYM3ZnGEQrXjdflxNvb5t/w3XzRGa3CKUH0pX69wEXBYwVH1l0Br
-	 OUnHQ8dz4ddNVXpBPTyvWFECXrt0tHgNmpgyvNAgClD4cxODRaRsI3wa4Uahi5P57zpX6
-	 9xzK1a0RLTBuQNjN7Y68jgsrACoQokYzkue+AsWNpgangv3YiWbi8uBFSz07Tes85j33S
-	 eLNKGGqp1DolBZ143TPF0qfkEnhwl/2EY0/w1dZOkNkTf1i6sKiIy38fiJU6GWtIYPQ==
+	t=1794814315;
+	b=WQO02kaAzjwBH89hGQjvfNzQYdXA8ai4SdAZcsSkkKVy2Hjne2U//X3TF1h//j/sH22b
+	 kOG2ypvTHVg7JP+nsyy34h5TJQoLG7SmubofyrFchzqMIeaP4W5E38lawa5eKYgCEzJSJ
+	 DbgpqBzqVZawgX5b8bmXzLVYXICjUbq4frW1/W1HaXLRY5UvpyC7oteHsjxhMhey8zBsx
+	 cQs28OjjOZvbG73AuaUWmMCcn2axaQNh2TVdDlFSyIl6OUYePBTXli9yIFcXvHV2oWk3K
+	 69mDaixiNZC89Rs+YwgzF4KHNzHW9ZL34xZ+JfUt26DKVhdH7YKKimZep/ndLiJmq4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814284;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
-	b=OJ8f+0BOOjWoXvV/S8a+b0gqtan+8R289LU17G4RvpwBQD3kFxzHLR8Z0pLH/gaiGI9C
-	 yn3cWt35WOMRMvDLn155RKwYMx5eSUvyy9vAQX9WHCInzyq4DXpxuKmtHWO/qzUqegMXr
-	 gpieOY2e33HWDYuc9LTWBP6qVICJpl2K9qYXAY2mDWPWMs/j5JFvuoZU3y+pKglASPidi
-	 VTlrPr0Umg9jiKpMjTwz1uKsp5s/Fx05SN5awUSaAG4u8t8dW2mkD1P3FVt/KsoIxYDwX
-	 ACG9CpM0XAviBObfukFptKZGjgXva+NuRv9figoL1AT0MMBwgFlLPtkzfjPkH47ksfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814315;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=mmct4hLjqfM6P4J4rNlaQewbZx02Ku0ihgJPS4dJhPg=;
+	b=btssTj5g1Hj/gIsDlJIvQykp84xyR0qbagHP5q/EuKFE359lYai74dUNMHqPXvsY2Yqb
+	 ZDudW0EMxt2yrTzUe50BtGWq+cF/OMsq2hgd2JspzoUUXtb5E2X3TEocv9LOi90AGPcVY
+	 5KdCRWVlV8SM+suOzUfm7DIulw/5b0WELcbzPM3P1qjC6KMQY8dkeQb6xk4TY1ZrhdgwL
+	 IoZhpILLnaAoagyEDUhXgQIGV2MsXUbrzEwGJS6rKY40ydChTHonyqnBz4SazdZaoxRXR
+	 lq46+JZ/fIWfYJKzWP4oq61mlU6oQOMqa6r1V7MtDBPDst4cl6nVNL5wsAHHRPOm3ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=h5+Yz6Gc;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF13606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF13606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BC2606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:31:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0BC2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0FD6E1FCF5;
-	Mon, 16 Nov 2026 07:31:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794814282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
-	b=OowYAJ57UmpKF4i8ukUIrqSiCRSh8RVaqfi84391mO+S2pWtHqhHe3OwA7/o2kaU1IwsAO
-	xr75z211sfQImJUXCHKbL8ZccMmwWITPgYJpPoFG6rGfyQiEqMm0sNclU1Y7s/dkxh0CQT
-	W8g42UoACNub4PIFfBLlIiijUX58zqs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794814282;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
-	b=hbiOBLB8HdD9eCx28C8bTakCpfwnwNI5MvoFR0YEzBb53z0r+2ThpTGQ31JpnstFg3+bVL
-	T9Oty+1zj8s7mYAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794814282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
-	b=OowYAJ57UmpKF4i8ukUIrqSiCRSh8RVaqfi84391mO+S2pWtHqhHe3OwA7/o2kaU1IwsAO
-	xr75z211sfQImJUXCHKbL8ZccMmwWITPgYJpPoFG6rGfyQiEqMm0sNclU1Y7s/dkxh0CQT
-	W8g42UoACNub4PIFfBLlIiijUX58zqs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794814282;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
-	b=hbiOBLB8HdD9eCx28C8bTakCpfwnwNI5MvoFR0YEzBb53z0r+2ThpTGQ31JpnstFg3+bVL
-	T9Oty+1zj8s7mYAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 68DA413408;
-	Mon, 16 Nov 2026 07:31:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id J98sD0mx+mrDKwAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:31:21 +0000
-Message-ID: <fbaf5c21-51c4-4935-b001-989ba79091b3@suse.de>
-Date: Mon, 16 Nov 2026 08:31:20 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=h5+Yz6Gc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=mm
+	ct4hLjqfM6P4J4rNlaQewbZx02Ku0ihgJPS4dJhPg=; b=h5+Yz6GcEpigF0B5Vd
+	6x3tXEpypfpKY3dRM9/+exVLNXNMWj00su59AjJWnILUAtqzfpNiOyR69WLHSG5Q
+	TTeyrbsa1peSOvC8I4A5tQVctwNy8vzhmPGxKQD+mJaAGrC3R63THx9isd05pCqD
+	wVziw8zjNvKz6I2Eh69QukQkE=
+Received: from mm (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgDnB4dFsfpqIKNJFg--.7882S2;
+	Mon, 16 Nov 2026 15:31:19 +0800 (CST)
+From: Qi Xi <xiqi5703@163.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Ben Niu <benniu@meta.com>,
+	Jinjiang Tu <tujinjiang@huawei.com>,
+	wangkefeng.wang@huawei.com,
+	sunnanyong@huawei.com,
+	xiqi2@huawei.com
+Subject: [PATCH v4 0/2] arm64: speed up __arch_copy_from_user() for large copies
+Date: Mon, 16 Nov 2026 15:25:10 +0800
+Message-ID: <20261116072512.1323883-1-xiqi5703@163.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,255 +66,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 12/17] nvme-fc: start error recovery instead of
- aborting timed out IOs
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
- Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
- <20261114030454.2836543-13-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261114030454.2836543-13-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,purestorage.com:email]
-X-Spam-Score: -13.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+X-CM-TRANSID:PCgvCgDnB4dFsfpqIKNJFg--.7882S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAFW3ZFW5KF13WF1UAw4fKrg_yoW5Ar18p3
+	yjywsxKrs5Wr1xAa93Z3W8X3yFvan7GryUWFn7Gr4YvFWagryjyryfGwnY9a17Cr1xG34S
+	ya1DtF9rCwnYva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5eOJUUUUU=
+X-CM-SenderInfo: 50ltxkqxqtqiywtou0bp/xtbC7QnXDmr6sUm9bQAA3F
 
-On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
-> Aborts issued from the timeout handler run outside the FCCTRL_TERMIO
-> window, so they are not counted in ctrl->iocnt and
-> nvme_fc_delete_association() does not wait for them. The association
-> can be torn down while the LLDD is still working on the abort.
-> 
-> Instead of aborting the timed out command, reset the controller like
-> the other fabrics transports do. The association teardown aborts the
-> outstanding IOs, counts the aborts and waits for them to complete.
-> 
-> Count every abort in ctrl->iocnt, not only the ones issued while
-> FCCTRL_TERMIO is set, and do not reset the count when the teardown
-> starts. An abort issued before the teardown is then waited for as well.
-> 
-> Only a LIVE controller starts error recovery. In every other state the
-> association is being set up, being torn down or already gone, so abort
-> the timed out command from the timeout handler instead and return
-> BLK_EH_DONE. The command completes through nvme_fc_fcpio_done() once
-> the LLDD has finished the abort, and the abort is counted so a teardown
-> that follows waits for it. This matters for a controller being deleted.
-> The delete path drains the IOs itself and tears the association down in
-> nvme_fc_delete_ctrl() once the drain is done, and DELETING cannot move
-> to RESETTING, so without the abort a timed out IO would hang the drain
-> against a dead target.
-> 
-> The new nvme_fc_start_ioerr_recovery() is the common entry point for IO
-> timeouts, transport errors reported by nvme_fc_fcpio_done(), Disconnect
-> LS and connectivity loss. It moves the controller to RESETTING and
-> queues ioerr_work only if that succeeds, so nothing is ever queued on a
-> controller that is CONNECTING or being deleted. A Disconnect LS or a
-> transport error received while CONNECTING is resolved when the inflight
-> request fails, or times out and is aborted.
-> 
-> ioerr_work still calls nvme_fc_error_recovery(), which returns without
-> doing anything for a controller that is not LIVE. With the controller
-> already in RESETTING when the work runs, no recovery takes place yet
-> and the controller stays in RESETTING. The next patch moves the
-> recovery into ioerr_work itself and completes the change.
-> 
-> Link: https://lore.kernel.org/all/20250529214928.2112990-1-mkhalfella@purestorage.com/
-> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> ---
->   drivers/nvme/host/fc.c | 66 ++++++++++++++++++++++++++++++------------
->   1 file changed, 47 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
-> index 0b9ff50d26ff..c4603be38144 100644
-> --- a/drivers/nvme/host/fc.c
-> +++ b/drivers/nvme/host/fc.c
-> @@ -227,6 +227,8 @@ static DEFINE_IDA(nvme_fc_ctrl_cnt);
->   static struct device *fc_udev_device;
->   
->   static void nvme_fc_complete_rq(struct request *rq);
-> +static void nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl,
-> +					 char *errmsg);
->   
->   /* *********************** FC-NVME Port Management ************************ */
->   
-> @@ -788,7 +790,7 @@ nvme_fc_ctrl_connectivity_loss(struct nvme_fc_ctrl *ctrl)
->   		"Reconnect", ctrl->cnum);
->   
->   	set_bit(ASSOC_FAILED, &ctrl->flags);
-> -	nvme_reset_ctrl(&ctrl->ctrl);
-> +	nvme_fc_start_ioerr_recovery(ctrl, "Connectivity Loss");
->   }
->   
->   /**
-> @@ -1569,7 +1571,8 @@ nvme_fc_ls_disconnect_assoc(struct nvmefc_ls_rcv_op *lsop)
->   	 */
->   
->   	/* fail the association */
-> -	nvme_fc_error_recovery(ctrl, "Disconnect Association LS received");
-> +	nvme_fc_start_ioerr_recovery(ctrl,
-> +				     "Disconnect Association LS received");
->   
->   	/* release the reference taken by nvme_fc_match_disconn_ls() */
->   	nvme_fc_ctrl_put(ctrl);
-> @@ -1813,11 +1816,18 @@ __nvme_fc_abort_op(struct nvme_fc_ctrl *ctrl, struct nvme_fc_fcp_op *op)
->   	unsigned long flags;
->   	int opstate;
->   
-> +	/*
-> +	 * Every abort is counted, not only those issued by the association
-> +	 * teardown: the teardown waits for iocnt to drop to zero before it
-> +	 * deletes the hw queues, and an abort issued earlier, by
-> +	 * nvme_fc_timeout() while deleting or by the CONNECTING recovery
-> +	 * path, must not still be in progress in the LLDD then.
-> +	 */
->   	spin_lock_irqsave(&ctrl->lock, flags);
->   	opstate = atomic_xchg(&op->state, FCPOP_STATE_ABORTED);
-> -	if (opstate != FCPOP_STATE_ACTIVE)
-> +	if (opstate != FCPOP_STATE_ACTIVE) {
->   		atomic_set(&op->state, opstate);
-> -	else if (test_bit(FCCTRL_TERMIO, &ctrl->flags)) {
-> +	} else {
->   		op->flags |= FCOP_FLAGS_TERMIO;
->   		ctrl->iocnt++;
->   	}
-> @@ -1856,8 +1866,7 @@ __nvme_fc_fcpop_chk_teardowns(struct nvme_fc_ctrl *ctrl,
->   
->   	if (opstate == FCPOP_STATE_ABORTED) {
->   		spin_lock_irqsave(&ctrl->lock, flags);
-> -		if (test_bit(FCCTRL_TERMIO, &ctrl->flags) &&
-> -		    op->flags & FCOP_FLAGS_TERMIO) {
-> +		if (op->flags & FCOP_FLAGS_TERMIO) {
->   			if (!--ctrl->iocnt)
->   				wake_up(&ctrl->ioabort_wait);
->   		}
-> @@ -1892,6 +1901,19 @@ char *nvme_fc_io_getuuid(struct nvmefc_fcp_req *req)
->   }
->   EXPORT_SYMBOL_GPL(nvme_fc_io_getuuid);
->   
-> +/*
-> + * Start recovery only if this caller can claim it with a state change.
-> + */
-> +static void
-> +nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
-> +{
-> +	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING)) {
-> +		dev_warn(ctrl->ctrl.device, "NVME-FC{%d}: starting error recovery %s\n",
-> +			 ctrl->cnum, errmsg);
-> +		queue_work(nvme_reset_wq, &ctrl->ioerr_work);
-> +	}
-> +}
-> +
->   static void
->   nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
->   {
-> @@ -2049,9 +2071,8 @@ nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
->   		nvme_fc_complete_rq(rq);
->   
->   check_error:
-> -	if (terminate_assoc &&
-> -	    nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_RESETTING)
-> -		queue_work(nvme_reset_wq, &ctrl->ioerr_work);
-> +	if (terminate_assoc)
-> +		nvme_fc_start_ioerr_recovery(ctrl, "io error");
->   }
->   
->   static int
-> @@ -2548,24 +2569,32 @@ static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
->   	struct nvme_fc_cmd_iu *cmdiu = &op->cmd_iu;
->   	struct nvme_command *sqe = &cmdiu->sqe;
->   
-> -	/*
-> -	 * Attempt to abort the offending command. Command completion
-> -	 * will detect the aborted io and will fail the connection.
-> -	 */
->   	dev_info(ctrl->ctrl.device,
->   		"NVME-FC{%d.%d}: io timeout: opcode %d fctype %d (%s) w10/11: "
->   		"x%08x/x%08x\n",
->   		ctrl->cnum, qnum, sqe->common.opcode, sqe->fabrics.fctype,
->   		nvme_fabrics_opcode_str(qnum, sqe),
->   		sqe->common.cdw10, sqe->common.cdw11);
-> -	if (__nvme_fc_abort_op(ctrl, op))
-> -		nvme_fc_error_recovery(ctrl, "io timeout abort failed");
-> +
-> +	if (nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_LIVE) {
-> +		/*
-> +		 * The association is being set up, being torn down or is
-> +		 * already gone, so recovery cannot be started from here.
-> +		 * Abort the command so the connect or teardown it would
-> +		 * block can make progress. It completes through
-> +		 * nvme_fc_fcpio_done() once the LLDD has finished the
-> +		 * abort, and the abort is counted so a teardown that
-> +		 * follows waits for it.
-> +		 */
-> +		__nvme_fc_abort_op(ctrl, op);
-> +		return BLK_EH_DONE;
-> +	}
+From: Qi Xi <xiqi2@huawei.com>
 
-Nit: With this change __nvme_fc_abort_op() can be made a void function
-as every caller is ignoring the return value.
+Based on Ben Niu's "Faster Arm64 __arch_copy_from_user and
+__arch_copy_to_user" work [1], this series continues the optimization
+for __arch_copy_from_user() only, following Catalin's review of v3 [2].
 
->   
->   	/*
-> -	 * the io abort has been initiated. Have the reset timer
-> -	 * restarted and the abort completion will complete the io
-> -	 * shortly. Avoids a synchronous wait while the abort finishes.
-> +	 * A LIVE controller starts error recovery, which tears the
-> +	 * association down and completes this request.
->   	 */
-> +	nvme_fc_start_ioerr_recovery(ctrl, "io timeout");
->   	return BLK_EH_RESET_TIMER;
->   }
->   
-> @@ -3217,7 +3246,6 @@ nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
->   
->   	spin_lock_irqsave(&ctrl->lock, flags);
->   	set_bit(FCCTRL_TERMIO, &ctrl->flags);
-> -	ctrl->iocnt = 0;
->   	spin_unlock_irqrestore(&ctrl->lock, flags);
->   
->   	__nvme_fc_abort_outstanding_ios(ctrl, false);
+For copies of 4096 bytes or more, __arch_copy_from_user() uses
+privileged LDP instead of LDTR and toggles PSTATE.PAN for the duration
+of the copy, together with an offset-addressed 64-byte loop added to
+copy_template.S.  Smaller copies keep the original code.
 
-Otherwise looks good.
+copy_to_user() is deliberately left alone.  Clearing PAN and using
+privileged STP there puts the PAN update in the middle of the user
+store stream, which breaks hardware write streaming; on Kunpeng 920
+the resulting regression outweighs the gain from paired stores.
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Performance improvements measured on Kunpeng 920:
 
-Cheers,
+The ku_copy microbenchmark [3] (a kernel module that measures
+copy_from_user throughput across various sizes by copying 1GB of
+data in each test):
+copy_from_user throughput change (positive = improvement):
+8B-2048B: ~0% (not covered by this optimization, no regression)
+4KB: +2.0%   8KB: +19.1%  16KB: +29.8%  32KB: +36.5%
+64KB: +38.0%  128KB: +57.9%  256KB: +71.2%
 
-Hannes
+Real-world workloads:
+- iperf3 over virtio-net/tap in a two-level PVM stack
+(L1 send to KVM L2 guest):
+Throughput improved from 38.5 to 50.1 Gbps (+30%).
+copy_from_user hotspot in the QEMU main-loop thread reduced
+from 68% to 55%.
+- meshproxy:
+256KB request latency reduced from 0.91 ms to 0.78 ms (-14%)
+at 16 connections / 16k QPS.
+
+Changes since v3:
+ - No global PAN disabling.  PAN is toggled only around the
+   new fast path, so LDTR/STTR remain the default for every
+   other copy and keep protecting against user-controlled kernel
+   accesses, as Catalin pointed out.
+ - Fault semantics fixed: every load in the 64-byte loop has its own
+   exception table entry, and the fixup advances dst by the number of
+   16-byte blocks that were actually stored.  A fault in the middle of
+   the loop now returns the number of bytes really not copied instead.
+ - A 4096-byte threshold is added; from there on the new path is
+   used, since toggling PAN also has a cost.
+ - copy_to_user() is deliberately left alone.
+
+[1] https://lore.kernel.org/all/20251018052237.1368504-2-benniu@meta.com/
+[2] https://lore.kernel.org/all/20260316123100.82932-1-xiqi2@huawei.com/
+[3] https://github.com/mcfi/benchmark/tree/main/ku_copy
+
+Qi Xi (2):
+  arm64: copy_template: add an offset-addressed 64-byte loop
+  arm64: copy_from_user: use privileged LDP/STP for large copies
+
+ arch/arm64/lib/Makefile             |   2 +-
+ arch/arm64/lib/copy_from_user.S     |   8 ++
+ arch/arm64/lib/copy_from_user_opt.S | 114 ++++++++++++++++++++++++++++
+ arch/arm64/lib/copy_template.S      |  35 +++++++++
+ 4 files changed, 158 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/lib/copy_from_user_opt.S
+
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.53.0
+
