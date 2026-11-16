@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819574;
-	b=y1W78t3Bdo191HXHjA0Tv0uXJt/riAnLkCIMNxHZRVCtg24L6EypfTVjxUmWAksVIkjI
-	 8cgGrbs5jnLtfw5P6uiATUn1vV1eKaIM6CrIMD3pz36TtuVW7gZ4FB3umBDl8AnV0Re5z
-	 pVG2sZNbj93H8AL1X4p1A6qULgBwq+i+qoUW4DMjjajJNccPkYAgtJTYs3zIWUWJf5swo
-	 6EYrVbiEzNXFGQ9UPeEn2SQ8uqmTll6Y/dbZWjAGpuVZksvLJkXQHNFUOiSiXcfvp2bMp
-	 JNvC+M7MlYbAtKIzQZ3ZhYr0adBkZQHdZKoaJmgfg1fdRiHd4pdygeG3cThaH2LN2Cw==
+	t=1794819573;
+	b=qUtcJCjEdmqp9/VxfOfjBcIqcnLx0NlNRYln+uXxZeLRZdn9yAFvqgXvkNVzP5vs/a7y
+	 oaVjzSZ0lrCH3WVK6wc4rFmazOEstgdwPh2lubk7tjrGWUK3F+2K4wxl6eiuGWW95mF9Q
+	 W8+Ypsk3/UFdY38klmYNd/aAfFUkB4Je+Qd/nVD3LkyQToXDC1hC2toJOsWb/NN7bIMH0
+	 VYUr4vDRvHI9CtH3gg2Sgsh4FEY+yW825M+o66QPw/gfHpaP/7fgDDPmy1GDq90gTGI16
+	 OsVgCEyf7RW6+YlPixZ9nWYrBJyykcInadRJ4PinyD/n9i4T5O/TIcIjkLzO6/1kOGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819574;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=TuAKrzSPoSNlrTFipnvv/aRbBCYjDWWseC2n8/QHZEA=;
-	b=JhZqdQHcl4DudCKTz9IKOwu58hdz5CT44DA+mpm0Ddj57jejV0sXuN2RkKkKgLcPZTO8
-	 vUgLpKPtgj3vdQ/kBVzyh1wAIj5oQRHf5HR0Y+5FYtV0PAflQudW+KmWlqGr9wm9bCCpS
-	 mpY1cf1GZyPltfNqXmsI8A9jTJ3eGNMa0iu4b831jjsnhR5++tD5mdDcwpPa2YrMPQJGi
-	 wkPHKT8SOILESf1lFBadjqYVH2UTPZK2PJXD6UK0Hjv2H8GOq5/7laajA9GwV5qq4Hi2V
-	 sHm69P/BppWNsaYUC9FF8gSpajuPb1CDamtlnvOxgUZDjzR2okEcohrVMkk2g2Y0VgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819573;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=/1cWL7iitqo61yTs1U2wym32XcZWzr83Z3cJat/PfU4=;
+	b=QwFnhMsW6s1LOL/7H5LeUhxYIBOwQJZtiDckiNP/me+lV4ZZtTusYtcWXbYu9rIiUPwx
+	 h8cRAu14YTzF9VIApZS/7TGwGc34Q+RHufA2IOHtBnzDhsog0WE7Sv1HM7wPcQn7Wg0IS
+	 6jQFJrSKFPxZ1xu77hmRFX5LAAefbbbqYf8c3o3asGiqnetyPbxrym2xTX413EmxLAhSu
+	 BiGQ/qrza04y2wa7OOQA68RYwmTVLIu86kws2TbDcFMTGeQ+/4L691bKdk4tfCkhRcOUo
+	 DfoRRfT8ZndsoWk2CzbLc0PSuWI87cctV8IL+am5TlTJ6n93+Jxb3dLQdQL0lQW3ArA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PAPPHrZx;
-	arc=none smtp.remote-ip=18.194.254.142
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=odnz7Tht;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05FE606A89D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00CC606A899;
 	Mon, 16 Nov 2026 08:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C05FE606A89D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A00CC606A899
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PAPPHrZx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794819494;
-	bh=TuAKrzSPoSNlrTFipnvv/aRbBCYjDWWseC2n8/QHZEA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=PAPPHrZxj3CFZ8G9WW3Rw/lFao7MSmCKqwaHL9Q0O1Bi3dsUqqJQWB7CpcMyzss89
-	 BRmpBJPoxP3vkin588vEjnk0llV9Wh4eUPPtYGO+P58FcDKhFPkfNzpGdzNW8SgikA
-	 COCEIWx5PK6a61NHvXoscNo1ALTQb/ARlSZmKSVM=
-X-QQ-mid: esmtpsz21t1794819476t3ef1bb7e
-X-QQ-Originating-IP: 12GrB/oDQs91PU3TksRCuKpU/lLXJOa7V+w289pH7NI=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 16 Nov 2026 16:57:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8451285217138424674
-EX-QQ-RecipientCnt: 11
-From: raoxu <raoxu@uniontech.com>
-To: mchehab@kernel.org
-Cc: luiz.von.dentz@intel.com,
-	pengpeng@iscas.ac.cn,
-	hverkuil+cisco@kernel.org,
-	pmenzel@molgen.mpg.de,
-	brgl@kernel.org,
-	lgs201920130244@gmail.com,
-	raoxu@uniontech.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: usbtv: Return zero on successful control transfers
-Date: Mon, 16 Nov 2026 16:57:52 +0800
-Message-ID: <4A73B66B67CF6E2E+20261116085752.2108903-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=odnz7Tht
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/1
+	cWL7iitqo61yTs1U2wym32XcZWzr83Z3cJat/PfU4=; b=odnz7ThtkgwuThA5jL
+	9V4Owzxi7so7Y3JcvvQ+pSOgryGwDN9dS87fi8GtSI85Crf59RMbEdSjeQHhBc8a
+	cyEgrKA+U/yv7fWRmDvftR5R/v8NrQsV1vr4u1I36OQ2QE2VO3N0e/lmoFHB4Lcx
+	YnMvPIW7uX0Fuh4ONp18grBfE=
+Received: from czl-pc (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wAH5iLPxfpqqlTnHw--.59228S4;
+	Mon, 16 Nov 2026 16:58:59 +0800 (CST)
+From: Chi Zhiling <chizhiling@163.com>
+To: linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>,
+	Yuezhang Mo <yuezhang.mo@sony.com>,
+	Christian Brauner <brauner@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Chi Zhiling <chizhiling@kylinos.cn>
+Subject: [PATCH v4 2/5] exfat: increase VDL before unlocking initialized folios
+Date: Mon, 16 Nov 2026 16:57:49 +0800
+Message-ID: <20261116085752.3908082-3-chizhiling@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116085752.3908082-1-chizhiling@163.com>
+References: <20261116085752.3908082-1-chizhiling@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,92 +70,289 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Nr5N425iK0yrHVWnJdGlE+UDSFxClMUk4UF/yL1YTmOxt7NN8984qY0k
-	7v+pFm1qz87Olr6EQPvZI6tWvOrFMc0NYy2C0H10V5RbO8TVtSMvPCLxyP2zPZdnEMmOhDv
-	zI3xAtJdu4JRKV0bvXYuj9bCZXNuGmhYg6Z8ioUILMsFUIGLLqsnhSOy/reeQ09l00UQLTe
-	VaRhR7bHWdGpLZtGKsQzDXEOXu32SHOLEmN4jeQ4s53LUi23ut9HMDOo2S5g1kB0r93WmgB
-	3POKfnPPaFiZrREYKUNzZz1Ie+h//3vsADjM/ir+CYYY+S+nNTcaDbIVqr8AdmxGxRsQR74
-	eW3cro2jk0Iunxc1+yKX44f1ZkhL3GlPE8r8BWle81mAhadoSgPQK2P58369HHYaUbjvuVZ
-	lQp0pdD2yR/sTeg1vSkdjFMXElyzbEvRTCy+hpzvCIYDADMjRHsFMJJkLcpd6nwBtLXNbMD
-	nN3j7UNPkc6gSeY1TaRKjyVMj8wHgBU8McnJgcVnTHS1f2WV7VtjZgC2qNsQwNwGLr/3esz
-	+B/+IgMNC7peqUxR6d0fupI6JYd2O5hNRxJDAA4loOcygvCIuAHap5tQt71Qsp4l6Cxu37e
-	dYCsxTnJhVrBjTt3hOAXXEqUUW4ozPVmU/wTP8ImQH2vPAOKDN8aQ3UgtBbWrgMuDHFL+ND
-	MNLNvXUr7lM/OfDXLuEYk0gJ7ZwWe/RXG5erVlmyMwsL914CALbZhluu2nmgr04Z4mR8m5Y
-	gcKyku706+y0kveewgDMKTHV122ybrEds0XvK0QSBShAv+VwqZpKnn+gsWxim8unfFjIWkg
-	KTxHC3cB7qb/MskBom0ZVEsBICJ2Wqr5TbQBG7EjcZpDJkt/qEf/f2VWv7DNE8xZE2bpbpc
-	8qulb2Yz3U3EItSxczDlpyHYtU9cC3YKOI3x1bTxNpl9zaPpfoEDgq7tOVtk3kJb+edDkkz
-	yVMAJHDOCR/X2QYzVWskpW1AUS7PJH0Z3vxy2DG32IQ4dpbGbxFKl1WgFIl4APRRezRrZa/
-	zp4o8wuMEUgRezprb/XBL8Nxe9oaKVCuwJzWg52Mob8doLuCav
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:_____wAH5iLPxfpqqlTnHw--.59228S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtrW7Jw18ZryDCFyDGryDJrb_yoWDGF1rpr
+	ZIkwn8JrWkZ34UWrn5GFyUZFyYk3WfXFWxCr95CanrZrnFy3srKF1UKFWUCFW3J397Gw4Y
+	qa1qkrW8Wr9rG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UMyIbUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9xP+nGr6xdOT3wAA3M
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Chi Zhiling <chizhiling@kylinos.cn>
 
-usbtv_s_ctrl() returns the byte count from usb_control_msg() after a
-successful control write. The supported controls transfer two or three
-bytes, so the callback returns a positive value instead of the zero
-expected by the V4L2 control core.
+Buffered writes and gap initialization can unlock initialized folios
+before increasing valid_size. Racing read can then treat their data
+as unwritten and cache zeroes instead.
 
-As a result, try_or_set_cluster() exits without committing the new
-control value to its cached current value. VIDIOC_S_CTRL can therefore
-program the hardware while a subsequent VIDIOC_G_CTRL still reports
-the previous value.
+Increase VDL and dirty the inode before unlocking each initialized folio.
+Use put_folio for ordinary buffered writes and direct-I/O buffered
+fallback, and increase VDL after initializing each gap folio.
 
-The positive return also causes v4l2_ctrl_handler_setup() to stop
-after the first control, leaving the remaining controls unapplied
-when video capture starts.
+Recheck the gap boundary after taking invalidate_lock and preserve the
+previous file size and completed initialization if a later folio fails.
+Increase VDL for the faulting folio only after iomap_page_mkwrite succeeds,
+using the current file size.
 
-The regression was introduced by commit 62de7d99dcfe ("[media] usbtv:
-don't do DMA on stack"), which moved the USB transfer buffer from the
-stack to dynamically allocated memory but inadvertently changed the
-success return from zero to the transferred byte count.
-
-Reproduced against the running V4L2 control framework using temporary
-video nodes with copies of the usbtv control callback and simulated
-successful USB transfers. The results were:
-
-  brightness (448 -> 449):
-    original: S_CTRL returned 3, G_CTRL returned 448
-    fixed:    S_CTRL returned 0, G_CTRL returned 449
-
-  saturation (512 -> 513):
-    original: S_CTRL returned 2, G_CTRL returned 512
-    fixed:    S_CTRL returned 0, G_CTRL returned 513
-
-  v4l2_ctrl_handler_setup():
-    original: 1 of 5 control callbacks executed
-    fixed:    all 5 control callbacks executed
-
-Simulated -EPIPE and -ETIMEDOUT errors continued to propagate without
-updating the cached values. The test exercised the real V4L2 control
-framework, but USB transfers were simulated; no physical USBTV007
-device was available.
-
-Return zero for nonnegative USB transfer results while preserving
-negative errors and the existing buffer cleanup.
-
-Fixes: 62de7d99dcfe ("[media] usbtv: don't do DMA on stack")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+Fixes: 90f4264e8b01 ("exfat: dirty all new pages when extending valid_size")
+Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
+Co-developed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- drivers/media/usb/usbtv/usbtv-video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/exfat/file.c  | 116 ++++++++++++++++++++++++++---------------------
+ fs/exfat/iomap.c |  18 ++++++++
+ fs/exfat/iomap.h |   1 +
+ 3 files changed, 83 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-index 2a91af8d1e30..92c745d61367 100644
---- a/drivers/media/usb/usbtv/usbtv-video.c
-+++ b/drivers/media/usb/usbtv/usbtv-video.c
-@@ -865,7 +865,7 @@ static int usbtv_s_ctrl(struct v4l2_ctrl *ctrl)
- 		dev_warn(usbtv->dev, "Failed to submit a control request.\n");
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index 5b67bbf81186..13778c72c978 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -718,12 +718,14 @@ int exfat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
+  * beyond the current valid_size and skips uptodate blocks.
+  * Mark entire folios dirty so the newly valid range is written back.
+  *
+- * Call before advancing valid_size.
++ * Increase valid_size for each newly initialized range before unlocking
++ * its folio.
+  */
+ static int exfat_prepare_valid_range(struct inode *inode, loff_t start,
+ 				    loff_t end)
+ {
+ 	struct address_space *mapping = inode->i_mapping;
++	struct exfat_inode_info *ei = EXFAT_I(inode);
+ 	loff_t next, pos = start;
+ 	struct folio *folio;
+ 	pgoff_t index;
+@@ -733,8 +735,6 @@ static int exfat_prepare_valid_range(struct inode *inode, loff_t start,
  
- 	kfree(data);
--	return ret;
-+	return ret < 0 ? ret : 0;
- }
+ 	while (pos < end) {
+ 		index = pos >> PAGE_SHIFT;
+-		next = min(((loff_t)index + 1) << PAGE_SHIFT, end);
+-
+ 		balance_dirty_pages_ratelimited(mapping);
  
- static const struct v4l2_ctrl_ops usbtv_ctrl_ops = {
+ 		folio = read_mapping_folio(mapping, index, NULL);
+@@ -743,7 +743,14 @@ static int exfat_prepare_valid_range(struct inode *inode, loff_t start,
+ 
+ 		folio_lock(folio);
+ 		if (folio->mapping == mapping) {
+-			folio_mark_dirty(folio);
++			next = min(folio_next_pos(folio), end);
++			if (next > exfat_get_valid_size(ei)) {
++				folio_mark_dirty(folio);
++				if (exfat_advance_valid_size(ei, next))
++					mark_inode_dirty(inode);
++			}
++			exfat_advance_zeroed_size(ei,
++						  round_up(next, i_blocksize(inode)));
+ 			pos = next;
+ 		}
+ 		folio_unlock(folio);
+@@ -757,13 +764,12 @@ static int exfat_extend_valid_size(struct inode *inode, loff_t new_valid_size)
+ {
+ 	struct exfat_inode_info *ei = EXFAT_I(inode);
+ 	loff_t old_valid_size = exfat_get_valid_size(ei);
++	loff_t old_size, gap_start;
+ 	int ret = 0;
+ 
+ 	if (old_valid_size < new_valid_size) {
+ 		inode_dio_wait(inode);
+-
+-		/* Do not re-zero blocks already covered by zeroed_size. */
+-		loff_t gap_start = max(old_valid_size, exfat_get_zeroed_size(ei));
++		old_size = i_size_read(inode);
+ 
+ 		if (i_size_read(inode) < new_valid_size) {
+ 			/*
+@@ -782,23 +788,31 @@ static int exfat_extend_valid_size(struct inode *inode, loff_t new_valid_size)
+ 		 * is updated.
+ 		 */
+ 		filemap_invalidate_lock(inode->i_mapping);
++		/* Fault may have initialized more of the gap while we waited. */
++		gap_start = max(exfat_get_valid_size(ei),
++				exfat_get_zeroed_size(ei));
+ 		if (gap_start < new_valid_size)
+ 			unmap_mapping_range(inode->i_mapping, gap_start,
+ 					new_valid_size - gap_start, 0);
+ 		ret = exfat_prepare_valid_range(inode, gap_start, new_valid_size);
+-		filemap_invalidate_unlock(inode->i_mapping);
+ 		if (ret) {
+-			filemap_invalidate_lock(inode->i_mapping);
+-			truncate_setsize(inode, old_valid_size);
+-			exfat_truncate(inode);
++			/* Preserve initialized data, including stores through mmap. */
++			loff_t size = max(old_size, exfat_get_valid_size(ei));
++
++			if (size < i_size_read(inode)) {
++				truncate_setsize(inode, size);
++				exfat_truncate(inode);
++			}
+ 			filemap_invalidate_unlock(inode->i_mapping);
+ 			return ret;
+ 		}
+ 
+-		exfat_set_valid_size(ei, new_valid_size);
++		/* The requested gap can already be covered by zeroed_size. */
++		if (exfat_advance_valid_size(ei, new_valid_size))
++			mark_inode_dirty(inode);
+ 		exfat_advance_zeroed_size(ei,
+ 				round_up(new_valid_size, i_blocksize(inode)));
+-		mark_inode_dirty(inode);
++		filemap_invalidate_unlock(inode->i_mapping);
+ 	}
+ 
+ 	return ret;
+@@ -829,7 +843,7 @@ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
+ 	inode_dio_wait(file_inode(iocb->ki_filp));
+ 
+ 	written = iomap_file_buffered_write(iocb, from, &exfat_write_iomap_ops,
+-			NULL, NULL);
++			&exfat_iomap_write_ops, NULL);
+ 	if (written < 0)
+ 		return written;
+ 
+@@ -921,7 +935,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 		 */
+ 		inode_dio_wait(inode);
+ 		ret = iomap_file_buffered_write(iocb, iter,
+-				&exfat_write_iomap_ops, NULL, NULL);
++				&exfat_write_iomap_ops, &exfat_iomap_write_ops,
++				NULL);
+ 	}
+ 	if (ret != -EIOCBQUEUED && end > i_size_read(inode))
+ 		exfat_write_failed(inode);
+@@ -971,56 +986,53 @@ static ssize_t exfat_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+ static vm_fault_t exfat_page_mkwrite(struct vm_fault *vmf)
+ {
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct address_space *mapping = inode->i_mapping;
+ 	struct exfat_inode_info *ei = EXFAT_I(inode);
++	struct folio *folio = page_folio(vmf->page);
++	loff_t fault_start = folio_pos(folio);
++	loff_t new_valid_size, gap_start;
+ 	vm_fault_t ret;
+-	loff_t new_valid_size, mmap_valid_size, fault_page_start;
++	int error;
+ 
+-	if (exfat_forced_shutdown(inode->i_sb))
+-		return vmf_fs_error(-EIO);
++	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
++		return VM_FAULT_SIGBUS;
+ 
+ 	if (!inode_trylock(inode))
+ 		return VM_FAULT_RETRY;
+ 
+-	mmap_valid_size = ((loff_t)vmf->pgoff + 1) << PAGE_SHIFT;
+-	fault_page_start = ((loff_t)vmf->pgoff) << PAGE_SHIFT;
+-	new_valid_size = min(mmap_valid_size, i_size_read(inode));
+-
+-	if (exfat_get_valid_size(ei) < new_valid_size) {
+-		loff_t zeroed_size = exfat_get_zeroed_size(ei);
++	sb_start_pagefault(inode->i_sb);
++	error = file_update_time(vmf->vma->vm_file);
++	if (error) {
++		ret = vmf_fs_error(error);
++		goto out_pagefault;
++	}
++	filemap_invalidate_lock_shared(mapping);
+ 
+-		if (zeroed_size < fault_page_start) {
+-			int err;
++	if (folio->mapping != mapping || fault_start >= i_size_read(inode)) {
++		ret = VM_FAULT_NOPAGE;
++		goto out_unlock;
++	}
+ 
+-			/*
+-			 * Zero only the gap below the faulting page. The read
+-			 * fault populated its folio and iomap_page_mkwrite()
+-			 * will dirty it.
+-			 */
+-			err = exfat_prepare_valid_range(inode, zeroed_size,
+-					fault_page_start);
+-			if (err < 0) {
+-				inode_unlock(inode);
+-				return vmf_fs_error(err);
+-			}
+-		}
++	/* The faulting folio is already populated; initialize only its gap. */
++	gap_start = max(exfat_get_valid_size(ei), exfat_get_zeroed_size(ei));
++	error = exfat_prepare_valid_range(inode, gap_start, fault_start);
++	if (error) {
++		ret = vmf_fs_error(error);
++		goto out_unlock;
++	}
+ 
+-		/*
+-		 * Track zeroed_size by block, not page, because writeback stops
+-		 * at i_size recording blocks wholly beyond it could skip a
+-		 * later required zeroing.
+-		 */
++	ret = iomap_page_mkwrite(vmf, &exfat_iomap_ops, NULL);
++	if (ret == VM_FAULT_LOCKED) {
++		/* Buffered write may have grown EOF before we locked the folio. */
++		new_valid_size = min(folio_next_pos(folio), i_size_read(inode));
+ 		exfat_advance_zeroed_size(ei,
+ 				round_up(new_valid_size, i_blocksize(inode)));
+-		exfat_set_valid_size(ei, new_valid_size);
+-		mark_inode_dirty(inode);
++		if (exfat_advance_valid_size(ei, new_valid_size))
++			mark_inode_dirty(inode);
+ 	}
+-
+-	sb_start_pagefault(inode->i_sb);
+-	file_update_time(vmf->vma->vm_file);
+-
+-	filemap_invalidate_lock_shared(inode->i_mapping);
+-	ret = iomap_page_mkwrite(vmf, &exfat_iomap_ops, NULL);
+-	filemap_invalidate_unlock_shared(inode->i_mapping);
++out_unlock:
++	filemap_invalidate_unlock_shared(mapping);
++out_pagefault:
+ 	sb_end_pagefault(inode->i_sb);
+ 	inode_unlock(inode);
+ 
+diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+index 2089da8439e4..0a37ed9b7330 100644
+--- a/fs/exfat/iomap.c
++++ b/fs/exfat/iomap.c
+@@ -252,6 +252,24 @@ const struct iomap_ops exfat_write_iomap_ops = {
+ 	.iomap_next	= exfat_write_iomap_next,
+ };
+ 
++static void exfat_iomap_put_folio(struct inode *inode, loff_t pos,
++				  unsigned int copied, struct folio *folio)
++{
++	if (copied) {
++		struct exfat_inode_info *ei = EXFAT_I(inode);
++
++		if (exfat_advance_valid_size(ei, pos + copied))
++			mark_inode_dirty(inode);
++	}
++
++	folio_unlock(folio);
++	folio_put(folio);
++}
++
++const struct iomap_write_ops exfat_iomap_write_ops = {
++	.put_folio	= exfat_iomap_put_folio,
++};
++
+ /*
+  * exfat_writeback_range - Map folio during writeback
+  *
+diff --git a/fs/exfat/iomap.h b/fs/exfat/iomap.h
+index fd8a913f7794..39c93f8cd790 100644
+--- a/fs/exfat/iomap.h
++++ b/fs/exfat/iomap.h
+@@ -9,6 +9,7 @@
+ extern const struct iomap_dio_ops exfat_write_dio_ops;
+ extern const struct iomap_ops exfat_iomap_ops;
+ extern const struct iomap_ops exfat_write_iomap_ops;
++extern const struct iomap_write_ops exfat_iomap_write_ops;
+ extern const struct iomap_writeback_ops exfat_writeback_ops;
+ extern const struct iomap_read_ops exfat_iomap_bio_read_ops;
+ 
 -- 
-2.50.1
+2.53.0
 
