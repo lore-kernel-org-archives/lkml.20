@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839588;
-	b=v5ZZ7wiUhM5/G1Xmazg3RccYfJSIwcFTt9HPdvfEvZe0x/GgpI4i47hCe7zkuK/mgRF4
-	 Vg3jwrSFrXB4boZZ9RbqoI/UiUJ7fhV73/46x8patFp+tpCgSkA9+kUCjkO0Yjf+ianAR
-	 Pb5tOpU5xk7vQf1Rb4bmKPC6PRZDTyow9AJjllBWLArZinL8iD9IH3DYD5jQUICaULefH
-	 uqeVwtzE0pf+kmc/lYTMSfSyXcoLnFuPn7wUql+wqsf8rSmtAWB+j+dx1/L7e42l9JNVs
-	 QQjoGLnpR/+073xwO0TUrsNfthfSFGWGO4J2CNsab9xKmIy70/RIdHWDgdCil8WvZ7w==
+	t=1794839614;
+	b=LvUNwLkgdbJXH+QNV5Y7S5ivgQGig1AFMHZSPfaP2vHCfz4aYTUDpByeSu62uQeB5+Vt
+	 a+jPbgm+dERbpB62l9NfrMXOqK8EU1GmLIYzG2L/xyENCliO66RBG7LvR2i9nqU+FpfCE
+	 wO5CUJcoXwuWFWnZ4X6xQ7maH5QtCroTt+tEeQFLGMtr+9wgNRg7JNuDLORRY4Y+KvSDN
+	 6Orgb1aACoknUGMWgUsNE3yf2a1y27b09jxsKpBXJJ4BlqBhJSgpe9WioeFSCa87u9INp
+	 nP0TPchzAswNQybQ1tPr6TPj9POinkZ8Oj0eTCeZ+0Hkwn0HpQSE6atDY6ZbsCnFIsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839588;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bY381tBpZ0JDNechNv9i/NECgodmDi16DU0CcXmzrM0=;
-	b=p3LZXeUWrzh4TJTbgCsz0e8rvkvkVcHQEKP+tj8HGTJpzO9mJ8hKaCUn6kHKb9tHtUUr
-	 CH2NFNvZtUyaNmLJ2qKoa4y1TBWqpG443HUCW2tZUNlYTpj5FP45yCqkYULfNIfUOYIgA
-	 iIMNdVRFevT0vanOjse38Y7uQe5FID5KIFgyO4K0dwh2QivA+7WYwsgB2KWRCBXYitiZO
-	 vG6o1FJZc7BJCscROJf1xpgkeM7+V5YhhS16g7Uio0R/QZAn8u/MoAI5St6+97TiTRwsA
-	 jrKsfb81xuM2xmJ/F6V/0CrTU7bwnA6tbzhA2ga4bXmNu5czRFHqgx/uVobfvdyqa5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839614;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=eWN9VxlSagJpciYGf6Tpt2UmBrCmiHzGp8LBUP4VuqY=;
+	b=jqDOQZvuMs3rbJHEwd8VCPBIuCMH+MLHBtNfarQBkf5fvzMe9cQG6xUt48GQL9Rxf7sd
+	 Q+71ZMuLwYJSdWunGjq2I1GxT3YVXsms4S1IPanybmVqUlo0nREK9PFLuUxGhDK8tIINt
+	 ZMaPCG0DPF9HMUuROfRtxuC2xk64hB2y013r6pwkAu5M8+eerFrRIHhqKcRheXQ4BdQYE
+	 AQiULuChcbKmnhuvTSQ9a8qFP9pGb3DUmtMoN7GlEsAs9R4Dgq3umW4VLHms7LsqOpfUH
+	 5okgsBggAHQzAZEuEvogNk1rzbDnQ7Zep438QaHO9CfcLsPinwMtv+ePL+XnnGQ8SVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPyXr6w1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=BNpAvLlO;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC9C606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:33:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70597606A332
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:33:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70597606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPyXr6w1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965961F000CE
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:33:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794839588;
-	bh=bY381tBpZ0JDNechNv9i/NECgodmDi16DU0CcXmzrM0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QPyXr6w1dQ/89QeuFQ1KjnpFQ6Li+1rotUlAJIR6EV7qx49t+IRSpNEpHFSIDibg8
-	 lNYJQPhgvl5tG8VasH57evNHHgH1q/XodLOMAdXhbQ79whp0QdwDvgeapGmfzsRooV
-	 EyVO9AunbAWq0px/ZqGclYIsC8pacu4WUl7Fmq3r5xadAiLzX22FFdafvu0peKSdB0
-	 gN2CNk9ku+envrFidvHsh7k0ppZ2mjZgtuILLbN4fcypIsJWHVcy1Y4DZSMDr5HpJU
-	 +XMiDVtcXZk3CHnbE9AzK21Q0FKQYKbPJgfy1Uu8GIFO00VDLTZs+ufdNzDJMUVd53
-	 p/mEO2k92wymA==
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b3acec6677so4857992c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:33:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEVWWWnodFBm0Wzs2FKFaR9BHdE2vV/ht8lUcwrM0OqqVBGIxVqcAJOJW9q7b2hUwwCnL75azTEZdu2y88=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wEdQ5flRhCZqfNh1OR2tkXfqRF/Tv++W3nn1LAKoieai62Auq
-	Tgf0CrLAXQSLzJgfnFTbfxjWLNM9q0Zwvx4gkm3g8E9htUzAlCPJEYXO0RckILg1PgebQgshDRL
-	34XyWRgzMW4K99YwhQWhcrXxle/ke2w==
-X-Received: by 2002:a05:701b:2706:b0:1a4:c892:b14f with SMTP id
- a92af1059eb24-1b50312144fmr9904001c88.29.1794839587963; Mon, 16 Nov 2026
- 06:33:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=BNpAvLlO
+Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	by cmsmtp with ESMTPS
+	id SvLZx5h7HJFmFSxm1xA0tg; Mon, 16 Nov 2026 14:33:33 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Sxm1x9i1UYskhSxm1xer8s; Mon, 16 Nov 2026 14:33:33 +0000
+X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6afb143d
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=8b9GpE9nAAAA:8
+ a=XsaZBAPq8O9JtFREHzgA:9 a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=eWN9VxlSagJpciYGf6Tpt2UmBrCmiHzGp8LBUP4VuqY=; b=BNpAvLlOurwf
+	3LgJPqnold/sZVJy9vXOgNltgq9B4FbhjsKofAbpypNFegkbnEvRiOSZRUXQQSmUfieDLK4rrnMB3
+	qg5b1Oy4QwWuLVo4mFzUwRDQyMxdj8RVzISrwkkPMNIGhN9342SHYRgueC/mk+lXrtnTFFpZ6w3Ep
+	0USfwNuhMSwYF9AhLQCFPGrglnJucTYd2b1OLR9JChcKwnThx1Hg5ZQfzqfIrEnyjAwClekYsBxoF
+	17KL+s1Ny9ePpskh/+jB/ywdoZze/jGv2E8L9CDjxHmK0kCWwtsFSGefA+GnvmVL8EKM31LA+MgQh
+	887QTBUhLjMzIBrBvflc3Q==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:60928)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSxlz-00000003swq-1hLl;
+	Mon, 16 Nov 2026 20:03:31 +0530
+Message-ID: <32157be8-28c1-403d-8485-96c1fe4543ef@roeck-us.net>
+Date: Mon, 16 Nov 2026 06:33:29 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,64 +76,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com>
- <8c8ff7e2-d1a4-45c8-aacf-bca93439a32d@gmail.com> <524b9675fd10d0d21880821c10a4f0e188d24956.camel@mediatek.com>
-In-Reply-To: <524b9675fd10d0d21880821c10a4f0e188d24956.camel@mediatek.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Mon, 16 Nov 2026 14:32:52 +0000
-X-Gmail-Original-Message-ID: <CAAOTY__vpA+t+T5QM1J1pkcFYju5HjQ+MnwNt-60Gh_0wbTzzA@mail.gmail.com>
-X-Gm-Features: AclHuK83NHlxO1R39k_ekBxI8gtiR3r3nltG-X9iF9NvNtWqqPTHxKvu6MAR4l4
-Message-ID: <CAAOTY__vpA+t+T5QM1J1pkcFYju5HjQ+MnwNt-60Gh_0wbTzzA@mail.gmail.com>
-Subject: Re: [PATCH RESEND] drm/mediatek: dsi: force command mode in mtk_dsi_poweron()
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-Cc: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>, "ryanbrue.dev@gmail.com" <ryanbrue.dev@gmail.com>, 
-	"airlied@gmail.com" <airlied@gmail.com>, "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, 
-	"simona@ffwll.ch" <simona@ffwll.ch>, 
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/15] ARM: stm32: enable arm smc watchdog on
+ stm32mp1xx
+To: Antonio Borneo <antonio.borneo@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
+ <20261116132416.1184447-7-antonio.borneo@foss.st.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261116132416.1184447-7-antonio.borneo@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSxlz-00000003swq-1hLl
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:60928
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 81
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfMxyHcwcwUHZ7JmfqcSExbShdSPeW+Oic0GyhLley505OZ5O3oAL+RCMvXFf8A/EmpbnkYNkfhvX/lSi9+8A3UNA7p3YKFE26neCpLy/WFQRBx7clu0Z
+ r82OiS0ur81QZo8fLawk4XN/PkbvEtbSoj9EPgYFoZmEcbrSDgqNYiiPmiPob1PcMlzXrRemsnMF9sYUOqv0AC7F4EjRnUJJX4SXMaichVUeKPatGIf1RB0u
 
-Applied to mediatek-drm-next [1], thanks.
+On 11/16/26 05:24, Antonio Borneo wrote:
+> The watchdog IWDG1 is secure by default on STM32MP1xx SoCs.
+> On boards that keep it secure, Linux must use the arm,smc-wdt
+> driver to ping it.
+> 
+> Enable the driver for mach-stm32 when ARCH_MULTI_V7 is enabled.
+> 
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-next
+As mentioned before, that doesn't just enable it for STM32MP1xx SoCs,
+it force-enables it for all boards running ARCH_MULTI_V7. It also
+goes well beyond the current scope of "if ARCH_MULTI_V7" configurations.
+I would suggest NACK for that reason, but that isn't my call to make.
 
-Regards,
-Chun-Kuang.
+Guenter
 
-CK Hu (=E8=83=A1=E4=BF=8A=E5=85=89) <ck.hu@mediatek.com> =E6=96=BC 2026=E5=
-=B9=B411=E6=9C=8811=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=882:43=E5=AF=
-=AB=E9=81=93=EF=BC=9A
->
-> On Tue, 2026-11-10 at 20:26 -0600, Ryan Brue wrote:
-> > External email : Please do not click links or open attachments until yo=
-u have verified the sender or the content.
-> >
-> >
-> > Hi Chun-Kuang,
-> >
-> > Gentle ping on this one for mediatek-drm-next now that 7.4-rc1 is out.
-> > It has CK's Reviewed-by and Roman's Acked-by, and it still applies
-> > cleanly to v7.4-rc2 and mediatek-drm-next. I can resend it with the tag=
-s
-> > if that's easier.
->
-> Hi, I'm Chun-Kuang [1].
-> It's not necessary to resend.
-> I would apply this patch later.
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3D93e97f715b24114169d18654e09c646fd9e14979
->
-> Chun-Kuang.
->
-> >
-> > Thanks,
-> > Ryan Brue
-> >
->
+> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+> ---
+>   arch/arm/mach-stm32/Kconfig | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
+> index 4ac3384e397aa..de09b2afa0f2e 100644
+> --- a/arch/arm/mach-stm32/Kconfig
+> +++ b/arch/arm/mach-stm32/Kconfig
+> @@ -13,6 +13,8 @@ menuconfig ARCH_STM32
+>   	select RESET_CONTROLLER
+>   	select STM32_EXTI if ARM_SINGLE_ARMV7M
+>   	select STM32_FIREWALL
+> +	select WATCHDOG if ARCH_MULTI_V7
+> +	select ARM_SMC_WATCHDOG if ARCH_MULTI_V7
+>   	help
+>   	  Support for STMicroelectronics STM32MP1 processors using Cortex-A7
+>   	  cores. Note that support for the earlier Cortex-M based variants
+
