@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794800645;
-	b=fPqm4UKejNBh48O2A/kJGhrFEFFpgpCfJMwuJM+M+bcn4trp8dUkEzMXfbZynpIjbhPJ
-	 aagD1sNrtxaeDiAPo2URFlZ5nG+t8AN/Xp5HrJnugk6/w/WoAdP8O48k1G2MQo6hXizo+
-	 +QmsuvNmZdNr0mCXiboYNq+Uihtl3gcXFzfVSFsjP9CFM1RAM76h/R5c4uAwXj4oDH+x5
-	 /8eJOChqOfnB47gteHXfgcVwbBmq+2BanVTC7EqoTUiYcjSumVapfSuF7jUBKe/3LKXfr
-	 HkM8hi9uKbRkt0agO19Iq/xEC2bgc5JV0R+zll/i+/ds/w+B0PGSfTcWTOKIe/K5XFg==
+	t=1794800666;
+	b=GL8PvnrktNKoDzFNE90HEQN1o/d9J/KUHoLy7gve+jZf3YYyCwp6MDUBcVuu04MgwR92
+	 SuBljZ2mClm8wd6Q69STUGQ843sfOJPq6mh0yrNIBW3GE5BgmA8GZyTgvOQx/+4ZSQPUd
+	 R5huOKM8xbuCXDem4J6RHaoQiYQYm8W0MEx8Sa/2KwPZ+k7Drrvg6Kj28qLJ2TaUE6BKG
+	 /DCXbftNMLEdMLl2Uq8+lpUybabBQ/LH1gsfkcTRSdxaOXBEpJPEmNxWtlzJSw5h4Bmc2
+	 6Wl8iCKOS9YjfF4rvncqaV2RzTdGQmO6RvWN0ixUSWAW8k2WQP15kbmTcCsmxpE+7jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794800645;
-	h=Received:DKIM-Signature:Date:From:To:Subject:Message-Id:In-Reply-To:
-	 References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vLeSRzbCytnZXNus5jLvaHfW3mKYG8u2Hq9MNKiQaJc=;
-	b=5K4g2ZRm1yOTcFH+LlKYa7tn0VpYwg0zHTMqNYGgazaRTq0oIyIg+OzulmwGgzr/wn6k
-	 rfjzhU8ENRQjDfGqtVqa9a7tNEcUUsa5phR6yLtqs4zmVf4M2AbjMMT9SPXtdMVi3KLGC
-	 QofQegLjn4zaVZxKuCqLVBkxAeVhHk9fbvNpy/7kY/flZFBlwOx5pUW0tVzESR1KCfwm3
-	 /wRmi3FcwFjb1T7cTE0DwP0mql7JtDzDO+q5UpWp9FJFWErzzpIurzrwqYIgKfXmBFsI/
-	 muBFVJFNH+jh3jzk3HeSr+WfStFQas+USHmA40oNKzO8bqfdkjeOm+8aT6ZOdl+zb7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794800666;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=v+oEFSF5FAVe57kexz+WWWyJRElN6EdjpF+6YGfbga8=;
+	b=k6D9NDZnRFPRG1HsC13hNyF5EXdPr+eVRy5I9B0zOMS1ujqefVIc839JLEIAi2I4Z7wG
+	 5O85e9qU4zZZ4x+qkz1VKxXdQlZVsp2wCOIkVMOo1NXBmgL6L+dGyh/ZiHvhSjB8lTigg
+	 QKfIKqJKO4viLlLttQehYKznBGFgKiTxvRT+xzLYxwGy6mU3s9eKRcbDzxqrAuj7QvZ0E
+	 dInULYoT3f7ZexFO5WoYUdfhP/fSZdI808RgON0iA7YBLi7tCueSVMc+eIDtASmVqb22U
+	 I0XAH0svmr/5WZUOmV3ybMHHFO7iDMd9abQWqD/9M4eZeCtKVY68QH3kK9Ixlq0G4Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0dYFo6CO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxzAMH0Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA69606A31C;
-	Mon, 16 Nov 2026 03:44:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008DE606A323;
+	Mon, 16 Nov 2026 03:44:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0dYFo6CO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D862C1F000C4;
-	Mon, 16 Nov 2026 03:44:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794800645;
-	bh=vLeSRzbCytnZXNus5jLvaHfW3mKYG8u2Hq9MNKiQaJc=;
-	h=Date:From:To:Subject:In-Reply-To:References;
-	b=0dYFo6COd5e4jza16vX0GgnRiQwhcpkoC72T/5GM9HYvGLzjzr0L5LvmJPsFm5zWg
-	 R9Zztxn7YHiRRzbnyxYV+3KB8p4smv63q2CrSCc3/dzietkS3agZMK3NXfw6vtdWxL
-	 MoBcwzGfgGf/vRXULlElKpN/Eul4Z/VCEfVmsvqI=
-Date: Sun, 15 Nov 2026 19:44:04 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jiebin Sun <jiebin.sun@intel.com>, dennis@kernel.org, tj@kernel.org,
- cl@gentwo.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
- linux-rt-devel@lists.linux.dev, tim.c.chen@linux.intel.com,
- tianyou.li@intel.com, wangyang.guo@intel.com
-Subject: Re: [PATCH] lib/percpu_counter: allow concurrent sums with an
- rwlock
-Message-Id: <20261115194404.a8d751a7c17904c756b16b61@linux-foundation.org>
-In-Reply-To: <20261115191636.f18859e4dd5f58b9a33e7814@linux-foundation.org>
-References: <20261116015655.2744577-1-jiebin.sun@intel.com>
-	<20261115191636.f18859e4dd5f58b9a33e7814@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxzAMH0Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D4D1F000C4;
+	Mon, 16 Nov 2026 03:44:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794800665;
+	bh=v+oEFSF5FAVe57kexz+WWWyJRElN6EdjpF+6YGfbga8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gxzAMH0QhxwxxcDQXdGkGvtMG/+FCh2Ukhd4PZHrh/vMOEyXqV1TIFiEVFu4GuQ/m
+	 aGD8+3JHzmMKAEBjBpV+WseVl7eKQFXeoKEq0g/Dj7PzyGmrq1wKaDNbTDcxCnplwv
+	 H9V3LEtgCzyoC2VlhsjM/WWugA5j+n87rf3raC7xtTUoATVDGuO2OiTJsxPtL+7nGG
+	 +dPgS/bPvrbNVqA4P2jhV5OATcWGAIJwuKeEgF4P5vrN04wQWX9A4uxwMZbxA5IF9e
+	 b/1XWsfhBY76H4iftco+UHwIfZDI+wx5qeEZ0stmS6kshGlpIYelWgYQ7LPgWsALuU
+	 3vBMoa4IVXsdw==
+Date: Sun, 15 Nov 2026 20:44:21 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH net] qca_spi: Avoid unsequenced accesses to jiffies in
+ qcaspi_netdev_tx_timeout()
+Message-ID: <20261116034421.GA47691@ax162>
+References: <20261114-qca_spi-wunsequenced-v1-1-6b219b906db7@kernel.org>
+ <490e6ccf-0cc0-4db6-b076-5d4ac5f5b8a4@gmx.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,34 +62,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <490e6ccf-0cc0-4db6-b076-5d4ac5f5b8a4@gmx.net>
 
-On Sun, 15 Nov 2026 19:16:36 -0800 Andrew Morton <akpm@linux-foundation.org> wrote:
-
-> > stress-ng dentry test average throughput change:
-> > 
-> >   +------------------------+------------+--------------------+
-> >   | Case                   | Unit       | Average change (%) |
-> >   +------------------------+------------+--------------------+
-> >   | Dentry, 64 workers     | bogo ops/s |             +47.34 |
-> >   +------------------------+------------+--------------------+
-> > 
-> > Dentry ran on ext4 with 64 workers pinned to physical CPUs:
-> > 
-> >   stress-ng --dentry 64 --dentries 4096 --timeout 20s
+On Sun, Nov 15, 2026 at 03:08:23PM +0100, Stefan Wahren wrote:
+> In general agree, but imo the jiffies itself were not helpful to debug a
+> transmit timeout in the first place, so I hope we can avoid adding a local
+> variable here.
 > 
-> lol, this is a fun patch
+> How about this:
+> 
+> netdev_info(qca->net_dev, "Transmit timeout, latency %ld\n",
+>             jiffies -  dev_trans_start(dev));
+> 
+> The timestamp from netdev_info() is much more helpful.
 
-It's *probably* OK, for sane workloads.
+Sure, that is totally fine with me. I will send a v2 with that shortly.
 
-But if some workload is busily running percpu_counter_sum on 1000 CPUs,
-how is a writer ever to get in there to spill ->counters into ->count? 
-
-Modern rwlock_t does implement queuing, so the writer will get in
-there eventually.  But nothing is simple any more - there are
-complications with rwlocks on PREEMPT_RT and with interrupt-time reads
-(do we even do that?).
-
-So I think indefinite writer starvation is a risk here?
+-- 
+Cheers,
+Nathan
