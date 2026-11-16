@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.62
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822981;
-	b=W1r24dXrsalPfvqFBIIzUEf2TGMTFh+2OHQeHFxsYRA0muBlIQqHqnqISnCCfh3TphFb
-	 AFKbfs/jfKXO5zAb8LyWfn5yDXD8zZD+CGod2AlJeF7xP3nme0e2GdsTaAr1SiG+LBHYA
-	 sSr4mTVRS1BiTcvkeAfyW3oBMwEjC85Jky4V5vO/CUfX0gzqHp/S9YpadcLYj8GcfVXh6
-	 w5Hd9AYBwq0E32yZLAsWWh2hWyobHpekf0+WBx+hDF9LnFmhZ8mQYqAMOQ4XM9jdhcnw9
-	 b2v9vmoJxvceMRoOM7LQ69Z+culGfqiKA0EbG6bDydstBdEIEa9W7R83MCmITRuYBJA==
+	t=1794823033;
+	b=C31Np4y1pPXK8p8/SylblnZiG73QI7SP93ukY3LptcCaITGHLlTTa+b3nkjZHBwNce3U
+	 UpYa7w+h27bvA+Xa+HreGcxxK3tBfZu4szDE59GQqrAN152DI+Eo2U2w2tc8Q4RKjHXQQ
+	 7eAkXX0ZG4FO17Qm80+z7iHMdGacfPF5wrPqTu36OkBUvZaNYorWOPkWH11ZM5bIeiM9g
+	 IQPb1p6Q8ifWuWGqojVULURqtIvp9B7K1qkeNmqxO5jsTX+wp4sMEUWfPHT9dmLoplwnC
+	 AlLiirGp/kd63QUk0x5sVs2rlaqZn7+KeRMxUB2q2Rr9zrpIOl3h1mm3Px7qCMCLrHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822981;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823033;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MqdAcH4oKyesXv1izqe5hdNMMmmgQcanyiwt9xpO4U4=;
-	b=r5j6Sl1dcNLYqW5AgzEBpNUfNKu25FSf7U2bzAqz68DKCRnHIVIAvRj6CkOJnw3afWye
-	 lGltQijaq21cA8w4Ykr0jSI+j3V5fxYNR7ye5RhKUbbRJM8sxByKrTtrc4QxsIMzsegj0
-	 5XhJtiP9gLUp9QiAtzeafjOOlS8mKjJx/1EjipIJIkoe8o3IaGMU6itLrpaOnjxXGdzn/
-	 RnIIQv2maxYPXmXh5Uu2/AbAtVDCsHeFDno/S86t/bjmUp19G2SGLlSa6L2Gnp/NnAvMO
-	 kcxP1I7T9EHbAZtrS0uhn8Tk1ISlsNdi5w6ggzu4eOzaJAROM2wRrPzldR6Jge53s4Q==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=I3+Y3topNYRnSbwR28B8ZoCVuIdcjYVT77tTzbCq1BY=;
+	b=Sr2wBCuA3BuS9kzS/c9Uc1qzZbTr7tHijUb+vYMyNuzbdZUwBfI6dlXwPol+BCy3sCKd
+	 fiCg6USgIp4fq/kECtP5X9LXdu5ws2DY7pyjkPlEhPBq+OiRawMpMmAX3JCDjyxM3+/IN
+	 sfkspdZ50jRrx/1b46GaipOYSYG7h1zwSVnBhRkf8rHLljzTjv3UYge8cjZ9E2ir0W4hK
+	 xfvzcIJeCCDDTIKGzoXlqlOFNICrh+k8M84UpKqtshsixHzZrJn2HpxN4JLWrUQ1xEyAm
+	 UxTtVREikzzv7fBNzeqqqDxZLIPTzvAoqtI7sgRxk25RUEo9Cdnkfq4E92y0sQBs2AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VMcgX3sk;
-	arc=none smtp.remote-ip=95.215.58.194
-Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mIEa8V8B;
+	arc=none smtp.remote-ip=91.218.175.62
+Received: from mta0.migadu.com (out-62.mta0.migadu.com [91.218.175.62])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A45E606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A45E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F02606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:57:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F02606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VMcgX3sk
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mIEa8V8B
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=M0CvuaLLaydPBAiU2oNh1/mEqv5JMT5h/+wAL8OCCDU=;
+DKIM-Signature: a=rsa-sha256; bh=0M/7xDonC715x6+9O5Xr/LSHzL87I9czc2uSQmfZOqY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794822977; v=1; x=1795427777;
- b=VMcgX3skQUkqeeIM1Iqj2i4p38satOtJKQi93/nSX3giKJodAyohnRhn9GM5pP2uUfuA4Iz7
- d71JHKej9kIvRNB550AugjDgtdMrTAgsboZ9PF2PeRbfIJHrqWSlUIPAQaKU14+fS/tVj1ti8m2
- W8nhB6vYiygTOwRkyJIHHBHM=
+ t=1794823030; v=1; x=1795427830;
+ b=mIEa8V8BULDEnZwbMezqqzI07KCN0zKeDZXL4FJMoz7e3dR22Bme/utuM2G1t+HUt4xs5PtE
+ rMZtx5sS9s7IkhGSfQsU6wHOjg2m1tNUVTBCjyJAo5sgn+DQM+SJMdA9yV5L9Nt7sx7mrqOtaCM
+ Z1FdH4W/U2kesabiU/A1A+cU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4b628c018587c7bc;
-	Mon, 16 Nov 2026 09:56:17 +0000
-X-Mizu-Trace-ID: 4b628c018587c7bc
+Received: by smtp.migadu.com with ESMTPS id 97e3a73060c77673;
+	Mon, 16 Nov 2026 09:57:10 +0000
+X-Mizu-Trace-ID: 97e3a73060c77673
 X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 17:57:29 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Chen Yu <yu.c.chen@intel.com>
-Cc: tony.luck@intel.com, reinette.chatre@intel.com, tglx@kernel.org,
-	bp@alien8.de, mingo@redhat.com, dave.hansen@linux.intel.com,
-	hpa@zytor.com, fenghuay@nvidia.com, babu.moger@amd.com,
-	hongyu.ning@intel.com, x86@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 00/12] Introduce MMIO-based CMT access for Enhanced
- RDT
-Message-ID: <avrTiSvpFSqLqCh-@three-body>
-References: <cover.1793864720.git.yu.c.chen@intel.com>
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be58ad9600so7325e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:57:06 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG+Rq0s32oTTGsRBMW8amr+WLLPSu7oKziVyImn8wwWOmAm7geUTrpHzq0QuDB6qFbbC2wTvTUO93MbbhQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hSl7ogshc8H1Z4KSK5iqu8K2fQ/q0bpnC+G7P/e6vSaTXwIqB
+	0Ag1Osj0tRp0aGYy41TzdvvyjlRbhVFOy/05QX077vTjYbWJunfpMvOe7KXvqsbbdzG9NDCjvpU
+	53RWqaSyUDYLVDWKqn1zmJ8VoJva39rtczwRmGbCC
+X-Received: by 2002:a05:6512:1244:b0:5c1:4bd2:df42 with SMTP id
+ 2adb3069b0e04-5c17e452300mr150202e87.12.1794823025609; Mon, 16 Nov 2026
+ 01:57:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,102 +66,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1793864720.git.yu.c.chen@intel.com>
+References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
+ <20261111085448.1130701-2-fuad.tabba@linux.dev> <f2f36f67-a993-735e-39d3-70e22ce6c87f@huawei.com>
+In-Reply-To: <f2f36f67-a993-735e-39d3-70e22ce6c87f@huawei.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 16 Nov 2026 09:56:29 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTzVCi6y7FJPjnaY=xR1c+EEMTk=uSU5M2=jiXrMpoEhag@mail.gmail.com>
+X-Gm-Features: Aa3M54oK9gpHPc0L5YRcoRoBDe4bteAeLTEBUq9FrNTkoJZSiv4ya5-nPjY7kqk
+Message-ID: <CA+EHjTzVCi6y7FJPjnaY=xR1c+EEMTk=uSU5M2=jiXrMpoEhag@mail.gmail.com>
+Subject: Re: [PATCH 1/7] Documentation: KVM: Fix references to non-existent identifiers
+To: Zenghui Yu <yuzenghui@huawei.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, linux-mips@vger.kernel.org, 
+	Will Deacon <will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 05, 2026 at 06:07:59PM +0800, Chen Yu wrote:
-> Date: Thu,  5 Nov 2026 18:07:59 +0800
-> From: Chen Yu <yu.c.chen@intel.com>
-> To: tony.luck@intel.com, reinette.chatre@intel.com
-> Cc: tglx@kernel.org, bp@alien8.de, mingo@redhat.com,
->  dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
->  babu.moger@amd.com, hongyu.ning@intel.com, chen.yu@linux.dev,
->  x86@kernel.org, linux-kernel@vger.kernel.org
-> Subject: [PATCH v10 00/12] Introduce MMIO-based CMT access for Enhanced RDT
-> X-Mailer: git-send-email 2.25.1
-> 
-> v9: https://lore.kernel.org/lkml/cover.1791933001.git.yu.c.chen@intel.com/
-> v8: https://lore.kernel.org/lkml/cover.1789705667.git.yu.c.chen@intel.com/
-> v7: https://lore.kernel.org/lkml/cover.1787976868.git.yu.c.chen@intel.com/
-> v6: https://lore.kernel.org/lkml/cover.1784968626.git.yu.c.chen@intel.com/
-> v5: https://lore.kernel.org/lkml/cover.1782866200.git.yu.c.chen@intel.com/
-> v4: https://lore.kernel.org/lkml/cover.1781332698.git.yu.c.chen@intel.com/
-> v3: https://lore.kernel.org/lkml/cover.1780710620.git.yu.c.chen@intel.com/
-> v2: https://lore.kernel.org/lkml/cover.1780587063.git.yu.c.chen@intel.com/
-> v1: https://lore.kernel.org/lkml/cover.1779872016.git.yu.c.chen@intel.com/
-> 
-> Intel Enhanced Resource Director Technology (ERDT) extends the existing
-> RDT framework with two major capabilities:
-> 
->   1. MMIO-based access to monitoring and allocation registers, replacing
->      the legacy MSR-based interface.
->   2. Region-aware RDT for fine-grained control over different tiers of
->      memory (e.g., CXL.mem, DDR).
-> 
-> This is described in the Intel RDT Architecture Specification:
-> https://cdrdv2-public.intel.com/789566/356688-intel-rdt-arch-spec.pdf
-> 
-> This patch set focuses on the first part: enabling MMIO-based access for
-> Cache Monitoring Technology (CMT), while CAT/MBM/MBA are still using MSR.
-> The platform advertises the MMIO register layout through the ACPI ERDT
-> (Enhanced Resource Director Technology) table, which contains sub-tables
-> describing per-domain register regions for monitoring and allocation.
-> 
-> With ERDT, L3 cache occupancy counters are read via MMIO rather than
-> MSR, allowing the reads to be performed from any CPU without requiring
-> cross-CPU IPIs. This series parses the relevant ACPI sub-tables (RMDD,
-> CACD, CMRC), prepares the resctrl monitor infrastructure for MMIO-based
-> reads, and adds initial support for reading L3 occupancy via the CMRC
-> interface. ERDT is not compatible with Sub-NUMA Cluster (SNC) mode and
-> stays disabled when SNC is enabled.
-> 
-> Thanks Tony, Reinette, Thomas, Dave, Boris, Peter, Hongyu for your time to
-> look at this patch set.
-> 
-> Internal sashiko has not reported any issues on the v10. The change history
-> in the section "Changes since v9" in each patch is generated by AI.
+On Mon, 16 Nov 2026 at 09:32, Zenghui Yu <yuzenghui@huawei.com> wrote:
+[...]> >    * ``KVM_STATS_TYPE_LINEAR_HIST``
+> >      The statistic is reported as a linear histogram. The number of
+> >      buckets is specified by the ``size`` field. The size of buckets is specified
+> > -    by the ``hist_param`` field. The range of the Nth bucket (1 <= N < ``size``)
+> > -    is [``hist_param``*(N-1), ``hist_param``*N), while the range of the last
+> > -    bucket is [``hist_param``*(``size``-1), +INF). (+INF means positive infinity
+> > -    value.)
+> > +    by the ``bucket_size`` field. The range of the Nth bucket
+> > +    (1 <= N < ``size``) is [``bucket_size``*(N-1), ``bucket_size``*N), while
+> > +    the range of the last bucket is [``bucket_size``*(``size``-1), +INF).
+> > +    (+INF means positive infinity value.)
 >
+> Could we fix the broken reST while we're at it? I mean
 
-Response to the sashiko 2 review feedback at
-https://sashiko.dev/#/patchset/cover.1793864720.git.yu.c.chen%40intel.com
-(false positive IMO)
+Will do in v2.
 
-Review1:
-"In resctrl_arch_pre_mount(), all online CPUs are then added to
-RDT_RESOURCE_PERF_PKG without checking erdt_try_bind_domain():
-arch/x86/kernel/cpu/resctrl/core.c:resctrl_arch_pre_mount() {
-	...
-	cpus_read_lock();
-	mutex_lock(&domain_list_lock);
-	r->mon_capable = true;
-	rdt_mon_capable = true;
-	for_each_online_cpu(cpu)
-		domain_add_cpu_mon(cpu, r);
-	mutex_unlock(&domain_list_lock);
-	cpus_read_unlock();
-}
-Will this cause an online CPU that failed erdt_try_bind_domain() at boot to
-still be added to the RDT_RESOURCE_PERF_PKG monitoring domain on first mount,
-while a CPU onlined (or offlined and re-onlined) after mount is excluded from
-RDT_RESOURCE_PERF_PKG by resctrl_arch_online_cpu()?
-Should resctrl_arch_pre_mount() also check erdt_try_bind_domain(cpu) before
-calling domain_add_cpu_mon(cpu, r)?"
-
-Response:
-PERF_PKG(AET) does not care about ERDT information, so whether to add the "broken" CPU into
-AET's domain does not impact the result - the AET monitor event's any_cpu is true, so
-any CPU can read the monitor data without having to be read from the CPU in that domain.
-We can keep as it is for now.
-
-Review2:
-Should cmrc_init() in arch/x86/kernel/cpu/resctrl/erdt.c also reject a zero
-cmrc->up_scale (for example, !cmrc->up_scale || cmrc->up_scale > UINT_MAX)?
-
-Response:
-The correctness of cmrc->up_scale cannot be guaranteed, because we cannot distinguish between
-a 0 value up_scale and any value between 0 and UINT_MAX, they have the same effect, and we have
-to trust the BIOS/firmware on this up_scale. We can add the above check but are not sure if it is usable.
-
-thanks,
-Chenyu
+Thanks,
+/fuad
