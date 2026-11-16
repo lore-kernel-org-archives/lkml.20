@@ -1,101 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798740;
-	b=JzHZT08yxmgu/QC/j3HY+el/A47Iz9aiQBDKHqYEiKix7B2bMesoXnVfrRNRTfUaxssu
-	 SMF3spVKq+Cb0qOh3iXIU8OjlIrLzD7p18vGg2SCa2oElNwuaP0pIFP0+pPRtUkevj1CN
-	 hM0sB55Yug2XR9AcU/gpQ2beW0phThzS9kEGnmMo7T+8qK8DY0XG3vo/AwmXNDtuJ4yne
-	 CMa8KNSDEnnv/rxtV/lw5Ib1i+0iDh5vfe/dQzcrug8CoTST5waZ7yDs3vljHKl+kXVhY
-	 WUuDc1ETTkT5ToSbXeCnDPMVdS4D/7aP5UIFutrhDxI9HvJvrcrhgIGCIPUwuXWdssA==
+	t=1794798944;
+	b=d/pTRiMPAgmv0GO6rUWYRe7wUtE9sheTt8qmsaKIiTHPPUmu9p1QABU4HuGuHBIV6bgx
+	 7AE3tCmtvShMEEb0aKSsmdKjqs5B5qu/VCzcPiXKRJ1c+l9l6pUXU/ytL4874j91ooadL
+	 d9c/qf/GdSJhoDsNlmi25c73dPGNmF8bK8WVQ2WZUTg/llOFNckQlU2DWWN9YvbPn2V+v
+	 Pqdb8CgdspiMcTN4lKYJ2uszgumHTEP5JqEgUV+lxkJGSeDbbCkheDz6xBUSm3rtjj2Ng
+	 FZbrrfHvUH+Q0aSz8jr6wICbhWPoDAiwBIN69Rm7wQb1QANQDOZy7V+xY+D88bSQbxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798740;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dhVj9s9zFV+DbHl3yJ+maZv5fyr6B5MvtTW09b8JDGE=;
-	b=NMpwvUSiz07DkA1UcWxPHi6+RX332eiQ4Dua5gove8MHizrtfG8VNfhses1Jxax7y6qm
-	 cVFbaOmjGeCrloagaVAKtg07XAUu1zUoSa+sgsDCr8xWxfOzmtPqyz0YWTXCjvn4LfVpt
-	 gl7O50gIdX3fEtVuVlQg5KMs80AyydjdzrC14wFxXy9Fl76cFmXuiyrI5TUvxQCt/SDdL
-	 vVCiMyVA83EtPb9Kvmm26TWIc5l0QkuPy5B2De/gOkGqC/2iqNKflERv2ST8iHSflsmo7
-	 pOJhxIzSBS8W1RGdDKbk97KFUP271BNvcd79n0yY/SzjR0rXNu3Z1YpfGjzd41lczhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798944;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=61hA4pI6lWNHs1Ny06AZoS+2gE8bk9pfoV7wwfpwYLY=;
+	b=AiqlLFw6vfHqmvADWhs6CWFn6Lg2XvPBwSoJzc1HokoRLAX1iDz7qaCr2GxeG2w9RVdD
+	 Qi92mBp16nNqGGFMQZRaNe8j2YT3JCDC4G2/Gc3nKnjITRg1LwbOE9Tak++LWHlhPzBZZ
+	 qAbv8q7xE2H/qMdXMH9pP44OOeYEgFSkfNb0codbDdK4gzZ0qSgAnJN5b42Prkxwym7r1
+	 Zq2Y2xE4B71M4y76KjGnbLJuVHRoozc/KmoWWiDlckOg4y2O/1iKVw/8Fpnsvwcu3DPK0
+	 WwlSCwvEKpo0MiL7YhIw77jmgw1iqxhzfr1Y8VkC9KDy3hBNoLitiFw9Of24OqfxS3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tGbI3/06";
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b6y5pjZT;
+	arc=none smtp.remote-ip=91.218.175.29
+Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F57606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:12:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F57606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560CD606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:15:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 560CD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tGbI3/06
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdde3597d8bso317989a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:12:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794798738; x=1795403538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dhVj9s9zFV+DbHl3yJ+maZv5fyr6B5MvtTW09b8JDGE=;
-        b=tGbI3/06I/g0J13gmiKUMJPY2XMQCypJkTiVTXYaK08BweI4+sOQ5WdvQ5RbB4ffXf
-         Ej9Cps7spxlMhpru/xJckAW2Der71gTsOBV7yjgnDnQhZETaBa0HApmvnBrJdJEzvBRc
-         GksXV7EqCa1QuppEluZ0SYb4OHMAzdFbWZ3pRCgo/cPXVhSG4147sIX22V07Zk2MOSq/
-         fkurgw7PAqpTaWYlDL++YMuy8WWy6bed0NVLKoSYVVtXEHbPPUdJhGLEX+T3vW9Eei3G
-         arGzFKrjwlT9u6YMIkPCJMWhIWhj0afYSMGdO8tx1XsZSCUOKssB+8Yd64auF25OSy1E
-         T7TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794798738; x=1795403538;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dhVj9s9zFV+DbHl3yJ+maZv5fyr6B5MvtTW09b8JDGE=;
-        b=v/LSOnAbj/WTPmJP0bSid3nZGFPxPhZR+pex9I607nHRiLxGcsq9DDHJJ7Vh0U9qIU
-         nPU/edW9s6kywxQ5Kx8vJe93raE2C5/pI2Tm2APwslWXbl0kubSbWDMm+p4aJ1nRqQSl
-         6Ek40y9iRf7sUB+tj7jhmfnjaZN8QKZzh9/D8SCpfMEgRaaLuk+adnPlqowIeK6nBseK
-         A95b/0r0orNQjo6AW0PvUW+xgdmcsLyjEVg8XOU9FCWanjys7Vg3WOoSIXvh1NpVfrND
-         vhUmv46AR/g+E7wmSDuafbz63HQnaCV8e9+3pdeU1hKsts4qTeJjc/SFXe3DtHZTQpGK
-         JLEg==
-X-Forwarded-Encrypted: i=1; AL+hErFy0UXVV7g9IdvgYz52Si7wAKvmCfpgTF+t3UC1Kla3uw1cBOtH5qTyto8otEzijnKY+W6XptiCYBGJbaU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80A0SHDxfT4SMi/ySoQjzvwxxmCkyXRImd9DGWHu/0lBEB60XV
-	pUQVg6a3X/0yTy6xH28BFyDGlbI4YYEPx02XuEUQPATDhIDF4oYRz/TN
-X-Gm-Gg: AYBFou0e0g2KieJaNFRHWr1YYHls3pa6ryFOtZ3ShvqaSkmfSY7q5XbqAbDY4O8RDXf
-	UPZyVNloUaLhr+4m+IPdnbhUPY2OryvVp6lKPXRrWdhFUUyXrCYJg0vrfqcrIaOZwFEgdAsVX9k
-	tAvsNfCET8NCU5FECGPUWK8llUsoz/3gs9lwyZoafmvB0vIR2l9r6xju8vzl++2ein6F1xtIjil
-	WKYnzV9+8DtGgYyFaIAqK/dDxisyOnZPWWkJA26KdrveK4vsXqYq9I33xdIPKoUN/xWh+s1sqhw
-	O4Uj8F53yMk+m9zRlS6dmimEASAPoV9yw+r77HOrOyiTgChFvcKezHIDDCaF+D7xYH8h4DBwfDF
-	okw2xbb82YMCdim5Urjiut1vNiqU0ceXZq8YXfigyuZP+MSac0UTi6BYq+2rM5h0ft4lAxvNqeB
-	Md3Uk9SEEzBvV/XZpfGncjcyI/qZp+0p/30t4lUAJuWs6Rqj3vmYahTeBZuUN2u6712zyUxNC0f
-	41benTdWIbv2DpnaCFSQNvED3BzMpQdGvubQezQnJg4rJf6o8mfoiTi2MXMrGlXWvI65jv9Gvpi
-	UVlldUhrWFv1slp2T707/svOaBlZY/Cy
-X-Received: by 2002:a17:90b:184b:b0:3ac:9ed8:f301 with SMTP id 98e67ed59e1d1-3b1b0ccf45cmr6223470a91.30.1794798738434;
-        Sun, 15 Nov 2026 19:12:18 -0800 (PST)
-Received: from x1.home ([172.56.107.232])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8dc859sm31238405ad.59.2026.11.15.19.12.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 19:12:18 -0800 (PST)
-From: David Westen <davidlwesten@gmail.com>
-To: netdev@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com,
-	ryazanov.s.a@gmail.com,
-	johannes@sipsolutions.net,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	m.chetan.kumar@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	mail@maciej.szmigiero.name,
-	David Westen <davidlwesten@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: wwan: iosm: fix S3 resume by re-binding the driver around it
-Date: Sun, 15 Nov 2026 19:11:48 -0800
-Message-ID: <20261116031148.333990-1-davidlwesten@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b6y5pjZT
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RUdXcvQAkasOinh1aHVDzx5Sbf8dYEfIHFE+pPtSAf8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794798941; v=1; x=1795403741;
+ b=b6y5pjZThx7DYDxGEYNfUyp+U3/xosaEMZmj2dCioSZXgrycZsMsMAUAuW/xB7bHrCC6ul7F
+ 9ajzKA3pNWSWmGKecb6G6We6VuI02BRbHXYzbgsLhXKuTqXrA9aqLfU8wfztFqNfoahP2KCso1W
+ Xp6Tjkb4pnM2yywUCJeoV9ao=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4346fe518fa13606;
+	Mon, 16 Nov 2026 03:15:41 +0000
+X-Mizu-Trace-ID: 4346fe518fa13606
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5d234178-7799-4603-82bf-40a70101f78a@linux.dev>
+Date: Mon, 16 Nov 2026 11:15:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,69 +58,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/9] mm/vmalloc: BUG_ON() on an unaligned range in
+ vmap_pages_range_noflush_walk()
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Dev Jain <dev.jain@arm.com>, Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
+ <20261110112546.261415-5-hao.ge@linux.dev> <avWtB-nWZUwLdQdP@milan>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <avWtB-nWZUwLdQdP@milan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On platforms where S3 cuts power to the WWAN card, the modem boots
-again while the system sleeps, but the driver still treats it as
-running. After resume its execution stage reads BOOT, and by the
-first port open the boot code has crashed into the CD_READY stage:
+Hi Ulad
 
-  iosm 0000:03:00.0: PORT open refused, phase A-CD_READY
+On 2026/11/12 20:11, Uladzislau Rezki wrote:
+> On Tue, Nov 10, 2026 at 07:25:41PM +0800, Hao Ge wrote:
+>> The pte loop of vmap_pages_pte_range() maps whole pages and stops
+>> only when addr lands exactly on end.  An unaligned end lets addr
+>> jump over it and the loop keeps mapping into whatever follows the
+>> range.  An unaligned start maps the page below the range with its
+>> first pte.  That corruption is impossible to debug afterwards, so
+>> bug out on addr and end at the entry of
+>> vmap_pages_range_noflush_walk().
+>>
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>> ---
+>>  mm/vmalloc.c | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>> index 27f2674a5556..86fbb1d2b27a 100644
+>> --- a/mm/vmalloc.c
+>> +++ b/mm/vmalloc.c
+>> @@ -698,6 +698,8 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
+>>  	pgtbl_mod_mask mask = 0;
+>>  
+>>  	BUG_ON(addr >= end);
+>> +	BUG_ON(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end));
+>> +
+>>
+> But why do we add this? We used to live without it and as far i see
+> we have not gotten any report about any unaligned addresses un-maping.
+> 
+> The vmap allocator grantees that va->va_start/end have to be page
+> aligned.
 
-The modem then stays unusable until an ACPI reset.
+You are right that no in-tree caller passes an unaligned range today.
+This came about after looking at
+commit a739e6b557af ("mm: vmalloc: WARN_ON if mapping size is not PAGE_SIZE aligned").
+That commit only guards the ioremap family. vmap_pte_range() is reached
+through vmap_page_range() only, so what it protects is ioremap_page_range(),
+pci_remap_iospace() and friends, which map physically contiguous ranges.
 
-Unbind the driver before S3 and bind it again after resume, as
-commit 0b6f6593aa8c ("net: wwan: iosm: Fix hibernation by re-binding
-the driver around it") already does for hibernation, so the modem is
-probed again once it has booted. Suspend-to-idle keeps the modem
-powered and is still handled by the suspend/resume callbacks. The
-target state isn't known yet when the PM notifier runs, so use the
-default suspend mode to tell S3 from suspend-to-idle.
+vmap_pages_range_noflush_walk() has the same loop and serves the other half of the picture,
+the virtually contiguous mappings, where the physical pages behind the range do not have to
+be contiguous, and since functions like vmap_pages_range() take addr and end from the caller as
+they are, the page alignment is the caller's contract in the first place, so this is the same idea
+as a739e6b557af and the check just makes that contract visible.
 
-Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Westen <davidlwesten@gmail.com>
----
+That said, dropping this patch is also fine with me. Nobody can actually trigger it today, as I said at
+the beginning, so I will drop it from the next version.
 
-Notes:
-    Tested on an XMM7360 (ThinkPad X1 Carbon 6th gen, deep sleep) with
-    this patch applied to 7.2.15: after resume the modem is probed again
-    and comes up without an ACPI reset. Not tested on the XMM7560.
-    
-    The investigation and the patch were done with an AI coding assistant
-    (Claude Opus 5.5). It read the driver and added temporary debug logging
-    to record the execution stage around suspend and resume. We wrote the
-    change and the changelog together, and I ran the tests.
+Thanks
+Best Regards
+Hao
 
- drivers/net/wwan/iosm/iosm_ipc_pcie.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-index 49052eb511ba..ec27d6fd7910 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
-@@ -534,12 +534,17 @@ void ipc_pcie_kfree_skb(struct iosm_pcie *ipc_pcie, struct sk_buff *skb)
- 
- static int pm_notify(struct notifier_block *nb, unsigned long mode, void *_unused)
- {
--	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE) {
-+	/* The modem loses power in S3 and S4 and boots again on resume, which
-+	 * the suspend/resume callbacks can't handle, so probe it again.
-+	 */
-+	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE ||
-+	    (mode == PM_SUSPEND_PREPARE && !pm_suspend_default_s2idle())) {
- 		if (pci_registered) {
- 			pci_unregister_driver(&iosm_ipc_driver);
- 			pci_registered = false;
- 		}
--	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE) {
-+	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE ||
-+		   mode == PM_POST_SUSPEND) {
- 		if (!pci_registered) {
- 			int ret;
- 
-
-base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
--- 
-2.56.0
-
+> 
+> --
+> Uladzislau Rezki
