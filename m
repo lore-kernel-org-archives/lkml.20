@@ -1,55 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823883;
-	b=nYHTpbajzBvq3+M8QecDj31uhmV3ohJnOX9KDLa0CP+XfcmQlK3Z9BuyeOh3AKzD7oer
-	 gJdhYE3I0k0mZot66mscIk3YNd+WYx8CXWPyn/jiXNT6BmKWfUwjduPjfnNT9iH9Z+JNj
-	 EartMwNqUAXBdZZV+3IZcofRKAMNNVZV+ZWCTY1cP1AIIiiXT1y27gHLHBj6Izbp4vkcb
-	 tZhM5FLyF7x1KhMND49njefBPco6BEHGJnZNknqQ8w0lLh6voG9UKbIZuONAwb1YomhKg
-	 cibbJVt/vCyrzD5Wq/evrN+LNcPWuUkCLsKBUHPh7sNlPRFDr8VCmeLElU76IFXZ6bw==
+	t=1794823917;
+	b=DRdFUpb8wRzlcWOmbzbArUW5yEGSLaHxCAF8KBRdR9TsXaEqLVCZlNIe2VxcAvODDujE
+	 76S5VZkHM9bsv7v8kOpvKLTCp9Uy/hXpyMN5t5TqI3HQjJ5iQrPSJc2+I1UaeBv/ir3Tc
+	 740SO3txa8oBiC3hZjxrAf2k4ss95Zq6Sgw8h+PrnioO36V63JS3MhBlOCPNveggC42i0
+	 dbTE2jIJ0p3u+U15heVZtpFgGx9daARzMTjXeM8nUx6NS0vsa/Q6YXxAvOO6kMCdbCXtG
+	 3IDLgd8fqd2IsF7GP4eHrhZUGTcqiz4m1v2lhhXGLxaTWazZc6ziFYEdiBAF1g5VSaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823883;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VDdgEqnnBqULx4MMS3GYki2TX5m8ZiMkZgjITNIXXPk=;
-	b=hgcoD+ydynjPm4ykXgduDIm6ZltwdMRnhjlO2zLRGG0vlHk5XArSo+vgkH36GiThHpO+
-	 eLwKbzJrc3oVNj4caltcNzVEw0o5NW58DOr1gYP7WegXA7sPUmZY9Qtas4GYhqezV1FIc
-	 v1P62Yusm+M7ed8LXaothEExCe9ZaTkWmrTInvbaL6tzMDx59yORLkGB5wvNc1V6uK3h5
-	 JvehKjMas+ndDePJQEGrP9Hg0mirzAlBvV2XT5Tq8VWLessHMEFkOVW3GrwMfoB+1Dx8m
-	 /WQoDL1DKV0CTgpDuzhp9K1QQgmnnZuIIYz2x2QkMfg4VnLqDlxCBmc+g2DC7NDRhXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823917;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
+	 DKIM-Signature;
+	bh=5jH2tJA0uI2n3x3vkbX24aFcRenl7hpMtrCEnX84aIs=;
+	b=j3oHsjLo/v8TuFN1Vwy5/F+QfV2vUQDKr8zHaE5+vWpRC/KALbOQhEq7hVnPV/fJgocH
+	 7t47tjkq8qXIjfqrUOkZCU3hs2C+4dLT1LIlUtLiB6Jm81HHRJjhbVGvTxQe/oVTqMFRI
+	 1AeK2uC1ppgymBj2iGecL5wJRY9jm8fl5bEilL2h1vwiRiZ7PQ79y3TFeud5l20rzF0Oe
+	 gelRTIG5U+F58JubibWp8OCgwljEUgPUV4fgcr4ibMVISeBwze3GyrJKOqPKgh2Hho7Hy
+	 idSz6ZmPRC70bkwZnm3GyXVvXrkKt9OBHRUFoFiAbu8sM7e61RKtB1QLBw7IXsH/rqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UCaYX8wD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=FNsTOjKf;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F71606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:11:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA538606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:11:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA538606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UCaYX8wD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3821F000CB
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794823882;
-	bh=VDdgEqnnBqULx4MMS3GYki2TX5m8ZiMkZgjITNIXXPk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UCaYX8wDkoG/uPWL4VuP+5qxOf2y6Bh6MtWUnVkZXfp0lYL1cA2TAAZEWexa9q+2m
-	 lrFRfpUrpm5SPDSxqPhh5NllKtttj0wMRQouDrDnHIlohwfhSkH42DpfUwOeZS8+k/
-	 OzV0DHUTvUJaNE7vX8GL5r0a5VTp1ciH+f+Vw8rD6m51kKw7fcuQiNuTI5AewYiRXd
-	 ciNKrMW9BEmJfLFdWkuWNTznhsfmcTC9Hk1EDU8HMQZ0Gxh7FGotgfhiKjRWjOb4QF
-	 WE8QMyU2kxWOBA71kZyJoyWUHQuqE843UvQREwm4MiDCe1Zscvoj7AfBT2+8f9GNzC
-	 AnLPNWC0lhAXg==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c17a1775fcso1775779e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:11:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGkjf+ZPtBZLMSmCpREViM2HqJ1M27vGa24h7GGRdyqFpAIRrQ3yGVt87MrVrdvfWTHh0LhGJmVfXr8zcI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PtVwBmEb9etgOzmAztby4fz9/yEQmdvgt0InszVDYZy7TgibP
-	Zn74wJmQ8LoWCE42tl1y4/8hY+BrpJN+2rTgCMC6Diy7YpWPyqiiXF6Nq732SH4UyIqzUZPNSs5
-	skjXw8kL4oP5FZXwJthvG4thMonSbx3E=
-X-Received: by 2002:a05:6512:618a:b0:5c1:5278:f9b7 with SMTP id
- 2adb3069b0e04-5c170b1c7d2mr3708890e87.20.1794823881151; Mon, 16 Nov 2026
- 02:11:21 -0800 (PST)
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=FNsTOjKf
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 6CE9860F23
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:11:54 +0100 (CET)
+Received: (qmail 32747 invoked by uid 990); 16 Nov 2026 10:11:54 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 16 Nov 2026 11:11:53 +0100
+From: Leonard Lausen <leonard@lausen.nl>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: leonard@lausen.nl,
+	Luka Gejak <luka.gejak@linux.dev>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-wireless@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rtw-next v2 2/2] wifi: rtw88: sdio: combine free TX page register reads
+Date: Mon, 16 Nov 2026 10:08:05 +0000
+Message-ID: <20261116100804.425592-6-leonard@lausen.nl>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116100804.425592-2-leonard@lausen.nl>
+References: <20261116100804.425592-2-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,52 +66,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116014823.3132576-1-jic23@kernel.org> <20261116014823.3132576-36-jic23@kernel.org>
-In-Reply-To: <20261116014823.3132576-36-jic23@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 16 Nov 2026 11:11:07 +0100
-X-Gmail-Original-Message-ID: <CAD++jLn0gq0FL_5L1QnviPw51tRSzc7Kr59BftRrmZi2RkqNZg@mail.gmail.com>
-X-Gm-Features: Aa3M54pHeJxrP1Fk6URaiwULFWhJUnkhNel8D9qfG2FXtEuyt-fcPVVKRf0PUWc
-Message-ID: <CAD++jLn0gq0FL_5L1QnviPw51tRSzc7Kr59BftRrmZi2RkqNZg@mail.gmail.com>
-Subject: Re: [PATCH 35/35] iio: gyro: mpu3050: use default_trigger
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org, 
-	Martin Tuma <martin.tuma@digiteqautomotive.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Gustavo Silva <gustavograzs@gmail.com>, Marcelo Schmitt <marcelo.schmitt@analog.com>, 
-	Antoniu Miclaus <antoniu.miclaus@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Ramona Alexandra Nechita <ramona.nechita@analog.com>, Tomislav Denis <tomislav.denis@avl.com>, 
-	Jorge Marques <jorge.marques@analog.com>, Petre Rodan <petre.rodan@subdimension.ro>, 
-	Dan Robertson <dan@dlrobertson.com>, Jianping Shen <Jianping.Shen@de.bosch.com>, 
-	Gwendal Grignou <gwendal@chromium.org>, Maxwell Doose <maxwell@maxwelld.cc>, 
-	Tomasz Duszynski <tduszyns@gmail.com>, Esben Haabendal <esben@geanix.com>, 
-	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	Vasileios Amoiridis <vassilisamir@gmail.com>, Abhash Jha <abhashkumarjha123@gmail.com>, 
-	Puranjay Mohan <puranjay@kernel.org>, Nishant Malpani <nish.malpani25@gmail.com>, 
-	Oleksij Rempel <o.rempel@pengutronix.de>, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -----
+X-Rspamd-Report: REPLY(-4) BAYES_HAM(-3) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -5.6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=CnMs8NT+xPKw7Y8nLMvWZzG8vTWG9cCa8Tj+HGNDofQ=;
+	b=FNsTOjKffSt9/4uddZlxuurPBC/5wYuB48nKpcsujdN8+eLzgqiYlrDEdp66ZtN6aBrd2Xo3ZV
+	rXDwBThP7AimteRhAI5s3tL4KxSqvwS+J8xwDzyI/26kwlASP+C7B3A0A1Bnt1YNny1uPTfftNMX
+	QkJvSvzPcqif1hbn0qlXLrGi05bG+esZDyGBptcyX4iaGNN7dBOXfKXxhFAR3TT4RmoTD12dI563
+	49pZHjVM1q+t95gKJ6k0Q447UP+oewTgAsa+fdDZdEO/Uaxh+cKn+WPVEEJ+/anIjHlllXbve3Dv
+	Zbf4/fpDnsHIKyeDjMx16cr26dlZesh3eX3zHSnVvjeOvW/q8Z59n7vyxIKMMtFp16qiBRUDWvXc
+	RSYpMSCKnqBb8JUW5n9CKIiZSTHDcKGbd0sPSEiYFkBNWD6x2AaUMig8ckUw8A/3qItxO5B7Wjl0
+	7Ff77u6cVwWULa791EIEIB7u2TZbQr6Zj5VTcXxs9BsWs5oXqgeZj0bqdB+XvmEmCrrlVzW1wzAL
+	GHo3NM68h9Vw+z6Mcd9kFU43DjYCN+0nFNwVTdlZnOROZBzjmj1tWoO2YM5ydU7MT9d+qhPrf5Q5
+	7XYYJ8zh/7YEWgUobuNBgUFUeu8RRYOqCbX+pyQd1BE/LEuoszy3K1EH0R7Z3npX0ya3wCnYxs8l
+	I=
 
-On Mon, Nov 16, 2026 at 2:50=E2=80=AFAM Jonathan Cameron <jic23@kernel.org>=
- wrote:
+TX capacity checks on non-8051 chips read three adjacent 32-bit registers
+in separate SDIO requests. Combine them into one 12-byte CMD53 read when
+the existing power/alignment check permits it, with the per-register
+fallback otherwise. Propagate read errors before checking queue capacity.
 
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->
-> Set indio_dev->default_trigger rather than taking a reference to the
-> trigger in probe(). The IIO core now takes the reference during
-> iio_device_register(), so it is not leaked if probe() fails after
-> the trigger is set up. Whilst the ordering is such that there is
-> no leak in here today, this will make the ordering less fragile
-> going forwards.
->
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Allocate a DMA-safe buffer at probe and copy its little-endian values
+into the caller's array before releasing the host. Holding the host
+through the read and copy serializes access to the shared buffer.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 64 +++++++++++++++++++++++++++++--
+ drivers/net/wireless/realtek/rtw88/sdio.h |  1 +
+ 2 files changed, 61 insertions(+), 4 deletions(-)
 
-Yours,
-Linus Walleij
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index ecd4d751c05a5..09337acb76749 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -26,6 +26,7 @@
+ #define RTW_SDIO_TX_FIFO_HIWATER			16
+ #define RTW_SDIO_TX_FIFO_LOWATER			8
+ #define RTW_SDIO_TX_RETRY_DELAY			msecs_to_jiffies(1)
++#define RTW_SDIO_FREE_TXPG_COUNT			3
+ 
+ static bool rtw_sdio_is_bus_addr(u32 addr)
+ {
+@@ -675,6 +676,43 @@ static atomic_t *rtw_sdio_8723bs_free_txpg(struct rtw_dev *rtwdev, u8 queue)
+ 	}
+ }
+ 
++static int rtw_sdio_read_free_txpg(struct rtw_dev *rtwdev, u32 *free_txpg)
++{
++	u32 addr = rtw_sdio_to_bus_offset(rtwdev, REG_SDIO_FREE_TXPG);
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	bool bus_claim = rtw_sdio_bus_claim_needed(rtwsdio);
++	int i, ret;
++
++	if (bus_claim)
++		sdio_claim_host(rtwsdio->sdio_func);
++
++	if (!rtw_sdio_use_memcpy_io(rtwdev, addr, sizeof(u32))) {
++		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++) {
++			free_txpg[i] = rtw_sdio_readl(rtwdev,
++						      addr + i * sizeof(u32),
++						      &ret);
++			if (ret)
++				break;
++		}
++		goto out;
++	}
++
++	ret = sdio_memcpy_fromio(rtwsdio->sdio_func,
++				 rtwsdio->free_txpg_buf, addr,
++				 RTW_SDIO_FREE_TXPG_COUNT * sizeof(__le32));
++	if (!ret) {
++		/* Copy the shared DMA buffer before releasing the host. */
++		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++)
++			free_txpg[i] = le32_to_cpu(rtwsdio->free_txpg_buf[i]);
++	}
++
++out:
++	if (bus_claim)
++		sdio_release_host(rtwsdio->sdio_func);
++
++	return ret;
++}
++
+ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
+ 				    size_t count)
+ {
+@@ -727,11 +765,15 @@ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
+ 		/* add the pages from the public queue */
+ 		pages_free += (free_txpg >> 24) & 0xff;
+ 	} else {
+-		u32 free_txpg[3];
++		u32 free_txpg[RTW_SDIO_FREE_TXPG_COUNT];
++		int ret;
+ 
+-		free_txpg[0] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG);
+-		free_txpg[1] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 4);
+-		free_txpg[2] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 8);
++		ret = rtw_sdio_read_free_txpg(rtwdev, free_txpg);
++		if (ret) {
++			rtw_warn(rtwdev, "Failed to read free TX pages: %d\n",
++				 ret);
++			return ret;
++		}
+ 
+ 		switch (queue) {
+ 		case RTW_TX_QUEUE_BCN:
+@@ -1782,6 +1824,7 @@ static void rtw_sdio_deinit_tx(struct rtw_dev *rtwdev)
+ int rtw_sdio_probe(struct sdio_func *sdio_func,
+ 		   const struct sdio_device_id *id)
+ {
++	struct rtw_sdio *rtwsdio;
+ 	struct ieee80211_hw *hw;
+ 	struct rtw_dev *rtwdev;
+ 	int drv_data_size;
+@@ -1805,6 +1848,19 @@ int rtw_sdio_probe(struct sdio_func *sdio_func,
+ 	if (ret)
+ 		goto err_release_hw;
+ 
++	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	if (!rtw_chip_wcpu_8051(rtwdev)) {
++		rtwsdio->free_txpg_buf =
++			devm_kmalloc_array(rtwdev->dev,
++					   RTW_SDIO_FREE_TXPG_COUNT,
++					   sizeof(*rtwsdio->free_txpg_buf),
++					   GFP_KERNEL);
++		if (!rtwsdio->free_txpg_buf) {
++			ret = -ENOMEM;
++			goto err_deinit_core;
++		}
++	}
++
+ 	rtw_dbg(rtwdev, RTW_DBG_SDIO,
+ 		"rtw88 SDIO probe: vendor=0x%04x device=%04x class=%02x",
+ 		id->vendor, id->device, id->class);
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
+index 6e7e6009744b0..5c2337ccffb2a 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.h
++++ b/drivers/net/wireless/realtek/rtw88/sdio.h
+@@ -181,6 +181,7 @@ struct rtw_sdio {
+ 	atomic_t tx_oqt_free;
+ 	/* one writer at a time between the credit check and the accounting */
+ 	struct mutex tx_credit_lock;
++	__le32 *free_txpg_buf;
+ };
+ 
+ extern const struct dev_pm_ops rtw_sdio_pm_ops;
