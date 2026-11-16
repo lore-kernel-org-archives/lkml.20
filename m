@@ -1,69 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823403;
-	b=47ajW4HFmmXpn4LAbgLIpKDGWWpwQvrn9phRPbaFjU6SVJK27rpIH4KMEC3Dh8LUliCV
-	 uOWOghuhGDYyJGpLd53CHpYazJ3GQCYHh6pNcGs+i3TOH8L3EKh8jvYo3sI1yopSmElmF
-	 7dVVDT/NwvnI/5IATUlvQAa5gxRZXue9xQj4eLg/38QZWjXhv/a+rCzjxwDH8bGP8h4YO
-	 5a7p0cudvsPNhkjJRJs7bGv7FwmF3d10/TyUdz0CgzblIDLMuaLuYYg/YQ6Z0t5hP3qg0
-	 knEcyZ9K+kmFfJ14PJ172pUT1crsLkGlEtSyRgKZtZkLp+TxGj2fvyQWRbg8Lb4GxTw==
+	t=1794823462;
+	b=ip6Pg8WoEf/Vp9cLwrwCyA6UUJ/1J1LjhG12Y+aPNLYbQGdLu4L2H4DrFSWKegPRpwon
+	 3A1/Rl7EWa2pwIB1U/G3AwC0F5WJdhEnGqHqaCDt47owDPSo6M0YAWdXoGIUsdLw62pEI
+	 3BYK9sF9Vxu3dtia7ehx4waxJ7nxN6m9t6+Vs9Lonuj68iJ4CrChceH8vvZTjLp34LIHM
+	 dW4mk4n8OSg+hKMdRn3MT3QFao2BLSswUSQBGfUH/1n5Sk6BFurFlwImQcMAhElsbEEtR
+	 YyNka4lExSiGdtQn7bIQyEo9fvrGzf6K+CnqR378Lp90Mg3AHplh72pCzTu87LJnQGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823403;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=PYPoi41el1uI/dYZz2FDXEE4WkUru7YxfskVQie/JRk=;
-	b=AbInYAzTU1VJWgrkktuXIJ8PSzrln+fixJ0do20zYFbmC1vChHzfJ9pZVnrenJ9nddXu
-	 +PBax2P2B0sDMzfMUimza0MxYKasZqx5K55M+DhwpH5Ph+SVFf90MOIOT6QNTykvsAMja
-	 f5MVZ9n8MxaxT3t/UgJzA7Jq+qxz/IqxZYJHjcvhk1oiZMRSWXnnEm9JNuBHCqe2FLi8s
-	 3bSqcojuc0GId2Eg45NJexfeRtyztT9Ky5avSQnEwV5CFSPJni06iFe1/Jjv2e/b8h8bQ
-	 UyNws9jicT2KrDQNF+9+lJiH/+hhK60iBWilJBqqltnFYq38qgcpbNbpav//1IjTzoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823462;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=0hfRGVDl+PzAZjsqP15lmfu4lbYtTRutweEiLzOonds=;
+	b=QTv6Gk7mYiUH3DGdhhW6RYVZ2wdG1o4Dam/KCTqlIyuKu1A8w1yjQIkkuSL3D3yPvUsv
+	 zte+RR3SjDr7O3qOd6QVj0+x4s5dd1VRWwPxfx89PFdD5lKXyjG4AH0k3oE+J/FDOCCGz
+	 fRLW9euLHxKdFkncwfW6U2eQd1Xc1RSy74o6h8tcpgr/28zFeGDLXqyMPyZjddP0MRcJA
+	 TM8ykqN7XYg82cjeBoeSQV2npWoFKFqLfM6lCB8TuAHZhPdHZ/IQe4u1v+2RvCXSdhUPS
+	 44LVmdYx5mPJ2iC1kISIR958nAxPbsBC0UolhH4e2odMoi947WR9EiEfC7Lk9Ex39gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFpk9qqE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=qw9nCYWO;
+	arc=none smtp.remote-ip=212.227.17.11
+Received: from mout.web.de (mout.web.de [212.227.17.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B54A606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:03:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FA9606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1FA9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFpk9qqE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB911F000C4;
-	Mon, 16 Nov 2026 10:03:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794823403;
-	bh=PYPoi41el1uI/dYZz2FDXEE4WkUru7YxfskVQie/JRk=;
-	h=From:To:Cc:Subject:Date;
-	b=GFpk9qqEzKi7yBOL2lKm+CPGD1mzOHdd+SIlR1ZsHqpiritOykyMwLNM5WawYRatq
-	 Wo+rQHXNydsRpbLQekV5603TCEGorstGlMHxEfmlKifEIICT8E6ble0XWzRCNuc0Dm
-	 qJlYk8lc1K9UgIAgO6+O1YFipXdH62oKSoLx99P94O0s9nGOqHP2CVAuSiWKq89JIn
-	 d/d6zPCBCusz6FN4P+7sftJQSMgGFVXgQ/HB7qVnwFsK1KyeUyvzG55BjvX3OqbryT
-	 LlucFrfkID+m9uHVoZgCxvtZu9FCIiyIVSBqJSs5440oRuIKNJbIMT5ntwcKUHu7p5
-	 7NVD7MTjaoQ/Q==
-From: Thorsten Blum <blum@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	Grzegorz Jaszczyk <jaszczyk@chromium.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Breno Leitao <leitao@debian.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Thorsten Blum <blum@kernel.org>,
-	Yinghai Lu <yinghai@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] x86/setup: Report the page-aligned size in relocate_initrd()
-Date: Mon, 16 Nov 2026 11:02:30 +0100
-Message-ID: <20261116100230.160085-3-blum@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=qw9nCYWO
+DKIM2-Signature:  i=1; m=1; t=1794823459;
+ mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=web.de;
+ s=s29768273:rsa-sha256:iA9tgNwWrHg6uzT68FLVYaMhLEP5
+   XqyG8as6RDnx/tuC9OATL7I4mx19KuOmWRy0RNMGWLIsr5kMUSI8xH8lz7Agroff+0V61DXFO6H
+   ED+YMWCLRo3AWVnJrtiU3+O3DW/E4jHdRmV96dyS67Q/PzPLmswKAkblcb8HZ1MuzRAobs5baEK
+   9oGl4TmWIT9k25f8olr2lFs42bN42NGxwU5c1UkkLcvsHVG8s88K7CywjXyASGJaiwjuHfHlj+8
+   2gAADK20CqR4mL7BYIMSDDGsqNqUZSqsh5+nC93+lOgA/wW+Ueyyy5lyJi7PC+rUJhNlOs9rPQx
+   xH3tu5tQ8EegUg==;
+Message-Instance:  m=1;
+ h=sha256:
+   MQq03cFCOaHqHWHqMa+tVB8Epfo6fUXsjBuA53CvzhY=:
+   0hfRGVDl+PzAZjsqP15lmfu4lbYtTRutweEiLzOonds=,
+  sha512:
+   xJzbg5ReXmHLxXNShqewDk5t9L0Qcu7gAdjhe2gvjeijh3AaB6p/2AUPjgIZuTl3nQZ/KYKeP/djg3n48KdtZw==:
+   mgHpMYo1aafIA3XS68jGXjS4q8yIhseyApK9H9Mmlyrx61urxjKAAwFbTM0qpOTVLYhIb2nw1GbNrzo02ir/dA==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1794823450; x=1795428250; i=markus.elfring@web.de;
+	bh=0hfRGVDl+PzAZjsqP15lmfu4lbYtTRutweEiLzOonds=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=qw9nCYWO7kyy7IWh3M8sSYVp1t33TUh1H7PtgUs0y4fpua8rxkXJIyk9V1tQCAA8
+	 HyzjW8SieXKq0Co5vp4fPvfM2kycR8LK9KVyJgIjRNFV8wvChQE3lCgr+O7R/qT58
+	 4CyU4Yg5fOLd4HEXRC8jG8hB5TaIZW4OeFVmH/9YUhmBc48wzgMvk0tFoaC7rYXZ+
+	 q5/dbx6TXBQnHPsFEr4Yve4vB7aw1GEDlyrdEP61lf8KbZPTb+vAzRVdKkwj/OOxY
+	 qTwEMyMYRV4eRcd1u6m592nW2xyaWdMQmtYDy0Ah0QA/kjE3uURBcXKuIlhKkpu3U
+	 aNGWiWOqTFkPedND9Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MzTPW-1wXTac1CAy-00vrM0; Mon, 16
+ Nov 2026 11:04:10 +0100
+Message-ID: <37a1c30c-1504-4d2c-a794-92c2972830d9@web.de>
+Date: Mon, 16 Nov 2026 11:03:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,110 +81,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4287; i=blum@kernel.org; h=from:subject; bh=a7fgjgWNrjyFUfBehUuF4wuWVorC06K/NfDUq6qkoE4=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFm/rmxjyWl/qqnss63X/Rx3sUbv2bQlKYfWcPOmeM26w JBlu25xRykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEwk5zcjw4PrQte9eTV89j5y ur621YWZ90vJEmHLRX7nV81Z9Pdm/0RGhg3/3xlsf1Bn+Pn/Mk/bunMpv9If2z0w9HIwlnGLsnB iYwYA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] gpio: amdptpci: add support for AMD PT PCI controller
+To: Szuying Chen <Chloe_Chen@asmedia.com.tw>,
+ YD Tseng <Yd_Tseng@asmedia.com.tw>, linux-gpio@vger.kernel.org,
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Jesse Chang <Jesse1_Chang@asmedia.com.tw>,
+ Richard Hsu <Richard_Hsu@asmedia.com.tw>
+References: <20261116075510.5722-1-Chloe_Chen@asmedia.com.tw>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261116075510.5722-1-Chloe_Chen@asmedia.com.tw>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:U2b6MpGSM9yJTjhDpGj98/nRECZViQWEr3s288H5XGF3CVqoxWg
+ 6anBgn8Bvr1SyCrdnogNUAGwmKZkrYErPZ87jwaYGPtSF3LBTv9p76Zcd5v75tAADFHhptC
+ NnIUaFXbg/VvcnZG3OxYqtJGfSZUPrX+khkClnzE24N32iVaNRbfeShIPgO/6H6cotKojn+
+ 5vkW7+oPRjc4gavwhgpyg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:wO89ISvSkWA=;plNvtaYZ1sjmZqkaEvrfhxQHFCT
+ PpJR8poZsMOcxLbqVpHDlaghCP3qX31/GUSNne5zphu9QTKxUSgrACdl4GreIDDs9klkrph6e
+ R7NQ9hAxuPqjQu4hD/nrlGvXnicJGXXrJ1G8fqvbQFREovX7i1qOB48APsxefx8C5Zo0ibQQf
+ orPzSzFbx+pOZMHlnjUhs4wtDFOpKmLUm4FfwQDdbhifdqYymmGSRr4O5KsWfnlqpPsxxlROb
+ D2gQ0/6MR+3AqSg0b3TLq6sS83wPQ+2T4pFVrzbHMkTiIzvgd8mqRGzmj5GMql6gEGqr2u9RS
+ GME3EwD9nFWU87b9Lh/w/GjALB0g+X8taXTQ6zveVBig/SH5o9ATbGXxfYscycKbfBjtylEa4
+ Ad47zkV78whxGAUHIWhupwZKbHadGZNVMyLVHZVX7+ks1/czDTWk9dJ1Fnhy/WxJ38DTCLAXw
+ mDIyN+aN7db7AGYa1ktiV12hIoaINK8FmFxasoqeor7iVtgiVFNgBBJRJvvUS6rafYL0vNesB
+ V06ggnIOjQ7inf+dC5hx05RbMQO6qnyLmCCoUsw4I4XAr7N59oUFWggqCBbgXzjl2tcbaTFQV
+ BjmOMli0ANFmQ2OkW1sarMA0tQEG7PUopFsnYeqB3dPFbWTrDTFrqp1gqiiHne2GDYJSjo5r7
+ NKpI9nNd4BCHsUFtDvzwuKR0DniL9BGRR0hEXIo9wUqJmlE5OPrARaoMaqLQDdYVLgeE0OC5R
+ UuTm8qSe4Jrm+B7enYO/WjtqxzmFuJUx7nIkc1XjYEPHDRFIXBq5X5s2DXwfeP9gu7PoxqAzn
+ g/ACK/BPr1jXL9E5Adp5m7HH1JFnQith48/TTGLqwJMgG+3sMdlSfIb8bam0LtTWbPYfGL6JP
+ QC7BwQxlsNmNeWhxl5fMgjaBcs8MXjbgPHCOQ3xfEWQPTrd42dUjVDIgyMaQLFQMwmlXcToaR
+ sVA+BjskuhsM+DvnBl4tCaIuU95X8JYzR1QpfsbezwJc5TcCf+YjKT41RNmq1UyQBHmzolWd/
+ UTEQTz+SNbLk6wvpwUJJQ4zrVDmt0l5NOIIJBeWNdiIypMKvb/gOVxEbsNMHAITb/Yj/BWSNb
+ jUyTX4nvlr9HoGs7I5zcYNO4OOHPK/J4DhAoVMbvlR0iciIUbhRTJWO6sDOO6egnJaiydrYOj
+ VGQCYk7zUEEYaVMVq2Szivj/82QFDgPHhFwPasEszLFERdWfAPSfLJPF67p3jxNpOGjLC/Sq1
+ 9n52Iqlwlc9pOq7b4ero9TkSx7j/vA8wyUyOJPJmxTlGlznB+9e+UxkQm0r/p3nrcTRn6r0Se
+ XnqLhGO+4PHWF3U8rnSluMoCmyztk/+QOUx21xSeY/rd7/2Q+LGCfOO6su8h8jq4N0Pc+XVmq
+ lNrNOlWEUXypy2JYMhLSByUTd/LbIj5kzW85vitSQTsv1vp02pAwOly+yKScohjd820kIC5do
+ zNaDFk2deon/jjSPYnGQVkpmWJ9ClE4j8s7BCPtXPlcRfESxMBg18wp8shRugiJ9EV52t3BSl
+ IW1a/Eaxyz0P5wQH9PgSZPf8Euj/jQlMbDdcX/oSW6Nto2tC4p1DGLPWLoJxoS9f8gNV9YiQ2
+ BVsO+hhPOmdWEVkemKWUEQCg4NBBzTxFMnycDJHZu4rI1Dmpd1ELH5NAyQ1Va+YGKpDZuLYMx
+ 4th3ykRbUt5j/AQCrHzAVXi7zmg/DatvI15JvBC4LSQUn4tN5mzLinjGdVZTpO+BZF7yC7Xfa
+ 16yHg2ZG71R9TCCz/ZiHZSqPTfTHtHyOD1E8JnKBVI3Q9B+QIS+xFT4F57p+eAYEg/nchF1md
+ b4YU6WFski9qeMOEQq+B1Dvn8sMrZQcXlOPE7dj2Zz723uuaG5WxJnALInkXTI0JMuz9MQzd7
+ xtM1wnCAgkTORP4wK4mi/VB9Dh+7O9R36TbO+6M5pt9WfZubHSHdHpmSLPLbz31rf4DTVgUgE
+ JIEaVw6cZSItuOhWjh5g4xPpsi0WoXJZw1u8u4Bx4aIkJbHqSbxfp59OocBJQc1vBh61jmjRz
+ tMhLWm5GU+LsuVzysD11f+8NKWrfBW1ux25KAJLV4PuXRSYXrvK0ly4Q++lP4OnAXN+J1YlA1
+ Z8P8+pKawBkRVAuyVqHUi1Z7LEBDWoO7uVBuWIJsWiu9LcivuNcP0B9FtduGzTMZo2yG4ZNeW
+ gg3pU383Axa453D0171FkZe8cWBVMyT2/vxPaxE9Zl5doYJNfdPjrBCdRzcmFL/PBOoRvBSed
+ Ky4fy8d7REeGGTG1l+npWLlwbHqrNaLBxsIlLkcZeR2ilKpsDs7jWmCHNrgbYKoSFYPSUdCvQ
+ bgfp8Exu2fpseow6GZgsNmryYAodSOOuuQyuOMxEdOLxiojUEYL23pqIZs1hAHQNPYuM80Ac9
+ fkl2HeAicxedWkLLSA3B92qYrj93zVIo3Xe3yhr2uc98MwmL2c/EDAs4FIORdinETTFe2k+XC
+ YZJQyGAWCDVyc2EWpv8/1kqhP96R8m18Pir0FqrLhQnYOTJoDfoEuVs/hc4DoliNUdOxKLxhP
+ M6eXXDhnuIuV+nZmpWWFIUVLLmF2kaz5om0ACtyLuIgZZSMLOJXajU/J3UunOElSgN99Oq39L
+ QnHmKn5nvu+hRprBF6ZLOVUGujLbC6IgwWooaLNNHI78EjnnoP5Fr9gwDhzaypBvZwc3RH+ym
+ 1HaPQSpVp+Mz9Grdlv5owU9a3Gnw1zdS4zTWw47hrKNlYOqPWeBQ83b3yHVHptd9cQ1hK/eJY
+ 5qJkeS3FKSNePSVH5foXV6KgYOhR7qAql9tFmQQuw94rs/4DOwDzgJQwVpw/uNcteoHTGG4W0
+ PfgJciF5WANgdfHDfzCEW/T213JWpc7VzeeK6MOcUsont26tQO2Jp1LaNFtbpmTYaV9UC/FpH
+ vpEu3Ef12q8YA6pDncAFBzXNjj6C/FXCpcY1ub+ICd9ZUimgN5SLzUR24LnNf96u22zoDVoko
+ /2vuV9p0Bus1r3g/Dp2MIoq4dGdAsLYcLnlJI/Z14Qolel7tdet2kXki2FqOpA4WXw5JYtbff
+ WqpPrXtCag/D4i67KhcL5y2XZDIJo9+VIxWttX3onyzujmvIVZjuYp8fyiRa8n4nGUAVrfLbY
+ WW72VowSSyvUTt+mUjP4h/mEru1hCKzgL3cbMnae8kexEE/f4fkfm5l0mVaAD5iWBA5mHTme+
+ hkoqktXfYj6rgRDIar+4O8qQgiTUsc0uwKClgk3JZVWVJxOB7qozpLm4ylc1GTSl0lF0rhmAo
+ 6w8DiQfNUJZhR49O3EWEbeKlFlcSrU6CQ0/m2SvaTidlXNAhOvev8iMgTPtUsMHeFKcPpqluY
+ otOt6pdmz0qTpJL1mJRbqiEmFkk0quluAvc1s5azp7n9o323s9L+zuv85TI6kOInQTnXivAgW
+ 6LvHeaL6fJ9fCYarNOGrMICRJ+wuB0DLnI9eCxdYQmlbOYtv0U2ewiQzqTOhdPrgjhvvpykEi
+ Rvy42tuBoXX8jpARwVrhnjIVDZapif4DAlAKakW7cKND3bETN+aKuSdz4mj4KD1H76++gJ4ES
+ hw46Vo+fGzfFYxjkZ1NL3qfaALjjJvkckjP3A7rNtXBTuQ7WBEG3RuYNwgMQoiws0EM9KnjUR
+ jSTuWH90BliahIWcbImlU2wEBenpQX+YBVDKmVZWkkboJdzskK7vnM8aLdSxJ44YZzFlGqKv+
+ Er3YpqcPLG8xw0O4mSlWVxp1Gh19ecFrdzaQrWAru8CrzmUaCchmQmzH7QOPQbeM8AlEr8oSc
+ 4ByrzP+prkEuzhdCoEJLDHHWRZj7CHuuZ9dmvmz2Xa7wwTDAHTScJQR1L85AUlVeiMWXWYF0/
+ dKSrMIeKKA3ovXCl0hQ+/LBPO2spl1BpMk1olSOu+5mHIUslGciCk8I6OzYO5v+iD3r+jicnv
+ uPT9KgvEYj+c2I9TWjU0zF4ansg3sldsvwl0LN4av8CoPKyrZaatM038ToEhIOjO5wFJy3mFg
+ aQTy2+vaiBbPP7kay2+VW64CjVIXSYmVW9KqDgEqLoTRF/fzCSHNFjUiWF6HTXIN+mIvKE0l5
+ aFY1jI/APG6eYPD3faAVjS+xPw6Yjr+99PlPRSM5KdSSezMhFZ/83pMXUamBx8ts9wShrjVKG
+ ZY1ZOLRo435Iuz78HximtHM3oKBLIG52t5Chg8EULhM2XL2j5rmq3E4yZOvXNNHYaKEzy8lh2
+ sZU5F5LVysCTefw2m5KTTDXotykDStEdHZZUGbGUMWtqp9NcU0kcST7zJF4XhrY506Fl4DyEQ
+ 3Xr3glWr53PsIHwn5TBJe8IDfiixUfenNNJFi0Gk08PTxxedn1+Lb908q/ufHJWjB0qLJaNVZ
+ n9wjouRCX0lrjlIMsVGjauifUhiywrMvyWQnR928sQzrS+4+qlAyR9vzGMm3VlkMf3aBBry0I
+ AOOIvkEV+w3HIbbDwK/ZpJZvBW94cz070x9eEoZNXm7s7CU77NcyHM9mJHStLd0RlkUcB85Fe
+ d/DNzjDWBwPMs9fYTB3L87PL4zMjLS9FUaj/r3d3l7FTteoxh8I0yGDx+SvIfqUONby2Sw8YJ
+ M9Ooy4NH5Y4icwukRW6MHZogWGIbDdifQXORP4PlvFwW7t3ZFlO0yF9szydccWMwvMsyique7
+ gnxwWiwoJtxr+5I/U3cM+Pid3NsRckRAh6M17nxFHE7kwGOcR+lE8XHr46xKJAePrSrc8MMNm
+ sBKObZELvAgXmM/nhxOzC60rLiI1seQUgnPKqbIgqmrdIJP4yWQ96E6KujzoBnmCen+O25BvB
+ pn1L/P99pyvjxaUh+XVRdCnwZ9CXXZqu0rczCo3bUlAVCTytEGs+7mwTIRqXvA1mqD2Jgjs9D
+ IiLiL+jFyGCQxD2iLyOROW39PpKoldRGTxrCWc5qcTGnfhhr0Vvxh1BqMARbWluiCpM8fv4xH
+ AckLGAjswVDqYFssh5kCdY0QUjNZ2238qMKZddK09uiU80KD76y6D3X4FqaXLRPqK/bd4nmxN
+ ZvzRrO9zfcySAzwLc9tssNKCtOcJgegyzbs9+hpFtnhJV/U9N6emwvjpfEcrSo1JsqRGpWixC
+ swOBGDmyRM9cA7SaRzFpx0aVt0qjFe+yPTHYuBGFmY/yz4aN7h9+0HSGSKYxJh8fK0JIeSGPm
+ GckpsuOLYH3ZF3uOix6x2nacPktEPBLO+OR8z6NZNmmtn8B1bGcFTcCGOqvewMF45K22z/nt9
+ wl20oi9uAv08MAxosqt0fSPrHoiq1MYNsLbUsqxv+4mpDk5MnWE+yqjHe2iUebSV46yrZNN7D
+ 7Qub4TYMRcuIqqoSFiKTTyLjVyPDV4Q4RAVZWXl0jzmRNcAGPRKr6HEfh0UPQqUDKFEzwUzl+
+ 15eyKgI19xF56+4loZGPSN7MqwZ5hAbQNeBil11GMy9fUcV1Nb1sJQkHz2CLSk7aa02jLd8aG
+ 6fDnrYtODR5Y7kG4n+T/QjQmoAbmMl5VzwxNNmhN8S+4pH1iaY9xEte0M2L9E+tI/dtN+OaA1
+ y768HwECi7zWzQNwKrvLABQLw/rvy8VXxgskH5qSMsJ64Mi1DblLtVyhiTBOVOzmg9RDzzv/l
+ heJHymlSUgNdKvddOH0dIyNsAWvizkWcjH9ZzK9xca1UVRn1GETX2hE6x/CE8KXubpjK1/4Jy
+ XUj9Ne3o/EAuco82MUvz/ECWkFwz9HaSxl7rjwUYT9EhxjXOahDkzwAZ2v1/ERp2tJW2humrX
+ ncz5CfPLMjgMFbfDfVbY5VLZmFh+tL6cw6HD4c60418PW4Z/ILwu2idwlTVeWBY2dtw++kvwL
+ ALWn0TFWLrc3DpZfir9LnCDnWPWi3hAf6QTOOywo+IKMl1uRk7+Vpm5YhSBtDKY+zOdpNNC4k
+ z89doAvfFPfcvAuZa9cDywSWup2MIQUjl7eziF7H5U7B0pc4C7sRcN1sR5NUDqnKRlC7z02cS
+ XhKL819gsJeC8emEDSn4+dUgz8jJgsuV8Z+sWy3G2xuGI478bKJR3jRw6tTdJYplL9gNpObfo
+ caKFuBcZl+jUYKwu3yb9zbjqhOe7ZdyLB7Z/wewFyQpfB8xJtQopT3m0PkexItGdtXXhiH9rS
+ TiprUZQNJi+DLL799u/WtKZBZYpz23pOVy25FDP9VPgw2CA0ooEkJ7I1pSFZHHmQmBOyhkDMC
+ wmBYrP7ksUZAlDE1EuK3nJS1oTI8nsWXWRV4886neE7udbk2owya+CEE7MxWKiSOSc7Ni67E0
+ dX2D2S2/tjh/s0+U7Qv2TadMryjcGNfkfqPLP3Zu/iRs0xlb/VO984wYRzhKhO627pFyrcr7c
+ 0AXc4R1a7hDF8dUZAYU6Aw/YLE2QJ53YYf9/ykOx72PT8E1/NeCVaBb0r0PhKT1/NJWPgWgYP
+ ow0TKDfXi63xD9v1B2M14UuW77M7FmrIPoISN20TxxcUzn4iq+8lUE8vKBIQSYRhtoIQ4LyS1
+ TqtcMj0lokC+UGfslfKrxn1BoTcUOsqu5nFds3N0WKrP0jB+r4czzEtV4lDOzkkcl2Ct07KM/
+ JoYsVnBahHdzcsPryNqllWbBtsp3dqfzVhmXIOGynVhB8a+Aa0HZVx7BwEhFbRQ9TE+J8/YbT
+ QMtATW3TcpZFKmZDrqpLbKW9tVSDhY3CbFIIp26aiuEHCJzMT4nsMGe8hoi5Qm/mE01DqKcpB
+ dCNxei4brtq8HjurSxDjnrr/o7bKb7hESLC1dx0m0okBZFGmqpS5yEQcntqhvqCog90oTFrwH
+ xnMNTWE2T1uZa0roKQp040u8wrwl5np0K+TWBIfbt2QLpBUQOXsA7dpNqmHfueMLUl6Qkq+1D
+ rbYG8yJIVCE7a1bTn9zLaa7gvT1Rc1UUus0V3JgG3wb+pQEmxTq3oablu5WSfhZLJAgylr9ae
+ swX6ofgMTQtfG3n8vrz6/ZSc8WnyK3QRlN7SY/rpc/bixV2Pt4bt8DBWgY5AnxbAv2S1oKUR+
+ drxomWMOiDtYTAQCPmZ44jhFrOg==
 
-Since commit c967da6a0ba8 ("x86: Make sure free_init_pages() frees
-pages on page boundary"), relocate_initrd() allocates area_size bytes,
-i.e., ramdisk_size rounded up to a page boundary.
+=E2=80=A6
+> +++ b/drivers/gpio/gpio-amdptpci.c
+> @@ -0,0 +1,634 @@
+=E2=80=A6
+> +module_pci_driver(pt27_gpio_pci_driver);
+> +
+> +MODULE_DESCRIPTION("AMD Promontory PCI GPIO Driver");
+=E2=80=A6
 
-However, the allocation message and the panic message still use the
-unaligned ramdisk_size, so the reported range or size can be too small.
-Use area_size there instead, matching the page-aligned ramdisk_end
-reported by reserve_initrd().
+Would another macro call =E2=80=9CMODULE_AUTHOR=E2=80=9D become helpful he=
+re?
+https://elixir.bootlin.com/linux/v7.4-rc1/source/include/linux/module.h#L2=
+33-L236
 
-The exact ramdisk_size is still required for initrd_end, the copy
-length, and the copy message, as those describe the image itself and
-must not include the padding.
-
-While at it, pass ramdisk_image and ramdisk_size from reserve_initrd()
-to relocate_initrd() instead of re-reading them, use pr_info() and %llu
-for the u64 allocation size, clarify the reservation and copy messages,
-and drop ret by checking copy_from_early_mem() directly.
-
-Fixes: c967da6a0ba8 ("x86: Make sure free_init_pages() frees pages on page boundary")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
-Tested with QEMU using a 4097-byte initrd:
-
-  Reserved RAMDISK: [mem 0x1ffde000-0x1ffdffff]
-  Allocated new RAMDISK: [mem 0x0fffe000-0x0fffffff]
-  Copied RAMDISK from [mem 0x1ffde000-0x1ffdf000] to [mem 0x0fffe000-0x0ffff000]
-
-Changes in v2:
-- Make it a single patch with a new title
-- Make range and size reporting consistent
-- Use area_size in the allocation panic message with %llu
-- Clarify the reservation and copy messages
-- Pass ramdisk_image and ramdisk_size to relocate_initrd()
-- Update the commit message to explain allocation and image sizes
-- v1: https://lore.kernel.org/r/20261111165608.78688-4-blum@kernel.org/
-
- arch/x86/kernel/setup.c | 27 ++++++++++-----------------
- 1 file changed, 10 insertions(+), 17 deletions(-)
-
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 19fc8e1714e6..6694ebc2dd11 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -316,32 +316,26 @@ static u64 __init get_ramdisk_size(void)
- 	return ramdisk_size;
- }
- 
--static void __init relocate_initrd(void)
-+static void __init relocate_initrd(u64 ramdisk_image, u64 ramdisk_size)
- {
- 	/* Assume only end is not page aligned */
--	u64 ramdisk_image = get_ramdisk_image();
--	u64 ramdisk_size  = get_ramdisk_size();
--	u64 area_size     = PAGE_ALIGN(ramdisk_size);
--	int ret = 0;
-+	u64 area_size = PAGE_ALIGN(ramdisk_size);
- 
- 	/* We need to move the initrd down into directly mapped mem */
- 	u64 relocated_ramdisk = memblock_phys_alloc_range(area_size, PAGE_SIZE, 0,
- 						      PFN_PHYS(max_pfn_mapped));
- 	if (!relocated_ramdisk)
--		panic("Cannot find place for new RAMDISK of size %lld\n",
--		      ramdisk_size);
-+		panic("Cannot allocate %llu bytes for new RAMDISK\n", area_size);
- 
- 	initrd_start = relocated_ramdisk + PAGE_OFFSET;
- 	initrd_end   = initrd_start + ramdisk_size;
--	printk(KERN_INFO "Allocated new RAMDISK: [mem %#010llx-%#010llx]\n",
--	       relocated_ramdisk, relocated_ramdisk + ramdisk_size - 1);
-+	pr_info("Allocated new RAMDISK: [mem %#010llx-%#010llx]\n",
-+		relocated_ramdisk, relocated_ramdisk + area_size - 1);
- 
--	ret = copy_from_early_mem((void *)initrd_start, ramdisk_image, ramdisk_size);
--	if (ret)
--		panic("Copy RAMDISK failed\n");
-+	if (copy_from_early_mem((void *)initrd_start, ramdisk_image, ramdisk_size))
-+		panic("Copying RAMDISK failed\n");
- 
--	printk(KERN_INFO "Move RAMDISK from [mem %#010llx-%#010llx] to"
--		" [mem %#010llx-%#010llx]\n",
-+	pr_info("Copied RAMDISK from [mem %#010llx-%#010llx] to [mem %#010llx-%#010llx]\n",
- 		ramdisk_image, ramdisk_image + ramdisk_size - 1,
- 		relocated_ramdisk, relocated_ramdisk + ramdisk_size - 1);
- }
-@@ -373,8 +367,7 @@ static void __init reserve_initrd(void)
- 
- 	initrd_start = 0;
- 
--	printk(KERN_INFO "RAMDISK: [mem %#010llx-%#010llx]\n", ramdisk_image,
--			ramdisk_end - 1);
-+	pr_info("Reserved RAMDISK: [mem %#010llx-%#010llx]\n", ramdisk_image, ramdisk_end - 1);
- 
- 	if (pfn_range_is_mapped(PFN_DOWN(ramdisk_image),
- 				PFN_DOWN(ramdisk_end))) {
-@@ -384,7 +377,7 @@ static void __init reserve_initrd(void)
- 		return;
- 	}
- 
--	relocate_initrd();
-+	relocate_initrd(ramdisk_image, ramdisk_size);
- 
- 	memblock_phys_free(ramdisk_image, ramdisk_end - ramdisk_image);
- }
+Regards,
+Markus
