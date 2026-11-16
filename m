@@ -1,89 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822432;
-	b=n90cDIqS2J+1eXFot/YC4VqUqUobESzWZ0RXi/YIr7xkcmFgrsI4V2bGpL42oNcP3NtS
-	 ne+fbiJI48xQJpQrtPjqDrKLpupXdsDy9i281p4AlAM5FqZ/VG0jjjazKY05PiNsnlI6L
-	 2OBHWqkM/o9oPjbeF8ZlWIALJ0sFUEC0Fp0MX1RFNIzuoWjVYZ83vomxkTDgQ48AnkUtr
-	 sULL6zJxaXbDL+/xm3+mwCFoWJxXx3SDJfs1iQy8RxjWXwYCBKFPbPeSoC1Fk+3NxIbG5
-	 w4MhrpoYmGchEqkLqVhVprCaXdYKez8aJEJWAZpcf04Avlj+0P6oRyI+TV/ccBQEkHw==
+	t=1794822431;
+	b=kmRkwhv57sxgUpRb+MEQ3zhSZ9V67OUd0jjMLUM3Tui4bp/nBB5scRJp00mEydMyJ0y/
+	 GD5pD6AA1hz77uXxnFV1UNTJ7XowxY4J46h87SxogB8p43m2gctud9QBMBH5HJgaTKWLy
+	 T6qVt+oVk+52JdCZOiYxaIJhZt1X62gUXFg5peaqpZQ/N6FdjEy+HviVmHhOaYn6pLHxw
+	 sIYogUoencL1fWsjW1OxAalUWXJne+L/nKIo9QWT8zS23CbKOQihEbvEzt65Gvg0iEEQZ
+	 2FOmqnh+JbPwLhl9cgmB3ZxWhsWwYYhxT43tClPmQC32tpALPFlXpK0O09bdK7DN2gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822432;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=2hCw0HfXzgsJrvrdvNR1avGGnl1bLaFhXU7I6fhVLlk=;
-	b=ycLRAD72rpWWMaUv4/xxRdjXG8l60smNhVat2/p0U/BkO8y91ueQHEtpfOG+O7Tnh6oa
-	 6tZ06Q3f0uhIMvyvHewNCQF1W+iU4FAXGr+g+RSgSGqNRhvSLNaovobTKhfec+mevRsSt
-	 0aUuxBxfBEdmDua8kY1C5IlcuglTjfmCYbK6D5D1sfcl9uL02ugItpnU+qKRJCpm6X5UB
-	 kp6R22EAz89n+pEwgjUijR3BHMxXY921HaAgRmN+ONM/28kllKnCrEP7cKkmT369Gpw8s
-	 ht3lVTRDIP9x/AGNWCZ9vKyeUDcKpMPuXy8xlGQH8+a0QRwvhqyNvFdHe76LT16NBZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822431;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=fsPsMFn8hWSINzFyIgJpitEGrKFPlA0wibbGI4KQ4Xw=;
+	b=06pCffeJnMt2c8M7mDrG4TybpO58zzuN4ouY97zIcK1ke4Xx7ygkDXDtSdNhOX4LDdDs
+	 N5L1BAXwarDEGhzidwXLcJzH6TZKwrNhp16XbEfvedhs22yTYWpYh8i1rfBiH9KmZ2iFC
+	 FiXOvuJNUGiHCHo9cIaBjDea4UUuG4eGbIb1sXY+rs3oPTbgV2mQFiUEOwvSO+l1rwYbA
+	 YhQRuohoDMbWeFJaZkHvdEBrOAIzzIzjVYVKxX+bNDmFqL4xgFAvoRdx7fCclLLdNSJxF
+	 wk+rA1rVkrYkMdPGlGqFUnXieL9YfHo5lqtHaHRKWSHklsKqY54PU/qgxHg9AZDNc2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KEgnCGgu;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=hJLV6ZQi;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=m3Mji7C+;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF95606A32F;
-	Mon, 16 Nov 2026 09:47:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DF95606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662E9606A31C;
+	Mon, 16 Nov 2026 09:47:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 662E9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KEgnCGgu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794822432; x=1826358432;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yBaVqlPLhm2b7IcfoxaduU8wWVJRVxWQ5qIOXtjzCrI=;
-  b=KEgnCGguwXBPHwqHkxkv5SpZkuOPY0Jg8lr9b7w9c/srd4oPUQHNhL31
-   oEtBv+HWPE7gc78ZKnOxW8OkduQunhDzSbeuP2Jzro2lSsMYwCztK1QS/
-   jnpEkJUtOxSFDKkrS5/UcoTGl5O+FvJwZJ0zvQ+MP2bjO2i6T2RhvsdzL
-   yPqWe9CsDHwBjku0SEP2L5FjFuVFjTT88aDCO3rI8kttii5Njxe3/wtd5
-   1AVyoz2KGbS3LzqGmT5sohP/NFS7d/4RvuIbgRIq8FT2y6vgNVFFcz62k
-   wL6Y6CiMqklDrHxCFk9/vIep+0iwdTsaRn8Ww9FDR7+3g7mz27MWOT7tm
-   g==;
-X-CSE-ConnectionGUID: 5aOODXrTSx+A5nZXJnGD8g==
-X-CSE-MsgGUID: AMwZhRBoT12xrhi5J1HxEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3446317"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3446317"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:47:11 -0800
-X-CSE-ConnectionGUID: DBQfNFA6RzegQclU0c3CWg==
-X-CSE-MsgGUID: wQg5UuoQT3WnBG5++TtTVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="11288697"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:47:08 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B419E121B5D;
-	Mon, 16 Nov 2026 11:47:12 +0200 (EET)
-Date: Mon, 16 Nov 2026 11:47:12 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: Jakob Berg Jespersen <dev@berg.pm>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	=?iso-8859-1?Q?K=E9vin_L'h=F4pital?= <kevin.lhopital@bootlin.com>,
-	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: ov5693: fix horizontal flip polarity
- and Bayer phase
-Message-ID: <avrRIDjxtSPAU33o@kekkonen.localdomain>
-References: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm>
- <20260729-sp7plus-ov-flips-v2-2-91884b81a8f5@berg.pm>
- <20260828231805.29790-1-dmanresa@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=hJLV6ZQi;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=m3Mji7C+
+Date: Mon, 16 Nov 2026 10:47:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794822428;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fsPsMFn8hWSINzFyIgJpitEGrKFPlA0wibbGI4KQ4Xw=;
+	b=hJLV6ZQiRHk/LYJPQMwf0Zeqs0xt5jqEx3eeUGUZkjI4t4H8JK5j0MdNYRUwZLSKR/XfP7
+	45Nz2QtzA2QnCLha2IuEvBevBpzDXQxQy+Ny7NYRniBQzcosL0eT8a0CpfrTX1jk8JcVj2
+	iYvMa/jKoUIpXcGr9q8HS1jEs91YLgt5DnjanGc9TCWxkjR3WIh5uWmdPPirN/OdftUIoq
+	JYgn78lufZoqXagML0I0HSq4SqWN1mthQxy73mZSqSKLO+Om2o/xEa4JFXT+e0PTX8yljB
+	+p/BcRm859F9qwDVnhqGBbsn3j3rq7CeRmYQDpLhX8JzDOCA7wH/LXbFDKE44g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794822428;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fsPsMFn8hWSINzFyIgJpitEGrKFPlA0wibbGI4KQ4Xw=;
+	b=m3Mji7C+1Lc7pTYKmsbndx4QOXyzTON6cxHUNfSu6+pHN9LTWMrNZmaWmyb8kcQHuubRth
+	uQTVvf3caGj6PPDw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Tengda Wu <wutengda@huaweicloud.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] perf/core: Prevent duplicate sigtrap task work
+ enqueue
+Message-ID: <20261116094706.GX5vD02a@linutronix.de>
+References: <cover.1793870900.git.wutengda@huaweicloud.com>
+ <ff842e802e9ecb74510a90964f8ad2c4825834b7.1793870900.git.wutengda@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,24 +80,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260828231805.29790-1-dmanresa@gmail.com>
+In-Reply-To: <ff842e802e9ecb74510a90964f8ad2c4825834b7.1793870900.git.wutengda@huaweicloud.com>
 
-Hi Jakob,
+On 2026-11-05 09:30:43 [+0000], Tengda Wu wrote:
+> The sigtrap handling in __perf_event_overflow() checks
+> event->pending_work before calling task_work_add(), but only sets
+> pending_work after the task work has been queued.
+> 
+> This leaves a window where an NMI can interrupt task_work_add()
+> and re-enter __perf_event_overflow() for the same event. Since
+> pending_work is still zero, the nested invocation can enqueue
+> the same pending_task again.
+> 
+> The re-entrant call path is:
+> 
+>   __perf_event_overflow()
+>     task_work_add()
+>       kasan_record_aux_stack()
+>         <NMI>
+>           __perf_event_overflow()
+>             task_work_add()
+> 
+> The nested invocation can enqueue pending_task before the
+> outer invocation does. When the outer invocation resumes, it
+> inserts the same task_work entry again, potentially creating
+> a cycle in the task work list.
+> 
+> This causes perf_pending_task() to be executed repeatedly
+> and leads to unbalanced event reference counting.
+> 
+> Use cmpxchg() to atomically claim pending_work before calling
+> task_work_add(). This ensures that only one invocation can
+> enqueue the pending_task, even when interrupted by an NMI.
+> 
+> If task_work_add() fails, clear the pending_work claim so that
+> a subsequent overflow can retry.
+> 
+> Also use READ_ONCE() when checking pending_work in the
+> exclude_kernel warning path to avoid an unsynchronized read.
+> 
+> Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
+> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+> ---
+>  kernel/events/core.c | 23 ++++++++++++-----------
+>  1 file changed, 12 insertions(+), 11 deletions(-)
+> 
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 457d75ea7142..ee5c59158b89 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -10925,16 +10925,17 @@ static int __perf_event_overflow(struct perf_event *event,
+>  
+>  		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
+>  
+> -		if (!event->pending_work &&
+> -		    !task_work_add(current, &event->pending_task, notify_mode)) {
+> -			event->pending_work = pending_id;
+> -			local_inc(&event->ctx->nr_no_switch_fast);
+> -			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
+> -
+> -			event->pending_addr = 0;
+> -			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
+> -				event->pending_addr = data->addr;
+> -
+> +		if (cmpxchg(&event->pending_work, 0, pending_id) == 0) {
 
-On Sat, Aug 29, 2026 at 01:18:05AM +0200, D. Manresa wrote:
-> On Wed, 29 Jul 2026, Jakob Berg Jespersen wrote:
-> > The sensor's native readout is horizontally mirrored and the FORMAT2
-> > FLIP_HORZ bits (reg 0x3821) un-mirror it; the init table sets them by
-> > default (0x3821 = 0x1e). The driver sets those bits for V4L2_CID_HFLIP=1,
-> > so the control is inverted: HFLIP=1 yields the un-mirrored image and
-> > HFLIP=0 the mirrored one. Invert the polarity so HFLIP=0 yields the
-> > unflipped image.
+would cmpxchg_acquire() here make sense?
 
-Can you send v2? After the V4L2 CCI conversion the patch no longer applies.
+> +			if (!task_work_add(current, &event->pending_task, notify_mode)) {
+> +				local_inc(&event->ctx->nr_no_switch_fast);
+> +				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
+> +
+> +				event->pending_addr = 0;
+> +				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
+> +					event->pending_addr = data->addr;
+> +			} else {
+> +				cmpxchg(&event->pending_work, pending_id, 0);
 
--- 
-Regards,
+if the task_work_add() fails then smp_store_release(, 0) since only the
+executed task_work can release it back to 0. The cmpxchg seems not
+needed.
 
-Sakari Ailus
+> +			}
+>  		} else if (event->attr.exclude_kernel && valid_sample) {
+>  			/*
+>  			 * Should not be able to return to user space without
+> @@ -10948,7 +10949,7 @@ static int __perf_event_overflow(struct perf_event *event,
+>  			 *     To approximate progress (with false negatives),
+>  			 *     check 32-bit hash of the current IP.
+>  			 */
+> -			WARN_ON_ONCE(event->pending_work != pending_id);
+> +			WARN_ON_ONCE(READ_ONCE(event->pending_work) != pending_id);
+smp_load_acquire()
+
+perf_pending_task() could maybe get a xchg_release(, 0). This however is
+wrong because it would reset perf_event::pending_work and make it
+available for __perf_event_overflow() again. I think it should have a
+load_acquire() first, and have the store_release() after perf_sigtrap().
+
+Comments?
+
+>  		}
+>  	}
+>  
+
+Sebastian
