@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794837668;
-	b=xFx5XxIIYtqanldgClrdu84UWueJSYckO3zwA43YVHqu/Q1gmjwXhKT3Szi6M08rDiHf
-	 q0RINOjrEH5Qe18S8ZYCJaRANLj3c/qX6849fIOoaQMA0PvgicgRJXQ0dubb+MV/+FuCi
-	 LuNU4d+P2JOCxrwlPeI1XuOsIAPCH/Hadd64Fkdie6CD3NWnJBPSx58PIq7xhRmKDNlNS
-	 LJcC87qrhkp3HwhR+E/BOaYmDQPdIu97N01fKAcEBDm3b9qgLcIg57yAhENEb7A8zO94Q
-	 pr1zS1AaU8aKw8vSJ5EbAxsbv1sjlelRa7h5P2aO39Uxby1xiv35tsoQ3F8lbBrhOsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837668;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kcHezJuhx6nMG5FQREdfYfPWtGjzRQB4kn3JrXnJa88=;
-	b=d1HiA7Y4C5ZrAWX7do2Wr4epUJALCjdYdybln2ihySq7usNQwjS507PtccnAdYom8QEw
-	 lQkWduushTvR7QcpFaaBDFFJ0ssLAbvPiug14TKTSl7CjctruqNnQl2yljL/R78Vxd9d5
-	 BmV3MAe8UmUMDA+vMx/1W/qfbJC/682TmgohuJodu3b5/6JbQr0hRussI6Ngm1qdbhODj
-	 GyJyw/rvqNdxTAcZRD6a1ri4V6T3ZrMlivDXEsl0J/bznUr/9YEcf1UEdTKG/J/zOyPZ3
-	 li7XKVHsDo9ApZwf4UM9PlRsbuXEKN8WpvfYAUYeiymi0LQI3o90Vm8lptcia7V9Yew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IFIq4R84;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794837678;
+	b=sbWRTnK04RMb0KtODseqZ3gol918YLKf1kpcusztY7RK4S5iPH4FATTAqR+yb5CnHMHm
+	 TQpkTOh2ImUl003wcLtQK3FX9p+vnfxu9zgVeG1XsYKkbMr5/eVxJyVVgNQFfMvf1cqZh
+	 WD2jjDxKQF+ZIc6gLww++BZVWybbovN/2mS3mrHLWPWMXn6RNsVZ+ey6bYTHGawemZbnp
+	 vDxG/LrNuWjPsToY0NPMA+IQWtDCY+UM8r1hXeMH4eCVej4KowhIwz5fF2LAWYeGuRQXx
+	 tpd9nESpL1KewDJ5GF+WctZBZT50wRRpIxyll8TlyaadFYYtw3di/8kvIm16YZh7sKA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837678;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=g+FMrZ2Yss7ffWu91xmKsLSGEfD2dTYbKly2DTAxGi0=;
+	b=e+wXMKa80oa5AIidEnyRbLZB94oWX5Kd1PUghBViplA2pq5S4gp1Jusa0fyPpmwyiMw+
+	 uTAVJlFrFnZP/DdKRcM+sNhNo9DA4Ik2yNIYb4u60lMRtarhM36BE/sAIicXJYn0PVUu9
+	 6lezR4WMdi7GYfIzfu77TCEQqZJmmvIikMz3TY5JS+UnW2WgDRvzplyxtG/uPgaXsiy2I
+	 UkvUQpzrcci95lZTA82m4WYxxDq/s4LORnbcGQM/zoEjb7Ui01tOWUH5EpV4+KziiF2ma
+	 b5KEoSNq1l3uvgWXWZrgI8FzjJs9GHvgB5GtLA3vGVrFyixAOE/4ZJuuVxf9h+ubZCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OczjDRTI;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342EC606A893;
-	Mon, 16 Nov 2026 14:01:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A62A606A88E;
+	Mon, 16 Nov 2026 14:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A62A606A88E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IFIq4R84
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794837668;
-	b=NNLEcgjabX2eqwDtnjBKTSYpwO+SzjYv+x8yN7908y4jal5RfkRvpNDnpO5zk+k3nrP1
-	 REwRrxqz37lLtiT6Smrb5hZuIRsanLoEi+Qwy+B8JxiZ5GgFQzYHMKUyH5Mib/kyEGWf6
-	 osy78vqqueqKO0bYVdXxUkUY0h+zCoZ6E6sEus9LioFZ33OCeIKXeWBYGwDnQRSvjrnDq
-	 YUHMLKqwe6AEqgmkb4i5B4KFVec2gDVNy3IOP6QITOxBtKro5RK1yadBnzbbS0tUHt9pq
-	 5tuzdvv/E5GXS9U/LkMYpn7emVbdU3/7w1MppTKbt9+gwwqtE2jBUrt05BZiORpEBvA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794837668;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kcHezJuhx6nMG5FQREdfYfPWtGjzRQB4kn3JrXnJa88=;
-	b=mHacP51W/OqdqQh59ocaj+CblVMlZrUAAHEe55D8MWs2AaWnFcRIjrqEy8gAPdlBcsBe
-	 XVa7NmWs4mWpXH1/pxDUHlBU284j11Cwvt1AihSY1ogBBSjesL0NoB9VrrF518/M51qM0
-	 YcLkCD5NmC0ZUYi9FRJihu8x+EBBP5ZH8cjxTVDhAgCXYlcLyRNAQhdVFbm3BwxH/UKMH
-	 MJt7ueGJcU50yznKbhH7GbvKiixb0HNW61B5FXrTlTbYeJYQinXtXcd2lTAu1sr5F4InB
-	 YU9LvgfNlM/oI+gyRgPnUxkQFEHHrAi3OXtQdbGUi4A79bngLkhqI6eBMyAZ2ATWEgg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1FAF11F000CD;
-	Mon, 16 Nov 2026 14:01:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837668;
-	bh=kcHezJuhx6nMG5FQREdfYfPWtGjzRQB4kn3JrXnJa88=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=IFIq4R84WB1LQ/o/OzPQly00aYwRGIxykmnvFSKUgUWxYtcSqRNFNRBvpwrhUX4hR
-	 Z3RDMnL6nxvF7nb/PbKyddbXWcP4bPk+puzkwBJMkvBvCBgWFs3UlyyIM+bQ1tGLs0
-	 lkpPXak+DEhC0TvYNtAj9KhEUrjIIDBJlcLmLCOd5eOxz9Mf/TboHnT3NhVLkWVGao
-	 PB9OjYYGGWw2DrnhEY/f4kAtHPq+Ecl7KcEl1S7jY1tltBl6ZNdTiLKscnPFz7T7S4
-	 syQsEOPjUSFwuT5QsjcDEtXKui4Q88FLdsQd4Bk2RhmiYc3KLCfBX43wIQ983Os/xm
-	 Vk+P4yffT4Icw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9B1E14A4A7;
-	Mon, 16 Nov 2026 14:01:04 +0000 (UTC)
-From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Date: Mon, 16 Nov 2026 14:01:04 +0000
-Subject: [PATCH v3 2/6] drm/amd/display: Add the CRTC's planes when the ABM
- level changes
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OczjDRTI
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 97A4F4BB;
+	Mon, 16 Nov 2026 14:58:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794837528;
+	bh=g9a5Nf9FQfAlb9mT2jHLg92T6EhG5dLjGgnKQk03YQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OczjDRTIfk58NLlH97R5+6Bqea4nnFHly7hcMPqeXdP8KLqwTQlZgtmCINzNt0klF
+	 RLC1NJt2OmQ60UzZR4I45tatdkbsz7/+SUl99g26wYqlBImFy0ZuV+FFHVWsS2UBJK
+	 t4jBfxsbSQ1xENLMDGsbrO6vlS7Buia6zeLCEfag=
+Date: Mon, 16 Nov 2026 16:01:14 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/3] media: uvcvideo: Fix unaligned and OOB access
+Message-ID: <20261116140114.GC1714298@killaraus.ideasonboard.com>
+References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
+ <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,103 +64,268 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-abm-sysfs-commit-v3-2-7a3d84a5328e@hsal.es>
-References: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
-In-Reply-To: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
- Alex Hung <alex.hung@amd.com>, 
- Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, 
- Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
- David Weber <weber.aulendorf@gmail.com>, 
- Shivam Kalra <shivamkalra98@zohomail.in>, 
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hugo Sales <hugo@hsal.es>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2571; i=hugo@hsal.es;
- h=from:subject:message-id;
- bh=qEE0S9PbkvyPum4bGl1VMgQGUMbMKntSfo2X6VR25RU=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn7zzL8b2R3Z9DqkuuSfSMa5K2p3l/+ZnPRA/IiV2
- r2VpZ+jVPU6SlkYxLgYZMUUWXRveDKwTJw8M6fo+RKYOaxMIEMYuDgFYCKXbBn+qSzicZ//LPpJ
- 4mvPFcek79awlLNnLf2vPUG+3q2NQ3DRNkaGyZYTS1uOlXW63Jr/jkVzhe+fi9MUrj6eWxVgqLa
- p32QXKwA1Lkup
-X-Developer-Key: i=hugo@hsal.es; a=openpgp;
- fpr=193D095149CF7E8737B39064D912B0DB205A91C1
-X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
-X-Original-From: Hugo Sales <hugo@hsal.es>
-Reply-To: hugo@hsal.es
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org>
 
-From: Hugo Sales <hugo@hsal.es>
+On Mon, Nov 16, 2026 at 11:56:39AM +0000, Ricardo Ribalda wrote:
+> meta->buf and scr point to packed metadata and USB packet memory that do
+> not need to be aligned to anything. Also, scr + 4 is a 16-bit field, so
+> reading it as a u32 reads 2 bytes out of bounds.
+> 
+> We use *_unaligned() in the rest of uvc_video_decode_meta(), but not in
+> the debug print.
+> 
+> Fix this.
+> 
+> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
+>  drivers/media/usb/uvc/uvc_video.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index e9be0a627033..3e3296ec5c65 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1532,9 +1532,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+>  		"%s(): t-sys %lluns, SOF %u, len %u, flags 0x%x, PTS %u, STC %u frame SOF %u\n",
+>  		__func__, ktime_to_ns(time), meta->sof, meta->length,
+>  		meta->flags,
+> -		has_pts ? *(u32 *)meta->buf : 0,
+> -		has_scr ? *(u32 *)scr : 0,
+> -		has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
+> +		has_pts ? get_unaligned_le32(meta->buf) : 0,
+> +		has_scr ? get_unaligned_le32(scr) : 0,
+> +		has_scr ? get_unaligned_le16(scr + 4) & 0x7ff : 0);
 
-An upcoming patch stops a change of the connector's ABM level from
-forcing a modeset. The modeset adds every plane on the CRTC to the
-commit. Without it, a commit that changes only the level carries the
-planes the CRTC check pulls in, which with VRR active is the primary
-plane alone. DC then updates the stream with that one surface and drops
-an active overlay plane until the next flip
+I wonder if things would look cleaner if we introduced a struct uvc_scr
+instead of fiddling with manual access to buffer offsets. What do you
+think N It would look like this:
 
-Add the CRTC's planes when the level changes, as atomic check already
-does for color management and VRR changes
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index ce99795cfea4..30c6516f0340 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -943,8 +943,7 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 	unsigned int header_size;
+ 	bool has_pts = false;
+ 	bool has_scr = false;
+-	u16 scr_sof;
+-	u32 scr_stc;
++	struct uvc_scr scr;
+ 	u32 pts;
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-This was reported on v2 [1]. On my laptop (GV301QH, DCN 2.1), with v2
-and VRR active, a panel_power_savings write took the overlay off the
-screen. The DTN log went from four pipes, primary and overlay each split
-over two, to the two primary ones, and a flip of both planes brought the
-overlay back. With VRR off, the overlay stayed. With this patch, it
-stayed with VRR on too, and all four pipes were still there after the
-write
+ 	if (stream->stats.stream.nb_frames == 0 &&
+@@ -981,8 +980,8 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 		pts = get_unaligned_le32(&data[2]);
 
-This only covers commits that change the ABM level. From my reading,
-other commits that add the CRTC but no planes, like a change of the HDR
-metadata, can drop an overlay the same way while VRR is active. That
-needs a fix in the CRTC check that pulls in only the primary plane, which
-I'll send as a separate series
+ 	if (has_scr) {
+-		scr_stc = get_unaligned_le32(&data[header_size - 6]);
+-		scr_sof = get_unaligned_le16(&data[header_size - 2]);
++		scr.stc = get_unaligned_le32(&data[header_size - 6]);
++		scr.sof = get_unaligned_le16(&data[header_size - 2]);
+ 	}
 
-[1] https://lore.kernel.org/all/sashiko-outbox-213691@kernel.org/
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ 	/* Is PTS constant through the whole frame ? */
+@@ -1012,7 +1011,7 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfbc384fbbdb4..cf75450066451 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6307,6 +6307,20 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
- 		if (dm_old_con_state->abm_level != dm_new_con_state->abm_level ||
- 		    dm_old_con_state->scaling != dm_new_con_state->scaling)
- 			new_crtc_state->connectors_changed = true;
+ 	/* Do the SCR.STC and SCR.SOF fields vary through the frame ? */
+ 	if (has_scr && stream->stats.frame.nb_scr) {
+-		if (stream->stats.frame.scr_stc != scr_stc)
++		if (stream->stats.frame.scr.stc != scr.stc)
+ 			stream->stats.frame.nb_scr_diffs++;
+ 	}
+
+@@ -1021,17 +1020,16 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 		if (stream->stats.stream.nb_frames > 0 ||
+ 		    stream->stats.frame.nb_scr > 0)
+ 			stream->stats.stream.scr_sof_count +=
+-				(scr_sof - stream->stats.stream.scr_sof) % 2048;
+-		stream->stats.stream.scr_sof = scr_sof;
++				(scr.sof - stream->stats.stream.scr_sof) % 2048;
++		stream->stats.stream.scr_sof = scr.sof;
+
+ 		stream->stats.frame.nb_scr++;
+-		stream->stats.frame.scr_stc = scr_stc;
+-		stream->stats.frame.scr_sof = scr_sof;
++		stream->stats.frame.scr = scr;
+
+-		if (scr_sof < stream->stats.stream.min_sof)
+-			stream->stats.stream.min_sof = scr_sof;
+-		if (scr_sof > stream->stats.stream.max_sof)
+-			stream->stats.stream.max_sof = scr_sof;
++		if (scr.sof < stream->stats.stream.min_sof)
++			stream->stats.stream.min_sof = scr.sof;
++		if (scr.sof > stream->stats.stream.max_sof)
++			stream->stats.stream.max_sof = scr.sof;
+ 	}
+
+ 	/* Record the first non-empty packet number. */
+@@ -1062,7 +1060,7 @@ static void uvc_video_stats_update(struct uvc_streaming *stream)
+ 		frame->has_early_pts ? "" : "!",
+ 		frame->has_initial_pts ? "" : "!",
+ 		frame->nb_scr_diffs, frame->nb_scr,
+-		frame->pts, frame->scr_stc, frame->scr_sof);
++		frame->pts, frame->scr.stc, frame->scr.sof);
+
+ 	stream->stats.stream.nb_frames++;
+ 	stream->stats.stream.nb_packets += stream->stats.frame.nb_packets;
+@@ -1468,8 +1466,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	bool has_pts, has_scr;
+ 	unsigned long flags;
+ 	unsigned int sof;
++	struct uvc_scr scr;
+ 	ktime_t time;
+-	const u8 *scr;
++	const u8 *scr_data;
+
+ 	if (length <= 2 || !meta_buf || meta_buf->state != UVC_BUF_STATE_ACTIVE)
+ 		return;
+@@ -1479,9 +1478,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+
+ 	if (has_pts) {
+ 		len_std += 4;
+-		scr = mem + 6;
++		scr_data = mem + 6;
+ 	} else {
+-		scr = mem + 2;
++		scr_data = mem + 2;
+ 	}
+
+ 	if (has_scr)
+@@ -1490,8 +1489,13 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	if (stream->meta.format == V4L2_META_FMT_UVC)
+ 		length = len_std;
+
++	if (has_scr) {
++		scr.stc = get_unaligned_le32(scr_data);
++		scr.sof = get_unaligned_le16(scr_data + 4);
++	}
 +
-+		/*
-+		 * With VRR active, the CRTC check adds only the primary plane,
-+		 * and DC would drop any other plane from the stream
-+		 */
-+		if (dm_old_con_state->abm_level != dm_new_con_state->abm_level) {
-+			ret = drm_atomic_add_affected_planes(state, new_con_state->crtc);
-+			if (ret) {
-+				drm_dbg_atomic(dev,
-+					       "drm_atomic_add_affected_planes() failed: %pe\n",
-+					       ERR_PTR(ret));
-+				goto fail;
-+			}
-+		}
+ 	if (length == len_std && (!has_scr ||
+-				  !memcmp(scr, stream->clock.last_scr, 6)))
++				  !memcmp(&scr, &stream->clock.last_scr, sizeof(scr))))
+ 		return;
+
+ 	if (meta_buf->length - meta_buf->bytesused <
+@@ -1509,7 +1513,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	put_unaligned(sof, &meta->sof);
+
+ 	if (has_scr)
+-		memcpy(stream->clock.last_scr, scr, 6);
++		stream->clock.last_scr = scr;
+
+ 	meta->length = mem[0];
+ 	meta->flags  = mem[1];
+@@ -1521,8 +1525,8 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 		__func__, ktime_to_ns(time), meta->sof, meta->length,
+ 		meta->flags,
+ 		has_pts ? *(u32 *)meta->buf : 0,
+-		has_scr ? *(u32 *)scr : 0,
+-		has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
++		has_scr ? scr.stc : 0,
++		has_scr ? scr.sof & 0x7ff : 0);
+ }
+
+ /* ------------------------------------------------------------------------
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index af8cef94ffff..a3e1c0fb129f 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -302,6 +302,11 @@ struct uvc_streaming_header {
+ 	u8 bTriggerUsage;
+ };
+
++struct uvc_scr {
++	u32 stc;
++	u16 sof;
++} __packed;
++
+ enum uvc_buffer_state {
+ 	UVC_BUF_STATE_IDLE	= 0,
+ 	UVC_BUF_STATE_QUEUED	= 1,
+@@ -383,8 +388,7 @@ struct uvc_stats_frame {
+
+ 	unsigned int nb_scr;		/* Number of packets with a SCR timestamp */
+ 	unsigned int nb_scr_diffs;	/* Number of SCR.STC differences inside a frame */
+-	u16 scr_sof;			/* SCR.SOF of the last packet */
+-	u32 scr_stc;			/* SCR.STC of the last packet */
++	struct uvc_scr scr;		/* SCR of the last packet */
+ };
+
+ struct uvc_stats_stream {
+@@ -525,7 +529,7 @@ struct uvc_streaming {
+ 		u16 last_sof_raw;
+ 		u16 sof_offset;
+
+-		u8 last_scr[6];
++		struct uvc_scr last_scr;
+
+ 		spinlock_t lock;
+ 	} clock;
+
+
+Actually, thinking more about this, I think we can also simplify
+uvc_video_decode_meta() to only compare SCR.STC:
+
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index 30c6516f0340..7513083fadad 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1454,8 +1454,8 @@ static int uvc_video_encode_data(struct uvc_streaming *stream,
+  *
+  * Ideally we want to capture all payload headers for each frame. However, their
+  * number is unknown and unbound. We thus drop headers that contain no vendor
+- * data and that either contain no SCR value or an SCR value identical to the
+- * previous header.
++ * data and that either contain no SCR value or an SCR.STC value identical to
++ * the previous header.
+  */
+ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 				  struct uvc_buffer *meta_buf,
+@@ -1494,8 +1494,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 		scr.sof = get_unaligned_le16(scr_data + 4);
  	}
  
- 	if (dc_resource_is_dsc_encoding_supported(dc)) {
+-	if (length == len_std && (!has_scr ||
+-				  !memcmp(&scr, &stream->clock.last_scr, sizeof(scr))))
++	if (length == len_std && (!has_scr || scr.stc == stream->clock.last_stc))
+ 		return;
+ 
+ 	if (meta_buf->length - meta_buf->bytesused <
+@@ -1513,7 +1512,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	put_unaligned(sof, &meta->sof);
+ 
+ 	if (has_scr)
+-		stream->clock.last_scr = scr;
++		stream->clock.last_stc = scr.stc;
+ 
+ 	meta->length = mem[0];
+ 	meta->flags  = mem[1];
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index a3e1c0fb129f..b2d39c742e34 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -529,7 +529,7 @@ struct uvc_streaming {
+ 		u16 last_sof_raw;
+ 		u16 sof_offset;
+ 
+-		struct uvc_scr last_scr;
++		u32 last_stc;
+ 
+ 		spinlock_t lock;
+ 	} clock;
+
+
+I can send patches with proper commit messages.
+
+>  }
+>  
+>  /* ------------------------------------------------------------------------
 
 -- 
-2.56.0
+Regards,
 
-
+Laurent Pinchart
