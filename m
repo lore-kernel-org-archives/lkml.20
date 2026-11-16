@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838501;
-	b=LyvcvSUYybza+k4GmhPxmcUWql/PamYb4OMSks37ykN/rrfcnDjW2P2868RjNQ/Dbepl
-	 33YVblK338oVIga7qT1z0H6pS3VWFl5/FpxcBU88vEkLW7k2dZiOGa3fBKtBzhHeztFzq
-	 nkBfpWNfe5bAnohF+eUkArNrfEvSO/Ar3kacVQmxEqvpGu/ZSu++Wu1TcaZ5MglENWIam
-	 inaA3yy/6Rs9OWfRc0mIq1k1Lr2F63vP7BEXTiNIzuQNZWe63J75Ag8hOAOEl55WkSiNP
-	 WO6yDMVFvTL1BgeM6c1EeaVg7NZRbe3VRPF8877lTZuCMJL60xbOqZ6hFLtKKKHCTGQ==
+	t=1794838506;
+	b=MQL2r1nv1oMOt9yQZJRPY4Mal3QWiJfD1CypL9+ImBcxuH24pnTQHcz7nB/X071JPpWm
+	 V3tXaL132ar+Bx8Su3rpyNWzynjp/pi0ksy56DkKT37Wyk2Y0A1P5NkTdpl9K4zjXKRON
+	 gRpa+xdqTZx6yTq769dyolaK2tYSKLa8aCTGFPuE0wmCYDOoofXCDtRXlURs/LOahGLxk
+	 ZUP3vsPRY3YmptjKFkCs31IWyBbNVgWXb+KQgQjPGtDxIPLCMnp6LcIxnzP760G488BsI
+	 KopEighCMvHeP6sWr9rdIHQls0qB3NFQDIBFsFqti13COHCfmJWnZEskDBAtHW1rMIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838501;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838506;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=de0OenvYtC9EcJ6k97P7EWscdeX36hwem4HnssW40LQ=;
-	b=gW5KwH4oLyQDJc8+6EVFhmLAhhP+kG6ch0LS5+ldL/y4W5VuQ6WCf5M0AEkQwie3RMZL
-	 2qnF//3LI2m88saXBCLOrWj5q5W8lIao4jyRRxR2X0xm178k6jMhAhagX6oJ/rILWumuQ
-	 nXcrIguHlNVXd7O+AO5JcheT2rI61rV5OP8WKNUO1G2MrV7DCVBj2Jb7W+Z+fG5WVZv32
-	 j/xMMyyY9TMVbHwocD4B4qkWxQpJZD5D3PKK9eFFj3yJUp7sXZDF1elhmmyh8RK9tgDwx
-	 L0C/6wmMLGgN3+nuZCWJXmuQw1n1XiYb2jx+KgIV6cw9hbKDOcYBABBOkQh+BXm6msA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=c6Vm071a/dEow9zT0/S+8fxSEB7JBU9lM9yuxvjQ8wU=;
+	b=Id70G3x/R7xWrOrMnlzZsK21u2eWfEwMwmDwtqXJu9bBD/esHthvb+gGHRHOrgA/vGux
+	 +th8P88g+8AYH4uKuMyToWL1a8cDsQr4pX+5dfBVt/ZdAF+FQbKMMlqzva/9KEJjAiU0P
+	 x/whdEe5VW6IeA7IlIhW8kz1CQJHEdt5bRlAl967nLcTD8Y9LEP6wnxGPPzPJAxNaIZz3
+	 6lrKIx3aHWO2rry/SFqD67PYIjipTAiJ0Y6HoIDlsEZm0jvR5AfQcp3YZpdxFXQedbVyX
+	 s2zUCRPX6l2LHf5/PdGgyxdjyLheKW6Nf+svSyG/9RwdvZjzvtWmjy18wfx5sq4qfUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chrI8hpd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l80TddO1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA1B606A329;
-	Mon, 16 Nov 2026 14:15:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66373606A32C;
+	Mon, 16 Nov 2026 14:15:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chrI8hpd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17031F000C4;
-	Mon, 16 Nov 2026 14:14:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l80TddO1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808D21F000C5;
+	Mon, 16 Nov 2026 14:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838501;
-	bh=de0OenvYtC9EcJ6k97P7EWscdeX36hwem4HnssW40LQ=;
-	h=From:To:Cc:Subject:Date;
-	b=chrI8hpdPn4zacL284Mok86ddOiXlRj+ZeHafq0jBQxh7o4Ge8ML0ezRTdSYbZiI2
-	 93N8LqkbT+QJDLfGiyLTKc8OTqYPYh6JSFDQC/tzoyDx6Ql7SYPla8cvqRXre1xtAZ
-	 4JRCDb3Lre+6jaFArguhmWWr+Q1/3alrlKZm9X/ND3FFKsQDnLY1tTuCZVp1enfWpa
-	 Y8gXE+Yr8nqYr+RQOlAhV/deipLXorAf7cAkChPiXd3mF+lj8Js77XOC7tfiwqspeb
-	 vqkrCa+MhTjnX/+xY+wBZ4b5kGVpoqEmdATsZmmPGlzuZE2EKgkBMAqBSfmnrcMBVT
-	 9RbijJuWsEU4Q==
+	s=k20260515; t=1794838506;
+	bh=c6Vm071a/dEow9zT0/S+8fxSEB7JBU9lM9yuxvjQ8wU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l80TddO1p8vGXVkYshQA/hjFCyQTxsuFEOL38ggGfle1Iu9oypXQQIMaGs4xHLlvc
+	 xmMh08EK3fW08igxmnfQuDBdBrl3CC/gn1x25vPIU7YR0NWL3nT3Oqitvux+jRhpHq
+	 xXs0VWU5daVMiPTSIG3wXfiDlV+F86sCh0A79n3VWtO9y8A1enW9RlxyZwf5nwihJv
+	 2lpf06/GsNQJ1Vt5PfjIBhsLpqnEzQl0bOq4pthbnrg/SaRQe0KZ0GNFl3jAjuwa8f
+	 q28pliaDPt6Vz8SU7xc0lYXt22GZLKu/niOpkJ3myrdpQ1gQPhgiBlDRE/ghbnWxOy
+	 CSbPw27IASDQA==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -58,10 +58,12 @@ Cc: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 0/8] net: stmmac: add SL2610 ethernet support
-Date: Mon, 16 Nov 2026 21:54:34 +0800
-Message-ID: <20261116135442.4827-1-jszhang@kernel.org>
+Subject: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
+Date: Mon, 16 Nov 2026 21:54:35 +0800
+Message-ID: <20261116135442.4827-2-jszhang@kernel.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261116135442.4827-1-jszhang@kernel.org>
+References: <20261116135442.4827-1-jszhang@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,45 +75,146 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series add SL2610 ethernet support. First of all, introduce
-the mdio demultiplexer, then add the stmmac glue layer, finally
-touch dts.
+Assume we have the following implementation:
+          ----------
+          |mmio reg|
+	  ----------
+             |
+ --------    |      -------
+ | MAC0 |--MDIO-----| PHY |
+ -------- |     |   -------
+          |     |
+ -------- |     |   -------
+ | MAC1 |--     ----| PHY |
+ --------           -------
 
-NOTE: this series depends on the sl2610 SoC support series which
-is still under review:
-https://lore.kernel.org/linux-arm-kernel/20261115102401.3520-1-jszhang@kernel.org/
+Both MAC0 and MAC1 have MDIO bus masters, and tie together to
+a single set of clock and data lines, which go to some PHYs. While
+there's a mmio reg to control which MAC mdio master can operate
+the single mdio clock and data lines, so only one MAC can operate
+the mdio clock and data lines.
 
-Jisheng Zhang (8):
-  dt-bindings: net: Add MDIO demultiplexer
-  net: mdio: Add MDIO demultiplexer driver
-  dt-bindings: net: Add Synaptics SL2610 DWMAC
-  net: stmmac: Add glue layer for Synaptics SL2610 SoC
-  dt-bindings: soc: synaptics: Allow SL2610 mux controller children
-  soc: synaptics: Populate SL2610 system controller DT children
-  arm64: dts: synaptics: Add SL2610 Ethernet nodes
-  arm64: dts: synaptics: Enable Ethernet on SL2619 RDK
+We also need to fully support three use cases: only MAC0 + PHY is used
+on board; only MAC1 + PHY is used on board; MAC0 + MAC1 + PHYs are
+all used.
 
- .../devicetree/bindings/net/mdio-demux.yaml   | 102 ++++++
- .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
- .../bindings/net/syna,sl2610-dwmac.yaml       |  75 +++++
- .../soc/synaptics/syna,sl2610-soc-syscon.yaml |  10 +
- MAINTAINERS                                   |   2 +
- arch/arm64/boot/dts/synaptics/sl2611.dtsi     |  41 +++
- arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  77 +++++
- arch/arm64/boot/dts/synaptics/sl2619.dtsi     |  36 +++
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../net/ethernet/stmicro/stmmac/dwmac-syna.c  | 116 +++++++
- drivers/net/mdio/Kconfig                      |  12 +
- drivers/net/mdio/Makefile                     |   1 +
- drivers/net/mdio/mdio-demux.c                 | 298 ++++++++++++++++++
- drivers/soc/synaptics/sl2610-syscon.c         |  10 +-
- 15 files changed, 791 insertions(+), 2 deletions(-)
+To support this kind of usage, we need a kind of mdio demuxer. This
+patch add the dt-bindings doc.
+
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+---
+ .../devicetree/bindings/net/mdio-demux.yaml   | 102 ++++++++++++++++++
+ 1 file changed, 102 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/net/mdio-demux.yaml
- create mode 100644 Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
- create mode 100644 drivers/net/mdio/mdio-demux.c
 
+diff --git a/Documentation/devicetree/bindings/net/mdio-demux.yaml b/Documentation/devicetree/bindings/net/mdio-demux.yaml
+new file mode 100644
+index 000000000000..792187d58426
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/mdio-demux.yaml
+@@ -0,0 +1,102 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/mdio-demux.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MDIO bus demultiplexer with multiple parent controllers
++
++maintainers:
++  - Andrew Lunn <andrew@lunn.ch>
++
++description: |
++  An MDIO demultiplexer connects multiple independent MDIO controllers to
++  one physical set of MDIO signals. The mux control selects the parent
++  controller used by each child bus. Child buses and their parent buses
++  are listed in matching order: the first child uses the first parent,
++  and so on. The child's reg value is passed to the mux controller as
++  the state to select for that parent.
++
++properties:
++  compatible:
++    const: mdio-demux
++
++  mux-controls:
++    maxItems: 1
++
++  mdio-parent-bus:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    minItems: 1
++    maxItems: 2
++    items:
++      maxItems: 1
++    description:
++      Phandles to parent MDIO controllers, in the same order as the child
++      buses.
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++patternProperties:
++  '^mdio@[0-9a-f]+$':
++    $ref: /schemas/net/mdio.yaml#
++    unevaluatedProperties: false
++    properties:
++      reg:
++        maxItems: 1
++
++required:
++  - compatible
++  - mux-controls
++  - mdio-parent-bus
++  - '#address-cells'
++  - '#size-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    /* MDIO buses registered by two Ethernet MACs. */
++    mac0_mdio: mdio-0 {
++        #address-cells = <1>;
++        #size-cells = <0>;
++    };
++
++    mac1_mdio: mdio-1 {
++        #address-cells = <1>;
++        #size-cells = <0>;
++    };
++
++    mux: mux-controller {
++        compatible = "reg-mux";
++        #mux-control-cells = <1>;
++        mux-reg-masks = <0x4 0x10>;
++    };
++
++    mdio-demux {
++        compatible = "mdio-demux";
++        mux-controls = <&mux 0>;
++        mdio-parent-bus = <&mac0_mdio>, <&mac1_mdio>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        mdio@0 {
++            reg = <0>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ethernet-phy@1 {
++                reg = <1>;
++            };
++        };
++
++        mdio@1 {
++            reg = <1>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++        };
++    };
++...
 -- 
 2.55.0
 
