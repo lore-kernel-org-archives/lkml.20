@@ -1,106 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830704;
-	b=RvqiB71ZorDYK6SLsCSvlKuhlUSixZLxH7M/b1zXx9J1O8CNbJJfGfKOf+vPWuZ7F25W
-	 /PQ4cHr4xlRAWP2aV6O8nmqhLmdwG9Hw4t12zLofWY46oUeGp9F90+rEpfLyFpEoHCWbA
-	 9X+RMWZ7IRxAQ/H/9ohl9dNM1s5Jh8u8xA0/49oLdtT4BVeobadcjxY6czMBKHoMPM8c8
-	 QYiynIq4KpUa/FnrdSKGfE/Mj15BLiAHKmZvgHj1j561zFpCWcKSKdZCtoE70KH4OAodH
-	 YuMhj/fdxrV6u7WrdxmDq/P0LyfUo7J60EKI6xGpYqLbhxcxOCoyT/fLlzKAzW+2ihQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830704;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ni10bld/X+4JFp5OUCcg7wDsdhnR6bTiDFXGeVwcpMA=;
-	b=x/fdBVGj8K1pWixlzprbW0q+/AgnHsG2tbQDoafniDMNm4vK+pcV9kxWNWLmGnnCpf7M
-	 K+O0ZGHoz8NscC+SZ1Ycq7Ban2tYs9wBdSEi89up7XbbsdHusfZdXCNPVdsLvaJlkDEZe
-	 7xykzhn5SeVJOYBL26CmQh+ZmI/bvsBknuu9xdhMWmIQ6NlAdqLzGexuNPV4M88DgVLyo
-	 lnr3DpGQr2inhrZRE9uzDwOkedJ9O8fsapjEXTDaxxz5H/jJoLCPnlhqR0lC/0WIjH1dH
-	 q6KQlNFao2tjhyP4VjTJ83CsY0rkFHj/YEaL+Pqpn9U+B094ewKCUgjfKT/WBvz95bQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=P2uJdYVF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.65
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010065.outbound.protection.outlook.com [52.101.201.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794830705;
+	b=zkyxp7XfStN+gh1vpOxexRX+xT5V07FmtRA7SP4JD6rAkJ7GXA6VhIyxLi8M9UAubGT3
+	 YWo4dHpxkpfq1ip1aEqKXK+dpUDOxhe+zJcUqvO8a8UTaNdg29AGnEeibx+6S6BXK9OsJ
+	 dk65kYjA77DJ9klfAHDE90EFWCriWHXo8/9EPhSAsGjPfBjXGXGJ/ZhRc5mPwH05YaMf9
+	 pqyBlOPEpbYG9I9mFLIfZOnd7zfTpFMGFXlskP4HTqQPJi/CRj0S7dNmhk0mv31Y0Yddj
+	 qiUuJRjNFTMdZU7uJusSNlCwOJu4ph1b2DJd+uU8UBKk5a1aBkphIw2KpXEs0Yn3yaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830705;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=yIZuL3zCL0qgwHLAWQy9ILuPSM/7YVHQhO5856ttsXU=;
+	b=U99YIROEFsU03dXWBjWpAVzO/49dMmK5S4vigp98Koa7IpXFOvKGvd+5QFSFiUvo/lCn
+	 OnyIVeiPnObIXoA1Q92h1jElzv7HInOIMOObvZyuusYz7AGo7FqP0PMEfkQxYo8ziwrzZ
+	 mTpvnQY9HG2Qk4IA6VZbxD++83/Yrff5VroL10wQTQG1PIEYUwWq1Mg+lJFQ9hJOhJGyx
+	 6BpFkQkXud51Po+GX0NzdijPFMs0C1ckNdr3Z7rfixq5SIeqbqyUyJB7eNATQ0J2YCohp
+	 6oOybi5mWtRycMa/3rUoK1PEnzaC6DSirKtnHo7vZPt5kVcwXG7Df4EiWBnh2Fra45w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="vKD0M/sA";
+	arc=none smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8319606A888;
-	Mon, 16 Nov 2026 12:05:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8319606A888
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2F8606A896
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:05:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F2F8606A896
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=P2uJdYVF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HZ4i3rQe/xKDJMai+1nkUvWR0kIHWqjRhpr9wC4IL6qrqmJSIErjksalr6BpjkZo1B3esA3cMC+Lb26RZEYW+h77E1KqVXCM0dpMHHeejG2RJ3M+gslkekCg2N1UK+UiPqnSUcxqBeHuogh63I/KWi/18svD46n1egGvwNnVRLpJ+tajILQ6VVG9KOK5R0ZTw91+ObpoNpzBe6ZKsewz9n0xKt9+ac2GQkl3PdII5+SA0A4lYgi3TsWiM4nVRQHdO4EJWr5HZ2IFMEAjjtatqYVXe3npVO2dec0Cagw2ulfxKX7ywuL/LwH5Vmz8vIwI//hpVTDv+WV6+hg7agZb1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ni10bld/X+4JFp5OUCcg7wDsdhnR6bTiDFXGeVwcpMA=;
- b=CgnqTHJPk5nU6kFsm/N0Sq6vNQ0rqMGlyhsHjr/aX/DJovmJF0LQgJqJdKlVBniV2yCwPmvyw5Y2XiEm4RldlCryG3KTRJbtE62p4fN9ZBoqqc3Q28SwgiBHKMMtmULX3Wcc1+N2dvX9VGqX3obYgNdDceqwW2yoiGddziIrp4L+rfGcyre2mH0mXQUqLS67DtYR1netIVDXeEsl6+CjZsa4K1yfv50IF9mirBeCw6zeps8f02GJL6B1lNoGggKE5DbldtyIiRUBcpO6PMOjY591mQrIhfXAMdykvpG60feRGHC/IUchb5UOBxftDmwGDqGFV4zQxWqBbp2Vx4l8Hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ni10bld/X+4JFp5OUCcg7wDsdhnR6bTiDFXGeVwcpMA=;
- b=P2uJdYVF3mBTJLfVnt4I6WXdtvWPRjhzkVUTMHlv+r+4KKPz64rucih92MCwE6PL4gwA2RL2NgQ7PBQSvlEldzPM8RmKTA+i6epeBDvbWE+tqDVxN1MvD7aHSet+JMeuUYiDxdMkcd9U/CcOmwWKJr85nwBqENNxpdLSp7rieQw=
-Received: from CY8PR11CA0027.namprd11.prod.outlook.com (2603:10b6:930:4a::20)
- by SA3PR12MB118222.namprd12.prod.outlook.com (2603:10b6:806:53b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:03:00 +0000
-Received: from CY5PEPF00000E78.namprd02.prod.outlook.com
- (2603:10b6:930:4a:cafe::17) by CY8PR11CA0027.outlook.office365.com
- (2603:10b6:930:4a::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Mon, 16
- Nov 2026 12:03:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY5PEPF00000E78.mail.protection.outlook.com (10.167.247.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 12:03:00 +0000
-Received: from dcsm-trdripper1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
- 2026 06:02:55 -0600
-From: Akshay Gupta <Akshay.Gupta@amd.com>
-To: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-CC: <linux@roeck-us.net>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <arnd@arndb.de>, <gregkh@linuxfoundation.org>,
-	<naveenkrishna.chatradhi@amd.com>, <Anand.Umarji@amd.com>, Prathima Lk
-	<Prathima.Lk@amd.com>, Akshay Gupta <Akshay.Gupta@amd.com>
-Subject: [PATCH v1 2/4] dt-bindings: hwmon: add DIMM thermal sensor properties
-Date: Mon, 16 Nov 2026 17:32:26 +0530
-Message-ID: <20261116120228.865196-3-Akshay.Gupta@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116120228.865196-1-Akshay.Gupta@amd.com>
-References: <20261116120228.865196-1-Akshay.Gupta@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vKD0M/sA
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67c0ffaae1dso3982300d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:05:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794830703; x=1795435503; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yIZuL3zCL0qgwHLAWQy9ILuPSM/7YVHQhO5856ttsXU=;
+        b=vKD0M/sAwq3oPw8Aq8rb/vTOhZlaXurxqzXTdRNJrjhGIrqt77trCCR9L4cApFgX38
+         Nr2lOnL2aG5suvan8HLBTONgA5avueU6kkVidRWwlhRJe9SXRAkQZn+VGq7qW1SNgxnQ
+         EY0FMr0UyNuxt7o+8p6l75waCndIy/TNrpetUB9u0GFy5K0vAE3feMb7FKV3nXBlXeW/
+         peRGgZST9cj5Ks1j5fv6/ls/iUHnHGDUjgGfwWSZjoUbWZ/2C7riCPetB7perFzzgyNk
+         DP3niKHBmFEQxR0ncG6OsdR1UChsolFBQgT5W0U8mTMpHiVVFnCUzIqCa2bB6+EgqfO/
+         oaRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794830703; x=1795435503;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yIZuL3zCL0qgwHLAWQy9ILuPSM/7YVHQhO5856ttsXU=;
+        b=XpDcPUxcemc8PpG6fPnjBt0FQT2lkkkFBg18sUYR61iZGUCD2O/86zcKyk18HWQnf1
+         Hjr/fPZJaz285avmWZeMApnJHCSot5xXcBB1Q3qWyLkvmS50wtF8i6vzfB+Trmvs/ST9
+         4VZJT/DZ+H/EKs/YKd19WGia5pzNgqqhBcZfx9QECqBpm7WkqdSJ30+ipg8yx5L4cBUB
+         J4gbeXe+U0tBhasXL2lTiEqEeOfi+KrfOsq/Z/F+obStL7hRYweWXyStrGZT7qEyAvMZ
+         dRLyrir5EdmuNoOCWPrYYOTru+vmGRoEwI81xPyVNe/NpkxtHCp4JMrmYXBEUNrDu9T+
+         Wccw==
+X-Forwarded-Encrypted: i=1; AL+hErHqr3zfArNNWdFPRZSEQBNsTOvCsfdF+S8Ip+bYEnyXjDgLAU1NFqjD/JGc/UItg1XKRTL7dXWBdbI0ruw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jpS4t2SIAGJXKTptFT/MOKfK1KdLULHjqWbOZEMhc+iNv4v6G
+	nD4ZeVFakj2J80i98JQJLFdtYU0TgE+f5l8ANXryLO59mB48OjHGuDCF
+X-Gm-Gg: AZFdTZf5WttMya80Bsj9+opj5J4ZJwdvCBoVnAhnxhIMeejxDUe1xM4H3rbPpAles5r
+	YAf7+BXsKD2aTmKhAvArS8vP2iRRpX9oNpLo3lHW0US9NIH2BiraSiSkRcT/43sn9WgDggjjP3l
+	B4LfTNKWTLRQRyahef+/ApVwS0BRcwSMA3ITpUsvztzlBwUNQvDpJa5sFD4nF9aMCmx0cHeKmW8
+	Dkt/4I+Bhr3pOn6GkHzhrCxyjrYlLhJkOehxou6XpVX90pGvdHiSVl/hu8IxVAvI5V5gmfnehjd
+	TzIhY/P2WN70Jc5xN4zw7+q6JtyHWttZQTqx9poDfAId6ZdoDta6ylH92/5ZbuMahYGAdlSE86G
+	HfcddLUGJnIHO6vyH/vFQ9KmgxvuF+l8CRnXJICutM6RxLzSdS+GCuqg57anXuVIRi05xGEXck+
+	qOWYjmyusMwX1xzq1fTis6lDYg2Ribp++kxc3562X1SY4agOAE+WSi8CLvtGR8xZ9YHFfKkkwGT
+	U6bLZxm+76wppl9v4GUlrcOfk/l7Yty02FtPR2Al3Zz/NnEGlnBKMY4fnMl0fcTsDx+Avao5ktZ
+	Sku+jZkUNlHxXcN2hQ/nesyZxJQ=
+X-Received: by 2002:a05:690e:16a1:b0:67d:bcde:a161 with SMTP id 956f58d0204a3-67dbcdea600mr982654d50.16.1794830702880;
+        Mon, 16 Nov 2026 04:05:02 -0800 (PST)
+Received: from localhost ([2a03:2880:30ff:45::])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a604597sm9685828d50.18.2026.11.16.04.05.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 04:05:02 -0800 (PST)
+From: Daniel Zahka <daniel.zahka@gmail.com>
+Date: Mon, 16 Nov 2026 04:04:38 -0800
+Subject: [PATCH net-next v4 3/5] psp: defer tx key deletions for SADB
+ drivers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,163 +92,576 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E78:EE_|SA3PR12MB118222:EE_
-X-MS-Office365-Filtering-Correlation-Id: 360b0e41-fc7a-45f5-cc6d-08df43d98f63
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|7416014|376014|22082099003|18002099003|261009223027099003|3023799007|13003099007|11063799006|56012099006|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	fuwbkZYqXzJgkRKpEr5RT1kI6DQvazMtUNnP1uodtzNLO+NpgIoe8NyLciFM1WPK+59swMsPS24A1A/Eff3w232n3azyJnU6zCOalhza82uryPW52jcfUtyrZ8pd1wkDQlCvLyR0ExPOTi7Se0zawM4GB2fypYqM0ZmZjwU8Vr0kjugxnJzhZnUy2hQsDvIC4z3S4kk7bY4DtCX2dgZeRs/nm0zUpodKLsgOQ85O7CgW46BgoK3UWHOk255n1aAugxHeHIuowyI1XNTcW88idVZDpc5w6DkCISYXUibU3hJwscMc3o+1EsZGcEwrbucO2+m1MsGdKhddc0WTaLfLWRHP6xiacJ1yzbmjiMxf6NjeY+24OsGmQOVdwqG5lKhdQ57Wgw+4oWY9Sjf2WuOtDKNNXGT+D9vuAYbisxVD5hKTlOKFEB0t8XionY9G7pQfDod89A2za//Ekjb3ltOvir/Y1hQy+dcFmqeHGBcIEGM3jnisJ8iD+EJm0B1Z99ZCe/4OJgMsOJ+EtAchPCf7dnBCnvAcM4ETcyiHmsOWjfkrmIJi57ARvI5UeonXXAbMcAfmPnFh6pLKQRG9cRuliKg9CHM99d+8rn4jwZPFsY4mOVLNcAO8IBTlhp2dOSjfIBD19UldWWxOOYdQhscq+g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(7416014)(376014)(22082099003)(18002099003)(261009223027099003)(3023799007)(13003099007)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dhUspuzbzk+SReDjn+hY2gnbyY7IhJXBEnRD4eeRVpX2fmOiDjpxAQLsYUqE4AzaETIUI38FYrb2SW9+PwKfJ0RY98BqrgMX5A02wnxZIQVacFG6Hf/QmlapO79S4Ks64g9vd5DAB+kHsAC7r71xXUIdsj0DHMUu00QUKnPycYk+Bvz7LZT3E5jWX0SFGfOJ5pyr8cgXeUv8oBvOOT9nzxBgstVw/ylDLfp5XwTY4CC3r+r+HluGmnJDxmhoEcdD2FAL7QSJbytwmAH43UmiGZOEF7PMvxNV07ItKJzh7MRdSPAx86hWr25lbDOhMLGHpwtZxu2M5cz6Ux4N+xQzr/ryvFN3bLgD8d7Tx2OS7O6vwHTx9U4DpMowFw8fw552KjPL29JunHIpqxzpn1yq44Q3uxZv5SgjWbZj0id6c/ehawO37pLN+yTPynoerbVV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:03:00.1933
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 360b0e41-fc7a-45f5-cc6d-08df43d98f63
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E78.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB118222
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-psp-v4-3-1a599df2aefa@gmail.com>
+References: <20261116-psp-v4-0-1a599df2aefa@gmail.com>
+In-Reply-To: <20261116-psp-v4-0-1a599df2aefa@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Donald Hunter <donald.hunter@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Willem de Bruijn <willemb@google.com>
+X-Mailer: b4 0.13.0
 
-From: Prathima Lk <Prathima.Lk@amd.com>
+Devices that store tx keys in an SADB can hold references to key
+handles in tx descriptor state. PSP core needs to make sure all of
+these tx descriptors have been completed before calling
+psp_dev_tx_key_del(). Before rekeying, this was ensured by skbs
+holding references to skb->sk, and sk->psp_assoc being cleared only in
+the socket destructor.
 
-The SB-RMI mailbox also reports the temperature of the TS0/TS1 thermal
-sensors on each DIMM (command 0x48, Mode 1 DIMM_ADDRESS). Boards differ
-in how many DIMMs are fitted per memory channel and which sensors are
-populated, so describe both in the binding.
+Rekeying introduces a code path where a psp_assoc is detached from its
+socket and may be freed while the socket is still alive. This means
+skbs may exist in the driver ring that were rendered into descriptors
+using that old psp_assoc. We cannot delete the key from the SADB until
+we know these descriptors have been completed.
 
-Add two optional properties:
+After a psp_assoc has all references drained (refcount and rcu), PSP
+core records the BQL queued count for each active TX queue and starts a
+descriptor grace period. It then polls the queued and completed byte
+counts until all data outstanding at the start of the grace period has
+completed. After that point, any keys queued for deletion before the
+start of the grace period can be deleted from the SADB.
 
- - amd,dpc: uint8, DIMMs per channel, 1 or 2 (default 1).
+Make CONFIG_INET_PSP depend on CONFIG_BQL.
 
- - amd,dimm-ids: uint8 array of 1 to 32 unique Mode 1 DIMM_ADDRESS
-   values, one per sensor to report. Encoding: bit[7]=1 (Mode 1),
-   bit[6] sensor (0=TS0, 1=TS1), bit[5] reserved, bit[4] DIMM slot,
-   bit[3:0] memory channel. When absent, the TS0 and TS1 sensors of
-   all 16 DIMMs are reported.
+Drivers which install Tx keys must meet the requirements in
+Documentation/networking/psp.rst.
 
-The allowed amd,dimm-ids values depend on amd,dpc: with one DIMM per
-channel 0x80-0x8f and 0xc0-0xcf; with two, 0x80-0x87, 0x90-0x97,
-0xc0-0xc7 and 0xd0-0xd7. This rejects the reserved bit, a slot bit
-without a second DIMM, and channels above 7 with two DIMMs per channel.
+Regarding lock ordering: the order of taking psp_dev::lock before
+net_device::lock was established in commit 1e6e0cec0dab ("net/mlx5e:
+psp: Make PSP steering config dynamic"). SADB drivers must not call
+psp_dev_unregister() with the netdev instance lock held.
 
-Also mention the DIMM sensors in the title and description and extend
-the example.
+Adding a time based rate limit per socket for tx-assoc to prevent
+wasting SADB or deferred deletion queue space is possible for future
+work. For now, users should avoid presenting PSP devices to users they
+don't trust to abuse this.
 
-Signed-off-by: Prathima Lk <Prathima.Lk@amd.com>
-Signed-off-by: Akshay Gupta <Akshay.Gupta@amd.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
 ---
- .../devicetree/bindings/hwmon/amd,sbrmi.yaml  | 59 +++++++++++++++++--
- 1 file changed, 55 insertions(+), 4 deletions(-)
+v3:
+- document that Tx descriptors must be completed or discarded
+  before psp_dev_unregister()
 
-diff --git a/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml b/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml
-index 353d81d89bf5..f08b62133996 100644
---- a/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml
-@@ -4,9 +4,7 @@
- $id: http://devicetree.org/schemas/hwmon/amd,sbrmi.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+v2:
+- move grace period mechanism to use bql instead of driver callback.
+- allow tx rekey on SADB devices
+---
+ Documentation/networking/psp.rst |  42 +++++++
+ include/net/psp/types.h          |  18 +++
+ net/psp/Kconfig                  |   1 +
+ net/psp/Makefile                 |   2 +-
+ net/psp/psp.h                    |   5 +
+ net/psp/psp_deferred_del.c       | 231 +++++++++++++++++++++++++++++++++++++++
+ net/psp/psp_main.c               |  22 +++-
+ net/psp/psp_sock.c               |  13 ++-
+ 8 files changed, 325 insertions(+), 9 deletions(-)
+
+diff --git a/Documentation/networking/psp.rst b/Documentation/networking/psp.rst
+index 43f222b38d3d..ceb1e232317f 100644
+--- a/Documentation/networking/psp.rst
++++ b/Documentation/networking/psp.rst
+@@ -202,6 +202,48 @@ Drivers must use ``psp_skb_get_assoc_rcu()`` to check if PSP Tx offload
+ was requested for given skb. On Rx drivers should allocate and populate
+ the ``SKB_EXT_PSP`` skb extension, and set the skb->decrypted bit to 1.
  
--title: >
--  Sideband Remote Management Interface (SB-RMI) compliant
--  AMD SoC power device.
-+title: AMD SoC SB-RMI power and DIMM thermal sensor
- 
- maintainers:
-   - Akshay Gupta <Akshay.Gupta@amd.com>
-@@ -16,7 +14,8 @@ description: |
-   interface that reports AMD SoC's Power (normalized Power) using,
-   Mailbox Service Request and resembles a typical 8-pin remote power
-   sensor's I2C interface to BMC. The power attributes in hwmon
--  reports power in microwatts.
-+  reports power in microwatts. The same mailbox also reports the
-+  temperature of the TS0/TS1 thermal sensors on each populated DIMM.
- 
- properties:
-   compatible:
-@@ -33,10 +32,60 @@ properties:
-       \[open source SoC register reference\]
-         https://www.amd.com/en/support/tech-docs?keyword=55898
- 
-+  amd,dpc:
-+    $ref: /schemas/types.yaml#/definitions/uint8
-+    enum: [1, 2]
-+    default: 1
-+    description:
-+      DIMMs per channel (dimms-per-channel), the number of DIMM slots per
-+      memory channel.
++Deferred Tx key deletion
++~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+  amd,dimm-ids:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    minItems: 1
-+    maxItems: 32
-+    uniqueItems: true
-+    description: |
-+      Mode 1 SB-RMI DIMM_ADDRESS of each DIMM thermal sensor to report.
-+      Encoding: bit[7]=1 (Mode 1), bit[6] sensor (0=TS0, 1=TS1), bit[5]
-+      reserved, bit[4] DIMM slot, bit[3:0] memory channel ID. With one DIMM
-+      per channel bit[4] is 0; with two, the memory channel ID is 0-7.
-+      When absent, the TS0 and TS1 sensors of all 16 DIMMs are reported.
++Drivers which implement ``tx_key_add`` and ``tx_key_del`` may hold key
++references in their Tx rings, so PSP core waits until descriptors
++containing these references are completed before removing the key from
++the underlying device. PSP core uses accounting based on Byte Queue Limits
++(BQL) to wait for a suitable grace period before asking the driver to
++remove the key.
 +
- required:
-   - compatible
-   - reg
- 
-+allOf:
-+  - if:
-+      required:
-+        - amd,dpc
-+      properties:
-+        amd,dpc:
-+          const: 2
-+    then:
-+      properties:
-+        amd,dimm-ids:
-+          items:
-+            anyOf:
-+              - minimum: 0x80
-+                maximum: 0x87
-+              - minimum: 0x90
-+                maximum: 0x97
-+              - minimum: 0xc0
-+                maximum: 0xc7
-+              - minimum: 0xd0
-+                maximum: 0xd7
-+    else:
-+      properties:
-+        amd,dimm-ids:
-+          items:
-+            anyOf:
-+              - minimum: 0x80
-+                maximum: 0x8f
-+              - minimum: 0xc0
-+                maximum: 0xcf
++Drivers which implement the Tx key callbacks must meet the following
++requirements:
 +
- additionalProperties: false
++* The driver must be "ops locked"
++  (see Documentation/networking/netdevices.rst).
++* A PSP skb accepted by ``ndo_start_xmit()`` must remain socket-owned until
++  every Tx descriptor referencing its PSP key has been completed or otherwise
++  made incapable of using the key. The driver must not orphan the skb before
++  that point. Otherwise, the socket destructor may free the Tx key while key
++  references remain in the Tx ring.
++* Every PSP packet accepted by ``ndo_start_xmit()`` must be included in BQL
++  queued bytecount before the function returns.
++* Completion bytecounts must exactly match enqueue bytecounts and preserve
++  queue order. A later packet must not be reported as completed while an earlier
++  packet can still reference its key.
++* Before calling ``dql_reset()`` on a queue, the driver must ensure that all
++  outstanding descriptors containing key references have been completed or
++  discarded. If called under the netdev instance lock, then descriptors can
++  remain outstanding after the reset as long as they are completed or
++  discarded before the instance lock is released.
++* When decreasing ``real_num_tx_queues``, the driver must ensure that every
++  outstanding descriptor on the queues at or above the new Tx queue count
++  has been completed or otherwise made incapable of using its PSP key
++  before the netdev instance lock is released.
++* The BQL state of a queue below ``real_num_tx_queues`` must reflect all
++  bytes completed or be reset after the queue has been quiesced. Failure to
++  do so will stall the grace period algorithm.
++* Before calling ``psp_dev_unregister()``, the driver must ensure that all
++  outstanding Tx descriptors containing key references have been completed
++  or discarded. PSP core deletes all remaining Tx keys during
++  unregistration without waiting for a grace period.
++
+ Kernel implementation notes
+ ---------------------------
  
- examples:
-@@ -48,6 +97,8 @@ examples:
-         sbrmi@3c {
-             compatible = "amd,sbrmi";
-             reg = <0x3c>;
-+            /* TS0 sensors of the DIMMs on memory channels 0-7 */
-+            amd,dimm-ids = /bits/ 8 <0x80 0x81 0x82 0x83 0x84 0x85 0x86 0x87>;
-         };
-     };
- ...
+diff --git a/include/net/psp/types.h b/include/net/psp/types.h
+index 9eb89d2d680c..f3e1fe97224e 100644
+--- a/include/net/psp/types.h
++++ b/include/net/psp/types.h
+@@ -6,6 +6,7 @@
+ #include <linux/bits.h>
+ #include <linux/mutex.h>
+ #include <linux/refcount.h>
++#include <linux/workqueue.h>
+ #include <net/net_trackers.h>
+ 
+ struct netlink_ext_ack;
+@@ -81,6 +82,11 @@ struct psp_assoc_dev {
+  *			device key
+  * @stale_assocs:	associations which use a rotated out key, or were
+  *			superseded by a rekey
++ * @tx_del:		deferred TX key deletion state
++ * @tx_del.active:	TX keys to be deleted after the current grace period
++ * @tx_del.next:	TX keys queued for deletion during current grace period
++ * @tx_del.work:	delayed work item for periodic grace period checking
++ * @tx_del.txq_state:	TX queue state for deferred deletion grace periods
+  *
+  * @stats:	statistics maintained by the core
+  * @stats.rotations:	See stats attr key-rotations
+@@ -110,6 +116,13 @@ struct psp_dev {
+ 	struct list_head prev_assocs;
+ 	struct list_head stale_assocs;
+ 
++	struct {
++		struct list_head active;
++		struct list_head next;
++		struct delayed_work work;
++		struct psp_txq_state *txq_state;
++	} tx_del;
++
+ 	struct {
+ 		unsigned long rotations;
+ 		unsigned long stales;
+@@ -158,9 +171,14 @@ struct psp_key_parsed {
+  * enum psp_assoc_flags - flags of struct psp_assoc
+  * @PSP_ASSOC_SKIP_TX_KEY_DEL: Do not delete Tx key from psp_dev. It was
+  *	copied to a newer psp_assoc during an Rx rekey.
++ * @PSP_ASSOC_DEFER_TX_KEY_DEL: Send Tx key to psp_dev's deferred deletion
++ *	queue. This psp_assoc was detached from its socket during a Tx rekey
++ *	and requires device descriptor state referencing this key to be
++ *	drained.
+  */
+ enum psp_assoc_flags {
+ 	PSP_ASSOC_SKIP_TX_KEY_DEL	= BIT(0),
++	PSP_ASSOC_DEFER_TX_KEY_DEL	= BIT(1),
+ };
+ 
+ struct psp_assoc {
+diff --git a/net/psp/Kconfig b/net/psp/Kconfig
+index 84d6b0f25460..36c12493784f 100644
+--- a/net/psp/Kconfig
++++ b/net/psp/Kconfig
+@@ -5,6 +5,7 @@
+ config INET_PSP
+ 	bool "PSP Security Protocol support"
+ 	depends on INET
++	depends on BQL
+ 	select SKB_DECRYPTED
+ 	select SKB_EXTENSIONS
+ 	select SOCK_VALIDATE_XMIT
+diff --git a/net/psp/Makefile b/net/psp/Makefile
+index eb5ff3c5bfb2..40decd8fe050 100644
+--- a/net/psp/Makefile
++++ b/net/psp/Makefile
+@@ -2,4 +2,4 @@
+ 
+ obj-$(CONFIG_INET_PSP) += psp.o
+ 
+-psp-y := psp_main.o psp_nl.o psp_sock.o psp-nl-gen.o
++psp-y := psp_main.o psp_nl.o psp_sock.o psp_deferred_del.o psp-nl-gen.o
+diff --git a/net/psp/psp.h b/net/psp/psp.h
+index 92d7b92acaed..0cfc82c6c711 100644
+--- a/net/psp/psp.h
++++ b/net/psp/psp.h
+@@ -18,6 +18,11 @@ int psp_dev_check_access(struct psp_dev *psd, struct net *net, bool admin);
+ bool psp_has_assoc_dev_in_ns(struct psp_dev *psd, struct net *net);
+ int psp_attach_netdev_notifier(void);
+ 
++int psp_deferred_del_init(struct psp_dev *psd);
++void psp_deferred_del_stop(struct psp_dev *psd);
++void psp_deferred_del_uninit(struct psp_dev *psd, bool unpublished);
++void psp_deferred_del_queue(struct psp_dev *psd, struct psp_assoc *pas);
++
+ void psp_nl_notify_dev(struct psp_dev *psd, u32 cmd);
+ void psp_nl_notify_disassoc(struct psp_dev *psd, struct net *net);
+ 
+diff --git a/net/psp/psp_deferred_del.c b/net/psp/psp_deferred_del.c
+new file mode 100644
+index 000000000000..cfbac72577e9
+--- /dev/null
++++ b/net/psp/psp_deferred_del.c
+@@ -0,0 +1,231 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/bitmap.h>
++#include <linux/jiffies.h>
++#include <linux/list.h>
++#include <linux/netdevice.h>
++#include <linux/slab.h>
++#include <net/netdev_lock.h>
++#include <net/psp.h>
++
++#include "psp.h"
++
++#define PSP_TX_GRACE_POLL_MS	1000
++
++struct psp_txq_state {
++	unsigned int num_tx_queues;
++	unsigned long *drained_queues;
++	unsigned int to_complete[];
++};
++
++static void psp_txq_state_free(struct psp_txq_state *state)
++{
++	if (!state)
++		return;
++
++	bitmap_free(state->drained_queues);
++	kvfree(state);
++}
++
++static struct psp_txq_state *
++psp_txq_state_alloc(unsigned int max_tx_queues)
++{
++	struct psp_txq_state *state;
++
++	state = kvzalloc_flex(*state, to_complete, max_tx_queues);
++	if (!state)
++		return NULL;
++
++	state->drained_queues = bitmap_zalloc(max_tx_queues, GFP_KERNEL);
++	if (!state->drained_queues) {
++		psp_txq_state_free(state);
++		return NULL;
++	}
++
++	return state;
++}
++
++static void psp_tx_grace_start(struct psp_dev *psd)
++{
++	struct psp_txq_state *state = psd->tx_del.txq_state;
++	struct net_device *dev = psd->main_netdev;
++	unsigned int i;
++
++	netdev_assert_locked(dev);
++
++	/* Any instances of ndo_start_xmit() that observed these keys through
++	 * psp_skb_get_assoc_rcu() must already be accounted in BQL's queued
++	 * byte count. ndo_start_xmit() runs with BHs disabled, which forms an
++	 * implicit RCU read-side critical section, and we are now at least one
++	 * grace period after any of these psp_assocs have been cleared from
++	 * sk->psp_assoc.
++	 */
++	state->num_tx_queues = dev->real_num_tx_queues;
++	bitmap_zero(state->drained_queues, state->num_tx_queues);
++	for (i = 0; i < state->num_tx_queues; i++) {
++		struct netdev_queue *txq = netdev_get_tx_queue(dev, i);
++
++		state->to_complete[i] = READ_ONCE(txq->dql.num_queued);
++	}
++}
++
++static bool psp_tx_grace_done(struct psp_dev *psd)
++{
++	struct psp_txq_state *state = psd->tx_del.txq_state;
++	struct net_device *dev = psd->main_netdev;
++	bool all_completed = true;
++	unsigned int i;
++
++	netdev_assert_locked(dev);
++
++	if (dev->real_num_tx_queues < state->num_tx_queues)
++		state->num_tx_queues = dev->real_num_tx_queues;
++
++	for (i = 0; i < state->num_tx_queues; i++) {
++		struct netdev_queue *txq = netdev_get_tx_queue(dev, i);
++		unsigned int completed;
++		unsigned int queued;
++
++		if (test_bit(i, state->drained_queues))
++			continue;
++
++		/* Drivers must meet the requirements documented in
++		 * Documentation/networking/psp.rst to guarantee forward
++		 * progress and avoid ending the grace period prematurely.
++		 *
++		 * We snapshotted num_queued in psp_tx_grace_start() and need
++		 * to determine whether num_completed has since reached or
++		 * passed that mark. For a given queue, we can consider first
++		 * whether or not dql_reset() was called at any point between
++		 * when we read num_queued until we read num_completed and
++		 * num_queued here and then separate the space of possible
++		 * states based on that.
++		 *
++		 * Not reset: num_queued and num_completed only increase, and
++		 * dql keeps num_queued - num_completed <= INT_MAX at all
++		 * times. We can form three exhaustive sub cases:
++		 *
++		 * (int)(to_complete - completed) <= 0: completion reached or
++		 * passed the mark. At the time to_complete was read,
++		 * completed was in [to_complete - INT_MAX, to_complete].
++		 *
++		 * (int)(to_complete - queued) > 0: to_complete and queued are
++		 * both snapshots of num_queued, so queued has advanced more
++		 * than INT_MAX + 1 past to_complete. num_completed lags
++		 * queued by at most INT_MAX, so num_completed must have
++		 * crossed to_complete.
++		 *
++		 * Otherwise the mark may still be in flight, so poll again.
++		 *
++		 * Reset: By the driver conditions laid out in
++		 * Documentation/networking/psp.rst, if a dql_reset()
++		 * occurred, and we are holding the instance lock, then we
++		 * know the actual state of the queue is drained. The check
++		 * below is then conservative because there is no risk of
++		 * falsely declaring the queue drained. As long as dql makes
++		 * forward progress the check should eventually report
++		 * drained.
++		 */
++		completed = READ_ONCE(txq->dql.num_completed);
++		queued = READ_ONCE(txq->dql.num_queued);
++
++		if ((int)(state->to_complete[i] - completed) <= 0 ||
++		    (int)(state->to_complete[i] - queued) > 0)
++			__set_bit(i, state->drained_queues);
++		else
++			all_completed = false;
++	}
++
++	return all_completed;
++}
++
++static bool psp_tx_grace_active(struct psp_dev *psd)
++{
++	return !list_empty(&psd->tx_del.active);
++}
++
++static void psp_deferred_del_work(struct work_struct *work)
++{
++	struct delayed_work *dwork = to_delayed_work(work);
++	struct psp_assoc *pas, *tmp;
++	bool need_reschedule;
++	struct psp_dev *psd;
++	LIST_HEAD(to_free);
++
++	psd = container_of(dwork, struct psp_dev, tx_del.work);
++
++	mutex_lock(&psd->lock);
++	netdev_lock(psd->main_netdev);
++
++	if (psp_tx_grace_active(psd) && psp_tx_grace_done(psd))
++		list_splice_init(&psd->tx_del.active, &to_free);
++
++	if (!psp_tx_grace_active(psd) && !list_empty(&psd->tx_del.next)) {
++		psp_tx_grace_start(psd);
++		list_splice_init(&psd->tx_del.next, &psd->tx_del.active);
++	}
++
++	netdev_unlock(psd->main_netdev);
++
++	list_for_each_entry(pas, &to_free, assocs_list)
++		psp_dev_tx_key_del(psd, pas);
++
++	need_reschedule = psp_tx_grace_active(psd);
++	mutex_unlock(&psd->lock);
++
++	if (need_reschedule)
++		mod_delayed_work(system_percpu_wq, &psd->tx_del.work,
++				 msecs_to_jiffies(PSP_TX_GRACE_POLL_MS));
++
++	list_for_each_entry_safe(pas, tmp, &to_free, assocs_list) {
++		list_del(&pas->assocs_list);
++		psp_dev_put(psd);
++		kfree(pas);
++	}
++}
++
++int psp_deferred_del_init(struct psp_dev *psd)
++{
++	INIT_LIST_HEAD(&psd->tx_del.active);
++	INIT_LIST_HEAD(&psd->tx_del.next);
++	INIT_DELAYED_WORK(&psd->tx_del.work, psp_deferred_del_work);
++
++	if (!psd->ops->tx_key_del)
++		return 0;
++
++	psd->tx_del.txq_state =
++		psp_txq_state_alloc(psd->main_netdev->num_tx_queues);
++
++	return psd->tx_del.txq_state ? 0 : -ENOMEM;
++}
++
++void psp_deferred_del_stop(struct psp_dev *psd)
++{
++	disable_delayed_work_sync(&psd->tx_del.work);
++}
++
++void psp_deferred_del_uninit(struct psp_dev *psd, bool unpublished)
++{
++	struct psp_assoc *pas, *next;
++
++	lockdep_assert(unpublished || lockdep_is_held(&psd->lock));
++
++	psp_txq_state_free(psd->tx_del.txq_state);
++	psd->tx_del.txq_state = NULL;
++
++	list_splice_init(&psd->tx_del.active, &psd->tx_del.next);
++	list_for_each_entry_safe(pas, next, &psd->tx_del.next, assocs_list) {
++		list_del(&pas->assocs_list);
++		psp_dev_tx_key_del(psd, pas);
++		psp_dev_put(psd);
++		kfree(pas);
++	}
++}
++
++void psp_deferred_del_queue(struct psp_dev *psd, struct psp_assoc *pas)
++{
++	lockdep_assert_held(&psd->lock);
++
++	list_move_tail(&pas->assocs_list, &psd->tx_del.next);
++	schedule_delayed_work(&psd->tx_del.work, 0);
++}
+diff --git a/net/psp/psp_main.c b/net/psp/psp_main.c
+index 273b010d2355..e118b8019e7e 100644
+--- a/net/psp/psp_main.c
++++ b/net/psp/psp_main.c
+@@ -3,8 +3,10 @@
+ #include <linux/bitfield.h>
+ #include <linux/list.h>
+ #include <linux/netdevice.h>
++#include <linux/slab.h>
+ #include <linux/xarray.h>
+ #include <net/net_namespace.h>
++#include <net/netdev_lock.h>
+ #include <net/psp.h>
+ #include <net/udp.h>
+ 
+@@ -70,7 +72,8 @@ psp_dev_create(struct net_device *netdev,
+ 		    !psd_ops->rx_spi_alloc ||
+ 		    !psd_ops->get_stats ||
+ 		    (!psd_ops->tx_key_add != !psd_ops->tx_key_del) ||
+-		    (psd_caps->assoc_drv_spc && !psd_ops->tx_key_add)))
++		    (psd_caps->assoc_drv_spc && !psd_ops->tx_key_add) ||
++		    (psd_ops->tx_key_add && !netdev_need_ops_lock(netdev))))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	psd = kzalloc_obj(*psd);
+@@ -89,13 +92,16 @@ psp_dev_create(struct net_device *netdev,
+ 	INIT_LIST_HEAD(&psd->stale_assocs);
+ 	refcount_set(&psd->refcnt, 1);
+ 
++	err = psp_deferred_del_init(psd);
++	if (err)
++		goto err_free_psd;
++
+ 	mutex_lock(&psp_devs_lock);
+ 	err = xa_alloc_cyclic(&psp_devs, &psd->id, psd, xa_limit_16b,
+ 			      &last_id, GFP_KERNEL);
+ 	if (err) {
+ 		mutex_unlock(&psp_devs_lock);
+-		kfree(psd);
+-		return ERR_PTR(err);
++		goto err_uninit_deferred_del;
+ 	}
+ 	mutex_lock(&psd->lock);
+ 	mutex_unlock(&psp_devs_lock);
+@@ -111,6 +117,12 @@ psp_dev_create(struct net_device *netdev,
+ 	mutex_unlock(&psd->lock);
+ 
+ 	return psd;
++
++err_uninit_deferred_del:
++	psp_deferred_del_uninit(psd, true);
++err_free_psd:
++	kfree(psd);
++	return ERR_PTR(err);
+ }
+ EXPORT_SYMBOL(psp_dev_create);
+ 
+@@ -133,6 +145,8 @@ void psp_dev_unregister(struct psp_dev *psd)
+ 	struct psp_assoc_dev *entry, *entry_tmp;
+ 	struct psp_assoc *pas, *next;
+ 
++	psp_deferred_del_stop(psd);
++
+ 	mutex_lock(&psp_devs_lock);
+ 	mutex_lock(&psd->lock);
+ 
+@@ -145,6 +159,8 @@ void psp_dev_unregister(struct psp_dev *psd)
+ 	xa_store(&psp_devs, psd->id, NULL, GFP_KERNEL);
+ 	mutex_unlock(&psp_devs_lock);
+ 
++	psp_deferred_del_uninit(psd, false);
++
+ 	list_splice_init(&psd->active_assocs, &psd->prev_assocs);
+ 	list_splice_init(&psd->prev_assocs, &psd->stale_assocs);
+ 	list_for_each_entry_safe(pas, next, &psd->stale_assocs, assocs_list) {
+diff --git a/net/psp/psp_sock.c b/net/psp/psp_sock.c
+index d497f41c483e..48bffe088c79 100644
+--- a/net/psp/psp_sock.c
++++ b/net/psp/psp_sock.c
+@@ -114,8 +114,14 @@ static void psp_assoc_free(struct work_struct *work)
+ 
+ 	mutex_lock(&psd->lock);
+ 	if (psp_dev_is_registered(psd)) {
+-		if (psp_assoc_needs_tx_key_del(pas))
++		if (psp_assoc_needs_tx_key_del(pas)) {
++			if (pas->flags & PSP_ASSOC_DEFER_TX_KEY_DEL) {
++				psp_deferred_del_queue(psd, pas);
++				mutex_unlock(&psd->lock);
++				return;
++			}
+ 			psp_dev_tx_key_del(psd, pas);
++		}
+ 		list_del(&pas->assocs_list);
+ 	}
+ 	mutex_unlock(&psd->lock);
+@@ -287,10 +293,6 @@ psp_sock_tx_rekey(struct sock *sk, struct psp_dev *psd, struct psp_assoc *pas,
+ 	struct psp_assoc *new;
+ 	int err;
+ 
+-	if (psp_dev_has_sadb(psd)) {
+-		NL_SET_ERR_MSG(extack, "Tx rekey not supported on this device");
+-		return -EOPNOTSUPP;
+-	}
+ 	if (!pas->peer_tx) {
+ 		NL_SET_ERR_MSG(extack, "Socket PSP state is not fully established");
+ 		return -EBUSY;
+@@ -322,6 +324,7 @@ psp_sock_tx_rekey(struct sock *sk, struct psp_dev *psd, struct psp_assoc *pas,
+ 	list_move(&pas->assocs_list, &psd->stale_assocs);
+ 
+ 	rcu_assign_pointer(sk->psp_assoc, new);
++	pas->flags |= PSP_ASSOC_DEFER_TX_KEY_DEL;
+ 	psp_assoc_put(pas);
+ 
+ 	return 0;
+
 -- 
-2.34.1
+2.52.1
 
