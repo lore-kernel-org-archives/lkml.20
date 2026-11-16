@@ -1,57 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857467;
-	b=eD/4OlNhaHCBEgBnSN/UDKXcbPE7m1k8sQrm6RgQdnBdaACGUdtYSYmQo4blizdp7Iv8
-	 C/QG6V1n6NmNL80BYVimRhoYJnaem9hRUBzyhlAJVPBQ9BTiW90XN2bTX5ArTsNNcVMM7
-	 psAJUOiR8YVp4zQpqeb+6Wqmxgv+iV/o2RtpYYzruRW7bFpaV6tb1O4FmzWwWxkCkeeYH
-	 rrIV7UoDmOLfA0/I/T7ZMtLxRx7jde01AqNDHYAX9cYvlsSIvsbUMeX44fSO3ZGsKfOQU
-	 CabO3vZdQUJ3+X1QjRKMV3J5J737DuaDafnOYLQ8MY5hVy8K8M0y2tTxSYGAAHZM09A==
+	t=1794857511;
+	b=u+UZuC+9IvfnUIkpBfqhiESfvgGQ6R5F0TUZpCvMRQdvAePNjKsKG/zh0OG18FktbWf0
+	 W3V0B3ABYlZwtzbhu+igcG+lKbaBaShJ/NLMOgqXb45d779ZYJ3xrOs5dWecGagPxqDhg
+	 7g5gQOasAGm4r7z+GKvbKwSBd+svtjhx9dc7NA5h1WAnGIj+sziT8QCTfsRoBvv1EMlFu
+	 mQ4tubIJt3Z5+qYmnnTX0nNZ8bkdixSrscZuZpnzhSiqVtl1mEWJdFzKMs4IeKSLqlxFR
+	 mjO6SLpnbvyKJOZjSDu31BLMm4WWJ+sbsyKpWstZo/AJ6hFBLa/yUIqFRVVDgygZEcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857467;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ixv40pUJ5hyTAry5bSwRv503Fc0hNYjPvW+LeFM9yPM=;
-	b=AHGsBBkkP2Jr+ysq6EzkkpzHThw538ZJxjO2xciIy7a/gE2RYCzjL5R2U+f4We9jxKns
-	 qnKm1OuGygvTIC5gyKKQea5mDg8SvIrUV9JcQYRYeNeQXBFBYHZkKC8OS/3hc325DvuWE
-	 1+N2fvCDU3J9RaUB6wzqgSJPJVzi/hjh965TFPxTp6QZEJmkycb0cjDf4tVxeU9yrJ4jg
-	 0EIJlWmQ7fzB9ONT9dmekvojlbWSdxTDN4bVDfHekg14ZQ1L4bGcc3jHuW52TWHa+J/hd
-	 hDQ61fjVbSceN049BVlbdz+G9ddKeWFZ4ESl2AhbKuEMt4HQGRkv7xc6gUjgSeyHFlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857511;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GRJhsAcI15idx0cLc3j7efy8qNOYnMelLH4aXWx29N4=;
+	b=Z7wPH6z+0scTawZFG41XS+UtnOWVOMB+ljRRaM4aXXEKKnapQPXFu+2zqiKeuodHTa50
+	 mtO9X0SYZ6kUY5UVQbdNjmz8ZOSu812FeSLrYuTjY6ZDhD+wYLTipv2qn9yvoSoYB6pK5
+	 xBekZ6wMbwuchNfpH/UIgfV8NGUmjDmLaruvpJ2IzCEdL3QPc9sEpRtJMGS/9qYYQrLyv
+	 y8vmTqLh3lYQjbWnmBaXl5D1OkFDqfNUErChfEvvhlrek5ENNORMM3kToMKSodigBehco
+	 wawG/4JrcapP5SsNeYW30fpOJHqBWYgGXYTLYBUBmbSHUKhrEnTw9TowKVfj3iK85Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hcSQWVLg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=arYGXhR9;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82C8606A31C;
-	Mon, 16 Nov 2026 19:31:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06667606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:31:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06667606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hcSQWVLg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046E41F000C4;
-	Mon, 16 Nov 2026 19:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794857467;
-	bh=ixv40pUJ5hyTAry5bSwRv503Fc0hNYjPvW+LeFM9yPM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hcSQWVLgDuKYy8lFekchnAxAEDaIwGiZMFOPSCc9fa+nR7NhTopjPj3lRZTKKoWl3
-	 jzwXj9/yvB+ok2SbjbQxlZ/kCVE0mshHxDWCP6mtaHv+dOgT35JBrzspmpqphFrKYw
-	 ltsNN0qDEJT9w1tdNYmomWVjTS855w0uqM5QGCD4dsRzbwTMAfVimWKSNR/g9QLEgH
-	 OJVCDi3D20HilL4GKEx/Ulalp5VqeNVzYQRfXd7BKQzQ42oS453uFvVXpUABHOJn7C
-	 fzcvAAX9vNQ6zsGaFCbUu5kYtt93O5xChcttr4YPucT9mc9B2SWcXDtKqyTSCfUYhp
-	 pqrvK6MDmVZoA==
-Message-ID: <sashiko-outbox-217566@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 21/37] sched: Make deadline policy and affinity
- changes wait for a cpuset attach
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261116190549.230119-22-mathieu.desnoyers@efficios.com>
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
- <20261116190549.230119-22-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 19:31:06 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=arYGXhR9
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdb9f760337so116910a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:31:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794857510; x=1795462310; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GRJhsAcI15idx0cLc3j7efy8qNOYnMelLH4aXWx29N4=;
+        b=arYGXhR9kkD9xsAwOGi+AbeNo5o0hng0zmC2BWsww3vebBxrH2r5JnEaxgv4/uf6Sm
+         1zh0imNKqytgTfMXAnsm/UBfXnn8y7p6jGQF1Gn41uZzqBTvBBdeHPWaVNfj2Hdga8N5
+         v8aja3WNbGRXk5UIJNt9F9gLII6cvvEqQn/jiDP9abzvE0kEec3fAHTidodISySfQ8mA
+         /8Y5JFL68CLBpyA/6g/53KuESnJGE2DfuAtylvGcpj+dBs5pgxvL43PeU5swMMzFCDfF
+         xgDcDz8wP/AVdGyTl5c35f3h8xBSk2oKHuxKG+0E3oTRGHejWrx84ApdjzXfVd07NpdQ
+         yU6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794857510; x=1795462310;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GRJhsAcI15idx0cLc3j7efy8qNOYnMelLH4aXWx29N4=;
+        b=Vrq02K9hb5oLrpxj/+vhB53Y/qFhzko25jSOQX/ynk+y8qHVC5DQTLfbJU1vo0Ky2D
+         zHpSp9z8gOUhiZLnvCgji9cWcOyumkISgcF/BsefCwkB616JlMLg94BlEKfECyzLxjvS
+         yRMHfORjgIImMPnxB/eeaLYQqZGmok8cJiGE4jTN/Xb9HkvGbZ8AxNgXDAYTl2OzWF6w
+         sK2njmGQI6sWSF8kY3rTyelIwPAmmtTP5Zw9qfq7NcDCMU/rOZ9H8Szb8CWu656DSJ8R
+         RUcHE6KCYl/qWFrvnuif1UhD8eeMhaaQfO3GvZEsZQj2JaHKsx26DfJE9Uk+j+XGe7n/
+         +Big==
+X-Forwarded-Encrypted: i=1; AL+hErE5R0YSEMnOgO1bSQf/cgi50KoLlck9pHxjtZRjO1wQS5xJVuN47X7Tx200dLchulEM1I3Ejc9ri9Nuozo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SecYRTE6SvIVodL/nmwF14lsgF25YyZJvsT0sThvmj1nzu2FA
+	OVHJE0CqC05oCsHtyCTlpni1CQEti6MarJU4B9JGdmybQm+WDH7ugaMB
+X-Gm-Gg: AZFdTZeYNoIn/avb/UH6cqnlLpgmg6Nz02GTWm8W+NZ4B9fOzZ33iXt11uZU6B5qLpA
+	8glbHVayJIHWmKI/A/25u1kCcPSAIUksdOcLDSY+qEnDRdv4tx8+69vdBNz7jMSNDwUib9x8kD9
+	bPGh3iY7qOwuL4rVD7qL7RKrtPcUk+HZbfFbUXoOSJSRS2ehnPZLdKrDVPX6iX96q75mFYim0/W
+	vu0NcFZgRbuNm9MQeO52gN9k+l+TSynhLTv7YV406JDRGCJ5dOWToW5gYrQqaaDfJZvwr1QTFGI
+	TtLu3Iirs7vs6riLJnbdQZcAPpi/jh+2DbOv48wDoBcBorJNwvs8ynkaIWE7WLq8fx32cNfAvxl
+	zpsdzmtv9TCUjKcXW9QJjlqOPo+duR0O/Cp0Wg4FW4qZ63hm8UZf+9NkgBW7l64eB6B6WZW55LU
+	NGGOWFG3jKwtj4l4xRBkX/XA/yYxzZNTzppNjIQDhaEDOG6rmv15eOpM8tlTGsiSYboGavaZbKA
+	KdGkZ1eMaWI2DK4wvoA8gnlmG5lQcKKR1mQaZB/UQQ+Tmx4EsX+3HJzGxdlSKnjCaNAlWbNTk25
+	RK1NPrNAKN6jqn62E+M4nP1frgwnAPJid6pf4DtMsDLfAZ/mWxtjH9tzBmpb4Q+eDKLE6LO1ymV
+	YpUNXYqrY8E7GQT4dosYBc3zaI8aa9Xonz4uz5mdJymCsyWFh8kTcOFB/pS4M2eaSW54sm2atcY
+	lfIUmn/qJNUiSE/w6nx6J8froPi+g+0Zk6MvBiVRpV
+X-Received: by 2002:a17:90b:4d06:b0:3b1:bd6d:fcc2 with SMTP id 98e67ed59e1d1-3b3abe7e796mr215871a91.40.1794857510114;
+        Mon, 16 Nov 2026 11:31:50 -0800 (PST)
+Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abe77179sm539396a91.11.2026.11.16.11.31.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 11:31:49 -0800 (PST)
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rachel Menge <rlmenge@gmail.com>,
+	Hardik Garg <hargar@linux.microsoft.com>,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Subject: [PATCH v1 1/1] io_uring/kbuf: initialize arg->out_len from arg->max_len in io_buffers_select()
+Date: Mon, 16 Nov 2026 19:31:46 +0000
+Message-ID: <20261116193146.65315-1-sidchintamaneni@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,144 +98,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] sched: broken cpuset rollback in __sched_setaffinity() with
-  SCA_DL_NOWAIT
---
+io_buffers_select() passes &arg->out_len to io_provided_buffers_select()
+on the legacy provided-buffer path. Because callers initialize
+arg->max_len (from sqe->len) while leaving arg->out_len as 0,
+io_provided_buffers_select() sees *len == 0 and always selects the full
+buffer size buf->len, ignoring the user-specified sqe->len limit.
 
-commit 9d195b268d19186fd430b17e56b76c3ac49f0d39
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Initialize arg->out_len = arg->max_len before calling
+io_provided_buffers_select().
 
-sched: Make deadline policy and affinity changes wait for a cpuset attach
+Fixes: 35c8711c8fc4 ("io_uring/kbuf: add helpers for getting/peeking multiple buffers")
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+---
+ io_uring/kbuf.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This commit introduces cpuset_lock_no_attach() and SCA_DL_NOWAIT so that
-SCHED_DEADLINE policy changes in __sched_setscheduler() and affinity
-changes in sched_setaffinity() wait for an in-progress cpuset attach to
-finish.
-
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 2a964286a7cd0..52c291de384e7 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -3195,6 +3195,16 @@ static int __set_cpus_allowed_ptr_locked(struct ta=
-sk_struct *p,
->  		goto out;
->  	}
-> =20
-> +	/*
-> +	 * sched_setaffinity() tested the policy with no lock, and did not
-> +	 * wait for a cpuset attach in progress. @p became a deadline task
-> +	 * since: let the caller wait and try again.
-> +	 */
-> +	if ((ctx->flags & SCA_DL_NOWAIT) && task_has_dl_policy(p)) {
-> +		ret =3D -EAGAIN;
-> +		goto out;
-> +	}
-> +
->  	/*
->  	 * Check under the same lock that __sched_setscheduler() holds for
->  	 * its admission test, so that p cannot become SCHED_DEADLINE
-> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-> index 4f47b17151ed9..70b364b4f82dd 100644
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-
-[ ... ]
-
-> @@ -1318,13 +1324,31 @@ long sched_setaffinity(pid_t pid, const struct cp=
-umask *in_mask)
->  		return -ENOMEM;
->  	}
-> =20
-> -	ac =3D (struct affinity_context){
-> -		.new_mask  =3D in_mask,
-> -		.user_mask =3D user_mask,
-> -		.flags     =3D SCA_USER,
-> -	};
-> -
-> -	retval =3D __sched_setaffinity(p, &ac);
-> +	/*
-> +	 * Wait for a cpuset attach in progress before changing the affinity
-> +	 * of a deadline task. cpuset_can_attach() reserved the bandwidth of
-> +	 * the task for the CPUs it moves to, and cpuset_attach() moves it
-> +	 * there. A new affinity in between could change those CPUs.
-> +	 *
-> +	 * The policy is tested here with no lock. A task that becomes a
-> +	 * deadline task after this test is found under its runqueue lock,
-> +	 * with SCA_DL_NOWAIT. Wait and try again then.
-> +	 */
-> +	for (;;) {
-> +		dl =3D task_has_dl_policy(p);
-> +		ac =3D (struct affinity_context){
-> +			.new_mask  =3D in_mask,
-> +			.user_mask =3D user_mask,
-> +			.flags     =3D SCA_USER | (dl ? 0 : SCA_DL_NOWAIT),
-> +		};
-> +		if (dl)
-> +			cpuset_lock_no_attach();
-> +		retval =3D __sched_setaffinity(p, &ac);
-> +		if (dl)
-> +			cpuset_unlock();
-> +		if (dl || retval !=3D -EAGAIN)
-> +			break;
-> +	}
->  	kfree(ac.user_mask);
-> =20
->  	return retval;
-
-[Severity: Medium]
-Can SCA_DL_NOWAIT cause the cpuset race rollback in __sched_setaffinity()
-to fail and leave p->cpus_mask and p->user_cpus_ptr un-restored?
-
-When p is initially not a deadline task, sched_setaffinity() passes
-SCA_DL_NOWAIT without holding cpuset_mutex.  If the first
-__set_cpus_allowed_ptr() succeeds while a concurrent cpuset update narrows
-cpus_allowed and another thread changes p to SCHED_DEADLINE, the recovery
-path in __sched_setaffinity() clears SCA_DL_CHECK but leaves SCA_DL_NOWAIT
-set:
-
-kernel/sched/syscalls.c:__sched_setaffinity() {
-    ...
-	cpuset_cpus_allowed(p, cpus_allowed);
-	if (!cpumask_subset(new_mask, cpus_allowed)) {
-    ...
-		ctx->flags &=3D ~SCA_DL_CHECK;
-		__set_cpus_allowed_ptr(p, ctx);
-		retval =3D -EINVAL;
-	}
-    ...
-}
-
-CPU0                                  CPU1
-sched_setaffinity(p)
-  dl =3D false (SCA_DL_NOWAIT set)
-  __sched_setaffinity(p, &ac)
-    cpuset_cpus_allowed(p, ...)
-    __set_cpus_allowed_ptr(p, ctx)
-      sets p->cpus_mask =3D new_mask
-      swaps p->user_cpus_ptr
-        with ctx->user_mask
-                                      cpuset narrows p's cpus_allowed
-                                      sched_setattr(p, SCHED_DEADLINE)
-    cpuset_cpus_allowed(p, ...)
-    !cpumask_subset(new_mask, ...)
-    ctx->flags &=3D ~SCA_DL_CHECK
-    __set_cpus_allowed_ptr(p, ctx)
-      SCA_DL_NOWAIT && dl_policy
-      returns -EAGAIN (ignored)  <-- rollback skipped
-    returns -EINVAL
-  kfree(ac.user_mask)
-
-Because the second __set_cpus_allowed_ptr() aborts with -EAGAIN and its
-return value is ignored, p->cpus_mask is left containing CPUs outside the
-task's cpuset cpus_allowed, and the rejected user_mask remains installed
-in p->user_cpus_ptr while the previous user_cpus_ptr is freed.
-
-Clearing SCA_DL_NOWAIT alongside SCA_DL_CHECK before the recovery
-__set_cpus_allowed_ptr() call would allow the rollback to complete.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
-19-1-mathieu.desnoyers@efficios.com?part=3D21
+diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
+index abf44f5dba26..873d66a06b36 100644
+--- a/io_uring/kbuf.c
++++ b/io_uring/kbuf.c
+@@ -370,6 +370,7 @@ int io_buffers_select(struct io_kiocb *req, struct buf_sel_arg *arg,
+ 				req->flags |= REQ_F_BUF_MORE;
+ 		}
+ 	} else {
++		arg->out_len = arg->max_len;
+ 		ret = io_provided_buffers_select(req, &arg->out_len, sel->buf_list, arg->iovs);
+ 	}
+ out_unlock:
+-- 
+2.43.0
