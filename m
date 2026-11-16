@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837286;
-	b=fjWYqgqFQsJhI+vzOJWI1O/S7J5eqjns2/x0LFJF0KEv8V74SE5VZoBHGdmpZwtfqbNZ
-	 tSKI0fj3YXfWp5v6/eTp2oBsvvbaiYxPgePzHKaHh/CBWnACU9DUz0JMZz3t+Z6ay9BAZ
-	 9Zz6XbsnKhWuo/0xWUYtwykFXQw22f+mHQeNIeYn+nBzEzA2Vp5qkKM2J8O1UZD8WqM3i
-	 Lc+kS8iqvxAwth9yjoUXKRp/OD8IS5ka2PQGgWFEPN6SlPgMxWvIL6bqxXfFcOKVTpIIe
-	 ZSTxgq3mDeWs4mrnH97Oibk3I553qvGb7QCxWqODd0D23t4m7R3xP9A7wbdYmgaJo9Q==
+	t=1794837288;
+	b=oY13Uvl6It6hrAdxAhmqgqQKF1dPHVo2UcCw9YbGjLLIUyTE+56NKGdQXdtcmq+NUiCR
+	 r5twNZKtUXGTyc8dFJAfh6hNG2zRfNb5SLvFgIiKTjFU5yK8BeNg05d7T7UJ/w4bc2x08
+	 fqbwRPpryUyNIroG8gb88KAA9fwTkZks5S6jw063i6s5iW8eQki5KABt5T/VikGmo9y+s
+	 9uGa4DzRtFL0W7nsHxdFnwTZpFN4TtnNdluukTT3Iv+wrYfTGDYQUhQljQMJP6Bu7SbwQ
+	 DfNjIb+1ZF4DXN5Yk5cL2DqQVoZ2Nq7skTnLBx/c3VRbR2bsvQQ8/Lo9nUiELjv69CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837288;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=0ymcIH4/zeaoSFfHc+RTS5YHw90qatTHdiwsb0U8zEM=;
-	b=kLSezkbA0PqfNqhUm8cY709GruhZAYRqBHPI5uROWG5ciBoZBayCwqYHoFscFmYqMYJ6
-	 mbt0x8EKQXnPG9Nh6wvbjIfOdxL1b4Vs6XY2jxvo9F8SYefjrLVPdp7sDd/Kwkt6X8MFy
-	 bGbRgKr/Jq5TanHPVR82zYgEobZayDeBARfW7j/jwrERhkgpPsaY2mw+GMPjiQ1oHIkxY
-	 +pSRRVZAha1vUvUaMIHAyO+DtiKnE7H084Qw/ju6qJvRqqisC29fwzbmT0nlxuQEqcix/
-	 +GGPXVZufWCwXoOtYJQ4PiFgiqSF/XK0wJ9C8PIlgLOos9D3QH+Gmd03QtUZnVaQzvg==
+	bh=agaTM/V/UOzvQr8+HHs0qaYier0Zw/THguyr2WoWb0o=;
+	b=KO+OexHLtrJkHa+63q8kpbp5VD+aKOEk0yJchJvdnra8+YzM0ehN1+dm2qSYE7Wipozm
+	 FMiUAqjxRQw8VLTAJgV7M8PPoJIiadis2VbXNOrOXM6DSfTtsNUPpkgknt77kHKA+9WRC
+	 cXHI9z2ly0KcYDtEbop/G24dDQJnSnWKxAyQBlBKh+E3cToPaDNljRT5IO04DJCe7ZFEZ
+	 dtZfRJGp3rYvIaEB9ZbAHLexhR3fmeAG7gD/nRR2ku1QE84BSjdjoQ5rglNPtAeX4WO6B
+	 DLqAz0FQjVz+NQcys9X+TmY6LdjyV30zjWui/mOGVGpH598mUYiavtJc90+dEK8rlGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHUG3ZvB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcN+bwH+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD1C606A335;
-	Mon, 16 Nov 2026 13:54:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B72E60A5BFE;
+	Mon, 16 Nov 2026 13:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHUG3ZvB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A414F1F000C7;
-	Mon, 16 Nov 2026 13:54:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcN+bwH+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9F21F000C6;
+	Mon, 16 Nov 2026 13:54:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837286;
-	bh=0ymcIH4/zeaoSFfHc+RTS5YHw90qatTHdiwsb0U8zEM=;
+	s=k20260515; t=1794837287;
+	bh=agaTM/V/UOzvQr8+HHs0qaYier0Zw/THguyr2WoWb0o=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QHUG3ZvBIrERejZfaQGJXaoty2jY0Ifn8nvHPJVzHsG/6RqqsQfNWImz/YuwD0mRy
-	 0vuDOTFGTkHfA3dwJhQSvcj27XJVGwEi09oXONYu12WgkhZAUf7tPrABa8relrXgvn
-	 T6iqpAj5klZjW889QN7bK/wbAm/nY/x44vjHhUp11r492t9/U1lQbI/NWDVJ+OARsm
-	 bpRkiyqVTZChrtP8bICJqEuPDk5YfsLENE1mN7gsfT2hA4gZjn/+NQo1w7wv5rpX94
-	 m2VuFu8FeP9n6fzFzkyW9LK66R+WGct5J+dsrV6v2zV/wGokrczNNGSEMzaArgjqiu
-	 jSW81ha783W0Q==
-Subject: Re: [PATCH v34 net-next 5/8] net/nebula-matrix: dispatch: add
- control-level routing core infrastructure
+	b=mcN+bwH+3xaD7itlk+nio6RJFoyTYwyRUPP0UveAkLX8yPoyJCOW1wAa/NpZJk8vj
+	 8wHM2OmqxdDxR3zRjL2KRNoEBwtP/heGm8DbdHCKIJ4ztYGyGVYqp/AXmOdEgwnRiA
+	 jg2tQepIHpYg0ogl4XO1Q00TVUW89b/Nzh+9sS9pZPCRmTwuVUmCRQd8bwetMW2si9
+	 HHVHIjp8NA/e9IDnGcFS1femmq3nvjLT+vLcgXKp9+aJsQLuU98G1bK1EwSuOnqF6U
+	 SSKwhuEyFUzVvTAPWio6YRLDARsVtus3n7tkk3QdtfzsqjkUL4QtyXyQc7v2ejFkxu
+	 Jrh9W8suLlBDQ==
+Subject: Re: [PATCH v34 net-next 6/8] net/nebula-matrix: dispatch: add mailbox
+ RPCs for msix map, mailbox irq and vsi/eth id
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
  andrew+netdev@lunn.ch, pabeni@redhat.com, edumazet@google.com,
  horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 13:54:45 +0000
-Message-ID: <179483728519.3136.7292669814858371820@kernel.org>
-In-Reply-To: <20261112094925.6098-6-illusion.wang@nebula-matrix.com>
-References: <20261112094925.6098-6-illusion.wang@nebula-matrix.com>
-X-sashiko-severity: Low
+Date: Mon, 16 Nov 2026 13:54:46 +0000
+Message-ID: <179483728648.3136.14599740534108145269@kernel.org>
+In-Reply-To: <20261112094925.6098-7-illusion.wang@nebula-matrix.com>
+References: <20261112094925.6098-7-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,100 +65,139 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] The -EOPNOTSUPP fallback in nbl_disp_init_module() can never run,
-  and the kernel-doc describes it as if it could.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The new NBL_CHAN_MSG_CONFIGURE_MSIX_MAP responder in
+  nbl_disp_chan_cfg_msix_map_resp() (nbl_dispatch.c:286) passes a peer…
 
 --
 
-net/nebula-matrix: dispatch: add control-level routing core infrastructure
+net/nebula-matrix: dispatch: add mailbox RPCs for msix map, mailbox irq and vsi/eth id
 
-This patch adds the dispatch layer. It allocates the dispatch management
-state and the ops table, and it wires the init_module and deinit_module
-wrappers to the resource ops. It also adds a ctrl_lvl bitmap, with only
-the MGT level defined, which is set only on the control PF.
+This patch adds request and response handlers for five dispatch
+operations: cfg_msix_map, destroy_msix_map, set_mailbox_irq, get_vsi_id
+and get_eth_id. A control PF calls the resource ops locally. A has_net PF
+forwards them to the management PF over the mailbox channel, where the
+new responders run them on the requester's behalf.
 
 > diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
-> new file mode 100644
-> index 0000000000000..966fee2dec8b0
-> --- /dev/null
+> index 966fee2dec8b0..cb68544e02723 100644
+> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
 > +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
-> @@ -0,0 +1,117 @@
 
 [ ... ]
 
-> +static void nbl_disp_deinit_module(struct nbl_dispatch_mgt *disp_mgt)
+> @@ -25,6 +193,353 @@ static int nbl_disp_init_module(struct nbl_dispatch_mgt *disp_mgt)
+
+[ ... ]
+
+> +static void nbl_disp_chan_cfg_msix_map_resp(void *priv, u16 src_id, u16 msg_id,
+> +					    void *data, u32 data_len)
 > +{
-> +	struct nbl_resource_ops *res_ops = disp_mgt->res_ops_tbl->ops;
-> +	struct nbl_resource_mgt *p = disp_mgt->res_ops_tbl->priv;
-> +
-> +	if (res_ops->deinit_module)
-> +		res_ops->deinit_module(p);
-> +}
-> +
-> +static int nbl_disp_init_module(struct nbl_dispatch_mgt *disp_mgt)
-> +{
-> +	struct nbl_resource_ops *res_ops = disp_mgt->res_ops_tbl->ops;
-> +	struct nbl_resource_mgt *p = disp_mgt->res_ops_tbl->priv;
-> +
-> +	if (res_ops->init_module)
-> +		return res_ops->init_module(p);
-> +	return -EOPNOTSUPP;
-> +}
 
-[Severity: Low]
-This isn't a bug, but can the -EOPNOTSUPP fallback in
-nbl_disp_init_module() ever run? The same question applies to the NULL
-check in nbl_disp_deinit_module().
+[ ... ]
 
-nbl_res_setup_ops() in nbl_resource_leonis.c will not publish the
-resource ops table if either op is missing:
+> +	if (rel_pf_id >= disp_mgt->common->max_pf) {
+> +		err = -EPERM;
+> +		goto ack_out;
+> +	}
+> +	if (data_len < sizeof(param)) {
+> +		err = -EBADMSG;
+> +		goto ack_out;
+> +	}
+> +	memcpy(&param, data, sizeof(param));
+> +
+> +	if (res_ops->cfg_msix_map) {
+> +		/*
+> +		 * The vector counts come from the peer PF.  A peer is
+> +		 * trusted: hardware and firmware forbid PF passthrough to
+> +		 * guests (see nbl_get_func_param()), so every peer runs this
+> +		 * same host driver, and the resource layer bounds the counts
+> +		 * by the global vector pool.  A peer asking for the whole
+> +		 * pool can starve the others with -EAGAIN, but it cannot
+> +		 * corrupt state.
+> +		 */
+> +		ret = res_ops->cfg_msix_map(p, src_id,
+> +					    le16_to_cpu(param.num_net_msix),
+> +					    le16_to_cpu(param.num_others_msix),
+> +					    !!le16_to_cpu(param.msix_mask_en));
 
-nbl_res_setup_ops() {
+[Severity: Medium]
+Can one sibling PF use this responder to drain the shared MSI-X vector
+pools?
+
+Before res_ops->cfg_msix_map() runs, the only checks are the rel_pf_id
+range and data_len. So num_net_msix and num_others_msix reach
+nbl_res_intr_cfg_msix_map() exactly as the peer sent them.
+
+There is no per-function quota in nbl_res_intr_cfg_msix_map() either. Each
+count is only capped at NBL_MSIX_MAP_TABLE_MAX_ENTRIES (1024), which is
+the same size as the whole NBL_MAX_OTHER_INTERRUPT pool:
+
+drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c:nbl_res_intr_cfg_msix_map() {
     ...
-	if (!res_ops.get_vsi_id || !res_ops.get_eth_id ||
-	    !res_ops.cfg_msix_map || !res_ops.destroy_msix_map ||
-	    !res_ops.set_mailbox_irq || !res_ops.init_module ||
-	    !res_ops.deinit_module)
-		return ERR_PTR(-EINVAL);
+	for (; i < requested; i++) {
+		intr_index =
+			find_first_zero_bit(intr_mgt->intr_other_bmap,
+					    NBL_MAX_OTHER_INTERRUPT);
+		if (intr_index == NBL_MAX_OTHER_INTERRUPT) {
+			dev_err(dev, "No free control interrupt vectors left\n");
+			ret = -EAGAIN;
+			goto release_vecs_unlock;
+		}
     ...
 }
 
-nbl_core_init() calls nbl_res_init_leonis() before nbl_disp_init(), so a
-missing op fails probe before the dispatch wrappers are installed. The
-static res_ops table also always sets nbl_res_chip_init_module and
-nbl_res_chip_deinit_module.
+The control PF already holds one vector, so a peer request for 1023
+other vectors succeeds. After that, every sibling PF that configures its
+map gets -EAGAIN from cfg_msix_map().
 
-Could these NULL branches be dropped? The kernel-doc below would then
-need updating too.
+With the later "add common dev start/stop operation" patch, that error
+makes nbl_dev_start() fail, so the sibling loses its mailbox interrupt
+and its probe fails.
 
-[ ... ]
+The net pool (NBL_MAX_NET_INTERRUPT, 4096) can be drained the same way by
+four peers asking for 1024 net vectors each.
 
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
-> new file mode 100644
-> index 0000000000000..f52d8bd57cd2b
-> --- /dev/null
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
-> @@ -0,0 +1,54 @@
+A peer can also send reconfiguration requests over and over. Each one
+does a kcalloc() and a usleep_range()-based nbl_intr_quiesce_wait(), and
+it still holds intr_mgt->lock during the wait.
 
-[ ... ]
+The comment above trusts peers because "hardware and firmware forbid PF
+passthrough to guests (see nbl_get_func_param())". However,
+nbl_get_func_param() only selects the control PF:
 
-> +/**
-> + * struct nbl_dispatch_ops - dispatch control plane operation callbacks
-> + * @init_module: chip-wide datapath init, forwarded to the resource layer
-> + *               (res_ops->init_module() and then hw_ops->init_module());
-> + *               on leonis it programs the chip-wide datapath registers and
-> + *               sets driver_status=true.  Returns -EOPNOTSUPP if the
-> + *               resource layer installs no init_module op.  Control-PF
+drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c:nbl_get_func_param() {
+    ...
+	if ((PCI_FUNC(pdev->devfn) == 0) && !pdev->is_virtfn)
+		param->caps.has_ctrl = 1;
+}
 
-This sentence documents an error return that no caller can get. It also
-suggests the resource op is optional, while nbl_res_setup_ops() requires
-it. This text is still unchanged at the end of the series.
+No software check stops a sibling PF from being bound to another driver
+or passed through. The in-tree driver only requests one non-net vector,
+so this needs a misbehaving or out-of-tree peer driver. Whether such a
+peer can exist depends on the hardware and firmware claim, which the code
+does not show either way.
+
+This is the first runtime path from a sibling PF into the control PF's
+shared allocator. Would a fair-share cap here help, such as pool size
+divided by max_pf, or one reserved other vector for each present PF?
+
+> +		/* Forward the resource errno verbatim to the requester */
+> +		if (ret)
+> +			err = ret;
+> +	} else {
+> +		err = -EOPNOTSUPP;
+> +	}
 
 [ ... ]
 
