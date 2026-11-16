@@ -1,105 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.63
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794859802;
-	b=KNAXesbWBC/S4gTNFiXJO9KGPi2zKZzhYtUH5dA/BcgN5mI+IrrK8rK2c8Pd0pxKxdxK
-	 KkpudEuxnWkmZFGwcTOH9HQ6EIf2n8oEwOYWFVrioQ1hhyxpM007wKXC4mvIF4XlrM16N
-	 caPw4uoUwvRmvSql7Dx9nHykantYexY4fmEDKzoBs/xhFly8V+3E5VanQHqQFWa84eQD0
-	 9KR2OG7r6/a+vAJzQlNyA3ye0YOG9W6w75XPhBU2CLADaH7st+Sjz3eEl+VljQaTToFin
-	 /yJ5nRK41kiMmJZ7ZRd2P6VNx0NW0iRj6q2OsfLusWmI8WLJrzM2SFJx1ZoqV484+mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859802;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fG/18cGLF5B8a57O4KwzcmIVoZeUUdwldllbg52dRjg=;
-	b=dgKu6QEFAOtXU25N4RYGyEG9G1lNV3ns+a3A4NdZPUQRNH0a1upY/GWqRTfps9kOaCWf
-	 jXwzwgnxfp2r51qmuoBY2DU4fpl98U9FYVxiTwO0X9EXqt/IWIEj5AeTbUoRB/6/06/sr
-	 GXIcKufZg0zPTmfhEJblBmK8saNyScO840YODF8EZ02HLLdgvFWNBgpLoJr+zYsI7wT+y
-	 ePYFF1z7UBv1cxBg3hHvlMpS97m7KEegypFV8jqcGH16rNMOLNNb724osHNCQmpPa2U6V
-	 jtHB0V0bmKycjYBfvGO8S7lj7NR6J68OifrWfutd7DUoMj157+FnmStXId3kaJNuITA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="nNT/B9Ud";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.63
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010063.outbound.protection.outlook.com [52.101.61.63])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794859815;
+	b=tyvTyWiDNzXUZWtiS+7B0CZCQMqPGRQQdYk323n6XUJ3u4lyyhL6129kqp2bETVLIlCn
+	 RfIpSoQTEgTYiBopwf4itA4c+s+2TcoDog/k6EL0oDG81zW/rMc9cUqpzCs/SY4dTK1VY
+	 qIClwvKwK4Xb6c0bKlB0rlRE0ompHVtGBGlb+t6CcOOohauMAUJymykQDtR5LZE6CJEZj
+	 2zQQi3L5dj+V5g24Y+n2dzzvIlAcm/gsF+if24kBKUhuNrczbkjyyulIae8ibibmWVDro
+	 slpCxeMtAgagRXTnbW7vuGwnEn+0WndgTWkPBrXIS1/NMHdq4BZjWi2W1f0vo74NcFA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859815;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DnZY0R4CFWaA841+h8c4OqRg9398Cp2ZyZRKUgM0LV4=;
+	b=IQuuBJ2gKkzrEHJuvfpYYHL8kZ2KhrdH+VTmhNJmdoghO/26FeCOQSmcT3fPzv0qZDXs
+	 APROxtKdjU2JAzqU7YNvgcxZdzABU8SCMcF/u5Ux8S0UWXyg9VU6Db81qv5IuhaFKn2Nc
+	 Ciu66OAIiJbqyxrq1UOCV4DNdqR/Vd8yr1BhiPsQIo3sAgn9hmzxNdXY/vTigdxQv3YQq
+	 WVTZALRr+rNLLuX46djlq/sQk2kNM8bCw2uYKr0AHtII12Rb1p+zHvlGwo7/a13GrmQb6
+	 tVLJrtNncxcm4++S9KrC38bf3sOWLAUUnnWEqWeunOs2g9XbElxWl+PcSiVeAwm1vFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrCWeG9C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED877606A32C;
-	Mon, 16 Nov 2026 20:10:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED877606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15CB606A322;
+	Mon, 16 Nov 2026 20:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nNT/B9Ud
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jepUUw6ijwSs1BwvRMIsyn+wTqBxR+R3c2jYeGFq/yK1k2h+TofaNgF2NKXA4AYMlV/WSaKPH8vAqeBTgzY8i/z86dDJZzyB3nBVQJ1cOuLwMjzGclBYphXFzteHGEMWiT/6yV94Z+jd7IQ5sLZyHsb9BWHxyQyuDku+zIKDZOttmLjQf71KEpIwS7n57NDaeGO1yAPSrWAENtoeBtf4GePffRjunvU8UIYMB1nm2WqYdjuQdTeGejTpATSW9IdH5dv7fn22z0kl/00csOzTdqME07CQ/o/AR6qVBc9w6arSp4S2fWgUeqLWGA9hWGifs7pglmnZ+fAteI4tqxvsWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fG/18cGLF5B8a57O4KwzcmIVoZeUUdwldllbg52dRjg=;
- b=qGtJexsyQ8fasNsmDRegs4i57hxCqBhtsnOte6cunznO5rZXreuCJCHm19Men82wP/S4Q2/IHUPmyg1TFmS1E09DaFD6yydvAYt+82IagHi6iaR2yj1D3U3HLvxBlJXXXY/7IbgOi2mnx4WPSiwkgpEbloygdrAtVRaHyC2TE8u5GdGYWQo7JoHMC4Blv5ms/IgZee6+UQkkHsi0pIeVphaMVmxVdlBx3S4GAWPeSr3Qm6Jsod7Skw6CU4jnvDcY18PJBhDZGP/wOanrTH6czKVYG6gJpi1/urtZUOWFZYKl2aCfnfeUHSWLXJ76SnaU/VWr0NcTwx7O4zQUQ5/g5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fG/18cGLF5B8a57O4KwzcmIVoZeUUdwldllbg52dRjg=;
- b=nNT/B9UdJBS3H+hUKhZTn8YkXikNOViTNZ2zmUX1BTfQVMSxgCUS+fS0HCvy2TIW2CG5YHYIGDIR+dxIQV58MyAmA4nbpjWf/hSEKfFncOkfCxtOawYLKTfzwwSc6VTEmhjp9ulrc8YFoDicdDb/4h9KX8OZsM3590tiO/cUmus=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
- by IA4PR12MB429550.namprd12.prod.outlook.com (2603:10b6:207:128::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 20:09:52 +0000
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 20:09:52 +0000
-Message-ID: <3d008992-dab9-4353-a25e-0007926e19a4@amd.com>
-Date: Mon, 16 Nov 2026 14:09:48 -0600
-User-Agent: Mozilla Thunderbird
-From: Babu Moger <babu.moger@amd.com>
-Subject: Re: [PATCH v7 15/19] fs/resctrl: Extend info/kernel_mode to configure
- the kernel mode
-To: tony.luck@intel.com, reinette.chatre@intel.com, ben.horgan@arm.com,
- Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- x86@kernel.org, fustini@kernel.org, tglx@kernel.org, mingo@redhat.com,
- dave.hansen@linux.intel.com, hpa@zytor.com, fenghuay@nvidia.com,
- rppt@kernel.org, arnd@arndb.de, kmehltretter@gmail.com,
- dapeng1.mi@linux.intel.com, elver@google.com, enelsonmoore@gmail.com,
- jlayton@kernel.org, seanjc@google.com, ewanhai-oc@zhaoxin.com,
- binbin.wu@linux.intel.com, nikunj@amd.com, ashish.kalra@amd.com,
- peterz@infradead.org, superm1@kernel.org, thomas.lendacky@amd.com,
- prathyushi.nangia@amd.com, kim.phillips@amd.com,
- ricardo.neri-calderon@linux.intel.com, darwi@linutronix.de,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <cover.1794437052.git.babu.moger@amd.com>
- <f2ad1989facce953f3ffe1b8687ae4fcf8629a26.1794437052.git.babu.moger@amd.com>
-Content-Language: en-US
-In-Reply-To: <f2ad1989facce953f3ffe1b8687ae4fcf8629a26.1794437052.git.babu.moger@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0P221CA0033.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:610:11d::16) To BL1PR12MB5320.namprd12.prod.outlook.com
- (2603:10b6:208:314::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrCWeG9C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA1F1F000C4;
+	Mon, 16 Nov 2026 20:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794859815;
+	bh=DnZY0R4CFWaA841+h8c4OqRg9398Cp2ZyZRKUgM0LV4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SrCWeG9CA1eAKSC/Tiu2df8H1SoSfnefW1/ZFb3AIH90QnNtE02+DN93168cqg+wz
+	 C1QOjXXky/ZPZztUmEeCRRBdbXE6me3o8RF292CDppPRFPtAfXtQBjp9GOmFEiNGWN
+	 VdNCL5T8GONGf19sCNQOI5a4GS19yRby73zsAXImG8fkrdFw+i03LRCUwGHRwi1mI1
+	 KO8oDtnTnnG3O68W9KCN75GOvxuF7P4lgZGHF02at51ByAgZdayqdP0aelKtJuVThH
+	 VXVvincUfF+kCDqY5AGJE7YL2BBGBcfV0Tr6/DsviVC+J3l0oSnx4LiopwTTfnyqMi
+	 TPQhuEAe0adDQ==
+Message-ID: <b58451d6-e90d-4aa3-afb4-13666953dd1b@kernel.org>
+Date: Mon, 16 Nov 2026 21:10:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,385 +51,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|IA4PR12MB429550:EE_
-X-MS-Office365-Filtering-Correlation-Id: 422ea58f-b238-422b-c80e-08df441d9314
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|260925021311599003|56012099006|260925022911599003|5023799004|4143699003|11063799006|260925021911599003|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	JZd1QzHFlmoptTqWhrFOwW5HywKXnAAiFEn0g3/aTLldIDusPGDHgtwFOg/ANx4ACkyrBTKCazq1Ltt2Jh/kSrk2GwzWUzwtD6eatyD9L8WFEw8lpRV0DYLEZv28bvVTh8rwP7/DewdQfdFS7cOC8dF/TNy0BADqTp8rDASqS6eXM1bGM0C7ZU3Sap12/yioCoH35pZI4s69C3BrNdUuHFSmc6jzcQ8iOkSUtplb0pSmd9ClbUATT6DMQKNc9CC4sDTzQwR1V5RmE8xVJiGTHgNHaXsp/u7gt8sibZV46j5adHMwvwdJT0UabbPQmjpt3DNhJ2Nrt2CwvGTE8m//xDfm9wvFhnMdqJtu+NjhupaAPV0TA4EAdRNdR1eXc6c5Ha23ugV8ICK1KEYPXkyi4un3xMmNZY9CKe9ovChNYMrzoX20hFDf4UZcK3bqYZym5Km14QzkEHvh3X/3oGDjcpG4/ad+EDZwif9WUJiNNc81ne1ynQzzeOYeg2/uyETgdQNdPwfrtueBEY8wt/7Yd/wVDu6M6f6PRVuSA8b8zidcvzJr+MImacLYIbl2cdmiU5yloowux9fgkA93xOnWHlP/0RqqE+d6MGGYNilVBw8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(260925021311599003)(56012099006)(260925022911599003)(5023799004)(4143699003)(11063799006)(260925021911599003)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aWJjUmc1QUJNQlFqcGxXV0U4Q3dqOEE0QjVBYWZaTFpzSUI5NjBLblA1OVUv?=
- =?utf-8?B?RWFSS1hFTU5LazdRY2VjcTNoWmJpeVJISXRsNEtXUC9LZDNqT1NCckVWeWU4?=
- =?utf-8?B?R2wwRk4zR1hObEpOdE5hM3V2UkU2YWV6aU9rdFEvZ0wxRkQxKzVlQTVEMGNH?=
- =?utf-8?B?R1A1MXk3eUdCZTJ4TWpscWZLd1k4ajB2YW9WU0RUYmd6b3ZRdG5EbUlOVGNI?=
- =?utf-8?B?eXBlUTJ1VmE0NWdNeWYwbDdldmxSRUlSRHlMTjBKQU9Mcy9LcGdqV2dXNmxl?=
- =?utf-8?B?VGxiUFJ5UlNIVEhEb28zYWlHTEJkeVk4STJQRGk4bmhjZmU1U0FDak41ejkw?=
- =?utf-8?B?TDBLMzd0blFjZ09raWR5ckMzNWFtOVJObWhZdkF5cjFqK3I0MkwxS090M255?=
- =?utf-8?B?TU1XdDRCUkNtVVowOE1DMWlSZXJ0TlkyRzF5V3p6SFhpSXJsRS9VQ0JKWDAz?=
- =?utf-8?B?d0dpSlJBa0hPUkw1Z2tDZ0czVTRqM0ZVbUpxcEU0SHphcnluTFBsaytkRGpP?=
- =?utf-8?B?UjZPN2ZFOGt4NFFHaUl1bTBKbS9QZVRwY0hRQjdWNGpPSG5KOXZTRTNZV2dD?=
- =?utf-8?B?L3h4YUliWDJTbGlXaGw5ZUYwMDk2YjJocS9uT0F1YlRZUVZRSUc0SHNVR05J?=
- =?utf-8?B?REpsNTZYUUkzUzdkZTAwV1hBYTZQbkM2S0FKTGIvVTV2VjVCRFJQekMyRDdY?=
- =?utf-8?B?NVpZVHR4dE14TW1Kd2RYSlh3SHNzMHRwTU9WTnBYbHU4Ujd2WlJYSkhlOTlE?=
- =?utf-8?B?K083NUxwajdhTSttZkxJTnl4Vkx6S0todW5LREdnNmJrTjVTbm9QVjNTaHp0?=
- =?utf-8?B?bGZUbjZHR3lzai95L1BnVkRad2Z4V1BseDNRbXdLV1FrMkFtSTVBVjlZaXBZ?=
- =?utf-8?B?ZlIreFNQQ1g5NC9NbEFXbjdGdk9vUFMyR2U2VmRYMndkR0J0cURUL0dDb2M1?=
- =?utf-8?B?ZTdlQWNMZE5wWXMzM3ZFRG4zWHRnelhxQXhQbGpsWkp6VGNtNVIzMVQ1Wnp2?=
- =?utf-8?B?c2FGVHVob3lqT1NKSE5mWis1TXg4ekF5ZndGMEl3N2xHVTFjREZydllNSHJw?=
- =?utf-8?B?OWIrVGk4RVhRMWlIOTh3WVRYU0lCN1dzOEZxNTk5Qy9wbEttaU1BMUNYZ2tZ?=
- =?utf-8?B?emNVRm03ZkE0Mlc1RWlwOEpXUnBtUTJMN2pVRnEzZlh0czhSNEdnOU5wSk9B?=
- =?utf-8?B?a042Y2VrcVNTSmhBRVhTYUQrbVBtcUNCMDd2bUV5RnlEaldnZ2k3dGFIVHpZ?=
- =?utf-8?B?dDRVNjFRK0dVcjBwUXo3eEhxN0xqa25sYWNOdGtHOGpJRnEyenFHWkVJNzFw?=
- =?utf-8?B?U09HaUl2TWxMblVkRVQ3blpDRW9COE9BU1QycGRnQ1diTUt6RzZSN0xJZTlk?=
- =?utf-8?B?dHQ0TXJOb0puTVdGUituOFo4ai9FQTBpNUlyYVZEemlFclF1aVE1YWNvd21H?=
- =?utf-8?B?dWtidGVlN2dRZFNYb2hNYVJoUWxIL3QveGRmUldJMDFWUVFEU01XOThvK1dw?=
- =?utf-8?B?ajVsYTJ6eWRkQnlHTGdUNTdmcThrbEZsaU5odEdlUlgrL2J3Q1h5ZURoYms5?=
- =?utf-8?B?ZWhiaEJsMThVQmhmblRFdWFwMlE3bU1weTJaVE5BY0NnSjUvbk03RE85Smtu?=
- =?utf-8?B?R2x6SlNYbjk5NHdqdzR3ZHdRcUpqRExFNlNzdzc0QkNRdHdTbjJUaHEwVE1j?=
- =?utf-8?B?TFRhVVJXQ0liZVpES3NwMVJDQWtsdXBPNldCdW1IQ09mNUpLOUdIUVVRZVpk?=
- =?utf-8?B?c3NoTndEWFNoUFFFcitna2dGWDdmbGlwT2xHQmZ6dS9aNzJjRG1icWM3czlo?=
- =?utf-8?B?RUN6MmFKWmk4TmYyMEVON3FIQ0ZUN0NvWWN5TjVFN3h2TWJmaVBLbnU5eTlH?=
- =?utf-8?B?VEJkSUNDUTNtTHJnSmtOdjZmaGtsYTN6bjZIRmt5cUd3KzhFS29VRllMSHR2?=
- =?utf-8?B?dTRoVVR4SHY4YksyaEY5ZlJHY0M3aTRPalpodVpNcGJ0azdZakYveis5NG5L?=
- =?utf-8?B?OXlDMEoyL1lqYnFpSEhLMFZMRlFQSGRFb0lpZ3o5QXZIeHBUcG9lZkc2SDdL?=
- =?utf-8?B?YTRibUtuWE1HNlNlbVc3NkxaV1g5aGt2TnNCY0dMSFpYN0UxVWdXRzVEdmtX?=
- =?utf-8?B?amJjbm9wdTlhOEJGQmptdW9nenFMYWFPU0hEcGJiY0VBTFJpcXhxSFU0K2pD?=
- =?utf-8?B?K3RnWDdKbWhlc1ZiOVZRUURMVGtsc0FUbnVZS2hUVDh6c2tzK0xWRVJpQTZw?=
- =?utf-8?B?Nk9kRit4VVRPWWNzaFVEL0l0RmpuQ3h0TVZUZEZ0cUtYdXMxeGpZc2orb2pV?=
- =?utf-8?Q?I1+5nhdEK0eHuBFXeB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 422ea58f-b238-422b-c80e-08df441d9314
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:09:52.3799
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Iik4LeJfiP8St1Nty52+57NoezB62dx6Ffara9bkJqKZJTRAGQ54o8mk+joqiQy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB429550
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] mm/memory: do not report OOM if insert_pfn() races a
+ huge fault
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ Roman Kisel <romank@linux.microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Naman Jain <namjain@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>,
+ stable@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-2-537605643f6f@kernel.org>
+ <998b00e3-bde9-450c-b50b-069e65d00c49@kernel.org> <avs6WWOurjIN-trm@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <avs6WWOurjIN-trm@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 11/11/26 16:44, Babu Moger wrote:
-> Kernel mode support allows the CPU's CLOSID and/or RMID associations to
-> change during the transition from user mode to kernel mode. The resctrl
-> file info/kernel_mode lists the current kernel mode configuration.
+On 11/16/26 18:21, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Nov 16, 2026 at 04:59:35PM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
+>>> From: Eliav Farber <farbere@amazon.com>
+>>>
+>>> A driver that implements both ->fault and ->huge_fault must anticipate
+>>> concurrent use of both.
+>>>
+>>> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+>>> concurrent with faulting, as that only holds the mmap write lock and thus
+>>> does not exclude faulting threads stabilised by VMA lock.
+>>>
+>>> This is not currently safely handled by insert_pfn(), however, which
+>>> obtains its PTE entry via get_locked_pte(), and treats a NULL return value
+>>> as an allocation failure, returning VM_FAULT_OOM.
+>>>
+>>> The issue is that get_locked_pte() also returns NULL if the PMD entry is
+>>> not a page table which can happen if a concurrent huge fault installs a
+>>> huge PMD entry between __handle_mm_fault() observing the PMD entry to be
+>>> empty and insert_pfn() being invoked.
+>>>
+>>> This can result in VM_FAULT_OOM being reported incorrectly.
+>>>
+>>> Address this by proactively checking whether a page table allocation
+>>> actually failed, and returning VM_FAULT_NOPAGE if the NULL indicates that
+>>> we were raced instead.
+>>>
+>>> The same assumption is made in insert_page(), however only DAX implements
+>>> ->huge_fault and can reach it, and it serialises faults of different orders
+>>> with its own mapping entry lock, so it does not require a change.
+>>>
+>>> Target the commit introducing the first driver able to do this.
+>>>
+>>> Link: https://lore.kernel.org/all/20261112051440.16140-3-farbere@amazon.com/
+>>> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+>>> Cc: stable@vger.kernel.org
+>>> Suggested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>>> Signed-off-by: Eliav Farber <farbere@amazon.com>
+>>> [ ljs: rewrote commit message, trimmed comment ]
+>>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> ---
+>>>  mm/memory.c | 11 +++++++++--
+>>>  1 file changed, 9 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index e03110906aa8..cff39eccfd42 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -2866,10 +2866,17 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+>>>  	struct mm_struct *mm = vma->vm_mm;
+>>>  	pte_t *pte, entry;
+>>>  	spinlock_t *ptl;
+>>> +	pmd_t *pmd;
+>>>
+>>> -	pte = get_locked_pte(mm, addr, &ptl);
+>>> -	if (!pte)
+>>> +	pmd = walk_to_pmd(mm, addr);
+>>> +	if (!pmd)
+>>>  		return VM_FAULT_OOM;
+>>> +	if (pte_alloc(mm, pmd))
+>>> +		return VM_FAULT_OOM;
+>>> +	/* We may have raced a huge fault, if so let the fault be retried. */
+>>> +	pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
+>>> +	if (!pte)
+>>> +		return VM_FAULT_NOPAGE;
+>>
+>> Same question, what if we would stumble over a PUD entry, how would we handle
+>> that today? I'd assume we'd also want to return VM_FAULT_NOPAGE instead of
+>> VM_FAULT_OOM.
 > 
-> Extend info/kernel_mode with write support so user space can configure the
-> active kernel mode. Validate kernel mode configuration before activation.
-> Restrict backing groups to shareable mode so the kernel can use the group's
-> CLOSID and/or RMID, which are shared with the group's tasks.
+> It can't for similar reasons.
 > 
-> Document the interface in Documentation/filesystems/resctrl.rst.
-> 
-> Signed-off-by: Babu Moger <babu.moger@amd.com>
-> ---
-> v7: Refactored rdtgroup_kmode_global_activate and rdtgroup_kmode_global_deactivate().
->      Removed resctrl_kmode_switch().
->      Refactored resctrl_kmode_parse_group().
->      Handled the "group=" as the last parameter.
-> 
-> v6: Use flattened resctrl_kmode and global_enable_per_cpu. Omitted
->      parameters keep the values shown by reading the file. Drop the
->      ctrl=inherit;mon=inherit no-op. Parse options with strsep(), as the
->      other resctrl writers do, and split validation out of the write path.
->      https://lore.kernel.org/lkml/3bc39dd7-b7b0-4203-a493-0bd872fdc644@intel.com/
-> 
-> v5: Adapt to the resctrl_kcfg caps and active split. Accept
->      assign_global_enable_per_cpu:ctrl=;mon=;group=<ctrl>/<mon>/ writes.
->      Treat both ctrl=inherit and mon=inherit as a no-op. Use group=// for
->      the default control group. Show associated kmode files through
->      resctrl_hidden_files_set_visible().
->      Added kmode check in rdtgroup_locksetup_enter(), rdtgroup_mode_write()
->      and rdtgroup_rename().
->      Simplify kernel-doc for write and activate helpers.
-> 
-> v4: Validate input before tearing down the active association so failures
->      retain the previous association. Allow assign_mon on CTRL_MON and MON
->      groups; require a control group when control assignment is inherit.
-> 
-> v3: New patch to make info/kernel_mode writable.
-> ---
->   Documentation/filesystems/resctrl.rst |  40 ++++
->   fs/resctrl/rdtgroup.c                 | 274 +++++++++++++++++++++++++-
->   2 files changed, 313 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-> index e57361dd342e..1a1877222624 100644
-> --- a/Documentation/filesystems/resctrl.rst
-> +++ b/Documentation/filesystems/resctrl.rst
-> @@ -608,6 +608,46 @@ The top level of the "info" directory contains the following file(s):
->   		[inherit_user]
->   		global_enable_per_cpu:ctrl=assign;mon=assign;group=//
->   
-> +	Writes use the same line format as reads, without square brackets and
-> +	with a trailing newline. Errors are reported in "info/last_cmd_status".
-> +
-> +	"inherit_user":
-> +		Written without parameters.
-> +
-> +	"global_enable_per_cpu":
-> +		"ctrl=", "mon=", and "group=" are optional.
-> +
-> +		An omitted "ctrl=", "mon=" and "group=" keeps the default values.
-> +
-> +		If "mon=inherit", or monitoring is unsupported, "group=" must
-> +		reference a CTRL_MON group.
-> +
-> +		The "ctrl=inherit" together with "mon=inherit" is rejected.
-> +
-> +		A MON group requires "mon=assign".
-> +
-> +		"group=" must be the last parameter. The group must be in shareable mode.
-> +
-> +		Selecting a new kernel mode, parameter, or group replaces the active
-> +		mode and updates "kmode_cpus" to include all online CPUs.
-> +
-> +		Empty values are rejected.
-> +
-> +		Example::
-> +
-> +			# mkdir ctrl1
-> +			# echo "global_enable_per_cpu:ctrl=assign;mon=assign;group=ctrl1//" \
-> +				> info/kernel_mode
-> +
-> +			# cat info/kernel_mode
-> +			inherit_user
-> +			[global_enable_per_cpu:ctrl=assign;mon=assign;group=ctrl1//]
-> +
-> +			# echo "inherit_user" > info/kernel_mode
-> +			# cat info/kernel_mode
-> +			[inherit_user]
-> +			global_enable_per_cpu:ctrl=assign;mon=assign;group=//
-> +
->   Resource alloc and monitor groups
->   =================================
->   
-> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-> index 97d99406de00..872755532fb4 100644
-> --- a/fs/resctrl/rdtgroup.c
-> +++ b/fs/resctrl/rdtgroup.c
-> @@ -1201,6 +1201,277 @@ static void rdtgroup_kmode_global_deactivate(struct rdtgroup *rdtgrp)
->   	resctrl_kmode.mon = KMODE_ASSIGN;
->   }
->   
-> +/* Program @rdtgrp on every online CPU and show its kmode_cpus files. */
-> +static void rdtgroup_kmode_global_activate(struct rdtgroup *rdtgrp,
-> +					   enum resctrl_kernel_mode mode,
-> +					   enum kmode_state ctrl,
-> +					   enum kmode_state mon)
-> +{
-> +	resctrl_kmode.active = mode;
-> +	resctrl_kmode.ctrl = ctrl;
-> +	resctrl_kmode.mon = mon;
-> +	resctrl_kmode.rdtgrp = rdtgrp;
-> +
-> +	cpumask_copy(&rdtgrp->kmode_cpu_mask, cpu_online_mask);
-> +	resctrl_configure_kmode_global(&rdtgrp->kmode_cpu_mask, rdtgrp, true);
-> +}
-> +
-> +static int resctrl_kmode_parse_state(char *val, enum kmode_state *state)
-> +{
-> +	if (!strcmp(val, "assign")) {
-> +		*state = KMODE_ASSIGN;
-> +		return 0;
-> +	}
-> +	if (!strcmp(val, "inherit")) {
-> +		*state = KMODE_INHERIT;
-> +		return 0;
-> +	}
-> +	return -EINVAL;
-> +}
-> +
-> +/*
-> + * group is "<CTRL_MON>/" or "<CTRL_MON>/<MON>/". The MON component is
-> + * optional: mon=inherit and systems without monitoring do not require it.
-> + * An empty name selects the default CTRL_MON group. Names are not trimmed;
-> + * "/" cannot appear in a resource group name.
-> + */
-> +static int resctrl_kmode_parse_group(char *group, struct rdtgroup **rdtgrp)
-> +{
-> +	struct rdtgroup *rdtg, *parent = &rdtgroup_default;
-> +	char *mon = NULL, *slash;
-> +	size_t len;
-> +
-> +	len = strlen(group);
-> +	if (!len || group[len - 1] != '/') {
-> +		rdt_last_cmd_puts("Group must be <CTRL_MON>/ or <CTRL_MON>/<MON>/\n");
-> +		return -EINVAL;
-> +	}
-> +	group[len - 1] = '\0';
-> +
-> +	slash = strchr(group, '/');
-> +	if (slash) {
-> +		*slash = '\0';
-> +		mon = slash + 1;
-> +		if (strchr(mon, '/')) {
-> +			rdt_last_cmd_puts("Group must be <CTRL_MON>/ or <CTRL_MON>/<MON>/\n");
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	if (group[0] != '\0') {
-> +		parent = NULL;
-> +		list_for_each_entry(rdtg, &rdt_all_groups, rdtgroup_list) {
-> +			if (!strcmp(rdt_kn_name(rdtg->kn), group)) {
-> +				parent = rdtg;
-> +				break;
-> +			}
-> +		}
-> +	}
-> +	if (!parent)
-> +		goto not_found;
-> +
-> +	if (!mon || mon[0] == '\0') {
-> +		*rdtgrp = parent;
-> +		return 0;
-> +	}
-> +
-> +	list_for_each_entry(rdtg, &parent->mon.crdtgrp_list, mon.crdtgrp_list) {
-> +		if (!strcmp(rdt_kn_name(rdtg->kn), mon)) {
-> +			*rdtgrp = rdtg;
-> +			return 0;
-> +		}
-> +	}
-> +
-> +not_found:
-> +	rdt_last_cmd_puts("Group not found\n");
-> +	return -EINVAL;
-> +}
-> +
-> +static int resctrl_kmode_parse_parameters(char *params, enum kmode_state *ctrl,
-> +					  enum kmode_state *mon,
-> +					  struct rdtgroup **rdtgrp)
-> +{
-> +	char *key, *tok;
-> +
-> +	while ((tok = strsep(&params, ";"))) {
-> +		key = strsep(&tok, "=");
-> +		if (!tok) {
-> +			if (strim(key)[0] == '\0')
-> +				continue;
-> +			rdt_last_cmd_puts("Missing '=' in kernel mode parameter\n");
-> +			return -EINVAL;
-> +		}
-> +		key = strim(key);
-> +		if (key[0] == '\0') {
-> +			rdt_last_cmd_puts("Empty kernel mode parameters\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		/*
-> +		 * group= is the last parameter and may contain ';'.
-> +		 * Restore it if stripped.
-> +		 */
-> +		if (!strcmp(key, "group") && params)
-> +			params[-1] = ';';
-> +
-> +		tok = strim(tok);
-> +		if (tok[0] == '\0') {
-> +			rdt_last_cmd_puts("Empty kernel mode parameters\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (!strcmp(key, "group"))
-> +			return resctrl_kmode_parse_group(tok, rdtgrp);
+> Actually changing this would require changing walk_to_pmd() a fair bit so it can
+> distinguish a failure to allocate from that, and I'm not sure it's worth doing
+> that at this point, better as follow-up?
 
-Sashiko reported:
-https://sashiko.dev/#/patchset/cover.1794437052.git.babu.moger%40amd.com?part=15
+There are only two users in mm/memory.c right?
 
-=====================================================================================
+I'd just make the whole thing less shaky right away, but whatever you prefer!
 
-commit c63c65a55b0de1c92fbdb68970fd3628b6b0e821
-Author: Babu Moger <babu.moger@amd.com>
+-- 
+Cheers,
 
-fs/resctrl: Extend info/kernel_mode to configure the kernel mode
-
-This commit adds write support to info/kernel_mode so user space can
-configure and validate the active kernel mode and its backing resource
-group.
-
-> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-> index 6f51db3cb283f..fd551dd527b9c 100644
-> --- a/fs/resctrl/rdtgroup.c
-> +++ b/fs/resctrl/rdtgroup.c
-> @@ -1201,6 +1201,277 @@ static void 
-rdtgroup_kmode_global_deactivate(struct rdtgroup *rdtgrp)
-
-[ ... ]
-
-> +/*
-> + * group is "<CTRL_MON>/" or "<CTRL_MON>/<MON>/". The MON component is
-> + * optional: mon=inherit and systems without monitoring do not 
-require it.
-> + * An empty name selects the default CTRL_MON group. Names are not 
-trimmed;
-> + * "/" cannot appear in a resource group name.
-> + */
-> +static int resctrl_kmode_parse_group(char *group, struct rdtgroup 
-**rdtgrp)
-
-[ ... ]
-
-> +static int resctrl_kmode_parse_parameters(char *params, enum 
-kmode_state *ctrl,
-> +					  enum kmode_state *mon,
-> +					  struct rdtgroup **rdtgrp)
-> +{
-> +	char *key, *tok;
-> +
-> +	while ((tok = strsep(&params, ";"))) {
-> +		key = strsep(&tok, "=");
-> +		if (!tok) {
-> +			if (strim(key)[0] == '\0')
-> +				continue;
-> +			rdt_last_cmd_puts("Missing '=' in kernel mode parameter\n");
-> +			return -EINVAL;
-> +		}
-> +		key = strim(key);
-> +		if (key[0] == '\0') {
-> +			rdt_last_cmd_puts("Empty kernel mode parameters\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		/*
-> +		 * group= is the last parameter and may contain ';'.
-> +		 * Restore it if stripped.
-> +		 */
-> +		if (!strcmp(key, "group") && params)
-> +			params[-1] = ';';
-> +
-> +		tok = strim(tok);
-> +		if (tok[0] == '\0') {
-> +			rdt_last_cmd_puts("Empty kernel mode parameters\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (!strcmp(key, "group"))
-> +			return resctrl_kmode_parse_group(tok, rdtgrp);
-
-Does calling strim(tok) before the "group" check strip leading 
-whitespace from the CTRL_MON group name?  The comment on 
-resctrl_kmode_parse_group() notes that group names are not trimmed, and 
-trimming tok here causes lookup of a CTRL_MON group whose name begins 
-with whitespace to fail with -EINVAL ("Group not found").
-
-========================================================================
-
-Interesting.. reesctrl allows trailing/leading white spaces in the group 
-names.
-
-So, we cannot run  "strim(tok)" for the group names.
-
-Will move the strim(tok) after the group check is done.
-
-Thanks
-Babu
-
+David
