@@ -1,89 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858157;
-	b=mxVTM9ux1lgIRE0JI/nIE8Gek8M8pLzAnSnQDMbo9ThfgqTKXp9i5ksNWqJKt6fvyd5Q
-	 t4xIxseamrGdEJ/qje4mg3II/8pEFc4CdzyBJbAr7+JlaAHlcUYfd8DxdEdSwZotruNU4
-	 oA3LGYoo6SRomPiRrTtIibK2qBoavb/J32xUAZYe7Qg5Ph5KWBIzYQYT7sji5BD/21PEX
-	 uYu4+xSmzELezMxImOzjrvIyzdxegdON+cqvxpQoJDfUNxZW8WDkrjEIpwEr2WTXWD6NE
-	 J0vhcaXUpQ/IJspHchX807D0gTHZQIdUwuwP8foJ1BHoXkEYlBnCg96mXWOFQJiZKXQ==
+	t=1794858161;
+	b=z7OUs0oOCwc+h5fd3YnfoPY1ZGUojJrVjT2TkafOaUE5KfdTNbq6ppkWG6XGWF+V2RoB
+	 mweGsoATVD9JINszOKu0NjxGRPlXaygs2a9N4hjGrGHJH5LvlwXJhCewK4DmWbqVCaAG/
+	 JzcedZ9uipTyePIW1EFbmPikSDJva3SRd7TVZvMQOwrKNycXJnXVWDTeKQgqseES/L5wE
+	 QLvgLuUTWnTZtG8pWPKgU4N5YeelXMRLLkbuTviSnU9jeBpIWHwGe5/iLn7NYxCD10Hhr
+	 RLQrfj1pFLPNpINUQ/IN2xjobEsyC0uyVJ5AmCmnZn4xbFqEy+aPLjDnyy2Hz78QeWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858157;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858161;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=hrYONFYXUBX4l51K4k4dZah07a/LY9bdcFG6oNqvLG0=;
-	b=5hJkLgQIiI7I6gWph1FZ4jp/qBQ6A4fL+TcyTQtmtjOY2mvL/lm5p+zLbU530oH/ruKD
-	 RdmuYWosQ2QSmWKEeg/V7LTtPif2S6HCLu0fBS0hMBGvRyFQfMlcqRomX80mM2fQ/23HP
-	 s79iVFGQj9ggpCXCJPxQ+GVo7iAnZGdieLS0YFaiTrFhf0jBwZVkepY47q6vc0O6e3ACy
-	 F6B/bAa3ICzwJdNJhxGIhPJ9ed3OQTJxWM2/p95Kxn/hzSYBWLcfqSfOCOsT5+LrZYR/q
-	 xiVIxmvleGgOGJT6bK9eLR/hErpD4rJHbRAMKnyuskKIsxYni/gIwklrkLy505cFl9A==
+	bh=A+Yr2XORKrMlfKOwOgAS3OinaLOonWQV/X+ZaYguV9k=;
+	b=NwGyvVVu1ArBTOaaS2p1Qz7hctoIqiM6gUMnuwYxL4rGMuIL0U2BIOxW2RDTV6NaFXRc
+	 YKpCC7vDPhdSrW7lAj3qJnkxyaXVQy3CYTeV9E8a9Cb8HJ+hHgoSE7FP0eYC29VKLSdve
+	 VCGlZciVqmRMBJmL8KIsRO2URtbTWlQqpzQze4hnGfmzapoymymDIoNCwQK9OobVoNGgm
+	 Dj23VtYPNIkbRF+/+6Cm6qrsQW/hahHQqTwFNC4uITfhTxgLN9LYY/I3Oo418sHEcMx9z
+	 H8nYjF8fmVCCJ+k+UAmh5l0o5J/ZnYFaT1GimnmL/HWE/cUX0P8YXQzIAD1Va3Wz1Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LC2+sJ+U;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p7lDgriX;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1871606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1871606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9871A606A33D
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:42:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9871A606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LC2+sJ+U
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso1640471a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:42:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p7lDgriX
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cddee4abc57so453734a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:42:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794858156; x=1795462956; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794858160; x=1795462960; darn=vger.kernel.org;
         h=content-type:mime-version:message-id:subject:cc:to:from:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hrYONFYXUBX4l51K4k4dZah07a/LY9bdcFG6oNqvLG0=;
-        b=LC2+sJ+UuKfKraWDSeWtZAqyRakU9ELZoZmJ9RIJk/isG99CJQcbg4CFmIqFU84nFF
-         Ws0xnPC8pYB56nBNPNLUmmvWP2qnmZFNEljK3zKj/O+eycMQkNURGRgyMSbcAMrQqx82
-         JYYLjhbki+4dLgWW9kG404PFfkOLMKowxDDswPJIRu5T3YLR+y44VgZ+9S3myNRAnzLs
-         brdEmuqHAXZjCPutwXvTiJrov16Mq5vMYz9HCqr47xrmCO1YYSdDp6mIdQWo695y2+y/
-         4SdSn/k41GYfBwGRWfRf7c76PZEy8vgBh/XCttu2EG9ekeayHroKU112dwJ5tgxH9zGx
-         e5BQ==
+        bh=A+Yr2XORKrMlfKOwOgAS3OinaLOonWQV/X+ZaYguV9k=;
+        b=p7lDgriXQTz9QWmlH5TRq2lbd9C0FZpgWz3xMBFPxk85Je0zFaLsg2yJud9hx+jQng
+         GTU9YHAs24J3nt8B5z1xz8Rw9cAMgNEptHldF5Qi7Su3htmgFvegiwtZpC8qGwJhZO6s
+         a93r4rQpydjWjZVxyn52wASUNFM/TCsWlVe8bEVZPk/XCv4aWfjE67wLjMStaIwJquuM
+         56SrHOSZB4LS272MxTtX9+oKMLd4KPeQHC9784Hea+0Nx/CLzG9l3LCIkQgDxCCGmGyQ
+         Br/WZLU0MTnNmOq0eraNtbjJ1MdtDnMuG2O+58eU7iZi/u2anwO2RAnXI7hqrELIE3DW
+         bTKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794858156; x=1795462956;
+        d=1e100.net; s=20260707; t=1794858160; x=1795462960;
         h=content-type:mime-version:message-id:subject:cc:to:from:date
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=hrYONFYXUBX4l51K4k4dZah07a/LY9bdcFG6oNqvLG0=;
-        b=IbEOISPesWVAoqRTgjgdGYSZoYBQNaeH+r3GxZZE0e+VxP8RknmtSOmfXoZZbE1DJv
-         KbREz1/1YjsjJShLiwfgDWviY4Xm+1knmnxGVfa5gj91q6uAAiJTOBeBimroWbp6yTQZ
-         Z8I8kd8iRCfENJzoRCShlDJ9hWn+ie5ZPzXAcMaZ8Q0nZohIQrah6Onme/eArhOAm2PB
-         FgKms4yUAOI70MofEtX8vjagLx0O0mkdi6NhnSUb9qFsmzgaTE6wN0FkxJqPu68F5aKY
-         XNW7d5/VUhKJ84s+RI/djsTIHqD8xxj+k0aefrvN56rXIbIktltiPm5fM3nPb+YrQ5tn
-         ZM7Q==
-X-Forwarded-Encrypted: i=1; AL+hErGVzHITeCtPs8Ba16ZuU8OlwRKq2yA2Fink3toiTImwAuBdkmqGwjWlLBv1ik3Jr9kIFWeUkrBWWqrhicQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iuHnTZ3jfA+8ljz/BojD66OCV3ZTBDn0yRUVDgwhorzHI3opm
-	9mlMId3CiLLNWVAfRShsMXyWOQPp4jHLdtqvW1PaEkA0F7aRCwN527AS
-X-Gm-Gg: AZFdTZf1fVUuZd2YFaLZKnAvVIDPRjAx/3RJMl/ucaXH2T2Wq9TjLxxuKNFe3hNXmm3
-	rbhCQmMDuEqHf3b4F+PGAmjWLOXfSzE1hoN5R4VMvlMyHxprCLUBYQFCrW/A1iGvkOomCwUuBYN
-	4IxMRmYscoeXTXOehDdDfqbTXwIJehoiKX42RyIWnxiCXhooQiA/oP2tnWBljWFnHDTaRdCSxw/
-	bn+c25KHz6SQFXrwpxj9MFwbmFyEY58fRgTgE7QMUDHmsNi4rP2dxXK3IwkjitAljlBPcLwjtSl
-	teo4xuQek/jchSRDjksSa03aQrlqKe8atmlf0nFTq6eUf1JU5/D/P0JFZf9jQfXDRYHGMgExbgy
-	DRNIQhvn527+U/TQ06/cpgUww9P4dAIHf0mq3PZgz9tNZcHTX2NXqBFZPGurkRJ5TmT6worwOsC
-	WYLGfWoXU0vxj4drSw1+0p+clgWjp1Trk14tfZilSi7eypVjOXQpgRyyKeR5HHDD5XmHcd35E54
-	FjBERwwdRfp/mHN9lqQP/uCcaoZditBc/u866U5xc9VD7YBY6bLjNqBMe78lRkTT4sAV9w=
-X-Received: by 2002:a17:90b:3c83:b0:3ac:a993:5b5c with SMTP id 98e67ed59e1d1-3b1b081b573mr10403773a91.6.1794858155781;
-        Mon, 16 Nov 2026 11:42:35 -0800 (PST)
+        bh=A+Yr2XORKrMlfKOwOgAS3OinaLOonWQV/X+ZaYguV9k=;
+        b=GEyYE9h/pyEByltIkTCPX0Cd85iuSLF75B7KJrdmH7bZNuAbpgbIF4ra7EZ5LnDze+
+         WuOop7i0G59PeObbM3t/rs99C0oFkovtQT6Nk1HAzUi6tNA+45Lo2fUHd8qecRwd3Hia
+         jbFfRVLUVgw7zJcfYX7ZJQZi2WX9noN/s6Yi/fb+qDgazoWLzP6DeKJHA+IYpiC4k3Ee
+         yZqqYym5XtFUUW6e+kwf6ZDbPrKlOA8D5tq7BsRyvrm5hh8zjkubBXI+jGGejMYHjZbK
+         sBhESBSgDL8cz3dQfZn+zPPZD53lQdUJdt5Vni7GhIYFzFngM9Ev1cDy+Nqmjg++jm9z
+         4cYg==
+X-Forwarded-Encrypted: i=1; AL+hErGuwwl4rLCS/fUuAdn/qjlgD3M8AxJdSe4rvW2Bh6SgXjIVFCEczSBUr3sSpe0iDrQWg+ovLISuX6LFDu8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PIOnXaEPqy8ckX6cOkV/9NpfY56jqFiDhyeLTMCfj6d58wFkb
+	4JwLLHy+Tjsnkg/EbMIR06ckbItqZf5JMesgrqo1fEwHT9+JwElBVJ4x
+X-Gm-Gg: AZFdTZfpcYmeFyPQRW95vv7+ebn7ql5QmkWrlh1O7azywce1UlAUGkKx51ttWrxF+TM
+	+yAP8Xa8MimlcRIGXScVTrLy/7Scn5sXobbw+GxtRUDA1RBpWp5tllOA37AvmBvgU4e0eJSeKFa
+	aXEywaM5lVg0YaRoHmWjIpzyxcAuERtV8F5r+t0TOEvBDeHbmeaTxuWAoxJGlgkYDVoOt0gOfBK
+	AtP3nWNjEa0FSAeWPCqyVz2tT8BNp+CtyLfvqT9YXHhR5Mp/HHH6BFQSTaAWmbzkPp6bnn+ju5e
+	F5RyQ1vNXtgpBEg6WRwhx6id3mn5wpnb73f+IcdNKr2KVgUSKdwQuhvsKd+kLT8N5OidBJbUV/c
+	E4Ka4058gddCYaQOOr5lncirMUWMc1eKuqgpj7Jhc7Rgqc++YWxW80Gyq4PbJU27ACTY9p9Bk0h
+	98R0bfuvzs8Yg5uvVHf1gj8QVxmcGqMXXXXg98gPkHfof1P9G9jcYwAHlGxftPZ+WRGrKg7T1PO
+	jH8jMX18EqKJAtHFKOOJohUQdwjjTlQk9mEjyfsLXdAJpALB0L8XmA85+UdzAytNskfbhE=
+X-Received: by 2002:a17:90b:3b82:b0:3b0:e388:d9da with SMTP id 98e67ed59e1d1-3b1b0a46733mr12274238a91.29.1794858159668;
+        Mon, 16 Nov 2026 11:42:39 -0800 (PST)
 Received: from [172.21.0.2] (vldb.skku.ac.kr. [115.145.173.180])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abb786ecsm586963a91.2.2026.11.16.11.42.33
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abd063e8sm576431a91.8.2026.11.16.11.42.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:42:34 -0800 (PST)
-Date: Mon, 16 Nov 2026 11:42:34 -0800 (PST)
+        Mon, 16 Nov 2026 11:42:38 -0800 (PST)
+Date: Mon, 16 Nov 2026 11:42:38 -0800 (PST)
 From: Kyuwon Cho <kyuwoncho18@gmail.com>
-To: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
- NeilBrown <neil@brown.name>, linux-raid@vger.kernel.org,
+To: "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>,
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [BUG] md: md_error() dereferences a NULL mddev->pers when
- SET_DISK_FAULTY races with STOP_ARRAY
-Message-ID: <179485814811.2717200.2781687925159937094@gmail.com>
+Subject: [BUG] ext4: ext4_htree_fill_tree() reads '..' outside the dx root
+ block when '.' has a bad rec_len
+Message-ID: <179485814813.2717208.11773019866458970526@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,287 +95,357 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============3655187784378965582=="
+Content-Type: multipart/mixed; boundary="===============8252047072062630808=="
 
---===============3655187784378965582==
+--===============8252047072062630808==
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Song, Kuai,
+Hi Ted, Andreas,
 
 While testing v7.4-rc3 with an LLM-guided test generator that we are
-developing as a research prototype, we hit a NULL pointer dereference in
-md_error() when the SET_DISK_FAULTY ioctl races with STOP_ARRAY on a
-RAID1 array:
+developing as a research prototype, we found that getdents64() on an
+htree directory whose dx root '.' entry has a corrupted rec_len makes
+ext4_htree_fill_tree() read the '..' entry from far outside the
+directory block:
 
-  md: md320: resync interrupted.
-  md/raid1:md320: Disk failure on loop0, disabling device.
-  md/raid1:md320: Operation continuing on 1 devices.
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  CPU: 0 UID: 0 PID: 1712 Comm: test Not tainted 7.4.0-rc3 #1 PREEMPT(lazy) 
-  RIP: 0010:md_error+0xf1/0x480
+  BUG: KASAN: slab-use-after-free in ext4_htree_fill_tree+0xad8/0xb50
+  Read of size 1 at addr ff11000013189002 by task test/107
   Call Trace:
    <TASK>
-   md_ioctl+0x278/0x3940
-   blkdev_ioctl+0x3dc/0x570
-   __x64_sys_ioctl+0x134/0x1c0
+   ext4_htree_fill_tree+0xad8/0xb50
+   ext4_readdir+0x18de/0x2e00
+   iterate_dir+0x1b7/0x640
+   __x64_sys_getdents64+0x128/0x230
    do_syscall_64+0x116/0x630
    entry_SYSCALL_64_after_hwframe+0x77/0x7f
    </TASK>
+  The buggy address belongs to the object at ff11000013189000
+   which belongs to the cache names_cache of size 192
 
-md_ioctl() handles SET_DISK_FAULTY before it takes reconfig_mutex, since
-1ca69c4bc4b1 ("md: avoid taking the mutex on some ioctls."):
+Other runs reported slab-out-of-bounds reads in ext4_htree_fill_tree()
+and in ext4_htree_store_dirent(), when it copies the name. The object
+KASAN names is unrelated memory that happens to lie where the read
+lands.
 
-	case SET_DISK_FAULTY:
-		return set_disk_faulty(mddev, new_decode_dev(arg));
+ext4_htree_fill_tree() emits '.' and '..' from the htree root block
+without validating them:
 
-set_disk_faulty() checks mddev->pers, and md_error() reads mddev->pers
-again for every use:
+	de = (struct ext4_dir_entry_2 *) frames[0].bh->b_data;
+	de = ext4_next_entry(de, dir->i_sb->s_blocksize);
+	tmp_str.name = de->name;
+	tmp_str.len = de->name_len;
+	err = ext4_htree_store_dirent(dir_file, 2, 0, de, &tmp_str);
 
-	if (!mddev->pers || !mddev->pers->error_handler)
-		return;
-	mddev->pers->error_handler(mddev, rdev);
+dx_probe() checks the dx_root_info fields but not the '.' entry, so with
+a '.' rec_len of 65532 on a 4 KiB block, '..' is taken from 64 KiB past
+the block. The linear readdir path rejects the same block ("bad entry in
+directory: directory entry overrun - offset=0, inode=12, rec_len=65532,
+size=4096").
 
-	if (mddev->pers->head.id == ID_RAID0 ||
-	    mddev->pers->head.id == ID_LINEAR)
-		return;
+Rejecting the dx root in dx_probe() when the '.' rec_len is not
+ext4_dir_rec_len(1, NULL), which is what the dx_root layout assumes,
+makes the problem go away here: the reproducer ran three times without a
+report, dx_probe() reports the corrupt directory, and readdir falls back
+to the linear path, which reports the bad entry. Checking '..' with
+ext4_check_dir_entry() before using it would be another way.
 
-A concurrent STOP_ARRAY runs __md_stop() under reconfig_mutex, which sets
-mddev->pers to NULL and then frees the personality's private data. In
-the oops above raid1_error() has already run (the "Disk failure" lines),
-and md_error+0xf1 is the KASAN check of the mddev->pers->head.id load
-after ->error_handler() returns, with pers now NULL. The same window
-would also let ->error_handler() run while __md_stop() frees
-mddev->private; we have not seen that happen.
+The reproducer needs root, since it mounts an image. It takes a 32 MiB
+image made with "mkfs.ext4 -q -F", clears the metadata_csum feature so
+the dx root checksums are not checked, and creates htree directories.
+Then it sets the '.' rec_len of their dx root blocks to large values,
+remounts, and calls getdents64() on each directory. On an x86_64 QEMU
+guest with 2 vCPUs and KASAN (gcc 13.3, config attached), it triggers in
+every run (4 of 4).
 
-Handling SET_DISK_FAULTY after mddev_lock() in md_ioctl(), as STOP_ARRAY
-is, makes the problem go away here: the reproducer below oopsed in
-3 of 6 runs before that change and in 0 of 6 runs after it. We have
-not checked whether the reasons for the mutex-free path in 1ca69c4bc4b1
-still apply; reading pers once and keeping it valid against __md_stop()
-would be another way.
+Checked against v7.4-rc3 (aebb72744764). We found no earlier report on
+syzbot or on linux-ext4; the closest is the report of 2026-11-10 about
+the hash trailer in ext4_inlinedir_to_tree(), which is a different path.
 
-The reproducer needs root (CAP_SYS_ADMIN for the md ioctls). It builds a
-RAID1 from two loop devices and, on each array, issues SET_DISK_FAULTY on
-a member from one thread and STOP_ARRAY from another, with small random
-delays, for up to 6000 arrays or 110 seconds. On an x86_64 QEMU guest
-with 2 vCPUs and KASAN (gcc 13.3, config attached), it oopses in about
-half of the runs.
-
-Checked against v7.4-rc3 (aebb72744764); set_disk_faulty() and
-md_error() are the same in the md tree's md-7.4 branch. We found no
-earlier report on syzbot or on linux-raid. The closest is the
-md_start_sync() NULL pers fix posted on 2026-11-06, which is a different
-path.
-
-// Run as root. Builds a RAID1 on loop0/loop1 again and again and, on each array,
-// races SET_DISK_FAULTY on loop0 (thread A) against STOP_ARRAY (thread B).
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <pthread.h>
-#include <stdatomic.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <time.h>
-#include <unistd.h>
-
-#define MD_MAJOR 9
-#define LOOP_SET_FD 0x4C00
-#define MD_DISK_ACTIVE 1
-#define MD_DISK_SYNC 2
-
-typedef struct {
-	int major_version, minor_version, patch_version;
-	unsigned int ctime;
-	int level, size, nr_disks, raid_disks, md_minor, not_persistent;
-	unsigned int utime;
-	int state, active_disks, working_disks, failed_disks, spare_disks;
-	int layout, chunk_size;
-} mdu_array_info_t;
-
-typedef struct { int number, major, minor, raid_disk, state; } mdu_disk_info_t;
-typedef struct { int personality, chunk_size, max_fault; } mdu_param_t;
-
-#define ADD_NEW_DISK	_IOW(MD_MAJOR, 0x21, mdu_disk_info_t)
-#define SET_ARRAY_INFO	_IOW(MD_MAJOR, 0x23, mdu_array_info_t)
-#define SET_DISK_FAULTY	_IO(MD_MAJOR, 0x29)
-#define RUN_ARRAY	_IOW(MD_MAJOR, 0x30, mdu_param_t)
-#define STOP_ARRAY	_IO(MD_MAJOR, 0x32)
-
-#define MAX_ITERS	6000
-#define TIME_BUDGET	110
-
-#define DELAY_A_NS	20000000LL	/* faulter starts 0..20 ms after the go flag */
-#define DELAY_B_NS	2000000LL	/* stopper starts 0..2 ms after the go flag */
-
-static int md_fd;
-static atomic_int go;
-static long long go_ns, delayA_ns, delayB_ns;
-
-static long long now_ns(void)
-{
-	struct timespec ts;
-
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return ts.tv_sec * 1000000000LL + ts.tv_nsec;
-}
-
-static void wait_until(long long t)
-{
-	while (now_ns() < t)
-		;
-}
-
-static int open_node(const char *name, int maj, int min, int flags)
-{
-	char path[64];
-	int fd;
-
-	snprintf(path, sizeof(path), "/dev/%s", name);
-	fd = open(path, flags);
-	if (fd >= 0)
-		return fd;
-	snprintf(path, sizeof(path), "/tmp/%s", name);
-	mknod(path, S_IFBLK | 0600, makedev(maj, min));
-	return open(path, flags);
-}
-
-static void setup_loops(void)
-{
-	for (int i = 0; i < 2; i++) {
-		char name[16], img[32];
-		int ffd, lfd;
-
-		snprintf(name, sizeof(name), "loop%d", i);
-		snprintf(img, sizeof(img), "/tmp/disk%d.img", i);
-		ffd = open(img, O_RDWR | O_CREAT, 0600);
-		if (ffd < 0 || ftruncate(ffd, 16 << 20) < 0) {
-			perror("backing file");
-			exit(1);
-		}
-		lfd = open_node(name, 7, i, O_RDWR);
-		if (lfd < 0 || ioctl(lfd, LOOP_SET_FD, ffd) < 0) {
-			perror("LOOP_SET_FD");
-			exit(1);
-		}
-		close(ffd);
-		close(lfd);
-	}
-}
-
-static int setup_array(int md, int minor)
-{
-	mdu_array_info_t ai;
-	mdu_param_t p;
-
-	memset(&ai, 0, sizeof(ai));
-	ai.major_version = 0;
-	ai.minor_version = 90;
-	ai.level = 1;
-	ai.size = 8192;
-	ai.nr_disks = 2;
-	ai.raid_disks = 2;
-	ai.md_minor = minor;
-	ai.not_persistent = 1;
-	if (ioctl(md, SET_ARRAY_INFO, &ai) < 0)
-		return -errno;
-	for (int i = 0; i < 2; i++) {
-		mdu_disk_info_t di;
-
-		memset(&di, 0, sizeof(di));
-		di.number = i;
-		di.major = 7;
-		di.minor = i;
-		di.raid_disk = i;
-		di.state = (1 << MD_DISK_ACTIVE) | (1 << MD_DISK_SYNC);
-		if (ioctl(md, ADD_NEW_DISK, &di) < 0)
-			return -errno;
-	}
-	memset(&p, 0, sizeof(p));
-	if (ioctl(md, RUN_ARRAY, &p) < 0)
-		return -errno;
-	return 0;
-}
-
-static void *faulter(void *arg)
-{
-	(void)arg;
-	while (!atomic_load(&go))
-		;
-	wait_until(go_ns + delayA_ns);
-	ioctl(md_fd, SET_DISK_FAULTY, (unsigned long)((7 << 8) | 0));	/* loop0 */
-	return NULL;
-}
-
-static void *stopper(void *arg)
-{
-	(void)arg;
-	while (!atomic_load(&go))
-		;
-	wait_until(go_ns + delayB_ns);
-	for (int k = 0; k < 3; k++)
-		if (ioctl(md_fd, STOP_ARRAY, 0) == 0)
-			break;
-	return NULL;
-}
-
-int main(void)
-{
-	unsigned int seed = 1234;
-	time_t t0 = time(NULL);
-	int iters, ok = 0;
-
-	setup_loops();
-	for (iters = 0; iters < MAX_ITERS && time(NULL) - t0 < TIME_BUDGET; iters++) {
-		pthread_t a, b;
-		char name[16];
-		int r, minor = 1 + iters;
-
-		/* a fresh minor per run: a closed md node is not reopened (ENXIO) */
-		snprintf(name, sizeof(name), "md%d", minor);
-		md_fd = open_node(name, MD_MAJOR, minor, O_RDWR);
-		if (md_fd < 0) {
-			perror("open md");
-			break;
-		}
-		r = setup_array(md_fd, minor);
-		if (r) {
-			if (iters < 3)
-				fprintf(stderr, "setup failed: %s\n", strerror(-r));
-			ioctl(md_fd, STOP_ARRAY, 0);
-			close(md_fd);
-			continue;
-		}
-		ok++;
-		seed = seed * 1103515245u + 12345u;
-		delayA_ns = (long long)((seed >> 4) % 1000000u) * DELAY_A_NS / 1000000;
-		seed = seed * 1103515245u + 12345u;
-		delayB_ns = (long long)((seed >> 4) % 1000000u) * DELAY_B_NS / 1000000;
-		atomic_store(&go, 0);
-		pthread_create(&a, NULL, faulter, NULL);
-		pthread_create(&b, NULL, stopper, NULL);
-		go_ns = now_ns();
-		atomic_store(&go, 1);
-		pthread_join(a, NULL);
-		pthread_join(b, NULL);
-		ioctl(md_fd, STOP_ARRAY, 0);	/* no-op if the racer already stopped it */
-		close(md_fd);
-	}
-	printf("done: iters %d setup_ok %d\n", iters, ok);
-	fflush(stdout);
-	return 0;
-}
+The reproducer (repro.c) and the kernel config are attached.
 
 Thanks,
 Kyuwon Cho
 
---===============3655187784378965582==
+--===============8252047072062630808==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="repro.c"
+MIME-Version: 1.0
+
+// Reproducer for the ext4_htree_fill_tree '..' dot-dotdot sibling of bc4b7b0414c3.
+//
+// The dx root block's '.' entry has rec_len 12 and '..' follows at b_data + rec_len('.').
+// ext4_htree_fill_tree reads '..' with no ext4_check_dir_entry and no bounds check. This program
+// makes the on-disk '.' rec_len of several htree directories large (0xFFFC, so '..' starts at
+// block offset 65532, far past a 1 KiB or 4 KiB block) and then calls getdents64 on each one.
+// The first getdents reads inode/name_len/name at that offset, outside the buffer_head data.
+//
+// Steps (syscalls and loop ioctls only):
+//  1. copy the image (argv[1], default /files/e4.img; make it with
+//     "truncate -s 32M e4.img && mkfs.ext4 -q -F e4.img") to /tmp, clear the metadata_csum ro_compat bit so the
+//     dx root checksum is not verified, and attach it to a loop device;
+//  2. mount ext4, create NDIRS htree directories with NFILES entries each;
+//  3. umount, find each directory's dx root by its '.' entry (inode, rec_len 12, name "."),
+//     and patch rec_len;
+//  4. remount and getdents64 each directory.
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mount.h>
+#include <sys/stat.h>
+#include <sys/sysmacros.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#define LOOP_SET_FD 0x4C00
+#define LOOP_CLR_FD 0x4C01
+#define IMG "/tmp/e4.img"
+#define MNT "/tmp/mnt"
+#define NDIRS 6
+#define NFILES 150
+#define SB_FEATURE_RO_COMPAT (1024 + 0x64)
+#define RO_COMPAT_METADATA_CSUM 0x0400
+
+static const char *image;
+
+static const uint16_t offs[NDIRS] = {65532, 61440, 49152, 40960, 32768, 20480};
+static char loopdev[64] = "/dev/loop0";
+
+static void die(const char *m)
+{
+	printf("repro: %s: %s\n", m, strerror(errno));
+	fflush(stdout);
+	exit(1);
+}
+
+static void setup_loopdev(void)
+{
+	struct stat st;
+
+	if (stat("/dev/loop0", &st) == 0)
+		return;
+	if (mknod("/tmp/loop0", S_IFBLK | 0600, makedev(7, 0)) != 0)
+		die("mknod loop0");
+	strcpy(loopdev, "/tmp/loop0");
+}
+
+static int attach(int imgfd)
+{
+	int lfd = open(loopdev, O_RDWR);
+
+	if (lfd < 0)
+		die("open loop");
+	if (ioctl(lfd, LOOP_SET_FD, imgfd) != 0)
+		die("LOOP_SET_FD");
+	return lfd;
+}
+
+static void detach(int lfd)
+{
+	ioctl(lfd, LOOP_CLR_FD, 0);
+	close(lfd);
+}
+
+static void copy_image(void)
+{
+	int src = open(image, O_RDONLY), dst;
+	char buf[65536];
+	ssize_t n;
+
+	if (src < 0)
+		die("open image");
+	dst = open(IMG, O_RDWR | O_CREAT | O_TRUNC, 0600);
+	if (dst < 0)
+		die("create " IMG);
+	while ((n = read(src, buf, sizeof(buf))) > 0)
+		if (write(dst, buf, n) != n)
+			die("write image copy");
+	close(src);
+	close(dst);
+}
+
+static void clear_metadata_csum(void)
+{
+	int fd = open(IMG, O_RDWR);
+	uint32_t f;
+
+	if (fd < 0)
+		die("open image rw");
+	if (pread(fd, &f, 4, SB_FEATURE_RO_COMPAT) != 4)
+		die("read ro_compat");
+	printf("repro: ro_compat before %#x\n", f);
+	f &= ~RO_COMPAT_METADATA_CSUM;
+	if (pwrite(fd, &f, 4, SB_FEATURE_RO_COMPAT) != 4)
+		die("write ro_compat");
+	close(fd);
+}
+
+static void mount_fs(int lfd)
+{
+	(void)lfd;
+	if (mount(loopdev, MNT, "ext4", 0, NULL) != 0)
+		die("mount ext4");
+}
+
+static void create_dirs(uint32_t ino[NDIRS])
+{
+	char p[256], name[256];
+	struct stat st;
+	int d, f, fd;
+
+	for (d = 0; d < NDIRS; d++) {
+		snprintf(p, sizeof(p), MNT "/d%d", d);
+		if (mkdir(p, 0755) != 0)
+			die("mkdir");
+		for (f = 0; f < NFILES; f++) {
+			snprintf(name, sizeof(name),
+				 MNT "/d%d/htree_entry_name_padding_%04d", d, f);
+			fd = open(name, O_CREAT | O_WRONLY, 0644);
+			if (fd < 0)
+				die("create entry");
+			close(fd);
+		}
+		if (stat(p, &st) != 0)
+			die("stat dir");
+		ino[d] = (uint32_t)st.st_ino;
+		printf("repro: dir d%d ino %u\n", d, ino[d]);
+	}
+	sync();
+}
+
+static int patch_dx_roots(uint32_t ino[NDIRS])
+{
+	int fd = open(IMG, O_RDWR);
+	off_t sz;
+	uint8_t *buf;
+	int d, patched = 0;
+	off_t i;
+
+	if (fd < 0)
+		die("open image for patch");
+	sz = lseek(fd, 0, SEEK_END);
+	buf = malloc(sz);
+	if (!buf || pread(fd, buf, sz, 0) != sz)
+		die("read image");
+	for (d = 0; d < NDIRS; d++) {
+		int hits = 0;
+		off_t hits_at[8];
+
+		for (i = 0; i + 12 + 10 <= sz; i++) {
+			uint8_t pat[9];
+
+			pat[0] = ino[d] & 0xff;
+			pat[1] = (ino[d] >> 8) & 0xff;
+			pat[2] = (ino[d] >> 16) & 0xff;
+			pat[3] = (ino[d] >> 24) & 0xff;
+			pat[4] = 0x0c; pat[5] = 0x00;	/* rec_len 12 */
+			pat[6] = 0x01; pat[7] = 0x02;	/* name_len 1, EXT4_FT_DIR */
+			pat[8] = '.';
+			if (memcmp(buf + i, pat, 9) != 0)
+				continue;
+			/* '..' must follow at +12 with name_len 2 */
+			if (buf[i + 12 + 6] != 2 || buf[i + 12 + 8] != '.' ||
+			    buf[i + 12 + 9] != '.')
+				continue;
+			if (hits < 8)
+				hits_at[hits] = i;
+			hits++;
+		}
+		/* The journal keeps old copies of the dx root block too; patch every copy. */
+		if (hits == 0) {
+			printf("repro: d%d no dx root found\n", d);
+			continue;
+		}
+		{
+			uint16_t v = offs[d];
+			int k;
+
+			for (k = 0; k < hits && k < 8; k++) {
+				if (pwrite(fd, &v, 2, hits_at[k] + 4) != 2)
+					die("patch rec_len");
+				printf("repro: d%d dx root copy %d at image byte %lld, '.' rec_len -> %u\n",
+				       d, k, (long long)hits_at[k], offs[d]);
+			}
+			patched++;
+		}
+	}
+	free(buf);
+	fsync(fd);
+	close(fd);
+	return patched;
+}
+
+static void getdents_all(void)
+{
+	char name[256], buf[32768];
+	int d;
+
+	for (d = 0; d < NDIRS; d++) {
+		int fd;
+		long n;
+
+		snprintf(name, sizeof(name), MNT "/d%d", d);
+		fd = open(name, O_RDONLY | O_DIRECTORY);
+		if (fd < 0)
+			die("open dir");
+		printf("repro: getdents d%d\n", d);
+		fflush(stdout);
+		n = syscall(SYS_getdents64, fd, buf, sizeof(buf));
+		printf("repro: getdents d%d returned %ld\n", d, n);
+		fflush(stdout);
+		close(fd);
+	}
+}
+
+int main(int argc, char **argv)
+{
+	image = argc > 1 ? argv[1] : "/files/e4.img";
+	uint32_t ino[NDIRS];
+	int imgfd, lfd, patched;
+
+	mkdir("/tmp", 0777);
+	setup_loopdev();
+	copy_image();
+	clear_metadata_csum();
+
+	imgfd = open(IMG, O_RDWR);
+	if (imgfd < 0)
+		die("open image");
+	lfd = attach(imgfd);
+	if (mkdir(MNT, 0755) != 0 && errno != EEXIST)
+		die("mkdir mnt");
+	mount_fs(lfd);
+	create_dirs(ino);
+	if (umount2(MNT, 0) != 0)
+		die("umount");
+	detach(lfd);
+	close(imgfd);
+
+	patched = patch_dx_roots(ino);
+	printf("repro: patched %d dx roots\n", patched);
+	fflush(stdout);
+
+	imgfd = open(IMG, O_RDWR);
+	if (imgfd < 0)
+		die("reopen image");
+	lfd = attach(imgfd);
+	mount_fs(lfd);
+	getdents_all();
+	umount2(MNT, 0);
+	detach(lfd);
+	close(imgfd);
+	printf("repro: done\n");
+	return 0;
+}
+
+--===============8252047072062630808==
 Content-Type: application/gzip
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="config.gz"
@@ -431,4 +503,4 @@ We9GaslRah+5VOHbJHJvkx0Ct52lT5A3sMS6am+JxRUMuw+YBxGNGFUlqGYxlIhWxUa5MGogssBSq/FZ
 RKnnZ2qw/chunTYL5cW/j6xPB4CPHYeQR9wptUdjfQjAoxkTfu6tvigxHgJcTcbrjrfmL3llUWHgcrF6kagqUyOvjGwauplcWUClRc6FrOxB4mSSBLFwgucJiRSPQbhR+m+Bf9ZXiOxNbMW6xQGTeZe04K6YFFbQG/wMrnAQTPAVGrXm9kLpeTJ8piXHxClPPZraBfWExIOotfrEz5mMlCEiT8NOglaggagZQAHYbTEufcm0/au5AfwvbyEC6DwILbMQST9MwWoErxwgWKzhRAkRlHVRpjULkQht0Z5i8jwtBZoesf4okhvBF1cLC+/qIqrqRUndF1MeFbCa+iTqzruWgveGmBh/Rnzg8ZseyGFnUoSq0kzEwcZ4ZVSsrCnrEyOLrAWwkfGg4JQ6aqlTazp6Gsxo8LSaOTB1CNlwqwTNnLmAY0rCPSkIYR4C+AXaQDc8nc99nIucbnk4yOxFfjKx+X2hENyzZw+lqjnKhIUKznBwRTYRcDJVgJHRav4l4sFKQhwnCcsaT8JH/SMtQF1g2LTjUzyk+xukrzk8RANNXwWGUyao9rFxyEimCVxJizgdnVycCvMgW8tYRxis2auTl2g1K/Kut29RgsQxENupSkW2yLR/OmSJbheCD249hZnF28Q5wsKP8wnFSLOIZ1fKsqGtdZvB80mnTAnwZmn1iOnaVzS0S6ZzQ6y0K+o2icdbmc1SVCg7mVQsPhJzhKB9jm9WhkOdikiNnUOLvwR3BiGR7kZVLtLjzfmxNdwK4YlLMVC0fnuRgcbzONybdAjbE1SjmX4GVbTn9UDxZbbclqehPsuhEW/XlSFeVS2GvEK1gbfetlhjOivelTw2I2n2cGk9IU5N+y7uZRZzneqWR8329Q0FeVTHxU//2b7cfN3q+tclto9+Ru0l1U6YNOxLSacYpADxkHfJyHCn53ZKszoz7foQJt8JnRdQjcYo0BOKSy8wj5ZMBQ/1U+H9L6VPP80M1TP7O6nb
 QZgF1MspWrgc3DmVEecgYk0mhGuRfnwbDtClDKC1Wxnwm5KqgZUW7LLUWHY5K4wFL3TFycKT+jtbJp7cvPK7dOXLj8SkR46fYrqTf2Gf+u89URJqKkKWAVzm8fRfnsKMtsxAtAhcsYapc+ARWz6QevFS6Tg5DasB9Who4c4v2MZ7TUi3QbgVG0+KYkEgDSn9eGnMHZhIj4bLmCLU5jovpCYN8FuBB4tlHuyB9eBk4vvXNz8BvjIKVbLHYbJIsI59XK4wpu3tBvawuVipMjz1U8iUaQELH//FKr+XwWz9sZDF+sjLJIBFgc9nzSenn+Ugh3dVkCL1XUxyJHBH4cUQqGbm0c8JpNB1yMiO4YcyQV1Ov6AJte/8RI9AaDKS6mdhDyKv7ND9LJW4769vmuHwTj9pwJ2ojKa/qcrY2V3HXHvFHsAgXQL0fwF/qeo1L5ACAA==
 
---===============3655187784378965582==--
+--===============8252047072062630808==--
