@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794814805;
-	b=A5DBkbWL1lmpel1ePqvHNcvydI3MNoiKxk7KY2ZK7JKGLi0fEoDGFqWJ1kL0d5wh5jsL
-	 +fn4ic/MHYZaxWuK8G/s7DxTy0XMGI0ibYrOXsXFwNR9icpw/MVLNKF83ceUAeuXMn1X8
-	 MZmaGlrImitRIs0HifbODwIYkusXkYkapBMmdATv0+BacsmvpATS9tSchUjOvGuZAyBgt
-	 FNPSkI9HpvEUDZhmAB1ifVSNeFj675HVGIbCsgLjFExkIZduwulF5Naxg53LhJcj2wcJ2
-	 RxN5UUY8jns++HuprTdPfVHICTP4Zwbc/ohE2KAYlo+MXPlhKpxj3cv3YCCtXCmePxA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=mTSf9v5ZYfeRYR6Edb9HqbrXEfgIINr/pmhxGWnvSbuTGesSWBoEBaxf9G3DLmVfbKgJ
+	 RqjmlP/BwvURght778cpDsXiiMPAj77/v97uhT8ik5MmUHaglFJF3YSM9FLf4iqXo0GU0
+	 y1naHota7JblkJctTj1qutJ6STo8K1pHecuc7FvHbWsLFtMODDfGn1nl/anUsWEX4c7De
+	 cGj8UT/ly0c8I1wB1UWHzIApcKmMDBshGqwzZ8WzZmdcuTCAvprORZlo5k1r3rkk1ASEV
+	 umMa2d2jFCHJi2qxb7RzBhinupMHqCzIuP4Jp7nO6i/jLXc8uMWs2OOigYv3pkfZaVA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794814805;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rKMBgpb0mxyP+6kb+ZdWDKHU+yeBE20Y58pj8NkP9p4=;
-	b=OzhaDwFlENqohhicXhXcYtw+TIn3WRBP6qJuvfdGkVm2KrE56aNRkN8NG9DROr1NUobs
-	 EUIG0kVBO5zQvrGsIBD//C0ecqkng5A/psW4H+YFbuGoOTbYEqL4zy4ojorNOF/R/ggj9
-	 H93uruvOrmM3D9Go4+Oeqt4R0RhR8OmXRzA1122pLGdmNyrXoMAJnS75h+9rNmGJrAsfM
-	 U5M/a4otrC7bD06K8sQP93nqdpTdBd1y+n2VbVXKxTe1sNZI6kqhnibMCw3C47uFAJTAH
-	 DEajCc6eGQef350Gu9Rg7M3VK//2vwN8s/A+ydQ6Fk3Ifs5gTQqkLODGHeCYzbhw0iA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mojDRsKq;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9opJWJQXDvLr9WyRFptE1frZhgX4ZeDH7s1lu44vyXY=;
+	b=w3bKseL8VCSQRojHaz0aDi/P40xxev6aAH7wfVzWhZNiE8nG+It58Dj8Q4OA1UwsW9cL
+	 nSM2qLtIekVmz/gQ6Hyjko00fltCNbM5Ab4XNh3Dyyk5GeWxt9NS1hAzuhStgqJKQmK+6
+	 cjVdUzFT18HW3gqbGbu7D1Tu9iE7WbUsyWvbQxJkxpN/8/gwPSuQu0BN5Nx2RPlLkt//w
+	 Ao1htZdPPuS5fBRSIlgVQJ61DWf2/YnjGjIt0ASR+Q6zwE6+yV8bGKH1tAjGd5iag5NPL
+	 KumozC6i5KOc7Mgtht8Z0E/7eS/1uKdLW/BpACScyKHGecswQVhH/A1wMCjZyf3NhTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8jSv+HC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADD960A3812;
+	Mon, 16 Nov 2026 07:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8jSv+HC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794814804;
+	b=m99+Gep2zPlinGBSkYyX2zUqSFOt1hL3woATuRhdXbISLX9MtJ+EZYA4bYr9pJAljjfs
+	 j/TTYE9L0UeMH/TmXT6w+MPF+Q0vEik3conlRUGTy/CjstsNlFFL8ECT9m1bxEsbL8Q/H
+	 /Mmf1h7aFtjboOY5eVVCtKod0YLMi0xDbcTYbbdFA1JgztLpdAh+TgqTKT7Bumq7CTaV0
+	 h7WCxANcEUXXKv8IvbS45AA9raG6U0p8yR0/4Bnld4qa6IAnEPAeH88LGkNYW7xyafizV
+	 Yz+VSUqXPsO5/+EPYrpEtmqgVKPv9hH3EoHtoT9ZvtlfaPHCSS8olUN30ljH+sIdWOQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794814804;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9opJWJQXDvLr9WyRFptE1frZhgX4ZeDH7s1lu44vyXY=;
+	b=DyNw+pJISOrKihmLWKKqVB8b2vn7xMRZu0Bwqisv5KOLWJvQbr6bacSa2fARbp+ODNej
+	 pj4PTbJZQjVbiz2Ctpr50gJ2IKV1/jsA8csLlMw2T7dfUguO0AtUl3BPPJVjRRW3V9E+X
+	 YtqCNxa1FSeYBhom4tjZE4NejGiYjnEu7wPp5Yr7VBDGIEXl2LAxb5SZEYtsd2eZ1hc+P
+	 5Dyt5LOw00hm/1HVkQ1rHOSQemOst8a/WT8waQ0rJtsWDpQGmHJ2HtZRBMsUCG7xhRXM7
+	 Vtf45t+giiJ4B2nDR5XU7E8CosYuZMgx8iibvoPaHxaml0pEwxZDH4Oa7xQCyog4Cbg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0DC60A3802
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:40:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB0DC60A3802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mojDRsKq
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so33231415e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:40:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794814803; x=1795419603; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rKMBgpb0mxyP+6kb+ZdWDKHU+yeBE20Y58pj8NkP9p4=;
-        b=mojDRsKqwRrJVUQ5AuDQp92qQp6ai02Mt7rBOXHrgEvaT+gJ1zdQl1Ey87DJi+FYgi
-         0sHEMpTaur8fvoBkWjwVO/PRg5JU+6NUw/Bdy/elN9fbPjgtIolRr6zunPblX2MdQRXH
-         3Pf4N34SDEvwXAOhzNj49/roxN2DTi6bIiDoF9GLEg1vc+yOr/yKZz+dCddpQWF4T8Dc
-         HwtB17SMeTjl8gjSpOAFSnSnukq6ih2u9cB7Tpr7h641/dmzlCENZWP+NSV+JA3/uvaY
-         PoPf+lvIKkYr/sq8xjxz5mJ4AFCAPqC8aL805+aiHIyJIjFJFU9KDDitp/53X5L1ns5y
-         vjow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794814803; x=1795419603;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rKMBgpb0mxyP+6kb+ZdWDKHU+yeBE20Y58pj8NkP9p4=;
-        b=cJDRzrENTyzhOuc4BAdd4yQJuvr5PqwvmS3bxguz0QifmRTui6h0936iBJ4v9lFzfj
-         wyAqafpvBJnOwW+iS7JbrrE0OiGo6MX0HIsGt6bAmzcUen77paflR9ZMRAmx43evk2Fp
-         EIWd6Pvtrwo1+hpMYkqypllfb03ddiDsayH8vyaT5up1A4N1357j9HsBlk1b4oyQFjDx
-         ZLi/fKxunr8/tyJcbw0Y5ws6KTA1nsrudlzujsoSEiO2mY7nPh+gu8tC4lzl8xo3LpIF
-         +TPbWqrIeIARvP5g1f2FcQZpUh+cbvfqyOfP2Uu9NQ6RXd9Ir06U3jY5Ck8hbH+seI3z
-         C6MQ==
-X-Forwarded-Encrypted: i=1; AL+hErGAc9mW5FgCNrIWboNckkOaaGtC2OUkmoc6c571cznJzxPMuh2gHXGL4dx5AMH7/GKGXseSLuf7aYZCvmM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/E4mLFlHRmXVVDRQ8P/4a7KO7TqxdP4ObyYqF5Ev4JhiYSKIO1
-	MyEflELLX9KudESv6QAN9Qb+FHCJA3e3RmnIju78vY3d1yFNT/uW5qEW
-X-Gm-Gg: AYBFou1VfcIDVHIom/CbyEAK1uKmpjlruwCWy0PXvhz3PhXhGZwNHiUNdlnegYb3fXc
-	EqcRTniNDe1astqtFoK0tE58H4I6e1w6Wi7XhBma4wCfhZPysnj2lmnubr0cO0dJ/x8Um+QvqYs
-	1ksbn17tQztXdgVDoz7aEfpq3N0VGG5r1Z8Sk5lA/TPB1bIO7FjGnDoS4uCErNF0YhC+hUNK4ev
-	xv8nBmWyeey/NxismzCoH6lz2vx9Hyb/FT0prnoLp5pXSsPTMiYCjcr+r0yJZtPGyYEVsfGFKvP
-	1yNxRh30GCWN5udZn/nDEcsvcu5PGJHOB8zgTVBmHLmrYaaZWtc3NaTG4N2jAmuErJVLJyRTv4G
-	JUGIYpnMfSE3eoJmBqbLiYixkYDwpMJPqQBssSQvog5asF1/rOtTll/BrvD1w42Rz/qhaxXVNQa
-	VieFxPAqVa2/94t1DqJFkjE6erJ053pu4duqvlO5cvWrvEP1PJov4TetP5tvvrVYVZaYpsUn8yh
-	cHWsw5QwQulBG7Ih2s0FmsYl9UEKVX1INKbwpO6enCBF87fFSklAOak11+zNq7gheZHGnljwXLJ
-	lc/I/odbRyldjLPHQvu6NzzsMK1joWc8
-X-Received: by 2002:a05:600c:8b05:b0:4a4:4d57:8462 with SMTP id 5b1f17b1804b1-4bb55a99ed0mr197499175e9.24.1794814803044;
-        Sun, 15 Nov 2026 23:40:03 -0800 (PST)
-Received: from dl360p ([130.61.107.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c603f4d29sm20354115f8f.35.2026.11.15.23.40.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:40:02 -0800 (PST)
-From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Yassine Oudjana <y.oudjana@protonmail.com>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-Subject: [PATCH v1 0/3] power: supply: s2mu005-battery: add S2MU106 (Samsung Galaxy XCover5)
-Date: Mon, 16 Nov 2026 10:39:57 +0300
-Message-ID: <20261116074000.355176-1-tadilhusrev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 424FF1F00926;
+	Mon, 16 Nov 2026 07:40:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794814804;
+	bh=9opJWJQXDvLr9WyRFptE1frZhgX4ZeDH7s1lu44vyXY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=i8jSv+HCKwKSJzUy1FCQ9Rgs5PAGsaDD59WCDZ33aG1Y7FII3S3eZ1uF7whVfw7e5
+	 HeMyZkI3BIOvrZ0y8EoAdSNvFLXRF4ilMUr4ZzDooQI613OBjavXjK2907Td7yY+Aj
+	 Kaj2pqIu5fZ+aFbWt08IGebolXG+MhqVhWltjCPE3ct8SQoolNwJPkdUxlBcaMDGnH
+	 RXU0zDLGkcUlAbscRSMOQjnZXmjaB3QssdMpAlH8ypDdAiolTjCDOkZ9efDS69lumR
+	 0tzvG3BHPaxtDJxv0p+rTsHr4FVSEzmzHYNS0YrLAhB7Sc1xI1HuAF0iHFqbXsQEod
+	 nymEE0PiRBm4g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E3D0B4A3B9;
+	Mon, 16 Nov 2026 07:40:00 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Date: Mon, 16 Nov 2026 13:10:07 +0530
+Subject: [PATCH v2 09/11] arm64: dts: qcom: Add Molokai (SM8845) SoC dtsi
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,45 +82,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-molokai-soc-v2-9-9dc4dddc4e96@yahoo.com>
+References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+In-Reply-To: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814798; l=5077;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=i9U8bN2uh+CEw84A9Ix/bXaG0RgpMelS8gPMiT0FCQ0=;
+ b=i5nM9EwKsqL5hRBjdyHC8vShDQY2u+6Vhvc3Cbsnf+iIO/AWWw3EAIigjluoEFpSPKXCrX7/H
+ l4VbItu8oV+DC4d4d74av3nJTdgTl2bJNgnESdY3feMRvwQX2G8Cojl
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
+Content-Transfer-Encoding: 7bit
 
-This series adds support for the Samsung S2MU106 PMIC fuel gauge to the
-existing s2mu005-battery driver, for the Samsung Galaxy XCover5
-(Exynos850).
+From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-The S2MU106 fuel gauge shares the S2MU005's direct voltage, current and
-state-of-charge registers and their scaling. This was verified on an
-XCover5: with the s2mu005 driver bound to the S2MU106 gauge, voltage,
-state of charge and the sign of the charge current all read correctly.
-It does not, however, share the MONOUT average-monitoring path, so the
-S2MU106 variant exposes only the instantaneous values. The XCover5 also
-does not wire the gauge's alert line, which patch 2 accommodates.
+Molokai is a Kaanapali derivative. Describe it on top of the Kaanapali
+dtsi: it has its own TLMM, with different pins for most serial engines
+and a different GPIO to PDC wakeup map, and a PDC with one more interrupt
+range. It has neither the I2C master hub nor the fourth QUP wrapper, and
+QUP3 SE5 does not exist. Its graphics clock controller is not compatible
+with the Kaanapali one.
 
-  1  dt-bindings: add samsung,s2mu106-fuel-gauge
-  2  make the alert interrupt optional
-  3  add S2MU106 support
+The SDC2 lines are muxed on regular GPIOs instead of dedicated pins, so
+the Kaanapali SDC2 pin states are dropped; boards using SDC2 describe
+their own.
 
-Based on v7.4-rc1.
+Assisted-by: LLM
+Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+---
+ arch/arm64/boot/dts/qcom/molokai.dtsi | 204 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 204 insertions(+)
 
-Tool usage
-----------
-Prepared during XCover5 mainline bring-up with an AI coding assistant
-(Claude Code, Anthropic): it compared the S2MU005/S2MU106 fuel-gauge
-register maps, drafted these changes and changelogs, and ran a live A/B
-comparison on the device under my direction. I reviewed every line,
-tested on hardware, and take responsibility for the series. Review
-comments are welcome and I will answer them myself.
-
-Adil Hüsrev Tepe (3):
-  dt-bindings: power: supply: samsung,s2mu005-fuel-gauge: add S2MU106
-  power: supply: s2mu005-battery: make the alert interrupt optional
-  power: supply: s2mu005-battery: add S2MU106 support
-
- .../supply/samsung,s2mu005-fuel-gauge.yaml    |  7 +-
- drivers/power/supply/s2mu005-battery.c        | 71 +++++++++++++++----
- 2 files changed, 63 insertions(+), 15 deletions(-)
+diff --git a/arch/arm64/boot/dts/qcom/molokai.dtsi b/arch/arm64/boot/dts/qcom/molokai.dtsi
+new file mode 100644
+index 000000000000..82fd31bda1d9
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/molokai.dtsi
+@@ -0,0 +1,204 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026 Venkat Yadlapati <venkat.yadlapati@yahoo.com>
++ *
++ * Molokai (SM8845) is a Kaanapali derivative with its own TLMM: the pins of
++ * most serial engines and all the GPIO wakeup interrupts are different. It
++ * has no I2C master hub, no fourth QUP wrapper and no QUP3 SE5, and its PDC
++ * maps one more interrupt range. The SDC2 lines are muxed on regular GPIOs
++ * instead of dedicated pins, and the GPU is an Adreno 829 instead of the
++ * Adreno 840.
++ */
++#include "kaanapali.dtsi"
++
++/delete-node/ &gpi_dma4;
++/delete-node/ &i2c_master_hub;
++/delete-node/ &qupv3_4;
++/delete-node/ &uart18;
++
++/delete-node/ &hub_i2c0_data_clk;
++/delete-node/ &hub_i2c1_data_clk;
++/delete-node/ &hub_i2c2_data_clk;
++/delete-node/ &hub_i2c3_data_clk;
++/delete-node/ &hub_i2c4_data_clk;
++/delete-node/ &qup_i2c19_data_clk;
++/delete-node/ &qup_i2c20_data_clk;
++/delete-node/ &qup_i2c21_data_clk;
++/delete-node/ &qup_i2c22_data_clk;
++/delete-node/ &qup_i2c23_data_clk;
++/delete-node/ &qup_spi19_cs;
++/delete-node/ &qup_spi19_data_clk;
++/delete-node/ &qup_spi20_cs;
++/delete-node/ &qup_spi20_data_clk;
++/delete-node/ &qup_spi21_cs;
++/delete-node/ &qup_spi21_data_clk;
++/delete-node/ &qup_uart18_cts_rts;
++/delete-node/ &qup_uart18_default;
++/delete-node/ &sdc2_default;
++/delete-node/ &sdc2_sleep;
++
++&gpucc {
++	compatible = "qcom,molokai-gpucc";
++};
++
++&pdc {
++	compatible = "qcom,molokai-pdc", "qcom,pdc";
++	qcom,pdc-ranges = <0 745 38>,
++			  <40 785 11>,
++			  <51 527 4>,
++			  <58 534 2>,
++			  <61 537 20>,
++			  <84 559 14>,
++			  <98 609 32>,
++			  <130 717 12>,
++			  <142 251 5>,
++			  <147 796 16>,
++			  <163 783 2>,
++			  <165 531 2>,
++			  <167 536 1>,
++			  <168 557 2>,
++			  <170 415 1>,
++			  <171 438 1>,
++			  <172 579 1>,
++			  <173 703 1>,
++			  <174 708 1>,
++			  <175 714 1>,
++			  <176 68 1>,
++			  <177 86 1>,
++			  <178 96 1>,
++			  <179 249 1>,
++			  <180 504 9>;
++};
++
++&qup_i2c0_data_clk {
++	pins = "gpio32", "gpio33";
++};
++
++&qup_i2c1_data_clk {
++	pins = "gpio36", "gpio37";
++};
++
++&qup_i2c4_data_clk {
++	pins = "gpio48", "gpio49";
++};
++
++&qup_i2c5_data_clk {
++	pins = "gpio72", "gpio73";
++	function = "qup1_se5_mira";
++};
++
++&qup_i2c10_data_clk {
++	pins = "gpio8", "gpio9";
++};
++
++&qup_i2c11_data_clk {
++	pins = "gpio12", "gpio13";
++};
++
++&qup_i2c12_data_clk {
++	pins = "gpio117", "gpio118";
++	function = "qup2_se4_mirb";
++};
++
++&qup_i2c14_data_clk {
++	pins = "gpio68", "gpio69";
++};
++
++&qup_i2c15_data_clk {
++	pins = "gpio80", "gpio81";
++};
++
++&qup_i2c16_data_clk {
++	pins = "gpio76", "gpio77";
++};
++
++&qup_i2c17_data_clk {
++	pins = "gpio52", "gpio53";
++};
++
++&qup_spi0_cs {
++	pins = "gpio35";
++};
++
++&qup_spi0_data_clk {
++	pins = "gpio32", "gpio33", "gpio34";
++};
++
++&qup_spi1_cs {
++	pins = "gpio39";
++};
++
++&qup_spi1_data_clk {
++	pins = "gpio36", "gpio37", "gpio38";
++};
++
++&qup_spi4_cs {
++	pins = "gpio51";
++};
++
++&qup_spi4_data_clk {
++	pins = "gpio48", "gpio49", "gpio50";
++};
++
++&qup_spi5_cs {
++	pins = "gpio75";
++	function = "qup1_se5_mira";
++};
++
++&qup_spi5_data_clk {
++	pins = "gpio72", "gpio73", "gpio74";
++	function = "qup1_se5_mira";
++};
++
++&qup_spi10_cs {
++	pins = "gpio11";
++};
++
++&qup_spi10_data_clk {
++	pins = "gpio8", "gpio9", "gpio10";
++};
++
++&qup_spi11_cs {
++	pins = "gpio15";
++};
++
++&qup_spi11_data_clk {
++	pins = "gpio12", "gpio13", "gpio14";
++};
++
++&qup_spi14_cs {
++	pins = "gpio71";
++};
++
++&qup_spi14_data_clk {
++	pins = "gpio68", "gpio69", "gpio70";
++};
++
++&qup_spi15_cs {
++	pins = "gpio83";
++};
++
++&qup_spi15_data_clk {
++	pins = "gpio80", "gpio81", "gpio82";
++};
++
++&qup_spi16_cs {
++	pins = "gpio147";
++};
++
++&qup_spi16_data_clk {
++	pins = "gpio76", "gpio77", "gpio146";
++};
++
++&qup_spi17_cs {
++	pins = "gpio55";
++};
++
++&qup_spi17_data_clk {
++	pins = "gpio52", "gpio53", "gpio54";
++};
++
++&tlmm {
++	compatible = "qcom,molokai-tlmm";
++	gpio-ranges = <&tlmm 0 0 206>;
++};
 
 -- 
-2.53.0
+2.56.1
+
 
