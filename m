@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794788160;
-	b=pbDWcn7xw6kYFjweOB4N4+UCw/3G8ryy8gLgLEwxdqkl0RiiwqIl5tSt2JanqF4FqT/J
-	 IBeuIoLe3vnl1eU6vx/a0XoXgCHS1LMKl1hjQOZmA9VekKD2Nf2PC1UIJ7VpwEhmnyuKn
-	 +EmwHpEXcWVu1E/emc52CUCE3jb99199z9bMart3nTIAehphucpjukqjaJ8VwxXizn/j9
-	 2peKB3H8MaV25ePQEJjNxIiDGDxAbUVu8WqBdJ4mM+Tg7lIVj4AEDX8K1enYJWcINamLS
-	 o/Txjwbz/zCeg6N9mdyUvJaI4v9rW0ETXjZZopiFbzfGTfB5n9hF4bFgUwLWF0nvy0w==
+	t=1794788288;
+	b=VTVF+gzgcCiFclTzeaEIxUjtMuLNMZjCMLVSODb6XDfxvBYKC7iyttFdlMFmSW7PbOb4
+	 RSBkkeOvWuXMIDs3faNZuRV57luAXAomCv6tGNJqjBZjpXHLCIjy+ie6NuSfkJtHFnnMl
+	 d28++gTtgZ5dZ8dhtuFINWLRlmi3s8DMWZF1gBVUXqp+qvi/zLewRvK/kKMA3cvF7XeR0
+	 Ji3WtONcprLmKusIR892f6/70KSg+wOEz5RAmJD5U/LOV/tuqY76pST4YuFS7Of1Q18DC
+	 C5UBw3We2HXzC4JeaQPAnrVqBJFDUyNMlRZKS0mAqKI68A5XWItJnrH1wGBkvFZvDYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794788160;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XbflNfoz1rdC4d5kBQ1bUVRq6zWboFqnaVnEoOvRsHY=;
-	b=amI1oKrRCCMxv5mIcVACD/9i8qX1LlkKwUYsN7lMjd3I26HJcFCRQQFGQoEgn3TiD1X1
-	 klSNJvbARM+8Ce3hVLCzwnemc6xxhL4uVHIjIATcW5tm7DqQkdV2DMj9jV7D1K5lGaMJk
-	 nxtok7jHmaT907iNrucna0pW85g2GQROGIvZsxkkzGdZz79Qj2DxHfUxwVLFPV1sw8N1v
-	 SYFXjuIREgBX5/2S9j39PQyK32OFyTjCKPdtZ2pRyy5Nyfs9nF7lTFZBTgG614g1L9Wx8
-	 I60wTL/xGVL9apPTbpcY+3QQcUyFOmOAvck5XgPcEH9QbcRpX0pvMXEzYGm4eyIldkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794788288;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer;
+	bh=bEVsen0Z4XKtG98sBbUiY6hiqLLLzzqtV9NIpCrXVCY=;
+	b=XIdzs/uLYhtoAy956e+eY6F7rPU7EzlcUaAo0hP7zjfITT6MAQeOFSEReMXXwO5ewbfL
+	 gpEDE2mhsr/9ut4nUYoFelOHcAGBxorsLxhcU2Qc+y9AAdtPPWGn8ofceriGp82YfdZ4x
+	 p7EkXtzf/ypZJeGDfbUQaSXGNvxL7YYCYeeokk15T5szS3wgm811kE/9mQ9NDb7TBC5Hx
+	 ofKbCth6VIdDFpqW3V/+KyLZO/XTflA0w2OhqtmxIXSS8vRJiJXJaFhV8XTdxJHomSdi1
+	 VQM38AD/cqONVrobrVMnMDcv54YReyoNYgOk0eE4z7B5ByU0tXNiUU8IWKnxhnBMnJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bp9HFEmm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Outz9IDc;
+	arc=none smtp.remote-ip=91.218.175.224
+Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 02125606A31F;
-	Mon, 16 Nov 2026 00:15:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A07606A332
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:18:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A07606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bp9HFEmm
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7048A1F000C4;
-	Mon, 16 Nov 2026 00:15:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794788159;
-	bh=XbflNfoz1rdC4d5kBQ1bUVRq6zWboFqnaVnEoOvRsHY=;
-	h=From:To:Cc:Subject:Date;
-	b=bp9HFEmmGyo4Y8XZCQON32KppS8KTJN7EbqjHg62h3Dxb4YkUNhXf1ifdNX7xh4eG
-	 JyMNWvkGk/WXeSDEnDBh92QyQrf/pf4Ep13S/tYO2ywZerWeDR58214Mw7RFFvHHFK
-	 C+q6/DBe5ytIIy1V7SFNz0EB3u9VJeB2DS3D4T3p+a9dBvOaRsQPb9U9IbBJiqwZBf
-	 Y9m5QigtLyp9fZAYEHnHLYMSgcjXSdR0b6pn/zXLEz4dd3yJFGhoVtLuq1Oe/j5C+/
-	 2xXzvL6mrC62neXa1GxqiC0BgJL9ia/L5vaGb2GbJ1ueOVsGZukMJNBbovl0YFRbMs
-	 l5/8okG3elj0w==
-From: Joel Fernandes <jfern@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Song Liu <song@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	rcu@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [GIT PULL] RCU fixes for v7.4
-Date: Sun, 15 Nov 2026 19:15:56 -0500
-Message-ID: <20261116001556.763913-1-jfern@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Outz9IDc
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LUmjHTjauelHCTImcnlLJ9hln9wqDY9gHPAu5bGOtwM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794788284; v=1; x=1795393084;
+ b=Outz9IDcDuGE5hqx4zXYEqSTTzJQ34NOd8UC6hLRnWRc5baxtWGGR45Z6gFfympS42DOTh4M
+ 7vbj8p7UQyoA9K+6YMmegC0RcR/ZHyJtI+nP5bwJ6aRxi3nhouMEI9Z1314JnAugnxTSJ1ALhB+
+ VKoKTrgm93zxma0UbxchG/+E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 413efdc466c6c190;
+	Mon, 16 Nov 2026 00:18:04 +0000
+X-Mizu-Trace-ID: 413efdc466c6c190
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+Subject: [PATCH RFC 00/18] scsi: target: Add target_core_uring, an io_uring
+ based user backstore
+Date: Sun, 15 Nov 2026 19:17:53 -0500
+Message-Id: <20261115-feat-target-core-uring-v1-0-28cdc137eac6@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,66 +61,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALJL+moC/x3MsQqDMBCH8VeRmz3wLHHoKvQBukqHYP5Jb4nlk
+ oogvntDx9/wfScVmKLQvTvJsGvRLTdI39H69jmBNTTTOIyTiDiO8JWrt4TK62bgr2lOHOTmJES
+ 4CKEWfwxRj/94oedjptd1/QCN/mLTbQAAAA==
+To: "Martin K. Petersen" <mkp@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ target-devel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, Mike Christie <michael.christie@oracle.com>, 
+ Bodo Stroesser <bostroesser@gmail.com>, Ming Lei <tom.leiming@gmail.com>, 
+ Qiliang Yuan <qiliang.yuan@linux.dev>
+X-Mailer: b4 0.13.0
 
-Hi Linus,
+TCM/USER is how a userspace process serves a LIO device, for instance
+to export distributed storage over iSCSI or vhost-scsi. All commands of
+a device go through one command ring under one mutex, the data of each
+command is copied into and out of a shared data area, and the server
+has to parse every SCSI CDB itself.
 
-Please pull these RCU fixes into v7.4.
+This series adds target_core_uring, a second user backstore next to
+TCM/USER, built the way ublk is:
 
-The following changes since commit aebb7274476403040d582c61478df8f4a7bf9cd3:
+- The kernel emulates the SCSI commands. The server only sees reads,
+  writes, flushes, UNMAP and WRITE SAME as an operation, an offset and a
+  length.
+- A device has several queues. Each queue is served through io_uring
+  commands on its own ring, with no lock shared between queues.
+- Data is copied once, with pread()/pwrite() on the character device, or
+  not at all when the server registers the pages of a command as an
+  io_uring fixed buffer.
 
-  Linux 7.4-rc3 (2026-11-15 14:30:11 -0800)
+Patches 1-4 create the device, its queues and the character device.
+Patches 5-8 pass reads and writes to the server. Patches 9-11 handle a
+server that exits or hangs, and aborts. Patches 12-14 add flush, UNMAP
+and WRITE SAME, patch 15 adds fixed buffers. Patches 16-18 add a small
+server, a selftest and the documentation.
 
-are available in the Git repository at:
+Not covered yet: protection information, and a way for existing
+tcmu-runner handlers to move over without changes, as they implement
+SCSI rather than block commands.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/rcu/linux.git tags/rcu-fixes.v7.4-20261115a
+Exporting a 2 GiB device through tcm_loop to fio (io_uring, direct I/O,
+iodepth 32 for 4k and 8 for 1M, 6 seconds per job) on a 32 CPU VM, with
+TCM/USER and a single-threaded handler, then with this series, 32 queues
+and one server thread per queue. Both servers keep the data in memory.
+A single job is slower; the gain comes with concurrency and with large
+I/O. Three alternating runs (median, min-max in parentheses):
 
-for you to fetch changes up to c3f98ff6309a29979e1867bc3c9d4172755ca122:
+  workload               TCM/USER (MB/s)   uring (MB/s)          change
+  4k randread, 1 job      426 (409-463)      369 (366-384)         -13%
+  4k randread, 4 jobs    1165 (1072-1253)   1524 (1413-1541)       +31%
+  4k randread, 16 jobs    920 (916-1162)    6193 (5845-6222)      +574%
+  4k randwrite, 16 jobs   793 (711-886)     5701 (5257-5706)      +619%
+  1M read, 4 jobs        6019 (5857-6047)  49460 (46706-57997)    +722%
+  1M write, 4 jobs       2791 (2649-2907)  26692 (25958-27560)    +856%
 
-  rcu/nocb: Avoid unsequenced accesses to jiffies in show_rcu_nocb_state() (2026-11-15 18:52:04 -0500)
+Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+---
+Qiliang Yuan (18):
+      scsi: target: uring: Introduce an io_uring based user backstore
+      scsi: target: uring: Allocate per-queue command descriptors
+      scsi: target: uring: Create a character device per backstore device
+      scsi: target: uring: Map the command descriptors into the server
+      scsi: target: uring: Queue commands until a server fetches them
+      scsi: target: uring: Hand commands out through TCMUR_IO_FETCH
+      scsi: target: uring: Complete commands with TCMUR_IO_COMMIT_AND_FETCH
+      scsi: target: uring: Copy command data with pread() and pwrite()
+      scsi: target: uring: Fail in-flight commands when the server exits
+      scsi: target: uring: Time out commands the server does not complete
+      scsi: target: uring: Drop aborted commands that are still queued
+      scsi: target: uring: Support SYNCHRONIZE CACHE
+      scsi: target: uring: Implement UNMAP
+      scsi: target: uring: Handle WRITE SAME
+      scsi: target: uring: Register command data as io_uring fixed buffers
+      selftests: target_core_uring: Add a minimal server
+      selftests: target_core_uring: Test a device exported through tcm_loop
+      Documentation: target: Describe the uring backstore
 
-----------------------------------------------------------------
-RCU fixes for v7.4
+ Documentation/target/index.rst                     |    1 +
+ Documentation/target/tcm-uring.rst                 |   84 ++
+ MAINTAINERS                                        |    2 +
+ drivers/target/Kconfig                             |   10 +
+ drivers/target/Makefile                            |    1 +
+ drivers/target/target_core_uring.c                 | 1126 ++++++++++++++++++++
+ include/uapi/linux/target_core_uring.h             |  126 +++
+ tools/testing/selftests/Makefile                   |    1 +
+ .../testing/selftests/target_core_uring/.gitignore |    1 +
+ tools/testing/selftests/target_core_uring/Makefile |    8 +
+ tools/testing/selftests/target_core_uring/config   |    5 +
+ .../selftests/target_core_uring/tcmur_server.c     |  310 ++++++
+ .../selftests/target_core_uring/tcmur_test.sh      |  137 +++
+ 13 files changed, 1812 insertions(+)
+---
+base-commit: 23c62304dde29abe92013d85910d03a77dada35d
+change-id: 20261115-feat-target-core-uring-d1351dfe5fe1
 
-Fix a build break with recent clang, which warns about unsequenced
-accesses to the volatile jiffies variable in show_rcu_nocb_state() and
-fails the build with CONFIG_WERROR=y / W=e.  Read jiffies once into a
-local variable instead.
+Best regards,
+-- 
+Qiliang Yuan <qiliang.yuan@linux.dev>
 
-Also replace the rcupdate.rcu_task_collapse_debug module parameter, added
-in the v7.4 merge window, with pr_debug() for the RCU Tasks callback
-contend/collapse messages.  The messages stay off by default and can be
-enabled with dynamic debug, and no official kernel carries the extra
-parameter.
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEcoCIrlGe4gjE06JJqA4nf2o45hAFAmr6RvAACgkQqA4nf2o4
-5hCnfg/8DqHU2c4j5ZLgYK7oD99BNg4VTErwkBwwx8eCRb87agrdljsQo8keZBwB
-BSbN+gaasl3NvqKUh7lAopAvoZtfk3ymtw4oafDCHa5jJFZV1E2bGUbDBKBwuzlj
-6BBHEPFitd5q6z6nlyhSx7289NYoRhr9InMNv/L2kYKnn4bq79Ojf1Z5nQZRHPRz
-TUGIwDoVf0G+oh0z2TtrMSNAC4OBPP7Hsq2/m3xaeS2pWS8YziFM7rXcnJaWve4t
-D4VjZGWOTQCWOCeYBbyckXSa2zLBSlwCfarbkPfpo1FhdcwBmXdeNvt9MnZ2sRP0
-Ff/x+rd5LkzQ3niHYufuxflGv5XLoiaJgiU9rztlD9U2O9sheVaRcf7BaDs77C+f
-NmteR2H67svHfK93bOgTNvFVBX90Y4Qa4WPft6g9QbuGkIGD6hJRBbveTeCNsbPM
-vmvU/cPYwjcpGZiyPcglpAoIYK8e9F7hspXrpvJTjnoF0p1b2TefpHZS+ozZIcj8
-6uD28K2dp+CLAzuLkC5FzgITvWPdIEYiEq9WD0A/kOPO5fZ0+BmOiekb4iBnnHdK
-H6HujCvGYhwLGqlJ1aoc7VxoQp+zz9ZOwJzQ4pV9xO/WiHZroEiQvinsgs1+NYOb
-jATSr9YPap8CNRqjwMNXK1ppKKkfPdix+JYcx4/WGFzZhCiDM54=
-=tbXB
------END PGP SIGNATURE-----
-
-thanks,
-
-Joel Fernandes
-
-----------------------------------------------------------------
-Nathan Chancellor (1):
-      rcu/nocb: Avoid unsequenced accesses to jiffies in show_rcu_nocb_state()
-
-Song Liu (1):
-      rcu-tasks: Use pr_debug() for callback contend/collapse messages
-
- Documentation/admin-guide/kernel-parameters.txt |  7 -------
- kernel/rcu/tasks.h                              | 15 +++------------
- kernel/rcu/tree_nocb.h                          |  6 ++++--
- 3 files changed, 7 insertions(+), 21 deletions(-)
