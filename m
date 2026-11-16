@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833982;
-	b=SRPYuUGhNYnAQzYGen/BmEkvOuXrMYV/KRzeKqwtbDk1dlK1XdHlD2rPAZEKlu6DujMM
-	 6lOdCewUE9XQ+GMzn2LZL6GDK+gncDa5FZx0BAmYoRPHPDk4v/CI0wfZvyPoXVikd7Jl5
-	 k7XtIrggcFutL8CMAda4QlveIWXnk3U5WQAiiz/z9J6trffrVRfovNLra2RZfuiBgoBvx
-	 F+5r1xGLHl7NTeQFW0Bq8h1gF+ozjYlCDWO+ZkyQvIkKOXD/CX5pCJ9Uw2Fn3U0IbSb5K
-	 o+P+0wHIsbrngbH25xvWohEchlAdBiiV82fI7rLxZc5ioyWxAYYS7sCFwmJHJQAD4tA==
+	t=1794833983;
+	b=fkX0IiTG/pbAjNi1ygywe/BjONYuPj7dcsNMq0XLp+RU717T6GnjEGUIGsqoLMLmSiQX
+	 2UhxaR/vRYNtu4NoNRl7oiEa2OQyhhtq2emBA2Wl9NKTBNE2ArimVLwje/VrF/FjS8/Zs
+	 8C22VLfvSJePPa6o0o0daRX34qEQEfiagaT1wn4IZ2nMcsATUouIITcy+RNJNuMmVJog8
+	 JmSZ0vKMls2C1CwY2XzwPEtdXqS2cOXRjRjQ5HIpcE3UBsBZ3Trtf+2vZiyAkRRtogXD7
+	 0UTXTkG1c7Pi+FboKh74Loa51WiDaXdXK1ETFetOdG42lovgOlBPiox7P8+1CkgyiUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833983;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=U73B7vW4gd42Xrwue5GYV2+p19gjHwtmHarM2/dmJ1U=;
-	b=PpyMntUQzZRU2/t1Q1lSMG3vXmKFWXx6WegAi8OD2MzawHIUWXNMhOmyZqE1uIq7ZaCT
-	 pf3GEjYh4uIzCj5nI1OQGH21dg6kYlRDoYpXTH6D1lL2j9hTOlo5rDglBqhAnfo4Zm55W
-	 tsYjZ8qo/RWGYqSSAcJU1xOUB4gZbMpGwdfiOYQIE5GNJUAaDPRKV9/Hq71Ke7LxUc7Ns
-	 c0e+88LhNOyxMg2whyGl42YJfkCiEVYj2hiH0b+9T21HgrTetGQt6dtdHlq1jKw/72oUU
-	 Is6KGA4mE7dItcmLyCgDslYPOjgHl3SSxCTIPkljHwXGbxgcL4SJK5Xaq7HEO6ywcng==
+	bh=Wo1kubN1ekcdmtSgNnhYdijvWErQzq47IcgV2Si5YR4=;
+	b=q8wWNv+GEoSXWiHzUmT6Mf6GQ/ko5aZGODNCUqzqGaGI7oVBzpvGfVHIuYZfww9B8Q87
+	 V0Kp1UiqGXM7vWfPSH4IoVErfg0OgSS/cgc8rQspzqMOJOFhuel7+s/ZbkRf8YaWuPAnk
+	 MTufKWh31wLkUxJUVhvGKoza5q3gtwlw3n7fVd219yRSX6cpDL3op1yKTHUfueE+QMeZn
+	 yDJOwIR8DSEvKguiNsvgWDCGsQ/mQqw1ziO0g9ZzceNoREF8QdKEVhq309uCbniPql1/r
+	 KqPeN5Q0k9rBSmXCDQuahEULxXRJ9G4frM0kIOue/qgBJaFqft7gi3DJQ9xwrwj3O/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="pzQL/kf5";
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ikfoA4Ch;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F060606A333;
-	Mon, 16 Nov 2026 12:59:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F060606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F46E60A261A;
+	Mon, 16 Nov 2026 12:59:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F46E60A261A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=pzQL/kf5
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ikfoA4Ch
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=U73B7vW4gd42Xrwue5GYV2+p19gjHwtmHarM2/dmJ1U=;
-	b=pzQL/kf5IMkLt/wIiIrjLtDKFQorF2OU+q7VyxnRA5ugD1VumGJDahIYa7L4XBK/7ij2mSjO8
-	XQ5yAfiyToo5CQlxe7bOiHtZghJHhU6G9Gm/T3PRnKFT2VHsLloTXOu9lPiGMf32fk2BT57S4wA
-	V2zZ38xP8C0f9zNuW3rWXxI=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jSnx74NXgzpStt;
-	Mon, 16 Nov 2026 20:58:51 +0800 (CST)
+	bh=Wo1kubN1ekcdmtSgNnhYdijvWErQzq47IcgV2Si5YR4=;
+	b=ikfoA4ChqJQv0qhAz+mObVEvpCmJ4anLe4DGEEullRICrgd6UEIazC0VR6b3O4tZCpS9Xs//f
+	AdZ2R3kTXyW+GtJq1cItAeXH3qtIOLlLI96yOPEf8Mes5gwHYyPe+nRXKFZKjzb5noY/5vEs7k0
+	7ePyGcL3CJ77bQ6kKKaVNZ0=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jSnxb4130zmVCb;
+	Mon, 16 Nov 2026 20:59:15 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3DD4440679;
-	Mon, 16 Nov 2026 20:59:38 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id D1F3A40578;
+	Mon, 16 Nov 2026 20:59:33 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
- 2026 20:59:37 +0800
+ 2026 20:59:33 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
 	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
@@ -61,9 +61,9 @@ To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
 	<hpa@zytor.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v3 11/19] resctrl: Keep the RMID limbo threshold per resource
-Date: Mon, 16 Nov 2026 20:59:06 +0800
-Message-ID: <20261116125914.498841-12-ruanjinjie@huawei.com>
+Subject: [RFC PATCH v3 03/19] arm_mpam: resctrl: Use the resource-agnostic monitor event names
+Date: Mon, 16 Nov 2026 20:58:58 +0800
+Message-ID: <20261116125914.498841-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261116125914.498841-1-ruanjinjie@huawei.com>
 References: <20261116125914.498841-1-ruanjinjie@huawei.com>
@@ -81,212 +81,134 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-Currently, the RMID reallocation threshold and its upper limit are
-stored as system-wide globals. To support L2 cache occupancy monitoring
-alongside L3, each cache resource needs its own threshold and limit
-matching its capacity, and writing max_threshold_occupancy in one
-resource's info directory must not affect the other.
+The monitor event IDs no longer carry L3 in their names. Switch
+the MPAM driver over to the new names.
 
-Move both values into struct resctrl_mon in preparation for L2 support.
-Update __check_limbo() and max_threshold_occupancy to use the values
-from the owning resource, keeping existing L3 behavior on x86 and
-setting them from the smallest cache of each resource in MPAM.
+No functional change intended.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/x86/kernel/cpu/resctrl/monitor.c |  6 +++---
- drivers/resctrl/mpam_resctrl.c        | 17 +++++++++++++----
- fs/resctrl/monitor.c                  | 17 +++--------------
- fs/resctrl/rdtgroup.c                 | 11 +++++++----
- include/linux/resctrl.h               |  9 ++++++---
- 5 files changed, 32 insertions(+), 28 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index e9c2b4ae9ed4..e69e2bbb8804 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -425,7 +425,7 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
- 
- 	snc_nodes_per_l3_cache = snc_get_config();
- 
--	resctrl_rmid_realloc_limit = boot_cpu_data.x86_cache_size * 1024;
-+	r->mon.rmid_realloc_limit = boot_cpu_data.x86_cache_size * 1024;
- 	hw_res->mon_scale = boot_cpu_data.x86_cache_occ_scale / snc_nodes_per_l3_cache;
- 	r->mon.num_rmid = (boot_cpu_data.x86_cache_max_rmid + 1) / snc_nodes_per_l3_cache;
- 	hw_res->mbm_width = MBM_CNTR_WIDTH_BASE;
-@@ -442,14 +442,14 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
- 	 *
- 	 * For a 35MB LLC and 56 RMIDs, this is ~1.8% of the LLC.
- 	 */
--	threshold = resctrl_rmid_realloc_limit / r->mon.num_rmid;
-+	threshold = r->mon.rmid_realloc_limit / r->mon.num_rmid;
- 
- 	/*
- 	 * Because num_rmid may not be a power of two, round the value
- 	 * to the nearest multiple of hw_res->mon_scale so it matches a
- 	 * value the hardware will measure. mon_scale may not be a power of 2.
- 	 */
--	resctrl_rmid_realloc_threshold = resctrl_arch_round_mon_val(threshold);
-+	r->mon.rmid_realloc_threshold = resctrl_arch_round_mon_val(threshold);
- 
- 	if (rdt_cpu_has(X86_FEATURE_BMEC) || rdt_cpu_has(X86_FEATURE_ABMC)) {
- 		/* Detect list of bandwidth sources that can be tracked */
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 961210af3159..d40c8eb7b300 100644
+index 5468367776e2..a31c36c302d8 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -634,8 +634,17 @@ void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d
-  * The rmid realloc threshold should be for the smallest cache exposed to
-  * resctrl.
+@@ -45,7 +45,7 @@ static struct mpam_resctrl_res mpam_resctrl_controls[RDT_NUM_RESOURCES];
+  * to those supported by MPAM.
+  * Class pointer may be NULL.
   */
-+
-+/* A cache class backs the resctrl resource of its level, L2 or L3. */
-+static enum resctrl_res_level mpam_class_rid(struct mpam_class *class)
-+{
-+	return class->level == 2 ? RDT_RESOURCE_L2 : RDT_RESOURCE_L3;
-+}
-+
- static int update_rmid_limits(struct mpam_class *class)
+-#define MPAM_MAX_EVENT QOS_L3_MBM_TOTAL_EVENT_ID
++#define MPAM_MAX_EVENT QOS_MBM_TOTAL_EVENT_ID
+ static struct mpam_resctrl_mon mpam_resctrl_counters[MPAM_MAX_EVENT + 1];
+ 
+ #define for_each_mpam_resctrl_mon(mon, eventid)					\
+@@ -173,7 +173,7 @@ static void resctrl_reset_task_closids(void)
+ 
+ static void mpam_resctrl_monitor_sync_abmc_vals(struct rdt_resource *l3)
  {
-+	enum resctrl_res_level rid = mpam_class_rid(class);
-+	struct rdt_resource *r = resctrl_arch_get_resource(rid);
- 	u32 num_unique_pmg = resctrl_arch_system_num_rmid_idx();
- 	struct mpam_props *cprops = &class->props;
- 	struct cacheinfo *ci;
-@@ -657,10 +666,10 @@ static int update_rmid_limits(struct mpam_class *class)
+-	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[QOS_L3_MBM_TOTAL_EVENT_ID];
++	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[QOS_MBM_TOTAL_EVENT_ID];
+ 
+ 	if (!mon->class)
+ 		return;
+@@ -388,11 +388,11 @@ static int resctrl_arch_mon_ctx_alloc_no_wait(enum resctrl_event_id evtid)
  		return -EINVAL;
+ 
+ 	switch (evtid) {
+-	case QOS_L3_OCCUP_EVENT_ID:
++	case QOS_OCCUP_EVENT_ID:
+ 		/* With CDP, one monitor gets used for both code/data reads */
+ 		return mpam_alloc_csu_mon(mon->class);
+-	case QOS_L3_MBM_LOCAL_EVENT_ID:
+-	case QOS_L3_MBM_TOTAL_EVENT_ID:
++	case QOS_MBM_LOCAL_EVENT_ID:
++	case QOS_MBM_TOTAL_EVENT_ID:
+ 		return USE_PRE_ALLOCATED;
+ 	default:
+ 		return -EOPNOTSUPP;
+@@ -432,7 +432,7 @@ static void resctrl_arch_mon_ctx_free_no_wait(enum resctrl_event_id evtid,
+ 	if (!mon->class)
+ 		return;
+ 
+-	if (evtid == QOS_L3_OCCUP_EVENT_ID)
++	if (evtid == QOS_OCCUP_EVENT_ID)
+ 		mpam_free_csu_mon(mon->class, mon_idx);
+ 
+ 	wake_up(&resctrl_mon_ctx_waiters);
+@@ -532,7 +532,7 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+ 	l3_dom = container_of(hdr, struct mpam_resctrl_dom, resctrl_mon_dom.hdr);
+ 	mon_comp = l3_dom->mon_comp[eventid];
+ 
+-	if (eventid != QOS_L3_OCCUP_EVENT_ID)
++	if (eventid != QOS_OCCUP_EVENT_ID)
+ 		return -EINVAL;
+ 
+ 	mon_type = mpam_feat_msmon_csu;
+@@ -553,7 +553,7 @@ int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+ 	if (!mpam_is_enabled())
+ 		return -EINVAL;
+ 
+-	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
++	if (eventid == QOS_OCCUP_EVENT_ID || !mon->class)
+ 		return -EINVAL;
+ 
+ 	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
+@@ -610,7 +610,7 @@ void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d
+ 	if (!mpam_is_enabled())
+ 		return;
+ 
+-	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
++	if (eventid == QOS_OCCUP_EVENT_ID || !mon->class)
+ 		return;
+ 
+ 	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
+@@ -1127,7 +1127,7 @@ static void mpam_resctrl_pick_counters(void)
+ 				if (update_rmid_limits(class))
+ 					break;
+ 
+-				counter_update_class(QOS_L3_OCCUP_EVENT_ID, class);
++				counter_update_class(QOS_OCCUP_EVENT_ID, class);
+ 				break;
+ 			default:
+ 				break;
+@@ -1149,7 +1149,7 @@ static void mpam_resctrl_pick_counters(void)
+ 			 * and it's equivalent to mbm_total and so always use
+ 			 * mbm_total.
+ 			 */
+-			counter_update_class(QOS_L3_MBM_TOTAL_EVENT_ID, class);
++			counter_update_class(QOS_MBM_TOTAL_EVENT_ID, class);
+ 		}
  	}
- 
--	if (!resctrl_rmid_realloc_limit ||
--	    ci->size < resctrl_rmid_realloc_limit) {
--		resctrl_rmid_realloc_limit = ci->size;
--		resctrl_rmid_realloc_threshold = ci->size / num_unique_pmg;
-+	if (!r->mon.rmid_realloc_limit ||
-+	    ci->size < r->mon.rmid_realloc_limit) {
-+		r->mon.rmid_realloc_limit = ci->size;
-+		r->mon.rmid_realloc_threshold = ci->size / num_unique_pmg;
- 	}
- 
- 	return 0;
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 5924cc7d64f8..4132258760fa 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -65,8 +65,8 @@ static u32 *closid_num_dirty_rmid;
-  * @rmid_limbo_count - count of currently unused but (potentially)
-  *     dirty RMIDs.
-  *     This counts RMIDs that no one is currently using but that
-- *     may have a occupancy value > resctrl_rmid_realloc_threshold. User can
-- *     change the threshold occupancy value.
-+ *     may have a occupancy value above the resource's reallocation
-+ *     threshold. User can change the threshold occupancy value.
-  */
- static unsigned int rmid_limbo_count;
- 
-@@ -75,17 +75,6 @@ static unsigned int rmid_limbo_count;
-  */
- static struct rmid_entry	*rmid_ptrs;
- 
--/*
-- * This is the threshold cache occupancy in bytes at which we will consider an
-- * RMID available for re-allocation.
-- */
--unsigned int resctrl_rmid_realloc_threshold;
--
--/*
-- * This is the maximum value for the reallocation threshold, in bytes.
-- */
--unsigned int resctrl_rmid_realloc_limit;
--
- /*
-  * x86 and arm64 differ in their handling of monitoring.
-  * x86's RMID are independent numbers, there is only one source of traffic
-@@ -167,7 +156,7 @@ void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
- 						   arch_priv, &val, arch_mon_ctx)) {
- 				rmid_dirty = true;
- 			} else {
--				rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
-+				rmid_dirty = (val >= r->mon.rmid_realloc_threshold);
- 
- 				/*
- 				 * x86's CLOSID and RMID are independent numbers,
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index afd6ffa9e324..328e78324f54 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1255,9 +1255,11 @@ static int rdt_delay_linear_show(struct kernfs_open_file *of,
- static int max_threshold_occ_show(struct kernfs_open_file *of,
- 				  struct seq_file *seq, void *v)
+ }
+@@ -1176,7 +1176,7 @@ void resctrl_arch_config_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *
  {
-+	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
-+
- 	if (!info_kn_lock(of->kn))
- 		return -ENOENT;
--	seq_printf(seq, "%u\n", resctrl_rmid_realloc_threshold);
-+	seq_printf(seq, "%u\n", r->mon.rmid_realloc_threshold);
- 	info_kn_unlock(of->kn);
+ 	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[evtid];
  
- 	return 0;
-@@ -1295,6 +1297,7 @@ static int rdt_thread_throttle_mode_show(struct kernfs_open_file *of,
- static ssize_t max_threshold_occ_write(struct kernfs_open_file *of,
- 				       char *buf, size_t nbytes, loff_t off)
- {
-+	struct rdt_resource *r = rdt_kn_parent_priv(of->kn);
- 	unsigned int bytes;
- 	int ret;
- 
-@@ -1309,14 +1312,14 @@ static ssize_t max_threshold_occ_write(struct kernfs_open_file *of,
- 		goto out_unlock;
+-	if (evtid != QOS_L3_MBM_TOTAL_EVENT_ID) {
++	if (evtid != QOS_MBM_TOTAL_EVENT_ID) {
+ 		pr_debug("unexpected event id\n");
+ 		return;
+ 	}
+@@ -1193,7 +1193,7 @@ void resctrl_arch_config_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *
+ 		__config_cntr(mon, cntr_id, CDP_NONE, closid, rmid, assign);
  	}
  
--	if (bytes > resctrl_rmid_realloc_limit) {
-+	if (bytes > r->mon.rmid_realloc_limit) {
- 		rdt_last_cmd_printf("max_threshold_occupancy: Exceeds limit (before adjustment) of %u bytes\n",
--				    resctrl_rmid_realloc_limit);
-+				    r->mon.rmid_realloc_limit);
- 		ret = -EINVAL;
- 		goto out_unlock;
- 	}
+-	resctrl_arch_reset_cntr(r, d, closid, rmid, cntr_id, QOS_L3_MBM_TOTAL_EVENT_ID);
++	resctrl_arch_reset_cntr(r, d, closid, rmid, cntr_id, QOS_MBM_TOTAL_EVENT_ID);
+ }
  
--	resctrl_rmid_realloc_threshold = resctrl_arch_round_mon_val(bytes);
-+	r->mon.rmid_realloc_threshold = resctrl_arch_round_mon_val(bytes);
+ static int mpam_resctrl_control_init(struct mpam_resctrl_res *res)
+@@ -1354,7 +1354,7 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+ 	 */
+ 	l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
  
- out_unlock:
- 	info_kn_unlock(of->kn);
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 95ffff4c7925..6562c1698474 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -288,6 +288,10 @@ enum resctrl_schema_fmt {
- /**
-  * struct resctrl_mon - Monitoring related data of a resctrl resource.
-  * @num_rmid:			Number of RMIDs available.
-+ * @rmid_realloc_limit:		Largest value for the reallocation threshold,
-+ *				in bytes.
-+ * @rmid_realloc_threshold:	Cache occupancy in bytes at which an RMID is
-+ *				considered available for re-allocation.
-  * @mbm_cfg_mask:		Memory transactions that can be tracked when
-  *				bandwidth monitoring events can be configured.
-  * @num_mbm_cntrs:		Number of assignable counters.
-@@ -299,6 +303,8 @@ enum resctrl_schema_fmt {
-  */
- struct resctrl_mon {
- 	u32			num_rmid;
-+	unsigned int		rmid_realloc_limit;
-+	unsigned int		rmid_realloc_threshold;
- 	unsigned int		mbm_cfg_mask;
- 	int			num_mbm_cntrs;
- 	bool			mbm_cntr_assignable;
-@@ -726,9 +732,6 @@ int resctrl_arch_io_alloc_enable(struct rdt_resource *r, bool enable);
-  */
- bool resctrl_arch_get_io_alloc_enabled(struct rdt_resource *r);
+-	if (type == QOS_L3_MBM_TOTAL_EVENT_ID) {
++	if (type == QOS_MBM_TOTAL_EVENT_ID) {
+ 		int err;
  
--extern unsigned int resctrl_rmid_realloc_threshold;
--extern unsigned int resctrl_rmid_realloc_limit;
--
- int resctrl_init(void);
- void resctrl_exit(void);
- 
+ 		err = mpam_resctrl_monitor_init_abmc(mon);
 -- 
 2.34.1
 
