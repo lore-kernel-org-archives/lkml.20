@@ -1,63 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853193;
-	b=Dq3qG1oWjqoP5jxXtLLXRWlWiY8s88CW/6GD2oGs7LlAAD8pWtqMO4y09rVUmbVl0pZt
-	 Sh/r1nCobNB9xaj0zMZ1tOecY2p6Wmq9q7aK951ptmPESd7GiOvg4FtysBRWRideexzEL
-	 x39nWk09v1SGB0W5MXiKIwknhIBNzwrho9yr4FLHk9YwDgWoXMKuhTffdq4xzxa7sUcyL
-	 eYrAb8qzF7PdjS9NhHGD+2etrBSGiiwTN/scPLZW4/XOwNfgS+AUHwstOCS1Dn/6lYmt/
-	 E7W+VnoDmhsvEn4WA8w8hJcyv88HnXeLz2bcT1S4cpKua11j/uZq/9n+FLCbiy4R0LQ==
+	t=1794853245;
+	b=fIYVEwUnXg9nY45IBI8UukcX1usa2OxkxyRnZVEp8h2V1qLInN9dm+CNwXHnYSd8AyWS
+	 /Owx3CSlCEJKSMm6DGOa9S8ESpk9tQs4JU7Q9Vk57WxRFMg1xmSdqWAzDfbYSsAZFAjBO
+	 1/50sFRxYPkyN/1/U5soGinnN0WYIwM1aNgLghMc28N1Ne3+ruJpngKFrS03DMW0sj9fs
+	 E6hOeHw5wpak9MTRA2RGNiXqFvj0TnTk9kSjVy7ZRYmkwSonGZMQvxmHKnfSOJjLPgOiC
+	 5DR6yDSDRiB8msI2EvaK6DyxeTVKN9ENbDPavRO4a5bMD596au59nOJD6n9PbKTZQOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853193;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=N3OaimYL9k1G6LS1mBgzQVa/tv/0aRmfS2iYV6WufZ8=;
-	b=ViGdqjVLdBjOpPRBYh1TO4SjHg+a+9gl5nJBMdNT9JfIMcytFk36kExZdgxs9H0nKXsT
-	 +rW6lZbyqD4I5iujwYBVa7AAfP+HbZoSBpoWuiRv8YZl7BMzadrOBb61RGto6oJVOv/Ux
-	 Ifj8AKZlyodNT9MeC+WJv2xeeWgzA8ctbqHJgy/qtvwXht8PvxY31VdPLGrI9IGPEP1fG
-	 i+NgYG9egEYsdnYsQ8Ow/X5vi1zkcy66N7PrFQVJ6f5qVophKyJ4B7+GMMKie1ORQc9uB
-	 Up6R3cW25nAO/uJ8+1XEAtpULTaWZ/lt4G9LrkbFih+/Mizju/aE86ickkoNzgE9rbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853245;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=focnNfHFlWYzCF1G01fF7j20QFYjF7BQNefzQKj/yZ4=;
+	b=41zXBwLNnVIzmP5Wr2MNLoUiK6xwodrxAwFPI9vuEI9senPxVTQLnlzHhkbs02VvIIzX
+	 0JS+UiOfRJG7ngckhJfbVAuHnWJH7uuj7H8Inpjc4V7S3+tXM9H77blBI82XiUndYx35W
+	 nkAzBAzLVjvh2+kDurpFYQ7ZJ8zsDNS35A3J6XoTZ6C+ZLgNzVkcBCxpxbISzV4c5bBfT
+	 OrP9qEIwF42ist5htOer9O7EffvTzvnSbF9z0eJibU6uQ1LfgqzSfezBXAV2uhO1FUkc1
+	 llcZOcMp2hF+tPI5Fo+FFu/xfbDE5/Qi/wvlqOpyx8qiRG4q49tHwHsWSuBL6LTgQ6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=pyS4iHQs;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PbE+QY5R;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24300606A31C;
-	Mon, 16 Nov 2026 18:19:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24300606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40844606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40844606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=pyS4iHQs
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=N3OaimYL9k1G6LS1mBgzQVa/tv/0aRmfS2iYV6WufZ8=; b=pyS4iHQsYBlpVL5Wiy/LAPlUuW
-	hUlhWSGDvmWqMSdcn5Uw4R8M3wvOiUHGK5ZRc+lAGLDSFYg8bjwMb9RlQut8zHL12ugEI7ZbB+cAh
-	D6sndl7Il9aP3iPHhK6zUBvCvPB1avmPrSaIo+AC6U+l+rTlLb9S7DVRWus9DUyHEgsCdfcPOozdm
-	7HHytR7E0MRyvJKwNhLdSC4pl+wrvBRiBCJzcMaA8n6DlLfwsDBQnkBLlWyiK33/3Rdj13yH/do0y
-	K4d3IXahESUj4S4xLv/vF1ZRr0eS8q/xUQO/svTw0ilbGw3XZ39taI9VIgRZ9DKs6WwRNqm3aFwZ2
-	litlaUHA==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xT1J0-00000003Vzm-35rs;
-	Mon, 16 Nov 2026 18:19:50 +0000
-Date: Mon, 16 Nov 2026 13:19:49 -0500
-From: "Liam R. Howlett" <liam@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Brian Geffon <bgeffon@google.com>, Dmitry Safonov <0x7f454c46@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mremap: correctly uncharge accountable VMAs in error
- path
-Message-ID: <yki3kpqx4bhek4zit2txtt7z2crfropbamcvnciornj5dp4eu2@45qlnjuowq5d>
-References: <20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PbE+QY5R
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1496389b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:20:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794853244; x=1795458044; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=focnNfHFlWYzCF1G01fF7j20QFYjF7BQNefzQKj/yZ4=;
+        b=PbE+QY5R3gAv+sYo3vO4FqrcWA9jOXrUvOcbmg9EYAQynHF4FO7hCLYUhuIvMqadF8
+         n2g8wQW9PGrmSRIqRKSlWRCwU9OoiZ1WFo++fTlqbVNUvLJwEwx1K6Ec3T58rSnd6LhS
+         TWG9QtNKzuv2Rd9E/lbY/BxvhPvaYEWA9eFYiNTguVtNeSVYuG8I7Rn0ZNYJWGjKvpWN
+         ksZEDD+cE+0kEK8U9PIS7UMsN1O/fQUvVA3MfWAUsOwn0eX87opkU3vbGgpOjuo9Gs8b
+         DxH8zh84SZrnFgeon4dUM4JOVmi/xnOFfYLml5SK/qrSvStAG6rqhgK+X4bc3rHdK+7A
+         jFbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794853244; x=1795458044;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=focnNfHFlWYzCF1G01fF7j20QFYjF7BQNefzQKj/yZ4=;
+        b=XOThkxrDEsP0yWHjILWZrRVeq7hq8ujS83dPNdSNhIAyS6t/uE/i9waHzA7iMsRouZ
+         M6cl/0tf/0XivPRymjbTq1xshGhfIBEnVoZYPAmpTWgHsRKNzGOgy8JvelRqsv/MrZfq
+         pVk74febLpe88jNfnln1rAo+tIpQh11hbd4PnIT/UgRzjiCgh1ctSHWD8JqIBg0dyJqF
+         P7to9vx2fj3hcrc8uMaLnZQKiNYeSWCoxN7y7Ev0+RLTBZS2OCoejRRQxu+ImPLRlrmY
+         cIb0b+AopX0QSSz+ZD2bJk0hoYmWzaL2CpZqfZCRlNRcV41SrWjWJItWG+lgUrOFyxmk
+         hH+g==
+X-Forwarded-Encrypted: i=1; AL+hErGQ4uKgzkpkAUzZb3pgU1EKRkA7JSERhwmuFOZWM5vFzazzTat9ME8+PPMoiNiblUwLpnlBpBF3tvE3IXE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8C64E5f9m6tJzwhkNZITbGHHFVSZBCtgHiXhq9EB3o98NxKc84
+	tXkaIaICA7OEDGmaCCQZNXx2/LLlCoNb1Lv0npmyF9f3cSL6Vd5xjh3V
+X-Gm-Gg: AZFdTZfhRn4VWgpwBbv/6wKqITBXJpa0HZmEHlsEuDYrBNhekvy2sMzquwijaqfoD3n
+	6u7fpFSFxCT+3n6CNrjvPsjjF3nUQuRBvEHIWzSGWimfYRqkNL0BADE4k6DmNNPre0WTHmiZsOe
+	5xW6OgVrCdzmUwy2rsRHyTxOlmadI+Ile7Jlw0wcJ3xQPR8WNHznVUBME+kKkMuN2t0mUbxUz6n
+	JatQDcK8nE5cE6OGlic1pt6pNy4Ml1BDsh4YSSqEwXF2pNVcoSAXQmlaFjBtsRARjLmUMryUqGk
+	dVnSUISPO6CCFBkfowWbzNlr0V7REbSlmXTKgc0DQyJJDLoRjWrM1fhK88M44g5qpn/HCCZUU9U
+	QKgizKGQV1r9WSpRTNGJPs5gLXbohf1Ioft2kkbZKJ/lkwNhFD36sibb+HH6NkMN4sMKgte4ukm
+	GzQVYtGMYlsWGBewCyhLuNrwVbRvheHqqIK9q4zxfijGz8uRBSUW3c8FdptRAi+PwH/Q+rD/a3L
+	4lj2zFmdL9AIJMEsPQucPGMbYshxj6hoTcWgFTj7gTYOUXjqfEM4g6fiOK1EkznClqo+OF83oL+
+	tvRragme1zzARTt2+M7UPiILow+p3HE9mLpzaL/IOoPmLnldAkcsRvhj+IPVo9E1HLtA56r8Oz7
+	xTKHWRxLT/VAQT+Wu0J7a/45lAw6fCV+4lyP/
+X-Received: by 2002:a17:903:4b0e:b0:2ed:4c7a:31e4 with SMTP id d9443c01a7336-2ee0d65e7a6mr107391405ad.1.1794853244283;
+        Mon, 16 Nov 2026 10:20:44 -0800 (PST)
+Received: from localhost.localdomain ([12.162.234.74])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd76db8acsm3076325ad.11.2026.11.16.10.20.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 10:20:41 -0800 (PST)
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: andi.shyti@kernel.org,
+	kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michal.simek@amd.com,
+	netdev@vger.kernel.org,
+	vadim.fedorenko@linux.dev
+Subject: Re: [PATCH net-next v2 2/3] i2c: xiic: add KUnit coverage for register access modes
+Date: Mon, 16 Nov 2026 10:20:38 -0800
+Message-ID: <20261116-wiwi-v3-87afa10a8-r1-ahmadexp@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179484681740.3136.17781028072212776292@kernel.org>
+References: <20261112163333.12523-3-ahmadexp@gmail.com> <179484681740.3136.17781028072212776292@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,73 +104,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 26/10/19 04:57PM, Lorenzo Stoakes (ARM) wrote:
-> The mremap error path is a fragile and unwieldy beast - it reverses the
-> page table move then updates vma_remap_struct state to swap VMA, length and
-> address between old and new VMAs in copy_vma_and_data().
-> 
-> If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
-> move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
-> than the old one.
-> 
-> For accountable VMAs when MREMAP_DONTUNMAP is not specified,
-> unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
-> only the delta of a VMA expansion is charged (performed by
-> vrm_calc_charge() earlier).
-> 
-> Therefore nothing uncharges the expanded VMA size, and there is a permanent
-> leak in global Committed_AS.
-> 
-> Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
-> 
-> Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Agreed. A RAM buffer is not a portable MMIO mapping. The proposed v3
+enables the RAM-backed test only on X86_64 with neither UML nor
+INDIRECT_IOMEM. The XIIC driver itself gains no architecture restriction.
+All four cases passed in an x86-64 QEMU guest. With XIIC and
+KUNIT_ALL_TESTS enabled, explicitly requesting the test on arm64, s390,
+SPARC64 and 64-bit UML with indirect I/O left it disabled.
 
-Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
-
-> ---
-> Issue was found when I had local AI check the other mremap() fix from today - it
-> raised that this pre-existing issue was present.
-> ---
->  mm/mremap.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index 6970783fc445..1620006028c4 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -1338,6 +1338,20 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
->  		pmc_revert.need_rmap_locks = true;
->  		move_page_tables(&pmc_revert);
->  
-> +		/*
-> +		 * When copy_vma_and_data() returns, the new VMA will be
-> +		 * unmapped rather than the old one.
-> +		 *
-> +		 * When an accountable move is being performed, this unmapping
-> +		 * will not uncharge any expansion, so do that now.
-> +		 *
-> +		 * A move is accountable if the VMA is accountable and
-> +		 * MREMAP_DONTUNMAP is not specified, so only do so if the
-> +		 * latter is true.
-> +		 */
-> +		if (!(vrm->flags & MREMAP_DONTUNMAP))
-> +			vrm_uncharge(vrm);
-> +
->  		vrm->vma = new_vma;
->  		vrm->old_len = vrm->new_len;
->  		vrm->addr = vrm->new_addr;
-> 
-> ---
-> base-commit: 4dbe24720eb3811563cd56b35d87ddf3f9beed2a
-> change-id: 20261019-other-mremap-charge-leak-b426336c0299
-> 
-> Cheers,
-> -- 
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
+pw-bot: cr
