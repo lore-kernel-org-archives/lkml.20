@@ -1,122 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.143
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833096;
-	b=eKgGOy93/Wal6b7u000j01XWk7poEi3lcw04DfWIbw+U7jXNzHaCBBu28JlhTnmZiMlg
-	 eJ2vKv4VSCiM9SXAPDX1dllry7MsRydMiKiCR3OudS4MaX4WYEgjnSj7Rclm6UmsjAajV
-	 V+uE79Bt7+tifIB4ck0oWJ/LtkPpqBaihQZYEF2Kl+FZ9cdizGCpKuZRPRd8r7ABIoQV+
-	 HOE2GgHZ1CDVM7YUJJ1LHPg6EW0wp2SAdB8J2AA9/w8v6Vmh4gDOSScj4qM8P7o6Qs341
-	 wgkFYXO1M9JuAXrDxB9lIpR/31fV2GjpQhQb6wWXS/y6J9089quBWlFpLxz2TFicuyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833096;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CBTG9XO8hynQExe03zgtJdvux0RZ9OF1uSQtjwSQDOw=;
-	b=lHw3n0PYAIkqJnk+F8bQcW74/swpcalkrdRYn3iVxVcqJa8P/0ugILM8hqjtYdPxpH7b
-	 p7drXrrdZ1m456qoDS6V85LzeZANE9mT6WDP1ptUM7dGVaFEJGifag4qTWLn9sHwTbPEJ
-	 iO3U/l4jF4tfj0G2UFskVPb79/NHdRdzVQF68ba2S5ZvH3ZZqGwTdrHSTU0HwFbdkdWHm
-	 ggoLHHtLjPkugU8v1jnxAqsBlYSuWe78BCHwVSdaH9vCynfiCo3GsQhJVGLbgzVqxhgya
-	 kEIa28iNIwxnkYQBYuIja0lIIsptTTrS/Pjw7v8gPGp08V3e/Z/PWKVlvwRXrG2pYjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=1RwsEUoy;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="XrhkZX/b";
-	arc=none smtp.remote-ip=202.12.124.143
-Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794833142;
+	b=Wp5C6rA+8+Ug0VIwbd6v/NYU4tbw3K/psKBFzG0EOZzPWn1DOOoVIQDElvE73sXMSTFk
+	 0eevnGA5CHyZAkEowi7bepprarC1toq4yqVPYm4vb2guTft16RTwKnnoI82kCcRL9hmT5
+	 1M8sceYf3PBIVRCc8eNHjbvkcprFowKmphJERKQ0Xq0z8RmqY0DuqR84n1OiODl1Cthgp
+	 nb6h0ZBbczeiYmVe7PvrRmhjFj0TlDZQXsefTORR0NyHc9kqvYZ8l08g3Uy8TBQSJ0Znt
+	 tPkQ9RR5Tp3xcRzs9gDVLBs9cGLbWicPLGImlkN7mD5vmHsLis8pwWdGh7RkamVWNFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833142;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=WyJcdl632QwJO5aLsTyVauuriQNcqNB4F0rBgwqosEc=;
+	b=2KaUBRcpJ13BULNbqgWdi9iIA7nOVxVmml08ovHHBN792nI9gThJwK+o0htikTW4zXwA
+	 shs3fRIHIeFg2oKpM2KkonysHve/KNXNE5shfibnU8eoORoK3UBNIP91VY4vibBBUtl78
+	 OL6/As/b+rxLP6DBqRKd+/c6QFE13TJe+PNIuR1mGya6ZmDm47LofNBbeDE1n9HAUckc8
+	 kmKOODSe1nKfcLr9OJg347OlUJuMoYaWMNVHc0ZpJvRxwhtbOIUC/H9EiQg81GeymS1SI
+	 7homF1ZLA9nZew08EzKn3Ls3Fsdg2aYL/Wf8qznUyr2ZiylbJtTQVQViYItCwOSZhxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=Ba4BSlCd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8F8606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A8F8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C810606A323;
+	Mon, 16 Nov 2026 12:45:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C810606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=1RwsEUoy;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=XrhkZX/b
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.stl.internal (Postfix) with ESMTP id A64AD1303227
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:44:53 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Mon, 16 Nov 2026 07:44:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794833092; x=1794840292; bh=CBTG9XO8hynQExe03zgtJ
-	dvux0RZ9OF1uSQtjwSQDOw=; b=1RwsEUoygakGRkvaZu0jXrvEKrVV7zDpGYdZy
-	i9p02WDncN/A68jMuVqODYb3xJSnbEW4IaPmgSLhA3XjZKOYrezTu7eovSH67qmF
-	XLzFWgXED4AXNDwl/Tq/sNMpX1M8ij8gnlPE7UN/lRLrhPQrA84wBVaWRkwWsGO8
-	e4BgGal4CZu0BFq/lBJFFv1aR/xzbK3y/OZn/t8EecfpxumJQGhzH5qapFXGHHj6
-	SGI3rAfFCc7mKZQlRJBw0sTvGikVQtucEyvrS/Ldc3+sXqAcdJtmt/Un6vWrZGnt
-	DpeO9zxX4TqPZpVDXEQhAuzLLxQK1q+T0qudVN/WoSDVSZ8rA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794833092; x=1794840292; bh=CBTG9XO8hynQExe03zgtJdvux0RZ9OF1uSQ
-	tjwSQDOw=; b=XrhkZX/bHTov1PFWI/9LqVfST2ELF+vHwqrKQZfIjLLzV8wcvui
-	3/nvDxzjlvIWDac90YfCyyS/osJ7lhK3eJxyzF+cQMw2BWlL9n0AYaS/P/14/9Xx
-	P2WnGHrRVLn0ROgSNuXCmbBoqoVFl8b0k1PNPNygx8xWLFecGb45EoSLzROehnYx
-	76iReITPkHz//9GjvPurvgAlM9NWqVgDutBsGsn+vxSMvos+38xqbMzcyRpeEv78
-	TZmu2Fn8AGqzfzAD0kFKyyG9muAAwrb3i6W2NR06w73LS8O4KPR7LQb4JNXN0t3/
-	R4K78YGMmk7HC5UI+RnDHToILaWgFbhriLw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794833092; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:AGSG4pQztSCa/Px8FNhUEHKjjOMBlqbu2FIkDG03MXaJXjA
-	zVu5bC7un4yy8XzBQHADPOjVJRjjqPdR43Sn7zkUaWp54rm5NrHrn7eEzG7V3u0Z
-	PuEjB6UyuiePhGpcOQW4kiXuuyC8+nBiWfIQ5ckHRv8qXVODxcdIkZQvKJ6IWc90
-	7kUaPguWmBRtoLCVo2OwyzMtBnbNrEoOJvFPrhNYiwd6MCuac6hHLMbS2xZ39a3q
-	nJMMkfln0vSq/J06T396E4dkH8cZd+sIaUc2JBaskQD6g22toeRN5QXS8gdUrY8r
-	oSvM846Vrwwf0ZLxYwfsDkMSSV7mbBvhE1EsQag==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:0oY/pBXbQKvquv1RTT5tHyLwatXa5YD3swtjubGxgj8=:0HozEhzHLgVA0r9j7E4h3L/XZCW98IOZDIM8q/GHO3k=;
-X-ME-Sender: <xms:w_r6ahKTtPF_1UB5gIq7ro6Anromk5_0uaeoGPne_Wl6h0GZeMnYzQ>
-    <xme:w_r6apLIVDdEkyu4Ej1UA04wBwg99AO0Ml_fThDhk9KtkLzAYDp7HjYVuhFtX5kqG
-    i0RQSEtN6z9II6TkL-APbAHw6RNe7QJkdwiMPx--IDyeYJ9fKR69sxx>
-X-ME-Received: <xmr:w_r6ar7ip8AjWpKT0TK3HRUg-X2vACRYv-Mrg7QntwWyR4PowaoPrVH2vnNFw6dI>
-X-ME-Proxy-Cause: dmFkZTGOySjBYUo1B/JhD/yzmyleGW1OuzjED8GPy471VzQhXLb9eNFZLQxwb6UFphxkRL
-    wTOOhzJBg9NM5KPvKTo8Bq1EW6KSwa/VudHHhPZRA6JxQJhssBlD/dU6guPRDGBZ3L58nx
-    CfiulJTxysAYJYSsj2UkXcREckeP7jAOauV+kfRXmv4Zm48F8QRmhbnY/12O4vz4owk93i
-    OjDXzkeXEOJ9YN/SsMxxOdndmJ05+S0J/KCASAoWBlZeTDUDae1mOKBs78n4exIk9QdcT9
-    Qk61QLh3on1tJ+1YkKk+N4Ldqwwh7sqJBOF+7bZafEjqVohRJty0jADSRICylIj6G2M+qV
-    ZJdQ3JLBfuS44c94iSPmxy+dynWUkUOsjdxmX3CegKdUA0cqh57CPLHez7DB+AOwLK5Epz
-    9nGTXWhhxcxhrMaWd58O5tNW5RKijRGJpX3JF+4XvGHhvKwLFaMSStnwGuRQtgv7lR7ybF
-    2jVumaHn4l4c62GuIe4E26PXjDyC27u2oO6R772RK745V5w0JbqSuMwoJWLNC4AM/Hj8U+
-    gC3kmNOE5KBhSwN+yAsRueQUeBekRRKOfQa17k3zVaUKyOkiKy8eV3D1KLGW29GI1fSqy+
-    QBmL3QTVbFEwqWY7LgOHkdwdj2F1uHC2h1kwEo1ts4svz4qktLJr0+sjRhZA
-X-ME-Proxy: <xmx:w_r6ajcfDtu0zmxr5UziUKS4LQYlnqnPboWTVOEFRPTMO9XXPSUxcQ>
-    <xmx:w_r6amGJ4PQ96ZD6mgTfZftLamEhud5WTT1-iVkTJf8PRzzbAuUp7A>
-    <xmx:w_r6asRZANDjYqlum6cS4jhxkHc7ID2Atbx_-lSEGPYMNTXBhJcFkg>
-    <xmx:w_r6akaA_BrGQ3nf1UJZxdpniqDzNHStqnYFUaW4C4vtaRKklbRYng>
-    <xmx:xPr6aqybQviil6F0rg-J0zN5gIJmpR4K355Zt18At9TNVLUZNHNuDDQd>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 07:44:49 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: read create context data at its DataOffset
-Date: Mon, 16 Nov 2026 06:44:41 -0600
-Message-ID: <20261116124441.2521447-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=Ba4BSlCd
+ARC-Seal: i=1; a=rsa-sha256; t=1794833102; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lxAVT07d0eTryf+szWngpycXxEQmfAUle4ijsXNI7SuragQAdVwVXRKLp/Sd/dzyrMvOpCXvogxEBiclGKn9xGeuOWJAesvqpRuH1xaTK7g7fV8VwnENyLO7XhJDkv0UJvEcPLMdArgU+jVA3FgbUgDPBlD2nLJZqK4fOudjnIk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794833102; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=WyJcdl632QwJO5aLsTyVauuriQNcqNB4F0rBgwqosEc=; 
+	b=V5aItFJtcmlvDL6pJw4P+oueVO0KRXCT3plHWgYXrToL7AGDnZZnkwz//zWyPRXYXiSCpyoCkyLH8QyAVgoDh94U5YhBY6cNgLKxK1+2M7axZHjQzdQdGac1Eg0O6tJKV8uuX0x7wYZzTZ/CrEcsSlLcCzv1xO9Z8WY5xB0fRw0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=Ba4BSlCd1MseOuIE2bQuLWaum/dRfKEam9xQRP4wcyXpweaJGVqGTFGx8K+03adLwnoGarn0O4SamSmu4EHeTZoXuOKee1U2Ig0Wy8aIZt4PUzNUeYkN2V5Oka8OqBDkXaKHwUJ0ZHTmJdibxbZmeu4PpYBgLUhQS1pV7diCMvVo4iAUC3GZwf+LoEJRc5w2qADnXM0KT6wonxSM1Y/ZOxKM2kEf+ug3c8Ysn5/BC0mACUtkfEfqJV92Xwd17oV8UvDo0kxrqiiqcbm779eFRfqPzg3JdAJAKwiOOuROZM7pr8VRPr5MFE6rFfnVRFm7QFC5yQomgUKCKFhHy80gOQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=WyJcdl632QwJO5aLsTyVauuriQNcqNB4F0rBgwqosEc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794833100081448.7408237875288;
+	Mon, 16 Nov 2026 04:45:00 -0800 (PST)
+Message-ID: <4377ff90ffd0b030de7d4d33c188ba4b7551ad03.camel@rong.moe>
+Subject: Re: [PATCH] platform/x86: lenovo-wmi-other: Add raw
+ GetDataByPackage interface
+From: Rong Zhang <i@rong.moe>
+To: Alan Pluto <alanpluto@163.com>, platform-driver-x86@vger.kernel.org
+Cc: mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com, W_Armin@gmx.de, 
+	hansg@kernel.org, ilpo.jarvinen@linux.intel.com, corbet@lwn.net, 
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+ linux-kernel@vger.kernel.org, 	linux-doc@vger.kernel.org,
+ linux-api@vger.kernel.org
+In-Reply-To: <20261116040532.154928-1-alanpluto@163.com>
+References: <20261116040532.154928-1-alanpluto@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 20:44:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,426 +71,699 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-ksmbd reads most create context data at a fixed offset instead of the
-client's DataOffset. When the data starts later, ksmbd reads padding or
-other bytes. For a security descriptor, zero padding can be parsed as
-having no DACL, so CREATE succeeds without applying the client's
-descriptor.
+Hi Alan,
 
-Use DataOffset for security descriptor, extended attribute, lease,
-durable handle, POSIX and allocation size contexts. The context lookup
-already validates DataOffset and DataLength. Check each payload's
-minimum length and keep the existing parser checks. Add
-smb2_context_data() and a structure for the durable reconnect data, and
-remove the request structures that no longer have users. Contexts using
-the usual offset behave as before.
+Thanks for working on this.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+On Mon, 2026-11-16 at 12:05 +0800, Alan Pluto wrote:
+> Expose Lenovo Other Mode WMI GetDataByPackage, method 99, through a
+> root-only character device so userspace can access the raw firmware
+> interface. And document the interface.
 
-Notes:
-    Tested on ksmbd-for-next 3bc1fb9c3b20 with KASAN. Moving context
-    data 8 or 16 bytes beyond its usual offset now gives the same
-    results as the usual layout. At the usual offset, a DataLength
-    one byte too short is rejected with and without the patch.
-    smbtorture results match the base.
+What's the practical purpose of the interface? Did you use this to tune
+anything on your device?
 
-    This fix was developed with LLM assistance.
+>=20
+> The upstream driver was build-tested with W=3D1 and checked with Sparse.
+> A backport using the five-argument wmidev_invoke_method() interface
+> was tested on Ubuntu 7.0.0-42 with Lenovo hardware. The upstream 7.4
+> driver has not been tested on hardware.
 
- fs/smb/server/oplock.c  |  30 +++++-------
- fs/smb/server/oplock.h  |  10 ++++
- fs/smb/server/smb2pdu.c | 102 +++++++++++++++++-----------------------
- fs/smb/server/smb2pdu.h |  20 ++------
- 4 files changed, 67 insertions(+), 95 deletions(-)
+Don't include this in the commit message, but rather send a cover letter
+or place it under `---'.
 
-diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
-index c933d1e5f545..7c567180dbe1 100644
---- a/fs/smb/server/oplock.c
-+++ b/fs/smb/server/oplock.c
-@@ -2321,36 +2321,28 @@ struct lease_ctx_info *parse_lease_state(void *open_req)
- 		return ERR_PTR(-ENOMEM);
- 
- 	if (sizeof(struct lease_context_v2) == le32_to_cpu(cc->DataLength)) {
--		struct create_lease_v2 *lc = (struct create_lease_v2 *)cc;
-+		struct lease_context_v2 *lc = smb2_context_data(cc);
- 
--		if (le16_to_cpu(cc->DataOffset) + le32_to_cpu(cc->DataLength) <
--		    sizeof(struct create_lease_v2) - 4)
--			goto err_out;
--
--		memcpy(lreq->lease_key, lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
--		lreq->req_state = lc->lcontext.LeaseState;
--		lreq->flags = lc->lcontext.LeaseFlags;
--		lreq->epoch = lc->lcontext.Epoch;
--		lreq->duration = lc->lcontext.LeaseDuration;
-+		memcpy(lreq->lease_key, lc->LeaseKey, SMB2_LEASE_KEY_SIZE);
-+		lreq->req_state = lc->LeaseState;
-+		lreq->flags = lc->LeaseFlags;
-+		lreq->epoch = lc->Epoch;
-+		lreq->duration = lc->LeaseDuration;
- 		if (!lease_state_valid(lreq->req_state) ||
- 		    !lease_v2_flags_valid(lreq->flags))
- 			goto err_out;
- 		lreq->req_state = lease_state_grantable(lreq->req_state);
- 		if (lreq->flags == SMB2_LEASE_FLAG_PARENT_LEASE_KEY_SET_LE)
--			memcpy(lreq->parent_lease_key, lc->lcontext.ParentLeaseKey,
-+			memcpy(lreq->parent_lease_key, lc->ParentLeaseKey,
- 			       SMB2_LEASE_KEY_SIZE);
- 		lreq->version = 2;
- 	} else if (sizeof(struct lease_context) == le32_to_cpu(cc->DataLength)) {
--		struct create_lease *lc = (struct create_lease *)cc;
--
--		if (le16_to_cpu(cc->DataOffset) + le32_to_cpu(cc->DataLength) <
--		    sizeof(struct create_lease))
--			goto err_out;
-+		struct lease_context *lc = smb2_context_data(cc);
- 
--		memcpy(lreq->lease_key, lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
--		lreq->req_state = lc->lcontext.LeaseState;
-+		memcpy(lreq->lease_key, lc->LeaseKey, SMB2_LEASE_KEY_SIZE);
-+		lreq->req_state = lc->LeaseState;
- 		lreq->flags = 0;
--		lreq->duration = lc->lcontext.LeaseDuration;
-+		lreq->duration = lc->LeaseDuration;
- 		if (!lease_state_valid(lreq->req_state))
- 			goto err_out;
- 		lreq->req_state = lease_state_grantable(lreq->req_state);
-diff --git a/fs/smb/server/oplock.h b/fs/smb/server/oplock.h
-index d81013c514e3..945effd5240a 100644
---- a/fs/smb/server/oplock.h
-+++ b/fs/smb/server/oplock.h
-@@ -123,6 +123,16 @@ void create_posix_rsp_buf(char *cc, struct ksmbd_file *fp);
- void create_aapl_rsp_buf(char *cc, __u64 vol_caps, __u64 req_bitmap,
- 			 bool readdir_attr_v2);
- struct create_context *smb2_find_context_vals(void *open_req, const char *tag, int tag_len);
-+
-+/*
-+ * The data of a context smb2_find_context_vals() returned. It starts at
-+ * DataOffset, and its DataLength bytes lie inside the context.
-+ */
-+static inline void *smb2_context_data(struct create_context *cc)
-+{
-+	return (char *)cc + le16_to_cpu(cc->DataOffset);
-+}
-+
- struct oplock_info *lookup_lease_in_table(struct ksmbd_conn *conn,
- 					  char *lease_key);
- int find_same_lease_key(struct ksmbd_conn *conn, struct ksmbd_inode *ci,
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 9ef2d086fc4e..df81d5a3b378 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3931,7 +3931,7 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
- 				 const struct path *path)
- {
- 	struct create_context *context;
--	struct create_sd_buf_req *sd_buf;
-+	struct smb_ntsd *pntsd;
- 
- 	if (!req->CreateContextsOffset)
- 		return -ENOENT;
-@@ -3945,13 +3945,10 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
- 
- 	ksmbd_debug(SMB,
- 		    "Set ACLs using SMB2_CREATE_SD_BUFFER context\n");
--	sd_buf = (struct create_sd_buf_req *)context;
--	if (le16_to_cpu(context->DataOffset) +
--	    le32_to_cpu(context->DataLength) <
--	    sizeof(struct create_sd_buf_req))
--		return -EINVAL;
--	return set_info_sec(work->conn, work->tcon, path, &sd_buf->ntsd,
--			    le32_to_cpu(sd_buf->ccontext.DataLength), true, true,
-+	/* parse_sec_desc() refuses a length shorter than the SD header */
-+	pntsd = smb2_context_data(context);
-+	return set_info_sec(work->conn, work->tcon, path, pntsd,
-+			    le32_to_cpu(context->DataLength), true, true,
- 			    true, true);
- }
- 
-@@ -4112,7 +4109,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 		switch (dh_idx) {
- 		case DURABLE_RECONN_V2:
- 		{
--			struct create_durable_handle_reconnect_v2 *recon_v2;
-+			struct durable_reconnect_context_v2 *recon_v2;
- 			u32 flags;
- 
- 			if (dh_info->type == DURABLE_RECONN ||
-@@ -4121,20 +4118,19 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 				goto out;
- 			}
- 
--			if (le32_to_cpu(context->DataLength) <
--			    sizeof(recon_v2->dcontext)) {
-+			if (le32_to_cpu(context->DataLength) < sizeof(*recon_v2)) {
- 				err = -EINVAL;
- 				goto out;
- 			}
- 
--			recon_v2 = (struct create_durable_handle_reconnect_v2 *)context;
--			flags = le32_to_cpu(recon_v2->dcontext.Flags);
-+			recon_v2 = smb2_context_data(context);
-+			flags = le32_to_cpu(recon_v2->Flags);
- 			if (flags & ~SMB2_DHANDLE_FLAG_PERSISTENT) {
- 				err = -EINVAL;
- 				goto out;
- 			}
- 			dh_info->persistent = flags & SMB2_DHANDLE_FLAG_PERSISTENT;
--			persistent_id = recon_v2->dcontext.Fid.PersistentFileId;
-+			persistent_id = recon_v2->Fid.PersistentFileId;
- 			dh_info->fp = ksmbd_lookup_durable_fd(persistent_id);
- 			if (!dh_info->fp) {
- 				ksmbd_debug(SMB, "Failed to get durable handle state\n");
-@@ -4143,15 +4139,15 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 			}
- 
- 			/* A zero VolatileFileId means that the client did not specify it. */
--			if (recon_v2->dcontext.Fid.VolatileFileId &&
-+			if (recon_v2->Fid.VolatileFileId &&
- 			    dh_info->fp->durable_volatile_id !=
--			    recon_v2->dcontext.Fid.VolatileFileId) {
-+			    recon_v2->Fid.VolatileFileId) {
- 				err = -EBADF;
- 				ksmbd_put_durable_fd(dh_info->fp);
- 				goto out;
- 			}
- 
--			if (memcmp(dh_info->fp->create_guid, recon_v2->dcontext.CreateGuid,
-+			if (memcmp(dh_info->fp->create_guid, recon_v2->CreateGuid,
- 				   SMB2_CREATE_GUID_SIZE)) {
- 				err = -EBADF;
- 				ksmbd_put_durable_fd(dh_info->fp);
-@@ -4174,7 +4170,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 		}
- 		case DURABLE_RECONN:
- 		{
--			create_durable_reconn_t *recon;
-+			struct durable_reconnect_context *recon;
- 
- 			if (dh_info->type == DURABLE_RECONN_V2 ||
- 			    dh_info->type == DURABLE_REQ_V2) {
-@@ -4182,14 +4178,13 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 				goto out;
- 			}
- 
--			if (le32_to_cpu(context->DataLength) <
--			    sizeof(recon->Data)) {
-+			if (le32_to_cpu(context->DataLength) < sizeof(*recon)) {
- 				err = -EINVAL;
- 				goto out;
- 			}
- 
--			recon = (create_durable_reconn_t *)context;
--			persistent_id = recon->Data.Fid.PersistentFileId;
-+			recon = smb2_context_data(context);
-+			persistent_id = recon->PersistentFileId;
- 			dh_info->fp = ksmbd_lookup_durable_fd(persistent_id);
- 			if (!dh_info->fp) {
- 				ksmbd_debug(SMB, "Failed to get durable handle state\n");
-@@ -4198,9 +4193,9 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 			}
- 
- 			/* A zero VolatileFileId means that the client did not specify it. */
--			if (recon->Data.Fid.VolatileFileId &&
-+			if (recon->VolatileFileId &&
- 			    dh_info->fp->durable_volatile_id !=
--			    recon->Data.Fid.VolatileFileId) {
-+			    recon->VolatileFileId) {
- 				err = -EBADF;
- 				ksmbd_put_durable_fd(dh_info->fp);
- 				goto out;
-@@ -4214,7 +4209,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 		}
- 		case DURABLE_REQ_V2:
- 		{
--			struct create_durable_req_v2 *durable_v2_blob;
-+			struct durable_context_v2_req *durable_v2_blob;
- 
- 			if (dh_info->type == DURABLE_RECONN ||
- 			    dh_info->type == DURABLE_RECONN_V2) {
-@@ -4223,24 +4218,23 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 			}
- 
- 			if (le32_to_cpu(context->DataLength) <
--			    sizeof(durable_v2_blob->dcontext)) {
-+			    sizeof(*durable_v2_blob)) {
- 				err = -EINVAL;
- 				goto out;
- 			}
- 
--			durable_v2_blob =
--				(struct create_durable_req_v2 *)context;
--			if (le32_to_cpu(durable_v2_blob->dcontext.Flags) &
-+			durable_v2_blob = smb2_context_data(context);
-+			if (le32_to_cpu(durable_v2_blob->Flags) &
- 			    ~SMB2_DHANDLE_FLAG_PERSISTENT) {
- 				err = -EINVAL;
- 				goto out;
- 			}
- 			ksmbd_debug(SMB, "Request for durable v2 open\n");
--			dh_info->CreateGuid = durable_v2_blob->dcontext.CreateGuid;
-+			dh_info->CreateGuid = durable_v2_blob->CreateGuid;
- 			dh_info->persistent =
--				le32_to_cpu(durable_v2_blob->dcontext.Flags) &
-+				le32_to_cpu(durable_v2_blob->Flags) &
- 				SMB2_DHANDLE_FLAG_PERSISTENT;
--			dh_info->fp = ksmbd_lookup_fd_cguid(durable_v2_blob->dcontext.CreateGuid);
-+			dh_info->fp = ksmbd_lookup_fd_cguid(durable_v2_blob->CreateGuid);
- 			if (dh_info->fp) {
- 				if (!memcmp(conn->ClientGUID, dh_info->fp->client_guid,
- 					    SMB2_CLIENT_GUID_SIZE)) {
-@@ -4300,7 +4294,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
- 			if ((lc && (lc->req_state & SMB2_LEASE_HANDLE_CACHING_LE)) ||
- 			    req_op_level == SMB2_OPLOCK_LEVEL_BATCH) {
- 				dh_info->timeout =
--					le32_to_cpu(durable_v2_blob->dcontext.Timeout);
-+					le32_to_cpu(durable_v2_blob->Timeout);
- 				dh_info->type = dh_idx;
- 			}
- 			break;
-@@ -4514,7 +4508,7 @@ int smb2_open(struct ksmbd_work *work)
- 	struct kstat stat;
- 	struct create_context *context;
- 	struct lease_ctx_info *lc = NULL;
--	struct create_ea_buf_req *ea_buf = NULL;
-+	struct create_context *ea_ctx = NULL;
- 	struct oplock_info *opinfo;
- 	struct durable_info dh_info = {0};
- 	__le32 *next_ptr = NULL;
-@@ -4557,8 +4551,6 @@ int smb2_open(struct ksmbd_work *work)
- 			rc = PTR_ERR(context);
- 			goto err_out2;
- 		} else if (context) {
--			struct create_posix *posix = (struct create_posix *)context;
--
- 			if (conn->dialect != SMB311_PROT_ID) {
- 				rsp->hdr.Status = STATUS_INVALID_INFO_CLASS;
- 				rc = -ENOTTY;
-@@ -4572,15 +4564,14 @@ int smb2_open(struct ksmbd_work *work)
- 				rc = -EOPNOTSUPP;
- 				goto err_out2;
- 			}
--			if (le16_to_cpu(context->DataOffset) +
--				le32_to_cpu(context->DataLength) <
--			    sizeof(struct create_posix) - 4) {
-+			/* The data starts with the 4-byte Mode */
-+			if (le32_to_cpu(context->DataLength) < sizeof(__le32)) {
- 				rc = -EINVAL;
- 				goto err_out2;
- 			}
- 			ksmbd_debug(SMB, "get posix context\n");
- 
--			posix_mode = le32_to_cpu(posix->Mode);
-+			posix_mode = get_unaligned_le32(smb2_context_data(context));
- 			posix_ctxt = true;
- 		}
- 	}
-@@ -4800,10 +4791,9 @@ int smb2_open(struct ksmbd_work *work)
- 			rc = PTR_ERR(context);
- 			goto err_out2;
- 		} else if (context) {
--			ea_buf = (struct create_ea_buf_req *)context;
--			if (le16_to_cpu(context->DataOffset) +
--			    le32_to_cpu(context->DataLength) <
--			    sizeof(struct create_ea_buf_req)) {
-+			ea_ctx = context;
-+			if (le32_to_cpu(context->DataLength) <
-+			    sizeof(struct smb2_ea_info)) {
- 				rc = -EINVAL;
- 				goto err_out2;
- 			}
-@@ -5073,15 +5063,9 @@ int smb2_open(struct ksmbd_work *work)
- 
- 		created = true;
- 		idmap = mnt_idmap(path.mnt);
--		if (ea_buf) {
--			if (le32_to_cpu(ea_buf->ccontext.DataLength) <
--			    sizeof(struct smb2_ea_info)) {
--				rc = -EINVAL;
--				goto err_out;
--			}
--
--			rc = smb2_set_ea(&ea_buf->ea,
--					 le32_to_cpu(ea_buf->ccontext.DataLength),
-+		if (ea_ctx) {
-+			rc = smb2_set_ea(smb2_context_data(ea_ctx),
-+					 le32_to_cpu(ea_ctx->DataLength),
- 					 &path, true);
- 			if (rc == -EOPNOTSUPP)
- 				rc = 0;
-@@ -5411,10 +5395,10 @@ int smb2_open(struct ksmbd_work *work)
- 	}
- 
- 	if (req->CreateContextsOffset) {
--		struct create_alloc_size_req *az_req;
-+		struct create_context *az_req;
- 
--		az_req = (struct create_alloc_size_req *)smb2_find_context_vals(req,
--					SMB2_CREATE_ALLOCATION_SIZE, 4);
-+		az_req = smb2_find_context_vals(req,
-+						SMB2_CREATE_ALLOCATION_SIZE, 4);
- 		if (IS_ERR(az_req)) {
- 			rc = PTR_ERR(az_req);
- 			goto err_out1;
-@@ -5422,13 +5406,11 @@ int smb2_open(struct ksmbd_work *work)
- 			   test_tree_conn_flag(tcon, KSMBD_TREE_CONN_FLAG_WRITABLE)) {
- 			int err;
- 
--			if (le16_to_cpu(az_req->ccontext.DataOffset) +
--			    le32_to_cpu(az_req->ccontext.DataLength) <
--			    sizeof(struct create_alloc_size_req)) {
-+			if (le32_to_cpu(az_req->DataLength) < sizeof(__le64)) {
- 				rc = -EINVAL;
- 				goto err_out1;
- 			}
--			alloc_size = le64_to_cpu(az_req->AllocationSize);
-+			alloc_size = get_unaligned_le64(smb2_context_data(az_req));
- 			fp->allocation_size_set = true;
- 			ksmbd_debug(SMB,
- 				    "request smb2 create allocate size : %llu\n",
-diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
-index 8c6b170c2716..3edd7747b96f 100644
---- a/fs/smb/server/smb2pdu.h
-+++ b/fs/smb/server/smb2pdu.h
-@@ -140,10 +140,10 @@ struct create_aapl_rsp {
- 
- #define DURABLE_HANDLE_MAX_TIMEOUT	300000
- 
--struct create_alloc_size_req {
--	struct create_context_hdr ccontext;
--	__u8   Name[8];
--	__le64 AllocationSize;
-+/* See MS-SMB2 2.2.13.2.4, the data of a DHnC create context */
-+struct durable_reconnect_context {
-+	__u64 PersistentFileId;
-+	__u64 VolatileFileId;
- } __packed;
- 
- struct create_durable_rsp {
-@@ -338,18 +338,6 @@ struct smb2_ea_info {
- 	/* optionally followed by value */
- } __packed; /* level 15 Query */
- 
--struct create_ea_buf_req {
--	struct create_context_hdr ccontext;
--	__u8   Name[8];
--	struct smb2_ea_info ea;
--} __packed;
--
--struct create_sd_buf_req {
--	struct create_context_hdr ccontext;
--	__u8   Name[8];
--	struct smb_ntsd ntsd;
--} __packed;
--
- /* See POSIX-FSCC 2.2.1 */
- struct smb2_posix_info {
- 	__le32 NextEntryOffset;
--- 
-2.47.3
+>=20
+> Signed-off-by: Alan Pluto <alanpluto@163.com>
 
+Is the work assisted by LLM?
+
+> ---
+>  Documentation/ABI/testing/dev-tac             |  49 +++
+>  .../wmi/devices/lenovo-wmi-other.rst          |   8 +
+>  MAINTAINERS                                   |   1 +
+>  drivers/platform/x86/lenovo/wmi-other.c       | 325 ++++++++++++++++++
+>  4 files changed, 383 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/dev-tac
+>=20
+> diff --git a/Documentation/ABI/testing/dev-tac b/Documentation/ABI/testin=
+g/dev-tac
+> new file mode 100644
+> index 00000000000..a8be8e95e2d
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/dev-tac
+> @@ -0,0 +1,49 @@
+> +What:           /dev/tac[0-9]*
+> +Date:           November 2026
+> +Contact:        platform-driver-x86@vger.kernel.org
+> +Description:
+> +                Lenovo Other Mode WMI GetDataByPackage (method 99).
+> +                Each firmware WMI instance gets a misc character device =
+with
+> +                mode 0600.=C2=A0
+>=20
+
+Why would you need to add a character device instead of a debugfs file?
+See also lwmi_debugfs_create_dir().
+
+IMHO the interface is quite internal and undocumented. Exposing it as a
+character device makes it too reachable for users, unnecessarily
+increases the complexity of the driver, and requires some sorts of ABI
+stability.
+
+> Numbering follows allocation order, not necessarily
+> +                the firmware instance number.=C2=A0
+>=20
+
+You must be using a wordy LLM if you are using one. Isn't this just
+obvious and natural for most character devices?
+
+> Registration does not probe
+> +                support for method 99. The parent is the bound WMI devic=
+e.
+
+If it can't be probed, gate it unless a module parameter is set.
+
+> +
+> +                Open with O_RDWR. One write submits one complete request=
+ of
+> +                1..100 raw bytes; shorter requests are padded with zeroe=
+s to
+> +                100 bytes. Empty and oversized writes fail with EINVAL w=
+ithout
+
+sed -E 's/\bE[A-Z]+\b/-\0/g'
+
+> +                calling firmware. Successful writes return the full subm=
+itted
+> +                length and execute two identical WMI calls for the BIOS
+> +                duplicate-call workaround.=C2=A0
+>=20
+
+> Request pairs through this
+> +                interface are serialized; calls made by other driver
+> +                interfaces are not covered by this serialization.
+
+Why would you need to mention cross-interface implementation details in a
+user-facing documentation?
+
+> +                Evaluation failures abort the pair; the driver does not
+> +                automatically retry.
+> +
+> +                Each open file description owns its response.=C2=A0
+>=20
+
+Why would you need to support multiple writers? Couldn't you simply
+return -EBUSY when there is a pending writer/reader?
+
+> A write while
+> +                that response remains unread fails with EBUSY, including=
+ after
+> +                partial reads.=C2=A0
+>=20
+
+If userspace must write all data at once, why would you need to support
+partial reads?
+
+> A new open cannot read another open's response.
+> +                Descriptors shared by dup/fork share the same transactio=
+n;
+> +                applications must coordinate the complete write/read seq=
+uence.
+
+Aren't these just obvious and natural for most character devices, too?
+
+> +
+> +                Read returns little-endian u32 DataSize followed by exac=
+tly
+> +                DataSize data bytes. Response storage is erased when ful=
+ly
+> +                read or closed. Further reads return EOF until a new suc=
+cessful
+> +                write. Before a successful write, or after a failed firm=
+ware
+> +                evaluation, reads return ENODATA. A zero-length read ret=
+urns
+> +                zero without consuming data.
+> +
+> +                Requests are synchronous even with O_NONBLOCK. Seeking a=
+nd
+> +                positional I/O are not supported.=C2=A0
+>=20
+
+Aren't these just the default characteristic for most non-block character
+devices?
+
+> There is no ioctl interface.
+
+Too verbose. If you don't say it has some, it's obvious that it has none.
+
+> +                A removed WMI device causes nonempty reads and valid wri=
+tes
+> +                on existing descriptors to fail with ENODEV.
+> +
+> +                Firmware evaluation failures map to EIO. WMI marshalling
+> +                failures return the error reported by the WMI subsystem.
+> +                A truncated response or invalid DataSize maps to EPROTO.
+> +                Bad userspace memory maps to EFAULT. Failure does not im=
+ply
+> +                firmware had no side effects; never blindly resubmit com=
+mands.
+> +                Interrupted waits can return EINTR before firmware evalu=
+ation.
+
+Obvious, no?
+
+> +
+> +                The WMI subsystem converts returned ACPI objects to a bu=
+ffer.
+
+Yet another implementation detail.
+
+> +                This raw firmware interface may change device state. Use=
+ only
+> +                commands whose behavior and side effects are understood.
+> diff --git a/Documentation/wmi/devices/lenovo-wmi-other.rst b/Documentati=
+on/wmi/devices/lenovo-wmi-other.rst
+> index 011054d64ea..ec85fdeeb7a 100644
+> --- a/Documentation/wmi/devices/lenovo-wmi-other.rst
+> +++ b/Documentation/wmi/devices/lenovo-wmi-other.rst
+> @@ -33,6 +33,10 @@ under the following path:
+> =20
+>  Additionally, this driver also exports attributes to HWMON.
+> =20
+> +The driver also exposes GetDataByPackage (method 99) through a raw chara=
+cter
+> +device for each WMI instance. See Documentation/ABI/testing/dev-tac for =
+the
+> +request and response format and its access restrictions.
+> +
+>  LENOVO_CAPABILITY_DATA_00
+>  -------------------------
+> =20
+> @@ -109,6 +113,10 @@ WMI interface description
+>  The WMI interface description can be decoded from the embedded binary MO=
+F (bmof)
+>  data using the `bmfdec <https://github.com/pali/bmfdec>`_ utility:
+> =20
+> +The example below describes an older firmware revision and specifies a
+> +40-byte maximum input for GetDataByPackage. Newer firmware uses a 100-by=
+te
+> +input, which is the size used by the raw interface described above.
+> +
+>  ::
+> =20
+>    [WMI, Dynamic, Provider("WmiProv"), Locale("MS\\0x409"), Description("=
+LENOVO_OTHER_METHOD class"), guid("{dc2a8805-3a8c-41ba-a6f7-092e0089cd3b}")=
+]
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 981eb3fdbef..84b1545f525 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15168,6 +15168,7 @@ M:=09Derek J. Clark <derekjohn.clark@gmail.com>
+>  M:=09Rong Zhang <i@rong.moe>
+>  L:=09platform-driver-x86@vger.kernel.org
+>  S:=09Maintained
+> +F:=09Documentation/ABI/testing/dev-tac
+>  F:=09Documentation/wmi/devices/lenovo-wmi-gamezone.rst
+>  F:=09Documentation/wmi/devices/lenovo-wmi-other.rst
+>  F:=09drivers/platform/x86/lenovo/*
+> diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x=
+86/lenovo/wmi-other.c
+> index bd64e7b4466..c15b3a2a758 100644
+> --- a/drivers/platform/x86/lenovo/wmi-other.c
+> +++ b/drivers/platform/x86/lenovo/wmi-other.c
+> @@ -34,16 +34,23 @@
+>  #include <linux/device.h>
+>  #include <linux/export.h>
+>  #include <linux/firmware_attributes.h>
+> +#include <linux/fs.h>
+>  #include <linux/gfp_types.h>
+>  #include <linux/hwmon.h>
+>  #include <linux/idr.h>
+>  #include <linux/kdev_t.h>
+>  #include <linux/kobject.h>
+> +#include <linux/kref.h>
+>  #include <linux/limits.h>
+> +#include <linux/miscdevice.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/platform_profile.h>
+>  #include <linux/power_supply.h>
+> +#include <linux/slab.h>
+>  #include <linux/types.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/unaligned.h>
+>  #include <linux/wmi.h>
+> =20
+>  #include <acpi/battery.h>
+> @@ -91,6 +98,9 @@ enum lwmi_feature_id_psu {
+>  #define LWMI_FEATURE_VALUE_GET 17
+>  #define LWMI_FEATURE_VALUE_SET 18
+> =20
+> +#define LWMI_DATA_PACKAGE_GET 99
+> +#define LWMI_DATA_PACKAGE_INPUT_MAX 100
+> +
+>  #define LWMI_FAN_ID_BASE 1
+>  #define LWMI_FAN_NR 4
+>  #define LWMI_FAN_ID(x) ((x) + LWMI_FAN_ID_BASE)
+> @@ -115,6 +125,27 @@ enum lwmi_feature_id_psu {
+> =20
+>  static DEFINE_IDA(lwmi_om_ida);
+> =20
+> +static DEFINE_IDA(lwmi_tac_ida);
+> +static DEFINE_MUTEX(lwmi_tac_lock);
+> +
+> +struct lwmi_tac {
+> +=09struct miscdevice misc;
+> +=09struct kref ref;
+> +=09struct wmi_device *wdev;
+> +=09u8 instance;
+> +=09int id;
+> +};
+> +
+> +struct lwmi_tac_file {
+> +=09struct lwmi_tac *tac;
+> +=09/* Protects the per-open response and its position. */
+> +=09struct mutex lock;
+> +=09void *result;
+> +=09size_t result_len;
+> +=09loff_t position;
+> +=09bool completed;
+> +};
+> +
+>  enum attribute_property {
+>  =09DEFAULT_VAL,
+>  =09MAX_VAL,
+> @@ -1609,6 +1640,295 @@ static void lwmi_om_fw_attr_remove(struct lwmi_om=
+_priv *priv)
+>  =09priv->ida_id =3D -EIDRM;
+>  }
+> =20
+> +/**
+> + * lwmi_tac_free() - Free an unregistered endpoint after its last close
+> + * @ref: Reference belonging to the endpoint.
+> + */
+> +static void lwmi_tac_free(struct kref *ref)
+> +{
+> +=09struct lwmi_tac *tac =3D container_of(ref, struct lwmi_tac, ref);
+> +
+> +=09ida_free(&lwmi_tac_ida, tac->id);
+> +=09kfree(tac->misc.name);
+> +=09kfree(tac);
+> +}
+> +
+> +/**
+> + * lwmi_tac_open() - Allocate independent response state for an open fil=
+e
+> + * @inode: Character device inode.
+> + * @file: File initially pointing to the registered miscdevice.
+> + *
+> + * The misc core serializes open against deregistration, so the registra=
+tion
+> + * reference remains valid while the file acquires its own reference.
+> + *
+> + * Return: 0 on success, or -ENOMEM.
+> + */
+> +static int lwmi_tac_open(struct inode *inode, struct file *file)
+> +{
+> +=09struct lwmi_tac *tac =3D container_of(file->private_data, struct lwmi=
+_tac, misc);
+> +=09struct lwmi_tac_file *state;
+> +
+> +=09state =3D kzalloc_obj(*state);
+> +=09if (!state)
+> +=09=09return -ENOMEM;
+> +=09mutex_init(&state->lock);
+> +=09state->tac =3D tac;
+> +=09kref_get(&tac->ref);
+> +=09file->private_data =3D state;
+> +=09return stream_open(inode, file);
+
+Add line breaks to improve readability. Same for the following methods.
+
+> +}
+> +
+> +/**
+> + * lwmi_tac_release() - Erase the response and drop the endpoint referen=
+ce
+> + * @inode: Character device inode.
+> + * @file: File holding the endpoint state.
+> + *
+> + * Return: 0.
+> + */
+> +static int lwmi_tac_release(struct inode *inode, struct file *file)
+> +{
+> +=09struct lwmi_tac_file *state =3D file->private_data;
+> +
+> +=09kfree_sensitive(state->result);
+
+Why on earth is it sensitive?
+
+> +=09mutex_destroy(&state->lock);
+> +=09kref_put(&state->tac->ref, lwmi_tac_free);
+> +=09kfree(state);
+> +=09return 0;
+> +}
+> +
+> +/**
+> + * lwmi_tac_invoke() - Execute GetDataByPackage and retain the response
+> + * @state: Open file whose response buffer is empty.
+> + * @data: Zero-padded 100-byte input buffer.
+> + *
+> + * The caller holds state->lock and lwmi_tac_lock.=C2=A0
+>=20
+
+Add lockdep assertions instead of stating them in comments.
+
+> The latter serializes call
+> + * pairs across instances and keeps the WMI device valid during evaluati=
+on.
+> + *
+> + * Return: 0 on success, or a negative error code.
+> + */
+> +static int lwmi_tac_invoke(struct lwmi_tac_file *state, u8 *data)
+> +{
+> +=09struct lwmi_tac *tac =3D state->tac;
+> +=09struct wmi_buffer input =3D { .length =3D LWMI_DATA_PACKAGE_INPUT_MAX=
+, .data =3D data };
+> +=09struct wmi_buffer output;
+> +=09u32 data_size;
+> +=09int ret;
+> +
+> +=09if (!tac->wdev)
+> +=09=09return -ENODEV;
+> +=09/*
+> +=09 * Duplicated call required to match BIOS workaround for behavior
+> +=09 * seen when WMI accessed via scripting on other OS.
+
+Reference? Where is the script?
+
+> +=09 */
+> +=09for (unsigned int call =3D 0; call < 2; call++) {
+> +=09=09ret =3D wmidev_invoke_method(tac->wdev, tac->instance,
+> +=09=09=09=09=09   LWMI_DATA_PACKAGE_GET, &input, &output, 0);
+> +=09=09if (ret)
+> +=09=09=09return ret;
+> +=09=09if (!call)
+> +=09=09=09kfree_sensitive(output.data);
+> +=09}
+> +=09/* Validate DataSize before preserving the complete firmware response=
+. */
+
+Don't retell what the code does, but rather explain why.
+
+> +=09if (output.length < sizeof(__le32)) {
+
+Why not use wmidev_invoke_method()'s min_size argument?
+
+> +=09=09ret =3D -EPROTO;
+> +=09=09goto free_output;
+> +=09}
+> +=09data_size =3D get_unaligned_le32(output.data);
+
+wmidev_invoke_method() returns aligned data.
+
+> +=09if (data_size > output.length - sizeof(__le32)) {
+> +=09=09ret =3D -EPROTO;
+> +=09=09goto free_output;
+> +=09}
+> +=09/* Transfer ownership without another allocation after firmware ran. =
+*/
+> +=09state->result =3D output.data;
+
+Use __free() and no_free_ptr().
+
+> +=09state->result_len =3D sizeof(__le32) + data_size;
+
+Couldn't you declare a struct with a flex array member to represent this?
+
+> +=09state->position =3D 0;
+> +=09state->completed =3D true;
+> +=09return 0;
+> +free_output:
+> +=09kfree_sensitive(output.data);
+> +=09return ret;
+> +}
+> +
+> +/**
+> + * lwmi_tac_write() - Submit one complete TAC request
+
+"complete"
+
+Obvious.
+
+> + * @file: Open TAC endpoint with independent response state.
+> + * @buffer: Userspace input bytes.
+> + * @count: Input size, from 1 to 100 bytes.
+> + * @ppos: Unused;=20
+>=20
+
+> TAC is a nonseekable request/response stream.
+
+Obvious.
+
+> + *
+> + * Short inputs are zero-padded. An unread response must be consumed bef=
+ore
+> + * submitting another request. A failed firmware call is never retried h=
+ere.
+> + *
+> + * Return: @count on success, or a negative error code.
+> + */
+> +static ssize_t lwmi_tac_write(struct file *file, const char __user *buff=
+er,
+> +=09=09=09      size_t count, loff_t *ppos)
+> +{
+> +=09struct lwmi_tac_file *state =3D file->private_data;
+> +=09u8 input[LWMI_DATA_PACKAGE_INPUT_MAX] =3D {};
+> +=09int ret;
+> +
+> +=09if (!count || count > sizeof(input))
+> +=09=09return -EINVAL;
+> +=09if (copy_from_user(input, buffer, count)) {
+> +=09=09ret =3D -EFAULT;
+> +=09=09goto clear_input;
+> +=09}
+> +=09ret =3D mutex_lock_interruptible(&state->lock);
+> +=09if (ret)
+> +=09=09goto clear_input;
+> +=09ret =3D mutex_lock_interruptible(&lwmi_tac_lock);
+> +=09if (ret)
+> +=09=09goto unlock;
+
+Use scoped_cond_guard() or ACQUIRE().
+
+> +=09if (!state->tac->wdev) {
+> +=09=09ret =3D -ENODEV;
+> +=09} else if (state->result) {
+> +=09=09ret =3D -EBUSY;
+> +=09} else {
+> +=09=09state->completed =3D false;
+> +=09=09ret =3D lwmi_tac_invoke(state, input);
+> +=09}
+> +=09mutex_unlock(&lwmi_tac_lock);
+> +unlock:
+> +=09mutex_unlock(&state->lock);
+> +clear_input:
+> +=09memzero_explicit(input, sizeof(input));
+
+Why on earth is it sensitive, too?
+
+> +=09if (ret)
+> +=09=09return ret;
+> +=09return count;
+> +}
+> +
+> +/**
+> + * lwmi_tac_read() - Read only this open file's firmware response
+
+"only"
+
+Obvious, no?
+
+> + * @file: Open TAC endpoint.
+> + * @buffer: Userspace destination.
+> + * @count: Maximum number of bytes to return.
+> + * @ppos: Unused;=C2=A0the response position is protected by state->lock=
+.
+> + *
+> + * Responses contain little-endian u32 DataSize followed by Data. Partia=
+l
+> + * reads advance the response position. Consuming the result erases its
+> + * storage immediately; subsequent reads return EOF until another write.
+> + *
+> + * Return: Bytes read, 0 at EOF or for zero @count, or a negative error =
+code.
+> + */
+> +static ssize_t lwmi_tac_read(struct file *file, char __user *buffer,
+> +=09=09=09     size_t count, loff_t *ppos)
+> +{
+> +=09struct lwmi_tac_file *state =3D file->private_data;
+> +=09ssize_t ret;
+> +
+> +=09if (!count)
+> +=09=09return 0;
+> +=09ret =3D mutex_lock_interruptible(&state->lock);
+> +=09if (ret)
+> +=09=09return ret;
+> +=09ret =3D mutex_lock_interruptible(&lwmi_tac_lock);
+> +=09if (ret)
+> +=09=09goto unlock;
+> +=09if (!state->tac->wdev)
+> +=09=09ret =3D -ENODEV;
+> +=09mutex_unlock(&lwmi_tac_lock);
+> +=09if (ret) {
+> +=09=09kfree_sensitive(state->result);
+> +=09=09state->result =3D NULL;
+> +=09=09goto unlock;
+> +=09}
+> +=09if (!state->completed) {
+> +=09=09ret =3D -ENODATA;
+> +=09=09goto unlock;
+> +=09}
+> +=09if (!state->result)
+> +=09=09goto unlock;
+> +=09ret =3D simple_read_from_buffer(buffer, count, &state->position,
+> +=09=09=09=09      state->result, state->result_len);
+> +=09if (state->position =3D=3D (loff_t)state->result_len) {
+> +=09=09kfree_sensitive(state->result);
+> +=09=09state->result =3D NULL;
+> +=09}
+> +unlock:
+> +=09mutex_unlock(&state->lock);
+> +=09return ret;
+
+The entire method is in a horrible mess. Drop the support for partial
+reads, and use scoped_cond_guard()/ACQUIRE(), and __free() to tidy it up.
+
+> +}
+> +
+> +static const struct file_operations lwmi_tac_fops =3D {
+> +=09.owner =3D THIS_MODULE,
+> +=09.open =3D lwmi_tac_open,
+> +=09.release =3D lwmi_tac_release,
+> +=09.read =3D lwmi_tac_read,
+> +=09.write =3D lwmi_tac_write,
+> +};
+> +
+> +/**
+> + * lwmi_tac_remove() - Unregister an endpoint and block further firmware=
+ calls
+> + * @data: Endpoint registered as a device-managed cleanup action.
+> + *
+> + * Stop new opens before waiting for an in-flight call pair. Existing fi=
+les
+> + * retain the endpoint state, but their subsequent reads/writes return -=
+ENODEV.
+> + */
+> +static void lwmi_tac_remove(void *data)
+> +{
+> +=09struct lwmi_tac *tac =3D data;
+> +
+> +=09misc_deregister(&tac->misc);
+> +=09mutex_lock(&lwmi_tac_lock);
+> +=09tac->wdev =3D NULL;
+> +=09mutex_unlock(&lwmi_tac_lock);
+> +=09kref_put(&tac->ref, lwmi_tac_free);
+> +}
+> +
+> +/**
+> + * lwmi_tac_add() - Register TAC endpoints independently of capability d=
+ata
+> + * @wdev: Bound Lenovo Other Mode WMI device.
+> + *
+> + * No capability describes method 99, so registration does not probe fir=
+mware
+> + * support. Each firmware instance gets an endpoint; unsupported method =
+calls
+> + * are reported to userspace when requested.
+> + *
+> + * Return: 0 on success, or a negative error code. Device-managed cleanu=
+p
+> + * unregisters earlier endpoints if a later registration or probe step f=
+ails.
+> + */
+> +static int lwmi_tac_add(struct wmi_device *wdev)
+
+devm_
+
+> +{
+> +=09unsigned int instances =3D wmidev_instance_count(wdev);
+> +=09int ret;
+> +
+> +=09for (unsigned int instance =3D 0; instance < instances; instance++) {
+> +=09=09struct lwmi_tac *tac;
+> +
+> +=09=09tac =3D kzalloc_obj(*tac);
+> +=09=09if (!tac)
+> +=09=09=09return -ENOMEM;
+> +=09=09ret =3D ida_alloc(&lwmi_tac_ida, GFP_KERNEL);
+> +=09=09if (ret < 0) {
+> +=09=09=09kfree(tac);
+> +=09=09=09return ret;
+> +=09=09}
+> +=09=09tac->id =3D ret;
+> +=09=09kref_init(&tac->ref);
+> +=09=09tac->wdev =3D wdev;
+> +=09=09tac->instance =3D instance;
+> +=09=09tac->misc.minor =3D MISC_DYNAMIC_MINOR;
+> +=09=09tac->misc.name =3D kasprintf(GFP_KERNEL, "tac%d", tac->id);
+> +=09=09tac->misc.fops =3D &lwmi_tac_fops;
+> +=09=09tac->misc.parent =3D &wdev->dev;
+> +=09=09tac->misc.mode =3D 0600;
+> +=09=09if (!tac->misc.name) {
+> +=09=09=09kref_put(&tac->ref, lwmi_tac_free);
+> +=09=09=09return -ENOMEM;
+> +=09=09}
+> +=09=09ret =3D misc_register(&tac->misc);
+> +=09=09if (ret) {
+> +=09=09=09kref_put(&tac->ref, lwmi_tac_free);
+> +=09=09=09return ret;
+> +=09=09}
+> +=09=09/* Unregister before the WMI device and its managed state disappea=
+r. */
+> +=09=09ret =3D devm_add_action_or_reset(&wdev->dev, lwmi_tac_remove, tac)=
+;
+> +=09=09if (ret)
+> +=09=09=09return ret;
+> +=09}
+> +=09return 0;
+> +}
+> +
+>  /* =3D=3D=3D=3D=3D=3D=3D=3D Self (master: lenovo-wmi-other) =3D=3D=3D=3D=
+=3D=3D=3D=3D */
+> =20
+>  /**
+> @@ -1693,6 +2013,7 @@ static int lwmi_other_probe(struct wmi_device *wdev=
+, const void *context)
+>  {
+>  =09struct component_match *master_match =3D NULL;
+>  =09struct lwmi_om_priv *priv;
+> +=09int ret;
+> =20
+>  =09priv =3D devm_kzalloc_obj(&wdev->dev, *priv);
+>  =09if (!priv)
+> @@ -1708,6 +2029,10 @@ static int lwmi_other_probe(struct wmi_device *wde=
+v, const void *context)
+>  =09if (IS_ERR(master_match))
+>  =09=09return PTR_ERR(master_match);
+> =20
+> +=09ret =3D lwmi_tac_add(wdev);
+> +=09if (ret)
+> +=09=09return ret;
+
+Why is this fatal?
+
+Thanks,
+Rong
+
+> +
+>  =09return component_master_add_with_match(&wdev->dev, &lwmi_om_master_op=
+s,
+>  =09=09=09=09=09       master_match);
+>  }
+>=20
+> base-commit: 5680519168f65666d2c03cc6ed8fe2b7052aee12
