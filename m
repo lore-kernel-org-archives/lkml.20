@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794867803;
-	b=THcxlyW+MExazFujh1/0GshtXHNIrQlt4xcMI/1V0Ro2FkGNWlGkdbZUzlM5k8UWYO2e
-	 qy8EJhW6RRSIx5wqirjoXW9o5UlDTgH72TU8Zu9UwzC3adWauNLZ0AxEtYshLPyhzGsD2
-	 +cpE+kr+EI98n8nrWzF/Gjk16rmff19nZVclCcUV855BzRECIb7iFO2Ral17HdmB3Qz/W
-	 JuGQNOR9Jvpvsxb/8UCz4ZAtRPMmBV6YOu9jU/cvfhzmdzwKRA5J93InEtpLvE2Mvjqq0
-	 GTUQfLMHAEYF9BQLuWBYTRtfk1RVt5mZW7Hjpi+If8kpnkx8+fgfnwL4mdHyvUKsJvg==
+	t=1794867861;
+	b=Kd4DS0YzvD3rUFNBrRCmQ4coXaORKlG5+yGWldlKHV29joqDAHBpMsv+2fyjYmFOvBpI
+	 xfdrT4GQlyMnxXd84rQj2Gw1tQDtBptzdFNZnq8WJYB/d3WQjBHBRuiTDx5c5ckNl8GUH
+	 lDD7Bs8aC45wjbYAb4Bf2y6/2mSqLDckzca9MaErs4miGukSW+wqlUBn6tTTuCwl7uNA4
+	 0ZL+mKhFNixIyYU4armDimWqmdk4KdYj3QKvz2SnsrDCXW6xlxndUSe4yGhrUKhJmCm/O
+	 SIou0Rx/pMG69RaiUbOWY5UUgBEux/89XN8nwqlcNF7LSzAD9iVLCPjt/Mxeu1cjx4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794867803;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kxge2GEFo4yXYtoapckZ3J7prv6F237AsUeFH4+GTVY=;
-	b=j1k0nRe/yZN6OAfv9Cf9lHWgTySzDmZIBF+I/4z/6MLbXUyKXIg6HfE6OYx+6hYRcTmM
-	 nXPDsZ+kZzuByFxaYwI6SuAqKTeAjIYYilaz/iTVWVJuPv0iBUVq9xs4JmyCV2u4M8ahi
-	 07UiC8KaE2JEsGB0vuBazxLw2XStAfRlC6i5dyA6ZL3vUHbP5k9+0OYlgmu3mjLXkCrGZ
-	 C/ieO1pm1wXrS+4DzI4RYgXxnBLsgYgughPuyvp8HUzhiJ+EV/Z8iL9L0mKMjV8OTinSN
-	 3uNAe00MzD+VvKUTv5YlNXsCVg+vIxL9zwRbIs1NsSEwz1iH+qpRRwNxJU3IZX15uZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794867861;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ln1EVdAGOFluUL+4qX0wySLdavyI3EeHq5qaZG2vFtM=;
+	b=eXdQyYjkSXDnsqKV311wE3XM3KMswgFxE3XBQXVGuxxSSxymNKdmyWr1gjR0av5EiaKV
+	 Sesk2PzVEoahh2AwdgqFdhvPu8/IKh79UulMsQJdJBiGfAFRFzaVeZlSibRWNnZymOcYD
+	 /wfpP1VUbwfxsbI9rxUeQ0VbcYFpm8EX9WsOMI/dG++6Dxrfst+dxxRIIIHkrOUIp7JI/
+	 XHWw2xzac3sOmSUJIbv4VnTKL7cxBrs2Ck0g1gqlyCSzD9Hwk0Ah3e92T34i8g1UYL7PI
+	 1b4pJSIItWCWBXD0FX+iT83u8RHlEBSZemz3dCVfTpNj1x0V6cijS+8lGu3017NF06Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuZlV8ZP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Q1s6mids;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B701606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:23:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEA4606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:24:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FEA4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuZlV8ZP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108291F000C9
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:23:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794867803;
-	bh=kxge2GEFo4yXYtoapckZ3J7prv6F237AsUeFH4+GTVY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FuZlV8ZPYtRdQDGK7LTdXtY/J7a66h2ALaaQHbIT9iJE5rYUzVPaHjN9fe2ztuyOf
-	 Yxz/rfiOreUzDRSgI8p8C56SeG5pk/vt+wUtPRPoCL27h2O4Sai3VO5IcXUDyAjG2J
-	 2YX0ko8Z/jqmg25DQExODEam8pNUoSx+GSR0h0RQwieDfFhisZd7w2sk0/KCLOQNSM
-	 DqT2dLuT9aMnIdTXVWqtX4TevQlM6Dzphh72DTCtg9JEIPJgtn7VbWiml2g0VPahRJ
-	 4G2ncqC/jPl7URZdKVWBwzTpPv3it/MfuvN1dR90j4+diXThicYjDWG8doW68lZ8sp
-	 vTU/f/8+NF6HQ==
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so646937066b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:23:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErESLhSFpj8wFJMKKh2n0k2M00wZTCTJ0NqKQGEElQOaHZwan3xYjL6oLChzAALDuI969gKtOzz4awS4+so=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9VTRXpiHFl4TOSYzWXus3cJjR+UQ6EtG2SukUcjUjyB3YjE4sL
-	9r3o1YItb+i9tgRJtkiw+up41kuQc1AurDrGEuE2cBynEhISWyHaAIbimCFVIx86spXJCVgPItD
-	c5lCMbjdzOq5y8n36en2U9y0uwSWdJHI=
-X-Received: by 2002:a17:907:3e0f:b0:c50:4a71:cb3 with SMTP id
- a640c23a62f3a-c50964360ebmr984193566b.48.1794867801718; Mon, 16 Nov 2026
- 14:23:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Q1s6mids
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so14789075e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:24:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794867859; x=1795472659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ln1EVdAGOFluUL+4qX0wySLdavyI3EeHq5qaZG2vFtM=;
+        b=Q1s6midsB7ZFJORzCZaZh3TxN39wkIbhmHp6yuaENENa8omgWUE+8KGUkKgKRaDEtv
+         ryiYQqlAHbHlsrSZhQRNmwzpD0EsRJROmgZESb3ZesTR2fSqcTeC7O4Tb4RvzQtoYoKb
+         hCzqE9qv7+lAcUwrgd/aywp39omeKHhusrKSDHf9VEtOClJVuolTG+3DIKtlH29C6Nm6
+         gdTGSkBz4HmfneHJe0H5E9Csrxs4U89QNtf4CHB32pAcpUzpD9MLuCL7/1ZNjyHoMdiL
+         8E/eFU5NPkUgLELB01/AqlhH5MCZhuOscN1HjOlFSswTHH+GaswPdKeYY2M9LZCGcbHY
+         cz5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794867859; x=1795472659;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ln1EVdAGOFluUL+4qX0wySLdavyI3EeHq5qaZG2vFtM=;
+        b=utaYJ5OZEUpuPqiP26+AoIBi8on1Ql9/xapYhsM4yqIM5FzkJ2V3q1F0CMv9sgpfFD
+         i0A6S13PpdPWatehO9l3oienlxu1MizeyfQGE6NTqZP3Mn/TY+vmczar2wy2UsScjNGV
+         cSDLWStAjp/CVMEhPheqYMLKeBoZRqGq/9v7vhAYPbou+uTyzkMWxIw6GR88fLJk8j2k
+         A+ll750CKIg8IWKdcF97qNp2JMqOTageE+S61uXLW95KuD/XTm0gmjWyvCXVZ6iftep1
+         es6Bwy5iL5f9UIiE1WlRawQCr1BmCfPcYg0X4/cagMNF7fkj2r9e52OcIdt7HVKZqiES
+         y7yA==
+X-Forwarded-Encrypted: i=1; AL+hErEp16WGjei+nbpTcOR65ViIo2k1zmZPbq7kv2w6tr/23Uz4nOxOsVO3vOuAkTcNZjjMLFOeqgWjuxK5JyM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6u34OUnSpX3DFxIovYHM9U4dH4w7YY9jgU1dz18G/BUdg1dNl
+	vAAHFWh+UXzv8BhZjUENmDuM/ADzVF7ZeP8ylMlMaN3XEsbmgKn3iX+MH+lrfXoSlBk=
+X-Gm-Gg: AYBFou3e8rscE+E56JHW7ZCXCE25dT/J9l0KzhdwwSl5pclXbBCBf5h1aGo0fNSKNnE
+	XMLUJJK1ee6VU/eRvv1hsd0szqDgggLiNA/dId1oeTno983eKbHfEg1aNQH7EEc4ad/OuWc2kv5
+	02niCMeJHH55PK2n0GuVAje9kwIhqUa9cC/x28fYcBWprg2iLYwNCfolIH6ia5Ag5OdP4BOlela
+	ZIOuJNUrc7yzD4sFTBoA2x1AhJASwEqaKvuttF2idH7oqc62lRPtnmA1XksCrH4edHYxVuphkHN
+	ILXa60dNTI2q9dQZzQEmDahnqPKecpDgQtWwGiKVqrAlU4Q5F4Yvur0wmwgC2EI8rYanp7Fmb9G
+	qnw9sDSIN78mtXNThuK+M2JhB9u8NAF4ghVJt0ZriTqZmWLe4mkXecaS54JJnhxwQnUKrbNlM4m
+	kHfSIp4tZfWfkfJcyfKZ4pVjXFSz+Zn/HxOlUwHpYW4++2Q+iFK1++hn1tDE/Vts8nGy9qibaRi
+	JCnT9enycmF7Dw6xJdPiTdILGjO7/1SCn16xknDDYtul88g8l91tyVwbJfxmA8ZeYFrP5DviYhX
+	XPZgLIlOldHipaEn6C5GzeBZTSdW3axcHSTj/gbz8MLVvFBidoV0gQ==
+X-Received: by 2002:a05:600c:4e43:b0:4a7:c366:d791 with SMTP id 5b1f17b1804b1-4bb559f24ffmr251632055e9.1.1794867858617;
+        Mon, 16 Nov 2026 14:24:18 -0800 (PST)
+Received: from [192.168.3.100] ([151.61.248.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb784231basm18143055e9.11.2026.11.16.14.24.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 14:24:18 -0800 (PST)
+Message-ID: <71ede0e6-7f8f-4594-ae56-5be10f9159a3@baylibre.com>
+Date: Mon, 16 Nov 2026 23:24:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,107 +92,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116154526.429315-1-koray.fra@gmail.com>
-In-Reply-To: <20261116154526.429315-1-koray.fra@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 17 Nov 2026 07:23:09 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9pfXONEwiVW0H9+FyA=tfHpDrJHfrrsike8oj_67f8bw@mail.gmail.com>
-X-Gm-Features: AclHuK-PzHoRy31HPzGRk-YarstUA5LnLLKyVqt2F2DAGLwsWOUKlEA67cp7JYE
-Message-ID: <CAKYAXd9pfXONEwiVW0H9+FyA=tfHpDrJHfrrsike8oj_67f8bw@mail.gmail.com>
-Subject: Re: [PATCH] cifs: fix times assignments in cifs_posix_to_fattr()
-To: koraynilay <koray.fra@gmail.com>
-Cc: Paulo Alcantara <pc@manguebit.org>, Tom Talpey <tom@talpey.com>, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Bharath SM <bharathsm@microsoft.com>, Aurelien Aptel <aaptel@suse.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/7] ASoC: dt-bindings: add amlogic,gxbb-audin
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
+ <20261018-audin-v5-1-4b8cc13a1b22@baylibre.com>
+ <CAFBinCC+-N8LvoXZwMhoxjOzXgoYUfDKCcvmD7Uuph5=hTSg7g@mail.gmail.com>
+Content-Language: en-US
+From: Valerio Setti <vsetti@baylibre.com>
+In-Reply-To: <CAFBinCC+-N8LvoXZwMhoxjOzXgoYUfDKCcvmD7Uuph5=hTSg7g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 12:45=E2=80=AFAM koraynilay <koray.fra@gmail.com> w=
-rote:
->
-> Currently cifs_posix_to_fattr() wrongly sets SMB's CreationTime to
-> fattr->cf_ctime.
->
-> Fix this by setting fattr->cf_createtime to SMB's CreationTime and
-> fattr->cf_ctime to SMB's ChangeTime, matching the behaviour of
-> __dir_info_to_fattr().
->
-> This patch also fixes a few related issues reported by sashiko on
-> another patch (see Sashiko Link tag).
->
-> Reproducers for these bugs, with /tmp as the local filesystem folder
-> exported as [test] in ksmbd.conf and /mnt as the smb folder mounted with
-> mount -t cifs:
->
->   mount -t cifs //127.0.0.1/test /mnt -o username=3Dciao,password=3Dc,pos=
-ix
->
-> Issue 1: ctime clobbered by CreationTime during readdir
->
->   mkdir -p /mnt/dir
->   touch /mnt/dir/file
->   sleep 4
->   chmod 644 /mnt/dir/file
->   stat -c "ctime and btime before readdir: %Z %W" /mnt/dir/file
->   ls -lc /mnt/dir > /dev/null
->   stat -c "ctime and btime after readdir:  %Z %W" /mnt/dir/file
->   stat -c "ctime and btime on disk:        %Z %W" /tmp/dir/file
->
-> output before the fix, notice how ctime is the same as btime after the
-> readdir, while it's 4 seconds ahead (because of the sleep 4) before the
-> readdir (on disk timestamps are not touched):
->
->   ctime and btime before readdir: 1794842068 1794842064
->   ctime and btime after readdir:  1794842064 1794842064
->
->   ctime and btime on disk:        1794842068 1794842064
->
-> output after the fix:
->
->   ctime and btime before readdir: 1794842908 1794842904
->   ctime and btime after readdir:  1794842908 1794842904
->
->   ctime and btime on disk:        1794842908 1794842904
->
-> Issue 2: btime and ptime wiped out by readdir
->
-> [ no reproducer as it only happens after the linked patch series is
->   applied, since it needs cifs_i->createtime =3D fattr->cf_createtime in
->   cifs_fattr_to_inode() ]
->
-> Issue 3: in-memory inode aliasing (flock bypass on hardlink via readdir)
->
->   mkdir -p /mnt/dir1 /mnt/dir2
->   echo "test" > /mnt/dir1/h1
->   ln /mnt/dir1/h1 /mnt/dir2/h2
->   exec 3< /mnt/dir1/h1
->   flock -x -n 3 # get exclusive lock
->   ls /mnt/dir2 > /dev/null
->   exec 4< /mnt/dir2/h2
->   flock -x -n 4
->   if [ $? -eq 0 ];then
->         echo "acquired: duplicate in-memory inode"
->   else
->         echo "blocked: same inode"
->   fi
->
-> output before the fix:
->
->   acquired: duplicate in-memory inode
->
-> output after the fix:
->
->   blocked: same inode
->
-> Fixes: 3d519bd1269f ("cifs: plumb smb2 POSIX dir enumeration")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20261115180343.576773-1-koray.fra%40=
-gmail.com?part=3D10
-> Link: https://lore.kernel.org/all/20261115180343.576773-11-koray.fra@gmai=
-l.com/
-> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.5.7
-> Signed-off-by: koraynilay <koray.fra@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Thanks.
+Hi Martin
+
+ >> +properties:
+ >> +  compatible:
+ >> +    oneOf:
+ >> +      - const: amlogic,gxbb-audin
+ >> +      - items:
+ >> +          - const: amlogic,gxl-audin
+ >> +          - const: amlogic,gxbb-audin
+ >  From what I can tell it's even amlogic,meson8-audin compatible.
+ > Although I didn't have the time to test in on hardware yet.
+ >
+
+Thanks for catching it!
+Any testing is more than welcome. I don't have that board at home and, 
+based on my quick search, it seems not super easy to find one these days.
+
+ > [...]
+ >> +    audio-controller@a000 {
+ >> +      compatible = "amlogic,gxbb-audin";
+ >> +      reg = <0xa000 0x148>;
+ > I believe the audin registers are 0x300 wide.
+ > Both, GXL datasheet [0] page 43 and GXM datasheet [1] page 48 claim
+ > that the register area is 0x100 wide.
+ > The last documented register with AUDIN_ prefix is AUDIN_FIFO2_PIO_RDH
+ > = 0xb8. The datasheet [0] (page 395) lists register numbers divided by
+ > 4, so to get the actual address in the memory map we need to multiply
+ > it by 4, which gives 0x2e0.
+ > The 32-bit SoC vendor kernel [2] has a header that states: #define
+ > AUDIN_ADDR_END 0x28bf (same as in datasheet, we need to multiply this
+ > by 4).
+
+I know that the register layout in these SoC is a bit messy, so let me 
+explain how I got to the 0x148 that I wrote above.
+
+When working at this driver I used the S095 and S905X manuals that I 
+found online, but based on the link you shared for the S912, I would say 
+it's the same when it comes to AUDIN.
+
+Using [0] as reference, the highest register being mentioned in the 
+AUDIN chapter is AUD_RESAMPLE_STATUS whose offset is 0x304 (i.e. 0xc1 * 
+4). However I noticed that before that there are a lot of registers 
+whose name doesn't start with AUDIN_, but rather with AUDOUT_, PCMOUT_, 
+PCMIN_.
+The first contiguous block of AUDIN_ stops at AUDIN_FIFO_INT which is 
+0x148 (= 0x52 * 4). The other AUDIN_ block you mentioned is between 
+AUDIN_FIFO0_PIO_STS (at 0x2c0) and AUDIN_FIFO2_PIO_RDH (at 0x2e0).
+
+ > I'm bringing this up because dt-bindings are supposed to be complete.
+ > So even if the driver doesn't use a resource yet we're supposed to
+ > still describe it.
+
+I perfectly agree with this, but at the same time I thought that 
+including registers which potentially do not belong to AUDIN was 
+dangerous in the other direction, i.e. we cover a too large area that 
+will be hard to use in the future if/when we want to use it and we 
+realize it's really not part of AUDIN.
+
+ > I don't see any additional resources that we'd need to describe and
+ > #sound-dai-cells allows adding the additional SPDIF input later.
+
+That's exactly why I cut the range at 0x148: that seems to be enough to 
+implement what we need for I2S/SPDIF audio input.
+
+Honestly I don't understand what the second range 0x2c0-0x2e0 stands for 
+as it's not described in the manual. For sake of curiosity I just tried 
+looking into the Hardkernel kernel for Odroid C2 [0] but I didn't find 
+any usage of AUDIN_FIFO0_PIO_xxx registers.
+So my question is: are we sure we really need them?
+
+[0] https://github.com/hardkernel/linux.git - branch 'odroidc2-3.14.y'
+
+ >  From what I saw in the registers there's also the possibility to send
+ > the input signal to AUDIN but I couldn't find any additional resources
+ > we'd need to describe in the dt-bindings for this.
+ >
+ >
+ >
+ > [0] 
+https://dl.khadas.com/products/vim1/datasheet/s905x-datasheet-v0.3.pdf
+ > [1] https://dl.khadas.com/products/vim2/datasheet/s912-datasheet.pdf
+ > [2] 
+https://github.com/endlessm/linux-meson/blob/d6e13c220931110fe676ede6da69fc61a7cb04b6/arch/arm/mach-meson8/include/mach/register.h#L2274
+
+Best regards,
+
+-- 
+Valerio
+
