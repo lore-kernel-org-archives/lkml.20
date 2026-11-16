@@ -1,60 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813486;
-	b=K+Y2nzkP+oEyNCLmdMuIxcAAOyMyJbeVbgAYpwWWWp1B39r1sdG58nVCWAKCe8DvJxeY
-	 o7+lyAWQbE0563Tw7Bk2wWah/0NkfWIRNofSmK6Z2Ym0CLU31qRaKNMct+J7gi54+FwLy
-	 7IEyZ0yvxcBxUsCf8Vi8F/t+jKxvrW980SgBTumFnJMThkMWNLI1eR0eyzpnljqRTKUh7
-	 Wd0pNAKIFe12nJ3wWBfFmVLeSaEtCeB13lpK6nbp7QB2OBLM2XIU46RogLBbmnwryl9nB
-	 Oq3JV8ayU1A/LkwbhI6E44NaVUv1laXtMnQodlQOJ3p5oIaOQBtvs8InYXE+8/LbzmQ==
+	t=1794813551;
+	b=LZsqVeAWfg940VCNCK8dUgBVit0ekTRZYZiaHD96J+muDYgUnkg0P2cuG4/vq/UW1muX
+	 LdVugc6uuLuYztrIQuH96ORUTJS7hlgh7L3ZZVksqCf3Q2QaqZG5texsdM33UqhEONdri
+	 lQUdymDlpNGKNucJ+qrjuD01O7Jr453X8nuBBeNYCAgz1i2WY/kNQrYF9LrGDjoktO5m8
+	 xQpcoI2r4OEwNVyMFFpiUHlsm5+4KxIRXE/cBMPHqYN0VhlxnpVPUHRLhOTPPKlnPU+yP
+	 9xVzKPSi3Vb0PXkup/JZzCt4TL6cvPc2WSU7XA+TSGmc3FbzV6AGp6sby4hn9q2U/tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813486;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=F8Pkbt4XEvXKlyJSoyTKlbPnZOx7OndPwICAM8Djyss=;
-	b=gh6P6XDAFxNkgGHsdrXE7cGPw59jvrXET/PrwC0vu9sttiOTIo5fEXQD5SHMlo6MCTVA
-	 b3FxYSmpNmCyWHcBLZ6knDScZe7a5UdcqqZWWj0/XhYaY3FMUXKCSEipLiQCO0U6tRReL
-	 OkAf2d/+JOYsfHN8eZaliO4fSyui/YFSlBUQnayx8D0hUe+Mid9lXH1xDK3tCSjrS+Apw
-	 4KJ+Irzrcp/FlFB5tAgEh/d0YPfG8Gd1lSHgQ0Xul6ylw7Qk/hBQQGYVeRqk7cn411ETh
-	 KafU7eyaTDnWh4WI3y2dxI1JNRwFdgx4nflEpS1lYOz+x2KLAXvSgZKMqwZeb5D1vwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813551;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=GbNtju+o0uux9IaqmBzvyORtPq+a0YBPTD717MEyDSo=;
+	b=ZdepIKL0XXkiySl68zlN+Uxq32qK6O/5hqZhVeVRBZZZUjbwpLzDJ/UL2d8IuShk9bqX
+	 68GLcpJa9dEZwiZHo61qK+qQBw0GK2PsDPM2Aa96oUid/5ou6KmDwbw+Gy2k+8GS7yxck
+	 HdiDtVgf2Ighg3AncPXOWbefNnqDMVV52SAa3xmF28/6YrvVVhZsJmIu1mfJxcylVc5FX
+	 sRjUZpN7EfRXfPnUM6vuh97o823pen/XceFSbpn+8EVr8wRgBRXICaKzvKEBBmZetVjYK
+	 PTDt33b3OgHR/jhsk82kyIyvOOiI2WMTBkfGouvs+Hi98hwMPKVLAk/1MhWu00d2ylg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=vix4Wmkq;
-	arc=none smtp.remote-ip=79.135.106.105
-Received: from mail-106105.protonmail.ch (mail-106105.protonmail.ch [79.135.106.105])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1LH7sFGt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=11YCh5eK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1LH7sFGt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=11YCh5eK;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7638606A31C;
-	Mon, 16 Nov 2026 07:18:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7638606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2937606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:19:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2937606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=vix4Wmkq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794813483; x=1795072683;
-	bh=F8Pkbt4XEvXKlyJSoyTKlbPnZOx7OndPwICAM8Djyss=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=vix4Wmkqr20aVOK0QnOf3Omx1MDHiJ3M+1dDxCuDFDQACm8URME+cQUP6gsvn8DUx
-	 ytlWFvxGZcYX1C5Zz+w+dbTDTefO0vv6JKTCl25EQhNTrTq7u1mKiQ6f43uQq3aqQd
-	 8LJtMNrDpoWdSdXFIUT5bpORh6Fd5+M63eRsUwImp5aPGvJVaqhUuM/lWgFIwdaG4i
-	 yy0+wDK9eoeG8gSlFvfl6reowGW9e1JHkv3dLlrJoYzCiHuDgwd66TTNxABf2iLsAs
-	 vMUp95O3pL//+dSXWDX4JEAC/+/f+oiXicr5d16iHevCi+S7j08Q3JFfnGcVMBgwhy
-	 dPHcl86wM9hHg==
-Date: Mon, 16 Nov 2026 07:17:58 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH v2 5/5] ALSA: usx2y: us144mkii: do not restart the stream while stop_work runs
-Message-ID: <20261116071707.217448-6-alex@becholey.ch>
-In-Reply-To: <20261116071707.217448-1-alex@becholey.ch>
-References: <20261116071707.217448-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: fa14e9dd2c1782d7826e54d4c20a93d57a4be542
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1LH7sFGt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=11YCh5eK;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1LH7sFGt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=11YCh5eK
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 92EFC1FCE7;
+	Mon, 16 Nov 2026 07:19:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794813548; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GbNtju+o0uux9IaqmBzvyORtPq+a0YBPTD717MEyDSo=;
+	b=1LH7sFGtdX5QsPMffQF9fIbnVXEN7IBeSIsCpLHDj5BDXTDQS8oOWENK9kzod3yP4ZZtUb
+	Kl1ULGDR00usiPz8o8Bjfo+aNBgEiOiBMGmcl93KvJp51jsDs0hGrZ2uUyWVy5ELYvEPVN
+	fD9msYx/jfKzzzFwPg+yG6+uU1FjmlI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794813548;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GbNtju+o0uux9IaqmBzvyORtPq+a0YBPTD717MEyDSo=;
+	b=11YCh5eKBBaiXxiHApuCLJsOjAyVBqIg+eBEjgXzPO3Dfx2tzyW2oTAXHcnSjukMDS0qPm
+	HG8kEiB0MJydB1Ag==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1LH7sFGt;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=11YCh5eK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794813548; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GbNtju+o0uux9IaqmBzvyORtPq+a0YBPTD717MEyDSo=;
+	b=1LH7sFGtdX5QsPMffQF9fIbnVXEN7IBeSIsCpLHDj5BDXTDQS8oOWENK9kzod3yP4ZZtUb
+	Kl1ULGDR00usiPz8o8Bjfo+aNBgEiOiBMGmcl93KvJp51jsDs0hGrZ2uUyWVy5ELYvEPVN
+	fD9msYx/jfKzzzFwPg+yG6+uU1FjmlI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794813548;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GbNtju+o0uux9IaqmBzvyORtPq+a0YBPTD717MEyDSo=;
+	b=11YCh5eKBBaiXxiHApuCLJsOjAyVBqIg+eBEjgXzPO3Dfx2tzyW2oTAXHcnSjukMDS0qPm
+	HG8kEiB0MJydB1Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1BFBE13408;
+	Mon, 16 Nov 2026 07:19:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DkOiOGuu+mrdHgAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:19:08 +0000
+Message-ID: <c543f2ab-266d-40c7-8443-2292331276ea@suse.de>
+Date: Mon, 16 Nov 2026 08:19:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,340 +108,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 11/17] nvme-rdma: Use CCR to recover controller that
+ hits an error
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
+ Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-12-mkhalfella@purestorage.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261114030454.2836543-12-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,purestorage.com:email];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[purestorage.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 92EFC1FCE7
 
-tascam_pcm_trigger(STOP) clears the stream flags and schedules
-stop_work, which kills the URBs and then sets active_urbs to 0.
-START only checks active_urbs > 0 before it anchors and submits the
-URBs again, and that check does not hold:
+On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
+> A LIVE controller that hits an error now moves to FENCING instead of
+> RESETTING. ctrl->fencing_work attempts CCR to terminate inflight IOs.
+> Regardless of the success or failure of the CCR operation, the
+> controller then moves to RESETTING to continue error recovery.
+> 
+> A request that times out while the controller is FENCING is not
+> completed. Its timer is rearmed, since inflight requests must not be
+> retried before the fence is over. nvme_rdma_stop_ctrl() flushes
+> fencing_work, so deleting a controller that is fencing waits for the
+> fence to finish.
+> 
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> ---
+>   drivers/nvme/host/rdma.c | 39 ++++++++++++++++++++++++++++++++++-----
+>   1 file changed, 34 insertions(+), 5 deletions(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
- - START sets playback_active before the check, so when it fails with
-   -EAGAIN the PCM core undoes it with trigger(STOP), which schedules
-   stop_work again. If the work is running, it runs once more as soon
-   as it has finished, i.e. exactly when the next START passes the
-   check. That stale run kills the feedback URBs START has just
-   submitted, misses the playback URBs submitted behind it, and resets
-   active_urbs to 0 while they are in flight.
- - The START error path decrements active_urbs for the URB that failed
-   to submit, which was never counted.
- - A STOP of the other substream can schedule stop_work while START is
-   still submitting, as the submission is done without tascam->lock.
+Cheers,
 
-The next STOP and START then anchor and submit playback URBs that are
-still anchored and owned by the host controller, which corrupts the
-anchor list. Retrying START after a STOP from user space, which the
--EAGAIN invites, triggers it within seconds. On torvalds/master
-7e1392a42ea2:
-
-  URB 00000000d35257ae submitted while active
-  WARNING: drivers/usb/core/urb.c:387 at usb_submit_urb+0x1318/0x1630, CPU#=
-0: repro/77
-
-and in another run, without the WARNING first, a "list_add double add"
-from usb_anchor_urb() in tascam_pcm_trigger():
-
-  kernel BUG at lib/list_debug.c:35!
-  Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-
-Track a queued or running stop_work in a new stop_pending flag, set
-with the STOP under tascam->lock and cleared by the work under the lock
-after the URBs are dead, and refuse START with -EAGAIN while it is set,
-without touching the stream flags. Submit the URBs with the lock held,
-so that a STOP cannot come in between, and on a failed submission stop
-through the same path instead of miscounting active_urbs. Flush
-stop_work instead of cancelling it on suspend, so stop_pending cannot
-be left set.
-
-The bug was found, and the reproducer and this fix were written, by AI
-agents (Claude Mythos and Claude Opus models). The analysis and the
-patch were reviewed by a human.
-
-Fixes: a2a2210f2c2e ("ALSA: usb-audio: us144mkii: Implement audio playback =
-and feedback")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
----
-Changes in v2:
-- rebased on the changes to 3/5 and 4/5, no change.
-
-Notes for reviewers (not part of the commit message):
-
-Trigger: an emulated US-144MKII on an emulated xHCI controller, QEMU
-arm64, KASAN; the device only streams normally. A local program with
-access to the PCM device stops (DROP) a running playback substream and
-retries START in a loop while the driver answers -EAGAIN ("Cannot
-start, URBs still active"), then does one more DROP/PREPARE/START. A
-device can supply the STOP itself with bad feedback packets (the
-stop_pcm_work path of patch 1/5); that variant was seen in our tests
-of 1/5 over USB/IP but not reproduced on its own. The reproducer is
-available to maintainers on request.
-
-Decoded, torvalds/master 7e1392a42ea2:
-
-  WARNING: drivers/usb/core/urb.c:387 at usb_submit_urb+0x1318/0x1630, CPU#=
-0: repro/77
-  Call trace:
-   usb_submit_urb (drivers/usb/core/urb.c:387 (discriminator 12)) (P)
-   tascam_pcm_trigger (sound/usb/usx2y/us144mkii_pcm.c:320 (discriminator 1=
-))
-   snd_pcm_do_start (sound/core/pcm_native.c:1530 sound/core/pcm_native.c:1=
-523)
-   snd_pcm_action_single (sound/core/pcm_native.c:1384)
-   snd_pcm_action (sound/core/pcm_native.c:1467)
-   snd_pcm_common_ioctl (sound/core/pcm_native.c:1480 sound/core/pcm_native=
-.c:1584 sound/core/pcm_native.c:3526)
-   snd_pcm_ioctl (sound/core/pcm_native.c:3591)
-
-The list_add case is usb_anchor_urb() (drivers/usb/core/urb.c:132)
-from tascam_pcm_trigger() (us144mkii_pcm.c:318). On v7.3.1 the same
-program shows the WARNING at urb.c:379, and runs that continue past it
-end in "list_del corruption" in __usb_unanchor_urb().
-
-Testing of v2 (whole series, KASAN, panic_on_warn): no report in 12
-runs (two programs; v7.3.1 6, 97d73c825122 6), 516 to 1002 STOP/START
-cycles per run.
-
-Testing of v1, KASAN, panic_on_warn: without the patch the program hit the
-WARNING or the list corruption in every run (v7.3.1 1/1 in this test;
-16/16 in the verification on v7.3.1, 7e1392a42ea2 and v7.3.1 with
-patches 1/5..3/5). With the whole series applied: no report in 18
-runs (v7.3.1 14, 97d73c825122 4), 593 to 1114 STOP/START cycles per
-run, with the new stop_pending check refusing a START in about a
-third of the cycles of the main program. A control run that waits
-200 ms after each DROP streams normally: 187 of 187 STARTs succeed.
-
-Not changed here (pre-existing): the .open callbacks clear the
-*_active flags without stopping anything, and PAUSE_RELEASE is not
-handled although SNDRV_PCM_INFO_PAUSE is advertised; source reading
-only, not tested.
-
-Thanks,
-Alexandre Becholey
-
- sound/usb/usx2y/us144mkii.c     |   5 +-
- sound/usb/usx2y/us144mkii.h     |   2 +
- sound/usb/usx2y/us144mkii_pcm.c | 148 ++++++++++++++++----------------
- 3 files changed, 78 insertions(+), 77 deletions(-)
-
-diff --git a/sound/usb/usx2y/us144mkii.c b/sound/usb/usx2y/us144mkii.c
-index 58ef23146f20..8270e09281cb 100644
---- a/sound/usb/usx2y/us144mkii.c
-+++ b/sound/usb/usx2y/us144mkii.c
-@@ -266,7 +266,10 @@ void tascam_stop_work_handler(struct work_struct *work=
-)
- =09usb_kill_anchored_urbs(&tascam->playback_anchor);
- =09usb_kill_anchored_urbs(&tascam->feedback_anchor);
- =09usb_kill_anchored_urbs(&tascam->capture_anchor);
-+
-+=09guard(spinlock_irqsave)(&tascam->lock);
- =09atomic_set(&tascam->active_urbs, 0);
-+=09tascam->stop_pending =3D false;
- }
-=20
- /*
-@@ -311,7 +314,7 @@ static int tascam_suspend(struct usb_interface *intf, p=
-m_message_t message)
-=20
- =09snd_pcm_suspend_all(tascam->pcm);
-=20
--=09cancel_work_sync(&tascam->stop_work);
-+=09flush_work(&tascam->stop_work);
- =09cancel_work_sync(&tascam->capture_work);
- =09cancel_work_sync(&tascam->midi_in_work);
- =09cancel_work_sync(&tascam->midi_out_work);
-diff --git a/sound/usb/usx2y/us144mkii.h b/sound/usb/usx2y/us144mkii.h
-index 7a482c65194e..4c3f2ca05002 100644
---- a/sound/usb/usx2y/us144mkii.h
-+++ b/sound/usb/usx2y/us144mkii.h
-@@ -174,6 +174,7 @@ struct us144mkii_frame_pattern_observer {
-  *
-  * @lock: Main spinlock for protecting shared driver state.
-  * @active_urbs: Atomic counter for active URBs.
-+ * @stop_pending: stop_work is queued or running; protected by @lock.
-  * @current_rate: Currently configured sample rate of the device.
-  * @line_out_source: Source for Line Outputs (0: Playback 1-2, 1: Playback=
- 3-4).
-  * @digital_out_source: Source for Digital Outputs (0: Playback 1-2, 1: Pl=
-ayback
-@@ -232,6 +233,7 @@ struct tascam_card {
- =09atomic_t playback_active;
- =09atomic_t capture_active;
- =09atomic_t active_urbs;
-+=09bool stop_pending;
- =09int current_rate;
-=20
- =09/* --- Playback State --- */
-diff --git a/sound/usb/usx2y/us144mkii_pcm.c b/sound/usb/usx2y/us144mkii_pc=
-m.c
-index 7be6710e7fe3..b11135941a56 100644
---- a/sound/usb/usx2y/us144mkii_pcm.c
-+++ b/sound/usb/usx2y/us144mkii_pcm.c
-@@ -276,93 +276,89 @@ int tascam_pcm_trigger(struct snd_pcm_substream *subs=
-tream, int cmd)
- =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
- =09int err =3D 0;
- =09int i;
--=09bool do_start =3D false;
--=09bool do_stop =3D false;
--
--=09scoped_guard(spinlock_irqsave, &tascam->lock) {
--=09=09switch (cmd) {
--=09=09case SNDRV_PCM_TRIGGER_START:
--=09=09case SNDRV_PCM_TRIGGER_RESUME:
--=09=09=09if (!atomic_read(&tascam->playback_active)) {
--=09=09=09=09atomic_set(&tascam->playback_active, 1);
--=09=09=09=09atomic_set(&tascam->capture_active, 1);
--=09=09=09=09do_start =3D true;
--=09=09=09}
--=09=09=09break;
--=09=09case SNDRV_PCM_TRIGGER_STOP:
--=09=09case SNDRV_PCM_TRIGGER_SUSPEND:
--=09=09case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--=09=09=09if (atomic_read(&tascam->playback_active)) {
--=09=09=09=09atomic_set(&tascam->playback_active, 0);
--=09=09=09=09atomic_set(&tascam->capture_active, 0);
--=09=09=09=09do_stop =3D true;
--=09=09=09}
--=09=09=09break;
--=09=09default:
--=09=09=09err =3D -EINVAL;
--=09=09=09break;
--=09=09}
--=09}
-=20
--=09if (do_start) {
--=09=09if (atomic_read(&tascam->active_urbs) > 0) {
-+=09/*
-+=09 * Hold the lock while submitting, so that a STOP of the other
-+=09 * substream cannot schedule stop_work in the middle of a START.
-+=09 */
-+=09guard(spinlock_irqsave)(&tascam->lock);
-+
-+=09switch (cmd) {
-+=09case SNDRV_PCM_TRIGGER_START:
-+=09case SNDRV_PCM_TRIGGER_RESUME:
-+=09=09if (atomic_read(&tascam->playback_active))
-+=09=09=09return 0;
-+=09=09/*
-+=09=09 * stop_work kills the URBs of the previous run asynchronously;
-+=09=09 * they must not be anchored and submitted again before it is
-+=09=09 * done.
-+=09=09 */
-+=09=09if (tascam->stop_pending ||
-+=09=09    atomic_read(&tascam->active_urbs) > 0) {
- =09=09=09dev_warn(tascam->card->dev,
- =09=09=09=09 "Cannot start, URBs still active.\n");
- =09=09=09return -EAGAIN;
- =09=09}
-+=09=09atomic_set(&tascam->playback_active, 1);
-+=09=09atomic_set(&tascam->capture_active, 1);
-+=09=09break;
-+=09case SNDRV_PCM_TRIGGER_STOP:
-+=09case SNDRV_PCM_TRIGGER_SUSPEND:
-+=09case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+=09=09if (!atomic_read(&tascam->playback_active))
-+=09=09=09return 0;
-+=09=09goto stop;
-+=09default:
-+=09=09return -EINVAL;
-+=09}
-=20
--=09=09for (i =3D 0; i < NUM_FEEDBACK_URBS; i++) {
--=09=09=09usb_get_urb(tascam->feedback_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->feedback_urbs[i],
--=09=09=09=09=09       &tascam->feedback_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->feedback_urbs[i],
--=09=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->feedback_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->feedback_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09for (i =3D 0; i < NUM_FEEDBACK_URBS; i++) {
-+=09=09usb_get_urb(tascam->feedback_urbs[i]);
-+=09=09usb_anchor_urb(tascam->feedback_urbs[i],
-+=09=09=09       &tascam->feedback_anchor);
-+=09=09err =3D usb_submit_urb(tascam->feedback_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->feedback_urbs[i]);
-+=09=09=09usb_put_urb(tascam->feedback_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--=09=09for (i =3D 0; i < NUM_PLAYBACK_URBS; i++) {
--=09=09=09usb_get_urb(tascam->playback_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->playback_urbs[i],
--=09=09=09=09=09       &tascam->playback_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->playback_urbs[i],
--=09=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->playback_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->playback_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09=09atomic_inc(&tascam->active_urbs);
-+=09}
-+=09for (i =3D 0; i < NUM_PLAYBACK_URBS; i++) {
-+=09=09usb_get_urb(tascam->playback_urbs[i]);
-+=09=09usb_anchor_urb(tascam->playback_urbs[i],
-+=09=09=09       &tascam->playback_anchor);
-+=09=09err =3D usb_submit_urb(tascam->playback_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->playback_urbs[i]);
-+=09=09=09usb_put_urb(tascam->playback_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--=09=09for (i =3D 0; i < NUM_CAPTURE_URBS; i++) {
--=09=09=09usb_get_urb(tascam->capture_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->capture_urbs[i],
--=09=09=09=09       &tascam->capture_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->capture_urbs[i],
--=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->capture_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->capture_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09=09atomic_inc(&tascam->active_urbs);
-+=09}
-+=09for (i =3D 0; i < NUM_CAPTURE_URBS; i++) {
-+=09=09usb_get_urb(tascam->capture_urbs[i]);
-+=09=09usb_anchor_urb(tascam->capture_urbs[i],
-+=09=09=09       &tascam->capture_anchor);
-+=09=09err =3D usb_submit_urb(tascam->capture_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->capture_urbs[i]);
-+=09=09=09usb_put_urb(tascam->capture_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--
--=09=09return 0;
--start_rollback:
--=09=09dev_err(tascam->card->dev,
--=09=09=09"Failed to submit URBs to start stream: %d\n", err);
--=09=09do_stop =3D true;
-+=09=09atomic_inc(&tascam->active_urbs);
- =09}
-=20
--=09if (do_stop)
--=09=09schedule_work(&tascam->stop_work);
-+=09return 0;
-+
-+start_rollback:
-+=09dev_err(tascam->card->dev,
-+=09=09"Failed to submit URBs to start stream: %d\n", err);
-+stop:
-+=09atomic_set(&tascam->playback_active, 0);
-+=09atomic_set(&tascam->capture_active, 0);
-+=09tascam->stop_pending =3D true;
-+=09schedule_work(&tascam->stop_work);
-=20
- =09return err;
- }
-
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
