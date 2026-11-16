@@ -1,65 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839158;
-	b=XaGRnoFVKC8UYxmZHGhhzVevwPymNcnaPRh8xkgDQaNmDEW2db8U4e8hVMWQvn9CeogA
-	 wnKhNRr/afc834zzJbFRJBNxXfp8tYakMElVDfbDsj2ggsFrRen/5KLyzevXIy5ZyhdQP
-	 nNCPAUN4ik97vyplKFmXoJ9TTM1FKOTqjf3uojZ0lQ9ESOJtLG1N/TN4nIjWpXDwNHd6C
-	 P1z1vwcuj4thqfaKQmNiuFQzv3AYnd+u2X6AXCyX7N0zWjLdC5jNRiu2SYz1Pq6AwDjt/
-	 Yc9UqGE08SUVW9g1j+uDYWCOyzyMy1lINVmGYeQCMb0OsGTpQ7+N+cWNfzeqAsmfWiw==
+	t=1794839163;
+	b=o98cVJgnwgGakz4V7iPmMWvTv6UfG6hLqRIp6l0tIt1RjXJYwhVL+ViAnfrvzsIbyqNb
+	 szOPJPUS2uV8ayX8Tkh1U1z1Ipk4Ut2ydLVSq49hGvNP+v78Sk5DDT8743VK//8TiQBEQ
+	 UO8T7UCcNYG53PvTXeBBiNlQddkWZVul49f0TVHOHCMdsO+Qhk25/Oz9E7kgLlxwDmYGC
+	 096YH8/CgVKSRc50OmIVoTvZAieTK9h3dvnufPXryQODKTZoCgjUwoT+7ZX5EWwft/CgV
+	 +Y+FuyNHOydNe6DhVwgGm9UPCuUchwagBRTxVTb0saJgZarVQ0kjVkTs9US3cLLwbsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839158;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3tsuMG36yW2/wCTC0oKqM0f6Cdxqx1im/se83C0BA1A=;
-	b=rMo6ILqGiC4QhafnpMhPFw25yCVzzm4n441iazMoKk8TzER4VJqBZqj5Yg1vUaMrxByb
-	 a6xtsF1bT2W+leIou7fSvTq2SYlV2/SBlVpTYuKjyl+/C3xCMiVE+vX9AxX04rQdK4NJ3
-	 5V4mJH6CDRymy/ZC3UvyXQ/KcY94bam4EZsRyw/asEsZ0duWU+PfE3To979TlWI06qu4L
-	 uc04RLfdupfX+NNVAVeNr0HQCyXnVIra7bKS5dbCuTru0aoQWemJBG18n252VxeyqG5Jv
-	 qJI9VVIuzQ9PIpF7OaDt4gBR/S/IgzSkjIg13NCeR+P6TqzPhtbvLl2BjnW3kgKo1Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839163;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jrOuKOLefBDbQrIDmzKsRBbnEiDduXnoZh5j36Brwn8=;
+	b=uOx3DoJ6BxQyXJiUkh9OekNCG0DT55Kh5x8V6il2tizYxOT1wJI4CPsi2g0TshZ9hXzP
+	 bHES3j89VXNw7ln3cbp/RYz5X1HrepBp1XB2B52MFHXheNZhDG4pV6IqEcnr7LPnwKagN
+	 BTaifpb7tjHloaJXVzv/NtmOJd1lTuQAXBvkNNKH82fwHfRDfjCm/51Z83dMNSH46lDnt
+	 6j7xW5s3ji3kCM3y4Z2uHVW2tu2yxcVTfNiuAo7giC85vjtdACjr4Jr4zhTWGD2/23oVm
+	 LhisLT7k92Lh134Hj87VCclypaScDSBezIt2uts4i1P7oQE5unZaUHAp7nW8gw2POxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=H7aHhzDm;
-	arc=none smtp.remote-ip=95.215.58.31
-Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=PcfieQM2;
+	arc=none smtp.remote-ip=109.224.244.121
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE9B606A335
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:25:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EE9B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0755A606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0755A606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=H7aHhzDm
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/GTg9hL5xuUl9myEXN9GO4riPpvpZqScq4U+gn+DN4w=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794839155; v=1; x=1795443955;
- b=H7aHhzDmNuOVbrR2uVic9KsMcERt/ih2Cx4FkJPaLyaUVTsSxiKfM+jb7bUyCJfEJUP4SUhj
- Uh5Utmc2dMUQOXnm1rpI0s06K3T5CADKRgAQRdhFvgHvjNhzCmXnmEn09IXAOjrLB/Ne7D6BJwT
- rkMYssG9Hi13ChX/HTEM7KGKIiziAPyHZAJaM5tEhmAw9hqNwDLWg9FQ6Z7NQq9tXflndT1WGe9
- lWptL9r7rEPR50QwUJ0Afvy6mFnlYCgD3OTmReLeuoud8pAGFpUDm6t8s2CYfOBOQPhSlMXocFe
- JH2QHfUgdm3rZVWelcrcgjRBOu3bTQrEF4cfzk54ZbG0Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f3254909706c970a;
-	Mon, 16 Nov 2026 14:25:55 +0000
-X-Mizu-Trace-ID: f3254909706c970a
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 22:25:46 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] docs/zh_CN: update maintainer/configure-git.rst
-Message-ID: <avsSapW0-wS_gEsz@wyuan.org>
-References: <20261109-configure-git-v3-0-d7807bb8e8c7@wyuan.org>
- <476202a2-26a7-4b6b-a7d5-ba8e586371bb@hust.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=PcfieQM2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1794839161; x=1795098361;
+	bh=jrOuKOLefBDbQrIDmzKsRBbnEiDduXnoZh5j36Brwn8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=PcfieQM2a2ox1vJm8UFb2VFkpKoO/bSNiMm2xOKVCvUJOk12mfGUVupxTV3+GSxxG
+	 bGPI1FOrDGkqm6cH8athGzYaqCcBbCqAW5T6xUzaYP1nEPZUX7vGqzkAT+oIPGbavv
+	 ttjBQjcKPQG8LmSKeHpjmt7lkwEVxpsA0PRBwooCDeJCnz0VDUrR+49tsbyKPX4Npf
+	 piJQLwdAEZrf5f4eqU+ecQPPGTms5WMTfz7dZ+fxMoKQOFp5xSPAZ+L6YF8ol0gQok
+	 ZUS/iBv7JDB76XCjYmnmAKpil9aESbRwoOXUY+TM/Bold42yO2zfWEQ0tGbNKhrqqg
+	 m/UNjkHlLMN4A==
+Date: Mon, 16 Nov 2026 14:25:56 +0000
+To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
+From: Devin Christensen <dchristensen8@proton.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, rafael@gexdigital.net
+Subject: [PATCH 1/2] ALSA: hda/ca0132: Fix AE-5 LED strip color corruption during animation
+Message-ID: <20261116142542.4178770-2-dchristensen8@proton.me>
+In-Reply-To: <20261116142542.4178770-1-dchristensen8@proton.me>
+References: <20261116140237.4137662-1-dchristensen8@proton.me> <87qzgkyi5l.wl-tiwai@suse.de> <20261116142542.4178770-1-dchristensen8@proton.me>
+Feedback-ID: 45895322:user:proton
+X-Pm-Message-ID: df78f766fba91100cc1f6188520b64dfa2f5317d
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,77 +64,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <476202a2-26a7-4b6b-a7d5-ba8e586371bb@hust.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 10:20:46PM +0800, Dongliang Mu wrote:
-> 
-> On 11/9/26 5:28 PM, Weijie Yuan wrote:
-> > Update the translation of two files:
-> > 
-> > 1) maintainer/configure-git.rst
-> > 2) maintainer/pull-requests.rst
-> > 
-> > I only update the first one in v1. However, I find a reference of
-> > pull-requests.rst in configure-git.rst is in English, while we've had a
-> > Chinese one. So, update both this time.
-> > 
-> > Note that there're warm tips from checkpatch,
-> > 
-> > checkpatch.pl: :6: WARNING: 'Link:' should be followed by a public http(s) link
-> > checkpatch.pl: Documentation/translations/zh_CN/maintainer/pull-requests.rst:118: WARNING: Do not use whitespace before Signed-off-by:
-> > 
-> > .. which are caused by a 'Link:' in the commit message and a sample Sob
-> > trailer.
-> > 
-> > ---
-> > Changes in v3:
-> > - Put "update to commit section" at the end of commit message in both.
-> > - Rebase to d48723711bae (Merge tag 'arm64-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux, 2026-11-06)
-> >    Alex's docs-next HEAD now.
-> > - Link to v2: https://patch.msgid.link/20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org
-> > 
-> > Changes in v2:
-> > - Remove the SPDX identifier, see details and reasons in the thread of v1.
-> > - Add a new translation.
-> > - Link to v1: https://patch.msgid.link/20260823-configure-git-v1-1-3c65eefcc585@wyuan.org
-> > 
-> > To: Alex Shi <alexs@kernel.org>
-> > To: Yanteng Si <si.yanteng@linux.dev>
-> > To: Dongliang Mu <dzm91@hust.edu.cn>
-> > To: Jonathan Corbet <corbet@lwn.net>
-> > To: Shuah Khan <skhan@linuxfoundation.org>
-> > To: Randy Dunlap <rdunlap@infradead.org>
-> > Cc: linux-doc@vger.kernel.org
-> > Cc: linux-kernel@vger.kernel.org
-> > 
-> > ---
-> > Weijie Yuan (2):
-> >        docs/zh_CN: sync maintainer/configure-git with upstream
-> >        docs/zh_CN: improve maintainer/pull-requests translation
-> > 
-> >   .../zh_CN/maintainer/configure-git.rst             |  48 ++------
-> >   .../zh_CN/maintainer/pull-requests.rst             | 127 +++++++++++----------
-> >   2 files changed, 77 insertions(+), 98 deletions(-)
-> > 
-> > Range-diff versus v2:
-> 
-> You need to tell your agent to forget about the range-diff.
+In ae5_strip_send_frame(), formatting repeating frame cycles across the
+32 KB DMA buffer combined with stopping the HDA stream after an arbitrary
+15-20 ms delay causes transmissions to be cut off mid-frame / mid-byte.
 
-Sorry, I realized immediately that I forgot to change my template for b4
-cover letter after sending out this. Now deleted.
+WS2812 shift registers latch on signal low (>50 us), so terminating
+mid-byte leaves partial bits in the registers, shifting color channel
+alignments (e.g. blue/white shifting to green/purple/red) on subsequent
+frames.
 
---- a/.b4-cover-template
-+++ b/.b4-cover-template
-@@ -4,8 +4,6 @@ ${cover}
- ${shortlog}
- 
- ${diffstat}
+Fix this by populating exactly one WS2812 frame followed by the reset gap
+and zero-filling the remainder of the 32 KB buffer. Reduce usleep_range
+to 8-10 ms, which guarantees the frame has completed and the stream
+terminates cleanly during trailing silence without truncating active LED
+data.
+
+Fixes: c3e35f355fad ("ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RG=
+B LED strip support")
+Signed-off-by: Devin Christensen <dchristensen8@proton.me>
+---
+ sound/hda/codecs/ca0132.c | 54 +++++++++++++++------------------------
+ 1 file changed, 20 insertions(+), 34 deletions(-)
+
+diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
+index b3e768be8..b127fe50f 100644
+--- a/sound/hda/codecs/ca0132.c
++++ b/sound/hda/codecs/ca0132.c
+@@ -8421,8 +8421,6 @@ static int ae5_strip_send_frame(struct hda_codec *cod=
+ec, const u32 *grb_colors,
+ =09=09u32 ser_base[4], ser_clk[4], ser_out[4];
+ =09} saved;
+ =09__le32 *dst;
+-=09int word_idx =3D 0;
+-=09int frame_words;
+ =09int led, w, i;
+ =09int retries =3D 20; /* ~100ms max */
+=20
+@@ -8470,38 +8468,25 @@ static int ae5_strip_send_frame(struct hda_codec *c=
+odec, const u32 *grb_colors,
+ =09=09usleep_range(5000, 10000);
+ =09}
+=20
+-=09/* 1. Populate the 32KB DMA buffer with repeating WS2812 frames + reset=
+ gaps */
++=09/* 1. Populate the 32KB DMA buffer: 1 WS2812 frame + reset gap, rest ze=
+ro */
+ =09memset(dmab.area, 0, AE5_STRIP_DMA_SIZE);
+ =09dst =3D (__le32 *)dmab.area;
+=20
+-=09/* Words per frame: preamble + (num_leds * words_per_led) + reset gap *=
+/
+-=09frame_words =3D AE5_STRIP_PREAMBLE_WORDS + (num_leds * AE5_STRIP_WORDS_=
+PER_LED) +
+-=09=09      AE5_STRIP_RESET_GAP_WORDS;
 -
--${range_diff}
- ---
- base-commit: ${base_commit}
- change-id: ${change_id}
+-=09while (word_idx + frame_words <=3D AE5_STRIP_TOTAL_WORDS) {
+-=09=09/* Preamble per Windows CtxHda FUN_00042944 */
+-=09=09for (w =3D 0; w < AE5_STRIP_PREAMBLE_WORDS; w++) {
+-=09=09=09*dst++ =3D 0;
+-=09=09=09word_idx++;
+-=09=09}
+-=09=09/* LEDs */
+-=09=09for (led =3D 0; led < num_leds; led++) {
+-=09=09=09ae5_strip_encode_24(grb_colors[led], enc_words);
+-=09=09=09for (w =3D 0; w < AE5_STRIP_WORDS_PER_LED; w++) {
+-=09=09=09=09*dst++ =3D cpu_to_le32(enc_words[w]);
+-=09=09=09=09word_idx++;
+-=09=09=09}
+-=09=09}
+-=09=09/* Zero reset gap (> 1.8 ms; WS2812 requires > 50 us low) */
+-=09=09for (w =3D 0; w < AE5_STRIP_RESET_GAP_WORDS; w++) {
+-=09=09=09*dst++ =3D 0;
+-=09=09=09word_idx++;
+-=09=09}
+-=09}
+-=09while (word_idx < AE5_STRIP_TOTAL_WORDS) {
++=09/* Preamble per Windows CtxHda FUN_00042944 */
++=09for (w =3D 0; w < AE5_STRIP_PREAMBLE_WORDS; w++)
+ =09=09*dst++ =3D 0;
+-=09=09word_idx++;
++
++=09/* LEDs */
++=09for (led =3D 0; led < num_leds; led++) {
++=09=09ae5_strip_encode_24(grb_colors[led], enc_words);
++=09=09for (w =3D 0; w < AE5_STRIP_WORDS_PER_LED; w++)
++=09=09=09*dst++ =3D cpu_to_le32(enc_words[w]);
+ =09}
++
++=09/* Zero reset gap (> 1.8 ms; WS2812 requires > 50 us low) */
++=09for (w =3D 0; w < AE5_STRIP_RESET_GAP_WORDS; w++)
++=09=09*dst++ =3D 0;
++
+ =09/* Ensure DMA buffer writes are committed before triggering the HDA str=
+eam */
+ =09wmb();
+=20
+@@ -8572,12 +8557,13 @@ static int ae5_strip_send_frame(struct hda_codec *c=
+odec, const u32 *grb_colors,
+ =09/* 3. Trigger stream transmission on HDA link */
+ =09snd_hdac_dsp_trigger(hstr, true);
+ =09/*
+-=09 * WS2812 latches on the >50us reset gap after one frame. The 32KB buff=
+er holds ~64
+-=09 * repeating frame+reset cycles; at ~1.4ms/frame a 15ms run transmits ~=
+10 complete
+-=09 * cycles - more than enough to latch reliably. Keep it short so rapid =
+sysfs writes
+-=09 * (OpenRGB effects/theme changes) are not serialized behind a 1s block=
+ing sleep.
++=09 * WS2812 latches on the >50us reset gap after the frame. At 44.1kHz st=
+ereo
++=09 * (88.2k words/s), a 100-LED frame + reset gap is 488 words (~5.5ms); =
+a 10-LED
++=09 * strip is 128 words (~1.5ms). Sleeping 8-10ms guarantees the entire f=
+rame and
++=09 * latch reset have completed. The remainder of the 32KB buffer is zero=
+-filled,
++=09 * so stopping the stream during the trailing zeros never truncates an =
+active LED.
+ =09 */
+-=09usleep_range(15000, 20000);
++=09usleep_range(8000, 10000);
+ =09snd_hdac_dsp_trigger(hstr, false);
+ =09codec_dbg(codec, "AE5 strip: trigger complete\n");
+=20
+--=20
+2.56.0
 
-Thanks.
+
