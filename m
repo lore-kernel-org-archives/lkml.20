@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814254;
-	b=XfcU3Zv1BEsyovwsjqxcnJk336tQzY0j8dAYVLvHbAkOtzY6QKmxE66wG1Q73cdECf1o
-	 2J8qH2xJKwPz1cl0ThxmR9j2WZxsmZdtRMNo17KnjgEatmfIoMNAWVDlKeg2MnkwqOJ2/
-	 8+gU0Z8xWCUNRZYGVgSIT5Uuica3IuhJnWGxtjSVR5hB7oIQmvUMJ8YUKdv7Jf5Iq2BJO
-	 iWeO5f/2/RoyDubGhL1OUTbKmbGWXStvbpjUGH1a3us6EvVTpuPsOxvOhR62W1W/UBEgO
-	 sYjLVDIKUA3elPBjrK6QzEGOqjMVR0WEPH0ZUoAoTR1hJaPTLm7lNGNAzKBRpj1bSsA==
+	t=1794814284;
+	b=bRD75X8UfBQ5FEK7Nzl/tDtB9jeN/fBTqcFLZeR4ZFx5eklslx9oVXR1ZrETc6+8C6EJ
+	 gnLezq+1ghMA2bkB6BYM3ZnGEQrXjdflxNvb5t/w3XzRGa3CKUH0pX69wEXBYwVH1l0Br
+	 OUnHQ8dz4ddNVXpBPTyvWFECXrt0tHgNmpgyvNAgClD4cxODRaRsI3wa4Uahi5P57zpX6
+	 9xzK1a0RLTBuQNjN7Y68jgsrACoQokYzkue+AsWNpgangv3YiWbi8uBFSz07Tes85j33S
+	 eLNKGGqp1DolBZ143TPF0qfkEnhwl/2EY0/w1dZOkNkTf1i6sKiIy38fiJU6GWtIYPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814254;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RsZWTmj3iECRzeLYzMxjiBI7jRR7JOFGd0yktvO+2WE=;
-	b=a6nuf3XpcQjwQth/8hSrCG+3yiIyKHiAG/MVLqDRduyUjV1aqp8Ux/vwr/onla6lsxtY
-	 OxLFbBy/YdQN3iFiqIzqaxJ2OQo6LuZ5hpv6cdJsS9ocrsJgXiaGfCUdI0BCSG1/7uw3d
-	 dlfAXesnf89EjPAV2xE6QsPuakMJM6G2sU5+i2T2j/Ncy9qPLbXr/3vK1UlpRure0n1Hz
-	 o5mpvVJoMaos478nrSGr0eoH/6oCyCDO5bZbhDWNZ4UnmeAGj2RzVD3coI1ZQgGIe1veN
-	 ZkosU6k2UcpyivUKJ4FyLQDUFnBjS02tYsX/ZZI1B1NdpBZgIkmaImsV2uR9vwLRGkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814284;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
+	b=OJ8f+0BOOjWoXvV/S8a+b0gqtan+8R289LU17G4RvpwBQD3kFxzHLR8Z0pLH/gaiGI9C
+	 yn3cWt35WOMRMvDLn155RKwYMx5eSUvyy9vAQX9WHCInzyq4DXpxuKmtHWO/qzUqegMXr
+	 gpieOY2e33HWDYuc9LTWBP6qVICJpl2K9qYXAY2mDWPWMs/j5JFvuoZU3y+pKglASPidi
+	 VTlrPr0Umg9jiKpMjTwz1uKsp5s/Fx05SN5awUSaAG4u8t8dW2mkD1P3FVt/KsoIxYDwX
+	 ACG9CpM0XAviBObfukFptKZGjgXva+NuRv9figoL1AT0MMBwgFlLPtkzfjPkH47ksfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MOPFCDsf;
-	arc=none smtp.remote-ip=91.218.175.222
-Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0364E606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0364E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF13606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:31:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF13606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MOPFCDsf
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ry9yBMCBwp3nSnzP3KHOZ1Uq3e0bH9SyWtuodwQExwE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794814252; v=1; x=1795419052;
- b=MOPFCDsfS4DjoRebt4WMbecTiAUgRSoknL/MLxxULJR+x97yFJYLB9CEFsdjmljd51OlTQhY
- 98gzlW4mQtyUMJQLJm3QUQJqlFkD5+Iu2UwLJocojp8bGh5DXgbRWgT0GVUEtnk7uy0PJL8GAeA
- m/P9UkZAsGZLJJkayvNIayB8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da558d5e7fa220f7;
-	Mon, 16 Nov 2026 07:30:51 +0000
-X-Mizu-Trace-ID: da558d5e7fa220f7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f2c69ae2-4da6-4203-8201-04fd4a1c2742@linux.dev>
-Date: Mon, 16 Nov 2026 15:30:43 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OowYAJ57;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hbiOBLB8
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0FD6E1FCF5;
+	Mon, 16 Nov 2026 07:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794814282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
+	b=OowYAJ57UmpKF4i8ukUIrqSiCRSh8RVaqfi84391mO+S2pWtHqhHe3OwA7/o2kaU1IwsAO
+	xr75z211sfQImJUXCHKbL8ZccMmwWITPgYJpPoFG6rGfyQiEqMm0sNclU1Y7s/dkxh0CQT
+	W8g42UoACNub4PIFfBLlIiijUX58zqs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794814282;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
+	b=hbiOBLB8HdD9eCx28C8bTakCpfwnwNI5MvoFR0YEzBb53z0r+2ThpTGQ31JpnstFg3+bVL
+	T9Oty+1zj8s7mYAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794814282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
+	b=OowYAJ57UmpKF4i8ukUIrqSiCRSh8RVaqfi84391mO+S2pWtHqhHe3OwA7/o2kaU1IwsAO
+	xr75z211sfQImJUXCHKbL8ZccMmwWITPgYJpPoFG6rGfyQiEqMm0sNclU1Y7s/dkxh0CQT
+	W8g42UoACNub4PIFfBLlIiijUX58zqs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794814282;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u1ukYDs6G6VuUfmsZP+zRpytgH58T0ALVC3YGhPO8j0=;
+	b=hbiOBLB8HdD9eCx28C8bTakCpfwnwNI5MvoFR0YEzBb53z0r+2ThpTGQ31JpnstFg3+bVL
+	T9Oty+1zj8s7mYAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 68DA413408;
+	Mon, 16 Nov 2026 07:31:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id J98sD0mx+mrDKwAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:31:21 +0000
+Message-ID: <fbaf5c21-51c4-4935-b001-989ba79091b3@suse.de>
+Date: Mon, 16 Nov 2026 08:31:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,74 +107,254 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 8/9] selftests/bpf: Verify iter link_create
- logs
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Steven Rostedt
- <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- KP Singh <kpsingh@kernel.org>, Matt Bobrowski <matt@bobrowski.net>,
- Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20261114150610.84507-1-leon.hwang@linux.dev>
- <20261114150610.84507-9-leon.hwang@linux.dev>
+Subject: Re: [PATCH v7 12/17] nvme-fc: start error recovery instead of
+ aborting timed out IOs
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
+ Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-13-mkhalfella@purestorage.com>
 Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <20261114150610.84507-9-leon.hwang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261114030454.2836543-13-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,purestorage.com:email]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 14/11/26 23:06, Leon Hwang wrote:
-
-[...]
-
-> +
-> +static void test_log_invalid_iter_info(void)
-
-As sashiko pointed out, the function name should be
-test_log_invalid_iter_info_len.
-
-Please update the function name when applying.
-
+On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
+> Aborts issued from the timeout handler run outside the FCCTRL_TERMIO
+> window, so they are not counted in ctrl->iocnt and
+> nvme_fc_delete_association() does not wait for them. The association
+> can be torn down while the LLDD is still working on the abort.
+> 
+> Instead of aborting the timed out command, reset the controller like
+> the other fabrics transports do. The association teardown aborts the
+> outstanding IOs, counts the aborts and waits for them to complete.
+> 
+> Count every abort in ctrl->iocnt, not only the ones issued while
+> FCCTRL_TERMIO is set, and do not reset the count when the teardown
+> starts. An abort issued before the teardown is then waited for as well.
+> 
+> Only a LIVE controller starts error recovery. In every other state the
+> association is being set up, being torn down or already gone, so abort
+> the timed out command from the timeout handler instead and return
+> BLK_EH_DONE. The command completes through nvme_fc_fcpio_done() once
+> the LLDD has finished the abort, and the abort is counted so a teardown
+> that follows waits for it. This matters for a controller being deleted.
+> The delete path drains the IOs itself and tears the association down in
+> nvme_fc_delete_ctrl() once the drain is done, and DELETING cannot move
+> to RESETTING, so without the abort a timed out IO would hang the drain
+> against a dead target.
+> 
+> The new nvme_fc_start_ioerr_recovery() is the common entry point for IO
+> timeouts, transport errors reported by nvme_fc_fcpio_done(), Disconnect
+> LS and connectivity loss. It moves the controller to RESETTING and
+> queues ioerr_work only if that succeeds, so nothing is ever queued on a
+> controller that is CONNECTING or being deleted. A Disconnect LS or a
+> transport error received while CONNECTING is resolved when the inflight
+> request fails, or times out and is aborted.
+> 
+> ioerr_work still calls nvme_fc_error_recovery(), which returns without
+> doing anything for a controller that is not LIVE. With the controller
+> already in RESETTING when the work runs, no recovery takes place yet
+> and the controller stays in RESETTING. The next patch moves the
+> recovery into ioerr_work itself and completes the change.
+> 
+> Link: https://lore.kernel.org/all/20250529214928.2112990-1-mkhalfella@purestorage.com/
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> ---
+>   drivers/nvme/host/fc.c | 66 ++++++++++++++++++++++++++++++------------
+>   1 file changed, 47 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
+> index 0b9ff50d26ff..c4603be38144 100644
+> --- a/drivers/nvme/host/fc.c
+> +++ b/drivers/nvme/host/fc.c
+> @@ -227,6 +227,8 @@ static DEFINE_IDA(nvme_fc_ctrl_cnt);
+>   static struct device *fc_udev_device;
+>   
+>   static void nvme_fc_complete_rq(struct request *rq);
+> +static void nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl,
+> +					 char *errmsg);
+>   
+>   /* *********************** FC-NVME Port Management ************************ */
+>   
+> @@ -788,7 +790,7 @@ nvme_fc_ctrl_connectivity_loss(struct nvme_fc_ctrl *ctrl)
+>   		"Reconnect", ctrl->cnum);
+>   
+>   	set_bit(ASSOC_FAILED, &ctrl->flags);
+> -	nvme_reset_ctrl(&ctrl->ctrl);
+> +	nvme_fc_start_ioerr_recovery(ctrl, "Connectivity Loss");
+>   }
+>   
+>   /**
+> @@ -1569,7 +1571,8 @@ nvme_fc_ls_disconnect_assoc(struct nvmefc_ls_rcv_op *lsop)
+>   	 */
+>   
+>   	/* fail the association */
+> -	nvme_fc_error_recovery(ctrl, "Disconnect Association LS received");
+> +	nvme_fc_start_ioerr_recovery(ctrl,
+> +				     "Disconnect Association LS received");
+>   
+>   	/* release the reference taken by nvme_fc_match_disconn_ls() */
+>   	nvme_fc_ctrl_put(ctrl);
+> @@ -1813,11 +1816,18 @@ __nvme_fc_abort_op(struct nvme_fc_ctrl *ctrl, struct nvme_fc_fcp_op *op)
+>   	unsigned long flags;
+>   	int opstate;
+>   
+> +	/*
+> +	 * Every abort is counted, not only those issued by the association
+> +	 * teardown: the teardown waits for iocnt to drop to zero before it
+> +	 * deletes the hw queues, and an abort issued earlier, by
+> +	 * nvme_fc_timeout() while deleting or by the CONNECTING recovery
+> +	 * path, must not still be in progress in the LLDD then.
+> +	 */
+>   	spin_lock_irqsave(&ctrl->lock, flags);
+>   	opstate = atomic_xchg(&op->state, FCPOP_STATE_ABORTED);
+> -	if (opstate != FCPOP_STATE_ACTIVE)
+> +	if (opstate != FCPOP_STATE_ACTIVE) {
+>   		atomic_set(&op->state, opstate);
+> -	else if (test_bit(FCCTRL_TERMIO, &ctrl->flags)) {
+> +	} else {
+>   		op->flags |= FCOP_FLAGS_TERMIO;
+>   		ctrl->iocnt++;
+>   	}
+> @@ -1856,8 +1866,7 @@ __nvme_fc_fcpop_chk_teardowns(struct nvme_fc_ctrl *ctrl,
+>   
+>   	if (opstate == FCPOP_STATE_ABORTED) {
+>   		spin_lock_irqsave(&ctrl->lock, flags);
+> -		if (test_bit(FCCTRL_TERMIO, &ctrl->flags) &&
+> -		    op->flags & FCOP_FLAGS_TERMIO) {
+> +		if (op->flags & FCOP_FLAGS_TERMIO) {
+>   			if (!--ctrl->iocnt)
+>   				wake_up(&ctrl->ioabort_wait);
+>   		}
+> @@ -1892,6 +1901,19 @@ char *nvme_fc_io_getuuid(struct nvmefc_fcp_req *req)
+>   }
+>   EXPORT_SYMBOL_GPL(nvme_fc_io_getuuid);
+>   
+> +/*
+> + * Start recovery only if this caller can claim it with a state change.
+> + */
+> +static void
+> +nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
 > +{
-> +	unsigned char info[sizeof(union bpf_iter_link_info) + 1] = {};
-> +	const char *msg = "Invalid iter_info_len.\n";
-
-[...]
-
-> +out:
-> +	bpf_iter_bpf_map__destroy(skel);
+> +	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING)) {
+> +		dev_warn(ctrl->ctrl.device, "NVME-FC{%d}: starting error recovery %s\n",
+> +			 ctrl->cnum, errmsg);
+> +		queue_work(nvme_reset_wq, &ctrl->ioerr_work);
+> +	}
 > +}
 > +
-> +static void test_log_invalid_iter_info_len(void)
-
-
-As sashiko pointed out, the function name should be
-test_log_invalid_iter_info.
-
-Please update the function name when applying.
-
-Thanks,
-Leon
-
-> +{
-> +	const char *msg = "Invalid iter_info.\n";
-> +	LIBBPF_OPTS(bpf_link_create_opts, opts,
-> +		    .iter.info = (union bpf_iter_link_info *)1,
-> +		    .iter.len = sizeof(union bpf_iter_link_info),
-> +	);
+>   static void
+>   nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
+>   {
+> @@ -2049,9 +2071,8 @@ nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
+>   		nvme_fc_complete_rq(rq);
+>   
+>   check_error:
+> -	if (terminate_assoc &&
+> -	    nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_RESETTING)
+> -		queue_work(nvme_reset_wq, &ctrl->ioerr_work);
+> +	if (terminate_assoc)
+> +		nvme_fc_start_ioerr_recovery(ctrl, "io error");
+>   }
+>   
+>   static int
+> @@ -2548,24 +2569,32 @@ static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
+>   	struct nvme_fc_cmd_iu *cmdiu = &op->cmd_iu;
+>   	struct nvme_command *sqe = &cmdiu->sqe;
+>   
+> -	/*
+> -	 * Attempt to abort the offending command. Command completion
+> -	 * will detect the aborted io and will fail the connection.
+> -	 */
+>   	dev_info(ctrl->ctrl.device,
+>   		"NVME-FC{%d.%d}: io timeout: opcode %d fctype %d (%s) w10/11: "
+>   		"x%08x/x%08x\n",
+>   		ctrl->cnum, qnum, sqe->common.opcode, sqe->fabrics.fctype,
+>   		nvme_fabrics_opcode_str(qnum, sqe),
+>   		sqe->common.cdw10, sqe->common.cdw11);
+> -	if (__nvme_fc_abort_op(ctrl, op))
+> -		nvme_fc_error_recovery(ctrl, "io timeout abort failed");
 > +
-> +	test_iter_link_create_log(0, &opts, 0, -EFAULT, msg);
-> +}
-> +
-[...]
+> +	if (nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_LIVE) {
+> +		/*
+> +		 * The association is being set up, being torn down or is
+> +		 * already gone, so recovery cannot be started from here.
+> +		 * Abort the command so the connect or teardown it would
+> +		 * block can make progress. It completes through
+> +		 * nvme_fc_fcpio_done() once the LLDD has finished the
+> +		 * abort, and the abort is counted so a teardown that
+> +		 * follows waits for it.
+> +		 */
+> +		__nvme_fc_abort_op(ctrl, op);
+> +		return BLK_EH_DONE;
+> +	}
 
+Nit: With this change __nvme_fc_abort_op() can be made a void function
+as every caller is ignoring the return value.
+
+>   
+>   	/*
+> -	 * the io abort has been initiated. Have the reset timer
+> -	 * restarted and the abort completion will complete the io
+> -	 * shortly. Avoids a synchronous wait while the abort finishes.
+> +	 * A LIVE controller starts error recovery, which tears the
+> +	 * association down and completes this request.
+>   	 */
+> +	nvme_fc_start_ioerr_recovery(ctrl, "io timeout");
+>   	return BLK_EH_RESET_TIMER;
+>   }
+>   
+> @@ -3217,7 +3246,6 @@ nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
+>   
+>   	spin_lock_irqsave(&ctrl->lock, flags);
+>   	set_bit(FCCTRL_TERMIO, &ctrl->flags);
+> -	ctrl->iocnt = 0;
+>   	spin_unlock_irqrestore(&ctrl->lock, flags);
+>   
+>   	__nvme_fc_abort_outstanding_ios(ctrl, false);
+
+Otherwise looks good.
+
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
