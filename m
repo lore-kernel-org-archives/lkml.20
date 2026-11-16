@@ -1,120 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794824227;
-	b=nZEd83L6nJ2THmoWf/WkCp2j9IYrr3X2nONzIqeamE9BhgGHhwna8cO82EdJ/GvL+6Ky
-	 +lNO03YGmi2WhVBh7dI4uA26SxO+V0+J/88HN+QWWU0SWFfy4OEd4PFy78wzABwEEiw9m
-	 ykYDIvSyHcLU4CNm0oCeET4a2rAZ9QrFc54okVgekMwg27CUlrdkFaes//CEJ7/YelOTE
-	 R206NeLc1FTyy++juLHX80xB270QC+fiT/eyNMJmN7kJtN5qX5sD0RHphvJZV0gorFn3u
-	 JKWPA0QT61/A6OYdTDdgO0/jKhMaN04wk/ZMaDPEsZz5N22mXw1SgALo61PEUkIKGOQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824227;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Reason;
-	bh=M/SK6oYZHFbr6yKcA7C2W5xMHaHRaZilPwLoONQUZBA=;
-	b=F59T4JLDcYO6WigB4qorAF8zg8Ukj+RWX/wy8HXsLTJR4mqzsjxv1lNHs+1U4WEV2gwD
-	 9F/vqWTiwv/K7j48qKhLDHfnB/EQ6Wi7i32s4QvdbS9TeVItwJnAN5uK8m++0NjDjzJtK
-	 G464uuwMzKRryHc5Fid7s8BvmhgOA2wswxeZRbhhmmdX7HFRlWyZcJ8xZ0ggg9wZqBoaV
-	 QB1tPZ68Faftv3+A+VmnW8pDVrRF22lLCgu4uL55v5fMK86n/caf8WQfMArig5YqFA4c6
-	 T9OKWaCjvH3N7QgVqF5cFp7bB393oOXmyhr/5KXdjJmaVzEkp4JYQ7uV3kmdhp5Iilg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=YSDeNFyT;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=ldyXXZBd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794824247;
+	b=OTZzoVe9xThiSgPfaVxTQmu4slTkk4z0sJUdXoCV/L6/YgipO9Fu/lNRxAo5+DBr3lGH
+	 3/+tXVoKY2rRIny4KhvUgZeMJ5vSg6mgs+cNplRCCAf3la9adP2F6n37rqAtlHdJCwaDG
+	 TZoiPigWPhJMVTJnan4A2fuJ98jVxIwN1oLViEoaIekHLrG67z5s3MlH8duH2Xvd20pSM
+	 7ap4s7cBWZ+c2XDvJSVRSI658lnWnSIF6L5+wa/4g6zTd6P4iMIa0hVrLJVUAIFoVyHds
+	 VRA+4xNOF8JMZ5qc/CsgQHJl3EMV5/B2FahhJXngFPB7s3hAyFotF3eDy0CjFEQh94w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824247;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=U+dk8zxecBPpXvi3qBnbGMk1N0yDLMp0PCkNhfOkKT0=;
+	b=ZZU2PSEH9Cz9wy4d39C8LN8/UJ9z7LimSAMdprofAXahn5N3QpQT1bHjoC6klo8SOD/6
+	 Gs3DZqaiLemyzyOWwVEXTX6/9fnTez/078dw1fNk50fzkdUQxS9yUDZOW4KS5sP4jkPb4
+	 TZEUykdza6JYaZ/snvPDiCTd2C4TF14ocmUNPKbE+nDmIMj88nd/t0a8EOyggcCp6QNWn
+	 fenGoZ211ljfA/50kp6i8hODWnQdf3zcqpyCXKjnv+S5FQuhxzj5E6qlffOcajUnoCOWm
+	 NjGk/dS/HyYK+cQVQLg8M7Wb4D2ETPZCKBmNqFbUwh9lFhaIgc0wvok9HDoOEwdrbvA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnT5ZRKl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C31E606A331;
-	Mon, 16 Nov 2026 10:17:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C31E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD308606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:17:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=YSDeNFyT;
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=ldyXXZBd
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGA2SvO1585422;
-	Mon, 16 Nov 2026 04:16:29 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=M/SK6oYZHFbr6yKcA7C2W5xMHaHRaZilPwLoONQUZBA=; b=
-	YSDeNFyTuNh036QnYWANi+G9NUKDm0dWb9wFSGqQDlkJvRdpCJNttMpgaxqzgho/
-	1F2K4St+rMOtjlzcxucml+8F9F7TB5i208rAuVaIyczjCg9Y7510zR6OLhkZB4ip
-	y/LIcaPy6g1F5QqZFW1Rouv3OzZwsRuj/sX+gFdSWl+DQrmBxvvTVAl/PQTmUVIV
-	TIxd9OJZabYNBuaCgjQlFl5t/Zuo+2rCvMa8gJEOnKFTBVj+oQVN2nCL1pKTYOgG
-	TgonYHqRIl2XqmJMEmeKp8vJCAF2id1Xws3ppcf/j0psNQKIQ/rckQxutCmF8Er2
-	Nul/DM/Hhie1+W/LkqSG0A==
-Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11023117.outbound.protection.outlook.com [40.107.201.117])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hxnxehx0w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 16 Nov 2026 04:16:29 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BNECW3ZiBLnHkKlgAs3R+bxqFVHKTMdUg3A9SR21oVohe3rn1YSv+UfwUzVz7qub5JoO5XmJsxIDI3XdONpH0U9pvoFVudfPpzRHM+8lwPXB3ZJT+AWMjvoa8dhD9LFStX19Wqz0zGA6oLoy7BwXVNjyLABJai29Ufj4GLx8UZureNLnJrrN4nXkBPHxaMI785TwctY8fBUSMGtIfT5XpEWoJ42LF11N44AiW/9i18yLU2RK71FXFWuK3694WfQucSzW6SRBQd+gUseAR5vI9SShT8vKAefUoAQga884z8OBhQw03F/lbVmqIJC8rVn1G97IqsIAu8bk3XDjNt0Utg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M/SK6oYZHFbr6yKcA7C2W5xMHaHRaZilPwLoONQUZBA=;
- b=nJw3ILrN7ef0KLlcu4x7K1nmYHfAExTpCvBFh+r1RtiMCWBeCHm2JNIvtg8PA6Kr5EFglc9kkK46KQxPhG0dhCQPnTHjZ0yedVE07YF3UArJKCpwF6tj1eC9GHCk4W1qelt+ZvlirOgQsOgpIZ4LYEOBDeNZrS7c67889R1Boyd3lHMEa68M8iAKd4Ik+JxbCdCRavj/UhhjqbjYTqY2KorcihjdYgqFHwgHOWYgaQbqytUVDYGb3Bl/5y2y184RG/I4GX+LwecpsRfv5+Zs4NsQen6CSn+WBcxzlPhwERhlOeeiefyr4wEngzz6bHiR0LAMZhPOEDEHANO6gWcNKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M/SK6oYZHFbr6yKcA7C2W5xMHaHRaZilPwLoONQUZBA=;
- b=ldyXXZBds0lNiclOtYaR+Odj2TL2pJDB8ReizGIu/W2sMZHQ8hYM0XHeGpE9Zciy9cxS5QzZVkxsrFhhi2J2h6aHLLyGSxjblbqR1acY9RQ/e7kAv4ifw46VzzX6/uNjgWmP5Im8hq2JStcV5X0Qz0irrp9AgKrgrZz1EqkWxPU=
-Received: from BN9PR03CA0232.namprd03.prod.outlook.com (2603:10b6:408:f8::27)
- by EAYPR19MB466967.namprd19.prod.outlook.com (2603:10b6:303:2db::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 10:14:25 +0000
-Received: from LV8PEPF00000067.namprd03.prod.outlook.com
- (2603:10b6:408:f8:cafe::2d) by BN9PR03CA0232.outlook.office365.com
- (2603:10b6:408:f8::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 10:14:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- LV8PEPF00000067.mail.protection.outlook.com (10.167.248.39) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Mon, 16 Nov 2026 10:14:24 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 0DF7740654A;
-	Mon, 16 Nov 2026 10:14:23 +0000 (UTC)
-Received: from [198.90.208.11] (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id EE6AB820273;
-	Mon, 16 Nov 2026 10:14:22 +0000 (UTC)
-Message-ID: <3b620222-ba1c-4c6c-a06b-2dd5fb391fb6@opensource.cirrus.com>
-Date: Mon, 16 Nov 2026 10:14:22 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnT5ZRKl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E859C1F000C5;
+	Mon, 16 Nov 2026 10:17:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794824247;
+	bh=U+dk8zxecBPpXvi3qBnbGMk1N0yDLMp0PCkNhfOkKT0=;
+	h=From:Subject:Date:To:Cc;
+	b=mnT5ZRKlEkuDFF7qCmOqFhQ3XkJN4Rly+GXvNgecZ2AMkeNS0PiUr/EwUI4rrqLvK
+	 9AZjHgVIca56bQ7FWdyaj/yGnf4MMX0teaSdporWzqr0Yb+5043Nd6zyqJ5U1TkOJ5
+	 EViOhd8vwE9al5EJNzMzHrpoLzDwqMJulrPeSlGngoYaIz/OEptuEzROZrGZxM/czy
+	 B2U3dsgf+LMCxq9ebfYQZEjLiDFZrDkunffVlvbu1V8jJAHPNEYS6CIg86paZMoJRa
+	 Zi8Bn23eOJM7vhMj/zjAK0+eIc9tdoaurYiOl6QZUTo43IOBnlvtVVi9ZE+b5qHinh
+	 ud2QdYeoYLCZg==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v11 0/9] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Mon, 16 Nov 2026 11:17:16 +0100
+Message-Id: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,92 +53,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ALSA: doc: cs35l56: Point to kernel.org firmware
- repository
-To: Marek Vasut <marek.vasut@mailbox.org>, linux-sound@vger.kernel.org
-Cc: David Rhodes <david.rhodes@cirrus.com>, Jaroslav Kysela <perex@perex.cz>,
-        Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
-        Shuah Khan <skhan@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        patches@opensource.cirrus.com
-References: <20260914031252.98932-1-marek.vasut+renesas@mailbox.org>
- <fd865483-1485-4042-b938-2012eaa65043@mailbox.org>
-Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <fd865483-1485-4042-b938-2012eaa65043@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF00000067:EE_|EAYPR19MB466967:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e80720a-f2f1-49b4-4fee-08df43ca63bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|61400799027|82310400026|36860700016|10067099003|4143699003|11063799006|56012099006|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261022075727099003|22082099003|16102099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	0GZFtUkthfKFoqkAsIAAuEuPeSdM5RWB8QZYzTmsXEIDpPQPzF2CV8WDA6loaFs1weCjzjrDOrHez4mPsRyzFBVYBx8RatiVYtj6Pe2UlrwCmtIhnED2I+G55xqn71BQTSpcMPB0cqNoOIfwvWoahqoSzyWOgpQYRqNa8UvrNVV/KJ1n940pngU8jKyBr/tt18VBej+NjpW25lgHbM3TnWmN8VsM/5tsYWcTQL/BWWKgdMxBvWHRaWAKb+2BnQUOW44AjDBlLI3qcIJxwK+Sd4OAMAmNva7q+jB+sTNji96gUjqrM/vlgorWLKUFlaMbtaGgh5bZnYjuoH4kOeIutqyP168pDyUrl149CNGxQuB5B+Do2LMgpsqm5/lsVupY9xkEB8LRsekCcUTLElrxLKrMK5r82oOzYFEB86DSoJmIHfzk5aZd6bxXIMiI+WXoiAGZxTkjkNRZQ0zEtStImYLVEoPPrDr8SKpsPF9sQ2aTmNusjAcy2sajTrAtRcjpv/o+bF3IpZicijaXxnfjM4FgTr7VA+VpPl5PNvA5Zvm9OiqpCBMcxR6KDNUApcNwHHjQPssAD3xh/ubBu89b7Hv4NWTtQ7wBD2wlrdW2XSBhLeOSSiBreoAFvcHMj2aqN5/zL3CKiiduhhq/emBvUAxSYjREjzwwGqJOcFlLHFlAxXXXsY2gX1KcEVIdMLwTdbc1OQrUJV7k0xzwV5VKJw==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(376014)(61400799027)(82310400026)(36860700016)(10067099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261022075727099003)(22082099003)(16102099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mo4AJ4inBl5kgDRCfKuVBJBkW4CSeinaJnruiF82H0TthaLCRfzM8HetTotj2WDjkXWJbFiIjeJfxXWk0qWrUIznD6x6aExS4gGLU3x2RzKfdH8rRRnfuvlR78N2Q8jc5BPSUIlsGgN+gP6AeNYQ3VLiN+tob9Z4/ndRVE0SJwC2h2BZ0g56z0Z20Q0FufcM00gWZvmiK08qySip4OL0n3KJy0y7vo1JULYT/qrJGmuScT4zQhgqEz2nB9M7iZYUqKfjhdTmXSrM06F6CMnGheGIP+n88QdHRhQ1HpdtVO7Zo9C7WskR3xL81OLRFoEPDgm8Myd/AuOEPwd33oKibrXAs0SINuAE44TLuEfJwGmG8bDyx5kCtk+5DU832CTwlWrIzfofoCN30I9NMQuj3qxXRtX+VmkrwgUSooYMk7TdVF6/9QYaQBH1bUmBlGx9
-X-Exchange-RoutingPolicyChecked:
-	4Otpzkk2Rf+GpxmiH0vSQc3FgmF03vMjS5MPY0tnfETrv/u+JcIEOrf9jzr8yrjH6HyC4va+GqDeMFoL0Krg7QAal7J+iKPTGtGeXm05GilHtcqMR8HinSA53ndfWOTi2L2AZWI8Xfr+sQ8mqmoxFbPOAF+YDDcgLtOFfplty7nhnKb+JSleILD89LIAKy7ZfJ27qEhCTVYUzmNbEvp7VpKdxquk0Ss0O1L2iSRL2GWJd1LnVUWC7MJ4GWueS0EOCGj+MQUadxxUKLln8XZOJjrmBIi3mu7GEgX7sH2ej4B8/RFZtmZZNJ+OdsQtDzpfl229l5oflx8GmGePb5lBfg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 10:14:24.3575
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e80720a-f2f1-49b4-4fee-08df43ca63bd
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-LV8PEPF00000067.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR19MB466967
-X-Authority-Analysis: v=2.4 cv=KNbPn1Fo c=1 sm=1 tr=0 ts=6afad7fd cx=c_pps
- a=czckzaKnCwXpY126n2X5rw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17 a=VwQbUJbxAAAA:8
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=b3CbU_ItAAAA:8 a=w1d2syhTAAAA:8 a=07d9gI8wAAAA:8 a=JfrnYn6hAAAA:8
- a=ag1SF4gXAAAA:8 a=iox4zFpeAAAA:8 a=4YGUvj8HmqbaNNdTngsA:9 a=QEXdDO2ut3YA:10
- a=Rv2g8BkzVjQTVhhssdqe:22 a=e2CUPOnPG4QKp8I52DXD:22 a=1CNFftbPRP8L7MoqJWF3:22
- a=Yupwre4RP9_Eg_Bd0iYG:22 a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-ORIG-GUID: L-tgOMQp9N4Z7ddUe7w_4Ug_hY62150i
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA0MCBTYWx0ZWRfX7l5RNB9kyuIj
- NnGGkapDgD6i68didTt0eZe9pq9pHHXBnNp/Z5jcGf7jJX0XJXP++f1itQTDU9LABpwIuYFn8XX
- Tdmmk7qIU0wygBYrsKjl7xmt9xrFuRZ0jWBcBuGg1uyxRWfjvOHKEntIFtmHYaK8l65uWSDcLku
- 3xLnxsVaSXhtJt0RH/uYUmv/+q59vI5K/dCQ6gVTkQTbj92KVtR4xVHtJJI/7qPWB7sXOr+dvvT
- q/BIJThM894hw+DvvC7Jb4QOaLlowG0JXva6ri//YJBW2hmEOluHEHvmP9QPkFEWHfF0DOEQ7Gg
- EJJK1R7Ct2NJoBt+sKL1juojAD9Kea47QZaut5TQqjPEAA8iFf4DJ8UqM5Nws67+ZwWIm7Z3HBv
- IGnMkN2lUG1BSdvsHnxK5XH0Bay40DknT5JebmwVY/OM5zh1hBTedTp49EPHwo7bwmMK4jq+sv6
- rKgeevTlf/bbgJ62SZg==
-X-Proofpoint-GUID: L-tgOMQp9N4Z7ddUe7w_4Ug_hY62150i
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA0MCBTYWx0ZWRfXzCfByOIypd6W
- xw8/+Koq5fP0Sh9t5rk90E7FeDdDn7X2ef5D1zsK5+vyZ3uRnrSOJ7bRA0Yn3T5JpGPVsSm2yDV
- LEjIi0VNkcd3ldmikiPwobWu6JobyuI=
-X-Proofpoint-Spam-Reason: safe
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XSz07DMAwG8Fepcp6Rnb/NTrwH2iFpnBHBNkjLB
+ Jr27qhDYkVVxNWHn+1P30WMXAuPYttdROVzGcvpKLYd0aYTw3M47hlKEttOSJQWHfaQ6gEqjzz
+ BOIWJIb+GPcgcZTSOKHsnNp14q5zL58192m068VzG6VS/bmvONE//Ac8ECINyafC90b1Jjy9cj
+ /z6cKp7MYtneVd6kg1FAgJ7OzApRS6tFXVXfPMWBQgejXGYVe+CXil6oVBL0YBgQiK0ymFGs1L
+ Mr0JItqEYQEghyWR1tF7FlWIXimzlYgEhK5usxujY2ZXiForChuIAQbMxHDiw7dVK6e8KYeujf
+ s4Fc0Jto0OTV4pfKNS6xc+5pIgsrZI64EohXDKtYAjn3nEOgTihsX8bc/2pduX3jzKW6affIoa
+ RYTgdDmXadiiTtp5k4pjF7nr9Bq4NicBiAwAA
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Daniel Stone <daniel@fooishbar.org>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6588; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=v0sdrLG/K+JuJhtQfWtzbnA/krSPlauDxiVbbgl557E=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bhjwv2/1jv21N1fO9tnuyQca/i0XtXzazf2giknV8
+ ekK3/CLHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi780ZG44tMRB+7r/8rO7L
+ ha+Or1tyo/T456osmfyShOzDn9b+XnS8riXrw7YJbiZVK189FoiX42Kss9J1S5t3S+ao82y1uM1
+ y9VPcFxzsPe+iL7qMWcfrgmpkX/4uIZkG3snvzWSapkocKsgDAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-On 16/11/2026 9:22 am, Marek Vasut wrote:
-> On 9/14/26 5:12 AM, Marek Vasut wrote:
->> Use the primary mirror of linux-firmware at kernel.org.
->> No functional change.
->>
->> Fixes: 088fb4ee17fc ("ALSA: doc: cs35l56: Add information about Cirrus 
->> Logic CS35L54/56/57")
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> ---
->> Cc: David Rhodes <david.rhodes@cirrus.com>
->> Cc: Jaroslav Kysela <perex@perex.cz>
->> Cc: Jonathan Corbet <corbet@lwn.net>
->> Cc: Randy Dunlap <rdunlap@infradead.org>
->> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
->> Cc: Shuah Khan <skhan@linuxfoundation.org>
->> Cc: Takashi Iwai <tiwai@suse.com>
-...
+Hi,
 
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-> Is there anything left over to do with this change ?
-You should send patches To: a maintainter if you want them to merge it.
-They are not guaranteed to see it if you only CC them.
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
+
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
+
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
+
+And we have IGT tests as well:
+https://lore.kernel.org/r/20261112162147.766264-1-mripard@kernel.org/
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v11:
+- Reorder object state allocations to be more robust against lease revocation
+- Bring back lease revocation check
+- Link to v10: https://lore.kernel.org/r/20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org
+
+Changes in v10:
+- Stop trying to make partial lease work, they aren't meant to exist, so
+  we can simply error out when they happen
+- More tests for zpos and color management
+- Fix DPU1 issues reported by sashiko
+- Link to v9: https://lore.kernel.org/r/20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org
+
+Changes in v9:
+- Add a flag to know if leases have been revoked or are empty
+- Handle the situation where a leased plane or connector being reset
+  would disable an unleased CRTC
+- Add more kunit tests to cover the new issues reported by sashiko
+- Fix reset-related bugs in amdgpu, vc4 and msm DPU
+- Add a vc4 kunit test for its reset related bug
+- Link to v8: https://lore.kernel.org/r/20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org
+
+Changes in v8:
+- Fix more leases issues
+- Drop applied patches
+- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
+
+Changes in v7:
+- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
+  leases, partially leased devices (like a plane leased but it's crtc
+  isn't) and the interaction with PAGE_FLIP_EVENT better
+- Fix crtc create_state implementation for ssd130x
+- Actually make it possible for a compositor to recreate the same whole
+  state without passing ALLOW_MODESET
+- Fix EDEADLK bugs with kunit tests
+- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
+- Fix error handling in vkms for the new property
+- Add more kunit tests for the new corner cases
+- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
+
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
+
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
+
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (8):
+      drm/lease: Add a helper to tell whether a lease was revoked
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/amd/display: Take over the current stream and dc_state
+      drm/vc4: Carry the HVS channel over to created CRTC states
+      drm/msm/dpu1: Carry the mixers over to created CRTC states
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  50 +++
+ drivers/gpu/drm/drm_atomic.c                      | 373 +++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c                 |  44 ++-
+ drivers/gpu/drm/drm_ioctl.c                       |   5 +
+ drivers/gpu/drm/drm_lease.c                       |  26 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c          |  23 ++
+ drivers/gpu/drm/tests/drm_atomic_test.c           | 435 +++++++++++++++++++++-
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c    | 105 ++++++
+ drivers/gpu/drm/vc4/vc4_kms.c                     |  16 +-
+ drivers/gpu/drm/vkms/vkms_drv.h                   |   3 +
+ drivers/gpu/drm/vkms/vkms_plane.c                 |  63 +++-
+ include/drm/drm_atomic.h                          |   4 +
+ include/drm/drm_lease.h                           |   2 +
+ include/uapi/drm/drm.h                            |  10 +
+ include/uapi/drm/drm_mode.h                       |  22 +-
+ 15 files changed, 1171 insertions(+), 10 deletions(-)
+---
+base-commit: 02d46912debff86b107519f9557557b3f9c13df4
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
