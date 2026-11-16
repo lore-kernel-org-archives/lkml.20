@@ -1,59 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.130.186.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855742;
-	b=sgJTbPZZ/r+I2xGMnsselwEHIGl/5fTAslr8iiSycbKCYWLXyR7hrrvu4wuheEEPfvt/
-	 juHyEvH7tUyFxkBCXdz1U+iL48SO4E0n8fGGxHc6y+CWjr+fGfZWn7p2FActmPt/7Watb
-	 TC+6H3hdcOEEpzUtOOxofjNfLp2M+hU/z5uY2m+GOV0qWkdmuTTiWohuUiQAigYSiSk8Z
-	 pENiluMOQ/WjXKuuLuDu71A6wRbmMU1NFcB7o/YesiWBC+zn+AC0A7ABZmwG1FF5amYUW
-	 QZ5XhfLtT2f8D98XKtwvP8dz7Myzbv4ZpxZcz/qVoHQ6JAgJRVQDJZ4r8SXPTSFg/KA==
+	t=1794855724;
+	b=rwwCq/Iha2AkfU8AKU8A30jyixpbhzOdTpxT90W3JvW/ipoW09rI1fut1QXr2q6SLpQb
+	 pjtga73/ZGBMwyhE97v+CCLymnEygTxEsgmrYMfYk2qlsxRr5aOVu4s1PQPtfpHtRw9Rk
+	 M6E3LLhVM4m8qALP2KjaXfLV2ymHIHjz+duNrQMG1HE9LtYZ1hMFyJqGlNQS1oWm6RRT2
+	 W4/4VE77wA4HJvtbXh+++pqb3olI8W8kJDElsI+GefonhW3PpB/dai9Qq4RQx9SykVOUl
+	 +ikp7oM0UbAZOfU9rEyV9DHyvBZIoEA6RqDW8r7fDSdzeQbAWcLYDjHGQQVE3WjwusA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855742;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=N2xKCSrPY1rJ1XkR4LIjxTn9dqMbXrnTZ+YOM+EyOfM=;
-	b=Greg5tRnp2nx1ooufw9aoJr9IO1bILp4qcKCtIeAS6Eln7XYUqDQly1xsoUDsJdAnS6k
-	 N50yZ9eh4qNnOaot17msKe6v0/BauQ7JUt/p8mccsx/VVydntoBpEp3fPKvaPP7Svw8+Y
-	 NvH6hzMfU7w4jj2Jz43zji80W77S3o72maRt4aRdxbI3Eld6D9vLfzvSuqtlclsmgu2bC
-	 e0C8jp3OWxmehZ/SFMWsKN19sonvrS68xCODLSjyMcdK/SiLieURt3G4ZRpBCwPJQdOef
-	 58Hq0MutsUNIx+JnfEVR56YMj93gqgTB8JvEpp4k24eqtddBLXKlwdAmRIUxoUbbhIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855724;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=rvejCAA/hAz7QxpPKjqR1cL+yFmDi/ZT+ldIPP8PaMM=;
+	b=v4ivgboW5LoIx7OP4cLeZLpvFN03bnTEVU/VBUTm4G2XymV0wyN3A31rEK7K/eAoue42
+	 q8yXhDpy5DtVbBt925vrUvv4vpzTb4sU/woVMwEe7ev/hQHCfs2bg1S5s9RLB12wRgraO
+	 l+IZIpG7lrxfQZ9ZStJp40FMIpo/gH5v+K+nzKYiA6HZHYmt0Dvq5I8GwHGPV/bISzDp/
+	 xC1MP2gYkveL74dwpoNI92qNAr5tR90hxZbf9wpo0eJd4Hbm6h0GbHNqM2l9BRXHmsmje
+	 KWgqvp//Qhnju2adJjp0Z3R7T+PY7uceTDfEP3QaahWiN84V9qUVfxUIUnck/ZG0Ugg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VprP7W2C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=hardeman.nu;
+	spf=pass smtp.mailfrom=hardeman.nu;
+	arc=none smtp.remote-ip=94.130.186.121
+Received: from thor.hardeman.nu (thor.hardeman.nu [94.130.186.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643C3606A332;
-	Mon, 16 Nov 2026 19:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VprP7W2C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992CF1F000CE;
-	Mon, 16 Nov 2026 19:02:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794855742;
-	bh=N2xKCSrPY1rJ1XkR4LIjxTn9dqMbXrnTZ+YOM+EyOfM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VprP7W2CiFZmaAi96m1oPMFzTZJmXLyzsL0fDPruE+CMRr2nqOdKIzRWGKeCz7Rlk
-	 18d8WIrH32+fB/G9V/UAoZogshvev2UEfW6fCc4iwW4WnJigBcNcJ++2EIYcJ4Slim
-	 fifGbJZCCRLnM1oP0w39fixdN1Lh9j21bFMeVjslvLyr9nq4fawN23iapFhQHU+bCu
-	 utsiK7PXZzHp6zf8urlYrG2C120A4sRmV2yfgjSBxnnZcXXfnoBitwAbNkS5r7qB73
-	 YtJkGP7pIz3jpXRLkd+1EX5zpeBGO5NVfccIBt619OuVkr6HcqO+VL92q0v1LOKBXK
-	 s2D4sCayLq6FA==
-Subject: Re: [PATCH net v5 6/8] net: dsa: b53: reference count shared mirror
- source bits
-From: netdev-bot+sashiko@kernel.org
-To: florian.fainelli@broadcom.com
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, vivien.didelot@gmail.com, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 19:02:21 +0000
-Message-ID: <179485574117.3136.2818958695058742581@kernel.org>
-In-Reply-To: <20261112180202.324504-7-florian.fainelli@broadcom.com>
-References: <20261112180202.324504-7-florian.fainelli@broadcom.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F0E606A32F;
+	Mon, 16 Nov 2026 19:02:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10F0E606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hardeman.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hardeman.nu
+Received: from thor.hardeman.nu (thor.hardeman.nu [IPv6:fd27:2a41:8fcb:2::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "thor.hardeman.nu", Issuer "Hardeman Internal Mail Relay CA" (verified OK))
+	(Authenticated sender: nullmailer@odin.hardeman.nu)
+	by thor.hardeman.nu (Postfix) with ESMTPSA id 4jSy092M3yzFq20;
+	Mon, 16 Nov 2026 20:02:01 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=hardeman.nu;
+	s=202608-ed25519; t=1794855721;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rvejCAA/hAz7QxpPKjqR1cL+yFmDi/ZT+ldIPP8PaMM=;
+	b=sTQKjDSZfGycn3nOmjZUIk/G5YYX6p74bSOSrs0KQWkuajk1wiMAHXLVfO5wMNQlFJKGNY
+	XpGf49lhJDE+m6Cg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hardeman.nu; s=202608-rsa;
+	t=1794855721;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rvejCAA/hAz7QxpPKjqR1cL+yFmDi/ZT+ldIPP8PaMM=;
+	b=n6yHvgcIazJh/BeBgaQ/bIMqx7MaU3EzovxXuuLK5GORtIWOM7lHBNk4OEvmLpJZPC3DR4
+	uclUhwVWTw6t09GitBB02Lyd4j46istsYqIOuld8VqJA1irNdbEcpSPPL8Mqzku+1Sv/w2
+	S2iPVks+08VsHyvs93woJZ6BPea8X9MBrINf8bA2XKIw29/o3CqrYN4HkLl0KSOcBHzWJI
+	4II2PdubEcKjPsH+7R8KH0ROuYR14Xj+UzXfTe3eMcUMMmZHIyeP/GvFd7i7/4wOmKXbrq
+	NO2m9V8fgMEhr7G2vqx2E+mzLoiKDq4ZIyX86fBOkn+yvU8MmPfn+8rXrnXShA==
+Received: from odin.hardeman.nu ([fd27:2a41:8fcb:2::a])
+	by thor.hardeman.nu with ESMTPSA
+	id 2KFdDylT+2oO9CgAWTs42w
+	(envelope-from <david@odin.hardeman.nu>); Mon, 16 Nov 2026 20:02:01 +0100
+Received: (nullmailer pid 2736573 invoked by uid 2002000001);
+	Mon, 16 Nov 2026 19:01:58 -0000
+From: =?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>
+To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>, Alastair D'Silva <alastair@d-silva.org>, Luka Gejak <luka.gejak@linux.dev>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, Bitterblue Smith <rtl8821cerfe2@gmail.com>, =?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>
+Subject: [PATCH rtw-next 4/5] wifi: rtw88: sdio: let TX in while receiving on the 88xx chips
+Date: Mon, 16 Nov 2026 20:01:44 +0100
+Message-ID: <20261116190145.2736364-5-david@hardeman.nu>
+In-Reply-To: <20261116190145.2736364-1-david@hardeman.nu>
+References: <20261116190145.2736364-1-david@hardeman.nu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,134 +82,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+The interrupt handler reads RX data for up to 64 KiB per interrupt while
+it holds the host, and the TX work waits for the host meanwhile. At
+SDR104 speeds an RTL8822CS spends most of the bus time on the per
+transfer overhead, so when a client sends at full rate, the RX path
+takes about 80% of the bus and leaves too little for TX. On a NanoPi
+R76S acting as an AP, with TCP traffic in both directions, the AP sends
+at only 20-35 Mbit/s while it receives at 165-220 Mbit/s.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+When frames are waiting to be sent, stop reading after 8 KiB, about one
+RX aggregate, so the TX work gets the host between reads; the handler
+runs again for the rest. Without TX frames waiting, it still reads up
+to 64 KiB. The 8051 chips keep their behaviour.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+With traffic in both directions, the R76S now sends at 70-85 Mbit/s
+while receiving at 100-120 Mbit/s, steadily over each run. The sum is
+somewhat lower, as sending costs more bus time than receiving, and
+one-way throughput doesn't change. Realtek's driver shows the same
+imbalance as before (about 40 + 180 Mbit/s on the same setup).
 
-- [High] This patch changes bcm_sf2_sw_resume()
-  (drivers/net/dsa/bcm_sf2.c).
-- [Medium] The new error path in bcm_sf2_sw_resume() gates the switch
-  clock (`if (ret && !priv->wol_ports_mask)…
+Signed-off-by: David Härdeman <david@hardeman.nu>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 39 ++++++++++++++++++++++-
+ 1 file changed, 38 insertions(+), 1 deletion(-)
 
---
-
-net: dsa: b53: reference count shared mirror source bits
-
-This commit adds reference counts for each port's ingress and egress
-mirror source bits in b53. A bit is only cleared when its last tc
-matchall filter is removed. It also adds a b53_mirror_init() helper and
-changes bcm_sf2_sw_resume() to return the result of ds->ops->setup().
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
-> index 1747a1f20c78e..98a4a62ca73a2 100644
-> --- a/drivers/net/dsa/bcm_sf2.c
-> +++ b/drivers/net/dsa/bcm_sf2.c
-> @@ -996,9 +996,11 @@ static int bcm_sf2_sw_resume(struct dsa_switch *ds)
->  	if (priv->hw_params.num_gphy == 1)
->  		bcm_sf2_gphy_enable_set(ds, true);
->  
-> -	ds->ops->setup(ds);
-> +	ret = ds->ops->setup(ds);
-> +	if (ret && !priv->wol_ports_mask)
-> +		clk_disable_unprepare(priv->clk);
->  
-> -	return 0;
-> +	return ret;
->  }
-
-[Severity: High]
-Does this make every other system resume fail, starting with the first?
-
-bcm_sf2_sw_setup() is not safe to run twice. It ends with:
-
-    return b53_setup_devlink_resources(ds);
-
-Probe already registers the "VLAN" devlink resource through
-dsa_switch_setup() -> ops->setup. Only bcm_sf2_sw_teardown() removes it.
-On resume the call chain is:
-
-bcm_sf2_sw_resume()
-  bcm_sf2_sw_setup()
-    b53_setup_devlink_resources()
-      dsa_devlink_resource_register()
-        __devl_resource_register()
-            if (resource)
-                return -EEXIST;
-
-b53_setup_devlink_resources() then jumps to out:, calls
-dsa_devlink_resources_unregister(ds) and returns -EEXIST. Before this
-patch that error was ignored. Now bcm_sf2_sw_resume() returns it and
-also gates the switch clock.
-
-dsa_switch_resume() then returns early:
-
-    if (ds->ops->resume)
-        ret = ds->ops->resume(ds);
-
-    if (ret)
-        return ret;
-
-As a result, dsa_user_resume() never runs for any user port. Without
-netif_device_attach() or phylink_start(), all user ports stay down
-after an ordinary suspend/resume.
-
-The failure path unregistered the resources, so the next resume
-succeeds and the one after that fails again.
-
-The clock is already off after a failed resume. The next
-bcm_sf2_sw_suspend() (when wol_ports_mask is 0) and bcm_sf2_sw_remove()
-will each call clk_disable_unprepare() again. Can that underflow the
-enable/prepare counts?
-
-The commit message only covers mirror refcounting and does not mention
-this resume change. With the Fixes: tag, a stable backport would bring
-this change along. Could this change be split into its own patch, after
-making the setup path safe to run again on resume?
-
-[Severity: Medium]
-On this new error path, gating the clock is the only rollback. By this
-point the switch is out of reset, the crossbar is configured and the
-GPHY is powered on through bcm_sf2_gphy_enable_set(ds, true).
-bcm_sf2_sw_setup() may also have enabled ports already. Nothing marks
-the device as clock-gated, and the switch stays bound.
-
-On the next system suspend, dsa_switch_suspend() still calls
-bcm_sf2_sw_suspend():
-
-    bcm_sf2_intr_disable(priv);
-    ...
-            bcm_sf2_port_disable(ds, port);
-    }
-
-    if (!priv->wol_ports_mask)
-        clk_disable_unprepare(priv->clk);
-
-Won't this access switch registers while the clock is gated? It then
-calls clk_disable_unprepare() a second time, which would trigger the
-clk core already disabled/unprepared warnings.
-
-Callbacks that run under RTNL, such as b53_mirror_del() when a tc
-filter is deleted, can still run and would also access registers with
-the clock off.
-
-Before this patch, a setup failure on resume left the clock enabled.
-The rst and cfp failure paths already roll back only partially in the
-same way, but this path runs after the GPHY has been powered up. Given
-the devlink -EEXIST issue above, it would be hit on every other resume.
-
-It would also be hit on any register I/O failure inside setup, for
-example in b53_enable_mcast_snooping(), or later in the series in
-b53_mirror_init().
-
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index cced6fdfa6d..a7664486613 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -34,6 +34,14 @@
+ #define RTW_SDIO_88XX_TX_FIFO_LOWATER			32
+ #define RTW_SDIO_TX_RETRY_DELAY			msecs_to_jiffies(1)
+ 
++/*
++ * The interrupt handler holds the host while it reads RX data. Bound how much
++ * it reads per interrupt, and with frames waiting to be sent, let the TX path
++ * have the host after a smaller amount.
++ */
++#define RTW_SDIO_RX_BUDGET				SZ_64K
++#define RTW_SDIO_RX_BUDGET_TX_PENDING			SZ_8K
++
+ static bool rtw_sdio_is_bus_addr(u32 addr)
+ {
+ 	return !!(addr & RTW_SDIO_BUS_MSK);
+@@ -1597,6 +1605,34 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 	}
+ }
+ 
++static bool rtw_sdio_tx_pending(struct rtw_dev *rtwdev)
++{
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	int queue;
++
++	for (queue = 0; queue <= RTW_TX_QUEUE_VO; queue++)
++		if (!skb_queue_empty(&rtwsdio->tx_queue[queue]))
++			return true;
++
++	return false;
++}
++
++static bool rtw_sdio_rx_budget_left(struct rtw_dev *rtwdev, u32 rx_bytes)
++{
++	if (rx_bytes >= RTW_SDIO_RX_BUDGET)
++		return false;
++
++	/*
++	 * The 8051 chips send one frame per transfer and are not limited by
++	 * the bus in the same way, keep their behaviour.
++	 */
++	if (rtw_chip_wcpu_8051(rtwdev))
++		return true;
++
++	return rx_bytes < RTW_SDIO_RX_BUDGET_TX_PENDING ||
++	       !rtw_sdio_tx_pending(rtwdev);
++}
++
+ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
+@@ -1631,7 +1667,8 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 			 */
+ 			hisr = REG_SDIO_HISR_RX_REQUEST;
+ 		}
+-	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
++	} while (rtw_sdio_rx_budget_left(rtwdev, total_rx_bytes) &&
++		 hisr & REG_SDIO_HISR_RX_REQUEST);
+ }
+ 
+ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112180202.324504-1-florian.fainelli%40broadcom.com
+2.47.3
+
