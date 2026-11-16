@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819398;
-	b=A5FQDcjbshwMD7BFVIiXoJnjkATY5/U4KWiQzjpBWBAljETuPEdZaoeOdglCh7eX1Y8+
-	 j4WN1esGl0JoZi4D8i/KInqUZu7PpXcfAXOOF/kL1MUzJBKcJYQcEa02EgV1HU1edT3ab
-	 EuWPrJXh7a/fodbl4beX4VvjP8jixxf4wsxtuPZVQMVk2AWHg6jb/hCq4nGn2qMwVQxdc
-	 DzOuak0lt6GV8LrzSz09jPOMVrD0mYn0s2kCcQ87cu3FWAD7j2RuAmhVNqF2YpPzWgb8I
-	 JTzKRLPT3i8dPUUk2QUffw04oUZkhc/8z92E7WUZE1PyTeWPrLmPakrA97oRsPdGl1A==
+	t=1794819419;
+	b=VFwo9NKxONQzDyzw90/PO6M73yDnARc5Vd2hjGWMEt/WHvQwHICzGN5f17eSUspDgRbs
+	 jbHvRzdvmBTmItTYrR+ltBGRUnNKA2R9TFizO9raGahUL9tsGCTnDKRon95m/ByxYJhCt
+	 sXunEIjEpfX3i4APyqbmgHaPIwm3kWMmerRv++CrVdEEgS4rGZc+GHBqaXhEQC6CuuR4G
+	 2bYSPau5FKz1fiQfoetBvMpWzZORGGN+kW38NaHpU7zlLTk3dSjoN4fZ7QiVJ25E9q4D+
+	 HlUdDmej6d5f51xoEk1SVgVamCLll6prPNxXTHphzNzUnFPiLA1FX5O6mI8RKa7xytw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819398;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nWHWGQOqMeeouKQY4a/YXbC8ScdtcsCKi4ObLazlgrU=;
-	b=gkgcpXnr2E/0UqZ54/WEcGRbunTnKjdKHepQhziDP3xGDOvDYbi0iZSCowMj1twWiNmV
-	 iIMOxqDUeX9RUpvL4zZ52WtMavlegU4WZMF3sGnaTsyLt1nD94PEIW46uSVptOer5uOep
-	 aXt9FSj6CabNgH3eQkYq5zO7f8XAe1qz27wY3JrYUh2L/C7G8OHdwDeXaRyxsxegqGVvS
-	 wR4222tbttppI1bRO+ZcmMVIXfdYCeGFNHE6gds7h9KlE8/863ekVcuNDFigZcpdSoR/v
-	 ARBlciiKdx69w0EyrNoh2DyBeMRbMBJB5ELQSZvLeld5Jj8H9ehgJ5rHT1uKzYl7n+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819419;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=42Gs7+kt2Rgi78czHC7JtxOqLEeMRxWEH0wDlNcA+Ok=;
+	b=4RW9SUNV79QM1ZVgbwv3O2EbYR+D821TaKvLJuayfdHl+DSPrIBYYgLnz/NCnhWf9e3E
+	 Q1vamfq9poCke1W8UrHyLn47OxBv8N/zK2ohN54srTVJ90xAGPJqrmS2Kq/DIDo+qjuZv
+	 E9uLcEV3/S9e4e+8ZzuplgbZDUdwiHPaKXnvWusTVqDF5pAea00BLIk8gLxnk52nfEwRc
+	 aMH/eT56Rpc/c/zHaTTR7LK70yIBXU1aamzJBUBIqwib/pZfTW2UKwiJeAXKZq58GznrT
+	 rIxZ9/67CXKDOEHxHh4nm5aUNCPiPMz6K9UvFdU4KwC//u0NqHfw4IawR6mkebXx7BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvwomPFr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0877606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0877606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xSsVs-000000007sv-10gN;
-	Mon, 16 Nov 2026 08:56:33 +0000
-Date: Mon, 16 Nov 2026 08:56:18 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hermes Wu <hermes.wu@ite.com.tw>,
-	Allen Chen <allen.chen@ite.com.tw>,
-	Pin-yen Lin <treapking@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v8 08/14] drm/bridge: it6505: avoid division by zero in
- audio FS debug print
-Message-ID: <179481904178.211952.8076269834336042526@makrotopia.org>
-References: <cover.1790552614.git.daniel@makrotopia.org>
- <26ee2c94c42fb09c081201071cb5730c96c8c25b.1790552614.git.daniel@makrotopia.org>
- <179251509978.78870.2485132679226608837.b4-review@b4>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00E7606A323;
+	Mon, 16 Nov 2026 08:56:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvwomPFr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2401F000C4;
+	Mon, 16 Nov 2026 08:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794819419;
+	bh=42Gs7+kt2Rgi78czHC7JtxOqLEeMRxWEH0wDlNcA+Ok=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YvwomPFr3Dy9WSCTUXhwRiYexIxZeWPNOZRKwjA0vqfPQlD8u2H3Ih9BA+LuQbQ2T
+	 vAUkKvnPltWir4szpjNDjLYjJrdeRcXGRAmJsy8SxC87nlJXLe9ntRGmxAtBZ+zerq
+	 C8HZktnZdeV/l1EyOvBTBD80nuK9d9iFhWJDahqJhNpWJWvARiiH3tsbh75HbjeaO3
+	 CuW6JIBoklYWu0IejwlPgG8nFzDc7QhmPhK0oQOHwhGvsMqYKLxIAZqr78s/rjvH5b
+	 hokEF8CGgFxixV/C5RpoLk8uXvDgZ6m1YV776kOvDrJrLc0DxMWpe+XrHTr5K7vjjf
+	 QLuwIefE37nPw==
+Date: Mon, 16 Nov 2026 09:56:54 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+	akpm@linux-foundation.org, linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jm5905938@gmail.com
+Subject: Re: [PATCH v2] hugetlbfs: report inode limits without a memory
+ subpool
+Message-ID: <avrFVm-VwMwoBZyS@localhost.localdomain>
+References: <20261111130145.96534-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,36 +61,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <179251509978.78870.2485132679226608837.b4-review@b4>
+In-Reply-To: <20261111130145.96534-1-dennylin0707@gmail.com>
 
-Hi Luca,
+On Wed, Nov 11, 2026 at 01:01:45PM +0000, Hungyu Lin wrote:
+> A hugetlbfs mount can limit inodes with nr_inodes independently of size
+> or min_size. hugetlbfs_statfs() only fills f_files and f_ffree when a
+> memory subpool exists, so an inode-only limit is enforced but its inode
+> counts are reported as zero.
+> 
+> For example, a fresh mount with nr_inodes=4 reports zero total and free
+> inodes instead of 4 and 3. This hides the inode limit from tools such
+> as df -i, even when creating another file fails with ENOSPC.
+> 
+> Report the inode counters when an inode limit is configured,
+> independently of the memory subpool. Preserve the existing zero and -1
+> results for unlimited inode counts.
+> 
+> Fixes: 74a8a65c5261 ("[PATCH] Fix hugetlbfs_statfs() reporting of block limits")
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+> Tested-by: Aveline Noir <jm5905938@gmail.com>
 
-On Tue, Oct 20, 2026 at 06:51:39PM +0200, Luca Ceresoli wrote:
-> By just looking at your patch and the current driver code I'm failing to
-> understand what's going on with the REG_AUDIO_INPUT_FREQ register:
->
->  * it is read, but never written
->  * its value is used by:
->    - it6505_enable_audio() only for logging: is that logging really useful?
->    - it6505_audio_input(), just checking whether it is 0xFF or not; what's
->      that 0xFF? Is it documented? A macro hinting at what 0xFF means would
->      be better than just '0xFF'
->
-> If you could share what that register is for, it would probably answer some
-> of those questions.
+Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
 
-I don't have documentation for it either, and with ITE gone there is
-nobody left to ask. Judging from the debug print, which computes the
-sample rate as 6750 / regbe kHz, it is a read-only measurement of the
-audio sample period, and 0xff looks like the counter saturating when
-no audio clock is present.
+ 
 
-As for the logging, I don't think it is worth an extra i2c read and a
-division in the enable path, so in v9 I'll drop the read and the
-print from it6505_enable_audio() instead of guarding the division.
-Without documentation I'd rather not invent a name for 0xff and leave
-it6505_audio_input() as it is.
-
-Cheers
-
-Daniel
+-- 
+Oscar Salvador
+SUSE Labs
