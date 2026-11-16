@@ -1,54 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838482;
-	b=hxkHwQrbWYY2wIx5sGmTh5DYOlCqUIM8c00O3ZxFz4YGB0UxFS132Ic8AkkVvEzZtuc9
-	 qIaaoQC3FlWzZ0kG0b03LDJVle438KsGanJc0P1mxXay74n4zNjjdrsgfgb37w1W/SdjJ
-	 WOH46puRDCyqFqw6y8g0Mo6mkFaAntauBoOt6cn20xF9fo9Zv/Y2FUKFV8PgR3x4ug8vC
-	 1urJSXn5pz3+ukpXvX/sCQbdtzFmGVLRK+QCIJ4gLE9ycKspB4dQzosex2mY2Y8bYKbnm
-	 QXVuE7hzQ02As2B1HxKI4O+r7Ln3/DTCRW8QdxHYvDStxZDSJ7GANO6yUxkqnGoK9RQ==
+	t=1794838501;
+	b=LyvcvSUYybza+k4GmhPxmcUWql/PamYb4OMSks37ykN/rrfcnDjW2P2868RjNQ/Dbepl
+	 33YVblK338oVIga7qT1z0H6pS3VWFl5/FpxcBU88vEkLW7k2dZiOGa3fBKtBzhHeztFzq
+	 nkBfpWNfe5bAnohF+eUkArNrfEvSO/Ar3kacVQmxEqvpGu/ZSu++Wu1TcaZ5MglENWIam
+	 inaA3yy/6Rs9OWfRc0mIq1k1Lr2F63vP7BEXTiNIzuQNZWe63J75Ag8hOAOEl55WkSiNP
+	 WO6yDMVFvTL1BgeM6c1EeaVg7NZRbe3VRPF8877lTZuCMJL60xbOqZ6hFLtKKKHCTGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838482;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EZpAJBrxVDUG3AN5aD0Qg1NU1l6jqV0Ou7o1Iq7ljhc=;
-	b=e7jKSMowbnlgJ9ilwLcQBOOUbHinsR3r744oYlhBZlKI8PXNX7BU2g7qjyU3cLiqAwQr
-	 vgI9v+cxZFoSBBloZ3IXVn4Q66X3hWK9h/ZrToLeKtoapuMCnJpNwB+L6Y+2b9djwMOD6
-	 H7N9tRDgKpkq6PQy+fQk0IOQQiH6HNnNUdKsgCGuhTJhEq57jiF/QYJ/DyXcCd6sbe2CC
-	 VMlpvodbTRmFJZgbFkd85cbOYvUNsff0xpC2whpZoKIkfCmY8tKd7NHCDGIpe+DBQx5Fa
-	 Ly3OlXbj/DbxjGRROrctSYPXEaqXlrq8EB2GgLKdl2j6spJzoQnMciYivCg9xmQ+1HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838501;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=de0OenvYtC9EcJ6k97P7EWscdeX36hwem4HnssW40LQ=;
+	b=gW5KwH4oLyQDJc8+6EVFhmLAhhP+kG6ch0LS5+ldL/y4W5VuQ6WCf5M0AEkQwie3RMZL
+	 2qnF//3LI2m88saXBCLOrWj5q5W8lIao4jyRRxR2X0xm178k6jMhAhagX6oJ/rILWumuQ
+	 nXcrIguHlNVXd7O+AO5JcheT2rI61rV5OP8WKNUO1G2MrV7DCVBj2Jb7W+Z+fG5WVZv32
+	 j/xMMyyY9TMVbHwocD4B4qkWxQpJZD5D3PKK9eFFj3yJUp7sXZDF1elhmmyh8RK9tgDwx
+	 L0C/6wmMLGgN3+nuZCWJXmuQw1n1XiYb2jx+KgIV6cw9hbKDOcYBABBOkQh+BXm6msA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Otsqep25;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chrI8hpd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B0B606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:14:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA1B606A329;
+	Mon, 16 Nov 2026 14:15:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Otsqep25
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21AA51F000C4;
-	Mon, 16 Nov 2026 14:14:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chrI8hpd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17031F000C4;
+	Mon, 16 Nov 2026 14:14:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838481;
-	bh=EZpAJBrxVDUG3AN5aD0Qg1NU1l6jqV0Ou7o1Iq7ljhc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Otsqep258j7a+fFg2THl4lNVNvtC6aDcWX37zWqfZJKN2mhSsfWGwIjoEC4R0bLEt
-	 YXF0jBgnBZRxZmVRcMpFLUZfdHaTjOU3RmFZbKu/f4BLfXL7Wf01W3sRklRX6lOFcG
-	 5RqCELFJ4Onj+ISZXwdDIJBu+WxZMxTT0729yjDYM2gFoSv2F6ogCPqiF26DVvJdpR
-	 8JTvbNHGRouYDUQVCRD4n2bRpW/5wxnNhywny5ovmpMcf7pFCdhqRuV7fFKuzGmqNY
-	 hYvbSAfakWXxDYIIXYEEzWH/Tx/iN+oiiqkJQSC8SyIIro6zHT1E7Wrc/TsroTtqNA
-	 1JBgQW6wjc/CQ==
-Date: Mon, 16 Nov 2026 14:14:37 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: chengming.zhou@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v3 2/2] mm/ksm: add initialization helpers for
- scan_get_next_rmap_item()
-Message-ID: <avsOr-03NtFVG-6a@gremlin>
-References: <20261116014434.310003-1-xu.xin@linux.dev>
- <20261116014655.310486-1-xu.xin@linux.dev>
+	s=k20260515; t=1794838501;
+	bh=de0OenvYtC9EcJ6k97P7EWscdeX36hwem4HnssW40LQ=;
+	h=From:To:Cc:Subject:Date;
+	b=chrI8hpdPn4zacL284Mok86ddOiXlRj+ZeHafq0jBQxh7o4Ge8ML0ezRTdSYbZiI2
+	 93N8LqkbT+QJDLfGiyLTKc8OTqYPYh6JSFDQC/tzoyDx6Ql7SYPla8cvqRXre1xtAZ
+	 4JRCDb3Lre+6jaFArguhmWWr+Q1/3alrlKZm9X/ND3FFKsQDnLY1tTuCZVp1enfWpa
+	 Y8gXE+Yr8nqYr+RQOlAhV/deipLXorAf7cAkChPiXd3mF+lj8Js77XOC7tfiwqspeb
+	 vqkrCa+MhTjnX/+xY+wBZ4b5kGVpoqEmdATsZmmPGlzuZE2EKgkBMAqBSfmnrcMBVT
+	 9RbijJuWsEU4Q==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 0/8] net: stmmac: add SL2610 ethernet support
+Date: Mon, 16 Nov 2026 21:54:34 +0800
+Message-ID: <20261116135442.4827-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,132 +71,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116014655.310486-1-xu.xin@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 09:46:55AM +0800, Xu Xin (vivo) wrote:
-> Extract the new scan cycle check into scan_should_start_new_cycle()
-> and add the helper scan_get_first_mm() that advances the scan
-> cursor to the first mm_slot.
->
-> This keeps the exact execution order intact while making
-> scan_get_next_rmap_item() cleaner and easier to follow.
->
-> No functional change intended.
->
-> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+This series add SL2610 ethernet support. First of all, introduce
+the mdio demultiplexer, then add the stmmac glue layer, finally
+touch dts.
 
-Nits below but otherwise LGTM, with those addressed:
+NOTE: this series depends on the sl2610 SoC support series which
+is still under review:
+https://lore.kernel.org/linux-arm-kernel/20261115102401.3520-1-jszhang@kernel.org/
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Jisheng Zhang (8):
+  dt-bindings: net: Add MDIO demultiplexer
+  net: mdio: Add MDIO demultiplexer driver
+  dt-bindings: net: Add Synaptics SL2610 DWMAC
+  net: stmmac: Add glue layer for Synaptics SL2610 SoC
+  dt-bindings: soc: synaptics: Allow SL2610 mux controller children
+  soc: synaptics: Populate SL2610 system controller DT children
+  arm64: dts: synaptics: Add SL2610 Ethernet nodes
+  arm64: dts: synaptics: Enable Ethernet on SL2619 RDK
 
-Thanks!
+ .../devicetree/bindings/net/mdio-demux.yaml   | 102 ++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+ .../bindings/net/syna,sl2610-dwmac.yaml       |  75 +++++
+ .../soc/synaptics/syna,sl2610-soc-syscon.yaml |  10 +
+ MAINTAINERS                                   |   2 +
+ arch/arm64/boot/dts/synaptics/sl2611.dtsi     |  41 +++
+ arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  77 +++++
+ arch/arm64/boot/dts/synaptics/sl2619.dtsi     |  36 +++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-syna.c  | 116 +++++++
+ drivers/net/mdio/Kconfig                      |  12 +
+ drivers/net/mdio/Makefile                     |   1 +
+ drivers/net/mdio/mdio-demux.c                 | 298 ++++++++++++++++++
+ drivers/soc/synaptics/sl2610-syscon.c         |  10 +-
+ 15 files changed, 791 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/mdio-demux.yaml
+ create mode 100644 Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
+ create mode 100644 drivers/net/mdio/mdio-demux.c
 
-> ---
-> Changes in v3:
-> - Initialize mm_slot = ksm_scan.mm_slot in the else branch when continuing
->   the current scan cycle, fixing an uninitialized variable warning/bug
->   (kernel test robot).
-> - Drop Lorenzo's Reviewed-by tag due to the v2 bug fix.
->
-> Changes in v2:
-> - Rename scan_begin_new_cycle() to scan_should_start_new_cycle() and keep
->   it simple (David).
-> - Keep lru_add_drain_all() in scan_get_next_rmap_item() (David).
-> - Use scoped_guard(spinlock, &ksm_mmlist_lock) in scan_get_first_mm()
->   (Lorenzo).
->
->  mm/ksm.c | 47 ++++++++++++++++++++++++++++++++++-------------
->  1 file changed, 34 insertions(+), 13 deletions(-)
->
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index 8db6743ece6d..89a3da4a4874 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -2638,6 +2638,34 @@ static void ksm_reset_unstable_trees(void)
->  		root_unstable_tree[nid] = RB_ROOT;
->  }
->
-> +static bool scan_should_start_new_cycle(void)
-> +{
-> +	/* Check if the cursor points to the head. */
+-- 
+2.55.0
 
-Probably this comment is redundant, I think the code already makes this
-clear.
-
-> +	return ksm_scan.mm_slot == &ksm_mm_head;
-> +}
-> +
-> +static struct ksm_mm_slot *scan_get_first_mm(void)
-> +{
-> +	struct ksm_mm_slot *mm_slot = &ksm_mm_head;
-> +	struct mm_slot *slot;
-> +
-> +	scoped_guard(spinlock, &ksm_mmlist_lock) {
-> +		slot = list_entry(mm_slot->slot.mm_node.next,
-> +				  struct mm_slot, mm_node);
-> +		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-> +		ksm_scan.mm_slot = mm_slot;
-> +	}
-> +
-> +	/*
-> +	 * Although we tested list_empty() above, a racing __ksm_exit
-
-I think you need to update this comment to reflect the fact that you moved the
-list_empty() check :)
-
-> +	 * of the last mm on the list may have removed it since then.
-> +	 */
-> +	if (mm_slot == &ksm_mm_head)
-> +		return NULL;
-> +
-> +	return mm_slot;
-> +}
-> +
->  static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
->  {
->  	struct mm_struct *mm;
-> @@ -2650,8 +2678,7 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
->  	if (list_empty(&ksm_mm_head.slot.mm_node))
->  		return NULL;
->
-> -	mm_slot = ksm_scan.mm_slot;
-> -	if (mm_slot == &ksm_mm_head) {
-> +	if (scan_should_start_new_cycle()) {
->  		advisor_start_scan();
->  		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
->
-> @@ -2670,21 +2697,15 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
->  		ksm_prune_migrate_nodes();
->  		ksm_reset_unstable_trees();
->
-> -		spin_lock(&ksm_mmlist_lock);
-> -		slot = list_entry(mm_slot->slot.mm_node.next,
-> -				  struct mm_slot, mm_node);
-> -		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-> -		ksm_scan.mm_slot = mm_slot;
-> -		spin_unlock(&ksm_mmlist_lock);
-> -		/*
-> -		 * Although we tested list_empty() above, a racing __ksm_exit
-> -		 * of the last mm on the list may have removed it since then.
-> -		 */
-> -		if (mm_slot == &ksm_mm_head)
-> +		mm_slot = scan_get_first_mm();
-> +		if (!mm_slot)
->  			return NULL;
->  next_mm:
->  		ksm_scan.address = 0;
->  		ksm_scan.rmap_list = &mm_slot->rmap_list;
-> +	} else {
-> +		/* Continue scanning the current mm. */
-> +		mm_slot = ksm_scan.mm_slot;
->  	}
->
->  	slot = &mm_slot->slot;
-> --
-> 2.34.1
->
-
---
-Cheers, Lorenzo
