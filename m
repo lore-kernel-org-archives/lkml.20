@@ -1,142 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794819977;
-	b=LuZ7OGf2HKbwYylzYdexzuvkSyzLMXnqiy8d9qZ+zwmjIf1xeiRU3H2KdMaCAx3A6Lxn
-	 ipV60RpSeUrGo/rGtB7pUy54n4ehIqIk7ZTu9wcPaW5AhGDkmXzCj8I3Tbcv0dZNqYfxd
-	 1pRpqawcw7y5bMxIdj3GdUC9S9gehl7KIHdXIMVNC7G1W95lmi7ejBby0cEM99tWLQxZ1
-	 roRgZcF8AXcQOxtmNtWU4cqJk7bvxRf1SuL5KNZyyqL8SYoZ+2wKAP/UQknRBN0/lcg8v
-	 X8tQxxBHyemtvYXzyn2U7E5xidFxBXgZKqRn4gE1ThUv8P1JM1CaCt98S/fbAeRCo8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819977;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bj1saj8vPi5Aiw80rHGDqnu+64R7YS5JFy70TTaclnk=;
-	b=izWWPfbT03UeozuQE2bMV4BNd+cM1MezHzv+u7gvgCfh1PMXBp4HILNL6SHzjh2A/DX5
-	 gS56HfeyNmA5C74RV90B8vVAh2Klo/gHMXGsm9tHfGEMZIiCIeZO29tP9WGYqlEGrT1Ff
-	 Sc8fk4i0vlTV/XeDf7h0U/D5zBPsKMjSKPxcqKJpLOq9eUxDAzU+UNtYoaG7D57Q5pK22
-	 W5oKz/RepJVCVdhH6GywiDp/LoJ/m4XLSgZTK7qftqeH3XeY0hnK9yK+LISh8dZZztwVp
-	 FzwtYQ6lccvKu1pXV7V6q99HNfJ7RJ1fMb9BiFOaoWq2Z879ZAOYMlqCpylbQOJ6a6Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Ckag48wM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.9
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011009.outbound.protection.outlook.com [52.101.125.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794820011;
+	b=TRluMwL9p3KYRArmInxhNga0guoHhNwSJ/puSEN/tNR5YDRN6X32ZwvC7s3GdE0T6MD+
+	 CtGyA7Bxfm7PuiR8Uq1H7f4aouEYfh2zqPvMicrtbY+KjKPQ3/t/q9TOH9Ka/i0ZHthtY
+	 5ndL+GkivB0jVU4/hWnVtDgAE5T+yuC7OjvMtQfJuiXebXf5yDfzdYujzyKUZrjLM6zAt
+	 aIw2S4ZzWnl3VzYGjXpb77QV/Z3ClnfdRJIFL07HNBNLhuIHQ4rhsoc5+yxsDVyfmZHnS
+	 S5XAj4P2GKa+IGJXo1RubVbhhjrC45eHYF4VRwVOX9NpSS6Ij28mZtX8ToLZ4hk8bpw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820011;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ydUjmXlLo3pPex5I6P/1tBqOJR5Q2KNo2lGVDYqsy2s=;
+	b=ceh/7Ko9ISjeYEHEwiJ+BVs5GKoiO1T7Lai40kTODh2f6U7rQBEM88N1qC4/6tML8/3X
+	 k3F4rQKnsFz5uIQ7c/q4tQA4HIp4e4undpIthyBKJQRse16QSXLmeWDyTK9OxAdGpsARd
+	 KF1v0HZpajd/T6U+ZvFZ5FA0NZ+3+ZmrX16F3pHzYdRkUChVqM/05CR5UZOS3AyYzk6bn
+	 rKOZaZP++J0DVJZOaVXmlh0dsphhSEM7AC7QRmoqtz/qaTTiKIscb6InvD1a4wCbFxlAu
+	 /4NbQcCW2h3MwE3BTBd9lIbXAW7uufUL8++R2uhA7N39z9kFVFbQTyrR2YRC7zbZX5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=xKruyXMo;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469F5606A31C;
-	Mon, 16 Nov 2026 09:06:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 469F5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D33606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:06:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41D33606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Ckag48wM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iRWY+E2daXpzidvJX+O0GmkZKFY+X3LbgzPwRMBAHhRsdZZxTj9ada4ZyM146pJbigzfzmb/JL10sNIYYAl4Lt/vf8NsEED3NJtGsKE+dJ5l9qbC3J5+WA8NqyjgCGg4IrcwSdKwt3o3mghuIRVTgUsEakEQHL4X0THqPuxmaMf1JxmGZW0YZXejU6RXl37hUj2bNLMjFJ7z64RR7gwQoc1LNaEes6MycgFe/QSWP5AajhFN3RKmAvZ4MV5H78sBd86SHBgqHKDBPys5MqmAHd6r43PsUBictJ30U3L6O6dGv8RWKSHn0Vy0N208zlGYeP3SgvfnGZH0lBErleO99w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bj1saj8vPi5Aiw80rHGDqnu+64R7YS5JFy70TTaclnk=;
- b=Dj9ypvAUMyEo+TtqF/m7qCpLqANHz6J31QjE4y/g2RkV97U55VW2vODBpwmi+MrcOagZWl8IDCRB6YURv4M9VAve2uk7vvcHZJBi9Zp7ZAiDqUWhah+fqa5wQRz+GEnQn8oSHjuNXUylsy994vSLRudjy81EEBokb7RpehW5QraONYBOvSWhSBfxTiwmBplDVTKicNYcT6Y8ll3cmslfAwQqEhH94gR3JKRZmgNG3DMpgm7dSoYyaFwXM/ILIFkDVWKRXrQhENZilU+6c/wtB6cmVREZBTuiru5KQST+WsrlRdiBjY+2L88LgDJv7nasVGSvB7hQGG2SfC42WkIRtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bj1saj8vPi5Aiw80rHGDqnu+64R7YS5JFy70TTaclnk=;
- b=Ckag48wMoBVISi+UgZ3NueJ3Us/cXH4mxPUpcuayI45/WB8yfioGUmKJb13H+Qj5xLhy2lXulJB+zuOOMY2Y2YZ2mY45Rln70REbhrE9FVS2AWutKV6N2IPRawKF+/WN9XMQRKB+Jb3hJlOBJSGM30hSvrmug2xYix0MYSebwPw=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by TYWPR01MB11706.jpnprd01.prod.outlook.com (2603:1096:400:400::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 09:06:11 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 09:06:11 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Nhat Tran <nhat.tranminhk2@gmail.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] regulator: renesas-usb-vbus-regulator: Fix module
- autoloading
-Thread-Topic: [PATCH] regulator: renesas-usb-vbus-regulator: Fix module
- autoloading
-Thread-Index: AQHddaa5NxpTPTNuIEGKD9UTze5aULcwZttA
-Date: Mon, 16 Nov 2026 09:06:11 +0000
-Message-ID:
- <TYYPR01MB66035439726639C9F4C2A5B9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References: <20261116084426.103863-1-nhat.tranminhk2@gmail.com>
-In-Reply-To: <20261116084426.103863-1-nhat.tranminhk2@gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYWPR01MB11706:EE_
-x-ms-office365-filtering-correlation-id: 03f6ac71-bbbc-495e-a554-08df43c0dc3e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|261009223027099003|56012099006|11063799006|261102123227099003|261102130727099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261022113327099003|261021121427099003|261022075727099003|38070700021|10067099003;
-x-microsoft-antispam-message-info:
- hqDp1zjjy8vapD61k05mCkGNO4NFy+P1y4MCppW7O8HrCAGn/Dtn7nOQCApf4HO/a6Rn9gT2kvMomMTaq9KSZXXrilkpX47xGXXtb7Uq9GACQpO7tWcJ1Ty/BaQDc4H/vzCNmtOA72tm4hyFuTR3qvmeKvvCdoTAh4aq7JRiu8Z9ZHT2+226XgLLmisM5ePsfxZWqZ92ANtuR/qP1uVN8b+vg84YGA6G49x9fz17Cf6ZRvvftYGmLd9y/oduxKVwho9YP6HYwXc9AkAsflki7zFKwZddGI05Nmz5yxbylgw7YcSWllB4/n09kboa4QmHGrJU7/f1yimAD8x8qQSySnwUNYq2QRp8M7h92Rs9wNDMuHpdzjvWUFsuLgEz0m5vNd5NV7ySW4QGE3CO8IurYilV2Od+xlR9S5CYlxJ6v5GQLMXPCtI+dB+VoINejGjok8O144cMuLM4v/LmGTFfB3aTwkuzyHd/SLWS4VeIeWXSqaLBL32kHUxvMSDN8B+M1977Sw/F9VYma5fsfeGyG7F76dobvF1rJ9KCDpXrA9UkiRGYXyzWFDMONLMkYTVtmyPk7V61WDpN2aLAfk/85HGCyXUpQp7LFMiZkvq5aRggtzV6aTpHEbdEVikaEDVx6l/0kdnOfngW3Ye8408FelcV5NluRJ4Z3XAKxbB8ZNE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(56012099006)(11063799006)(261102123227099003)(261102130727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261022113327099003)(261021121427099003)(261022075727099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?gEEIoauu+8JKj+OeZU8RzU6VU+yB7W5VtCYnctAXYHh0IApn0tcp4vf+qTRN?=
- =?us-ascii?Q?oVwPle63fci46aRHIW8kvwiCWAnimYYZnspKhaEMgVlruAzEWsDh15ga4X9U?=
- =?us-ascii?Q?HKcDELEJkhx6YSMeTLLMZIsEIJPEFkAZahB1pfy8oSZGw2IHWnOcib+oyo5u?=
- =?us-ascii?Q?HGAkBwjGxotqdK9lSQsGHy8HW7dOAHhFAV8ienIGXa4OsCXcRvhbemaG334N?=
- =?us-ascii?Q?19Q9+KSoPAnXRepf8wwcB1AXlZvwlVGDluzAkjVNWsZaIzft/E9N08cexYR+?=
- =?us-ascii?Q?8Mb9U1+Zk3/NlO8tVfPfg48yPilcPLlm17H/oQmnXjoZkobuwwsuiQK3tnnr?=
- =?us-ascii?Q?hAGBKzulVMh2jynFCC2hLtppdUy0zdxo8U/Ct3eSm1qnEG8vi7Pljd/uqKVJ?=
- =?us-ascii?Q?0M56ZRqZykqKO8Rpbxeyw3HtXGDATWQNdgECNzsOdFBXBthPtJDfmqSQM3aU?=
- =?us-ascii?Q?XV+SqaEUEeGD8AWhBv1o6xU8L30MbHe8TTF4YpBs3lWeHZNpgPv21XQ4h2uI?=
- =?us-ascii?Q?1I+Wg9ZpLanm7OND9MktqOCe6NA3+OkqhdbjIvwPj7vnmW8P9L/eHtszD9BA?=
- =?us-ascii?Q?KcDPL99yukGGo6KObUsquqCHlSI5BylMMDtAzXnjqlPxU8msafRUneYOyLW3?=
- =?us-ascii?Q?b7NvSSYJdaROMPlUbhL5j4p+ZqU6ucl28fGgy+pLC3CaG2b0MWdq1NvLrDyE?=
- =?us-ascii?Q?THa9016qWk/9s+77uJ/IJxp9U+I7jbFin/2Xaab3cr/W3NqPf/XgIdmzHR9w?=
- =?us-ascii?Q?XslR+PrsVgtYF12mZenN279CgJgbQSIwqnHpbw3GNBOm8dhpvoT+5lvD6WKz?=
- =?us-ascii?Q?xv5uFXRp+Y53w6dn3JZ+fGBmRUiTKiPkDfEcwD46uMLL8Sv6T6skKTRWulXk?=
- =?us-ascii?Q?IfdEFdh2O13q6mCM5H6GpXpL5IBVt+eEyVVnWQPVvCNrpuPA2IjagN/T9sdu?=
- =?us-ascii?Q?PGN1/2TsYhfOSPVV5ioEcaXdE0JbaaCx/ShU8C9siZ0LUoU+PricWcmZPq8Q?=
- =?us-ascii?Q?h0Wr54A7aum6sPsNyonpBXi2f2bpIgmNgWh9Q9ubRjU4lv/CbJ/wMM10sOzy?=
- =?us-ascii?Q?vsIYR0r91QG+zNO6KMdyLkYJPqD9ZoroCYRuJ8zn3Anm+wX5UpMPvMmPpxRf?=
- =?us-ascii?Q?nnSvdrVu0YehnHnIIwotL6sapUOKAyg5QzXg/Xnrxpn4awQxTwHWIAEwXYlm?=
- =?us-ascii?Q?65we2GuRvcRlPDaJ4dWeZZm1ApTy4wL5cB31RTHqEyvdb53IADndNzFxiWQF?=
- =?us-ascii?Q?uxfoWuRxBI4BseZlJ2FleO7BXtOEeFDbCTTurlsyQOtgwxI8uzMfbZPpE1QW?=
- =?us-ascii?Q?KER4wj9/EeBxfwQvcrtcSNUa9LOStK6KEfeIFEvjbjYpDxKRsfktr1rZ+bzX?=
- =?us-ascii?Q?t7FrAxQ9E1wVUZwPrMocScorPDp7wi2BYNa0EunLWKKMkn4xCPn+2ETBsG9A?=
- =?us-ascii?Q?+sztrdHtGMii5ccFQuZKOD13j7WkArkySs1uwFWhFbp5CWUPA+c5kdH85ezf?=
- =?us-ascii?Q?RPB+zmzLrTFBo+dYXGFvNupHQaEjW1jxo/NQI4LOCQ9z+YzhY5ZefHXUhK6J?=
- =?us-ascii?Q?Zenp1H7O8JYTjLsHhBCvSWB3nY9QykXnuiUTtBsVtqe6eHl9aig/TqUDZY6n?=
- =?us-ascii?Q?hJRex8or6bDOmayah/WkYjKEdqabH+minKj4laWruK444/Cmy4GOP3ZZ4Zcp?=
- =?us-ascii?Q?lWOFWLigyTEEaxAniShgnugNMMnaRlN4+bO0RjYfgHwTVDwV658o0KR34lGB?=
- =?us-ascii?Q?wNcUztB0HQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=xKruyXMo
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=ydUjmXlLo3pPex5I6P/1tBqOJR5Q2KNo2lGVDYqsy2s=; t=1794820011; x=1796029611; 
+	b=xKruyXMoc6pIpGww8MDdb780x18M3bPKoNGG8d7VJVbe2DRK92kHBDE+n8efHButuZ14g1S3IS2
+	l2PL3GLdznjewLDZZbe9kUm6jY/uvhvXnGShnUvkoC15emzglo8xVz3SMjfRwFC7VBdbBjusaswns
+	vyjPIIBzLk3o9ya+Y72wTe5frtA90XKdv8wcmt8qPRUPAhR70B2qG1E5l2Leg86uxx73LS8sDavGR
+	Sov5EXPhj8nvdRrlkxzFcyciqA/iY3gXO/DVcc/simjeYitT0aA65o9CSt+kzBghdmeia6ZAqzE3D
+	67LQoL6It2g4EoIX9NM4pW6IkaQnuv0ftBtg==;
+Date: Mon, 16 Nov 2026 10:06:42 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>
+Subject: Re: [PATCH v5 11/13] drm/bridge: tc358762: Drop
+ drm_bridge_funcs.mode_set
+Message-ID: <20261116100642.5d61e34b@kemnade.info>
+In-Reply-To: <20261015-tc358762-fixes-v5-11-7cd721a6451b@ideasonboard.com>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+	<20261015-tc358762-fixes-v5-11-7cd721a6451b@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -146,99 +70,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03f6ac71-bbbc-495e-a554-08df43c0dc3e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 09:06:11.6996
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4t5yM0v7C5XrOzJMkfekBDahgHXif8RCm5WRjLysGMYEQDgpcJCWbFeZFTaBPoEgmTR/52Pm1jQJO9uy4bnqAHzT4VKROa+MopZ29tUh4gM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11706
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Nhat Tran,
+On Thu, 15 Oct 2026 14:16:02 +0300
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-Thanks for the patch.
-
-> -----Original Message-----
-> From: Nhat Tran <nhat.tranminhk2@gmail.com>
-> Sent: 16 November 2026 08:44
-> Subject: [PATCH] regulator: renesas-usb-vbus-regulator: Fix module autolo=
-ading
->=20
->=20
-> The driver can be built as a module, and Kconfig makes it a module by def=
-ault when
-> RESET_RZG2L_USBPHY_CTRL is a module. However the driver has neither a pla=
-tform_device_id table nor a
-> MODULE_ALIAS(), so no module alias is generated and udev never loads it.
->=20
-> The device is created by the rzg2l-usbphy-ctrl reset driver with
-> platform_device_set_of_node_from_dev(), which marks the OF node as reused=
-, so the uevent carries the
-> platform modalias "platform:rzg2l-usb-vbus-regulator" rather than an OF o=
-ne.
->=20
-> Without the regulator, the USB0 PHY waits forever for its vbus supply, an=
-d the whole USB0 port stays
-> unusable. On an RZ/G2L SMARC EVK:
->=20
->   # cat /sys/kernel/debug/devices_deferred
->   11c50100.usb    platform: supplier 11c50200.usb-phy not ready
->   11c50000.usb    platform: supplier 11c50200.usb-phy not ready
->   11c60000.usb    platform: supplier 11c50200.usb-phy not ready
->   11c50200.usb-phy
->=20
-> Loading the module by hand makes all of them probe.
->=20
-> Add a platform_device_id table and export it with MODULE_DEVICE_TABLE() s=
-o that the module is loaded
-> automatically.
->=20
-> Fixes: 84fbd6198766 ("regulator: Add Renesas RZ/G2L USB VBUS regulator dr=
-iver")
-> Signed-off-by: Nhat Tran <nhat.tranminhk2@gmail.com>
+> drm_bridge_funcs.mode_set is deprecated. Drop it and get the
+> drm_display_mode from the atomic state.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 > ---
->  drivers/regulator/renesas-usb-vbus-regulator.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/drivers/regulator/renesas-usb-vbus-regulator.c b/drivers/reg=
-ulator/renesas-usb-vbus-
-> regulator.c
-> index 9ba791bd72ec..65a58bf5ffa4 100644
-> --- a/drivers/regulator/renesas-usb-vbus-regulator.c
-> +++ b/drivers/regulator/renesas-usb-vbus-regulator.c
-> @@ -55,12 +55,19 @@ static int rzg2l_usb_vbus_regulator_probe(struct plat=
-form_device *pdev)
->         return 0;
+>  drivers/gpu/drm/bridge/tc358762.c | 26 ++++++++++++--------------
+>  1 file changed, 12 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+> index a91cf159ba27..33312300e606 100644
+> --- a/drivers/gpu/drm/bridge/tc358762.c
+> +++ b/drivers/gpu/drm/bridge/tc358762.c
+> @@ -98,7 +98,6 @@ struct tc358762 {
+>  	struct regulator *regulator;
+>  	struct drm_bridge *panel_bridge;
+>  	struct gpio_desc *reset_gpio;
+> -	struct drm_display_mode mode;
+>  	bool pre_enabled;
+>  	int error;
+>  	bool use_vtg;
+> @@ -186,9 +185,18 @@ static void tc358762_enable(struct drm_bridge *bridge,
+>  			    struct drm_atomic_commit *state)
+>  {
+>  	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> +	struct drm_connector_state *conn_state;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct drm_connector *connector;
+> +	struct drm_display_mode *mode;
+>  	u32 lcdctrl;
+>  	int ret;
+>  
+> +	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+> +	conn_state = drm_atomic_get_new_connector_state(state, connector);
+> +	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+> +	mode = &crtc_state->mode;
+> +
+>  	/*
+>  	 * DPIENABLE has reset default of 1. Make sure we don't output on
+>  	 * DPI until we have finished the coniguration.
+> @@ -213,7 +221,7 @@ static void tc358762_enable(struct drm_bridge *bridge,
+>  	if (ctx->use_vtg) {
+>  		struct videomode vm = { 0 };
+>  
+> -		drm_display_mode_to_videomode(&ctx->mode, &vm);
+> +		drm_display_mode_to_videomode(mode, &vm);
+>  
+>  		tc358762_write(ctx, LCDC_HSR_HBPR,
+>  			       vm.hsync_len | (vm.hback_porch << 16));
+> @@ -237,10 +245,10 @@ static void tc358762_enable(struct drm_bridge *bridge,
+>  
+>  	lcdctrl |= LCDCTRL_DCLK_POL;
+>  
+> -	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
+> +	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
+>  		lcdctrl |= LCDCTRL_HSYNC_POL;
+>  
+> -	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
+> +	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
+>  		lcdctrl |= LCDCTRL_VSYNC_POL;
+>  
+>  	tc358762_write(ctx, LCDCTRL, lcdctrl);
+> @@ -265,15 +273,6 @@ static int tc358762_attach(struct drm_bridge *bridge,
+>  				 bridge, flags);
 >  }
->=20
-> +static const struct platform_device_id rzg2l_usb_vbus_regulator_ids[] =
-=3D {
-> +       { .name =3D "rzg2l-usb-vbus-regulator" },
-> +       { /* sentinel */ }
+>  
+> -static void tc358762_bridge_mode_set(struct drm_bridge *bridge,
+> -				     const struct drm_display_mode *mode,
+> -				     const struct drm_display_mode *adj)
+> -{
+> -	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> -
+> -	drm_mode_copy(&ctx->mode, mode);
+> -}
+> -
+>  static const struct drm_bridge_funcs tc358762_bridge_funcs = {
+>  	.atomic_post_disable = tc358762_post_disable,
+>  	.atomic_pre_enable = tc358762_pre_enable,
+> @@ -282,7 +281,6 @@ static const struct drm_bridge_funcs tc358762_bridge_funcs = {
+>  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+>  	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+>  	.attach = tc358762_attach,
+> -	.mode_set = tc358762_bridge_mode_set,
+>  };
+>  
+>  static int tc358762_parse_dt(struct tc358762 *ctx)
+> 
 
-Have you tested this patch properly?=20
-
-I had an issue in probing the device related to id_table match due to strin=
-g length restriction in [1].
-
-So, to avoid ABI breakage a patch is introduced in [2] and
-Similar changes done in [3].
-
-We cannot apply fixes due to ABI brakage.
-
-So do you need this patch as [3] is already mainlined?
-
-[1]https://elixir.bootlin.com/linux/v7.1.2/source/include/linux/mod_devicet=
-able.h#L604
-[2]https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/comm=
-it/?id=3D26599cbf46fb1a72d4c7789d08a127a3d6bc59d0
-[3]https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/comm=
-it/?id=3De0d3ff3fe71b2773913c43e5f759473cd003c9af
-
-
-Cheers,
-Biju
