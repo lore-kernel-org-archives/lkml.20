@@ -1,80 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794817681;
-	b=B8KAJI/lGn3yUGmQUtUEM1KjvcQ7ixyvGUXOmnQsjnTshuunPabGCqUPPngFCYBNNzJM
-	 oW3N3POgZ71dviDaEpqNikPc5j/AcQB11TUZF5EQTc94R47+bpdl1Fs9OspX3wAbEq2ak
-	 sKakKtTYLe1zFG7UJG6+6LiMkYYCjVm+ATmcIfw1qJH/1rp1hkrxFp/ELXoB4UZlSkquj
-	 IPlAaeUBF40dyQzNd0Ypl3ur3ldezdxnrmgjMq5bwemTMRmd6zm4mnAaU/jPm2uYlqbIK
-	 HMP3MZ/4pTydIxAjUpL1464X6cjQHd1av3jc9sw0N8uqkuyKGlR81hPoRv7xu8VqyDg==
+	t=1794817804;
+	b=CjQULc5nm421twW3b+TQGsiuh2GKvOPmmIWT/7d+ji0Kx1EbSUachPLYKhlz/MSga14K
+	 kZL3tLyYASE3OAoT8r9PXs2cNX00EMuSw/Yfr63ehQ3Xutj7C4a5MgeGDuM7HcK/C1Qtj
+	 ceMOFeTSMDuuvp6LaxkjkcGK+w/Kz35nQfGqXJA24HE1B4UcyPtR2vMCnJF3vHU0prgI/
+	 fLZcVci8AmZfqTIFk36ZXBF317ibI3O39AO04QJrSx4U1ITTvGC3fsrH+jJwmo2jpqmvr
+	 YzLthohvcXebYjyHh7hXN/VSxG9LT+101PaCTt1KkY6kapnGBIlDdstl/cHqFHm4GSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794817681;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794817804;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=yjkL79qbgx1RcVh92Ok4UeomTYQI487EiTDK3+DMMiA=;
-	b=SBwEQGvLKU6w1XARNV+oxzyanU4D5YyGyRxdGNeolAJ6ZN8cUyG5BPz/vfQfwFVZAUeg
-	 8yHf/uQjAmNFhGfEv7kq7YaIAm9nzA/QfPiTe2oP3I3eoj0sID6V3wJaMNbXo/544Fkvx
-	 8iCFOu372RNh8nS91xrbuj0+QJZPgbsVOy0ccA9UNGwcKBX+jsaZTI1oy+s2DtdZIpQEU
-	 5+H5k1VMR65s1S/WM9DoZmDewAB7447Dhf8FvGM4X0yopKWVOQZDDXeTrrXswnTCajoP2
-	 csi76cqUCAIBUYmSzN27/hw9jAYIbwZs/LrsOiWzgOhYYS9R5wxkw0r91aOcEn6RgNA==
+	bh=lm4Go5/e0CrX7BxoDuZggSWLrwmRULJIrvc5xvYu07I=;
+	b=MXW9/v3wvvzMdBOPIA5IQb/Zqfs3pM+fGLIff/y9DWK2W5wuse3znTt9VYOkcft82wNi
+	 scmKL5dr8et2mB7+afnUSfNP0hzCCdg6Pi6MpNKM80ICD74C5lKwvQsapp1lMAPmQZ2WB
+	 deoPllAmldi+rUl9hkl6JPg0ui9lJECE2pftTF1GVTcJfAudinxk3JKXX1EVS8bqA4LtP
+	 uhb0glbNP4oHetDm+RKPrczv+GceFRNIF+851tpLZp9MkaoYlCA0FL5DrctTp6iULiL3T
+	 yO2BmjTW/lsWwcdf4i5O5sD2nR8oipbGHRmGQXWcVmcU86nd8uGAKWQ30A0Xk+ASsAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PTvDIZAb;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=fCIhAIp8;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C35606A323;
-	Mon, 16 Nov 2026 08:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C35606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E131C606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:30:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E131C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PTvDIZAb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794817681; x=1826353681;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=4sIZXJzXOMqGBwQlmS3gd/5uz+7dGEuRXqX4orYgfWQ=;
-  b=PTvDIZAb2MrF7R6pvzX4kOWAYpdBf5LcFV672TjCNZQym/o6zbAOUJi/
-   lv3qxN5AmVLiIaOflRezGItRJHH2X9olKKaXGeyanE68Eic0N1XH0+5Dj
-   8wCNUzxEajiTh2v8qQC/DCksYbVIy6mqbqmsu/pn0FXppdDmORJp3WH00
-   3M/bR63d14fBCVfj8VbOMHTqq/fd+2lOd8uoOud5Zdgsr9ImTOMNcFdPk
-   aD82mEHVwe2woxhCCjeeQiThYdKzvZtlBsbtonI91uVKY+NjdcQEVa//R
-   7lKlMPqJB+Iex37T1zrgH9Cf2Rm36QZDWXclRr7npVOFa3Kghfsa39+Sw
-   g==;
-X-CSE-ConnectionGUID: U1xO60PLR56iPhlGH8HTkw==
-X-CSE-MsgGUID: Y1MWGPPGRbmRM7OTwn7l6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3436443"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3436443"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 00:28:00 -0800
-X-CSE-ConnectionGUID: B4Oz/kbySsOWupWng78nXg==
-X-CSE-MsgGUID: kyBWsgbEQ0u/3xN2mxxZOw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9293568"
-Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
-  by orviesa008.jf.intel.com with ESMTP; 16 Nov 2026 00:27:57 -0800
-From: Even Xu <even.xu@intel.com>
-To: bentiss@kernel.org,
-	jikos@kernel.org
-Cc: srinivas.pandruvada@linux.intel.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Even Xu <even.xu@intel.com>,
-	Rui Zhang <rui1.zhang@intel.com>
-Subject: [PATCH 4/4] HID: Intel-thc-hid: Intel-thc: Restore RXDMA after SWDMA operation errors
-Date: Mon, 16 Nov 2026 16:28:00 +0800
-Message-ID: <20261116082805.3986615-5-even.xu@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116082805.3986615-1-even.xu@intel.com>
-References: <20261116082805.3986615-1-even.xu@intel.com>
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=fCIhAIp8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=lm4Go5/e0CrX7BxoDuZggSWLrwmRULJIrvc5xvYu07I=; t=1794817803; x=1796027403; 
+	b=fCIhAIp8p8XKjAeqYz6JCBtVHtAN89yB38O3gDKhiItY0d5cXxWQySnce8b4qwoGywsRS8ZEAQJ
+	Ce/+2n+ep3z7WnoKPyXEbhSd1H21pxq7QDfGDc/IIP9iwXPeXXj/d4847VivLhQHsyMSLJB0Rq8Gx
+	TxmD+j3bG2JeftNnLknTM9DQCQmU1cDoGB53JKgrVn+hYyLCqq6uWoZFRnvlt6onx3GgSpVlo1ZA4
+	xK/B4R8B1m1g0Dz+IaI80mV8XwBYB0/N0HLvgQuBytpZXybfFvv2pV+MAEZRl35yE0o/WQyyJ86lt
+	GzROtZ73FGYlMpajF382SM8D2T+EaavvQhXA==;
+Date: Mon, 16 Nov 2026 09:29:54 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>
+Subject: Re: [PATCH v5 09/13] drm/bridge: tc358762: Fix sync polarities
+Message-ID: <20261116092954.1997be09@kemnade.info>
+In-Reply-To: <20261015-tc358762-fixes-v5-9-7cd721a6451b@ideasonboard.com>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+	<20261015-tc358762-fixes-v5-9-7cd721a6451b@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,52 +69,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-thc_swdma_read_start() quiesces device interrupts, stops RXDMA and
-temporarily disables the I2C special controls. If reading the response
-of a completed SWDMA transfer fails, thc_swdma_read_safe() skips
-thc_swdma_read_completion(), leaving RXDMA stopped and the saved I2C
-controls unrestored. Normal input processing can no longer resume.
+On Thu, 15 Oct 2026 14:16:00 +0300
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-Call thc_swdma_read_completion() even when reading the completed
-response fails, so RXDMA and the saved I2C controls can be restored.
+> Setting LCDCTRL_HSYNC_POL and LCDCTRL_VSYNC_POL will make the respective
+> sync signal active high. The driver does this in inverse. Fix it.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-Fixes: a688404b2e20 ("HID: intel-thc-hid: intel-thc: Add THC DMA interfaces")
-Signed-off-by: Even Xu <even.xu@intel.com>
-Tested-by: Rui Zhang <rui1.zhang@intel.com>
----
- drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+at least the commit message matches what the patch does, but nothing else
+can be checked anyways here.
 
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-index 11d29c8daebe..7f9c9017049c 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-@@ -911,6 +911,7 @@ static int thc_swdma_read_completion(struct thc_device *dev)
-  * @read_len: The pointer of the read data length
-  *
-  * Oversized frames are discarded without copying data and @read_len is zero.
-+ * The completed transaction is restored before returning the read error.
-  *
-  * Return: 0 on success, other error codes on failed.
-  */
-@@ -949,12 +950,11 @@ int thc_swdma_read_safe(struct thc_device *dev, void *write_buff, size_t write_l
- 
- 	ret = thc_dma_read(dev, &dev->dma_ctx->dma_config[THC_SWDMA],
- 			   read_buff, read_buff_len, read_len, NULL);
--	if (ret)
--		goto end;
--
--	ret = thc_swdma_read_completion(dev);
- 
- end:
-+	if (thc_swdma_read_completion(dev))
-+		dev_err(dev->dev, "Failed to restore DMA after SWDMA read\n");
-+
- 	mutex_unlock(&dev->thc_bus_lock);
- 	return ret;
- }
--- 
-2.43.0
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+
+> ---
+>  drivers/gpu/drm/bridge/tc358762.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+> index 1fb5626a35ab..2baacef685a5 100644
+> --- a/drivers/gpu/drm/bridge/tc358762.c
+> +++ b/drivers/gpu/drm/bridge/tc358762.c
+> @@ -190,10 +190,10 @@ static int tc358762_init(struct tc358762 *ctx)
+>  
+>  	lcdctrl |= LCDCTRL_DCLK_POL;
+>  
+> -	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
+> +	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
+>  		lcdctrl |= LCDCTRL_HSYNC_POL;
+>  
+> -	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
+> +	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
+>  		lcdctrl |= LCDCTRL_VSYNC_POL;
+>  
+>  	tc358762_write(ctx, LCDCTRL, lcdctrl);
+> 
 
