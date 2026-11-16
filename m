@@ -1,77 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823462;
-	b=ip6Pg8WoEf/Vp9cLwrwCyA6UUJ/1J1LjhG12Y+aPNLYbQGdLu4L2H4DrFSWKegPRpwon
-	 3A1/Rl7EWa2pwIB1U/G3AwC0F5WJdhEnGqHqaCDt47owDPSo6M0YAWdXoGIUsdLw62pEI
-	 3BYK9sF9Vxu3dtia7ehx4waxJ7nxN6m9t6+Vs9Lonuj68iJ4CrChceH8vvZTjLp34LIHM
-	 dW4mk4n8OSg+hKMdRn3MT3QFao2BLSswUSQBGfUH/1n5Sk6BFurFlwImQcMAhElsbEEtR
-	 YyNka4lExSiGdtQn7bIQyEo9fvrGzf6K+CnqR378Lp90Mg3AHplh72pCzTu87LJnQGQ==
+	t=1794823492;
+	b=CW71aOQM8QuaxQ+M4M2ON0YjGQfOMtgr+yjgn6USdDs6efGQfiewpLTdeWUkzh+LAuhP
+	 tMBYnP+2p77PtjdC9mlIqJSVsvqW8nbR+5sAZMNcXIsJjMuz7tg/0GZX82UDiJ7ijC35k
+	 iBvjQ1DLz0kDKvzD+44NHSvOIvrbC45BzTV7cVDQVJTMlXC5s5oHPa8mO+uieRJn9q+GF
+	 8pxb57567SulLS8k7LXXmdtA8HoZMIizk0IjinAeW/4ywO10VEPJCnEaOMPo3rY6MeokA
+	 NNW9RHomdZr/hf8H03O2hk25LHRuiEadp6btrHjkBoVq8G0P2vG3TOjt8pDQTj7PsDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823462;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=0hfRGVDl+PzAZjsqP15lmfu4lbYtTRutweEiLzOonds=;
-	b=QTv6Gk7mYiUH3DGdhhW6RYVZ2wdG1o4Dam/KCTqlIyuKu1A8w1yjQIkkuSL3D3yPvUsv
-	 zte+RR3SjDr7O3qOd6QVj0+x4s5dd1VRWwPxfx89PFdD5lKXyjG4AH0k3oE+J/FDOCCGz
-	 fRLW9euLHxKdFkncwfW6U2eQd1Xc1RSy74o6h8tcpgr/28zFeGDLXqyMPyZjddP0MRcJA
-	 TM8ykqN7XYg82cjeBoeSQV2npWoFKFqLfM6lCB8TuAHZhPdHZ/IQe4u1v+2RvCXSdhUPS
-	 44LVmdYx5mPJ2iC1kISIR958nAxPbsBC0UolhH4e2odMoi947WR9EiEfC7Lk9Ex39gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823492;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-MBO-RS-ID:X-MBO-RS-META;
+	bh=ybJrA9ybe5eIn8trG0ah/ZMJtYtX04BZv0cvH05uGx4=;
+	b=RrdosFfZCh2qT88FshT2aXAdW3KFTe5luttJ7fybFNHXGghOt55FO+ztkUtRSJFwtaRQ
+	 u1biQ1QNCq9wO7N3tm+hofWzum+T9shwZgeV53Xx4j9yrACXTVqwX/5cecr/ZT3VL1OLg
+	 RfmwgjBuvFIEBMkOxM1UPqz9EVxU00NpYqDcci89f/UdGf3W79CwHnaj/ilHal3Bwv6bA
+	 qR+m5wsHODiXrYJEvvHDhNAbdF9Hh8kPy/w5p5qQ00MyH4ShG7Y0ezgMIu6ZEylt0Faty
+	 KepOLEuPubjalA4P1wKOHgM1vaRkUBdlTwgg1gtPmYkENY72BjfaN6nOkZIC6Vx5ucg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=qw9nCYWO;
-	arc=none smtp.remote-ip=212.227.17.11
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Ws1wgy1l;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FA9606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:04:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1FA9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836D5606A31C;
+	Mon, 16 Nov 2026 10:04:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 836D5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=qw9nCYWO
-DKIM2-Signature:  i=1; m=1; t=1794823459;
- mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=web.de;
- s=s29768273:rsa-sha256:iA9tgNwWrHg6uzT68FLVYaMhLEP5
-   XqyG8as6RDnx/tuC9OATL7I4mx19KuOmWRy0RNMGWLIsr5kMUSI8xH8lz7Agroff+0V61DXFO6H
-   ED+YMWCLRo3AWVnJrtiU3+O3DW/E4jHdRmV96dyS67Q/PzPLmswKAkblcb8HZ1MuzRAobs5baEK
-   9oGl4TmWIT9k25f8olr2lFs42bN42NGxwU5c1UkkLcvsHVG8s88K7CywjXyASGJaiwjuHfHlj+8
-   2gAADK20CqR4mL7BYIMSDDGsqNqUZSqsh5+nC93+lOgA/wW+Ueyyy5lyJi7PC+rUJhNlOs9rPQx
-   xH3tu5tQ8EegUg==;
-Message-Instance:  m=1;
- h=sha256:
-   MQq03cFCOaHqHWHqMa+tVB8Epfo6fUXsjBuA53CvzhY=:
-   0hfRGVDl+PzAZjsqP15lmfu4lbYtTRutweEiLzOonds=,
-  sha512:
-   xJzbg5ReXmHLxXNShqewDk5t9L0Qcu7gAdjhe2gvjeijh3AaB6p/2AUPjgIZuTl3nQZ/KYKeP/djg3n48KdtZw==:
-   mgHpMYo1aafIA3XS68jGXjS4q8yIhseyApK9H9Mmlyrx61urxjKAAwFbTM0qpOTVLYhIb2nw1GbNrzo02ir/dA==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1794823450; x=1795428250; i=markus.elfring@web.de;
-	bh=0hfRGVDl+PzAZjsqP15lmfu4lbYtTRutweEiLzOonds=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=qw9nCYWO7kyy7IWh3M8sSYVp1t33TUh1H7PtgUs0y4fpua8rxkXJIyk9V1tQCAA8
-	 HyzjW8SieXKq0Co5vp4fPvfM2kycR8LK9KVyJgIjRNFV8wvChQE3lCgr+O7R/qT58
-	 4CyU4Yg5fOLd4HEXRC8jG8hB5TaIZW4OeFVmH/9YUhmBc48wzgMvk0tFoaC7rYXZ+
-	 q5/dbx6TXBQnHPsFEr4Yve4vB7aw1GEDlyrdEP61lf8KbZPTb+vAzRVdKkwj/OOxY
-	 qTwEMyMYRV4eRcd1u6m592nW2xyaWdMQmtYDy0Ah0QA/kjE3uURBcXKuIlhKkpu3U
-	 aNGWiWOqTFkPedND9Q==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MzTPW-1wXTac1CAy-00vrM0; Mon, 16
- Nov 2026 11:04:10 +0100
-Message-ID: <37a1c30c-1504-4d2c-a794-92c2972830d9@web.de>
-Date: Mon, 16 Nov 2026 11:03:54 +0100
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Ws1wgy1l
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jSk4J3GPXz8v8q;
+	Mon, 16 Nov 2026 11:04:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794823488;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ybJrA9ybe5eIn8trG0ah/ZMJtYtX04BZv0cvH05uGx4=;
+	b=Ws1wgy1l7/Rw9ub/iOSGhz2UoWKoBDzZdXo5N/83lF0Aw7VNByRya2/VL/1Ax5weRxrnJe
+	iqjWDktzrQyHW3kMZL9rBRZI7xqdkBTJjC1GmH6L84LoBbuzDBKoNV38qA7iJoUaKz5sl4
+	I1juty8scwEgy2at/uhDnnpYVRok33J197s2FCuYBzj7QggGlGKVp8yq4Es/C55tvUs0Cw
+	8wguj/7zSBHELjJTWO5pR7o5Lxkt1aKE0+8+K4CaM6dvgrZLRXL8hRZ462oiZT6xqRLOI3
+	TdKNenYgNzEzNZHo3MG+QKmEZS3G1z13cb7+6ScDhvHWCun5+z3J1G11+Rz/Lw==
+From: Alexander Gruhlke <gruhlke@mailbox.org>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexander Gruhlke <gruhlke@mailbox.org>
+Subject: [PATCH] platform/x86: wireless-hotkey: Add support for Pegatron airplane button
+Date: Mon, 16 Nov 2026 11:04:14 +0100
+Message-ID: <20261116100414.342197-1-gruhlke@mailbox.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,137 +69,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] gpio: amdptpci: add support for AMD PT PCI controller
-To: Szuying Chen <Chloe_Chen@asmedia.com.tw>,
- YD Tseng <Yd_Tseng@asmedia.com.tw>, linux-gpio@vger.kernel.org,
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Jesse Chang <Jesse1_Chang@asmedia.com.tw>,
- Richard Hsu <Richard_Hsu@asmedia.com.tw>
-References: <20261116075510.5722-1-Chloe_Chen@asmedia.com.tw>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20261116075510.5722-1-Chloe_Chen@asmedia.com.tw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:U2b6MpGSM9yJTjhDpGj98/nRECZViQWEr3s288H5XGF3CVqoxWg
- 6anBgn8Bvr1SyCrdnogNUAGwmKZkrYErPZ87jwaYGPtSF3LBTv9p76Zcd5v75tAADFHhptC
- NnIUaFXbg/VvcnZG3OxYqtJGfSZUPrX+khkClnzE24N32iVaNRbfeShIPgO/6H6cotKojn+
- 5vkW7+oPRjc4gavwhgpyg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:wO89ISvSkWA=;plNvtaYZ1sjmZqkaEvrfhxQHFCT
- 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
- drxomWMOiDtYTAQCPmZ44jhFrOg==
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: e51d516b5b1632d60e7
+X-MBO-RS-META: nqm9bqznux4rqjkqy67ke1gde6f683yw
 
-=E2=80=A6
-> +++ b/drivers/gpio/gpio-amdptpci.c
-> @@ -0,0 +1,634 @@
-=E2=80=A6
-> +module_pci_driver(pt27_gpio_pci_driver);
-> +
-> +MODULE_DESCRIPTION("AMD Promontory PCI GPIO Driver");
-=E2=80=A6
+The PTK0001 ACPI device is used by the "Pega Radio Switch Device"
+Windows driver on Pegatron-built laptops like the Medion Akoya E6246.
+Its airplane mode hotkey sends an 0x88 ACPI notification instead of
+0x80.
 
-Would another macro call =E2=80=9CMODULE_AUTHOR=E2=80=9D become helpful he=
-re?
-https://elixir.bootlin.com/linux/v7.4-rc1/source/include/linux/module.h#L2=
-33-L236
+Store the expected notification value in the device ID table and add
+support for the PTK0001 ACPI device.
 
-Regards,
-Markus
+Signed-off-by: Alexander Gruhlke <gruhlke@mailbox.org>
+---
+Written with Claude Code (Claude Opus 5.5): it traced Fn+F2 through the
+DSDT (EC query _Q0B -> Notify(PTK0001, 0x88)) and wrote the patch. I
+reviewed it.
+
+Tested on a Medion Akoya E6246 (MD63200) on 7.3.4: each Fn+F2 press now
+reports KEY_RFKILL, which soft-blocks and unblocks Wi-Fi and Bluetooth
+in turn.
+
+ drivers/platform/x86/wireless-hotkey.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/platform/x86/wireless-hotkey.c b/drivers/platform/x86/wireless-hotkey.c
+index 3151844d16..1c06f41715 100644
+--- a/drivers/platform/x86/wireless-hotkey.c
++++ b/drivers/platform/x86/wireless-hotkey.c
+@@ -11,6 +11,7 @@
+ #include <linux/init.h>
+ #include <linux/input.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ #include <linux/acpi.h>
+ #include <acpi/acpi_bus.h>
+ 
+@@ -21,17 +22,20 @@ MODULE_ALIAS("acpi*:HPQ6001:*");
+ MODULE_ALIAS("acpi*:WSTADEF:*");
+ MODULE_ALIAS("acpi*:AMDI0051:*");
+ MODULE_ALIAS("acpi*:LGEX0815:*");
++MODULE_ALIAS("acpi*:PTK0001:*");
+ 
+ struct wl_button {
+ 	struct input_dev *input_dev;
+ 	char phys[32];
++	u32 event;
+ };
+ 
+ static const struct acpi_device_id wl_ids[] = {
+-	{"HPQ6001", 0},
+-	{"WSTADEF", 0},
+-	{"AMDI0051", 0},
+-	{"LGEX0815", 0},
++	{"HPQ6001", 0x80},
++	{"WSTADEF", 0x80},
++	{"AMDI0051", 0x80},
++	{"LGEX0815", 0x80},
++	{"PTK0001", 0x88},
+ 	{"", 0},
+ };
+ 
+@@ -76,7 +80,7 @@ static void wl_notify(acpi_handle handle, u32 event, void *data)
+ {
+ 	struct wl_button *button = data;
+ 
+-	if (event != 0x80) {
++	if (event != button->event) {
+ 		pr_info("Received unknown event (0x%x)\n", event);
+ 		return;
+ 	}
+@@ -101,6 +105,7 @@ static int wl_probe(struct platform_device *pdev)
+ 	if (!button)
+ 		return -ENOMEM;
+ 
++	button->event = (uintptr_t)device_get_match_data(&pdev->dev);
+ 	platform_set_drvdata(pdev, button);
+ 
+ 	err = wireless_input_setup(&pdev->dev);
+-- 
+2.56.1
+
