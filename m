@@ -1,78 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853838;
-	b=q1rx7548RZUoFsoti703js8RTCDX1WIng0IjThQsmpmP6RqN0hD3H5j+WOL+SOwY7EdC
-	 fUz6y1ndc+Ur6PTziHsttTsBcRPr4jzsZGq7ZG77X/ETQBdbA9Lf8xQFInky4F5HIjrox
-	 jF9MTlHlhXtoZb1kpkr//TYrxn26YQDt3iofX9ADJUZGqoKstczZCEJtMSOfODbErY218
-	 RuwESB4vTyvZmGppu5o5usteACEok09myf3HhoqSXEwh0h60WuXUbRwMbvuETap456+Yv
-	 jT3+NR1l6Atj7oveJs+EQU0dGgLEjulzrYOB/QT1s8HBVD3UtiDT4rU40Ddho1m0k0A==
+	t=1794853841;
+	b=W/FzkVmPsjYgnI7vW2Okc1RkjkR+jKtmbWnPf9l/nYj/HMoXJNazEO/YHUPc47IbM4fk
+	 mwZUu6jkWIB1EBoTq9EM1fIAnWSDzKeBDv7mswliJF1pBNl9FLawjEcMrwPPsKWa6wbdY
+	 At7IrQdZ+7f9IpIL7uR57jOior2Ysy0rGd4+24vF+LHyYSzalE3mfbzzcRXNfN4PfK1c0
+	 ++jRPdcWGlcX+75CgM+nj5vNfI0qrFYcWb7DVciAI8/aNWA/mV9SI/jhl66uFhZ6/L4qy
+	 twRoe/iIT2LJO8neOltONL0ZbQrkP7jmHZuXaAUoeIuV1WF1wmpWj1HkOi6ea+y5xig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853838;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fq8UNJdybhSyeB6z80ooizYYo9twY2GQIUpJeSeo6z0=;
-	b=UxtXWn4fj2v4MMSDJVSW4deP00DTLcQiffuMnNJl7aNFhQpSYHtIUi2/Gn07vkLFJqLz
-	 hp9ccFMxABAfXGk62y/i6PuRkjIyCPs0WD8FFZevF72cCD9VM73vp+NTglc0jCevh/Xhq
-	 Vco3n5/JseEgKa2FZbXc4HNAAjpQOWFy5dorYP55jtdKS2CouqXKUFNNyK+LjLt+jytXL
-	 FtrYalV6SmDoKP8h0Gpl7DTCJE5yGsNuCaaJANz5gCS0VnVneneCpdTRZNtVX/B1KVV2X
-	 CsxqALEy00EBVCUNQ/QbOvU637axzZxLttjP6Wl1+FIOuj7UXGKV4dt5XOruhJCQYdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853841;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=M/EvVqPPmCZCcKVeR3NdpNWETVcV9F4mtjWBr1K1Fac=;
+	b=c/i4GHhLJ9+usPymMfh8bZNpJInnZPA6vXeajhi/luDpxgQCLZpmlLnq7CrTUDz/5/xb
+	 cwJ+fxfOzpuDh+RKyb1SdB55QUygePLW/wnBCpv2zboSqWVTZS+BEisKus+rnwHH3+3Lr
+	 nIqw5QkzZ6JCifmYXOtr5xF5KWY2GquR2Zr/FHkPdTRMbPNNaB/fA21/0Xt/sDYWQrvYy
+	 YI+9T4TFLqDzhlOzky2N4heSd6PxpNsWtGiVsBJIE0ikNLgJGB71YOkggEsgCNrsqwd7S
+	 E8zlQGFxcd9L5R+/fxaj6AQyyq+HulAPeehOEC3QBBHkVSN80Hmlu5+tnr6EHyAs7JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AvHSX4j3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJX0St54;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEB2606A322;
-	Mon, 16 Nov 2026 18:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA0E606A337;
+	Mon, 16 Nov 2026 18:30:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AvHSX4j3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C6E1F000CF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJX0St54
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13BF1F000CB;
 	Mon, 16 Nov 2026 18:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794853838;
-	bh=fq8UNJdybhSyeB6z80ooizYYo9twY2GQIUpJeSeo6z0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AvHSX4j3wHDmokZU9UmVXmHC/fH1020VEVVpL9WtM3yt1ZLgWvlTQLWLh25a5F+wF
-	 p3oUOOczaaWxcUzN7gYP1fNxtgc0+ZXdREZYeVZQAopYSK2pbI9yKNwIy6otK7H24J
-	 edE2Xz/uQA0j+T6dxpSSGiE9qsXFnmRP/q3P1fzcbc0L8m9Dz+e7vwYIoT+3vWEI75
-	 brLsfzg+hCziVtYBEbAyuBUijC55x32ZmaI6mDyvQrTnuiKvIkWR/+6x+24GYN0Nit
-	 oAqvU02x6x22NLIUjcEEpldo08azcX3NHrALt5Mum6cq3oTlGfnrrZmafSe3n2a2cl
-	 YerqN1Mu0CFZg==
-Date: Mon, 16 Nov 2026 18:30:30 +0000
-From: Conor Dooley <conor@kernel.org>
-To: gaohan@iscas.ac.cn
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org,
-	linux-csky@vger.kernel.org, linux-sunxi@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 01/19] riscv: sunxi: describe the wider Allwinner SoC
- family
-Message-ID: <20261116-trekker-dropper-f5a3f7cd7387@spud>
-References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
- <20261114-v861-v1-1-eb71ec3ee523@iscas.ac.cn>
+	s=k20260515; t=1794853841;
+	bh=M/EvVqPPmCZCcKVeR3NdpNWETVcV9F4mtjWBr1K1Fac=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=BJX0St54r0eyFgfrrTGabY2Ky8SRdxy27FtZljILl7LSaa1m7IpomKvFfwQnugQDg
+	 f+Qppe5eJ7DKAENfq+CHom7h77RkbjprQtUQ2uPHrz5rgcA17y37plUUUuSo0biAA0
+	 O6JAPTMuN0CBQjA7NXdIKfBUp67mKfUUqu8+3iRLqJ2pULSmLoDhWcubfzdRqORkge
+	 3xu5VVS3Uiq6s46G3jEHfp86nGYSbsKuI0tJkk3xohc23ezvGGr2v3/UzDChxvZUPo
+	 2AyPOERdNDticSAW65tfGIreyPnk+68orni4JFQ3RqfM+TSlS60ve3ErRM90Z1RvUL
+	 SzhH89h+7likQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 16 Nov 2026 19:29:27 +0100
+Subject: [PATCH v2 06/15] mm/hugetlb: fix mremap() racing with page
+ migration
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,27 +53,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zLmNtJsl6PDzM1aQ"
-Content-Disposition: inline
-In-Reply-To: <20261114-v861-v1-1-eb71ec3ee523@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-fixes_hugetlb-v2-6-4dd9e94ea9ac@kernel.org>
+References: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
+In-Reply-To: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
+ Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
+ Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@kernel.org, 
+ Chris Mason <mason@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3798; i=david@kernel.org;
+ h=from:subject:message-id; bh=ffMP6p7X0B7O7y0oXzxGIwviCt5laHHSvycoU7Pl2jg=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJ+e3ccXaNxO8NOT7ovct2mU49nMs0LtjqVHLFZzzv5/
+ 7r97A4lHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzEloXhn/XdA1u5e1PaLGzP
+ cRfc/pgcdXNlRRPzcTZjrjntb9rfPGX4Z7Hk6rx7/Q/dpkhZyNSctv0atm/17kq2HWzsu4pCxI1
+ iGQA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
---zLmNtJsl6PDzM1aQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Migration of anon hugetlb folios walks the anon_vma, so the file's
+i_mmap_rwsem does not serialize it against move_hugetlb_page_tables().
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+There are various issues with that. Most importantly, move_huge_pte()
+releases both page table locks before the TLB is flushed. Migration can
+then find the destination entry and finish migration, reusing the old
+folio while the TLB still has entries cached.
 
+Hold the anon_vma write lock across the move and the final TLB flush.
+This also prevents concurrent rmap walks from missing entries moved
+during rollback.
 
---zLmNtJsl6PDzM1aQ
-Content-Type: application/pgp-signature; name=signature.asc
+When we must allocate a destination page table, flush the TLB before
+dropping the anon_vma lock, then reacquire it after allocation.
 
------BEGIN PGP SIGNATURE-----
+Dropping the lock only works around lockdep: hugetlb folios are not
+reclaimed or migrated by allocation compaction, but their anon_vmas
+share the lock class used by ordinary anonymous memory. Having a
+separate lock class for hugetlb's anon_vma (like already done for
+i_mmap_rwsem via hugetlbfs_i_mmap_rwsem_key) requires more thought.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtLxQAKCRB4tDGHoIJi
-0l6qAP9H2PZxrdM3PXC0VQDqNZHcObimsehrN1DJV6Ri5MeH5wEA4MvfzsTXAJvt
-qyg5wYSgjZRDoS3t6HW/HGfIGKx1BgA=
-=jF6F
------END PGP SIGNATURE-----
+There is a concern that this can block page migration of anonymous
+folios quite a while ... which is not really different to what happens
+to page-cache folios today. If ever a problem, we can temporarily
+release the lock.
 
---zLmNtJsl6PDzM1aQ--
+So let's keep it simple for now.
+
+It is a shame that hugetlb has to implement everything core-mm implements
+in a different way that just screams for problems.
+
+Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+Cc: stable@kernel.org
+Reported-by: Chris Mason <mason@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/hugetlb.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 3ffd87eb9e45f..4a24819733730 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5214,6 +5214,7 @@ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+ {
+ 	struct hstate *h = hstate_vma(vma);
+ 	struct address_space *mapping = vma->vm_file->f_mapping;
++	struct anon_vma *anon_vma = vma->anon_vma;
+ 	unsigned long sz = huge_page_size(h);
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	unsigned long old_end = old_addr + len;
+@@ -5237,6 +5238,8 @@ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 	/* Prevent race with file truncation */
+ 	hugetlb_vma_lock_write(vma);
+ 	i_mmap_lock_write(mapping);
++	if (anon_vma)
++		anon_vma_lock_write(anon_vma);
+ 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
+ 		const unsigned long offset_to_last_entry =
+ 			(old_addr | last_addr_mask) - old_addr;
+@@ -5276,7 +5279,20 @@ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 			continue;
+ 		}
+ 
+-		dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
++		dst_pte = hugetlb_walk(new_vma, new_addr, sz);
++		if (!dst_pte) {
++			/*
++			 * We can allocate memory under anon_vma lock with hugetlb,
++			 * but lockdep does not know about that. So for now we simply
++			 * flush the TLB and temporarily drop the lock.
++			 */
++			tlb_flush_mmu_tlbonly(&tlb);
++			if (anon_vma)
++				anon_vma_unlock_write(anon_vma);
++			dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
++			if (anon_vma)
++				anon_vma_lock_write(anon_vma);
++		}
+ 		if (!dst_pte)
+ 			break;
+ 
+@@ -5284,7 +5300,10 @@ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 		tlb_remove_huge_tlb_entry(h, &tlb, src_pte, old_addr);
+ 	}
+ 
++	/* Flush pending moves before allowing migration to walk the entries. */
+ 	tlb_flush_mmu_tlbonly(&tlb);
++	if (anon_vma)
++		anon_vma_unlock_write(anon_vma);
+ 	huge_pmd_unshare_flush(&tlb, vma);
+ 
+ 	mmu_notifier_invalidate_range_end(&range);
+
+-- 
+2.56.1
+
