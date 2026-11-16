@@ -1,85 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794872169;
-	b=v/tu+oY+hOuU16K+lVYjA+3BYr/tsBxoU+8dcF8Kg5pTspCfo3lhYR28jWI9xAVrZuQY
-	 Nzwzw4zh/7H+4a6YGqquUo7vwLDHrNdfCscV9OODhnuxJQWV1ovsiDvrQEKjwzEzpL0aF
-	 l/jukhqQdtsmK7UsHGgHmCIW7zJbGxF9aAWRUImvpd//YMGaUxhcoRmsrhVPaPp1SVyN0
-	 5EurBChKogkTV4Hxo1o533cpeqN/6kcTMHwP09Ssfoytj2Naf10bKEfJxIr6pulp7GPmn
-	 YIwu5gxMuKLcE+70DyqusuxB73GM5PXyl/LF7RV/FjKcw2+KhjkJY4VVr2pAaqgfCcw==
+	t=1794872203;
+	b=LTLAdsdLXqKxunAOs/L0cJ6yeSaTleregEXm3nHll0YWYY7VGfX0dUhzkVeSmfCbcYrr
+	 76MWlxI+F5FC39rzIZVkb6i34zpoTY3Pu8DBtCMLhOHGHn7JQFjp/22XCBdkygt4HOljo
+	 mlUvrMsOD+yFC9OEgYSEYA5M6vbKYTNP0TsjpZJOuBJWapF0Bu/wruZjRAM/RAwz/Ha0W
+	 1UUxg3TAqijGhUUOF1OGOHSkTnpUdXzEuqUejaVneH1TU6o0UvnePqKUbXueON7Q7sXQn
+	 ddRL53iugp/Cvx1Z6pwh4jkR660V+pwTlU/IPwkzXSqoqJjXRYbhutjSQl34+6xsKtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872169;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=ELsHsZ+7ho94iGmxovheRTc8jM9OxoUR6+5StKzNHo8=;
-	b=tzj4QTePrT1fyW8iyR5eGmW9Mk3HVu9rVNQAWZAOrvwwTMpmKE6LM/wtZzTQ97KGz1A8
-	 PFWHUPKDC0scBdqB7kSC/Lo+uiQs18ZnydNeT32ooHn5/1w35/IcSZ9xpr2d9I9OKz7/K
-	 9QvwNiNv8BVkoATP4JqcvQuX3epxzaYKiGvCwNOD+0la3+TXga4Miunhkp1LgSVu5fi/a
-	 0GWT50Zqs9jmHD8tVk/bFOG1dIS9AP2VX/qcWdmq2AnoLgfbaC2YsJMS7A8paQ92XBRdU
-	 o50Z2WC0U016gzgrWxBK02ur+VvOZas7pM1hwtB+ADNT02hr0c+A1o7UTQqSsMLcMew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872203;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SqY9CO3fEYEagBoh62ysw+i10UsVB9Z68o/EjIOaJHg=;
+	b=ZuHjS9d+modIb7gzXqtZeMHWYULLQupVxoI+xnp49yx8nahZZ4oPE3n1zKgm9RosrZOV
+	 S2Hba3Eu/w1fOCKW7Bxib0015qMtLfK32vdoPNdOxkbKFBmydVdrN+kmxhZTWYVQAH5FA
+	 RRscaF8C1vFooJ4STWBlM+TvOpNzLqDHqxsILNWgwpiZILyMuHT214HHVY71LOcbj0LTC
+	 ytxUusKMS/iuRIPP4UGaRGVL9F3JeNTp86KNfoZtwuPgO8/vrfCK9LDJ9hoY0Ji+UZa/J
+	 8nNS71Pg65KGiSxBs9lxcA96IeGc0Ofg5w/NFDZtjXQH39kKhdA4Zfi2m+1rn5GF9qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=a3a7xmLh;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mC+IXjY2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A219606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:36:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A219606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81046606A31C;
+	Mon, 16 Nov 2026 23:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=a3a7xmLh
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-949664ee41cso279057585a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:36:08 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mC+IXjY2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D11F1F000C4;
+	Mon, 16 Nov 2026 23:36:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794872168; x=1795476968; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ELsHsZ+7ho94iGmxovheRTc8jM9OxoUR6+5StKzNHo8=;
-        b=a3a7xmLhkllba4s+1Za4XuQfCXJ03Lk8ocSI+XrAD3u3ZTI3Xlzf+ik6t8CvSEHPlI
-         S/MsHC6OC7NziCmOufKK26vsPmCR/9Ulp9yxnTYusarZMmHNoLmJFSs/o9X0xH5xINnm
-         KvcYLl0UhiF2gEyYWzurmbtI4VoWzaxcl7hu665VFjpMkRcGXnfUYnVrszOq1TVf66uU
-         wuCcrj6Hw4ay/SbrHlFL27kqdxo3G5S3kZo0SBmdBX9rG81P8xblBaVYT7MB5IR76Ql7
-         9/a/2Algv2We0VQZcHAOmDrz8tD5k1Fh/UxlRKzDgZFN81IgAJrZ9erQgrT6gzmgeBAg
-         UCpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794872168; x=1795476968;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ELsHsZ+7ho94iGmxovheRTc8jM9OxoUR6+5StKzNHo8=;
-        b=H+6FYTtPJd9Evw+UpgRCblBQ8cbR4nzlNEfs0qdFlDcdp6nJMg5xn/P4ngHECGPIpl
-         eSyQHUQZ2ArnwIyQUdMc59Kmagm4oqi71Hk9h+epNny8GUdsIq5N55LiQRuv4zTDIGY1
-         JQ4v/IpTG/8LJ+BBVRZNpvIRQSFCSlEUJxL3fC7RVjWJFbW1QUnxWSYfKo6Ytg+i9Ymd
-         73na0Jf1+Y2cEbuiILbwCqzz9BBwRejxwM5M4GVdEYy1QcZQbaYEVA5n4Lyxm4L1MZN+
-         6yHRrK7lJSQIlzeeEyELmfPTGCU9d5OdC3VmXerVSeuRx/aMxSgg8wYM/0LphDKzVrLP
-         svYQ==
-X-Forwarded-Encrypted: i=1; AL+hErEKmQ/3a80QcLi79wq/5rrmPJxBLroSgsVteS/0LPguAs3j86A7Q0/42EhAT1TGGtnhZNEwp7yGnG0OFd4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/q2SMBlrVCz76Y7mAnYySMg52G7bGbh6zpM052nSrrz3bSXwxS
-	oHFmeoe4zxbkBSPj6vlUZMHMhhgBqpmNjFXAVTcCX7ZANviUEf01L+MoNrG2L18dKOg=
-X-Gm-Gg: AYBFou2/7bJ6tkT31Zkr3AbzZ9IR28X9JUgFJoq458bL2hL6u1H63iCZNvSGus8TNUP
-	dSYEYDe/4Wo9fyIsQJEZywkxKtUcCw5E62eVAnFWHP8HLwsQkbnhzGN3GBhKoZJRqlrgqOYlQuI
-	9UpueN20kdxQ0ufcWyO1VqBkv04Qn2Q7Ma0owxr9Ani5lB5/A+JMUdC28IWZ7UAIDM/SuEeZlbD
-	W5eJKN8GLPTTiTmBVPOfnCsKz0XuLZgpvCFAxQQFmpXcB+hOQC96H2OmvvZTpNu/5GRLnATJZN7
-	hbP5QykbApp9HhlaXqJOgtdJUYxVtUVHHRYpxCtjrX/a+W+NGYlQwqrlSiq3e4WGn+TvUrbRAjq
-	Vl/5vq1e7pVlLqhQ+6HeckhrtSqS/VIjd+AT+rVH0VmmU7XWvX+G5hYbhVDuxhpQ1JFLIGIDYtj
-	T++X0OqGuK8qnJ/b20pfei52i880AzDET4C36f0tAyjBx6/yAxgpZnghfzmIDZlpSu2SrwzgPxu
-	iIDdFL3ka1TYjhU2sFHIvu+H6CTIC3gh1/jn/uP3HiVZIxu9nDhU0SyAhZIgJ9wQ0/y/JqYJGY4
-	1tsDTrTOO+B9CODiMXKfuECH8zUfR+eEPvcexxFQuXVc4hgN/vX6NRiprzskhQCctDlubXg8iJX
-	IdSPx4ws=
-X-Received: by 2002:a05:620a:2616:b0:93e:c6ff:b787 with SMTP id af79cd13be357-9494baf6061mr1926781585a.13.1794872168008;
-        Mon, 16 Nov 2026 15:36:08 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c439ea1sm956840385a.0.2026.11.16.15.36.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 15:36:07 -0800 (PST)
+	d=linux-foundation.org; s=korg; t=1794872202;
+	bh=SqY9CO3fEYEagBoh62ysw+i10UsVB9Z68o/EjIOaJHg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mC+IXjY26Sewr12LP9oiVQl8fdcKTbMh/ZgHnYk6C7FV8CJvIftp5pAasuEFPKGDL
+	 Cq9nHkcS0VbWh5goVYlc/J9VpPntZfg+weOwdBiA2ZRBK36K+quwAkx4KNkxdI5hLR
+	 uP+fsfNAzRRwjMDHVxOhu85tticamOAkrib+e8ws=
+Date: Mon, 16 Nov 2026 15:36:42 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Renzo Davoli <renzo@cs.unibo.it>
+Cc: linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
+ "Dmitry V . Levin" <ldv@strace.io>, Alexey Gladkov <legion@kernel.org>,
+ Eugene Syromyatnikov <evgsyr@gmail.com>, Charlie Jenkins
+ <thecharlesjenkins@gmail.com>, Bradley Morgan <bradley.morgan@linux.dev>,
+ Shuah Khan <shuah@kernel.org>, strace-devel@lists.strace.io,
+ linux-api@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] selftests/ptrace: check that
+ PTRACE_SET_SYSCALL_INFO rejects invalid error values
+Message-Id: <20261116153642.a8dddc43f53fed0402283dfa@linux-foundation.org>
+In-Reply-To: <20261116134050.505355-3-renzo@cs.unibo.it>
+References: <20261116134050.505355-1-renzo@cs.unibo.it>
+	<20261116134050.505355-3-renzo@cs.unibo.it>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,39 +61,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/3] mm/page_alloc: drop unused gfp_mask from
- zone_watermark_fast()
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-In-Reply-To: <20261113235238.3595412-2-joshua.hahnjy@gmail.com>
-References: <20261113235238.3595412-1-joshua.hahnjy@gmail.com>
- <20261113235238.3595412-2-joshua.hahnjy@gmail.com>
-Date: Mon, 16 Nov 2026 18:36:06 -0500
-Message-Id: <179487216685.482102.5643322867540998114.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-11-13 15:52 -0800, Joshua Hahn wrote:
-> zone_watermark_fast() has not used its gfp_mask argument since commit
-> 2973d8229b78 ("mm: discard __GFP_ATOMIC") switched the watermark boost
-> check from __GFP_ATOMIC to ALLOC_MIN_RESERVE.
-> 
-> Remove the argument, no functional changes intended.
-> 
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+On Mon, 16 Nov 2026 14:40:46 +0100 Renzo Davoli <renzo@cs.unibo.it> wrote:
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> At every exit stop of the set_syscall_info test, try to set with
+> is_error set a few values outside [-MAX_ERRNO, -1], check that
+> PTRACE_SET_SYSCALL_INFO fails with ERANGE and that the return value
+> of the system call is left untouched.
 
--- 
-~Gregory
+Thanks.
+
+LLM suggested a little fixup here, please check.
+
+
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: selftests/ptrace: test the lowest valid syscall error
+Date: Mon, 16 Nov 2026 22:27:14 +0000
+
+PTRACE_SET_SYSCALL_INFO must reject values below -MAX_ERRNO while
+accepting -MAX_ERRNO itself. Name the bound locally for this userspace
+selftest, and add a successful exit-stop case at that boundary. Retain
+the existing -EISDIR case. The tracee checks the resulting errno.
+
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Renzo Davoli <renzo@cs.unibo.it>
+
+ tools/testing/selftests/ptrace/set_syscall_info.c |   25 +++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+--- a/tools/testing/selftests/ptrace/set_syscall_info.c~selftests-ptrace-check-that-ptrace_set_syscall_info-rejects-invalid-error-values-fix
++++ a/tools/testing/selftests/ptrace/set_syscall_info.c
+@@ -15,6 +15,8 @@
+ #include <linux/types.h>
+ #include <linux/ptrace.h>
+ 
++#define MAX_ERRNO 4095
++
+ #if defined(_MIPS_SIM) && _MIPS_SIM == _MIPS_SIM_NABI32
+ /*
+  * MIPS N32 is the only architecture where __kernel_ulong_t
+@@ -131,7 +133,7 @@ static const long long bad_error_rval[]
+ 	0,
+ 	1,
+ 	ESRCH,
+-	-4095 - 1,	/* -MAX_ERRNO - 1 */
++	-MAX_ERRNO - 1,
+ 	-2147483647LL - 1,
+ #if __SIZEOF_LONG__ > 4
+ 	0x100000000LL,
+@@ -325,6 +327,27 @@ TEST(set_syscall_info)
+ 			}
+ 		},
+ 
++		/* change scno, change non-error rval to -MAX_ERRNO */
++		{
++			{
++				{
++					__NR_chdir,
++					{
++						dummy[0], dummy[1], dummy[2],
++						dummy[3], dummy[4], dummy[5]
++					}
++				}, {
++					__NR_getppid,
++					{
++						dummy[0], dummy[1], dummy[2],
++						dummy[3], dummy[4], dummy[5]
++					}
++				}
++			}, {
++				{ 0, tracer_pid }, { 1, -MAX_ERRNO }
++			}
++		},
++
+ 		/* change scno and all args, change non-error rval */
+ 		{
+ 			{
+_
 
