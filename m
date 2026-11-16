@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813462;
-	b=oexec2Oo1clp/74x7OH/9VRRe2p6cTG08D1Qu2zKw5TARvZSr7016kKOOP6GC/uy++wn
-	 q7gooVX4IoDKfQDJmSBkBEb3f9r5ZAzpUxVzfSSQSQ1LIuIChZMqYnaas984Mah3ZAVlS
-	 hAppsI97/jws0AlIa+C1vIpZ6VZycjJWsjUqxNdVQ3AWXbL/K+7p9Z5soYs2THumOWNAZ
-	 +nFIxUS6zxO5kY3TztuQouzdFUWGQdpvdHQpsm0+6Zfh1E981bLcM1A7CkRh8DSL7+ivA
-	 zqv1h84Ny/g1qtEeGMjPxwMqOldJVxOxPR9isSlGE+922iTXOH1NHrWzBeINjclFnrg==
+	t=1794813467;
+	b=tfV+PgIxmAmkKx0Rvl2l7xkdePEbccfX35WaLDMmyBsSddp1d80yR7b5O8Sh0l+oxgnp
+	 qSwi4vRBZUxmzpgoT2LQrFqqk3LjZlxBUoO2LMOiMfZfgCGCoWIeKMTAFZyeE/vBGYzlt
+	 N6uO1UUslM0UbSFsip81z2qq4H6BcfBq/dGXGaC5aZ3runVrHNNhJ4I6Rw8hSyYCLkTk6
+	 lg/Z5umne5pDjnGkagYRvlxC8j8b2vJolh5qk5k+U9068VgLdZbeT22M77y6V/lWuzFbE
+	 o/dNQhNXtVVZGQyJmFEpfP2on18ZZSlNx+cyzWg/Gb8SgqFGRPKTrb9Qm2/cQ9tLfwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813462;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=OZobk/NGTcANriPsPutF2I2SAiaHc+3u7UL8mja7RRE=;
-	b=amzUYGPOtkSlYMKDOkBHxsM1Pp9cSTSMzC3GXV65JbJ0zcRBpfdqACUuO15ZCCP1ldhg
-	 KmflqgDJpZ3l9I6Tjvs+bo35LAM1yFkgQ3vDsIsYtLo14AkpifkjHKqTAzlCzg0JzUUBD
-	 SUWl0hr3hX0Hs4fxjyj0nPpBDpF2v8x2sgNt1cNZXGOTt/890hWlGeFBiqr1KRlsxJlGK
-	 G/nYHFeGYuI9mFVNh6KUI82heqbw9GtxHiR5Fkd/S8V+2ZJo2B4WSsJXD7APwvaUlUOa7
-	 ZgN4a3CRmj2A6H18WbTNvgj/2ZPEzcWFAZtQndBcvOnRA+9OGQk4vsybBedci3IWDiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813467;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=B7nV9urTdshC/zpTRjwCw9MmwOU42RvML/s+5T9QAug=;
+	b=fEYHLLsKXe1gIV9dDvva45eiFgl0PD87hwkgYwLnbb6grlDjOy9FsMmTL56PNEE4q/jg
+	 7l7BV53uyS2aX9tcedMzIGXypsZSHTbZaYUV9F+Ja6Tz8oX93lE6lIt4U8+WUQTeZcChN
+	 G/t22EzVd5ZvfM857IkknEVpSMmFbwiMtO3NtL7JyRNJD3caMc4+LLPab9sssjMEmTGXB
+	 kO5fgmkmD0FZ3wU0fSbhenfPTYhP8XTLkygIDb0xDhLpE0cx/TqrPxLnHkqHC+ZEng3Yc
+	 R4KW+APYqydeiokQLjhSsBaRALfMFbUMlIYrBK/RVwhFiDdJMeoJgF3BCXB0mkwZb9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AnxVIpyW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=g2aWAKnB;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AnxVIpyW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=g2aWAKnB;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=xe+LlQN+;
+	arc=none smtp.remote-ip=185.70.43.23
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE857606A334
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:17:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE857606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86388606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86388606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AnxVIpyW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=g2aWAKnB;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AnxVIpyW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=g2aWAKnB
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 986E71FCD5;
-	Mon, 16 Nov 2026 07:17:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794813453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OZobk/NGTcANriPsPutF2I2SAiaHc+3u7UL8mja7RRE=;
-	b=AnxVIpyWuT9z2tQw4KKznL1KYD+izZkhy1Ocywcs883vt+KZ8/WJ96vhqwMUxiN8gAxtCw
-	3AHI6NAT+cU3vdX0tUu5UImzcEKW/JclRpKsTjod2tR9VaYk0hQ6yTWPwLoXbn3Vi8eox/
-	Jwzgr8TxukiAUK2ZrkcRTQOH2ZC/auE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794813453;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OZobk/NGTcANriPsPutF2I2SAiaHc+3u7UL8mja7RRE=;
-	b=g2aWAKnBooUidahSY8Ijv9GCm2Lfane2EmwmvieEMKKTjZIA4sXBG5EWgMFbBd1gZA5zdn
-	HeUo3ViOQgksZ5CQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794813453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OZobk/NGTcANriPsPutF2I2SAiaHc+3u7UL8mja7RRE=;
-	b=AnxVIpyWuT9z2tQw4KKznL1KYD+izZkhy1Ocywcs883vt+KZ8/WJ96vhqwMUxiN8gAxtCw
-	3AHI6NAT+cU3vdX0tUu5UImzcEKW/JclRpKsTjod2tR9VaYk0hQ6yTWPwLoXbn3Vi8eox/
-	Jwzgr8TxukiAUK2ZrkcRTQOH2ZC/auE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794813453;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OZobk/NGTcANriPsPutF2I2SAiaHc+3u7UL8mja7RRE=;
-	b=g2aWAKnBooUidahSY8Ijv9GCm2Lfane2EmwmvieEMKKTjZIA4sXBG5EWgMFbBd1gZA5zdn
-	HeUo3ViOQgksZ5CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 21803134B8;
-	Mon, 16 Nov 2026 07:17:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id NeFFNgyu+mruHAAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 16 Nov 2026 07:17:33 +0000
-Message-ID: <993e9ed5-5f5e-497b-9afa-4e449ee156c1@suse.de>
-Date: Mon, 16 Nov 2026 08:17:32 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=xe+LlQN+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1794813463; x=1795072663;
+	bh=B7nV9urTdshC/zpTRjwCw9MmwOU42RvML/s+5T9QAug=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=xe+LlQN+guxmXMH8cH2ONjEon3scolyiEsWlvi3Vx7mx84MtHb37UjOnuqSdV7EjH
+	 hXjRWKQmODimt8ajBCWpyTpb0U0sgZcupOt4HPXjgCcF/ugyZhJ2CS0tsM2d5IkgWf
+	 EcaSJ8r4+k04WREU/+m9ym2VQQJuBE/K7zaED/pNNYu3rNS/jU7mDlhQRxOjhAK31K
+	 xWJoeq63QzkHnkcZqGS4LyhUdwoKmVNh/k7PHU2bTVgod3fHj272Av8e1RzangYa+d
+	 C/R0U9tsykxQWaut80a3kAAPeN23kkOrxU74hAmwA11NARG9vfwdhBqM/H8hoJEgll
+	 yTTnjKHPg1mNA==
+Date: Mon, 16 Nov 2026 07:17:39 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH v2 2/5] ALSA: usx2y: us144mkii: wait for the capture work on capture close
+Message-ID: <20261116071707.217448-3-alex@becholey.ch>
+In-Reply-To: <20261116071707.217448-1-alex@becholey.ch>
+References: <20261116071707.217448-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: 03fa600b52e4001fe12a14c1520f453ad9fe8c68
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,72 +64,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/17] nvme: Implement cross-controller reset
- completion
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
- Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
- <20261114030454.2836543-10-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261114030454.2836543-10-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,purestorage.com:email,grimberg.me:email];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[broadcom.com,gmail.com,kernel.org,nvidia.com,purestorage.com,suse.de,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,purestorage.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/14/26 4:04 AM, Mohamed Khalfella wrote:
-> An nvme source controller that issues CCR command expects to receive an
-> NVME_AER_NOTICE_CCR_COMPLETED when pending CCR succeeds or fails. Add
-> ctrl->ccr_work to read NVME_LOG_CCR logpage and wake up threads waiting
-> on CCR completion.
-> 
-> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-> ---
->   drivers/nvme/host/core.c | 51 +++++++++++++++++++++++++++++++++++++++-
->   drivers/nvme/host/nvme.h |  1 +
->   2 files changed, 51 insertions(+), 1 deletion(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+The capture URBs are started and stopped together with the playback
+stream by the shared trigger callback, and every completed capture URB
+schedules capture_work. tascam_capture_work_handler() reads
+tascam->capture_substream and its runtime once and then keeps writing
+into runtime->dma_area, using runtime->frame_bits and
+runtime->buffer_size, for as long as capture_active is set and the
+capture ring has data.
 
-Cheers,
+tascam_capture_close() only clears tascam->capture_substream and does
+not wait for the work. When the capture PCM was opened and prepared but
+not started while the playback stream is running, closing it does not
+stop anything: capture_active stays set and the URBs keep completing.
+The runtime is freed by snd_pcm_detach_substream() right after the close
+callback returns, while a running work instance still uses it. With
+KASAN, on torvalds/master 9d66f26fefac:
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+  BUG: KASAN: slab-use-after-free in tascam_capture_work_handler (sound/usb=
+/usx2y/us144mkii_capture.c:230)
+  Read of size 8 at addr ffff000013270458 by task kworker/0:1/11
+  Workqueue: events tascam_capture_work_handler
+  ...
+  Freed by task 79:
+   kfree
+   snd_pcm_detach_substream
+   snd_pcm_release_substream.part.0
+   snd_pcm_release
+   __fput
+
+A USB device that keeps the capture endpoint busy keeps the work loop
+running, which makes the window wide.
+
+Cancel the capture work in the close callback, after the substream
+pointer has been cleared under tascam->lock (patch 1/5), so that no
+work instance can still use the runtime when it is freed. Instances
+queued later see the cleared pointer and return early.
+
+The bug was found, and the reproducer and this fix were written, by AI
+agents (Claude Mythos and Claude Opus models). The analysis and the
+patch were reviewed by a human.
+
+Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
+Closes: https://lore.kernel.org/all/12a3a26a.26361.1a1d4e1ad57.Coremail.xuh=
+x@hust.edu.cn/
+Fixes: c1bb0c13e430 ("ALSA: usb-audio: us144mkii: Implement audio capture a=
+nd decoding")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+---
+Changes in v2:
+- no change.
+
+Notes for reviewers (not part of the commit message):
+
+Trigger: an emulated US-144MKII (raw-gadget + dummy_hcd, QEMU arm64,
+KASAN, 2 CPUs) that streams capture data. In each of 400 iterations
+the program opens the capture PCM and prepares it without starting
+it, starts the playback PCM, and closes the capture PCM. A variant
+also stops playback before the next capture open, so that only this
+race is left. The reproducers are available to maintainers on request.
+
+The context of this patch is the close hunk of patch 1/5. Patch 3/5
+also depends on it: with 3/5 alone, a capture work instance still
+running after close dereferences the detached runtime in the new
+snd_pcm_running() check (seen in testing, KASAN null-ptr-deref at
+include/sound/pcm.h:711 from us144mkii_capture.c:231 on v7.3.1).
+
+Testing of v2 (whole series, KASAN, PROVE_LOCKING, PROVE_RCU): no
+report in 6 runs of the close/reopen program (v7.3.1 3, 97d73c825122
+3), each completing all 400 iterations.
+
+Testing of v1, KASAN: without the series the close/reopen program crashed a=
+s
+above on the first attempt (v7.3.1 1/1, 9d66f26fefac 1/1). With
+patches 1/5..3/5 applied: v7.3.1 0/15 runs (both programs), 9d66f26fefac
+0/5 runs, each run completing all 400 iterations.
+
+Not changed here: feedback_urb_complete() also reads
+tascam->capture_substream->runtime before taking tascam->lock and uses
+capture_rt->period_size under it; patch 4/5 fixes that.
+
+Thanks,
+Alexandre Becholey
+
+ sound/usb/usx2y/us144mkii_capture.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/sound/usb/usx2y/us144mkii_capture.c b/sound/usb/usx2y/us144mki=
+i_capture.c
+index 30cdd73ca99c..973bed60bfcd 100644
+--- a/sound/usb/usx2y/us144mkii_capture.c
++++ b/sound/usb/usx2y/us144mkii_capture.c
+@@ -40,6 +40,12 @@ static int tascam_capture_close(struct snd_pcm_substream=
+ *substream)
+ =09=09tascam->capture_substream =3D NULL;
+ =09/* The stop work may still be using this substream; wait for it. */
+ =09flush_work(&tascam->stop_pcm_work);
++=09/*
++=09 * The capture work keeps a pointer to the runtime, which is freed
++=09 * when this callback returns. The capture URBs (and so the work) keep
++=09 * running as long as the playback stream does, so wait for it here.
++=09 */
++=09cancel_work_sync(&tascam->capture_work);
+=20
+ =09return 0;
+ }
+
