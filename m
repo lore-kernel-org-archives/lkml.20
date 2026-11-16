@@ -1,89 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850697;
-	b=AUt2Xv9KNsfUTywaVVT7KpT3aaJ8ym808cJ6Dg9KAeF6Rp17uMX1x1H21s/OERlf6Tzu
-	 3bUQjg+vSWLNENxpbxHVK4HphIhvNnnmGSSbMCiBAF1JkEBJkl6O8Ba8POI9qxVv2nDa7
-	 QXr58M5lqlp6hcXpcRJCeLObnnKcGzc8QXbS0boH6yEPBn+U0tTEZ+ZfH9ejJunxQuwxw
-	 G/x8M1Obp7Iv1s8hPVHdL/EdUXKu7Sb6CMZNNQxFRI9o8peHvcxWgufj803jaBpbfeLjJ
-	 kxaYKs5MIvTn5EcTmciwA+PvcRAo+PieE7ulTwcA3E/EU08AyA4L171bUnmlfeOr9Ew==
+	t=1794850730;
+	b=4hYtIXJ1tZgOKLQINaGpLIO5Ilc7vdPhMbDTi165kT7UgDM78G6sHUL7luO6x1BXXkHx
+	 T9nf8gHDIHtHiMb8BTsxr0zOZ1eQlwVl0Dyn+Ugaopc/dTT6wv5UGN8qVhL0yrbnk9gAr
+	 x7p12s/QOTEn9CqsHhQmDr1CwWVD+3VG19rWhxCIgsV6bsC8VG/LU4G7dm9aNkGOtVdWT
+	 E17AtMEZhXYm20RJcj14ZwNqzPrecEJqM9r0sFOGCIkM6bVpConfecfgXtWWnz0SV+m/o
+	 MV6cZ2elQO2T+5T2mVX8FQ3X9RSOU3C5xRL32q6RzNmwB+f9Am/i2NPkcFdRqMVvTSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850730;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Hx4wP6Qpw+W2JkzO57bSdEnCFN3xLXbhd0iZcTNwJZ4=;
-	b=3o4p+7hwKtGRSWLB5xsUjJOybpXCB8wcyEQcAxwx6K4lRUzTyw9cVj3yj6r085iG4gG/
-	 IZJ09AUZqvFAsgJXX8dhsBUW//1D2NMi3RfM70GLwbpvW7nK7+MIzKs4n737/nhXIP9yI
-	 DnGJKvnlWXqnpD5jOb5JddUO2msu2bXV83GaXLaJXswta8dPxCfSDGlbzFkktXl+bHYcO
-	 cJ5jnfuWLrVBus7M6ZBrWSxMbWFQr6wa04t+aT0t/WmNnOz81txDQ5UNJhkfWYHypamLw
-	 cyeAdPQyE4AIV/sOVwBN5QvpN3Cpi8PCt5j9lbJYqEEJeTijgTYRpZmh59ntWkoGABg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MZNgkM904EAWrQX1/wn3079usEV+qyaStHRPZPAF7SI=;
+	b=MfoJUxXLeX1HmYCYc+pIly5oJPfvcSLZ1u3NvScPBxwpFX1hlojdYLbpWT81DvGkt6uQ
+	 AzcsX3dgOgA6OOKNxT6dxI4kFPoXD3oewgX7uQ4cwv66nUXeJo4CY2l1R13TEIc1eNdko
+	 SvG1jkxZDTCOmeeTRsSIJNoc/yLtQpWuEs/BpeCsF/3wmeQvv4bd1ojIz6DrZfO47M0Pr
+	 OciXToeyliNU4fNreS5IkHk4ReRyycf1eiONMMusCc2Pt/Ayj8EuKG3I5fA8PWX0R8oV3
+	 2tXWzw3bIiXTFvDiTtAiV3xEpO3U9wQ2MjzA7neITsFCESwBX5qUFhToTNv5ACToXjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEleiKnP;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="f9r/fPlJ";
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812EA606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:38:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 812EA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74038606A335
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:38:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74038606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEleiKnP
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c50d3ac6b51so9183266b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:38:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f9r/fPlJ
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3704d30b84fso4408653eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:38:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794850695; x=1795455495; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Hx4wP6Qpw+W2JkzO57bSdEnCFN3xLXbhd0iZcTNwJZ4=;
-        b=vEleiKnP+QNN8pBTmU77tAtDfuxGkS2ly+zS4URuxKRsC2wOg33wPegKdAKdk4LtnR
-         qkzvRhE60wzu/vSiHgWVe1r+9DaubWL40cQ4zQz0aO8t+6eeqJiEz5Td7Op8zOtsi88y
-         IEhNvVBALd0S9/acmp9L1AOa/kC78RodUqYNyut72wcsdA/EfrBUmcVWp3+Aj4XsSqBZ
-         JE8QlFXZUDtXGpT87f/8oC/FenQioUMcTKQ48oRAWZf9bPNHpWtpLMkDnymGevu2N+s5
-         L/wGtFSpWxgGha+OXW7X1VuQXhh459FrTS8oBeRZfdSOde71KHuUu99rxGhzKLNVpxGX
-         URsQ==
+        d=gmail.com; s=20260707; t=1794850730; x=1795455530; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MZNgkM904EAWrQX1/wn3079usEV+qyaStHRPZPAF7SI=;
+        b=f9r/fPlJ0OXy9CtCkhTP0ik7tjtwmI87EQwZl4TNmVa+aeA7IcmhljDNs7aoQMU79s
+         BKPfSe9N0JHYKQtno0mFLb4Ts+eYKArmVc8JtkUVDxzOntIkyA0j873VAU2xDm52QfAr
+         Seoz2s3kKLbNWXMzhn8oLpWqVbpdDvSL0nmYgZ6QCs+rs6zPUG5NcaZW2ELi181b1DgR
+         6297ZZZi1fq0FyxKiLeZzN/IziC0mTsCEYBlNdD+Xxuk4pfXPETvSV/drHWMtxaxPuYs
+         4rQaC+rZAOiRcFpsXKtRJwFPBYfrlmXVJIKFnTKt+5jXwnuDEvT83Jnkt0tUEMOKj2ak
+         Coaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794850695; x=1795455495;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Hx4wP6Qpw+W2JkzO57bSdEnCFN3xLXbhd0iZcTNwJZ4=;
-        b=pMlpO1uMkDf+54303rMXgDuw0yScAmTkzJ2vnYYt4L8dgOum/VfkOFfBdz9LCkWQKo
-         7SsBiohXsqhUTdIww8DcjlmSXC1Jc3Fi5UAXmjnFi0QNUDlVUhhrpQTHl9hvgy2iGgst
-         bq+cQww7aTWjOVqFndVNu2RafgAiIHZDLFqTAKnyuiZpVrg4F9dRnC91QZPr4BNTN/GE
-         06AF8UNJTI+zMbThrW40a+lLzZyzs+X21cnjx4UbtgQcj1YpBGHadQsoOg8es8m07vVT
-         cGabIF/RKgCxbVak8tfHHN4WC8QsPGN5/Izn3kjuZoUFDNmT+23HoD9RJr+OoH5DDTqC
-         P8tA==
-X-Forwarded-Encrypted: i=1; AL+hErHOI7JgJoUUbuZrvfInhytsFR92K/O1+mBPJsYsHmkLoaoShIb3B9xIY99AHcnP/jaQsbUDazBincQIC5M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+eopMYDQhJNP6Zjsc3VY1h3Xeh8KVyDND0AQLIW+q7bvoQqSHo
-	bpt48An+e059yK8cCbswy+BYAakMYALVUvNLgTylsbZewU2dO/S7Nfwf/CcFWYXeVHQ=
-X-Gm-Gg: AYBFou0WD+q7LtvEZsYjPZkGaTwwnBXoP7hSP9p1BNIQPymHd8Z0YfHvyslGCA08y3N
-	wDkGI//8NCGK8SkglK25tnyjn9bJDW1kKhn8Y106CPzFuYvtLbBejjt6x9bJ7f69sDZ3fSAnKCS
-	ggT6o4Z6qzm4iytB2GyCzUSDtgiRtW4b2LV0A8msrji7MNiX69GjWeZL6XquFnnN2xM1C80VBDI
-	QrR2mrN28aQazR/o4qLd5WRdNg1uU2JHSsbYboJN86K2MpGc/3s6SirQaPXnoGiwqyMgE7a4RIW
-	QEn9d0sobBqBN2l4/z2E3kOufQIaP1S7ITqrGhRUYS9o5XwdZtii6Oas4GikS4fabwMO6AWMoxC
-	/G0iiRUHUgPJsxHT6WkqvGHleTwicIp4nZh8E+N8CrhGHcho49inrepWtC59QdBuge2Iq/byUik
-	jsWFk8JR4XHAIK+oGsa423WND6c8vTcvDq5TazOxiaxFdy7rvpa33/O1FyBH5OT0nuQKW/h2HG9
-	QJ6M0OzaXzwU01SUsnv0Vg29NNks2ARZQwNPLP8+et95De2OO0bUpPvmpZXUwNCotiziIL1PjOv
-	b+oSjsxA05/N8y4gEZ3DHh7JTlqTpERmmQJf/Sl8MaiF1cmDYbkWOv2fsV1/FD1ku6zBaQ/dblW
-	Hr6ikFUqdGnIKu1E/+vVB
-X-Received: by 2002:a17:907:c05:b0:c4d:31ca:e316 with SMTP id a640c23a62f3a-c50f3750c5amr12270066b.20.1794850694766;
-        Mon, 16 Nov 2026 09:38:14 -0800 (PST)
-Received: from petegriffin.c.googlers.com (131.44.147.34.bc.googleusercontent.com. [34.147.44.131])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b236d4sm446139766b.18.2026.11.16.09.38.14
+        d=1e100.net; s=20260707; t=1794850730; x=1795455530;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MZNgkM904EAWrQX1/wn3079usEV+qyaStHRPZPAF7SI=;
+        b=yT5rK3r3Nn2i5PLP79hAdCgo3I6f5KHFJs63lpqyIfl97H9FzCR70fxXy562M6gi/y
+         H47bkWTYI9YC5viGmNijes56SHsRNnd9PQTpGgsT9W18PaUutie4+u7zbqgvMLa0lMZT
+         38DFuAflDDP82lzxJyF08xd/cSJT7YdwF11zkvKgngPJRDXZLRJaxNpvuzTRxCoOd0YC
+         ddIJJtIUysljX6uygg5e7YM0jDcCT3h4MUUMDp7QIyoMXwC7tHtPWeV2j9zL1Me7SPJv
+         UqxdVyaTVgepgBkbTN/ef6gsHdEGSrqQWcKELjuHN1BZvvCCIhC35TN6R5jvJVfwQCMX
+         N0FA==
+X-Forwarded-Encrypted: i=1; AL+hErGKEH4aE3nUgRJrE3WNQpg0E946pJ93o3RsuTWvJCCB/TtzvnaWDN2sdgs6NZ8Xs8VB1GwPu6GFFzsIDRg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ok/xoFbwyPtNkUVz5oZJXUdh0MXK26UmG5GyPzTCk6OtkZOPy
+	Wu5cJFYDTdRYGzx9raIWf4I9J7o0UeawKqQk5+3TjmAoc/KOkwYcDQMh
+X-Gm-Gg: AZFdTZcXp7fMry/dzrCJA7UNpqzdSZZGvNbvncXy/Q4ep+e2njlBiXAeG/A+2e48fwt
+	+ikIGRMlbYZ9MyB05DcupC6wCaF4ePULZ/Ndfo6jsHEwCga8Jo/OGf++Nj8BMcgSyHVw9qwO+b6
+	DSWscpI9nUFlcxovDVRRreM+9wjKsqaXBs5/mMPqUtx1Mhd3YMn7FRJy99vzE3QYmfNdjUzUJv0
+	cl8qSxqlLhOGZZ7wzmekVRYwACkSod2qhKlC8sRbSpleSojatWF+KM/A5LwHTdrCZAN25x/rQbe
+	qP6ighlGCSO4KB+PrFg0o/v9+68TS+qLmhKIy9GLx0CNM5L3o+XbocgC93vN77VZuNJn4xju8qJ
+	s7vCIQNj2EzMeNnclPAWkqN7EPsdqRToD32tg5a965nz9zlwM/DkWGGdkt2KQvgWAQfEHyOVc6Z
+	ivO/IlcxbZxH464mX75HahUFJJpPPUk6Zfd/m2qQPDqQ83Zb6cnTZmX0uXrfIPPRT1q7tXs02vv
+	eb7jQddh7BvkJKAEbAuRuWOJcc48SXYGlOre3VDp7/A3LUgAP2QmVh+0aNNhWl11lLUTxLev5MD
+	cgATHNFS
+X-Received: by 2002:a05:7300:fd12:b0:369:a162:af96 with SMTP id 5a478bee46e88-379673164cbmr17174143eec.17.1794850729510;
+        Mon, 16 Nov 2026 09:38:49 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm36635215eec.15.2026.11.16.09.38.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:38:14 -0800 (PST)
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Mon, 16 Nov 2026 17:37:45 +0000
-Subject: [PATCH] iommu: Add iommu.passthrough_devs early command line
- parameter
+        Mon, 16 Nov 2026 09:38:48 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	linux-kernel@vger.kernel.org (open list),
+	linux-perf-users@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM),
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Subject: [PATCH v3 1/3] MIPS: SiByte: Wire up the CPU interrupt controller
+Date: Mon, 16 Nov 2026 09:38:36 -0800
+Message-ID: <20261116173843.911523-2-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116173843.911523-1-f.fainelli@gmail.com>
+References: <20261116173843.911523-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,293 +115,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-b4-iommu-passthrough-devs-v1-1-dc5b493f7551@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAGk/+2oC/x3MTQ5AMBBA4avIrE3S+qlwFbGoGjoLKh1EIu6us
- fwW7z0gFJkEuuyBSBcLhy1B5xk4b7eFkKdkKFRhtFYGxwo5rOuJuxU5fAzn4nGiS1CVY+PaurH
- OtJD6PdLM9//uh/f9ADzTmQFrAAAA
-X-Change-ID: 20261106-b4-iommu-passthrough-devs-03b7c957ac69
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Mostafa Saleh <smostafa@google.com>, 
- Daniel Mentz <danielmentz@google.com>, Juan Yescas <jyescas@google.com>, 
- kernel-team@android.com, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Peter Griffin <peter.griffin@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9600;
- i=peter.griffin@linaro.org; h=from:subject:message-id;
- bh=Urii5UKIxhJqrjIOWrcWNvsYviHjsPHlhkwtRzKuN1c=;
- b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBq+z+FdmbITb7QSpfMSMqFlTLiiBCd9JSTCLH+A
- y3xzXvXjFeJAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCavs/hQAKCRDO6LjWAjRy
- ugkwD/9qAsQpXBexhOE0F92j/h8ThC5MjImpB5XuU5sP+iZkubQpQME68KqcxlWtriHDtYmMck/
- V/8gx+6ZM7BEan//0oKVbRk8WVE1ZS7tz6ux7YMNof5ppP4EcaOTbhQUPb0Ud0XBVn2KJRTayfB
- 5IVJsjU4alquntf+SnaOvNtg5MoBWVaTzNVfpNLutOLMyW7cxFQrA+vBSpIysIxxi7zaK1Nvrbw
- zcXQGNqk2tCRFEQaCNOC7RZzl/OUiVhauPLbCc2jEuCiBWBWR1gw1rPBNmtoZisclaTVG3dCTV1
- PleJtd28phplPOzcxMuHNwC/kysdPiNSoNT7JJJZfqZfaCKhLUqXoFlPW/ZgfD7VdddINoUVBf8
- BMy9E9OMkKNk38iL1XnWZZUSfNCAHKzoPpGewxknhrFwlIjl73zyW4fohdh3to5k3gO3rACMzZO
- e7TFOBB1zId4C0TEuPm6pXfEswtf6T8UiZtp4XJlRkIA9o3FHeZB7zbgdAaRyZQIwt2s0KbTrDu
- LDZKfmIqp16Q5hcCsUwb6hrIQgHw95UAyfTyB3ZSDKUfyfm3Svdz+0LtA+HG2bkOy03W5tEfnlL
- s/5mTy0kfDmnW/5PKOCGtEGWVhkG5dsBx8vI0Wruaxx38gQqgees0Clr61s/bnWwg/4WqE38k6O
- gcsj4cMgajuTGqA==
-X-Developer-Key: i=peter.griffin@linaro.org; a=openpgp;
- fpr=0EFC8E6F5578750D56B549FCCEE8B8D6023472BA
+Content-Transfer-Encoding: 8bit
 
-Currently, the generic IOMMU core only provides an all-or-nothing global
-switch ('iommu.passthrough={0,1}' and CONFIG_IOMMU_DEFAULT_PASSTHROUGH)
-to configure default DMA domains in passthrough (IOMMU_DOMAIN_IDENTITY)
-mode at boot time.
+Initialize the MIPS CPU interrupt controller on SB1250 and BCM1480 so
+CPU-local interrupts have a configured irq_chip and handler. Reserve IRQs
+128 through 135 above both interrupt mapper ranges, and dispatch BCM1480
+IP7 through the CPU controller as SB1250 already does.
 
-Add an 'iommu.passthrough_devs=<dev_name>[,<dev_name>...]' early
-command-line parameter. When allocating the default domain for a group in
-iommu_group_alloc_default_domain(), if no mandatory domain type override
-is present, check whether any device in the group (or any of its
-parent/bridge devices via dev->parent) matches 'iommu.passthrough_devs'
-and request IOMMU_DOMAIN_IDENTITY, warning and falling back to
-IOMMU_DOMAIN_DMA if identity domains are unsupported (consistent with
-'iommu.passthrough=1').
+This provides the CPU-local IP7 interrupt needed by the SB1 performance
+counters without overlapping the SiByte interrupt mapper IRQ numbers.
 
-Device names match dev_name(), such as PCI BDFs ('0000:01:00.0'),
-Device Tree platform devices ('3c400000.ufs'), or ACPI platform
-devices ('AMDI0010:00'). Walking dev->parent also allows specifying a
-parent PCIe host controller or root port (e.g. '3c500000.pcie' or
-'0000:00:1c.0') to cover its downstream endpoints.
-
-Note: Untrusted PCI devices ('pdev->untrusted') and explicit IOMMU
-driver '.def_domain_type' requirements continue to take precedence.
-
-Configuring per-device passthrough mode at boot is needed for several
-use cases:
-
-- Performance tuning and benchmarking: high-throughput storage
-  workloads (e.g. fio benchmarks on UFS) can incur measurable
-  IOPS/latency and CPU overhead from IOMMU page table management and
-  TLB invalidations. Selective device passthrough allows bypassing
-  translation for these devices while keeping IOMMU isolation enabled
-  for other devices in the system.
-
-- SoC/board bringup and debugging: isolating whether a DMA fault or
-  regression is caused by a specific device's IOMMU translation without
-  disabling the IOMMU globally across the entire platform.
-
-Implementing this in the generic IOMMU core allows it to work with
-ACPI and Device Tree (DT) systems as well as across all IOMMU drivers.
-
-Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 ---
-Hi folks,
+ arch/mips/include/asm/mach-sibyte/irq.h | 10 ++++++++++
+ arch/mips/sibyte/bcm1480/irq.c          |  7 ++++++-
+ arch/mips/sibyte/sb1250/irq.c           |  3 +++
+ 3 files changed, 19 insertions(+), 1 deletion(-)
+ create mode 100644 arch/mips/include/asm/mach-sibyte/irq.h
 
-This patch follows up on a conversation with Jason Gunthorpe at
-Linux Plumbers regarding how to upstream support for configuring
-per-device IOMMU passthrough (IOMMU_DOMAIN_IDENTITY) at boot without
-abusing Device Tree properties.
-
-Downstream on Google Pixel G5 Laguna platforms, we have historically
-carried a custom 'iommu-idmapped' DT property parsed by the arm-smmu-v3
-driver to place specific client devices into bypass mode. As discussed
-at Plumbers, Device Tree seems the wrong place for this because choosing
-passthrough vs. translation for a given device can sometimes be an OS
-policy trade-off where we choose device peak performance at the expense
-of DMA isolation. This is the case for UFS and PCIe WLAN on Laguna,
-which share a common SMMU instance with other peripherals (such as DMA
-controllers, VPU, and ISP) where we want DMA isolation to remain
-enabled.
-
-A secondary benefit is it could be useful during device bringup and
-debugging for fault isolation and to work around firmware/device issues
-before a proper driver quirk is in place.
-
-Instead, I propose handling this in the generic IOMMU core via a
-kernel command-line parameter. This makes it available uniformly
-across both Device Tree and ACPI systems and across all IOMMU drivers.
-
-In terms of upstream Laguna support, initial DT support has already
-landed in tree, along with USB and phy support. Other support for
-mailbox, clocks, powerdomains, reset is under review in the following
-series with more to follow.
-
-https://lore.kernel.org/lkml/20261023235408.3063350-1-dianders@chromium.org/
-https://lore.kernel.org/lkml/20261026214359.3122870-1-briannorris@chromium.org/
-
-Feedback and suggestions are very welcome.
-
-Thanks,
-
-Peter
----
- Documentation/admin-guide/kernel-parameters.txt | 11 ++++
- drivers/iommu/iommu.c                           | 76 +++++++++++++++++++++++--
- 2 files changed, 82 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index c343bc9a0d28..926380cb1e99 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -2689,6 +2689,17 @@ Kernel parameters
- 			1 - Bypass the IOMMU for DMA.
- 			unset - Use value of CONFIG_IOMMU_DEFAULT_PASSTHROUGH.
+diff --git a/arch/mips/include/asm/mach-sibyte/irq.h b/arch/mips/include/asm/mach-sibyte/irq.h
+new file mode 100644
+index 000000000000..b7073830d2ec
+--- /dev/null
++++ b/arch/mips/include/asm/mach-sibyte/irq.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __ASM_MACH_SIBYTE_IRQ_H
++#define __ASM_MACH_SIBYTE_IRQ_H
++
++/* Keep CPU-local interrupts above both SiByte interrupt mapper ranges. */
++#define MIPS_CPU_IRQ_BASE	128
++
++#include <asm/mach-generic/irq.h>
++
++#endif
+diff --git a/arch/mips/sibyte/bcm1480/irq.c b/arch/mips/sibyte/bcm1480/irq.c
+index 4c18a2c755d2..5eff85a8659b 100644
+--- a/arch/mips/sibyte/bcm1480/irq.c
++++ b/arch/mips/sibyte/bcm1480/irq.c
+@@ -15,6 +15,7 @@
+ #include <asm/irq_regs.h>
+ #include <asm/signal.h>
+ #include <asm/io.h>
++#include <asm/irq_cpu.h>
  
-+	iommu.passthrough_devs=
-+			[KNL,EARLY] Configure DMA to bypass the IOMMU by default
-+			for specific devices.
-+			Format: <dev_name>[,<dev_name>...]
-+			Specify a comma-separated list of device names (matching
-+			dev_name() of the client device or any of its parent/bridge
-+			devices) whose IOMMU groups should default to passthrough
-+			(identity) mode (e.g. "0000:01:00.0" for PCI,
-+			"3c400000.ufs" for Device Tree, or
-+			"AMDI0010:00" for ACPI).
-+
- 	iommu.debug_pagealloc=
- 			[KNL,EARLY] When CONFIG_IOMMU_DEBUG_PAGEALLOC is set, this
- 			parameter enables the feature at boot time. By default, it
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fc..0a7796e0311e 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -33,6 +33,7 @@
- #include <trace/events/iommu.h>
- #include <linux/sched/mm.h>
- #include <linux/msi.h>
-+#include <linux/string.h>
- #include <uapi/linux/iommufd.h>
- #include <linux/generic_pt/iommu.h>
+ #include <asm/sibyte/bcm1480_regs.h>
+ #include <asm/sibyte/bcm1480_int.h>
+@@ -242,6 +243,8 @@ void __init arch_init_irq(void)
+ 	unsigned int imask = STATUSF_IP4 | STATUSF_IP3 | STATUSF_IP2 |
+ 		STATUSF_IP1 | STATUSF_IP0;
  
-@@ -43,9 +44,12 @@ static struct kset *iommu_group_kset;
- static DEFINE_IDA(iommu_group_ida);
- static DEFINE_IDA(iommu_global_pasid_ida);
++	mips_cpu_irq_init();
++
+ 	/* Default everything to IP2 */
+ 	/* Start with _high registers which has no bit 0 interrupt source */
+ 	for (i = 1; i < BCM1480_NR_IRQS_HALF; i++) {	/* was I0 */
+@@ -337,7 +340,9 @@ asmlinkage void plat_irq_dispatch(void)
  
-+#define IOMMU_PASSTHROUGH_DEVS_MAX_LEN	256
-+
- static unsigned int iommu_def_domain_type __read_mostly;
- static bool iommu_dma_strict __read_mostly = IS_ENABLED(CONFIG_IOMMU_DEFAULT_DMA_STRICT);
- static u32 iommu_cmd_line __read_mostly;
-+static char iommu_passthrough_devs[IOMMU_PASSTHROUGH_DEVS_MAX_LEN] __read_mostly;
+ 	pending = read_c0_cause() & read_c0_status();
  
- /* Tags used with xa_tag_pointer() in group->pasid_array */
- enum { IOMMU_PASID_ARRAY_DOMAIN = 0, IOMMU_PASID_ARRAY_HANDLE = 1 };
-@@ -805,6 +809,27 @@ static int __init iommu_set_def_domain_type(char *str)
- }
- early_param("iommu.passthrough", iommu_set_def_domain_type);
+-	if (pending & CAUSEF_IP4)
++	if (pending & CAUSEF_IP7)
++		do_IRQ(MIPS_CPU_IRQ_BASE + 7);
++	else if (pending & CAUSEF_IP4)
+ 		do_IRQ(K_BCM1480_INT_TIMER_0 + cpu);
+ #ifdef CONFIG_SMP
+ 	else if (pending & CAUSEF_IP3)
+diff --git a/arch/mips/sibyte/sb1250/irq.c b/arch/mips/sibyte/sb1250/irq.c
+index 57943fe3ac03..2df115269f81 100644
+--- a/arch/mips/sibyte/sb1250/irq.c
++++ b/arch/mips/sibyte/sb1250/irq.c
+@@ -15,6 +15,7 @@
+ #include <asm/signal.h>
+ #include <asm/time.h>
+ #include <asm/io.h>
++#include <asm/irq_cpu.h>
  
-+static int __init iommu_set_passthrough_devs(char *str)
-+{
-+	size_t len;
-+
-+	if (!str || !*str)
-+		return -EINVAL;
-+
-+	len = strlen(iommu_passthrough_devs);
-+	if (len + (len ? 1 : 0) + strlen(str) >= IOMMU_PASSTHROUGH_DEVS_MAX_LEN) {
-+		pr_warn("Too long list of device names for 'iommu.passthrough_devs'!\n");
-+		return -EINVAL;
-+	}
-+	if (len)
-+		iommu_passthrough_devs[len++] = ',';
-+
-+	strscpy(iommu_passthrough_devs + len, str,
-+		IOMMU_PASSTHROUGH_DEVS_MAX_LEN - len);
-+	return 0;
-+}
-+early_param("iommu.passthrough_devs", iommu_set_passthrough_devs);
-+
- static int __init iommu_dma_setup(char *str)
- {
- 	int ret = kstrtobool(str, &iommu_dma_strict);
-@@ -1750,14 +1775,45 @@ __iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
- 	return ERR_PTR(-EINVAL);
- }
+ #include <asm/sibyte/sb1250_regs.h>
+ #include <asm/sibyte/sb1250_int.h>
+@@ -225,6 +226,8 @@ void __init arch_init_irq(void)
+ 	unsigned int imask = STATUSF_IP4 | STATUSF_IP3 | STATUSF_IP2 |
+ 		STATUSF_IP1 | STATUSF_IP0;
  
-+static bool iommu_is_passthrough_dev(struct device *dev)
-+{
-+	for (; dev; dev = dev->parent) {
-+		const char *name = dev_name(dev);
++	mips_cpu_irq_init();
 +
-+		if (name && *name &&
-+		    parse_option_str(iommu_passthrough_devs, name))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
-+static struct device *iommu_group_passthrough_dev(struct iommu_group *group)
-+{
-+	struct group_device *gdev;
-+
-+	if (!iommu_passthrough_devs[0])
-+		return NULL;
-+
-+	for_each_group_device(group, gdev) {
-+		if (iommu_is_passthrough_dev(gdev->dev))
-+			return gdev->dev;
-+	}
-+
-+	return NULL;
-+}
-+
- /*
-  * req_type of 0 means "auto" which means to select a domain based on
-- * iommu_def_domain_type or what the driver actually supports.
-+ * iommu.passthrough_devs, iommu_def_domain_type, or what the driver
-+ * actually supports.
-  */
- static struct iommu_domain *
- iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
- {
- 	const struct iommu_ops *ops = dev_iommu_ops(iommu_group_first_dev(group));
-+	unsigned int def_type = iommu_def_domain_type;
-+	struct device *pt_dev = NULL;
- 	struct iommu_domain *dom;
- 
- 	lockdep_assert_held(&group->mutex);
-@@ -1777,19 +1833,29 @@ iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
- 		return __iommu_group_alloc_default_domain(group, req_type);
- 
- 	/* The driver gave no guidance on what type to use, try the default */
--	dom = __iommu_group_alloc_default_domain(group, iommu_def_domain_type);
--	if (!IS_ERR(dom))
-+	if (def_type != IOMMU_DOMAIN_IDENTITY) {
-+		pt_dev = iommu_group_passthrough_dev(group);
-+		if (pt_dev)
-+			def_type = IOMMU_DOMAIN_IDENTITY;
-+	}
-+
-+	dom = __iommu_group_alloc_default_domain(group, def_type);
-+	if (!IS_ERR(dom)) {
-+		if (pt_dev && dom != group->default_domain)
-+			dev_info(pt_dev,
-+				 "Setting default IOMMU domain to passthrough via command line\n");
- 		return dom;
-+	}
- 
- 	/* Otherwise IDENTITY and DMA_FQ defaults will try DMA */
--	if (iommu_def_domain_type == IOMMU_DOMAIN_DMA)
-+	if (def_type == IOMMU_DOMAIN_DMA)
- 		return ERR_PTR(-EINVAL);
- 	dom = __iommu_group_alloc_default_domain(group, IOMMU_DOMAIN_DMA);
- 	if (IS_ERR(dom))
- 		return dom;
- 
- 	pr_warn("Failed to allocate default IOMMU domain of type %u for group %s - Falling back to IOMMU_DOMAIN_DMA",
--		iommu_def_domain_type, group->name);
-+		def_type, group->name);
- 	return dom;
- }
- 
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261106-b4-iommu-passthrough-devs-03b7c957ac69
-
-Best regards,
+ 	/* Default everything to IP2 */
+ 	for (i = 0; i < SB1250_NR_IRQS; i++) {	/* was I0 */
+ 		__raw_writeq(IMR_IP2_VAL,
 -- 
-Peter Griffin <peter.griffin@linaro.org>
+2.53.0
 
