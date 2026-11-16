@@ -1,49 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836107;
-	b=CPJQLtzgR87S/hpApyuwW4fpH4KVwu6Etb4hV+xZojKk0hEAuag8HpnVu3EJLdzrWI+J
-	 fy8DC57HVkbMckk9HtYY2BRFYNgg1offYuU5heysFkJ6QS829UizJ0QtzpfczqU3UlZf9
-	 gMuhQBuLSykrns8H7DJ7JQMVy8yU+tYnlm+f9LkWPllO6I01i6nzFppSLVrT4E/1giRfO
-	 VosSzlVWxrNimxQyzrwlqvZRIwhRsrOm2JaypQHCEascbtogLjRpNnrwy37jvI7kfmGOc
-	 +KM6NWJZt4jt2YqUS3JaiX9GRC7ksOP4GuBRVfaKoBVp2BGqmIKxbKYyRo+PyI+RVNw==
+	t=1794836145;
+	b=lF7T167q8NjFj/LTPBAVoFgYy91RAbT+TiRuvTvhofDMlStPi7WEry6AUJPDE/FVxQJu
+	 FdmpS4tt/Mi+VP03kHREztfmLX2Ycc3D5rPo7fhcXz7xwJemdbA/9YanL8PdKPuGf35bv
+	 UcfLqUGJCYHwuTFlHski7BLWu7J56DZjenvtGPXpIuSzpBa4vEeOOuoLRTniPvkIOn0fA
+	 mCE8vdG2dzF/8qfnw3Llku7lqCTZr+MhMuuCVa9Lk5RMjuhDhs/tU4WqfV29LEp0xnBd3
+	 hbwUQsiPgEmQ5Zsfdve2I81Ez7dMhC6ebY7ZoYR1xnYocIGuqTkroEuYmvBfA3SSw8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836107;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VTdh+RQXIjKegFBkHqeV/SunRho35ClvmITrODAwJgE=;
-	b=GNGa/YWSDSE+sKNpPJdolMAvEKVEwQh23W8XXCteK8Wt6qrT6lJt5K0A/cdkLnDgAPYF
-	 Hec6erWxTlRVaOM5qIhiV6Uvlh+VBjH/r7EsWBKIb8xDHSFr/LmzxcvDoDXbxUuH9xhtz
-	 RleTKMWzffQWzOvT8Tcj8K4C1714bVcgK+rlki7VGVgUG0jpLVkJ3gewfVqAoJk0HlNXn
-	 sp05WwdoVbybIKQ/yoXRBAqlvt1tVOv0mA7zVurZU+8MuMS+RZH4BSupUzU2s8e4Qxj6K
-	 cy3Yi8vRM+xa0iOccu3t9UsDThS9p+YeeIYB3k4BoVR4+djSsKfL9tegRgdjbZLXG5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836145;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=Vcx9KzmvnNYkPSs4VQKPwTuksU5sZnTHAg7TtizLtvE=;
+	b=tXOaYJ7pXxaUU4z5qQ+HIZTTMPEkg1r5GgMSkw19J+pC0JRS8C0TZRqI0t8yCCWJ4N63
+	 xdqNoXK8ctmQkIwCdGFmbGDCwEbzganmgy81bf0FsnXFGHY2Jf7ZGWEiwGqZTrUxYHRLt
+	 bBCrFeLFkN1mGYfCAfTzHW/OlL6x3a6O52RMkHKEJHIm6DFwgV0ZQEflNY6sd7yhM8z3g
+	 +X2izLSGt7pgybEdBW1ujHmjSWDDcbf7kXqZHRnIv2C7NsoG4ZzlSATzPp/Gmw/ozguDg
+	 00/9kclrt2y3s1kQvJSfX9Fgoj/GJ+3xClzM8B1wKHAHphlPlAuNxaqzyfS8ozzKlsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ODKhTewZ;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ioEkh3ts;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8093606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8093606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723AC606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 723AC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ODKhTewZ
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794836096; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=VTdh+RQXIjKegFBkHqeV/SunRho35ClvmITrODAwJgE=;
-	b=ODKhTewZERc1NGVZvep3c5vaMLOOzI/ARU7ajdvzjHuYHRTRkvFl+ezcIekIsMGwXeJMZHDPqXWQ02PzHKSSIh5mOoFa5b66kcpQgWAnJbh/AexJHkpqgdmbnB30nn9K8jwvofIzQk5/kfFoF5CT5Z9gEmyWwcwAke2pIkzvkMU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R651e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XEtLy1f_1794836094;
-Received: from 30.251.68.229(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEtLy1f_1794836094 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 16 Nov 2026 21:34:55 +0800
-Message-ID: <01d59bbc-46d4-4da2-805c-bf540d50eb37@linux.alibaba.com>
-Date: Mon, 16 Nov 2026 21:34:53 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ioEkh3ts
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A4D234E41601;
+	Mon, 16 Nov 2026 13:35:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 72F9D6023F;
+	Mon, 16 Nov 2026 13:35:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 364D011BC02CF;
+	Mon, 16 Nov 2026 14:35:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794836141; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Vcx9KzmvnNYkPSs4VQKPwTuksU5sZnTHAg7TtizLtvE=;
+	b=ioEkh3tsLe2NF6NNv4sEdmBgaZvBUu9PSfy9XNfzagsjXMUZ/rEq6DAgQ7l3MYDt301sBD
+	7y9KHYjJQOaIDVp2EJpx1g/26pMZ0imn/g7o0U3cyH31zqVF5O2UUwpJRc/otrNQdC29f2
+	n77jkhSrh4zuy7FEQt60+/VZIAtX86i4o6ianzl/Q6eU6EVBp/Sa4PqBc0tHevHG0/dqEy
+	/Q4og2XtZdtHtu2qhxbFItonKaxej5/4pmNX1UTgKKphQNmTKcdy67nz+1MaEwH8JTGELK
+	ehBOEwq8192YHBdN8RbZe82tgHhm/hInBs2J5RaZ8pwtM5NhOl0RVQ/Mxxzs0w==
+Message-ID: <78cf973d-3434-4f81-82be-a22f4abcfe0c@bootlin.com>
+Date: Mon, 16 Nov 2026 14:35:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,117 +63,194 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
- sizes
-To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org,
- ljs@kernel.org
-Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
- harry@kernel.org, jannh@google.com, lance.yang@linux.dev,
- qi.zheng@linux.dev, pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
- <16bb1a14-04f4-4524-9882-20d452175a3d@kernel.org>
- <d1856861-62d7-4bc0-a8b7-39ccfc064f34@linux.alibaba.com>
- <9e66d5f7-ee81-4204-8d62-b06d26a00623@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <9e66d5f7-ee81-4204-8d62-b06d26a00623@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v5 4/9] i2c: cgbc: Use plateform data to get bus ID and
+ adapter name
+To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
+ <20261103-cgbc-i2c-storage-devices-support-v5-4-ac11f23fae51@bootlin.com>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20261103-cgbc-i2c-storage-devices-support-v5-4-ac11f23fae51@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi Lee,
 
-
-On 11/16/26 8:03 PM, David Hildenbrand (Arm) wrote:
-> On 11/16/26 04:44, Baolin Wang wrote:
->>
->>
->> On 11/14/26 1:39 AM, David Hildenbrand (Arm) wrote:
->>> On 11/5/26 03:56, Baolin Wang wrote:
->>>> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
->>>> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can also race
->>>> with concurrent page table reclamation via zap_empty_pte_table().
->>>>
->>>> page_vma_mapped_walk() is used by many functions including try_to_unmap(),
->>>> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(), remove_migration_ptes(),
->>>> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for try_to_unmap()
->>>> and try_to_migrate(), the other callers do not perform post-walk accounting
->>>> checks, so the race has no observable impact on them.
->>>>
->>>> For migration, the race can cause unnecessary retries. For reclaim via
->>>> try_to_unmap(), the race can cause failure to reclaim a folio that is in
->>>> fact already unmapped (as shown below), which may lead to unexpected OOM
->>>> or increased refaults.
->>>>
->>>> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
->>>> --------------------------------    --------------------------------
->>>> folio_lock(F)
->>>> try_to_unmap(F, TTU_SYNC)
->>>>                                       zap_pte_range(full PMD range)
->>>>                                         spin_lock(ptl)
->>>>                                         clear PTEs
->>>>                                         zap_empty_pte_table()
->>>>                                           spin_trylock(pml)
->>>>                                           pmd_clear()
->>>>                                           spin_unlock(pml)
->>>>
->>>>     page_vma_mapped_walk()
->>>>       observe !pmd_present(pmde)
->>>>       nr_pages < HPAGE_PMD_NR
->>>>       skip synchronization
->>>>       return false
->>>>
->>>> try_to_unmap() returns
->>>> folio_mapped(F) == true
->>>> nr_unmap_fail += folio_nr_pages(F)
->>>>                                       tlb_flush_mmu_tlbonly()
->>>>                                       tlb_flush_rmaps()
->>>>                                         remove F's rmaps
->>>>                                       spin_unlock(ptl)
->>>>
->>>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
->>>> has already moved the PMD clear operation (via zap_empty_pte_table()) to
->>>> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
->>>> use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
->>>> issues on weakly ordered CPUs.
->>>>
->>>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
->>>> Cc: stable@vger.kernel.org
->>>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
->>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>>> ---
->>>>    mm/page_vma_mapped.c | 5 +----
->>>>    1 file changed, 1 insertion(+), 4 deletions(-)
->>>>
->>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>> index e6b6170c2f4f..8797467b6f0c 100644
->>>> --- a/mm/page_vma_mapped.c
->>>> +++ b/mm/page_vma_mapped.c
->>>> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>>>    			spin_unlock(pvmw->ptl);
->>>>    			pvmw->ptl = NULL;
->>>>    		} else if (!pmd_present(pmde)) {
->>>> -			if ((pvmw->flags & PVMW_SYNC) &&
->>>> -			    thp_vma_suitable_order(vma, pvmw->address,
->>>> -						   PMD_ORDER) &&
->>>> -			    (pvmw->nr_pages >= HPAGE_PMD_NR))
->>>> +			if (pvmw->flags & PVMW_SYNC)
->>>>    				sync_with_folio_pmd_zap(mm, pvmw->pmd);
->>>>    
->>>>    			goto next_pmd;
->>>
->>> Baolin, how to proceed with that? Are you intending a resend? Including some of
->>> the performance impact and ways forward to optimize?
->>
->> I hope we can merge this fix first if no other objections. As I replied
->> to Barry, whether to set TTU_SYNC for small folios should be done in a
->> separate patch (this is a pre-existing issue) with proper measurement
->> (though it may be hard to measure the actual impact). What do you think?
+On 11/3/26 5:49 PM, Thomas Richard (congatec GmbH) wrote:
+> Obtain the bus ID (from the BC point of view) and adapter name from
+> platform data. This allows the specific definitions to be removed, leaving
+> only a generic adapter definition.
 > 
-> Can you update the patch description to include some of the performance aspects
-> and planned next steps?
+> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+> ---
+>  drivers/i2c/busses/i2c-cgbc.c | 68 ++++++++++++++++---------------------------
+>  1 file changed, 25 insertions(+), 43 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
+> index ac23435b731b..40ffab4fd0bc 100644
+> --- a/drivers/i2c/busses/i2c-cgbc.c
+> +++ b/drivers/i2c/busses/i2c-cgbc.c
+> @@ -12,9 +12,6 @@
+>  #include <linux/module.h>
+>  #include <linux/platform_device.h>
+>  
+> -#define CGBC_I2C_PRIMARY_BUS_ID	0
+> -#define CGBC_I2C_PM_BUS_ID	4
+> -
+>  #define CGBC_I2C_CMD_START	0x40
+>  #define CGBC_I2C_CMD_STAT	0x48
+>  #define CGBC_I2C_CMD_DATA	0x50
+> @@ -60,11 +57,6 @@ enum cgbc_i2c_state {
+>  	CGBC_I2C_STATE_ERROR,
+>  };
+>  
+> -struct i2c_algo_cgbc_data {
+> -	u8		bus_id;
+> -	unsigned long	read_maxtime_us;
+> -};
+> -
+>  struct cgbc_i2c_data {
+>  	struct device		*dev;
+>  	struct cgbc_device_data *cgbc;
+> @@ -73,6 +65,8 @@ struct cgbc_i2c_data {
+>  	int			nmsgs;
+>  	int			pos;
+>  	enum cgbc_i2c_state	state;
+> +	u8			bus_id;
+> +	unsigned long		read_maxtime_us;
+>  };
+>  
+>  struct cgbc_i2c_transfer {
+> @@ -115,10 +109,9 @@ static unsigned int cgbc_i2c_reg_to_freq(u8 reg)
+>  
+>  static int cgbc_i2c_get_status(struct i2c_adapter *adap)
+>  {
+> -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
+>  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
+>  	struct cgbc_device_data *cgbc = i2c->cgbc;
+> -	u8 cmd = CGBC_I2C_CMD_STAT | algo_data->bus_id;
+> +	u8 cmd = CGBC_I2C_CMD_STAT | i2c->bus_id;
+>  	u8 status;
+>  	int ret;
+>  
+> @@ -132,7 +125,6 @@ static int cgbc_i2c_get_status(struct i2c_adapter *adap)
+>  static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
+>  				  unsigned int bus_frequency)
+>  {
+> -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
+>  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
+>  	struct cgbc_device_data *cgbc = i2c->cgbc;
+>  	u8 cmd[2], data;
+> @@ -144,7 +136,7 @@ static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
+>  		bus_frequency = I2C_MAX_STANDARD_MODE_FREQ;
+>  	}
+>  
+> -	cmd[0] = CGBC_I2C_CMD_SPEED | algo_data->bus_id;
+> +	cmd[0] = CGBC_I2C_CMD_SPEED | i2c->bus_id;
+>  	cmd[1] = cgbc_i2c_freq_to_reg(bus_frequency);
+>  
+>  	ret = cgbc_command(cgbc, &cmd, sizeof(cmd), &data, 1, NULL);
+> @@ -170,7 +162,7 @@ static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
+>  	 * can be read by a command is CGBC_I2C_READ_MAX_LEN.
+>  	 * Therefore, calculate the max time to properly size the timeout.
+>  	 */
+> -	algo_data->read_maxtime_us = (BITS_PER_BYTE + 1) * CGBC_I2C_READ_MAX_LEN
+> +	i2c->read_maxtime_us = (BITS_PER_BYTE + 1) * CGBC_I2C_READ_MAX_LEN
+>  		* USEC_PER_SEC / bus_frequency;
+>  
+>  	return 0;
+> @@ -200,7 +192,6 @@ static unsigned int cgbc_i2c_xfer_to_cmd(struct cgbc_i2c_transfer xfer, u8 *cmd)
+>  
+>  static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+>  {
+> -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
+>  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
+>  	struct cgbc_device_data *cgbc = i2c->cgbc;
+>  	struct i2c_msg *msg = i2c->msg;
+> @@ -210,7 +201,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+>  	u8 cmd_data, data_len;
+>  
+>  	struct cgbc_i2c_transfer xfer = {
+> -		.bus_id = algo_data->bus_id,
+> +		.bus_id = i2c->bus_id,
+>  		.addr = i2c_8bit_addr_from_msg(msg),
+>  	};
+>  
+> @@ -268,7 +259,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+>  
+>  		ret = read_poll_timeout(cgbc_i2c_get_status, status,
+>  					status != CGBC_I2C_STAT_BUSY, 0,
+> -					2 * algo_data->read_maxtime_us, false, adap);
+> +					2 * i2c->read_maxtime_us, false, adap);
+>  		if (ret)
+>  			goto err;
+>  
+> @@ -282,7 +273,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+>  			goto err;
+>  		}
+>  
+> -		cmd_data = CGBC_I2C_CMD_DATA | algo_data->bus_id;
+> +		cmd_data = CGBC_I2C_CMD_DATA | i2c->bus_id;
+>  		ret = cgbc_command(cgbc, &cmd_data, sizeof(cmd_data),
+>  				   msg->buf + i2c->pos, len, &data_len);
+>  		if (ret)
+> @@ -350,44 +341,35 @@ static const struct i2c_algorithm cgbc_i2c_algorithm = {
+>  	.functionality = cgbc_i2c_func,
+>  };
+>  
+> -static struct i2c_algo_cgbc_data cgbc_i2c_algo_data[] = {
+> -	{ .bus_id = CGBC_I2C_PRIMARY_BUS_ID },
+> -	{ .bus_id = CGBC_I2C_PM_BUS_ID },
+> -};
+> -
+> -static const struct i2c_adapter cgbc_i2c_adapter[] = {
+> -	{
+> -		.owner		= THIS_MODULE,
+> -		.name		= "cgbc-i2c0",
+> -		.class		= I2C_CLASS_DEPRECATED,
+> -		.algo		= &cgbc_i2c_algorithm,
+> -		.algo_data	= &cgbc_i2c_algo_data[0],
+> -		.nr		= -1,
+> -	},
+> -	{
+> -		.owner		= THIS_MODULE,
+> -		.name		= "cgbc-ddc0",
+> -		.class		= I2C_CLASS_DEPRECATED,
+> -		.algo		= &cgbc_i2c_algorithm,
+> -		.algo_data	= &cgbc_i2c_algo_data[1],
+> -		.nr		= -1,
+> -	},
+> +static const struct i2c_adapter cgbc_i2c_adapter = {
+> +	.owner		= THIS_MODULE,
+> +	.class		= I2C_CLASS_DEPRECATED,
+> +	.algo		= &cgbc_i2c_algorithm,
+> +	.nr		= -1,
+>  };
+>  
+>  static int cgbc_i2c_probe(struct platform_device *pdev)
+>  {
+> -	struct cgbc_device_data *cgbc = dev_get_drvdata(pdev->dev.parent);
+> +	struct device *dev = &pdev->dev;
+> +	struct cgbc_device_data *cgbc = dev_get_drvdata(dev->parent);
+> +	struct cgbc_i2c_platform_data *pdata;
+>  	struct cgbc_i2c_data *i2c;
+>  	int ret;
+>  
+> -	i2c = devm_kzalloc(&pdev->dev, sizeof(*i2c), GFP_KERNEL);
+> +	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
+I was ready to send you the v6 (with your I2C patch) based on mfd-next,
+but I noticed an issue with this line. In v7.4-rc2 devm_kzalloc() has
+been replaced by devm_kzalloc_obj() (commit
+4dd10fbbeb9c33709edc89916e19c03c780a0751). I guess this will conflict
+during the merge. So I don't know how to proceed. Please let me know
+what to do.
 
-Sure.
+Best Regards,
+Thomas
 
-However, regarding performance aspects, I'm not sure what kind of 
-testing you expect. Since this fixes a uncommon concurrent race, do you 
-want performance data under that race condition, or impact on common 
-paths like try_to_unmap/try_to_migrate()?
+
+
