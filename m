@@ -1,78 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.160
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845243;
-	b=jRt0v/eI8C1Jd5KvW4S+dU8hZQlKaWTUKoXkUonLgezC4k7wSeQ6gv1x8KBmyQVLTYU9
-	 s5m7J0UCtCCYPPEAM7Eptb4LdptHj2g8aFjhOK4rt0SZvXBWSny/VcA3TzBsxWImB2PoW
-	 /hhGXvC9lzoHbsRZgDFdMp3MzFBtjrXe0Ad6Fz8a2TYl1BZPjdHGUq3l493D/0s/tYj1b
-	 LKIG4ZtgYHgcnwOWxUCHgQpwIzMopDWiqkQrJY2NpXMd50sEll2ydR5uy4a5r4SSCf+1R
-	 9dg9QCn8zVwFlC1YrCe6uh6kSEGwdt7y7Cg/YDBhAJoeDSlaNGU7PNiuLwRR1h8Nipw==
+	t=1794845274;
+	b=YNIw4DkSO4nw6f3iAW4oNmsILqFeRidrE5ZGxeqs7n13OKaqNG9s9/etm8uz9nRHw/uo
+	 KLTOJFTO9xE5Y6RSbnz03hXZ1QkAyV7HRZgfvl+x1/72Xz92w3Nmh6Tb8xXlYWVp34Lvl
+	 Vg/hkpRpERkKyK/WbGDY8UnBVswnDLdJefEcxv+7C9vMAE7guVEp6T4gQhdn7v3FZZr5u
+	 +k7DO//jMTYrY91ar6J4lIxXfe9NcHFFrOFQJ5aAbx6TnsHSH4RtFoaM9GhKbh/jUgkO7
+	 vAe/6VLd9j8IKCt2ZwAQeaoW9QRKYFdEmzE/5A1Stw70uKcdut+GzgxfDdlt3LPdhxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845243;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=IKV0hxoQg5hgOML35K8D4/uSv/9pAoDIN4rBZUJXI8Q=;
-	b=qYfkzcp904Tp0mG8jxpulxxWQiBkq94a2Y/nM9sKeSCEN5D4/dnizgAyDQGEIuakGjR/
-	 ztqNP5Z+WB5mjLqBrPZDLOhDtgft6Vdd3Hu+RUn3dTlRUFW5hzgb9q0LYYq+5lM5wCcxx
-	 49bwJyul0LzDEPyyjxWRoPo4vEV8QdPwtg93O+5HNkJrs67drtPK8kj/P2AH7xT9jXy0q
-	 NYBQNGE88g88b/Ap1iSpzDz9NS//R4W5WNOwDIsVVDlI+31MvmhlTlc7T6/un5kk6/iFm
-	 p1bimcNyXXzS9GUwCpk4bNFH3UC49V+A5KI5nt1gWd2K6QRctZWQ9wWhhRjnlBVbgQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845274;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=g3MIhzss8mzt7vvaQx34eU1QQkekVy7XwM3ImLiIdHU=;
+	b=p6j2mnsxRi7cyYUEDgnDIZfzUdvvK2d6yRa9DN6Z5UeVdX5zHrmP+RLHIOmTaG+/7+Rv
+	 lYiIpu9QLqkX/V2du+yegCUWpK3MEfz5CzdiLDFTsUMemRsfI1w6UlF7TEzklcmo/NGDW
+	 FS+N95+Uw4802u9kFX1BQDtLqLebAUSh/+QhOCexhSbY4eL2qTPfxXx19MRZ1Ud4IlWho
+	 Q9DeaB1P6cJowdubQGR6K0ELY2zSquuft7GXs8jcZ2Hmnko4m1NyKv2ucE0Cedtj9VgeL
+	 lEwyKpKCKKJvltrQ+Ltk6HVlrZvwmvua/oVdfUx7yTfsTltpen0P0nYwF/W1EdzsbWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="QPjXvev/";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="IU/57tgZ";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XAB5N40f;
+	arc=none smtp.remote-ip=95.215.58.160
+Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB52606A323;
-	Mon, 16 Nov 2026 16:07:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DB52606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC833606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC833606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=QPjXvev/;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IU/57tgZ
-Date: Mon, 16 Nov 2026 17:07:18 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794845239;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IKV0hxoQg5hgOML35K8D4/uSv/9pAoDIN4rBZUJXI8Q=;
-	b=QPjXvev/fmS6baQMvJBooWt282/oYgPtyoqzKqIpkRejy6aJWhsfurqQa378ygpzgJpeiT
-	aqhautM0UdBIonR2K2lYfJD4lRf/KXcI9iJlzmPYMQaHq/tS45NxGn2KQ7vRQtOLMYgg2+
-	cWAnfzs4MaPkNrfvw8EbL6V6jX/3L21fsPz/ms+TYmTKnNhDSP+PX/xhVfeJb8wIB9k/+g
-	ST3DkvRqEfAgTHDzDhPX05Z6tKw+7E/RhUxoVRYtFvRLmEn/wggWsjMSZePi8uRgQNnoBA
-	fHKl2MUgkSM8P02kR/pCri04E1Cl7wZdqNrazsoOXnrb0fv1Kos5T7lKeFXVag==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794845239;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IKV0hxoQg5hgOML35K8D4/uSv/9pAoDIN4rBZUJXI8Q=;
-	b=IU/57tgZJYBCfpVisNGjzh93D7596t+Pl1ZUmiCHZzHb39PZoAhhQB+ZLrU+pByZTEEmiq
-	FCcW9vUaWjDaH2DQ==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v8 00/12] nvmem: Add Raspberry Pi OTP nvmem driver
-Message-ID: <dzxhqxl4dn7jeqjr3qhvmzegyqyxnrstwotoqkoqoxiipwfxao@pzawf4vd3gos>
-References: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
- <336dc797-2406-4d81-b322-61b85ac52bdd@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XAB5N40f
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=M2zGI//Yg1vNKx0It6vDuy2OUuLLXC9VnhJk9KFe5C4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794845271; v=1; x=1795450071;
+ b=XAB5N40fqj63DLyDo1NAsXTdskdS6J6L3qJr5LqZgwg/lpI1HRqy7MKB+/Fdx2Gx6McCQ8oP
+ uy7ikxYV24MUknjr5ky7n8HZk8rOSMFKPl/XX3NH4r+51O6GCIGBcBh8/1qyJoNE5AtmiHtjpND
+ TljfhWMxpare357FuZU/YuW0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id a9b2173988e0f0ab;
+	Mon, 16 Nov 2026 16:07:51 +0000
+X-Mizu-Trace-ID: a9b2173988e0f0ab
+X-Migadu-Flow: FLOW_OUT
+From: wen.yang@linux.dev
+To: Joel Granados <joel.granados@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	Kees Cook <kees@kernel.org>
+Cc: Wen Yang <wen.yang@linux.dev>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 0/6] sysctl: replace overloaded extra pointers with typed bounds and core stride
+Date: Tue, 17 Nov 2026 00:07:32 +0800
+Message-Id: <cover.1794844686.git.wen.yang@linux.dev>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,49 +66,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <336dc797-2406-4d81-b322-61b85ac52bdd@kernel.org>
 
-Hi Srini,
+From: Wen Yang <wen.yang@linux.dev>
 
-On Mon, Nov 16, 2026 at 03:56:06PM +0000, Srinivas Kandagatla wrote:
-> 
-> 
-> On 11/10/26 4:33 PM, Gregor Herburger wrote:
-> > Hi,
-> > 
-> > This series adds support for the Raspberry Pis OTP registers. The
-> > Raspberry Pi has one or more OTP regions. These registers are accessible
-> > through the firmware. Add a driver for it and add updates the devicetree
-> > for the Raspberry Pi 5.
-> 
-> What is the merge strategy for this series?
-> Am happy to pick up non-dt patches 1-6/12 and 12/12.
-> let me know other wise.
-Wondering why you answer on the v8 series. Have you seen that I have sent
-another series with some additional fixes?
-see: https://lore.kernel.org/all/20261116-rpi-otp-driver-v10-0-15302dcfd5e1@linutronix.de/ 
+struct ctl_table has long relied on extra1 and extra2 pointers to serve
+multiple unrelated duties, including range limits and caller-specific
+context.  This series addresses both:
 
-Also please note that the first patch has already been applied by Florian. So
-one of you must drop that patch.
-see: https://lore.kernel.org/all/20261114032710.874144-1-florian.fainelli@broadcom.com/
-I included the patch here because I didn't knew which was going to be applied
-first and I wanted that the series can be applied cleanly by Sashiko.
+1. Replace bound pointers with plain unsigned long min and max fields
+   directly in struct ctl_table.
 
-Maybe Florian can pick the rest of the patches?
+2. Replace per-entry context pointers with a core stride mechanism,
+   allowing callers to register arrays of structures embedding struct
+   ctl_table and recover enclosing context via standard container_of().
 
-Best regards
+This RFC focuses on the core stride infrastructure and two representative
+complex users (netfilter nf_log and IPv4 devinet), as suggested by Joel
+Granados.  The remaining treewide callers are converted in a single
+squashed commit to ensure the tree builds and tests pass cleanly.
+
+Changes from v1:
+=================
+v1: https://lore.kernel.org/all/cover.1793204511.git.wen.yang@linux.dev/
+
+1. Abandoned per-entry 'void *priv' (David Laight):
+   - v1 added 'priv' to struct ctl_table, incurring 8 bytes on 64-bit and
+     4 bytes on 32-bit for all ~1,000 entries across thousands of dynamic
+     instances, even though <7% of entries need context.
+   - Refactor: context lives outside struct ctl_table via core stride;
+     callers embed ctl_table at offset 0 of their own record and recover
+     context with standard container_of().
+   - Cost: zero growth in struct ctl_table (56/32 bytes) and zero growth
+     in struct ctl_table_header (88/52 bytes, packing u16 stride and type).
+
+2. Eliminated slot wrappers & index coupling (Joel Granados, David Laight):
+   - An intermediate prototype discussed on the list used slot-indexed
+     container recovery, requiring 32 wrapper functions in devinet and 11
+     in nf_log.
+   - Refactor: with core stride, the core passes the exact registered
+     entry pointer to the handler, so handlers use container_of() directly
+     and all 43 wrappers disappear without touching proc_handler
+     signatures.
+
+3. KUnit purity & dependency fix (0-day robot):
+   - Removed register_sysctl() calls from KUnit; tests invoke
+     proc_handler directly so no live /proc/sys nodes are modified.
+   - Added 'depends on SYSCTL' to SYSCTL_KUNIT_TEST in lib/Kconfig.debug,
+     fixing undefined symbols when built as a module with SYSCTL=n.
+
+4. Baseline rebase & conflict resolution:
+   - Rebased onto next-20261111 (aaa2f954c21b).
+   - Added proc_dointvec_jiffies_minmax and proc_dointvec_ms_jiffies_minmax
+     to sysctl_check_table().
+
+5. Added Coccinelle verification script (Joel Granados):
+   - A 17-rule script (patch and context modes) maps all 15 SYSCTL_*
+     constants through one lookup table instead of repeating two rules
+     per constant.
+   - Bounds that point at a variable (&foo_min, &foo_max) are left
+     untouched and reported: in several callers (power/main.c, i915_perf,
+     ipc_sysctl, pid, sched/rt, rds, xprtsock) that variable is updated
+     at boot or at run time, so inlining its initial value would silently
+     freeze a live bound.  The script also flags .min/.max fields holding
+     a pointer or a legacy macro.
+
+6. Streamlined RFC series layout (Joel Granados):
+   - Reduced from 39 patches in v1 to 6 focused patches (core
+     infrastructure, unit test, two complex stride consumers, coccinelle
+     script.
+
+Key Design Points:
+==================
+
+1. Zero Memory Growth:
+   - struct ctl_table keeps its exact size (56 bytes on 64-bit, 32 bytes on
+     32-bit). No 'priv' field is added.
+   - u16 ctl_table_stride is introduced into struct ctl_table_header.
+     Together with u16 type, it occupies the existing alignment padding
+     hole on 64-bit (88 bytes unchanged) and keeps 52 bytes on 32-bit.
+     Registration rejects stride values that exceed U16_MAX.
+   - Headers are allocated once per table registration (~240 sites
+     in-tree), not per entry (thousands in-tree).
+
+2. Eliminates some Wrapper Functions:
+   - net/ipv4 devinet: registers strided struct devinet_sysctl_entry,
+     eliminating 32 per-attribute wrapper functions.
+   - Handlers recover their context using standard container_of() without
+     changing any proc_handler signatures.
+
+3. Standalone Stride API vs. Existing _sz:
+   register_sysctl_stride() and register_net_sysctl_stride() are added
+   alongside register_*_sz() so existing callers remain untouched.  If
+   preferred, stride can instead be folded into register_*_sz() as an
+   element-size parameter (similar to bsearch()).
+
+4. Fixes & Cleanups:
+   - Fixes net.core sysctl write permissions in init_net (mode 0222 is
+     now cleared only for non-init network namespaces).
+   - Cleans up redundant '.min = 0' initializers treewide.
+   - Provides a Coccinelle script (scripts/coccinelle/api/sysctl/) for
+     automated conversion and proof of no leftover extra1/extra2 uses.
+
+Series Structure:
+=================
+- Patch 1: Core stride infrastructure and numeric bounds.
+- Patch 2: KUnit unit test coverage (21 tests, pure handler execution).
+- Patch 3: netfilter nf_log stride migration (11 wrappers removed).
+- Patch 4: net/ipv4 devinet stride migration (32 wrappers removed).
+- Patch 5: Coccinelle script for detection and conversion.
+
+Testing:
+========
+- KUnit sysctl_test: pass:21 fail:0 (UML).
+- x86_64 defconfig build of kernel/, fs/proc/, net/ passed.
+- Coccinelle: full-tree MODE=context finds 0 leftovers after conversion
+  and 822 before it; MODE=patch converts the legacy net/unix table.
+
+
+Wen Yang (5):
+  sysctl: add numeric bounds and core stride infrastructure
+  sysctl: cover numeric bounds and table containers in KUnit
+  netfilter: embed logger sysctl context using stride
+  net/ipv4: embed device sysctl context using stride
+  scripts/coccinelle: add script to detect and convert sysctl bounds
+
+ fs/proc/proc_sysctl.c                         |  82 +-
+ include/linux/sysctl.h                        |  43 +-
+ include/net/net_namespace.h                   |  10 +
+ kernel/sysctl-test.c                          | 776 +++++++++++++++++-
+ kernel/sysctl.c                               |  38 +-
+ lib/Kconfig.debug                             |   1 +
+ net/ipv4/devinet.c                            | 190 +++--
+ net/netfilter/nf_log.c                        |  84 +-
+ net/sysctl_net.c                              |  31 +-
+ .../api/sysctl/sysctl_numeric_bounds.cocci    | 276 +++++++
+ 10 files changed, 1339 insertions(+), 192 deletions(-)
+ create mode 100644 scripts/coccinelle/api/sysctl/sysctl_numeric_bounds.cocci
+
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
 -- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+2.25.1
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
-
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
