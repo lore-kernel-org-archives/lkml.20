@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833030;
-	b=KZ24CQaXCLveob3xRffseRSRrBLmyUyTVgYKmQSeAKeRh9aOh6zrN3oavMj/eGjxLqwJ
-	 b+RR8dVCQu1RlrBF5sKXrExGxkAkzeTRcJHV7lQO/CFyXYoYRhKhaHAkwZ/uWKiFlktEu
-	 ckicdkauRf9nzdfjMCYIPnicpUN7em2HisZ21bd129gvOckLiQqMW9qx+2q2IEz0Fp+Vc
-	 8NphdJv9jkATK0XZb2lSqBCHbKicUElYVJ4wKy6OcNC8q8KjcFSJsaAcwlB0MrJM0cfas
-	 uLr6jJhphZyOVgOHeKEkP/Z/L3OojaXEhO3z1/lVdMuM6wmLN2n554dUjFpkH9Of8pg==
+	t=1794833035;
+	b=VsUoWtpOQrDlONbuegC+XEa02y9kij9+o7nBqLRhu3M7Lpd6VPNU+dkaH8j90F5uzkl8
+	 gqYecsuhiCKzCdYh6onDBVV8WZHnbfOsOZ7QkRgpTd0b+cx2MNP7GH1gle5b95IRTcmzo
+	 nMszoe6y1+2OnwnC18S7Rsz3nZX2tQTMsAlBwkQeqXfu3Forc8DFt4EQS1o9k1tmYJJeA
+	 IricSX3J8TZTc7qgNGdAZd4D/k3SOG7CSO9tW7trJ4U/0mKXOrMaTVw7hKY/60LoYjVjq
+	 a04Uwk+0UF8j4UuyHh69kAMTSXXniRuebRBgmFROSEokE2eOGfJ17tpCDedixawkBgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833030;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=urIVqAaFnFIHT9JGVNJy2ZG+PANfR+BVWX9qgyiwtQA=;
-	b=zbl5PBBDy5Bd++GbeTnUaan1fXM6eN+1oTYbXQvfcjNnXTsDwcnTjHEy6Wm+CMg2+ljT
-	 hbT6n4PEPcENMukE26Pj4Q+NuzKnpfjSXAaHys9NXgx5HGmpX8ZNObg/N6wDFpVQC6AON
-	 OjqX0LduL9W+H3RpWJsc4a7LrZXnGbICyYroWAj5oP1X8/YhO0Gtd/Fa9fH4G290M3Cxb
-	 DVYV8bYEYbICzJXq9sUemRD4ToXIjmmHy39H3u3ICajuJdklzek9EOqyrZw3HyAcgqVIp
-	 jyeCcj+tnlpDwhYlIq1hHUtv/7XpXVw8mf3VHQ9e4H2BcB23OjCyTKHCl3+RMCiqDRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833035;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=wpFlzrIrccRBb09nbTumQVG+pnloIJ1MGRwlAqYwLS8=;
+	b=z6VjyKNTZJANsiydlkn48Q2XmZkRBEWlmVoostrm1hm2CjWL7dtFn7wezGOJCbeI1Ds9
+	 lkIdP9Bi2MMiCYaHo9R14YGAu/kfKbJcXT2x/jCUBiSjOLsH+YpxuYmfK75Ubr6WmtUZB
+	 EG59LvkdFFSGc+C1qzSg/74QQ+hFxh01rOpyKkaJ2TVIESyip5/57hO+pdei+/dmPMfhq
+	 JyG8KpgORJsBAWE/FxvtNyb9KNjFMG1uR8uu2J/rfLfIuBqanp7oG2zYLsDrDK4p0H+hQ
+	 zL7PdyPjSiyknKDbWAlcJVvFJ7b9LBOiNspddTeuqWwbWfsjSoj6VgId6l1XRWJjdlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3ffCp4l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B1qYTKua;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066E7606A332;
-	Mon, 16 Nov 2026 12:43:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FAD606A331;
+	Mon, 16 Nov 2026 12:43:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FAD606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3ffCp4l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74AAF1F000CC;
-	Mon, 16 Nov 2026 12:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794833029;
-	bh=urIVqAaFnFIHT9JGVNJy2ZG+PANfR+BVWX9qgyiwtQA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N3ffCp4lPtR0iCLPq6GX/hhh2lHoIpNQVrKCZSAf0KDSey2D/Y0oI4aLbDaMYTS6o
-	 OmNlFkWqmulv2yVfUL9Fn+9PcEvSZb2ahEj/Dud9A0qbnuN+peCnIbyI9Ra96fbh+e
-	 zEeNu66F+q/Lu0TYuMsx9MTuJYU/+R5mYaxPBx1tg+3gOrDWov9Jd21Wzqqh8wDSmH
-	 FCHpOdZqdSVNVhPdl1anUa1HaoVdmXqJq11H2P4pBmWFQCAtHOjfCAZROFZ1kFH5oe
-	 V7TnorOZsCxurm7DUGyQWF4Sn+W4LCApaNwiX9I51J8goU5HF7sXrQPtvYVyGg32Xg
-	 MAzrfn/VFQ4Og==
-Date: Mon, 16 Nov 2026 12:43:45 +0000
-From: Lee Jones <lee@kernel.org>
-To: Daniil Demakov <t3127430@gmail.com>
-Cc: linux-leds@vger.kernel.org, pavel@kernel.org,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] leds: pca9532: Propagate I2C errors
-Message-ID: <20261116124345.GN6323@joneslee-macbookpro.roam.internal>
-References: <20261114141926.92737-1-t3127430@gmail.com>
- <20261114185201.30519-1-t3127430@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B1qYTKua
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794833034; x=1826369034;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=e/fGewoCIHvWr1eqxSqbEO97JXsjrMQSQlAG3kBwC3E=;
+  b=B1qYTKuaH+WDNmzdd3qMTt9dSuIBQ6UKMwOKdOfZqRcLKsNAe8XdAPZ9
+   6kzzBSQ27fLQAEAgE0F5E99qb5co4fxy4O9Zj5CMU/+GUyVPbtzQF1E7d
+   hOpW/HUdcdDYPyjaAZc3Y4EwXToxiXtkEgbTyqubdFIDGC2wpnEEdFpJ7
+   wFhHi+3pyjUR2N+BDOeEV38xvNazlrJRk1CcrfTbgXtsZh3bBjBMsgMOQ
+   jseKtVF81VEV+9CPPm6lRQ1FvUHr0gWlS+fduDZGjF2vmlnvVqNwlL+p0
+   BSQ0R1M9RpT41pmklZcKYlzuzEE3xd9r76297lWacNr+ulcaPLvCTQglx
+   A==;
+X-CSE-ConnectionGUID: EyiciNQeR4O7AHADjs/2CA==
+X-CSE-MsgGUID: axBTK53BSQakrq0fHQ5DIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3672668"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3672668"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:43:53 -0800
+X-CSE-ConnectionGUID: ZPrwjXWWQFCd3o2KbjnSGA==
+X-CSE-MsgGUID: 7ELcQbJtSnWGjjGaQ7OVlQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="10071365"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:43:48 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 16 Nov 2026 14:43:45 +0200 (EET)
+To: Alan Pluto <alanpluto@163.com>
+cc: platform-driver-x86@vger.kernel.org, 
+    Mark Pearson <mpearson-lenovo@squebb.ca>, derekjohn.clark@gmail.com, 
+    i@rong.moe, W_Armin@gmx.de, Hans de Goede <hansg@kernel.org>, 
+    corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+    linux-api@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: lenovo-wmi-other: Add raw GetDataByPackage
+ interface
+In-Reply-To: <20261116040532.154928-1-alanpluto@163.com>
+Message-ID: <94c2c7a7-b7b1-c0e9-754e-2ed9c37a2294@linux.intel.com>
+References: <20261116040532.154928-1-alanpluto@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,602 +83,542 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114185201.30519-1-t3127430@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
 
-INTENTIONAL TOP POST
+On Mon, 16 Nov 2026, Alan Pluto wrote:
 
-Submitting patches as reply-to gets real confusing, real fast.
-
-Please resubmit the latest version as an orthogonal patch/set.
-
-On Sat, 14 Nov 2026, Daniil Demakov wrote:
-
-> Check return values from SMBus read and write operations and
-> propagate errors through LED, PWM, blink and GPIO operations.
+> Expose Lenovo Other Mode WMI GetDataByPackage, method 99, through a
+> root-only character device so userspace can access the raw firmware
+> interface. And document the interface.
 > 
-> Restore previous LED and PWM state when hardware updates fail.
-> Protect shared LED and PWM state with the update mutex.
+> The upstream driver was build-tested with W=1 and checked with Sparse.
+> A backport using the five-argument wmidev_invoke_method() interface
+> was tested on Ubuntu 7.0.0-42 with Lenovo hardware. The upstream 7.4
+> driver has not been tested on hardware.
 > 
-> Check register writes during device initialization and register
-> LED class devices only after successfully configuring the hardware.
-> 
-> Signed-off-by: Daniil Demakov <t3127430@gmail.com>
+> Signed-off-by: Alan Pluto <alanpluto@163.com>
 > ---
->  drivers/leds/leds-pca9532.c | 336 +++++++++++++++++++++++++++++-------
->  1 file changed, 270 insertions(+), 66 deletions(-)
+>  Documentation/ABI/testing/dev-tac             |  49 +++
+>  .../wmi/devices/lenovo-wmi-other.rst          |   8 +
+>  MAINTAINERS                                   |   1 +
+>  drivers/platform/x86/lenovo/wmi-other.c       | 325 ++++++++++++++++++
+>  4 files changed, 383 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/dev-tac
 > 
-> diff --git a/drivers/leds/leds-pca9532.c b/drivers/leds/leds-pca9532.c
-> index c8085427696f..19b993d9ac9f 100644
-> --- a/drivers/leds/leds-pca9532.c
-> +++ b/drivers/leds/leds-pca9532.c
-> @@ -14,6 +14,7 @@
->  #include <linux/leds.h>
->  #include <linux/input.h>
->  #include <linux/mutex.h>
-> +#include <linux/spinlock.h>
->  #include <linux/workqueue.h>
->  #include <linux/leds-pca9532.h>
->  #include <linux/gpio/driver.h>
-> @@ -42,6 +43,9 @@ struct pca9532_data {
->  	struct i2c_client *client;
->  	struct pca9532_led leds[16];
->  	struct mutex update_lock;
-> +	/* Protects beep_pwm between the event callback and workqueue. */
-> +	spinlock_t beep_lock;
-> +	u8 beep_pwm;
->  	struct input_dev *idev;
->  	struct work_struct work;
->  #ifdef CONFIG_LEDS_PCA9532_GPIO
-> @@ -144,68 +148,147 @@ static int pca9532_calcpwm(struct i2c_client *client, int pwm, int blink,
->  	return 0;
+> diff --git a/Documentation/ABI/testing/dev-tac b/Documentation/ABI/testing/dev-tac
+> new file mode 100644
+> index 00000000000..a8be8e95e2d
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/dev-tac
+> @@ -0,0 +1,49 @@
+> +What:           /dev/tac[0-9]*
+> +Date:           November 2026
+> +Contact:        platform-driver-x86@vger.kernel.org
+> +Description:
+> +                Lenovo Other Mode WMI GetDataByPackage (method 99).
+> +                Each firmware WMI instance gets a misc character device with
+> +                mode 0600. Numbering follows allocation order, not necessarily
+> +                the firmware instance number. Registration does not probe
+> +                support for method 99. The parent is the bound WMI device.
+> +
+> +                Open with O_RDWR. One write submits one complete request of
+> +                1..100 raw bytes; shorter requests are padded with zeroes to
+> +                100 bytes. Empty and oversized writes fail with EINVAL without
+> +                calling firmware. Successful writes return the full submitted
+> +                length and execute two identical WMI calls for the BIOS
+> +                duplicate-call workaround. Request pairs through this
+> +                interface are serialized; calls made by other driver
+> +                interfaces are not covered by this serialization.
+> +                Evaluation failures abort the pair; the driver does not
+> +                automatically retry.
+> +
+> +                Each open file description owns its response. A write while
+> +                that response remains unread fails with EBUSY, including after
+> +                partial reads. A new open cannot read another open's response.
+> +                Descriptors shared by dup/fork share the same transaction;
+> +                applications must coordinate the complete write/read sequence.
+> +
+> +                Read returns little-endian u32 DataSize followed by exactly
+> +                DataSize data bytes. Response storage is erased when fully
+> +                read or closed. Further reads return EOF until a new successful
+> +                write. Before a successful write, or after a failed firmware
+> +                evaluation, reads return ENODATA. A zero-length read returns
+> +                zero without consuming data.
+> +
+> +                Requests are synchronous even with O_NONBLOCK. Seeking and
+> +                positional I/O are not supported. There is no ioctl interface.
+> +                A removed WMI device causes nonempty reads and valid writes
+> +                on existing descriptors to fail with ENODEV.
+> +
+> +                Firmware evaluation failures map to EIO. WMI marshalling
+> +                failures return the error reported by the WMI subsystem.
+> +                A truncated response or invalid DataSize maps to EPROTO.
+> +                Bad userspace memory maps to EFAULT. Failure does not imply
+> +                firmware had no side effects; never blindly resubmit commands.
+> +                Interrupted waits can return EINTR before firmware evaluation.
+> +
+> +                The WMI subsystem converts returned ACPI objects to a buffer.
+> +                This raw firmware interface may change device state. Use only
+> +                commands whose behavior and side effects are understood.
+> diff --git a/Documentation/wmi/devices/lenovo-wmi-other.rst b/Documentation/wmi/devices/lenovo-wmi-other.rst
+> index 011054d64ea..ec85fdeeb7a 100644
+> --- a/Documentation/wmi/devices/lenovo-wmi-other.rst
+> +++ b/Documentation/wmi/devices/lenovo-wmi-other.rst
+> @@ -33,6 +33,10 @@ under the following path:
+>  
+>  Additionally, this driver also exports attributes to HWMON.
+>  
+> +The driver also exposes GetDataByPackage (method 99) through a raw character
+> +device for each WMI instance. See Documentation/ABI/testing/dev-tac for the
+> +request and response format and its access restrictions.
+> +
+>  LENOVO_CAPABILITY_DATA_00
+>  -------------------------
+>  
+> @@ -109,6 +113,10 @@ WMI interface description
+>  The WMI interface description can be decoded from the embedded binary MOF (bmof)
+>  data using the `bmfdec <https://github.com/pali/bmfdec>`_ utility:
+>  
+> +The example below describes an older firmware revision and specifies a
+> +40-byte maximum input for GetDataByPackage. Newer firmware uses a 100-byte
+> +input, which is the size used by the raw interface described above.
+> +
+>  ::
+>  
+>    [WMI, Dynamic, Provider("WmiProv"), Locale("MS\\0x409"), Description("LENOVO_OTHER_METHOD class"), guid("{dc2a8805-3a8c-41ba-a6f7-092e0089cd3b}")]
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 981eb3fdbef..84b1545f525 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15168,6 +15168,7 @@ M:	Derek J. Clark <derekjohn.clark@gmail.com>
+>  M:	Rong Zhang <i@rong.moe>
+>  L:	platform-driver-x86@vger.kernel.org
+>  S:	Maintained
+> +F:	Documentation/ABI/testing/dev-tac
+>  F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
+>  F:	Documentation/wmi/devices/lenovo-wmi-other.rst
+>  F:	drivers/platform/x86/lenovo/*
+> diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x86/lenovo/wmi-other.c
+> index bd64e7b4466..c15b3a2a758 100644
+> --- a/drivers/platform/x86/lenovo/wmi-other.c
+> +++ b/drivers/platform/x86/lenovo/wmi-other.c
+> @@ -34,16 +34,23 @@
+>  #include <linux/device.h>
+>  #include <linux/export.h>
+>  #include <linux/firmware_attributes.h>
+> +#include <linux/fs.h>
+>  #include <linux/gfp_types.h>
+>  #include <linux/hwmon.h>
+>  #include <linux/idr.h>
+>  #include <linux/kdev_t.h>
+>  #include <linux/kobject.h>
+> +#include <linux/kref.h>
+>  #include <linux/limits.h>
+> +#include <linux/miscdevice.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/platform_profile.h>
+>  #include <linux/power_supply.h>
+> +#include <linux/slab.h>
+>  #include <linux/types.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/unaligned.h>
+>  #include <linux/wmi.h>
+>  
+>  #include <acpi/battery.h>
+> @@ -91,6 +98,9 @@ enum lwmi_feature_id_psu {
+>  #define LWMI_FEATURE_VALUE_GET 17
+>  #define LWMI_FEATURE_VALUE_SET 18
+>  
+> +#define LWMI_DATA_PACKAGE_GET 99
+> +#define LWMI_DATA_PACKAGE_INPUT_MAX 100
+> +
+>  #define LWMI_FAN_ID_BASE 1
+>  #define LWMI_FAN_NR 4
+>  #define LWMI_FAN_ID(x) ((x) + LWMI_FAN_ID_BASE)
+> @@ -115,6 +125,27 @@ enum lwmi_feature_id_psu {
+>  
+>  static DEFINE_IDA(lwmi_om_ida);
+>  
+> +static DEFINE_IDA(lwmi_tac_ida);
+> +static DEFINE_MUTEX(lwmi_tac_lock);
+
+Please document what it protects.
+
+> +
+> +struct lwmi_tac {
+> +	struct miscdevice misc;
+> +	struct kref ref;
+> +	struct wmi_device *wdev;
+> +	u8 instance;
+> +	int id;
+> +};
+> +
+> +struct lwmi_tac_file {
+> +	struct lwmi_tac *tac;
+> +	/* Protects the per-open response and its position. */
+> +	struct mutex lock;
+> +	void *result;
+> +	size_t result_len;
+> +	loff_t position;
+> +	bool completed;
+> +};
+> +
+>  enum attribute_property {
+>  	DEFAULT_VAL,
+>  	MAX_VAL,
+> @@ -1609,6 +1640,295 @@ static void lwmi_om_fw_attr_remove(struct lwmi_om_priv *priv)
+>  	priv->ida_id = -EIDRM;
 >  }
 >  
-> -static int pca9532_setpwm(struct i2c_client *client, int pwm)
-> +static int __pca9532_setpwm(struct i2c_client *client, int pwm)
->  {
->  	struct pca9532_data *data = i2c_get_clientdata(client);
->  	u8 maxleds = data->chip_info->num_leds;
-> +	int ret;
->  
-> -	mutex_lock(&data->update_lock);
-> -	i2c_smbus_write_byte_data(client, PCA9532_REG_PWM(maxleds, pwm),
-> -		data->pwm[pwm]);
-> -	i2c_smbus_write_byte_data(client, PCA9532_REG_PSC(maxleds, pwm),
-> -		data->psc[pwm]);
-> -	mutex_unlock(&data->update_lock);
-> -	return 0;
-> -}
-> +	if (pwm < 0 || pwm > 1)
-> +		return -EINVAL;
-> +
-> +	ret = i2c_smbus_write_byte_data(client,
-> +					PCA9532_REG_PWM(maxleds, pwm),
-> +					data->pwm[pwm]);
-> +	if (ret < 0) {
-> +		dev_warn(&client->dev,
-> +			 "Failed to write PWM register: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = i2c_smbus_write_byte_data(client,
-> +					PCA9532_REG_PSC(maxleds, pwm),
-> +					data->psc[pwm]);
-> +	if (ret < 0)
-> +		dev_warn(&client->dev,
-> +			 "Failed to write PSC register: %d\n", ret);
->  
-> +	return ret;
-> +}
->  /* Set LED routing */
-> -static void pca9532_setled(struct pca9532_led *led)
-> +static int __pca9532_setled(struct pca9532_led *led)
->  {
->  	struct i2c_client *client = led->client;
->  	struct pca9532_data *data = i2c_get_clientdata(client);
->  	u8 maxleds = data->chip_info->num_leds;
-> -	char reg;
-> +	int reg;
-> +	int ret;
->  
-> -	mutex_lock(&data->update_lock);
->  	reg = i2c_smbus_read_byte_data(client, LED_REG(maxleds, led->id));
-> +	if (reg < 0) {
-> +		ret = reg;
-> +		dev_warn(&client->dev, "Failed to read LED register: %d\n", ret);
-> +		return ret;
-> +	}
-> +
->  	/* zero led bits */
-> -	reg = reg & ~LED_MASK(led->id);
-> +	reg &= ~LED_MASK(led->id);
-> +
->  	/* set the new value */
-> -	reg = reg | (led->state << LED_SHIFT(led->id));
-> -	i2c_smbus_write_byte_data(client, LED_REG(maxleds, led->id), reg);
-> +	reg |= led->state << LED_SHIFT(led->id);
-> +
-> +	ret = i2c_smbus_write_byte_data(client, LED_REG(maxleds, led->id), reg);
-> +
-> +	if (ret < 0)
-> +		dev_warn(&client->dev, "Failed to write LED register: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int pca9532_setled(struct pca9532_led *led)
+> +/**
+> + * lwmi_tac_free() - Free an unregistered endpoint after its last close
+> + * @ref: Reference belonging to the endpoint.
+> + */
+> +static void lwmi_tac_free(struct kref *ref)
 > +{
-> +	struct pca9532_data *data = i2c_get_clientdata(led->client);
-> +	int ret;
+> +	struct lwmi_tac *tac = container_of(ref, struct lwmi_tac, ref);
 > +
-> +	mutex_lock(&data->update_lock);
-> +	ret = __pca9532_setled(led);
->  	mutex_unlock(&data->update_lock);
+> +	ida_free(&lwmi_tac_ida, tac->id);
+> +	kfree(tac->misc.name);
+> +	kfree(tac);
+> +}
 > +
-> +	return ret;
->  }
->  
->  static int pca9532_set_brightness(struct led_classdev *led_cdev,
-> -	enum led_brightness value)
-> +				  enum led_brightness value)
->  {
-> -	int err = 0;
->  	struct pca9532_led *led = ldev_to_led(led_cdev);
-> +	struct pca9532_data *data = i2c_get_clientdata(led->client);
-> +	int old_state;
-> +	u8 old_pwm;
-> +	u8 old_psc;
-> +	bool pwm_updated = false;
-> +	int restore_err;
-> +	int err = 0;
+> +/**
+> + * lwmi_tac_open() - Allocate independent response state for an open file
+> + * @inode: Character device inode.
+> + * @file: File initially pointing to the registered miscdevice.
+> + *
+> + * The misc core serializes open against deregistration, so the registration
+> + * reference remains valid while the file acquires its own reference.
+> + *
+> + * Return: 0 on success, or -ENOMEM.
+> + */
+> +static int lwmi_tac_open(struct inode *inode, struct file *file)
+> +{
+> +	struct lwmi_tac *tac = container_of(file->private_data, struct lwmi_tac, misc);
+> +	struct lwmi_tac_file *state;
 > +
-> +	mutex_lock(&data->update_lock);
-> +	old_state = led->state;
-> +	old_pwm = data->pwm[PCA9532_PWM_ID_0];
-> +	old_psc = data->psc[PCA9532_PWM_ID_0];
->  
->  	if (value == LED_OFF) {
->  		led->state = PCA9532_OFF;
->  	} else if (led->state == PCA9532_PWM1) {
-> -		return 0; /* Non-zero brightness shall not stop HW blinking */
-> +		goto out;
->  	} else if (value == LED_FULL) {
->  		led->state = PCA9532_ON;
->  	} else {
-> -		led->state = PCA9532_PWM0; /* Thecus: hardcode one pwm */
-> -		err = pca9532_calcpwm(led->client, PCA9532_PWM_ID_0, 0, value);
-> +		led->state = PCA9532_PWM0;
-> +		err = pca9532_calcpwm(led->client, PCA9532_PWM_ID_0,
-> +				      0, value);
->  		if (err)
-> -			return err;
-> +			goto restore_state;
-> +	}
+> +	state = kzalloc_obj(*state);
+> +	if (!state)
+> +		return -ENOMEM;
+> +	mutex_init(&state->lock);
+> +	state->tac = tac;
+> +	kref_get(&tac->ref);
+> +	file->private_data = state;
+> +	return stream_open(inode, file);
+> +}
 > +
-> +	if (led->state == PCA9532_PWM0) {
-> +		pwm_updated = true;
-> +		err = __pca9532_setpwm(led->client, PCA9532_PWM_ID_0);
-> +		if (err < 0)
-> +			goto restore_state;
->  	}
-> -	if (led->state == PCA9532_PWM0)
-> -		pca9532_setpwm(led->client, PCA9532_PWM_ID_0);
-> -	pca9532_setled(led);
+> +/**
+> + * lwmi_tac_release() - Erase the response and drop the endpoint reference
+> + * @inode: Character device inode.
+> + * @file: File holding the endpoint state.
+> + *
+> + * Return: 0.
+> + */
+> +static int lwmi_tac_release(struct inode *inode, struct file *file)
+> +{
+> +	struct lwmi_tac_file *state = file->private_data;
 > +
-> +	err = __pca9532_setled(led);
-> +	if (err < 0)
-> +		goto restore_state;
-> +
-> +	goto out;
-> +
-> +restore_state:
-> +	led->state = old_state;
-> +	data->pwm[PCA9532_PWM_ID_0] = old_pwm;
-> +	data->psc[PCA9532_PWM_ID_0] = old_psc;
-> +
-> +	if (pwm_updated) {
-> +		restore_err = __pca9532_setpwm(led->client,
-> +					       PCA9532_PWM_ID_0);
-> +		if (restore_err < 0)
-> +			dev_warn(&led->client->dev,
-> +				 "Failed to restore PWM settings: %d\n",
-> +				 restore_err);
-> +	}
-> +out:
-> +	mutex_unlock(&data->update_lock);
->  	return err;
->  }
->  
->  static int pca9532_update_hw_blink(struct pca9532_led *led,
-> -				   unsigned long delay_on, unsigned long delay_off)
-> +				   unsigned long delay_on,
-> +				   unsigned long delay_off)
->  {
->  	struct pca9532_data *data = i2c_get_clientdata(led->client);
->  	unsigned int psc;
-> -	int i;
-> +	unsigned long period;
-> +	u8 old_pwm = data->pwm[PCA9532_PWM_ID_1];
-> +	u8 old_psc = data->psc[PCA9532_PWM_ID_1];
-> +	int i, ret;
->  
->  	/* Look for others LEDs that already use PWM1 */
->  	for (i = 0; i < data->chip_info->num_leds; i++) {
-> @@ -223,29 +306,64 @@ static int pca9532_update_hw_blink(struct pca9532_led *led,
->  		}
->  	}
->  
-> -	psc = ((delay_on + delay_off) * PCA9532_PWM_PERIOD_DIV - 1) / 1000;
-> -	if (psc > U8_MAX) {
-> -		/* Blink period too long to be handled by hardware */
-> +	if (delay_on > ULONG_MAX - delay_off)
->  		return -EINVAL;
-> +
-> +	period = delay_on + delay_off;
-> +
-> +	if (!delay_on || !delay_off)
-> +		return -EINVAL;
-> +
-> +	if (period > ((U8_MAX + 1) * 1000) /
-> +		     PCA9532_PWM_PERIOD_DIV)
-> +		return -EINVAL;
-> +
-> +	psc = (period * PCA9532_PWM_PERIOD_DIV - 1) / 1000;
-> +
-> +	data->psc[PCA9532_PWM_ID_1] = psc;
-> +	data->pwm[PCA9532_PWM_ID_1] =
-> +		(delay_on * PCA9532_PWM_DUTY_DIV) / period;
-> +
-> +	ret = __pca9532_setpwm(data->client, PCA9532_PWM_ID_1);
-> +	if (ret < 0) {
-> +		data->pwm[PCA9532_PWM_ID_1] = old_pwm;
-> +		data->psc[PCA9532_PWM_ID_1] = old_psc;
-> +
-> +		if (__pca9532_setpwm(data->client, PCA9532_PWM_ID_1) < 0)
-> +			dev_warn(&data->client->dev,
-> +				 "Failed to restore PWM settings\n");
-> +
-> +		return ret;
->  	}
->  
->  	led->state = PCA9532_PWM1;
-> -	data->psc[PCA9532_PWM_ID_1] = psc;
-> -	data->pwm[PCA9532_PWM_ID_1] = (delay_on * PCA9532_PWM_DUTY_DIV) / (delay_on + delay_off);
->  
-> -	return pca9532_setpwm(data->client, PCA9532_PWM_ID_1);
+> +	kfree_sensitive(state->result);
+> +	mutex_destroy(&state->lock);
+> +	kref_put(&state->tac->ref, lwmi_tac_free);
+> +	kfree(state);
 > +	return 0;
->  }
->  
->  static int pca9532_set_blink(struct led_classdev *led_cdev,
-> -	unsigned long *delay_on, unsigned long *delay_off)
-> +			     unsigned long *delay_on,
-> +			     unsigned long *delay_off)
->  {
->  	struct pca9532_led *led = ldev_to_led(led_cdev);
->  	struct i2c_client *client = led->client;
->  	struct pca9532_data *data = i2c_get_clientdata(client);
-> +	int old_state;
-> +	int restore_err;
-> +	u8 old_pwm;
-> +	u8 old_psc;
->  	int err;
->  
-> -	if (!data->hw_blink)
-> -		return -EINVAL;
-> +	mutex_lock(&data->update_lock);
+> +}
 > +
-> +	old_state = led->state;
-> +	old_pwm = data->pwm[PCA9532_PWM_ID_1];
-> +	old_psc = data->psc[PCA9532_PWM_ID_1];
-> +
-> +	if (!data->hw_blink) {
-> +		err = -EINVAL;
-> +		goto out;
-> +	}
->  
->  	if (*delay_on == 0 && *delay_off == 0) {
->  		/* led subsystem ask us for a blink rate */
-> @@ -255,26 +373,47 @@ static int pca9532_set_blink(struct led_classdev *led_cdev,
->  
->  	err = pca9532_update_hw_blink(led, *delay_on, *delay_off);
->  	if (err)
-> -		return err;
-> +		goto restore_state;
-> +
-> +	err = __pca9532_setled(led);
-> +	if (err < 0) {
-> +		led->state = old_state;
-> +		data->pwm[PCA9532_PWM_ID_1] = old_pwm;
-> +		data->psc[PCA9532_PWM_ID_1] = old_psc;
-> +
-> +		restore_err = __pca9532_setpwm(client, PCA9532_PWM_ID_1);
-> +		if (restore_err < 0)
-> +			dev_warn(&client->dev,
-> +				 "Failed to restore PWM settings: %d\n",
-> +				 restore_err);
-> +	}
->  
-> -	pca9532_setled(led);
-> +	goto out;
->  
-> -	return 0;
-> +restore_state:
-> +	led->state = old_state;
-> +out:
-> +	mutex_unlock(&data->update_lock);
-> +	return err;
->  }
->  
->  static int pca9532_event(struct input_dev *dev, unsigned int type,
-> -	unsigned int code, int value)
-> +			 unsigned int code, int value)
->  {
->  	struct pca9532_data *data = input_get_drvdata(dev);
-> +	unsigned long flags;
->  
->  	if (!(type == EV_SND && (code == SND_BELL || code == SND_TONE)))
->  		return -1;
->  
-> -	/* XXX: allow different kind of beeps with psc/pwm modifications */
-> +	spin_lock_irqsave(&data->beep_lock, flags);
-> +
->  	if (value > 1 && value < 32767)
-> -		data->pwm[PCA9532_PWM_ID_1] = 127;
-> +		data->beep_pwm = 127;
->  	else
-> -		data->pwm[PCA9532_PWM_ID_1] = 0;
-> +		data->beep_pwm = 0;
-> +
-> +	spin_unlock_irqrestore(&data->beep_lock, flags);
->  
->  	schedule_work(&data->work);
->  
-> @@ -286,27 +425,48 @@ static void pca9532_input_work(struct work_struct *work)
->  	struct pca9532_data *data =
->  		container_of(work, struct pca9532_data, work);
->  	u8 maxleds = data->chip_info->num_leds;
-> +	unsigned long flags;
-> +	u8 old_pwm;
-> +	u8 pwm;
+> +/**
+> + * lwmi_tac_invoke() - Execute GetDataByPackage and retain the response
+> + * @state: Open file whose response buffer is empty.
+> + * @data: Zero-padded 100-byte input buffer.
+> + *
+> + * The caller holds state->lock and lwmi_tac_lock. The latter serializes call
+
+Please lockdep assert any locks that are expected to be held.
+
+> + * pairs across instances and keeps the WMI device valid during evaluation.
+> + *
+> + * Return: 0 on success, or a negative error code.
+> + */
+> +static int lwmi_tac_invoke(struct lwmi_tac_file *state, u8 *data)
+> +{
+> +	struct lwmi_tac *tac = state->tac;
+> +	struct wmi_buffer input = { .length = LWMI_DATA_PACKAGE_INPUT_MAX, .data = data };
+> +	struct wmi_buffer output;
+> +	u32 data_size;
 > +	int ret;
 > +
-> +	spin_lock_irqsave(&data->beep_lock, flags);
-> +	pwm = data->beep_pwm;
-> +	spin_unlock_irqrestore(&data->beep_lock, flags);
->  
->  	mutex_lock(&data->update_lock);
-> -	i2c_smbus_write_byte_data(data->client, PCA9532_REG_PWM(maxleds, 1),
-> -		data->pwm[PCA9532_PWM_ID_1]);
-> +
-> +	old_pwm = data->pwm[PCA9532_PWM_ID_1];
-> +	data->pwm[PCA9532_PWM_ID_1] = pwm;
-> +
-> +	ret = i2c_smbus_write_byte_data(data->client,
-> +					PCA9532_REG_PWM(maxleds, 1), pwm);
-> +	if (ret < 0) {
-> +		data->pwm[PCA9532_PWM_ID_1] = old_pwm;
-> +		dev_warn(&data->client->dev,
-> +			 "Failed to write PWM register: %d\n", ret);
+> +	if (!tac->wdev)
+> +		return -ENODEV;
+> +	/*
+> +	 * Duplicated call required to match BIOS workaround for behavior
+> +	 * seen when WMI accessed via scripting on other OS.
+> +	 */
+> +	for (unsigned int call = 0; call < 2; call++) {
+> +		ret = wmidev_invoke_method(tac->wdev, tac->instance,
+> +					   LWMI_DATA_PACKAGE_GET, &input, &output, 0);
+> +		if (ret)
+> +			return ret;
+> +		if (!call)
+> +			kfree_sensitive(output.data);
+
+Why are you using _sensitive() variant extensively?
+
 > +	}
-> +
->  	mutex_unlock(&data->update_lock);
->  }
->  
-> -static enum pca9532_state pca9532_getled(struct pca9532_led *led)
-> +static int pca9532_getled(struct pca9532_led *led)
->  {
->  	struct i2c_client *client = led->client;
->  	struct pca9532_data *data = i2c_get_clientdata(client);
->  	u8 maxleds = data->chip_info->num_leds;
->  	int reg;
-> -	enum pca9532_state ret = PCA9532_OFF;
-> +	int ret;
->  
->  	mutex_lock(&data->update_lock);
->  	reg = i2c_smbus_read_byte_data(client, LED_REG(maxleds, led->id));
-> -	if (reg >= 0)
-> +
-> +	if (reg >= 0) {
->  		ret = (reg & LED_MASK(led->id)) >> LED_SHIFT(led->id);
-> -	else
-> -		dev_warn(&client->dev, "failed to read LED register: %d\n", reg);
-> +	} else {
-> +		ret = reg;
-> +		dev_warn(&client->dev, "Failed to read LED register: %d\n", ret);
+> +	/* Validate DataSize before preserving the complete firmware response. */
+> +	if (output.length < sizeof(__le32)) {
+> +		ret = -EPROTO;
+> +		goto free_output;
 > +	}
->  	mutex_unlock(&data->update_lock);
->  	return ret;
->  }
-> @@ -328,33 +488,42 @@ static int pca9532_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
->  {
->  	struct pca9532_data *data = gpiochip_get_data(gc);
->  	struct pca9532_led *led = &data->leds[offset];
-> +	int old_state;
-> +	int ret;
-> +
-> +	mutex_lock(&data->update_lock);
-> +	old_state = led->state;
->  
->  	if (val)
->  		led->state = PCA9532_OFF;
->  	else
->  		led->state = PCA9532_ON;
->  
-> -	pca9532_setled(led);
-> +	ret = __pca9532_setled(led);
-> +	if (ret < 0)
-> +		led->state = old_state;
->  
-> -	return 0;
-> +	mutex_unlock(&data->update_lock);
-> +
+> +	data_size = get_unaligned_le32(output.data);
+> +	if (data_size > output.length - sizeof(__le32)) {
+> +		ret = -EPROTO;
+> +		goto free_output;
+> +	}
+
+Can't the new WMI interface do size checks for you?
+
+> +	/* Transfer ownership without another allocation after firmware ran. */
+> +	state->result = output.data;
+> +	state->result_len = sizeof(__le32) + data_size;
+> +	state->position = 0;
+> +	state->completed = true;
+> +	return 0;
+> +free_output:
+> +	kfree_sensitive(output.data);
+
+Please use __free() & no_free_ptr() instead.
+
+I suggest assign to a newly declared (mid-function) variable after the 
+loop as is recommended with __free() (see the long comment in cleanup.h 
+for details).
+
 > +	return ret;
->  }
+> +}
+> +
+> +/**
+> + * lwmi_tac_write() - Submit one complete TAC request
+> + * @file: Open TAC endpoint with independent response state.
+> + * @buffer: Userspace input bytes.
+> + * @count: Input size, from 1 to 100 bytes.
+> + * @ppos: Unused; TAC is a nonseekable request/response stream.
+> + *
+> + * Short inputs are zero-padded. An unread response must be consumed before
+> + * submitting another request. A failed firmware call is never retried here.
+> + *
+> + * Return: @count on success, or a negative error code.
+> + */
+> +static ssize_t lwmi_tac_write(struct file *file, const char __user *buffer,
+> +			      size_t count, loff_t *ppos)
+> +{
+> +	struct lwmi_tac_file *state = file->private_data;
+> +	u8 input[LWMI_DATA_PACKAGE_INPUT_MAX] = {};
+> +	int ret;
+> +
+> +	if (!count || count > sizeof(input))
+> +		return -EINVAL;
+> +	if (copy_from_user(input, buffer, count)) {
+> +		ret = -EFAULT;
+> +		goto clear_input;
+> +	}
+> +	ret = mutex_lock_interruptible(&state->lock);
+> +	if (ret)
+> +		goto clear_input;
+> +	ret = mutex_lock_interruptible(&lwmi_tac_lock);
+> +	if (ret)
+
+Please use ACQUIRE/ACQUIRE_ERR() for these, then you can return directly 
+below as unlocks will be done automatically for you. It will simplify the 
+code flow a ton here.
+
+> +		goto unlock;
+> +	if (!state->tac->wdev) {
+> +		ret = -ENODEV;
+> +	} else if (state->result) {
+> +		ret = -EBUSY;
+> +	} else {
+> +		state->completed = false;
+> +		ret = lwmi_tac_invoke(state, input);
+> +	}
+> +	mutex_unlock(&lwmi_tac_lock);
+> +unlock:
+> +	mutex_unlock(&state->lock);
+> +clear_input:
+> +	memzero_explicit(input, sizeof(input));
+
+?
+
+You really need to have a justification for these in the changelog if you 
+want to go there.
+
+> +	if (ret)
+> +		return ret;
+> +	return count;
+> +}
+> +
+> +/**
+> + * lwmi_tac_read() - Read only this open file's firmware response
+> + * @file: Open TAC endpoint.
+> + * @buffer: Userspace destination.
+> + * @count: Maximum number of bytes to return.
+> + * @ppos: Unused; the response position is protected by state->lock.
+> + *
+> + * Responses contain little-endian u32 DataSize followed by Data. Partial
+> + * reads advance the response position. Consuming the result erases its
+> + * storage immediately; subsequent reads return EOF until another write.
+> + *
+> + * Return: Bytes read, 0 at EOF or for zero @count, or a negative error code.
+> + */
+> +static ssize_t lwmi_tac_read(struct file *file, char __user *buffer,
+> +			     size_t count, loff_t *ppos)
+> +{
+> +	struct lwmi_tac_file *state = file->private_data;
+> +	ssize_t ret;
+> +
+> +	if (!count)
+> +		return 0;
+> +	ret = mutex_lock_interruptible(&state->lock);
+> +	if (ret)
+> +		return ret;
+> +	ret = mutex_lock_interruptible(&lwmi_tac_lock);
+> +	if (ret)
+> +		goto unlock;
+> +	if (!state->tac->wdev)
+> +		ret = -ENODEV;
+> +	mutex_unlock(&lwmi_tac_lock);
+> +	if (ret) {
+> +		kfree_sensitive(state->result);
+> +		state->result = NULL;
+> +		goto unlock;
+> +	}
+> +	if (!state->completed) {
+> +		ret = -ENODATA;
+> +		goto unlock;
+> +	}
+> +	if (!state->result)
+> +		goto unlock;
+> +	ret = simple_read_from_buffer(buffer, count, &state->position,
+> +				      state->result, state->result_len);
+> +	if (state->position == (loff_t)state->result_len) {
+> +		kfree_sensitive(state->result);
+> +		state->result = NULL;
+> +	}
+> +unlock:
+> +	mutex_unlock(&state->lock);
+> +	return ret;
+> +}
+
+Same comments as above.
+
+> +
+> +static const struct file_operations lwmi_tac_fops = {
+> +	.owner = THIS_MODULE,
+> +	.open = lwmi_tac_open,
+> +	.release = lwmi_tac_release,
+> +	.read = lwmi_tac_read,
+> +	.write = lwmi_tac_write,
+> +};
+> +
+> +/**
+> + * lwmi_tac_remove() - Unregister an endpoint and block further firmware calls
+> + * @data: Endpoint registered as a device-managed cleanup action.
+> + *
+> + * Stop new opens before waiting for an in-flight call pair. Existing files
+> + * retain the endpoint state, but their subsequent reads/writes return -ENODEV.
+> + */
+> +static void lwmi_tac_remove(void *data)
+> +{
+> +	struct lwmi_tac *tac = data;
+> +
+> +	misc_deregister(&tac->misc);
+> +	mutex_lock(&lwmi_tac_lock);
+> +	tac->wdev = NULL;
+> +	mutex_unlock(&lwmi_tac_lock);
+> +	kref_put(&tac->ref, lwmi_tac_free);
+> +}
+> +
+> +/**
+> + * lwmi_tac_add() - Register TAC endpoints independently of capability data
+> + * @wdev: Bound Lenovo Other Mode WMI device.
+> + *
+> + * No capability describes method 99, so registration does not probe firmware
+> + * support. Each firmware instance gets an endpoint; unsupported method calls
+> + * are reported to userspace when requested.
+> + *
+> + * Return: 0 on success, or a negative error code. Device-managed cleanup
+> + * unregisters earlier endpoints if a later registration or probe step fails.
+> + */
+> +static int lwmi_tac_add(struct wmi_device *wdev)
+> +{
+> +	unsigned int instances = wmidev_instance_count(wdev);
+> +	int ret;
+> +
+> +	for (unsigned int instance = 0; instance < instances; instance++) {
+> +		struct lwmi_tac *tac;
+> +
+> +		tac = kzalloc_obj(*tac);
+> +		if (!tac)
+> +			return -ENOMEM;
+> +		ret = ida_alloc(&lwmi_tac_ida, GFP_KERNEL);
+> +		if (ret < 0) {
+> +			kfree(tac);
+> +			return ret;
+> +		}
+> +		tac->id = ret;
+> +		kref_init(&tac->ref);
+> +		tac->wdev = wdev;
+> +		tac->instance = instance;
+> +		tac->misc.minor = MISC_DYNAMIC_MINOR;
+> +		tac->misc.name = kasprintf(GFP_KERNEL, "tac%d", tac->id);
+> +		tac->misc.fops = &lwmi_tac_fops;
+> +		tac->misc.parent = &wdev->dev;
+> +		tac->misc.mode = 0600;
+> +		if (!tac->misc.name) {
+> +			kref_put(&tac->ref, lwmi_tac_free);
+> +			return -ENOMEM;
+> +		}
+> +		ret = misc_register(&tac->misc);
+> +		if (ret) {
+> +			kref_put(&tac->ref, lwmi_tac_free);
+> +			return ret;
+
+Please add a rollback path to not duplicate.
+
+> +		}
+> +		/* Unregister before the WMI device and its managed state disappear. */
+> +		ret = devm_add_action_or_reset(&wdev->dev, lwmi_tac_remove, tac);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +	return 0;
+> +}
+> +
+>  /* ======== Self (master: lenovo-wmi-other) ======== */
 >  
->  static int pca9532_gpio_get_value(struct gpio_chip *gc, unsigned offset)
+>  /**
+> @@ -1693,6 +2013,7 @@ static int lwmi_other_probe(struct wmi_device *wdev, const void *context)
 >  {
->  	struct pca9532_data *data = gpiochip_get_data(gc);
-> -	unsigned char reg;
-> +	int reg;
+>  	struct component_match *master_match = NULL;
+>  	struct lwmi_om_priv *priv;
+> +	int ret;
 >  
->  	reg = i2c_smbus_read_byte_data(data->client, PCA9532_REG_INPUT(offset));
+>  	priv = devm_kzalloc_obj(&wdev->dev, *priv);
+>  	if (!priv)
+> @@ -1708,6 +2029,10 @@ static int lwmi_other_probe(struct wmi_device *wdev, const void *context)
+>  	if (IS_ERR(master_match))
+>  		return PTR_ERR(master_match);
 >  
-> +	if (reg < 0)
-> +		return reg;
+> +	ret = lwmi_tac_add(wdev);
+> +	if (ret)
+> +		return ret;
 > +
->  	return !!(reg & (1 << (offset % 8)));
+>  	return component_master_add_with_match(&wdev->dev, &lwmi_om_master_ops,
+>  					       master_match);
 >  }
->  
->  static int pca9532_gpio_direction_input(struct gpio_chip *gc, unsigned offset)
->  {
-> -	/* To use as input ensure pin is not driven */
-> -	pca9532_gpio_set_value(gc, offset, 1);
-> -
-> -	return 0;
-> +	return pca9532_gpio_set_value(gc, offset, 1);
->  }
->  
->  static int pca9532_gpio_direction_output(struct gpio_chip *gc, unsigned offset, int val)
-> @@ -394,40 +563,57 @@ static int pca9532_configure(struct i2c_client *client,
->  	struct pca9532_data *data, struct pca9532_platform_data *pdata)
->  {
->  	int i, err = 0;
-> +#ifdef CONFIG_LEDS_PCA9532_GPIO
->  	int gpios = 0;
-> +#endif
->  	u8 maxleds = data->chip_info->num_leds;
->  
-> -	for (i = 0; i < 2; i++)	{
-> +	for (i = 0; i < 2; i++) {
->  		data->pwm[i] = pdata->pwm[i];
->  		data->psc[i] = pdata->psc[i];
-> -		err = i2c_smbus_write_byte_data(client, PCA9532_REG_PWM(maxleds, i),
-> +
-> +		err = i2c_smbus_write_byte_data(client,
-> +						PCA9532_REG_PWM(maxleds, i),
->  						data->pwm[i]);
->  		if (err < 0)
->  			return err;
-> -		err = i2c_smbus_write_byte_data(client, PCA9532_REG_PSC(maxleds, i),
-> +
-> +		err = i2c_smbus_write_byte_data(client,
-> +						PCA9532_REG_PSC(maxleds, i),
->  						data->psc[i]);
->  		if (err < 0)
->  			return err;
->  	}
->  
->  	data->hw_blink = true;
-> +
->  	for (i = 0; i < data->chip_info->num_leds; i++) {
->  		struct pca9532_led *led = &data->leds[i];
->  		struct pca9532_led *pled = &pdata->leds[i];
-> +
->  		led->client = client;
->  		led->id = i;
->  		led->type = pled->type;
-> +
->  		switch (led->type) {
->  		case PCA9532_TYPE_NONE:
->  			break;
->  		case PCA9532_TYPE_GPIO:
-> +#ifdef CONFIG_LEDS_PCA9532_GPIO
->  			gpios++;
-> +#endif
->  			break;
->  		case PCA9532_TYPE_LED:
-> -			if (pled->state == PCA9532_KEEP)
-> -				led->state = pca9532_getled(led);
-> -			else
-> +			if (pled->state == PCA9532_KEEP) {
-> +				err = pca9532_getled(led);
-> +				if (err < 0)
-> +					goto exit;
-> +
-> +				led->state = err;
-> +			} else {
->  				led->state = pled->state;
-> +			}
-> +
->  			led->name = pled->name;
->  			led->ldev.name = led->name;
->  			led->ldev.default_trigger = pled->default_trigger;
-> @@ -435,6 +621,15 @@ static int pca9532_configure(struct i2c_client *client,
->  			led->ldev.brightness_set_blocking =
->  						pca9532_set_brightness;
->  			led->ldev.blink_set = pca9532_set_blink;
-> +
-> +			err = pca9532_setled(led);
-> +			if (err < 0) {
-> +				dev_err(&client->dev,
-> +					"couldn't set LED %s state\n",
-> +					led->name);
-> +				goto exit;
-> +			}
-> +
->  			err = led_classdev_register(&client->dev, &led->ldev);
->  			if (err < 0) {
->  				dev_err(&client->dev,
-> @@ -442,19 +637,26 @@ static int pca9532_configure(struct i2c_client *client,
->  					led->name);
->  				goto exit;
->  			}
-> -			pca9532_setled(led);
->  			break;
->  		case PCA9532_TYPE_N2100_BEEP:
->  			/* PWM1 is reserved for beeper so blink will not use hardware */
->  			data->hw_blink = false;
->  			BUG_ON(data->idev);
-> +
->  			led->state = PCA9532_PWM1;
-> -			pca9532_setled(led);
-> +			err = pca9532_setled(led);
-> +			if (err < 0) {
-> +				dev_err(&client->dev,
-> +					"couldn't set beeper state\n");
-> +				goto exit;
-> +			}
-> +
->  			data->idev = devm_input_allocate_device(&client->dev);
->  			if (data->idev == NULL) {
->  				err = -ENOMEM;
->  				goto exit;
->  			}
-> +
->  			data->idev->name = pled->name;
->  			data->idev->phys = "i2c/pca9532";
->  			data->idev->id.bustype = BUS_HOST;
-> @@ -467,6 +669,7 @@ static int pca9532_configure(struct i2c_client *client,
->  			data->idev->event = pca9532_event;
->  			input_set_drvdata(data->idev, data);
->  			INIT_WORK(&data->work, pca9532_input_work);
-> +
->  			err = input_register_device(data->idev);
->  			if (err) {
->  				cancel_work_sync(&data->work);
-> @@ -498,8 +701,8 @@ static int pca9532_configure(struct i2c_client *client,
->  			dev_warn(&client->dev, "could not add gpiochip\n");
->  		} else {
->  			dev_info(&client->dev, "gpios %i...%i\n",
-> -				data->gpio.base, data->gpio.base +
-> -				data->gpio.ngpio - 1);
-> +				 data->gpio.base, data->gpio.base +
-> +				 data->gpio.ngpio - 1);
->  		}
->  	}
->  #endif
-> @@ -591,6 +794,7 @@ static int pca9532_probe(struct i2c_client *client)
->  	i2c_set_clientdata(client, data);
->  	data->client = client;
->  	mutex_init(&data->update_lock);
-> +	spin_lock_init(&data->beep_lock);
->  
->  	return pca9532_configure(client, data, pca9532_pdata);
->  }
-> -- 
-> 2.56.0
+> 
+> base-commit: 5680519168f65666d2c03cc6ed8fe2b7052aee12
 > 
 
 -- 
-Lee Jones
+ i.
+
