@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794871971;
-	b=UkDiWjebJvK5zh0SRFS2oHgTuaX/A8zpVcxi1iHOPOXvJ9aZ8ohUpyUy1qhLbjkUctz6
-	 C1eWBJk8zCmTdFcYwuRP6f+14bKMziOhtZUEwmInKtwmLSUADpgcS5EOwOsUrGD7ZzOqq
-	 2H3sFP88yT3out8LelBTwhFbaz7K9hWK9Zza/YWzljH9Fhv1p7AcxTCjmS/DrXuov1bwO
-	 ikE+Zlatf7ej+l3xOxzkEZXSr38bLT6zVYyRKWMtGwr347j8AMP5OomiaNUuBEdLUMr7F
-	 dUiQFPpvXuzCtL38jOaL4ta7+O4B/NLHNDW54QTx+SAFx8dK07oPaLGemdWFldX7pDQ==
+	t=1794872146;
+	b=MgBY/AIoLo2BO8NymjcK2RWNZOtVz9OUD1WnYd6Y5ZhmVXSkvj+sQuWuCQgPgsmH+Aav
+	 QyrV2Kf4/cyUNx05cTiQuHWiqh/r8UcV0AN4yLYlD5x2lMdUyOFFwK++2qQSO92j4hdwR
+	 Y1kEuQKmDiA6aJFSW1to7L253FKVwoocbNUB2gWlky82gJQEUi4bIxh5KVZxecpBF1Ssm
+	 3eKMfJfPQpNKY68nLYc6s+4MhJKxhm38ggSB4dhdU5wQvC0kq7xB/Md1bX8QYneNO/ZCY
+	 aJSNDymnDqvaOZDpQngtKEW5/wDLzx2Xs0c2uoPKgzUYmQQ90A/XrHrEGxE0R9hAthA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794871971;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=POhntuE69ygSILpBSq8k00lPO3CNZt0lPTqIkmQEmgA=;
-	b=Uji6z1gWKr++bk8d5QxOogXLP7BwtTf22LRh3ilgVdjrXnGUw0tY0P5bpf6pbXr7dbgm
-	 +2csd/DCdQ7wWasreTu5aDDMX4ZeEucCEhkrjJ5rZAjjD0EFRc22my9cTXvuDmNbYnWI/
-	 hi3uX4y++TK6qOkwcresd5TrKsShP35Q7cIV4iUJb5UydcnlWuus2MJPvhRRwlW0Hdjcg
-	 V200rPC/Vk1Apij850j0JUueef1jzrnTn1DKPJEcmXb9b5jtZknFgCw1l4ykvGEFeglga
-	 EWdaUHy1YE9Bgnap6oS5k+yjXcPupmIQc4I3kdiXSfx8Gq5sL41zTvOX5w0jnRnCOzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872146;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=v+LAa0aQ36GsHbhQ3RC8UkigsNbW96LolIZXuEySS+o=;
+	b=YY2fO0zBFy7Wtg5Y9I0Ic71WSq+KXyWdBMgA45TUkhHCitajSuPqgrAvtR51WcnIEGpU
+	 B401q4N7b9PFAz0nMjEDt8VfA4Dcxax2mXFNCOGMb6bge0SM83OSyxNC5+EZoVHRrYJjG
+	 8UBLMudAF40023/N7WZhUpnGH2uWCVqs2iQPFJuIiJ5ihi93p9UASBHrCu6FIoqbSsSd/
+	 SJXlb5TQYOORa90sjx3z7I9S5yhXXgYLApFua9dL93NWgg3dmFJdtMX38jdn2oygE2YTC
+	 w/U4dupfpsOjlnCDkSm+qHsc1mC3L9A7hrAtMN2TI16LlnuQJoVrJCcMltJhIyMKAiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxDuEbQC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=logarcheon.com;
+	spf=pass smtp.mailfrom=logarcheon.com;
+	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=jP6grMXR;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05665606A89E
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:32:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D41C606A31C;
+	Mon, 16 Nov 2026 23:35:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D41C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxDuEbQC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C9C1F000C8;
-	Mon, 16 Nov 2026 23:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794871970;
-	bh=POhntuE69ygSILpBSq8k00lPO3CNZt0lPTqIkmQEmgA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=fxDuEbQCf2IeTKwhY3DFvCgaHzbRklw/IKOSSi0WayM0I4P/xkguciHeonZseF4VY
-	 XTPDscw2J6OQKZi1YddGnAb3LeyHCn3ObVrAZLd6UMyJVe8W8adIUgpCJ+kUZC4fqX
-	 OkXyXTX17vtDF6raK+jOVD8d7kcl5zYIfk+khI8nzOQnM/KyyCb3jdnokgxNS9zB1S
-	 +kU09ODC4chmqDPtWv3B0fNhWvbzNtv0FPmVNR38Ub/FS8IWzsGVTrkSWVyH0+N6bF
-	 0qhBFT4UIhttqyh6BjuRsgXtv6IaLQMnotluKXeftlQNM8wZF4HhVFhblm6Jd1I5jv
-	 3Vw/ogoVZtvEg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Venkat Reddy Talla <vreddytalla@nvidia.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>, 
- Ben Grisdale <bengris32@protonmail.ch>
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <20261111-tps65132-discharge-fix-v1-1-c796428a5d43@protonmail.ch>
-References: <20261111-tps65132-discharge-fix-v1-1-c796428a5d43@protonmail.ch>
-Subject: Re: [PATCH] regulator: tps65132: Fix incorrect bits for VNEG/VPOS
- discharge
-Message-Id: <179486345645.2504946.15197582541667962443.b4-ty@b4>
-Date: Mon, 16 Nov 2026 21:10:56 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=jP6grMXR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
+	s=protonmail3; t=1794872140; x=1795131340;
+	bh=v+LAa0aQ36GsHbhQ3RC8UkigsNbW96LolIZXuEySS+o=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=jP6grMXRLcxGF5ib9XLyX8GPcWsfJmcu9M2sM+sGS+rkhpU0jJZI+VtVcCAlNO9WT
+	 3M8uxi1hGXUzNSsNEFIpGz0mZ7ABpfmR4hjiEOHTLpiII5rt70mvbAvKzz9zvvSfQV
+	 Z942RZ7eNExd8PleIg8jKSkG4f+gZakMq78rmc3WQZVhQF2SR+e6Jn59FI3Rus9jK+
+	 /y3tvANCOMAOJkvVLjoP1zIcz2YYxTXTmpRUgYohzq6MiK+Go8NYOEjkYcRyhuQNj3
+	 0mqTq5eZc76NmVBSS/TAHRydBDz6N/LEUSjNtIvPgcgupszrR+SSYlwhzvhEsU3Dpb
+	 L+UpoXaa1+pNg==
+Date: Mon, 16 Nov 2026 23:35:35 +0000
+To: Andrew Morton <akpm@linux-foundation.org>, Phillip Lougher <phillip@squashfs.org.uk>
+From: William Chuang <founder@logarcheon.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>, Aibing Chen <chenaibing@cmss.chinamobile.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, William Chuang <founder@logarcheon.com>
+Subject: [PATCH] squashfs: set an error code on the directory header bounds check in lookup
+Message-ID: <20261116233530.47177-1-founder@logarcheon.com>
+Feedback-ID: 145408520:user:proton
+X-Pm-Message-ID: eb9ee0fa798e74923e88ed9d33a3351e5b6aef6e
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,46 +61,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1152; i=broonie@kernel.org;
- h=from:subject:message-id; bh=k2cSflbZtHYNiyBGjHwfxujdBQUwkj4lFwngcJtzP3Q=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+T1rQf3R7t0Q67x/+7kZew/4LK1OuWmx8ufDoprv7n
- oSrvw7511HKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJsMQw/C8xPbuv9tGFA8I/
- KuutPvqFxt9a5n/lbK2CYmr4JqEbtkwMf7gean62feGz8dy9tEXPNHhC9i6ulxPpXbNmE88rqfy
- FInwA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 11 Nov 2026 12:51:54 +0000, Ben Grisdale wrote:
-> regulator: tps65132: Fix incorrect bits for VNEG/VPOS discharge
+The squashfs_dir_space() check before the directory header read in
+squashfs_lookup() jumps to read_failure without setting err.  The two
+checks before the entry and name reads were given an error code by
+squashfs-fix-variables-in-directory-code-and-add-more-sanity-checks-fix,
+but this one was missed.
 
-Applied to
+On this path err is either the positive byte count of an earlier
+successful squashfs_read_metadata() call (12 after a directory header),
+or uninitialised when the check fails on the first iteration (for a
+directory whose size is too small to hold a header).  squashfs_lookup()
+then returns ERR_PTR(err) with a value that IS_ERR() does not catch, and
+the VFS dereferences it.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+A model check (CBMC) of squashfs_lookup() as it stands in
+mm-nonmm-unstable produces both cases: a 15-byte directory gives
+ERR_PTR(12), and a 9-byte directory gives ERR_PTR(<uninitialised>).
+With this change, the same check proves that every return value is NULL,
+a dentry, or ERR_PTR(-errno), for every directory size.
 
-Thanks!
+The header check validates on-disk directory content, so jump to
+data_error (-EIO) like the neighbouring dir_count check.  Aibing Chen
+posted the same hunk as part of "[PATCH 2/2] squashfs: return -EIO on
+out-of-bounds directory entry in lookup" on 2026-11-14.
 
-[1/1] regulator: tps65132: Fix incorrect bits for VNEG/VPOS discharge
-      https://git.kernel.org/broonie/regulator/c/e9bc5937517b
+Fixes: 5213b0a08263 ("Squashfs: fix variables in directory code and add mor=
+e sanity checks")
+Signed-off-by: William Chuang <founder@logarcheon.com>
+---
+Notes for reviewers (not part of the commit):
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+- This is the third squashfs_dir_space() path; Dan noted two.  The fix
+  goes on top of squashfs-fix-variables-in-directory-code-and-add-more-
+  sanity-checks-fix and can simply be folded into it.  If -ENOSPC is
+  preferred for consistency with that fix, I'm happy to respin.
+- squashfs_read_inode() has the same problem: the two new
+  "i_size < 3" checks reach failed_read with err =3D 32 or 40.  That is
+  fixed by Aibing Chen's "[PATCH 1/2] squashfs: return -EINVAL on
+  invalid directory inode size" (2026-11-14), which is still needed.
+- The model-checking harnesses and outputs are available on request.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+ fs/squashfs/namei.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+diff --git a/fs/squashfs/namei.c b/fs/squashfs/namei.c
+index dc63920..1945e5d 100644
+--- a/fs/squashfs/namei.c
++++ b/fs/squashfs/namei.c
+@@ -203,7 +203,7 @@ static struct dentry *squashfs_lookup(struct inode *dir=
+, struct dentry *dentry,
+ =09=09 * Read directory header.
+ =09=09 */
+ =09=09if (!squashfs_dir_space(dir, length, sizeof(dirh)))
+-=09=09=09goto read_failure;
++=09=09=09goto data_error;
+=20
+ =09=09err =3D squashfs_read_metadata(dir->i_sb, &dirh, &block,
+ =09=09=09=09&offset, sizeof(dirh));
+--=20
+2.43.0
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
