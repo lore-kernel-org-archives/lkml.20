@@ -1,53 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830157;
-	b=UzWIlVPrfDYLpMBGkwls3WQuzq1Bj2OU8Xv3N2/31pqLMEuaS4jtFs8TJV41r6kQkmrd
-	 IaJLFXCpKIFUmLibJPZ6DSmjVzBWSO6Wj7kMv4J324w6yt2gf1Exd8rx3Ad3HcickIa7E
-	 9SppOu8yEHBUVQ5N9X/47fKo/GFpmIpYEn4rQeD/IW14EWZkxuDdbMQW8XtzVlRr6do8x
-	 RHlviNjqcTKNj7HuNh7QKKOO1vFDQ+gJ8vK1bQUK31dL2biaKstr5q3JmhDfksSsU0jMJ
-	 IKVTwVbX3H4ai32g6TDFdPpAMhZHtMD20lC34kQVawF5c0grt+hRiZ3yEcsl2pLgWeg==
+	t=1794830197;
+	b=SiHoAWsrszsNUoGKrcoOXLuhj+B6bbN6vMEt5mKBBoLE7y7sHAFenOqldn5FkCmuLML3
+	 pMVH/lnbT5Lzn1R2pETRw3qz3D7ceJnZ8JlbpPh2CSTCNmw1yn8jG1ah30gUdSuk7LlgU
+	 iwWSN6U7YSbWFu1NSCefn5ONUGSxYVRtQvQXxpxuEUZiVtWBcGzN03H4szHlHcNY+/VG4
+	 nrWwyDnGqzA+YZox5RAHrwD1Z/oiKW1OZqX8JaOzoRCJRrtDwogBaKwlkJtQqMGyYEBkU
+	 RJ4e8L06KgqRkLOQEJga9Q0HIUw3f47A86t4mDQ5ay76DdRLA8tdstkgtc3vKGkMZGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830157;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=64fdSmC+itpUqVCIpnFMnNpeeM+0Kk4P4QNxg3UZAZg=;
-	b=XY4NontOYvajkW0+ETNv+orax5MqeEJNpSS6YM+UArWKDdztCY0JLvNIjvQWH/hUql5D
-	 d+RQVsPKmSQgHVxL+oAQ0XUvqKaP+FhMzLBFZuEQgWR6Sg32IZlu0Tw0ROxywv4Onx2c9
-	 +OTnquryLBNm5pM8YQVDqVahxi9dIDEwAobLnpyBjQ6MUK/fTrfOvrCqZYIxD8HGAdXjc
-	 DF/BpPHmTxIOaIUOuxzkM6p6mEfy9vea5ETKM6jQbScgEQV0k/sYMaJ39AYFchpCWnQHh
-	 RyZ05oJ9FSpQbgXU3ba4XjXLjAFFKGETmc1T5vkSnfLpgXSV0sx3u/hnifXU0Mkx8Ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830197;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Language:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=GeVXqqtOBRanGI741BAYhJK/fg1GAPjaiJ5K9yFk9wM=;
+	b=X4UNphJ/NQjLUC3Wpz6meA/6RIkEWAqzYD3ffNORPOpHM16QdkPiAUo/JvtuT4IBy+zK
+	 HAfnH0sNLziaS4CkvDZtLnV4j5QUgOf8n9mKEF6PW+9HoKuEbT7CvxnF+9E+PB7n0wc7V
+	 eJ+3FeOLYk045ds6P6XlmZVZ/FQVPWVJZtvd+v285GsTQOQZhTl1XNm9l2FC5aJ8pewfA
+	 3P8nNS2AJ2UwDxB25trMA+1rB0dpZpFq6VeDnXnOI2H5n1KkClHWU7rKSwyvxzWmIbrfQ
+	 Iv3Yz9tl6f67av/432KiT+YMWizQkRYK7cWSbC/NZGvEaMr5n9sf4tCm4kIzGM6uE9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csJRLdRu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6jI6RStq;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AE4606A323;
-	Mon, 16 Nov 2026 11:55:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB845606A323;
+	Mon, 16 Nov 2026 11:56:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB845606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csJRLdRu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87AA51F000C4;
-	Mon, 16 Nov 2026 11:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794830157;
-	bh=64fdSmC+itpUqVCIpnFMnNpeeM+0Kk4P4QNxg3UZAZg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=csJRLdRubG+yNTVHO8RrwXPIEcRujHZEquxnXrq5jdGltmCsesAIlg26Pm1kV2pAS
-	 X5GuwhtZjl5ts9CkqufuN4BO9f7c/l6vOZmHHCkPYqMbVRBzUIyVS3n+WXJg1Fsfep
-	 qafsRuxHFqovN998tELNWIdVOKYyRuw//h6KApmmfz5EJl1qfgKmN7cJBEwrmd96Zj
-	 ZR9UPCo1YtT8tq+th9psrCc39gbR69YX1MZSc5LbTOKM69bzEDsdYd44SvrukWugjY
-	 nuWPSavX1rmnVE58Z8AqUvXqpTsL2PA/xKzlpURHXS0jK6gMcqxkS3Fy2U6bf4O2m3
-	 w58XB92QGg4mA==
-Date: Mon, 16 Nov 2026 13:55:53 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Selvin Xavier <selvin.xavier@broadcom.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RDMA/ocrdma: Fix potential EQ table leak
-Message-ID: <20261116115553.GJ11319@unreal>
-References: <20261112-88a3a7ff32-rdma-ocrdma@mail.sdu.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6jI6RStq
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=GeVXqqtOBRanGI741BAYhJK/fg1GAPjaiJ5K9yFk9wM=;
+	b=6jI6RStqoCtlvQpe4IYTr3xlXv3TnYB2PW2fNNOWwVLG28g9WsqWYNxCahxVcveX3PWQ0OIWf
+	OyarOUpcQmFb1UTa/vsBsjrhJboksjzWcNvt7LeAi68MEoF5/Ezhx3bbUvFY7eb9NuW1IB/sOSz
+	Qp+hzZ9QZwTJ3AYuPZQbuQI=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jSmXr6Vqpz1cyPf;
+	Mon, 16 Nov 2026 19:56:12 +0800 (CST)
+Received: from whupemo200006.china.huawei.com (unknown [7.152.185.252])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8BAEC4055B;
+	Mon, 16 Nov 2026 19:56:31 +0800 (CST)
+Received: from [10.174.178.219] (10.174.178.219) by
+ whupemo200006.china.huawei.com (7.152.185.252) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 16 Nov 2026 19:56:29 +0800
+Subject: Re: [PATCH 5/7] KVM: Fix comments that refer to non-existent
+ identifiers
+To: Fuad Tabba <fuad.tabba@linux.dev>
+CC: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+	<seanjc@google.com>, <kvm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>, Christian
+ Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank
+	<frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, Huacai
+ Chen <chenhuacai@kernel.org>, <linux-mips@vger.kernel.org>, Will Deacon
+	<will@kernel.org>, Fuad Tabba <tabba@google.com>
+References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
+ <20261111085448.1130701-6-fuad.tabba@linux.dev>
+From: Zenghui Yu <yuzenghui@huawei.com>
+Message-ID: <4fb0e902-32c6-727f-7aaa-e1a7381dbe15@huawei.com>
+Date: Mon, 16 Nov 2026 19:56:27 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,41 +77,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-88a3a7ff32-rdma-ocrdma@mail.sdu.edu.cn>
+In-Reply-To: <20261111085448.1130701-6-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemo200006.china.huawei.com (7.152.185.252)
 
-On Thu, Nov 12, 2026 at 09:59:12PM +0800, Guangshuo Li wrote:
-> EQ teardown destroys the individual queues but leaves their dynamically
-> allocated table behind. Free the table after all EQs have been destroyed
-> and reset its pointer and count.
+On 2026/11/11 16:54, Fuad Tabba wrote:
+> Comments in the generic KVM code and its headers refer to functions,
+> structures, fields, capabilities and Kconfig symbols that have been
+> misspelled or renamed. Use the current names.
 > 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: fe2caefcdf58 ("RDMA/ocrdma: Add driver for Emulex OneConnect IBoE RDMA adapter")
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 > ---
->  drivers/infiniband/hw/ocrdma/ocrdma_hw.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  include/linux/kvm_dirty_ring.h | 2 +-
+>  include/linux/kvm_host.h       | 4 ++--
+>  include/linux/kvm_irqfd.h      | 4 ++--
+>  include/uapi/linux/kvm.h       | 2 +-
+>  virt/kvm/binary_stats.c        | 2 +-
+>  virt/kvm/eventfd.c             | 2 +-
+>  virt/kvm/kvm_main.c            | 2 +-
+>  7 files changed, 9 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/infiniband/hw/ocrdma/ocrdma_hw.c b/drivers/infiniband/hw/ocrdma/ocrdma_hw.c
-> index 006ef2e6b5f3..4a977281a85b 100644
-> --- a/drivers/infiniband/hw/ocrdma/ocrdma_hw.c
-> +++ b/drivers/infiniband/hw/ocrdma/ocrdma_hw.c
-> @@ -518,6 +518,9 @@ static void ocrdma_destroy_eqs(struct ocrdma_dev *dev)
+> diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
+> index eb10d87adf7d5..8679ba17bd1ff 100644
+> --- a/include/linux/kvm_dirty_ring.h
+> +++ b/include/linux/kvm_dirty_ring.h
+> @@ -29,7 +29,7 @@ struct kvm_dirty_ring {
 >  
->  	for (i = 0; i < dev->eq_cnt; i++)
->  		ocrdma_destroy_eq(dev, &dev->eq_tbl[i]);
-> +	kfree(dev->eq_tbl);
-> +	dev->eq_tbl = NULL;
-> +	dev->eq_cnt = 0;
+>  #ifndef CONFIG_HAVE_KVM_DIRTY_RING
+>  /*
+> - * If CONFIG_HAVE_HVM_DIRTY_RING not defined, kvm_dirty_ring.o should
+> + * If CONFIG_HAVE_KVM_DIRTY_RING not defined, kvm_dirty_ring.o should
+>   * not be included as well, so define these nop functions for the arch.
+>   */
 
-These two lines are unnecessary because dev->eq_tbl is not reused.
+The comment looks a bit obscure. We can rewrite it as
 
-Thanks
+" If CONFIG_HAVE_KVM_DIRTY_RING is not defined, dirty_ring.o will not be
+  built either, so define these nop functions for the arch. "
 
->  }
->  
->  static int ocrdma_mbx_mq_cq_create(struct ocrdma_dev *dev,
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+And personally I tend to remove it :-)
+
+Thanks,
+Zenghui
