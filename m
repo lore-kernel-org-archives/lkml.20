@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811233;
-	b=afgY2PKdM+60S0k9SlwIDcgtZuJhIFhoScJ1OU4MbajB8+BN/BHHD8txQVAbq630FNsP
-	 vDFrHydO67JWUeAPgsgZtQq6MudldOXGV/aL1KZydYipqJHjxA3E5ESanO3o3TjiWFFIF
-	 XIv2xQ8ui1hEVCIie31OM9mc8Qg5zZidC5xOofYR8FK555NZTYssi7Op0xKLZdEikkrNg
-	 y8O8NyuPuXVNEQ4nc/vTiDejCgxMtzsrZD7mjDu5iLhr7e3FKlOFf1CZz9+VNs9Ya5E2M
-	 krdAqFyN1piEUwOQyYnROrk+6yMaaG5LjdX50JMUsYPAJAGTw4Gjrax8xvrELhpzwfA==
+	t=1794811328;
+	b=f2UtoRcFoXGE+TK4tE+asAmgNl6WfUfrtsB+bhDK4NnLg8YRXChOdyVloU1kt4LdVRVn
+	 GaVqDSCqFFUkAXmoTFAVInQSrP4m7WsSrs1dBZfl4injJVvfgsYaLoo2If/nHviW/hyve
+	 r/ji/z/98SXlJ/U3hpxxr8jfXywySYDlyFKZQtj1JFAh5/D3MxsyFfSNsprvKUlHd9pg3
+	 phSBs8o9VQuPDLaoKzOm7KBanqXJHxS8srCU2j2RUgDDQ0i/wLRUBLbb8+EilbW8bwGl5
+	 u1aPf4oTdmQrUeWZ9/KDM3ADhCuY+W8e4pgVcV3V/VXn9F7AOgeAW9HBISPqndng9gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811233;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8a/PKiLxaTEMPYbiH5CDurBLGvrzH4Qgf36+oo8YXkc=;
-	b=vBuZidwuuWhj3KeQUzYE+Un2DM8T/FK7KWAGFEZ75N4c7R9fFp8gElcP7c/SZNFw7WFJ
-	 rLOkAFL+FJSP6O5ZjD7o8bIR0iHrdBjkSoHuXNvLBxFrfynZkl+p2HGlz0emisO6TVH6G
-	 7Zp5ezlmuO2MdAEqug6Y0ChL6m622qH8PKSZM1Q0s0ym2G+SuOpKx5G9tQqL8OVjy4m4O
-	 XmlhTB1nbgRQpZA6uiP2Npko3y5umd/nJm6VCgWwz+fmC9PGEfC0ejDwqwcI48kV2GE8c
-	 Ho8TXmOpAvzh1SDELU94izDHTcRTHzj6h9s/5sVfUZsDi7xqjkZjwVtGHlJq0ZkAc4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811328;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=wRWcbRGa0lw5+zrHUwoAEHoN60ejoMH5x9ja73muYZA=;
+	b=roskXRza+VM/34Yq1TktCMlOQd+TwIIOyPajSOspZR1MtL6eu/QJIZG7NiZZLQHwdT4T
+	 SmFI+Ek3FS3cgXdAFz/kqv6nB+LFCpymIDWGipN9yqH+a4AXijnwfuPFjKsKCAoCAU6Mj
+	 OHmBu8LlwifIvNjg8tj+vbFrdEF2m7L0hhB/0wFOI04fw95nqWFt0Rvvy5rwbjFail1TU
+	 2DaswvEgMn9Wa1FCT+Gi0NpyMdaH1m0JDDouAqgnO5bI6BfIbTr+dI6wSI6LYArlpi7YT
+	 SascL8dIQu1Ao355VfgQd1mOK6xYq9E1ke7VGfusHIS4ZutGNpXpxNJKA142Prg4z4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fwSP+rV5;
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ifZf+Fwd;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DCD606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:40:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68DCD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4949B606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:42:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4949B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fwSP+rV5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794811227; bh=8a/PKiLxaTEMPYbiH5CDurBLGvrzH4Qgf36+oo8YXkc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fwSP+rV57UjJCaWb64mNn8sq30LdR6QJ5AHrCONIXWq1kVGwenM6iAk+hIIzRR9Hd
-	 1vHTwpSrw5JBfF4pHW/hbUxc37Zl3KbYIMI6/Xr2Y5re9oSOqsGy1U0iHbRUW78E5Z
-	 1hIq7MGv13aXiIC0odNHOQ/80KKXjcWZLRW2FbPw=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.198])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id A180B68E; Mon, 16 Nov 2026 14:40:24 +0800
-X-QQ-mid: xmsmtpt1794811224tlxh7pbr1
-Message-ID: <tencent_1684827B82B415CBAF7C7AD30E6EBCD8D406@qq.com>
-X-QQ-XMAILINFO: Npv5yIQT4nxMwCEwPhhhObPEkl5jXr8PJi4i9hZ169SMULYk48h90wNra9WrTL
-	 9dMfHzVFRwzXCCwDBE+HnbuasK8FOgB8jo9Q+pFrMIHZxwaIYhW2nKnCsHYw3zrdVx2N4ZoB3em4
-	 caAOnehu4HDaCGnw53ENbKa6H24KiUCp5hpElBlS0+GWXkIw1BlXEo77vJ4KmPaB47oAysn9Rl8h
-	 Gmduzwv/el5OpPs12qbmCLjeOu2ibWt+0/HM3gB0UBw6KrAbLfgq5RagIU+mPkr+ekYcCZMlosPU
-	 Sd1yPiEOJ7tbxp4dYBPBS0n26ORn13leqJ8Vg15du3kPapEazretbhA3EZVlgrKubpmWxqwBA15j
-	 NuYzpyjpsUSwjW4pPwIJEB/YXTYfAUDW4h44vZKpfbRqaX4MWhmAkuQbIzbm3SIUjA9gy2Sj/qr/
-	 OvvdWK2j0J36T3yXT8x//cqmzvv6dUiR5boTsq6p30nKOwQ9wEThtgGg5dV6amylWnvoVeSz2VmR
-	 JuKMet+U+YyfAuc7l995xqnOXr29ukJcbhi77aMmWMGZiNQvQZGn7fzU5il592PuQjkU9KejYPw/
-	 nUf8GuuMlgtwef5gpRjGEg3MjIYTdrQhkEVkRt0ca9CwLuZxNnDFvyhBj6g3xdMHYQVzEdtvexr+
-	 zn8ufPz2X7ugaGqLw7RigTL/7QgYcU9vdG3cZmxn4ANxBbkPYqRpcpO8MF7rYCmCKjMCpUSAsS+Y
-	 WfI6c4yMn1f8D+FAPk0/PCa1nhXtuJcCwiknAyWfzYBoqPZyzkU47Zij6TmpzgasB5zY9mGknSn3
-	 px3AA4qYRVEKwAlK+1wzw1v4aKHTDqjr3l2KvC0nByIVULG2bDsYg/VXsg6I2phXDZ6Lnxz5wQsQ
-	 sCCshvG+vbS1rlLyn5OiQwxQHk3W+AU0lsc9CPFjpDC5Ua1iTNFp8HM633iollc0jzLeWQKxtxvL
-	 4q2zOUwluIWzonYXev80I2945E+5RLIx7A4L1ev3sLFTBEw6eD2JkSpur6NC6aHpdq9YNHKKCKGv
-	 /Rh3U/I8xO2EHG/wNtPhKUnow0pJL5uMjJESXE7Xd6iMAvfAKsI1RYWpscQRJJEU080oPi7w==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Shuai Liu <847807867@qq.com>
-To: thdwjdgkr123@gmail.com,
-	richard@nod.at,
-	dwmw2@infradead.org
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+250fde257a3eebba4426@syzkaller.appspotmail.com,
-	Shuai Liu <847807867@qq.com>
-Subject: Re: [PATCH] jffs2: keep alloc_sem held when a write retry cannot reserve space
-Date: Mon, 16 Nov 2026 14:40:24 +0800
-X-OQ-MSGID: <20261116064024.926991-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102173342.314251-1-thdwjdgkr123@gmail.com>
-References: <20261102173342.314251-1-thdwjdgkr123@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ifZf+Fwd
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cddac941ed1so1371781a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:42:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794811327; x=1795416127; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=wRWcbRGa0lw5+zrHUwoAEHoN60ejoMH5x9ja73muYZA=;
+        b=ifZf+FwdSDqg952lqdRo/+g480XgHdVYCnHVDpT/TyiaidyOuqYX8xE8J0JJguMUZo
+         uKqHgl1Thu1cLd6z6/nqK+p8Y9+rRhdgTQb83+trn98vVrQ+vYgXI1eNxgEpif/R1V25
+         f32rYfrseR+mgJltUArzqJlHFUNNzxVt/c9fzCoK2gPkMJkk33qyzsV6LinbqoWzN6fN
+         70xcz3xTSeN0u8Ozxq/NdqqY8gNaTm2f4lBIx0q+JCPrIAfAZ0AeS80QgQRCCfoFJJ0p
+         eM76MzSbQfcDm/rG7f69Lv3FIxV8cg5HYnWBBcs/CyZX2IkWDp98l2FYJTmOA7RfGs/G
+         iKwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794811327; x=1795416127;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wRWcbRGa0lw5+zrHUwoAEHoN60ejoMH5x9ja73muYZA=;
+        b=kefzqQ0ySeaWCcWc8yQ6ZI352c27KXsOv7XykLTLU2yvTEfuigc1ehCwOqjkU0TeQw
+         FNHmWnBcmedSs42r7vPRVomVpSuPO26Et9fNxL0EAs1E7qLzgXmHyiknKrHlbM+bvDCG
+         1hnmgLk0KeB4tNWKrCLJeH6TzF+MXBhr2qGO1FY7kbVk08GVzbdn3Z4cnPIbfUz6MZ6G
+         BAposKTPqn894AnkNJ+39qvETVg8fswivjtFbNnvNon4wz1kO4V9+NPbYMh8Nq5fwBhC
+         AmsVQfKzmUwcDUckTbslznyztPsqQ4cZ8arEX3Jm9cZtRVhQ0j1wNLSeRPJBDQthQ9R0
+         95MA==
+X-Forwarded-Encrypted: i=1; AL+hErEm8GCrwu1KkF4m5G9k4d00JreTg7rJrpcT3cjPrN5r/rLrYqkp5AbW6nlYsXFnhqI94EI/n7BW8YzHlfg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wgUhxzSl3otdvS3xQxbjeVlhLss/sqDorAYfPnrMvVL/5vsHO
+	n/AUF7ri25rjEpmqIL5iujBljjDTMnVj6txyWQ7CfWeS2ta5pMr5iWqa
+X-Gm-Gg: AZFdTZeZZA7QNDuM86kw2w8B/UEcwx04K1eQhvsDLi2HmIQruEh3tIxDhHuuysxrCpi
+	uNmRxCpa2MEh5bSPZHXIShVO/nz4uqhvJdi8RGTjRFU5vRNqsbACatbWoivqAgVoSLYGXGu84Ag
+	hHyA/X9p84PgrVa+rv11j8AjAeEy02qVgagA89U7Vae510R+la4rzZii2b8+EfH4YyRSr3O0rXR
+	n5iCdzn7NhxxY4/+w4wmajoclmOSToeRJUjnhnQyur/1cFfX0JKjFpZMyBAhwOhhfus4kzvRlU/
+	YSXG7IcIWc/waa2tGYg9JFsGFak/BfJS9DWLxgVIWQtCniZbw2btLKEx9JYvbEaZITweT2gVJBJ
+	oHxTVFx59rkRzbhT2K4wIS5T3Zfr+vRCfEwbAQE6anc9RyrlfrrcA4MSusEgR/AlBE6O5uNI6b5
+	Aw2w9mstyDjm8UCQhSritmR4ScRipeqIKnpEt5G6EQxmPnxCxbtm+uJas11w8pxpxgKnyzME2js
+	4/xlzrdBhMkG1x9ZzUe6ZLxg/oa4SHXkmjljJj3hO3LCMTRfmnn88z2YSj6ag/ocNpwKySKlSvZ
+	2rd7y6OnHGdv9IbI2bC4EQelDjgMDqQPCB4RDowMMKsMpj+XIIsgtk0ylVEZ9tt6A9tM6mqQYUc
+	=
+X-Received: by 2002:a17:90a:908a:b0:3b1:bee2:223d with SMTP id 98e67ed59e1d1-3b1bee22478mr5477449a91.53.1794811327578;
+        Sun, 15 Nov 2026 22:42:07 -0800 (PST)
+Received: from ehlo.thunderbird.net ([2401:4900:8fc5:1e29:1b2c:eea1:7fdd:964b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec43699sm14960106a91.10.2026.11.15.22.42.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 22:42:07 -0800 (PST)
+Date: Mon, 16 Nov 2026 12:12:02 +0530
+From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+To: Joshua Crofts <crofts@kernel.org>,
+ Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org>
+CC: Jiri Kosina <jikos@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ David Lechner <dlechner@baylibre.com>,
+ =?ISO-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-input@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_1/5=5D_iio=3A_Remove_redundant_pr?=
+ =?US-ASCII?Q?obe_error_messages_for_HID_device_drivers?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <20261105165254.00000896@kernel.org>
+References: <20261105-19-oct-hid-iio-unified-print-framework-v1-0-0b360d9552d9@gmail.com> <20261105-19-oct-hid-iio-unified-print-framework-v1-1-0b360d9552d9@gmail.com> <20261105144036.00002e1e@kernel.org> <20261105165254.00000896@kernel.org>
+Message-ID: <0CDD7FDE-6E03-473F-8910-2C33973F23E0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,48 +105,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
 
-I independently verified this fix with the syzbot C reproducer on top
-of Linux 7.4-rc3 (master), using mtdram with 128 KiB total size /
-4 KiB erase size, CONFIG_JFFS2_SUMMARY=y and CONFIG_PROVE_LOCKING=y,
-closely matching the syzbot configuration. The patch applies cleanly
-to this tree.
 
-Baseline (before the patch):
+On 5 November 2026 9:22:54=E2=80=AFpm IST, Joshua Crofts <crofts@kernel=2E=
+org> wrote:
+>On Thu, 5 Nov 2026 14:40:36 +0100
+>Joshua Crofts <crofts@kernel=2Eorg> wrote:
+>
+>> On Thu, 05 Nov 2026 18:11:43 +0530
+>> Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse=2Egmail=2Ecom@ke=
+rnel=2Eorg> wrote:
+>>=20
+>> =2E=2E=2E
+>>=20
+>> > @@ -377,20 +377,16 @@ static int hid_accel_3d_probe(struct platform_d=
+evice *pdev)
+>> > =20
+>> >  	ret =3D devm_hid_sensor_setup_trigger(dev, indio_dev, name,
+>> >  					    &accel_state->common_attributes);
+>> > -	if (ret < 0) {
+>> > -		dev_err(&pdev->dev, "trigger setup failed\n");
+>> > +	if (ret < 0)
+>>=20
+>> You could also remove the comparison and just change the checks to `if =
+(ret)`,
+>> as devm_hid_sensor_setup_trigger() always returns zero on success=2E
+>
+>I suppose you could also add a precursor patch that changes `return ret` =
+to
+>`return 0` in devm_hid_sensor_setup_trigger() on success=2E
+Hi Joshua,
 
-  - The fail-nth scan in the reproducer triggers the lockdep warning
-    at N=10:
+Thank you the review and input=2E
 
-      WARNING: bad unlock balance detected!
-      repro/67 is trying to release lock (&c->alloc_sem) at:
-        jffs2_do_create+0x229/0x250 fs/jffs2/write.c:474
-      but there are no more locks to release!
+I agree with your point to replace (ret < 0) with (ret) as devm API return=
+s zero on success=2E
 
-  - The call chain matches the syzbot report: jffs2_sum_add_kvec()
-    fails with -ENOMEM, jffs2_write_dnode() drops alloc_sem for the
-    retry reservation which then fails with -ENOSPC, and
-    jffs2_do_create() calls jffs2_complete_reservation() on a lock it
-    no longer holds.
+Do we find value to add new check and have `return 0` ?
+devm_add_action_or_reset() is last operation in devm_hid_sensor_setup_trig=
+ger() API which makes direct return as simple to follow=2E
 
-With the patch applied:
-
-  - 2 runs x 2000 fail-nth rounds, zero lockdep reports.
-  - The failure path is still reached: in one run the injected
-    allocation failure landed in jffs2_sum_add_kvec() ("Write of 68
-    bytes at 0x0001e00c failed. returned -12, retlen 0"), creat()
-    still returns -ENOSPC as expected, and the second unlock is now
-    balanced.
-
-Tested-by: Shuai Liu <847807867@qq.com>
-
-AI assistance disclosure: the two-state test environment (kernel
-config, QEMU setup and log analysis) was prepared with the help of an
-AI coding assistant, per Documentation/process/coding-assistants.rst.
-The conclusions above are from actual test runs.
-
-Best regards,
-Shuai Liu
-
+Based on your suggestion will send v2 with additional changes as trailing =
+in the series=2E
+>
