@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837062;
-	b=We6f56KHEiOJQAmlwpK+HhpdGzBlGDZ3T1k8DopYrn4FYXMmPqvgBjv6X7il5aFoe8Vu
-	 Mpj8E9B3p/ZFfUN0F+fsuSClvIffsz0kykSjHgI2Aazmp6HwGlFRtFJJb8g9NccowuCT7
-	 maycapiuM0zMzx7Be/VyBjGDw969O5yG7gNai1EmBCe0aZSipC3oaaedcxBxxblwPIRV0
-	 8KOEhv8imKaAz+UKHr40lXW1H3+XRkmiNv3fuwUyN0r8v6w0yM67/vahDh1+AB9bWMEkK
-	 Lgwt8uH3uKOjV8zx3Zj+7Oz9YZUzGGRb6pcneSBbPLI2Vm925gnH/fDmbqVV1HHw0aw==
+	t=1794837064;
+	b=uBPv/MxTBdeWVs+9xLdfCND7cuh7VqEn4S27f1Ti2gJRFqwvUrDbPWJNtKtTkGu9dNLt
+	 WXImsqLgmPitUGT+Pc/5MSXp3eNJnGwQ8iSRvyYvnBBqkLhP28MtVuitQYPGo1gGTJdbR
+	 8yVkPY4Xa55T7NInpUV0qJvW3LxHu7gSiTTIhE0XCodFEQLmzfNaWFbg368cEvUshcM6g
+	 O5ZtQFipiMMrl4eg6OVTK9SkiAK7ogLCaIsE3n2toI6sfpTeWv3wQGefxh41lEX2MYdN9
+	 LIS5Sy74tnak7IgAMYv6bFa7HPRtfAt59Vw4pLb83iJVY2kYblzDxaMfbKDfzC4i62w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837064;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=lgF1/gF7h+RVc8g5jPb5SPiZYQniC3NQfKWjaikhx3k=;
-	b=R2XWG3m/jqA88VZT9MB3m22veqZLviqih7F+UGEgG/atJqMU/n4QwdURevFcJZHb9U20
-	 1dhH3/W/M1uuJQUIK7d3hNMMfEeZUCIhF1YCvx3LrV1pFtinYcVBD2IuvSHpr5i6R4D2c
-	 S/cAMbx6+M+ImHcuh572jX6rFUNqygshUVO5/ic+bhXCvN0oOaL/n+1N7CxBxk0VudhJv
-	 KATCaMUNu+J7X9iV2nqtcDjGapoLHXLMB6gt9F2Gx7Uqord8oczbaElpcO98utmRWfxm6
-	 XYa5NObCSI60hSbF9LNRvIk7I4zB4s8kOo9Hso531UVoApeuxlHu2J8RInYBzr9csPg==
+	bh=KG1MGo/DVuw8aITbp4BPPajePR4Ohrcz/mqxJPeMWfU=;
+	b=r8xrMJygW25FfN1L3TLpkrbv7It/9KwJKTvY67hg1VMBrees7y4owjr1WeoE3xZO5XAr
+	 fLKAMvg9f1qouU9QmdjOGXLbjYqQP0SIh04JR+0Wb2/aLAHy6a13CXON2ulS3QCgrrleb
+	 Cl0HGhWEv2qgASr6M/hmbRhAqAG1cspzi/bkjMuDpcHIzo26THx+SGUTqbGbAIMO1+4Dh
+	 I/K90UECuqq5c+PiTReY2NFGVx09alhWxxb5RHPpZYTI5BsuJmFHA0uZjWGyYw6NIaxUf
+	 Hw/RBB6iu9ruf/UbD5Is9NIdOWK9lGEMaf4cxmoeTsp3BO5fX1yRDwV31iSM7d4LKOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSn6v31x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SneNHsiK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD92D606B22D;
-	Mon, 16 Nov 2026 13:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA03608590E;
+	Mon, 16 Nov 2026 13:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSn6v31x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D801F000CF;
-	Mon, 16 Nov 2026 13:51:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SneNHsiK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26001F000C8;
+	Mon, 16 Nov 2026 13:51:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837062;
-	bh=lgF1/gF7h+RVc8g5jPb5SPiZYQniC3NQfKWjaikhx3k=;
+	s=k20260515; t=1794837064;
+	bh=KG1MGo/DVuw8aITbp4BPPajePR4Ohrcz/mqxJPeMWfU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=TSn6v31x8W+l0sD8mYCVIj3CbMNq5CArt/9Z8c6/f/lr4CsbV5vLIxiU2sjwzdYp5
-	 wpOl1WIp1Q8hCn8KAbUjKLc8BUu9mQe2V6qqgU7qIF6Z3CALEtC6DZQVClzR4+/hkA
-	 KtUhPH8vdK7AmhnN4IDC25XHu6wtcvL6XSriXuk7sM9RDzTx2ivWDtNX+6pSWWAHf5
-	 T37c48dPkI+L5VNFCjyiaTCWmb4aKzdB0SD+DgU5c15XLgBNRAFn62voyJZUab9+5m
-	 UsWj51gmzYr0sglufkHGvtKy3UBUr0N2jGup4AbD6dVYeheZ2wPOSiwS3R5p4As8A4
-	 Q22LX6ihtY7BA==
-Subject:
- Re: [PATCH net-next v03 1/4] hinic3: Solve an stall issue in hinic3_rx_poll()
+	b=SneNHsiKDy+0YZv7oPb8vmoTrIlVZQMg0EPXkHKbvPvyiljrq/LUHd9BUnYFgCZrn
+	 6ddf8sG01zboffWEVIUq8NsK8kJD8ef9dgvazigOCFFqhRcDOnDjlurIjzVg+4KV/y
+	 XEiJlJ1ugUbPB9sYgse2rzHuxyVSWEjI1v/5B5S/XgVAWM1odRu4MyzAM6lrFmKJT0
+	 SJ3lMRh0kmnKc2dJOpcN2WhBAfUDQ6DdHC2vyejpj1TpgrbQWyZoaT8rX+o7iddmGQ
+	 EOZ+oGkY2i3ztqt2hLnst5KZNeENXRsIi0Y/wkG6QIkOoVf+HXkotg2O1pjkt+IWRS
+	 NWpMMyng5ea+g==
+Subject: Re: [PATCH net-next v03 2/4] hinic3: Avoid concurrent updates on
+ 32-bit systems.
 From: netdev-bot+sashiko@kernel.org
 To: gongfan1@huawei.com
 Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
@@ -52,11 +52,11 @@ Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
  larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Mon, 16 Nov 2026 13:51:00 +0000
-Message-ID: <179483706058.3136.10285830784203129885@kernel.org>
-In-Reply-To: <8d5247fdc88d6a2db6340da79eb9b64f3cdd20e0.1794467919.git.gongfan1@huawei.com>
-References: <8d5247fdc88d6a2db6340da79eb9b64f3cdd20e0.1794467919.git.gongfan1@huawei.com>
-X-sashiko-severity: High
+Date: Mon, 16 Nov 2026 13:51:02 +0000
+Message-ID: <179483706251.3136.3766644106019912452@kernel.org>
+In-Reply-To: <6e3be192de613fb537fc2050ce28e1bd71346e35.1794467919.git.gongfan1@huawei.com>
+References: <6e3be192de613fb537fc2050ce28e1bd71346e35.1794467919.git.gongfan1@huawei.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,115 +69,107 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix does not cover the case where the RX refill fails, so
-  the RQ can still stall.
+- [Low] The commit message and Fixes: tag describe a bug this driver can
+  never hit.
+- [Low] The patch drops `csum_errors` from `rx_errors` in
+  hinic3_get_stats64() (`errors = rxq_stats->other_errors;`).
 
 --
 
-hinic3: Solve an stall issue in hinic3_rx_poll()
+hinic3: Avoid concurrent updates on 32-bit systems.
 
-This patch makes hinic3_rx_poll() return the full budget in two cases:
-recv_one_pkt() fails, or the LRO replenish threshold is reached. In both
-cases NAPI keeps polling instead of completing and re-enabling the
-interrupt while unprocessed CQEs or depleted WQEs remain.
+This commit reworks the u64_stats reader loops in hinic3_get_stats64().
+Per-queue values are now assigned inside the fetch/retry loop and added
+into rtnl_link_stats64 outside it. The patch also drops csum_errors from
+rx_errors, removes the NULL checks on nic_dev->txqs and nic_dev->rxqs, and
+removes the zeroing of the local counters before each loop.
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> index 309ab59013797..f2262cdd66287 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> hinic3: Avoid concurrent updates on 32-bit systems.
+>
+> Within the while loop of hinic3_get_stats64(), the counters between
+> u64_stats_fetch_retry and u64_stats_fetch_begin are incremented by +=.
+> This operation will cause repeated counting of the counters on a 32-bit
+> system. Therefore, change += to + and the counters are incremented
+> out side the wile loop.
+
+[Severity: Low]
+Can this driver be built on a 32-bit kernel? The Kconfig in
+drivers/net/ethernet/huawei/hinic3/ has:
+
+	depends on PCI_MSI && 64BIT
+
+When BITS_PER_LONG == 64, include/linux/u64_stats_sync.h defines:
+
+static inline bool __u64_stats_fetch_retry(const struct u64_stats_sync *syncp,
+					   unsigned int start)
+{
+	return false;
+}
+
+So the old loop body ran exactly once per queue. The += into locals that
+started at zero already gave correct totals in every configuration that
+can be built.
+
+The subject says "Avoid concurrent updates". However, the patch only
+changes the reader side and does not change how updates are serialized.
+
+This patch carries "Fixes: f47872bed40f" and will be picked up for
+stable. Would it be better described as a cleanup of the reader idiom,
+without the Fixes: tag?
+
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
+> index da73811641a9d..d1fd91d97ccfc 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_netdev_ops.c
+> @@ -791,49 +791,35 @@ static void hinic3_get_stats64(struct net_device *netdev,
 
 [ ... ]
 
-> @@ -581,12 +584,14 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
->  
->  		rx_cqe->status = 0;
->  
-> -		if (num_wqe >= nic_dev->lro_replenish_thld)
-> +		if (num_wqe >= nic_dev->lro_replenish_thld) {
-> +			poll_again = true;
->  			break;
-> +		}
->  	}
->  
->  	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE)
->  		hinic3_rx_fill_buffers(rxq);
->  
-> -	return nr_pkts;
-> +	return poll_again ? budget : nr_pkts;
+>  		rxq = &nic_dev->rxqs[i];
+>  		rxq_stats = &rxq->rxq_stats;
+>  		do {
+>  			start = u64_stats_fetch_begin(&rxq_stats->syncp);
+> -			bytes += rxq_stats->bytes;
+> -			packets += rxq_stats->packets;
+> -			errors += rxq_stats->csum_errors +
+> -				rxq_stats->other_errors;
+> -			dropped += rxq_stats->dropped;
+> +			bytes = rxq_stats->bytes;
+> +			packets = rxq_stats->packets;
+> +			errors = rxq_stats->other_errors;
 
-[Severity: High]
-Can the RQ still stall when the refill itself fails? The return value of
-hinic3_rx_fill_buffers() is ignored here, and poll_again is not set when
-fewer WQEs than needed get posted.
+[Severity: Low]
+The commit message says:
 
-hinic3_rx_fill_buffers() stops at the first page_pool allocation failure.
-If that happens on the very first WQE, it rings no doorbell at all:
+  csum_errors and other_errors are not the same things. csum_errors will
+  go to csum_bad in netdev netlink qstats.
 
-drivers/net/ethernet/huawei/hinic3/hinic3_rx.c:hinic3_rx_fill_buffers() {
-    ...
-	for (i = 0; i < free_wqebbs; i++) {
-		...
-		err = rx_alloc_mapped_page(rxq->page_pool, rx_info,
-					   rxq->buf_len);
-		if (unlikely(err))
-			break;
-		...
-	}
+Where is csum_errors reported as csum_bad? I could not find a netdev
+queue stats implementation (stat_ops, get_queue_stats_rx or csum_bad)
+anywhere under drivers/net/ethernet/huawei/hinic3/. It is not in this
+patch, and it is not added later in the series.
 
-	if (likely(i)) {
-		hinic3_write_db(rxq->rq, rxq->q_id & 3, DB_CFLAG_DP_RQ,
-				rxq->next_to_update << HINIC3_NORMAL_RQ_WQE);
-    ...
-}
+After this change, the only remaining reference to csum_errors is the
+reset in hinic3_rxq_clean_stats():
 
-Under memory pressure, refills can fail across several polls while
-hinic3_fetch_rx_buffer() keeps adding sge_num to rxq->delta for each
-consumed packet. Large LRO frames, which use up to 16 WQEs each, drain the
-posted WQEs quickly.
+	rxq_stats->csum_errors = 0;
+	rxq_stats->other_errors = 0;
 
-On the last such poll the loop drains all CQEs and exits on !RXDONE. The
-refill fails again, and hinic3_rx_poll() returns nr_pkts < budget. Then
-hinic3_poll() does this:
+Neither counter is incremented anywhere today, so rx_errors does not
+change in practice. Once the datapath starts incrementing csum_errors,
+would those counts then be missing from every uAPI?
 
-drivers/net/ethernet/huawei/hinic3/hinic3_irq.c:hinic3_poll() {
-    ...
-	if (likely(napi_complete_done(napi, work_done))) {
-		hinic3_net_dim(nic_dev, irq_cfg);
-		hinic3_set_msix_state(nic_dev->hwdev, irq_cfg->msix_entry_idx,
-				      HINIC3_MSIX_ENABLE);
-    ...
-}
+This rx_errors change is unrelated to the retry loop change. Could it be
+split into its own patch, or sent together with the qstats support it
+refers to?
 
-As the commit message says, the chip drops packets when it has no WQEs, so
-no CQE is written and no RX interrupt is raised. qp_irq() is the only
-napi_schedule() caller in the driver. hinic3_rx_fill_buffers() is called
-only from hinic3_configure_rxqs() and hinic3_rx_poll(), and the periodic
-work does not refill RX buffers.
-
-Wouldn't the queue then stay dead even after memory frees up, until the
-interface is reconfigured? That looks like the same "WQEs cannot be
-replenished in time ... the NAPI instance will not be polled again"
-failure, reached through the refill allocation failure path.
-
-Would it make sense to also set poll_again when hinic3_rx_fill_buffers()
-posts fewer WQEs than requested? Several other drivers do this; i40e, for
-example, does "return failure ? budget : total_rx_packets". A deferred
-refill would be another option. The later patches in this series don't
-seem to touch hinic3_rx.c, so this case still looks open at the end of
-the series.
-
->  }
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794467919.git.gongfan1%40huawei.com
