@@ -1,121 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.62
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813280;
-	b=QzgShgeC5g6mAkz66hh6/SpFMCbodJjjQRlZVHvLXOHvXASVOgOtRSYh8W5eIN1+kXlY
-	 yPc36BJhm0bp1CU6H5yt8brNhV6+SHZ3LAEVB9rU+Szq4jdLQzXNAWQQn54hfEewg3Zno
-	 89C8ErHnhUUpSb96ino3rmW5YbkhJ4KhmXGrPYQBFoaLIDkmdsnlnkLGENY05TMMYlThU
-	 WArH+DaSfFbLtkOgPWZM+RjqJk2QUR82xb0QQFDpYrE7yoyrL4VWUQRvcJiS+LVI2BO+8
-	 rvQHF++VJ3ezqz6lnrbLfH5YoW4sIgBlO8RFQryQKX9DLHuA/NvtEWFXGd/5IkDEQxw==
+	t=1794813283;
+	b=JtC9BbTL2OXMdHLbpNUv/jNjecczrZTaCR+TMGOeCbK2WOgF8eE+KE5P5/4sXJOBY+kB
+	 mh/pg6W389wru0nPBwu2Sz+5drUfIuWWs8mFYkUp8Y6Ylz9P/qrG4Rlag/Bt2CXkHaYvO
+	 DHCcfiIAQQ67nvnOliVZkx7A0Xb7Gy4+wBZb2w/Zub9m0kyw5N0RkaWiD1ZOrpfQfSyQM
+	 z7SyFfkMaW3XYpYpmbtmXlO+2YZR1OBYcY1fa1V0xNf1PJt0Bq+KeaeIe9eo189L/49BQ
+	 4OVO+BSVANjIAc0gwpinY/TaJfZKAEDQ72YG6uA7qAER9dVfXw+AU71cg3d6X+TMtKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813280;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=PPim49+jVa+ImXCDNPx+5pLKoiv5ZpP/doxdTQ1/jfk=;
-	b=qLMjEzWhhBr4Sc7gcY2tcxXBrnDNH0J26Zv6nSsW3ToJbgtn+9KmipZDW7510w4UG3lw
-	 5bmkDvmiQT78HKtxLyR8hB0gFo3x5/nY+JHjqm11MzrCyx/U9jkcChUmGsuLg546yGoC0
-	 3IIyY14EGx0sTtB3bFue/aChCF/m1ElrYLWxwL3XoMBANrM6QzjfqnkyC2PY5Qe2oJ2DX
-	 0ILI/gV8nWkZ89//U2U49T80CYME3rZMyEbNpSLZ9p8arKE/z1imG+gDBCNKmKAveWKke
-	 nG0RAPh7vuvO+28BHH+RToDM79U4KrmElaidlEWOkBBPBqLM9ZhovJk/7UGbU7Fkhkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813283;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=d8GPmNrrbDyVAn3i8pP3Irq5ZXZX7zbqtdgKc3xpyyA=;
+	b=aNz+ffbjXlm/4sBz4kR6zOuULQVRJniOD9vKCQEE+BT4jngi9S+lFU4g71c34x/0DCf0
+	 pIY431DQ8uZTnZcNhYa+pUkwONXsoLc6/D2by3l41iE7e6nB7Q5urPy93xd2Fs7qF4PHC
+	 tK0tULlXOcAUL7JFsjGQcRSrljlO9gl9wfk4dAkpxcNOautchv8HfBL3rx2tkz3K8FgcX
+	 BP9hn9A/M0NDVRRRzi8p7ZnPZIa7unHf4Zio/me4PougBbo6vP1PttJnrvlzGw20k8WVl
+	 LycNHF2qDtXR371Czxl9d+gaH4Lo+c+w6XC1QHj5go4IL5JT5QSTsOiQPxfB9tIUYNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Kk0adAHL;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DfDaiG1q;
+	arc=none smtp.remote-ip=95.215.58.62
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20D1606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C20D1606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AC7606A338
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:14:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42AC7606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Kk0adAHL
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-372bdb942dbso2716769eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:14:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794813279; x=1795418079; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PPim49+jVa+ImXCDNPx+5pLKoiv5ZpP/doxdTQ1/jfk=;
-        b=Kk0adAHLO2UBm3+iTCPu6Q+dxKMnuA6qxn+oy6eSxxgSK/yM23T4rf1F789nJd9oKa
-         QUyBZCRrFGYaDkiIUmnLaoSxlj9sihXLtT0XpZdeI/7abNzAMsZg6PpU11lwCY/1Dw5A
-         TsiINNUO/si7uc81tlqhG+/WThVH/uiLbPyNUhkydK9uVEkfXHcyG9aS5BIDsWGMqylD
-         3ErgS7HREgRToyASQNCbriVeIaO0JCrCUsDo8M28lp+o4bmhv8hNa3mklcfKwlK1q5Sd
-         MXy5mgfEuTojr0barcyH+WpEN9UJjlSdg8seOwrrK34E93UF45tu/3jNhCXjIHWl9sGI
-         XkjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794813279; x=1795418079;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PPim49+jVa+ImXCDNPx+5pLKoiv5ZpP/doxdTQ1/jfk=;
-        b=Kr+hBSmhAKUgjmXDc0pDv+M4MMEdDjUUUkHqjAFBGe+eEC+RTkchJDXLYXg6yPAvOa
-         6b3pFjXC6KrgRyr3Aukeq70dihyoSFpGm0mh4NYGN4htu9U8qEDLt/6wrm1U3yBYMQ8o
-         jui/O2XJ9rlmkElzdyoCX6xZHdl87SnTYD+5VSjYpV+F8+LXfHqlpOCgsCEwjOmFtC5q
-         2wmDFxFg/kE/IH/31+ieb8JjvvBrGu9uAshx5z4tqKCZX42YJ/LhBtIG0VregrN9zHk8
-         gx6oHJd+KjZ1Chcm2uSVdUPXdK9W/Ka55bMcdkDsw4KcW7qpQltVj7PImZoLUW1Fn2oi
-         iegg==
-X-Forwarded-Encrypted: i=1; AL+hErF2M8w5aMXMUFVNWx76goOigK+TV92xDNPTG9rC37cQqt1Vvj8M0pYQr5ies2f33N1b+Lq6iOTKNw27oks=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+je70QGk3HbnP+DO9Egznx2DT50iVMGLMHr4w8gKsOeAgeQqbL
-	juwiW1MhB4ijzGVawwpthHeJQbPCmzQ/Ie4wNtWiyVwlgBi764mtBfJtSRA4r05ciwQ=
-X-Gm-Gg: AYBFou2PQA3PNAY7SqOvJBqxDnrlTJAeNAmsl9adHYsS0JQgpdLSk0Ijucuz9K/EVaK
-	TAULTzzuWJXpk7FKclTSs9ZqhbtVK1YsuC2vDa6fbHKtmVcdbeTUam3ipgCzbIVRKo3nZiLd/70
-	0xZxFi7Vh7zNUHxwr6KGOaTnmJreppVip1dEW4p/6Fm03GfufYkE3eAVoFJYzw6vpazhe8C0svN
-	3h+ubnN+BaebRd6RajwD8rwdcv+gtUJVFqgQYDPbQb6L0OTIIKaTTTZ/OiqhrBa6j/VYc6AlsHh
-	r343hBQt1A2Cswqm028oQraEVh7MkU728zdMT9Zb6osQWiLQzCvBp+iyDeLavkFC4WkR2ONN3+e
-	QO6bsgyboNjWgeYqEjunCqyV9HuSm+YStmtAoDrbvSHdTLHfcPOhO4iZg1TGfc+HaD9KkI21jtw
-	mZLYpFkn5rFdDymREl+TvX3tEGUJVURRR1oRN9c1SxTxic4v4HV3esbeAH5F6YBtmfTnZBsck1m
-	irWnIfuiYD7xfi2chiLgS8QgeYNITcP7fTq6TxrGjuHBfEK8pGxR0ZjLveONu3m+x4obtzY/VeY
-	Wl6iY10ILsQgiAohcxhbGvKiHnM1rXQIl/oNzLhNMP1dKxZBihqdvVFAZTHiJzYxQIDiXI51ZP1
-	apVctnQ==
-X-Received: by 2002:a05:693c:414e:20b0:36c:49a7:86ac with SMTP id 5a478bee46e88-37968b8ee68mr10638311eec.37.1794813278638;
-        Sun, 15 Nov 2026 23:14:38 -0800 (PST)
-Received: from FJ7FR2JRQ3.bytedance.net ([63.216.146.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm47858505eec.8.2026.11.15.23.14.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 23:14:38 -0800 (PST)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: joro@8bytes.org,
-	palmer@dabbelt.com,
-	tony.luck@intel.com,
-	reinette.chatre@intel.com,
-	tomasz.jeznach@linux.dev
-Cc: fustini@kernel.org,
-	jgg@ziepe.ca,
-	james.morse@arm.com,
-	ben.horgan@arm.com,
-	xiaqinxin@huawei.com,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	Dave.Martin@arm.com,
-	babu.moger@amd.com,
-	kevin.tian@intel.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	shuah@kernel.org,
-	randy.dunlap@infradead.org,
-	cuiyunhui@bytedance.com,
-	yuanzhu@bytedance.com,
-	iommu@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DfDaiG1q
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kV3VwCyfCvJMLMAaZdOv60N3vXq9IpfkDxA+THuP2XI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794813281; v=1; x=1795418081;
+ b=DfDaiG1qMVulpMmALcrcCWJ5j9wSA2DSpO+s2Ir5iKBYn9xCRhKJbdGFXRPC4FL51hLHD6sf
+ yBLGtGdEVEWLedCVu9bnWgjBRBv5v46B9V+aClPEIKFCB4xOUb1fPbklONeSBpQt8hCtX9qtIS2
+ SUt02hZEPCPRSsF/7l2Tabi4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b12c8b10ff90e4bb;
+	Mon, 16 Nov 2026 07:14:40 +0000
+X-Mizu-Trace-ID: b12c8b10ff90e4bb
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	x86@kernel.org
-Subject: [RFC PATCH v2 4/4] selftests/resctrl: Exercise device assignment and IOMMU global IDs
-Date: Mon, 16 Nov 2026 15:13:43 +0800
-Message-ID: <20261116071338.35991-10-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261116071338.35991-6-zhangzhanpeng.jasper@bytedance.com>
-References: <20261116071338.35991-6-zhangzhanpeng.jasper@bytedance.com>
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	Hao Ge <hao.ge@linux.dev>
+Subject: [PATCH v5 10/11] powerpc: drop redundant unmaps of failed vmap mappings
+Date: Mon, 16 Nov 2026 15:13:24 +0800
+Message-Id: <20261116071325.263682-11-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261116071325.263682-1-hao.ge@linux.dev>
+References: <20261116071325.263682-1-hao.ge@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,442 +86,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add opt-in tests with an explicitly selected disposable device or IOMMU.
-Cover assignment, moves, idempotence, malformed tokens, occupied-group
-removal, global register readback and restoration. Include monitor-group
-checks only when explicitly requested on a monitoring-capable dependency.
+vmap_page_range() and ioremap_page_range() clear the PTEs they
+installed when they fail, so the vunmap_range() in remap_isa_base()
+and ioremap_phb() has nothing left to remove.
 
-Check that a task and a registered device can share a control group with
-a non-default cache mask while leaving the default group's policy intact.
-
-Document the assignment interface and how to run both selftests. These
-tests do not verify downstream traffic tags or resource isolation.
-
-The shell selftests were largely drafted with a large language model
-(LLM) using the test scenarios and expected results as input.
-
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- .../filesystems/resctrl-devices-prototype.rst |  43 ++++
- MAINTAINERS                                   |   1 +
- tools/testing/selftests/resctrl/Makefile      |   2 +
- tools/testing/selftests/resctrl/devices.sh    | 205 ++++++++++++++++++
- .../testing/selftests/resctrl/iommu_qosid.sh  | 119 ++++++++++
- 5 files changed, 370 insertions(+)
- create mode 100644 Documentation/filesystems/resctrl-devices-prototype.rst
- create mode 100755 tools/testing/selftests/resctrl/devices.sh
- create mode 100755 tools/testing/selftests/resctrl/iommu_qosid.sh
+ arch/powerpc/kernel/isa-bridge.c | 5 ++---
+ arch/powerpc/kernel/pci_64.c     | 4 +---
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/filesystems/resctrl-devices-prototype.rst b/Documentation/filesystems/resctrl-devices-prototype.rst
-new file mode 100644
-index 000000000000..7e6eedb9bf79
---- /dev/null
-+++ b/Documentation/filesystems/resctrl-devices-prototype.rst
-@@ -0,0 +1,43 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+Registered resctrl devices (prototype)
-+=====================================
-+
-+Write one registered ``<bus>/<device-name>`` token to a group's
-+``devices`` file to move the device there. Reading the file lists that
-+group's devices; the root file lists only the default group.
-+``tasks`` is unchanged.
-+
-+Run as root, using a test device listed in the default group::
-+
-+    mount -t resctrl resctrl /sys/fs/resctrl
-+    cat /sys/fs/resctrl/devices
-+    mkdir /sys/fs/resctrl/p1
-+    echo pci/0000:00:03.0 > /sys/fs/resctrl/p1/devices
-+    echo pci/0000:00:03.0 > /sys/fs/resctrl/devices
-+    rmdir /sys/fs/resctrl/p1
-+
-+Return devices to the default group before removing their group.
-+``devices`` appears only if a device was registered at mount time.
-+The RISC-V IOMMU driver does not register devices with shared contexts
-+for independent assignment.
-+
-+Selftests
-+---------
-+
-+Use an explicitly selected disposable device in the default group::
-+
-+    RESCTRL_DEVICE=pci/0000:00:03.0 sh tools/testing/selftests/resctrl/devices.sh
-+
-+This covers device moves, invalid writes, group removal and task/device
-+co-assignment with a non-default cache mask. Set ``RESCTRL_TEST_MONITOR=1``
-+only with a monitoring-capable dependency.
-+
-+For the separate global-ID test, substitute the test IOMMU's name::
-+
-+    IOMMU_QOSID_DIR='/sys/class/iommu/<iommu>/qosid' \
-+        sh tools/testing/selftests/resctrl/iommu_qosid.sh
-+
-+The global-ID test restores the original values. Each test ID defaults
-+to 1; override ``IOMMU_QOSID_RCID`` and ``IOMMU_QOSID_MCID`` if needed.
-+Neither test measures traffic tags or resource isolation.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e14fddd07882..eef4695d089a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23466,6 +23466,7 @@ R:	Babu Moger <babu.moger@amd.com>
- L:	linux-kernel@vger.kernel.org
- S:	Supported
- P:	Documentation/process/maintainer-tip.rst
-+F:	Documentation/filesystems/resctrl-devices-prototype.rst
- F:	Documentation/filesystems/resctrl.rst
- F:	arch/x86/include/asm/resctrl.h
- F:	arch/x86/kernel/cpu/resctrl/
-diff --git a/tools/testing/selftests/resctrl/Makefile b/tools/testing/selftests/resctrl/Makefile
-index 984534cfbf1b..73646aec1284 100644
---- a/tools/testing/selftests/resctrl/Makefile
-+++ b/tools/testing/selftests/resctrl/Makefile
-@@ -4,6 +4,8 @@ CFLAGS = -g -Wall -O2 -D_FORTIFY_SOURCE=2
- CFLAGS += $(KHDR_INCLUDES)
+diff --git a/arch/powerpc/kernel/isa-bridge.c b/arch/powerpc/kernel/isa-bridge.c
+index 5c064485197a..93029d85e6ea 100644
+--- a/arch/powerpc/kernel/isa-bridge.c
++++ b/arch/powerpc/kernel/isa-bridge.c
+@@ -46,9 +46,8 @@ static void remap_isa_base(phys_addr_t pa, unsigned long size)
+ 	WARN_ON_ONCE(size & ~PAGE_MASK);
  
- TEST_GEN_PROGS := resctrl_tests
-+TEST_PROGS += devices.sh
-+TEST_PROGS += iommu_qosid.sh
+ 	if (slab_is_available()) {
+-		if (vmap_page_range(ISA_IO_BASE, ISA_IO_BASE + size, pa,
+-				    pgprot_noncached(PAGE_KERNEL)))
+-			vunmap_range(ISA_IO_BASE, ISA_IO_BASE + size);
++		vmap_page_range(ISA_IO_BASE, ISA_IO_BASE + size, pa,
++				pgprot_noncached(PAGE_KERNEL));
+ 	} else {
+ 		early_ioremap_range(ISA_IO_BASE, pa, size,
+ 				pgprot_noncached(PAGE_KERNEL));
+diff --git a/arch/powerpc/kernel/pci_64.c b/arch/powerpc/kernel/pci_64.c
+index e27342ef128b..f74269636d5e 100644
+--- a/arch/powerpc/kernel/pci_64.c
++++ b/arch/powerpc/kernel/pci_64.c
+@@ -139,10 +139,8 @@ void __iomem *ioremap_phb(phys_addr_t paddr, unsigned long size)
  
- LOCAL_HDRS += $(wildcard *.h)
+ 	addr = (unsigned long)area->addr;
+ 	if (ioremap_page_range(addr, addr + size, paddr,
+-			pgprot_noncached(PAGE_KERNEL))) {
+-		vunmap_range(addr, addr + size);
++			pgprot_noncached(PAGE_KERNEL)))
+ 		return NULL;
+-	}
  
-diff --git a/tools/testing/selftests/resctrl/devices.sh b/tools/testing/selftests/resctrl/devices.sh
-new file mode 100755
-index 000000000000..12176d6a3779
---- /dev/null
-+++ b/tools/testing/selftests/resctrl/devices.sh
-@@ -0,0 +1,205 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# Explicitly select a disposable device; never choose a storage device for you.
-+
-+root=${RESCTRL_MOUNT:-/sys/fs/resctrl}
-+token=${RESCTRL_DEVICE:-}
-+count=0
-+failed=0
-+g1="$root/device-test-$$-a"
-+g2="$root/device-test-$$-b"
-+mon="$g2/mon_groups/device-test-$$"
-+test_pid=
-+
-+echo 'TAP version 13'
-+skip()
-+{
-+	echo "1..0 # SKIP $*"
-+	exit 4
-+}
-+[ "$(id -u)" = 0 ] || skip 'root required'
-+[ -n "$token" ] || skip 'set RESCTRL_DEVICE=bus/name for a test device'
-+[ -f "$root/devices" ] || skip 'no registered resctrl device interface'
-+grep -Fxq "$token" "$root/devices" || skip 'device is not in the default group'
-+
-+stop_test_task()
-+{
-+	[ -n "$test_pid" ] || return 0
-+	kill "$test_pid" 2>/dev/null || :
-+	wait "$test_pid" 2>/dev/null || :
-+	test_pid=
-+}
-+
-+cleanup()
-+{
-+	stop_test_task
-+	if ! echo "$token" > "$root/devices"; then
-+		echo '# ERROR: cannot restore device to default group' >&2
-+		failed=1
-+		return
-+	fi
-+	rmdir "$mon" "$g1" "$g2" 2>/dev/null || :
-+}
-+
-+finish()
-+{
-+	ret=$?
-+	trap - EXIT HUP INT TERM
-+	cleanup
-+	echo "1..$count"
-+	[ "$ret" = 0 ] || failed=1
-+	exit "$failed"
-+}
-+trap finish EXIT
-+trap 'exit 1' HUP INT TERM
-+
-+check()
-+{
-+	name=$1
-+	shift
-+	count=$((count + 1))
-+	if "$@"; then
-+		echo "ok $count - $name"
-+	else
-+		echo "not ok $count - $name"
-+		failed=1
-+	fi
-+}
-+move()
-+{
-+	echo "$token" > "$1/devices" &&
-+		grep -Fxq "$token" "$1/devices"
-+}
-+reject()
-+{
-+	if echo "$1" > "$g1/devices" 2>/dev/null; then
-+		return 1
-+	fi
-+	grep -Fxq "$token" "$g2/devices"
-+}
-+nul()
-+{
-+	if printf '%s\000ignored\n' "$token" > "$g1/devices" 2>/dev/null; then
-+		return 1
-+	fi
-+	grep -Fxq "$token" "$g2/devices"
-+}
-+busy()
-+{
-+	! rmdir "$g2" 2>/dev/null && [ -d "$g2" ]
-+}
-+busy_mon()
-+{
-+	! rmdir "$mon" 2>/dev/null && [ -d "$mon" ]
-+}
-+mode_busy()
-+{
-+	if echo exclusive > "$g2/mode" 2>/dev/null; then
-+		return 1
-+	fi
-+	# Inspect the reason before another group read clears last_cmd_status.
-+	grep -Fq 'Move assigned devices' "$root/info/last_cmd_status" &&
-+		[ "$(cat "$g2/mode")" = shareable ]
-+}
-+empty()
-+{
-+	contents=$(cat "$1") || return 1
-+	[ -z "$contents" ]
-+}
-+
-+cache_entry()
-+{
-+	awk -F '[:=;]' -v res="$resource" '
-+		$1 ~ ("^[[:space:]]*" res "$") && NF >= 3 {
-+			print $2 "=" $3
-+			exit
-+		}' "$g1/schemata"
-+}
-+
-+find_cache_mask()
-+{
-+	for resource in L3 L2; do
-+		full=$(cat "$root/info/$resource/cbm_mask" 2>/dev/null) || continue
-+		min=$(cat "$root/info/$resource/min_cbm_bits") || continue
-+		initial=$(cache_entry)
-+		[ -n "$initial" ] || continue
-+
-+		# Use a contiguous subset distinct from the new group's initial mask.
-+		mask=$((0x$full >> 1))
-+		[ "$mask" -gt 0 ] &&
-+			[ "$((mask & (mask + 1)))" -eq 0 ] &&
-+			[ "$((mask & 0x$full))" -eq "$mask" ] &&
-+			[ "$mask" -ge "$(((1 << min) - 1))" ] &&
-+			[ "$mask" -ne "$((0x${initial#*=}))" ] || continue
-+		cache_setting=$(printf '%s=%x' "${initial%=*}" "$mask")
-+		return 0
-+	done
-+	return 1
-+}
-+
-+task_and_device()
-+{
-+	default_schema=$(cat "$root/schemata") || return 1
-+	echo "$resource:$cache_setting" > "$g1/schemata" || return 1
-+	sleep 60 &
-+	test_pid=$!
-+	result=1
-+	if echo "$test_pid" > "$g1/tasks" &&
-+	   grep -Fxq "$test_pid" "$g1/tasks" &&
-+	   grep -Fxq "$token" "$root/devices" &&
-+	   move "$g1" &&
-+	   ! grep -Fxq "$token" "$root/devices" &&
-+	   grep -Fxq "$test_pid" "$g1/tasks" &&
-+	   [ "$(cache_entry)" = "$cache_setting" ] &&
-+	   [ "$(cat "$root/schemata")" = "$default_schema" ]; then
-+		echo "# PID $test_pid and $token share $resource:$cache_setting"
-+		result=0
-+	fi
-+	stop_test_task
-+	move "$root" && [ "$result" -eq 0 ]
-+}
-+
-+check 'create first control group' mkdir "$g1"
-+[ -d "$g1" ] || exit 1
-+check 'create second control group' mkdir "$g2"
-+[ -d "$g2" ] || exit 1
-+if find_cache_mask; then
-+	check 'task and device share a control group with a non-default cache mask' task_and_device
-+else
-+	count=$((count + 1))
-+	echo "ok $count - task and device share a control group # SKIP no alternate cache mask"
-+fi
-+check 'assign device to a control group' move "$g1"
-+check 'repeat the same assignment' move "$g1"
-+check 'move device to another control group' move "$g2"
-+check 'old group no longer lists device' empty "$g1/devices"
-+check 'reject unknown device without moving the member' reject 'missing/device'
-+check 'reject old IOMMU group token' reject 'iommu_group:0'
-+check 'reject multiple tokens' reject "$token,$token"
-+check 'reject empty token' reject ''
-+check 'reject multiple lines' reject "$token
-+$token"
-+check 'reject embedded NUL without moving the member' nul
-+check 'reject removing a group with devices' busy
-+check 'reject exclusive mode with devices before testing cache masks' mode_busy
-+
-+# Monitoring requires a real monitoring-capable dependency, not fabricated RMIDs.
-+if [ "${RESCTRL_TEST_MONITOR:-0}" = 1 ]; then
-+	check 'create monitor group' mkdir "$mon"
-+	if [ -d "$mon" ]; then
-+		check 'assign device to monitor group' move "$mon"
-+		check 'control group no longer lists monitored device' empty "$g2/devices"
-+		check 'reject removing monitor group with device' busy_mon
-+		check 'reject removing parent with monitored device' busy
-+		check 'reject exclusive parent with monitored device' mode_busy
-+		check 'restore device to control group' move "$g2"
-+		check 'remove empty monitor group' rmdir "$mon"
-+	fi
-+else
-+	count=$((count + 1))
-+	echo "ok $count - monitor-group assignment # SKIP set RESCTRL_TEST_MONITOR=1"
-+fi
-+check 'move back to default group' move "$root"
-+check 'remove empty first group' rmdir "$g1"
-+check 'remove empty second group' rmdir "$g2"
-+exit "$failed"
-diff --git a/tools/testing/selftests/resctrl/iommu_qosid.sh b/tools/testing/selftests/resctrl/iommu_qosid.sh
-new file mode 100755
-index 000000000000..b10f89721dc2
---- /dev/null
-+++ b/tools/testing/selftests/resctrl/iommu_qosid.sh
-@@ -0,0 +1,119 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# Opt in: global IDs affect IOMMU traffic, not just a disposable endpoint.
-+
-+dir=${IOMMU_QOSID_DIR:-}
-+rcid=${IOMMU_QOSID_RCID:-1}
-+mcid=${IOMMU_QOSID_MCID:-1}
-+count=0
-+failed=0
-+
-+echo 'TAP version 13'
-+skip()
-+{
-+	echo "1..0 # SKIP $*"
-+	exit 4
-+}
-+[ "$(id -u)" = 0 ] || skip 'root required'
-+[ -n "$dir" ] || skip 'set IOMMU_QOSID_DIR for a test IOMMU'
-+for field in rcid mcid; do
-+	[ -r "$dir/$field" ] && [ -w "$dir/$field" ] ||
-+		skip 'qosid interface unavailable'
-+done
-+case "$rcid:$mcid" in
-+	*[!0-9:]* | :* | *:) skip 'select decimal test IDs supported by the IOMMU' ;;
-+	0* | *:0*) skip 'select nonzero IDs without leading zeros' ;;
-+esac
-+[ "$rcid" -gt 0 ] && [ "$rcid" -le 4095 ] &&
-+	[ "$mcid" -gt 0 ] && [ "$mcid" -le 4095 ] ||
-+	skip 'select nonzero 12-bit test IDs supported by the IOMMU'
-+original_rcid=$(cat "$dir/rcid") || exit 1
-+original_mcid=$(cat "$dir/mcid") || exit 1
-+
-+snapshot()
-+{
-+	current_rcid=$(cat "$dir/rcid") || return 1
-+	current_mcid=$(cat "$dir/mcid") || return 1
-+	printf '%s:%s\n' "$current_rcid" "$current_mcid"
-+}
-+restore()
-+{
-+	restored=0
-+	echo "$original_rcid" > "$dir/rcid" || restored=1
-+	echo "$original_mcid" > "$dir/mcid" || restored=1
-+	[ "$(snapshot)" = "$original_rcid:$original_mcid" ] || restored=1
-+	return "$restored"
-+}
-+
-+finish()
-+{
-+	ret=$?
-+	trap - EXIT HUP INT TERM
-+	if ! restore; then
-+		echo '# ERROR: failed to restore global QoS IDs' >&2
-+		failed=1
-+	fi
-+	echo "1..$count"
-+	[ "$ret" = 0 ] || failed=1
-+	exit "$failed"
-+}
-+trap finish EXIT
-+trap 'exit 1' HUP INT TERM
-+
-+check()
-+{
-+	name=$1
-+	shift
-+	count=$((count + 1))
-+	if "$@"; then
-+		echo "ok $count - $name"
-+	else
-+		echo "not ok $count - $name"
-+		failed=1
-+	fi
-+}
-+write_rcid()
-+{
-+	other=$(cat "$dir/mcid") || return 1
-+	echo "$1" > "$dir/rcid" && [ "$(snapshot)" = "$1:$other" ]
-+}
-+write_mcid()
-+{
-+	other=$(cat "$dir/rcid") || return 1
-+	echo "$1" > "$dir/mcid" && [ "$(snapshot)" = "$other:$1" ]
-+}
-+reject()
-+{
-+	before=$(snapshot) || return 1
-+	if echo "$2" > "$dir/$1" 2>/dev/null; then
-+		return 1
-+	fi
-+	[ "$(snapshot)" = "$before" ]
-+}
-+nul()
-+{
-+	before=$(snapshot) || return 1
-+	if printf '0\000ignored\n' > "$dir/$1" 2>/dev/null; then
-+		return 1
-+	fi
-+	[ "$(snapshot)" = "$before" ]
-+}
-+
-+check 'write RCID zero without changing MCID' write_rcid 0
-+check 'write MCID zero without changing RCID' write_mcid 0
-+check 'write nonzero RCID without changing MCID' write_rcid "$rcid"
-+check 'write nonzero MCID without changing RCID' write_mcid "$mcid"
-+check 'change RCID while preserving nonzero MCID' write_rcid 0
-+check 'restore nonzero RCID while preserving MCID' write_rcid "$rcid"
-+check 'change MCID while preserving nonzero RCID' write_mcid 0
-+check 'reject malformed RCID and preserve IDs' reject rcid bad
-+check 'reject malformed MCID and preserve IDs' reject mcid bad
-+check 'reject trailing input and preserve IDs' reject rcid '0 1'
-+check 'reject out-of-range RCID and preserve IDs' reject rcid 4096
-+check 'reject out-of-range MCID and preserve IDs' reject mcid 4096
-+check 'reject negative ID and preserve IDs' reject mcid -1
-+check 'reject integer overflow and preserve IDs' reject rcid 4294967296
-+check 'reject embedded NUL in RCID and preserve IDs' nul rcid
-+check 'reject embedded NUL in MCID and preserve IDs' nul mcid
-+check 'restore original global IDs' restore
-+exit "$failed"
+ 	return (void __iomem *)addr;
+ }
 -- 
-2.50.1 (Apple Git-155)
+2.25.1
 
