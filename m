@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859518;
-	b=wE4e2WGo6RfiQqS4b+76zKSTujJofFwPV/Zptab9NdymeeYVIZlahyNRS8h5UEHXCZNQ
-	 mXHVFHV0YSQFRnQUsJIFCCQx2njvRsuMlOrmpWPCOdX2KvpfQDCGCmjd1hV0qMBXl+AcU
-	 NP0XWX0h/xrfpbhUVnNYlGBx6cP0SDkV4q/N5QDoxHO0RCB/BaRkpDJO7TDOTYPqhBWnp
-	 yLRkjpLiSd+/JBumvCTXmJbNUzdfnWwLkFsCOkyVcj0mzszmzmwtY+FeIuebdKLRwlEku
-	 PGs0fRiec3tMaawmMS50TbTUIvNpyP+n9ydMhqFQdijpa59hrqju2NzBS2S5y4PP4OQ==
+	t=1794859526;
+	b=4OHYu2hlPBSRRoV2wi6PqU1MmpVPDuVX+KJCTnG7D2tHDe2uDWQs9Iwo9PSiRrgn2Iws
+	 AnWs+ODhdqq9oVXvOKdylmGYaOfRjbul/nWY6jboKX33Lq4YUI56JaPs0mkYFNUM5f+N5
+	 T0iXLrUPC1ev0D9JgqH/pSqa3Y0BLy5+vcRqoGCDj6+sT5yz8UqdHrUXez2fmesGA/ROd
+	 Q7TsNR/RooGZ5lDKioCftpD2YyFaqUZB756RlOcZYz7FzVq0xIDRHRhmuhZoECp/28cHd
+	 jTRwCwTwkK8QFMW3Eazgo32XrUbhOwVxppX48oGIpno7oy/qG4FN2BbmqPOVa7BVTzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859518;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tRQeWuvmYi/U57BdSGyz2zs88m1YVfY13PrWPpE4BR8=;
-	b=UuLy8K4bfKIaK0AjQYzFcc8YI55LOJX8CsHK5t9JDj+OREAvx8Wc80KMiEELPaLRi7R/
-	 zZixKChMHoVC4YtguxUfugvnSyuBiLUoYjCTHCQUjlTZXxV6C83QDKYuTbVZqPz1OOpxx
-	 nOBo2pj3paKG+3YKviw+ia1LkHQgsexjvMw4PNqMKaEwgJ63M98EB7Qxz2Tex87n85g8f
-	 ZG9gi75N1dMzRWE03b825ZxjhN8SYpTkrDMJbYMeg8Uxz8RrMJGAS5Rf0AFH3o90CzKm6
-	 0lknCRDlNbZlCJZ3K07XLlgUPPK5L1UhuIzKdS/HokVZper/wxdUdHOu9FKbq3yH+Ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859526;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=l10KwZnyY8coN9NQid+WKk5YmcYQIwYBCQlgLcj1qYI=;
+	b=o7EbYi1G/JmZhP3qBfJHRd/yxzpResqFJvwbfJZWh7Ia/DxL7g/xjzSJ0yFVb6IAZVAS
+	 aa85dA059lt+N3pzg9RNQUdTEGVx0ce1T3yMCVs6+LvuoQeJANM+Y2KYjx4Tjgp2hh5iq
+	 cMj97ooDViEoCd5HKLhrIMrgRKs/aqQPn9BiqFmsBUy+nAmzpOlPM28Nqv1gRx/FSOU3P
+	 T66GPLKiRs2IdYkjkX8iJYhDFAm43NO8XvzHzDX4+tsZZEchD/bn+MJPKqSrMBvUpjlgN
+	 FkdU+t0/beaAYBXJX74FMr5yIIzqmXZi+vS51c/cuFM0FL7h64c74KV98w88vvtHxLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHx1DP11;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRp9sI7J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB22606A88E;
-	Mon, 16 Nov 2026 20:05:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52F2606A8A1;
+	Mon, 16 Nov 2026 20:05:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHx1DP11
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338E91F000C6;
-	Mon, 16 Nov 2026 20:05:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRp9sI7J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B0E1F000C5;
+	Mon, 16 Nov 2026 20:05:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794859518;
-	bh=tRQeWuvmYi/U57BdSGyz2zs88m1YVfY13PrWPpE4BR8=;
-	h=From:To:Cc:Subject:Date;
-	b=bHx1DP11wCI6xVH5jaqP1uVDSdtlFWU/1Ei7vF/ZMAdTjXTcmnkYtIRhMAc5rao5K
-	 Zuo45tplMCK3pHmlRaUH9phIq9TZKektfkutyLr4cIOMveQSV+g9yhuPPgUXa902fI
-	 TG5z1IbyzmMjU+MZerLr2Zzi7HIP4NrF77+JhP4v6DvyN+NlO9h956yTIncTKVXLQL
-	 e7ddWaEB959Vh5EvsKWn0etAMV3O2nr3vSAi1b5VpDUyx1YV0dO7LJS3beA6qLRTAe
-	 Q8xrwph9AiGVS5fwnaqevnFRChMGoDQclZRvhCxdFLjP8iof2hybcy+3pPFC+VO03L
-	 qfgvUOBb7Zm0A==
-From: Sasha Levin <sashal@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Willy Tarreau <w@1wt.eu>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	David Hildenbrand <david@kernel.org>,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	s=k20260515; t=1794859526;
+	bh=l10KwZnyY8coN9NQid+WKk5YmcYQIwYBCQlgLcj1qYI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nRp9sI7JCZx3gq9LvgUoM2Lfg03vzU4e3rIkXftRbvJXSIgnWKmf6raxsWNDsD/NS
+	 RH2gupg0X8Ypq4c9MbQaYyLfIJzxdHf7o64ZBCERTX2yWofJPDXcHQIvck3z3sHFK+
+	 ZLibemkSlskMRXiiR/lUsVj0pQy/R6Ll5A49L8sfg+Qa1k64Knzi+vS1+e8nqIX0tB
+	 5ZEflWAcs8Ko2P/NypGbo+qtba0FEMtIUuW/1uZxA19PtvFlkZmH6EJ28DB8gBLOiY
+	 EveC18Is3ngrgkYJ1z5PEgnsZ/FlYYusVypTqdMnFxoygEJCwFPTV/GafMoI2Wu3yb
+	 pOIyWHYucQEng==
+Date: Mon, 16 Nov 2026 20:05:24 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Gabriel Krisman Bertazi <krisman@suse.de>
+Cc: Sarthak Kukreti <sarthakkukreti@google.com>,
+	Theodore Ts'o <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Gabriel Krisman Bertazi <krisman@collabora.co.uk>,
+	Dmitry Torokhov <dtor@google.com>, linux-fsdevel@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] docs: submitting-patches: ask bug fixes for their user-visible impact
-Date: Mon, 16 Nov 2026 15:05:15 -0500
-Message-ID: <20261116200515.352387-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH 1/3] libfs: reject casefolded names that fold to ".",
+ "..", or empty
+Message-ID: <20261116200524.GD229817@google.com>
+References: <20261113065332.929085-1-sarthakkukreti@google.com>
+ <20261113065332.929085-2-sarthakkukreti@google.com>
+ <878q2swoxp.fsf@cartola>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,102 +65,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <878q2swoxp.fsf@cartola>
 
-"Describe your changes" already asks for the user-visible impact of a
-change, but changelogs for fixes still tend to say what the code does,
-why that's wrong and what the patch changes, and stop there. Whoever
-has to decide if the fix needs backporting is left to work out what
-the bug does to a running system.
+On Mon, Nov 16, 2026 at 02:34:26PM -0500, Gabriel Krisman Bertazi wrote:
+> Hi Sarthak,
+> 
+> Ugh. I agree this is a problem, but I'm also trying to understand first
+> the real impact beyond filesystem complaints during lookup, if any:
+> 
+>   1. Looking up ".\u202e" folds to "." and matches the on-disk "." entry
+>      (de->inode == dir->i_ino) in generic_ci_match(), triggering
+>      EXT4_ERROR_INODE ("linked to parent dir") in ext4_lookup().
+>   2. Looking up "..\u202e" folds to ".." and matches the on-disk ".."
+>      entry, returning -ELOOP via d_splice_alias() (or triggering
+>      EXT4_ERROR_INODE on the root directory).
+> 
+> These two look like a "do stupid things, get stupid prizes" with no
+> further repercussions beyond the error message.  Sure, we can fix them
+> to throw EINVAL, but are there bigger repercussions I'm missing?
 
-Say what that means for a bug fix, in two parts. For users who aren't
-looking for the bug: what a normal workload is likely to run into, and
-separately the worst case and what it takes to get there. For someone
-triggering it on purpose: whether an unprivileged user could do it and
-what that would take, since a race that no real workload loses can
-still be won by a program written to win it. Give the paragraph a
-label so people can be pointed at it.
+For one: if the filesystem is mounted with errors=remount-ro or
+errors=panic, then EXT4_ERROR_INODE is more than a log message.
 
-Coding assistants are told to commit a fix with a message that
-describes the problem and the solution. Add the user-visible impact to
-that list and point them at the section.
+> But the way I'd suggest be handled is by rejecting the ignorable code
+> points lookup (all, but variant selectors for the reasons above), early
+> in the lookup path for case-insensitive directories so they never even
+> get to the filesystem.  Wdyt?
 
-Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-Link: https://lore.kernel.org/r/20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Acked-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Willy Tarreau <w@1wt.eu>
----
-Changes since v1:
-- Split the bug-fix paragraph into users who aren't looking for the bug
-  and someone triggering it on purpose (Andrew, Willy).
+If variation selectors are still allowed (e.g., "..\ufe00", that
+wouldn't actually fix this bug though, right?
 
-v1: https://lore.kernel.org/r/20261116191436.188098-1-sashal@kernel.org
-
- Documentation/process/coding-assistants.rst  |  6 +++--
- Documentation/process/submitting-patches.rst | 23 ++++++++++++++++++++
- 2 files changed, 27 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index 509dbf23a099b..ef01ce8d0ff91 100644
---- a/Documentation/process/coding-assistants.rst
-+++ b/Documentation/process/coding-assistants.rst
-@@ -63,8 +63,10 @@ these steps:
-    re-running a complete analysis; drop any fix that doesn't work and try
-    another one. The fix must not add build warnings and must pass the
-    checkpatch.pl checks (see submitting-patches.rst).
--6. Commit the working fix with a detailed message describing the problem, the
--   solution and a Fixes tag. Do not add a Signed-off-by tag.
-+6. Commit the working fix with a detailed message describing the problem, its
-+   user-visible impact (see "Describe your changes" in
-+   Documentation/process/submitting-patches.rst), the solution and a Fixes
-+   tag. Do not add a Signed-off-by tag.
- 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
-    Documentation/process/security-bugs.rst shows how to do that.
- 8. Indicate what could not be done. If the fix could not be built or tested, or
-diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
-index 9cd19a71e96ec..e5f2181e4d663 100644
---- a/Documentation/process/submitting-patches.rst
-+++ b/Documentation/process/submitting-patches.rst
-@@ -51,6 +51,8 @@ motivated you to do this work.  Convince the reviewer that there is a
- problem worth fixing and that it makes sense for them to read past the
- first paragraph.
- 
-+.. _user_visible_impact:
-+
- Describe user-visible impact.  Straight up crashes and lockups are
- pretty convincing, but not all bugs are that blatant.  Even if the
- problem was spotted during code review, describe the impact you think
-@@ -61,6 +63,27 @@ from upstream, so include anything that could help route your change
- downstream: provoking circumstances, excerpts from dmesg, crash
- descriptions, performance regressions, latency spikes, lockups, etc.
- 
-+For a bug fix, this means saying what the bug does to a running system.
-+An account of what the code does wrong is not a substitute, as it leaves
-+every reader to work the consequences out again.  Cover two cases:
-+
-+- Users who are not looking for the bug.  Say what a normal workload is
-+  likely to run into, and separately what the worst case is and what it
-+  takes to get there: configuration, hardware, privileges, timing.  If
-+  the bug was found by review or by a tool and has never been seen to
-+  happen, say so.  If it has no effect that a user could notice, say
-+  that too.
-+
-+- Someone triggering the bug on purpose.  Say whether an unprivileged
-+  user could do it and what that would take.  A race that no normal
-+  workload loses can still be won by a program that retries it on every
-+  CPU for an hour.  If that makes the bug a vulnerability under
-+  Documentation/process/threat-model.rst, follow
-+  Documentation/process/security-bugs.rst.
-+
-+Maintainers and the people looking after stable trees decide from this
-+whether the fix needs to be backported.
-+
- Quantify optimizations and trade-offs.  If you claim improvements in
- performance, memory consumption, stack footprint, or binary size,
- include numbers that back them up.  But also describe non-obvious
-
-base-commit: 2138148bf44fd84d3e0a863f0e8cb3627cdcc606
--- 
-2.53.0
-
+- Eric
