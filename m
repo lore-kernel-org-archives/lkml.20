@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794842969;
-	b=k1eeCTo040F9s4Iq/87yp9W9UDeccLHjBulssRQ0p0dy9ZT8X3ZjVnzpNh7kB0GPjhFZ
-	 ek2waMnvzCZe/iL6JE8RZKyBrkwNQ4308+x4cqsAGRVfQkdiBGHldjWwkOPx8HqWG3HJn
-	 1bWV/p0fbJuJh1yMY/7nnTQ63gYCw0905d4QtS6KRmSOl7RWmAYg8f4vedCCtB2K5o98u
-	 ri8ITN8OPxUwu+ahe5dOMmbsOOS9RdGZw0nFxCuw7YZCBAK6fzNTvzmTYIhDYEx9jjC7E
-	 UbkvgySRY8xBnqPNdt3h9h4tau6yBQ4BGJt5AtQAlXuAiJ6IN+JEdnQNlmZ8ZpCGx+A==
+	t=1794843004;
+	b=YDPgds5Kv+ZGtGqC611fbFhBrbcioOWq74M3uHX7mg4jzqBkgQannWt5ST8dtmCoMg9a
+	 Po1blPM4WQBSGTMkNaFMHIZc9RYN1k7LyqLtA9Xn1PyT6ta1E2dvS1CS6QBap6zOPepmo
+	 DXU4tTsduoI3WAIZwqd9Xgxvv4bzh0x9kPq7WyapC5JKpj/lAUx/l0auEhHhAQFBplUCx
+	 Cn7IkLmsFisAIf7Ke9zQzHI/ioU7JTJXk6fnjNT+qwN7r0/OROF3Ncq1zl8qDEWb7pPkk
+	 IKuiBwpBC3HeQ+P36TtDe3fF/S1C16BhsruaoQpKhQ6kdahGRRVV0gv7gSIszvBbGAQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842969;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843004;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=mtYEepSn1MBl5J8sUupuG7BC+uwfDgGwqpEAJf4vunk=;
-	b=Dx+s4ELXp3IeZFx87NySw0ILdcixhvyWIUhrYBZxFmtQED5YBUlj/5SpLIHPEtVqQX1l
-	 kANhAnfvjEGIKlE8VIX/8N4NuqB0NuBraZyDEHJFf/iks7DCk/XtIXGzNECeohX8DP7ki
-	 dVL02fy56o12EJ3UdlJtGiTB9F8DihkMHbpdh9P3iHH/2D9hzNvTMZTyWiz33oK7lRkQI
-	 8FBzrhkIHKUD0cYuzyGb22cn2PLoT+6TCUUU9jZyHKasGyPoMKOXA6c6uClmO2dCXeyNS
-	 f80hBWBlEdzfealdPMIcQapU4Rs/KaQabg3IsI9xR4YmyJ1/Tzc0lT5SvvOzSIHR5wg==
+	bh=pd8U06eUw+1HWtdQkORNDo0MflL2oeiIAo0Kf0tX3hA=;
+	b=QRPPvq6WeUw96vsc8BxIuzA5Exnln8tK4dpchQgj8br0FuVl0gJ/yrjyfUF9LWW1Xd86
+	 eX8Z5nhYiaae4+C14EtBHX4Fs9S7orrDXUCziU/Oh/SkX7BTroSFr4cNFLpQH8aKZp+FS
+	 +k5t1v2L9UVtTcd4SAOgshMdU7cZXDjob/o9oC30LVTGCw33Dh7EPfcTFQ0oUf5ggWa0l
+	 I1mdNDBlohchbBC3UyhhkbQWVca3wmsoK289daVzbGqS0g8dF9Y/uCVfy33Rw6NPJd42v
+	 TXN0wt+FlW9W+ExLRJgH6ekM69TVLbTtqDk3pJNBHC69EvUxkbhi1/dc8oizh501RbQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ph4ntom-rev.uz;
 	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
-	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=QIOuPnV3;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=GtHVOSoW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
 Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A9A606A33A;
-	Mon, 16 Nov 2026 15:29:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8A9A606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149D5606A33E;
+	Mon, 16 Nov 2026 15:30:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 149D5606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=QIOuPnV3
-ARC-Seal: i=1; a=rsa-sha256; t=1794842896; cv=none; 
+	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=GtHVOSoW
+ARC-Seal: i=1; a=rsa-sha256; t=1794842898; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=BE1ddGwLNCSh0qj7dFl/JKfj0TX0k0XWYUjg1lzd9m5qtEI1mZDiajRS/+zuA8EjKB7icxrG2Z8X+K+kk2x3/etcoXXJyP55X/b6aOovOqiOWhii7v3Q0ID0VTAYKAwErmxoI2OD4f0ui/6x61TXurV6TlVFeOW+3Ao0vE0tDsk=
+	b=ADRmvMX0RKZlSlBVrxJpPBZVYgTz1eKf8ZZW6anhG5nXlWfSpmOyforg3SLBkK0TPfgNSby2hORc0SM1sV0KxD7NZdSBSQqEFtnBYROZ8K03yyZI1TbglU1ozTUQgxBwq6LfSkww8XPWPV1hMisp8MzT1lukts5LYYSJKFGgJF4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794842896; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mtYEepSn1MBl5J8sUupuG7BC+uwfDgGwqpEAJf4vunk=; 
-	b=Xok9s1qhRaOZUeUzw6x9K1B1SOX+xwfQm8fqotVRLQUa/JI2kcD0nADjLknQtrXLCi8tpv20fcsd0ICZIh5YVRydEkh4IMJz9ln7eXoBXBO1cu8RCzyzf/LT07rKm7QaNKfq39s0Tkn/Vwhwqj7lS7PTG3iUINwOVT56NnTvMSI=
+	t=1794842898; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=pd8U06eUw+1HWtdQkORNDo0MflL2oeiIAo0Kf0tX3hA=; 
+	b=Geub8yoc1Hy/G31Bh6eghj4bGjRORwhp2+L0B+Zvvg8zlkdB0g+nL+HnDzJsZqlbqru2AiharI8teEm5mOGlkvHmCK3jZq5nlryqhPozZJ2dQBeMe6wZVRsxLkR2iV8txZQimvJH3XRlJhM47o8YepJ6fobFyQ0peVG9MyInBIU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=ph4ntom-rev.uz;
 	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
 	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
-DKIM-Signature: a=rsa-sha256; b=QIOuPnV3kFmtHb+sDoWv6fNO2HBCYWpEioZUrlimNXeU69UdgLvMpL45PwG6HBmXZjh0n3t7zNzl+wJuVoLZ/6Dq65rPZGNyj6sctnqdVFrp6sWy/L9rTjvQSqnDvZhEk9lUqJLLPPfsr6R/YJh3aec8FSNAFS1WIlCeNMTWRfPvXlzbbAJnl+Hyqj4OXvX08UK4ATzpf/dMXbKq/z/BmvlnVEclAEocUQP9d2VmbbBVXm2pf3aRPjRhjpUmU5SWI8i1X0puZnO2dvGfPLQ5btc3CDm1km0Zvt8F2NdwI4wTruKicptsDONYaxmnkeokHOWtEU1W4Ijlw047G6cBQA==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=mtYEepSn1MBl5J8sUupuG7BC+uwfDgGwqpEAJf4vunk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179484289448929.76078320578631;
-	Mon, 16 Nov 2026 07:28:14 -0800 (PST)
+DKIM-Signature: a=rsa-sha256; b=GtHVOSoWmD8Fk+Ca/0VlgqOCFYezkPizE1/Wo4p+FOIu5UAbWnhu/h9PTzNiQoDvb+53LfKg0+PwaB0HFvefUoo7yLwXXGnGyUHqLL3YdS17arIMGU5zX4oAvZ2LTOTnZv6HZ3tcNa8dzQzuZDLIJh54sjvVlSK7IQIw1EuvkhCG0oAM/8wbAfMMH57T4gWQsm2WUtiAJLOXtZcsjMd5CCKH08rquAuorhOO2U1OuiyROcEixoe1a2We26IZtsg2XPePWeFwVw2BqFHx5SoISGgdax64cJ29fkYUSkTNsvzhDvAafYSJGNoOpZYB93O5Wyrx82MluX32vCQgCutQIQ==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=pd8U06eUw+1HWtdQkORNDo0MflL2oeiIAo0Kf0tX3hA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 17948428966531023.8792753174885;
+	Mon, 16 Nov 2026 07:28:16 -0800 (PST)
 From: Enver Ikromov <owner@ph4ntom-rev.uz>
 To: Ping-Ke Shih <pkshih@realtek.com>
 Cc: Enver Ikromov <owner@ph4ntom-rev.uz>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH rtw-next v5 01/10] wifi: rtw89: avoid NULL vif dereference in rtw89_ops_tx()
-Date: Mon, 16 Nov 2026 20:27:53 +0500
-Message-ID: <20261116152804.781-3-owner@ph4ntom-rev.uz>
+Subject: Re: [PATCH rtw-next v5 02/10] wifi: rtw89: handle negative rate index for injected frames
+Date: Mon, 16 Nov 2026 20:27:54 +0500
+Message-ID: <20261116152804.781-4-owner@ph4ntom-rev.uz>
 X-Mailer: git-send-email 2.56.0.windows.4
-In-Reply-To: <c80463b1951045f39883136b130e20ef@realtek.com>
-References: <20261113235211.1911-1-owner@ph4ntom-rev.uz> <20261113235211.1911-2-owner@ph4ntom-rev.uz> <c80463b1951045f39883136b130e20ef@realtek.com>
+In-Reply-To: <5360bf7242ef43c995f09d161486a330@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz> <20261113235211.1911-3-owner@ph4ntom-rev.uz> <5360bf7242ef43c995f09d161486a330@realtek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,21 +71,17 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On Sun, Nov 15, 2026 at 03:23:04AM +0000, Ping-Ke Shih wrote:
-> > rtw89 sets IEEE80211_HW_WANT_MONITOR_VIF but not
-> > IEEE80211_HW_QUEUE_CONTROL.
->
-> Will this cause vif = NULL? What is their relation?
+On Sun, Nov 15, 2026 at 03:38:45AM +0000, Ping-Ke Shih wrote:
+> I don't prefer to describe function name in commit message. Just
+> describe the problem you encountered and how to fix it.
+> [...]
+> How about just set idx = 0 if idx < 0? The existing code can select valid rate,
+> since any rate is well for the case idx < 0.
 
-That background wasn't needed here. The practical trigger is simply
-injecting on a passive monitor interface while a station or AP
-interface is also up, where mac80211 has no virtual monitor vif and
-passes info->control.vif == NULL. I will simplify the commit message
-in v6.
-
-> Use vif_to_rtwvif_safe().
-
-Will use vif_to_rtwvif_safe() in v6.
+Agreed, clamping negative idx to 0 with max_t(s8, ..., 0) selects 1M
+on 2.4 GHz and 6M on 5/6 GHz via the existing path. Tested on RTL8852AE
+across 2.4 GHz and 5 GHz. I will also rewrite all commit messages in v6
+to be short and direct without function-level flow.
 
 Thanks,
 Enver
