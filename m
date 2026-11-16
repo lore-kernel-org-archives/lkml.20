@@ -1,62 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835616;
-	b=VSbpPQ8EVrlGEu6RLudBPEwlGeKlqAd4nufHDdcwQ8HZqMBEkVN9ABJ3eyCa/3Fjp8Xk
-	 Xjjcpr92UOJG0pgZMFqwqy3TV/WxdOB2zU//7t+driHhBGOeSps6hqGTB16AT0qMW0V6U
-	 1+7wmzUQwO2BEyyaMQtxA50wTTgpcX/XsoOWC1tAUlCBnxWrH2rMgkJMhEP4IkXgFhUQ7
-	 vI1tgk2opXQiDdPfqURlALNiM432OTf0Wev8EcedpfqqDM6xuHi8VLsEitVs4oYxOO04H
-	 wohr509TYr0vhXaVuVN96YrCWxps4QgX1r3MB4+7BmllrY+wue4FZ1qwyoRHbmmi9Xg==
+	t=1794835633;
+	b=FgOAkKtwf2WMuy39t0X2hpEoLfbEmeDFVyR1eWBzYyxcEFFC4KR/lIHvVctQoURjb7U2
+	 yuht06oAtsiz+KOhXdOkE0SzudtIeF4pwlbu1bnpsLdVh0klWRfhlj6dhbyPGYgc2hwg3
+	 AQkxWQNYUUN2yMEKYlEJrDmoD8OcxYcSqpxhKF/k1dsjZQjERUgv8chApF3OK1ZUc9ceb
+	 Z1cZp1a9Sxm4IWj8az+JgWHNCUuon743TftKosTrMjamqKJN+xcaZeM53UCQHEZIlAcOi
+	 wh930LI7CPqG5HkZN4tXfz4y2qJealvGl7SpRx6GvcnkrKInGngulffG0VWHa40clFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835616;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Infomaniak-Routing;
-	bh=TCgq84WO/3cyokOtecMji3tTMIJuIqZrzNWkIKcIx0k=;
-	b=WvMUyu8LVfK6NzZ0JV/h2B55SCb4XmaqVLuk02I7xeeViGlCCKkAddkZg0En9lIv4JbM
-	 kbwN9rMnMv5XN0my/s9wItXZeSBJvoE2+/C5Jk5OYBOLGXalsuXUOelStwoIEJ0JQjW43
-	 P4A8/c6dTP71gr0eH7PEBBieihfrp3m/9wyIwu1T23NQAVbBuPKKsEb57Rx+71TYPA8rI
-	 ENL18Hv6cmOkDMb7zt1NScEHDB2wrBkI6t/grmLrqbwu5WTc5z2wFQwrymNrZxBoimOqk
-	 SPLy10xFLfLFmHpPiZU3Fw5jXwaUphfj6glEo/qQKJFHGC2+qJIK93jShMaNj5lWuIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835633;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=94xtLomK+CyqBLZNf/PCrMcMfF2GAQ3+kaMZqvfy240=;
+	b=ew14FaY2VgjyWbXUHkiGEeG0J5bGYnM/IBS/DxSVm5jF0XRmTbC5NDV8Y3xqniOI+6gA
+	 /c4gs2/Cj8zIB6E5XoU6SHOgzzkbdVLN8UU8G846d08ujb5C2dwL0YnMT8L21tYaW8e+M
+	 Xcz4ZhZaRHygOElyu/aq/pzls4zWoj0hBYpqeEUIlFJuE/SdSlwEtMfNZnwhT76SbNyjQ
+	 DpPdI5TB7pKQF+HBNm3lS498OSjS4jMR2+C0BnQhaLyEYC1kJPTOgnAfVNtYHcZfGd5/W
+	 WPXcBOM+jemYVvcYOo85zURjJlD+f23XiUxCZR4jntCizuczM2IpE2af0rBUmRi8jqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=lgj0Vnbt;
-	arc=none smtp.remote-ip=84.16.66.171
-Received: from smtp-42ab.mail.infomaniak.ch (smtp-42ab.mail.infomaniak.ch [84.16.66.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ew2T4qt5;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5F6606A887
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:26:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF5F6606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27319606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:27:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27319606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=lgj0Vnbt
-Received: from smtp-4-0001 (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jSpYJ6zryz1L6X;
-	Mon, 16 Nov 2026 14:26:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794835604;
-	bh=TCgq84WO/3cyokOtecMji3tTMIJuIqZrzNWkIKcIx0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lgj0Vnbt4KkN/1k4fsZPie+qFfCeFxZPLbG3wkr7ko1kCIzoVmZenCNH8zmdMIBwh
-	 RfhgJhZo2l1Uh6cv1mYQYahi/TcY+4Rp7RVr5cuZSJ1HIQlnQrSOdwxDJyd0FWOkUq
-	 DYZxj6QopUlCumNVJgAPkKQkCLnAs+p4bEeTx8OQ=
-Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jSpYF0pWnzZ3j;
-	Mon, 16 Nov 2026 14:26:41 +0100 (CET)
-Date: Mon, 16 Nov 2026 14:26:37 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: Ada Smith <adasmithgt@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>, 
-	James Morris <jmorris@namei.org>, Josef Bacik <josef@toxicpanda.com>, 
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <serge@hallyn.com>, kernel-team@cloudflare.com, 
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH 6/6] landlock: Fix capability restriction documentation
-Message-ID: <20261116.afieche0Te7E@digikod.net>
-References: <20261110202436.2408244-1-mic@digikod.net>
- <20261110202436.2408244-7-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ew2T4qt5
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-492f0a1b685so2462008f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:27:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794835631; x=1795440431; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=94xtLomK+CyqBLZNf/PCrMcMfF2GAQ3+kaMZqvfy240=;
+        b=ew2T4qt5I+aewOOOCVZ5zPre6GIOxjpNdITV1zYAKvkZnUDUKajoJCgFB8hbMEzYVI
+         pJqqPaPJulcNSAfLZM1LAqMt5NrEwgGsMYWc9IstbDvzut71TtiDXcwKWsED15hNE8P5
+         6Krbc0fdgYIr9bv6Wxo2/x9r6DP4GOgJ/JWYH9QTK23CP/R1DnTkQex/ELbnmYY9CoLt
+         T6CtgASVHDUAtXzk8V6p3cBexfV1qFPkLrP73I8LgGEJPzAjcu0Y2OpAKJugTtSdSEVZ
+         zO+8PVRCzR7Q0Sf1fC8fVmY+CTSArtzkIDBrKk/MgLCoklRh0zibd9rnt16UEiY2v+GD
+         zLGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794835631; x=1795440431;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=94xtLomK+CyqBLZNf/PCrMcMfF2GAQ3+kaMZqvfy240=;
+        b=pjylSje0pGXwSLur/bkqlERlUr0etEj1mWgScT+lLP8kZAqHK6cqG8JpYeQ6gle1r6
+         qfF5kLJtWqwW28QyGwvkFiH4CYm/3bi9FjXEBgnYWomzL4olN6e4xBKjf7yVpJ/0WeIR
+         fh2EO6h9zHnPUctgrEWFEM9dMaRthDISIbWusoIuufWpdnenKfc19K8b3DxreLQBQOEN
+         9sJBjCFgXU/7Pi1lolEIWXUFGBraqa3UttCnTvLuDcOJc7EEni23UldHP85a0rBTEiva
+         crr2OkDx3IJIxl1LcEK0ZugLbHqCYecC8dCm3IasiUOBnHF+6ewsETNu+hp84fPGFVW1
+         2Udg==
+X-Forwarded-Encrypted: i=1; AL+hErGhJrHnsXr7+QS+jvlFH4sJzyrbtrZn9b2a6whWv5ocIVhIndVrl4+vChkDXHlK+pkCDq0Zsj+Nq5/CHdk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iAhxIw9PwbH5jlsnzc7N2Z4qkJjQBG9WHFWqYeRK74nuOPfL/
+	H9hXoNgzvs4gHy20TAfOybMNVZo3fUQpjAIMQ+3mxTBncAGX/3FT0pCi
+X-Gm-Gg: AZFdTZf94f64qAlwq2AufWCL2IRhmRGnXD2+SrrcR11gj0Ert93RwaqfNPOTquFDIFc
+	MuL2yW5lMWzwafwd7LsNa9yNOl123tuItBNBopG0wQzJlzOaxWBec6b1tW2ESZdd6Xe/Vqzg6tn
+	JSMWKMJYioehD3DjWi47CCYGMJ2ffE6SeLHwELVbpZ2kHcKgZM4l6+ORvogdpeVIimzWmG4Pggg
+	HJJmK9DK4O0WeX3XvBuQCn2ofAV/xhgWF5B0AiHb67KVC2eCXtOYPVPfxavjXlJL6Y+IR3eOZEG
+	eUvjEkLd3Sw7jZStHG4FjInG0fehGy9Ngg9rkf7Ma2pilvPpfBxWlL4HYy0S45eVTHGqDrvyc5P
+	IdM3egc86dFBOMJH1u9eudvP1XTmKyds7AFL79dMh52NgwiO/QwZNaSRneL29c+LL61mDL/BBrk
+	9pQ5wL3SoT4buQcTAEBF/7oY0uEsRCFVkhpMTdjQ8dxFW01S1jGYEsFnFvYHVA36O7qccV3RsIM
+	xPbY459TOoC/4uJaxk1H5vnf8ELoaKJzPhx96N1BHB8Wn60kukMlrD2oqRfLAHV2X8XB8Qd4KGq
+	Jn9oZRD5JcHIeDXxiEhPIfiDCTgqIW6cTgQtlCGejRTjkiEC0C/vJqc=
+X-Received: by 2002:a05:6000:178d:b0:493:f3f2:2241 with SMTP id ffacd0b85a97d-49c713adf02mr24690275f8f.23.1794835631363;
+        Mon, 16 Nov 2026 05:27:11 -0800 (PST)
+Received: from ingenieria31.oficinasStQ.local ([79.117.0.220])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c8d286480sm40370240f8f.7.2026.11.16.05.27.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 05:27:11 -0800 (PST)
+From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Jyri Sarha <jyri.sarha@iki.fi>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/4] drm/tilcdc: Implement state readout
+Date: Mon, 16 Nov 2026 15:27:03 +0100
+Message-Id: <20261116142707.1299360-1-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,111 +110,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261110202436.2408244-7-mic@digikod.net>
-X-Infomaniak-Routing: alpha
 
-Thanks, applied!
+Hi Maxime,
 
-I fixed some minor issues though, see
-https://git.kernel.org/mic/c/57493c3b7f449a60d1c43322158671b98684f9b1
+Following your suggestion in the boot logo thread ("just implement readout
+then"), this implements hardware state readout for tilcdc on top of your
+v7:
 
-On Tue, Nov 10, 2026 at 09:24:34PM +0100, Mickaël Salaün wrote:
-> Some documented claims about LANDLOCK_PERMISSION_CAPABILITY_USE do not
-> hold for every capability check.  Remove them instead of listing their
-> exceptions, and call it a permission instead of a hook.
-> 
-> Cc: Günther Noack <gnoack@google.com>
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: Serge Hallyn <serge@hallyn.com>
-> Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
-> Signed-off-by: Mickaël Salaün <mic@digikod.net>
-> ---
->  Documentation/security/landlock.rst      | 8 ++++----
->  Documentation/userspace-api/landlock.rst | 8 ++++----
->  include/uapi/linux/landlock.h            | 6 +++---
->  3 files changed, 11 insertions(+), 11 deletions(-)
-> 
-> diff --git a/Documentation/security/landlock.rst b/Documentation/security/landlock.rst
-> index d81f1c2cd236..98c2e7139e8d 100644
-> --- a/Documentation/security/landlock.rst
-> +++ b/Documentation/security/landlock.rst
-> @@ -8,7 +8,7 @@ Landlock LSM: kernel documentation
->  ==================================
->  
->  :Author: Mickaël Salaün
-> -:Date: October 2026
-> +:Date: November 2026
->  
->  Landlock's goal is to create scoped access-control (i.e. sandboxing).  To
->  harden a whole system, this feature should be available to any process,
-> @@ -359,9 +359,9 @@ framework in ``log.c``, compiled under ``CONFIG_SECURITY_LANDLOCK_LOG``
->  (automatically selected by ``CONFIG_AUDIT`` or ``CONFIG_TRACEPOINTS``).
->  
->  Audit records respect audit configuration, the domain's Landlock log
-> -flags, and ``LANDLOCK_LOG_DISABLED``.  Tracepoints fire unconditionally,
-> -independent of these settings.  The denial counter (``num_denials``) is
-> -always incremented regardless of logging configuration.
-> +flags, and ``LANDLOCK_LOG_DISABLED``.  Tracepoints fire independently of
-> +these settings.  The denial counter (``num_denials``) is
-> +incremented regardless of logging configuration.
->  
->  Each denial tracepoint carries a ``logged`` field reporting the
->  audit-logging verdict: whether the denial would be written to the audit
-> diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
-> index 3d45b956b640..d00e94d8ed37 100644
-> --- a/Documentation/userspace-api/landlock.rst
-> +++ b/Documentation/userspace-api/landlock.rst
-> @@ -8,7 +8,7 @@ Landlock: unprivileged access control
->  =====================================
->  
->  :Author: Mickaël Salaün
-> -:Date: October 2026
-> +:Date: November 2026
->  
->  The goal of Landlock is to enable restriction of ambient rights (e.g. global
->  filesystem or network access) for a set of processes.  Because Landlock
-> @@ -532,7 +532,7 @@ acquisition via :manpage:`open_tree(2)` / :manpage:`fsmount(2)`.  Namespaces
->  the process is already a member of when the domain is enforced are implicitly
->  allowed (the process could not continue running otherwise); rules describe
->  which new namespace types the process may acquire.
-> -``LANDLOCK_PERMISSION_CAPABILITY_USE`` gates every exercise of a capability
-> +``LANDLOCK_PERMISSION_CAPABILITY_USE`` gates the exercise of capabilities
->  after the domain is enforced, regardless
->  of how the capability was obtained (inherited credentials, ``CLONE_NEWUSER``
->  grant, ``setuid``/file-cap-bearing :manpage:`execve(2)`, etc.).  Configuring
-> @@ -641,9 +641,9 @@ after a domain is enforced through user namespace entry or :manpage:`capset(2)`;
->  privileged sandboxes that did not set ``PR_SET_NO_NEW_PRIVS`` may also gain
->  capabilities through :manpage:`execve(2)` of binaries with file capabilities.
->  In all cases, :manpage:`capget(2)` will report the credential's capability sets,
-> -but any denied capability will fail with ``EPERM`` when exercised.  Do not rely
-> +but any denied capability will fail when exercised.  Do not rely
->  on :manpage:`capget(2)` to determine whether the policy permits a given
-> -capability; only the actual operation will return ``EPERM`` upon denial.
-> +capability.
->  
->  Truncating files
->  ----------------
-> diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-> index 24510e5d8479..c9e4ce23778b 100644
-> --- a/include/uapi/linux/landlock.h
-> +++ b/include/uapi/linux/landlock.h
-> @@ -622,9 +622,9 @@ struct landlock_capability_attr {
->   * - %LANDLOCK_PERMISSION_CAPABILITY_USE: Restrict the use of specific Linux
->   *   capabilities.  A process in a Landlock domain that handles this permission
->   *   is denied from exercising capabilities that are not explicitly allowed by a
-> - *   %LANDLOCK_RULE_CAPABILITY rule.  This hook is purely restrictive: it can
-> - *   deny capabilities that the kernel would otherwise grant, but it can never
-> - *   grant capabilities that the kernel already denied.  Support added in
-> + *   %LANDLOCK_RULE_CAPABILITY rule.  This permission is purely restrictive: it
-> + *   can deny capabilities that the kernel would otherwise grant, but it can
-> + *   never grant capabilities that the kernel already denied.  Support added in
->   *   Landlock ABI version 12.
->   */
->  #define LANDLOCK_PERMISSION_NAMESPACE_USE			(1ULL << 0)
-> -- 
-> 2.56.0
-> 
-> 
+https://lore.kernel.org/r/20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org
+
+The goal is that the kernel takes over the display as U-Boot left it, so
+the boot logo stays on screen with no blanking or flicker until userspace
+replaces it.
+
+Patch 1 adds an atomic_sro_install_state hook to bridges, and patch 2 uses
+it in the panel bridge, which also reads out the connector and bridge
+state: without that, the core discards the readout of any driver behind a
+panel. Patch 3 is the tilcdc readout itself: CRTC mode from the raster
+timings, primary plane with a non-GEM framebuffer (as tidss does), encoder
+and hw_reset. Patch 4 keeps panel-simple from turning the panel off at
+probe by driving its enable GPIO low.
+
+For the backlight, pwm-tiecap needs a .get_state(), otherwise pwm_bl sees
+the PWM disabled and sets duty 0 until the panel is enabled. I sent that
+one separately to Uwe and linux-pwm:
+
+https://lore.kernel.org/r/20261116142251.1296742-1-maximpedraza@gmail.com
+
+Tested on an AM335x board (Fides T075, out-of-tree DT) with U-Boot
+leaving an 800x480 RGB565 logo:
+- The logo stays on screen, untouched, from U-Boot to userspace, with the
+  backlight on all along.
+- The U-Boot mode doesn't match the one in the DT (16.94 MHz pixel clock
+  and slightly different timings), so the first commit with the panel
+  mode does a full modeset, as expected.
+- First commits from userspace: a framebuffer flip without modeset, a full
+  modeset to the panel mode, and ACTIVE=0 then 1. No WARN or oops.
+- With drm.atomic_readout=0 the old behaviour comes back: the raster stops
+  and the first commit does a full modeset.
+- Without video set up by U-Boot nothing is adopted and the normal path is
+  taken.
+- The SGX530 driver and a Qt EGLFS application take over from the adopted
+  logo without visible glitches.
+
+The DT needs a reserved-memory node for the U-Boot framebuffer, and
+ti,no-reset-on-init on the GPIO banks (and on the PWMSS) so that ti-sysc
+doesn't reset the panel enable and backlight lines.
+
+The backlight needs some care. With the PWM configured by the bootloader
+and the pin muxed to it, the handover is seamless. If the bootloader drives
+the backlight some other way, for instance with the pin as a plain GPIO and
+the PWM stopped, the light goes off when the kernel muxes the pin to the
+PWM, until the panel is enabled. The bootloader has to leave the backlight
+in the state the kernel will read back.
+
+After each commit, the comparison still reports some mismatches. As far as
+I can tell they come from the core rather than from tilcdc, but I'd
+appreciate your view:
+- connector_mask and encoder_mask, on a commit that only changes the
+  framebuffer: the connector is not part of the commit, so it's not read
+  back.
+- mode_blob, after a modeset: the memcmp() includes the mode type, and
+  DRM_MODE_TYPE_PREFERRED can't be read from the hardware.
+- With ACTIVE=0: crtc, fb, enable, best_encoder and the bridge bus_cfg.
+  The readout sees the raster stopped and can't tell enable=1/active=0
+  from disabled.
+
+Thanks,
+Màxim
+
+Màxim Pedraza Padilla (4):
+  drm/bridge: Add atomic_sro_install_state hook
+  drm/panel: Implement state readout in the panel bridge
+  drm/tilcdc: Implement state readout support
+  drm/panel: simple: Keep the enable GPIO as left by the bootloader
+
+ drivers/gpu/drm/drm_bridge.c            |  12 ++
+ drivers/gpu/drm/drm_panel.c             |  92 ++++++++++++-
+ drivers/gpu/drm/panel/panel-simple.c    |   4 +-
+ drivers/gpu/drm/tilcdc/tilcdc_crtc.c    | 173 ++++++++++++++++++++++++
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c     |  22 ++-
+ drivers/gpu/drm/tilcdc/tilcdc_encoder.c |  29 +++-
+ drivers/gpu/drm/tilcdc/tilcdc_plane.c   | 106 +++++++++++++++
+ include/drm/drm_bridge.h                |  12 ++
+ 8 files changed, 442 insertions(+), 8 deletions(-)
+
+
+base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+prerequisite-patch-id: dd600a02afa073bedc54e8b973d6bfdad7594dcf
+prerequisite-patch-id: cb32051331d83506b8e6fd512f93595724905a9f
+prerequisite-patch-id: 72acc5f5b50b767484ff995256e7fb155c05f6eb
+prerequisite-patch-id: 20859bdf469e990a0d7dae3498bc90452afac2b6
+prerequisite-patch-id: ca629fbb440fc4bddbf5594161eb44aadacbffdc
+prerequisite-patch-id: 1a6e113d6f412d798052a924269a7dc876d91ded
+prerequisite-patch-id: 8eacf9b84574fe303134a78ce9c3fcc4ec1c8dbf
+prerequisite-patch-id: be45e01b10b8b0050199e379d51d80866c9bd60f
+prerequisite-patch-id: 0ab25f681f68659f8a0e4f0da80fdf70952dcf8d
+prerequisite-patch-id: cd456ec3d0c297910f46bbc02fdf105dc1881528
+prerequisite-patch-id: 8f0adc84c688489feb0cba21f1f2292be4229095
+prerequisite-patch-id: 86ba5aa9cdc784c0b7f1a63beb76925ef26a51f4
+prerequisite-patch-id: 797d3d2c63a2772528c850d5058e11d064e13b81
+prerequisite-patch-id: a1f2f5aa788a1615c521496408c8380bb076a906
+prerequisite-patch-id: c9f90931b72f402916621991a8a8abf6f4b5ffb5
+prerequisite-patch-id: e0e184d52d20bd622b3752ea73516698bedf554f
+prerequisite-patch-id: 9779c50d8b08c7d2ac14017fe2825d148350e434
+prerequisite-patch-id: 2dfe6357a636b3662dbd8db80bc29bd36a0329ad
+prerequisite-patch-id: 704fb943477b1a761312b0ec16e9291cad7c9769
+prerequisite-patch-id: 0409704173cb408067b9e69071c0af7efe299492
+prerequisite-patch-id: 455ce6bd7b211ef9c772ba06efefdffd27058a87
+prerequisite-patch-id: 5ed7b0ed4e054ecbd8c84e622dbac0f42d60e4a6
+prerequisite-patch-id: 563c77055b805b0d640cd8517627a8c491bce385
+prerequisite-patch-id: ad8a0534dbcf96480f5020f50fd68d5b78c5fac5
+prerequisite-patch-id: 8fe899b77403121b41514f93b859b5e4528a79d9
+prerequisite-patch-id: 4fafee08b92675ea8a6f7fb5e27ff5a769325208
+prerequisite-patch-id: d7abc61edebf4b3a87d94806301a99db4e28c036
+prerequisite-patch-id: 615c6d4def91d820c55f9f05afb0086734c770fa
+prerequisite-patch-id: 67a600dbc806b7426a5f48b11413d3716d4729e5
+prerequisite-patch-id: 86db1a90ea3b2e47a0e082b33d4f9ee5c79782e4
+prerequisite-patch-id: dffc8a4bbcf134bf21a86cd197deefe5143b7210
+prerequisite-patch-id: d1dea459f43a2541077a882c3282b806a7dd5ecc
+prerequisite-patch-id: 0c8a54b1f9bf053b817e949eb82538e7a0630d01
+prerequisite-patch-id: 4582389780efd509f9713da8c161f497f2d89bc8
+-- 
+2.39.5
+
