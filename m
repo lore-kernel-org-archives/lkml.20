@@ -1,66 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794817551;
-	b=f28ZjaDhwb24HIwOC8IdTXmJM7SzrIb+xT7kEXtr9PqZjhNV+AyMriCFH/7wPoilJpKH
-	 N0r11O5Py2FzjodgMMMwad1VlrIN0oSinTRPhC6K9e6i7gVLdlmbcpQjf2fhJsiksN4rt
-	 X4VfVUJU5f5Uf4CD+LzUb2G9hroulVby2Ec1Loa7u3ghYML+UJ+/ITokCfWN9cKfTyZrL
-	 S9jbqHjIaLpvpUve0KBVJpk8OawxKS0KxGpiQexEFo3wPrmyqTnsyNb8N/VnhcFXiNTsw
-	 pYBHuFvYfZR7f0vPZC5uWEK9QDCV900pgC7mi1OITVJoTXQq7rWtSi80Er3uwtxwUhA==
+	t=1794817598;
+	b=S1DzDsWZE8JJTGMLeM/2WXmU1YHZYRVEbrcXp9qFaiIxepYsBdzuLE8GB1IGYnUaW1GF
+	 pzfb2xAE/WsZIW1L7Ndu0ElJOEx3kNu1rKsNsSHAu8jWWJ4HwQcyUwdXgCJFkhW8eLSOt
+	 ZNkOi6p0O5R8TuZ13yG2ZGe2LJzWATMIpFyvMDRcCNSn8/9wHU2m9g258mlE8COdmxFbC
+	 XJkSNDqMfISmEG6/h7gkgIIh/k4u6Fkh6r64TdfKdt72dDnT0OmknrZTKmdg+peptZnLX
+	 Jj8XvOqbbfDFOWiYIy1scnvhiBvzQcaKxBqjkB6pJ9NmZwbe6AIhX+qMovkwBD3NgNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794817551;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=utf42bCbfFS3IslODaudy61GSAzeDB4Px1KK0UTxdHc=;
-	b=oLUUZRLD1sJKFUoG/sSNUjcJSUU10PxHMcPgoWazSuiMaUj9AWMxQYa2rMzWVxiO+Xgh
-	 a+bMUYQ0IRa713L9PeecgZOTrktUBkiZeToeFrCLHI08hV/LBWDJ55W7u0yP/q+OD5iB/
-	 NghKJsByK8xH6iv9IxVbe6c5B5xt2UqM5yCHVcc3CiE2NRv/M61LPdmL8DIRniPf+Zq5i
-	 jHFoPF2Yp8CeZsd8rPAkrt9UOj17I0/mWuQDwRQtcG9RaoZFK8al8aKcrXKXr4pIHEhxC
-	 bnGv2DAhMC994HWFiULywIU4RY2setOpJhlMXy76x9h/8T8AigtSS6P5n7v/RCI5PaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794817598;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=R9PifZRQnewXQetRO7yz7EFCcVTd91hjaN9ZPi5pB7w=;
+	b=3SN7mwW/8kxyDEs5zdpr8AZuA1K+3RxmcygwAJ0K1qoSMheSRoMPaWRFry7WnYDPzNrg
+	 6S/P6ty/d6iCwRkO739IIgNx/JgilN8whTHQtWAdCs8GpwDxi7PKyJUnO/3LCwY9FmA3J
+	 VmeUqlYs/1zWInzCpyyRzJIwr3KPZa7fcPy5QqjTvwkvQQIcnSteyCKl6Lwh71b+HNo3b
+	 vY8UOv50+HbUIHdWDlaOHVuDpPJImPgofAXWATVzweDaxyUnhhIbZXVtxRZ/3qZjG1AHs
+	 j8PtIyHkVreCSKT5XG+vAeMxQ0+QngaadrWHnl9myjL0nsz+UkdLV2XPDSVm2VLwNvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=FbkIcFZq;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDBeVwic;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124D1606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:25:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 124D1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1CE606A31C;
+	Mon, 16 Nov 2026 08:26:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=FbkIcFZq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=utf42bCbfFS3IslODaudy61GSAzeDB4Px1KK0UTxdHc=; t=1794817550; x=1796027150; 
-	b=FbkIcFZqKHOkH+aRKee888JAqbcHIPX8ZKcQWzBgUo7NvcRv8dBbDDDYSY9AjS9cjlqncf3I6ft
-	t3e+p40IDWFJa6Y6zqmT4rI14B4P0D3b7EQoIc1Kp5VLxEIc2YXiHrhylFmk+w5WKCVcFgvac6wKI
-	DqNoQLT49+5dh1MMnOHEPzlvUrgXpY9M2WEvLNRKAe++aEioQOHMy3PW0oVG05E4eCkF9ilT6CIrO
-	4LBaEAXp6FtCN3mseiM/Who/KGWnM366kCzgWzDTDCO5Aog786Ew7DAX69u+OZWitAtOTMmHCXlaI
-	VNjEu6qow982mY9rjJ1ncQfRHf2XQoWckr1g==;
-Date: Mon, 16 Nov 2026 09:25:41 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
- Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v5 07/13] drm/bridge: tc358762: Update comment about the
- number of lanes
-Message-ID: <20261116092541.5e5186e7@kemnade.info>
-In-Reply-To: <20261015-tc358762-fixes-v5-7-7cd721a6451b@ideasonboard.com>
-References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
-	<20261015-tc358762-fixes-v5-7-7cd721a6451b@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDBeVwic
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755871F000C4;
+	Mon, 16 Nov 2026 08:26:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794817598;
+	bh=R9PifZRQnewXQetRO7yz7EFCcVTd91hjaN9ZPi5pB7w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jDBeVwicMuOouy5ioYurQ4R5Y2QnBqb9DOjlKiwZPRdqG8DP2WVwJZSPxTxjy/Kmx
+	 cixn5t6S9wWvB1YplL2GH5QU9DNaezWKC9lL+BJGNhoQZHeRTyoTFJdaO+7WcDTvCh
+	 A69CXN3296JoUkc8yn8+DWeE1iizxgH9bFU0/AYGoOh/DBApqb+X9aIn2U10SNYrE0
+	 b6/kz7Y1SWcq1RQiAHJVt03vXSMpI/rln5HnW0W1wUAPssi1BbLra6w0oW8ccD1b85
+	 dhEOop4CqS8A0yU+y5UDOnLTXx49RMQ4DnJYTEgp/E6UKYK4J6KTF+A/eZqFXxvKJ6
+	 J85or3aD43mBw==
+Message-ID: <sashiko-outbox-216530@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH for-next v3 3/7] mm/slab: handle SLAB_FREE_NOLOCK in
+ slab_free_hook() instead of open coding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?SGFycnkgWW9vIChNZXRhKQ==?= <harry@kernel.org>, "Johannes
+ Weiner" <hannes@cmpxchg.org>, "Michal Hocko" <mhocko@kernel.org>, "Roman
+ Gushchin" <roman.gushchin@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>, "Muchun
+ Song" <muchun.song@linux.dev>, "Andrew Morton" <akpm@linux-foundation.org>, "Alexei
+ Starovoitov" <ast@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Hao
+ Li" <hao.li@linux.dev>, "Christoph Lameter" <cl@gentwo.org>, "David
+ Rientjes" <rientjes@google.com>, "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Clark
+ Williams" <clrkwllms@kernel.org>, "Steven Rostedt" <rostedt@goodmis.org>
+Cc: kernel-team@meta.com, linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, tj@kernel.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261115-kmalloc-nolock-fixes-v3-3-9034dd4ecaab@kernel.org>
+References: <20261115-kmalloc-nolock-fixes-v3-0-9034dd4ecaab@kernel.org>
+ <20261115-kmalloc-nolock-fixes-v3-3-9034dd4ecaab@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 08:26:37 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,44 +67,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Thu, 15 Oct 2026 14:15:58 +0300
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] mm/slab: kfree_nolock() leaves KASAN free_meta in init_on_free
+  objects
+--
 
-> Update comment about the number of lanes.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+commit f5f03c7c446bcbe50fa191f0cf60accc8ad01ac9
+Author: Harry Yoo (Meta) <harry@kernel.org>
 
-Explanation sounds sane.
+mm/slab: handle SLAB_FREE_NOLOCK in slab_free_hook() instead of open coding
 
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+This commit moves SLAB_FREE_NOLOCK handling into slab_free_hook() and repla=
+ces
+the open-coded free hooks in kfree_nolock() with a call to slab_free_hook(),
+enabling SLAB_FREE_INIT when slab_want_init_on_free() is true.
 
-> ---
->  drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-> index 19f328b6e798..fd82274643db 100644
-> --- a/drivers/gpu/drm/bridge/tc358762.c
-> +++ b/drivers/gpu/drm/bridge/tc358762.c
-> @@ -305,7 +305,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
->  	ctx->dev = dev;
->  	ctx->pre_enabled = false;
->  
-> -	/* TODO: Find out how to get dual-lane mode working */
+> diff --git a/mm/slub.c b/mm/slub.c
+> index 761dc2affea27..7c0adc1049880 100644
+> --- a/mm/slub.c
+> +++ b/mm/slub.c
+[ ... ]
+> @@ -2775,8 +2790,11 @@ bool slab_free_hook(struct kmem_cache *s, void *x,=
+ unsigned int free_flags)
+>  		set_orig_size(s, x, orig_size);
+> =20
+>  	}
+> -	/* KASAN might put x into memory quarantine, delaying its reuse. */
+> -	return !kasan_slab_free(s, x, init, still_accessible, false);
 > +	/*
-> +	 * When using DSI clk for pixel clock (only mode supported in the driver),
-> +	 * the pclk is derived directly from the DSI byteclk via simple divider,
-> +	 * which is either 2 or 3.
-> +	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
-> +	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
-> +	 * of 1.5.
+> +	 * KASAN might put x into memory quarantine, delaying its reuse.
+> +	 * Skip quarantine when spinning is not allowed as it uses a spinlock.
 > +	 */
->  	dsi->lanes = 1;
->  	dsi->format = MIPI_DSI_FMT_RGB888;
->  	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> 
+> +	return !kasan_slab_free(s, x, init, still_accessible, !allow_spin);
+>  }
+[ ... ]
+> @@ -6949,33 +6968,12 @@ void kfree_nolock(const void *object)
+> =20
+>  	memcg_slab_free_hook(s, slab, &x, 1);
+>  	alloc_tagging_slab_free_hook(s, slab, &x, 1);
+[ ... ]
+> +
+> +	if (slab_want_init_on_free(s))
+> +		free_flags |=3D SLAB_FREE_INIT;
+> +
+> +	if (unlikely(!slab_free_hook(s, x, free_flags)))
+>  		return;
 
+[Severity: Low]
+When CONFIG_KASAN_GENERIC and init_on_free are enabled, does kfree_nolock()
+leave non-zero KASAN free_meta in the object after slab_free_hook() zeroes =
+it?
+
+After slab_free_hook() zeroes the object for SLAB_FREE_INIT, it calls
+kasan_slab_free() with no_quarantine set to true (!allow_spin):
+
+mm/kasan/common.c:__kasan_slab_free() {
+    ...
+	poison_slab_object(cache, object, init);
+
+	if (no_quarantine)
+		return false;
+    ...
+}
+
+In Generic KASAN, poison_slab_object() -> kasan_save_free_info() writes
+struct kasan_free_meta at offset 0 of the object when free_meta_offset =3D=
+=3D 0.
+Normal frees clear this in-object metadata upon quarantine eviction in
+qlink_free(), but returning early for no_quarantine skips quarantine and
+never zeroes free_meta before the object is reused.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115-kmalloc-no=
+lock-fixes-v3-0-9034dd4ecaab@kernel.org?part=3D3
