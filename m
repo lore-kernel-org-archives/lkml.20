@@ -1,100 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794833985;
-	b=jdWJCfCE7W/EmlLBvkRHIV1R8WTM/NfTm2+1xgO5cbGNVhbX171N58y6GnKS5sdAErXS
-	 8ZxwdKRv6ZevE0jAc3+0Jszp59lxZFsY/EaHi4HwS7Fy/EfdJ8lwqFNeS5oHiRZgS8rmq
-	 VETJHpwxe032pe54Va5tJLWl1SVTfZnILNoY76PcAHOGvVDedkXZRh25A+QV9xFi1utWz
-	 N5eGWiY4nKWVIOb6PYSZ2kw0TvqjDivtHmqU+ZENRALpu28Jl6CZbb8IJHmgGWKU+72DW
-	 EXPatYF1Co69F7G3sl2XwO5Y3ZWN2wocE6O5ImTK9Cc0gd0kVYESh3NPq94mrRIkI6g==
+	b=PEymKnsrOAIwnb4yySmEw2uKGLKxkNF3LQGaPJqWbFOlziEL8MK6l6e2qWPEjs/Pdt61
+	 c+k/n5f1hoh/mjUa58Z+ta9j7j+cJu5qtsDRSS0ra8ucoSgaXTWpSSX1xEAo53ciRQrPN
+	 T8nNgIITa2d1jkVTrtarbvY2FuagylKhOOIMLRPXvj0o6hnCHvy5eN7tUZkrdZHP8o0ev
+	 1yKELo9Nnah5w7TySatboPBN5+oumjoI2Asr1VATFLb6fO4SojbpKATvfaGrWBsIH1/jY
+	 krdWVg/RJafNqFPjVHKTqq3skkdYCt95oCX8haRS8XKX+sCxkDrku9ByOLVV6MIiiyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794833985;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xcfNxQDKaTxKC3WY7d0/shn84qbuxfAl2J/mE8lsllI=;
-	b=M0F9Nd+1SRId7CyLcrqCOgd/oH1h0mSBmyWdQXBos8vlGdK/BV/9kdXEcN+mX6alJ6GL
-	 4rGRrf3JW47bVBS/KcK+bgzwqmbrlte/unBq8MczKsmITkFQLPqJuBgJmQTzmu2stLDSC
-	 F293k+zCSmwSO6vstQBl6hMz4uyyCwq+GaN9MM4MwQWc0od8YXElXThyhLTKvunSuBME3
-	 +BOgvjV15nxaw4DqcvaVPo+UXyds4VZGf/nqZ6Mr/71u63vhp3rBWW0yGquTEKIgmpCdb
-	 GjgYnVCvaT+XYgmv85bntaWpUSMymYvJDlnu9SxOd6X7IkWM4IbUCZ47aIDc8fSs7Iw==
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=IcaDL1WOc1B7bCb9CO2auyoBDya4ciCiOjpuno5T3yo=;
+	b=jPKoUczLVlOKEAefe+fuNggg+tmojyrBxCp1haYjGsVJ+KFqgi3ToT3/leKl3OYWHxDg
+	 MDj0byVU+J6xLZdKinEIqOcAoRTfzZih5xzE2i/Ph9T7Zbc3lImXehgd8IXZAafFNR0mL
+	 QQP6cn/96qm+ttMoUya/3wfq7z8y2cDlzyGdSkgOBBgPRIRv15oEL7JJwd7yxC2aCgrsI
+	 G5/kLt/hontqrqCH9SRIhegpt5IrU5zFHk+lkmEo04oYGwFMthMz8AWco/YE9jNH6r0GF
+	 pViDnsmhsVfvlhvAXkFSybOv3IAAnHQCi0QL3TYfi7JLPB7Amk9nxyU1x5bMKl8qMBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D9gPU+Cy;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ruLTFHJb;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D4E606A880
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:59:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D4E606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A636E606A8A7;
+	Mon, 16 Nov 2026 12:59:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A636E606A8A7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D9gPU+Cy
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so10481815e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:59:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794833983; x=1795438783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xcfNxQDKaTxKC3WY7d0/shn84qbuxfAl2J/mE8lsllI=;
-        b=D9gPU+CyjJQ6g+iJIUplUYc2NJyLCwP/xrnG9ifrsvPZM8auQZpcDpMeMePZsImhPx
-         uch0qXkdu9GGb3N7/uULQRL+Q8eSB1ZxgT95QxupeXT4QTetsnuv7zarGytHzVgEsrRj
-         7wdmq7MZ++aZ/9O+sqsfDbTZQmBHTM+Sgm5tNCXUAE5B+bv6eZjRHNfOlI7C7B5Nzfsu
-         uLrzBPObBZcwyy6cjzJFuXhVDYxGhEp8V/GTKstbJSMNBbdhcwLUv/Kq2v5aw/9ehM/g
-         Nu68huMWr/T3MwiIAkRsdd01eJWAOyXozTy2dxrTyQUyVnIKpMqH4XzKtmJbTvkc0O/q
-         2tTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794833983; x=1795438783;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xcfNxQDKaTxKC3WY7d0/shn84qbuxfAl2J/mE8lsllI=;
-        b=lWdxCWl72BF3kaWDoGo8MPCPlpmY7gXEY8X9oYCt8hxFaoOZ9AOvJb3O8TDxgLL6MW
-         ykVRklvRgA8xeiELeaqdeUBYFXd1DBng16GZUecN0So7cJwGlhoEMYHred/mSEAJVRNe
-         irWbyuwddlqTKkhxXR0UU7xmivSK4ApZ5suVf9VrE2JB7182LvxGZOv8CdRXIsWiD2XJ
-         1aWdqaP+TrdcHV1MiASY3FQxMq0udh9V8nf5Dc2TqknrxzvOX23o1y7Zp1H2Jqm6M/Wl
-         uRlRIE/y7wQUuQpdo+bNP+vsymhoqDRihhp7ZEkrCUME+G9YRh7RqPXnKWru6NvNA91j
-         jDXA==
-X-Forwarded-Encrypted: i=1; AL+hErE5dMTNG6EhM4EagY6cg6t8Ht19TTsr11Ru9MnHnNfOXMU9I9J2Uy4FlZI/ihRidAWmJ1m7bR91e5IwLrA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nYeK2sOhJD7jYIK47gUJK/8OFUz/zqVy5cfYF0dSYa67E5sO9
-	NGdjGdZxlQPmoi5UnCN2ev7YXOetl7tmS49YXRi3CVP45Rs24U4sATkW
-X-Gm-Gg: AYBFou1dPAQh9EIsXYPTFoqBQT23oks4P4GTlDHoc9fwO+ozSVMFm9hhlo+mIqOmH0L
-	6Cxb/rsScv0EUwV0RigXdW8L1PbxvUegIoJTWK7x5adE/HJHvXux1FsdCBoO8j6aP8MOP8g1NgS
-	8vDec8Z/XmQmvPiqP/hINmAkDhkhFZMXF/7zqEFa4EsUjRGSs6A47H2vE8zPcV3PMZL/Jq8dpmn
-	OC6cPWd/6RvJ7UxqUTmB4MZ2deoImlUtY8cQD9XCcQ9tzokznTj8HCAMx/HYc2dZTYAOjtsF1wB
-	xQxS7M74SMOsqV1rCQBL/MEU4u4x6Q04VFV1gxaImglS5NRfFrezvGMTRinibYF9Wh2NUuipuXG
-	xHiz2pPb4hQZ12YjCc2u7ZSRABzQt2mTPEqCf+a6VNC8AXodJ+cLWQM+RxUDGv340XRecAkeN7U
-	0Wz6+Qb0UW2nAPdAYnVq/EV3/+XYyr6R1bT0S3wjim1qOMSYHdWDFhWlOBSVb+PnWI1tPFDO2kX
-	vVBX/lg7NQFpeLjcWG+NHprQTusLigHOWxLBWRWHx37uhQFWmReg68wgCKOlped0AMgop9QSgcU
-	m1mXHDP1ysuTqONwelM0DGyo01tAolmvI7E=
-X-Received: by 2002:a05:600c:8708:b0:4a6:30c3:1114 with SMTP id 5b1f17b1804b1-4bb55a7ece6mr231511055e9.12.1794833982968;
-        Mon, 16 Nov 2026 04:59:42 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb65ce005bsm205471805e9.14.2026.11.16.04.59.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:59:42 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH] i2c: imx: keep the error of a failed read
-Date: Mon, 16 Nov 2026 13:59:40 +0100
-Message-ID: <20261116125940.1368194-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ruLTFHJb
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=IcaDL1WOc1B7bCb9CO2auyoBDya4ciCiOjpuno5T3yo=;
+	b=ruLTFHJbgv77TcWVAmeiYTo+tN5CmXlElaqX1EQQn7heVcGd/2wAjuQ3Mfad2vPkF7/eSlQs5
+	ARoA9JYVky3trCMa8FkeLvEoRC+1RZVNdnzt68xYuW5Gc6D0O6/5wALy29JnBBLvpfLmPhZeWNo
+	A3W6B9jkyDuii7DaIZUY2oo=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jSnx91tN5zpStt;
+	Mon, 16 Nov 2026 20:58:53 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D7D3540561;
+	Mon, 16 Nov 2026 20:59:39 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
+ 2026 20:59:39 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
+	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
+	<mark.rutland@arm.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<rdunlap@infradead.org>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
+	<babu.moger@amd.com>, <fustini@kernel.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [RFC PATCH v3 14/19] arm_mpam: resctrl: Halve the monitor counts of every resource on CDP
+Date: Mon, 16 Nov 2026 20:59:09 +0800
+Message-ID: <20261116125914.498841-15-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116125914.498841-1-ruanjinjie@huawei.com>
+References: <20261116125914.498841-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,55 +77,64 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+CDP uses two PARTIDs per closid, which halves the number of monitoring
+groups. resctrl_arch_set_cdp_enabled() only updates num_rmid and the
+assignable counter count of the L3.
 
-When the count byte of an SMBus block read is larger than
-I2C_SMBUS_BLOCK_MAX, i2c_imx_isr_read_block_data_len() sets -EPROTO and
-fails the read. The read of I2DR that took the count byte has started
-the reception of one more byte, and its interrupt comes in while the
-state is IMX_I2C_STATE_FAILED. i2c_imx_master_isr() has no case for
-that state, so the default case replaces -EPROTO with -EINVAL.
+Update both counts for every resource that can monitor. Only the L3 has
+monitors so far, so the counts do not change yet.
 
-Ignore interrupts in IMX_I2C_STATE_FAILED so that the first error is
-returned.
-
-Fixes: 5f5c2d4579ca ("i2c: imx: prevent rescheduling in non dma mode")
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
+ drivers/resctrl/mpam_resctrl.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-Notes:
-    Tested on a Colibri VF50 on the Iris carrier, kernel at this base plus
-    "i2c: imx: acknowledge the count byte of an atomic block read" and
-    "i2c: imx: do not acknowledge the last byte of a block read of one
-    byte", with the M41T0 RTC at 0x68. A test-only hook passed the messages
-    that i2c_smbus_xfer_emulated() builds for a block read to the adapter,
-    alone and followed by a one byte read. Register 0x03 (0xae) as count
-    byte: without the patch -EINVAL 40 of 40, and a print in the default
-    case showed state IMX_I2C_STATE_FAILED with -EPROTO each time; with it
-    -EPROTO 100 of 100, as the atomic read returns. Count bytes of 0, 1 and
-    0x13 read the same bytes as before, and the bus works after each
-    failed read.
-
- drivers/i2c/busses/i2c-imx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index ccf08cd63151..c7fef98934d4 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -1142,6 +1142,9 @@ static irqreturn_t i2c_imx_master_isr(struct imx_i2c_struct *i2c_imx, unsigned i
- 		wake_up(&i2c_imx->queue);
- 		break;
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index d40c8eb7b300..df2f0674535e 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -203,8 +203,7 @@ static void mpam_resctrl_monitor_sync_abmc_vals(struct rdt_resource *r)
+ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ {
+ 	u32 partid_i = RESCTRL_RESERVED_CLOSID, partid_d = RESCTRL_RESERVED_CLOSID;
+-	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
+-	struct rdt_resource *l3 = &res->resctrl_res;
++	struct rdt_resource *r;
+ 	int cpu;
  
-+	case IMX_I2C_STATE_FAILED:
-+		break;
+ 	if (!IS_ENABLED(CONFIG_EXPERT) && enable) {
+@@ -226,11 +225,6 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ 	cdp_enabled = enable;
+ 	mpam_resctrl_controls[rid].cdp_enabled = enable;
+ 
+-	if (enable)
+-		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
+-	else
+-		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+-
+ 	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
+ 	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
+ 		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
+@@ -259,7 +253,14 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+ 	WRITE_ONCE(arm64_mpam_global_default, mpam_get_regval(current));
+ 
+ 	resctrl_reset_task_closids();
+-	mpam_resctrl_monitor_sync_abmc_vals(l3);
 +
- 	default:
- 		i2c_imx->i2csr = status;
- 		i2c_imx->state = IMX_I2C_STATE_FAILED;
-
-base-commit: 25e7ab89f4774b0f842cee0e8a20c11f755924d5
++	/* Each PARTID is split in two, which halves every monitor resource */
++	for_each_mon_capable_rdt_resource(r) {
++		r->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
++		if (cdp_enabled)
++			r->mon.num_rmid /= 2;
++		mpam_resctrl_monitor_sync_abmc_vals(r);
++	}
+ 
+ 	for_each_possible_cpu(cpu)
+ 		mpam_set_cpu_defaults(cpu, partid_d, partid_i, 0, 0);
 -- 
-2.56.0
+2.34.1
 
