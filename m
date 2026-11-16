@@ -1,101 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821246;
-	b=0oJ6/9DooQEc3jM0hc3S1XixwvvvuTXMED2hqumi/++6yDZwgy25jlNhdeVThEdW3EVm
-	 pqGk3iQLd/9AaMXfpv94tZ33Lak56W5zGVofKsjrtFbSuNCHwA2L+mbHWfFjhJ9dWMnKs
-	 EfehedKn6HrnxfJyfWlXgTOQWo1jpt/SizY5qn+kWN7d1UIB3BbXXuu1Ow1fEnRPPfSlt
-	 8Qi81pPlTyJqsDdxd1pNJX0133rkkxJkBX+6thJ9CmAq0ZNwfy/ZXRFSEN8euvEzfQ+oL
-	 i+z41sUbNMFaJzU5ovx2yawRGy5lz/B0wCCVa5467KrceseGhQLtQI/skbeIjhmCPVw==
+	t=1794821258;
+	b=JKAsVLzGarLWZQp2dMAzoNzsdx+Jr7BWqnWD0x16302wCc0Ot4FrwqKDDWBBD2A/8N/d
+	 V5h3TiGAiTjJcoDTMBlUXiFXgs9nyrHG53qrPRHGAyaZHmOpzwHFsRCphuBvuUaK+32ps
+	 GiZzSt6OLXe1TlkPhcrRhdI4Bk6CyqH7W9mLhC65sE6+KO73eMmyTHpXzm4HrErNcirfM
+	 bcHSeG5CDH3mXSdA5JANUBpAyabECjMx5LL9HqDeQDlZ20iFJG2kZ3SEXhwdSALs3+NpG
+	 8uJrFmQ/TSWh5PrzAuotZGQL+ADgbYR9TPlXn1FMZOXWzdeFnMy5mNgFq7iYBSm5p1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3RDL1fZo8aXNiQEk++kgWnQkoCZHciDwpPC04gZ5fIE=;
-	b=5gh40l1vpWsFnPpM2QHPpXNrhNOavdVR8bekg6xi0QTJaLqZuwYGsMDYe/lxV6b43aQP
-	 LWUAYztlw+qAogg9PpndmI/vG6/3MFEGs7m2nUK1puG0BhbZ8W306/HpjSB+7U0wDswGY
-	 3vFltdY7/X/xh/2MDFiH/nB3A69cWV26gf0uEbOyeNy0oSeuuUB4LCyg1umCPmwzowBXA
-	 16Cacb7dEa2gZBkHoxMxBOQFHF4/TxX28Ssx87we4GXXOXUSorAalx05zxbCRSztvy7bf
-	 BiXDRwYaXLQ2PPj3NcuM/T7X//6p0ETnJkO7giR83AIE6NnM7NoKll+9iDpBN9gWn6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821258;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:MIME-Version:Content-Type;
+	bh=UeghsTiOb4ju5n7zGZ1nHsTM034u6BwVxNZLSRJoYfw=;
+	b=A0h/m2JccQ5jGnm3efaC9xeNB2aYv2VBQjOnjzTh+MqVSPIwJOtcpvOTTvbT6Xk95bXR
+	 8ZD2bUDtI6AdQaW4a0kvn8wyqGKAyx6e1dU5vHmEDwMA0fuueQJ9Hef3kIyfHg8iogM9t
+	 /XtIM0LOsIfjwvTS/y8b8u4EzS391SjR+ET/RBQLOWHG/H0kFBwDXH2kEnME3Eia9YoSK
+	 4v+eW8lf23yOcYIAKbhiesybZNxu/Q+39WOBcdSbwPxlKD5R8ItJWol7y+8xJsd7sraD0
+	 TESLfRyz6ACkgvHfOsWxATmkcE8aVwahM1db3JdGD1BMNvMO2nl8Q/H/bIElc5BOmxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q2dfIiJa;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=O8yOG7EC;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=gUQBxTOl;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B679606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B679606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF37606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:27:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEF37606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q2dfIiJa
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso1626262a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:27:26 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=O8yOG7EC;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=gUQBxTOl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794821256;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UeghsTiOb4ju5n7zGZ1nHsTM034u6BwVxNZLSRJoYfw=;
+	b=O8yOG7ECcm43MInd7H6L/X28k91eZ2Rd3+TGYWtLGMufYSscasJ7HrvM5gEEtfbQ5mDBH7
+	uW7S+SG8Vc3T2cB75fu/m8+qpwQOLEsxNSHE3m3hsqXNoO3R8YAgzSvpwfvcDCYZGIiAgn
+	/4aiUiZ4S71FmbYBdzaGVtSCbsXto0Y=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-53-io0_XLsLMpetumjAo19PSw-1; Mon, 16 Nov 2026 04:27:35 -0500
+X-MC-Unique: io0_XLsLMpetumjAo19PSw-1
+X-Mimecast-MFC-AGG-ID: io0_XLsLMpetumjAo19PSw_1794821254
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a027f2e364so17740425e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:27:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794821246; x=1795426046; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3RDL1fZo8aXNiQEk++kgWnQkoCZHciDwpPC04gZ5fIE=;
-        b=q2dfIiJavJvuJooQljuRg9haFaPJ1+O/ROT3r9C/a93bNbvscqMVmY/d4OuCtGI50l
-         Hce3rxIVETCP6IIBSJg67wxo0cQtrl6393XwBd/+NV0buV2/b4sn+3f8yx51KWoxJLdr
-         vDDcdwTym9GtVCkoEyEELud3XbzJeRjUokDooN3mU87STne+uPHyZUrdk9TyrqT8htoB
-         GwenKRNs4ymlbKqytmzwZNqE2FK1VC9iLrL5XuFLT5fUXIncpQnxtIEJ0AKQZWOlOfdk
-         nI1ZHwe/3gEfhL78NFfRRvN/Xul2Hsibxi1z3c7eqMx4mWlZe/ZHyAQwusT8w7gyOOqu
-         JTFg==
+        d=redhat.com; s=google; t=1794821254; x=1795426054; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UeghsTiOb4ju5n7zGZ1nHsTM034u6BwVxNZLSRJoYfw=;
+        b=gUQBxTOlnC4aQ3VYPs0pVlyUmuu3kQ65PXcf1W+9ViOs/qud/6VXHF9OGdwYZkjvZm
+         i/xaLmh6+dq8fMBWMbSojHwizHXfOy6kVwU6x7c4DbHZ1fENHD9iajdHBy+U0Q9U/gjR
+         HGQB9Uj7nH3r6SbnDgFTuFrtDG/9qki6DMF0mv0ucphsgAA9A0H8SVZM29bVRp6IMJaf
+         26FqdShpHt/0xZAd6lOdstdUhfhO5/m59wYRxfgzfdpCX59kx6oiDGV6RencYYev9saO
+         HxYBJqiD7fQ4kAd7+wXEHlqaoOPnV6SH3enqdnmkrz+KSRvvV46zhqL1msQ4iIr36AZk
+         9B1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794821246; x=1795426046;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3RDL1fZo8aXNiQEk++kgWnQkoCZHciDwpPC04gZ5fIE=;
-        b=LJ64z54PKMHCkWHc8SIcQ/5/wzbKCDin2eEnGLLp3Us4m+6Q2W8L50KJhKspQYxxIy
-         AmHgt3ktkANPqAmoPVDsds5w3aT9mvMwgR1QyKCaCC72jkz/IwlsGx+N+uhIco0fmxhm
-         arLLTSaNCW3cgDPSLniqGx2rGMouArUHmPUnw9vaG7LKkuV0WNqv5RaWylKSfxvgrQMw
-         GQmztsG3v8p/lj0+IjNoF3l8soS+YK/ZgEltUPPdaYCU4zhWlrR9XOP7F5z6/r8DbN2H
-         u7tVE6fUC7ypRidNzGlfCrEG0mRUHXbBD0cbjmIVQnxVge6zNDuxu/MjdCxWpVX0I41U
-         ww8g==
-X-Forwarded-Encrypted: i=1; AL+hErETunHFIMt9d55jmAEhF9UOT5lFTXKy/mdsZC1dF0FClytfwNtN+n7MHiRsKizYB+OX7hITIFeDixUNohw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Xq8wE+fa7fsBf58kDdW+kZdyyAAe6wu7QnEk9XiM9kKNnzysL
-	heUAlYk8PtV7p9Dk7C4DgT1Z14IgJsXfYGFvPEvE5U+DlgNUpJltwTFY
-X-Gm-Gg: AZFdTZfoXAlojbIQPaI/jGowOa+sPhYTX/eIbQShDwrA5n7EQwAaMlSDwonz1J8hK6G
-	kT2BY/vi++je6YFH1b4jU8K0yNkCLSDqL0JFihAsSGHLvrPpYqcOGOuLHG54kucf+HJ2Nx5Q6hE
-	xfLTYgOUTslyYniqTmDBNdEqk8W1E7fXQgdEfAQvxUioBCJgGFpJBeBBqEdeQaE85HUyQnPqOFn
-	JcovdzqQiHHtGca68/4P3qhXypnZW6xlKvL33nAnmHaKtmdCj+K9l3n4B5wICSrux/HhdsaXrz+
-	j9BwHThYhd2KUCLWqW2vkFVmy/qoD7kkm0xbGVUu4UV4bVE26weIeT38Q/cqH6MtS04nN5uXL++
-	091KG4WOt0+xdGEpff7uTWaIEIRh6KuegHmb/9Z1fhGT0IvB1so4iDHCOii4rphA45Du3ollTmp
-	Kt1C/Gzx8tZxREkl7+fe4IuKtks/VLnLr1CPfu8FTPtM4Kdspsy5fppNIlxWsYeRxWLs/JwIPWj
-	Umhlc++GbedAVtYb0beMuehqMd3jVhopiM7KCIgKH0Gqd9wQigrTd/qeMxKdRtrEPrlEOMIQKCd
-	nCjowU0ihnNpBq/3M4WYXgqcnnb/xJRahDgFycIQv+i3IQ==
-X-Received: by 2002:a17:90b:5910:b0:3b0:aaed:48d0 with SMTP id 98e67ed59e1d1-3b1b0b4d0d0mr8836956a91.37.1794821245843;
-        Mon, 16 Nov 2026 01:27:25 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb18b73sm15680884a91.3.2026.11.16.01.27.22
+        d=1e100.net; s=20260707; t=1794821254; x=1795426054;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UeghsTiOb4ju5n7zGZ1nHsTM034u6BwVxNZLSRJoYfw=;
+        b=Uhe2wFrbutveo5Cxf3PPyUb6Ibz9GWpCz2NMV+pQLK69EEJ9WBwfIW+ocSOhqM2fBg
+         0oz9/eIslIupiQQxbRlBizzRs9Ku8ILadz7FQHu4gaHT3dpvzf2sJF5B5sH0+qEBuq1x
+         9UTzD739hnBhMuHuAKM6sITO1RmOLvt+CIAdqGpFMbX0mMofIEGydUB4GGQSNx2nVH4j
+         2TBPeaSJpTFr37OgaBUs7pyiWeGO5bkRdU6rZe7Iy7K6CdErCnfErvJMEF3waO6+t6rN
+         81mxOMGcB2WaLd4FD1zkc5hGZWcGbYFW5ah9BuXRQlh1CF8icxrXuGwkXdfqdJv91fzh
+         //wA==
+X-Forwarded-Encrypted: i=1; AL+hErEtqQlU5V80EaoW2S0gQCx0WajuAOggdQO2uLrxdWF96UBao0Hx00fU18C6gHveR+jah2YGY27b0aEyg38=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l5/0i/zTdePiJh4+1oBHc2rDWHlLvwF9P/JmGe8KoNjaTcK2D
+	vdEFHhRtUam1FwjtO28LI6EYdw2f/FyCsHPB4jAatr43ke8CfE54YIEoS97mpYuUv5MzVrcV2Qb
+	fkbYreRqmpvgORtlcSoDwPy2RzzAeDPyWTDRVcOjbj5VptH5vVejwuQ2YUVp37gCymw==
+X-Gm-Gg: AYBFou0svNCjFfXBIffz/K/XnDINQogEdBBnUJRB4MH+oLMXyrFetTTfhNsZwJVgdP2
+	yZC6dTv2HLAS+ciOxTsQTOQHT0p265m2417OEvtI9yNHzS4huFysjp3j0B3cXX/gJIkgHaDosfw
+	4b0yCI4JRWJfDJ/TPL2i+pL3hG1f5qsJIctm/9AguQwHGOW5QtTfh9EamUhef7o53EFaJSSmol8
+	Lwun36etQehl2BaBvNxase4oajpFkbwURYMfcMCMsJGbjue5jTeOQs704RdGNCcs7BtEexVhC0f
+	Zd++i4lMBlJRseanObDBYjFE+bqLc93TbI72CiiZE7AZtyIGGQfjz9fmpDeIepMopLNqaJxAjAF
+	CvOJsx+39bdCQRUoOe1PiOQQVgE9Bkb9EuAtdt5DRAghUxcP7JJ9a6BNkN1qhgFHJbfs+7yo+MR
+	Jw9PJjUOp54KnzYgItZ4mIzvD5ZvKroYmoLhd1e9o=
+X-Received: by 2002:a05:600c:3114:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4bb55a5de41mr207753985e9.21.1794821253831;
+        Mon, 16 Nov 2026 01:27:33 -0800 (PST)
+X-Received: by 2002:a05:600c:3114:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4bb55a5de41mr207753235e9.21.1794821253228;
+        Mon, 16 Nov 2026 01:27:33 -0800 (PST)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb52bab8bbsm280128335e9.13.2026.11.16.01.27.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:27:25 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: rafael@kernel.org,
-	thnkslprpt@gmail.com
-Cc: viresh.kumar@linaro.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	zhongqiu.han@oss.qualcomm.com,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: Re: [PATCH v2] cpufreq: schedutil: Skip busy-CPU hold when NOHZ is inactive
-Date: Mon, 16 Nov 2026 17:27:20 +0800
-Message-ID: <20261116092720.2552651-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAJZ5v0g-oDagp2GrZyhLmT-BYJqcm-D4s1eTrXCxB-fj5BNixw@mail.gmail.com>
-References: <CAJZ5v0g-oDagp2GrZyhLmT-BYJqcm-D4s1eTrXCxB-fj5BNixw@mail.gmail.com>
+        Mon, 16 Nov 2026 01:27:32 -0800 (PST)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
+ <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
+ Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+ <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
+ <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: Re: [PATCH v11 07/12] drm/panel: add connector luminance forwarding
+In-Reply-To: <20261103-superm1-backlight-property-v11-7-00cce7b2ba22@kernel.org>
+References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
+ <20261103-superm1-backlight-property-v11-7-00cce7b2ba22@kernel.org>
+Date: Mon, 16 Nov 2026 10:27:31 +0100
+Message-ID: <xlv1qzglrurg.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,17 +126,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Rafael,
+"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
 
-On Fri, Nov 13, 2026 at 07:21:00PM +0100, Rafael J. Wysocki wrote:
-> I'd love to see some feedback on this from the people on the CC.
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> Add helpers that expose a panel backlight through the connector
+> LUMINANCE property and forward connector updates to the backlight
+> backend.
+>
+> Hook the helpers into panel bridges that create their own connector.
+> Panels consumed directly, or by a panel bridge attached with
+> DRM_BRIDGE_ATTACH_NO_CONNECTOR, remain unchanged. Turning the backlight
+> on and off is left to drm_panel_enable() and drm_panel_disable(), which
+> already honour self refresh.
+>
+> The panel backlight remains the hardware backend and keeps its
+> /sys/class/backlight device, which is owned by the backlight driver.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-idle_calls only advances in nohz mode; with nohz=off it stays at 0 on
-all CPUs, so the hold never releases.
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 
-Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+-- 
+Best regards,
 
-Thanks,
-Zhan Xusheng
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
