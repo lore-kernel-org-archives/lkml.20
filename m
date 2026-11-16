@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794805939;
-	b=e9pa3rdptEaVrUnwqOJP/wttWhIOnHCUmBvBD4Rf00VBlc3wJhXqUqSMQE0UUV17+XL5
-	 qzmyIgepHStdAsCrsZUkdtWPjMXnrFwOryhzGrPkrLITcv70YyX27CUvAsVd/IKV0/5HM
-	 7tpM7wNX6WRlmGzzz1byR+It99X9PfRTMsPogmVJURaz0Mq4JMEZw97X9nnh1TZRSuSFB
-	 anlBGwMcEvl/wNSGwiaIr4vhGSLBzFC69ul/nUwSAamVRt/54uQYYJbyFWOjwdCJ28eCU
-	 yPu8W8Ckai1oxTIcbkxzz6LQSAImwRwHlcD8wPC2Eml0cChU0+HTEbjsBo8/Ltvon4Q==
+	t=1794805944;
+	b=QQ6Z4qQUb6JFvLmKGAoo3SDQ1DEB/RA293vzSRFN89DG2qhuBsCyjpN72q6//NT1khkz
+	 Jb5mq/9gTJB5t0x8LZPjRhEX0NXs9rnAqxdvRLqdwaFWlx5PtIFwCY2NodxftFDUqXQPe
+	 ydT+8x5bafO29+6KjBB5++6GXYx2rn2RSqVKJ6CUl3lEh6IWX6VR/Ke/kkoG49rNOK0Xa
+	 a4xfusOMQv+ahKYKH9XYrhRYs50FJ9lvORPZt8ysq1FtxOXzhvznYpGPKFfpWNUaJ7Byp
+	 iSjkgqsn/Md2qbDkGkELSY6Ijc7C3cFqfChyLTwWmhgtWS7vvFU+uCaVjmF5sk0bf8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794805939;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794805944;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=W+wXT11nJhSS19tcilV3uSfJ8bLtuBDroFYijxy12Es=;
-	b=RpBKmGNJULFtnyy+obWV5DGsDiAOAq5yUQnS4+6rtIzMfIxCKOSw932kQEAaBLwTj+z9
-	 ISbSvAejXwWhSssSBmf4ON/3ljVm3JcehvHNQRMMtaqjUcJs0wnLOMzgqblp15WWb0FUH
-	 ooQKFr01C0tg7WuKy8l/JIDx3vZP3EhsJ/X3egtiEgeA+SU4lFvWJW+t8Neg4rEeA98/n
-	 FTcPLw6cZvRnP6dn8C6cV0jqKIPFyY+YeiTpXIdFKCa0lddW1UQntYKA86u6lte0j6fOg
-	 Sizrpe2AlNxKhkZY8xAiouobOZ7OzdHFJWoxX+jIsPF311c4dEDqTa/enySozfs0tdQ==
+	bh=iDcxcgpD8H2AJ+U+UDDaqNSj/Xno6laRJDhgDqjVhCc=;
+	b=1NeMFKkPngk5io0PAlgwPYXPpbveydXEdI2D2NCtz+zi5VoxOmK8RIRh+qCGahdPtios
+	 DZ3vGifeJ6MiKZJBZ7YYpLAduKMB2mMz3soMkZ1mx42RIDUYEQmE5CwyJfHwgCWRtZ9sv
+	 PhCD1nu1EdW8UBv+jXIq5VluIoXCiJlb4VgTBjMRq/fkHfkckXHfAImzbRqKhJuAOe4cV
+	 gjZ2gWURZFK7oCpna9j4xiquP0+WqJ1lDOLYDYCgGAEEhilNjrIPuYE7aSVaeg3+W4rHw
+	 EKh+v3H/UFjVn6FFxdBxO98UU0mZj5b1OjK0peRTwQ2HxTlfwvdRP7SWRZ+bqHBrPlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AZP6Xdib;
-	arc=none smtp.remote-ip=95.215.58.65
-Received: from mta1.migadu.com (out-65.mta1.migadu.com [95.215.58.65])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XxwoNSaN;
+	arc=none smtp.remote-ip=91.218.175.157
+Received: from mta0.migadu.com (out-157.mta0.migadu.com [91.218.175.157])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843EB606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:12:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 843EB606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489AB606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:12:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 489AB606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AZP6Xdib
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XxwoNSaN
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Km7OfgZ8PltK3tbudPrmRK16be4ZvZVYx5fTaD1GRto=;
+DKIM-Signature: a=rsa-sha256; bh=KFtcnpywgt6Da6rx/OLFu2kQrGV++9XA+ORnj3A9npM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794805936; v=1; x=1795410736;
- b=AZP6Xdib0eobM3tgY02R8sGzoBCTPKgCVT22JckDko1B2KI8Oy9tBO+l/jTg3kTEMzboMhD+
- J0boA/WqJ4l6Cd6mIbnpQw6Io/WjMJy1Xn8HNy7mQf1ys/b5R/1HmY0xIy4O3xBDuGrnUMA8W/K
- UWuZqEXHBma+mV1GdCm27wJY=
+ t=1794805942; v=1; x=1795410742;
+ b=XxwoNSaNAzWB+69/SethpreM8exUr5dn8dSHqbWBlekCsHEf8JDujMjvF9nGxmBqUxfcko/P
+ WamZQC1SD+nlOBeenLu10vc7MwhQ9LR5o1bIdbiODgrF8QLo1dAYnVwBOjXAUw5d2AxSs00dppj
+ 6CM/7jl11G/qZNg/h0UuVDCQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 338ac73156b1b968;
-	Mon, 16 Nov 2026 05:12:16 +0000
-X-Mizu-Trace-ID: 338ac73156b1b968
+Received: by smtp.migadu.com with ESMTPS id 1882c6d6c103cf14;
+	Mon, 16 Nov 2026 05:12:22 +0000
+X-Mizu-Trace-ID: 1882c6d6c103cf14
 X-Migadu-Flow: FLOW_OUT
 From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Mon, 16 Nov 2026 00:12:03 -0500
-Subject: [PATCH 1/2] dm thin: drop the grace period from thin_ctr()
+Date: Mon, 16 Nov 2026 00:12:04 -0500
+Subject: [PATCH 2/2] dm thin: free thins with kfree_rcu() instead of
+ waiting in thin_dtr()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-bug-dm-thin-rcu-gp-v1-1-14ed3567da3e@linux.dev>
+Message-Id: <20261116-bug-dm-thin-rcu-gp-v1-2-14ed3567da3e@linux.dev>
 References: <20261116-bug-dm-thin-rcu-gp-v1-0-14ed3567da3e@linux.dev>
 In-Reply-To: <20261116-bug-dm-thin-rcu-gp-v1-0-14ed3567da3e@linux.dev>
 To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
@@ -71,48 +72,122 @@ Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
  Qiliang Yuan <qiliang.yuan@linux.dev>
 X-Mailer: b4 0.13.0
 
-thin_ctr() adds the new thin to pool->active_thins with
-list_add_tail_rcu() and then calls synchronize_rcu(), so that a
-wake_worker() call can't miss the bios of a thin that isn't visible yet.
+get_first_thin() and get_next_thin() find a thin on pool->active_thins
+under rcu_read_lock() and take a reference on it. thin_dtr() removes the
+thin from the list and waits for a grace period before dropping its own
+reference, so that no walker takes one after the last is gone.
 
-The grace period doesn't make the entry any more visible. A worker that
-walks the list after list_add_tail_rcu() finds the thin, and the thin
-gets no bios before its table is resumed. A walk already in progress may
-miss it, but the wake_worker() for the first bio queues the worker
-again. Still, activating a thin device waits for a full grace period,
-which takes about half of the activation.
+Removing a thin device thus waits for a full grace period in thin_dtr(),
+before it waits for the references that are still held.
 
-Remove the synchronize_rcu() call.
+Take the references with refcount_inc_not_zero() and skip the thins
+whose last reference is gone, so that thin_dtr() only waits for the
+references already taken. Free the thin with kfree_rcu(), as
+requeue_bios() and error_retry_list_with_code() may still look at it
+under rcu_read_lock().
 
-Activating 100 thin devices of an idle pool with dmsetup create takes
-per device (mean of five rounds, min-max of the rounds in parentheses):
+Removing 100 thin devices of an idle pool with dmsetup remove takes per
+device (mean of five rounds, min-max of the rounds in parentheses). The
+queue freeze in del_gendisk() waits for a grace period of its own, which
+the one in thin_dtr() used to overlap, so only part of it is saved:
 
-  before (ms)        after (ms)       change
-  15.4 (14.9-15.9)   7.6 (7.3-7.8)      -51%
+  before (ms)        after (ms)         change
+  16.9 (15.8-17.3)   14.4 (13.8-15.3)     -15%
 
 Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 ---
- drivers/md/dm-thin.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/md/dm-thin.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index 358ed77ffb2be..d5ff937eeacba 100644
+index d5ff937eeacba..8386215101eb2 100644
 --- a/drivers/md/dm-thin.c
 +++ b/drivers/md/dm-thin.c
-@@ -4289,13 +4289,6 @@ static int thin_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	init_completion(&tc->can_destroy);
- 	list_add_tail_rcu(&tc->list, &tc->pool->active_thins);
+@@ -360,6 +360,7 @@ struct thin_c {
+ 	 */
+ 	refcount_t refcount;
+ 	struct completion can_destroy;
++	struct rcu_head rcu;
+ };
+ 
+ /*----------------------------------------------------------------*/
+@@ -2317,25 +2318,29 @@ static void process_thin_deferred_cells(struct thin_c *tc)
+ 	} while (!list_empty(&cells));
+ }
+ 
+-static void thin_get(struct thin_c *tc);
++static bool thin_tryget(struct thin_c *tc);
+ static void thin_put(struct thin_c *tc);
+ 
+ /*
+  * We can't hold rcu_read_lock() around code that can block.  So we
+  * find a thin with the rcu lock held; bump a refcount; then drop
+- * the lock.
++ * the lock.  Skip the thins whose refcount thin_dtr() already dropped
++ * to zero.
+  */
+ static struct thin_c *get_first_thin(struct pool *pool)
+ {
+-	struct thin_c *tc = NULL;
++	struct thin_c *tc;
+ 
+ 	rcu_read_lock();
+-	tc = list_first_or_null_rcu(&pool->active_thins, struct thin_c, list);
+-	if (tc)
+-		thin_get(tc);
++	list_for_each_entry_rcu(tc, &pool->active_thins, list) {
++		if (thin_tryget(tc)) {
++			rcu_read_unlock();
++			return tc;
++		}
++	}
+ 	rcu_read_unlock();
+ 
+-	return tc;
++	return NULL;
+ }
+ 
+ static struct thin_c *get_next_thin(struct pool *pool, struct thin_c *tc)
+@@ -2344,7 +2349,8 @@ static struct thin_c *get_next_thin(struct pool *pool, struct thin_c *tc)
+ 
+ 	rcu_read_lock();
+ 	list_for_each_entry_continue_rcu(tc, &pool->active_thins, list) {
+-		thin_get(tc);
++		if (!thin_tryget(tc))
++			continue;
+ 		thin_put(old_tc);
+ 		rcu_read_unlock();
+ 		return tc;
+@@ -4128,9 +4134,9 @@ static struct target_type pool_target = {
+  * Thin target methods
+  *--------------------------------------------------------------
+  */
+-static void thin_get(struct thin_c *tc)
++static bool thin_tryget(struct thin_c *tc)
+ {
+-	refcount_inc(&tc->refcount);
++	return refcount_inc_not_zero(&tc->refcount);
+ }
+ 
+ static void thin_put(struct thin_c *tc)
+@@ -4146,7 +4152,6 @@ static void thin_dtr(struct dm_target *ti)
+ 	spin_lock_irq(&tc->pool->lock);
+ 	list_del_rcu(&tc->list);
  	spin_unlock_irq(&tc->pool->lock);
--	/*
--	 * This synchronize_rcu() call is needed here otherwise we risk a
--	 * wake_worker() call finding no bios to process (because the newly
--	 * added tc isn't yet visible).  So this reduces latency since we
--	 * aren't then dependent on the periodic commit to wake_worker().
--	 */
 -	synchronize_rcu();
  
- 	dm_put(pool_md);
+ 	thin_put(tc);
+ 	wait_for_completion(&tc->can_destroy);
+@@ -4158,7 +4163,8 @@ static void thin_dtr(struct dm_target *ti)
+ 	dm_put_device(ti, tc->pool_dev);
+ 	if (tc->origin_dev)
+ 		dm_put_device(ti, tc->origin_dev);
+-	kfree(tc);
++	/* Let RCU readers of active_thins finish with tc before freeing it */
++	kfree_rcu(tc, rcu);
  
+ 	mutex_unlock(&dm_thin_pool_table.mutex);
+ }
 
 -- 
 2.43.0
