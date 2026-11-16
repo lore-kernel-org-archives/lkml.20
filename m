@@ -1,76 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794824266;
-	b=p7g2/7gpik3MpsjR4jafyZSYlCa6B7t99p+St5Qd8pq2SrDIZzwyWW8h+h2/3gyZXGVm
-	 IwDj01euXrpL9tl3xJfkkiM2DxzF9gWad+P3W+2+wyxagIWlSbk/1aHkRNhUU0lRXe88M
-	 MlX7zxVnRE5zDfblpsFvVp1bpRup9nr6yiQf87zxhUGd0xJsR0bJt8MihxAhmYleTWfK6
-	 1SyZaTcn1Mg5AJVY7mU90N2IjyYTZ50f9EiR73tzfenmBwfy3yMbm2aHQvmLfTI/tyb6h
-	 MXrMbNBsqhPB6XeWyGihza8j+QUK/fkofGB0vVqkuIs8llqZlzeY4z3clRH5RjSV2yA==
+	b=YcFfSM12LcElq5dieLEGaP40howhLGGMz7rIWCTsgwlnFPYjDlUfY6uD7OLmAV3wOfmO
+	 h8DkjCm4ikf6OOt0CuxemJcfEXIJQhB2eXlNoKUkKu+/obH820I9ATNmMJTSPwUqTkJIt
+	 c+kNsjES31LZwztVNarr1MAlN1LmHEgywV2Y2EexW1QPuPASvsVK68z6+8XJd8uj+IM9e
+	 Q0ddbVlLGqtguGtE+CQwonrq8sA3mxGnu71V5FpSpDMSwaAdy10unkh4mX4MKXRVPkvkD
+	 B4dW0nFNhz4kFNi31NuuT2lSrLPLR+05PNfGe2LZoHLdWFIOF/ihI9w2+3A1WX5LLag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794824266;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Gvv2DyAp4JVPfUBKtaM8rPmeQgPIXCGymcJ4/vQH2IE=;
-	b=Co1YlmHB3BbHlT7U3mffP14zPbbX2fpGnlwWNMhhJaCekCmSU5Q+G8AFThsGfaCeNT1W
-	 WeNSrq5pEaYeqeJON2dcGFNb+8qzh7+12+iSIVvJRpOTaWZ2sFtC4AvYo+1yvJcvMtzIu
-	 fWpBdn7SwmKnXU3PNMNzjQb5irEZOE+tI1R6aSyV7bAyD7FVvONz5Ab10A1Z24QMRjkp6
-	 yQPQxs2/h8puPOB3xBRfNwmZzqonUp+lNx+CadaN0o9FL4r32g5SJYSi5W951mr9YpMBO
-	 Nmtzq4mcPx1TzKIoc8sDltgpj+GFAmfr7BVvMjdhoIUwWrEjxlN8LOTfq+x8d5EvOYA==
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YbslwZuhy+Z96hOwtfzSrg/ymqwQ54h2EjoGdhEJjhc=;
+	b=DwiqWLB1yg/3aubXl/QqUiDU6qAa3gxyfRbHBaWIezlj8+4pEVycQpdp30ikV5Reaj6z
+	 F9Ql4vT533kdUz2u68RP9+4XqXOfl1wYTmsSQlz6dEcC5UypeJzJraa+3yb4Qhd8zcPgE
+	 SrBUm2owjr6QSY66ZYuxRnc6vlZEbdfrO9XIOh7lnjIz1fhd2qHHRjLKSTg4Twm/2TmaW
+	 CUjnfW7MkbH54yZ3cX3m4338UKQqcMUunN/3ySZwtbDhryxeEL3lBkDnbcUKoPv4bAM8z
+	 vqsBoV9qBXOHbD48UeROMeePMN3g4A2wHCFOl8cAwvtrjj3txi0jBLTGLBtYk9cG8yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1katym5m;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Z3qyToCD;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y/qZS2T1";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4C4606A336;
-	Mon, 16 Nov 2026 10:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4C4606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14A3606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:17:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1katym5m;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Z3qyToCD
-Date: Mon, 16 Nov 2026 11:17:42 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794824264;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gvv2DyAp4JVPfUBKtaM8rPmeQgPIXCGymcJ4/vQH2IE=;
-	b=1katym5mwk/UMOFz3y8SY7HtyY4qM1tRwBmT4GvIm+ownixD5zibEXS5SwUvEuzFaQnXd9
-	v6Em+HSx6COsoMP9gQAgr9u09Gnwwb+3pEOu9zUnFeOyhP1OlOfErn3KW/RMuKLIEiZ18D
-	bMKNifhkbNgViadEGM0xUYy5Dt7U2R7x1zsYnxzXfnXdeU8JV9xqiXIFXXk13SPvnLLbSi
-	qn55njlPDnPjP0+F5hfnDmsq78ChTRyiD4HLomGAnnA4EQHVk8xWXXQ4zc7HHzLxZR8dYb
-	LQoOG+NECnapgDW7rL10PqMv9MhZyTtkVxhAta+LB2+ektQ78kwvFoHQBUz6QQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794824264;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gvv2DyAp4JVPfUBKtaM8rPmeQgPIXCGymcJ4/vQH2IE=;
-	b=Z3qyToCDZ/Eqh8pNlhKLuZ3PRnXwUkydSt6uFzBShH1eSkEK7vTXwBqt/Grb2cLxrV5pwW
-	lHHVaOLD8jmIrBBA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Tengda Wu <wutengda@huaweicloud.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] perf/core: Disable context fast-swap for sigtrap
- events
-Message-ID: <20261116101742.11G-Kmmb@linutronix.de>
-References: <cover.1793870900.git.wutengda@huaweicloud.com>
- <f19b29b90fe1d0126fa8f5cd0e7c8d7da07e5a34.1793870900.git.wutengda@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y/qZS2T1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55971F000CC;
+	Mon, 16 Nov 2026 10:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794824266;
+	bh=YbslwZuhy+Z96hOwtfzSrg/ymqwQ54h2EjoGdhEJjhc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Y/qZS2T1DgBU1/Gxc+fycQra5/X2effdGSFi8A0Ppp1w5P8UMRE3jBBFGZjbMAI2a
+	 p4Zfr+DHGm5/+Q3uBn/0cHF2LAeP2N5YjJNP/OYogrVEoIEo2CF9kOs34pxKh0tws5
+	 xeUz2OEPHwSYEunCz8Pexi1xTZBH+UHEgm2vC+og4QUt4AE0BbDpQt3c9+UIXYN9a7
+	 yx3JDFazbE8ir6RDbbKaU59rpchp85en1Cknx2miagX6voZOq1TdJkMLTpR3FiDftL
+	 lZfWv5FIcJkeXioKwYtQE2LqFiQO22Jdf0dp7AvJ1COK7x8CLDFJqnU+ca/B4WAr5l
+	 pxe7jeyGuEQ3g==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Mon, 16 Nov 2026 11:17:22 +0100
+Subject: [PATCH v11 6/9] drm/vc4: Carry the HVS channel over to created
+ CRTC states
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,67 +53,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f19b29b90fe1d0126fa8f5cd0e7c8d7da07e5a34.1793870900.git.wutengda@huaweicloud.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261116-drm-reset-state-flag-v11-6-378b3f7bef32@kernel.org>
+References: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
+In-Reply-To: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6786; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=VxCS22Ef33ebwbslH3Fgh2mXGN3cAnIHStfMPLmWbjI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bhh7ybRlSZ+a/GfRtA+KU18+ixGYs6KgM7isy5Ipp
+ e+O+K+lHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiC5wZ6wxZi9i55l94mJKv
+ t2hehvJm0+yJD1RXBu707DPyuX4xw4VBYWFbjf71T5NVWHcLWqdcYazPmt8S/ZLb1/yL+71ne7+
+ /q2gsucs5dfncrr0zGnZVpdg82Xyp+UTJkoYH316G7E49YBgBAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-On 2026-11-05 09:30:44 [+0000], Tengda Wu wrote:
-> perf_sigtrap() contains:
-> 
-> 	WARN_ON_ONCE(event->ctx->task != current)
-> 
-> The warning assumes that an event's ctx->task always matches the task
-> that ends up running the pending task_work. That assumption can be
-> broken by the context fast-swap path.
-> 
-> The failure sequence is:
-> 
->   1. A -> B switch, perf_event_context_sched_out() takes the fast path
->      and does WRITE_ONCE(ctx->task, next) / WRITE_ONCE(next_ctx->task, task).
->      An NMI then hits while the context is swapped, and
->      __perf_event_overflow() queues pending task_work on the *current*
->      task (A), even though the event now belongs to B's swapped-in
->      context view.
-> 
->   2. B -> A switch. Because A now has pending task_work,
->      nr_no_switch_fast is non-zero, so the slow path is taken and
->      ctx->task is *not* swapped back.
-> 
->   3. A returns to user mode, task_work runs perf_pending_task() ->
->      perf_sigtrap(), and event->ctx->task no longer equals current,
->      tripping the WARN_ON_ONCE().
-> 
-> The context fast-swap path was already excluded for events that need
-> stable task association (inherit + sample read). sigtrap events have
-> the same requirement: the SIGTRAP is targeted at ctx->task and must not
-> be delivered after ctx->task has been swapped to another task.
-> 
-> Fix this by also excluding events with attr->sigtrap from the fast-swap
-> path, i.e. bump nr_no_switch_fast for sigtrap events in
-> list_add_event()/list_del_event(), and update the comment describing
-> the invariant accordingly.
-> 
-> Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
-> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
-> ---
->  include/linux/perf_event.h | 6 ++----
->  kernel/events/core.c       | 9 +++++++--
->  2 files changed, 9 insertions(+), 6 deletions(-)
-> 
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -1999,7 +1999,7 @@ list_add_event(struct perf_event *event, struct perf_event_context *ctx)
->  		ctx->nr_user++;
->  	if (event->attr.inherit_stat)
->  		ctx->nr_stat++;
-> -	if (has_inherit_and_sample_read(&event->attr))
-> +	if (has_inherit_and_sample_read(&event->attr) || event->attr.sigtrap)
->  		local_inc(&ctx->nr_no_switch_fast);
+drm_atomic_commit_fill_with_defaults() builds its commits out of
+states created through atomic_create_state() instead of duplicating
+the current state. A created CRTC state comes with its
+assigned_channel left to VC4_HVS_CHANNEL_DISABLED, while a duplicated
+state carries the channel currently in use.
 
-This is already done in __perf_event_overflow() while the event is
-added. You are saying this is not enough/ too late. This is required to
-be done/ disabled once the event is created if I understand it.
-If so, do we need to keep this nr_no_switch_fast inc/dec in
-__perf_event_overflow() and perf_pending_task()?
+vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
+change, so a CRTC that stays enabled with a created state keeps its
+channel unset, and vc4_core_clock_atomic_check() then indexes
+hvs_new_state->fifo_state[] with VC4_HVS_CHANNEL_DISABLED (-1U), far
+outside of the array.
 
-Sebastian
+Copy the channel of the current state over in the skip branch, like a
+duplicated state would have carried it. This is a no-op for duplicated
+states, which already have the channel set.
+
+Add a KUnit test that enables an output, fills a state with defaults
+and re-applies the same configuration, and checks that the CRTC kept
+its channel.
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
+---
+
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Maíra Canal <mcanal@igalia.com>
+Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+---
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c | 105 +++++++++++++++++++++++++
+ drivers/gpu/drm/vc4/vc4_kms.c                  |  16 +++-
+ 2 files changed, 119 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c b/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
+index 7a54f46acff9..c868d2cd1b3d 100644
+--- a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
++++ b/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
+@@ -1119,14 +1119,119 @@ drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable_too_many_crtc_state(struct ku
+ 
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
+ }
+ 
++/*
++ * Test that a CRTC that stays enabled with a state created through
++ * atomic_create_state(), like the ones drm_atomic_commit_fill_with_defaults()
++ * builds for a reset, keeps the HVS channel it was assigned:
++ * vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
++ * change, so their new state has to carry the channel over from the
++ * current state, the way a duplicated state would, for
++ * vc4_core_clock_atomic_check() to see a valid channel.
++ */
++static void
++drm_test_vc5_pv_muxing_bugs_created_state_keeps_channel(struct kunit *test)
++{
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_atomic_commit *state;
++	struct vc4_crtc_state *new_vc4_crtc_state;
++	struct drm_device *drm;
++	struct vc4_dev *vc4;
++	unsigned int old_channel;
++	int ret;
++
++	vc4 = vc5_mock_device(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, vc4);
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++	drm = &vc4->base;
++retry_first:
++	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++	ret = vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_HDMI0);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_first;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_atomic_check_only(state);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_first;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	new_vc4_crtc_state = get_vc4_crtc_state_for_encoder(test, state,
++							    VC4_ENCODER_TYPE_HDMI0);
++	KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
++
++	old_channel = new_vc4_crtc_state->assigned_channel;
++	KUNIT_ASSERT_NE(test, old_channel, VC4_HVS_CHANNEL_DISABLED);
++
++	/* Make the enabled state the current one */
++	ret = drm_atomic_helper_swap_state(state, false);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++retry_second:
++	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++	/*
++	 * Fill the state with defaults, like a DRM_MODE_ATOMIC_RESET
++	 * commit would, then re-apply the exact same configuration.
++	 */
++	ret = drm_atomic_commit_fill_with_defaults(NULL, state);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_second;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_HDMI0);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_second;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_atomic_check_only(state);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_second;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	new_vc4_crtc_state = get_vc4_crtc_state_for_encoder(test, state,
++							    VC4_ENCODER_TYPE_HDMI0);
++	KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
++
++	KUNIT_EXPECT_EQ(test, new_vc4_crtc_state->assigned_channel, old_channel);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++}
++
+ static struct kunit_case vc5_pv_muxing_bugs_tests[] = {
+ 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable),
+ 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable_too_many_crtc_state),
+ 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_stable_fifo),
++	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_created_state_keeps_channel),
+ 	{}
+ };
+ 
+ static struct kunit_suite vc5_pv_muxing_bugs_test_suite = {
+ 	.name = "vc5-pv-muxing-bugs",
+diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
+index ab551eb2da50..562f2d1f45a4 100644
+--- a/drivers/gpu/drm/vc4/vc4_kms.c
++++ b/drivers/gpu/drm/vc4/vc4_kms.c
+@@ -970,15 +970,27 @@ static int vc4_pv_muxing_atomic_check(struct drm_device *dev,
+ 
+ 		drm_dbg(dev, "%s: Trying to find a channel.\n", crtc->name);
+ 
+ 		/* Nothing to do here, let's skip it */
+ 		if (old_crtc_state->enable == new_crtc_state->enable) {
+-			if (new_crtc_state->enable)
++			/*
++			 * A CRTC that stays enabled keeps its channel. A
++			 * duplicated state carries it over, but a state
++			 * created through atomic_create_state() comes with
++			 * the channel unset, so copy it from the current
++			 * state to make sure the core clock check and the
++			 * commit see the channel in use.
++			 */
++			if (new_crtc_state->enable) {
++				new_vc4_crtc_state->assigned_channel =
++					old_vc4_crtc_state->assigned_channel;
++
+ 				drm_dbg(dev, "%s: Already enabled, reusing channel %d.\n",
+ 					crtc->name, new_vc4_crtc_state->assigned_channel);
+-			else
++			} else {
+ 				drm_dbg(dev, "%s: Disabled, ignoring.\n", crtc->name);
++			}
+ 
+ 			continue;
+ 		}
+ 
+ 		/* Muxing will need to be modified, mark it as such */
+
+-- 
+2.56.1
+
