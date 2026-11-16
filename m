@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829529;
-	b=KRa2YsjnCJ0i+RZDe1ICUHj7sWUsNoQ0/XeepBKJiUc16iQ22dXArAJpgP7fM2U/D7bf
-	 nRoJ2yScB2NAvRQ9ZA9vm+kYwhS46H9EBn3eDAZAjH8GUYciXIcDcXTv6XO3LSgzizsjV
-	 3yyq6vSDUGMlDfVQ9AIAVBfjzwD8M/BB1NRRyNzADNwpIfiU9g5VSyuxZ8cDNasArNdqz
-	 SMUx+rFVIIVPn6NdtYju4xrW78sfFobs2coD745fMSMRNFFj7mKiXVuY0fAAFu68lXvqK
-	 JKB9oKwsJIC2wu1y/GGeFcf1oU7okhwD4KPp4vqPQOpkri0KPjcASI6pZSFw0lzEVIA==
+	t=1794829534;
+	b=r3ifgZgfvOhjBJmaVR9LwwKrzSeqklO9hhGvaey2D6XmcKQFJKWR+hua4km4gavKTcr/
+	 C0mDYDx/XjOxetOxEpIDgKDhyHR0sBWhzHhuDrcM5gX7Cm5bpPJ6FcWiDQZHQwz0RDubY
+	 V9Rb1wBPIZoAiVBg+dTzB/uoy7EysK6laiCi/IMPWCzb1yNKLp3cGdEVlRkAkmwkvjfLy
+	 7j2uU+wDFSB93k9TJp7TAa1nbthAEGIOAiOUhJo1dZQ77nfc4J78tmWW+183aP99qwHCj
+	 AhVmtX7q0ySBOpyC2QLXbgm967yj67OLFCn/L4ebbBz43+mYznk4sjCFC6zZb1zeF1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829529;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8pJ21vYqp33KQ386Jw6sjQmQ0sS9YuCVLuMCupEqCwM=;
-	b=4kI9qmzmLKMcmphtxtIZFwclhaWWQtEG/Rch85Fhxskw17gN3DupSgdj/X0CRzN7sZ4Q
-	 Wfpyj8GRVZQHIqaSSy0U4/nQDZ2eVnKQl2dOlzirlT9Iwa+qOeVNMY6CwSE8ThFs59gyc
-	 SmoS6ztZ67akXAJgEa0+ZGxk82W/LSezSSMmQGWL2KX4nfHu+YiVGOwiw2PpI0kchBUFX
-	 uaot4eQ7n8RRx+0WXNIi3O/C+v/V2iskewBHRa4fXOpRdDFxr+A031KiDKt3/fh23awGF
-	 sCFPdRBIppCoX4edHQV/m02IKymucdYaPFwtuBo96gfexsZt5qzaKU/1HFKnWmp34+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829534;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yNKmdsf3yYn/xyXEK4QOIUERiIN+OHKy+Lj3GXdZkPg=;
+	b=J49obeW5Pp1fQhkwe7uqUm6PUVQdYuKEIXDkRCmL70YbD9+DOiYVZIGrliDhnLod+nmE
+	 3VXN95c9+ixhMl4XIp5myJPcMWdq04zjxP2lHIs9juPEz7jSYMXQbHslcmPtrA5flRmf6
+	 /r11I4h5CLEIKvZUwLZ1KNRBX4IaIdaccIZnGE2d6cbaaBF0CN5qIPVRndrVBCY2Umtin
+	 UJWC4D+QX8UhgImZaH1UbJDoOF2j8VnleHRfDNF5GgrrLUqg+Tb8W0bP8wA23d0n0BBjz
+	 oLc73aF1/GwIh+5TepUVljZwzloJPPRcX3fxX1u44yyYBXcFMLoMKx9z30Ts37GlZAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nburch.org;
-	spf=pass smtp.mailfrom=nburch.org;
-	dkim=pass header.d=nburch.org header.i=@nburch.org header.a=rsa-sha256 header.s=protonmail header.b=GWEHWLEp;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQzYR3uw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C55606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:45:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C55606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nburch.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nburch.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904E5606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:45:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nburch.org header.i=@nburch.org header.a=rsa-sha256 header.s=protonmail header.b=GWEHWLEp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nburch.org;
-	s=protonmail; t=1794829525; x=1795088725;
-	bh=8pJ21vYqp33KQ386Jw6sjQmQ0sS9YuCVLuMCupEqCwM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=GWEHWLEpiBtUZm4Q9EoJAj2rYscnCkSpARBBaA0ee0wtee9uwcUlJs2jUzz+TIHcn
-	 Q6ja2zUTiwPOAvqfUH9GXLZSx/1p4P0yNwvOJB5sM6IECfP9/l6O38cWp/sdtRIbEh
-	 RtU/m5S4HhE/T9ZllOApdTNYNMSrBzQaKzYPwIa/0qqZXwUlFQJVlAdoQLGYAMLPes
-	 Y+HMAhn/Zvz4U70iOrUI5PdQ7E2bkL1QrnixR0k1F7KJrLOJnEFcy/pf8npjAMtT6F
-	 n6tphoyaACEtvV6FPtvVpoGBrWTYvTqKQDtK8iJA8Qi6a4H5yOXEILx0QRi4yoUnll
-	 daLcMi6OQfkLA==
-Date: Mon, 16 Nov 2026 11:45:17 +0000
-To: noah@nburch.org
-From: Noah Burchell <noah@nburch.org>
-Cc: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, linux-kernel@vger.kernel.org, mingo@redhat.com, tglx@kernel.org, x86@kernel.org
-Subject: Re: [PATCH] x86/reboot: Remove dead code after machine_real_restart()
-Message-ID: <20261116114411.3419-1-noah@nburch.org>
-In-Reply-To: <20261102062417.56725-1-noah@nburch.org>
-References: <20261102062417.56725-1-noah@nburch.org>
-Feedback-ID: 224137974:user:proton
-X-Pm-Message-ID: 8781c8bed7cd3e3d5e3c6d5dc2687daa44dd44c5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQzYR3uw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7591F000C9
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794829534;
+	bh=yNKmdsf3yYn/xyXEK4QOIUERiIN+OHKy+Lj3GXdZkPg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aQzYR3uwi0O8puV/x6+awjXSzPCKjZMj2Tsc+VhaA5XCN0IN/L14pt7fGNgI/hVx7
+	 ok7ke/n6CwZzLImcbQoVMGBGsU4kgcvwCoX3+gfwjOu1mb8flxhyiLnNd3hBUvk61n
+	 75l8aMmHBHiQUkg8af4DFLAAubPhf0j2S7EwoDBlR5CmWFkjCSxkW37EkoE+AyaXSt
+	 TFC+e5MlTbztVnJkwd9tjIgewJ4bg6AcEEfKOwedFHLduyaaAA1g+0JYMQW2bhgzRC
+	 CACH7ygXas3AotC29Bg3S4naDXmq4T4p2lFIXcxOl+wNChPx15ChcSL9pJzYBBkCev
+	 QAvVISz6HwoEg==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c50a4a2132cso410374866b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:45:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFqBjhrkKwoMCDbu8v1MVPHWfnF5AzlPaOAZttdKn3Eqc/dalHxbB/e19jMSEZ6ZBPnGLI1vkc7XQubN6k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BI++grk7Nlz28oZX4r3k8u3nDYQZLM7MpH1Ji1pgiG7ULtVnz
+	V5mxLgWXzjBjs3am/LbQFs+bjiskg1CEZB8aMpqDQUQzNqZDkhoQ78ICOl/yk1Pm2YjUm8gMGKJ
+	vovw9DaG8h+dOwdP7xLqpJJ/01Ep6pHI=
+X-Received: by 2002:a17:907:3f9e:b0:c49:c76f:dad4 with SMTP id
+ a640c23a62f3a-c50963b5cf3mr853853766b.31.1794829533177; Mon, 16 Nov 2026
+ 03:45:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,16 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261116032314.46458-1-wuyiqing@cmss.chinamobile.com>
+In-Reply-To: <20261116032314.46458-1-wuyiqing@cmss.chinamobile.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 16 Nov 2026 20:45:20 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd91MdtF+eFJC+wF3xkSjCrZ7q7R_=LN9aEbYp6QdJbHDQ@mail.gmail.com>
+X-Gm-Features: AclHuK-X8RoIW1SUKIYSe1a_GK5CkT5SqqFxuAc4qHuW9cQDIrxvuL5lO7X0OB8
+Message-ID: <CAKYAXd91MdtF+eFJC+wF3xkSjCrZ7q7R_=LN9aEbYp6QdJbHDQ@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: remove unreachable input length check in FSCTL_SET_SPARSE
+To: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 06:24:48AM +0000, Noah Burchell wrote:
-> machine_real_restart() is __noreturn and ends in unreachable(), so the
-> reboot_type assignment and the break after it in the BOOT_BIOS case can
-> never execute.
-
-Gentle ping.
-
-Thanks,
-Noah
-
+On Mon, Nov 16, 2026 at 12:23=E2=80=AFPM Yiqing Wu
+<wuyiqing@cmss.chinamobile.com> wrote:
+>
+> The FSCTL_SET_SPARSE handler checks whether a nonzero input buffer is
+> smaller than sizeof(struct file_sparse) before parsing it.  That
+> structure holds a single __packed byte, so a nonzero in_buf_len is
+> always at least sizeof(struct file_sparse) and the condition can never
+> be true.  GCC flags the dead test when building with W=3D2:
+>
+>   fs/smb/server/smb2pdu.c:12035:32: warning: logical and of mutually excl=
+usive tests is always false [-Wlogical-op]
+>
+> Remove the unreachable branch.  A zero-length input is still handled
+> by the call site, which passes the local SetSparse default instead of
+> the request buffer.
+>
+> Signed-off-by: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+Applied it to #ksmbd-for-next.
+Thanks!
