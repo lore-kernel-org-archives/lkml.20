@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837263;
-	b=3xf996+0EVq+3qVytD6SdmRIIPrQz9YO22noi+J7lMOBMvuQeo+WUd0dwxe7ckpuPxDl
-	 c/yRx8qfjQGJCUM9okpmr/JJ1MbfskHZ4d1JlbMcCGkOiTMKWxLZ5snwWPYT1IBPmgJ+v
-	 J3AyWxMwLn+CJYJaSym5ZU3hONEk0rPg2G7SVqqBV+4HDG7SLLcL/PwnB0h+mH8/JKs5f
-	 ddo7fYgt1oPdt7XDK19sX5dV4S0kul/A5JeuIkgqAV3vw5Gfue0hC13Y+H2w7RZ6AESh+
-	 vmuOOrgL/jt/JN2+m+5wfgcivPeZeHpVzUsDtAe1+IACs3NAayCb0JR6jgEnMqDl4sQ==
+	t=1794837258;
+	b=KvCcSRc32e5972gU+J7E7RLVyDIBqYVmhRvV47VThRy3f2S9d0m4X4EHVWEhOn4LRr0a
+	 +zxTJlWuKh08QFoKaalba4IsvkpcBlLlZngBzRStxKRgw3mFOg4FW4qgphpqWIomV6GcM
+	 4hJeuTHWMCObd3JK2jy66R3UczXgJ9MzRC20Oxv4H/NbOOe6UPNreZRz+DaUelVTTucyt
+	 4k2sxijZ4rKyNcAmBVn/Baz6dMKPG/bW2o2jB8JGthmJVDfV8lc/U+YU4aQo+xDjE/556
+	 suDrPLmtFDUWKwomcYqrHsCKFVWZ1btIVjqvfun8wVDhcZLeY9M6rjP32qDRWMgybdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837263;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837258;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=8Qmd3zTWqxKS9EXQprMTTNgzTyEpTck3iz7Im4ijSnc=;
-	b=uSbTy2GnObbgKBZGRAQ1F8CnKBMYDu+gmk5dvD5fCyr2MSTj+9Fw+R0F7XdzBUpFkHQC
-	 crEebxlsNvgHVULWZbOvqSSi0E8Xm+glO1Ijmx2mx31vz3EW6REE9qGP2R4fiA7thMnnf
-	 gthFYF/q9/IKUVypIyVSgpoBbN9Gz0r4B7/HiqQo6S51wn/xGdDmo9P8UZsPBJCbiD/nd
-	 eWOVujTWik7a0rtp7hv2w9VFIoF9HnBixKxM1/biH0d8hJbrBi1Zz7/KwgR8iq9QvjARI
-	 67KTktaLmvaRJ0VXKWhgcmToaNy7SBcPQpvAYFyO0F+MXbqQTu8Q8VO6kvrXaqq1Xog==
+	bh=tp4SYQmArwtumUPsA4VFwsspUoHY7/07FpSGgzrJZMk=;
+	b=TtxchqQbMw/4vCbIr/S7RO6QmwwUZ67dSYRSYGmJ3EFennFMCGWL1mKjZ9Z54Uq5gsfH
+	 ZeW3qJHYlJ0yRiQLX/VadncCm5Xb4iNGDpA2Ib/KYlg1y8brb+5RKwKwrk+cLNXlO4L22
+	 rCGfQGrGc/I3d+aNKrty2rYU0/hcbtfTIffpDpGPv1K+P0+OO3n0oJUue5fzdSunbxmJ2
+	 7Bc8FP6/jxcz1pnt3t7k/Ij1sHc09tjam53qw02FDuWc5KMeQUar1OiPaweSJdqmbJJCy
+	 j5C3xpABeZbGXJRg7kMWtgj7Kn2CqWG1Zm/5hBD/1ArKGKnfNs3zxhU46sugxYutmvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aXXZ3Wb2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsRw+h5W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590DB606A88A;
-	Mon, 16 Nov 2026 13:54:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4395606A333;
+	Mon, 16 Nov 2026 13:54:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aXXZ3Wb2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4943E1F00926;
-	Mon, 16 Nov 2026 13:54:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsRw+h5W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94DCC1F000C9;
+	Mon, 16 Nov 2026 13:54:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837263;
-	bh=8Qmd3zTWqxKS9EXQprMTTNgzTyEpTck3iz7Im4ijSnc=;
+	s=k20260515; t=1794837258;
+	bh=tp4SYQmArwtumUPsA4VFwsspUoHY7/07FpSGgzrJZMk=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aXXZ3Wb2PNRSc9/G8cAutp7a+2N0wKqh39UAGy2QW/aSh5iOIonPvxTASxV7ZoEzv
-	 XXt8CNX7o9ay65yjAitxSzvaD3hAaG5rIix7KLI1vI+GPYgo9BFppZLfuGO1Z1jOve
-	 mVB5P0OfN6QyNbEE8YjVMQTt7VMUnVnqQFxlDIESS1qkGuSb7nhctPrzSDLFXteNE8
-	 R1z0WG9EbM6BgH1QN1ckH2XZNfUrnfAr2H/7Eyy3Mh1j4PR76Ef7Thr3Ul8mgrywF5
-	 CgSM4s9AW4Ppg6ab8eAj1WZMiseLUFMfV/laQYz26njL7zCLS8vhN2mCaAgPV6kFlq
-	 FID81WU+efegg==
-Subject: Re: [PATCH net-next v6 6/7] net: ftgmac100: Add AST2700 upper DMA
- address support
+	b=jsRw+h5WkBeegvz/3jioVK/Wu2SUbaAh2i1GkW3LtzQn6LrbehgCaXCUGZ9GRc82g
+	 h9JKltb1YDjN9kdQzBALn4+2rSdgdHghLeOYb/RMaeA/b3NBH2joKg9IFNipkLa5s0
+	 LzC86czQN4kCwzgopQc0Q6dm38GpAVy0c3zsLm7Fk5Htacw1SDXCSNxeDWmcq7LSz7
+	 R+R4CWLQusWrZS+6R6DBn+LWGq6Wywn9rtDWDLREROVFVlVt5JH8fCxxcd6xK8qc+Y
+	 01kNObVQn/9FfLr6DXFLp4P4Xz9FwojSlWp4AvmYsBrbK6YVxlLvXcHCptkhNvqPb4
+	 /9S7qwuFFUTCw==
+Subject:
+ Re: [PATCH net-next v6 3/7] net: ftgmac100: Add AST2700 compatible support
 From: netdev-bot+sashiko@kernel.org
 To: jacky_chou@aspeedtech.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
@@ -49,11 +49,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
  ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
  linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, andrew@lunn.ch
-Date: Mon, 16 Nov 2026 13:54:21 +0000
-Message-ID: <179483726184.3136.10135612629435756137@kernel.org>
-In-Reply-To: <20261112-support_ast2700-v6-6-238020bf46cf@aspeedtech.com>
-References: <20261112-support_ast2700-v6-6-238020bf46cf@aspeedtech.com>
-X-sashiko-severity: Medium
+Date: Mon, 16 Nov 2026 13:54:17 +0000
+Message-ID: <179483725712.3136.17992179574597275768@kernel.org>
+In-Reply-To: <20261112-support_ast2700-v6-3-238020bf46cf@aspeedtech.com>
+References: <20261112-support_ast2700-v6-3-238020bf46cf@aspeedtech.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,10 +66,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Critical: 0 · High: 2 · Medium: 2 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,114 +77,242 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] On AST2700 (FTGMAC100_QUIRK_DMA_35BIT), the driver stores DMA
-  address bits 34:32 only in RXDES2[18:16]/TXDES2[18:16].
-- [Low] The new register-map comment in ftgmac100.h says '/* reserved
-  0xcc - 0x178 */', and the patch defines only…
+- [High] ftgmac100_reset_and_config_mac() dereferences
+  priv->netdev->phydev->interface whenever priv->is_aspeed is true, with…
+- [High] net: ftgmac100: missing MAC reset deassertion for AST2700 in
+  ftgmac100_probe()
+- [Medium] Since this patch, AST2700 goes through the Aspeed path in
+  ftgmac100_probe(): is_aspeed is set, EDORR/EDOTR use BIT(30), and…
+- [Medium] The series commit "dt-bindings: net: ftgmac100: Make Aspeed
+  compatibles standalone" (extended by "dt-bindings: net: ftgmac100: Add…
+- [Low] The binding requires `phy-mode` for every aspeed,ast2700-mac
+  node, and its commit message says this matches "the driver's probe-…
+- [Low] The comment on struct ftgmac100::rclk still says `/*
+  AST2500/AST2600 RMII ref clock gate */`.
 
 --
 
-net: ftgmac100: Add AST2700 upper DMA address support
+net: ftgmac100: Add AST2700 compatible support
 
-On AST2700, this patch programs the high halves of the RX and TX
-descriptor ring bases. It also stores DMA address bits 34:32 in bits
-18:16 of rxdes2/txdes2, and rebuilds the full address from the
-descriptors before unmapping. A 35-bit DMA mask is set, and all of this
-is gated behind a new FTGMAC100_QUIRK_DMA_35BIT match-data quirk.
+This patch adds an FTGMAC100_AST2700 mac_id, its OF match data and an
+"aspeed,ast2700-mac" compatible entry. It also adds AST2700 to the Aspeed
+branch in ftgmac100_probe(), which sets is_aspeed and the BIT(30)
+EDORR/EDOTR masks for the new MAC.
 
 > diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 5a578a62df673..263594de0e072 100644
+> index 6d2fe5c2f3903..67b1fa464a421 100644
 > --- a/drivers/net/ethernet/faraday/ftgmac100.c
 > +++ b/drivers/net/ethernet/faraday/ftgmac100.c
 
 [ ... ]
 
-> @@ -601,6 +612,9 @@ static bool ftgmac100_rx_packet(struct ftgmac100 *priv, int *processed)
+> @@ -2017,7 +2018,8 @@ static int ftgmac100_probe(struct platform_device *pdev)
 >  
->  	/* Tear down DMA mapping, do necessary cache management */
->  	map = le32_to_cpu(rxdes->rxdes3);
-> +	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-> +		map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-> +				     le32_to_cpu(rxdes->rxdes2)) << 32;
+>  	if (priv->mac_id == FTGMAC100_AST2400 ||
+>  	    priv->mac_id == FTGMAC100_AST2500 ||
+> -	    priv->mac_id == FTGMAC100_AST2600) {
+> +	    priv->mac_id == FTGMAC100_AST2600 ||
+> +	    priv->mac_id == FTGMAC100_AST2700) {
+>  		priv->rxdes0_edorr_mask = BIT(30);
+>  		priv->txdes0_edotr_mask = BIT(30);
+>  		priv->is_aspeed = true;
+
+[Severity: High]
+With AST2700 now on the is_aspeed path, does anything release the MAC
+from reset on this SoC?
+
+On AST2400 to AST2600, the MAC clock gates in the Aspeed clock drivers
+carry a coupled reset index. Enabling MACCLK through
+devm_clk_get_enabled() in ftgmac100_setup_clk() therefore also
+deasserts the SCU MAC reset.
+
+On AST2700 that coupling seems to be gone. The SCU1_CLK_GATE_MAC0CLK to
+MAC2CLK gates in clk-ast2700.c only clear the stop bit in
+SCU1_CLK_STOP. SCU1_RESET_MAC0 to MAC2 are separate reset lines in
+reset-aspeed.c, so enabling the clock leaves the MAC in reset.
+
+ftgmac100_probe() gets priv->rst with
+devm_reset_control_get_optional_exclusive() but never calls
+reset_control_deassert() on it. The only deassert is in
+ftgmac100_reset_and_config_mac(), and only for RMII:
+
+	/* Aspeed RMII needs SCU reset to clear status */
+	if (priv->is_aspeed && priv->netdev->phydev->interface == PHY_INTERFACE_MODE_RMII) {
+
+Suppose the bootloader did not release the AST2700 MAC reset. An RGMII
+MAC would then stay in reset across probe and ndo_open, and
+ftgmac100_open() -> ftgmac100_reset_and_config_mac() ->
+ftgmac100_reset_mac() would be driving a block that is held in reset.
+The interface would not come up, and the most likely visible symptom is
+-EIO from the SW_RST poll.
+
+The probe ordering has a related problem. ftgmac100_initial_mac() reads
+FTGMAC100_OFFSET_MAC_MADR and FTGMAC100_OFFSET_MAC_LADR before priv->rst
+is obtained and before ftgmac100_setup_clk() enables the MAC clock. On
+AST2700 this read can hit a gated and reset block. In that case the
+bootloader-programmed address is lost and the driver falls back to a
+random MAC.
+
+Other AST2700 peripheral drivers, such as aspeed-vhub and
+aspeed-g6-pwm-tach, deassert their reset explicitly in probe. For
+AST2700, should ftgmac100_probe() enable the clock and deassert
+priv->rst before it first touches MAC registers? Or does the series
+expect firmware to always leave the MAC clocked and out of reset? If it
+is the latter, that requirement should be stated somewhere.
 
 [Severity: Medium]
-Is it safe to rebuild the unmap address from rxdes2 after the MAC has
-completed the descriptor?
+This groups AST2700 with the AST2600-style Aspeed MACs. Should the two
+AST2600-only workarounds later in ftgmac100_probe() also apply to AST2700?
 
-The driver keeps no CPU-side copy of the mapped dma_addr_t. Bits 34:32
-are stored only in RXDES2[18:16], and in TXDES2[18:16] on the TX side.
+	/* Disable ast2600 problematic HW arbitration */
+	if (priv->mac_id == FTGMAC100_AST2600)
+		iowrite32(FTGMAC100_TM_DEFAULT,
+			  priv->base + FTGMAC100_OFFSET_TM);
+	...
+	/* AST2600 tx checksum with NCSI is broken */
+	if (priv->use_ncsi && priv->mac_id == FTGMAC100_AST2600)
+		netdev->hw_features &= ~NETIF_F_HW_CSUM;
 
-In ftgmac100.h, struct ftgmac100_rxdes still describes rxdes2 as a field
-the hardware writes:
+Suppose the AST2700 MAC kept the AST2600 arbitration logic or the NC-SI TX
+checksum defect. AST2700 would then run with the hardware default
+arbitration mode, and with NC-SI it would still advertise NETIF_F_HW_CSUM.
 
-	__le32	rxdes2; /* length/type on AST2500 */
+Neither this patch nor the rest of the series changes these checks or says
+that AST2700 is free of these errata.
 
-and struct ftgmac100_txdes still calls txdes2 reserved:
+[Severity: High]
+Now that is_aspeed is set for AST2700, can ftgmac100_reset_and_config_mac()
+dereference a NULL phydev?
 
-	__le32	txdes2; /* Reserved */
+ftgmac100_reset_and_config_mac() {
+	...
+	if (priv->is_aspeed && priv->netdev->phydev->interface == PHY_INTERFACE_MODE_RMII) {
+	...
+}
 
-Neither comment is updated. Nothing in the patch or the commit message
-says whether AST2700 leaves bits 18:16 alone when it writes the
-descriptor back.
+ftgmac100_probe_dt() returns 0 without attaching a PHY when the node has no
+use-ncsi, no fixed-link and no phy-handle, but does have an mdio child:
 
-If the MAC writes any of those bits on completion, dma_unmap_single()
-gets the wrong 35-bit handle, both here and in ftgmac100_free_buffers().
-The real mapping or swiotlb slot would leak, and the call could sync or
-unmap a different mapping. ftgmac100_free_tx_packet() relies on txdes2 in
-the same way.
+	if (!ftgmac100_has_child_node(np, "mdio")) {
+		...
+		err = ftgmac100_mii_probe(netdev);
+		...
+	}
 
-The drop label in ftgmac100_rx_packet() also rewrites only rxdes0 before
-it gives the descriptor back to the MAC:
+	return 0;
 
-drop:
-	/* Clean rxdes0 (which resets own bit) */
-	rxdes->rxdes0 = cpu_to_le32(status & priv->rxdes0_edorr_mask);
+The binding allows this configuration. For such an AST2700 node,
+register_netdev() succeeds. After that, both of these paths would reach the
+unchecked dereference:
 
-In that case, would the next frame be DMA'd to the same low 32 bits but
-in a different 4 GiB window? A remote sender can reach this path with
-runt, CRC error, oversize or fragmented frames.
+  ftgmac100_open()->ftgmac100_reset_and_config_mac()
+  ftgmac100_reset()->ftgmac100_reset_and_config_mac()
 
-Can the AST2700 writeback behaviour for RXDES2/TXDES2 bits 18:16 be
-confirmed? Alternatively, would it be safer to keep the full dma_addr_t
-on the CPU side and update the descriptor comments to match? Any later
-controller that opts into FTGMAC100_QUIRK_DMA_35BIT would inherit the
-same assumption.
+ftgmac100_open() runs under RTNL, so an oops there would leave rtnl_mutex
+held.
+
+The dereference itself dates back to commit af350ee72e9d ("net: ftgmac100:
+Add optional reset control for RMII mode on Aspeed SoCs"), which covered
+AST2400 to AST2600. This patch makes it reachable for AST2700.
+
+Later in the series, "net: ftgmac100: Enable AST2700 RMII support" adds a
+second unchecked dereference in ftgmac100_start_hw():
+
+	if ((priv->quirks & FTGMAC100_QUIRK_RMII_ENABLE) &&
+	    phydev->interface == PHY_INTERFACE_MODE_RMII) {
+
+That commit message says "ftgmac100_probe_dt() always attaches a
+phy_device before register_netdev() can succeed". The mdio child path
+above shows that this is not always true.
+
+Elsewhere, ftgmac100_open() and the reset task both check
+if (netdev->phydev) before using it. Should these two paths do the same?
+
+[Severity: Low]
+This isn't a bug, but with is_aspeed now set for AST2700,
+ftgmac100_setup_clk() also stores the "RCLK" clock in priv->rclk for
+AST2700. The comment on that field in struct ftgmac100 still reads:
+
+	/* AST2500/AST2600 RMII ref clock gate */
+	struct clk *rclk;
+
+Should it mention AST2700, as the binding in this series does?
 
 [ ... ]
 
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
-> index 8c35c895b1465..0c244b1c0a351 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.h
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.h
-> @@ -57,6 +57,9 @@
->  #define FTGMAC100_OFFSET_RX_RUNT	0xc0
->  #define FTGMAC100_OFFSET_RX_CRCER_FTL	0xc4
->  #define FTGMAC100_OFFSET_RX_COL_LOST	0xc8
-> +/* reserved 0xcc - 0x178 */
-> +#define FTGMAC100_OFFSET_TXR_BADDR_HIGH	0x17c
-> +#define FTGMAC100_OFFSET_RXR_BADDR_HIGH	0x18c
+> @@ -2142,6 +2148,8 @@ static const struct of_device_id ftgmac100_of_match[] = {
+>  	  .data = &ftgmac100_match_data_ast2500 },
+>  	{ .compatible = "aspeed,ast2600-mac",
+>  	  .data = &ftgmac100_match_data_ast2600 },
+> +	{ .compatible = "aspeed,ast2700-mac",
+> +	  .data = &ftgmac100_match_data_ast2700 },
+>  	{ .compatible = "faraday,ftgmac100",
+>  	  .data = &ftgmac100_match_data_faraday },
+>  	{ }
+
+[Severity: Medium]
+This comment is about the binding changes elsewhere in the series, not this
+hunk. "dt-bindings: net: ftgmac100: Make Aspeed compatibles standalone",
+later extended by "dt-bindings: net: ftgmac100: Add AST2700 compatible",
+removes the oneOf that accepted the "aspeed,ast2x00-mac",
+"faraday,ftgmac100" pair. In its place is a single-value enum:
+
+  compatible:
+    enum:
+      - faraday,ftgmac100
+      - aspeed,ast2400-mac
+      - aspeed,ast2500-mac
+      - aspeed,ast2600-mac
+      - aspeed,ast2700-mac
+
+Will the in-tree Aspeed MAC nodes still validate? They all still use the
+two-string form. For example, aspeed-g6.dtsi has:
+
+	compatible = "aspeed,ast2600-mac", "faraday,ftgmac100";
+
+aspeed-g4.dtsi and aspeed-g5.dtsi use the same form, and the series does
+not change any of them. With a bare enum, dtbs_check would reject all of
+these nodes as too long.
+
+The change also drops a documented compatible combination that deployed
+DTBs use. The match table above already handles both forms, so the driver
+does not need the binding restructured.
 
 [Severity: Low]
-Is 0x178 really reserved?
+This one is also about the series. The binding makes phy-mode required for
+every aspeed,ast2700-mac node, and its commit message says this matches
+"the driver's probe-time requirement". Can the driver ever enforce that
+requirement?
 
-Both HIGH registers sit at +4 within a 16-byte aligned block. That looks
-like per-ring {LOW, HIGH} pairs: TX at 0x178/0x17c, possibly high
-priority TX at 0x180/0x184, and RX at 0x188/0x18c. The comment also
-doesn't cover the 0x180 - 0x188 range.
+"net: ftgmac100: Require phy-mode for AST2700" adds this check to
+ftgmac100_mii_probe():
 
-Related to this, ftgmac100_init_hw() writes the low half to the legacy
-register and the high half to the new one:
+	if (priv->mac_id == FTGMAC100_AST2700) {
+		dev_err(priv->dev, "phy-mode is required for this SoC\n");
+		return -EINVAL;
+	}
 
-	iowrite32(lower_32_bits(priv->rxdes_dma), priv->base + FTGMAC100_OFFSET_RXR_BADR);
-	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-		iowrite32(upper_32_bits(priv->rxdes_dma),
-			  priv->base + FTGMAC100_OFFSET_RXR_BADDR_HIGH);
+However, ftgmac100_mii_probe() returns -ENODEV earlier when !priv->mii_bus.
+priv->mii_bus is only set by ftgmac100_setup_mdio(), and ftgmac100_probe()
+calls that only for FARADAY, AST2400 and AST2500:
 
-The TX ring is set up the same way, using FTGMAC100_OFFSET_NPTXR_BADR
-and FTGMAC100_OFFSET_TXR_BADDR_HIGH.
+	if (priv->mac_id == FTGMAC100_FARADAY ||
+	    priv->mac_id == FTGMAC100_AST2400 ||
+	    priv->mac_id == FTGMAC100_AST2500) {
+		err = ftgmac100_setup_mdio(netdev);
 
-Does AST2700 combine the legacy 0x24/0x20 registers with 0x18c/0x17c,
-rather than using separate LOW registers at 0x188/0x178?
+The other paths behave as follows:
+
+  - ftgmac100_probe_ncsi() hard-codes PHY_INTERFACE_MODE_RMII and never
+    reads phy-mode.
+  - On the phy-handle and fixed-link path, of_phy_get_and_connect() fails
+    without phy-mode for every compatible, not just AST2700.
+
+So the new AST2700 check looks unreachable, and NC-SI AST2700 nodes would
+have to carry a property that the driver ignores.
+
+Could the binding constraint and the commit messages be updated to match
+what the driver actually does?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-support_ast2700-v6-0-238020bf46cf%40aspeedtech.com
