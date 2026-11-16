@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841288;
-	b=ujhz+XYC+AYxi6+gCI4yoE2H20qQWXBGWpd/FtV8oO+A0bVXLdqrapOfzu0yyOvRpBfn
-	 Lq4/n/wRDU4hfdSAVfRPLz30+3QCbnTyfbhdgd08A3pNV1Q2P40QfYChXCJ5WU9CZ8CPl
-	 njHNs8jwgwhKJUuRYHNNeP2w1CvTXDjRUUlM+rrdpWEiTm/NFzURfQpMcrSOVCGK4fD9N
-	 mNhxQBcVDyRPbjLjEhDU5/ow2qVGRQc3UgoqtPOH6Kp/a4Gc23lnExCnrevqDVHeZ507b
-	 P8g5Lsxi/aKYJPEFRQxtd8uvVHiN7A+m6XD0JlrOP7VQ142SQXH5W8N4dInssGFEOrw==
+	t=1794841311;
+	b=qoEXtWyUtcfNDAMklovKZCeC3K3vjlRG+QxwUDWZBnX6kNyQ619j7LprrECV0lvg3Rpw
+	 8CY3SvfNfjJ5OchtfWJtFcO5KSXILb2U98iUceh5x8oSQy97AODIogPNlRIacN73hJbVz
+	 /CIgjayEppUvE83lp4HbuHoTwRnUsDCwWj7ZcUmGnrsgPz2gIRQ7ceu+9xGmEFrBqz1hw
+	 /vWluwXMmgn7Cto1p28KxagPkurSn9q4hsYD5FwuYfR71FGTEgEZdyhwLIPDOe98ZJvEr
+	 d7BZh//37aSd5TxowZSN0WuxhYNapQ+d5Tz8Py7iCfy/ovZMvcgSu6dgc4dQATVT3fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841288;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jsBT0FZpMNikULzHhEfNl07JkOQbHVwUC1+MdqdHryk=;
-	b=pZ4ctmqSQGB4Rqyuo59VBXrh4C7B5KDRyI8BxyC2arIoqHV+5NOcupmbx32N/Mt4araL
-	 RpH/9tufaMGmbNFgAp+bnlHmZNrLP0aadoUtHD0/u9yHT4Y+q1Y/1PS+/WWD4wjx87bpe
-	 FD9rXXmBrwmJgtKHFwHGyni5ANaIaZVP08LUObDdDcRhmaH+niKs8b+tzlePKD3unAgPp
-	 EZv+F/cfZi62lYTnu/U0AF6jC15NxhUxbM6SJuCnkdGo5u6pM1FXXn8k334YlPW8mJEKV
-	 52M/TErBtlWSZILl10oZASgqkWZ9Z6tCAGEUV6Wh74CtOHUGjzI1zB7v+qXXHlz/w7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841311;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
+	bh=t4gHpP4H2Ksz/Yzkd0M1q7ZQ0MFcNwP5TlblCualRd0=;
+	b=kQKfp4kOddTgCXZxU5SkWV0dhSVKXK2Dww2nBH6e70d8XjtrwODCKZT+CyO/LgeXSJDS
+	 nc1C9mwBnhv5bNvZSzsGPc/Psg9ORwi2Dju2rSN01caa85w46n3lFPCyl4nuw+G6W1o06
+	 K27fXzTzrPTS1s9F2Ho1oAah7z7tSVNR9Eg6jOHSlaCrVGwNRJnLUABDCVe9c03BY3zjQ
+	 8guxK31+X9Ql/m+J26tEoczMC6cINL8/XAi3F3XatOLP/z+ShTluJmssSOAhJKxaG4DdX
+	 PZlgcoG8X+PnHlsSScCHHnF6oOTqYB0FilNrsoX/I+gP45nKt/Es2owJwAn2r131qDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WgkdVXM/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=UQhB2oO2;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5663F606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED1F606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:01:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DED1F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgkdVXM/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFDA1F000CB
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794841288;
-	bh=jsBT0FZpMNikULzHhEfNl07JkOQbHVwUC1+MdqdHryk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WgkdVXM/UXQ+P/8FVeaG3uctBI70rCd3thyWrq8PgYspDz9O/pUqZJCa/8rQC4dng
-	 GwQvURFQU6YqndYAWAZ+TcpG/e0NSDMfGsot24t5yN08P/NOW0Vlq9uPzUqL0nRjoq
-	 2djWIcrsZbuCPc30DJtuZunOnH5WgsljMzcZvo+pLvGWprScSYdlu7b07fh0ag0Srv
-	 rrtUbpJWtwTQdt5FgOQ/cZYb32UPI9QkJfcOWKzeaBcu9PCTMnK4EqEcIQGPNX1o9P
-	 rGL1oO6kpYd6v6D2/nw/jGQoOKFKHVzZML+cscsIHCPEiB7J21GQkvEWuJkmAemcrp
-	 dzKTZN1W5AJ4w==
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1438d9363fbso1718463c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:01:28 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGwjqF2s4MCV66vKxNBEg9mdtuagtVLBsd5PBVbX1zVt6v7iYH60GBBhgFP0c2WyIfTNa8f9c4rAc19/EY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PI2JTMg1D3mHC0jOIEhqw0lx9Eeh/jTS4til5BKTbPpMdn2Dv
-	5pwkz/KEE5dXwSuq5VCDFFgtcDKIMDmEebkvcjdneSQHNprn85pxA96r7OVnm95d6FskJhuDufw
-	63CRANfhMhpVf5AxM+ufj0HmlDut33g==
-X-Received: by 2002:a05:701b:4648:b0:1ad:1574:aa9d with SMTP id
- a92af1059eb24-1b502f8a3femr9454273c88.0.1794841287247; Mon, 16 Nov 2026
- 07:01:27 -0800 (PST)
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=UQhB2oO2
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id E570B610F3
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:01:41 +0100 (CET)
+Received: (qmail 22766 invoked by uid 990); 16 Nov 2026 15:01:41 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 16 Nov 2026 16:01:41 +0100
+From: Leonard Lausen <leonard@lausen.nl>
+To: netdev@vger.kernel.org
+Cc: leonard@lausen.nl,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Shuah Khan <shuah@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 0/3] ipv6: Honor prefix suppression for FIB lookups and cached routes
+Date: Mon, 16 Nov 2026 15:01:27 +0000
+Message-ID: <20261116150132.9594-1-leonard@lausen.nl>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,48 +73,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260921113914.779393-1-l.scorcia@gmail.com> <20260921113914.779393-2-l.scorcia@gmail.com>
-In-Reply-To: <20260921113914.779393-2-l.scorcia@gmail.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Mon, 16 Nov 2026 15:01:14 +0000
-X-Gmail-Original-Message-ID: <CAAOTY_9W4MmG74gMgXx=6-QncXs2-DqdR6FqjckJG9bsevyWnw@mail.gmail.com>
-X-Gm-Features: AclHuK8ZIdYSrxKs1dMZwhPrKku_6kwGWxmzNQVSAncsA778TJy7Qtii6vDGXkQ
-Message-ID: <CAAOTY_9W4MmG74gMgXx=6-QncXs2-DqdR6FqjckJG9bsevyWnw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
- compatible for mt8167
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
-	Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -
+X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.990565) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -1.590565
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=9VUargRA+llLPhlaHqp7nVxV42OmmixbozWbpTCEDjE=;
+	b=UQhB2oO26xg0BF8W7MP4JQ3dnYrFDI793YEdxhmqtTcNBeoiAZuW2lqpsAl1i/6aPQG+OUCsrj
+	E6I0GhlqKfOE7xcTYWQC2aHenXAAm/GJRqHGytLMKP70SRxzguxjYVT1YDsyqr00qG2tL20LXoV8
+	4YsyKLv3D+WwUGvkX/YEqQv4AzxthllTeQfJDQc7OtLVZwYrJj5i3UdWqitMC7BFOTB5YeQ94yPH
+	vjV3AzfwlzGCiQs95PRMA8LmaRIEjTnWNFDzUSLw0aAqNLwYS/+F3R8zHC/IVqvSit2SfXM5cBcC
+	A3264SxA8848c6vPI8ZsnkrzjyFJ6bawVoDmzys7RWTfLxsW0HMkcKKF7/RHa8+fgaAv9ERyAGOP
+	Dta2GndD9ea6yJohHoP3m5Q3HJTJ/0ZsyjjdV02trHMnjYCXAlSZ1pd9BUdP45iz4WOTKHHP3xZC
+	gwK1gLvuww8LNTD4Xhg8jvDyVoqx5Hhj/nur7bmd/vTfudMoIebRYHFUxnpdj0acjb3ytM6SMcoS
+	oRMb6uPSez+H3fd+M8762myEaHm1wqpJeQUQirpNROyslxO/r1wYokCYh6pxF/2xDgIW+rucdBT1
+	0Qb3PIJCcp0bMtxvSHfJkOiMTgJNcqLyFgG6946aNHtUL8AqF9u0R85lVRQEXuGxv8+E5kb+TnOP
+	c=
 
-Luca Leonardo Scorcia <l.scorcia@gmail.com> =E6=96=BC 2026=E5=B9=B49=E6=9C=
-=8821=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8A=E5=8D=8811:39=E5=AF=AB=E9=81=93=
-=EF=BC=9A
->
-> MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
-> one can be routed to a DPI display while the other is wired to the HDMI
-> block. They are not compatible with any other device, so add a new
-> compatible to describe them in the device tree.
+This revision also takes a stab at addressing the cached-exception disagreement
+identified in review. The fix remains small and is a separate patch so it can
+be picked up or discarded independently of the fib6_lookup() change.
 
-Applied to mediatek-drm-next [1], thanks.
+Patch 1 uses the parent FIB entry's prefix length for dst-based
+suppression. PMTU and redirect exceptions have /128 prefixes even when
+their parent is a default route. Reading rt->from under the existing RCU
+read lock fixes that comparison; a detached destination retains its old
+behavior. Interface-group checks and reference handling are unchanged.
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-next
+Patch 2 adds the fib6_lookup() prefix-suppression check from v2, with the
+reviewer's requested message, Fixes tag, original initializer and comment.
+It preserves reject results, including blackhole nexthop objects. Support
+for interface-group suppression in fib6_lookup() remains deferred.
 
-Regards,
-Chun-Kuang.
+Patch 3 reuses nft_fib.sh's fixture. Besides the six existing suppression
+checks it seeds a real PMTU exception via ICMPv6 Packet Too Big and checks
+that the parent default route is suppressed. The extra case uses the
+existing peer namespace and adds no new devices or dependencies.
 
->
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
-> ---
+Changes since v2:
+- Add the separate cached-exception fix and PMTU regression case.
+- Adopt the maintainer's terminology, message, Fixes tag and comment.
+- Remove Assisted-by and retain the original rt initializer.
+- Run the checks after the default-table tests, preserving coverage before
+  custom IPv6 rules are configured and avoiding logging RPF during probes.
+- Label ruleset-load failures, skip unsupported optional features, and
+  check ordinary rejection errors using the C locale.
+
+V2: https://lore.kernel.org/netdev/20261115114434.10343-2-leonard@lausen.nl/
+
+Verified on the rebuilt v7.4-rc2-based kernel: all seven added checks
+pass and the complete nft_fib.sh run exits 0. A run with an eight-second
+delay also exits 0. The PMTU reproducer creates a real mtu-1280 exception,
+then confirms that both ordinary and nftables lookups continue to the
+later table when the parent default is suppressed. Twelve reject-route
+probes, including blackhole nexthop objects, remain terminal.
+
+The source compiles without warnings and passes focused callback tests.
+Automated kernel-log checks were unavailable in the namespace test
+session. Target-net runtime and full W=1 allyesconfig/allmodconfig builds
+remain unchecked. The series is based on v7.4-rc2 (7475ea8b5861).
+
+OpenAI Codex assisted with investigation, reproduction, implementation,
+tests and descriptions. The prompts asked it to investigate the VPN
+failure, simplify the series and address review feedback.
+
+Leonard Lausen (3):
+  ipv6: Use the FIB prefix length when suppressing cached routes
+  ipv6: Honor suppress_prefixlength in fib6_lookup()
+  selftests: netfilter: cover IPv6 FIB prefix suppression
+
+ net/ipv6/fib6_rules.c                            |  13 ++-
+ tools/testing/selftests/net/netfilter/nft_fib.sh | 109 +++++++++++++++++++++++
+ 2 files changed, 121 insertions(+), 1 deletion(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.55.0
+
