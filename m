@@ -1,63 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846445;
-	b=5Uxqs9ekbWgv54eee+M9HP2UYdD3m5RHPseOkB83BqOJC7KZIRZcnP/TaEO4ShsekiI5
-	 3xkhyOLQ0x72+vo9ZiO9yZ8GGd7/vS1iCTsdxNLkHVh3zn3W4z+ogkLgZbOYNz4mD6urq
-	 S4kuDq8/hrtViYjNz9quqBxBG1TX0pwwDwVCxuyv1l772kttWX5qv/R8Owf3QgwEp1mcE
-	 8pkuLBr8rxVyTDM7jfSJwzwT1ZJp/RUoIlkVsT8Nv0aKRvlRY5Dek8jeomDExB/vn/Ae7
-	 OtV0d5ouYVYpK94nL3zADudhXFIjlMWHbNEyxZcM2DSoXgIq3leg6zAor6CP2lTUCcQ==
+	t=1794846473;
+	b=0UghduaMSLLMe1R48VqFXw6ukt57VmnBa2CGSScOpRRkdx1bl2n6iu63jQ4FjhwMniIj
+	 b1/MetjjGyJX7aHginRDqtVsd5mliety/1nRP1tqQktE5ho7wNMdk3Cnj02F+xgd0r7ob
+	 owviJDbrqcTV3r6rXh3NJNOGBtpIO8jsEGAb7+8TgbdD5SNw/hWO0lB8KyHqyNHBpTTxG
+	 U5FRD16JRAPGh9ETSJGkOWPmgYD/ITQJG9BnVQkkba4wUV0/4kbF/rEZXPIZMzT6df1FD
+	 0n7h2sHv63E3KQFrv6sH+y+7AUfVqj5Isp3zH0YoKxPl+hYqkD4JzsLn3MrCSRO5cPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846445;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=aqVXnpsGKUb5dmAyOvsZyxLyttfxnbXbLvMJdAHt3hw=;
-	b=A7w7dkQAyLaIoVLaew2opeTEvqNRtajUd8c5W1oAwKfHb8L+t5up/rWtsexdriDm7WaH
-	 kcQXdgPfjZ3vS9On9VKKe4LPPcBUzw6keCBUiXDAtSBYktjbMnMrvmYTMwkf7zOYsoNNe
-	 2kCrb8BPc3dXfGtpa+Uo/WackBLaKHL5k5M7PMUAHHjOi0ZYggnfcqGldrVFRRP3ewSax
-	 A3c+Z+E0VslrdE9U6gbE2ePDCKqtTM8OAehsLQgQRRxRUirqgmKVVyAfLBiMcTCUmpjZZ
-	 Rd1XPe0p3gG5rFlEPI/ZGRcRsUHaDpULt7pRTR+f3FZhI/VkXHEGJmV3lWgYQHK87/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846473;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dZe/LijuVLl7MoBOEgcpysGGUCW3oMka5tpf4Xkq18w=;
+	b=jKfmCRw4Ey0qbAeHwSg7+MaUpnHm0H60B1u4IQ1+sSNoQxsbPnDVHiBAmcUfz1C5/5J9
+	 Ittyhqo7/Ux0GZeVYZ8SQnhShTVLUE8Wqnfz0w60EtTPiTgh4AgL6MQ1Ao7jX9rMqvRI7
+	 gUfQWCJizl6LnkzPwntiPVYbyXsdnBV3JFDonuPg1qg0oo2YGLhoQfqgRTbJWqWWnn51R
+	 q6YrJEqqkzjYszTuMm+mD5yaztSaPq8X06MOgxWiNgezRiXz/ib6FCSAnrzPWYd2TJz6C
+	 /ITarVbOPFtvK3kXYDtuz7/oMq/7j9ZIYWCGmtCf70KNscfbvQ5Z9a1VAxR3VsAwzZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIQgZsHP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pisu.la;
+	spf=pass smtp.mailfrom=pisu.la;
+	dkim=pass header.d=pisu.la header.i=@pisu.la header.a=rsa-sha256 header.s=protonmail2 header.b=nhWUzufZ;
+	arc=none smtp.remote-ip=79.135.106.117
+Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5312C606A31C;
-	Mon, 16 Nov 2026 16:27:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8175B606A322;
+	Mon, 16 Nov 2026 16:27:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8175B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pisu.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pisu.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIQgZsHP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0791F000C4;
-	Mon, 16 Nov 2026 16:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794846444;
-	bh=aqVXnpsGKUb5dmAyOvsZyxLyttfxnbXbLvMJdAHt3hw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VIQgZsHPU4uQodvLyAAwsRYYmobWrji3K/0jNrzRo6ZcvRJyw2jluC3GEXDumUeHG
-	 vshdVlPKJzv2h8ow2lf2LCxd4EtGKG3she1k9a7HNCNCiM+6kCNk/I0CY8N8rULByL
-	 TDOkbJhA4OstvcEodNimQ/pM9bRyYgRLmKiC4Kf+WNNmqFVGwSz3hJsOHzKVIhMgEh
-	 /GHpCfNPA137OnbSvPSp55ELxA3u56ls5U3K80LMbdFrhVJZUZ9XsxK09S+OpwuJpL
-	 kx25cNpEkX2UtvhDGje24GRYxBH/hu3aNINtgMXi2kbxphTkXvvFbtPUuA/FW2qn1h
-	 zegWEGlK2AXSQ==
-Subject: Re: [PATCH net v9 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
-From: netdev-bot+sashiko@kernel.org
-To: xiexinet@gmail.com
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
- qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
- bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
- liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
- lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-Date: Mon, 16 Nov 2026 16:27:23 +0000
-Message-ID: <179484644326.3136.10831441284903731799@kernel.org>
-In-Reply-To: <20261112153333.20-2-xiexinet@gmail.com>
-References: <20261112153333.20-2-xiexinet@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=pisu.la header.i=@pisu.la header.a=rsa-sha256 header.s=protonmail2 header.b=nhWUzufZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pisu.la;
+	s=protonmail2; t=1794846468; x=1795105668;
+	bh=dZe/LijuVLl7MoBOEgcpysGGUCW3oMka5tpf4Xkq18w=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=nhWUzufZ8YEhdFzqvfugw8jS2dfMkh3TdFnQyI0AO448S+BoELVndnJ3KQ9P2mP5a
+	 kYaz2alAUyp2SCSdEiaubvFDzqT773pilVIBnb0wH6IWQHSeJbih9K9VL+zXGKn8+2
+	 IZ7JfVHSpWK7GtGX0U5R97a5hTilWIHgwliqa+cclvr/C/CdHx1yY3mDtOM0g8eQt/
+	 dKy2ndZh48BIKQRxPhR9vT7YJfsplBH66TkAIqh24083c4ahJ6W9WwONS3KcgC9lif
+	 Ce6v9NJNAdELXkmbfnixRDLW02WiuTw1aa9YEV6soNwb9QYIS20IgjPmfbbJaBmUSd
+	 PBq4B4OuB0UMA==
+Date: Mon, 16 Nov 2026 16:27:41 +0000
+To: =?utf-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+From: =?utf-8?Q?Miko=C5=82aj_Pisula?= <mikolaj@pisu.la>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, =?utf-8?Q?Miko=C5=82aj_Pisula?= <mikolaj@pisu.la>, stable@vger.kernel.org
+Subject: [PATCH] wifi: ath9k_htc: fix use-after-free of tx cleanup timer after failed start
+Message-ID: <20261116162702.15393-1-mikolaj@pisu.la>
+Feedback-ID: 197744389:user:proton
+X-Pm-Message-ID: 148aae3cd3306f701aa0b110078fd135038b2bb3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,102 +61,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+ath9k_htc_start() does not treat a failure of
+ath9k_htc_update_cap_target() as fatal: it logs it at debug level and
+goes on to clear ATH_OP_INVALID, starts HTC, wakes the queues and arms
+priv->tx.cleanup_timer. It then returns the stale error code.
 
-Low priority / nit picks for your consideration:
+mac80211 takes the failed drv_start() to mean the interface was not
+opened and never calls ath9k_htc_stop(), which is the only place the
+timer is deleted. The timer re-arms itself, so it is still pending when
+the device is unplugged and ath9k_htc_disconnect_device() frees the
+ieee80211_hw:
 
-- [Low] The patch puts HSR-specific policy into the generic core function
-  __netdev_update_features() in net/core/dev.c (lines 11279-11285):…
+  ODEBUG: free active (active state 0) object: 000000002df157c8 object type=
+: timer_list hint: ath9k_htc_tx_cleanup_timer+0x0/0x770 [ath9k_htc]
+  WARNING: lib/debugobjects.c:629 at debug_print_object+0x1a4/0x3b0, CPU#2:=
+ kworker/2:2/110
+  Workqueue: usb_hub_wq hub_event
+  Call Trace:
+   debug_check_no_obj_freed+0x44c/0x5b0
+   __free_frozen_pages+0x724/0xed0
+   device_release+0xcf/0x390
+   kobject_put+0x19e/0x530
+   ath9k_hif_usb_disconnect+0x371/0x540 [ath9k_htc]
+   usb_unbind_interface+0x1a0/0x860
+   device_release_driver_internal+0x35c/0x560
+   bus_remove_device+0x28a/0x540
+   device_del+0x371/0x930
+   usb_disable_device+0x2ad/0x6a0
+   usb_disconnect+0x27f/0x990
+   hub_event+0x1bd5/0x3ad0
 
---
+Without debug objects the timer core later finds the freed timer in its
+wheel ("WARNING: kernel/time/timer.c ... !fn" in __run_timers()).
 
-net: hsr: keep GRO disabled on HSR/PRP ports
+The device is fully started at that point, so return 0. The interface
+then goes through the normal stop path, which deletes the timer.
 
-This commit adds an hsr_port bit to struct net_device. HSR sets the bit
-on its direct members (slave A/B and interlink). While the bit is set,
-__netdev_update_features() clears NETIF_F_GRO and configurable
-NETIF_F_GRO_HW from both wanted_features and the computed features, and
-an attach fails if software GRO stays on.
+First seen with a TP-Link AR9271 adapter whose interface open failed.
+Reproduced on v7.4-rc2 with a USB proxy that withholds the reply to
+WMI_TARGET_IC_UPDATE_CMDID and then disconnects the device; with this
+change the same sequence produces no report.
 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index df1a840b03343..c8c2de2125567 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -11269,6 +11269,21 @@ int __netdev_update_features(struct net_device *dev)
->  
->  	features = netdev_get_wanted_features(dev);
->  
-> +	/* A direct HSR/PRP port needs per-frame metadata. Drop software
-> +	 * GRO and configurable GRO_HW from the request as well as from the
-> +	 * features passed to ndo_fix_features(), as the core does for
-> +	 * upper-disabled features: drivers such as veth derive state from
-> +	 * wanted_features and need the requested and the active bit to
-> +	 * agree. Fixed-on or driver-required GRO_HW is left to the driver.
-> +	 */
-> +	if (dev->hsr_port) {
-> +		netdev_features_t gro = NETIF_F_GRO |
-> +					(dev->hw_features & NETIF_F_GRO_HW);
-> +
-> +		dev->wanted_features &= ~gro;
-> +		features &= ~gro;
-> +	}
+Fixes: 859c3ca1e460 ("ath9k_htc: Add a timer to cleanup WMI events")
+Cc: stable@vger.kernel.org
+Signed-off-by: Miko=C5=82aj Pisula <mikolaj@pisu.la>
+---
+ drivers/net/wireless/ath/ath9k/htc_drv_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[Severity: Low]
+diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_main.c b/drivers/net/wi=
+reless/ath/ath9k/htc_drv_main.c
+index 6578114a4019..773787416694 100644
+--- a/drivers/net/wireless/ath/ath9k/htc_drv_main.c
++++ b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
+@@ -970,7 +970,7 @@ static int ath9k_htc_start(struct ieee80211_hw *hw)
+=20
+ =09mutex_unlock(&priv->mutex);
+=20
+-=09return ret;
++=09return 0;
+ }
+=20
+ static void ath9k_htc_stop(struct ieee80211_hw *hw, bool suspend)
+--=20
+2.56.1
 
-The comment says this follows what "the core does for upper-disabled
-features". Is that right?
 
-netdev_sync_upper_features() runs inside the lower device's own update.
-It masks only the computed features and does not touch the request:
-
-    if (!(upper->wanted_features & feature)
-        && (features & feature)) {
-        ...
-        features &= ~feature;
-    }
-
-Only netdev_sync_lower_features() clears lower->wanted_features, and it
-does that once, when the upper device turns the feature off. In this
-patch, the request is cleared inside the same update that is supposed to
-apply it.
-
-Can this make the legacy ETHTOOL_SFEATURES ioctl report success for a
-GRO request that was never applied? ethtool_set_features() sets
-wanted_features and then runs:
-
-net/ethtool/ioctl.c:ethtool_set_features() {
-    ...
-	__netdev_update_features(dev);
-
-	if ((dev->wanted_features ^ dev->features) & valid)
-		ret |= ETHTOOL_F_WISH;
-    ...
-}
-
-When hsr_port is set, GRO is already gone from both wanted_features and
-features when the XOR runs. So ETHTOOL_F_WISH is not set for GRO, and
-the ioctl reports full success while GRO stays off. A later ethtool -k
-shows GRO off without the "[requested on]" marker.
-
-Compare LRO disabled by an upper device: there the request stays in
-wanted_features and ETHTOOL_F_WISH is returned. The netlink path,
-ethnl_set_features(), still reports the mismatch, because it compares
-against its local req_wanted copy.
-
-The comment on the new struct net_device field also says "Kernel role
-state only; no user ABI", but the field changes behaviour that ethtool
-users can see. It also puts HSR-specific policy into the generic
-__netdev_update_features() under a "net: hsr:" subject. Later patches in
-the series do not touch net/core/dev.c, so this is still the case at the
-end of the series.
-
-Would it work to mask only the computed features here, the way
-netdev_sync_upper_features() does? Or, if the request has to be cleared
-for veth, could the comment stop citing the upper-disable path as the
-model and mention the ETHTOOL_F_WISH change?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112153333.20-1-xiexinet%40gmail.com
