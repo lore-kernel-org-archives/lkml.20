@@ -1,80 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842779;
-	b=PNqqCeCVRTEIs1bDGdvSVRJDI5jfJ4Q18QoJFx3Eb0jhyIV0jHr2cIRACfeSZFmXvw4a
-	 JFUCmQ08m4cnc7444uY0lkINln2wQfIwxzElp41tn3csrrYuPEjuZkqOX90nYnrlq13wf
-	 wJp/726CQXb+wsgF4KCoSyiCm7Jl9EZmffsp504OAa95HAb5C62k7JVZTwCoCf1d3VEjF
-	 ct6rlhEJNQdsrRDIjWgNXyTQ0hjy+PzvRNEf2v9kQ/RtPCOBtzipO4hzlYKQsseVNUhSj
-	 397fny5+jOsHPv7wDr0CKWMg4HWgKg+qEBMBuOJuqQPM/SDzNhAQAklr6PewJXUPgwg==
+	t=1794842790;
+	b=2fNPZsOfFsN12ycMgXh0NZzs3AKUl1yHphNKnoB3D3MnFukWr1JyaGAoBfgf981v98r/
+	 GlP1bYVSMDZRJ1XA0WqQ/BPutzfjNu9/xGDxmZVB3fP4gtg77CQDm4vEop8kkvB0oJx1K
+	 FGt8kcGFJeEzLHjrXvdE6pydMkEHczUm49Xw7rCxayAwDl7V3IE5PbMHUO0dtGCTHCQxX
+	 J5KuCpTsdFaRo1kCoijSr1QBoZg2Bgku3N3ryl+8Fj3gOGjk2kgpwF02aRH9Z9x0od7bh
+	 5BtQR1ZibNHB4Uyq9MXsooXQzV/ueZHaVDmN/yuON5v6/uiIbPBzRIQq1AfQDt31AQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842779;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mgH4R7B/B7UL3kVmlTJYLWidiBNciAWNe4D+qCoXewE=;
-	b=qZigh9N2uDe7xgPdvcL/fAY0k4S3A9TAqtGUZFXtEnGbiBup9SfVJocJUA10etJk/Qw0
-	 jgDUgwO+7yLCl96D5o0IyIfZbKBFKunk8ZcPTWuW7sxyFW0rlCU3XbGuGvL6ExRc/i97a
-	 s63EtIy9k8/YRXtlsXKjizDbGum0yn7Ki1x8UMRUii5aeoCX+roZaLKrXlGjQMR2Z+ES2
-	 PdEkHg0U3EdJNjdfOoOnqEmZ8GhjP44c+59ExvrnBHVNM0kk5S7UsJQRNMMckwv2OGpWd
-	 TZBiVqd8qvl2ilzTA9iAeXr1g42YhYvIaafqSEf5n4NKO40boRPwDzUy6RmmM6uG8RA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842790;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=hpzBj+RHJEHheQEZ885SE13+QYCxtEbbWBOo6hPrBZM=;
+	b=5FcnfgkTZh0pAf7+R9bSEiUbfrqtg+bpQKWodTM9SkwH0TteqK9QcKwT+x609bQn4t50
+	 1TzY7AUU4cDC0u/aN3z6OEb8JME2+RBFv/re0QEiiE25OVBJkrJcTdD0B4Q5N/enDs14t
+	 Cu5PeK09EsbnKqYNdN68x8Ku/l63Q0JBtivOTmzEbtU+Kuvtg5az8Z3eplxkaAI241AA9
+	 S3Mm7FV+/JQ1EmnqRkH1vwKRdBEtQOfqcIhZHh5jluiXmd0xH1Iv17yRcAD1jBPoh6Oct
+	 CH7XMP4RSW+bsIz+Q+rR96DTFAWKc2AF0rP9QtBCpNE+Ywg/F2D4mVtoHe7tiAjvQ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="e+XEWA8/";
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a3bhVhJY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F1B606A322;
-	Mon, 16 Nov 2026 15:26:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9F1B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3C8606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:26:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e+XEWA8/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794842779; x=1826378779;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=/XGgUUp5Cp+6vo1XMG5uxdlFzPP8UloQOwt0PdpOt5g=;
-  b=e+XEWA8/gzdRM/nfylMdmuKkJDTIQylRLA3MB75f/CzWgMStue+pQzv5
-   FF9WEUF7TvsVowaPNt6cuj0+N1PkzPE4jj3+9gMPykyYvD/Sxx/CP1ud7
-   FmzY9x5Ahp6nmf0tNKJ2G3Rq/GBM6+HXY/adMu1ZgNjZXq9sOCoHaGAEE
-   NqIMSB01jjrZr4CeZWNYjlaq8xkNj6g9Lk0KKEbUHwOkw0aQk1q/2zD0R
-   jfr29G9u6Cgpa3zV0p/kNdfJ6gBY9DzWBtuAbqAaJQ3xAzZFPydHncR2w
-   fgeC8bPskr8I0eW698helmfxug0bJLI6FTyWu3oM1KY/18WytCBlgTJuY
-   w==;
-X-CSE-ConnectionGUID: PQBEYZAORvqDJ88jOQWlmw==
-X-CSE-MsgGUID: u9Hh+0/GSTS7olfZWlaubg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3614267"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3614267"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:26:18 -0800
-X-CSE-ConnectionGUID: Xk5kW3R9TIegzQ1RNvHBWw==
-X-CSE-MsgGUID: ksZYac7lQFencKsROnkNNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9504969"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 07:26:16 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 13/13] PCI: Remove pci_bus_assign_resources()
-Date: Mon, 16 Nov 2026 17:23:58 +0200
-Message-ID: <20261116152403.2672-14-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
-References: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a3bhVhJY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F691F000C4;
+	Mon, 16 Nov 2026 15:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794842790;
+	bh=hpzBj+RHJEHheQEZ885SE13+QYCxtEbbWBOo6hPrBZM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a3bhVhJY1PqsfLU+lydtgR80Zsql+r8VUsOsFQ43GnPWo3pbwBda2hyUwITvmxVws
+	 5mggB+qJnmfLN5fW/fa/2wOhkPThZvLFYp/D9Y48KO95XF8VcbTWdaZ+m2sTeFBiYw
+	 H0bLc071gSkZW0heyas5NZSB6Pwl9D15SPeETcyRMJSW2Z4VxJX76XmWf9cgf02jaI
+	 ZSLTHCvma4QtrppGL3WsX8QSP1r2nIyxrm+fcGrzIUZtLMOMX7k6C8a+MQ0e01ULbq
+	 uHwBpSHHq/VkHM2lyhORsmVw/WS/Vaz9kH4dJ4bvcoGceCcuVbK09rBDwdKBMHP/Q4
+	 8/D7kfskrVE+w==
+Date: Mon, 16 Nov 2026 16:26:26 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Christian Loehle <christian.loehle@arm.com>
+Cc: linux-kernel@vger.kernel.org, Ingo Molnar <mingo@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michal Hocko <mhocko@suse.com>, Aaron Tomlin <atomlin@atomlin.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>
+Subject: Re: [PATCH v3 4/5] tick/nohz: Reset got_idle_tick when entering
+ dynticks idle
+Message-ID: <avsgopVPwV0Dd6Kq@2a01cb1180649ff18fb8790c3bbf7a16.ipv6.abo.wanadoo.fr>
+References: <20261112163813.524336-1-marco.crivellari@suse.com>
+ <20261112163813.524336-5-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,51 +76,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261112163813.524336-5-marco.crivellari@suse.com>
 
-The pci_bus_assign_resources() interface is problematic because it
-makes bridge window sizing disjoint from assignment phase.
+Le Thu, Nov 12, 2026 at 05:38:12PM +0100, Marco Crivellari a écrit :
+> A tick firing after the last tick_nohz_idle_got_tick() and before
+> tick_nohz_idle_exit() leaves got_idle_tick set, and the next
+> cpuidle_idle_call() then assumes that a later dynticks idle period was
+> ended by the tick. Now that the CPU leaves dynticks idle before polling,
+> this can also happen within a single idle trip when it switches between
+> cpuidle and polling, e.g. when it polls because the tick broadcast has
+> expired.
+> 
+> Reset got_idle_tick when entering dynticks idle, so that it only reports
+> the ticks of the current period.
+> 
+> Suggested-by: Frederic Weisbecker <frederic@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 
-pci_bus_assign_resources() is now unused so remove it.
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 
-Signed-off-by: Ilpo JÃ¤rvinen <ilpo.jarvinen@linux.intel.com>
----
- drivers/pci/setup-bus.c | 8 --------
- include/linux/pci.h     | 1 -
- 2 files changed, 9 deletions(-)
-
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 314c649c648f..547d0f920360 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -1575,14 +1575,6 @@ void __pci_bus_assign_resources(const struct pci_bus *bus,
- 		pci_dev_res_free_list(add_list);
- }
- 
--void pci_bus_assign_resources(const struct pci_bus *bus)
--{
--	guard(mutex)(&pci_res_setup_lock);
--	guard(rwsem_read)(&pci_bus_sem);
--	__pci_bus_assign_resources(bus, NULL, NULL);
--}
--EXPORT_SYMBOL(pci_bus_assign_resources);
--
- static void pci_claim_device_resources(struct pci_dev *dev)
- {
- 	int i;
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d89aeb7c9ff7..7d71ad6d89af 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1566,7 +1566,6 @@ ssize_t pci_write_vpd_any(struct pci_dev *dev, loff_t pos, size_t count, const v
- 
- /* Helper functions for low-level code (drivers/pci/setup-[bus,res].c) */
- resource_size_t pcibios_retrieve_fw_addr(struct pci_dev *dev, int idx);
--void pci_bus_assign_resources(const struct pci_bus *bus);
- void pci_bus_claim_resources(struct pci_bus *bus);
- void pci_bus_size_bridges(struct pci_bus *bus);
- void pci_bus_size_and_assign_resources(struct pci_bus *bus);
 -- 
-2.47.3
-
+Frederic Weisbecker
+SUSE Labs
