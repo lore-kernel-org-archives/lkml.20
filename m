@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837884;
-	b=27pIyAm6+DvLB3WJflSZ/Uh2Cp7pIxr9xmRIQyin/jcZgWTNAuWQUFpb9dGW021EM0nk
-	 /llEg6DxZuex8ecZw/GcSoMCdCpqpjvPdqprv+0VcgwSq0oV8zUz5Z5xjlDDdSMJ3L2tk
-	 rTM48Ch7y2vz3gEuA5VrkBodfOJ9ndp1mg7FQ0J7L1RAdlKxYDHzUH13EDm8XtfM4MDSx
-	 dkOmA6il3wVuqUALH2rfaATodzZdp6eWFG3YJ9c9/cKigIhPh7SptC2exT3NqwMt31llg
-	 nu1n+zXnZyw/PLcLtnpFAqDPSRZu9WETVlWX0GXQmO+lTpWKXJYDIxYZyBssJkPMOkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837884;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794837903;
+	b=bvaGMnOw6cWcdjfA+37FLz1amIiA02RZAsMV/XSRcwkV/vvkkhB9OuM9liMGIpJT/7ml
+	 CQQ8LyWXkZoslcFtr+tZzc/Qe6eYMa2ZhFSKIXIa1dGc422aUosFkZUfJtCJemzuEhj+B
+	 PyrrUtgqFybVjYTNKh7UWZ40MCoh+SJPwoQj+/raQqrhTaxPbgv6PISSZtwvSahNKQhMM
+	 x3dYJQLoO40P/mqnrKjjjR5cC9XncIh8PSFsdKWGu6pg87iQg1c+q9HwHFz60sFCQKlU+
+	 +4ZIULSg/RCoO3NGeGU82g/f6KAPHh9EA6LISa8JBrTbLfB48J249GmabxOKMEixCZg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837903;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=S/rwSMYRmKycQT+Q+WaK4Jt3aNV8OhLQHxBDEKKQbT4=;
-	b=QDpypmnk7Czj8792ictLm1sWfYAiyqWUgvxtVdkC2pADBvmLPKBWh7O/4x+XBq+84BSO
-	 fenP3MlPrv06U5tRmempCtFcgj+HxXf8PhVPDgqGovMCY54y7c7QQw0yZ06Zu2svTQgBW
-	 17ly6nRw5wD/eZmfEWlRVkioCRH8Jdv9dZwH5o2FS9X0K3lPC/Yk4+Zdm0Um9HKGT9LhN
-	 Fle2H3bg7mQi12gaxc+z2nfFxqRHep5Pm4xDrp2VvUEc3JE1fkXyWfpgxCYJ69/z7RW4J
-	 PK6LGqjU1oRnzw5g8H1ToSTWt6VRrj4u8XprrcI2GI2/FWucM86ZR8s6WRefQjlRmfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iMDzRrq0;
-	arc=none smtp.remote-ip=209.85.208.175
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=IiIU9t/pme/D3WoLNwnnikBF+jtcauKxTw3ofmYpCiU=;
+	b=zZSLrSCBB/OZavTWrHlnP12fFipzeNQlmpO7BYoH1ZF3wBapw8WDrdOU54QYQs+peLXC
+	 mLSZa9EMdMyqF0tBRAYSheKlNZZPEbprN+vlDvvFNuGYSmXzPj3Md00x44VOZdVY+knbT
+	 7dtyPL3xK9paigbYIbJmEajtgukI4Uf1nO0j/Yc0mVH726Ha3f4O4q0WAffwy1qrRRcIY
+	 B3OUZ6Yuzt+mxV6qKOL47lk6RXyJlWBvU1avqAfR7h5Al3YznUiqITlG0WpWHjxoQSc1I
+	 lmauN67AVJO46n7SU+7HhU3IIC32bNSN6XjMWHL9uKFlnHcIrZPB7ctv/akoo6XN/bg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cloudflare.com;
+	spf=pass smtp.mailfrom=cloudflare.com;
+	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b="RDRD/OcL";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53591606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53591606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6101F606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:05:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6101F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iMDzRrq0
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3ae2fb3fe2fso29454011fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:04:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=RDRD/OcL
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-86103aaac12so2929772a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:05:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794837902; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QPVLG8M30dAgH9LJPZ8oOkQNHG5lnHTOV9CX+B+/AK4jujhNhTzIEVOq3yiTjBGFI7
+         OnxSe4hKcCSDaMYGin+kBqm+z6D4dJByu4OjHutpw7mdF7wlxZLcaYotddmIdFKHonay
+         PhSxa+3KX5892xBXxb7mjDLCz1qrNAmwklPiDzxApOCVoROu1nY0tvxhn4j0Z3hu5Trf
+         oNNQDzxxWwZMKnRgqnpa/WOUblVrXshnIViIgmiTY4lDRvSWbztx/H1jeC2Wf0PeUo5q
+         eofenvDb4/VNF/FGsjm1bRXlTWi9dJo/ilg1zuJ6CIvLs1wxpJlSNO3UKPhHht4dBvy2
+         gMBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=IiIU9t/pme/D3WoLNwnnikBF+jtcauKxTw3ofmYpCiU=;
+        fh=Bvh9HimtznSLJcp/4aV7JXkF+Nyl+gFWZx3rLtTPLP0=;
+        b=nijc49r2rPj03xSDh8DvlB6B5Ya3xWX4bKRVXc1JvuDzskREHflKet1gu0jwwrFba8
+         yHn4s9jzBcoeNRDRZ91R2mzGv0TFXNG8zcqkmYTWlLpNfnNGKpcXnEaSPhOonm5tCPD+
+         TFbOTbnhNQqdvFxaQ/lqMb6HDRHXLEgp4Tdv/1mEneGCBq9XCmaUWJJ69tHFm0KRt86l
+         Iv8xtCwfF0fmJdwzrWEtFX0rs6UkqOXN88HPkm5xCeJ2E8qJKLOiGfOjNz2lXwLyiAJI
+         ZHCGjS74ZGZXm+qX5I0WBl9tm2UVGd3THUg+Jig/5brRfBEPptQKEX+8qOppqXdheaDM
+         mvyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794837882; x=1795442682; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S/rwSMYRmKycQT+Q+WaK4Jt3aNV8OhLQHxBDEKKQbT4=;
-        b=iMDzRrq039OpnwA08q8wxpS5ic9JrpGL8KQy/z358OVtcUiZ54zbGwg8H+DBTz2TUa
-         pv7vbxKyzddHqzhLP12j4t1DO+7iKl/0/M9BHiuLRIyxxj++IfynpWG6k38Gsj2NpTRT
-         lnNmpMTz6kojOLl+rxFtA6JsOHtgODkqvBayqBMVmN1im/h4vh7rPe7aLetErqimSCrH
-         j3Ti26DTCPJgzhUIndG/qgGDIGZTr4nnqcUKOg9RcAPAGee+qie0GBa166KTYMq1728p
-         NWGKLrYv7vYNUbG4/r76nfnL2eLkmsx98ZMIxoE/YwRqTkcYqFkzWBP3UDHylAVc9LRY
-         c5lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794837882; x=1795442682;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=cloudflare.com; s=google09082023; t=1794837902; x=1795442702; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S/rwSMYRmKycQT+Q+WaK4Jt3aNV8OhLQHxBDEKKQbT4=;
-        b=OimLrnrrMo6BOD2sRgtbf2IusHu01QSFX0xuJwiFGu1JUti43ryZF9+01TDuXnG6Ky
-         sjDqaANmt/91K7KyBqZxmZkDF5kTHnRulwP6T6ah7PLRWjf8QTzDa9YMkkktI/oXUNfW
-         vON+jjiSQNTXM3BYaoiY4rLaDfdksQtFzpIBVMsdfxe6F6YLMp1iO9t0W4LkQkP8ww4t
-         NPuKbDvltMYxzviYVe/05cD/u0eae1KUNnkHUHa/f5HNUZAnAhshGBzqBAqtwcTd9zvM
-         WgYJhU+i8YPm6d7PJRA9OIPgZhDnKoqjoT7x7ssMGAqR4mIClSbuADvCGd1KSalY+Gs8
-         1AEg==
-X-Forwarded-Encrypted: i=1; AL+hErFY4etTuyikAy0GKUgSmTphYaFkGEbGY+v44rj6rAiorv29+vP5vgaDhi8jdGhw9feDnKaB87pNa05VpfY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WqCPtJ6JGF3zNwUj1p6EhL44MVstgTBuSmkwwMUN8u83bSBOp
-	/98XQx0Q7w+NiDr1Vq8c/q1nh/wP0fk9XnLnjj2/C5NQWLtcf1xHEzgtEj0XNUYfGA==
-X-Gm-Gg: AYBFou2P5I1kWXVmio2vW+7dPcHDhP33UeUuwvm97rjQ7mrQ4VluGRWT5beB7ut1iM2
-	BSz0yM+BBq5SZozCcFbEYf4L+BiMurd0t7IwhaQh6rNzNIZBJ1eT5nLQnIQ1AGUlOA1H2+69o/a
-	iZzfchgLSBYfq5QiZ2CNMdOy8/LnOy3mN/ja7gvdLrm60i/WKhBBVyJ0UV39JPUFSaMyHdct1Xf
-	Ykr5Cn/4VZ5In2EFBdGVZyjpduvIURKn0f5oGNgeQ/E3tty/522cYRgBVra0yGT2MdCLvRVp9DW
-	HDHUAbbbuM3b2+UZ8wXNxxz+zThoWXiu2cWdwOaUcRR0Fl1UqQtC0BgL6n/EaYoau4W5bQlheEE
-	7HjAVvuvYjOR+/05sn3/MvrFvTIo57ksqei3SwM5GEupl6PD/bJmUj4zCil/+stji4T7MPzDWrV
-	4pjRHb6Hm8ZYneQV7EYhUGFyW/sOCcPWJNtidCz/E/201WMLYjoq5SPsIzcNOUBJmDfzQlSlv0Y
-	3b7aTWkqppYqfzCdBUst3gdiTcA4aPtdqp1snweAPIe/o/aG3rIHOlpVQE88LwYu5Gmj+feRYub
-	S5UuC31MOymZaPHCXG5gOJivT/R5nxCm7kkIioZo7CK2AWbPMo1H70UCMD04BIBK5Q==
-X-Received: by 2002:a05:6512:2208:b0:5c1:5970:ae1f with SMTP id 2adb3069b0e04-5c170a25d42mr3870536e87.63.1794837881958;
-        Mon, 16 Nov 2026 06:04:41 -0800 (PST)
-Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d66esm20599601f8f.57.2026.11.16.06.04.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 06:04:40 -0800 (PST)
-Date: Mon, 16 Nov 2026 14:04:36 +0000
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Mostafa Saleh <smostafa@google.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drivers/virt: pkvm: Zero and clean memory before sharing
- it with the host
-Message-ID: <avsNdPissIDAb1hA@google.com>
-References: <20261116110549.1863653-1-fuad.tabba@linux.dev>
- <avro44jUWOARFzul@google.com>
- <CA+EHjTxWuiyjmUc3vH_KxRtS_3oX5w=CE76LdsLcrqC+RzLGfg@mail.gmail.com>
+        bh=IiIU9t/pme/D3WoLNwnnikBF+jtcauKxTw3ofmYpCiU=;
+        b=RDRD/OcLdIq6BBPMomGGzPawAcj++fY9/uI9T/1dA72dsAu8agY8Cu6695ALuLwM0n
+         8y09N3w3OnPRYtLA+0e+4U9RcOnky1LhgUOxXzhjjfWtcgZu2/11KvN+/ArJuO0D3/uL
+         AyPFayZijP6GzDPeUrJPAizS+wLTSC4SmUVsvfBY1Ile6aaQ9CPg/kv99IdzqKSiLgcp
+         KkL/sqlkUbnuggAYKTgRgmfPG3aEwE4AOQ8e2We0/RHTjfPWdEnjmhtf16f6MefhQPs8
+         wjXI5xul/QtA/M+DzPqpAjwMvOpyB7m+LDtVfZ6yuRFcXnnU7LE7HpmL5egmcfFarZcf
+         uaBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794837902; x=1795442702;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IiIU9t/pme/D3WoLNwnnikBF+jtcauKxTw3ofmYpCiU=;
+        b=C+FrrHJrai4tl3C88+JdY1dVc0htfq/4Y55tVPtHkCe8/nFpi3n/kzzVWHykkNlyt6
+         dV3J7infCYlH3YCq4pe7eP3CaJ59tlR7O+4iTgmbLsyZHs+VUBjl64RP5ODZc8CSFtic
+         b4Z8m3fFXKNdfliGh/X2OCYDeqsVlbG/3bH6BK/rS+oA+z2BTXAmL6fXxfFbWpgB//+c
+         e6BI5Q7od6gAzBZUe4JOZx1rs68hZN9PIL/EkplR8aMknIS+ynMhcTbzDg1O6KqY6cnH
+         JjSHhcMWocm9P2R/HMtEy83IW0IGuBwmRlrIQHgzQGvRId2KUSOeWjaBdMbc5ArC3p3Y
+         ixKA==
+X-Forwarded-Encrypted: i=1; AL+hErFcCAxKHQQJ7JdBg5yqcQax6BqA7w5BRDt+dvoWIOMt9z2kKUYZH6vC71fULjwQlfeO+3f2eM7apjvsf8E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+f/bB7eTPnDVb6tQV/QtRBaDHMzx4XPNNV+jAkyTu+4t7CX10C
+	Wq7YPTDbaz1oFVAN135mOwgwCC3OZcKQKqc5FiA2OB1UXJujlSIv5FjIqLxKMSgEVQW+XHE3fph
+	k+lAHLyLnmmUnyuLggppE4UUKiRCpAOTyFpcJJgy8/Q==
+X-Gm-Gg: AYBFou3z2Q0iE2PFkhMSXdDcsKstPDHI/dgmmuTPfsfwYkfvYe8i/eHptxh80xqBCvG
+	ImS3vckFCW8cIMtIGzZBGF4igrKqaveZ26IkbFobXL7gKJFZ9VyekGR9w/z7XC3fWEqWOy7MGkl
+	CF3ZEyuuJNrYE1fdDLDo45Z8pUI6u/YolfvDjT/Xb6NR3CqNGbvZ9k4fgutknIg0lqHgQj7QnZM
+	Y15ZoeKwln574K7eQvhI4beIkOgIeVap0naMNDNmVdU+WKHGu9g+wVvDZemXStXopu3afltndd3
+	0GeL/GPo76TOFKAu/QT6gSiFKFMSXyhkXZUGskPbP3AYrKc7bI1B1wn5EP7w8kKe/ASLlYkaKbV
+	lZ/KYQ5FCM1Vob+hF/iDcLXp6ZrFLgrR4T6wsbH06zDqU/BdyUfDQ4SkGKA/NGqCsrKS+OIBSwq
+	zLh6/lIncx1EvGqHSkzFKPwT/bh0BbbQU=
+X-Received: by 2002:a05:6820:7093:10b0:71a:ea6a:4f51 with SMTP id
+ 006d021491bc7-71aea6a5809mr1437630eaf.14.1794837902102; Mon, 16 Nov 2026
+ 06:05:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,53 +104,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTxWuiyjmUc3vH_KxRtS_3oX5w=CE76LdsLcrqC+RzLGfg@mail.gmail.com>
+References: <CAG4wq-cd01i7YrcFPmma=BXUcwn_PK=wneKW=vyEBYzQ3Bn7QA@mail.gmail.com>
+ <20261116084107.6675-1-emmaonana18@gmail.com> <20261116084107.6675-3-emmaonana18@gmail.com>
+In-Reply-To: <20261116084107.6675-3-emmaonana18@gmail.com>
+From: Tianyi Gao <tianyi@cloudflare.com>
+Date: Mon, 16 Nov 2026 14:04:50 +0000
+X-Gm-Features: Aa3M54qRdeOnU1gJ7x3s56OW-hJCPdbvkrK8BlxFfQsIh19-OFAy7vmiVdSA8Lw
+Message-ID: <CAG4wq-d_30-B4wQZu48ZQXAORM4QxRqPfmYsmoHS0hiYp1EtTA@mail.gmail.com>
+Subject: Re: [PATCH net v3 2/2] selftests: net: veth: propagate bad-settings
+ check failures to exit status
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <skhan@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 16, 2026 at 12:25:43PM +0000, Fuad Tabba wrote:
-> Hi Vincent,
-> 
-> On Mon, 16 Nov 2026 at 11:28, Vincent Donnefort <vdonnefort@google.com> wrote:
-> [...]
-> > > +     /*
-> > > +      * The host can read the pages as soon as they are shared, possibly
-> > > +      * through a Non-cacheable mapping. No caller relies on their contents.
-> > > +      */
-> > > +     memset((void *)addr, 0, size);
-> >
-> > Are we sure we want that? The guest may want to setup memory and then share it.
-> > I am not sure about modifying this API.
-> 
-> Right! I wanted to fix the bug for the ITS property table, which is
-> shared before it's initialized, and totally forgot that this is the
-> path all sharing goes through... I'll drop this, and put that fix back
-> in the ITS series.
-> 
-> > > +     dcache_clean_poc(addr, addr + size);
-> >
-> > I believe the hypervisor is already doing the cache maintainance when the page
-> > is mapped back into the host. (see stage2_map_walker_try_leaf())
-> 
-> I don't think it does on this path. host_mmu.mm_ops doesn't have a
-> dcache_clean_inval_poc() callback, so stage2_map_walker_try_leaf()
-> doesn't do the CMO for a host mapping. On the guest's side,
-> __pkvm_guest_share_host() only changes the software bits of the
-> existing mapping, and the walker returns before the CMO in that case.
-> 
-> Cheers,
-> /fuad
+On Mon, 16 Nov 2026 09:41:07 +0100 Omokefe Emmanuel Onanaroghene wrote:
+> -             echo "fail - set operation successful ?!?" || echo " ok "
+> +             { echo "fail - set operation successful ?!?"; ret=1; } || echo " ok "
 
-Ha yes of course, that's the host s2 we are mapping into. And on the guest side,
-we are only changing the software bits, so no CMO. Actually I should have read
-the comment in stage2_map_walker_try_leaf() more carefully.
+Two small suggestions:
 
-That said, I wonder if that shouldn't be handled by the hypervisor, just like
-hyp_poison_page() do the cache clean.
+1. These lines are 85 columns wide, over the 80-column limit.
+2. The style is inconsistent with the rest of the file. Other checks
+   use if/else instead of a "cmd && { ...; } || ..." chain.
 
-That would be slightly slower than letting the guest (who has a mapping already)
-do it, but pKVM is enforcing isolation between host and guest, and it feels like
-it should do it by default no matter the memory transition.
-
--- 
-Vincent
+Cheers,
+Tianyi
