@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835603;
-	b=0pph4vrA5c1iR4B8NnNzsLHpNUp0e3nEprdB7R5mO0FXmyqDZ8r2rtndTuM5to6p5cC/
-	 HbDMUESqBUoErthwvHLUAOl8Gr9xqNbsrQSVMvebb30pgVroyRVF/o8pYhrznRN7MUSpS
-	 8R91dGnmm2kUSo+f5tM3Ttx9Mr7PTAHOlvfw4ApeBp5YTmVzul2ADalYgoNanVAroL1pM
-	 idBa7DuwhRbmkg42v7wCugoREFGtTM3M+5Vs07ESqV9zCW8OXRPUXtCFvrW/FR4WNZl1B
-	 0uMEEF+CTRtWWjsVZOouerx0tg1NXKycmuyTukgtZxdpgoJI8bIYddcvSS2+UozlLLA==
+	t=1794835608;
+	b=oBSqAJ+fbn9aSEDu++NAyo9fuKQ7XZmOegGBV9F9FgQ+//rm9v5LubZwVx7Pg8wCDqvy
+	 oTb0Ez6Vu8XVq9KMB9WhH6lwBci/KbTe3ZPtNuHknJqrGCDvn+fuwY/3JdQszjfTRnGr4
+	 d6GE8t4vteP20SdI5qCvSjAwiQ58HMbga2e8HbeJBBF0xRFYHfElu4dl5ORu0knmYSB73
+	 OcILPBD+mIEEB/hcckWfiXsWzKya6O4UxmeXY2/rEvYkQ8Er6x59v5hVxP2SZNG0ZJx+c
+	 8ksTYz/ZyQl+soWzI6NNnd+WrsKyA4DW3Ws+dE/SvsiI2UNaaIcjzNBJ4v/JwLKjtPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835603;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PJZz0YlOJcfbF9jg/HunuJ7liHek0Gp3vyMLiPrKO+c=;
-	b=s33NcQNFwea8RTIq0SCs7RkvykKT6VRAYpkv2YrSt6WhD9GlBUc8uSJuojpOF8NIPxXx
-	 7FW+DjIWzH9gdgFx13w0r9VRLsfuIEouIm/W7Gkbx2QdRwJyuYkIJ7H7KHEbV41eGUy8r
-	 XBV02gcLhgaHcU4eqWJUnZUIwb9eyqoCINXxTIGBl6ym2JfO0fmfUyD+cwGzQxn/s1DdB
-	 pN+Z9XxXsNO4qSed4B2AV8F/2c8gBroUDmW3hbMmDkvQ+dp346q8V0+yxRXwFyMccpbmL
-	 tG0zxAwIi75kPFi55rzJ32Ri7p9Ja+ttMOnc3Z7PQk1dTF/0WNpVLsnITHwfoUa+mGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835608;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OmQU/RjOnVBT06d12s8cxuLAC+RDONcNnr2qufwrZ+c=;
+	b=Wp8DquYP1XIR3Y/4pMLe+MDeSp27xXNbjnohB0oh3JSC9W+zqcW3aCq3ptpc+Wmpir0I
+	 RBkp6I3BmGDUAhJrGp3CNLgYRpqcFkgrzebanQ/olF8XVK54OlXf2u6VII8gxIBW86Gw3
+	 5HNn9lL7h2LFlOJNU7w3+o9TMB8MQ9w/goNvwqACbSTi0h2Uqk9vsRdexaHVmz3pdcqQB
+	 0KB+B4RrHGq3PZTHe2SanEIenk3NF8wvI/k2pf5eJNskbLWpdFFtWKSHPPmWFpKAw/YYC
+	 2R0cXx12qurQ/6aQpIM4YEk7pyIcRTcn1tS4okhvxw9eIWVOBdsBcdt+ruRUJRHFJdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rnqbYWCZ;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gj34zYbq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBB6606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:26:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BBB6606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AA8606A323;
+	Mon, 16 Nov 2026 13:26:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rnqbYWCZ
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ee1b65fdbcso10165675ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:26:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794835602; x=1795440402; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PJZz0YlOJcfbF9jg/HunuJ7liHek0Gp3vyMLiPrKO+c=;
-        b=rnqbYWCZn54/ObiL8lkH5/53odv2d5F0aQSuIExpOuZEIC1L4JYUCCsedtfsLFZF8z
-         uk3rISBqh0Rxt3lJgcWJmPoPFKX+BCHCNQDoxc7AvSAB+6IC/l+uJAqi9eFTb730sBGN
-         dsvdek4MegvIuHYHcTi/aNUaZLIctwmYoFeWVG5WKm2nevYe3gJ9pmep0d1IaEuKiPjX
-         hsD6C9LoFbFVdXvKnM8ZIeayWS9KHsP4lXY4SsfCn1+iDutHJZ1YCHp/0Vx6F7vb/B4Y
-         JlGqTNCMKM0RZ2AYk/12X9bf9XQ1lt4mVzLkz48ACcDmyzKHgUSJJLyjESR24xWlsuMC
-         uCeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794835602; x=1795440402;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PJZz0YlOJcfbF9jg/HunuJ7liHek0Gp3vyMLiPrKO+c=;
-        b=2GKk+nW/2cpyKQFKcaGtjaJ4VLt+XeiJWrsPr4mCpHFGo9magMYeV0hlKR+OSMmwbe
-         AqicZHaxPEUtkOEiMmMduaONuK7Ii9W3MS9kzdzv49NTq6svEEkygAPztB30Ayibnb83
-         +mzvZ9mkQOGFYixvFbUAHak/oYvtLDYLUYIKxTUOALiZ7vn3uwef5szADFX1siqMd+uE
-         20EVywYcGFZgWKolUnzdn8jQqtQGlR2zWYh7yfx9TzQBLrQh7MthgXhMZpG3S7yu+vc9
-         SuBHzJwXrEgQAmRkqeZ9T1o5Dzo9z5qfwiqVKcDPP9EMbTpWkMHPssJqj0gEQbG08XV2
-         h4eQ==
-X-Forwarded-Encrypted: i=1; AL+hErGBUeWNlGMLewYKu6bYBlnT6Y8xelmLt1CNKRQ+f9wbvoD9HnvqJicgNVXLaMxcMM0gHM7nS8tkjIExm30=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9g9A6S7Gg7598Q290+NTw/jvaumq8hu2ue6yTZPaRb1GOkLAno
-	Anqqs75+X7h0X3PwbhBmo9lv2T0+OwpflAdigNEFso7kdsD9se8PBmK/
-X-Gm-Gg: AZFdTZf/1xXzcbSigkDuhQSB6W1MJzJ4S6MbUAFgr+ezq+foQdry2+FJ/5pbiIH1OBv
-	Bgk+n26pAIYovZGoLnMu53qfwOxPcODao5l9MgW/JmBJZr0FDwtpNUwLRN+ncyA1SJ6UAtRw/lo
-	or6qcLlXadtl7KFW3EMFLEz9V54gMkUMbBe7mYaHvZCils6QV3w6wohqFRAE8sTpCkIprjtlB7o
-	tBpZ0M2yrA4CLDNd2L1rHC+i1bbxAHNXDzW1bG+f0vjtYT6HGdg3PMyrRhZAMWiSN92+E50OeAx
-	1nCUB7xfUBVoYBDF1hQti+X+MEOW+/XSMZPjmcB7Dij4b5LjeSQXES7kT59qyc1MW86/pPbBWrX
-	HD8nUO/Fq0oC7Lag2d6ef01LT3WxKAPd+XW3DFMWfqgd7cUOcr2vsGumjnu+PizOQPW/d5AzBtu
-	xsh/WwBCGmrwXSO3E1PjeSB3/80YPVnuydCaue/0IcffI/g8e89+dNE6U2gUhyu5XMdB23K5dTM
-	BZDIg2QxKtXPgVr4OGl/R9hKUc5oOz115KNS+9sg7dtqm2fND4lufqdjs+p06mdBaiiWfurRFar
-	LoHcMqZEpmy1goPnMQZyLtLrNkwPSSNgLd2A6qEep62F5JEiuxLoPCKBwteoV01mla+si/UzPR/
-	YuGOZE6HZPJOpv2Za2rRlg4VeQaCE1KiBhgVJFQ3utNRgAlXFOjTybEkTwR66gBwKKyrQ6no3kI
-	2sEYSX5V0Y2HvRickW1LWsUw0iHIkZR6oeIxTcIGnE1ZNyJ4M09HMga6FFw/zWTYmWVG3KQIUDe
-	bIm3Ut+lYzU2c8iiuSSlp+M2xHZcPiuUMM8IF3OmujQnKZHWCn7YKyYa9vQ7aGw
-X-Received: by 2002:a17:902:e951:b0:2e5:54b9:6b5c with SMTP id d9443c01a7336-2ee0da98ceemr93918415ad.20.1794835602251;
-        Mon, 16 Nov 2026 05:26:42 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f4ad534sm38780335ad.9.2026.11.16.05.26.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:26:41 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Darren Hart <dvhart@infradead.org>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Andre Almeida <andrealmeid@igalia.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Kyle Zeng <kylebot@openai.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] futex/pi: Reject owners that have no mm
-Date: Mon, 16 Nov 2026 23:56:22 +1030
-Message-Id: <20261116132622.34793-1-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gj34zYbq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4D51F000C4;
+	Mon, 16 Nov 2026 13:26:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794835608;
+	bh=OmQU/RjOnVBT06d12s8cxuLAC+RDONcNnr2qufwrZ+c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Gj34zYbqeKH3qs/yFSyVDyM5YLJ8gBrOfymx63es1d44qr9o7f+wNDu0eEF/61uaT
+	 /n5nIPeT4+d7UgqUN3tpvQ6NObEGC7tPNPj7q96fnfsTb7mqzHu93xgYXog93tF4ni
+	 9AyOHqX3UmfnKFG63wjIfvu7BVTCAu3u1IF2PrptqV0qllCixwZlnmHTfBrXrx+1Xw
+	 9/LNlRyggbLYmP8yHN3jx3aAyYnzfvdF83oScgwmTg2praBYGasZ6Y+6y0/qkr8NJI
+	 saSHE7acAkPFrMm/YWq6OJfB1wwjTIQwZ9e+cqPTHIM7MoSETufulxOXJOFBP5/P8x
+	 qe5zoitvISDuQ==
+Message-ID: <4c3bf92c-2434-46e8-8a3a-ab34cc50c72d@kernel.org>
+Date: Mon, 16 Nov 2026 14:26:37 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,76 +51,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] dt-bindings: dma: qcom-gpi: Add QSPI protocol
+ identifier
+To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dmaengine@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
+ <20261106-qspi_upstream_series-v1-2-21f43042dd60@oss.qualcomm.com>
+ <20261109-wandering-miraculous-mamba-0cf21a@quoll>
+ <2fc8f7ea-651e-466e-9346-c47e0a38c5bb@oss.qualcomm.com>
+ <20261111-daring-salamander-from-tartarus-4c72bd@quoll>
+ <c9427a03-8b45-4e35-a29d-7ebe30f07ed7@oss.qualcomm.com>
+ <5b6e4031-4c52-4b67-82c2-0033d13b15d6@kernel.org>
+ <0d4fa5af-e406-4761-aa58-534c3c6a043a@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <0d4fa5af-e406-4761-aa58-534c3c6a043a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-attach_to_pi_owner() attaches PI state to the task named in the futex word
-and rejects kernel threads, which cannot own a user space futex.
+On 16/11/2026 11:36, Jyothi Kumar Seerapu wrote:
+> 
+> 
+> On 11/12/2026 7:27 PM, Krzysztof Kozlowski wrote:
+>> On 12/11/2026 14:47, Jyothi Kumar Seerapu wrote:
+>>>
+>>>
+>>> On 11/11/2026 6:07 PM, Krzysztof Kozlowski wrote:
+>>>> On Mon, Nov 09, 2026 at 08:03:29PM +0530, Jyothi Kumar Seerapu wrote:
+>>>>>
+>>>>>
+>>>>> On 11/9/2026 7:12 PM, Krzysztof Kozlowski wrote:
+>>>>>> On Fri, Nov 06, 2026 at 08:31:20PM +0530, Jyothi Kumar Seerapu wrote:
+>>>>>>> Add QCOM_GPI_QSPI to identify QSPI (Quad SPI) channels in GPI DMA
+>>>>>>> specifiers. Its value, 9, matches the GENI serial engine firmware
+>>>>>>> protocol ID for QSPI.
+>>>>>>
+>>>>>> What is GENI serial engine firmware? How does the Linux rely on it that
+>>>>>> we add bindings for it?
+>>>>>
+>>>>> Hi Krzysztof,
+>>>>> GENI firmware runs on the serial engine’s programmable sequencers and
+>>>>> implements protocols such as SPI and QSPI. Linux configures the engine and
+>>>>> submits transfers to it.
+>>>>> The existing GPI DMA specifier includes a client protocol ID. Linux programs
+>>>>> this ID into the DMA channel and selects the corresponding descriptor
+>>>>> format. QCOM_GPI_QSPI adds the QSPI protocol encoding 9 to that interface.
+>>>>> I will clarify this in the commit description in V2.
+>>>>
+>>>> Does not really answer. I see no reason why GENI firmware needs ABI for
+>>>> Linux.
+>>>>
+>>> This extends the existing GPI DMA binding, not a GENI firmware ABI.
+>>
+>> OK, so it is not ABI for the firmware. Period. Let's stop discussing this.
+>>
+>>>
+>>> The third argument of the DMA specifier in the dmas property selects
+>>> the peripheral protocol. The GPI driver programs this value into the
+>>
+>> Yes, so the third argument can be value of 6 because it has no meaning
+>> for the firmware.
+>>
+>> Again, follow standard DT bindings ABI rules, you don't get an exception.
+> 
+> The existing GPI DMA driver and binding uses its third cell to identify 
+> the client protocol. The driver takes that value from DT and programs it 
+> directly into the channel's SCRATCH_0 protocol field.
 
-A usermode helper thread runs with PF_KTHREAD cleared and acquires an mm at
-exec(). While it is in that state, any task that can see its TID can name
-it as the owner of a shared PI futex. Commit 59b3732f95dd ("futex/pi:
-Reject cross-mm private futex owners") compares the owner mm with the
-waiter mm, which applies to private keys only.
+So register value? Not a binding...
 
-The helper then execs or exits, exit_pi_state_list() takes a reference on
-the private hash of current->mm, and futex_private_hash() dereferences a
-NULL mm. The oops path calls do_exit(), which runs the futex cleanup again
-and blocks on the futex exit_mutex, so the thread stays there and with
-preemptible RCU grace periods stop completing. Module auto-loading starts
-usermode helpers on behalf of ordinary users, so an unprivileged task
-reaches this.
+> Its mandatory to maintain protocol ID-9 for QSPI.
 
-Reject an owner that has no mm with -EPERM, as for a kernel thread, after
-the futex state check so that an exited task still goes through
-handle_exit_race().
+How can it be mandatory if we did not define in the bindings so far...
 
-Fixes: 80367ad01d93 ("futex: Add basic infrastructure for local task local hash")
-Signed-off-by: Daniel Wade <danjwade95@gmail.com>
-Cc: stable@vger.kernel.org
----
-Tested on mainline b3dfbde62cf1 (kernel/futex identical to v7.4-rc3),
-x86-64 with KASAN and lockdep, 2 vCPUs under KVM, as an ordinary user.
+> 
+> Other protocol IDs which are not part of upstream are for AFC (6), SPMI 
+> (7), HID_QSPI (8).
 
-Without the patch a usermode helper accepted PI ownership 130 times, with
-no EPERM refusal, and the kernel oopsed 22 s in:
 
-  Oops: stack segment: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:futex_private_hash+0x4c/0x2b0
-  Call Trace:
-   futex_exit_exec_release
-   mm_exit_exec_release
-   begin_new_exec
-   call_usermodehelper_exec_async
 
-after which the kworker never exited and RCU stall warnings repeated. With
-the patch: 201472 refusals, 5822 owners that do have an mm still accepted,
-no oops and no stall.
-
-Not tested on other architectures.
-
- kernel/futex/pi.c |   12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
-index 98f1b962e59a..77e88dd5dc22 100644
---- a/kernel/futex/pi.c
-+++ b/kernel/futex/pi.c
-@@ -515,6 +515,18 @@ static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
- 		return ret;
- 	}
- 
-+	/*
-+	 * A usermode helper thread runs with PF_KTHREAD cleared and acquires
-+	 * an mm at exec(), so the kernel thread test above lets it through.
-+	 * Its exec() or exit() cleanup runs exit_pi_state_list(), which uses
-+	 * current->mm.
-+	 */
-+	if (unlikely(!p->mm)) {
-+		raw_spin_unlock_irq(&p->pi_lock);
-+		put_task_struct(p);
-+		return -EPERM;
-+	}
-+
- 	if (IS_ENABLED(CONFIG_MMU) && futex_key_is_private(key)) {
- 		/*
- 		 * A private futex key holds a pointer to the waiter's mm
+Best regards,
+Krzysztof
