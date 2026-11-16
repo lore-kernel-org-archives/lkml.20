@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819346;
-	b=0aPMQLmU8/vG8eRu89kMARenn3tXXFTyVJYCSrCPWfhK4KwCkAwdkcz7RpKemxwWyFGI
-	 Axv0z1mJJ7q144MSFI5qV3lbKtijHE/IJZ/Pcf3w0q1VOpQ7LYbM70LBRx0orRZY0BIyi
-	 oJcEif8Qn3Iwle43cDIELQmOKRjYZv2pTA0bs6mK6IjJjMD4nqIyJVRT3JdF4WvFjC0lB
-	 W0U/ZPfUaWWb18rJb9Ju1F8w5CX4KpabBfyCMZBA8Kz9keEKya/pVAhwAUn0P0/p8/6eX
-	 zO2x8pXCd4WLO+wCHRNwdvWErG8iF6o3YsRnsrNs4bGJPamDyAOOh21oTEWELNCL6nQ==
+	t=1794819365;
+	b=vXd8cZ15e3jR78ejwWDxvm4O5wuilDbIfFI+DHnUAiXeGAAcYNrRIadgEegDSfoOQxN9
+	 5MeywZCwMmuf9SAdz+sCYSCKRTCCeho09pVtduv6+55h8PTrtv95rXu2KTLJLdAzl5GPd
+	 oEnAEx8CwmlPznUC+jWNpXxBWbwclIwn6HwP0ib6yBk0iAQQDuOLrtIRI5FX25tGnNCuL
+	 ZmBhy+hipCWz2i3LzMecMWCRGpF9zHeiUQDH17p7zyPR9lKqB7Vz/7uz59vffnOPMJf/X
+	 CtYs/gnlvWq0oSEhVKiSfvQ739hQD6ILiZu5EWaE2qz+I6pycz7T5YBd9c2AqUv9OqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819346;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=M2Cd/fzl3O9NVYskbVZ05Fvon5yO4+XmeF/4IQ6BoUg=;
-	b=i5PLu/2xCiEFu6bnXVdBTVZbdLcc7xl7daEswXIl5s93KDHYrjzFfWXtQN9eKxIiS4HX
-	 ku6utO938y4HJb08eT/M+CeqLVMPmHV5N47sMuOhrhNWvmcXRTBPGwwCjwhgffQj4rAnx
-	 p3flys3JJX8uyOJpsouJCOjNY07XJTAp9ldr/8AThIMdcSSPVil2x3RPlJ8TXmTYUPEH7
-	 NjuslkBDk64AqCahK0yXe1LSjHEdXDpx0qSJAlQZoJEIp5QrWK308UcPzhFa/ePxxXnXn
-	 Dy6i0dDl6pKJryaFNYTdg10JNkxaq9FpSXbqsktKWcFxgjnlXgZCBS8niB9JRzfKI4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819365;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=R32gEKrW706ZiyVdTAS8NJ1wU1G9YlflcPvlSWnKOWM=;
+	b=bXRIe2x24MC5OWXsmvJMay0Wzi6fS9wMkXbrTxobTxBEbY6WSQg7DC00XlbFE0SqVCcH
+	 1Lcb54Kflgn2/FWLeQKxMueXCWrlnCbEaJ68cy7Vfy4Jzt+3oEzSTmd3jKxYIFRU9XkEH
+	 adkj3axBEkFSRhbS/otcpei6Dr9ETtYJPTnUA65C67uTLJ4i9wsXUGxkl5U7Di/gqvs3y
+	 DjvRrOwQ6WLwvCmwjecFh7H/qKEl4EpThdB4N+ewSTKzCWMGyvFeJNd49aKE5RupJoBXE
+	 u/edlEP6wT2aAdcoLxRdSxgSistRPf/qzwCsPZ0dnytaRuJDJv93g7bUt0bOkeNJ1rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftMKqDkF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B69606A31C;
-	Mon, 16 Nov 2026 08:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftMKqDkF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE7E1F000C5;
-	Mon, 16 Nov 2026 08:55:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794819345;
-	bh=M2Cd/fzl3O9NVYskbVZ05Fvon5yO4+XmeF/4IQ6BoUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ftMKqDkFwUM2mdn2SAzqG+kDZWGH5IN4dtt4m3yP7OAoaTSzn21ZQvwFrixoe40cS
-	 4D0CPxZSx0+rATBqa+/YLp7E9xkxW/w6ABTblYcHhqyFAH1lYh2jNT9AN4aqDxzgGK
-	 Xyyf/SqR91FkRxKpbCsoDoCNA4KHSmLrAw2D1oUNN2ggFNG90DvspbnLbxIqsHZlOT
-	 YOvteIiXkTc/Yu+ZC1o2cT20vjSuL7Nf4Ky1OlJpG9Z4o5uEKXyoHz87NeaJPkuFgm
-	 LNhbe+Amzq77BAXrLTcUfMKRtNujxfYI40C7imNZja6xUkzlzxSbnuTv3kuuTX6PlI
-	 iXVVihYhYEpGA==
-Date: Mon, 16 Nov 2026 09:55:43 +0100
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: phil.williams@advisoft.co.nz
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
- trim
-Message-ID: <avrFD8e4UlKOB4NB@lore-desk>
-References: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D60606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74D60606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xSsVK-000000007s4-3RPS;
+	Mon, 16 Nov 2026 08:55:59 +0000
+Date: Mon, 16 Nov 2026 08:55:45 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hermes Wu <hermes.wu@ite.com.tw>,
+	Allen Chen <allen.chen@ite.com.tw>,
+	Pin-yen Lin <treapking@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v8 06/14] drm/bridge: it6505: bail out of the IRQ handler
+ when status reads fail
+Message-ID: <179481904177.211952.7029866729856302771@makrotopia.org>
+References: <cover.1790552614.git.daniel@makrotopia.org>
+ <2e003c2e6fdb56d03c3a6effdf090079afb2ffaf.1790552614.git.daniel@makrotopia.org>
+ <179251509977.78870.3399297204284524303.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,102 +71,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q4mxlm3H+1foX6aA"
-Content-Disposition: inline
-In-Reply-To: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
-
---q4mxlm3H+1foX6aA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <179251509977.78870.3399297204284524303.b4-review@b4>
 
-On Nov 16, Phil Williams via B4 Relay wrote:
-> From: Phil Williams <phil.williams@advisoft.co.nz>
->=20
-> Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-> calculation") takes the FIFO timestamp scale from ts_sensitivity.
-> That field is only filled in for parts that have freq_fine. The
-> untagged-FIFO parts are left at zero:
->=20
->   LSM6DS3
->   LSM6DS3H
->   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
->=20
-> st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-> every sample is published with the timestamp taken when the buffer
-> was enabled. The accelerometer and gyroscope values still update.
-> Userspace that integrates attitude from the timestamp delta treats a
-> stuck timestamp as dt =3D 0.
->=20
-> These parts have no freq_fine register, so there is no trim to apply.
-> Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
-> unset. Entries that already set it are left alone.
->=20
-> Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calcula=
-tion")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
-> ---
-> Resending inline. The first copy went out as an attachment.
-> No code changes.
-> ---
->  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/i=
-mu/st_lsm6dsx/st_lsm6dsx_core.c
-> index 823f8ac66..98db90a30 100644
-> --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> @@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_lsm6=
-dsx_hw *hw)
->  			return err;
->  	}
-> =20
-> -	/* calibrate timestamp sensitivity */
-> +	/*
-> +	 * Parts with no freq_fine register have no trim and leave
-> +	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
-> +	 * A zero gain publishes every FIFO sample with one timestamp.
-> +	 */
->  	hw->ts_gain =3D ts_settings->ts_sensitivity;
-> +	if (!hw->ts_gain)
-> +		hw->ts_gain =3D 25000;
+Hi Luca,
 
-I guess the patch is fine but it seems a bit weird to set .ts_sensitivity to
-25000 for ST_LSM6DSR_* family in st_lsm6dsx_sensor_settings array and keep =
-this
-chek here. Is it better to just add the missing info in
-st_lsm6dsx_sensor_settings? (I do not have a strong opinion about it).
+On Tue, Oct 20, 2026 at 06:51:39PM +0200, Luca Ceresoli wrote:
+> One first question it whether a read failure is realistic or not, and
+> whether you have experienced it on real hardware.
 
-Regards,
-Lorenzo
+I have not hit it on hardware. It takes a failing i2c transfer, e.g.
+the chip NACKing while held in reset, which can be provoked through
+the force_power_on_off debugfs knob: it6505_poweroff() only calls
+disable_irq_nosync(), so a running handler keeps reading from a chip
+that is being put into reset.
 
->  	if (ts_settings->freq_fine) {
->  		err =3D regmap_read(hw->regmap, ts_settings->freq_fine, &val);
->  		if (err < 0)
->=20
-> ---
-> base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
-> change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
->=20
-> Best regards,
-> -- =20
-> Phil Williams <phil.williams@advisoft.co.nz>
->=20
->=20
+And hostesly, my interest here is basically getting audio going on
+that Lenovo Ideapad, and for that
 
---q4mxlm3H+1foX6aA
-Content-Type: application/pgp-signature; name=signature.asc
+https://lore.kernel.org/all/cover.1784561622.git.daniel@makrotopia.org/
 
------BEGIN PGP SIGNATURE-----
+is sufficient. The 12 other patches are what Sahsiko has been chasing
+me into, and all the complains it had looked valid and legitimate, so
+I took on writing the fixes for that as well.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavrFDwAKCRA6cBh0uS2t
-rI/sAQCiCsNX173ffA9ITmOLAEYruHgF5MDT7ls3JNqzH5PuyAEA1eASHMyl7Ic0
-IVauaQku25XmnOGI5KyZdSXYeHjNUAM=
-=d7zS
------END PGP SIGNATURE-----
+[...]
+> I would consider replacing all the 3 it6505_read() calls with a single
+> regmap_bulk_read(), making error management cleaner.
+>
+> What do you think about this option?
+>
+> Perhaps the three it6505_write() below could also become a bulk write.
 
---q4mxlm3H+1foX6aA--
+Makes sense, INT_STATUS_01..03 are contiguous and the driver already
+uses multi-byte transfers elsewhere. I'll switch to a bulk read and
+write in v9.
+
+Cheers
+
+Daniel
