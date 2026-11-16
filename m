@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834645;
-	b=va4ybS9UfrPIl7mRBmO39OIlW2APl5F2my4SaKJJWygxBrVyQXvPtSmPuHQZuH0yrlVv
-	 a+sxpl18V8HCF8KQhjyHJ2SFkn9JCQnOJWFKDFNovOVy4dgfW16p13M7cJdGoPMo5XXnI
-	 ix5ZIqiwKgEnbYlHylGgF/LtpoIogL/7MRVVlQ6LKfWDdHOaz0kQ6l5c0zOi02lNsT2yT
-	 5oWWIgk9QWY+RGHgfluLmBTpSi+eH8lrHRH28TA1Z70RNeFkJQynaBlBaTaM+FlqoZ6B+
-	 0P8ucdxf2Ar8FmlJCHX0HdGGUPJlZiQyfxR539WONJh5JaH/CqCoZuZM7EnOanXTMHg==
+	t=1794834681;
+	b=HcXeB+GSTdGtgttxY26sihu7ipSISCdlq6yZxJzdAJmf671/0TRR8nIcdeO308I+DIps
+	 UdlOrsvbViKs1zbjJbkD2Z/MTJ7M2gVPL5r3J1ZxGad9ITLjji/SAggtCRY31rhsY+gvi
+	 OQxyvuwIY9qZI6Kh/xa8fjByjns4jc3bUcmni2/s0MseqnoCcUOZ9RaQm5Vk9AGl5kBaI
+	 hwAOjGDQMT7vMFvmsLsA2q5aF5kMY2NwHP8MVOO8O3p/e8lLX0JWjKZq0PhhKaNrrxhJB
+	 YVkNL+z5lpUsnwdMzDvmdeZgGkNcsjW9QYItro9OMLOPEr68NPV5uPg32bUnXiIARMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834645;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=h/EcMMy6lB0dwByblQ+wtEW6CQqWJ+089YlzEizOkgE=;
-	b=oDXiBnwbcPwa4kucB/d41DJCnK/j9iINKhVj0jb0OFi7RV47g7vfjSqhWwrYBy4+DpVP
-	 NfFR//RbVIJg6UZQR+Goyst9XTMd7GKdXl7RY1WyAGsnZZFm25YNC7q8gpGjvXv/4A/Us
-	 l6UYw9YA3/RaU4CqDbTwGaID+a/n8Tsu5RtR6vE6Yl8IvyPLddiv9Ve/zs5U6U8Xg/p28
-	 L7QP/bPrmXEsUSHKI+HlEl8XSekqWfEA43DcO6DCjKd4aRQd39uRINQKuj2lSaNC7OlyB
-	 zeRqBoFfxVPduVjoQSxWMkibxzmcUX+iIHLXZQ65B4QgIF568cpL1fAJVC9esb4bbKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834681;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=RZGav5VBwE05/edcFKd6DvQjJV7onBew1olClaU4Khk=;
+	b=y20F81vPHuATKJ6Q+NEH5zeYQVTMON9RW9WEGKPhC3NjCvqdBJd4FW710sBLu5Dvd1gJ
+	 PeZAOcOuIGYqPYOXFEClEQTPSLVuAHmN4IBxWVeYOH4gtxE1t3TY3pszQHv2H6ojOWysk
+	 pm65W1Sc2ETnA52zhIXHT4qQInalXHgydw6veJE4FFX2yePgK01BDOnjsRZTkMGaglGIN
+	 fNCQAMo6yIUD0yS7LhZ0q3MEf2soILhdmeAL6FEMgF9MouGABwIo/vZGvYritE3gR69Uk
+	 3Hykatazf+xyzzmTlN9rwzX5XMKXLiADP3Oa6AU/Wgq/aqbUwmKNLd3XlBZ3mI/piLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db7RY90V;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="iH/vRTNF";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E710606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E710606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16B2606A31C;
+	Mon, 16 Nov 2026 13:11:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C16B2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db7RY90V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794834644; x=1826370644;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=FE8Eb/o2jNhMmUkY0cmLF5+hbV0dzwgrgopBYqNs/2g=;
-  b=Db7RY90VJBMp0IobypR/45LHYchBIG55PtBnIF62pvPKlws3a0zSfHpJ
-   FqdpSYbOXsu5Vko1Qlqk4SYO9cPLQrM3C6XhGOd6GmvrKtW7zc19lIDhG
-   Bw/McS3IAwLu1cWrpaG8snjCyFORJTj+JKn42P/U1bhQdsUscvnIPEi3I
-   mxkde87AKXLpvIROSwA+2vC8VoM80yZI32Gqll8OovpH0J6GoYSk4cd8G
-   /m/RsaudiU7b1+1rjyvtZb4jKuvE179SVNZqyUSaZhq9ZWu3qLRClpdi4
-   gWRZY5SJ9/20MP4Kk1hdTCqYGhHL8ickdcN+lxYMciEvKrdJu/weypXoq
-   A==;
-X-CSE-ConnectionGUID: 10MAXrvHQYWTex1ZY5eamg==
-X-CSE-MsgGUID: ELgL5qArQs6ZkRWyMftqXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3464630"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3464630"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 05:10:43 -0800
-X-CSE-ConnectionGUID: neqRBvN9TSuOXPoowwyZdg==
-X-CSE-MsgGUID: HJr8YL80TZmLcafdJ7R4kA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9388760"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 05:10:34 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
- <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Manasi Navare
- <navaremanasi@google.com>, Drew Davenport <ddavenport@google.com>, Louis
- Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Kory Maincent
- <kory.maincent@bootlin.com>
-Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
- information report
-In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-Date: Mon, 16 Nov 2026 15:10:30 +0200
-Message-ID: <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=iH/vRTNF
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGCSFe13278619;
+	Mon, 16 Nov 2026 13:11:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=RZGav5VBwE05/edcFKd6DvQjJV7onB
+	ew1olClaU4Khk=; b=iH/vRTNFvfIt+8VTNU0NODeXzxr5PfToQQc2RxXxNMmxwN
+	tz3/spAte0eKSp35mm/PFh3NjoN/vy6vTelBsn0uo9bHwP5SzBzfppUrbYfu0zxm
+	BAl8CeToJf+TKRLSwDqkwA+sb9JkqXvhOr7WOuJUjhOLWxCmAyAJowFmxuSZ2ouP
+	T8g6fVy9tfIhOn+tF3sMC5kTR843pGqLvYdL9OJVwXL4UTKzXycmp8bYcAA0hCa5
+	vDSOSZrylbofpU7Py22fmKpq2PMc8eVqarKR9Q31jkoE6jbb00gBtS0aw3HZfsO/
+	QE4zz8nk9j8vS1HPwOdry8Ti4Bn6bNG4VistaWVA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxfc4wu3m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 13:11:00 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGD54Ef3095320;
+	Mon, 16 Nov 2026 13:10:59 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j02df8131-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 16 Nov 2026 13:10:59 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AGDAii140173868
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 16 Nov 2026 13:10:45 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E23FF2004F;
+	Mon, 16 Nov 2026 13:10:44 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6E6522004E;
+	Mon, 16 Nov 2026 13:10:44 +0000 (GMT)
+Received: from osiris (unknown [9.111.42.169])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 16 Nov 2026 13:10:44 +0000 (GMT)
+Date: Mon, 16 Nov 2026 14:10:42 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 1/5] s390/zcore: Replace __get_free_page() with kmalloc()
+Message-ID: <20261116131042.125125Be9-hca@linux.ibm.com>
+References: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
+ <20261108-s390-char-ready-v1-1-3db507722530@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,171 +98,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-s390-char-ready-v1-1-3db507722530@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfX4Vt5A3LJOpJy
+ 0XdUr3DO1Af4d9Tkz1UwnONNH/UsC2i83UkCe0GtdgMGWqCK1Qy5uH0lOt8asBNnhd932KsjZaP
+ SCBWc6zQzLW0p/36Gsi4pLTKSieGDOk=
+X-Authority-Analysis: v=2.4 cv=Fu6QbGrq c=1 sm=1 tr=0 ts=6afb00e4 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=Y6TpkvVB5ZIwULgkomUA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfX5WKg2xhkqX3a
+ +mn5URnuTpnAuQTeVueZz/+Cvr2qdxs1AiGUW59818IwBq3kPvGnm0XlZxjie2nXXYNu6VOFC/5
+ dYJEp079OAUzZ1l8jBMqWyh+nERMTiUr6MP9R/bzTUHqQCmrImh3yeXe5xCwqbS1TdTOQ01t6jn
+ leguscywOUOj2ZT5f9I26t+/uRiG0GnH6CuHpnLn/wwLd4qTRaiB1puhK7aNxHx1oQxhO/7gEOg
+ EEXVUIfT3kYQ4slLn93t9jhT6b1vN2jqZiE8QXr6EdBDKOt6tWL58BgpX467ZBO69tnRAF2/gcj
+ nCxBwIpeljd3rWbsFNVRaf5IG4K2nw/Us7enBWeIP7ZMm3ZLB4kEfbsb0CPgSaoWy1HVGRVlA5S
+ 4wxh8F1hXszvfKfVEiRPDRn5Iw1ZAfoRhHna8YlJbxBHywqJKEZWREVsjGSah2Z3sqYBzdZi5R6
+ iCgIN/TJDNSRvxN3W4w==
+X-Proofpoint-GUID: 4EnDG3myrhPma2aarqXVW-FwqNCfXQvB
+X-Proofpoint-ORIG-GUID: 4EnDG3myrhPma2aarqXVW-FwqNCfXQvB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160051
 
-On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
-> DisplayPort link training negotiates the physical-layer parameters needed
-> for a reliable connection: lane count, link rate, and optionally Display
-> Stream Compression (DSC). Currently, each driver exposes this state in
-> its own way, often through driver-specific debugfs entries, with no
-> standard interface for userspace diagnostic and monitoring tools.
->
-> This series introduces generic helpers, for exposing DP link capabilities
-> and state as standard sysfs entries.
-
-So how did we end up with sysfs here?
-
-> The aim of such development is to guide users to select the most suitable
-> DisplayPort connector for their needs. For example, if you have a USB-C
-> hub with lesser capabilities than your computer=E2=80=99s native DisplayP=
-ort
-> connector (such as HBR2 versus HBR3 support), the system could recommend
-> connecting high-resolution displays directly to the computer=E2=80=99s po=
-rt
-> instead of through the hub to ensure optimal performance.
-
-I do wonder how all this is supposed to work in more complex real world
-scenarios, though.
-
-I believe the user primarily cares about *modes*. Which display modes
-can be used with each display/connector pair.
-
-With the low level link information, are you proposing to compute the
-required bandwidth for modes in userspace? I think it's going to be a
-lot of work to compute the bandwidth requirements, taking into account
-DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
-still miss any driver/GPU specific contraints. Or are you just proposing
-to match the physical characteristics only?
-
-Given all the connectors and displays and their modes on a system, you
-could estimate a) for each display, what modes could be used on each
-connector, and b) for each connector, what modes could be used on a
-display, if connected. From the user POV, they could be shown why some
-display mode is not available on the current connector, and crucially,
-on which connector it could be available.
-
-In general, I'm wondering if you're really after higher level
-information, something like "connector max available bandwidth
-with/without DSC", that would more directly map to the user needs as I
-see them than low level link details.
-
-Do you have the userspace somewhere? That's needed for merging UABI
-anyway [1].
-
-[1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-require=
-ments
-
->
-> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
-> source and sink training capabilities to userspace via sysfs attributes
-> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
-> report current link information at runtime.
->
-> Three drivers are updated as reference implementations: i915 (direct
-> connector path), ANX7625 and MediaTek (via the bridge connector framework
-> using a new DRM_BRIDGE_OP_DP flag).
->
-> Here is a sysfs example:
->
-> cur_link_info_dsc            sink_link_caps_nlanes
-> cur_link_info_link_rate      source_link_caps_dsc
-> cur_link_info_nlanes         source_link_caps_link_rates
-> sink_link_caps_dsc           source_link_caps_nlanes
-> sink_link_caps_link_rates
->
-> 1620000 2160000 2700000 3240000 4320000 5400000
->
-> 1620000 2700000 5400000 10000000 20000000
->
-> 5400000
->
-> This series is rebased on top of drm-misc and may conflict with the
-> current state of the drm i915 tree. Which tree should pick this up,
-> given that it mixes core development with driver changes?
-
-For development, please just base your work on top of drm-tip, and the
-tree(s) will be sorted out later.
-
-BR,
-Jani.
-
-
-> Patch 1,2: Move helpers out of i915
-> Patch 3: Introduce DisplayPort link training capabilities and state helpe=
-rs
-> Patch 4: Read i915 DSC capabilities in any case
-> Patch 5  Use dp_connector helpers in i915 to expose link training state
-> Patch 6: Introduce DRM_BRIDGE_OP_DP and wire bridge connectors
-> Patch 7: Use dp_connector helpers in anx7625 to expose link training state
-> Patch 8: Use dp_connector helpers in mediatek to expose link training sta=
-te
->
-> Changes in v3:
-> - Rework the core to use new helpers instead of an extension of
->   drmm_connector_init().
-> - Add a new mutex to protect sysfs read write access instead of using
->   the global connection_mutex.
-> - Move helpers out of i915.
-> - Add the support in the anx7625 driver.
-> - Link to v2: https://patch.msgid.link/20260619-feat_link_cap-v2-0-a3dec4=
-c02ad9@bootlin.com
->
-> Changes in v2:
-> - Removed work converting i915 to DRM managed resource
-> - Remove voltage swing and pre-emphasis properties
-> - Expose link training state via sysfs dp_link/ group instead of
->   connector properties
-> - Add comprehensive sysfs attributes for both source and sink capabilities
-> - Add new helpers for managing sink capabilities and for current link
->   parameters
-> - Link to v1: https://lore.kernel.org/r/20260409-feat_link_cap-v1-0-7069e=
-8199ce2@bootlin.com
->
-> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+On Sun, Nov 08, 2026 at 10:48:58AM +0200, Mike Rapoport (Microsoft) wrote:
+> zcore_reipl_init() allocates buffers that keep a copy of the IPL block
+> and of the OS info structure of the crashed system.
+> 
+> These buffers can be allocated with kmalloc() as there's nothing special
+> about them to go directly to the page allocator.
+> 
+> kmalloc() provides a better API that does not require ugly casts and
+> kfree() does not need to know the size of the freed object.
+> 
+> Performance difference between kmalloc() and __get_free_pages() is not
+> measurable as both allocators take an object/page from a per-CPU list for
+> fast path allocations.
+> 
+> For the slow path the performance is anyway determined by the amount of
+> reclaim involved rather than by what allocator is used.
+> 
+> Replace use of __get_free_page() with kmalloc() and free_page() with
+> kfree().
+> 
+> Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 > ---
-> Kory Maincent (8):
->       drm: Move sink link rates reading helpers out of i915
->       drm: Move DSC capability reading helper out of i915
->       drm: Introduce DisplayPort link training capabilities and state hel=
-pers
->       drm/i915/display/dp: Read DPCD DSC capabilities in any case
->       drm/i915/display/dp: Use dp_connector helpers to expose link traini=
-ng state
->       drm/bridge: Expose link training state via new DRM_BRIDGE_OP_DP flag
->       drm/analogix/anx7625: Use dp_connector helpers to expose link train=
-ing state
->       drm/mediatek: Use dp_connector helpers to expose link training state
->
->  Documentation/ABI/testing/sysfs-class-drm-dp       |  85 +++
->  drivers/gpu/drm/bridge/analogix/anx7625.c          |  68 +++
->  drivers/gpu/drm/bridge/analogix/anx7625.h          |   1 +
->  drivers/gpu/drm/display/Kconfig                    |   1 +
->  drivers/gpu/drm/display/drm_bridge_connector.c     |  29 ++
->  drivers/gpu/drm/display/drm_dp_helper.c            | 571 +++++++++++++++=
-++++++
->  drivers/gpu/drm/drm_connector.c                    |  11 +
->  drivers/gpu/drm/drm_sysfs.c                        | 155 ++++++
->  drivers/gpu/drm/i915/display/intel_display_types.h |   2 +
->  drivers/gpu/drm/i915/display/intel_dp.c            | 249 ++++-----
->  .../gpu/drm/i915/display/intel_dp_link_training.c  |  14 +
->  drivers/gpu/drm/mediatek/mtk_dp.c                  |  79 ++-
->  include/drm/display/drm_dp.h                       |   1 +
->  include/drm/display/drm_dp_helper.h                |  25 +
->  include/drm/drm_bridge.h                           |  13 +
->  include/drm/drm_connector.h                        |  53 ++
->  include/drm/drm_sysfs.h                            |   1 +
->  17 files changed, 1202 insertions(+), 156 deletions(-)
-> ---
-> base-commit: 34e9ab0182494d7599dc9759bc216550d814b396
-> change-id: 20260226-feat_link_cap-20cbb6f31d40
->
-> Best regards,
-> --=20=20
-> K=C3=B6ry Maincent, Bootlin
-> Embedded Linux and kernel engineering
-> https://bootlin.com
->
+>  drivers/s390/char/zcore.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
---=20
-Jani Nikula, Intel
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
