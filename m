@@ -1,62 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794837050;
-	b=ge3tyyVcT+JhLfvVCYRApiGzY39vzzfx094KpmV4lUdGg9oGJwse08yivr70Mn2BFQhw
-	 QToEqDnlaU1WSUVfRDhV+kCyV6X9dsJCo8TMDmSV7Yb5hvYY5dk7gZq9gI9vnQl+pS+FZ
-	 HUVgW8eztIVwhLOoZpwEBe7SvtmEDhz7XL6dabQaOjckwOBJgzrCz/hexkOZLnER/tXu+
-	 LGtOVYGNuYITIQLohVY2MZhfkqdakM7AKaAOudEs1cF/c4NmvRjHP9v0HUcJSkZXZvkkG
-	 arwumO2qIjfx+GUS49qzyeJZIbHsX/fX8fjo/Y0c7PRpJyANP0SlpgebhK2xC6JZNsQ==
+	b=VJeVC6LTl996gjnmgMLMcNH3r7B5OyzWQOPWm9e6IwAEfsvRBUrYNrFa7d9UalNWdKqL
+	 o3WbksatopfHnMLGXoQaeBxxG85945yc5jRgb5o7JPXlhw3pfW0a9npCXbGZtNi62ZHiW
+	 sd7J383MqHDqSnNMNFhwVIu9WGXm/W8GGpcjI0o8Sar5xhlcXQa6ZsOBK/Xxq7+hc87Je
+	 nsL3e7NBLNpgpfY/vB2xBjDMgNwVHncumbC6J/XIWrX7+CbDyxLVhrpztphQMQflF/L/z
+	 +iIWEK9vb3Yk22PyxognP7gtJLo1Os6AiqCDfK9UQTqOKQjmS96UT5l5iCZprkazBUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794837050;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=LVz5mUCm5WEeoAL0Bw5uctiuDrK+oeS2W5aeRJYYK+M=;
-	b=UexT9k7gbS1OsrUczN0LUBxKsX4O9fHDgcEb8nmizAO+Ma8Xq6+izXCyA20GXMlRylsF
-	 qi6uEqmJWjZ1tZZQMhpcMdtk1rl2HLDiGLkbEo8zwWiWrBE1+EfglFuZ8+y+wfLAECrs0
-	 SyuKguoJ0v+uvoR3yWscygIJ0kKL44uyIwVSRUQ1QHwyVYPhNfiIaJ1PTr18RIv03rNRY
-	 AzEA9sosJBQKgCtualdSNn5r8/Lgq8i3jNFIwCmLNk3LcuudepM2htbNwHclqF7ms2pRr
-	 Lmk4aK6IYG0Ca1f+pAHFQ1Oi2dYWgrToKGW0sUaJEAu32alLiTERpJZdWy84nZbqD0Q==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OfHQHM3R+bJudBxYYvhr0hB1WtSESOcSRLIVPlqiZOs=;
+	b=B+an2lO6ZOtPh5AHqcjOsqf93wuvPWLVpa5OF4nVc+gZSK1kVEWiVzqGtVyZB7C3uOoO
+	 gq2bxcDHyvWIhUWR6GvS7klIiN+k3sHDfOxos0YVJN1MZstnjUBZI8pl3PXBdPHv76pSX
+	 izpMbt4wi9byatcmeLcZl8z09uraiCYr0/wUX1dtHywKB0rUTU5GnAna7SMwFZsKmH5PP
+	 lOCPXrDU60roNY+SyIVWODCwWqwLj2DydsKEbSg5db+8pYmvXlbLF8IMG35Tvo/4dCcF0
+	 J1x9YpHIPxW3aAE31MPxjKja0UGm4JWTzDWLUgJXPYqg86FJYoKTsQvdZ2Q6rtR+rPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWY85mvC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBF+4URO;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B602606A884;
-	Mon, 16 Nov 2026 13:50:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8243D606A89A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8243D606A89A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWY85mvC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941B21F01821;
-	Mon, 16 Nov 2026 13:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837049;
-	bh=LVz5mUCm5WEeoAL0Bw5uctiuDrK+oeS2W5aeRJYYK+M=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KWY85mvCaXAjsH+NDQE9EI0nh5+7kxtEyJ9+nlDpboY3USL+cXfcr7YN3zcre90/x
-	 EJig/+UoT24V0BOxqKuIsKXS/f70edfdZQ2nL3UijiDaXckvUxDqa/y0d0BlMK09NU
-	 MVqq3Fp9SepW337AQu6MrwGgUXpbsVbxzye4vNA5MVvFCGZo0pmCiW8BQho2krLYKj
-	 PRBw7N4GRd0IYJO/VinlJhVA5YNefJuuwdZdeRTcCn5A2F6HFkpGkakLjGBaMNCsli
-	 vHDtB5jzIW9+W/jQsiyE1y/f9XlSB0RJ/lofOKQtdDeQ/vfYq+0EGNGBe35lMpELf+
-	 lTOqtr/9l+i0g==
-Subject: Re: [PATCH net v2 10/12] net: phy: smsc: wait for LAN83C183
- power-down recovery
-From: netdev-bot+sashiko@kernel.org
-To: f.fainelli@gmail.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, hkallweit1@gmail.com,
- linux@armlinux.org.uk, shaojijie@huawei.com, horms@kernel.org,
- runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org, jeff@garzik.org,
- danny.kukawka@bisect.de, mugunthanvnm@ti.com, sebastian.hesselbarth@gmail.com,
- linux-kernel@vger.kernel.org, manuel.lauss@gmail.com
-Date: Mon, 16 Nov 2026 13:50:48 +0000
-Message-ID: <179483704808.3136.15887744025770615688@kernel.org>
-In-Reply-To: <20261112045301.3669532-11-f.fainelli@gmail.com>
-References: <20261112045301.3669532-11-f.fainelli@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBF+4URO
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so28687435e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:50:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794837049; x=1795441849; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OfHQHM3R+bJudBxYYvhr0hB1WtSESOcSRLIVPlqiZOs=;
+        b=SBF+4UROMOUEWTue8WdlvuLI4sdVC24pYGuePfawZCeckwbe10Zs25hmSgoLcmjmWV
+         fsf1P3RG5a9gydngTRd/PZ1fa5sYiUVR6SIAhHxjVJdlrQCwFMLyg9MPZLuNJLK7iIMD
+         DeWTz3Nu/SegJ4Ar66nKt2JFG6+Jbmyackm5qcLK9om7fJXT21X53YYMcIGCjbaGZNKs
+         xIpf1GbjjBGeaPDOQFrVQEgLWg/ke85kDJSjMKhR08cQKmLxXSKLAS5O6Fkk/3K2dLS4
+         EmnMwWCpW6KloDHc6S8mtURRIBSjxSg8BjH4U7H2kRug9y4y+/5M3ogdTs5ckW0oHZKm
+         voeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794837049; x=1795441849;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OfHQHM3R+bJudBxYYvhr0hB1WtSESOcSRLIVPlqiZOs=;
+        b=joXLMCs29506yEWmZeYublzRMLPMer9+xsIu3OYPBp9aUd18BwQVPgowsj919ZilMu
+         cnEX2FlkbE4xtTyiESXx5BR2auGcJ1wvRENIWgVrwUvohAFyNIgxrDPKr1dTLh79MrAJ
+         cmyU03CPT1WTxWmbqfFkmby1Zkmw9n1ABGpPkjjiT8xDu7vwKnl6HqEV6u3HObD5csS4
+         hJZr0e57mBIoVKIaQjkwFEpgsvJHQlO2RFyH9KFMJliaSkBdEmrjxSVrbQJd3m19x6Wb
+         bOEFmJhgtjzp5MH8DrORY3eMKHkZMFGcDpaNE064sRnG1d/7Pi6BpBZJLQ+oe0QcSgZh
+         htZg==
+X-Forwarded-Encrypted: i=1; AL+hErGWPqWtdF4XpBcOS74GGlnJ/UPR/v24jUYdpf/xZmZnhwGfyGX5yFNoXxX0vzXVKSoyUU3EUHoTWEX9UTc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ckS/Fl1g6Hhp+/9OU+WoowDMkF+f9q+XIawf8GskGDgAJ7gfN
+	j39lrgnp9iB0F3fIJsI5ED/ar5gaRP7mz/HgfOI0WELQrJVyjpX8pLhd
+X-Gm-Gg: AYBFou1G5mxAyv4kKZ3RG8jPSeOBVoQa7mRJpFRF2Aimpkt8D3pMCcWaTi5XzsLmov+
+	iodZjx50vjR9a1NEd06oHpDKcY57E9uHpyck2Tn7+lSVRt+xoKUbC0qtCOwcruIJM2Nb6u8pPi6
+	zGe3hbo++kzIHnHU9w6uhF2aQE3z2XeIrFFRiI+4vGccD4jRJv0BtjFtCVgAD6Xs1isod0tGHGR
+	WRVzgAe/gucLeCKUxyaMqFtpp8UYTmgTzA4QuhUVpOO9LV94TF0nxQPGdxtGQXSlDv1xa9Xikdp
+	BI7BnKM7DVNynFR2IF1nw984Gs2ZvjSEoEPgcUEXzGTPYVDhHTXcNHFhAIdI/YBlzol3Km3NSwF
+	To80P+CbcyhqQvAQaMIdB3c0yHNe4bTiWn5WdJzLDWhVAa0vb0je4kP8lCbPQP2EJmBEzHRSBA0
+	SZSzgoF5Y+IVCuutVh9314PGWwHgiOsJucUxehKhr4RszWRgLEGpfuRfQDadA0kEJvSnmLZmR2m
+	t6zIkEF/1ghtFtmheIRZKk6btfGDETL+mOWLEJ2fFOLEYE9tlaM8yePUQtQYLKGPNSW8i0ug33C
+	t74MTRE+e1jxqEGoc5POW6o2yxXbfm/D6E9QG9dF0H/s161OI/B1owhY
+X-Received: by 2002:a05:600c:1d0e:b0:4a1:d459:db4b with SMTP id 5b1f17b1804b1-4bb55abaef4mr221596805e9.24.1794837048913;
+        Mon, 16 Nov 2026 05:50:48 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb6fb45a32sm69904235e9.1.2026.11.16.05.50.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 05:50:48 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+	Stefan Eichenberger <eichest@gmail.com>,
+	linux-i2c@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH] i2c: imx: do not acknowledge the last byte of a block read of one byte
+Date: Mon, 16 Nov 2026 14:50:47 +0100
+Message-ID: <20261116135047.1379330-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261116124430.1358948-1-mehmet.fide@gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,143 +108,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Sashiko is right: with PEC this NACKs the data byte. v2 will test
+i2c_imx->msg->len == 2 instead.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In this commit, the new 500 ms wait in lan83c183_resume()
-  (drivers/net/phy/smsc.c) runs only after the Au1000 MAC has already…
-
-Pre-existing issues:
-- [Low] After this patch, the SMSC_PHY Kconfig help text
-  (drivers/net/phy/Kconfig:424) reads "Currently supports the LAN83C183,…
-
---
-
-net: phy: smsc: wait for LAN83C183 power-down recovery
-
-This patch adds a LAN83C183 entry to the SMSC PHY driver. Its resume
-callback clears BMCR_PDOWN and sleeps for 500 ms, but only if the bit
-was actually set. The aim is to let the MII clocks recover before the
-Au1000 MAC starts when the MTX-1 interface is reopened.
-
-Link: https://pdf.dzsc.com/LAN/LAN83C183.pdf#page=44
-
-> diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-> index 30e9d22c8d1a3..10466b2574eb4 100644
-> --- a/drivers/net/phy/Kconfig
-> +++ b/drivers/net/phy/Kconfig
-> @@ -421,7 +421,7 @@ config SMSC_PHY
->  	tristate "SMSC PHYs"
->  	select CRC16
->  	help
-> -	  Currently supports the LAN83C185, LAN8187 and LAN8700 PHYs
-> +	  Currently supports the LAN83C183, LAN83C185, LAN8187 and LAN8700 PHYs
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but the help text still
-names only some of the PHYs that smsc_tbl[] in drivers/net/phy/smsc.c
-binds. It leaves out the LAN911x internal PHY, the LAN8710/LAN8720,
-the LAN8740 and the LAN8741/LAN8742.
-
-Could the list be completed while this line is being changed anyway?
-
-> diff --git a/drivers/net/phy/smsc.c b/drivers/net/phy/smsc.c
-> index 48487149c2252..c3b51afd4b1e5 100644
-> --- a/drivers/net/phy/smsc.c
-> +++ b/drivers/net/phy/smsc.c
-
-[ ... ]
-
-> @@ -684,8 +685,32 @@ int smsc_phy_probe(struct phy_device *phydev)
->  }
->  EXPORT_SYMBOL_GPL(smsc_phy_probe);
->  
-> +static int lan83c183_resume(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +
-> +	ret = phy_modify_changed(phydev, MII_BMCR, BMCR_PDOWN, 0);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* The PHY needs up to 500 ms to restore operation after power-down. */
-> +	if (ret)
-> +		msleep(500);
-
-[Severity: Medium]
-The commit message says:
-
-  Starting the Au1000 MAC before the MII clocks recover can hang the
-  MTX-1 when reopening its interface.
-
-Does this patch alone prevent that ordering? au1000_open() starts the
-MAC before it calls phy_start():
-
-drivers/net/ethernet/amd/au1000_eth.c:au1000_open() {
-    ...
-	retval = au1000_init(dev);
-    ...
-	if (dev->phydev)
-		phy_start(dev->phydev);
-
-	netif_start_queue(dev);
-    ...
-}
-
-and au1000_init() already sets the RX/TX enable bits:
-
-drivers/net/ethernet/amd/au1000_eth.c:au1000_init() {
-    ...
-	control = MAC_RX_ENABLE | MAC_TX_ENABLE;
-    ...
-	writel(control, &aup->mac->control);
-    ...
-}
-
-Suppose a close has run au1000_close()->phy_stop()->phy_suspend()->
-genphy_suspend(), which sets BMCR_PDOWN. The reopen then appears to go
-like this:
-
-au1000_open()
-  au1000_init()          <- MAC RX/TX enabled, PHY still powered down
-  phy_start()
-    __phy_resume()
-      lan83c183_resume()
-        clear BMCR_PDOWN
-        msleep(500)
-
-If so, the 500 ms wait only delays the PHY state machine and
-netif_start_queue(). The MAC has already started by then.
-
-The close path has the same ordering in reverse. au1000_close() calls
-phy_stop() before au1000_reset_mac_unlocked(), so the PHY powers down
-while the MAC is still running.
-
-The next patch in the series, "net: au1000: keep the MAC stopped until
-the PHY link is ready", seems to fix this. It calls phy_resume() before
-au1000_init() and enables RX/TX only after au1000_adjust_link() has
-seen link up. It also calls au1000_hard_stop() on link down. In the
-PHY_HALTED path, phy_link_down() runs before phy_suspend(), so the MAC
-stops before the PHY powers down.
-
-Can the MTX-1 reopen hang still happen when bisecting to this commit
-alone? If so, could the commit message mention that it depends on the
-au1000 change, or could the two patches be reordered?
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112045301.3669532-1-f.fainelli%40gmail.com
+Mehmet
