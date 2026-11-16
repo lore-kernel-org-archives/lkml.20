@@ -1,63 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.161.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794840554;
-	b=0WVAYToSpKYTKlEEvGLGRA9l6fCDsq2veMxGeE7puD9Mh5c9MKlKaax4ODMMzzEO3H3w
-	 nUhZ8z/3lnnqBW2W9X9xe+RZRbtVT7trRUi0CHHOmjEfjlFS4xJD6Evt8q8FpS1LAWtp0
-	 r8Vx5exzcrmKYNUQYahu21SrblniHMMXfUFyhKYXESb/TcvmElUb3KXbIkYo4b1vfVgvE
-	 Aib3bODozCz0Un+n+twY32KI3KwsykOptWfbfeFwJv6yFa3IQnmYYcTOvCDNAwFjSA/7l
-	 4neIh0fz0Bo1otIaok+RgfWFrUZYoCBjvcUaekwFgWDNhl2scEom2lBN0LQJzwAMbAA==
+	t=1794840555;
+	b=CjNf5yi/1PHMyHx35y6G8QaievFPLKpLk2EigOWcHV9OFgvRO7eaZlyCwX+/tBITIgRR
+	 UvJkyfVxPzeqqc/ovUEMb5yLhqRnhkvPgZV2KgdgXs1frNdcZTHsLFaXMDIgZm/rA+9qw
+	 I4LIqHdMZegkM53BGQSRNCk7lOqJELPetNPhJm8QMZPLps3tnB2gYgHfTzgr3xlazA/pS
+	 6q+9uZwaQkIJmBYrjIbtvo0QFo05bg2+LDNbH2ddRdApwFUDF9W9fA5BCOQZ7jegtTDHY
+	 dkXu2Dgxftr2YI2h3aXa1qhvTjZscckYIXzZ/oUvLPMg2ZHu+AcNfu2qE1YbxgLxY/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794840554;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=z+TkWp9c3AmRjh/1+xTrO6FIZXytH6PYAw7KZ60P50g=;
-	b=HzcIl+KcqFodqLh+4OSBBKpT74Hlitqbr5Xxg/ZJG3pA7GYSNxAr7pl8MlvmP05soP33
-	 lndC5TxD5NxsSXnV02UL5JXOXkxZlFrbCbDDFWRcqXrwnCVpJoaV+C+APPGK5d58S2dAl
-	 9qaOrrTvmoSg+tVjHsFcKwQUvGG2FOrDXkGUu/jOyZTxWJ9qBUfbrkCgO+H+VUnjlNzLe
-	 B52Dn/TZ1ihbay1xXGob9bMTo920VeY7yTxouHB6bOdS7KI7s9xo/921YljvQztM9Ucds
-	 T0ogt0EJMPM7Ca7yGF+J1MTmcb1owDiPylHKb5viaAHZCubJiQMGLbvazfiaNtMW5cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794840555;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=0P7IhuoEAlIgIeaASYKjjxjkw6sQN/BUUnRORtlONC0=;
+	b=u50Z/8q6FVi88ib5XEuk8LNLSlD2W2ivArm+LUcMpPDxj2rAKEGpX9jRd4fUTmgofJMv
+	 2mERKPUSa2x5wTGbHAXW0Tedw8KaEK2CzLSONOSwXGfeEuvE2z63AhTdsVgG/MRF+IDwm
+	 IdDu+pnFoM/nVxFNcrpDtOgMbVNvhjtbbnIg1b0tKUVSnxE60GGZYQDGy7nfoBb4wRYU1
+	 LWv6vScxMpoU5YAkyVD22hORifBkYvYY6zNdOjnYL2LX1CxUpj/PiUKfpWIpUeGTc7V+1
+	 Ycu9BRfdlw62jomuuI59mcClBgkn4cjHEBW9FKqUZcOe8SF6My6JU5RE08oPZxg9q9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="TU3Z/slb";
-	arc=none smtp.remote-ip=95.215.58.47
-Received: from mta1.migadu.com (out-47.mta1.migadu.com [95.215.58.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60928606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:49:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60928606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TU3Z/slb
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7xsWyeGZyiyROGIvGQ9jJncn97YGydx0qJ+b5t+gYUc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794840551; v=1; x=1795445351;
- b=TU3Z/slbSlJUvuqAGGnsdGZk7Gi0aeYGajcRkCi7XDQ/E4bV+opqD4jnY3gndmOPAP/+AViL
- z2RgWVh0Gg8Rx4qQ3gnuJgyyIgParXRp6fb6kov9sQB6mWOE5yBL5mGbQgqM9iFjVjaEUC1RxpY
- 7DL4F9EiJpgEmxi5lSBkAJgg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f19640181f81e0e6;
-	Mon, 16 Nov 2026 14:49:11 +0000
-X-Mizu-Trace-ID: f19640181f81e0e6
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 15:49:05 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Zeshan Ahmed Nobin <zeshanahmednobin@gmail.com>,
- linux-wireless@vger.kernel.org
-CC: linux-kernel@vger.kernel.org, Ping-Ke Shih <pkshih@realtek.com>,
- Kalle Valo <kvalo@kernel.org>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v3_1/2=5D_wifi=3A_rtw88=3A_88?=
- =?US-ASCII?Q?22c=3A_fix_out-of-bounds_access_in_cck=5Fpd=5Fset?=
-In-Reply-To: <20261115201826.181662-2-zeshanahmednobin@gmail.com>
-References: <20261115201826.181662-1-zeshanahmednobin@gmail.com> <20261115201826.181662-2-zeshanahmednobin@gmail.com>
-Message-ID: <80B20AC6-F0A9-46AD-BAEE-3974FD07E20A@linux.dev>
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=162.243.161.220
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C209B606A32F;
+	Mon, 16 Nov 2026 14:49:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C209B606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMBWfcXnF_tqS2cbAA--.39072S2;
+	Mon, 16 Nov 2026 22:49:11 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wDHz6PjF_tqn40cAA--.5619S2;
+	Mon, 16 Nov 2026 22:49:08 +0800 (CST)
+Message-ID: <14c51094-0bb0-4cf8-8daf-0d307d5436db@hust.edu.cn>
+Date: Mon, 16 Nov 2026 22:49:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,56 +45,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] docs/zh_CN: Add RCU/index.rst translation
+To: xiongwei.song@linux.dev, alexs@kernel.org, si.yanteng@linux.dev
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ paulmck@kernel.org, linux-doc@vger.kernel.org, rcu@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261113013054.5662-1-xiongwei.song@linux.dev>
+ <20261113013054.5662-2-xiongwei.song@linux.dev>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <20261113013054.5662-2-xiongwei.song@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMBWfcXnF_tqS2cbAA--.39072S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFWDAFWkZF4DCFWrury8Zrb_yoW8KFyxpr
+	yDKryfKF17Jr13uw1xGFy2gry5C3Wxuw4UKr9Fq3Wvqr4DJayIyr4ayrWDKFZxGrWrAFy5
+	XanY9FW09rWj937anT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQKb7Iv0xC_Zr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
+	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
+	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
+	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
+	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY02
+	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr
+	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxG
+	rwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
+	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0trc3UUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-On November 15, 2026 9:18:25 PM GMT+01:00, Zeshan Ahmed Nobin
-<zeshanahmednobin@gmail.com> wrote:
->rtw8822c_phy_cck_pd_set() reads the bandwidth from a 2-bit register
->field and uses it as the first index into dm_info->cck_pd_lv[], which
->only has entries for 20 and 40 MHz.
->
->When the chip stops responding on the PCIe bus, register reads return
->all ones and bw becomes 3. The function then reads cck_pd_lv[3][nrx],
->past the end of the array. If that byte differs from new_lvl, it calls
->rtw8822c_phy_cck_pd_set_reg(), which rejects bw with WARN_ON(), and
->then writes new_lvl to cck_pd_lv[3][nrx] anyway. UBSAN reports the
->first of these accesses as:
->
->  UBSAN: array-index-out-of-bounds in .../rtw88/rtw8822c.c:4407:21
->  index 3 is out of range for type 'u8 [2][4]'
->  Workqueue: phy0 rtw_watch_dog_work [rtw88_core]
->  Call Trace:
->   <TASK>
->   __ubsan_handle_out_of_bounds+0xdd/0x120
->   rtw8822c_phy_cck_pd_set+0x33c/0x510 [rtw88_8822c]
->   rtw_phy_dynamic_mechanism+0x310/0x330 [rtw88_core]
->   rtw_watch_dog_work+0x217/0x330 [rtw88_core]
->
->The driver doesn't need to read the bandwidth from the chip:
->rtw_set_channel() stores it in rtwdev->hal.current_band_width and
->programs the same value into the chip. Use the stored value. CCK PD
->only runs on 2.4 GHz, where the bandwidth is 20 or 40 MHz, so the
->stored value is always a valid index.
->
->On PCIe, a chip that stops responding still returns nrx = 3; the next
->patch handles nrx values without CCK PD registers.
->
->The fix and this message were drafted with an AI coding assistant
->(Claude Opus 5.5 by Anthropic), then reviewed and tested by the
->submitter.
->
->Fixes: 479c4ee931a6 ("rtw88: add dynamic cck pd mechanism")
->Cc: stable@vger.kernel.org
->Suggested-by: Luka Gejak <luka.gejak@linux.dev>
->Signed-off-by: Zeshan Ahmed Nobin <zeshanahmednobin@gmail.com>
->---
->
 
-Looks good to me,
+On 11/13/26 9:30 AM, xiongwei.song@linux.dev wrote:
+> From: Xiongwei Song <xiongwei.song@linux.dev>
+>
+> Translate .../RCU/index.rst into Chinese and update subsystem-apis.rst
+>
+> Update the translation through commit b3eb16109ae1
+> ("doc: Update stallwarn.rst based on RCU Tasks Trace as SRCU")
+>
+> Signed-off-by: Xiongwei Song <xiongwei.song@linux.dev>
+> ---
+>   .../translations/zh_CN/RCU/index.rst          | 49 +++++++++++++++++++
+>   .../translations/zh_CN/subsystem-apis.rst     |  1 +
+>   2 files changed, 50 insertions(+)
+>   create mode 100644 Documentation/translations/zh_CN/RCU/index.rst
+>
+> diff --git a/Documentation/translations/zh_CN/RCU/index.rst b/Documentation/translations/zh_CN/RCU/index.rst
+> new file mode 100644
+> index 000000000000..6db03061fd87
+> --- /dev/null
+> +++ b/Documentation/translations/zh_CN/RCU/index.rst
+> @@ -0,0 +1,49 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +.. _rcu_handbook:
+> +
+> +.. include:: ../disclaimer-zh_CN.rst
+> +
+> +:Original: Documentation/RCU/index.rst
+> +
+> +:翻译:
+> +
+> + 宋雄微 Xiongwei Song <xiongwei.song@linux.dev>
+> +
+> +:校译:
+> +
+> +============
+> +RCU Handbook
+> +============
+> +
+> +.. toctree::
+> +   :maxdepth: 2
+> +
+> +TODOLIST:
+> +
+> +* checklist
+> +* lockdep
+> +* lockdep-splat
+> +* rcubarrier
+> +* rcu_dereference
+> +* whatisRCU
+> +* rcu
+> +* rculist_nulls
+> +* rcuref
+> +* torture
+> +* stallwarn
+> +* listRCU
+> +* NMI-RCU
+> +* UP
+> +
+> +* Design/Memory-Ordering/Tree-RCU-Memory-Ordering
+> +* Design/Expedited-Grace-Periods/Expedited-Grace-Periods
+> +* Design/Requirements/Requirements
+> +* Design/Data-Structures/Data-Structures
+> +
+> +.. only::  subproject and html
+> +
+> +   Indices
+> +   ====
 
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Documentation/translations/zh_CN/RCU/index.rst:48: WARNING: Title 
+underline too short.
 
-Best regards,
-Luka Gejak
+Please use make htmldocs to double check your added documents has no 
+compilation errors.
+
+Dongliang Mu
+
+> +
+> +   * :ref:`genindex`
+> diff --git a/Documentation/translations/zh_CN/subsystem-apis.rst b/Documentation/translations/zh_CN/subsystem-apis.rst
+> index b52e1feb0167..4488a97934ec 100644
+> --- a/Documentation/translations/zh_CN/subsystem-apis.rst
+> +++ b/Documentation/translations/zh_CN/subsystem-apis.rst
+> @@ -29,6 +29,7 @@
+>      power/index
+>      scheduler/index
+>      locking/index
+> +   RCU/index
+>   
+>   TODOList:
+>   
+
