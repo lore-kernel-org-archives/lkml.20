@@ -1,49 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794803456;
-	b=otEYTUUrG5SIS4LgIDK9IInCje8gfKtx9fGAF2IU3IC1mXLZ/I0cT7PSxNw4WOdAJx2y
-	 sA9HJ5CUCPTuC0o2UFmPVL2wm5aEl3NN6q9vT23tUto4VTcyoibWpM4TqJc28DkYvrDkf
-	 G6PhtmZiatsvKYOmhlQ919c5gHGqqZtbutVWnM519lm1L1X8PpgWNXm5++W4HQeFot9Jn
-	 XSrKJ6NPGQcp/gJVW7LwU1aMD6pW6F23508GsoV7x17Y6JtGp6xGgSdpPBJZw5c+4B6oS
-	 kRAaNxjUT0S9HVb3dbpxn1wC/ue/dH8Bq8YPUSM1nR0rbvXJdBpj73INxGamGdiSISg==
+	t=1794803471;
+	b=o8+wNeuC3viCRKhopg2PIOSLhS5M5t0VSMNUPxDp7nswHcbqLrt3AHF+nb+23gBLOFaq
+	 nMxKjJcV5AWUFv7tYnmglCJgsCyjGSIpsqNiQw/02qnPuYETW1XxvQuU0hBEQlPgMYFZr
+	 TyDQ9TUr1yYVrJFtyJko7lUJ0CBPeMxFUb4bmK7QAzEjM8WKp0IZR6ALNPwqiP5vFKAe6
+	 sQwilm22kzPKqYwEHRFc0pl2XX8nZ7xU10w+dbWNlOHOF2diloOG2HT9LJRotj2krzSZT
+	 udCThhdFDBe90ujDMLyHil84jMD2J9tEonZBgHnN1efWsJDXl6Ez5ARXp3A0uPqbKWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794803456;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=C2F8XmMQBpvU9tOSLyw0S9t+s3HjR8DCgLXTbQAMCKc=;
-	b=DMw85+gqK+mG0yNxkdZVumNBOnlfyod+DOOUrJG+yAUMiKkr9Nklhoq3tO38xD+SmqqF
-	 Uz9dTyXj1Y4UdlKAPeAxG5EqiIoG4NdDgfw48ONLtV5GhQFf5JSTvCYMbUkfWXA0AaRUw
-	 vI6TvbmKqyeobtaxi541OkIU+O9lES/45Nd1OJJhGFAnAwikNO5hbgDt67v8JT5ScHHBg
-	 aV0c29t4F9CKOt5mhxviZh6Y2uuHXdI1Eys9rsjmrjq3cl5uujzvFflHfANAvliHkwbKG
-	 Y3WIoKtZDAG98R6lqcS0axoM4SesO7uEF9xaH0hsb36Q0q2LVUbtWfz9ceIZHklDdsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803471;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/ctgGBFPGqnrXxh1oijw1oROgPOwPa6x8KFQNZidA+s=;
+	b=ey7lK9Zvuv1526esIAPoShVg56WZUHZsIHHHi3bO3hYJRlam+l/YJ1EL9mltNTi23Q3k
+	 O0lLClFqh2dkzlBiq12IZOHLMa6rlfoAHVojFKE3GQwRmPHZezMxqJzIO/XfmuvY+Vbxv
+	 uQva5TMWs+gvPGScPuHnPVKD6UvaT2ricHIJbLQDP/Tp7YntlPd8Ig3Jxilri0PeBtnLp
+	 RhosGpp9reqvbs8DJLoSZlMSn5METTUHOihs7Bsr5lbXVIfIaFlCOTJyiLDSr8WeHv5lK
+	 3hZYaW1Za1xvl+SJvzjDVToJ3dTOYxRC/b5Jo+aHJ99eclJQAr4R95vDCUBUDTImSlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eTyw/UfJ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpL74nbz;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E26D606A31F;
-	Mon, 16 Nov 2026 04:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680E5606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:31:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 680E5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTyw/UfJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6544E1F000C4;
-	Mon, 16 Nov 2026 04:30:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794803455;
-	bh=C2F8XmMQBpvU9tOSLyw0S9t+s3HjR8DCgLXTbQAMCKc=;
-	h=From:Date:Subject:To:Cc;
-	b=eTyw/UfJ/KiNzafSsG0UnX1Oa0ESGdI8qkbO8u+ZrQxYmdu+GfnDIG27Wqh+TWjc/
-	 R2bFpLAVNpEqFD7vIoIjh8H3+WoowH7a+mHQUD9AMwTas+GfUGluRrdPRFaBpL1Mzc
-	 Tqe0IjiZ+M6Fx2F15VC3IEHba8U4m309PfpTgFl9vUpERXN35K9nIJfpZNm2ZmPBN6
-	 29G04BuIwjv59HislwBXaO4/onFY/6gHjJDopV+GxKlU+DHhAOvYeg69SzOGpGLEzI
-	 Af9IdmsAVQt/HDli2+6GSz52s6bvkcsWJb/ecXI4YRez+bLw1oRas9lnwDq25xGhlr
-	 Oln7L69dEvl0Q==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Sun, 15 Nov 2026 21:30:43 -0700
-Subject: [PATCH v2] x86/build: Do not allow X86_NATIVE_CPU to be enabled
- when compile testing
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpL74nbz
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb9f760337so1719014a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:31:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794803470; x=1795408270; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ctgGBFPGqnrXxh1oijw1oROgPOwPa6x8KFQNZidA+s=;
+        b=QpL74nbzhphxgnxdMTolQl2oOk5JB/oqOxlmlQvddVlZ3y46zJRcGN4Mh1Gjmt8ifm
+         P5tjdEVq7Om4JgJHMNDksdbNkhlMuPAeqS7UCidJ9NPa46CUZ1wanD2Weyp8Jpk7RdJN
+         PGOvYA8jbR4I/PL0OjVCepEmk3GpUopbjYbLaoWyLZJzhS08Ct0Mzx7e09baw3OQ8DZQ
+         8f9VnIyrSOTsann8/0e+iRKj3rZ6uikwVQK60kJsOyqQW+2mC2OElAmWRlk0ahvh/YwY
+         x4z4HcaaafWAL7zOumbue3XZBT4yadqk8dwRIbjNGsEiLLwABil0pstBx/DUU9rHBVbO
+         080Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794803470; x=1795408270;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/ctgGBFPGqnrXxh1oijw1oROgPOwPa6x8KFQNZidA+s=;
+        b=FQe3OsLLGpr/nBUwGHc4ezFk4wuuZaZEQ0ucW0Gr8ucU0HFDauvxrV+Mb3Fxm0Gglf
+         wplbIy0LHlOGOw06P0qlwQVPXjG/Rb24KYKIP0F6VAiJMroDPywfpGV0qKs8NWjdPWKJ
+         WuBTLOFB09RrNbQ6dGNC6wOLIS/8MJjLArdqQwVN4+C+lxfMPOvoCThg9bHI0+O38K1m
+         zlJccv1zorl63jV+bHjQVP8VToDeDNCIglocAUq6oYVGubOZKkSmzWAQ8yClOkotbcVE
+         FjMnzK86yEPvygnzcjDIfpwB5Zz01ND6ttAMemzkXGUI+zMax2iLw2IS+gSnU7F/yjae
+         QtnA==
+X-Forwarded-Encrypted: i=1; AL+hErGKFBIvcHRnJwJxvaaiI2YZQqiBH4EGzTWRNH0sFLKj/A+vlA2vRSAQ3tLI9+W8Olfko8TVY1s+rXIajwg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/COxmln8wyuuSMjEqCJnLuiyHiqyyaZesAeot14lPRfImMDT6q
+	hWD5AXoSkaCmVGSXS25OLbFEoqQzgQMXzhvTtDb8cgTnDMSRZ86SPGye
+X-Gm-Gg: AYBFou0yK0WcnrYV7piFKYMY9fAKzEtOApFGSAzRYEhl6qFUvHu+LMlAy3uXeA5V/tI
+	X/7eLQMpOyY0s7AcpCHdmaT7t5ogWWJz4ayXslXQD1qcSEKRhSURBa2ViULsE2LHczsruk6kMHh
+	GdcNm41qkKf293GCroTitFpN+dP4YvcY+uDGCEW7m5JGC4GsrG+XVf61KI5pbYu319hB7Fo/VpT
+	svHPHTbWnigr2PjR6I8LkcDuAxNGLeAes6p2glRYeWBEmdJ3oViq3FOlyRPeBGoRyPBkXNbLtZ8
+	vfr/3rv/FnrwM4viY/igQ22+OmZ4Ynoa40xx4VE5S2ddi+322iik8D+5j5LJNHDEvPVytjx+Kl7
+	MQxZDuyGq+WaUF7m7mDzIW+9opfYsDoHGDqTywCJFyqAnUHWfQU9GigQaPhhyILrpOgiAtVXxzm
+	+tch25O4bKIBGGkuIm1zdz7aqqILRaVhx0Ii7ZRGkCs6w2/md45pH8fV9ZQPjwl7yOuK2pGkkYe
+	GpQ8+J3UMj8Lv+sGdCoz0PExRHVrN78XgPfKZPRx+eBB93q36yHoJBa3HpZXGc6gvjOasP0unZM
+	kcXa+AJTwZ9Kz/mN03nzqZNS2yspbSxVRUba1+BccbZ+PU8ypw==
+X-Received: by 2002:a17:90b:1f87:b0:3b1:2d77:daf with SMTP id 98e67ed59e1d1-3b197d79772mr9183360a91.30.1794803470326;
+        Sun, 15 Nov 2026 20:31:10 -0800 (PST)
+Received: from G7XWH7K1F3 ([139.177.225.250])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d27d26sm19293094a91.13.2026.11.15.20.31.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 15 Nov 2026 20:31:10 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless] wifi: mac80211: allow automatic control-port link selection
+Date: Mon, 16 Nov 2026 12:30:42 +0800
+Message-ID: <20261116043042.14324-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,100 +94,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-x86-no-march-native-on-non-x86_64-v2-1-fb3f9634b1bc@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5WOTQ7CIBSEr9Kw9plCG4quvIdpDNBniz9gAElN0
- 7sL9QQuv5nJzCwkoDcYyLFaiMdkgnE2A9tVRE/SjghmyExYzTiltIFZcLAOntLrCayMJiE4myV
- brAtvQQjWNKoVshs6knteHq9m3jbO/Y/DW91Qx1JcEpMJ0fnPdiLRkvtnL1GgoJUWqj7wger2d
- Edv8bF3fiT9uq5fBmweJeUAAAA=
-X-Change-ID: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3262; i=nathan@kernel.org;
- h=from:subject:message-id; bh=axCYzJiLRr+d6BQAO+BEztS8pV1010PYKmReuIhKqzQ=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFm/2r4L+Fp/k3ax01kTtV/3bHmUhMV+/Tp+/9Sy3m3q3
- 1V/+TN3lLIwiHExyIopslQ/Vj1uaDjnLOONU5Ng5rAygQxh4OIUgIlYhDH8j1Gvk077unKuauft
- zCymBT+/+mTGPTqwzEfPItzwavrMvYwMLellt9UY+Kau3c51XlLgT1jw/rPzK1Vn1u9Y065tzT+
- bDQA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-When cross compiling x86_64 from an aarch64 machine using clang with
-CONFIG_X86_NATIVE_CPU enabled (such as when using allmodconfig), there
-may be a slew of warnings from each .c file, which makes it nearly
-impossible to find real issues.
+An MLD AP cannot transmit a control-port frame, such as EAPOL, to a
+non-MLO peer when the request leaves the link unspecified. Header
+construction selects the peer's link, then the link-ID check rejects
+that selection. The Ethernet source also remains the MLD address, which
+header construction copies into the 802.11 source address instead of
+the selected link address.
 
-  '+crc' is not a recognized feature for this target (ignoring feature)
-  '+fp-armv8' is not a recognized feature for this target (ignoring feature)
-  '+lse' is not a recognized feature for this target (ignoring feature)
-  '+neon' is not a recognized feature for this target (ignoring feature)
-  '+sha2' is not a recognized feature for this target (ignoring feature)
-  '+sha3' is not a recognized feature for this target (ignoring feature)
-  '-rand' is not a recognized feature for this target (ignoring feature)
-  '-sme' is not a recognized feature for this target (ignoring feature)
-  '-sme2' is not a recognized feature for this target (ignoring feature)
-  '-sve' is not a recognized feature for this target (ignoring feature)
+On AP interfaces, take the source address from
+ieee80211_ap_tx_addr_get(), which header construction also uses for the
+transmitter address, before storing the ACK copy. A station on an
+AP_VLAN is handled through its AP interface, since nl80211 rejects a
+control-port request made on an AP_VLAN. Apply the link-ID check only
+when the request names a link, so an explicit link other than the
+non-MLO peer's link is still rejected.
 
-Internally, clang expands '-march=native' into a list of target features
-to enable based on the detected CPU. The x86 part of the clang driver
-notes
+Commit 9dd1953846c7 ("wifi: nl80211/mac80211: clarify link ID in control
+port TX") added the check, which then rejected such a request only when
+it asked for a TX status report (an ACK cookie). Commit a64a20fb270f
+("wifi: mac80211: store the ack skb before building the header") moved
+the check out of header construction; since then it rejects the request
+with or without a cookie.
 
-  // FIXME: Reject attempts to use -march=native unless the target matches
-  // the host.
+AI assistance was used.
 
-which was first added by the initial '-march=native' support in clang in
-2009 [1] (other architecture drivers appear to have a similar problem).
-Due to the lack of validation that the host CPU is an x86_64 CPU,
-'-march=native' is expanded using the aarch64 host CPU's target
-features, which are unrecognized by the x86 backend.
-
-While this should obviously be fixed in the compiler, this does not help
-currently released toolchains that have this issue. As a simple
-workaround that makes sense regardless of the toolchain issue, only
-allow CONFIG_X86_NATIVE_CPU to be enabled when CONFIG_COMPILE_TEST is
-not set (i.e., the user intends to run the kernel, not just build it),
-which will exclude it from allmodconfig.
-
-Cc: stable@vger.kernel.org
-Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
-Link: https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d456dec2518e4944c [1]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Fixes: 9dd1953846c7 ("wifi: nl80211/mac80211: clarify link ID in control port TX")
+Fixes: a64a20fb270f ("wifi: mac80211: store the ack skb before building the header")
+Cc: stable@vger.kernel.org # needs adjustments for <= 7.3
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
-Changes in v2:
-- Rather than checking if host == target, just make X86_NATIVE_CPU
-  depend on !COMPILE_TEST, which makes sense anyways (Borislav)
-- Link to v1: https://patch.msgid.link/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org
----
- arch/x86/Kconfig.cpu | 1 +
- 1 file changed, 1 insertion(+)
+Tested with mac80211_hwsim in QEMU: an MLD AP with two active links
+and a non-MLO peer on link 1. Omitting the link ID succeeds with or
+without an ACK cookie, and captured frames use the peer's link address
+for both source and transmitter. Explicit link 1 still works; another
+configured link returns -EINVAL without transmitting, and an absent
+link returns -ENOLINK. No kernel warnings or KASAN reports occurred.
 
-diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-index 6e7a366f0798..32d22cbf55bf 100644
---- a/arch/x86/Kconfig.cpu
-+++ b/arch/x86/Kconfig.cpu
-@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
- config X86_NATIVE_CPU
- 	bool "Build and optimize for local/native CPU"
- 	depends on X86_64
-+	depends on !COMPILE_TEST
- 	depends on CC_HAS_MARCH_NATIVE
- 	depends on !RUST || RUSTC_HAS_APXF
- 	help
+Compile-tested with no new W=1 or sparse warnings.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-change-id: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
+ net/mac80211/tx.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-Best regards,
---  
-Cheers,
-Nathan
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index e9b6a0415d6a..459803d345b1 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -6720,12 +6720,18 @@ int ieee80211_tx_control_port(struct wiphy *wiphy, struct net_device *dev,
+ 
+ 	skb_set_queue_mapping(skb, ieee80211_select_queue(sdata, sta, skb));
+ 
+-	/*
+-	 * for MLO STA, the SA should be the AP MLD address, but
+-	 * the link ID has been selected already
+-	 */
+-	if (sta && sta->sta.mlo)
++	/* The SA must match the TA that ieee80211_build_hdr() will use. */
++	if (sta && sdata->vif.type == NL80211_IFTYPE_AP) {
++		err = ieee80211_ap_tx_addr_get(sdata, sta, ehdr->h_source,
++					       NULL);
++		if (err) {
++			dev_kfree_skb(skb);
++			rcu_read_unlock();
++			return err;
++		}
++	} else if (sta && sta->sta.mlo) {
+ 		memcpy(ehdr->h_source, sdata->vif.addr, ETH_ALEN);
++	}
+ 
+ 	info = IEEE80211_SKB_CB(skb);
+ 	memset(info, 0, sizeof(*info));
+@@ -6742,7 +6748,8 @@ int ieee80211_tx_control_port(struct wiphy *wiphy, struct net_device *dev,
+ 		return PTR_ERR(skb);
+ 	}
+ 
+-	if (link_id != u32_get_bits(info->control.flags,
++	if (link_id != IEEE80211_LINK_UNSPECIFIED &&
++	    link_id != u32_get_bits(info->control.flags,
+ 				    IEEE80211_TX_CTRL_MLO_LINK)) {
+ 		ieee80211_free_txskb(&local->hw, skb);
+ 		rcu_read_unlock();
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+-- 
+2.56.1
 
