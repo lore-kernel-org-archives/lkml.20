@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821782;
-	b=CwNjd/jEb8T7s0ssDI7YPcGPQ208f+EvEPs65QfJyASI4cx1HBf8XpjwuGpfJXwTfkf7
-	 mwLA21yC7DuKEIRPdToKYtOZ0ctzrhTkZyxWYPXcXnCCrC7dvJlJRf1tayOEEMmMWxcNp
-	 sPxr+wh2jKcgTcQljOMXRWLFaex9E2Sb8cn+EHRDS4tYEtqp8cxjtfUi0YbTy9jb3Xmtd
-	 SjFeFth+o+OktiGlHfBl3guedgmc3USAbjn9jTM9D49spFpJuzQgK4kO+3UHXs3xArnHp
-	 9EwkMkV3g3XkDzkpZKddu63fLyjKx2Hf9JhqTJZuat08RdD8Wqnp3T7fvSZ5vDM1GUw==
+	t=1794821788;
+	b=gKNOt0M7uEXYsryfvPtkBxDsfi/sWCCv9qwbYTmYDH6zYAhdSbJ8mMOqidVJLnXL1uje
+	 +PGF/yohN7A71PCcIFsKbTYrhhh4pJyfuLMAM4dbMdFT7hKsxOu1MTsgwTtdibJqBIvhp
+	 31EymkJugb+ajxcXmDLrWD7v47R9OZ5ydN+ovA0yE4FVJHNjIcdxrJ8mGkAmdlc54XEwW
+	 wT2HD81R7c/FKCMN7CzxBc6U00JWCwxQ5S4EuV6TswRHKj6rjywwW7+LyvUprg1/46bM5
+	 HapYPWyYfjBCN6rHMNdpuanDh78OG5jRpm3CgLnI0+mJk93XCvsUxymiepUPMf/Fwqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821782;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ViEliqle6kflCGgFCg32cx4wLOgez678KjjsxFsox/Y=;
-	b=vWPVZuSFnPlKxRI8Qi4qGv6c9yH9KqM3RdxTqx9maFbg0OTX9kt0o1ehw9mZde4VYvA5
-	 9sPuHuiOHqJIRjqk7O+UHXTLEtevHi50h3u653lqQ2ci4n/8DXw+VSfhZVZkWre0CixiS
-	 PtJcv6h31iEGK0/YOqEObs+xfxRdN/JBKSN1B/qbCsGy6lGtUMKNF1KXFnFMdrqMbzIi1
-	 J+zreEtO/uqPOWdHgwTds/CBzl2urwvx61VRWmQ9/fv4MjB3o73oAO9OT1UZF4Bz0uOpI
-	 cWmEqCJbnbzaPOSuYOld8DQUUtZpXMqE3Qi1hLV4txFxIfRXS+xdWQtAKz4cfe21dZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821788;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=v+dOvc9dn3hYj8u7Wj++d+L6cCx689kHLz2GM22BnKY=;
+	b=ak1LiVHEVM0nJEwxleL0F+xYxdp44Ll5C4MwnSl344m/qoxwUUxfqxcK4bxE829JRO9i
+	 vQh9U1MLXWV6HHKieI4EVeK8hOux7YfuxmkqkBGKBcyALSvN9kGCWd16Ds1h5BdMRc3M6
+	 WVMXOYosmJTS9cOY+dLWrerx/MZpOkv82fxwOejf4XBP2MyotT3gMMQMNGl3oGKI6mpgX
+	 riph8uwSKnBa+Ng8nWEDlFd+3GY9g5VF0tf/023z92NwiK/BPc5WT3D2scl//R/uGPaL1
+	 VMpKnRhGbUqzFL1sO5SgeeARNmV0mu3CNRq/CY9SqRFg6+RvQB0w/F/68puELvAHAXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q7fR+OIR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eU3hwyMG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A58606A31C;
-	Mon, 16 Nov 2026 09:36:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE57606A32C;
+	Mon, 16 Nov 2026 09:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q7fR+OIR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9F11F000C4;
-	Mon, 16 Nov 2026 09:36:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eU3hwyMG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D331F000CC;
+	Mon, 16 Nov 2026 09:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794821781;
-	bh=ViEliqle6kflCGgFCg32cx4wLOgez678KjjsxFsox/Y=;
-	h=From:Subject:Date:To:Cc;
-	b=Q7fR+OIRMhdXdZ9zp/PcYceBlSXFHyNV8n1ju2GC4d9wfSVFk+tujnBRx9mvB/qvZ
-	 /9Dn+a6oVUrsV+XhluZAq5Uu+43TLJLUqZeF6o7fKZ6hzX4wOR846+S5UMaLceKDEp
-	 oKyJPmV3uXnlN7LZ7tj7Ayth7N5nHzlXCF8YmmlHGeaiHCzfLZzaxmd2bZ5DWWTgML
-	 hM2ttlNPfBBwArk0meBKMc22s3/4A19frV+vrZr4Z5U2PZQdx6DziAxONyA7oLUXMO
-	 fMnT9K3JDB+Ibay5qQca7PidwD8t6vrgWBlQrFRmDSkeQtxZWdIKzG1parZnKgHat7
-	 lmGWJD32oCQDA==
+	s=k20260515; t=1794821787;
+	bh=v+dOvc9dn3hYj8u7Wj++d+L6cCx689kHLz2GM22BnKY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=eU3hwyMGw2HG5OX49oXQTJ/CFo6iXgoR6pT+ImSgiwkmU/pvLPrRVJ65+R1HYONGk
+	 CsjsinyNhFg64Nq6s80iDIvBb3zZmzpw3dkYDPz0hOEMeRQCSZl9ROsSJPQrouvEsJ
+	 fVUHXwp8u0exFKHjE4qkqAKDI2OEBd9EsRXi88+fa1IkAS+w2EqS3L59qUq0TfGH94
+	 4FBlfj1V4Bqd9JqlBoJu5C5mhfBhHEsxu8R79bDfQc+4rTpmRJFpZag96FjbpBUAn3
+	 zHWa6tPXuJDrGKbtekBYgNfIeXaHyIeaTqDkcf+sNr45zmJ2Y3nJ7sQRTFyl/rFMFV
+	 qJvxQIHjty1lw==
 From: Joshua Crofts <crofts@kernel.org>
-Subject: [PATCH v2 0/2] PM: runtime: add new runtime metrics and summary
-Date: Mon, 16 Nov 2026 10:36:08 +0100
-Message-Id: <20261116-pm-runtime-summary-v2-0-a3d8654baf8f@kernel.org>
+Date: Mon, 16 Nov 2026 10:36:10 +0100
+Subject: [PATCH v2 2/2] PM: runtime: add debugfs entry for
+ pm_runtime_summary
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,11 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIjO+moC/32NQQ6CMBBFr0Jm7RimJFpdeQ/DAugAE20hUyASw
- t2tHMDle8l/f4PIKhzhnm2gvEiUISQwpwyavgodo7jEYHJzIaIcR486h0k8Y5y9r3RF65y5VVT
- Yom4gDUflVj5H9Fkm7iVOg67Hx0I/+ze3EOZIhuvW2MLVV/t4sQZ+nwftoNz3/Qs8Wr/ytQAAA
- A==
-X-Change-ID: 20261110-pm-runtime-summary-8dd29a1383bc
+Message-Id: <20261116-pm-runtime-summary-v2-2-a3d8654baf8f@kernel.org>
+References: <20261116-pm-runtime-summary-v2-0-a3d8654baf8f@kernel.org>
+In-Reply-To: <20261116-pm-runtime-summary-v2-0-a3d8654baf8f@kernel.org>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
  Pavel Machek <pavel@kernel.org>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -68,81 +66,124 @@ To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
 Cc: linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
  linux-kernel@vger.kernel.org, Joshua Crofts <crofts@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821782; l=3468;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821782; l=3443;
  i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=asIiqWvwTSWXMC3eVCm+se5bGbZK1Z7Ol8TWP0r6DhE=;
- b=WiO2Z25V4sDZg1GDbvwnfsWpb0Gepi3Esq8S/+3qAXm8FLSa/+t/BIrnJIgfhsZeEvBNEKNO4
- fqFHgIjQR/mCERJRWbbtHIT3wrP7PezJ6qc8GUklu4MoNDof80puh0w
+ bh=RvVdIGb/q240aMI54DmTbpCTBKxm5m2wFxt3Wkvg338=;
+ b=lILjJryARVxIzeFS2wSSCVu/gcgNXwmFBSBVXtF+pwaSFyWR994A+5i3hG3r5bTRc1Ydj7Rah
+ 0tZHb+k5xlrDXXRrOk7AekzZKWtBYqmUklCZX4VMxFNa6zENfgMLfOI
 X-Developer-Key: i=crofts@kernel.org; a=ed25519;
  pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
 
-Add a new set additional PM runtime metrics to improve power management
-debugging and reporting (these metrics may be useful to userspace utilities
-such as Powertop).
-
-MOTIVATION:
-The current implementation only measures the duration a device spends in
-suspended or active mode, which is very limiting. We can't find out how many
-times a device changed state or what its shortest suspend cycle was.
-
-This overview would be useful for detecting power "thrashing" and tuning
-autosuspend delays. Currently, sysfs only shows the total time a device spent
-in active and suspended mode; from an energy standpoint, a continuous 50
-second suspension is different from a device cycling 1000 times for 50ms each
-(these transitions can be pretty power-hungry). This could help userspace
-utilities like PowerTOP to more effectively determine what is causing an
-increased power consumption.
-
-NEW FEATURES:
-This series introduces the following new metrics:
-- resume_count : number of successful transitions to active
-- suspend_count: number of successful transitions to suspended
-- last_suspended_time: duration of the most recent sleep cycle (ns)
-- min_suspended_time / max_suspended_time: shortest and longest sleep
-  cycle durations to help detect power thrashing (ns)
-
-By reading the debugfs file /sys/kernel/debug/pm_runtime_summary, you get
-the following table describing the power stats of each device with
-runtime PM enabled:
-
-Device                           Status        Resumes Suspends   Active(ms)  Suspend(ms)   Last(ms)    Min(ms)    Max(ms)
---------------------------------------------------------------------------------------------------------------------------
-0000:00:02.0                     active              1        0        45688            0          0          0          0
-0000:00:1f.0                     active              1        0        45687            0          0          0          0
-0000:00:1f.2                     active              1        0        45686            0          0          0          0
-0000:00:1f.3                     suspended           1        1         1658        44028          0          0          0
-00:03:0                          active             15       14        19627        25899         42          5      14811
-00:03:0.0                        active             14       13        19626        25900         42          5      14811
-
-TESTING:
-Tested with an x86_64 defconfig kernel and QEMU.
-
-AI ASSISTANCE:
-Gemini was used to prepare this series.
+Add a debugfs entry for showing the runtime statistics for devices with
+PM runtime enabled.
 
 Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
-Changes in v2:
-- Drop sysfs patch as it would have a non-negligible impact on boot times and
-  the debugfs summary is enough (Samuel Wu)
-- Expand cover letter
-- Fix Sashiko findings - typo in commit message, race condition, duplicate
-  function call
-- Link to v1: https://lore.kernel.org/r/20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org
+ drivers/base/power/runtime.c | 86 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 86 insertions(+)
 
----
-Joshua Crofts (2):
-      PM: runtime: add additional suspend/resume metrics
-      PM: runtime: add debugfs entry for pm_runtime_summary
+diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+index 3085318e9c32fce892def5a901aae300f473ea2d..2012c49882092fdfbe57b8d8d6e997328de207cf 100644
+--- a/drivers/base/power/runtime.c
++++ b/drivers/base/power/runtime.c
+@@ -14,6 +14,8 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/pm_wakeirq.h>
+ #include <linux/rculist.h>
++#include <linux/debugfs.h>
++#include <linux/seq_file.h>
+ #include <trace/events/rpm.h>
+ 
+ #include "../base.h"
+@@ -2197,3 +2199,87 @@ bool pm_runtime_need_not_resume(struct device *dev)
+ }
+ 
+ #endif /* CONFIG_PM_SLEEP */
++
++#if defined(CONFIG_DEBUG_FS) && defined(CONFIG_PM_SLEEP)
++static void rpm_summary_show_dev(struct device *dev, void *data)
++{
++	struct seq_file *s = data;
++	unsigned long flags;
++	u64 active_time, suspended_time;
++	u64 last_sleep, min_sleep, max_sleep;
++	u64 resumes, suspends;
++	const char *status_str;
++	bool enabled;
++
++	spin_lock_irqsave(&dev->power.lock, flags);
++
++	enabled = pm_runtime_enabled(dev);
++	if (!enabled && !dev->power.resume_count && !dev->power.suspend_count) {
++		spin_unlock_irqrestore(&dev->power.lock, flags);
++		return;
++	}
++
++	update_pm_runtime_accounting(dev);
++
++	switch (dev->power.runtime_status) {
++	case RPM_ACTIVE:
++		status_str = "active";
++		break;
++	case RPM_SUSPENDED:
++		status_str = "suspended";
++		break;
++	case RPM_SUSPENDING:
++		status_str = "suspending";
++		break;
++	case RPM_RESUMING:
++		status_str = "resuming";
++		break;
++	default:
++		status_str = "unknown";
++		break;
++	}
++
++	active_time = dev->power.active_time;
++	suspended_time = dev->power.suspended_time;
++	resumes = dev->power.resume_count;
++	suspends = dev->power.suspend_count;
++	last_sleep = dev->power.last_suspended_time;
++	min_sleep = dev->power.min_suspended_time;
++	max_sleep = dev->power.max_suspended_time;
++
++	spin_unlock_irqrestore(&dev->power.lock, flags);
++
++	do_div(active_time, NSEC_PER_MSEC);
++	do_div(suspended_time, NSEC_PER_MSEC);
++	do_div(last_sleep, NSEC_PER_MSEC);
++	do_div(min_sleep, NSEC_PER_MSEC);
++	do_div(max_sleep, NSEC_PER_MSEC);
++
++	seq_printf(s, "%-32s %-12s %8llu %8llu %12llu %12llu %10llu %10llu %10llu\n",
++		   dev_name(dev), enabled ? status_str : "disabled",
++		   resumes, suspends, active_time, suspended_time,
++		   last_sleep, min_sleep, max_sleep);
++}
++
++static int pm_runtime_summary_show(struct seq_file *s, void *unused)
++{
++	seq_printf(s, "%-32s %-12s %8s %8s %12s %12s %10s %10s %10s\n",
++		   "Device", "Status", "Resumes", "Suspends",
++		   "Active(ms)", "Suspend(ms)", "Last(ms)", "Min(ms)", "Max(ms)");
++	seq_puts(s, "--------------------------------------------------------------------------------------------------------------------------\n");
++
++	dpm_for_each_dev(s, rpm_summary_show_dev);
++
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(pm_runtime_summary);
++
++static int __init pm_runtime_debugfs_init(void)
++{
++	debugfs_create_file("pm_runtime_summary", 0444, NULL, NULL,
++			    &pm_runtime_summary_fops);
++
++	return 0;
++}
++late_initcall(pm_runtime_debugfs_init);
++#endif /* defined(CONFIG_DEBUG_FS) && defined(CONFIG_PM_SLEEP) */
 
- drivers/base/power/runtime.c | 162 +++++++++++++++++++++++++++++++++++++++++--
- include/linux/pm.h           |  12 ++++
- 2 files changed, 169 insertions(+), 5 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-pm-runtime-summary-8dd29a1383bc
-
-Best regards,
 -- 
-Joshua Crofts <crofts@kernel.org>
+2.47.3
 
