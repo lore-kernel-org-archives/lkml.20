@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.75.2.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832947;
-	b=Sa4sAIN9BDD9OcdqjwXcre8ICsAFOIluMcTAXiEebegz/y3FRUd1ieVyW/Y8Sc1378Jx
-	 NsRfsaRVQ8Gwn8hSfyf95dS9mHTkTDzr15TDBv2zPQ1mVtCCclqQ/DJUxqdd4JkOI0WUG
-	 LN6wEUW8wKiF/lF9F2GkVkSipJ+Zl+N7C7lWVm79Sm6oTzjY15Jsy5a3tsZgIi3LxU2T7
-	 WNK950HhkWex4I3I1zlT3GXtJZSPTPR2DGHOHyokMFlAlvcWXazW79Z3IsUay5MJAoUzO
-	 19iBk9LFvllAT5MsZ3OIDZGZg90/OY8ZrndNTZ79J6Q366kpXqR2gUHkIlxfzviEjOw==
+	t=1794832952;
+	b=NVS+OyABtygeGLXP45q3JQDAOzJ3Mxkrv0a6732y1esVrOqKv5SEjJNSHsgTFVoXRdXh
+	 XBPlVLruXnFhHaYZi9x8c4yvo9+UyJGegzAvVmYHt9eZqZqt+XIRcq70sHPSms8kPG7b5
+	 Bk7meJ1337FXKp2Ac7eOoS7Hh/8Fx3pg5DaQFYOhZOYw0NWrWb43f3vOzwbmx8JTqMYdf
+	 DBwX9Pvwuj+Z1dEi9LtpnDuRSi0gjbXpZ5URNmUeyr8HfoOC6vXEPTqruh/3lX5NDTg83
+	 yX0ToFak42+039q6PPybzhip1BeTYe3f++bg7yRG3EvM/VUI899K418TuIxwIU0Aekw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832947;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KaGd73jUvBCtYYL6VAII2la7monoqE07c5rmlmDTQEY=;
-	b=GYTbDdJehtS/FXyp/ydK66AVWkJoAoERZrfjOHMDn/e404dA05V/Cxew6AQq7JuBkeCF
-	 jWNTNRR9GRx7A1jzj8CE6O01L8bQtBUIGv+IGCxu/D7wC0QU/XnNw01gzPYtlaCX2If0q
-	 vohY0mRT/ZFYilpnf9ioL3/yGjogIjZKu8+M9W5JGXcuHoJhjVzXx8yjVewgYjBp4ijZK
-	 94+Z9bdeotngX1TZApXE5nqNR1vDHEShC+vPD52aslYLSo0rucBnQWe4eVbXUHXj7NAwJ
-	 EiKg/V46CVUzP/fTK3cXrHrUK9r+X9qtIiQHHHUitfFL45k/pWUSepl6Km4HCEnJxgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832952;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=j+ABvJucI9g8SQSbxlnYz1HQytM8W2COF+BErbolbn4=;
+	b=H5cd/YlA7TgBbyIRAAyOwjdsu+nKAgHpjWZh7ByUHUq2COXeSxD4NZV0xx4M4TsHL0IT
+	 IA+pNyhbJ549WQ7Q4KR2mc1abaD9nH/6PkW3vkzhqbRnT+ejWsFpw3RHKplU4MvtVrWeh
+	 rgJfEx/Auk06MWpYhQao7JCPiJ0+B/Yu4euAAseiFzn177Tqt+DG7bngFIia6i2Aj5ckO
+	 ejPjHiM9FOeI3tYwYoNpdsXLOw+7hw9hwmVZJmHFqmnnURWKUF74zmQCqqVczsAWXb7hl
+	 UJ7U3fJfQd6bXV9Z9YNjYxCjliil1gYO4e3q6An5UfB17PBa5dU4Gk2L+9B5Bkj/UnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DePnHql2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ikt.uni-hannover.de;
+	spf=pass smtp.mailfrom=ikt.uni-hannover.de;
+	dkim=pass header.d=uni-hannover.de header.i=@uni-hannover.de header.a=rsa-sha256 header.s=2024all header.b=NoM1+x8B;
+	arc=none smtp.remote-ip=130.75.2.113
+Received: from mailout2n.rrzn.uni-hannover.de (mailout2n.rrzn.uni-hannover.de [130.75.2.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D9F606A31C;
-	Mon, 16 Nov 2026 12:42:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2B9606A31C;
+	Mon, 16 Nov 2026 12:42:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A2B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ikt.uni-hannover.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikt.uni-hannover.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DePnHql2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68831F000C4;
-	Mon, 16 Nov 2026 12:42:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832946;
-	bh=KaGd73jUvBCtYYL6VAII2la7monoqE07c5rmlmDTQEY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DePnHql2vogNseC44FlmR7jh1l1OWiprMO+LPBPtIqCAkEK9tWs+PBcs7op/SeLU+
-	 nWeleNAQrWVX72IcIswaR27oRuQKG5uRGZVe/i65oeRrq1QzNrfVjxdAq+vE7HRE0D
-	 XO3GyMSFtIWmlLgu3Rno3cHFbIRvA9FD5W/19SUjCKH24eWTbOG3pA4KhDGjytXu2h
-	 6YnHpIBU2SX+oo1AFH0/pZ7dFEcwAlK7MKj08Mkl1fAYt9QAsDIjmNbl1ANRRE9TUn
-	 fwCFHwraGT/OHD/ZwzkMRUEg5jS/Gam/BN8iS1TVV2/xB1yJUFblPiE51/lk6RnH58
-	 drFOsvaE54kfQ==
-Date: Mon, 16 Nov 2026 13:42:21 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: vamshi gajjela <vamshigajjela@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Peter Griffin <peter.griffin@linaro.org>, 
-	=?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Jim Wylder <jwylder@google.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: spmi: Add Google LGA SPMI controller
-Message-ID: <20261116-slim-innocent-prawn-2caee1@quoll>
-References: <20261115180147.1208082-1-vamshigajjela@google.com>
- <20261115180147.1208082-2-vamshigajjela@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=uni-hannover.de header.i=@uni-hannover.de header.a=rsa-sha256 header.s=2024all header.b=NoM1+x8B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=uni-hannover.de;
+	s=2024all; t=1794832943;
+	bh=dTnYRjti854yMK6gCj3tqfFLwTch3rQzYpsKYB8gilY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NoM1+x8BR6dB1WhnbGq4u6pAqKIG1a8iUlXU7AZnx0qvfzmdsr7oAOG6iTMI8+G8U
+	 mcMLVMt+wE2QpxpI1AinQYtFWKeJ9w+Q8cwFklMKxh5G8lhedtzu1YDkq/wOyEyEkV
+	 cmJDOssy8pWIXvgSfdHYa0lwbvS/8rQW9bMak/Xrq3OzlK9QGrQoscq2SDNwQS8Gnm
+	 z57BdVR4KbuiI0sidwgHccqDHxIZT9Sgty00/3I8UbqMO9ZpU2JN8OprLhrXd7rhLN
+	 Am1O4OsCK6Lmi0TARAGcvkfq0rpJ4n6rnewVYbcz2A4EytSEQt+rTDE69Y360J+I+c
+	 J/BT0LJuuvI+g==
+Received: from [172.23.181.54] (gateway.ikt.uni-hannover.de [130.75.73.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mailout2n.rrzn.uni-hannover.de (Postfix) with ESMTPSA id 0CC6220085;
+	Mon, 16 Nov 2026 13:42:23 +0100 (CET)
+Message-ID: <87ce806b-a0b8-4f57-8c0e-c93d00437cc5@ikt.uni-hannover.de>
+Date: Mon, 16 Nov 2026 13:42:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,34 +61,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261115180147.1208082-2-vamshigajjela@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Re: [PATCH net] tcp: roccet: do not restart from idle on RTO
+ retransmission
+To: Eric Dumazet <edumazet@kernel.org>, Zhiqi Zhang <zhiqizhangg@gmail.com>
+Cc: Neal Cardwell <ncardwell@google.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Simon Horman <horms@kernel.org>, Tim Fuechsel <t.fuechsel@gmx.de>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261114141315.19007-1-zhiqizhangg@gmail.com>
+ <CAL4WiiohBWs_BteL4o__osD6cPTXrBBPa-P7faV=acTaF_4g3w@mail.gmail.com>
+Content-Language: de-DE
+From: Lukas Prause <lukas.prause@ikt.uni-hannover.de>
+In-Reply-To: <CAL4WiiohBWs_BteL4o__osD6cPTXrBBPa-P7faV=acTaF_4g3w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 1.4.6 at mailout2n
+X-Virus-Status: Clean
 
-On Sun, Nov 15, 2026 at 11:31:46PM +0530, vamshi gajjela wrote:
-> From: Vamshi Gajjela <vamshigajjela@google.com>
-> 
-> Document the device tree bindings for the SmartDV Technologies MIPI SPMI
-> master controller integrated in Google Tensor SoCs starting with the G5
-> generation (codename: laguna, canonically written as "lga").
-> 
-> Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
-> ---
->  .../bindings/spmi/google,lga-spmi.yaml        | 56 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml b/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
-> new file mode 100644
-> index 000000000000..60d1e1769cf2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
-> @@ -0,0 +1,56 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+> Unrelated to this patch, a question for ROCCET authors:
+> 
+> On a repeated RTO, tcp_enter_loss() sets cwnd to 1, then
+> roccet_state(TCP_CA_Loss) sets it back to TCP_INIT_CWND.
+> This means a burst of 10 packets after each timeout, including
+> the backed-off ones.
+> 
+> This is a more serious issue IMO.
+> 
+> Thanks.
+> 
+>>                 tp->snd_ssthresh = tcp_snd_cwnd(tp);
+>>                 tcp_snd_cwnd_set(tp, min(TCP_INIT_CWND, tp->snd_cwnd_clamp));
+Thanks for pointing this out.
+We will investigate this issue and provide a patch for ROCCET soon.
 
