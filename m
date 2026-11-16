@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795753;
-	b=N6+Dh604MqVYvpZeN3F2CuJUpBdqTGbyXPTg3gzpYMGQJZP28noOpJuMEV7t8pqIILRi
-	 Z9/Ktpbke34jPoql+9FP+u/Rb7lJkzYaYnGbTvsFeGxnUsn3EMqF0PgfoWeC4qbkmGPIJ
-	 1Jv+OmTXHRag7AyJNKKyvTN8HDE/x0fw7UW6FHyivq2nPWO0cHfJ5IHPTjOCyS/Rps2wL
-	 BMIov2sUYn2c3HtM89N0HGf0CQTZ3dRSBqLiqjI0/sWjLUHxNkq9DS8fsU38K23Rb23w3
-	 nNAg9cu/n/L4fQpsqI5YjrxoJ26TCH/9duOlMLYymL5QjHb0GqfzxzaCdUHpGdOiOJQ==
+	t=1794795779;
+	b=Z4U1ZjZbl+4AOSl+GAtxFGDwo+z1cKbo6IDVkm95p1DAXvl27Em2mjucUCrt9aBLcGCX
+	 63lsvLzaWPVNa4YXTFkzWNFbW5D1atwOkHTiQ6o+INAZFOtMPoyQWH0RNt6gx0UIqQeci
+	 iAIiuc/lGN05NwkOiST1XNKuy+kEduLfqgGOhpewwt4mkpzzc/WvNu8v1lrI5wxtngPDK
+	 Y/oicSAm/FnWiicwa0OEe76SYLgjgR+tv+atMXVOed81wnwySeLIvs4r1kqWjvGdW/fLd
+	 8MdRbOZZbwrsJpRb4w1WtvdootW/Vyu2WgndOzgp7lxgI0cPcCyf/AjnEu5zF083IYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795753;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RtW2dBjA1dd0k2AQ1XupmFm+SRcYM/xk80j+fcFlJmc=;
-	b=3XLUAsO/6qX8AaAQiqebvthjHR1QFqPt+/PBVYmQpKUrZFznvN2kLRPMPbH00jkVeq9B
-	 jq90JrGYC73BeZSPhq/uXt2WvNhGnUwi54ACmrBdpZscMdEfXm6561/0QkY0AocCbdW0O
-	 en1aUTLe6p48fEMbPTbfnUp1B5QcpzNFSNV3xBSuDw+j6UQmLUWdtdyqLIHeSsOu7w7IV
-	 9wNKMN6mmxrNzVHtMuGYurFqTTm3rQKVoESdkAGQSqdSFSAmGw5P+nzcgUx2PvP6PlBfa
-	 wZrlw8gWR3XQSVj3DSTUKbW4bHlL+MEtwbyn1Dxv2v1x6qQ73owFaV/tC0AuqjtG1zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795779;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=H8v1n9Bkwfi2oQdq8IFxXuMktxhzrjIcOdZ4XCJh+I8=;
+	b=dnWfG/R0EnlauxipLtPw7hfr1nSxEcOK7LACfxnDV11Q4skW+lALQ/7LwDzkj6yUlq3i
+	 DI45cFukqCxxumURn8ml1XRNT6p+4cnun3sQUSCYuySpBZrH16dOH4KSXT01Pdnt4PQ2m
+	 Ah5r6l8DmFEZaJteimazdSdlbRhtl/K3HYMKm1We/AM79qgkrpuyL2YGoIRXIcp3g6hTj
+	 TClzaaD0oNmMxQum7QQpo66wsoYSRRicxC4pGvVUfJva1TFUY13uxMLMN04FQlpNPx6El
+	 HEFrnNuYrjKjo118+fDQ9QC/Iy4QTlcGa552zJYaxJ+lv4nU3mSvcqG5KH+7fK1Oamw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=MFPWEahS;
-	arc=none smtp.remote-ip=202.108.3.163
-Received: from mail3-163.sinamail.sina.com.cn (mail3-163.sinamail.sina.com.cn [202.108.3.163])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VolphhWn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C63606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:22:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11C63606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29071606A31C;
+	Mon, 16 Nov 2026 02:22:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=MFPWEahS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1794795751;
-	bh=RtW2dBjA1dd0k2AQ1XupmFm+SRcYM/xk80j+fcFlJmc=;
-	h=From:Subject:Date:Message-ID;
-	b=MFPWEahS9tGGsxdWlQCBIXwf6P28Eu2OxsmoSUxPLDFjVv94shjkw7wLFrCcniZrx
-	 vCI2xw05JHS46Qd28D7mnP5hMvGa1fgjmefmBOkxyaBLQhaTT/+vCgNGkuv851qSz6
-	 yE5kFJaP2GCrt54FiMqtg52GUce/amRaiok879bE=
-X-SMAIL-HELO: kylin-pc
-Received: from unknown (HELO kylin-pc)([221.217.162.53])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AFA68D7000026B1; Mon, 16 Nov 2026 10:22:21 +0800 (CST)
-X-Sender: sig_cloudnative@sina.com
-X-Auth-ID: sig_cloudnative@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=sig_cloudnative@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=sig_cloudnative@sina.com
-X-SMAIL-MID: 3128166292008
-X-SMAIL-UIID: 1DC55D182FFA4024BC60BBFB87EF7576-20261116-102221-1
-From: sig_cloudnative@sina.com
-To: John Johansen <john.johansen@canonical.com>,
-	apparmor@lists.ubuntu.com
-Cc: Georgia Garcia <georgia.garcia@canonical.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xu Chen <chenxu@kylinos.cn>
-Subject: [PATCH 1/3] apparmor: fix capability chunk walk in aa_profile_capget()
-Date: Mon, 16 Nov 2026 10:22:05 +0800
-Message-ID: <20261116022206.174459-1-sig_cloudnative@sina.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VolphhWn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CD11F000C5;
+	Mon, 16 Nov 2026 02:22:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794795778;
+	bh=H8v1n9Bkwfi2oQdq8IFxXuMktxhzrjIcOdZ4XCJh+I8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VolphhWnzeioav+c1Xc8VD5MPbdkZ4EJb2fyqE82O73RHyjWQGrTIO8s5m7lBK4Te
+	 CyGboMJ0YGEqmsTCX1MDTzDO8Pv/0tULCh3A+NQhMH9FMzS4nRh5IqX9B3fsqhxUd0
+	 pQefN9SQ05T+8XLFN5jjJjd1+pomiBznsOVUovlsJQMxpgG+FY8ZQELB874K/i22er
+	 QTAqAH6yDz3kalGDtoG3YPJjY0MGFGYkt7Ihy2h7WEyXFCoz5p1LfU9QsEntvlVDLB
+	 Bz00CWHnnXX19pCyDt3ey3iJhgoQm22px2cOqseMgbEgIdVfxVu518/ptspsvKavB5
+	 kNVQuwL7nBrDw==
+Subject: Re: [PATCH net] net: ethernet: sunplus: check budget before calling
+ napi_complete_done()
+From: netdev-bot+sashiko@kernel.org
+To: janislacis06@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, wellslutw@gmail.com,
+ linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 02:22:57 +0000
+Message-ID: <179479577764.3136.18033299607451586926@kernel.org>
+In-Reply-To: <20261114222744.535158-1-janislacis06@gmail.com>
+References: <20261114222744.535158-1-janislacis06@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,61 +63,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Xu Chen <chenxu@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-aa_profile_capget() rebuilds the kernel capability set that a profile
-allows from the policy dfa.  Capabilities are broken into 32 bit
-permission chunks with one dfa transition per chunk, but the loop that
-walks the chunks stops before the last chunk, CAP_LAST_CAP >> 5, and the
-chunk permissions are shifted by i * 5 instead of by the chunk width of
-32 bits.
+Critical: 0 · High: 0 (2) · Medium: 1 · Low: 1
 
-The permissions of the chunk holding the highest capabilities are thus
-never read, and fixing only the loop bound would place them in the wrong
-bits.  The capability set used by apparmor_capget() to intersect the
-capabilities reported for a task is therefore wrong: capabilities the
-profile allows are reported as missing, so for example a task confined by
-a profile that allows CAP_PERFMON or CAP_CHECKPOINT_RESTORE sees them
-dropped from its effective and permitted sets.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Walk all chunks up to and including CAP_LAST_CAP >> 5 and shift each
-chunk by 32 bits.
+- [Medium] The patch uses `budget_left > 0` in spl2sw_rx_poll() as the
+  only sign that all work is done.
+- [Low] The commit message says what changes but not what goes wrong
+  today.
 
-Fixes: ce9e3b3fa25a ("apparmor: add ability to mediate caps with policy state machine")
-Signed-off-by: Xu Chen <chenxu@kylinos.cn>
----
- security/apparmor/capability.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  spl2sw_remove() frees the descriptor rings and buffers before it…
+- [High] This problem wasn't introduced by this patch, but
+  spl2sw_rx_poll() leaves a broken ring slot behind when it fails to…
 
-diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
-index 2f3c6c84358d..14f9e0f87f51 100644
---- a/security/apparmor/capability.c
-+++ b/security/apparmor/capability.c
-@@ -201,16 +201,16 @@ kernel_cap_t aa_profile_capget(const struct aa_profile *profile)
- 		kernel_cap_t caps = CAP_EMPTY_SET;
- 		int i;
- 
--		/* caps broken into up to 256, 32 bit permission chunks */
--		for (i = 0; i < (CAP_LAST_CAP >> 5); i++) {
-+		/* caps are broken into 32 bit permission chunks */
-+		for (i = 0; i <= (CAP_LAST_CAP >> 5); i++) {
- 			struct aa_perms perms = { };
- 			aa_state_t tmp;
- 
- 			tmp = aa_dfa_next(rules->policy->dfa, state, i);
- 			perms = *aa_lookup_perms(rules->policy, tmp);
- 			aa_apply_modes_to_perms(profile, &perms);
--			caps.val |= ((u64)(perms.allow)) << (i * 5);
--			caps.val |= ((u64)(perms.complain)) << (i * 5);
-+			caps.val |= ((u64)(perms.allow)) << (i * 32);
-+			caps.val |= ((u64)(perms.complain)) << (i * 32);
- 		}
- 		return caps;
- 	}
+--
 
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+net: ethernet: sunplus: check budget before calling napi_complete_done()
+
+This commit replaces napi_complete() with napi_complete_done() in the
+spl2sw RX and TX poll functions. NAPI is only completed when budget_left
+is greater than zero. The RX/TX interrupt is only unmasked when
+napi_complete_done() returns true.
+
+> Sunplus drivers currently do napi_complete() after each rx/tx poll is
+> done without checking whether budget was exhausted or not. Interrupts
+> are also unmasked before the call to napi_complete().
+
+[Severity: Low]
+Can the budget actually be exhausted here in normal operation?
+
+spl2sw_probe() registers both NAPI instances with netif_napi_add(), so
+they use NAPI_POLL_WEIGHT (64). spl2sw_rx_poll() handles at most
+rx_desc_num[0] + rx_desc_num[1] = 32 descriptors per call, because the
+inner loop is bounded by num < rx_count. spl2sw_tx_poll() holds tx_lock
+and reclaims at most TX_DESC_NUM = 16 descriptors.
+
+That means budget_left is always > 0 for polls from net_rx_action(). The
+new check only changes anything for budget 0 (netpoll's poll_one_napi())
+or a small busy-poll budget.
+
+In those cases the old napi_complete() already did nothing, because
+napi_complete_done() returns false right away when NAPIF_STATE_NPSVC or
+NAPIF_STATE_IN_BUSY_POLL is set. The only visible effect of the old code
+was that MAC_INT_RX/MAC_INT_TX got unmasked while netpoll or busy-poll
+owned the instance.
+
+Could the commit message describe that actual impact, so the Fixes: tag
+and a stable backport can be judged?
+
+> I do not have the hardware necessary, this patch is not tested on real
+> hardware.
+
+This note is in the commit body rather than below the --- line, so it
+would end up in git history.
+
+> diff --git a/drivers/net/ethernet/sunplus/spl2sw_int.c b/drivers/net/ethernet/sunplus/spl2sw_int.c
+> index a37c9a4c281f0..1aada11429d4d 100644
+> --- a/drivers/net/ethernet/sunplus/spl2sw_int.c
+> +++ b/drivers/net/ethernet/sunplus/spl2sw_int.c
+> @@ -125,13 +125,14 @@ int spl2sw_rx_poll(struct napi_struct *napi, int budget)
+>  			h_desc = comm->rx_desc[queue] + rx_pos;
+>  	}
+>  
+> -	spin_lock_irqsave(&comm->int_mask_lock, flags);
+> -	mask = readl(comm->l2sw_reg_base + L2SW_SW_INT_MASK_0);
+> -	mask &= ~MAC_INT_RX;
+> -	writel(mask, comm->l2sw_reg_base + L2SW_SW_INT_MASK_0);
+> -	spin_unlock_irqrestore(&comm->int_mask_lock, flags);
+> +	if (budget_left > 0 && napi_complete_done(napi, budget - budget_left)) {
+
+[Severity: Medium]
+Is budget_left > 0 enough to show that all RX work is done? Normal polls
+never bring it to 0, but spl2sw_rx_poll() can still stop while completed
+descriptors are pending.
+
+The first case is the high-priority early break in the low-priority loop:
+
+			if (queue == 1 && !(h_desc->cmd1 & RXD_OWN))
+				break;
+
+queue 1 is the last queue (RX_DESC_QUEUE_NUM == 2), so this goes straight
+to the completion check while new high-priority packets are waiting.
+
+The second case is a queue's inner loop stopping at the ring limit:
+
+		for (num = 0; num < rx_count && budget_left; num++) {
+
+Descriptors given back with RXD_OWN earlier in the loop may already have
+been refilled by the hardware.
+
+In both cases the poll returns less than budget, calls
+napi_complete_done() and clears MAC_INT_RX in L2SW_SW_INT_MASK_0 while
+work is still pending. Documentation/networking/napi.rst says a poll with
+outstanding work should return exactly budget and not complete.
+
+The cost depends on whether L2SW_SW_INT_STATUS_0 latches RX events while
+masked. If it does, this costs an extra interrupt round-trip. If it
+doesn't, the pending packets wait for the next RX event.
+
+Would it work better to track these more-work conditions explicitly and
+return budget in those cases, instead of relying on budget_left alone?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but spl2sw_rx_poll() leaves a
+broken ring slot behind when an RX buffer refill fails:
+
+spl2sw_rx_poll() {
+	...
+			new_skb = netdev_alloc_skb(NULL, comm->rx_desc_buff_size);
+			if (unlikely(!new_skb)) {
+				desc->cmd2 = (rx_pos == comm->rx_desc_num[queue] - 1) ?
+					     RXD_EOR : 0;
+				sinfo->skb = NULL;
+				sinfo->mapping = 0;
+				desc->addr1 = 0;
+				goto spl2sw_rx_poll_alloc_err;
+			}
+	...
+}
+
+The dma_mapping_error() branch does the same. Both jumps skip
+desc->cmd1 = RXD_OWN, so cmd1 keeps the stale completed status the
+hardware wrote, and nothing ever refills the slot.
+
+After 15 more packets on that queue, rx_pos wraps back to this slot. The
+RXD_OWN check doesn't stop the loop, and the stale status passes the
+port, length and error checks:
+
+			dma_unmap_single(&comm->pdev->dev, sinfo->mapping,
+					 comm->rx_desc_buff_size, DMA_FROM_DEVICE);
+
+			skb = sinfo->skb;
+			skb_put(skb, pkg_len - 4); /* Minus FCS */
+
+Can this call dma_unmap_single() on mapping 0 and then skb_put() on a
+NULL skb in the NET_RX softirq?
+
+There is also a second path. On a TX timeout, spl2sw_mac_soft_reset()
+calls spl2sw_rx_descs_flush(), which gives the slot back to the hardware
+with RXD_OWN set:
+
+			rx_desc[j].addr1 = rx_skbinfo[j].mapping;
+
+Could the hardware then DMA a received frame to bus address 0?
+
+One fix would be to keep the old buffer in the ring and drop the packet
+when the refill fails. Another would be to retry the refill on later
+polls and never treat a slot without an skb as completed.
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but spl2sw_remove() frees the
+rings that both poll functions use before it disables NAPI:
+
+drivers/net/ethernet/sunplus/spl2sw_driver.c:spl2sw_remove() {
+	...
+	comm->enable = 0;
+	spl2sw_mac_hw_stop(comm);
+	spl2sw_descs_free(comm);
+
+	/* Disable and delete napi. */
+	napi_disable(&comm->rx_napi);
+	netif_napi_del(&comm->rx_napi);
+	napi_disable(&comm->tx_napi);
+	netif_napi_del(&comm->tx_napi);
+	...
+}
+
+spl2sw_descs_free() frees the RX skbs and rx_skb_info arrays, frees the
+TX skbs in spl2sw_tx_descs_clean() without holding tx_lock, sets
+comm->tx_desc and comm->rx_desc[i] to NULL and frees desc_base with
+dma_free_coherent().
+
+unregister_netdev() and spl2sw_mac_hw_stop() don't stop a NAPI instance
+that is already scheduled. Only napi_disable() cancels the NAPI hrtimer.
+
+With napi_defer_hard_irqs and gro_flush_timeout set,
+napi_complete_done() keeps returning false and re-arms the timer.
+napi_watchdog() then schedules the poll again with no interrupt needed.
+Without those settings there is still a window if NAPI was scheduled just
+before ndo_stop masked the interrupts.
+
+If remove runs in that window, spl2sw_rx_poll() would do:
+
+			desc = comm->rx_desc[queue] + rx_pos;
+			cmd = desc->cmd1;
+
+with a NULL comm->rx_desc[queue], and spl2sw_tx_poll() would read
+comm->tx_desc[tx_done_pos].cmd1 the same way. A TX poll running at the
+same time as spl2sw_tx_descs_clean() could also call dev_kfree_skb_irq()
+on an skb that dev_kfree_skb_any() is already freeing.
+
+This patch doesn't widen the window, since normal polls still complete
+after one pass.
+
+Should napi_disable() for both instances move before spl2sw_descs_free()?
+
 -- 
-2.56.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114222744.535158-1-janislacis06%40gmail.com
