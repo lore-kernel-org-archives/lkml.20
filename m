@@ -1,95 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794804111;
-	b=k5gG8iFwjDVEvk5t/lCmTikOfF/0PGLBm/dpsPh+g5aQNMrA7Pu0Mrc7TYD4MUl92JhP
-	 lCgHdZ27hxWXb46IXPIE9sulYir/1EV9aQCj+cxFFP8nNf7ESVecVFDo/S5bzi97PSVSg
-	 r/OMf4TWxZHzwkqlgMd4nTcrQ2pWQO8SiJ8EmSk+xGlB3rUvdSoja/OEzd+GYhX/jyYou
-	 fVxXWtDWkF/s2Xq/dKTOeYErZF+tGmz+CmasobsBTv85Q1KNCjJ42UObiQfALGN0DHz/e
-	 repfeoyldEIcxymyuGpMIJVC3Z9pxQnQY0asUAVpJKiBmkW497Ym4BWqCjciONvpasA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794804111;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=VTg76kZYdcgWJGYz+qNwtmcTjFCSvF3hJ+5NhX0RygY=;
-	b=khR4LEPTTMCktdgZrzf1zpSEuE/qHyCG96IB2WP/VVMJN3o7uQrAvIhn2GI0z3SCUFRX
-	 /7XfdOcES/i/SKRvsMnWbUDaSf4ukCmA45y+EG6cti1joMfQaYPN+pViPZsqqomo+7QmY
-	 0SUweWN4gfMlTyn4FI+xtiZZsM155/TlTqiVi4srRUATqGr7pddYIyU2lrtkA3F2isJ0G
-	 6nZIEAofZP77t6DGe3UYrhn0ODEVaSFHVVgzaKtNVfmG17yZvsXhj97aKBsEhB1IDj/H5
-	 8Ou0y/lOonKp8xpTlnfMXRu9l/NUqWHpJEagij2nt8X7v+1eIkeim52Hx/etI+a+xNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=crDJr2fg;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.24
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794804210;
+	b=We1NnZAyE9JA+iqTENYuUpYsn4sy16/XUcIAjXllJSnTGJgjRFYkrralJqlKYDPZHuXN
+	 5dx8uhxeB+GXBHHzTDgORECs+dnULKBq6Zlmax41qnyOCHcDfQT9/1cLtR5mYIvvKZrJA
+	 YXj0aPC4/lFcZXcgr7u1Yxk+WQYhqjcmw+Zc9TkSqLR+yK7RtEoaOyG/hp1HChq9pkw71
+	 /ztPbKfCE/PWe/q2b43F/IEpRI4MaYDrqKAYkarhWZUrDfzK3dvgLJY/VRX5XubiV8C/J
+	 etGFdj/BiLGgRe+pjGqVjsFSA+kaCMbd1iL7dgr/8eQFUByxrpvzuqTpV6hWH/gJ3aw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794804210;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/zB83Rl3+WLG9dqZdXhp68zzelJVeqbGNhbwrPXnGyc=;
+	b=CddypRkIfq8sBXk0lMqPatfwse2aPDs3tSUp8jBN1sP0dhL13dW86yj/Nqyd56U8RySe
+	 vddm/Od4HNdXkaVTR/eO10ef+Mepa2efVB2zse0Ofxpg3wRF+rkoNNvr3pRSQftSpZRL0
+	 CvyBSWzgVxBH4iF5lVvGybXpZesiSNIIcv2pykfanncDVpKGNuGRPYmb34Wb6dU/CTljw
+	 RHAr2MxQtOM5TUQiGw3vnt8P8U+NTqGNpmKs+AYZ1XzDpV3SjmJK7BptbXKcDjSHsqqXA
+	 /q9yZeYFndfx7lH+iM/Zwg560huWlG8L4tE59Jzdlbu1U/wkaziJeZ8bjST8nJ3I8kw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QEx1xYqG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.24
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010024.outbound.protection.outlook.com [52.101.85.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052E6606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:41:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 052E6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C040D606A31C;
+	Mon, 16 Nov 2026 04:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C040D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=crDJr2fg
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-37071c0f42aso4450386eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 20:41:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794804110; x=1795408910; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VTg76kZYdcgWJGYz+qNwtmcTjFCSvF3hJ+5NhX0RygY=;
-        b=crDJr2fgE7IYKY9ipw8yqz6NSK46OAewcvxSzfZtWwosU1qGMmuk90S/wHLwuueoZg
-         zq22Ri1rdlPWHjiqX9Z7VXyagyB/84RrT9nOCcXRixDAQpVYEjnQvWmAWKjKhX/Wownd
-         FK97h2C5q0YDqnktM8FFbDdmwMc/Oit0vH0/UC3io/AHz4XcVAw2K4oSzab1XmxxxvRi
-         /k7vD24tI8/Bz5ZnHE9uAwm3fy7a6Pk9QZuvRLVzfSZt+qhje8l/907jvV6VtB1o/hWH
-         CxSCCY6PZTEZFB0kuTQa+cb1iylIdK+wLs3kxTzdHlKFQ0dy+5z7uIJbUYeT7t7ZHcgz
-         GERw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794804110; x=1795408910;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VTg76kZYdcgWJGYz+qNwtmcTjFCSvF3hJ+5NhX0RygY=;
-        b=jTuMmhtoW0DcrC30bK3Y4mENRoDWszr/hWeNxJ6GPitLE+yYlTYkSQ7vmyuAuvadM7
-         paRhWAXhyzUjDLcnGusUwPI5F1216ucyf7F5eFFoeIyP2zvfcrifkWotJbFeRw0xUa/l
-         g++FWtmBfdTzPtr+qzj9zPTQdNiwSLkPMk973oHYueknX3DprYFvTfsGMKHsZMuYy9kx
-         70xZtRnPH2dN9A0UvA6d/4Rv+4Wt9hMC5AOwH7kLM9tYeVVmvLGt/n3f+qTygWlEBfGo
-         DxMaMaLnPG0wCGSFM7FAhAn8prWEOSUdBHV7P4r04gncck/Ewp3RW5MeF7bsQIOqyJ/B
-         Et6Q==
-X-Forwarded-Encrypted: i=1; AL+hErGMuS9ce/UaVG2LSfLD6cnZGxJCanku6CszrSajVhIJ1VNoA8Rnb3zoAq7JrEfb4tyLn5z/yc5ZCvTe7Pg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2AaxYvZfInBBydNKJce7A25D7x509DiALGFEQ4baBTK0O2Itd
-	yo9/CFbjhtOouEBpkyNuIIthm3RdQsv4s+IHP+tP4Tuo2hRyzyjz7ugn
-X-Gm-Gg: AYBFou391+bvb9rPilDA4ePw7i0Yf+mMnvthdu7gaqEVylynyjeKeeQW1VVl67VRMNZ
-	ZaFSdb7q+h2Gov6ofTHEWL6XFcdDrTOQSJnkZGn3flt1DtdGX1x/w1077qLv5aeElQTANjWh9CM
-	XRwJInenynD+YUJ5vbbIAcWxGfhFTxred9UbnMKKV1joxQEU/Lq0SoHOY/WJzTXO9ZFSS7XJF87
-	RaFI91mwTS947XUaIBR91c214y7xqARAusUIZON4XdpSevou9xvVeZvCcAAJ1NKxI6qHbzCXDzu
-	WLR6u/ZZgjNhXJPDYwESbVZr3QAOS1yQbwHu5GEX92X5+ZlMYsxGa0OF1Hlfng32FfJ5n65uBWF
-	yds3QXjYZK4BSTWyBJpIuyf1ay+PynhpNGqxqAnsRgS/1zIH28xlboHvtDGaPRphvRBbYy5a0Q2
-	Kd7E12lumr4HMxqWMFtndah9lZfJy4Mqcx3J+MVrTX1WWeKBJqkO/lvIRgO/eXcipw3NL2Gzrv9
-	6A6LTsofUaGF7S6W2GZp9fhF/aM26yoLl47CmSAjJD24vvLSRuFfprV69Ukcgkc6giSyIbVTe9W
-	qxMGwYDk/PCs8Xw4LtA0ZbO+1iI3p6wpyV4JwUxYaZBYIAf54yE9z/FZoy9B46JYmlot3K02NBS
-	hT9bUSXXII9PEVw==
-X-Received: by 2002:a05:7300:231c:b0:36f:3c7e:3c13 with SMTP id 5a478bee46e88-37967ae7f85mr14170507eec.22.1794804109971;
-        Sun, 15 Nov 2026 20:41:49 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:203f:d9b9:dda8:24e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379559189e8sm30905922eec.11.2026.11.15.20.41.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 20:41:49 -0800 (PST)
-Date: Sun, 15 Nov 2026 20:41:48 -0800
-Message-ID: <7f9d0adf1f49c5a2b3919130caf0acb7@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: ahmad baghereslami <ahmad.b1995@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] Input: synaptics - support the touchpad LED on RMI function $30
-In-Reply-To: <20261114090808.2572722-1-ahmad.b1995@gmail.com>
-References: <20261106095658.44166-1-ahmad.b1995@gmail.com> <20261114090808.2572722-1-ahmad.b1995@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QEx1xYqG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zCCkORp0bKKQCE/FpfWM6j2WAhlY4U3IaOjJsKcH5eLTZSYEgvgdAASfwvm+uVEt6amwBRntWYztleIwzvfjjyc9s39Q8VHgqlJVSTRNhaUgHqpu6eDBoexaW4Y8TLjyUiaYgy69qWnN74tGvJUk8U7UInDgJKWTVzneKi1oa7rGS/D8JhZotenIJ5qah8b0+Pr+MRyO/Ovtsn2YRnJePnLZ3qI89Z6HZNn1iJ5VrBRKhISmfgu51zp0H5Rfv5+x5wkEyjYLAgH44opji9ZPu/jbO3JNKRFxkJ+Y4sfOf10s35RFlq9lfpmMVF3Q82LoCRBFsvfSIjoCi9h/ibCH4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/zB83Rl3+WLG9dqZdXhp68zzelJVeqbGNhbwrPXnGyc=;
+ b=U2eI+i0ILEdBQHQrcIGqcGq+okWjHe/O4FSzYJEPuYTccmcGSc9hEqIaWAh8AhsJPupU/Pm89yZ4nqsPp3AIjD6SHDqtVm3DPIojgzBgzdxOvs5tpJwlXZ05uS+VgsVN4eZzPrnmHQDdvbitCNtIwufSv5PbpdPIZLIVuNUIJ8GgkFw0y5i7hvpZayGSGrmPoA3xHGhkpA0P16ldJv/1LmBySuv1NHBYpxomhpX4vUUUg6qxLQpM4ElUf90lnX3UTUaJ/Zq40JqgknQG3lwxYK5X8fcmlny7QxQiGrI6V9Kn0V5qKQ6E0YlyaY+RXFfrhw0ZSkpMwD7DH2dYwl2cBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/zB83Rl3+WLG9dqZdXhp68zzelJVeqbGNhbwrPXnGyc=;
+ b=QEx1xYqGEgRTQX/oY22NY15BvKnmU2LgIsGWRhgyQl6LTHYbyTAA4finIJOCh2BEiPpIwa2/S+aAcD8/8uaxUzS2aud5QuXDRsslNwIUS2HF1i+3M24Jsc+cdeuT3amD0ahm1oS3JALYkYJd5ITEl7aMrxgaBUUBM1njZdcvLUUr+Tu1L27UgoyCm7FMTTqKCa7gFQS2IrmOoEdI4tk6MOHo2nDdAoKYBpgzVbRE3xF2/QdwfW1Yi5Vmc1G1HFuGq8r2YtO5weNqqKavS4MHoJE3Jn/qKR3IBiSEI72+3RxauJf3s57zH4eWfnA9usxtDRrvsJxTNeJXjEUTbKx17Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH0PR12MB5089.namprd12.prod.outlook.com (2603:10b6:610:bc::8)
+ by PH7PR12MB6489.namprd12.prod.outlook.com (2603:10b6:510:1f7::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 04:43:26 +0000
+Received: from CH0PR12MB5089.namprd12.prod.outlook.com
+ ([fe80::cb31:7ebf:51e3:d9f6]) by CH0PR12MB5089.namprd12.prod.outlook.com
+ ([fe80::cb31:7ebf:51e3:d9f6%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 04:43:26 +0000
+From: David Cemin <dcemin@nvidia.com>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Jackie Dong <xy-jackie@139.com>,
+	Ike Panhc <ikepanhc@gmail.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lucas De Marchi <ldemarchi@nvidia.com>
+Subject: Re: [RFC PATCH 0/3] platform: lenovo: architecture independent home for the Lenovo WMI drivers
+Date: Sun, 15 Nov 2026 20:42:31 -0800
+Message-ID: <20261116044237.3760227-1-dcemin@nvidia.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <206de2d5-ef5a-4490-b6b7-c0e98893ec5b@kernel.org>
+References: <20261113222755.1696567-1-dcemin@nvidia.com> <206de2d5-ef5a-4490-b6b7-c0e98893ec5b@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY3PR03CA0009.namprd03.prod.outlook.com
+ (2603:10b6:a03:39a::14) To CH0PR12MB5089.namprd12.prod.outlook.com
+ (2603:10b6:610:bc::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,44 +103,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5089:EE_|PH7PR12MB6489:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1863749-b8b1-42c8-1006-08df439c26ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|11063799006|4143699003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	DRYVmtmyJ8KV9LSaP8Fy+q37brZPZEy0f7w1AQ1XjLmPn9fOoru22KolXbFXIorSOscWrBFOMJBWnNza+XpAGZcnK195qMioNUw7Kk5O0ZQhaDh5OHInOWVicUMT+A5njjc5AFnCDG0izaDfX2Zi1/noZw8GsTkR6ivzhh1LrT6rmLgNvpHKfl2Gnhu5eAP7IOWKT/mEkx0T9bCAoVYoVHLk+3a/wqAnbvxsNRjAmspLfoRsAuVF1TlJxknK8YDlpCyYA85MZA7VmI5vlb+Onsh8ucBFx8FX9e7F9P216TdRbz2Tp6YdyeC0VkYQ4qS9meEPPCEupsYCLFRZuXVeTqobRZfvva3mhLQQzPDft6ZlTBoEfaCQSjmtmadO4dTaDX+rkxGz0/xvs534tQKgpwZcU5db0IHq6h5oBPuqHf4OPqy9OFO4CeYQvh4mOoxCtz69/cgAWc52CpZN6MxzXG7qb8zwwnMWDYWmPm19RbwKzyo7jNUvi3Ey2V3ukwepVDZYoo2WT07lHLx6JfOAu8s6V8s98O6VFLLgVhIemkAT8nUxCJoS4rM6qtZjB5rT2Nn1R/0AGiQZpPDeZWE2erZMBIRqOmk4UHpHdrKXZA7pVcsNCAL+HLoxABm2jfhMTLHCSyEZYZXgzgXOf9DJIycQ81O1CHyIJUPAJdiVYNg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR12MB5089.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0gf0uhnx0KxsukTVl1MQ7rCflKLt1Cv/wwFhYWaKJZIYiJ0M0JKXvOc8/Upa?=
+ =?us-ascii?Q?1stKa5M3taZsqkGwVR1HeZc9pU9CVoT/rClVA+tU787oZtvo05RbStTCm9cA?=
+ =?us-ascii?Q?r/8rEwPq2wkCGAUhSTPdaCibwT8MeFej3QyMm6KjS9qkEq8gkEEUVboa5EAC?=
+ =?us-ascii?Q?VK9xrfyW2ItSuTJ2Ood6YfCxr9MsTKsMUeRlI5xDoPzidXZg+KPsWEbwI2T1?=
+ =?us-ascii?Q?IOqPG9TDo+KtWSsHoRCKqEsL7XiwGKctbkrAqDxctJTiXB0sGlanRj5dKXlP?=
+ =?us-ascii?Q?R3L3qt99UJ7MWj4hAHj1lpZwOZGu786WnBLIAEi73ENXdTQ/dr/+a1k1pgBy?=
+ =?us-ascii?Q?FvpjGuDVQoWcam3phEr/o23kklsR3pYjZmoBnZExmWZMnWnr3JCJuGMVTh/N?=
+ =?us-ascii?Q?Vjlx5jiYwlckt/SofGmS234ShWNQSHPRriW4SJw9j/tZKLud6DQN13Jr8euE?=
+ =?us-ascii?Q?3IA9n4L4u9Zf1QNOLkmYzNhBp9asnGswl4RBweVPL+J5zaLWM/sOt1WfN5ZT?=
+ =?us-ascii?Q?1S141YK8Wd4VH2EjYNu4Ga6fR5omPu2gkcXPnOCFudj4Ia0ZBXxrm5d5PQA6?=
+ =?us-ascii?Q?JS/sRAx4uzXdrpVjWUadI8KsaAK6hbgddk8IuGn76O1FSGDTL1E/0uzj7tMM?=
+ =?us-ascii?Q?sTHY1G2o0rQOoG+A06tPVdhO0mkDFe7rtIybuRDGdaKb21RsPUyYz7/axjVj?=
+ =?us-ascii?Q?/TCMUh0gEGRfPwQ4WmNjJ8UVX2bzKxSHZKuYnSvMOIzzL6EsH0dDHZwmLrda?=
+ =?us-ascii?Q?h/+ba0vtsgzyOs6qYEbi2424kWiZhsfspmNu4+8bJePX2N9pTNaMBXQCZiSD?=
+ =?us-ascii?Q?sx1QEbHIPviWsBJ5Vx7BuVLlsn4u34ziR8qvDsGS9smNcm5Yy9wqD8pDzswD?=
+ =?us-ascii?Q?NAEDUjNOm8xNn0g26Hh0D90gDN+2twV1/NSoTcNVF+kdLjhkiQXb5uMtVU2H?=
+ =?us-ascii?Q?y4qbblBi2M8ENZ8hFCC675w2YF3BrWYV/OlQUs3tHCTxfpALvHP2rPNJ4KGl?=
+ =?us-ascii?Q?W8rKyx0trC/dqD4NzI3SKWZygiJ8yMtsmTPOcnlVmSlJREwjnc4Kd/ZyxMsF?=
+ =?us-ascii?Q?fnQqARfDRaFgka+yQDbVhSUhn/Y8kvKKqnChGtlXKR/5a7Smde4dLv34rPaX?=
+ =?us-ascii?Q?SVGmwL1vOG3KNVVOTQkGYUuq0y4mbcIICiWhXSfnNCJfim1w+qVMrPedxJ9G?=
+ =?us-ascii?Q?v/kS2/YRVz+zc0S7njRljntSEd5/c0p/NwZD9cmAzJ/KRs3ekmyTvz7BplBY?=
+ =?us-ascii?Q?9zaX7/vCAYYJI9eyF+QWhj+YqmwLwUr5qS3fV/T6dlG2HNiDjak8rk4ykKFH?=
+ =?us-ascii?Q?OlTBUN0UarXOScdXLuPXlB+CuyD5bl/MQuAbmLF7c4jUVWBCPClHVzlk0CMy?=
+ =?us-ascii?Q?8VTDi06xLxskVo1SK9vFCfAPXN2bfy/CPZGmejB20ySh7P6CDlEXfnk3gA2n?=
+ =?us-ascii?Q?equgmWmetRh4BeLKuaRFA0zTqNnVA8eOHAckxLYNQXhWlazOJNCd4skQZdpw?=
+ =?us-ascii?Q?1bRqrCN8BMQ1dJoQIvh4TRnLgJ77Cn8Ncqb7qaX6UGrcEdEElJLGbotIoiIv?=
+ =?us-ascii?Q?Jm+bV2QKTySLSeMi7Clz05BpFBFaWZbpHzNFL/YTfo5IwPGo/w/syITb4F93?=
+ =?us-ascii?Q?86a1mQdvPDIs6BQCYK8B4eixNvJjRsINp06G6X1GwPonZiAKs7gr1MWpSsqw?=
+ =?us-ascii?Q?kHwEVXItA4A7ESmrBNn7kUGP5e2pLnvSHBmV7y50pKdbgpfjlSF7xmtpS5Lm?=
+ =?us-ascii?Q?6NrB+LF7mQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1863749-b8b1-42c8-1006-08df439c26ed
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5089.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 04:43:25.8099
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WzXGytmKFemYD94yLVzRfNeQaLkSNYlDc2cTZQJBAE4BuEA1vwJBY0f58AjXs/ZeRtYZADqMfoNRSeRnx0v0lA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6489
 
-Hi Ahmad,
+Hi Hans,
 
-On Sat, Nov 14, 2026 at 12:38:08PM +0330, ahmad baghereslami wrote:
-> Some HP laptops have an LED in the top left corner of the Synaptics
-> touchpad that HP's Windows driver lights while the touchpad is disabled
-> (double tap on that corner). On the HP ZBook 17 G3 (SYN3040, TM2706-002)
-> the LED is not driven through the PS/2 deluxe LED command: the Windows
-> driver (SynTP.sys 19.0.19.68) switches the touchpad to RMI register
-> access over PS/2 with mode byte 0x7f, looks up function $30 (GPIO/LED)
-> in the page description table and sets the LED bit in its control
-> register:
->
->   register write:  SetScale 2:1, SetRate <reg>, SetRate <value>
->   register read:   SetScale 2:1, SetRate <reg>, GetInfo (first byte)
->
-> For touchpads in a new rmi_led_pnp_ids list, look up the F30 LED this
-> way when the touchpad is set up and register a
-> synaptics::touchpad_disabled LED class device.
+Thanks, agreed on all points. For v2 I will keep wmi-hotkeys as the
+single driver for the Fn key GUID on both architectures, route its
+events through the lenovo-wmi-events notifier so ideapad-laptop
+subscribes instead of binding the GUIDs itself, call the chain before
+the keymap lookup so NOTIFY_STOP suppresses the key, and keep the input
+device name compatible with the hwdb entries. I will look at Rong
+Zhang's series and base on it or coordinate so we do not collide. The
+ideapad-laptop side I can only compile test, I have no x86 IdeaPad here,
+so I will ask for testers with v2.
 
-Why is this touchpad running in legacy PS/2 mode instead of native RMI4
-mode over SMBus (InterTouch / rmi4_smbus)?
-
-Could you please check if booting with psmouse.synaptics_intertouch=1
-switches the touchpad (and the pointing stick via F03) to RMI4 over
-SMBus on the HP ZBook 17 G3?
-
-If InterTouch works on this machine, we should add "SYN3040" to
-smbus_pnp_ids[] in drivers/input/mouse/synaptics.c and implement LED
-class support in drivers/input/rmi4/rmi_f30.c (which already parses
-f30->has_led and the F30 control register layout), rather than adding
-RMI4 PDT scanning and F30 register manipulation over the PS/2 command
-backdoor in the legacy PS/2 driver.
-
-Thanks.
-
--- 
-Dmitry
+Thanks,
+David
