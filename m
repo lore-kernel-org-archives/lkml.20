@@ -1,69 +1,188 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.132.180.163
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794833675;
-	b=Bwsvf/npk/2gqlW2W1dFqSFEQELUSWPOz/p7JvYPukfqtRHhhfc8MoldUMb0dUK1bC9L
-	 +SZNAAHGdHIyMThNg68fjzH2YG8pt4T/N82o3bUbqjDSGpD82KxcFoVTi+ovlXsk5f71u
-	 tKZFuhwjFY17Zn04ptXbvYlf461O90BTMJ0GN4wjMIkSfQlJIYhh2Fql++I+xZ1+Uta37
-	 prgosKS5OPaBRZ6eJAiluXgnfPUtI5SbXZ5peTM9mZvx0b6vVjjYOgq4W5WRb8IYvzNiw
-	 l7u97RozsncFDjDCGdTGkw4Ng+HsSxD5Q4IMR5hwbwTh0D2pBIA90ypG9t8DX+irT4Q==
+	t=1794833811;
+	b=MeNEJWVNkKlhdoE2YicsqaPLO0BgcQ/bMBU1KkmhzkZky2P/OOwQ53ghOpCLmADGMTZd
+	 XtkTsQXajPZ762gUKawFbXdmJe2liZlURycH3aCRBIrnvZ27pDEBSkbgmo8X0oqzBjv5t
+	 qoUZYTp/f5z2m4IY9K9OIuVoCZoZ+DShIarzeBHGoXc9BZyAQCqb4PfPwu6BtaZSvn1wC
+	 vkzBDoXe1KlpQ1vdh9fmHOPXbVgVQLq75JaOQqMxNJpczxkyHbD1vfTSB/rlPkVkW2Hxq
+	 4y5VYSPZxqWQPQ750zo1nk79NBay+bErMC/POWTCpJO9kMQhbs3HIwL7q3nFQTkmm4g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833675;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=5gt6Q9JpMjszwSgzJMPF75yNoCNec43vgGA2o+i5b/k=;
-	b=UOORG7nco5IDFnazZvDym0kCbkF4FG3sgE9nyQppNNHEm5cmW4NGU7RL++6xvboAF2ck
-	 g0XNBigXCU0v2ZXBhO9cOr5iBtxDlXgZJMQsZV2lzg6aSkU8Twg/kcr9G3gkzwk4tNsL4
-	 byLxoNEkWy9l9uCV5RJAAcEmzPGnj5FvO1mbswfTQ/BC+J+4xo52UlkhjWJf6CmdXXA/Z
-	 HGmCQLpDw3Me5XpC/JhNBXPD072CsyEjE8AH/hcGh4+bdzP/ayyq3rtzQ1AJ9eadvlFUq
-	 a0Qtk/savNGpkDMzh66w0zJbki8jKnNragRsvH03+y89BZU9+mDkGG43h489yDeDO/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833811;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID;
+	bh=r43chFs/Tm7d/IwgTFBXzaR1Ak9Dw86NeiksAyli/+M=;
+	b=r0VPatCMhO7A+W9kh9Vfqu4iaWTsSTMbdF6I3gUrmxG7kcEmNmqlcP0Hbutz5IHuhw3s
+	 VI1j7Cqw1tX01457XNyOllOiYdsi6pDJhYTPUObxbYKGGG3sNJ9dQaB84ueJ7YUhQBaPw
+	 pKchpmvc0/NiRb6UZARbUcJHoMD5NdD3sawGD8hask31RXjwKsOQ7e6boKa+Pc/dQf8q+
+	 8VGFZxwz+KRZvBLMiZmFPXfXXC+DYVhPC3GfZ3PH5sxOn8QwaoZ13vHKkfljvErKWWiH8
+	 0zm2Vs8eMjWtFa9eFLpmYoal5ZGXb7Qok6IKewHXw52N4MC0Nh3xs/t0/al3Auanq/w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=cqNEJfsG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=KBhnicg8;
+	dkim=pass header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b="a32C/BTe";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAD2606A31C;
-	Mon, 16 Nov 2026 12:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CAD2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDCB606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCDCB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=cqNEJfsG
-ARC-Seal: i=1; a=rsa-sha256; t=1794833636; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FybOP42WAEajefF/dltzLUpQ6OXACqA+W7v/fSmPEY9UJqbkhTcJOnaSOuc3cRXzV4NhJdv5ktCXwFZVyIY3zMY8rNbtmKQKrHAG7HL3vme2CxHoWrSDhk18wAdg0XJXgPmlf2x+CBvpCKoHjI5mhOJTeJFcIxaxbc0dImBa3Mg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794833636; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=5gt6Q9JpMjszwSgzJMPF75yNoCNec43vgGA2o+i5b/k=; 
-	b=QAek5tS1MLZkMVZphBKgTbSSaSBjuVrhBcyoGLqqgjRbBgrelz7NAsJzXQOycNbLAUELAnYJBI/8ORTa+bah/NVzJdptZFZiatowoamrynQLDX7JGV1eARhg8+mDwVWca/dmS5Fycgzw2Hw+lkCtEzoSsjwxPf7HVn8Wlw4TEh4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=cqNEJfsGSzlJkrwGmymMwLAOaDfxeXvsp2X1fj8rM2j4GonIsFD0BJLb+ap4oRmxB6JPQ7ChcLSM2+DEuhG32tV1qAfAcwWcqoweC7C3b6WkDujhVRfWkQeCOfiSxWKmB/sgx0Nee+/ED/WmzcXcIHeHpzhXNOKiBstIpqv24+WT444bTwL+wQPnRnK3hoZkRBmGUmt7sW8+PHILTKANQkI3e6AQGyIcRc6oSKouugzcmz2KWu6cpDfKxX0hdKnReONmp3O7I2ol6n/JuvhGClDJv5o+Za0isX06jAoFscIO3+4spHevN+VKm+9Y5MVzAr4AtLULUnsIpPvbXO/4kg==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=5gt6Q9JpMjszwSgzJMPF75yNoCNec43vgGA2o+i5b/k=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794833626105531.9681182815148;
-	Mon, 16 Nov 2026 04:53:46 -0800 (PST)
-Message-ID: <395209cded20a0bdc069b7bc19a68366b62a3f39.camel@rong.moe>
-Subject: Re: [PATCH v4] platform/x86: asus-wmi: fix camera key LED on
- Zenbook S14
-From: Rong Zhang <i@rong.moe>
-To: skyedryv <skyedryv@gmail.com>, git@turtledev.nz, Corentin Chary	
- <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Denis Benato
-	 <denis.benato@linux.dev>, Hans de Goede <hansg@kernel.org>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org
-Cc: =?ISO-8859-1?Q?Jos=E9?= Guilherme de Castro Rodrigues
-	 <jose.guilherme.cr.bh@gmail.com>, linux-kernel@vger.kernel.org
-In-Reply-To: <e212e07006249d68aa7b9df25c95581b307b10e2.camel@rong.moe>
-References: <20261019-asus-wmi-camera-led-v4-1-7744c125bcc9@turtledev.nz>
-	 <e212e07006249d68aa7b9df25c95581b307b10e2.camel@rong.moe>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 20:48:39 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=KBhnicg8;
+	dkim=pass (1024-bit key, unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b=a32C/BTe
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id 6AGBN73I3976869;
+	Mon, 16 Nov 2026 12:56:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	dk201812; bh=r43chFs/Tm7d/IwgTFBXzaR1Ak9Dw86NeiksAyli/+M=; b=KBh
+	nicg88NFhj+xQkgFvEubBN4kZIhD7l2D1PN2EMPq9RSmdkHQlZLt4th6zOKoX9K6
+	Kj3iI8enmHaUTAKLLyfGJ54VKNs+NRDiRRBxlbSvX7nT34lENkleXsmfW8+nqey1
+	MqrIbJzT+hlJfakmgM3/yGiL3ZxtPNtcNpuNBAx6fhCiiNfeWeZg+FvYdCc9bDyy
+	iSYit2v3OOkzEtq4b45sGMsVI4u50CV4tHzNCYaj2k11K5zrbY7kV4TLFosMj3ON
+	rejqdHaqWBL66mCOQQi3kNs5CDZ8PGNqa6kbqRiZYQZATrbNMQm/G5ewn/ArbwtK
+	luHgzGZOzomPmv7b85Q==
+Received: from lo3p265cu004.outbound.protection.outlook.com (mail-uksouthazon11020111.outbound.protection.outlook.com [52.101.196.111])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4j00w1g2ae-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT key_exchange=secp256r1);
+	Mon, 16 Nov 2026 12:56:27 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NNBdfuNgRqHCzJWJIv7BDrwv0vEHq8x2PGy7gZcZRlp66kmCtZujxLdjBEOmEFhvqODzWbkm/dsAqkG2IONumTgKjPBjqwMqfoUnhrLJMnsqrGkbEBwrLIQdZZetd9n3Aa5EEu4qqQ3NQZOm4qsSMU8AeFyhph2bNS4/nh9a3aiT4iSLuwxFRUkXQxerwqjqV5PlczcmQyfWhM7hjV9/AV4oTub49tdFxVHRvCppwhm1cpiwsrCFCmmomT64T2qyTM4ywwqlA0mZJEDDYmqMMmQwJkt9zDXsf/3udhTKeR+RhrXZs364xkOsRBaHyVp9NUwp+fumc3HN4W3NXVsChQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r43chFs/Tm7d/IwgTFBXzaR1Ak9Dw86NeiksAyli/+M=;
+ b=M3bBDJKJt4jFdMDoiFBOBOEGW0qeCdd1+A8LccQmt1fA1yZ5RSmPBKWwXX8YMe29WRbmBt8pSkByy3ii2XgrODGfAj63ux6W80ftIXZsLuWvbbiKl2wsYDQs0jqeJyuuqTX+L7JKfZsZDLONQozU+n8MXWj/g9q6pOYCc5tvjGgzz5jrrUaCc9oDBGi8ne1dpnR4sykdqbzLP3V6MWSRXBT8dN2r95KNDkv6T5W9zmBsxOSKFGXiLT1gpnqDMGOcdoJsneunTdRBBefHryQ1Yh86H4vPrgQoYOwhnsBq4jw9A/Z2E/dAXHK6a4Jb+8CaAEWpLpSn+pRdOC6ZRPLsQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r43chFs/Tm7d/IwgTFBXzaR1Ak9Dw86NeiksAyli/+M=;
+ b=a32C/BTeUQGwmB6mmadx+8Ke6ehBEgDKOQ/UrqPBLmnl6XgNF1FdjOATjZSO6cLjgWealk27r2qhU4IJr80g5mK2/PsjGJRII+yPFIKTeeufbsHhSNcTMeUXRpdO86wmWllAZqkB2TpWc2VcaXrqm2G5Wo1iiso4flfgFL7Kcgc=
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
+ by CWLP265MB6272.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:189::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 12:56:24 +0000
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 12:56:24 +0000
+From: Alessio Belle <Alessio.Belle@imgtec.com>
+To: Luigi Santivetti <Luigi.Santivetti@imgtec.com>
+CC: "imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>,
+        "tzimmermann@suse.de" <tzimmermann@suse.de>,
+        "simona@ffwll.ch"
+	<simona@ffwll.ch>,
+        "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        Frank Binns <Frank.Binns@imgtec.com>,
+        "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+        Brajesh Gupta <Brajesh.Gupta@imgtec.com>,
+        "mripard@kernel.org"
+	<mripard@kernel.org>,
+        "airlied@gmail.com" <airlied@gmail.com>
+Subject: Re: [PATCH v2 0/2] drm/imagination: improve UAPI heap and static
+ areas query ioctls
+Thread-Topic: [PATCH v2 0/2] drm/imagination: improve UAPI heap and static
+ areas query ioctls
+Thread-Index: AQHdcIn0UPg+3VkKmkOnpYcf5QGs1Lcwsq4A
+Date: Mon, 16 Nov 2026 12:56:24 +0000
+Message-ID: <d912450f4bd5aac9577851e0173d66d37246c089.camel@imgtec.com>
+References:
+ <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
+In-Reply-To:
+ <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=imgtec.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LO0P265MB7076:EE_|CWLP265MB6272:EE_
+x-ms-office365-filtering-correlation-id: 4c4f44db-bb84-4d04-dc77-08df43e1051f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|38070700021|10067099003|56012099006|261026140227099003|261028144727099003|261022115727099003|261021121427099003|261022075727099003|261021123027099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ iKDDDo6wfiS6TAtNp0MGqzB+U5GZMQ2mB4T9yItQs8Yq+hmaarTZHqT+mnje+7wG5CFrC85YGYNQNrKo42Rhk0SJ0DPLdeeG3VnqEGvxvboBM36If78SPD7UNfJ5ZsfsQApsgTSqnkl2Cf5JIoRCFRVjOUcs6/sor9jK9VC0cyvDuTKL9K6GW3XcgKf/F5QtO8NRqNK7arK3ODNRuM8khk/JkLiAM+MujEXPTK/5vzAdEk/2MYFHQTQIA0ZxYKyAP9CR9PdF4oRdCXAW+wxVK9GjsoEtJswoIS8eFiRuxEVEnaunahE6E8AdadDoViUQSmtLyJ0S6XZ3bsQIVtBndcpUabrmDZHsytdWWZex0JnkDJdXO3SlVXfqyQM7kGG2hKMJERgiyOuzCX+VDA8IciWFWwZ0N3aZiZO50vfwS87nlkWTjPy2OYBz6goJ29bi4w1Fpkfwx2ueaN5s+CKzGF3jLNaA3kFGh+snEYDSFCYvvRRgAPVv5Gy0Wmivm/0cWpj6ROqC9xRVroxQTWc145iOFcRbjC0774iIFOIyYfAs7mociI7pQQ4qjRhBAoaSZpb+IjhYYoyZDuGw74Uzd2LOu8J8tywSwKLvYMtdX4sfuwRFWK4ElSbENzSb3t9ulcP1bC9A2OQUnr365sTgAtYE9j+YGoyg9HXTj0YLrVc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(38070700021)(10067099003)(56012099006)(261026140227099003)(261028144727099003)(261022115727099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?TUhITkQ4SHVPcXBUZVY5aWRxMVZnakZ0RGJmMTJLamhGTTJSWTVjZ2prdFV2?=
+ =?utf-8?B?WnRGYkcwRFlyMW9PQ3lzaUpBMmowMzFCc0prb3dhbEcwV1BYNko5aHkyeVNQ?=
+ =?utf-8?B?ZkkvaEM2dTVFeHJxa1QraGhwM2FFZDdLOHFab2ZadWc3clh3QllMZG5MSmNJ?=
+ =?utf-8?B?N0ZTNjdKekNzL3EzWGRyWHZWWlVsWXA4MmNaUnBCNDRUbDdJUFQzRk9yRDR0?=
+ =?utf-8?B?OGgrc3BmdWJ3MmkyRTNQMk9CTm05LzZaWHo5QWpSQ3M3NUFmU3hvVUNoZEx3?=
+ =?utf-8?B?S29wME4ydjBoVGRNN0lKbE9iYlV1T3pHZ1pYSE1VejlhZmZrMDZjRWtRL016?=
+ =?utf-8?B?Yjlsb2M3ZXVOWVd2TzF5eFVoSk9RUlFjUmZTMTREWWgzY1IzU3ZlaHNhY3JC?=
+ =?utf-8?B?eHMrTmFxNjVJeG5SeGQ1VzMzYWdtV0ZrK3B5NC9LNWludmtBUDJUeVd3RXRq?=
+ =?utf-8?B?bGJOUU1BWGtjeGw0Y01YN2YyRTJ0ZnNnVk9UMm0zK1FKRDlneWIxZ0tXUFc3?=
+ =?utf-8?B?UVVydDEyYkJqaFYvNzBZMFFrcGU4VVAxZHVvQ3k1WXQ3S3I2NmNoekx1cHVo?=
+ =?utf-8?B?SUprR3liVUI5ZjVCUnFlYllZMmVmTDdFYVJIUHdHNEx0eFM3M09OU2FEbUI1?=
+ =?utf-8?B?OGM2OEM0ZnRuMjVxbk9LY0JRd3psenNZME1jb3RUWEhWcjRRQzBYZGN0dWpj?=
+ =?utf-8?B?bWZHZmRsUWxTYmw1cXZqZXduRjlUQTZHK1hMTWo3MFROd01nYjN2cmZDWEZH?=
+ =?utf-8?B?clRBQWFxRmE0VXFBU3BJSWEwcitrZ0JNN2NLcDhMVHZqWDExem44R3hKOU1v?=
+ =?utf-8?B?ZmxSUUowT1JKNTU4amJOc08vRU5YbU9VN3NyTTRROFZ6M3EyTmxoTExnaEor?=
+ =?utf-8?B?K2Q3VCtBeFllTkpSWHVHa0t5Wm9UT04zZ3Q5K2xseXNGSmFDcytGREkwdW9C?=
+ =?utf-8?B?T2llUzExOHN2N2sxcSszbjJCQmJ1TUZrZi84MHBtZGVTVG1WYW1DVXJINy9P?=
+ =?utf-8?B?dE9NUjBRa1VLa0pEdHF3dHdhcGRsT2hGeDhnaTRIZldHTWRGYWRYYWlkZWp6?=
+ =?utf-8?B?d3k4QTBpTEpxekJIRWN5WHZNS2FIWlh6QU9lV0VRWWVxb1pReDF5OHM0Z0Ey?=
+ =?utf-8?B?Uml3T1ZIcGRZT3VQY1k1STUzTS9Jb2lLZmF4K216eisyd21lak1rVHhsUkxk?=
+ =?utf-8?B?aFB4Z2xSSmVOSVZnWk9BVnIyeTJqMkQ0K0lGZExJUUw5VTZxTkgxMVRYeWNR?=
+ =?utf-8?B?cUVFSk5mbUFiajYyUmxJazFVMzFxU0xJU25TYUwyaUlGOGVOVGFYWHJEbVV1?=
+ =?utf-8?B?bGFHRWNmTGM0S1VQTGRDR1ZoUHVzVHcwMDBRUHN4NTRwMzdLMlF3RUUvVi8x?=
+ =?utf-8?B?YTZJSklDemh6UklVZFVHTTdod2xWcnJMZDlWSUFPSjFuc3MxbS9EVW40OCsv?=
+ =?utf-8?B?SEhlK0FRQnV3VjZlanVzOEdsNlNnd3ZOaGg5Y3ZjazczS0srak1yd2NJVEsy?=
+ =?utf-8?B?RHlyNTFsc1J3c1dhY1J3bE5kVjJhRzJUZlhjYzRnc3hOWWlxZFRYZXNDWGlx?=
+ =?utf-8?B?QlFyMFRZazgxbktpekYyQ053UzV5R3MrbENpWHdGV1NKTytrcldoTUc4Z3g4?=
+ =?utf-8?B?SHJmenRPbTUzMlltS3JVUnlOTTU4Y0pUci9lNDJPeUpBSkg4bGtPQVJCWnN0?=
+ =?utf-8?B?bDdqNU0wa2tjenBVUDVyRTBQUXFGZHhmK2hGZEtick8zSUduL1g4aUUySWxz?=
+ =?utf-8?B?WjdxbzlVWU5HOUxOMlQyWksyR2RHYXBETGxsSE9mVFJITUl4VmpQT1ZKMUlO?=
+ =?utf-8?B?RnAreEQraDBMRXRoaDlKc2dhMzFLeHZGUWhLZ3NiTWxwUG5EclBVWWlSaVd1?=
+ =?utf-8?B?YlJKMTUxYmV4M3YrRjdCbFJIRFNTUk8zL3dKU2Q2c3pVSXlRcTNERC9jN1Yr?=
+ =?utf-8?B?SlgwRU1JNkxxR1pwR1FWSk84YmI3Q3FucHNPN3UyNytuV2RaS2NpYmJoemVN?=
+ =?utf-8?B?N3REK21sWENwTXNKNlZQVlRzZndVekh5Qml1cWVPRE0zWEZzTXppTWhldCs5?=
+ =?utf-8?B?dk50aTlEdHYwcnZ5cTlEK3VqclUrOFdBZmdqeGo1VFJ5eURDQ04rK1E0d2ZU?=
+ =?utf-8?B?QVQ3a0wxZFhqLy9HZDZHUy90Q1o0ZWpEQnR6d2V2NVZTbUUwMkc4N2ZWbk5B?=
+ =?utf-8?B?QmhuR1dqdmsvcWxhMkF6OXZaOFRBamMyWWwvSVBjKy9GTnB0bUZBa2d2NlJs?=
+ =?utf-8?B?YXNkZFZJQTRrcFRhM0w3b2YxWE5BQXR6Rkx3MmoybjZWV1VPWGVBK3VWb0N0?=
+ =?utf-8?B?ZjJLbFNWNVNmSFh0OXhLWnNFWDhydk1ZcS8weG4ycEJaU2NxZHFOYzZmRWJE?=
+ =?utf-8?Q?GhBxQJDYskGcQGTQ=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FD97AC41EF3D5E44B8A88C51CF621B8E@GBRP265.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,353 +192,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+X-Exchange-RoutingPolicyChecked:
+	oo8HXFJ12aWQ/bLLDYzAC3V2Smu+5zJpjgn+/VtqDw65TRUmwZ8etm/PO57Pbi7UUYVsQjWvsYthSR0wLlWfsVsxbF8Eueh7tASTHAGD6JqEzbyt3W7isu/dk48l8hfCSk03WrucMLm2sCdrzgnc03hbZN6GFoAdJFt7xxLedMQuu6Gn44VXL38kDx4wcpmHUsvJtSOIOrHMSETe1CWF3kB2V6s0RbRyQA8O1wD0B/uUWqQlzMToqsOocHdRKel2MPhjnVts63LM51wR0UDHkAdoOUqduWLPOuIznzrnHtvzHP23kHrmXGo3vX7UyvsqLuDKh7K8IhdqpvRipLFLMQ==
+X-OriginatorOrg: imgtec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c4f44db-bb84-4d04-dc77-08df43e1051f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 12:56:24.1669
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: b+XHFMAUiZ3hW5lmQUI1gqxW4uoZHdagFtanmj+6npeFLxI9sATxcAj8+Glh/GgiopcC1omxV883wISaVUe8kkt+peZVTBhe9evd6YbWu70=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6272
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfX8lEX4ud3G68A
+ Scuw6uZwQkFL3I+M2G+Xqoc/B8RGanlnLo308XBrEUFWzs8oh3hCpG8WU1bIl5ODixINjUwFOge
+ QrGYUXX+aPi+5k8YXAaDN/SJ84fOQC0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfX2rf1NPZ3/60X
+ CV9ZhbFXGdbvovmV46cd8NQW7QL4Ekz+W6DjMG2AfnxAhxH8S+ulhXO3GKowBCcJBLKgj3DaZ2b
+ SfS1Ub+3b510th6afUzMRF99PkbPSjfHkdqOXu1/eNpVjEtxIHG+an0Q+9c+d6wUwlu7wH2ij2i
+ PBVrYo5iv5hGkx+a+Vdlv7+w9Qqu+Y6yJyDRiN4u/KV0te4ShG5XODezrnrb6TSasvbCyOA8UAL
+ UAqqoIp6lXmhYV2N4MRs2y3iPRz7XTWNqaFQuCzXhBpe3arqK2WSsaHNxSqh0Pt0rpAkf4LPTY7
+ uS5FnE6ErHcck3XYmJpb/OnIK8dOgjnBL+RDXJAHaI8OcVTIB2mtvp5fF7QWN1UHV1yprDKM9r5
+ dDuLybsTR0RYpGDCJc5HwCaKhtekpMhCiYeIQlkbksrbZoAmVZRaC2mM/ApkQesEbFGe37fHNF9
+ dZcHfjyIU14BS67kGzw==
+X-Authority-Analysis: v=2.4 cv=Yoqa1IYX c=1 sm=1 tr=0 ts=6afafd7b cx=c_pps
+ a=x08jvADxgcX9NU8ZR8w9tw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22 a=e5mUnYsNAAAA:8
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=ish7FPFtLS3Ct7oorlEA:9 a=QEXdDO2ut3YA:10
+ a=Vxmtnl_E_bksehYqCbjh:22 a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: UgJ8YFRrJz5JuUyoyAptr3PpKPHNVoSf
+X-Proofpoint-GUID: UgJ8YFRrJz5JuUyoyAptr3PpKPHNVoSf
 
-Hi All,
-
-On Wed, 2026-10-21 at 20:34 +0800, Rong Zhang wrote:
-> Hi Zane, Jos=C3=A9,
->=20
-> Hopefully I am not too late to show up here.
->=20
-> Regarding the title, you are not fixing a bug of the driver, but adding
-> support for ASUS_WMI_DEVID_CAMERA_LED_NEG.
->=20
-> On Mon, 2026-10-19 at 19:35 +1300, Zane Hunt via B4 Relay wrote:
-> > From: Zane Hunt <git@turtledev.nz>
-> >=20
-> > On some newer Zenbooks (Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) t=
-he
-> > camera key turns the camera off in firmware, but the LED on the key nev=
-er
-> > lights up under Linux. These machines don't have
-> > ASUS_WMI_DEVID_CAMERA_LED, so asus-wmi never registers asus::camera. Th=
-e
-> > firmware exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG instea=
-d.
-> >=20
-> > Reading CAMERA_LED_NEG is what drives the LED: the DSTS handler reads t=
-he
-> > camera state from the EC and writes it to the LED GPIO before returning
-> > it. The set side can't be used, the firmware only accepts DEVS on this
-> > device once per boot.
-> >=20
-> > When CAMERA_LED is missing but CAMERA_LED_NEG is there, register
-> > asus::camera as a read-only LED backed by CAMERA_LED_NEG, and read it
-> > after every camera key event, sending a brightness_hw_changed event.
-> > Registering the LED reads it as well, which fixes the LED being dark af=
-ter
-> > a cold boot with the camera disabled.
->=20
-> I agree with Jos=C3=A9 that the current ignore-anything-but-resync behavi=
-or
-> has a weird semantics, especially considering that writing to the
-> attribute has a side-effect that updates led_cdev->brightness
-> unconditionally [1].
->=20
-> Unfortunately, errors from an LED driver never reach userspace through
-> brightness_store(). Also, not every code path of the LED core prints set
-> errors to kmsg. This is also the default behavior of the LED core when
-> neither brightness_set() nor brightness_set_blocking() is implemented.
-> Thus, returning an error here really doesn't make much sense here.
->=20
-> If we really want to ensure the brightness and trigger attributes are
-> read-only to userspace, consult LED_SYSFS_DISABLE and do not implement
-> brightness_set[_blocking]() at all, but do we?
->=20
-> [1]: While the cached brightness never reaches userspace because of the
-> presence of brightness_get(), it's still... very weird.
->=20
-> >=20
-> > While at it, include <linux/container_of.h>, which this file already
-> > relied on.
-> >=20
-> > Link: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
-> > Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221752
-> > Assisted-by: Claude:claude-opus-5-5 iasl
-> > Co-developed-by: Jos=C3=A9 Guilherme de Castro Rodrigues <jose.guilherm=
-e.cr.bh@gmail.com>
-> > Signed-off-by: Jos=C3=A9 Guilherme de Castro Rodrigues <jose.guilherme.=
-cr.bh@gmail.com>
-> > Signed-off-by: Zane Hunt <git@turtledev.nz>
-> > ---
-> > Changes in v4:
-> > - Keep Jos=C3=A9's Signed-off-by from v2 and add his Co-developed-by
-> > - Use my full name in the tags
-> > - Include <linux/container_of.h>
-> > - Reuse the existing asus::camera registration block, only the
-> >   handlers and flags differ
-> > - camera_neg_led_available is now only set when CAMERA_LED is missing,
-> >   so asus::camera is always the CAMERA_LED_NEG one when it's set. That
-> >   makes the LED_BRIGHT_HW_CHANGED check in the event handler unneeded,
-> >   so it's gone
-> > - Drop the explicit read at probe, led_classdev_register() already
-> >   reads the state through brightness_get
-> > - Link to v3: https://patch.msgid.link/20261017-asus-wmi-camera-led-v3-=
-1-845a82373997@turtledev.nz
-> >=20
-> > Changes in v3 (picking up Jos=C3=A9's v2, which had stalled):
-> > - Rebased on pdx86 for-next
-> > - Also read CAMERA_LED_NEG at probe, so the LED is right after a cold b=
-oot
-> > - Register a read-only asus::camera LED when only CAMERA_LED_NEG exists=
-,
-> >   with brightness_hw_changed on key presses (Ilpo's suggestion on v2)
-> > - Comment on why the read is what updates the LED (also from v2 review)
-> > - v2: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
-> >=20
-> > Tested again on the Zenbook S 14 UX5406SA (BIOS 309), on Fedora's 7.2.9
-> > kernel with the same change applied: camera key presses keep the LED,
-> > asus::camera and the camera output in sync, and with the camera disable=
-d
-> > and the LED forced off, loading the driver turns the LED back on.
-> >=20
-> > I used Claude while working on this. It helped
-> > me read through the DSDT, drafted the changes on top of v2 and wrote th=
-e
-> > test scripts. I went through the patch myself and ran the tests on my
-> > laptop.
-> > ---
-> >  drivers/platform/x86/asus-wmi.c            | 75 ++++++++++++++++++++++=
-++++++--
-> >  include/linux/platform_data/x86/asus-wmi.h |  2 +-
-> >  2 files changed, 73 insertions(+), 4 deletions(-)
-> >=20
-> > diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asu=
-s-wmi.c
-> > index fb1d4a0..93b51c8 100644
-> > --- a/drivers/platform/x86/asus-wmi.c
-> > +++ b/drivers/platform/x86/asus-wmi.c
-> > @@ -17,6 +17,7 @@
-> >  #include <linux/backlight.h>
-> >  #include <linux/bits.h>
-> >  #include <linux/cleanup.h>
-> > +#include <linux/container_of.h>
-> >  #include <linux/debugfs.h>
-> >  #include <linux/delay.h>
-> >  #include <linux/dmi.h>
-> > @@ -72,6 +73,8 @@ module_param(fnlock_default, bool, 0444);
-> >  #define NOTIFY_KBD_TTP=09=09=090xae
-> >  #define NOTIFY_LID_FLIP=09=09=090xfa
-> >  #define NOTIFY_LID_FLIP_ROG=09=090xbd
-> > +#define NOTIFY_CAMERA_TOGGLE_1=09=090x82
-> > +#define NOTIFY_CAMERA_TOGGLE_2=09=090x85
-> >  #define NOTIFY_KEYSTONE=09=09=090xb4
-> > =20
-> >  #define ASUS_WMI_FNLOCK_BIOS_DISABLED=09BIT(0)
-> > @@ -312,6 +315,7 @@ struct asus_wmi {
-> >  =09u32 kbd_rgb_dev;
-> >  =09bool kbd_rgb_state_available;
-> >  =09bool oobe_state_available;
-> > +=09bool camera_neg_led_available;
-> > =20
-> >  =09u8 throttle_thermal_policy_mode;
-> >  =09u32 throttle_thermal_policy_dev;
-> > @@ -2096,6 +2100,54 @@ static int camera_led_set(struct led_classdev *l=
-ed_cdev,
-> >  =09return err < 0 ? err : 0;
-> >  }
-> > =20
-> > +static bool is_camera_toggle(int code)
-> > +{
-> > +=09return code =3D=3D NOTIFY_CAMERA_TOGGLE_1 || code =3D=3D NOTIFY_CAM=
-ERA_TOGGLE_2;
-> > +}
-> > +
-> > +/*
-> > + * Some models (e.g. Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) hav=
-e no
-> > + * ASUS_WMI_DEVID_CAMERA_LED. The firmware handles the camera key itse=
-lf and
-> > + * only exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG, and r=
-eading
-> > + * that has a side effect: the firmware copies the state to the LED GP=
-IO.
-> > + * Nothing else updates the LED, so read it after every camera key eve=
-nt.
-> > + * Registering asus::camera reads it too (via brightness_get), which s=
-ets the
-> > + * LED at probe. Setting it is no use, the firmware accepts DEVS on th=
-is
-> > + * device only once per boot.
-> > + *
-> > + * Returns 1 if the camera is disabled (LED lit), 0 if enabled, or -er=
-rno.
-> > + */
-> > +static int camera_neg_led_sync(struct asus_wmi *asus)
-> > +{
-> > +=09u32 result;
-> > +=09int err;
-> > +
-> > +=09err =3D asus_wmi_get_devstate(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG, =
-&result);
-> > +=09if (err)
-> > +=09=09return err;
-> > +
-> > +=09return !(result & ASUS_WMI_DSTS_STATUS_BIT);
-> > +}
-> > +
-> > +static enum led_brightness camera_neg_led_get(struct led_classdev *led=
-_cdev)
-> > +{
-> > +=09struct asus_wmi *asus =3D container_of(led_cdev, struct asus_wmi, c=
-amera_led);
-> > +=09int state =3D camera_neg_led_sync(asus);
-> > +
-> > +=09return state < 0 ? LED_OFF : state;
-> > +}
-> > +
-> > +/* The firmware owns this LED; a write just resyncs it with the camera=
- state. */
-> > +static int camera_neg_led_set(struct led_classdev *led_cdev,
-> > +=09=09=09      enum led_brightness brightness)
-> > +{
-> > +=09struct asus_wmi *asus =3D container_of(led_cdev, struct asus_wmi, c=
-amera_led);
-> > +
-> > +=09if (!(led_cdev->flags & LED_UNREGISTERING))
-> > +=09=09camera_neg_led_sync(asus);
-> > +=09return 0;
-> > +}
->=20
-> I agree with Jos=C3=A9 that this should be unnecessary considering that
-> asus_wmi_handle_event_code() has handled the event.
->=20
-> Still, could you confirm whether pressing the camera key during s2idle
-> toggles the camera state without emitting a WMI event or not? If so, a
-> resync should be performed on resume.
-
-skyedryv tested this on their device, see
-https://msgid.link/CA+Bqb3R2ZCrZZr6pUqLmw3qXMSA13Ft3nYqCx7jv+5PDEuH0uw@mail=
-.gmail.com
-
-According to the result, camera_neg_led_set() should be completely
-useless. I'd prefer to remove it.
-
-We don't need to set LED_SYSFS_DISABLE either. There has been a lot of
-get-only LED drivers, none of them sets it.
-
-As for my proposal...
-
->=20
-> If there is really a need to preserve the manual resync functionality,
-> it'd be better to use custom LED attributes to achieve sensible
-> semantics, see led_cdev->groups.
->=20
-> > +
-> >  static void asus_wmi_led_exit(struct asus_wmi *asus)
-> >  {
-> >  =09scoped_guard(spinlock_irqsave, &asus_ref.lock)
-> > @@ -2227,11 +2279,18 @@ static int asus_wmi_led_init(struct asus_wmi *a=
-sus)
-> >  =09=09=09goto error;
-> >  =09}
-> > =20
-> > -=09if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
-> > +=09if (asus->camera_neg_led_available ||
-> > +=09    asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
-> >  =09=09asus->camera_led.name =3D "asus::camera";
-> >  =09=09asus->camera_led.max_brightness =3D 1;
-> > -=09=09asus->camera_led.brightness_get =3D camera_led_get;
-> > -=09=09asus->camera_led.brightness_set_blocking =3D camera_led_set;
-> > +=09=09if (asus->camera_neg_led_available) {
-> > +=09=09=09asus->camera_led.flags =3D LED_BRIGHT_HW_CHANGED;
-> > +=09=09=09asus->camera_led.brightness_get =3D camera_neg_led_get;
-> > +=09=09=09asus->camera_led.brightness_set_blocking =3D camera_neg_led_s=
-et;
-> > +=09=09} else {
-> > +=09=09=09asus->camera_led.brightness_get =3D camera_led_get;
-> > +=09=09=09asus->camera_led.brightness_set_blocking =3D camera_led_set;
-> > +=09=09}
-> > =20
-> >  =09=09rv =3D led_classdev_register(&asus->platform_device->dev,
-> >  =09=09=09=09=09=09&asus->camera_led);
-> > @@ -4733,6 +4792,13 @@ static void asus_wmi_handle_event_code(int code,=
- struct asus_wmi *asus)
-> >  =09if (is_display_toggle(code) && asus->driver->quirks->no_display_tog=
-gle)
-> >  =09=09return;
-> > =20
-> > +=09if (is_camera_toggle(code) && asus->camera_neg_led_available) {
-> > +=09=09int state =3D camera_neg_led_sync(asus);
-> > +
-> > +=09=09if (state >=3D 0)
-> > +=09=09=09led_classdev_notify_brightness_hw_changed(&asus->camera_led, =
-state);
-> > +=09}
-> > +
-> >  =09if (!sparse_keymap_report_event(asus->inputdev, code,
-> >  =09=09=09=09=09key_value, autorelease))
-> >  =09=09pr_info("Unknown key code 0x%x\n", code);
-> > @@ -5210,6 +5276,9 @@ static int asus_wmi_add(struct platform_device *p=
-dev)
-> >  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
-> > =20
-> >  =09asus->oobe_state_available =3D asus_wmi_dev_is_present(asus, ASUS_W=
-MI_DEVID_OOBE);
-> > +=09asus->camera_neg_led_available =3D
-> > +=09=09!asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED) &&
-> > +=09=09asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG);
->=20
-> When a device has both ASUS_WMI_DEVID_CAMERA_LED and
-> ASUS_WMI_DEVID_CAMERA_LED_NEG implemented, camera_neg_led_available is
-> false and the LED device can't benefit from brightness_hw_changed.
->=20
-> It'd be better to decouple the brightness_hw_changed path from
-> !ASUS_WMI_DEVID_CAMERA_LED, since devices with both IDs should be able to
-> emit the WMI event.
->=20
-> With that, how about adding a wrapper function that dispatches call to
-> either asus_wmi_get_devstate(ASUS_WMI_DEVID_CAMERA_LED) or
-> asus_wmi_get_devstate(ASUS_WMI_DEVID_CAMERA_LED_NEG) according to the
-> IDs' presence? Then you can share the same brightness_hw_changed path by
-> calling the wrapper function and eliminate the need of adding a dedicated
-> brightness_get() callback in the same manner.
->=20
-> IOW, the presence of ASUS_WMI_DEVID_CAMERA_LED determines the
-> availability of brightness_set_blocking(), and
-> ASUS_WMI_DEVID_CAMERA_LED_NEG determines brightness_hw_changed. The
-> brightness_get() callback is the same thanks to the wrapper function.
-
-...it can be implemented in a follow-up series if you don't want to make
-the next revision too complicated.
-
-As long as camera_neg_led_set() is gone, I will be OK with the patch.
-
-Thanks,
-Rong
-
->=20
-> Thanks,
-> Rong
->=20
-> > =20
-> >  =09if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_P=
-OLICY))
-> >  =09=09asus->throttle_thermal_policy_dev =3D ASUS_WMI_DEVID_THROTTLE_TH=
-ERMAL_POLICY;
-> > diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux=
-/platform_data/x86/asus-wmi.h
-> > index 4ea1ccc..5964063 100644
-> > --- a/include/linux/platform_data/x86/asus-wmi.h
-> > +++ b/include/linux/platform_data/x86/asus-wmi.h
-> > @@ -57,7 +57,7 @@
-> >  #define ASUS_WMI_DEVID_MUTE_LED=090x0004001C
-> > =20
-> >  /* Disable Camera LED */
-> > -#define ASUS_WMI_DEVID_CAMERA_LED_NEG=090x00060078 /* 0 =3D on (unused=
-) */
-> > +#define ASUS_WMI_DEVID_CAMERA_LED_NEG=090x00060078 /* 0 =3D on */
-> >  #define ASUS_WMI_DEVID_CAMERA_LED=090x00060079 /* 1 =3D on */
-> > =20
-> >  /* Backlight and Brightness */
-> >=20
-> > ---
-> > base-commit: ea40f1e9f07aab937b9a217633be7a1f66260394
-> > change-id: 20261017-asus-wmi-camera-led-06a6e05f01e2
-> >=20
-> > Best regards,
-> > -- =20
-> > Zane Hunt <git@turtledev.nz>
-> >=20
+T24gTW9uLCAyMDI2LTExLTA5IGF0IDIwOjM1ICswMDAwLCBMdWlnaSBTYW50aXZldHRpIHdyb3Rl
+Og0KPiBUaGlzIHNlcmllcyBpcyBhYm91dCBiZXR0ZXIgcHJvdGVjdGluZyB1c2Vyc3BhY2Ugd2hl
+biBlaXRoZXIgb25lIG9mIHRoZQ0KPiBoZWFwIG9yIHRoZSBzdGF0aWMgZGF0YSBhcmVhcyBxdWVy
+eSBJT0NUTCBpcyBtYWRlIGFzIHdlIGdvIGZvcndhcmQgYW5kDQo+IGV4dGVuZCB0aGUgVUFQSSBp
+bnRyb2R1Y2luZyBuZXcgaGVhcHMgb3IgbmV3IGZpZWxkcyB0byB0aGVpciByZWxhdGVkDQo+IGRh
+dGEgdHlwZXMuDQo+IA0KPiBQbGVhc2UgcmVmZXIgdG8gZWFjaCBwYXRjaCBjb21taXQgbWVzc2Fn
+ZSB3aGljaCBkZXNjcmliZXMgaW4gc29tZSBkZXRhaWwNCj4gdGhlIG5hdHVyZSBvZiB0aGUgaXNz
+dWUgYW5kIHRoZSBzb2x1dGlvbiBmb3IgaXQuDQo+IA0KPiBJbiBnZW5lcmFsIHRlcm1zIHRoaXMg
+c2VyaWVzIG1ha2VzIHRoZSBVQVBJIG1vcmUgZmxleGlibGUsIGludHJvZHVjaW5nIGENCj4gZGlz
+dGluY3Rpb24gYmV0d2VlbiBhIGxlZ2FjeSAob3IgbWluaW11bSkgYW5kIGEgY3VycmVudCAob3Ig
+bWF4aW11bSkgdmFsdWUNCj4gZm9yIGJvdGggdGhlIHN0cmlkZSBhbmQgdGhlIGNvdW50IHRoYXQg
+aXMgcmV0dXJuZWQgdG8gdXNlcnNwYWNlLg0KPiANCj4gV2l0aCB0aGUgbmV3IHBhdHRlcm4gaW4g
+cGxhY2UsIGFuIG9sZGVyWypdIHZlcnNpb24gb2YgdXNlcnNwYWNlIGRlZmF1bHRzDQo+IHRvIHJl
+cXVlc3RpbmcgYW5kIHRvIG9idGFpbmluZyB0aGUgbGVnYWN5IChvciBtaW5pbXVtKSB2YWx1ZSBv
+ZiBib3RoIHN0cmlkZQ0KPiBhbmQgY291bnQgYW5kIHRoaXMgbWFrZXMgc2FmZSB0byB1cGRhdGUg
+dGhlaXIgbWF4aW11bSB2YWx1ZSBnb2luZyBmb3J3YXJkLg0KPiANCj4gWypdIGJlZm9yZSBodHRw
+czovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9tZXNhLy0vbWVyZ2VfcmVxdWVzdHMvNDQ0
+NTYNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEx1aWdpIFNhbnRpdmV0dGkgPGx1aWdpLnNhbnRpdmV0
+dGlAaW1ndGVjLmNvbT4NCg0KRm9yIHRoZSBzZXJpZXMsDQoNClJldmlld2VkLWJ5OiBBbGVzc2lv
+IEJlbGxlIDxhbGVzc2lvLmJlbGxlQGltZ3RlYy5jb20+DQoNClRoYW5rcywNCkFsZXNzaW8NCg0K
+PiAtLS0NCj4gQ2hhbmdlcyBpbiB2MjoNCj4gLSBSZWJhc2Ugb24gZHJtLW1pc2MtbmV4dCBvbmx5
+DQo+IC0gTGluayB0byB2MTogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIwMjYxMTA0LWlvY3Rs
+LXF1ZXJ5LWNvdW50LXN0cmlkZS1maXhlcy12MS0wLTJiZjg2ZGQ3Y2YyOUBpbWd0ZWMuY29tDQo+
+IA0KPiAtLS0NCj4gTHVpZ2kgU2FudGl2ZXR0aSAoMik6DQo+ICAgICAgIGRybS9pbWFnaW5hdGlv
+bjogY2xhbXAgc3RyaWRlIG9mIGhlYXBzIGFuZCBzdGF0aWMgYXJlYXMgZm9yIGxlZ2FjeSBVTQ0K
+PiAgICAgICBkcm0vaW1hZ2luYXRpb246IGNsYW1wIGNvdW50IG9mIGhlYXBzIGFuZCBzdGF0aWMg
+YXJlYXMgZm9yIGxlZ2FjeSBVTQ0KPiANCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9w
+dnJfZHJ2LmggfCAzMyArKysrKysrKysrKysrKysrKysrKysrDQo+ICBkcml2ZXJzL2dwdS9kcm0v
+aW1hZ2luYXRpb24vcHZyX3ZtLmMgIHwgMzIgKysrKysrKysrKysrKysrKysrLS0tDQo+ICBpbmNs
+dWRlL3VhcGkvZHJtL3B2cl9kcm0uaCAgICAgICAgICAgIHwgNTMgKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKy0tLS0NCj4gIDMgZmlsZXMgY2hhbmdlZCwgMTA4IGluc2VydGlvbnMoKyks
+IDEwIGRlbGV0aW9ucygtKQ0KPiAtLS0NCj4gYmFzZS1jb21taXQ6IDhkZWFhZGU0YTVhNGZmNjM1
+ZGY5MWUyNDZlNDIxMzlhYjJiMzNmNmQNCj4gY2hhbmdlLWlkOiAyMDI2MTEwNC1pb2N0bC1xdWVy
+eS1jb3VudC1zdHJpZGUtZml4ZXMtNDNiNGRmMmMyZmM4DQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+
+IC0tICANCj4gTHVpZ2kgU2FudGl2ZXR0aSA8bHVpZ2kuc2FudGl2ZXR0aUBpbWd0ZWMuY29tPg0K
+PiANCg0K
