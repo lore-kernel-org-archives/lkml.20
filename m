@@ -1,69 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794838536;
-	b=Ck64Ek0H/O6EWJ3HM0tV6bJ5HKrjf0UKUYMwMIQhb4jCmztL/3mGMkZ+DEdYed9u31Tc
-	 cHf8dWynDY/zTf1ZqJB4XRQ5wFs1mjhRX2RQb5IR7TR4LpGq40YRW7S5p/TVCwG/o3vde
-	 pWq7MHVYFfOKxNqgo8IAxHT7gHeAxtsljf5kG7IytLcYjR2M+89VTi5Y3CiUSD6dLGffh
-	 L9UooANP+GQM3k2pdK2ygVgxQhrCIhXRd8z6Dk6mGuGj4aU484rUV7FKAvveC9YuDyNVF
-	 iTmDYDvdhtYJaLG9WK00wYns4QbN4mA9Z6aMJGNpW6QIYMLq1dICTNffqLQJ5zq2Mrg==
+	b=0WeWf09n3ZNkq3VwPJZCzWb554/qf89NFlw0fkkjDPQsDtKN85t3slRGd5dShD+x76ky
+	 eR3n2p6ljdureXDiV1+WYAbd+ftbjceaC5RdHqBK6vAQzVkAV0RYwJvW8qzRyBRJ1DaF/
+	 sJGcq+9Vu+tIZxLSd7eF6sp0pxFyMKEUNNYSSOKjSa71qVhNJvW9Si5a2YNPl9Umn4TlN
+	 8couZYUgFyoZ8BldK6esB59RqRLI72H9Ibp7B/ZHNl+FeWSF+4yYVedLo145iyu59P5zt
+	 82SIreFFmPFPiD7Bs4PUUddzmldFbf2okulXKuANqHoiUYv3lEn8X3FlPhkyEdqQd8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794838536;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PRwvJorxkByLGTSFno1Iu5DhwXlwxTrPSjgbw9+lMxI=;
-	b=wkbeEr1jPbppvBY4vPUot6EgGTFISlfi58ClmjsSImI8mycdYDdm7t6qJumKMibbNkts
-	 qzurRxGRaH1RGaJvgJzRepBApfQEfZUg+FmV/WXgx31eFJhUmmJMJEV55oTSGxWM7yv0O
-	 zuhmYAGWss6yt7e3scG74T4VTrwSmHlEWjEb5LiHjSLiD06WZ0/2WSmdIa26OgVI7pMjA
-	 3k3At7/1ECctrY022rOZXcWzIHnuqBnngl0Vb9LWyRzSnicNyOTsblqfMoowtctQNEfOv
-	 aktyE5+YLSJnv7rO8kTU0gswBZ7L1B3LIKkmjukCJUYNIlh9hpusDN1DLUYd1dL3HVg==
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=YhJiqIC2CQYxKyjK89PKRm2NdKGhD1jQabLgnETqdAo=;
+	b=1BrcIkic4HU5/4DoUP8JUnDXBvnoTtqoaK1YXgBBpIJ8ygxypCNBTkL7cB+Lq+wBaDyx
+	 hJFUGTFhoQbqqZKLFfzbcEysbx+faYjN9nTwKE1xxUZVwTqZFWSVbvqqH0D9gVRHioqpy
+	 xxIe27atBuaJu0giKnwAW9EuBunDoZkPi7nzTuRvIiS+8DjgO/OsmBd9V3lxl2HZFeEWQ
+	 Sg4i6n2YcE6E8HaXbduehvatk4n2aTnk0FEdykf3AETAwzZDXr5IgU4Yb9S+rS/ApTdz7
+	 eqrF+b377M/ZwSDPP7zV2DQhQLS4eMGfAxuLHyTC+SzwZ+j7wPW+KkbYPeYOVOXBdRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTP6ZJtL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=P53w9KOT;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB94606A336;
-	Mon, 16 Nov 2026 14:15:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666BB606A33E;
+	Mon, 16 Nov 2026 14:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 666BB606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTP6ZJtL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887571F000CA;
-	Mon, 16 Nov 2026 14:15:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838536;
-	bh=PRwvJorxkByLGTSFno1Iu5DhwXlwxTrPSjgbw9+lMxI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iTP6ZJtLdVdpd/VbF72VakFFel44De5q9eZV8MHs5WSmwU6X6M18VK+RDB/lBwbzU
-	 8886RbprK5AIpxpbR9LKMqh5V3NkpFExHNBlmwwjuR1JDeDfQgulYVUpycuCVKK3tq
-	 lCjFqhYzNQLGTegetqNFZEifPnRG36p1zMP7O7PehM1OsYyuurb9KmZZtBNHtZeHVB
-	 GsoHwNzQebSawKrXdjEzTjDMrfq8gmtGHnwcTgceC8scsQ8Ff7DjDjSCBGI5AAe+BE
-	 wiBSxjg8BRdQLxFeiv7lS4N0mnHN5bByILcV7PYNRg/UEDo2DuilHw/vpM7OOspHUQ
-	 ic8XAtYc37vCQ==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=P53w9KOT
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54db44753;
+	Mon, 16 Nov 2026 22:15:25 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 6/8] soc: synaptics: Populate SL2610 system controller DT children
-Date: Mon, 16 Nov 2026 21:54:40 +0800
-Message-ID: <20261116135442.4827-7-jszhang@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261116135442.4827-1-jszhang@kernel.org>
-References: <20261116135442.4827-1-jszhang@kernel.org>
+	stable@vger.kernel.org
+Subject: [PATCH] media: ngene: Fix potential stale I2C adapter on initialization failure
+Date: Mon, 16 Nov 2026 22:15:24 +0800
+Message-ID: <20261116-c29ba55625-media-ngene@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,52 +54,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e4b6752903a1kunm077e66c010de6d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS0xDVh8YGEhMGh4dTxkYQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=P53w9KOTdo7CHUuw9cvfLzxr1VqsmQCISo3LJzZEiVSZiJP4m8zgfAtcQzMMlfySstG+fy0RUnYSeKdbssvJQuu8PCOUYexOdrv2s1m00S5Vo3fYRkoVhfZJ/6wW70in2gLxEqw2hqgzEfkPVboOJYaBwCzLunag+z9kPfAMLY0=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=YhJiqIC2CQYxKyjK89PKRm2NdKGhD1jQabLgnETqdAo=;
+	h=date:mime-version:subject:message-id:from;
 
-The SL2610 system controller currently creates only its fixed clock,
-reset and pinctrl MFD devices. DT children such as the MDIO mmio-mux
-therefore never become platform devices, leaving their consumers in
-deferred probe indefinitely.
+If the second I2C adapter fails to register, ngene_start() leaves the
+first adapter registered. Probe subsequently frees the device that
+contains that adapter.
 
-Populate enabled DT children after adding the MFD devices. Use the
-managed helper to remove these children before the MFD devices during
-teardown and probe-error cleanup.
+Unregister the first adapter before shutting down interrupts on this
+error path.
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Assisted-by: LLM
+This issue was found by our static analysis tool under development.
+
+Fixes: dae52d009fc9 ("V4L/DVB: ngene: Initial check-in")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/soc/synaptics/sl2610-syscon.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/media/pci/ngene/ngene-core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soc/synaptics/sl2610-syscon.c b/drivers/soc/synaptics/sl2610-syscon.c
-index c6fc2955ac0d..b7965f4bb963 100644
---- a/drivers/soc/synaptics/sl2610-syscon.c
-+++ b/drivers/soc/synaptics/sl2610-syscon.c
-@@ -6,6 +6,7 @@
- #include <linux/mfd/core.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/of_platform.h>
- #include <linux/platform_device.h>
+diff --git a/drivers/media/pci/ngene/ngene-core.c b/drivers/media/pci/ngene/ngene-core.c
+index db6796240bce..b2864abe4b81 100644
+--- a/drivers/media/pci/ngene/ngene-core.c
++++ b/drivers/media/pci/ngene/ngene-core.c
+@@ -1368,10 +1368,12 @@ static int ngene_start(struct ngene *dev)
  
- struct sl2610_syscon_data {
-@@ -56,9 +57,14 @@ static const struct sl2610_syscon_data sl2610_cpu_data = {
- static int sl2610_syscon_probe(struct platform_device *pdev)
- {
- 	const struct sl2610_syscon_data *data = device_get_match_data(&pdev->dev);
-+	int ret;
+ 	stat = ngene_i2c_init(dev, 1);
+ 	if (stat < 0)
+-		goto fail;
++		goto fail_i2c;
  
--	return devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO,
--				    data->cells, data->num_cells, NULL, 0, NULL);
-+	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO,
-+				   data->cells, data->num_cells, NULL, 0, NULL);
-+	if (ret)
-+		return ret;
-+
-+	return devm_of_platform_populate(&pdev->dev);
- }
+ 	return 0;
  
- static const struct of_device_id sl2610_syscon_of_match[] = {
--- 
-2.55.0
++fail_i2c:
++	i2c_del_adapter(&dev->channel[0].i2c_adapter);
+ fail:
+ 	ngwritel(0, NGENE_INT_ENABLE);
+ 	free_irq(dev->pci_dev->irq, dev);
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
