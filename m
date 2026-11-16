@@ -1,76 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812473;
-	b=DjznRnOyvtzxNM9cq//LzUcjGiZ1SkoR5x2ewUcdFnqqVxONTFrDhv5oIrM/4L66ftyy
-	 GbpfoRUFo1Y58YdnC3nQQvWh3dKSE8icSVxPd1ySRpDTLBjjNzlMSTg4MTFY0+CpJCBCO
-	 Cu6VKqp7TlmMtjKEVU/ppLiyjCjAsP7x71fvbKDipHjw2Chms1CyHTzAEBQpO2I5IB1fw
-	 dHdG6A2e+KnXLlAIG99dC4jbZLM5GcByUkWH4gW7kAECc1BzaadAsRuF/T/sWNJ5vWb+x
-	 9eoP4k9OetKkgyarsxW1IXCPRpIW/7/d6V6zyDzZDIwxYFg2oAZPmrDUUyo/+dGe39w==
+	t=1794812513;
+	b=xwyF+nouDc2jDwefnWrBVBwxosSC301boQod9qgTw+uAuN79UJTC5EUDLkNFh0VYNmdU
+	 WMP4E685xQJGar0MUtkiqYpsSEO9ot1qgoq9iSNUREOhSRSBlbYnNU9cEPg3q8drTql78
+	 IksM350o15czrC2DgZvHeZvP9hLOojakEm6XCUkfnFGmObhbiKVueCxVHsT4GjwZN6YM0
+	 a3ZY8Q1o0WikXrtAfp6xYj1vMqHDHuIQYM+47bYkRecz2gwkrtMAreqZcbI4eqDhCT1oL
+	 gTKLItGDTkheIL3MDdnSPkZEA/b7sz17v4gMA6j6uiydPItmWhGCyc2Uib7Rm9t7KVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812473;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Btz2syxRU38MnsKyn0uED6gNCD1sreIroQZSgah/i3Q=;
-	b=DmrKl4MJ25p9c39Tdebf6wAl5MItCm+pkv24EKKtkZ+frDJ06qMsk0DXfeMoxLSGW4na
-	 Ydhi9rVtDEbsDmbqBYtKiBfFNCJrMZtvJNYEPsy8uDLxF3aGAICzRfD9E1dIgljevAiv3
-	 EKROJot7xI0BesIoQJ5nWkBX0hkYZcfooKGpMW0SP2KVBY1787y52R1uv8nt5LIiieVnl
-	 zhTLZIA2D69ynHcPBK4ojJhXCILDIvth9bYjyAltv+ARmH96OBOgBcCDmZJYf9rgCY7iS
-	 D1kZSc+A+upoW+XjqBX1L+vmB4FwK0ruixBoyWY1RsMXwmhHd5eyVxnTkhdPq7+JgkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812513;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=8oCH6XC+liX1SVUHDFPJw0slOUl6aJW30d6QU4zbVWw=;
+	b=RMkuGrSkW0UR+uc3CbZeV6z1yXAxgMWcrfDsi5nwasntrZFkmYpzKG29aZxJnr2FBbC7
+	 K/fm0hn1biB0EnZa/k7gSdW0jveAeD/yGeacEFrMTHobXW4K8AtWTWFIf28Q4lKbKsdeI
+	 aedVI8QuyLpofXeNuay3frDpb6xHbzhaMCqwDQ+jjOKG/BO7cPwqwKGQkfh3HMRYVlDXB
+	 N2Jw50xpmIab4gaW34MQn+0KtLcboYzfWYXVqKKAZlD1zyyT18e78fgUKhkzt/aPlexns
+	 PRY/5qtzj67GNJ1kr3Q4C4QOX2B4MjMcYqMuUgjWfmiUuHFc20r59ccKBiLNkXmaLuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dPbCMq+r;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nwJhAOGk;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2734606A88A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2734606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9913606A31C;
+	Mon, 16 Nov 2026 07:01:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9913606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dPbCMq+r
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30c0d568830so4077616eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:01:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794812472; x=1795417272; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Btz2syxRU38MnsKyn0uED6gNCD1sreIroQZSgah/i3Q=;
-        b=dPbCMq+rS/Mm2GDp8PX8+QJ5CVVzr7tYL0lr7nXlQQxZQODCV9yYv0LtillVpzzyDn
-         45XZvfV5mUH4FTuT99O917u0hW9oLBDcthE2rF/+cjOx6mbwbs2LjMriYfR1kiNxWyW/
-         B+XIjCYq1DNxxiwDxTO772s4z3ZlPv8NbSnljt21+7HSQLgCfcJtg45fUDLwvA3GE6iV
-         oYF68npLo0kBNtkXnC1d2Fh0si5BTON4iM4BVnqCzAdeezMdjIhfjYWKJhKjqHhhKX09
-         oUGSgtI5u1e3k7tiUAvntBGKT08yGWqCeiTna9ZruQEiTXyMMs56PS2TOEAqYWwKINa5
-         h1Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794812472; x=1795417272;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Btz2syxRU38MnsKyn0uED6gNCD1sreIroQZSgah/i3Q=;
-        b=dAStplq7UhazcxDDTz6TIS9+2TwNugJtvFR1IPbbaDvd/pbkAFskNl9xK2OAgMkvAS
-         6A6IG06BqG7cOrxm9B/8IJBi21fCJfpz3V3bHzGNFEh4VhmOouH2AiCU+3Uk937SiuSz
-         x7EdL7LCnnVbL5KuZrCcQNgU5iBONGqSoMvfnisbHHB8UgcU5fI/9giDzPOBer39DRey
-         mNRgegiz0PCbtyZhWjWAOEjXJOo4jsY10pFbhXPsHvqv7XMNjXoN8+Fwzikwvwy91D6r
-         RxS3n3VR8/+ZY2avPeoTwi/dLSE72XrzDHPLGSMY3dmpdpuzi/YYn4pNEiVUFEdrHuZS
-         ATdw==
-X-Forwarded-Encrypted: i=1; AL+hErFtshFQNDDdvaZvBh8iX/Fh90dTk2WmroXb+QBNDP0f30QpuJ2XFgwSbO/X2i13al8PcDAB5PB2NyK0Qgo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Lcv7ba1G0EmaW/c8ZUQ/GBh7KALDRH9t+68xEd4Z6x/83oCpf
-	4Ku0FxsDOpaZ6Kz3TYxnUbXBKD6YzQwkYHl/Eow0WDKc7T3cGJugSzcra78hLMVQgQdaxkmQQ5a
-	UHjLRg6b0fw==
-X-Received: from dybnj40.prod.google.com ([2002:a05:7300:d0a8:b0:36a:de0:d28a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:1a05:b0:369:f035:661
- with SMTP id 5a478bee46e88-37967315a1emr8650397eec.15.1794812470863; Sun, 15
- Nov 2026 23:01:10 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:00:36 -0800
-In-Reply-To: <20261116070038.2968725-1-irogers@google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nwJhAOGk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=8oCH6XC+liX1SVUHDFPJw0slOUl6aJW30d6QU4zbVWw=;
+	b=nwJhAOGkQsbbp7/qNOE8irIS9xvAcgD0oeiR0r0qtW+Jz6o/Eidr1QHeX8xT7v
+	PylJqImPFnywn4PhjlDdsEQ9hjA9p6E7M3bQpmyZP9dsH2ufAXSyscPqGm36bVgc
+	BOipbzNJZDuu+gmj4NspwUSGWU4qV7mPMEPMSjHjo7E0Q=
+Message-ID: <206b5151-c527-4b7b-8694-dd9c6cfd916f@163.com>
+Date: Mon, 16 Nov 2026 15:00:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,522 +50,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261116070038.2968725-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116070038.2968725-10-irogers@google.com>
-Subject: [PATCH v2 09/10] perf tests pmu-events: Test metricgroup descriptions
- and concurrent lookups
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: Handle implicit read permissions in
+ madv_populate
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ chenxionggui@lanxincomputing.com
+References: <20261112031811.56500-1-evers_chen@163.com>
+ <64e1c24f-08fb-437e-80c1-e5b486d15200@kernel.org>
+Content-Language: en-US
+From: cxg <evers_chen@163.com>
+In-Reply-To: <64e1c24f-08fb-437e-80c1-e5b486d15200@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wDnD70oqvpqdH8PHg--.13365S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tw4rZr18CF15Kw4xtF15CFg_yoW8XF4rpF
+	W8C3WYgF4Dtw17Aws2yr10qrs5Jry8Gayjqw1rXFyqywnIk3WftrW7KayYka4fJr4kWw42
+	9a95WFyDAryqvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UknY7UUUUU=
+X-CM-SenderInfo: xhyh22pbfkv0i6rwjhhfrp/xtbC7AkOGGr6qilLogAA3J
 
-Add metricgroups.json to arch/test/test_soc/cpu/ with prefix-overlapping
-keys ("group1" and "group1A"), regenerate empty-pmu-events.c, and add a
-"metricgroups" subtest to "PMU JSON event tests".
+Thanks for the suggestion.
 
-The new subtest verifies exact and prefix-overlapping metricgroup binary
-searches via describe_metricgroup(), validates metricgroup descriptions
-across all core and system metrics, and launches 8 concurrent worker
-threads scanning core/sys events and metrics to stress-test lock-free
-block decompression and shared dictionary initialization.
+Agreed. Since this behavior is specific to RISC-V, a simple 
+architecture-specific check is sufficient.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- .../arch/test/test_soc/cpu/metricgroups.json  |   4 +
- tools/perf/pmu-events/empty-pmu-events.c      |  84 +++----
- tools/perf/tests/pmu-events.c                 | 209 +++++++++++++++++-
- 3 files changed, 259 insertions(+), 38 deletions(-)
- create mode 100644 tools/perf/pmu-events/arch/test/test_soc/cpu/metricgrou=
-ps.json
+I've simplified the patch to use |#ifdef __riscv|in |test_prot_write()|, 
+removing the |/proc/self/maps|parsing and the additional PROT_NONE test.
 
-diff --git a/tools/perf/pmu-events/arch/test/test_soc/cpu/metricgroups.json=
- b/tools/perf/pmu-events/arch/test/test_soc/cpu/metricgroups.json
-new file mode 100644
-index 000000000000..2bf7e4fbff3c
---- /dev/null
-+++ b/tools/perf/pmu-events/arch/test/test_soc/cpu/metricgroups.json
-@@ -0,0 +1,4 @@
-+{
-+    "group1": "Test metricgroup 1",
-+    "group1A": "Test metricgroup 1A"
-+}
-diff --git a/tools/perf/pmu-events/empty-pmu-events.c b/tools/perf/pmu-even=
-ts/empty-pmu-events.c
-index 46a32a4cb9d6..f4009e5c51ee 100644
---- a/tools/perf/pmu-events/empty-pmu-events.c
-+++ b/tools/perf/pmu-events/empty-pmu-events.c
-@@ -2605,42 +2605,50 @@ static const char big_c_string[] =3D
- /* offset=3D128790 */
- "M3\000\0001 / M3\000\000\000\000\000\000\000\000000"
- /* offset=3D128811 */
-+"Test metricgroup 1\000"
-+/* offset=3D128830 */
-+"Test metricgroup 1A\000"
-+/* offset=3D128850 */
- "backend_cycles_idle\000Default\000(stalled\\-cycles\\-backend / cpu\\-cyc=
-les if has_event(stalled\\-cycles\\-backend) else 0)\000backend_cycles_idle=
- > 0.2\000Backend stalls per cycle\000\000\000\000\000\000001"
--/* offset=3D128985 */
-+/* offset=3D129024 */
- "branch_frequency\000Default\000branches / (software@cpu\\-clock\\,name\\=
-=3Dcpu\\-clock@ if #target_cpu else software@task\\-clock\\,name\\=3Dtask\\=
--clock@)\000\000Branches per CPU second\000\0001000M/sec\000\000\000\000011=
-"
--/* offset=3D129165 */
-+/* offset=3D129204 */
- "branch_miss_rate\000Default\000branch\\-misses / branches\000branch_miss_=
-rate > 0.05\000Branch miss rate\000\000100%\000\000\000\000001"
--/* offset=3D129269 */
-+/* offset=3D129308 */
- "cache_miss_cycles\000group1\000dcache_miss_cpi + icache_miss_cycles\000\0=
-00\000\000\000\000\000\000000"
--/* offset=3D129341 */
-+/* offset=3D129380 */
- "cs_per_second\000Default\000software@context\\-switches\\,name\\=3Dcontex=
-t\\-switches@ * 1e9 / (software@cpu\\-clock\\,name\\=3Dcpu\\-clock@ if #tar=
-get_cpu else software@task\\-clock\\,name\\=3Dtask\\-clock@)\000\000Context=
- switches per CPU second\000\0001cs/sec\000\000\000\000011"
--/* offset=3D129574 */
-+/* offset=3D129613 */
- "cycles_frequency\000Default\000cpu\\-cycles / (software@cpu\\-clock\\,nam=
-e\\=3Dcpu\\-clock@ if #target_cpu else software@task\\-clock\\,name\\=3Dtas=
-k\\-clock@)\000\000Cycles per CPU second\000\0001GHz\000\000\000\000011"
--/* offset=3D129750 */
-+/* offset=3D129789 */
- "dcache_miss_cpi\000\000l1d\\-loads\\-misses / inst_retired.any\000\000\00=
-0\000\000\000\000\000000"
--/* offset=3D129815 */
-+/* offset=3D129854 */
- "dtlb_miss_rate\000Default3\000dTLB\\-load\\-misses / dTLB\\-loads\000dtlb=
-_miss_rate > 0.05\000dTLB miss rate\000\000100%\000\000\000\000001"
--/* offset=3D129921 */
-+/* offset=3D129960 */
- "frontend_cycles_idle\000Default\000(stalled\\-cycles\\-frontend / cpu\\-c=
-ycles if has_event(stalled\\-cycles\\-frontend) else 0)\000frontend_cycles_=
-idle > 0.1\000Frontend stalls per cycle\000\000\000\000\000\000001"
--/* offset=3D130100 */
-+/* offset=3D130139 */
-+"group1\000"
-+/* offset=3D130146 */
-+"group1A\000"
-+/* offset=3D130154 */
- "icache_miss_cycles\000\000l1i\\-loads\\-misses / inst_retired.any\000\000=
-\000\000\000\000\000\000000"
--/* offset=3D130168 */
-+/* offset=3D130222 */
- "insn_per_cycle\000Default\000instructions / cpu\\-cycles\000insn_per_cycl=
-e < 1\000Instructions Per Cycle\000\0001instructions\000\000\000\000001"
--/* offset=3D130281 */
-+/* offset=3D130335 */
- "itlb_miss_rate\000Default3\000iTLB\\-load\\-misses / iTLB\\-loads\000itlb=
-_miss_rate > 0.05\000iTLB miss rate\000\000100%\000\000\000\000001"
--/* offset=3D130387 */
-+/* offset=3D130441 */
- "l1_prefetch_miss_rate\000Default4\000L1\\-dcache\\-prefetch\\-misses / L1=
-\\-dcache\\-prefetches\000l1_prefetch_miss_rate > 0.05\000L1 prefetch miss =
-rate\000\000100%\000\000\000\000001"
--/* offset=3D130535 */
-+/* offset=3D130589 */
- "l1d_miss_rate\000Default2\000L1\\-dcache\\-load\\-misses / L1\\-dcache\\-=
-loads\000l1d_miss_rate > 0.05\000L1D  miss rate\000\000100%\000\000\000\000=
-001"
--/* offset=3D130651 */
-+/* offset=3D130705 */
- "l1i_miss_rate\000Default3\000L1\\-icache\\-load\\-misses / L1\\-icache\\-=
-loads\000l1i_miss_rate > 0.05\000L1I miss rate\000\000100%\000\000\000\0000=
-01"
--/* offset=3D130766 */
-+/* offset=3D130820 */
- "llc_miss_rate\000Default2\000LLC\\-load\\-misses / LLC\\-loads\000llc_mis=
-s_rate > 0.05\000LLC miss rate\000\000100%\000\000\000\000001"
--/* offset=3D130867 */
-+/* offset=3D130921 */
- "migrations_per_second\000Default\000software@cpu\\-migrations\\,name\\=3D=
-cpu\\-migrations@ * 1e9 / (software@cpu\\-clock\\,name\\=3Dcpu\\-clock@ if =
-#target_cpu else software@task\\-clock\\,name\\=3Dtask\\-clock@)\000\000Pro=
-cess migrations to a new CPU per CPU second\000\0001migrations/sec\000\000\=
-000\000011"
--/* offset=3D131127 */
-+/* offset=3D131181 */
- "page_faults_per_second\000Default\000software@page\\-faults\\,name\\=3Dpa=
-ge\\-faults@ * 1e9 / (software@cpu\\-clock\\,name\\=3Dcpu\\-clock@ if #targ=
-et_cpu else software@task\\-clock\\,name\\=3Dtask\\-clock@)\000\000Page fau=
-lts per CPU second\000\0001faults/sec\000\000\000\000011"
--/* offset=3D131358 */
-+/* offset=3D131412 */
- "stalled_cycles_per_instruction\000Default\000(max(stalled\\-cycles\\-fron=
-tend, stalled\\-cycles\\-backend) / instructions if has_event(stalled\\-cyc=
-les\\-frontend) & has_event(stalled\\-cycles\\-backend) else (stalled\\-cyc=
-les\\-frontend / instructions if has_event(stalled\\-cycles\\-frontend) els=
-e (stalled\\-cycles\\-backend / instructions if has_event(stalled\\-cycles\=
-\-backend) else 0)))\000\000Max front or backend stalls per instruction\000=
-\000\000\000\000\000001"
- ;
-=20
-@@ -5197,37 +5205,37 @@ static const struct compact_pmu_event pmu_metrics__=
-common_default_core[] =3D {
- 	/* CPUs_utilized\000Default\000(software@cpu\\-clock\\,name\\=3Dcpu\\-clo=
-ck@ if #targ... */
- 	{ 127820 },
- 	/* backend_cycles_idle\000Default\000(stalled\\-cycles\\-backend / cpu\\-=
-cycles if ... */
--	{ 128811 },
-+	{ 128850 },
- 	/* branch_frequency\000Default\000branches / (software@cpu\\-clock\\,name=
-\\=3Dcpu\\-c... */
--	{ 128985 },
-+	{ 129024 },
- 	/* branch_miss_rate\000Default\000branch\\-misses / branches\000branch_mi=
-ss_rate > ... */
--	{ 129165 },
-+	{ 129204 },
- 	/* cs_per_second\000Default\000software@context\\-switches\\,name\\=3Dcon=
-text\\-switc... */
--	{ 129341 },
-+	{ 129380 },
- 	/* cycles_frequency\000Default\000cpu\\-cycles / (software@cpu\\-clock\\,=
-name\\=3Dcpu... */
--	{ 129574 },
-+	{ 129613 },
- 	/* dtlb_miss_rate\000Default3\000dTLB\\-load\\-misses / dTLB\\-loads\000d=
-tlb_miss_r... */
--	{ 129815 },
-+	{ 129854 },
- 	/* frontend_cycles_idle\000Default\000(stalled\\-cycles\\-frontend / cpu\=
-\-cycles i... */
--	{ 129921 },
-+	{ 129960 },
- 	/* insn_per_cycle\000Default\000instructions / cpu\\-cycles\000insn_per_c=
-ycle < 1\0... */
--	{ 130168 },
-+	{ 130222 },
- 	/* itlb_miss_rate\000Default3\000iTLB\\-load\\-misses / iTLB\\-loads\000i=
-tlb_miss_r... */
--	{ 130281 },
-+	{ 130335 },
- 	/* l1_prefetch_miss_rate\000Default4\000L1\\-dcache\\-prefetch\\-misses /=
- L1\\-dcac... */
--	{ 130387 },
-+	{ 130441 },
- 	/* l1d_miss_rate\000Default2\000L1\\-dcache\\-load\\-misses / L1\\-dcache=
-\\-loads\0... */
--	{ 130535 },
-+	{ 130589 },
- 	/* l1i_miss_rate\000Default3\000L1\\-icache\\-load\\-misses / L1\\-icache=
-\\-loads\0... */
--	{ 130651 },
-+	{ 130705 },
- 	/* llc_miss_rate\000Default2\000LLC\\-load\\-misses / LLC\\-loads\000llc_=
-miss_rate ... */
--	{ 130766 },
-+	{ 130820 },
- 	/* migrations_per_second\000Default\000software@cpu\\-migrations\\,name\\=
-=3Dcpu\\-mig... */
--	{ 130867 },
-+	{ 130921 },
- 	/* page_faults_per_second\000Default\000software@page\\-faults\\,name\\=
-=3Dpage\\-faul... */
--	{ 131127 },
-+	{ 131181 },
- 	/* stalled_cycles_per_instruction\000Default\000(max(stalled\\-cycles\\-f=
-rontend, s... */
--	{ 131358 },
-+	{ 131412 },
-=20
- };
-=20
-@@ -5338,11 +5346,11 @@ static const struct compact_pmu_event pmu_metrics__=
-test_soc_cpu_default_core[] =3D
- 	/* M3\000\0001 / M3\000\000\000\000\000\000\000\000000 */
- 	{ 128790 },
- 	/* cache_miss_cycles\000group1\000dcache_miss_cpi + icache_miss_cycles\00=
-0\000\000\... */
--	{ 129269 },
-+	{ 129308 },
- 	/* dcache_miss_cpi\000\000l1d\\-loads\\-misses / inst_retired.any\000\000=
-\000\000\0... */
--	{ 129750 },
-+	{ 129789 },
- 	/* icache_miss_cycles\000\000l1i\\-loads\\-misses / inst_retired.any\000\=
-000\000\00... */
--	{ 130100 },
-+	{ 130154 },
-=20
- };
-=20
-@@ -6034,6 +6042,8 @@ int pmu_metrics_table__iterate_tables(pmu_metrics_tab=
-le_iter_t fn, void *data)
- }
-=20
- static const uint32_t metricgroups[][2] =3D {
-+	{ 130139, 128811 }, /* group1\000 =3D> Test metricgroup 1\000 */
-+	{ 130146, 128830 }, /* group1A\000 =3D> Test metricgroup 1A\000 */
-=20
- };
-=20
-diff --git a/tools/perf/tests/pmu-events.c b/tools/perf/tests/pmu-events.c
-index e6e4f4cf1fa2..a06525cafb48 100644
---- a/tools/perf/tests/pmu-events.c
-+++ b/tools/perf/tests/pmu-events.c
-@@ -5,7 +5,12 @@
- #include "pmus.h"
- #include "tests.h"
- #include <errno.h>
-+#include <pthread.h>
-+#include <stdbool.h>
-+#include <stddef.h>
- #include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
- #include <linux/kernel.h>
- #include <linux/zalloc.h>
- #include "debug.h"
-@@ -1094,6 +1099,202 @@ static int test__parsing_threshold(struct test_suit=
-e *test __maybe_unused,
- 	return pmu_for_each_sys_metric(test__parsing_threshold_callback, NULL);
- }
-=20
-+static int check_event_strings_cb(const struct pmu_event *pe,
-+				  const struct pmu_events_table *table __maybe_unused,
-+				  void *data __maybe_unused)
-+{
-+	if (!pe->pmu || !pe->name || (!pe->event && !pe->desc))
-+		return TEST_FAIL;
-+	return 0;
-+}
-+
-+static int check_find_btb_cb(const struct pmu_event *pe,
-+			     const struct pmu_events_table *table __maybe_unused,
-+			     void *data)
-+{
-+	int *matched =3D data;
-+
-+	if (!pe->event || strcmp(pe->event, "event=3D0x8a"))
-+		return TEST_FAIL;
-+	(*matched)++;
-+	return 0;
-+}
-+
-+static int check_find_ipc_cb(const struct pmu_metric *pm,
-+			     const struct pmu_metrics_table *table __maybe_unused,
-+			     void *data)
-+{
-+	int *matched =3D data;
-+
-+	if (!pm->metric_group || strcmp(pm->metric_group, "group1"))
-+		return TEST_FAIL;
-+	(*matched)++;
-+	return 0;
-+}
-+
-+static int check_metricgroup_strings_cb(const struct pmu_metric *pm,
-+					const struct pmu_metrics_table *table __maybe_unused,
-+					void *data __maybe_unused)
-+{
-+	char *dup, *group, *saveptr =3D NULL;
-+
-+	if (!pm->pmu || !pm->metric_expr)
-+		return TEST_FAIL;
-+	if (!pm->metric_group)
-+		return 0;
-+
-+	dup =3D strdup(pm->metric_group);
-+	if (!dup)
-+		return -ENOMEM;
-+
-+	for (group =3D strtok_r(dup, ";", &saveptr); group;
-+	     group =3D strtok_r(NULL, ";", &saveptr)) {
-+		const char *desc =3D describe_metricgroup(group);
-+
-+		if (desc && desc[0] =3D=3D '\0') {
-+			free(dup);
-+			return TEST_FAIL;
-+		}
-+		if (!strcmp(group, "group1") &&
-+		    (!desc || strcmp(desc, "Test metricgroup 1"))) {
-+			free(dup);
-+			return TEST_FAIL;
-+		}
-+	}
-+	free(dup);
-+	return 0;
-+}
-+
-+struct concurrent_lookup_gate {
-+	pthread_mutex_t mutex;
-+	pthread_cond_t cond;
-+	bool start;
-+};
-+
-+struct concurrent_lookup_worker {
-+	struct concurrent_lookup_gate *gate;
-+	int err;
-+};
-+
-+static int run_lookup_checks(void)
-+{
-+	const struct pmu_events_table *etest;
-+	const struct pmu_metrics_table *mtest;
-+	const char *desc;
-+	int matched, err;
-+
-+	desc =3D describe_metricgroup("group1");
-+	if (!desc || strcmp(desc, "Test metricgroup 1")) {
-+		pr_err("Unexpected group1 description: %s\n", desc ?: "(null)");
-+		return TEST_FAIL;
-+	}
-+
-+	desc =3D describe_metricgroup("group1A");
-+	if (!desc || strcmp(desc, "Test metricgroup 1A")) {
-+		pr_err("Unexpected group1A description: %s\n", desc ?: "(null)");
-+		return TEST_FAIL;
-+	}
-+
-+	if (describe_metricgroup("group1_nonexistent") || describe_metricgroup(""=
-)) {
-+		pr_err("Unexpected match for nonexistent metricgroup\n");
-+		return TEST_FAIL;
-+	}
-+
-+	if (describe_metricgroup("BadSpec") && !describe_metricgroup("Bad")) {
-+		pr_err("Prefix metricgroup 'Bad' missing when 'BadSpec' is present\n");
-+		return TEST_FAIL;
-+	}
-+
-+	etest =3D find_core_events_table("testarch", "testcpu");
-+	mtest =3D find_core_metrics_table("testarch", "testcpu");
-+	if (!etest || !mtest)
-+		return TEST_FAIL;
-+
-+	matched =3D 0;
-+	err =3D pmu_events_table__find_event(etest, NULL, "bp_l1_btb_correct",
-+					   check_find_btb_cb, &matched);
-+	if (err || matched !=3D 1)
-+		return TEST_FAIL;
-+
-+	matched =3D 0;
-+	err =3D pmu_metrics_table__find_metric(mtest, NULL, "IPC",
-+					     check_find_ipc_cb, &matched);
-+	if (err || matched !=3D 1)
-+		return TEST_FAIL;
-+
-+	err =3D pmu_for_each_core_event(check_event_strings_cb, NULL);
-+	if (err)
-+		return err;
-+
-+	err =3D pmu_for_each_sys_event(check_event_strings_cb, NULL);
-+	if (err)
-+		return err;
-+
-+	err =3D pmu_for_each_core_metric(check_metricgroup_strings_cb, NULL);
-+	if (err)
-+		return err;
-+
-+	return pmu_for_each_sys_metric(check_metricgroup_strings_cb, NULL);
-+}
-+
-+static void *concurrent_lookup_thread(void *arg)
-+{
-+	struct concurrent_lookup_worker *worker =3D arg;
-+
-+	pthread_mutex_lock(&worker->gate->mutex);
-+	while (!worker->gate->start)
-+		pthread_cond_wait(&worker->gate->cond, &worker->gate->mutex);
-+	pthread_mutex_unlock(&worker->gate->mutex);
-+
-+	worker->err =3D run_lookup_checks();
-+	return NULL;
-+}
-+
-+/*
-+ * Verify metricgroup binary search and release 8 worker threads simultane=
-ously
-+ * to stress-test lock-free on-demand decompression of ~8 KiB string block=
-s in
-+ * pmu_events__get_string() (big_c_string_cache[]) and shared dictionary s=
-etup.
-+ */
-+static int test__metricgroups(struct test_suite *test __maybe_unused,
-+			      int subtest __maybe_unused)
-+{
-+	struct concurrent_lookup_gate gate =3D {
-+		.mutex =3D PTHREAD_MUTEX_INITIALIZER,
-+		.cond =3D PTHREAD_COND_INITIALIZER,
-+		.start =3D false,
-+	};
-+	struct concurrent_lookup_worker workers[8];
-+	pthread_t threads[ARRAY_SIZE(workers)];
-+	size_t created =3D 0;
-+	int ret =3D TEST_OK;
-+
-+	for (size_t i =3D 0; i < ARRAY_SIZE(workers); i++) {
-+		workers[i].gate =3D &gate;
-+		workers[i].err =3D 0;
-+		if (pthread_create(&threads[i], NULL, concurrent_lookup_thread,
-+				   &workers[i]) !=3D 0) {
-+			ret =3D TEST_FAIL;
-+			break;
-+		}
-+		created++;
-+	}
-+
-+	pthread_mutex_lock(&gate.mutex);
-+	gate.start =3D true;
-+	pthread_cond_broadcast(&gate.cond);
-+	pthread_mutex_unlock(&gate.mutex);
-+
-+	for (size_t i =3D 0; i < created; i++) {
-+		pthread_join(threads[i], NULL);
-+		if (workers[i].err && ret =3D=3D TEST_OK)
-+			ret =3D workers[i].err;
-+	}
-+
-+	pthread_cond_destroy(&gate.cond);
-+	pthread_mutex_destroy(&gate.mutex);
-+	return ret;
-+}
-+
- struct populate_cb_data {
- 	struct test_case *test_cases;
- 	size_t curr;
-@@ -1145,7 +1346,7 @@ static struct test_case pmu_events_tests[];
- static int setup_pmu_events_suite(struct test_suite *suite)
- {
- 	size_t num_tables =3D 0;
--	size_t num_fixed_tests =3D 4;
-+	size_t num_fixed_tests =3D 5;
- 	size_t tests_per_table =3D 2;
- 	size_t total_tests;
- 	struct test_case *test_cases;
-@@ -1171,6 +1372,11 @@ static int setup_pmu_events_suite(struct test_suite =
-*suite)
- 		.desc =3D "PMU event table sanity",
- 		.run_case =3D test__pmu_event_table,
- 	};
-+	test_cases[curr++] =3D (struct test_case){
-+		.name =3D "metricgroups",
-+		.desc =3D "PMU metricgroup descriptions and concurrent lookups",
-+		.run_case =3D test__metricgroups,
-+	};
- 	test_cases[curr++] =3D (struct test_case){
- 		.name =3D "aliases",
- 		.desc =3D "PMU event map aliases",
-@@ -1208,6 +1414,7 @@ static int setup_pmu_events_suite(struct test_suite *=
-suite)
-=20
- static struct test_case pmu_events_tests[] =3D {
- 	TEST_CASE("PMU event table sanity", pmu_event_table),
-+	TEST_CASE("PMU metricgroup descriptions and concurrent lookups", metricgr=
-oups),
- 	TEST_CASE("PMU event map aliases", aliases),
- 	TEST_CASE_REASON("Parsing of PMU event table metrics", parsing,
- 			 "some metrics failed"),
---=20
-2.56.1.703.gf848ed807c-goog
+The updated test passes all 16 tests on RISC-V with Linux 7.2.0.
+
+Since the original patch is already in Andrew's mm tree, would you 
+prefer a v2 or an incremental fix?
+
+Thanks,
+Xionggui
+
+
+On 11/14/26 03:02, David Hildenbrand (Arm) wrote:
+> On 11/12/26 04:18, Xionggui Chen wrote:
+>> From: Xionggui Chen <chenxionggui@lanxincomputing.com>
+>>
+>> The madv_populate selftest assumes that a mapping created with
+>> PROT_WRITE cannot be read, and expects MADV_POPULATE_READ to fail
+>> with EINVAL.
+>>
+>> However, some architectures, including RISC-V, may implicitly grant
+>> read permission to PROT_WRITE mappings. On such architectures,
+>> MADV_POPULATE_READ succeeds, causing the test to fail incorrectly.
+>>
+>> Check the actual VMA permissions through /proc/self/maps and adjust
+>> the expected result accordingly.
+>>
+>> Add a PROT_NONE test to verify that MADV_POPULATE_READ still fails
+>> with EINVAL for mappings without read permission.
+>>
+>> On RISC-V with Linux 7.2.0, the original test fails 1 out of 16
+>> tests, while the updated test passes all 17 tests.
+> I would have said, if RISCV is the odd one, special case it and call it a day?
+>
+> That would keep the changes to test_prot_write() to a minimum.
+>
+>
 
