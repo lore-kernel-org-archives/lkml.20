@@ -1,93 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794839409;
-	b=H3usTF6Z1kYwxXI/5Asx17kc1cWH2ORAxiIvKv9kkJLqGHcV+piU88KwbC+GgWvw594F
-	 DxjInHB16s3l8xScBg0rsqpKA2tbD1zgPnoH6F4vFnKFPItfwDmI0rOXO6St7kvdFy7Od
-	 FJbj+rUnsT6ioasT+47uUMcfXjFg7IZ6Pc75RjK9uJDxZmYwj5/Im5khvlPyMiyXfpdhv
-	 MMfLlWY7q4xI9u5sIoFUyx1gVaA+SJXybcsXAjVsbw0mE5KcWHDzgk7Qlq6ThElkD4z3P
-	 iEIs9ulDEAMvXzMZdNsF8glQe5v6udDj3QX4jmE8OEL8L9dBZ2Dx87ZbdUHQRXtZ46g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839409;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=oElFm/yj2o3LRHDrA9VBkjg9/gf3iwVC8tnrYXPGEtY=;
-	b=EVBfNgk1BEiOG2ZC9JI+sGWGpx/LeMeijeg/hIPQDSibnNoSyj/6LnRu6hr9bFnZSssZ
-	 IUqvDP90CI1qJuvJTriurKpL9jWAVlC36dC2tSXm93E52Tg+JpXjCCIoDXwQWrkrdqhjW
-	 d/O2HeeE5zFLP/i5hl5n6DsCUReQpdChLfdOm9XfmaVVcdh+emzh9PkQ9ZS6+LPnPwthy
-	 xXQeZ6MFyyrltABsyhi6OxulJt5xasrFvbiJe9G07XrsnbvV+Hqu2uUdN/9i0/ARup3rw
-	 oiVIZ1gHemYdVe9YQLl92K2QJc2A0nukULCYFN1USYkS41nyhp5h71l+DHUy7Vx+lRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bM2egM1P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794839458;
+	b=sx3Pq5UGkRScdQbCTBOojmn5n+BAXjhG9mnRhI9f9U7ArvB8uI9MQrwgIJHPGdyCvmFU
+	 HuYydJNdIOV08d6fTp7YCJitPk/zeYu/GdCUZo9fcMd/07PvKFyPXEaTmwYYIWQM9gMXq
+	 MCJouuJ5G5Iip5vkTjrfPA5DrZGxKFWs8wllOJLVJy+CJ9SyxdqgpFvTYADLfj79zJ/0P
+	 DkC0bY/6psn9uhM0WRBVbX4GoLdnTnS1zJL+rN7vSAvxapQi0qLouCzwlOXMJmW81yBlc
+	 sKcxvQ/ZalghtBSQq2hdrlq3g5pbqX7hopc8BFRfV4/KT6UtrBfZMmmD/iXsCo4nlXw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839458;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=EDjYfGPnM8OA9NW+LY9ifZknUEbTkV8FfqZSHX3i64U=;
+	b=iou2pnc5QByCgZKirfNR/m3BGVhbHA0lLdkhVGywGMHn1s/iPXjH2/IVySvpevVKcd6D
+	 GwvznctFkeyNZWJLF6FFAd1t0dPEv3V0z4G20Y6SqueJvzHpLKUdJz0WR9LDQ6Hkgg6vN
+	 BB48xgQuX4O2eziST43+3WLQmLA7/mY/H1RHnKqHpdtGAu1GQRnQweQQEDTu+ZTkrmMj5
+	 dgj4SNU4bdLYJNdZrwY5CS3cGFqxYW0IurEC9chu3DzueJwe8INwIJyD/4fEkxTlXzOqY
+	 ZBTZWHwSpSVrVL64+UCDI2qtDBfkz/HqASn9qZIElb0AAeUcBdSvX9d7JvFbUgSzYSw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=seu.edu.cn;
+	spf=pass smtp.mailfrom=seu.edu.cn;
+	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=C+FjJx+R;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A08606A89B;
-	Mon, 16 Nov 2026 14:30:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A08606A89B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612E0606A323;
+	Mon, 16 Nov 2026 14:30:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 612E0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bM2egM1P
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2382720059B;
-	Mon, 16 Nov 2026 15:30:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794839402;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=oElFm/yj2o3LRHDrA9VBkjg9/gf3iwVC8tnrYXPGEtY=;
-	b=bM2egM1PsJ6ui+EYrbwMd/MGeBJQrXZMVba9q4erp8UXUAkyuKuF/R+vRZONyam4Rtyfmy
-	39SXrCn00xVz8fzfBSkOkTK8GPAjUjSCzEsVM3YbbvUzPZY0k8jcFlSBwGuETIbN5OL9/F
-	IjgaPxmhn7hvtY2j7DadlA80JvkUQeG3jvOvJifeZjAaqIVGJw0xOTy2Z5nHMJ/IJDnPGb
-	SQivj4RQTVKt5O+ieLj/77ZzrzjjhC3MWPFX3CX71xtHmCkDaGS8RyhLKTMfeX5yZMdy/9
-	UZAfEC3p/YlLUrMep5dp5Z68KAmuYVCvW/87OQ8b2L29lNF70DuYUaS99k9WlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794839402;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=oElFm/yj2o3LRHDrA9VBkjg9/gf3iwVC8tnrYXPGEtY=;
-	b=eIQ9LwT4ieKpgMveJnSzLLGvXbyTn2kfSNuOt7ZPLfH6LUMLEeXcRYIed4kk9RpraTOpa6
-	Cgd3QVvx9XVwdi98oAa0EFA/ptyoUzJREkJz5c31DSslYI02lZzHdPR11SzOojS2JdPw0z
-	pGCpDH7e8FS3WWeYIBj/UlsoCFD4+Ztb51SKbtwA57bCEiINy6iPkd+9gwjVj8wZWd+Saj
-	aBTCyMTiGPPdTvNBvChxMl+N6x1si7y8EYFbzeacJGwijlggjxypa1GgcwyuxHsb3HfHZZ
-	9lqss8IhrsqdOs/aL5/u1dGz6ndQ/crdjnI/AvG88/ryIx/6efl4cW/bebMoOg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794839402; a=rsa-sha256;
-	cv=none;
-	b=CiCNMn6J9bOGe2ECG93EpnChs2AHhFZHCJ+N3GdC4ng485kr69z8sIPDJIhnNnJUFMVh5I
-	NQbCkdAFbQW50yq/0IHkXWh7TdbURVHTFTtBtLbTLw6aLY12iNRtvvolzJ+dhjTOY4Q5RF
-	gfP8jH+ACg1TUb/3VvvPfOyG0Lpg41C3ZxW4h9vb+SUxEhFfYMDZeRa0duHhlE0O3zrs2S
-	NbT32RDx1MtTr4XaJ2fyw8Yo6mdCYbh9e0YS/qEWOEtEU0MnVNlwLAmgmBlRRNdJ214Il+
-	LgnAPMd4nxRrIywjRuzPsYyQc+YcQKUVGJylfDUcPSy8GgsbrdVDBlX7xvjA0Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=rhi@pengutronix.de
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1059)
-	id 17688380329; Mon, 16 Nov 2026 15:30:02 +0100 (CET)
-From: Roland Hieber <rhi@pengutronix.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Roland Hieber <rhi@pengutronix.de>,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>
-Subject: [PATCH] arm64: dts: imx8mp-skov: fix input supply properties
-Date: Mon, 16 Nov 2026 15:29:09 +0100
-Message-ID: <20261116142912.3011357-2-rhi@pengutronix.de>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=C+FjJx+R
+Received: from [192.168.17.1] (unknown [124.79.98.159])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54dbcb553;
+	Mon, 16 Nov 2026 22:30:50 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: Rong Zhang <i@rong.moe>,
+ Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Zehao Gao <gaozehao@iie.ac.cn>, Hyunjung <hj351016@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Derek J. Clark <derekjohn.clark@gmail.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] extcon: synchronize all-connector removal and fix
+ Lenovo fastcharger teardown
+Date: Mon, 16 Nov 2026 22:30:46 +0800
+Message-ID: <179483944681.43652.9539572356847924730@seu.edu.cn>
+In-Reply-To: <179474326098.103840.15531040789536968458@seu.edu.cn>
+References: <179474326098.103840.15531040789536968458@seu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,98 +61,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e4c4936c03a1kunm61f671b610e989
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHk9CVh9PQkpKTk9JQh5OTVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VTEJVQkNVSk5CWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	JKVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=C+FjJx+RiELijSZqmtcGsgoCxEddZ589YNzIyXsFjyv0JpazDHNPexOEk7NB3CK15jj6XYD5GEymgmdDZ1U1n2aGBlrdfV7ZXlb/b5zeashZhjT97USQZac4pHjaCBPStVWIkayNs0hOmf7GvUQIUAVcwuHU+rRrSxEjrYTWv0E=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=EDjYfGPnM8OA9NW+LY9ifZknUEbTkV8FfqZSHX3i64U=;
+	h=date:mime-version:subject:message-id:from;
 
-The nxp,pca9450c node used the non-standard 'vin-supply' binding until now.
-Upstream commit 4c33cef58965eb655a0a ("regulator: pca9450: link regulator
-inputs to supply groups") added support for 'in*-supply' bindings, so move
-to this standardized binding to fix errors on boot:
+Hi Rong, Ilpo,
 
-  nxp-pca9450 0-0025: Failed to create device link (0x180) with supplier
-    regulator-5v-p for
-    /soc@0/bus@30800000/i2c@30a20000/pmic@25/regulators/LDO1
+Thanks for the review, and sorry for the mess. Let me answer the questions, and also put one thing on the record about where the extcon part came from, because the timeline matters here.
 
-Suggested-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Signed-off-by: Roland Hieber <rhi@pengutronix.de>
----
- arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+v1 link: https://msgid.link/20260806060526.1189-1-getshell@seu.edu.cn
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-index 5453e590f64f..1c97f2c2873a 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-@@ -275,13 +275,16 @@ pmic@25 {
- 		pinctrl-0 = <&pinctrl_pmic>;
- 		interrupts-extended = <&gpio1 3 IRQ_TYPE_EDGE_RISING>;
- 		priority = <200>;
-+		inl1-supply = <&reg_5v_p>;
-+		inb13-supply = <&reg_5v_p>;
-+		inb26-supply = <&reg_5v_p>;
-+		inb45-supply = <&reg_5v_p>;
- 
- 		regulators {
- 			reg_vdd_soc: BUCK1 {
- 				regulator-name = "VDD_SOC";
- 				regulator-min-microvolt = <850000>;
- 				regulator-max-microvolt = <850000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 				regulator-ramp-delay = <3125>;
-@@ -291,7 +294,6 @@ reg_vdd_arm: BUCK2 {
- 				regulator-name = "VDD_ARM";
- 				regulator-min-microvolt = <850000>;
- 				regulator-max-microvolt = <1000000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 				regulator-ramp-delay = <3125>;
-@@ -303,7 +305,6 @@ reg_vdd_3v3: BUCK4 {
- 				regulator-name = "VDD_3V3";
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -312,7 +313,6 @@ reg_vdd_1v8: BUCK5 {
- 				regulator-name = "VDD_1V8";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <1800000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -321,7 +321,6 @@ reg_nvcc_dram_1v1: BUCK6 {
- 				regulator-name = "NVCC_DRAM_1V1";
- 				regulator-min-microvolt = <1100000>;
- 				regulator-max-microvolt = <1100000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -330,7 +329,6 @@ reg_nvcc_snvs_1v8: LDO1 {
- 				regulator-name = "NVCC_SNVS_1V8";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <1800000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -339,7 +337,6 @@ reg_vdda_1v8: LDO3 {
- 				regulator-name = "VDDA_1V8";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <1800000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
-@@ -348,7 +345,6 @@ reg_nvcc_sd2: LDO5 {
- 				regulator-name = "NVCC_SD2";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <3300000>;
--				vin-supply = <&reg_5v_p>;
- 				regulator-boot-on;
- 				regulator-always-on;
- 			};
+That is the patch I posted on 2026-08-06. I should have put it in the cover letter - my mistake.
+
+Why the extcon patch exists at all, and why it is in this series:
+
+v1 only cancelled the work inside the lenovo driver (devm_work_autocancel). After sending it I went back over the teardown path and realized the patch itself was not correct: cancelling the work is not enough, because the all-connector raw notifier in extcon can still be running a callback after the consumer unregistered, and that callback can publish the work again. So the root cause sits in extcon's notifier handling, and that is what 1/2 fixes. That is also why 2/2 says it depends on the preceding synchronization patch.
+
+On the origin of the idea - I understand the suspicion, so here are the dates:
+
+My v1 is from 2026-08-06 (link above). It is also the patchset referenced by the Closes: link Ilpo posted in the 1/2 thread.
+
+sashiko reviewed that patchset back then and raised exactly this "extcon uses raw notifiers, the synchronization is insufficient" concern. I never received that report in my mailbox; I first learned about it from Ilpo's reply on 2026-11-09:
+https://lore.kernel.org/all/2ef4ad43-497f-c40f-b18a-f5b75799d95d@linux.intel.com/
+That is why 1/2 carries a Link: to that message.
+
+Hyunjung's patch is from 2026-11-16:
+https://msgid.link/20261116122001.3096223-1-hj351016@gmail.com
+i.e. three months later.
+
+So this did not come from Hyunjung's patch; if anything the order is the other way round. I am not trying to win an argument - I just do not want the record to say I took someone else's work.
+
+The attribution Ilpo suggested is right, and I will use it:
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260806060526.1189-1-getshell%40seu.edu.cn
+
+On the other points - all fair, all my fault:
+
+S-o-b order: fixed. Zehao Gao co-audited this series with me, so his Signed-off-by comes first and mine (the submitter) last:
+
+Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+
+The mangled "Jarvinen": my git-send-email setup on Windows encoded the Cc display names as GBK instead of UTF-8. Fixed now (i18n.commitEncoding=utf-8, sendemail encoding, UTF-8 console), and I checked the headers of a test message before posting. Sorry for the noise, and thanks for fixing my Cc line.
+
+On Ilpo's point that the extcon fix is not pdx86 material - agreed. I will take 1/2 out of this series; if the extcon change is still wanted, I will repost it to the extcon list on its own with the attribution above. And since Hyunjung is already working on this, I am happy to let her series go first - if her approach covers it, mine can be dropped entirely.
+
+Although I do not have the hardware, the change has been build-tested and manually audited. The analysis and the patch text were produced with LLM assistance, then reviewed and edited by me.
+
+Thanks,
+Hongyan
