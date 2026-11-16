@@ -1,71 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830295;
-	b=gYUsehM4LFZ/enqVWBDDJlltxBPdt/5/0s8/+lfxuiyaNRg1m/T/2hzm/SiwG/7hPs4L
-	 Zf/Z8/0jhYaO+6e2wWp1bGPxsNLG7sazMZxPVFWToeu86e7tjcB8hIHsFas5hzQxARzIa
-	 16wkVG9tI383cFPwrXgWlO+fqtoHFv8FGRJEAkgvkFg9fq9DF7nh2tGD5Umx8Gd4fZ0D2
-	 qUfUH2BHT/sVBXcLF5Uxx+xcqCtjT95jr+bpMXf6K8HXadqaUm1tS9aWYrIB894vvJGa0
-	 5pvRS2vyU0x04OlG7mUZejPhbjlG9i/upGhEamDRh+a8wSZzH3v4+rdYkm77MWSoHnw==
+	t=1794830320;
+	b=Y1RurFB+mZ0SPeAjq4s7lpIznN+8/FiajjU2sXiyDF/TjWcboDDrhe84m4w6/FKUO287
+	 wcqCd+hSWTxHXzZiLLa4Lu7N7PbwFuCQrzw1dcKxHEmhzWYvfJv0XJGPSbLS68qVfk+8l
+	 n0rHAxt9FvbYSNStPZllZ6I+L7pk9IVxbgbukd6GI/+lkLv8swPliDootf1WKgsEpcSbQ
+	 iPfYu68VbtxdIM34/41B7upIEmW4nLdx4sS4WZC9ypz5635SVo1POVKyDgWdkNqhNpP8v
+	 e+q47yyQnQDGfVBOeulxynDS2PkYnRE+rMKNsP72zjgL0we5frYgtoPLlwJn93xtOMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830295;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Language:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=ZuGZWcioN7Yz3PJ81xFuW5ma1SXVVbXj+Qg6zlBF1S0=;
-	b=ADjvJpmbL3QzrB2FQF1ngSZr+zg7Y0DT+v8AVPAtD04VlNxSXSDlvGHkVfiz4RhYSn98
-	 82zCam5GHA1e/tu/mD+PxFjUh0u9chws+LwAolQYuMfxPflFDcARGFnjQJ8NbD2Mx7Nwt
-	 /cYoo6OH0tFfQVhji2Q3MbfVHPTWFV0yTFYgO3tKoxAcfr/0ow5LT+4QumSZYL4gTIQEF
-	 0BH/y4UgXDYWM1NlwsTCIhO0YC7o1pVZ/oNoJiai032e3hmuS5DA8J5f63QFifkZRYgHz
-	 PKBid2AOjnmXSg0gUVsL/NA7uJMY3d6L06oI9SBlUZwidrov8DTWtmAGFHmm2Dh30cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830320;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=ifqkOlDZVaTMMWzAtVxs7h0ukDlTyysT/Nif/verq98=;
+	b=HLybsuciIHh5yEXBy3yH4S2pgsBweU+vtqSJ+rk6esnqwoMBTZqlBhpGlj3Fznif8roH
+	 P2GuYQyz5Qemhu8DcsWoReU+D8hFEJ0tDnVaxfj7yAmSUXYZZdvQ0iDoHApYJkSFwFlWH
+	 tg6AXyZrPUYVpISOkuk9vME2OFXiBquRJCWYvInvKAtAunuXLlkVZw+cohBxogMBC1XvA
+	 PW2qI6CGF9ejOV/fsnp2ZDqIl01XiSZh6lkT5nZ2pr7FOTmRzJXoNVJyrfAn3mJ4J3jpp
+	 RsSNzQqcs+0penIO8OWZJA9IvVPvSOeGyRaJcQToka6OMBfq6jL/8fpf2DgjzQ1K6yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Uq0mDh+o;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bLyzfdKx;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258E9606A334;
-	Mon, 16 Nov 2026 11:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 258E9606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6C2606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:58:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF6C2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Uq0mDh+o
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ZuGZWcioN7Yz3PJ81xFuW5ma1SXVVbXj+Qg6zlBF1S0=;
-	b=Uq0mDh+o8k2YouBjI+m8Bzinp4yVgjrLs/FgLMZyOEpT0wJ8pfIaouYegfrjvH4w/1B/mXjHz
-	e53bdjg8wHA21ELSi4obI7VjJ0LxPWkBYXqIcwelklvZY5uYMSi/ph0WDfeMdirXxoTnKmEE2fj
-	34hT0tS/qK4ng+Nwx9amorw=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jSmZt0T8vz1K96X;
-	Mon, 16 Nov 2026 19:57:58 +0800 (CST)
-Received: from whupemo200006.china.huawei.com (unknown [7.152.185.252])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7E6674057C;
-	Mon, 16 Nov 2026 19:58:10 +0800 (CST)
-Received: from [10.174.178.219] (10.174.178.219) by
- whupemo200006.china.huawei.com (7.152.185.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 16 Nov 2026 19:58:08 +0800
-Subject: Re: [PATCH 0/7] KVM: Documentation and comment fixes
-To: Fuad Tabba <fuad.tabba@linux.dev>
-CC: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
-	<seanjc@google.com>, <kvm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>, Christian
- Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank
-	<frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, Huacai
- Chen <chenhuacai@kernel.org>, <linux-mips@vger.kernel.org>, Will Deacon
-	<will@kernel.org>, Fuad Tabba <tabba@google.com>
-References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
-From: Zenghui Yu <yuzenghui@huawei.com>
-Message-ID: <f0fb6f7c-385a-dbea-0b4f-e09ec5a4dea4@huawei.com>
-Date: Mon, 16 Nov 2026 19:58:06 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bLyzfdKx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794830320; x=1826366320;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=ENwQRP2NjKiqdwPNChGo71tM9XOpmw4zV9Ieijtg/P8=;
+  b=bLyzfdKxRkhQnsHWXzed2iQCS2K5yL51LPsq9dxnygkzoUzhZF1w9BxV
+   WOUhGvqjJJ9ZmOPvnNPJfL2vXiHvHEeV51HyzDbWfRKXxGtp58/4p993A
+   K+ITevPWkJ8Yb7iISlAjh/+1ahB0vzXkPUhuc89RxHf+M67IOjHyOpH9P
+   buv3QWg1RJHaiZwvRYIfxzbLSG836apqM3O3PwI0bAG9tSP78lLjTYRJw
+   R8+J4Kq4b4F9ZEbIta/EdOTLmPfj/r3ECaaRNGNUazzRPrF97K0nGvZXu
+   ojhuLFhY9Ae0PzelqAMPt4dHf7M1Eoak6EtvkBTt73KqjFv/tpM8nsjt0
+   A==;
+X-CSE-ConnectionGUID: J5USXWqLSaO/YLViK64Gqg==
+X-CSE-MsgGUID: 5Co3zkO8TPWOyyjPyQim6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3597086"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3597086"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:58:15 -0800
+X-CSE-ConnectionGUID: oHyA7UHhSWeG1RCuBJGMaA==
+X-CSE-MsgGUID: Lyc2JUtQR0uq8hwGRFGrDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9939006"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:58:06 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
+ <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Manasi Navare
+ <navaremanasi@google.com>, Drew Davenport <ddavenport@google.com>, Louis
+ Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Kory Maincent
+ <kory.maincent@bootlin.com>
+Subject: Re: [PATCH RFC v3 1/8] drm: Move sink link rates reading helpers
+ out of i915
+In-Reply-To: <20261012-feat_link_cap-v3-1-7517f4aba0f3@bootlin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+ <20261012-feat_link_cap-v3-1-7517f4aba0f3@bootlin.com>
+Date: Mon, 16 Nov 2026 13:58:04 +0200
+Message-ID: <1e0d884af40edd23ee892dc2b9bc9950a8e5684a@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,37 +102,527 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261111085448.1130701-1-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemo200006.china.huawei.com (7.152.185.252)
+Content-Type: text/plain
 
-On 2026/11/11 16:54, Fuad Tabba wrote:
-> Hi folks,
-> 
-> This series fixes the generic KVM documentation and comments, mostly
-> references to non-existent functions, structures and constants, plus a
-> few other one-line fixes and typos.
-> 
-> Patches 1-4 are for Documentation/virt/kvm, and 5-7 for comments in
-> the code.
-> 
-> Based on Linux 7.4-rc2 (7475ea8b58616).
-> 
-> Cheers,
-> /fuad
-> 
-> Fuad Tabba (7):
->   Documentation: KVM: Fix references to non-existent identifiers
->   Documentation: KVM: Fix lock names and a lock type in locking.rst
->   Documentation: KVM: Fix the function that implements halt polling
->   Documentation: KVM: Drop the stale number of vCPU request flags
->   KVM: Fix comments that refer to non-existent identifiers
->   KVM: Fix the range of reserved arch-independent request bits
->   KVM: Fix typos in comments
+On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> In preparation for adding generic DRM properties to report source and
+> sink capabilities, move the sink link rates reading functions out of
+> the i915 driver into the generic DRM helpers. These functions provide
+> everything needed to properly extract link rate capabilities from the
+> DPCD.
 
-Series,
+Independent of the goal of the series, I support moving helpers from
+i915 to generic drm code.
 
-Reviewed-by: Zenghui Yu <yuzenghui@huawei.com>
+But I think this one is trying to do too much at once. Please move it in
+smaller pieces.
+
+BR,
+Jani.
+
+>
+> Keep the Intel-specific quirk handling in the driver.
+>
+> No functional change intended.
+>
+> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> ---
+> Change in v3:
+> - New patch
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 237 ++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c | 169 ++++++-----------------
+>  include/drm/display/drm_dp.h            |   1 +
+>  include/drm/display/drm_dp_helper.h     |  11 ++
+>  4 files changed, 293 insertions(+), 125 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index e623ccb4c1d8a..8ef096a0138e4 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -4912,3 +4912,240 @@ int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes)
+>  				  1000000 * 8);
+>  }
+>  EXPORT_SYMBOL(drm_dp_max_dprx_data_rate);
+> +
+> +/**
+> + * drm_dp_read_dpcd_supported_link_rates() - read DPCD supported link rates
+> + * @aux: DisplayPort AUX channel
+> + * @link_rates: Buffer to store the resulting link rates supported
+> + *
+> + * Attempts to read the DPCD supported link rates for @aux.
+> + *
+> + * Returns: The number or supported link rates, negative error code otherwise.
+> + */
+> +static int drm_dp_read_dpcd_supported_link_rates(struct drm_dp_aux *aux,
+> +						 int link_rates[DP_MAX_SUPPORTED_RATES])
+> +{
+> +	__le16 dpcd_link_rates[DP_MAX_SUPPORTED_RATES] = {0};
+> +	int ret, i;
+> +
+> +	ret = drm_dp_dpcd_read_data(aux, DP_SUPPORTED_LINK_RATES,
+> +				    dpcd_link_rates, sizeof(dpcd_link_rates));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(dpcd_link_rates) && dpcd_link_rates[i]; i++)
+> +		link_rates[i] = le16_to_cpu(dpcd_link_rates[i]) * 20;
+> +
+> +	return i;
+> +}
+> +
+> +#if IS_ENABLED(CONFIG_DRM_DISPLAY_DP_TUNNEL)
+> +
+> +static u8 drm_dprx_128b132b_link_rates(const struct drm_dp_tunnel *tunnel,
+> +				       u8 uhbr_rates)
+> +{
+> +	if (!drm_dp_tunnel_bw_alloc_is_enabled(tunnel))
+> +		return uhbr_rates;
+> +
+> +	static_assert(DP_TUNNELING_10GBPS_PER_LANE_SUPPORT == DP_UHBR10 &&
+> +		      DP_TUNNELING_13_5GBPS_PER_LANE_SUPPORT == DP_UHBR13_5 &&
+> +		      DP_TUNNELING_20GBPS_PER_LANE_SUPPORT == DP_UHBR20);
+> +
+> +	return drm_dp_tunnel_128b132b_dprx_rates(tunnel);
+> +}
+> +
+> +static bool drm_dprx_supports_128b132b(const struct drm_dp_tunnel *tunnel,
+> +				       const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> +{
+> +	if (tunnel && drm_dp_tunnel_bw_alloc_is_enabled(tunnel))
+> +		return drm_dp_tunnel_128b132b_supported(tunnel);
+> +	else
+> +		return drm_dp_128b132b_supported(dpcd);
+> +}
+> +
+> +#else
+> +
+> +static u8 drm_dprx_128b132b_link_rates(const struct drm_dp_tunnel *tunnel,
+> +				       u8 uhbr_rates)
+> +{
+> +	return uhbr_rates;
+> +}
+> +
+> +static bool drm_dprx_supports_128b132b(const struct drm_dp_tunnel *tunnel,
+> +				       const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> +{
+> +		return drm_dp_128b132b_supported(dpcd);
+> +}
+> +
+> +#endif
+> +
+> +/**
+> + * drm_dp_get_128b132b_link_rates() - get the supported 128b/132b link rates
+> + * @lttpr_common_caps: LTTPR common capabilities
+> + * @tunnel: DP tunnel object (NULL if not supported)
+> + * @uhbr_rates: UHBR rate mask read from the DPCD
+> + *		DP_128B132B_SUPPORTED_LINK_RATES register
+> + * @link_rates: Buffer of DP_MAX_128B132B_SUPPORTED_RATES entries to store the
+> + *		resulting link rates
+> + *
+> + * Limit the UHBR rate mask @uhbr_rates by the capabilities of the DP tunnel
+> + * and of the LTTPRs, if any is present, then expand the remaining rates into
+> + * @link_rates in ascending order.
+> + *
+> + * Returns: The number of link rates stored in @link_rates.
+> + */
+> +static int
+> +drm_dp_get_128b132b_link_rates(const u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE],
+> +			       const struct drm_dp_tunnel *tunnel,
+> +			       u8 uhbr_rates,
+> +			       int link_rates[DP_MAX_128B132B_SUPPORTED_RATES])
+> +{
+> +	int i = 0;
+> +
+> +	if (tunnel)
+> +		uhbr_rates = drm_dprx_128b132b_link_rates(tunnel, uhbr_rates);
+> +
+> +	if (drm_dp_lttpr_count(lttpr_common_caps)) {
+> +		/* We have a repeater */
+> +		if (lttpr_common_caps[0] >= 0x20 &&
+> +		    dp_lttpr_common_cap(lttpr_common_caps,
+> +					DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER) &
+> +		    DP_PHY_REPEATER_128B132B_SUPPORTED) {
+> +			/* Repeater supports 128b/132b, valid UHBR rates */
+> +			uhbr_rates &= dp_lttpr_common_cap(lttpr_common_caps,
+> +							  DP_PHY_REPEATER_128B132B_RATES);
+> +		} else {
+> +			/* Does not support 128b/132b */
+> +			uhbr_rates = 0;
+> +		}
+> +	}
+> +
+> +	if (uhbr_rates & DP_UHBR10)
+> +		link_rates[i++] = 1000000;
+> +	if (uhbr_rates & DP_UHBR13_5)
+> +		link_rates[i++] = 1350000;
+> +	if (uhbr_rates & DP_UHBR20)
+> +		link_rates[i++] = 2000000;
+> +
+> +	return i;
+> +}
+> +
+> +/**
+> + * drm_dp_read_dpcd_sink_rates() - read the sink rates from the DPCD
+> + * @aux: DisplayPort AUX channel
+> + * @dpcd: DPCD receiver capabilities
+> + * @lttpr_common_caps: LTTPR common capabilities
+> + * @desc: DisplayPort sink descriptor
+> + * @tunnel: Tunnel object (NULL if not supported)
+> + * @sink_rates: Array of DP_MAX_SUPPORTED_RATES entries to store the sink rates
+> + *
+> + * Read the link rates supported by a DisplayPort sink from the DPCD
+> + * DP_MAX_LINK_RATE and DP_128B132B_SUPPORTED_LINK_RATES registers, limited by
+> + * the capabilities of the LTTPRs if any is present. The rates are stored in
+> + * @sink_rates in ascending order.
+> + *
+> + * The DPCD receiver capabilities, the LTTPR common capabilities and the sink
+> + * descriptor are passed by the caller instead of being read from the DPCD.
+> + * Drivers which already read them, like i915, can pass them to avoid
+> + * duplicate DPCD reads.
+> + *
+> + * Returns: The number of supported sink rates.
+> + */
+> +int drm_dp_read_dpcd_sink_rates(struct drm_dp_aux *aux,
+> +				const u8 dpcd[DP_RECEIVER_CAP_SIZE],
+> +				const u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE],
+> +				const struct drm_dp_desc *desc,
+> +				const struct drm_dp_tunnel *tunnel,
+> +				int sink_rates[DP_MAX_SUPPORTED_RATES])
+> +{
+> +	static const int dp_rates[] = {
+> +		162000, 270000, 540000, 810000
+> +	};
+> +	int max_rate, max_lttpr_rate = 0, ret, i;
+> +	u8 uhbr_rates = 0;
+> +
+> +	BUILD_BUG_ON(ARRAY_SIZE(dp_rates) + DP_MAX_128B132B_SUPPORTED_RATES >
+> +		     DP_MAX_SUPPORTED_RATES);
+> +
+> +	if (drm_dp_has_quirk(desc, DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS)) {
+> +		/* Needed, e.g., for Apple MBP 2017, 15 inch eDP Retina panel */
+> +		static const int quirk_rates[] = { 162000, 270000, 324000 };
+> +
+> +		memcpy(sink_rates, quirk_rates, sizeof(quirk_rates));
+> +
+> +		return ARRAY_SIZE(quirk_rates);
+> +	}
+> +
+> +	/*
+> +	 * Sink rates for 8b/10b.
+> +	 */
+> +	max_rate = drm_dp_bw_code_to_link_rate(dpcd[DP_MAX_LINK_RATE]);
+> +	if (lttpr_common_caps)
+> +		max_lttpr_rate = drm_dp_lttpr_max_link_rate(lttpr_common_caps);
+> +	if (max_lttpr_rate)
+> +		max_rate = min(max_rate, max_lttpr_rate);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(dp_rates); i++) {
+> +		if (dp_rates[i] > max_rate)
+> +			break;
+> +		sink_rates[i] = dp_rates[i];
+> +	}
+> +
+> +	/*
+> +	 * The following register must be read unconditionally for the later
+> +	 * DP tunnel 128b132b detection to work, see DP Standard v2.1 5.14.3 .
+> +	 */
+> +	ret = drm_dp_dpcd_read_byte(aux, DP_128B132B_SUPPORTED_LINK_RATES,
+> +				    &uhbr_rates);
+> +	if (ret < 0) {
+> +		drm_dbg_kms(aux->drm_dev,
+> +			    "%s: Failed to read DPCD 128B/132B supported link rates (%d)\n",
+> +			    aux->name, ret);
+> +		uhbr_rates = 0;
+> +	}
+> +
+> +	/*
+> +	 * Sink rates for 128b/132b. If set, sink should support all 8b/10b
+> +	 * rates and 10 Gbps.
+> +	 */
+> +	if (drm_dprx_supports_128b132b(tunnel, dpcd))
+> +		i += drm_dp_get_128b132b_link_rates(lttpr_common_caps,
+> +						    tunnel,
+> +						    uhbr_rates,
+> +						    &sink_rates[i]);
+> +
+> +	return i;
+> +}
+> +EXPORT_SYMBOL_GPL(drm_dp_read_dpcd_sink_rates);
+> +
+> +/**
+> + * drm_dp_read_edp_sink_rates() - read the sink rates from the eDP DPCD
+> + * @aux: DisplayPort AUX channel
+> + * @edp_dpcd_rev: eDP DPCD revision of the sink
+> + * @sink_rates: Array of DP_MAX_SUPPORTED_RATES entries to store the sink rates
+> + *
+> + * Read the link rates supported by an eDP sink from the DPCD
+> + * DP_SUPPORTED_LINK_RATES registers, available on eDP 1.4 and later sinks.
+> + *
+> + * Returns: The number of supported sink rates, 0 if the sink does not support
+> + * the DP_SUPPORTED_LINK_RATES register, negative error code otherwise.
+> + */
+> +int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
+> +			       int sink_rates[DP_MAX_SUPPORTED_RATES])
+> +{
+> +	int num_sink_rates;
+> +
+> +	if (edp_dpcd_rev < DP_EDP_14)
+> +		return 0;
+> +
+> +	num_sink_rates = drm_dp_read_dpcd_supported_link_rates(aux, sink_rates);
+> +	if (num_sink_rates < 0) {
+> +		drm_dbg_kms(aux->drm_dev,
+> +			    "%s: Unable to read eDP supported link rates (%d)\n",
+> +			    aux->name, num_sink_rates);
+> +		return 0;
+> +	}
+> +
+> +	return num_sink_rates;
+> +}
+> +EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 0cd5e6b5034cf..da73ad11e9cac 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -191,102 +191,47 @@ static void intel_dp_set_default_sink_rates(struct intel_dp *intel_dp)
+>  	intel_dp->num_sink_rates = 1;
+>  }
+>  
+> -static bool dprx_supports_128b132b(struct intel_dp *intel_dp)
+> -{
+> -	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
+> -		return drm_dp_tunnel_128b132b_supported(intel_dp->tunnel);
+> -	else
+> -		return drm_dp_128b132b_supported(intel_dp->dpcd);
+> -}
+> -
+> -static u8 dprx_128b132b_link_rates(struct intel_dp *intel_dp, u8 no_bwa_rates)
+> -{
+> -	u8 ret;
+> -
+> -	if (!intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
+> -		return no_bwa_rates;
+> -
+> -	ret = drm_dp_tunnel_128b132b_dprx_rates(intel_dp->tunnel);
+> -	static_assert(DP_TUNNELING_10GBPS_PER_LANE_SUPPORT == DP_UHBR10 &&
+> -		      DP_TUNNELING_13_5GBPS_PER_LANE_SUPPORT == DP_UHBR13_5 &&
+> -		      DP_TUNNELING_20GBPS_PER_LANE_SUPPORT == DP_UHBR20);
+> -
+> -	return ret;
+> -}
+> -
+>  /* update sink rates from dpcd */
+>  static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
+>  {
+> -	static const int dp_rates[] = {
+> -		162000, 270000, 540000, 810000
+> -	};
+> -	int i, max_rate;
+> -	int max_lttpr_rate;
+> -	u8 uhbr_rates = 0;
+> -
+> -	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS)) {
+> -		/* Needed, e.g., for Apple MBP 2017, 15 inch eDP Retina panel */
+> -		static const int quirk_rates[] = { 162000, 270000, 324000 };
+> -
+> -		memcpy(intel_dp->sink_rates, quirk_rates, sizeof(quirk_rates));
+> -		intel_dp->num_sink_rates = ARRAY_SIZE(quirk_rates);
+> -
+> -		return;
+> -	}
+> -
+> -	/*
+> -	 * Sink rates for 8b/10b.
+> -	 */
+> -	max_rate = max_dprx_rate(intel_dp);
+> -	max_lttpr_rate = drm_dp_lttpr_max_link_rate(intel_dp->lttpr_common_caps);
+> -	if (max_lttpr_rate)
+> -		max_rate = min(max_rate, max_lttpr_rate);
+> +	int num_sink_rates;
+> +	int max_rate;
+> +	int i, num;
+>  
+> -	for (i = 0; i < ARRAY_SIZE(dp_rates); i++) {
+> -		if (dp_rates[i] > max_rate)
+> -			break;
+> -		intel_dp->sink_rates[i] = dp_rates[i];
+> -	}
+> +	num_sink_rates = drm_dp_read_dpcd_sink_rates(&intel_dp->aux,
+> +						     intel_dp->dpcd,
+> +						     intel_dp->lttpr_common_caps,
+> +						     &intel_dp->desc,
+> +						     intel_dp->tunnel,
+> +						     intel_dp->sink_rates);
+> +	if (num_sink_rates < 0)
+> +		num_sink_rates = 0;
+>  
+>  	/*
+> -	 * The following register must be read unconditionally for the later
+> -	 * DP tunnel 128b132b detection to work, see DP Standard v2.1 5.14.3 .
+> +	 * Don't limit the rates of sinks with the 3.24 Gbps DPCD quirk
+> +	 * (needed, e.g., for Apple MBP 2017, 15 inch eDP Retina panels),
+> +	 * they support rates not advertised by DP_MAX_LINK_RATE.
+>  	 */
+> -	drm_dp_dpcd_read_byte(&intel_dp->aux, DP_128B132B_SUPPORTED_LINK_RATES, &uhbr_rates);
+> +	if (!drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS)) {
+> +		/*
+> +		 * Limit the 8b/10b rates to the maximum rate the source can
+> +		 * drive. The 128b/132b rates are all above the maximum 8b/10b
+> +		 * rate and are not limited by the source's DP_MAX_LINK_RATE.
+> +		 */
+> +		max_rate = max_dprx_rate(intel_dp);
+> +		num = 0;
+> +		for (i = 0; i < num_sink_rates; i++) {
+> +			if (!drm_dp_is_uhbr_rate(intel_dp->sink_rates[i]) &&
+> +			    intel_dp->sink_rates[i] > max_rate)
+> +				continue;
+>  
+> -	/*
+> -	 * Sink rates for 128b/132b. If set, sink should support all 8b/10b
+> -	 * rates and 10 Gbps.
+> -	 */
+> -	if (dprx_supports_128b132b(intel_dp)) {
+> -		BUILD_BUG_ON(ARRAY_SIZE(intel_dp->sink_rates) < ARRAY_SIZE(dp_rates) + 3);
+> -
+> -		uhbr_rates = dprx_128b132b_link_rates(intel_dp, uhbr_rates);
+> -
+> -		if (drm_dp_lttpr_count(intel_dp->lttpr_common_caps)) {
+> -			/* We have a repeater */
+> -			if (intel_dp->lttpr_common_caps[0] >= 0x20 &&
+> -			    intel_dp->lttpr_common_caps[DP_MAIN_LINK_CHANNEL_CODING_PHY_REPEATER -
+> -							DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV] &
+> -			    DP_PHY_REPEATER_128B132B_SUPPORTED) {
+> -				/* Repeater supports 128b/132b, valid UHBR rates */
+> -				uhbr_rates &= intel_dp->lttpr_common_caps[DP_PHY_REPEATER_128B132B_RATES -
+> -									  DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
+> -			} else {
+> -				/* Does not support 128b/132b */
+> -				uhbr_rates = 0;
+> -			}
+> +			intel_dp->sink_rates[num++] = intel_dp->sink_rates[i];
+>  		}
+>  
+> -		if (uhbr_rates & DP_UHBR10)
+> -			intel_dp->sink_rates[i++] = 1000000;
+> -		if (uhbr_rates & DP_UHBR13_5)
+> -			intel_dp->sink_rates[i++] = 1350000;
+> -		if (uhbr_rates & DP_UHBR20)
+> -			intel_dp->sink_rates[i++] = 2000000;
+> +		num_sink_rates = num;
+>  	}
+>  
+> -	intel_dp->num_sink_rates = i;
+> +	intel_dp->num_sink_rates = num_sink_rates;
+>  }
+>  
+>  static void intel_dp_set_sink_rates(struct intel_dp *intel_dp)
+> @@ -4722,50 +4667,24 @@ static void
+>  intel_edp_set_sink_rates(struct intel_dp *intel_dp)
+>  {
+>  	struct intel_display *display = to_intel_display(intel_dp);
+> +	int num_sink_rates;
+>  
+> -	intel_dp->num_sink_rates = 0;
+> -
+> -	if (intel_dp->edp_dpcd[0] >= DP_EDP_14) {
+> -		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
+> -		int ret;
+> -		int i;
+> -
+> -		ret = drm_dp_dpcd_read_data(&intel_dp->aux,
+> -					    DP_SUPPORTED_LINK_RATES,
+> -					    sink_rates, sizeof(sink_rates));
+> -		if (ret < 0) {
+> -			drm_dbg_kms(display->drm,
+> -				    "Unable to read eDP supported link rates, using default rates\n");
+> -			memset(sink_rates, 0, sizeof(sink_rates));
+> -		}
+> -
+> -		for (i = 0; i < ARRAY_SIZE(sink_rates); i++) {
+> -			int rate;
+> +	num_sink_rates = drm_dp_read_edp_sink_rates(&intel_dp->aux,
+> +						    intel_dp->edp_dpcd[0],
+> +						    intel_dp->sink_rates);
+> +	if (num_sink_rates < 0)
+> +		num_sink_rates = 0;
+>  
+> -			/* Value read multiplied by 200kHz gives the per-lane
+> -			 * link rate in kHz. The source rates are, however,
+> -			 * stored in terms of LS_Clk kHz. The full conversion
+> -			 * back to symbols is
+> -			 * (val * 200kHz)*(8/10 ch. encoding)*(1/8 bit to Byte)
+> -			 */
+> -			rate = le16_to_cpu(sink_rates[i]) * 200 / 10;
+> -
+> -			if (rate == 0)
+> -				break;
+> -
+> -			/*
+> -			 * Some platforms cannot reliably drive HBR3 rates due to PHY limitations,
+> -			 * even if the sink advertises support. Reject any sink rates above HBR2 on
+> -			 * the known machines for stable output.
+> -			 */
+> -			if (rate > 540000 &&
+> -			    intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+> -				break;
+> +	/*
+> +	 * Some platforms cannot reliably drive HBR3 rates due to PHY limitations,
+> +	 * even if the sink advertises support. Reject any sink rates above HBR2 on
+> +	 * the known machines for stable output.
+> +	 */
+> +	if (num_sink_rates && intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+> +		num_sink_rates = intel_dp_rate_limit_len(intel_dp->sink_rates,
+> +							 num_sink_rates, 540000);
+>  
+> -			intel_dp->sink_rates[i] = rate;
+> -		}
+> -		intel_dp->num_sink_rates = i;
+> -	}
+> +	intel_dp->num_sink_rates = num_sink_rates;
+>  
+>  	/*
+>  	 * Use DP_LINK_RATE_SET if DP_SUPPORTED_LINK_RATES are available,
+> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+> index e63c7f075f54c..9db924ff7c53e 100644
+> --- a/include/drm/display/drm_dp.h
+> +++ b/include/drm/display/drm_dp.h
+> @@ -1228,6 +1228,7 @@
+>  # define DP_UHBR10                             (1 << 0)
+>  # define DP_UHBR20                             (1 << 1)
+>  # define DP_UHBR13_5                           (1 << 2)
+> +# define DP_MAX_128B132B_SUPPORTED_RATES	3
+>  
+>  #define DP_128B132B_TRAINING_AUX_RD_INTERVAL                    0x2216 /* 2.0 */
+>  # define DP_128B132B_TRAINING_AUX_RD_INTERVAL_1MS_UNIT          (1 << 7)
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index 5b05a7fbe174a..d7f4c6f2ba4c7 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -32,6 +32,8 @@
+>  struct drm_device;
+>  struct drm_dp_aux;
+>  struct drm_panel;
+> +struct drm_dp_tunnel;
+> +struct drm_dp_desc;
+>  
+>  bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+>  			  int lane_count);
+> @@ -700,6 +702,15 @@ static inline int drm_dp_dpcd_write_byte(struct drm_dp_aux *aux,
+>  int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
+>  			  u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+>  
+> +int drm_dp_read_dpcd_sink_rates(struct drm_dp_aux *aux,
+> +				const u8 dpcd[DP_RECEIVER_CAP_SIZE],
+> +				const u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE],
+> +				const struct drm_dp_desc *desc,
+> +				const struct drm_dp_tunnel *tunnel,
+> +				int sink_rates[DP_MAX_SUPPORTED_RATES]);
+> +int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
+> +			       int sink_rates[DP_MAX_SUPPORTED_RATES]);
+> +
+>  int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
+>  				 u8 status[DP_LINK_STATUS_SIZE]);
+
+-- 
+Jani Nikula, Intel
