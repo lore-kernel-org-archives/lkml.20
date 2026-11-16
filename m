@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836430;
-	b=GPYkiw0xV4mkXy9Z6f1ObPHxZGQSXcYwe7n7v7/appzvxfWUZhvHyUoC3Iu6E99llFTR
-	 ry64LxB0TFanI3C7F4wyjPEQ4954ReTKKJEFg08L3dlwvihr//EUiIwZTeZ/iZyCly9CK
-	 GyuFt7X2yRfpTYMqanNCV2ZMH8QL4bZk+0D2P4nqYlqYgfeCszO4728iB1MUVhBmD3O2y
-	 RkW9d0BaZLUvd51kxgR3M7IOzeEQPpQiNy4vSmU3+VhRUAtaFwCN/h4N2tVOKJJGJ2Hk0
-	 Bz29hODOtdk3sSZlkIFh6cHd34iBqwZfV0D7n48W0TclYuPnzsabnjRmy3l70YvVLKg==
+	t=1794836426;
+	b=bMJwnu8/6ZyyLYUI77ABaZHWQk3Purmwsw3LFDKSn55PYKevaljZQVkBXONOqwLPOjVh
+	 bBJafLMUwBI9AkB4QjFs5cCJW2vPjKYRLL+xIpRh4+it28orW8UQWfuaKe5Ijr+5OlZTH
+	 SLWIMWCjI21fCqqN+2tpzj89eHicoVb9ZnrF6iTqSI35EFgKtUmEcbnlfxEkDT7j21kmu
+	 BQniHlMYxVxKuJizEsM7rkV2jNtlgo16YCbZkMTmzwKnC7j/itJDGf+QckfPa+2QGebDJ
+	 C5pfQ/gwNRRYSqd618jfkGMEs6/29e1iRwOdMegrhkG6CV+TehA1atvk5ZTlKhpBrsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836430;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5x9NAjwyHTj7gs1TvGr/q/XVOTeFRW8sCriRzxuuRiQ=;
-	b=ChRrfkHxQa4cIZ6pxrjB0SZJP24PicddsqwAf56coVELHIv+ES45VlWF81B/WxYDi8S8
-	 HtReF4UaGoRlxnV6aeN18sEB0J88B87VVD/q3HXF5Ma/Wrv4dIWIB4RCslNCNJxEVtddN
-	 e4fOdPjqmIsV1JYuAs6qgO0U+T48DQkMdShoKPP/2K10oQn2dlpKNz+fyOgdwoSH3eAPv
-	 am/0HmoVEeNyo2IGgDeDcoONnuk5h/E636gocAVs7RpCf68W7IPDc2EqpoleKaADwUIr/
-	 lLyLj3j7tYKfdgBSTEfcPIsBepSUQ3COGV003S0DxRJ0vBxqcnHXlQnki7W55P43yEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836426;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Nbgs+wsdRMc6kX9/pFf9hzcSyrNXKiazeKOtRWb/CGQ=;
+	b=NpvxW6z9QIaw87/g8B1x+XCZnkZT/773yXQu51ECyWpmJGf6Sqz+ebTFVoHpcdNXJq5/
+	 cEl2QgLMmkJTI3E7SGs805jr9Az1hjkFjU750tV7krukN4+O+CkxVk6SkdzPo3OEjOQyx
+	 rENGpfXVDo0XWFcWZXeanbvQBO8CSz8njqrLQkUJsS5e8h5pCxpAy80SMClIk9Lw5xNxd
+	 +rp4Ngviqs1mqTawY/Urxb4lvG8X1IaPJOoFzBmdUyrMFIWVQyk6nCbX/amTsHWDs5mAT
+	 xnHGbslUqYGs0RCXTa/UCyD/Jo8JxGcqn/sYYarTcVscVrRwLSCNLMsLg9Ob3F01StQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEpmx0Dr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=raidlab.org;
+	spf=pass smtp.mailfrom=raidlab.org;
+	dkim=pass header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=KcKgsbjc;
+	arc=none smtp.remote-ip=185.70.43.171
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4FB606A333;
-	Mon, 16 Nov 2026 13:40:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A863606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A863606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=raidlab.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raidlab.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEpmx0Dr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063801F000C7;
-	Mon, 16 Nov 2026 13:40:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794836430;
-	bh=5x9NAjwyHTj7gs1TvGr/q/XVOTeFRW8sCriRzxuuRiQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cEpmx0DrzH4kQYgsIkL897GpxshBlqigkorGhJo3MJ8+VZnRor36BETgWpSsikiZy
-	 a+x8UHIWtb8HhghpobzEAAnBRXwpM7ExMD864dFUseejt6SABl9jVOVY8hbpsYksHt
-	 OxKRMzN6vkTW17vcw/CXflhsSrldtO9M0BDqg1zI1vvNTJ5w/xJJrhEGAjXo3PAe+o
-	 asCk8iN5LZmhUgc+SRGVQ7Ae10QCHG3Toi9Lx5Win+W98o2Z8z8bDZzU8jXRbTc6EN
-	 Ro84Nmtnjda6fCuTuKS+Yt8KSnp7JkiMTeC/eySOLWugBM2N1lFSx7ak8+ldOAsIPZ
-	 ehRje7JdM3o3A==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Tarun Sahu <tarunsahu@google.com>,
-	David Matlack <dmatlack@google.com>,
-	Samiullah Khawaja <skhawaja@google.com>
-Cc: kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=KcKgsbjc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=raidlab.org;
+	s=protonmail; t=1794836422; x=1795095622;
+	bh=Nbgs+wsdRMc6kX9/pFf9hzcSyrNXKiazeKOtRWb/CGQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=KcKgsbjc8t5b+yN4YJdHZLvNeAebOZk/FRNfgSCJZocj2yVGL+EfgV+YWSuRi4LZ8
+	 CgP8V7+Aq0SVWX3X0uitNTvvKlffVorvdmen3WVYotuHH4ft9nHCV2KqdbNFL9J2+q
+	 v+VuVt7fU7i+J3Q5MTouCx/QKL8YQKUXZnyaZ2qV4LfluiYuPBA8J4jrda67uMXorx
+	 mtywrMz2pFBYpCmcj3SP7NDnWqjIKE0zVuzI+yFlBqfQbYqzV/IkCoMduD+ko1Ckvo
+	 e+PCX2ttAiheshTL++BrL1xmwFWwNuhb6Qej0tZS5mn6jn7vs9Jw88EYfu1SyzAa/g
+	 8XFB4x9xxiKKQ==
+X-Pm-Submission-Id: 4jSprz6c5xz2ScQ5
+From: Miroslav Cimerman <mc@raidlab.org>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [RFC PATCH 2/5] kho: build KHO objects into a single kho.o
-Date: Mon, 16 Nov 2026 14:40:07 +0100
-Message-ID: <20261116134013.1636689-3-pratyush@kernel.org>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-In-Reply-To: <20261116134013.1636689-1-pratyush@kernel.org>
-References: <20261116134013.1636689-1-pratyush@kernel.org>
+	Anton Gavriliuk <antosha20xx@gmail.com>
+Subject: [PATCH] md/raid5: grow stripe hash table with the size of stripe cache
+Date: Mon, 16 Nov 2026 13:39:54 +0000
+Message-ID: <20261116133954.5111-1-mc@raidlab.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,46 +67,191 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+The stripe hash table has a fixed size of one page, 512 buckets with
+4 KiB pages. With stripe_cache_size at its current maximum (32768), a
+bucket contains 64 stripes on average. Every stripe lookup walks one
+chain with interrupts off and the hash lock held, and with random I/O
+most lookups miss and walk the whole chain. This costs CPU time on
+every request and makes the hash locks more contended.
 
-kho_block.o is part of the KHO infrastructure, but is currently built as
-part of luo.o, which ties it to CONFIG_LIVEUPDATE.
+Grow the table when stripe_cache_size is written, to about
+STRIPES_PER_HASH_BUCKET (two) stripes per bucket, rounded up to a
+power of two. The new table is allocated before any hash lock is taken,
+and the stripes are moved to it with all hash locks held. The table
+size stays a power of two and a multiple of NR_STRIPE_HASH_LOCKS, so
+every stripe keeps its hash lock. If the allocation fails, the old
+table stays. Moving about 24k stripes (only stripes that have been
+used are in the table) took about 2 ms with interrupts off on the
+Xeon machine below. This happens only when stripe_cache_size is set.
 
-Group all KHO objects into a composite kho.o, built for
-CONFIG_KEXEC_HANDOVER, the same way the LUO objects are grouped into
-luo.o. This also gives a single place to add new KHO objects.
+The table starts at one page as before. It needs at most 8 bytes per
+stripe: 128 KiB at stripe_cache_size=32768, where the stripe pages
+alone take 768 MiB on RAID-6 4+2. The table is not shrunk when
+stripe_cache_size is lowered.
 
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+2x Xeon E5-2699 v3 (one NUMA node used), RAM disks, chunk 512K,
+stripe_cache_size=32768, group_thread_cnt=8, io_uring, without -> with
+this patch:
+
+  RAID-6 4+2  4k random write, 16 jobs QD64  320k -> 355k IOPS  (+11%)
+  RAID-6 6+2  4k random write, 16 jobs QD64  345k -> 381k IOPS  (+10%)
+  RAID-5 5+1  4k random write, 16 jobs QD64  437k -> 514k IOPS  (+18%)
+  RAID-6 4+2  1M seq write, 4 jobs QD16      4410 -> 4971 MiB/s (+13%)
+  RAID-6 4+2  4k random read, degraded       543k -> 705k IOPS  (+30%)
+
+HPE DL345 Gen11, AMD EPYC 9455, 6x PCIe 5.0 NVMe (KIOXIA CM7-V 3.2 TB),
+the same md settings and chunk size:
+
+  RAID-6 4+2  4k random write, 16 jobs QD64  501k -> 536k IOPS   (+7%)
+  RAID-6 4+2  2M seq write, 1 job QD64      10342 -> 13523 MiB/s (+31%)
+
+The CPU time per I/O drops by 21-34% on the Xeon, and by 12% (random)
+and 49% (sequential) on the EPYC. In the 4k random write tests,
+find_get_stripe() drops from 9.2% to 0.6% of all cycles on the Xeon,
+and from 3.4% to 0.2% on the EPYC. With md's default stripe_cache_size
+nothing changes.
+
+Signed-off-by: Miroslav Cimerman <mc@raidlab.org>
 ---
- kernel/liveupdate/Makefile | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/md/raid5.c | 60 +++++++++++++++++++++++++++++++++++++++++++---
+ drivers/md/raid5.h | 14 ++++++++---
+ 2 files changed, 68 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/liveupdate/Makefile b/kernel/liveupdate/Makefile
-index d9f4694625567..bc679905ce3f2 100644
---- a/kernel/liveupdate/Makefile
-+++ b/kernel/liveupdate/Makefile
-@@ -1,13 +1,17 @@
- # SPDX-License-Identifier: GPL-2.0
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index efb4b0d37cb0..5e28ab750398 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -77,7 +77,7 @@ static void raid5_quiesce(struct mddev *mddev, int quiesce);
  
-+kho-y :=								\
-+		kexec_handover.o				\
-+		kho_block.o
-+
-+kho-$(CONFIG_KEXEC_HANDOVER_DEBUGFS) += kexec_handover_debugfs.o
-+
-+obj-$(CONFIG_KEXEC_HANDOVER)		+= kho.o
-+
- luo-y :=								\
--		kho_block.o						\
- 		luo_core.o						\
- 		luo_file.o						\
- 		luo_flb.o						\
- 		luo_session.o
+ static inline struct hlist_head *stripe_hash(struct r5conf *conf, sector_t sect)
+ {
+-	int hash = (sect >> RAID5_STRIPE_SHIFT(conf)) & HASH_MASK;
++	int hash = (sect >> RAID5_STRIPE_SHIFT(conf)) & conf->hash_mask;
+ 	return &conf->stripe_hashtbl[hash];
+ }
  
--obj-$(CONFIG_KEXEC_HANDOVER)		+= kexec_handover.o
--obj-$(CONFIG_KEXEC_HANDOVER_DEBUGFS)	+= kexec_handover_debugfs.o
--
- obj-$(CONFIG_LIVEUPDATE)		+= luo.o
+@@ -7061,6 +7061,57 @@ raid5_show_stripe_cache_size(struct mddev *mddev, char *page)
+ 	return ret;
+ }
+ 
++static unsigned int nr_hash_buckets(int nr_stripes)
++{
++	unsigned int buckets = max(nr_stripes / STRIPES_PER_HASH_BUCKET, 1);
++
++	/*
++	 * The table size must be a multiple of NR_STRIPE_HASH_LOCKS for a
++	 * stripe to keep its lock when the table grows.
++	 */
++	BUILD_BUG_ON(NR_HASH_MIN % NR_STRIPE_HASH_LOCKS);
++	return max_t(unsigned int, roundup_pow_of_two(buckets), NR_HASH_MIN);
++}
++
++/*
++ * Grow the stripe hash table so that there are fewer stripes hashed to
++ * a single bucket when the stripe cache is enlarged.
++ *
++ * This is only an optimization. If the allocation of the new table fails,
++ * the old table stays.
++ */
++static void raid5_grow_stripe_hashtbl(struct r5conf *conf, int nr_stripes)
++{
++	unsigned int new_size = nr_hash_buckets(nr_stripes);
++	unsigned int i, old_size;
++	struct hlist_head *new, *old;
++	struct stripe_head *sh;
++	struct hlist_node *tmp;
++
++	lockdep_assert_held(&conf->cache_size_mutex);
++	old = conf->stripe_hashtbl;
++	old_size = conf->hash_mask + 1;
++	if (new_size <= old_size)
++		return;
++	new = kvzalloc_objs(*new, new_size, GFP_KERNEL | __GFP_NOWARN);
++	if (!new)
++		return;
++
++	lock_all_device_hash_locks_irq(conf);
++	conf->stripe_hashtbl = new;
++	conf->hash_mask = new_size - 1;
++	for (i = 0; i < old_size; i++) {
++		hlist_for_each_entry_safe(sh, tmp, &old[i], hash) {
++			hlist_del(&sh->hash);
++			hlist_add_head(&sh->hash,
++				       stripe_hash(conf, sh->sector));
++		}
++	}
++	unlock_all_device_hash_locks_irq(conf);
++
++	kvfree(old);
++}
++
+ int
+ raid5_set_cache_size(struct mddev *mddev, int size)
+ {
+@@ -7086,6 +7137,7 @@ raid5_set_cache_size(struct mddev *mddev, int size)
+ 			result = -ENOMEM;
+ 			break;
+ 		}
++	raid5_grow_stripe_hashtbl(conf, conf->max_nr_stripes);
+ 	mutex_unlock(&conf->cache_size_mutex);
+ 
+ 	return result;
+@@ -7589,7 +7641,7 @@ static void free_conf(struct r5conf *conf)
+ 			put_page(conf->disks[i].extra_page);
+ 	kfree(conf->disks);
+ 	bioset_exit(&conf->bio_split);
+-	kfree(conf->stripe_hashtbl);
++	kvfree(conf->stripe_hashtbl);
+ 	kfree(conf->pending_data);
+ 
+ 	mempool_destroy(conf->ctx_pool);
+@@ -7785,9 +7837,11 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 		goto abort;
+ 
+ 	ret = -ENOMEM;
+-	conf->stripe_hashtbl = kzalloc(PAGE_SIZE, GFP_KERNEL);
++	conf->stripe_hashtbl = kvzalloc_objs(*conf->stripe_hashtbl,
++					     NR_HASH_MIN);
+ 	if (!conf->stripe_hashtbl)
+ 		goto abort;
++	conf->hash_mask = NR_HASH_MIN - 1;
+ 
+ 	/* We init hash_locks[0] separately to that it can be used
+ 	 * as the reference lock in the spin_lock_nest_lock() call
+diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
+index 1a61b474fc22..6d1d4aa125f2 100644
+--- a/drivers/md/raid5.h
++++ b/drivers/md/raid5.h
+@@ -489,8 +489,12 @@ struct disk_info {
+ 
+ #define	IO_THRESHOLD		1
+ #define BYPASS_THRESHOLD	1
+-#define NR_HASH			(PAGE_SIZE / sizeof(struct hlist_head))
+-#define HASH_MASK		(NR_HASH - 1)
++/*
++ * The stripe hash table starts at one page and is enlarged with
++ * stripe_cache_size, to about STRIPES_PER_HASH_BUCKET stripes per bucket.
++ */
++#define NR_HASH_MIN		(PAGE_SIZE / sizeof(struct hlist_head))
++#define STRIPES_PER_HASH_BUCKET	2
+ #define MAX_STRIPE_BATCH	8
+ 
+ /* NOTE NR_STRIPE_HASH_LOCKS must remain below 64.
+@@ -570,7 +574,11 @@ struct raid5_percpu {
+ 
+ struct r5conf {
+ 	struct hlist_head	*stripe_hashtbl;
+-	/* only protect corresponding hash list and inactive_list */
++	unsigned int		hash_mask; /* stripe_hashtbl size - 1 */
++	/*
++	 * Protect corresponding hash list and inactive_list. All of them are
++	 * held to replace stripe_hashtbl and hash_mask during the table growth.
++	 */
+ 	spinlock_t		hash_locks[NR_STRIPE_HASH_LOCKS];
+ 	struct mddev		*mddev;
+ 	int			chunk_sectors;
+
+base-commit: 47e1b18f38d74015cb9fd30b5ff2a1eb88e77d31
 -- 
-2.56.0.611.g1030f0b940-goog
+2.53.0
 
