@@ -1,98 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794840248;
-	b=C2+1t1IyGKDGGp6r4VSEPYKdNTBZbi9C9mhd8C12ZfsyzTdYp3OzI4fcFHBdJTMTAU3e
-	 3vEs7o2un0UlRZ+2tlH38wc94uAl9kaFEH6kIAcxh29sB2CsfPQ2BxdMZ4ggFWoYLf9xE
-	 +hbda8L8ZuCGLSR7Hy91JWwbXYXSzV+gJDEqVVDtpHJfyXaFDInf2DaU9ys9TpR3Hf3t5
-	 IN6UHoHvDAmAvh0MWWlOXFVBXPGNbYGlvM3LBZI9BWBaD7idfJRrUfn21Awi5lw/+gewg
-	 aweOxL/H7hsweTH0ZRfiGEun7rHT5oHqhA9wMG7WWNGGx9+jEKTMoIBBzS2p30+v/fQ==
+	t=1794840265;
+	b=dAChh7r6/q/2nIJqMHXHa0iCUW5PJ+uRk0uqdDWGOQp7sKqvgvqP4GSYe79cbliAzJz3
+	 GiJGE6poJZNUlvI2BILn3B6ykbZgyvapnYxkhf10GcQKqaF0tdSi/2GbYXuJVMLu6GskV
+	 +fxKNbYtTPB31qGYBpW44QQKcOBAArGNO6yr57vTLMe361220Lg0gpr1nWkkzOBSxA6Gm
+	 a8h6g5pd71kf9EW6HTlUGLTKDBOD3V7uAm+3H/LR9eLjrUokRzvn9PVc4o2nuGCHZGzVH
+	 gPFO150+cisOwTCK/vcFSCZWt0wKZoMCANuaqqb2x3Z27qfO8XtlY2ClYWoPDf9bdIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794840248;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=EiBM1lw6jtHc4Msd9f0+IoWSCWSW1EA52TQ2PRTxuNc=;
-	b=jfbzfVjL033+8IYKkKkwrSDwbO1cnrh/1cG5YVP9Eu0lMC4kKWRrnLjQUoBU5Y4vW2Sb
-	 6f4tCsEogm9n52/ya8xw5cpGgyLaSajLYu9uvUOa+e2tD70R5iHCU0s2R1BJH4E+0fLSw
-	 MiK3jeSlM2BZRuGqGYSjb36Gkc3hVsaVDUhxZ0OOCTE+McDESZqAZTLhq2QIQtjdRY1lv
-	 7KYGW8KOwG826pOBpcr8QDXBqxp3gdGoaWugV9bCG1AS7UsBeUMDPct0BEMnn+kuAbvJC
-	 +Rpwq28ENZGu1qCYO69eiQ/7D1O8m1fBd7i4KbH2d9jNB2soRh3Fd4P+mrSUqJ+IYkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794840265;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=2kuZOBWjmhmmLjP8fRTgGm7vuccSc99dr7ng/N6d78E=;
+	b=qWrfWB7yG9ouNdcXykv39uzJngTOKpAeEuHwEQ2oq6SZdC3FnAYLiJN8+dSRLS1gVaWd
+	 bOCHdrwfvLpSBGECVMahptzbBpb/nfuyVBMKWq7gW8pyBhc0f9pBQy7+Ne9syVUXgaZzb
+	 u5KCzenM5iV829gL6faaOU+NHg+pVDN83sbq1k5u0CC9E5jowNP17sxAhfS8erQ2qvU/W
+	 4smxGJc5l5YBC837IXnsyHXUKkB9PDhntuiUvavhuI6gvkWqFz8tnEKCxOHxhsbMfWNcx
+	 Pm3wKBFYgj0nJO+grzTwlTKAy71UvSxcaM+OrBg5nqzprEJG3sD/ItvqzQY3qII8VZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dDxqpyPl;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=radxa.com;
+	spf=pass smtp.mailfrom=radxa.com;
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CDD606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:44:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5CDD606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dDxqpyPl
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-491971ac844so3113208f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:44:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794840246; x=1795445046; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EiBM1lw6jtHc4Msd9f0+IoWSCWSW1EA52TQ2PRTxuNc=;
-        b=dDxqpyPlhMnIDKOOdulSkH3iBLaI7M1xknBBwRKdP9D2bShvNZtuYOTZbP+x+jb85C
-         m2RQswzPfF2sa+1yR7MRuq+5hy8Nkr/t+OiOkWG+UFljGlXmU0Yq/Djb4egwgEMto8Ac
-         vBOxUT94VgsA5Sn6iKR2/bBsvTIFyfUaxwHemT0zsBrGe5xYT6LiwbUAUdDJcJoXE20v
-         iwQ6RZFEQdGNf+Emso/3is0/Q7QtOjBLJyi4C2WTxm4YIThFPP6x81jLFCg6HaoJWR30
-         6Xi2Ds6WP2qIygmRujvMmqNMej8DmyzoSwyOlhkNMdWcVV3Jon5bLQqT/i2QFJ9j3UB0
-         R0kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794840246; x=1795445046;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EiBM1lw6jtHc4Msd9f0+IoWSCWSW1EA52TQ2PRTxuNc=;
-        b=egPG5ttbTf4fNVDfb5L/kyk+zc4bejSJyhEyK4YVM3dKhA7i/v4H7P5WxOatXxEttn
-         llBXSXrMIHc0EFtSWCzd1IqHYHB8i5RWF2PPkQpt68ULTKAlweio49QLptgRfEBGqOZk
-         hH8THntmT5Xmvc3EZRqo8l0aKtrN5bFjdw+Z21fkt+yX362PDo+O+yY9eJL5XwAbRMw0
-         yZGWzCdAQfkTRgs0EUFmiYvMdBeSWTsm/63QkKKPSj1Tojw6nXmyhRO1islYDUb6m8AA
-         TW7RfRzeAxDI7gX9tJNiUSVUZIXtoQ9VSnaYA2sM5zZu4cy7uXOANcOgQcHSYdZUByQJ
-         YaSg==
-X-Forwarded-Encrypted: i=1; AL+hErFoimyqPK7fVHekQpNqDU4uz0AmulsyMxqLbOYE8tprJKRqG06/0lrBdeQGZCaaFeqeOlx/JAeu7q2+yUM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kmCGmZlu6VY0qGomNyhL9RFwo1eJ1Aar7z6acdxPSCrKunZrA
-	Wb7iG4qdvdSYCM9fGnGRl4H79gNYb2QTBg2haWV7G829iqG08YMI0c9VQwu02MHoRRo=
-X-Gm-Gg: AZFdTZdPJsudLaXDXTKJxBklaMloxr38SkjvXWId87pucHqKJlMemrCON9o2+i912i6
-	2TD2VCWJin2GMYxTiralr7xUmPgQM6Y92Y8kCtIkpf/NwPRNyG49jILsJvcasabWiXdduNZy8HQ
-	kolCw/V+nvsRRWeouPkPb6Kra0LgIHoWiUymbv5FXy40grIUqPE0Gzyp/ldFdEx+AOTFL7sTXr6
-	uQl0ZTfjQwHTjFJbJPRy8fqihy62Mx73I6Usv3f4jz+OSXK8qAX+67n2PR8vLSW8gqJ+GXPq4oX
-	bbROCohsr0sfGzHS3XhC4BaEOMR0U09Yg1rt13JDgwfRVgGoDmY9dpacrGJdyaYdQEckf3k8wDp
-	Jr4Pu2iiUsTEUo9gZilBuv5WTgGvtSiz7LoAnwHdlvgxJKZCwzWlaPeDvUAh8sE8I0gnUYVb7qf
-	VLbENosbJYBRGKTgIgfNzeSui5BWdSKlk5oXIooYBMmEUQ6WBei7YDBJVZIs60yirBSCO4d2DMz
-	eXN/NWns6vqw1xMVjVT4XoTYNFIdInXI3EtLuX6U9E3dO82ubQBMTiyRd2L6khMf/XjKGjA9JCl
-	2Om+8qZk1ZbKI4TMQRe7MStUpmdiZ/pqxsblpCFbx+Kmw2bi78hdiTnNj1aymg0t
-X-Received: by 2002:a05:6000:46db:b0:492:7d9c:fcf8 with SMTP id ffacd0b85a97d-49c73350e60mr16833660f8f.49.1794840245956;
-        Mon, 16 Nov 2026 06:44:05 -0800 (PST)
-Received: from localhost ([2001:861:80:deb0:b65e:146c:107f:26ed])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60d9fff8sm24003588f8f.52.2026.11.16.06.44.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 06:44:02 -0800 (PST)
-From: Julien Masson <jmasson@baylibre.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: <linux-mediatek@lists.infradead.org>, <lee@kernel.org>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <matthias.bgg@gmail.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <kernel@collabora.com>,
- <wenst@chromium.org>, Alexandre Mergnat <amergnat@baylibre.com>
-Subject: Re: [PATCH PARTIAL-RESEND v12 0/5] Add support MT6316/6363/MT6373
- PMICs regulators and MFD
-In-Reply-To: <afc3ec2a-90b5-440d-9710-2b3892b01b6c@collabora.com>
-References: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
- <179239867012.642420.15110854236483587234.b4-review@b4>
-Date: Mon, 16 Nov 2026 15:44:01 +0100
-Message-ID: <8733t0ygy6.fsf@baylibre.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6AE606A31C;
+	Mon, 16 Nov 2026 14:44:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA6AE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip2t1794840243t617b2a6e
+X-QQ-Originating-IP: CFSIFdcloDVFT33Z342POrn1WXtNdQEi2iKLLXITvZE=
+Received: from [192.168.30.32] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 16 Nov 2026 22:43:57 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 2011228312288718548
+EX-QQ-RecipientCnt: 11
+From: Xilin Wu <sophon@radxa.com>
+Date: Mon, 16 Nov 2026 22:43:55 +0800
+Subject: [PATCH] arm64: dts: qcom: sc8280xp: fix GPU peak bandwidth votes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,42 +53,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-sc8280xp-gpu-bw-v1-1-cfffc13f2fbe@radxa.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz1giLqLQqyCGJjhgBhrF/EmIu
+ 5O24ze8d4JyFFZ4ZSdE3kTlMyeYPAM3vueBUfpkoIIqY0yF6mqqiyPgEFa0O9r+Qb6hsvHuCak
+ Kkb0cv2Pb/a2rndgt3w1c1w1145jTcwAAAA==
+X-Change-ID: 20261116-sc8280xp-gpu-bw-bd32f9249fc7
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dragon@radxa.com, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2644; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=K8sDikKS7Y6bLOmCz7bfwrfBbld/nD4D6VZ4pa13bMc=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFm/xdZJrd/BtfPItF11bR2zpjpm7JFf+nr3hDSTTWITc
+ 5eHHX3H3FHKwiDGxSArpsiiEM8wl70y99pTsVI9mDmsTCBDGLg4BeAiJxj+Zy5O/O/PzRz+qH7f
+ tCN/Llckh6n37GxJe+e04rdigJe7IsP/FOevrimFc3qu1W57v6hpn07xj41LwvrMq6Y8O2f1tNe
+ ZHQA=
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OatzRg8pHEjpw1VUa8u8zTxGGKKUI+EN8qo5uj9SB2yjxgkfh0PFeLVR
+	1qkjLCVv9bKft6+a/4efNZeYrAXlNfah0XlLjA+DOcSpiTsJTwsb/JuWKh+FPi2JElvYhOK
+	eqTEG/XiOHLxCqL6AHN90umixoD9PVDwu9Wa5bKJCA0EJNzJ6WQqX5NSnEmvkQZHKhhmfKM
+	WUbEf2ZgvGj5ZlIlg5TOftkMcM4i9MzvIloPdE/llrlFQOwUObxUPbdxO0PAK+JwsozxVZO
+	tGiCHE9ijxTUQHnFv9DtP/n1sGmneTNsjfu72LaNn9oSPqGYTdsZT77qL22BxRaTohsXcwr
+	Otb0vWZJAoRsmRVpD3HsP9zKp0V55yUp49OGcMl/LmomIBS33IktIX4+TmUepRpM+hVe5rN
+	LnhF0KwnELp6kTs4n5t63M7RnAcALvKzmqHvPFgcfiB3WoAL9LA6Gs31tBGG3beaOrjPLH6
+	6ll1DtF7q/en32Tp86CY+am3obF4kZ3wHukkzbjzvjemXOUEtWV0T9S8t56frQz5qMjsBgY
+	UqVySK09m+/T2t7/NbO5wIQW5ZEjfP7Gqy6UTP9XJhWpBnXv3OaAgx+DAVqqYmWzjk39bKF
+	JL/gUsAXSyrSNbO3o0+/H+div6ZsixpNWYWMCirw5Y5trX9DI/jdbtmxVVK+vhPmL+N3sSR
+	AeEOI+atWawWJmzWXcPoa8vR8Q0EzYmpW3mUSMz7yQI4AxkoURunwfOfib9Euf/2+N7tumW
+	hGkAB/9U8h2qtk5KnucO742D/WXS4J66CuBUTJQ2USBR2t8Gp0GRsY+9zq8PW+urwOMdfMf
+	ppbiElYHK1b1NmyAztDIHgBcqyZ+gRqiEmyR0WEqv8LFCdoaeUsgwz5C2expQjQPZqBrKaG
+	+jtA+SbmNPdD+rCfxulUNviVitl+2RbZeMbkDRZq7Zi8XRmf0kG3SpATj3g3Ww5+tqVKvWv
+	mX07uUNF2Shk6UT9cxp91YdiCyYYCtrSoXl8T5+vq4XXlIsl/2HoR7YyTUbTFPp1NEiXNTr
+	LQpUc/43KvHSX8EeQ7
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-Hi Angelo,
+The GPU OPP peak bandwidths omit the four-byte DDR interface width.
+As a result, the interconnect receives a quarter of the intended peak
+bandwidth, which can limit performance under memory-intensive loads.
 
-The SPMI sub-device series has been merged and is part of v7.4-rc1:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=10c833da4dde3d9bb19e2092a33abafdaa16a341
+Include the interface width when converting the existing DDR frequency
+levels to decimal kB/s.
 
-Would you be able to send it in the coming weeks ?
-We have customers waiting on MT6363 support for the Genio Pro 5100,
-and we'd be happy to test it on our boards or help with the remaining
-review comments if that's useful.
+With this change, clpeak --opencl --bandwidth reports an increase in
+bandwidth from 23.3 GB/s to 60.5 GB/s.
 
-On Tue 20 Oct 2026 at 11:07, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> wrote:
+Fixes: eec51ab2fd6f ("arm64: dts: qcom: sc8280xp: Add GPU related nodes")
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-> On 10/19/26 10:31, Alexandre Mergnat wrote:
->> Hi Angelo,
->> 
->> I'm working on mainline support for the MT6363 MFD PMIC.
->> 
->> Are you planning to send a new revision addressing the review feedback
->> on v12? If you don't have time to pick it up again, I'd be happy to
->> help address the remaining comments and prepare a new revision,
->> if that works for you.
->> 
->> Thanks for your work on this!
->> 
->> Cheers,
->> Alexandre
->> 
-> 
-> Yes, I do have a new version locally which didn't get sent because of the SPMI
-> series (introducing the new helpers) that didn't get picked yet.
-> 
-> Cheers,
-> Angelo
-> 
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+index d17475c3e66c..d4c49ea52c36 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+@@ -3420,49 +3420,49 @@ gpu_opp_table: opp-table {
+ 				opp-270000000 {
+ 					opp-hz = /bits/ 64 <270000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+-					opp-peak-kBps = <451000>;
++					opp-peak-kBps = <1804000>;
+ 				};
+ 
+ 				opp-410000000 {
+ 					opp-hz = /bits/ 64 <410000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+-					opp-peak-kBps = <1555000>;
++					opp-peak-kBps = <6220000>;
+ 				};
+ 
+ 				opp-500000000 {
+ 					opp-hz = /bits/ 64 <500000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+-					opp-peak-kBps = <1555000>;
++					opp-peak-kBps = <6220000>;
+ 				};
+ 
+ 				opp-547000000 {
+ 					opp-hz = /bits/ 64 <547000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
+-					opp-peak-kBps = <1555000>;
++					opp-peak-kBps = <6220000>;
+ 				};
+ 
+ 				opp-606000000 {
+ 					opp-hz = /bits/ 64 <606000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+-					opp-peak-kBps = <2736000>;
++					opp-peak-kBps = <10944000>;
+ 				};
+ 
+ 				opp-640000000 {
+ 					opp-hz = /bits/ 64 <640000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+-					opp-peak-kBps = <2736000>;
++					opp-peak-kBps = <10944000>;
+ 				};
+ 
+ 				opp-655000000 {
+ 					opp-hz = /bits/ 64 <655000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
+-					opp-peak-kBps = <2736000>;
++					opp-peak-kBps = <10944000>;
+ 				};
+ 
+ 				opp-690000000 {
+ 					opp-hz = /bits/ 64 <690000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+-					opp-peak-kBps = <2736000>;
++					opp-peak-kBps = <10944000>;
+ 				};
+ 			};
+ 		};
 
--- 
-Julien Masson
+---
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+change-id: 20261116-sc8280xp-gpu-bw-bd32f9249fc7
+
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
+
