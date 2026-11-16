@@ -1,127 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795242;
-	b=R8jeOJQRjZ9/SqiBGimYtgZDnVjxnZbQfHM1Jt2cIj+yPm7xU654BHaafvhJuJFJ6+LD
-	 pPEzCk3cU/hTec7JmdXm3Vaz3E6p6H0oq/+SnXcsOv3vSU7Lw70b4fgLlXiHmsvhKH/BC
-	 2D43hWUQ5qtDs6QwOuDjZR/iU0Tx6dWL0vZsT3CDxTWhVxAexslmu0vs+H11BwUaDub2G
-	 +T7XMws7D5xinsub5UG3aVoMINzHg6UBUBsMbS4JvL/RzyCXiuqIzfMadifE5meAdGFml
-	 wFjkML/f88JoBG6fiY5rdqY6Y/DfWyop5y8rVixGYh3JhjQXMH6Azm6NEvCS30SDzcA==
+	t=1794795288;
+	b=FyD+OMt7ZxAXchwmlhr5h92bmsu+6jGlSIqa10EECUWVaezBjycv7Mto+foaIHrWYE+v
+	 zof2nTvK9CE783rUDvo2X0Hea65QD3J6x5bR4/VQJQuSEPeZs2TtmaBjZ2UY1ZmS93YTA
+	 pEryd1Vomea1hGzZw9PswXZUi/FuQ/qNxxbUrGHACPokp7cpOJ0dGT3XRNmIMfpjdpGWD
+	 P+iz/JUfK3TehRtg1Q1yt5OJf2Q9XjAlRvXSL6GcsGB2vaTvBXaU/0Y+wkCDhgoBrL7LS
+	 Kpe9sOqah8JUI8doEVm1LPgO+piUpTGALdBFPSsBQFjl/yZPX/iMGWgVFWaBHPtFFBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795242;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=ugaUD7Exh/dOiKWEmehd/cblaOSUygEQnFqj0j36kzI=;
-	b=Xz0C+1a56rNrmlsMJWUj7wCf55gj3F/t2YQZMsrgZAWYi9CE1xA2b/H4PPhXMTrDgD6i
-	 eZgLjorOSExGRLcRHwz8Zz5XsfXn2vHHZY43whgw8YDlFJZL9aLBJtVa5Ymhr2XyU72LD
-	 c5hrVAtlOrGy9NHDN3Ud8TXBUiiDqZ5RUc8z5Ledk6KF/3HIsNc7hhGC+mB56lxtcCM6r
-	 ufctT0Neg+5fDIZOGRrvPGhQGDcMfsyHOQHrWEoAAFc4fMbNLBrH6Kdd5G86SNmLyv2Yd
-	 2b9E4wobPAMwsaCx/fu/Wo82mJnNcuuXeR2sQgzmLwIAjvbvC4CjfMGbTPPf3UngN8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795288;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=864FAA6YweKAzn6YTHxoTvwaGejxMEO7rBi0aHeqezk=;
+	b=YfLlAC1CtBtj9L5T3E7gUrO1Blyo60u5S/waPQdWxF3xI5Uk+854194UGWJZUNJhp0+e
+	 HuNga6uls1qnE+aDgfsowouW6Yh1/b4P+icK4SsOoSSUpq/rfez9rdicop5X546bdQ7In
+	 /3i+nj4TwyyrT+sv7w1kOmNLsIX0NdrljEUawkIjYovefpvbTHMmEeOIGil8UWnBdZXp9
+	 5ikTaotoH2/ipb03AeaikEl6jnaF2RRA1S8REtsXkdy/kpVchuoWlpq548i0iTM7rHak9
+	 pzfxcs78u1Mn9A1jyaKRzABbhsjkDwcGtpEvp9wuSdamcyq43O1fOhxcye6FooIRYqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=sE8pUHqW;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=BZGes3vz;
-	arc=none smtp.remote-ip=202.12.124.137
-Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=SK14jKxO;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5681D606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:14:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5681D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44040606A31C;
+	Mon, 16 Nov 2026 02:14:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44040606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=sE8pUHqW;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=BZGes3vz
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.stl.internal (Postfix) with ESMTP id CA2CE1302C5B
-	for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 21:14:00 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Sun, 15 Nov 2026 21:14:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794795239; x=
-	1794802439; bh=ugaUD7Exh/dOiKWEmehd/cblaOSUygEQnFqj0j36kzI=; b=s
-	E8pUHqWl1m8mrq6LGKaDGpr//EwfkzcHxNv96nMbi/eJqLKBKWcmp/lyn+xCHzyX
-	DjgVZng5cIcIv7Qfa0UG+z1evZ2pFe0pbGAX5nOR/cVnV8L3xX6hXm/UgfH7RB/f
-	d5DbKxR9ZNgzV6pYcEYeRSrlcRmeDT0WWATxew5ltc04+5bqDzFTyY0+GIXhCl+Q
-	PyPB+6sPGK6c7k28WUKkQQqxE/s5dPrQcEnRzHrVVW0mI492mKX/mj2kAIRXgows
-	efjr/G9HYaVt0GRdmwL7TnvyxUPRjboD/8rJLNHKAO0sCqbDgSvIt1WREddy0Nl5
-	3JuW3UedVm/qezKeX365g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794795239; x=1794802439; bh=u
-	gaUD7Exh/dOiKWEmehd/cblaOSUygEQnFqj0j36kzI=; b=BZGes3vz5UcWMD4bQ
-	7SmaGE9gGty/asUHAbxNRiAjXe/1zKkyB/8Z8G8iNkA3gIZPpS7BHFzieHop4fXK
-	soLsl0UPGSKVgdQPrznnRZv2rxjqV7WyY/bU0oiuOKp9J/wbvaRjW+HmPSJSUsoc
-	zefIoU1e0CLyHKp9eKXSo9Srx4dNWJMJ5NuHZYRGvWQVcywVMk4ffOwnKjjbqNdC
-	yPWgi1pmb8GVE3M9WCIijHF79nFMUc9hJxPuTUKgxRelfIRJt4pcM+su2TmeyJW5
-	GbEi8IGIZ/DsIL73jmnD1T14YWGHs1V/6EGb+9rKmr77RuUES81qoyKv0decfQ2P
-	9WByw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794795239; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Btkm9pUC/KqWMvQi3xhE32giPlfKKQWh7UhuSaM0CbJ/wWG
-	5eSK9a5FpsdLGR3OcfVVdEpt3GBjKsMIT8AFMO41ztlsyJJ0zcANBBFuAjsP5Nhy
-	FJJ00pdh7bAH15cZH1JnBlmTZLQu9J97qfMjmoyVzTQC+ZEAOKdU8wTEFkDZy9bd
-	RkRZrHDZH6uH974pHKycFsGw6MSISy/8ct6HMamJRRaAqJ0CsoGRRqvlCS62QMPF
-	fUXYY018Z1LaDakVNRvHxB9awlxI4ccOPke7psDIJNBKOhQSygpYZkyVRIxSwuK3
-	rlRPbc50pPSmxAykfohhmZcY0NtXErL2GOT9gIQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:a0SUuwxdXjfHi9veqSVPqwMMof9IFkme6BOSKv1wGq4=:ugaUD7Exh/dOiKWEmehd/cblaOSUygEQnFqj0j36kzI=;
-X-ME-Sender: <xms:5mb6ao6SX6CxSKaKTOKXXI3btITn9Y0sLRnu5aTj6hJcAPHvDK8d8A>
-    <xme:5mb6au2v0XI78fi0hpbTAwbN9nxcJiBEMUybUOam-eXZyD5hceIyf_Li730_N90l5
-    c5ydbB4fPOBAshPhKYt7QK3ppmZLtmpRB7D1jV2V6lb_Qj0Plu49oTa>
-X-ME-Received: <xmr:5mb6arsFU31bWWmgtY_EzyWNWh6dYWGqBR_r_OGld-6Mtr03AszqahEhc_73X5y8>
-X-ME-Proxy-Cause: dmFkZTGFIhyhDLa8hCqx+pHyX8RXm1/F8IxDFWP8po2umGjNomO14L385ifnOaol0e1Q5S
-    mozlZXmxCzAlnLWsWrciqC6HsT5r/gK8BNB9f9TVyiBE7J9LY1DnAVrwQx2I38fNqJl3sB
-    RszqqvNLy5iEFfWM2ZaJt4+ymipA1yv7b4IC0rIe5AT/vDy6OaPXXuZksIR1iB1AkBSIxm
-    VAeH3j5Z1CSzyCYYnL6dC47Odz3LiGX0GVTlZTL/K9Q13klpH3uZA+NemLKVnbCa9OneN1
-    SLWhBX7j4vD66cdqEqh91UULtg0ueJ31/Quw5mTnuG2s9j+ffvQX8JabMhbsmSAtzLuYXu
-    6P5qYNEz5cYSQ0Cy0sxLxI4fnRnc50MCnyhLyoPqQ4NgFTv9cQykdYWuuD9ZZkpYdgVvMY
-    YP1UIorhMlfjvKrC4gQtgc5JBwrxJ3m+ZUdjOZfiavUxdYYQuFPBIhUY0XXUR53L3RJw8X
-    s+2zghNronIEMpwT/7EWoj/0FAqMXoQbgw3vB77e2KgBRowUoqJcVnbq4l1Lr6oAgJcS97
-    ALmWSnnM/V18sQsk+qYvpA7H/B/b5IeIda3LjEquH9IqbCu28uF8d137xX9nDLWFQv4e94
-    8P/THNLu1OpzR83z47tupFqUboSdePPxcV7q+GmRY2qejXMbuA9qOPTrFd4A
-X-ME-Proxy: <xmx:5mb6as4ohXdKOHORDuMzjnTSWoe3SgxZJZOyjFmwNGarQAKdUlMTBQ>
-    <xmx:5mb6avdvSpEfENdaHoQ_iQIGegNN-MrbecIIqRNacbDIFdxIzrEcFQ>
-    <xmx:5mb6ahx9yZ7dvoJbBmirUStwf115uolXwmHRFmml6jzsATlgvgUdrQ>
-    <xmx:5mb6as-lp7OtHaFDCN-NTal-DAHtywfcUB3FvkcexkinRCqLzRBCCw>
-    <xmx:52b6atKjVJdktuvSULswZb9v2_QkWkhrqMjGfKW4LjTenKCjdz9tIMC8>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 15 Nov 2026 21:13:57 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: koray.fra@gmail.com
-Cc: linkinjeon@kernel.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH v3 1/2] ksmbd: decode and honor DOS attribute validity flags
-Date: Sun, 15 Nov 2026 20:13:51 -0600
-Message-ID: <20261116021351.2485365-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261115155308.415734-1-koray.fra@gmail.com>
-References: <20261115155308.415734-1-koray.fra@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=SK14jKxO
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AG2Eb5mA2947241, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794795278; bh=864FAA6YweKAzn6YTHxoTvwaGejxMEO7rBi0aHeqezk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=SK14jKxORCRku2AGcmZrmv+TAOgrXa1dxENsD4EfAlPNud2Ff40IfOUkf6SZ6sD/J
+	 cy7X4WHGa2yCG4wUtr/TOZcmcmouLg13zI4lPQ+Xhdx+hO9qajiCe6gX7rzeucFqJB
+	 hlJpFB6tkkHkURjs5MiZAr608mdcsgVt2YyeG5k5g8QAvcEmaZEsa1zw3gMtnvpc0d
+	 +b1Aj/GR/eaZG62jso7rrA2uJWJzuDAZ/XOYduy6Bsnf//V0z/KjLVXt0ijhgCkERk
+	 BtlBcC5mFpjRgDSFe8hgfje2hkOZQ3C9i+aAHKEDDNcoRooPfJu5l4ai0Y/wki7dcv
+	 3DbaPG5Coq5VA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AG2Eb5mA2947241
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 16 Nov 2026 10:14:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 16 Nov 2026 10:14:36 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 16 Nov 2026 10:14:36 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Enver Ikromov <owner@ph4ntom-rev.uz>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v5 07/10] wifi: rtw89: send injected control
+ frames through the management path
+Thread-Topic: [PATCH rtw-next v5 07/10] wifi: rtw89: send injected control
+ frames through the management path
+Thread-Index: AQHdc8qmfuHwz0gXRk62fz2izryq2bcv9R/Q
+Date: Mon, 16 Nov 2026 02:14:36 +0000
+Message-ID: <0a32e2d1a6d745a88f1a814c5bf145cc@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
+ <20261113235211.1911-8-owner@ph4ntom-rev.uz>
+In-Reply-To: <20261113235211.1911-8-owner@ph4ntom-rev.uz>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,26 +83,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On Sun, Nov 15, 2026 at 04:53:07PM +0100, koraynilay wrote:
-> Currently, when setting file attributes via FSCTL_SET_SPARSE,
-> FSCTL_SET_COMPRESSION, or FileBasicInformation, ksmbd hardcodes
-> flags = 0x51 (XATTR_DOSINFO_ATTRIB | XATTR_DOSINFO_CREATE_TIME |
-> XATTR_DOSINFO_ITIME). This injects unrequested creation time and itime
-> into user.DOSATTRIB on disk, even though the client only requested an
-> attribute modification.
+Enver Ikromov <owner@ph4ntom-rev.uz> wrote:
+> rtw89_core_get_tx_type() classifies every frame that is neither a
+> management nor a null-data frame as data. Injected control frames
+> such as a 10-byte ACK or 16-byte RTS therefore go through
+> rtw89_core_tx_update_data_info(), which derives a TID and data queue
+> from skb->priority and enables AMPDU/QoS related descriptor fields
+> that make no sense for them.
 
-I tested both patches with the server code of ksmbd-for-next
-(3bc1fb9c3b20). Files whose xattr older ksmbd left without the creation
-time flag now report their stored creation time and attributes, and a
-rewrite sets the flag again. A file created over SMB keeps its flags and
-itime when it is made sparse or compressed. A creation time set through
-a second handle survives a later sparse request through the first.
-smbtorture gives the same results as without the series, and KASAN
-reports nothing.
+Original design is only to send urgent packets via MGMT queue, and
+I think no control frame sent vi driver. Instead, firmware/hardware
+will sent them.
 
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+Did you encounter real problem if CTS/RST goes via AC queue?
+I just don't want much conditions in data path.
+
+>=20
+> Classify injected non-data frames as management frames. Frames
+> generated by mac80211 itself, such as BlockAckReq, are not affected.
+
+Did you actually see driver sends control frames generated by mac80211?
+If so, when and how?
+
+>=20
+> In addition, rtw89_core_tx_update_desc_info() reads hdr->seq_ctrl at
+> offset 22 for every frame. Control frames have no sequence control
+> field and are shorter than 24 bytes, so only read hdr->seq_ctrl from
+> non-control frames whose linear header is long enough to carry it.
+
+I think all control frames have no sequence control, just fill seq=3D0
+for them?
+
+>=20
+> Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
+> ---
+>  drivers/net/wireless/realtek/rtw89/core.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wire=
+less/realtek/rtw89/core.c
+> index 54605f7..7003c24 100644
+> --- a/drivers/net/wireless/realtek/rtw89/core.c
+> +++ b/drivers/net/wireless/realtek/rtw89/core.c
+> @@ -637,12 +637,21 @@ static enum rtw89_core_tx_type
+>  rtw89_core_get_tx_type(struct rtw89_dev *rtwdev,
+>                        struct sk_buff *skb)
+>  {
+> +       struct ieee80211_tx_info *info =3D IEEE80211_SKB_CB(skb);
+>         struct ieee80211_hdr *hdr =3D (void *)skb->data;
+>         __le16 fc =3D hdr->frame_control;
+>=20
+>         if (ieee80211_is_mgmt(fc) || ieee80211_is_any_nullfunc(fc))
+>                 return RTW89_CORE_TX_TYPE_MGMT;
+>=20
+> +       /* Injected control frames have no QoS/TID and no data payload, s=
+o
+> +        * send them through the management path. Control frames built by
+> +        * mac80211 itself (e.g. BlockAckReq) keep using the data path.
+> +        */
+
+The code self-explain it is injection, no need comment.
+
+But I still wonder this is required? Any problem without this?
+
+> +       if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED) &&
+> +           !ieee80211_is_data(fc))
+> +               return RTW89_CORE_TX_TYPE_MGMT;
+> +
+>         return RTW89_CORE_TX_TYPE_DATA;
+>  }
+>=20
+> @@ -1299,7 +1308,7 @@ rtw89_core_tx_update_desc_info(struct rtw89_dev *rt=
+wdev,
+>         enum btc_pkt_type pkt_type;
+>         bool upd_wlan_hdr =3D false;
+>         bool is_bmc;
+> -       u16 seq;
+> +       u16 seq =3D 0;
+>=20
+>         desc_info->pkt_size =3D skb->len;
+>=20
+> @@ -1315,7 +1324,10 @@ rtw89_core_tx_update_desc_info(struct rtw89_dev *r=
+twdev,
+>         else if (tx_req->vif)
+>                 desc_info->mlo =3D ieee80211_vif_is_mld(tx_req->vif);
+>=20
+> -       seq =3D (le16_to_cpu(hdr->seq_ctrl) & IEEE80211_SCTL_SEQ) >> 4;
+> +       /* control frames (e.g. 10-byte ACK/CTS) have no sequence control=
+ */
+> +       if (!ieee80211_is_ctl(hdr->frame_control) &&
+> +           skb_headlen(skb) >=3D sizeof(struct ieee80211_hdr_3addr))
+> +               seq =3D (le16_to_cpu(hdr->seq_ctrl) & IEEE80211_SCTL_SEQ)=
+ >> 4;
+
+If my thought is correct, here can just
+
+	if (ieee80211_is_ctl(hdr->frame_control))
+		seq =3D 0;
+	else
+		seq =3D (le16_to_cpu(hdr->seq_ctrl) & IEEE80211_SCTL_SEQ) >> 4;
+
+>         addr_cam =3D rtw89_get_addr_cam_of(tx_req->rtwvif_link,
+>                                          tx_req->rtwsta_link);
+>         if (addr_cam->valid && desc_info->mlo)
+> --
+> 2.56.0.windows.4
+>=20
+
