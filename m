@@ -1,67 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836439;
-	b=s1tcUS/1+rvLRgODg/AwDF8Ti/dB/TC6czLPS0HMZ4HL07xyR17T5bdLFmPeF6HV+40H
-	 EOG8YR2DtVmuRpsS6UyRMTrZ+0UTwRyxQ2H4oGbOd+tea6ZaxRdotStF19HnO26d7L+FF
-	 3EMTJappM89/LHKE8N/4OY0+qHLePeNkLnCERrF1xPRbmf6gUG+tRg8zDjewTnc3QwKUE
-	 BAm9d5hJcdr1yjDHCmoptbE3tHUm35eHLgZUROKXnHwFVuksyix1osvGadOurlsL9Xi7c
-	 O/KW4dqX+paCPBEPXfF539A30pmvFDh97Qzcr/9p5EEbzvuhiGvurlzolEBppwH+agA==
+	t=1794836441;
+	b=bU15I4vJCh3wMZxZflnR/+sdZzmrfr2Qcrux/dAAs5ElbbnYrDZrWAurVBpiEUv4vyF7
+	 ggSH0WzoMv02ULWrtUMGFKk8R+JQiCgiziS1BE2r1KmkT9MRkqgYhqJJEIoYALFtHD9CQ
+	 MqWoN4VdYBQeUkAoS7FGygdQp4c2Hhv6PEw7eZbqZz20HTvk8JtwHfjWr9Kpoe5Md0ohD
+	 IE2nYPRreSCSf9M8WFZtV+iS+i5eXCAkM8LHkhG5DfXy6qrYEY7csdcf5Q+Hzy0ASDwlS
+	 coo1bQHu+Og2zINg58lNXx710Y/yt+TXU7p3qVFc3xqrRygriJ1OcUNgOKr1M6I2Bdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836439;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=o58Uk0z5/VSRQnQFdmkvJUPFvXFWWXuI0VIVQWg8Ntc=;
-	b=nUjzVILfjm/MSOJCnbzj4LHg+BDGbhkdzfZtVQy2/2Kdk1dd0piQilpC9Q1FcoUuEWlI
-	 OjPbeZ+gA61UBB5nndQ4ZObPnPnCfpbZqvOqq6hBXqOPtFIYP01oy4gbG5vKpU4S+mFAz
-	 4wiCLelbgC0DoIAsLmIXKx8ZXVAWz3e4QpuJo0a/rC2P7noRioVxrYC7txyXe8sBuwqia
-	 u/0qcpib+W3eOUAWQdYlsJhCHmitfF50NP1ZAhM/U9cssoRjnhp9hckUr9al+EHODiSal
-	 rQjs0Nng3lQsBKHnoGec0hZFHJ6qy+/P+Mi7OwceEZ1qe8eUJrJaxNNUKfJxQBY4hWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836441;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:X-Mailer;
+	bh=rYZSKiWzbzGDSkOFczv6tAqyqip908dCHTB+bDdlwYA=;
+	b=4tO2Dz0XlOB02wZgM/dBKrDFBUCf1eyS5Z++SQIWcjym0i123NVdhWhzzfIzRYjBgALh
+	 obqlXlJQULgCp4lxvZOAV6LyrsKQF0bmOB/7mgyIIZmq6U9EUwQUOtFiYHr/jzM2rVAgM
+	 fU7jULeJDn8lFcw3AMRCNhhwphb4j0CtM5jvWNejvxNBNz7VuxAiw8/L7lZ+ea4E5OBSQ
+	 d7AIHzv5juejBmzhaVeXNtOLyj25vvCXOFFNjbkaZ3cqTdEqnA2q4RyHywI6rdrux32aa
+	 D2XtTEM2XPAIRPSCzS8eh5NPSw1Zl0eu5n/9tfe9fDoSEcJ4V48XnoQkWd3FcrV9kiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekrNzw2m;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=pereq.eu;
+	spf=pass smtp.mailfrom=cryspen.com;
+	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b="bhS+0H/y";
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E14606A886;
-	Mon, 16 Nov 2026 13:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80576606A8B3
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:40:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80576606A8B3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekrNzw2m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B331F000C8;
-	Mon, 16 Nov 2026 13:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794836439;
-	bh=o58Uk0z5/VSRQnQFdmkvJUPFvXFWWXuI0VIVQWg8Ntc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ekrNzw2mvFn2PJisggTurCwF2ov2lnxA6T8q36VvLLlstkTzn+0BbvitSMnVMSDXl
-	 bFKl4pZiIgN896OsTJNTHnfxmJUldVYAoAK4HjrUHdo8IvqetGOuXvc97KcWET8D9C
-	 yGgPHcO4Zy0x/0QjK8pKyK/qv/kXL8xYFEDgDNnqWuPrQuOPblsO3tTfOxxI3Ttd/y
-	 npNGfGsDRuHg2ZfGJLmMKZ9TnLV8YH8vZi0TFeIZC4TZjqzhjEPUSdXUm9CLrFNPaj
-	 4RfJ+Pmb/KL4XO/FxxVbXAm5mEQNbd7lgQbKFDLEA3kaDmhyinvdM4xvaDQrLLN1fF
-	 vFhftlq/Zdw7A==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Tarun Sahu <tarunsahu@google.com>,
-	David Matlack <dmatlack@google.com>,
-	Samiullah Khawaja <skhawaja@google.com>
-Cc: kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [RFC PATCH 5/5] mm/memfd_luo: use KHO map for tracking folios
-Date: Mon, 16 Nov 2026 14:40:10 +0100
-Message-ID: <20261116134013.1636689-6-pratyush@kernel.org>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-In-Reply-To: <20261116134013.1636689-1-pratyush@kernel.org>
-References: <20261116134013.1636689-1-pratyush@kernel.org>
+	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=bhS+0H/y
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c505186727fso93293566b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:40:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pereq.eu; s=google; t=1794836439; x=1795441239; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rYZSKiWzbzGDSkOFczv6tAqyqip908dCHTB+bDdlwYA=;
+        b=bhS+0H/y2buVQdfOOhcjcWHZQCBDCiQCbEpaoaan7fCUgnsl+IwitbOfGxAWWMYEyD
+         Wb3AOKZ0B25ND5F/L/gxIMF/ZcNPsoTprY6ghR0L+BHXFMml24JUGBini4o+iZHYeELE
+         v+Lu0pBjaaFBVWIemyUWGpXuHFJRH5wDBx+EC6gmJVwZ3Vj7zxKHFgWgnuvfYrPzqgVy
+         KOLqVGmYENW/8YW/+A0F2ZTnv8DVa6yWI016T7nbjGiiFPIpxVoFKYxF2Q0cmGHARm3A
+         NLAJvNWEItLmqP9KhervxmTuXJ71xgNVu3LhV5JudJq9K4H1z3EnD9GVKmK19b8tV2Wi
+         5/zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794836439; x=1795441239;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rYZSKiWzbzGDSkOFczv6tAqyqip908dCHTB+bDdlwYA=;
+        b=PS3yO/HqdaJwDijdLhBSnyfMXy/5GmCzXxqGcmwEhnc7Bdqvc+7P+j5rO9PMq/qMVS
+         5Wcx5qgbnYQ3PRA3i8+91NZt45cnbfmIPZRS0+2szMDcAnf+stC1jRlPaNZLD8fJ+GKY
+         dT1hsk/cHgRLG8b5Mx1qspZg7gDaoibXT4OfmM/XX5Nn2AmonaMo0/5sPj/78HP3I8l0
+         LEUFGTPPcfq4ACDTE2lCgkNjEDiIgpqFZ9nDRZNM7HHcbeNl2Bgat1CYERr7eCk1xi3q
+         XGbIJpagAlVyzq9SjixroJor5Qfath/e5wqFbU/aGYqUj+2s7MQZsLEgC0oGl6bQG3he
+         5+ww==
+X-Forwarded-Encrypted: i=1; AL+hErFIdZqt3c60sHcQH81aHkEEgraHqeXyHTVCNCBcaonaR9ZyV8qQRJdUz96glhijldpSVqwxCTYp4mtSIFk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8g0DlED2icOz+9vvFpeRUQjkEpHvfoFArARaAzpHoZgEcRYbey
+	OdKYvEf/13uR122T1dql5+IH8ys1K7N8ip/XXyJf9RZAi3PkV4W/+eKNher+yTYMss4=
+X-Gm-Gg: AYBFou0NiMBw0RAioEVV81hOUlyZCOzj1Zf8RIj74CSNZcfz/P5bF7eU3mk0EI6P9Y1
+	+JtnxGkoQG6MtLv5SQ3DWwUyhXNrSbVnGyuTiOLHsiId55nZUCRmiF+Xl4Xe9iP8eaT4+jbaKLY
+	CLniCanZjXDV7y5C7tMKKaf822jFF1Kjw5FzRiLdvAP3iTp0nwmxVDGBG5KH7ZYC+/gDrr1eqB4
+	3ZN1WGjGe30QG+oxd2K8vH7R9Ve4ZtUOMg9t3vMVKMYGHbP8BIVNGMLmD4M5ZkI/AaaIFVi2Z5b
+	ema4aCQUX+NzDwTRumflTk6/MxOV5flZupbzBm5FBig6ieqjbuMqbQzV0UfxShQuSxOQyhwW1mo
+	Rtzfqt2DR9U3XV9vwNG2tHz5LkrADzf6m/gpqCzbbfR0U5FIf5yTmzGFIkeUUhJ87pgRmHMODYi
+	iH77xtmtao5Kz8wuE6YsSOKJNyDSiNa5b9bZKdgJI2NV2vmjgwrn8HZLCje4qGo3BJPEHDPhVLJ
+	2GTg0PWDetuWeXgK3WluAKwsNDyigBBe608hVDr0wMDMYXC3QC26UnH49VSXc88Nkn/DRgo0ckj
+	Vy/qPwltwCP1O1O4w4A=
+X-Received: by 2002:a17:907:9492:b0:c2e:52d6:1fb7 with SMTP id a640c23a62f3a-c509636a2ffmr771296866b.22.1794836438561;
+        Mon, 16 Nov 2026 05:40:38 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b2369asm426229866b.25.2026.11.16.05.40.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 05:40:37 -0800 (PST)
+Date: Mon, 16 Nov 2026 16:40:34 +0300
+From: Dan Carpenter <dan@pereq.eu>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
+	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
+Subject: [PATCH] KVM: arm64: nv: Fix NULL dereference in kvm_inject_nested()
+Message-ID: <avsH0lxpLIF2Ug64@stanley.mountain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,628 +102,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+There is a NULL dereference of vcpu->arch.hw_mmu in kvm_inject_nested()
 
-Currently the folios of the memfd are tracked in a vmalloc-ed array.
-Each entry takes 16 bytes. 8 bytes for the index and another 8 for the
-folio info. This is inefficient for memfds with order 0 folios. Updating
-the map after preservation is also impractical. This makes supporting
-sparse memfds more difficult.
+Unable to handle kernel NULL pointer dereference at virtual address 0000000000000084
+  kvm_vcpu_put_hw_mmu (arch/arm64/kvm/nested.c:1046) (P)
+  vhe_vcpu_put (arch/arm64/kvm/arm.c:827)
+  kvm_arch_vcpu_put (arch/arm64/kvm/arm.c:860)
+  kvm_inject_nested (arch/arm64/kvm/emulate-nested.c:2903)
+  kvm_inject_nested_serror (arch/arm64/kvm/emulate-nested.c:2976)
+  kvm_inject_serror_esr (arch/arm64/kvm/inject_fault.c:365)
+  __kvm_arm_vcpu_set_events (arch/arm64/kvm/guest.c:827)
+  kvm_arch_vcpu_ioctl (arch/arm64/kvm/arm.c:2017 arch/arm64/kvm/arm.c:2157)
+  kvm_vcpu_ioctl (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:4772)
 
-Use a KHO map to track the folios instead. The key is the index of the
-folio in the file, so it no longer needs to be stored in the entry, and
-each entry shrinks to a single u64 holding the PFN and the folio flags.
+KVM_SET_VCPU_EVENTS does not load the vcpu, but it injects a pending
+SError or external abort straight away.  If the vcpu is in L2 context
+and L1 has asked for the exception, kvm_inject_nested() puts and loads
+a vcpu that is not loaded.  vcpu->arch.hw_mmu is NULL when the vcpu is
+not loaded, so kvm_vcpu_put_hw_mmu() dereferences a NULL pointer.
 
-struct memfd_luo_ser now embeds struct kho_map_ser in place of the
-folios array and nr_folios. This changes the ABI, so bump the compatible
-string to "memfd-v3".
+To fix this bug, only put and load the vcpu when it is loaded, similar
+to what kvm_reset_vcpu() does.  When the vcpu is not loaded there is
+nothing to switch: the next kvm_arch_vcpu_load() loads L1's context.
 
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Fixes: 9aba641b9ec2 ("KVM: arm64: nv: Respect exception routing rules for SEAs")
+Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dan Carpenter <dan@pereq.eu>
 ---
- include/linux/kho/abi/memfd.h |  39 +++--
- mm/memfd_luo.c                | 292 +++++++++++++++-------------------
- 2 files changed, 151 insertions(+), 180 deletions(-)
+This was found through Pereq's formal analysis but the stack trace
+comes from real life testing.
 
-diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
-index 08b10fea2afc8..b17ada3af7abb 100644
---- a/include/linux/kho/abi/memfd.h
-+++ b/include/linux/kho/abi/memfd.h
-@@ -11,8 +11,11 @@
- #ifndef _LINUX_KHO_ABI_MEMFD_H
- #define _LINUX_KHO_ABI_MEMFD_H
- 
-+#include <linux/bits.h>
-+#include <linux/build_bug.h>
- #include <linux/types.h>
- #include <linux/kho/abi/kexec_handover.h>
-+#include <linux/kho/abi/map.h>
- 
- /**
-  * DOC: memfd Live Update ABI
-@@ -23,6 +26,10 @@
-  * The state is serialized into a packed structure `struct memfd_luo_ser`
-  * which is handed over to the next kernel via the KHO mechanism.
-  *
-+ * The folios of the file are stored in a KHO map. The value at a folio index
-+ * is a ``union memfd_luo_folio_ser``. A value of 0 means there is no folio at
-+ * that offset.
-+ *
-  * This interface is a contract. Any modification to the structure layout
-  * constitutes a breaking change. Such changes require incrementing the
-  * version number in the MEMFD_LUO_FH_COMPATIBLE string.
-@@ -45,16 +52,21 @@
- #define MEMFD_LUO_FOLIO_UPTODATE	BIT(1)
- 
- /**
-- * struct memfd_luo_folio_ser - Serialized state of a single folio.
-- * @pfn:       The page frame number of the folio.
-- * @flags:     Flags to describe the state of the folio.
-- * @index:     The page offset (pgoff_t) of the folio within the original file.
-+ * union memfd_luo_folio_ser - Serialized state of a single folio.
-+ * @val:   The raw value stored in the KHO map.
-+ * @pfn:   The page frame number of the folio.
-+ * @flags: Flags to describe the state of the folio.
-  */
--struct memfd_luo_folio_ser {
--	u64 pfn:52;
--	u64 flags:12;
--	u64 index;
--} __packed;
-+union memfd_luo_folio_ser {
-+	u64 val;
-+	struct {
-+		u64 pfn:52;
-+		u64 flags:12;
-+	};
-+};
-+
-+/* It must fit into a KHO map entry. */
-+static_assert(sizeof(union memfd_luo_folio_ser) == sizeof(u64));
- 
- /*
-  * The set of seals this version supports preserving. If support for any new
-@@ -74,20 +86,17 @@ struct memfd_luo_folio_ser {
-  * @seals:     The seals present on the memfd. The seals are uABI so it is safe
-  *             to directly use them in the ABI.
-  * @flags:     Flags for the file. Unused flag bits must be set to 0.
-- * @nr_folios: Number of folios in the folios array.
-- * @folios:    KHO vmalloc descriptor pointing to the array of
-- *             struct memfd_luo_folio_ser.
-+ * @folios:    Folios in the file.
-  */
- struct memfd_luo_ser {
- 	u64 pos;
- 	u64 size;
- 	u32 seals;
- 	u32 flags;
--	u64 nr_folios;
--	struct kho_vmalloc folios;
-+	struct kho_map_ser folios;
- } __packed;
- 
- /* The compatibility string for memfd file handler */
--#define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
-+#define MEMFD_LUO_FH_COMPATIBLE	"memfd-v3"
- 
- #endif /* _LINUX_KHO_ABI_MEMFD_H */
-diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-index 50dbbda47ad3c..26cdb41f40532 100644
---- a/mm/memfd_luo.c
-+++ b/mm/memfd_luo.c
-@@ -84,31 +84,25 @@
- #include <linux/io.h>
- #include <linux/kexec_handover.h>
- #include <linux/kho/abi/memfd.h>
-+#include <linux/kho_map.h>
- #include <linux/liveupdate.h>
- #include <linux/migrate.h>
- #include <linux/sched/mm.h>
- #include <linux/sched/signal.h>
- #include <linux/shmem_fs.h>
- #include <linux/swap.h>
--#include <linux/vmalloc.h>
- #include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- 
- #include "internal.h"
- 
--static void memfd_luo_put_folios(const struct memfd_luo_folio_ser *folios_ser,
--				 u64 nr_folios)
-+static void memfd_luo_put_folios(struct kho_map *map)
+x86 implements kvm_arch_vcpu_ioctl() differently and puts vcpu_load()
+at the start of the ioctl.  But the way arm64 does it is deliberately
+and just something that people working with the code need to be aware
+of, I guess.
+
+ arch/arm64/kvm/emulate-nested.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
+index 2bec81668361..22ca735a34f6 100644
+--- a/arch/arm64/kvm/emulate-nested.c
++++ b/arch/arm64/kvm/emulate-nested.c
+@@ -2862,7 +2862,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
+ 			     enum exception_type type)
  {
--	u64 i;
-+	union memfd_luo_folio_ser entry;
-+	u64 index;
+ 	u64 pstate, mode;
+-	bool direct_inject;
++	bool direct_inject, loaded;
  
--	for (i = 0; i < nr_folios; i++) {
--		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
--		struct folio *folio;
--
--		if (!pfolio->pfn)
--			continue;
--
--		folio = pfn_folio(pfolio->pfn);
-+	kho_map_for_each(map, index, entry.val) {
-+		struct folio *folio = pfn_folio(entry.pfn);
+ 	if (!vcpu_has_nv(vcpu)) {
+ 		kvm_err("Unexpected call to %s for the non-nesting configuration\n",
+@@ -2891,6 +2891,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
+ 	}
  
- 		kho_unpreserve_folio(folio);
- 		folio_put(folio);
-@@ -190,9 +184,9 @@ static int memfd_luo_get_folio(struct inode *inode, pgoff_t index,
- 	return 0;
- }
+ 	preempt_disable();
++	loaded = (vcpu->cpu != -1);
  
--static int memfd_luo_preserve_folio(struct folio *folio,
--				    struct memfd_luo_folio_ser *pfolio)
-+static int memfd_luo_preserve_folio(struct folio *folio, struct kho_map *map)
- {
-+	union memfd_luo_folio_ser entry = {};
- 	int err;
+ 	vcpu_set_flag(vcpu, IN_NESTED_EXCEPTION);
  
- 	err = kho_preserve_folio(folio);
-@@ -210,7 +204,7 @@ static int memfd_luo_preserve_folio(struct folio *folio,
- 	 * might still be a mapping of the file at freeze().
- 	 *
- 	 * To see why this is a problem, say a folio is clean at
--	 * preserve, but gets dirtied later. The pfolio flags will mark
-+	 * preserve, but gets dirtied later. The preserved flags will mark
- 	 * it as clean. After retrieve, the next kernel might try to
- 	 * reclaim this folio under memory pressure, losing user data.
- 	 *
-@@ -220,46 +214,31 @@ static int memfd_luo_preserve_folio(struct folio *folio,
+@@ -2900,7 +2901,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
  	 */
- 	folio_mark_dirty(folio);
+ 	__kvm_adjust_pc(vcpu);
  
--	pfolio->pfn = folio_pfn(folio);
--	pfolio->flags = MEMFD_LUO_FOLIO_DIRTY | MEMFD_LUO_FOLIO_UPTODATE;
--	pfolio->index = folio->index;
-+	entry.pfn = folio_pfn(folio);
-+	entry.flags = MEMFD_LUO_FOLIO_DIRTY | MEMFD_LUO_FOLIO_UPTODATE;
-+	err = kho_map_set(map, folio->index, entry.val);
-+	if (err) {
-+		kho_unpreserve_folio(folio);
-+		return err;
-+	}
+-	kvm_arch_vcpu_put(vcpu);
++	if (loaded)
++		kvm_arch_vcpu_put(vcpu);
  
- 	return 0;
- }
+ 	kvm_inject_el2_exception(vcpu, esr_el2, type);
  
--static int memfd_luo_preserve_folios(struct file *file,
--				     struct kho_vmalloc *kho_vmalloc,
--				     struct memfd_luo_folio_ser **out_folios_ser,
--				     u64 *nr_foliosp)
-+static int memfd_luo_preserve_folios(struct file *file, struct kho_map *map)
- {
--	struct memfd_luo_folio_ser *folios_ser, *shrunk;
- 	struct inode *inode = file_inode(file);
--	u64 nr_folios = 0, max_folios;
- 	unsigned int pin_flags;
- 	pgoff_t index = 0, end;
- 	int err;
- 	loff_t size;
- 
- 	size = i_size_read(inode);
--	/*
--	 * If the file has zero size, then the folios and nr_folios properties
--	 * are not set.
--	 */
--	if (!size) {
--		*nr_foliosp = 0;
--		*out_folios_ser = NULL;
-+	/* If the file has zero size, then the folios map is left empty. */
-+	if (!size)
- 		return 0;
--	}
- 
--	/*
--	 * Guess the number of folios based on inode size. Real number might end
--	 * up being smaller if there are higher order folios.
--	 */
- 	end = DIV_ROUND_UP_ULL(size, PAGE_SIZE);
--	max_folios = end;
--	folios_ser = vmalloc_array(max_folios, sizeof(*folios_ser));
--	if (!folios_ser)
--		return -ENOMEM;
- 
- 	/*
- 	 * The folios are held until the next kernel, so keep newly allocated
-@@ -281,75 +260,41 @@ static int memfd_luo_preserve_folios(struct file *file,
- 			goto err_restore;
- 		}
- 
--		if (WARN_ON_ONCE(nr_folios >= max_folios)) {
--			err = -EINVAL;
--			goto err_restore;
--		}
--
- 		err = memfd_luo_get_folio(inode, index, &folio);
- 		if (err)
- 			goto err_restore;
- 
--		err = memfd_luo_preserve_folio(folio, &folios_ser[nr_folios]);
-+		err = memfd_luo_preserve_folio(folio, map);
- 		index = folio_next_index(folio);
- 		folio_unlock(folio);
- 		if (err) {
- 			folio_put(folio);
- 			goto err_restore;
- 		}
--		nr_folios++;
- 	}
- 	memalloc_pin_restore(pin_flags);
- 
--	/*
--	 * Free the unused tail so it doesn't get preserved. If vrealloc fails,
--	 * the folios_ser is still valid.
--	 */
--	shrunk = vrealloc(folios_ser, array_size(nr_folios, sizeof(*folios_ser)),
--			  GFP_KERNEL);
--	if (shrunk)
--		folios_ser = shrunk;
--
--	err = kho_preserve_vmalloc(folios_ser, kho_vmalloc);
--	if (err)
--		goto err_put;
--
--	*nr_foliosp = nr_folios;
--	*out_folios_ser = folios_ser;
--
--	/*
--	 * Note: folios_ser is purposely not freed here. It is preserved
--	 * memory (via KHO). In the 'unpreserve' path, we use the vmap pointer
--	 * that is passed via private_data.
--	 */
- 	return 0;
- 
- err_restore:
- 	memalloc_pin_restore(pin_flags);
--err_put:
--	memfd_luo_put_folios(folios_ser, nr_folios);
--	vfree(folios_ser);
-+	memfd_luo_put_folios(map);
-+	kho_map_destroy(map);
- 	return err;
- }
- 
--static void memfd_luo_unpreserve_folios(struct kho_vmalloc *kho_vmalloc,
--					struct memfd_luo_folio_ser *folios_ser,
--					u64 nr_folios)
-+static void memfd_luo_unpreserve_folios(struct kho_map *map)
- {
--	if (!nr_folios)
--		return;
--
--	kho_unpreserve_vmalloc(kho_vmalloc);
--	memfd_luo_put_folios(folios_ser, nr_folios);
--	vfree(folios_ser);
-+	memfd_luo_put_folios(map);
-+	kho_map_destroy(map);
- }
- 
- static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- {
- 	struct inode *inode = file_inode(args->file);
--	struct memfd_luo_folio_ser *folios_ser;
- 	struct memfd_luo_ser *ser;
--	u64 nr_folios, inode_size;
-+	struct kho_map *folios;
-+	u64 inode_size;
- 	int err = 0, seals;
- 
- 	inode_lock(inode);
-@@ -380,19 +325,38 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- 	ser->size = inode_size;
- 	ser->seals = seals;
- 
--	err = memfd_luo_preserve_folios(args->file, &ser->folios,
--					&folios_ser, &nr_folios);
--	if (err)
-+	/*
-+	 * The runtime handle of the folios map is needed until unpreserve(),
-+	 * so keep it in private_data.
-+	 */
-+	folios = kmalloc_obj(*folios);
-+	if (!folios) {
-+		err = -ENOMEM;
- 		goto err_free_ser;
-+	}
-+
-+	kho_map_init(folios, &ser->folios);
-+	/*
-+	 * Preserve the empty tree right away, so every node allocated for the
-+	 * tree is auto-preserved.
-+	 */
-+	err = kho_map_preserve(folios);
-+	if (err)
-+		goto err_free_folios;
-+
-+	err = memfd_luo_preserve_folios(args->file, folios);
-+	if (err)
-+		goto err_free_folios;
- 
--	ser->nr_folios = nr_folios;
- 	inode_unlock(inode);
- 
--	args->private_data = folios_ser;
- 	args->serialized_data = virt_to_phys(ser);
-+	args->private_data = folios;
- 
- 	return 0;
- 
-+err_free_folios:
-+	kfree(folios);
- err_free_ser:
- 	kho_unpreserve_free(ser);
- err_unlock:
-@@ -432,27 +396,26 @@ static void memfd_luo_unpreserve(struct liveupdate_file_op_args *args)
- 
- 	ser = phys_to_virt(args->serialized_data);
- 
--	memfd_luo_unpreserve_folios(&ser->folios, args->private_data,
--				    ser->nr_folios);
-+	memfd_luo_unpreserve_folios(args->private_data);
-+	kfree(args->private_data);
- 
- 	kho_unpreserve_free(ser);
- 	inode_unlock(inode);
- }
- 
--static void memfd_luo_discard_folios(const struct memfd_luo_folio_ser *folios_ser,
--				     u64 nr_folios)
-+/*
-+ * Restore and free all folios in @map with keys starting from @start. @map must
-+ * already be restored.
-+ */
-+static void memfd_luo_discard_folios(struct kho_map *map, u64 start)
- {
--	u64 i;
-+	union memfd_luo_folio_ser entry;
-+	u64 index;
- 
--	for (i = 0; i < nr_folios; i++) {
--		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
-+	kho_map_for_each_from(map, index, entry.val, start) {
-+		phys_addr_t phys = PFN_PHYS(entry.pfn);
- 		struct folio *folio;
--		phys_addr_t phys;
- 
--		if (!pfolio->pfn)
--			continue;
--
--		phys = PFN_PHYS(pfolio->pfn);
- 		folio = kho_restore_folio(phys);
- 		if (!folio) {
- 			pr_warn_ratelimited("Unable to restore folio at physical address: %llx\n",
-@@ -464,22 +427,25 @@ static void memfd_luo_discard_folios(const struct memfd_luo_folio_ser *folios_se
- 	}
- }
- 
--/* Drop the references retrieve() holds on the folios added to the file. */
--static void
--memfd_luo_put_retrieved_folios(const struct memfd_luo_folio_ser *folios_ser,
--			       u64 nr_folios)
-+/*
-+ * Drop the references retrieve() holds on the folios added to the file, i.e.
-+ * the folios in @map with keys below @end.
-+ */
-+static void memfd_luo_put_retrieved_folios(struct kho_map *map, u64 end)
- {
--	for (u64 i = 0; i < nr_folios; i++) {
--		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
-+	union memfd_luo_folio_ser entry;
-+	u64 index;
- 
--		if (pfolio->pfn)
--			folio_put(pfn_folio(pfolio->pfn));
-+	kho_map_for_each(map, index, entry.val) {
-+		if (index >= end)
-+			break;
-+
-+		folio_put(pfn_folio(entry.pfn));
- 	}
- }
- 
- static void memfd_luo_finish(struct liveupdate_file_op_args *args)
- {
--	struct memfd_luo_folio_ser *folios_ser;
- 	struct memfd_luo_ser *ser;
- 
- 	/* If retrieve failed, it already cleaned up everything it could. */
-@@ -496,48 +462,51 @@ static void memfd_luo_finish(struct liveupdate_file_op_args *args)
- 		 * file so it can be used normally.
- 		 */
- 		struct inode *inode = file_inode(args->file);
--
--		folios_ser = args->private_data;
-+		struct kho_map *retrieved = args->private_data;
- 
- 		inode_lock(inode);
--		memfd_luo_put_retrieved_folios(folios_ser, ser->nr_folios);
-+		memfd_luo_put_retrieved_folios(retrieved, U64_MAX);
- 		shmem_freeze(inode, false);
- 		inode_unlock(inode);
- 
--		vfree(folios_ser);
--	} else if (args->retrieve_status == 0 && ser->nr_folios) {
-+		kho_map_destroy(retrieved);
-+		kfree(retrieved);
-+	} else {
- 		/* Retrieve was not called, discard the preserved folios. */
--		folios_ser = kho_restore_vmalloc(&ser->folios);
--		if (folios_ser) {
--			memfd_luo_discard_folios(folios_ser, ser->nr_folios);
--			vfree(folios_ser);
-+		struct kho_map folios;
-+
-+		if (kho_map_restore(&folios, &ser->folios)) {
-+			pr_warn("Unable to restore folios map\n");
-+			goto out;
- 		}
-+
-+		memfd_luo_discard_folios(&folios, 0);
-+		kho_map_destroy(&folios);
- 	}
- 
-+out:
- 	kho_restore_free(ser);
- }
- 
--static int memfd_luo_retrieve_folios(struct file *file,
--				     struct memfd_luo_folio_ser *folios_ser,
--				     u64 nr_folios)
-+/*
-+ * Add the folios in @folios to @file. @folios must already be restored. On
-+ * success, a reference is kept on each added folio, which is dropped in
-+ * finish(). On failure, everything is cleaned up except @folios itself.
-+ */
-+static int memfd_luo_retrieve_folios(struct file *file, struct kho_map *folios)
- {
- 	struct inode *inode = file_inode(file);
- 	struct address_space *mapping = inode->i_mapping;
--	struct folio *folio;
- 	long npages, nr_added_pages = 0;
-+	union memfd_luo_folio_ser entry;
-+	struct folio *folio;
- 	int err = -EIO;
--	long i;
-+	u64 index;
- 
--	for (i = 0; i < nr_folios; i++) {
--		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
--		phys_addr_t phys;
--		u64 index;
--		int flags;
-+	kho_map_for_each(folios, index, entry.val) {
-+		phys_addr_t phys = PFN_PHYS(entry.pfn);
-+		unsigned long flags = entry.flags;
- 
--		if (!pfolio->pfn)
--			continue;
--
--		phys = PFN_PHYS(pfolio->pfn);
- 		folio = kho_restore_folio(phys);
- 		if (!folio) {
- 			pr_err("Unable to restore folio at physical address: %llx\n",
-@@ -545,8 +514,6 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 			err = -EIO;
- 			goto put_folios;
- 		}
--		index = pfolio->index;
--		flags = pfolio->flags;
- 
- 		/* Set up the folio for insertion. */
- 		__folio_set_locked(folio);
-@@ -554,16 +521,16 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 
- 		err = mem_cgroup_charge(folio, NULL, mapping_gfp_mask(mapping));
- 		if (err) {
--			pr_err("shmem: failed to charge folio index %ld: %d\n",
--			       i, err);
-+			pr_err("shmem: failed to charge folio index %llu: %d\n",
-+			       index, err);
- 			goto unlock_folio;
- 		}
- 
- 		err = shmem_add_to_page_cache(folio, mapping, index, NULL,
- 					      mapping_gfp_mask(mapping));
- 		if (err) {
--			pr_err("shmem: failed to add to page cache folio index %ld: %d\n",
--			       i, err);
-+			pr_err("shmem: failed to add to page cache folio index %llu: %d\n",
-+			       index, err);
- 			goto unlock_folio;
- 		}
- 
-@@ -575,8 +542,8 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 		npages = folio_nr_pages(folio);
- 		err = shmem_inode_acct_blocks(inode, npages);
- 		if (err) {
--			pr_err("shmem: failed to account folio index %ld(%ld pages): %d\n",
--			       i, npages, err);
-+			pr_err("shmem: failed to account folio index %llu(%ld pages): %d\n",
-+			       index, npages, err);
- 			goto remove_from_cache;
- 		}
- 
-@@ -603,21 +570,10 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 	 * Drop the references held on the folios already added to the file.
- 	 * The folios themselves will be freed when the file is freed.
+@@ -2915,7 +2917,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
  	 */
--	memfd_luo_put_retrieved_folios(folios_ser, i);
-+	memfd_luo_put_retrieved_folios(folios, index);
+ 	__kvm_adjust_pc(vcpu);
  
- 	/* Free the ones not added yet here. */
--	for (long j = i + 1; j < nr_folios; j++) {
--		const struct memfd_luo_folio_ser *pfolio = &folios_ser[j];
--		phys_addr_t phys;
--
--		if (!pfolio->pfn)
--			continue;
--
--		phys = PFN_PHYS(pfolio->pfn);
--		folio = kho_restore_folio(phys);
--		if (folio)
--			folio_put(folio);
--	}
-+	memfd_luo_discard_folios(folios, index + 1);
+-	kvm_arch_vcpu_load(vcpu, smp_processor_id());
++	if (loaded)
++		kvm_arch_vcpu_load(vcpu, smp_processor_id());
+ 	vcpu_clear_flag(vcpu, IN_NESTED_EXCEPTION);
  
- 	shmem_recalc_inode(inode, nr_added_pages, 0);
- 
-@@ -626,8 +582,8 @@ static int memfd_luo_retrieve_folios(struct file *file,
- 
- static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- {
--	struct memfd_luo_folio_ser *folios_ser = NULL;
- 	struct memfd_luo_ser *ser;
-+	struct kho_map *folios;
- 	struct file *file;
- 	int err;
- 
-@@ -672,25 +628,31 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- 	shmem_freeze(file_inode(file), true);
- 	inode_unlock(file_inode(file));
- 
--	if (ser->nr_folios) {
--		folios_ser = kho_restore_vmalloc(&ser->folios);
--		if (!folios_ser) {
--			err = -EINVAL;
--			goto put_file;
--		}
-+	folios = kmalloc_obj(*folios);
-+	if (!folios) {
-+		err = -ENOMEM;
-+		goto put_file;
-+	}
- 
--		err = memfd_luo_retrieve_folios(file, folios_ser, ser->nr_folios);
--		if (err)
--			goto free_folios_ser;
-+	err = kho_map_restore(folios, &ser->folios);
-+	if (err) {
-+		pr_err("failed to restore folios map: %pe\n", ERR_PTR(err));
-+		goto free_folios;
- 	}
- 
-+	err = memfd_luo_retrieve_folios(file, folios);
-+	if (err)
-+		goto destroy_folios;
-+
- 	args->file = file;
--	args->private_data = folios_ser;
-+	args->private_data = folios;
- 
- 	return 0;
- 
--free_folios_ser:
--	vfree(folios_ser);
-+destroy_folios:
-+	kho_map_destroy(folios);
-+free_folios:
-+	kfree(folios);
- put_file:
- 	fput(file);
- free_ser:
+ 	preempt_enable();
 -- 
-2.56.0.611.g1030f0b940-goog
+2.53.0
 
