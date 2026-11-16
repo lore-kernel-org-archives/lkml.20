@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870010;
-	b=xPuJOPaFaygYmSZiB/jjjxPVJcFAu8ydUMpcNBQJ12EcZwFw0S534O1kgqqfgYgW0OtO
-	 qGVEnHVZj5AYH2wN5/83r+mss7ZS/J2uBTXNZp6+q9F4ixS111rA6AErxErFmWuovmQbp
-	 eFzyNYZLhcUgVGbA8S7+Ipx4qP1M7Snsfz0NNDUmjyq8ea5fj5xnE4CGZyRg2Fzvf4wzr
-	 mrbYXml4XZ04V5eOlvI3hD/bL9r0/KDEnjjCGcZDy9LzmPIsAZfgv97zEn+3lgI6q7kbS
-	 blfOi2919lFaKqIKCz+ckT+yoQkeIrUF7l/TAOVjpdtO4P5OaYq2v4xKU2no0/zSr2g==
+	t=1794870011;
+	b=cRW7FluBnGcKp0fmoWz1iyWgYPBCeLRV8TLMawuXQ92q7AcYiJTzUJzxGCdVdU1rmO55
+	 6c/W1x5grG1zAq58KaWI/KobO8RochIRsNltd0rt/kmItigrl/kGucwVEIQ9lzvHU9s+t
+	 FKIYTNJ0iuEpvaazsS7UpiHc29sh3R2rWmu5Gc8lFlWN7rRigt6yExdyLGUh0Ydqcoicm
+	 LwCjXEIsBxFS63STG54a1UPQjg0f9/Ml6eWr1t5JCIHq7XSRv482BkRwQHC0Notoo4/iM
+	 /EML8lr9AYCMej+UF7pfQRioCEIFJuY3p2SQH430VN5a0hVtWmWIFAZAFLzlFQ9KGhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870011;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=qec2792BZT8xMgh2a+hcg7RSIyutDzwTcHaSiTYIrKU=;
-	b=h4o5NThmHhCx9rBotz00dmZZu2AwemdiDyTeTVwskzHmnm6+/UHw7yjQsrmzXjP2T6Hw
-	 8yW78k5Ifzl+N+JbSfe9QadNrf+gENLjjzckv8WUVRaTxuX10ojeiOEDLzd7Em2L2kAAM
-	 HvBsJrAMgyAB6qwEDDsba45OQBlsJARdubCUHModKgDPwnoof/YTs+a+yUZU9O/XBwjWg
-	 FMJQNwkrFSxmETZzMqUdLsJGIM6L+crbsqPsyQurh2u0vo8FlO2pDjrEjYevMT/wSn0BX
-	 UOWjkaduSr7CwbnJC8ceKjBQXBubj395beSV42KzIn+VjqN0BqCwmtGYJuCTW5bkHlQ==
+	bh=kUfZcKKb6bnahPacDlI0TXHO5cA5YvJ416iMFlw6i3o=;
+	b=TMH6J66EP7E03B06L/QdBIs61BGnqwSVlVEWXEjDS4SOi7cIEYq4A9RW/Mwg4xv0IohD
+	 k3GTs/q83KuQCynEF5Z2OSBi4IK+CNd0HVLjrC0eAOFULVPHMO+n4HNTgyUEdnHtQXxw9
+	 KcnS2NDCQv+bpiTNoPoyxOK/r7/eL7MYqTnHamnF2FSk3swvtytCbSConIPjZHh7oA1n7
+	 Kik6AunuwV66pNz+U6PSRWF5BbHblUQ0zn5Y/R2gd6rUXP65YZWozPjc/Qy+S169Rs89l
+	 ajdnrX0yh789Tj7HfBEWMJ6432pAtJe72nZf5zCz9DfrnmAkL3buahW9MCKFT9IEOBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.176
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	arc=none smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE9A606A339
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBE9A606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B60C606A896
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B60C606A896
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b30cbfa628so32515137b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:00:09 -0800 (PST)
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b4e246acc2so10465947b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:00:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794870009; x=1795474809;
+        d=1e100.net; s=20260707; t=1794870010; x=1795474810;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qec2792BZT8xMgh2a+hcg7RSIyutDzwTcHaSiTYIrKU=;
-        b=hIB6Gm4h2Z0xynihxdgKNWKrB6aqgHc+m4otT+W3GfIJMBlB65zU2PNnnFwwSE/Xnc
-         Ya0VG1VzcXobMGFX9xBBRyjyuRo/keumtE0YQcGPBkqUS/MOZv5tYnM/dQ69GvtzdVhy
-         pAIWp4oTJf+Yt53l31MDLBfcUAEyCIv1SqGesTSdxoP3BBnAKSIBE0BWJTfFybbocFhu
-         z7702VL0jWs1bSLlB66b/1CINcVkOiUqnu5XXHfYgGxoth1M8qS8bc1soia51AbSgD+N
-         cPFkucijEWLqk5q4HKGU5hi4ulal8PoqLUI4OgDp3N4oiSQdBoPSsxvdZnVhGJrFTHqn
-         BHCg==
-X-Forwarded-Encrypted: i=1; AL+hErENYLGeffF4hkzeeBlygGgfRwqrsB8oHl++f+AbkKfc4kVq7aQxhyQJEDC5WQbZ65MDZHR2XziyiUduil8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88HzO9x0erUTDGwC7NrFEQCFD0/WzKbsEVhMikEbgiccnU0pgP
-	BTlOsLmmJHJ4xvitWDsn4dfuvwUr7NNNToFm1A2cuCvcr1vEvBAbAQds
-X-Gm-Gg: AZFdTZc4zvtuIIdiwlAGk3+JkYNU7GIvZTl9nf8FPLWFGcLGn0sdafGOMqjuFhBVIsn
-	lj0j8D1G3oOoI/UOY9tg2SHAC3Fs7+vvs2dAUVbkAaJx41g6XxuovRHrE5AAPGSv4saq7mf0f34
-	C80xAd6wXUR/PX5IyCz9NdogdNP/TVWKSxrvfh+PTpy/LXYlGHv6b/xNBj8ixi0aHKFH1ZRi19/
-	VqsB3hsibk85waKXXffjG+dIAupnGEZw3u5Z/laz/mu6IdJ8qa5uEB1LTFBD1wiR1UvuDXczXvA
-	x19Fu9yN8sLe+B9c84WZLGbjUzVoG2lWa+0BAXGpmvbDatC8UtN0Den2Qq4TmF258AnBDnWJIjh
-	i4yvq/UNklrFkezVGSY8DXhHMW0UsHSCumdTD7mJRD3ENwXNo30Xhe109NVdSHZd7csR2vHkllC
-	qrwwaDqsJRlWpItBl/6xt4Q372SxKwavidRigBZoy6dBdnxOEjrWDLzCxyvdO+gz1q1fgAXiMVk
-	izlezn4dA3/P43bwoXYxTwaZ1x2AC8eqENtufUNCOdxhKM/XkVBn9KrF1P39okH8adjVe048g48
-	Tb5hkfiOTb+Dp2vZCSQohIwZW+iCh67ADtGtwBMfoHgObgFt3QBOsearhiDap0Dt7LaAlrBxQSi
-	JUXxL3Jd64TI5wfHoWBtEJmTnm+0r0jzC
-X-Received: by 2002:a05:690c:e3e7:b0:8b1:867f:389e with SMTP id 00721157ae682-8b4aa0cf270mr66552587b3.6.1794870009077;
-        Mon, 16 Nov 2026 15:00:09 -0800 (PST)
+        bh=kUfZcKKb6bnahPacDlI0TXHO5cA5YvJ416iMFlw6i3o=;
+        b=fDc1xb36bsqhCLjbp0Ib5oMDk8ZaVV0/1pqOq7l8SzDL+hiCNEXzfjV6BUV86MZATs
+         V8IQwZa68pmL5soLFTk2nhLFMZcIeVci6salz9SQGtq01X6PDPDe9qPwAuG7dyX47MGc
+         CkE6Z6MyS2BD1tTri6/uf8O/g4pVB+vTwFQjfqu37KeDCuFYN1UbB8/7y33bNvUvDeqN
+         0ugVJ1gEhpeaSL6ZYPGI96zsJrQLENScNhiWwpXxYCfNTM/avVYQOY+lCJWPqyP28GBe
+         7ZkR7nUykRk1lzsvimyv3OqIoSbXjdET6cl0PWrRenOkKH/1UEk6Q9mUf575CIIfKA2e
+         +hPw==
+X-Forwarded-Encrypted: i=1; AL+hErFRbsdRowTDABTJ/D2t+OpTzX/m22FW9ZXTsHKVVYaOLq3w4XGYM8chU2glIS4T2KD6tM/4jbDY0mhLn6w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ugEfFbJZguJ/DhXUFAjUxpiVXfqKB3VAoZcgLWed2jlwyoq69
+	VBOI+9vp3FJRuD13XInvas42PafvARTlICGxnC4bAJRWLiZnOwVUKZnVs/+E2LKsDv4=
+X-Gm-Gg: AZFdTZc4Meaurgvn80Cf+3Jy2SMpS6nVCuUz9VdXRxLKl9opEZry5PJ93EIsIuzweYZ
+	R7GBIT0FyB+biXJoklgtD56WHSmlEgbprO8NqNbBC4272kNoXntoEYlkf9RtZEsZil5M+F6QlnY
+	IwuFU7uwFbYdvhY0wo30Y0rcg52W4PBslg6WYSfCX8SeFTAE2MXXreyfKRpmP035rlbTShY4fTM
+	SazFlkjRe0KTtU8uXhpZ5EpNY77eHm6QIR6GEsYrW8/ublUSGKWu4DmBM1qQnsew7f963yJEQPn
+	n9HgmDDy5cJIeo5KCtvXCUAu+jJZ3JyTq01fnvR7QGIqtsOPTIJ1EmZEHURzxHg5X0tl7G6RPsr
+	fZnxNS6myoqyu7M7kPlymHLSQvLSn557QQl3iGtJwKNMxz9g5am45XtHAgSQNuk/beYIBSFDOnk
+	B1hNLVRl7tSQFSl6xmbQgUrpgLEUCS/3e6TSYXfFUF96WAdBYWZ4ggY0aGkdxAI+bUJ2maBdZ75
+	S1iEfTy5dPsrBchainlETZ5+o5s8GpKM5vOGdbQUqpoDYt7bQFe2/IO2NpgEILLOMHHUlBB1fxH
+	tNVsk60FWk8f2NKeLj3tlhESRsUJm65m9TUVBR3md4ADVU+LLlMsHKBYLJ43ZUhgbdKx+17INMz
+	2IcqDoN1p4FjaZufTJxxG5Wny4QxdWEXZ7dw=
+X-Received: by 2002:a05:690c:c510:b0:8b4:dfc2:bea3 with SMTP id 00721157ae682-8b4dfc2c23bmr18799997b3.50.1794870010106;
+        Mon, 16 Nov 2026 15:00:10 -0800 (PST)
 Received: from 1.0.0.127.in-addr.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ebc50e40sm10721347b3.17.2026.11.16.15.00.07
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ebc50e40sm10721347b3.17.2026.11.16.15.00.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 15:00:08 -0800 (PST)
+        Mon, 16 Nov 2026 15:00:09 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Mon, 16 Nov 2026 17:59:50 -0500
-Subject: [PATCH 1/5] iio: ABI: Move out_resistance_raw_available to
- sysfs-bus-iio
+Date: Mon, 16 Nov 2026 17:59:51 -0500
+Subject: [PATCH 2/5] iio: potentiometer: mcp4018: Report the available
+ wiper positions
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,7 +80,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-iio-ad5246-v1-1-ef6b7c06d4b0@telaak.dev>
+Message-Id: <20261116-iio-ad5246-v1-2-ef6b7c06d4b0@telaak.dev>
 References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
 In-Reply-To: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -94,65 +94,60 @@ Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux@analog.com, devicetree@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-The available raw values of a resistance output were documented only
-for the mcp4531, without the channel index. ds1803, mcp4531, tpl0102
-and x9250 all report them, and indexed channels name the attribute
-out_resistanceY_raw_available. Document both forms with the other
-generic resistance attributes and drop the driver-specific file.
+Implement read_avail for the raw value, as ds1803, mcp4531, tpl0102 and
+x9250 already do. User space then sees out_resistance0_raw_available,
+and an in-kernel consumer can learn the wiper range with
+iio_read_max_channel_raw() instead of hardcoding it.
 
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- Documentation/ABI/testing/sysfs-bus-iio                       | 9 +++++++++
- Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531 | 8 --------
- MAINTAINERS                                                   | 1 -
- 3 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/iio/potentiometer/mcp4018.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
-index 5e987c502b13..28ce219caf81 100644
---- a/Documentation/ABI/testing/sysfs-bus-iio
-+++ b/Documentation/ABI/testing/sysfs-bus-iio
-@@ -2017,6 +2017,15 @@ Description:
- 		Raw (unscaled no offset etc.) resistance reading.
- 		Units after application of scale and offset are ohms.
+diff --git a/drivers/iio/potentiometer/mcp4018.c b/drivers/iio/potentiometer/mcp4018.c
+index b10b4b920dc0..53471bd24640 100644
+--- a/drivers/iio/potentiometer/mcp4018.c
++++ b/drivers/iio/potentiometer/mcp4018.c
+@@ -49,9 +49,12 @@ static const struct iio_chan_spec mcp4018_channel = {
+ 	.output = 1,
+ 	.channel = 0,
+ 	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++	.info_mask_separate_available = BIT(IIO_CHAN_INFO_RAW),
+ 	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
+ };
  
-+What:		/sys/bus/iio/devices/iio:deviceX/out_resistance_raw_available
-+What:		/sys/bus/iio/devices/iio:deviceX/out_resistanceY_raw_available
-+KernelVersion:	4.9
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		The range of available raw values, as the minimum value, the
-+		step and the maximum value, all enclosed in square brackets.
-+		Example: [0 1 256]
++static const int mcp4018_wiper_avail[] = { 0, 1, MCP4018_WIPER_MAX };
 +
- What:		/sys/bus/iio/devices/iio:deviceX/in_coverageY_raw
- KernelVersion:	7.2
- Contact:	linux-iio@vger.kernel.org
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531 b/Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531
-deleted file mode 100644
-index 2a91fbe394fc..000000000000
---- a/Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531
-+++ /dev/null
-@@ -1,8 +0,0 @@
--What:		/sys/bus/iio/devices/iio:deviceX/out_resistance_raw_available
--Date:		October 2016
--KernelVersion:	4.9
--Contact:	Peter Rosin <peda@axentia.se>
--Description:
--		The range of available values represented as the minimum value,
--		the step and the maximum value, all enclosed in square brackets.
--		Example: [0 1 256]
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 02015eaec312..9cb91ee8a56d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16680,7 +16680,6 @@ MCP4018 AND MCP4531 MICROCHIP DIGITAL POTENTIOMETER DRIVERS
- M:	Peter Rosin <peda@lysator.liu.se>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
--F:	Documentation/ABI/testing/sysfs-bus-iio-potentiometer-mcp4531
- F:	drivers/iio/potentiometer/mcp4018.c
- F:	drivers/iio/potentiometer/mcp4531.c
+ static int mcp4018_read_raw(struct iio_dev *indio_dev,
+ 			    struct iio_chan_spec const *chan,
+ 			    int *val, int *val2, long mask)
+@@ -93,9 +96,26 @@ static int mcp4018_write_raw(struct iio_dev *indio_dev,
+ 	return i2c_smbus_write_byte(data->client, val);
+ }
  
++static int mcp4018_read_avail(struct iio_dev *indio_dev,
++			      struct iio_chan_spec const *chan,
++			      const int **vals, int *type, int *length,
++			      long mask)
++{
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		*vals = mcp4018_wiper_avail;
++		*type = IIO_VAL_INT;
++		*length = ARRAY_SIZE(mcp4018_wiper_avail);
++		return IIO_AVAIL_RANGE;
++	default:
++		return -EINVAL;
++	}
++}
++
+ static const struct iio_info mcp4018_info = {
+ 	.read_raw = mcp4018_read_raw,
+ 	.write_raw = mcp4018_write_raw,
++	.read_avail = mcp4018_read_avail,
+ };
+ 
+ #define MCP4018_ID_TABLE(_name, cfg) {				\
 
 -- 
 Git-155)
