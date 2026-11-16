@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818682;
-	b=E/UVHoyGL3V4ksJNOvJXF1U+ImMsL8cn9MKdEJyQIHw5bsA/HbHwh1GuRcLxVAmMouuC
-	 tPehxF9YSPkalyAoDlWB2xE+s4M6oOObkRFfdayv8ixMtDXtLIKr7L/JdIfW8AgL8urdB
-	 OFvFAiyuurG46l824bHk6vlIqBCOHEVNwyLw8HBhAuN97aY/gXdd/+2SW/4Q05mNoLTr9
-	 Kezv1iWtA51AdrK2eE+M1YQfQhuc/8WEOZffVQPP+iRSsIsh3wvueMX3qVHGSyV6Qiny7
-	 caP16ahqrkKw7iGnre/uOZIHbHE+s1O6IJO42deppv5wGP+GqncpffugqQbVzM0Lgtw==
+	t=1794818692;
+	b=a4WDPG8W26oy3R/elbtVX1/wcOjE7zfiTJFFovjzm1evD8HZCeggDggXs9vLbRwJFayS
+	 9RbQbY3fPHIoiA85Q5vfxYnD+OkkJf0wHsMlhnCaq0lbkHekrcp+4BCarWBiEWTgO+1Sd
+	 GWrBrIHMxo+A8SdyX0IxwFXlzmMcPbKFS/oKQIlUI/RnTWP6E522GHMHcKT5YXxTUJS7D
+	 tpNKu9AJm4NBMYSwXaWRwDeOk9dgwxLsRqNf4sFGPtukvPdf/A2J8QcyOqBgLgWgy03+I
+	 HWsw/9BoTPumuUGqfS96t6i/cm9J7A7dtAzgG/fD4KzqWDAn3FYsdpxkSTQPaThj0/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818682;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hd1aKH1n90Rfgfu+QVPNJhZOsMqkyhkILEACRzGRf3E=;
-	b=TG7NRDNv8usxcjW4beDK8Y5Nd9PgQRie2kXh3gOn7wt5cfk1pclut1xKPpQlq76rjAgn
-	 qJhYy7xPa1xuC1JEUC+MgpwswE9hCGc7mZ1JY+wMdBb9j2v8SrSB9zzkwuk2lMjdaiTzb
-	 PvOoW5c1ss++pmp4nEBNoGdegebLmjXRikSW0wG5pqY8fQnPZoYEJVPyWrR9AJdj6kVPE
-	 jgNoqOqKLPiGLopTY5TWX9MzbxubOfP02twHEAlLzpC+AxAK/8L8pXS07T+pyvIhoamVL
-	 Uh+CG3REOLYM5YmCsyCI38X9jSthIAd9XEPLMYSFLHgjmWBW2q/y7aVrsOOY4YxYBQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818692;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=App5MivrC29qJ5YU4+PdoN/90QWxn2hpy56HecE5sTc=;
+	b=tTjY7qrsMMZ4MekFGQdpJFjCPE4wgg0qknkRaUpn8qi5W8Ojgwttsqrj2YgK3Op6wWh2
+	 IUuU2Cc6PIllHm//TLxf0ska6wlTHfhabivTVK51ep6nlpNFTO/cqpzLksX/eF7H2X0GM
+	 5NyeGnYMuVGigUCK01zL9gSOd0FZibmf5EjIFQjBd0xYBHjM3sMyRX8hT6n6oP7XWKspM
+	 3jzlHIBwYw+EX76Pj19guOjG4Xrwij4qT6xpi9Pz2DUKQMGvMovIHSOyvlAsyjd40sWQh
+	 XW6CIRTfgIM6OezYFMOjbck7guiXEM7HkdwejpkS/SpQOASYltGZuO7q2qpjsx7CdHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O1KFWUzH;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16BE5606A336;
-	Mon, 16 Nov 2026 08:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16BE5606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="rn/HLG3Y";
+	arc=none smtp.remote-ip=95.215.58.154
+Received: from mta1.migadu.com (out-154.mta1.migadu.com [95.215.58.154])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C104606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:44:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C104606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O1KFWUzH
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AA71719F0;
-	Mon, 16 Nov 2026 00:44:38 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7AD043F673;
-	Mon, 16 Nov 2026 00:44:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794818681; bh=7IMvt+u0+btiak1eYmUIolBpcJMAvNwLaS8aeollN2I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=O1KFWUzHuBpfAl9T4SwIgZ4m/l/NTxDP7+tiKsCzt8MMtPBE2dbK7nW8he3bDVmIv
-	 MWvBlNJBP36K99V34FdhqNq77JoUCkJFzH0oFQtE9hgIHv1mE92xNKg4wBcR18gBxM
-	 CihWhOW1XqAmyiDWtQpIMLAtiWddKMVjGwze4aME=
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org
-Cc: sudeep.holla@kernel.org,
-	philip.radford@arm.com,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 2/2] firmware: arm_scmi: Fix SCMI Power Control driver removal
-Date: Mon, 16 Nov 2026 08:42:11 +0000
-Message-ID: <20261116084211.3066460-3-cristian.marussi@arm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261116084211.3066460-1-cristian.marussi@arm.com>
-References: <20261116084211.3066460-1-cristian.marussi@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rn/HLG3Y
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/9gL/L4VRPsjzM4uXBvjKnOQSjh1vwhsojRka+2HEnc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794818689; v=1; x=1795423489;
+ b=rn/HLG3YYMNYo8/Wmq3T0sKhDAVEDcszGPsHt4wuj9yh0W/PUJDzNhz5Xv2gfNiCIO7if3jz
+ oZZV9Kd25GtTsmdCTcPgUY/jVrpknIIymsTdJ4IfBaCdQZGdTC8H9Z08IOp34MkgEgQ+rhjf96L
+ FD2D9zSTjq4GnSAhmKvXBhEI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 112a824f4d90f4bf;
+	Mon, 16 Nov 2026 08:44:49 +0000
+X-Mizu-Trace-ID: 112a824f4d90f4bf
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <70e9dc89-595b-4cab-a338-f0a1b6b9b58a@linux.dev>
+Date: Mon, 16 Nov 2026 08:44:48 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,183 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: scsi_dh_alua: set handler_data before
+ alua_initialize()
+To: Laurence Oberman <loberman@redhat.com>,
+ "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Bart Van Assche <bvanassche@acm.org>, Martin Wilck <mwilck@suse.com>,
+ Hannes Reinecke <hare@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261109201120.1067815-1-loberman@redhat.com>
+ <37cb0b01-0c6a-4b3d-b3d8-c4e5a45977a8@linux.dev>
+ <57f9665fb8c3571cff55b2fafceec7437634fd5d.camel@redhat.com>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <57f9665fb8c3571cff55b2fafceec7437634fd5d.camel@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Once a reboot is initiated following a graceful shutdown request received
-from the SCMI platform server there are a couple of registered notifiers
-and possibly a scheduled delayed work.
+On 11/15/26 19:37, Laurence Oberman wrote:
+> Agreed, group_id is never read or written. All other members are
+> initialized before handler_data is set (h is kzalloc'd, and disabled
+> is set under init_mutex in alua_initialize()).
+> 
+> I would prefer to keep this patch minimal since it is tagged for
+> stable, and send a follow-up cleanup that drops the now-redundant
+> h check in alua_rtpg_queue() and removes the unused group_id member.
+> Does that work for you, or would you rather I fold both into a v2?
 
-Take care to properly stop, unregister and cleanup all such resources
-when the driver is unbound.
+I think that you can keep it separate.
 
-Fixes: 2c4b97fee94a ("firmware: arm_scmi: Add SCMI System Power Control driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-dbe4eba7-1520-40a1-92e8-8892b6e47c4b
-Tested-by: Cristian Marussi <cristian.marussi@arm.com>
-Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
----
- .../firmware/arm_scmi/scmi_power_control.c    | 76 +++++++++++++++++--
- 1 file changed, 70 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/firmware/arm_scmi/scmi_power_control.c b/drivers/firmware/arm_scmi/scmi_power_control.c
-index e0680e33180e..b0a10fd92fa6 100644
---- a/drivers/firmware/arm_scmi/scmi_power_control.c
-+++ b/drivers/firmware/arm_scmi/scmi_power_control.c
-@@ -43,6 +43,7 @@
-  * possibly emitted by the platform will be ignored.
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/math.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-@@ -51,6 +52,7 @@
- #include <linux/reboot.h>
- #include <linux/scmi_protocol.h>
- #include <linux/slab.h>
-+#include <linux/srcu.h>
- #include <linux/suspend.h>
- #include <linux/time64.h>
- #include <linux/timer.h>
-@@ -75,6 +77,8 @@ enum scmi_syspower_state {
-  * @state_mtx: @state related mutex
-  * @required_transition: The requested transition as decribed in the received
-  *			 SCMI SystemPower notification
-+ * @dead_srcu: Am SRCU to protect dead flag
-+ * @dead: A boolean flag to be set during driver removal
-  * @userspace_nb: The notifier_block registered against the SCMI SystemPower
-  *		  notification to start the needed userspace interactions.
-  * @reboot_nb: A notifier_block optionally used to track reboot progress
-@@ -89,6 +93,10 @@ struct scmi_syspower_conf {
- 	struct mutex state_mtx;
- 	enum scmi_system_events required_transition;
- 
-+	/* Protect dead */
-+	struct srcu_struct dead_srcu;
-+	bool dead;
-+
- 	struct notifier_block userspace_nb;
- 	struct notifier_block reboot_nb;
- 
-@@ -123,6 +131,10 @@ static int scmi_reboot_notifier(struct notifier_block *nb,
- 	struct scmi_syspower_conf *sc = reboot_nb_to_sconf(nb);
- 	bool cancel_work;
- 
-+	guard(srcu)(&sc->dead_srcu);
-+	if (READ_ONCE(sc->dead))
-+		return NOTIFY_DONE;
-+
- 	mutex_lock(&sc->state_mtx);
- 	switch (reason) {
- 	case SYS_HALT:
-@@ -197,6 +209,10 @@ static void scmi_forceful_work_func(struct work_struct *work)
- 	dwork = to_delayed_work(work);
- 	sc = dwork_to_sconf(dwork);
- 
-+	guard(srcu)(&sc->dead_srcu);
-+	if (READ_ONCE(sc->dead))
-+		return;
-+
- 	mutex_lock(&sc->state_mtx);
- 	needs_forceful = sc->state == SCMI_SYSPOWER_IN_PROGRESS;
- 	mutex_unlock(&sc->state_mtx);
-@@ -236,8 +252,6 @@ static void scmi_request_graceful_transition(struct scmi_syspower_conf *sc,
- 		if (!ret) {
- 			/* Wait only up to 75% of the advertised timeout */
- 			adj_timeout_ms = mult_frac(timeout_ms, 3, 4);
--			INIT_DELAYED_WORK(&sc->forceful_work,
--					  scmi_forceful_work_func);
- 			schedule_delayed_work(&sc->forceful_work,
- 					      msecs_to_jiffies(adj_timeout_ms));
- 		} else {
-@@ -296,6 +310,10 @@ static int scmi_userspace_notifier(struct notifier_block *nb,
- 	struct scmi_system_power_state_notifier_report *er = data;
- 	struct scmi_syspower_conf *sc = userspace_nb_to_sconf(nb);
- 
-+	guard(srcu)(&sc->dead_srcu);
-+	if (READ_ONCE(sc->dead))
-+		return NOTIFY_DONE;
-+
- 	if (er->system_state >= SCMI_SYSTEM_MAX ||
- 	    er->system_state == SCMI_SYSTEM_POWERUP) {
- 		dev_err(sc->dev, "Ignoring unsupported system_state: 0x%X\n",
-@@ -357,6 +375,10 @@ static int scmi_syspower_probe(struct scmi_device *sdev)
- 	if (!sc)
- 		return -ENOMEM;
- 
-+	ret = init_srcu_struct(&sc->dead_srcu);
-+	if (ret)
-+		return ret;
-+
- 	sc->state = SCMI_SYSPOWER_IDLE;
- 	mutex_init(&sc->state_mtx);
- 	sc->required_transition = SCMI_SYSTEM_MAX;
-@@ -364,12 +386,53 @@ static int scmi_syspower_probe(struct scmi_device *sdev)
- 	sc->dev = &sdev->dev;
- 	dev_set_drvdata(&sdev->dev, sc);
- 
-+	INIT_DELAYED_WORK(&sc->forceful_work, scmi_forceful_work_func);
- 	INIT_WORK(&sc->suspend_work, scmi_suspend_work_func);
- 
--	return handle->notify_ops->devm_event_notifier_register(sdev,
--							   SCMI_PROTOCOL_SYSTEM,
--					 SCMI_EVENT_SYSTEM_POWER_STATE_NOTIFIER,
--						       NULL, &sc->userspace_nb);
-+	ret = handle->notify_ops->event_notifier_register(handle, SCMI_PROTOCOL_SYSTEM,
-+							  SCMI_EVENT_SYSTEM_POWER_STATE_NOTIFIER,
-+							  NULL, &sc->userspace_nb);
-+	if (ret) {
-+		cleanup_srcu_struct(&sc->dead_srcu);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void scmi_syspower_remove(struct scmi_device *sdev)
-+{
-+	struct scmi_handle *handle = sdev->handle;
-+	struct scmi_syspower_conf *sc;
-+	int ret;
-+
-+	sc = dev_get_drvdata(&sdev->dev);
-+	if (!sc)
-+		return;
-+
-+	/* Wait for any notifier to complete and inhibit further processing */
-+	WRITE_ONCE(sc->dead, true);
-+	synchronize_srcu(&sc->dead_srcu);
-+
-+	/*
-+	 * Once here any possible in-flight userspace or reboot notifier
-+	 * will have completed and further notifiers will bailout immediately.
-+	 * Cancel any work which was possibly already scheduled.
-+	 */
-+	cancel_delayed_work_sync(&sc->forceful_work);
-+
-+	/* Unregister reboot notifier...if any */
-+	unregister_reboot_notifier(&sc->reboot_nb);
-+
-+	/* Unregister userspace notifier */
-+	ret = handle->notify_ops->event_notifier_unregister(handle,
-+							    SCMI_PROTOCOL_SYSTEM,
-+							    SCMI_EVENT_SYSTEM_POWER_STATE_NOTIFIER,
-+							    NULL, &sc->userspace_nb);
-+	if (ret)
-+		dev_warn(sc->dev, "Failed to unregister notifier\n");
-+
-+	cleanup_srcu_struct(&sc->dead_srcu);
- }
- 
- static int scmi_system_power_resume(struct device *dev)
-@@ -396,6 +459,7 @@ static struct scmi_driver scmi_system_power_driver = {
- 	},
- 	.name = "scmi-system-power",
- 	.probe = scmi_syspower_probe,
-+	.remove = scmi_syspower_remove,
- 	.id_table = scmi_id_table,
- };
- module_scmi_driver(scmi_system_power_driver);
--- 
-2.54.0
-
+Thanks,
+John
