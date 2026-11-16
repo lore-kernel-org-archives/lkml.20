@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859737;
-	b=BfeYnHkbLQva4S8Lwjo2IEwZfMStRYipv0C0oRt7uLy64LfcW/9/H25ZkkHkuPVcNVNs
-	 ht4ZuYbh1qL6RK/iibFPsvY9KPwb1vs4/5Mhs7NfaJV8WNlZIy41GfWf6+4ZvEB4yqtYo
-	 NY1HYI/DorM3hu9agkYKfCOWT6AbiXl7aPewvATNY9syiinxay/gKQURYvxOPayJd0/t0
-	 npCsWscQG94r9Z/M9N9qEH6CiKWecH3oKFCBGqccAmV6Z6MByt4obn0/OEYQj5gHIkVb9
-	 ZTCBLJEq6Gv+1yp9pP/Xm4WrM84iHpb/uTjmtPh+VR+Y8O3GFjiklbLSyaUBObWw6Vg==
+	t=1794859750;
+	b=OjAMgSZ2wRm2o/84q9qupYzFude3JJaonIFqzkh2dSi7Q1sxN/Foppr1EQHxOLPtQeS1
+	 BgN9GKE50nqvrPvBlnhg2KAaiqc2wGIJ70elomxrW7ixQGXBmrQRQIvH2kQnpUsz+1lCj
+	 NoCI9DKeEXa00fR2jLMfLEOPi1VhBWe5DjQHLxQlu4yUDmoxYzI5pq5gKQK6SEqmFGzbD
+	 ItGn9XWbz1yUfKBxxGFHkd4XZQt9FSOA5NhcwSKLBw39uHkm/c3HDXF9LVIbsHSchQ0lW
+	 dvyHS2Ox3N1iTKKlXc7aZXsxzecR50kHa5J162tGVVmoC3f+TL4odX1Ok/h47Tu1w7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859737;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=r/Q2uX9NvdN9sYELwuEeVc162IpDQy4YQ6WZoTClWMg=;
-	b=ymJ+ohjv8Bq5kR0e8CETk5Iuv70ISyM2H8pRKXeRh2LGGplfMTUkr0D59S2Lbeg65Fsq
-	 SvgKML8oE6VOMAQwN8u+kThCoMVDWEDa7D5ecorDPOk8JpE0d1rlBTvG+1MG62pJBxOoI
-	 C+x1iUHq4KrsmV6RNADW7PfiGqRS6rMjSpcaOKjNilhgZZXgWApzrXmWq3rxKqeg1MSBc
-	 8Vw19SMhwtFVNPCifo8xSkOiL2D3sGFyLM+jqCxZH7Q+pzOmB9RIELRu5W4wn0R3ngN4K
-	 KCkinLlg6ViP7aninolLb5mbLcn55qry0Oztn6aqEcrnuSP7jmpXYvhRjaaHdQuRx7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859750;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rzKNYZ9/Wem0fAV5vHkWqEBhTbAs/OylY7gdTFQ8NN8=;
+	b=KkIg5TDftbNmDXo/RSTYWAxAn7o9qiR607gHRwgqKMakyC35jykatrAjCJQS8zz4n6x4
+	 FxRSEEKBwIncBkwIj7wg+s2KcZRWQ4sMpt00iED5SYAD9uu5ErdMYZmLh79whuKLXFcKk
+	 ZigCGM4wQYvzztRkFNdCxJKcG/feMM58ieIwBNQqlc11nwkGkk2TX9QAYqYWCkpkicDfL
+	 YuNJdKiR6qvwQMXnhH82ecXv92kVIT8+5NpwKgcz2C1z2SKmdwArVUn0nU+NgHddA6F4t
+	 ao/7vdUmlQS1LXntvdnX1y76DDEwGfP6dpUgfu72l2vaxzhKUgO5ufbc6FB0Fksa3cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DgDuelW9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEXaY7Z4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6DC606A31C;
-	Mon, 16 Nov 2026 20:08:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D00606A31C;
+	Mon, 16 Nov 2026 20:09:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DgDuelW9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6291F000C4;
-	Mon, 16 Nov 2026 20:08:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEXaY7Z4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B011F000C4;
+	Mon, 16 Nov 2026 20:09:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794859736;
-	bh=r/Q2uX9NvdN9sYELwuEeVc162IpDQy4YQ6WZoTClWMg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DgDuelW9T9ByQDMzzEWqFd8HxhtXAWBt1WQ9A/PYGVkhqOdgo1V2n7aHbiIH4Sedr
-	 j1/3SKtQTIeuzbWKaTahdplfhLoTrjK7oytJGSJrHGfRFQ4OQfdnnIsdot9Q5viJq5
-	 mSibKcmvBOFOL85F2fuE2PDg4B+9BasdEeUCSo84+P5AFQzhbglRQj1+2qHcd8ICox
-	 vrWefYj/B0n6vlpyrBHSlOoJqKGBtj58+IE1MhtKM+/rxuTcA23Y1SuznTqTEheETO
-	 Vztm3X+buBjPf7MoicTtW0rI81FCWJtaJrqSh74TwaUI36KImkBWsN16W59POk/reG
-	 fAg9hGtSnd9pw==
-Message-ID: <sashiko-outbox-217636@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 28/37] cgroup/cpuset: Refuse to take a deadline task
- out of its root domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261116190549.230119-29-mathieu.desnoyers@efficios.com>
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
- <20261116190549.230119-29-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 20:08:55 +0000
+	s=k20260515; t=1794859749;
+	bh=rzKNYZ9/Wem0fAV5vHkWqEBhTbAs/OylY7gdTFQ8NN8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JEXaY7Z4qPWvi6j6ABBzHSqBQ0UeRC3gRR6zAet1hLukS6wRFQKhucP9ooMEUftv9
+	 FsCKm4xm3uRrlxnabyK9CWRVhjo5tFqJkCIVG22pEHyHiO6xuk0t3Q7OGFJONj8/69
+	 3pF80vwAK+ms8PpIpsAdbRX0WPKglxSXwqWjwZhTmZYgbeI0Xp3vopQwoZB2qbBT5d
+	 w6S+B8ReYy0lYKPDhh5mBiCxQhKs423XbLNdcClfTIdtRBCdv+Lj814kx46LPuFcRj
+	 nvEnzOkPZ+4DV0F2vKSOObaYlvWSs4yuBQtrMhM+NqfmFgrIav6zjk2o7PhKpgH+H6
+	 nIsrJcL1jPA5g==
+Message-ID: <c9ac9557-70bc-46f1-a231-2d2a6e3f8c3e@kernel.org>
+Date: Mon, 16 Nov 2026 21:09:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,297 +50,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] mm/huge_memory: only compare PFNs of huge entries on
+ huge fault insert
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ Roman Kisel <romank@linux.microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Naman Jain <namjain@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>,
+ stable@vger.kernel.org
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
+ <e13044a0-871b-4033-8a79-22cb9653b6b1@kernel.org> <avsz6Op6mfkF4y1x@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avsz6Op6mfkF4y1x@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] cgroup/cpuset: excpus clobbered via tmp->new_cpus in
-  remote_cpus_update()
-- [High] cgroup/cpuset: partition_xcpus_del() called on invalid
-  partition in update_parent_effective_cpumask()
-- [Medium] cgroup/cpuset: wrong descendant effective_cpus in
-  dl_tasks_keep_without()
-- [Medium] sched/deadline: user_cpus_ptr ignored in
-  dl_task_keeps_root_domain()
-- [Medium] cgroup/cpuset: dl_tasks_keep_root_domain() skips invalidated
-  partitions
---
+On 11/16/26 17:55, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Nov 16, 2026 at 05:01:52PM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
+>>> A driver that implements both ->fault and ->huge_fault must anticipate
+>>> concurrent use of both.
+>>>
+>>> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+>>> concurrent with faulting, as that only holds the mmap write lock and thus
+>>> does not exclude faulting threads stabilised by VMA lock.
+>>>
+>>> insert_pmd() and insert_pud() have issues with this as they both assume
+>>> that, if the page table entry being populated is not empty, it must a
+>>> present huge entry.
+>>>
+>>> This is problematic as if it is a write fault, it compares its PFN against
+>>> the one being inserted, warning if they differ, on the assumption that the
+>>> entry is a huge leaf.
+>>>
+>>> Since the entry may be a page table, this is invalid and can result in
+>>> spurious warnings.
+>>>
+>>> Equally, the entry might be non-present. Nothing can install such an entry
+>>> in the VMAs that reach this code today, but there is no reason to rely upon
+>>> that.
+>>>
+>>> Therefore only examine the PFN if the entry is both present and huge, and
+>>> otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
+>>> at the appropriate level.
+>>>
+>>> This is what already happens for a read fault, for which the existing entry
+>>> is not examined at all.
+>>>
+>>> Target the commit which introduced the first driver which both mixes fault
+>>> orders and passes the write flag for the fix (since this commit, both
+>>> drm_gem_shmem and panthor are prey to this issue).
+>>>
+>>> Reported-by: Eliav Farber <farbere@amazon.com>
+>>> Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
+>>> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> ---
+>>>  mm/huge_memory.c | 8 ++++++++
+>>>  1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>>> index 0d589be136d2..da632c3e834b 100644
+>>> --- a/mm/huge_memory.c
+>>> +++ b/mm/huge_memory.c
+>>> @@ -1643,6 +1643,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+>>>  		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+>>>  					  fop.pfn;
+>>>
+>>> +		/* We may have raced a fault which installed a page table. */
+>>> +		if (!pmd_present(*pmd) || !pmd_trans_huge(*pmd))
+>>
+>> Ok, we hold the PMD lock, so that cannot change concurrently.
+>>
+>> Given that we are in THP code, I wonder if we could just test for pmd_leaf()
+>> instead.
+>>
+>> Same below for PUDs.
+> 
+> That's what the original did, but as the commit message says I don't want
+> to rely on the entry not being a softleaf here, in case we do something
+> later that changes that.
 
-commit 2c62aa35faa810e650ef3867961558c694f57e4c
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Oh, I was talking about:
 
-cgroup/cpuset: Refuse to take a deadline task out of its root domain
+	if (!pmd_present(*pmd) || !pmd_leaf(*pmd))
 
-This commit rejects cpuset CPU mask updates and invalidates partition roots
-when the resulting effective CPUs would move a SCHED_DEADLINE task out of t=
-he
-root domain accounting its bandwidth without admission control.
+Which is our common way of saying
 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index ef5ad8e38f06f..5b4f7d4ef3ae2 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-[ ... ]
-> @@ -1126,6 +1127,92 @@ static void update_partition_sd_lb(struct cpuset *=
-cs, int old_prs)
-[ ... ]
-> +static bool dl_tasks_keep_without(struct cpuset *root, struct cpuset *pa=
-rt,
-> +				  const struct cpumask *xcpus, bool enable,
-> +				  struct cpumask *new_cpus)
-> +{
-> +	struct cgroup_subsys_state *pos_css;
-> +	struct cpuset *cp, *a;
-> +	bool keep =3D true;
-> +
-> +	rcu_read_lock();
-> +	cpuset_for_each_descendant_pre(cp, pos_css, root) {
-> +		if (cp =3D=3D part || (cp !=3D root && is_partition_valid(cp))) {
-> +			pos_css =3D css_rightmost_descendant(pos_css);
-> +			continue;
-> +		}
-> +		if (!cpumask_intersects(cp->effective_cpus, xcpus))
-> +			continue;
-> +		for (a =3D cp; ; a =3D parent_cs(a)) {
-> +			if (cpumask_andnot(new_cpus, a->effective_cpus, xcpus) ||
-> +			    a =3D=3D root)
-> +				break;
-> +		}
-> +		keep =3D dl_tasks_keep_cpus(cp, new_cpus);
-> +		if (!keep)
-> +			break;
-> +	}
-> +	if (keep && enable) {
-> +		cpuset_for_each_descendant_pre(cp, pos_css, part) {
-> +			if (cp !=3D part && is_partition_valid(cp)) {
-> +				pos_css =3D css_rightmost_descendant(pos_css);
-> +				continue;
-> +			}
-> +			if (cpumask_subset(cp->effective_cpus, xcpus))
-> +				continue;
-> +			if (!cpumask_and(new_cpus, cp->effective_cpus, xcpus))
-> +				cpumask_copy(new_cpus, xcpus);
-> +			keep =3D dl_tasks_keep_cpus(cp, new_cpus);
-> +			if (!keep)
-> +				break;
-> +		}
-> +	}
-> +	rcu_read_unlock();
-> +	return keep;
-> +}
+	if (!(pmd_present(*pmd) && pmd_leaf(*pmd)))
 
-[Severity: Medium]
-Can dl_tasks_keep_without() miscompute new_cpus for descendant cpusets and
-let a deadline task move to another root domain without admission control?
+	"This is not a page table".
 
-In the first loop, when cp loses all of its effective_cpus to xcpus and
-inherits from an ancestor a above parent_cs(cp), new_cpus is set to
-a->effective_cpus & ~xcpus without filtering top-down through the
-cpus_allowed masks of the cpusets between a and cp as
-compute_effective_cpumask() does. If root has effective_cpus {0, 1, 2}
-(0-1 housekeeping, 2 isolated), child P has cpus_allowed {0}, and grandchild
-C has cpus_allowed {2} (so C inherits effective_cpus {0}), a partition taki=
-ng
-xcpus {0} tests C against root's {1, 2} and sees housekeeping CPU 1, whereas
-update_cpumasks_hier() gives P {1, 2} and gives C {2}, moving a deadline
-task in C into the isolated root domain.
+Anyhow, getting rid of pmd_trans_huge() doesn't have highest priority right now.
+-- 
+Cheers,
 
-In the second loop (when enable is true), cp's new mask is derived from
-cp->effective_cpus & xcpus instead of filtering xcpus & cpu_active_mask
-top-down through each descendant's cpus_allowed. Because enabling part
-switches its effective CPUs from cpus_allowed to effective_xcpus, a child C
-whose cpus_allowed only intersects part->exclusive_cpus previously inherited
-part->cpus_allowed, passes the cpumask_subset(cp->effective_cpus, xcpus)
-check if part->cpus_allowed is a subset of xcpus, and then switches to
-C->cpus_allowed once part is enabled; in addition, xcpus is not masked with
-cpu_active_mask, so offline CPUs in xcpus can match def_root_domain->span.
-
-[ ... ]
-
-> @@ -1779,6 +1868,9 @@ static void remote_cpus_update(struct cpuset *cs, s=
-truct cpumask *xcpus,
->  		else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
->  						       excpus, tmp->delmask))
->  			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
-> +		else if (!dl_tasks_keep_without(&top_cpuset, cs, tmp->addmask,
-> +						false, tmp->new_cpus))
-> +			WRITE_ONCE(cs->prs_err, PERR_DLTASK);
->  		if (cs->prs_err)
->  			goto invalidate;
->  	}
-
-[Severity: High]
-Does passing tmp->new_cpus to dl_tasks_keep_without() clobber excpus before
-it is copied to cs->effective_xcpus?
-
-update_cpumasks_hier() calls remote_cpus_update() with excpus pointing to
-tmp->new_cpus:
-
-kernel/cgroup/cpuset.c:update_cpumasks_hier() {
-    ...
-			compute_excpus(cp, tmp->new_cpus);
-			...
-			rcu_read_unlock();
-			remote_cpus_update(cp, NULL, tmp->new_cpus, tmp);
-			rcu_read_lock();
-    ...
-}
-
-When a descendant remote partition gains exclusive CPUs during
-update_cpumasks_hier(), dl_tasks_keep_without() overwrites tmp->new_cpus
-with top_cpuset's remaining effective CPUs, and remote_cpus_update() then
-copies that clobbered mask from excpus into cs->effective_xcpus.
-
-[ ... ]
-
-> @@ -2013,6 +2109,15 @@ static int update_parent_effective_cpumask(struct =
-cpuset *cs, int cmd,
->  			deleting =3D false;
->  			adding =3D cpumask_and(tmp->addmask,
->  					     cs->effective_xcpus, parent->effective_xcpus);
-> +		} else if (deleting &&
-> +			   !dl_tasks_keep_without(parent, cs, tmp->delmask,
-> +						  is_partition_invalid(cs),
-> +						  tmp->new_cpus)) {
-> +			/* As above: the partition becomes invalid. */
-> +			part_error =3D PERR_DLTASK;
-> +			deleting =3D false;
-> +			adding =3D cpumask_and(tmp->addmask,
-> +					     cs->effective_xcpus, parent->effective_xcpus);
->  		}
->  	} else {
-
-[Severity: High]
-Can setting adding here when is_partition_invalid(cs) is true call
-partition_xcpus_del() on an already-invalid partition?
-
-An invalid local partition root (old_prs < 0) with cpuset.cpus.exclusive set
-keeps a non-empty cs->effective_xcpus even though those CPUs were not remov=
-ed
-from parent->effective_cpus. When updating cpuset.cpus or
-cpuset.cpus.exclusive on that invalid partition takes the newmask branch and
-dl_tasks_keep_without() returns false, adding becomes true while old_prs < =
-0,
-so partition_xcpus_del(old_prs, parent, tmp->addmask) triggers
-WARN_ON_ONCE(old_prs < 0) and corrupts subpartitions_cpus, isolated_cpus, a=
-nd
-parent->effective_cpus by releasing CPUs that cs never held. Guarding adding
-with is_partition_valid(cs) avoids releasing unowned CPUs.
-
-[ ... ]
-
-> @@ -2496,6 +2604,66 @@ static void partition_cpus_change(struct cpuset *c=
-s, struct cpuset *trialcs,
-[ ... ]
-> +static bool dl_tasks_keep_root_domain(struct cpuset *cs, struct cpuset *=
-trialcs,
-> +				      struct cpumask *new_cpus)
-> +{
-> +	struct cgroup_subsys_state *pos_css;
-> +	struct cpuset *cp;
-> +	bool keep =3D true;
-> +
-> +	if (is_partition_valid(cs))
-> +		return true;
-> +	rcu_read_lock();
-> +	cpuset_for_each_descendant_pre(cp, pos_css, cs) {
-> +		if (is_partition_valid(cp)) {
-> +			pos_css =3D css_rightmost_descendant(pos_css);
-> +			continue;
-> +		}
-> +		trial_effective_cpus(cp, cs, trialcs, new_cpus);
-> +		if (cpumask_subset(cp->effective_cpus, new_cpus))
-> +			continue;
-> +		keep =3D dl_tasks_keep_cpus(cp, new_cpus);
-> +		if (!keep)
-> +			break;
-> +	}
-> +	rcu_read_unlock();
-> +	return keep;
-> +}
-> +
->  /**
->   * update_cpumask - update the cpus_allowed mask of a cpuset and all tas=
-ks in it
->   * @cs: the cpuset to consider
-> @@ -2528,6 +2696,11 @@ static int update_cpumask(struct cpuset *cs, struc=
-t cpuset *trialcs,
->  	if (alloc_tmpmasks(&tmp))
->  		return -ENOMEM;
-> =20
-> +	if (!dl_tasks_keep_root_domain(cs, trialcs, tmp.new_cpus)) {
-> +		free_tmpmasks(&tmp);
-> +		return -EBUSY;
-> +	}
-> +
->  	/*
->  	 * Check all the descendants in update_cpumasks_hier() if
->  	 * effective_xcpus is to be changed.
-
-[Severity: Medium]
-What happens when a write to cpuset.cpus (or cpuset.cpus.exclusive)
-invalidates a valid partition root?
-
-dl_tasks_keep_root_domain() runs before partition_cpus_change() and returns
-true immediately when is_partition_valid(cs) is true, and
-update_exclusive_cpumask() does not check dl_tasks_keep_root_domain() at al=
-l.
-If cs is a valid root partition on a housekeeping CPU containing a deadline
-task and a user writes a boot-isolated CPU to cs/cpuset.cpus,
-partition_cpus_change() invalidates cs (PERR_HKEEPING), and
-update_cpumasks_hier() recomputes cs->effective_cpus as a non-partition
-cpuset on the isolated CPU; dl_rebuild_rd_accounting() then adds the task's
-bandwidth to def_root_domain via dl_add_task_root_domain() without admission
-control.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 096c0ec55cdc2..61b50266468f9 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -4955,6 +4955,25 @@ int dl_bw_deactivate(int cpu)
->  	return ret;
->  }
-> =20
-> +/*
-> + * Return false if @p has CPUs in the root domain that counts its
-> + * bandwidth and @new_mask holds none of them. A cpuset refuses such a
-> + * mask: only a move to another cpuset makes room in another root domain.
-> + */
-> +bool dl_task_keeps_root_domain(struct task_struct *p,
-> +			       const struct cpumask *new_mask)
-> +{
-> +	const struct cpumask *span;
-> +
-> +	if (!dl_bandwidth_enabled() || !task_has_dl_policy(p))
-> +		return true;
-> +	guard(raw_spinlock_irqsave)(&p->pi_lock);
-> +	guard(rcu)();
-> +	span =3D dl_task_bw_span(p);
-> +	return !span || !cpumask_intersects(span, p->cpus_ptr) ||
-> +	       cpumask_intersects(span, new_mask);
-> +}
-
-[Severity: Medium]
-Should dl_task_keeps_root_domain() account for p->user_cpus_ptr the way
-__set_cpus_allowed_ptr() and dl_task_bw_reserve_cpu() do?
-
-When cpuset_update_tasks_cpumask() calls set_cpus_allowed_ptr(task, new_cpu=
-s),
-__set_cpus_allowed_ptr() restricts new_cpus to new_cpus & p->user_cpus_ptr
-whenever their intersection is non-empty. Because dl_task_keeps_root_domain=
-()
-tests span against new_mask directly (and dl_tasks_keep_root_domain() and
-dl_tasks_keep_without() skip cpusets where cpumask_subset(cp->effective_cpu=
-s,
-new_cpus) holds), a deadline task counted in housekeeping span {0, 1} whose
-p->user_cpus_ptr only intersects new_mask on isolated CPU {2} passes this
-check (or the subset check when widening effective_cpus from {0, 1} to
-{0, 1, 2}) and has its affinity restricted to {2} in the isolated root doma=
-in
-without admission control. Intersecting new_mask with p->user_cpus_ptr when
-cpumask_intersects(new_mask, p->user_cpus_ptr) is true and checking tasks e=
-ven
-when new_cpus grows would match __set_cpus_allowed_ptr().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116190549.2301=
-19-1-mathieu.desnoyers@efficios.com?part=3D28
+David
