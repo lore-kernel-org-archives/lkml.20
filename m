@@ -1,79 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794829700;
-	b=xXUxXFp6WXUsALwRO5qTqdiBwmDGv7qFkVSHLD6xbh89ITgLxdBhHLr7IfEnl84frZqR
-	 /on5TAfeA/D1mFIhoxED4Aaq+1Ktny1HPwZmwJzixbRPyggB4xvidW76agDU6t0kua6sQ
-	 WEffj9BFQIRV7/Xf6BPiPZYWfbJQsaIRTsZGIRDRI3vEZkFlGxhCZn83pEzl7bOnZL9U8
-	 +jM4QoSyqZL9We64RdvbT3W23QZf4W0aiV2QLMI6YBMi1qc2hz8R5B9e+ZhQxOEA85TaH
-	 SFRSMmbBBEBb8LVNBVM/lAlnOV+JFEgf2i+4bV5jtY0g2BLd+a8auKq+iWxqjDRLVFA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829700;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jtELbdJR4zGF+dqbQswzGUFJCLtGbxQUtZG2xjdVLiM=;
-	b=MMOeSG2otj019dd6VKxGF+XNtPTX72+h5nNG76kk3+TzKL7VmE79ZjNgi4m5czeGQOia
-	 o0jDPrmIPAFIwiroWZ9tFugZ63mXF3ks18PLXCAQ2nI3C1W+mFot6LkPTzssLrTRsgVJJ
-	 3nKd1FjZ2YZn8CwJ5h2HyRkhXJi2F6f6M8iPyGJJ502gFNIUDzBWyFSZ5X897uFGSuw1u
-	 M7Sdm/WUEO+Jd2jJOc3lpQK0CX6KiZqHqgt4KkB45C4KBdyHNimlHXgk4eGZ3riSM01qP
-	 TRO/PCgpDVRlvZ7QhlnDyJsebKLYU8oM+ClAcW6laDIQEB4LRLcpbbm/8sJCtGVZfvA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PyLTBj/T";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DAE606A323;
-	Mon, 16 Nov 2026 11:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PyLTBj/T
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794829699;
-	b=GG7VZp+VIGWnzcCLVU+je10HIGVoTl98bnB182nqqAbr2k2AdvOh42ELt7WU0paKTGRp
-	 WVq6zMeQlD8PsOmz5LvwYqT4KSxj8ncr69Bn1Lswm424HoSUt8rURcMbLwpkaz7S+/eEI
-	 OvT/fSk5H9muIcSJEVjLzf1pr0rXWqrY5BtzCmo+kuhRHTLubyj1oae96wQDAejziURr2
-	 3cL93oaymEY69D7eSR2GVFBhBqVPy6+DbflAGmZFKFZRrpI8eRKX787tTS5/009uV3rm+
-	 ba6vaPX3RN6cqMXhSXaZPLWByOb/3kFWJo69tYipYqUso3TRT6WMs5KkgqxC8ImWoeg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794829699;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jtELbdJR4zGF+dqbQswzGUFJCLtGbxQUtZG2xjdVLiM=;
-	b=nZnFZz8H/PyCZqVnGyXJC64dQf6voWkaBCgD/bWHKR7skKyJD1WZdMBqZBoCpdxb2cME
-	 Q7FZtVh/wParKLoEbd0VNBYcvXiIGIAkG4wfCzO/xSk8ftcb6rGb+mE26+xNkRGiMFNui
-	 BRVhodVdhQQNsrAlQV6V3Ie//fNvKI6uEfD8lGxhEhx3oRsTc00N1MUXEbE8gCAo3GCh1
-	 YqE8SReb1PK7KILrH+xZNFFT6coAFM80QfKeuZWgfO/oX8DWHKKyCwhRLHtf3yvGlfBBX
-	 RMLP4BfUg5W+rELdCYOF6jsCL9vvB8tWae13QRPZO2d/2lj0CrG5Fv7Vk8Oxn+y6W7g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794829757;
+	b=iq0eDYfumtcavac/ZY8HfyGYErDr/M+hvlLw0Zpohzlxn1pYwUvqK8lG+JH5mY7i/7Ru
+	 lotDAtFRBPiyuiWLFtOCHfC7cHG2PonudFXVr2dmKxaSWnS6Crwat+LkAimNT0k/X/8qx
+	 Lh58sAJbvv+UEcyGCkRjtYpR6Nh7f/c22uQaKKo9hn3Xbbt9cNcvniwDnLPMcqzDWVAlg
+	 GJeOORjPOPFmMHDQhL7wffpnRg0YtnucMz7WRTBH9drClOrA2rMEVAFj6GFbzTXatSDO1
+	 qnL7qMdCCP2ma8mAjk6ZkexpeKo9cc+AWwXc3rwkK7PLgnLe0UvF2XGH3rwzGoc7lBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829757;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=RG+7cd6JHjc2k5Y10bxDXl+BlMloyHleQY66xikX6Hs=;
+	b=4tWYqmpqy6vXTOi5mqwew/DL0MIApPhKIhwfCJKuYcZlcb9JN8X6FnVXVd7V40AI4wCw
+	 zpdp+Gs5vNN+VJj2FHXbOLuUv6Vbg+kKFmAo8EHClo2EAXAzTbMslFkLIF+OBn5AEqbwt
+	 Uo1PVWVxeeiEkr0BLtl1ofvl0eZ878bA8CsyXLRcu2DldS6yfxLYHr0PzixpBUEfqrFmp
+	 /4dtpIo7flwFnGgiN6fg4815C9fkaU2ReTD9sw+co3bzWyLd2ImH1sUiDMSVmwHMumHWU
+	 U0APJvjkSLDCMGl9S9WJ5FMWhHPTaEvyZoCMuLqvTEnUSwkMyDZBhyQxp3hc5eZdLFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YIstbYq1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DGzQ70hW;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 27F891F000C4;
-	Mon, 16 Nov 2026 11:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794829699;
-	bh=jtELbdJR4zGF+dqbQswzGUFJCLtGbxQUtZG2xjdVLiM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PyLTBj/TkfGtMPO7kk0uDTpPQ8FTRWmQ9X7WYQzniLtx8enLz0boAVt/9Hj3xkhRR
-	 KRBVNbHTlGWqO6qgmIEW9KOfVuB9L01mAcFn3mRMSJRRRGJNaRR/kofYJ+RSWVa+iv
-	 kjeSo9kycpZtjB6D8JKqTxFN76fcD3YpwH/ms1uBIdvVaq1SwU3uzAfX7IHQ8Ns4xy
-	 Kozy50FgwtFMTSg3f1104gLZnCy22/9+pLgot/gOTWWUxTd1bKul9El6HYMuITN6mT
-	 xJq9P5qRzAcmBz5yrxfCtYs37Eq7SyQFDxvxMQ6rueJ43u1LQYKGGFeLCm0CA1eEs4
-	 Dd4M+R3QV9yeQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8054C4A444;
-	Mon, 16 Nov 2026 11:48:18 +0000 (UTC)
-From: Moad Tarrih via B4 Relay <devnull+tarrihmoad.proton.me@kernel.org>
-Date: Mon, 16 Nov 2026 11:48:12 +0000
-Subject: [PATCH v5] platform/x86: asus-wmi: Ignore unusable kbd backlight
- WMI device on ROG Strix G814FP
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57519606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:49:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57519606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YIstbYq1;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DGzQ70hW
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGBMDjQ3033016
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:49:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=RG+7cd6JHjc2k5Y10bxDXl+BlMloyHleQY6
+	6xikX6Hs=; b=YIstbYq1HSw9wRh/Tz0Yl2FqvHIkjNxVkMX07nq4NXy/tevLxKH
+	eT1oBnw5ZoIUaLQxkW79sCo0gDLkP64Zscr0WiramjSk1Ed810LXWRajuiLbomr0
+	50ehpcm3tWX48FoP5ixSy0Vr8lWhXfOkEDJDmmM+FtBrdOt3h38Ufw1NWw3ELdJj
+	lQXjw4/61yqHJ+p12M6/+og7JkV7ss3QXD/Wtwimmiew6rsFLCQ6AJK4fapkyPuB
+	WhgrATi4fuCJoVOcB1m3IUyaWOSWe9lvOQ8qIGpzpH7ZJjGrOr08vdgq3KpOw2Bx
+	2AoN/tACnCps03nR11tjjM4/TH01HJ17f7w==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyxcf0pcq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:49:16 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so4353649eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:49:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794829755; x=1795434555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RG+7cd6JHjc2k5Y10bxDXl+BlMloyHleQY66xikX6Hs=;
+        b=DGzQ70hWDOkEcq4Jviv+NHlR7D4V/vObjJcKzwj9YMX//biZ/EKQuElI3nk3O+DSD3
+         zu7xP5NMAU+sopbjUiz0VknR4dRBVLp86YRDyUivMobe3zfySlL1LNDIPf1bfkNCzQKR
+         tB9IAqg4JBsPZtUuyMHk6qeYivPzRO5gw/Lc/NMWfOgjwIa6CgjGzHJxbSyQzuVWvddO
+         LV7ED7hX0Q4dlgPQPU6+087NUYQ+IFEkCbIVbNWgSKZ3WS6zcLlfSSnnISFSNGXnxD09
+         MGz3r1mjQrkvWW3U/KbsaXhW01W/bj6h2KG9Sk4fgai9zyO7lEoABVpuanQmPWqlgbV0
+         546A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794829755; x=1795434555;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RG+7cd6JHjc2k5Y10bxDXl+BlMloyHleQY66xikX6Hs=;
+        b=hNrH2ha4VgE0/rHtufu9a+5MS22yGX4+ayW1qKmSTUGWP12ZpwEQmQhNV4NhbDzx6h
+         Ka6uj1yqktXqh6sF+BTdr9JbbImp/ImcuGphzfLKle5K+d9m082OQOUCsekrMN5eL7Pb
+         EJMSixX3vFD2oZVNlpfh2bOHRGyTX7gvKsW8OVHKZbFOaYDlqkbOh13heLugalhHF+xa
+         55ICWPAEFZ9b/2FZs0D1+siploqQPT3gRp0SProQCy3c8tFVDu1DyVkRzSQpGrSNRPAE
+         A5fG8HuPscO2weVuUJJIC9UqESraa7hAijEODTcQrUypeqbjMPYMucRMCK7rcr6jyaqn
+         VXzg==
+X-Gm-Message-State: APuU4Z/s4OibdciVtWJdoc//KgBB5aRLVuOUoEJ7sC8ybNIlwtE0sN6g
+	yfh5r/ZcJtZ2RVLrSGMCyJ8WOtoRUyaPJnWRra14745EbApaU07LAAVPn/kep+1zz9EcWejKVMQ
+	fuiDpp+f8xRJ5WMt3VHfO+DvWvDbG33PzWxEpVgyu/VcSoT71CQGd7y57I48N8DCud58=
+X-Gm-Gg: AZFdTZfEx3hTbCtgMZhtHkrX6Kqgep13EqU8nbS2vXdmVkBQyWeL1ZfJP7AIJElc11U
+	x22TopQ7fXwZLvIG8VPVJYzngbUVW6xQNoD8wj+HMqFms2jOa4ri3Sx2mJUWWiA0soofvkqGd4O
+	oQhW1ys9dZoHm8WbwNV2zeWmroaFmaCIfCQYN0QL1k5EXya097P40myyc5UlY5mBO3bC1kKK4bw
+	j3rgCpNwYgVexNlfPGVPfbGQB3Dwkpwvxz+sYEmIwCVleT3tsGpnDo/H6ACmP78O+Wf2GI0dB4c
+	4ekzEUZK9USxniQwSwbLDmJtnOnBSJ9a6TgCLy5/Kasw1gmmx+xwW5J1ZV7OC0nv7hONLv2TIXb
+	pKaZaqiuENKJdPQ+VZj5TElelUfIAypKbxOi2gMn9mCTx79OwR4s8eQReF57Hlz7/ZMT5gBm49O
+	eg
+X-Received: by 2002:a05:7300:de01:b0:369:daea:812a with SMTP id 5a478bee46e88-379682c2053mr8694953eec.30.1794829755120;
+        Mon, 16 Nov 2026 03:49:15 -0800 (PST)
+X-Received: by 2002:a05:7300:de01:b0:369:daea:812a with SMTP id 5a478bee46e88-379682c2053mr8694933eec.30.1794829754617;
+        Mon, 16 Nov 2026 03:49:14 -0800 (PST)
+Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955822d58sm33802844eec.10.2026.11.16.03.49.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:49:14 -0800 (PST)
+From: Akash Kumar <akash.kumar@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: [PATCH v2 0/2] arm64: dts: qcom: talos-lyra-evk: Wire up CYPD6129 USB Type-C ports
+Date: Mon, 16 Nov 2026 17:16:39 +0530
+Message-ID: <20261116114908.1701258-1-akash.kumar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,175 +120,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-asus-wmi-kbd-readback-v5-1-f2f170836bf4@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XRTW7CMBAF4Ksgr+vKf3EcVtyj6sL2jIuLSMBOA
- gjl7jjQRdQq6vJJM9+TZu4kY4qYyXZzJwnHmGPXllC9bYjf2/YLaYSSiWBCc84MtXnI9HKM9OC
- AJrTgrD9QIbVQFRoBaEjZPSUM8fp0Pz5fOQ/uG30/Y/PEPua+S7dn8cjnuf86Rk45dUGaoBVjF
- nB3Sl3fte9HJHPHKJZKs6aIonimTPCVBIN/FLlQOFtTZFG00haCcEaL5reilgpfU1RR6gYCr3S
- tag1LZXqdLeF5KF/pf245TQ9XfvwtswEAAA==
-X-Change-ID: 20261108-asus-wmi-kbd-readback-236245e82de8
-To: Corentin Chary <corentin.chary@gmail.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Antheas Kapenekakis <lkml@antheas.dev>, 
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: Sercan GOKMEN <gokmensercan@gmail.com>, 
- Burak Goncu <burakgon12@gmail.com>, Denis Benato <benato.denis96@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Moad Tarrih <tarrihmoad@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794829702; l=5701;
- i=tarrihmoad@proton.me; s=20261108; h=from:subject:message-id;
- bh=3nGZnubAyvz6LHpt+pJHAhYjFwDOuh3QCXEfuWLUP48=;
- b=TU1qjWk4F4/ItjYisO1i5iKWQwNqMsFCBU33o2CipCt7EFQTzX3TF1s4ZnbuTV+qfUGpoquAk
- Pdgiiz66DvuCLf8dqI+/S/46EIXMXLrofXVU5cVd80YzilnaxiLhpyY
-X-Developer-Key: i=tarrihmoad@proton.me; a=ed25519;
- pk=wtwpmYxZldK7Qebavgtx7P5WmSQOiWjicK0506NOKLg=
-X-Endpoint-Received: by B4 Relay for tarrihmoad@proton.me/20261108 with
- auth_id=1453
-X-Original-From: Moad Tarrih <tarrihmoad@proton.me>
-Reply-To: tarrihmoad@proton.me
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA0NiBTYWx0ZWRfX+E149YKaoF2e
+ 0cMD/jV4FEoZqwety5i+G/b5bGZ6hdTvQb2sdxfmHQVkREXMbudVG62gMquxRD0tvKCRxqK+Pgw
+ MjumsjjsaN1AP4pHxELLtfbswk5Giu9kKfjz3WKR4M7PAKWTj7sHTRCH58ddZhjRlobO8wv9qE9
+ Xff5IcfdFaPlxfX6lOoXIFJkxkySAYq+GOPjeBPE7Hk7cbFw/UYD7SxhsqenICNQ0vhix3Rh5OH
+ 4IqECXW6aJRV2d3WqJqMS3Cle7QeSutsAh6Efmo+kz1wjOktaq89Mg6lkLpOzivi4R74oo+Ej2T
+ hYjyVy6j6y8/EciSUDzJF5QoWU717U74N8FvU3+sWAqKvK5reMb7KEW/nKI5lE57wmR6Wxm4lCX
+ Sq8soR57q/t5oZ4NF4MdrmHLT5BlotK9cuzu/FDuZrxMK3eGORGmg0xugjjgDCGOdWO+CCGtgXZ
+ KgJV/kFs/IkoU/gsorg==
+X-Authority-Analysis: v=2.4 cv=RtZQvymK c=1 sm=1 tr=0 ts=6afaedbc cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=oVCAav2c3y0N_-OfdZYA:9 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA0NiBTYWx0ZWRfXyUZEtL63teIK
+ wJ3HFmjXf2iKJifqbwHkEHHV0nQOqQAgAH2v6dWqfIW/ttjyYgoVZdlRcOahT7FeWelAp/jGf3r
+ QqAGEBt5kOq+jLM7iGPkPmijpXkxIh0=
+X-Proofpoint-ORIG-GUID: _W82jPWmrOqKYao_IXYm8G7BveADCAQg
+X-Proofpoint-GUID: _W82jPWmrOqKYao_IXYm8G7BveADCAQg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 impostorscore=0 adultscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611160046
 
-From: Moad Tarrih <tarrihmoad@proton.me>
+This change wires up the CYPD6129 UCSI PD controller on the Talos
+Lyra EVK carrier board, enabling USB Type-C role switching and
+SuperSpeed/HS muxing on both USB-C connectors.
 
-On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
-backlight brightness in sysfs changes the LED brightness, but reading
-it back always gives 0, and the read makes the Fn brightness keys
-misbehave.
+v1 was posted as a single patch [1]. This v2 splits the change in
+two and addresses review from Dmitry Baryshkov:
+ - Drop the VBUS-boost regulator's resistor-divider math from the
+   commit message; describe it as a plain fixed regulator instead.
+ - Replace the verbose HS-routing explanation with a short
+   "/* HS only */" comment above &usb_2_dwc3_hs.
+ - Drop the redundant dr_mode = "otg" on usb_1/usb_2 (it is already
+   the dwc3 driver's default).
+ - Move usb-role-switch out of the board file and into the shared
+   talos.dtsi, as its own patch (patch 1) alongside the graph port
+   placeholders it depends on.
 
-The firmware reports the keyboard backlight WMI device as present
-without implementing it, and the backlight is actually driven by
-hid-asus. DSTS(0x00050021) always returns 0x50000, which is level 0
-with the presence bit set, regardless of the actual level, and every
-DEVS(0x00050021) write is rejected as an unsupported method.
+[1] Link: https://lore.kernel.org/r/20261012131518.858396-1-akash.kumar@oss.qualcomm.com
 
-Add a kbd_led_no_wmi quirk that makes asus-wmi treat the keyboard
-backlight WMI device as absent, and set it for this board, matched on
-the DMI board name. asus-wmi then keeps the LED registered for hid-asus
-and no longer reads from or writes to the WMI device.
-
-As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
-no longer created on this board, they never worked here since the firmware
-rejects those writes as well.
-
-Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
-Suggested-by: Antheas Kapenekakis <lkml@antheas.dev>
-Suggested-by: Denis Benato <denis.benato@linux.dev>
-Cc: stable@vger.kernel.org
-Signed-off-by: Moad Tarrih <tarrihmoad@proton.me>
-Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
+Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
 ---
-Tested on an ASUS ROG Strix G18 (board G814FP, BIOS G814FP.317) on
-7.2.14: the brightness attribute reads back the level that was set, the
-Fn keys step from it, and this survives suspend and reboot. W=1 and
-checkpatch --strict are clean. v5 only changes the commit message.
 
-Sercan GOKMEN's B9406CAA patch also adds a field to struct quirk_entry
-and a DMI entry, so whichever lands second may need a trivial rebase.
+Akash Kumar (2):
+  arm64: dts: qcom: talos: Add graph port placeholders for USB Type-C
+    muxing
+  arm64: dts: qcom: talos-lyra-evk: Wire up CYPD6129 USB Type-C ports
 
-AI assistance: Claude Code (Claude Opus 5.5) was used to trace the
-asus-wmi code, write the patch and draft the commit message. I reviewed
-it and tested it on the hardware.
+ .../boot/dts/qcom/talos-lyra-evk-som.dtsi     | 121 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/talos-lyra-evk.dts   |  42 ++++--
+ arch/arm64/boot/dts/qcom/talos.dtsi           |  35 +++++
+ 3 files changed, 187 insertions(+), 11 deletions(-)
 ---
-Changes in v5:
-- Say that the sysfs write changes the LED brightness, and that
-  DSTS(0x00050021) returns level 0 with the presence bit set (Denis).
-- Add Denis's Reviewed-by.
-- Link to v4: https://patch.msgid.link/20261111-asus-wmi-kbd-readback-v4-1-79df1567476d@proton.me
-
-Changes in v4:
-- Trim the commit message and move the AI assistance note below the
-  --- line (Ilpo).
-- Link to v3: https://patch.msgid.link/20261110-asus-wmi-kbd-readback-v3-1-646adf2b8629@proton.me
-
-Changes in v3:
-- Drop the comment on kbd_led_no_wmi (Antheas).
-- Don't set wmi_backlight_set_devstate for this board: the firmware
-  rejects both DSTS and DEVS on 0x00050012, so the write did nothing
-  (Antheas).
-- Add Antheas's Reviewed-by.
-- Link to v2: https://patch.msgid.link/20261109-asus-wmi-kbd-readback-v2-1-c048fc53d8ee@proton.me
-
-Changes in v2:
-- Add a quirk that makes asus-wmi skip the keyboard backlight WMI
-  device on this board instead of detecting rejected writes at
-  runtime (Antheas), so no more WMI writes that are known to fail
-  are issued (Denis).
-- Link to v1: https://patch.msgid.link/20261108-asus-wmi-kbd-readback-v1-1-bf38f6400ade@proton.me
----
- drivers/platform/x86/asus-nb-wmi.c | 13 +++++++++++++
- drivers/platform/x86/asus-wmi.c    |  3 ++-
- drivers/platform/x86/asus-wmi.h    |  1 +
- 3 files changed, 16 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index 3b0f3346dc60..9b2a4b829885 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -93,6 +93,10 @@ static struct quirk_entry quirk_asus_unknown = {
- 	.wmi_backlight_set_devstate = true,
- };
- 
-+static struct quirk_entry quirk_asus_g814fp = {
-+	.kbd_led_no_wmi = true,
-+};
-+
- static struct quirk_entry quirk_asus_q500a = {
- 	.filter_i8042_e1_extended_codes = true,
- 	.wmi_backlight_set_devstate = true,
-@@ -167,6 +171,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
- }
- 
- static const struct dmi_system_id asus_quirks[] = {
-+	{
-+		.callback = dmi_matched,
-+		.ident = "ASUS ROG Strix G18 G814FP",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_BOARD_NAME, "G814FP"),
-+		},
-+		.driver_data = &quirk_asus_g814fp,
-+	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. Q500A",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index b33ebdb21aa2..51fea21ff247 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -2165,7 +2165,8 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
- 	asus->kbd_led.brightness_set_blocking = kbd_led_set;
- 	asus->kbd_led.brightness_get = kbd_led_get;
- 	asus->kbd_led.max_brightness = ASUS_EV_MAX_BRIGHTNESS;
--	asus->kbd_led_avail = !kbd_led_read(asus, &led_val, NULL);
-+	asus->kbd_led_avail = !asus->driver->quirks->kbd_led_no_wmi &&
-+			      !kbd_led_read(asus, &led_val, NULL);
- 	INIT_WORK(&asus->kbd_led_work, kbd_led_update_all);
- 
- 	if (asus->kbd_led_avail) {
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index b45f81b38a47..e53c6b3fc619 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -41,6 +41,7 @@ struct quirk_entry {
- 	bool wmi_force_als_set;
- 	bool wmi_ignore_fan;
- 	bool filter_i8042_e1_extended_codes;
-+	bool kbd_led_no_wmi;
- 	int key_wlan_event;
- 	enum asus_wmi_tablet_switch_mode tablet_switch_mode;
- 	int wapf;
-
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261108-asus-wmi-kbd-readback-236245e82de8
+base-commit: 87d33c3916a82e38eedec53f4afcf2c620add47c
+change-id: 20261116-talos-lyra-cypd6129-v2
 
 Best regards,
---  
-Moad Tarrih <tarrihmoad@proton.me>
-
+--
+Akash Kumar <akakum@qti.qualcomm.com>
+-- 
+2.43.0
 
