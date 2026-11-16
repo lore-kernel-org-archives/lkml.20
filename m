@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.77.61
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794827270;
-	b=QBPLtVkWW+gSxXgGm6Fn5W1lhXJa5khpI3NTXDX/FYjYkp/nqKT7hYKhdRwHMeR/5utH
-	 h0kkpvsIGO2fXhlBcW+oTIkM8ra5gH7zvyhV+xK+56mwqUK7KRHQUsyW59YuQYwYWKnKo
-	 H8oEWpTq4kl7YuQjjfiWZyX9e/gy4ex+BsdAVyDASEv1cy4gloCmNT/0Ts19IWfKFxcLn
-	 yHXhx4fsQo+U6P5YRjuNNqbZdqAMKMH4lKQCCKfNcCv7MUzIdfC+yThhDE6h+zNf87VyC
-	 6N6q89zBKJiFn66FZ4JdEs/IqT+9vCr04j+XyMEby40xyHVn63btuMJF3erYxnXHwsA==
+	b=muBzrmPgjJqptE4xX+GLWKWJLa2CDgEdL52HZ7YheevJfLoSl5msRfS/nBd84nbrcDH9
+	 IsDV2Zzp80EEs6IExZs7Z99BOJcHq+r4hDqO7fpP8uzUhZYKkzpFGOGwhAjrS8jCqQwpj
+	 7tv/pKmGwmzpiGmCfKl7cEA9PVXr9IVBWe4r8fx0y1pWhrUB5gq8gocQGt5EvytruvU5v
+	 51n6eOrEZsFXhd2lEMOcBtjOKanTuP08Jdtdk08sP1eJYg2W+kHOp0pi6wlrHmR7dbUTJ
+	 Wqy9RmtIZjEbUA6MfbSwdkwLfCBMrwsA8lJpsMd31LF0oEHS00AkppbIE4d5iL7P9xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794827270;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=mSKHltzBGWAj3KmddZORQ4Qcz3ohrAZDhoh6LxxVyv0=;
-	b=RrIfTdJVVjYNx36lD7IuOEd2+naWRbRWdu56z16m70/0CckxwXpL+XiBDKwv0/NtC0vl
-	 hWzTN2RI+Enjmlr+mUckRCbdsUscTGF8Lbzr4+f1/Oi+NU4HQI6wt4C8RWC28mjGJeutu
-	 wdFHEg1kjWFFyf3wmq/PPaTJERR9Q+5PszS0eT2D1HM/yIuWLJjyylRVgKpPGYA+DBLhd
-	 rzBhb2lcoMPzlKECmICfQYtCs86zx3EeyJ7+jm61wSXXTE4bCCMd8Dz66S0wmZ1wcsCII
-	 Z/fT8DHRfaa2//s7fTJtUZwLN/0DNeOO2CC3ex2PEKoc/bugi9lYdkEUx449pkhakJw==
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=2crvVlQ0qrNcT4X3yeFwrEOwN+ga0vW6noWwACc1vro=;
+	b=oHP8dCPHob31Y6ETmfFSpljz0Vu2LJpU1i8wpCwj5zn6bKTsVi2Yjqki7FFxw1j/kiFH
+	 nLPeuzIsSC+MoDzYLJgV70WZoSGRg3TyFbUD8M+WOBoFhvUh4UA6xyn+yjVnxZ8O1vWyh
+	 Vwuy4YguYf0LJQmeqE9dhNaOSBBZr8tPFpXRjTlbMrHu6fA458CuBFdJNwj2OS8oRi9S/
+	 y8wU8JRiA1f49b3swb5xpy4MkMGCz3F5T9Qw9kCyrIaOEnWOsFwOoSeRdTwCWj3NI2Pzj
+	 2tgcaJZg7lXWhq5JTFLzNEYL4DRgMlWM6GsL4FHEDoLqFDNy/LfDP5tdBop7R8d+ucg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baryla.org;
 	spf=pass smtp.mailfrom=baryla.org;
-	dkim=pass header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=HG+C7W+d;
+	dkim=pass header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=CzMoaRSw;
 	arc=none smtp.remote-ip=217.182.77.61
 Received: from mail.baryla.org (mail.baryla.org [217.182.77.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D0E606A335
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D0E606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA6A606B1BE
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AA6A606B1BE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=baryla.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baryla.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=HG+C7W+d
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A82E74613A;
-	Mon, 16 Nov 2026 11:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=CzMoaRSw
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57ECE7460F7;
+	Mon, 16 Nov 2026 11:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baryla.org; s=dkim;
-	t=1794827261; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=mSKHltzBGWAj3KmddZORQ4Qcz3ohrAZDhoh6LxxVyv0=;
-	b=HG+C7W+ddYmt+VV5/VQn9z38cBy7TRBXaJDvmeW4QOLjEhwJ+Hcl8lqgtLf7HwL77DiuBf
-	v/gRDXrGWLHSftlR0ZqjccV9icfDt48xBbp4QiTjNZA2FKFt/CVsn3cMkiCLpSnxtMf2sP
-	Mj9MKd4EPwTt+KBZDDQmc0Egr44F2ozdEDovrKGIqPEfbMCPwC68Cj8upALNdzuKJhLxX1
-	KCuUp8qCYnkjN5I7pX7vXoPAykthaDKOkSGd+t8nMB5sjjWYa0DE+OulIb9gwcPlX3uQAN
-	KDsdGg6pTiJLmlBUqLSszXtdmu7EHnlYJw2iXdPkvKNZLK9mT5fTkoI6zC9aGg==
+	t=1794827259; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=2crvVlQ0qrNcT4X3yeFwrEOwN+ga0vW6noWwACc1vro=;
+	b=CzMoaRSwq1oY44fRqo+f19AVaWdsYumJbYOERqIIuQZ6lstvEWuIfw9yehx/2gQP/o47md
+	nVH4fjt7bTTvVjKl2FoRDtwJ0nDhyxhQMOX46QG0Fp35RA5kvacuRBwL2hxYNKTOmba/W9
+	8FumqApHdchGhtdmhZMdyoyY32avTY20Ym56CE2vzanVyV2mObmDmn5g6adlhkCkf5aetq
+	+9mkoS4yVPhZiIja5KJv46wmowet2Pcd4klxTDaMMNIfJ1kufkwlLeHHomFMud69CYuBLz
+	wMA1XS11apnM/2UZu3U+dYknpxIHHUGjcF3/BdFG1vmoU11Q38LSzdC51Ua7PQ==
 From: =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-Date: Mon, 16 Nov 2026 12:07:33 +0100
-Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the MST last link
- check on logical ports
+Subject: [PATCH 0/2] drm/amd/display: Skip the MST last link check for
+ logical ports
+Date: Mon, 16 Nov 2026 12:07:31 +0100
+Message-Id: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,9 +59,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261116-mst-logical-port-v1-2-6b446ebe75e7@baryla.org>
-References: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
-In-Reply-To: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQrDIBAF0KsMf50BjZBar1K6EDNJB2wMGkIge
+ PdC3wHejSZVpSHQjSqnNi0bAtmBkD5xW4V1RiCMZpystRN/28G5rJpi5r3Ug13y0bvnwzsjGAh
+ 7lUWvf/l69/4D8TyLEWIAAAA=
+X-Change-ID: 20261116-mst-logical-port-3c8a8397830e
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -75,81 +76,92 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Check that a logical port accepts a DSC mode even when its
-DP_LINK_BW_SET describes a link too slow for the uncompressed stream,
-and that port 7, the highest physical port number, is still rejected.
+Hi,
+
+This series fixes a missing 3840x2160@120 mode on a Dell U3225QE, a
+monitor with a built-in USB4 hub and MST branch device, connected to a
+laptop over USB4.
+
+After every USB4 plug-in, 3840x2160@120 RGB is not available for the
+U3225QE panel. It comes back after a monitor power cycle and is lost
+again on the next plug-in. Up to 7.2 the mode is missing from the mode
+list. Since commit 0b0ff65d3ca1 ("drm/amd/display: Refactor stream
+validation") in 7.3, it is offered as YCbCr 4:2:2 without DSC instead,
+and "Mode Validation Warning: Viewport size failed validation." is
+logged on every atomic check.
+
+The mode needs DSC: uncompressed it needs 28.5 Gbit/s, and the HBR3 x4
+link gives 25.1 Gbit/s. The panel is on logical port 8 of the monitor's
+branch device, and DSC is decoded at that port, so
+dm_dp_mst_is_port_support_mode() checks the "last link" after it. It
+reads DP_LINK_BW_SET and DP_LANE_COUNT_SET of the port once, caches the
+result, and rejects modes whose uncompressed rate does not fit.
+
+A logical port is the branch device's own internal sink, so no DP link
+follows it. On this monitor its registers seem to show the state of the
+monitor's internal link while it trains. DPCD 0x100-0x108 of port 8,
+captured with bpftrace:
+
+  when                  driver's read                 read ~1 s later
+  after USB4 plug-in    06 01 00 00 00 00 00 00 01    1e 84 00 02 02 02 02 10 01
+  after power cycle     06 04 00 00 00 00 00 00 00    1e 84 00 02 02 02 02 10 01
+
+0x100 is DP_LINK_BW_SET, 0x101 is DP_LANE_COUNT_SET (bit 7 is enhanced
+framing) and 0x108 is DP_MAIN_LINK_CHANNEL_CODING_SET.
+
+After a plug-in the driver sees RBR x1 (1.26 Gbit/s) and drops the
+mode. After a power cycle it reads before the channel coding is set,
+gets no bandwidth, and skips the check. Even the settled value, HBR3
+x4, is too slow for the uncompressed mode, so reading the registers
+later would not help.
+
+Patch 1 skips the last link check for logical ports. Physical ports
+keep it. Patch 2 adds KUnit tests.
+
+Testing:
+- Reproduced on a Lenovo IdeaPad Pro 5 16AHP9 (Ryzen 7 8845HS, Radeon
+  780M, DCN 3.1.4) and a ThinkPad P14s (Ryzen AI 7 PRO 350, Radeon
+  860M, DCN 3.5), with a Dell U2515H daisy-chained from the U3225QE's DP
+  output, on Fedora kernels 7.2.4 and 7.3.3.
+- With patch 1 applied to the amdgpu module of Fedora's 7.3.3, on both
+  laptops every plug-in gives 3840x2160@120 RGB 8 bpc with DSC
+  (4 slices, 16 bpp), and there are no Viewport size warnings.
+- Without patch 1, the new logical port test (from patch 2) fails.
+- Not tested: other MST hubs, or other monitors with logical ports.
+
+Physical ports read and cache the same registers in the same way, so
+they may have the same timing problem. I have no hardware to check
+that, and this series does not change it.
+
+How this was made: I used an AI coding assistant (Claude Code with
+Claude Opus 5.5) to investigate the problem, write the bpftrace script
+and the patches, and draft the messages. I ran all the hardware tests
+myself and reviewed and edited the patches, tests and messages. Before
+posting the bug report and this series, I spent time understanding the
+problem and the solution well enough to feel that posting this makes
+sense. DP, MST and DSC are not areas I know well, and this is my first
+attempt at contributing to the kernel, so please point out anything
+that looks wrong, and I am sorry in advance if I did not adhere to some
+kernel requirement or convention.
+
+The bug report has dmesg logs, the MST topology and the bpftrace
+script:
+https://gitlab.freedesktop.org/drm/amd/-/work_items/6142
 
 Signed-off-by: Karol Baryła <git@baryla.org>
 ---
+Karol Baryła (2):
+      drm/amd/display: Skip the MST last link check for logical ports
+      drm/amd/display: Add KUnit tests for the MST last link check on logical ports
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 13 ++++--
  .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     | 47 ++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ 2 files changed, 57 insertions(+), 3 deletions(-)
+---
+base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
+change-id: 20261116-mst-logical-port-3c8a8397830e
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index e624eb55cae1..e33a9daaebde 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -2943,6 +2943,51 @@ static void dm_mst_test_port_mode_last_link_synaptics_quirk(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
- }
- 
-+/**
-+ * dm_mst_test_port_mode_logical_port_skips_last_link_check - logical ports have no last link
-+ * @test: KUnit test context
-+ *
-+ * A logical port is the branch device's own internal sink, so no DP link
-+ * follows it. A DP_LINK_BW_SET too slow for the uncompressed stream must not
-+ * reject the mode, and the link settings are not read.
-+ */
-+static void dm_mst_test_port_mode_logical_port_skips_last_link_check(struct kunit *test)
-+{
-+	struct dm_mst_test_port_mode_ctx ctx;
-+
-+	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
-+	dm_mst_test_enable_dsc(test, &ctx);
-+	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
-+	ctx.port->port_num = DP_MST_LOGICAL_PORT_0;
-+	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
-+
-+	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream), DC_OK);
-+	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 0U);
-+}
-+
-+/**
-+ * dm_mst_test_port_mode_highest_physical_port_last_link_checked - port 7 is physical
-+ * @test: KUnit test context
-+ *
-+ * Port numbers 0-7 are physical and only 8 and above are logical, so a too
-+ * slow last link behind port 7 still rejects the mode.
-+ */
-+static void dm_mst_test_port_mode_highest_physical_port_last_link_checked(struct kunit *test)
-+{
-+	struct dm_mst_test_port_mode_ctx ctx;
-+
-+	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
-+	dm_mst_test_enable_dsc(test, &ctx);
-+	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
-+	ctx.port->port_num = DP_MST_LOGICAL_PORT_0 - 1;
-+	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
-+
-+	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream),
-+			DC_FAIL_BANDWIDTH_VALIDATE);
-+	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 1257120U);
-+}
-+
- /**
-  * dm_mst_test_port_mode_upstream_vc_too_small - the upstream hop is the bottleneck
-  * @test: KUnit test context
-@@ -4143,6 +4188,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
- 	KUNIT_CASE(dm_mst_test_port_mode_last_link_too_slow),
- 	KUNIT_CASE(dm_mst_test_port_mode_last_link_cached_bw),
- 	KUNIT_CASE(dm_mst_test_port_mode_last_link_synaptics_quirk),
-+	KUNIT_CASE(dm_mst_test_port_mode_logical_port_skips_last_link_check),
-+	KUNIT_CASE(dm_mst_test_port_mode_highest_physical_port_last_link_checked),
- 	KUNIT_CASE(dm_mst_test_port_mode_upstream_vc_too_small),
- 	KUNIT_CASE(dm_mst_test_port_mode_branch_throughput_exceeded),
- 	/* get_conv_frl_bw tests */
-
+Best regards,
 -- 
-2.56.1
+Karol Baryła <git@baryla.org>
 
