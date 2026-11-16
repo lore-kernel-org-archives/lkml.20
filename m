@@ -1,61 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820957;
-	b=CwEQcJE0dTKdVOnn1hCON58JfaeQSUEM12/RneH+Od/GC7f06Xi5Qo3eM8o9CYl6qAFC
-	 EPDyUcwdv6NM8VS4wTO2fdP3ibBhkmrp6C0LCghlcQRA008a5X3X0IPkW52b4ww3pO+Sz
-	 4NCIxScQb0j13ub3MLxYW4yHuhZUSKtVyyLxs2vxwBqn/Wd3f0wRr1UemJgOGDe8EKhoe
-	 SdMFwmjYPEQMQIJkTCibW/az+9D/BAIWY1tzrto2JPNuzzcY2RSh5mpaHMiMXJ/bAxG/3
-	 mZj95tza0rsaQO8EXV8zBdMWOO1tEXOoZCKYVB0Pie4ati7dTcLXDo1meBeSXvJXSqg==
+	t=1794820962;
+	b=hdy6cuVsenKZf15ymThHGeA89A6e+q56WYO773rbZpnhzlVhTx7RHN/THSUGBrkDqPst
+	 3sG+9OmwTxNEBKXt7WDvs5kdjQx4WxuYijFZ5pC8saLoDCNLSINpaW/4nisqFK89dgIhL
+	 nLt4nvc48K6HFao+jhVJC5Rg64lExeCY3bHWG7Qe4CPABRh8gp3D+4nBxb1GYt2fLdx/m
+	 GBlq2EDoT6PDRuf2/WpavhkJnVIIJ4dSQYw3pVOeFOQQnFjbUAWJ/XZLHML8dFXBafLkf
+	 U3Fer6SV1ZZx41y27TVSe/SAzGtuk2/e6wJs96D3sdYhooWVQFRCpA7bYgazdLGvrRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820957;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3RlmIg6JxxXg267jtA+puhGrh38QA4kd/Mzvm3x/l3E=;
-	b=3DtOE34yh6T/+Gp9QvUGPH2jXrKGetfVHG7CnCg5YG9/3RriT7wh0s+KizC0yWjpGfZ3
-	 ms8tgX2+MAyKEJ7ThRvox6RVAgZckFkz8DyaT0HwbVV78tw1bJB3p2EpIC7HHfGw1DR4r
-	 nXqGpDfR/sEDorEfw/VTkioboIZpImwI+oLZV0Duf2yr3hdJfiHB9YIJF6Q6F+jEdlwtr
-	 gGQcujHLIQJ5dHGSmSG3FK75Eb0nQA493tObM5DC7zuDm0G6hvprYUS8SOe68ghx7ZQlj
-	 wmEMZFYndmyHmsez5rFUHWs6s8P+liOmwvNL8EO+84shPRjLYXyIiuz0aGrQQHn/l3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820962;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Patchwork-Hint:Organization;
+	bh=LtBNXsNicSdXeQ45UPuaB31xx6ZCxcVBSiBC9NIdDp0=;
+	b=VdMlOUlrgILA4tx6t5EO9ezkp9Xu33Znr+GKtkvOBuhtRKjVIIl1FOXN8x89r8HDAYTL
+	 MryImJ9lAf81y0z5yGAQk5Wybx+VRX1r1InK65nfAoeO+NvZbXWhOQNH6l0FcaA0mJHl8
+	 tjb5001K7urvI/9FkND9OCg1oHccnlc2zS640Qwl4mvgfOzdBZQskyjXvq+tJCSLkq7/I
+	 xYzAqUytuQTOfiSgMjNg2LV+vZBwAAVEmz+mJXCIQXxl0pv6sML/McJSeHQ5vHas6wyYd
+	 NWz+Vxi9u2MFWD8apvV94wBVXtLApBYeR63R0eJRqJTCzajECNB58qm0Giq+nJdfJPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsvYZF5o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SpeSUFBw;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921C0606A31C;
-	Mon, 16 Nov 2026 09:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11552606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:22:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11552606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsvYZF5o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E0F1F000C6;
-	Mon, 16 Nov 2026 09:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794820957;
-	bh=3RlmIg6JxxXg267jtA+puhGrh38QA4kd/Mzvm3x/l3E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bsvYZF5oigMQJXCb187HaL08EYdWhy7xgqr3UmpALb3znyBT4WPKXgfoiHu+EegA3
-	 rwcKablmjfqWuAZ2DIBdZnSs3Lk6EDx484TjL6v6CzNnIB75Ufp2MNZ+rK0N8Sf7Rb
-	 Yn//JWXnI+PK8DmWiJMTI/QMPvdBHnjTS1oshOO7pQqBYqLamu7z/7ohmBuXHmjzYZ
-	 Eq2xfOa7mlpJdfMbEKkHnymjiQ77hTbJ7EEKw8tLdiLUMJ4gVkwmXclA0l/rFaDy8R
-	 OVSlaG/vmoFjhm2FpTDH/Oz6NN1ZlAibK5ZhXGYYl6FRBhkMFLQfozHCjg+oypDgpr
-	 ystvA5nCHFrRg==
-Subject:
- Re: [PATCH net] sctp: preserve the last transport during INIT error cleanup
-From: netdev-bot+sashiko@kernel.org
-To: ljp1205831794@gmail.com
-Cc: netdev@vger.kernel.org, jiapenglin@tencent.com, marcelo.leitner@gmail.com,
- lucien.xin@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- vladislav.yasevich@hp.com, linux-sctp@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 09:22:35 +0000
-Message-ID: <179482095589.3136.2362257339716532422@kernel.org>
-In-Reply-To: <20261112092114.12458-1-ljp1205831794@gmail.com>
-References: <20261112092114.12458-1-ljp1205831794@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SpeSUFBw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794820962; x=1826356962;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Y2zldT+YuSEQD9QzOAhBed/JdXYSi8OLsQFal3RWfDo=;
+  b=SpeSUFBw90zeiiChxFxuuanpMXURA7yzlj+Rx1ihvvqrBunBOqZszDny
+   Pp3cYgGmUngL53lp3rqdyu8PuWJiu4UkvnoPReGRIBb/r8Fnx2VQW3sSY
+   w3DtlLrf044fHI/d5r5pEBujj4FeNsq6tCluY1l2pyfaySrFNMcb6sx2O
+   +8Y5HXFYzZRwu6M3+S6n2TAr/eSGQNdudqWNUc2NAXf4feh0KvXKTnXHP
+   vv6X1+vwG7cvpEXPPNGOwjSP3WC83Orjkz94J3fYRAjZ2OY3/Ydusqo2w
+   mDdDfnDVd1KYOmqWRamzlRLD7CUZbIyaHZVAHO3xxcVMuQVGjKyASuP+B
+   w==;
+X-CSE-ConnectionGUID: pJeJMobTS7qwY0stFvbbqg==
+X-CSE-MsgGUID: 3/J4WjvLTwCzqkyXbsZlqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3442855"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3442855"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:22:39 -0800
+X-CSE-ConnectionGUID: EQntyqAFTXq7wdrA1wo5ow==
+X-CSE-MsgGUID: Snrum0OSRqWvUnjJB+5zPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9640030"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:22:35 -0800
+Date: Mon, 16 Nov 2026 11:22:32 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: aot.lerwin@gmail.com
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915/display: Ignore disabled planes in async
+ flip checks
+Message-ID: <avrLWCctBVWAjOo4@intel.com>
+References: <20261115-i915-async-planes-v2-1-c5163dfea5b2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,156 +85,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261115-i915-async-planes-v2-1-c5163dfea5b2@gmail.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Sun, Nov 15, 2026 at 04:43:35PM +0100, Erwin Springer via B4 Relay wrote:
+> From: Erwin Springer <aot.lerwin@gmail.com>
+> 
+> Atomic async flips may carry properties that don't change, so compositors
+> tend to send their whole plane state with every commit. KWin for example
+> adds all planes of the pipe, including the ones that are disabled and stay
+> disabled (CRTC_ID=0, FB_ID=0).
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+I have slightly more universal solution to this atomic+async issue.
+I just posted it and Cc:d you.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] When cleanup fails, the new `!list_is_singular()` guard in
-  sctp_process_init() (net/sctp/sm_make_chunk.c) keeps whichever non-…
-- [Low] The commit message says "The retained transport is freed when the
-  association is destroyed", which suggests the kept non-ACTIVE…
-- [Low] The comment at the clean_up label of sctp_process_init()
-  (net/sctp/sm_make_chunk.c) still reads "/* Release the transport…
-
---
-
-sctp: preserve the last transport during INIT error cleanup
-
-This patch changes the clean_up path of sctp_process_init() so that the
-loop removing non-ACTIVE peer transports always keeps the last one. That
-stops sctp_assoc_rm_peer() from using the empty list head as the
-replacement transport and crashing in sctp_assoc_set_primary().
-
-> Keep the last transport during cleanup so sctp_assoc_rm_peer() has a
-> valid replacement. The retained transport is freed when the association
-> is destroyed.
-
-[Severity: Low]
-Is this description accurate for the path in the oops trace above?
-
-The trace shows sctp_do_sm()->sctp_process_init() with no sctp_sf_*
-frame. That is the SCTP_CMD_PEER_INIT path through sctp_cmd_process_init().
-The sm_statefuns.c callers pass a new or temporary association and free it
-on failure. This caller instead runs on the live COOKIE_WAIT association:
-
-net/sctp/sm_sideeffect.c:sctp_cmd_process_init() {
-    ...
-	if (!sctp_process_init(asoc, chunk, sctp_source(chunk), peer_init, gfp))
-		error = -ENOMEM;
-    ...
-}
-
-In sctp_sf_do_5_1C_ack(), SCTP_CMD_PEER_INIT is queued before the
-TIMER_STOP(T1_INIT) and NEW_STATE(COOKIE_ECHOED) commands. Those commands
-are dropped when the interpreter bails out. The association stays in
-COOKIE_WAIT with T1-init armed, and primary_path, active_path and
-retran_path all point at the retained non-ACTIVE transport. Later T1-init
-retransmissions use that transport.
-
-Before this patch, every transport left after a failed sctp_process_init()
-was ACTIVE.
-
-Could the commit message describe this new state, where a live association
-keeps running on a single non-ACTIVE transport?
-
-> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-> index 15c2d87575a8a..e4b7dacf174e6 100644
-> --- a/net/sctp/sm_make_chunk.c
-> +++ b/net/sctp/sm_make_chunk.c
-> @@ -2528,7 +2528,8 @@ int sctp_process_init(struct sctp_association *asoc, struct sctp_chunk *chunk,
->  	/* Release the transport structures. */
-
-[Severity: Low]
-This isn't a bug, but the comment no longer matches the loop, which now
-keeps the last transport on purpose, whatever its state.
-
-Could the comment say that one transport has to remain because
-sctp_assoc_rm_peer() takes the first list entry as the replacement path?
-Without that, the list_is_singular() check could later look redundant.
-
->  	list_for_each_safe(pos, temp, &asoc->peer.transport_addr_list) {
->  		transport = list_entry(pos, struct sctp_transport, transports);
-> -		if (transport->state != SCTP_ACTIVE)
-> +		if (transport->state != SCTP_ACTIVE &&
-> +		    !list_is_singular(&asoc->peer.transport_addr_list))
->  			sctp_assoc_rm_peer(asoc, transport);
-
-[Severity: Medium]
-Does this keep the right transport? The guard keeps whichever non-ACTIVE
-transport the walk reaches last, which is the tail of
-asoc->peer.transport_addr_list. That is not necessarily the transport for
-peer_addr, the address the INIT-ACK came from.
-
-For an existing peer, sctp_assoc_add_peer() only promotes SCTP_UNKNOWN:
-
-net/sctp/associola.c:sctp_assoc_add_peer() {
-    ...
-		if (peer->state == SCTP_UNKNOWN) {
-			peer->state = SCTP_ACTIVE;
-		}
-		return peer;
-    ...
-}
-
-New transports are appended with list_add_tail_rcu(), and
-sctp_process_param() adds the INIT-ACK address parameters as
-SCTP_UNCONFIRMED.
-
-Consider this sequence:
-
-1. The peer_addr transport X is UNCONFIRMED and is primary. This can
-   happen through sctp_setsockopt_primary_addr() or through an INIT-ACK
-   SET_PRIMARY parameter. A Stale Cookie error then runs
-   sctp_cmd_del_non_primary(), which leaves only X and returns the
-   association to COOKIE_WAIT.
-
-2. A new INIT-ACK from X carries address parameters Y1 and Y2, which are
-   appended as UNCONFIRMED. The list is now [X, Y1, Y2].
-
-3. The packet reaches clean_up. One way is an address that collides with
-   a transport of another association on the endpoint, so
-   sctp_hash_transport() returns -EEXIST. Another is the ADD-IP without
-   AUTH check.
-
-The loop then removes X (primary moves to Y1), then Y1 (paths move to Y2),
-and keeps Y2. Y2 is an unverified address from the INIT-ACK that was just
-rejected.
-
-sctp_assoc_rm_peer() has set init_last_sent_to to NULL, so when T1-init
-fires:
-
-net/sctp/sm_sideeffect.c:sctp_cmd_interpreter() {
-    ...
-		case SCTP_CMD_INIT_CHOOSE_TRANSPORT:
-			chunk = cmd->obj.chunk;
-			t = sctp_assoc_choose_alter_transport(asoc,
-						asoc->init_last_sent_to);
-			asoc->init_last_sent_to = t;
-			chunk->transport = t;
-			t->init_sent_count++;
-			/* Set the new transport as primary */
-			sctp_assoc_set_primary(asoc, t);
-    ...
-}
-
-INITs go to Y2 and Y2 becomes primary. Y2 also stays hashed in
-sctp_transport_hashtable, so packets from it still match this association.
-If X had been ACTIVE, X would have been kept and Y1 and Y2 removed instead.
-
-Would it be more deterministic to keep the transport returned by the first
-sctp_assoc_add_peer(asoc, peer_addr, ...) call, or the current
-primary_path?
-
->  	}
->
+> 
+> intel_async_flip_check_uapi() fails the commit as soon as the state
+> contains any plane of the pipe that can't do async flips:
+> 
+>   [drm:intel_atomic_check [i915]] [PLANE:66:plane 2A] async flip not supported
+>   [drm:drm_atomic_check_only.cold] atomic driver check for ... failed: -22
+> 
+> So with such a compositor tearing never works on a pipe with sprite or
+> cursor planes, even though only the FB of the primary plane changes. KWin
+> silently falls back to vsynced flips, about 60 rejected commits per second.
+> 
+> A plane without a framebuffer before and after the commit takes no part in
+> the flip. Skip it in both async flip checks.
+> 
+> A plane that is disabled in uapi may still be used by the hardware as the
+> Y plane of a planar framebuffer on another plane (planar_linked_plane on
+> ICL+). Don't skip such a plane in the uapi check, so the commit is still
+> rejected there as before, instead of the linked planes being pulled into
+> the state later and tripping the drm_WARN_ON() in
+> intel_async_flip_check_hw().
+> 
+> Tested on Raptor Lake-U (Iris Xe) with the patch applied to the i915 of
+> Linux 7.3.4, unmodified KWin 6.8.2 and a fullscreen client that requests
+> tearing through wp_tearing_control_v1. Before, none of about 350 frames per
+> run was presented without vsync. With the patch 3334 of 3340 frames tear
+> and the message above is gone. What is still rejected is the first flip
+> after the modifier or format changed, once per run, as intended.
+> 
+> Signed-off-by: Erwin Springer <aot.lerwin@gmail.com>
+> ---
+> Changes in v2:
+> - Don't skip a disabled plane that is in use as the Y plane of a planar
+>   framebuffer, it would trip the drm_WARN_ON() in
+>   intel_async_flip_check_hw() (found by the Sashiko review)
+>   The device test was done with v1, no planar framebuffer was in use
+>   there. v2 is compile-tested (W=1).
+> - Link to v1: https://patch.msgid.link/20261115-i915-async-planes-v1-1-d13498d0b6be@gmail.com
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index f4d9148ef..9be7596fa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -6281,6 +6281,16 @@ static int intel_async_flip_check_uapi(struct intel_atomic_state *state,
+>  		if (plane->pipe != crtc->pipe)
+>  			continue;
+>  
+> +		/*
+> +		 * Userspace may add planes it doesn't change to the commit.
+> +		 * A plane that is disabled and stays disabled takes no part
+> +		 * in the async flip, unless it is in use as the Y plane of
+> +		 * a planar format on another plane.
+> +		 */
+> +		if (!old_plane_state->uapi.fb && !new_plane_state->uapi.fb &&
+> +		    !old_plane_state->planar_linked_plane)
+> +			continue;
+> +
+>  		/*
+>  		 * TODO: Async flip is only supported through the page flip IOCTL
+>  		 * as of now. So support currently added for primary plane only.
+> @@ -6346,6 +6356,10 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
+>  		if (plane->pipe != crtc->pipe)
+>  			continue;
+>  
+> +		/* Disabled planes that stay disabled take no part in the flip. */
+> +		if (!old_plane_state->hw.fb && !new_plane_state->hw.fb)
+> +			continue;
+> +
+>  		/*
+>  		 * Only async flip capable planes should be in the state
+>  		 * if we're really about to ask the hardware to perform
+> 
+> ---
+> base-commit: 419bb0e4cadd214a0847010c02ade95e5fc511f7
+> change-id: 20261115-i915-async-planes-d532ca94cf3c
+> 
+> Best regards,
+> --  
+> Erwin Springer <aot.lerwin@gmail.com>
+> 
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112092114.12458-1-ljp1205831794%40gmail.com
+Ville Syrj�l�
+Intel
