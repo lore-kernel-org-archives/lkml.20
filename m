@@ -1,73 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866626;
-	b=qM1xFGGATDIdBzVAEEvTNv7kHVu39wpx4q3asb5L/S79ipgTV+w5QfT9qOrRdiHiw/Cj
-	 dterARx5HJmK6xgMYXs/G43c+CTTcQk8hTaikmgKdWQZk+PdrTplzDehbGPqZGJkjQB+P
-	 ackmWPTlxfjTvA3Cf23A3jgyluVMGJ3wQb+/5zSsMiZUdzklK45nxnTA0QhBWenawM4VR
-	 FeYG3u5bdbLQByYoqjChV+DK6A2k/I4uKz0bDjHH5vrm8jhaD0LWw5iM1Eu6m8IYTnm0/
-	 nkdJAEL6kMzYSCS9U+XMAnjQ1QGBZHnDM2udhqoQ/+P+NXo+sb+DZ3OAeWeAQiezLTw==
+	t=1794866627;
+	b=A5n0/7twdLQFeVOEmoerAEWroWUTsYMQF/imcVdJnIf4iJLV3XA2IKvEY4Ms2pojmqX1
+	 jVCfzTXhh8Ij3+VHpAPFsD8XzJfvJW4bIB+LRFF4m0sWTf4wkhPNQIj0EZTXZOZ0wVjVa
+	 czI7ZWbXuVPASDZeN2geDklRWFTrzPlY2EfL3/SxCfw9J+FItoy3SrQjAyducE0hcP0kC
+	 frn6lfDwoacj3nVvbOl6Dw8JRp3D3ilUsdQYBgiaFP3ZX7E9kRbAurAXzK7Cm4hkdhp3d
+	 U98NQ1D7/QRWybba3hwGZ44EPMG91DCKILz4jWZjkDGfm5zDexnLajL80uJtVcgH1mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866627;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=LB+H1KfzRZwbsIbgdOQxyz35ct4YMH+KJmEsb1/UgSU=;
-	b=3fnacR4v2EKXqcdDXehUQI3YuMZBuyni6MlpTDaVVqB97KGpMyI2e+RNsEoNSVfhBsY7
-	 diN60xeOyjF3uObY6AxhpCmPxajk2IATorA3fylft9lXKp9DTAaio+kYZ0H3Dg11ukR0W
-	 +dFJbeKyULn+dXhckoP4/FSZ4w0SnugLu2a7bBw/GMfALH/VCrGgM8PyLRWXLrdeGEKNN
-	 /QqkY1K61P/WWCOOOCBSGbWqsj3A15RFHCXFC+cDDlZ7ZEjOn0UjMOiClW25cPprwzY0S
-	 hW4SAYxOYzdVlkJGVcT7oYTp73upS8sIIh6f7qizz+F5ELZVtw6v3nKsaF3zj7PBObA==
+	bh=PizgZNC5pZ1OdAP1T1MlqaKvfqVNkGdpygwkEwMjJh8=;
+	b=ENCVA3L/ZvPKiDWPF8gwq946QpA8Oqg5YDXD9a9/K3XrT1rfUqiEiF0bwn7+h6QvVVdc
+	 0a+jlvoq/H3o5jzk25gCiV0Ccz/UvB0HieCNsTYinTJYvsGIOfu6MO72Y6mi8OyaqiI3U
+	 5azcbqCGmb8VE6l1ZXt9VXtpkBsGRdnWC+d8mg5DJGoVqdTBF/3pam8pzKfI/v76XxhUp
+	 L5wiecARQpRoX4mvVqo8CFOFoF7800+zJSWOu8zSLDagUpcyXSllT1p3EyTF2pZDHaCRW
+	 X6Ld78WffVJWVbxB62jEWyqP+PCngf+LdxQ1/YvDPbzSi2uN4Or0JLaP9+JPOdt9TLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.224.53
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	arc=none smtp.remote-ip=74.125.224.54
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F90606A33B
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:03:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4F90606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AE5606A88F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:03:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1AE5606A88F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67dae7d3f7dso2256804d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:03:45 -0800 (PST)
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-677bc4704cbso4048350d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:03:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794866625; x=1795471425;
+        d=1e100.net; s=20260707; t=1794866626; x=1795471426;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LB+H1KfzRZwbsIbgdOQxyz35ct4YMH+KJmEsb1/UgSU=;
-        b=FMxxwiNC8nyPac6eC0798yWv04B/6wmAHvK6+0g+UXGqx799UOY6rP0p9S3oFmQdnG
-         5YY4GcJspVdZudhQc4WBkSKidvMuW1xdniZWztxFQJWTDkYqAzZvBp2PIp+oOTbkOgdx
-         Nh7MrSZWfD2rWijoJ4y0bm8eVYgE3vaFMH2jPe7XKJ6coLvmZF5kTWnYPs9P9thkDIuj
-         27BhbvJVchLc6RXlu5oy7NP3bysiiU8Bo+5uV8wWmQwpMXnSEJsy/+DTQqA0Bcl9255a
-         egUoHxX7LRC7tilTumNMBOJ1DMfXeoLbDb/yEhNs3P+ES7qvm9I+65ZDn8yoWVpL4q5I
-         cWew==
-X-Forwarded-Encrypted: i=1; AL+hErHq/MTOddyy4KVKSx78/9/fgKSP1mSOZu0ROZC+3y2xJubFSiseH6gq3+LbgsHzcP/ZT/nucda/ecLJ/TE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HhSz61p2vXgcJ9SL8misEUHFmJHWyE/RecQ2vcEC00WxY7Af3
-	o3VibUj2gSI/l/WmMTyKvA+B9mpyuWqY/xcWyE68gKdEKj8yvCxUGRKk
-X-Gm-Gg: AZFdTZdfQ/z+tLL9eluPQTVDs42dFaLDOWlLJS0mYD9S2C/zwlzEx5ObsyR1zdI2ks3
-	Hkgkw8VNDEf56Uxs6dop+O99LYIUhDgEAdfTFlAsFrvBxYHWKRZSvZ1K3eOkquZpRE0XQceir7Q
-	dyZ6U+Uyx8094Tb4Ve5u5voYktpmra7zlGpjjB+XIXU9n5zBb3Ch8+Jqr8g7lM8L7PWLR72ta07
-	uJkwEq9Xu28raxuRDx0TIFkXCRdOcHDsxMMp2HCrPAzQ2MRdEvIFt/jr9nwC+FeDjkfVqXz6IzZ
-	8KTxhEbJ+nJk64PpqxAJLeDcOHdWve4lnwdw5ccsgPblxpjGTUgE9Xpkcm+QLHBrWaScIj/IKri
-	xe7lR770kgu69ajuWf70HhmR0kwGLsNOB2DefryQMW5T/PTJwWzqYg3lx09O5BAKVWiCSUMEnrz
-	Q0fzpm2MBOE/f2bu8xMvsWmZoxJWG8SMRkX7BjfFoS8lT3WKilLbe13K0voO8Ktapy9XFPPX6Qh
-	f4AuRDEiJOMnkCM/w8vxQyLf2hn64hDk8z4K4ZkW3iT2A3CH/XQ6B+1J/ksMNjl1fFq5Usb2cpm
-	cRps20m2JarkJHXb0aW5PaK5UP7CcSEcIx4ro5OqKFtaFXRCDGrLu8P3dFyGSq6WGW3kv/j3Azy
-	gNeojrQvVG2RJZXmKR88P2K0soLHtAzXl
-X-Received: by 2002:a05:690e:12c1:b0:67d:b0df:9095 with SMTP id 956f58d0204a3-67db0df9d3cmr2820810d50.126.1794866624543;
-        Mon, 16 Nov 2026 14:03:44 -0800 (PST)
+        bh=PizgZNC5pZ1OdAP1T1MlqaKvfqVNkGdpygwkEwMjJh8=;
+        b=rQfAuSG5i/cHuBMFM4RAo7DQ9KoMdlmWvE/x/JFtTYDcm0sMhRD+uPlofj0FOxzgXc
+         P8eVCJNIYQqokL9TQcMkGt+U76tFfQTZ1gDX63745O5yMFOlrCXcjywW35hcLZJ+vGmJ
+         +kcaU6RKjmn0794S+EFcTNOcpyGh6XQc1MKs6MBH+VHIr9yTOesEhlIp73g8B8AsBD1F
+         Rafc32oaRjC1hfPK1bGobNDHa03jdhdoK0hZzcUgQmXejQOKEFF6lgNufVOKRJhBHYPl
+         T844Da6KcP4wr/hbhSH3QcthF4UfZVWkBHA3eAEtvG/2d9DoZk3kWY8Fj/mTwsYig9kL
+         SB5Q==
+X-Forwarded-Encrypted: i=1; AL+hErFo9TYQr8dqTn+SejgZevSILwM8PFTphO+Foi4BFPppgXWWagqIUKl7gi8Sa0IlWryN3OQkOjuSF174mg8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9fM8PTEuSzaH1x3+f0cWU1TZS4eVCRVhCQ1r2qkqYLV8htq3GO
+	2xZI5a+ZGig9TDpSLgRsSiDMy0p/zc9+65mXGeFV7ycN3TBO/8d4GxXVno9mcxdEVoQ=
+X-Gm-Gg: AZFdTZd8o8j9sflLF6WjLHxmKmXmMJFhBMgXJabHzfu3T+q5R2C4vajkytA5pD2+mS4
+	IksbhNs8CBjm8ascwJVF+3IDDs+X02I4mFamN4lVgvIxA8Ep8neyyqybgML6e9V/UtdG9F9J+rZ
+	QzKjrUPCd3yqEX0l3UxMxFHtmBEVkPo+2petQRrUz9Ienzpt2ttZXnT67fQ74SxBMqeqyeyMgRZ
+	I30J8fPqWPAtPokrKga6f1UpwRSsVN1cYhxGl93n2o1sKS0YEQ0ErMUYtrUt+/yaJPYP/QgJKLT
+	Ujsc9Dp+UYQx03Z0EymukxVk5hbi+rhwYs8mxJN+9b8HCe/r9q0Lq44wI42wM+3NR6CcZpOjUMD
+	/joZqbklDoS+w735VR+sc2bl/MOeaftPCY6PJlZuQgaLjp1Ng8LLe/rtLzQmS8fRjKA85ga4lI3
+	UesL1yfZxG6GOZYgSIGpWuFcgShOx2nYzL5/y/CioCjRJHcCc7dtORsiPKzZYcydovslK0zA3Ry
+	vGpYPlJ8/CpkBa4VIUS5Ytebx144ktt8SFf4Epb4t215Rj3LTE/K3TlontPDnbvJfB74iQMPca7
+	KcpuF+H5VEmvXtQCKI8OU5GrqMkjYUvzuZeWxH3h+MLVqSQdFb5NXanSz7Ph83z3Z0IJEDh5q1z
+	XZBaEMj6YKIpwJPS3mtPisqlfyHMJVpT3sBA=
+X-Received: by 2002:a05:690e:1385:b0:67c:2462:b3c6 with SMTP id 956f58d0204a3-67d8972ec50mr6498893d50.101.1794866625778;
+        Mon, 16 Nov 2026 14:03:45 -0800 (PST)
 Received: from josephs-mac-mini.local ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a629a2dsm11133078d50.21.2026.11.16.14.03.43
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a629a2dsm11133078d50.21.2026.11.16.14.03.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:03:44 -0800 (PST)
+        Mon, 16 Nov 2026 14:03:45 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Mon, 16 Nov 2026 17:03:21 -0500
-Subject: [PATCH 1/2] ASoC: ti: omap-mcbsp: Use all 8 bits of CLKGDV
+Date: Mon, 16 Nov 2026 17:03:22 -0500
+Subject: [PATCH 2/2] ASoC: ti: omap-mcbsp: Implement set_tdm_slot
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,7 +79,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-omap-mcbsp-tdm-slot-v1-1-6c9f7aa45a29@telaak.dev>
+Message-Id: <20261116-omap-mcbsp-tdm-slot-v1-2-6c9f7aa45a29@telaak.dev>
 References: <20261116-omap-mcbsp-tdm-slot-v1-0-6c9f7aa45a29@telaak.dev>
 In-Reply-To: <20261116-omap-mcbsp-tdm-slot-v1-0-6c9f7aa45a29@telaak.dev>
 To: Jarkko Nikula <jarkko.nikula@bitmer.com>, Sen Wang <sen@ti.com>, 
@@ -89,32 +89,242 @@ Cc: linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
  linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.16.0
 
-CLKGDV is bits 7:0 of SRGR1, as its comment says and as set_clkdiv()
-intends with CLKGDV(0xff), but the macro masks the value with 0x7f, so
-a divider above 128 is written modulo 128.
+As bit clock and frame provider, McBSP sizes the frame from the SRG
+input, the set_clkdiv() divider and the rate. Only a machine driver can
+call set_clkdiv(), so with simple-audio-card or audio-graph-card the
+divider stays 1 and the bit clock runs at the full SRG input: 96 MHz on
+OMAP3, a 2000-bit frame at 48 kHz.
 
-Mask with 0xff. The only set_clkdiv() user, omap3pandora, divides by 8,
-so nothing changes for it; this lets the set_tdm_slot() support that
-follows use dividers up to 256.
+Implement set_tdm_slot() so these cards can ask for a frame of slots x
+slot_width bit clocks with dai-tdm-slot-num and dai-tdm-slot-width.
+hw_params() then picks the divider for the rate, and startup() offers
+only the rates the SRG input divides to within 0.1%, the IEC 60958 level
+II clock tolerance. McBSP sends a frame's words back to back, so
+startup() also limits the sample width to the slot width and the
+channels to the active slots, which must be the low ones, and refuses
+I2S or left-justified with other than two slots. This applies only when
+McBSP provides both clocks; without slots nothing changes.
+
+Tested on an OMAP3630 board whose McBSP4 drives the I2S input of an
+ADV7513 with no MCLK, with 2 x 32-bit slots and adv7511 taking S32_LE:
+a left-only and a right-only 44.1 kHz tone each play at full level
+(96 MHz / 34 gives 44117.6 Hz), 48 kHz (0.8% off) and S16_LE are
+refused.
 
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- sound/soc/ti/omap-mcbsp-priv.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/ti/omap-mcbsp-priv.h |   4 ++
+ sound/soc/ti/omap-mcbsp.c      | 155 ++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 158 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/ti/omap-mcbsp-priv.h b/sound/soc/ti/omap-mcbsp-priv.h
-index da519ea1f303..324c5d7d431d 100644
+index 324c5d7d431d..7bd5a3f13a37 100644
 --- a/sound/soc/ti/omap-mcbsp-priv.h
 +++ b/sound/soc/ti/omap-mcbsp-priv.h
-@@ -136,7 +136,7 @@ enum {
- #define XPHASE			BIT(15)
+@@ -275,6 +275,10 @@ struct omap_mcbsp {
+ 	unsigned int latency[2];
+ 	int clk_div;
+ 	int wlen;
++	unsigned int slots;
++	unsigned int slot_width;
++	unsigned int tx_slots;
++	unsigned int rx_slots;
  
- /************************* McBSP SRGR1 bit definitions ************************/
--#define CLKGDV(value)		((value) & 0x7f)		/* Bits 0:7 */
-+#define CLKGDV(value)		((value) & 0xff)		/* Bits 0:7 */
- #define FWID(value)		(((value) & 0xff) << 8)	/* Bits 8:15 */
+ 	struct pm_qos_request pm_qos_req;
+ };
+diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+index 6e0c7d7359f4..64d034f139a8 100644
+--- a/sound/soc/ti/omap-mcbsp.c
++++ b/sound/soc/ti/omap-mcbsp.c
+@@ -759,12 +759,117 @@ static int omap_mcbsp_hwrule_min_buffersize(struct snd_pcm_hw_params *params,
+ 	return snd_interval_refine(buffer_size, &frames);
+ }
  
- /************************* McBSP SRGR2 bit definitions ************************/
++static const unsigned int omap_mcbsp_slot_rates[] = {
++	8000, 11025, 16000, 22050, 32000, 44100, 48000, 64000, 88200, 96000,
++};
++
++/*
++ * The SRG divider that runs a frame of slots x slot_width bit clocks at
++ * @rate, or 0 if none gets within 0.1% (IEC 60958 level II).
++ */
++static unsigned int omap_mcbsp_slot_div(struct omap_mcbsp *mcbsp,
++					unsigned int rate)
++{
++	unsigned int bclk = rate * mcbsp->slots * mcbsp->slot_width;
++	unsigned int div;
++
++	if (!bclk || !mcbsp->in_freq)
++		return 0;
++
++	div = DIV_ROUND_CLOSEST(mcbsp->in_freq, bclk);
++	if (!div || div > 256)
++		return 0;
++	if (abs_diff(mcbsp->in_freq / div, bclk) > bclk / 1000)
++		return 0;
++
++	return div;
++}
++
++static unsigned int omap_mcbsp_slot_rate_list(struct omap_mcbsp *mcbsp,
++					      unsigned int *list)
++{
++	unsigned int i, n = 0;
++
++	for (i = 0; i < ARRAY_SIZE(omap_mcbsp_slot_rates); i++)
++		if (omap_mcbsp_slot_div(mcbsp, omap_mcbsp_slot_rates[i]))
++			list[n++] = omap_mcbsp_slot_rates[i];
++
++	return n;
++}
++
++/* Computed on each refine, so nothing is shared between the streams */
++static int omap_mcbsp_hwrule_slot_rate(struct snd_pcm_hw_params *params,
++				       struct snd_pcm_hw_rule *rule)
++{
++	unsigned int list[ARRAY_SIZE(omap_mcbsp_slot_rates)];
++	unsigned int n = omap_mcbsp_slot_rate_list(rule->private, list);
++
++	return snd_interval_list(hw_param_interval(params, rule->var), n,
++				 list, 0);
++}
++
++/*
++ * With TDM slots the frame is slots x slot_width bit clocks. McBSP sends its
++ * words back to back, so a sample must fill its slot, channels go to the
++ * first slots, and I2S/left-justified (one word per phase) need two slots.
++ */
++static int omap_mcbsp_slot_constraints(struct snd_pcm_substream *substream,
++				       struct omap_mcbsp *mcbsp)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	unsigned int format = mcbsp->fmt & SND_SOC_DAIFMT_FORMAT_MASK;
++	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
++	unsigned int list[ARRAY_SIZE(omap_mcbsp_slot_rates)];
++	unsigned int active = tx ? mcbsp->tx_slots : mcbsp->rx_slots;
++	int ret;
++
++	if ((format == SND_SOC_DAIFMT_I2S || format == SND_SOC_DAIFMT_LEFT_J) &&
++	    mcbsp->slots != 2) {
++		dev_err(mcbsp->dev, "I2S/LEFT_J needs 2 slots, not %u\n",
++			mcbsp->slots);
++		return -EINVAL;
++	}
++	if (!active) {
++		dev_err(mcbsp->dev, "no %s slots in the TDM mask\n",
++			tx ? "TX" : "RX");
++		return -EINVAL;
++	}
++	if (!omap_mcbsp_slot_rate_list(mcbsp, list)) {
++		dev_err(mcbsp->dev, "no rate for %u x %u-bit slots from %u Hz\n",
++			mcbsp->slots, mcbsp->slot_width, mcbsp->in_freq);
++		return -EINVAL;
++	}
++
++	ret = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_CHANNELS,
++					   1, active);
++	if (ret < 0)
++		return ret;
++	ret = snd_pcm_hw_constraint_single(runtime,
++					   SNDRV_PCM_HW_PARAM_SAMPLE_BITS,
++					   mcbsp->slot_width);
++	if (ret < 0)
++		return ret;
++
++	/* Rates follow the current in_freq and slots */
++	return snd_pcm_hw_rule_add(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
++				   omap_mcbsp_hwrule_slot_rate, mcbsp,
++				   SNDRV_PCM_HW_PARAM_RATE, -1);
++}
++
+ static int omap_mcbsp_dai_startup(struct snd_pcm_substream *substream,
+ 				  struct snd_soc_dai *cpu_dai)
+ {
+ 	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
+ 	int err = 0;
+ 
++	if (mcbsp->slot_width &&
++	    (mcbsp->fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) ==
++	    SND_SOC_DAIFMT_BP_FP) {
++		err = omap_mcbsp_slot_constraints(substream, mcbsp);
++		if (err)
++			return err;
++	}
++
+ 	if (!snd_soc_dai_active(cpu_dai))
+ 		err = omap_mcbsp_request(mcbsp);
+ 
+@@ -1020,7 +1125,15 @@ static int omap_mcbsp_dai_hw_params(struct snd_pcm_substream *substream,
+ 	/* In McBSP master modes, FRAME (i.e. sample rate) is generated
+ 	 * by _counting_ BCLKs. Calculate frame size in BCLKs */
+ 	master = mcbsp->fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK;
+-	if (master == SND_SOC_DAIFMT_BP_FP) {
++	if (master == SND_SOC_DAIFMT_BP_FP && mcbsp->slot_width) {
++		/* startup() limited channels, width and rate to the slots */
++		div = omap_mcbsp_slot_div(mcbsp, params_rate(params));
++		if (!div)
++			return -EINVAL;
++		regs->srgr1	&= ~CLKGDV(0xff);
++		regs->srgr1	|= CLKGDV(div - 1);
++		framesize = mcbsp->slots * mcbsp->slot_width;
++	} else if (master == SND_SOC_DAIFMT_BP_FP) {
+ 		div = mcbsp->clk_div ? mcbsp->clk_div : 1;
+ 		framesize = (mcbsp->in_freq / div) / params_rate(params);
+ 
+@@ -1184,6 +1297,45 @@ static int omap_mcbsp_dai_set_clkdiv(struct snd_soc_dai *cpu_dai,
+ 	return 0;
+ }
+ 
++/*
++ * With slots set, McBSP as bit clock and frame provider runs a frame of
++ * slots x slot_width bit clocks and picks the divider per rate instead of
++ * using set_clkdiv(). It sends a frame's words in order, so only masks of
++ * the low slots work.
++ */
++static int omap_mcbsp_dai_set_tdm_slot(struct snd_soc_dai *cpu_dai,
++				       unsigned int tx_mask,
++				       unsigned int rx_mask,
++				       int slots, int slot_width)
++{
++	struct omap_mcbsp *mcbsp = snd_soc_dai_get_drvdata(cpu_dai);
++	unsigned int max_width = mcbsp->pdata->reg_size == 2 ? 16 : 32;
++
++	if (mcbsp->active)
++		return -EBUSY;
++
++	if (!slots) {
++		mcbsp->slots = 0;
++		mcbsp->slot_width = 0;
++		return 0;
++	}
++
++	if (slots < 0 || slots > 16 ||
++	    (slot_width != 16 && slot_width != max_width))
++		return -EINVAL;
++	/* Masks must be contiguous from slot 0 */
++	if ((tx_mask & ~GENMASK(slots - 1, 0)) || (tx_mask & (tx_mask + 1)) ||
++	    (rx_mask & ~GENMASK(slots - 1, 0)) || (rx_mask & (rx_mask + 1)))
++		return -EINVAL;
++
++	mcbsp->slots = slots;
++	mcbsp->slot_width = slot_width;
++	mcbsp->tx_slots = hweight32(tx_mask);
++	mcbsp->rx_slots = hweight32(rx_mask);
++
++	return 0;
++}
++
+ static int omap_mcbsp_dai_set_dai_sysclk(struct snd_soc_dai *cpu_dai,
+ 					 int clk_id, unsigned int freq,
+ 					 int dir)
+@@ -1291,6 +1443,7 @@ static const struct snd_soc_dai_ops mcbsp_dai_ops = {
+ 	.set_fmt	= omap_mcbsp_dai_set_dai_fmt,
+ 	.set_clkdiv	= omap_mcbsp_dai_set_clkdiv,
+ 	.set_sysclk	= omap_mcbsp_dai_set_dai_sysclk,
++	.set_tdm_slot	= omap_mcbsp_dai_set_tdm_slot,
+ 	.auto_selectable_formats	= &mcbsp_mcbsp_selectable_formats,
+ 	.num_auto_selectable_formats	= 1,
+ };
 
 -- 
 Git-155)
