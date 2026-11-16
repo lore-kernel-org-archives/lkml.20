@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821228;
-	b=43HpOMb1Pmia3nT3yeWls15kCefrtAxwjT08znmnAZP4ZZbUvwu1Rs1i9BIdhV4FC+Z6
-	 zfvkaWE9oxz/yoPx3WSDYCqD3Ru2dCA5xpyK6Udu/wT4FHX8/364H+Abosq72g6S4kGq0
-	 9/6OfX9aBaVZcnOfecKWZjzfyM+2sZnf5Yr9amBd+hutwO12HdMexyfaJez8T8J+uUhBT
-	 r/756g0YTnaB/tIt5Nfs1PeIKqd4kR3eq0BxfJ9q8Etq4GzOaQeVmG9+Pl8kb/AsUsX9s
-	 cSqwSfxpzoI/SmNejHSHpX8sMpRweK7fNZmgJqN7jTg2Sm5eW+vlJt14/S6Jui6tF1w==
+	t=1794821246;
+	b=0oJ6/9DooQEc3jM0hc3S1XixwvvvuTXMED2hqumi/++6yDZwgy25jlNhdeVThEdW3EVm
+	 pqGk3iQLd/9AaMXfpv94tZ33Lak56W5zGVofKsjrtFbSuNCHwA2L+mbHWfFjhJ9dWMnKs
+	 EfehedKn6HrnxfJyfWlXgTOQWo1jpt/SizY5qn+kWN7d1UIB3BbXXuu1Ow1fEnRPPfSlt
+	 8Qi81pPlTyJqsDdxd1pNJX0133rkkxJkBX+6thJ9CmAq0ZNwfy/ZXRFSEN8euvEzfQ+oL
+	 i+z41sUbNMFaJzU5ovx2yawRGy5lz/B0wCCVa5467KrceseGhQLtQI/skbeIjhmCPVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821228;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 DKIM-Signature;
-	bh=MWsVBLgZW16pqsBfRZm53nUtd+lGf7v+gvt3DbChD1k=;
-	b=kspfkudCWbmju/SAMiTYp6/iywVBtFU2B3mpD6v0Oij1C1FcC3eTMPDZ4Wc/lqDlBWTj
-	 U6EzQy9N7HTIAQsoSvZ6XYvzn4jZI39j/usycQGSsCP4CGXHNazh8wvGK3WIrw06QUa8L
-	 DJLzZjCpcU2pexB94sGMVr3tCDjKLS2+Od8xs/cvvepyNcn/rqOUMYsItx1WGgRpIdXZF
-	 ua84AsHhPYaIhIIKGro8iGUuwXD61hrNveXZCadl8GRQd2ji/QbHziAleRFQSl6AnNeAs
-	 orURovDbEVUWDeD8eLytyO2Yj52M7XdWk5p+XDTk5QhhdN1vRnHoepPRgC28u852MNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821246;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3RDL1fZo8aXNiQEk++kgWnQkoCZHciDwpPC04gZ5fIE=;
+	b=5gh40l1vpWsFnPpM2QHPpXNrhNOavdVR8bekg6xi0QTJaLqZuwYGsMDYe/lxV6b43aQP
+	 LWUAYztlw+qAogg9PpndmI/vG6/3MFEGs7m2nUK1puG0BhbZ8W306/HpjSB+7U0wDswGY
+	 3vFltdY7/X/xh/2MDFiH/nB3A69cWV26gf0uEbOyeNy0oSeuuUB4LCyg1umCPmwzowBXA
+	 16Cacb7dEa2gZBkHoxMxBOQFHF4/TxX28Ssx87we4GXXOXUSorAalx05zxbCRSztvy7bf
+	 BiXDRwYaXLQ2PPj3NcuM/T7X//6p0ETnJkO7giR83AIE6NnM7NoKll+9iDpBN9gWn6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=G6SRAoyy;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 69A2A606A323;
-	Mon, 16 Nov 2026 09:27:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69A2A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q2dfIiJa;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B679606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:27:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B679606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=G6SRAoyy
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, Li RongQing <lirongqing@baidu.com>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] perf intel-pt: Save the reference window used to detect snapshot wraps
-Date: Mon, 16 Nov 2026 17:26:50 +0800
-Message-ID: <20261116092650.1714-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q2dfIiJa
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso1626262a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:27:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794821246; x=1795426046; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3RDL1fZo8aXNiQEk++kgWnQkoCZHciDwpPC04gZ5fIE=;
+        b=q2dfIiJavJvuJooQljuRg9haFaPJ1+O/ROT3r9C/a93bNbvscqMVmY/d4OuCtGI50l
+         Hce3rxIVETCP6IIBSJg67wxo0cQtrl6393XwBd/+NV0buV2/b4sn+3f8yx51KWoxJLdr
+         vDDcdwTym9GtVCkoEyEELud3XbzJeRjUokDooN3mU87STne+uPHyZUrdk9TyrqT8htoB
+         GwenKRNs4ymlbKqytmzwZNqE2FK1VC9iLrL5XuFLT5fUXIncpQnxtIEJ0AKQZWOlOfdk
+         nI1ZHwe/3gEfhL78NFfRRvN/Xul2Hsibxi1z3c7eqMx4mWlZe/ZHyAQwusT8w7gyOOqu
+         JTFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794821246; x=1795426046;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3RDL1fZo8aXNiQEk++kgWnQkoCZHciDwpPC04gZ5fIE=;
+        b=LJ64z54PKMHCkWHc8SIcQ/5/wzbKCDin2eEnGLLp3Us4m+6Q2W8L50KJhKspQYxxIy
+         AmHgt3ktkANPqAmoPVDsds5w3aT9mvMwgR1QyKCaCC72jkz/IwlsGx+N+uhIco0fmxhm
+         arLLTSaNCW3cgDPSLniqGx2rGMouArUHmPUnw9vaG7LKkuV0WNqv5RaWylKSfxvgrQMw
+         GQmztsG3v8p/lj0+IjNoF3l8soS+YK/ZgEltUPPdaYCU4zhWlrR9XOP7F5z6/r8DbN2H
+         u7tVE6fUC7ypRidNzGlfCrEG0mRUHXbBD0cbjmIVQnxVge6zNDuxu/MjdCxWpVX0I41U
+         ww8g==
+X-Forwarded-Encrypted: i=1; AL+hErETunHFIMt9d55jmAEhF9UOT5lFTXKy/mdsZC1dF0FClytfwNtN+n7MHiRsKizYB+OX7hITIFeDixUNohw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Xq8wE+fa7fsBf58kDdW+kZdyyAAe6wu7QnEk9XiM9kKNnzysL
+	heUAlYk8PtV7p9Dk7C4DgT1Z14IgJsXfYGFvPEvE5U+DlgNUpJltwTFY
+X-Gm-Gg: AZFdTZfoXAlojbIQPaI/jGowOa+sPhYTX/eIbQShDwrA5n7EQwAaMlSDwonz1J8hK6G
+	kT2BY/vi++je6YFH1b4jU8K0yNkCLSDqL0JFihAsSGHLvrPpYqcOGOuLHG54kucf+HJ2Nx5Q6hE
+	xfLTYgOUTslyYniqTmDBNdEqk8W1E7fXQgdEfAQvxUioBCJgGFpJBeBBqEdeQaE85HUyQnPqOFn
+	JcovdzqQiHHtGca68/4P3qhXypnZW6xlKvL33nAnmHaKtmdCj+K9l3n4B5wICSrux/HhdsaXrz+
+	j9BwHThYhd2KUCLWqW2vkFVmy/qoD7kkm0xbGVUu4UV4bVE26weIeT38Q/cqH6MtS04nN5uXL++
+	091KG4WOt0+xdGEpff7uTWaIEIRh6KuegHmb/9Z1fhGT0IvB1so4iDHCOii4rphA45Du3ollTmp
+	Kt1C/Gzx8tZxREkl7+fe4IuKtks/VLnLr1CPfu8FTPtM4Kdspsy5fppNIlxWsYeRxWLs/JwIPWj
+	Umhlc++GbedAVtYb0beMuehqMd3jVhopiM7KCIgKH0Gqd9wQigrTd/qeMxKdRtrEPrlEOMIQKCd
+	nCjowU0ihnNpBq/3M4WYXgqcnnb/xJRahDgFycIQv+i3IQ==
+X-Received: by 2002:a17:90b:5910:b0:3b0:aaed:48d0 with SMTP id 98e67ed59e1d1-3b1b0b4d0d0mr8836956a91.37.1794821245843;
+        Mon, 16 Nov 2026 01:27:25 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb18b73sm15680884a91.3.2026.11.16.01.27.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 01:27:25 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: rafael@kernel.org,
+	thnkslprpt@gmail.com
+Cc: viresh.kumar@linaro.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	zhongqiu.han@oss.qualcomm.com,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH v2] cpufreq: schedutil: Skip busy-CPU hold when NOHZ is inactive
+Date: Mon, 16 Nov 2026 17:27:20 +0800
+Message-ID: <20261116092720.2552651-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAJZ5v0g-oDagp2GrZyhLmT-BYJqcm-D4s1eTrXCxB-fj5BNixw@mail.gmail.com>
+References: <CAJZ5v0g-oDagp2GrZyhLmT-BYJqcm-D4s1eTrXCxB-fj5BNixw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,54 +105,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjhj-exc8.internal.baidu.com (172.31.3.18) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794821223;
-	bh=MWsVBLgZW16pqsBfRZm53nUtd+lGf7v+gvt3DbChD1k=;
-	h=From:To:Subject:Date:Message-ID:Content-Type;
-	b=G6SRAoyyhIyD6LSu1UrMc7QsVRbZpN0rQdazkUTEomGCmciKgf5hGQYiA0e/5OwgY
-	 oYSBk7+orb2ii3j70mQq3tDAkjtOV3kVPmm7AEgUbiFq6rtg2A699pSzlgTgROqAGr
-	 GujlEY6+GMujyzrYhiu+5noyYjQzm+UDLOxPPxu9LhSZnKJ7kMUIr0aB6hTblngciA
-	 Mi+EGH7PUMwAvKLzxHAxsOpmVru7m9Zgr2vnU3Ojxz93kCKADcvDURg4Ye4K2IJQGi
-	 ZwZChmhEZLbM+khRC+szNt6jtvO6/UKtcuSejESXB7uuy9rnOD/3YWocUQPJv9QInW
-	 lydN6i4d2XDqw==
+Content-Transfer-Encoding: 8bit
 
-From: Li RongQing <lirongqing@baidu.com>
+Hi Rafael,
 
-The snapshot reference offset is initialized to the end of the AUX
-buffer and does not change. The comparison checks that fixed window,
-but the reference update copies bytes immediately before the current
-head instead.
+On Fri, Nov 13, 2026 at 07:21:00PM +0100, Rafael J. Wysocki wrote:
+> I'd love to see some feedback on this from the people on the CC.
 
-Two snapshots before the trace reaches the buffer end can consequently
-compare trace bytes against an untouched tail and falsely report a wrap.
-The reader then treats the buffer as full and emits stale or unwritten
-bytes in addition to the new trace.
+idle_calls only advances in nohz mode; with nohz=off it stays at 0 on
+all CPUs, so the hold never releases.
 
-Copy the window ending at ref_offset plus its size, matching the window
-used by the comparison.
+Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Fixes: 90e457f7be08 ("perf tools: Add Intel PT support")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- tools/perf/arch/x86/util/intel-pt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/perf/arch/x86/util/intel-pt.c b/tools/perf/arch/x86/util/intel-pt.c
-index a533114..5e38b9c 100644
---- a/tools/perf/arch/x86/util/intel-pt.c
-+++ b/tools/perf/arch/x86/util/intel-pt.c
-@@ -1091,7 +1091,7 @@ static bool intel_pt_wrapped(struct intel_pt_recording *ptr, int idx,
- 				       data, head);
- 
- 	intel_pt_copy_ref(ref->ref_buf, ptr->snapshot_ref_buf_size, mm->len,
--			  data, head);
-+			  data, ref->ref_offset + ptr->snapshot_ref_buf_size);
- 
- 	return wrapped;
- }
--- 
-2.9.4
-
+Thanks,
+Zhan Xusheng
