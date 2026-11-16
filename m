@@ -1,55 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832879;
-	b=ceY6wx/ViaAcVUB2MrKbDm2Zk26rqcCZjd5AO2LbuDuLMIP+YdOxhKb017U+87fL3MQP
-	 5duf4qwe9FlAdlSq1a0/0b9i2E/hVMRCoWb2iS5vwuQB1r8T38Bq8I5FowZDyhuEfFSkr
-	 6Kj10Fc/DKKvQR+PDD2woG9mB0iDt7AcuUHNiny2DR8+AiSIRE48FzlP7lmqlhwh7sjsN
-	 V1OvM6ES+F927s5XAYmM2lT0e/UOc+ADYALXSsiEjuX+sKcH/PMgDqUoIabEukYn2X5Zq
-	 SiTQRv2bmTi89njXbP0COJXbelqMZR4ayhkI2i/5Eyfd8hJJj71AGfjUAFXgu47XXaQ==
+	t=1794832899;
+	b=zAEO1A8oPNd8nOOGaGLNhsn6S3oKy4x9Mk6oHO3x1BPCZTA/tjKo6rUQBFziTw9uV6hp
+	 7Nalld8izcro4COffzaRPAXQN3gGDytTYxUhCpwjgQKKjKfI6AQL4HYq3VQcIxTjJF+Ta
+	 1rUDxYofLehExB1jWBHJxzVxNkbz/dc+iY4FlKTaBvgG7samDdYPh13/nLdXHEJZnWyXf
+	 XTH4qLoQhMdIbIEJXpChmfIOCJYYbqdVlWLE2KiSIp0GL2ndZOcwYw0QxWdOHRR5N3Zet
+	 4nqErOCWBfJguXuCvw+rIXwoJ6geBPymvyHHRVmiPgwr5sRC7tDWD9WYn1IU/DunLqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832879;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=B0s2EswTA+rUV5czJyyzCHyu5NeCkNsQpbNM91ynRNc=;
-	b=LbtuYwahPS0wSwfmQSKCzUihfC8tbEvjjiDOOlYbYuaobFMwOspMrvy9jaxRrLXQk+6G
-	 rVD771puie/AOG4KHmKMJFwNUz9zbOQeeIyQcGA5cItSY19fAw6OmSWHsJsD66/g026d+
-	 sODAN06P4rJNUcH7OcAJfrxBqvQD5D3grDdae9DjQltLPk/bxm8ed3ggjG4dzRwC5xeb5
-	 eqpVOKNQOpagb44/VGsX4A2iuQZtivamhAZY8AV996OB/Pfwc5ZdFfWkOxHKC3/SI5B/F
-	 8MT7GovvwTcneKuIS+jDM1eR7ijJ8zJMN03JmLVvBYfuokUqUHb3fW0AeP8FLpON0lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832899;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
+	bh=Zv1d6vvRKz0euN6zrXybl1bD0UkhPFP+MSK0/brc4zE=;
+	b=QcBOO0K/iKNn0J8i0O/fmzQM8MF63+M/ctLoIc95r0drMwv/5IBT1oKOPDRuncr6njx/
+	 FJqMW6AJreAlNuPL36qd5QiolLqNLZJpQ17Mh25dKyWTJU0kZXw0Carr3yCK0Dsqx/7vc
+	 xnZvnR1PGqkh1ecPo6r8xnHmfWWbzCImOqxLtu19zfwraQwVpWEiQ55gjx1bc8tbtvCY9
+	 OKWYS2XekcsHbXyToFxh+hTVjopCTKQIS8pDXtaSASsOPZyCPGuC1F0zzNnZTfdQyVKFD
+	 mj5OmtEoSl0pIjmNZSgzZKGvbSocO7YhVSKpMUw2hSBuanMnxm6Lm17fvj+tq7sIm8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JW1EDcCI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xN3B7Lud;
+	arc=none smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C8D606A31C;
-	Mon, 16 Nov 2026 12:41:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80B9606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C80B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JW1EDcCI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8301F000C4;
-	Mon, 16 Nov 2026 12:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832879;
-	bh=B0s2EswTA+rUV5czJyyzCHyu5NeCkNsQpbNM91ynRNc=;
-	h=From:To:Cc:Subject:Date;
-	b=JW1EDcCIu4pSSbHCGghi9ltT95bCuG0dQyeLthSofo2MYQfyP+L30GlA6sZVyW6V6
-	 y7kNip8kZIzf6N2PRvcXi6lmUorxb5aEn3cVlv0USpLy4mbSIGsYlJ/1cNgjL4lz6a
-	 2VZUMYMI9LmMqHKlYY8mrI2rZg4PnUP0F4ZjG6WKqpkgQWpitcY6xG00e5A9wTB1B9
-	 B3SG0vjFag/ZYX6zlL3EdDv1v/s08zf7Y8pGjmumkfD9hQT5Gn1GIKpjpG5FwYOxdX
-	 s+uBf8zjfv19ht/0pqqKcT6QRK3+jBRELvbjuG2L+dWNCFf5KVo2CkaCnBorgSZQKS
-	 QrkDFt6O5rEgg==
-From: Sasha Levin <sashal@kernel.org>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Xu Rao <raoxu@uniontech.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	linux-pm@vger.kernel.org,
-	llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] power: supply: gpio-charger: mark gpio_charger_properties as __maybe_unused
-Date: Mon, 16 Nov 2026 07:41:17 -0500
-Message-ID: <20261116124117.2922333-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xN3B7Lud
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9495f083657so323232485a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:41:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794832898; x=1795437698; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Zv1d6vvRKz0euN6zrXybl1bD0UkhPFP+MSK0/brc4zE=;
+        b=xN3B7LudVvKrw3MwnajaarcX91x2+u1HXG/hvHMEH3ZnHJFdDpZBBcRtAqROyBktko
+         X46g4lw7rRY4EZfOp3U9VNr6Ww9uTMObjYHuKm64PuVS6VZiijyYuVGHs7X5V0C9S2sH
+         x1mxiPCTUha5+oNdEVrKnYfP19epAeCiRmmWntH6obG78ytEzkwYSmqTjW3Hw4HoLh3X
+         A5SxyRIs01z3DowJd6F9SfiCmRrBIb9SignCreduEbMv4AiCUejw40piWsIP9NWhlFMc
+         JSmxkHyWstT7aLbb2I7brvegGr9bpfFwWSZB9k+n5CKscylv6nxsyvHA5E8qXKFV3wL4
+         fvYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794832898; x=1795437698;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zv1d6vvRKz0euN6zrXybl1bD0UkhPFP+MSK0/brc4zE=;
+        b=xNK0iAbZfp1RLhW6K4hUadvF+/jpU96vocb5JrCMgV5M205nrm4oyMxrT7UYiaqzrr
+         20C7Cz/Y/jguVZuEDoRpih41m2Uh+o72HnWf4XSdAtWmyCQouk7yAAPZcv7r1ZhgU/1S
+         0m31Ikm3+pM39pveem+FyBYbkkgslQy7QSrfKv9R3ZoMadZ0TRJ8K7GO1SVMoA9yp7Lz
+         9grnvk5yE1/VHBSp+gqMuEJmcYUlpb7qTI23oDwuw6WbKZOjBniPPMBh5cf4UBlhNrYN
+         bmPBEaePnVKuZlEv4MYiJ6XYVg0ZZLXPrlSaeo3NfDoTdTi043WhzX0pk2d+YXn6meEr
+         Xttg==
+X-Forwarded-Encrypted: i=1; AL+hErEAsXVORdHoHQc3GaqnOol3V8Nn2E9rLnNGwACQN/WYzCjw4tTfuWN8zaTewHkfg4c/poBGAuMwa0o79AM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YDzXcxk13SVLm4gCNm1IazuZv5z9zncjm3siEZFUZh8mNBt1b
+	oZlNfzPvYnmY72jdzRPA+WpJwmpAd4Z3r1d/SU3hn5Eq2qMVLP5Up+tD
+X-Gm-Gg: AYBFou0AXCMVK2Jhz2W6vErl2QHW2m+sExLrJpXZwoFnZowZVkJ4YUg3G/nZsN9heRZ
+	n8LZW9/x0Ux8Jb7SuAPNGo9i0ODbNyI9hQzxEgxF3aYo7dNIVYmelz6UwamJ+2Pxw1Nv7+Cxx0X
+	BBVnGx+ylGXKjn2wH5GFfv6bzTEDdwt3Fjek4b2PH8835e3m1omfvqifl5YokrygsUOwR3BJoW/
+	V5kUd4pW6rTpYKV0IjUUs1y3q4V5iT1U2v5I0sy0kG0xb7oc1OHN2Zj817p7f8KXLmT6hJmci1s
+	5/WrbTtWfQtr5559MvY4ZW+eUkzbHJUrCkp6ZVnXs/+mNy7ZqIT1NbP3c9coGKlbQe/+Ii7pxNt
+	FFO7/pEM9xVgCviFNR1PI0WxV6bG8WaUxOkwFkNuDeff/DNYHgZ7Lg0ZFyjkNsxi9QItUuMa5G4
+	g7T9Udf/H7O+JPl6LQyDtih343qd2UTimdNOHFwo/0AWaY/4aBD2pAZoPzT0jVcV97NDMNQFOpE
+	zoKnvlfCToEHw6JVuj0iNbMoOmq3ZCGZLA+RVXWXOtX1hVff4HtPUbKARtVKcUrpm6MJmR7WRzX
+	Fg3DGYyAlRVXAP8uVbi5hQ5jHXG+0zoJMw==
+X-Received: by 2002:a05:620a:2903:b0:93c:a40d:e3cf with SMTP id af79cd13be357-9494b9c78a6mr1739169585a.1.1794832897831;
+        Mon, 16 Nov 2026 04:41:37 -0800 (PST)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c870ad4sm830567185a.26.2026.11.16.04.41.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 04:41:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,41 +87,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 07:41:30 -0500
+Message-Id: <DMWN5R6QVUPN.1KP7SYYHHU71U@gmail.com>
+To: "Todd Freed" <toddfreed@meta.com>, <netdev@vger.kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
+ <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni"
+ <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Daniel Zahka"
+ <daniel.zahka@gmail.com>, "Willem de Bruijn"
+ <willemdebruijn.kernel@gmail.com>, "Wei Wang" <weiwan@google.com>, "Jamal
+ Hadi Salim" <jhs@mojatatu.com>, "Jiri Pirko" <jiri@resnulli.us>, "Alexei
+ Starovoitov" <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Stanislav Fomichev" <sdf@fomichev.me>, "Sabrina Dubroca"
+ <sd@queasysnail.net>, "Boris Pismenny" <borisp@nvidia.com>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net 3/3] psp: only give time-wait sockets of PSP
+ connections a validator
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261113185553.171059-1-toddfreed@meta.com>
+ <20261113185553.171059-4-toddfreed@meta.com>
+In-Reply-To: <20261113185553.171059-4-toddfreed@meta.com>
 
-Commit fad4655224f60 ("power: supply: gpio-charger: Keep properties per
-device") keeps gpio_charger_properties[] only to size the per-device array
-with ARRAY_SIZE(). clang sees that the array itself is never emitted and
-warns, which fails the build with CONFIG_WERROR:
+On Fri Nov 13, 2026 at 1:55 PM EST, Todd Freed wrote:
+> psp_twsk_init() sets tw_validate_xmit_skb on TCP time-wait sockets.
+> Today, that becomes set whether or not the socket has PSP offload, which
+> is not needed but is harmless. psp_validate_xmit() passes such packets.
+>
+> But a validator makes a socket look like it has an encryption offload of
+> its own. The tc psp action in the net-next series "psp: introduce
+> socket-less associations" relies on the presence of the validator to
+> determine whether the socket has an encryption offload.
 
-  drivers/power/supply/gpio-charger.c:26:35: error: variable 'gpio_charger_properties' is not needed and will not be emitted [-Werror,-Wunneeded-internal-declaration]
+I don't think this is relevant.
 
-Mark the array __maybe_unused.
+>
+> Set the validator only when the socket has a PSP association with a Tx
+> key, as psp_sock_set_tx_key() does for full sockets.
+>
+> Fixes: 6b46ca260e22 ("net: psp: add socket security association code")
+> Signed-off-by: Todd Freed <toddfreed@meta.com>
+> ---
+>  net/psp/psp_sock.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/net/psp/psp_sock.c b/net/psp/psp_sock.c
+> index a6b1c42dd626..1df65505f1c6 100644
+> --- a/net/psp/psp_sock.c
+> +++ b/net/psp/psp_sock.c
+> @@ -314,10 +314,13 @@ void psp_twsk_init(struct inet_timewait_sock *tw, c=
+onst struct sock *sk)
+>  {
+>  	struct psp_assoc *pas =3D psp_sk_assoc(sk);
+> =20
+> -	if (pas)
+> +	if (pas) {
+>  		refcount_inc(&pas->refcnt);
+> +		/* like the full socket case in psp_sock_set_tx_key() */
 
-Fixes: fad4655224f60 ("power: supply: gpio-charger: Keep properties per device")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-fad4655224f60 is the tip of power-supply's for-next.
+I'm not a fan of this kind of comment, but that's my own preference.
 
- drivers/power/supply/gpio-charger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +		if (pas->tx.spi)
+> +			tw->tw_validate_xmit_skb =3D psp_validate_xmit;
+> +	}
+>  	rcu_assign_pointer(tw->psp_assoc, pas);
+> -	tw->tw_validate_xmit_skb =3D psp_validate_xmit;
+>  }
+> =20
+>  void psp_twsk_assoc_free(struct inet_timewait_sock *tw)
 
-diff --git a/drivers/power/supply/gpio-charger.c b/drivers/power/supply/gpio-charger.c
-index c90c824382c62..647f5bde38c7c 100644
---- a/drivers/power/supply/gpio-charger.c
-+++ b/drivers/power/supply/gpio-charger.c
-@@ -23,7 +23,7 @@ struct gpio_mapping {
- } __packed;
- 
- /* This list ensures, that the array is big enough for all optional features. */
--static enum power_supply_property gpio_charger_properties[] = {
-+static enum power_supply_property gpio_charger_properties[] __maybe_unused = {
- 	POWER_SUPPLY_PROP_ONLINE,
- 	POWER_SUPPLY_PROP_STATUS,
- 	POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX,
-
-base-commit: fad4655224f60328cc9bcf4399eda8f6d7a587a6
--- 
-2.53.0
-
+Reviewed-by: Daniel Zahka <daniel.zahka@gmail.com>
