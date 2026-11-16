@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794793857;
-	b=oGED9vDkb2BzuGlg2RIM2iNycfdV5cCzatEOnzf3CF0RlXnf5Cv6Syu+eBASMqPJk0SL
-	 nvzZaVkVUIXfQ23TYhDY+j8hQV40DGlTXcAVuCE2i/oSeFcGGPgEzOBGI8ml6rVEkFN+D
-	 A9D6i6zprQuvLQUmuK2tJsLjVzHV0jgkYf5YCG9FuszuodURcqhq2f9moCSzBICe7zNqb
-	 7BjyiYTx8/niVQogj5fvInbuh5bgDGgsmfrjDpkf7qQVJ4EqvJexuqUORgt8dIk6fhXF+
-	 gQa9mUBZ4593LqzMO8u1buDAfnIUIry8amhaVWokUoO9kI6ZEy6AGcMmNIAQDPfvO9Q==
+	b=xtTY6DJc6Iw9QAka8NfQ3cXLvGboW7PusJdxHW71Pc7VvVa0Q+GVQWPWosz6hc2n4Jrc
+	 c3xj2YnMcR5scD7dFobljPD6sPVRPpZR0CPj/IFDhFuFsjywDtUC40lVwEqxBsMsaZufr
+	 XCjqfHNV0K5gqrzG2v4B1oi89gzuc5q6ljl3hAPeIejdbfAZDmKidFuivpIsOj/jEB0Tr
+	 MY4iQxyYB+eb+lzaRSj8QkypD6vAnuIMvGMf/10w3SgTmdYtrSmdfOlkpCs1xqddy8nS4
+	 V8RnHMV9AZASXyZfbY2ebvY/kNUyK9OSrR8+Cr1hrt2ldZw9zLHMxkDOPL8sOjn0GcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794793857;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=q6rimdFgbdRKSDBloeBN+8QLfNBMY5vJUZ9I/FLJUTQ=;
-	b=fZD+3+tNzlUeF73lBDc8Iqz7eGlY84Z383usBam3zsF/pyVinep2+pQpiZEPXAyyEL6l
-	 kQL//mxzeyu6Y8zmBW+ut09LYwuWSmapLPNc73KEUO0vcAasYQtnMru+umlYDyjmmnvA3
-	 piTf9UFdGTt0QjAINfk3wY3YwA157o/i0ULkYQ/8U0Lq7KUINc4sxnOY5o+dMCri5fFvv
-	 1Cu6t9pk4nH8d8YiSL/cPNAm4q13r7UJIO7LVuQpdumLwEAWxHODEc17ziJCUe5kuxa0N
-	 CagVNhVV099yoM4YMPBZj7mjorCGWebyRk6ANWHIQ/H2Uw4p48vqt4hd9L+PeWF8c8w==
+	bh=QCWZMEbDTADULGdTU/F4iEFzrUxsm0NIppGFv8Yh3AA=;
+	b=znrCWgE2pCzhg9jUSiSX+iL6PLIqgcNAPFDoCyRe0kDoyBIHV/Ntfbm+XLSl0cy/GAlD
+	 W4xtXd1q6TkgEFzyJ6s1YCcNiVz9FJhjeWuVMNkkXnArxmXkb3GneEXydfQo/Q9KukrmJ
+	 AizkQFL0l+dDk69gSZLmf3dZgQHyOMAVgkuMHHAc6l9wkoy1OlF4lh1aPRst9TEXTOWsb
+	 YIRtHqxYnK5XiLuJvsl13ng5ftfodF9icQtwBtDCfjC+RNeATJXRR1UaM3bGxOzjahU9n
+	 4Q/TRBmmUgSsGcVmRfo94JX9ENVBJv0UY83GXuRrY6js2WSOzeXCWdwOGgNnlK2i7jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzVfn2YY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nr8SlhXj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CD260A6F50;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9E960A6F63;
 	Mon, 16 Nov 2026 01:50:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzVfn2YY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A1D1F0182F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nr8SlhXj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A801F0182D;
 	Mon, 16 Nov 2026 01:50:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793856;
-	bh=q6rimdFgbdRKSDBloeBN+8QLfNBMY5vJUZ9I/FLJUTQ=;
+	s=k20260515; t=1794793857;
+	bh=QCWZMEbDTADULGdTU/F4iEFzrUxsm0NIppGFv8Yh3AA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VzVfn2YYTmlaEvMKa/pYWuYWIDSpSxWxs0cXyXbKCUZi4mP05RkmCAsoMFPGvuIpJ
-	 xjfcAVc803JlcubeymWxKruPQKlzecL/En8oMshVMP14TRpZBPflw0aMcSLd5oZjec
-	 et7VHOu8l5OTbIDAMq5H/LVXmDxPDaRkY3/7odusKEXYyxpnWEBcsPw0FM1ZCKwOou
-	 e+da9da+kWsOYK1pghpoPon6TwTi9w1cmbk4kMovywh8O5Tzw68cNVBn1okXQQx8cE
-	 18ApcNBy/3E/DUZ+os5KMZPzojWoBob/UBmDRmmJNL+/+JUTAtgIbR9pTmvTVxNIl/
-	 NqQ3n7kwqtN+Q==
+	b=nr8SlhXjmAnPw51zC3UcQimFD1MHUAolwrnB30F3bXvz+HdOW1O5XrfmP+CCsqKxM
+	 pBdregb3/0Vsu4zRkaQRlfqM2UHdltBCZt7g166nAC+Hm/O9SgCEsq6Qsnqv5pofow
+	 KbpPbcZJX/x9BcOwL1smvWwlK/3uswNpEEuY6ttClH38dOqr4wLeX4O1IVTxChBHhT
+	 gOxqngn2KBbvc8pUNBWUmp66K2IZjXB+Dyt+FFTa8ToLM1SxVlNptel+6sOxkQCATW
+	 7iu6407Gzkm+TIIcPxDKIkuvVoRy4FtNfJUZ9jjTlaOMQ9j1JYs1ESeuqUql8qv03D
+	 uH+k9au9hXzBg==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	David Lechner <dlechner@baylibre.com>,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Linus Walleij <linusw@kernel.org>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 33/35] iio: adc: ti-tsc2046: use default_trigger
-Date: Mon, 16 Nov 2026 01:48:21 +0000
-Message-ID: <20261116014823.3132576-34-jic23@kernel.org>
+Subject: [PATCH 34/35] iio: accel: mxc4005: use default_trigger
+Date: Mon, 16 Nov 2026 01:48:22 +0000
+Message-ID: <20261116014823.3132576-35-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
 References: <20261116014823.3132576-1-jic23@kernel.org>
@@ -94,29 +94,28 @@ From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Set indio_dev->default_trigger rather than taking a reference to the
 trigger in probe(). The IIO core now takes the reference during
 iio_device_register(), so it is not leaked if probe() fails after
-the trigger is set up. This particular driver has ordering that means
-this leak doesn't occure. So this just removes a fragile ordering
-constraint and enabled further rework on top.
+the trigger is set up. No actual leak in this case due to the
+particular ordering. This change relaxes that ordering constraint
+and makes things less fragile going forwards.
 
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/ti-tsc2046.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/iio/accel/mxc4005.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/ti-tsc2046.c b/drivers/iio/adc/ti-tsc2046.c
-index 125f6d7e2d84..7bdeff734506 100644
---- a/drivers/iio/adc/ti-tsc2046.c
-+++ b/drivers/iio/adc/ti-tsc2046.c
-@@ -805,8 +805,7 @@ static int tsc2046_adc_probe(struct spi_device *spi)
- 		return ret;
+diff --git a/drivers/iio/accel/mxc4005.c b/drivers/iio/accel/mxc4005.c
+index 1559888e0995..2d4d09377397 100644
+--- a/drivers/iio/accel/mxc4005.c
++++ b/drivers/iio/accel/mxc4005.c
+@@ -502,7 +502,7 @@ static int mxc4005_probe(struct i2c_client *client)
+ 			return ret;
+ 		}
+ 
+-		indio_dev->trig = iio_trigger_get(data->dready_trig);
++		indio_dev->default_trigger = data->dready_trig;
  	}
  
--	/* set default trigger */
--	indio_dev->trig = iio_trigger_get(priv->trig);
-+	indio_dev->default_trigger = priv->trig;
- 
- 	return devm_iio_device_register(dev, indio_dev);
- }
+ 	return devm_iio_device_register(&client->dev, indio_dev);
 -- 
 2.56.1
 
