@@ -1,105 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853630;
-	b=fb6cg8QIjuNRNYEwRIjOT3YXEqGTHZnb+sm5nrjXYXmzTPPWO6UOSES7p66EbuHFZ6oa
-	 nkf+oRgSrY/6PzVw9YqiFpc0lAWc5UZmKCj4IlbC0xMNF4VV47CvcNVpboMnoMerr2Rlr
-	 /gtp/Um/N7RVcCB/K8psgQPGviwwUeQtXDsy+jVP39XYfTD9IAio3oqYh5mnXC1OIoBvc
-	 5MNS47xMImZKiEmoPwZLSG/nFzbInGT0qpdscx72Dr5mnBMiBSQa+cGMSHsXFXLojmV0Y
-	 5QFD5PjhTTnZ/r3k+eyfYaKLTyXniY/yyyXyNjrOAKlB+sP9CdtT6uxYktgbiLsKFsg==
+	t=1794853684;
+	b=YuKUneAU/5w/ys6IND5sdjSSjW7uq39Fkx16nrOMwYtTsfNzVzdl9nu1Cz3CUcG75EMI
+	 7SKlSEDU2CyUkVqwvRYeXZwb3TevsTcrvjF8QiynwdVM7IyS0ssYH0lkLSnVnlc6YSKis
+	 E3cSMDNXky8FW448342h/r6DbTsng2b8w2B40nx1PugnmfX7EsOnM4FlH6gZCs8c5biOP
+	 RkuOXoFSYv/c894j47IOpChEzIG71mbAmWwAYlIppCvNw+JiV0effemEOfJeUKUdsU0+U
+	 NA8wl4QUYz3SJRiY4/Xfbiqhg23Ax4KGvmhIcT+U1f5o6Bp6R+Gw4M/FC7/ArzcFvpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853630;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=i0+NdK/YeASsZuhz7coPXNHnm1YViQRZlPGWrC7m3dY=;
-	b=LcUgrd0mXtjQ1R01SlyjpHfD8hHk1unfN1L12dKFa9t5s+xfOMcMh4fCyzTtSsamSpu/
-	 vHqMDOfVp5Hjb22tVHtuUdI5nCSxR4NoszE9dKPiIUdgqNAfWXK9L0dEWA5r5FQ9JXFQv
-	 stRoCxlphkIQ3CEvYDNua1JkP+xB7sMV8ilsWu1csKlcUlDkaKk5xfO89DYGpQNrJRMjE
-	 B0AqRRCw1V8+1vpMnmn22UdryrJ4k3dpbHIl8/y0KTmQ4oRvGy9ozp1E0wTAt2ED3TCik
-	 e+jYTOMDXXqu3hta3FA2AWXgqUBuUoOMvrFLMKJndkRfJBnmfo8HKw8XOCeMx5gzwQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853684;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=fxJgyiv8oOoTp+D10o3vZr2gQ5VGkKt/9+lDC8DjeV8=;
+	b=faxlFgdBPXKKzREws85QaiGZTeGkvAP5ZY0796HJu5agQuQx4s5AccZ2gJfwMTXm30eo
+	 FBcV+PRykYkyJMZoe9idLCxE/VXhOZEFVuEZzvuuZ92Y4x8MWWfjH+Dyvv1Miii3nQhU+
+	 XFhytzMkX0tcdYgYYKSaM7+R7ZFcZ3zlu4UcLLFQ6jzeW12uOp4RiD/oEUMzoQ6t54+Od
+	 bMFZextfeN6DzJiTQmu8u25s+lm4Lg4ejVhj92/Riur2zc6FHlOa7unBeDn8foLldWb1G
+	 jMW9ARWnn57rLut+RJVqq62Ip8hfAdlHOxbgBEN78b/K0VFOADdZjUbbGpf57Av8i3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Qr4RejGE;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuzLia+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC85606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:27:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFC85606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5EB606A31C;
+	Mon, 16 Nov 2026 18:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Qr4RejGE
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb5b33e2ffso2035e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:27:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794853628; x=1795458428; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i0+NdK/YeASsZuhz7coPXNHnm1YViQRZlPGWrC7m3dY=;
-        b=Qr4RejGEWeUwI0wtVtMolfzVWYPmWIxJfwOGpJssQTLxQ3Mj/VhD1UlHy6KuHOqqSL
-         FAhSyKSey47XQIUuhSJXQbSTECFAINqlpr7/7qz5DW+httFcF+CMGLNOtgzd54S2NPZD
-         gaYYo7UV+pUGwsrSh92T+ex26qSG4aSqT7wc7dx/KPUlexjlDCGlXRITajRZHc5SQ75y
-         Im8W3+17t5eoEn6NCo6Tn1skt3YZ06Y4WqUafzX4HamVJrzpOfAS4DHGVUYPM58W268f
-         kZp1ypdqLR5WfqzYfbKZH5hfqAhrIim+UYp5zeRV7adDftPXx1l5DEcincnjDx9eAFsr
-         AGKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794853628; x=1795458428;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i0+NdK/YeASsZuhz7coPXNHnm1YViQRZlPGWrC7m3dY=;
-        b=CIbKdlcID6q1E7jmOeBzGa9WMMycCMkPnW1OpvfanrGv+VSJafAyiOPtcMROEP2kHg
-         tvNm8ymwMegqBqI0N7vbwQrGp/A/KXCE8GptRAdJdF0BhSbMpV5Rd+lIoMVLUYk2Adgh
-         8CZ3okVV0aSshRgf76zfP7V6Ra/1EODJMvuIm2k+f19eBz4NBSI/WWeOzJpLAeHsafa5
-         i3EVuLczMyOq6l7JGnjIqgmHX/gzYh/Ie63KqS80lJSlzhOV1WU4lw0FlXirUl50xO+X
-         un0p0xpUZUH81G8VAPhQWdCkfQzR5h85PutwKTza9LoDPXXMmgtw0RC43h0j9RZjREBc
-         pzOw==
-X-Forwarded-Encrypted: i=1; AL+hErHlOez0NBTPJ19MQ5cNBE2v2T/KuKqcbzWcbkW1ys0XiHJiyTeZqoV8SMpWZ1fXeFjHW6t+h1B2Ii/IyNo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9h0TGSPEewH+wOosQJvwja0kUf5U3M9X0hNvJSQ/Lm7ntvgCoh
-	kTa+jdhrZi63l9fU4lPSeV7BCeGkcogwaovmjEiAy49LmshpyoV6tdpuKCHZkrJKiw==
-X-Gm-Gg: AYBFou1Nfc6577TUcx4lucXzQjf4WPvBCTckgwsMmH67a28yk0vEmdvfUfKX9mH2h7c
-	qnxe2vaV9GR2Z2INe2wxNG4rSa+LIeGVXCiAuMn4eKu2PZCtQlPwStmvYbgFe9Au9jNOCecWRcu
-	8/pWVS8j/NQeWyVfB1ZJlvkrtcqRVMqlovbuKzViqq1Uh2iT+v509jeotGbK5DYZIEuY/kOVxAX
-	nhNDNJnKDqbW0ych9XwdbkVMr5oV0cJiGTLVNUiz1/JES76Pqn+m8nWcLq3acvsjK5o9NSe5HUi
-	WZ1yD72D51P/zNJuYiDNughqUuUBl2umn7eaAOJZdN70tc7Kv0eZxYGdwAoeWySMTtgxnrZTkB3
-	OrtZyTChVCUJA1zZJNfQ8gwppgd0M7ZCrJimjczjcu0cuUu5sOeRBDV/mnA5Q+9Hi4MtSX0uZlJ
-	8r3I0E8IM39bMeRkvmoF7Iht+WyOc74CK5/ATK0JDgtGOqJkuSR4gZMn9h9IHHDMYiPPb9Ti1xn
-	x6VRwUNlJBH9lXg2Y205drKV3qP64Rq8Pw+4H55wbg6Q3LkOEaWOJZWtXIgw7N9Lskpy0fyPNss
-	DYaTPmuqrhVv9q1ocv30c4nEMcpBR7Tmv0iI5XorWKjGLrh5WmvoriyDmX2UszUB9c6JJwBKxp2
-	FwmV7SVNYrkx68MMS
-X-Received: by 2002:a05:600c:491c:b0:4a1:d2f2:9fbd with SMTP id 5b1f17b1804b1-4bb7894d9bfmr42925e9.0.1794853627708;
-        Mon, 16 Nov 2026 10:27:07 -0800 (PST)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1968sm24006935f8f.10.2026.11.16.10.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:27:06 -0800 (PST)
-Date: Mon, 16 Nov 2026 18:27:02 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Daniel Mentz <danielmentz@google.com>,
-	Juan Yescas <jyescas@google.com>, kernel-team@android.com,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH] iommu: Add iommu.passthrough_devs early command line
- parameter
-Message-ID: <avtK9qMAjIIwD84k@google.com>
-References: <20261116-b4-iommu-passthrough-devs-v1-1-dc5b493f7551@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuzLia+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807661F000C4;
+	Mon, 16 Nov 2026 18:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794853684;
+	bh=fxJgyiv8oOoTp+D10o3vZr2gQ5VGkKt/9+lDC8DjeV8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=LDuzLia+wSrpqSKniNnq7YdBi008lPmTmB6a5Mw7m/LdU+dcPV1j0VQ9nifZZQFnT
+	 yb9MZImV/S1D7lbk/kcjkXFpISHnmCTjcAsn+VgSd9rm2gWMy8LyMxIT0qMOrLfKu1
+	 j6Mxi7WDHsvhEsABKYCRi+IE7+gLVoZOQP2feZKsd5xQwyOMTHJQ/8oRurun7b+/dO
+	 SwIoMHCyUlMRbI1VBnTDX46KBIkklYH6ElSRTh0YetC3g+C+SONPLR1bRsERQgNXPP
+	 Qo8VELssED7aMNd4fOrsA3ILxVagE1dWk3Lskq6VTxbzCwJC+SeKXcmD99AdtCIGfT
+	 l/CiNmzaCjMcg==
+Subject:
+ Re: [PATCH net-next] net: dsa: mv88e6xxx: Enable LED control on 88E6171
+From: netdev-bot+sashiko@kernel.org
+To: olek2@wp.pl
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 18:28:03 +0000
+Message-ID: <179485368308.3136.7792285463770201069@kernel.org>
+In-Reply-To: <20261115181305.2860498-1-olek2@wp.pl>
+References: <20261115181305.2860498-1-olek2@wp.pl>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,268 +63,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-b4-iommu-passthrough-devs-v1-1-dc5b493f7551@linaro.org>
 
-On Mon, Nov 16, 2026 at 05:37:45PM +0000, Peter Griffin wrote:
-> Currently, the generic IOMMU core only provides an all-or-nothing global
-> switch ('iommu.passthrough={0,1}' and CONFIG_IOMMU_DEFAULT_PASSTHROUGH)
-> to configure default DMA domains in passthrough (IOMMU_DOMAIN_IDENTITY)
-> mode at boot time.
-> 
-> Add an 'iommu.passthrough_devs=<dev_name>[,<dev_name>...]' early
-> command-line parameter. When allocating the default domain for a group in
-> iommu_group_alloc_default_domain(), if no mandatory domain type override
-> is present, check whether any device in the group (or any of its
-> parent/bridge devices via dev->parent) matches 'iommu.passthrough_devs'
-> and request IOMMU_DOMAIN_IDENTITY, warning and falling back to
-> IOMMU_DOMAIN_DMA if identity domains are unsupported (consistent with
-> 'iommu.passthrough=1').
-> 
-> Device names match dev_name(), such as PCI BDFs ('0000:01:00.0'),
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-I believe BDFs are not reliable as they can change based on how Linux
-enumerates the bus and hotplug.
-Probably we'd need something as pci_dev_str_match() which is used
-in other cmdline options.
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1 (1)
 
-Thanks,
-Mostafa
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Device Tree platform devices ('3c400000.ufs'), or ACPI platform
-> devices ('AMDI0010:00'). Walking dev->parent also allows specifying a
-> parent PCIe host controller or root port (e.g. '3c500000.pcie' or
-> '0000:00:1c.0') to cover its downstream endpoints.
-> 
-> Note: Untrusted PCI devices ('pdev->untrusted') and explicit IOMMU
-> driver '.def_domain_type' requirements continue to take precedence.
-> 
-> Configuring per-device passthrough mode at boot is needed for several
-> use cases:
-> 
-> - Performance tuning and benchmarking: high-throughput storage
->   workloads (e.g. fio benchmarks on UFS) can incur measurable
->   IOPS/latency and CPU overhead from IOMMU page table management and
->   TLB invalidations. Selective device passthrough allows bypassing
->   translation for these devices while keeping IOMMU isolation enabled
->   for other devices in the system.
-> 
-> - SoC/board bringup and debugging: isolating whether a DMA fault or
->   regression is caused by a specific device's IOMMU translation without
->   disabling the IOMMU globally across the entire platform.
-> 
-> Implementing this in the generic IOMMU core allows it to work with
-> ACPI and Device Tree (DT) systems as well as across all IOMMU drivers.
-> 
-> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
-> ---
-> Hi folks,
-> 
-> This patch follows up on a conversation with Jason Gunthorpe at
-> Linux Plumbers regarding how to upstream support for configuring
-> per-device IOMMU passthrough (IOMMU_DOMAIN_IDENTITY) at boot without
-> abusing Device Tree properties.
-> 
-> Downstream on Google Pixel G5 Laguna platforms, we have historically
-> carried a custom 'iommu-idmapped' DT property parsed by the arm-smmu-v3
-> driver to place specific client devices into bypass mode. As discussed
-> at Plumbers, Device Tree seems the wrong place for this because choosing
-> passthrough vs. translation for a given device can sometimes be an OS
-> policy trade-off where we choose device peak performance at the expense
-> of DMA isolation. This is the case for UFS and PCIe WLAN on Laguna,
-> which share a common SMMU instance with other peripherals (such as DMA
-> controllers, VPU, and ISP) where we want DMA isolation to remain
-> enabled.
-> 
-> A secondary benefit is it could be useful during device bringup and
-> debugging for fault isolation and to work around firmware/device issues
-> before a proper driver quirk is in place.
-> 
-> Instead, I propose handling this in the generic IOMMU core via a
-> kernel command-line parameter. This makes it available uniformly
-> across both Device Tree and ACPI systems and across all IOMMU drivers.
-> 
-> In terms of upstream Laguna support, initial DT support has already
-> landed in tree, along with USB and phy support. Other support for
-> mailbox, clocks, powerdomains, reset is under review in the following
-> series with more to follow.
-> 
-> https://lore.kernel.org/lkml/20261023235408.3063350-1-dianders@chromium.org/
-> https://lore.kernel.org/lkml/20261026214359.3122870-1-briannorris@chromium.org/
-> 
-> Feedback and suggestions are very welcome.
-> 
-> Thanks,
-> 
-> Peter
-> ---
->  Documentation/admin-guide/kernel-parameters.txt | 11 ++++
->  drivers/iommu/iommu.c                           | 76 +++++++++++++++++++++++--
->  2 files changed, 82 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index c343bc9a0d28..926380cb1e99 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -2689,6 +2689,17 @@ Kernel parameters
->  			1 - Bypass the IOMMU for DMA.
->  			unset - Use value of CONFIG_IOMMU_DEFAULT_PASSTHROUGH.
+- [Medium] mv88e6xxx_port_setup_leds() (drivers/net/dsa/mv88e6xxx/leds.c)
+  now installs the four hw_control_* callbacks only when the chip has…
+- [Low] The commit message only talks about enabling LEDs on the 88E6171.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  extends it to the 88E6171 and adds new callbacks that hit it.
+- [Low] mv88e6xxx_led_set_blinking_period() ignores its `led` argument
+  and rewrites the per-port Stretch/Blink register (pointer 0x6, "for…
+
+--
+
+net: dsa: mv88e6xxx: Enable LED control on 88E6171
+
+This patch enables LED control on the 88E6171. That switch has four LEDs
+per port and a register layout similar to the 6352 family. The patch also
+adds per-chip num_leds and led_hw_triggers fields, LED2/LED3 register
+definitions and callbacks, and installs the hw_control callbacks only
+when led_hw_triggers is set.
+
+> diff --git a/drivers/net/dsa/mv88e6xxx/leds.c b/drivers/net/dsa/mv88e6xxx/leds.c
+> index ab3bc645da566..925c120afba33 100644
+> --- a/drivers/net/dsa/mv88e6xxx/leds.c
+> +++ b/drivers/net/dsa/mv88e6xxx/leds.c
+
+[ ... ]
+
+> @@ -526,24 +573,40 @@ static int mv88e6xxx_led_blink_set(struct mv88e6xxx_port *p, int led,
+>  	if (err)
+>  		return err;
 >  
-> +	iommu.passthrough_devs=
-> +			[KNL,EARLY] Configure DMA to bypass the IOMMU by default
-> +			for specific devices.
-> +			Format: <dev_name>[,<dev_name>...]
-> +			Specify a comma-separated list of device names (matching
-> +			dev_name() of the client device or any of its parent/bridge
-> +			devices) whose IOMMU groups should default to passthrough
-> +			(identity) mode (e.g. "0000:01:00.0" for PCI,
-> +			"3c400000.ufs" for Device Tree, or
-> +			"AMDI0010:00" for ACPI).
-> +
->  	iommu.debug_pagealloc=
->  			[KNL,EARLY] When CONFIG_IOMMU_DEBUG_PAGEALLOC is set, this
->  			parameter enables the feature at boot time. By default, it
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index b486b8bbd1fc..0a7796e0311e 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -33,6 +33,7 @@
->  #include <trace/events/iommu.h>
->  #include <linux/sched/mm.h>
->  #include <linux/msi.h>
-> +#include <linux/string.h>
->  #include <uapi/linux/iommufd.h>
->  #include <linux/generic_pt/iommu.h>
->  
-> @@ -43,9 +44,12 @@ static struct kset *iommu_group_kset;
->  static DEFINE_IDA(iommu_group_ida);
->  static DEFINE_IDA(iommu_global_pasid_ida);
->  
-> +#define IOMMU_PASSTHROUGH_DEVS_MAX_LEN	256
-> +
->  static unsigned int iommu_def_domain_type __read_mostly;
->  static bool iommu_dma_strict __read_mostly = IS_ENABLED(CONFIG_IOMMU_DEFAULT_DMA_STRICT);
->  static u32 iommu_cmd_line __read_mostly;
-> +static char iommu_passthrough_devs[IOMMU_PASSTHROUGH_DEVS_MAX_LEN] __read_mostly;
->  
->  /* Tags used with xa_tag_pointer() in group->pasid_array */
->  enum { IOMMU_PASID_ARRAY_DOMAIN = 0, IOMMU_PASID_ARRAY_HANDLE = 1 };
-> @@ -805,6 +809,27 @@ static int __init iommu_set_def_domain_type(char *str)
->  }
->  early_param("iommu.passthrough", iommu_set_def_domain_type);
->  
-> +static int __init iommu_set_passthrough_devs(char *str)
-> +{
-> +	size_t len;
-> +
-> +	if (!str || !*str)
-> +		return -EINVAL;
-> +
-> +	len = strlen(iommu_passthrough_devs);
-> +	if (len + (len ? 1 : 0) + strlen(str) >= IOMMU_PASSTHROUGH_DEVS_MAX_LEN) {
-> +		pr_warn("Too long list of device names for 'iommu.passthrough_devs'!\n");
-> +		return -EINVAL;
-> +	}
-> +	if (len)
-> +		iommu_passthrough_devs[len++] = ',';
-> +
-> +	strscpy(iommu_passthrough_devs + len, str,
-> +		IOMMU_PASSTHROUGH_DEVS_MAX_LEN - len);
-> +	return 0;
-> +}
-> +early_param("iommu.passthrough_devs", iommu_set_passthrough_devs);
-> +
->  static int __init iommu_dma_setup(char *str)
->  {
->  	int ret = kstrtobool(str, &iommu_dma_strict);
-> @@ -1750,14 +1775,45 @@ __iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
->  	return ERR_PTR(-EINVAL);
+> -	err = mv88e6xxx_port_led_read(p->chip, p->port,
+> -				      MV88E6XXX_PORT_LED_CONTROL_POINTER_LED01_CTRL,
+> -				      &reg);
+> +	if (led == 2 || led == 3)
+> +		err = mv88e6xxx_port_led_read(p->chip, p->port,
+> +					      MV88E6XXX_PORT_LED_CONTROL_POINTER_LED23_CTRL,
+> +					      &reg);
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but it now affects up to four
+LEDs per port instead of two.
+
+The mv88e6xxx_led_set_blinking_period() call just above this ignores its
+led argument. It rebuilds the per-port Stretch/Blink register from
+scratch:
+
+drivers/net/dsa/mv88e6xxx/leds.c:mv88e6xxx_led_set_blinking_period() {
+    ...
+	reg = 0;
+    ...
+	/* Set up blink rate */
+	reg |= MV88E6XXX_PORT_LED_CONTROL_POINTER_STRETCH_BLINK;
+
+	return mv88e6xxx_port_led_write(p->chip, p->port, reg);
+}
+
+On the 6171, a blink_set on LED2 can change the blink rate and pulse
+stretch of LED0, LED1 or LED3 on the same port. That happens when the
+other LED is in forced blink or a hardware activity mode, and the LED
+core still holds that LED's old blink_delay_on/off values.
+
+Is it intended that one LED's blink period changes the other LEDs on the
+port? The result is only a wrong blink rate. Nothing crashes.
+
+[ ... ]
+
+> @@ -576,6 +639,34 @@ static int mv88e6xxx_led1_blink_set(struct led_classdev *ldev,
+>  	return err;
 >  }
 >  
-> +static bool iommu_is_passthrough_dev(struct device *dev)
+> +static int mv88e6xxx_led2_blink_set(struct led_classdev *ldev,
+> +				    unsigned long *delay_on,
+> +				    unsigned long *delay_off)
 > +{
-> +	for (; dev; dev = dev->parent) {
-> +		const char *name = dev_name(dev);
+> +	struct mv88e6xxx_port *p = container_of(ldev, struct mv88e6xxx_port, led2);
+> +	int err;
 > +
-> +		if (name && *name &&
-> +		    parse_option_str(iommu_passthrough_devs, name))
-> +			return true;
-> +	}
+> +	mv88e6xxx_reg_lock(p->chip);
+> +	err = mv88e6xxx_led_blink_set(p, 2, delay_on, delay_off);
+> +	mv88e6xxx_reg_unlock(p->chip);
 > +
-> +	return false;
+> +	return err;
 > +}
-> +
-> +static struct device *iommu_group_passthrough_dev(struct iommu_group *group)
-> +{
-> +	struct group_device *gdev;
-> +
-> +	if (!iommu_passthrough_devs[0])
-> +		return NULL;
-> +
-> +	for_each_group_device(group, gdev) {
-> +		if (iommu_is_passthrough_dev(gdev->dev))
-> +			return gdev->dev;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
->  /*
->   * req_type of 0 means "auto" which means to select a domain based on
-> - * iommu_def_domain_type or what the driver actually supports.
-> + * iommu.passthrough_devs, iommu_def_domain_type, or what the driver
-> + * actually supports.
->   */
->  static struct iommu_domain *
->  iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
->  {
->  	const struct iommu_ops *ops = dev_iommu_ops(iommu_group_first_dev(group));
-> +	unsigned int def_type = iommu_def_domain_type;
-> +	struct device *pt_dev = NULL;
->  	struct iommu_domain *dom;
+
+[Severity: High]
+This is a pre-existing issue, but this patch extends it to the 88E6171
+by adding .port_setup_leds to mv88e6171_ops. The new LED2/LED3
+callbacks also hit it.
+
+mv88e6xxx_setup() takes chip->reg_lock and keeps it held during port
+setup, LED classdev registration included. If a DT LED node has
+linux,default-trigger = "timer", the trigger is activated synchronously
+inside registration:
+
+mv88e6xxx_setup()
+  mv88e6xxx_reg_lock(chip)
+  mv88e6xxx_setup_port()
+    mv88e6xxx_port_setup_leds()
+      devm_led_classdev_register_ext()
+        led_classdev_register_ext()
+          led_trigger_set_default()
+            timer_trig_activate()
+              led_blink_set()
+                led_blink_setup()
+                  mv88e6xxx_led2_blink_set()
+                    mv88e6xxx_reg_lock(p->chip)
+
+Can this deadlock probe on the non-recursive reg_lock that the same task
+already holds? The LED core's trigger locks would stay held too.
+
+With linux,default-trigger = "netdev", netdev_trig_activate() calls
+register_netdevice_notifier(). That takes rtnl while reg_lock is held,
+which is the reverse of the rtnl -> reg_lock order used elsewhere in
+the driver.
+
+Could the LED classdevs be registered outside the reg_lock section, or
+could the lock be dropped around registration?
+
+[ ... ]
+
+> @@ -771,13 +862,13 @@ int mv88e6xxx_port_setup_leds(struct mv88e6xxx_chip *chip, int port)
+>  	}
 >  
->  	lockdep_assert_held(&group->mutex);
-> @@ -1777,19 +1833,29 @@ iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
->  		return __iommu_group_alloc_default_domain(group, req_type);
->  
->  	/* The driver gave no guidance on what type to use, try the default */
-> -	dom = __iommu_group_alloc_default_domain(group, iommu_def_domain_type);
-> -	if (!IS_ERR(dom))
-> +	if (def_type != IOMMU_DOMAIN_IDENTITY) {
-> +		pt_dev = iommu_group_passthrough_dev(group);
-> +		if (pt_dev)
-> +			def_type = IOMMU_DOMAIN_IDENTITY;
-> +	}
-> +
-> +	dom = __iommu_group_alloc_default_domain(group, def_type);
-> +	if (!IS_ERR(dom)) {
-> +		if (pt_dev && dom != group->default_domain)
-> +			dev_info(pt_dev,
-> +				 "Setting default IOMMU domain to passthrough via command line\n");
->  		return dom;
-> +	}
->  
->  	/* Otherwise IDENTITY and DMA_FQ defaults will try DMA */
-> -	if (iommu_def_domain_type == IOMMU_DOMAIN_DMA)
-> +	if (def_type == IOMMU_DOMAIN_DMA)
->  		return ERR_PTR(-EINVAL);
->  	dom = __iommu_group_alloc_default_domain(group, IOMMU_DOMAIN_DMA);
->  	if (IS_ERR(dom))
->  		return dom;
->  
->  	pr_warn("Failed to allocate default IOMMU domain of type %u for group %s - Falling back to IOMMU_DOMAIN_DMA",
-> -		iommu_def_domain_type, group->name);
-> +		def_type, group->name);
->  	return dom;
->  }
->  
-> 
-> ---
-> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-> change-id: 20261106-b4-iommu-passthrough-devs-03b7c957ac69
-> 
-> Best regards,
-> -- 
-> Peter Griffin <peter.griffin@linaro.org>
-> 
+>  	fwnode_for_each_child_node(leds, led) {
+> -		/* Reg represent the led number of the port, max 2
+> +		/* Reg represent the led number of the port, max 4
+>  		 * LEDs can be connected to each port, in some designs
+>  		 * only one LED is connected.
+>  		 */
+>  		if (fwnode_property_read_u32(led, "reg", &led_num))
+>  			continue;
+> -		if (led_num > 1) {
+> +		if (led_num >= mv88e6xxx_num_leds(chip)) {
+
+[Severity: Low]
+This isn't a bug, but the commit message only says "Enable LED control
+on the Marvell 88E6171". The patch also adds the num_leds and
+led_hw_triggers fields, edits the 6172/6176/6240/6352 table entries, and
+replaces the fixed led_num > 1 check with this table-driven bound.
+Should the commit message mention these changes?
+
+Also, a future chip could set .port_setup_leds and leave .num_leds at its
+default of 0. Every DT LED would then be rejected with -EINVAL, and
+mv88e6xxx_setup_port() would pass that up:
+
+	err = chip->info->ops->port_setup_leds(chip, port);
+	if (err && err != -EOPNOTSUPP)
+		return err;
+
+All current users of mv88e6xxx_port_setup_leds() set num_leds, so
+nothing changes today.
+
+[ ... ]
+
+> @@ -805,17 +900,27 @@ int mv88e6xxx_port_setup_leds(struct mv88e6xxx_chip *chip, int port)
+>  		if (led_num == 0) {
+>  			l->brightness_set_blocking = mv88e6xxx_led0_brightness_set_blocking;
+>  			l->blink_set = mv88e6xxx_led0_blink_set;
+> -			l->hw_control_is_supported = mv88e6xxx_led0_hw_control_is_supported;
+> -			l->hw_control_set = mv88e6xxx_led0_hw_control_set;
+> -			l->hw_control_get = mv88e6xxx_led0_hw_control_get;
+> -			l->hw_control_get_device = mv88e6xxx_led0_hw_control_get_device;
+> -		} else {
+> +			if (mv88e6xxx_has_led_hw_triggers(chip)) {
+> +				l->hw_control_is_supported = mv88e6xxx_led0_hw_control_is_supported;
+> +				l->hw_control_set = mv88e6xxx_led0_hw_control_set;
+> +				l->hw_control_get = mv88e6xxx_led0_hw_control_get;
+> +				l->hw_control_get_device = mv88e6xxx_led0_hw_control_get_device;
+> +			}
+> +		} else if (led_num == 1) {
+
+[ ... ]
+
+> +		} else if (led_num == 2) {
+> +			l->brightness_set_blocking = mv88e6xxx_led2_brightness_set_blocking;
+> +			l->blink_set = mv88e6xxx_led2_blink_set;
+> +		} else {
+> +			l->brightness_set_blocking = mv88e6xxx_led3_brightness_set_blocking;
+> +			l->blink_set = mv88e6xxx_led3_blink_set;
+>  		}
+>  		l->hw_control_trigger = "netdev";
+
+[Severity: Medium]
+The hw_control_* callbacks are now only installed for LED 0 and LED 1 on
+chips with led_hw_triggers. hw_control_trigger is still set to "netdev"
+for every LED, though.
+
+Two groups of LEDs end up with hw_control_trigger set and all four
+hw_control_* callbacks NULL:
+
+- every LED on the 88E6171, which has no .led_hw_triggers in its
+  mv88e6xxx_table entry
+- LED 2 and LED 3 on any chip
+
+The LED core decides whether to expose the offload attribute only from
+hw_control_trigger:
+
+drivers/leds/led-triggers.c:led_trigger_is_visible() {
+    ...
+	if (attr == &dev_attr_trigger_may_offload_to_hw.attr)
+		return led_cdev->hw_control_trigger ? attr->mode : 0;
+    ...
+}
+
+Won't these LEDs show /sys/class/leds/<led>/trigger_may_offload_to_hw and
+report "netdev"? The netdev trigger can never offload to them, because
+supports_hw_control() fails when the callbacks are NULL.
+
+Documentation/ABI/testing/sysfs-class-led says this file "Only exists
+when the LED supports trigger offload".
+
+Could the hw_control_trigger assignment move inside the
+mv88e6xxx_has_led_hw_triggers() blocks for LED 0 and LED 1?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115181305.2860498-1-olek2%40wp.pl
