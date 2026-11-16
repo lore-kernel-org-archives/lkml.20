@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833987;
-	b=V2YjxAd41s+RdW38hMPvSd5/dTuN16Kint6pcMsN66eLK1syJg7QWOapi+R0/Arx2heF
-	 hfaVRTP1eaYKCOteM/8fJ4HrfdwooaHjVblHaaA4XkZow6iCL9RG6nsj0HqXNDf04FvLW
-	 3VcF0EATMXY8N3GFwI9YaXYwktyt3fN9Sgtqi5mOoHuWg5XsWPdkJC9lyAFhhQ22kKzKN
-	 /uq1Mn7ivsmT8/MHa49NlLCBTW5+Nc5edlyXq0MXrdAW3aSiFMjr5+ulpF9hXKlDB2H5j
-	 ad+bX4W+2prDx3ekNf/H4GY1n8u1gbgj9wHbv1Em7eprZzxMZsJQ3S6sEUovt9nAxlQ==
+	t=1794833993;
+	b=Q9ixvaseLW72egnBiuyJAYh7AQCM/xsE3jWqtGW1/8XdadvJL6Hn7EyGWxuZVGIAsBkz
+	 uToDSYMwFjW8+YAha45pUnUzSiJV0i5K61ZhCV4PxntzGQwSJeIbAo1APZTIyQhOVsjuX
+	 eq5U7qnHJfGJa3cdiARue16pc+Bcq1/2L6WdCFvbw+de4KwLyARFxH6P6yLqO7ea0crg2
+	 yKlmMewue+WntGQOhvgG6yLv7ZrDhuyOVGoBTah6c+zg1xH45v1kpLlf8RZlALJLBUkSt
+	 9FbYDzRgAepfXa8plobD1/Q6fi2Vh29uwn6pAK0U7vipVY1oq8OwLXd9gvn+fkLwbcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833987;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833993;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=F5/09tsAiLJiH3yE/JR0I601g/y4qQXPTHzsm0/14NA=;
-	b=dDTqDKYCpjmYZczmts2u2IoSzWc18QCyEY7hcp5jfaPfL2/22pSEWX49/O3hZgy7QIt5
-	 +Zv6JhUERPrrfgmyoAIwmrS3r3b15w8Zc3wWWrY2eJJrjvvYByXHjQmuZ7stGPKwdG4r2
-	 NwsQdxj92ukXA/ZBhyb0Beefz6ID2RQ/utxXDGTB4b8WouVA35neuRiChKAdXDTpSnUWg
-	 u0CqnhKqGQJDyLZw+m6OD1Dl/Cpa9rwKQ8zEysgoYdkMqjV92ByKeiy2OeuSy3t2BESUg
-	 kntVlh+ejQB+PGmovU/z15DFp2LAkxh+MMj3eJUlDh6LYDglzVcl/Y1shyK59g6PsIw==
+	bh=b+WRm1pLfUXQV9ESYSvE5bx1cY6BNCF73uIKV2V7MMs=;
+	b=MPcQG6JWzoJotrPg7XLz1E4XRXkrQFlYOwyMNjaTOWto/Vc6+A3XMxJki7n0dlbR4ute
+	 3IggC9rMmgWa54SxYLLEeqA4rlD6fyPU8JT0eraIC0f0nUbnL6ZgsADYUEJfOTsF3GPKM
+	 Siks8YFt0XXJfNk1pqHdgT1e4zU4brLfNYiEoXPAy7KGSXJqTyWjv5RNJXIcH0lBvzWbu
+	 GRAZkSQNV94+GayjQV0Sf/Mx/EU9itZZMEyDf/6XsFy74tB5qo5UQVx0iikJEc5bnMAlO
+	 p5Dd/mcQ29igNvsz+jlImYGRKZjys3EhmJ/yDVyinEb5XEYnC5snklL4JDq7fW/TJIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4oYOhIR5;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=D17F8R+0;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872F560A2631;
-	Mon, 16 Nov 2026 12:59:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 872F560A2631
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3150360A5BCA;
+	Mon, 16 Nov 2026 12:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3150360A5BCA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4oYOhIR5
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=D17F8R+0
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=F5/09tsAiLJiH3yE/JR0I601g/y4qQXPTHzsm0/14NA=;
-	b=4oYOhIR58XT0S8w/lRb1j1PxYmyMrJDo7rECYdhHu9aCBDHuIzwqFKSqa/zmTmEaT6OllAOLz
-	KVAQ4xqgB/kVPA7yX6PUq/PSHjlr913TQXkwmv7hUUHMqDijkCoBHf/RIW42CkYmU85madgu1dt
-	8rrtbQ2g5/mnaBXNiZo2k7Q=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jSnxl741NzKm5R;
-	Mon, 16 Nov 2026 20:59:23 +0800 (CST)
+	bh=b+WRm1pLfUXQV9ESYSvE5bx1cY6BNCF73uIKV2V7MMs=;
+	b=D17F8R+0bWPLe+7mYnMb4V3J7iw/lJ+0oC+fjzZO/i7WXSJxs7GZze1wS2dqz0dnFQFxaijyK
+	fqIDGmNdCkemdPlpn+BTPI19U+0AIo5zXLbTiheO2lTyRMVAsiU8ct33QU3UTKDfHYad/3ovY4D
+	pNSNbDv2XDiLr7lENpLTLpo=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jSnx95bQ3zcZyT;
+	Mon, 16 Nov 2026 20:58:53 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3161840563;
-	Mon, 16 Nov 2026 20:59:37 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id E973940679;
+	Mon, 16 Nov 2026 20:59:42 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
- 2026 20:59:36 +0800
+ 2026 20:59:42 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
 	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
@@ -61,9 +61,9 @@ To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
 	<hpa@zytor.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v3 09/19] fs/resctrl: Add the L2 monitor events
-Date: Mon, 16 Nov 2026 20:59:04 +0800
-Message-ID: <20261116125914.498841-10-ruanjinjie@huawei.com>
+Subject: [RFC PATCH v3 19/19] Documentation: arm64: mpam: Describe the L2 monitor events
+Date: Mon, 16 Nov 2026 20:59:14 +0800
+Message-ID: <20261116125914.498841-20-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261116125914.498841-1-ruanjinjie@huawei.com>
 References: <20261116125914.498841-1-ruanjinjie@huawei.com>
@@ -81,69 +81,89 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-MPAM monitors belong to a cache, and firmware says which level that
-cache is. Add the L2 entries to the event table: l2c_occupancy for
-occupancy and mbm_core_bytes for bandwidth. They have their own names
-because an L2 counts the traffic the cache sees, not memory bandwidth.
+Resctrl can now monitor at the L2 scope, so MPAM exposes the CSU and
+MBWU counters of an L2 group as l2c_occupancy and mbm_core_bytes.
 
-Read the L2 events through the same per-domain path as the L3. The L2
-has no domains to sum, so a read without a domain fails. The events only
-show up once an architecture enables them; x86 never does.
+Also update the resctrl documentation.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- fs/resctrl/monitor.c    | 12 +++++++++++-
- include/linux/resctrl.h |  2 +-
- 2 files changed, 12 insertions(+), 2 deletions(-)
+ Documentation/arch/arm64/mpam.rst     | 25 ++++++++++++++++---------
+ Documentation/filesystems/resctrl.rst | 11 +++++++++++
+ 2 files changed, 27 insertions(+), 9 deletions(-)
 
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 7c392bd57eff..d72d53ba25c7 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -537,12 +537,18 @@ static int __l3_mon_event_count_sum(struct rdtgroup *rdtgrp, struct rmid_read *r
- static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
- {
- 	switch (rr->r->rid) {
-+	case RDT_RESOURCE_L2:
- 	case RDT_RESOURCE_L3:
- 		WARN_ON_ONCE(rr->evt->any_cpu);
- 		if (rr->hdr)
- 			return __mon_event_count_one_domain(rdtgrp, rr);
--		else
-+
-+		/* Only the L3 has SNC domains to sum. */
-+		if (rr->r->rid == RDT_RESOURCE_L3)
- 			return __l3_mon_event_count_sum(rdtgrp, rr);
-+
-+		rr->err = -EINVAL;
-+		return -EINVAL;
- 	case RDT_RESOURCE_PERF_PKG: {
- 		u64 tval = 0;
+diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
+index e445f4078ee1..f0d24fdc7677 100644
+--- a/Documentation/arch/arm64/mpam.rst
++++ b/Documentation/arch/arm64/mpam.rst
+@@ -32,8 +32,9 @@ Because the user interface to MPAM is via resctrl, only MPAM features that are
+ compatible with resctrl can be exposed to user-space.
  
-@@ -1030,6 +1036,10 @@ void free_rmid_lru_list(void)
-  * when the entry has a name.
-  */
- struct mon_evt mon_event_all[RESCTRL_MON_SCOPE_NUM][QOS_NUM_EVENTS] = {
-+	[RESCTRL_MON_SCOPE_L2] = {
-+		MON_EVENT(QOS_OCCUP_EVENT_ID,			"l2c_occupancy",	false),
-+		MON_EVENT(QOS_MBM_TOTAL_EVENT_ID,		"mbm_core_bytes",	false),
-+	},
- 	[RESCTRL_MON_SCOPE_L3] = {
- 		MON_EVENT(QOS_OCCUP_EVENT_ID,			"llc_occupancy",	false),
- 		MON_EVENT(QOS_MBM_TOTAL_EVENT_ID,		"mbm_total_bytes",	false),
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 0a60372299c5..95ffff4c7925 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -180,7 +180,7 @@ struct mbm_cntr_cfg {
- };
+ MSC are considered as a group based on the topology. MSC that correspond with
+-the L3 cache are considered together, it is not possible to mix MSC between L2
+-and L3 to 'cover' a resctrl schema.
++the L3 cache are considered together, as are MSC that correspond with the L2
++cache; it is not possible to mix MSC between L2 and L3 to 'cover' a resctrl
++schema.
  
- /**
-- * struct rdt_l3_mon_domain - group of CPUs sharing RDT_RESOURCE_L3 monitoring
-+ * struct rdt_l3_mon_domain - group of CPUs sharing L2 or L3 cache monitoring
-  * @hdr:		common header for different domain types
-  * @ci_id:		cache info id for this domain
-  * @rmid_busy_llc:	bitmap of which limbo RMIDs are above threshold
+ The supported features are:
+ 
+@@ -61,9 +62,11 @@ The supported features are:
+   When the MPAM driver finds multiple groups of MSC it can use for the 'MB'
+   schema, it prefers the group closest to the L3 cache.
+ 
+-* Cache Storage Usage (CSU) counters can expose the 'llc_occupancy' provided
+-  there is at least one CSU monitor on each MSC that makes up the L3 group.
+-  Exposing CSU counters from other caches or devices is not supported.
++* Cache Storage Usage (CSU) counters expose the occupancy of the cache they
++  monitor: 'llc_occupancy' for the L3 group and 'l2c_occupancy' for the L2
++  group, provided there is at least one CSU monitor on each MSC that makes up
++  the group. Exposing CSU counters from other caches or devices is not
++  supported.
+ 
+ * Memory Bandwidth Usage (MBWU) on or after the L3 cache.  resctrl uses the
+   L3 cache-id to identify where the memory bandwidth is measured. For this
+@@ -82,10 +85,14 @@ The supported features are:
+   have a corresponding L3 cache. 'mbm_local_bytes' is not exposed as MPAM
+   cannot distinguish local traffic from global traffic.
+ 
+-  All these restrictions based on L3 cache are due to resctrl, currently, only
+-  supporting monitoring at the L3 scope. It is expected that going forward more
+-  MBWU monitors can be exposed to the user after support for more monitoring
+-  scopes is added to resctrl.
++* Memory Bandwidth Usage (MBWU) on the L2 cache. An MBWU monitor in an L2 MSC
++  counts the bytes the cache sees, which resctrl exposes as the
++  'mbm_core_bytes' event on the L2 resource. The MSC is used for the L2 group
++  in the same way as for the L3 group above.
++
++These restrictions are due to resctrl only supporting monitoring at the L2
++and L3 cache scopes. MBWU monitors on caches at other levels, or on devices,
++are not exposed.
+ 
+ Command line parameters
+ =======================
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index 2750f2eabf70..506ba55793b4 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -510,6 +510,17 @@ with the following files:
+ 		bytes) at which a previously used LLC_occupancy
+ 		counter can be considered for reuse.
+ 
++If monitoring is available at other cache levels there will be a
++"<LEVEL>_MON" directory for each of them. For example an L2 cache exposes
++"l2c_occupancy" and "mbm_core_bytes" in "L2_MON". These directories have the
++same "num_rmids", "mon_features", "mbm_assign_mode" and
++"max_threshold_occupancy" files as "L3_MON", and when the resource supports
++assignable counters, also "num_mbm_cntrs", "available_mbm_cntrs",
++"mbm_assign_on_mkdir" and "event_configs".
++
++The "mbm_L3_assignments" file in the resource group directories is specific
++to the L3 scope.
++
+ If telemetry monitoring is available there will be a "PERF_PKG_MON" directory
+ with the following files:
+ 
 -- 
 2.34.1
 
