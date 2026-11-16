@@ -1,91 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833589;
-	b=clRb1SDdOuQznGliaqVqfzbAdVWSCb0/M2ulzdaVPMPLf+WPfqGmFHzVU9LTkjigICJI
-	 /UaE2OVW016IsfB79VIoOLIJF+um5gl79sjKoSTwRYfsBaCML9p3OZfoFDf+qf2S8yw1p
-	 wc47JeQyZeZ/SWxrcARgyjsEpOlt06RzdWfmRkS4It/kWSSKJv7lEi57qFKySd6hV/UZn
-	 r6fe9snOTUc1i7s5qUEVwXt/fPPF0RpQd6NsJwyPbE6eCtSw5nZdRyCb5545YEPxX26cQ
-	 kqpn8EodEyDfkMzqOibyHnfBeNonwiexc3tTfMpQejBIA/Q+k+yhZ5RWu7VgB+w1JqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833589;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=dD7kd003+N1iLABHM1hPtkseWEeKE/HaEg0JnTmbpxU=;
-	b=AdSWz+4BH/fkjjh6qh5VL5zgWeiCMFhfqWT8fuGLrAwTg+rnL41oKSftX6jouYXPvjBd
-	 V01EGXdWTHTRlWjZ+ES7DMICfB26os9afcsof/b6YZHK5wvkEdlVBP4k69W7j6FY20LN8
-	 7uSaLF/YH62dwgD+/X1y6+teP7eZiLLj5GH+ffSuT3RrJh5IoQ1x0SjQklArIa3nr8OQV
-	 Sq7ls6In0VVBLxWpdMS/YAabEaTHn8UE60dLKTmyMd6L2ppFKyuNRQiKtEGEbVt5CD1aJ
-	 sSY0csn8tsfYd30tcMY3rFf/YgYprzAwyKhH1KjkiV/DT7Nw+pZ094STekt6dZvs2LQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=rIVcteNS;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794833613;
+	b=PIjQHw9pDwBIJkJmgvtgTId7CkNcO8szgp5y45p6wPDgquf0JzVO2/JIjp0AkdYN+Jvk
+	 pxdnM3MSlgg6J1lo2f4HIgO77n4L5tw+MgiiZ9CHLLnkCRi3Pml80ip7oLRw/YUTvmjSP
+	 2craV/wOZfVGKAG63zVXK19F4Vsg9FznFfTcGIapjCa9KMnW/BCi0H/bNLeWX4h7ThoAm
+	 QOX9IhnjLFl6+6putp7rdUAzFkEzzXkR+FXVLFl2x9xQYV5TvGEI1FW04ijDdy2IXjW0o
+	 4bCWn0bEyDrWuqbSfDtSvl2yAt3hSETVEXwqlWSNrAqi9EJAw27OPq1aFu/oUOnOLPA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833613;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=vCTkIJC+402nA2gGKGIMvi8ieHgbeSO4c1Tg9h8hLgg=;
+	b=3FApUWnbTuzBGK7U7AC+uMkth1a0uQ2dD3AAl+ZDLotiEns7a+kh1B7rMIIb1WBY9Fcp
+	 nqhBQG0KUrSqwnS+jXLVJyRQfHxYPM+JO0iRgFOPrF8TY3J8D8PA0mGJlgQ0cK0oXc+71
+	 SQZ9Nx83i2eIxXCG4JO6dc/DnqQosrOqqSv6AT14bDcXBWDY49D6lUpqO+DU2odvslP+i
+	 e2JpPWw9WygWU0xGXlgcD9i+onrw8DcfdvsR7Js3JBnRSkPp/WOFiTPcRvy7R0MQnVIol
+	 CyR4LMj9MRVUoVB+TRGR7UW9yz3RjvZqUVArAxQ6VMZwdNvibcBIHyNwgNONwkdUIWA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rh2JTqJ/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61AE606A31C;
+	Mon, 16 Nov 2026 12:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rh2JTqJ/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794833613;
+	b=RSUWOh2b/32+abyNwR+bY2s6nYsCUpzoWRMg4c5aBvjUN0a3RCW7zZ4TV0U/basK5ZJj
+	 xjf8kpy1U/I1kqeaL8Uyxi5v+FSWZSgWGk6itq2Ml3kTklX/F3TMpnazkWIOiv1TwA6EY
+	 p9rTvGD/BkpMT0HXQN85XKf9/m874qZxv6z7x83A1vPuYI8GEJQHTHWWodU/CCD8Hwnuv
+	 y8A+PgI2vbqTgFqGiQdR2zl8ls61uyURGig0iR70wIBQ8n7KZ4RmBEKAalGMt6jBdcywj
+	 qd7SuB3ck7cTeS0Bv1a6RdJqjRwszx87X4/Q389WSlhcrnUvo5DL1T5B1BRM2KDk5MQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794833613;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=vCTkIJC+402nA2gGKGIMvi8ieHgbeSO4c1Tg9h8hLgg=;
+	b=RT6NblAO0nDybVa9AYBDlw4VbBAWTlx4TNAeQVw5COaHyxodrUF8wObje+3hEvZrh3qZ
+	 YXaYL4CBK+7RgZoAkwoeurzuDTRDhl2NEd3HnaMXP+vAIoxqwC9MZ/8J6WWqdiSxXz6JH
+	 tN8wlViki8jnioIN2i2gxAESuv1wRwvocMoKrAfa1/am/ThhE7WA7yYhfaAE2kkwDKpqV
+	 b4OQQHygB3ynDaszSMYi1mSkAS9/vCETT/L1LVVhE411m/+NDA11tcSFYcukTppHPSGi1
+	 0FWT3yk0H8VEtisi8/SLM3BYDAfpzrtS0VUskS26XI2D/o7IqdozjVRmIuYSKf/LmVA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F651606A329;
-	Mon, 16 Nov 2026 12:53:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F651606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=rIVcteNS
-X-UUID: a89c2cfce1bc11f18dc8c9802ae25ab1-20261116
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=dD7kd003+N1iLABHM1hPtkseWEeKE/HaEg0JnTmbpxU=;
-	b=rIVcteNSedXlZkMlksV4/YoyqY+Gq8trepXYqxpOYDa1VBHGrT0SJxp/rXA9vPy9padE3sv+v6rj4c+4ER9J/DaqDw1eJ3i7hhxn4xrTOBLLF6ffBeJCzmt3MlyLC1ug0QpOYu8p9PTDIppeGQy5bpMap4z7UcFxPo7PuVRooqI=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:01ccd9f8-4f6b-413c-ab98-89cac12f164c,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:dbbcec30-f289-4656-bb36-27baf4489f11,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a89c2cfce1bc11f18dc8c9802ae25ab1-20261116
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 676664567; Mon, 16 Nov 2026 20:53:02 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 16 Nov 2026 20:53:02 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Mon, 16 Nov 2026 20:53:01 +0800
-Message-ID: <77e60c6e52705b3abd97d72ab3a766a5e6ba229e.camel@mediatek.com>
-Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Do not recover the link
- concurrently with a PM callback
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, <linux-scsi@vger.kernel.org>, "Martin
- K. Petersen" <mkp@kernel.org>
-CC: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Bart Van
- Assche" <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, "Bean
- Huo" <beanhuo@micron.com>, Brian Kao <powenkao@google.com>, Can Guo
-	<can.guo@oss.qualcomm.com>, "Bao D. Nguyen" <quic_nguyenb@quicinc.com>,
-	Hongjie Fang <hongjiefang@asrmicro.com>, Praveen Talari
-	<praveen.talari@oss.qualcomm.com>, Hoyoung Seo <hy50.seo@samsung.com>, "John
- Garry" <john.garry@linux.dev>, Hyeoncheol Jeong <hyenc.jeong@samsung.com>,
-	Jens Axboe <axboe@kernel.dk>, "Rafael J. Wysocki"
-	<rafael.j.wysocki@intel.com>, <linux-block@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Date: Mon, 16 Nov 2026 20:53:01 +0800
-In-Reply-To: <20261113111202.3551341-3-stanleyjhu@google.com>
-References: <20261113111202.3551341-1-stanleyjhu@google.com>
-	 <20261113111202.3551341-3-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	by smtp.kernel.org (Postfix) with ESMTPS id 1C5C21F000C4;
+	Mon, 16 Nov 2026 12:53:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794833613;
+	bh=vCTkIJC+402nA2gGKGIMvi8ieHgbeSO4c1Tg9h8hLgg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Rh2JTqJ/EukNLfOY9KKEQf0R2CU28oe6h0nTHhgK06EStbA81YETPdwBuO43kzKG6
+	 1CAKhffrxvmT1Kt+GJErVfNkxzGdCfK6IQt4BIuTxVNfEy+8vm3ErZP/9LHs3BN+D2
+	 FBrrHdgH3xIkdl6uI1wqpYFNjc45D6chxqS1JS/N71twP7NNLaQg+Jh2T3wVJIvdvV
+	 KQeZXq/8KC+i0UbjFauInzTJSvH6YBEn1K4oAEpsOA2zHYs57yVxye7p+vzClaG+bg
+	 OfXDEbe1Qa5tOi00QSLSRjKr8tsqXf8bYaduqrlzF/aZhKI710zUjBQB5CJQtAsGjE
+	 R+gnKUVUhrOow==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7198A4A474;
+	Mon, 16 Nov 2026 12:53:32 +0000 (UTC)
+From: Peder Bergan via B4 Relay <devnull+peder.bergan.gmail.com@kernel.org>
+Date: Mon, 16 Nov 2026 13:53:32 +0100
+Subject: [PATCH] rust: alloc: check the length precondition in
+ Vec::from_raw_parts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,85 +83,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-vec-raw-parts-precondition-v1-1-8f633f66b4c1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMv8+moC/yWMSQ6DMAxFr4K8riWCCoteperCMW5JRQOywyAh7
+ t6kXb4/vANMNIjBrTpAZQ0WppjBXSrggeJLMPSZoambzjnX4SqMShvOpMlwVuEp9iHlG/r2WpN
+ vmVk8ZEEun2H/ye+PP9vi38KpGMvCkwl6pchDiZbZkgp9kMZxYoyyJzjPL3kdRwqkAAAA
+X-Change-ID: 20261116-vec-raw-parts-precondition-b540ab5ccceb
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794833612; l=2687;
+ i=peder.bergan@gmail.com; s=kernel-contributions;
+ h=from:subject:message-id;
+ bh=8AL5TouHwkYVMGdbW1C9LR1cjbYm5Y41STYkvRtrL4E=;
+ b=C71Hvp9FqzTymLLh+nECFQ02HlfuynnuaZJoG3z1rj9QjDIEIibvSjG9SM2olgoWXiYtOlLW0
+ xl1FNloM/eWBf7daFFqCZOq7Gm5USwEBn9LDHv5AuzgoI2dEBPplWj/
+X-Developer-Key: i=peder.bergan@gmail.com; a=ed25519;
+ pk=39790pn1YZCulHBoUG1uiQI1Hm01EvhBEa2zVrS/yN0=
+X-Endpoint-Received: by B4 Relay for
+ peder.bergan@gmail.com/kernel-contributions with auth_id=1395
+X-Original-From: Peder Bergan <peder.bergan@gmail.com>
+Reply-To: peder.bergan@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-11-13 at 19:12 +0800, Stanley Jhu wrote:
-> From: Brian Kao <powenkao@google.com>
->=20
-> ufshcd_set_dev_pwr_mode() now recovers the link after a START STOP
-> UNIT timeout. ufshcd_err_handler() must not recover the link while a
-> PM callback runs. Its pm_op_in_progress branch still does so when a
-> fatal UIC error arrives during that recovery.
->=20
+From: Peder Bergan <peder.bergan@gmail.com>
 
-Hi Stanley,
+Vec::from_raw_parts() requires length to be no greater than capacity for
+nonzero-sized elements. Check this precondition with
+unsafe_precondition_assert!() before constructing the vector so debug
+builds diagnose invalid raw parts at this boundary.
 
-Could we just add a check to prevent the concurrency issue=20
-in ufshcd_link_recovery?
+Keep the check in the nonzero-sized branch because zero-sized vectors
+ignore the capacity argument. Add a KUnit test for reconstructing a
+nonempty zero-sized vector with a zero capacity argument.
 
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -1,10 +1,16 @@
- int ufshcd_link_recovery(struct ufs_hba *hba)
- {
- 	int ret;
- 	unsigned long flags;
-=20
- 	spin_lock_irqsave(hba->host->host_lock, flags);
-+	if (ufshcd_eh_in_progress(hba)) {
-+		spin_unlock_irqrestore(hba->host->host_lock, flags);
-+		dev_info(hba->dev, "%s: link recovery already in
-progress, skipping\n",
-+			 __func__);
-+		return -EBUSY;
-+	}
- 	hba->ufshcd_state =3D UFSHCD_STATE_RESET;
- 	ufshcd_set_eh_in_progress(hba);
- 	spin_unlock_irqrestore(hba->host->host_lock, flags);
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Link: https://github.com/Rust-for-Linux/linux/issues/1232
+Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
+---
+Based on alloc-next.
 
+My validation used the x86_64 rust_kvec KUnit suite under QEMU with
+CLIPPY=1 and debug assertions enabled and disabled. All six tests passed
+in both configurations. A temporary invalid-length probe triggered the
+expected precondition diagnostic. The baseline has an unrelated unused
+function warning in io/resource.rs, also present after this change.
 
+OpenAI Codex assisted with coding and testing.
+---
+ rust/kernel/alloc/kvec.rs | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-> @@ -7074,23 +7074,6 @@ static void ufshcd_err_handler(struct
-> work_struct *work)
-> =C2=A0		 hba->saved_uic_err, hba->force_reset,
-> =C2=A0		 ufshcd_is_link_broken(hba) ? "; link is broken" :
-> "");
-> =C2=A0
-> -	if (hba->ufs_device_wlun) {
-> -		/*
-> -		 * Use ufshcd_rpm_get_noresume() here to safely
-> perform link
-> -		 * recovery even if an error occurs during runtime
-> suspend or
-> -		 * runtime resume. This avoids potential deadlocks
-> that could
-> -		 * happen if we tried to resume the device while a
-> PM operation
-> -		 * is already in progress.
-> -		 */
-> -		ufshcd_rpm_get_noresume(hba);
-> -		if (hba->pm_op_in_progress) {
-> -			ufshcd_link_recovery(hba);
-> -			ufshcd_rpm_put(hba);
-> -			return;
-> -		}
-> -		ufshcd_rpm_put(hba);
-> -	}
-> -
->=20
+diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+index cd0c57a9a..b8f4c1692 100644
+--- a/rust/kernel/alloc/kvec.rs
++++ b/rust/kernel/alloc/kvec.rs
+@@ -23,7 +23,8 @@ use crate::{
+     page::{
+         AsPageIter,
+         PAGE_SIZE, //
+-    }, //
++    },
++    unsafe_precondition_assert, //
+ };
+ 
+ use core::{
+@@ -685,6 +686,8 @@ where
+         let layout = if Self::is_zst() {
+             ArrayLayout::empty()
+         } else {
++            unsafe_precondition_assert!(length <= capacity);
++
+             // SAFETY: By the safety requirements of this function, `capacity * size_of::<T>()` is
+             // smaller than `isize::MAX`.
+             unsafe { ArrayLayout::new_unchecked(capacity) }
+@@ -1623,6 +1626,18 @@ mod tests {
+     use super::*;
+     use crate::prelude::*;
+ 
++    #[test]
++    fn test_kvec_from_raw_parts_zst() {
++        let ptr = NonNull::<()>::dangling().as_ptr();
++
++        // SAFETY: For a zero-sized type, `ptr` only needs to be dangling and well aligned.
++        // The capacity argument is ignored.
++        let v = unsafe { KVec::from_raw_parts(ptr, 3, 0) };
++
++        assert_eq!(v.len(), 3);
++        assert_eq!(v.capacity(), usize::MAX);
++    }
++
+     #[test]
+     fn test_kvec_retain() {
+         /// Verify correctness for one specific function.
 
-This section of code is used when a UIC error occurs=20
-before SSU is sent.
+---
+base-commit: a2a82cbb73342d605078cb85763472f40156af1f
+change-id: 20261116-vec-raw-parts-precondition-b540ab5ccceb
 
-Because the error handler uses link recovery, it will=20
-recover from the error quickly rather than waiting for=20
-the 10s SSU timeout. The end user will feel lag because=20
-the I/O cannot resume for 10s.
-
-Thanks
-Peter
-
-
-
+Best regards,
+--  
+Peder Bergan <peder.bergan@gmail.com>
 
 
