@@ -1,111 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.147.23.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818524;
-	b=4ewGm9TE6PWM4Ki+zhi0pR3bu2cjt9GcLp/El+XkQyehjdELt4rNhM0MoehFCw2/oJKE
-	 xbeKiWSPRd8HnpSgURjtboIZLOmTT37U4ARr55cxq4GRD1KNe+lqh4hNT2yD5wEqYPKzf
-	 wwxXbmf/FPvQNb12JPCK2+sVZnEwvj863SSouyyi03P6k1rj6780+kZrUBCYaw9GlbXtO
-	 UWRn4kvvauGkAHYpsHpgIn6gdt+vptfcgIkOcj2WjgK9VAQQFhgKjkjsHfU7ybiEPQXoD
-	 H1LjthovEXMtAlwm7tJ1Bj3o4O+RqodToQyRVe35Q41Hf10fXw7aFmKTTOOYKMNyDig==
+	t=1794818533;
+	b=nTJ1HGcfaeCQ0poP8plZAR7mKCvzd4CzR7ye+v6rLzQCxFaBLTt6NToM+thw7Off5kXs
+	 4sSWpcfsrCCgoAPRsV33nThyOPmxgMZ97R8CR0S601s6IF98Ceyo3Bj/njB/xq5quyVMq
+	 /MGqa3a+/QSjTs6tql9VWjw2LvwSDd9sVBBaz5Umas2eEQ+PuR26A1o81YN0IttGW2Tpw
+	 Q57wtg9NvVtVe2Yx2fH0HhKdW62MdOxLnnRVBidEeIdyqTqg4rUsnBTwKj0S+DdfsV1UM
+	 NpSWbSgRIbR7i+UMMAtCPT6trHCf5pJIHcpl5x2wnEdGMlx3HdxyYNolhKqXYoUWrRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818524;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IbDW2yfp/G8HBG/wT9ipOeQ5Z+TwPor4+SUJgaV0UTA=;
-	b=h564XPl+UBCt86gEbO2v0k+fzpwgcKSDpWaTFYdiFo7//ZqM2n8BdhpuCABah54xEroY
-	 AIPie7VO/Ih+lCy6fKgbJlTYesaBK7lVrFX3TzHrQGuhodphACALlkPSezBJvlksXamv5
-	 w9vgrLcVoVa/8/grZrCrAHjqnFEjddbVBLVA+9AHE0oN8LC5vEMg6c+zh+TPFG/iBq0x6
-	 vcOs1UeIkPHR/XvSb8Maluto5+ndvtTVyWSNtfrMiCuROKzoUw6kZcghQjZGZpWGdZb8B
-	 4onc+CtXgLEWj4tC3R5F+gcCq5h4WKHcz0I2mK+zmr5wCFlq/NX6CBySJ3qky8GCx/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818533;
+	h=DMARC-Filter:Received:X-Original-SENDERIP:X-Original-MAILFROM:
+	 Received:X-Original-SENDERIP:X-Original-MAILFROM:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=f+cFLOyzRr/sNssA9Cxlc2L4U9sPUFBVvN814j9xtUc=;
+	b=wgn9HKXRQ8ugYzYM7ii1tXj55q5VjBSXvP0gcU+qH/bAOkCyoNvNxDq4apAMpo0h33po
+	 8gLDeKAF9XeTRsNZkDoWn+I/te2+XQFWFVdH918796m9Y8LyaMnohVyCupJcqjQG8tNPT
+	 uzCgcZ7M2EJVyGFk68gS+SCAx78svLlTS7iizqFpGiltawtQPCroDnmgHkkO0xHl5kVd0
+	 pLIR75mwCZFJ2HnvnuuvlGmqFbDOf6KC07f7F8XUVCfMcOfjYbfbJ/JGE9eWU8a6N6vuu
+	 5hx+M0sPmE2fyfoTkJUnRGLu6CIlIplbG51OHg+2P83qz0qxWDredt1fKl96mN4nEDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZoA9pBn2;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lge.com;
+	spf=pass smtp.mailfrom=lge.com;
+	arc=none smtp.remote-ip=156.147.23.53
+Received: from lgeamrelo13.lge.com (lgeamrelo13.lge.com [156.147.23.53])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB66606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:42:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CB66606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZoA9pBn2
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a56e05568aso7457145e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:42:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794818522; x=1795423322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IbDW2yfp/G8HBG/wT9ipOeQ5Z+TwPor4+SUJgaV0UTA=;
-        b=ZoA9pBn2SaQcXdbdTbDGdUqkVqrFSWt+g1wynpHCOei8Q80uX3HN3uHnYFkli9EpRG
-         32eCjf+w9PF111gI8CFo/2Fi6iAE8awhIK8ghCdj1w/Z5crBUJCEdB83o/LRmQazFxCj
-         h5RvnVii23vtsdO+89HmwI8+MkPFeZOKVW9+kNYlK7TFWubhLKPo5wYsAhYf/4RCkI1T
-         UoVlloGuVEBvVpV5t3vXpqc9paD7z+rZ0msoiFb0TefH5FcBOiGaSkEvImmecOZo97oE
-         lJpXf2p7y7H1i7zqcUPmiYhnOp7/Ab9yXqGHGSu6bD6g4r8JAACBJYaBTBaZ/1hZOsdg
-         BvRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794818522; x=1795423322;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IbDW2yfp/G8HBG/wT9ipOeQ5Z+TwPor4+SUJgaV0UTA=;
-        b=CH1cE2SXH66z62gE+NAm2spBQ2Oky3BpBN9h4A+Bf2Drfg0KxfDIWgCs9bhrWDuOQP
-         r8/zKkvL0IxqL4zNaYEey5a16aoXCWw+F6tntbLSuQO7by5whNmehAuP/ofopYgcJgnW
-         H+8fKJREnTy4cnV268EyoTYYmNbrDyhJmvRwDffr+LRlSYsy6laZs3hmmaUUaqTBPv8R
-         vsfAm0fuluZfFUjvK6pAxPSKlfIMBoEanXkfnLq1AoVsA4bBluMRYg/AsrIpo4DAJAlK
-         X2HqStMn4YS2713LeX/AM0U138jPh26C5VTfGhx4yyoDmTMb9uaO8YYwxIWPDo2fE4CV
-         JpQg==
-X-Forwarded-Encrypted: i=1; AL+hErGhUEU1bH0cAxxeNPbjklxrhfcBgXzggtpMo6YFnPeHqyIafPVZNGiKAzxAWOubDLlaW3yxx4nkM1roUFg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tot5dcfyDz9HHQcshovOjOqoI7dGq0ClhVyqThoWnaMkAMjRc
-	6/3Xuyz7ZYn5h1vkfrQO5VdsLMflMX5MG4N/+hDw+iZJ7ps7aqqW5sge
-X-Gm-Gg: AYBFou3KKEbhbTYdkXj6CInFGunGro4U6zxoinPsW0rSVeKN33VPZPYNEcAwtcQ5j7v
-	X7oZ49EoDDwMCM2bir57+yxZIWtW60VR5kz3WxsBqbBQMGDTLaqbh1erZ1akEAgTpI0nTmkKiF+
-	HIzRqXyebT6Ev9vwCXwBjOCWoOH1tKfjfSd8uiApvDrKQWphHJ3Rw4f6SGpHgzISaXg7reoHEEF
-	dZrM0cJSzCpjABjOl3o0Bf6nGgaBvxnUWaAjc0M2mkNpCvCiK2vqLo3AZtXtBVSVsqcVHWJ8m5F
-	sNi024rJaXIU468X6C6rnlaMmhH/R3lQOlr7W8vF18huQYthtShXsv+3bmd9dtIhLNeo3wpnbvj
-	fc4zxdLZye7URXAEYL+hW7dWQ8Znvu3NBsgVVjSh3VSK2H22xS6nhXU4BTteEiLQE4zPx1Mwdwu
-	uesfkLjhw84AHj1G3yvVIoLH33an4cvkb7qILjsl8If+k16HnQCn4xlSedyPQmD1Ky+rs2033p4
-	MLMAA+Ebn8JkdO34t6dR5Q1G8rKFW2QieGSAKaNdULse9R/M2IIIISVO00WsoKeq2pl3MWgXNma
-	jiM2c6fQBpcSlNfufhYKMvqvXdl0U4T0owRHsr6WtNcS9TbMOApS3YWBaEbIl+W/p5S/LreINnr
-	13fCFsgGNpeNPV6R9s9Y=
-X-Received: by 2002:a05:600c:16d5:b0:4bb:732a:2837 with SMTP id 5b1f17b1804b1-4bb732a2af5mr21460175e9.1.1794818522364;
-        Mon, 16 Nov 2026 00:42:02 -0800 (PST)
-Received: from Nuel20.localdomain ([105.112.221.201])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb62d5ec30sm284300555e9.15.2026.11.16.00.41.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 00:42:01 -0800 (PST)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: Tianyi Gao <tianyi@cloudflare.com>,
-	Hangbin Liu <hangbin.liu@linux.dev>
-Cc: netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	kuba@kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	skhan@linuxfoundation.org,
-	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Subject: [PATCH net v3 2/2] selftests: net: veth: propagate bad-settings check failures to exit status
-Date: Mon, 16 Nov 2026 09:41:07 +0100
-Message-ID: <20261116084107.6675-3-emmaonana18@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83B2606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B83B2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
+Received: from unknown (HELO lgeamrelo01.lge.com) (156.147.1.125)
+	by 156.147.23.53 with ESMTP; 16 Nov 2026 17:42:03 +0900
+X-Original-SENDERIP: 156.147.1.125
+X-Original-MAILFROM: trieu2.huynh@lge.com
+Received: from unknown (HELO trieu2-huynh-trieuhpn-ubuntu24.bee-live.svc.cluster.local) (10.159.39.33)
+	by 156.147.1.125 with ESMTP; 16 Nov 2026 17:42:03 +0900
+X-Original-SENDERIP: 10.159.39.33
+X-Original-MAILFROM: trieu2.huynh@lge.com
+From: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Len Brown <lenb@kernel.org>
+Cc: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] PM: hibernate: exclude unusable free pages from image preallocation
+Date: Mon, 16 Nov 2026 17:42:01 +0900
+Message-ID: <20261116084201.30092-1-trieu2.huynh@lge.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116084107.6675-1-emmaonana18@gmail.com>
-References: <CAG4wq-cd01i7YrcFPmma=BXUcwn_PK=wneKW=vyEBYzQ3Bn7QA@mail.gmail.com>
- <20261116084107.6675-1-emmaonana18@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,51 +59,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Three more checks in veth.sh print "fail - set operation successful
-?!?" without setting ret: "bad setting: XDP with RX nr less than TX",
-"bad setting: reducing RX nr below peer TX with XDP set", and "bad
-setting: increasing peer TX nr above RX with XDP set". A kernel that
-wrongly accepts any of these invalid operations would be reported yet
-the script would still exit 0. Wrap each fail branch so it sets ret=1.
+hibernate_preallocate_memory() derives the number of page frames to
+preallocate for the image from the per-zone NR_FREE_PAGES counters.  Those
+counters count every free pageblock regardless of its migratetype,
+including MIGRATE_HIGHATOMIC and MIGRATE_CMA pageblocks. Such pages are
+free from the buddy allocator's point of view, but they cannot be used by
+the order-0, non-movable, non-reserve GFP_KERNEL allocations with which the
+image is preallocated (GFP_IMAGE = GFP_KERNEL|__GFP_NOWARN).
 
-Fixes: 1ec2230fc721 ("selftests: net: veth: add tests for set_channel")
-Reported-by: Tianyi Gao <tianyi@cloudflare.com>
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+(*) Reported free vs usable free:
+
+The mm subsystem already accounts for this in
+__zone_watermark_unusable_free() [1]. For order-0 GFP_KERNEL neither
+ALLOC_RESERVES nor ALLOC_CMA is set, so the allocator subtracts the free
+high-order atomic [2], and the free CMA pages from the free count before
+checking the watermarks. The hibernation preallocation, however, computes
+its target from the unadjusted NR_FREE_PAGES value, so it asks for about
+half of the unusable pages more than the allocator can deliver.  On arm64
+(no CONFIG_HIGHMEM) the highmem fallback in the failure path is a no-op,
+hence even a small shortfall aborts hibernation, see [4] for example.
+
+(*) Why those pages are not usable by GFP_KERNEL:
+
+(**) CMA is reserved for movable allocations, so GFP_KERNEL has no
+ALLOC_CMA, and MIGRATE_CMA is not in the unmovable fallback list. Free CMA
+pages are therefore never handed to these allocations.
+
+(**) The high-order atomic reserve is only handed out to atomic, order > 0,
+__GFP_HIGH allocations (ALLOC_HIGHATOMIC), which GFP_KERNEL order-0 is not.
+These pages can be unreserved under memory pressure [3], but only all but
+one pageblock per zone and only after an allocation has already failed, so
+counting them as available still overestimates what the preallocation can
+obtain without failing first. Excluding them is conservative.
+
+(*) Consequence of not excluding the unusable pages:
+
+With M = managed, S = saveable, F = free, U = highatomic + CMA and
+R = reclaimable, count = S + F - totalreserve and alloc is about count / 2,
+while the allocator can actually provide about (F - U) + R pages. The
+shortfall is therefore inflated by exactly U compared with the usable
+memory.
+
+From [4], with U = 11430 unusable free pages (5120 highatomic + 6310 CMA),
+the preallocation target is inflated by about U / 2 = 5715 pages, while the
+allocator ends up 1247 pages short and hibernation is aborted even though
+the system is able to create the image.
+
+(*) What changes after excluding the unusable pages:
+
+Subtract U from the per-zone free accounting used to compute count and
+avail_normal. Then count' = count - U and, since max_size is roughly
+count / 2, max_size' = max_size - U / 2 and alloc' = alloc - U / 2.
+max_size' remains well above minimum_image_size() in practice, so the
+resulting image is effectively unchanged while hibernation no longer aborts
+unnecessarily.
+
+Testing
+=======
+(*) SA6155P running on AAOS with S2D feature
+(*) backport locally on GKI 6.1
+
+References
+==========
+[1] commit f27ce0e14088 ("page_alloc: consider highatomic reserve in watermark fast")
+[2] commit c928807f6f6b ("mm/page_alloc: keep track of free highatomic")
+[3] commit ac3f3b0a5551 ("mm: page_alloc: unreserve highatomic page blocks before oom")
+[4] Example of an abort:
+    Mem-Info:
+     free:344621 free_pcp:931 free_cma:6310
+    DMA32 free:973864kB reserved_highatomic:8192KB free_cma:25240kB
+    Normal free:404620kB reserved_highatomic:12288KB free_cma:0kB
+    PM: hibernation: Image allocation is 1247 pages short
+
+Signed-off-by: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
 ---
- tools/testing/selftests/net/veth.sh | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Changes since v2:
+(*) Rebased on v7.4-rc3
+(*) Updated the stale comment above the min() clamp: it still referred to
+nr_reserved_highatomic, but the code reads nr_free_highatomic, and the
+clamp is needed because the counters are sampled separately (Reported by:
+Sashiko).
 
-diff --git a/tools/testing/selftests/net/veth.sh b/tools/testing/selftests/net/veth.sh
-index 5c1dbe1516bb4..0b173beed3442 100755
---- a/tools/testing/selftests/net/veth.sh
-+++ b/tools/testing/selftests/net/veth.sh
-@@ -474,7 +474,7 @@ if [ $CPUS -gt 1 ]; then
- 	printf "%-60s" "bad setting: XDP with RX nr less than TX"
- 	ip -n $NS_DST link set dev veth$DST xdp object ${BPF_FILE} \
- 		section xdp 2>/dev/null &&\
--		echo "fail - set operation successful ?!?" || echo " ok "
-+		{ echo "fail - set operation successful ?!?"; ret=1; } || echo " ok "
- 
- 	# the following tests will run with multiple channels active
- 	ip netns exec $NS_SRC ethtool -L veth$SRC rx 2
-@@ -483,7 +483,7 @@ if [ $CPUS -gt 1 ]; then
- 		section xdp 2>/dev/null
- 	printf "%-60s" "bad setting: reducing RX nr below peer TX with XDP set"
- 	ip netns exec $NS_DST ethtool -L veth$DST rx 1 2>/dev/null &&\
--		echo "fail - set operation successful ?!?" || echo " ok "
-+		{ echo "fail - set operation successful ?!?"; ret=1; } || echo " ok "
- 	CUR_RX=2
- 	CUR_TX=2
- fi
-@@ -491,7 +491,7 @@ fi
- if [ $CPUS -gt 2 ]; then
- 	printf "%-60s" "bad setting: increasing peer TX nr above RX with XDP set"
- 	ip netns exec $NS_SRC ethtool -L veth$SRC tx 3 2>/dev/null &&\
--		echo "fail - set operation successful ?!?" || echo " ok "
-+		{ echo "fail - set operation successful ?!?"; ret=1; } || echo " ok "
- 	chk_channels "setting invalid channels nr" $DST 2 2
- fi
- 
+Changes since v1:
+(*) Added a reference to commit c928807f6f6b, and correct the words and
+quotes in the description as well.
+(*) Switched from zone->nr_reserved_highatomic to
+READ_ONCE(zone->nr_free_highatomic) to accurately fetch the active free
+highatomic counter, reflecting c928807f6f6b (Reported by: Sashiko).
+
+Link to v1:
+(*) https://lore.kernel.org/lkml/20260921101446.1193565-1-trieu2.huynh@lge.com/
+Link to v2:
+(*) https://lore.kernel.org/lkml/20261001084115.2549761-1-trieu2.huynh@lge.com/
+
+ kernel/power/snapshot.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
+index d5dba0e50b2e..24ba09db7fe6 100644
+--- a/kernel/power/snapshot.c
++++ b/kernel/power/snapshot.c
+@@ -1867,11 +1867,33 @@ int hibernate_preallocate_memory(void)
+ 	highmem = save_highmem;
+ 	size = 0;
+ 	for_each_populated_zone(zone) {
++		unsigned long free, unusable;
++
+ 		size += snapshot_additional_pages(zone);
++
++		/*
++		 * Pages reserved for high-order atomic allocations
++		 * (MIGRATE_HIGHATOMIC) and free CMA pages cannot be used by
++		 * the order-0 non-movable GFP_KERNEL allocations that
++		 * preallocate the image, so do not count them as available.
++		 * This mirrors __zone_watermark_unusable_free().
++		 */
++		free = zone_page_state(zone, NR_FREE_PAGES);
++		unusable = READ_ONCE(zone->nr_free_highatomic);
++#ifdef CONFIG_CMA
++		unusable += zone_page_state(zone, NR_FREE_CMA_PAGES);
++#endif
++		/*
++		 * free is a per-CPU vmstat approximation and is not
++		 * sampled atomically with unusable, so free - unusable
++		 * can transiently underflow.  Clamp unusable to free.
++		 */
++		unusable = min(unusable, free);
++
+ 		if (is_highmem(zone))
+-			highmem += zone_page_state(zone, NR_FREE_PAGES);
++			highmem += free - unusable;
+ 		else
+-			count += zone_page_state(zone, NR_FREE_PAGES);
++			count += free - unusable;
+ 	}
+ 	avail_normal = count;
+ 	count += highmem;
 -- 
 2.43.0
 
