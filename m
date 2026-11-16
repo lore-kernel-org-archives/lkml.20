@@ -1,113 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866905;
-	b=Ssa6VIgqUP1Jwd6UBVPJVkuUBSrh7mQE47T07Y646w5q2dlxE3LCCzcaBlwFbmo6F7QP
-	 I9bqNAdWVrhjJvclDbbalpC8eyyN2SiJ4dGJtN1YLEN9dLaWKlQVhJCPjFwWWhTfiUvlJ
-	 Du+C/xz4LL0/U27j1W5rNve8lJbnAvlQreMowWQJIKS+vaAPOKEpp+i3XhkhSj4gWTOtH
-	 psihnFVMLU0h4z8wZD7hqoKstF8QikRWOw7YcorGcSxlN/e6uYziLz4WP/RXTnIsNPky3
-	 uTRyCAajCtBcJFBuGJ3aqGIt+YCfIZjX25com3uQX9we8t1qe8hyVE7aGRbMBi38SrA==
+	t=1794866906;
+	b=b6s1Gm6lAQ7PYQn3ShF2puM24hpDiixYuAzVahfAUB0QMk6FbmxWfF7nj9crf52Ac9cz
+	 r7mW23CxHPTCz0k4g0eS9uucnDTtPs6+5O423zIOkOEUI72Nq3gTdDtwLYz9xrpZWySrt
+	 ksH8k+fj4xFMGz0VEwctzS0w357JYYIh6v4foy7T414T+dp9CSFNM3GO1T/Ti8mIQti9s
+	 3Ukp4N2GxI+60IQe9yvQSfptpxf3rAO3/Bwpefx+NkEF5ZxEIsDSpJS2sdxVzKkezEYi8
+	 72NZ1KsEoNN+ifCOuF5lkudBvqiVvC8SIVKcaIpaOtd1e5W6M5I4kU0q6/1C44pF2ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866906;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=+BUUSRwCH/JdV2kxSN0x89NUf4xI3ym93qQBVLdW8AU=;
-	b=fAH7F6KoSefKJK4MXJejrvzXBHo34A1vEDq/ivxeQjKIJEOvHcPtZ55Zj8mnRDmWfgNL
-	 nAcCEqzV27jltGA+TZP3TPTMtLuMfN3wL/yUW8wR7orPe8C+zYiOT/rKHA5AHN1kM7FOV
-	 GgFMDLhUF/lxF6e8SB6EyLsvzjf8DptBG4n1gxfBe2SIVSfRQaKkmTFNI3TohG53PtMco
-	 CdNyMv73YlTFAolIYY/lZqOxoVh0zy7T7vjDvs3EXnrJ5TPHdNW23/0S5WU5PfUsQoYBE
-	 DlVUWiBCBb9zBPz/6SaOJpDFIeiplNJOjUqpKHmB/M8c4qfRLjq7cO7csXxHEER1uqA==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=60pHmj80O9kNL7Ma8kZphqBjE4OsplJ8ei65X/MZxII=;
+	b=ZBZLSyTTK73Q/+p3EgmF1N/443wqHS9vlB/L5kTAjdV9SuN2QuJDCCeqgYe1tPLEH0t+
+	 lqWrD2HB37Jdp9bvgkCbn1Dsth7iz4ma4t7p4bdWowPpFxjkHwf8KUMVI1pLeWzPAIOpl
+	 BKFx46tRk9h7u/nkMxKNVTNDXra/FN4TPyMmgBYyCJUZICf7K4SwP8OELxxQUoKY23cpC
+	 6mwIn4XKJWvfQrNBZp7rD9ZnT4rXCs9mDPO/ZCl4DiuYCp5HPRELmKHq5286V99zCt6LP
+	 kLldHkXHpAQbofYESQpd4hJUVLGCKktTJZ//TD1HrIlBTArAZDw4i48vGGIXj/Eci3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=columbia.edu;
 	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=XCfCoTmS;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=RZHzNF76;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=mI9AzHue;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=iu1T06jW;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F44606A88A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99F44606A88A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86838606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86838606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=XCfCoTmS;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=RZHzNF76
-Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLYnwD3278818
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=mI9AzHue;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=iu1T06jW
+Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLYo9g238176
 	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:24 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=+BUU
-	SRwCH/JdV2kxSN0x89NUf4xI3ym93qQBVLdW8AU=; b=XCfCoTmSY5EFYB4UlYO3
-	80KSJrmAjvpCy13G/7eRM9eEXwpIlRuFzA4kHNFsO20yTgGsDX5QMA5i5OSPcnmG
-	qhny2iVdJOhrv+AUOEannZXhta/zsceJI8wJmWaA+onHIlxCnIAN9Kw2j5hBPEdC
-	2dznpzvcnDH7fk6rjBjQuawSp/HKgLSLMJduBGNbw8OnviEitOL/2ix5f9ItVZFD
-	ZQbGQgl2EMCJkapkA+2vHjy5b+uoUP+EvFRIsM72S/2PM81B5MZRRmOkFKn57H1H
-	41kPqEZmb9eV4lwpj5QErk73vRRmX+aLGn1Uldy4be1zMyfUJMfDYJMTrwStNDXw
-	Pg==
+	:message-id:mime-version:references:subject:to; s=pps01; bh=60pH
+	mj80O9kNL7Ma8kZphqBjE4OsplJ8ei65X/MZxII=; b=mI9AzHue1mrP9Pn96d3u
+	9DqalThhYt33uJqu180jr534PpsMio/QdWisTR/60eTWrX8VcZxqBJyd/U7fIJlP
+	EsUVOJnd9knkaadrQUS68WK+Iriuu6FzTonvT9c+pmUWfq5Wm593XlobQlG6Uj5H
+	6QFtY7Vh2a1Xb8dSD7YJgkevsInDTBvQUtC/EGOIlFu7JJIe7+xAtYOT4dWZOzxm
+	1l3BTw9IBAsVozKXPDE881xZm1LbxtYCk/H+8j7udAZGwfzpYeRisdY7N7gpaNQQ
+	6iz5Lx8HlLhrgG0D6F9GDJkvsCStNmk7Ged2uOuu80U3ugm+0HVLo+2NSbmkOhHK
+	GQ==
 Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j059sb7fb-1
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j059dkba8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:23 -0500 (EST)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f32050e72so1111672785a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:08:23 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:24 -0500 (EST)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9493e89d4f9so726984385a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:08:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794866903; x=1795471703; darn=vger.kernel.org;
+        d=columbia.edu; s=lionmail; t=1794866904; x=1795471704; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+BUUSRwCH/JdV2kxSN0x89NUf4xI3ym93qQBVLdW8AU=;
-        b=RZHzNF76vicFbD9HdD3cNyFfDayJNjPNAPA+hdOgJn/PM0eKjHCwhQaMuUTp4B5S+U
-         r3q3Azj8VK/Uebbl0Kp6VmEU2JQl/TRSnxHCGd57nqKAIi9MO128FfcEqVOhu2HBznN6
-         37IhREefrt+Rdn8nXmuoIbxn0tT1RoEkHyhD0Q+yazKfNsAoikgLBJ85OWQUucU48imM
-         Sti0AQgiYTfANigQd5PMOdihtUPg+NQ41dmdQ+UZ1/3buSafeUiNmI5I2m3/btjYBOhn
-         HKssHx5XGp1QcaxY9/Ql+SbVln5V0D15Ofz+AoTckst9CQhaCWNXzOtIMi429affJDIJ
-         67wg==
+        bh=60pHmj80O9kNL7Ma8kZphqBjE4OsplJ8ei65X/MZxII=;
+        b=iu1T06jW8kEq0JVxfgo+z0sbMPNQkA+N4lLcjJi4K8Z8KaPGQrh0CEVIs4vhXc12ye
+         Aja9L1Q8D8fJBVRV4gCvooIwGAMtgsUgMsA1dRahEn2QBQVOX24g5KymN0A2mlgwEXCp
+         /5tbsU8pBawkuoF27KgTPjTXZKMttTYYBfQzg1hzuAKaS03+/c8EmDvriSwDSH8tOvCf
+         0xoMs7QA5Xo9hNGU2sbLSshCQKAUMIGsPQDrezYsUWsEGe+6DiuUwWYYg/zfR0WUZgAN
+         5tsMu50uz6Z6sXtaAi8QP2awXEXcVvFQnlY2TvxMWg4kDD44ToyVyiQvujnrmEC8HplA
+         Q53g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794866903; x=1795471703;
+        d=1e100.net; s=20260707; t=1794866904; x=1795471704;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+BUUSRwCH/JdV2kxSN0x89NUf4xI3ym93qQBVLdW8AU=;
-        b=CI8YiyenHoF59bheGmZDvh3ykLLYvU89tFR5JMUvzRSlMFwmlkAoWv+a5G2JY9Qgtw
-         WplkLSZwmFIxliwFmDRuEjglrY+z8IkONuNzPayRNKUFRC6wtw+LoOj3wccquLX9ow7e
-         3P9QiorH6NHuPEBDiWJHtKH7ZbZ6zRgxox1ZvcxfJWcSgaU5w/Bv9QPDJ+dgVC8sngNY
-         7mTFJlMODzoYyXiTXZmo9H7M1taU1H7yFDcutXsITPWsxiAmwXROS1yVqceA//Vg4era
-         Vvlky6QSfHKy2CPD6YqoxQu/WD/+b2uDKhv/EkHFVi0P2FfEo8TfnnqGg4G0/TRZmFEn
-         mDeA==
-X-Forwarded-Encrypted: i=1; AL+hErF1tusPpWFN+UGoEdkQj1gD/15MPT+3dvPilCzDs+QfUqLdJ4rJUL8ZaH9uszMv2izhrttIbSHJh3iJKHw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92ljUOWld43JhY/WMz2n8RLh6J/yNKaHEVn+VaYL/1mrrWJAZE
-	cGT0cF1V9Kbk2QyVbTgDyfSy9L4/dHzoFJx6VF38zLCZUdnZfEjjyC1fIZq4qZCgJUjH2l7EZ79
-	JNalhUEdph3bqY9DDvRlAm8h7htJQV7LiKO6fhMQ4F4okmhHwS5aaZ830mq6d0g==
-X-Gm-Gg: AYBFou1KlyiKguyHx+ny3leIQ+DZhrteSoUv0Kt9/pKj2jGpISgDqx3Opwa2M0LmVVi
-	AjTuVUU0fpAHScwKewoDp8F+ZArgC00xBfYYT1M5GtO3xgibULj7XBpW8S2JPz5bHqTCLRpqjjF
-	WpvxAkap2RGDqINloi53YxuEUEz5UPlCfjB7aFvYJscyDI4BvQaeVQr3JPDGdZL6zQyZDL5OTox
-	/vGB4tSOnQLDvJ2AeJKPK66dwAYgr1f15qTWhbMnrnvvG4g28yYIewSP6C9ZEgX1vU//F84Cedm
-	AelTkYd1UevwyVvH6jF8OGMv7ImcKA71nUz9YOD6gPBGKS7H1U8+lTs7cK5o7aVFuuA/ysq97Tn
-	xVKUU8rHmQt+ZOByPxZxJSAiyjoYC6xFzhcuY7pl7Nddx9zMldTT/YyyzDNWtCq48VC3tII063/
-	lUXCFmVDmJgTNhyLSK+4KJ
-X-Received: by 2002:a05:620a:199e:b0:93f:26f6:6bab with SMTP id af79cd13be357-9494bb76ff3mr1959301485a.18.1794866902800;
-        Mon, 16 Nov 2026 14:08:22 -0800 (PST)
-X-Received: by 2002:a05:620a:199e:b0:93f:26f6:6bab with SMTP id af79cd13be357-9494bb76ff3mr1959297085a.18.1794866902376;
-        Mon, 16 Nov 2026 14:08:22 -0800 (PST)
+        bh=60pHmj80O9kNL7Ma8kZphqBjE4OsplJ8ei65X/MZxII=;
+        b=07zHYJB5b63e5dS8jSv5E7ot8oF+lZRhtX4q6Rnd1PDyJ5ppI4nAS6w2LKSa+1sTdE
+         ssfMKyCkMMbxQHToAp8UAxEl1ikmRcWHLcN513PkmAFGqWdEZQu5AUVij8YtOsVKityz
+         y7SWR81goxSsDz8aZD8zpIC/X+D7+25nOZ+LVtzEsag4KI9LtQr6OdFkgw5npM+pqjnU
+         USI9v7Ktpa8wBEHn3+InY3K7wpNaxeN396oNPjJYvemt8dLD3kK1LMDlGm7opNAQmW4y
+         FzN5G61W/rsbO869eMvVp4sZc1PVQ0+ZIauFvikR+k+3aJXvY3BmSkYr2SfVEvtjGhKO
+         nFqg==
+X-Forwarded-Encrypted: i=1; AL+hErE54ya1ptsMRrUVMDw7X7YxBCHbElPduTLtjauIcPr4uqP4YWWOxq79okYFYfX2qw6YRCLi4Dzq4aXl11o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9H5YZ3BuTpljQU5JyzloWtJ1alLNrspDIBNLpGtNd9w2MPZqp6
+	69NOATnItdn+4DyMk8WUlX0X45tdTynppe9sSh6I+zm8/SilNYyxdyKEDGEqFaKpxgLEOKiVj/4
+	CMpfOfrcaKp8n6sVKvdDk3DgdBMAMTdqEaot7rmi3cNNaDdhw0xrjWvAhxJeYrA==
+X-Gm-Gg: AYBFou3FkY1YfUe6rx0z0wVjv3Y5juiW7h52NCNiPB9nRjjgiaIAJxBxGYcO4qsnjTM
+	RQqWx/xpBG3VGSln5Q8erbfyWMxR873VMtWhmPcvFu4E03zxDDc1GpE1qsoE4AEU85Qo7QZBYwO
+	vIIPHZMY/dFcf+JjKqGNRw0vNw2gA3VtK8CHpUI+M0P2tR0u88E27+hBk2qMuxq8OxCtTd5cRBp
+	TeeaJPo0C/CXMg9NTgUZnqQa9FEUKUYYvcXKI3Niq461AksNm2KQpG+vuU+qiiiCjQw2gQSIsx3
+	fUHN2sQDRTd6/+rcvQ0ZvF6Fj1GdsWAvKsxoyaFkl0fYXf5sGUJ/kIayctOOQUWWh9aDULpTokQ
+	LKp1q36AvMUTZA4JiLTwzgT9boOPACk2rQvCdGlim168FaMg+mdIUtN6jQRmT4Jac++ITQIErW2
+	u90qwR4qlJgG1yo/Z4eI4n
+X-Received: by 2002:a05:620a:838d:b0:949:6ec7:68e1 with SMTP id af79cd13be357-9496ec77643mr1165873685a.18.1794866903966;
+        Mon, 16 Nov 2026 14:08:23 -0800 (PST)
+X-Received: by 2002:a05:620a:838d:b0:949:6ec7:68e1 with SMTP id af79cd13be357-9496ec77643mr1165869485a.18.1794866903580;
+        Mon, 16 Nov 2026 14:08:23 -0800 (PST)
 Received: from [127.0.1.1] (nat-128-59-176-174.net.columbia.edu. [128.59.176.174])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c86c946sm951838885a.25.2026.11.16.14.08.21
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c86c946sm951838885a.25.2026.11.16.14.08.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:08:21 -0800 (PST)
+        Mon, 16 Nov 2026 14:08:22 -0800 (PST)
 From: Tal Zussman <tz2294@columbia.edu>
-Date: Mon, 16 Nov 2026 17:08:07 -0500
-Subject: [PATCH v3 01/10] ecryptfs: write from the right offset in
- ecryptfs_write_lower_page_segment()
+Date: Mon, 16 Nov 2026 17:08:08 -0500
+Subject: [PATCH v3 02/10] ecryptfs: reject zero-length encrypted session
+ keys
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ecryptfs-folio-v3-1-1aba8e620eda@columbia.edu>
+Message-Id: <20261116-ecryptfs-folio-v3-2-1aba8e620eda@columbia.edu>
 References: <20261116-ecryptfs-folio-v3-0-1aba8e620eda@columbia.edu>
 In-Reply-To: <20261116-ecryptfs-folio-v3-0-1aba8e620eda@columbia.edu>
 To: Tyler Hicks <code@tyhicks.com>, Erez Zadok <ezk@cs.sunysb.edu>,
@@ -131,77 +131,82 @@ Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
         Stephan Mueller <smueller@chronox.de>, Adrian Bunk <bunk@stusta.de>,
         Michael Halcrow <mhalcrow@us.ibm.com>,
         Randy Dunlap <rdunlap@infradead.org>, stable@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
+        Sashiko <sashiko-bot@kernel.org>, Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866899; l=1534;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866899; l=1720;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=8Nz9Xv25MqfERbysf6jE5yhp7runCvsoFyhssOE8ZqE=;
- b=YSWHWjqVm/aXu2+0BIhr176Uk7LNmJVnPY7NZOSaiXT1hUctM7vw3CitrApYmY74EL/cvlqEl
- 8SEBxp2ZeMtDY1Z8YUKXjcIoqKArtu9zOTlq+hKxZQCfnTt5OmFC1nW
+ bh=a+HBd1agQSrDWNNuzP/HbD49+xH+YgjHAS6T3xiz06c=;
+ b=vTinei3NYNuv3Cv3rUkazssBbXmnH82BNwNm1+s3HPYI3+HUQp6/M/dmQBEJw0ok2epNOyPoC
+ 8UCEY0R5wgcAByL+q0yMda/FpXxWHZFvrR1bpWhrh7Qfsuzqq77OS2R
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfX71ZEqmZ9227R
- iVdxQEGgI6RCSq1xqUqtFl1n3/A4MASXMhr2WLGvA2K3EZQFqM7jSwLpx1or2CvAYgwbgPdFjUg
- 6bb6m02+bwPro2ackgcOjHO2JMpzvuuiG0G2O+0ilLYDmPSf3qs7rB/6bvpXn8oTmM2sIiHk76B
- 2oOHH/3LH+wFZi2YnaWfANALeTA6dlnBHlzRWLsUqJDZQwSNjI2kwJIQAygZzoxg8ejOXSUxIea
- fVfaHQbt/nYo2Lea/CA576QAUBiBp/1TloUhmf4qcZUPeOzWLyP6VgzylhIq+wNj1dzLYki92bY
- 2EOFQW3HkeWmOUlGWr9CULMjGQkMX++caxXZASodF7XNY5Cw6ooHTH90JDDVEL8OFR1VfVN7iKo
- 0dwCTJi56XkrIMt0NfaNApl9ERlspQXt/NVtm/dh5fUHlNYYlW+UjftU4o4GY8/jv8tRPVX0KGP
- guuHTEx0+idLa0zLMbw==
-X-Proofpoint-ORIG-GUID: djbGKbkiWl7g_BpJ3j8tC26cwMJ9pMr2
-X-Proofpoint-GUID: djbGKbkiWl7g_BpJ3j8tC26cwMJ9pMr2
-X-Authority-Analysis: v=2.4 cv=D63SufRj c=1 sm=1 tr=0 ts=6afb7ed7 cx=c_pps
+X-Proofpoint-GUID: rmA4JXlAxjo-3qBwsCN9kzK4z_BngTS5
+X-Authority-Analysis: v=2.4 cv=Utf2pOwB c=1 sm=1 tr=0 ts=6afb7ed8 cx=c_pps
  a=HLyN3IcIa5EE8TELMZ618Q==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
- a=VwQbUJbxAAAA:8 a=w15lwMz24VFeALwmIwgA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfX7pIpFhiBvjqL
- xi8sb0oyd0E89+Mw7Vquir3usO3+4j5lihECfJzGAG0QQUntq1W8xB8qNzXdfVVYTXmJIP6C91d
- r2nl25SgYdKqJnW5uQNC4TGlGOvuPs8/NzY0wx1B5FCJWRBofXzm
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
+ a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=aH2rPlVYf5PhSe4MZfIA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA4NyBTYWx0ZWRfX+4Ol5Tox56cf
+ 3DgEsQh/Mlli79w4ymmXObX0PHIOqTbq7E3mhGYrtRXbBOBeaN8E2pioYtBu5Cp5U0CBq4woEwl
+ PmvzebabHinwS2lvSIYG/WPN1aBIzDat365630lVew21Oxs/PxolRsPZGZESIAJi7RyNLEiy4Ac
+ ufw9yt0ScRw3yej1AYimOMq/6/3hcxsFKDZn1gA0SDUxgNGViMyo1b6ytcQRVZVJyujxvGZcVhM
+ Br3GQLPFXzc+foTykb3+oSrjT3lut89kAAOLKZtCJXsItB7nU2tSZwnTc49p11v9yDlv+RfyTLS
+ YshHs7bOv5YJOIfeZ2ngdbteFsOJ1X1M1n6bxSXutXs8QSycpK66g10It8mGd7CuhBolh90t0R/
+ BAEIFIEvTiflLqsVzXjlk4oTInVQvJiInPBpavMaNoZhWXvX8bJWPCBHdA/ZEluWvEgyu6lI+4E
+ DVm6DEl04UhDcZgHHcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA4NyBTYWx0ZWRfX6mcDR3hNHjG+
+ pNO53LBmANcT7uYTMsb7gIdRRlYk8QneWO1b7zvv/N3GXoxzJ3SdHZ+Zl2hPXVTU/oo6qRMRoSc
+ SyNrnKBJnemtJ8YekuKGMT46jmOz0CycMUi0YcJ9WkAWvs6ImDCp
+X-Proofpoint-ORIG-GUID: rmA4JXlAxjo-3qBwsCN9kzK4z_BngTS5
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=10 priorityscore=1501 clxscore=1015 lowpriorityscore=10
- spamscore=0 malwarescore=0 adultscore=0 phishscore=0 suspectscore=0
- bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ malwarescore=0 priorityscore=1501 bulkscore=10 spamscore=0 adultscore=0
+ clxscore=1015 impostorscore=10 suspectscore=0 lowpriorityscore=10
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611160088
+ definitions=main-2611160087
 
-ecryptfs_write_lower_page_segment() writes part of a folio to the lower
-file at offset_in_page, but takes the bytes from the start of the folio
-instead of from offset_in_page.
+parse_tag_1_packet() and parse_tag_3_packet() accept a packet that
+contains no key, leaving encrypted_key_size at 0. The decrypt path then
+fails its scatterlist check but returns 0 anyway, so the file ends up
+with an all-zero session key. Since file headers are attacker
+controlled, someone without the passphrase can plant a file that reads
+as plaintext of their choosing and encrypts anything written to it
+under a known key. Reject these packets.
 
-ecryptfs_write() calls it with a non-zero offset for a file that is not
-encrypted, which is possible with the ecryptfs_passthrough mount option.
-For such a file, ecryptfs_write() is only called when a truncate extends
-the file, to write a zero byte at the new last position. The lower file
-gets the first byte of that page instead. If the page already holds
-data, the last byte of the file reads back as that data once the page
-has left the page cache, although it should be zero.
-
-To fix it, map the folio at offset_in_page.
-
-Fixes: 13a791b4e63e ("eCryptfs: Fix data corruption when using ecryptfs_passthrough")
+Fixes: 237fead61998 ("[PATCH] ecryptfs: fs/Makefile and fs/Kconfig")
 Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261014-ecryptfs-folio-v1-0-f4412187b1d3%40columbia.edu?part=4
 Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- fs/ecryptfs/read_write.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ecryptfs/keystore.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ecryptfs/read_write.c b/fs/ecryptfs/read_write.c
-index b3b451c2b941..e7319216a2f1 100644
---- a/fs/ecryptfs/read_write.c
-+++ b/fs/ecryptfs/read_write.c
-@@ -63,7 +63,7 @@ int ecryptfs_write_lower_page_segment(struct inode *ecryptfs_inode,
- 	int rc;
- 
- 	offset = (loff_t)folio_for_lower->index * PAGE_SIZE + offset_in_page;
--	virt = kmap_local_folio(folio_for_lower, 0);
-+	virt = kmap_local_folio(folio_for_lower, offset_in_page);
- 	rc = ecryptfs_write_lower(ecryptfs_inode, virt, offset, size);
- 	if (rc > 0)
- 		rc = 0;
+diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+index c2ba230c71fd..a0989e3c8aef 100644
+--- a/fs/ecryptfs/keystore.c
++++ b/fs/ecryptfs/keystore.c
+@@ -1250,7 +1250,7 @@ parse_tag_1_packet(struct ecryptfs_crypt_stat *crypt_stat,
+ 		       "rc = [%d]\n", rc);
+ 		goto out_free;
+ 	}
+-	if (unlikely(body_size < (ECRYPTFS_SIG_SIZE + 2))) {
++	if (unlikely(body_size <= (ECRYPTFS_SIG_SIZE + 2))) {
+ 		printk(KERN_WARNING "Invalid body size ([%td])\n", body_size);
+ 		rc = -EINVAL;
+ 		goto out_free;
+@@ -1384,7 +1384,7 @@ parse_tag_3_packet(struct ecryptfs_crypt_stat *crypt_stat,
+ 		       rc);
+ 		goto out_free;
+ 	}
+-	if (unlikely(body_size < (ECRYPTFS_SALT_SIZE + 5))) {
++	if (unlikely(body_size <= (ECRYPTFS_SALT_SIZE + 5))) {
+ 		printk(KERN_WARNING "Invalid body size ([%td])\n", body_size);
+ 		rc = -EINVAL;
+ 		goto out_free;
 
 -- 
 2.39.5
