@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828503;
-	b=KAvNWUaTy4oXP742Yti6oJz+mm20zQuP9zHrUyxbsnba6PMxoTH6Alr/ajUeIAaiuQVS
-	 Jw8McTCcKiydwmcDQK3e2aDJr48E5FEQxhaQtj7xfbeOmYUzreOqafTg2CoG/BEk7rFiG
-	 YVwBuBZsV+bBy9kCgienNwC5oF+AsTYWShdlc1TtXQvV4UVldYkt6gmbhy71a2wO0Dy7Z
-	 uvjl2AketHQhQBlav5ztmJTdlFqW4Hy1kcJ8t3jeaCOQnb78q9tkyIoL0Ru+op6Pqn7dC
-	 DnDUUwkXSMSXEFYgvuJsQdngo847IdWXLff1Nx1lTKkTQO4LDs+dEhAR5ckDM+eN/dw==
+	t=1794828523;
+	b=SAUHlqOr7bfqHhOcj9KeewOkeY8nhZO5wKL+IP5B6+fBIAv8vh6Zn1kZilzka76do79U
+	 QYWy+QvHJYcIN7WvHuwgRfw874w7/TUvghswvxVu/vzj4Aa1LpDyJLLZxOM155ExRWgr5
+	 C2PJekMi9TS/vTnEEVnJAxHuvMDYUQ7Z0n3oGjrVZUFcndm4mvfbLPz4eUl+TyVgp7r3Z
+	 aqMn1fSmshOF2mjhd2ccta5VRrZDqjPI53HnxITCYwKAJGV18CaJCZEj/pYjHmRjMll2l
+	 E1DbBN7uzDba+tfakMdK6B/S2WvgHjXieqN6fNTfVoNvZK0pCoCwV3yApqjiYAx8GKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828503;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=0hlTDBmIiuUpro0fpaSZFKNZWTALX/pKa1s/geMvaCU=;
-	b=k6u0b8sFSGK9QlP/e1HUXDC4z605Z1AJEauud7aBkMcI4KQzx0B4ibUVoGzbQDT/b060
-	 thXJisdM7ZSSaZ/ZhqkcvnDRvLMiaQFRF8hNd6PPqcUbmDMs4zrXMPVxMFJ25u9zIBKjC
-	 b7TsWP1ln39XI2KoufFGRxGvhr0I5UlBIWAuII0PCGu68UgrMH9XtjpkAN8wfUHU0nAXQ
-	 /qkOTrAdyMt3IhX583UxOn/AOCHcr0s+9kyBa3ETl2R6K8m0TnyX28zuk8c5OFSPkQEwt
-	 NoF+QYjeypk533cnJaZT+RYKABc1rhv6Mq9YGNAzCPVYo0tlsH0OYoVT/eS9p5T5KFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828523;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=g73PX0PTBDOigD/y1VmqsLoo3oXmbxRQK+YkYSvt5eM=;
+	b=OFlKquBx1w5mjpIn/Tn1wzthmAoaNCQ/EElg7OWNESmLgsc/Q/ntCRDq3ZqEabXF0xyX
+	 oW7mDMHEMXkjM4fTBTNx4xxj4EDqE87E4Ccdxjx23NWrRgyQDlVOxEgEwabGDGI4Mg26U
+	 jF/Akqt1fustxZzyPfy5QcBxjih2Tjl4Z7XpSGXCmAqa2gH9R9/EpCrFxYwrzoVsc5xTf
+	 naUUKL2OWHA/fufkSx+qy92HTRm0hQSDzQ8w/EtHqX0PHD12cWkXkUmj89/75V21ssP2b
+	 yB/zpWw6k4Qe9K/47i833ONV/HP4EZMp3HWKm/mCJqG2q/uVNu7vTmCrQTwKq7e2zYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJiJs8Fl;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="c9hC4F/N";
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF55B606A330;
-	Mon, 16 Nov 2026 11:28:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF55B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A95606A889
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:28:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8A95606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJiJs8Fl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794828504; x=1826364504;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=0o74o8kkP3rdi5jDk/1yA+QR72xMJzlJ2Xkc1vFvsI8=;
-  b=iJiJs8FlVSxQ/u+4lU2KftQ88CiZrL4eVMt3v5FvuL51QpNC7B0D44i3
-   KD0rCT+oEy8Y+F07D708BqUYJMi4jOMyDL3i9fpPld8oy6mEOu26mDgNw
-   7E3bK4Z4c5sEnOPa3hSH1w/reS5OCtGXmFb14PlEjiWig62q6YGrl2RK3
-   H3slhH3KwlOuSEbRSkPK/1bVUrOp4pT4u6SOQlJAQSAlZ8wq5HhT6ksnK
-   07sOAqwBj/NqqadY+wifgIFzXzTWfVTVMMtItMZ1sLP6cJY4XaSOY4q9S
-   6jNStB8tNeFljSLSvxPNEVpgodNp6Aj37ukcxliN0MXyWaU2nuQ7xSkLZ
-   w==;
-X-CSE-ConnectionGUID: PGciGPu4SJCVBrU3JpYuBw==
-X-CSE-MsgGUID: nl1ZFl/TSLa4Jt+RgQmdUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3431293"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3431293"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:28:08 -0800
-X-CSE-ConnectionGUID: pe6sw38ISzyAE3EXGwsZwg==
-X-CSE-MsgGUID: wxc/tGo9S/qv4ZgqhbZSmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9849782"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:28:04 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 16 Nov 2026 13:28:00 +0200 (EET)
-To: Hongyan Xu <getshell@seu.edu.cn>
-cc: Hans de Goede <hansg@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
-    Chanwoo Choi <cw00.choi@samsung.com>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Mark Pearson <mpearson-lenovo@squebb.ca>, Rong Zhang <i@rong.moe>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] extcon: synchronize all-connector notifier
- removal
-In-Reply-To: <179474326273.103840.4798359664806814358@seu.edu.cn>
-Message-ID: <4f3601df-029b-0ee9-41ea-c0ec29c5f80d@linux.intel.com>
-References: <179474326098.103840.15531040789536968458@seu.edu.cn> <179474326273.103840.4798359664806814358@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=c9hC4F/N
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso10963245e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:28:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794828521; x=1795433321; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g73PX0PTBDOigD/y1VmqsLoo3oXmbxRQK+YkYSvt5eM=;
+        b=c9hC4F/NSxunMp98Uy5o26LR1MQvaKR9NzHdHBnsHjCptC/4eMfWfcc4Vc8rw1cQL8
+         m4BU2M28Y8C5vgchczx9uDMfstCjmuhu2TfJTh34rolCj4oECv7+dvIBcaOORfCkWclT
+         zycX8wLPseRJeGK7tiZQoGV+Q0rh/1mP1uyRoTx0UMM6nPm1Fcdc2lRqFOz+5l6brteN
+         dQwCeLiEmfSB6E1/52AsWfp6RqJYvEMNA1ltqOuTlD7JYU6MyZjniAyi5MYLfaYjVARv
+         2HSswS31FUiU42Z095awEC1TaQMSK/f6zPPT/V9Ew8LP/tXWIs6LM4Xaz85FOIVOtblI
+         ASpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794828521; x=1795433321;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g73PX0PTBDOigD/y1VmqsLoo3oXmbxRQK+YkYSvt5eM=;
+        b=eVz3WJtX5HzK3gdoQSVuTTd9r2wQ6u1CBRPya6JsHCKd9TvIyYYklAGjf0ppIHDQG3
+         lVFpJvlb/TYBaQjpypbQbcEe09R5dJwv5Hc/u9w2JeVbpsJ3iUoT/RDRWYu21xqyO3ps
+         /l2ioPdH1e3G6D2krQzQ8lMOv4Hbcpn/0wjc7L8ne8O2vFeFgHISB9WjY7Kk9p3U0yR5
+         9gBxQWKzxX6Og88qJAfWJ4q15wkfGRx9hGx6xSwaEQIwlZtAjXSO7NTNwqEkc/CQxFWy
+         4KmQIPgA+Z8ZClDfQV+Rm63aTylo1QaO8XuoDrNYF+6/bwgQozRWUzpG4IMXgZzEkWrV
+         kspg==
+X-Forwarded-Encrypted: i=1; AL+hErGxLyfkvHmONY7sNjhSYhwtUmRA0xQs+FDEsflzPmGjjuXVRwGtjetryzpNSQz627ufbdz5MvjBUc3bWYg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Rw99M0MML71PuytORZpQBarh30aU9UWAB6eC5GTxxWcUQ85uQ
+	nCQUJ5nk4Q6yt7eIzsHhXVYRpDe6A8D5P44vpcx3ZNzmrrUZGFaYL7MHtIQRN7F6jw==
+X-Gm-Gg: AYBFou2ufEcdI74hB/pK5O6/UUbyZPfJAZiCLQTl/fEu8W4FatvSS9dwN7WdM9tpqEh
+	poZhtv3YPWvgdWSOJd2JPihhr/YwDpol09xUUwQdrONOyq/UmzmQ86P1W2IdEpq8ZrxSLD7cW79
+	xKvw2SXNENTyhGyaKRiAjmKtqCc2jZp7auWTwyPuwnKzi0UsQJ6HwMePx3mbGeGEtxRfxLgRBm2
+	NYuCHtdtIa6v/85AuxvIwUNI+InGkfJ3JM0lZm4H6rBaDV2v+JmvpNSBlwr5/WCH+rJ6ozeNiOb
+	NdxybohyJkMB9gN/nJYTjgqkOsQu47pCmrWD2uTvTqPIdRuF55tdAz8Q6uVqRRupMUXHHl9PLAx
+	H0eyc+GBqYEmHf4BaSfH9+0V/HZWTNASNC2AMjqCScFJKKDT4rH67Nx5NC42Onwxhm5Ns2j7mFL
+	PKNNtCiuKKIfXb70fY/8rnm69eAvqtB1Yjf7QKDCe+taCNnfjDs19vv3bZGiJ9yxo8bHThAa/6l
+	sHwtQGVmNIz9wXI8bwAt6BHBvCCc97KPXKQq+bjsCK11OzrHsnPzJCXgKP1C7iMN1+GZc7Fk5zm
+	lyDmuqU9OKylVegCOom/xSFDImSAbBLotrzUdAfL6zxGaV7MjqEcxi/hAs0EAM2PvA==
+X-Received: by 2002:a05:600c:5903:b0:4bb:60b3:7ea9 with SMTP id 5b1f17b1804b1-4bb60b38023mr126053495e9.0.1794828520786;
+        Mon, 16 Nov 2026 03:28:40 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c604ee47dsm21324022f8f.38.2026.11.16.03.28.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:28:39 -0800 (PST)
+Date: Mon, 16 Nov 2026 11:28:35 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Fuad Tabba <tabba@google.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] drivers/virt: pkvm: Zero and clean memory before sharing
+ it with the host
+Message-ID: <avro44jUWOARFzul@google.com>
+References: <20261116110549.1863653-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,171 +104,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116110549.1863653-1-fuad.tabba@linux.dev>
 
-On Sun, 15 Nov 2026, Hongyan Xu wrote:
-
-> extcon_sync() invokes the all-connector raw notifier chain after
-> dropping edev->lock. Unregister unlinks a block under that lock but
-> does not wait for an in-flight callback, so managed consumers can
-> release their state while a callback still publishes work.
+On Mon, Nov 16, 2026 at 11:05:49AM +0000, Fuad Tabba wrote:
+> From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
 > 
-> Use an atomic notifier chain for the all-connector notifications.
-> Its RCU read section and synchronized unregister provide the
-> required callback quiescence. Use the notifier implementation's
-> own writer lock and perform its grace-period wait outside edev's
-> spinlock. Document callback and unregister context requirements.
+> On pKVM, set_memory_decrypted() shares pages with the host in place and
+> without cache maintenance. The atomic pool, dma-direct and dynamic
+> SWIOTLB pools zero their memory only after sharing it, so unless the
+> page allocator has zeroed it, the host can read whatever the guest last
+> left in it. Zeroing first isn't enough on its own, as the zeroes may not
+> have been written back to memory, and a host that maps the pages
+> Non-cacheable then reads the old contents.
 > 
-> The current all-connector consumers defer their operations to work
-> items and their callbacks do not sleep. Per-ID raw chains retain
-> their existing behavior: some OMAP callbacks perform regulator
-> operations and need a separate context-compatible repair.
+> Zero the range and clean it to the PoC before sharing it, so that no
+> caller can hand the host stale data.
 > 
-> Found by the author's in-house static analysis tool.
-
-I think sashiko found this too:
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260806060526.1189-1-getshell%40seu.edu.cn
-
-> Fixes: 815429b39d94 ("extcon: Add new extcon_register_notifier_all() to monitor all external connectors")
+> Fixes: ebc59b120c588 ("drivers/virt: pkvm: Hook up mem_encrypt API using pKVM hypercalls")
+> Fixes: e62decaf98e7c ("arm64/coco: Add pKVM as a CC platform")
+> Link: https://lore.kernel.org/r/20261116091137.94252-3-aneesh.kumar@kernel.org
 > Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/2ef4ad43-497f-c40f-b18a-f5b75799d95d@linux.intel.com/
-> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-> Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
-
--- 
- i.
-
-
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> [fuad: take the pKVM hunk of v10 patch 2 as a standalone fix, add the clean to the PoC]
+> Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 > ---
 > 
-> Discovery: found by the author's in-house static analysis tool.
+> Notes:
+>     This is the pKVM hunk of patch 2 of Aneesh's v10 [1] plus a clean to
+>     the PoC, taken on its own because it fixes a bug that has exposed
+>     guest memory to the host since v6.12.
+>     
+>     Based on Linux 7.4-rc3 (aebb727447640).
+>     
+>     [1] https://lore.kernel.org/r/20261116091137.94252-3-aneesh.kumar@kernel.org
 > 
->  Documentation/driver-api/extcon.rst |  2 +-
->  drivers/extcon/extcon.c             | 28 +++++++++-------------------
->  drivers/extcon/extcon.h             |  2 +-
->  include/linux/extcon.h              |  4 ++++
->  4 files changed, 15 insertions(+), 21 deletions(-)
+>  drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
-> diff --git a/Documentation/driver-api/extcon.rst b/Documentation/driver-api/extcon.rst
-> index d3217b9..384d743 100644
-> --- a/Documentation/driver-api/extcon.rst
-> +++ b/Documentation/driver-api/extcon.rst
-> @@ -70,7 +70,7 @@ The core structure representing an Extcon device::
->          /* Internal data */
->          struct device dev;
->          unsigned int id;
-> -        struct raw_notifier_head nh_all;
-> +        struct atomic_notifier_head nh_all;
->          struct raw_notifier_head *nh;
->          struct list_head entry;
->          int max_supported;
-> diff --git a/drivers/extcon/extcon.c b/drivers/extcon/extcon.c
-> index 98d85cc..b8d8c2a 100644
-> --- a/drivers/extcon/extcon.c
-> +++ b/drivers/extcon/extcon.c
-> @@ -456,10 +456,10 @@ int extcon_sync(struct extcon_dev *edev, unsigned int id)
->  	raw_notifier_call_chain(&edev->nh[index], state, edev);
+> diff --git a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c b/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+> index 26fe9c3f22e36..81d1cd24a2eff 100644
+> --- a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+> +++ b/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
+> @@ -9,10 +9,12 @@
 >  
->  	/*
-> -	 * Call functions in a raw notifier chain for the all supported
-> +	 * Call functions in the atomic notifier chain for all supported
->  	 * external connectors.
->  	 */
-> -	raw_notifier_call_chain(&edev->nh_all, state, edev);
-> +	atomic_notifier_call_chain(&edev->nh_all, state, edev);
+>  #include <linux/arm-smccc.h>
+>  #include <linux/array_size.h>
+> +#include <linux/cacheflush.h>
+>  #include <linux/io.h>
+>  #include <linux/mem_encrypt.h>
+>  #include <linux/mm.h>
+>  #include <linux/pgtable.h>
+> +#include <linux/string.h>
 >  
->  	spin_lock_irqsave(&edev->lock, flags);
->  	/* This could be in interrupt handler */
-> @@ -967,6 +967,7 @@ EXPORT_SYMBOL_GPL(extcon_unregister_notifier);
->   *
->   * Note that this function registers a notifier block in order to receive
->   * the state change of all supported external connectors from extcon device.
-> + * Callbacks run under the RCU read-side critical section and must not sleep.
->   * And the second parameter given to the callback of nb (val) is
->   * the current state and the third pameter is the pointer of extcon device.
->   *
-> @@ -975,17 +976,10 @@ EXPORT_SYMBOL_GPL(extcon_unregister_notifier);
->  int extcon_register_notifier_all(struct extcon_dev *edev,
->  				struct notifier_block *nb)
+>  #include <asm/hypervisor.h>
+>  
+> @@ -61,6 +63,15 @@ static int pkvm_set_memory_encrypted(unsigned long addr, int numpages)
+>  
+>  static int pkvm_set_memory_decrypted(unsigned long addr, int numpages)
 >  {
-> -	unsigned long flags;
-> -	int ret;
-> -
->  	if (!edev || !nb)
->  		return -EINVAL;
->  
-> -	spin_lock_irqsave(&edev->lock, flags);
-> -	ret = raw_notifier_chain_register(&edev->nh_all, nb);
-> -	spin_unlock_irqrestore(&edev->lock, flags);
-> -
-> -	return ret;
-> +	return atomic_notifier_chain_register(&edev->nh_all, nb);
+> +	size_t size = numpages * PAGE_SIZE;
+> +
+> +	/*
+> +	 * The host can read the pages as soon as they are shared, possibly
+> +	 * through a Non-cacheable mapping. No caller relies on their contents.
+> +	 */
+> +	memset((void *)addr, 0, size);
+
+Are we sure we want that? The guest may want to setup memory and then share it.
+I am not sure about modifying this API. 
+
+> +	dcache_clean_poc(addr, addr + size);
+
+I believe the hypervisor is already doing the cache maintainance when the page
+is mapped back into the host. (see stage2_map_walker_try_leaf())
+
+-- 
+Vincent
+
+> +
+>  	return __set_memory_range(ARM_SMCCC_VENDOR_HYP_KVM_MEM_SHARE_FUNC_ID,
+>  				  addr, numpages);
 >  }
->  EXPORT_SYMBOL_GPL(extcon_register_notifier_all);
->  
-> @@ -995,21 +989,17 @@ EXPORT_SYMBOL_GPL(extcon_register_notifier_all);
->   * @nb:		a notifier block to be registered
->   *
->   * Returns 0 if success or error number if fail.
-> + *
-> + * Waits for in-flight callbacks. Must be called from process context and
-> + * outside a notifier callback.
->   */
->  int extcon_unregister_notifier_all(struct extcon_dev *edev,
->  				struct notifier_block *nb)
->  {
-> -	unsigned long flags;
-> -	int ret;
-> -
->  	if (!edev || !nb)
->  		return -EINVAL;
->  
-> -	spin_lock_irqsave(&edev->lock, flags);
-> -	ret = raw_notifier_chain_unregister(&edev->nh_all, nb);
-> -	spin_unlock_irqrestore(&edev->lock, flags);
-> -
-> -	return ret;
-> +	return atomic_notifier_chain_unregister(&edev->nh_all, nb);
->  }
->  EXPORT_SYMBOL_GPL(extcon_unregister_notifier_all);
->  
-> @@ -1300,7 +1290,7 @@ int extcon_dev_register(struct extcon_dev *edev)
->  	for (index = 0; index < edev->max_supported; index++)
->  		RAW_INIT_NOTIFIER_HEAD(&edev->nh[index]);
->  
-> -	RAW_INIT_NOTIFIER_HEAD(&edev->nh_all);
-> +	ATOMIC_INIT_NOTIFIER_HEAD(&edev->nh_all);
->  
->  	dev_set_drvdata(&edev->dev, edev);
->  	dev_set_name(&edev->dev, "extcon%d", edev->id);
-> diff --git a/drivers/extcon/extcon.h b/drivers/extcon/extcon.h
-> index 9461826..5a3f0c4 100644
-> --- a/drivers/extcon/extcon.h
-> +++ b/drivers/extcon/extcon.h
-> @@ -48,7 +48,7 @@ struct extcon_dev {
->  	/* Internal data. Please do not set. */
->  	struct device dev;
->  	unsigned int id;
-> -	struct raw_notifier_head nh_all;
-> +	struct atomic_notifier_head nh_all;
->  	struct raw_notifier_head *nh;
->  	struct list_head entry;
->  	int max_supported;
-> diff --git a/include/linux/extcon.h b/include/linux/extcon.h
-> index e596a0a..869bac9 100644
-> --- a/include/linux/extcon.h
-> +++ b/include/linux/extcon.h
-> @@ -209,6 +209,10 @@ void devm_extcon_unregister_notifier(struct device *dev,
->  				struct extcon_dev *edev, unsigned int id,
->  				struct notifier_block *nb);
->  
-> +/*
-> + * All-connector callbacks must not sleep. Unregister waits for callbacks and
-> + * must be called from process context, outside a notifier callback.
-> + */
->  int extcon_register_notifier_all(struct extcon_dev *edev,
->  				struct notifier_block *nb);
->  int extcon_unregister_notifier_all(struct extcon_dev *edev,
+> 
+> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+> -- 
+> 2.47.3
 > 
