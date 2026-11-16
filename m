@@ -1,70 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831529;
-	b=XAo5rW1U881fEYD4LkyRpqql+4om84i+BJOQ5DbBEPqtVWXM7Lu/uftGrhgDvaSuh3NY
-	 e1frRbhpmn9qtYrBe+EiNfaOmQ/i5SNry43MBWGP+paPd2VeIJ/cI3+mXbzcHtsYubNSa
-	 cVDP30vIOMPvj/RE52FfC0q8KD9z/LTv7Ag3zk8zZQ/fWE4weadCAKh2NB1FJp8rG85O2
-	 73Kb46Syox/ls0w6Qi1uj/K4OoEw97RmfuQS73H8DAnkZZaWewsAc+TGUu6IraawoqCbO
-	 T+80hph5ltGJY53TOyQE6fvOaMYrYC0zZoA49arhJoETdg1+KyXozGuAOC807kaFDhw==
+	t=1794831597;
+	b=ccwLVwXTqF8Mdg1QobIikzoef+NHtjQESsf+thHEA0UqzdSMZDjUUmoS/TlA1B0VvQHZ
+	 Rh4940vIJsyrIXAphfQVwdstTJECve5lHAXNb66PqUCqLt3nF4C/72FDucHB+fpH8SXyA
+	 /vZl8aXiaifGgwyG1cAToDXHO50jgNSvSOnuJ+/9ogIIjfgNhr9+jugUT7IIsSnobuz+l
+	 JqGhsw90iCDGZBEMv0Z1RFSeFs3/GHUJmi+lhbA0ai9C2svRe9LLz/B0HgFhajufSQi2v
+	 kvrMSed9SBBj4GCbLjxpCI6Aawqeipp28d9Upsm+KMvV+keblEjsheeNKPEVSMd4hxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831529;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:X-CID-META:
-	 X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=80b3anvnd7MVUWhpZmOk291V+lkwDF/NktOlvSXVTBY=;
-	b=N0RSBv56BtHq32pxpOob47R31pwBvSjhk5Z0vJbWZcParb+jl4K8tF8BHu6K2tsN/W4t
-	 jZmlkN3jFibMCfw6zd/5RiTtG384sClmHMRIjl6estGtb4z1ZOAwOgvjREkxfNgJFdJzo
-	 yTGorKMXH53z2ZGOveI2kQgZCGKWh/yd2aVH78XOi0555LB2RddGeijH7t3lc/gLWiWUm
-	 ubcDy/DTJOqVbRGUBivXwkWbjT3qU/hhrjXLuq/6SObnzmu3In4AvIa01dOFNZeR7zDiQ
-	 1o6iZojpYut/NUYVofglXoscBmnrWdagG9TKfRlhR+sFmAzy9wopU+3Mf0QnjWQ3Hhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831597;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Y+b7pepc+bqSJnjvX8gOa7j05vvfbGVSW+Ko5NDA4NQ=;
+	b=iyKd4TNgdnpQTCSvUdUS9Cc8QOaHzFwvmP6HAJPgi8fI0MLAJMs4Lh47/Kw6EXdTa7KZ
+	 LU/JTPXIfwWw5IvfAbw/YhdT52u6qqaD+BfLuPntW3ORrY4Y2r2O9Z+ww9CxTDX0FWme4
+	 0/bOdbXxSjdF5Gtg7vVjErg5lXQ0OOZ/lZZRiKXGjIa+WX03okMrtnVl6E9jugYOLljhJ
+	 Z3lzkdeMMz5bVzPbKPZEhI7tXZegnEMMRf6fFnZsudfS9wzNgQacWPEAWhCaursgbUd5N
+	 9sGEdEmTZM31oF/FOwVOPm4JkyMgu53Ms6WrwXgOw2yO00wXZ8F7uNw7BRY0TDrPKVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6i2kbJu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27C0606A31C;
-	Mon, 16 Nov 2026 12:18:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F27C0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: da7a41bee1b711f19a56ed5b684f684d-20261116
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:f789347c-5fdd-4a3d-bda6-c8de70592941,IP:15,
-	URL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:40
-X-CID-INFO: VERSION:1.3.19,REQID:f789347c-5fdd-4a3d-bda6-c8de70592941,IP:15,UR
-	L:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:40
-X-CID-META: VersionHash:7db8b62,CLOUDID:2c450e8ed8f441285c2749269fb0360e,BulkI
-	D:2611162015321ZIESIX6,BulkQuantity:1,SF:17|19|66|78|81|82|101|102|127|153
-	|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:11|99|82|1,File:ni
-	l,RT:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,
-	DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: da7a41bee1b711f19a56ed5b684f684d-20261116
-X-User: kuangkai@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <kuangkai@kylinos.cn>)
-	(Generic MTA)
-	with ESMTP id 1920287571; Mon, 16 Nov 2026 20:18:38 +0800
-From: Kai Kuang <kuangkai@kylinos.cn>
-To: linux-wireless@vger.kernel.org
-Cc: libertas-dev@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Johannes Berg <johannes@sipsolutions.net>
-Subject: [PATCH v2] wifi: libertas: reject short monitor TX frames
-Date: Mon, 16 Nov 2026 20:18:05 +0800
-Message-Id: <20261116121805.326767-1-kuangkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <866f6a81c1dfe95b3969361d5ac54f615f060eed.camel@sipsolutions.net>
-References: <866f6a81c1dfe95b3969361d5ac54f615f060eed.camel@sipsolutions.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D5E606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6i2kbJu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 335D81F000C4;
+	Mon, 16 Nov 2026 12:19:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794831597;
+	bh=Y+b7pepc+bqSJnjvX8gOa7j05vvfbGVSW+Ko5NDA4NQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h6i2kbJuFcncsmN96i+B4eX/8pFwpz8E8Mj0REJTflzdzEb762gWULzIIoik2F4KM
+	 pj78evRrW48pcJRQuHXSpbctZ6lrijH0BxBJIdQvPf5MKD7SsQpFX+jvHSBi6ijBro
+	 bn2NqV23Kd9e5AK9NYaISlCfV3uL09YyX1FyxW8VPfRKrZDmxd7oU1kkqtQKUgnzlo
+	 lzWossq90I4NOU9bLdEdu1jKUGxcm8uqOZGYj3WRs/kz0ksSRQH8Ej0avNY3Lmzz08
+	 MaPZKqiAVbboL/9T+JNNSRHEdDUnMEgRN7Q8M16NsmWdo/UDBI8ltiHE50MdGVPSQs
+	 rZGCww+HqQJQQ==
+Date: Mon, 16 Nov 2026 19:59:42 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Zong Li <zong.li@sifive.com>, ivanrwcm25@gmail.com
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, debug@rivosinc.com, samuel.holland@sifive.com,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Greentime Hu <greentime.hu@sifive.com>
+Subject: Re: [PATCH] riscv: usercfi: Don't inherit parent shadow stack for
+ user workers
+Message-ID: <avrwLtiPQWedXpY_@xhacker>
+References: <20261116032558.130928-1-zong.li@sifive.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,54 +59,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116032558.130928-1-zong.li@sifive.com>
 
-In monitor mode, lbs_hard_start_xmit() casts skb->data to a radiotap TX
-header, skips that header and then copies the 802.11 destination address
-from offset 4 in the remaining frame.  The generic length check only
-rejects zero-length and oversized skbs, so a short monitor frame is read
-past the end of the skb data.  If the frame is shorter than the radiotap
-header, the subtraction that computes pkt_len also underflows, turning
-the following memcpy() into a large out-of-bounds read of the skb and a
-write past the end of tx_pending_buf.
+On Sun, Nov 15, 2026 at 07:25:58PM -0800, Zong Li wrote:
+> User-space background workers created through the copy_thread() args->fn
+> path (such as io_uring io-wq/SQPOLL threads and vhost workers) share the
+> parent's memory space (CLONE_VM) but never return to userspace.
+> 
+> Currently, these workers inherit the parent's user_cfi_state bookkeeping
+> via dup_task_struct() (e.g., enabling shadow stack and pointing to the
+> parent's live shadow stack base). When such a worker exits, mm_release()
+> invokes shstk_release(), which incorrectly executes vm_munmap() on the
+> parent's active user shadow stack. This triggers a fatal SIGSEGV
+> (SEGV_MAPERR followed by SI_KERNEL) in the parent process during its next
+> function return check (sspopchk).
+> 
+> Fix this by explicitly clearing the inherited shadow stack bookkeeping
+> (setting base and active state to 0) in the user worker branch of
+> copy_thread().
 
-Require enough bytes for the radiotap TX header and the destination
-address field before using the monitor-mode header layout.  The check
-runs while driver_lock is held and before the TX queues are stopped, so
-the drop path reuses the existing "goto free" cleanup; placing it after
-the lock is dropped would unlock driver_lock twice and leave
-tx_pending_len set to -1 with the queues stopped.
++ Ivan,
 
-This addresses the same out-of-bounds read that the earlier submission
-linked below was meant to fix, but was reverted because it performed the
-check after driver_lock had already been released.
+I think Ivan has fixed this issue in
+https://lore.kernel.org/linux-riscv/20261028154315.1272705-3-ivanrwcm25@gmail.com/
 
-Link: https://patch.msgid.link/20260704011140.37639-1-pengpeng@iscas.ac.cn
-Signed-off-by: Kai Kuang <kuangkai@kylinos.cn>
----
-Dropped the comments.
+Besides the issue, he also fixed another bug in riscv. The only
+difference is whether set_active_shstk(p, 0) is needed or not.
 
- drivers/net/wireless/marvell/libertas/tx.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+And in the same series, a selftest is also added. So IMHO, we'd better
+take Ivan's version.
+Just FYI, arm64 has merged the fixes into linux-7.4-rc3
 
-diff --git a/drivers/net/wireless/marvell/libertas/tx.c b/drivers/net/wireless/marvell/libertas/tx.c
-index 27304a98787d..23d68df1f61c 100644
---- a/drivers/net/wireless/marvell/libertas/tx.c
-+++ b/drivers/net/wireless/marvell/libertas/tx.c
-@@ -88,6 +88,13 @@ netdev_tx_t lbs_hard_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 		goto free;
- 	}
- 
-+	if (priv->wdev->iftype == NL80211_IFTYPE_MONITOR &&
-+	    skb->len < sizeof(struct tx_radiotap_hdr) + 4 + ETH_ALEN) {
-+		lbs_deb_tx("tx err: short monitor frame %d\n", skb->len);
-+		dev->stats.tx_dropped++;
-+		dev->stats.tx_errors++;
-+		goto free;
-+	}
- 
- 	netif_stop_queue(priv->dev);
- 	if (priv->mesh_dev)
--- 
-2.25.1
-
+> 
+> Fixes: 61a0200211d3 ("riscv: Implement arch-agnostic shadow stack prctls")
+> 
+> Co-developed-by: Greentime Hu <greentime.hu@sifive.com>
+> Signed-off-by: Greentime Hu <greentime.hu@sifive.com>
+> Signed-off-by: Zong Li <zong.li@sifive.com>
+> ---
+>  arch/riscv/kernel/process.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
+> index 34c1d498d1ca..4bc95acc5462 100644
+> --- a/arch/riscv/kernel/process.c
+> +++ b/arch/riscv/kernel/process.c
+> @@ -261,6 +261,15 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+>  		p->thread.s[0] = (unsigned long)args->fn;
+>  		p->thread.s[1] = (unsigned long)args->fn_arg;
+>  		p->thread.ra = (unsigned long)ret_from_fork_kernel_asm;
+> +
+> +		/*
+> +		 * User workers (io_uring io-wq/SQPOLL, vhost) share the parent's mm
+> +		 * but never return to userspace. Don't inherit the parent's shadow
+> +		 * stack bookkeeping, otherwise shstk_release() on their exit would
+> +		 * vm_munmap() the parent's live shadow stack.
+> +		 */
+> +		set_shstk_base(p, 0, 0);
+> +		set_active_shstk(p, 0);
+>  	} else {
+>  		/* allocate new shadow stack if needed. In case of CLONE_VM we have to */
+>  		ssp = shstk_alloc_thread_stack(p, args);
+> -- 
+> 2.43.7
+> 
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
