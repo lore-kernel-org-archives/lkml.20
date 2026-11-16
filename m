@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794801121;
-	b=JcK6Y/fQKEQuVkb605mOQkHvs/guTcGUHOO1a/KjdwawZJlyAuQoc+tNXP0v7aYdOB00
-	 A40DOrDe8hSHKgTPalxve59LeblSCbugwkkKIBTev+fjPVFLZ8fI/XOExK708H6Cp96sN
-	 OwTiBzYaaQQL1c7oXPUfL7upkM6ZgczVSa1hPPRD2Hz1yJ86dNIuGLlJRzI7N5aschHOQ
-	 M+jdajMWnfz21sw6Bjp4ELd50KoYz6/GuQ2ns4c0+urk/mxUc+LDRMl2KaMZwpintAJw8
-	 yZtkAW2FoeVfxawWTJSSJu9shhW4lWy5bwLR4tMTTKYs//TtCxU2Yo3ijBH4GnETmFg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801121;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.134
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794801124;
+	b=hX+FVPoUUKEVj8UUwRdJa8kxsZaw4XELjf+uatD4TKR0YfO8VoO+v3tTQFMZuhImPRo9
+	 I2Okpdfxq5+4dRiOYWEcjgCvCRFtUH63MpNJBosz9uCXrcwJ4mmqbh4DZlJe1DJnCm63W
+	 ZIExV1Q7KzDVLPXZ3WGrnmWuhU7xnv3jDJ7vgY+Vz0ls0BFTmz/8efT+RSnQnO3irPhTs
+	 ycUzxYc6q4QRQaQ9FvgFK7BHYRVz8Xkyo1WWkK0CwNg0TF4FxJFuzdlt4HYrmh/I7/mTN
+	 uylb7T4zHaSMwOOTvuck4QpWfySaZA9kL7ezjtph94DLgn0dK6p/b1tieLnG1u9D2Iw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801124;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mHMeLHBcjlpdKQvivDV94WV6xZA1r0k1UiU5sTtS58g=;
-	b=1pggKWjBfvfOBxjsPwKvBNMxMkCxfX5f5JdidFVkBhy3r+qVE9wLoAGHQXERuNZoES+e
-	 7Di96oCIShNv5coVzfYCqbemCDOLLmWO2JpcH3P0Wvxxzi3i7Qt1cGYHSufnxhJuMskuc
-	 T4ZQXw3s6bNvM8UBnib8WsfpbecJdAF8FaUPDrE9UkXbl7kjYsCMo7V6Tyg79abOb07BL
-	 Wg5u517UBAEfBJZ8S8F19gvLQXTXqtGW3xGSisgE8Zw8Vj2bQZezH4L5YUWnSn/QtaBvW
-	 sx3xUq6w5WNCabn4btHSDV9uAeQnqDgv8EOUAfOSxu9X4FI97I78ZJocbPTNvsn16Tw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=+QBSw5JnyJShenoN9aDMwG/bIDS9Kt5c5A1/4QeDMdE=;
+	b=WhLKSaNywVOjSv6qOu6QWXHwq/FGGZNzqzFrTY29TAaRT4iyY50rk2bYxErVRM4nZxgZ
+	 itXTaJlKjOa4CWVGEXs7GBAWvoF2VpZtFaIzghBW3bdnJzM1KZcttb8SoACQoG0HJRZ2C
+	 uyTuL+Tl5NHzqDJPf59K89ICJ4qDSCzeoR1JIh/qYffxdzI3Xs/ISCKE+9NBaP9gE5YlH
+	 SyNhBTkL9YjkMoUJvehq8FYtMUJXuvjOruIGbxiSV62IOhy/tOuh0ZDPozEhjshhmtETR
+	 E011COcAhpJiImgOiC7nVTlT4okwN8EkL/RsV6tLwAMK8dka2pSMpalBIJaNCDUrqAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E5G3DvU+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kk5A3Esl;
+	arc=none smtp.remote-ip=74.125.224.134
+Received: from mail-yx2-f6.google.com (mail-yx2-f6.google.com [74.125.224.134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE100606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:52:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE100606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB2D606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAB2D606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E5G3DvU+
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c506a231b88so416581166b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:52:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794801119; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pC7WXn86uxoBCkvju3d5+H2I5elhExwraJbzjNEbdI5CnBkmoavARJ9VS6ZRbeUPro
-         +lPzGrm204D168+4cknz0swiHlSb0qLikeTempRaxP3lJFS3iJBnPvN4iHDoqvAumkrn
-         yzSnZDqZn7ZxzbhaAC4puvUcXuvJXWPbvF8XD1VnooC/9M3kieVA5qUib9MqMB5WTNzA
-         oZOb7bpw4KieWvVXieV+hMC64t6lC7a7PUsq5tbkUKxoPsi8StWve0haevSOgqaWAVCu
-         h3iGDqntdnp6UOwy1UK4Wy8XaQAQkSV9aQ6O/SG+5tWI890FIe36IgvTrC4CfY/bXqfo
-         /j2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mHMeLHBcjlpdKQvivDV94WV6xZA1r0k1UiU5sTtS58g=;
-        fh=RaUoyOFeP2BAVXGxrMPcmH/ToWaE9qpPpDX3daTJU90=;
-        b=E2g9iuav9lRyF5NpbEQ+11DUfgBMfcAJRj7d0hNDARADih3Gse5227nm69gtUd1GPY
-         4FOWL3Xf2TsKEbdIb0eVoEt02eXfkLro7PT4JVX65laVAiwMkPVOELbx2/N3NucxUDHE
-         BCBLQ7zFVlX0Teiyh9sc2f3g9CVkL1hMqElAACq1YrTGXa6jCvr8/qJ3bwZUCa2/oJwg
-         hLFsZEv8xWsLa9XFZDttVZNokywkfIzOnyxW9jl/pNB6TWYqspWQj9g97L7GB9vML8zo
-         0SQ/pk/fI8tIlyrsqEBxa9zopuh9POZadqa73ZeHPN2Ki2BPXusnPcSLUGSss/lg4rtW
-         CsOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kk5A3Esl
+Received: by mail-yx2-f6.google.com with SMTP id 956f58d0204a3-67bfda43022so1115001d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:52:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794801119; x=1795405919; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mHMeLHBcjlpdKQvivDV94WV6xZA1r0k1UiU5sTtS58g=;
-        b=E5G3DvU+Yq5hFKIs0mhcY6Hs07QWT1xclq1ysyigPuiQHNZy8hEJXg6Vez8Q21U3Pv
-         y4J+5tE7Pwoi/bC7LJCcLpXBfV4PoPFGx8NrELUjUEvrqjQXL/QEiOYTe5regi0EJVst
-         QCU4VTzy1xsR5rs5hhFbSSK8lEtYZTk6ohRDDtXuWo9arIzhHNf+9k6sTv2j1JiKEK90
-         rF+pkTiCxpBfqFWys58HY9cWQZmGMbMeaI6y2YHtI2MJ5K9Q63kaiFecOOtSS7bK6BX7
-         B+Wsaf1kJk+703Ayop/wlRglRUoNkGhZW86EYnVR/hgHK73fN2Lu7R3ZrfYKMqS3ZCa9
-         QKeA==
+        d=gmail.com; s=20260707; t=1794801123; x=1795405923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+QBSw5JnyJShenoN9aDMwG/bIDS9Kt5c5A1/4QeDMdE=;
+        b=Kk5A3EslIZIsan5XDl5LrGYxTb+D0+qGctUFhB47CTj+Zq033gaoHbtlo/Pj/j/VwU
+         YOPPw6RirpzIsC3V0ievIURAb4C96VmzUn7HCE5acJHMXcbH+Tt9dxDoz5CIvNxhp46n
+         qzrDSWzXGif0x60u5kKq2Xc69jznxh3W9hpp+2SCly+TETiLUyUqaSyaLCOwM1U7rbWm
+         0QkjcLvraYu6zo4SLzXrTIW5uo1o939yEvgfLd0hx24EcRVujMBwcMhwXUdNdNZpLK8i
+         PUOGAqebit5skzQVINph9poUVY3YRDlWW9DbpTszyEcSvu1FaTBSG3gg3OU1weqibgJt
+         8nKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794801119; x=1795405919;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mHMeLHBcjlpdKQvivDV94WV6xZA1r0k1UiU5sTtS58g=;
-        b=weh56ZpW1ayQTBTRpU2qTUpN2syEdTa8yFHsjJR7x6Mx9sgLpGNgQy+p3BiQk9CSFL
-         RBguHPR45ihWaMTQNmfWIrwO7bOexNhxQL24IsITpL8zgAJxOk/HD4XHbjPtuAppf5Nz
-         Guy6P60Xq8uFn951G145jBwpWXEpIIj14SCeobgjg+sDM8E5iR/RBBCC62VQujxdDCyC
-         QvPzwEGYKd7dXGKDW/2aY7PcxBR3i9JbMkP+siu6vU14/TLD3I9H0sozRhL7lIjEzth4
-         mZ+s5EByT+P8OMS+xY67WKWB4V/+271m18UGGsbVTMDd6gNQh9z6tm2qURzK3/jh1xqk
-         G97Q==
-X-Forwarded-Encrypted: i=1; AL+hErG82lcF6UTJU0ZmXLZlzfdUKGSMtT0OCw/gTDW1Lop8pWr7Tstk33HJj8H2bXzWTrbn3qMQjSFG8t8YG4g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xer5jU71u7wpEzEZQfDJwwnRIJ8dWiGKrxf4Vg5J1uLuMB5s6
-	3q29waARgFk6PWgo+iNf1zmQuuSEVt7r9LqRcIqrSmc3wEN62/JNHhj7p4urvBppQmhKwY+d9fs
-	QL4R7S5sAMn88TbRa11RENltTPaOlh0s=
-X-Gm-Gg: AYBFou0vmzEQjPd4LTGPsQuZgLPoQyHcKxxOFj3nejsCSkvXDlC4L8GBhJ1+Cekxy7A
-	YK8THftgt/5R36o4L4+qFnKb8JsTUxA1vvXqShsdzAqTDVNe1RLeRfOgOzeUVxSRGNVuyPw+bHf
-	vgyexZxkteuLSKacy9EnAVQvzBmZR/9sgMnuLUrRnNo0RXD1/P+WCwHnWiSoU5xtA5O/N9uF92S
-	HK7V6+n0x1ueNJke7pVYbDEto1YWMay+Ff/RHBsXu+bSVZoRJkfFPWsDBlyrHeCS1rGARHkn2++
-	ooX7ekxOOBEekWzgBTRk9p6/Jf73qI18cg+8R9uiyjCyvtl48NXJN8Iy4j5wBC8Bx56FU+5NGBm
-	96gX/6+tckQ5r2Wy4wsKqRq5/MbxSMyEeZKPLzn4oD51A1cg3/rSxgVTG68WTdSDyWL42Gw==
-X-Received: by 2002:a17:907:8687:b0:c4c:f85f:aa2b with SMTP id
- a640c23a62f3a-c509641c620mr670977166b.24.1794801119103; Sun, 15 Nov 2026
- 19:51:59 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794801123; x=1795405923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+QBSw5JnyJShenoN9aDMwG/bIDS9Kt5c5A1/4QeDMdE=;
+        b=RO1TbpB/H2ev8xkkyN7P87bgty1WaagRbXn8P4dgYOAgqMOtNj36r73oUWDS+5XoIh
+         1kc/VC0H4waRjxEC2ce7TkkownGgXa3F8yQZg8bC0rEAmSlcFsy6V4N+AoJ9jviiaMB1
+         U0zv65rE2iSg7ehtBUc95YlNkFdJPJd3y4K7jyqZNMfmpkuuRLlZaKS4vuJIiNu9xa/R
+         2+i97jrqIUPuOpdyoCBUxvJ1iKvVlqbJTM0VdFl9N3wmXA5WfWAuE6Mt2hzu/Gmjv5y2
+         E1hWjscQDTye++a/nLhMeHY43C79QkAa3P7rxS0LhlU4EAtqkiIvSgapV12WIEPGrfpl
+         LBTg==
+X-Gm-Message-State: APuU4Z8tQVZrwFs+yph0OSjhZsNstPl1mc7KIyQGv9KNKVx6g26Bp1VJ
+	7YeasmGj0unumDzLwjObz9QEWGsGcLkUbRnJ8ygcKQdnrf+fZA0jVxPa
+X-Gm-Gg: AZFdTZed8tt/ETubKnQr1SstG+tOdGNDrszEX65msamdaHzB2Aksr/P0YHkyGF+oFLP
+	oLbldo8/3OKPySU33O8lTUXH+Nh6TNyo7ra8OjjPLRx3qKfZ2RVMdf3zcdzT44PoYch3nqeUdXE
+	mLCJOcHDvBmoit8IHT46ffH3Owku1ZsHdlDbAGT1a+Ia7T+ZXansb+N/QVTqJVwf1w0YhxoScQK
+	l0H9mxROjM5I9gCXqqyXG2uGqOXlXT2I+36d0aPh4Jpn+aLV7DqINHcROpRJxno4kx2tGoC1zL2
+	S3iPt4PZA13Pq7FVC5xgAjTmn2udZcUoI7qIAD3Dg+dktYqFWJyCCchexJzd+Teuo5zTFGGqvi4
+	q+9W4Jel+8dVI6N6Pyx5FIb5HkrUCCACOdEgUWUM5YDAucxsVf64oadzjF7Unfx1/M7ykP2qdUR
+	9sEwldglb4bOqN5oaVfde4N+ds8pOxhKW5S98pRoAn4OcZe61wl58p5Y7h3PUsK7mDE/18EfmeK
+	ueOM9tiWrJL9DrdWVUdM5Pk3quyNzhNPKU/IXM+TcUscvs22mDtiJsCNv2Mjo1avX22asBW/zv/
+	knEmeTPoGnI+MY3jTB8onaa2uzYJQo6eHCrGkC2ATMzqb3hUPZUc7tKmFjQSX+x8JQtMlHVL48Y
+	QGlyFmfM=
+X-Received: by 2002:a05:690c:6602:b0:8b3:b358:f9fb with SMTP id 00721157ae682-8b4aa26fd0fmr50589857b3.25.1794801122737;
+        Sun, 15 Nov 2026 19:52:02 -0800 (PST)
+Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:28d5:8044:61b9:9cf6])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9549fasm77253657b3.21.2026.11.15.19.52.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 15 Nov 2026 19:52:02 -0800 (PST)
+From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	mchehab@kernel.org
+Subject: [PATCH media] media: cx231xx: cancel module loading work on probe failure
+Date: Sun, 15 Nov 2026 22:51:59 -0500
+Message-ID: <20261116035159.40755-1-xinsheng.zhu.ny@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,85 +93,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794666741.git.lianux.mm@gmail.com> <62dce3641b589e9cd42edccf0d4e9b31e7d91e36.1794666741.git.lianux.mm@gmail.com>
-In-Reply-To: <62dce3641b589e9cd42edccf0d4e9b31e7d91e36.1794666741.git.lianux.mm@gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Mon, 16 Nov 2026 11:51:22 +0800
-X-Gm-Features: AclHuK_Gbzghz_9r5pcBeCg-HWxSEX1oN3xYkrnwlrCQzsB1W6e7M40eujJdLuM
-Message-ID: <CAMgjq7BnyM76DR8cdaz4o5PEg0=4rBAcGvWwoHqFDfPpoqu4BQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 10/18] mm/swap: add priority queue for swap device allocation
-To: Lian Wang <lianux.mm@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Jihan LIN <linjh22s@gmail.com>, Kunwu Chan <kunwu.chan@linux.dev>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Thomas Gleixner <tglx@kernel.org>, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 10:51=E2=80=AFPM Lian Wang <lianux.mm@gmail.com> wr=
-ote:
->
-> From: Kairui Song <kasong@tencent.com>
->
-> Swap device selection rotates swap_avail_head with plist_requeue(),
-> serializing cluster transitions on swap_avail_lock. Separate selection
-> from device-local cluster allocation with same-priority device rings
-> ordered from highest priority to lowest.
->
-> Keep membership and sizes stable under swapon_rwsem during each
-> allocation walk. Full or disabled devices remain as masked pointers.
-> Serialize tag writers with swap_queue_update_lock and use READ_ONCE()
-> and WRITE_ONCE() for complete tagged-pointer accesses.
->
-> Each CPU has a starting offset and base-page quota per ring. A task-local
-> cursor snapshots its starting device so retries visit every peer once,
-> even if another task changes the shared reader. Disable migration across
-> the sleepable walk. Large folios retry same-priority peers before asking
-> the caller to split instead of falling through after one fragmented
-> device.
->
-> Prepare reader storage with GFP_NOIO outside the topology writer, then
-> recheck priority and required length before publication. Transfer the
-> prepared storage only on successful installation; otherwise free it
-> after unlocking. Keep per-CPU backing allocation outside the writer's
-> noreclaim scope because it filters caller GFP flags. Constrain small
-> queue/ring allocations with a scoped noreclaim context and
-> __GFP_NOMEMALLOC, restoring context before cleanup. Deletion keeps reader
-> storage until replacement or an empty queue, avoiding shrinking backing
-> allocations beneath the writer.
->
-> These boundaries prevent queue updates from reclaiming into a swap
-> allocation that would acquire a reader behind the same writer. The
-> cluster metadata fallback also avoids direct reclaim while the walk
-> retains its outer reader. These recursive paths were identified by
-> source inspection rather than reproduced hangs.
->
-> Publish swap_file, the live reference, queue membership and SWP_WRITEOK
-> under the same writer. Complete the disable flag and queue mask
-> transition before releasing that writer, so a new allocation reader
-> cannot select a device that is no longer writable.
->
-> Mask the off-list flag from the old in-use counter before its full-device
-> comparison so concurrent freeing/refilling keeps availability state
-> consistent.
->
-> Keep the old available plist in parallel while migrating its remaining
-> consumers.
->
-> Link: https://lore.kernel.org/20260714-swap-pcp-priq-v1-9-de9b164ed419@te=
-ncent.com
+cx231xx_usb_probe() schedules asynchronous module loading before
+creating and registering the media controller graph. If either
+operation fails, the probe error path releases device resources
+without canceling the pending work.
 
-Hmm, this patch is now quite different from what I posted in the link
-above, e.g. there wasn't a "struct swap_queue_cursor", and some of the
-naming in it is quite confusing:
-e.g. "ring_only", I think what you actually want is "fallback_allowed"
-or "no_fallback".
+The work callback accesses the device structure to determine which
+modules to load. Since the device structure is devm-allocated,
+a failed probe may free it while the work is still pending or
+running, potentially leading to a use-after-free.
 
-And since there are three iterator-like structs, we better reorganize
-the naming; 'iterator' vs 'cursor' is confusing. e.g. maybe reame
-swap_ring_iterator to swap_queue_reader_head.
+Cancel the module loading work synchronously before releasing
+device resources on probe failure. This ensures that the work
+cannot access the device structure after it has been freed.
 
-And why do we need a "cursor->valid"? I see a following commit dropped
-that, so perhaps accetable to keep it as intermediate step though.
+Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+---
+ drivers/media/usb/cx231xx/cx231xx-cards.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
+index b0941cd2a2d8..f8ed894ac0ed 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-cards.c
++++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
+@@ -1533,12 +1533,18 @@ static void request_modules(struct cx231xx *dev)
+ 	schedule_work(&dev->request_module_wk);
+ }
+ 
++static void cancel_request_modules(struct cx231xx *dev)
++{
++	cancel_work_sync(&dev->request_module_wk);
++}
++
+ static void flush_request_modules(struct cx231xx *dev)
+ {
+ 	flush_work(&dev->request_module_wk);
+ }
+ #else
+ #define request_modules(dev)
++#define cancel_request_modules(dev)
+ #define flush_request_modules(dev)
+ #endif /* CONFIG_MODULES */
+ 
+@@ -1900,8 +1906,12 @@ static int cx231xx_usb_probe(struct usb_interface *interface,
+ 	if (!retval)
+ 		retval = media_device_register(dev->media_dev);
+ #endif
+-	if (retval < 0)
++	if (retval < 0) {
++		cancel_request_modules(dev);
++		cx231xx_close_extension(dev);
+ 		cx231xx_release_resources(dev);
++		usb_set_intfdata(interface, NULL);
++	}
+ 	return retval;
+ 
+ err_video_alt:
+
+base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
+-- 
+2.54.0 (Apple Git-157)
+
