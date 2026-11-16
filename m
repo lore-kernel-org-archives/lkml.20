@@ -1,111 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794855703;
-	b=JNDKYXF6PBqEyqID5UlRUMO4YCu8iR+hr1HTv6Mj09y6alWbdwppg5jqk4CZqW+wVUJ4
-	 hhtaaOhdMqvTVwjiNNxECS52F8O9fxN6wshlN0BHusADNvkVi/APaAQiJ2Y9Fd0abVcc7
-	 fLAqcCMp9dncFsxMVvgMdz9+2Q3+FUBuQS6tadHdoVbufwTlGjX3GIZw1toRqBmI97pp4
-	 DcKN6Cgkl0iiW28y3rOYqE5WiXM6crf5QcjtM/XWSEAv8siV6VPNnFG1wtG+BnUQR5v0z
-	 /kHSjfwTRz5TQQX+CLeN6md8Qy+WOESSYuG446/pM9doWaNJRWh/sVqGa4lv8nk24HQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855703;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wEEmZjD0vKv79FlaKUDu+FMv5V2rsZ7LB2NoBC7xmrI=;
-	b=pPsE1SvUHgSy3UQChYS0sA1lOoZdRodLRNE3RsVOrROtYAxMzi4lIBUYCnsWEZ8L5ZY2
-	 iUKGQ2YgjveOeQfBHeo9/oK94W5pc1dtVsDZUciQsouhdCXy/C6lneukH/gUimW172kS/
-	 dyOKmVUGSbvBd9Q6pPDcA+wI0FFf729tsgaGl5guN1oV7H+2/XOR+AoPANxBLM1DA8nnd
-	 E0jAczJQzlE9HaudGqsmC9Z3APIoqZVMb+QETldG16tVhvUURKFSLKUztCQTvNNqgDZUz
-	 PJMmPrV6HtM+iiWVeIG3WReLbl84ZiFr/nFBIrpiUgXaB/7u4UL459/EO9vR+aLlTPg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=hHf+ZY18;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.130.186.121
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794855724;
+	b=09hm1mw33JywYUMsiFYUl/H3KAL8xwXJs/R4PJXr6TGA95pq5W20gEFFOrtmVTnVNejm
+	 7gbtRVaD5kDcn5WL3WSKfUC9hPzP6gUI2/6MK2cu4M2/0IgDW8vhbFPrvpHyqzKE4f9ed
+	 LUkiP3wJbrMJkLIK+uZOZODyJNUhxAjRyPXVlt56VWJyA2jZhnyLT6/Nk4gf5RGX7raPO
+	 6rocXdzmL6LZ6/tRJgzFj221kxUE3k1tyZuBXmaWefjnfWQ0zANGCASTTlza4RXucNC30
+	 cKaO+IIw4rM+nwusma6R0Sw+sbdOl5KkVfIuPmIX/YXgHVFS75R+ETapDjlJPZR21WQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855724;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=1+7m8ua3cdXSuAoLDTAht0hPqxChRLxyoSLx51/ivpA=;
+	b=J6Uo3W71jQu4lSIZkvPcLzfU9PZiIV0PrtZPlj63gWjGUCttmj1tFZpBb8zZP0V3IO7S
+	 Q1hhjbAC0FACmVq1NfWUG8udXIglWektMJX8CVa8YOiTVzZh6r+kZSonhr+gOI391DEEZ
+	 4h3w71D/XEwssW0cwKDw0dpPkBJh2taFglGhtVeqdTSQwdUhUOCSnonPMdKM1OsJKlZKM
+	 KD55rPsLQsQ2tV+W+O3/M6WC4zAahZBCEWIdu9I9PV75kJRbsBap2ZhMnlP1F95Knv4M2
+	 xzOhGpUEbEvgTA3ws0vMJXDtUESVuiDiCk0ivJ9TF9Aa7hmb0TfYWLdP/GAwHMA379g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=hardeman.nu;
+	spf=pass smtp.mailfrom=hardeman.nu;
+	arc=none smtp.remote-ip=94.130.186.121
+Received: from thor.hardeman.nu (thor.hardeman.nu [94.130.186.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA68606A31C;
-	Mon, 16 Nov 2026 19:01:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AA68606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=hHf+ZY18
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WoD+ROPwD0u8Vol1616PCBapiDfOnU5WDFYeTPuVeo89hAdtxq5BeFN1LHk8uoLKk8LhRDxsMU+fQYHO5TKi55QkAR6838j6Yoz4/tvSdmOHJc2hNM+8OFV2J0vtcY48qH5c9l3ZPvEP2SkkH3GYsS6vTMtWqBTyEq4MJWTrnK5HSKK2wQXHe48ONy/06Zq2Qc+Kr9ipPrrwZNsXgH85QSBScLOUXzGBmMAqlHxH/4nf/tfyoHcVp8E2a9m7C3hZzOLVs9eryPSsRwk2a8qsnKb4Fd3uZbJN9Iezx9PAU/ztTvqwRmeVh/eb0uItopbLOcO0JWpm8iA3+K0vzQFK0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wEEmZjD0vKv79FlaKUDu+FMv5V2rsZ7LB2NoBC7xmrI=;
- b=nNqfbcGWleVWnK/QmhCCf+GRnmQ75dSoDSuwqe3Z6VrBO422iM0y3Ngin094QcC1bjohI6vd8EVaYhCdKnRv5BhR0JbIHQIayditRCELg4qlvjxDPyna9EZOrhEyqoaw3SmCZE5a8wF/JLS+7LD8XxO4jfcDtQVD9pUHSQsno5G1vQ18HKxDkI02B1g/kv5aFWEJhzmft0wHWNYIaQgVdMf9NqfpBNVF7fVKaLc3Brs4zyRmWMTb/afBA2c8FZC5v3CGowZvsxvtEF94MhCjBsRgIgHB6ePvSDvO2+i60gfwuvpmDD9zxwlAVAWVoZjI057a4zp/BijHyBHrudITmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=linux-watchdog.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wEEmZjD0vKv79FlaKUDu+FMv5V2rsZ7LB2NoBC7xmrI=;
- b=hHf+ZY18mQ58hpF/gtxNu3Hs2xboUCtzA5coFskh4JI0FnDgmn1thZsxmeOPaFeR/hzfq4c+WQ+Ydjtm/bUwtDObn3b3zaFugBlTv3A6GxcvSBmeFv9h1R2kQw929tFCbE8RAqd4VXyU5zquFuCrONLjfxpN2GmQkgMH0r/vJy+RQmiCURGE19guSEuDUYmaWrvFNef8VAzWvZfWyjp6UHGwVqvCIhQMdFsj/vDiysnVFZho9fNEkDrwTAz7qF4iNgEX+jlkSQ2wMKBP507TaJgcs1XJlWWn5gx6bMaruLLAMEK/AfniKUhobsjR7tqikGNTvQMf7SWInvfwUB1/kg==
-Received: from PR3PR09CA0026.eurprd09.prod.outlook.com (2603:10a6:102:b7::31)
- by VE1PR10MB3886.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:16a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
- 2026 19:01:35 +0000
-Received: from MI3PEPF0000847D.eurprd02.prod.outlook.com
- (2603:10a6:102:b7:cafe::ad) by PR3PR09CA0026.outlook.office365.com
- (2603:10a6:102:b7::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 19:01:35 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- MI3PEPF0000847D.mail.protection.outlook.com (10.167.240.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 19:01:35 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
- 2026 20:02:18 +0100
-Received: from localhost (10.252.15.73) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
- 2026 20:01:33 +0100
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
-	<linux@roeck-us.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
- Torgue" <alexandre.torgue@foss.st.com>,
-	=?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?= <clement.legoffic@foss.st.com>, Marek
- Vasut <marex@denx.de>
-CC: Antonio Borneo <antonio.borneo@foss.st.com>,
-	<linux-watchdog@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] watchdog: stm32_iwdg: use managed variant of dev_pm_set_wake_irq()
-Date: Mon, 16 Nov 2026 20:01:30 +0100
-Message-ID: <20261116190130.1191501-1-antonio.borneo@foss.st.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC21606A32C;
+	Mon, 16 Nov 2026 19:02:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFC21606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hardeman.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hardeman.nu
+Received: from thor.hardeman.nu (thor.hardeman.nu [IPv6:fd27:2a41:8fcb:2::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "thor.hardeman.nu", Issuer "Hardeman Internal Mail Relay CA" (verified OK))
+	(Authenticated sender: nullmailer@odin.hardeman.nu)
+	by thor.hardeman.nu (Postfix) with ESMTPSA id 4jSy086DBzzFq0p;
+	Mon, 16 Nov 2026 20:02:00 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=hardeman.nu;
+	s=202608-ed25519; t=1794855721;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1+7m8ua3cdXSuAoLDTAht0hPqxChRLxyoSLx51/ivpA=;
+	b=U/z5Az3q3n5DO5ZHCudFnOL/5PT23j4O/mFXtIQtbVZd4IWjqjSdbwAQGINM/u4kROrWGL
+	MvCDTuSJ5jdI7WAQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hardeman.nu; s=202608-rsa;
+	t=1794855721;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1+7m8ua3cdXSuAoLDTAht0hPqxChRLxyoSLx51/ivpA=;
+	b=UTcXzTq9woMFFsVvnuYuSaf+YSK34t2tgPWsUnQ/COXA0JWJU0r9qBKfFtsgXyyF2YQYZx
+	IXzygxAnrEgJHsk3RzhRn9mEnCJsIUeokta15xjUJ1VRERXOKgqhJgK7YPsVApFk79DxGJ
+	cJsjwoD4GKgPC+Ay8qP8fM00rqWGzw2A7+11CligGa1ruV6xJcometP1r/w9xfB/dEbr38
+	gFuB/85n9xVfOnut2ayDLen5gMtbuPEnLvs2stUBuqYZG3FrzLf9K+o+fqvNHyeIXMQZaw
+	WzMcJidMlklSVZ5TfObrhYlnhHyr/yWXnDEByDsDrlEjFW78j/24L2Qbg4pWDg==
+Received: from odin.hardeman.nu ([fd27:2a41:8fcb:2::a])
+	by thor.hardeman.nu with ESMTPSA
+	id D2XPMChT+2oF9CgAWTs42w
+	(envelope-from <david@odin.hardeman.nu>); Mon, 16 Nov 2026 20:02:00 +0100
+Received: (nullmailer pid 2736570 invoked by uid 2002000001);
+	Mon, 16 Nov 2026 19:01:58 -0000
+From: =?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>
+To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>, Alastair D'Silva <alastair@d-silva.org>, Luka Gejak <luka.gejak@linux.dev>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, Bitterblue Smith <rtl8821cerfe2@gmail.com>, =?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>
+Subject: [PATCH rtw-next 3/5] wifi: rtw88: sdio: limit the TX queue length of the 88xx chips
+Date: Mon, 16 Nov 2026 20:01:43 +0100
+Message-ID: <20261116190145.2736364-4-david@hardeman.nu>
+In-Reply-To: <20261116190145.2736364-1-david@hardeman.nu>
+References: <20261116190145.2736364-1-david@hardeman.nu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,73 +82,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000847D:EE_|VE1PR10MB3886:EE_
-X-MS-Office365-Filtering-Correlation-Id: 202283bd-ab5d-40af-ea0d-08df4414090b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|18002099003|6133799003|13003099007|11063799006|10067099003|56012099006|261026121527099003|261022105027099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	trZ+WQKHD9KK7P8KlygY0SopexucDKtCN0QCQS3/nAHyzomWiyASwb9Ei3Pqd00Nh1jl7ZYbnLDwhp4Zw4GBFli60hZrYnpmft9vhYNWserpOOGN5PMMzIzegBrG9cj1nYiVVfw/rzzxS5GQWciWHlCUHgdptXsrsFhiYnz3LwMjq11O4PPxwrCQdmYsUX4/xJcL2izjiKehWwBe2wCnkqJ7daAIrhUYWIbYWvq7piFvutm9SHiVU6ayJZ5g2cquw8ByfWRXOMFtfkR2ag7YCr8HGyvgazqkISZIR4TJKnbZZ4TCGlY3I+cAOSuax7Og6LCx9W4ZclV4eskOkJYwZ/imZhKFLDEKYmhwwFzbJWwlGdZ7D+DwJ92YoNsuCWdRH6cKlVhH5R9jwXoxRlRvSnXFXLqGpaqv1NzK8ZaOM4Ac17onMPsj7fs347UYz2ch6pXIooumrnAVxm61CFzLX4hZh5h9AMmBGowos6NlNzbrm2ITT2hBLqm6gWeGBWSRex7ep17vN8lppcly9QMNFLawwMurdmhh+ZtLmvfOmpULH9XHdRlmXRWlLdUKB8i5KGWLFjGXuidYcq0MUuBJVfhDxxnfFen3UHt2ilGBnrD2h5ORA7WZQL8s0wTrCKOXj9jrd7CtzoyaSowhsT8sHg==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(6133799003)(13003099007)(11063799006)(10067099003)(56012099006)(261026121527099003)(261022105027099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kHMOZSrYRdZyV9nKMrY0Qnx3vfM3FJmSd7/N/9mZhQR4grVGUFW2ssdNbjz74TCWlJJBonzTyOKGQY+tLZel6c8thZzd1WspjhmLaYTat4eqwVIF3JpA0ssexKQeJCoq2ndZpHhv6zb8JdaRD5QsjM1DTXGkPa4xEhQPGANa8T5IetF8c7wbgHoGAVrwze1569rZcspFWj6LXIIZdkRysv1v9ehCw8QhGhRpKfzjVlJ2q7+OiJzsh/DIypuPc1N0NVx8wDs9hVFkjPl5fkIfRV9PQqzzGfPhzJGQoou+f1tLWamPQ2XI0e+UmYXmgctIBXYh2/v/X44UNQCajZ1ykOsiT09e+5KvE2QAJsdDRmX5V5oOlEDIRQDLLCpyucLKcTN1O5/cmCZBbJ2g3aGHcaLH/lcyCtGg1yKMf8ssm5/ScGzvIBZNGwYZ37mbkBvG
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 19:01:35.0905
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 202283bd-ab5d-40af-ea0d-08df4414090b
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000847D.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB3886
 
-On probe failure after stm32_iwdg_irq_init() or on driver unbind,
-the struct wake_irq allocated by dev_pm_set_wake_irq() is leaked
-and dev->power.wakeirq remains attached to the device.
-Any subsequent attempt to re-probe the device hits the
-dev->power.wakeirq check in dev_pm_attach_wake_irq(), triggers a
-dev_WARN_ONCE() splat, and fails probe with -EEXIST.
+The TX path pulls every frame mac80211 has queued into its own per-queue
+FIFO, and only the RTL8723BS stops the mac80211 queues when that FIFO
+grows. On the 88xx chips the FIFO is unbounded: the backlog builds up
+there instead of in mac80211, where fq_codel would keep it short and
+schedule it fairly between flows. On a NanoPi R76S (RTL8822CS) acting as
+an AP, the round trip time to a client goes up to more than a second
+during a single TCP download.
 
-Use the managed version devm_pm_set_wake_irq().
+Stop the mac80211 queue of an access category above 64 frames in its
+FIFO and wake it again below 32, as is done for the RTL8723BS with lower
+watermarks. The 88xx chips send up to 32 frames per transfer and need
+the deeper FIFO to keep doing that. Also wake the queue after an
+aggregate is sent, which the single frame path already does.
 
-This is reported by Sashiko inside the raw log of another commit
-that touches the same driver.
+A stopped queue is handed no further frames, so nothing would kick the
+TX work again if the chip stayed full for its whole retry loop. Requeue
+the work after a jiffy in that case, as the RTL8723BS path does.
 
-Fixes: 3ab1663af6c1 ("watchdog: stm32_iwdg: Add pretimeout support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/message/20261116132416.1184447-3-antonio.borneo%40foss.st.com
-Link: https://sashiko.dev/#/log/249869
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+With this, the round trip time during a download stays at about 12-30
+ms on average (100-570 ms at most, mostly from the client), and the
+download throughput is unchanged at about 190-215 Mbit/s.
+
+Signed-off-by: David Härdeman <david@hardeman.nu>
 ---
- drivers/watchdog/stm32_iwdg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 77 +++++++++++++++++++----
+ 1 file changed, 64 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-index a8d2db2d3cf8b..f1056f8100cf0 100644
---- a/drivers/watchdog/stm32_iwdg.c
-+++ b/drivers/watchdog/stm32_iwdg.c
-@@ -298,7 +298,7 @@ static int stm32_iwdg_irq_init(struct platform_device *pdev,
- 		if (ret)
- 			return ret;
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index 17a4c3037d7..cced6fdfa6d 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -22,9 +22,16 @@
+ #define RTW_SDIO_INDIRECT_RW_RETRIES			50
+ #define RTW_SDIO_OQT_TIMEOUT_MS				1000
  
--		ret = dev_pm_set_wake_irq(dev, irq);
-+		ret = devm_pm_set_wake_irq(dev, irq);
- 		if (ret)
- 			return ret;
+-/* Bounds the queueing latency of the unbounded per-AC software FIFO. */
++/*
++ * Bound the queueing latency of the per-AC software FIFO, so that the
++ * backlog stays in mac80211, where it is scheduled fairly between flows and
++ * stations. The 88xx chips send up to RTW_SDIO_TX_AGG_MAX_NUM frames per
++ * transfer and need a deeper FIFO to keep doing that.
++ */
+ #define RTW_SDIO_TX_FIFO_HIWATER			16
+ #define RTW_SDIO_TX_FIFO_LOWATER			8
++#define RTW_SDIO_88XX_TX_FIFO_HIWATER			64
++#define RTW_SDIO_88XX_TX_FIFO_LOWATER			32
+ #define RTW_SDIO_TX_RETRY_DELAY			msecs_to_jiffies(1)
+ 
+ static bool rtw_sdio_is_bus_addr(u32 addr)
+@@ -1391,19 +1398,43 @@ static int rtw_sdio_write_data_h2c(struct rtw_dev *rtwdev, u8 *buf, u32 size)
+ 	return rtw_sdio_write_data(rtwdev, &pkt_info, skb, RTW_TX_QUEUE_H2C);
+ }
+ 
++static bool rtw_sdio_tx_queue_limited(struct rtw_dev *rtwdev,
++				      enum rtw_tx_queue_type queue)
++{
++	if (queue >= RTW_TX_QUEUE_BCN)
++		return false;
++
++	return rtw_is_8723bs(rtwdev) || !rtw_chip_wcpu_8051(rtwdev);
++}
++
++static u32 rtw_sdio_tx_fifo_hiwater(struct rtw_dev *rtwdev)
++{
++	if (rtw_chip_wcpu_8051(rtwdev))
++		return RTW_SDIO_TX_FIFO_HIWATER;
++
++	return RTW_SDIO_88XX_TX_FIFO_HIWATER;
++}
++
++static u32 rtw_sdio_tx_fifo_lowater(struct rtw_dev *rtwdev)
++{
++	if (rtw_chip_wcpu_8051(rtwdev))
++		return RTW_SDIO_TX_FIFO_LOWATER;
++
++	return RTW_SDIO_88XX_TX_FIFO_LOWATER;
++}
++
+ /*
+  * Both this and the wake below hold the TX queue lock across the length check
+  * and the flag update, so a queue is only ever stopped while it really is
+  * above the watermark, and the drain path always sees the flag the producer
+  * set.
+  */
+-static void rtw_sdio_8723bs_stop_tx_queue(struct rtw_dev *rtwdev,
+-					  enum rtw_tx_queue_type queue,
+-					  u16 q_map)
++static void rtw_sdio_stop_tx_queue(struct rtw_dev *rtwdev,
++				   enum rtw_tx_queue_type queue, u16 q_map)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 
+-	if (!rtw_is_8723bs(rtwdev) || queue >= RTW_TX_QUEUE_BCN)
++	if (!rtw_sdio_tx_queue_limited(rtwdev, queue))
+ 		return;
+ 
+ 	guard(spinlock_irqsave)(&rtwsdio->tx_queue[queue].lock);
+@@ -1411,20 +1442,20 @@ static void rtw_sdio_8723bs_stop_tx_queue(struct rtw_dev *rtwdev,
+ 	if (rtwsdio->tx_queue_stopped[queue])
+ 		return;
+ 
+-	if (skb_queue_len(&rtwsdio->tx_queue[queue]) < RTW_SDIO_TX_FIFO_HIWATER)
++	if (skb_queue_len(&rtwsdio->tx_queue[queue]) <
++	    rtw_sdio_tx_fifo_hiwater(rtwdev))
+ 		return;
+ 
+ 	rtwsdio->tx_queue_stopped[queue] = true;
+ 	ieee80211_stop_queue(rtwdev->hw, q_map);
+ }
+ 
+-static void rtw_sdio_8723bs_wake_tx_queue(struct rtw_dev *rtwdev,
+-					  enum rtw_tx_queue_type queue,
+-					  u16 q_map)
++static void rtw_sdio_wake_tx_queue(struct rtw_dev *rtwdev,
++				   enum rtw_tx_queue_type queue, u16 q_map)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 
+-	if (!rtw_is_8723bs(rtwdev) || queue >= RTW_TX_QUEUE_BCN)
++	if (!rtw_sdio_tx_queue_limited(rtwdev, queue))
+ 		return;
+ 
+ 	guard(spinlock_irqsave)(&rtwsdio->tx_queue[queue].lock);
+@@ -1432,7 +1463,8 @@ static void rtw_sdio_8723bs_wake_tx_queue(struct rtw_dev *rtwdev,
+ 	if (!rtwsdio->tx_queue_stopped[queue])
+ 		return;
+ 
+-	if (skb_queue_len(&rtwsdio->tx_queue[queue]) > RTW_SDIO_TX_FIFO_LOWATER)
++	if (skb_queue_len(&rtwsdio->tx_queue[queue]) >
++	    rtw_sdio_tx_fifo_lowater(rtwdev))
+ 		return;
+ 
+ 	rtwsdio->tx_queue_stopped[queue] = false;
+@@ -1456,7 +1488,7 @@ static int rtw_sdio_tx_write(struct rtw_dev *rtwdev,
+ 	/* The TX worker may already have freed the skb, so do not touch it. */
+ 	skb_queue_tail(&rtwsdio->tx_queue[queue], skb);
+ 
+-	rtw_sdio_8723bs_stop_tx_queue(rtwdev, queue, q_map);
++	rtw_sdio_stop_tx_queue(rtwdev, queue, q_map);
+ 
+ 	return 0;
+ }
+@@ -1820,6 +1852,7 @@ static int rtw_sdio_process_tx_agg(struct rtw_dev *rtwdev,
+ 	struct sk_buff *skb;
+ 	u8 ac = U8_MAX;
+ 	u32 txaddr;
++	u16 q_map;
+ 	int ret;
+ 
+ 	__skb_queue_head_init(&agg);
+@@ -1895,9 +1928,14 @@ static int rtw_sdio_process_tx_agg(struct rtw_dev *rtwdev,
+ 
+ 	mutex_unlock(&rtwsdio->tx_credit_lock);
+ 
++	/* all frames are of the same AC, and the skbs are consumed below */
++	q_map = skb_get_queue_mapping(skb_peek(&agg));
++
+ 	while ((skb = __skb_dequeue(&agg)))
+ 		rtw_sdio_indicate_tx_status(rtwdev, skb);
+ 
++	rtw_sdio_wake_tx_queue(rtwdev, queue, q_map);
++
+ 	return 0;
+ 
+ err_requeue:
+@@ -1944,7 +1982,7 @@ static int rtw_sdio_process_tx_queue(struct rtw_dev *rtwdev,
+ 
+ 	rtw_sdio_indicate_tx_status(rtwdev, skb);
+ 
+-	rtw_sdio_8723bs_wake_tx_queue(rtwdev, queue, q_map);
++	rtw_sdio_wake_tx_queue(rtwdev, queue, q_map);
+ 
+ 	return 0;
+ }
+@@ -1990,6 +2028,7 @@ static void rtw_sdio_tx_handler(struct work_struct *work)
+ 	struct rtw_sdio *rtwsdio;
+ 	struct rtw_dev *rtwdev;
+ 	int limit, queue, ret;
++	bool resched = false;
+ 
+ 	rtwdev = work_data->rtwdev;
+ 	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+@@ -2010,7 +2049,19 @@ static void rtw_sdio_tx_handler(struct work_struct *work)
+ 			if (skb_queue_empty(&rtwsdio->tx_queue[queue]))
+ 				break;
+ 		}
++
++		/*
++		 * A stopped queue is handed no further frames, so nothing
++		 * else would kick this work item if the chip stayed full for
++		 * the whole loop.
++		 */
++		if (ret == -EBUSY && !rtw_chip_wcpu_8051(rtwdev))
++			resched = true;
  	}
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
++
++	if (resched)
++		queue_delayed_work(rtwsdio->txwq, &work_data->work,
++				   RTW_SDIO_TX_RETRY_DELAY);
+ }
+ 
+ static void rtw_sdio_free_irq(struct rtw_dev *rtwdev,
 -- 
-2.34.1
+2.47.3
 
