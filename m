@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843495;
-	b=vCS9/Qb9rSMukFz8Esp30sdS63Sz07I6GE/Pjum2OhLZhrCn/6bOeK1N+OqdTYFthJiO
-	 oOlYM4DQSrnH476GVCFNpqbfwqQDgWa9Mgdeh7Oa9ErCIVuV7UIMQH11SyXUWCDUgX+F1
-	 y11iv/aMdW2cSYalXP2B6xTPy0DAOnATqROK06F8E60LUR+7Gp35CvPB6RE8cSUB3sVuu
-	 8XvQCqRYughn5HfgKse/yC0Fyfi/xpPENEaZu6UtZBAOlk9xWKsjwITUE0EMxoVr+1JqM
-	 V8Wsxo8zJMexdQroKjruNXrZ7DApJprlh5dnh8lgPOy9tB3Ccl5lMDdl94enAmJzQYg==
+	t=1794843583;
+	b=vfjw6jmC1H3Utx2OdBVSR026ML4rKptCm7NMsshEal9rvOekexQIxJa8H3qeEQTLtdUx
+	 o24YvLe9MLwFVDnfUSwSl8bYT1O6rtR7yka4d7vaM89Bp8Fivc3BF4i1PjXHX6TfnLpa9
+	 grPICWKE5zNczV8NnNodKEpPDwIfaPtGDqejn9ISY1iATWbYRQt6Am3dC6A6iylmPwOo6
+	 /5EMQjhtpFXG4JElTDKNItFqTTM+hgsBnBJ7J//0z9Xa3pVQUTSbbFM8eEvzpLIkkMLyX
+	 0PMx2SY1+mxyz21e+ihtAcTRwDGOs8AvjM7WPczA1e1FXCaaw3gDtvEJ7jjlIoI78lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843495;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8QkY1AswMgCW3uvRS9sHBimGtyREBTePXz0XOhfcgI8=;
-	b=2AMZp28Jscc6oEn7u9xJI7ZzXNXlv/kJ1nVEmxLx8JAOPn61dgFiuVwFPbWNNeRXJMPK
-	 tt42di+FqQvsXRCvpQZbX5k4nkY6jTD65vl+tutbA7ES5XiHFuZYA/5ZI24V/8uLUheWz
-	 wcOSq2lwY9bNBZNOwx+YfgGOn49ceYES7qJbK9TnqEz+6ZPzc0+QxoieOUlRKjfhYl3F2
-	 6pKTTeka+taqub1ZmTpzYbqk5+BrWYElOjGUIBYTphf+VCB28ju2IeQMfQKKC1iwNgDrF
-	 wcQEPpLWP/vhlxVNS7nEGkjIox7XJfjLNNGqICmlzpueMGGN/O2xqWR7mUJE7H1JZKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843583;
+	h=DMARC-Filter:From:To:Cc:In-Reply-To:References:Subject:Message-Id:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=L9+smQvRCi3V8iaGs8P9KusdlduGgV/upfXJ+6epkRY=;
+	b=j5ndQ4XCLw2TrM1Sy5tE7DFBktiLYc0j4t1mra3wBdQW691YCKmQVoqm947pGl3tv33M
+	 X+4mJWnKznzNYlk0LOMepsBehURMP5FrpumEV11r84GF6uGoJfvS6D+D59OMQ1riXwJwX
+	 6XFRWLx8Ol0xrQP9NZ4/IfPoNVFGPq7bn0lxglAt7IAaq2ZUqj4JBg12KCOJRlS3DwVBJ
+	 3X3tpHF3tFpONG0B7xGntUukaD3F9XyenLii8zAtwWNGiNOmaHHdTDCVlFNMZRjnrQq3m
+	 j+NjrYqUORa3qjVRiAQqpwG8uO8bKPrScbnNs6j24FP/j0NnEGA1MEP6SYSCc0vuH1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bB6kz+8o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=toke.dk;
+	spf=pass smtp.mailfrom=toke.dk;
+	arc=none smtp.remote-ip=45.145.95.4
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6584606A323;
-	Mon, 16 Nov 2026 15:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bB6kz+8o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA7701F000C4;
-	Mon, 16 Nov 2026 15:38:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794843495;
-	bh=8QkY1AswMgCW3uvRS9sHBimGtyREBTePXz0XOhfcgI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bB6kz+8oa0cYXQEup1eywQV9GIotHoHhj0TCZxw5Z5uZIvRYwj8u0leZfYPPcrOyU
-	 AzVbMT/Rr8flKtmEum7ALt7bnAbChM96pxXi+w+QRzjPqhE/odtISJItpK6WKsQBjU
-	 QWfVzwSCx44ye/9kP3jQsmM1xUoJWdFiCriSAoKxWtcO/RWMHKpS+Vf97RaZ/J6Acd
-	 DbnWAVl+VyvF3ZmcS+o96CtFg5c/FKngm+uFONmX0wwLQbH1Xq84PfWf2p27FrxaM/
-	 z0XcI9b4jmfU/IF+/+WGju8aCUrngJbnqJo6okt1xbtwKCVLll14DvkCwMV+VWt80k
-	 YV8/m26jD3EUw==
-Date: Mon, 16 Nov 2026 15:38:09 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: Matt Salsamendi <matthewsalsamendi@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] fs/proc/task_mmu: fix stale walk_end after a completed
- scan
-Message-ID: <avsjPSUup6pnsZrR@gremlin>
-References: <CAMPWk9NE_epOdOCbs1PGh8OQP4wjTObvjU-1Wopmu7SSNAMXhw@mail.gmail.com>
- <20261112203351.7d5bf7d0f78d652d@chrisdown.name>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3F9606A329;
+	Mon, 16 Nov 2026 15:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F3F9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Luka Gejak <luka.gejak@linux.dev>, 
+ Johannes Berg <johannes@sipsolutions.net>, linux-wireless@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
+In-Reply-To: <20261026152537.1272836-1-mehmet.fide@gmail.com>
+References: <20261026152537.1272836-1-mehmet.fide@gmail.com>
+Subject: Re: [PATCH ath-current] wifi: ath9k_htc: clear csa_vif when a
+ switch is aborted
+Message-Id: <179484352190.153361.15210584021908832487.b4-ty@b4>
+Date: Mon, 16 Nov 2026 16:38:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,68 +51,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112203351.7d5bf7d0f78d652d@chrisdown.name>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=298; i=toke@toke.dk;
+ h=from:subject:message-id; bh=ntKfxr+T5nVeCTzN/Mj9ZPACsCrnf7z/4L69I/6dfOc=;
+ b=owEBbQGS/pANAwAIAUNeEGz1+utPAcsmYgBq+yOU3Yb9V8kaRsKfnpo55XL64hPrddB5yMPGm
+ AMm/iZgRFCJATMEAAEIAB0WIQQQshMTMFJycn1q0JtDXhBs9frrTwUCavsjlAAKCRBDXhBs9frr
+ T1XjB/4924XER4zq57LFmWZhSNpFENckNjwShw/NRCE+I03BdQQbt4xzq3tZYs3QcgvNOzjWDxH
+ AZMhKlBrez4gDJwpT9KOeONwZzAbbFANsaGDHPjv83JyE8ruwjOdDn8D0upkFO7M/SOtB4ugqnY
+ OooxBF0q0midApatUtc2u4ChRVYYLOdFqA1KTNrGCXKDILORiBoRozUFASy0G3ZbM+4NuvTLI06
+ fafAh5TCyQQYvSNmesCeEHGM8aefDsbzmQeTjMyjw/PkVZbQlAS54lVVqDQ693a67Ts3mPdMgVy
+ 5r0pkxWFvLZBf8ZDDrVWbPEp2XTo8h0w/cxj+qrL2VQfDDNF
+X-Developer-Key: i=toke@toke.dk; a=openpgp;
+ fpr=DE6162B5616BA9C9CAAC03074A55C497F744F705
 
-On Thu, Nov 12, 2026 at 08:33:51PM -0800, Chris Down wrote:
-> Hi Matt,
->
-> This patch doesn't apply as sent, because your mail client mangled it. It
-> wrapped long lines, including the hunk header and the Fixes tag, and took
-> the leading space off the blank context lines. git am rejects it as
-> corrupt.
->
-> Please send the next version with git send-email or b4 send rather than
-> through Gmail, or set your client up as
-> Documentation/process/email-clients.rst describes. It's worth sending it to
-> yourself first and checking that git am takes it.
->
-> Matt Salsamendi writes:
-> > +	/* A completed walk may follow an earlier full bounce buffer. */
-> > +	if (!ret || !p.arg.walk_end)
-> > +		p.arg.walk_end = p.arg.end;
->
-> While this fixes the refill case, ret being 0 doesn't always mean the walk
-> got to the end of the range. pagemap_scan_hugetlb_entry() can't
-> write-protect only part of a huge page. So with PM_SCAN_WP_MATCHING, when
-> only part of a written huge page fits in what's left of max_pages, it backs
-> that page out. It sets walk_end to the start of the page and returns 0 on
-> purpose.
->
-> Before this patch, the caller got walk_end pointing at that page. With it,
-> walk_end comes back as end, so the caller is told the whole range was
-> scanned. But the page was neither returned nor write-protected. From a
-> quick test with a single written 2M hugetlb page, PM_SCAN_WP_MATCHING and
-> max_pages = 1, the ioctl returns 0 with walk_end at the start of the page
-> before this patch, and at the end of the range with it.
->
-> Maybe it would be simpler to clear walk_end before each walk_page_range()
-> call, and keep the existing check after the loop as it is? Then that check
-> only sees what the last walk set. In the same quick test, that fixes the
-> refill case too, and the hugetlb case behaves as it did before. It would be
-> good for the selftest Andrew asked for to cover the hugetlb case as well.
->
-> Thanks!
->
-> Chris
+On Mon, 26 Oct 2026 16:25:37 +0100, Mehmet Fide wrote:
+> wifi: ath9k_htc: clear csa_vif when a switch is aborted
 
-Following on from Chris's comments, I think something like this should work
-OK? It's also nicely simple :>) And obviously avoids the hugetlb stuff.
+Applied to toke/ath9k-pending.git (main), thanks!
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 22361607020d..1b87cc635a34 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -3160,6 +3160,7 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
- 			mmu_notifier_invalidate_range_start(&range);
- 		}
+[1/1] wifi: ath9k_htc: clear csa_vif when a switch is aborted
+      commit: f915ef9291f590deba4b9baf85a5f5a602061b4a
 
-+		p.arg.walk_end = 0; /* Reset partial walks. */
- 		ret = walk_page_range(mm, walk_start, p.arg.end,
- 				      &pagemap_scan_ops, &p);
+-Toke
 
-
-
---
-Cheers, Lorenzo
