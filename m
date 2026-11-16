@@ -1,78 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838811;
-	b=0G7Aztp0errgJJskOfAEmOZ4ZAA9ZmXtLVqukTBe6gWy1yZbSjIQZHhJgdZl9DeUnLeT
-	 VVuP3mko2ha7OB/gsL7MipacWatJbNma6pF0iFmP9Rww/zTGdoRw6YSMWc9z64yFiMPXn
-	 8tFeHTgmbu6czHhSZ2ooDhnV8X/xP92U6DHbwoy1/CiF1QcEZl206ejSa+3kxDUhkePhd
-	 RvWnolKNpDIkAO5kwUU9P0FsycgmrhNMiDK/Bn3CuJFJvAUyImNvAA1I4qntyJ6iGAItz
-	 LUax4FYzd1eQDDFWPYx2Zl8BekFdzwnHVu4E3m8kbVw5U4lfLyAKT0UIWhcR+UW4/Dg==
+	t=1794838863;
+	b=IbCNaqdJOU07zbAZb8Opk3vFkA5dVe5zC8MFLIaGQFMmyJO3XVO4Q8NvB+jKKZNUiaVr
+	 ET2GUnnbfgaAFGHcCmLZXjO/JKXcJRCigWpYmZIWtMEFBC2Q/ki/J3hLvGz9uDtObGLB0
+	 GIWnhLOCAaFyDxhiGxwwz/ZQIVRtCxmIaVObG1AAM+5eI58snhy0xeaVpZ+uCToBJPPa8
+	 a9tQjUl93kQSHsNyxsx7+vGtAp0s6Oku6p4z8D2Nu+khQjVYz6O/eBhg/uzrB04BambFl
+	 TlBuY4UEkit4lvK8rtMMrk6GWTb/1tLa/DSY3p9+02mvgV/0+KRsaBXOebwEDXKFNrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838811;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=ZPnF7AXJqqhQH9EkBttMT76JzK8rqfInXWI5291QWiY=;
-	b=vIPmyoYjTZTbqZ6jHJQFm7IY4vTtigT1pbbRYpT87tYaZMVYFkPBPuzd+Ey4MP8mq+GJ
-	 qlD05C/b8OPSqXP7Qc+McsvTYtolhauktRWq0UVYSYhbiY30CHCmCCcws7XOaa4FwHF4I
-	 K0vWZPe8ti0wGa1gEfE2nRuw12eTLhE/oCS8+PTbRIj1Vs/2oGZZvBSISEt9jW1CuMSvN
-	 Ppx54QVWMABQUMXLAYf0wgi8XzLXE6IcEZwxoUW4uc4jFV8qOgoPQV2sHyH/edqxs3aA2
-	 l4YIYc1yDGMHFCxmIau3FBImudpfgI9VMj9yBVty/tEdlBFl0teR+Rj4ghasAhYcVOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838863;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=p0MCEiScXA3/AegZMZrPbSW4djcYCJen36hSgSOSxr8=;
+	b=X7+eyVHJ7Qzo7PbJm3hhjsd5LcQf6N7iF1wN27Am2zkPoU+mXJMgaS8GXnxVOoZPVu1j
+	 NpGtI2idzwwFX0X4zqkfq3RyUiy4Zi+obksfaofHS49EVkoKj1g90aic73QYnar2CFqXm
+	 pFgQ/YmqW7xiF2wgME6Ves3JRd0oMPB5GNUOq/pEax6hXVa9nJLP8/NjbwLPGisKvXcIN
+	 97bYhK12AeKGWqHcyirSNbQ+th3B+njMCSYvfzPwXea0tWSXdwtzqN5rJ5dTIHp0d2zFO
+	 w9SQ4/WbkdBH5AtpbGMckTLG1/nMX8GaqEIKeAHK/ziGfKDGfXRZGV4AuWmKyEWMPBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MRPME3eZ;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrMNwZMp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E8E606A329;
-	Mon, 16 Nov 2026 14:20:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E8E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBDE606A329;
+	Mon, 16 Nov 2026 14:21:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MRPME3eZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794838810; x=1826374810;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bDcsy2RPjNi+n7ijKnyp08tkF7Mr2ciXEhvTTatXinw=;
-  b=MRPME3eZiX3gJPtnIO6vGSS/5pS1kRuQ1E8XZrN77d0BJFFKzYMBbxYF
-   thg7QPyl2doaMJgPxy2dLzsfr9iewL30p2laqozdFmYSk2O+/Bkl0YIDu
-   mQ/nqmDQ2YitBur7sZl6C6jGej0wJ35kHjNmepwOcspcdQBWIlPwwiicu
-   eExHWNAud/swm/8wt91AabWnvDZsiUFCSiXqBAA6ofAL4/d7l5budouXq
-   TBtG/JEJlkRllNlgDaY2/fGCn51KhtTkD8Y0fj/cXGWeuzFo6QHdO3Rmd
-   WimkjeyDzEkoFRo7kvAvv68lKXa4HdrkVVcvr3MLEYyC4DTAlHNzYaCfV
-   A==;
-X-CSE-ConnectionGUID: dwj5e5TIRXSzbJet8WqMyA==
-X-CSE-MsgGUID: jhg3YKIbRXWUBW8vq8MPsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3611249"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3611249"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:20:09 -0800
-X-CSE-ConnectionGUID: ON7eFZe5QFeg9R62tTKoEA==
-X-CSE-MsgGUID: cEwgaYxaQGmvBCzhcXi0fg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9554452"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:20:07 -0800
-Date: Mon, 16 Nov 2026 16:20:04 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] media: atomisp: Remove unused any_virq_signal()
-Message-ID: <avsRFGZYgz7KYcHD@ashevche-desk.local>
-References: <20261116120703.6681-1-chaulagainavishek14@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrMNwZMp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64E1A1F000C4;
+	Mon, 16 Nov 2026 14:21:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794838863;
+	bh=p0MCEiScXA3/AegZMZrPbSW4djcYCJen36hSgSOSxr8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=lrMNwZMpVLaC2BtfAP4b7LZ6QFc4IZAk8smXnST30fiArFsHMpDO8pHkIB6Cr8ys+
+	 ee+JRnmqA68sVX265zPLaNHnOzcJcKLeRl4boeqkIBPd85eN10aGzC0MJ8/2iRTaPX
+	 C4js2OW0HI4bnxI5yEVoRrrSVD0MczuQ7+8+Ai3AUOVruZhi0h6yiLoBUlpAnHrgPX
+	 XjK/UDNqOIoRJDvbfzRZ9VG2IFMtNBWl0HmfcnKl7yIiBlpo873jNkEGXJhENBI0CR
+	 gS+aiwQEoBnOez7Qp2dCZTZnUqIJu9WGirp6rXpJ171+S+xd5+BuR5lK65ivivJEec
+	 IBwEluMMFSqZA==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, Ilias
+ Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, John Fastabend
+ <john.fastabend@gmail.com>, Pavel Begunkov <asml.silence@gmail.com>, Jens
+ Axboe <axboe@kernel.dk>, Andrii Nakryiko <andrii@kernel.org>, Eduard
+ Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil
+ Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ Mina
+ Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
+ <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
+ Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 02/11] net: Add memory provider capabilities
+In-Reply-To: <20261115131840.55b03578@kernel.org>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-3-bjorn@kernel.org>
+ <20261115131840.55b03578@kernel.org>
+Date: Mon, 16 Nov 2026 15:20:59 +0100
+Message-ID: <871p8khn78.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,28 +81,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116120703.6681-1-chaulagainavishek14@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 12:06:56PM +0000, Avishek Chaulagain wrote:
-> any_virq_signal() has no callers anywhere in the tree. Remove the
-> unused function and its declaration.
+Jakub Kicinski <kuba@kernel.org> writes:
 
-...
+> On Tue, 10 Nov 2026 11:20:23 +0100 Bj=C3=B6rn T=C3=B6pel wrote:
+>> diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_=
+pool/memory_provider.h
+>> index bceb5f7740e2..4417e54a0f81 100644
+>> --- a/include/net/page_pool/memory_provider.h
+>> +++ b/include/net/page_pool/memory_provider.h
+>> @@ -19,6 +19,18 @@ struct sk_buff;
+>>   * Per-provider custom logic must be delegated to memory_provider_ops r=
+ather
+>>   * than handled directly in page_pool core code.
+>>   */
+>> +
+>> +/**
+>> + * enum mp_caps - memory provider capabilities
+>> + * @MP_CAP_READABLE: The CPU can access provider memory. It may back he=
+ader
+>> + *	page pools, and XDP programs may run on it.
+>
+> Being readable is the normal state for memory.
+> We should be marking mps as unreadable, not as readable?
 
->  
->   \return any(VIRQ.channel[irq_ID] != 0)
->   */
+Fair, I'll flip it. devmem and io_uring zcrx mark themselves unreadable.
+The same goes for the other two caps; page memory can be split and kept,
+so AF_XDP marks that its buffers can't be.
 
-Do we still need a comment?
+>> @@ -1070,6 +1095,9 @@ netmem_ref page_pool_alloc_frag_netmem(struct page=
+_pool *pool,
+>>  	unsigned int max_size =3D PAGE_SIZE << pool->p.order;
+>>  	netmem_ref netmem =3D pool->frag_page;
+>>=20=20
+>> +	if (static_branch_unlikely(&page_pool_mem_providers) &&
+>> +	    WARN_ON_ONCE(!page_pool_supports_frag(pool)))
+>> +		return 0;
+>
+> Shouldn't we return a full page if we can't frag?
+> Fragmentation breaks up a page into smaller units,
+> it should be legal to simply return a full page if
+> fragmentation is not supported for the provider.
 
-> -bool any_virq_signal(void);
-
--- 
-With Best Regards,
-Andy Shevchenko
+Yeah, make sense. I'll return the whole buffer at offset 0, instead of
+the WARN Stan and I settled on, and page_pool_alloc_netmem() reports the
+chunk size for callers that need it for truesize.
 
 
+Bj=C3=B6rn
