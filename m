@@ -1,47 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794860223;
-	b=nbnHkf8vpA8JH0broo7TlLhR+xOkwx2GEdibcQ89GiRN92Vmreonm2xY+6udeHRdpRr2
-	 aHc/fVU1Vbn1FwVQSSL4XcHQW2Dn7F48AOlFdFC58XpuOwphQkiDAViDZ+TJHV52/FHeb
-	 GeDpWMmQkcjpPzw4BYz/G/52ZJpX10VX1dLEfyj24aet6Pu7OGWFyot/qQlDq4CLZfOxi
-	 G2LRTnPufeVSvU5WHp83bGVir/9F47FrolcQJI/4VK9ti8uKlR73hri++1sp9CgLevXjn
-	 TRVCp8nUYMZCBczjMa0eCRzJgFSkZTW4+eXR7cid1zCC4ENk8NSnweuiLzYlnp24zOA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794860223;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bKzzzSpBOaonU826sARfDAiFw4R3omUJQM2ebnYyTcA=;
-	b=2w2Q7ucH5N7NrmYL2xiFuuAvoKeWdgmj+YtVvWv0u2+zW6jiKHrI4ue0uxbSd/+w0zTn
-	 OytTxfFPBsqKXudzOBvHGMiSI4551Ue03Sw0+wr2t2ctar38IRC+u2vnWG8MCDMCKYSk0
-	 IpOm/NWlwsw4GCSkMMdUwK0g6G0NejoROg126azWmw7uu3sc0LTNrGDO9S3dHJaWmIiV6
-	 zuDSxfrfjYls05yWIzxs6xAks9sdkkzabFV38rbCZqrwy88BhlUNNnUN7Ko9CQhjy8vf/
-	 8ix4VaR9C8hWrBuQzR1SkjNdkdRj30XrCy7bo6ATHx/OCvj4dJOBNHiHrYHcrdBiSpw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItU7TeQa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794860270;
+	b=MQvJKWFvrag5bIf3hRwJLye1jQlQ+V0B8m81FczMIWwGLvG3+upJ6S4r4Qxwo23XBHOP
+	 m+4VmCViSFmVd+laFYJ6XMJK6ulbyzusvE0UpOrxB8r3rImB3543EWGSEIytAuCHHINdJ
+	 Ec1vSZ3i33FePza0sbo7I6VDmjHLjor4Z/LWMuVrx4LiraLDP0mFkmNjrx6ktjmwGCn9p
+	 T4LjPw+SeA5sP7DtrV0IIicAlIkntUMigpQk51+b+YSIXpqWlu++qhjAXpIBkXGB17jUD
+	 0OWWn/lAPOjCPyEPgFOA8kwvk9LTYSqiqe1NtAL2K8fUKJwGIN21qA5riPuqHzOQPHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860270;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5MqbVMOiMCU+LWBOH0E/NzA7j++eBkdaleGA0KaG0xs=;
+	b=PEpkdA8pVPk5Sy4h2/dyBnSPES/7qCQFQc7C6DfeULe4JIEcBFhB5FliWwmxA54Ne29P
+	 DQ6cF1rY76h7LFFA9ZIhAgONfogc0HzGBfGTEQPBX6AUajDofp1WlD5FBCahCw9/b6Uit
+	 2javtgko0xTSzCxGYd926yvUYfousk0aGWKEyBunmDMSeqG3OjrlimX2vbchcuSd/N0pY
+	 fJnlqXb3pSu3HziS56N2KvZPbQV2vULObGx8scMBGfUccch51il364FV8wMsNtJa0CVuI
+	 jMPGLjucc60Vja+/x3OxiEAcMkwDfWiFgmEuDdonwq9OJk6a9uJNGcRAv+Ar3a5ck0Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PnVLDt9L;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.16
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013016.outbound.protection.outlook.com [40.107.159.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87187606A31C;
-	Mon, 16 Nov 2026 20:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A989A606A336;
+	Mon, 16 Nov 2026 20:17:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A989A606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItU7TeQa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89F631F000C5;
-	Mon, 16 Nov 2026 20:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794860223;
-	bh=bKzzzSpBOaonU826sARfDAiFw4R3omUJQM2ebnYyTcA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ItU7TeQai/+BclW1EU5PAUfzqEk6kWfCZ7ASDuNsu2JYjtmngJxaHrhyvN8sM7Et+
-	 j5moSLArwbw6kg8SHUQd2XgGhkfhaugo+URtLWL4KRZs1ekwG4oSZgnaO+lQXKcrXz
-	 cBui06n56DU1FOwISRi0be2gp8TQiBxJCNALY3VmaNhxOmIg5C7ZJlmCNj/T2fX0JP
-	 GqbLTDxJP5qoqUlbrDewG3W4XgLWIc8posALz4Qwrni4AXv+rFL/LvijdI7xVFBVjZ
-	 SBFR4Srme2YbACrF1idrOzrbm8NhExSVlzMUG8lyRZoYUFLntPc6cwBaVXX3CXB29n
-	 1tdHE12H9/lEA==
-Message-ID: <cc865bc8-b96f-4385-97b1-976de4465ca1@kernel.org>
-Date: Mon, 16 Nov 2026 21:16:50 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PnVLDt9L
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jcaqL9vDtjbPu9ysZYEv/tvUiXm1CG4W+h18iALNJubYN2NY10qwwkQmW/CGL94WWdOrAXt2D1ayjpKV36rxlEEY8SBmJkLhnhQTF5uC9um3AXUsdWQAI72s4vE/iaBL+xtm7IrQnUglZd6RegRuXq1o+z1G/dkYi9F4idbLm8XPn1Jcjd7wSZ34xlUdp4T46CrdROxNuNNULjyDDuYiJbLsqCE+AesetQmKGNZbBhX5FhXb5Z0L4mBySxBc78NHaDlkFRhPd6FhZQtN8pyMxsSSoZHnYdaWAGGWPqNzvMiMJwTmMP2EjMhHi5PGhMrFcRfSWwirnYftpitjiMouJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5MqbVMOiMCU+LWBOH0E/NzA7j++eBkdaleGA0KaG0xs=;
+ b=UH6jf1vmQ9BpDyCOJ+TsfFJH3UnAqK+7cVS5NJcV8ieQwunb0p66xARHwv6fVrjfdq62b2/KPhlMkAgFkuWuKVD/VdlSsCqmLRXB+ecHIkOvJKafpEKhzlmFF2f+WP61C5eURp6Qu7/0tE8g0kFGeJS7KMKEMDihRaPkLaFMOM+GfaDMcV02+84Z2uivux/uwR/yHZ7YlSi9DBXzYHKd57IQAyGIDnHq838dpAgrLtN13mFc/yYAYDHgEW7iWuA6BfCCzwlo9+puMPNhNfibjNK3kJRIdWBoqN1z8c/Dm8WdoVvEbq1bIjv/RXxVWJIn8DcFd2ypFJ+jScqImtr7cg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5MqbVMOiMCU+LWBOH0E/NzA7j++eBkdaleGA0KaG0xs=;
+ b=PnVLDt9LU+EaHFvOFIO19Hb0hQXD5uc0zTYw+U8TAos4X8bkefrA8R3gH9HsFDdf6nM83jq3eklFgHITKl0XMi8t9V70yqhdwZpvc6g0TSTG14u2y+XJ2zJgE3d83xzQsjS+yABGEEeJLYPa9hJ1B5MyyynI3bmSEg9tYl5Nyhbp/+mVAlda7Pi3MSdaEHBSJgx2JzQddplNOrZzb/lRQJS9ICMTduevk5QMqPQkE4jQDqWfwq/UJQ8avNtZ4GpHRiOS7iO3gFXgHpEfcTU1bkvjMZ7kOn15keuvNRhjRofZ9rt0d66ocwrPVXtZlE48MZ2mXyS2iguv3vkhE0fRMA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by FRWPR04MB11198.eurprd04.prod.outlook.com (2603:10a6:d10:171::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 20:17:46 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 20:17:45 +0000
+Date: Mon, 16 Nov 2026 14:17:36 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Changyul Lee <lcy8047@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: Free channel and device IDs correctly
+Message-ID: <avtk4Lw1ifG9n_mh@SMW015318>
+References: <20261106005154.1669214-1-lcy8047@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106005154.1669214-1-lcy8047@gmail.com>
+X-ClientProxiedBy: PH0PR07CA0099.namprd07.prod.outlook.com
+ (2603:10b6:510:4::14) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,165 +96,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/9] userfaultfd: use anonymous memory for
- UFFDIO_ZEROPAGE on private file mappings
-To: Tal Zussman <tz2294@columbia.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
- <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|FRWPR04MB11198:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50b03756-5b8c-4fda-fadc-08df441ead4b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|22082099003|18002099003|11063799006|56012099006|10067099003|261026121527099003|261022105027099003|261022075727099003|261028144727099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|261102130727099003|261026140227099003|260925021311599003|260925022911599003|260925021911599003;
+X-Microsoft-Antispam-Message-Info:
+	0GFV1hSfVE6nonD8Zf0zZDBZ06lxGe2Vdids36E4O0LDTaH6vZ4MKGvcnJ7cXudARVxJ5TPC4svGN547GQlhyrw/MlFXVndLO2y1Fz0J6MljS5omxCGLOrq36CtqsHeFtdgLCEanSfE2GNBD0GGA29WBRaLuUQJo8zNuJlGgxWsBpADBJJ5UOU0oUzhJw5GNA8exay8TU3upXBcGPYIaT+dUfNEzxdevNum8rCZg0WlvHjVrf+IcDpRZ6oPUTFITHgQ0wcCLLZr2R7C0KibjN6xAKDK5vM8DS9Gf7xYg/3Zk3J5VwSDKN3ZIhgX8ynPj09HP+BDf8YDxyiWdj/m7J1HgCruqU6CkRvhSXq0IDUJA3LYydVfb3WFcFWUnEXIm11H8a6sHGh7xfac0cPioFrefmOea/zjr3iJMv8guRmkyIcBsAAsaSjomklHTqGg/SmeYyGEKJvlc21rKXi7ihRcp6R4Hj5w8TmwCq72VFN1mAgdqVupDJN7SCtBesafFI5BiKdSbAqJQDPkDEqSgm8JtngTt5ZBA5cmPvG1GUH+QBRPX8I6EtLHpbqiKhikleD7OQd0BjWoc04tOsWNAyM2Mfd3OM6T7r4B1Yx8kqQnlbubDXonuI9LOupmia499yqXpy+RGIucT+PalHiibJ+Yr6GR7k2RFlOtbHL3vhTc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(261026121527099003)(261022105027099003)(261022075727099003)(261028144727099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(261102130727099003)(261026140227099003)(260925021311599003)(260925022911599003)(260925021911599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0wnZ3LA+lgXhQG6qDeiE0f2FkqAMMI8WvA1CUr05uN7KtLnklJVvZYBMZtHN?=
+ =?us-ascii?Q?GmpdaCqFwFKdCHEBEElUGWvtyeIxj6d2zK5wJ3kIowxdDdUSyL9LehoimGTf?=
+ =?us-ascii?Q?gheQFiRRD/6i+9V8gjd3y7YBDJYPkiRrY6Y7j5e+tTLdtnh8lyS2Or921XBA?=
+ =?us-ascii?Q?dXM51upAgeiTCmJ/OMdgjEN3O3uJi9oYuvLtpZ/bi7/afEXrp2SRMvwiShZK?=
+ =?us-ascii?Q?H5gDkSqLUfMq01aj1qxWaFF26kyMEf0NRAn2a42mGRK6JqSd53OJUG+FyVJe?=
+ =?us-ascii?Q?VFvRlimPf4i7kRPAV7+qvePMm0xqe4rozsFNASO8Zt7t5qIR7xW3ULrSyIcr?=
+ =?us-ascii?Q?5j7qtBucx5gp+6aerBA+PDnSVl+OQ/w5NQUP/jhJJSYHxkbG+setgkWugwTu?=
+ =?us-ascii?Q?/FvAKfMIvVhGHZhVXOMc2zCz0ilzxI2yG4Qds3TmpD8zD5CVywMJlX1COcE5?=
+ =?us-ascii?Q?E7XYpJi9QRQwqy2TK3GDNdaJwAj/AlAKDzp3bhuN5iCpsJy6BF0adYX6qBLl?=
+ =?us-ascii?Q?WDFUb5NpvZipr2EONSilyMjqFm6W3YRJUq+qlLzwNAhxWBuohBDzOj4IN9sG?=
+ =?us-ascii?Q?85TjIhpF9IorDpU7/WGSj/fdAQ9gRvC1WWFW6JdACGmxtHKYfcOVeo9zHtRn?=
+ =?us-ascii?Q?ldcVbJIq/bwCPUD5uRlkwrlv9n6h8GRJaQBoNrqWH75Sqcbou9SD+Tw9PGvX?=
+ =?us-ascii?Q?dFHeFQYN+d0ZL1y/hBOhCC+T4yty7qQYWIHkcgCd2r30fVUKLAAmnmuHrYqd?=
+ =?us-ascii?Q?d6uxE5a3eeBsng5P/5UcJ7W14pIrVEHuDEq6H0COkd2OdCPdSt3ZSWA6+h2R?=
+ =?us-ascii?Q?hLwEooeZOuGr6YjrexmT04+FLiCgC5QauTZ5yC8dbgWx18SvcYbW4ey2QsUZ?=
+ =?us-ascii?Q?onky6awZMR6QNK1y+XqEXQ8205nEJjmkXnRO3NhU6vAGCfMotuxlP9U0r3+x?=
+ =?us-ascii?Q?O6Y3beRu8PZPiHRidPUfxIjdkDAF2JcAEMT89j1s1P9dUhY/YoLH9VeSxk9R?=
+ =?us-ascii?Q?QrsjuYrLGjzL0Qglif+8w9lNTdDiTOK4p1h+N79dGm9mo9S9vvIAC5KVF2SX?=
+ =?us-ascii?Q?t0BKm0PqrxsvFz8VUa0iKSeyZw9psvfiaelMqsge5T02PrFs3V61mnImFqWw?=
+ =?us-ascii?Q?OOEPVZudWk7wgDJ4ENQwVrqYicrB8DKlmiQqAQYnNkt+D9bQsk6orztdoWA5?=
+ =?us-ascii?Q?ugalryWNM53Y3Nm6tQm48R70XCMbnfjiieMwOa6WsiWWZW6tkPmJfvgTK9Sq?=
+ =?us-ascii?Q?D0o+ReC/yCCRr3JtScCobBWdDweGubiSC+Rsc6jNEmCTq4Dlq3LttgnLcK70?=
+ =?us-ascii?Q?JnJfVfc60Isi6hnADViwU45XmMWAxAgxeotWrAp50IYw3idsQzjd3l9nrjzA?=
+ =?us-ascii?Q?w1Qd3Qxcda9UtOizu6vtdCgZTd1iaRK3GZWjNZnuNYWFjH4umHyvR69zAV4o?=
+ =?us-ascii?Q?RZI2xrEL9nksK1ddeyDh2LnbCJD3cjKjlDmBikjT2dBKt4YwpAn4GRD7iob4?=
+ =?us-ascii?Q?riWvqX19m6gMN3rG00/i9DqMFG07FQc4MWxI8to2aCQtBE5xRZBRPq6ce/+3?=
+ =?us-ascii?Q?oYr5RoaxrDB648r78JWc6yE/HSg+BtiCUo1o4/57UDAE/UPtgmegbpqB2lGp?=
+ =?us-ascii?Q?kC7b8ICY65Pg5qzBS0jdoNshFu/yzCe99g2wqxaz5PoDozE7uMauiPXG8W8/?=
+ =?us-ascii?Q?9sGbh2pW9n6ZTMRO46LuCyrHvUuoGAg51p+q204IRovewMGIsGGUNQ0VCMlH?=
+ =?us-ascii?Q?vMSDF2MC4X4cwCkwlux305zbfw92U9IFH1lTUl27oR/3SaSDx5wP?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50b03756-5b8c-4fda-fadc-08df441ead4b
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:17:45.9075
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aJCVGiBAc0n5q0GJ4KwDRnwqe9yY3Pso2wZQnxiwvWUXgVCPQEnr/PWFPBBUZugGcq3PMQeWi6dOML5BhfKCNt0eY5apQHPy8H8inLdUE1rpuNpqDV/7zI+JbsdI89wO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11198
 
-On 11/16/26 21:02, Tal Zussman wrote:
-> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
-> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
-> installs it through vma_uffd_ops(), no matter what kind of mapping it
-> is. An s390 KVM guest with storage keys or protected virtualization is
-> such an mm.
-> 
-> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
-> cache of the file. That is wrong: a private mapping must never modify
-> the file it maps, and the file might even be mapped from a read-only fd.
-> 
-> The ioctl can also fail where it should succeed. A missing fault is only
-> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
-> an address that did not fault, or can race with a write to the file. If
-> the file has a page at that offset by then, inserting the zeroed folio
-> fails and the ioctl returns -EEXIST although nothing is mapped at the
-> destination address.
-> 
-> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
-> shared zero page can be used, and what UFFDIO_COPY does: only check that
-> nothing is mapped at the destination address, map zeroed memory there,
-> and leave the page cache alone. The zeroed folio path did that before it
-> was moved to vm_uffd_ops.
-> 
-> To fix it, pick the ops in the common folio path, as
-> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
-> mapping, the ops of the VMA otherwise. That makes
-> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
-> so remove them and rename __mfill_atomic_pte() to
-> mfill_atomic_pte_folio().
-> 
-> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
-> if something is already mapped at the destination address.
-> 
-> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
-> Cc: stable@vger.kernel.org
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+On Thu, Nov 05, 2026 at 07:51:54PM -0500, Changyul Lee wrote:
+> [You don't often get email from lcy8047@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Commit 0821009445a8 ("dmaengine: fix channel index enumeration") added
+> device->chan_ida and moved freeing device->dev_id from chan_dev_release()
+> to dma_async_device_unregister(). Since then, two paths handle these IDs
+> incorrectly.
+>
+> __dma_async_device_channel_unregister() frees chan->chan_id before
+> device_unregister() removes the channel's sysfs entry. A channel
+> registered on the same device in that window can get the same ID, and
+> its device_register() fails:
+>
+>   sysfs: cannot create duplicate filename '/devices/platform/...
+>   kobject: kobject_add_internal failed for dma0chan0 with -EEXIST, ...
+>
+> idxd can hit this when one wq is unbound while another wq of the same
+> device is bound, because it holds only the per-wq lock.
+>
+> When dma_async_device_register() fails after registering at least one
+> channel, its err_out path unregisters the channel devices but frees
+> neither the channel IDs nor device->dev_id. The next DMA device then
+> gets the next "dma<N>" number, skipping the leaked one.
+>
+> In __dma_async_device_channel_unregister(), free chan_id after
+> device_unregister(). In the err_out path, add the missing frees: each
+> chan_id after device_unregister(), and dev_id after the loop.
+>
+> Fixes: 0821009445a8 ("dmaengine: fix channel index enumeration")
+> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 > ---
->  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
->  1 file changed, 16 insertions(+), 30 deletions(-)
-> 
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index d65184d9a480..61a712e1f9f5 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
->  	return 0;
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>
+> Notes:
+>     Found with a static analysis tool we are developing.
+>
+>     Tested in QEMU (x86_64) with two test modules:
+>
+>     - Unregister one channel and register another on the same dma_device
+>       from a second thread. A class_interface remove_dev() callback on the
+>       dma class starts the second thread while device_del() of the first
+>       channel is in progress, to make the window deterministic. Without
+>       this patch the new channel gets ID 0 and fails with -EEXIST. With it,
+>       the new channel gets ID 1 and is registered.
+>
+>     - Register a dma_device whose second channel fails to register (both
+>       channels request the same static channel ID). Without this patch
+>       chan_ida is not empty afterwards and the next dma_device gets dev_id
+>       1. With it, chan_ida is empty and dev_id 0 is reused.
+>
+>     Not tested on idxd hardware.
+>
+>  drivers/dma/dmaengine.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+> index 34be53487a21..6f9dcc735af5 100644
+> --- a/drivers/dma/dmaengine.c
+> +++ b/drivers/dma/dmaengine.c
+> @@ -1171,8 +1171,8 @@ static void __dma_async_device_channel_unregister(struct dma_device *device,
+>         device->chancnt--;
+>         chan->chan_dev->chan = NULL;
+>         mutex_unlock(&dma_list_mutex);
+> -       ida_free(&device->chan_ida, chan->chan_id);
+>         device_unregister(dmaengine_chan_dev(chan));
+> +       ida_free(&device->chan_ida, chan->chan_id);
+>         free_percpu(chan->local);
 >  }
->  
-> -static int __mfill_atomic_pte(struct mfill_state *state,
-> -			      const struct vm_uffd_ops *ops)
-> +static int mfill_atomic_pte_folio(struct mfill_state *state)
->  {
-> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
->  	unsigned long dst_addr = state->dst_addr;
->  	unsigned long src_addr = state->src_addr;
->  	uffd_flags_t flags = state->flags;
->  	struct folio *folio;
->  	int ret;
->  
-> +	/*
-> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
-> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
-> +	 * COW it right away. The result generates plain anonymous memory.
-> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
-> +	 * generate anonymous memory directly without actually filling the
-> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
-> +	 * the pagetable (to verify it's still none) and not in the page cache.
-> +	 */
-> +	if (!(state->vma->vm_flags & VM_SHARED))
-> +		ops = &anon_uffd_ops;
-
-Oh, but one comment: why not check for actual cow mappings?
-
-	vma_is_cow_mapping()
-
-is your friend :)
-
--- 
-Cheers,
-
-David
+>
+> @@ -1307,8 +1307,10 @@ int dma_async_device_register(struct dma_device *device)
+>                 chan->chan_dev->chan = NULL;
+>                 mutex_unlock(&dma_list_mutex);
+>                 device_unregister(dmaengine_chan_dev(chan));
+> +               ida_free(&device->chan_ida, chan->chan_id);
+>                 free_percpu(chan->local);
+>         }
+> +       ida_free(&dma_ida, device->dev_id);
+>         return rc;
+>  }
+>  EXPORT_SYMBOL(dma_async_device_register);
+>
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> --
+> 2.43.0
+>
