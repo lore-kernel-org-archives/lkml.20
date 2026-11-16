@@ -1,67 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819365;
-	b=vXd8cZ15e3jR78ejwWDxvm4O5wuilDbIfFI+DHnUAiXeGAAcYNrRIadgEegDSfoOQxN9
-	 5MeywZCwMmuf9SAdz+sCYSCKRTCCeho09pVtduv6+55h8PTrtv95rXu2KTLJLdAzl5GPd
-	 oEnAEx8CwmlPznUC+jWNpXxBWbwclIwn6HwP0ib6yBk0iAQQDuOLrtIRI5FX25tGnNCuL
-	 ZmBhy+hipCWz2i3LzMecMWCRGpF9zHeiUQDH17p7zyPR9lKqB7Vz/7uz59vffnOPMJf/X
-	 CtYs/gnlvWq0oSEhVKiSfvQ739hQD6ILiZu5EWaE2qz+I6pycz7T5YBd9c2AqUv9OqA==
+	t=1794819376;
+	b=KsgwHBS7NAPZ+iEbyw1lJ4BgwzRyHbN98xlSpPSL4gvz8l9cadg/1kK1y/Ze7GnSrZVJ
+	 0CX+M8kRUzcKZ3K5LSmESNfOgnnB44LeQNiLi3bFPobbw/aFoCtQgrjhFL+Ew3xYL/NpM
+	 vt6eRgOykchUmAJxb0c7Vu/SHg3M5ujqWgy4eulswNC7yx/Qya11sRDAFvr3X7ivot5tX
+	 9p41EEPAzUS/n+h/7tkzRTsbdjgkPXtYO2IRkpJZ3bFGZwSM2+uJpvliBW445kprer+Sz
+	 H1ANVNjFW4Zytp5PjA+cEnzKloh/5G3Uh6JYfqsk9ZgLqRMiCoLXa4pczzfSH4GUxtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819365;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R32gEKrW706ZiyVdTAS8NJ1wU1G9YlflcPvlSWnKOWM=;
-	b=bXRIe2x24MC5OWXsmvJMay0Wzi6fS9wMkXbrTxobTxBEbY6WSQg7DC00XlbFE0SqVCcH
-	 1Lcb54Kflgn2/FWLeQKxMueXCWrlnCbEaJ68cy7Vfy4Jzt+3oEzSTmd3jKxYIFRU9XkEH
-	 adkj3axBEkFSRhbS/otcpei6Dr9ETtYJPTnUA65C67uTLJ4i9wsXUGxkl5U7Di/gqvs3y
-	 DjvRrOwQ6WLwvCmwjecFh7H/qKEl4EpThdB4N+ewSTKzCWMGyvFeJNd49aKE5RupJoBXE
-	 u/edlEP6wT2aAdcoLxRdSxgSistRPf/qzwCsPZ0dnytaRuJDJv93g7bUt0bOkeNJ1rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=m7jLssS4b6/Hj/S1vChj9ooMCseYQvI7tiM2Tbkwxew=;
+	b=bnTV5iVSMDFr0A5YhLLuhHDHA0xuRCtM9XbsmNC/kDPq0JRjj9J4llPhof/EAgb/nHBB
+	 Ucup5spX/qxk7DrCXgKKv1J9yZcTWEpJiRZmdiVcNvfQruSspZfwOFoJcw9/7dOI8/z42
+	 aCXT5z6fDejuu28419SUsLlsfvBWVSr1A8eHBoxwfX/jA1t7nA4J8XrUGvnhMjmO5E9Ud
+	 sfmudp2exCX322ZD/EG3GsEX2HZ7goM76AKvbnhv/M/RQ6E4yXUvJbnVvvaFm6vrAoo4P
+	 ulT9ImGdEPwo4LfQlJnEsp9RMje5wXoZ+osIRKkZwT+FAkTHwXYq2gsD8HJDJHg7Ptw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjqR3QBo;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D60606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74D60606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xSsVK-000000007s4-3RPS;
-	Mon, 16 Nov 2026 08:55:59 +0000
-Date: Mon, 16 Nov 2026 08:55:45 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hermes Wu <hermes.wu@ite.com.tw>,
-	Allen Chen <allen.chen@ite.com.tw>,
-	Pin-yen Lin <treapking@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v8 06/14] drm/bridge: it6505: bail out of the IRQ handler
- when status reads fail
-Message-ID: <179481904177.211952.7029866729856302771@makrotopia.org>
-References: <cover.1790552614.git.daniel@makrotopia.org>
- <2e003c2e6fdb56d03c3a6effdf090079afb2ffaf.1790552614.git.daniel@makrotopia.org>
- <179251509977.78870.3399297204284524303.b4-review@b4>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF07606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FF07606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjqR3QBo
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e47347279so1315577f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:56:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794819374; x=1795424174; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m7jLssS4b6/Hj/S1vChj9ooMCseYQvI7tiM2Tbkwxew=;
+        b=sjqR3QBo6dcQcSs+FIlADbeG//0UI0FrLNL4nEiGdYxFwTSM00vfVExbta/9a/lU49
+         3QkunhhLmlSqQLfuYtHrAYclwNPM9wG00D+Rgcpa4tm9/X0EcNRIqqFwONh5HgZF3eXl
+         ImdZF9Bu6EaH8eTjLLkUpozXh2UOpuLLAErMGBaEzAgMLpRE63YUnP7cNiunxoye/nf3
+         gwscc3ZBB8yNO9/iqgIpFp4uuMG15kRKKVeR0SLryYy3h7vEBZd5LnWz+uOLOka2GYVS
+         wDxb4OVTall9S1tmJGaURwMKS8k1phhYp7l3ZLMVwwS5odSidaIvZN4p05Q3V7t9pZnn
+         Hrkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794819374; x=1795424174;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m7jLssS4b6/Hj/S1vChj9ooMCseYQvI7tiM2Tbkwxew=;
+        b=jhcUBtX2ilfQ6mZk1RpUT5Jcv2zIlo/x1vrFEZnhzVKf96LBzxCnHpf6OViLb8G19P
+         PvncLAcgcD8FvymKCqVRuKdtNpCaRmabSPhsohTjS9pZwfeQlog/VXueK1yZVpg98cnq
+         UmDi46s1SxTiNgKK0HG7akycwTR2VoDoyBzc+nfqbXFOeu4HRzHdNUpcOTUwBHqfWxeN
+         7TtSqrtjlV5MCpUcyuGehy+w3QrdEJ+uXD0ih65V6+PjLRco+o51hX18ytl7rP5MvYiF
+         xpP3AHV0fUi2NRoB9wXnqTGTj36GmswsLQ+nUay7uxn0PqslxdOyfZWGS9gw2corznaO
+         GQCw==
+X-Forwarded-Encrypted: i=1; AL+hErG2Uh5URnXI2Lw2//nq/aeP1HWTeZLp6i6ROzknKpB/smgTwxG7VKdw3By/kZrDCsSdQD1MDhkIQCapzjE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IEfkuB5saYfNITf0hEfmeUa9WAvUhk3RCH3Bf2/aQxrpGZIkL
+	09TbpiDoxvDhZPznDcpetBZd0oRMlDeGCmV3esSajVAZCjAoZhhSCP6b
+X-Gm-Gg: AZFdTZd1egv632yPSQ4bfW8CClqjxxApwk8aUtRuTd/RIxigf1pRXrXBbxhk4EWt8Kc
+	PpqHvcOQZFYINpYc7u6BuCirexhDiGMYdT8c9S6m/VsJFbu3iRzM7Xkbl2b0umbmCoHXCJg+u1g
+	YjIA6OObFEnuhzIGOWPeTvmsT/gjX+Y0bjT74YP0QTYf5q2P1EYVEazp3KngkvlMWoFBDY8gvyS
+	DP4bR9bLClrcjH2ai3HixuxjalXKygW54IjmWGL++b3lbFyP8lUlX71zNX95G4JWxDpLMjLvpir
+	AKld/AAvWvErZWs1RVE/HXsFzyc1Y9QOemBVDTYZQC3wLaUVlVxPBT21NC7hBKNEG7WPKpBSrpN
+	b622NWDdi8CWAbK/RHqGUsgZk0VMVBbSnSvnk6BpJprrMDb944AYt8sWPn9TzENJuRnzfYbA/Yo
+	BzR7pyS4F8+5FHcTEdzkRuDXBZtCbPLae0vWA5ewE/2uAT2KJXlqS4C2ryHzBtdID2uvBndpNo3
+	5FjFot/VwNVYxOOcIGTndGc/yu4kYG69nM/29Ft9prfwZQZs0FaBPXDquumuhgckxVsrD2ybjSb
+	vAy7jaG3wUbKWbs85Oayy9bSVKqlBGVbyqY=
+X-Received: by 2002:a05:6000:220a:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-49c71d49137mr17428762f8f.29.1794819374287;
+        Mon, 16 Nov 2026 00:56:14 -0800 (PST)
+Received: from LAPTOP-AVI.lan ([2a06:c701:474b:1700:1c3:e2b2:8068:e97d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c6451sm22439034f8f.45.2026.11.16.00.56.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 00:56:13 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Chris Down <chris@chrisdown.name>,
+	Petr Mladek <pmladek@suse.com>,
+	John Ogness <john.ogness@linutronix.de>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] printk: Fix skipped entries after index iterator restart
+Date: Mon, 16 Nov 2026 10:56:10 +0200
+Message-ID: <20261116085609.476250-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,43 +99,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179251509977.78870.3399297204284524303.b4-review@b4>
+Content-Transfer-Encoding: 8bit
 
-Hi Luca,
+seq_read_iter() can advance the iterator before the next record
+fits in the read buffer. When iteration resumes, pi_start() calls
+pi_next() at the saved position and advances past the pending printk
+index entry. As a result, index reads can silently omit formats.
 
-On Tue, Oct 20, 2026 at 06:51:39PM +0200, Luca Ceresoli wrote:
-> One first question it whether a read failure is realistic or not, and
-> whether you have experienced it on real hardware.
+Return the entry corresponding to the saved position without
+advancing the iterator.
 
-I have not hit it on hardware. It takes a failing i2c transfer, e.g.
-the chip NACKing while held in reset, which can be provoked through
-the force_power_on_off debugfs knob: it6505_poweroff() only calls
-disable_irq_nosync(), so a running handler keeps reading from a chip
-that is being put into reset.
+Fixes: 337015573718 ("printk: Userspace format indexing support")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ kernel/printk/index.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-And hostesly, my interest here is basically getting audio going on
-that Lenovo Ideapad, and for that
+diff --git a/kernel/printk/index.c b/kernel/printk/index.c
+index a6b27526baaf6..642640a36abe1 100644
+--- a/kernel/printk/index.c
++++ b/kernel/printk/index.c
+@@ -59,7 +59,7 @@ static void *pi_start(struct seq_file *s, loff_t *pos)
+ 	if (*pos == 0)
+ 		return SEQ_START_TOKEN;
+ 
+-	return pi_next(s, NULL, pos);
++	return pi_get_entry(s->file->f_inode->i_private, *pos - 1);
+ }
+ 
+ /*
 
-https://lore.kernel.org/all/cover.1784561622.git.daniel@makrotopia.org/
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+-- 
+2.43.0
 
-is sufficient. The 12 other patches are what Sahsiko has been chasing
-me into, and all the complains it had looked valid and legitimate, so
-I took on writing the fixes for that as well.
-
-[...]
-> I would consider replacing all the 3 it6505_read() calls with a single
-> regmap_bulk_read(), making error management cleaner.
->
-> What do you think about this option?
->
-> Perhaps the three it6505_write() below could also become a bulk write.
-
-Makes sense, INT_STATUS_01..03 are contiguous and the driver already
-uses multi-byte transfers elsewhere. I'll switch to a bulk read and
-write in v9.
-
-Cheers
-
-Daniel
