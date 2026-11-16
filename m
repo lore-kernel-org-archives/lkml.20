@@ -1,75 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812293;
-	b=RErzg5LHcbq7s9E/kSsWdZ3XS0XjiC3h2oYVgZG2m6v3/6o7G9GMRORJyDO6Hea+TKnY
-	 I6Er0CfGWx23T16uSe1+66+ymNKCJZPeUVmGTza7IFo4eYtnUr+QuOx1Y+YpUrFAgYaeD
-	 +4gkXTRazDXCwjkA/pGb+2165HuooiV4ebvO3Jzx7UHTWC0+5qhkZmoiBfG7btCZ/xW0q
-	 nJcGPduQc3eft4jWwtv2a/7klcKxKwcb2g+BF1SRnqUV0TU1l7Ow3Jio5Z9Dov+ArbfYO
-	 Q5Wa1VVOe5IsUktStt9MUN+qVPzG6VSKJwRuT7TPOFnrfyB/GYhzrj1m4z323IgTyEg==
+	t=1794812348;
+	b=2skmge5hAmiJicUSjbOQiZ1ZYVz8DpzoT50/V4+44spViDGZTW98AjQvg20VF9Ojaypc
+	 U7+Z8J1HhTDuPYB3ARzn9L/JcmY42SED4I5szfm+libKjInbdj45MoGmT1aXVSTnirH1O
+	 kD9DvrmMCyuyvXMj9k6g9L2rwM9n5X6xYzH3zNZTzAHnKzSi2PtbPU8wIvlr4Wnqc4Fie
+	 02yH4HEbcR2YOoDhE34i0xUiflNwHYoWrMN7v1CYgxWI9AZn1w97KB0sn3iE+zdYBfzmM
+	 BA8orjJgAVOikDexfRp+pawvf+XrRb4iZ7KUCXUvp9IehCx1GxIWqcRt0OFEmHFN9Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812293;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:To:
-	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=t+mbs+keLTTSyK0Feil2CBRManvZhxjbmljm+9Ohq70=;
-	b=KJp5gALOnEHFBzcIYYvHpndDJF2k3Mql1sddcjA31KuWywJG+Fw8/q7mW/jpvROfwbe0
-	 wdIk7HH5I3vZGWPhbNJ30kcrmE+vsFikZXFkjEPiSkjHg3xIvHuPFmj6PikZR7UeJiWE0
-	 vmNImq7P5SqAJZlT801VcJz4/EsBeihKUzR8ejLlXgQSnu/Wh7uvArwSkENSbIhExjaRQ
-	 1s4lAmyGqpxY+og36RQxvqq98R5v7ONLk4Bas+40a2QE3JG6bG8FFUjh8GjGwO5iGFfbK
-	 7VuU3QJZsxA0OsWVWZI9CY/NLsJ9N+rnbBWdt9XvwX0NrlDneWk7nUPEgs9kjo3huWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812348;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=59ZhBS4nNzF0cyplDMsPLPLfy6KtKW19pKytqkrPkmg=;
+	b=qHU5E11q7f5b6MhIT0UxPtLIfebxtEJV6VPnn6YKw7C60lDYHKyD7tsdf520Qm3Fkz2t
+	 SMol+gzdE2xFS7RFXBBn3GBlNZUJr/gyk1tKyRf4zS72+v44TiXkeNVcyjBVpuuNPgoZu
+	 d23qKCf/+wv1uM4HFduwQ/FrYFg3ajKrTxxkRE1Ot6e/Rk4GbxFL6iMkWWPBpNxO5/vuq
+	 TpWFwwy7xnIZ/9+CdREQCGvSvBwQdSpOrfZLFjIzvNQCyp0e8TyqT/2Ujb7ASC97kuSIJ
+	 sz+xYu78F329lbhjDSTdgFbqfO7VJUEiShtYsIJ8zsVy2sItY0H6Op/5hlzjABO44jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=ZHGQNbJz;
-	arc=none smtp.remote-ip=212.227.17.12
-Received: from mout.web.de (mout.web.de [212.227.17.12])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WSt7bIHI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E849E606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:58:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E849E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDBD606A32A;
+	Mon, 16 Nov 2026 06:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=ZHGQNbJz
-DKIM2-Signature:  i=1; m=1; t=1794812285;
- mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=web.de;
- s=s29768273:rsa-sha256:ny++7mUcEFS+Pzj45e8qtghj9d7W
-   QwypNCxw07ZK9G8KgBZY3NkaROwVVjdHYCaLMYwrADI6WcvEZvwJpqV9/NJOIeAUhSRq59KRYOk
-   DWoo/HTQnzq1k9Ul7x7UWfmUIhdcx45NYco06wJ2+j0Yz6SRZ+jHbhWpnmDkksuRsoFyW8Q875f
-   e9+SKikEXIcaEKxPfh5YoiYvTLc8BEgXl5HsQjKDLHcQi7WUiVUSNsSjia11R3ioPwLKGo1Juxk
-   vKEL2+dmfekjY6FZkmPfWE/0HvsW0GnPm23Fqd5/H6PtvvZynv/oZHuiJOZUlMv0fmIyAuSpebX
-   mzHcpV10CtRpnA==;
-Message-Instance:  m=1;
- h=sha256:
-   cQRNWUQVJVkEcEvndDpIN6ReKRPE61Q4t+SzAU6Ub70=:
-   t+mbs+keLTTSyK0Feil2CBRManvZhxjbmljm+9Ohq70=,
-  sha512:
-   2Ng7OKJ0lEU6wMxt188e6l8dR7HZP5xDyQYd7nwt7q7RGOfIEKztX2TNiCvPKDm0NYgx9SKLu19EBDy3c7ggdg==:
-   cYh5JZugFqlsGMvsWDj7aKykdZH3rcA0wMM3KTda8SEGzmtFQf7SHwgC8a9L7Sw3AxBRQwFQqKLDnR4EVL5gTw==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1794812261; x=1795417061; i=markus.elfring@web.de;
-	bh=t+mbs+keLTTSyK0Feil2CBRManvZhxjbmljm+9Ohq70=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=ZHGQNbJz3ZGAA8KTkGhbqoJc+cmFeCSbbGU5/SZq+mjbURdXSbB6yP+nBLLCABA7
-	 xjhG0fdaA07wbAivFg9BMHZro1JYqrnePdDSIHbGPfLX2JY5vUc3c5RNaaV7JOQ0V
-	 Mj0X7dt73A6/SS9Wr/HdFPu8EoAl+0Vo+cGwQCVWTjEZSMDa2fRHdbpWprU1mC266
-	 hc2wbuviJDGl86s60icVBGkmBQbPmufpUn5tYFhJRnRw9gt1OeDaapgIJCLa+K5lf
-	 7eR6L/LK89cr8B+wkX+c/0PE8ayYhfk96KHgcTYXTVVIAHZ3MWCneBN/6GnzmE+Kg
-	 BYMFbo8wSunPqGPGbA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mo6Nt-1wdoaM2AF1-00aJZz; Mon, 16
- Nov 2026 07:57:41 +0100
-Message-ID: <ae04eef3-ec99-4728-be84-8a71e16c0b4e@web.de>
-Date: Mon, 16 Nov 2026 07:57:22 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WSt7bIHI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095371F000C4;
+	Mon, 16 Nov 2026 06:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794812347;
+	bh=59ZhBS4nNzF0cyplDMsPLPLfy6KtKW19pKytqkrPkmg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=WSt7bIHISo3C4uygBxDjBmNH1QaW0CT+sW66zj4M9mKEOXGy4kaSRY6MIEFYR7IaX
+	 Rqv8zX7H+lmYdFbmtEjYzqP5p6FRY0b7SDbZYKMmTBr1ebacyrm/w8PgGAVWYNGRcd
+	 /PG+d4KMJ2obx6JvFRJYk3M2J4h6lKTW7EqrDWnR+19AMUqEqjVqe3jtSpk9tfc4RK
+	 dEygPq/ckMSjGggERmcBl2cSZ6zcqGwIhxK1ptI+gUAwMyoY5ed3iB/5JTxRqXOGm+
+	 n8o7b96WXY8VvDcbKK4I3iwwxc3FQQaMcU8NGR/AP2FdFE467GD7yEQLhEzmw5z1/f
+	 OFqQjl4VKU1qw==
+Subject: Re: [PATCH net] dpaa2-eth: free the DPNI interrupt before releasing
+ its resources
+From: netdev-bot+sashiko@kernel.org
+To: mhun512@gmail.com
+Cc: ioana.ciornei@nxp.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ ruxandra.radulescu@nxp.com, gregkh@linuxfoundation.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, ae878000@gmail.com,
+ stable@vger.kernel.org
+Date: Mon, 16 Nov 2026 06:59:06 +0000
+Message-ID: <179481234651.3136.10190438261119233878@kernel.org>
+In-Reply-To: <20261112065616.34209-1-mhun512@gmail.com>
+References: <20261112065616.34209-1-mhun512@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,149 +65,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jackie Liu <liuyun01@kylinos.cn>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>
-Cc: Jackie Liu <liu.yun@linux.dev>, LKML <linux-kernel@vger.kernel.org>
-References: <20261026111047.97178-1-liu.yun@linux.dev>
-Subject: Re: [PATCH] drm/amd/display: Fix logger leak on perf trace allocation
- failure
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20261026111047.97178-1-liu.yun@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:vBVVPVd4B50xeqlYqh6dAXCHmu1AmDfbSQlwYkbPZ/mBNNRZCa+
- oMIFvNKJFRbDQsKd0OA3+n6VoEgCLNNvZY5hzPWQL1LmyvIOi0EorFcrBQy/B38YTIpf0iH
- FAU9q1nljb7Eh+ySdJVGp/DwpZKZJGzNKzaCebIeJvRve8N/jE76J1DRG7PedbkCItJqxUx
- wNqqrArldI8Hbx0zh3VQw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:r3nFQYlLYJo=;Ef3zqGl8iaLNKk5gFrtQoT2ilw+
- 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
 
-=E2=80=A6
-> Free the logger before discarding dc_ctx and clear dc->dml.logger to avo=
-id
-> leaving a dangling alias after the failed construction.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Would there be a need to complete the exception handling also after a fail=
-ed
-link_create_link_service() call in the implementation of the function =E2=
-=80=9Cdc_construct_ctx=E2=80=9D?
-https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/gpu/drm/amd/displ=
-ay/dc/core/dc.c#L990-L1037
+Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 0
 
-How do you think about to avoid duplicate source code another bit?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Regards,
-Markus
+- [High] The patch's new synchronization point, dpaa2_eth_free_irqs() (or
+  kthread_stop() for the poll thread), still sits after…
+
+Pre-existing issues:
+- [High] The dpaa2-switch driver in the same directory still has the
+  defect this patch fixes in dpaa2-eth.
+- [Medium] dpaa2_eth_free_irqs() releases the Linux handler
+  (devm_free_irq) and returns the MSI vector to the parent DPRC pool…
+
+--
+
+dpaa2-eth: free the DPNI interrupt before releasing its resources
+
+This commit adds dpaa2_eth_free_irqs(). It calls devm_free_irq() on the
+DPNI interrupt before fsl_mc_free_irqs(). The helper is used in
+dpaa2_eth_remove() and in the dpaa2_eth_probe() error path, so the handler
+is released and synchronized before the MAC is disconnected and the portal
+and net device are freed.
+
+> diff --git a/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c b/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c
+> index 7227a35dfaf2f..91462b88b34ad 100644
+> --- a/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c
+> +++ b/drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c
+> @@ -4824,6 +4824,14 @@ static int dpaa2_eth_setup_irqs(struct fsl_mc_device *ls_dev)
+>  	return err;
+>  }
+>  
+> +static void dpaa2_eth_free_irqs(struct fsl_mc_device *ls_dev)
+> +{
+> +	struct fsl_mc_device_irq *irq = ls_dev->irqs[0];
+> +
+> +	devm_free_irq(&ls_dev->dev, irq->virq, &ls_dev->dev);
+> +	fsl_mc_free_irqs(ls_dev);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but should this helper also
+disable the DPNI interrupt in the MC before the vector is given back?
+
+dpaa2_eth_setup_irqs() arms it:
+
+	err = dpni_set_irq_enable(ls_dev->mc_io, 0, ls_dev->mc_handle,
+				  DPNI_IRQ_INDEX, 1);
+
+Nothing in dpaa2-eth ever calls dpni_set_irq_enable(..., 0). On the free
+path, __fsl_mc_msi_write_msg() also returns early without unprogramming the
+MSI:
+
+	if (msi_desc->msg.address_lo == 0x0 && msi_desc->msg.address_hi == 0x0)
+		return;
+
+Once fsl_mc_free_irqs() returns the vector to the DPRC pool, another object
+in the same container could be given that vector. Suppose a DPNI link or
+endpoint change happens before dpaa2_eth_free_dpni()->dpni_reset(), or at
+any later time if the reset doesn't clear the enable. The DPNI could then
+send a stale MSI to the new owner's handler, and nothing would clear the
+DPNI IRQ status.
+
+This depends on MC firmware behavior that can't be confirmed from the
+kernel source.
+
+The peer teardown paths disable the interrupt at the object first.
+dprc_teardown_irq() does:
+
+	(void)disable_dprc_irq(mc_dev);
+
+	devm_free_irq(&mc_dev->dev, irq->virq, &mc_dev->dev);
+
+	fsl_mc_free_irqs(mc_dev);
+
+dpaa2_switch_teardown_irqs() also calls dpsw_set_irq_enable(..., 0) before
+fsl_mc_free_irqs().
+
+Would a dpni_set_irq_enable(..., 0) call ahead of devm_free_irq() fit in
+this helper?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but dpaa2-switch.c in the same
+directory seems to have the same problem that this patch fixes in
+dpaa2-eth.
+
+dpaa2_switch_setup_irqs() registers dpaa2_switch_irq0_handler_thread()
+with devm_request_threaded_irq(). The teardown helper does only this:
+
+drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c:dpaa2_switch_teardown_irqs() {
+	err = dpsw_set_irq_enable(ethsw->mc_io, 0, ethsw->dpsw_handle,
+				  DPSW_IRQ_INDEX_IF, 0);
+	...
+	fsl_mc_free_irqs(sw_dev);
+}
+
+There is no devm_free_irq() call. dpaa2_switch_remove() then frees the
+port netdevs and port_priv, ethsw->ports, ethsw->lags, the MC portal and
+ethsw. The handler stays registered until devres runs, after remove()
+returns.
+
+Disabling the interrupt in the MC stops new interrupts. It doesn't wait
+for a handler thread that is already running, and that thread does:
+
+	port_priv = ethsw->ports[if_id];
+
+	if (status & DPSW_IRQ_EVENT_LINK_CHANGED)
+		dpaa2_switch_port_link_state_update(port_priv->netdev);
+
+It later calls dpsw_clear_irq_status(ethsw->mc_io, ...).
+
+Can these accesses hit freed memory? The dpaa2_switch_probe() error path
+at err_unregister_ports uses the same helper.
+
+The error path inside dpaa2_switch_setup_irqs() already pairs
+devm_free_irq() with fsl_mc_free_irqs(). Should dpaa2-switch get the same
+fix, perhaps as a follow-up patch?
+
+dpaa2-ptp doesn't have this problem. It uses request_threaded_irq(), and
+dpaa2_ptp_remove() calls ptp_qoriq_free(), which reaches free_irq(), before
+fsl_mc_free_irqs().
+
+> +}
+> +
+>  static void dpaa2_eth_add_ch_napi(struct dpaa2_eth_priv *priv)
+>  {
+>  	int i;
+
+[ ... ]
+
+> @@ -5104,7 +5112,7 @@ static void dpaa2_eth_remove(struct fsl_mc_device *ls_dev)
+>  	if (priv->do_link_poll)
+>  		kthread_stop(priv->poll_thread);
+>  	else
+> -		fsl_mc_free_irqs(ls_dev);
+> +		dpaa2_eth_free_irqs(ls_dev);
+
+[Severity: High]
+Does this synchronization happen early enough? In dpaa2_eth_remove() it
+still runs after unregister_netdev():
+
+	unregister_netdev(net_dev);
+
+	dpaa2_eth_dl_port_del(priv);
+	dpaa2_eth_dl_traps_unregister(priv);
+	dpaa2_eth_dl_free(priv);
+
+	if (priv->do_link_poll)
+		kthread_stop(priv->poll_thread);
+	else
+		dpaa2_eth_free_irqs(ls_dev);
+
+The commit message says a link or endpoint change can "access the freed MC
+portal and net device". A link-up handler that overlaps with
+unregister_netdev() still seems able to do that.
+
+One possible sequence:
+
+dpni_irq0_handler_thread()
+  dpaa2_eth_link_state_update()
+    dpni_get_link_state() -> state.up = 1
+    dpaa2_eth_set_rx_taildrop() (MC commands, may sleep)
+
+                              dpaa2_eth_remove()
+                                unregister_netdev()
+                                  dpaa2_eth_stop()
+                                    netif_carrier_off()
+                                  linkwatch_forget_dev()
+                                  reg_state = NETREG_UNREGISTERED
+
+    netif_carrier_on(priv->net_dev)
+      linkwatch_fire_event()
+        linkwatch_add_event()
+          netdev_hold(), dev added to lweventlist
+
+                                dpaa2_eth_free_irqs() (thread already done)
+                                ...
+                                free_netdev(net_dev)
+
+netif_carrier_on() returns early only for NETREG_UNINITIALIZED:
+
+	if (test_and_clear_bit(__LINK_STATE_NOCARRIER, &dev->state)) {
+		if (dev->reg_state == NETREG_UNINITIALIZED)
+			return;
+		atomic_inc(&dev->carrier_up_count);
+		linkwatch_fire_event(dev);
+
+So the unregistered device still gets queued on lweventlist. Could the
+linkwatch work then run linkwatch_do_dev() and netdev_put() on the
+net_device after free_netdev()?
+
+dpaa2_eth_link_state_update() and the unregister/stop path don't share a
+lock. dpaa2_eth_poll_link_state() is also stopped only at this point, so
+the poll thread has the same window.
+
+Would it be better to quiesce the DPNI interrupt, or stop the poll thread,
+before unregister_netdev()?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112065616.34209-1-mhun512%40gmail.com
