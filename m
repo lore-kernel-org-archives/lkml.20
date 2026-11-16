@@ -1,111 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794825684;
-	b=ZJkn1PZu567DWTMK4ZUfvvOjuq6UxnDos/nFBIhK8xegk5btBQKS1/BTwymI6YlDdYno
-	 cbmGERg9Hl1rvaUyZpCkHtKwZY7KW4VXi5iyVlIlnN88oByOvauiAnMGDvw9HbbLH20An
-	 1G/vyey7vEDscoIVzx/usz1R7nLCWuqis18aHOKs7yAtzosgFEemrkUb/U2M1MhX0dzq4
-	 a0rJ78tRc7Q+cgVlrbSB1RFfS/+U5f0nZgA8fwJ0bEDT4gNupu3tKKCEGoCTpQ6tENqvL
-	 gB82abU/TZXIyjR3Z48IFVmxodwgnTr4rD22XkzMgMaVA93ciebPaUTI7j/ai8KXUIQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825684;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=O7Nmq+yq5I/rxKDA72nxHgloYX9kmAMN+pJZiFmDy/A=;
-	b=iNx2k2QS6gFIjlClyUq3bT1qef65/riQAWe3wreinN//guIADp7u1JdDXHOvs9GFS95S
-	 Zq7sPtcS9hKLCi4T3djD3xLF2v67LNs0xDfCQRVppPDoufVmVR/cgmmZwmcw/PGu1jZXV
-	 vnM1pau1uujR7vwidHJt9+LYK+oWOqfNI5Ljk9zM5nCuI/Xo5xURTZkzHxhZFxdgUi0gh
-	 SM5MBGoRhwKflscRdt9F7JgewLG1o/ZX8u63D+0QQQRGiqf4q8dEqiYygOFWDUdxFz/8g
-	 jiA5r+Nlt0ZNnf/pefmKcJ+oPTY0pI2mMAz586fLQPg9UO1OhsE+NmEKc+8x+mbXuDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=AoCKEUm4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.41
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011041.outbound.protection.outlook.com [52.101.70.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794825719;
+	b=BWHlSwAb81cRsDjVsLyLawA8T85Njly98tXMroZIBks1lUirbNYIEHYbbwQZHIbnr81F
+	 YRBwCFhIBPLbPqnF6DrXZt5Xmb2RjyKe4Nlb3EcN+/KXGM3sPYy1LeZpI/LRs1vp8jQje
+	 YeEfrEF8b+w3Mn9EOzkup6pH46kHnJR9uAoUT7hrzbjB7ko2iLUf8eitIQv7eNzdEj41V
+	 z1QejOhJHIJShETSNCuB3+5Te9ibqige1/m2TTuLZCwgYAdzbUWSD0aBhcC5G6sYjbAoa
+	 NIHCodGDAbtH783zepLCjKl7WM2FXiGzQGyI2mT3z4Cy/ghwV+b44InC1JDF5rXQsKQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825719;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=NIq308VQGUr/7Gxe2x540xjoV4Zdx2xWDIRiVtWnXPw=;
+	b=G+huw3xEyVZfFvDdrqESttzAZtKwGV6ZQOv1CAcEWVMaIKtyLz09E4W746F8BmvUTIDS
+	 yvaT7bmpOR9xz0vZwCZ6TSuIDhJv8PwIcAEhpxmEtI6QH6FSJko8yJWVnhdmmJPXny/Mk
+	 Qf13qiu+NdEBlUd58VHeUy9ccMJYP5VHbnqKj89yvUsn6BDufC14jV/oqixcT5WbJwyjB
+	 17N4lIYeE6Ne1ug9JSPiPIP5e+bwpigeOglNKRJgXSz0LP9EAKRA1W5oPocXSr4BQuWAQ
+	 GMkenviZXV20b1VRmNAVnFh9PaJMtVmiLapReApBbg/rKkDbCK6BPl0qG1joKHwisZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=hN0USg6S;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCCE606A8A4;
-	Mon, 16 Nov 2026 10:41:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DCCE606A8A4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F54606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9F54606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=AoCKEUm4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bUrw+JEC9xd1eVB+9HCdKqyxEBjxjKU+mIV90d02+bgFqwDefIOxkiwWwfz2pasgonujC/Qj/+mV9t+qKiKBZelzytyG+Q6hT7aaW0YZALiHJ9mPh5j5xY7cvRthWgznW3exXZSAAHCHV1hLoyfD3sJEDbudsb8jKBLsIrm2TeKpq2Nm8XZ5l3v/V74X76wi1J+r3uapXm5yA1VhT7f/r06gR7Oa6dbAuEf2oZ9LahN9tT3FUvhjDYQfx3n6gRlmcWWPcJqMhk4j7dTfr2i5jf7W59COQAKudsR7Zf7jIncYhdykJEQ4bE/78Kx1ktumbqOEY285baYUYCZ1oNXXXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O7Nmq+yq5I/rxKDA72nxHgloYX9kmAMN+pJZiFmDy/A=;
- b=VbDR/cI4HqomkJ4LM0hx6Wtm1L7ArFk2x3BqH5O3ykEQIHc6hHalPn/YyoLGnBO1CpDrxCnW7njNxblcOeHqI3IP47x9kGUb4DiADCjqjmlBJhanXlSPyC19R96H4vI09rt8szvAVZcXrp1WbRAtRihestmJnwtjeKipEKsYZUR9rr13xXGR4RCEGuMcJxTpx++TysNchkiagpdNixP1KFbvv0L8OeZ8FIP15McLDdgCC1wc7KT3qOFWuRvnNoReRtvNOEyzUC8GEqhEiEJWStObNqSbrKq4Azx7fXZRhzy9lxgkZt4v+xBRlxY5dUjDi18BevSSJSCoMrshzmytfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O7Nmq+yq5I/rxKDA72nxHgloYX9kmAMN+pJZiFmDy/A=;
- b=AoCKEUm460nLlrirKCcqFMwY4WD/GZWtlo4oWLlokik86CQihJtv3x73R6lu5m0bcHKrxCfD0YzPrPyywKI6iIy1gc49HFgbBqLyAShYzw/0Xr3v6Dy49p8pQO85owq4WSUQvp5CUPVZ3TJVQWhDYdE4DNBLvmTpIKHIbqWUH8oXVWh06MsbSoQtjBejMJyoCwPvdvRKfZyMmQW7xjcCRClzr8zX0EGiTQsoHM204jnuGcH0D26CZlkhrnaiOoq43rFGn7obtdrNbc9pCILtdxutw+wDJIYlvTE5ON9emNK58qfVpj64zLxMHyYVps8djbC+V70tuvBGYgW6115RTQ==
-Received: from DB8PR04CA0026.eurprd04.prod.outlook.com (2603:10a6:10:110::36)
- by AS1PR10MB5390.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:48f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
- 2026 10:41:16 +0000
-Received: from DB1PEPF000509E3.eurprd03.prod.outlook.com (2603:10a6:10:110::4)
- by DB8PR04CA0026.outlook.office365.com (2603:10a6:10:110::36) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13
- via Frontend Transport; Mon, 16 Nov 2026 10:41:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509E3.mail.protection.outlook.com (10.167.242.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 10:41:16 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
- 2026 11:41:59 +0100
-Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
- 2026 11:41:15 +0100
-From: Patrick Delaunay <patrick.delaunay@foss.st.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>
-CC: <linux-pm@vger.kernel.org>, Patrick Delaunay
-	<patrick.delaunay@foss.st.com>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>
-Subject: [RESEND PATCH 7/7] arm64: dts: st: add power domains for STM32MP21 family
-Date: Mon, 16 Nov 2026 11:40:32 +0100
-Message-ID: <20261116114024.RESEND.7.Ibc243544a13186cabedd574e63a3a1f881f9fcad@changeid>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116104054.94115-1-patrick.delaunay@foss.st.com>
-References: <20261116104054.94115-1-patrick.delaunay@foss.st.com>
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=hN0USg6S
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4b467581b98so26889785e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:41:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1794825717; x=1795430517; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NIq308VQGUr/7Gxe2x540xjoV4Zdx2xWDIRiVtWnXPw=;
+        b=hN0USg6Sa3Y5g+9XzVi3ZgaYLhuQyWBIqQghnDZ16ETnPpDYiqoEjrDUQCj4oQWsxr
+         lVqeCsqDVZRrjJMi9wz6S6kAjxlauH55t2ejuOcaVAn9z7t5cnVjbE/RuUEpuYcTtuVn
+         mNMJKBRBxydA1RKVyy9GYzLYCJvwTNdRQldZGcXK7rh4X8Ie5dGFZV3ysJQtHzIkH10N
+         Fw6UmzNcztsb12cwcRrH5+hf2ew1ruCQ35k4i55TcckQhqHqNlVneLAOdvVtK68L5uYE
+         L//ZEvxsaFEOpfOYFpZdnkyeNTpkDtdUAMQnRk8ypBvLHSrdaqchRd7O/nzpRWl8KOVP
+         HPrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794825717; x=1795430517;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=NIq308VQGUr/7Gxe2x540xjoV4Zdx2xWDIRiVtWnXPw=;
+        b=quFz5RhympdeJgH4KATKKfo5O7z+ZypLml3tGaklzFWUKqDCMtKMUWdVbWleWTrmQ0
+         oBV2IGfOHD2XBlKwXIB1vF2ePQjYL8iIXnohJ5yTfJpMYNwBeEGmYMQknTDheNFLUHwY
+         ucwE34HdIJT0XwSJ8ayvznQK5LmiVHC8PGhUQJv7nzes0kZTa9ivj10bpbnLz+jSyft5
+         yQ0pf4QVLDtyqLZt9Ork30DSQZGtvXzu3/hdEwV1hiHeCSZJobH38uoLMu/ifPgqYtvs
+         2md2hj89C3bu4ToujiqzjmfYZ2Cl9+4H/6bRqxuE/pcQiCN7SjewZ+Kc8L+qwoyHQ0kq
+         BJKA==
+X-Forwarded-Encrypted: i=1; AL+hErFZjEr0h9SAZt4lqIWd1MBa3KD7qeS0I2YOW42I83FFWF1M2b9zqFTFn0Wsfg0ZuaH7w6bL4PRzNT2ljRA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+k+HcUEi9PUJdG5ODkaAN7mlgpTP5inGarc3iMnU2byHzjFjab
+	5MuACxdhIr32n7omBz9s8RSG0KtgJ89r6VNiwpncV2cLkKrPE2fhULa2Mf9PulSHlWE=
+X-Gm-Gg: AYBFou1zN2RNlhBCKhsc3hxMKMhLH16+f1HIRpwI6VCKZcraUhVJBeuZ1Nrh+zxyky6
+	WjM9G7d50kqifGDmmiceC2w5dtRWJJ4VpLw9sv4p9KNin7iB67J8j6TIfHJCm2RzQ1tRPQoQ74F
+	9+/7Yc3bMJjiXjPivVdu7YgMCfXJB8ZU7LBzTlv8BBpe25UnLHCunG0rZoMlGZK0m0LjhHCaVX1
+	nBDQeenfVBSBX3mHEaIN3RPRHZAwKd8Mn11PvOUBX8UWVUQZVFaEcI3ZUi6eA52JNqrDk9sace+
+	Tcy6Zujk/WPBXHSX2cGmxXRTX/0DuL89IpujTAo65jFZHoUozBC46a4hRzREFsaszfUPZNVZYDK
+	YOGLRu5r4s7URjZJeiJpTgL60xqTn4yAIljIfAMxXO86CvrSYQWvaB0PpN2K3UGcnciaTmz0ugS
+	WIQX5Vd6VXQrQRyfaZrp36SFXv4caDYYN8M66nIBcAzfE6J+uMR9MX/bbe0kQpDOKouf2pBqobT
+	CkDOwAFz7HBnGvx+e5XdlifiPL69gXmBFHNLl0MN0KbqTAhTomFz0qmBllZrZ+XcL5mIrsTkwA/
+	qa86W8uTHW4Zy2GDZ81or748tYiCWsTBEVppPN/cyE0ek4MNxea2bOv/zXpzmid6FcHVBRpYCyn
+	8dvk30DLMmA==
+X-Received: by 2002:a05:600c:1989:b0:4bb:665c:a078 with SMTP id 5b1f17b1804b1-4bb665ca43amr133221345e9.28.1794825716789;
+        Mon, 16 Nov 2026 02:41:56 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb64ec7b58sm218180305e9.5.2026.11.16.02.41.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 02:41:56 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Mon, 16 Nov 2026 14:41:51 +0400
+Subject: [PATCH] power: supply: bq27xxx: Recheck the status after an
+ external power change
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,113 +93,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509E3:EE_|AS1PR10MB5390:EE_
-X-MS-Office365-Filtering-Correlation-Id: d03abc8f-0d04-4b3a-c01f-08df43ce2470
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|1800799024|23010399003|82310400026|10067099003|11063799006|56012099006|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	DIR1WFwtFJaSp5XHjbo7Zt6zIsfdV8I7+nmBvVEBtyToYgshAmbQG9qboF5M+qQfLwXcBzTCZnqSHYsS0zdooN8ajzXxyIcsUQM8HSGeVCNDJWXqvd1eMgoHmw37nqsd3uldXXiN86saqSk6mjpPSP7eScNgnk5Nl1J7Z1MClONmMjSj1wnPUbYeCFx1Q+qWl01PcDWe2Hl2xuGH3d+9Aq/9wBQk2qWwuaeoTS0nRZEmTyFRTBVxujb8LI1/pM1jNIAloryIOcNeOOPrdt/EdW6BotQHYCsCwh0nglHhcP6FGM5W7wW7q3lILaT5JkTcRG8dRVwH1/AlPILzXpsZc7k35g2cJAdWjqf8wgFbDFTOVRl4zacfZkq3cinl+DJ+6l6NwZaBxUxzMvjc1V/BJt22SOz2dloYkAFSa007B86Pbwuc3BLy2O1Nx6IDgR3hd1rUABAzpK/FRxrY+NktMJwVYY/EsjCAwM7MajesMsNToRfFpZQT5WBCrW9zhRbhmzRG0BDM3KfqD0Y5HsvE/w/ydDlHDxFQrRNPCaUbWhRwvOfCjfDNaVP5R3B6f4D608HMOKz8OMVY8b9D7pXbYKx/uFpyzYnK4sUicx+UqkHjjJRJyrtd9PRnU+bVusOcNZNQcT8+aoiTGD2oISnirqVrFVQ+jsGlVjGaKbjSiMJRZQPHdKyKEL1x4IAXOzYlBi1GKk8DPAXkoSvMEN41qg==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(1800799024)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WUIl4G6U44tll8O0RhoS0ldEQ08WkkLniTYgW/5pJX6GkNwOP7CtVmME0b/1dmZrYjkDAKVQHQh9te7ACnHXqhJoiMpUEZBl0XFP5FM3DCtk7df9eWDagqNxoivYQttDDVGbKz6Os+xYsEJmbx2rqghlUteD8N69DohAAyFFqVqeyafvlwxOsRh0zwuGY7NgBLNPqPEfhWH11cuAqDHLI9ySWeNR8CyG1NGhRp0/+sV8WfJHJwQliSAu9X0Z4D51O3jwLKFFSvNOnzEylvawS5x3nX6zIV5A+0RLggpJV7buc5JIX+ksbudQvxzL8Tsv/TnoYj+8dH07UqxEgPFZLm4DgiitRRm1y27TyLc/zGOJNAwhCydyLrNfj8+Skfcw5hYjDI9/T6IdIxpsAoulJcwDIc/N7ky7aHQ9qdvCkIA8tGPK0Yyec4UDrtF9PCuK
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 10:41:16.2493
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d03abc8f-0d04-4b3a-c01f-08df43ce2470
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509E3.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR10MB5390
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-bq28z620-status-recheck-v1-1-e3ef211c7fd9@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxA0auUrA3MRBrUq4iLThptFKpOpiKW3
+ r2jLt/i/xlcs6nDoZkh68vc7mNF3DQgQzdeFK2vBgrEMUbG9KTdhymgl65MjlllULkhs+heUmh
+ 72kKtH1nP9v6dj6e/fUpXlfLdwbKs4H4B1HsAAAA=
+X-Change-ID: 20261116-bq28z620-status-recheck-66ce9cb05d23
+To: =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5560; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=yMAsrt3cEsFJF91tvPe7B50jfdiEKkYHfq19JenF93A=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWT9uvtZV++zgbDG9NSsmOWCK/eGRctOuvK56e05tav/t
+ i+RUlF50jGRhUGMi8FSTJFl7rcltlON+Gbt8vD4CjOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
+ GRrpGOsYMXBxCsBUG69gZJhy8mGQiQnb07fuESo8Pp/X8FysSrgqb/7boi+iuWK62DNGhiV9yy4
+ ve1DMaKFrzb1h2dxDnQYOldcTvj0KYJaxT2nP5QYA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Add the PSCI power domain for STM32MP21 family on CPU and cluster,
-and the D1 power domain for devices that require the Cortex-A35
-cluster to remain in Run1. The wake-up handling is only managed
-by the PSCI power domain with EXTI.
+The status of the signed-current gauges follows the sign of the current
+they measure, and that only flips once the gauge's next measurement picks
+up the charger change. A BQ28Z620 behind a BQ25798 charger shows positive
+current up to 0.8s after the charger reports charging, and negative current
+about 1.1s after its input goes away. The single check 0.5s after the
+change often sees the old sign, raises no uevent, and leaves the status to
+the next poll, by default 360s later, so userspace that only watches the
+battery (upower, for one) keeps showing the old status for minutes.
 
-Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+A property read in that window loses the check outright: its refresh
+pushes the pending work out to poll_interval. upowerd reads the battery
+right after the charger's uevent, so on unplug the check never ran at all.
+
+Keep the first check 0.5s after the change, but repeat it up to five
+times, 0.5s apart, until the status changes. Count a refresh from a
+property read as one of those checks instead of letting it postpone the
+rest.
+
+Stop at the first status change rather than running every check. Each
+uevent makes userspace reread all battery properties, and the window right
+after a replug is when a USB PD port controller on the same bus needs it
+most. A status that only lasts a moment then holds until the next refresh,
+the price of keeping the bus quiet.
+
+Leave the gauges without a signed current (BQ27XXX_O_ZERO) with the single
+check. Their status follows a flag rather than the current, so it never
+counts as changed here and they would always use up all five checks.
+
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
+ drivers/power/supply/bq27xxx_battery.c | 39 +++++++++++++++++++++++++++++-----
+ include/linux/power/bq27xxx_battery.h  |  1 +
+ 2 files changed, 35 insertions(+), 5 deletions(-)
 
- arch/arm64/boot/dts/st/stm32mp211.dtsi | 37 ++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
+index a955feb6cdfb..e4ea92e78a61 100644
+--- a/drivers/power/supply/bq27xxx_battery.c
++++ b/drivers/power/supply/bq27xxx_battery.c
+@@ -1124,6 +1124,10 @@ module_param_cb(poll_interval, &param_ops_poll_interval, &poll_interval, 0644);
+ MODULE_PARM_DESC(poll_interval,
+ 		 "battery poll interval in seconds - 0 disables polling");
+ 
++/* Status checks after an external power change, and the delay between them */
++#define BQ27XXX_STATUS_CHECKS		5
++#define BQ27XXX_STATUS_CHECK_DELAY	(HZ / 2)
++
+ /*
+  * Common code for BQ27xxx devices
+  */
+@@ -1898,6 +1902,7 @@ static void bq27xxx_battery_update_unlocked(struct bq27xxx_device_info *di)
+ 	union power_supply_propval status = di->last_status;
+ 	struct bq27xxx_reg_cache cache = {0, };
+ 	bool has_singe_flag = di->opts & BQ27XXX_O_ZERO;
++	bool status_changed;
+ 
+ 	cache.flags = bq27xxx_read(di, BQ27XXX_REG_FLAGS, has_singe_flag);
+ 	if (di->chip == BQ27000 && (cache.flags & 0xff) == 0xff)
+@@ -1913,9 +1918,10 @@ static void bq27xxx_battery_update_unlocked(struct bq27xxx_device_info *di)
+ 			bq27xxx_battery_current_and_status(di, NULL, &status, &cache);
+ 	}
+ 
++	status_changed = di->last_status.intval != status.intval;
++
+ 	if ((di->cache.capacity != cache.capacity) ||
+-	    (di->cache.flags != cache.flags) ||
+-	    (di->last_status.intval != status.intval)) {
++	    (di->cache.flags != cache.flags) || status_changed) {
+ 		di->last_status.intval = status.intval;
+ 		power_supply_changed(di->bat);
+ 	}
+@@ -1925,7 +1931,22 @@ static void bq27xxx_battery_update_unlocked(struct bq27xxx_device_info *di)
+ 
+ 	di->last_update = jiffies;
+ 
+-	if (!di->removed && poll_interval > 0)
++	if (di->removed)
++		return;
++
++	/*
++	 * Once the status reflects an external power change, stop checking for
++	 * it; otherwise use up the remaining checks before going back to polling.
++	 */
++	if (status_changed)
++		di->status_checks = 0;
++	else if (di->status_checks)
++		di->status_checks--;
++
++	if (di->status_checks)
++		mod_delayed_work(system_percpu_wq, &di->work,
++				 BQ27XXX_STATUS_CHECK_DELAY);
++	else if (poll_interval > 0)
+ 		mod_delayed_work(system_percpu_wq, &di->work, poll_interval * HZ);
+ }
+ 
+@@ -2201,8 +2222,16 @@ static void bq27xxx_external_power_changed(struct power_supply *psy)
+ {
+ 	struct bq27xxx_device_info *di = power_supply_get_drvdata(psy);
+ 
+-	/* After charger plug in/out wait 0.5s for things to stabilize */
+-	mod_delayed_work(system_percpu_wq, &di->work, HZ / 2);
++	/*
++	 * After charger plug in/out the current takes a varying time to settle,
++	 * so check the status a few times rather than once on gauges that derive
++	 * it from the sign of the current.
++	 */
++	mutex_lock(&di->lock);
++	if (!(di->opts & BQ27XXX_O_ZERO))
++		di->status_checks = BQ27XXX_STATUS_CHECKS;
++	mod_delayed_work(system_percpu_wq, &di->work, BQ27XXX_STATUS_CHECK_DELAY);
++	mutex_unlock(&di->lock);
+ }
+ 
+ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+diff --git a/include/linux/power/bq27xxx_battery.h b/include/linux/power/bq27xxx_battery.h
+index 731ea837aac3..dad3119454c6 100644
+--- a/include/linux/power/bq27xxx_battery.h
++++ b/include/linux/power/bq27xxx_battery.h
+@@ -68,6 +68,7 @@ struct bq27xxx_device_info {
+ 	bool removed;
+ 	unsigned long last_update;
+ 	union power_supply_propval last_status;
++	unsigned int status_checks;
+ 	struct delayed_work work;
+ 	struct power_supply *bat;
+ 	struct list_head list;
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-index 4bfd58b26b51..aad7c87dc8ca 100644
---- a/arch/arm64/boot/dts/st/stm32mp211.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-@@ -18,6 +18,21 @@ cpu0: cpu@0 {
- 			reg = <0>;
- 			device_type = "cpu";
- 			enable-method = "psci";
-+			power-domains = <&cpu0_pd>;
-+			power-domain-names = "psci";
-+		};
-+
-+		idle-states {
-+			entry-method = "psci";
-+
-+			cpu_sleep: cpu-sleep {
-+				compatible = "arm,idle-state";
-+				arm,psci-suspend-param = <0x00000002>;
-+				local-timer-stop;
-+				entry-latency-us = <150>;
-+				exit-latency-us = <200>;
-+				min-residency-us = <1000>;
-+			};
- 		};
- 	};
- 
-@@ -70,9 +85,30 @@ scmi_reset: protocol@16 {
- 		};
- 	};
- 
-+	d1_pd: power-domain-d1 {
-+		compatible = "st,stm32mp-pm-domain";
-+		#power-domain-cells = <0>;
-+		power-domains = <&cluster_pd>;
-+	};
-+
- 	psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
-+
-+		cpu0_pd: power-domain-cpu0 {
-+			#power-domain-cells = <0>;
-+			domain-idle-states = <&cpu_sleep>;
-+			power-domains = <&cluster_pd>;
-+		};
-+
-+		cluster_pd: power-domain-cluster {
-+			#power-domain-cells = <0>;
-+			power-domains = <&ret_pd>;
-+		};
-+
-+		ret_pd: power-domain-retention {
-+			#power-domain-cells = <0>;
-+		};
- 	};
- 
- 	timer {
-@@ -108,6 +144,7 @@ usart2: serial@400e0000 {
- 				interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&ck_flexgen_08>;
- 				access-controllers = <&rifsc 32>;
-+				power-domains = <&d1_pd>;
- 				status = "disabled";
- 			};
- 		};
--- 
-2.43.0
+---
+base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+change-id: 20261116-bq28z620-status-recheck-66ce9cb05d23
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
