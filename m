@@ -1,72 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820715;
-	b=DZKOLCQwsFZgpkXnKizcyj6IR0y7894bfOTIzVPy6dKjF6tjw0jGxdZsEt2Q3D3fBibu
-	 s9gXnZyLLz+ZzcwFeHipgv2+aFphELw3JxjKXuL3/FUCYtkbLMBguT6GGQEt6TMaskKCB
-	 QqEvYqYeEtQHnf22J1i/r30YKJv44X2aa+2sQ/zIF6EARsIqNeB76yYpI/mTmES7mjjaE
-	 seDBeGyKexl9vKa5xb78GtEL0mGnu/ICXHXQCAh0LMYXHtsvSPREUngEhGFqJ/VWSQrJ1
-	 lBf1Jgh9nKBl4NjkWd+Im4+V2WT3c8i1oytUhLlOs/2F8Fwfl/f505K8x5H/2k/C1KQ==
+	t=1794820727;
+	b=cmRbcncZTCFwAwYq1dEgrQQWYsyUgqDwTYNBN3ebsNN9U6yM8z1mXcjmYDPNr7MGeMWH
+	 pL1IsHX+vbrKvXC+qxbDiNBUHBBnv4iZfracX/q/8n9Jc4k0ZRtG4dyq48sFlO0hyKCHK
+	 8LkA80ljjaHtDTLNrHHRABKKp4MPYLDy2X+MkTg+cNJ/GkjmIw1bH2Cej6Xf7RpG5TOkg
+	 +ZEXxCCQcn/j8lISAqBFNJkpFsUO6CASPZrCyGeviK7CLajw/dwwiXQWe4bcaIxdJID6y
+	 8rMjvoCGr3y+oXgE1yIUUx86htb+dNcWxWwzWXy0WVZtRJASG7fh0q77Rz3sG/DydXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820715;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LAYAjOiB6YavUWNwzjYK42ueMROpBm7ZZ9Z9jg4H5mw=;
-	b=EKzRZ5aZKqFR/bl7mjKRmvDlRbtQr6f98WWZ62NyhsxuiyjJS4LzcF5mfUygGK1cOzPu
-	 WuwfaUXohGL7cjbYCcjqjlD+tQNAFVQqeEXac986ffKZvjEFlyvGmx85otHaCeqW6vwO8
-	 IOw4oNeKOLyH6KW3JpyFrAzNF8XQMqIPBTHwsYbz+dt4aaz+Rpb9jiTdkHc6O6oDAcAei
-	 AGFvVenTj1sB5CHnTa0JOdJsLR7zNkrSS3GSjUWieRjBBh+9V9AKH1HL+SLG8+PAFsAWq
-	 RI1pYweNZf58Wfz2VUxrB18girYBXzZ8knzPT/qJ03cfQtrFZThq1PDz6dektdHtZDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820727;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=10u893rXAEpcFiupZuZpxx17JcoZ4ukJ5pGVXipeKIc=;
+	b=lKecePdskIrZfTPexB1y/scQPTFicIqQ6QnBoHzUDHzItxhP1b6qHEL7Gc89cZfOVui2
+	 smCWyIVEunjLeqIsqZpL3TQGtqPN3iUICJ526j90Ywd5f1hTvN+Wz+Q6q8n0mgOFxl7kd
+	 lDJ8JsZxTwWlPrKKutYZ7KTZnMT0jPSyR4gWRSnVcSdQzo4m4vIwPXe42PO1gF0U7rVPp
+	 18e/hNASLmyiEDCPPyOwuGzH3o6VmO/ff5H6x5KtDNLT9/Dv1+EvRiMflLFclg4vOBl/Q
+	 DLVOVLQip/fJ9nJPcI14cjzNQYJAUooV+h7rJvrJ9GMqEqqYAtFoeiHwFy9WgDiK1kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelriot.com;
-	spf=pass smtp.mailfrom=kernelriot.com;
-	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=aUi9Zpcx;
-	arc=none smtp.remote-ip=74.208.142.49
-Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0qzup1U/";
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9288B606A330;
-	Mon, 16 Nov 2026 09:18:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9288B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kernelriot.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10144606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:18:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10144606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=aUi9Zpcx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
-	s=kr2026; t=1794820713;
-	bh=NEmzrlhSleob7noedVQsqsHHHILDcHnTIaSn87BO3pA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:From;
-	b=aUi9Zpcx2XUpYCcJxzV3GVVGeTrThLpiVC8+mTEOwS7yV8L0aMU+aLh7ho+y7IwCv
-	 y+50bVgMG7qLszikqaQWtk67+dScsb/qjNX0AUR/6LPbMuj/wpPGDdshGgoChNrvAb
-	 Nj6fgmxoY2v++CglgZHi3WxfSixohWs6hkkhU9Qk3eQNrekrZtg7b2Gfab1e5vU/du
-	 uQaloGpBoFIEh2CVY+8PlPPoQgxxPe09yiMTnufwYlK1e4HVb8pNBcWSRceqcRYqEk
-	 OQbhbsB1PnrAj/AR4FxGJYmUIeFB8sTzL1hjvdjG2oQDPJb0zphckZJew06On6IEbZ
-	 sxryOFvoqFTKQ==
-Received: by mail.kernelriot.com (Postfix, from userid 995)
-	id D5EC78D755; Mon, 16 Nov 2026 09:18:33 +0000 (UTC)
-From: Magnus Leatti <magnusleatti@kernelriot.com>
-To: me@ziyao.cc,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Nespolino <g.nespolino@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0qzup1U/
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b904d10882so1224673b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:18:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794820726; x=1795425526; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=10u893rXAEpcFiupZuZpxx17JcoZ4ukJ5pGVXipeKIc=;
+        b=0qzup1U/bvdpamdUfesp3EzGohjqD6ufcdkxabru/+P1e2lLmEhTqvPFxhiQUJLOuy
+         75ZaKlgkGDXWyEh0O7LTEEKNc5q+1cotzhdC0E5B5IjSRuna1VXMOyouKiqLsg6zUVWQ
+         kKN19bGG5PO+g4HH7bMNQ3kABDLLxW9cPxDnZYdNKQeJbfcKoyaQ3a/l1F21SD81YImE
+         qVhuxwwNl3a38fu49yIa4TcsmyRsn+P0J2KPmZCNL/x1uXeIyzA4yamOwAuAxvioSA5L
+         xbF9n061Z+WyXWv0kHGZhiWW8KpSOv0SpLn65dw+0PdYFSQFo7MzfGLaDgXXEMTpFU/+
+         H9Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794820726; x=1795425526;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=10u893rXAEpcFiupZuZpxx17JcoZ4ukJ5pGVXipeKIc=;
+        b=TFBK75q9v5YpfhEsIgwep9hXIJB8w4q3dngC4xgq+c/Br82LBEJTqoxuvvC2PAIZKS
+         o7n6Mjpls/U5UaAFexX6I5oZAP29N2Xtqub1zS2CjU20q8HpAKoTEQDUoU5JRrNrl37K
+         6YGh9FnpAoA/e01XST5LY0MtjikpzzUBYwPlCDJLrMzSEsJzV7JAfJ7+SPeEfun428Kq
+         yj0JMEt+JWm3wpN7C4rREYJWAZd4FgT4dFzH0or0T/yvJQM+O1DXX36owj5Q8ZHPoDZr
+         glrnV7eAZaFJFoXfqpV9yBdNWlg/uq/HtKvjoYilcUxL5fmJg3v0sPpfxJbtsKYN/2tn
+         3zxw==
+X-Forwarded-Encrypted: i=1; AL+hErFUfSibvLFetER2VFO61/MC1un0HAaw2sxQkMpcQmgj0uPmS2QReixI1yRwwwD9eT0BpEbHpbktrhDc3fw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pfeFOVLgqfzC6XFE6YcSJ1Cd6yhCK/YAj0wgUnlsx6QAODT5L
+	/qi+hfvbw7CEhG37a8Lpc91wRG9hNmjzkXiTEfIpGbYcElSfYYYlL7SF
+X-Gm-Gg: AYBFou0R7JFjrSNcusdlFw20pYqV83diZp2nLoG9Z5zprbMi7nvRXY9AhCBG7y6ILbk
+	1Ey5e75mHzKj38HwhPOwFWC6ofMpTW62cUyKG8hNJnvIunb9DuM8PjOAb4CbdwmjmN5pBWSHc1X
+	DHR0+Mf7xR6hkW7KFKzcWCUT+slAfQrLMxFxrRliA3eCJUFQyteusvO09VlttFVPZa4u1h+bFBG
+	9uLWBEKcBE7sjMRfDAGX1Msqr/7H+w2NbW2TOnpDvloG+pZKFTm6VH2xGaC+CIrqDFJcbmkX4wa
+	3WSiU8vDhZtB5zA3HcSxDprUjPp/m2NWPoiGBkUd3ex90/LQDIk+FZpW5/4obP81s4+uxdvWjsL
+	FiM/CFCkwjyropL5oqIS4+1Wrlv/MZ+gT3050MrTdV2/AsmLFucsBttpM8zZv9LkATMHPvP7KwM
+	EQTJcjA2j2VQbhQRextSSsc6gRdYdvHSueM+sCZ1F0wCaaJMx8SG8SnKzI1zk4G/Gz28t9H508K
+	3qxGc5XMmhjAfrb3MH7VXEk2Cnnj306qvdB7HO7YoM8bOCFdJCvdB0FH4bjZuvu8JHr92T86Lgb
+	BcQbTqFBvFHk4Fn3CzxzxdymHI8WNF5LGdTNTZllPYqgwmwVGW9zTgQcoOdJBJ4J1L2ZrgUsqjb
+	HQYvZHK01bOjjfg==
+X-Received: by 2002:a05:6a00:4087:b0:874:706d:962a with SMTP id d2e1a72fcca58-8beb619e287mr9631280b3a.28.1794820726299;
+        Mon, 16 Nov 2026 01:18:46 -0800 (PST)
+Received: from linux.internal.banvien.com ([119.82.142.58])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8024sm3286470b3a.11.2026.11.16.01.18.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 01:18:46 -0800 (PST)
+From: Nhat Tran <nhat.tranminhk2@gmail.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 1/2] net: stmmac: dwmac-motorcomm: quiesce the device at shutdown
-Date: Mon, 16 Nov 2026 06:17:56 -0300
-Message-ID: <20261116091757.1656602-2-magnusleatti@kernelriot.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116091757.1656602-1-magnusleatti@kernelriot.com>
-References: <20261116091757.1656602-1-magnusleatti@kernelriot.com>
+Subject: Re: [PATCH] regulator: renesas-usb-vbus-regulator: Fix module autoloading
+Date: Mon, 16 Nov 2026 16:17:20 +0700
+Message-Id: <20261116091720.112637-1-nhat.tranminhk2@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <TYYPR01MB66035439726639C9F4C2A5B9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+References: <TYYPR01MB66035439726639C9F4C2A5B9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,67 +102,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver has no .shutdown hook. At reboot, kexec and power-off the
-MAC and the DMA engine are left running.
+Hi Biju,
 
-Add a shutdown hook that calls stmmac_suspend(). With Wake-on-LAN off
-it detaches the netdev and stops the DMA, the MAC and the PHY. With
-Wake-on-LAN set it stops the DMA, arms the PMT register and keeps the
-receiver and the PHY up, as it does for suspend. That is not enough to
-wake this chip from S5, so the system still does not wake.
+On Mon, Nov 16, 2026 at 09:00 UTC, Biju Das wrote:
+> A patch is already mainlined [1] with these changes as part of RZ/G3L
+> regulator support.
 
-stmmac_suspend() ends in stmmac_pci_plat_suspend(), which enables PME
-if wakeup is enabled for the device. Disable it again, since nothing
-arms the chip.
+Sorry, I missed that series. Please drop this patch.
 
-A failed resume leaves the netdev detached with NAPI disabled. Skip the
-hook in that state: stmmac_suspend() must not run a second time.
+On Mon, Nov 16, 2026 at 09:06 UTC, Biju Das wrote:
+>> +static const struct platform_device_id rzg2l_usb_vbus_regulator_ids[] = {
+>> +	{ .name = "rzg2l-usb-vbus-regulator" },
+>
+> Have you tested this patch properly?
+>
+> I had an issue in probing the device related to id_table match due to
+> string length restriction in [2]
 
-Signed-off-by: Magnus Leatti <magnusleatti@kernelriot.com>
----
- .../ethernet/stmicro/stmmac/dwmac-motorcomm.c | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+You are right. "rzg2l-usb-vbus-regulator" is 24 characters long, so it
+does not fit in name[PLATFORM_NAME_SIZE] together with its terminating
+NUL.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-index 42f0b11a7b60..1e142ad39e33 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-@@ -204,6 +204,27 @@ static int motorcomm_resume(struct device *dev, void *bsp_priv)
- 	return 0;
- }
- 
-+static void motorcomm_shutdown(struct pci_dev *pdev)
-+{
-+	struct net_device *ndev = dev_get_drvdata(&pdev->dev);
-+
-+	/*
-+	 * A failed resume leaves the netdev detached with NAPI disabled, and
-+	 * stmmac_suspend() must not run on it a second time.
-+	 */
-+	if (!netif_device_present(ndev))
-+		return;
-+
-+	/* Stop the device before reboot, kexec or power-off */
-+	stmmac_suspend(&pdev->dev);
-+
-+	/*
-+	 * stmmac_pci_plat_suspend() enables PME if wakeup is enabled for the
-+	 * device. Nothing arms the chip to wake the system, so undo that.
-+	 */
-+	pci_wake_from_d3(pdev, false);
-+}
-+
- static struct plat_stmmacenet_data *
- motorcomm_default_plat_data(struct pci_dev *pdev)
- {
-@@ -374,6 +395,7 @@ static struct pci_driver dwmac_motorcomm_pci_driver = {
- 	.id_table = dwmac_motorcomm_pci_id_table,
- 	.probe = motorcomm_probe,
- 	.remove = motorcomm_remove,
-+	.shutdown = motorcomm_shutdown,
- 	.driver = {
- 		.pm = &stmmac_simple_pm_ops,
- 	},
--- 
-2.56.1
+I tested it on an RZ/G2L SMARC EVK with the driver built as a module:
+the module was loaded automatically and USB0 probed. But that only
+worked by luck: driver_data is 0 and directly follows name[], so
+strcmp() stops there. With a non-zero driver_data, as in your RZ/G3L
+patch, the match fails. Renaming the device, as you did, is the right
+fix.
 
+Thanks for the review,
+Nhat
