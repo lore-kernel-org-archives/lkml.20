@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816270;
-	b=lDvquvgGvUWfL+cEjow+mC3gBSxSwONQ3EDE+AJQOml7lhEagBT6SqGEumIs5xhj65QC
-	 Ag469ZAqVQ9giXUW1FHM7I3J8YxByE5OyhgTkahCUZUOnDnPeEhyIBpuLjPNaFaUzdZ0R
-	 61orVrEqYTyqmABhOrN87Nuyngy8gqE5DAb3cMkP2KkQ1WjI5/uEOVlbwnGrbZ2GHxXv1
-	 9OVtN/uvuKTuLhF/rkO6oGkz4CI1sifjM1tdnWPGnbnuKGDI0TqfitIA71qSrVyTTMhPE
-	 R+cKsYh6GgzHPdgdvoxjDzuYyX8uz6UPm0Pd7nbahTujNxFfsWHNwe8Vlh6oD62ZAsg==
+	t=1794816346;
+	b=qW/rOC4AmqmpVniDuCKX0d5xxFegzs4gHRSiDufGuI/tTy6RY1/Qh2nyw18fK4zdy9vK
+	 ToMH6ctJmosHffx1Qh73diOaG8g4vfNBzJAc5F5qFQ0IEt3oPvzMmrYqVXz7vGCA6G3nE
+	 BvwBD4F/QnDMK3tKkgZ65zA/S7JL/LIbpdmsip2YzOS1boRE3Qw805XJ9IfOzZCfv1hSy
+	 +7LoyEIXfVE2g2eQXGG378U2Kh5PvWVs7U/8e40Od5TTqLKflGXVJbH2G4o1I2m4qhACH
+	 oCdzdO+O/xqeZigTQw9GbURZOY5NUldLopmGD7s1p3/zMyvdx/nUbMHjE+ICEEBF2NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816270;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=G8pmM3gxjKjpm+02Wdq+NqXN+xecKR+TNl0hK4Vnze8=;
-	b=z3EpqM4cFx7aOQI/IKWBZNHtDnn3cUiqeQs/e0fu8LuK4rOuplsjDJOQ2k3bvINDc1eA
-	 n+3GQH2fARY7l8eViSEshBnfQhnQJFtMnJRdM8S1U2dcciD2qfAUsZO20deTNSBhBIJn6
-	 4F6Vd4AaKTN2c0jfRJOd8nQnm0IxvGbfQAMB0O28HySBX6hYieUtMP06ls4n2QxG+WWom
-	 EPszcNJE4neQ694zm2npZHTG65czg0w9ThWxFgVlVcBudDq00dfw+aPB4HCoszznl0G8E
-	 RGHu0hQ7khbZo1IuOgRZcm+dDT1Se8O3nlm4tA7qCNqmoZStfEV46FWtT5jk6CyLhfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816346;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6Avz1NW7TUudJTX++ez+xj7beQ7E+txia0kyE9b57xc=;
+	b=GSXe+HlZAOqid532lL/FRCyphgRM+H1Sj12sNd/Nq8L0Bn8uMhKHEbw/jArJsE4DIpHk
+	 B1SJYo6ZnNq4MXtEoWTILerp4+yEPpzYjyCKJ/N9dVBJ3iMdqS6iOwn07Bhr90IYHmeVx
+	 Aj0bRKg/0rPxeYXxwNxZMFiqeuKXyvusGufnoqyxTERToYo7aYmpkNRnNpVlKSv1imHNE
+	 aKl74cW6vQFGhl620drOUXhqA/6wppomgPigRqS4d3d+AcjDlHa+t/EdRgE4RMxqYc21m
+	 8M33/KSAumru7pnHeNfAJrDVvCrd8jFTW34aoBlL8/bMVAvN+S+fzh2be7wSMgAuCYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=pXTtTy5T;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754C1606A32A;
-	Mon, 16 Nov 2026 08:04:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 754C1606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=grpOFYAf;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B277E606A31C;
+	Mon, 16 Nov 2026 08:05:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B277E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=pXTtTy5T
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AG84OtcC3236066, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794816264; bh=G8pmM3gxjKjpm+02Wdq+NqXN+xecKR+TNl0hK4Vnze8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=pXTtTy5TWoH2TW7Fnjx/86UrPVyEh6DzlAtzg5GSDrRLIJ4HwPXLqdisRtm2rMsII
-	 raJdv2KgdZsBWp2l/zCnlpq/By1yD2Gt986viMDew6eEIj+P3UGClyHeL1YBo5pYcQ
-	 /uUcigRuGXiL+cXD1JAVOk9vGfI/3M48mtuV1976w3oXC6HhJKuNQTrIFxx33rpwNB
-	 GXmwW3JKyAvNrRZnyV9rSKjyhVwlGXC9AYL7teGMYa1/3yD3VmoTkVycBsKSrwIEps
-	 GvbvbVJDDXQQOaVAH+WAgAn5EFyPn6i7L/TAOBWvli2VnRsVtQxav9tMXwrem7Spv0
-	 dQTfEPXJ2lSHw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AG84OtcC3236066
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 16 Nov 2026 16:04:24 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 16 Nov 2026 16:04:22 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 16 Nov 2026 16:04:22 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Zhao Li <enderaoelyther@gmail.com>
-CC: Bernie Huang <phhuang@realtek.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] wifi: rtw89: update PN state only from correctly
- decrypted frames
-Thread-Topic: [PATCH] wifi: rtw89: update PN state only from correctly
- decrypted frames
-Thread-Index: AQHddSbhzzSjuCVzmU+SpIqpEQhOrrcwVydA
-Date: Mon, 16 Nov 2026 08:04:21 +0000
-Message-ID: <9b6df144207a4427bc63959a064f6a22@realtek.com>
-References: <20261115172754.35124-1-enderaoelyther@gmail.com>
-In-Reply-To: <20261115172754.35124-1-enderaoelyther@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=grpOFYAf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=grpOFYAf/BGqCy8WbnRkBlQS+K6LyvEA2Bzu8ZRdN5QUZhHfWn6zHkpZ5byLQdpXiQodeQpCB2zPt
+	 D+x8pgBSTDLNPL1/x1ZArqxZgNVkAgG51lmS77RGCNXn3XY0r8EEmFExA95+jFqX9pupiDXM8ApWCY
+	 Bpw3MTw5MwFdTUgQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46afab95699e-9dbc1;
+	Mon, 16 Nov 2026 16:05:42 +0800 (CST)
+X-RM-TRANSID:2ee46afab95699e-9dbc1
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from fedora (unknown[223.108.79.102])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16afab9541e5-84257;
+	Mon, 16 Nov 2026 16:05:42 +0800 (CST)
+X-RM-TRANSID:2ee16afab9541e5-84257
+From: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+Subject: [PATCH] pNFS: Fix use of uninitialized be_prev in ext_tree_encode_commit()
+Date: Mon, 16 Nov 2026 16:05:31 +0800
+Message-ID: <20261116080531.50982-1-wuyiqing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,33 +69,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Zhao Li <enderaoelyther@gmail.com> wrote:
-> diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wire=
-less/realtek/rtw89/core.c
-> index 58ee5efc3b5e..a173253d51ff 100644
-> --- a/drivers/net/wireless/realtek/rtw89/core.c
-> +++ b/drivers/net/wireless/realtek/rtw89/core.c
-> @@ -3950,7 +3950,8 @@ static bool rtw89_core_skb_pn_valid(struct rtw89_de=
-v *rtwdev,
->         if (!ieee80211_is_data_qos(hdr->frame_control))
->                 return true;
->=20
-> -       if (!desc_info->hw_dec || !desc_info->addr1_match)
-> +       if (!desc_info->hw_dec || desc_info->sw_dec || desc_info->icv_err=
- ||
-> +           desc_info->crc32_err || !desc_info->addr1_match)
+Building with W=2 warns:
 
-This patch is OK to me, but can you keep existing two conditions unchanged?
-Just add three new conditions.=20
+  fs/nfs/blocklayout/extent_tree.c:615:59: warning: be_prev may be used uninitialized [-Wmaybe-uninitialized]
 
-Or any reason you want move addr1_match to be the last one?
+When the encoded layoutcommit overflows the buffer,
+ext_tree_encode_commit() breaks out of the extent loop with -ENOSPC
+and computes lastbyte from be_prev, the last extent that was
+successfully encoded.  be_prev is only assigned after an extent is
+encoded, so if the first extent matching the filter already exceeds
+the buffer, the loop breaks before be_prev is ever set and the error
+path reads it uninitialized.
 
->                 return true;
->=20
->         guard(rcu)();
->=20
-> base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
-> --
-> 2.56.1
+That path cannot be reached in practice: overflowing on the very
+first extent would require a buffer smaller than the encoding of a
+single extent (20 bytes for SCSI layouts, 48 bytes for block
+layouts), but the callers always pass a full page or the server
+wsize, which nfs_io_size() clamps to at least NFS_MIN_FILE_IO_SIZE.
+GCC cannot prove this, and zero-initializing be_prev alone would
+turn the theoretical read into a NULL dereference, so handle the
+case explicitly and report U64_MAX, the same "no information" value
+that is already used when bl_lwb is zero.
+
+Signed-off-by: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+---
+ fs/nfs/blocklayout/extent_tree.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/fs/nfs/blocklayout/extent_tree.c b/fs/nfs/blocklayout/extent_tree.c
+index 7393118c42a2..f78699317d8e 100644
+--- a/fs/nfs/blocklayout/extent_tree.c
++++ b/fs/nfs/blocklayout/extent_tree.c
+@@ -585,7 +585,7 @@ static int
+ ext_tree_encode_commit(struct pnfs_block_layout *bl, __be32 *p,
+ 		size_t buffer_size, size_t *count, __u64 *lastbyte)
+ {
+-	struct pnfs_block_extent *be, *be_prev;
++	struct pnfs_block_extent *be, *be_prev = NULL;
+ 	int ret = 0;
+ 
+ 	spin_lock(&bl->bl_ext_lock);
+@@ -612,9 +612,14 @@ ext_tree_encode_commit(struct pnfs_block_layout *bl, __be32 *p,
+ 		*lastbyte = (bl->bl_lwb != 0) ? bl->bl_lwb - 1 : U64_MAX;
+ 		bl->bl_lwb = 0;
+ 	} else {
+-		*lastbyte = be_prev->be_f_offset + be_prev->be_length;
+-		*lastbyte <<= SECTOR_SHIFT;
+-		*lastbyte -= 1;
++		if (be_prev) {
++			*lastbyte = be_prev->be_f_offset + be_prev->be_length;
++			*lastbyte <<= SECTOR_SHIFT;
++			*lastbyte -= 1;
++		} else {
++			/* no extent fit in the buffer */
++			*lastbyte = U64_MAX;
++		}
+ 	}
+ 	spin_unlock(&bl->bl_ext_lock);
+ 
+-- 
+2.56.0
+
+
 
