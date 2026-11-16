@@ -1,98 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811435;
-	b=nPxTLm8+CzEBKl28YUCinAyD29o4yviSKBA7CxUUeEmKp4oJqddG9JxL06GFbPb5Sw8m
-	 4OmQpj1xIX5AMW3+s2dA7Nq8sbioTrTnrNJ1CtmG/Ok9B0Lk36xkanxdmc1a4unz0k8nM
-	 U3KT6AtWdmEy3XvdWyoszrU2p8/cilHoOho+fZJFR4e5fmifzlv8gVLlg9yUc+Ua6cLmg
-	 A85XyCx6eBkCIS8W2fIB4dzJ46NiuBS8qBT8B0ivWdeCXsKUjRAwZ7F7QHr3Kg+5s5GI4
-	 AZzfSz/kul+ksMVJjaazi3z15pg9pDbTJCjIcRLCzEUUI4wuuEUj9DMMSh9u4TEn83w==
+	t=1794811563;
+	b=SB49wEbAfgErLe/KBvaFT/Nt+T0DQRbdWZXeGfoBlbdQIVetjP7oC/QTO+FPk/YuSkxb
+	 INb3WPvbpWlmAED9vezCG0naFjiK4GcP5c68RPD5rU42Pcgijak+r87kcQuVyGxvimWhm
+	 Gopg7XuuDp6MQJCjZqxioM8R/uTxhD9BAArrBo0kd/hJtPY//dc5CynqVTdp812V9nXZt
+	 HMlGBkKMaF8afAYqXBFxpiSfj8BsxgV8BbeVOs8pWEgYwO1uUcRyPRMWJ0pXhIOtVIIZZ
+	 12Yvu8Wu7oUXesp8JeMLkwenhBBQcfzI7vWQwpZpJkzCAv/PJuIGWeuOf8T2B8/P94w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811435;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=g2W4hNeP0M6NWf4FvGzvDbkgId7WUHaeI44/sLdESzs=;
-	b=5G3flK9vAtIY7VENhgw3zucvKDe0q8qmGkJrft4zUhnH32EKgGylKSYhAoGIon8vpbz5
-	 cxty4vaKvYeweheqvsi+UYX+5YSbpFKJTE+r8nvBAcLG00J//7Oti4FcY4Hd8NbArYiLn
-	 vgCYIF0+jf0ZNtNFKXk7NwHJxOdc0C9F+O4Zye8jT+ogTMtsmziBreO19e22nMHE2H9XP
-	 7s6M5Wh7n3E2zo0KeHe25d4//7+WBmf+Do1rbMLlz7ecuJcXHJqY3u1uF5iOWkHrc3gLW
-	 QoOYPhNTXdeY5tU9PJKUrIFWoQky7cVyacXTaZ/800uKoBeeER6NETZj5MKvelR4g9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811563;
+	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=Y1QRMBakR36puGC50kkOYilGUR+cqqph7fCXotl+ai4=;
+	b=ofpI9b4XjuKPjGeymnuslO3L+MNUdEeoPdZ0Vl9+pjXGO+hPAI67jVspl+dNF/uhMQv/
+	 FOy8H7J41xE0aobl/FesX98lL0b9XUm15g7bSSYdZsr9V5dBvRNYbUkpMc2Ofp86GcTbL
+	 kebFQL2aMZmHm+Vu4jMvr/UaN5t2qCtkmNvjE9PeDQauDchG5aytVOL7/6ILzllAXYGP3
+	 DOXh+KNCpJEwH05wFcWH4awOrHqAGoh+qYCia7QJxfRXf0f+IrV2rKzJgUgTGO9un5RZe
+	 ab1qJiqwv+6kMTA7zFT3u089q0F1zxZJLT2gJrjRjZ0v3Rlz6YMcRpezra4Z80MNw+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wkennington.com;
-	spf=none smtp.mailfrom=wkennington.com;
-	dkim=pass header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DrGvFavz;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847D1606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:43:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 847D1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wkennington.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=wkennington.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DrGvFavz
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdab938dc83so1389654a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:43:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1794811434; x=1795416234; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g2W4hNeP0M6NWf4FvGzvDbkgId7WUHaeI44/sLdESzs=;
-        b=DrGvFavzN1FUDDGPxlZW0KLW4q4iucbgYTmif21v6YEMc7Hdkc5aLuwQLK1goOwbYC
-         D5Fr9RrM/3QuBJL0djVaATxONXk3C+PT1A15P6dalLmqfWs9y3YdJsWZHMSzIJ7y8SOa
-         r3JpIGJI8OOnvVEixf0nSeBVXbpiOZs9ejwWe3sO9bhv1wuZJ9ctztPgQIXiDDuHTOYa
-         qL0fasGENXR9sC5/j/IkZyrfLz+RUGojXAkxtNzpTITxDFpApEcuuBZB7YLJFHSkltdv
-         Tj7t1v18weRzfTYttWvg2URENaOflGDtbBzroFfT4infgZtJR7CVxe5WeNyQ8EXs8yKn
-         epLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794811434; x=1795416234;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g2W4hNeP0M6NWf4FvGzvDbkgId7WUHaeI44/sLdESzs=;
-        b=x2CTD0wnZuLmiVsOXcw77M7znXRgFrauGl3D9Dk1A5wyysuCCDunX/P2gRYVt7dEL+
-         GtfvVI/iYzNUIopk5YdYnYXk0MtkxjDOllRIFimgyK5pKN01fvOXmoQoOs+ZjMcMN8Ct
-         HUVBZhzo0B9JEMML0eycWK0O6hILLrXyC1YGJOoW3hGZovSSxa4Nrt9LPntq79lrApvb
-         xuuOGWMFU6M8R4e6EH8XCjAQcJyANyZZgyTnWWnYtY0EF0dGjXYrAz1G1ARAIw1dcTFj
-         j+HfMfy6HVePve1h6EC90ZSsotPHpvgeHJ9/zXQFz0K0zh7x/cRMXfRtUreDzqDTPkpM
-         E1hA==
-X-Forwarded-Encrypted: i=1; AL+hErH3rdZhQJeTC9XrBvhRoN6MsRn7tZc3JorFh+eqM5WUMTK7mHusECFblpUKW5GbOmF6zdHjCYsbjWUE6YA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1/8u56U56rDje/qvZj3lnRlTBRBCNc43kSi/MpZH2Ej2OFbjS
-	fMlOCtVFwfO2R3ds5AuIqJjfA2vwvyumz8eshaL/kaVBDjVZ20PdRA+PJ0/uLnvXiPc24C/MOkF
-	2VE19
-X-Gm-Gg: AZFdTZcMAIzJEUQ4Jr90iQIQnCtqRmaiDrtlP0RQDf+4/qstofjF+qZQMqMiRDCQcmL
-	+cLH0O85cj1rCYUlrIual3V2G2+QzmeYvaaKluCeidx02G1rj7MsdOfLoGZf3KrY/nGOaN8c8kr
-	ftY0ChLXv4nfqergZBs67NFXrLs4LD5OfVmVSWhsWcfQ+a6K4hwHGCFSFwf7k3XpCOfIi+e4XoE
-	7dP5hPi7oX5GScKMXwPqal1vUnFT51y3oaKOsicBjEygl0se/RJKQepaSOOOTpWxqupXK5wvbZs
-	oYhYvPY9BE9ZlGGzG6jjT+8TLZX99QWqSIwSWj8Yq+EY84X01YXeo/pDc3F3Nx179Zkxu7o5OPU
-	kZqsHU1dM0X0DV+5/TaxMzNcOjEw7N3bRhSA3jL6pnvaKNd5qsqfsfJktTjSqj10CkV5goxtStn
-	pyCW3wFaJ0zXl51CoEBXz2ZLcV9tshCQHZJJ4JkzMbsRdL+/jyFBjjGi5PfsJh0Wky8BTorIjfg
-	8qv04feG1NncjulLtZcYX7LwqegvJJPwS8NtxfBwYg95aiEY4gzXBOoR3FtIdKIkzpJRDJmBBLH
-	7yhF7cG61ksKpJRteLQxxpC3qWBa8+M5CyQFru5vnjHU4fmI/OMJhii9s8uU2997QpBO7xvpsgj
-	aOoQEpYL3K0y+Gg==
-X-Received: by 2002:a17:90b:528c:b0:3ad:8a14:bc73 with SMTP id 98e67ed59e1d1-3b1b0a4de36mr8224955a91.50.1794811433792;
-        Sun, 15 Nov 2026 22:43:53 -0800 (PST)
-Received: from wak.c.googlers.com.com (246.21.127.34.bc.googleusercontent.com. [34.127.21.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d04336sm20841677a91.7.2026.11.15.22.43.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 22:43:53 -0800 (PST)
-From: "William A. Kennington III" <william@wkennington.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: "William A. Kennington III" <william@wkennington.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: ehci: skip companion handoff when no companion exists
-Date: Mon, 16 Nov 2026 06:43:51 +0000
-Message-ID: <20261116064351.1038057-1-william@wkennington.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261115075359.39ec8f71.michal.pecio@gmail.com>
-References: <20261114051653.1353346-1-william@wkennington.com> <20261115075359.39ec8f71.michal.pecio@gmail.com>
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9F8C606A323;
+	Mon, 16 Nov 2026 06:45:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9F8C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jSdfh6B84zVcB6;
+	Mon, 16 Nov 2026 14:45:48 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jSdfh1YmVzVhfS;
+	Mon, 16 Nov 2026 14:45:48 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id 8B3987756;
+	Mon, 16 Nov 2026 14:45:45 +0800 (CST)
+Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Mon, 16 Nov
+ 2026 14:45:46 +0800
+Date: Mon, 16 Nov 2026 14:45:44 +0800
+From: Huang Shijie <huangsj@hygon.cn>
+To: Christoph Hellwig <hch@infradead.org>
+CC: <axboe@kernel.dk>, <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
+	<jack@suse.cz>, <zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>,
+	<yingzhiwei@hygon.cn>, <agruenba@redhat.com>, <mic@digikod.net>,
+	<gnoack@google.com>, <paul@paul-moore.com>, <jmorris@namei.org>,
+	<serge@hallyn.com>, <aleksa@amutable.com>, <legion@kernel.org>,
+	<david@kernel.org>, <sandeen@redhat.com>, <ebiggers@kernel.org>,
+	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <gfs2@lists.linux.dev>,
+	<linux-security-module@vger.kernel.org>, <sunjunchao@bytedance.com>,
+	<shijie8@gmail.com>
+Subject: Re: [PATCH v2 1/3] vfs: add inode iteration methods
+Message-ID: <avqmmP4dbwu4ziKz@hsj-2U-Workstation>
+References: <20261113115702.586594-1-huangsj@hygon.cn>
+ <20261113115702.586594-2-huangsj@hygon.cn>
+ <avcBTMvzFWuCkwkn@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,16 +68,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <avcBTMvzFWuCkwkn@infradead.org>
+X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-On Sun, Nov 15, 2026 at 07:53:59AM +0100, Michal Pecio wrote:
-> That's for Alan to decide, but it seems that whenever you use
-> ehci->no_companion, you always add "|| ehci_is_TD(ehci)", and this
-> is unlikely to change since HCs with TT don't need companions.
->
-> So ehci_is_TDI() together with its associated comment could be
-> moved to ehci_has_companion(). Then you no longer need those funny
-> comments like "without companion there is no companion" and the
-> code becomes somewhat simpler too.
+在 Fri, Nov 13, 2026 at 04:23:40AM -0800，Christoph Hellwig 写道：
+> On Fri, Nov 13, 2026 at 07:57:00PM +0800, Huang Shijie wrote:
+> > +/*
+> > + * Unsafe iteration for internal VFS use only:
+> > + *   @ctx->iter_fn runs in atomic context with only
+> > + *   an inode existence guarantee, so it must not block
+> > + *   and must perform its own inode state checks.
+> > + *
+> > + * Return INO_ITER_RET_ABORT if the iteration stops early.
+> > + * Return INO_ITER_RET_DONE if the iteration runs to the end.
+> > + */
+> > +static inline int super_iter_inodes_unsafe(struct super_block *sb,
+> > +				struct inode_iter_context *ctx)
+> > +{
+> > +	struct inode *inode;
+> > +	int ret = INO_ITER_RET_NEXT;
+> > +
+> > +	rcu_read_lock();
+> > +	spin_lock(&sb->s_inode_list_lock);
+> > +	inode = list_prepare_entry(ctx->prev, &sb->s_inodes, i_sb_list);
+> > +
+> > +	list_for_each_entry_continue(inode, &sb->s_inodes, i_sb_list) {
+> 
+> This is a really odd way to write a list iteration.  I also don't see
+This is for the evict_inodes() which will break and then resume the iteration.
 
-Seems reasonable, let me just send out a v2.
+> how the RCU lock is needed when you already hold the spinlock.
+okay. I will remove the rcu_read_lock in future.
+
+> 
+> I honestly don't get this "iterator.  It is trivial, the _unsafe is
+> wrong naming.  What is the point?
+What about super_iter_inodes_locked()? ore super_iter_inodes_noref()?
+
+We use this function to hide the fs systems to use the sb->s_inode_list_lock
+directly. Then we can add more code to optimize the iteration. 
+
+> 
+> > +/**
+> > + * super_iter_inodes - iterate all the cached inodes on a superblock
+> > + * @sb: superblock to iterate
+> > + * @ctx: the context which has the metadata
+> > + *
+> > + * This function iterates all cached inodes on a superblock that are not in
+> > + * the process of being initialised or torn down. It will run @ctx->iter_fn()
+> > + * with a valid, referenced inode, so it is safe for the caller to do
+> > + * anything it wants with the inode except drop the reference the iterator
+> > + * holds.
+> > + *
+> > + * Return INO_ITER_RET_DONE if the iteration runs to the end.
+> > + * Return other value if the iteration breaks.
+> > + */
+> > +int super_iter_inodes(struct super_block *sb, struct inode_iter_context *ctx)
+> 
+> This one makes a lot more sense, but the callback pattern is a bit
+> annoying as it requires to stuff all information into the context.
+> Im much of the core kernel we're slowly switching to an iterator
+> model that allows the caller to keep the state.  In this case something
+> like
+> 
+> 	struct inode_iter_contex ctx = INODE_ITER_CTX_INIT;
+> 
+> 	while ((inode = sb_inode_iter()))) {
+> 		/* do stuff */
+> 	}
+> 
+How to manage the sb->s_inode_list_lock in this code?
+
+I have no idea how to hide the sb->s_inode_list_lock in this code.
+
+
+> which should be easily possibly with this model.
+> 
+> You probably also want to split the core iterator and switching each
+> user into separate patches.
+no problem. I can split them later.
+
+Thanks
+Huang Shijie
+
