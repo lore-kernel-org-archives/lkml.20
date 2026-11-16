@@ -1,45 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798665;
-	b=f11rUJU7jZHClCQLtHJqjKz9dNuVyzFEO0qUvqbkoMbuvI/AfjjyFxH8H0BauTBN6wub
-	 Ng2ZtfzYY/LMtd7eGKclXFMSfiQ5nFtvtE3D7UbDFSGLjsx3whKhlESL35lQPzx2CgZFv
-	 /dq0zi/bbcxK4TQjb7osg9xPYdaQ4QnTRKPFHdpDLNvdeCOQdHMJKmoNdggiTfL9wIMWm
-	 CI5Y9r3BMFZNVhjPCHczZ62gPOyac8Wt3VnlP+P/jIUqgKCmyH0I7d6+qH1853r4wPzRj
-	 MQFw2bL++dlvg+RuoMF/camYkdPZw8jD1MjNkr86naD3LNRtVfPUakoxSglaBHZFKmQ==
+	t=1794798687;
+	b=vGXHwEICRmKGdAc2mviNFc34wdK87BdMLrIwRVCzs/hnGoUNeVvE7AhWJAMmxmqNmyxI
+	 zfdD4oeHpXNk89mU9dj8POM//otQcdOpPmxB7fIqVRk3K7Sesb6O5vBw6PUVGSW14qzjS
+	 ZtoIzz2SaJ9MN6is51Dzt2uAPRLxh8HwURxiiKaAQLEFVdNUjIbdYoz23H0sZIFBjJq/K
+	 o46EbY7GCO2Wt5nOEGviMPtyHDmMqjQPGg9eDPAjn68u134/SBxIPjA3rnWwNdR99llfg
+	 co3dEvn5Ak8Wa3GUP83zjlMARHQOWfY5gdhvSlYkyY5wNfZ1vpqk6dMKtCuAmKywrew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798687;
 	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
 	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
 	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=7dcwnJj2vA9bhQKn9/gRxbwaSZ3/ZpAApP3j+tALvFU=;
-	b=H820dhQf7Wf70tMnwHWvn8hgw9iL8fsGHLj3Smeyrvd9HKv/dOmztOnzXznYiE8Ly533
-	 QDtDG5H6e/hX+MkLeTCbAWPoV9OoeQ3aAq40w9KwYqY9m6EBt/A0upsafk+74mXsfNqT3
-	 aMTjHKd2or3Y5UiF3Zj+B7UfcDvGdntutyaoCMF/Bnep8piBijOGR2EkqtT3Zm7b3FytT
-	 TWDPLOgTVikU6zqDYEXmnXF3PmaIbAaWgTqwayrYWvTALPbDNGSA3FsWB6BVLet4c4bD5
-	 dEGhYbLdYUk7U4W9uvBLRDmaSUDqQxFWXwVmxFgTPMNMzxdMKQT/imN0K96XcfEfuDw==
+	bh=0vftWO9y6nujweuU6DpPbBswmmYn3Vy5aOPS9dh2DmI=;
+	b=GKJ+9JTT/OnjcuzkvP1Q1AMYqCWCEXQvaiyK1CgPHiNUTUle2+4pyet18edGniRhQLDx
+	 9GdbWAWaucKSjXIaXNTkadyxyv8sNnk03C0gg7tJ5OjWfNt84KJr/W+dU2qt4RvCzvvWD
+	 nHvSuhyy5n1KJScG2MA3HXOYoY4SxyrvAkLYftgGGjesKnD83n2PfAnaol9FuDRZcZasp
+	 ofcL5s4FKyh/waQu3EmrVW+SOzxYXm8AaSZJD18wVxhWPWIJKguM4zoNvkDbjrKw43Jiq
+	 629AXZ/mmknS5dZHH5OS6mQVTFpcNkPiCC/UMsWKZkxxh/hLFkwciaGRMVbQ0Z7W5Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mucse.com;
 	spf=pass smtp.mailfrom=mucse.com;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23395606A321;
-	Mon, 16 Nov 2026 03:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23395606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9314F606A31F;
+	Mon, 16 Nov 2026 03:11:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9314F606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
-X-QQ-mid: zesmtpgz7t1794798614ta6b97915
-X-QQ-Originating-IP: aeE7ssD/9CSVG6ndwAzVv5vjZHdZrA8dJkys5mzNN2Y=
+X-QQ-mid: esmtpgz10t1794798636tbbd9b811
+X-QQ-Originating-IP: OK7bhT7Ynr0SCpLbwJ89rqUHeqFoVm6+LBM2gCLtJyI=
 Received: from nic-Precision-5820-Tower.tail7b ( [203.174.112.180])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 16 Nov 2026 11:10:11 +0800 (CST)
+	id ; Mon, 16 Nov 2026 11:10:33 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6028493024740882600
-EX-QQ-RecipientCnt: 11
+X-BIZMAIL-ID: 11794291809042175213
+EX-QQ-RecipientCnt: 10
 From: Dong Yibo <dong100@mucse.com>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -50,11 +50,10 @@ To: andrew+netdev@lunn.ch,
 Cc: linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org,
 	dong100@mucse.com,
-	yaojun@mucse.com,
-	Andrew Lunn <andrew@lunn.ch>
-Subject: [PATCH net-next v2 1/5] net: rnpgbe: Add basic ethtool support
-Date: Mon, 16 Nov 2026 11:10:10 +0800
-Message-ID: <67EA420FC9597AFB+20261116031010.1330171-1-dong100@mucse.com>
+	yaojun@mucse.com
+Subject: [PATCH net-next v2 3/5] net: rnpgbe: Support copper link configuration
+Date: Mon, 16 Nov 2026 11:10:32 +0800
+Message-ID: <E783BBD6D9CACAEF+20261116031032.1330270-1-dong100@mucse.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <BD205A7832D36E7D+20261116030917.1329989-1-dong100@mucse.com>
 References: <BD205A7832D36E7D+20261116030917.1329989-1-dong100@mucse.com>
@@ -69,131 +68,192 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: Nv1Zs1ssfOILLJkhF4WlDn/GRJJtwFpkAupuWq0hV22I/gDcyVszxNam
-	rvrHVJ8FvqWr9WEqQanXhbd5QaeH2pSn9FxVRgxs0++D5KZOtx53JSrY31ziaYqg0lVPqE0
-	rm3mId6Q3SApY6Za/8XzURElITknJb8b/NpOHauh4HzEoDr+Y60D0HygF6tT9yVE1OKw4c5
-	EvfdUmbC5OEZ/+KiGqN/sR0kMLStoIUlCuBQCO7v+wJ13owM+cOKlYA585rofWv3MAOlySm
-	ubfTyCyYBXc3rSQjNRgcmZHfoAts6XS5hNIGK72UJ6EqJBobwRMfZqCq/44rMLyaXgpZzI8
-	Hr3vhdQ251X+6bpQtdfN9aawKC1uD8htOqfJs1zj2+UQxLOnDJ0CxepBYbwVATQXKQLf3yo
-	IrOldKFVTI6veQDHDUwST+4CNxSfJZBnspQzoN1vaE/fg0Ts9PQt6yXTlCbw4g4uWhv4/MM
-	BCfSDz+K2lonvU3/988F2fGlQE8tkeEwBQzGIzJL9MeRl3Gj4H32MyE9zIeUCruO20joeV3
-	XteNixTTsue93P00l7sI81Ts0sVRk0YPwiNNLldL69YllU81qnSjm7C279KQfMWjcrGr5yX
-	+1opWEc0ps2j1tnvYqOsSuV7bMRsGK72LDvC6Qqj4l6ETbCWDLZ/KwXwJ3zbo4QdqM/+zZv
-	EcFbDCfgMJuFFlg6FnDCrMaCKU5JBDQaM7T9w40TAIMswHsihO+YHRBO6sE+QqolxSPTZih
-	aABGD0t7MXa0kh60Cf9cLNREA4fq4mmrLzP8XMAhLtjrWwTkELT963aX0AVv0WKAMkTb6EN
-	teQpNuWF53Sv1mY4m0buXRQAvJbKEeqWERxcEbSe7VcCEQiBTZB0EOktMOgfjXsfizIdopY
-	qXvAI0TediksJgoGwp46iy44jgkYL8Gf38IT6gl52/4uT1O6FgFfALEuSspGZRLDcSqk3WS
-	7f2e6gpGOd6r2qX/y3/+tvu4+A+DgoLjnSUgDjvFvUU0GkABHVHnuNLngLFE2ONBn+s6Cba
-	LlnNlg/FAhx4dEFWUk99g6NjRetXAcTS0npLeKl0ZwLNHvLL5G
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+Feedback-ID: esmtpgz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: NHGFjaVOIMm2bcfGA6TmO0HJldrs0TO/EmEZ+D8MXE8LNIl17vOSbq4U
+	3XSnW0I6rFDVATzAOP7/RjdgKrqSvCs1lo7BmD/6kWZDcf6fG5yWMehtMY7X0p9Yq78hcJz
+	fr7OXgZOJHwf2JQ2ATx6SxUH51fxJykM5g06Ar3khN7CUrhDtmUx9FdRAGEdcoUYGyxu6z7
+	DFws9PJC46z0tK6jiBuKmykUK29loILh616VmVbGyTSceW/gu9KZx4o6JWW34OVmQazmm8Q
+	vAZxK3l7lkM9rXHx3nXINRAn+CmOeDDupf5EJ6vx1eETKc5hBjWBRxoVHE01eptLie+QGOy
+	RNxkS2yfgg22EApLtVY/AGYEms0IQCW1GBp/unM0hbJLCMGKUa61spc0VLW0UqTAS/RtkS+
+	zh/6E+Vtp2qy3FVVXH3ZBy7UE21IaxEGq1sjf3lsPs1vOWn1dIXNMOlUAD5ijq8oXHSV2fQ
+	fJZzaojcM5aHLF9Rq/EWUklzGLBgWKmMIU5PGkNHQdIlazLvhaQZDLXUtMw3thz1on5ihi6
+	TCZ1A8WeFk8yFmKx1E6EWld4wSHGiv4bNq0NCBMaAsfcsVdaN/GTZWnu4ak9D3wPbzk/kZH
+	xidsU79UwiROH1mqQ6DmzJUFetXmZjGGFwnkaBvAFX/KDDTaBl7fhijPyOMmBrw0EyKclgF
+	hxCf7B88/LRtqyaltleHJypPTzfpXSw08XpgwFTODjuX/hK8RLuOM4TqkIBhtcyh/sPPz0Y
+	vZ5ybxNG2lBA97rkb5lo8MSHLu9Ar4io5lyy50uyXWQ/OkB8fKwF3bGOUaPE4TR6Z/6nsUs
+	4N5hpRJCEoe4rbkITm5jgkPM2s0GXjVZ80ROmdOUigPBwr1mSpM7m7lCLFPVguxkLctD7VW
+	kTcdPolZxGNSbiUw78KM7KLdfoWLoKY9vio1IdlvNV307vT+Il2Ielu1DkZHdDaScDhtPMl
+	co623SxyvePIchpmqqgGMKqS6gGCQL0iIKkEpqqnBfQP0IrKfKvcpadhzgJjG08/kZYYAYK
+	83aZ5pCXwL6bF3ichEtadbT/YTnML9k8+LlhVEkllYXMc0lwl+Pc8nSFfE+E1aUSq7zSi6B
+	g==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 
-Add get_drvinfo and get_link callbacks to report the driver name,
-PCI bus address, firmware version and carrier state through ethtool.
+Add set_link_ksettings support for copper ports to configure
+autonegotiation, advertised link modes, forced 10/100 Mb/s speed and
+duplex, and automatic or manual MDI/MDI-X selection.
+
+Firmware reports each port's fixed media type (copper, fibre or
+backplane) through GET_LANE_STATUS. The host cannot change this media
+type, so requests to change the reported port type are rejected.
+
+Use the event-coalescing mailbox transport for PHY_LINK_SET because
+runtime configuration can overlap firmware link events in the shared
+mailbox. Acknowledge a pending event without updating its snapshot so
+firmware can report the link state again after the command.
 
 Signed-off-by: Dong Yibo <dong100@mucse.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/net/ethernet/mucse/rnpgbe/Makefile    |  1 +
- drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h    |  3 +++
- .../ethernet/mucse/rnpgbe/rnpgbe_ethtool.c    | 25 +++++++++++++++++++
- .../net/ethernet/mucse/rnpgbe/rnpgbe_main.c   |  1 +
- .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c |  4 ++-
- 5 files changed, 33 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c
+ .../ethernet/mucse/rnpgbe/rnpgbe_ethtool.c    | 107 ++++++++++++++++++
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c |   5 +-
+ 2 files changed, 110 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/mucse/rnpgbe/Makefile b/drivers/net/ethernet/mucse/rnpgbe/Makefile
-index 17574cad392a..4d768324a82c 100644
---- a/drivers/net/ethernet/mucse/rnpgbe/Makefile
-+++ b/drivers/net/ethernet/mucse/rnpgbe/Makefile
-@@ -9,4 +9,5 @@ rnpgbe-objs := rnpgbe_main.o\
- 	       rnpgbe_chip.o\
- 	       rnpgbe_mbx.o\
- 	       rnpgbe_mbx_fw.o\
-+	       rnpgbe_ethtool.o\
- 	       rnpgbe_lib.o
-diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-index 4e9776b28bfb..2fe76c95da7c 100644
---- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-+++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-@@ -46,6 +46,7 @@ struct mucse_hw {
- 	struct mucse_mbx_info mbx;
- 	int port;
- 	int speed;
-+	u32 fw_version;
- 	bool link;
- 	u16 cycles_per_us;
- 	u8 pfvfnum;
-@@ -257,6 +258,8 @@ int rnpgbe_set_rx_mode(struct net_device *netdev,
- 		       struct netdev_hw_addr_list *mc);
- void rnpgbe_set_link(struct mucse_hw *hw, bool linkup);
- 
-+extern const struct ethtool_ops rnpgbe_ethtool_ops;
-+
- /* Device IDs */
- #define PCI_VENDOR_ID_MUCSE               0x8848
- #define RNPGBE_DEVICE_ID_N500_QUAD_PORT   0x8308
 diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c
-new file mode 100644
-index 000000000000..506233f62698
---- /dev/null
+index 0afeda19f4ea..d856b970e5a5 100644
+--- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c
 +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright(c) 2022 - 2026 Mucse Corporation. */
-+
-+#include <linux/ethtool.h>
-+#include <linux/pci.h>
-+
-+#include "rnpgbe.h"
-+
-+static void rnpgbe_get_drvinfo(struct net_device *netdev,
-+			       struct ethtool_drvinfo *info)
+@@ -125,6 +125,112 @@ static int rnpgbe_get_link_ksettings(struct net_device *netdev,
+ 	return 0;
+ }
+ 
++static u32 rnpgbe_fw_link_modes(const unsigned long *modes)
 +{
-+	struct mucse *mucse = netdev_priv(netdev);
-+	u32 version = mucse->hw.fw_version;
++	u32 fw_modes = 0;
++	int i;
 +
-+	strscpy(info->driver, KBUILD_MODNAME);
-+	strscpy(info->bus_info, pci_name(mucse->pdev));
-+	snprintf(info->fw_version, sizeof(info->fw_version), "%u.%u.%u.%u",
-+		 version >> 24, (version >> 16) & 0xff,
-+		 (version >> 8) & 0xff, version & 0xff);
++	for (i = 0; i < ARRAY_SIZE(rnpgbe_tp_modes); i++) {
++		if (linkmode_test_bit(rnpgbe_tp_modes[i].ethtool_mode, modes))
++			fw_modes |= rnpgbe_tp_modes[i].fw_mode;
++	}
++
++	return fw_modes;
 +}
 +
-+const struct ethtool_ops rnpgbe_ethtool_ops = {
-+	.get_drvinfo = rnpgbe_get_drvinfo,
-+	.get_link = ethtool_op_get_link,
-+};
-diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-index 708a7297233e..46981ef2542a 100644
---- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-+++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-@@ -250,6 +250,7 @@ static int rnpgbe_add_adapter(struct pci_dev *pdev,
- 	}
- 
- 	netdev->netdev_ops = &rnpgbe_netdev_ops;
-+	netdev->ethtool_ops = &rnpgbe_ethtool_ops;
- 	netdev->priv_flags |= IFF_UNICAST_FLT;
- 	rnpgbe_sw_init(mucse);
- 	err = rnpgbe_reset_hw(hw);
++static int rnpgbe_set_link_ksettings(struct net_device *netdev,
++				     const struct ethtool_link_ksettings *cmd)
++{
++	__ETHTOOL_DECLARE_LINK_MODE_MASK(supported_modes);
++	struct mucse *mucse = netdev_priv(netdev);
++	u8 mdix = cmd->base.eth_tp_mdix_ctrl;
++	u32 advertising, mode, supported;
++	u8 phy_addr = 0, port = PORT_TP;
++	bool autoneg;
++	u16 status;
++	int err;
++
++	status = mucse->hw.link_config.status;
++	if (status & MUCSE_LINK_TP)
++		phy_addr = mucse->hw.link_config.phy_addr;
++	else if (status & MUCSE_LINK_BACKPLANE)
++		port = PORT_NONE;
++	else
++		port = PORT_FIBRE;
++	if (cmd->base.port != port || cmd->base.phy_address != phy_addr)
++		return -EINVAL;
++
++	if (cmd->base.autoneg != AUTONEG_ENABLE &&
++	    cmd->base.autoneg != AUTONEG_DISABLE)
++		return -EINVAL;
++	autoneg = cmd->base.autoneg == AUTONEG_ENABLE;
++	if (!(status & MUCSE_LINK_TP)) {
++		if (autoneg ||
++		    cmd->base.speed != mucse->hw.link_config.speed ||
++		    cmd->base.duplex != mucse->hw.link_config.duplex ||
++		    !linkmode_empty(cmd->link_modes.advertising))
++			return -EINVAL;
++		if (mdix)
++			return -EOPNOTSUPP;
++		return 0;
++	}
++
++	if (!mdix)
++		mdix = mucse->hw.mdix_ctrl;
++	if (mdix != ETH_TP_MDI && mdix != ETH_TP_MDI_X &&
++	    mdix != ETH_TP_MDI_AUTO)
++		return -EINVAL;
++
++	supported = mucse->hw.link_config.supported;
++	linkmode_zero(supported_modes);
++	rnpgbe_link_modes(supported_modes, supported);
++	linkmode_set_bit(ETHTOOL_LINK_MODE_TP_BIT, supported_modes);
++	linkmode_set_bit(ETHTOOL_LINK_MODE_Autoneg_BIT, supported_modes);
++	if (!linkmode_subset(cmd->link_modes.advertising, supported_modes))
++		return -EINVAL;
++	advertising = rnpgbe_fw_link_modes(cmd->link_modes.advertising);
++	if (autoneg) {
++		if (!advertising)
++			return -EINVAL;
++	} else {
++		if (cmd->base.duplex != DUPLEX_FULL &&
++		    cmd->base.duplex != DUPLEX_HALF)
++			return -EINVAL;
++		switch (cmd->base.speed) {
++		case SPEED_10:
++			mode = cmd->base.duplex == DUPLEX_FULL ?
++				RNPGBE_FW_ADV_10_FULL : RNPGBE_FW_ADV_10_HALF;
++			break;
++		case SPEED_100:
++			mode = cmd->base.duplex == DUPLEX_FULL ?
++				RNPGBE_FW_ADV_100_FULL : RNPGBE_FW_ADV_100_HALF;
++			break;
++		default:
++			return -EINVAL;
++		}
++		if (!(supported & mode))
++			return -EINVAL;
++	}
++
++	err = mucse_mbx_set_link(&mucse->hw, advertising, autoneg,
++				 autoneg ? 0 : cmd->base.speed,
++				 autoneg ? 0 : cmd->base.duplex, mdix);
++	if (!err) {
++		mucse->hw.mdix_ctrl = mdix;
++		mucse->hw.link_config.advertising = advertising;
++		mucse->hw.link_config.speed = autoneg ?
++			SPEED_UNKNOWN : cmd->base.speed;
++		mucse->hw.link_config.duplex = autoneg ?
++			DUPLEX_UNKNOWN : cmd->base.duplex;
++		if (autoneg)
++			mucse->hw.link_config.status |= MUCSE_LINK_AUTONEG;
++		else
++			mucse->hw.link_config.status &= ~MUCSE_LINK_AUTONEG;
++	}
++
++	return err;
++}
++
+ static void rnpgbe_get_drvinfo(struct net_device *netdev,
+ 			       struct ethtool_drvinfo *info)
+ {
+@@ -142,4 +248,5 @@ const struct ethtool_ops rnpgbe_ethtool_ops = {
+ 	.get_drvinfo = rnpgbe_get_drvinfo,
+ 	.get_link = ethtool_op_get_link,
+ 	.get_link_ksettings = rnpgbe_get_link_ksettings,
++	.set_link_ksettings = rnpgbe_set_link_ksettings,
+ };
 diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-index c6ce9dbee3d0..4a1893792751 100644
+index 469818b83d70..b6a12c673b2c 100644
 --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
 +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-@@ -72,9 +72,11 @@ static int mucse_mbx_get_info(struct mucse_hw *hw)
- 	int err;
+@@ -210,7 +210,8 @@ int mucse_mbx_get_macaddr(struct mucse_hw *hw, int pfvfnum,
+  * @duplex: forced duplex mode when autonegotiation is disabled
+  * @mdix_ctrl: MDI/MDI-X control mode
+  *
+- * Firmware ignores @speed, @duplex when @autoneg is true.
++ * Firmware ignores @speed and @duplex when @autoneg is true, and
++ * @advertising when @autoneg is false.
+  *
+  * Return: 0 on success, negative errno on failure
+  **/
+@@ -236,7 +237,7 @@ int mucse_mbx_set_link(struct mucse_hw *hw, u32 advertising, bool autoneg,
  
- 	err = mucse_fw_send_cmd_wait_resp(hw, &req, &reply);
--	if (!err)
-+	if (!err) {
- 		hw->pfvfnum = FIELD_GET(GENMASK_U16(7, 0),
- 					le16_to_cpu(reply.r.hw_info.pfnum));
-+		hw->fw_version = le32_to_cpu(reply.r.hw_info.fw_version);
-+	}
+ 	len = le16_to_cpu(req.r.datalen);
+ 	mutex_lock(&hw->mbx.lock);
+-	err = mucse_write_and_wait_ack_mbx(hw, req.dwords, len);
++	err = mucse_write_mbx_coalesce_event(hw, req.dwords, len);
+ 	mutex_unlock(&hw->mbx.lock);
  
  	return err;
- }
 -- 
 2.50.1
 
