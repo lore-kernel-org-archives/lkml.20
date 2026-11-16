@@ -1,134 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843943;
-	b=1tMQD0+pjZ7Jr8WdYC6hc6va+Oc8TJDV/XaJFLTwNTjK7GPBcFk3dNS8hGCUhUEHf8oL
-	 Hmozy8iRy3LYMoST52t6nPV8afPpWHk6uDV2+pw9zModSMuritwypjnlWEkcEfMMwNtvL
-	 tBeOgI9iEaoN4mFqLQnUTSD2UXjw7cBX5kD6+oZjmizN5ibUd8d7zTpILr+5/BSORsGHH
-	 xcrFNB+RpHaZ1Fc0G12p1oDLn/peRmnXm2H6sMnM5tDjaeYSXTmWeoYWK+9yQ0Vji98YV
-	 /TzaiG4eKeitoVoRIR/5cPx+daR+oQrq6bEr87A4GIiKV3QvNo2fKZ/UOnaq/+wk2lA==
+	t=1794843966;
+	b=EDgMahIcgoBRGwq1fQ6KQ7oNihZlsi9o/vPhz0jBNzLIcRENFheMeDvSrysKQAwHEoK9
+	 o0yKViLIKjM1XP0WVuKXXIsGzZrXN1zgpyQjSNugIBhtoPypBBH87t41KFTnjPmKxW4EB
+	 D/eHenaBB+b3m8XOT5b8y/+kT2D97YcmccyGyXd8zcmcQBl9V8OPw7Zq8uJVx30hfGBKw
+	 GMhl+TuvIcZ5WQE7hQR4e8ArlERhPPp2x8QtrS96TE0Tb+7wh4sRpvUSqpqNm7a2wSvt9
+	 JFgJWDEm3yxn4EFQa2Qh+VSbtVFw3R4dQQLlwh/ZpPmy6I7604PVplmRYuCaRqHzp4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843943;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
-	b=SiNrAqc/BZUqhBB8FQVtyueEYGeedQ5p+wR/UUS266go2NqL6SL8d7gW4YJzILvfD4FK
-	 2RFDFPzxbHl+ykYJ+HfOtt7gIY/OeteaTyIuaNGU8oCApZkRjGEodv9KCfP4FU9Kf8EFY
-	 fTn2Y+a5Eo+XwvPseRai08rpAJSz80KH6aNC7eRo+u8XP5QPYlcqc22Y1paVvWl9buiXZ
-	 E2Q4bMIlPvkMMLDNA7cbL1MD2mA2MFAJm+XWMYsKj4l1VqnQRj3zOAFFEWorV3Zkjq4SS
-	 Y5GZuFLKUV+HtRliGCEjHYInwOc8C6XhMZs6t1bfWiFBIl+2l1XyRk6BZpx/1gLAyHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843966;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=ZsLcpSlu0xOtB99tdS5E7q9n/YT6799JHqXWdfxhZo8=;
+	b=quXhIiGs9EdVaUUdYE+FrUlkLCRR+q5QqPOPBTZUCfxTZxji/6c1qHbsvlSKFbALT47T
+	 6/qcSpZtT50dgp3M/Setnp3jGva9xrHY9PvbMt3VI/nvanCceHek7KF6CB9fmTOSKDkpf
+	 pCjor7+J3wUZ3rrYOzOYWaKYUpVdJKNAmZBaRza89aEgEsrSrWninok5T4CH5waFEpUFJ
+	 2ghNyJg18HULSybIBSnaSyWXMhn1wD4JlxdBgXPFX0WABJg/aAiD/i56iUEY1IE0bpoRO
+	 qnzX04IFYrtmbXyg13DO1kDWY4bt0d8xbo3AC4SwQyOZzxGOWMoQye6ZbSS+zylm6Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IpxnSV3L;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Iv7O1+Y7;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=yOwJkUDg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=J7bRhhE9;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KsFApR+i;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PaCckNme;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D25606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5D25606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1A2606A32F;
+	Mon, 16 Nov 2026 15:46:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E1A2606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IpxnSV3L;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Iv7O1+Y7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794843941;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=yOwJkUDg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=J7bRhhE9;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KsFApR+i;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PaCckNme
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0B0B91F83B;
+	Mon, 16 Nov 2026 15:46:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794843963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
-	b=IpxnSV3LeyhKw43OXzojC97bBiBsgfWDFXHwvur6D75GzEn5hsBPO5xgssq8GbDBaGZOSf
-	lwUBkiMJAU6Zvx622pwtFvT10P814IKst92PANBQAPnPHiqm5rCTORzbh1Ky21I0fk53Wx
-	IPtSQ2g/gRjsbtF3kRG18U6MwWoh74Y=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-176-rAE2Du_fNiCW81Xz_e6Jeg-1; Mon, 16 Nov 2026 10:45:40 -0500
-X-MC-Unique: rAE2Du_fNiCW81Xz_e6Jeg-1
-X-Mimecast-MFC-AGG-ID: rAE2Du_fNiCW81Xz_e6Jeg_1794843940
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9493e89d4f9so658122885a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794843940; x=1795448740; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
-        b=Iv7O1+Y7KYAcR5tb7LvKd8uweN1+OmNT4EtvYrGqCF7myjSeOSZHr3EIByhGh42SLI
-         NjlovhxGr1bQfuD/s/cWySASYBi4t34fMgQXceoVL/yMg0celGlgbSFghPs5Mjo8v1WK
-         1nsbH0CzXKI6eg8euY+sOsKRVyWUiRFXDLMB7sIlF9FFVVCFX662VG/QfFcN1Ps+0U6M
-         fdgLqnFf3bD+P/IJjVHZMqZLGOXAs5Dpov2U9SOP7lcKyQnOVE2j0ltkmbpkOhFEaMYH
-         FOj3edf6kRXFCtlqF5zYaT0cMEop8GOmwlSmxoxoZFyjRoOyjq0OFG7J126YynJhwHd7
-         FS8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794843940; x=1795448740;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
-        b=ktx/mWTqJnfllikboVlbgW7hPndlWDECIHJ81+NyyqfxHInIV7STlLSAdJ28qMOk26
-         OZzMgKD4aa9B94OFYjYRz5QGPweyV4ngRHrxr1WGtiI2xAY91Ycv4QVA366Yj7dboggO
-         5kP6LbfZXNtVVTeoKOyqPnSd8IYPQe4PjwCLmwAIP1WPzCT8yxb7dP8AfRARiZXVYbLx
-         SBZohWuL0uFlICoxS3XOqKfBpRYkL9Zig/DNX3mMz0RW4wXeb3u3VjAsWslu+VifeKW/
-         0kYc0UtxOvuzz8eXoK1SgbEiPFNDhAizmqTaWG/B8A96Oh1qzcQTdItukmpitIPpuD9g
-         IVgg==
-X-Forwarded-Encrypted: i=1; AL+hErEIMmlfPo1oaNSDjMo90XM1GcrhY0sjs/AIBYM8BOnxdmsN32zYYzCULWJ2rZQk2Tq9796Jp3LkBV02uSk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Fsyty9N4h4la5YU3d47ByL6Fnf+pkCDemwLsc2z8rDHcVzI3J
-	Cd7hVXaUj/SCM8H7ha+gaTWoKORAuiDItKO7YCNqTX61mfZLjmK1gBR2q6APkJEZL21eA7+jk3r
-	cFe85cbXRGoq+FjuBCc3XQoo8AYsvWYVxZPgc2wyCD/cGzKQdRb+NyFh5MBtzvvm1aQ==
-X-Gm-Gg: AYBFou3jyRDqg70mwx5J8UTde/k7iqgEl+HE8056gM5wzykErDJCdgorGLKjdpxONDd
-	l+hkcKy9y3pWSr4tyUgwKMOGpy3GJ+asEj03PIoq9SnF3H6CBHn4FnnlNTTvqZFpgunuOzv1K2e
-	Gtq3HzdDVpGCCSK5IAeggIy0tianQ6gniMkasmThT+bZseFB78YvUbTayU7/9z7i28hU8jHFDl/
-	q2q9SGWeUgbzPYHAKevhEP0/3d0dNPysUDjtxYvE34SL5FglTs/RBAwMTpKJEuHZXrXQ0VpH/Em
-	Nt91mtODqgVpmRCnarRzNBcuAf605s0UG+7R3agU5+RTUWDiqRVGLNb1xNyvWF0yn3PnaonFhsr
-	nUmGp+dzLqMarI/+4RDQaylxdS9oAjWzdBb7WrsH/9dQHqzdJq3aPFeftA6bVy/9cRVdJmMOQo7
-	HMhWQ1pPP/9PGQeKfB780AK0r8pRSBDr4OX1cSv5vu
-X-Received: by 2002:a05:620a:2805:b0:93f:1ed3:a9cc with SMTP id af79cd13be357-9494bbdd1e6mr1849362885a.17.1794843939918;
-        Mon, 16 Nov 2026 07:45:39 -0800 (PST)
-X-Received: by 2002:a05:620a:2805:b0:93f:1ed3:a9cc with SMTP id af79cd13be357-9494bbdd1e6mr1849341285a.17.1794843938440;
-        Mon, 16 Nov 2026 07:45:38 -0800 (PST)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8b889csm877596085a.32.2026.11.16.07.45.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 07:45:37 -0800 (PST)
-Date: Mon, 16 Nov 2026 10:45:35 -0500
-From: Brian Masney <bmasney@redhat.com>
-To: zl020895 <zl020895@163.com>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Brian Masney <masneyb@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Long Zhao <longzhao@ambarella.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-Subject: Re: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
-Message-ID: <avslH10GRqkVT9fU@redhat.com>
-References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
- <179427375370.1061670.4050288038934218487.b4-review@b4>
- <20261110-interesting-hilarious-shark-2dbfc0@quoll>
- <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
- <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
- <c67939c7-9725-459e-97dd-e104f3b14022@app.fastmail.com>
- <avMM8z-LYncKS8ip@x1g10>
- <avMmKJpczepWTRdc@ashevche-desk.local>
- <avReozTC_GEmfIxG@x1g10>
- <2b30e92.3c75.1a1e2828c3a.Coremail.zl020895@163.com>
+	bh=ZsLcpSlu0xOtB99tdS5E7q9n/YT6799JHqXWdfxhZo8=;
+	b=yOwJkUDgiFXnugsqmiSpX3119tzGEvaCu5sQV/RTvV5mpqZBtggax6g42INI2PLVHFbQ2O
+	o5GlmNUVX198qrXEu8Lwo/4ZIe3QYqaZUKc7KKwxAsoeyP676tc0thy/4c1lno+6nslzY5
+	lHqwr9etSrD0YKEztpI01zEeS4atjdc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794843963;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZsLcpSlu0xOtB99tdS5E7q9n/YT6799JHqXWdfxhZo8=;
+	b=J7bRhhE9tJMXPZWRkNX57ENbybpqVSLrVlMja3soQX+tCxwcEHN7ZsSc2fYp8oR8ZP4X4X
+	k6B7wkht8RRYtkBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KsFApR+i;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PaCckNme
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794843962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZsLcpSlu0xOtB99tdS5E7q9n/YT6799JHqXWdfxhZo8=;
+	b=KsFApR+ipCGQGiSHXQ3J4jkq9kUW+2WVgp0RUd5NzXrSl9GK6Jwm65/T8Rx3DRsPvePwzu
+	O1fVeeXQ6ZsHyf0+qqn/Syju2F2GnkwxsKUu+ezwt2XkMrNL9MZam432mVQ8ePADo3sc1N
+	vNsj7sQ4KOq0mBlHN7e0yEOwk9MrgNw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794843962;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZsLcpSlu0xOtB99tdS5E7q9n/YT6799JHqXWdfxhZo8=;
+	b=PaCckNmeU9U8M2mLIHyWUe8Kd+Ifp8hLUJPXyCuLhu08TwZRd0AnfetQnJQxp5a7PFH+nr
+	pcNcbF4rObS0fBDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B054A13408;
+	Mon, 16 Nov 2026 15:46:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 82yKITkl+2q2QQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 15:46:01 +0000
+Date: Mon, 16 Nov 2026 16:46:01 +0100
+Message-ID: <8733t0ye2u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.de,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: jack: Fix jack control cleanup on error paths
+In-Reply-To: <20261115114315.3679-1-sreekuttan2156239@gmail.com>
+References: <20261115101949.2483-1-sreekuttan2156239@gmail.com>
+	<20261115114315.3679-1-sreekuttan2156239@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,35 +113,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2b30e92.3c75.1a1e2828c3a.Coremail.zl020895@163.com>
-User-Agent: Mutt/2.4.3 (2026-10-09)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 0B0B91F83B
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.51
 
-Hi Long (and Arnd/Krzysztof),
-
-On Mon, Nov 16, 2026 at 11:59:28AM +0800, zl020895 wrote:
-> At 2026-11-11 20:25:07, "Brian Masney" <masneyb@kernel.org> wrote:
-> >So how about this:
-> >
-> >- Have Long post a new version that splits out the creation of the new
-> >  Kconfig symbol ARCH_AMBARELLA into it's own patch. I assume Arnd could
-> >  provide an ACK on this?
-> >
-> >- I create an immutable branch that contains that the two dt-binding
-> >  patches, plus the ARCH_AMBARELLA Kconfig patch.
+On Sun, 15 Nov 2026 12:43:15 +0100,
+Sreeraj S Kurup wrote:
 > 
-> Just checking in -- there hasn't been further feedback from
-> Arnd/Krzysztof on the plan yet.
+> snd_jack_new() creates an ALSA jack control before allocating
+> the jack structure.
 > 
-> Should I go ahead and prepare that split for v12, or hold
-> off until Arnd/Krzysztof chime in?
+> If a later allocation or device registration fails, the
+> function returns without removing the previously created
+> control. This leaves the control attached to the sound card
+> and can cause invalid list operations during card teardown.
+> 
+> Initialize the control list in snd_jack_kctl_new() so that
+> the private_free callback can safely remove the list entry.
+> 
+> Route all failure paths in snd_jack_new() through common
+> cleanup labels to remove the control and free allocated
+> resources.
+> 
+> Fixes: 4e3f0dc65883 ("ALSA: jack: extend snd_jack_new to support phantom jack")
+> Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 
-I haven't heard back from Arnd/Krzysztof yet. How about wait 48 hours to
-see if they respond, and if they don't respond within that timeframe,
-then go ahead about post a v12 with the ARCH_AMBARELLA split out into
-it's own patch. I think that's a good change to make anyways.
+Applied to for-next branch now, as it's no urgent fix that can trigger
+a crash or such.
 
-Brian
 
+thanks,
+
+Takashi
