@@ -1,123 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821346;
-	b=rshK/1YI3ZsUJ0wcm6Vs2r5Se8PHtsiZ5jQqINv1hf51IC6mZAAyYR2mHpiGrE+eceVz
-	 Z9NN7MKiMWqFFnZF1Z7h/qi2jnk/fEcfCs/yP/koEYVjj+B0QENPAGO1qpiTaDchN5rp7
-	 JiM73OWLU430aqoDmydIITxwwxC4LOeDCH/0tNeV4lA5bLm2HL2ANPdN6EDd6hubwkQNJ
-	 klty/6fczwrOUBRsPVDj4a+X1yHymy3ho4oDM/Xx01CGaPQpokY+AssLU2IMYE8oRmxGz
-	 i2Ju6dV8gSzAsW7QLhr7KW/uOW0x4iTx71kUAy1C56Le/gyWiWk6DcZeSW0ZZpMvz5Q==
+	t=1794821348;
+	b=I3B7hgI0h8JZ12HgjYW5fJDiN/t07oOvwid/PjJwh6cll+EcSS1XOGLq6l1RAAW/t+Ep
+	 +k56OeXcWHXpgyKjFj420FjgVcMGXh6wlUPE9HFsB4/I7pYRfsk84Abd/dSX0k9oDy5D3
+	 yGTlO27SsYq3WUJdWPYUa64e2DG6fViWvEmVtFOSTo1+9gh/2cLk1oT223/xAa77Uxz7N
+	 Q2womhkyNMddi/A2L3I6MBCi5SJep0Ciiu3831o+r4z8EmZtqRDS1g6YobtK8ZqRotfua
+	 uTa3BMw3anMVWfWEKwpK4B5JJX4G7LhzvlyCF1iIRiDB0oCn5XPrJRxuDcXNR+c68DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821346;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type;
-	bh=wFbznQG0d5IonVOFhnusqlVdFzPG48oiZmmSS9tPXTU=;
-	b=HvSIsYztDjcoI+zhw8KqYRFM0pr51AFjHRHeauDhWE2HgQ1PXOqnQxnXocAYn84QraeJ
-	 dWc37BrWeCpLDQict/VMLyTuiI3cZhMhkLsdK9XRS9FYkrnlAbPn9X0Mi76CV0Or2nPgL
-	 p5N8rcx+tghVQ9KCTenwJJ/dmI3P0c6GGBew3BHUHNlBjyo0ViaTvPTUapJ0EDyhIbxZP
-	 66cUsjDAtgBOUYAZP7p2IydodjrvXTyO3CQ49Frk3RYGtko/WnGaicTRy7lle4Lfb3G27
-	 10qQZR3tdyh2C5eh39bPg3GRfWtatdAECMhwkf2FkS3lS5isTlQ+neqxjC4NbCJISig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821348;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9qlmeEjjN/Hi5B1yhZatHZmrPx94agQrfT4eJRLAUHQ=;
+	b=GwLoJoTWh4xZl/kkoeDQ7YLnIAwdYc4O2EGVBTcDofWgy6Hj/1Ol+hKNQUERjTr+LvqE
+	 0ATivv8gl4jFc1l8awac00KxaLR5gpE34qfdrDhZXBL8x16IB6Tjz/uxdL56NNxyfjc0J
+	 mfhLGcBsnjpk+xUlzhOHoGP7j6oNuFzloXvEcrJj5Lg/+xuCRZeSYtNG+Bs6qV0bajihq
+	 sjF7CMi1vLDcQuBjU/vQEgOnpUeLBPcCLRQ15gs1UlkX6c42b/qz2nN9ybFnMzcECaUan
+	 rx+3vRqY8MxrS0eKHGs/wG9u35NUCZqKwOYWd+4VuNkra55lL+CzTnutyT1qQW8ygIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EreqnY2u;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=SmpRSg4y;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WryHB1Y5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EEA606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:29:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86EEA606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 88187606A330;
+	Mon, 16 Nov 2026 09:29:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EreqnY2u;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=SmpRSg4y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794821344;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wFbznQG0d5IonVOFhnusqlVdFzPG48oiZmmSS9tPXTU=;
-	b=EreqnY2uGsPcGB08CysgsQlx2r4/WZU1DJtu10NyBFowSXSRQwTr+DDZ5u4hEu8Vvrf2VL
-	T2HA1h/5StAh4rLX6cK0x6E/6USu1TwtXzonLSXLJ+6m+hDOcsVfH/CQWfq8AAP6EgT9B/
-	0TGalq8gj1Y5x0gaJwlsRwjRFpJ6+bg=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-692-f6OuzFRiPh6BwBAcj-tDxg-1; Mon, 16 Nov 2026 04:29:03 -0500
-X-MC-Unique: f6OuzFRiPh6BwBAcj-tDxg-1
-X-Mimecast-MFC-AGG-ID: f6OuzFRiPh6BwBAcj-tDxg_1794821342
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a359c7f47bso26106355e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:29:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794821342; x=1795426142; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wFbznQG0d5IonVOFhnusqlVdFzPG48oiZmmSS9tPXTU=;
-        b=SmpRSg4yENpYHnMKpffV95a1xBkCqrZaT52tC+T6Mf2JuwI4uROHRrIfijyBEhRUyT
-         JHBsZ7mgW+i2bvWjdEvymj+I6j4PfSOLuVUnIqARk7vxU1jm29b2QAC4V4/0BMm4Fn5u
-         5h75mbwqmMSPyo2741ZtCqxxXu48O0xuPMp1ZKKSocs3HfwIewNuRevssuJID+qG72BG
-         /Xbvw1esA+7jXyrmLvbKW6DcMcykKc280OcQcYCL88jnjqhCaqCMnrhoxHN7Hut6Ku4g
-         0eX9zFfqwv19uKzi5yigZlA2GQeX7KlppRVgCpcWh6/eGn77h6mhkb2pESmWwL1FP1Dz
-         99Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794821342; x=1795426142;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wFbznQG0d5IonVOFhnusqlVdFzPG48oiZmmSS9tPXTU=;
-        b=vKQJsaMNxomN+u4qR7+L2pU43meSIgXaYeVA/IQxv6HRS5qndU4Pu+8EatGFq6ZGZq
-         kzoVXgA5lD7tZcW0lkN9UIXwCsrEyKmFkMZEM4sI9p2w8Z7yRqGwQeG2F+4SpoobGbqz
-         pidlEtV4KsBUlfxKwlZwMwWaNERg/1h5anCDqGUEt5dKwWiYTR50+gI36aybeKuKYtgt
-         zrT1bkPIv+mImRBu0M5llEH6jzaghWqKALpdhGfjiBCvm5xua4Fk2Uvf7aaPVE8+y17t
-         mbIPcQ74pejHkoXYpR0Hlx8d1iDRlSdgJBeesS04PHr2kTcyHTTulhQ9h3kvAXWZkjt2
-         khlw==
-X-Forwarded-Encrypted: i=1; AL+hErFhkC+ao8EbcK31W/8+g5YLKSmrjfw3+kSuWBM+sb9QSuGpwSYNwbwZQSTzO5hfgET/mAgbZI24VcMcyDY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KHsCm7bvFy7B2vy5dpymOXm0ZRkdD5O64X+4Cj3NCxxtFUETq
-	OwVWSF3HCcHNJfzqHflY+VRwjyaLWZ9Y8IJzjb71mqUikq1tlxoCXZo/7qRWhWEo/hdMtxqrd0T
-	XPj+L6q9PoKd9MVWaaVFqs8nKD9pzSpM8xOKyXV9vKrO0zLHB5v9s/vxF3kXYvmxQnw==
-X-Gm-Gg: AYBFou1sVwSUBzP+6h3Zeh3TBywX4xQZK1uXyNkgRGDu+9OehXdwKOm6PSYFOEzkBPd
-	5vbc7zoA1evVs+Qz9aKT0zgik5J/cj6Yr4Fcm2OyzEwuah/eg1W8leGxnPOlFxLaVmr/T79Ys8E
-	mtmC4+3EBuOZ5af8GzkD2sBMtkk7Pi1wHLJHIjInvU6wxCthUKrsvRcDgEzKpCEoUHWbd3hUz+t
-	2iMEbJSrCqAlTLusDk7ycvauBxAB2nGyM17qutvNTpSBV52hETbLyTLdSaY+sRjNL0ye0HfvEEU
-	+YPcORtIE93X1ozK/lHftIdA6zfsJqrLlxfsT8uoLJUrspylJupBQgI8cgN4xFmaeBQqQMLIZ+q
-	A15LP+k5lF/t+UrTfIitzX1dLLOdhGedFcqi72ldZGjXuSMgO2iuyBr1tS+eAm3gYc0MV3W3Iep
-	sruYplm0cikTfhshitZTWmbYGe2+x/V/LrkANpyZY=
-X-Received: by 2002:a05:600d:41c9:b0:4bb:60bd:5398 with SMTP id 5b1f17b1804b1-4bb60bd5507mr133776755e9.10.1794821341896;
-        Mon, 16 Nov 2026 01:29:01 -0800 (PST)
-X-Received: by 2002:a05:600d:41c9:b0:4bb:60bd:5398 with SMTP id 5b1f17b1804b1-4bb60bd5507mr133775995e9.10.1794821341249;
-        Mon, 16 Nov 2026 01:29:01 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb675200e4sm115370395e9.0.2026.11.16.01.29.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:29:00 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
- <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
- <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: Re: [PATCH v11 11/12] drm/bridge: add PS8622 connector luminance
- support
-In-Reply-To: <20261103-superm1-backlight-property-v11-11-00cce7b2ba22@kernel.org>
-References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
- <20261103-superm1-backlight-property-v11-11-00cce7b2ba22@kernel.org>
-Date: Mon, 16 Nov 2026 10:28:59 +0100
-Message-ID: <xlv1ld6trup0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WryHB1Y5
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 91AE21F000C4;
+	Mon, 16 Nov 2026 09:29:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794821348;
+	bh=9qlmeEjjN/Hi5B1yhZatHZmrPx94agQrfT4eJRLAUHQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WryHB1Y5S8dXg39aRX1rQ50qwjg8X6zBrNMJ+ABoR3hHhY+4yElAJwg8iwYY7Kkf1
+	 FfPPVktWVzNRS6EEjk6BK8MBcvzabmWwtTgTAF1aRdBqZBDlCZfUufQpEbcQ0rHuK2
+	 zOyzkWwv5eHoc8mhrIMolgkw21AiIWOPi9nM94kfZZET/4TtTllsTOpSU8huyPDHZS
+	 oGtxKBVY//l4D8cGoQaEUJesYrkV+KnfgWKPI/C19I1W56JBwdWeH08YZkA4Ne/YI2
+	 u8giuvqKE4kCzZGbe3v8E6DJyScj2Ojun43MuWYdgjGPQFdK6THB6PHPGdfa6opebd
+	 OQTvAKnGB8Vjg==
+Date: Mon, 16 Nov 2026 10:29:05 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, linux-pwm@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH] pwm: mxs: Disable clock on invalid period error path
+Message-ID: <avrMdLAPp2oOtdQA@monoceros>
+References: <20261102105005.1007-1-laixiangwu@cmss.chinamobile.com>
+ <20261116031043.508-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,25 +58,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2qdyaspsc4lt35jv"
+Content-Disposition: inline
+In-Reply-To: <20261116031043.508-1-laixiangwu@cmss.chinamobile.com>
 
-"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
 
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> Expose PS8622 brightness through bridge luminance operations when
-> DRM_LUMINANCE is enabled. Keep registering the backlight class device
-> otherwise.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
+--2qdyaspsc4lt35jv
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: mxs: Disable clock on invalid period error path
+MIME-Version: 1.0
 
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+[Cc: +=3D Lee]
 
--- 
-Best regards,
+Hello,
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+On Mon, Nov 16, 2026 at 11:10:43AM +0800, Xiangwu Lai wrote:
+> I've noticed that Lee Jones' series "pwm: Fix various bugs
+> reported by Sashiko" also fixes the clock leak addressed by my
+> patch below, with a broader scope:
+>=20
+>   [PATCH 2/8] pwm: mxs: Return early when disabling and fix error-path cl=
+ock leak
+>   https://lore.kernel.org/all/20261105143847.2559586-3-lee@kernel.org/
+>=20
+> Besides balancing clk_prepare_enable() on the same -EINVAL error
+> path, that patch also handles the !state->enabled case upfront,
+> avoiding a division by zero when state->period is zero, and it
+> already carries a Reviewed-by from Frank Li.
+>=20
+> My patch for reference:
+>=20
+>   pwm: mxs: Disable clock on invalid period error path
+>   https://lore.kernel.org/all/20261102105005.1007-1-laixiangwu@cmss.china=
+mobile.com/
+>=20
+> Please feel free to drop my patch in favour of Lee's more complete
+> fix; there is no need to keep both.
 
+Thanks for this follow-up, very appreciated. I marked your patch as
+Superseded in patchwork in favour of Lee's patch.
+
+Best regards
+Uwe
+
+--2qdyaspsc4lt35jv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr6zN8ACgkQj4D7WH0S
+/k7o7Qf/UjQPeXOgoT/+hklwnuPwbNMvmFIoh2yJPPQxNX68YtUWalecVUW/TmP+
+/ZSd6ajIFk0peHc7RIh2WFNEehinYm9NtMF18bmVq1NX4SqsyLwsml249xLW8WoA
+WaKvrw5E2R68hfsgFf0UyL0XosMR83mQr0cYXnaPGOjqMxjR03euzOF0vU5+bLR6
+asiWvLn0dquA7ZbR59dOrWYC+w/2IY9qBpQxZEWYh6IdNzVwMw/9hKoA8SOW7l0C
+6836BOJF8XGxdkZ/ceXALJtxeVgmwxhry3xYika7u+OKSdMhdYxX0idkNfpUGNtv
+S5quDF/FV+xyi93Z+bqj9pyFQmZG5A==
+=KPRv
+-----END PGP SIGNATURE-----
+
+--2qdyaspsc4lt35jv--
