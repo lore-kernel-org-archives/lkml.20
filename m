@@ -1,92 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815685;
-	b=NAouxprmiUboVXfgaOMtPeuldtaRWcSsccEsupWSllreGuLN7WrqwNHZEp+sECAILCNK
-	 VY5XrwLm4buWXo7Ls2kcLVlwtxPlxyKhN5zFhe5ag+Pm36CyHuDpBTh+Cz4Lzb0KQ+0XS
-	 vz1Vh/S9uuohSYq4deTYdx39m8kmbufxhgsI0vj5I4WT0dx/3cyBS7b5E6ExDqRJ+5crX
-	 debuyWayKfEWKVeONulKGyAMlxz2+Lzc4cD65J2dQ6QucTdJWDJSwffbO7ucpaJadF0tq
-	 NapEWYNTQaeNj1BiPg1PyydJ6fhPHCp+4Ez0vjuns8ZfxREInuW1fOG5PVKkAYG13Yw==
+	t=1794815686;
+	b=DockKrDAfW5nemtLCrmcwMfRHi7MXEQWeZHQuBMkWI83fU9cdmx/fIQSO9dtDavoMjZw
+	 Gj73g0ew3PHAJ6tWKq6RvbusAK25vzRMpUeq7IDii4Emd2cDXaaruNwSl8o8iFeLI7XKH
+	 Ae+sgJ8qGlyx8ptYKtEdmJJsIFwpcpa+WzFsiXm817Yu+IWMkZ/RepL0YI3A5BYGwYysF
+	 0fpXUrg6E7xdK7DKnb7icVpTloC6WwxfGrD/6iYoiOjBW5szSBDGH237zi0Hb9w/E4a5A
+	 oqbdpWNSDHFDv1T8YGsq/CFtUuQVsIwvPHHw98VU17165eeEvr0poOEWFAF3UL2Un/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815686;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=wJhyoVPyEIrD5yY2pde0MNrXE6PDsUwt9Ka8QuL+Adc=;
-	b=wp5Yf4neXPQ05VO3GJJfLQSEd7Cf9E7GOfvV8G/QNsHP+wsCqelNvBy0tte9Ie9kIGvA
-	 gKhlK3eSSuIu+xbdXhABb155K4TukMqTaourS3ohktkONxZN4QXP4ulqQG5q2O6WnQEr1
-	 37AFzlASF4RDbUFcROg0ZLl+ixutBGfbu6iZ36Fold7pgoZbHix1P63xQ6FlAVy7Pj/d9
-	 dAPa33qeImm2eg9MuWBq86lcFUA6l+9ijvJiOeGuSZ56VmiLAW04PO/vR+WaqCf/wA0dl
-	 n2wIObE/X1ISCB4kgO5p+taweibRHY+SWv6Zc4GFKpBxzS9DI1qQL62yumHR5NGi4jw==
+	bh=iUzaZQp5S4tbvRPCNxK/bmUolbaZVx4k2EZhZDo+zsg=;
+	b=syAg8yqbo5Hgb8QdwBX8OB+dfGL7XxtHEWyB35mBjorWokNclVWEx+NpmSYF7PlZ5ChB
+	 zIJvMS2nTf6ZaYpo8e25bL+v7U1BBv+pEkBnCJRg0NOCNBHNhtGsd08gFjx1ba5t305NK
+	 A0M4O7EI/5VdkeWe1rJR6FEAfuf07mnzx1DloL81WN0bvrGLqyGi3vdvFKL0HilwrwhYp
+	 O975kqmaaZFo+/Cb/sS5veyz7L6WT0vmhvZ11wd2ZcndpERln5PcPCE75WoYrB2YtGvrb
+	 XnnuRCj0J75XYNAnfqkcc5oi0YisIGnhmGvgnx6exN69myOHxqadZkJmvhZSd9iHBJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lhQUqA5t;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zgj9aZ31;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260A4606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 260A4606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8D7606A888
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E8D7606A888
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lhQUqA5t
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so38864485e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:54:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zgj9aZ31
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso9996935e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:54:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794815683; x=1795420483; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794815685; x=1795420485; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wJhyoVPyEIrD5yY2pde0MNrXE6PDsUwt9Ka8QuL+Adc=;
-        b=lhQUqA5tQxQyzdAeDP0B7IISnBLRD6tyu9/mhI4hP9HrceXSEkJxjHy0rFBtYK92KP
-         ww+JIfzB9y9fTwlYgoxLMV6aCfUuf803kp0Wb7BuiJNjsugc6rgrDeTQPc8Ot/McY8Uh
-         CthJEKswOASfsQojc2vA8sQQwbtE9k/FzVXJFpjsMeggFXWymyQkWRTGJ3jK/OR4WvBM
-         jMpzSxyKl4fQBO9C/w7xFHjUETY0v41ewe+WSrGTmhjisZxsPh/z/ISrsoRbdb6KYDTW
-         YVbIFrLAw0wvRLxIEcGqYdHs7FAV84jcRZkZR1aeR7Dud4q1J7M8Db2gslNLntI2wvuo
-         mjIw==
+        bh=iUzaZQp5S4tbvRPCNxK/bmUolbaZVx4k2EZhZDo+zsg=;
+        b=Zgj9aZ31u8m3FzsGEhEs7KO15dsARdwE1Gkc6+g5hd460kl94T88hNK4FMOkxBUB3J
+         V3pRBbkdWaNZvU5EzTndqpK2kgdqj5O85mjsYGd/zFwWD8aR0YRNFy129Yrd0meN3TW0
+         Rbfr1YpuiRjEYmfQ1oRxsg7YTZ1R1j2L7lE50MB6uGa3eu/CrhnVHTq/FPeUqKg/lbwJ
+         1/Pkmh3CjCqDun2aCVECmyaPf3HgLsKGiUR1WlKFSzyDA2FnHDrCafkka+rQVBjXtDK2
+         NOsqxyKdCIP0JQvz4xJhzI1wOfEBPZg0LozZuokQ/+GHuLGsXRdcBpV3g3WgDpOtShX0
+         wO4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815683; x=1795420483;
+        d=1e100.net; s=20260707; t=1794815685; x=1795420485;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wJhyoVPyEIrD5yY2pde0MNrXE6PDsUwt9Ka8QuL+Adc=;
-        b=h/NfmEnfjDnZSNHIbZ01hIbEO+AGvasoiGMQiOcSluL5evslQbW7zCM8ZTnc2QBg4C
-         9gXTO0X0hw2ms01AxaYekekqisNGwn4LQfYfBvggRuQTcYZwl9qCHUEpGwkM+akY0mCX
-         Y5AsoEh9/APz9eE1aAQo21Swg/NT4KxqKP7L70zrKiOn8BM6CHwuR4njQ7rgb2Z3ivty
-         rXp/YGq5f0mKl1lkPVHCh/QGaR2V+p0FoFK6GmDM3KQHDGtmCc+/Jmkt4vmXF7YtRoAZ
-         TbEi03fXRCBcXT2bHbO2RJoDNAfW3urumHmiVRQL+6cpirIMh0j042McO8kg/MVhsZku
-         NJwg==
-X-Forwarded-Encrypted: i=1; AL+hErEck9hj9B7K7WoBH7wiJq4N2CGXSPYEAB/fWpxV5A9YMTi2WB0s5FHZNdggfGmMYBZwqcR+7vu9ITDLmR4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lkbBpw+gtMQC8q+Cc1jeqPeHEm99QJiwjBeDoqepY8n3ZkU0v
-	rNQkP/yuxtUsZv7JZWGIjfunXAjs9zLFaF9WsUihP8/ju9gW89SV9SAZ
-X-Gm-Gg: AYBFou1ix9iOuNREEB9Z9yxZgNV7+XQP5c34yoDtdAbdNsQS5Mj2Do6k/BGpZioxTb3
-	DYhTkmgxkutVFqV4VVFNPfo6KS05OAd4JJ2mJ7uv0ApZk+S6h7t8hEz4lU/nwSwPuPcLzRKRrML
-	MkWfUAXfl9W37/M1vY3twGhlwu5qXzNXWT0bdypkgUt9PHpRVfD2P7ptYPTce9bxU//xL9jN2kT
-	t4k673ayMUQWvyxWIOEAPxMOCqD4JToCbx7UgLAnwdz7DIIkXKNgXmCsSfxJXvklaPZ77qgr+/l
-	3gPaHlU8XerahReRVPKiMj/iK9ZTIXzmXZ3V6jq9FeF7n1OqfF8MECev+KQ9B7LrGBElC2pUSBc
-	sivLMLf3h1vC5TYEhWKb7JZ1w+uy2WEld3ACQcNVIFiIjARCi/oaHuHzkp8pB8ApqKXVB+aCbvb
-	OWC/HzU9ZJ2Sc5gu5qoCMwHuhxfPkRZCMdNW8q8On1SmvxOsNWciF2OFGa7ocCm2UJU7urvwBeA
-	JuNmXlj7o042rtJAAfgCJW1uRgROCOKHFbRnefgWjYJ0zqPzBlMb7raudbGYYTkyjIvKGFRrj81
-	4g4hoztBjjYA4vTfzhiJ8k7JqF8sgM/V3HpKY4xYN2ipJhYkzgmu3VMb4WdckDk8xblIHLJ04ct
-	ss5bug6RZKZCowXQ6e4BK+UnF6rI8XE4kTJ47rHJuKtMhj+aqE4tjoVPYIVn0Tmkl+uwzei+ugW
-	5hZ5KnpQ8=
-X-Received: by 2002:a05:600c:8b23:b0:4bb:6f6a:1976 with SMTP id 5b1f17b1804b1-4bb6f6a1e5amr67223255e9.2.1794815683432;
-        Sun, 15 Nov 2026 23:54:43 -0800 (PST)
+        bh=iUzaZQp5S4tbvRPCNxK/bmUolbaZVx4k2EZhZDo+zsg=;
+        b=RfhVAorkY6cfg7CfHDWGq7LMNKtK12q/amksXXkQl4WxjVp42UBylxqCVJ1uOd2h/Q
+         iVDSjH2t+mYg3XunrmKu7O7qQ55Xebk1l6L3fV5CFuH2HM2WL7e7paMvAGK/1weyTJ58
+         SYRmankG5lGF4g8aEMg5jXF8+mcvWkEdn7FTOBkCNv5WeiR5xjztku8FZ+ErnRSqEbU7
+         loNm8GxdfAoz1ztUS5EOTGXHDyqylkcEW6bfGlkYdfJqeqCV2rYobng6IlPA1/kqBlLC
+         WMU7pE/dwSRLssmHSwUua/zTRYfy2gCCo5MjFTpzQWkaMJEYpuQlPHx/9qv96cEJIcLV
+         fVsA==
+X-Forwarded-Encrypted: i=1; AL+hErHlMV9qOG2YH3DrlV+/Oojop9gr6AVfKVpCABcYUkWMdYKUDiZSUWbwrtX0NQ8Z+TQo79TBu6MPU142KbI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mG0RHySfqJLFBdkOFx46RFbS/gYTvDy1ZJg5xGBfoe5laWRd2
+	1OvIR9vBDRyjUYrAtib4/O+O24ZtJmzrulxlxrzO8q7SIVKUNAesCnzT
+X-Gm-Gg: AYBFou3Eppu/BxL6fKKB7E2SlJ2xZOIRORJiXUf+XstztT9K62xQKJrHIao6C+zUOR0
+	ZJcQdNF8jutUOpaqI6oeKGbp+Zi7kkMpl4dcBEXZDSKDfvWIiiKr9nQgo/yLtL6ViwhnXE0TRFD
+	ldlntiJlbzLpE6s8SGEMNZILFHKIxUAWlYGxANxza0oDEz4jocHzYjTj+oKJQbpu2ivBageRhOE
+	EK/mvezvSiuu5bI/pJmk4KIvkXeRtBrq/iVagEJvbbt0PqNkneyV3k79t6rMwh5bCBqHFaqSY+0
+	68BT3mDOgNt9thb4H5vBPGIaBpRHxT64X8TONxPFZOFu1r1GQrjrCvbl9+E59AFhpN/+qa+opfR
+	9jgLpThMxJvtuYli/ST+vtuXghU/gzpe2uhLpwcfo0LLiP3PFYV3emJGIxGM5fucoMp25wdObvL
+	dIENyXq1iS8o8r3bxzeiQm9XajRhC3J1GnfVerNqwLj8piGRwSbwnT7vdg0/pMijLYNn3F8pduF
+	gGRcbIjNCglkCziIdq8hAolwpv6/iJYh+5scykic7awCE4XnHxy0zQTd0JLiywcDjxhI6SE66R7
+	Fmc80mcACY5cZ6XqOfNwWmuve/mLX9fJLiaHnJgfDoMsYK3mgPoNKif4Lp8j6RC68qEkf8/sOHV
+	4XDoOWJTUko29s69eIl/cN8qmr95s1CLyySI92WM3vtlYhQg3xK8YWclzt+ljb9jfysy1fGUiRh
+	n/M5rnzQ==
+X-Received: by 2002:a05:600c:4e88:b0:4bb:7033:c936 with SMTP id 5b1f17b1804b1-4bb7033cd72mr46814345e9.24.1794815684668;
+        Sun, 15 Nov 2026 23:54:44 -0800 (PST)
 Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-117-148-032.95.117.pool.telefonica.de. [95.117.148.32])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5ba25b50sm210329875e9.14.2026.11.15.23.54.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5ba25b50sm210329875e9.14.2026.11.15.23.54.43
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 23:54:43 -0800 (PST)
+        Sun, 15 Nov 2026 23:54:44 -0800 (PST)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>,
 	Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>
-Cc: Hongyan Xia <hongyan.xia@transsion.com>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	Mark Rutland <mark.rutland@arm.com>,
+	Hongyan Xia <hongyan.xia@transsion.com>,
 	Song Liu <song@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Juri Lelli <juri.lelli@redhat.com>,
@@ -95,11 +96,10 @@ Cc: Hongyan Xia <hongyan.xia@transsion.com>,
 	Valentin Schneider <vschneid@redhat.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Mehltretter <kmehltretter@gmail.com>
-Subject: [PATCH 1/3] arm64: Always inline raw preempt count updates
-Date: Mon, 16 Nov 2026 08:54:22 +0100
-Message-Id: <23dc25d010cfeb8eddde12be5212fd73bf1cd5c4.1794814699.git.kmehltretter@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/3] arm64: Always inline preempt count and reschedule checks
+Date: Mon, 16 Nov 2026 08:54:23 +0100
+Message-Id: <80d8bdd8995a4b31a44e65bb9347b41c5be5226c.1794814699.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1794814699.git.kmehltretter@gmail.com>
 References: <cover.1794814699.git.kmehltretter@gmail.com>
@@ -114,39 +114,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hongyan Xia <hongyan.xia@transsion.com>
+The preempt count and reschedule checks are plain inline functions,
+which permits out-of-line copies in instrumentable text. The checked
+notrace helpers added by the following patch use preempt_count(), while
+preempt_enable_notrace() uses should_resched() with
+CONFIG_DEBUG_PREEMPT and __preempt_count_dec_and_test() without it.
 
-Raw preempt count updates can be emitted out of line by the compiler.
-For a noinstr caller, that puts the update in ordinary instrumentable
-text. Force __preempt_count_add() and __preempt_count_sub() inline so
-their code stays in the caller's section.
+Force all three operations inline so noinstr callers keep them in their
+own section.
 
-Link: https://lore.kernel.org/all/c3a90368dd6c096af9d918e036a27728696fb8a4.1786603168.git.hongyan.xia@transsion.com/
-Signed-off-by: Hongyan Xia <hongyan.xia@transsion.com>
-[kmehltretter: split out the arm64 preempt.h hunk and rewrite the changelog]
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- arch/arm64/include/asm/preempt.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm64/include/asm/preempt.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/include/asm/preempt.h b/arch/arm64/include/asm/preempt.h
-index 75a592b7f47f7..f3a5c2cd1936d 100644
+index f3a5c2cd1936d..805f7b33baf09 100644
 --- a/arch/arm64/include/asm/preempt.h
 +++ b/arch/arm64/include/asm/preempt.h
-@@ -41,14 +41,14 @@ static inline bool test_preempt_need_resched(void)
- 	return !current_thread_info()->preempt.need_resched;
+@@ -7,7 +7,7 @@
+ #define PREEMPT_NEED_RESCHED	BIT(32)
+ #define PREEMPT_ENABLED	(PREEMPT_NEED_RESCHED)
+ 
+-static inline int preempt_count(void)
++static __always_inline int preempt_count(void)
+ {
+ 	return READ_ONCE(current_thread_info()->preempt.count);
+ }
+@@ -75,13 +75,13 @@ static inline int __preempt_count_sub_return(int val)
+ 	return pc;
  }
  
--static inline void __preempt_count_add(int val)
-+static __always_inline void __preempt_count_add(int val)
+-static inline bool should_resched(int preempt_offset)
++static __always_inline bool should_resched(int preempt_offset)
  {
- 	u32 pc = READ_ONCE(current_thread_info()->preempt.count);
- 	pc += val;
- 	WRITE_ONCE(current_thread_info()->preempt.count, pc);
+ 	u64 pc = READ_ONCE(current_thread_info()->preempt_count);
+ 	return unlikely(pc == preempt_offset);
  }
  
--static inline void __preempt_count_sub(int val)
-+static __always_inline void __preempt_count_sub(int val)
+-static inline bool __preempt_count_dec_and_test(void)
++static __always_inline bool __preempt_count_dec_and_test(void)
  {
- 	u32 pc = READ_ONCE(current_thread_info()->preempt.count);
- 	pc -= val;
+ 	/*
+ 	 * We must load the combined 'preempt_count' after decrementing
