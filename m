@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850861;
-	b=GO6a/sss/ahUfePdtfasoU6jViMzFu15uS5D+ocQ/rLFxhELTBrTJLITndEpMtBTLoBv
-	 XCBPsp90b6bMG79qQsQY9cbaftQYhbyRx8DyPvCYaYaax6tO5hXHVxqsD7yFJ+i2fXqbH
-	 nQi3LbqtXRNwi3jvY4eSDoJYNUsNDFCwyAm4Q4P4xK1jLJ/48eKrd0ZhEALhdOrJlFwF7
-	 X5ZvuMII0Tm9mGzpPrXn8xJck0z+fhLdaFCq/HC/MBHye9bDPs++HFitUOCRXS/WQSWXM
-	 I0sk+gO7GK5RxfhEGHpq0nquc7VNmHLVnzULllEel0bPcmJvVZSrI36Sa6rIvZ9us4Q==
+	t=1794850886;
+	b=qsTOTLHQyy3+2ZRC5cix5I8hzCDet1kAct47VMsbihPGvkUDbKeYLK9Ud6aSowN6yC+H
+	 5zByQMw80xHqxg09KQHBkrAiOLDDgVYVj7Y/tea+y1bzftxwxNpQ2CGkvDJWJinC361n6
+	 +QaCsGjsmYqOAw6eDjin0bhbjGGR/UC4TylJKT8hAFu9/l/PWqsnGV2MitGmbKcSenaK2
+	 CdN0FZ6bHwtmjfOBisqX5UcdFMjGtnQJMrSH61ubrS6A+XJ5hup79Imm9lN+KIfgcQKIM
+	 p9wgHR9q4AwmRXEUO0gPw7zzYSSyyHzbnvdY9fQ8HZkXTmxduaOt1s13wgn8OmbDqRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850861;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wbM7PObAphnFp29ig3MYdFeHyh+1rC5d4x5j+W0SbqY=;
-	b=j9QoVlDEwPXc2shzpe22o5fs2ialNEWiry07Fbuitji3NJjffZUGns5bocXcAG83VC0T
-	 htImSm5oTuD45ARnnumdAaR5WyFHTKxAOCLmM4g25nxIyy/LLqbyJMI+2DdRE1JIAl/+Y
-	 830WkTM5b3+eKd1XI4rfJ+ktdLkpQWwJkG6VrG7r3kNuHGLCe8N7IheeLVb3rxy9TNWHX
-	 EbR75UmQ4QyFPRQXx6PbROuBS2UHvyjPp2iHiAy3JxDUdQOGCpi71uOtz99D20qeV/O0c
-	 0jNg2f/P4ihGXS3S5sobAfE8tpftoed9FBCdDskmh2MPXVKN/q91sgxOJ/hD9EPs+oQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850886;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ch/BM/lENfR/J2/TnwIZqowCLj2KAkaLmppsgvcuwmY=;
+	b=xx+UB30e6nZBgPxeHzgIzYvTqDgkd4czVQWglkB+qUvPZyXrj3zbCv764R+ZQzj0+sNW
+	 660s3uBkuwSI6N9D79Y6ZETod7pQJ4QY+GM3DHhekLr7wUWoJl5XwJYsaw9RtMBoVlTsJ
+	 B3GjmjJwx6ZcKBEp3ARfT92+GsmvEskpF8znd+nTT4SFQmREwl5SJ+nW+0QVCHWQY3vHJ
+	 W0ZqIX6KiZvkcTsaO4ScgkH4z2PF3LT5fjdqO9sYvWqi11KDRki97JKjVcqYsWJiyXXTJ
+	 2ayFmi1CjOz00E+Y95UkwqaUq/GgRvnDS/JlHVhT6/nY66evhIlB2pq4nhMl3ixcP+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6zrnKo+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97A7606A322;
-	Mon, 16 Nov 2026 17:41:01 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="VG/Kk1/H";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33339606A31C;
+	Mon, 16 Nov 2026 17:41:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33339606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6zrnKo+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02A81F000C9;
-	Mon, 16 Nov 2026 17:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794850861;
-	bh=wbM7PObAphnFp29ig3MYdFeHyh+1rC5d4x5j+W0SbqY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O6zrnKo+1vIXmFQnUBm1R4U9NxwK1087y+Lng2RIuXFg1i0w1tMIHvLxCQSK/Gs+O
-	 LpVoSakcIfjh8msixhP+Om0d8TqzajVwTp+f8aKyOOh9Cm0KRqWMgRQK4pq8pVLHrP
-	 KstwU+HcAvT4/LA4CD0nvkzFXWOOFwK7DGPpZooBEi20eLu/AAZ4kNl8VZ9GakU5k5
-	 m4fd922WMIKw9dzySH0wJVLE28rtsUhlfIYgdjs4V0bXB5Z+HMsr4p3d5h66cU97iv
-	 F+OSg10v62Lu0/oHRxRl5GlpSzCO8hRnugMZpn5fdtgEF2ZfKi6/MH+WjOwZL5eBwR
-	 2sx6gn5oB+XJw==
-Date: Mon, 16 Nov 2026 17:40:55 +0000
-From: Conor Dooley <conor@kernel.org>
-To: aleksa.paunovic@htecgroup.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Djordje Todorovic <djordje.todorovic@htecgroup.com>,
-	Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>, Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH v3 7/8] MAINTAINERS: Add entry for MIPS RISC-V SoC support
-Message-ID: <20261116-canary-pedometer-9df9d756da82@spud>
-References: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
- <20261116-p8700-dts-v3-7-ec5d4b7de39f@htecgroup.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VG/Kk1/H
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3260A1684;
+	Mon, 16 Nov 2026 09:41:22 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1ECB73F632;
+	Mon, 16 Nov 2026 09:41:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794850885; bh=DJXLQoLiGRbRJ+1smSfQs3/6Lkrk8ODrlYWu8BnlA00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VG/Kk1/Hm7a1RCkojQzH3TfEGbFCMCdZBSdIQjb7FeNVmUGMUZy58kcZMku6lOZsS
+	 y169/1y6JoIbmOKKanzJyn1ciIo6W3230WeN1uCk/y3+S7HCx6aFqY1VgaSiWKEaZ8
+	 XMtniXb6xIQr4QvploJN+iUys049C/iJsVz38he8=
+Date: Mon, 16 Nov 2026 17:41:20 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>, Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Zi Yan <ziy@nvidia.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/9] mm: distinguish HW PTE pointers from SW PTE value
+ pointers
+Message-ID: <avtAQCkvRr1xkxMF@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,89 +70,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1XvBLiguEsEm543R"
-Content-Disposition: inline
-In-Reply-To: <20261116-p8700-dts-v3-7-ec5d4b7de39f@htecgroup.com>
-
---1XvBLiguEsEm543R
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
 
-On Mon, Nov 16, 2026 at 12:55:14PM +0100, Aleksa Paunovic via B4 Relay wrot=
-e:
-> From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
->=20
-> Add a MAINTAINERS entry covering the MIPS RISC-V devicetree sources
-> and the board binding.
->=20
-> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> ---
->  MAINTAINERS | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2414447892c24d58595059ca27b18775919ac12..a00f1a801be3c532c33918e67=
-3c7977d9de91823 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23542,6 +23542,13 @@ F:	drivers/spi/spi-mpfs.c
->  F:	drivers/usb/musb/mpfs.c
->  F:	include/soc/microchip/mpfs.h
-> =20
-> +RISC-V MIPS SoC SUPPORT
-> +M:	Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> +L:	linux-riscv@lists.infradead.org
-> +S:	Supported
-> +F:	Documentation/devicetree/bindings/riscv/mips.yaml
-> +F:	arch/riscv/boot/dts/mips/
+Hi Usama,
 
-Right, so still no git tree here. How are we going to get this applied?
+(trimmed the Cc list, some lists reject it as too many recipients)
 
-My comment on the last version was:
-| You're missing a MAINTAINERS entry for the platform, since someone is
-| going to have to pick up the patches for the arch/riscv/boot/dts/gf and
-| that someone is neither Palmer nor Paul.
-| See Documentation/process/maintainer-soc.rst for more info.
-|=20
-| I'd apply patches as a very last resort, but even then you'd need an entry
-| to make sure that you're CCed on patches for the platform because I
-| don't care about the platform and would just apply things that look
-| correct if there was no reviews provided.
+On Tue, Sep 22, 2026 at 06:12:28PM +0100, Muhammad Usama Anjum wrote:
+> pte_t currently describes both a software PTE value and an element stored
+> in a PTE table. Consequently, pte_t * can point either to a software PTE
+> value, often a stack copy, or to a PTE-table slot. The compiler cannot
+> distinguish these cases. A value pointer can therefore be passed to an
+> interface that expects table storage, while table storage can be read by
+> direct dereference instead of the architecture accessor.
+> 
+> This series begins a staged conversion at the PTE level. It introduces
+> hw_pte_t as the element type for PTE-table storage and converts generic
+> MM to use hw_pte_t *. Software PTE values remain pte_t. Interfaces that
+> intentionally return a value through pte_t *, such as install_pte,
+> remain value interfaces; the relevant parameters are named ptentp to
+> make that distinction explicit.
 
-You have added the entry, which is great, but the absence of a git tree
-implies you're not actually intending applying the patches? Ideally you,
-someone that cares for this platform, would do that - and the lack of a
-tree implies that you're expecting someone else (me?) to do it.
+[...]
 
-Cheers,
-Conor.
+> PMD, PUD, P4D and PGD storage are deliberately out of scope. They can be
+> converted in later series after the PTE boundary is agreed, avoiding the
+> PMD-specific cases that made an all-level conversion difficult to
+> review.
 
-> +
->  RISC-V MISC SOC SUPPORT
->  M:	Conor Dooley <conor@kernel.org>
->  L:	linux-riscv@lists.infradead.org
->=20
-> --=20
-> 2.43.0
->=20
->=20
->=20
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+I looked at this (and the arm64 counterpart) and I'm not fully convinced
+it's worth the effort (but I won't oppose it if the mm folk decide to go
+this route).
 
---1XvBLiguEsEm543R
-Content-Type: application/pgp-signature; name=signature.asc
+First, I'd like to see all such on-stack p*d pointers addressed as a
+prerequisite (e.g. fix pmd_populate() in __split_huge_zero_page_pmd()).
+If for some reason we deem pmd not fixable, I don't like half (or
+quarter) baked solutions just addressing the pte.
 
------BEGIN PGP SIGNATURE-----
+Second, we could add a run-time page table check, at least for pmd/pte.
+Something like below, gated by CONFIG_PAGE_TABLE_CHECK or
+CONFIG_DEBUG_VM (untested and not entirely sure about using
+PageTable()):
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtAJwAKCRB4tDGHoIJi
-0iBkAQCJvGKE3LM6qVP/x7ZRhCNl841gAEn9bwsxQj0K/mhPuAEA1a3Ds1qdqjYO
-wJ/wgZaVpxM0yvjQSWXIB9hn1o6WTQg=
-=2URi
------END PGP SIGNATURE-----
+static inline void pgtable_ptr_check(struct mm_struct *mm, const void *p)
+{
+	if (object_is_on_stack(p)) {
+		WARN_ON_ONCE(1);
+		return;
+	}
+	if (mm != &init_mm && virt_addr_valid(p))
+		WARN_ON_ONCE(!PageTable(virt_to_page(p)));
+}
 
---1XvBLiguEsEm543R--
+You already have some coccinelle patches to make the conversion. Could
+we turn them into a coccicheck to detect new uses? With LLM reviews like
+Sashiko, we can probably catch new uses violating the requirement (we
+need to document it).
+
+LLMs and coccicheck won't catch all abuses nor does this series prevent
+one from declaring hw_pte_t on the stack.
+
+Once the above are in place, I'd look again at these patches and see
+whether they improve code clarity and are worth the churn.
+
+Maybe an argument in favour of these patchsets is future dynamic support
+for FEAT_D128, we'd need to separate the software representation of a
+pte from the hardware one but we've done this before (arm32 non-LPAE has
+different representations).
+
+That said, patch 2 (naming the software PTE value pointers ptentp) could
+go in independently. Same for David's suggestion on patch 5 to replace
+the huge_ptep_clear_flush() stub with a plain declaration.
+
+Thanks.
+
+-- 
+Catalin
