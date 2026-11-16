@@ -1,75 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855123;
-	b=W16RkTK5dRIsNvB+1Q+zjwpG6kSBDyIDTtgBehGLt+0hrJa4+kMjTNRpFAogIS2EsfYV
-	 lhcJa2qITS+P2AcSNBdUh8l8e5QaQDmVtj0k8VkNDF5ZpEMfobdGT2NeK203YAOCP4z2b
-	 L1B6jyZ3Jd1QKCaAz1+0XJlJnMgMMJGOR+YYfFxSiwpt/JwONLOtLwnIcyolaJKMC4WB7
-	 BDYjuYnTpnya872yLUj+pcaI0AzKeG2se15wJIcVahx65nXecd6QkppLmsc2BamneC+z3
-	 BejszK4KVTOAxgyHGRQk6CfD+IUf9xMNtHt3YELVTOfoNCGvzY1R+hRYyC51u7pOX5Q==
+	t=1794855163;
+	b=1kNn4LESHkFiqMdfu3FgZqNehHcWvSBcsmF2y8uQ/xxaKFIc2U2Dr098FUjVdjncc7xh
+	 /tU4CmWon2vRZnWGSlkVsU8DnuisJ+5jfK8JSmhcR7432dcjAIiKPGqnmrJUPkE/oaE3A
+	 RkXKAMbVxuQVDeeZ0W3p3IVYO5uiUwgA2C3WLGJZsaLbcMRwd8rZMIeCzSW+Gj0GIjXfS
+	 n+4woVzJrHK4edtkpv73kmpK2Id85Uu4PxPCv1ZOVic23bQu4xNV0Rprao5gHJpMmCyPY
+	 Fh2lbEMtBhGAdLqvqf8O1gIRnOZQqttp2fra2niMEnAWoa5Wg2vMPOZPf5G569dmDcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855123;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Sh2nmNQTVOWP3szEFLOBn84NAH4nPLsfx0J4lAR1HLA=;
-	b=oPL1v4pgL+EeNTr937dgh7o5EjtrfEETBNhLHR+yKrSdAg1Q3XN3wFD7q6ZIYSOpkNM2
-	 kypY237lJA9jPERPVNMIyExjgsw1eOdNypuM9/XOxC4qA6ODhf7D72OiSWHZojQFhauXZ
-	 QLDBIoIyzQy27L42j8X9pb5DFFg5z9QgTNiasDqbXGwkLiQDXCrOLpe/KXwtYIELqPjU6
-	 g7EGkpvx7LGjF+pXcY/stXZJuaAZNCnnVIR6DmmkVpR9AIbLDn1uodRD3SyKgeNkZEsMm
-	 iZBXk8ZUJERLgb4FM8+nGxh9Wha0nUv29IJXHy4iIt2H9mphTEx547OYp2PAF/cZUNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855163;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=m/Z2nYi9NZNoITMZsJFvw0t9wUHDOrpZ4vvlNzigGVA=;
+	b=TMMS/b1lJdcaV06TVX29BGh6Lr+7r6EQqG7zkHCoc7UHQONAlstb5HJB2uVHrhp5KyFH
+	 cZdOHsh4XeIPs298/PnC1vG21Pr9dsI6QdmZundwTnte3gtMcqq8ybG0dvUuZnebC09JS
+	 t9upKtWnx2qZFq+5Xv4fI1zfRNd+qKeBeOZ7apvMXzBHJ7y9AeeTHf2jmRhCap2t7EB5z
+	 ake95K5pZto13AgYBcKIzAWv8EJAYWWdDOsRM1cg9i0am6drDu94RVt74k+syjJjRyyO2
+	 MXBbUQK2SYdIiOCJiZWNVeE3vh0MBcLxMKP0uGrtrQNRxYfM+vI2xJtQXm91JJfF47g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=HEm0RLgX;
-	arc=none smtp.remote-ip=212.27.42.2
-Received: from smtp2-g21.free.fr (smtp2-g21.free.fr [212.27.42.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Js4XTkPu;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3170606A322;
-	Mon, 16 Nov 2026 18:52:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3170606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDFE606A32F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:52:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CDFE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=HEm0RLgX
-Received: from l3017729.home (unknown [IPv6:2a01:e0a:ac2:22b0:3d85:8d5d:9362:361])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp2-g21.free.fr (Postfix) with ESMTPSA id 0D9C9200433;
-	Mon, 16 Nov 2026 19:51:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794855120;
-	bh=Cs4uDxAEdjU0yi/6Yx0YrRf3kzhxHuE7ljq+oh0YydI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HEm0RLgXzcQkeMQMm5ajqLQ9UEKOvOUoWOl5Pc5Q0lkeqQge4PXgMTfi5oQs3R821
-	 fs3+vi2x7Od996DyW9jGedzsoPGf57zVtZfhANZPXCrhJtPtql+njrXQTm33d7GDpe
-	 fwbdKUpT9sbWzvDCSZQmID7MYyXvgK8DmDc2P1NFUDtmOmjBHBYHAxTIsy9Hhtdfbd
-	 fHjljJW8FpE0OAInxyP93ShSWSTQ4Ot18Fp8YetBuzfM1+FPYTt5cd53i0GEugDumd
-	 5XEGVgr+4Ki/mAd45/57SNNYyMsQVCyrQHjuLTfWNabg5RGEGpYCVNTCpw7VDpc0Uw
-	 NymSo4NXmIbNw==
-Date: Mon, 16 Nov 2026 19:51:29 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v6 4/5] pinctrl: freescale: add the Layerscape RCW
- pad-mux driver
-Message-ID: <avtQsSmnMtzj4JZS@l3017729.home>
-References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
- <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-4-fbdce4565a5c@free.fr>
- <avs62BhLjlpouTwQ@lxl00025.wbi.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Js4XTkPu
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb606491faso12758365e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:52:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794855161; x=1795459961; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=m/Z2nYi9NZNoITMZsJFvw0t9wUHDOrpZ4vvlNzigGVA=;
+        b=Js4XTkPukbCMDuP+silCcUkGbdhKS0wyVvy21AGdd+TmgOsiahvn6FrhdgE8k1fhVA
+         Tx2AP4PQpfZGqLLznhjxaiOf9WEjlfnV3LD3mRtVFIAktbCvWEGSKg+Slq8Og7voi7u+
+         3gxtr1u8YM+Q4ohDcvr0Xvd87te5jFCOOTcq+LHUT1AALtom6J6Y3ygMi5r3VzxbnGkm
+         +D0lYSxXUvkAS+jk/De7oD/D0METPY51FyUXa35VRphFlRfPEqUypwJ77fgI+8FXRBZ7
+         WM+NKLoevu9bUKtq8nYmHavdEAUeA/Cq+C7EI9N1Rt6zfzMRHsrHbWYO2ThyXdZ6rIfQ
+         YJlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794855161; x=1795459961;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=m/Z2nYi9NZNoITMZsJFvw0t9wUHDOrpZ4vvlNzigGVA=;
+        b=K31wGqtirDfAtRbTYp0QU1MXz/MsYVpOIcRoInUdN9CV3d/zC1KoSQHOAk+ux8m88h
+         WUhtr7QwyaCMgUnxj50T4zWp4XxFvtrMaAsi6X7EKimbaKsoD063lto/mJjpnionhUOB
+         pNKTiNpbEYFa6VV3UAjBaEQ6JLeML8736Bkv0KmTDAyHMIt2I8Q+OKTzOk5y5EZVyzNv
+         NHnD/UzQBiCdSh3e4kYd0qXOfb2Uxsydu5fUHU0Hf76PuZayW4F81ihCQQ3rAntXpGY3
+         7xwcVLAGPIFfafKVdJYIdBf4hNb6xXFkwo7B4lLjIDjW6Ohlg/JfSGx4QksSLfigkrGQ
+         Bc8w==
+X-Forwarded-Encrypted: i=1; AL+hErFRTU0vUqqySWA3m/E4HEvX+G1BGLiAfNh/c14cwtIw3e+0HauKPqWr+stoQ67cArF8bS4POIHxmKgD4cQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DCWcBN8Fnf5Bsw2jGWloLJrvJFXMTSF/3mVI/I54L9eGaecV+
+	1lTFtNtK+OnOthFSezpg0cuH66dLmnWaT70LMw5hqfVX92h3XUDqiK0W21yohA==
+X-Gm-Gg: AYBFou0D4D8szxpy7RoW+6fbIkwnUjLTm/ijCOnEYUephEPx/Hk4c7lBWeAkGlUwmEU
+	11W7pUt1sYP+ppJvs8s76oFm11mRAmlEYHhO0lLY1qk6ge219uoQZFvISaSlrq0XTqscxtyskSQ
+	0/ty4wNXSi5GBFGKZWX5nz/dXlE9qqbw+H8LGTsYmWpkOGENDNJv3a5e3tjEA0SVcl/MdwKSKZ8
+	Z6cSufBg14CXJWTG2dGrgr7Dt8U2g1BitDBNugb3PjKlzDeuDs1MqYEf2TmVn+t2rjLvrhYNKwj
+	JSUjlohy3Eu8NwfKDZVjHMPkNJVqQFzG/qZCKKzscz9WI4QCMezMhR97wVQdddqE5TJYg7n+JN7
+	av11YoQ7AwLNQev4Y+GVQWcyLXyiFgptjBuuIP7AyfCcxXF7p/JEXIoGmNtnqQNuBJthXsllnfQ
+	qeG1GmmiuoeqTChpmRww6Q7u0JDeZ23Uc51gnlvfqWpA9yY0EBUHWR4OMq4mwl8onmKI8dYh2HN
+	LaCowVQduQSyNm2BOdrGleeAmwd8K0gM8RlKUb+wqMKlTc4oCuGI5LdRwmfalRJma01NuZ5qRuB
+	3IWKu3xRw35pC/GlqPEe5HZx1Gx/zzQwbvkE8r7GTzkeISfpHJnE8MhCnLyfxonbOQ==
+X-Received: by 2002:a05:600c:154a:b0:4bb:6a5a:7824 with SMTP id 5b1f17b1804b1-4bb6a5a798emr116616505e9.30.1794855160850;
+        Mon, 16 Nov 2026 10:52:40 -0800 (PST)
+Received: from [127.0.1.1] ([2a00:23c4:a702:d301:6889:eb24:5e57:83b1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5720f6basm157961345e9.4.2026.11.16.10.52.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 10:52:40 -0800 (PST)
+From: Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v2 0/3] Add RZ/G3L HS400 support
+Date: Mon, 16 Nov 2026 18:52:38 +0000
+Message-Id: <20261116-sdhi_hs400-v2-0-de41f7a7f330@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,25 +92,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avs62BhLjlpouTwQ@lxl00025.wbi.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPZQ+2oC/03MywrCMBCF4VcpszYlk16srnwPKdI2UzMLm5KRo
+ JS8u7EguPwPnG8DocAkcC42CBRZ2C85zKGAyQ3LnRTb3GC0aRGxUmId35zUWqtm1h01pjqaE0I
+ +rIFmfu3Ytc/tWJ4+vHc74nf9Me0/E1FpNTUjWVuhqXV3Gdcy0EIySDn5B/QppQ8GXzMrqQAAA
+ A==
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794855160; l=1545;
+ i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
+ bh=TTEJfEawvjDbFSQ6Fs65tzvehlnQj31DNLAkJJXRiME=;
+ b=2oQyctcsRUZIl5FW0fFWgIu4Gh0NRzja9Fppp82DjTe9EZNEPy+nV3Ik5RkN90TaZQPRdHbgw
+ Vh08oHhQ5uOCYIwCOEZN5YtoLqqlAMDxRgMTjTAFa/HtwACmv+vV17v
+X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
+ pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
-Hi Linus,
+RZ/G3L SDHI IP support HS400 and HS400 ES mode. This patch
+series aims to add support for HS400 mode. HS400 ES mode
+support will be added later.
 
-regarding Vladimir's question:
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+Changes in v2:
+- Added fixes tag for patch 1
+- Using ios.timing to decide whether the HS400 divider restriction applies
+  is wrong: mmc_hs400_to_hs200() lowers the clock while ios.timing is still
+  HS400 and then walks through DDR52/HS/HS200 before prepare_hs400_tuning()
+  clears the HS400 bits, so the divider could stay at 200 MHz or prohibited
+  non-zero dividers could be programmed while HS400 is still enabled. So
+  tracking HS400 hardware state for RZ/G3L clock programming using 2
+  variables hs400_active and hs400_clk in struct renesas_sdhi.
+- Link to v1: https://lore.kernel.org/r/20261116-sdhi_hs400-v1-0-c5bedd312408@bp.renesas.com
 
-> (which they're not - iic2 is a group consisting of SCL and SDA, whose
-> function cannot be selected independently, which is why you've grouped
-> them together).
-> 
-> I suppose this is OK? Not really a pinctrl expert here (and it predates
-> your work - pinctrl-simple worked the same way).
+---
+Biju Das (3):
+      mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
+      mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
+      mmc: renesas_sdhi: Add RZ/G3L HS400 support
 
-either way is ok for me too, I do not properly understand the guidelines
-that would fit best the kernel. What would you prefer ?
-  - muxes per pad ?
-  - 1 pin per field ?
+ drivers/mmc/host/renesas_sdhi.h               |  5 ++
+ drivers/mmc/host/renesas_sdhi_core.c          | 95 +++++++++++++++++++++++++--
+ drivers/mmc/host/renesas_sdhi_internal_dmac.c |  5 +-
+ include/linux/platform_data/tmio.h            |  4 ++
+ 4 files changed, 101 insertions(+), 8 deletions(-)
+---
+base-commit: 35dd24973da5e5810a6fae86c291293d11dc8022
+change-id: 20261113-sdhi_hs400-5f08e5237291
 
-thank you,
-  Vincent
+Best regards,
+-- 
+Biju Das <biju.das.jz@bp.renesas.com>
+
