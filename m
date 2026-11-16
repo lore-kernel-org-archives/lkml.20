@@ -1,71 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794842265;
-	b=RvXXfiFJHSo4KReAbMUI/g8Jo2zSr2fkMBEePrXyDQQQ949w8l8NcTEmCeAHEGjjoH7Y
-	 tdzw/XjyaI1m3ZBg7EOC3LS16JiPmKR29JyU6X9zwlqZs0chR1Eev8EVJdIFGx6AFLKA0
-	 2gAlhYaA6eiLu4wbAOxuvW3l6ZTrEkXTS/U0eFAUsWQtyt9waYIyL4jXcgyC/7blV5TVc
-	 8Fz0ceRAlysKuPofZ7djOeAjwYBRM5cm2ppozRYJ/yaIxh8RMXYnWWEgC1GzWWo21b9G0
-	 bHQuM/OtYSeU2xuzfxoiqTCM908bHTv81JqMIlbh9nziUVKODQmfTje1zyJqIUbVKMQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842265;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
-	bh=pKtllUb24DfLjvXDwRNM1UEMN040e8zEO8RULkM6i44=;
-	b=rAJTAyWWyxqVAB1WL+XlsNGzJEMlqPQJiuoBKtLkzUrnzVhWUmEsMiCAE8WWj9jp1w8j
-	 3CN8td2FAIZyvMJsQpiXb46vx7WktQns5NQpSFdAP9QPobnWZuSHxKr/TVuP5GhDm9wkA
-	 cQIObo5v2pa999p5MWnNauhrn28Jr8y4R4J+HpFRxeqfdIini42yfo7JPFn9/ZMJhukdS
-	 0KTuCLBjkuH4UZOujY2T6mWUKLUyO8QYLNt/lRdk1s9PRJ0fyOcstBwDGsZG72+gBVouc
-	 j0q48rhpIke0P+CHye96j7Kvl4RPimrRsqQMMCuncoQwZSdJslpC+sE6oALRlLCLZvA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ziyao.cc;
-	spf=pass smtp.mailfrom=ziyao.cc;
-	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=AFaqHAup;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
-Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794842276;
+	b=3Gdl1wQq3eHiy/oouHhpmQxyoaPDtdlsxePhvmp9fUwAdGQKxlfOkFczvTm4hHhsTUgq
+	 dnsrO1G4IvhUCZTS7vZARWgo+p2S9gZCAhqHQCskp66ARuW4I6MxpYPrSt9Yd9uQfaUlY
+	 uePPEUwWppCN6QkAyuOpP8M5qoo5IejHZsxwDODUZJe3brbOaE5hiplIkqlDZ8j6GDOBc
+	 dddsTke8v+ZH6U4kB1AasQs+Mb3DUUh8nhCCCEqrXeyKtFER96EM/lAlcJ5uw725CXEh+
+	 IO13bG9Nt0/zRpREBraAOEgSAg8ahHb0F1sjnpZYKnGgsezcTKwqzchY3DE8JeVYiwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842276;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:cc:Subject:
+	 In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 X-Scanned-By;
+	bh=b37GkLVGO60t3CXWtXvYGydBuiHnKhL1cK13DcMfi5U=;
+	b=KrDaW1T7MO4W5C0aexr0kXZ0dlwj1Jq/ejNjgsIsCFstEcjvS74mM0hLn2iRh0FRnBtY
+	 IhwEaDmWoMAG5yk1mYpviOv07CpFlBtZntidr3Kc9SsvFG4T5M58mj9v+YCe4lLp/a0vF
+	 bwET5bfzWbGYmp8mC2Ck8sj6SGNWn9syVjy9vKNr09p7ddIaFY1IgMJetaSKSyU2VhAnK
+	 WygP2CtM0SKTlii6vhIA/dq4KuJNlNU7JWKumtpT9agEtuIQHE9nI3dIbTt2hFyENw61j
+	 SxvCAIXspTTyq7E+MaprJ8XaPzxrKjRy97wwi1AhdSBjJFRGbkgpELYB8H9HTuRiDqw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A2Ug0Ecs;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B12606A32A;
-	Mon, 16 Nov 2026 15:17:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94B12606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B145F606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:17:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B145F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=AFaqHAup
-ARC-Seal: i=1; a=rsa-sha256; t=1794842228; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DbxC62yWl1KNmfowR70rdGrZi+jCnrkzysH8KmbGo8EqnMBVky4V7Asu73XVNdsuC3LBNC3YlAlmlxGe15/anmR96P//+EJWiv2HJYWxMIWGj12u5JzeYIa94E9hoizT4jT9k7TDq2gk85eH5a/jMqX7loHuoDVuV38hvn1O5s0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794842228; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pKtllUb24DfLjvXDwRNM1UEMN040e8zEO8RULkM6i44=; 
-	b=N1DrfHmK3RnFYNhid+id7GC6rVntY7WljErE67OasB6b08J1+gIyNXA2cDZi7AfI4P2Ur98WYYpIGn17UbQu7j5GrYf+9e5uXMaOSlTZA7IjKuXCXmhphX/TAflDhP8WS+Uzeu2fWdV9JNGRIpXhaAVDXNO2NrrRNeIr4ek/rSw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: a=rsa-sha256; b=AFaqHAupFsJN/VJazoE4LYC6a1638cmd9CW92FweqOn6B7EuhqxTCPIJPGXyDD+gNGjvd0v32X0QiD3akko+LR56dPHz5yGYBz6aE9ELk9tfQhq7UXQQUQu8AlWMCbsgR845IjRxQ2sm+0gEpMXmlInXp7YFbzgXeSO1JGJDLSQ=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=pKtllUb24DfLjvXDwRNM1UEMN040e8zEO8RULkM6i44=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794842226489579.9379874741966;
-	Mon, 16 Nov 2026 07:17:06 -0800 (PST)
-Date: Mon, 16 Nov 2026 15:17:00 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Magnus Leatti <magnusleatti@kernelriot.com>, me@ziyao.cc,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Nespolino <g.nespolino@gmail.com>, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] net: stmmac: dwmac-motorcomm: support
- Wake-on-LAN from S5
-Message-ID: <avsebFtnIASV-KpV@pie>
-References: <20261116091757.1656602-1-magnusleatti@kernelriot.com>
- <20261116091757.1656602-3-magnusleatti@kernelriot.com>
- <avscVrGbi7mFicuz@pie>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A2Ug0Ecs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794842274;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b37GkLVGO60t3CXWtXvYGydBuiHnKhL1cK13DcMfi5U=;
+	b=A2Ug0EcsoKswtKspGFDzf7Cozul8ql3sZhyLbjCBatcGpLp6564iBbs/9+QNoGbNgq61BE
+	rObTqI0Bl9Vh98sUjb/BGqxjgxdpiDSF2lk49npLo2l5E7XSdHaNzO4F3Lommu2lbGMGtV
+	aDp0WiZas8m599z10fkoLWCF+USYg/0=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-668-N42HNi2bPPmAj8foRtmBEg-1; Mon,
+ 16 Nov 2026 10:17:51 -0500
+X-MC-Unique: N42HNi2bPPmAj8foRtmBEg-1
+X-Mimecast-MFC-AGG-ID: N42HNi2bPPmAj8foRtmBEg_1794842270
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AF301195604E;
+	Mon, 16 Nov 2026 15:17:49 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A14CF1956047;
+	Mon, 16 Nov 2026 15:17:47 +0000 (UTC)
+Date: Mon, 16 Nov 2026 16:17:43 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Aibing Chen <chenaibing@cmss.chinamobile.com>
+cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+    Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dm-integrity: initialize free_sectors when the superblock
+ changes on resume
+In-Reply-To: <20261115115329.1174-1-chenaibing@cmss.chinamobile.com>
+Message-ID: <a0d2a86b-a001-9f82-1d08-fd8348688218@redhat.com>
+References: <20261115115329.1174-1-chenaibing@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,148 +79,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avscVrGbi7mFicuz@pie>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.637.76
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Mon, Nov 16, 2026 at 03:08:06PM +0000, Yao Zi wrote:
-> On Mon, Nov 16, 2026 at 06:17:57AM -0300, Magnus Leatti wrote:
-> > The driver reports "Supports Wake-on: ug" and accepts "wol g", but a
-> > YT6801 in S5 ignores magic packets. At power-off stmmac_suspend() arms
-> > the PMT register, but the chip's out-of-band WoL block stays disabled
-> > as motorcomm_init() leaves it, the packet wake bit in WOL_CTRL is clear
-> > and PME is turned off.
-> > 
-> > When powering off with Wake-on-LAN set, the interface up and wakeup
-> > enabled for the device, keep PME enabled and arm the chip after
-> > stmmac_suspend():
-> > 
-> >  - Enable OOB WoL. Without it the chip does not wake.
-> >  - Write the MAC address in use to the first address filter again.
-> >    Enabling OOB WoL reloads the factory address there. Without the
-> >    rewrite the chip wakes on the factory address and ignores the one
-> >    in use. The rewrite follows a 2 ms wait, as in the vendor driver:
-> >    without the wait the reload lands after the rewrite.
-> >  - Set the packet wake enable bit in WOL_CTRL. Without it the chip
-> >    does not wake.
-> > 
-> > The sequence follows the vendor driver, with two differences. The
-> > vendor also sets bit 9 of LPW_CTRL. The chip wakes without it, so it is
-> > left alone. The vendor puts the function in D3hot. Here it stays in D0.
-> > With MAC Wake-on-LAN phylink keeps the PHY running and phylib keeps
-> > polling it until power is removed. In D3hot the MDIO registers read as
-> > all-ones, the poll fails with -EBUSY and phylib warns from
-> > phy_error_precise(). That warning was seen 111 ms after entering D3hot
-> > on a normal power-off.
-> > 
-> > The PHY is left at the negotiated speed. Reboot and kexec are not
-> > armed: OOB WoL can only be disabled again by a chip reset, so it is
-> > enabled only when powering off, and the next probe resets the chip. If
-> > the interface is down at power-off, the system does not wake.
-> > 
-> > Suspend is not changed. Hibernation that powers off through the
-> > shutdown path arms the chip the same way. Neither was tested.
-> > 
-> > Tested on a Celeron N3350 mini PC, magic packets sent from another host
-> > 75 s after power-off:
-> > 
-> >   net-next  wol g                         no wake, 3 of 3
-> >   patched   wol g                         wake, 8 of 8 (28-31 s to ping)
-> >   patched   wol u                         wake on unicast, 1 of 1
-> >   patched   wol d                         no wake, 3 of 3
-> >   patched   wol g, interface down         no wake, 1 of 1
-> >   patched   wol g, power/wakeup disabled  no wake, 1 of 1
-> >   patched   wol g, reboot                 reboots, link back, 3 of 3
-> > 
-> > The kernel log of each of these shutdowns, read back after the next
-> > boot, shows no warning from the shutdown path.
-> > 
-> > A second board, a PSJ8500-N97 mini PC (Intel N97), behaves the same.
-> > 
-> > Signed-off-by: Magnus Leatti <magnusleatti@kernelriot.com>
-> > ---
-> >  .../ethernet/stmicro/stmmac/dwmac-motorcomm.c | 68 ++++++++++++++++++-
-> >  1 file changed, 65 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-> > index 1e142ad39e33..034547ad1e98 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-> 
-> [...]
-> 
-> > @@ -204,9 +207,51 @@ static int motorcomm_resume(struct device *dev, void *bsp_priv)
-> >  	return 0;
-> >  }
-> >  
-> > +/*
-> > + * Arm the chip to wake the system from S5. stmmac_suspend() has already
-> > + * programmed the PMT register of the GMAC. The rest lives in the wrapper.
-> > + */
-> > +static void motorcomm_arm_s5_wake(struct net_device *ndev)
-> > +{
-> > +	struct stmmac_priv *spriv = netdev_priv(ndev);
-> > +	struct dwmac_motorcomm_priv *priv = spriv->plat->bsp_priv;
-> > +	u32 reg;
-> > +
-> > +	/*
-> > +	 * motorcomm_init() disables OOB WoL right after the chip reset, as
-> > +	 * normal operation requires. With it disabled the chip ignores wake
-> > +	 * packets once the system is off. Once it has been enabled, only a
-> > +	 * chip reset disables it again, so enable it only when powering off.
-> > +	 */
-> > +	reg = readl(priv->base + OOB_WOL_CTRL);
-> > +	reg &= ~OOB_WOL_CTRL_DIS;
-> > +	writel(reg, priv->base + OOB_WOL_CTRL);
-> > +
-> > +	/*
-> > +	 * Enabling OOB WoL reloads the address from eFuse into the first
-> > +	 * MAC address filter. Write the address in use again, or the chip
-> > +	 * wakes on the factory address only. The reload is not immediate:
-> > +	 * without the wait, taken from the vendor driver, it overwrites
-> > +	 * the address written here.
-> > +	 */
-> > +	usleep_range(2000, 3000);
-> > +
-> > +	rtnl_lock();
-> > +	phylink_rx_clk_stop_block(spriv->phylink);
-> > +	stmmac_set_umac_addr(spriv, spriv->hw, ndev->dev_addr, 0);
-> 
-> Does the chip automatically enables WoL and loads MAC from eFuse on
-> power-on? If so, the driver's WoL behavior would vary if the software
 
-Aside from a clean power-on, its behavior on reset also matters. If the
-NIC falls into WoL on both power-on and reset with a reasonable MAC
-address set already, we might probably call stmmac_dvr_remove() in
-.shutdown() to detach the NIC from kernel's infrastructure, then reset
-it with SYS_RESET to get a functional WoL state in S5.
 
-> alternates the NIC's MAC address, depending whether it's a cold boot or
-> a warm one.
-> 
-> Please confirm the chip's behavior on reset.
-> 
-> > +	phylink_rx_clk_stop_unblock(spriv->phylink);
-> > +	rtnl_unlock();
-> > +
-> > +	reg = readl(priv->base + WOL_CTRL);
-> > +	reg |= WOL_CTRL_PKT_EN;
-> > +	writel(reg, priv->base + WOL_CTRL);
-> > +}
-> 
-> [...]
-> 
-> -- 
-> Thanks,
-> Yao Zi
-> 
-> Meow-mrrp-mrow, I'm a cat.
+On Sun, 15 Nov 2026, Aibing Chen wrote:
 
--- 
-Thanks,
-Yao Zi
+> fc79aeb86a2c ("dm-integrity: validate the superblock on resume") made
+> dm_integrity_resume() jump to skip_writes when the on-disk superblock was
+> modified while the device was suspended.  That path skips
+> replay_journal(), so the journal accounting variables stay
+> zero-initialized: free_sectors is 0 while journal_sections and
+> journal_section_entries are nonzero.
+> 
+> A later suspend or flush queues integrity_commit(), which calls
+> pad_uncommitted() in journal mode.  Its invariant
+> 
+>   journal_sections * journal_section_entries ==
+>   (n_uncommitted_sections + n_committed_sections) *
+>   journal_section_entries + free_sectors
+> 
+> no longer holds because the right-hand side evaluates to 0, and WARN_ON
+> fires.
+> 
+> Restore free_sectors on that error path, as replay_journal() does for the
+> normal resume.  The section counters are already zero and nothing will be
+> committed, since the device is marked failed.
+> 
+> Reported-by: syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=94dac3c75477e184f0b0
+> Fixes: fc79aeb86a2c ("dm-integrity: validate the superblock on resume")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
 
-Meow-mrrp-mrow, I'm a cat.
+Hi
+
+This should be already fixed by the commit 
+e5e03918fbec31f0c896f4f43c2bd2aadf35d43d ("dm-integrity: don't attempt to 
+commit journal on disabled device")
+
+Mikulas
+
+> ---
+>  drivers/md/dm-integrity.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+> index 802b37761..6ab305b60 100644
+> --- a/drivers/md/dm-integrity.c
+> +++ b/drivers/md/dm-integrity.c
+> @@ -3915,6 +3915,13 @@ static void dm_integrity_resume(struct dm_target *ti)
+>  		memcpy(ic->sb, ic->sb_copy, sizeof(struct superblock));
+>  		DMERR("The superblock was changed while the device was suspended");
+>  		dm_integrity_io_error(ic, "superblock check", -EINVAL);
+> +		/*
+> +		 * replay_journal() is skipped below, so the journal accounting stays
+> +		 * zero-initialized and pad_uncommitted() would trigger its WARN_ON.
+> +		 * Restore the free sector count; the section counters are already zero
+> +		 * and nothing is committed because the device is marked failed.
+> +		 */
+> +		ic->free_sectors = ic->journal_entries;
+>  		goto skip_writes;
+>  	}
+>  
+> 
+> 
+
