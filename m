@@ -1,60 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794856479;
-	b=jQos5P0zDN3FxMWzKCmLga/vFyV3vwz6yyQnb//1HcbJ516ubEtocWEh961PPar+KHNA
-	 Wdm+F1xUsEmrVRu0L3gX3qe7CuElq7Qy0Jr8rB+ieAJz91GZ2bmxorULYtQNShDvvv5YS
-	 QzXhipKqj6K+7n01D+FIwoPGWR/ZzC+yqdh77oN0EvV/28t0ELShPErWuJC8uDz4QrlVg
-	 pDE/ZxkBOfkmCXKDSm/VuWpw5LVlQkSqIOXhV1qirD6v81hbtb3y1CGzu7dnnJ0ZB0Vwq
-	 SxiEIxAbWc/iWRgrPDE5Y6xw+bdVaUmQdxvrf5glgLiyB9cUcmUrlh2dKHAVd7LnhPQ==
+	t=1794856538;
+	b=iBiUbzpZ5UE9cDbQus+zePwlp43Alj9BFDCaEUqQ158omlNRvk0HIPADG1NO+e+qemY+
+	 5KF3CMDWjs4KDPBNflneIroo1yW2HWkasv/vfUiQZeEFEqkLZYAE7WQaeesLYHsBTyId7
+	 iCKmDOkWnwOqgixrlt/JyMPRMrRT/ZxZAzsTQeGIn69asp6F8igLhz8gWCigNrP2bD4Rf
+	 eRPHOlA9gWywKoIAJxyI8pI/OZWj2pxAl7Nsw9LQ6Sp+SJNX+bVHkfMRaeDgNlowB0TyF
+	 CoUIkJCq2lH3kszpDKMnC8YjZ+obIx4PySgDckcMdQWKsA/fcnAIKU1RsGzHUrh3j8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794856479;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EAGpy5NDNTABSAAPJTapspr42FJ9GsEIq4x5fClYYvY=;
-	b=oVe2wZgHNT07cMzY0QhpyS+myho2HIaAhGhvZ51tMaTN7E8S+T8XHLcwzNDfEtSgX3cD
-	 fSk3/5oP2Crvq5K00c2Q5Wf0rlctcXWdHm0IzWCi3aZmb4uyD8SZ5TE9g9ZvWwGMcpbhr
-	 OyAi2S8bBPE5NQHJ3InzpNKz4koIJv5u/mP4kDGjXIxpL12aZAKh7Ym0WL4f5NoVb7jis
-	 ShqFmi/TtXq38YpNwQLLlSbXrwZPMdwgxh3RG+SXQoyLWJHn5wreYfLYcIadBYWP6uhm2
-	 WhVl9Q3vIKxrt8Y03J2mPzDkuMN4rYx+UPQ42vI5rOMUCfive5i/beKkDnqr5EsT6yQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794856538;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dhAoJNe3fPzmWOk2VpDnB6M/c9lvh0UdAslgSx4rl4o=;
+	b=mzn/4un8BtNYaR7A7fTlIDgo/FJImRxuQrZtoWBDsWuz7PHIh/GuQ7j778gHkpM3ZvKJ
+	 cmPuiMM6gjRSId2iJWVhAfp4XvNBqp8+1N/Vljn35Cbm4lahYZ2yOw3Rhv72a7R2/5bCe
+	 tfoVV3W7WggCdd/2DM9BgKMWihO/pSMEZiwsE6m+xKyQV42XAbcsrvJOBudE5Dx5pr6wV
+	 I9HZjIetP05r+xbV0E9AZgl8olf1rwYJOagYqmmFLQOBGF0PSDFwXa8G7mtfXmtLCpUbE
+	 QmY+eRVA1G6NRBmGSdqOQjQw0Av+M3rnArCBDkLeh9D3TjhdeszkaBgN6xoXikFaadg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J/Rge9nW";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=strlen.de;
+	spf=pass smtp.mailfrom=strlen.de;
+	arc=none smtp.remote-ip=91.216.245.30
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB18606A31C;
-	Mon, 16 Nov 2026 19:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J/Rge9nW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E50301F000C4;
-	Mon, 16 Nov 2026 19:14:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794856479;
-	bh=EAGpy5NDNTABSAAPJTapspr42FJ9GsEIq4x5fClYYvY=;
-	h=From:To:Cc:Subject:Date;
-	b=J/Rge9nWGYR8JZwBkdA9HlSYbPCEK+vTJXN41IzWN2MRhBusKVtjWRPo/uRgprY7s
-	 1E9WvYSMR1/tVI7WQ/lCs4w9UlbnvtHywtceq6T6RQZ2LGOI10e6vIU5oSA8+Na88r
-	 iHruIfzmc9gkcVMbIdNedbu9fe/bpEe6Et3cx6fOEWYRZ+ncTgVxa7xOH+9E58EBhd
-	 FTXjShUGQJ13WMgbhVUM4s3kxMHbACVhO6KrHEXQDL2dR3Zvu5L56oDLrglzEqbJMC
-	 Itto6EAV+MI2bTpHdEVDx0BRpgRrr9LG5A5PHP/x9Cws6v8LDwXT8zKpq9Uai2tgEG
-	 IJPyjXZqOSamQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Willy Tarreau <w@1wt.eu>,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: submitting-patches: ask bug fixes for their user-visible impact
-Date: Mon, 16 Nov 2026 14:14:36 -0500
-Message-ID: <20261116191436.188098-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006B5606A31C;
+	Mon, 16 Nov 2026 19:15:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 006B5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 1769360D56; Mon, 16 Nov 2026 20:15:30 +0100 (CET)
+Date: Mon, 16 Nov 2026 20:15:26 +0100
+From: Florian Westphal <fw@strlen.de>
+To: Hui Peng <benquike@gmail.com>
+Cc: pablo@netfilter.org, phil@nwl.cc, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] netfilter: nfnetlink_log: fix config error handling, SIT
+ headroom OOB read, and nlmsg rollback
+Message-ID: <avtWTqpzelp_PNmv@strlen.de>
+References: <20260919215241.3471723-1-benquike@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,79 +51,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919215241.3471723-1-benquike@gmail.com>
 
-"Describe your changes" already asks for the user-visible impact of a
-change, but changelogs for fixes still tend to say what the code does,
-why that's wrong and what the patch changes, and stop there. Whoever
-has to decide if the fix needs backporting is left to work out what
-the bug does to a running system.
+Hui Peng <benquike@gmail.com> wrote:
+> Fix three issues in net/netfilter/nfnetlink_log.c:
+> 
+> 1. In __build_packet_message(), subtracting ETH_HLEN from skb_mac_header()
+>    for ARPHRD_SIT tunnels can read before skb->head or past
+>    skb_tail_pointer(skb), and nla_put_failure returns -1 without calling
+>    nlmsg_cancel(inst->skb, nlh). Remove the unsafe ETH_HLEN subtraction,
 
-Say what that means for a bug fix: describe the worst a user can see
-and what it takes to trigger it, say so if the bug was never seen to
-happen, and say so if it has no visible effect at all. Give the
-paragraph a label so people can be pointed at it.
+That made no sense to me.  The entire ARPHRD_SIT check is dead code
+nowadays and it will be removed in -next.
 
-Coding assistants are told to commit a fix with a message that
-describes the problem and the solution. Add the user-visible impact to
-that list and point them at the section.
+But how is it 'unsafe'?  If it moves to before skb->head, no read will
+occur.
 
-Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-Link: https://lore.kernel.org/r/20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- Documentation/process/coding-assistants.rst  |  6 ++++--
- Documentation/process/submitting-patches.rst | 11 +++++++++++
- 2 files changed, 15 insertions(+), 2 deletions(-)
+>    verify hwhdrp + hard_header_len <= skb_tail_pointer(skb), and cancel
+>    the partial nlmsg on error.
 
-diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index 509dbf23a099b..ef01ce8d0ff91 100644
---- a/Documentation/process/coding-assistants.rst
-+++ b/Documentation/process/coding-assistants.rst
-@@ -63,8 +63,10 @@ these steps:
-    re-running a complete analysis; drop any fix that doesn't work and try
-    another one. The fix must not add build warnings and must pass the
-    checkpatch.pl checks (see submitting-patches.rst).
--6. Commit the working fix with a detailed message describing the problem, the
--   solution and a Fixes tag. Do not add a Signed-off-by tag.
-+6. Commit the working fix with a detailed message describing the problem, its
-+   user-visible impact (see "Describe your changes" in
-+   Documentation/process/submitting-patches.rst), the solution and a Fixes
-+   tag. Do not add a Signed-off-by tag.
- 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
-    Documentation/process/security-bugs.rst shows how to do that.
- 8. Indicate what could not be done. If the fix could not be built or tested, or
-diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
-index 9cd19a71e96ec..52cccb08ce896 100644
---- a/Documentation/process/submitting-patches.rst
-+++ b/Documentation/process/submitting-patches.rst
-@@ -51,6 +51,8 @@ motivated you to do this work.  Convince the reviewer that there is a
- problem worth fixing and that it makes sense for them to read past the
- first paragraph.
- 
-+.. _user_visible_impact:
-+
- Describe user-visible impact.  Straight up crashes and lockups are
- pretty convincing, but not all bugs are that blatant.  Even if the
- problem was spotted during code review, describe the impact you think
-@@ -61,6 +63,15 @@ from upstream, so include anything that could help route your change
- downstream: provoking circumstances, excerpts from dmesg, crash
- descriptions, performance regressions, latency spikes, lockups, etc.
- 
-+For a bug fix, this means saying what the bug does to a running system:
-+the worst that a user can see, and what it takes to trigger it.  An
-+account of what the code does wrong is not a substitute, as it leaves
-+every reader to work the consequences out again.  If the bug was found
-+by review or by a tool and has never been seen to happen, say so.  If
-+it has no effect that a user could notice, say that too.  Maintainers
-+and the people looking after stable trees decide from this whether the
-+fix needs to be backported.
-+
- Quantify optimizations and trade-offs.  If you claim improvements in
- performance, memory consumption, stack footprint, or binary size,
- include numbers that back them up.  But also describe non-obvious
+I don't think its expected to ever fail.  There is a space-remaining
+check *before* __build_packet_message() is called.
 
-base-commit: 2138148bf44fd84d3e0a863f0e8cb3627cdcc606
--- 
-2.53.0
+> 2. In nfulnl_log_packet(), only increment inst->qlen after
+>    __build_packet_message() succeeds.
 
+See above.
+
+> 3. In nfulnl_recv_config(), propagate errors from nfulnl_set_mode() and
+>    nfulnl_set_nlbufsiz() and destroy the newly created instance if
+>    NFULNL_CFG_CMD_BIND was processed in the same message.
+
+Not sure about this.  Could cause existing (working!) userspace
+to fail.
+
+> Fixes: 0c36b48b36dc ("netfilter: nfnetlink_log: fix mac address for 6in4 tunnels")
+
+Not really.  Most of these 'fixes' are day-0 bugs.
+
+I suggest we wait for the ARPHRD_SIT removal series to land in nf-next.
+
+Then at least some of the changes here could land as cleanups.
