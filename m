@@ -1,59 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802741;
-	b=jIFHkNWn0wj4MfBIcy0o7GRaQG3xzvV3J8ZSLsJ1oGXoYej/3zkhsrKvdJSWvnHDV/eN
-	 EUfcjRRjRuNXmgBceLeUEVKrNpZTswcHpCeoC9ASCozbwLb3Pj1hIUwbNtOk3gsVXkIqe
-	 lgV48nRb5t34q2HalxOcjDTHRz3QDkt9MPg1OV89u97bMzRgXJbf8X3WcNqMnUQ/mbmWx
-	 aJcDcAdCChVxIjUZN9M0jpGXniT9Ck98+xAkPAIPzaJtQz/541c6uRJGwq9h0ydh2RCHd
-	 qRcMxD8ev1Epksx/kSJEs4TpDwLs+yvERGgP4kWIifFL3IlMb4dY/6kDkE/IIUiVH3g==
+	t=1794802759;
+	b=vERw3e4a5V5pjQpNhmo8mR0ejuxpq+v5LX0vRW1Zm/iUTospNe6VGYnLLoAKMuiFBcuE
+	 B3FzWBuZk5ATPod3tidjSSro0qOupn1QICqtuB8tGVOkaajJgwQ/546YFBuxiDtSVvIwJ
+	 g1VTKEMvbIl/STaY3glN4F3Fqbf/waLRdaX0D1yRDruFRf3ToCLbt3VGQmVddvK+2bfYq
+	 c+izhGS8kJNDs4UoDrf1s+sGi4pITGnCnPF9MCMvEl0hUt2ZI8fQsSJcs2dIB7P7GUbcd
+	 KKtNknG3ByLrLb34PDk3gk0Qg5mG/QxsswqRi8Hbpg0Hfka6/CpX7jjC+BtaDN5tftQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802741;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=MmbkgJ5vXuWc0jp3fmFhO9MVV9Eu5cJFU3YArPkwGlc=;
-	b=KleC4SoPcYZy4m3bplbPHjDtTlGSKYWZws+0KZ/hCCN9+MACJHihqztZdPiykC6v7aci
-	 Zi7v0tmlkEM+0EGDvo9HrbL8UtsIEESwD7L/2n0TERXy/PJSQY7/RMpEFjUaMTQ+4w8LG
-	 vmnFaTORZ0i8wwxva0kXjRBZL6S1fPj6u3tUW3nYMY+nus7HvQrVsgXPycGf8vmW0sWDJ
-	 sW0cC8TPTVHvQH4FsI3f6FvA5i7JIJChmpQNff4CfXSEhMEKEQBeMdgXzypq0/0H6Vbfc
-	 sHAnP8xFsEbDCRFdf5HkXRYlOyWejq8y7Yy6uLDU3GN7G0FbGrjpMxtsuq8YsnSnnOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802759;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=n4CDV4ziRFU3xddHncpYnLzq3A+HLPidciJ1bfu5cIk=;
+	b=3pYzLCE102VHpgXcp+JQyYR27Ug16kY/0/fHu0vfF664qaounqC+j4zuI3Ea59TL3Ghj
+	 LP5D+27rSvfQS2twVXsbPyF680jCnosgPPMDzogQ4D6zUoO8m5GZ/OgJWU4oBQ0gC5cRo
+	 UYe3mot+b6LBySK98cqcj1xJeZRKMYaE4tdnc5QXaG4Y5RPkBRBIUdnQVr/yfv3yiojvY
+	 mwABcXDXRDi33EZyuhl+IfQCkhhNnRrNCu6G6WS1etICzh+amQ1DkAwqYBmF7XIWflpAN
+	 hbrOa7oKqKBaT0q7atd4UWW/FurUlOpMNvqKrLwe/61YooQvT57TYXswvlJv+LFwhvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.12
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y;
+	arc=none smtp.remote-ip=95.215.58.123
+Received: from mta1.migadu.com (out-123.mta1.migadu.com [95.215.58.123])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEBE606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:19:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EEBE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 27D94A01BD;
-	Mon, 16 Nov 2026 04:18:54 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf14.hostedemail.com (Postfix) with ESMTPA id D918633;
-	Mon, 16 Nov 2026 04:18:51 +0000 (UTC)
-Message-ID: <6e18f4dfbe3187e7ea35f61c4fb9d27443fd892d.camel@perches.com>
-Subject: Re: [PATCH v1] checkpatch: Add context-analysis attributes
-From: Joe Perches <joe@perches.com>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: apw@canonical.com, akpm@linux-foundation.org, elver@google.com, 
-	linux-kernel@vger.kernel.org, kernel-team@android.com
-Date: Sun, 15 Nov 2026 20:18:50 -0800
-In-Reply-To: <avngL4BZlQTv2OHO@google.com>
-References: <20261112151203.3129005-1-vdonnefort@google.com>
-	 <6dfeacb309d58f153c1cd701cd31a587151e9070.camel@perches.com>
-	 <avhgY9t0KVkDfEZw@google.com>
-	 <61e4f8997861a1188935435e78682c575552d2a3.camel@perches.com>
-	 <03c1afd39a3f167b960a982d1a933619855a975c.camel@perches.com>
-	 <avngL4BZlQTv2OHO@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60535606A336
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60535606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IjpKErh6Re8z+1/3lW8pFvWGsn41vSm3orTI4RjKMEE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794802756; v=1; x=1795407556;
+ b=Jw0iSV5Yzt7XlM7CPt8TBpBWyib0JnfRWnaLD39IkMnizBJ8ngyyPVR3ljoABA4N2yRb199j
+ 8QtSD2okD/RlDSshHDqP5dFxT5xPa9z+H75Hahv9tzUP+lT5D9pCDFtf++YjQ5NFdt6p2PdaPXw
+ QtW+ZinnBn3t3hBT/+TzKOmg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 59a289117738f648;
+	Mon, 16 Nov 2026 04:19:16 +0000
+X-Mizu-Trace-ID: 59a289117738f648
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 20:19:12 -0800
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
+	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v5 1/3] ipc/sem: account dynamically allocated sops
+ arrays to memcg
+Message-ID: <avqD2Z3KJwPsCcVG@linux.dev>
+References: <cover.1793250194.git.x-professor@outlook.com>
+ <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,61 +72,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: D918633
-X-Stat-Signature: b48dsdymzxcfdebhfo39bg81hzimmcib
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX19+9BnPo5mCbPUWSdtA0kmwfpnFCrjfoag=
-X-HE-Tag: 1794802731-282894
-X-HE-Meta: U2FsdGVkX185TMur5jl6YqlKlm5ljWdHZbToAB1yx9gyPO62d7UFQBtIEfYMtToY5XsyhvLO+d8awmM7+yjctF5gg+k2LKo3rwqNLgVA7LkmM0CZtLsBSBkk6TiGQVQSlDnvMiZe5/l2GolHnfljqFCQ3G0hVGFh4jTffoHseMBMvYTE3UL3kxBaAiUdkw3XNm2Wyktom2rLy1lsiKNLz+Bq/aTFJ45Gp2c8IvAFNu/GhE7PTHTc+XVh6jqDjPEbxjoDRHEIE8V2ey2oT1wbMjvGdMSDG0FsB6ikzebreNBrxzDaCWWeoz2lXn1FlB8k
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
 
-On Sun, 2026-11-15 at 16:39 +0000, Vincent Donnefort wrote:
-> On Sat, Nov 14, 2026 at 06:57:39AM -0800, Joe Perches wrote:
-> > On Sat, 2026-11-14 at 06:26 -0800, Joe Perches wrote:
-> > > > How about matching one internal () pair?
-> > > >=20
-> > > > __guarded_by\s*\(
-> > > > 	(?:
-> > > > 		[^()]++ |
-> > > > 		\([^()]*+\)
-> > > > 	)*+
-> > > > \)
-> > >=20
-> > > Sure.
-> > > Please add and use another variable so it's not repeated everywhere.
-> >=20
-> > Reading a bit about balanced parentheses in perl '(?R)'
-> > non capturing recursion works since 5.10.0
-> >=20
-> > Maybe instead use
-> >=20
-> > /\((?:[^()]++|(?R))*\)/
->=20
-> Somehow it doesn't work. I have tried the following:
->=20
->   my $p =3D qr/\((?:[^()]++|(?R))*\)/;
->   my $a =3D qr/__guarded_by\s*$p/;
->   for my $s ("__guarded_by(&mutex)", "__guarded_by(foobar())") {
->   	print "$s:", ($s =3D~ /^$a$/ ? "ok" : "nope"), "\n";
->   }'
->=20
->   __guarded_by(&mutex): ok
->   __guarded_by(foobar()): nope
->=20
-> Did I miss something?
+On Thu, Oct 29, 2026 at 05:03:25AM +0000, Yingjie Wang wrote:
+> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
+> do_semtimedop()") removed accounting based on the assumption that sops
+> arrays would remain small, describing a maximum cost of two pages.
+> 
+> SEMOPM is a UAPI default that can be changed at build time and through
+> the per-namespace sysctl. Commit 50ec499b9a43 ("sysctl: allow change
+> system v ipc sysctls inside ipc namespace") made that limit tunable by
+> IPC namespace owners without capabilities in the initial user namespace.
+> 
+> do_semtimedop() keeps up to SEMOPM_FAST operations on the stack. Charge
+> every larger, dynamically allocated operation array to the caller's memory
+> cgroup. This avoids a second size threshold and prevents a configured
+> SEMOPM limit from expanding an unaccounted heap-allocation range.
+> 
+> In a 4-vCPU KVM guest, with the benchmark pinned to one vCPU in a leaf
+> memory cgroup, accounting raised the median time per successful semop()
+> call by 2.3% to 3.2% for 65, 500 and 1000 operations, compared with
+> unaccounted allocation. An invalid semid, which allocates and copies the
+> array before returning EINVAL, rose by 5.6% to 11.9%. The 64-operation
+> stack path changed by at most 0.9%, and successful calls in the root
+> cgroup by at most 2.3%. Each result used 21 samples from three boots.
 
-Dunno.
+There is no kmem accounting in root cgroup, do you know why there is an increase
+of 2.3% there? 
 
-The only thing I got to work was using a capture group
-in the additional string.
-
-  my $balanced_parens =3D qr{\s*((?x: \( (?: [^()]++ | (?-1) )* \) ))};
- =20
-  for my $s ("__guarded_by  (&mutex)", "__guarded_by(foobar(qux(baz())))") =
-{
-      if ($s =3D~ /__guarded_by$balanced_parens/) {
-	  print("ok: $s: <$1>\n");
-      } else {
-	  print("nope: $s: <$1>\n");
-      }
-  }
+> 
+> Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
+> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  ipc/sem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/ipc/sem.c b/ipc/sem.c
+> index 5ec41de7e85b2..ea95cca5bb0ec 100644
+> --- a/ipc/sem.c
+> +++ b/ipc/sem.c
+> @@ -2234,7 +2234,7 @@ static long do_semtimedop(int semid, struct sembuf __user *tsops,
+>  		return -EINVAL;
+>  
+>  	if (nsops > SEMOPM_FAST) {
+> -		sops = kvmalloc_objs(*sops, nsops);
+> +		sops = kvmalloc_objs(*sops, nsops, GFP_KERNEL_ACCOUNT);
+>  		if (sops == NULL)
+>  			return -ENOMEM;
+>  	}
+> -- 
+> 2.43.0
+> 
