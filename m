@@ -1,89 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822184;
-	b=Z8vJC8QFYhmizKpLBA8wiWI/icfgsxQLcYF9wLiWFEaPhkVH2U4uB9Tsh5mwhNG0qmTz
-	 1XhSmxasbR1HsNaVeAd2wBilyKXoFH2Kk0cJliClqOFOyVKlPYtDBylHkoBk3ZaXimmGF
-	 UTC4EXSh2XGPr3MAYpFHXaQC06cMvxFPk/oaKh9P0uvGjhRsnGtg7hqA1v0S3/WNOQfvY
-	 wxwAkZNod0wdfrVHqelfsTThi6ZV0bJBOK7OKaXCN00K1rxIaGQGIOZQSgCy/JbdUb42Y
-	 TgSq9MEI72dXH3mAjsLm1zgMR7Ff+VtSjAnrEATHYkwYuDXGgfw8zCDUbK84U4Ofn3Q==
+	t=1794822215;
+	b=U5UCeraD7epH43GDSwQDi0Td6mnSeHagkoPseO42A7f5/hcmVBDQbeHzWoyO0QqCkcLg
+	 dpusWlY4znwmroH6t0Yrb5t0g3IvcukUCDD2/u1Oy3yDtd1V3E7ESBAPp6KHC6kd4GoKb
+	 9O+shaCf954vULRvFeq5TVufF/cPdM5iCvU9RnWIU4ms0jweLvHsaRRO/6oDaQDk61k84
+	 Aolohhrp87puJxNtJe67d/HN62HDQV+Bx0sM/ghUApT1fK9kzgfyAFTXmlPVl4CS8eCbz
+	 3cy+51l8+gFbwT54BxHqQVgOxKNHK0oK/ZtTkZ0KwM/1BtKfni6PZc3J8wh6JDlm3jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822184;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=lUNaTCcdfWDc+F04yNeLpG4cAB0pfDKkmS9IxUIqTLw=;
-	b=QqHdAVghiHrLfsShZXZfEymL8c51zaU/wRQYMlORwmEHlETK2WeDOMjAtRVcK4LPJL0T
-	 VL4YliDuStwmbkki3FpSmAP/t6YHrYQrszUT5olV79gzXaH3MWsL5mk8F4Cf+iSZjDVOp
-	 OVBqICU+M1M5GG3Caqq3Pm15jpZ+vcNUP/7y8SAxOa79HasoJvaBj1zWIOyYzOKNlex2f
-	 qgQCn3yv1c0sJJu4clIU00iWMw3W1qvSn3cmQxghfBmrAy7kLk7qX6ZmCOKAurUlYFZEk
-	 4mRmsO9sq6ws445P9CeBmxEy9Hiki75gwRGiakWZdIE3SvSxxdp495Dl8+dwvV8A4xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822215;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=r1AFOpbsqxX3uo9toBA+mdQLGQJc8KzZTyPjj6RARv8=;
+	b=MzIBoCI8avURNs1tUnkMUXtVQs2I+ydOsa3heXiFW/xAvwXG2WphTNEkwv+GOiUCpdOy
+	 atCZYrQYOmIrjYHz5G6e52LjBa8mAbbWRWqekQyC7enFYp4a4WngJxz8pI/0E3I4oOS0K
+	 eGSWGKbFNr4ikixMbtix05L2TMwWyNqRIfL/b6TLOqy/EElscoal999ayOQ2XTojuYofi
+	 9swLbL/QlWgtSeQ141isjA4/t5KSRJpd1cRDpgtwqiy/gGAbASjNDSbgRAQItMbm6R8Xm
+	 4KvcDDUy4UJT5BZ8VWkXx1A3eMPX9VLbqSnOGcF49AwRpbq5ADdIpYQ00mtTZsxD+lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JqLJLimj;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="b/tck9XR";
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D686D606A33B
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:43:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D686D606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042A0606A32C;
+	Mon, 16 Nov 2026 09:43:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 042A0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JqLJLimj
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1200913b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:43:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794822183; x=1795426983; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lUNaTCcdfWDc+F04yNeLpG4cAB0pfDKkmS9IxUIqTLw=;
-        b=JqLJLimjvyHi29j5wmDVtOgLsfTX8B50VG724BaoWIBHurLiLCwRZROcUraGJ2fct2
-         duH2V8uTD0vffGG8PevPY+I4/gVYmGqwIezroUliSk9JfKz1HQ2oUCnLUjA+SU/CO/RK
-         14GbJqAlDn5+V0weu1ZZghK1jsKcPKV39S+kXBQG4x2rXC0xTU1ezj+rc5sEl/Q9+ytc
-         rU302DuVZLmpXvUf2ww0gSbwf9xckvW1rEDP0GKxszyMB1gH320LkoEHrVRFOyhJP0ve
-         tLK8Ana36yK0p+d1xQVSOQ2e00xoRC3LYs6U76Py03yGt0FpOTGnUXKU3Xe//PrY5R3J
-         34Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794822183; x=1795426983;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lUNaTCcdfWDc+F04yNeLpG4cAB0pfDKkmS9IxUIqTLw=;
-        b=HmVKyBP1iXAeJSqMpes1Nwvi/+jenP4noKKTvgXIuNZxP7vuaIT9JB85yD9dUp0cT6
-         FOFXyiiBEYulcyNIzC/q66TML1CrZEPWeJy0i+CojnEdBNGy17WPLWL7cmBrrWYYUuJ1
-         oEjyNlZrF7+Z9hzysNJ2fdJk8cf4damPcE8sq42hp7pgqi3jl0dlFyzKCkkEoGeqhC0/
-         vfljOfPkF84i3E81jSxRHh4TNHbBJRMCQNhrtyeJibN1SI44HbkjuQoRPq4CFQrxzlML
-         x2wE1tHXE0KoNhkCYzgw60rlp8BChZudQSmL2OQURwVDVXuQ0U0Vd0dJKU5Z6YfCWFdW
-         wJog==
-X-Forwarded-Encrypted: i=1; AL+hErHah47a480sB34B1gWSUhDj1EgZUteI5OWcofGzURkvsi2sPZXwovhHPb5P/CeCGiN9OkWWB5ww4KQBJnI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MQNIZJ3ztj9Sc/dm5ty7rCpUtqaEX1/faTpMPJo+nJvpeiNDm
-	yjP3Q5/IKLMJ3mOWCQDcVQGr9WF8g5jUG971Z7dHdWFn/hACdAisj3tc
-X-Gm-Gg: AYBFou1N+yvx4s1jqRhSoWpIqFB7kzu+5ppuMz6T6C/JxzMc1AQZpJXDXurDSrDSTiE
-	K1LxS9tCtJ5i5IjU9AiKWbp3oMI2ECuQqFirKQQT+2a7ITNO+EpfVT7YXFtzmd/YiFUgNomqkl2
-	x7Fl03UofGQAUjXh2Rw8/hqKZ+yhRG7orfsSnoNcEqo4NlnMLulMLh5w2MMmqU9ImXZeKwlX/z1
-	VdC9scjrHnclNlekfq49cGJRBJCCUTIUBT2ObrS/Vfdnvvxoy2Aky5WBOnXMxGfxKgbVgRHLaCo
-	CaZMivCs+fPcZ/sQoB85fdTe/KBPr7G3TsWy0K/heqKtQojUyIlDIi4ZE2TcCldjSyfyEn9fgU2
-	K4z15DifDDpLhypQ3pL4TRRtEznx0/6FRcr4JYGvuCIjOLKp0Qyth6Zr9ybTjUpRevuMdH5TXAM
-	E4gdllPfYi96R6fUPBW78zdylWEAtxbXc0WhNX7Z+FZqQtm5qgVx7cQXXt/nWiyjj1Eh0v3kycy
-	JuNnxnNR0IdEXQVXR8HRCYsWEl6Pls4ojWVSYOm1lekPWBqHMm99sf04amIZBMI1Bxd+SldHOYz
-	zHXdAIG6ErNThVv5cb5SZP3gQuvgd9UFXbZDj4m+zzYezwZPc+X/TRAfxKDAEPqfrL3Nc4zKpek
-	6//nySBIc7q87IeENgA==
-X-Received: by 2002:a05:6a00:4b52:b0:88d:20ff:15db with SMTP id d2e1a72fcca58-8beb7a26493mr9160303b3a.54.1794822182843;
-        Mon, 16 Nov 2026 01:43:02 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:f133:af41:7614:f46c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a90fdsm3424231b3a.15.2026.11.16.01.43.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:43:02 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Mon, 16 Nov 2026 01:42:53 -0800
-Subject: [PATCH 1/4] sysfs: check for SYSFS_GROUP_INVISIBLE using equality
- comparison
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b/tck9XR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794822214; x=1826358214;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZLXdMjZSdnPw4vZYqATM3k2jfuyeh2FfD2QSdsLjbkc=;
+  b=b/tck9XR27OfdXzCxEHBaTiVpnwBMZLjZmGw0GwAchwsdfLAz8+kcIpg
+   XayfDdK4jLxqnjp3tChVFDRnEd3vDntqN+p/Z4mpW09G2NsATZqWdSNwp
+   Wp3ZU9DnDsggT8JpgbpncVtlWR+JPspm42UPtaEEgrNJkFNFSpPI8Ig54
+   bxWeJoPcYNAlcfgLOSjwsnQUdYSh+LQvxcMGxPr9OdvbAj722uM+oNtZb
+   R2KejArcjC6PFqAGAIysHGxPTI1wRvmkywSeUwwAOcSulguOaM/WVZcF+
+   MCIRS+vZZqJ0tfcZamM49ib2I0RaRPiQWdqCMNZwDWx+b7DB9uDK04jcW
+   g==;
+X-CSE-ConnectionGUID: RlvhuL14T52TVU9Z6V9rYw==
+X-CSE-MsgGUID: hu6D5KkfQliTjlgXhpG5Tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3444682"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3444682"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:43:15 -0800
+X-CSE-ConnectionGUID: OSRgF9FqSTCaD1fLpmkP0w==
+X-CSE-MsgGUID: N1z6ttoJQAqeqqk9GVw/7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9644707"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:43:11 -0800
+Date: Mon, 16 Nov 2026 11:43:09 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: admin@tsv-stahl-riesa.de
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kevin Tsai <ktsai@capellamicro.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: light: Add Capella CM3217 ambient light
+ sensor driver
+Message-ID: <avrQLQyTPODd4gcZ@ashevche-desk.local>
+References: <20261113-upstream-iio-cm3217-v3-0-c4d5b2485dff@tsv-stahl-riesa.de>
+ <20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,84 +88,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-sysfs-group-invisible-v1-1-94cd173a7d9a@gmail.com>
-References: <20261116-sysfs-group-invisible-v1-0-94cd173a7d9a@gmail.com>
-In-Reply-To: <20261116-sysfs-group-invisible-v1-0-94cd173a7d9a@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Fernando Fernandez Mancera <fmancera@suse.de>
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.17-dev-6b8b8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Unlike SYSFS_PREALLOC, which is a permission modifier bit OR'd with a
-file mode, SYSFS_GROUP_INVISIBLE is a standalone sentinel return value
-indicating that the entire attribute group should be hidden.
+On Fri, Nov 13, 2026 at 08:59:00PM +0100, Patrick Fischer via B4 Relay wrote:
 
-Replace bitwise checks and flag masking of SYSFS_GROUP_INVISIBLE with
-direct equality comparisons so that any invalid combination of
-SYSFS_GROUP_INVISIBLE with permission bits is not silently accepted and
-instead triggers the invalid-permissions warning.
+> The CM3217 has no registers and no ID. Writing a byte to address 0x10
+> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
+> returns the high or low byte of the 16-bit light count. The driver
+> takes the second address from the second reg entry and falls back to
+> 0x11 when there is no firmware node, as with new_device.
+> 
+> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
+> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
+> count scales linearly with both. The driver exposes FD_IT as the
+> integration time and IT_T through the scale, so the scale list offers
+> four ranges for each integration time.
+> 
+> The datasheet is not public. The bit fields, the reserved bits that are
+> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
+> downstream drivers (drivers/staging/iio/light/cm3217.c in the 3.4 kernel
+> rel-tegranote-r8 and the 3.10 kernel
+> android-tegra-flounder-3.10-nougat-mr1.1). One value differs: the vendor
+> header defines 4 T as 4 << 2, which is outside the two-bit field. On a
+> Tegra Note 7 field value 3 gave four times the 1 T count, so the driver
+> uses that. For the resolution, Capella
+> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
+> per count at 4 T and 800 ms. This matches both the upper end (65535
+> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
+> 3.4 driver uses at 2 T and 100 ms.
+> 
+> The sensor has no data-ready flag, and a new setting only takes effect
+> when the conversion in progress ends. A conversion takes IT_T times
+> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
+> driver passes through shutdown on every change and waits one conversion
+> period plus a margin before it reads the count. The timing was measured
+> on a Tegra Note 7.
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- fs/sysfs/group.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+There are a few nit-picks below. But in general looks very good.
 
-diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
-index 4e1e4f18a166..cc03229f8a94 100644
---- a/fs/sysfs/group.c
-+++ b/fs/sysfs/group.c
-@@ -69,8 +69,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
- 					mode = grp->is_visible(kobj, *attr, i);
- 				else
- 					mode = grp->is_visible_const(kobj, *attr, i);
--				mode &= ~SYSFS_GROUP_INVISIBLE;
--				if (!mode)
-+				if (!mode || mode == SYSFS_GROUP_INVISIBLE)
- 					continue;
- 			}
- 
-@@ -100,8 +99,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
- 						(*bin_attr)->attr.name);
- 			if (grp->is_bin_visible) {
- 				mode = grp->is_bin_visible(kobj, *bin_attr, i);
--				mode &= ~SYSFS_GROUP_INVISIBLE;
--				if (!mode)
-+				if (!mode || mode == SYSFS_GROUP_INVISIBLE)
- 					continue;
- 			}
- 			if (grp->bin_size)
-@@ -151,7 +149,7 @@ static int internal_create_group(struct kobject *kobj, int update,
- 	if (grp->name) {
- 		umode_t mode = __first_visible(grp, kobj);
- 
--		if (mode & SYSFS_GROUP_INVISIBLE)
-+		if (mode == SYSFS_GROUP_INVISIBLE)
- 			mode = 0;
- 		else
- 			mode = S_IRWXU | S_IRUGO | S_IXUGO;
-@@ -522,7 +520,7 @@ static int sysfs_group_attrs_change_owner(struct kobject *kobj,
- 					mode = grp->is_visible(kobj, *attr, i);
- 				else
- 					mode = grp->is_visible_const(kobj, *attr, i);
--				if (mode & SYSFS_GROUP_INVISIBLE)
-+				if (mode == SYSFS_GROUP_INVISIBLE)
- 					break;
- 				if (!mode)
- 					continue;
-@@ -544,7 +542,7 @@ static int sysfs_group_attrs_change_owner(struct kobject *kobj,
- 		for (i = 0, bin_attr = grp->bin_attrs; *bin_attr; i++, bin_attr++) {
- 			if (grp->is_bin_visible) {
- 				mode = grp->is_bin_visible(kobj, *bin_attr, i);
--				if (mode & SYSFS_GROUP_INVISIBLE)
-+				if (mode == SYSFS_GROUP_INVISIBLE)
- 					break;
- 				if (!mode)
- 					continue;
+...
+
+> +static int cm3217_read_count(struct cm3217_data *data, int *val)
+> +	__must_hold(&data->lock)
+> +{
+> +	s64 wait_ms;
+> +	int lsb, msb;
+
+Reversed xmas tree order.
+
+> +	wait_ms = ktime_ms_delta(data->ready, ktime_get());
+> +	if (wait_ms > 0)
+> +		msleep(wait_ms);
+> +
+> +	lsb = i2c_smbus_read_byte(data->client_lsb);
+> +	if (lsb < 0)
+> +		return lsb;
+> +
+> +	msb = i2c_smbus_read_byte(data->client);
+> +	if (msb < 0)
+> +		return msb;
+> +
+> +	*val = msb << 8 | lsb;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int cm3217_find_avail(const int (*avail)[2], unsigned int len,
+
+This parameter is weird as we don't use at_least or so. It might be that
+compiler can test it with the static const parameters supplied, but better
+not to rely on that.
+
+> +			     int val, int val2)
+> +{
+> +	for (unsigned int i = 0; i < len; i++) {
+> +		if (avail[i][0] == val && avail[i][1] == val2)
+> +			return i;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+
+With all complexity this gives, I would rather make one helper per each case.
+
+static int cm3217_find_scale_avail(unsigned int fd_it, int val, int val2)
+{
+	for (unsigned int i = 0; i < ARRAY_SIZE(cm3217_scale_avail[idx]); i++) {
+		if (cm3217_scale_avail[fd_it][i][0] == val &&
+		    cm3217_scale_avail[fd_it][i][1] == val2)
+			return i;
+	}
+
+	return -EINVAL;
+}
+
+> +static int cm3217_write_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int val, int val2, long mask)
+> +{
+> +	struct cm3217_data *data = iio_priv(indio_dev);
+> +	unsigned int fd_it;
+> +	u8 cmd1, cmd2;
+> +	int i;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+
+> +		fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+> +		i = cm3217_find_avail(cm3217_scale_avail[fd_it],
+> +				      ARRAY_SIZE(cm3217_scale_avail[0]),
+> +				      val, val2);
+> +		if (i < 0)
+> +			return i;
+
+		fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+		i = cm3217_find_scale_avail(fd_it, val, val2);
+		if (i < 0)
+			return i;
+
+> +		cmd1 = data->cmd1;
+> +		FIELD_MODIFY(CM3217_CMD1_IT_T, &cmd1, i);
+> +
+> +		return cm3217_write_cmd(data, cmd1, data->cmd2);
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		i = cm3217_find_avail(cm3217_int_time_avail,
+> +				      ARRAY_SIZE(cm3217_int_time_avail),
+> +				      val, val2);
+> +		if (i < 0)
+> +			return i;
+
+In the similar way here. I think it it even grown in LoC, it will be not too
+many,
+
+> +		cmd2 = FIELD_PREP(CM3217_CMD2_FD_IT, i);
+> +
+> +		return cm3217_write_cmd(data, data->cmd1, cmd2);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +	data->client_lsb = devm_i2c_new_dummy_device(dev, client->adapter,
+> +						     addr_lsb);
+
+I would make it one line.
+
+> +	if (IS_ERR(data->client_lsb))
+> +		return dev_err_probe(dev, PTR_ERR(data->client_lsb),
+> +				     "failed to register second address\n");
 
 -- 
-2.56.0.679.gc527c65306-goog
+With Best Regards,
+Andy Shevchenko
+
 
