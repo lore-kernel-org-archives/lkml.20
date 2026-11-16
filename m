@@ -1,61 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845211;
-	b=vQKPnXIpG9weLxrxc2Op5ss8OfGzcsOoIQjeviAQTwAuixOtIhfju7yPqzDtDAHHyxmj
-	 reugNU/kHeCNyKFTxkyXq7zIvoQAwOt2gZCp4wAr37mhwPC1x0vZ2G7rXVpYk8qK0mZIV
-	 D3yionhZzZQT9fH/LMZSjE6PwVUtCnmN9CgleD6WCx4ZOLhcGZYd+mb/wKiCIgzk5F2+C
-	 TqqbGIXdh3RPJhbEH9Ycgo0WfGVpb3VVYLowPWd6U91U0b2dJqDPEngq9O8zL1SZyt5zs
-	 +tqxBfmTcBmnDZbcNU9HqkkpT5gjG+NIzW1C7+dPHPXW48PY/OrZDhFAdf5njoM1Y3A==
+	t=1794845222;
+	b=ltCsEgC3g+AvoNvu7OeWZTOkdqC3isejrF4nxlXcdznHvU4Ji6odp2qoYpGWCOQm9o5Z
+	 /1kpfLhAqZOdLvb4rul79++bIK4OQsh5CJ7qZpltm5LPpOV40F1/84Dfm5yvriSO2DLb3
+	 Y3c4eYLzwAy9d7CnSf/jXAwjB5mhp9O5AYF6BOEqqmPyMB9aDseLoe4CZvuKNBrjaXu06
+	 N+awJ1KQ43D7YGbhaWVHRMDMG0ZxtK+ADvby5X8qKST+xPo5n2YopTb6YgV5tpkzJt9vR
+	 TMYiLWVNNbmdAsr9BTmOnOfyjk4XaYHHlqpHZcN4KDOe8BTXqLVFNr2jTc04raieuvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845211;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vYDFtCr0jLCCeKRhsJ3pL2cWH6ta6QdzhP1Bew1pyVw=;
-	b=VuN6cIAKk1GfwTVht95WT1Oz+5g9BYiVWdQXewWjE2LAvq+eQQ7OO8ohdtuWxwV8h55k
-	 F4OPVSBudtPT2I7N5sQqJGsID9OKPYm+tZhv3ac2QX6d1jkQ4RW1YHRPgqFjLKrSgjGcX
-	 TyqOPFtDiiJ4hONWBgP5iW0SXekIP/oKIEGov4UZ6paU3+W2IMih/gms19oE8MnhCvRov
-	 Q/aGiiN1/QLh9WTcO6ojTnZkNOwWtgKZCmdW417prR5ZfGIvIXpKTX9R5ON5GeXikEARo
-	 gNzSENCfP1rNxsQyE1rD4q4WCMpx9rjGxerB/+hUf/RCn9iPkWjLcQsGNPD2a8td0Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845222;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=zMOTJD5k5ZqyDvhXTHxcxFYuI82ot+8yYVH8Ex0rnSU=;
+	b=S3c8mzgAAvNsCKWOtvEXuVnGetRFTYHDu+1WT5R+5ol5TQCbFrGRFwthI1mizTlD5RU8
+	 t08zD8YU15wplbES5WpADLUE/5VKjE6Q5KKTU3Y45i27k7vG05K9Qb9p1IxhlJ2WaiS3V
+	 VEOuzaNFh3uSLIeEDrEYcrNmXig82g22X5OqMZd8pBD8B/KPKxIqGzMXDhglGddKU05pY
+	 58qKiincsw5lnPVPLdGw5/qLcHUJCVDfUm9NWaLDHkt9Tq3jYhIDUAsaofXRZBX8kEOcJ
+	 GMbymr6kJsqZQBiOcq2sSDtfrpmLmeIzmT37A4ewjUPChH0x4f2nDKIjXerPn7SzqCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mCW/Fc7s";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C990606A32C;
-	Mon, 16 Nov 2026 16:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCW/Fc7s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2315A1F000C9;
-	Mon, 16 Nov 2026 16:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794845211;
-	bh=vYDFtCr0jLCCeKRhsJ3pL2cWH6ta6QdzhP1Bew1pyVw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mCW/Fc7s3aCZo5SkAgfIIhKpRUnO9zJs6kjSg/6DrQie3xebHNbxotcGqpQxc7gMC
-	 MOQaWbtPhXQKo8K2VtoOPhs62h8uPNjSe6FBRKGOpbYFrllBtvJtXb5apLD0OJMGNX
-	 g4iddzsUUF8KWV9IBv8ZemyidXp5AKNJIXbB7GDa18CBMkIKKiz3HZgalYhJEz/KwV
-	 Dzsdy9mSiDRoDoA2C9fVDpB7hr8DiSkILkKNq+/zsuh39nq0qMkoC2NbljQSlFtiX+
-	 +VbLbelM9aHBsQgZo+fqF7ZMtdnLX8gusBKGziFWWvGToO8Kka6EK/rn5xuMcf/rj5
-	 NVVqAspZfN9Og==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Petr Vaganov <petrvaganoff@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
-	Andrew Kanner <andrew.kanner@gmail.com>,
-	selinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.1] selinux: prevent KMSAN warning in selinux_inet_conn_request()
-Date: Mon, 16 Nov 2026 11:06:40 -0500
-Message-ID: <2026-11-16-1-daily-reply-0005@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116105307.89727-1-petrvaganoff@gmail.com>
-References: <20261116105307.89727-1-petrvaganoff@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339AA606A31C;
+	Mon, 16 Nov 2026 16:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 339AA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <7fc2ba5524ef5bc15286a26d5001481db1c2e6ac.camel@crapouillou.net>
+Subject: Re: [PATCH v6 2/4] MIPS: Skip generic IPI setup for
+ platform-specific callbacks
+From: Paul Cercueil <paul@crapouillou.net>
+To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Paul Burton	
+ <paulburton@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ =?UTF-8?Q?=E5=91=A8=E7=90=B0=E6=9D=B0?= "(Zhou Yanjie)"	
+ <zhouyanjie@wanyeetech.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>, open
+ list	 <linux-kernel@vger.kernel.org>, "open list:COMMON CLK FRAMEWORK"	
+ <linux-clk@vger.kernel.org>, hns@goldelico.com, paul@boddie.org.uk
+Date: Mon, 16 Nov 2026 17:06:57 +0100
+In-Reply-To: <20261113190836.470937-3-f.fainelli@gmail.com>
+References: <20261113190836.470937-1-f.fainelli@gmail.com>
+	 <20261113190836.470937-3-f.fainelli@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,12 +56,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-> commit 1df83cbf23a27174aee6ea5e52462f03f7e48a10 upstream.
+Le vendredi 13 novembre 2026 =C3=A0 11:08 -0800, Florian Fainelli a =C3=A9c=
+rit=C2=A0:
+> A generic MIPS kernel can select a platform SMP backend with direct IPI
+> callbacks instead of an IPI IRQ domain. The XBurst backend uses CP0
+> mailboxes, so generic IPI allocation would find no domain and BUG when
+> more than one CPU is present.
+>=20
+> Skip generic IPI initialization when neither selected send callback uses
+> the generic implementation. Keep initialization when either callback
+> uses generic IRQ IPIs, and retain the existing single-CPU shortcut.
+>=20
+> Sashiko AI reported the XBurst integration issue; Codex assisted with
+> the change and extracted-function/build checks.
+>=20
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-Queued for 6.1, thanks.
+Arg, I was reviewing the v5 and missed that you already sent the v6.
 
--- 
-Thanks,
-Sasha
+Anyway, LGTM.
+
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+Tested-by: Paul Cercueil <paul@crapouillou.net>
+
+Cheers,
+-Paul
+
+> ---
+> Changes in v6:
+>=20
+> - addded missing Signed-off-by tag
+>=20
+> Changes since previous posting:
+> - Split the generic IPI initialization guard out of the XBurst SMP patch
+> =C2=A0 as a prerequisite, as requested by Paul Cercueil.
+> - Add braces around the multi-line condition.
+>=20
+> =C2=A0arch/mips/kernel/smp.c | 6 +++++-
+> =C2=A01 file changed, 5 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
+> index 0f28b4a62e72..086298146dd8 100644
+> --- a/arch/mips/kernel/smp.c
+> +++ b/arch/mips/kernel/smp.c
+> @@ -338,8 +338,12 @@ int mips_smp_ipi_free(const struct cpumask *mask)
+> =C2=A0
+> =C2=A0static int __init mips_smp_ipi_init(void)
+> =C2=A0{
+> -	if (num_possible_cpus() =3D=3D 1)
+> +	/* Platforms with their own IPI callbacks do not need an IRQ domain.
+> */
+> +	if ((mp_ops->send_ipi_single !=3D mips_smp_send_ipi_single &&
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 mp_ops->send_ipi_mask !=3D mips_smp_send_ipi_m=
+ask) ||
+> +	=C2=A0=C2=A0=C2=A0 num_possible_cpus() =3D=3D 1) {
+> =C2=A0		return 0;
+> +	}
+> =C2=A0
+> =C2=A0	mips_smp_ipi_allocate(cpu_possible_mask);
+> =C2=A0
