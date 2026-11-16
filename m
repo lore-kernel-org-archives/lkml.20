@@ -1,163 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794818381;
-	b=0dfES9j5iOTi8mszuPhoHVoTSkG/pf1Nx4hUZA373ilEWRfskJurIoXi6NO3uLfwpZVu
-	 ELOQOwaWmG2GeAzpzRiyYg0b3Kpusi3QYVPC8CYbfBo3cMCPP6dOmMzQ+X1d6WpFH+FSB
-	 TUb0O2YtUSy7QXuPJs+OGWrAdmfBe7SMvdSViIJGzb1g3o+f3Osb17YOEpuYqm5mU4eDa
-	 US0rh3x9tP5btE/heua61/cZv8VT77WdizZ8XBzYdHpeR+OaFIDsRpR7nLiF3QbjBQjax
-	 quv3ApqksdAEre8ypB8i7shzC956N39486v/ub5CbHju3lvCFlAd+zQtd3Jq4L00h9g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818381;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=N12Ahb5VyWer9yRcyAA54ehPMbmFIb9EVuiZwVkXYxY=;
-	b=cEAZZyYh+qDjPMErjdHS3kYO/zNOMTGlV9sTdvOFNwuxTfHA0FaYgWhJMl93iy0bTOpe
-	 7hTt1Nm9xI99xU1msHuK48R0u6aWQHdvR1qfSOIuLbm+lkk4YiBiQ0UAjaGUii6r04tAP
-	 /ABmCpcj5d0VGsr+/r0qKJE9FHnktG9EQype7Ht6WAIlfwgCC0OL4RV+VXio6T/Oudz9J
-	 PdxTa79Z0+twWkfigi8kxzm/RuGGsPvnh4DFPeZFaRJcfE9ilEL6bqmfqkgRwjpOOHLn1
-	 XPTKq0okJpZH71ivilBngUayNHBEAcWaVY+hnP5KdJadwBorBBWUYAj0xIUde1rkYdg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=FAOyYsw9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.58
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010058.outbound.protection.outlook.com [52.101.228.58])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.232.247.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794818391;
+	b=HxTeJqGr/rGBgYxqgobs3d/0BOJy+NdFBoGQRBi/c8rBsXiqdaR/JiBfO+2ZWvhtymNf
+	 9LcOuG8fg+fUfroArpnHvsn0PRG8PyFnG0IoLw+RlMrhgaVDD2ykHLzhcmDpnK+qrHfVT
+	 lRamEC7AbmM2bYOmIF1sWoul8ZyXEDe8H3UbV+6/MM2wmE/g6B5ixbG6Ejvttg+alEuak
+	 N3VHu0gVF/j1Bp3xH6Xfs6/9THBSzoq94HTO7R+lSfLgP0J3nKnjxYbL6ubSHdD2bWeJz
+	 GFMbU04mOwHJumlg96uS+umyIFPCY/iwjFj+L09DeV9MJfmA9Og2gAAerj5IQmTT68A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818391;
+	h=DMARC-Filter:Received:Received:Received:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:Subject:From:
+	 To:CC:X-Mailer:References:In-Reply-To:X-Originating-IP:
+	 X-ClientProxiedBy:X-FEAS-BEC-Info:X-FEAS-Client-IP:
+	 X-FE-Last-Public-Client-IP:X-FE-Policy-ID:X-FE-Hostname:
+	 DKIM-Signature;
+	bh=jk8S6zm+nkol5uqf/eF0yM1FdYjVHlezq8oEpC2nPXM=;
+	b=poSyImHq5m9oTbT7CiimKcOZkIq6CCpCMY2WZwmPVXbIU8T+AuoJRPqOLN9kq+18mtG3
+	 G4eEXmNUyUOCpcXWnOvhCCadTCfig6Oa7yUgHEPzdi2dnLD92SLZe0wGhKEW+cPe3mlYy
+	 Q+iO//5vkHp7d68+I2yocQ+ygR37DbfsJ4eLhZhh+1jzaAoFnS/gHUzmKwoCCvNodpz+A
+	 gUy+AsxCCBaeWO+UHxrpbVRjKmPtAUTwJ7PNsRpC6JUKB2d2gpsgS9Kt8DKxKobyCHwC5
+	 1TAoOStjWUatQlWw7NijDeiO9dlzNcJ4o6NBR06ip888DsjoOt1XuynnlNzjJbeYxrw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=utu.fi;
+	spf=pass smtp.mailfrom=utu.fi;
+	dkim=pass header.d=utu.fi header.i=@utu.fi header.a=rsa-sha256 header.s=out-utu-v3 header.b=O0PG8EOo;
+	arc=none smtp.remote-ip=130.232.247.4
+Received: from fortymile.utu.fi (fortymile.utu.fi [130.232.247.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AF8606A31C;
-	Mon, 16 Nov 2026 08:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78AF8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FF9606A31C;
+	Mon, 16 Nov 2026 08:39:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04FF9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utu.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utu.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=FAOyYsw9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Un5KVxUJbpmvkesiSIsCPkHFM8j5KS7y93bz0j/w5jyME/VFP98N/rlLT32G636Gzv8QfY70VMn0r8pmQylOb2qikB/nihh96qS/LNmRIaxkeCW6rP7OCHMOgeHoPRlCpBVKNekSWHW9pq4XouzdTfW5Hcgipv3w9i4KrUKq1kLyYCem9IpUE6w8yJODmx/7/7HOKH8Mxh3a4clyZVXPNzOUBsSZJCY1rmsFjGV+CRSV1bfHot2jd3vqTvML7giIdw2pOqOVIDkjDpiYdw4Neki8W/mBxB9i7qe8T8XL6qCMyf0kLuiR/z+06wJDHS1s6whj8xFGYN960WpZoapJEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N12Ahb5VyWer9yRcyAA54ehPMbmFIb9EVuiZwVkXYxY=;
- b=MvnOFDZuuNZVhOob7PqtXBLIufYs6rpdtSYziUAKl4TyjqqC5IsdQGcoj28EVyslwRlJkcElntcAKVJMoR8g2F4VqUSYIStJOK4c5vAKFlUJnHdF10WvCJ/fxuNnksoTnl+GjsaoKnsoPlxNbw7IyHhP3waiF193bphrayewET9PGlmXyF/IZpR7rvXVSo6k1MUfNQU9H8aJkLmpkL9FkNwHvZcZrNOeruEZzD1r5E34ibLQZZUa9RcmIfw36RJmoj5NT0Equ1eW0op/IXC4I+H9WRVII0SiQGOcIgzLCMwI6N6LbUYUAtjil+2WO5N3PPOy5waXruZA6etWW9esFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N12Ahb5VyWer9yRcyAA54ehPMbmFIb9EVuiZwVkXYxY=;
- b=FAOyYsw9fExs/84STek2/Hio8QvLiX+d7hEswuwTJiThKmmqeTJVlp9PsKXTU7SWPyn66HVH38xW9GRY4dT6XDAz1hFto/J5vcnj9J6ZXEfHD/a3jVpkZ7XpgbGjTVD0ssBo6bWAoIKXaLiB8yph874+cU1wO2aHCnfs3e1FvSo=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by TY4PR01MB14913.jpnprd01.prod.outlook.com (2603:1096:405:259::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 08:39:36 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 08:39:36 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
-	<mailhol@kernel.org>, Rob Herring <robh@kernel.org>, Harini T
-	<harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>,
-	=?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWc=?= <ukleinek@kernel.org>
-CC: "kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"linux-can@vger.kernel.org" <linux-can@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>
-Subject: RE: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
- devices without match data
-Thread-Topic: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
- devices without match data
-Thread-Index: AQHddDe+pqQcO6zuIUW4lgS12hIyWbcwYs1w
-Date: Mon, 16 Nov 2026 08:39:36 +0000
-Message-ID:
- <TYYPR01MB660340F5E219C29045BF61F9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References:
- <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
- <20261114-fix-device_get_match_data-v1-4-2d82025e9646@pengutronix.de>
-In-Reply-To:
- <20261114-fix-device_get_match_data-v1-4-2d82025e9646@pengutronix.de>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TY4PR01MB14913:EE_
-x-ms-office365-filtering-correlation-id: d1e166eb-ef8c-4b23-4db7-08df43bd256c
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|22082099003|18002099003|261009223027099003|3023799007|11063799006|260925021911599003|260925021311599003|56012099006|260925022911599003|4143699003|10067099003|261102123227099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|38070700021;
-x-microsoft-antispam-message-info:
- 5UrzMvgnpbt9qEJVWU5ARSSiJAt2sQg/NJX4m1NFwrmPNdd3zjXopFDYas8I+6cLG5YPYa9gFH6c/CY3q3DjTZ6ub5wXy1PSvWpcFlSu3KH9W80QM8M8asPgIBqEhVW3SdsJGlprs8I6hlJJ3p0h7Qq7V9iuTS6yGFQzVzLRdEDBjvssWidJTpP3iTu3GoR0QM+bwkz//n073TkFjr6o70GzzapBTPIjmk/lwUk67jF2cAFlK4mWksoZtl2I0gL2plDpMqaw4BtLUwKp1irM8wxEjM8uF4bVzrXPlmbXmmZ6k11CryOfH5awVQJMtp5r0s+Jxxao6AtP16XCHZw594qNdJV2yT0trYnum/PSUnbIKdIp40c6ZyQ/IsgeP3RApSpmKbWHX6zseEbYyANHC+rx7KYXmPCyUm9xNLuGORApFn7YAcpDU/+BgZO78xYz/gqnSyAgm3vPIToal2d40DKdiOd88JwU0P6gp84TGV+QQlokYN8CbRXcg63moE3uLeR21J2BDvx6wYvbpZJeHJoEqbjw1BXVO4NtGsBLasDxlKmt+3D4lTXCwXiSZ3BNS8516jcfePc8PYPMnJCe4dv4Npbxkd+Tj34s9Fo4+nKqEjEW+rOPUGALcbm06h29+Vc8uZsKYL2iFmLwqrWiTzNfXO0kDC4V351V3ok8fao=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(261009223027099003)(3023799007)(11063799006)(260925021911599003)(260925021311599003)(56012099006)(260925022911599003)(4143699003)(10067099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?MEVqZlVNL2xFRWVWWTkwOEFpVENZZG5rNGdqK1FWSEg5SlloeTZjSExCY2k3?=
- =?utf-8?B?anBtV2pWZ21OenNSRk5iVU4zWUZ2dCtUVlNRWDVPK0hlZ2VZWVE4TDlvWU1y?=
- =?utf-8?B?bEtZOEwvMHMyYllUWktxSnZHMWFKVkIycmV0Ky9OMXpKK05FdHhvMXRNZHZw?=
- =?utf-8?B?Y3FxU3YrSXVTNDVxZEN6THJLTXpMWW5KVHdUSHZ2aG5ERno2UktNWTBTc2tP?=
- =?utf-8?B?cVZXSnhoWHU1czMxOTE0SVcraFRNRDRvS0FPRnBJQ1BjQTZOdU5HZVJmeDNZ?=
- =?utf-8?B?L1lySXY5R0VseVBBajEyNnZHc245UXkwWldtU0JSak5OTzl1a3JJcnhteWor?=
- =?utf-8?B?bjJ1V09rVnoybEwwVUNrTlMrc1JTOEVPRlNPQXFWWllWSGZRdkh6UXFzQ0lL?=
- =?utf-8?B?Rnc1ZlVGZ29RemdqR0t6V0tqRG9Wa1RoZkwwanorc1R3OCtPZkpWNiszd2ZB?=
- =?utf-8?B?aDN4RU1EaWV0L1o0b1lOZlFkYlpJc3RRODhTaWQzL09wQ2lTbjFqaVFIa1lW?=
- =?utf-8?B?QUYreklYTEk0b0E5YnJWeXJNU0Yxc3NpK2tQbm9Ua0FGcE9mdDFTZXZLanI5?=
- =?utf-8?B?cUdkT0ZUdTNMVEFvdXlucXgzdW0xUklBYTVPaytwWVlvUnNjUjd4ZWszTElx?=
- =?utf-8?B?L2tRUGtGcFlRVmw0ME1ZUUpTVVJPSUY2dkgwYkU5RGRsN0duZjlQdkY2KzhV?=
- =?utf-8?B?cVZPOTVuallGN0VKdnorbWQ3am1PdkI3S2lYeWo0cXUrY0orcS9CRjUwQm5w?=
- =?utf-8?B?UTZiM3RBYnRtVllsSmxKNVoza2hORC9wNFBoL04raytHN1dIOHpGcDNnSXFv?=
- =?utf-8?B?a2tNcXJGVElsQVRUS1Z6cjRHTyszTzFJeWtDTnJPQ2RYdFNzOWhzb1d5TXVy?=
- =?utf-8?B?elRmM2p1a3FWc0JqYWppcjBXdmE4eUI5Z2hhUVZBZ1JiVmY3Nk84WVhHTUMz?=
- =?utf-8?B?Q0RoMzQ3SFJYdWd1elJXWXl2T1BKZnJOWWpkeDVMY3VMZTNUMXJ4QjZDSzQy?=
- =?utf-8?B?UzdQU3FxdlRST2s3WXRsU0tpdGhCWjU4YzF2WEcvMENBM1cySnJhdGdiRTNm?=
- =?utf-8?B?VFdvWndhTklKb3BHdy92enFNWnc1VWpHSGdWRkhKZWwxRW5DWjE0ZTdIYkpP?=
- =?utf-8?B?T3hlMFdWY2EzbGpMUk0yVyt2WS9hRU5vSVdBU3U3Vm5JWEdSRmtYbURpNWlH?=
- =?utf-8?B?TnVwRDE1T29PS1lsN3owaHM3N0VVempIYnB0K0RjUGRiM0JnbHFXbzBUeDZH?=
- =?utf-8?B?ZUhuRVlZNnpCN0xLQzhad2pxK2JpZng1aHM2TDlDWkQxdFRacG1ST0RVZi8y?=
- =?utf-8?B?NlZkcmVjMlN2WXdaOGhPVHZuUHJCNXhoTThQcVZLUE9Id3p3Q1k1VjdnRGJ1?=
- =?utf-8?B?Rndld3dHOFNZY3drV2NaTWhUSW9IZVMvZFBPUy83YjQ1MjJ1eGVUWk1lOXQr?=
- =?utf-8?B?SmhjZTBER2VvbFBBVG8zWVRRTFBkaHVUcWYxOThXNHZUZmVGTER0WHpIME9I?=
- =?utf-8?B?NGdNbmZFT0FPZjNGZGpvenJ6UlhmV1RGdjlqeXA3U2VaQTVHRy9oa1RDdFVD?=
- =?utf-8?B?VkVWSE5oZ3JzS3krRjFoeHF1OWZiRlVQRmZtRGpseWRzM1hlZlYyeEVuODdv?=
- =?utf-8?B?bTBQRi9LaGlleG1BYzBPZzBkZzFudzdvOU9nbUh6RzVVY0Zhb243WWxXUzJr?=
- =?utf-8?B?cVgzT2g4dm81bHpHNlkrRWxjcVRBajdhZFJCYU5QY1ZEQThid1JRUXdEWTZz?=
- =?utf-8?B?allhb3NOTWxUN1ZrM3VVaGZBVUtuSmZoWERqTm9VTnZzUURRcFFjZWtUY1Y4?=
- =?utf-8?B?cXNzcmM2SmRsZU9wN3BjbmEzT2hWRjVBT2l2Nm93bDI2ZXhQNVRKMTNrTFJC?=
- =?utf-8?B?V0FIZ0ZkT1ZmY25aWWYwVGtKUC9vOW43ZDZKc0MyVFhQNWNuZnNmK3lwUlhy?=
- =?utf-8?B?T3NLK1JyV0NzaGNCbEh3QzhZR3lDckNJQ2JOT1FKeDJZRWRDbGI1Ym9sU1BJ?=
- =?utf-8?B?UjlqSllUUC95ZzlIUXRGUWVXTVpzTXdtNW5LakYrYXBWSGdzU1VGOTJaK2RN?=
- =?utf-8?B?T2I4Zjg3YW9RVjU5a1NtbVg0aFhLTmV1MDJlRmV2TWFrSXYvNmkzNUlRRVU5?=
- =?utf-8?B?VzRYWWhuaklHdUkyWVlVNXRBeU1QWTMreU1JZWhOUDM2UjZyNDZxUXhma1k5?=
- =?utf-8?B?bWhVKzkxV2VmTnNESmJzek9MZkg2Z1duSlVkWXgvVjVwY1hXVXFHWFNGOG5I?=
- =?utf-8?B?cWdHTnFkTXJsSEw2QllNdzZjU2N4ZGFQNHF3bUNIam8yNVdjUUlOWU03bktn?=
- =?utf-8?B?dXF4N3pDZmFoMDc3NCs5dzRDV3lFLzFESnkrQ0RLaGRNa1JqelF6dz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=utu.fi header.i=@utu.fi header.a=rsa-sha256 header.s=out-utu-v3 header.b=O0PG8EOo
+Received: from smtp-04.utu.fi (smtp-04.utu.fi [130.232.207.47])
+	by fortymile.utu.fi  with ESMTPS id 6AG8dCRx023350-6AG8dCS1023350
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Mon, 16 Nov 2026 10:39:12 +0200
+Received: from ex19-16.utu.fi ([130.232.247.56])
+	by smtp-04.utu.fi with esmtps  (TLS1.2) tls TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <jaakko.ma.koivisto@utu.fi>)
+	id 1xSsF6-00HaY6-2w;
+	Mon, 16 Nov 2026 10:39:12 +0200
+Received: from localhost (91.145.105.139) by ex19-16.utu.fi (130.232.247.56)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 10:39:11 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -167,43 +59,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1e166eb-ef8c-4b23-4db7-08df43bd256c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 08:39:36.5210
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: p0NXvlxzANPYK2tbBeh/dZYiHuo+47DOJ3IOPPCZOOdn232mhUv9PzG8Jy11Yw5xQTC6YYL0X/YZ7I5OQFlIWEb+XWaBNZphfttjqzrZcC4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14913
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 16 Nov 2026 10:39:11 +0200
+Message-ID: <DMWI07YONKKS.1UI59C2I60ONX@utu.fi>
+Subject: Re: [PATCH v2 3/5] iio: chemical: sgp40: Implement
+ get_serial_number-command
+From: Jaakko Koivisto <jmatko@utu.fi>
+To: Joshua Crofts <crofts@kernel.org>, Jaakko Koivisto <jmatko@utu.fi>
+CC: Andreas Klinger <ak@it-klinger.de>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	<linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261102091258.247402-1-jmatko@utu.fi>
+ <20261102091258.247402-4-jmatko@utu.fi>
+ <20261102112020.00007167@kernel.org>
+In-Reply-To: <20261102112020.00007167@kernel.org>
+X-ClientProxiedBy: ex19-15.utu.fi (130.232.247.55) To ex19-16.utu.fi
+ (130.232.247.56)
+X-FEAS-BEC-Info: WlpIGw0aAQkEARIJHAEHBlJSCRoLAAEeDUhZUEhYSFhIWkhZXkguLT4lWFxYWFhYWFBeUVxfSFhISFpdSAIJCQMDB0YFCUYDBwEeARscBygdHB1GDgFIWUhZX0gLGgcO
+ HBsoAw0aBg0ERgcaD0hYSFpIWVxIWVtYRlpbWkZaWF9GXF9IUEhYSFhIXUhYSFhIWEhZXkgJAygBHEUDBAEGDw0aRgwNSFhIWV1ICQYMESgDDRoGDQRGBxoPSFhIWllI
+ DAQNCwAGDRooCgkRBAEKGg1GCwcFSFhIWl1IBAEGHRBFAQEHKB4PDRpGAw0aBg0ERgcaD0hYSFlQSAYdBgdGGwkoCQYJBAcPRgsHBUhY
+X-FEAS-Client-IP: 130.232.207.47
+X-FE-Last-Public-Client-IP: 130.232.207.47
+X-FE-Policy-ID: 3:5:2:SYSTEM
+X-FE-Hostname: fortymile.utu.fi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=utu.fi; s=out-utu-v3; c=relaxed/relaxed;
+ h=mime-version:content-type:date:message-id:subject:from:to:cc:references;
+ bh=jk8S6zm+nkol5uqf/eF0yM1FdYjVHlezq8oEpC2nPXM=;
+ b=O0PG8EOoKTeJWxDYchUMhjRD0eoRGjvJ9tJBfgt8Kp7Y7Pe0L2lBB2KVnWe2MiXdN5P2A0rchE3k
+	3bflUoGg+z74TLKqPtVVlGx+rOpWErF8pwIo4iJ7x96Iy4qfjg5M+uqbQFkYsKnJNI7f09TRpPNq
+	cM1+YZuKbMtLWNWqIiojCU5mSM6cFjqwPD1MJDAJ4o0Pxi2Q9/w0tJkoClUNq0EBqlJ3BbBM+gzv
+	dmKRmTme5Q8EyYPg4golg07Sl0TUubFP939DiAlpUd3nQxqM4OG+W716N7YOMwrr1fyQvmmcNt4U
+	R5z09ih2l0dJA87ZSWDz9rusj1107taMj/jvxQ==
 
-SGkgTWFyYywNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBsaW51eC1h
-cm0ta2VybmVsIDxsaW51eC1hcm0ta2VybmVsLWJvdW5jZXNAbGlzdHMuaW5mcmFkZWFkLm9yZz4g
-T24gQmVoYWxmIE9mIE1hcmMgS2xlaW5lLUJ1ZGRlDQo+IFNlbnQ6IDE0IE5vdmVtYmVyIDIwMjYg
-MTI6NTYNCj4gU3ViamVjdDogW1BBVENIIGNhbiA0LzRdIGNhbjogcmNhcl9jYW5mZDogcmNhcl9j
-YW5mZF9wcm9iZSgpOiByZWplY3QgZGV2aWNlcyB3aXRob3V0IG1hdGNoIGRhdGENCj4gDQo+IEEg
-ZGV2aWNlIGJvdW5kIHRocm91Z2ggZHJpdmVyX292ZXJyaWRlIG5lZWQgbm90IG1hdGNoIGFuIGVu
-dHJ5IGluIG9mX21hdGNoX3RhYmxlLiBJbiB0aGF0IGNhc2UNCj4gZGV2aWNlX2dldF9tYXRjaF9k
-YXRhKCkgcmV0dXJucyBOVUxMLCBidXQNCj4gcmNhcl9jYW5mZF9wcm9iZSgpIGRlcmVmZXJlbmNl
-cyB0aGUgcmVzdWx0Lg0KPiANCj4gUmVqZWN0IGRldmljZXMgd2l0aG91dCBtYXRjaCBkYXRhIGJl
-Zm9yZSBjb250aW51aW5nIHByb2JlLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTWFyYyBLbGVpbmUt
-QnVkZGUgPG1rbEBwZW5ndXRyb25peC5kZT4NCj4gLS0tDQo+ICBkcml2ZXJzL25ldC9jYW4vcmNh
-ci9yY2FyX2NhbmZkLmMgfCAyICsrDQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCsp
-DQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvY2FuL3JjYXIvcmNhcl9jYW5mZC5jIGIv
-ZHJpdmVycy9uZXQvY2FuL3JjYXIvcmNhcl9jYW5mZC5jDQo+IGluZGV4IDAwMGE2NDMzZjQ2ZC4u
-OWQ0NjNhOWMxNzY2IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL25ldC9jYW4vcmNhci9yY2FyX2Nh
-bmZkLmMNCj4gKysrIGIvZHJpdmVycy9uZXQvY2FuL3JjYXIvcmNhcl9jYW5mZC5jDQo+IEBAIC0y
-MTEzLDYgKzIxMTMsOCBAQCBzdGF0aWMgaW50IHJjYXJfY2FuZmRfcHJvYmUoc3RydWN0IHBsYXRm
-b3JtX2RldmljZSAqcGRldikNCj4gIAlpbnQgaTsNCj4gDQo+ICAJaW5mbyA9IG9mX2RldmljZV9n
-ZXRfbWF0Y2hfZGF0YShkZXYpOw0KPiArCWlmICghaW5mbykNCj4gKwkJcmV0dXJuIC1FTk9ERVY7
-DQoNCg0KVGhlcmUgaXMgYSBwYXRjaCBvbiB0aGUgZmx5IHRvIGRpc2FibGUgZHJpdmVyX292ZXJy
-aWRlIGJ5IGRlZmF1bHQgWzFdLg0KSW4gdGhhdCBjYXNlIGlmIHdlIHBsYW4gdG8gdXNlIGRyaXZl
-cl9vdmVycmlkZSwgcHJvYmUgd2lsbCByZXR1cm4gZmFpbHVyZS4NCkkgbWF5IGJlIHdyb25nLiBQ
-bGVhc2UgY29ycmVjdCBtZSBpZiBJYW0gd3JvbmcNCg0KWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2FsbC8wZjc0NDYzMjRmNmEwYzhmMDE1M2Q2NTMyZDkyYTZlZWVjZDZhMzA4LjE3OTA2MTIy
-OTguZ2l0LnUua2xlaW5lLWtvZW5pZ0BiYXlsaWJyZS5jb20vDQoNCkNoZWVycywNCkJpanUNCg0K
-PiANCj4gIAlpZiAob2ZfcHJvcGVydHlfcmVhZF9ib29sKGRldi0+b2Zfbm9kZSwgInJlbmVzYXMs
-bm8tY2FuLWZkIikpDQo+ICAJCWZkbW9kZSA9IGZhbHNlOwkJCS8qIENsYXNzaWNhbCBDQU4gb25s
-eSBtb2RlICovDQo+IA0KPiAtLQ0KPiAyLjUzLjANCj4gDQoNCg==
+On Mon Nov 2, 2026 at 12:20 PM EET, Joshua Crofts wrote:
+> On Mon, 2 Nov 2026 11:12:56 +0200
+> Jaakko Koivisto <jmatko@utu.fi> wrote:
+>
+>> Add functionality for retrieving SGP40 sensor serial number
+>> and present it to the userspace using serialnumber ABI.
+>>=20
+>> Signed-off-by: Jaakko Koivisto <jmatko@utu.fi>
+>> ---
+>> Currently only the bno055 driver uses the serialnumber ABI, and presents
+>> the SN in hex. Documentation gives hex output as example format, not har=
+d
+>> requirement, but should we use the same format here anyway?
+>>=20
+>>  drivers/iio/chemical/sgp40.c | 76 ++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 76 insertions(+)
+>>=20
+>> diff --git a/drivers/iio/chemical/sgp40.c b/drivers/iio/chemical/sgp40.c
+>> index 080d51f9f53c..e0a300720fce 100644
+>> --- a/drivers/iio/chemical/sgp40.c
+>> +++ b/drivers/iio/chemical/sgp40.c
+>> @@ -35,6 +35,7 @@
+>>  #include <linux/mutex.h>
+>>  #include <linux/i2c.h>
+>>  #include <linux/iio/iio.h>
+>> +#include <linux/iio/sysfs.h>
+>
+> Could you add an additional patch to your series adding any
+> missing includes? Just looking at this patch I can see that
+> types.h, asm/byteorder.h and delay.h are missing.
+>
+
+I can do that. Small question, is it ok to leave compiler_attributes.h and =
+stddef.h
+out? Former one is not included in any IIO drivers and the latter one only
+in three drivers.
+
+>>
+>>  /*
+>>   * floating point calculation of voc is done as integer
+>> @@ -70,6 +71,18 @@ struct sgp40_tg_result {
+>>  	u8	res_crc;
+>>  } __packed;
+>> =20
+>> +/*
+>> + * Datasheet table 16. Serial number is given as 48-bit value 0xAAAABBB=
+BCCCC.
+>> + */
+>> +struct sgp40_serial_number_result {
+>> +	__be16	A;
+>> +	u8	A_crc;
+>> +	__be16	B;
+>> +	u8	B_crc;
+>> +	__be16	C;
+>> +	u8	C_crc;
+>> +} __packed;
+>> +
+>>  static const struct iio_chan_spec sgp40_channels[] =3D {
+>>  	{
+>>  		.type =3D IIO_CONCENTRATION,
+>> @@ -161,6 +174,41 @@ static int sgp40_calc_voc(struct sgp40_data *data, =
+u16 resistance_raw, int *voc)
+>>  	return 0;
+>>  }
+>> =20
+>> +static int sgp40_get_serial_number(struct sgp40_data *data, u64 *serial=
+_number)
+>> +{
+>> +	int ret;
+>> +	struct i2c_client *client =3D data->client;
+>> +	struct sgp40_tg_measure get_sn =3D { .command =3D {0x36, 0x82} };
+>> +	struct sgp40_serial_number_result res;
+>
+> Reverse xmas tree order.
+>
+
+Will fix for v3.
+
+>> +
+>> +	guard(mutex)(&data->lock);
+>> +
+>> +	ret =3D i2c_master_send(client, (char *)&get_sn, sizeof(get_sn.command=
+));
+>> +	if (ret < 0)
+>> +		return ret;
+>> +	if (ret !=3D sizeof(get_sn.command))
+>> +		return dev_err_probe(data->dev, -EIO,
+>
+> Sashiko points out that this function isn't called from probe(),
+> therefore it shouldn't use dev_err_probe().
+>
+
+From the dev_err_probe() documentation I got the impression that using
+it is allowed outside probe() and even if the return is never
+-EPROBE_DEFER, just to condense the "dev_err(); return ret;" into single
+line and also take advantage of the prettier error formatting of dev_err_pr=
+obe().
+
+If this is not the case I can change back to dev_err().
+
+> Also, you can use a local variable for dev.
+>
+
+Will fix for v3.
+
+>> +		       "i2c_master_send ret: %d, expected %zu\n", ret, sizeof(get_sn.=
+command));
+>> +
+>> +	fsleep(1000); /* Max duration for get_serial_number command. Datasheet=
+ table 8. */
+>> +
+>> +	ret =3D i2c_master_recv(client, (char *)&res, sizeof(res));
+>> +	if (ret < 0)
+>> +		return ret;
+>> +	if (ret !=3D sizeof(res))
+>> +		return dev_err_probe(data->dev, -EIO,
+>> +		       "i2c_master_recv ret: %d, expected: %zu\n", ret, sizeof(res));
+>> +
+>> +	if (crc8(sgp40_crc8_table, (u8 *)&res.A, 2, SGP40_CRC8_INIT) !=3D res.=
+A_crc ||
+>> +	    crc8(sgp40_crc8_table, (u8 *)&res.B, 2, SGP40_CRC8_INIT) !=3D res.=
+B_crc ||
+>> +	    crc8(sgp40_crc8_table, (u8 *)&res.C, 2, SGP40_CRC8_INIT) !=3D res.=
+C_crc)
+>> +		return dev_err_probe(data->dev, -EIO, "CRC error in get_serial_number=
+\n");
+>> +
+>> +	*serial_number =3D ((u64)be16_to_cpu(res.A) << 32) | ((u64)be16_to_cpu=
+(res.B) << 16) | (u64)be16_to_cpu(res.C);
+>> +	return 0;
+>> +}
+>> +
+>>  static int sgp40_measure_resistance_raw(struct sgp40_data *data, u16 *r=
+esistance_raw)
+>>  {
+>>  	int ret;
+>> @@ -306,9 +354,37 @@ static int sgp40_write_raw(struct iio_dev *indio_de=
+v,
+>>  	return -EINVAL;
+>>  }
+>> =20
+>> +static ssize_t serialnumber_show(struct device *dev,
+>> +				  struct device_attribute *attr,
+>> +				  char *buf)
+>> +{
+>> +	int ret;
+>> +	u64 serial_number;
+>> +	struct sgp40_data *data =3D iio_priv(dev_to_iio_dev(dev));
+>
+> Reverse xmas tree.
+>
+> ...
+
+
