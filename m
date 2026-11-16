@@ -1,75 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848174;
-	b=PnWz1Q3eVeZeoR5OchHxYEO66Bg51PDP30gaH8W8giDU7hgEjkRVEmgUPU8XqydlCEcx
-	 g5UzKQeqkOqSS0ezFnDrj3hGc6txG/f6wvm5llYFxTndAA5/evtpn+G4ficj+26MZLibQ
-	 BqvUK3zjoJ8LwQdmRXtXzrxdC+7idv3+2VYA3DjEabPYM6NlDtself68xCdoEWjZUCco1
-	 FqY3Tbsf7v+b2fEBZmVdz+Ktpc7cXkYVcMXwAtYeXRYCT9RKb4vukE3yThkZqEWBauLWW
-	 QCmJ4L2M4WBo9dNDXzAUTOZefYEjnSFOEf3HFnxv3DCphmnVaCOi7RFxtHkFD6DWI4w==
+	t=1794848196;
+	b=YQMjsNVh7k6V9NzexPoNoD15HD/YG5bPYLvGad6rRhcNo7KHf7PC261KKsNMrWfe+aog
+	 OlGLb0NZHj8EPA2hXiKnNCamlXRzLM5/cAdFjdL4pkhBvpd/LGwVeNAs1s6aGvuNbUiuw
+	 le6HMnxqVlPrpB9UXzpcW8LaM/WQxm91XXqTTaxJ5cCabxZh3Hij2LSjStX94wOoVNEHd
+	 28KOwh1OmHrahX8KloE9Y/Ut+AlPs0puOp0U+KhNSrb55cz741ld4kJktB9XaSiBKjDBy
+	 yv1+gaXIIMxt9yoR3hV2gJNXswzUBy4/xA2LeYLETPbrCUfyHL9bg6W8fxvPGWBDDVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848174;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=RDsIwsWu1KfQS3Aqtw59xAzqiLwWxmSzDSkW35hSn/U=;
-	b=Y0JilnxO2daCs+SAlGGxYE9Ee0G0Yr9ZGNM0UIQZ4aUHdKnhVlXfNMP9GknBnMlsxai1
-	 xIdLxwd08oXOVT3AJStWbKzeE+RXpIV30OXA7maXoJ6TFApWCTietokCboGE20w0O3fm7
-	 25LfDEyl+/WhlAMkXKWqu6SWO3Ts1G4QSBNPr8K7nVI6pyewTxXRguZBgFL2TEMW3Z8sA
-	 av0ScBZZAFbzvv4AwVnx0ktPikjt2pwpNRC78BJnYYRZEeVpeQRv0Jz6SpK2BlTKBICg8
-	 wl24zob4R9JXn86yxRlq8jGzgZ616KCqBAr/p6sniO9MbA+isuTeDTnsEasnyqxMlGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848196;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=nGtKkqWe9UgPpr5+w33nzRYd1BYTGY4QmLZE2nVpS+Q=;
+	b=YJy1ZKwYLXRoqQyX3oTtxtGAiQeanu+2x71BY4YjBWGpA8fVJIBbSQ3x+faQ7Eiq7tYK
+	 omZWMBAxnbroSTA10NJFYBtHx9ryPCGI/o6+pMiTLLDoV6+T3iv8QbtSjHytCJkjSbkiS
+	 NR+VHneRFQVHGFHUt63VuUl0te23Rk6sr8YjbT2RYSEmxnWYTd4f8Y/rW8OhPvCRPA+TU
+	 /kJHWBNEGNiUpf57uxNAQJpWAoZuqfgxEJvjVXBAhG4G2/U+qzkBy+t6z97keX7TYil7E
+	 Rl2MrI/lE+vTZSF8wvY5UCRxUekg1JwxGYyzHIAF/XTbnt2rQn2/oMgyfd1wW50CrSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=X671Sey6;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=e1DFnPa7;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ohcFigdh;
+	arc=none smtp.remote-ip=34.218.115.239
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA805606A33E;
-	Mon, 16 Nov 2026 16:56:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA805606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C07606A883;
+	Mon, 16 Nov 2026 16:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C07606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=X671Sey6;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=e1DFnPa7
-Date: Mon, 16 Nov 2026 17:56:09 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794848170;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RDsIwsWu1KfQS3Aqtw59xAzqiLwWxmSzDSkW35hSn/U=;
-	b=X671Sey6zOnA4g/Gc3LkOkWUY5RmzW1FV6Vp94tpgKxE81m3B7vjOcb6xeWO2gOzVuiM59
-	IRFp5B1mblt52QtidkWxOPXJUlBfnQ/rDO1d9BXcBvB1f6zaO5j0LfHGjIua7dtmOEC+fa
-	neVgQS5+otpe5uI5mrtcKlVbw5DSEbV9KXE40zLgv48IXVwcSNlCgb6KwpemsrVzi9JhrL
-	d07FX3hgqnm5CMF9OYGDGza5/6oFlOx8CE5+ZTbgdU7yID3LDaV+9YsVpxmFVB9jkOqxJY
-	IqPUQYVrZF6c63VzXOGFeKDPG67J/hyrpVZ2gj7cipxwGKjfu+9bWrVt7N6lgw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794848170;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RDsIwsWu1KfQS3Aqtw59xAzqiLwWxmSzDSkW35hSn/U=;
-	b=e1DFnPa7JHJPmVtStbW0ulMaQP6TI4B9OVTYKVGf+WNc5CrKG4/2wIDCCiE0jqn3cpIQF3
-	t8hYYoMxdAHHpmDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
-	linux-kernel@vger.kernel.org, will@kernel.org, boqun@kernel.org,
-	longman@redhat.com, rostedt@goodmis.org, clrkwllms@kernel.org,
-	dvhart@infradead.org, dave@stgolabs.net, andrealmeid@igalia.com,
-	shuah@kernel.org, juri.lelli@redhat.com,
-	linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] selftests/futex: Test priority inheritance on PI
- futexes
-Message-ID: <20261116165609.RMK-DX1Z@linutronix.de>
-References: <20261108141347.1525532-1-mathieu.desnoyers@efficios.com>
- <20261108141347.1525532-5-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ohcFigdh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794848196; x=1826384196;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=nGtKkqWe9UgPpr5+w33nzRYd1BYTGY4QmLZE2nVpS+Q=;
+  b=ohcFigdh3dwvAcbzegXsTgUoFwxlldPuqKl+jOlFHvF1rgpPD0m9TLlY
+   6Z74R1TvdyzXpdCwm89ujYnMl7L3SSHIxuPt023BVGDDSXqOpLkIS9aoK
+   GLFVXyDXO2L942AdnEfq7tMj6ICO81qeA+qhvBEWuGSdE7TUcneh/y4mL
+   uktl7IFk5Dj4vSs0sBVdBQKflFMkUiJtXBdRiSWrN44hNPTvWohxCheeq
+   9gxoFWUq6wY50KnHt4FOakld4MTuD5hbGm8WIPPwCYNfDqAKWmNlTYq/H
+   lmmtxSXxZHtyvek+ruNGn4YQFzgvj6a/9Us53gkVIkC9yUy+N78NiQv62
+   g==;
+X-CSE-ConnectionGUID: OAg241cfSXOTosfqpRuRvg==
+X-CSE-MsgGUID: 7IbTfab9SLSOmksQINR+kw==
+X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
+   d="scan'208";a="34067159"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:56:35 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:6090]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.250:2525] with esmtp (Farcaster)
+ id 53290bc3-64a4-4e73-bba7-410ba37a59a5; Mon, 16 Nov 2026 16:56:35 +0000 (UTC)
+X-Farcaster-Flow-ID: 53290bc3-64a4-4e73-bba7-410ba37a59a5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 16:56:35 +0000
+Received: from dev-dsk-avivb-1a-8cc559d6.eu-west-1.amazon.com (172.19.102.34)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 16:56:34 +0000
+From: Aviv Bakal <avivb@amazon.com>
+To: Lukas Wunner <lukas@wunner.de>
+CC: Bjorn Helgaas <bhelgaas@google.com>, Manivannan Sadhasivam
+	<manivannan.sadhasivam@oss.qualcomm.com>, Kuppuswamy Sathyanarayanan
+	<sathyanarayanan.kuppuswamy@linux.intel.com>, Zeev Zilberman
+	<zeev@amazon.com>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/3] PCI/PM: Keep hotplug ports that can't wake from D3hot out of D3
+Date: Mon, 16 Nov 2026 18:55:22 +0200
+Message-ID: <20261116165627.2775780-1-avivb@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <avnqWd1gVH-i2Jkk@wunner.de>
+References: <20261115171831.1498006-1-avivb@amazon.com> <avnqWd1gVH-i2Jkk@wunner.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,100 +87,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261108141347.1525532-5-mathieu.desnoyers@efficios.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 2026-11-08 09:13:46 [-0500], Mathieu Desnoyers wrote:
-> The PI futex selftests check what FUTEX_LOCK_PI returns. In these tests,
-> the owner always sleeps. No test checks the priority an owner runs at.
-> No test waits behind an owner that keeps running.
-=E2=80=A6
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+On Sun, Nov 15, 2026 at 07:22:33PM +0100, Lukas Wunner wrote:
+> Intel Catlow Lake suffers from a similar issue:
+>
+> https://lore.kernel.org/all/20261103193136.2410148-1-sathyanarayanan.kuppuswamy@linux.intel.com/
+>
+> Please try to follow the approach taken there.
 
-I did play with this and looks it catches the errors you reported/ fixed
-earlier in this series.
+Thanks Lukas. In the Catlow Lake case the Root Ports still signal the
+hot-add with a PME interrupt, and only PME Status is unreliable. Our
+ports are switch downstream ports that advertise PME from D3hot but
+never send a PM_PME message, so the Root Port gets no interrupt and a
+pcie_pme_irq() hook would never run. Keeping these ports out of D3
+looks like the only option for the existing devices.
 
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+I sent a v2 that fixes a runtime PM imbalance in patch 1 when NO_D3 is
+set by a FINAL fixup.
 
-> --- /dev/null
-> +++ b/tools/testing/selftests/futex/functional/futex_lock_pi_inherit.c
-> @@ -0,0 +1,773 @@
-=E2=80=A6
-> +static pid_t sys_gettid(void)
-> +{
-> +	return syscall(SYS_gettid);
-> +}
-
-glibc-2.42+ has pthread_gettid_np(pthread_self()) but this is fine.
-Debian Trixie has just 2.41 which is a bit sad.
-
-> +static uint64_t now_ns(void)
-> +{
-> +	struct timespec ts;
-> +
-> +	clock_gettime(CLOCK_MONOTONIC, &ts);
-> +	return ts.tv_sec * NSEC_PER_SEC + ts.tv_nsec;
-> +}
-> +
-> +/* An absolute CLOCK_REALTIME timeout @ns from now, for FUTEX_LOCK_PI. */
-> +static struct timespec abs_timeout(uint64_t ns)
-> +{
-> +	struct timespec ts;
-> +
-> +	clock_gettime(CLOCK_REALTIME, &ts);
-> +	ts.tv_sec +=3D ns / NSEC_PER_SEC;
-> +	ts.tv_nsec +=3D ns % NSEC_PER_SEC;
-> +	if (ts.tv_nsec >=3D (long)NSEC_PER_SEC) {
-> +		ts.tv_nsec -=3D NSEC_PER_SEC;
-> +		ts.tv_sec++;
-> +	}
-
-This breaks if your timeout is something like 1.5s and ts.nsec is
-already > 0.5s. We usually do
-|         while (ts->tv_nsec >=3D NSEC_PER_SEC) {
-|                 ts->tv_nsec -=3D NSEC_PER_SEC;
-|                 ts->tv_sec++;
-|         }
-
-and in worst case gcc does a div. But other than that=E2=80=A6
-
-> +	return ts;
-> +}
-=E2=80=A6
-> +/*
-> + * Start @t and wait until it sleeps where it blocks. Return false if it
-> + * could not be created, if it failed, or if it did not block within 2s.
-> + * Unless it could not be created, the caller must still join it.
-> + */
-
-Could rename it to start_pi_thread() or pi_start_thread() rather than
-just start?
-
-> +static bool start(struct pi_thread *t)
-> +{
-> +	uint64_t end =3D now_ns() + 2 * NSEC_PER_SEC;
-> +	pthread_attr_t attr;
-> +	char state =3D 0;
-> +	int err;
-> +
-> +	pthread_attr_init(&attr);
-> +	pthread_attr_setstacksize(&attr, 64 * 1024);
-
-it makes me wonder what you did use as a template for this or who wrote
-this. I can't imagine why one would set a stack size 64KiB here.  It
-shouldn't matter.
-
-> +	err =3D pthread_create(&t->thread, &attr, pi_thread_fn, t);
-> +	pthread_attr_destroy(&attr);
-> +	if (err) {
-> +		t->thread =3D pthread_self();
-> +		t->err =3D err;
-> +		atomic_store(&t->done, 1);
-> +		ksft_print_msg("pthread_create: %s\n", strerror(err));
-> +		return false;
-> +	}
-=E2=80=A6
-
-Sebastian
+Thanks,
+Aviv
