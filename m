@@ -1,65 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794809476;
-	b=fOlVxGnRxbyMc/nqaBaPAfOO/9ZRKw4TOg/fe9FMhjxMqDoENq9Bv6AwHatCM5v4ZMgz
-	 lGwczOYeMmCvok9dWgPc7Qe6O3JlNZ/YgFktYEln0alUl8i2IU/T2nHF6fuxdIa+dJEs4
-	 GABkAMllaZ82HrJt1ogjl9k0xV8fCQBxVILXk8/bxu/YJoeKX95jSxsNYKsxWJtstk6f0
-	 WnBRvv12mIZiplk2G0+gmedlq2toUA1JGu75SEYiAdkhQshq230phaU/EsHPkWwluktTV
-	 4Uv6DGTGHEF3jthQC06+hgJHJd8Ta9YYla3kDXix0LlxGyfguxWpeQynclaj+ZkshpQ==
+	t=1794809525;
+	b=4+q6VJN72/5hBvSteo0lC51SOMdTPZc457iJUmuga7ifHmedNT7HXnypZ7OsRJRXrku9
+	 +Nc8LCSAyijEFaenZs9vTSN/3HXY4FULJNukOfRmSt/t6PJYgfF16sHzPtfJBcyU1hbNM
+	 xiLCHCCy2CJrdh2krpdSTaCxFqq8adnyX0qzubVaHRzGUf1CxF1IhEH1F/CHQZBFxJVSW
+	 ZW+WQkUhpDa3/K0oQrRiAtyaxCBg8g9m/GH1W3MnxSsesj2T0NCFvMKstQ5wpjumVSYRz
+	 C74hY/XbKItn6/qUnOLGa3WGVJB70nEGaUBUSomo93RiWpsC0gsP/JDm0KLHSjtaoMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794809476;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-SRS-Rewrite;
-	bh=MPd4pZJYXRdLwgYttFxn4aXXY1gb3aP+H41TDipbCho=;
-	b=p8FpmefYDGigF/1FDhEfKC4E+AHeVBJ/Cw4PTqq2MObFvwlKzYDULtcrQ1yn5G23uMl1
-	 XndRrNV2gNlIAeN7fDpuwdTrwo2/r878NTVJprfeMfl5P/ZwjVsct4J/o8GL6alBLMdo9
-	 +4gb5ggqRDJSgsEbWdvtUTmESGzsPTZu8PPzNGUAKoFSOntwKiUntV73ZKOhWzHqasW7W
-	 MaaZGFy7uQvx/SpKnb6o5dJ/0tmb5hBCuCSV9N/RSldhCTIOd15KQlr2PA8kje1cr1NeO
-	 t8kpb/v2Ko2ycPrAc/z1hPTm41Vn8C0jkA2xq31ygwn4c2KgGcOhqed9qkdDviW8FIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794809525;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=0RMiKm8OhZ/whW1u17DDxpoYgGPWHg9pbYjHuqCA9VI=;
+	b=kFfrd1TlEENIY5IgW4qdA+jOECKpMXj6ZChHt5a1GJtT9Dy4+lovdDpefLg2j4++75sX
+	 sknfjcgGmVSYOoqTYBBK/T/VpyY5vyYJzT0B29+u5wlrYuTrO3GfEc9TcgsZb8JFWigu1
+	 IdLfatpWrQCW3w0hT2rphpTb2vwmMOyQ7JfYYW7nBiyPe1CBsjOFqzds1HYqcfmIdbzuw
+	 991DN5EfZkUJJqc57+Qjlm/bM+w6Q0NPuNMk7PUBmWyEqAHl3wNwdBr/hV4ChsiVSxyKS
+	 QDbubFCBkZcCACmpDRWMOwN2MKZtvv+oHLqYm9V3X3tWtKx/cJHGjX6pLXCzTro32SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c9mwc2wA;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UJYOwvTY;
+	arc=none smtp.remote-ip=95.215.58.39
+Received: from mta1.migadu.com (out-39.mta1.migadu.com [95.215.58.39])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F3C606A31C;
-	Mon, 16 Nov 2026 06:11:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05F3C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB5D606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:12:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB5D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c9mwc2wA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=MPd4pZJYXRdLwgYttFxn4aXXY1gb3aP+H41TDipbCho=; b=c9mwc2wADHZv5elZ8l8CkIYMV4
-	qdH6FKLk2ZruTT44EpmRQnmD03tFX0BkFk/LIpKht1j4muDs8nQ2pSBljsi6Jeb8LrLqub0JKABpb
-	rbw8vnhwChd0IlSh1BHAHf6WncyJnf7gNHoYxMsJfcBLYP7uWbxL9jF5JSH9FdHfunDffWcRwdq8l
-	VZe26yRp+dDJnU31z0WCedbgt82WK37Wz48Vxn3mYMyrqhBVrFGEUoAjGZ6+p/JSZSOQjf5YjBkba
-	XouTdV7GTeOJn2u7ZpP9L2Y6XUUVQe82/xxLQxFJxpaimwr73zPgB5weRw5H+th6Wif+ZPjW+DPmO
-	BggqAk7A==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xSpvt-00000001Dgt-45Tx;
-	Mon, 16 Nov 2026 06:11:13 +0000
-Date: Sun, 15 Nov 2026 22:11:13 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Miroslav Cimerman <mc@raidlab.org>
-Cc: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>, linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Markus Stockhausen <stockhausen@collogia.de>
-Subject: Re: [PATCH] raid6: use normal stores in the x86 x4 xor_syndrome
- functions
-Message-ID: <avqegZd_W0kce0UA@infradead.org>
-References: <20261109030805.25709-1-mc@raidlab.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UJYOwvTY
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hQuBY7FIlaTSnxksxhCcBvzfrEGVlJz/9yiTBC1ZBTs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794809522; v=1; x=1795414322;
+ b=UJYOwvTYw4H7n27qc1Z2QjVajGDz6CUxx3VwggM5WmfTD3NjdbwW6zpUWhQSsSJqwfIkr9tI
+ PO8kvrWvcnDANPU06ug1Om4c0rPTPrcHaMElg7p+F/rKu+LKXoxztPuIFecMtlM4Gvr4WtrvsU0
+ NUco27WbtJb1cp/sK1/gR5yo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id af38cebce14534ca;
+	Mon, 16 Nov 2026 06:12:02 +0000
+X-Mizu-Trace-ID: af38cebce14534ca
+X-Migadu-Flow: FLOW_OUT
+From: "Hui Zhu" <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH v3] mm/mglru: use a smaller batch in fill/drain_evictable()
+Date: Mon, 16 Nov 2026 14:11:58 +0800
+Message-ID: <20261116061158.333826-1-hui.zhu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,48 +77,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109030805.25709-1-mc@raidlab.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 03:08:05AM +0000, Miroslav Cimerman wrote:
-> xor_syndrome() updates P and Q in place for a read-modify-write. md
-> calls it twice on the same P/Q page per write, to remove the old data
-> and to add the new data. The x1 and x2 unrolled versions write P and Q
-> with normal stores since commit a582564b24be ("md/raid6 algorithms:
-> xor_syndrome() for SSE2"), which argued that non-temporal stores of
-> less than a cache line are slow, but kept non-temporal stores in the
-> x4 version, as it writes whole cache lines. The AVX2 and AVX-512
-> versions followed the same pattern.
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Adding Markus as the author of that commit.
+lru_gen_change_state() migrates folios in batches of up to
+MAX_LRU_BATCH (4096) folios under lruvec_lock_irq().  A full batch
+keeps local interrupts off for up to about a millisecond, and CPUs
+contending for the same lru_lock spin with interrupts disabled for
+that long.
 
-> The non-temporal stores evict P and Q from the cache and the sfence
-> waits until they are written to memory, just before the second call
-> reads the same P and Q again, now from memory.
-> 
-> Use normal aligned stores in the x4 unrolled versions too, like the x1
-> and x2 versions and the other architectures.
-> 
-> md RAID-6, 4 KiB random writes, md thread on one core, Xeon E5-2699 v3:
-> 
->   8+2 on null_blk (dm-raid):     85.6k -> 98.1k IOPS (+15%)
->   6+2 on 8 Intel Optane M10:     57.3k -> 62.1k IOPS (+8%)
+The caller already drops the lock and reschedules between batches,
+and the restart protocol does not depend on the batch size: both
+functions make monotone progress, so a smaller batch only shortens
+the irq-off section.  Use MIN_LRU_BATCH (64) instead, bounding it to
+about 15us.  This is a cold path that runs once per kill-switch
+toggle; the extra unlock/resched/relock round trips cost a few
+percent of wall time on an otherwise idle machine.
 
-That's pretty nice numbers.
+Same change as commit 6e9be217a3ce ("mm/mglru: use a smaller batch
+for reclaim") made for try_to_shrink_lruvec().
 
-Note that for the new xraid code we'd actually use the XOR code in a
-single pass, so non-temporal stores might make some sense.  But
-I can't good heatedly argue that mainline should care for this right
-now.
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+---
+Changlog:
+v3:
+Drop the need_resched()/spin_is_contended() checks and shrink the batch
+to MIN_LRU_BATCH instead (Baolin Wang).
+v2:
+Also yield on lock contention after a minimum batch (Kairui Song).
 
-> - The sfence at the end of the xor_syndrome() functions (x1, x2 versions
->   since 2014, x4 with this patch) is no longer needed, as it no longer
->   orders any non-temporal stores. Removing it made no measurable
->   difference. I am happy to send a follow-up patch that removes it from
->   all xor_syndrome() variants.
+ mm/vmscan.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This probably should go away.
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6a1af9b92349..054af6cf6a2e 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5499,7 +5499,7 @@ static bool __maybe_unused state_is_valid(struct lruvec *lruvec)
+ static bool fill_evictable(struct lruvec *lruvec)
+ {
+ 	enum lru_list lru;
+-	int remaining = MAX_LRU_BATCH;
++	int remaining = MIN_LRU_BATCH;
+ 
+ 	for_each_evictable_lru(lru) {
+ 		int type = is_file_lru(lru);
+@@ -5544,7 +5544,7 @@ static bool fill_evictable(struct lruvec *lruvec)
+ static bool drain_evictable(struct lruvec *lruvec)
+ {
+ 	int gen, type, zone;
+-	int remaining = MAX_LRU_BATCH;
++	int remaining = MIN_LRU_BATCH;
+ 
+ 	for_each_gen_type_zone(gen, type, zone) {
+ 		struct list_head *head = &lruvec->lrugen.folios[gen][type][zone];
+-- 
+2.53.0
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
