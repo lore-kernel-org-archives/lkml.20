@@ -1,95 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852561;
-	b=oFUHYfZybCPiJVe9olu8CLdxlvOl8Y4slB4/a/NHUmO8rof0ffUNiJ5bxRra6E4lkp+L
-	 4GareuPGgQUAfPayC/P5znrijWMfy6JTqc/SLkDrKUSalpJWoasgFBgUNYXahQPyXH+TW
-	 wfGV//VpFBWcbKlX/EwiHUiWf8OyZcXGooNOkpBjB77lMd+nngXLCEb+2t5UImvnc2Ndl
-	 JKQB2eEGRr/zAPbYxd0rqTvUNl5K3VASzX3tRGxnBbkbwgro3yHdSLhZpIBmlgTs1IDQh
-	 Cdbh0+Ip22g1JdE7h9rWnlb/SU+VW7XOfieFcPypP881JdhfEsE3ho4788o0nE7c71A==
+	t=1794852603;
+	b=pp6ntfs1YAjbr17n7K+HWZrC7TIi75KZxqzWQldTpRE8hZZBuZ2pXH4zWFvR1nTOZ2JX
+	 avoZ7rAuPvo6hsLCwIBFazgeq+yQ/ryWcKQikkAU300NxNJYjHKUYWnANyNYsevZMhwuC
+	 tDeMKS/IawRcxiK3gl2GiJZh8M0Flki5J4DGt9n9m0QQOLOUW6ZBTSXbvKD3af71jbZml
+	 7Wk4k/gmGyJ7NbrWuitsEfYuAwyjJR19vHNuF7xl08/nZxmSN4WYHYNjipA3YW+RBN+GQ
+	 MoIEWpyFPu2g+uU8tMMFjVyprmwdigkXKnbr2B0brBN68zZp+pGch7D3KMIHIEg/m4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852603;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
-	b=LZHFe39Hi2ZGG/yjmnV+hnXVqmHpADDHAp87GBHPtZXTM7gAJkOsGeYOEwUfJdFrgRNj
-	 lhYaLXDkqDvu25G3xI7uo0KWOfLAdLzS/qlzwV7LGqnVyaAXzde6iHVsb03mYrmQ6u+Sg
-	 F0H3yV6jmfZTb/RcMylj/+Yty4rejd99NzF1KZgeJ+4/KFBtojW6oP90vFgtmxRO3vi5I
-	 FsL+huilEUILoH9DOOtuD5jakNLrUNAn2cIBd+uy23yhCijsfhqvqAjG8txvehAkXsc5W
-	 hYgEhsIzcXd9Tot1Hr+ThvAIeChb4G80s/BFhAi2ng03XHoQL3n0TpKcSbVTzxCsZdw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=cBVf5mMNM+rUUCpU78C1Na+O2C5lEgI6gSvRU8cE5Mg=;
+	b=0wQOYuP+eMdQgDfwlJg72aC1Ekcf6a8XJaMeg/6FBafraBLvGlN7rnQ0mkZyeWwy9aPR
+	 ioEVztael6kNBK/AdFqyxlIKIJqrd5/F4hkJ4xGcmL0DzsBH6zyKmQ4h2ektONtBSZVXo
+	 b0jFAj2+1aBqCATYUwMQ3vGvZOglp2YAqVkkeplJLP5xjZFAe+sodzGZAGWfAY/jx9qj7
+	 dEf+iPZiHyrVg2gGmqDRKDzOACv1YmvBRaqecvypnbaziGASncOU8RDbWg4O+esvV6/c3
+	 VbExMPNYsqLPsXL29dy2GgJBH71MAemH85qAmL1b5xyDNZQIl+FYveAHMQk0K1b8g/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OiL05YS2;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=n9F9PBR3;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A1A606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:09:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A1A606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E38F606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:10:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E38F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OiL05YS2
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5495d549924so48249391cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:09:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=n9F9PBR3
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so29958695e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:10:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794852559; x=1795457359; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
-        b=OiL05YS2dUgjulEGZcPXZ2GuuPa/kGvqN3r2wKpIWxdRWJBuCWWnuQRwvIsJ3sA+B6
-         t6KKOyOM0n7cbylFAJD/bMiC6rbwG/aZVbI4p6sfZVr5Qjttyl8bhfL/1SRsFfy/DMia
-         ZRmY5IVTEWmeRQlhNXWoAO2LkovRs7PyMF+I6PDXPo22DTCgroKPuKMpxSH2mif/r8ev
-         IkcUPTqY3fgyh5mx8lPonJdaS/NZz80oey7iNRgfblPLVYYICRLhZ6ZVpPuw+okbkEv3
-         bOTxYJ+EoZW571F5EkPT4g89TG/xLfrro0PkZccqWb65T0ztIDbVg72oCSV4pkCJbEOh
-         5+QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794852559; x=1795457359;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1794852601; x=1795457401; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
-        b=Tc+uDTEHpSlNSFFgqIyQVKtmw8tymNXEItABS5pSC+FzFXTN/CnpLd3lFqI4egnb9p
-         rswGw1vklqvw8/6M0u1Or6aVg6Ka48JcXSMY5mdDMlyZar9C1xmEkA+5jcr919M4kFNh
-         KdZodAnvVoWuPpqWPrSGJ0L+TPzE1Gr6qSsMBImnT3oiaHKdoBq7r3IYo2hQ7nsOUJ/F
-         bIkajEwXFQoRa0xz9LIp1zXLAffwSLZpKXJvQkSaU/itu0AQlFjnbyfiox/PNu0X7PbL
-         5AT3ZWKYEhi8XOdxDkcImp/iTyfnvMifrwTwOnzu443zmA87hdm914HFqkC0LEeBoKC0
-         snqA==
-X-Forwarded-Encrypted: i=1; AL+hErGAUXApK04a0R8vK8O1KMj7bRdpeb00/sIop/As991XrDTyNll/kLiy26McrFLiD++BetkJJBAmgMgM4mE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zNrlX6KowTTLKiIw20fPvFgUWfFFZ1NFhrxuYR3MJQx1jcuha
-	A/L9ywf9MvKdzrbBVDRbXJrP30wF8jGtJux97iPvJn4NYlo3krONkBQH6HjpmdxpJw==
-X-Gm-Gg: AYBFou0ROy0vzrWjL3uReV1TPpDpqdx/p6UH5N/4pBk+S8w301ZHiSLbEzyYbve7CKZ
-	VEquGeHxsKLJg62Ac64B/snXvkTW6GqZYzlQyF8Hna55dxinZDCPzmxkveB72YCQRAU+jI0mJj8
-	Sb8d+tKmQjCjmExTZeyiaTVd1r4SYyKUYy0StNdurdWhF4NFytWPTU0mDebhwZw1Y4IG4shbFry
-	dhcVjdVeDginpNosJcBbyIDKTo2RvX/UCQvc5fOftvxfJnEDjdkEFSOcc5c9x3Y/Fh+M712PxKt
-	vGrVB7Uc3zw4ITDrN2qbcu3XYtDVnVewFQsilSLn8ZlLgma1R8+JuL5HnDbYgBP9vVKl/eK8P53
-	TrfEDSJ/N++DMLGsDxWoscMaZSIGJZsdUeX6F98WWy5CXNBH4i8FRQ1LTntY5ZkcPdXTk2SQX1X
-	sGTZdle3kFpjOt8dVgRuRIbc0tWrJYE8kDOGanl6GqmYevnKdCVgHYanu/fewMRJS7LDiUCnEQj
-	utk/G2eB87vCu4qmiZ6U5lkwNfjK/zfKIaq2nsFlWo8K2/9fRD5RLxCfMhVGYCgapqfqbVbOVcd
-	XDeEWp8zbxXT0T8IRdFZr4L+EQ5nVUkJGUEUkIr5VmZyY38DmJU=
-X-Received: by 2002:a05:622a:580a:b0:535:7b01:1ac7 with SMTP id d75a77b69052e-55ac4390e7dmr180243411cf.6.1794852559307;
-        Mon, 16 Nov 2026 10:09:19 -0800 (PST)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55c42b6f3desm62496871cf.27.2026.11.16.10.09.18
+        bh=cBVf5mMNM+rUUCpU78C1Na+O2C5lEgI6gSvRU8cE5Mg=;
+        b=n9F9PBR3PlXR2GhSMuifM2drQ6Yok4I50iIDZ8542xFZ/MY2OYK2HQdoe/0hJBFHIv
+         XWbNqVphQtX+2WYMsU/gkeiK5fJd6GTEjAA39ZzDueQbyt1INMYZl5p0eykt2+dF7GN6
+         NGBMRHVOUWa+cZaKahXSM1WxuRUYM8GPY/rXzwA24Fa3KtGzM3ORN3aKoPLd5Bqe/yL5
+         OVDywTx7M7oyyYH2gQ7TLycC0yiWkHkgiBiRJCuPIvlhKPyQCz0/iGt/KP19PwIQz8oC
+         Twee+FF5pXa0tJpQxAL5HSanM2nYND6qIgHRzyKjGYC33MwX+xt565hyA/9nBkUiMvxt
+         oGBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794852601; x=1795457401;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cBVf5mMNM+rUUCpU78C1Na+O2C5lEgI6gSvRU8cE5Mg=;
+        b=YYp+/+dBynLUAoeGsWyTf0GnaQt4Nn0Nle4OD5jI6w9BwNy9vOrZge8DAVyHbKKvKf
+         S0xRmRGk/HhzBu8OxR6JXQGQE7T8ZXlqOof3eVtUcMd48mlkZE+ohBG4o7NSHuKr3P2T
+         HzCv9IX6ro7KLW8t27v7yVdOovrdu2ySYIgBv5qe+8gua14HsMH/Rh1vqa6yJ87BstW1
+         +klCZixB/UpOSmeEowmnSl4r4JbOhEUQcPfnoI15aZrCeaIW/Bmw/v8h0SBCYD825VIL
+         Qfymrz26pAwdzsDDYnAubPxZDGxdL1/13OH/AMsJHu7ntP3ddEiSfI/HAI0yHHm8Kstg
+         nJVw==
+X-Forwarded-Encrypted: i=1; AL+hErHZF4M0tixKuysiMaHZ3cHMFecS9q88y0bdBhlIy0RgbCoJVJvCld+lr3690gRwe2r0cSUUvI0oEpiiR6I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VRFAfV2Dgup6mrkfsCxguPuJzQmLP2dHz/TPfr5jH4bMHnDtj
+	BH2RaBjBGNLIMnMHmDkLF0AYaPalUQnNPrBjJCfJJgWnpgLMcKojWr/FN14/yuOFpRQ=
+X-Gm-Gg: AYBFou3TCK49tNbGDm0Hw2DeSu69pDNddWAgk6ZaeI66EYTGilDntkqATALYRH6F2wv
+	2b8vzXsA9xIDy0SAo5+IUL8pIPoN3cY/L0+aeWlaaPlhis36sH/EA8pxA6EhcgJAuvD8rG+eaf+
+	SiPhOqt/B8XprYl8eQzVk7YCCFvlCzgwXu3vJ44WS2/yn4wh3aMJsPidxLnlp1xKcJsrv0H6vjF
+	9INptNqpfinzX2ZNTyukg5x74fB2vHW/LvK2yBMjNAutacaJlqdBQdobD66vmV1WKTUgF/NON6R
+	qFhqz290Dott8iU0XqOG6m8XIdYvtYoNMTv0TnSToGg6x3m2L3oONm7fa16+w9m0r2JJKaF2qkE
+	5gPUdSq/2eRVxWEzg7ovRVozpP8EI1Bubf9UZuqg0u4A8gZIxwCWGJY/Aqi+m8O8KhWHTjKA4ry
+	c5WdUM7mus3jIFYus/QdQm0igLMAVBDKDCSGeVmEJ8HHGlirBqaEnvtASJryXPEBUScwpJ/oYRM
+	c7MOtpUn0e35AtRHtc+nOZM2lplBQnES7nK8DG7v5ZQWsS5dWMeKLC18PwmV+U7T1XmRtnU8ADJ
+	kiFbuEF0cVGAHsr8dc34xF4qq7hULDXXwhX0T1JOLUu7YitebPUVSAqqDYgg4Oh0KWxx/p4uDWx
+	37bwo5d6E3emSVv+4
+X-Received: by 2002:a05:600c:3e17:b0:4bb:69b3:2b42 with SMTP id 5b1f17b1804b1-4bb69b32d31mr116485485e9.16.1794852600961;
+        Mon, 16 Nov 2026 10:10:00 -0800 (PST)
+Received: from localhost (p200300f65f19a90439293c698a65b414.dip0.t-ipconnect.de. [2003:f6:5f19:a904:3929:3c69:8a65:b414])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb69ac4e16sm131653625e9.0.2026.11.16.10.09.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:09:18 -0800 (PST)
-Date: Mon, 16 Nov 2026 13:09:16 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Gichoon Han <gichoon.han@samsung.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Takashi Iwai <tiwai@suse.de>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: host: ehci-sched: Don't let a bogus siTD remaining
- length underflow
-Message-ID: <5ed0f4b7-beb3-4059-9e12-b9738af65d91@rowland.harvard.edu>
-References: <CGME20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9@epcas1p4.samsung.com>
- <20261116052851.2272125-1-gichoon.han@samsung.com>
+        Mon, 16 Nov 2026 10:09:59 -0800 (PST)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwmon: (ltc2947) Make ltc2947.h self-contained
+Date: Mon, 16 Nov 2026 19:09:50 +0100
+Message-ID: <20261116180950.3894659-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,79 +97,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116052851.2272125-1-gichoon.han@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1002; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=FNVtl9KAT6PQLlCBkhq7t0uj2wqVo92ScDOnUKyzYGI=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq+0bvd+IhWDQJX9srO7f1evrOCFaMglAxavbJF jm/VtS/+16JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavtG7wAKCRCPgPtYfRL+ TgwYB/wPg8brdCByIxPgguTSE9fuNlyZXLPQfDLxdo7R1E5KbYC9X/SKImZ3+cxe4MlPknE1Ma1 Z1GgVQaOvuXMbjP6pDRWeLnQdGXTX1aXkrjiYGX5Rd/aaiU2gUR3mf9EPKo0x+xb/yVP0/lISQR nisKRq6gqQ/Og0RsW3Curtjud3nxR2fBImeG0EEgaFt09K241qkcXMhzewx/uHNCY1vgtmM7uHm 6aiUpZTjnteMW2sLqxtrxHXEZV5oxd6xQKCRAUupI+4anVlDwxPhVKs48Q64POHigbiJ4Tu4za7 sRNDd/cKIzF3mAnr+7mXVb/u5DMdsfw3b6M1qFJOAXMNC6TQ
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 02:28:51PM +0900, Gichoon Han wrote:
-> sitd_complete() computes the received length of a split isochronous
-> packet as desc->length - SITD_LENGTH(t), where SITD_LENGTH() is the
-> "Total Bytes to Transfer" count the controller leaves in the siTD.
-> Nothing checks that this remaining count is not larger than what was
-> programmed.  If the controller reports a larger value, the unsigned
-> subtraction wraps and the class driver gets an actual_length of
-> nearly 4 GiB for a packet that can hold at most 1023 bytes.
-> 
-> This was seen on an ARM32 system (vendor 5.4 kernel; this code is
+When ltc2947.h is included without a previous definition of
+of_device_id, the compiler wails:
 
-The type of CPU doesn't matter as much as the type of EHCI controller, 
-since you're talking about a controller hardware bug.
+	drivers/hwmon/ltc2947.h:11:34: error: array type has incomplete element type ‘struct of_device_id’
+	   11 | extern const struct of_device_id ltc2947_of_match[];
+	      |                                  ^~~~~~~~~~~~~~~~
 
-> unchanged in mainline) with a full-speed UAC1 microphone behind a
-> high-speed hub.  snd-usb-audio trusted the value and read far past
-> the URB transfer buffer:
-> 
->   Unable to handle kernel paging request at virtual address e8756000
->   Internal error: Oops: 7 [#1] PREEMPT SMP ARM
-> 
-> The register state at the fault is only consistent with a wrapped
-> actual_length coming from this path.
-> 
-> snd-usb-audio now rejects such packets (commit eed0e9583a29 ("ALSA:
-> usb-audio: Drop capture packets with bogus actual_length")), but as
-> noted when that was applied, the bug really lies in the host
-> controller driver,
+A forward declaration is not enough to fix that, so include the header
+providing `struct of_device_id`.
 
-Actually the bug lies in the host controller hardware.  Not the driver.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+---
+ drivers/hwmon/ltc2947.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
->  and other class drivers trust actual_length too.
-> 
-> Treat a remaining count larger than the programmed length as a
-> protocol error instead of reporting a wrapped length.
-> 
-> Link: https://lore.kernel.org/r/87se19ufoi.wl-tiwai@suse.de
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gichoon Han <gichoon.han@samsung.com>
-> ---
-> Compile-tested only (ARM32, W=1) on linux-next.  I could not capture
-> the siTD contents on the affected hardware; the wrapped value is
-> inferred from the oops above.
+diff --git a/drivers/hwmon/ltc2947.h b/drivers/hwmon/ltc2947.h
+index 5b8ff81a3dba..eb3613f4d4cd 100644
+--- a/drivers/hwmon/ltc2947.h
++++ b/drivers/hwmon/ltc2947.h
+@@ -2,6 +2,8 @@
+ #ifndef _LINUX_LTC2947_H
+ #define _LINUX_LTC2947_H
+ 
++#include <linux/device-id/of.h>
++
+ struct regmap;
+ 
+ extern const struct of_device_id ltc2947_of_match[];
 
-So you have no way of knowing whether this patch really fixes the 
-problem?
+base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+-- 
+2.56.0.rc1
 
-Alan Stern
-
->  drivers/usb/host/ehci-sched.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
-> index 57d07d1c2dfa..12a10248a4b6 100644
-> --- a/drivers/usb/host/ehci-sched.c
-> +++ b/drivers/usb/host/ehci-sched.c
-> @@ -2241,6 +2241,10 @@ static bool sitd_complete(struct ehci_hcd *ehci, struct ehci_sitd *sitd)
->  	} else if (unlikely(t & SITD_STS_ACTIVE)) {
->  		/* URB was too late */
->  		urb->error_count++;
-> +	} else if (unlikely(SITD_LENGTH(t) > desc->length)) {
-> +		/* controller claims more left than was programmed */
-> +		urb->error_count++;
-> +		desc->status = -EPROTO;
->  	} else {
->  		desc->status = 0;
->  		desc->actual_length = desc->length - SITD_LENGTH(t);
-> 
-> base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
-> -- 
-> 2.25.1
