@@ -1,101 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794848677;
-	b=hKAE808YXWH6B71YClIe2LnfpPRQDo3Rg+GeeRRmE6QlU1T7IVsi3yLUt+gTtm/v2eyU
-	 54JU9CF3QmAwDscAYmBps562B2zOkvNOs1MwFTSS8IvpnITXnlmLirjPyCa8WmNakvmEz
-	 I+YcWRYCzavlehm5rzMM0GfJ9LHJPMtbdgubBhuMy3S/pTD0cHHnsmy41UBmMKUZuDorT
-	 TNTMgFEvPRcH5l+27C5TJOGfLobn7McdiGJU4wKB1Sk9eDilHiHnYrvvma9pETITlkBbj
-	 qDMW+b6e2R1vQEBdih1g0tX2NJF4LxkQhRvGWoN6AxX4ZCB3h5SIDJm8R8cU49L3w3g==
+	t=1794848675;
+	b=KgxkXr+WIo7KYV774u62lygdjz8VJUgBBVmKH86nAocOUdHzdqeLaxlkGvDrfLoznARc
+	 1gbCLYlrD+Ui5ITb0AiTwxViKV3zxRHye7rJ/PR/LHMkMtV6QVfKLJ+8dWUkQBIQRpIxZ
+	 jlKCF6ptDtGZ8kATLl2mH5Aobe9Japp3xJPPYyreLj72ZP6PECHOh+qVL3UBidpNMjVw+
+	 pr3h5pxRxnXXAAer98mZCJpzIg70tw3NuGMoeTQFUbLcfbXavCMLYU6mQLDtNEy6oa9qt
+	 jKH9NWzeZefw67ogxLvzQTLOjOH0ZRkD15057sEfKlzEerwmAs9Mp4EMYyMDVHq77+Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848677;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OuuyAZ4IWLgVQrPB86XUEajs/Fsetiw6Rysz8jcKkt0=;
-	b=WcQ74tk1OgWzgvTtE0giMvP7m14GecJw9VvIbQr8H76QFJNWi37NwdyT9/pIhITxSdRd
-	 AoWDeLuGX4l2QXKNa1nE0sO/kEH9A2rgsX9Yilb/HSfRpUNlY2gRWqnnP57QiaGXp2La0
-	 Ox15pOxN5SuhhOzcBvlVM/iU3zrPjdDxS6271xEbJo7toxSo1s3TisbK0Lacc2FP/VW91
-	 iOCIL+W8GiSFJQGP4j46U9PM/QUgXZGXFJ/SpB+sD8Xo3J1jYfGWm67qbmoTPeTvq2WZ/
-	 s9w/VoMnMRI+OqhxjMWTTPKmuNZ9VbMZpR8/9gzoQtpH+yUoPkKbaRjlWZO5G6TRTEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848675;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=gZU1z6cbczq0qQqesul/axvZyJbIvIkHEJFN+PnuMDs=;
+	b=rnvD4dbIFgo+05SYvSZbGMpj0OUVqOoY5tmgp7NHAcHVjQof+wiw8Ghj1gyEIfwyLxNV
+	 cx4QEJsBA+Z9X6lf7vA04e6ksBbZVQdukvu3IqKnj9mcxEFKpHZ9LYlciAAJT6ftqINEx
+	 7H7UwY/dJVTnM5gJ2EDY5tXaCQ+AmjXzmce5BJYGacp0cA9lEPpU7UwlnsZxjrJn4IQwE
+	 NOVeKdAHUShhnKe7mkC8Z7dnmQaR/SAFKDgXZF2QHPnIeZ+Uf3YIv3SAE2r6gBP9XR/bX
+	 UU2MCAupjDpwofKARMp9lQYvkSSUHmGNNd2WRL6QnSRnhG66SIAOTlrXWtVhEcxZUTw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WZYY2r8K;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="MMKBlt/p";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.42
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010042.outbound.protection.outlook.com [52.101.69.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0DB606A891
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:04:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F0DB606A891
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBAC606A323;
+	Mon, 16 Nov 2026 17:04:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EBAC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WZYY2r8K
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b4d07494b0so705247b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:04:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794848676; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kkWMObL/bMC5RhLfkTYELxbxyCoC4+EeIpmVfxoMYPpzSKoJUYKYDjaxKK33AkEGHd
-         B77rGsC/OnuKdEytVXkMImNBjdHfWtFHFtBbEcRtsKQMRQPKCBfSyBo4G7Me2I2G0246
-         j0IWwbNsvTS52Z/xWMNdhIfZBUC6SEcx886jcD5WIOZ3Hdoz+HgfzP6QfjBovDdGgAGn
-         sI+d72M9Tt5wa3ZrHCKpS7xvS0A7xJu1lfgh4DslXdE1GUjCRFLheN/fXJD4X0+IZ9lQ
-         Y2Jh882lazpJHG9UIMkSGmXirnfvp4aHvYZtQb/jGJskch7naQkk8upu0PVwD+da66Tw
-         kUbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OuuyAZ4IWLgVQrPB86XUEajs/Fsetiw6Rysz8jcKkt0=;
-        fh=Zu8htiNWV3fM5bIfmSP92/WQXfxYG5C3jVNK68LdbWM=;
-        b=HT3ILK6/Ll69zLreK5GnqymipYoBKMIEHxtdK2Xw1fHmkNJHTNND4QDI3xSr1XZK0U
-         yQ0T+39FvC0NrwMtIlGK8HEwlVkNGj0o47/85UTYz8yQPP4ymlP/f6tiQ5vBoDTZLowO
-         XsvoMsbh4Ffd3kkOlR2fDFge4GJflyKsFfoTqlJIAFdA4zoFnDuWUn9ywTthFPHh46ge
-         7vYhyRfuvxB9rVXnpMsfNyGsCu3lWBr8X6yvk5EvCJwT5WGxbdInEvnFWWz2l0fxJDd2
-         kVes7ckMCt9v68JVOaZsdYNrGNAuamvifrOd1N4855Lmv2FwCCCA+kkEfssUlaZa2+GN
-         VMfw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794848676; x=1795453476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OuuyAZ4IWLgVQrPB86XUEajs/Fsetiw6Rysz8jcKkt0=;
-        b=WZYY2r8KgTyJC8YKopk67NlqvwpC1c5dZ4/uebpyAgqgLz7Uc/bMqiwjjrEI3xwkoV
-         +VhQx82XFmQwmTJncIGsGKv4tFZM4AfYO7d0mx/KDjSYKbsSMEexaRRcyS5s26s059Ve
-         TUKHv/A6NpzCtrL7atOzRURA1LFIwh+2swxki0IZzipXDtTzWrQjDbuWmS0LcnOPKnIM
-         mD5Oo2li6ok9yYVXWD7LZugQesJkeQBHppksRD3FRdDmebsc4pu8/VvgC4E3sRjmXcA0
-         7EHqvZbdaQd0Y6JJ/8XcPAEmz3lBpdyDSuT0uRdlKgHOPX7rBgQsA0a7RUSmh9qCJ26t
-         CW+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794848676; x=1795453476;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OuuyAZ4IWLgVQrPB86XUEajs/Fsetiw6Rysz8jcKkt0=;
-        b=xD7PrOonjQRog4bjFVNN0998/VUQ7o2LzjemYlrrV8kuyWc3gpvK1RLCs0RqLUSWiX
-         +dff6hkkoLadsHwoLnOGygm4oieyH26TbMoJolCSi1EH1T6G1YW4Ex2wrEK4edZcrncE
-         n69ZS5jA02jUxgMXEtY289XZmpJi//ST4Kl1kARBhkNOHEK1t7nFLjCqwEM43tfbk6dE
-         ZNa+1RliHhRtgSyrsRTDSrJTBZ5bRSR3H5g/BIspAZGI0PUPboGqzTqg/qTl9ShbF+o0
-         hh1RtkLpD6ZT9B6ljxlZqiXzlgn6qvs4Za4yZD51MZAR5d5hn6gVvS8lqA4Nxy7Z/Eq9
-         CKDA==
-X-Forwarded-Encrypted: i=1; AL+hErG+YvdzkAtMnsdVOmu1iYP0Vsz/s+lxLL88Cry265m6luY97IoIN7CezE91b1WTUdPHXMaF4Xo/twO49VA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yeb3jElpTJZPQ+nWMCe4PYjAxEDi88nC2wF9ZO9xcf60qWt1D
-	QSPO1dMlIvs6Qa6gVCRYm7Kok4c4e7jFz2QTqXJo5+1OerfSsaLADLlJ13QeFZnNhjU990AWagp
-	nqSB3+eHw6aT2y2AUj8+d8Zfk9B7W530=
-X-Gm-Gg: AZFdTZet/Dro3vZ+j06+/Y5psSiJ2Ff5bMAaq1xDY0zKAD9985vRuFUk7OfvbLUsvX9
-	BA0tCRMAMN+oocJ88XuMJSAdXH8Y9GqwnjcONK4y5ueQLmsUhVdAQw2f+Wlo/aD1+PqiHMvjdcw
-	7nvsm9s5tDEcELiYFlwMr7izTH2a9P/tb0KHcMbS0M1SYfMU4e7ChAp4OP/XJSbADKFE2W7A8rZ
-	/eRt6eZ9H0fmc/IerFDU5W5bh6h5hTUAxkbpGW+X70JtPMJc19b/RqLflKK1twxYi0Eli6baUKS
-	SPAYFNZMEzD8BbrTl50EufSeeZYdICRO/S/net15EYvwS9YTNlte0iNylPWFaaYn2b/nouQpusV
-	2msfuq5NfJ+2tws5/u21piqu3kRyPVphT2mp72tcq9xSGsdAVaWnGpxcsfZIV7hI9J+wWiDsuV0
-	nTuUmO/Kw1MxFdAtq/P0A6QTM/AJqIOSFdeDVpgOYfuljZFMlDt7ChuMyH
-X-Received: by 2002:a05:690e:4145:b0:679:97d1:439e with SMTP id
- 956f58d0204a3-67dc76a3aebmr61822d50.2.1794848675703; Mon, 16 Nov 2026
- 09:04:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MMKBlt/p
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xC+DUZiTW0F4Xnz0b5ZygquveiCyJTgK2LdYcsQLgKpKMW3ng9V0fgZ7ZZ8QUDY9zyuQVXML7A4Ave7dsPbOfFVmV3yOHSs/o/jcB61mAj/GvhwpZjMxzSf7bS8Dqwwu8aOAh5f+xbNnydEipkamoUV5KTD9cnkO5rlnZN1MlRkDYo4izI5q8dcyxYmVNdLHFzerMgvX3LjHcks42tPqPqZf/YTijcWONjNOJwPIFdu/rLFwk7OxhLXaqK4UOK75HEPfJDV5oAyHD9hJs2+0dxyhQ+48+Jsf7kDi85kmye+/r6Xd2VEBk1H80Dc9Nx2AifCJL+1iJ0udpddEQ90eXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gZU1z6cbczq0qQqesul/axvZyJbIvIkHEJFN+PnuMDs=;
+ b=eHBo+RT1mjwO1LOwhIPi2dGZzAZ6BIQXxTGzHPfa/Jm79TsrVcnyhZDHtqN6WSQVh03bGtJ28C7JFTT711AcUEEsB0u7PnDcAadD2z6VkgvPk7qtAI/i2P8gM+MdtX/44afHRROUQ3J/O4KGIcy4eIVKxkCkikKVBadCTXDXbzqCS4J1Kkjtp7eXjpCp0dfRJlg9yZPtUPCMQdlvV2haqLxTfHYv8NIb4ubmcjEUm6k1wmWoD6gxcRCKpfXir/NYItKLy+8K36estmg0JjtRm+4qNZ5NIrweh+oFERcG2TC1yhWuSbe97NAJbPiOGTXUSyQRNkzgjhZPJwL3dc7ntw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gZU1z6cbczq0qQqesul/axvZyJbIvIkHEJFN+PnuMDs=;
+ b=MMKBlt/p+1/Qyzg0wfIAIIc0cR3dSyziJZ+sbG8ZWIbZIHdPSdDRT6Tqy3qwi8TgmnmANMw/kWDw8y5PhXR/MtJB74ytj+8gJvcPRyZ5uaAqWitJdeFO18AX+Xa16XmkOPbOqplIEiBUAGkF74a5oWsqclS7v/qjHUQ2dZHeNGK4/iKCl5U+gBDoczGW1k+iAlD32d1bzQxO7KjdRfjbsPvVC6HteYd0MzwZqbMsrz5pXYaiw2yebrac5aIB7OtYckk6EkPm/AM9PFxR3Fj3vSsM3/DBSOmo6vKVU6wVzDL1c8HV0WDawdRlCMztsnjfXTzcclaGYtmgvbxUIkl7wg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PAXPR04MB8557.eurprd04.prod.outlook.com (2603:10a6:102:214::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
+ 2026 17:04:31 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 17:04:31 +0000
+Date: Mon, 16 Nov 2026 11:04:18 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v6 2/5] dt-bindings: soc: fsl: layerscape-dcfg: add the
+ LX2160A pad-mux child
+Message-ID: <avs3kqRPvto9fbT1@SMW015318>
+References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
+ <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-2-fbdce4565a5c@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-2-fbdce4565a5c@free.fr>
+X-ClientProxiedBy: PH1PEPF000132F4.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:518:1::39) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,164 +109,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115115341.316484-1-ngocthang2710.1999@gmail.com>
-In-Reply-To: <20261115115341.316484-1-ngocthang2710.1999@gmail.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 16 Nov 2026 12:04:22 -0500
-X-Gm-Features: AclHuK-7mHIMY0CY3JZllTpHy6nwtTontz9GqLEJ12QCe-O4w2_0-LpJPkaVhfo
-Message-ID: <CABBYNZLEONoqo+mdnNyv19pd3HxyfHAyHTPUpi-et0RFMctN6Q@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: L2CAP: don't reserve an ident for L2CAP_LE_CREDITS
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Stig Hornang <stig@hornang.me>, 
-	syzbot+9dc8780713b11155dd74@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8557:EE_
+X-MS-Office365-Filtering-Correlation-Id: de651aae-8f77-4c88-5667-08df4403ae62
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|7416014|376014|23010399003|366016|1800799024|18002099003|22082099003|6133799003|3023799007|4143699003|11063799006|56012099006|10067099003|261026140227099003|261026121527099003|261022105027099003|261028144727099003|261021121427099003|261009223027099003|261102123227099003|41080700001|15866825006;
+X-Microsoft-Antispam-Message-Info:
+	5+2eOv6fX31HaEDVpDNY7ifwEst7Um81u2rr39zkZLe6gN9KP1VPRT2yPF+JrXPuSUdgpJfLJ88l4m+u4RXdAnFVnhOPRXu6VqYeh14dRf29hAbhGCTHhAJv1Xs/Bh1QmSGTwNyMmsuiY65csM8kyY7SFRqt+HUx0BBysMveYKiu0Dp0gxZaJTujJafhSlGP9i1EZKnGfYykOzKpRs2/+5q1a/Oyti2MvUx6gjSTtckUor8I+iypMoIXViwzUXyFk/pgVYCA/dMjR4fh29jEWaMsLlKkbExnftQ08WDqDUSjHqdf/wZOewtefh0B4CA+rKwOpyNma720rrrW9+TnW+yM/X6OxKA6+9fnSxdGfXak3DumPfA7J22V/gdcnkd331oPs0+wBb1RG1LwPlLY+vfDBifgm/h3f4636eseaPfwnncVM6lO9BflOYnJWa6jEynqKPX1slf4qdlfbKs76O4/18jbslITvVGwXQYRsAk/90pDIGOqPJ8Rt2txe9NJvl24O99JY9bpAAtyhDl3hkc0/cwNP47NzrcYMhQp7GMN4cdALo4XrkXKT1QdDWokoOJ4r1fSk1bK8J5fk8tXzHTy+7gTgJhclOUOrb8n60eHjKAOLPgMcy69ZwfSp50l9ZGqQ0F26as7og1buLSnls3jGWH9PFZ4z05qRDtWsqVfzPM42krKsT1g2rZ/isCi4eAqJ33mLVL/OufQAZgTiXvxLDYvLak8xyJmke5TdoA+mi9M2mQ9xnquZzXErbNk
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(6133799003)(3023799007)(4143699003)(11063799006)(56012099006)(10067099003)(261026140227099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(261009223027099003)(261102123227099003)(41080700001)(15866825006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MWFLshgoEXjaN98sllkRHTzYrR96yZN7dc0LUlVtPU/HQ9MKA7h6sQHLPTTe?=
+ =?us-ascii?Q?cWixjnjwCZEZuaxhP2MSPvZqXpk2mokKgQPEDMTtBD6saASMfg2aDnvKtb0+?=
+ =?us-ascii?Q?zu2q7574D64IuiQl1R26npNnxtoIs/126eTJJ1y5kepyj3pD2WBADmnKEkCF?=
+ =?us-ascii?Q?zOO0jMj3DVGTCa3s7adieOIM0cc/fX66RpwQi22x6e3o7lmTMnVaYbaFis6t?=
+ =?us-ascii?Q?KIMYvj23mpoztlPsxQOMVvuonm/E3yjVBrsnzksEkKeKI1GmYeITX4TToaYj?=
+ =?us-ascii?Q?NZ+IOHiredgoQwr4Hb7pbq/fwbE0RBcTiXFRVYbA1CG7iaur6KZl7hNwfeGq?=
+ =?us-ascii?Q?h6TbdjE5TsMXo/AImals0Y/Q2x+Hj9gwmQuqDZVfzoq6dXVWFBc0GS+00oHh?=
+ =?us-ascii?Q?ocQaDI7IkHf3cpT0M6ugF7Lwci0N7RfS7VabmPxO5b97ihCTJwz/KjOyUPXv?=
+ =?us-ascii?Q?DnYyDwLJFOtK7iPIC9ltRLAkYeOuNvkrFq1rJ/vT2uvyVmwXFyzNn6UJEj+s?=
+ =?us-ascii?Q?VdMgDvfpCFZCqRrBh+l8cf+LbKvDrgp76qhA/R0EtG3D1HGdPNLiTPpf/qPP?=
+ =?us-ascii?Q?O/o/wODUmZ/PwaiVFuYNUfzSKr1VGrursAJqp8RsCMqNXev7zidfXHxly93h?=
+ =?us-ascii?Q?z0zlkiU1zpcnT+CJWKS/AkU71rHocZ7N65iqDsvVLX25nFlUlnfJc5A0ljGs?=
+ =?us-ascii?Q?dMydhTcuw/5EEvnExtIQ2sp3s3kKiY/y3ff9UB7GLBM1YL3UtFrnABE+ieLO?=
+ =?us-ascii?Q?WOqc5Jkjh8inInBbZNIjSqxlHrjYeHsavIuUVv+8GXzwuXXR/NryHh7qleE9?=
+ =?us-ascii?Q?gu1sCPDxk4X9kN86DSo2OTZwvIZaYUt/rLuAiX6jTU+/x6NifhcvvIUmmszs?=
+ =?us-ascii?Q?7NRqKe1aYXo3uA4azXaoMuWDBtAILSBdWL9k19QpSMe6fSMxLvNuUmze7Fsx?=
+ =?us-ascii?Q?d2JsyqRPUU1nX2yOWK7kOn1jQSk1iUnplzU1qZf/v3pbX8H4OdD9K6MA4DH0?=
+ =?us-ascii?Q?Jh2WFfXRL7+/0Tkspbdxug4Mcjdwx5/5xyqGe+geWyD20aAtC4itXT/Z4k97?=
+ =?us-ascii?Q?uJK0gBTtvSRAluQKw1ItU/9YGezj1dZQZR0PhzE87zSR/vsoFkw9+/kwZpxk?=
+ =?us-ascii?Q?WkEiVCbqERcj5hd/t5Eb9fpAb4HsQ2xLJUbxOUOPv0ZYJVUF5dVVFfj4N6NA?=
+ =?us-ascii?Q?hbEOT4xvHnLgUGAFkj1gVaXD7TcD/paObvp0kRQMKQcwKgpSsNoQCrknykuw?=
+ =?us-ascii?Q?3YWYo1pgz9X5+QYRy7gjDIElaqBlXIx9u5JQd+WPNFYVbdE3CC+hiL5FsTp0?=
+ =?us-ascii?Q?sq58vZixP3FTdX2kEDauUJ3M/aTxAlcR6VvyI0v7i4rj8ZnF4evgEPgooYcp?=
+ =?us-ascii?Q?wpk1wpHqbKane6LpunU5/SKomMbPAVv7cvb6EXMjgq5jQ4gwQlRnFhmgbeyu?=
+ =?us-ascii?Q?POQs5aNZeHA4dQ52sJaBcCkBR3fp/PoplTNhLmKM30RvOxczlLxyeANLkwE6?=
+ =?us-ascii?Q?X6VPbzENAk6O+68Uk0Vek8kEQpieP5WInRFp4MS1+vE8Jq2cZkkel7M9MnjJ?=
+ =?us-ascii?Q?QDJTVnmcjovwyO/a6GRtKZgAyXJpuvUURnZcqG+DbkYZ406p+1YS8lfN2+bo?=
+ =?us-ascii?Q?qORjCGKeP2kaW+qIckZKGT//nT9HLvujJsXC+wB7Z1N3Lf2WxC6Eqg4yPccF?=
+ =?us-ascii?Q?U68tgqAvYX2n3m2CAaTvPTCY8+HIM5vnqdltNNKZ7Nr0m2EH4fIzq2hBE4Dj?=
+ =?us-ascii?Q?fGOVXI9eyoqpQEKxMTqu72jIFXQHepEiYsAB9ZAxpwPLsioxCK4q?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de651aae-8f77-4c88-5667-08df4403ae62
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 17:04:31.3424
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S5fwzZIqS6yjpamD/ijKDdTKf9tCexnTxpFn1esYKKUcZTiwQmFmKxsIFJaa/RcdrRhuGVI1yriyHj5j1mFlCibwW/YiV88w0Mp3PN+dC22tr4DyKKL1I30qLbueXoRo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8557
 
-Hi Nguyen,
-
-On Sun, Nov 15, 2026 at 6:53=E2=80=AFAM Nguyen Ngoc Thang
-<ngocthang2710.1999@gmail.com> wrote:
+On Sun, Nov 15, 2026 at 02:27:32PM +0100, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
 >
-> l2cap_chan_le_send_credits() allocates an ident from conn->tx_ida, sends
-> L2CAP_LE_CREDITS and then frees the ident unconditionally, since the
-> command has no response.
+> On the LX2160A the DCFG node holds the pad mux, overridden through its
+> DCSR view. Allow fsl,lx2160a-dcfg with simple-mfd, so that the child is
+> populated, and the pinctrl child, on the LX2160A only.
 >
-> But the ident is visible in tx_ida while the command is in flight, and
-> the remote may answer it with L2CAP_COMMAND_REJ anyway. The RX path then
-> releases it in l2cap_put_ident() under conn->lock, while the credits path
-> runs from recvmsg() with only the socket lock held. Whichever ida_free()
-> comes second hits:
->
->   ida_free called for id=3D3 which is not allocated.
->   WARNING: lib/idr.c:594 at ida_free+0x24c/0x2d4 lib/idr.c:594
->   Call trace:
->    ida_free+0x24c/0x2d4 lib/idr.c:594
->    l2cap_chan_le_send_credits+0x17c/0x29c net/bluetooth/l2cap_core.c:7113
->    l2cap_chan_rx_avail+0xb4/0x134 net/bluetooth/l2cap_core.c:7126
->    l2cap_publish_rx_avail+0x110/0x168 net/bluetooth/l2cap_sock.c
->    l2cap_sock_recvmsg+0x280/0x7b8 net/bluetooth/l2cap_sock.c:1317
->
-> Worse, if the ident is reallocated for a real request in between, the
-> credits path frees that request's ident instead.
->
-> tx_ida only exists to track requests awaiting a response, so a command
-> without one has no business in it. Give L2CAP_LE_CREDITS a plain cyclic
-> ident instead, which never needs releasing. The ident is still never 0
-> and never exhausts the range, which is what commit 6e1930ece855
-> ("Bluetooth: L2CAP: fix tx ident leak for commands without a response")
-> set out to fix.
->
-> Fixes: 6e1930ece855 ("Bluetooth: L2CAP: fix tx ident leak for commands wi=
-thout a response")
-> Reported-by: syzbot+9dc8780713b11155dd74@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D9dc8780713b11155dd74
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 > ---
-> Tested in QEMU (x86_64, KASAN + lockdep) with the syzbot C reproducer,
-> 15 runs per kernel:
->   base (origin/master 23c62304dde2): 31x "ida_free called for id=3DN ..."
->   patched:                           0 warnings, 1200 LE credits sent,
->                                      none with ident 0 (ident wraps fine)
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>  .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml          | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
 >
->  net/bluetooth/l2cap_core.c | 44 +++++++++++++++++++++-----------------
->  1 file changed, 24 insertions(+), 20 deletions(-)
+> diff --git a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+> index fc14fd0bf84b..bb9dbcfec188 100644
+> --- a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+> +++ b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+> @@ -32,6 +32,7 @@ properties:
+>        - items:
+>            - enum:
+>                - fsl,ls1028a-dcfg
+> +              - fsl,lx2160a-dcfg
+>            - const: syscon
+>            - const: simple-mfd
 >
-> diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-> index 7dcb0586a10b..0b861ced5703 100644
-> --- a/net/bluetooth/l2cap_core.c
-> +++ b/net/bluetooth/l2cap_core.c
-> @@ -1028,21 +1028,36 @@ int l2cap_chan_check_security(struct l2cap_chan *=
-chan, bool initiator)
->                                  initiator);
->  }
+> @@ -66,10 +67,27 @@ patternProperties:
+>    "^clock-controller@[0-9a-f]+$":
+>      $ref: /schemas/clock/fsl,flexspi-clock.yaml#
 >
-> -static int l2cap_get_ident(struct l2cap_conn *conn)
-> +static u8 l2cap_ident_max(struct l2cap_conn *conn)
->  {
-> -       u8 max;
-> -       int ident;
-> -
->         /* LE link does not support tools like l2ping so use the full ran=
-ge */
->         if (conn->hcon->type =3D=3D LE_LINK)
-> -               max =3D 255;
-> +               return 255;
+> +  "^pinctrl@[0-9a-f]+$":
+> +    $ref: /schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
+> +    description:
+> +      The pad muxes of the RCW on the LX2160A, at their RCWSR12 to RCWSR14
+> +      and RCWSR27 windows, overridden through the DCSR view of this block.
 > +
->         /* Get next available identificator.
->          *    1 - 128 are used by kernel.
->          *  129 - 199 are reserved.
->          *  200 - 254 are used by utilities like l2ping, etc.
->          */
-> -       else
-> -               max =3D 128;
-> +       return 128;
-> +}
-> +
-> +/* Ident for a command that has no response: it is not reserved in tx_id=
-a,
-> + * so nothing has to release it and it can't be released twice.
-> + */
-> +static u8 l2cap_next_ident(struct l2cap_conn *conn)
-> +{
-> +       u8 ident =3D READ_ONCE(conn->tx_ident) % l2cap_ident_max(conn) + =
-1;
-> +
-> +       WRITE_ONCE(conn->tx_ident, ident);
-> +
-> +       return ident;
-> +}
-> +
-> +static int l2cap_get_ident(struct l2cap_conn *conn)
-> +{
-> +       u8 max =3D l2cap_ident_max(conn);
-> +       int ident;
+>  required:
+>    - compatible
+>    - reg
 >
->         /* Allocate ident using min as last used + 1 (cyclic) */
->         ident =3D ida_alloc_range(&conn->tx_ida, READ_ONCE(conn->tx_ident=
-) + 1,
-> @@ -7081,7 +7096,6 @@ static void l2cap_chan_le_send_credits(struct l2cap=
-_chan *chan)
->         struct l2cap_conn *conn =3D chan->conn;
->         struct l2cap_le_credits pkt;
->         u16 return_credits =3D l2cap_le_rx_credits(chan);
-> -       int ident;
+> +allOf:
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: fsl,lx2160a-dcfg
+> +    then:
+> +      patternProperties:
+> +        "^pinctrl@[0-9a-f]+$": false
+> +
+>  additionalProperties: false
 >
->         if (chan->mode !=3D L2CAP_MODE_LE_FLOWCTL &&
->             chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL)
-> @@ -7099,18 +7113,8 @@ static void l2cap_chan_le_send_credits(struct l2ca=
-p_chan *chan)
->         pkt.cid     =3D cpu_to_le16(chan->scid);
->         pkt.credits =3D cpu_to_le16(return_credits);
+>  examples:
 >
-> -       ident =3D l2cap_get_ident(conn);
-> -
-> -       l2cap_send_cmd(conn, ident, L2CAP_LE_CREDITS, sizeof(pkt), &pkt);
-> -
-> -       /* L2CAP_LE_CREDITS has no response so the ident is never release=
-d by
-> -        * l2cap_put_ident() - release it right away, otherwise the tx_id=
-a
-> -        * range is exhausted after 254 packets and from then on credits =
-are
-> -        * sent with the invalid ident 0, which some remote stacks ignore=
-,
-> -        * stalling the channel.
-> -        */
-> -       if (ident > 0)
-> -               ida_free(&conn->tx_ida, ident);
-> +       l2cap_send_cmd(conn, l2cap_next_ident(conn), L2CAP_LE_CREDITS,
-> +                      sizeof(pkt), &pkt);
->  }
->
->  void l2cap_chan_rx_avail(struct l2cap_chan *chan, ssize_t rx_avail)
 > --
 > 2.43.0
-
-Sashiko flagged a problem:
-https://sashiko.dev/#/patchset/20261115115341.316484-1-ngocthang2710.1999%4=
-0gmail.com
-
-
---=20
-Luiz Augusto von Dentz
+>
+>
+>
