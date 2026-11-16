@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837053;
-	b=dDNWTT7aXaQP3ek7U4rxtBAHb7Q+d1Zpzs3eVNS5cBDYObZfVbnhU7MtMKWTFCm1CUR7
-	 bzv3TF1ZeG6NRNQ1pv8AoZ7J5Cfc5FkHsX7eQ/1i1KGGu4Q+dvUO+ejUD5dt2ljvOcznN
-	 rPcHj4v0GR6CdrQf+aLic8F6O1Hn77Kfi62Iiv5Sfc4N0Ha7Sq156QaU01EqP7QCSQLmy
-	 1FVOIau8HcMAn2TbyZGsMZYxyq5aRRmNIWF9PjaEosgDuNzMj/g8Clz0KmZL0rVlxLvCe
-	 hKCAq65ydBwpLQocHf6ySjTxgBosSxBbYcwEe1TP3pPpLjWa2SGRQ654UH8yojsKxUQ==
+	t=1794837050;
+	b=ge3tyyVcT+JhLfvVCYRApiGzY39vzzfx094KpmV4lUdGg9oGJwse08yivr70Mn2BFQhw
+	 QToEqDnlaU1WSUVfRDhV+kCyV6X9dsJCo8TMDmSV7Yb5hvYY5dk7gZq9gI9vnQl+pS+FZ
+	 HUVgW8eztIVwhLOoZpwEBe7SvtmEDhz7XL6dabQaOjckwOBJgzrCz/hexkOZLnER/tXu+
+	 LGtOVYGNuYITIQLohVY2MZhfkqdakM7AKaAOudEs1cF/c4NmvRjHP9v0HUcJSkZXZvkkG
+	 arwumO2qIjfx+GUS49qzyeJZIbHsX/fX8fjo/Y0c7PRpJyANP0SlpgebhK2xC6JZNsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837050;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=IQPaGDuA0dXaRrtGSz5VxiNlPWjICEZ74VcwXr9qXXs=;
-	b=FITJL0G1/lqEspmIWb4DMObf2PVGJYNdZhn06uig7c7D5gbRLP0KsvLUUqT/FwHfsEgM
-	 +slY1PddSq6jk8Q66YEiLr7f+FJPNMDk1GziCoETW58dMzdh2Obp4zu/6SbZK+WFMsVKZ
-	 v+RBlxUhEcQd5UHvt1Qbd4Ilhdy3TqaEHrcf34MeOVX5k48SE5tEnJcd0Yp+5C7HWHRca
-	 6Y5vPMnNNLR1nuuD2vpi+d5IA5DH78OSu/LHSqtyIdBUiPjWjH/2T6naiSzUjpMTyTtZM
-	 v1h/Ys2JQz6sjNZmWZoKvPXX1wUBnzlSPwINVbJiUF1A7jYHb0iev3kMqgHcDnxrbLg==
+	bh=LVz5mUCm5WEeoAL0Bw5uctiuDrK+oeS2W5aeRJYYK+M=;
+	b=UexT9k7gbS1OsrUczN0LUBxKsX4O9fHDgcEb8nmizAO+Ma8Xq6+izXCyA20GXMlRylsF
+	 qi6uEqmJWjZ1tZZQMhpcMdtk1rl2HLDiGLkbEo8zwWiWrBE1+EfglFuZ8+y+wfLAECrs0
+	 SyuKguoJ0v+uvoR3yWscygIJ0kKL44uyIwVSRUQ1QHwyVYPhNfiIaJ1PTr18RIv03rNRY
+	 AzEA9sosJBQKgCtualdSNn5r8/Lgq8i3jNFIwCmLNk3LcuudepM2htbNwHclqF7ms2pRr
+	 Lmk4aK6IYG0Ca1f+pAHFQ1Oi2dYWgrToKGW0sUaJEAu32alLiTERpJZdWy84nZbqD0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXl9Dn4Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWY85mvC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A284F60A6F71;
-	Mon, 16 Nov 2026 13:50:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B602606A884;
+	Mon, 16 Nov 2026 13:50:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXl9Dn4Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0771F000C4;
-	Mon, 16 Nov 2026 13:50:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWY85mvC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941B21F01821;
+	Mon, 16 Nov 2026 13:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837053;
-	bh=IQPaGDuA0dXaRrtGSz5VxiNlPWjICEZ74VcwXr9qXXs=;
+	s=k20260515; t=1794837049;
+	bh=LVz5mUCm5WEeoAL0Bw5uctiuDrK+oeS2W5aeRJYYK+M=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UXl9Dn4Yu5JeahgDzpXB5A+QnDGFe9oH+Yo6x4m8hKBfAvzEAvTk7LUE8oqXyI+gW
-	 eLqrZnP4HfKBUeGn9Yxqe5T34V+iNf0+Tt/6ech/ehIhzANMKZayWGoR6EJtveEkKe
-	 IEymI5eCEDIf0Yj4juqb1KFhSZD5ywg9zd6I1jEwG8yvRFoJhG4KdAzIvZjIPZzp0z
-	 2ZbTQiPJKung3WsVcj46NAu4ua/JASJ6FR/RiMB1kRNZ1mNoxbZwYg8D/7ktFxZA25
-	 6aA4C6Tew07aV2k6ESH3nxyzY/DQac2Jj0wBclrAejjDg3n1p5j9+UeCH4FpUvohL+
-	 LO8EAAewiix6A==
-Subject: Re: [PATCH net v2 12/12] net: au1000: reject frames larger than the
- TX bounce buffer
+	b=KWY85mvCaXAjsH+NDQE9EI0nh5+7kxtEyJ9+nlDpboY3USL+cXfcr7YN3zcre90/x
+	 EJig/+UoT24V0BOxqKuIsKXS/f70edfdZQ2nL3UijiDaXckvUxDqa/y0d0BlMK09NU
+	 MVqq3Fp9SepW337AQu6MrwGgUXpbsVbxzye4vNA5MVvFCGZo0pmCiW8BQho2krLYKj
+	 PRBw7N4GRd0IYJO/VinlJhVA5YNefJuuwdZdeRTcCn5A2F6HFkpGkakLjGBaMNCsli
+	 vHDtB5jzIW9+W/jQsiyE1y/f9XlSB0RJ/lofOKQtdDeQ/vfYq+0EGNGBe35lMpELf+
+	 lTOqtr/9l+i0g==
+Subject: Re: [PATCH net v2 10/12] net: phy: smsc: wait for LAN83C183
+ power-down recovery
 From: netdev-bot+sashiko@kernel.org
 To: f.fainelli@gmail.com
 Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -50,11 +50,11 @@ Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org, jeff@garzik.org,
  danny.kukawka@bisect.de, mugunthanvnm@ti.com, sebastian.hesselbarth@gmail.com,
  linux-kernel@vger.kernel.org, manuel.lauss@gmail.com
-Date: Mon, 16 Nov 2026 13:50:51 +0000
-Message-ID: <179483705182.3136.18065066878486336390@kernel.org>
-In-Reply-To: <20261112045301.3669532-13-f.fainelli@gmail.com>
-References: <20261112045301.3669532-13-f.fainelli@gmail.com>
-X-sashiko-severity: Low
+Date: Mon, 16 Nov 2026 13:50:48 +0000
+Message-ID: <179483704808.3136.15887744025770615688@kernel.org>
+In-Reply-To: <20261112045301.3669532-11-f.fainelli@gmail.com>
+References: <20261112045301.3669532-11-f.fainelli@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,117 +67,142 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
 
-- [Low] The commit message understates how the overflow can be reached.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In this commit, the new 500 ms wait in lan83c183_resume()
+  (drivers/net/phy/smsc.c) runs only after the Au1000 MAC has already…
 
 Pre-existing issues:
-- [High] Several other drivers in drivers/net/ethernet/amd/ have the same
-  unchecked copy of skb->len bytes into a fixed-size TX buffer.
+- [Low] After this patch, the SMSC_PHY Kconfig help text
+  (drivers/net/phy/Kconfig:424) reads "Currently supports the LAN83C183,…
 
 --
 
-net: au1000: reject frames larger than the TX bounce buffer
+net: phy: smsc: wait for LAN83C183 power-down recovery
 
-This patch adds a length check to au1000_tx(). Frames larger than
-MAX_BUF_SIZE are now dropped and counted in tx_dropped instead of being
-copied past the end of the TX bounce buffer.
+This patch adds a LAN83C183 entry to the SMSC PHY driver. Its resume
+callback clears BMCR_PDOWN and sleeps for 500 ms, but only if the bit
+was actually set. The aim is to let the MII clocks recover before the
+Au1000 MAC starts when the MTX-1 interface is reopened.
 
-> au1000_tx() copies skb->len bytes into a MAX_BUF_SIZE coherent buffer
-> without checking the length. Oversized non-GSO packets can reach this
-> path through AF_PACKET with PACKET_VNET_HDR and PACKET_TX_RING, whose
-> MTU checks are skipped when a virtio header is present.
+Link: https://pdf.dzsc.com/LAN/LAN83C183.pdf#page=44
+
+> diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
+> index 30e9d22c8d1a3..10466b2574eb4 100644
+> --- a/drivers/net/phy/Kconfig
+> +++ b/drivers/net/phy/Kconfig
+> @@ -421,7 +421,7 @@ config SMSC_PHY
+>  	tristate "SMSC PHYs"
+>  	select CRC16
+>  	help
+> -	  Currently supports the LAN83C185, LAN8187 and LAN8700 PHYs
+> +	  Currently supports the LAN83C183, LAN83C185, LAN8187 and LAN8700 PHYs
 
 [Severity: Low]
-Is this description narrower than the real exposure? It reads as though
-PACKET_TX_RING is required. The plain sendmsg path through packet_snd()
-seems to get to the same place:
+This isn't a bug introduced by this patch, but the help text still
+names only some of the PHYs that smsc_tbl[] in drivers/net/phy/smsc.c
+binds. It leaves out the LAN911x internal PHY, the LAN8710/LAN8720,
+the LAN8740 and the LAN8741/LAN8742.
 
-net/packet/af_packet.c:packet_snd() {
+Could the list be completed while this line is being changed anyway?
+
+> diff --git a/drivers/net/phy/smsc.c b/drivers/net/phy/smsc.c
+> index 48487149c2252..c3b51afd4b1e5 100644
+> --- a/drivers/net/phy/smsc.c
+> +++ b/drivers/net/phy/smsc.c
+
+[ ... ]
+
+> @@ -684,8 +685,32 @@ int smsc_phy_probe(struct phy_device *phydev)
+>  }
+>  EXPORT_SYMBOL_GPL(smsc_phy_probe);
+>  
+> +static int lan83c183_resume(struct phy_device *phydev)
+> +{
+> +	int ret;
+> +
+> +	ret = phy_modify_changed(phydev, MII_BMCR, BMCR_PDOWN, 0);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* The PHY needs up to 500 ms to restore operation after power-down. */
+> +	if (ret)
+> +		msleep(500);
+
+[Severity: Medium]
+The commit message says:
+
+  Starting the Au1000 MAC before the MII clocks recover can hang the
+  MTX-1 when reopening its interface.
+
+Does this patch alone prevent that ordering? au1000_open() starts the
+MAC before it calls phy_start():
+
+drivers/net/ethernet/amd/au1000_eth.c:au1000_open() {
     ...
-	if (!vnet_hdr.gso_type &&
-	    (len > dev->mtu + reserve + VLAN_HLEN + extra_len))
-		goto out_unlock;
+	retval = au1000_init(dev);
+    ...
+	if (dev->phydev)
+		phy_start(dev->phydev);
+
+	netif_start_queue(dev);
     ...
 }
 
-After that, __virtio_net_hdr_to_skb() only marks the skb as GSO when the
-payload is larger than gso_size:
+and au1000_init() already sets the RX/TX enable bits:
 
-	/* Too small packets are not really GSO ones. */
-	if (skb->len - nh_off > gso_size) {
+drivers/net/ethernet/amd/au1000_eth.c:au1000_init() {
+    ...
+	control = MAC_RX_ENABLE | MAC_TX_ENABLE;
+    ...
+	writel(control, &aup->mac->control);
+    ...
+}
 
-Take a 4000-byte frame sent with gso_type=TCPV4 and gso_size=65000. It
-would skip the MTU check and reach au1000_tx() as an ordinary non-GSO skb.
+Suppose a close has run au1000_close()->phy_stop()->phy_suspend()->
+genphy_suspend(), which sets BMCR_PDOWN. The reopen then appears to go
+like this:
 
-Real GSO skbs also get through, because gso_size is never checked against
-dev->mtu. au1000 has no TSO, so validate_xmit_skb() segments them in
-software into frames that can be larger than 2048 bytes.
+au1000_open()
+  au1000_init()          <- MAC RX/TX enabled, PHY still powered down
+  phy_start()
+    __phy_resume()
+      lan83c183_resume()
+        clear BMCR_PDOWN
+        msleep(500)
 
-The new check in au1000_tx() catches all of these paths, so the code
-looks right. Could the commit message also mention the packet_snd() and
-GSO routes?
+If so, the 500 ms wait only delays the PHY state machine and
+netif_start_queue(). The MAC has already started by then.
 
-> diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
-> index d60430a3795ed..d8855ccf87aa1 100644
-> --- a/drivers/net/ethernet/amd/au1000_eth.c
-> +++ b/drivers/net/ethernet/amd/au1000_eth.c
-> @@ -1008,6 +1008,12 @@ static netdev_tx_t au1000_tx(struct sk_buff *skb, struct net_device *dev)
->  	int i;
->  	unsigned long flags;
->  
-> +	if (unlikely(skb->len > MAX_BUF_SIZE)) {
-> +		dev->stats.tx_dropped++;
-> +		dev_kfree_skb_any(skb);
-> +		return NETDEV_TX_OK;
-> +	}
+The close path has the same ordering in reverse. au1000_close() calls
+phy_stop() before au1000_reset_mac_unlocked(), so the PHY powers down
+while the MAC is still running.
 
-[Severity: High]
-This is a pre-existing issue that this patch did not introduce. Do other
-drivers in drivers/net/ethernet/amd/ need the same check?
+The next patch in the series, "net: au1000: keep the MAC stopped until
+the PHY link is ready", seems to fix this. It calls phy_resume() before
+au1000_init() and enables RX/TX only after au1000_adjust_link() has
+seen link up. It also calls au1000_hard_stop() on link down. In the
+PHY_HALTED path, phy_link_down() runs before phy_suspend(), so the MAC
+stops before the PHY powers down.
 
-Several lance_start_xmit() implementations copy skb->len bytes into
-fixed-size TX slots with no upper bound. Their slots are smaller than
-au1000's 2048-byte MAX_BUF_SIZE, so a frame one byte over the limit
-already overruns the slot:
+Can the MTX-1 reopen hang still happen when bisecting to this commit
+alone? If so, could the commit message mention that it depends on the
+au1000 change, or could the two patches be reordered?
 
-7990.c:lance_start_xmit()
-    skb_copy_from_linear_data(skb, (void *)&ib->tx_buf[entry][0], skblen);
-    (skblen = skb->len, tx_buf slots are 1544 bytes)
+> +
+> +	return 0;
+> +}
 
-a2065.c:lance_start_xmit()
-    skb_copy_from_linear_data(skb, (void *)&ib->tx_buf[entry][0], skblen);
-    (skblen = max(skb->len, ETH_ZLEN), tx_buf slots are 1544 bytes)
-
-sunlance.c:lance_start_xmit()
-    PIO path: lance_piocopy_from_skb()
-    DMA path: skb_copy_from_linear_data(skb, &ib->tx_buf [entry][0], skblen);
-    (TX_BUFF_SIZE is 1544)
-
-sun3lance.c:lance_start_xmit()
-    skb_copy_from_linear_data(skb, PKTBUF_ADDR(head), skb->len);
-    (PKT_BUF_SZ is 1544)
-
-atarilance.c:lance_start_xmit()
-    lp->memcpy_f( PKTBUF_ADDR(head), (void *)skb->data, skb->len );
-    (PKT_BUF_SZ is 1544)
-
-declance.c:lance_start_xmit()
-    cp_to_buf(lp->type, lp->tx_buf_ptr_cpu[entry], skb->data, len);
-    (len = skb->len, TX buffers are 1536 bytes)
-
-Using the AF_PACKET route from the commit message, can an oversized frame
-in these drivers overwrite the next TX slot and then the RX buffers?
-
-For frames near 64KB, the copy also looks like it would run past the end
-of the lance_init_block or shared memory area.
-
-Triggering this needs CAP_NET_RAW in the device's netns. The hardware is
-legacy: Amiga, Sun, Atari, DEC and HP300/MVME.
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112045301.3669532-1-f.fainelli%40gmail.com
