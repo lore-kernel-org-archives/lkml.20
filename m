@@ -1,56 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819392;
-	b=A7aG1alGYsUTzFCVBm5ObX3YPps5gEWNO5pFGPpnZhG837Bh8LCxYV7jbGyIVZF0iPlC
-	 5UEy4WW91WgdAMJfEBm/DQSKZtyGdXIqAtafaUBj318SM7tmgguumWq6aZEVBKQ6PF/Uh
-	 TMbqr78Of9hvUdk5Uer/AzFrnSrtNFB6NtaT0ME0p4aLGPZIWwGmENqobrtUdY6SIOIKO
-	 Uj78bynv1jO7xbbMFFWwfPLCIcYMGbDZMuuADhOIkHlqUCL76Bv8KFK/yEmEOggDWQApj
-	 VleUTG86amIyc51+NvqLeVC4er3zBv4lnNi2fJPsFra2Lty3mSo+schdbxaHz4HZuKQ==
+	t=1794819398;
+	b=A5FQDcjbshwMD7BFVIiXoJnjkATY5/U4KWiQzjpBWBAljETuPEdZaoeOdglCh7eX1Y8+
+	 j4WN1esGl0JoZi4D8i/KInqUZu7PpXcfAXOOF/kL1MUzJBKcJYQcEa02EgV1HU1edT3ab
+	 EuWPrJXh7a/fodbl4beX4VvjP8jixxf4wsxtuPZVQMVk2AWHg6jb/hCq4nGn2qMwVQxdc
+	 DzOuak0lt6GV8LrzSz09jPOMVrD0mYn0s2kCcQ87cu3FWAD7j2RuAmhVNqF2YpPzWgb8I
+	 JTzKRLPT3i8dPUUk2QUffw04oUZkhc/8z92E7WUZE1PyTeWPrLmPakrA97oRsPdGl1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819392;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=TCOAmNe0BEFi8mKC+0PAv0vRnH09iyDNA3a8Nshj+co=;
-	b=NRFcqx5+LdxMEg74l7AcP8MKEtmrFZZxMwJOE625l8vTS9JJBTuSy/eMFjzipeSPIMtJ
-	 POlqwQwVSunasBANZ2S4rgy4K/YSILRWriFHoMQ+gNH3k29Vi2pWbjNweWCqy0Bfaq5HP
-	 GPR2OpO6mhWmi46BgMAeuRxkWh/YeAr7RA2zHVuiKE/Pz5ed12RRAvxWY6rFnWMSR0DEk
-	 YvaTXkKCf1ekj66aRj0op3De0lyGZE+d3qQP8GI02IwDFp59puxXK+4hDGV6cjvh3tMdp
-	 bXuVSlci3fy1UNToaOvU2O1PFYlwprvorkjQYn/qNtJAhab9ebfHP82r1Q+UfptNx/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819398;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nWHWGQOqMeeouKQY4a/YXbC8ScdtcsCKi4ObLazlgrU=;
+	b=gkgcpXnr2E/0UqZ54/WEcGRbunTnKjdKHepQhziDP3xGDOvDYbi0iZSCowMj1twWiNmV
+	 iIMOxqDUeX9RUpvL4zZ52WtMavlegU4WZMF3sGnaTsyLt1nD94PEIW46uSVptOer5uOep
+	 aXt9FSj6CabNgH3eQkYq5zO7f8XAe1qz27wY3JrYUh2L/C7G8OHdwDeXaRyxsxegqGVvS
+	 wR4222tbttppI1bRO+ZcmMVIXfdYCeGFNHE6gds7h9KlE8/863ekVcuNDFigZcpdSoR/v
+	 ARBlciiKdx69w0EyrNoh2DyBeMRbMBJB5ELQSZvLeld5Jj8H9ehgJ5rHT1uKzYl7n+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YKadq6xx;
-	arc=none smtp.remote-ip=95.215.58.198
-Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428F5606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 428F5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YKadq6xx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7lolab2zVmmIzQhOdTNrMQkrZuGsVRndTA3iq4cS6mY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794819390; v=1; x=1795424190;
- b=YKadq6xxRABnupfUM1Y3hNWq3Al7M1iv5OqCAbAfNTk17YILf3ZqtW36B6X1MXCCt1kkg91T
- 6eHvksBn9PAi9rKa8wc5E1tikQsyX9npBRPn46zM/d8prnXNJ6tKrMyplef8SF2GgP+mcVSv6Oi
- g6mYlUnstFLAeQrKREmEXLfI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 17b6a22d7d497bc4;
-	Mon, 16 Nov 2026 08:56:30 +0000
-X-Mizu-Trace-ID: 17b6a22d7d497bc4
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-Date: Mon, 16 Nov 2026 16:56:11 +0800
-Subject: [PATCH] selftests/mm: protection_keys: use _exit() in aarch64
- ptrace tracee
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0877606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:56:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0877606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xSsVs-000000007sv-10gN;
+	Mon, 16 Nov 2026 08:56:33 +0000
+Date: Mon, 16 Nov 2026 08:56:18 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hermes Wu <hermes.wu@ite.com.tw>,
+	Allen Chen <allen.chen@ite.com.tw>,
+	Pin-yen Lin <treapking@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v8 08/14] drm/bridge: it6505: avoid division by zero in
+ audio FS debug print
+Message-ID: <179481904178.211952.8076269834336042526@makrotopia.org>
+References: <cover.1790552614.git.daniel@makrotopia.org>
+ <26ee2c94c42fb09c081201071cb5730c96c8c25b.1790552614.git.daniel@makrotopia.org>
+ <179251509978.78870.2485132679226608837.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,84 +71,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-for-pkey-exit-v1-1-ca4c76b32ff7@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqAIBBA0avIrBtQF0JdJVqkjjUFFVpRRHfPa
- vkW/1+QKDIlqMQFkXZOPE8ZqhDg+nbqCNlng5baKCVLDHPEZaQT6eAVZShN8EY7Yz3kZokU+Ph
- +dfM7bXYgt74TuO8HcVaD73EAAAA=
-X-Change-ID: 20261109-for-pkey-exit-0f96fd62c6bd
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: hongfu.li@linux.dev, linux-mm@kvack.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hongfu Li <lihongfu@kylinos.cn>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794819387; l=2106;
- i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=I343t2uR4wEtG+HLyp6H7kkFFFvE00XGS9N9j96x0BE=;
- b=WBYHvXmoxaPSzAUK9OsLYlPhQpq9V9t4iR/GbU7w7PSrNgs3/neeELXubmCtAzFBv88Jh67QB
- PJu87aQrbGhB3pKMntsmZzL9gPjVeV+SRoEasVfYnMQ81Pr6WhKMFkM
-X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
- pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179251509978.78870.2485132679226608837.b4-review@b4>
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+Hi Luca,
 
-Commit 25356081894d ("selftests/mm: protection_keys: use library code
-for HugeTLB setup") replaced the exit() calls in the x86 version of
-test_ptrace_modifies_pkru() with _exit(), but missed the aarch64
-version, which still calls exit() from the tracee.
+On Tue, Oct 20, 2026 at 06:51:39PM +0200, Luca Ceresoli wrote:
+> By just looking at your patch and the current driver code I'm failing to
+> understand what's going on with the REG_AUDIO_INPUT_FREQ register:
+>
+>  * it is read, but never written
+>  * its value is used by:
+>    - it6505_enable_audio() only for logging: is that logging really useful?
+>    - it6505_audio_input(), just checking whether it is 0xFF or not; what's
+>      that 0xFF? Is it documented? A macro hinting at what 0xFF means would
+>      be better than just '0xFF'
+>
+> If you could share what that register is for, it would probably answer some
+> of those questions.
 
-When the test runs as root, hugepage_save_settings() registers
-hugepage_restore_settings_atexit() with atexit(). The tracee inherits
-the atexit list across fork(), so its exit() runs
-hugepage_restore_settings_atexit() in the child. That handler calls
-hugetlb_restore_settings(), which writes nr_hugepages back to the saved
-original value while the test is still running. If the saved original
-value is 0 (or otherwise leaves fewer than the two free huge pages
-needed by the next allocation), subsequent iterations fail in
-malloc_pkey_hugetlb() when mmap(MAP_HUGETLB) returns MAP_FAILED.
+I don't have documentation for it either, and with ITE gone there is
+nobody left to ask. Judging from the debug print, which computes the
+sample rate as 6750 / regbe kHz, it is a read-only measurement of the
+audio sample period, and 0xff looks like the counter saturating when
+no audio clock is present.
 
-Use _exit() in the aarch64 tracee as well, matching x86.
+As for the logging, I don't think it is worth an extra i2c read and a
+division in the enable path, so in v9 I'll drop the read and the
+print from it6505_enable_audio() instead of guarding the division.
+Without documentation I'd rather not invent a name for 0xff and leave
+it6505_audio_input() as it is.
 
-This was found by code inspection with AI assistance. No POE-capable
-arm64 hardware was available, so test_ptrace_modifies_pkru() was not
-runtime-tested; the change has only been compile-tested with an arm64
-cross-compiler.
+Cheers
 
-Fixes: 25356081894d ("selftests/mm: protection_keys: use library code for HugeTLB setup")
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
----
- tools/testing/selftests/mm/protection_keys.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/protection_keys.c b/tools/testing/selftests/mm/protection_keys.c
-index 5dece144ab95..a0f51be3fcbc 100644
---- a/tools/testing/selftests/mm/protection_keys.c
-+++ b/tools/testing/selftests/mm/protection_keys.c
-@@ -1530,11 +1530,11 @@ static void test_ptrace_modifies_pkru(int *ptr, u16 pkey)
- 		 * checking
- 		 */
- 		if (__read_pkey_reg() != new_pkey)
--			exit(1);
-+			_exit(1);
- 
- 		raise(SIGSTOP);
- 
--		exit(0);
-+		_exit(0);
- 	}
- 
- 	pkey_assert(child == waitpid(child, &status, 0));
-
----
-base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
-change-id: 20261109-for-pkey-exit-0f96fd62c6bd
-
-Best regards,
---  
-Hongfu Li <lihongfu@kylinos.cn>
-
+Daniel
