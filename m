@@ -1,74 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794837046;
-	b=qFR56MOogjzflGCQMB9lbACkqr1K/45b/0YBPKySWJgubxwagRmF8CnlC3YKoLi3GCb8
-	 DzZ7fW4aTYKv4ZI0hzNSpqElKPifh+LFSrLY9F7Cs5jF0lbpvYyQ108uV4xOJc3EjbcPR
-	 R465us6AsR6hi8hY+Lm24k02fN9fhl5QrqeVy1iQ0EikRd9fJrsGc9m0K4OhR89QwIMwv
-	 GIxS+7UAb67K/Xfnjx6H8r7t0P7DpB6iKbObzsYPLsXvZ2YxcwR00ayLB01EZb7ti2/Y1
-	 ObBB/f0rkBGgKmxZZCWk3aPDcUMjeGUpsTCmhK56+VrtL1be/mykHapncUTYbz2Ghsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837046;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received;
-	bh=i7PvEL50DB4zsMyJWTI1yh5Wc4DVj1sntUbGWGamxxk=;
-	b=WSquvkclXxj0RHV9Lrz3vqkJGgOQeyKgMqm8+2MLOSe8xn49hbC2VwmaQ8+7qcxeNuwT
-	 B8Jtanrtfxbd6dwHBgH/xMP5fWBExVeDWdETfiKxdIAWCnTLCYnswWLlfD8LAwhi1Xl79
-	 dT+H4Zc8kJZNAP32VW2pfdo06vexH8hwcnV7t+UqXRMF7534tzVZKSw36cjGixmrvFTb1
-	 E8Wvls2x57Y8057lsh9DvGTU4jz/FIufWZTjyY2ubKMaUFgfe6h8CGvapAK0KQN+xtnIz
-	 ZuoWY8Y2lhLF3DJ40I9Qt33+sCD2kUIakwTue4RiGSDODaqx42XSKrd01jaafaYoRQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=RfVlJbGo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794837062;
+	b=We6f56KHEiOJQAmlwpK+HhpdGzBlGDZ3T1k8DopYrn4FYXMmPqvgBjv6X7il5aFoe8Vu
+	 Mpj8E9B3p/ZFfUN0F+fsuSClvIffsz0kykSjHgI2Aazmp6HwGlFRtFJJb8g9NccowuCT7
+	 maycapiuM0zMzx7Be/VyBjGDw969O5yG7gNai1EmBCe0aZSipC3oaaedcxBxxblwPIRV0
+	 8KOEhv8imKaAz+UKHr40lXW1H3+XRkmiNv3fuwUyN0r8v6w0yM67/vahDh1+AB9bWMEkK
+	 Lgwt8uH3uKOjV8zx3Zj+7Oz9YZUzGGRb6pcneSBbPLI2Vm925gnH/fDmbqVV1HHw0aw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837062;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=lgF1/gF7h+RVc8g5jPb5SPiZYQniC3NQfKWjaikhx3k=;
+	b=R2XWG3m/jqA88VZT9MB3m22veqZLviqih7F+UGEgG/atJqMU/n4QwdURevFcJZHb9U20
+	 1dhH3/W/M1uuJQUIK7d3hNMMfEeZUCIhF1YCvx3LrV1pFtinYcVBD2IuvSHpr5i6R4D2c
+	 S/cAMbx6+M+ImHcuh572jX6rFUNqygshUVO5/ic+bhXCvN0oOaL/n+1N7CxBxk0VudhJv
+	 KATCaMUNu+J7X9iV2nqtcDjGapoLHXLMB6gt9F2Gx7Uqord8oczbaElpcO98utmRWfxm6
+	 XYa5NObCSI60hSbF9LNRvIk7I4zB4s8kOo9Hso531UVoApeuxlHu2J8RInYBzr9csPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSn6v31x;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89063606A8A6;
-	Mon, 16 Nov 2026 13:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD92D606B22D;
+	Mon, 16 Nov 2026 13:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=RfVlJbGo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794837046;
-	b=TBHYeh4SlHt1Rl57g7V84hybch2EgZBD+MhoMYfbaarYf4opH8XraZBIx7XyBdkdkgfD
-	 59sgomIEzhN9kYbi6biNlQAgkiLzwVRbq7zLQsdgk6d4bGz6d23qc/cgjY4Or98C2oy/T
-	 NWfPn2srhaid5OniuU6PdaQKMEkNuOeJ0HgIJv3FqhdO9lsaQ8HRnPbQz3gBF+PIOdcAE
-	 DPwleUnxH9xZ3cwGantvPr/DaSMvVZ5ErG8DS8407eIFz5lvEi2fA7UsINaruHfTjOghb
-	 o1euwoAsTJnfpIBe8y1pvnpohHsoUYBe+ZU+F2lvqsy+y5f9XHgDWhSePKVETKQ7NRA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794837046;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=i7PvEL50DB4zsMyJWTI1yh5Wc4DVj1sntUbGWGamxxk=;
-	b=C57arwm5HcVG4sYpnVUUBKUb/yyjhTcyHoxCT+xBsF2Ac4qad2J+AMF6gkqMkSBlxcad
-	 4Hwmij6zioFCIONlj77dTt63f01TZs7BJwot9G/PahKH+8gCx08TwjUTTIMr2RkEhmboP
-	 mqrPCiIai9lrne/6+XAdJAhvtTHRBwF4KzqnPudaNnHyo5f9HH4ErkGBUuer50KQ8omyc
-	 /b3rAWMqHZ2mak1DOYVKmJbJfEFF1GFZ4Wx010zvWRTgHe7E0ayJnAUWlgSDV03I0Ir/V
-	 uiLwIuRRiUTp0cirqK22/Hu82S1H0TnfbJnNEuQniG1TYon1c7gcle2cNQlHHBLL3Tg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8766E1F000C6;
-	Mon, 16 Nov 2026 13:50:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794837046; bh=i7PvEL50DB4zsMyJWTI1yh5Wc4DVj1sntUbGWGamxxk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=RfVlJbGo6U1pnJDyytf9vl5iB3I9EwUmSMKQzhjNM2n2edBE+2ZECdAuFalEpJ1ho
-	 W0q1zyjZdSp2p2Ry1Izg3rJVgbUyhMecy3+9dlVWCbA4paFY5BUypp+RIfvMAPZY3j
-	 5scfZy8lsuQow8ZmpGWW/vElz7M+aBHk6S4+9uFk=
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1E7954A4A3;
-	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 16 Nov 2026 14:50:26 +0100
-Subject: [PATCH v4 5/8] media: i2c: ov9282: add refresh of additional
- ranges on a mode change
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSn6v31x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D801F000CF;
+	Mon, 16 Nov 2026 13:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794837062;
+	bh=lgF1/gF7h+RVc8g5jPb5SPiZYQniC3NQfKWjaikhx3k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TSn6v31x8W+l0sD8mYCVIj3CbMNq5CArt/9Z8c6/f/lr4CsbV5vLIxiU2sjwzdYp5
+	 wpOl1WIp1Q8hCn8KAbUjKLc8BUu9mQe2V6qqgU7qIF6Z3CALEtC6DZQVClzR4+/hkA
+	 KtUhPH8vdK7AmhnN4IDC25XHu6wtcvL6XSriXuk7sM9RDzTx2ivWDtNX+6pSWWAHf5
+	 T37c48dPkI+L5VNFCjyiaTCWmb4aKzdB0SD+DgU5c15XLgBNRAFn62voyJZUab9+5m
+	 UsWj51gmzYr0sglufkHGvtKy3UBUr0N2jGup4AbD6dVYeheZ2wPOSiwS3R5p4As8A4
+	 Q22LX6ihtY7BA==
+Subject:
+ Re: [PATCH net-next v03 1/4] hinic3: Solve an stall issue in hinic3_rx_poll()
+From: netdev-bot+sashiko@kernel.org
+To: gongfan1@huawei.com
+Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, andrew+netdev@lunn.ch, ioana.ciornei@nxp.com,
+ maxime.chevallier@bootlin.com, mohsin.bashr@gmail.com,
+ dimitri.daskalakis1@gmail.com, hramamurthy@google.com,
+ larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ zhoushuai28@huawei.com, wulike1@huawei.com
+Date: Mon, 16 Nov 2026 13:51:00 +0000
+Message-ID: <179483706058.3136.10285830784203129885@kernel.org>
+In-Reply-To: <8d5247fdc88d6a2db6340da79eb9b64f3cdd20e0.1794467919.git.gongfan1@huawei.com>
+References: <8d5247fdc88d6a2db6340da79eb9b64f3cdd20e0.1794467919.git.gongfan1@huawei.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,114 +68,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ov9282-fixes-v4-5-f78e5d415c6f@linux.dev>
-References: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
-In-Reply-To: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
- "Paul J. Murphy" <paul.j.murphy@intel.com>, 
- Martina Krasteva <martinax.krasteva@intel.com>, 
- Richard Leitner <richard.leitner@linux.dev>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Jacopo Mondi <jacopo@jmondi.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794837042; l=2624;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=19i3mXRY4OPZMcWqP5Atkb/EaIzksmT9Fb3ItOX1MCE=;
- b=W93NFu6Hl2s9eyQlET+Vf75MR+AIiVHWVxqtWuCTt1hghbav11ugdEfYKQuiNnfUdmN8E6mtn
- EDtDRBqfIlHDspsOdWCcA9fE6ajfoLaf02OPcn6QRC31SOhnK1qm10W
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
 
-ov9282_update_controls() updates the pixel rate, hblank and vblank, but
-currently misses the exposure range and flash_duration.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Refresh both, and commit cur_mode and code in ov9282_set_pad_format()
-before the call so the refresh and any nested s_ctrl see the incoming
-format.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Fixes: 14ea315bbeb75 ("media: i2c: Add ov9282 camera sensor driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
----
- drivers/media/i2c/ov9282.c | 36 +++++++++++++++++++++++++++++++-----
- 1 file changed, 31 insertions(+), 5 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index df38ca6de4124..d13a1adc35e85 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -548,6 +548,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- {
- 	u32 hblank_min;
- 	s64 pixel_rate;
-+	u32 lpfr;
- 	int ret;
- 
- 	ret = __v4l2_ctrl_s_ctrl(ov9282->link_freq_ctrl, mode->link_freq_idx);
-@@ -568,8 +569,20 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- 	if (ret)
- 		return ret;
- 
--	return __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
--					mode->vblank_max, 1, mode->vblank);
-+	ret = __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
-+				       mode->vblank_max, 1, mode->vblank);
-+	if (ret)
-+		return ret;
-+
-+	lpfr = ov9282->vblank_ctrl->val + mode->height;
-+	ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl, OV9282_EXPOSURE_MIN,
-+				       lpfr - OV9282_EXPOSURE_OFFSET,
-+				       OV9282_EXPOSURE_STEP,
-+				       OV9282_EXPOSURE_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	return ov9282_update_ctrl_flash_duration(ov9282);
- }
- 
- /**
-@@ -833,10 +846,23 @@ static int ov9282_set_pad_format(struct v4l2_subdev *sd,
- 		framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
- 		*framefmt = fmt->format;
- 	} else {
-+		const struct ov9282_mode *old_mode = ov9282->cur_mode;
-+		u32 old_code = ov9282->code;
-+
-+		/*
-+		 * Commit before refreshing the ranges. ov9282_update_controls()
-+		 * and the nested ov9282_set_ctrl() calls it triggers derive the
-+		 * frame length and the line time from cur_mode and code, so
-+		 * they have to describe the incoming format, not the outgoing
-+		 * one.
-+		 */
-+		ov9282->cur_mode = mode;
-+		ov9282->code = code;
-+
- 		ret = ov9282_update_controls(ov9282, mode, fmt);
--		if (!ret) {
--			ov9282->cur_mode = mode;
--			ov9282->code = code;
-+		if (ret) {
-+			ov9282->cur_mode = old_mode;
-+			ov9282->code = old_code;
- 		}
- 	}
- 
+- [High] The fix does not cover the case where the RX refill fails, so
+  the RQ can still stall.
+
+--
+
+hinic3: Solve an stall issue in hinic3_rx_poll()
+
+This patch makes hinic3_rx_poll() return the full budget in two cases:
+recv_one_pkt() fails, or the LRO replenish threshold is reached. In both
+cases NAPI keeps polling instead of completing and re-enabling the
+interrupt while unprocessed CQEs or depleted WQEs remain.
+
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> index 309ab59013797..f2262cdd66287 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+
+[ ... ]
+
+> @@ -581,12 +584,14 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+>  
+>  		rx_cqe->status = 0;
+>  
+> -		if (num_wqe >= nic_dev->lro_replenish_thld)
+> +		if (num_wqe >= nic_dev->lro_replenish_thld) {
+> +			poll_again = true;
+>  			break;
+> +		}
+>  	}
+>  
+>  	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE)
+>  		hinic3_rx_fill_buffers(rxq);
+>  
+> -	return nr_pkts;
+> +	return poll_again ? budget : nr_pkts;
+
+[Severity: High]
+Can the RQ still stall when the refill itself fails? The return value of
+hinic3_rx_fill_buffers() is ignored here, and poll_again is not set when
+fewer WQEs than needed get posted.
+
+hinic3_rx_fill_buffers() stops at the first page_pool allocation failure.
+If that happens on the very first WQE, it rings no doorbell at all:
+
+drivers/net/ethernet/huawei/hinic3/hinic3_rx.c:hinic3_rx_fill_buffers() {
+    ...
+	for (i = 0; i < free_wqebbs; i++) {
+		...
+		err = rx_alloc_mapped_page(rxq->page_pool, rx_info,
+					   rxq->buf_len);
+		if (unlikely(err))
+			break;
+		...
+	}
+
+	if (likely(i)) {
+		hinic3_write_db(rxq->rq, rxq->q_id & 3, DB_CFLAG_DP_RQ,
+				rxq->next_to_update << HINIC3_NORMAL_RQ_WQE);
+    ...
+}
+
+Under memory pressure, refills can fail across several polls while
+hinic3_fetch_rx_buffer() keeps adding sge_num to rxq->delta for each
+consumed packet. Large LRO frames, which use up to 16 WQEs each, drain the
+posted WQEs quickly.
+
+On the last such poll the loop drains all CQEs and exits on !RXDONE. The
+refill fails again, and hinic3_rx_poll() returns nr_pkts < budget. Then
+hinic3_poll() does this:
+
+drivers/net/ethernet/huawei/hinic3/hinic3_irq.c:hinic3_poll() {
+    ...
+	if (likely(napi_complete_done(napi, work_done))) {
+		hinic3_net_dim(nic_dev, irq_cfg);
+		hinic3_set_msix_state(nic_dev->hwdev, irq_cfg->msix_entry_idx,
+				      HINIC3_MSIX_ENABLE);
+    ...
+}
+
+As the commit message says, the chip drops packets when it has no WQEs, so
+no CQE is written and no RX interrupt is raised. qp_irq() is the only
+napi_schedule() caller in the driver. hinic3_rx_fill_buffers() is called
+only from hinic3_configure_rxqs() and hinic3_rx_poll(), and the periodic
+work does not refill RX buffers.
+
+Wouldn't the queue then stay dead even after memory frees up, until the
+interface is reconfigured? That looks like the same "WQEs cannot be
+replenished in time ... the NAPI instance will not be polled again"
+failure, reached through the refill allocation failure path.
+
+Would it make sense to also set poll_again when hinic3_rx_fill_buffers()
+posts fewer WQEs than requested? Several other drivers do this; i40e, for
+example, does "return failure ? budget : total_rx_packets". A deferred
+refill would be another option. The later patches in this series don't
+seem to touch hinic3_rx.c, so this case still looks open at the end of
+the series.
+
+>  }
 
 -- 
-2.53.0
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794467919.git.gongfan1%40huawei.com
