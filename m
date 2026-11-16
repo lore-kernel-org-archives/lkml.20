@@ -1,102 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845799;
-	b=e3OP/fKDye0JF/NYi2y0gwL2rPHrLx9AOYrDFallixMGyccUhv5azPP4/VTTfUDOEq6v
-	 VYNulWy1JQv426Z2eYh39u6316lCTt98673PYbs0jXVjcjeTR0KrLGqT+MiLdEqiNdM14
-	 +JLdVQ/o9MPzj5lBQ9ItT2P97B1pqsbvMCZblIVnNc1luoJRx0aTIPNRH2se+VH4r9ATm
-	 P4A5Xh2lg6lhAHTWWpvXi5YFBtCCT3u3yf++oLHuWsEQ7rTnZP29A3CmmdRQg9GzE51eq
-	 JCCbZ3yHuneltUe7ySqWaCnhW/LMTganioGaIOpmMHCaun9Jn1bGaBIuP0C38UN7GPA==
+	t=1794845824;
+	b=b/KcYMECwGhv9KlW6pfNJXkBvN2h7LEz/GaeoAI1A0QHGB1XurwJCvgrbzIVL1wa7Rt/
+	 Z3t2Gxiy1eqOOdwBcGTkUG+2KKYrK5oT2KCiDjjSJq+Pm5qu43ebje7jRL/IgyR/wjCRZ
+	 7UGIgYEOWNMDS7dGoDQsW0PbkIJqu+Bgt/W6DZa7Jk5vUShmJ1ALmu8dJ28AD2DyM+iyO
+	 cJdzJehMM1ACGZiS9xy92l96k0YbaMY5Zl254A+GA84nsJm8HsCduMEf8l2PSRmC3S66X
+	 1AfjRdR/8sHZMWVGQLjmVc8iJakt6aNJtQFLPrQhhuNbY9GFJshT1fqmfYP7D86cNjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845824;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=x0v9e+wZHiAwxkDeqQfkfA5SYCnl901hHKw7lpsX06g=;
-	b=4gVv5mHQmxqMDbc7VYwmDy2dM/BT5iOu3drYpji3ju5P3wxYaC9p10UkmLps+Z/GoZi1
-	 YNBnyFOOp+XqNRYUSK34jFmDyvEckmItkdOvpo10D0kIh3lE9T7qO67ii+NOTVv/O3W/D
-	 MIgiOdq3QcjEqCQbsUTgvAtUHTM2BEmr1YCBp+Ha+8cnNwFMFhF2PRvV7MBc56Tp8x6G2
-	 uE8gFyJL+QFFx7cMrrXs5IMXKAaHcGFUJDWjbC2o+AgZL1/ap2YZX7HgqL8b7cngJ4xde
-	 uJt5GD6QeIugEoHYvuAlrdh8wRTPXeSOCEw6kMfnN6LXnzIIJkzVize68gUtCWBUVKA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+	b=liPqz8epCyjljLpT1QBmlrbFmvH7FRXxKHhh4XJQc6PFhe7W/GDJODRzvZ41x+A9+qut
+	 Erkh6wTnVi1yO7qHkkMrdnOQlnOCiV27ISFzwj8sL7Gss1pg7ijKfFj/ysOVL1auVUaX6
+	 yX1GxOXLi+R0Bd9WbpGPTXYfLGPXpl7q2icS6J/v0CYT0xBlKfMkiBHTTKuE7AGyyEqFW
+	 +MsmiAQdfzxYCsJT7zgo/n9xKgczuN8xRo6niuZsqBGhfiT/LqhcYl4aOMrvKSQpfe2SJ
+	 gsCIGEgRbGW7iHspGnJKvNo+w+rZdvVbqM8xhIQonTokrgIRTZHnq4y4k0LW4Vk7dlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=HyAVpQgu;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R3IWROSe;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E439C606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:16:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E439C606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C090606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C090606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=HyAVpQgu
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdb684859cbso2618238a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:16:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R3IWROSe
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3282db206d3so10211482eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:17:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794845798; x=1795450598; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794845824; x=1795450624; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=x0v9e+wZHiAwxkDeqQfkfA5SYCnl901hHKw7lpsX06g=;
-        b=HyAVpQguoF/re4y1dBicLWQ52JiDRweNeuO6DSXlmN3DR063h67/8SJm4gQGce8Jf0
-         NL/56kojhiaml7BZLbgn6AOPSR5W6qKQeHYYyNjn9U3Usejh1bT7eRGQlVs/bxCjl3y8
-         J6RpSAH6230fwUn+FAcrjiVyqTglTEhfApjt5rIWMNzp4bmPaKy/jIBAwt9fKSmNdxXb
-         9Nb10PjhyCuVx/XIuXirJ/oUJnlnRZu4sOSP+RjPDZQMl8TS4g6Mt5W0kwRHAjfAD1XE
-         7v0uPt3sbpJx5Wy4IJHrfbSKBcuzNBWaAIhw6OfYJesf3un5HvAoDmFUsF+iHu/kOkzk
-         64Og==
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=R3IWROSevYYlJCVMW7CgW/laiJYHvyfGOiL80q/i6KSOwTTyUAaziXf8UjGJ1oRz6w
+         lHE6qnwLOByU1FqRGwzCngmLKdqC1vb59Ra1UuqQWdmOs14DdhZhTVH/d27jameyaD30
+         suNwVuJXliRFP4QPgtxigHexgOWEHeR1In2/b4O9agsFPUoihs6yKj3vRifLW12lo+Bd
+         wKObZKU2K1Zl6qTQ3Xeb7armaGNwhaMnRPIko/8nXYYFBES9eVG0bvhDRm3vSYzatG+2
+         QtDTAVnC+EVgGvywlTxovlqv/jBfC5XabKpYcnUCoPkve8WznmL2wE5X+cxdAAvuMAI7
+         NhVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794845798; x=1795450598;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x0v9e+wZHiAwxkDeqQfkfA5SYCnl901hHKw7lpsX06g=;
-        b=b2PPWaBZcNGw9Zamtof3nbh/w/RKX87qIt8b7/FdBYKX4WkrtO4kxTZogVOjI6H/QT
-         xwhmNE3nZ5H6k3FCj/caotyMFOyTTEOeIUbhPonAy5UkMLRWW4XaIUPqizqMZWjmadqc
-         nKLdwelOhRCbG91bLEP+03ZQL5Dfy5qmQ5lAfIpmZxanAAMJ0YKYkGVdKUEIVYgAvtD7
-         ypz1qe2rrW/3D5R8CQxZnSxXKXxVaVmWvjeB5y16KMhCoLpgElvU9xhJMkWig1RotuyT
-         il3P/e3GfPSBfBe/NoOnc1xycNRwqrZsbWWRlE06jZmJ003CfnnYJP2qq6F14atFZEEr
-         bS7g==
-X-Forwarded-Encrypted: i=1; AL+hErFHEgOupRyASYN5YZtT174jC3FQoArXnb8XfqgVyQhYVn3TtyMhl28uDVvneV7Lk3e9eQNmF//6Q8yjuiU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NURg6lDbQpgi5PaJOXvEoz+nUudIKbIOiy1ogR99hp5sxvKl3
-	CTkY/FzqK0Rp0StDT0wYJXi2qgueF/hw+x7PtL4r43CGzEVQrfaIVLgCPGuc/6nDP4A=
-X-Gm-Gg: AZFdTZcoqXyb8XOXkeoBPT7auPhZLcNHusCc8sFMfqjfkRFEMAybYfZ1eTapmdDp3FK
-	5IlEAVBcxYuJYAJY68kt7D/l/n8P7XIXjham59i1qr4f+BGe2+bmhhzX/ZIIU2m6aOkO75VP7Pk
-	IEUMW+VyvQJ29qTNe3YsN0TD3PGAO8qncuxSYxsI78h87cV203ncvC7NzeS/iXw39iKJSN0RjLQ
-	So6I/DfiFhPctg3k04+1kqWfMHiOYTJ8KZA0a/ok4tTX/vtFPmT//kRo2wUGjvnuq4peoihwFPA
-	NsXb/b/Q8ejRp0llbRAMlkBmuBO5GEZqMgp4Vot/d8H3qozkSHms5Qsdz6JsQDD1txsA8a11+Tg
-	3mY471MPocOkpUIfjIjYv/GpEq8enCFr9CXixd8uCFm9eY4joslCtLF7TD1rllqmjX6+MVSRPh4
-	GGgg53LC2f574oApN/xA22LY0qHs6lYCKiY+aoup5uwhegNHonNLlwuQ6+6ABx9pi+cFmx1HMYC
-	tgh33uCFbetJIpI+eH1iU4CMRtZ5FhkPtDnH0BP9gR5kKwaRjRjJTyq1Hg1xSMgidKTA1TFVA5v
-	sToZqEVxFKG3rjF8QnrJvWzmuIY/ueZhSShGQd4pd4B0TA0=
-X-Received: by 2002:a17:90b:2ec3:b0:3b0:9781:ee8b with SMTP id 98e67ed59e1d1-3b1b09fcbc5mr10847659a91.26.1794845798086;
-        Mon, 16 Nov 2026 08:16:38 -0800 (PST)
-Received: from localhost ([97.126.173.69])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b1aec3af2dsm17201419a91.9.2026.11.16.08.16.37
+        d=1e100.net; s=20260707; t=1794845824; x=1795450624;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=VohSH8mZ8RyJcv2dw+pzYq85D+DwuSFHLcnFVcoLQ/BBMgiUTedoqHqCl9s2Qepwn6
+         PIdZL3x+w0Ewq57wyDgJGMIVA1lwGOJ9+6rwJOBzUJq3X2E8qbZevEeo7miIlM13HNTk
+         ZAeVl2sgi/M+jf5uompwVYKCM9xr/PiXP+SVZFI4ybu/8IfO5CxDopKKcLONQQHwynAN
+         LXwv2Ya4UqFv7QA8KK64fbLncqYdUU+atLlqPLU6svSwD/Iub5Iq2LuDIrceQEwQotJg
+         49ZLeXqJd4aYIsLehVs95an0ASDsTmHiB2HKK3M32zQHV5P6UqLNEqrYoxyTBTK9PJpM
+         t2Eg==
+X-Gm-Message-State: APuU4Z+Zpbhyojq74Y0xOxJPEwJiZ/xSZLcCOX2z22kazKgE53zjfIZS
+	0vVd7GDRcIBH7vaWfEKH1HHO6fAl0SjV6Vdw3aZ5GQvFA5LUvdGfSXEcM7OZ63Iu
+X-Gm-Gg: AZFdTZeELJtH+L5piD34ywp0rR8pepENdqkFd470zh7xl25raJrenfoqAzgtZq6jYfg
+	bVAGiE/qQtJ0Yx9wAecrkPGxYDKL66F+Yh8sBAf7QREK0PHsr2u/V4GP31iYXTbEsqduI/BZvHT
+	0840eTIAo0iFwuA6PQoUzWOufToHB5i9ZtB/j0Y8nbEFx47rqK/zFN/AVkXP7tZnKrs4nwG8wUn
+	BlKabOz+lVhSILMR2GGKdZiJ0mLueAYooNfsiQZEAZ4xzGtBrA9jDoHZk07fucY8crhbDVV4c0U
+	F3VUPmQz2TqJAJ9xp/9WaFXAaFajGc/P5jrdU6jI0ozSXZz0aa4LTBIpuc6KjeoUsraA4R2Dm7g
+	FAVwv3/J4C8VzHtOCmRsD7RiC8Y3jfmg9fEHcRrYwaML4XApwFr6pNzfDIwBmVsf7L0Z6oszC/E
+	TS62VrQm8E7Og5J5O1t/FTuzVpNCzfCYdPGZho+vfQUze+URm+jDwRvA7qpAsnk5Hx/od4kwnyD
+	h07qAwGp2nmVn0LPHWUDKgTjSW/7iQnvvfHAOGxrjSp1mUy6pEfGV/pDsBBwG1ToC4qEQQ7fQ/A
+	rWy6zDqjoW614viBsHJVG5kK9ATA1JTr8bLyFKCuBk6R5kydFLw=
+X-Received: by 2002:a05:7301:fd09:b0:36d:4570:a32d with SMTP id 5a478bee46e88-37963953f0amr10933645eec.2.1794845823588;
+        Mon, 16 Nov 2026 08:17:03 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.79])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563df84fsm69867140eec.20.2026.11.16.08.17.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 08:16:37 -0800 (PST)
-From: "Kevin Hilman (TI)" <khilman@baylibre.com>
-To: aaro.koskinen@iki.fi,
-	rogerq@kernel.org,
-	tony@atomide.com,
-	linux@armlinux.org.uk,
-	andi.shyti@kernel.org,
-	thomas.richard@bootlin.com,
-	wsa+renesas@sang-engineering.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andreas Kemnade <andreas@kemnade.info>
-Subject: Re: [RFC PATCH] ARM: OMAP2+: fix omap_device with noirq_suspend
-Date: Mon, 16 Nov 2026 08:16:30 -0800
-Message-ID: <179484576805.84649.11200810551954641620.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110211531.679943-1-andreas@kemnade.info>
-References: <20261110211531.679943-1-andreas@kemnade.info>
+        Mon, 16 Nov 2026 08:17:03 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	sreekuttan2156239@gmail.com
+Subject: Re: [PATCH v2] ALSA: jack: Fix jack control cleanup on error paths
+Date: Mon, 16 Nov 2026 16:16:34 +0000
+Message-ID: <20261116161634.2821-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <8733t0ye2u.wl-tiwai@suse.de>
+References: <8733t0ye2u.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,25 +98,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+Hi,
 
-On Tue, 10 Nov 2026 22:15:31 +0100, Andreas Kemnade wrote:
-> Fixes cases where device runtime gets resumed in _suspend but then
-> pm_runtime_force_suspend is used.  So the device is disabled, but runtime
-> active in _noirq_suspend leading to duplicate runtime_suspend calls. So
-> rather check for the device state directly to indicate if changes are
-> needed.
-> This relies on pm_runtime_force_resume being used in a balanced way.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/1] ARM: OMAP2+: fix omap_device with noirq_suspend
-      commit: 20ae98b360710da7db17b0d8edbf84c88ff4658d
+Thanks for applying the patch!
 
 Best regards,
--- 
-Kevin Hilman (TI) <khilman@baylibre.com>
+Sreeraj
