@@ -1,65 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.160
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844555;
-	b=ptR/3x/NWhySrLg+xXMNzYA3pZoY1Wv9LCKI8ZKr8mb/dw31fDVIx1agaNkFDouObUl5
-	 n/M35aY10kvWbU4MZQHmdJaEaPncZ0Y0sJDaoIeCmW52L4WWnEUT2d+usQtBLAEMp73Pn
-	 BbSNb7a6BmutpSPsUuC5V0QkV0JCsHSvC23NKsXh63jx5hdA/hwaymIOF8Q7i5BS/MQiw
-	 vVVAXIvbd+ccwUaYVVJWGtMHk1FbzVuQWmIT7i4Zasd0vAihFlfUk52zjjGTSwQDoydgQ
-	 a4U7wKKTEjqXnmXNPeNgs3dmfimxwU2Iw5qbGhd91/v/iXdeEq05ll+qIE556IqtFtg==
+	t=1794844578;
+	b=KoUkHE4hPCUtUyOweudpmB71A5eeMO9ahZx/stU5yYGTW2Bh+oFxyY3V3b7/TVjzF0fP
+	 DAT3Dh+PRY0wweEjwpbzCDeTXJDmk+Suf01XVMl2lUmC4CJozV5PNkVz2sVaAC0/NzdKV
+	 Hp6X40DzPUxvAMtzAolP7J+Ya9m7FiJNBPYKg/5rl4OE0slyVQ/wHAnwv3iatIiRTv328
+	 Nte+F8XHOX6qKQGgwbnBtrE7AgX/7NY7LkpULhXEEpEa0pwqf8RuDiJV2Cg7QNDYfAets
+	 rZ3KwSmccL2QgxOCodUClraWE510WSJatqOoyr+uCHCN++OjA5+dQilYv7BRHg/OhRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844555;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JaRPI7EIL9yezobh8ZLq6nTg4HFAeHwBiZLMj4s8kHY=;
-	b=it5gPye7D6UBSodhwe4SrTy6Zj8MW8LE8QPgp2qo169G59YrOn1a3oodrJQPJhW5rkW+
-	 ohhQUfgjRatlXU2ddPXNlru6haSBBqazHMYSM39uPZ7cheiUZ6EDDSQ9ddrkLFm5cQBVQ
-	 LacaKmOrx2PYAMFX2hKIQzshtYF7cwyDRmeXyxErI36xwaeasZ3q0TtMuxfedQEsDPXUg
-	 ZC84Fu8vNspNZbBpw7ylGypu1l2Ih4ehqsIwNUIw484VLd4EzrREssa/JDU+qywpRhxsK
-	 tbuM5Ve2GFHhm5jVwfCWJuMZhiHY5k2YfMsxXWQthE7Jy+p9KbufaJNuHt9S/mosbDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844578;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LnSeRb4dN96wBhv6QjPTulpHgT7xgStRTwFnLWmVaVA=;
+	b=pyVLUNLTs8sAmiplWhGOvr7VDQBQAgYsLiOIqJHEuPdUCzqsq/eKWH9OIMo/eEJOidL3
+	 vQZNkfrag2qKFUaBRvj2j5IrbnrILVoZVB5TNW6qZLXBEQriQ7iPpUmePccnTVCwl5hue
+	 3S/BL7NuSb+5a5pEfRNUr/p2u4oIWc6zbJWrQVYy/tH9i5ax0bQyHHpjxRTvR1rsGE+TO
+	 skypsqMcJqTxTsmPiroMtmhmB97fk5Rr8LchId97Hcveu/AundaZyFOlfVKq+RrHFTsQr
+	 d+3KFQSyjw3a2OeGWK9HQuSH+iHBdH6G1c8dAdXsXbC01GDEvcnkC7nglQMnlC5o8cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BWhOJ6aU;
-	arc=none smtp.remote-ip=95.215.58.160
-Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1TPALyE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C96606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:55:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C96606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38DC606A322;
+	Mon, 16 Nov 2026 15:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BWhOJ6aU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CR8iWGGqT0Nsw+4zbHtsqMFKXyzWdW2y4w0g16IaiaQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794844551; v=1; x=1795449351;
- b=BWhOJ6aU3E7hnxOXaxjxUJKu2elfzTKiuCNdvv9AGlps0osPo67opVzvWtOWZR+4Sr4+m3eY
- RBcCVSaQe49jbm1esGOglzSFMJv9Hd5oU4z8Z5h4qgjnlA+xiNDxKtX19pRYXqdD5PaCMo7N+Jy
- WPjVAdTlBpwHllgpXCLghY5c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 062b17364c277a74;
-	Mon, 16 Nov 2026 15:55:51 +0000
-X-Mizu-Trace-ID: 062b17364c277a74
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 16:55:49 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Mehmet Fide <mehmet.fide@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: Zong-Zhe Yang <kevin_yang@realtek.com>, Tzu-En Huang <tehuang@realtek.com>,
- Yan-Hsuan Chuang <yhchuang@realtek.com>, Kalle Valo <kvalo@kernel.org>,
- Stanislaw Gruszka <sgruszka@redhat.com>,
- Brian Norris <briannorris@chromium.org>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v2_3/3=5D_wifi=3A_rtw88=3A_reset_?=
- =?US-ASCII?Q?the_stations_outside_of_RCU_on_firmware_recovery?=
-In-Reply-To: <20261116072014.1142494-4-mehmet.fide@gmail.com>
-References: <20261116072014.1142494-1-mehmet.fide@gmail.com> <20261116072014.1142494-4-mehmet.fide@gmail.com>
-Message-ID: <4EE3D95E-988D-4514-9849-9546CD49D8E9@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1TPALyE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E491F000C4;
+	Mon, 16 Nov 2026 15:56:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794844577;
+	bh=LnSeRb4dN96wBhv6QjPTulpHgT7xgStRTwFnLWmVaVA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=k1TPALyEzGuGelskzZPMTDhNwa0mXOqc58ZHlyZE4oQ0ZM5EJquOYbdtrBcKo1dW0
+	 GubBjMxi0pQxAEgamTiNkRPpHViVVBQSur2/ZQ5tP+jEmhqQrglbadj6Vfe3KGK0fc
+	 Wper3e3fVo7kOJNoCFBYEt9ZQTn0Ev/C0ZxiEpQ7T6poCTp83gMsU+Dpa5WRhEZXhP
+	 AQmraknEk5wW3+eEG6JqdtinEvAGRPGQodVJnIOfdazJsLTxM2GtTCdt96h51hrR+p
+	 +GpKDVhPOUVE/PTuucFiWQn6WWkUCOeBBqPKrXKCZlPyg9B6hl0lOHmwFPEslor1sK
+	 ucIgmRGENHK4w==
+Message-ID: <336dc797-2406-4d81-b322-61b85ac52bdd@kernel.org>
+Date: Mon, 16 Nov 2026 15:56:06 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,47 +51,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 00/12] nvmem: Add Raspberry Pi OTP nvmem driver
+To: Gregor Herburger <gregor.herburger@linutronix.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>,
+ Stefan Wahren <wahrenst@gmx.net>, Srinivas Kandagatla <srini@kernel.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+ Russell King <linux@armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+From: Srinivas Kandagatla <srini@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Mehmet,
 
-Thanks for the update. One comment below.
 
-On November 16, 2026 8:20:14 AM GMT+01:00, Mehmet Fide
-<mehmet.fide@gmail.com> wrote:
+On 11/10/26 4:33 PM, Gregor Herburger wrote:
+> Hi,
+> 
+> This series adds support for the Raspberry Pis OTP registers. The
+> Raspberry Pi has one or more OTP regions. These registers are accessible
+> through the firmware. Add a driver for it and add updates the devicetree
+> for the Raspberry Pi 5.
 
-> @@ -664,7 +664,7 @@ static void __fw_recovery_work(struct rtw_dev *rtwdev)
->       WARN(1, "firmware crash, start reset and recover\n");
->
->       rtw_iterate_keys_atomic(rtwdev, NULL, rtw_reset_key_iter, rtwdev);
-> -     rtw_iterate_stas_atomic(rtwdev, rtw_reset_sta_iter, rtwdev);
-> +     rtw_iterate_stas(rtwdev, rtw_reset_sta_iter, rtwdev);
->       rtw_iterate_vifs_atomic(rtwdev, rtw_reset_vif_iter, rtwdev);
+What is the merge strategy for this series?
+Am happy to pick up non-dt patches 1-6/12 and 12/12.
+let me know other wise.
 
-I followed the allocation failure case from v1 a bit further:
-https://lore.kernel.org/r/699D1E7C-1793-44A7-AF57-CFE16AD036E6@linux.dev/
 
-As far as I can see, skipping a station also skips rtw_txq_cleanup().
-For a queue outside the voice access category, wake_tx_queue() queues
-tx_work. If that work has not run yet, the omitted station's queue can
-stay on rtwdev->txqs until reconfiguration. rtw_sta_add() then calls
-rtw_txq_init(), which does this without unlinking it:
+--srini
 
-        INIT_LIST_HEAD(&rtwtxq->list);
 
-The device list still points at that node, but the node now points to
-itself. __rtw_tx_work() seems to keep visiting it while holding
-txq_lock. Its list_del_init() cannot repair the device list because
-the node has already lost its old links.
+> 
+> ---
+> Changes in v8:
+> - Really rebase to v7.4-rc2
+> - Add a patch to reorder rpi_firmware_property_tag enum
+> - Link to v7: https://patch.msgid.link/20261110-rpi-otp-driver-v7-0-2345d0ee65f0@linutronix.de
+> 
+> Changes in v7:
+> - Rebase to v7.4-rc2
+> - Added Patch to register rtc driver by soc enum from drvdata
+> - Link to v6: https://patch.msgid.link/20260522-rpi-otp-driver-v6-0-b0eac97d1428@linutronix.de
+> 
+> Changes in v6:
+> - Use %pe in dev_err
+> - Include <linux/slab.h> to fix build on arm
+> - Add arm defconfigs: multi_v7_defconfig and bcm2835_defconfig
+> - Reword commit messages
+> - Link to v5: https://patch.msgid.link/20260520-rpi-otp-driver-v5-0-b26e5908eeac@linutronix.de
+> 
+> Changes in v5:
+> - Move alignment check to nvmem core
+> - Use IS_REACHABLE to simplify Kconfig
+> - use root_only for private driver
+> - Add driver as module to arch64 defconfig
+> - Use MODULE_DEVICE_TABLE
+> - Remove some unused attributes, fix typos, minor fixups
+> - Link to v4: https://patch.msgid.link/20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de
+> 
+> Changes in v4:
+> - Additional patch to drop unnecessary select schema
+> - fix dt-bindings
+> - use __counted_by_le
+> - additional alignment check in read/write callbacks
+> - Link to v3: https://patch.msgid.link/20260506-rpi-otp-driver-v3-0-294602663695@linutronix.de
+> 
+> Changes in v3:
+> - dts: add "raspberrypi,bcm2835-firmware" as fallback and fix dt-bindings
+> - Fix Kconfig depends
+> - Changed firmware data fields to __le32
+> - Add MODULE_ALIAS
+> - Link to v2: https://patch.msgid.link/20260505-rpi-otp-driver-v2-0-e9176ec72837@linutronix.de
+> 
+> Changes in v2:
+> - register nvmem driver from firmware driver and drop firmware sub nodes
+> - Use struct_size and __counted_by for dynamic array
+> - Drop unneeded comment in Kconfig
+> - Use NVMEM_DEVID_NONE
+> - Use kzalloc
+> - Update module description
+> - Link to v1: https://patch.msgid.link/20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de
+> 
+> ---
+> Gregor Herburger (12):
+>       firmware: raspberrypi: reorder rpi_firmware_property_tag enum
+>       soc: bcm2835: Use IS_REACHABLE for function declaration
+>       nvmem: core: Enforce stride and alignment checks for nvmem_device functions
+>       dt-bindings: raspberrypi,bcm2835-firmware: Add bcm2712-firmware compatible
+>       nvmem: Add the Raspberry Pi OTP driver
+>       firmware: raspberrypi: register nvmem driver
+>       arm64: dts: broadcom: bcm2712: add raspberrypi,bcm2712-firmware compatible
+>       dt-bindings: raspberrypi,bcm2835-firmware: Drop unnecessary select
+>       arm64: defconfig: Enable the raspberrypi otp driver as module
+>       ARM: bcm2835_defconfig: Enable the raspberrypi otp driver as module
+>       ARM: multi_v7_defconfig: Enable the raspberrypi otp driver as module
+>       firmware: raspberrypi: use drvdata to register rtc driver
+> 
+>  .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  20 ++--
+>  arch/arm/configs/bcm2835_defconfig                 |   2 +
+>  arch/arm/configs/multi_v7_defconfig                |   1 +
+>  .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |   4 +-
+>  arch/arm64/configs/defconfig                       |   1 +
+>  drivers/firmware/raspberrypi.c                     |  62 +++++++++-
+>  drivers/nvmem/Kconfig                              |  11 ++
+>  drivers/nvmem/Makefile                             |   1 +
+>  drivers/nvmem/core.c                               |  12 ++
+>  drivers/nvmem/raspberrypi-otp.c                    | 131 +++++++++++++++++++++
+>  include/soc/bcm2835/raspberrypi-firmware.h         |  37 ++++--
+>  11 files changed, 256 insertions(+), 26 deletions(-)
+> ---
+> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+> change-id: 20260408-rpi-otp-driver-75fce1dcff7d
+> 
+> Best regards,
+> --  
+> Gregor Herburger <gregor.herburger@linutronix.de>
+> 
 
-rtw_enter_ips() does not drain rtwdev->tx_wq, and the flush in
-ieee80211_restart_work() is of mac80211's separate workqueue. So I think
-this can hang the TX worker, beyond the station count and MAC ID leak
-I mentioned before.
-
-Could recovery use an iteration that cannot silently skip stations?
-
-Best regards,
-Luka Gejak
