@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.70.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834008;
-	b=aqwtaUovDHx2ctb4+xqLzb+v+xo6WLqyoK3M+aV6OlCxo1e7XYY+x0bIksXX8RggdcZw
-	 GOP1A7l6EeT+X6G7FOSWiaDARouSd1U/K1OeMifhOviohxnMNYmbu/ow82HKk28DYMiFE
-	 dra9MaqkCgJA0g/WrmJ8prdqX7uYf6tKgD11ny+lu2Vo9kje4VRqNeBxztQi0CYCnFeiz
-	 EYE57ZMaLdq33cKiTCifwEs5iIwx/wj31GiZqDb1OCv+Fvr4/1mfzDBMLYOrmyRMpoItB
-	 KH3nf/xx5mwrf1KDTDOjJvfG3a9/NWbRtckjrTDSalcdFBLqH9EBPrCt5ULHoMoi85w==
+	t=1794834029;
+	b=WUmmteMIfXeEv3lvCHXrrhHIXiNJVcPWl8X10fY34lqH0UJ+hoita2Q+ZcS2UQo74vpr
+	 gSZqRCtMUUA3GK1E4fc1QOYceYIaTBNskxTfy3E6vSBM7XsxrSBxp+77e5mWJa4hlSgHC
+	 zD3WTvKqn5Vu0j1qHOimZWZwLW/mAd8bls9YmpfkkXjm6QdNEyMv3w4HNcLi4hq9JnsgP
+	 Q1aTADKSJ638RZGddv/xMQw1Io3SfJGkVaLc4fkYBqVRw+1Ysa4BXHX24GxSU+FuzwO0W
+	 IFh497vVSgEV5hyPHKORmRanx8A4JbbecNzqJYXTVBVuI9FQVRV0mGQVLs0hzMLYHNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834008;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:X-CPGSPASS:
-	 X-Hop-Count:Content-Transfer-Encoding:MIME-Version:X-CMS-RootMailID:
-	 References;
-	bh=cwjy6PsFjKhadlM83IrAOfhjuE/Eo22fd3cBhQMRQ4U=;
-	b=KKTq6LnUiYiY33YCzIpZscV0UijfVjwtUTpLDXVvDzy35Hd0LV3LN9KSABwWNgaqRMnd
-	 49nyPQVGHfsGPm52WAguar/1l2FhSkcTQkNuZpL0Ff1/cjPjhZDaeNqyRwtrCNTJo62xd
-	 4Y/c9VjtOzR7zqbaISRrLHCFLvSH+BA1dalnjwtSDUTyeFD/8pRJN2TLOoCksTaat2KpC
-	 6QmvchhqNqesiEoySuBppRKI6vzUHJv5jAIBjB/DAHvI6Q7sUHfdUhbR9GcSLQ14VRg1P
-	 qsehtUbcJOkYCMlO47lAX9VkamCc4t33r3XPOTWEQmhDiuDwfsxGHYNmCBRxNpLXsXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834029;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Info-Out:X-Proofpoint-GUID:X-JNJ;
+	bh=N2VrZwSXFQpePhWr6QR5jf0LaY6vYKdX0ikOoiKW4E4=;
+	b=C92hUMuiKE+eMQ7Huz7bL76fnRAWTNBKeXnfJxq5dqB0hHJzOZNOqQiig22g+8EcWOOi
+	 vUwW+b9Twz0QU80i29XRa+f+ujas6J2HrAo6xtMCiCihBGgT3oYOIvkUO1uXNmae2HWfK
+	 9x4vFXkibyUWbpyS/QTJfrJ2EYsm0rvp536Ja6vdAb7ufyxlHviVhaWaU0WoybRkBpN6e
+	 U60G38REpY9wy9HFtc6jb1AEspyo+hqWpDa3jw9wCLgPDHL1QMwAogYJqTCveefoAJBU0
+	 HMUOVmpFGc1pl8o04p/pCO0A8vhlmj7oNA7+FLjHl072kLdbi5ItrtDmJnWQYq5NRYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=slhHjm68;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=zinPx+gC;
+	arc=none smtp.remote-ip=57.103.70.43
+Received: from outbound.mr.icloud.com (mr-2006f-snip4-11.eps.apple.com [57.103.70.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3143606A33E
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:00:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3143606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2AB606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:00:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C2AB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=slhHjm68
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261116130004epoutp0111656e78ba570b75b471dca9071bf7c6~oiAR5nrFb2101321013epoutp01a
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:00:04 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261116130004epoutp0111656e78ba570b75b471dca9071bf7c6~oiAR5nrFb2101321013epoutp01a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794834004;
-	bh=cwjy6PsFjKhadlM83IrAOfhjuE/Eo22fd3cBhQMRQ4U=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=slhHjm68ewQWUVm6bRFUckzalB0fbQtsFeYR5SoNtLh2oIS5FJZpddqHoo4k1a6Lo
-	 qGgI4kxoNuiy1Wiyk1dMlr9BjTj31Iy4jNxRtO279sC0iLwH48rFh1hUMKkuA2TaRr
-	 LM25SJP5fkuNC37tIkq8mQkUiLCGX0vKZVyz9hu0=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261116130003epcas5p41505962cdb85baef807da63df4a4bdd6~oiARTemrZ1581715817epcas5p4X;
-	Mon, 16 Nov 2026 13:00:03 +0000 (GMT)
-Received: from epcpadp1new (unknown [182.195.40.141]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jSnyW4VT6z2SSKd; Mon, 16 Nov
-	2026 13:00:03 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6~oh9XF0EaC2880528805epcas5p1u;
-	Mon, 16 Nov 2026 12:56:43 +0000 (GMT)
-Received: from vega.samsungds.net (unknown [107.108.73.84]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261116125640epsmtip193698527cb698dd83aee2b514325cf77~oh9UdOLNZ1010810108epsmtip1O;
-	Mon, 16 Nov 2026 12:56:40 +0000 (GMT)
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-To: gregkh@linuxfoundation.org, shashank.mahadasyam@sony.com,
-	rahul.bukte@sony.com, hadess@hadess.net, dakr@kernel.org, gary@garyguo.net,
-	guanyulin@google.com, rafael.j.wysocki@intel.com,
-	mathias.nyman@linux.intel.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
-	hongpooh.kim@samsung.com, eomji.oh@samsung.com, alim.akhtar@samsung.com,
-	muhammed.ali@samsung.com, thiagu.r@samsung.com, cpgs@samsung.com, Selvarasu
-	Ganesan <selvarasu.g@samsung.com>, stable@vger.kernel.org
-Subject: [PATCH] usb: core: don't skip system resume for an already
- suspended device
-Date: Mon, 16 Nov 2026 18:26:25 +0530
-Message-Id: <973576304.21794834003625.JavaMail.epsvc@epcpadp1new>
-X-Mailer: git-send-email 2.17.1
-X-CMS-MailID: 20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=zinPx+gC
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPS id F3DA81801B22;
+	Mon, 16 Nov 2026 13:00:24 +0000 (UTC)
+X-ICL-RepId: 01a1e471-c9d5-7b88-80ae-0d52a32e5e96
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794834028; x=1826370028; bh=N2VrZwSXFQpePhWr6QR5jf0LaY6vYKdX0ikOoiKW4E4=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=zinPx+gC8U4DU363yssCEHGI1pb41ifQK1L+0LqSHG5RzKgO7aB3YrlK5kQfgdRCbutdgH42F0rBxbFc3bQV6gc0ut2coKmW/tEPBtvebBUMZxE9WW2JgAUtUPmVVxrxxO0NpQGzyU3PFXmpaISHT0SCpmGqPoNFhejJB5o35gBCPRXgUJpGm/1gxqM+cgtaq6GOdAhr9pKaYbsMVsUGkHEONg77r/NIzSUb//5DOQ0ujOhBGR44ousbKWRkM7I9OQvqwrIb/sgd/7pef7oTYVG4dwlDaQHqgvJ9wsvim7mSnC2nAgqvOVjxzK1Jx3tXjTJ9y5f7dNp3tjkM/dJ3cg==
+Received: from lima-kernel-dev (unknown [17.156.200.36])
+	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPSA id B36D01801540;
+	Mon, 16 Nov 2026 13:00:20 +0000 (UTC)
+Date: Mon, 16 Nov 2026 21:00:15 +0800
+From: Zhang Peng <zippermonkey@icloud.com>
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, axelrasmussen@google.com, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, bruzzhang@tencent.com, david@kernel.org, 
+	hannes@cmpxchg.org, kasong@tencent.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, ljs@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, weixugc@google.com, yuanchu@google.com
+Subject: Re: [PATCH v6 0/5] mm: batch TLB flushing for dirty folios in vmscan
+Message-ID: <avr8QDO3CPyCoipF@lima-kernel-dev>
+References: <20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com>
+ <20261115230231.21194-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,68 +64,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CMS-RootMailID: 20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6
-References: <CGME20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6@epcas5p1.samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261115230231.21194-1-baohua@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfXwpZDbepw2hpM
+ HU1CTTwM0zxmzB11fhPuB1UzVZHlDsxfBOU/Etbi9k82hfPYmJ0+G1dDmLWXTE7wke4UZBPmA4X
+ 8MRKZd0Bob0h1iJE/l4EcPpfTKfFefUJD7x7dyw9vE1rkqAOxhHJ3QAUP5pEj2O7PVaobV2U56H
+ zlucrlT0Kw8k1SG6tJJtRWZ2jDCI+I3UMJ6lXSqrBeqo9D2YRPpatPN8Z8U1AkvpxCjW6tjZQ43
+ vr78xUO4/HfSKEP8Z0kywGDDX5lYaZ2xzY3UvZ6NB+dNfr8gbLA5VNKPcILQVDtyljMcen6Ymlf
+ /yWSyDhmMtTrRT/evrX6kssOiZuzMJzPy9BEd8oj6dQEqgqirhUHJ24U3FXkm8=
+X-Proofpoint-ORIG-GUID: S_Ha7s4P6gEu9WtiweQ_SwFQBvt736_9
+X-Authority-Info-Out: v=2.4 cv=ZMXaWH7b c=1 sm=1 tr=0 ts=6afafe6a
+ cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
+ a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=v3ZZPjhaAAAA:8 a=GvQkQWPkAAAA:8 a=AChBciNimkdjFoktPmgA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: S_Ha7s4P6gEu9WtiweQ_SwFQBvt736_9
+X-JNJ: AAAAAAABRpGbp1BOfZ5WH3DNxle6wVttZwlzG4XYJVr8c/t0p4jLXXfHcCiNXmyR7p4KDo
+ GLI3jKc8yLvfcnXMbkAeM/iYQ7SUS6WGKnji58FC3WW5DSgYJA7QWJbzlYcmzAsHXg22Xv
+ 4wpVFLsO4xXd1Beqy7AUxEYCrNl6AmkQ4WxX5ul2I2CTRctSOFDoccxO2RKSPpYYTlymZs
+ OXe0DewGhtHz8ToyTNPJbdM+3BC+ZwCaUHhjrPC46bSo6zxAHoKqsoUQJ+IVGWEZavxzJD
+ KGpg+xPXoD/5IxtIio6xX36caeXft+PmC20SiuZDwGNFX4KJ9Ura5euqItGTxT/hIOkyoy
+ L93vF7i7f5UJ7+S8wcQrUaM6F+XhOsc1+uEujYwGZi7exKLgafkfhxJ47lFRJ+eVsM1Jei
+ iNPJY06FVU5YTcLmgkXBnD482mZ5V620AzWcjQ42uIDWI3VftQCDnj5izxEx5YDpR0nOTm
+ pYTZ8zILHK4TOKfF29BaU1gHl7pd6AO8Bkw4enn/Q9kLElQdzbq5BDFYeQ5FSz1KJUwjlB
+ ah54tv2wapTw8f1hottnL/e3R2Y+GLp2TuxSpP2OPQac3faOzHd0Q0P77eL6Y1r+Gi8bra
+ JBvM3z3B+/mqSAyuczG+nJ6TwwzoDT4UAPBx1SecxAwXnZM/EkA+GV79M+Fpx+A1fISl2p
+ 21QFr528FiFJH0eKkWoVutPaw/TbgR5HtFuEu0gZQKwAloRfPINuNOltAeESUBPqMZM+3F
+ AloB+WKqws63aaU8hvr2vEvBXCx8Mj4RX29kFX7QYbAjgm4AmDS15MCb3JdRhWi3lYjIq+
+ rlmnsbRD8bq0+P8EDdA9X1Sw9fN9DpWqltPWBBihPPfzPRz5LR6FDnghAbE7OTjfYEnDLP
+ SgaFfExrhFM9CMAdg88j8HoThosZTGViQXXm7yyf7xkLq0drfZl5oGhkUZkfOrtaAo1dcP
+ XVdksnBaccvG2QI9diMja/CqR4ZTQw7Z3PFae82sKJYyVpQXJyYkqMlYbH9QOo90iivoLL
+ Ss3xMH3RTqP8yB0fl4rczgIAaXDBGgnnfsW0vcR809rc9lzqhSaIAKHXEEWkoVO55IZmcl
+ qQJwV6PX5Hiuyx+MENWtCe9Nd5Pj4QA6gR2haB0xp0B1Y8rO6B0Vffq/13Degj95HzMcCd
+ mb2UNYXnrYbeQp0o5bXnqTMp2kQ/HDsUF0IC600tNbX3qHScqx4sFITWxgk064R0JNx15F
+ TexiLzBesEFrx15HF8kmEdIr3VppnPLhuU8mQLRc9dy38HiCZBdJKTXCH7FbxsPidMWBsg
+ X3DBBe8ebxjUfhrc8deL7JufvpSWrVEwJDWJ07ai0Sck5FIvHhjmLsolFTjCoSn+GNmGth
+ jZCv7psRGcKw3Yxac1a3AJMV+LH4RwDw9G2XE3eFbK8XXpP4LBSWKJP7U98ZlO8uRY0JFE
+ k4ohrYjwHi5xdFztyjAQFa64L73YquGEJnVJxvthpWmhXOXGYdXuNcVcGAOptk5Q==
 
-When offload is active on a USB device, usb_suspend_both() skips
-suspending it during system suspend so that the port is not pushed
-into its deep low power state.
+On Mon, Nov 16, 2026 at 07:02:31AM +0800, Barry Song (Xiaomi) wrote:
+> On Sat, Oct 31, 2026 at 6:35 PM Zhang Peng <zippermonkey@icloud.com> wrote:
+> >
+> > This series introduces batch TLB flushing optimization for dirty folios
+> > during memory reclaim, aiming to reduce IPI overhead on multi-core systems.
+> >
+> > Background
+> > ----------
+> > Reclaim calls try_to_unmap_flush_dirty() before writing out each dirty
+> > folio. When writable TLB entries are pending, this triggers a flush.
+> > On systems that use IPIs for TLB shootdowns, frequent flushes can add
+> > significant overhead.
+> >
+> > Approach
+> > --------
+> > Collect dirty folios into a folio_batch, releasing their locks while
+> > collecting the batch so swap faults can progress. Before writeout, try
+> > locking each folio again and recheck writeback, mappings and DMA pins.
+> > Keep eligible folios locked, flush pending writable TLB entries once,
+> > then page them out. Process a final partial batch at the end of the scan.
+> >
+> > Changes
+> > -------
+> > Patch 1: Extract the folio activation block at activate_locked into
+> >          folio_activate_locked().
+> > Patch 2: Extract the folio-freeing path (buffer release, lazyfree,
+> >          __remove_mapping, folio_batch drain) into folio_try_reclaim_free().
+> >          Group retained folios, deferred frees and the reclaimed count
+> >          in reclaim_folio_state, local to each shrink_folio_list() call.
+> > Patch 3: Extract the pageout() dispatch state machine into folio_try_pageout().
+> > Patch 4: Extract the TTU setup and try_to_unmap() block into folio_try_unmap().
+> > Patch 5: Implement batch TLB flushing logic. Dirty folios are accumulated in
+> >          batches and a single TLB flush is performed for each batch before
+> >          calling pageout.
+> >
+> > Testing
+> > -------
+> > The benchmark script uses stress-ng to compare TLB shootdown behavior before and
+> > after this patch. It constrains a stress-ng workload via memcg to force reclaim
+> > through shrink_folio_list(), reporting TLB shootdowns and IPIs.
+> >
+> > Core benchmark command: stress-ng --vm 16 --vm-bytes 2G --vm-keep --timeout 60
+> >
+> > ==========================================================================
+> >                  batch_dirty_tlb_flush Benchmark Results
+> > ==========================================================================
+> >   Kernel: 7.0.0-rc1+   CPUs: 16
+> >   MemTotal: 31834M   SwapTotal: 8191M
+> >   memcg limit: 512M   alloc: 2G   workers: 16   duration: 60s
+> > --------------------------------------------------------------------------
+> > Metric                 Before        After             Delta (abs / %)
+> > --------------------------------------------------------------------------
+> > bogo ops/s             28238.63      35833.97          +7595.34 (+26.9%)
+> > TLB shootdowns         55428953      17621697          -37807256 (-68.2%)
+> > Function call IPIs     34073695      14498768          -19574927 (-57.4%)
+> > pgscan_anon (pages)    52856224      60252894          7396670 (+14.0%)
+> > pgsteal_anon (pages)   29004962      34054753          5049791 (+17.4%)
+> > --------------------------------------------------------------------------
+> >
+> > Suggested-by: Kairui Song <kasong@tencent.com>
+> > Signed-off-by: Zhang Peng <bruzzhang@tencent.com>
+> > ---
+> 
+> Hi Peng,
+> 
+> Just a quick update: this patch is still on my radar. I ran a
+> quick perf test while building the kernel. Without your patch,
+> try_to_unmap_flush_dirty() accounted for 1.75% of CPU cycles.
+> 
+> I guess there could be workloads where try_to_unmap_flush_dirty()
+> accounts for an even larger share of CPU cycles.
+> 
+> # Children      Self  Command  Shared Object      Symbol                      
+> # ........  ........  .......  .................  ............................
+> #
+> 
+>      1.75%     0.01%  cc1              [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
+>             |          
+>              --1.74%--try_to_unmap_flush_dirty
+>                        try_to_unmap_flush (inlined)
+>                        |          
+>                         --1.73%--arch_tlbbatch_flush
+>                                   |          
+>                                    --1.70%--flush_tlb_multi (inlined)
+>                                              __flush_tlb_multi (inlined)
+>                                              |          
+>                                               --1.69%--native_flush_tlb_multi
+>                                                         |          
+>                                                          --1.68%--on_each_cpu_cond_mask
+>                                                                    |          
+>                                                                     --1.62%--smp_call_function_many_cond
+>                                                                               |          
+>                                                                                --1.23%--csd_lock_wait (inlined)
+> 
+> 
+> With your patch, the CPU overhead drops by roughly 7x:
+> 
+> 
+> # Children      Self  Command  Shared Object      Symbol                      
+> # ........  ........  .......  .................  ............................
+> #
+>      0.25%     0.00%  cc1      [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
+>             |          
+>              --0.24%--try_to_unmap_flush_dirty
+>                        try_to_unmap_flush (inlined)
+>                        |          
+>                         --0.24%--arch_tlbbatch_flush
+>                                   |          
+>                                    --0.24%--flush_tlb_multi (inlined)
+>                                              __flush_tlb_multi (inlined)
+>                                              |          
+>                                               --0.24%--native_flush_tlb_multi
+>                                                         |          
+>                                                          --0.23%--on_each_cpu_cond_mask
+>                                                                    |          
+>                                                                     --0.21%--smp_call_function_many_cond
+>                                                                               |          
+>                                                                                --0.14%--csd_lock_wait (inlined)
+> 
+>      0.00%     0.00%  fixdep   [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
+> 
+> 
+> Overall, I think this is a good approach. I'll be traveling soon
+> and will return to this patchset for more testing and a thorough
+> review in about two and a half weeks.
+> 
+> Thanks
+> Barry
+> 
+Hi Barry,
 
-The commit bd3d245b0fef ("usb: core: use dedicated spinlock for offload
-state") made the resume path skip resuming the device whenever offload
-is active at resume time, instead of only when the corresponding suspend
-was skipped. That is wrong when the device was already suspended:
+Thanks for the update and for taking the time to run the perf test.
+The breakdown is helpful, and it's encouraging to see that
+try_to_unmap_flush_dirty() accounts for a significant share of the
+cycles in shrink_folio_list().
 
-  1. Streaming is running with offload active and the AP side stops
-     using the device, the user pauses streaming, or the USB interface
-     simply becomes idle.
-  2. The device auto-suspends.  The auto-suspend path
-     (PMSG_AUTO_SUSPEND) does not carry the PM_EVENT_SUSPEND event, so
-     the offload state is not consulted.  The port goes into its deep
-     low-power state and the device enters USB_STATE_SUSPENDED.
-  3. The system enters PM suspend.  The device is already suspended,
-     so usb_suspend_both() returns early and the offload skip never
-     takes effect for this sleep.
-  4. On system resume, usb_resume_both() re-checks usb_offload_check(),
-     which is still true because the offload reference is held.  The
-     device resume is skipped even though the device is suspended, so
-     the connected USB device is never resumed and fails to function
-     after the AP resumes.
+Safe travels!
 
-Skipping the resume is only correct when the suspend was actually
-skipped, i.e. when the device was not already suspended.  Check the
-device state so that an already suspended device always goes through a
-normal resume, as before bd3d245b0fef.
-
-Fixes: bd3d245b0fef ("usb: core: use dedicated spinlock for offload state")
-Cc: stable@vger.kernel.org
-Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
----
- drivers/usb/core/driver.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-index f21b1e4f9c09..48addbd1a69a 100644
---- a/drivers/usb/core/driver.c
-+++ b/drivers/usb/core/driver.c
-@@ -1552,7 +1552,15 @@ static int usb_resume_both(struct usb_device *udev, pm_message_t msg)
- 		goto done;
- 	}
- 	udev->can_submit = 1;
--	if (msg.event == PM_EVENT_RESUME)
-+	/*
-+	 * Offload is only relevant if the device was kept active during the
-+	 * corresponding suspend.  A device that is already suspended (for
-+	 * example auto-suspended during an idle gap) must go through a
-+	 * normal resume, otherwise the port would be left in its deep
-+	 * low-power state after system resume.
-+	 */
-+	if (msg.event == PM_EVENT_RESUME &&
-+	    udev->state != USB_STATE_SUSPENDED)
- 		offload_active = usb_offload_check(udev);
- 
- 	/* Resume the device */
--- 
-2.17.1
-
+Thanks,
+Peng
 
