@@ -1,93 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844650;
-	b=nq4q58d1TLegS3SXgoO/34trWSKwCfa+yFTpgaCMkhLaaKelQGkYCZ3tVAbknPh2kCfy
-	 vRs+aN/nlkfm8RtdQv15M7Xch/Fp37lkD68EatkctP+JOxUee8Hgoz69rOYuwbvCoEJvR
-	 Cegz6oRiut8L5si2q+yMvMMfoD7kmgLrv2K2DwYIoRbAbP/F+TiNWsHSLRiTYlAzhqDd6
-	 oiGGZ/aKlEqQZErUqgrjrq+XMMB6mo8Kfgtmv6FsGw52gwrUJhlGl0OLHR0mQetY5lY7M
-	 y0GuEN3vZoGkk9Sh0LIjfi6qdpmWq5ny8M2CxLBc2MSj97i86EbOiQXgmAhaFg7HcJg==
+	t=1794844659;
+	b=knX01KgszQQfTQNhg3TyNYptC7gmeWT2VVC+PdM3spTupiXwRqDpilobEUS8SxtedEEy
+	 8aMuf1B6MLW6NvaYDOjNVy5cMuOQ4m9RnW3+6CT/+4ApHt/Ff7rPcPXRoRuCvpdIHhNCu
+	 ZhdipdMjizByoBm2hJ6DPP5xDQNL/3s6C89jo6RQZmSy/yivFZalVpNqkGSs69UVaQCxx
+	 scTCEd8Wl5hnlY6C6eZEhSsNk5owxDQVz4u1VtAEepXCLIlJyAh0NPDK7mU+vSZvTTq+6
+	 9P3/SpcWX/6DK3Em/xcf6PTOlRe2Sfo6xUDkV799KYD5QO7iLTqtPzM962lzmTohYZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844650;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Ko62fks3HdUFJERJbaidaf8/9NyAdqZsfNsy+M8rI7E=;
-	b=NU/mj8J7LlWOXuq6AjCymUAwyGs/VudvUlGJAdr/scTjoJB7AiFQKw1ROCXJXBo8hoQP
-	 IA/geOYE14y/bHfGbxnnRLODQ8WKuL81YUHXK3qKXlz3DkKcOB0t4KSN6g1+lQgcB/NWh
-	 +soSC26MwsQShp3Yym7YuWqojYY9/EUi+rBDkmK0NexA/9hBssjO8vhWgss42ds8GiK34
-	 kfNePspUInSfTR6XAKbSD1PKjtqcw9NiAjtZrErMeZ4tsVZkO4huvIcs07OWECL2SwmN8
-	 bIZQyMTLporc77TMXISm+Ak9b0JW/jAY9KAfSBcNJbpsunPTePPjKR8llUxf0hgQBfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844659;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=StvCoEr29cLHQZIiowY2SNny6e2PtWTpkfdhK1UE2dA=;
+	b=XDIW/ZTrobDyMqd1y1tkBlLYh6HfePyDFvbBlcn031gfNWwWf6Yf74tK/WYO1LW3aIhW
+	 g/8tlIK/tdvaMXYL+PFhVj+lbbn1WkZ1OzKUp+WpZ85LI/oY7q3xIoYYAaRiTfb6IbV26
+	 wrnTkuQjLpghZwXmcByS9g3zyXpnZf2V/LD4afGb2V/WgJLBC390QTLOsz5AlL/EnHujs
+	 EQHQfzeQQP8ohuak3RbutXT0jv9yPOZg8hwjFzsxRRWljZMcHf0O75tGXEKX252KIZ1q9
+	 ukz5rJFY5HvSSQ3lN61g9ZPouCbXU6g+/PElhgfRXd/X47rG/A4pmsXBFiZqS9Qfh5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0nlt99n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AcwgdkEc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4140606A31C;
-	Mon, 16 Nov 2026 15:57:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1BE606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0nlt99n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365C11F000CB;
-	Mon, 16 Nov 2026 15:57:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AcwgdkEc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943BA1F000CA;
+	Mon, 16 Nov 2026 15:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794844650;
-	bh=Ko62fks3HdUFJERJbaidaf8/9NyAdqZsfNsy+M8rI7E=;
+	s=k20260515; t=1794844658;
+	bh=StvCoEr29cLHQZIiowY2SNny6e2PtWTpkfdhK1UE2dA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m0nlt99niPeeNpEhn86QFlKGSLfCLU12GcTkV59LHsuegM7hfCnJajUdP3an3bhkk
-	 W19ldsn/crG/EZ5gkhVTgO2ffwiJuo6TU9ULGOyID71t5t5j3EvzO1Xqb3ro12UgGM
-	 eG8dEm0b8WMe8HCvilv9+x6RpJuFER4kduZocNGLqbclt1BGRariwyWZ5gtykJ9F9r
-	 mRJvgn1Mp52fWdt77ZSIHtzYQ3+clorBQfNOlK1sCUbI3wt8+CW/zKq+9JwcWgwEeU
-	 ToxnT9HRgNWSXfF9+q7b3/u7vBh9As1M8AZxzhVjQLq7/Hxc30ttPF4aDynLVbTAY8
-	 sMDwtBxATWK+Q==
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0D09E198003A;
-	Mon, 16 Nov 2026 10:57:21 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Mon, 16 Nov 2026 10:57:26 -0500
-X-ME-Sender: <xms:4Sf7aiLjdYKlrGwpeD5NINDxohS2dJ_lyTrpJIZoKMOgstVJOBStlA>
-    <xme:4Sf7ahgH744rwVK1EyjuOymivLuQfK5MtgaGG2x1LQrUmvqUOMtgTPwdz4UeaAgoV
-    mnNgeE9xHqwQicjv0hGgIPb3mwB9uYEMGPbnTUFjCL9AsbXDnhTp8vU>
-X-ME-Received: <xmr:4Sf7auvitGg7ZB1hhgLqrZCYGhCBvjsH_dmqXCr8m6_tK6n364wcwa7PROU>
-X-ME-Proxy-Cause: dmFkZTGKqzOa9mbkYud3YjoAdT1iCdWHe+MpJQTExtWEpMQAweCMisAu2fcJvNFVrlprJb
-    kBiEFF59rEPiAv0vQT4Psar852PZawWsc9M4fGFjohDuxRFin/4q/+8xyQWAbSrkwljSoU
-    4rmE+DxE3v+h4LMCrsrqmslUmtHuwueZIa2ex6mJxDPKhC8iaNtNx+7O6aMCXO7zzBmfHx
-    SK2XAafreqbFzSu3BJmjGtAd1nt5pcnYgA3x9ja943Y/8VPDiEIGf4si3MQObEeu/3Uz09
-    e6p8vXN5Zm+usMe6EV+LZjcFFV9n3iaDNu4UXlB/1Ra30F4Be3puKVA6MJJslCgy3U+dR8
-    h0tt9LphgI6AFChLOB+pzUimlXAQL2YO8wShOx5UD4yUyHhCVpF0Es6BqRZwLYi4rqv8zR
-    PRfWc2tU2QeZrKAtOgj8cyweAiXt7AVId6Htj/5KppKUt+PZi3Rhuafxtn606pOXABoLbA
-    LeKL+j+OjGLLawrQ6H0o8Ww8cPUN31NT8vdtgl0MhAo3SFQWbk1CG4+Npb++EscEFEg5nF
-    Jh3R3hst54wGNCqm4n4SN7MCfqlwgstgFtpDPqcieM9sOwUKcAAj++yBpCq8lzzbSrvCky
-    JPz1YWZRrQreS18C9iqQvEh4a23aft7kLtIX6nKoig1yVAoty/KS+2PMjjKA
-X-ME-Proxy: <xmx:4Sf7ahBVDQeYIVmgdYsjLp3PoRjrOXsf1QJ4cqhnAErySQkuV7EPIQ>
-    <xmx:4Sf7aiyQOxPSozr2n08Wd5Kl128TA_4_GRsAD5i0keFqMufCrZuEEw>
-    <xmx:4Sf7akHHlkjsc6O07PEaiyz1kXBJxcZwU86lQjOuhS9CSiD2Aw-Adw>
-    <xmx:4Sf7apZPOG-7JeZlVXQ8JfqtZTaZacy_nWH6gOIKrBMWoDEAuCyWRw>
-    <xmx:4Sf7anitX5I8YkETpY_ueCUQE6nswoO6qv3Dje7kUNQrHIUmpJOoADB1>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 10:57:20 -0500 (EST)
-Date: Mon, 16 Nov 2026 15:57:19 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Hugh Dickins <hughd@google.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, 
-	Ross Zwisler <zwisler@kernel.org>, linux-arch@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm/mmu_gather: delay rmap removal on UP as well
-Message-ID: <avsnsRqHQIgeSf6W@shutemov.name>
-References: <20261116-dirty_file_pmd-v2-0-571883053174@kernel.org>
- <20261116-dirty_file_pmd-v2-1-571883053174@kernel.org>
+	b=AcwgdkEcNKmC4TvycTTrQ06o5FwbouO5y/5UACUL/nVvF7Wk47ujEptRMKj3hmytU
+	 lbqgPolwzYTHPSQRaCSUfOjRNlkl3YEwOlmzL1LHX1k8X9+ZPLIFw8GSTcNwYxam84
+	 +Ztiq4OYGr81sSNPRZnOb7pcW3R+2vBhmLTOqZ1k1HKPcIf8TCh8UVZLghvy9IKpeL
+	 CjUpwkquDDcaOGN7yMo42tIfu1bhZuhFy2ije0rZdKRR4eL6jQcORYGBTe7WuKv4EF
+	 jXAe7rF7SLd3UYEskqNp5FMTAhXXfcnm9ASGl4kGFkUcghwP5S6iqrHz7cgzc6lWbA
+	 FeJUhvpyoeXaA==
+Date: Mon, 16 Nov 2026 17:57:32 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Hari Bathini <hbathini@linux.ibm.com>
+Subject: Re: [PATCHv2 2/3] powerpc/execmem: Allocate kprobes insn pages from
+ the modules area on book3s/32
+Message-ID: <avsn7Kn4a8wbB2QH@kernel.org>
+References: <cover.1794572365.git.ritesh.list@gmail.com>
+ <82c4973addebd82923c460cb44221f5b76146afe.1794572365.git.ritesh.list@gmail.com>
+ <avltdwzlh07VZSFC@kernel.org>
+ <f7834f3e-6c43-4b58-806d-fe4c07a93457@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,38 +67,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261116-dirty_file_pmd-v2-1-571883053174@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f7834f3e-6c43-4b58-806d-fe4c07a93457@kernel.org>
 
-On Mon, Nov 16, 2026 at 04:06:58PM +0100, David Hildenbrand (Arm) wrote:
-> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
-> has been flushed") introduced delayed rmap removal of dirty pages until
-> after the TLB flush, so writeback cannot clean a page that is still
-> writable through a stale TLB entry.
+On Mon, Nov 16, 2026 at 04:11:07PM +0100, Christophe Leroy (CS GROUP) wrote:
+> Hi Mike,
 > 
-> It skips this on UP, because on UP there are no remote TLBs (single CPU)
-> and because the PTL prevents preemption.
+> Le 15/11/2026 à 09:29, Mike Rapoport a écrit :
+> > On Fri, Nov 13, 2026 at 06:01:37PM +0530, Ritesh Harjani (IBM) wrote:
+> > > On book3s/32, a kprobe on an instruction that can't be emulated and has
+> > > to be single stepped out of line, crashes the kernel. For e.g. with the
+> > > following cmds...
+> > >      ~> echo 9 > /proc/sys/kernel/printk
+> > >      ~> mount -t debugfs debugfs /sys/kernel/debug
+> > >      ~> echo 'p:wx filldir64+0xb8' > /sys/kernel/debug/tracing/kprobe_events
+> > >      ~> echo 1 > /sys/kernel/debug/tracing/events/kprobes/wx/enable
+> > >      ~> echo 1 > /sys/kernel/debug/tracing/events/kprobes/enable
+> > > 
+> > > ...we can see the following crash:
+> > >      kernel tried to execute exec-protected page (f101a008) - exploit attempt? (uid: 0)
+> > >      BUG: Unable to handle kernel instruction fetch
+> > >      Faulting instruction address: 0xc02b919c
+> > >      Vector: 400 (Instruction Access) at [f19a9d60]
+> > >          pc: c02b919c: filldir64+0xb8/0x2dc
+> > >          lr: c02b9148: filldir64+0x64/0x2dc
+> > >          sp: f19a9e20
+> > >         msr: 10029032
+> > >        current = 0xc112e900
+> > >          pid   = 102, comm = ls
+> > >      enter ? for help
+> > >      [f19a9e20] c1a8d420 (unreliable)
+> > >      [f19a9e50] c02e4074 dcache_readdir+0x208/0x2a8
+> > >      [f19a9e90] c02b8c5c iterate_dir+0x88/0x1fc
+> > >      [f19a9ec0] c02b96e0 sys_getdents64+0x88/0x198
+> > >      [f19a9f10] c0014400 system_call_exception+0xf8/0x20c
+> > >      [f19a9f30] c00191ac ret_from_syscall+0x0/0x2c
+> > >      ---- Exception: c00 (System Call) at a7596164
+> > >      SP (af802310) is in userspace
+> > > 
+> > > This happens because on book3s/32 the exec permission is per segment
+> > > (256MB), not per page. The page tables have no hardware exec bit, only
+> > > the segment registers have a no-execute (N) bit. mmu_mark_initmem_nx()
+> > > sets N on all the kernel segments except the ones of the modules area.
+> > > So nothing in the vmalloc area can be executed, even when the page is
+> > > mapped with PAGE_KERNEL_ROX or PAGE_KERNEL_EXEC, because _PAGE_EXEC is
+> > > a software only bit there and the segment's N bit is what the MMU
+> > > enforces.
+> > > 
+> > > Before commit 1b750c2fbf82 ("powerpc: extend execmem_params for kprobes
+> > > allocations"), the kprobes insn pages came from module_alloc(). That
+> > > commit moved them to the whole of the vmalloc space, on the grounds
+> > > that kprobes use a breakpoint and don't need to be near the kernel
+> > > text. That is fine on platforms where the exec permission is per page,
+> > > as PAGE_KERNEL_ROX is then enough to make a vmalloc page executable.
+> > > It is not on book3s/32, where the modules area is not only close to
+> > > the kernel text but is also the only page-mapped area whose segment is
+> > > left executable. So the insn pages must keep coming from there.
+> > > 
+> > > Hence, use the modules area for EXECMEM_KPROBES on book3s/32.
+> > Right, I missed that on book3s/32 does vmalloc is not executable and its
+> > protection can't be changed.
+> > 
+> > Could it be that 8xx also need a special treatment for kprobes?
 > 
-> The PTL prevents preemption while removing the rmap, but the local TLB
-> flush is usually only performed after dropping the PTL.
+> Yes indeed, not for the same reasons but because 8xx ITLB-miss handler
+> doesn't expect any instruction TLB miss on kernel addresses other than the
+> ones from the module area:
 > 
-> Consequently, after dropping the PTL we could reschedule to another
-> thread of the same mm, which does not flush the TLB. A kworker could
-> then run into the original race with writeback: it cleans the folio,
-> but the other thread can still modify it through the stale TLB entries,
-> and these writes get lost.
+> Commit 4afb0be7ccda ("powerpc/8xx: Avoid testing for kernel space in ITLB
+> Miss.")
+> Commit 16a71c045186 ("powerpc/8xx: Preallocate execmem page tables")
+> Commit 33c527522f39 ("powerpc/8xx: Inconditionally use task PGDIR in ITLB
+> misses")
 > 
-> Fix it by simply not special-casing UP. Now, only architectures that
-> select MMU_GATHER_NO_GATHER (s390) will skip delay_rmap handling.
+> So at the end as MODULES_VADDR/MODULES_END only exist on book3s/32 and 8xx I
+> think when they exist they should be used as follows:
 > 
-> Fixes: 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB has been flushed")
-> Cc: stable@vger.kernel.org
-> Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Link: https://lore.kernel.org/r/avrxOt_GyXLXNqtR@gremlin
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
+> index b617b69452cd..856f4609c488 100644
+> --- a/arch/powerpc/mm/mem.c
+> +++ b/arch/powerpc/mm/mem.c
+> @@ -428,8 +428,13 @@ struct execmem_info __init *execmem_arch_setup(void)
+>  				.fallback_end	= fallback_end,
+>  			},
+>  			[EXECMEM_KPROBES] = {
+> +#ifdef MODULES_VADDR
+> +				.start	= MODULES_VADDR,
+> +				.end	= MODULES_END,
+> +#else
+>  				.start	= VMALLOC_START,
+>  				.end	= VMALLOC_END,
+> +#endif
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+We already have #ifdef MODULES_VADDR a few lines above, I think the
+assignment of kprobes_start and kprobes_end could go there instead of if
+(IS_ENABLED(CONFIG_PPC_BOOK3S_32)).
+
+>  				.pgprot	= kprobes_prot,
+>  				.alignment = 1,
+>  			},
+> 
+> 
+> > 
+> > > Fixes: 1b750c2fbf82 ("powerpc: extend execmem_params for kprobes allocations")
+> > > Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> > 
+> > Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > 
+> > > ---
+> > >   arch/powerpc/mm/mem.c | 10 ++++++++--
+> > >   1 file changed, 8 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
+> > > index 77b63b52d8f2..ae1bc7359353 100644
+> > > --- a/arch/powerpc/mm/mem.c
+> > > +++ b/arch/powerpc/mm/mem.c
+> > > @@ -391,6 +391,7 @@ struct execmem_info __init *execmem_arch_setup(void)
+> > >   	pgprot_t kprobes_prot = strict_kernel_rwx_enabled() ? PAGE_KERNEL_ROX : PAGE_KERNEL_EXEC;
+> > >   	pgprot_t prot = strict_module_rwx_enabled() ? PAGE_KERNEL : PAGE_KERNEL_EXEC;
+> > >   	unsigned long fallback_start = 0, fallback_end = 0;
+> > > +	unsigned long kprobes_start = VMALLOC_START, kprobes_end = VMALLOC_END;
+> > >   	unsigned long start, end;
+> > > 
+> > >   	/*
+> > > @@ -410,6 +411,11 @@ struct execmem_info __init *execmem_arch_setup(void)
+> > >   	}
+> > > 
+> > >   	end = MODULES_END;
+> > > +
+> > > +	if (IS_ENABLED(CONFIG_PPC_BOOK3S_32)) {
+> > > +		kprobes_start = MODULES_VADDR;
+> > > +		kprobes_end = MODULES_END;
+> > > +	}
+> > >   #else
+> > >   	start = VMALLOC_START;
+> > >   	end = VMALLOC_END;
+> > > @@ -428,8 +434,8 @@ struct execmem_info __init *execmem_arch_setup(void)
+> > >   				.fallback_end	= fallback_end,
+> > >   			},
+> > >   			[EXECMEM_KPROBES] = {
+> > > -				.start	= VMALLOC_START,
+> > > -				.end	= VMALLOC_END,
+> > > +				.start	= kprobes_start,
+> > > +				.end	= kprobes_end,
+> > >   				.pgprot	= kprobes_prot,
+> > >   				.alignment = 1,
+> > >   			},
+> > > --
+> > > 2.39.5
+> > > 
+> > > 
+> > 
+> 
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Sincerely yours,
+Mike.
