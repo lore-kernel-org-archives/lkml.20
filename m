@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794872855;
-	b=c4OsrYa/9U3EWahAXkGQ8ULs7q/RMBV5L3JXOv2Q0BCqSfJojFMHCu/5phGiMPu3Pf3B
-	 +Q59kffgf2LkvqfOiBXbXeaq+eLZLogy0eptsvl/2MqReGbb0KYDRXA9FYJ+ukJOZao7Y
-	 BViUSrUQXrY/qvF24ezjnWTv1a6rKEAQTlYxHVjQZ/FhBz0UrDDi+ve3ZAumyynhH+pKk
-	 m2bS8lYpSo1dZHGhpTDoYJB7rj9LCRL9hZs9S4joOYTXWINBXNjHRfkYtz2vCSjhN9vJj
-	 zZfe6JP+26AiFp9qTSg9awEWR1Sez3k7uuppJ3ZqsijPseNkMNvnIEU87kFfocLXEqw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872855;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ooe8aVYLhVyQjDTdzZYaM/OancGDo6HyHA7XUTxSDaQ=;
-	b=euZmHizntuGIeU/Uq714z7qWUFZTBFfVM+uv/QA+bYiGZwbvx8g257ZOMMJwyu8ajBqQ
-	 uLfKK+n3F+qS2P9nlmGw1SZrXvT7zpXxBiX0AK5desX+/6/coQmEBFrRgmbiD5y5ATbF9
-	 YF7koBciRN/0JHedRsA/Q7z53CS4nHiUK6aO1rlbz/vbcpO5qYyQD08tWaq9IjrAZ2PYg
-	 LQyw4vgxao/6jCYa//N/eaQroqd30fliJSMGxZGA+hCWjtXx1A6MIRT1x2u33UBauHFJJ
-	 COxgKZTs4j0j7W5iyVA1XGaBgBiLIoV03QRGaeiZmrllcrdnMscZx+NEx+hONHG33ew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=GRq6dFG5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794872980;
+	b=cFNsV425T3kAES01uneoe2TXqG6GTQ7K9hXfRoIFwhpK4knBCAQjwspbqEgmrHVsat/P
+	 Py8MVUbINq7AS5AEYHett2KZyAHefIuF6b5tw8sB4re67WI7ChogbZQY+HlCJcrPZzDa4
+	 yWRlflpc0oHeb1MXbJf6TLcEM2YnFYBB91QvSQsthG0jslCb6c/VXL87Ul49jxo6G087y
+	 W3ac2xS5X7dgPOS6xDaxESI5VCPyyfPURisIwAf+Bvh7NXVqiXhsDfN8PPX2g9xBEgNh5
+	 I8Mb+fzcWjlezURBd1VL1040CK5SwtlH6UbabHng94hT6ZiPm6E4yFyTJ0FgKaTl78g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872980;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oCqWdQIGQCOZzitmtkFA20dx2a1EGHx/cd5A2O/wl08=;
+	b=m6HN4RyIQZueyLniqfpkaw3z0XUBT7aBVQH+SaUXqqiJe65BmkEEitkntj9NyOMLnKOf
+	 EkAHMPaUzcvbsBgPC906ipfU8suwIk/PNvj14qyDPmjH1gg/5SfFy2Jy2AcOuQiDwwLrn
+	 OpqBCz/lQ10Q/y0MGCGdGU0YLuxYys3lodUq/5qpvWLkthJDR2sVXiyTfwz7c/7tQgZc7
+	 nriV7WB/2g7PvJ075yNbFhBriaZcRQ7dUul0vl2+YkqBF3KtQlMysufCH27HSlslz0V3J
+	 O9U68+hrPMdA1c7ikRlac6nO6vBMx38gEv20ozpyDP78m8lLoZ9uNA+Fv0KnngQ+FKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=Igalia.com;
+	spf=pass smtp.mailfrom=Igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=b+mGsmFk;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88C7606A330;
-	Mon, 16 Nov 2026 23:47:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E88C7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F83606A31C;
+	Mon, 16 Nov 2026 23:49:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27F83606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=GRq6dFG5
-ARC-Seal: i=1; a=rsa-sha256; t=1794872819; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=inej4tXdDNrbwI2iLCdbbKghn7L/mpBlzz30MhNPRZ812lEI9uMjBvRjAa9/YbL10wNQS5T//czPLmXuRb4eTxAZd6knCzW/u6eZ6ZZepfi+LC05dooeVn84EiFE0kqSzNEAGioW+vBEB50cUdGlL9XfygKPRqDUwAzExMn2iEI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1794872819; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Ooe8aVYLhVyQjDTdzZYaM/OancGDo6HyHA7XUTxSDaQ=; 
-	b=JvhAMGsKmhDokRhKissokzoD2UuEbmCLuOweMxg+UqTmANFbSGwDnLv0v44Q/eHTrngXGPUfX1U83BhjiBupOPT+aI5e/O/HD6u3ajaouNQ1wQP1a1Kq40JA/ypv+ES3nRQTCOUHZYUO02EBTzfLztbUW9yzY9n84cuZoEC0FXE=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=GRq6dFG5MWvsX9lB2vV85LdCvyLwCnVGbM5hs2ybm7+Go8RGSTbckgzGtSuxw9oCgmw0VByn6VpplVRgfHxmV34jacX2mlFI6m6bg4eeoBAbgPCpmUWu1paoGL7TQI2f6+NLFzMRKdjZT7wg4KbBV9Moi+T1WmP6+HIo1+UFikw=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=Ooe8aVYLhVyQjDTdzZYaM/OancGDo6HyHA7XUTxSDaQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1794872817568586.021810184602;
-	Tue, 17 Nov 2026 00:46:57 +0100 (CET)
-Date: Tue, 17 Nov 2026 01:46:56 +0200
-From: Igor Velkov <iav@iav.lv>
-To: netdev-bot+sashiko@kernel.org
-Cc: iav@iav.lv, andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: mdio: mux-meson-g12a: keep the MAC data path when switching MDIO
-Message-ID: <20261117-re-sashiko-g12a-mux-v1@iav.lv>
-In-Reply-To: <179485704584.3136.17355463997361048256@kernel.org>
-References: <20261115-g12a-mux-data-path-v1-1-011dad738698@iav.lv> <179485704584.3136.17355463997361048256@kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=b+mGsmFk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=oCqWdQIGQCOZzitmtkFA20dx2a1EGHx/cd5A2O/wl08=; t=1794872978; x=2110232978; 
+	b=b+mGsmFkzmcZDrBDwVPTKQLSMkC0c30hQ4HQtvmq9lywKcWXjVDrVkR4pbS/nZGu1cDxWtb1r3y
+	m3rUrobWra6MCWHVJZ6aNDx/CQkXIv3900/oYO32BJCmJQiIW5ZrfoOZInJ4RXFNdGRH2/ISZoN7c
+	W0f3D6U4XfPuezsmMEFqB89p21ZQm+iiMr+BI3qdvNoI3DE10VxIq+GFhZ7ttHeq9+Eb8vaTiVhw9
+	YNfPWvmBJrFsa8NtYeGhVrtQL3sWmoGo8gMlxoW11KgqOet09f8lgPxrAPXHJplVynnuKCjWGZBfH
+	t1Gu4yDNYsFJI1vKApC3zg/7GcNEUox8mQvA==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xT6Rx-00000000OPS-0jp6;
+	Tue, 17 Nov 2026 00:49:25 +0100
+Message-ID: <57bcef5c-363a-4269-a38d-474e331e37c0@Igalia.com>
+Date: Mon, 16 Nov 2026 15:49:16 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,10 +58,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 04/10] drm: renesas: rcar-du: embed the writeback
+ encoder in rcar_du_crtc
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Brian Starkey <brian.starkey@arm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+References: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
+ <20261111-wb-drop-encoder-v8-4-62948ed87d13@oss.qualcomm.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <20261111-wb-drop-encoder-v8-4-62948ed87d13@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Right, the check missed the deprecated phy and phy-device references.
-v2 looks the PHY up with fwnode_get_phy_node(), as stmmac does.
+On 11/10/26 16:42, Dmitry Baryshkov wrote:
+> drm_writeback_connector_init() hides the encoder inside struct
+> drm_writeback_connector, which is the only reason that structure carries
+> an encoder at all. Every other writeback user already owns its encoder.
+>
+> Embed the encoder in the driver's own structure and register the
+> connector with drm_writeback_connector_init_with_encoder(), so that the
+> encoder can be dropped from drm_writeback_connector.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+It would be good to at least get an ack from someone at Renesas, but the 
+patch looks good to me. The changes align with the equivalent changes to 
+other drivers and the overall aim of the patch set.
 
-pw-bot: cr
+Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+
+> ---
+>   drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h     |  2 ++
+>   .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 29 +++++++++++++++++-----
+>   2 files changed, 25 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
+> index 8857926e109a..d8b1dcab8dea 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h
+> @@ -44,6 +44,7 @@ struct rcar_du_vsp;
+>    * @vsp: VSP feeding video to this CRTC
+>    * @vsp_pipe: index of the VSP pipeline feeding video to this CRTC
+>    * @writeback: the writeback connector
+> + * @encoder: the writeback encoder
+>    */
+>   struct rcar_du_crtc {
+>   	struct drm_crtc crtc;
+> @@ -74,6 +75,7 @@ struct rcar_du_crtc {
+>   	unsigned int sources_count;
+>   
+>   	struct drm_writeback_connector writeback;
+> +	struct drm_encoder encoder;
+>   };
+>   
+>   #define to_rcar_crtc(c)		container_of(c, struct rcar_du_crtc, crtc)
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> index 0a3108965591..a1271fec9874 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> @@ -172,6 +172,10 @@ static int rcar_du_wb_enc_atomic_check(struct drm_encoder *encoder,
+>   	return 0;
+>   }
+>   
+> +static const struct drm_encoder_funcs rcar_du_wb_enc_funcs = {
+> +	.destroy = drm_encoder_cleanup,
+> +};
+> +
+>   static const struct drm_encoder_helper_funcs rcar_du_wb_enc_helper_funcs = {
+>   	.atomic_check = rcar_du_wb_enc_atomic_check,
+>   };
+> @@ -199,16 +203,29 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+>   			   struct rcar_du_crtc *rcrtc)
+>   {
+>   	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+> +	struct drm_encoder *encoder = &rcrtc->encoder;
+> +	int ret;
+> +
+> +	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
+> +	encoder->possible_crtcs = drm_crtc_mask(&rcrtc->crtc);
+> +
+> +	ret = drm_encoder_init(&rcdu->ddev, encoder, &rcar_du_wb_enc_funcs,
+> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (ret)
+> +		return ret;
+>   
+>   	drm_connector_helper_add(&wb_conn->base,
+>   				 &rcar_du_wb_conn_helper_funcs);
+>   
+> -	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
+> -					    &rcar_du_wb_conn_funcs,
+> -					    &rcar_du_wb_enc_helper_funcs,
+> -					    writeback_formats,
+> -					    ARRAY_SIZE(writeback_formats),
+> -					    1 << drm_crtc_index(&rcrtc->crtc));
+> +	ret = drm_writeback_connector_init_with_encoder(&rcdu->ddev, wb_conn,
+> +							encoder,
+> +							&rcar_du_wb_conn_funcs,
+> +							writeback_formats,
+> +							ARRAY_SIZE(writeback_formats));
+> +	if (ret)
+> +		drm_encoder_cleanup(encoder);
+> +
+> +	return ret;
+>   }
+>   
+>   void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
+>
+
