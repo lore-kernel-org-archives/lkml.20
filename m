@@ -1,55 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839911;
-	b=yeBINdGyAss3sMwWDZWKyKVBg1mT+KAv4ff/jom9/B/Irie+65TizODqCjIr302KC6VQ
-	 mw8727UXbR6Q22OYWh7sJ+w0NG/YA06wwrE9/BkWEaJjMA5bXjQtvqWF2uZ6kAUdHTaTk
-	 Af4LVP3eLFe4HQi4O391vX+99NaAfqL/dbSBW0jo7Bv8ezlxzQke+OycgzhXtjHNyOsTi
-	 L7Fm+PZJMNTTedhGUMwj5bPMOXhldGf2/LQP2U4m8nwjCLIszzbwYjycJrkPisHshjocc
-	 b6PXpJ9P9IjLc+bqUB0qwN8DdrJN+yB2pzK8luhuzxZgWl+NDAjWCF6TPI3Pjrnevgw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839911;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AB+oE85rBz3kYmqVCq+Wu2uFRwaOKmFVZVyN/Ci/tK8=;
-	b=noaYd8JqJ6YltEDi29f0RLRyqqxYQzDjS2dXC8a7hUaJ6Dipj2xv/l9aCuTcUIuXSlkS
-	 hoctuwabH9z897tXoZPAQoR1lbr9LYcgLTPtSZR02L+ZFXe65k9yvtiM6PfoFT0O2mN8H
-	 579XlGLZh69uD+3VvmLp89pVB28Xq+qLHFNIgZSrlliizRGkGEuGh1tdS/AarswSbVUV3
-	 EDZVh/K/dy93iQN0fm6c0TA9RTsekbriHz7icMwybeyPME33Q1Ycr04cLvurvc/h880ci
-	 zKojhWdrrc8OyY43X4tYWLMx/B7bn+i7IVGoPU3B7+gRWG3hhyAOvOwPC4Zx5Ti2RSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/vP6umn";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794839918;
+	b=QPGGC8K/RvvaV+OuWV9iL3tpKE7Wpo87tkJvReK8gEYOpAEWUaYvtrkFP8hERQSKq9Ws
+	 /PCfGfBROOl23JtuGxT+MHBw02EeSZRPL2vEXM+QTWbUwjjJQaRs2am8k8wvhNQBMHVdY
+	 u2gNt8lheO6oDmBNXbPIoWPrMQVWTte+xcu9U1ya9j6LEgcK6Bhqk3j9wepLW0MbI9l0B
+	 MvJYKtz5whwbvT4yH1XU7eIZTD57VgKSLlG84cLlgtgjoAXFHa9MRBUeIQ4Vp4d1qJ63f
+	 He7wD34hQ65aLxhvfAZNRW1U7FGqTLvyqVvhxZekIlsUst2cjwb22LkvqJtsEEmafIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839918;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xwpWcgRm7qer0bIxGSmM3z4aZzr8WzaU7mJaPYvWRno=;
+	b=FbEllkR5SmG8MfVtEzgksoSuQZrUoyqEaVWLuNPm0l3/bznTKtVe6V76ixH2aY5Qo6Xa
+	 8hp6t+7/zBJgneE6VzkiUHebvIQPvvPtGxz883ZEA+peGce+9qWGNP4hZ179wz0im0SMG
+	 vWt4ftLRTtEupPFBNcMidAkinmDHo2QvtXvqGVOmazNMsZts25kyl8fHfKgOz17nVNufg
+	 xXjnZxeR4m83f+VupOHub5gqcL8Q72kpQJ9dEgMYJgMrvqx50kKi5F5gjnEn/sqlhZLTJ
+	 xVRFkLDULeSp7fkxwvRlYieDh/Au8AjKEtugJYaT0e8Sw3OAobjQdCqSJOsxSfhdXRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=cljvtMEF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.22
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011022.outbound.protection.outlook.com [40.107.130.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F83F606A330
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EF4606A32C;
+	Mon, 16 Nov 2026 14:38:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68EF4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/vP6umn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D124A1F000CF
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794839910;
-	bh=AB+oE85rBz3kYmqVCq+Wu2uFRwaOKmFVZVyN/Ci/tK8=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=H/vP6umnpg8doI5lkkWefq+xXfyvGElZk8fQLWEIscLnlwSeBgmYHRXZxcPyPbakk
-	 K4h/NnosT92GjGhxzcv1UGNmTNRlgHog2mDzmAqP4h+FL7Bka3t3W2pP9wWnS9B/k/
-	 3/UXDvz9qLBS8asJOU1YAmNtDJAOXtSlqJ1CK7ocsdl6blwRi78YtUfGmofT/EE/ET
-	 UM5SEV+m91UMb478Z8XVpg0MJFfpLcWetufctlmvhOVW8lpW4zjNfgpksVpUtS3Eu1
-	 U236iqOy/gQKIyH5MMwVCkj5XDreYY+zRQhf9wSJuWxMwAiBQwJfeldLqsPTe+OkXk
-	 oT1aPMz5L8RhQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5c17a1775fcso2046650e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:38:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH5Q9O/EkO7gNJf6pa9Nq9oHMxIQLqXV+Rn8krLudkN2u8cO0VGjnFraVsKvfoeDDig64cneNPsrgG3b7E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/++xH6Gz3Kq2heaRU1gT8JcuPf6tV/VK1ArRQS5Ki87CRnjf+Q
-	GkCUjuBwJqnqxl1eTGA2GHqcQoRLCO8J1Dh0RE4HpBtQWRs/2dPYWNAHGLBk8Ba8M5y5CzETYsE
-	PO0VOGsMmxSZM8SI8VYSPayNHjuk7YJg=
-X-Received: by 2002:a05:6512:2204:b0:5c1:5984:a67e with SMTP id
- 2adb3069b0e04-5c170b7e0bbmr4090987e87.56.1794839909219; Mon, 16 Nov 2026
- 06:38:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=cljvtMEF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eyr1T76X2qfdAn9S99vvnE9eHaJNY53vuvL58xizxwjK4tQkYfGOFdoRKaO+zBIH1svLyZtN/e1mqxGZB0HdxMTfUdA4iPGxKgp2Xc79Ckzng8c2LBjNH2OkEl/sA/eULtjv8KSP6unQZ0vIy7ojnZFnnt8WV8k8Lubwd0cpJJy53AaCp+Th1iTYn5vWTuD1L1jQOItsF93OfOZhAokByKsaOvyIlGNpK1LigMe3FTNlRgxUPPNxt5elUz4JTR0jaYY0GYlHkSZxGG+9KMUtGurr6vEL2i5humXRj7WRuReyTU8BFnRySms0bhr6UU7P+NUoJeENntnyzplQajuQWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xwpWcgRm7qer0bIxGSmM3z4aZzr8WzaU7mJaPYvWRno=;
+ b=vVqS/5WQC/QxVWdUk3VaPmjIqoJLMc2Hi9TdRAPurXYqo4HOWROdSOPs99Hki0nPX1MUU1+aFozTU+Ns0BxljX7c0+S+zBEGHVfhekkopCL1MOvelenb6jc/PWHpL5/q1Zt12COfU5G89mSLp43MDS4oae+betaUtmFePlpjwanZL3MhyOIjYxbh/qNcU0q5NNmTBHhWyfHWiuAiNG8o4C8l7s6SQ0rsMbP2fva0PMXl4H1FUkV5aSJ5qPWdsIR+iJqv8xFMmDW8NnRgCU2PPHfdBo2HLDVTDpF6oW7oOoBHeAKaaRuhvM+BZrNKR/eau04Um6Oou1g0reBo58j/vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xwpWcgRm7qer0bIxGSmM3z4aZzr8WzaU7mJaPYvWRno=;
+ b=cljvtMEFPmTjSwvOjvOKG/s8U/3ueY6kCJHTPVdm1KG7A5O90ITG3Q4jkYyLyln4/HidNqwa1ijQBdBw0bhQBeTG7Le+rOOOZ+waG1hB3DnM2TlanNjM5VxsN5q7IMCDxuK2Zxn0omP2WR1+w5MW7Ew0Qy7REHlcIQy4c5wvAFt2oZ1iuRbWDpje53f+EnG9huLfIScM9ySxO77Kr2i+jX5LoG1B1WJq80KvzMVKYhLv2iOHRPMOvfcCIuuARfeJp1bZ9qAMxBwXStbQGnTPL3YyopRx47QYwZuxUQKBoTWEo13FH5/4B5+ABKELvIMw/K2OBTTQDqr2wR3Wf1b+/Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by GV1PR04MB10967.eurprd04.prod.outlook.com
+ (2603:10a6:150:203::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 14:38:33 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 14:38:33 +0000
+Message-ID: <1fb7c21d-6852-4930-828f-c790ee49747c@oss.nxp.com>
+Date: Mon, 16 Nov 2026 16:38:29 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: ufs: core: Use ufshcd_query_attr_retry() for RTC
+ update
+To: Enric Balletbo i Serra <eballetb@redhat.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
+ Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Mike Bi <mikebi@micron.com>,
+ Avri Altman <avri.altman@sandisk.com>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Luca Porzio <lporzio@micron.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>,
+ linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>
+References: <20261116-ufs-rtc-query-retry-v1-1-4de69b175e8d@redhat.com>
+Content-Language: en-US
+From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+In-Reply-To: <20261116-ufs-rtc-query-retry-v1-1-4de69b175e8d@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P190CA0044.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d1::8) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,151 +107,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
- <20261026-sunxi-orangepi-3-lts-v3-2-98fef4f75184@gmail.com>
- <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com> <CAH87RzSWDuiA9w8-ZkZXjVmQ_3EbRGKu8dKUzBf=KhNJHZFgjA@mail.gmail.com>
-In-Reply-To: <CAH87RzSWDuiA9w8-ZkZXjVmQ_3EbRGKu8dKUzBf=KhNJHZFgjA@mail.gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Mon, 16 Nov 2026 22:38:15 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64Fd4ZN7fbTwcz45wK4Sc=hD10gjaVCYgW+HDa8O7W7_w@mail.gmail.com>
-X-Gm-Features: AclHuK96KoHqco8_GcNqfELYX9slSpaQgkQilXtuce9_buWQRgFm-Lbh0tQJI6I
-Message-ID: <CAGb2v64Fd4ZN7fbTwcz45wK4Sc=hD10gjaVCYgW+HDa8O7W7_w@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
-To: Cristian Filipescu <filipescu.cristian@gmail.com>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|GV1PR04MB10967:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dd56249-10ec-4363-1bc5-08df43ef49f9
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|19092799006|366016|23010399003|921020|11063799006|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261102123227099003|261021123027099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	aGusbcFg/r05Ir/4B2JvUtpZ3csbKrA35m67FeZY6kXom4GT1AHyFBTvh0dQOOsC99ndjanTaztu6Eo1qrzQSS7+Z9FBgX/8suiWRFilFrGMcuYkQLuacXrkandtJZXb7QBmxcqKVNwMrMD3MSb9WmX7JrQIiPf7r2F/OgHgjjQqenCv8m9e1yYWITsnrKpIBglLAffOlQV9wiotSVqgQhbDS48viG0wSdekqvo8TS27HL+1oJTxebuvVhV3/clzQOlU9ir5kxtjiLvsn+5t8o5k3PrMWjqtmpLQBxoULDiXWLF/x2sRPsUIdl+MNyKx36ZC7Hh//TgP2Lz8poh2ZzCvS+O88zkg7KzbKqX3j6B+7YPlMhvYGIo6fMlNam/OP9vQpILcarDApoCABuvwgJq41lESO3512Ub/o4ZGfHnkGqQwZM+JpxNuivMvzfPb496vhqbRu5aZ1jkQDEuwcHPNkWv44sYoC/wyMt6vo8BVCnm5iQAiXLNRjX6bU+fjYBGX9IdGvzdoZ1AnW8BxlQAfrmkw6FxN0Hokj/Vy/bT7ayyuL9lNqH94Geimrl5789M9Lhc2eL3poCdYWKn5OU9YTjINYzGQXMvQhUYjk+Ko4XbOCilys5RbpD/Du8AZ3Xu5Em86ukG65pncFFNVqFiBQDMz3Cbd4bCm/Qv4fHLsn1W2xAWbcyXKhSpOM9Jdp9WOmz0UJ3OyTR1aMwWB2A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(19092799006)(366016)(23010399003)(921020)(11063799006)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261102123227099003)(261021123027099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L2hYemF2TzkzbnR6dFNCSm9XV1pyRUx5enNLNHl3K0JsSDZ4TWR4K3ZjRUhS?=
+ =?utf-8?B?VWx6bEh1QmVVUTNhcFVwMTdBUGJMNFVQVWNKMm8zb3pzcjRQd3Q4OTRCV0g0?=
+ =?utf-8?B?WnJBN0o3Ni9tRHFjY1p4ZXcyYzV6QURhK2VCME5tSVNNWlZpcFJFTGt6Y3Vm?=
+ =?utf-8?B?MU1CVEEzWk94VVBYM0NkMllBMUtVbUxsalRNSnZSdTBLaGwxSVBQT2xMUTc0?=
+ =?utf-8?B?QnFxaExvVHl2bFA4ZUg3N2tNS0FzSjhGbzEyUUVMaGlVazJPU1lwN1dieEY5?=
+ =?utf-8?B?RlNrKzB0d242UTYxaXVlcDFIY3dyR2htSFV0TEt5bVpuS1ZXTExwWWlBMllZ?=
+ =?utf-8?B?RFdRS1RGSVFMbnRRcTJleE01S0dRTmlITmdBYnpWMXlrWGhub0xzWS9melJO?=
+ =?utf-8?B?M1Q1Q2hiVVhWa0NXWGhuWStKU0pya0RQZE5nNlJKaHFvVWd4VzFOM3FXRWtv?=
+ =?utf-8?B?eDRFNVA0WGNoakdkZlFxT1h4TFdDQTJESmVQbHpkTVg4RWswRjZNYWtLaEk0?=
+ =?utf-8?B?MUlVMGtMNU1ySTlDN1BMN1RaMjZ6N2pJQlhHbVl3NnFMblBwRDZGaEd4Uk9F?=
+ =?utf-8?B?UkN4bU9xWDNzNHJ4R2xsNDg3d0txMnNJRGFtR1dLSzZvT3F6Y25qWCtZYUZD?=
+ =?utf-8?B?S2ZmSHJLZDhZYUpQbXV0Y3Bpbzd0RGVHeVhiTjRvK2FUUDBiZmRodEFEV0hN?=
+ =?utf-8?B?TktUUHhXWTZLdjRrWFhrY2N3U2dPZVdvWVd6d2pVdWMxYnpjZlZNd2FyaEdQ?=
+ =?utf-8?B?YlhhaTBDamJzdzZYUFVtVVhVZ2JkYk10UFUxdGN3djUwZE10N2FDL2lHeXBN?=
+ =?utf-8?B?SEF5ZFlyRzJiT294dHhPZXB6Ni80UnpVNkJtY0dxbXBtYXAxM0J0Ym4yaktY?=
+ =?utf-8?B?ZDIrNkxySVpZMGxqcGdqU1hnZ3JnOVI2TVhNUVlDSTdNbnRORzBGRkRDWTBp?=
+ =?utf-8?B?TFdzNDJBeFV3N3k4QU1IbHJKL1JLck5lOVJ1a1FHQmtSWk9jYzIvKzYzaSto?=
+ =?utf-8?B?UmU3cW02MVBrS3NjL3ZuUkE2bnoxTHkyM0FjVVk3T2tNM3FXa0hwRFNlVTRr?=
+ =?utf-8?B?b0RsczJGUjlsQkllRXpSK2NnLytPOGRLa2FWMGtUQ1FFQ1Z1NTNEMHJNa1dM?=
+ =?utf-8?B?U3RjSXhXeE1LclFVSDJjTURrUjZzZUtmaTR4dFVzVlA3MzZKZlltY05za2ZC?=
+ =?utf-8?B?dzZiMm95RmJVMFRyVU9yR01valVzWVVKNEtXWGwraHh5eGNETzNiSDlWb3cy?=
+ =?utf-8?B?a2FucFRTanZ1aVVlZHhOeExMeXNDZWVINVVleUFXZzhaYlphbitMakdxb25r?=
+ =?utf-8?B?OSsyWkxLb0ljK014YlBaVSt2NXBlZWNhaVhBOHFNWXh6YmFxWlpoVzZaMkRs?=
+ =?utf-8?B?elY3bFc4a09td1F3OUJlN1V4b0lHNFBZQTk1dDZXRkM1UVZ2d0xYdUE4eXRo?=
+ =?utf-8?B?ZlNySzFqNTh4OUFTQzJIREFFNmoxWGhFUVNXMU5YaDdVVEpPSXIxQkVyUE4r?=
+ =?utf-8?B?SzJteGNteG5wK3FDS2dOVkdwbzhGQ2l2TUowTnBGY2FXQzVHYW4rM0J1T0lj?=
+ =?utf-8?B?YmNpajB4QjA4RW5UdnY1UGpGVE1EU1VVVlJTRHp2dzJKVjBOOXhSVzFVZGg4?=
+ =?utf-8?B?UktERkxFRDhPY3YrWFNHT0VsaWJVNVB5amRDbGJjRWc1dlBYUTFXeitqemZP?=
+ =?utf-8?B?azcwZW9Wd3NCRksyRE4zanI4ZlZGODJ4ZjhvT2pvSWFHekhIUjA2WXhSYU5x?=
+ =?utf-8?B?YWlpTGlBL2NJRk5xemJIT2t4VldlM0Z1dm1RVUtWM3paSHovcXJHdjVBNEhh?=
+ =?utf-8?B?d0FabU5NbVlMMjZ5NXFpMnlZVXF2N0FwcVltMWx6OVVCcHVMS1hmbHE0enhE?=
+ =?utf-8?B?eTNDZFh3OUtKRjFlOTNZd2VML1YvYTlTWDBwNWtDZXZJb0MxOFAwNzlEWHFE?=
+ =?utf-8?B?c1piNzB1eEZVR0F3WHJwWlZDbzFHOGFyeUxWU2VXRkxkb1NMWVhuY1hGRmM2?=
+ =?utf-8?B?TSs3ZUprMFZqcmVOWWlXblRPOWRBRnBjQTVERVUrME9NMEYzalBPQ3htelhv?=
+ =?utf-8?B?SGd0OE5jRUc0SVdlRTMya1RkL2VwY0R4V3NXYzJ0N0VJODhjbml3L20rSU1i?=
+ =?utf-8?B?eVFoOUxVaElVck4ySC9wTHZMUnhxVzcxTjc0Z251SThYSWU0SHM1THl2ZjhB?=
+ =?utf-8?B?VHRXeVdyMmVXdUF2cm80bTQycFBVQWo5N0EzSFFNQnl1ZElOaGRpUG9RRFVP?=
+ =?utf-8?B?MWErTHd1dCtKdjh6L2hPWTNtU2JvNVhPdC9pYUV2UjYrU05URHd2WUZLeDd6?=
+ =?utf-8?B?UkhhUzA1RkIwRUdON3Vsd3MyeVkwQnMxOFFFYU9HRmtkTFVQNUV2ck1IR2VD?=
+ =?utf-8?Q?5G5nnQ5FGdn+r4QM=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dd56249-10ec-4363-1bc5-08df43ef49f9
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 14:38:33.0115
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AT7dF1C32Zy80Mi8f2d0RIA1zRPYPbH2EElT5sDN2891yS5rATSmZdzAUmtuYB2pqDiis7Mec918UBigmOle5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10967
 
-On Mon, Nov 16, 2026 at 7:47=E2=80=AFAM Cristian Filipescu
-<filipescu.cristian@gmail.com> wrote:
->
-> Hi Chen-Yu,
->
-> On Sun, Nov 15, 2026 at 3:14=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wr=
-ote:
-> >
-> > On Tue, Oct 27, 2026 at 7:34=E2=80=AFAM Cristian Filipescu via B4 Relay
-> > <devnull+filipescu.cristian.gmail.com@kernel.org> wrote:
-> > >
-> > > From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > >
-> > > Add the board description for the Allwinner H6-based Orange Pi 3 LTS,
-> > > including its regulators, storage, Ethernet PHY, LEDs and USB ports.
-> > >
-> > > Specify the Motorcomm YT8531C PHY ID to avoid early ID autodetection,
-> > > which failed on MAC driver rebind. Reset the sole PHY at MDIO bus
-> > > registration and keep reset outside interface detach so its configure=
-d
-> > > 125 MHz clock output is retained. Use PHY-internal RGMII delays.
-> > >
-> > > Select the weakest GPIO drive level for both LEDs. Enable 1.8 V eMMC
-> > > DDR52 and HS200 modes; retain the H6 maximum frequency of 150 MHz.
-> > >
-> > > Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-jern=
-ej.skrabec@gmail.com/
-> > > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
-> > > ---
-> > >  arch/arm64/boot/dts/allwinner/Makefile             |   1 +
-> > >  .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 379 +++++++++++=
-++++++++++
-> > >  2 files changed, 380 insertions(+)
-> > >
-> > > diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot=
-/dts/allwinner/Makefile
-> > > index aa21f58a4..7ea136380 100644
-> > > --- a/arch/arm64/boot/dts/allwinner/Makefile
-> > > +++ b/arch/arm64/boot/dts/allwinner/Makefile
-> > > @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-ze=
-ro-plus.dtb
-> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-plus2.dtb
-> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-beelink-gs1.dtb
-> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3.dtb
-> > > +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3-lts.dtb
-> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-lite2.dtb
-> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-one-plus.dtb
-> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-pine-h64.dtb
-> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.d=
-ts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
-> > > new file mode 100644
-> > > index 000000000..e2ca41b94
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
-> > > @@ -0,0 +1,379 @@
-> > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > > +// Copyright (C) 2025 Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > +// Based on sun50i-h6-orangepi-3.dts, which is:
-> > > +// Copyright (C) 2019 Ond=C5=99ej Jirman <megous@megous.com>
-> >
-> > We now have a common sun50i-h6-orangepi.dtsi file. You really should
-> > rewrite this patch to just use that as a base.  It is mostly the same
-> > across all the OrangePi H6 boards.
->
-> v4 now uses that include and keeps the LTS-specific additions
-> and overrides. I compared the resolved DTBs to check the inherited
-> properties and preserved the LTS electrical settings, except for the
-> review changes described below. Common naming cleanups are deferred.
+On 11/16/2026 3:39 PM, Enric Balletbo i Serra wrote:
+> ufshcd_update_rtc() uses ufshcd_query_attr() directly to write the
+> bSecondsPassed attribute, making it the only query attribute caller in
+> the UFS core that does not use the retry variant. All other callers use
+> ufshcd_query_attr_retry(), which retries up to three times on transient
+> failures before escalating to dev_err.
+> 
+> This causes spurious error messages during boot on some platforms when
+> the write-attribute command hits a transient OCS_INVALID_COMMAND_STATUS
+> error:
+> 
+>    ufs-s32n7 4ac80000.ufs: ufshcd_query_attr: opcode 0x04 for idn 15 failed, index 0, err = 15
+>    ufs-s32n7 4ac80000.ufs: ufshcd_update_rtc: Failed to update rtc 15
+> 
+> Switch to ufshcd_query_attr_retry() to handle transient failures
+> gracefully, consistent with every other attribute query in the driver.
+> 
+> Fixes: 6bf999e0eb41 ("scsi: ufs: core: Add UFS RTC support")
+> Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
+> ---
+>   drivers/ufs/core/ufshcd.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+> index 3c28bc67c65f..1cd32b7cc967 100644
+> --- a/drivers/ufs/core/ufshcd.c
+> +++ b/drivers/ufs/core/ufshcd.c
+> @@ -8821,8 +8821,8 @@ static void ufshcd_update_rtc(struct ufs_hba *hba)
+>   	if (ufshcd_rpm_get_if_active(hba) <= 0)
+>   		return;
+>   
+> -	err = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_WRITE_ATTR, QUERY_ATTR_IDN_SECONDS_PASSED,
+> -				0, 0, &val);
+> +	err = ufshcd_query_attr_retry(hba, UPIU_QUERY_OPCODE_WRITE_ATTR,
+> +				     QUERY_ATTR_IDN_SECONDS_PASSED, 0, 0, &val);
+>   	ufshcd_rpm_put(hba);
+>   
+>   	if (err)
+> 
+> ---
+> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+> change-id: 20261116-ufs-rtc-query-retry-3f27084f878f
+> 
+> Best regards,
+Hello Enric,
 
-[...]
+Regarding the OCS_INVALID_COMMAND_STATUS seen on S32N79RDB, this 
+behavior is related to known errata that will be documented in the 
+future. I plan to submit a separate patch series to address these errata.
 
-> > Set the supply on all cores.
->
-> Done. All four running CPU nodes reference DCDCA, and all four CPUs are
-> online with the shared cpufreq policy.
+For this issue, OCS values 0xf and 0x3 are expected.
 
-I should've mentioned that since this is already enabled at the .dtsi
-level, you shouldn't add it anymore. If anything, it's the .dtsi file
-that should have all cores referencing the regulator.
+Best regards,
+Larisa
 
-[...]
-
-> > > +&mmc1 {
-> > > +       vmmc-supply =3D <&reg_wifi_3v3>;
-> > > +       vqmmc-supply =3D <&reg_bldo3>;
-> >
-> > Something is fishy here. The schematic also shows vcc-wifi-io (on the a=
-w859
-> > side) directly derived from vcc-wifi (reg_wifi_3v3). I suggest at least
-> > checking with a multimeter to confirm what the voltage is on the VDDIO
-> > pin of the module.
-> >
->
-> Regarding the AW859A I/O supply, I traced U60 pin 22 (VDDIO) to
-> VCC-WIFI-IO, which is connected to BLDO3 in the schematic. I measured
-> 1.8 V at an RW1 pad relative to board ground. This supports keeping the
-> existing BLDO3 vqmmc assignment; I have left it unchanged.
-
-You traced it on the board or on the schematic?
-
-Can you test at U60? The schematic has two options for I/O voltage from
-the LDOs, and then another from VCC-WIFI, hence I would like to be
-certain. I imagine the SMT components aren't labeled on the board, so
-it would be somewhat hard / eye-hurting to trace the board directly.
-
-[...]
-
-> > > +&usb2otg {
-> > > +       dr_mode =3D "host";
-> > > +       status =3D "okay";
-> > > +};
-> > > +
-> > > +&usb2phy {
-> > > +       usb0_id_det-gpios =3D <&pio 2 15 GPIO_ACTIVE_HIGH>; /* PC15 *=
-/
-> >
-> > This isn't connected to anything but a pull-up. And you already specifi=
-ed
-> > host mode only above.
->
-> Removed usb0_id_det-gpios with /delete-property/ so the common include's
-> PC6 setting is removed too. USB0 remains fixed to host mode. The running
-> DT confirms the ID GPIO property is absent and dr_mode is host.
-
-Thanks!
-ChenYu
