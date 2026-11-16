@@ -1,103 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794868825;
-	b=mX0b+ud5JyaEmUSGgPsbtX4rvzhmlRaNC42Y8md9gcdIXBKMDh9RZ3aLmmf5i8OkAFW9
-	 YKH7MB4IGHvfxIG/WR3Re88Wraxj6rL8Fe0Ds7MkGo6onym54QfuW+6vuDW8lUS9EwmK2
-	 4pFvbrqGBkmgNAthqHY/GLX35XNirDfJGytMzEaA2PObaXFw6LHfOTJpD6Q0u46Ti9LP0
-	 0lgTsv/Jk1lRuh2+EEbLPrC4Ny4o02e2hXpjLaOqZ75bUO1tD6MY1ADhMqmEoCq+XlXjM
-	 B7hzPiHyLAXSoB+U3WG82okGZHuzJyjXjbVqvW8p5zQSpvqcgjEyfK93+WZxvAxekTQ==
+	t=1794868930;
+	b=zT2Xyuh2SdCD6XYm9HNTrTlfOq7uAMOvG2/n45lgIYNT1EkkJjAdtE6dajLlgyGhhPS9
+	 k2FTliCnRT5g55eVCjI5hwTurIIJ/nsvhvEGj7U7pdM30u5geXIzcxNOn/Uez/WY7GwRi
+	 pU1ORqepL0P/qAN39ui1L/hheY+ghFSX7vGDBIxh98/xiAeI+JSehM0BdmHDeeeAIpnKp
+	 hTylMXIYvZ/pxDrAAeyxckJvIuK4rtnSzu3Le7lT4DEjRQLR97c9nEuVVntq+m9USGzxn
+	 x60jWoKQrwJPXawRPskWX3fj5H/U52kFo1zsJ3Y3flYit3jsUZx9uvj7fKda9ONkgUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868825;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=MlaZKxfYPwkH9fsdHQHyPucWoX+jhcmqEFHwzgVgYs0=;
-	b=ikZKN+u9CzezQxnsc8HgIdQxkc3aSx92dXUdX/yBCGOpUEmGVbzOAyayLPXbees3KpfW
-	 M98ZuJafPwrasSlOM3Io9OVCMx56ia1QxanYYMzQ6kfS6Bwm0E+0Ct2eAfhFkzGCrnogx
-	 5bQtP9GFXQhj4k4qK+wuBWK58OxW7K91K79brxsnwsVSb6hA3CYAKkYWEDt3bRpRUxLyc
-	 +b3Mr+UMjN1Lvz4IejXUZGP5Cz52RjjW6RoAiZTHeIULMV1ylZ1Yao7+G4g2qDMRzVNUq
-	 +cuBhFP67za14SA2uS6pu67UQRckVSsjvGHs/9cny9qLT1mjeFCc/2ayupYxbITXofA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868930;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/Pvmf2QgU+wzx57dWG9Br6WnsjJQgcv6TqcH2LlhKLs=;
+	b=X3+mYa9Rux9NV3f8143ZlhnTJGKHEIHHtET7YqV/Hkqj8hecvTHtrp2wDFVHk3ziqJ+j
+	 tU0t41+gx+wPYhRZj83nPhPX0sjDYe7769Ygltgsb06KXzVjApqd/S4wL724PfEIMl20y
+	 /BZCXvBM1kzVvXZHHemNiNZrzLrttyKVSVJPORFiE+s3fvxPr7H2q5yCEjln6EPvIwkas
+	 eqpxqVZibPPB7w9UDXcfT1QYDpxk8u4QDoMMhhHmsEeM5+hub4ZkPb6WpuqH6ZSZCzru8
+	 ldXbxsBanrVMPYUPT0X79xRfChG+0qdvFT5bfMrwKw1JHiNvsc/KIObBTkGxmWcIJbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nBCDoZ2l;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=r7SYfRIX;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=zHOQc7xt;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7759606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:40:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7759606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02410606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:42:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02410606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nBCDoZ2l
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-377f12217c7so3763571eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:40:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=r7SYfRIX;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=zHOQc7xt
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLYl0I3278707
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:42:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=/Pvm
+	f2QgU+wzx57dWG9Br6WnsjJQgcv6TqcH2LlhKLs=; b=r7SYfRIXc1lV35FnlAKy
+	CcS20Cp9MBQY7KQfCLwo5jc+H+sLCfA3JaK0l3iqQPv4Ao8Gj7gd3k9Q4/rXO7xW
+	cu9ZEY0g8gIIOXFg2GDvtU8esuALh2Zgy+XX7kzA4Gu0F/xKLAdp9G4NZCjmqKn5
+	TF72zUqCeLZ8xpiJ4Z0HC7LLV5RoFl0m0LnR0IIFdAY7DZezHVWPqkSQzMNYtGG/
+	/9vnz/Jlk/DRB/iR+qxvhFWfNqpDB+Zu95beYkx4KseANWS7paI0icHCme/BZW1T
+	uofCn+74bfRxh/BMVeaHFE5lWepd48n493hK7ao8hlxDiZ2M/g1pqZL/nBkqN7Nk
+	OA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j059sbf9s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:42:09 -0500 (EST)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f32050e72so1118067785a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:42:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794868824; x=1795473624; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MlaZKxfYPwkH9fsdHQHyPucWoX+jhcmqEFHwzgVgYs0=;
-        b=nBCDoZ2l64CCHSBu4EslIrbhzZNhp7ts0LRXo3nFNyddPceFoW8i8Dx4PwTqK2zuXC
-         kanOuApwf+7QIAS0cf/kNuiqcAkI/m0YmHRAp1whLHK5/YB7whYpt/3KlN3qIaWepik5
-         8+pmn28OZ2OxMNmFGSPEftBf0NAmmaL6dOmudmujM72UbVMqNEnbmgr2OesxZv8os3Js
-         cDPAseSAfakb6k9WDAn0xxhoQ1LzWKAqyc0rVtRAkUF/u1fG3wRCI6iHJIluyBkFn8KX
-         R0LN6JPo7ClpkTS28TtWqlrMutDGBrN3/eI7FR7vs+TUwYE65w/sPksqQOHpXxBD4PmW
-         kzdg==
+        d=columbia.edu; s=lionmail; t=1794868928; x=1795473728; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/Pvmf2QgU+wzx57dWG9Br6WnsjJQgcv6TqcH2LlhKLs=;
+        b=zHOQc7xt1nFzD+kJyhpWCzORYZIo7+UbbZDgUyzZQYprKhbtJq5T1WkReoA4ylzIOP
+         H8UtbDEsfEsULruFIk7ApFAUgRD09ez/NYONVih5uhDGN58g7FouRTvkx8tBJzRxSg07
+         eynuZY11ik4oNHVRV9zWGqapmWppEKg54xNJ7UowXN5hbyfoiQ1wTBMfABMXVqHMDtMM
+         5KN8s1oRLrvN/od/7vfLmmXR1ZpTV71AUDLMSttZiDgMe2Hc//l4FRsBrUyWTELip0lK
+         c2AdxOmri7i+0GAatQNGi4KizRRXAwCpGRVaAFNImkRii9SjkVmcfsJVR26hlrvDZZNH
+         68qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794868824; x=1795473624;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MlaZKxfYPwkH9fsdHQHyPucWoX+jhcmqEFHwzgVgYs0=;
-        b=PwZQXzd+vKD6lCoXEdQz9bZpR7U6JaLclPgbRUFfkhcgGNdzjuRwnz2r1Oe16Aaqpl
-         hTc+YNU5b5qVctqZvWEZSxpb0ila9ElF0EjcOGHfz2MblJ9JQWB6q/5PQSQuhMcIcxp2
-         GRwdRt3FkWLMVYY1MbIWDtAiiThPmXAnVKsC9aU+zffHGILgnNbFdECFFaydUBqSumNs
-         blp2R+Uoiaurg6HsrSPTXuHSP3+RO2XvVLB9WL4Dh6Pw5pb3WyGszHf7dSFxc25BOGts
-         q9H0RWwrWUyFKGel6snnssw9quDvZEAfwTRLqhxWZdOneJOJfV1hIZYalfNJceF3iygN
-         HUfA==
-X-Forwarded-Encrypted: i=1; AL+hErFM356Edj8WTzpaxEZu+rWqrfxl9aZTK9DERkaHe7Fzk/4rVMC61rxz/oceQtcZmQHRuvYkOEeov8U4EIM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JE+e3a9KMlGS0VZ/fyhQJPZDlg7SoLov+LWsNqfrd+971HQnZ
-	17QUCHeHYnGcxEXwYeltAupiopCA316WriaILVKQ/7sngIq9pCk6cpsk
-X-Gm-Gg: AZFdTZcr3qNm4QMZptcxFSD0zdAs8uTi4+m2ltbFZguDK+1jBt0Y+L5CzM34TxMfQtS
-	MkOt8XXr+VrKxIxSH/l/ipWb8mGyteRg/7b7b0HGGgBSQhpIV3ch99oQql95ACn2FR5sH9dEyJ8
-	hLe7BwNNf1hRWfq4g1snP/ppZuF5HV4gqS7IUAoEp9X+iRwwN5hbQvI+fWSmJ4ml+l83ocDisfa
-	v3yftvhys0Mzs1Wkfk4OW09PRcLv90G6uFFTZqxoLgunXjrSvGavUp5eXUfFwzPbx+l9aEkV2vK
-	Z3EXAddBPMidSe8tZN/bb4LsWXAjLuXxcIUz+u8BM+dzKy+JOsI8iZL2Wxwv/osMgSf6C68tRX3
-	8zl0j6RKwyr3jHyB860H5ygnT2tCIoKzgTRGNfCLaxJAtUbb0dR0S4XcQ7L7rw1L6beBozz1Hii
-	X1EHKSxcie45uGmGSh4J+DzvDb0Jw4CuJCUlij3SfV2cIyO0CZnoWnRaZl9qKIi1gm2l5ExgDhD
-	h/wSGSx1O4vhsZ5dIBNcSlhSIxc0a68jTUV0uLUoJgIImTFfJv5QagRAVXTl2YkwoCyiblWi7Y5
-	C3Y73FRQyCVO+b2U+1xsZzg=
-X-Received: by 2002:a05:693c:620c:b0:374:e25e:a533 with SMTP id 5a478bee46e88-37967cdd715mr14494631eec.35.1794868823847;
-        Mon, 16 Nov 2026 14:40:23 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:73::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d73dsm38247655eec.2.2026.11.16.14.40.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:40:23 -0800 (PST)
-Date: Mon, 16 Nov 2026 14:38:23 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
-	Willem de Bruijn <willemb@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Pavel Begunkov <asml.silence@gmail.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>
-Subject: Re: [PATCH net-next v5 2/3] net: prevent mixing frags from different
- memory providers or bindings
-Message-ID: <avuEsJPG0oUsKh6p@devvm16445.scu0.facebook.com>
-References: <20261115004003.3695475-1-almasrymina@google.com>
- <20261115004003.3695475-3-almasrymina@google.com>
- <avtRYLif2GvfuAmu@devvm16445.scu0.facebook.com>
- <CAHS8izN4eCMub+douN8P29KstidvsxVmpvDKhjZ4JDH9yXAJ9w@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1794868928; x=1795473728;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Pvmf2QgU+wzx57dWG9Br6WnsjJQgcv6TqcH2LlhKLs=;
+        b=ph34N9oyX6Ujwb3vfFLQ6ygerScHWJ8wV2BMLS38PCFFi95WAqHjosxMwkedBrdoPr
+         Z25cRO9AL83rIT+Jjr6EEs8OQ8aIC7QTjx7sND1iyEI86CW3FKcZjP05V0QIFCv9Kek2
+         F5CtVG/5Tmudo1VxaNiE/LmbwC/8V+dEjDkLKeaccbqsc6rD2HibRIo1/nmsOAbTJUJ1
+         lIgl9VOZRewIs3PJkPk4CRzaoElwGG4QzIH0vrBJi8Gi11sBdf2EM/rr0H7Yi/ibqvtr
+         Yv/h6SSPOqJk4DFFc+worG/fJDPbHaW7ngNfS8a2tiSCyr4S1U8W/hXGmapj4dsOI1Un
+         CKZw==
+X-Forwarded-Encrypted: i=1; AL+hErETCbb+D8Ywn90ZPtalxae7honrfGKg/raxZ28b0cisiDWVNIl9i/fscw0mIP3/q9iOueqHru1mA6Wl9WA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EhMvn9zVOZGAixo5ewYtjZyrEZSE67/th5g7lGuXfRePcNmz/
+	FK6rZ0h3ZgFyQaGJnlW/YVAfNO2Lse6dz8C73bJtYFZgYx/zrpLLjtweJRDPIe7QYnVlQOGnYE0
+	MvTUexqJFZs/gIUnT2mnKKHT1iMHGzwZ8DfoSyMvWH5k5fKUi6RPsLRsVhSSDNw==
+X-Gm-Gg: AYBFou1MZkOM9waT5LC1bIS5ETLb165q0cOSBkuTFsfLqiBdZ96L8H4oJM6WRuCsvIF
+	2hKE+Fu53PLg2XkVBFN9S7zd8wf/EVad7o1W9oQ9QcskaE5UB2oSOgAG4BzunQGcrhXDpxaLRRn
+	2M7ZhA4WE7UCPLQYQELlCQOObcY3uGAksjUuSQ0GRgTj5jMlnBPwh+Ia0x7CiVNB+6oUaAMpNS2
+	8Rf3nXgDomIE2dWYkJRTw8wwbktzOhE5CFtUz3WWCxI5LgKDFAT353oGD24sM6Uog8vRfMMji8a
+	DirwHMEbWzsm6HZs7iJp9xIHcSEXN+yiPRGSlK5YY0RZW8T1IgxuNEJY4SeZQNvcPO+90q44vgX
+	PEDNSLfLek66pEP9yDVEWit5kjypNZxDZFRXFB+jmyKl9KYclSt1gDx/wYU89JcR70c82Bs5eKA
+	QahLd2QhCW6byJpeFaqOkkJLaz
+X-Received: by 2002:a05:620a:280f:b0:93f:11ee:ba5f with SMTP id af79cd13be357-9494bca42ccmr1857375485a.79.1794868927911;
+        Mon, 16 Nov 2026 14:42:07 -0800 (PST)
+X-Received: by 2002:a05:620a:280f:b0:93f:11ee:ba5f with SMTP id af79cd13be357-9494bca42ccmr1857368185a.79.1794868927364;
+        Mon, 16 Nov 2026 14:42:07 -0800 (PST)
+Received: from [10.207.2.125] (nat-128-59-176-174.net.columbia.edu. [128.59.176.174])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949800ff73fsm312012985a.19.2026.11.16.14.42.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 14:42:06 -0800 (PST)
+Message-ID: <20e72944-108e-461a-b75f-d8c4f8edbc9d@columbia.edu>
+Date: Mon, 16 Nov 2026 17:42:04 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,232 +116,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHS8izN4eCMub+douN8P29KstidvsxVmpvDKhjZ4JDH9yXAJ9w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/9] mm/migrate: keep the uffd bit when restoring a
+ writable migration entry
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
+        James Houghton <jthoughton@google.com>,
+        Andrea Arcangeli <aarcange@redhat.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Balbir Singh <balbirs@nvidia.com>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        Michal Hocko <mhocko@suse.com>,
+        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+        Andrei Vagin <avagin@gmail.com>,
+        Muhammad Usama Anjum <usama.anjum@arm.com>,
+        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+        Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+        Joshua Hahn <joshua.hahnjy@gmail.com>,
+        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+        Ying Huang
+ <ying.huang@linux.alibaba.com>,
+        Alistair Popple <apopple@nvidia.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+        Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+        Oscar Salvador <osalvador@suse.de>,
+        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org
+References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
+ <20261116-uffd-state-fixes-v2-4-4397a0196479@columbia.edu>
+ <2d9ec2ee-8867-4ac2-b2b5-654bf2441513@kernel.org>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <2d9ec2ee-8867-4ac2-b2b5-654bf2441513@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA5MCBTYWx0ZWRfXx5N7rEsK2dIH
+ qKtB4p9CIMAyUwYZvLX3OoWeGhaFErdZPolsPRl7Y6XRpvfTkNYPsLVg5+uQ0BZUbvmNAdVif0B
+ 1/d1dHCXKWAGS91k7V/CzVbFeu70ZKiqBJz/VqWS8ZP4+9ekd1MxSZPzx5gPJj6s4BZfaefhzUH
+ w6qDFOIzLKljR6nP9kwSiy8OKGOwMBhmn9zwXojWQl5e0SNc7lx+9OsVZ8YLMhVVAZ17IlDB/fv
+ 0c9DC7u+jcy67JQvhQoYHjgnyES91ItgQt1UFABW1njpyh0GK1iF5E7LSHegIDD18hUijQJup6S
+ 6mHuhv78B/ew8cCIZAS57Z0iHt7d2wEef607navJj3KrvapykxlHuQdeiF5itP0Lf2/lFNtUs3z
+ 5Ro6tkoFiHZoJ82AufxBu8ti1pQHIf5PtIQ/Wpl0xXosXQq5n7xx+J+Q7JZ1FXVZJdwnYZKgxp5
+ Aq4bOYGYxAbYBsf/ScA==
+X-Proofpoint-ORIG-GUID: Zy5CVlpcWEBqwJIie-KqmvpSfGIoXDc7
+X-Proofpoint-GUID: Zy5CVlpcWEBqwJIie-KqmvpSfGIoXDc7
+X-Authority-Analysis: v=2.4 cv=D63SufRj c=1 sm=1 tr=0 ts=6afb86c1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
+ a=J8ctEq-HiRDkW_MkF-cA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA5MCBTYWx0ZWRfX6jNloEl2AiIA
+ +0xN6b2XKPP7GXlCQV8MdQtsfWRWB2X4ps4qdoCk+hNUZO83BDmxRV8l/bYoPmlri2nC9kHZYoV
+ rsAX+SZt+94Y+AtBd1uAcffNYjsp2ak0xi/Q8ioZI2Dm4FI41swN
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=10 priorityscore=1501 clxscore=1015 lowpriorityscore=10
+ spamscore=0 malwarescore=0 adultscore=0 phishscore=0 suspectscore=0
+ bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611160090
 
-On 11/16, Mina Almasry wrote:
-> On Mon, Nov 16, 2026 at 11:05 AM Stanislav Fomichev
-> <sdf.kernel@gmail.com> wrote:
-> >
-> > On 11/15, Mina Almasry wrote:
-> > > Prevent coalescing, shifting, or appending skb fragments from
-> > > incompatible memory providers or different devmem bindings.
-> > >
-> > > Add skb_net_iov_provider(), skb_mem_provider_compat(), and
-> > > skb_frags_can_coalesce() to check readability and fragment provider
-> > > compatibility (net_iov_owner(niov) for devmem, niov->desc.pp for other
-> > > net_iov providers such as io_uring zcrx, and NULL for page-backed skbs)
-> > > across skb_try_coalesce(), skb_shift(), skb_gro_receive(),
-> > > skb_gro_receive_list(), tcp_skb_can_collapse(), and
-> > > tcp_skb_can_collapse_rx().
-> > >
-> > > Also add net_devmem_skb_binding() and use it in tcp_sendmsg_locked(),
-> > > zerocopy_fill_skb_from_devmem(), and validate_xmit_unreadable_skb() so
-> > > TX skbs cannot mix different devmem bindings or transmit non-devmem
-> > > unreadable frags on DMA TX devices. Reject converting linear head_frag
-> > > payloads into page frags on unreadable skbs in skb_try_coalesce() and
-> > > skb_gro_receive(), and propagate skb->unreadable and compare
-> > > skb_frag_netmem() in tcp_clone_payload().
-> > >
-> > > Update netmem_ref_test_net_iov and netmem_ref_test_try_coalesce so their
-> > > target skbs carry a compatible unreadable net_iov frag before shifting
-> > > or coalescing.
-> > >
-> > > This issue was found by manual code inspection and LLM review; it was
-> > > not triggered in production. Verified with the net_core KUnit test
-> > > suite; not tested on real hardware.
-> > >
-> > > Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
-> > > Fixes: bd61848900bf ("net: devmem: Implement TX path")
-> > > Signed-off-by: Mina Almasry <almasrymina@google.com>
-> > > ---
-> > >  include/linux/skbuff.h | 55 ++++++++++++++++++++++++++++++++++++++++++
-> > >  include/net/tcp.h      |  5 ++--
-> > >  net/core/datagram.c    |  4 +--
-> > >  net/core/dev.c         | 14 ++++-------
-> > >  net/core/devmem.h      | 22 +++++++++++++++++
-> > >  net/core/gro.c         | 16 ++++--------
-> > >  net/core/net_test.c    | 42 +++++++++++++++++++++++++++-----
-> > >  net/core/skbuff.c      | 24 +++++++-----------
-> > >  net/ipv4/tcp.c         |  3 ++-
-> > >  net/ipv4/tcp_output.c  |  4 ++-
-> > >  10 files changed, 142 insertions(+), 47 deletions(-)
-> > >
-> > > diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-> > > index 1d6832878930..867e3ab17c17 100644
-> > > --- a/include/linux/skbuff.h
-> > > +++ b/include/linux/skbuff.h
-> > > @@ -3770,6 +3770,61 @@ static inline void *skb_frag_address(const skb_frag_t *frag)
-> > >       return page_address(skb_frag_page(frag)) + skb_frag_off(frag);
-> > >  }
-> > >
-> > > +/* Return an opaque pointer identifying the memory provider instance of @skb's
-> > > + * net_iov fragments:
-> > > + * - For devmem (NET_IOV_DMABUF), net_iov_owner(niov) (&binding->area, 1:1 with
-> > > + *   the binding across RX queues and TX).
-> > > + * - For other net_iov providers (e.g., io_uring zcrx), niov->desc.pp (shared
-> > > + *   across all areas of an io_zcrx_ifq).
-> > > + */
-> > > +static inline void *skb_net_iov_provider(const struct sk_buff *skb)
-> > > +{
-> > > +     struct net_iov *niov;
-> > > +
-> > > +     if (skb_frags_readable(skb) || !skb_shinfo(skb)->nr_frags)
-> > > +             return NULL;
-> > > +
-> > > +     niov = skb_frag_net_iov(&skb_shinfo(skb)->frags[0]);
-> > > +     if (!niov)
-> > > +             return NULL;
-> > > +
-> > > +     if (net_is_devmem_iov(niov))
-> > > +             return net_iov_owner(niov);
-> > > +
-> > > +     return niov->desc.pp;
-> > > +}
-> > > +
-> > > +/* Return true if the memory providers of @skb1 and @skb2 are compatible
-> > > + * for coalescing. For any struct page-backed provider (the buddy allocator
-> > > + * or a future provider handing out struct pages), coalescing is assumed
-> > > + * feasible. For net_iov-backed providers, the provider instance pointer
-> > > + * must match.
-> > > + */
-> > > +static inline bool skb_mem_provider_compat(const struct sk_buff *skb1,
-> > > +                                        const struct sk_buff *skb2)
-> > > +{
-> > > +     /* Check skb_frags_readable() first to reject readable/unreadable
-> > > +      * mismatches and avoid chasing frags[0] and struct net_iov when
-> > > +      * only one skb has unreadable frags.
-> > > +      */
-> > > +     if (skb_frags_readable(skb1) != skb_frags_readable(skb2))
-> > > +             return false;
-> > > +
-> > > +     return skb_net_iov_provider(skb1) == skb_net_iov_provider(skb2);
-> > > +}
-> > > +
-> > > +static inline bool skb_frags_can_coalesce(struct sk_buff *to,
-> > > +                                       struct sk_buff *from)
-> > > +{
-> > > +     if (to->pp_recycle != from->pp_recycle)
-> > > +             return false;
-> > > +
-> > > +     if (skb_zcopy(to) || skb_zcopy(from))
-> > > +             return false;
-> > > +
-> > > +     return skb_mem_provider_compat(to, from);
-> > > +}
-> > > +
-> > >  /**
-> > >   * skb_frag_address_safe - gets the address of the data contained in a paged fragment
-> > >   * @frag: the paged fragment buffer
-> > > diff --git a/include/net/tcp.h b/include/net/tcp.h
-> > > index 25d11fab1b03..bf5f28e52fca 100644
-> > > --- a/include/net/tcp.h
-> > > +++ b/include/net/tcp.h
-> > > @@ -1275,14 +1275,15 @@ static inline bool tcp_skb_can_collapse(const struct sk_buff *to,
-> > >                     mptcp_skb_can_collapse(to, from) &&
-> > >                     !skb_cmp_decrypted(to, from) &&
-> > >                     skb_pure_zcopy_same(to, from) &&
-> > > -                   skb_frags_readable(to) == skb_frags_readable(from));
-> > > +                   skb_mem_provider_compat(to, from));
-> > >  }
-> > >
-> > >  static inline bool tcp_skb_can_collapse_rx(const struct sk_buff *to,
-> > >                                          const struct sk_buff *from)
-> > >  {
-> > >       return likely(mptcp_skb_can_collapse(to, from) &&
-> > > -                   !skb_cmp_decrypted(to, from));
-> > > +                   !skb_cmp_decrypted(to, from) &&
-> > > +                   skb_mem_provider_compat(to, from));
-> > >  }
-> > >
-> > >  /* Events passed to congestion control interface */
-> > > diff --git a/net/core/datagram.c b/net/core/datagram.c
-> > > index ecc30a6f8302..88cc0a6c62f6 100644
-> > > --- a/net/core/datagram.c
-> > > +++ b/net/core/datagram.c
-> > > @@ -712,8 +712,8 @@ zerocopy_fill_skb_from_devmem(struct sk_buff *skb, struct iov_iter *from,
-> > >       size_t virt_addr, size, off;
-> > >       struct net_iov *niov;
-> > >
-> > > -     if (i && skb_frags_readable(skb))
-> > > -             return -EFAULT;
-> > > +     if (i && net_devmem_skb_binding(skb) != binding)
-> > > +             return -EMSGSIZE;
-> > >
-> > >       /* Devmem filling works by taking an IOVEC from the user where the
-> > >        * iov_addrs are interpreted as an offset in bytes into the dma-buf to
-> > > diff --git a/net/core/dev.c b/net/core/dev.c
-> > > index a230ecce9327..51f5e4800eee 100644
-> > > --- a/net/core/dev.c
-> > > +++ b/net/core/dev.c
-> >
-> > [..]
-> >
-> > > @@ -4175,8 +4175,7 @@ static struct sk_buff *sk_validate_xmit_skb(struct sk_buff *skb,
-> > >  static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
-> > >                                                   struct net_device *dev)
-> > >  {
-> > > -     struct skb_shared_info *shinfo;
-> > > -     struct net_iov *niov;
-> > > +     struct net_devmem_dmabuf_binding *binding;
-> > >
-> > >       if (likely(skb_frags_readable(skb) ||
-> > >                  dev->netmem_tx == NETMEM_TX_NO_DMA))
-> > > @@ -4185,14 +4184,11 @@ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
-> > >       if (dev->netmem_tx == NETMEM_TX_NONE)
-> > >               goto out_free;
-> > >
-> > > -     shinfo = skb_shinfo(skb);
-> > > -
-> > >       /* All net_iovs in an unreadable skb share the same binding. */
-> > > -     if (shinfo->nr_frags > 0) {
-> > > -             niov = netmem_to_net_iov(skb_frag_netmem(&shinfo->frags[0]));
-> > > -             if (net_is_devmem_iov(niov) &&
-> > > -                 (net_devmem_iov_binding(niov)->direction != DMA_TO_DEVICE ||
-> > > -                  READ_ONCE(net_devmem_iov_binding(niov)->dev) != dev))
-> > > +     if (skb_shinfo(skb)->nr_frags > 0) {
-> > > +             binding = net_devmem_skb_binding(skb);
-> > > +             if (!binding || binding->direction != DMA_TO_DEVICE ||
-> > > +                 READ_ONCE(binding->dev) != dev)
-> > >                       goto out_free;
-> > >       }
-> > >
-> >
-> > Should we limit this patch to the real fixes only? This part does
-> > not look essential. validate_xmit_unreadable_skb already does skb_frags_readable
-> > check above, it already does nr_frags > 0 check here...
-> > so why go through the same stuff again via net_devmem_skb_binding?
-> >
+On 11/16/26 3:23 PM, David Hildenbrand (Arm) wrote:
+> On 11/16/26 21:02, Tal Zussman wrote:
+>> remove_migration_pte() makes the restored PTE writable for a writable
+>> migration entry, and only looks at the uffd bit of the entry otherwise.
+>> A writable migration entry that has the uffd bit set is therefore
+>> restored as a writable PTE without the uffd bit, and the page is no
+>> longer write-protected.
+>> 
+>> An entry with the uffd bit set must be restored write-protected, whether
+>> the entry is writable or not. remove_migration_pmd() gets this right: it
+>> makes the PMD writable and sets the uffd bit as two independent steps,
+>> and pmd_mkuffd() write-protects the result. To fix it, do the same at
+>> the PTE level, where pte_mkuffd() write-protects the PTE as well.
+>> 
+>> The only known path that created such entries is PAGEMAP_SCAN. With
+>> PM_SCAN_WP_MATCHING, it write-protects the pages it scans, and it set
+>> the uffd bit on a writable migration entry without downgrading it. Now
+>> that PAGEMAP_SCAN downgrades them like change_protection() does, we
+>> should no longer see them, so this change alone should not be visible to
+>> userspace. If another path ever creates a writable migration entry with
+>> the uffd bit set, the page now stays write-protected instead of losing
+>> the uffd bit.
 > 
-> So this is a real fix actually, although I agree it's kinda clobbered
-> into a patch with an unrelated fix. The existing checks do not catch
-> io_uring zcrx RX packets that have been received and the stack is
-> trying to forward them over a netdev where the memory is not mapped,
-> and this patch fixes that.
+> I am severely confused. If it was properly fixed, why should we do the below?
 > 
-> > If you want, maybe move this to a separate patch at least? And do
-> > something like:
-> >
-> > binding = net_devmem_skb_binding(skb);
-> > /* I hope likely() below properly unwraps net_devmem_skb_binding similar
-> >  * to existing likely(skb_frags_readable) case... */
-> > if (likely(!binding)) goto out;
-> > if (dev->netmem_tx == NETMEM_TX_NO_DMA) goto out;
-> > if (dev->netmem_tx == NETMEM_TX_NONE) goto out_free;
-> > if (READ_ONCE(binding->dev) != dev) goto out_free;
-> > return skb;
-> >
-> > And call it cleanup with no fixes tags.
+> You should WARN if we get the uffd-wp bit set on something that is writable, not
+> silently swallow it.
 > 
-> I could break it into a separate patch and reduce some of the
-> duplicated checks, but it's still a fix. It may be good as-is once you
-> realize it's a necessary change?
+Yeah, so this is more of a hardening change than a pure fix. I think adding a
+VM_WARN_ON_ONCE here makes sense, but the uffd bit should still be set so
+writes don't go unreported (which is what remove_migration_pmd() does too).
 
-I see, so that desc.pp part is missing currently :-/
-
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-
-If you happen to repost, I'd remove unrelated `struct skb_shared_info *shinfo`
-removal/etc to make it more clear.
+remove_migration_pmd() should probably grow a warning for this case too then.
