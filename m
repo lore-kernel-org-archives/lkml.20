@@ -1,72 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794868395;
-	b=IiJiDwaQ18QbuSiXYHJgrSuYQOn/3p2WS3RYMRm2d8y3OV05yg4G935t+1o7rUwGlA8h
-	 rEQVKDCHAX0yCAOXTCGLQCxXFamff1v+hhhheLDsBRIyUztLH0j5fSiIe5doayehE0O7/
-	 t0dkrxAqZSWq8MdkpUBRkPNPp+xg0HH7lW4pg0CcoQ6IslVTlfBirUXI0w37Qn2sOO4nq
-	 B66f8xz9D1eiR8gsFK6xbFJeDiA2L4X93oW4zzl2WEGs7bb6RAEERii//Osbo6M4bW5G6
-	 SEcB1pXpeebqMzlrlGihMl2/MygClS5ldHou8FmLOX2Zn7A/kyBFGAp0+dIELzsJDFQ==
+	t=1794868591;
+	b=i8cDPSGKMSUjcoJM/HVPoNnhkjaDMZ4rd30POjEK5ZTpUIKYLKH8gWiogVLK5B3RqPvE
+	 9bOKd2/k5aLyiv+TPaBJXW5VD9jfFSbgfXwp9N+54HstMFF9kPsJ/ghzwGQswuc8YXxJi
+	 Z9LTHHFSnD4wuQYU7/DmIK7/JJQ2QU+8IwdVh4hr8IMaPUpQW3yMe+PS2EGBky5litQ5O
+	 eBP8ZJScnFYHHVxIeOsgzKoiG51uqx5JZcjTK5c0MQKQe5aypPNwbLneLUI79egVX2U36
+	 YeI6aHh1m+1pWtbkeU2m+w9K5gkfnPZ8b4zrCC04m0WxAtsCOAi50JjsqMm34Ev+Pmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868395;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868591;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=LAjrtpG3yMBtaw72gpwmwsyACrUESbNEG0x3WEcUFPM=;
-	b=b6LDp22KCc9lhqbGi+UJkt3Lrq/Af4RSjQy2MQmEB6euuzyzMm25HN+Ju5EBJToXJL7c
-	 foGaiFV9vhNX05QbARew43cgw9TL6UT+NeyadLAGBrmxHBl6hIpleHN71AO5ZT6ilrfZN
-	 Vg1dA9qg8Eyppzd2TBuOs4mO7CFPlmqm+Te/VaJtELQOjgyRJ1yomiJW3uzmh2y0BQ1x8
-	 qDEN64ciyOHXu5zFKn+RlzyD3XqnFAcXd0zQLAYCexAOEeu8l6o38AT+LfswKQ8T8270C
-	 Tq7ErCxDar1liSKBOA2xu4sONc8hW+aKGMyz/lYvLIiNE6m3jlIKnSClBB75q/n2hFQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7eskyEXW2WJu1OAVnH2Z/C+gXSpaGa/nzLhd+PYAulk=;
+	b=X65xrqBgL702HK7w8ZQGv7lKHstptkyvUVYJIwOrjOWRPpSPb2rdwgBkoc9pFv9rKo3V
+	 SjoXe16WVI55ai7+wEpyDvvcHxIyrI6QQL4agJTIeZLTScIRyIV3rVgUKaRYF4XFXjEgB
+	 Hnexb5LLjff6/D1uMJXaXyOtB5Sq5IG4D++kG2H/YcHvtmUzFVBoNM+6kyG8WUk+R9+XE
+	 1pTS6W/3VjHERgX4mhtarMhbJG+n3spHEZM+50qDCNTfKHlPlluOAzT8MjrnJ1MrE1h+1
+	 oWobWRoZ/0wk76lDtMWgLMnyG8G0x7AbFjorRncarO6t1K8jOlGt/Wq6YronWSeGDxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mlKqdynp;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ho2RKx3r;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECDA606A889
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:33:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ECDA606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837BB606A880
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 837BB606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mlKqdynp
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-38131260a5dso633907eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:33:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ho2RKx3r
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-49134c8509fso3866950f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:36:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794868386; x=1795473186; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LAjrtpG3yMBtaw72gpwmwsyACrUESbNEG0x3WEcUFPM=;
-        b=mlKqdynpdtA+PdhjhAZZ2Iai0d09Zs+2K9bhBWuuVIYcZdz2O/nbGvUr/u6oqGRwYI
-         Otu1dByUoITyn9DTg2JhKs2gxOMzT+eNPX0Mjxh2WgPqrsL+93qOjukJVqhoT8lhWjEZ
-         kP/mrhUsmOJYe4vmqM1H+yMZH2f2qTG4nVhAJdUkh2qfgL1OSQALdZOXav2TLDWYyBYH
-         j9zYUKahnCDb/ybVQ4DBcsNh3GB2DTxyz2xtWsZQbo/z0t5rgn4yVRGgIzAP3k55F1XA
-         dQ+FjChLiDLpbHcIKzXIdmeUaLlO6Q5usFRx30maVgd14ZsT2YCz6VY89k+aH51Fg8Lc
-         CbLA==
+        d=gmail.com; s=20260707; t=1794868590; x=1795473390; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7eskyEXW2WJu1OAVnH2Z/C+gXSpaGa/nzLhd+PYAulk=;
+        b=Ho2RKx3rEO2FcF7PE8ocDweY86W0zoAnenCU/35zG2WC3UmxIGinYrRzcyNY4fMZzP
+         pmOTim/ajW0oE2Vc6v9ZiaDR3xtyFg3UUlPkbkByU24SB+naN8aPsMvG6mrB4gUU4o3a
+         aT7dP4DcGLpPpvw/L0q7i/jRpmzSGrbj90bmB4Yu66QdxwujUFcz+AL/ysjpT4RL8PUR
+         SmAKBxEVfocPjFzODut4/n4szJF4GoebMhd81kh1HCWD00plY+Z865Jduv6t0A9h7wT8
+         p8BrpHQ5YzCQS6euDyTLMjjV9SdeVVXkVYkABCBy3eTrnUzDFguCiHMIA/vVukhjp6vU
+         KzdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794868386; x=1795473186;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1794868590; x=1795473390;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LAjrtpG3yMBtaw72gpwmwsyACrUESbNEG0x3WEcUFPM=;
-        b=kK+xHFtVRObc3/7pG/JeC2un26j6D+CMH0u3GUHWnhr7snUpOOii8F4VRn+c2mAmjO
-         orR5xHjOmqEkWSYdhEgmbkI8ndrS69Rl/hAUCV5Hj5b6qjBifdIbGdp0YIgMW7romesF
-         TI3dttHwJ7Qq69LcYkdEmqIinIeRMDtLlfT9ZifAu3gA+Igcwzoqsfe2g8075E/HFIWM
-         nxqloHS0Vadx+rMYpOkFJFMqpLPxScCWUOjhYjy6EV06SFDKAiXQNu91WMVkizGD0/49
-         JNo92BTlLFJtht+9fh0Li7Ye/ZLJGFyHsRuU/I3HhK8gUu6ej5Yh6vh5hNIu5kSuLvEL
-         5pqA==
-X-Forwarded-Encrypted: i=1; AL+hErEo9QU+SuqHeeVllBoQsVfijDaQoR1T+nj+zDhjh5SgSjC41LkfrxO68A94n47GUzeH+GpaaN9eLZDxh1c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AA/ic2M5RpCcJcKEvtV/oaRfoA9QoXEfDOzxw8yj0gxk0+U1z
-	xSJUj6c2w+Gc5hdJHxnnvbjZljKMAs8/gaJASjdmsVe3+juV6vCvMJEo5ICm46s1C9N+4h1Y8Ze
-	N+D08Ebnp4znFuVkIBFRUE8gnLYo2MvhtHFlvZA==
-X-Received: from dyad21.prod.google.com ([2002:a05:693c:8355:b0:359:a8c8:38e2])
- (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:424a:20b0:168:3243:c911 with SMTP id a92af1059eb24-1b503137b4fmr13707934c88.37.1794868385967;
- Mon, 16 Nov 2026 14:33:05 -0800 (PST)
-Date: Mon, 16 Nov 2026 14:33:01 -0800
+        bh=7eskyEXW2WJu1OAVnH2Z/C+gXSpaGa/nzLhd+PYAulk=;
+        b=emymgPiOVdZSfeopLXB2eAVuksX1oX6a7XDQW8twVXdjMzglvJTAx5JwCvRtTcGrYk
+         836fU8OhoOsfPROo5SW6VNP5+4JeZBfYfAHgi1Vc222pgUsVWfUJpX75ToNfATsRVNsy
+         T9zq1+gaRSv46xrq1xFqlXIw566XtZh6dQ/K96Y1z0RF9XbPpPsn0cu3vzIp0bOGKI4O
+         nRRbpHLSS6+tnItwGINevE/vwUstFfaGDbjhu9xdpJ7pZ7wLbUmVu2PLRfuhNj5xZR2a
+         wetgxl5xspPwHGKHdgsORleBP32XRJEAQbfmuW8OtxuSsyAMdwvVHIdmb3rJM8Ih+jS4
+         WcmA==
+X-Forwarded-Encrypted: i=1; AL+hErFGDY/qTOub/pRIGZYouE01BRSvhPWycqMe8FUk56w+cYBwJtiaY1dk0Qc3a68RZXsIDYbkLyYek3eRHbA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Nz7gme52oH1IkrMOJcN1EDeHoJAczD/xqZYfBdZyGff5kxH3t
+	GTBdbuA8o6NhYxOGa6mm5b9qOVITJ5bA896cRKDKckTgb22iUsogiEmwW17PWhOU
+X-Gm-Gg: AZFdTZdZlvo3HuqPSfpLtphuwKR5WQIaXQzhMBs3AiaULxte8PJoxlUr7WaijhXRRoX
+	FwtPdkPCqA7AbEpUU5AmcnA0JRHxsDeDnW2rcFwHbuOTFcoIilhtloCP5rgpSDVU5C8p9CJD1kz
+	r6eUw4G6QtraCD2ZBq07tlYtb6WM8lRJDXeRZutftS4Zv5dfpwHxRBoCmUKSPzs+5EF8gU9TfAk
+	bVnbmfAHmLVjnZQRmMc6FASaXpM9KN7ORJXGAKScTz/paX56+RjvYJU+ayRfFHj0/lVepmx3pm7
+	NZjLRVJjOXAyJjWezzakWLDmx9ttNEIOBcFljoM8KlNDBWgpfjo4/NN+wBIWeY6w7QCEMuZE/UA
+	RnPoZlrUKBj3DNYQLx7xRkli6HgfuSjo7GnVqln53mPJETVZKumg/e6j8X+EmxwW2Ztb1c2bbr0
+	3urCCC5CcoSLUViSZFuYSuNjazAgTGND4NUPHgq5qiVz+iUKStPuJImmaWG9wUdBsSDLFK3acNR
+	T0sDMw4RLqMWdHMkL1KZFxfW6PM6GbnZhrgnNAeyNPTQQf2J2j7975nl3FcRBzYsMtbQo8900QF
+	8ivY1hH/RDpiZf93kFDFFiFYg19u0w5xMP9DTKRYgvK2QEr+GSoFeIAAsTEOnmDvV1c=
+X-Received: by 2002:a05:6000:2402:b0:48e:5550:c64c with SMTP id ffacd0b85a97d-49c70ed7fe9mr26111904f8f.14.1794868589842;
+        Mon, 16 Nov 2026 14:36:29 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1797sm27428709f8f.11.2026.11.16.14.36.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 14:36:29 -0800 (PST)
+Date: Mon, 16 Nov 2026 22:36:28 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org, "Borislav
+ Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org, x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <20261116223628.5a6139a7@pumpkin>
+In-Reply-To: <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+	<avrPcQ4sOkgJPbkZ@gmail.com>
+	<20261116130159.GA1327949@ax162>
+	<CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,116 +102,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261116223301.1706170-1-sarthakkukreti@google.com>
-Subject: [PATCH] dm-verity: export verify_wq to sysfs
-From: Sarthak Kukreti <sarthakkukreti@google.com>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
-	Mikulas Patocka <mpatocka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, Brian Geffon <bgeffon@google.com>, 
-	David Stevens <stevensd@chromium.org>, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Under heavy concurrent read bursts, dm-verity workers blocking on
-dm-bufio reads or locks can cause workqueue concurrency management to
-spawn hundreds of per-CPU kverityd threads across the system.
+On Mon, 16 Nov 2026 07:48:34 -0800
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-Export verify_wq to sysfs via WQ_SYSFS so userspace can inspect and
-configure workqueue attributes (such as max_active) per dm-verity
-device under /sys/bus/workqueue/devices/kverityd-<dev>-<id>/.
+> On Mon, 16 Nov 2026 at 05:02, Nathan Chancellor <nathan@kernel.org> wrote:
+> >
+> > On Mon, Nov 16, 2026 at 10:40:01AM +0100, Ingo Molnar wrote:  
+> > > Can we just limit the feature to when host == target, ie. to not
+> > > work it around in such a crude fashion?  
+> >
+> > That was my v1 but Boris didn't like it:
+> >
+> >   https://lore.kernel.org/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org  
+> 
+> Well, that is admittedly very crude and hacky.
+> 
+> Maybe we should have some config variables that depend on HOSTCC, and
+> detect it *that* way. It does appear that we don't have any model for
+> cross-compiling in the Kconfig setup, but maybe  we should..
+> 
+> I'd actually love to have support for making the compiler itself part
+> of Kconfig, so that the gcc-vs-clang could be *in* the .config file
+> rather than being an external thing to it.
+> 
+> I've mentioned that before, and the problem has typically been that we
+> end up depending on 'CC' outside of the Kconfig scripts and
+> independently of the current config.
 
-Co-developed-by: Brian Geffon <bgeffon@google.com>
-Signed-off-by: Brian Geffon <bgeffon@google.com>
-Co-developed-by: David Stevens <stevensd@chromium.org>
-Signed-off-by: David Stevens <stevensd@chromium.org>
-Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
----
- drivers/md/dm-verity-target.c | 22 ++++++++++++++++++----
- drivers/md/dm-verity.h        |  1 +
- 2 files changed, 19 insertions(+), 4 deletions(-)
+I don't even remember a check that the compiler is right for the architecture.
+I'm sure I've got strange errors when I've forgotten I need to specify the
+compiler for a cross build - and then forgotten where I'd put the compiler,
+Oh and forgotten all the things you need to set to get clang to do a
+cross compile.
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 306ed1f6c118..730adf931494 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -18,6 +18,7 @@
- #include "dm-verity-verify-sig.h"
- #include "dm-audit.h"
- #include <linux/hex.h>
-+#include <linux/idr.h>
- #include <linux/module.h>
- #include <linux/reboot.h>
- #include <linux/string.h>
-@@ -26,6 +27,8 @@
- 
- #define DM_MSG_PREFIX			"verity"
- 
-+static DEFINE_IDA(workqueue_ida);
-+
- #define DM_VERITY_ENV_LENGTH		46
- #define DM_VERITY_ENV_VAR_NAME		"DM_VERITY_ERR_BLOCK_NR"
- 
-@@ -1065,6 +1068,8 @@ static void verity_dtr(struct dm_target *ti)
- 
- 	if (v->verify_wq)
- 		destroy_workqueue(v->verify_wq);
-+	if (v->workqueue_id)
-+		ida_free(&workqueue_ida, v->workqueue_id);
- 
- 	mempool_exit(&v->recheck_pool);
- 	if (v->io)
-@@ -1421,7 +1426,7 @@ static int verity_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	struct dm_arg_set as;
- 	unsigned int num;
- 	unsigned long long num_ll;
--	int r;
-+	int r, wq_id;
- 	int i;
- 	sector_t hash_position;
- 	char dummy;
-@@ -1637,6 +1642,14 @@ static int verity_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		goto bad;
- 	}
- 
-+	wq_id = ida_alloc_min(&workqueue_ida, 1, GFP_KERNEL);
-+	if (wq_id < 0) {
-+		ti->error = "Cannot allocate workqueue id";
-+		r = wq_id;
-+		goto bad;
-+	}
-+	v->workqueue_id = wq_id;
-+
- 	/*
- 	 * Using WQ_HIGHPRI improves throughput and completion latency by
- 	 * reducing wait times when reading from a dm-verity device.
-@@ -1646,9 +1659,10 @@ static int verity_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	 * will fall-back to using it for error handling (or if the bufio cache
- 	 * doesn't have required hashes).
- 	 */
--	v->verify_wq = alloc_workqueue("kverityd",
--				       WQ_MEM_RECLAIM | WQ_HIGHPRI | WQ_PERCPU,
--				       0);
-+	v->verify_wq = alloc_workqueue("kverityd-%s-%d",
-+				       WQ_MEM_RECLAIM | WQ_HIGHPRI |
-+				       WQ_PERCPU | WQ_SYSFS, 0,
-+				       dm_table_device_name(ti->table), wq_id);
- 	if (!v->verify_wq) {
- 		ti->error = "Cannot allocate workqueue";
- 		r = -ENOMEM;
-diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
-index e104a651c657..53f894f259d3 100644
---- a/drivers/md/dm-verity.h
-+++ b/drivers/md/dm-verity.h
-@@ -71,6 +71,7 @@ struct dm_verity {
- 	atomic_t corrupted_errs;/* Number of errors for corrupted blocks */
- 
- 	struct workqueue_struct *verify_wq;
-+	int workqueue_id;
- 
- 	/* starting blocks for each tree level. 0 is the lowest level. */
- 	sector_t hash_level_block[DM_VERITY_MAX_LEVELS];
--- 
-2.56.0.679.gc527c65306-goog
+David 
+
+> 
+> The recent work to move the compiler flags into Kconfig itself may
+> have lessened some of those dependencies, but there's probably still
+> lots of small details.
+> 
+> But for the whole "cross-compile", maybe we can just say that
+> X86_NATIVE_CPU depends on '$CC' being the same as '$HOSTCC'.
+> 
+> Or even do '$(CC) -v" and '$(HOSTCC) -v' and check for 'Target' being
+> the same, and having a CONFIG_CROSSCOMPILE thing for that?
+> 
+>                Linus
+> 
 
