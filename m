@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802347;
-	b=o2rEg3OT9DOjeLOCqyJCLvfvcKk5iLmChrs7sBAgYm/vVRelSWSP6ClCOdzyNUR04ZW0
-	 9I+WEHQBd6VYChB8rccFOVolu6CAuxfx/WUuuaHyWugIgB9lw36azomtsstZcVFDzvaKW
-	 mNM7iim/jDVTbYFFgM5BSRGGNbdXrLJrSAV2+/30jxyoLEjYT/Nq6V3PqYIGIE/jUFsyk
-	 WWaqEvA2iIVcaY213zKcR7ATcO3PHL32Y1MGqIEVEeKC9NzBfo9FHmEXhvx7HHwcvsmQ9
-	 kZ+hscRR+T7wZ7XjjBsYMkLsEjPIujVHZJ7VewBhGk2gb71HZVFEAF4JuUz+wEOi9Qw==
+	t=1794802350;
+	b=Y/5GSKJtsKxyJF14omZUganPMv/93nClSVAur90ZWCTEi5nAHsdiWWVPQM8y8e+/pc/g
+	 ofC+0WopQ8OHjnKui73tcyQElmo2896JjczYMPLGRjNwy/q+O8cQ/BRhj/suSRqLCrhLY
+	 siSaHsHzYRTecrDq+m8Jzl7rGZdI0gbnUOEzcowEhpr7UNV5RLDd8r/7ZvyUVO+7C7TFY
+	 r6TNRkYhlIJPKDEqX+nfgXM0lX6FeoVX9wG0ofdGJ7JladY4wQOheUvxDhLAK20Hv8t4H
+	 KBxeBPMYx9RRD0aOhVTsxjjpYgkNYTiI4lDGqI0FjlYyOnICce31aeooU8or5glqcwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802347;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802350;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=P6MXyLorrEi2Q6poZtanQJsUY+XSMKVdKruJnDJpfew=;
-	b=BusAeQDGo68q4A+IvjyT08eL68HzoGDSy4L40Fzh2ktrkR2KrGv0mirQNcZLCs6P6Nir
-	 WTWAodSYNkYZDr/fgDSTK5v6qK0BPCIFa7Ue+di23bAJycsCTrRlFXCgEeYMYtP07PScy
-	 Yv7ZWAXElEF+i65wYQITXZukgqdZvRUu/T4JPdFfol7fgwC8AIRY2NgTMKtWJbqA2SrzZ
-	 D8NHjBeEFdhxUu9IAr5CwF4ILdoAI5CPygydTGZ15EUGo0TreErrMrIz+4fzmQGuMFN40
-	 HYtiZN8MbqIJfLk8XaBsYY3vzuqS6XPPLfxwsQ7pjtFo++jzFsgT2v+Ai6wh9zerPJw==
+	bh=z43ShnxhdTQlmAVIYN6u8onm/dAqvyjq3drmtJzx7RE=;
+	b=YUCK1zv3hbI7zL98zXQF3YmXei/FolBzSowh1zMxNj8VxRA5tGo9OIbytciuX/I6aQ52
+	 7UrhwUHuA6ort5MbzcfaEVuADD2GyGQimsALNeX6N5bQ6r4UGLjfnhx/f+lHSQzkF8pRy
+	 yXBovyYUJWvER0Xu5LM+1x4m/qENlnAo1uBeHd6ZqFg4w5LejZuz6hsW2dHNokJM+chus
+	 DyKAH9bhelFD40VGe/DZOROjFIRjYfbhHiFciKGxtz+0ZFvBg8kmkq78HfFgGhRqmznX1
+	 ed6L/8xrcGBFceuPX5ol7ckjDYGTWOxlltkZclbTghHOaWprx2pjALJJ7XyPZ3b3W3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sq32BQPw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMK44TzT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDEC606A31C;
-	Mon, 16 Nov 2026 04:12:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE663606A334;
+	Mon, 16 Nov 2026 04:12:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sq32BQPw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A0B1F000C4;
-	Mon, 16 Nov 2026 04:12:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMK44TzT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5C841F000C4;
+	Mon, 16 Nov 2026 04:12:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794802347;
-	bh=P6MXyLorrEi2Q6poZtanQJsUY+XSMKVdKruJnDJpfew=;
+	s=k20260515; t=1794802350;
+	bh=z43ShnxhdTQlmAVIYN6u8onm/dAqvyjq3drmtJzx7RE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Sq32BQPw4RrZOevkYexKbQFHBwyonASywftHViXVbbXPXczpj3lp3xN6jwNdn9NI7
-	 KsZ78/YodpQkXSuyZbrbgfL0ek4SKzBI2WMTe9zS8FmZG/XIpNtxu1Yj1cOXQz8HCp
-	 1iyQxWBVHDyZktkJR/g0DVZCTPToggHpavQGKrleaXS1GbJbA4q+GM0pIErB1Er17Z
-	 LN+mp4SMbUaLJr0aNK+GFcIPbXt/vH2za8HvaFP3oC+mE4PTL5lzNIEhI4PnOe7rJG
-	 n3puxhsjA1sJoLICYh5/Nc4Xr9AzYxUayeGgTMrzYMxYtYDGz4bDti/DN2e1Y8NdTW
-	 xmTFtuVGFRQuw==
-Subject: Re: [PATCH net-next v5 1/6] net: xilinx: axienet: Introduce
- axienet_config for MAC-specific ops
+	b=eMK44TzTHFFW249bFRbScEPdDYnDxGs+KYfnDtY8touTDXVD9l6yqHddvuib7N4Og
+	 gHMCmEFFse5NO+AIm8P2RQ4SmeMWt92ooTHGI0gkFRrcEWQUhspOoL4Jea5vXAeCm0
+	 8nAThNwW1m9mI6k0psrNzc6wgqLjsBjNRUYxFXqd+OAYr2O8bDy0RlU/5RE96BAAKN
+	 mIv0CY76/CVOyvVidaFcc+SC1jUp1l0/tQotJJ/bBEoV62PkwvJY7JuylZbnBaIi5C
+	 aYj9+YQvWHb0/aBfV2hKhosnmm1A3ptZeyFNBG/Ci++ZokOwMcuydjrqMBtHFZT192
+	 vgzoIUaodOTNA==
+Subject: Re: [PATCH net-next v5 3/6] net: xilinx: axienet: Propagate device
+ reset failure from ndo_open
 From: netdev-bot+sashiko@kernel.org
 To: suraj.gupta2@amd.com
 Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -49,11 +49,11 @@ Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
  linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 04:12:26 +0000
-Message-ID: <179480234612.3136.14924278307079342368@kernel.org>
-In-Reply-To: <20261114182947.2908628-2-suraj.gupta2@amd.com>
-References: <20261114182947.2908628-2-suraj.gupta2@amd.com>
-X-sashiko-severity: High
+Date: Mon, 16 Nov 2026 04:12:29 +0000
+Message-ID: <179480234928.3136.4433132760561916489@kernel.org>
+In-Reply-To: <20261114182947.2908628-4-suraj.gupta2@amd.com>
+References: <20261114182947.2908628-4-suraj.gupta2@amd.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,10 +66,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 3 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,160 +77,248 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] net: xilinx: axienet: axienet_probe() fails on software-node
-  devices
-- [Medium] This commit is presented as a no-functional-change refactor,
-  but it also contains a real fix for a NULL pointer dereference.
+- [Medium] The patch fixes user-visible bugs in existing kernels but has
+  no Fixes: tag, and it is sent as the third patch of an XXV feature…
+- [Medium] net: xilinx: axienet: u32 stats underflow on
+  __axienet_device_reset() failure
+- [Medium] net: xilinx: axienet: leaked legacy DMA rings and active DMA
+  on open failure
+- [Low] The commit message presents the resume/stop changes as a side
+  effect of the new reset check.
+- [Low] The comment added to axienet_stop() justifies the datapath_up
+  guard with "axienet_resume() calls ndo_open directly, so unlike the…
 
 --
 
-net: xilinx: axienet: Introduce axienet_config for MAC-specific ops
+net: xilinx: axienet: Propagate device reset failure from ndo_open
 
-This commit adds struct axienet_config, which holds MAC capability flags
-and MAC-specific callbacks. It is filled in from the OF match table, and
-the shared 1G code paths now use it. It also puts a NULL check on
-lp->mii_bus around the MDIO teardown in axienet_remove().
+With this patch, axienet_open() now returns the error from
+axienet_device_reset(). A new datapath_up flag makes axienet_stop() a
+no-op when ndo_open did not complete. axienet_resume() now propagates
+the open failure and calls netif_close() before it reattaches the device.
+The patch also clears reset_in_progress on the error path of
+__axienet_device_reset().
+
+> That makes a failed ndo_open reachable, which matters for axienet_resume():
+> it calls ndo_open directly, so unlike the netdev core it leaves the device
+> running when open fails.
+
+[Severity: Low]
+Is this description accurate? Before this patch, axienet_open() could
+already fail without the reset being involved:
+
+  - phylink_fwnode_phy_connect() failure returns directly
+  - request_irq(lp->eth_irq) failure on the dmaengine path goes to err_phy
+  - axienet_init_dmaengine() failure (dma_request_chan() or the ring
+    allocations) goes to err_free_eth_irq
+  - request_irq() failures inside axienet_init_legacy_dma() go to
+    err_phy, after napi_disable()
+
+Since a3de357b087e ("net: axiemac: add PM callbacks to support
+suspend/resume"), axienet_resume() has ignored the axienet_open() return
+value and always called netif_device_attach(). The device stayed IFF_UP
+after any of those failures.
+
+A later ndo_stop then ran the full teardown. On the legacy path that is
+napi_disable() on an already disabled NAPI with RTNL held, plus
+free_irq() on IRQs that were never requested. On the dmaengine path it is
+dma_release_channel() on released channels and a second kfree() of
+tx_skb_ring/rx_skb_ring.
+
+Could the commit message describe these as existing bugs, rather than as
+a consequence of the new reset check?
 
 > diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index 7e83c4b5f1931..125ad3dbf6aa9 100644
+> index 125ad3dbf6aa9..a553150faa89b 100644
 > --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
 > +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
 
 [ ... ]
 
-> @@ -3149,10 +3297,12 @@ static int axienet_probe(struct platform_device *pdev)
->  	lp->tx_dma_cr = axienet_calc_cr(lp, XAXIDMA_DFT_TX_THRESHOLD,
->  					XAXIDMA_DFT_TX_USEC);
+> @@ -1834,6 +1851,16 @@ static int axienet_stop(struct net_device *ndev)
+>  	struct axienet_local *lp = netdev_priv(ndev);
+>  	int i;
 >  
-> -	ret = axienet_mdio_setup(lp);
-> -	if (ret)
-> -		dev_warn(&pdev->dev,
-> -			 "error registering MDIO bus: %d\n", ret);
-> +	if (lp->axienet_config->mdio) {
-> +		ret = axienet_mdio_setup(lp);
-> +		if (ret)
-> +			dev_warn(&pdev->dev,
-> +				 "error registering MDIO bus: %d\n", ret);
-> +	}
->  
->  	if (lp->phy_mode == PHY_INTERFACE_MODE_SGMII ||
->  	    lp->phy_mode == PHY_INTERFACE_MODE_1000BASEX) {
+> +	/* axienet_resume() calls ndo_open directly, so unlike the netdev core
+> +	 * it can leave the device running after a failed open. Tearing down
+> +	 * below would then stop a phylink that open already stopped and
+> +	 * disconnected, and free interrupts it never requested.
+> +	 */
+> +	if (!lp->datapath_up)
+> +		return 0;
+
+[Severity: Low]
+This comment says axienet_resume() can leave the device running after a
+failed open. The same patch changes axienet_resume() to call
+netif_close() on that failure.
+
+Isn't that netif_close() call the path that actually reaches
+axienet_stop() with datapath_up == false?
+
+axienet_resume()
+  axienet_open()            <- fails
+  netif_close()
+    netif_close_many()
+      __dev_close_many()
+        ops->ndo_stop()     -> axienet_stop()
+
+The device is still IFF_UP at this point, because axienet_suspend()
+calls axienet_stop() directly.
+
+Could the comment describe the netif_close() path instead, so the guard
+is not later mistaken for dead code and removed?
+
+> +
+> +	lp->datapath_up = false;
+> +
 
 [ ... ]
 
-> @@ -3235,7 +3383,8 @@ static void axienet_remove(struct platform_device *pdev)
->  	if (lp->pcs_phy)
->  		put_device(&lp->pcs_phy->dev);
+> @@ -3419,17 +3446,26 @@ static int axienet_suspend(struct device *dev)
+>  static int axienet_resume(struct device *dev)
+>  {
+>  	struct net_device *ndev = dev_get_drvdata(dev);
+> +	int ret;
 >  
-> -	axienet_mdio_teardown(lp);
-> +	if (lp->mii_bus)
-> +		axienet_mdio_teardown(lp);
+>  	if (!netif_running(ndev))
+>  		return 0;
+>  
+>  	rtnl_lock();
+> -	axienet_open(ndev);
+> -	rtnl_unlock();
+> -
+> +	ret = axienet_open(ndev);
+> +	if (ret) {
+> +		netdev_err(ndev, "failed to reopen device on resume: %d\n", ret);
+> +		/* Drop IFF_UP before reattaching, so that the interface can be
+> +		 * brought up again once whatever made open fail is resolved.
+> +		 * Reattaching while still up would also let the stack transmit
+> +		 * on the datapath open has already torn down.
+> +		 */
+> +		netif_close(ndev);
+> +	}
+>  	netif_device_attach(ndev);
+> +	rtnl_unlock();
+>  
+> -	return 0;
+> +	return ret;
 >  }
 
 [Severity: Medium]
-Could this NULL check go to net as its own fix, with a Fixes: tag and
-Cc: stable, and this refactor then be based on it?
+Does this leave the legacy DMA rings allocated and the DMA running
+when open fails after the reset?
 
-Without the guard, the current 1G driver can oops on unbind. Every
-failure path in axienet_mdio_setup() frees the bus and sets lp->mii_bus
-to NULL. The failure paths are an MDC divisor overflow, a timeout in
-axienet_mdio_wait_until_ready(), and a failed of_mdiobus_register():
+On the non-dmaengine path, axienet_device_reset() calls
+axienet_dma_bd_init(). That allocates lp->tx_bd_v and lp->rx_bd_v
+with dma_alloc_coherent(), allocates and maps lp->rx_bd_num RX skbs,
+and starts both DMA channels. axienet_device_reset() then runs
+mac_init() and enables XAE_OPTION_TXEN | XAE_OPTION_RXEN.
 
-drivers/net/ethernet/xilinx/xilinx_axienet_mdio.c:axienet_mdio_setup() {
-    ...
-unregister:
-	of_node_put(mdio_node);
-	mdiobus_free(bus);
-	lp->mii_bus = NULL;
-	return ret;
-}
+None of the failure exits that follow undo that:
 
-axienet_probe() only warns and continues, so the device binds with
-lp->mii_bus == NULL. Then, on unbind or remove:
+  - mac_init() failing inside axienet_device_reset(), which this
+    patch turns into an open failure
+  - phylink_fwnode_phy_connect() failing, which returns directly
+  - axienet_init_legacy_dma() failing, which goes to err_phy
 
-axienet_remove()
-  axienet_mdio_teardown(lp)
-    mdiobus_unregister(lp->mii_bus)
-      reads bus->state on a NULL bus
+err_phy only cancels the work items and stops and disconnects
+phylink. Nothing calls axienet_dma_stop() or axienet_dma_bd_release(),
+and TXEN and RXEN stay set.
 
-The commit message already describes this:
+With the new datapath_up guard, axienet_stop() will not clean this up
+either. That includes the case where it is reached through
+netif_close() in axienet_resume():
 
-  It also hardens the existing 1G path: a failed
-  axienet_mdio_setup() already left lp->mii_bus NULL while probe only warns
-  and continues (e.g. a 1G device using a fixed-link), so unbinding such a
-  device would dereference NULL in mdiobus_unregister().
+axienet_resume()
+  axienet_open()            <- fails after axienet_dma_bd_init()
+  netif_close()
+    axienet_stop()          <- datapath_up == false, returns 0
 
-The fix is part of a large refactor and has no Fixes: tag, so stable and
-LTS kernels can't backport it. No other patch in the series carries it
-on its own. Two candidates for the Fixes: tag are the commit that made
-MDIO setup failure non-fatal in probe and the commit that clears
-lp->mii_bus on failure.
+The descriptor rings and the mapped RX skbs are therefore never
+freed, and the DMA engine and the MAC keep running while the
+interface is down. The next axienet_open() calls
+axienet_dma_bd_init() again and overwrites lp->tx_bd_v and
+lp->rx_bd_v, which leaks the previous rings.
+
+Should the error paths in axienet_open() unwind axienet_device_reset()
+on the legacy path, by stopping the DMA and calling
+axienet_dma_bd_release()? Then datapath_up == false would really mean
+there is nothing left to tear down.
+
+[Severity: Medium]
+This fixes bugs that exist in released kernels. Should it carry Fixes:
+tags and go to net as a standalone fix, instead of being the third patch
+of the XXV feature series?
+
+The reset return value being overwritten by the
+phylink_fwnode_phy_connect() result goes back at least to:
+
+Fixes: 6b1b40f704fc ("net: axienet: Preparatory changes for dmaengine support")
+
+The resume handling that leaves the device IFF_UP after a failed reopen
+comes from:
+
+Fixes: a3de357b087e ("net: axiemac: add PM callbacks to support suspend/resume")
+
+Without a Fixes: tag, the stable tooling will not pick up the
+datapath_up guard or the netif_close() handling here. In stable kernels,
+an ifdown after a failed resume can then hang in napi_disable() with
+RTNL held on the legacy DMA path. On the dmaengine path it can release
+the DMA channels again and free tx_skb_ring/rx_skb_ring a second time.
 
 [ ... ]
 
-> @@ -2894,27 +3042,13 @@ static int axienet_probe(struct platform_device *pdev)
->  	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
->  	INIT_DEFERRABLE_WORK(&lp->stats_work, axienet_refresh_stats);
+> @@ -702,6 +702,17 @@ static int __axienet_device_reset(struct axienet_local *lp)
+>  	}
 >  
-> -	lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev,
-> -						    "s_axi_lite_clk");
-> -	if (!lp->axi_clk) {
-> -		/* For backward compatibility, if named AXI clock is not present,
-> -		 * treat the first clock specified as the AXI clock.
-> -		 */
-> -		lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev, NULL);
-> -	}
-> -	if (IS_ERR(lp->axi_clk))
-> -		return dev_err_probe(&pdev->dev, PTR_ERR(lp->axi_clk),
-> -				     "could not get AXI clock\n");
-> -
-> -	lp->misc_clks[0].id = "axis_clk";
-> -	lp->misc_clks[1].id = "ref_clk";
-> -	lp->misc_clks[2].id = "mgt_clk";
-> +	lp->axienet_config = device_get_match_data(&pdev->dev);
-> +	if (!lp->axienet_config)
-> +		return -ENODEV;
->  
-> -	ret = devm_clk_bulk_get_optional_enable(&pdev->dev, XAE_NUM_MISC_CLOCKS,
-> -						lp->misc_clks);
-> +	ret = lp->axienet_config->clk_init(lp);
->  	if (ret)
-> -		return dev_err_probe(&pdev->dev, ret,
-> -				     "could not get/enable misc. clocks\n");
-> +		return ret;
->  
->  	/* Map device registers */
->  	lp->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &ethres);
+>  out:
+> +	/* On failure the block above is skipped, so clear the flag here.
+> +	 * axienet_open() now returns on a reset error without scheduling the
+> +	 * statistics work that used to clear it, which would otherwise leave
+> +	 * axienet_stat() returning the frozen base until a reset succeeds.
+> +	 */
+> +	if (ret && (lp->features & XAE_FEATURE_STATS)) {
+> +		write_seqcount_begin(&lp->hw_stats_seqcount);
+> +		lp->reset_in_progress = false;
+> +		write_seqcount_end(&lp->hw_stats_seqcount);
+> +	}
+> +
+>  	mutex_unlock(&lp->stats_lock);
+>  	return ret;
+>  }
 
-[Severity: High]
-This makes missing match data a hard probe failure. Doesn't that
-break devices that are not instantiated from DT?
+[Severity: Medium]
+Does clearing reset_in_progress here leave hw_last_counter[] stale?
 
-device_get_match_data() only asks the device's fwnode, through
-fwnode_call_ptr_op(dev_fwnode(dev), device_get_match_data, dev). For
-an OF node that resolves through axienet_of_match. software_node_ops
-does not implement .device_get_match_data, though, and axienet_driver
-has no id_table either.
+At the top of this function, axienet_stats_update(lp, true) stores
+the pre-reset counter values in lp->hw_last_counter[] and sets
+lp->reset_in_progress. The XAXIDMA_CR_RESET_MASK write that follows
+resets the Ethernet core along with the DMA, which zeroes the
+statistics counters. On either timeout, the goto out skips the loop
+that folds the reset into hw_stat_base[] and reloads
+hw_last_counter[].
 
-The driver still carries MODULE_ALIAS("platform:" AXIENET_DRIVER_NAME).
-Probe also reads its configuration through device_property_read_u32()
-and the fwnode helpers, so a parent driver can create the AXI Ethernet
-device by name with a software_node attached. The ptp_ocp TimeCard
-child device is one example. Such a device has no OF match, so
-device_get_match_data() returns NULL. axienet_probe() then returns
--ENODEV before it touches the hardware. Before this patch the same
-device probed fine as a 1G MAC.
+With reset_in_progress now cleared, axienet_stat() computes
 
-The commit message says no functional change is intended for the
-existing 1G path, and this is one. As far as I can see the later
-patches in the series keep this lookup as is, so the regression is
-still there at the end of the series.
+  lp->hw_stat_base[stat] + (counter - lp->hw_last_counter[stat])
 
-Since every device bound by name today is a 1G MAC, would it be enough
-to fall back to &axienet_1g_config when device_get_match_data() returns
-NULL? Or would you rather add a platform_device_id table whose
-driver_data points at axienet_1g_config, and have probe use
-platform_get_device_id() when there is no fwnode match data?
+where counter is the u32 read back from the core. That value is 0
+after the reset. If the DMA reset poll is the one that timed out, it
+is whatever the core returns while still held in reset.
+
+For every counter that was non-zero before the reset, the u32
+subtraction wraps. ndo_get_stats64 and the ethtool stats then report
+values close to 2^32 too high. The next axienet_stats_update(), from
+the stats work or the next reset, adds the same wrapped delta into
+hw_stat_base[], so the error becomes permanent.
+
+The statistics work this replaces would have hit the same wrap
+through axienet_stats_update(lp, false). This patch makes it the
+explicit outcome of a failed reset, though.
+
+Should the error path resynchronise hw_last_counter[] from the
+hardware when the counters are readable? Or is keeping the frozen
+base the safer choice when the core may not have come out of reset?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114182947.2908628-1-suraj.gupta2%40amd.com
