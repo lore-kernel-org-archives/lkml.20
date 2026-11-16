@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794807174;
-	b=28IkxmyqkL3LUHpySGwAAEi4w6mNpD54pIiHISI78LVjHen/kDWMMOvx3ODMSQYEDALz
-	 xiAENZUQuo3X+GCtTqALxCEofX/1ziF8z65KpaXev5TfnaYCBGyuUn/v2VWf3AaoIz74k
-	 JpdO0MSo8VFdlZhpW6F3orRUMJi4DvTtrDlDQdmOJkqC8NsskyMFgoFZnLBDGfo4z8sSv
-	 KmEpobdEXHsm/khLDY50rSqOBEe1SU32UXZFQRzUHgd0aL0b0pb7huNuNFR/cr8BKcASu
-	 1k9EXKaw9rzSTLD/A8gaGAOgUxEEAMzy6helKmMC0jxrcH3yAjANx4QW1TagUILgxvg==
+	t=1794807173;
+	b=CZ1y9GeOQd+WvlO6LyMPuo9d92SjHFcWq4MDyYJsjIQ74mjgS34DpGfpFZm/PQS2F+am
+	 OhVgTuzd9a5ByI1RtxfMvulnC17Vd+2wR40GatxvbM4clWtVo0jj8JgoZX54zEk+bGUYy
+	 d4NDCofzWcmzGkmfGWShdJpftC8ip43sjfyOAxPaP5KwRbsC9JvAvNmg/IVXOclhjjq1K
+	 cBMTzjw8lANa9oTA7WSUg5/ZyHC/H2N6q0BmZ5Elo+pXU5HwRQ78TjQqQ8IqS1eM8kVgd
+	 sIoH/FwA+faiUPBMglYFgAlyLGUDOiEGLxcjRSBGGPnrVAdFZYT1JWuWFy4ZmvP/WEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794807174;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794807173;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=235IhKMChFexMr22e8JQ4l9QP0XQgT/y/XG+KObBuiI=;
-	b=lAWGhjFOFEBzAEmj3pmfZ8kTib8dneljDDE08UZoGtJfY3kqKCPjGYAH5SmRBZHiqHmm
-	 WVaumZ/imzl/axHBEgMdcdnbaE7a0BlKutR49cp7fCyXMAgmxLwRYxP6JDpl9OPnN/l4R
-	 0H0EECn7NzD8jWI4CxLkcdbqlB1XU8aeDCNvaBJ0xHkvfopt+x4ziLuxurB5pLvFB4etR
-	 hBjfDwttszjMCXr4EeuakmE8U8GOrP7rBqBJOIyxjgn1DmzJKwPw7ef27JDAhgxxQIzH7
-	 1p1YlnwVlTJLDU8VT4e3MVIaR1NQgGameCMvYDWBxrG/KZNzYjgFipCllHRsJxfp6dA==
+	bh=douqLaofwr9UvuTKqzhW38JwSiM5sayiSfiJVWEbrBY=;
+	b=bmcgtFKWnu3bKpeusgNZhB4PN/3rk+ZZAuQbft8Qh9k4Rgn5HqqgEygz8WhJlzwNm25P
+	 uKR5HgP82BmGeoVYr4hH5yjtpTODGbQsDL0kXt/MDiZIOym982CU2fUBeMD4H/lX5gz73
+	 ap7SgGcW3uai5i+Vf184izWkUhl2sJxbGLoEraC0NixtPeKymxZsFUGWALInbqOeBJske
+	 6Ugpi/pXt8ymoSxynJYdZU5rbJRS8YfZmqokF9/iBFICe7DyjFdGyDq25BNSYRGR04p6l
+	 fSLS8wUywapLgYkAw9WI/yhCAkzJnvhaTvcY73c6aHU+xCKOtHe7p5MRK2VBVpbZyfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kVhYU/Q4";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bGvOsCif;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA64606A337;
-	Mon, 16 Nov 2026 05:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kVhYU/Q4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3021F000C4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E5F606A33A;
 	Mon, 16 Nov 2026 05:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bGvOsCif
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5DC1F000C4;
+	Mon, 16 Nov 2026 05:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794807174;
-	bh=235IhKMChFexMr22e8JQ4l9QP0XQgT/y/XG+KObBuiI=;
+	s=k20260515; t=1794807172;
+	bh=douqLaofwr9UvuTKqzhW38JwSiM5sayiSfiJVWEbrBY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kVhYU/Q4IvyrjNAdXcQ8S0i5vceWWAa1QsAr6YoVk8LYWDG3Py+YM6tOt9d8FBuPQ
-	 /UzTilpaa4bDEnkbrzNeOxSk6MWSYMzwB4J5HvCSYUH6ANuvTd1FIrvkGuwGy77jo9
-	 7sUjgtMEwiCYnmoA1D4n7tX0T3bRrADdPFHrrwyj/l9+ZpDeXTdCFV8cEvKfTRc9t8
-	 jesz/BjmmfR9AOF9mKAe2gcgeeMNCEM5YKsSqVABDxAArfDIBW/xjk7CWgnZ53GnDD
-	 15n9Tcp5BwoCpKIe+mB//EXb8NpbOXS11fPLEduOyPb16ex1+kGj5eNv2cCmU/AXAp
-	 nqfDqQTs7ZbyA==
-Subject: Re: [PATCH net-next v5 8/8] selftests: net: test the vxlan vnifilter
- request limit and dump replay
+	b=bGvOsCifrc5y5Ypj5DriWtJWjDaVh/uS6DScPAEpIM0zVVeRqcvPFV4JQzqU4+kfH
+	 Pq0REHu1/h8PwGh5+Zng1KSEX6XnCmMj9daUofYWbiHAqtftw4FbKZDNvK5muuPm72
+	 CC3QRCImYoEyOnKUjV7Eh010yPLs4YNPHy+lT0PXKDS7nIoMlOJsVssT5Xlngwdi3j
+	 8QPbaikk+FkCEisiy6BXJstUEfp6/IOc/nwsO8dqm7uI4xKNrj/lmr/giSDTFNHe0n
+	 vIo9zu1Q1HXrHQpvAEUwakBJmunxvRpc9NlqYAghMRyx4/7iylVgOz7kZ534N/CWBy
+	 J2JMwcvyQxKYA==
+Subject: Re: [PATCH net-next v5 5/8] vxlan: leave FDB state and flags
+ unchanged when an update fails
 From: netdev-bot+sashiko@kernel.org
 To: alishmery18@gmail.com
 Cc: netdev@vger.kernel.org, idosch@nvidia.com, kuba@kernel.org,
@@ -50,11 +50,11 @@ Cc: netdev@vger.kernel.org, idosch@nvidia.com, kuba@kernel.org,
  roopa@nvidia.com, kuniyu@google.com, petrm@nvidia.com, aroulin@nvidia.com,
  shuah@kernel.org, linux-kselftest@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 05:32:53 +0000
-Message-ID: <179480717303.3136.3539186076980782462@kernel.org>
-In-Reply-To: <20261114221412.255825-9-alishmery18@gmail.com>
-References: <20261114221412.255825-9-alishmery18@gmail.com>
-X-sashiko-severity: Low
+Date: Mon, 16 Nov 2026 05:32:51 +0000
+Message-ID: <179480717141.3136.11745110042567184221@kernel.org>
+In-Reply-To: <20261114221412.255825-6-alishmery18@gmail.com>
+References: <20261114221412.255825-6-alishmery18@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,122 +67,222 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 0 · Low: 1 (2)
 
-- [Low] vxlan_vnifilter_refused_fdb_update()
-  (tools/testing/selftests/net/test_vxlan_vnifiltering.sh:590) waits for…
-- [Low] The FDB regex probes in vxlan_vnifilter_refused_fdb_update()
-  (lines 582 and 592) are passed through run_cmd(), which runs…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] On the switchdev-veto exit, vxlan_fdb_update_existing()
+  (drivers/net/vxlan/vxlan_core.c) still publishes the requested state…
+- [Low] The patch fixes a bug userspace can trigger, carries four Fixes:
+  tags (6681712d67ee, 906dc186e020, 61f46fe8c646, 1274e1cc4226), and is…
+
+Pre-existing issues:
+- [Low] When a switchdev driver vetoes the update,
+  vxlan_fdb_update_existing() restores f->state and f->flags at…
+- [Low] The comment the patch adds in vxlan_fdb_update_existing() (lines
+  1038-1042) says the ageing timer reads f->state and f->flags without…
 
 --
 
-selftests: net: test the vxlan vnifilter request limit and dump replay
+vxlan: leave FDB state and flags unchanged when an update fails
 
-This extends test_vxlan_vnifiltering.sh with cases for the vnifilter
-request-size cap and the 24-bit VNI bounds. It also adds a dump/replay
-round trip, rollback of failed VNI adds and a refused FDB update. New
-helpers vni_listed(), vni_ranges() and fdb_listed() report a failed
-"bridge ... show" separately from "absent".
+This commit moves the state and flags write in vxlan_fdb_update_existing()
+so that it comes after the nexthop update, the non-unicast replace check
+and the NLM_F_APPEND allocation. A request refused at any of those steps
+no longer changes the entry. When a switchdev driver vetoes the
+notification, the saved state and flags are written back.
 
-> diff --git a/tools/testing/selftests/net/test_vxlan_vnifiltering.sh b/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-> index 6fb5af013dacf..fb8401399b099 100755
-> --- a/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-> +++ b/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
+> The patch "vxlan: vnifilter: account the default FDB entry to memcg"
+> later in this series makes the NLM_F_APPEND allocation fail routinely
+> at a memory cgroup limit, on the path that changes a vnifilter VNI's
+> default entry; this is ordered before it so that failure leaves the
+> entry as it was. Like the rest of the series it targets net-next.
+
+[Severity: Low]
+This isn't a bug, but could this patch go to net instead of net-next?
+
+It carries four Fixes: tags. The bug it fixes is in released kernels and
+userspace can trigger it: a refused RTM_NEWNEIGH, such as an NLM_F_REPLACE
+of the all-zeros entry with NUD_REACHABLE that gets -EOPNOTSUPP, leaves the
+entry dynamic, and vxlan_cleanup() then ages it out.
+
+The dependency on the memcg patch only goes one way. The earlier patches in
+the series don't touch drivers/net/vxlan/vxlan_core.c, so this one looks
+like it applies on its own. The rest of the series could still follow in
+net-next.
+
+The series notes that net-next was suggested for the related "vxlan:
+vnifilter: roll back a VNI add that fails" fix, so this may be the
+maintainers' call.
+
+> diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+> index d11028b374721..2303d652d3968 100644
+> --- a/drivers/net/vxlan/vxlan_core.c
+> +++ b/drivers/net/vxlan/vxlan_core.c
 
 [ ... ]
 
-> +# Succeed if "bridge fdb show" lists, on device $1, an entry whose line
-> +# matches the extended regex $2. A failed show returns 2, so a probe
-> +# expecting the entry to be absent cannot pass on it.
-> +fdb_listed()
-> +{
-> +	local out
-> +
-> +	out=$(bridge -netns $testns fdb show dev $1) || return 2
-> +	grep -qE "$2" <<< "$out"
-> +}
+> @@ -1048,6 +1035,23 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+>  		notify |= rc;
+>  	}
+>  
+> +	/* Do not allow an externally learned entry to take over an entry added
+> +	 * by the user. The state and flags are written only after the steps
+> +	 * above that can fail, so that a request they refuse never changes
+> +	 * them, not even briefly: the ageing timer reads them without the lock.
+> +	 */
+> +	if (!(fdb_flags & NTF_EXT_LEARNED) ||
+> +	    !(f->flags & NTF_VXLAN_ADDED_BY_USER)) {
+> +		if (f->state != state) {
+> +			f->state = state;
+> +			notify = 1;
+> +		}
+> +		if (f->flags != fdb_flags) {
+> +			f->flags = fdb_flags;
+> +			notify = 1;
+> +		}
+> +	}
 
-[ ... ]
+[Severity: High]
+Can a request that a switchdev driver vetoes still get a permanent entry
+aged out? On the veto path, the new state and flags are still written into
+the live entry before vxlan_fdb_notify(). They only get their old values
+back at err_restore.
 
-> +vxlan_vnifilter_refused_fdb_update()
-> +{
-> +	local opts="external vnifilter local 172.16.0.1 dev veth-testns"
-> +	local zero="^00:00:00:00:00:00 dst 172.16.0.2 .*src_vni 100 .*self"
-> +	local mac=02:00:00:00:00:01
+vxlan_cleanup() reads them without hash_lock. Once it decides the entry has
+expired, the only thing it rechecks under the lock is hlist_unhashed():
+
+drivers/net/vxlan/vxlan_core.c:vxlan_cleanup() {
+    ...
+		if (f->state & (NUD_PERMANENT | NUD_NOARP))
+			continue;
+
+		if (f->flags & NTF_EXT_LEARNED)
+			continue;
+    ...
+		timeout = READ_ONCE(f->updated) + cfg->age_interval * HZ;
+		if (time_before_eq(timeout, jiffies)) {
+			spin_lock(&vxlan->hash_lock);
+			if (!hlist_unhashed(&f->fdb_node)) {
+				...
+				f->state = NUD_STALE;
+				vxlan_fdb_destroy(vxlan, f, true, true);
+			}
+    ...
+}
+
+Take a NUD_PERMANENT entry whose f->updated is older than age_interval, and
+a request that makes it dynamic and then gets vetoed:
+
+CPU1 (hash_lock held)
+vxlan_fdb_update_existing()
+  f->state = state;
+                                  CPU2
+                                  vxlan_cleanup()
+                                    sees f->state without NUD_PERMANENT
+                                    sees the old, expired f->updated
+                                    spin_lock(&vxlan->hash_lock) waits
+  WRITE_ONCE(f->updated, jiffies);
+  vxlan_fdb_notify() is vetoed
+  f->state = old_state;
+  hash_lock released
+                                    hlist_unhashed() is false
+                                    vxlan_fdb_destroy()
+
+On x86 the window is the gap between the f->state store and
+WRITE_ONCE(f->updated). On arm64 or powerpc nothing orders the plain
+f->state load against READ_ONCE(f->updated), so the window could span the
+whole notifier call.
+
+Flags have the same window. A vetoed user request on an NTF_EXT_LEARNED
+entry clears NTF_EXT_LEARNED for a moment.
+
+An in-tree driver can veto. mlxsw_sp_switchdev_event() returns NOTIFY_BAD
+in two cases:
+
+- mlxsw_sp_switchdev_vxlan_work_prepare() rejects the remote, for example
+  an NLM_F_REPLACE that changes the remote port and the state together.
+- Its GFP_ATOMIC allocation fails.
+
+The commit message says:
+
+    The switchdev notification reports the new state, so it still
+    follows the write
+
+Is that accurate for the state? vxlan_fdb_switchdev_notifier_info() takes
+only this field from the entry:
+
+	fdb_info->added_by_user = fdb->flags & NTF_VXLAN_ADDED_BY_USER;
+
+It never reads fdb->state. Only the rtnl part, __vxlan_fdb_notify(), needs
+the new state, and it runs after the switchdev call.
+
+Would either of these work instead?
+
+- Make the switchdev call before the new state is written.
+- Recheck state, flags, nh and updated under hash_lock in vxlan_cleanup().
+
+The second would also close the race with a successful update that the
+commit message leaves open. Nothing later in the series touches this code
+or vxlan_cleanup().
+
 > +
-> +	cleanup_vnifilter_api &>/dev/null
-> +	setup_vnifilter_api
-> +
-> +	run_cmd "ip -netns $testns link add vxlan-age type vxlan $opts \
-> +		 dstport 4789 ageing 1"
-> +	log_test $? 0 "refused update: create a device with ageing 1"
-> +	run_cmd "ip -netns $testns link set dev vxlan-age up"
-> +	run_cmd "bridge -netns $testns vni add dev vxlan-age vni 100 \
-> +		 remote 172.16.0.2"
-> +	log_test $? 0 "refused update: add a VNI with a remote"
-> +	run_cmd "fdb_listed vxlan-age '$zero permanent'"
+>  	if (ndm_flags & NTF_USE)
+>  		WRITE_ONCE(f->updated, jiffies);
 
 [Severity: Low]
-Will the single quotes around the regex survive run_cmd()? In this script
-run_cmd() does:
+This isn't a bug introduced by this patch, but the new comment says the
+ageing timer reads f->state and f->flags without the lock, and the stores
+above are plain.
 
-	out=$(eval $cmd $stderr)
+f->updated is written with WRITE_ONCE() here, and vxlan_cleanup() reads it
+with READ_ONCE(). f->state and f->flags are read there with plain loads.
 
-$cmd is not quoted there, so it is word-split and globbed before eval
-re-parses it. At that point the single quotes are just literal characters
-inside the words, and they don't protect anything.
+Should f->state and f->flags also use WRITE_ONCE() and READ_ONCE()? As
+written, KCSAN would report these accesses as data races, and the patch
+adds two more plain stores at err_restore.
 
-That means words like .*src_vni and .*self get pathname expansion. Nothing
-in the script or lib.sh sets noglob, nullglob or failglob.
-
-If the working directory holds a dotfile whose name ends in "src_vni" or
-"self", bash would replace that piece of the regex with the filename.
-grep -E then gets a different pattern. In the usual case nothing matches
-and the words pass through unchanged.
-
-Could these two probes (here and the "still permanent" check below) call
-fdb_listed directly instead of going through run_cmd's unquoted eval?
-
-> +	log_test $? 0 "refused update: the VNI's default entry is permanent"
-> +	run_cmd "bridge -netns $testns fdb replace 00:00:00:00:00:00 \
-> +		 dev vxlan-age dst 172.16.0.3 src_vni 100 self dynamic"
-> +	log_test $? 255 "refused update: cannot replace the default entry"
-> +	run_cmd "bridge -netns $testns fdb add $mac dev vxlan-age \
-> +		 dst 172.16.0.4 src_vni 100 self dynamic"
-> +	log_test $? 0 "refused update: add a dynamic entry"
-> +	slowwait 25 eval "! fdb_listed vxlan-age '^$mac '"
+> @@ -1066,13 +1070,17 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+>  
+>  err_notify:
+>  	if (nhid)
+> -		return err;
+> +		goto err_restore;
+>  	if ((flags & NLM_F_REPLACE) && rc)
+>  		*rd = oldrd;
+>  	else if ((flags & NLM_F_APPEND) && rc) {
+>  		list_del_rcu(&rd->list);
+>  		call_rcu(&rd->rcu, vxlan_dst_free);
+>  	}
+> +err_restore:
+> +	/* The notification was vetoed: put back the state and flags. */
+> +	f->state = old_state;
+> +	f->flags = old_flags;
 
 [Severity: Low]
-Can a failed "bridge fdb show" make this wait end early? fdb_listed()
-returns 2 when the show fails. Its comment says that is so an absence
-probe cannot pass on it. The ! here turns any non-zero status into 0,
-including 2, so slowwait would return success right away.
+This is a pre-existing issue, but f->updated isn't restored here. It is set
+to jiffies before vxlan_fdb_notify(), both in the notify block and when
+NTF_USE is set.
 
-If that happens, "the dynamic entry is aged out" reports PASS. The final
-"still permanent" check then runs before vxlan_cleanup() has done any
-ageing pass, since FDB_AGE_INTERVAL is 10 seconds. The "survives ageing"
-part of the case would not be exercised.
+So a vetoed request still refreshes the ageing timestamp. Userspace can see
+that through NDA_CACHEINFO, and a dynamic entry gets up to one more
+age_interval.
 
-This is the only absence probe that uses fdb_listed(), so it is the one
-place where the helper's guarantee doesn't hold.
+Should f->updated also be put back on a veto? The old code did the same
+thing, and the commit title only covers state and flags.
 
-An unfixed kernel should still be caught. Without "vxlan: leave FDB state
-and flags unchanged when an update fails", the refused replace leaves
-fdb->state as NUD_REACHABLE. vxlan_fdb_info() reports
-ndm->ndm_state = fdb->state, so the final check fails anyway. The effect
-is a spurious PASS line and a skipped ageing check, not a missed
-regression.
+Separately, the nhid branch of err_notify looks unreachable.
+first_remote_rtnl() returns NULL when f->nh is set, so vxlan_fdb_notify()
+never makes the switchdev call for nexthop entries.
 
-Would it work to test for status 1 explicitly, for example
-"fdb_listed ...; [ $? -eq 1 ]", instead of negating the result?
-
-> +	log_test $? 0 "refused update: the dynamic entry is aged out"
-> +	run_cmd "fdb_listed vxlan-age '$zero permanent'"
-> +	log_test $? 0 "refused update: the default entry is still permanent"
+>  	return err;
 >  }
 
 -- 
