@@ -1,82 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833920;
-	b=eWU38lI9/cUrPyWJCBHdBTLIznBGvJbTn9UD+My38Xl1+PXbg/rB5o6lC953/Do74cDm
-	 hbFLxWraRZc7d5+DSrJPxZT3XsgMzJlEIrhmYci/GrOvIO4geL8itt8uIT32HXTmB2MwL
-	 dNfMuc/TEr+DETCayUfm8pH0h6NzQFnK18Dh8Uh8Ng01LD2x5NH4QM1j4m0s9G0K5bVJ0
-	 MAnFg21EXQx9nJhOuSTSL5zyUOQ3WucUcT3NnnSMcT33CFDd0ZEeitAk5gXJQ7eBpMAFT
-	 7KZKfbf754Akcdkabhbh4C9AJPQ4No53xDL8F+sf0J1KET8mXRkYwSllGhKbN3EBrDA==
+	t=1794833945;
+	b=SHmUSPabisv8r4acwoKq9YXvwHYNAFL5GXGk8ZT++XQzz/4zk9qvPXJex3sO9rQ/391O
+	 nQ6lbyAa+zmnLzur6h4hYfD1dDEeAuP0IrB9i9qbwGzVrRQ6sYpjngWRs+mbaQsl+AtkD
+	 zJmlvsNthy7hKtDrGZFy4OcQKtBi8YhybBLT4k5Az5oARDxq8lPw8fqw+qwY1Va6oJv2y
+	 M5KL/+5rhzSQD/v94J3sriDD20HmuHgVGO+WrqHFnyCDJGI6HFOMwCzK52tIsKQ61h4Yw
+	 5IXUaXHQEQ4V0kLy7JsRkt5Dplxki0ot7op04Geb1BqufcYbfc6iPP/oqB2oID0lIbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833920;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=a0eXnU4zCIUpfEz3KZfBfjFrCwZNqPOxDyZIHHOmlwY=;
-	b=cCGDwigA9mYhSMCXNth32HtrjmH/9mx58MDpmiLXm5FpXvGhG+N+G3I1aIVZtIYQjW/R
-	 mSXozOULhmodbtJUS/7zde/y3DNpoNl5ECEWrCpi21YVlA1FYGR0e0tBifPjxp0esugYB
-	 LHUGlqw05LMVuZ5iBPfND3eoxV3SGXj9rDBaWFndGP23FvMWtwatjmyxi5RjdKt0KMxZz
-	 zm573U7T4ddlG/dCzhDofKvk1rkBiIbDEUrT1V8IjXplq6M3yiDgS8iKHL+SYf8ebsG9s
-	 SdY4L25//AyqcxPjGjExWncxnvWCv0ub7pAG2jUXSL7vhwT6QJj/pSP004pvtLW7eAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833945;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=staA6FwHbiBwqpCLIDokL/q1H41HZpyazxomLsaJBOs=;
+	b=be9dPj11e7iDGZQLZL+A9AmjFk3fwgOU3Y+IBvkYXF8QC9D+HqVSsPP1cmZtCp9zAL4+
+	 X0gjLuPpxSp1D2680TkBjMBETghLzuV0PsnqfRmyVw8NRk7hs+6aBUfpgVdVVzBWJ2V/I
+	 bllRZUpJQMtocXcI38HTbbl25hVaChp6cO0VOLvqurQkVx23LOhR5QvfD/1rEaCm6hxRV
+	 iPneWQE/0BByk+50gLp2f7Mw5hrotmHdKqmBc3umzM0kSaZ6S6KPoq/t6Bm6br96+PbJL
+	 EdyzqHcXBpqWmC6YtppBtsBgn0KN1b/rEqRvLJocgDFutQoTXjP7+CTweYi2tguMb5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JA4RNrPx;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h8JqXobE;
+	arc=none smtp.remote-ip=91.218.175.148
+Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B404F606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B404F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77242606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77242606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JA4RNrPx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794833916;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a0eXnU4zCIUpfEz3KZfBfjFrCwZNqPOxDyZIHHOmlwY=;
-	b=JA4RNrPxgaTAOdowDIzUqWKkRKRyEHTjY+/xzqhTQLuzQb7d3LyKNyn1aK3KgNpgpVj0f/
-	mudoJtQPPdqb3jQc+95TskdwTJlwHRddKYPQWcpne7Drc7YH8eDFxGuPl4zu0WR7X+lIIN
-	wy1c2x9bIVTjeWlk6e2aVJz5FXIQHic=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-584-BnUPYpnYOaOOHgxB5EYAVA-1; Mon,
- 16 Nov 2026 07:58:25 -0500
-X-MC-Unique: BnUPYpnYOaOOHgxB5EYAVA-1
-X-Mimecast-MFC-AGG-ID: BnUPYpnYOaOOHgxB5EYAVA_1794833894
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1AADD180049D;
-	Mon, 16 Nov 2026 12:58:13 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 93DC8195B3C0;
-	Mon, 16 Nov 2026 12:58:08 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 16 Nov 2026 13:58:12 +0100 (CET)
-Date: Mon, 16 Nov 2026 13:58:07 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Renzo Davoli <renzo@cs.unibo.it>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Alexey Gladkov <legion@kernel.org>,
-	Eugene Syromyatnikov <evgsyr@gmail.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Bradley Morgan <bradley.morgan@linux.dev>,
-	Shuah Khan <shuah@kernel.org>, strace-devel@lists.strace.io,
-	linux-api@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] ptrace: reject out of range error values in
- PTRACE_SET_SYSCALL_INFO
-Message-ID: <avr936G8fLoPm-_E@redhat.com>
-References: <20261115152703.416254-1-renzo@cs.unibo.it>
- <20261115152703.416254-2-renzo@cs.unibo.it>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h8JqXobE
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JQidkp1aImcxYe8L/9R0QpEw0bwKcclDKm8qpqJRAHI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794833942; v=1; x=1795438742;
+ b=h8JqXobEkbdAobMtJr0K+EU3DHnHd6SAdiBpXbD+IemPBOvCcyL8aJCYiSTfZr0UY+Gdg2WE
+ urGvhOlEKe/Crtt0QD8q63KOmBRQowfJ9yLHU7+Fd5X+c+5LTSHkoe3ZsHMV0qjSnHoGR2zhGld
+ TEGy9ugLkmAaVD8xRU6cq25Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a7cf24b6a13c472c;
+	Mon, 16 Nov 2026 12:59:02 +0000
+X-Mizu-Trace-ID: a7cf24b6a13c472c
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 21:00:14 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+	Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
+	peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, samuelcrossley@gmail.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	kas@kernel.org, Arnav Aghav <aghav@meta.com>
+Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
+ select_idle_capacity()"
+Message-ID: <avr-XumgYsrnA6vZ@three-body>
+References: <20261113153157.2495664-1-usama.arif@linux.dev>
+ <eba9d3df71f3f37bf7a318854a1ab6bf1cfb1981.camel@surriel.com>
+ <CAKfTPtCJLci=Yzq6B0-hK5L0m5iQPw1Y0NDQhKEaV6reg-690g@mail.gmail.com>
+ <avglp8nnc4u9OCb5@gpd4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,42 +75,175 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261115152703.416254-2-renzo@cs.unibo.it>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+In-Reply-To: <avglp8nnc4u9OCb5@gpd4>
 
-On 11/15, Renzo Davoli wrote:
+On Sat, Nov 14, 2026 at 10:11:03AM +0100, Andrea Righi wrote:
+> Date: Sat, 14 Nov 2026 10:11:03 +0100
+> From: Andrea Righi <arighi@nvidia.com>
+> To: Vincent Guittot <vincent.guittot@linaro.org>
+> Cc: Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
+>  peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
+>  juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+>  bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+>  samuelcrossley@gmail.com, linux-kernel@vger.kernel.org,
+>  stable@vger.kernel.org, kas@kernel.org, Arnav Aghav <aghav@meta.com>
+> Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
+>  select_idle_capacity()"
+> 
+> On Sat, Nov 14, 2026 at 09:18:30AM +0100, Vincent Guittot wrote:
+> > On Fri, 13 Nov 2026 at 20:32, Rik van Riel <riel@surriel.com> wrote:
+> > >
+> > > On Fri, 2026-11-13 at 07:31 -0800, Usama Arif wrote:
+> > > >
+> > > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity
+> > > > differences
+> > > > (1013-1024) within the single LLC activate asymmetric selection. Both
+> > > > the reference and affected kernels were observed with a zero scan
+> > > > hint. The reference kernel ignored it and still searched the domain.
+> > > > A latency-sensitive, wakeup-heavy production workload saw its
+> > > > reported
+> > > > minute p50 latencies average 129 ms on the reference kernel and 223
+> > > > ms
+> > > > on the affected kernel.
+> > > >
+> > > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
+> > > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
+> > > > raised the rate to 73.7k/s.
+> > >
+> > > Afaik, the asymmetrical selection is supposed
+> > > to solve a very specific problem: when a task
+> > > requires X amount of CPU capacity to run, we
+> > > try to avoid scheduling it on a CPU that has
+> > > only a fraction of X available.
+> > >
+> > > This creates the issue that a task that appears
+> > > to "need" exactly X, because it's been running
+> > > on a CPU with full available capacity, ends up
+> > > not being scheduled at all when the available
+> > > idle core has X-3% available capacity, because
+> > > that CPU happens to spend 3% of its time handling
+> > > interrupts, or running something else.
+> > 
+> > The task will be scheduled on this idle cpu/core of (X-3% capacity) if
+> > no other idle CPU with X capacity is available.
+> > The selection in select_idle_capacity is:
+> > - Idle core with enough capacity
+> > - Idle core with enough capacity but doesn't fullfill uclamp_min
+> > - Idle core that doesn't fit
+> > - Idle CPU with enough capacity
+> > - Idle CPU with enough capacity but doesn't fullfill uclamp_min
+> > - Idle CPU that doesn't fit
+> 
+> Right, and when the scan budget is exhausted select_idle_capacity()
+> returns the best idle candidate found so far, even if it doesn't fit.
+> 
+> However, in the zero-budget case, we return before examining any
+> candidates in the scan domain. Relaxing the capacity-fit rule inside
+> that scan wouldn't change the outcome, because we never reach that
+> check.
+> 
+> Maybe Rik's suggestion could instead help with the earlier checks in
+> select_idle_sibling()? Accepting an idle target, previous or recently
+> used CPU whose capacity is "close enough" could avoid reaching the
+> zero-budget bailout.
+> 
+> The tradeoff is that we'd accept a potentially weaker CPU immediately,
+> without searching for a better one.
 >
-> With is_error set, PTRACE_SET_SYSCALL_INFO passes info.exit.rval to
-> syscall_set_return_value() as an "int" error without checking it: a
-> positive value, or on 64-bit one outside the "int" range, turns the
-> error into a success or is truncated.
->
-> Reject with -ERANGE any error value outside [-MAX_ERRNO, -1].
->
-> Fixes: 26bb32768fe6 ("ptrace: introduce PTRACE_SET_SYSCALL_INFO request")
-> Reviewed-by: Dmitry V. Levin <ldv@strace.io>
-> Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
-> Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
-> ---
->  kernel/ptrace.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/kernel/ptrace.c b/kernel/ptrace.c
-> index 3f2fe68ccb14..1ffacfcef8d4 100644
-> --- a/kernel/ptrace.c
-> +++ b/kernel/ptrace.c
-> @@ -1111,6 +1111,10 @@ ptrace_set_syscall_info_exit(struct task_struct *child, struct pt_regs *regs,
->  	if (rval != info->exit.rval)
->  		return -ERANGE;
->
-> +	/* An error must be a negative errno value. */
-> +	if (info->exit.is_error && (rval < -MAX_ERRNO || rval >= 0))
-> +		return -ERANGE;
-> +
 
-	if (info->exit.is_error && !IS_ERR_VALUE(rval))
+Do you something similar to cluster wakeup, give the wakeup a second chance to find an idle
+CPU in the LLC. I suppose what you suggested is:
 
-?
+ 
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 470ba0dc6719..d1f3b179013e 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -9141,6 +9141,24 @@ static inline bool asym_fits_cpu(unsigned long util,
+ 	return true;
+ }
+ 
++static int asym_idle_retry(struct task_struct *p, int prev, int target,
++			   int recent)
++{
++	if (choose_idle_cpu(target, p))
++		return target;
++
++	if (prev != target && cpus_share_cache(prev, target) &&
++	    choose_idle_cpu(prev, p))
++		return prev;
++
++	if (recent != prev && recent != target &&
++	    cpus_share_cache(recent, target) &&
++	    choose_idle_cpu(recent, p))
++		return recent;
++
++	return target;
++}
++
+ /*
+  * Try and locate an idle core/thread in the LLC cache domain.
+  */
+@@ -9149,7 +9167,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
+ 	bool has_idle_core = false;
+ 	struct sched_domain *sd;
+ 	unsigned long task_util, util_min, util_max;
+-	int i, recent_used_cpu, prev_aff = -1;
++	int i, recent_used_cpu, recent, prev_aff = -1;
+ 
+ 	/*
+ 	 * On asymmetric system, update task utilization because we will check
+@@ -9206,6 +9224,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
+ 
+ 	/* Check a recently used CPU as a potential idle candidate: */
+ 	recent_used_cpu = p->recent_used_cpu;
++	recent = recent_used_cpu;
+ 	p->recent_used_cpu = prev;
+ 	if (recent_used_cpu != prev &&
+ 	    recent_used_cpu != target &&
+@@ -9244,7 +9263,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
+ 				target = i;
+ 				goto select_smt_priority;
+ 			}
+-			return target;
++			return asym_idle_retry(p, prev, target, recent);
+ 		}
+ 	}
+ 
+-- 
+2.43.0
 
-Oleg.
-
+ 
+> Thanks,
+> -Andrea
+> 
+> > 
+> > >
+> > > In that situation, it will be better to run the
+> > > task on the CPU with 97% capacity right now,
+> > > than to not run the task until a CPU frees up
+> > > later.
+> > >
+> > > Things like SMT and power-driven hardware
+> > > scaling complicate the matter further, because
+> > > we simply cannot see the full amount of capacity
+> > > that is available on each CPU.
+> > >
+> > > That makes me wonder if we should simply accept
+> > > any CPU that's "close enough to X" when dealing
+> > > with asymmetrical placement.
+> > >
+> > > Say, anything that's above 3/4 of the capacity
+> > > of X would be considered good enough to run the task.
+> > >
+> > > That still prevents us from placing a CPU intensive
+> > > task on a little core in a big.LITTLE system, or
+> > > from placing a task on a CPU that spends 80% of its
+> > > time handling interrupts, but it will allow a task
+> > > to run right now, when the capacity imbalance is small.
+> > >
+> > > Does that make sense, or am I forgetting something
+> > > important?
+> > >
+> > > --
+> > > All Rights Reversed.
