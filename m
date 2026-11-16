@@ -1,60 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822830;
-	b=br2A9P+l7K0Q9JBoYfTQDqKRKfFRezzVjIx9oXRZpOz/DBm2d5MYYM1Er8iBsgh5zgvU
-	 toZj0p9s3IJ5L/IREsgWlMs9nZtiqXukv8P66RuVZdOuoq7TLOgA0WNyCnDhG+OEMk/ib
-	 Hzw3NwnLa7IGBA2/88aLrTjOmWe+56LqirE9xovMEZv7JvRkYeO1okgZ8acfIsIEUOQkA
-	 3aXrcscbnSOz47vhC+Ucb9Wteo75aHURgW9wkk4lQhohRno3vHfnSgq2j0xEpFDSvAVUA
-	 chJAlcTARquyEq3JOnNGBkUaQHuMky7vWYc+YcwctGF+5//Fb5v1YXsMz4Mklq7VTYQ==
+	t=1794822842;
+	b=IFc3WkhPLi+SXQ2pRcDOocERcNwpIYjuOMb+DnXaUD587lFmOVW+X1/2yExam02E8P1y
+	 eSg6v9hevR+gl8gF1+8CgctxMs5QKxc25Jq4ypxhwM6B2c0SjzrCQZ47YHBAHVsjutddB
+	 CvNvXbbdGHLqy4cH/xMvmhzzgEIaYTEnuqUTgGWVLig5HnolStUjzQJBxCmO8hpYaZvHd
+	 UaEcDXrDbyNEUnAQhOjrz8mK6Y7Q8ilZuh6u1ejIRuCTR1RJGwdkbnzoi9eXgf4vtlF4G
+	 ovjcLxYJ2Ad+PPeKH7VxncSz1XLmSQ18eYihHmUo631RZ/BZcmFefGKhq1XvodAVObQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822830;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=thQ5tIrrwD7SqIdDlbUJwnmSGJ/4IF6F6XNTPstz/Ko=;
-	b=o+bYPz+6cbrTKwrpp8fQoQxu6yIhgoL/QKtI+Vhm8TpSgagmVovbAbafXZxIxbHpE/ti
-	 7FiIxb1kZuWeVcfh6RwZMKB3SQeAbe+1y7QgVWSVHEg3StKCZi/Ypk7+fdHEZz79ynwW9
-	 DzwrH0VXnQhR3rlCjfbBtoye8j8wD4BXO3MWjo5Ls9XLxyJuOCnYf6/SLgftSUP2DViOi
-	 CC2mVEYCqwpcLU9jUi+lTl4ZEK/97TQERGDmHTCSvh3Y8uVIEyPG3/GMosCv8m5J8bOO/
-	 8zWzSklpqsF52jJFCNwRYJaUxykSQHsJMBletDcC7kDTP4Tn3VOjg9mcJfcY6AO0RPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822842;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=cr07oHssbLWlJlBi/NoZz/TL0z6F2KfdhBGAB1tmrfM=;
+	b=DsZ7u1W/J/TLFzrneHHr146Yz+hRLudP90ajsbQ1j0OK8y8cfvOoXycqNg6bGmFpYgyu
+	 8EHhQBmT6bpVt4GlQ1uxNima+QR6MjLsYFY6c7Efmfq7392Td6r9ZEuWCADKz58q7/Tke
+	 /d/K47xCp3WTUS4GA7tVgsO1o96UrbAbuxrLZhga3KDhbOsF3x/evbJqh1iNoeOcyTPl0
+	 7kuLdXqtZS5+DiFvmgyCrTOEnfDS5LhZ7iq82OGbRo+XgZW1XuKYfvHka7fRxlJwNelgK
+	 eeN7/xr0Uhe3LtcBHmFSskZU9dlZtboeondqC07Pq/oBvC6EYHt8cROH+2YuuAkQINA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RFqcgEaR;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WELHRHmT;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0CD606A31C;
-	Mon, 16 Nov 2026 09:53:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D0CD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B59F606A31C;
+	Mon, 16 Nov 2026 09:54:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B59F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RFqcgEaR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=th
-	Q5tIrrwD7SqIdDlbUJwnmSGJ/4IF6F6XNTPstz/Ko=; b=RFqcgEaRkSibPW+DBu
-	JvUhIPEM5y4bCxqOiIkyZ/eE8LPdLcK8VFIQ9OtZ4VboFLYHJZFiNVO5+nl/S6hr
-	brJkpZilItrYMQRcbUtlRO3LL6qThIIB5PY+27qpBl0gV9ZmvDSHJZdFW7TuSRxu
-	DqVE/DQ4osfO4mrRXCY8xcwbk=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBXMyCS0vpqu8TwHw--.57709S2;
-	Mon, 16 Nov 2026 17:53:23 +0800 (CST)
-From: Qunqin Zhao <zhaoqunqin@163.com>
-To: lee@kernel.org
-Cc: chenhuacai@kernel.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-crypto@vger.kernel.org,
-	mfd@lists.linux.dev,
-	Qunqin Zhao <zhaoqunqin@loongson.cn>,
-	Huacai Chen <chenhuacai@loongson.cn>
-Subject: [PATCH v10] mfd: loongson-se: Add multi-node support
-Date: Mon, 16 Nov 2026 17:53:07 +0800
-Message-Id: <20261116095307.21990-1-zhaoqunqin@163.com>
-X-Mailer: git-send-email 2.20.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WELHRHmT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794822841; x=1826358841;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Uoy1KllQGtfzXAFPSLxBDqpTsuB6y9sJz6MprUKpRkI=;
+  b=WELHRHmTrKUpV5r/e0QIY7uTxNz+W1TPbkWuHmtGqbv/KTBJqY7ASQZU
+   co6nmyNg0wGX8nfghJs/DBR+OPsGSWddt6lpbeoyi4A4ea4V32yT5TxA1
+   ilUpYXIMkBuy9b85JN1qbb3ExDefonjrNw5JDmpLV32+KAjzH/Mf9bjS1
+   1S0g9J0TMmQBR2Y2R2k2v/3rg38xxC0GHLPhIv9Pqezo6KlwbPH9wswUk
+   +kD87Zr1nubXImtEo1BOU3Sif9wLsOqMtkx/uxECSpz/s071q9nOW+3no
+   si66ID+WA+bYdNvx8/VoSr00NzbMDZJM4VgiuZLqkJmvJ5irQmfTyj8CP
+   w==;
+X-CSE-ConnectionGUID: rjpBbpXaQG6g3vo+7mK00g==
+X-CSE-MsgGUID: 06DUTP3CTy2mvIGcAOVBVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3585593"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3585593"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:54:01 -0800
+X-CSE-ConnectionGUID: HwjSJmAtQROdybNRcNO+uQ==
+X-CSE-MsgGUID: vyXX0qsSTqOzZA3GAZi+Uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9567827"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:53:58 -0800
+Date: Mon, 16 Nov 2026 11:53:56 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] iio: potentiostat: lmp91000: Handle configuration
+ write errors
+Message-ID: <avrStKkcvUApPMDb@ashevche-desk.local>
+References: <20261113082546.176582-1-zhujun2@cmss.chinamobile.com>
+ <CAHp75VeOjqWoEM36OMgtiiwu3XWiu5wfJf59vYFuGSApbWpPaA@mail.gmail.com>
+ <CAHp75Vfy97JHMaURigbF92z7Eypfuny8PUk94=-43S6p6PhknQ@mail.gmail.com>
+ <20261114014149.21dbc4d2@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,73 +85,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBXMyCS0vpqu8TwHw--.57709S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr45Jr4DZFWUJFW5Jw45GFg_yoW8tw1kpa
-	98Wa90yr4jkr1F9wn8ZayvkFy3Z3yft3y3C39rJw47A3s8twn5ury3JFyjgr1fCFWrJa1U
-	XrWFkF48uFW8uF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UpOJrUUUUU=
-X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7RMycWr60pN89gAA3m
+In-Reply-To: <20261114014149.21dbc4d2@jic23-hlaptop>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+On Sat, Nov 14, 2026 at 01:41:49AM +0000, Jonathan Cameron wrote:
+> On Fri, 13 Nov 2026 10:47:32 +0200
+> Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
+> > On Fri, Nov 13, 2026 at 10:41 AM Andy Shevchenko
+> > <andy.shevchenko@gmail.com> wrote:
+> > > On Fri, Nov 13, 2026 at 10:25 AM Zhu Jun <zhujun2@cmss.chinamobile.com> wrote:  
 
-On the Loongson platform, each node is equipped with a security engine
-device. However, due to a hardware flaw, only the device on node 0 can
-trigger interrupts. Therefore, interrupts from other nodes are forwarded
-by node 0. We need to check in the interrupt handler of node 0 whether
-this interrupt is intended for other nodes, this can be accomplished via
-shared interrupt handling.
+...
 
-Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
----
-v10: Rebase onto latest for-mfd-next
-v9: Keep checks immediately after allocation calls
-v6-v8: no changes
-v5: Clear pending interrupts with S2LINT_CL before requesting IRQs,
-    and move S2LINT_EN to after all interrupt handlers are registered.
-v4: Safely handling shared interrupt handler returns.
-v3: Using shared interrupts (IRQF_SHARED) instead of manually
-    iterating through all devices to check for interrupts.
+> > > > Check the configuration writes and return the first error. After a
+> > > > successful unlock, attempt to restore write protection even if a
+> > > > configuration write fails. Return a relock error when both configuration
+> > > > writes succeeded.
+> > > >
+> > > > lmp91000_probe() returns either error before registering the IIO device,
+> > > > so the caller does not need to distinguish their source. Preserve the
+> > > > configuration error if restoring write protection also fails.  
+> > 
+> > Btw, this is still unclear. See below.
 
- drivers/mfd/loongson-se.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+...
 
-diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-index 23af05d38..0c6274aa0 100644
---- a/drivers/mfd/loongson-se.c
-+++ b/drivers/mfd/loongson-se.c
-@@ -152,6 +152,10 @@ static irqreturn_t se_irq_handler(int irq, void *dev_id)
- 	spin_lock(&se->dev_lock);
- 
- 	int_status = readl(se->base + SE_S2LINT_STAT);
-+	if (int_status == 0) {
-+		spin_unlock(&se->dev_lock);
-+		return IRQ_NONE;
-+	}
- 
- 	/* For controller */
- 	if (int_status & SE_INT_CONTROLLER) {
-@@ -278,7 +282,7 @@ static int loongson_se_probe(struct platform_device *pdev)
- 		if (irq < 0)
- 			return irq;
- 
--		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
-+		err = devm_request_irq(dev, irq, se_irq_handler, IRQF_SHARED, "loongson-se", se);
- 		if (err)
- 			return dev_err_probe(dev, err, "Failed to request IRQ: %d\n", irq);
- 	}
-@@ -293,7 +297,7 @@ static int loongson_se_probe(struct platform_device *pdev)
- 	if (err)
- 		return err;
- 
--	return devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE, engines,
-+	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, engines,
- 				    ARRAY_SIZE(engines), NULL, 0, NULL);
- }
- 
+> > > > -       regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
+> > > > -       regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
+> > > > -       regmap_write(data->regmap, LMP91000_REG_REFCN,
+> > > > -                    LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50_ZERO);
+> > > > +       ret = regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
+> > > > +       if (ret)
+> > > > +               return ret;
+> > > > +
+> > > > +       ret = regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
+> > > > +       if (ret)
+> > > > +               goto relock;
+> > > > +
+> > > > +       ret = regmap_write(data->regmap, LMP91000_REG_REFCN,
+> > > > +                          LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50_ZERO);
+> > > > +       if (ret)
+> > > > +               goto relock;
+> > > > +
+> > > > +       return regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
+> > > > +
+> > > > +relock:
+> > > >         regmap_write(data->regmap, LMP91000_REG_LOCK, 1);  
+> > >
+> > > What's the point of duplicating this?
+> > > Before label you can easily do
+> > >
+> > >   ret = 0;
+> > >
+> > > relock:
+> > >   ...  
+> > 
+> > Ah, okay, I see that the relock error is returned only on success of
+> > the configuration update. Why is this inconsistency? Really, you need
+> > to elaborate first on what the caller is suppose to do when
+> > 1) unlock failed;
+> > 2) unlock was successful, but configuration was failed;
+> > 3) unlock and configuration was successful, but relock failed.
+> > 
+> > In all of these cases the user gets an error, but it doesn't know
+> > which stage was failed. What is the caller supposed to do?
+> > 
+> > No need to send a new patch, let's keep discussion here to understand
+> > the code flow better.
+> 
+> I think I requested this flow.  I didn't like v1 doing some dance
+> with ret2 and only return that if ret wasn't set.  Argument of the patch is
+> that we must make sure to unlock even on error.
 
-base-commit: c92739a23a80f5f0a7c6f3c10aa792102d252ac4
+Right, but I think this is a slippery slope to leave device in the inconsistent
+state and caller will not know if the locking failed or actual configuration.
+How is HW being recovered from the inconsistent state(s)? That's basically my
+main concern.
+
+Note, I haven't checked with datasheet, so I have no clue how critical those
+erroneous states are. If it's natural flow on the next iteration that clears
+this problem, then we may relax on the error checking to begin with.
+
+> > > > -       return 0;
+> > > > +       return ret;
+> > > >  }  
+
 -- 
-2.47.2
+With Best Regards,
+Andy Shevchenko
+
 
