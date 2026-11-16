@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794812741;
-	b=k8NsWSfj8NKyDrwDe/1FmH7FUARlaRdb6NO7kq3KL71J39EyDmeD5gzPW5QuIt3GSPlf
-	 Ks6qcJFrFDZr5M/3ZkyiKfRzO5IFslaxzYYJULZtjkN69E194bhyDdiegsDhi2sPwyrxJ
-	 wlpjbpEG9vwuA6EKf8GXH+UMkzX6NPZc/vD6WuIEYj4jN7h3SPg5+dakRSHkX8P72s/2E
-	 i/vcRWyI3ksdc5Rln6qM2cumluFGwNTPyl+Y1QK0BYRSzIS7n+riczrHdq/6dV5im8Lrl
-	 augFWBM//FUf8WeGsiVQh8MrLMYAVx6XtoN0SceEzPBxrRewgLthG/lJeCexuzOkOmA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812741;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rBoc9Az+eYLYApOQ5Nq0UwLguS2L7Y5c89wC992tlqw=;
-	b=RF1Dq+vBIGMLOlwrmcolukGXaZPoRD3OeSftF6gCKXAuKGfFKydT3cIW1mIRxU5oj6Cs
-	 JKRdx7lqit0cll0Pvesl+Lul3tWAG2keCT30xemiX/fCJRS9+kt07nvPzeav1lxIlpC8L
-	 R5qHQ98c2JUtctPZ8jvApv5lrzI2bEitK2C2rwPdRmd/+wufWyxcQLwy/48FEUuuRWYGk
-	 mSvt4I2g3PUmZUzGYMYTJFBIoPIntYbtvK8fCcJUV2EUxkiBwV3pjYEb5LdyZ/4Jauvk6
-	 4cl2jgPR4mPcImM/SvtsnzrPdH+XVj+LMmpokfME+3bjiH2CpoAOEcM+d67TMcXdh8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SJ5S0Ys/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABBD606A323;
-	Mon, 16 Nov 2026 07:05:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJ5S0Ys/
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794812741;
-	b=Tm08GaosT3F35/goGlMpFlAHYY8sLzjJNGvB2jqci8Egx3nCjpORUUuS9fVMDo6XwQoN
-	 DPssXd3At6lRwQ/hIvzabaRCIshsObTR+CyiAhvWOjVP1aue6BEBmK6zpBbJDTx4qILLE
-	 WlmEMvlY1xqQHtT9AHyHexNb4IPqdiP+y1NEqSb7uk6ThH7Htz7Z6snG8PBc7IBguMJx/
-	 4gJ0qtqff1jAupMkl/UUFJtNhhPrzlz1Xtnrlxb8nO99eZ73OJ0/rIdGyw/d8uCkniLG7
-	 OuOemv1LZGKvXpDYzjdbXQcIPXWN/XbroGWhw8SP8+slhV/GiG2rFo9E6J8eTNNrAaQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794812741;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.245
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794812900;
+	b=fXPF8YsTgT0tejfrxyq4zfcLxcPyLOeh59FduZXUmt55AUCUcOVq6AUsQs4zBMWfZ8jd
+	 Ptq0AJUzv6t4HtGozjAt0fm82P5YRI58FSEmkz0eU4D1nhmyL50c/ZSobhwfD/EkosqBA
+	 wcd4qhHJWKTHurVcUc9YxnllamfuyCLILik3KN2qcyOml4jF2QXTbQkkY5liTfr1Qd0Sh
+	 mHoKIOulNalO+YJc09nCnF32XDjIH0bsxY1jneN/hsVqcIVCF+q2PTQAGl4snFdI5AYae
+	 9zXRuMnLyP565F2bHxqyGBHkbOYRSlZ+d9Qfz/wpPLhrSiZmbY0dEA+MoHgXpXUKTnQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812900;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=rBoc9Az+eYLYApOQ5Nq0UwLguS2L7Y5c89wC992tlqw=;
-	b=BHqtVSLUaiK8Zkq8jw1Nbze/XQz3JyfdkU1SWd8xpkVdZy0fSjd5c6v1MWKolC+k43Al
-	 BRsdpm8HiWnYyMTOEHMQIG7jDCXEA1aR+a4DlepRTRQwGlJqvL/HFcF1BFhnK+i9MEmED
-	 RSszyqxrmhl9uN+gwEhawRCE3kKNekfgyFtxXjpoW0rDUS9xjghvQGH8blXKi0hD9pBbQ
-	 x7bPXOIdIs/ThgoEpyIg6s6iLnuPRZYQFb7hvisQg+2BEtR9ntJi411fIP5Tvje8d/r+O
-	 /MSZdNwJCjPBuRK3iPlmLmj4EUUuBFKersQJV5SFs5MoY92TJZQDtFzs3XVVowPXMxQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=Ku1GaLDZkKaVwDYDZ0Af5dH0wVqeYKJe066PDuuveYg=;
+	b=0KaHUCVTQp2Cph2CZi85MsPcs9oHJ3mDyV4LdiJ/7UUfAXZIsGOQ7+AZOtJxFLVYbsq5
+	 HePwqS4CMo4+391qQNeyti+k8rIZnmzBkTKdCl1uPZ+uY9azlcAeafFD3nRDAN+tpsPd0
+	 aYgMFGO+AM+dTuimfNP8YEixBBikxvfm65xN2WM+P96/oFsr7T6qWYqljoP7KFgxCx9ZH
+	 BLEDQsH7id9PfyTKhvWEDvRyNPOUgd93/Sj8IfMfsldp94IbLWV1d+p8u7CH9xYZcZuQ1
+	 YXBAic56zT2rx4hvWX6TEcEVp2haGBUSLV1GeFxDRSjgOkqHVDYGDv8x7LPo2Qt6Nnw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=B1KV+0OO;
+	arc=none smtp.remote-ip=95.215.58.245
+Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BEF1C1F000C5;
-	Mon, 16 Nov 2026 07:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794812741;
-	bh=rBoc9Az+eYLYApOQ5Nq0UwLguS2L7Y5c89wC992tlqw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=SJ5S0Ys/PDkerFAQXDztg4mxwvUqQaWJAKat33wC7U99JQi3bEsDGm+TLR+0tGr2H
-	 zQvr9sBZZkRn588EZzdtU1LK+X0dauYc2+dcZ9wSVpGtzMOeVyB3/FDUBXeM7fKk7Y
-	 eDlRewvqT2LIM5XdLV4M6Mw8m1iavIspbHY17i4r/yX/ilbjRYZKl49Qyiat08/u2B
-	 XXR6llGwZU2LJ1MNnAb6HKQnCwo6CGzJ24ymTLlCkN9Tq8eGCpgNLN8Zia+FDH09Zc
-	 dKeMtZ/BSJUVkGll2RYyQ29QotRYOnGuZ36MkGq35y6Ue5NFRSCeG1uHdwXDSBr5WZ
-	 GwDOq25TgQeBA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4F66B4A368;
-	Mon, 16 Nov 2026 07:05:40 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Mon, 16 Nov 2026 09:05:39 +0200
-Subject: [PATCH v2] PCI: rockchip-host: Retry link bring-up on repeated
- Recovery
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EC6606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16EC6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=B1KV+0OO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6vrI7gFyIbpml94nt7zmiCUdpXp3+pLUaoOSBcJrx1g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794812897; v=1; x=1795417697;
+ b=B1KV+0OOVFo2JP5I1KIbCCFTBhiwXJBAdoUaQWGW1pUTW1rl/rODGG7AC2YcJzg6FvoREkSi
+ 0cEuOcBWjq7mqOVxLKsAydm8II6G2ol/ZRF4fmeobzb8S672znKUaBwm5QhBlzLDSQOgs00Ft7I
+ ryZHEyJfRRw7Z4C8UVsq0ziQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 97b20a8296e0957a;
+	Mon, 16 Nov 2026 07:08:17 +0000
+X-Mizu-Trace-ID: 97b20a8296e0957a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b5d6f382-0e33-4737-8c8f-03f5536249d9@linux.dev>
+Date: Mon, 16 Nov 2026 15:08:08 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,246 +58,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-rockchip-pcie-resume-v2-1-a633e279be97@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAEKr+moC/22NQQ7CIBBFr9LM2jFAwTSuvIfpgtBBJmppQImm4
- e5i49Lle8l/f4VMiSnDsVshUeHMcW6gdh24YOcLIU+NQQl1kEIOmKK7usALLo4JE+XnnVA5PXl
- Sfa8lQZsuiTy/tux5bBw4P2J6by9Ffu0vqPT/YJEo0AxktDXOGy9PbMv+VmCstX4AwyDy0bUAA
- AA=
-To: Shawn Lin <shawn.lin@rock-chips.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: Rob Herring <robh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Matt Thompson <matt@boondocker.io>, linux-pci@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7808; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=Cps1/uQ5Lnu2PNKM6vu/z1g7FA1bXqg0a2gSZkGUYzE=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFm/VjufXCMedXRF1s3YKRz8VQrzCiaVx98o7BBOVCreF
- sBle+ZaRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZgITynDP43jLLzXq0//a/xd
- JMa//0BQ2KdX6z4XPVA4u6FnqUXw9HyG/w6tAgwiIXGes+Xu68078sU99PeGRIlznw/WrcucYJC
- 6hh0A
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v4 5/6] cgroup/cpuset: Handle remote partitions
+ before local partitions in cpuset_handle_hotplug()
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116012330.2271010-1-longman@redhat.com>
+ <20261116012330.2271010-6-longman@redhat.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20261116012330.2271010-6-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Igor Velkov <iav@iav.lv>
 
-On Kobol Helios64 (RK3399 with a JMB585 at x2) about 3% of link
-bring-ups go bad. The LTSSM reaches L0 and then re-enters Recovery about
-every 200 us; the RC sees DLLPs about 300 times as often as on a good
-link, with no DLLP or CRC errors. The first config read behind the port
-gets no completion and aborts the CPU, or link training times out. The
-state survives Recovery, and a new bring-up of the port clears it.
 
-After the link comes up, poll the LTSSM for 5 ms and treat more than two
-entries into Recovery as a bad bring-up. The RC runs at 2.5 GT/s only,
-so no speed change goes through Recovery, and good bring-ups on the
-boards we tested showed no Recovery entries after L0. Bring the port up
-again, up to five tries in all with 500 ms between them, for this and
-for a training timeout. An empty slot stays in Detect, so a timeout
-there fails on the first try. If no try gives a usable link, probe and
-resume fail as they do on a training timeout today.
+On 11/16/2026 9:23 AM, Waiman Long wrote:
+> When there is a valid remote partition underneath an invalid local
+> partition with subpartitions_cpus cleared because of missing active
+> CPUs in the top_cpuset partition, the current iteration logic in
+> cpuset_handle_hotplug() will handle the invalid local partition first
+> and potentially make the local partition valid. The remote partition
+> will be handled later with the potential that both the local and remote
+> partitions will be valid with overlapping exclusive CPUs violating the
+> cpu exclusivity rule.
+> 
 
-Every link bring-up takes 5 ms longer. A link that stays bad delays the
-failure by 3 to 5 s.
+Hi Longman,
 
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on Helios64 with unbind/bind cycles; every bad bring-up was fixed
-by the first retry:
-- earlier builds with the same poll and retry loop, 7.3: no abort in 600
-  cycles (5 in 150 without the patch), 10/10 cold boots, 60/60 s2idle;
-- 7.4-rc2 with Matt Thompson's RFC v2 [1]: 4 bad bring-ups in 150
-  cycles; with the RFC alone the JMB585 was lost in 5 of 150;
-- this patch, 7.4-rc2: 5 bad bring-ups in 150 cycles (one of them a
-  training timeout), no abort; 20/20 s2idle.
-An NVMe drive on a ROCK Pi 4A with the patch: 60 cycles, none rejected.
+Patch 5 and Guopeng's patch [1] handle the same case: after hotplug,
+top_cpuset has no usable CPU left (no active CPU, or no active boot
+domain housekeeping CPU). But they take different approaches:
 
-[1] https://lore.kernel.org/r/20261113-rfc-b4-v2-0-d6b14f95c1d6@boondocker.io
----
-Changes in v2:
-- Drop the hot reset of patch 2: it did not stop the aborts.
-- Also retry when the link keeps entering Recovery in the first 5 ms
-  after link-up; up to five tries, 500 ms apart.
-- Do not retry a training timeout in Detect.
-- Rebase onto pci/next.
-- Link to v1: https://lore.kernel.org/r/20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv
----
- drivers/pci/controller/pcie-rockchip-host.c | 80 +++++++++++++++++++++++++++--
- drivers/pci/controller/pcie-rockchip.h      |  3 ++
- 2 files changed, 80 insertions(+), 3 deletions(-)
+- Current code: clear subpartitions_cpus and invalidate all the
+  partitions.
+- [1]: only invalidate the partitions that can give an active
+  housekeeping CPU back to top_cpuset.
+- Patch 5: invalidate all the local partitions but keep the remote
+  ones valid if possible.
 
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index 1e1556e436b8..7c43e5bcccd3 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -13,12 +13,14 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bitrev.h>
-+#include <linux/delay.h>
- #include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/iopoll.h>
- #include <linux/irq.h>
- #include <linux/irqchip/chained_irq.h>
- #include <linux/irqdomain.h>
-+#include <linux/ktime.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_pci.h>
-@@ -29,6 +31,11 @@
- #include "../pci.h"
- #include "pcie-rockchip.h"
- 
-+#define ROCKCHIP_PCIE_LINK_CHECK_US		5000
-+#define ROCKCHIP_PCIE_LINK_CHECK_MAX_RECOVERIES	2
-+#define ROCKCHIP_PCIE_LINK_BRING_UP_TRIES	5
-+#define ROCKCHIP_PCIE_LINK_RETRY_WAIT_MS	500
-+
- static void rockchip_pcie_enable_bw_int(struct rockchip_pcie *rockchip)
- {
- 	u32 status;
-@@ -277,9 +284,40 @@ static void rockchip_pcie_set_power_limit(struct rockchip_pcie *rockchip)
- 	rockchip_pcie_write(rockchip, status, PCIE_RC_CONFIG_CR + PCI_EXP_DEVCAP);
- }
- 
-+/*
-+ * A bad bring-up re-enters Recovery about every 200 us, and config requests
-+ * through it get no completion. A good link settles in L0. Each visit to
-+ * Recovery lasts about 5 us, so we busy-poll; the limit of two entries leaves
-+ * margin for an occasional retrain of a good link.
-+ */
-+static bool rockchip_pcie_link_is_stable(struct rockchip_pcie *rockchip)
-+{
-+	ktime_t end = ktime_add_us(ktime_get(), ROCKCHIP_PCIE_LINK_CHECK_US);
-+	bool was_recovery = false, is_recovery;
-+	int recoveries = 0;
-+	u32 state;
-+
-+	while (ktime_before(ktime_get(), end)) {
-+		state = rockchip_pcie_read(rockchip, PCIE_CLIENT_DEBUG_OUT_0);
-+		state &= PCIE_CLIENT_DEBUG_LTSSM_MASK;
-+		is_recovery = state >= PCIE_CLIENT_DEBUG_LTSSM_RCVR_LOCK &&
-+			      state <= PCIE_CLIENT_DEBUG_LTSSM_RCVR_IDLE;
-+
-+		if (is_recovery && !was_recovery)
-+			recoveries++;
-+		was_recovery = is_recovery;
-+		udelay(2);
-+	}
-+
-+	return recoveries <= ROCKCHIP_PCIE_LINK_CHECK_MAX_RECOVERIES;
-+}
-+
- /**
-  * rockchip_pcie_host_init_port - Initialize hardware
-  * @rockchip: PCIe port information
-+ *
-+ * Return: 0 on success, -EAGAIN if another bring-up of the link may help, or
-+ * another negative error code
-  */
- static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
- {
-@@ -325,7 +363,19 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
- 				 status, PCIE_LINK_UP(status), 20,
- 				 500 * USEC_PER_MSEC);
- 	if (err) {
--		dev_err(dev, "PCIe link training gen1 timeout!\n");
-+		status = rockchip_pcie_read(rockchip, PCIE_CLIENT_DEBUG_OUT_0) &
-+			 PCIE_CLIENT_DEBUG_LTSSM_MASK;
-+		dev_warn(dev, "PCIe link training gen1 timeout, LTSSM %#x\n",
-+			 status);
-+		/* An empty slot stays in Detect; another try cannot help. */
-+		if (status > PCIE_CLIENT_DEBUG_LTSSM_DETECT_ACTIVE)
-+			err = -EAGAIN;
-+		goto err_power_off_phy;
-+	}
-+
-+	if (!rockchip_pcie_link_is_stable(rockchip)) {
-+		dev_warn(dev, "PCIe link up but keeps entering Recovery\n");
-+		err = -EAGAIN;
- 		goto err_power_off_phy;
- 	}
- 
-@@ -377,6 +427,30 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
- 	return err;
- }
- 
-+static int rockchip_pcie_bring_up_port(struct rockchip_pcie *rockchip)
-+{
-+	struct device *dev = rockchip->dev;
-+	int i, err;
-+
-+	for (i = 0; i < ROCKCHIP_PCIE_LINK_BRING_UP_TRIES; i++) {
-+		if (i) {
-+			dev_info(dev, "retrying the link bring-up (%d/%d)\n", i,
-+				 ROCKCHIP_PCIE_LINK_BRING_UP_TRIES - 1);
-+			msleep(ROCKCHIP_PCIE_LINK_RETRY_WAIT_MS);
-+		}
-+		err = rockchip_pcie_host_init_port(rockchip);
-+		if (err != -EAGAIN)
-+			break;
-+	}
-+
-+	if (err == -EAGAIN)
-+		err = -ETIMEDOUT;
-+	if (err)
-+		dev_err(dev, "no usable link: %pe\n", ERR_PTR(err));
-+
-+	return err;
-+}
-+
- static irqreturn_t rockchip_pcie_subsys_irq_handler(int irq, void *arg)
- {
- 	struct rockchip_pcie *rockchip = arg;
-@@ -881,7 +955,7 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
- 	if (err)
- 		goto err_disable_0v9;
- 
--	err = rockchip_pcie_host_init_port(rockchip);
-+	err = rockchip_pcie_bring_up_port(rockchip);
- 	if (err)
- 		goto err_pcie_resume;
- 
-@@ -938,7 +1012,7 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
- 		goto err_set_vpcie;
- 	}
- 
--	err = rockchip_pcie_host_init_port(rockchip);
-+	err = rockchip_pcie_bring_up_port(rockchip);
- 	if (err)
- 		goto err_vpcie;
- 
-diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index b5da15601b58..fcdc3783b3fd 100644
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -51,6 +51,9 @@
- #define   PCIE_CLIENT_PHY_ST			BIT(12)
- #define PCIE_CLIENT_DEBUG_OUT_0		(PCIE_CLIENT_BASE + 0x3c)
- #define   PCIE_CLIENT_DEBUG_LTSSM_MASK		GENMASK(5, 0)
-+#define   PCIE_CLIENT_DEBUG_LTSSM_DETECT_ACTIVE	0x01
-+#define   PCIE_CLIENT_DEBUG_LTSSM_RCVR_LOCK	0x0b
-+#define   PCIE_CLIENT_DEBUG_LTSSM_RCVR_IDLE	0x0e
- #define   PCIE_CLIENT_DEBUG_LTSSM_L1		0x18
- #define   PCIE_CLIENT_DEBUG_LTSSM_L2		0x19
- #define PCIE_CLIENT_BASIC_STATUS0	(PCIE_CLIENT_BASE + 0x44)
+I think we should agree on the expected behavior first. My preference
+is to keep it simple and invalidate all the partitions as the current
+code does. The problem is that in the same hotplug pass, after valid
+partition A is invalidated and its CPUs are given back to top_cpuset,
+partition B, which was invalid before, may become valid again. B puts
+its CPUs back into subpartitions_cpus, so a valid partition visited
+after B is not invalidated (patch 1), or B overlaps with a remote
+partition underneath it (patch 5). If invalid partitions are not
+allowed to become valid again in that pass, both issues go away.
+Do we really need to keep some partitions valid in this case?
 
----
-base-commit: 35f800669ce835aa77364a2ab5b61be19b778d3c
-change-id: 20261018-rockchip-pcie-resume-2c4dfe23341e
+[1] https://lore.kernel.org/cgroups/20261111134250.16852-2-guopeng.zhang@linux.dev/
 
-Best regards,
 -- 
-Igor Velkov <iav@iav.lv>
-
+Best regards
+Ridong
 
