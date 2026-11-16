@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794833986;
-	b=kp6RDjuHwxs9R+rbmiTc8SKPSqbRegNkZMcQ3rZ+EjfXGl35Rqveq24QAd3RHpJNJO0Z
-	 xKySCJC48XOCieyX6ZSDfSvDM7dJaeUshp3eFiQVrOgh/oCp65vN+IPe6pxPW6Sy3JbIv
-	 Q8pIb1U8owbBTXwIEgvIker7zB2LIf1Me8jXAMQf6TfKbpyyoewuwVdq4dv3FV2zzo8v+
-	 BWm6QLEipOqhVJu4Fkm7E0k0ig0+wW77b+6f6pm6kekGxPH40MW5uTf6jH/bWkJsCDrC1
-	 803kCWHq1HfIQK1dpI+vixZTa4FVTc/f/qtM5K5M4S3u0ZdwN8/tUJR5bfH9sJvwy0Q==
+	b=KcAmLXaZTYG4v3JAH3ADUpeUMZ66enpP7kU3Ne3tn2ExKu3E1uzW/pgGtrGlrm62ZUtH
+	 wszHvDbDyjDm02fgImC0TNK/YRNN4d6cu7aieTk0ohW26vfWgNZ/abu6Eh51jmfk6baXQ
+	 RpDrwOaXZDVtZry1mYBKYs1uU4pMDIpT0TPMKaNhTbyrMULzjgpEZOPEe/tP3sw8xN24o
+	 qc1jNgXZtpBiuu5CGrDAW9yU2mRa7lkeaSm7H6VotYw2yozBvT6F01uRIOenF/ehFyKms
+	 LodpcgzOyngbzxcvdFlsDKkxQ2OnldJdLivF/gImKJpt/atpepRDE/hjrbwH6/IOMDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794833986;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=VOsnbNrX5S/Mt4Sph9gcGarh/50vZrJN8p3w2gZBk6k=;
-	b=3TUayKvasDs8sBptaZuvi1tQmmj03XC1rp3hdVdJpvdzQt75PpJM8LG9p+2GFJNWrOAc
-	 II3RlgyQwJf/Y/aH9b4bvwXvSle8eEk37VqHramklfrHx1SxCnSudyUZq8CMCmDfdKMvd
-	 11raZiHxkjZYcAPDn0H5/BHQmVs5qa4pDRMA/nGzZMCLMNhGVaY31P37BmcZZNDyPgMbp
-	 x1WED1oR9lCwt9BnBZah9nsEu0TTHE9sZ58+6G51jRSRJD7iSTz9jeydhfgUuAqCBy2EQ
-	 wFwQaE01t7gM2IMG42y2+ZLYTZNJiboDT1+t1iAGmaCzS2y8T04PYITmUUsTg6q3bjQ==
+	bh=Qh6+tq7VKRL2AuRXW3kgTvgbscY36NYiR74jvD03GU0=;
+	b=E4nWpHQHryoYIxUF+x8cLbdU+z4RFmLtjH18s6heFRhVoZ/Bho/2+0ZbKa2Eo1D9YM+H
+	 t+p99D/3HLEu/LZeafs52+Odgv8PHtNkEI99y1u+eZ0Aqn6KKTCWA3zCrYIhN8rIze4Bo
+	 DwLAtFXPlC4Fcdv0jp5Snkpolpo6o79ob48OOwWf7uQsDgrZ/+TSgV3/idrHvjIr1tPNf
+	 naLfQcMGsugyz0HOsmLxHwkPeDHRyC7COJyf5brYoMX8IJAKUz99qgQ1ctS2YDXJ9ABkm
+	 rPUZHhmj5jZrQpGOWV/XfmVEdlc1ggS53TZE3bU0jMmsTSvZGMIxhzBqbEscQMvE6mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gc6GFrA2;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=xfOgVRHQ;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082AA606A88D;
-	Mon, 16 Nov 2026 12:59:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 082AA606A88D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C371A60A262D;
+	Mon, 16 Nov 2026 12:59:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C371A60A262D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gc6GFrA2
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=xfOgVRHQ
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=VOsnbNrX5S/Mt4Sph9gcGarh/50vZrJN8p3w2gZBk6k=;
-	b=gc6GFrA26FNAoCXvWzrWATyoL8hVY/iDtaQ+NLYTzx2XMPiZs7Waz9wWVqBModd2e+TFlCUnY
-	N5I/ESeAJNpjldfleI/U28YRiOEYC2FQGTAcG8GuSAsLWAi1GyNJRhK4UUjnbCdAj8bO83GlS6X
-	UUWJgJl4MQ1RyJ671W3Cm8Y=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jSnxm0m6JzmV6s;
-	Mon, 16 Nov 2026 20:59:24 +0800 (CST)
+	bh=Qh6+tq7VKRL2AuRXW3kgTvgbscY36NYiR74jvD03GU0=;
+	b=xfOgVRHQ0E3UgC3fQn6cXxO3CLr2Fq8QDhBnXmGyrQ4X7zQuhu57WJc6bjESLBaj/F2Eq7u9c
+	RXIwUV2mrXTz2miOuEvh9QBOjE8RbPhYgxha/uPijpxmqHAbwmeBPX1z7xUP4nX47mTiCHOvm1b
+	XVVE0PiTN/SujajV4UuGePY=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jSnxl365JzKm5R;
+	Mon, 16 Nov 2026 20:59:23 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 61ADF4056C;
-	Mon, 16 Nov 2026 20:59:42 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id A168C40563;
+	Mon, 16 Nov 2026 20:59:36 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
- 2026 20:59:41 +0800
+ 2026 20:59:35 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
 	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
@@ -61,9 +61,9 @@ To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
 	<hpa@zytor.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v3 18/19] arm_mpam: resctrl: Expose the L2 monitor events
-Date: Mon, 16 Nov 2026 20:59:13 +0800
-Message-ID: <20261116125914.498841-19-ruanjinjie@huawei.com>
+Subject: [RFC PATCH v3 08/19] fs/resctrl: Generalize __l3_mon_event_count for non-L3 resources
+Date: Mon, 16 Nov 2026 20:59:03 +0800
+Message-ID: <20261116125914.498841-9-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261116125914.498841-1-ruanjinjie@huawei.com>
 References: <20261116125914.498841-1-ruanjinjie@huawei.com>
@@ -81,69 +81,50 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-mpam_resctrl_pick_counters() skips cache classes that are not the L3, so
-the CSU and MBWU monitors of an L2 MSC are never used. Allow L2 cache
-classes to supply the L2 resource, and let an L2 class with usable MBWU
-counters become the L2 bandwidth event.
+__l3_mon_event_count() reads a single monitor domain. Its only L3-specific
+part is the resource id in the domain_header_is_valid() check; the rest
+goes through rr->r and the monitor domain, which every monitor resource
+uses. Check rr->r->rid instead and rename the helper to
+__mon_event_count_one_domain().
 
-Check the traffic match before the topology match. An L2 class can never
-match the L3 traffic, and topology_matches_l3() warns when a cache has no
-online CPU, which is reachable for an L2 cache during boot.
-
-The L3 checks describe where memory bandwidth is measured.
-'mbm_core_bytes' is the number of bytes the L2 cache sees rather than the
-memory bandwidth, and an L2 class has its own scope and domain ids, so
-neither check is needed for it.
-
-No function change for the L3.
+No functional change.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- drivers/resctrl/mpam_resctrl.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ fs/resctrl/monitor.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 704383304f6b..ce16afcdc1b0 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1128,9 +1128,10 @@ static void mpam_resctrl_pick_counters(void)
- 	guard(srcu)(&mpam_srcu);
- 	list_for_each_entry_srcu(class, &mpam_classes, classes_list,
- 				 srcu_read_lock_held(&mpam_srcu)) {
--		/* The name of the resource is L3... */
--		if (class->type == MPAM_CLASS_CACHE && class->level != 3) {
--			pr_debug("class %u is a cache but not the L3", class->level);
-+		if (class->type == MPAM_CLASS_CACHE && class->level != 2 &&
-+		    class->level != 3) {
-+			pr_debug("class %u is a cache but not L2 or L3",
-+				 class->level);
- 			continue;
- 		}
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index ae6c5ecc1019..7c392bd57eff 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -422,7 +422,7 @@ static void mbm_cntr_free(struct rdt_l3_mon_domain *d, int cntr_id)
+ 	memset(&d->cntr_cfg[cntr_id], 0, sizeof(*d->cntr_cfg));
+ }
  
-@@ -1150,13 +1151,22 @@ static void mpam_resctrl_pick_counters(void)
- 				if (update_rmid_limits(class))
- 					break;
+-static int __l3_mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
++static int __mon_event_count_one_domain(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ {
+ 	int cpu = smp_processor_id();
+ 	u32 closid = rdtgrp->closid;
+@@ -432,7 +432,7 @@ static int __l3_mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ 	struct mbm_state *m;
+ 	u64 tval = 0;
  
--				counter_update_class(RDT_RESOURCE_L3, QOS_OCCUP_EVENT_ID, class);
-+				counter_update_class(mpam_class_rid(class),
-+						     QOS_OCCUP_EVENT_ID, class);
- 				break;
- 			default:
- 				break;
- 			}
- 		}
- 
-+		if (class->type == MPAM_CLASS_CACHE && class->level == 2 &&
-+		    class_has_usable_mbwu(class)) {
-+			pr_debug("class %u has usable MBWU for the L2 resource\n",
-+				 class->level);
-+			counter_update_class(RDT_RESOURCE_L2, QOS_MBM_TOTAL_EVENT_ID, class);
-+			continue;
-+		}
-+
- 		if (class_has_usable_mbwu(class) &&
- 		    topology_matches_l3(class) &&
- 		    traffic_matches_l3(class)) {
+-	if (!domain_header_is_valid(rr->hdr, RESCTRL_MON_DOMAIN, RDT_RESOURCE_L3)) {
++	if (!domain_header_is_valid(rr->hdr, RESCTRL_MON_DOMAIN, rr->r->rid)) {
+ 		rr->err = -EIO;
+ 		return -EINVAL;
+ 	}
+@@ -540,7 +540,7 @@ static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ 	case RDT_RESOURCE_L3:
+ 		WARN_ON_ONCE(rr->evt->any_cpu);
+ 		if (rr->hdr)
+-			return __l3_mon_event_count(rdtgrp, rr);
++			return __mon_event_count_one_domain(rdtgrp, rr);
+ 		else
+ 			return __l3_mon_event_count_sum(rdtgrp, rr);
+ 	case RDT_RESOURCE_PERF_PKG: {
 -- 
 2.34.1
 
