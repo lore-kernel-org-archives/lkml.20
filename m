@@ -1,71 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794860625;
-	b=O0cqYyQuEkUugECLCr1VtFLWNhbQ6+GpkFFjA52zgjWWJIbnMIC8ntnpXqYidkktXsRy
-	 HLlzoEDeclvPQbPyWy4gSDXQhC0prIwcd50nemZ5Yd6HzGsZIGt519zVKzfwIyJ/IzrPc
-	 xL67emykm81r/oZ6R8TknYHW6RC33c8P7ur99A4GpSDf3Y5CFKUyezq2bYMs6kXwpoR9V
-	 FRTQeKEq8a3tQJgvJQXYfiM6c2x31vVxPUIF81lV+6zmGKY8/YGrniJFvwOp+Mz9Esz4c
-	 da+v0vk576l9BtNB60zj+bcwCDVdbBZjVLPjI2FNTPkqOor/zkOMIiJPQs8/dzVjLeQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794860625;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Z3v2Fdi5knvShxlL6luSo+yW+hrEoKkQcOMpcIN//6U=;
-	b=4/OsqQkiNPR4UMKQzlYH94fY1VdYCIMwhy830qf5QlfxN18ZnT2gkgxNcSUjSMUPg5Ja
-	 e1XcOMlahMWJ2uAfJMtkznJM2xmtxqG0g1rTnsYhSRp5bvhETY0+MVH3kdhMAWXPeLZIf
-	 O2zIq4HGKeqyCAv9AQ67VuNHrmmqzQpWQVA612CVOyk5Qn575t5baDW9A6a9pCXwbShZV
-	 Q+re67Cx4S8DH4vP4ykgtNx+L3NL4sKBU4K8VgjxByGdJ32YaVmMe3dDETY83xEFYG8Nr
-	 lQ+JF8yPEMwsRnKtlRf/PbYwbSi8QrvN2OkxFD6DW+VSC6vaG8BnD1NbxrKDtLJi0uQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G31L1HzH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794860656;
+	b=JkFTqGNe5JhneVk7UWq16l46hLDZpE9UL3uPAXTMx85sfY4D/L9b6qtemVhJzkNK+ETb
+	 BjprCJXs72l5jU/LCwLwx9IZs6lRDIfdGV6MgjaaZRSYAF4sOcplFX32W0s1Cg4v7/SpR
+	 eDaU2ln6yB4emLy8ZHcwV/ohxGzUn0yzgq9LT4rFTvLRJSx9+NfdksCGPBSHfp3/5Fy/v
+	 FOpoMPJqJ1F7d7mGAstLEmmh63KoiZH4oSJYi73VjkFvoMEq+Rd1o1PbUzAz6zuj1499w
+	 7vi537Y1Z7ucIirhyvAJhom5yCOrOkgf4fMxp0uI7Nt+0TD/D30H1YzNo0KDMyKifSA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860656;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=VojVxtKo+2rNWYWFbQlhBRUa6oI5h3xUKRKgR6ZeCSY=;
+	b=eoriWAcn3192eqlgv6l7ZGt4JjlHauXnNPcZmZFvRqUPKdCtQXUi1tRHRix9E6VGYfIo
+	 tci4aPIdsX3seyw7AtKJ1tKC4rsNeuBTN9V0ECHZAtP0yVbQcIg/16rqPHlFds6CBZosa
+	 q0B4U8YcvxfcI3O3H26l2dvOJiTxXfxgJjCeHl4rv90/n3wHiE5VW+XA6Ir5Y+S5LlmUP
+	 bNaeo+unRr56wvYCK63KqncTxWF/vaFSE672Ev87feb/fUPY0Ts0txHkIPYXHvG8lC5Xd
+	 Knnzb/mygWkT1YaXkBgLoAs5NLboQ52MkV46P7JYlS6l+Kiv9XeWG2jbkGjX0pTA/nw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ns9kRkXF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.10
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010010.outbound.protection.outlook.com [52.101.84.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D6D606A322;
-	Mon, 16 Nov 2026 20:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12F7606A323;
+	Mon, 16 Nov 2026 20:24:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A12F7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G31L1HzH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6CD1F000C8;
-	Mon, 16 Nov 2026 20:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794860625;
-	bh=Z3v2Fdi5knvShxlL6luSo+yW+hrEoKkQcOMpcIN//6U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=G31L1HzHZLpv7LltQKlqqdOkkjPa7E+nyJ8S3uVY5uQ3rrkZ5bY8ahACP5Xyk4Oyy
-	 gzT4Q0qx2+2NA25jSfMFe0gUrmkM9yADzZkEPVpXsHxLbtaDQ9+zt+sOWqLPNNtCjL
-	 1tHTZiW2jk4f6FnJ7Cv8TYzGwkzw1ZHwIQZJBkb3v31BWGi/3Xzy/6K4bfDvJLDRCl
-	 SwDznO4D2l70OtS8BfDIr+0LPdZh+TbWbagCKZ/55u8WO2nGlPqwUya9JHRqhRgKLp
-	 daMN1gLJmLHuumVObY8XQI41437GxOO22Dr4wI2Qpq+0hEHIP2z8lAKYz9+F0sO8TX
-	 77srtzrVxrnoQ==
-Date: Mon, 16 Nov 2026 14:23:43 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: Sebastian Zygadlo <szgit@icloud.com>,
-	Yossef Osman <yossef.osman@proton.me>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Andre Eikmeyer <dev@deq.rocks>,
-	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
-	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>,
-	"open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
-	"open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
-	"open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>
-Subject: Re: [PATCH v2 02/12] PCI: Disable pcie port on specific amd devices
-Message-ID: <20261116202343.GA205416@bhelgaas>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ns9kRkXF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D/sqgPpYrZag5TXT6Bs2H5JE+hFguAnSKVlGJKaMs/E4I+1zriKq1pNfq/cRvkDYeQ3ZhHUJ55nU+dT2iu6bhxRsdtQ0JkkjD/jFQ3YqbtZojdN5EV7Tm9xRuYwvx7SHJmnJ4PquaKBMh0s1D7KIhoG8qsSDIDh6t/pBo5EV1yxZFR3TyN8JFexb4H1TO3zECIY4Vmkpd6m3643xlXbhYYv6/ET4ALxoiNaJG1LWxZeZBqOKOp6SG1GXit2a59EEA2uMSY41xywyFfmfu2KAATeHHdmanjyXY+UQ8tlHJEdfVBPgwCqHs3FYp4yRb3C93SzkcJQiJHxmYVV0iq/Ekg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VojVxtKo+2rNWYWFbQlhBRUa6oI5h3xUKRKgR6ZeCSY=;
+ b=vFtRc+dokLJ+B2tOZWVQDbg48BfX5UCRt0ncYtVV15aH5qrmqBs6pBsijuMA3h9P1lEoyBHTxBRA2UOeLARAgfeRJKPC+FO6FSBZSTHYQen7jLEen100gm1w70QjaeS1ZE9Aidal4NYdIaKunEs3NonnXdBU6avr+qH6UwU6fCUGmT73tawSgeeTqDjNuWlWmIy+ru5zpfUL3cS7CUarWa10LqasBzQZ+aESJN9DR1/QegJfQ95iwazeqjY7JSr1To4ZoFS5ctZBHM8okmIJOL/iQO6EkjH5hpdWNvNuoh7krTEUbvRLM8z9uL1IwA0ENdYbHaQaA2fV1cyNE3oUaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VojVxtKo+2rNWYWFbQlhBRUa6oI5h3xUKRKgR6ZeCSY=;
+ b=ns9kRkXF/wK3RQiImZPkoi9F57JiyfzVhxZb2EoKG2/OdiuLepaSA2he2TJxrHM5od5patUiDnTWxd++fz2v3qZ4nerAfw0wvyGrt8Msi5hbFIQQF610q5VxgRxds/6FAfzHFRsSQ9LfqiIOz4KGVebVfffSGqThSBnQWq3eyntjieZFaYeP9a3yYsws2/BmSGMz52LDfjQ2dkAzSIxUhxHMWNV1PYZfwpi8nTKmntKyYelo1LudpsYX+OlXPatRd0VhJ37BNtagoZglsGczOQ3qT3lyzOVYr9Bpi+FqhGXXY31sA4GJYIXUMVzOx3xqNi4/gaHFhrrVExNLbDJUGw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GVXPR04MB10492.eurprd04.prod.outlook.com (2603:10a6:150:1e0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 20:24:12 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 20:24:12 +0000
+Date: Mon, 16 Nov 2026 14:24:03 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: David Yang <mmyangfl@gmail.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dmaengine: pl08x: Release the reset before
+ reading registers
+Message-ID: <avtmY1WaVWI_lxT_@SMW015318>
+References: <20261106072602.77560-1-mmyangfl@gmail.com>
+ <20261106072602.77560-2-mmyangfl@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106072602.77560-2-mmyangfl@gmail.com>
+X-ClientProxiedBy: PH5P220CA0008.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::6) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,123 +99,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114160457.3034-3-atharvatiwarilinuxdev@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB10492:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba350c43-f901-4903-2f29-08df441f93d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|19092799006|376014|10067099003|11063799006|56012099006|4143699003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	nenWhUPnRnFeW+Ch0CEukQv7meD0mbXUCOMIK9XBNjQFgnCq5QUl70sYbrWh1QHhK77wjQR5B5KkBAFtyFnoXJ/Nq8QZk9AjAjRAQOM23FDaB3aigGB98XUMgFeScUzEo1IgjhKX6F8JS7BjGZpsJuUgs1TlWGX8jxxARCtvvBGf1xVX+0nAESrYZ05RNnfnswP3MTuC6J44AGZJEIieFPwFan5U5b0f1GQxMEizwUHmI6OD4e5VxJhZJCedW2SL2Xx4ujXICKh7M9qSQK37iG8jt+fi2sE5dE1rlGBX1PlL57CVv/tdmPl6XAUFXKQQ+g9t5p2rqJ1sdwZOrVUKfS4fcOK9Qude/QwY1V+6cshzJsKA00fuoANCTpzZuA0Qn+5vYpQs/6atyy4xya/SVWo7c8NyWzFJA+bdvzGw6B87yS1TY8rKh85bOxXC4DVCjYd7wzGqomuH3NpBQfPS0fvHTEOm6ilY1vbM3SvURXWvmsduNzN4T9+Y7E36RV2owEkusrpD6Dur4n9xHpfpSY/7VYTV2/TZzkYXoXRwuQdJSeft3g/dHJA6Mkj07+N4jeiZ9zzUxyQTto+cgDIxFNoDHrLO3imtmwA5zzijHyjTDzm9yCXvcq/vwNTKLdXDwgVU2P4kZPPi40IGjpx+Hs5LAZmtiAU93/vdsLwGqdM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(19092799006)(376014)(10067099003)(11063799006)(56012099006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RV8Umin7fern9tj3RzYErbwNF8UHDIzDbqCPtxsarXXpQh96KTch9MUzljYQ?=
+ =?us-ascii?Q?eOgB4GsRU20J+YHndftohGxIKVForUgAEl4/MMrY1Pajte4pa9FYq2rnOgZY?=
+ =?us-ascii?Q?RmJ8suGC+PoCTUH1YorlWT+ocJ23Fv9qGlDoWx15/84oe/GhMhKwvZ/j/i8V?=
+ =?us-ascii?Q?8dcLBhVddmkgrjRkYg/SMlblHdaJrkhVPlP7l4fZkxcORowQzDT7tEzVMpTo?=
+ =?us-ascii?Q?dN5VFLiMB0gi3mB0SGTdSa1fHQjuZW0Tc6P2oZDU6a9nQzm0uNuK/HrYkcaW?=
+ =?us-ascii?Q?mQhPG4GEM2COtjgEn/vT/xCYSBLedInE8rQx8cIGGuXQJvFk6jpnnlZaLaBN?=
+ =?us-ascii?Q?3wNbKJASfQGdT6oi0mxADrh5W8KWMTLxIr25ciNcuf/gpsrxwXKH0jAlrsCZ?=
+ =?us-ascii?Q?QaQayfgIQrw3sAlvFAivn/ab45dr489LbzHYm9rDkB/TNK6plJ21EeqjjARB?=
+ =?us-ascii?Q?w28J18N9D5ZKdTp773h5rrbBVRCOvPo3nDip/WtEswf5rscooodskPz5aFE5?=
+ =?us-ascii?Q?Pk4nqABz5w3GIsPr+I4HZcrsdWKN5xKI1TAty/+7aAp5yefRcO5gUE+U4aVi?=
+ =?us-ascii?Q?bUDM6kCllm72VvXzMwEKIofuwjO1j/d74LXHV2XFGXLY10CTefPZpvOuQQ7r?=
+ =?us-ascii?Q?kGEB/XPzu73RaFqT124hmc4JuvtvBRLk6OrmK7wZVN1nKETbD14Za/zIA6f9?=
+ =?us-ascii?Q?6V1TT4UT93RUa1M4nFetvSXVwRWoCeC/n5xWI0udaJVcdj79eaZOBIac55Yj?=
+ =?us-ascii?Q?rTON6CpQwi800iFE/GcVXxFMbaF3HjidFkaURsj6wq+HDsCGrmNqSmpSAHCw?=
+ =?us-ascii?Q?w1/lbK1KOpD2IOwP+7BHk4uMtJwpii1HN3pODM0A1w/9h849f9ehSfOGkzBI?=
+ =?us-ascii?Q?SbRrfvm4QgWbjPmdAFOT0xskYFcpUYyE6lA+mSk2TVyBj9efEzU8ccUlUZ8e?=
+ =?us-ascii?Q?93Va2ROdJgf7H5VAwUfWaEwjmRayhlrHdBim+oEarOxgXLU2S23hXepOXAvQ?=
+ =?us-ascii?Q?0nNSaD/HGPgYSDnKY2aI0RVxa1Rd7udDwO0kDaB5uT6g8G4DkHgDWsYLMkoi?=
+ =?us-ascii?Q?6Wz8yMrFTKtT9UV1nx/kWdA2TdJbit0Jx25K4iHo0/IX3A9uOsWfGbqyrzL+?=
+ =?us-ascii?Q?QcdhPXIzQGdtJzgqvGzgXxL/su6x5md8V4NRAeSeGyyU6Hhg8cqgd0jzv6+U?=
+ =?us-ascii?Q?v9UMZ6FA3Ah2x5pA3o1yjIh3UsJLxDNN1hq0+h5Mc4pOB48CWvshMRV2/aUn?=
+ =?us-ascii?Q?7/2Wp5CpxfOl7pG3lNzWtfEVpW6XrJ14/96H43DWvh09b4YpSxrrweDSsMLW?=
+ =?us-ascii?Q?BTfaoGyWgApqtt/PFMnjbTN3q1VZE2RbanRnOZQy8aZut0Gw9q0D5LlTrmiN?=
+ =?us-ascii?Q?IxEraKo8N4qjPDnHD1hODRwX2Ee5PJm884RsNbyqLmGdGCNotr+JOaEr8THF?=
+ =?us-ascii?Q?gKx0absGvXwyO5y0FVpF1/qTSUaIdV4zS/GxKWcfNdM5tICdF3nS0uQMRzhh?=
+ =?us-ascii?Q?IHLOJcq5Bt2BbrZ046y8/q0ialpCpqLS6A9mJTLP+fnhhBuXCxL/2wiGnX0G?=
+ =?us-ascii?Q?zt9oOU9nFdXO9ouUg5SPgtuLwKoa34ljRGj+dX1aDxMuCrm+wc6rnG9Qp77R?=
+ =?us-ascii?Q?KxHNPIOlt/TG6W4cf3nl//1lUPDDPjnDiObp68gT5T6ewCrgntpBvldrMbuP?=
+ =?us-ascii?Q?+wL7GZ2NZukLBONgx8w9wbg03Ar6rBBhR503JhCCTIveBmHA4q9f3/OmepdV?=
+ =?us-ascii?Q?oqEzcX2nBf4jTvccy88lQlEKB8YQkrZhpYZMbx6OjlOsquWWtcV1?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba350c43-f901-4903-2f29-08df441f93d5
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:24:12.6769
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pNkou8WsghFDaGTUI0U5q1/NqCk32tm9FkH+kNy5Xj6mKlNSWFU1XScS2ReXeoFIfdDbRMUn07Fvemo1lEJg1T3ReaHrNbHco9GsVhrgxdvbDajNWTwGinDxdTJBrHD0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10492
 
-On Sat, Nov 14, 2026 at 11:03:49AM -0500, Atharva Tiwari wrote:
-> As mentioned in the previous commit, PWRD turns off the entire
-> bridge, and if we read/write anything to the config space
-> or the PCIE space when the bridge is dead, the CPU CATERR's,
-> so to avoid interaction when the bridge is dead,
-> we remove pcieport support for the bridges..
-
-I don't know what's going on here, but it doesn't sound like typical
-PCIe behavior.  If a device is powered off, accesses to it end with
-some kind of PCIe error that is not normally fatal.
-
-It's basically the same thing that happens when the OS enumerates
-devices by reading the Vendor and Device IDs.  This has to work even
-if there's no device present, which is essentially the same as a
-device being powered off.
-
-So I'm not in favor of trying to avoid some accesses to devices based
-on DMI checks.  Even if that works, it doesn't cover other paths like
-sysfs.
-
-> Tested-by: Sebastian Zygadlo <szgit@icloud.com>
-> Tested-by: Yossef Osman <yossef.osman@proton.me>
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+On Fri, Nov 06, 2026 at 03:25:58PM +0800, David Yang wrote:
+> [You don't often get email from mmyangfl@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> amba_read_periphid() happens to release the reset. A node that carries
+> arm,primecell-periphid never reaches it. Take the reset shared and
+> release it ourselves.
+>
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 > ---
->  arch/x86/pci/fixup.c       | 43 ++++++++++++++++++++++++++++++++++++++
->  drivers/pci/pcie/portdrv.c |  2 +-
->  include/linux/pci.h        |  1 +
->  3 files changed, 45 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index 795d81c7a..b1697cc4a 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -1094,6 +1094,48 @@ static void asus_disable_nvme_d3cold(struct pci_dev *pdev)
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x9a09, asus_disable_nvme_d3cold);
->  
-> +static const struct dmi_system_id quirk_disable_pcie_port_dmi_table[] = {
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-> +		},
-> +	},
-> +	{}
-> +};
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>  drivers/dma/amba-pl08x.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
+> index 543c2eb8cfa8..9f5e4f5fb877 100644
+> --- a/drivers/dma/amba-pl08x.c
+> +++ b/drivers/dma/amba-pl08x.c
+> @@ -75,6 +75,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_dma.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/reset.h>
+>  #include <linux/seq_file.h>
+>  #include <linux/slab.h>
+>  #include <linux/amba/pl080.h>
+> @@ -2695,6 +2696,7 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+>         struct pl08x_driver_data *pl08x;
+>         struct vendor_data *vd = id->data;
+>         struct device_node *np = adev->dev.of_node;
+> +       struct reset_control *rst;
+>         u32 tsfr_size;
+>         int ret = 0;
+>         int i;
+> @@ -2725,6 +2727,13 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+>                 goto out_no_ioremap;
+>         }
+>
+> +       /* Release the reset before reading registers */
+> +       rst = devm_reset_control_get_optional_shared_deasserted(&adev->dev, NULL);
+> +       if (IS_ERR(rst)) {
+> +               ret = PTR_ERR(rst);
+> +               goto out_no_platdata;
+> +       }
 > +
-> +static void quirk_disable_pcie_port(struct pci_dev *pdev)
-> +{
-> +	struct pci_dev *upstream = pdev;
-> +
-> +	if (dmi_check_system(quirk_disable_pcie_port_dmi_table)) {
-> +		while ((upstream = pci_upstream_bridge(upstream)))
-> +			upstream->no_pcie_port = 1;
-> +	}
-> +}
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x67ef, quirk_disable_pcie_port);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x69af, quirk_disable_pcie_port);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7340, quirk_disable_pcie_port);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7360, quirk_disable_pcie_port);
-> +
->  #ifdef CONFIG_SUSPEND
->  /*
->   * Root Ports on some AMD SoCs advertise PME_Support for D3hot and D3cold, but
-> @@ -1179,4 +1221,5 @@ static void quirk_tuxeo_rp_d3(struct pci_dev *pdev)
->  	}
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1502, quirk_tuxeo_rp_d3);
-> +
->  #endif /* CONFIG_SUSPEND */
-> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-> index a9cbfc1d2..d2f19e566 100644
-> --- a/drivers/pci/pcie/portdrv.c
-> +++ b/drivers/pci/pcie/portdrv.c
-> @@ -688,7 +688,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
->  	int type = pci_pcie_type(dev);
->  	int status;
->  
-> -	if (!pci_is_pcie(dev) ||
-> +	if (!pci_is_pcie(dev) || dev->no_pcie_port ||
->  	    ((type != PCI_EXP_TYPE_ROOT_PORT) &&
->  	     (type != PCI_EXP_TYPE_UPSTREAM) &&
->  	     (type != PCI_EXP_TYPE_DOWNSTREAM) &&
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index d31a8d107..fcb4f5893 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -420,6 +420,7 @@ struct pci_dev {
->  	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
->  	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
->  	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
-> +	unsigned int	no_pcie_port:1; /* PCIE Port driver is forbidden */
->  	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
->  	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
->  						   decoding during BAR sizing */
-> -- 
-> 2.55.0
-> 
+>         if (vd->ftdmac020) {
+>                 u32 val;
+>
+> --
+> 2.53.0
+>
