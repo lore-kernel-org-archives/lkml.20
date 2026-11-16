@@ -1,95 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816362;
-	b=wHVwK07R435FIL7XiiCHaZeiGXQ7PZYiH1RE0t1y78TcbEKX5l0cI/jjD1h/auHMlJst
-	 J+RwX4nTIsr5grRVPJvkDSXn0XgFfr6moMNhoZVvK6yQK0hbc/HwOFweOG40CKq8ciVSU
-	 JQB0tV7sSMgBU1UVhVJy6rZfQRtd2fINqsG8YTwUb0sSVUj5mdpp5KN0LahQaiTguZ/gw
-	 XETwxK1KGjOga1URTEUeoEZvDnu767DAExwrHvcydjuDQJWf2mMFAEC2DNGAaisLB1U4g
-	 thKRs0PHfewMiJKd1MAw/xZgEWyZXRM4QUsqzQYSrNg2g9nJ8A+KmRY4Lzdfi05BixA==
+	t=1794816370;
+	b=2+/z9KGsho6ANz4rqgLZoOgFvlgVBl3yUVfLObWxWAfVponJEM1qg637oVhFzpyJ5rUK
+	 kkSYY4RAqLVIXe49aexYbFs0wdJIhmtjOJhHQ94bpdfzMCAiBWm64+gRDh1WjZwJAkvVN
+	 7aCu6FQYADEuLQs5tenIfaOfc8NwPcIcrMEpPcCsaf5KmFoW37MkyCISjX6E+tpk4tVL+
+	 x33QjtrhMVKNUv0GBXgb4lPVToGtwpsdDOloWc2RpLBhKEjLk4PopECqVnlW/k3G0IiII
+	 tKCeIW3p+UhhIxsZMtDEE6Rri92WSQz4qTNlQI6S+31H7oxNzBMAbjJm7zcHPIkVbgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816362;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=D3L9I6nVkWNX8DoxsebmsKpsQfDRL9KhwjDhBEHBohQ=;
-	b=uUvBrb1qiBJZzU8dfOtp7UmNUL4Cq/nBf7atnrdKxl3GBtu39+cczqlfSUNxIMO8TQmt
-	 Xqm2xjvWDzaR+IPYSGpQ8ORzI5le76dv6+m1H+X2D3A9TxKONQeqzdWP/TCFKkmwkvnAm
-	 5kqGNs+iHTY9dN13PnEG2gq+bY1qiDCeo2jdT1FrDxqrJHWvCusIKI4Jki/eAPeikRBWa
-	 gv1B6KB/1f9AIM0BXKymj+i/3nc0Gc9pl5+LDOgbC40w3VZ68Bjl59tAlrHtErE9X+U0R
-	 EnKfG7APtBEsRl925mhBiK8A7nKpVzpFdJOcIHOLNEQWy7SOPuZlF9g7Oa+r4jz7A6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816370;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=dZeCHeyNJJOiXW9MrpUHcvUlDWCc5YQzpgtfqAIDDo8=;
+	b=dAEOxIZAH3bdKkq8ds7B9P1Yadt+T32MU8fq20LHq20XhP46mHoEErEDCgtOxGNiMMvt
+	 V7tXlhau+sNOp7cpucmXdLJAhNHj3j7GKjI5FsfasbyHwXVFCQ4IO0i+l85MCAe5rp76R
+	 yeF+IVpKi3+DLw0o3kDZrlznmalxugCtninHNDSYuuhX1VtUCug/+l0IyJBx/v8oqlpPr
+	 oQY4WCm2kLYV4fIjpMt3t+UroE9HhW4xzZyvElpMjR85IqsDoh7WzFwePhWqhVgM+wqqH
+	 xktH94bfzZ0ROD2gZ++mTTDKI7Bvtwt2hayn1kbHBo8C/A6570ejES/K/aUNtg1kAVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ygc/pnFP";
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7CECpqc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4ED8606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:06:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4ED8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C07606A336;
+	Mon, 16 Nov 2026 08:06:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ygc/pnFP
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so2766440a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:06:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794816361; x=1795421161; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D3L9I6nVkWNX8DoxsebmsKpsQfDRL9KhwjDhBEHBohQ=;
-        b=Ygc/pnFPOt8zvc+W+L790+lPPI92JkPu1Uet0MizR+wPU4/4AVPIO33xQIQQXWqjwl
-         3IsZczk6UpPFMxES408lo6l40XuzSn6/U1NdX8Hulaf4qhY0S6hHaZMoIfvObWIYZBzU
-         R7MW3wm/wkILcpsvHyc+Zfv1G4KYDaDGKYTAizSo2YHL4mcOEUgh0hQVBF5HhFKZ85Qo
-         PnNiRUh1eZLLQEDnb+1yegApZbv97tfxhdh/aUJQeLdYJCo3jPsGg0NhoIZ4HaddwmFZ
-         /jlcSvhnu1UNfNdcNObY98A1srXDzubomlcD0Xsg52xBamATrnZWHwq/S1R40Kd2fsRE
-         xPzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794816361; x=1795421161;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D3L9I6nVkWNX8DoxsebmsKpsQfDRL9KhwjDhBEHBohQ=;
-        b=UPisWkTnKz/TbjcjjdSxiG2ymABP3J5/yLWI2N3iIajMzj1n5saCpdQaIBtPTxNv1Z
-         i1dbZKDGX/BayW6PjRCmcSTun1A1r6WinEF2+FyQOEOxqJMlGyflX3dxMZhY7vrhJ8YW
-         V8gJaO9wDfKkC50TmN8q/75rG+TYMO7WiM/zErDeSY2VzYDMKsrJH6AMwFPQmwQZI6BY
-         qBWGIMhjLgj22IBPWUAcfSahT2zUVchU33oDzma3ahqRUbbin3T3I9qx/tdKT3avAvh/
-         M4ARueF4bf64LHvncVnK9Gex99HqruIlI2CaGe/YS8pmpZj7eU5hD/vjKqXb3pSHWAm0
-         8OCg==
-X-Forwarded-Encrypted: i=1; AL+hErEr6zVqOKLNRf6Ll4pgvXXPxqx0+rjjJJR9JkVgNpJ7WOsuVFab0e4VonjIuXFUP94Kq0H8xBaVbMJrop8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tRzbJterBLUacCtljfZa3XMx5Weakw1WLtrtqbYtDDk9gK3WD
-	aOtQfA3SQPOfFSrChhFHSUXzFzXO4zfF4UAUYGF0xe30rxVl0zYPOtNe
-X-Gm-Gg: AZFdTZf+f4KdsHSS9YiH79KGWPgOMCkAQTjd8KZj9Xl0gp94GoH5kh8zPd3yR/+PbO+
-	MVd2pukLcQGGFdCGaK5jfu+4/JPlxPpiy+FnlBApN/s1F3i4Hx4AOz996GcTkwKW9Vwv2NQH1Y/
-	wjKgr+qBs3Nf0xjBD9414vYs8SDNDsJ5ZXQFwbRek3OyB8BMb1hcqExsk76Njhptm5IdIqLoxzZ
-	8zZuUTniTJPSSRC2Je3cPnjd2K8G6UxRJBNmICBtrtxFr/YqRiJ2NSLbtmrLp9GglK6+kNFWZ8y
-	SMHvvOWFv/706Vk9yMwaxQYOoDR7A9XOOj+kvI4Nl+XF96xh7mQA4OBCCJJhGyncS9pPy2IcduS
-	F12hwmHBH562+sST0qaKarbU7eF1aYHwkvG4W93Ee/UikP5u3kafK33B48sk/hK0BdcdaMTR3yl
-	NQkMwwhbdrEVxNBSIYa4oY1oorg9WQ1nmueY2Ku69Y/zGpSv2N/kcZpsaRwHdpXDCdNczGhSRHR
-	9FIa9V+gL3E8gMQ8c/3mZdQaBchVHTZMC+gGPh88CiBx6nTfxspKBQCfu0xYlM8mOAqFgtl74KW
-	PJz9hvJ90j4uNUMKMnQTkorEFn78cBXRuDXsH2TSU+RntYxRzm8MvPcp9RV+
-X-Received: by 2002:a17:90b:2f0c:b0:3ab:884b:65a8 with SMTP id 98e67ed59e1d1-3b1b0ba0acfmr9088807a91.26.1794816360741;
-        Mon, 16 Nov 2026 00:06:00 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:d1be:2710:af83:9beb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d282fdsm20924303a91.14.2026.11.16.00.05.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 00:06:00 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>,
-	Pavel Machek <pavel@ucw.cz>,
-	Michael McAllister <me@michaelmcallister.org>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_serdev: serialize flush with transmit work
-Date: Mon, 16 Nov 2026 16:05:38 +0800
-Message-ID: <20261116080538.66575-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7CECpqc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8122C1F000C5;
+	Mon, 16 Nov 2026 08:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794816370;
+	bh=dZeCHeyNJJOiXW9MrpUHcvUlDWCc5YQzpgtfqAIDDo8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=b7CECpqcnLq7skR4jT88oV3j8sRtIiknINOZ/81WjAfUN2kUosv/cr2oMM1Sl+XK0
+	 ABVS63aeKpmoADqbiutZtE2bbPsZ83n7YLQPkp/41Y3TvmfUOshIKf+Mr3iBu5TDkM
+	 2jkkJ6Bvxs7ot800wTALb3Dt01VV2LLrvAd5JAsCw+Ry8DlZ/ctdU0XTQ0qF8LPeVb
+	 MzuJ8XlZzl9TTlyy2hiZrT9zMxKX4fqUhGT0rSBeKdi3i17Kr5n0avTwDnURqYSV5/
+	 UpEgo3I3YAMipOed+OBPu+MgCf9UF80L9Qf1nXgXru6X837ZgkHQKPo8V4BzlhY37W
+	 DpuuGazgIXT2w==
+Subject:
+ Re: [PATCH net-next v5 3/3] net: phy: acx00: report receive statistics
+From: netdev-bot+sashiko@kernel.org
+To: james.hilliard1@gmail.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, o.rempel@pengutronix.de, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Date: Mon, 16 Nov 2026 08:06:09 +0000
+Message-ID: <179481636902.3136.5648060525079274631@kernel.org>
+In-Reply-To: <20261115-submit-acx00-phy-stats-v1-v5-3-ed81a7f54373@gmail.com>
+References: <20261115-submit-acx00-phy-stats-v1-v5-3-ed81a7f54373@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,78 +65,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-hci_uart_flush() runs on HCI close and reset and frees hu->tx_skb while
-write_work may still be sending the same partial frame. The worker can
-then resume with a freed skb, or both paths can free the frame.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The tty flush has stopped write_work before freeing the partial frame
-since commit 1b0d946d6f08 ("Bluetooth: hci_uart: clear HCI_UART_SENDING
-when write_work is canceled"). Do the same in the serdev flush: disable
-and drain write_work before releasing the frame, and hold
-HCI_UART_SENDING meanwhile so that hci_uart_tx_wakeup() only records
-HCI_UART_TX_WAKEUP. Then re-enable the work, release SENDING and replay
-a wakeup that arrived in between.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-AI assistance was used.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 82f5169bf3d3 ("Bluetooth: hci_uart: add serdev driver support library")
-Cc: stable@vger.kernel.org # needs adjustments for <= 7.4
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Michael McAllister's v2 series changes the same function; its
-HCI_UNREGISTER check goes above the new lines:
-https://lore.kernel.org/r/179468159400.2456.12381703314197227930.wcn3950-poweroff-v2-2@michaelmcallister.org
+- [Medium] rx_packets permanently loses successful frames when CRC errors
+  keep breaking the bracket for 320 s or more.
+- [Low] Speculative, depends on undocumented counter behaviour.
 
-Tested in arm64 QEMU under KASAN with a hook that keeps a partial frame
-in hu->tx_skb across an HCI close: without this patch write_work reads
-the freed frame and the close path frees it twice; with it the run is
-clean, the close returns 0 and the device transmits after reopening.
-The same holds with the v2 series applied. No new W=1, sparse or smatch
-warnings.
+--
 
- drivers/bluetooth/hci_serdev.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+net: phy: acx00: report receive statistics
 
-diff --git a/drivers/bluetooth/hci_serdev.c b/drivers/bluetooth/hci_serdev.c
-index d2c48df34199..194f11251cc5 100644
---- a/drivers/bluetooth/hci_serdev.c
-+++ b/drivers/bluetooth/hci_serdev.c
-@@ -97,17 +97,26 @@ static int hci_uart_flush(struct hci_dev *hdev)
- 
- 	BT_DBG("hdev %p serdev %p", hdev, hu->serdev);
- 
-+	/* Stop write_work and hold SENDING so wakeups only set TX_WAKEUP. */
-+	disable_work_sync(&hu->write_work);
-+	set_bit(HCI_UART_SENDING, &hu->tx_state);
-+
- 	if (hu->tx_skb) {
- 		kfree_skb(hu->tx_skb); hu->tx_skb = NULL;
- 	}
- 
--	if (!test_bit(HCI_UART_PROTO_READY, &hu->flags))
--		return 0;
-+	if (test_bit(HCI_UART_PROTO_READY, &hu->flags)) {
-+		/* Flush any pending characters in the driver and discipline. */
-+		serdev_device_write_flush(hu->serdev);
- 
--	/* Flush any pending characters in the driver and discipline. */
--	serdev_device_write_flush(hu->serdev);
-+		hu->proto->flush(hu);
-+	}
- 
--	hu->proto->flush(hu);
-+	/* Resume TX and replay a wakeup recorded while it was stopped. */
-+	enable_work(&hu->write_work);
-+	clear_bit(HCI_UART_SENDING, &hu->tx_state);
-+	if (test_bit(HCI_UART_TX_WAKEUP, &hu->tx_state))
-+		hci_uart_tx_wakeup(hu);
- 
- 	return 0;
- }
+This adds update_stats and get_phy_stats support to the AC200/AC300 EPHY
+driver. Successful frames (frame count minus CRC errors) go to rx_packets,
+CRC errors go to rx_errors, and the hardware byte count goes to
+rx_bytes_total. The hardware counters are sampled with carry detection and
+a CRC-bracketed packet read. Wrap-adjusted deltas are added to 64-bit
+totals, and a delta is discarded when 320 seconds or more have passed since
+that counter was last sampled.
 
-base-commit: da3cc02587c629420603df4395179ec82955c941
+> diff --git a/drivers/net/phy/xpowers/acx00.c b/drivers/net/phy/xpowers/acx00.c
+> index cee6c7ff0278e..691f4931af460 100644
+> --- a/drivers/net/phy/xpowers/acx00.c
+> +++ b/drivers/net/phy/xpowers/acx00.c
+
+[ ... ]
+
+> @@ -110,6 +138,169 @@ static int acx00_ephy_write_page(struct phy_device *phydev, int page)
+
+[ ... ]
+
+> +/* Return a mask of usable counters, or a negative MDIO error. */
+> +static int acx00_ephy_read_counts(struct phy_device *phydev, u32 *counts)
+> +{
+
+[ ... ]
+
+> +	/* Bracket the packet counter with an unchanged CRC count. */
+> +	for (i = 0; i < ACX00_COUNTER_READ_ATTEMPTS; i++) {
+> +		ret = acx00_ephy_read_counter(phydev, ACX00_PAGE9_RX_PACKETS_HIGH_REG,
+> +					      &packets);
+> +		if (ret < 0)
+> +			return ret;
+> +		if (ret)
+> +			break;
+> +		ret = acx00_ephy_read_counter(phydev, ACX00_PAGE9_RX_CRC_ERRORS_HIGH_REG,
+> +					      &errors);
+> +		if (ret < 0)
+> +			return ret;
+> +		if (ret)
+> +			break;
+> +		if (errors == counts[ACX00_STAT_RX_CRC_ERRORS]) {
+> +			/* Both hardware counters and their difference wrap at 2^32. */
+> +			counts[ACX00_STAT_RX_PACKETS] = packets - errors;
+> +			return BIT(ACX00_STAT_RX_PACKETS) | BIT(ACX00_STAT_RX_CRC_ERRORS);
+> +		}
+> +		counts[ACX00_STAT_RX_CRC_ERRORS] = errors;
+> +	}
+> +
+> +	/* Keep reporting errors even when no coherent packet sample is possible. */
+> +	return BIT(ACX00_STAT_RX_CRC_ERRORS);
+> +}
+
+[Severity: Medium]
+Can rx_packets permanently lose successful frames when CRC errors keep
+breaking the bracket?
+
+On this path only the CRC bit is returned. __acx00_ephy_update_stats()
+therefore leaves stats_last[ACX00_STAT_RX_PACKETS] and
+stats_start[ACX00_STAT_RX_PACKETS] at their values from the last coherent
+pair, while rx_errors keeps advancing.
+
+When a coherent pair finally arrives, its delta is only accepted if:
+
+		if ((priv->stats_valid & BIT(i)) &&
+		    ktime_ms_delta(ktime_get_boottime(), priv->stats_start[i]) <
+		    (s64)ACX00_STATS_MAX_INTERVAL_MS) {
+
+Suppose the CRC count changes in all three bracket windows on every poll
+for 320 seconds or more. One example is a bulk transfer over a damaged
+cable with a few thousand CRC errors per second. In that case only the
+baseline moves, and every successful frame received since the last
+coherent pair is dropped from rx_packets. rx_errors stays correct, so the
+reported error ratio comes out wrong.
+
+ACX00_STATS_MAX_INTERVAL_MS comes from the byte counter's 4,000,000,000
+modulus. The 2^32 packets-minus-errors difference cannot wrap at 100 Mb/s
+for about 8 hours (2^32 / 148,810 minimum-size frames/s is roughly
+28,862 s). The dropped delta could still have been recovered.
+
+The commit message says:
+
+    When CRC errors keep arriving, update rx_errors from the
+    latest stable error read without advancing the successful-frame baseline.
+    A later coherent pair accounts for the intervening successful frames.
+
+Is that only true when the incoherent period is shorter than 320 seconds?
+Would a separate interval limit for the frame counters, based on their
+2^32 modulus, avoid dropping these frames?
+
+> +
+> +static int __acx00_ephy_update_stats(struct phy_device *phydev)
+> +{
+
+[ ... ]
+
+> +	for (i = 0; i < ACX00_NUM_STATS; i++) {
+> +		u64 count;
+> +
+> +		if (!(ret & BIT(i)))
+> +			continue;
+> +		count = counts[i];
+> +
+> +		/* Include sleep and read time; unseen cycles cannot be recovered. */
+> +		if ((priv->stats_valid & BIT(i)) &&
+> +		    ktime_ms_delta(ktime_get_boottime(), priv->stats_start[i]) <
+> +		    (s64)ACX00_STATS_MAX_INTERVAL_MS) {
+> +			if (count < priv->stats_last[i])
+> +				count += i == ACX00_STAT_RX_BYTES ?
+> +					ACX00_RX_BYTES_WRAP : BIT_ULL(32);
+> +			priv->stats[i] += count - priv->stats_last[i];
+> +		}
+
+[Severity: Low]
+This depends on counter behaviour that isn't documented. What happens if
+the difference computed in acx00_ephy_read_counts() goes down between two
+samples?
+
+			counts[ACX00_STAT_RX_PACKETS] = packets - errors;
+
+This code treats any drop as a 2^32 wrap, so rx_packets would jump by
+about 4.29e9. Totals are kept across resets and power transitions, so the
+jump would be permanent.
+
+The difference only stays non-decreasing if two things hold. The frame
+counter must include every event the CRC-error counter counts. It must
+also never increment later than the CRC counter for the same frame. The
+bracket only shows that the CRC count didn't change while the packet
+counter was being read.
+
+Two hardware behaviours would break this:
+
+- The CRC/error counter also counts events the frame counter skips, such
+  as runts, collision fragments, false carrier or RX_ER.
+
+- The frame counter increments at start of frame and the CRC counter at
+  end of frame. At 10 Mb/s these can be up to about 1.2 ms apart. If no
+  good frame arrives before the next poll, the difference drops by 1.
+
+Intervals are already limited to under 320 seconds. At 100 Mb/s at most
+about 47.6 million frames can arrive in that time. Could a wrap-adjusted
+packet delta larger than that be rejected and used as a new baseline,
+rather than added to the total?
+
 -- 
-2.56.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115-submit-acx00-phy-stats-v1-v5-0-ed81a7f54373%40gmail.com
