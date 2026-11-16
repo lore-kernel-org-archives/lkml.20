@@ -1,69 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794834365;
-	b=HqTUm6Rngvb5Y9XchMRH9RLjzQyrE34dXrOV4NHMNMH0SZ/DwYaRyASHE3erovIfPPeV
-	 ns9SDzZI/hQqXvnuiS/ns6jfkpirJi5svrb/DqCT4PbN5ldfKaQM01rSULLphjn1JTCkk
-	 GGFZDD9EvL8E0YR8ZPbHEQJpCRtHwVhHitnqHa/T97pLssilyYsNRtLce6iWfQcoidzQJ
-	 Iu21R2WGwBuAR2vMkslurdtpVpRowvVz4AS3vFMllVVaDo5O6CKLzRug0LbH49unXBBYU
-	 ep4lH1cfAzFekXBvbnGBmDaApm8osEY6OR5HobqskPrwmVHZWx83gxPwiW9cy9PUFXw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834365;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=yLvZB+PQTARTmlUcjwOhJJuGhpGZsfckvTKRm3i2+J4=;
-	b=qUlyL+H6P9MbCwT1Ids6Q38HxwVMBz+8Oa7qpUtyzmdeMsaix6iDxvKvctqYVqPAK1Jk
-	 15wI8ClWWUbhSnstFqPyniWdMac6QDXDJHJeiwISx9lh91+zfdq2mnc9JoBXfwuDAMuSe
-	 pj88f6p0eqTRj+G9t7p8mhKA+WbchYfZgMsKPucXGEl2967cw6N7T8spBgDIItPiM9xFZ
-	 dPaT7uh3JZ26HwBLQox68U5zJPCBWNTbWkb+u95mK0lUARYxFFZBN9Qm9PDJfVmbGNpcs
-	 NR5tTQHQBGJ2EqDuDOEuJYF0SnWEm2D1k985qjuu/mxJDZ3y/YYNCWDWEUcOR2UXW5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ArRuH8kP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794834465;
+	b=DYzA/xaK0v4/NSqKzDJ4QwhLAJxv/aylZuMfw6AeAuOaKOab0Jjo81sNNHlu918P3TYz
+	 1Ou9YEr+mIEMoY4FNLYRWY/Y5p1zgKxGHi9W/AP21fH+uQ7VDcl1TZ9TiBYqESNMODCkq
+	 tQq4qwH/f67LXZUjAkJ/ToJol/g3hc9Wv4SvC+HN9W3BpKrUleBcC2+Oec11Pfa5U4avN
+	 dCMEa1ViNbBfatrVQDlF14Tt4EjT3VwzZKQXNK6DDBca3fnaD939/C4hCphOVSPMbT+9z
+	 8IUcz5IlCqv5ggGGZp+qS3TgctlEYxZZKeGI6t7xPQKfDOJUt8lgfFsToqL5aAWZ3BA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834465;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=VwpnpBhRmMSKI0pWKFQHlmZtYvCJoVMRGo596WiYEWo=;
+	b=27BlhWXlqrtq5rVpGLxXRZEwuCIm8NEcUNIFoHF1kNMyjuFHGOKuxFBRBLE04ktLgoBF
+	 /lo2FNbxr9vPAYgF1kl/g15r22JS21x0lZ3IutNGgWCDyhq0XKowbQRgtTNWxGHHvvryM
+	 Gb/I7awUfXqd1wXDGDkWjASYt0HM5BBoo3fRLeh1E+lxAKczHyFA5ZRsHvSF7MKyAq6I2
+	 k79pIuaWu2CYOxf0+CbUxf8n/KMaGgcTRcrdL2w/et42GAvsUgLOXD3OIF5uoosdCFgyp
+	 2cU8souVO8CCdiy1I+jEKoNCvKv+rRwThuDRwvw6P8nFUuy5RRzkNFmt+cgPE9ebh8Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TZPu4u+C;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED12606A31C;
-	Mon, 16 Nov 2026 13:06:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ED12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451E6606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:07:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 451E6606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ArRuH8kP
-ARC-Seal: i=1; a=rsa-sha256; t=1794834348; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WjcROA4x+xSGzQAItNATKvWA2GXr2tuyBKdwRTc+Gvrl+OF6h3mEckyq4w0i8WjKYOw2Xy2oUZ3c0pK0bqnNNcfebZXVpv2bQOI3J09cyJnWU5itWShVLUB9evtBegSXYkDsaSMf4i7ui1jWPxeDVeywuP5SdLdRO5vrFt3/I9w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794834348; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yLvZB+PQTARTmlUcjwOhJJuGhpGZsfckvTKRm3i2+J4=; 
-	b=k3npFeqkmhasX1FsR2d8U+8+9q6OtMaJgCMqDnYfVPMqFlloHr3jF82xebULlQC7bCQhuTJKeEY/Xm7+3Zfb0CSRjmZyf7MjtHi+dlDEnb23M/45Ctl8rL8lAiKje8imVs1H9ijJlp6HDex+cUBmNQ7HZmAjjGSqLcz2L2SuEW0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=ArRuH8kPJFvuYrY6XhhgZlWHO4Gc7lN+/IPq181u2M6NdGDpMdGFUpnq8aNjWIUyxS7oPSpFjC/0DhLTC4WzbOow4mB2gTv/L389g4+fox4uecnIOWH7oIEDRRpcXAl5CsLdWvEE/n/reH46yuU90svibTr1v/cKC53LO1KzZ6X5RpSOmkdPA7KuEQC0FTeLXxiAnKj+KRXLEJDjpdNgSD8zXUQzRdhfvQ1Ao6ZFH8ufW/D+9OS1oDPyBnv+4ewwqLxwtXRLEalqwkGtP15FUonAaZNwNTiQ0gc/gYuj4+Zjak6CwnfMj3R/kagT7dFUpHpJZ2XgMdkPDod+S5rcCg==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=yLvZB+PQTARTmlUcjwOhJJuGhpGZsfckvTKRm3i2+J4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794834346199799.3745500364936;
-	Mon, 16 Nov 2026 05:05:46 -0800 (PST)
-Message-ID: <ab88da4911164925279b071519825fc344e998fc.camel@rong.moe>
-Subject: Re: [PATCH v2 2/2] platform/x86: lenovo: cancel fastcharger work
- on detach
-From: Rong Zhang <i@rong.moe>
-To: Hongyan Xu <getshell@seu.edu.cn>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
-	 <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>
-Cc: Zehao Gao <gaozehao@iie.ac.cn>, Hyunjung Ko <hj351016@gmail.com>, 
- MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi
- <cw00.choi@samsung.com>, "Derek J.Clark"	 <derekjohn.clark@gmail.com>, Mark
- Pearson <mpearson-lenovo@squebb.ca>, 	platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-In-Reply-To: <179474326460.103840.3845211906644469212@seu.edu.cn>
-References: <179474326098.103840.15531040789536968458@seu.edu.cn>
-	 <179474326460.103840.3845211906644469212@seu.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 20:59:52 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TZPu4u+C
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=VwpnpBhRmMSKI0pWKFQHlmZtYvCJoVMRGo596WiYEWo=;
+	b=TZPu4u+CwrAI0oXfFwdHurND/Y2ch+i+krxiREwiYEY5j7QU4xyWu+R/XSumk+5Pc0BicULrI
+	g3hAHhQwfsl3ltx7OMfJa3K6EhpFeHHngGjDN+z+dlWhXbSJfkARfFZopOsnyAzqltQAgqfTmqb
+	wAkNn63zePTEVYEDIpoCiXY=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jSp6K6pwSzcbMl;
+	Mon, 16 Nov 2026 21:06:49 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2303440579;
+	Mon, 16 Nov 2026 21:07:39 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
+ 2026 21:07:38 +0800
+Message-ID: <8c02e6f7-cc21-42d2-98e0-d5818d10c083@huawei.com>
+Date: Mon, 16 Nov 2026 21:07:37 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,89 +62,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] irqchip/gic-v3-its: Size the collection table for all
+ possible CPUs
+To: Marc Zyngier <maz@kernel.org>
+CC: <tglx@kernel.org>, <radu@rendec.net>, <jason@lakedaemon.net>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20261116022330.273840-1-ruanjinjie@huawei.com>
+ <86jymd159v.wl-maz@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <86jymd159v.wl-maz@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi Hongyan,
 
-On Sun, 2026-11-15 at 19:47 +0800, Hongyan Xu wrote:
-> The extcon callback schedules a worker which uses managed serdev,
-> pinctrl and GPIO resources. Releasing those resources while the
-> worker remains pending or running can access invalid state.
->=20
-> Install managed work cancellation after the UART is opened and
-> before registering the managed notifier. Reverse devres order
-> then unregisters and waits for notifier callbacks, drains the
-> worker and only afterwards closes the UART and frees its pin
-> resources. This depends on the preceding all-connector notifier
-> synchronization patch; resource order alone is insufficient.
->=20
-> The actual lc824206xa supplier notifies from work context, and
-> this consumer callback only schedules work. The callback must not
-> outlive synchronized unregister or republish after cancellation.
->=20
-> Found by the author's in-house static analysis tool.
->=20
-> Fixes: b2ed33e8d486 ("platform/x86: Add lenovo-yoga-tab2-pro-1380-fastcha=
-rger driver")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/20260806060526.1189-1-getshell@seu.edu.=
-cn/
-> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-> Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
 
-The submitter's S-o-b should be placed at last.
+在 2026/11/16 17:42, Marc Zyngier 写道:
+> On Mon, 16 Nov 2026 02:23:30 +0000,
+> Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+>>
+>> The ITS collection table is sized from the hardware default described by
+>> GITS_BASER: a single ITS page holding entry-size objects.  With the usual
+>> 16-byte collection entry and a 4K ITS page that is 256 collections.
+>>
+>> its_cpu_init_collections() installs one collection per CPU using MAPC with
+>> the CPU number as the collection ID, so on a system with more than 256
+>> possible CPUs the MAPC commands for the remaining CPUs fail with
+>> E_ITS_MAPC_COLLECTION_OOR (0x010903) and their redistributors end up
+>> without a valid collection.  LPIs targeted at those CPUs, which is where
+>> managed MSI/MSI-X affinity places a large part of the device interrupts,
+>> are then dropped by the hardware: the DMA completes but the completion
+>> interrupt never arrives, so drivers fall back to polling and time out.
+>>
+>> On a 384-CPU HiSilicon HIP12 system running v7.4-rc2 every ITS reported
+>>
+>>   ITS@0x488000000: allocated 256 Interrupt Collections (flat, esz 16, psz 4K, shr 1)
+>>
+>> and all four NVMe controllers logged repeated
+>>
+>>   nvme nvme0: I/O tag 256 (1100) QID 182 timeout, completion polled
+>>
+>> while the hinic driver failed to probe with -EIO.  With the table sized
+>> for num_possible_cpus() it holds 512 entries and both symptoms are gone.
+> 
+> Please drop all these examples, as they serve absolutely no purpose.
+> Everybody understands that losing interrupts is deadly. The whole
+> thing is also filled with implementation details that are not really
+> relevant, and can be described in a more general way.
+> 
+>>
+>> Handle GITS_BASER_TYPE_COLLECTION in its_alloc_tables() the same way as
+>> the device and VCPU tables, requesting order_base_2(num_possible_cpus())
+>> IDs.
+> 
+> Just say something like:
+> 
+> "The collection table is currently sized at a single ITS page size,
+>  and the driver's allocation policy is to allocate a single collection
+>  per CPU. On systems with more CPUs that the ITS can fit in a single
+>  page, no LPI can be routed to the CPUs that don't have an allocated
+>  collection, and the system grinds to a halt.
+> 
+>  Change the allocation policy to allow two-level tables, similarly to
+>  the other tables."
+> 
+>>
+>> Fixes: 1ac19ca6bf97 ("irqchip: GICv3: ITS: tables allocators")
+>> Cc: stable@vger.kernel.org
+> 
+> This is not a fix. This is new feature support for implementation that
+> are both very wide and have a stupidly small ITS page size. These
 
-(+CC Zehao)
+Hi Marc,
 
-And how did Zehao contribute to the series? You didn't even CC them!
+Thanks for the review. It is indeed the case.
 
-(+CC Hyunjung)
+> systems have *never* worked, and therefore there is nothing to fix.
 
-Hyunjung is also working on this. See
-https://msgid.link/20261116122001.3096223-1-hj351016@gmail.com
+Yes, this type machine has indeed not been run before, will remove the
+fix tag.
 
-Thanks,
-Rong
+> 
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  drivers/irqchip/irq-gic-v3-its.c | 15 +++++++++++++++
+>>  1 file changed, 15 insertions(+)
+>>
+>> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+>> index c952c069f937..319b6edefd37 100644
+>> --- a/drivers/irqchip/irq-gic-v3-its.c
+>> +++ b/drivers/irqchip/irq-gic-v3-its.c
+>> @@ -2716,6 +2716,21 @@ static int its_alloc_tables(struct its_node *its)
+>>  			indirect = its_parse_indirect_baser(its, baser, &order,
+>>  							    ITS_MAX_VPEID_BITS);
+>>  			break;
+>> +
+>> +		case GITS_BASER_TYPE_COLLECTION:
+>> +			/*
+>> +			 * Size the collection table for every possible CPU.
+>> +			 * One collection per CPU is installed via MAPC with
+>> +			 * col_id == cpu, so a table sized only for the
+>> +			 * hardware default page (e.g. 256 entries with
+>> +			 * esz 16 / psz 4K) is too small on systems with more
+>> +			 * CPUs than that: MAPC for the remaining CPUs fails
+>> +			 * with E_ITS_MAPC_COLLECTION_OOR and LPIs targeted at
+>> +			 * those CPUs are never delivered.
+>> +			 */
+> 
+> This comment serves no purpose, and the code says everything that
+> needs to be known.
 
-> ---
->=20
-> Discovery: found by the author's in-house static analysis tool.
->=20
->  .../platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c    | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c=
- b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-> index 9e2ac80..51ff383 100644
-> --- a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-> +++ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-> @@ -8,6 +8,7 @@
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-> =20
->  #include <linux/delay.h>
-> +#include <linux/devm-helpers.h>
->  #include <linux/err.h>
->  #include <linux/errno.h>
->  #include <linux/extcon.h>
-> @@ -160,7 +161,6 @@ static int yt2_1380_fc_serdev_probe(struct serdev_dev=
-ice *serdev)
-> =20
->  =09fc->dev =3D dev;
->  =09fc->nb.notifier_call =3D yt2_1380_fc_extcon_evt;
-> -=09INIT_WORK(&fc->work, yt2_1380_fc_worker);
-> =20
->  =09/*
->  =09 * Do this first since it may return -EPROBE_DEFER.
-> @@ -209,6 +209,10 @@ static int yt2_1380_fc_serdev_probe(struct serdev_de=
-vice *serdev)
->  =09serdev_device_set_baudrate(serdev, 600);
->  =09serdev_device_set_flow_control(serdev, false);
-> =20
-> +=09ret =3D devm_work_autocancel(dev, &fc->work, yt2_1380_fc_worker);
-> +=09if (ret)
-> +=09=09return ret;
+OK, will delete the comment.
+
+> 
+>> +			indirect = its_parse_indirect_baser(its, baser, &order,
+>> +							    order_base_2(num_possible_cpus()));
+>> +			break;
+>>  		}
+>>  
+>>  		err = its_setup_baser(its, baser, cache, shr, order, indirect);
+> 
+> Finally, it really looks like we could do better, since *all* table
+> types are now able to use two-level structures. I'd like to see
+> something like the below (untested).
+
+The cleanup looks fine to me, will update the code and retest it.
+
+Thanks again!
+
+Best regards,
+Jinjie
+
+> 
+> 	M.
+> 
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+> index 282e4bafb084f..a058cb8373ef1 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -2682,7 +2682,7 @@ static int its_alloc_tables(struct its_node *its)
+>  		u64 val = its_read_baser(its, baser);
+>  		u64 type = GITS_BASER_TYPE(val);
+>  		bool indirect = false;
+> -		u32 order;
+> +		u32 order, nr_ids;
+>  
+>  		if (type == GITS_BASER_TYPE_NONE)
+>  			continue;
+> @@ -2696,8 +2696,11 @@ static int its_alloc_tables(struct its_node *its)
+>  
+>  		switch (type) {
+>  		case GITS_BASER_TYPE_DEVICE:
+> -			indirect = its_parse_indirect_baser(its, baser, &order,
+> -							    device_ids(its));
+> +			nr_ids = device_ids(its);
+> +			break;
 > +
->  =09ret =3D devm_extcon_register_notifier_all(dev, fc->extcon, &fc->nb);
->  =09if (ret)
->  =09=09return dev_err_probe(dev, ret, "registering extcon notifier\n");
+> +		case GITS_BASER_TYPE_COLLECTION:
+> +			nr_ids = order_base_2(num_possible_cpus());
+>  			break;
+>  
+>  		case GITS_BASER_TYPE_VCPU:
+> @@ -2713,11 +2716,11 @@ static int its_alloc_tables(struct its_node *its)
+>  				}
+>  			}
+>  
+> -			indirect = its_parse_indirect_baser(its, baser, &order,
+> -							    ITS_MAX_VPEID_BITS);
+> +			nr_ids = ITS_MAX_VPEID_BITS;
+>  			break;
+>  		}
+>  
+> +		indirect = its_parse_indirect_baser(its, baser, &order, nr_ids);
+>  		err = its_setup_baser(its, baser, cache, shr, order, indirect);
+>  		if (err < 0) {
+>  			its_free_tables(its);
+> 
+
