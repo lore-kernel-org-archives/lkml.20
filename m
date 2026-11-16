@@ -1,63 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857946;
-	b=HorCRbNRZRKybssLCr5wFceL84ku8LHkpY9nUFxHAHpfULKuyiCRwVpl5i2v6QI2N19F
-	 CXctNlIPIshXEChuAzmLs3lOkbaYMZw8uKOJAyHGsRyyF6Z5oRsH8TR82dnJTjnyQV7/j
-	 5MTkQElhNs56a0/ITR3Z09H2j9S/x3xCGAvgKn9oPcnoLnIOQ+LzCoxbesztFCfXgChRM
-	 kmrjMiV2xxGHw5Z+h48cBQ9U3tFDWI3/2Naf1wemEaUgLG1cF80HRn7W8xULaKDADOFXr
-	 /ZxRCWMed1RAcWca91EDoD1N8YyTErANGEEGsnIPx3YfmziCPC52cGcuLQ3O+aNpYBQ==
+	t=1794857969;
+	b=JNmwXEVS4RlNs/k1qgKsR9NMirBnxbMq9SpATrt33rUIhmvoSpHNQNq7rzF5QLjJtv2e
+	 wL0IhlJTOlY/G1T0Iblp0sLNugs+Pnu9hMuVKOr/aPMTHZ3bjVG392OXIVYdnhM9ePBSH
+	 Vmhmnpo3e5TBaF77hzY8JIejrOWpQ4I6lfS3wyL6lIik8UDjOtdkrc9/h8ivjqemIoq4q
+	 pihfNSUv9CgrDdbPPQixO7hvOdhNfVONA/wBddf7BB8HLIkgetG4fBIf3Kep2FmA1+VC4
+	 RuB41W/D32VpjYtAxfhuU+28KJvIQvvGgZnA9zV+KcFJEkNhwKwMU0bhvRKMzwyvQGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857946;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XSrD94cLp+aFWvtYg7yPqUaSsfnhrS+s9J7K3EwFKFA=;
-	b=rymfB7AFxGup4Wk284jdYgF2GJWZJ7iTl3vXVWhMD9nK6HxHnGTWiAWuDuMnBn6WtBYv
-	 1QcYcn9P6Mm3iSLq4F4Brm6vxHpzF930uK0+ywxPCgpYty7jVcLEGhVrWQWl9Bfe72aNK
-	 FOXng/idtYl754SHybpmrKHrL2Wpk+2EYhk62Yhz/t8gqpcb83XfmzaEFeQgnDXh/8NnH
-	 3mipnIDT/OGymbZ09gvdE0SDxkwdp90zKDyLplAlOhpHvJlaB32bIDyi2PEpJFFkLAH5g
-	 uC39t7PMXIt8EIQrrEvwnCybMnWKCWtaQfbFvctmIz/NsGw8yD3kck4NxJGzr1WlLHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857969;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tb0Yt+co2HSyPMP/gmGUN3MHhQtM2v+tCYbEj1zzeMQ=;
+	b=0uvd5fxog53pqEfwPJeJTCpw3ti/V8UDwecB+F0deaWsCoa7Kztb6PrRt3itzMSkShGu
+	 clExX3u/8FJBOFtq1mzqtushDYlc6cLo8Giz4JLWGtwMDplDlfBMzyCsOprxG3YQjDBpU
+	 OKGCNSU2Op5WVKFMfMa78Q2BfnXA1A8+7cHtwNAlK8YxmxKchaqv1o6yQR51xBIl5zeF0
+	 Jhr9np2l2M8ct/3n09PErQF5Pv06akRGsZx6WrwwWLRoJ6gjjd3/vWqNGHjFEoKGA+m+k
+	 Y1qRTWkGzF0XrITBNL0tGB6hcIK5HdrhJRhl/8m4+0q+XcEXmpcLbigYW3SRyItzm0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZATBVlba;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515DB606A31C;
-	Mon, 16 Nov 2026 19:39:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZATBVlba
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C4E1F000C4;
-	Mon, 16 Nov 2026 19:39:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794857946;
-	bh=XSrD94cLp+aFWvtYg7yPqUaSsfnhrS+s9J7K3EwFKFA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZATBVlbaOIbrv8L1W8WmvvvEQnkugSgwhqr7UDldPRqA4S8+ZklVXZV8j/BcA+imM
-	 338sRioeumRIBORQE0TBQuDrOyuUrJgoOE7fsX5NT4fS02WsI2avhUasO7sh6SGX1p
-	 gfOJIza6mN/GY81kHygQmBtknxLpEtuoQ6VaF42U93TqO+g/XWZprhCWH5TS+vmFp0
-	 tcMIp2f68AmpkDEKEkLwUVSKd5mmm7+Z2iKjQgDMSa6s2g+KdzerHW/CPTnXPy8iHY
-	 M/G8PEw7fVc/ghctiqxOrIqRZEhgzUGIVhi9WRbauQdspH2SuR0zLIBwQeQQTKkVk7
-	 1dcaLA8eaYBBA==
-From: Sasha Levin <sashal@kernel.org>
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	Bill Wendling <morbo@google.com>,
-	Chuck Wolber <chuck@wolber.net>,
-	Justin Stitt <justinstitt@google.com>,
-	llvm@lists.linux.dev,
-	Marco Elver <elver@google.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH v2 11/20] objtool: Detect code coverage instrumentation in noinstr code
-Date: Mon, 16 Nov 2026 14:39:03 -0500
-Message-ID: <20261116193903.227017-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avdUyFTijaXU5MwM@jpoimboe>
-References: <20261103015238.3780910-1-sashal@kernel.org> <20261103015238.3780910-12-sashal@kernel.org> <avVaaxKUA2ArB6RG@jpoimboe> <20261112130906.1316655-1-sashal@kernel.org> <20261112151232.GC1813469@noisy.programming.kicks-ass.net> <avX80WkCFuGyS1y0@jpoimboe> <20261113150920.1953634-1-sashal@kernel.org> <avdUyFTijaXU5MwM@jpoimboe>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19789606A323;
+	Mon, 16 Nov 2026 19:39:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19789606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:e6fc:39d9:16d5:775d:5525]
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xT2Xy-004L5b-1e;
+	Mon, 16 Nov 2026 20:39:22 +0100
+Message-ID: <e20f708f-ebfe-4dc0-a64c-1590fdf608f3@phrozen.org>
+Date: Mon, 16 Nov 2026 20:39:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,69 +47,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/7] dt-bindings: pinctrl: airoha: add AN7589
+To: Conor Dooley <conor@kernel.org>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Ahmed Naseef <naseefkm@gmail.com>,
+ Benjamin Larsson <benjamin.larsson@genexis.eu>,
+ Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
+ lei.dong@airoha.com, Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+ Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+ zhengping.zhang@airoha.com
+References: <20261112185941.1316112-1-john@phrozen.org>
+ <20261112185941.1316112-6-john@phrozen.org>
+ <20261113-fame-smock-6ea3b8fadcd0@spud>
+ <b94ed5e4-cb80-4e05-9964-bb08a61aa1fd@phrozen.org>
+ <20261116-resolved-riot-c6a310bb2d8c@spud>
+Content-Language: en-GB
+From: John Crispin <john@phrozen.org>
+In-Reply-To: <20261116-resolved-riot-c6a310bb2d8c@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 10:22:51AM -0800, Josh Poimboeuf wrote:
->That seems circular though, I'm still trying to figure out what the
->actual problem is.
+Hi Conor,
 
-Right, sorry, I'm still trying to piece things together myself :)
+The largest users are EN7523 pcm_spi 14, AN7563 pnand 17, AN7583
+pnand 17, EN7528 pnand 17, EN7581 pnand 17 and AN7589 emmc 12 (these
+numbers are based on a hackish "grep foo | bar", so they might be
+slightly off).
 
-From what I get from Peter[1], a counter update is a store, and a store can
-trap:
+I copied and modified what the other AN/EN bindings do. These set the
+limit to the pin count of the SoC: EN7523 38, AN7563 38, AN7583 53,
+EN7528 50, EN7581 58. Your call really, I do not mind either way. I can
+send a v4 and then a follow up series cleaning up the existing bindings
+as well.
 
-  Because you can get exceptions from memory accesses just fine, which, if
-  you're inside an exception handler and haven't dealt with recursion
-  conditions yet, can be fatal.
+        John
 
-So if I try to play with it and produce #DB by placing a data breakpoint, I can
-observe:
+On 16.11.26 19:15, Conor Dooley wrote:
+> On Mon, Nov 16, 2026 at 06:47:27PM +0100, John Crispin wrote:
+>> On Fri, Nov 13, 2026 at 05:40:42PM +0000, Conor Dooley wrote:
+>>> As Lee requested, please split this out. Two patches, maybe even three.
+>>
+>> Agreed. v3 splits it into three patches.
+>>
+>>> Do we even need a child node here? If all this node does is
+>>> gpio/pinctrl, why can the driver not bind directly to this node?
+>>>
+>>> What else does it do that warrants being a syscon?
+>>
+>> The block also holds the PWM controller. Its registers interleave with
+>> the GPIO ones. The PWM series adds it as a second child, as on the
+>> EN7581. That series has a depency on this one so I have not posted it yet.
+>>
+>>> Otherwise, there should only be one. uart1 and uart2 should have
+>>> different nodes.
+>>
+>> Agreed. v3 sets maxItems to 1. Only pcm_spi and pcie keep more, as
+>> their groups carry different signals of one device.
+>>
+>>> So here, maxItems should be 1 for similar reasons.
+>>
+>> Agreed, v3 does this for i2c too.
+>>
+>>> I'm also curious about why this goes up to 74. None of the functions
+>>> have 74 pins, surely?
+>>
+>> A conf node can set the same config on any set of pins. 74 is all the
+>> pins. The EN7581 binding does the same with 58.
+> 
+> A difference in philosophy I guess - I would be grouping the pins in the
+> config node by user. So that there would be something like
+> 
+> spi1-stuff {
+> 	spi1-function {
+> 		function = spi
+> 		group = spi1
+> 	}
+> 
+> 	spi1-config1 {
+> 		pins = 1, 2
+> 		config1
+> 		config2
+> 	}
+> 
+> 	spi2-config2 {
+> 		pins = 3
+> 		config1
+> 	}
+> }
+> 
+> spi {
+> 	pinctrl-0 = spi1-function, spi-config1, spi-config2
+> }
+> 
+> or
+> 
+> spi {
+> 	pinctrl-0 = spi1-stuff
+> }
+> 
+> IMO, having config nodes covering more than one "feature" doesn't really
+> make sense, as you'd end up with something like:
+> 
+> spi1-function {
+> 	function = spi
+> 	group = spi1
+> }
+> 
+> all-config1-config2 {
+> 	pins = 1, 2, 4, 5
+> 	config1
+> 	config2
+> }
+> 
+> all-config1 {
+> 	pins = 3
+> 	config1
+> }
+> 
+> which kinda falls apart I think when a node can request a setting for
+> pins that are not part of it (in this case, that's pins 4 and 5)
+> 
+> spi {
+> 	pinctrl-0 = spi1-function, all-config1, all-config1-config2
+> }
+> 
+> So my opinion is that the max number of items should be the size of the
+> largest peripheral.
+> 
+> What's the largest actual user on the 7581?
+> 		
+>>
+>> v3 will follow shortly.
+>>
+>>         John
+>>
+>>
 
- - exc_debug_kernel() bumps __gcov0.local_db_save twice before it reads
-   DR7. With a write breakpoint on that counter the next kernel #DB
-   never returns, the CPU spins between asm_exc_debug and
-   exc_debug_kernel with DR7 still armed.
-
- - exc_page_fault() bumps __gcov0.read_cr2 right before "mov %cr2". If
-   the breakpoint on it samples user callchains, the #DB handler faults
-   walking the user frame pointer and CR2 is gone. I tried 300 writes to
-   freshly mapped pages with %rbp pointing into a PROT_NONE page, and
-   all 300 got a SIGSEGV for the %rbp address.
-
-I don't think it's a "keep the pieces" thing, since we already refuse
-breakpoints on the other data that code touches. So for example,
-within_cpu_entry(), and 3943abf2dbfa ("x86/debug: Prevent data breakpoints on
-cpu_dr7") is a very similar case I think: something local_db_save() reads
-before DR7 is cleared.
-
-It's not only a coverage problem either (I think I just got this as "additional
-homework" from Peter :p ). The within_cpu_entry() list is kept by hand (having
-objtool enforce it has been on the TODO list since 2021 [2]), and the same
-kernel without coverage has holes in it too:
-
- - A read/write breakpoint on cpu_current_top_of_stack gives the same
-   300 of 300 wrong fault addresses, as sync_regs() reads it before CR2
-   is read.
-
- - With spectre_v2=ibrs, a read/write breakpoint on
-   x86_spec_ctrl_current hangs the CPU in paranoid_entry(), which reads
-   it before DR7 is cleared.
-
-So what coverage adds is thousands more of these in places nobody can list, and
-with GCC they're ordinary .data/.bss that can't be blacklisted. That's what the
-objtool rewrite gets rid of.
-
->FYI, a partial objtool port (without the more controversial CFG
->reverse-engineering bits) is likely coming to arm64 soon to support
->klp-build, in which case this should be possible there as well.
-
-Nice. Without the CFG, can it still tell what's inside
-instrumentation_begin()/end()? If not it could just drop every counter
-in .noinstr.text, I think that's fine.
-
-[1] https://lore.kernel.org/all/20210614190700.GF68749@worktop.programming.kicks-ass.net/
-[2] https://lore.kernel.org/all/YB0+P3LiduCpWctO@hirez.programming.kicks-ass.net/
-
--- 
-Thanks,
-Sasha
