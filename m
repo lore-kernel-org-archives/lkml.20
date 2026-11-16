@@ -1,67 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851640;
-	b=y6wkO/e5Zz6plBmpKUclxD8KawW4yA6VpHv3rRa7io/zajFGlKzTmnk2HrEcmnc/zoAL
-	 fwmkxiSQ0fV/o7B/7Td/G/I/Zs5fKZhfyq/AcOmag/lQbznuWkbQ06AbdX0H5yEkf5FIG
-	 hnf6CwExdJ6TqBBv3LGiZd+k5KZDJvj3nMyzRSjLwRW67VTGbwInFGtmAv9hT7Ai2i2Nx
-	 DwpYP5o8MOpG4O/0csTiAIrX5xhYye7Huxi9pwhuRIAq23yQ/QednlOzi0X5hc3x6VuMH
-	 oFqSm2PMapY1x5jcO0sxKjt/3IhE/H6ntlQVuxEQoMHKqVOeO0Hvs2p21gCySwVwC3A==
+	t=1794851649;
+	b=GYPbysHRKTUZBIy+tO04tC9U4M0rkd6Ql0qncXnNmfls8BR6YUJPW2/mwDA0hdp35keD
+	 3cwt9gnb47rbSqV7OO5ary9vQqxY5cXKZFiYpooTSJTSSVnOVBaet/Vb8KRiGNqPuFdsz
+	 L6412wxEasCy4oOSrhsRp7e03If2+M//lquF5ay42uF1/sAvKq1VMrVzZOC9x+DKW3A9L
+	 nILAIg3mg6LQioBuFbXgzPkaRfm+nbMfE5G3Kgl9zk1GC52iKK4QpgZqETv5ErXgzUaCm
+	 +QE1u475rthQviUWDI3t8hE1zkEycuV+G+3u4p+GVOh/c19dXscdITTxEI+Q9dP3xrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851640;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=htPpsj1ZCqMRn1NtlL8aj52+oY3mSts/TrS2vw7Er68=;
-	b=5dtQUwCJtJ7JrxM2PveiQ4KbJEI17PSSlEP2UlRNkn19qH0osTrC0Vt2EnepWETvWaae
-	 JG70Gy9trsjkBhER/kGqVQndP5QwrHCsQLzASwASjOlRNJ4Ds4p17qdh/5S5WxuoS/CxO
-	 HnpXt9K8ScfIuKrmMFcL1+M9XxUO492XI916ZpV8WdKV0cwEpea7f7eE7PlvrokHUY6Bd
-	 Y1Z3houKP4A9SRvNFKgIChXjsF76sbZlZZsVmoIrq52oeEX3w6ytm3OE8EXGL6y8WrayE
-	 uokKWHd2v64NJeJP6JlI5lJcuzaLn2Di3llP5vp83eGDMv1z+JK1w0YUu7lIAhWUgDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851649;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=u/WDt4ovHgV1XKKVK2ChwQHHRdL8kTKBELJvnvQN584=;
+	b=z1vpOJ5tMnOILECEs5F6C0GyN3B6H9DWtxjZH3Xlt2NG3LxvPs9ylTw7f1/vnwOTmKn/
+	 GL4K96XihHVAi4SDTLyJ61LAYv1uQuLonnt1uIwrVupoA/zcDxmrfxq84LIGJG8g2HGMH
+	 EDJ8hg/Ey2UYrWFoQ1GAMKNICqcg/JUTbd46ANAI/o2eG9KoQhG6e7ePNzPqYJ47T//HH
+	 jQXTF/hKsEWOS+okIJkkyUM0giUEjZjfeMOsbDnHa5cvawnZtL2k6zGg27Y6bMw2U1KuT
+	 lpriugDQWB8CiBwTNegRP1p+beJ3aMj0+YcpCLKNdJPPmzK6RI7KR5JlEOE7MHGx/qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phrozen.org;
-	spf=pass smtp.mailfrom=phrozen.org;
-	arc=none smtp.remote-ip=46.4.11.11
-Received: from nbd.name (nbd.name [46.4.11.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBA9606A885;
-	Mon, 16 Nov 2026 17:53:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBA9606A885
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
-Received: from [2a04:4540:1403:e6fc:5f71:2c1e:7d62:945f] (helo=bertha10..)
-	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <john@phrozen.org>)
-	id 1xT0tq-004GoI-03;
-	Mon, 16 Nov 2026 18:53:50 +0100
-From: John Crispin <john@phrozen.org>
-To: Stefan Roese <sr@denx.de>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org,
-	lei.dong@airoha.com,
-	Linqi.zhang@airoha.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	Rajeev.kumar@airoha.com,
-	upstream@airoha.com,
-	Weifeng.xu@airoha.com,
-	zhengping.zhang@airoha.com
-Subject: [PATCH v3 1/3] i2c: mt7621: assert and deassert the reset line
-Date: Mon, 16 Nov 2026 18:53:41 +0100
-Message-Id: <20261116175343.344425-2-john@phrozen.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116175343.344425-1-john@phrozen.org>
-References: <20261116175343.344425-1-john@phrozen.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF28606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:54:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF28606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c734afb8deso4346167b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:54:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794851646; x=1795456446;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u/WDt4ovHgV1XKKVK2ChwQHHRdL8kTKBELJvnvQN584=;
+        b=VrUf63EQ5Xq474LyVNl7uYR1rW2IG4u//H1Cf5ySkRT0Lm8lwMDaZtpXkLRoTCEcIh
+         dzgrpeiHdG3IlBufwLHWJXgnlhZPgHVby4AMLYZvsEXlLeSrTf2qxdLNTpYD6hu+4bGa
+         1FsVYo18zSr5BslRm4NgLXmSCZ20ocpI64kjOrDLfaIrGqt5dgHvy0aUmE7F5FuHoiKb
+         l7TFtoEt9HPMsyTVuELHUZxLZa51l30OCcyr3ON2O7q6xTE8RXctpAVMl1Wkr40tKEo+
+         BUwv3gDYLRpu10Vn0VkW8o7fUdXLKcLFYaDuyuX3/o8zAh/DElfsxUShJUsaSN82B3w9
+         erVA==
+X-Forwarded-Encrypted: i=1; AL+hErEHHcl6ipDonks1oPyrJsYnq0cg8KqMlcqQAMSXAn/S2mTinG/Cs/QuEe/IjF/iAAlXnhjmFH5foANV8/s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aleCXEr9fJPMPiTJ/0ZIF65fXACKqW2lscjJpAsl5+wps7Rku
+	OFm5Gl9MJZoz7b7SgBLjXeU8OItbBf6YaEyOzhciuch/3cCOlh77t30cJ55LTwZVrFwXwRV8iB7
+	tP4bCK6JJuDeWvcSvdqXCh5WykURC+QQLcBMnISC/GeekGBYBBVH+kTti4m4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,70 +58,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6809:2793:10b0:571:846e:6f08 with SMTP id
+ 5614622812f47-571847e2a59mr5136812b6e.5.1794851646470; Mon, 16 Nov 2026
+ 09:54:06 -0800 (PST)
+Date: Mon, 16 Nov 2026 09:54:06 -0800
+In-Reply-To: <20261116175346.44221-1-founder@logarcheon.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6afb433e.f3cfa7c9.844a4.0000.GAE@google.com>
+Subject: Re: [PATCH] gfs2: Fix NULL pointer dereference in gfs2_seek_data/gfs2_seek_hole
+From: syzbot <syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com>
+To: founder@logarcheon.com
+Cc: founder@logarcheon.com, syzkaller-bugs@googlegroups.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The driver resets the controller with device_reset(), which needs a
-.reset operation in the reset controller. The EN7581 reset controller
-implements assert and deassert only, so there every call fails, logs
-"I2C reset failed!" and leaves the controller as it is, also after a
-transfer timeout.
+> #syz test
 
-Get the optional reset line at probe and assert and deassert it. The
-MT7621 and MT7628 reset controller does the same in its .reset
-operation, with no delay in between, so nothing changes there. A board
-without a reset line no longer logs an error, and a reset controller
-that is not ready yet defers the probe.
+Patch testing via #syz test is temporarily disabled.
+See https://github.com/google/syzkaller/issues/8122 for details.
 
-Suggested-by: Philipp Zabel <p.zabel@pengutronix.de>
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-Signed-off-by: John Crispin <john@phrozen.org>
----
-Changes in v3:
-- Add the Reviewed-by of Philipp.
-
-Changes in v2:
-- New patch. It replaces "clk: en7523: add a reset operation" from
-  the clk series (Philipp).
-- Link to the discussion: https://lore.kernel.org/r/0c96f978571c569de6552fc11131e45b55cada1b.camel@pengutronix.de
-
- drivers/i2c/busses/i2c-mt7621.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
-index 9ea5e3f9a763..7a31cc8b89ce 100644
---- a/drivers/i2c/busses/i2c-mt7621.c
-+++ b/drivers/i2c/busses/i2c-mt7621.c
-@@ -65,6 +65,7 @@ struct mtk_i2c {
- 	u32 clk_div;
- 	u32 flags;
- 	struct clk *clk;
-+	struct reset_control *rst;
- };
- 
- static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
-@@ -85,7 +86,9 @@ static void mtk_i2c_reset(struct mtk_i2c *i2c)
- {
- 	int ret;
- 
--	ret = device_reset(i2c->adap.dev.parent);
-+	ret = reset_control_assert(i2c->rst);
-+	if (!ret)
-+		ret = reset_control_deassert(i2c->rst);
- 	if (ret)
- 		dev_err(i2c->dev, "I2C reset failed!\n");
- 
-@@ -288,6 +291,11 @@ static int mtk_i2c_probe(struct platform_device *pdev)
- 		return PTR_ERR(i2c->clk);
- 	}
- 
-+	i2c->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
-+	if (IS_ERR(i2c->rst))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(i2c->rst),
-+				     "Failed to get reset\n");
-+
- 	i2c->dev = &pdev->dev;
- 
- 	if (of_property_read_u32(pdev->dev.of_node, "clock-frequency",
--- 
-2.34.1
-
+>
+> When the filesystem has been withdrawn, gfs2_glock_nq() returns -EIO
+> without queuing the holder, and gfs2_glock_nq_init() then calls
+> gfs2_holder_uninit(), which sets gh.gh_gl to NULL.
+>
+> gfs2_seek_data() and gfs2_seek_hole() call gfs2_glock_dq_uninit()
+> unconditionally, so in that case gfs2_glock_dq() dereferences a NULL
+> glock when it takes gl->gl_lockref.lock, causing a general protection
+> fault.
+>
+> Only release the holder when it was successfully acquired, matching the
+> pattern already used elsewhere in this file (such as gfs2_fiemap() and
+> gfs2_getattr()).
+>
+> Reported-by: syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=5a5f492ccae698fd7434
+> Signed-off-by: William Chuang <founder@logarcheon.com>
+> ---
+>  fs/gfs2/inode.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+> index 75fb1a0..4110b2d 100644
+> --- a/fs/gfs2/inode.c
+> +++ b/fs/gfs2/inode.c
+> @@ -2255,7 +2255,8 @@ loff_t gfs2_seek_data(struct file *file, loff_t offset)
+>  	ret = gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
+>  	if (!ret)
+>  		ret = iomap_seek_data(inode, offset, gfs2_iomap_next);
+> -	gfs2_glock_dq_uninit(&gh);
+> +	if (gfs2_holder_initialized(&gh))
+> +		gfs2_glock_dq_uninit(&gh);
+>  	inode_unlock_shared(inode);
+>  
+>  	if (ret < 0)
+> @@ -2274,7 +2275,8 @@ loff_t gfs2_seek_hole(struct file *file, loff_t offset)
+>  	ret = gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
+>  	if (!ret)
+>  		ret = iomap_seek_hole(inode, offset, gfs2_iomap_next);
+> -	gfs2_glock_dq_uninit(&gh);
+> +	if (gfs2_holder_initialized(&gh))
+> +		gfs2_glock_dq_uninit(&gh);
+>  	inode_unlock_shared(inode);
+>  
+>  	if (ret < 0)
+> -- 
+> 2.43.0
+>
+>
