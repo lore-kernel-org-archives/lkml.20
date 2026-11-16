@@ -1,99 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845704;
-	b=aEiz9pddY2OfOEkShHojssrfPCK+ExJTnE+c+w3VVULgrK973VA+2Tecf/+Z1Ufk5zoD
-	 xfIuCF+VG07K31qBXO+H3hjbGDcb7zcnoYT8W6kDGXyLku71Cr0BWj0bCCrAQUR2JTkYL
-	 pn9QbcClXgOIIHqmFqBcrwLkA1ELqeeIkenqzevuuuMHpnhQ/dIOHGDK2ECwiMZNrhc5j
-	 dx5/8g+qKlo7kw/A+ldslOCINjo8jvMYHzGG0JOLt6BgfUz+oTdIhnVVqh0d8rSWCwKw2
-	 2P80Q+mrpSSmjzcz91mDuzLG4qBsd/XRwRtPO/chPaN9xDLmnDiQNjUyTaaMI/pk1xA==
+	t=1794845770;
+	b=ZB1AF1Vx2JaWUSGW5SfakTjdlgkqgagVy8WySHVbCWLOEt3aAR9/+Ddoebd/LxMGgcCg
+	 0hg0ZckpGAUwzfyGKcczm7v6VTTCdOxgS+K9a9LtcSFVXAeQnvUbRIeCAz8onCcbNVHwl
+	 PrUMksmVvEa/Qt5jBjI+R6pHCN/3i82L7KYKgNClR5XrjuhakU5llJXvAa6Qo7eVd0Cxe
+	 6wciBZpvH6YRMciIuTR0qo4Ve1mIOb5B0K6Ee7mNhKBwphnbtGiQnQ+YZH4k6D7souiep
+	 tSRGWbtVUx0EVUB0JyxDhTqU1cYculuyPPi4MhXMcjwFLKccsNENtQpMV78HCxZ53XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845704;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-	b=GzPA9WhK4cILuoe1iRCgnnP61VO9pRE7QO5z8ErbFrAOOeOpqt8xnLdlYC8cRiADxbwd
-	 ttWCcBFEuBaRtgHlmil9MApkJkNmn02m8+HySdJXih3C3lags235vH03uBprGY5f2hGM5
-	 wW0fBE2DLnoRoIktzkTN2QzEkylhiz/ozqnV4fmzD31HmH52eu0E9HLtY/4DIbmH0XsNR
-	 8LfHy9Ug7OnjlyB601iKq+HSkbE19D8W3D8HkFovRD499Zun5Zs2cgEPhG3m1VLKTccNZ
-	 EVCOIIvgbVB/sQp+3neR2kIi6oCPTmasVR7fq8dUs6vA6eTD5pkRqfb+OxABjtUaWAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845770;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=u8OM82i/n/vgWyId+NC+VEpMoNyAg9PAz01gC1ijy4U=;
+	b=daNjmXbFEUPsMwuQODUhwLedP8cNjhqhuz+0NjW47N2rOq5vDNFsL7+RaKIiyZEjnpQ4
+	 9B73oCOKtSwvaqPpGurpwA2Ik0eNxv40A2dtgcT6ZK2i+5Dnbra95TJY8O9xZKlFIlsMM
+	 8kYYu9csQmIuJDWDfsd85E4OiOQUsFtn/bu+or9nDF+Ui4KwhS3nHTC8DRCK8JmFN3R6y
+	 WNiXYgZm73q4Rfv+jMIoy6/KmXUYo28KoxZBtIhQUlV133nhbLt4FOpDESacwbL1Si7OT
+	 8/2MUWTfBTLz6DyqYvI4LpWc9vYAhQP7XO5be1EsquXuZLWhuJPVyGMJztW5+HxwE2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nu0/bKW7";
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=NO123rfb;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA7A606A335
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:15:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BA7A606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F857606A31C;
+	Mon, 16 Nov 2026 16:16:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F857606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nu0/bKW7
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso906534eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:15:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794845703; x=1795450503; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=nu0/bKW7W7zw/srEPIy+Xzw1+PcDj/Xv6I3qPew9xbXRN5kQWyXfxCsYMO7UQmnKX2
-         PctSQizQ7k8DSP/chKQFfzqtx3aM+jsIBS7ybTwYu4yXkDxHofCzZQHCsdiVE9cy1GFU
-         jjfzs7TiTKNH8ektrjBOuOC2oKZWZfl0uDAg39bppmWRaXibYOWtkS/zp/nu9NOCdx3V
-         +uFgxryKA/jLRbKyoPh5w1H45eyxzKKh4/rU+unUyZ81BNjWDNqwEMJSftn7JlKhz9Wv
-         yTVs3/B/xd2HLOQYAGgvRIlLkrHND0dYSQvm34W5xSTTCG0Up9UvA3J10Or5sYKNfVfb
-         jHfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794845703; x=1795450503;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=J3OZDom0Sj02/3IN89Dlo5OchoDl6r2d1B5iUtKSPI+zAlyqWO/sA+Izatwlut24E3
-         BJyBi1myT9yLD+sl1PFMbXbcUZJ9aW5YHRycEMcED5QeBoLnXQ0Tr8duI7v+gggvjyS1
-         8NT5vXDC1iDnu5HQ+T1af18yFZ76Pgl3kJCIKhM0XYK5JQscxJISAFK+kYN9Igg4QQyd
-         mmITo9VCgL2X4wZG2wH5pnGgt0eRkVFHczYwi1qOzlFVUPClJa9lQgQ/RMUIvHMz2nD0
-         Cm7MNN/sg9c3XVUj658JzPX6y0oHK6H6Zr+W6t9jjKmsUq7STDWEWtROZPqMUMfYPd/4
-         /yxQ==
-X-Forwarded-Encrypted: i=1; AL+hErF1Nu1Wao8Lxl/T/PcJrIVHIOOdA3ylPP+DDfMUZV17rXGljcp2DpSYjPi3m2jwvLGCIuPKPV5Pv0+YfHg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pf9513/camL5gbJ5xBBNqgF35livzVzlkoZpxoxp9s3lcndtk
-	btCGrhARFqd+XwSreACs6CPGe3hQ4kKsUEO/r53NF1EMSuskZfX6BiPY
-X-Gm-Gg: AYBFou3rJ+X9xJ8S12DmLdZAXKYB2UNE+MM5NXi9hPPXuWEpmskQLc0svlUbh+IRipX
-	Wro1wzOHhR2Y7zBZBRmOfy04WoPjvgAQ3btnT4lCcanjqvzHirJrunyO8E3zAiXW2Eb7CnSuLcE
-	6FqQxbrr27a8p2Gy08Vizo1ABfCOLtVlodl3hYjB0Q9keky/kiOcvMYbpzyDuTBl3OBe4NWcg5b
-	0UDrofwP0Kn07szHXAtm3wNpDVEcca/+dRLGUm3pvqOjzv/QcZtsl1piUDukmOpdV2Thu6GVlzg
-	ZDUKwIUoSDd/H0T4Z85HnyAv9yz5pTUbmX5z1BeTiq9rgv3yZe8SvUyxXKBAmas+f0F6P87rZYM
-	8Bh2wIi8Zj8AlEfZ1sm1/Apmvg1b7vdvBlAtYkQBij92nMegZk4MY/z1gIOjxXx1avb1OmHCBoU
-	eeJi6+IOf5j6yfMGgoqsD0s+BOvNAeWhlOoua6j8OF4W56Tji46MncFiiqLvjr1kFp1CiChGrGC
-	1xwdHqtFZ2m0YDVwjY6FBwerDGmLYd6LzppGbyFjnC4PFi5jIpFmEj/r8YKnj2HXL2gb5Wj8Xmy
-	Obx7u/SLdls/MjQuf4CGk50mj30GiPvh0C+30tR77anNITf0IBXvpJA9wfWkB/HcoitqZfRO
-X-Received: by 2002:a05:693c:811a:b0:36e:9763:9268 with SMTP id 5a478bee46e88-3796695b721mr11102878eec.26.1794845702938;
-        Mon, 16 Nov 2026 08:15:02 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.79])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-380e031f3e5sm1494597eec.12.2026.11.16.08.14.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 08:15:02 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: kbusch@kernel.org
-Cc: hare@kernel.org,
-	hare@suse.de,
-	hch@lst.de,
-	kch@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	sagi@grimberg.me,
-	sreekuttan2156239@gmail.com
-Subject: Re: [PATCH v2] nvmet: reject invalid write-protect feature values
-Date: Mon, 16 Nov 2026 16:14:39 +0000
-Message-ID: <20261116161439.2767-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179484220923.249619.10986402925266130295.b4-ty@kernel.org>
-References: <179484220923.249619.10986402925266130295.b4-ty@kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=NO123rfb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=u8OM82i/n/vgWyId+NC+VEpMoNyAg9PAz01gC1ijy4U=; t=1794845769; x=2110205769; 
+	b=NO123rfbGaJEYu5jaoZPTyN3G0Iw3n4vqK0WA+KKZX0SundHEvFWCfkLVXUCD4hfV61R/JrBaLS
+	NH7NnPlcYRXGTNgGrodX+M3ugV6qcFcnqGy/KPwozMLyR7Hdxag2qWs0zRIMcuB3LxSHdF0OR8y90
+	fYjJKNTdq1//HMKJ6ryQ4KA6wmfVl4/8rQcGYowIBApfY/ZOOr8zO9l5RrqoZacnXx67tJ8XNO8qD
+	Qxzzkbtnos6RLtOmRgJiGLVaTlGxMtWkSqLreJpxBWC8+gQw7+jZ4N8koH28XF6SrkEc+HpfQtG53
+	o4zydwRlV1SOaP+9PuIn6Lkpu+50bJrb68AQ==;
+Received: from 186-249-149-121.shared.desktop.com.br ([186.249.149.121] helo=[127.0.1.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xSzNH-00000000GXQ-2Oa6;
+	Mon, 16 Nov 2026 17:16:07 +0100
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+Date: Mon, 16 Nov 2026 13:17:28 -0300
+Subject: [PATCH v2] wifi: rtw88: fix skb leak in hw_scan probe request
+ length check
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,11 +60,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-rtw88-hw-scan-skb-leak-v2-1-cc9644774fff@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAJcs+2oC/3WNyw6CMBBFf4XM2jFOecrK/zAsCh1gAlLTEtAQ/
+ t1K4tLlOck9dwPPTthDGW3geBEvdgqgThE0vZ46RjGBQV1URkQK3bwWBfYr+kZP6IcaR9YDXjm
+ nNDHcxiaFMH46buV1hO9V4F78bN37+Fnoa3/J+F9yISSMa5PkaaZ03WY36fQo+tzYB1T7vn8Am
+ QXmgL0AAAA=
+X-Change-ID: 20261112-rtw88-hw-scan-skb-leak-9e7154def3d5
+To: linux-wireless@vger.kernel.org
+Cc: Ping-Ke Shih <pkshih@realtek.com>, Po-Hao Huang <phhuang@realtek.com>, 
+ Kalle Valo <kvalo@kernel.org>, kernel-dev@igalia.com, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Mauricio Faria de Oliveira <mfo@igalia.com>, 
+ Luka Gejak <luka.gejak@linux.dev>
+X-Mailer: b4 0.14.2
 
-Hi,
+In _rtw_hw_scan_update_probe_req(), if the first loop fails (goto out;) the
+skb is leaked. It does not reach kfree_skb() at the end of the loop body or
+in the second loop (out:) since it is unlinked from probe_req_list.
 
-Thanks for applying the patch!
+Fix the leak by calling kfree_skb() if the first loop fails.
+
+In /sys/kernel/debug/kmemleak, after simulating the failure:
+
+  unreferenced object 0xffff88810965a000 (size 232):
+    comm "iw", pid 4729, jiffies 4345008185
+    hex dump (first 32 bytes):
+      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    backtrace (crc 20f7de11):
+      kmem_cache_alloc_node_noprof+0x302/0x380
+      __alloc_skb+0x74/0x2f0
+      skb_copy+0x57/0xe0
+      rtw_hw_scan_update_probe_req+0xff/0x230
+      rtw_hw_scan_prehandle+0x4e/0x180
+      rtw_hw_scan_offload+0x186/0x1d0
+      rtw_ops_hw_scan+0x61/0xb0
+      drv_hw_scan+0x81/0x130
+      __ieee80211_start_scan+0x2e0/0x760
+      rdev_scan+0x42/0x100
+      nl80211_trigger_scan+0x53b/0x730
+      genl_family_rcv_msg_doit+0x103/0x160
+      genl_rcv_msg+0x1b5/0x2c0
+      netlink_rcv_skb+0x52/0x100
+      genl_rcv+0x28/0x40
+      netlink_unicast+0x26d/0x3b0
+
+This leak exists in the first loop since the function was introduced, and
+still happened with the addition of the second loop, in these two commits:
+
+Fixes: 10d162b2ed39 ("rtw88: 8822c: add ieee80211_ops::hw_scan")
+Fixes: d95984b5580d ("rtw88: fix memory overrun and memory leak during hw_scan")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+---
+Changes in v2:
+- Add 'Cc: stable' (Luka Gejak)
+- Add 'Reviewed-by: Luka Gejak'
+- Link to v1: https://lore.kernel.org/r/20261113-rtw88-hw-scan-skb-leak-v1-1-3bd47562abf6@igalia.com
+---
+ drivers/net/wireless/realtek/rtw88/fw.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
+index 945fedcd375b62b4110ab631e87889bb84e2f16b..09b5836540c41e80a5fecca0f781aa45c6327cc0 100644
+--- a/drivers/net/wireless/realtek/rtw88/fw.c
++++ b/drivers/net/wireless/realtek/rtw88/fw.c
+@@ -2061,6 +2061,7 @@ static int _rtw_hw_scan_update_probe_req(struct rtw_dev *rtwdev, u8 num_probes,
+ 		skb_unlink(skb, probe_req_list);
+ 		rtw_fill_rsvd_page_desc(rtwdev, skb, RSVD_PROBE_REQ);
+ 		if (skb->len > page_size * page_cnt) {
++			kfree_skb(skb);
+ 			ret = -EINVAL;
+ 			goto out;
+ 		}
+
+---
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+change-id: 20261112-rtw88-hw-scan-skb-leak-9e7154def3d5
 
 Best regards,
-Sreeraj
+-- 
+Mauricio Faria de Oliveira <mfo@igalia.com>
+
