@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793847;
-	b=eFHvf7Kxn7OuzhHXe6e4gXdb8yvpNK1hZfv9QezbSVD9XH3Jfx5sHJxg7e3JrYIdSWFp
-	 h5eDh0fmNg4J48I0L7rtugc/4lhtZ2jAo8/y2A2MGJilM/CP/TdDW1bsXLnDb4ynTmhfK
-	 K+pHHEY4RtqyDBrjEAHt7r2Vfv25aX2nv1kUIkoQ/M/fYojLnyF4OkIbK3Vt5wIGdMGSZ
-	 xZhW1JnsFIAuAN02YWu/0dnpPUA4EAqYoP4cxTQ0Qdr23ORd97OeACduCjs1vmgnRWpIv
-	 bpuCSxaqGEF1fqwH+Dhxvfu9f6uybmEe+FCPpgRJTkwEp1s7YwDZkf8n+V3LBnBW/ZQ==
+	t=1794793858;
+	b=nXVgW8/oXiHVMVFQRqX90w075vANx6OYsdvfecSXYusYJ25hqXvfKt58s5hA42m1A//4
+	 AYukRpq2D8TUUOCQS9GBPJAoZqvcfLwQjedzH6QjpFSTq0Cwz4+Yj5dSwCxweSFM5o9P2
+	 Z/bNpzUB68S5B+WadOSiI9dF3Vh/JqP82izwHflEawSFZZdAWDLzRjJBUFzplJjqTe6p5
+	 WpLEposOGbb9YR0wdOjBo45xe1jUaxTru//VPkT94mMNd+OJLQPjGNfusSvCwkV2KonTw
+	 7GofgyKwfO549pzM/CzXRboaNwS/7omuhuos8lndk+S3bytxr7H8PIHLhKhFY7jZ9yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793847;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793858;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=waFNfACUbHNzABKbjs7ZdKEkg8ns9s99i15JpYpkwnQ=;
-	b=xfDpYmGmy+fFHKDtimEtMW+izenSYiHC69jVkmV2acgwmPdpnOwh8QZ4/t6XVIPHnxvS
-	 OU74j4LiuDrODcK+SSKZhhTR40xbRFyRdwqFv2ZlyAFwmt2woA38YGnSKQRZWfs/IWAPc
-	 BwFdEj0R+pEoIMuRbj9hgmpKdpe+oq6sd3zRnNUXDzcQgHm/i2AdZZGM1KdUz/RSAyPAD
-	 eDcvruqarlkf+KddLImUrqd3UP1OJL7BBySWrRi5//5s95tsr89ev5cS7/eMtKj+TXscM
-	 cI3FOOFqx6Haei5d/iH8KufwmbRQ/sHV+ldbT8Mb/h2BKUVHAY6e4XElkuKp1bhjpbw==
+	bh=duWd/BYGrc/SgNO1yjiwxhebtQlS71yvSw6I6HGeNQQ=;
+	b=f2gqotXuXXNHsqkWndrsz5VYZ3aisKERLOdkszkbckbqMs/VPdsTJ4hPp+Rgx0o5ntAv
+	 lrUJ3W3ZhTKwyS4YE7MB75BfhUqDPA3krIFLhuAZP42hbyMzesC0w/CgL2zF3MryyiBch
+	 9aohti6aFKsU6kKW6E8DBBP1vAmSl8RCHSalwRg/QJ9ZtaN4xxyPN7+uHLco7FdLWS47g
+	 kPzmh8fwtEMOXNWlnVqBupEas7pzg9jAJYCLPs/AdiQ65TFRl5iIkxAuq19N8CoHzelY9
+	 t0g+041ZA4W3S+RdmxXzFti76qJSmO/i0zYKMvDinrE6RsiEdOkr9+RtfPzp1zGlE7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLMK3d2i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I7Fx4/M5";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7A8606A334;
-	Mon, 16 Nov 2026 01:50:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9DBC606A8B5;
+	Mon, 16 Nov 2026 01:50:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLMK3d2i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B11531F000CB;
-	Mon, 16 Nov 2026 01:50:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7Fx4/M5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CFE1F02803;
+	Mon, 16 Nov 2026 01:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793847;
-	bh=waFNfACUbHNzABKbjs7ZdKEkg8ns9s99i15JpYpkwnQ=;
+	s=k20260515; t=1794793858;
+	bh=duWd/BYGrc/SgNO1yjiwxhebtQlS71yvSw6I6HGeNQQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QLMK3d2ibHGOvayWaDGpD+guUChXtOAxUN2zFCRoOzCovmyH3ofxS/Io8JHtaS1cO
-	 Tjrg5UrwJxDWTeetLEhJP1qipxJgK2zpdv6aKz7xL7Fw1k9yoEs0xd/vYV0ADKo1im
-	 lLsMQq9zAe8Syo0YcuTEzw+BE95E4+G4gn1qMdFCfaCbWfZVBEAmoC25ZNGDYaaGuB
-	 +P6mu3Iqhm8CRHnlByDuytjWMA7wnBBjUe9wB8/BXDZf7IWpS6MtNRhmDJLr62hW20
-	 Pxnm4qyL9tdSHZ2u2nC+qBo7iEEIyy1Sj/xxuBLJQnJjdfqS40RYHEUlUuHovfJCk9
-	 Uk6qAydO2dXzw==
+	b=I7Fx4/M5SNWErxbC5PG03L+nsDuhCEEfhQnwugK13Y2mo8PhpjDpu8tgPTlZAf/hM
+	 pJXkJU/UONbqlxsvspBGuIlVMitzRgXdEZEGPKEJ1F7pYtMEPiUpGWBf3KQ5vrSeug
+	 MjpR0wF5aDJ1mB2UJbwLhlkUOuristGR5rK4iryTwOi1QMHhtFyT3SR0zkPAs7UeKX
+	 xozwFg8WvmZ96R/kt10wpnOVgRLZhihP8CY/JfKSxSCSrNown6UAjuZJhPE7qT4Mef
+	 G4Ae07lioPBlJgmVTfD2xjH5pCX8iUraNoReMDs5ruFCkYSCLNiw30cO5VwSsUn5xw
+	 90Rl/uqepmksA==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	David Lechner <dlechner@baylibre.com>,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Linus Walleij <linusw@kernel.org>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 20/35] iio: accel: mma8452: use default_trigger
-Date: Mon, 16 Nov 2026 01:48:08 +0000
-Message-ID: <20261116014823.3132576-21-jic23@kernel.org>
+Subject: [PATCH 35/35] iio: gyro: mpu3050: use default_trigger
+Date: Mon, 16 Nov 2026 01:48:23 +0000
+Message-ID: <20261116014823.3132576-36-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
 References: <20261116014823.3132576-1-jic23@kernel.org>
@@ -94,28 +94,28 @@ From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Set indio_dev->default_trigger rather than taking a reference to the
 trigger in probe(). The IIO core now takes the reference during
 iio_device_register(), so it is not leaked if probe() fails after
-the trigger is set up. As well as closing the leak, this should
-make the ordering a lot less fragile going forwards.
+the trigger is set up. Whilst the ordering is such that there is
+no leak in here today, this will make the ordering less fragile
+going forwards.
 
-Fixes: cd0082235783 ("iio: mma8452: Fix trigger reference couting")
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/accel/mma8452.c | 2 +-
+ drivers/iio/gyro/mpu3050-core.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index 44962ac7491f..d0b9f2d31fe3 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -1529,7 +1529,7 @@ static int mma8452_trigger_setup(struct iio_dev *indio_dev)
- 		return ret;
+diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+index 7fbd30068764..954164cefadf 100644
+--- a/drivers/iio/gyro/mpu3050-core.c
++++ b/drivers/iio/gyro/mpu3050-core.c
+@@ -1171,7 +1171,7 @@ static int mpu3050_trigger_probe(struct iio_dev *indio_dev, int irq)
+ 	if (ret)
+ 		goto err_iio_trigger;
  
- 	data->trig = trig;
--	indio_dev->trig = iio_trigger_get(trig);
-+	indio_dev->default_trigger = trig;
+-	indio_dev->trig = iio_trigger_get(mpu3050->trig);
++	indio_dev->default_trigger = mpu3050->trig;
  
  	return 0;
- }
+ 
 -- 
 2.56.1
 
