@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794836994;
-	b=le9x4ZCO8dhNV3rA69lzQtyUVj7w2q1BxtN8DnSIp8lLD/jMK43vh4h8ubkhwwW+wrVA
-	 4KheDLGZMr9u9NZpuEBMzgVubQTd10E88GTYe2x0KgfSLbUJ0r/4oG3wf/32o3qW7r+vu
-	 wbjcS8I2bp/P052hSpwY+sfej0A5fIERrenNOscy+32DJ0OxeC36mdN8jqZ6pA8YyaRDA
-	 otxhmZg7CmfDgVCX48CiGJ7dl12zyiGgMXP+THZjmrX9T7B46lwEnICVop5c26wulkpDz
-	 Fg6yII5YWc53M0oIciY7LGkPbMvtjzBSMMAvlyTlSq5wb4HaRk2hnk+7gbX+vQeXjQg==
+	b=RufsDkEhduW5oXY9BCOEH5i169Njfb0OwtVCus7KoaVB4ZxAX8WsP87gut6H8Ynfj0Nn
+	 6Ap5MJw4G1Vwu3kELQOIQpzmmKFnH4MPahRhVDvsP/NAbSKJ7/gNBYhF0R663tP4RiSe7
+	 MBvkr9j77ccXGw267JLtTwchxe7YGtns1rLf4LRwIBrt0gCi+Fkxl+ztwnMk4Qw5X5n2o
+	 dgYmEcER7P2RhUnc/KwD7BHLcl9aDZFoAtnQX8l7MPhWD33prEXdPNHQYuSA/EOaJh+Q5
+	 ozjBmHH8cjrUFo79esvztIsgi2o69vLiuyJxrfSFhunA8PHLTqlkZX6150t7gU0T2TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794836994;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=lmSjI7DNlYMIW1WzzlFBK5MKVeidUFxBwHDgIMghb88=;
-	b=5Ub96lvigUr7lwyvCMV+WKGV7KMVKR78VMr6E0n2LvHgfG2yjxQTaSs8fzgC9q3Jecdx
-	 OKNfG2lb1b8dQ+2Iw3HgND19hTyLxYC6BOIOz89ZbsujNOHrKLC1TuZRew2OjOBOeeIZi
-	 6lr09dcdEeO4E0mePwkjRiQKN4vqwactot178qMmTKETo8fU77z3Jp66wm0LKsUGuAlfx
-	 ihXNRjpqUACZTGv9yVxQzeI4sYEfTbsKauj+EzLvbmVB4FdDYAhiyKG5ksEC3AC2sRXNW
-	 SL9Q3swRLNVSSSGFT/D6ugDUaEDiJpjy3G5hLBxIkbS87//yQhezPI06odk2fPbcQfg==
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Date:
+	 In-Reply-To:References:Autocrypt:Organization:Content-Type:User-Agent:
+	 MIME-Version;
+	bh=y2ufclYMSczQ8+k1rs6xWHBnqZazoATcDX8gGJ1J/W8=;
+	b=zw3Veevzr1XL3Bi1Wun6iLaq5UUK+KekaEGwsbXp7uzJo/LdGbfhx69i6YHiiRC95l/T
+	 HdjU3mMuErPEJ9MIVSKBzdikcNaq0BWJKn9ok8fOT1JQPUYPi1Ad8fsage/yFoIKZ62QB
+	 gllu+uWhwsdQ19PIc6JuODIRXVWGicM3GNiDh+XAJtT5lKQHzTFZ0lkfte9RaHtl755TK
+	 h3xp13Ss5PwAL9vziC3TIXZdxA1iYMelJhBXn6za/YOC1UINj4Em3xqScARyf8wr0WcyZ
+	 TOF744Lh9knKHv04Cu4YRCN3hgdlgc2bkH/8aeBIm4TNWTH1AYlweHrFmIjqRFJqvfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KaAvPbKm;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jIIztKjp;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64725606A32F;
-	Mon, 16 Nov 2026 13:49:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64725606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867B8606A885;
+	Mon, 16 Nov 2026 13:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 867B8606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KaAvPbKm
-Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2C4494BB;
-	Mon, 16 Nov 2026 14:47:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794836845;
-	bh=E3G21JXOa+vYOi3mOw8U/JLkLzHhbS+RYtGbpQk2Ae8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KaAvPbKm7AlZW16120upRSrDmMK6L72VZwDXQypqAcT33MaHrHTGf+0F4JpW9A+dG
-	 FHESiggeHSAgw9T/HdZHljoa3gyp78LX1TY1PoLg7NQgaoxD1Ns4KLDAeyD9jOnvFD
-	 Y7XUyz+jqU2XkNJ7XqEjU3XqFp9X8GyLlrka1iOY=
-Date: Mon, 16 Nov 2026 14:49:49 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/3] media: uapi: Extend bayer media bus formats table to
- 28 bits
-Message-ID: <avsJ8RRTkfcxwQt2@zed>
-References: <20260908-v4l2-add-raw-mbus-v1-0-6973bffa5b80@ragnatech.se>
- <20260908-v4l2-add-raw-mbus-v1-1-6973bffa5b80@ragnatech.se>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jIIztKjp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794836988;
+	bh=T/KA0zquQYjz4iSbAGPA8HM3AK6G68SZSye9Jt9rIi8=;
+	h=Subject:From:To:Date:In-Reply-To:References:From;
+	b=jIIztKjp7qsh0k4sycHWurMlzw0zllvgCsiJR10ci6TCn5+fivlamDIoNKA7n5pL6
+	 qHFqKX/ZuEi9hEZ/aTeVZO/andt0kawDI5OEgtw0qsOmGLVDHdX87iLiI5iUoF9O90
+	 YT8065WvGwhfB7d5rLqiIFC/aghkbSEXN8cdMcydmUoVok2oAK9SQ/BftIIaYAH6SM
+	 XdFNf+hJ5K683V33h5Mro0V455GQ8GLuXJEsg3d6b9ZZtN1+1d3nwChObCTunIT5xE
+	 8u1tj9lg7X7nccxF283nZP6Hs4pZ1Ymqu/0XuHmZYySFshCXaHdFQ/h8Sz9+aZoFAj
+	 63QILeEcu05zA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D95E817E0060;
+	Mon, 16 Nov 2026 14:49:46 +0100 (CET)
+Message-ID: <6ae6d1101d3f7095d11462579a5a3313153533e6.camel@collabora.com>
+Subject: Re: [PATCH 3/7] media: rkvdec: hevc: bound the RPS reads by the
+ control size
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Daniel Golle <daniel@makrotopia.org>, Detlev Casanova	
+ <detlev.casanova@collabora.com>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>,  Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Alex Bee	
+ <knaerzche@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, Jonas
+ Karlman	 <jonas@kwiboo.se>, Sebastian Fricke
+ <sebastian.fricke@collabora.com>, 	linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 08:49:44 -0500
+In-Reply-To: <bb9c44d0f56221874b105394169e5c377ef21b42.1794645268.git.daniel@makrotopia.org>
+References: <cover.1794645268.git.daniel@makrotopia.org>
+	 <bb9c44d0f56221874b105394169e5c377ef21b42.1794645268.git.daniel@makrotopia.org>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-Ioy9snckrmchYqHS9sCx"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,660 +93,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-v4l2-add-raw-mbus-v1-1-6973bffa5b80@ragnatech.se>
 
-Hi Niklas
+--=-Ioy9snckrmchYqHS9sCx
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 08, 2026 at 10:02:56PM +0200, Niklas Söderlund wrote:
-> Prepare to describe 24- and 28-bit media bus formats by first extending
-> the table and existing formats to cover 28-bits.
->
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Le samedi 14 novembre 2026 =C3=A0 10:22 +0000, Daniel Golle a =C3=A9crit=C2=
+=A0:
+> The RPS helpers read num_short_term_ref_pic_sets elements of the
+> EXT_SPS_ST_RPS control and num_long_term_ref_pics_sps elements of the
+> EXT_SPS_LT_RPS control, however many elements userspace passed.
+>=20
 
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+What did you want to say?
 
+> Beyond
+> the passed elements they read stale entries of the control's array,
+> and past its allocation once the SPS counts more sets than the control
+
+More broken text, can you work a bit on your messages, be concise, precise,
+don't get into details but into the understanding of what you are achieving=
+. The
+code is precise enough.
+
+> has ever held, as the control framework sizes a dynamic array for the
+> largest element count it has seen. The short-term sets read from there
+> are unchecked, and a num_negative_pics or num_positive_pics above 16
+> overflows the calculated sets, the stack arrays of
+> st_ref_pic_set_prediction() and the hardware RPS table.
+>=20
+> A userspace V4L2 client that can open the RKVDEC m2m decoder can set an
+> SPS whose counts exceed the number of elements it passed in these
+> controls, so the reads run past the allocation.
+>=20
+> Use the controls only when they hold at least as many elements as the
+> SPS counts, and treat them as not set otherwise in both back ends.
+>=20
+> Fixes: c9a59dc2acc7 ("media: rkvdec: Add HEVC support for the VDPU381 var=
+iant")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 > ---
->  .../userspace-api/media/v4l/subdev-formats.rst     | 332 ++++++++++++++++++++-
->  1 file changed, 330 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
-> index c9999b929773..892562ab48de 100644
-> --- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
-> +++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
-> @@ -2821,7 +2821,7 @@ organization is given as an example for the first pixel only.
->      \tiny
->      \setlength{\tabcolsep}{2pt}
->
-> -.. tabularcolumns:: |p{6.0cm}|p{0.7cm}|p{0.3cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|
-> +.. tabularcolumns:: |p{6.0cm}|p{0.7cm}|p{0.3cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|
->
->  .. _v4l2-mbus-pixelcode-bayer:
->
-> @@ -2834,10 +2834,18 @@ organization is given as an example for the first pixel only.
->      * - Identifier
->        - Code
->        -
-> -      - :cspan:`19` Data organization
-> +      - :cspan:`27` Data organization
->      * -
->        -
->        - Bit
-> +      - 27
-> +      - 26
-> +      - 25
-> +      - 24
-> +      - 23
-> +      - 22
-> +      - 21
-> +      - 20
->        - 19
->        - 18
->        - 17
-> @@ -2875,6 +2883,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`7`
->        - b\ :sub:`6`
->        - b\ :sub:`5`
-> @@ -2900,6 +2916,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`7`
->        - g\ :sub:`6`
->        - g\ :sub:`5`
-> @@ -2925,6 +2949,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`7`
->        - g\ :sub:`6`
->        - g\ :sub:`5`
-> @@ -2950,6 +2982,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`7`
->        - r\ :sub:`6`
->        - r\ :sub:`5`
-> @@ -2975,6 +3015,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`7`
->        - b\ :sub:`6`
->        - b\ :sub:`5`
-> @@ -3000,6 +3048,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`7`
->        - g\ :sub:`6`
->        - g\ :sub:`5`
-> @@ -3025,6 +3081,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`7`
->        - g\ :sub:`6`
->        - g\ :sub:`5`
-> @@ -3050,6 +3114,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`7`
->        - r\ :sub:`6`
->        - r\ :sub:`5`
-> @@ -3075,6 +3147,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`7`
->        - b\ :sub:`6`
->        - b\ :sub:`5`
-> @@ -3100,6 +3180,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`7`
->        - g\ :sub:`6`
->        - g\ :sub:`5`
-> @@ -3125,6 +3213,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`7`
->        - g\ :sub:`6`
->        - g\ :sub:`5`
-> @@ -3150,6 +3246,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`7`
->        - r\ :sub:`6`
->        - r\ :sub:`5`
-> @@ -3175,6 +3279,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - 0
->        - 0
->        - 0
-> @@ -3198,6 +3310,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`7`
->        - b\ :sub:`6`
->        - b\ :sub:`5`
-> @@ -3223,6 +3343,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`7`
->        - b\ :sub:`6`
->        - b\ :sub:`5`
-> @@ -3246,6 +3374,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - 0
->        - 0
->        - 0
-> @@ -3271,6 +3407,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`9`
->        - b\ :sub:`8`
->        - b\ :sub:`7`
-> @@ -3294,6 +3438,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`1`
->        - b\ :sub:`0`
->        - 0
-> @@ -3319,6 +3471,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`1`
->        - b\ :sub:`0`
->        - 0
-> @@ -3342,6 +3502,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`9`
->        - b\ :sub:`8`
->        - b\ :sub:`7`
-> @@ -3365,6 +3533,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`9`
->        - b\ :sub:`8`
->        - b\ :sub:`7`
-> @@ -3390,6 +3566,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`9`
->        - g\ :sub:`8`
->        - g\ :sub:`7`
-> @@ -3415,6 +3599,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`9`
->        - g\ :sub:`8`
->        - g\ :sub:`7`
-> @@ -3440,6 +3632,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`9`
->        - r\ :sub:`8`
->        - r\ :sub:`7`
-> @@ -3463,6 +3663,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`11`
->        - b\ :sub:`10`
->        - b\ :sub:`9`
-> @@ -3488,6 +3696,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`11`
->        - g\ :sub:`10`
->        - g\ :sub:`9`
-> @@ -3513,6 +3729,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`11`
->        - g\ :sub:`10`
->        - g\ :sub:`9`
-> @@ -3538,6 +3762,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`11`
->        - r\ :sub:`10`
->        - r\ :sub:`9`
-> @@ -3561,6 +3793,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`13`
->        - b\ :sub:`12`
->        - b\ :sub:`11`
-> @@ -3586,6 +3826,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`13`
->        - g\ :sub:`12`
->        - g\ :sub:`11`
-> @@ -3611,6 +3859,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`13`
->        - g\ :sub:`12`
->        - g\ :sub:`11`
-> @@ -3636,6 +3892,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`13`
->        - r\ :sub:`12`
->        - r\ :sub:`11`
-> @@ -3659,6 +3923,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`15`
->        - b\ :sub:`14`
->        - b\ :sub:`13`
-> @@ -3684,6 +3956,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`15`
->        - g\ :sub:`14`
->        - g\ :sub:`13`
-> @@ -3709,6 +3989,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`15`
->        - g\ :sub:`14`
->        - g\ :sub:`13`
-> @@ -3734,6 +4022,14 @@ organization is given as an example for the first pixel only.
->        -
->        -
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`15`
->        - r\ :sub:`14`
->        - r\ :sub:`13`
-> @@ -3755,6 +4051,14 @@ organization is given as an example for the first pixel only.
->        - MEDIA_BUS_FMT_SBGGR20_1X20
->        - 0x3021
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - b\ :sub:`19`
->        - b\ :sub:`18`
->        - b\ :sub:`17`
-> @@ -3780,6 +4084,14 @@ organization is given as an example for the first pixel only.
->        - MEDIA_BUS_FMT_SGBRG20_1X20
->        - 0x3022
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`19`
->        - g\ :sub:`18`
->        - g\ :sub:`17`
-> @@ -3805,6 +4117,14 @@ organization is given as an example for the first pixel only.
->        - MEDIA_BUS_FMT_SGRBG20_1X20
->        - 0x3023
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - g\ :sub:`19`
->        - g\ :sub:`18`
->        - g\ :sub:`17`
-> @@ -3830,6 +4150,14 @@ organization is given as an example for the first pixel only.
->        - MEDIA_BUS_FMT_SRGGB20_1X20
->        - 0x3024
->        -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
-> +      -
->        - r\ :sub:`19`
->        - r\ :sub:`18`
->        - r\ :sub:`17`
->
-> --
-> 2.55.0
->
->
+>  .../platform/rockchip/rkvdec/rkvdec-hevc-common.c    | 12 ++++++------
+>  .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c   |  4 ++--
+>  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c   |  4 ++--
+>  3 files changed, 10 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c =
+b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
+> index c249e3f16f42c..797a16517ed59 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
+> @@ -448,18 +448,18 @@ void rkvdec_hevc_run_preamble(struct rkvdec_ctx *ct=
+x,
+>  =09=09=09      V4L2_CID_STATELESS_HEVC_SCALING_MATRIX);
+>  =09run->scaling_matrix =3D ctrl ? ctrl->p_cur.p : NULL;
+> =20
+> +=09run->ext_sps_st_rps =3D NULL;
+>  =09if (ctx->has_sps_st_rps) {
+>  =09=09ctrl =3D v4l2_ctrl_find(&ctx->ctrl_hdl,
+>  =09=09=09=09      V4L2_CID_STATELESS_HEVC_EXT_SPS_ST_RPS);
+> -=09=09run->ext_sps_st_rps =3D ctrl ? ctrl->p_cur.p : NULL;
+> -=09} else {
+> -=09=09run->ext_sps_st_rps =3D NULL;
+> +=09=09if (ctrl && ctrl->elems >=3D run->sps->num_short_term_ref_pic_sets=
+)
+> +=09=09=09run->ext_sps_st_rps =3D ctrl->p_cur.p;
+>  =09}
+> +=09run->ext_sps_lt_rps =3D NULL;
+>  =09if (ctx->has_sps_lt_rps) {
+>  =09=09ctrl =3D v4l2_ctrl_find(&ctx->ctrl_hdl,
+>  =09=09=09=09      V4L2_CID_STATELESS_HEVC_EXT_SPS_LT_RPS);
+> -=09=09run->ext_sps_lt_rps =3D ctrl ? ctrl->p_cur.p : NULL;
+> -=09} else {
+> -=09=09run->ext_sps_lt_rps =3D NULL;
+> +=09=09if (ctrl && ctrl->elems >=3D run->sps->num_long_term_ref_pics_sps)
+> +=09=09=09run->ext_sps_lt_rps =3D ctrl->p_cur.p;
+
+So you are saying that if the passed array is too short, we should use an o=
+lder
+entry to none? That seems a little strange, what about up-front rejecting b=
+ad
+entries?
+
+Nicolas
+
+>  =09}
+>  }
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c=
+ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
+> index e1936e87f45be..fea7ff48c0dce 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
+> @@ -604,8 +604,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
+>  =09 * On vdpu381, not setting the long and short term ref sets will just=
+ output wrong frames.
+>  =09 * Let's just warn about it and let the decoder run anyway.
+>  =09 */
+> -=09if ((!ctx->has_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
+> -=09    (!ctx->has_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
+> +=09if ((!run.ext_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
+> +=09    (!run.ext_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
+>  =09=09dev_warn_ratelimited(rkvdec->dev, "Long and short term RPS not set=
+\n");
+>  =09} else {
+>  =09=09rkvdec_hevc_assemble_hw_rps(&run, &tbl->rps, &hevc_ctx->st_cache);
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c=
+ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
+> index e9d8b590f0d58..c409d21c08598 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
+> @@ -550,8 +550,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
+>  =09 * To be on the safe side for this new v4l2 control, write an error i=
+n the log and mark
+>  =09 * the buffer as failed by returning an error here.
+>  =09 */
+> -=09if ((!ctx->has_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
+> -=09    (!ctx->has_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
+> +=09if ((!run.ext_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
+> +=09    (!run.ext_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
+>  =09=09dev_err_ratelimited(rkvdec->dev, "Long and short term RPS not set\=
+n");
+>  =09=09rkvdec_run_postamble(ctx, &run.base);
+>  =09=09return -EINVAL;
+
+--=-Ioy9snckrmchYqHS9sCx
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavsJ+AAKCRDZQZRRKWBy
+9Lp5AQDabVmgQhKQqiJ2SuAz1GAtdY4z9yHKyf0Jw5tn3moOcAD+JM9RgI+HN8Ly
+b8n046UalkdSLleSXjXadP47iIIlKgk=
+=ms2T
+-----END PGP SIGNATURE-----
+
+--=-Ioy9snckrmchYqHS9sCx--
