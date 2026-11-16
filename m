@@ -1,94 +1,164 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820288;
-	b=JGLZenz6E2yC9SxsgOMfOEruyzKBG2wU8vzSGkePf5KEOFo9lGa5oI7cTZ/ZmS8h/nWs
-	 NuLGvVYra4JQjC67efSS0VXtJn5GtrgLEomAk7DLnHof+OLuzADYUWj0JzNEyPVtxjXBc
-	 OtH1u72YYOI5RPtbYpWyuMZA2kX1a+G50JbW+urJuXMDb3FaLjvv1EX5trF1IGb6Tce/r
-	 baOgTf6V1XtZcHWDBk/umVEMlntL8C2HQUoyIEzfnHt4iXNZsPqWBB29KCVb8lb6p76wX
-	 VeK0Vbv4FhOgoH1Jj1Nwy8QC1TrQ4yoRbRVZqITcIdDBKDVICY/6fSwPK8Fg7fHyPoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820288;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QuJg4mFjV8o+bewKGTUYwBsLOBBN5sR9GT1t3zfRmcE=;
-	b=Qn0HTtWjYk8g38mvs2rp2vGwwMbLeaTcpqjcnIVz/pTHUu7D7aS/VpJjW5rvy0tZwb88
-	 cJks+sdVY0qAQG4VNtzQFKe/ENi+ySppFTFGKhSYCu5H+YAdzODiWu/Dw3QEVKgW3Mdzs
-	 M7iqdvdkU7jh3xmnNx3HVjzY2KpOD6Nz+HmWmHGBGrgjj79KvW09p3q2myYKSys6G6bzX
-	 sF0YrnsFHs++xh/KQ6+O+Y4vx1zjfd0wNOagwpFDLpQmPPmDrx4PfBXd40q8jk85MVMWR
-	 aHZvN/udpswY9yn27QpXDDCOZwP3QYAcPTtXrZ6fRwAO6g8Ys1QYoJTZLmv5xAgEOxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J1txTdnt;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794820338;
+	b=lV73oa8ysn9nHd++T4ccTpglHC/i9e5x04/lIrLLb8ORnv0L2JA2Bcd96Orv8GQQEwd3
+	 ySxlhWfAfTN0sZmQN/Qa8GjBCrWf9uGWh22rpY0XW7P4pIaQYM9VGyfFO0AespwR47EUW
+	 YmWtHrrPjOTvyoDM/I++H1bvltJpe9DXlIHEmgQDCjDJhYCHxUBHGSQGqdR6AQtaXHIEc
+	 MgMNTAQcTXAiEufO73UQZ/sQkk59xHjNKWEVfI1pYiValNpBYwJpqL+w/DRPG2x5NXGVu
+	 FxDFX4wxtJkkpzPRZ0V4/meoBjwxCSA7S+hA2l6Y6TOl7+vSoiO2rKLxgwRoaFyvVCw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820338;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=FK6EVe10hRl1wlB2XPvUf/BYYP4nRVDCgd7GngWZEwg=;
+	b=jXem9cA/aTd5sDxROR50xKyq9ZdJWP267RXSf663vsGG2giKpgMvu//eBJUaCimHkavU
+	 mrUFUTqIif8Hey4CDorBlOLCgK2DyfV0Vy4Q7sab+qlVEJtCaryb4WdVORzencsRdhols
+	 m0VuAxL/dWJhUkmaRGtq+wv6Si5xi6DiSJJ/fhaA5Zf/LXa+7WYJRjwpwxmHdfv2IoYv4
+	 /Yoen4x/HOjptwHH7yFW/lPOrUDFqIVVkWNy92PzQsyFlQBJJvQL+TrhbGxyiVSnFPepv
+	 i86E3zjCS5Fs3zutFE2KcSUOli+Hzf8ox38KkHCRO2nm7YQyDoOWLWocTT7Yjt4hPuw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Ixrc7SI3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.16
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010016.outbound.protection.outlook.com [52.101.228.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4300B606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4300B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FA5606A337;
+	Mon, 16 Nov 2026 09:12:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82FA5606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J1txTdnt
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so2801025a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:11:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794820287; x=1795425087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QuJg4mFjV8o+bewKGTUYwBsLOBBN5sR9GT1t3zfRmcE=;
-        b=J1txTdnteo4BhhpH8I7odcWH1jASAqbRZN+FPvofz0+HtgOgmx1Okr8kkeR1nJQxa1
-         hCarnru/7Nd0V36FyGkFVN1vuPWck2gevz6h/RU2MXCcIftrumOHbZ0MLwvIoco76VhG
-         Pxvaxb0oijBSpgCZYMOZxpTqGbxc/fV0AIr3WkrfZhvzgDkRvKsLG/5ngsXBG64hTR5Y
-         I3s0loUWZU/S8jV0bGZa0RnhjPk955Z3Q3KvU8r8YUP9WUOwQNr10hxv70Ht3TMLRPkd
-         iDCrJnpAqmGA8fX1OX6XXPUORaX1FjSzH/J/dio0NbSXmzqwuAEBbWTQVEHbFzF9OyVv
-         WnCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794820287; x=1795425087;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QuJg4mFjV8o+bewKGTUYwBsLOBBN5sR9GT1t3zfRmcE=;
-        b=apwsQuVk3m21X3xin2iuIL7oiYE2mesileRtJinpdSWZulGyS0OK+puztxTLVJgiZA
-         Vum0E3jJqzHtUvaYEntEPiWud0Ry8b0J+TKqDQTE1P/FCcdy4EzQGjKhmbPTc0oXGL5T
-         +RTkxwaJ/QybAukbYnRwXXJOstozYKv0Jnt014c8mHPfjMU8G+1OrpnO5WImw6oOOVy/
-         yZzpHPQyl1Ez2OGzufq9qb3G64t15lS63mJ+UgBDh7WsRdcc0992Ow8s/HjU/XMEaBvW
-         rtaQmJfQyW60/C2X+eC5L5SSrBb6yMLuAOO1yx+ps+HIunwIgUrSm3np5IrVpW9eewCr
-         efng==
-X-Forwarded-Encrypted: i=1; AL+hErGgiD40ZKE8yNP8ySryWg8Gwq0iPf+alf/ClAyLu8rz+p+YSu+D1H8F0ba2lOuH9HGPBKfEuWLwY00YeEs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EAe0LV4Ecel2HNtPXKR1vgzP8UygvxVZWNMDg3C+ZaoDiolcH
-	JhG5yg3cXPE1VXNfGvv1Cgwidnf3x0LbwZnijbgdJh4VqhqHNOfFTgf2kVMvj2Pu
-X-Gm-Gg: AZFdTZcyWWQ6kqmY0aTBI+GjJCCAMK2Zh9mdU9R1I1E6l3mywmMRe7hrIzEMoKpz5sc
-	GVKIeUkbTmA7oFWtpX4Fma01WwoGETXlEZVjjIxV49OM1PHrRuDPcuZTyQMg/PdTUEQxDVkHHHu
-	RWY3CV+Qm1re7YIavjprkIUhThOXd66lsVqH6p3efD1gt9ksU9xgUk2Z2s9dYdvZNBg2GWw1S1r
-	6MoCzRf6z0+jbSGAvEEdcYPEOkw9Jbor+t7TsYI8Eh5ZTy0kAF10m5mvp9OWFrwgxnnqaqNWm16
-	e0VamkQLTNC2Q+Eea8HPhIm/7xhQZhW0ojyI7UNMsvutcTbyH9v/pvsy9UZ99QJgJZze8Qzm+5a
-	J0uGU1JNOgL4M1xXTxH0NGDJ91pxrezGg9vZYRIb4eWCXErIUkAN+TJ8E67oVIc1oo0VEW21RgZ
-	cKcWnvo58nZ1mNRRH8sQQZ5bpzYQl8eeRuDIpP4SQR0N8CSEpbQ35JaTyjJ5H35t3HfXJG97Gfo
-	2WKN3DHSX3nGki2HTnsc90t4w2PJfeSaM3W34VlAx2QG1KBMFVv6iczCy2EiBLCh0+JTqwNkwhJ
-	Zn4l3Z76ZCsn0o6rO5Z9EqnYWWhC9JMuCDC/IHZbFuC2qg==
-X-Received: by 2002:a17:90b:2803:b0:3ab:be66:ddbe with SMTP id 98e67ed59e1d1-3b1b0ba1693mr10019691a91.28.1794820287377;
-        Mon, 16 Nov 2026 01:11:27 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aed76f95sm15336398a91.17.2026.11.16.01.11.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:11:26 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: liubaolin12138@163.com,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: [PATCH v5] ntfs: trim the sizes after a short write
-Date: Mon, 16 Nov 2026 17:11:21 +0800
-Message-ID: <20261116091121.2547497-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Ixrc7SI3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G0s9phsa+vZW5rwnH2Rj/K7K5D6bqQ4wpcv+yVT3vJSct0VF3gqCae4OxDjnmMxPsgjfqyehCNAweSvaxJkMQ+ygbezMJI6QRjo7D/FhaUICywfcwYiUyRI2VbyOrQ9jmGN3BUW8Gq1A0Kz9nBVFvYCqQAG+8ZeLsg3tE0K6gHHOkj3fB3j2Lb+p3xacQ8b/nVB7zPwpNdQaVjzQiKpCsoR4PB8kMWEe4uGF3K7c4SyTrGc7VDI/62XJs/k5ZuyPh4zzALeUm4grBLcR6AqWvMqUewQS3tOVsQZwcxd1D36N9gmVU9DO9Q2/CRK5r+Pg5YTLdMBBFgY3t+7uYONdJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FK6EVe10hRl1wlB2XPvUf/BYYP4nRVDCgd7GngWZEwg=;
+ b=tOc3J4DVelDCSsbIs6C9H1n20C8SoLB7decUhkCDBwVKh2fim7U00B2uNgX/oxFA3wsU4dtQ+0UA/ubIhud6SCDXBJMXWya0qykZoE/IaalMcCJgdaiRWUX+Y62x2fUpx86XPIy+psm5s3fglbJ2jzAttnw6qRX9NiPgKQlHgFHCoEeliHc9kcR7XFz8C8Y7jhLDfPJ6p1NpmCn4rhquhFknc8niZy8/Hf/Yv/PF9BPGpS/otvUMw31RjMk8i3IyS2w+O0AvkfGZoAwCUGiYSSkcRCQA0YH8Ve5YnNvb9++bLnCDdSY9X6ygbUJVh1qZeTxy8hRp8fIr4e6IdUL0NQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FK6EVe10hRl1wlB2XPvUf/BYYP4nRVDCgd7GngWZEwg=;
+ b=Ixrc7SI3WBW5Pu8rgDJUn3K7dCW2UmC2wMr0GGRpZ+dnkTRi0tSr/z3+eWJd6NdB4yv8N0K4MBo0TTjgTe2pwbXYZmCKTxpetUAkoIv2hIwiqR4ScF7RlHsoA0GCbsZ1GLhSL3r71RWFdmWV1dVLJCzC+uVXvre7Z/9xtWJtvjc=
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
+ by TY3PR01MB10386.jpnprd01.prod.outlook.com (2603:1096:400:252::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 09:12:14 +0000
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 09:12:13 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+CC: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, "magnus.damm"
+	<magnus.damm@gmail.com>, =?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWc=?=
+	<ukleinek@kernel.org>, "kernel@pengutronix.de" <kernel@pengutronix.de>,
+	"linux-can@vger.kernel.org" <linux-can@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>
+Subject: RE: RE: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
+ devices without match data
+Thread-Topic: RE: [PATCH can 4/4] can: rcar_canfd: rcar_canfd_probe(): reject
+ devices without match data
+Thread-Index: AQHddDe+pqQcO6zuIUW4lgS12hIyWbcwYs1wgAAFEwCAAAMz8A==
+Date: Mon, 16 Nov 2026 09:12:13 +0000
+Message-ID:
+ <TYYPR01MB660333DE58031D8231CD1B3B867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+References:
+ <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
+ <20261114-fix-device_get_match_data-v1-4-2d82025e9646@pengutronix.de>
+ <TYYPR01MB660340F5E219C29045BF61F9867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+ <20261116-cream-hornet-from-lemuria-703c6b-mkl@pengutronix.de>
+In-Reply-To: <20261116-cream-hornet-from-lemuria-703c6b-mkl@pengutronix.de>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TY3PR01MB10386:EE_
+x-ms-office365-filtering-correlation-id: 9cd67146-515a-46ff-585a-08df43c1b417
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|22082099003|18002099003|261009223027099003|3023799007|4143699003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|38070700021|10067099003;
+x-microsoft-antispam-message-info:
+ uk4UhKPbMohsPQKQXraXEwGKRDbDHurEJQ87/zPDZOVzvt3lF+5RbPAHF+4wO8kzWmK0mlezqKfKcZ5P808sQYPlqd4jHqEdC32SjpobSrPljvTtQWYeX/4hbUh9e8FCXHaMlGXmzc07Kb0Dd/lgU0z3fFKtO1F3IKsL0BtvtuwNV9dfz2gIm2t6+bd/cS3pSABlNJuUVcIX1KI+7iYn2CnJdSbcMdGf+Poeyh6ARr+dJRSWdVqUaNaUpiE1Rz+K7MpST4jYOc0EoAlOsG0eCQeBO8jXATIXWnbgxiie2UwCI6s1Bq4NZQfdzAdHFkdW+gxXcr8VKhJ7vrDZnNiSAQU/dv7xbr1bKF6f7eV0sJHoDWheae7QC97oKbOyB79zUmBv6Q62sQI6JlZ2p9fJgcO1+DZ/uitgBWELApjODLfvL6wrfIopdmbx9yVpD95CKVYyG+nZR+QyhLO+VrE/luurQdIRXzd/zVqwGYV/y7RbfwLv0+j1EyPr0tXpmTlUsK6jjc/28RazNgUofyqy/s3Yer9AoN0tebdjmIHSQYVDcU7qhfmdAUU1peuWVPBLTQNNwDzLPGdcSvcnGjZ5sxxI0nEK5B2JOfH+DP5oBNlIMfS5S0iJlIDJfUKtxzIuGN8GKzK4Ac1BTtr8GCWqbnPdIN3XMKexv4fDZ3EdbPg=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(3023799007)(4143699003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?LzRCNG9heVF2VDZZTDJGUEhzWGNXQ1JUa0ZuTVFTdHlxMlVLQWM3ZjB5QjZC?=
+ =?utf-8?B?MncrN2N1cjZ6RXVKZG03dFdwQ0xiZ2tpQy83ZUMva3NTdnhCa3FDNDdNMzJB?=
+ =?utf-8?B?bWFvRFBUTGR5eFB6cWJ4VHJwWUx3NjZlK3RxZE5UVGRTQkpWamdlY2tsc3pq?=
+ =?utf-8?B?MTY1L3o1M1JCTUhOMWU2Z2JzY3U5RkwyR3hrSUVvSmxPa2dMZzBYQ1JzR202?=
+ =?utf-8?B?dk12bHdYS2diUE1YUEZSZXFjS3gyL21nUGpkNVZnS0NibkhObEtpQ3hJODNm?=
+ =?utf-8?B?Yk1KQ2IvRzlScW4va0MzaFhDSGk3RDA4N3NwRkJIT01ZZUd0VVZ2M3dOY1Vx?=
+ =?utf-8?B?anBxWm9TU1ljNU1MNlpVdmdIb204US8vQ1dBdWhTWFpVZTFFK25XOGVRMkdD?=
+ =?utf-8?B?N3JjaUFWQlU1U3Aya1RObFAwQnhtTVJYWDV4aTF1bWZOejJsMis1VmVHTFJC?=
+ =?utf-8?B?NnhmYS9VbVp0T3ozWEFwejkrOW1kMy9xSXZjdlZYcVFCVUpXUmMwVHhDMVlk?=
+ =?utf-8?B?VUNpbGJPM2pZODV5bzFITGFYN2JOVlNDSGdJQkFaSjlWVWpaRXJDc3kyREVZ?=
+ =?utf-8?B?OGRXQW5xSmNXdzJBcnFGMEgvUTVzeVhDbjk0UzNUZ1ZaTEJ2WHVpNDl2REVI?=
+ =?utf-8?B?TlBhMXJrY2xwcC9IbUdnYzFmU29DVmhmMHBiTHFkTEViYVE4YmN1Q3QxaDJt?=
+ =?utf-8?B?VmdSZXNJanE2TXRBU1gzNkRaYUR4enl1NFNsVDFxTmlKaXVxZk9DOUJ3T3Bw?=
+ =?utf-8?B?Q2phblM5aWQ2ZE5KVnp5RUdRaURlZkNURTBGQWRDbWJocnc0cVIycXVma3Vy?=
+ =?utf-8?B?L25QWEFZU2hwN21ZdjBneTA5OVEzTzdON2tGQ2pFSFlHTWU4YWp4ZTVVK3Rl?=
+ =?utf-8?B?Rk1RQkRwVGFUQjIzMEVKdFRFQWpjNFVWT2ZkaWtxN0ovcWFMeEFmNWlPTDll?=
+ =?utf-8?B?ajlqZWExYmRLOUpYUExLek8rcTc4Zjk2UkZocXl6ZnZJZGF6YkdFL3huZi9a?=
+ =?utf-8?B?WGxuY1FncktkN01WdjczbHRrV05hcmc3amNzRlJ2ZGxnaWU4aDdwa2NjWFg4?=
+ =?utf-8?B?T3k1V05NU3FzUnRuNG5LWVNhWW1kTTZVTUlnc1EyM1EzWUcvSFZJMVBSSGUy?=
+ =?utf-8?B?Z2VyL0lFTHhCL2ZLY2VXdXlhekprZkVLZkJYOVZkSEtua25oTmI1Q09TUFlM?=
+ =?utf-8?B?WmVkOFl3cUVxRmRiekRaSmpZb3JEa2Jmb1NuUm1CbC9wdDNHajV6OVA2RTdm?=
+ =?utf-8?B?R3l3SlBxQlVKQWZLTjgwdEJWUEdoTENVZzhSYWcrYTBlNU83dDJjNjFSdEJp?=
+ =?utf-8?B?ZUFDYTY1TGgvWmxoRUdxRXErL3N6ZklaY01mSy96VWd2RUFUY0wrMy9tNEVC?=
+ =?utf-8?B?aXFabnJueGtvVytLMzgya2pBUm5UK0dKakk3dStxTDV4S3d6VXFza2ZOTHNm?=
+ =?utf-8?B?ZWFqUFRDUVR6TFZpeTZCRnI5MWJtS242cHNESWVyVTQzWDVka25kMFJETGFF?=
+ =?utf-8?B?UFEwVkxTZXhiaEd5STc3ZUpRaitZWERnNXhsSjBoUW40Q0JrdkxmcEVoMEd6?=
+ =?utf-8?B?bFJEMGFCbEczbEJzUTlSYnZCQ0xzWTJrOVlVS0hJZmhoK2ZnUzVXdlI0RnV6?=
+ =?utf-8?B?WE92M1dJak9Icm5CczZ2d0RUZHk1N2xGZWM0aThGMzNlTnBqbzFTa2VlWEFh?=
+ =?utf-8?B?NkU1TUVsbDRNYkU3K2tSVUlnNm5raE5uT2xHbXRTQk5RYmwzRzh6UERpR1BP?=
+ =?utf-8?B?N2w3ZU4zZmRQRmsrVHRlamdaZmNhWU9vMVdENG85VjFsckQxTGszVE9LbWVw?=
+ =?utf-8?B?NUNaUmdPVUlocWpIbDczOFNtU2hObGI0L2xxWVhGa1BneDU3UkFwYjZjVVB2?=
+ =?utf-8?B?K1VzMzh0NzZ6c01OWWF4YzlrL0JaNXVYTzFjekIzc1JqVWw2emRzQ0RIRTFY?=
+ =?utf-8?B?Q0pzL0s0bXF0bFZWVU9qNmRUVHMyTHlqRDc3Qk1zMXlSMk4wb2VYaDV1Wi8x?=
+ =?utf-8?B?ZzdZZHZJVmFVaTUveTBUVnZtZEp0Zk1obURlWHE0UDFIdkVRMzREY0FQOUdP?=
+ =?utf-8?B?MFRvU2FJR1diYlg2UnUyd1ZGRkluYXhhU09HcW9ZWFNkK1F0WElhWERmR29W?=
+ =?utf-8?B?LzQxelRsTFFzRTZOaDdJSnFhaXYxeUpFeW41Z1FGTDNyVGpmZ25DY1BhTEx3?=
+ =?utf-8?B?L0dwNWJIamRQelowdzd4VzY3clJOY0xyOWE2ODNiMi9MazU1WXR4enZpbFZX?=
+ =?utf-8?B?R1N0V2t2UE1EU3FsSDV2cks4WXI4SjhkOVI4bDBINWROaXFvbnZkclRjVzN5?=
+ =?utf-8?B?cElPRDh1QittSkZjQW9QSEhldzRXdXhhUWVsK0Zza2NUK0NHbnh6Zz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,190 +168,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9cd67146-515a-46ff-585a-08df43c1b417
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 09:12:13.8420
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nhRLie3Q2nkHmELRRizvzjSdcNNo5KlVE6m8ETYuugKFh+F9srOwlA/QMc30ROJvDC9xc8wlSlg9oJMms2XELZsw1+T0OjjAHooxCMk+UFc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10386
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-
-ntfs_file_write_iter() moves the data size and, for a non-resident
-uncompressed file, the initialized size to pos + count before the copy.
-__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
-so the range [pos, pos + count) is initialized only by the copy itself.
-When iomap_file_buffered_write() copies less than count, it returns a
-positive short count and the error rollback at out: does not run.  The
-file keeps the size pos + count, and [pos + ret, pos + count) reads back
-whatever the freed clusters held before, also after a remount.  A local
-user can read the old contents of freed clusters this way.
-
-Run the existing rollback for a short write as well, and roll the data
-size back to the end of what was written.  Keep the initialized size,
-as a page fault through a shared mapping may rely on it while the write
-is stalled on its source, and zero what the write did not reach, up to
-the end of the block holding pos + count.  Only if that fails, take the
-initialized size back to where the zeroing started.
-
-Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
-v5 (Baolin):
-- start the zeroing at pos, not at the old initialized size, which
-  overwrote data stored through a shared mapping below pos
-- do the same for a direct write, instead of truncating the page cache
-  and taking the initialized size back
-- if the zeroing fails, take the initialized size back to where it
-  started, instead of skipping both rollbacks
-v4: for a buffered write, zero the unwritten range instead of
-truncating the page cache and taking the initialized size back, which
-dropped data stored through a shared mapping during the copy (Baolin).
-v3: clear the cache up to EOF, not up to the extended initialized
-size, which left the rest of the block holding pos + count (Baolin).
-v2: also clear the cached tail of the last block, which v1 left in
-place when the write stayed inside the old data size (Baolin).
-
-v4: https://lore.kernel.org/all/20261113050148.1466682-1-zhanxusheng1024@gmail.com/
-v3: https://lore.kernel.org/all/20261112093233.1118469-1-zhanxusheng1024@gmail.com/
-v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
-v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
-
-Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
-with a known pattern first.  Short buffered writes of 4M, old data
-readable after drop_caches and after remount, 3 runs each:
-
-                                    unfixed    v4     v5
-  fallocated, ends block-aligned    3137536    0      0
-  fallocated, ends inside a block   3141332    0      0
-  fallocated, unaligned start       3137536    0      0
-  same, pos + count in that page    -          0      0
-  append                            3137536    0      0
-
-Marker stored through a shared mapping at 64K while pwritev() is
-stalled on a userfaultfd source page, state after remount, with and
-without fallocate():
-
-                                          unfixed  v4     v5
-  buffered 4K at 128K, EFAULT             lost     lost   kept
-  O_DIRECT 12K at 0, EFAULT               lost     lost   kept
-  buffered 12K at 0, short 8192 (v3)      kept     kept   kept
-
-A store into [pos + ret, pos + count) itself during the write is
-zeroed, as that range belongs to the write.  With iomap_zero_range()
-failing (injected -ENOMEM), a 32K write to a 16K file that returns
-12288 leaves the size at 28K with no old data, also after remount.
-fsx (buffered, no-mmap, O_DIRECT and mixed), compressed files,
-fallocate, insert/collapse range and punch hole give the same results
-with v5 as with v4.
----
- fs/ntfs/file.c | 69 +++++++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 62 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 3213a0c9f96b..83e424a25a48 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
- 				&ntfs_iomap_folio_ops, NULL);
- out:
--	if (ret < 0 && ret != -EIOCBQUEUED) {
-+	/*
-+	 * Both sizes were moved to end before the copy, so a short write,
-+	 * like a failed one, must take back what it did not write.
-+	 */
-+	if (ret < count && ret != -EIOCBQUEUED) {
-+		loff_t new_init_size = old_init_size;
-+		loff_t new_data_size = old_data_size;
- 		int init_err = 0;
- 		int data_err = 0;
- 
-+		if (ret > 0) {
-+			new_init_size = max(old_init_size, pos + ret);
-+			new_data_size = max(old_data_size, pos + ret);
-+		}
-+
- 		/*
- 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
- 		 * expects the invalidate lock held across the size
-@@ -939,14 +950,58 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 */
- 		filemap_invalidate_lock(vi->i_mapping);
- 
-+		/*
-+		 * A page fault through a shared mapping may have used the
-+		 * extended initialized size while the write was stalled on
-+		 * its source, so keep that size and zero what the write did
-+		 * not reach instead.  [old_init_size, pos) was zeroed before
-+		 * the write.  Past end, zero the rest of the block that a
-+		 * buffered copy may have read from disk, unless such a fault
-+		 * already moved the initialized size past end and zeroed it.
-+		 */
-+		if (NInoNonResident(ni) && !NInoCompressed(ni) &&
-+		    ni->initialized_size > new_init_size) {
-+			loff_t zstart = max(pos, new_init_size);
-+			loff_t zend = ni->initialized_size > end ? end :
-+				      round_up(end, i_blocksize(vi));
-+			int err = 0;
-+
-+			zend = min(zend, new_data_size);
-+			if (zend > zstart) {
-+				err = iomap_zero_range(vi, zstart,
-+						zend - zstart, NULL,
-+						&ntfs_seek_iomap_ops,
-+						&ntfs_iomap_folio_ops, NULL);
-+				/* A direct read must not see the old blocks. */
-+				if (!err && iocb->ki_flags & IOCB_DIRECT)
-+					err = filemap_write_and_wait_range(
-+						vi->i_mapping, zstart, zend - 1);
-+			}
-+			if (!err)
-+				new_init_size = min(ni->initialized_size,
-+						    new_data_size);
-+			else
-+				new_init_size = min(zstart, new_data_size);
-+		}
-+
- 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
--		if (ni->initialized_size != old_init_size &&
-+		if (ni->initialized_size != new_init_size &&
- 		    NInoNonResident(ni)) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
-+			/*
-+			 * Only reached when the zeroing above failed or did
-+			 * not apply.  Drop what was cached past the new
-+			 * initialized size, as __ntfs_extend_initialized_size()
-+			 * does.
-+			 */
-+			if (ni->initialized_size > new_init_size)
-+				truncate_pagecache_range(vi, new_init_size,
-+						max_t(loff_t, i_size_read(vi),
-+						      ni->initialized_size) - 1);
- 			mutex_lock(&mrec_ni->mrec_lock);
- 			init_err = ntfs_attr_set_initialized_size(ni,
--					old_init_size);
-+					new_init_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 		}
- 		/*
-@@ -955,13 +1010,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 * the uninitialized tail, so skip it unless the rollback
- 		 * above restored that size.
- 		 */
--		if (ni->data_size != old_data_size && !init_err) {
-+		if (ni->data_size != new_data_size && !init_err) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
--			truncate_setsize(vi, old_data_size);
-+			truncate_setsize(vi, new_data_size);
- 			mutex_lock(&mrec_ni->mrec_lock);
--			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
--					old_data_size);
-+			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
-+					new_data_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 			/* Like ntfs_setattr_size(): stay on the durable size. */
- 			if (data_err)
-
-base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
--- 
-2.43.0
-
+SGkgTWFyYywNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBNYXJjIEts
+ZWluZS1CdWRkZSA8bWtsQHBlbmd1dHJvbml4LmRlPg0KPiBTZW50OiAxNiBOb3ZlbWJlciAyMDI2
+IDA4OjU1DQo+IFN1YmplY3Q6IFJlOiBSRTogW1BBVENIIGNhbiA0LzRdIGNhbjogcmNhcl9jYW5m
+ZDogcmNhcl9jYW5mZF9wcm9iZSgpOiByZWplY3QgZGV2aWNlcyB3aXRob3V0IG1hdGNoDQo+IGRh
+dGENCj4gDQo+IE9uIDE2LjExLjIwMjYgMDg6Mzk6MzYsIEJpanUgRGFzIHdyb3RlOg0KPiA+IEhp
+IE1hcmMsDQo+ID4NCj4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4gPiBGcm9t
+OiBsaW51eC1hcm0ta2VybmVsDQo+ID4gPiA8bGludXgtYXJtLWtlcm5lbC1ib3VuY2VzQGxpc3Rz
+LmluZnJhZGVhZC5vcmc+IE9uIEJlaGFsZiBPZiBNYXJjDQo+ID4gPiBLbGVpbmUtQnVkZGUNCj4g
+PiA+IFNlbnQ6IDE0IE5vdmVtYmVyIDIwMjYgMTI6NTYNCj4gPiA+IFN1YmplY3Q6IFtQQVRDSCBj
+YW4gNC80XSBjYW46IHJjYXJfY2FuZmQ6IHJjYXJfY2FuZmRfcHJvYmUoKTogcmVqZWN0DQo+ID4g
+PiBkZXZpY2VzIHdpdGhvdXQgbWF0Y2ggZGF0YQ0KPiA+ID4NCj4gPiA+IEEgZGV2aWNlIGJvdW5k
+IHRocm91Z2ggZHJpdmVyX292ZXJyaWRlIG5lZWQgbm90IG1hdGNoIGFuIGVudHJ5IGluDQo+ID4g
+PiBvZl9tYXRjaF90YWJsZS4gSW4gdGhhdCBjYXNlDQo+ID4gPiBkZXZpY2VfZ2V0X21hdGNoX2Rh
+dGEoKSByZXR1cm5zIE5VTEwsIGJ1dA0KPiA+ID4gcmNhcl9jYW5mZF9wcm9iZSgpIGRlcmVmZXJl
+bmNlcyB0aGUgcmVzdWx0Lg0KPiA+ID4NCj4gPiA+IFJlamVjdCBkZXZpY2VzIHdpdGhvdXQgbWF0
+Y2ggZGF0YSBiZWZvcmUgY29udGludWluZyBwcm9iZS4NCj4gPiA+DQo+ID4gPiBTaWduZWQtb2Zm
+LWJ5OiBNYXJjIEtsZWluZS1CdWRkZSA8bWtsQHBlbmd1dHJvbml4LmRlPg0KPiA+ID4gLS0tDQo+
+ID4gPiAgZHJpdmVycy9uZXQvY2FuL3JjYXIvcmNhcl9jYW5mZC5jIHwgMiArKw0KPiA+ID4gIDEg
+ZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykNCj4gPiA+DQo+ID4gPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9uZXQvY2FuL3JjYXIvcmNhcl9jYW5mZC5jDQo+ID4gPiBiL2RyaXZlcnMvbmV0L2Nh
+bi9yY2FyL3JjYXJfY2FuZmQuYw0KPiA+ID4gaW5kZXggMDAwYTY0MzNmNDZkLi45ZDQ2M2E5YzE3
+NjYgMTAwNjQ0DQo+ID4gPiAtLS0gYS9kcml2ZXJzL25ldC9jYW4vcmNhci9yY2FyX2NhbmZkLmMN
+Cj4gPiA+ICsrKyBiL2RyaXZlcnMvbmV0L2Nhbi9yY2FyL3JjYXJfY2FuZmQuYw0KPiA+ID4gQEAg
+LTIxMTMsNiArMjExMyw4IEBAIHN0YXRpYyBpbnQgcmNhcl9jYW5mZF9wcm9iZShzdHJ1Y3QgcGxh
+dGZvcm1fZGV2aWNlICpwZGV2KQ0KPiA+ID4gIAlpbnQgaTsNCj4gPiA+DQo+ID4gPiAgCWluZm8g
+PSBvZl9kZXZpY2VfZ2V0X21hdGNoX2RhdGEoZGV2KTsNCj4gPiA+ICsJaWYgKCFpbmZvKQ0KPiA+
+ID4gKwkJcmV0dXJuIC1FTk9ERVY7DQo+ID4NCj4gPg0KPiA+IFRoZXJlIGlzIGEgcGF0Y2ggb24g
+dGhlIGZseSB0byBkaXNhYmxlIGRyaXZlcl9vdmVycmlkZSBieSBkZWZhdWx0IFsxXS4NCj4gPiBJ
+biB0aGF0IGNhc2UgaWYgd2UgcGxhbiB0byB1c2UgZHJpdmVyX292ZXJyaWRlLCBwcm9iZSB3aWxs
+IHJldHVybiBmYWlsdXJlLg0KPiA+IEkgbWF5IGJlIHdyb25nLiBQbGVhc2UgY29ycmVjdCBtZSBp
+ZiBJYW0gd3JvbmcNCj4gPg0KPiA+IFsxXQ0KPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2Fs
+bC8wZjc0NDYzMjRmNmEwYzhmMDE1M2Q2NTMyZDkyYTZlZWVjZDZhMzA4LjENCj4gPiA3OTA2MTIy
+OTguZ2l0LnUua2xlaW5lLWtvZW5pZ0BiYXlsaWJyZS5jb20vDQo+IA0KPiBUaGFua3MsIEkgd2Fz
+bid0IGF3YXJlIG9mIHRoaXMgc2VyaWVzLiBJIHRlc3RlZCB0aGUgZHJpdmVyX292ZXJyaWRlIG9u
+IHRoZSBmbGV4Y2FuIGRyaXZlciB3aXRoIGxhdGVzdA0KPiBuZXQvbWFpbiwgZml4ZWQgaXQsIGFu
+ZCBhcHBsaWVkIHRoZSBmaXggdG8gYWxsIGFmZmVjdGVkIENBTiBkcml2ZXJzLg0KPiANCj4gU2hv
+dWxkIEkgZHJvcCB0aGUgZHJpdmVyX292ZXJyaWRlIHJlbGF0ZWQgbnVsbCBwb2ludGVyIGNoZWNr
+cyBmcm9tIHRoaXMgc2VyaWVzPw0KDQpJIHRoaW5rIHNvLCBjdXJyZW50bHkgb25seSBmZXcgZHJp
+dmVycyBhcmUgdXNpbmcgZHJpdmVyX292ZXJyaWRlIGZlYXR1cmUgYW5kDQptYWpvcml0eSBkb24n
+dC4gVGhlcmUgaXMgYSB3b3JrIGluIHByb2dyZXNzIHRvIGRpc2FibGUgdGhpcyBmZWF0dXJlIGJ5
+DQpkZWZhdWx0LiBUaGUgZHJpdmVyIG5lZWRzIGRyaXZlcl9vdmVycmlkZSB3aWxsIGFkanVzdCB0
+aGUgcHJvYmUoKSB0byBtYWtlIGl0DQpmdW5jdGlvbmFsLCBzbyBpdCB3b24ndCBmYWlsIGF0IGFs
+bCBpbiBwcm9iZSgpLg0KDQpCdXQgaGVyZSB3ZSBhcmUgbWFraW5nIHByb2JlIHRvIGZhaWwsIGlu
+IGNhc2Ugc29tZW9uZSB3YW50cyB0bw0KdGVzdCB0aGUgZHJpdmVyIHVzaW5nIGJ1c19vdmVycmlk
+ZS4NCg0KQ2hlZXJzLA0KQmlqdQ0K
