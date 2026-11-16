@@ -1,110 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833326;
-	b=hkgShAa/XCp8yM0g34Lq8sOQPvVvaF06P6qx/jprZu6dYV1rWBysdOd5xRR8mXdpNSC8
-	 akM+LK62Tgvi2pqexGtdFpaglcCde911QPFFASCYN/s0z9R+2NS2ZJLhDXNcob4sOejJu
-	 /oikNuWDVwT+aWx1X0vAdVJc5WIKfWV1hUwSBle2uQIRyqTWhamjKl7t4PBE3nbDfFFPa
-	 DWW8KxEpPhQiYe9bzZL2jt9Eqi1PwhUoHkTCbAPUQCUc6cKfJXq6GTFw1WghaOBLk46qB
-	 GP1xo8f8wavD4HrDsUiImpER/GVk22imDJHKL+Cp+N84egNPUx46MGzLjPPs9VKzcmQ==
+	t=1794833336;
+	b=IVR7digpkAVkiOE+ZJMLc52QqVbcyOg3NymXVCWGCvGUj8Sc6pE0+BCzZjkq3RMhC1Ao
+	 zYyeOwTLCfpE6fN4vJnN6Yr3dL0RY0pHcGyB4IAGad8B0bjNBpAAZ1RSNOschF0sgwKvZ
+	 +RrnCP9Muqno7Kv5Yw/mDsmLxJY5Iiv7qLgqLL65IQ7Fw/RBz759H7BIZupJoRvi+Ac8I
+	 DMCg1HvMq7fi/Ja2KBYAOLxz8eWm8MZOYjEAW3vhvfjUcSpOKdGt/cEFn/nXT8PzmdjQ5
+	 Epb10GW3K6TLqnZFudFVoF2KiMMkr5hktTlRuPx8GOw5SY69S2wvdcT4Cr6Oyz4c4iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833326;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
-	b=HhQlsZDDaUFD6hhoQH1jOj2Zdh+3yoyJhBJuQ/NWILETV1gS0ddIPg1mf7fJgieCrm56
-	 m/a7T9mGv0qkTd5kb/S/rOgd7mXM8FtTlPo9jKniS9lA5cUmOQrjFtxSOnv0rQhf6nK0o
-	 fMiFr8gyGagwmDbP7o4nmQUrsP0kuSkyZ7dHo+HR3p0YnXmJEBKPS3ZFkT04oyLnebZeT
-	 vpZJqXE7TfYDMlfq+mWoDDMKeq0TTNpe9BoHr0iC7phaJENOlQ0e1gTsr8VroT6io+FDO
-	 BWnyg17+uiK9+IFml73zIs1Vohy6vf6QprduBsl3U1U1wvKPU3lzZEynxw+4CGbPxCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833336;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=q+vj+2gwnCsvLuhkx5/eZ6hFIO5bSIxa0YO+wbxe2XI=;
+	b=b9uF+DhX/pu+YYwIc5iwvHrWfzYiUke2UJRH5i3ADYSBuUf7xHr1D5j2rjOVj4FUd+YB
+	 aOMZ3fTD3tHBb32mOEEFZ5L4Sv0MdHA1F8YAicFtsB79o4HjRBR9mkgFmAqVoXfSIAQUg
+	 5+CZ6wgALMW8ZljCZVBmzfYDeKBMWHTCV77/S4qcPBBdeaeYHBboT5CWqFyOaLK/7aNdH
+	 ZQJIRuWRi5ONHcGNssVJRII80sU1tcnzd+cAaIkeIGktnMg6oVjEZqScnIDxtGqLXL/SN
+	 E9sZvX/RGIW0nD+mdSwGRosMrKfPVLjcy3vPjdIt2sAjV3J/c3mI3E+69oyrmW2rvPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=apNPIfb6;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="hgy7725/";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nt0QvDaP;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7VcVi+gM;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vXUnHieI;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FD1606A323;
-	Mon, 16 Nov 2026 12:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70FD1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA6F606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEA6F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=apNPIfb6;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hgy7725/;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nt0QvDaP;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7VcVi+gM
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 11C6321DFE;
-	Mon, 16 Nov 2026 12:48:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794833322; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
-	b=apNPIfb66Va+LbqfktNNcArsxTUjia89+nO/IYZNRhXcjercHexCX3wF4Z8dKN3pqHUWXw
-	L8XtP+arAXjuvXYmHKIHMNxyrxiLIKpgqpPRW43i2eU+SotAKPYJypRJomsqbemy0vTZAS
-	Hv5ktoWrb0nHq9ByOZWrmFQlGG0giAg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794833322;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
-	b=hgy7725/CWunCK/JEauo/zXGDcWesrJSLGsgx8IbV256dgQKX8nLgj9HtxsxCoYHbySmCr
-	g/f6wLVdLgAz24DA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=nt0QvDaP;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=7VcVi+gM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794833321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
-	b=nt0QvDaPvJcwKrIUlO6ggIpwTTPxr7Opu0/elsnR9U7gJ2OhcxPILAhFrD+jIqgMuNjfBd
-	6ceNeSJ+9aEcxACrXMJuTjke+t97jBfJ5NE2xFo5amxT/vejhq5liqc5KHoxP4ZMyjGRtX
-	egZvl51K1P2dH4q3arSwDHbTyziMFDA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794833321;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
-	b=7VcVi+gMZSY9k49upLnc8L9D7Wb05qnPsarEcKvnSzv4bSm3BHTTQG+GWLklbkASkHzUs8
-	8BoUPh2o6xtHvVAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DD98E1334C;
-	Mon, 16 Nov 2026 12:48:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id aZdtLaj7+mpOfAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 12:48:40 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 7044024DF8; Mon, 16 Nov 2026 13:48:36 +0100 (CET)
-Date: Mon, 16 Nov 2026 13:48:36 +0100
-From: Jan Kara <jack@suse.cz>
-To: Alan <3164729207@qq.com>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, harshadshirwadkar@gmail.com, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: reserve inode write access before unlinking entry
-Message-ID: <otvuclstcoaysrnywzdttapxbxg7hq3p7lp3iexy7u5cuj6plx@waqfsi2dg2p4>
-References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
- <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vXUnHieI
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261116124853euoutp0283e26578887b0ec8d8eb49ba510bad91~oh2guHv632074620746euoutp02j
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:48:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261116124853euoutp0283e26578887b0ec8d8eb49ba510bad91~oh2guHv632074620746euoutp02j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794833333;
+	bh=q+vj+2gwnCsvLuhkx5/eZ6hFIO5bSIxa0YO+wbxe2XI=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=vXUnHieIz2yw+ObZTGg5tyMTifGqwLhsQ1gYBSiha8L5jipBAijhFM7gQ3PAXm81c
+	 w0U1TKaoclXlzKfmNLWjueZ41UJuTJfo5KujIPpzcYH2sEvV2rB46NnMrEYD28ih8p
+	 y0KSQM2UEzOvKv20NF6qT2YhtGWVCAcx5sggoxY0=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261116124852eucas1p1b150cae3b2b4f5dac6550d7236791c35~oh2gXEqqS3152131521eucas1p1p;
+	Mon, 16 Nov 2026 12:48:52 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261116124851eusmtip129b1231d1435be7a0a2c4fa4d4861c9f~oh2fZOj-F3032230322eusmtip1O;
+	Mon, 16 Nov 2026 12:48:51 +0000 (GMT)
+Message-ID: <2be89ecd-2809-4182-b2c4-df062fcf68b6@samsung.com>
+Date: Mon, 16 Nov 2026 13:48:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,105 +64,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[qq.com];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 11C6321DFE
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 05/40] dma-contiguous: add dma_get_numa_cma_area()
+ accessor
+To: Alexander Graf <graf@amazon.com>, linux-kernel@vger.kernel.org, Greg
+	Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, Shuah
+	Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Robin Murphy <robin.murphy@arm.com>, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>, David
+	Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+	nh-open-source@amazon.com, linux-mm@kvack.org, Jonathan Corbet
+	<corbet@lwn.net>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <a1294df95fbe0a2ef5cc3585824d396854c7242c.1794393490.git.graf@amazon.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261116124852eucas1p1b150cae3b2b4f5dac6550d7236791c35
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261111224311eucas1p1eb735607894271094a8934b187647ad5
+X-EPHeader: CA
+X-CMS-RootMailID: 20261111224311eucas1p1eb735607894271094a8934b187647ad5
+References: <cover.1794300002.git.graf@amazon.com>
+	<CGME20261111224311eucas1p1eb735607894271094a8934b187647ad5@eucas1p1.samsung.com>
+	<a1294df95fbe0a2ef5cc3585824d396854c7242c.1794393490.git.graf@amazon.com>
+
+On 11.11.2026 23:41, Alexander Graf wrote:
+> With Nitro Sandboxes, we want to allocate per-NUMA memory from the DMA
+> contiguous allocator, but have no per-NUMA struct device to pass in.
+> dma_alloc_contiguous() takes the node from dev_to_node(dev), and the
+> per-node areas sit in dma_contiguous_numa_area[], which is static.
+>
+> So instead, introduce dma_get_numa_cma_area(), which returns the generic
+> per-NUMA DMA CMA area that cma_alloc() would use. This way, the
+> nitro_enclaves driver can build its own generic CMA pool per-node
+> allocation logic on top of those pools.
+>
+> Signed-off-by: Alexander Graf <graf@amazon.com>
+
+Take a look at the following patch and the patchset it belongs to:
+
+https://lore.kernel.org/all/20261106184433.761422-5-kuba@kernel.org/
 
 
-Hi!
+> ---
+>  include/linux/dma-map-ops.h |  7 +++++++
+>  kernel/dma/contiguous.c     | 36 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 43 insertions(+)
+>
+> diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
+> index afaf2c12189b8..5f7138ea6899a 100644
+> --- a/include/linux/dma-map-ops.h
+> +++ b/include/linux/dma-map-ops.h
+> @@ -93,6 +93,7 @@ static inline void set_dma_ops(struct device *dev,
+>  #ifdef CONFIG_DMA_CMA
+>  struct cma *dev_get_cma_area(struct device *dev);
+>  struct cma *dma_contiguous_get_area_by_idx(unsigned int idx);
+> +struct cma *dma_get_numa_cma_area(int nid);
+>  
+>  void dma_contiguous_reserve(phys_addr_t addr_limit);
+>  int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
+> @@ -115,6 +116,12 @@ static inline struct cma *dma_contiguous_get_area_by_idx(unsigned int idx)
+>  {
+>  	return NULL;
+>  }
+> +
+> +static inline struct cma *dma_get_numa_cma_area(int nid)
+> +{
+> +	return NULL;
+> +}
+> +
+>  static inline void dma_contiguous_reserve(phys_addr_t limit)
+>  {
+>  }
+> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+> index 90937dc7c627d..363b84284d087 100644
+> --- a/kernel/dma/contiguous.c
+> +++ b/kernel/dma/contiguous.c
+> @@ -443,6 +443,42 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
+>  	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp);
+>  }
+>  
+> +/**
+> + * dma_get_numa_cma_area() - get the CMA area a NUMA node can allocate from
+> + * @nid: NUMA node id
+> + *
+> + * dma_alloc_contiguous() picks a per-node CMA area from dev_to_node(dev),
+> + * which a caller cannot override on a per-request basis. This accessor
+> + * returns the area a specific node can allocate from, so a caller can
+> + * cma_alloc() from the node it wants.
+> + *
+> + * A per-node area comes from numa_cma= or cma_pernuma=, or from
+> + * CONFIG_CMA_SIZE_PERNUMA, which reserves the default area's size on every
+> + * online node on top of the default area itself, all three of which are
+> + * CONFIG_DMA_NUMA_CMA. Where there is one online node this returns the default
+> + * area, so a host that reserved only cma= reaches its reservation through this
+> + * accessor as well, and that holds however CONFIG_DMA_NUMA_CMA is set.
+> + *
+> + * Return: the area @nid can allocate from, or NULL if @nid has none or is not
+> + * a valid node (including NUMA_NO_NODE).
+> + */
+> +struct cma *dma_get_numa_cma_area(int nid)
+> +{
+> +	if ((unsigned int)nid >= MAX_NUMNODES)
+> +		return NULL;
+> +
+> +#ifdef CONFIG_DMA_NUMA_CMA
+> +	if (dma_contiguous_numa_area[nid])
+> +		return dma_contiguous_numa_area[nid];
+> +#endif
+> +
+> +	if (nr_online_nodes == 1 && node_online(nid))
+> +		return dma_contiguous_default_area;
+> +
+> +	return NULL;
+> +}
+> +EXPORT_SYMBOL_GPL(dma_get_numa_cma_area);
+> +
+>  /**
+>   * dma_free_contiguous() - release allocated pages
+>   * @dev:   Pointer to device for which the pages were allocated.
 
-On Mon 16-11-26 15:35:19, Alan wrote:
-> Hi Ted, Jan and ext4 reviewers,
-> 
-> A gentle ping on this patch from October 27. Are there any comments on the
-> approach?
-
-So for me it is unclear whether this needs addressing at all. Because
-realistically the only reason why getting write access to inode bh can fail
-is due to aborted journal in which case no transaction will get committed
-anyway. So this looks mostly like a problem specific to this error
-injection testing...
-
-								Honza
-
-
-> 
-> I have additional validation from November 2 using QEMU blkdebug to fail an
-> actual guest block READ. These results supplement the source-derived fault
-> injection described in the original mail.
-> 
-> On the unpatched Linux 6.12.1 test kernel, with errors=continue, the failed
-> read was at sector 2312, in the parent inode-table block (block 289, parent
-> inode 13). The kernel reported:
-> 
->   I/O error, dev vda, sector 2312 op 0x0:(READ)
->   ext4_get_inode_loc:4554: inode #13: block 289: unable to read itable block
->   __ext4_unlink:3469: inode #13: mark_inode_dirty error
-> 
-> unlink returned EIO. After normal unmount, /p/file was absent, but raw
-> inode 2064 still had Links: 1. e2fsck -fn reported:
-> 
->   Unattached inode 2064
-> 
-> In this case the inode-table read fails in ext4_get_inode_loc(), before the
-> journal write-access call. A separate run of the same block-read failure
-> traced JBD2 through unlink, sync and normal unmount:
-> 
->   jbd2_journal_abort() probe hits: 0
->   unlink handle at jbd2_journal_stop(): TID 7, T_RUNNING
->   h_err=0, h_aborted=0, j_errno=0, journal JBD2_ABORT flag clear
->   jbd2_journal_stop() return value: 0
->   jbd2_start_commit: transaction 7
->   jbd2_end_commit: transaction 7
-> 
-> The offline filesystem check still reported the unattached inode. This
-> demonstrates that this read-error path can commit the directory change
-> without a journal abort when mounted with errors=continue.
-> 
-> With the fix, the same clean input and block-read error failed before the
-> directory entry was removed. After normal unmount, /p/file remained present,
-> inode 2064 still had Links: 1, and e2fsck -fn completed without diagnostics.
-> 
-> Thanks,
-> Alan
-> 
+Best regards
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
