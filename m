@@ -1,58 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834465;
-	b=DYzA/xaK0v4/NSqKzDJ4QwhLAJxv/aylZuMfw6AeAuOaKOab0Jjo81sNNHlu918P3TYz
-	 1Ou9YEr+mIEMoY4FNLYRWY/Y5p1zgKxGHi9W/AP21fH+uQ7VDcl1TZ9TiBYqESNMODCkq
-	 tQq4qwH/f67LXZUjAkJ/ToJol/g3hc9Wv4SvC+HN9W3BpKrUleBcC2+Oec11Pfa5U4avN
-	 dCMEa1ViNbBfatrVQDlF14Tt4EjT3VwzZKQXNK6DDBca3fnaD939/C4hCphOVSPMbT+9z
-	 8IUcz5IlCqv5ggGGZp+qS3TgctlEYxZZKeGI6t7xPQKfDOJUt8lgfFsToqL5aAWZ3BA==
+	t=1794834466;
+	b=KGtEDc/TxMDOMw+0AiMLHPMwGl4Zw2NbbYLv5lCTZbbwohsl4jH3xpM4r+HCnXY4M+hG
+	 LKLb5DB+AvpU2ihX6nXDJts//PLqtTkR3P+VrePwUbS/PtrYvUMPExi+ZcKQGN2PAFPpU
+	 W+59eJaXTjIB0uxeM6tv3+e+9/53yiKRqKiWu2UOKhXE1lD2gF2jx6u/2KlNAtM/njlJF
+	 f7Jm7yQRJH8vPlYNvcCtyafnm8F5QLMm8pEPHxz+JozijqR3gjNw8b7YjtDpjaJxjLXzX
+	 x8Akm4zdVd7dhGVH7AjBQhO71gRRVVRPK3pLJL3kn+MhO6Uh6uXRv1a4lEZolEVFs5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834465;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=VwpnpBhRmMSKI0pWKFQHlmZtYvCJoVMRGo596WiYEWo=;
-	b=27BlhWXlqrtq5rVpGLxXRZEwuCIm8NEcUNIFoHF1kNMyjuFHGOKuxFBRBLE04ktLgoBF
-	 /lo2FNbxr9vPAYgF1kl/g15r22JS21x0lZ3IutNGgWCDyhq0XKowbQRgtTNWxGHHvvryM
-	 Gb/I7awUfXqd1wXDGDkWjASYt0HM5BBoo3fRLeh1E+lxAKczHyFA5ZRsHvSF7MKyAq6I2
-	 k79pIuaWu2CYOxf0+CbUxf8n/KMaGgcTRcrdL2w/et42GAvsUgLOXD3OIF5uoosdCFgyp
-	 2cU8souVO8CCdiy1I+jEKoNCvKv+rRwThuDRwvw6P8nFUuy5RRzkNFmt+cgPE9ebh8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834466;
+	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Rspamd-Pre-Result:X-Rspamd-Queue-Id:
+	 X-Rspamd-Pre-Result:X-Rspamd-Action:X-Rspamd-Server:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
+	bh=/79yD/ePkhOWtFp46GUyu6ts/vcC2MmXQ7vdqbMevlI=;
+	b=vEHDvFYyvgdnD1Y+jx93AZMPCgvvL6MoPTJMcAC8BZ6SJuDYM55/Z/q7hx/9yBuSggXH
+	 OQusekW48FW4iv3GDo9N5euk+XaFSwEyhR8DkQV6dl1OVrJIUw5CNvoKgopDL1KwC54Pd
+	 tx1y2vY/q92EQhBHM/nrbgSnGlsu4QRtywI3YpDVNYbd5cP/Bv0LSqWw1Ve2K17Y9S8eY
+	 8Obluy/ETsyN3EOWnh5LOPAM8KNivlDWKu5FAeD4cBt/sgTIe6XV0bKFGcxJdNfb0tnEi
+	 RQLOAU1ccCnzrvzFtZtOTfhRTcwaRIWjVE0RYfGhCEp+ZfsyTENVBzQw7ccosh89a+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TZPu4u+C;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451E6606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:07:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 451E6606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TZPu4u+C
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=VwpnpBhRmMSKI0pWKFQHlmZtYvCJoVMRGo596WiYEWo=;
-	b=TZPu4u+CwrAI0oXfFwdHurND/Y2ch+i+krxiREwiYEY5j7QU4xyWu+R/XSumk+5Pc0BicULrI
-	g3hAHhQwfsl3ltx7OMfJa3K6EhpFeHHngGjDN+z+dlWhXbSJfkARfFZopOsnyAzqltQAgqfTmqb
-	wAkNn63zePTEVYEDIpoCiXY=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jSp6K6pwSzcbMl;
-	Mon, 16 Nov 2026 21:06:49 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2303440579;
-	Mon, 16 Nov 2026 21:07:39 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
- 2026 21:07:38 +0800
-Message-ID: <8c02e6f7-cc21-42d2-98e0-d5818d10c083@huawei.com>
-Date: Mon, 16 Nov 2026 21:07:37 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC42A606A334;
+	Mon, 16 Nov 2026 13:07:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC42A606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 19E8621DC4;
+	Mon, 16 Nov 2026 13:07:44 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DE2B51334C;
+	Mon, 16 Nov 2026 13:07:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id BvIgLh8A+2pNEgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 13:07:43 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 6CC7424E06; Mon, 16 Nov 2026 14:07:43 +0100 (CET)
+Date: Mon, 16 Nov 2026 14:07:43 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC v3 35/44] fs: add file_check_backing()
+Message-ID: <fvmgoq6g3orrcbz5j7xoxrqkz4kc4jiopndjfar4cv45pj2y4g@bfgcucrsffnm>
+References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
+ <20261116-work-loop-pseudo-v3-35-8cbbea1cf34f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,182 +79,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] irqchip/gic-v3-its: Size the collection table for all
- possible CPUs
-To: Marc Zyngier <maz@kernel.org>
-CC: <tglx@kernel.org>, <radu@rendec.net>, <jason@lakedaemon.net>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261116022330.273840-1-ruanjinjie@huawei.com>
- <86jymd159v.wl-maz@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <86jymd159v.wl-maz@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-work-loop-pseudo-v3-35-8cbbea1cf34f@kernel.org>
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Queue-Id: 19E8621DC4
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
 
-
-
-在 2026/11/16 17:42, Marc Zyngier 写道:
-> On Mon, 16 Nov 2026 02:23:30 +0000,
-> Jinjie Ruan <ruanjinjie@huawei.com> wrote:
->>
->> The ITS collection table is sized from the hardware default described by
->> GITS_BASER: a single ITS page holding entry-size objects.  With the usual
->> 16-byte collection entry and a 4K ITS page that is 256 collections.
->>
->> its_cpu_init_collections() installs one collection per CPU using MAPC with
->> the CPU number as the collection ID, so on a system with more than 256
->> possible CPUs the MAPC commands for the remaining CPUs fail with
->> E_ITS_MAPC_COLLECTION_OOR (0x010903) and their redistributors end up
->> without a valid collection.  LPIs targeted at those CPUs, which is where
->> managed MSI/MSI-X affinity places a large part of the device interrupts,
->> are then dropped by the hardware: the DMA completes but the completion
->> interrupt never arrives, so drivers fall back to polling and time out.
->>
->> On a 384-CPU HiSilicon HIP12 system running v7.4-rc2 every ITS reported
->>
->>   ITS@0x488000000: allocated 256 Interrupt Collections (flat, esz 16, psz 4K, shr 1)
->>
->> and all four NVMe controllers logged repeated
->>
->>   nvme nvme0: I/O tag 256 (1100) QID 182 timeout, completion polled
->>
->> while the hinic driver failed to probe with -EIO.  With the table sized
->> for num_possible_cpus() it holds 512 entries and both symptoms are gone.
+On Mon 16-11-26 12:05:08, Christian Brauner wrote:
+> Loop, zloop, the nvme target, the scsi target, fuse passthrough, the usb
+> mass storage gadget, erofs and acct all take a file from userspace and
+> use it as storage. Currently, each of them has its own idea of what to
+> check before using a file like that:
 > 
-> Please drop all these examples, as they serve absolutely no purpose.
-> Everybody understands that losing interrupts is deadly. The whole
-> thing is also filled with implementation details that are not really
-> relevant, and can be described in a more general way.
+> - loop and the gadget check for a regular file or a block device, the
+>   nvme target, the scsi target and zloop take any file type
+> - loop checks the open mode, the gadget checks FMODE_CAN_READ, the nvme
+>   target, the scsi target and zloop only check for ->read_iter() and
+>   ->write_iter()
+> - apart from acct which refuses procfs and sysfs files none of them
+>   cares whether the file is a kernel interface
 > 
->>
->> Handle GITS_BASER_TYPE_COLLECTION in its_alloc_tables() the same way as
->> the device and VCPU tables, requesting order_base_2(num_possible_cpus())
->> IDs.
+> Add a helper that does all of it in one place. It only accepts regular
+> files and, if the caller passes S_IFBLK, block devices. It refuses files
+> on pseudo filesystems. And it checks that the file is open for what the
+> caller is going to do with it and implements ->read_iter() for reading
+> and ->write_iter() for writing.
 > 
-> Just say something like:
+> O_PATH files are refused unless the caller passes FMODE_PATH. That is
+> for callers that only need the path of the file. fuse passthrough is
+> one of them and has accepted O_PATH file descriptors since commit
+> efad7153bf93 ("fuse: allow O_PATH fd for FUSE_DEV_IOC_BACKING_OPEN").
 > 
-> "The collection table is currently sized at a single ITS page size,
->  and the driver's allocation policy is to allocate a single collection
->  per CPU. On systems with more CPUs that the ITS can fit in a single
->  page, no LPI can be routed to the CPUs that don't have an allocated
->  collection, and the system grinds to a halt.
+> Block devices are fine even though bdevfs is a pseudo filesystem. A
+> block device that userspace hands in is a device node on devtmpfs or
+> some other filesystem. Files on bdevfs only come from
+> bdev_file_open_by_*() and never end up here.
 > 
->  Change the allocation policy to allow two-level tables, similarly to
->  the other tables."
+> The pseudo filesystem check looks at the inode that actually provides
+> the data via d_real_data_inode(). overlayfs accepts sysfs, cgroup2,
+> debugfs, tracefs, configfs and securityfs as lower layers and reads of
+> such an overlayfs file are served by the file on the pseudo filesystem.
+> Checking the overlayfs inode would miss that.
 > 
->>
->> Fixes: 1ac19ca6bf97 ("irqchip: GICv3: ITS: tables allocators")
->> Cc: stable@vger.kernel.org
+> For an O_PATH file nothing might have looked up the data yet. overlayfs
+> only looks up the data of a metacopy file in a data-only layer when the
+> file is opened. d_real_data_inode() does the lookup then and if that
+> fails we return the error.
 > 
-> This is not a fix. This is new feature support for implementation that
-> are both very wide and have a stupidly small ITS page size. These
+> Note that the file type is taken from the inode of the file and not from
+> the host of ->f_mapping like loop and the gadget do it. A driver can
+> point ->f_mapping somewhere else in ->open(). It makes no difference for
+> block devices as both inodes are block devices.
+> 
+> No functional changes. Nothing calls the helper yet.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Hi Marc,
+Looks good to me. Feel free to add:
 
-Thanks for the review. It is indeed the case.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-> systems have *never* worked, and therefore there is nothing to fix.
+								Honza
 
-Yes, this type machine has indeed not been run before, will remove the
-fix tag.
-
+> ---
+>  fs/read_write.c    | 53 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/fs.h |  2 ++
+>  2 files changed, 55 insertions(+)
 > 
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  drivers/irqchip/irq-gic-v3-its.c | 15 +++++++++++++++
->>  1 file changed, 15 insertions(+)
->>
->> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
->> index c952c069f937..319b6edefd37 100644
->> --- a/drivers/irqchip/irq-gic-v3-its.c
->> +++ b/drivers/irqchip/irq-gic-v3-its.c
->> @@ -2716,6 +2716,21 @@ static int its_alloc_tables(struct its_node *its)
->>  			indirect = its_parse_indirect_baser(its, baser, &order,
->>  							    ITS_MAX_VPEID_BITS);
->>  			break;
->> +
->> +		case GITS_BASER_TYPE_COLLECTION:
->> +			/*
->> +			 * Size the collection table for every possible CPU.
->> +			 * One collection per CPU is installed via MAPC with
->> +			 * col_id == cpu, so a table sized only for the
->> +			 * hardware default page (e.g. 256 entries with
->> +			 * esz 16 / psz 4K) is too small on systems with more
->> +			 * CPUs than that: MAPC for the remaining CPUs fails
->> +			 * with E_ITS_MAPC_COLLECTION_OOR and LPIs targeted at
->> +			 * those CPUs are never delivered.
->> +			 */
-> 
-> This comment serves no purpose, and the code says everything that
-> needs to be known.
-
-OK, will delete the comment.
-
-> 
->> +			indirect = its_parse_indirect_baser(its, baser, &order,
->> +							    order_base_2(num_possible_cpus()));
->> +			break;
->>  		}
->>  
->>  		err = its_setup_baser(its, baser, cache, shr, order, indirect);
-> 
-> Finally, it really looks like we could do better, since *all* table
-> types are now able to use two-level structures. I'd like to see
-> something like the below (untested).
-
-The cleanup looks fine to me, will update the code and retest it.
-
-Thanks again!
-
-Best regards,
-Jinjie
-
-> 
-> 	M.
-> 
-> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-> index 282e4bafb084f..a058cb8373ef1 100644
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-> @@ -2682,7 +2682,7 @@ static int its_alloc_tables(struct its_node *its)
->  		u64 val = its_read_baser(its, baser);
->  		u64 type = GITS_BASER_TYPE(val);
->  		bool indirect = false;
-> -		u32 order;
-> +		u32 order, nr_ids;
+> diff --git a/fs/read_write.c b/fs/read_write.c
+> index 6767283108991..9f1e7bfcbd4f1 100644
+> --- a/fs/read_write.c
+> +++ b/fs/read_write.c
+> @@ -866,6 +866,59 @@ static ssize_t do_loop_readv_writev(struct file *filp, struct iov_iter *iter,
+>  	return ret;
+>  }
 >  
->  		if (type == GITS_BASER_TYPE_NONE)
->  			continue;
-> @@ -2696,8 +2696,11 @@ static int its_alloc_tables(struct its_node *its)
->  
->  		switch (type) {
->  		case GITS_BASER_TYPE_DEVICE:
-> -			indirect = its_parse_indirect_baser(its, baser, &order,
-> -							    device_ids(its));
-> +			nr_ids = device_ids(its);
-> +			break;
+> +/**
+> + * file_check_backing - check that the kernel can use a file as storage
+> + * @file: file that userspace handed in
+> + * @mode: FMODE_READ and/or FMODE_WRITE the kernel will do I/O with, or
+> + *        FMODE_PATH if only the path of @file is used
+> + * @type: S_IFBLK if a block device is fine as well, 0 otherwise
+> + *
+> + * Call this where a file from userspace is taken as a backing file. Only
+> + * regular files and, if @type is S_IFBLK, block devices are storage. Files
+> + * on pseudo filesystems are kernel interfaces and are refused. The file
+> + * must be open for @mode and implement ->read_iter() for reading and
+> + * ->write_iter() for writing. O_PATH files are only fine with FMODE_PATH.
+> + *
+> + * Return: 0 on success, -EBADF if @file isn't open for @mode, -EINVAL if it
+> + * can't be used as storage, or the error from looking up the data of @file
+> + * on a stacking filesystem.
+> + */
+> +int file_check_backing(const struct file *file, fmode_t mode, umode_t type)
+> +{
+> +	fmode_t io = mode & (FMODE_READ | FMODE_WRITE);
+> +	/* Drivers may point ->f_mapping at something else. */
+> +	umode_t fmt = file_inode(file)->i_mode & S_IFMT;
+> +	struct inode *real_inode;
 > +
-> +		case GITS_BASER_TYPE_COLLECTION:
-> +			nr_ids = order_base_2(num_possible_cpus());
->  			break;
+> +	/* O_PATH files are only fine for callers that just use the path. */
+> +	if ((file->f_mode & FMODE_PATH) && !(mode & FMODE_PATH))
+> +		return -EBADF;
+> +
+> +	if ((file->f_mode & io) != io)
+> +		return -EBADF;
+> +
+> +	if (fmt != S_IFREG && !(type == S_IFBLK && fmt == S_IFBLK))
+> +		return -EINVAL;
+> +
+> +	/* Look through stacking filesystems at the inode with the data. */
+> +	real_inode = d_real_data_inode(file->f_path.dentry);
+> +	if (IS_ERR(real_inode))
+> +		return PTR_ERR(real_inode);
+> +	if (real_inode->i_sb->s_iflags & SB_I_PSEUDO)
+> +		return -EINVAL;
+> +
+> +	if ((mode & FMODE_READ) &&
+> +	    (!(file->f_mode & FMODE_CAN_READ) || !file->f_op->read_iter))
+> +		return -EINVAL;
+> +
+> +	if ((mode & FMODE_WRITE) &&
+> +	    (!(file->f_mode & FMODE_CAN_WRITE) || !file->f_op->write_iter))
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(file_check_backing);
+> +
+>  ssize_t vfs_iocb_iter_read(struct file *file, struct kiocb *iocb,
+>  			   struct iov_iter *iter)
+>  {
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 99caef43ff3c4..b1c7ebafbadbe 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2553,6 +2553,8 @@ static inline const struct inode *file_user_inode(const struct file *f)
+>  	return file_inode(f);
+>  }
 >  
->  		case GITS_BASER_TYPE_VCPU:
-> @@ -2713,11 +2716,11 @@ static int its_alloc_tables(struct its_node *its)
->  				}
->  			}
->  
-> -			indirect = its_parse_indirect_baser(its, baser, &order,
-> -							    ITS_MAX_VPEID_BITS);
-> +			nr_ids = ITS_MAX_VPEID_BITS;
->  			break;
->  		}
->  
-> +		indirect = its_parse_indirect_baser(its, baser, &order, nr_ids);
->  		err = its_setup_baser(its, baser, cache, shr, order, indirect);
->  		if (err < 0) {
->  			its_free_tables(its);
+> +int file_check_backing(const struct file *file, fmode_t mode, umode_t type);
+> +
+>  static inline struct file *file_clone_open(struct file *file)
+>  {
+>  	return dentry_open(&file->f_path, file->f_flags, file->f_cred);
 > 
-
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
