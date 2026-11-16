@@ -1,53 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.147.23.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819105;
-	b=mc4uEV7oKnU0SMD1QzQFIDpOQ+Qfv42CFx9GZa9SccvtsE1/0E7M2pXMU7DAlaVTIZKW
-	 HLkB856Xjsa5Z6GM2C232hFLxKcg/XvPrHvGuq7hsw6hJZdtd7tFW/in9uBuWsL0482qj
-	 N+uYJmlR9KN59w9wCJIzC/XxjxajWsVBT6PArUV9sA+WP+DsRphyj1S9wO4T/GvkhH6/N
-	 VkQlnvE1RzOkTNQsi37sWjBztJmFzm2Sm8YvheJ0q8l2DZtJvLmdecHfUs5ufb+b8nICW
-	 fxGtWfR0KzSfzMtlBHGzifvoTEHKCxzk0/4LVNxlCI1dsxO8zAbiM92F4mnD8FuVlFg==
+	t=1794819207;
+	b=DGdWmy01CyAysCTDRhstEYNM0IwH3nHg6bipW6xI0rWC56XXFHT8zMylQGwoRRkCWItV
+	 Gdrp0FjVBM/j0/OEPVpQE81jX2Mk20o9zgUjHDeyY3Z0wdakpP42RIcoTJsLogBna+LlB
+	 7UIdrZC/mRrBBYX1rh+7Eu4wHmNcPDheAXD1D0JdQw8G9CDBzCITUDDoNjXqfYqXG/W3W
+	 NLzyEADREUvkkDXpXpSwE8y538XlKmG32d7ETUfGLmy3AvBfej+MHRqhpDp1Pu2qfc1//
+	 Ao0syxbl//p+/9Ma0hW8C/2J1XrTH/ULlCga3V4XM0lO7oXbIBVErYJj6q9kdUEdz0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819105;
-	h=DMARC-Filter:Received:X-Original-SENDERIP:X-Original-MAILFROM:
-	 Received:X-Original-SENDERIP:X-Original-MAILFROM:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=CPpEOuWfsUh7l4IRTG3rp7U0sb18sVGNmtIHXM1VVSk=;
-	b=ZGUrGm5hVxxKsvsUwMPtzHPOTgUQocSIkQa4TlXp//G9YRbN2Uyyoe6FRM5HiEsyrNhW
-	 I1Pb1dYEYjHlTAPqYq84mpA1vPjOghhAm8RP+2/t/6RBjlYdsEdik3Ug+6tssdLDh1gw4
-	 bftqVob6uPLOt1v7HeUtPKsRmiBMu0gzqfyMuu6e/WMQAHtrtHar9OHAXZs7gf127rYDP
-	 YIzGpr6se9ouynZhHi2kaV987Yu/p4LoTj6zHHA5y4PBrJKiVY3P75ZjfEWEOnS7ql5Vi
-	 5pn2G9eRxuEgi4YlnAw46Y9BMOcANsJBKezQBZ+9BEE53x2WiS9nr77hmAFjzaLZW4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819207;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yeyghiiI6ugMxMzEYBna16w+kHo55vTWBdtlwVeJhVE=;
+	b=ikuwvjErJ01LYNh6OZflmdy0Xb9ECfSmhkImd54TI0gpbn73oZY5TYQj6bMb2/tnblPw
+	 SOMpnVbzRHgg0Q9v523Cf3YSgwZ2mW+JQvw6w9PFW1KrUy3eKoDSMY+hffU+6OXWTFC7g
+	 lqvddRqtSYypUU/pAsT+OZWdj/eAdMRg07+vl9rzKPIyz/+2XCBHXLlry4A+Om+yjgbCq
+	 OJ4K09TiiKQowtjXtDfnzAxhNWfOXTz4XyQfsvIvejgUkq2nTCrMLTQ/Ocv/26aupHFHi
+	 xus/uLEhSffQgkA5Dztw1V6lh3MB37QX71z7MlpzLlngkvc+em5QbUne0EWlWTLMO6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lge.com;
-	spf=pass smtp.mailfrom=lge.com;
-	arc=none smtp.remote-ip=156.147.23.53
-Received: from lgeamrelo13.lge.com (lgeamrelo13.lge.com [156.147.23.53])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A17606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:51:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8A17606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
-Received: from unknown (HELO lgeamrelo02.lge.com) (156.147.1.126)
-	by 156.147.23.53 with ESMTP; 16 Nov 2026 17:51:42 +0900
-X-Original-SENDERIP: 156.147.1.126
-X-Original-MAILFROM: trieu2.huynh@lge.com
-Received: from unknown (HELO trieu2-huynh-trieuhpn-ubuntu24.beeworker.bee-live.svc.cluster.local) (10.159.39.33)
-	by 156.147.1.126 with ESMTP; 16 Nov 2026 17:51:42 +0900
-X-Original-SENDERIP: 10.159.39.33
-X-Original-MAILFROM: trieu2.huynh@lge.com
-Date: Mon, 16 Nov 2026 17:51:42 +0900
-From: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: pavel@kernel.org, lenb@kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PM: hibernate: exclude unusable free pages from image
- preallocation
-Message-ID: <ybgcn7eft4klxmjrf5cst2uq2qp4traiigstx235czwutlkrn2@775p73w5b4j5>
-References: <20261001084115.2549761-1-trieu2.huynh@lge.com>
- <CAJZ5v0gjqOHzF2-hZeRwhb9AWK2iWxex3iK_R2+tSEnXEitBnA@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5A3606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:53:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A5A3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xSsSY-000000007q8-22SV;
+	Mon, 16 Nov 2026 08:53:06 +0000
+Date: Mon, 16 Nov 2026 08:52:46 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hermes Wu <hermes.wu@ite.com.tw>,
+	Allen Chen <allen.chen@ite.com.tw>,
+	Pin-yen Lin <treapking@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v8 04/14] drm/bridge: it6505: unregister DP AUX adapter
+ on bridge detach
+Message-ID: <179481904177.211952.12953364281549371036@makrotopia.org>
+References: <cover.1790552614.git.daniel@makrotopia.org>
+ <ae0941be8fb5e20a309f2e30b5e2d8818168aa38.1790552614.git.daniel@makrotopia.org>
+ <179251509976.78870.2847307917157375162.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,153 +71,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0gjqOHzF2-hZeRwhb9AWK2iWxex3iK_R2+tSEnXEitBnA@mail.gmail.com>
+In-Reply-To: <179251509976.78870.2847307917157375162.b4-review@b4>
 
-On Fri, Nov 13, 2026 at 04:44:57PM +0100, Rafael J. Wysocki (Intel) wrote:
->On Thu, Oct 1, 2026 at 10:41 AM Nhat-Trieu Huynh-Pham
-><trieu2.huynh@lge.com> wrote:
->>
->> hibernate_preallocate_memory() derives the number of page frames to
->> preallocate for the image from the per-zone NR_FREE_PAGES counters.  Those
->> counters count every free pageblock regardless of its migratetype,
->> including MIGRATE_HIGHATOMIC and MIGRATE_CMA pageblocks. Such pages are
->> free from the buddy allocator's point of view, but they cannot be used by
->> the order-0, non-movable, non-reserve GFP_KERNEL allocations with which the
->> image is preallocated (GFP_IMAGE = GFP_KERNEL|__GFP_NOWARN).
->>
->> (*) Reported free vs usable free:
->>
->> The mm subsystem already accounts for this in
->> __zone_watermark_unusable_free() [1]. For order-0 GFP_KERNEL neither
->> ALLOC_RESERVES nor ALLOC_CMA is set, so the allocator subtracts the free
->> high-order atomic [2], and the free CMA pages from the free count before
->> checking the watermarks. The hibernation preallocation, however, computes
->> its target from the unadjusted NR_FREE_PAGES value, so it asks for about
->> half of the unusable pages more than the allocator can deliver.  On arm64
->> (no CONFIG_HIGHMEM) the highmem fallback in the failure path is a no-op,
->> hence even a small shortfall aborts hibernation, see [4] for example.
->>
->> (*) Why those pages are not usable by GFP_KERNEL:
->>
->> (**) CMA is reserved for movable allocations, so GFP_KERNEL has no
->> ALLOC_CMA, and MIGRATE_CMA is not in the unmovable fallback list. Free CMA
->> pages are therefore never handed to these allocations.
->>
->> (**) The high-order atomic reserve is only handed out to atomic, order > 0,
->> __GFP_HIGH allocations (ALLOC_HIGHATOMIC), which GFP_KERNEL order-0 is not.
->> These pages can be unreserved under memory pressure [3], but only all but
->> one pageblock per zone and only after an allocation has already failed, so
->> counting them as available still overestimates what the preallocation can
->> obtain without failing first. Excluding them is conservative.
->>
->> (*) Consequence of not excluding the unusable pages:
->>
->> With M = managed, S = saveable, F = free, U = highatomic + CMA and
->> R = reclaimable, count = S + F - totalreserve and alloc is about count / 2,
->> while the allocator can actually provide about (F - U) + R pages. The
->> shortfall is therefore inflated by exactly U compared with the usable
->> memory.
->>
->> From [4], with U = 11430 unusable free pages (5120 highatomic + 6310 CMA),
->> the preallocation target is inflated by about U / 2 = 5715 pages, while the
->> allocator ends up 1247 pages short and hibernation is aborted even though
->> the system is able to create the image.
->>
->> (*) What changes after excluding the unusable pages:
->>
->> Subtract U from the per-zone free accounting used to compute count and
->> avail_normal. Then count' = count - U and, since max_size is roughly
->> count / 2, max_size' = max_size - U / 2 and alloc' = alloc - U / 2.
->> max_size' remains well above minimum_image_size() in practice, so the
->> resulting image is effectively unchanged while hibernation no longer aborts
->> unnecessarily.
->>
->> Testing
->> =======
->> (*) SA6155P running on AAOS with S2D feature
->> (*) backport locally on GKI 6.1
->>
->> References
->> ==========
->> [1] commit f27ce0e14088 ("page_alloc: consider highatomic reserve in watermark fast")
->> [2] commit c928807f6f6b ("mm/page_alloc: keep track of free highatomic")
->> [3] commit ac3f3b0a5551 ("mm: page_alloc: unreserve highatomic page blocks before oom")
->> [4] Example of an abort:
->>     Mem-Info:
->>      free:344621 free_pcp:931 free_cma:6310
->>     DMA32 free:973864kB reserved_highatomic:8192KB free_cma:25240kB
->>     Normal free:404620kB reserved_highatomic:12288KB free_cma:0kB
->>     PM: hibernation: Image allocation is 1247 pages short
->>
->> Signed-off-by: Nhat-Trieu Huynh-Pham <trieu2.huynh@lge.com>
->> ---
->> Changes since v1:
->> (*) Add a reference to commit c928807f6f6b, and correct the words and
->> quotes in the description as well.
->> (*) Switched from zone->nr_reserved_highatomic to
->> READ_ONCE(zone->nr_free_highatomic) to accurately fetch the active free
->> highatomic counter, reflecting c928807f6f6b (Reported by: Sashiko).
->>
->> Link to v1:
->> (*) https://lore.kernel.org/lkml/20260921101446.1193565-1-trieu2.huynh@lge.com/
->>
->>  kernel/power/snapshot.c | 25 +++++++++++++++++++++++--
->>  1 file changed, 23 insertions(+), 2 deletions(-)
->>
->> diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
->> index b209712cb2c3..195db45ce80f 100644
->> --- a/kernel/power/snapshot.c
->> +++ b/kernel/power/snapshot.c
->> @@ -1867,11 +1867,32 @@ int hibernate_preallocate_memory(void)
->>         highmem = save_highmem;
->>         size = 0;
->>         for_each_populated_zone(zone) {
->> +               unsigned long free, unusable;
->> +
->>                 size += snapshot_additional_pages(zone);
->> +
->> +               /*
->> +                * Pages reserved for high-order atomic allocations
->> +                * (MIGRATE_HIGHATOMIC) and free CMA pages cannot be used by
->> +                * the order-0 non-movable GFP_KERNEL allocations that
->> +                * preallocate the image, so do not count them as available.
->> +                * This mirrors __zone_watermark_unusable_free().
->> +                */
->> +               free = zone_page_state(zone, NR_FREE_PAGES);
->> +               unusable = READ_ONCE(zone->nr_free_highatomic);
->> +#ifdef CONFIG_CMA
->> +               unusable += zone_page_state(zone, NR_FREE_CMA_PAGES);
->> +#endif
->> +               /*
->> +                * nr_reserved_highatomic counts whole reserved pageblocks,
->> +                * so it can exceed the actual free pages.
->> +                */
->> +               unusable = min(unusable, free);
->> +
+Hi Luca,
+
+On Tue, Oct 20, 2026 at 06:51:39PM +0200, Luca Ceresoli wrote:
+> The drm_dp_aux_unregister() docs don't say it is idempotent, so is it fair
+> to assume it is and always will?
+
+It is today, as both drm_dp_aux_unregister_devnode() and
+i2c_del_adapter() return early for an adapter that is not registered,
+but you are right that this is not a documented guarantee.
+
+> I think it would be much cleaner if user drivers took case of calling it at
+> the appropriate times, not more.
 >
->Please address Sashiko's feedback regarding this change:
->
->https://sashiko.dev/#/patchset/20261001084115.2549761-1-trieu2.huynh%40lge.com
->
-Hi Mr. Rafael,
+> A flag similar to it6505->extcon_state used in patch 3 could allow that?
 
-Yep, thanks. I've addressed Sashiko's feedback and posted v3, could you PTAL:
+Agreed, I'll track the registration in a flag in v9, like
+extcon_registered from patch 1.
 
-https://lore.kernel.org/lkml/20261116084201.30092-1-trieu2.huynh@lge.com/
+Cheers
 
-BRs,
->>                 if (is_highmem(zone))
->> -                       highmem += zone_page_state(zone, NR_FREE_PAGES);
->> +                       highmem += free - unusable;
->>                 else
->> -                       count += zone_page_state(zone, NR_FREE_PAGES);
->> +                       count += free - unusable;
->>         }
->>         avail_normal = count;
->>         count += highmem;
->> --
->> 2.43.0
->>
+Daniel
