@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836145;
-	b=lF7T167q8NjFj/LTPBAVoFgYy91RAbT+TiRuvTvhofDMlStPi7WEry6AUJPDE/FVxQJu
-	 FdmpS4tt/Mi+VP03kHREztfmLX2Ycc3D5rPo7fhcXz7xwJemdbA/9YanL8PdKPuGf35bv
-	 UcfLqUGJCYHwuTFlHski7BLWu7J56DZjenvtGPXpIuSzpBa4vEeOOuoLRTniPvkIOn0fA
-	 mCE8vdG2dzF/8qfnw3Llku7lqCTZr+MhMuuCVa9Lk5RMjuhDhs/tU4WqfV29LEp0xnBd3
-	 hbwUQsiPgEmQ5Zsfdve2I81Ez7dMhC6ebY7ZoYR1xnYocIGuqTkroEuYmvBfA3SSw8A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836145;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=Vcx9KzmvnNYkPSs4VQKPwTuksU5sZnTHAg7TtizLtvE=;
-	b=tXOaYJ7pXxaUU4z5qQ+HIZTTMPEkg1r5GgMSkw19J+pC0JRS8C0TZRqI0t8yCCWJ4N63
-	 xdqNoXK8ctmQkIwCdGFmbGDCwEbzganmgy81bf0FsnXFGHY2Jf7ZGWEiwGqZTrUxYHRLt
-	 bBCrFeLFkN1mGYfCAfTzHW/OlL6x3a6O52RMkHKEJHIm6DFwgV0ZQEflNY6sd7yhM8z3g
-	 +X2izLSGt7pgybEdBW1ujHmjSWDDcbf7kXqZHRnIv2C7NsoG4ZzlSATzPp/Gmw/ozguDg
-	 00/9kclrt2y3s1kQvJSfX9Fgoj/GJ+3xClzM8B1wKHAHphlPlAuNxaqzyfS8ozzKlsg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ioEkh3ts;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794836191;
+	b=0/CAbBOUpSZa80Zn2/1rUvwXlwijRe1BDt1I8EsXB6GOI0k9OchVqUJlWTeWRZNmINq6
+	 NnGy+N9VIYJCW1b9NumM3o8uwObunMcQaoCzUquKO9x4c6OjtJF/ilaW8+i5hRRRigyB3
+	 eLt+a1kI4AuwkM58Sktw/XFSitLSom3Rk9j5qU8tvnmrN1OM3ZCnsFuaPco2LA4xEP/Kc
+	 jIRibIVxlJm5W7BE7ga7qCUvcGPkkU6EYLVRLwvcMQBwUjv/trOyyTlkF1tILihzIrH+H
+	 R8899clHdmaO/ipWZSxc+yMHzaZF+OMiaicPl32OdLlnBBI1eIMUgDYFVT76SYImsig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836191;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=E1FmOO35ppM3Ivasl9eUa5xC86mN03xH8CsNCWcOq5s=;
+	b=cXGker4+WhnwII4XvG/4+dcsmCjHrmBWOZlbDCfCXX73BI+DYVP4ABxs6VMHUOrLmiuH
+	 nS973ylERecyLz6jP3Lu2V4Yk2ul+6ZgBuWYNc2I7FV+bkYYwWQ+8/Y2Uuxcb25h2fhaH
+	 EHRSSE2vjsWV7vupUJNdhfThf9C3ZWKzs3UzgQy6968ya+2P8LVW150UZTlQxyUfOqA6s
+	 uTdAZnY/yQxDspDlh1yrDVnX8aZWWzZRKEPnkF48FWG0PiJulJbo5crltKYRuhsB0b209
+	 RB7VnN1eSVysw2kCIb/sLJEImqxgS4q6zPCORX9oQ3EYiYCM1W0OJXf2zkZnsUsyLow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GpeEMUfT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723AC606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 723AC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C16F606A323;
+	Mon, 16 Nov 2026 13:36:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C16F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ioEkh3ts
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id A4D234E41601;
-	Mon, 16 Nov 2026 13:35:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 72F9D6023F;
-	Mon, 16 Nov 2026 13:35:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 364D011BC02CF;
-	Mon, 16 Nov 2026 14:35:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794836141; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Vcx9KzmvnNYkPSs4VQKPwTuksU5sZnTHAg7TtizLtvE=;
-	b=ioEkh3tsLe2NF6NNv4sEdmBgaZvBUu9PSfy9XNfzagsjXMUZ/rEq6DAgQ7l3MYDt301sBD
-	7y9KHYjJQOaIDVp2EJpx1g/26pMZ0imn/g7o0U3cyH31zqVF5O2UUwpJRc/otrNQdC29f2
-	n77jkhSrh4zuy7FEQt60+/VZIAtX86i4o6ianzl/Q6eU6EVBp/Sa4PqBc0tHevHG0/dqEy
-	/Q4og2XtZdtHtu2qhxbFItonKaxej5/4pmNX1UTgKKphQNmTKcdy67nz+1MaEwH8JTGELK
-	ehBOEwq8192YHBdN8RbZe82tgHhm/hInBs2J5RaZ8pwtM5NhOl0RVQ/Mxxzs0w==
-Message-ID: <78cf973d-3434-4f81-82be-a22f4abcfe0c@bootlin.com>
-Date: Mon, 16 Nov 2026 14:35:39 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GpeEMUfT
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::109])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2B069201763;
+	Mon, 16 Nov 2026 14:36:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794836188;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E1FmOO35ppM3Ivasl9eUa5xC86mN03xH8CsNCWcOq5s=;
+	b=GpeEMUfTT7TzqmpugiF+R85BIqQWH8ZbJ63W/bYZQfGNCAIf1s69LZbU/mPIen6t1u8DP6
+	1/TnLyhKA8NLdbE9qak9QAeMs36oYnGM47ml4g1/KNxLvd7leDAhQrAGsKV8jjQ/Kbe224
+	qacFadow5n+VENpqxfzg9OToEIne+APHQdUr68ltk84pYBYljPXMDzDMdlcrFCSVqiC9Jf
+	uW+r/vy8j33SxnWiwOTHnH8X1IuouT2EP316ZmsNADOxf0ZrBjDBdsUCFPX95jb67UePqQ
+	x1dU/jw4QuM6v08PyuL06ZBUypq6wQxSWqL8UeqyhlSvfqC7JX6SeJHzno0Uug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794836188;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E1FmOO35ppM3Ivasl9eUa5xC86mN03xH8CsNCWcOq5s=;
+	b=c6ve2O4CJkkevWbMfviz19pzREpTNZ+7mMFtZruVJ+qqV3a2diPtdcP4XGjZoNsvBb8TmS
+	rimuAyDo1D67OfuVIZhBXD+MuDqvB3WfNfXkFzZOFERDjz3MHeUqNFJ+unGLqUHRqMHqPi
+	jl93Ul7PpPfX0EpSWares9WQSobIUxPZDOJIpnpO3P5rDsl91WhPJTEQIuDMRO6NGTU/Dk
+	KzLD8vZPx95at2aYFtNihu9TqkGMTF9JUy+qdB1yp4ORtYqhneSMFQWZpwaqoXVjv071CM
+	3HuodWG0dDHU97YyJEVJoiIpzd16zspJ0goxqaT5ByGwDXMnpBCUUjjTvDTrow==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794836188; a=rsa-sha256;
+	cv=none;
+	b=HBu3jC5kkuOdBfokVVij0GJCdZyjPxmRPqziwqMK3yfm7XldHroohfLRIe/UUpTEFpReX4
+	OZ7tspN62l14WSAeowcR5UWVgCKsooNY9rusngXX5ALzJNfRetfSGqLh5EJJQ3OiCTUJQO
+	LiFuIWEejn6wzhkZMvmjPq0nCc++AZ9nTcERmLs9XOkePxjnp0ZJacHxE84ao6DHJOXAMc
+	22Ti0/Jkjpfsz37spz7kQ4TZinN/it1DtgNeJu7aLNS297CMU01s+Eyg2B9ZxypZ8j8VS3
+	a7AJ4NxxdkVHNnfPjwkoVz4OSmvqGJvOmXF1ETSlG6yCDYC0/gyhP73UKBgVJQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
+	id 184C31BFABC; Mon, 16 Nov 2026 14:36:28 +0100 (CET)
+Date: Mon, 16 Nov 2026 14:36:28 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel@pengutronix.de
+Subject: Re: [PATCH net-next v2 05/10] net: dsa: realtek: rtl8365mb: describe
+ the ports of each chip
+Message-ID: <avsG3JcrIQgzxUzN@pengutronix.de>
+References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
+ <20261112-rtl8365mb-dcb-ingress-v2-5-f8e6fbdf8c99@pengutronix.de>
+ <avXUEaiSnKsO705y@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,195 +99,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/9] i2c: cgbc: Use plateform data to get bus ID and
- adapter name
-To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
- <20261103-cgbc-i2c-storage-devices-support-v5-4-ac11f23fae51@bootlin.com>
-Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20261103-cgbc-i2c-storage-devices-support-v5-4-ac11f23fae51@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avXUEaiSnKsO705y@analog.com>
 
-Hi Lee,
+On Thu, Nov 12, 2026 at 04:08:47PM +0100, Alvin Šipraga wrote:
+> On Thu, Nov 12, 2026 at 09:37:48AM +0100, Oleksij Rempel wrote:
+> > Record which ports each chip has, report one more than its highest
+> > port to DSA as the port count, and reject a devicetree port the chip
+> > does not have. Lower the family maximum to 8 to match.
+> >
+> > Commit ca5ecd4246d4 ("net: dsa: realtek: rtl8365mb: correct the max
+> > number of ports") raised the port count of all chips to 11, but no
+> > supported chip has a port above 7.
+> >
+> > Since commit 51a4a22301b0 ("net: dsa: realtek: rtl8365mb: use dsa
+> > helpers for port iteration"), setup also programs unused ports, so
+> > every probe writes per-port registers of ports 8..10. Their learn-limit
+> > writes go to 0x0A28..0x0A2A, above the learn-limit registers of ports
+> > 0..7. We have not seen a visible effect from these writes.
+>
+> I'm not quite sure what the point of the patch is (sorry, maybe it's
+> clear later in the series, but I didn't get that far yet). Was the setup
+> of nonexistent ports clobbering some other registers?
 
-On 11/3/26 5:49 PM, Thomas Richard (congatec GmbH) wrote:
-> Obtain the bus ID (from the BC point of view) and adapter name from
-> platform data. This allows the specific definitions to be removed, leaving
-> only a generic adapter definition.
-> 
-> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-> ---
->  drivers/i2c/busses/i2c-cgbc.c | 68 ++++++++++++++++---------------------------
->  1 file changed, 25 insertions(+), 43 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
-> index ac23435b731b..40ffab4fd0bc 100644
-> --- a/drivers/i2c/busses/i2c-cgbc.c
-> +++ b/drivers/i2c/busses/i2c-cgbc.c
-> @@ -12,9 +12,6 @@
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
->  
-> -#define CGBC_I2C_PRIMARY_BUS_ID	0
-> -#define CGBC_I2C_PM_BUS_ID	4
-> -
->  #define CGBC_I2C_CMD_START	0x40
->  #define CGBC_I2C_CMD_STAT	0x48
->  #define CGBC_I2C_CMD_DATA	0x50
-> @@ -60,11 +57,6 @@ enum cgbc_i2c_state {
->  	CGBC_I2C_STATE_ERROR,
->  };
->  
-> -struct i2c_algo_cgbc_data {
-> -	u8		bus_id;
-> -	unsigned long	read_maxtime_us;
-> -};
-> -
->  struct cgbc_i2c_data {
->  	struct device		*dev;
->  	struct cgbc_device_data *cgbc;
-> @@ -73,6 +65,8 @@ struct cgbc_i2c_data {
->  	int			nmsgs;
->  	int			pos;
->  	enum cgbc_i2c_state	state;
-> +	u8			bus_id;
-> +	unsigned long		read_maxtime_us;
->  };
->  
->  struct cgbc_i2c_transfer {
-> @@ -115,10 +109,9 @@ static unsigned int cgbc_i2c_reg_to_freq(u8 reg)
->  
->  static int cgbc_i2c_get_status(struct i2c_adapter *adap)
->  {
-> -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
->  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
->  	struct cgbc_device_data *cgbc = i2c->cgbc;
-> -	u8 cmd = CGBC_I2C_CMD_STAT | algo_data->bus_id;
-> +	u8 cmd = CGBC_I2C_CMD_STAT | i2c->bus_id;
->  	u8 status;
->  	int ret;
->  
-> @@ -132,7 +125,6 @@ static int cgbc_i2c_get_status(struct i2c_adapter *adap)
->  static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
->  				  unsigned int bus_frequency)
->  {
-> -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
->  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
->  	struct cgbc_device_data *cgbc = i2c->cgbc;
->  	u8 cmd[2], data;
-> @@ -144,7 +136,7 @@ static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
->  		bus_frequency = I2C_MAX_STANDARD_MODE_FREQ;
->  	}
->  
-> -	cmd[0] = CGBC_I2C_CMD_SPEED | algo_data->bus_id;
-> +	cmd[0] = CGBC_I2C_CMD_SPEED | i2c->bus_id;
->  	cmd[1] = cgbc_i2c_freq_to_reg(bus_frequency);
->  
->  	ret = cgbc_command(cgbc, &cmd, sizeof(cmd), &data, 1, NULL);
-> @@ -170,7 +162,7 @@ static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
->  	 * can be read by a command is CGBC_I2C_READ_MAX_LEN.
->  	 * Therefore, calculate the max time to properly size the timeout.
->  	 */
-> -	algo_data->read_maxtime_us = (BITS_PER_BYTE + 1) * CGBC_I2C_READ_MAX_LEN
-> +	i2c->read_maxtime_us = (BITS_PER_BYTE + 1) * CGBC_I2C_READ_MAX_LEN
->  		* USEC_PER_SEC / bus_frequency;
->  
->  	return 0;
-> @@ -200,7 +192,6 @@ static unsigned int cgbc_i2c_xfer_to_cmd(struct cgbc_i2c_transfer xfer, u8 *cmd)
->  
->  static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
->  {
-> -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
->  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
->  	struct cgbc_device_data *cgbc = i2c->cgbc;
->  	struct i2c_msg *msg = i2c->msg;
-> @@ -210,7 +201,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
->  	u8 cmd_data, data_len;
->  
->  	struct cgbc_i2c_transfer xfer = {
-> -		.bus_id = algo_data->bus_id,
-> +		.bus_id = i2c->bus_id,
->  		.addr = i2c_8bit_addr_from_msg(msg),
->  	};
->  
-> @@ -268,7 +259,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
->  
->  		ret = read_poll_timeout(cgbc_i2c_get_status, status,
->  					status != CGBC_I2C_STAT_BUSY, 0,
-> -					2 * algo_data->read_maxtime_us, false, adap);
-> +					2 * i2c->read_maxtime_us, false, adap);
->  		if (ret)
->  			goto err;
->  
-> @@ -282,7 +273,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
->  			goto err;
->  		}
->  
-> -		cmd_data = CGBC_I2C_CMD_DATA | algo_data->bus_id;
-> +		cmd_data = CGBC_I2C_CMD_DATA | i2c->bus_id;
->  		ret = cgbc_command(cgbc, &cmd_data, sizeof(cmd_data),
->  				   msg->buf + i2c->pos, len, &data_len);
->  		if (ret)
-> @@ -350,44 +341,35 @@ static const struct i2c_algorithm cgbc_i2c_algorithm = {
->  	.functionality = cgbc_i2c_func,
->  };
->  
-> -static struct i2c_algo_cgbc_data cgbc_i2c_algo_data[] = {
-> -	{ .bus_id = CGBC_I2C_PRIMARY_BUS_ID },
-> -	{ .bus_id = CGBC_I2C_PM_BUS_ID },
-> -};
-> -
-> -static const struct i2c_adapter cgbc_i2c_adapter[] = {
-> -	{
-> -		.owner		= THIS_MODULE,
-> -		.name		= "cgbc-i2c0",
-> -		.class		= I2C_CLASS_DEPRECATED,
-> -		.algo		= &cgbc_i2c_algorithm,
-> -		.algo_data	= &cgbc_i2c_algo_data[0],
-> -		.nr		= -1,
-> -	},
-> -	{
-> -		.owner		= THIS_MODULE,
-> -		.name		= "cgbc-ddc0",
-> -		.class		= I2C_CLASS_DEPRECATED,
-> -		.algo		= &cgbc_i2c_algorithm,
-> -		.algo_data	= &cgbc_i2c_algo_data[1],
-> -		.nr		= -1,
-> -	},
-> +static const struct i2c_adapter cgbc_i2c_adapter = {
-> +	.owner		= THIS_MODULE,
-> +	.class		= I2C_CLASS_DEPRECATED,
-> +	.algo		= &cgbc_i2c_algorithm,
-> +	.nr		= -1,
->  };
->  
->  static int cgbc_i2c_probe(struct platform_device *pdev)
->  {
-> -	struct cgbc_device_data *cgbc = dev_get_drvdata(pdev->dev.parent);
-> +	struct device *dev = &pdev->dev;
-> +	struct cgbc_device_data *cgbc = dev_get_drvdata(dev->parent);
-> +	struct cgbc_i2c_platform_data *pdata;
->  	struct cgbc_i2c_data *i2c;
->  	int ret;
->  
-> -	i2c = devm_kzalloc(&pdev->dev, sizeof(*i2c), GFP_KERNEL);
-> +	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
-I was ready to send you the v6 (with your I2C patch) based on mfd-next,
-but I noticed an issue with this line. In v7.4-rc2 devm_kzalloc() has
-been replaced by devm_kzalloc_obj() (commit
-4dd10fbbeb9c33709edc89916e19c03c780a0751). I guess this will conflict
-during the merge. So I don't know how to proceed. Please let me know
-what to do.
+Not that I could see. I saw no effect from the writes to ports 8..10.
 
-Best Regards,
-Thomas
+The reason is the rest of the series. The QoS code in the later
+patches handles ports 0..7 only. With 11 ports, DSA accepts a
+devicetree port 8..10, and the QoS code would then write a register
+that does not hold that port's field. With the per-chip port mask, the
+driver no longer accepts a port the chip does not have. I reworded the
+commit message to say this.
 
+> Also in the blamed commit there was:
+>
+> -/* RTL8370MB and RTL8310SR, possibly suportable by this driver, have 10 ports */
+> -#define RTL8365MB_MAX_NUM_PORTS                10
+> +#define RTL8365MB_MAX_NUM_PORTS                11
+>
+> So maybe it needs bumping in the future if support is added for those
+> chips. That's why I'm wondering if you saw something off?
 
+Good point. v3 drops that.
 
+> >  	dsa_switch_for_each_port(dp, ds) {
+> > +		if (dsa_port_is_unused(dp))
+> > +			continue;
+>
+> You can use dsa_switch_for_each_available_port() here.
+
+Done in v3.
+
+> > +
+> > +		if (!(mb->chip_info->port_mask & BIT(dp->index))) {
+> > +			dev_err(priv->dev, "port %d does not exist on %s\n",
+> > +				dp->index, mb->chip_info->name);
+> > +			ret = -EINVAL;
+> > +			goto out_teardown_irq;
+> > +		}
+> > +
+
+Thanks,
+Oleksij
