@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.70.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834029;
-	b=WUmmteMIfXeEv3lvCHXrrhHIXiNJVcPWl8X10fY34lqH0UJ+hoita2Q+ZcS2UQo74vpr
-	 gSZqRCtMUUA3GK1E4fc1QOYceYIaTBNskxTfy3E6vSBM7XsxrSBxp+77e5mWJa4hlSgHC
-	 zD3WTvKqn5Vu0j1qHOimZWZwLW/mAd8bls9YmpfkkXjm6QdNEyMv3w4HNcLi4hq9JnsgP
-	 Q1aTADKSJ638RZGddv/xMQw1Io3SfJGkVaLc4fkYBqVRw+1Ysa4BXHX24GxSU+FuzwO0W
-	 IFh497vVSgEV5hyPHKORmRanx8A4JbbecNzqJYXTVBVuI9FQVRV0mGQVLs0hzMLYHNw==
+	t=1794834039;
+	b=w7XKtbhVFxwhL0Cy3wi2qCaLeg3NrS/5XpzpBr+QY7dcMbbIeX36gKRZdLWoTZb8Jmyb
+	 pWPvU/FIcdpyFyudahW76QUG+3/Gr43wZ+eouqHlldNG8+5rp8TLKn+pRZL2pKE6eDiXM
+	 gioxzioj34G9u/05w8lo/AdcjBUKyLcVLxWPDB/d56xZZqYC+rnW5ZD6CUmRg4K6amp0X
+	 ZrLpuXZPbSS2dg6mYMIxi/3NNvNazWL8TlSo/uPXsxs/zjzflGzvvXohcTwPb7H0lzDPh
+	 2LoycfChzhcPN6WjFU5yUu3RQemWOr/pcnTY30BZc49imQ4x4hfegNxu+THksCH78lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834029;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Info-Out:X-Proofpoint-GUID:X-JNJ;
-	bh=N2VrZwSXFQpePhWr6QR5jf0LaY6vYKdX0ikOoiKW4E4=;
-	b=C92hUMuiKE+eMQ7Huz7bL76fnRAWTNBKeXnfJxq5dqB0hHJzOZNOqQiig22g+8EcWOOi
-	 vUwW+b9Twz0QU80i29XRa+f+ujas6J2HrAo6xtMCiCihBGgT3oYOIvkUO1uXNmae2HWfK
-	 9x4vFXkibyUWbpyS/QTJfrJ2EYsm0rvp536Ja6vdAb7ufyxlHviVhaWaU0WoybRkBpN6e
-	 U60G38REpY9wy9HFtc6jb1AEspyo+hqWpDa3jw9wCLgPDHL1QMwAogYJqTCveefoAJBU0
-	 HMUOVmpFGc1pl8o04p/pCO0A8vhlmj7oNA7+FLjHl072kLdbi5ItrtDmJnWQYq5NRYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834039;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=3B7OyocIRHjJ2dbD2X+MT3B53RHHwGiwuhiBvqIoS8w=;
+	b=BfEgD2sFUZrZCPJzNECWJFvUZ2RvMaZ7cWbUZW/co4BS+YDaMc2kw3zeRYrjIW2hLEno
+	 /Vom8X0jUrsDv7mhjNJdYBQepRVnkNRNKmxEbrOXmhu5WvJrV2PxTYezEOIsXloac6ivG
+	 bL8UFOxa7+4xNHzRItuygzj3lIHfRwSMGcmNTKfqvrbST36DBTQncJK8e5lhZScy8rgAO
+	 B24s4Lk0JDcT4efg8mVf3D5wI21IoS+Eg+nnqICtKelskhQcXlC+8sei+U9V2psyzZ0Yy
+	 Tdnbk1h4fOfIRa+tY5t67ZevOcz3+OW62tlbrfNTG0aA+m8IgSOCPjnxxdXdpQTdSxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=zinPx+gC;
-	arc=none smtp.remote-ip=57.103.70.43
-Received: from outbound.mr.icloud.com (mr-2006f-snip4-11.eps.apple.com [57.103.70.43])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nIdxuvzt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2AB606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:00:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C2AB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A19606A33A;
+	Mon, 16 Nov 2026 13:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=zinPx+gC
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPS id F3DA81801B22;
-	Mon, 16 Nov 2026 13:00:24 +0000 (UTC)
-X-ICL-RepId: 01a1e471-c9d5-7b88-80ae-0d52a32e5e96
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794834028; x=1826370028; bh=N2VrZwSXFQpePhWr6QR5jf0LaY6vYKdX0ikOoiKW4E4=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=zinPx+gC8U4DU363yssCEHGI1pb41ifQK1L+0LqSHG5RzKgO7aB3YrlK5kQfgdRCbutdgH42F0rBxbFc3bQV6gc0ut2coKmW/tEPBtvebBUMZxE9WW2JgAUtUPmVVxrxxO0NpQGzyU3PFXmpaISHT0SCpmGqPoNFhejJB5o35gBCPRXgUJpGm/1gxqM+cgtaq6GOdAhr9pKaYbsMVsUGkHEONg77r/NIzSUb//5DOQ0ujOhBGR44ousbKWRkM7I9OQvqwrIb/sgd/7pef7oTYVG4dwlDaQHqgvJ9wsvim7mSnC2nAgqvOVjxzK1Jx3tXjTJ9y5f7dNp3tjkM/dJ3cg==
-Received: from lima-kernel-dev (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPSA id B36D01801540;
-	Mon, 16 Nov 2026 13:00:20 +0000 (UTC)
-Date: Mon, 16 Nov 2026 21:00:15 +0800
-From: Zhang Peng <zippermonkey@icloud.com>
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, axelrasmussen@google.com, 
-	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, bruzzhang@tencent.com, david@kernel.org, 
-	hannes@cmpxchg.org, kasong@tencent.com, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, ljs@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, weixugc@google.com, yuanchu@google.com
-Subject: Re: [PATCH v6 0/5] mm: batch TLB flushing for dirty folios in vmscan
-Message-ID: <avr8QDO3CPyCoipF@lima-kernel-dev>
-References: <20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com>
- <20261115230231.21194-1-baohua@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nIdxuvzt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C0F1F000C4;
+	Mon, 16 Nov 2026 13:00:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794834038;
+	bh=3B7OyocIRHjJ2dbD2X+MT3B53RHHwGiwuhiBvqIoS8w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nIdxuvztI9+VcvKL/NpmGo+VzFJG/gXvgbpa025zQE6xcLzZdsdZFtH7CxrCPVtSK
+	 av2dHzf4ETYtjRhrH6/LEhMZ1fBteknXOZL22Y1B1p8dO39DNy+p86BIAJxOFEmlur
+	 9i1pClXcTcYVJ7xXn7hDd5Vto79uO1brepfdiTy7MrtgRaOk1cd+Dkmj8S9DY0YBBA
+	 +ZjgkT/DNy+vsknbFxcDWoQk/0C/38hsWSmBl3clchGyRy3wZEYmw3eecVVugg9Gbj
+	 +Mot1TKSofGdo08QRAyKNWRlygtKESEOnmxckO5CyOl6dvim1JDTvTOLycXmR/xB8Y
+	 zlRShn5fT4D3w==
+Subject: Re: [PATCH net v9 3/6] net/smc: bound the send length to the send
+ buffer in smc_tx_sendmsg()
+From: netdev-bot+sashiko@kernel.org
+To: hexlabsecurity@proton.me
+Cc: mjambigi@linux.ibm.com, dust.li@linux.alibaba.com, edumazet@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, kuba@kernel.org,
+ alibuda@linux.alibaba.com, sidraya@linux.ibm.com, ubraun@linux.ibm.com,
+ wenjia@linux.ibm.com, raspl@linux.ibm.com, linux-s390@vger.kernel.org,
+ linux-kernel@vger.kernel.org, guwen@linux.alibaba.com,
+ tonylu@linux.alibaba.com, horms@kernel.org, guangguan.wang@linux.alibaba.com,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org, hidayath@linux.ibm.com
+Date: Mon, 16 Nov 2026 13:00:37 +0000
+Message-ID: <179483403722.3136.1364122923722036240@kernel.org>
+In-Reply-To: <20261112-b4-disp-0287c16e-v9-3-e5e8fa688177@proton.me>
+References: <20261112-b4-disp-0287c16e-v9-3-e5e8fa688177@proton.me>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,185 +67,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261115230231.21194-1-baohua@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MSBTYWx0ZWRfXwpZDbepw2hpM
- HU1CTTwM0zxmzB11fhPuB1UzVZHlDsxfBOU/Etbi9k82hfPYmJ0+G1dDmLWXTE7wke4UZBPmA4X
- 8MRKZd0Bob0h1iJE/l4EcPpfTKfFefUJD7x7dyw9vE1rkqAOxhHJ3QAUP5pEj2O7PVaobV2U56H
- zlucrlT0Kw8k1SG6tJJtRWZ2jDCI+I3UMJ6lXSqrBeqo9D2YRPpatPN8Z8U1AkvpxCjW6tjZQ43
- vr78xUO4/HfSKEP8Z0kywGDDX5lYaZ2xzY3UvZ6NB+dNfr8gbLA5VNKPcILQVDtyljMcen6Ymlf
- /yWSyDhmMtTrRT/evrX6kssOiZuzMJzPy9BEd8oj6dQEqgqirhUHJ24U3FXkm8=
-X-Proofpoint-ORIG-GUID: S_Ha7s4P6gEu9WtiweQ_SwFQBvt736_9
-X-Authority-Info-Out: v=2.4 cv=ZMXaWH7b c=1 sm=1 tr=0 ts=6afafe6a
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=GvQkQWPkAAAA:8 a=AChBciNimkdjFoktPmgA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: S_Ha7s4P6gEu9WtiweQ_SwFQBvt736_9
-X-JNJ: AAAAAAABRpGbp1BOfZ5WH3DNxle6wVttZwlzG4XYJVr8c/t0p4jLXXfHcCiNXmyR7p4KDo
- GLI3jKc8yLvfcnXMbkAeM/iYQ7SUS6WGKnji58FC3WW5DSgYJA7QWJbzlYcmzAsHXg22Xv
- 4wpVFLsO4xXd1Beqy7AUxEYCrNl6AmkQ4WxX5ul2I2CTRctSOFDoccxO2RKSPpYYTlymZs
- OXe0DewGhtHz8ToyTNPJbdM+3BC+ZwCaUHhjrPC46bSo6zxAHoKqsoUQJ+IVGWEZavxzJD
- KGpg+xPXoD/5IxtIio6xX36caeXft+PmC20SiuZDwGNFX4KJ9Ura5euqItGTxT/hIOkyoy
- L93vF7i7f5UJ7+S8wcQrUaM6F+XhOsc1+uEujYwGZi7exKLgafkfhxJ47lFRJ+eVsM1Jei
- iNPJY06FVU5YTcLmgkXBnD482mZ5V620AzWcjQ42uIDWI3VftQCDnj5izxEx5YDpR0nOTm
- pYTZ8zILHK4TOKfF29BaU1gHl7pd6AO8Bkw4enn/Q9kLElQdzbq5BDFYeQ5FSz1KJUwjlB
- ah54tv2wapTw8f1hottnL/e3R2Y+GLp2TuxSpP2OPQac3faOzHd0Q0P77eL6Y1r+Gi8bra
- JBvM3z3B+/mqSAyuczG+nJ6TwwzoDT4UAPBx1SecxAwXnZM/EkA+GV79M+Fpx+A1fISl2p
- 21QFr528FiFJH0eKkWoVutPaw/TbgR5HtFuEu0gZQKwAloRfPINuNOltAeESUBPqMZM+3F
- AloB+WKqws63aaU8hvr2vEvBXCx8Mj4RX29kFX7QYbAjgm4AmDS15MCb3JdRhWi3lYjIq+
- rlmnsbRD8bq0+P8EDdA9X1Sw9fN9DpWqltPWBBihPPfzPRz5LR6FDnghAbE7OTjfYEnDLP
- SgaFfExrhFM9CMAdg88j8HoThosZTGViQXXm7yyf7xkLq0drfZl5oGhkUZkfOrtaAo1dcP
- XVdksnBaccvG2QI9diMja/CqR4ZTQw7Z3PFae82sKJYyVpQXJyYkqMlYbH9QOo90iivoLL
- Ss3xMH3RTqP8yB0fl4rczgIAaXDBGgnnfsW0vcR809rc9lzqhSaIAKHXEEWkoVO55IZmcl
- qQJwV6PX5Hiuyx+MENWtCe9Nd5Pj4QA6gR2haB0xp0B1Y8rO6B0Vffq/13Degj95HzMcCd
- mb2UNYXnrYbeQp0o5bXnqTMp2kQ/HDsUF0IC600tNbX3qHScqx4sFITWxgk064R0JNx15F
- TexiLzBesEFrx15HF8kmEdIr3VppnPLhuU8mQLRc9dy38HiCZBdJKTXCH7FbxsPidMWBsg
- X3DBBe8ebxjUfhrc8deL7JufvpSWrVEwJDWJ07ai0Sck5FIvHhjmLsolFTjCoSn+GNmGth
- jZCv7psRGcKw3Yxac1a3AJMV+LH4RwDw9G2XE3eFbK8XXpP4LBSWKJP7U98ZlO8uRY0JFE
- k4ohrYjwHi5xdFztyjAQFa64L73YquGEJnVJxvthpWmhXOXGYdXuNcVcGAOptk5Q==
 
-On Mon, Nov 16, 2026 at 07:02:31AM +0800, Barry Song (Xiaomi) wrote:
-> On Sat, Oct 31, 2026 at 6:35 PM Zhang Peng <zippermonkey@icloud.com> wrote:
-> >
-> > This series introduces batch TLB flushing optimization for dirty folios
-> > during memory reclaim, aiming to reduce IPI overhead on multi-core systems.
-> >
-> > Background
-> > ----------
-> > Reclaim calls try_to_unmap_flush_dirty() before writing out each dirty
-> > folio. When writable TLB entries are pending, this triggers a flush.
-> > On systems that use IPIs for TLB shootdowns, frequent flushes can add
-> > significant overhead.
-> >
-> > Approach
-> > --------
-> > Collect dirty folios into a folio_batch, releasing their locks while
-> > collecting the batch so swap faults can progress. Before writeout, try
-> > locking each folio again and recheck writeback, mappings and DMA pins.
-> > Keep eligible folios locked, flush pending writable TLB entries once,
-> > then page them out. Process a final partial batch at the end of the scan.
-> >
-> > Changes
-> > -------
-> > Patch 1: Extract the folio activation block at activate_locked into
-> >          folio_activate_locked().
-> > Patch 2: Extract the folio-freeing path (buffer release, lazyfree,
-> >          __remove_mapping, folio_batch drain) into folio_try_reclaim_free().
-> >          Group retained folios, deferred frees and the reclaimed count
-> >          in reclaim_folio_state, local to each shrink_folio_list() call.
-> > Patch 3: Extract the pageout() dispatch state machine into folio_try_pageout().
-> > Patch 4: Extract the TTU setup and try_to_unmap() block into folio_try_unmap().
-> > Patch 5: Implement batch TLB flushing logic. Dirty folios are accumulated in
-> >          batches and a single TLB flush is performed for each batch before
-> >          calling pageout.
-> >
-> > Testing
-> > -------
-> > The benchmark script uses stress-ng to compare TLB shootdown behavior before and
-> > after this patch. It constrains a stress-ng workload via memcg to force reclaim
-> > through shrink_folio_list(), reporting TLB shootdowns and IPIs.
-> >
-> > Core benchmark command: stress-ng --vm 16 --vm-bytes 2G --vm-keep --timeout 60
-> >
-> > ==========================================================================
-> >                  batch_dirty_tlb_flush Benchmark Results
-> > ==========================================================================
-> >   Kernel: 7.0.0-rc1+   CPUs: 16
-> >   MemTotal: 31834M   SwapTotal: 8191M
-> >   memcg limit: 512M   alloc: 2G   workers: 16   duration: 60s
-> > --------------------------------------------------------------------------
-> > Metric                 Before        After             Delta (abs / %)
-> > --------------------------------------------------------------------------
-> > bogo ops/s             28238.63      35833.97          +7595.34 (+26.9%)
-> > TLB shootdowns         55428953      17621697          -37807256 (-68.2%)
-> > Function call IPIs     34073695      14498768          -19574927 (-57.4%)
-> > pgscan_anon (pages)    52856224      60252894          7396670 (+14.0%)
-> > pgsteal_anon (pages)   29004962      34054753          5049791 (+17.4%)
-> > --------------------------------------------------------------------------
-> >
-> > Suggested-by: Kairui Song <kasong@tencent.com>
-> > Signed-off-by: Zhang Peng <bruzzhang@tencent.com>
-> > ---
-> 
-> Hi Peng,
-> 
-> Just a quick update: this patch is still on my radar. I ran a
-> quick perf test while building the kernel. Without your patch,
-> try_to_unmap_flush_dirty() accounted for 1.75% of CPU cycles.
-> 
-> I guess there could be workloads where try_to_unmap_flush_dirty()
-> accounts for an even larger share of CPU cycles.
-> 
-> # Children      Self  Command  Shared Object      Symbol                      
-> # ........  ........  .......  .................  ............................
-> #
-> 
->      1.75%     0.01%  cc1              [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
->             |          
->              --1.74%--try_to_unmap_flush_dirty
->                        try_to_unmap_flush (inlined)
->                        |          
->                         --1.73%--arch_tlbbatch_flush
->                                   |          
->                                    --1.70%--flush_tlb_multi (inlined)
->                                              __flush_tlb_multi (inlined)
->                                              |          
->                                               --1.69%--native_flush_tlb_multi
->                                                         |          
->                                                          --1.68%--on_each_cpu_cond_mask
->                                                                    |          
->                                                                     --1.62%--smp_call_function_many_cond
->                                                                               |          
->                                                                                --1.23%--csd_lock_wait (inlined)
-> 
-> 
-> With your patch, the CPU overhead drops by roughly 7x:
-> 
-> 
-> # Children      Self  Command  Shared Object      Symbol                      
-> # ........  ........  .......  .................  ............................
-> #
->      0.25%     0.00%  cc1      [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
->             |          
->              --0.24%--try_to_unmap_flush_dirty
->                        try_to_unmap_flush (inlined)
->                        |          
->                         --0.24%--arch_tlbbatch_flush
->                                   |          
->                                    --0.24%--flush_tlb_multi (inlined)
->                                              __flush_tlb_multi (inlined)
->                                              |          
->                                               --0.24%--native_flush_tlb_multi
->                                                         |          
->                                                          --0.23%--on_each_cpu_cond_mask
->                                                                    |          
->                                                                     --0.21%--smp_call_function_many_cond
->                                                                               |          
->                                                                                --0.14%--csd_lock_wait (inlined)
-> 
->      0.00%     0.00%  fixdep   [kernel.kallsyms]  [.] try_to_unmap_flush_dirty
-> 
-> 
-> Overall, I think this is a good approach. I'll be traveling soon
-> and will return to this patchset for more testing and a thorough
-> review in about two and a half weeks.
-> 
-> Thanks
-> Barry
-> 
-Hi Barry,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Thanks for the update and for taking the time to run the perf test.
-The breakdown is helpful, and it's encouraging to see that
-try_to_unmap_flush_dirty() accounts for a significant share of the
-cycles in shrink_folio_list().
+Low priority / nit picks for your consideration:
 
-Safe travels!
+- [Low] The patch changes the sndbuf_space invariant comment to "can be
+  out of range" in smc_cdc_tx_handler() (net/smc/smc_cdc.c:46) and after…
 
-Thanks,
-Peng
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the clamp in
+  smc_tx_sendmsg() limits writespace to sndbuf_desc->len (the allocation…
+- [High] This problem wasn't introduced by this patch, but the failover
+  catch-up in smc_switch_cursor() and the completion handler…
 
+--
+
+net/smc: bound the send length to the send buffer in smc_tx_sendmsg()
+
+This commit clamps writespace in smc_tx_sendmsg() to sndbuf_desc->len,
+negative values included. The goal is to keep the copy inside the send
+buffer when conn->sndbuf_space has been over-credited after an SMC-R
+link failover or through SMC-D DMB merge. It also rewrites the
+sndbuf_space invariant comments in smc_cdc_tx_handler() and
+smc_tx_sendmsg().
+
+> diff --git a/net/smc/smc_cdc.c b/net/smc/smc_cdc.c
+> index e2c765ff2ba35..90a79a983b485 100644
+> --- a/net/smc/smc_cdc.c
+> +++ b/net/smc/smc_cdc.c
+> @@ -43,7 +43,7 @@ static void smc_cdc_tx_handler(struct smc_wr_tx_pend_priv *pnd_snd,
+>  		/* sndbuf_space is decreased in smc_sendmsg */
+>  		smp_mb__before_atomic();
+>  		atomic_add(diff, &cdcpend->conn->sndbuf_space);
+> -		/* guarantee 0 <= sndbuf_space <= sndbuf_desc->len */
+> +		/* can be out of range, see smc_tx_sendmsg() */
+
+[Severity: Low]
+The comment is updated here and after the atomic_sub() in
+smc_tx_sendmsg(). Two other sndbuf_space credit sites in smc_cdc.c still
+have the old wording.
+
+The dmb_nocopy branch of smc_cdc_msg_recv_action():
+
+    atomic_add(diff_tx, &conn->sndbuf_space);
+    /* guarantee 0 <= sndbuf_space <= sndbuf_desc->len */
+
+and smcd_cdc_msg_send():
+
+    atomic_add(diff, &conn->sndbuf_space);
+    /* guarantee 0 <= sndbuf_space <= sndbuf_desc->len */
+
+The new comment in smc_tx_sendmsg() and the commit message both list the
+DMB merge path as a way for sndbuf_space to go out of range ("with SMC-D
+DMB merge it follows the peer's consumer cursor"). That makes the comment
+in smc_cdc_msg_recv_action() contradict them.
+
+Should these two comments be updated too? As far as I can see, no later
+patch in the series touches smc_cdc.c, so both are still there at the
+end of the series.
+
+>  		smp_mb__after_atomic();
+>  		smc_curs_copy(&conn->tx_curs_fin, &cdcpend->cursor, conn);
+>  		smc_curs_copy(&conn->local_tx_ctrl_fin, &cdcpend->p_cursor,
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. Is
+the failover catch-up in smc_switch_cursor() serialized against this
+handler at all?
+
+smc_switch_conns() holds only the send_lock:
+
+    spin_lock_bh(&conn->send_lock);
+    smc_switch_link_and_count(conn, to_lnk);
+    rc = smc_switch_cursor(smc, pend, wr_buf);
+    spin_unlock_bh(&conn->send_lock);
+
+smc_cdc_tx_handler() runs from the old link's CQ tasklet and holds only
+bh_lock_sock(&smc->sk). Both read tx_curs_fin and local_tx_ctrl_fin, and
+both credit conn->sndbuf_space.
+
+Can this interleaving credit the same bytes twice?
+
+CPU1 smc_switch_cursor()
+    smc_curs_copy(&conn->tx_curs_sent, &conn->tx_curs_fin, conn);
+    smc_curs_copy(&fin, &conn->local_tx_ctrl_fin, conn);
+
+CPU2 smc_cdc_tx_handler() (late completion from the old link)
+    atomic_add(diff, &cdcpend->conn->sndbuf_space);
+    smc_curs_copy(&conn->tx_curs_fin, &cdcpend->cursor, conn);
+    smc_curs_copy(&conn->local_tx_ctrl_fin, &cdcpend->p_cursor, conn);
+
+CPU1
+    diff = smc_curs_diff(conn->peer_rmbe_size, &fin, &cons);
+    ...
+    atomic_add(diff, &conn->sndbuf_space);
+
+CPU1 computes diff from its stale fin snapshot, so it credits again the
+bytes that CPU2 already credited.
+
+In this commit, smc_switch_cursor() also updates tx_curs_fin and
+local_tx_ctrl_fin with a plain read-modify-write smc_curs_add(), and
+that can tear against the handler's smc_curs_copy(). The later patch in
+this series, "net/smc: bound the link failover cursor advance to the
+send buffer", replaces those adds with smc_curs_copy() and fixes the
+tearing. Its commit message says the double credit remains:
+
+  "The switch is still not serialized against the handler: a completion
+  handled inside it is still credited more than once and can make the
+  next write hand the peer bytes it has already read."
+
+The result is an inflated sndbuf_space. The clamp in smc_tx_sendmsg()
+only bounds it where it is used.
+
+> diff --git a/net/smc/smc_tx.c b/net/smc/smc_tx.c
+> index 0f0c6df3bf2ce..3913ef103b356 100644
+> --- a/net/smc/smc_tx.c
+> +++ b/net/smc/smc_tx.c
+> @@ -233,6 +233,14 @@ int smc_tx_sendmsg(struct smc_sock *smc, struct msghdr *msg, size_t len)
+>  		/* initialize variables for 1st iteration of subsequent loop */
+>  		/* could be just 1 byte, even after smc_tx_wait above */
+>  		writespace = atomic_read(&conn->sndbuf_space);
+> +		/* sndbuf_space can be out of range: late completions of an
+> +		 * old SMC-R link credit it again after a failover, and with
+> +		 * SMC-D DMB merge it follows the peer's consumer cursor.
+> +		 * Bound writespace, which sizes the copy; a negative value
+> +		 * would become huge in the size_t min_t() below.
+> +		 */
+> +		if (writespace < 0 || writespace > conn->sndbuf_desc->len)
+> +			writespace = conn->sndbuf_desc->len;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but with writespace clamped
+only to sndbuf_desc->len, can the send ring still overwrite data that
+has not been sent or acknowledged?
+
+The clamp limits the copy to the size of the allocation. It does not
+limit it to the space that is actually free between tx_curs_fin and
+tx_curs_prep.
+
+Suppose sndbuf_space holds S > len. Each loop iteration copies up to len
+bytes starting at tx_curs_prep.count, then does:
+
+    atomic_sub(copylen, &conn->sndbuf_space);
+
+That leaves S - len > 0, so this check stops neither the loop nor later
+sendmsg() calls:
+
+    if (!atomic_read(&conn->sndbuf_space) || conn->urg_tx_pend) {
+
+A few consequences seem to follow.
+
+First, memcpy_from_msg() overwrites [tx_curs_fin, tx_curs_prep). That
+range holds bytes that are prepared but not yet sent and, for SMC-R,
+bytes still being read by posted RDMA WRITEs. With SMC-D dmb_nocopy the
+range is the peer's DMB. Either way, the peer silently receives the
+wrong data.
+
+Second, tx_curs_prep can get more than one ring ahead of tx_curs_sent.
+smc_curs_diff() handles only a single wrap:
+
+    if (old->wrap != new->wrap)
+        return max_t(int, 0,
+                     ((size - old->count) + new->count));
+
+so to_send in smc_tx_rdma_writes() comes out wrong, and bytes get
+duplicated or lost. When peer_rmbe_size > sndbuf_desc->len, a single
+write can carry more than sndbuf_desc->len bytes. The source reads stay
+in bounds because the second source chunk is at most prep.count, which
+is less than len.
+
+Third, smc_tx_should_cork() pushes only once sndbuf_space reaches 0:
+
+    if ((msg->msg_flags & MSG_MORE ||
+         smc_tx_is_corked(smc)) &&
+        atomic_read(&conn->sndbuf_space))
+        return true;
+
+With MSG_MORE or TCP_CORK set and an inflated value, corked data can be
+overwritten before it is flushed.
+
+A conforming peer can still trigger the over-credit at the end of the
+series. A late completion from the old link in smc_cdc_tx_handler()
+does smc_curs_copy(&conn->tx_curs_fin, &cdcpend->cursor, conn), which
+moves fin back. The next completion then credits the same bytes again.
+The commit message acknowledges this: "send() can still overwrite data
+in the send buffer that the peer has not received".
+
+Could writespace also be bounded by len minus the bytes outstanding
+between tx_curs_fin and tx_curs_prep? Or is a follow-up planned that
+fixes the credit in smc_cdc_tx_handler()?
+
+>  		/* not more than what user space asked for */
+>  		copylen = min_t(size_t, send_remaining, writespace);
+>  		/* determine start of sndbuf */
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-b4-disp-0287c16e-v9-0-e5e8fa688177%40proton.me
