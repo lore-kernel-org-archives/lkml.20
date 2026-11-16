@@ -1,94 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837653;
-	b=N0FYVPpC2cgOLTkk7R//F9kpGUqNPCKN6IFYerqWv+5NvyBki2pveKACdYfMqtQF/v4K
-	 5fIpPmMTW6PuoF0VWwHbjC+QTkSVWfXjw+yjtXP4rYlytVGeNT7eUAfp02yIKEJ1MTBSx
-	 vcEdDXPTM9vpw2dUhRQu6goDuA2Mf6RQqEVtFLjd/5VtYWewiuiKXrhD+OfFDwRxGodze
-	 FS52u5HsFIu0bcTTSKOMoCbyl6gmSG6kG9ha3dgHPxt4hdwD5T9qFMuJ+KN3PP3MA8FCc
-	 ayptjNqqntuVv21qoACjAbKlksFgdRllWWmPyofEDgYm6RDmhZdlgDfXgvImaFyqiGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837653;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-	b=ZAOR+lk2/pJf/5IndYAATIOaw8Twq3Pu2XdQCK1sqcixrc2OXGW94Df1Lmf/4ZW3LIml
-	 U78NGvNU+boPuwuEiznOE5ZJ+7xV29ZquaMyZNrGlLVGP5y7doO1SmMqn//E/Y19EfQ2t
-	 rdubZT/sgxgRSAtlOkAGdP7Yxhvoa0zvcGWiK9c9QuSOWoB8ACsEgwiHeqqXNOjVoCskW
-	 SsNv4StSrGskgddcRmGlbeOzquVPX0YMUs/HBLkPdSt8E0wRyHVWbpXR4h4AapEuaYSpO
-	 FRqhHEMqfTKJ9fF5fY4sJODSZuGm7mPyHAGa1hSWL7sL1U+ZjzufS50OQFlPRgX9+rw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SbKntM6h;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794837658;
+	b=NqawMZn/puqqclwAgQ7oosRm66N+rEJNX/A9iv4W5sA+Xf6/He9vS1o2WXYbR2vAlLYL
+	 7uftjMEmLjEw/i2YJs2/OrpMfG/mceR7BVET05K5rOelHJu6G3ga/sdDwD34g70c3irfz
+	 8/g/nk70Y6/g155LDi+c1o2YFAcO0JZKaD04LE9g/F54ZQkfGZVCF+F78tLrCotbOFUc4
+	 q0q9p/bhSNEY0Iwg0boSt+xxv/O7GpNoXmg8S2nN5dR0jdRUSYxrsbQr7QUECw9i1WI8a
+	 tXRck2x1rSwM9SrfSPlv813GTUBKfBotdimFaGFUfuBGizwo2om2l/1WZ3nh/OBSX/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837658;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
+	b=KjIhAIGF5GS6xorst3adCVhtsRPQh4MeLh3KQqH0It4tkl2WsqFEGIUOO6NnlAg5q6+j
+	 //fvyNiRE/zy0B8QPo1FnVB32GfDSr33rHrXaPhcrL9jFbvXyjU+X8hKB4G3Z0/bCCAul
+	 ISed/N2ZWls5cf3YtNxGSuYNQb87V+5WJrfnDV2sxLwL/cj4sju70vqMyLOaH4n8+uxnl
+	 mcOlW0cpsO46lGrROCqfCTTrBLjWTMwym7et8MQvsbn+db61xq+2xcI3alFS2y8r/ia9J
+	 qYcqnQYSyyKnW4z4x+rw4bc1b44u4nrtmsRn2gIDyQu3PI9eRWwtlKZtiAJ5LBWTXJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=iokpp.de;
+	spf=none smtp.mailfrom=iokpp.de;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GZ0EpYEv;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ZsulkOhB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE7C606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE7C606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E0D606A33D;
+	Mon, 16 Nov 2026 14:00:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43E0D606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SbKntM6h
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so6540047eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:00:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794837652; x=1795442452; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=SbKntM6hmkycOhY3ZwGCYI02rg8UoN+cEm5PdhdrRa74JUmTMI64qv+bbBrnpe95FW
-         mVIewRlkJ20frSiSkuaSi9tUEGKk4xxuc0pQp2MZQmmmHtJaYqzA3On2cvR0+FqtRXIz
-         shcyKvEmk+PhBl3HmJfDy7qoenfKhzsEJtSbcPuDNDsZPlrgjhYhyLy6wAPvkbCf3Fr9
-         xE8RjCAtxjDN6wMHUI+r0SteVLwiK184El8EqPHf69iv+7+B/R+HaZy7O/ZHkDiTKJI/
-         lbFCngQB9e/SvL98CY1T7ftkUauaZ33zchHOPH8X1xNJaEBGgCU8V/97Rm6B6T05dhJG
-         46wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794837652; x=1795442452;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=Zi6yBJf/SrHbWPe21aQsbe2gzVEwYMum5d0qr8IOstPbLaj9DI8Ptv0p2V4IyqdTDY
-         GXVfzwzFdzh/wUToCapIbuuEk1Aa7hMX2t7GRVduoITXiKY+nrpHiEecnfM8GzmhSVkO
-         SY/5pA8gKrwRXWtt+2kdOCGTUUQgspfy63VUw9SdCe6UsE9x3zI2UxvsdoKuo+z6fifM
-         m9MJtOyDUCdjTnrcFBXSwOtHCQfBixQWirDqnULuTZBuDl3UDfaRFbKEcO0OjYYeGiow
-         F3997tFvwkxvPbK4yB8risLRog3P+m2OqjfAg6TVrDoptj9AeN8oDjADVCNahGwjQzuH
-         C/Pg==
-X-Gm-Message-State: APuU4Z8PucVp8Lu3lZ6GaV5jyC+Djl9Gngd5Eha5MMUOaLaYUz9R95mt
-	irEpmg01Czmdv0PVBPC39Te3iTJJalfH+AegEL7C/tEYtI+qV5N9vE+D
-X-Gm-Gg: AZFdTZf/kuaaMTWioCmkfuLVDz6QdMx6AEw/6yr3Vf7rPenxFBgvVuYhYGwIvZ+8qOd
-	oEsRJu+ran+XUaw4T3jYywYPhkW3GBkdmXPy6Sx0PdCo9qB8uoH6QBhEYAkiaAq55/hpg5r+My4
-	v/P7kFHvUItvkb0UrdxkUE5dCUUXu74c4pKSExzAvq1SMJK5RhFugaS6ZHa3GXiwu8mN2woAQWj
-	s38YgOddB1vi+zLFg0V2QG768cWXZpXZpYy+ByZO+m8oc1bz6DnKiVSu6wjl9D3jU9pyjkK9GXA
-	ccXKMzcS/DfQMcPP0c00cJx+Te4GCXhu94s/+OO5IKHbmM5a3pvwonJKLE4rxwm/Clsw9NQR2vh
-	QtNDLvQMQkRqIOFXodM0/Po5auyfOkU8OQVCCtRX/XTKVrNou4fGzktWOAaBoS3/V3OkaQkOmqP
-	til3m4YMt/LYVevfYOpx/tUd7VpkwKiy+IgIQiqcvdQLAfJZb6sbTHuUolq9whxUVNaBqjgGn0j
-	/t/woX66SbXI/ig8MyW1HIkh+c8c9c1IWEjd/UVbNO0CvVgIEGbRjWDgImCMpy7+kPcTqvxjai4
-	8Zt3ofP6Cb3jt98/gAbGq+/MXuSHI41ChacPb0As4hA8BDdHtE0=
-X-Received: by 2002:a05:7301:1a0b:b0:36c:9e26:88b6 with SMTP id 5a478bee46e88-37965ca86fcmr10517097eec.9.1794837651569;
-        Mon, 16 Nov 2026 06:00:51 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.67])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379553316fdsm35118495eec.5.2026.11.16.06.00.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 06:00:50 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com
-Subject: Re: [PATCH v2] ALSA: compress: Set metadata_set only after successful callback
-Date: Mon, 16 Nov 2026 13:59:51 +0000
-Message-ID: <20261116135951.2607-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87ecclypxy.wl-tiwai@suse.de>
-References: <87ecclypxy.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GZ0EpYEv;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ZsulkOhB
+ARC-Seal: i=1; a=rsa-sha256; t=1794837625; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=lgVHsmdocWSs7r/FyeFoikXvqW8JIkDYyGAsxbrCU6G/MkekNirYkChR2B6Ub+JS7Q
+    0hJ3ck5io6TO0Cc4OQ8Z+j6xQkjXEw/k3B2FyOlU8VjseWm8+BIsCq/YhgI+HDmZGUu4
+    mS6boDMrZN1FEJwxXpBzSvEsyPAHmpviUTps1e/0zJQ+7p7omM8q7wZFgatfq1yqZctW
+    SvotPd24Buo99EaU0cdBOa1KYxKQDOd3V/jNGY3i+CcDAXamR35fqLEQ4V8Jm7XhAYMq
+    gnqAlVu0PIvLUCX97I0M5QvidkY0x9py4kRo8fQaDBNqF2w/wf9Ik1vRgcPsrgAsXUqH
+    38BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794837625;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
+    b=T7aYHukIISyS1/iJO1RKFuVDHqfFK79O90tIjy9qO7YU8l0Z2kGMFbSwB39G7K+MMi
+    t5IYDE5gg6afGnJa3YWlbZyvftHO7xgy1S2SPLO1tsRI8P4ngRuiFGK5Q/PRiwUWmxvb
+    WHx5pGR0glt88C0GRKEbN7y1SWPmU8rWDQZ6Yp2pTxwgvxbS/xntN6XTu3jwpvXPd+Ht
+    ypcMsi/0gyMAQWSMwd+9W9GtEESz0fwdtndHI+EUv5hS6P/AlccesK5+16vP9ei0fnZ0
+    XAt9T9+e6J12shTUKs8Gm/6u49KUx9dXo3GNxI7r7NkzBD2uCNugI8uRJU80Y6kFyGuP
+    fuDA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794837625;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
+    b=GZ0EpYEvfUFQzSBlQBulXGqScWt8COibJDcCkq/pewr9sREUqaUGAFV5GHknkmm2N2
+    E0wIvf/ZUYDmIEbcrAz/ktWvq7i3eu1iWB5wH2BUhYqpkuvnCWirW8+5MIoUONifF9FO
+    /GPq+NYmRnFna6ShpK17R30NoorE3kOcmrZPTOnMBlP4PxncgLNhU1qb6VQ1ybJvPxqU
+    kiDioFzl9Pklwe+79m8160RD1em1Eh0zN4FSxSqluocFZW7pOhlw5iKK19zoac19VhEr
+    bWyF4SUftyFlU2wBZz+nJWwL9vWDC4qia/Be97SKoazHWIQwjhioHAbkJE9YzECdT0ZJ
+    xaiQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794837625;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=Iz2UTzzevygEQJfoMo8z88opOxdoTMIWPGKJ1VJvcmM=;
+    b=ZsulkOhBrDtnlAgZniLF8HAIcYMCsFNbF9IjSTC6Kf2offCZtw1rJSi4wrrlxtsL0j
+    gdRLJ9ZOs5WoHgRTMoBg==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
+Received: from [10.176.237.78]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id z831ad2AGE0Oyda
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 16 Nov 2026 15:00:24 +0100 (CET)
+Message-ID: <34fdf9f5a04e05d1713f57f63dcd2cd0b81ee959.camel@iokpp.de>
+Subject: Re: [PATCH v2 1/4] PM / devfreq: Fall back to previous_freq when
+ get_cur_freq() fails
+From: Bean Huo <beanhuo@iokpp.de>
+To: chanwoo@kernel.org, linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi
+ <cw00.choi@samsung.com>, "Martin K . Petersen" <mkp@kernel.org>, "James E .
+ J . Bottomley" <James.Bottomley@HansenPartnership.com>, Avri Altman
+ <avri.altman@sandisk.com>,  Bart Van Assche <bvanassche@acm.org>, Alim
+ Akhtar <alim.akhtar@samsung.com>, Stanley Jhu <stanleyjhu@google.com>, 
+ Bean Huo <beanhuo@micron.com>
+Date: Mon, 16 Nov 2026 15:00:23 +0100
+In-Reply-To: <a813b1ea-6971-4fde-b310-659a03963fba@gmail.com>
+References: <20260907192140.2701755-1-beanhuo@iokpp.de>
+	 <20260907192140.2701755-2-beanhuo@iokpp.de>
+	 <a813b1ea-6971-4fde-b310-659a03963fba@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,11 +112,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi,
+T24gU3VuLCAyMDI2LTExLTE1IGF0IDA5OjI1ICswOTAwLCBDaG9pIENoYW53b28gd3JvdGU6Cj4g
+PiAtwqDCoMKgwqDCoMKgwqBlbHNlCj4gPiArwqDCoMKgwqDCoMKgwqBpZiAoIWRldmZyZXEtPnBy
+b2ZpbGUtPmdldF9jdXJfZnJlcSB8fAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgIGRldmZyZXEt
+PnByb2ZpbGUtPmdldF9jdXJfZnJlcShkZXZmcmVxLT5kZXYucGFyZW50LCAmY3VyX2ZyZXEpKQo+
+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjdXJfZnJlcSA9IGRldmZyZXEtPnBy
+ZXZpb3VzX2ZyZXE7Cj4gPiDCoCAKPiA+IMKgwqDCoMKgwqDCoMKgwqBmcmVxcy5vbGQgPSBjdXJf
+ZnJlcTsKPiAKPiBJIGFncmVlIHRoaXMgcGF0Y2guCj4gQnV0LCBJIGRvbid0IHJlY29tbWVuZCB0
+byBleGVjdXRlIHRvIGZ1bmN0aW9uIG9uIGlmIHN0YXRlbWVudC4KPiBJbiBvcmRlciB0byBpbXBy
+b3ZlIHRoZSByZWFkYWJpbGl0eSwgY291bGQgeW91IHBsZWFzZSB1cGRhdGUgaXQgYXMgZm9sbG93
+aW5nOgo+IAo+IMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgY3VyX2ZyZXEgPSBkZXZmcmVx
+LT5wcmV2aW91c19mcmVxOwo+IMKgwqDCoMKgwqDCoMKgwqB1bnNpZ25lZCBsb25nIGZyZXE7Cj4g
+wqDCoMKgwqDCoMKgwqDCoC4uLgo+IMKgwqDCoMKgwqDCoMKgwqBpZiAoZGV2ZnJlcS0+cHJvZmls
+ZS0+Z2V0X2N1cl9mcmVxKSB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBlcnIg
+PSBkZXZmcmVxLT5wcm9maWxlLT5nZXRfY3VyX2ZyZXEoZGV2ZnJlcS0+ZGV2LnBhcmVudCwKPiAm
+ZnJlcSk7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAoIWVycikKPiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjdXJfZnJlcSA9IGZy
+ZXE7Cj4gwqDCoMKgwqDCoMKgwqDCoH0KPiAKPiAtLQo+IEJlc3QgUmVnYXJkcywKPiBDaGFud29v
+IENob2kKPiBQcmluY2lwYWwgRW5naW5lZXIsIFNhbXN1bmcgRWxlY3Ryb25pY3MKCkNoYW53b28s
+IAoKdGhhbmtzLCB3aWxsIHVwZGF0ZSB0aGVzZSB0d28gcGF0Y2hlcyBvbmx5IHNpbmNlIFVGUyBw
+YXRjaGVzIGhhdmUgYmVlbiBtZXJnZWQuCgpLaW5kIHJlZ2FyZHMswqAKQmVhbiAKCg==
 
-Thanks for applying the patch!
-
-Best regards,
-Sreeraj
