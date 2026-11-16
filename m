@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.107.87.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851543;
-	b=pkFTR6Cqc4J4En63vz2+8gRTnsIlRvTjbjHeFGGCATln2p85DzNZF+52mrEEBA57WCvQ
-	 tFg3Q+TRMSX9TOPxF76i+u3nnOm44UcUQ/T1RqvsflS6QywPd/VPYVYnIHr+BECEJk09N
-	 2dlNoNsX3qV+sAX3ByZjw5A0A3Hx4l6PAA9NAPCQhz3ZmY5+Uaa0W3WzTGWhi+7BO96HV
-	 u40ZHfn48Rmw/qU0frdlcvoqdsCk/oI3nB1yFbIe9CBkHs8PvLWaz5WIIuuIl6pzaHJCg
-	 f0Jb6EwQBXSdfTBcKdH9ixC3zeHOyrjMr9+7BSxSEwXbuAixNIcxdRzvzoM/1/4dv+g==
+	t=1794851557;
+	b=xhmkCnVfFX08Py8CRO0tCWtgXAxaITJxB9zZpTMoIiw4duZvaWROrv2qpQYrXJIq3lJ5
+	 xTT1tDkWWDy0H2vJjNYXMLLzKwH7AF5y28hnGiwkmZntxEWXxpQDTkOXT5cVtAorR6VbW
+	 6Bhzr0uKAsoQI1JQZUuzBjv9w7LlSRjhJ8kP1w3lyue4qpz/xN//SwwGc/yciwr35RAua
+	 rgAzshRQXQAkofN119U2yD5q1tUz6ESz/pAPFCRvYwTkTaduvgBEg+/UBkHlJVYBC22iT
+	 LKeQr1GoZXDCYhLw4dft1IhLwiYJegf9Gsd9hMu4IsxazRKLQDFh+l2nBvHq4jH9vIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851543;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=vZEHtU93vQZ80dtXQhFOBXZa9D/fCGl5OPLeGmvGY9I=;
-	b=d/B2ym3gL9mvyXJFpm4eJeI81dASuXp1Ge9AGadnyLFirOfdMm/g4IMGNhwZX/Nbl5OP
-	 3INZ2080N5KX5RtZ0l8BFvKGboWocHtse3ugXExRic/5Ie3j+aW/AGSp37SkmcPPaoMhA
-	 evxDtdETk+i0cI4iF6479GJ1C6rQCGgadj4g9ykGzsOGiZedopuVGKLEd/83q6evI0XuD
-	 /smm0AS5xnDTEYiFBXO/QK2sjl3jCjOoOacNDlXqBgVL/+/6LehvqZWVJ5J3PeT8fqeag
-	 IPJmfsY4Ix9VscdJPFf2EIquihblFXYyWBBP2Vq31pRQ+4ag2CoNNeJw4D+z6YwwMdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851557;
+	h=DMARC-Filter:Received:Received:Received:Received:DKIM-Filter:
+	 DKIM-Signature:X-Virus-Scanned:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EdI2oVsvQC5OFdto8AriHpSCqCbKSvTZiieheT9HSLc=;
+	b=sUuOdZzPfaefg1Zh7H94/3YzhezziVHu4ClK97lYvX+jrqgZ36l38fcGASW/YnU3MivO
+	 SjTCAz5qZDEMOH1pOdNeeaIZl0oOic6NcFddRwLHRSyPLvhspzyb0m9Ems48aif43O1T7
+	 2fkUKEnaCkm12AhcU1jxYkhZtYZHgGyqiYAMYokDwT9LRc3Xu4a2qTRk9+S9uxV7nCfs1
+	 J/zVXqhriTWtP4XLzAWkmewcva0ejD+szl7t50g6qpVeQ3IDQlKhh5bbBBjFKPJNk31Py
+	 JMN1kKOB9V6ckSqNBUT1wk4wUbit7G53fR187GUH9q5eAYn6iz5+NAeespexF/jnOaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="GNdP/Eid";
-	arc=none smtp.remote-ip=209.85.167.44
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=tngtech.com;
+	spf=pass smtp.mailfrom=tngtech.com;
+	dkim=pass header.d=tngtech.com header.i=@tngtech.com header.a=rsa-sha256 header.s=B14491C6-869D-11EB-BB6C-8DD33D883B31 header.b="aHvXo/oO";
+	arc=none smtp.remote-ip=34.107.87.41
+Received: from mailout.tng.vnc.biz (mailout.tng.vnc.biz [34.107.87.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B7C60A2607
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33B7C60A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C26606A8AB;
+	Mon, 16 Nov 2026 17:52:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C26606A8AB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tngtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tngtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=GNdP/Eid
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso3487763e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794851539; x=1795456339; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vZEHtU93vQZ80dtXQhFOBXZa9D/fCGl5OPLeGmvGY9I=;
-        b=GNdP/EidSOjtCjEa8KNI14Lh9Gu5uvd/WWBf/4BrYTOMEyIOWVG4qaSx7JsZ2bXo5e
-         FM8P/2NjzQ5lQ8zLwrrx4jTsFifvXPOCjEL3GeIQX/nfWnlFMScdHavK9N4wLXYk87Ls
-         bv6zvssaNOrSYju3pjraPr4T9k+B7z/llngos=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851539; x=1795456339;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vZEHtU93vQZ80dtXQhFOBXZa9D/fCGl5OPLeGmvGY9I=;
-        b=HbsXfUfNdjGB19VhCeEU62Lz7+rQm6GNyUVBIjcYAPvNk8tdMw3Neclf3BycvYHJrY
-         dpbd4kRsx+ypskuolzhpUrfX9ULlNDE9q8e11SRpkeLdkJWEPXgff5cCPzDkw+2+8kcV
-         KnmL7vpfRPoAx7geaTKJyww5tBg3HeIf7zrEeFzW004qknNrJhunjUXlrxE5akHFSDJX
-         tiLNMHTtNN0T2Va4IhAcK0lHo6ao0bfnhFEbtxou1C1g0hLvcFZTtryYn9ac+pnB6Irj
-         9d0OTDPWmNtVVbmYLcGqnIl8+hECju0kYyQI2TOqzO84a+21bN9vNsKxq5ZYEj++UtSd
-         lm8Q==
-X-Forwarded-Encrypted: i=1; AL+hErHrXpWAWAlzff1F9R6T5EINcpuk18j0s8bRYpYqGvgAf5RXq3tClzAt77yvm3R0iE+Efi9x/oL7mpiUmuA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bL287QF2r6wrgmh7yGbTZs7O3Qk53DYsLxsTBu7d4Y61dmv7F
-	URqPnwPdyicrzGTuCcOgN20XMejJ1/3qo0jfGSPAQb3YXogNEBHWmB3lOZz2R5vlYw==
-X-Gm-Gg: AYBFou1wTFeope9YSkzU2vO39ZrxUV5CGkjqjQU9P9oCmiyE0JQz2cEbp5Vqvzlth/i
-	dAuwK8mbPdpPmib+HNR2C5qmp/JFh4GBmZeHISGJucRUvJ4CDSSXKDhnl5/FQyknmXMQOyx8Fro
-	dV8+Peh/mB+tHsme12c/d+zxU6LIbtrKjbe6abWZE4sQBuv33HkjC/H/LZUflBiALUiKgfHeDfZ
-	pWJ8Bz6YuwUhFCg9LFqkc7GthzG7kHqmjsSb/WytYgNGOtHSQcSCqXSiGc3GvfmQ7WNA7icvwzZ
-	WpcoJStDV2/+brZk8nrvQj5u53fd8ZuzgA8zjqqK8dBZ0ldELPoCz6ZoXb22h7fzyKh3EvIYBTN
-	OJg0SqFJK3ZKQREWJMmpdfVJ5Qw5d5oOH/keB/PcCkv4GPWFn/3Di7kLs4sb/LAN2k/V/ZmxZe8
-	0hXZUiDUiEeT4CHl7n82GNoOhKPaKf0bmk0mFYp5A19DGNJHp2e90LmZBqDlwJBbNBOE/esFfcg
-	cNC2SZcIDSMV3a1tm78VtS6rSVtQnYLOZfjvtmqoJMab33sV21ZfcFoAowutQo4KJV7CMNdKuob
-	+o3dcE2ba/qUq2GOc1iPNLN2F067KspUD4jt86YsNCfLw3FE4sBDQVbTkmuLTsgwoh8wNOBAFjX
-	MiZQUQ/vo4A==
-X-Received: by 2002:a05:6512:1395:b0:5bf:a2fd:c713 with SMTP id 2adb3069b0e04-5c1705d895bmr4037875e87.4.1794851539343;
-        Mon, 16 Nov 2026 09:52:19 -0800 (PST)
-Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:52:18 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 17:52:13 +0000
-Subject: [PATCH v2 6/6] media: uvcvideo: Add uvc_video_parse_pts_stc_sof()
+	dkim=pass (2048-bit key) header.d=tngtech.com header.i=@tngtech.com header.a=rsa-sha256 header.s=B14491C6-869D-11EB-BB6C-8DD33D883B31 header.b=aHvXo/oO
+Received: from zmproxy.tng.vnc.biz (zmproxy.tng.vnc.biz [172.16.1.23])
+	by mailout.tng.vnc.biz (Postfix) with ESMTPS id 8C3B43FC18;
+	Mon, 16 Nov 2026 18:52:35 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id 80D5C1FBB5B;
+	Mon, 16 Nov 2026 18:52:35 +0100 (CET)
+Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
+ by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id NBVpBYFZJC7q; Mon, 16 Nov 2026 18:52:34 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id C031D1FBB9B;
+	Mon, 16 Nov 2026 18:52:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 zmproxy.tng.vnc.biz C031D1FBB9B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tngtech.com;
+	s=B14491C6-869D-11EB-BB6C-8DD33D883B31; t=1794851554;
+	bh=EdI2oVsvQC5OFdto8AriHpSCqCbKSvTZiieheT9HSLc=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=aHvXo/oOMuFdHiB1T5gPyQjXdmblt1FtpGL4cPsPOdg20tNowBm1cP0U2tV2idoVe
+	 3vSATRG69nfMV+5cYe/7m/GX2j8GdNfR97a8vweYj14iICEwrUm5csXqf1mR3MMKPi
+	 4gIMl8vax0/0o7hA6vM5HwPX8VyKxQeqtKSZLC3qP6216t03+SP14/qun8Rs+BOdu+
+	 Rv/IcPun3NZu6UR2D2HG5LWLqBKP7qA+/Sr/tZrF5MnO87qu5UTBCMavEplHW/bxgw
+	 RVmsTzkdz/Pv408JsAezNq6qGhx1h2AAGXvR/w8RK6IaE4kQHDzsfVQIXq5UdJ/KiH
+	 tXX7lnzAzGrpQ==
+X-Virus-Scanned: amavis at zmproxy.tng.vnc.biz
+Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
+ by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id 7rUrEhQM9lsQ; Mon, 16 Nov 2026 18:52:34 +0100 (CET)
+Received: from luis-Precision-5480.int.tngtech.com (unknown [193.30.133.7])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTPSA id 447601FBB5B;
+	Mon, 16 Nov 2026 18:52:34 +0100 (CET)
+From: Luis Augenstein <luis.augenstein@tngtech.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	gregkh@linuxfoundation.org,
+	kstewart@linuxfoundation.org,
+	maximilian.huber@tngtech.com,
+	Luis Augenstein <luis.augenstein@tngtech.com>
+Subject: [PATCH v5 2/7] kbuild: refactor fixdep to collect dependencies before printing
+Date: Mon, 16 Nov 2026 18:51:49 +0100
+Message-ID: <20261116175215.1337416-3-luis.augenstein@tngtech.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116175215.1337416-1-luis.augenstein@tngtech.com>
+References: <20261116175215.1337416-1-luis.augenstein@tngtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,257 +89,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-uvc-shortmeta-v2-6-62d4a8176fb8@chromium.org>
-References: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-In-Reply-To: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: quoted-printable
 
-The timestamps in the UVC headers are unaligned and in little endian, so
-it is easy to make mistakes when parsing them.
+fixdep currently writes the .cmd file content while parsing the .dep
+file. Separate the parsing from the printing: parse_dep_file() now
+collects the source file and all dependencies in a list, and
+print_dep_file() emits the assignments afterwards. No functional
+change intended.
 
-Create a new helper function that parses PTS, STC, and the 11-bit SOF
-counter, so header timestamp parsing (and bugs) stays consistent across the
-codebase.
-
-Note that the SOF value is now always masked to 11 bits, as the remaining
-bits of the SCR are reserved by the UVC specification. This slightly
-changes the behaviour of the stream statistics, which used the raw 16-bit
-value, and of the duplicate SCR detection in uvc_video_decode_meta(),
-which compared the raw 6 bytes of the SCR. Compliant devices are not
-affected.
-
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Co-developed-by: Maximilian Huber <maximilian.huber@tngtech.com>
+Signed-off-by: Maximilian Huber <maximilian.huber@tngtech.com>
+Signed-off-by: Luis Augenstein <luis.augenstein@tngtech.com>
 ---
- drivers/media/usb/uvc/uvc_video.c | 127 ++++++++++++++------------------------
- drivers/media/usb/uvc/uvcvideo.h  |   3 +-
- 2 files changed, 48 insertions(+), 82 deletions(-)
+ scripts/basic/fixdep.c | 109 ++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 92 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 4e32600d9326..91fa8c21995f 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -565,33 +565,32 @@ static unsigned int uvc_video_min_header_len(u8 header_info)
- 	return min_header_len;
+diff --git a/scripts/basic/fixdep.c b/scripts/basic/fixdep.c
+index 54063d98044..f514ef606ec 100644
+--- a/scripts/basic/fixdep.c
++++ b/scripts/basic/fixdep.c
+@@ -114,6 +114,17 @@ struct item {
+ 	char		name[];
+ };
+=20
++struct dep_item {
++	struct dep_item	*next;
++	char		name[];
++};
++
++struct dep_info {
++	char			*source;
++	struct dep_item		*deps;
++	struct dep_item		*last_dep;
++};
++
+ #define HASHSZ 256
+ static struct item *config_hashtab[HASHSZ], *file_hashtab[HASHSZ];
+=20
+@@ -163,16 +174,42 @@ static bool in_hashtable(const char *name, int len,=
+ struct item *hashtab[])
+ 	return false;
  }
- 
+=20
 +/*
-+ * Parse the PTS and SCR fields of a UVC payload header. The caller must
-+ * ensure that the header is long enough to contain them.
++ * Append a dependency or include/config/<SYM> path to the info linked l=
+ist.
 + */
-+static void uvc_video_parse_pts_stc_sof(const u8 *data, u32 *pts, u32 *stc,
-+					u16 *sof)
++static void dep_info_add(struct dep_info *info, const char *name, int le=
+n)
 +{
-+	unsigned int header_size = uvc_video_min_header_len(data[1]);
++	struct dep_item *dep =3D xmalloc(sizeof(*dep) + len + 1);
 +
-+	*pts = (data[1] & UVC_STREAM_PTS) ? get_unaligned_le32(&data[2]) : 0;
++	memcpy(dep->name, name, len);
++	dep->name[len] =3D '\0';
++	dep->next =3D NULL;
 +
-+	if (data[1] & UVC_STREAM_SCR) {
-+		*stc = get_unaligned_le32(&data[header_size - 6]);
-+		*sof = get_unaligned_le16(&data[header_size - 2]) & 0x7ff;
-+	} else {
-+		*stc = 0;
-+		*sof = 0;
-+	}
++	if (info->last_dep)
++		info->last_dep->next =3D dep;
++	else
++		info->deps =3D dep;
++	info->last_dep =3D dep;
 +}
 +
- static void
- uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
- 		       const u8 *data, int len)
+ /*
+  * Record the use of a CONFIG_* word.
+  */
+-static void use_config(const char *m, int slen)
++static void use_config(const char *m, int slen, struct dep_info *info)
  {
- 	struct uvc_clock_sample sample;
--	unsigned int header_size;
--	bool has_pts = false;
--	bool has_scr = false;
--
--	switch (data[1] & (UVC_STREAM_PTS | UVC_STREAM_SCR)) {
--	case UVC_STREAM_PTS | UVC_STREAM_SCR:
--		header_size = 12;
--		has_pts = true;
--		has_scr = true;
--		break;
--	case UVC_STREAM_PTS:
--		header_size = 6;
--		has_pts = true;
--		break;
--	case UVC_STREAM_SCR:
--		header_size = 8;
--		has_scr = true;
--		break;
--	default:
--		header_size = 2;
--		break;
--	}
-+	u32 pts;
- 
- 	/*
- 	 * Extract the timestamps:
-@@ -601,20 +600,20 @@ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
- 	 *   kernel timestamps and store them with the SCR STC and SOF fields
- 	 *   in the ring buffer
- 	 */
--	if (has_pts && buf != NULL)
--		buf->pts = get_unaligned_le32(&data[2]);
-+	uvc_video_parse_pts_stc_sof(data, &pts, &sample.dev_stc,
-+				    &sample.dev_sof);
+ 	if (in_hashtable(m, slen, config_hashtab))
+ 		return;
+=20
+-	/* Print out a dependency path from a symbol name. */
+-	printf("    $(wildcard include/config/%.*s) \\\n", slen, m);
++	/* Build a dependency path from a symbol name. */
++	static const char config_path[] =3D "include/config/";
++	char *path;
++	int path_len =3D sizeof(config_path) - 1 + slen;
 +
-+	if ((data[1] & UVC_STREAM_PTS) && buf)
-+		buf->pts = pts;
- 
--	if (!has_scr)
-+	if (!(data[1] & UVC_STREAM_SCR))
- 		return;
- 
--	sample.dev_sof = get_unaligned_le16(&data[header_size - 2]) & 2047;
- 	/* If the sample SOF is identical to the previous one, quit early. */
- 	if (stream->clock.last_sof_raw == sample.dev_sof)
- 		return;
- 	stream->clock.last_sof_raw = sample.dev_sof;
- 
--	sample.dev_stc = get_unaligned_le32(&data[header_size - 6]);
--
- 	/*
- 	 * STC (Source Time Clock) is the clock used by the camera. The UVC 1.5
- 	 * standard states that it "must be captured when the first video data
-@@ -948,9 +947,8 @@ void uvc_video_clock_update(struct uvc_streaming *stream,
- static void uvc_video_stats_decode(struct uvc_streaming *stream,
- 		const u8 *data, int len)
- {
--	unsigned int header_size;
--	bool has_pts = false;
--	bool has_scr = false;
-+	bool has_pts = data[1] & UVC_STREAM_PTS;
-+	bool has_scr = data[1] & UVC_STREAM_SCR;
- 	u16 scr_sof;
- 	u32 scr_stc;
- 	u32 pts;
-@@ -959,33 +957,8 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
- 	    stream->stats.frame.nb_packets == 0)
- 		stream->stats.stream.start_ts = ktime_get();
- 
--	switch (data[1] & (UVC_STREAM_PTS | UVC_STREAM_SCR)) {
--	case UVC_STREAM_PTS | UVC_STREAM_SCR:
--		header_size = 12;
--		has_pts = true;
--		has_scr = true;
--		break;
--	case UVC_STREAM_PTS:
--		header_size = 6;
--		has_pts = true;
--		break;
--	case UVC_STREAM_SCR:
--		header_size = 8;
--		has_scr = true;
--		break;
--	default:
--		header_size = 2;
--		break;
--	}
--
- 	/* Extract the timestamps. */
--	if (has_pts)
--		pts = get_unaligned_le32(&data[2]);
--
--	if (has_scr) {
--		scr_stc = get_unaligned_le32(&data[header_size - 6]);
--		scr_sof = get_unaligned_le16(&data[header_size - 2]);
--	}
-+	uvc_video_parse_pts_stc_sof(data, &pts, &scr_stc, &scr_sof);
- 
- 	/* Is PTS constant through the whole frame ? */
- 	if (has_pts && stream->stats.frame.nb_pts) {
-@@ -1476,34 +1449,27 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 				  const u8 *mem, unsigned int length)
- {
- 	struct uvc_meta_buf *meta;
--	size_t len_std = 2;
--	bool has_pts, has_scr;
-+	unsigned int len_std;
- 	unsigned long flags;
- 	unsigned int sof;
-+	u32 scr_stc, pts;
-+	bool has_scr;
- 	ktime_t time;
--	const u8 *scr;
-+	u16 scr_sof;
- 
- 	if (length <= 2 || !meta_buf || meta_buf->state != UVC_BUF_STATE_ACTIVE)
- 		return;
- 
--	has_pts = mem[1] & UVC_STREAM_PTS;
--	has_scr = mem[1] & UVC_STREAM_SCR;
--
--	if (has_pts) {
--		len_std += 4;
--		scr = mem + 6;
--	} else {
--		scr = mem + 2;
--	}
--
--	if (has_scr)
--		len_std += 6;
--
-+	len_std = uvc_video_min_header_len(mem[1]);
- 	if (stream->meta.format == V4L2_META_FMT_UVC)
- 		length = len_std;
- 
--	if (length == len_std && (!has_scr ||
--				  !memcmp(scr, stream->clock.last_scr, 6)))
-+	has_scr = mem[1] & UVC_STREAM_SCR;
-+	uvc_video_parse_pts_stc_sof(mem, &pts, &scr_stc, &scr_sof);
-+
-+	if (length == len_std &&
-+	    (!has_scr || (scr_stc == stream->clock.last_scr_stc &&
-+			  scr_sof == stream->clock.last_scr_sof)))
- 		return;
- 
- 	if (meta_buf->length - meta_buf->bytesused <
-@@ -1520,8 +1486,10 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 	put_unaligned(ktime_to_ns(time), &meta->ns);
- 	put_unaligned(sof, &meta->sof);
- 
--	if (has_scr)
--		memcpy(stream->clock.last_scr, scr, 6);
-+	if (has_scr) {
-+		stream->clock.last_scr_stc = scr_stc;
-+		stream->clock.last_scr_sof = scr_sof;
-+	}
- 
- 	meta->length = mem[0];
- 	meta->flags  = mem[1];
-@@ -1531,10 +1499,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 	uvc_dbg(stream->dev, FRAME,
- 		"%s(): t-sys %lluns, SOF %u, len %u, flags 0x%x, PTS %u, STC %u frame SOF %u\n",
- 		__func__, ktime_to_ns(time), meta->sof, meta->length,
--		meta->flags,
--		has_pts ? get_unaligned_le32(meta->buf) : 0,
--		has_scr ? get_unaligned_le32(scr) : 0,
--		has_scr ? get_unaligned_le16(scr + 4) & 0x7ff : 0);
-+		meta->flags, pts, scr_stc, scr_sof);
++	path =3D xmalloc(path_len);
++	memcpy(path, config_path, sizeof(config_path) - 1);
++	memcpy(path + sizeof(config_path) - 1, m, slen);
++	dep_info_add(info, path, path_len);
++	free(path);
  }
- 
- /* ------------------------------------------------------------------------
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index 278c7b0e535c..b416a4ae0de0 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -525,7 +525,8 @@ struct uvc_streaming {
- 		u16 last_sof_raw;
- 		u16 sof_offset;
- 
--		u8 last_scr[6];
-+		u16 last_scr_sof;
-+		u32 last_scr_stc;
- 
- 		spinlock_t lock;
- 	} clock;
-
--- 
-2.56.0.679.gc527c65306-goog
+=20
+ /* test if s ends in sub */
+@@ -186,7 +223,12 @@ static int str_ends_with(const char *s, int slen, co=
+nst char *sub)
+ 	return !memcmp(s + slen - sublen, sub, sublen);
+ }
+=20
+-static void parse_config_file(const char *p)
++/*
++ * Scan dependency p for CONFIG_ words, map each to an
++ * include/config/ path and append to the dep_info list if not
++ * already included.
++ */
++static void parse_config_file(const char *p, struct dep_info *info)
+ {
+ 	const char *q, *r;
+ 	const char *start =3D p;
+@@ -205,7 +247,7 @@ static void parse_config_file(const char *p)
+ 		else
+ 			r =3D q;
+ 		if (r > p)
+-			use_config(p, r - p);
++			use_config(p, r - p, info);
+ 		p =3D q;
+ 	}
+ }
+@@ -253,13 +295,9 @@ static int is_no_parse_file(const char *s, int len)
+ 	       str_ends_with(s, len, ".so");
+ }
+=20
+-/*
+- * Important: The below generated source_foo.o and deps_foo.o variable
+- * assignments are parsed not only by make, but also by the rather simpl=
+e
+- * parser in scripts/mod/sumversion.c.
+- */
+-static void parse_dep_file(char *p, const char *target)
++static struct dep_info parse_dep_file(char *p)
+ {
++	struct dep_info info =3D {};
+ 	bool saw_any_target =3D false;
+ 	bool is_target =3D true;
+ 	bool is_source =3D false;
+@@ -375,13 +413,12 @@ static void parse_dep_file(char *p, const char *tar=
+get)
+ 			 */
+ 			if (!saw_any_target) {
+ 				saw_any_target =3D true;
+-				printf("source_%s :=3D %s\n\n", target, p);
+-				printf("deps_%s :=3D \\\n", target);
++				info.source =3D xstrdup(p);
+ 				need_parse =3D true;
+ 			}
+ 		} else if (!is_ignored_file(p, q - p) &&
+ 			   !in_hashtable(p, q - p, file_hashtab)) {
+-			printf("  %s \\\n", p);
++			dep_info_add(&info, p, q - p);
+ 			need_parse =3D true;
+ 		}
+=20
+@@ -389,7 +426,7 @@ static void parse_dep_file(char *p, const char *targe=
+t)
+ 			void *buf;
+=20
+ 			buf =3D read_file(p);
+-			parse_config_file(buf);
++			parse_config_file(buf, &info);
+ 			free(buf);
+ 		}
+=20
+@@ -403,6 +440,40 @@ static void parse_dep_file(char *p, const char *targ=
+et)
+ 		exit(1);
+ 	}
+=20
++	return info;
++}
++
++static void free_dep_info(struct dep_info *info)
++{
++	struct dep_item *dep, *next;
++
++	for (dep =3D info->deps; dep; dep =3D next) {
++		next =3D dep->next;
++		free(dep);
++	}
++	free(info->source);
++}
++
++/*
++ * Important: The below generated source_foo.o and deps_foo.o variable
++ * assignments are parsed not only by make, but also by the rather simpl=
+e
++ * parser in scripts/mod/sumversion.c.
++ */
++static void print_dep_file(const char *target, const struct dep_info *in=
+fo)
++{
++	static const char config_path[] =3D "include/config/";
++	const struct dep_item *dep;
++
++	printf("source_%s :=3D %s\n\n", target, info->source);
++	printf("deps_%s :=3D \\\n", target);
++
++	for (dep =3D info->deps; dep; dep =3D dep->next) {
++		if (!strncmp(dep->name, config_path, sizeof(config_path) - 1))
++			printf("    $(wildcard %s) \\\n", dep->name);
++		else
++			printf("  %s \\\n", dep->name);
++	}
++
+ 	printf("\n%s: $(deps_%s)\n\n", target, target);
+ 	printf("$(deps_%s):\n", target);
+ }
+@@ -410,6 +481,7 @@ static void parse_dep_file(char *p, const char *targe=
+t)
+ int main(int argc, char *argv[])
+ {
+ 	const char *depfile, *target, *cmdline;
++	struct dep_info info;
+ 	void *buf;
+=20
+ 	if (argc !=3D 4)
+@@ -419,10 +491,13 @@ int main(int argc, char *argv[])
+ 	target =3D argv[2];
+ 	cmdline =3D argv[3];
+=20
++	buf =3D read_file(depfile);
++	info =3D parse_dep_file(buf);
++
+ 	printf("savedcmd_%s :=3D %s\n\n", target, cmdline);
++	print_dep_file(target, &info);
+=20
+-	buf =3D read_file(depfile);
+-	parse_dep_file(buf, target);
++	free_dep_info(&info);
+ 	free(buf);
+=20
+ 	fflush(stdout);
+--=20
+2.43.0
 
