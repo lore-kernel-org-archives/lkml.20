@@ -1,147 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.66.44
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794822436;
-	b=bp/8HtN/p32bylEENxam517iLa/msr3pQHgV4JJLkVmRslqR5HOPioCzQvp62rlNT3A/
-	 0DxRxLkgz66el7MGGklvm3fymRtnN/C+NFETV544Ha22I4AZ6SF1reYn2yCx+WTjw2h85
-	 4gUYI0GgaQ1YeFLjA+V31t95iSJ5lbHLXC2ol/ZIF8O9b3mUc7/Fqm8t1ZKnre3x0/uY1
-	 m3X0CHEQmnaPOKqNqIcXqq/zfJG1+KgfDsMgTuAWJGcyDlyznphWQKTV+hyxJHVuwIQcL
-	 ji7wQdl9ygo1d+C0Ez2J/kuFZzDDQNkgz0zWl4xMiZJyL/pooLgY/iejc0UKMX+eScw==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822436;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:
-	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=43tnXVGIZmmwym1bR0/GXb76Re9TuDuUi+Mxzw8F6Y4=;
-	b=xJgRdowXQMFtFGHU0db5W7zkzJsOXbytYBEULW0w13/AqBA1ZqR4GXOdlxrKSh0vY5SL
-	 HruxZI4Fnxm/EYgzE/gGwlm5AgcKO5fAJAn6Wpg6IJyLRABZZ3gccsVO9C/kXNIKj8JD9
-	 3RGT8J1TECqwGgkllyC0hZUbwmLb7qNIx543zzH0q1kchRNTu4m5Oyn+N4SOs8RdiBhdk
-	 Q35q2ypoPXxax91ptGu2epnoiQ/6LDn4y4ds1YYN8D+XKiuNWDlNfVkupEiMU9f9fA/2O
-	 ILZ8uHbFRywMxBEFdK2qLehb/Y1Tj8sMT5D81trUKtYdToOWG/ojGWuiNSoRDi/fRXQ==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=FA6Ws8pe;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=FA6Ws8pe;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.66.44
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012044.outbound.protection.outlook.com [52.101.66.44])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794822442;
+	b=WnPTWIjpHChyBUPbbOPD4cwG7fvEwyOyviDTDLHHif7H2Hyi9V34q4aXKZmNYXixuNFQ
+	 a122yN4DGwX1RMCi3nUGMjnS7T8PpS7MjXJ48G857238ZZRArMxKcc4zYJ0ur6L/rcdDQ
+	 4eBHi9Mys7Z7FIxV0TrYxKkyEV4gcwpXDwxpngGRihVAaj7NidDW08uyfLA93QETv9fRm
+	 dQt4UjwXI/O7U4XY009aiy7FxInYMRP3r9vZATrPvtheXBe1IGTDCbUegdmfrNqfdBE80
+	 GT6GhF6JSqnM2g4DbgzEOMSayfi6bBLp6GMFaV1BIfBK7HvphoixbdJ2ZkCDN9p7big==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822442;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=E06BVf3jX1KLr6IyFH4QZl+untonFT3iXLQzubinz1g=;
+	b=LXQRyENAVg4cRfNIHo8xRxjWN22rRi5K1yA3fyxrQQcLbd7Ifq/mGFA6p2pDW7QEGGJ5
+	 tFWtahWBYdS78jPzUUqX0c32hx/qUThvNrkzRfV1omUrg2pKWd8HPV8maOuZDzbLOIQh0
+	 As3+otKXx/nG2wuKPxZet5YNY8wQku21px8+SAUb1FyRTOLzu4bs86FoicgERGcLn979k
+	 +U+wu89hcnVXSty8XM/2slMSaz9emTjpt7pAEP1Ez1xGfBYg8GBAta+lYkN8RQwxT4gau
+	 YYYeIY0OlmTtUewlDfFM+Tlon07iRKfN0E0Vc2rIkerGtrvvBp8OUdT1Y3rE9NpX6kQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fXsHLEui;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEE6606A336
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:47:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFEE6606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D677606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:47:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D677606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=FA6Ws8pe;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=FA6Ws8pe
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=DdkcO6KrbZ0HqJnKZy4VuZpkT5ytBw95CBk7uo4Yk/oUQGSvXjqIwxt9/fmNhJ/SUb9DaLiF7LpulH0cnmjojsVd+/VarCzcy/glvwPiZyax0aqwwDeeQqR/simzjPVmNG8aMiloQa7UNvCn0cDie9bK4hx92YoF0jfEkQJNsmevqfh/wnnsEoz06fd7Qsb82RIJdBvb0Y1SinPmNdEq4YS8fOzdxlr9LBkXY3fEZ5iXjGyocZpnHoBdaOn0+VU6E5A33me95Ztn2DHykNoxA/k9Qcut2SBQmpygZOsgYbVv9FfHF7asVHk2n6N3RHlsiIYL9XAbBV24p8luC4ybYw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=43tnXVGIZmmwym1bR0/GXb76Re9TuDuUi+Mxzw8F6Y4=;
- b=DvbtkD2XDnq+qejolnb+XpfYojz4yCNawOc/oYEyswrNaeSotOvEsowfjC+fplh0pd5ddbIsMIJDbmHZSqqKO+17WqvzgFjRoma/wRae6G2twL705USr1rdSUxMYn6jeLghhYO8z/fn7s132LOTj/PCXnG/2jG1UEUr/XJv8U/yA9fzrQiJ1jDH1HQGPlbX/dX5cwQjB0s44/LVQYoJGA7bl2/3n77icfts881w4BpduEOV09xk3eLU+4sMuyKsy2dwnQJDS6vV0RB0Wu35oBYSrz5tJD9pKq4Vo+/tcQ0O9x7IWeo//rFV4+aVb0sC1uf9DFaf+Ts79nRAH8AQtrw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=43tnXVGIZmmwym1bR0/GXb76Re9TuDuUi+Mxzw8F6Y4=;
- b=FA6Ws8peMlFA/NmiY14Q6M/5eUYoevD/+u+IJp1grpkOH+4Neu+UXw7AHIjLrIoDM0/na9XAj6Z4rLKGmVIGvGsujQ+oZIUVCwt7RK6LTI1c+XFNdHCDygkt0Z4/X0YtDRaN40ssdaBjrlleGttgM8AjJjLha/ZtZBZjP7Bx5YY=
-Received: from PAZP264CA0143.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1f8::14)
- by DU0PR08MB8115.eurprd08.prod.outlook.com (2603:10a6:10:3eb::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
- 2026 09:47:08 +0000
-Received: from ZR1PEPF0000E45F.eurprd04.prod.outlook.com
- (2603:10a6:102:1f8:cafe::57) by PAZP264CA0143.outlook.office365.com
- (2603:10a6:102:1f8::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
- 16 Nov 2026 09:47:08 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- ZR1PEPF0000E45F.mail.protection.outlook.com (10.167.241.55) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Mon, 16 Nov 2026 09:47:07 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sf6NXXNWX03mUgmxbnvS/J1Yj4nqk6YqWRjGueugmBYZOtl+GFMcFVdXW66sxRLoo37El95onI9H8ZL6WT60BNxpMlYK11R1sQlYUnaEz6vYtD+ZLal9UAb0sjNTMzrMJs/VsPJ6SWm6Je37nWYScJc8WyF0ip1vf8YIwiltnTFfBZLSi7Y1ctCxwyXhVV0UGZn14dLOezdCKUbsQ+FKksWsyzHEuUmYafrQ8ZS6+crP//kUSWFHr2cuo6ScauXL9H2ZLlo0pfi/WcdED0f4Y2Jo/0/lBkFpnEt48/kjn9j/SyCDNjC0ckLuOnmn6v7WB1eEIWeq4BHlkFz6CAKMJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=43tnXVGIZmmwym1bR0/GXb76Re9TuDuUi+Mxzw8F6Y4=;
- b=lssqPaAnqjyVlGHNPFM+tBuRb0TpLqQ9jBFLiQVjsWFrX6h8PQVuEZBl5UCFhoo+OsQdHarsoTvoJHQyje5VArZ+Y/uvD93lyxE54X6yE5AVxqnshRteef97zezcOYsiz6Nb/BjfmWLDnmwiwb5Pd3mpDry8d9HwxY4NWSDOTbthpmm8HS8Ao3fMmN/hD/EDN7kNzUwxs/wBJQ1x8m2BIkbyiwdoszu9LdvioWLe7LUMGMM6chFXlPyHP3LfL5WtnKgRTP9C+KjtspfvgxzlAaQDf5RoEkGv9eMMXflBLSk7gINv92Q8MyxPG1fOxEqFt6G5ftx2ZQJvWyW8zo9wgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=43tnXVGIZmmwym1bR0/GXb76Re9TuDuUi+Mxzw8F6Y4=;
- b=FA6Ws8peMlFA/NmiY14Q6M/5eUYoevD/+u+IJp1grpkOH+4Neu+UXw7AHIjLrIoDM0/na9XAj6Z4rLKGmVIGvGsujQ+oZIUVCwt7RK6LTI1c+XFNdHCDygkt0Z4/X0YtDRaN40ssdaBjrlleGttgM8AjJjLha/ZtZBZjP7Bx5YY=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
- by PR3PR08MB5674.eurprd08.prod.outlook.com (2603:10a6:102:81::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 09:46:33 +0000
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
- 09:46:33 +0000
-Message-ID: <9d39ed4c-f19d-4504-8c59-0e2336185a7c@arm.com>
-Date: Mon, 16 Nov 2026 09:46:31 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 03/12] iommu/arm-smmu-v3: Make the ASID space per SMMU
- instance
-To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, jgg@nvidia.com
-Cc: robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
- kevin.tian@intel.com, smostafa@google.com,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
- Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
- xueshuai@linux.alibaba.com
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <9295479f55d247961b25d913b6f4de1d7a72e0ad.1793593923.git.nicolinc@nvidia.com>
-Content-Language: en-US
-From: John Garry <john.garry@arm.com>
-In-Reply-To: <9295479f55d247961b25d913b6f4de1d7a72e0ad.1793593923.git.nicolinc@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0381.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::8) To PAWPR08MB8959.eurprd08.prod.outlook.com
- (2603:10a6:102:33f::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fXsHLEui
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-55c5b6584ceso14648131cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:47:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794822441; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sm4lNLPUMh6SnVp6iwQILtfPJ2jZPNaXTGlvWMz3g/vMKhQlcwyrX2aCpCdAb1RMII
+         z9qCmqLv9MbW1s96RwxtRhMmroRYKRuz9MGabn8tUt9iXwV+tYpsdAIBTQ1YPh40ktye
+         7tkLWRlULoyPSkyhj8iILHxWeysDuybXkdThF5+CY9FHDmwkcOTz/RrXViRvZd5YBgSP
+         ANr+q/ThwkzYnekQt38i/qJyUkn8/QNBJexdAJPb+4lu5RZRftxx4FGCWDoh31aS8XtC
+         XVwZElVBZSf4MvDGSb5aqOl+KKf45cNqDaro2NX8GbT6JEPLh38JJZBEbGBTJ691O8+M
+         oN+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=E06BVf3jX1KLr6IyFH4QZl+untonFT3iXLQzubinz1g=;
+        fh=SsmkpO3SbrLXaccKjtjFWy9ATKJHBo0O2LGZ4ZaK8A0=;
+        b=FSxRmyv7OP85UXV620cnP+iqmKjdp0VHN0Ivw9YjlMwusvrxURU6tcIv0lyNibjc/7
+         DdUfIRNw6SQ7AQGbxQtcjozMDMf9DQ8En7BHVe7bupGd5TeBfXGCHOAxrfxk+rsRpTWF
+         OPLOktd9n86XAODVW8MMQQU9Ox7VkcNXI+8ZUxDwa5aqB+eAxwmnbM9x7rDfF9yaelO+
+         r5Zak6U63SrV6awNMzd98eBti9CMlSc4aWUuf7A5pZcr0vEP1CUIHeaOkkEzfmaRxulf
+         Oy36Cw+fzvgxsZc+k5f28x3rKcRUgPvEnp+cdJ/yc/n6K75AoGqWb2TZfeqkBeTRso7w
+         tiHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794822441; x=1795427241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E06BVf3jX1KLr6IyFH4QZl+untonFT3iXLQzubinz1g=;
+        b=fXsHLEuiuGImSC4AaQHo6v6vna0Y0nG9DxYuAjTjnyEGPgWsdd9h3YwVzRpcnsaL5s
+         mlxmuL+IHvd73RDgKQqA0VWQO9ee8ZgoDgchHpw7jv+TaLfblyxa0rvQxU7b0vCA9mf+
+         1mu72+JaG7GA07LiOMGa9B6mx3YQsE3rDmDb6n0Ga2vKmLOcfoDWtxoFRNCepIxXXilw
+         GIQ7oBbGdXeOBdz386K8kdKdWunkCyOeDO5ysL893V/BLDMMqQGWuIkN2Ud6UDgP/4Vp
+         qmDvvhRGeSytKRESUJI5xn3htgDkfdG1CG/qn6Gd7th9fs2bGSnq5PgotNNwU7zpPHiR
+         dvWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794822441; x=1795427241;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E06BVf3jX1KLr6IyFH4QZl+untonFT3iXLQzubinz1g=;
+        b=jvxFPOylM0jH0SXg59ynjuVXeAZqRtwAWLpsLiLUkNFuWAKidcHhIcm51KOQ1EnJ2Q
+         SYY277jAic4f3kG7QpGhwmr47oF6PjtOt3aIax3+gDe5GzJQoUbT8bErSvKvpVzRtuJK
+         fNuYPgn08KanVsnkp4FO82sRYZt3kyYb0kxeAqjsx7mSVHrXq92Land7fP6VSGwIS3dC
+         7KiRLGqIJIGbVXiGGmDFronW8P+I179wRQKf3ovhEE7Y6aY3kZFeB0+jgHwK5QQp35l9
+         NYdXA/cFgpUchkZtzlzNIhV1ugpaV13YHWFxZuSw/2CXbtcrNc1MlVtDEcjhm/4PVD4Q
+         3Ztg==
+X-Forwarded-Encrypted: i=1; AL+hErHqJ+wmxndGYo7Sf4NF0AFYS4J2IwKTbEN+Tm3/dzWtdztcH/qgOpjeWkgBDth31lICYDlv4N1pqhNMzzs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/a+11CUI5ph4ylRqYdUbBmeMjZ/aXraKjWnmApms7FczJcM852
+	PXcgSkvBoZWyfXj06ldobtMJoUeQ+MX1FZSyY7oeg0QE2AhZwFAumDFAtc5UwpjjxhF8QzECJEZ
+	THmfGiz6KHxkhnrxv1MCwGTZGNj+ui8Q=
+X-Gm-Gg: AYBFou1iB4m0+fZcpfehuNlCciuAYKaJ2leOGSApsrd0CFa22EAumu8p88NTCKI1IEw
+	rqDAPhnQVxm92q+Nmhf6HtW0avgB/wVXHQjlEYHgJ0Jk1dwwFUejYY7fCHbeedafM+5dwr49IV4
+	DSsQd3m1yPdhD2kVMTAIEyD9AachwKF8iQdKvepK2io+Lhoy3d2oqFuKCgJb1w4+SH4y1LDcEsg
+	bO5alV3Rhyrd9gqm2q5wNWqs2O8CFixQ+E+BVcqk3oZj4QAM1vnCHrqFb5KcLxj3wyWblT1GI55
+	gNOLIuGhYAx0bZH3yRDGOvHEzWVSUVn2AAcPVnCmRIkKxU6Kmjx1DAAHPSKLlMErDy8Tea3l8fi
+	ioW7Te3wA9E3xvzoWwF8qVggH+B+SBHDVILDN
+X-Received: by 2002:ac8:5fc5:0:b0:536:6946:748c with SMTP id
+ d75a77b69052e-55ac8d8fd12mr161719691cf.53.1794822440742; Mon, 16 Nov 2026
+ 01:47:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,209 +104,402 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAWPR08MB8959:EE_|PR3PR08MB5674:EE_|ZR1PEPF0000E45F:EE_|DU0PR08MB8115:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0a6482e-3491-4151-91fb-08df43c6944c
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|261009221227099003|4143699003|56012099006|5023799004|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021121427099003|261022075727099003|261021135927099003|10067099003;
-X-Microsoft-Antispam-Message-Info-Original:
- QScRqYlO77oQ2/ryGkooDg7wpowTH7Rn9EfhFyjMDEh7p1MOulHZ1l3W/wbpjarQZO4gPWKS6Mp4MIF7YX3IvlyC0UTChKpLATKABozQuzhCNkdBtoRIGqZlxHKWEYteM4U8whn/Rq4SYO4vLvrfkMAX5tMC3dP6uQ1S+WIof79K7aBBESGS/5Di0vumcU/UdsmpxGP2kDOHVJHGWSLuoY/rpmWMnnxpyr8CDrHUrSzZUMe5girZLsXir5a2t8TJft4I/jrUoYqQI6ZWL9d8Nf2GGZqO2OjQu5GSXzYhJV8C0Fcd0ZpgTp+EO6uabhopT6J4m0uwEMuTi1+uTDM4Rbt0+qzs5si3feaB4ibwxvG62igjWZo++vHYQeXLpgvb9vKNXGtIercWYm3bZ4mNptYBy8KDfNjW3IXCjCjgdj/cNwqXlIJVJtJtJDnj4oexsl1EgoIOBb6xauVKIr4ySfkjdAxNptsvxb00gN3rh1ycMmRhCiUULbYcTlvEGW1Snyb7aJaf/sen57iXnvSW5d1wBgyDAG9KwbVdLWRjZxhRH5Jr+t0124OlAk/oCfJQEMZbF+bsNIJukveXW6dlLllj5OsLduXIlxczDg0Bv765eYjIT0P3x+fAU6kWCLOC
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(261009221227099003)(4143699003)(56012099006)(5023799004)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021121427099003)(261022075727099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- JfObE3/RwyrFsCc2mnDjpd83kl3JPcs4Bu7zxWoOA07wQo2qH/7QHfSApJ4NaYKo+h3D8s6TsiqNaXbRqxr6TLvEeCYKycDGTWrlDldW0YBr+9r06DYA4kotFBa5uxxa3ZspAWtXQymEjs8n3WBpul9P42+/89mGk88Y2e+bdXN4JkjJ8GItiGg4d2lhtf77oIvQCwNi3DkBPrlThLbzMqkoP2CenPlj8JuTgDPMZFwaTQ2oX5UgYYUUYClm6USoIoQ4WijVlDAr6ucxdlJi5EerjPLKfNWDAPKzNe1WOq5f1pyWc7Ee7ZKoZa4K0PRjXPD9TrvwO1SdkPmUY3ThiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5674
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- ZR1PEPF0000E45F.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	616a4f39-d80e-4d74-1f4e-08df43c67f4f
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|23010399003|35042699022|376014|14060799003|1800799024|22082099003|18002099003|6133799003|261009223027099003|261009221227099003|5023799004|11063799006|56012099006|261021135927099003|4143699003|261102123227099003|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261022075727099003|261021123027099003|261026121527099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	IOONdqGgsRLYV2CKfQnsIAHubAS2e/ZTx0wponPsgjoxFter09U8VReqaOKMuFvkLnEBi3S5+Y8JVuygsmXS8nOuHY0zOy61YYuavpBv5y71WMS5DSr0e0vIE0aZfzeY5WofccW8pdOmGYZ4edsD1qdRddS9lP5Io0d28M9I8S8XbxVXvZ3Jvf3R2qaNC/oK1TGSLKb/HdF81pdxwjbcc8aFQMXKyz8FEcdwCRYyJQ0F8wRGe4RVUhVnItKAD42otogL/suUteG1M/Fs4c/SYIVoQ6iM+fgkUC6ngpBkyiRm1yF5DQQS5kt0CIxH8LZIjac0DeZwd0lV04D5A699xDT7DI0ysRweI1QFgzis0eS5zv58gfud7vJL6tn8ii/8FTwzY9v3Cy1LqBsazR2kgJUdOW5e6T3FWnxvmW4152cqej/JTfmcUDEFaqvqPhgBgnIMhu2SSOApcwK0CN4mY3cP8X2dF2kKSf97nYTdMiJ2WVGcvj9UmOB0dVIEYhguWNvTeRrxPuRxph6RF2qjPKhRJU7SUxYQnmvFP/wTGPbzem9SlgeUdiUCeBxySsNkM7FFajaiMUYmSUNYWmAVWqZGtcSjQcpCZRuRSDA5vbmwpY0OJT7KUCVlsYRMUvQ1MddjXHyZtKbakhfsREu0Uw==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(23010399003)(35042699022)(376014)(14060799003)(1800799024)(22082099003)(18002099003)(6133799003)(261009223027099003)(261009221227099003)(5023799004)(11063799006)(56012099006)(261021135927099003)(4143699003)(261102123227099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261022075727099003)(261021123027099003)(261026121527099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	L0CqTbnJCRT3maPGYaNebIh3VgBXnid5NDvSj4qw13jMPF2DttrQcPbtxKcTP6j1GQj54RjbildKzy5rD6VwxGddNn5gFVxIiYaAowZpGnWg+5bjkZJqK8K+EfTfod1m6W0W0+8zObPJr3g8vhxPyamb+YBr0WtYDYK6TpcH8nCzxS4LdEyZ23dClb6dl4DuM+H1o39W4dGWkqFkcu45tHZt0f/Ru2ENm/a4P9P3a3PUQj2MFt4gaj14GKda5y8EYBBiigtpNvJqxYopAdXnAdcDkc6+42iN4TmefMnjNDZJQwchd0rhT538KPLg0lS3hgicrXeVVf7FeiamwImu7UN53HNtc+m6xD1IOKNj/4hkaAZ2DEBGCk7HzOByfcqtRig1SaTFibFLj2hhvHhWoOY7WkRfcHJmWImX/9ESiL1H3y/1hmXBjP5v9OYoUU0Z
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:47:07.6942
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0a6482e-3491-4151-91fb-08df43c6944c
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	ZR1PEPF0000E45F.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8115
+References: <20261112053321.1103678-1-zxyan0222@gmail.com> <179480735876.3136.11399412047883475554@kernel.org>
+In-Reply-To: <179480735876.3136.11399412047883475554@kernel.org>
+From: zhu xin <zxyan0222@gmail.com>
+Date: Mon, 16 Nov 2026 17:47:08 +0800
+X-Gm-Features: Aa3M54rwgNCScJJ2XWAePpyHY0u6TTW71j8ZErXA-iIMbxbEkP5Otp5NDL9fkfA
+Message-ID: <CAP7veTKL6L2bho3pmS277kkB4BaboSVLRp8GL9fHdzcKucfoCQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v2] net: stmmac: program the FSM timeout timer
+To: netdev-bot+sashiko@kernel.org
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	netdev@vger.kernel.org, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	rmk+kernel@armlinux.org.uk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/2/26 05:19, Nicolin Chen wrote:
-> An ASID tags the TLB entries within one SMMU, so two instances can use the
-> same ASID without ever aliasing each other. Yet the driver allocates them
-> out of a single global xarray, which makes the instances share a space that
-> the hardware keeps apart, and lets one instance exhaust the IDs of another.
-> 
-> That global space is a leftover from the BTM support that shared ASIDs with
-> the CPU. Now ARM_SMMU_FEAT_BTM is never set, nothing looks a domain up by
-> its ASID, and a domain is pinned to one SMMU at the attach.
-> 
-> Give each SMMU its own asid_map, mirroring the per-SMMU vmid_map, and clean
-> it up with devres, 
+Hi,
 
-maybe you could use a single devres for both vmid and asid cleanup, but 
-I am not sure if it would be neater.
+Thanks for the review. Responses below.
 
->so that both of the ID maps get the same lifetime as the
-> SMMU device structure that holds them. An upcoming change will need this,
-> to reserve the crashed kernel's in-use ASIDs in the new map during a kdump
-> kernel's stream table adoption.
-> 
-> This also eases the BTM work that Jason's working on:
-> https://lore.kernel.org/linux-iommu/20261004162219.GA4064@nvidia.com/
-> 
-> Note that arm_smmu_asid_lock stays global, as it serializes the STE and CD
-> updates against any ASID change rather than guarding the map itself, which
-> does its own locking. Giving each SMMU its own lock looks possible now, but
-> that would touch every attach path and belongs to a separate change.
+On Mon, Nov 16, 2026 at 1:36=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 7 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 3 =C2=B7 Low: 3
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] The XGMAC half of the fix never runs on any in-tree platform.
 
-That seems a sensible change, as using a global lock for a non-global 
-resource locking is not a normal practice.
+This is due to dwxgmac3_safety_feat_config() not having the
+all_safety_feats fallback that dwmac5_safety_feat_config() has -- a
+pre-existing difference, not introduced by this patch. Fixing it
+(adding the fallback and gating XGMAC_PRTYEN/XGMAC_TMOUTEN on the
+config, matching dwmac5) changes the existing unconditional behavior.
+Perhaps it would be more appropriate to address this part as a separate
+optimization later on.
 
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Reviewed-by: Mostafa Saleh <smostafa@google.com>
-> Tested-by: Breno Leitao <leitao@kernel.org>
-> Tested-by: Cristian Prundeanu <cpru@amazon.com>
-> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> - [Medium] csr_clk_mhz, which feeds the TMR field ('CSR clocks per 1us
+>   tic'), comes only from clk_get_rate(priv->plat->stmmac_clk) in=E2=80=A6
 
-Regardless of comments, FWIW:
+Agreed, I'll add a netdev_warn() when the CSR clock is unavailable so
+the skipped timer programming is not silent. I deliberately did not
+fall back to plat->clk_csr: clk_csr selects the MDC divider (a
+frequency band, e.g. 250-300M), it does not hold the exact CSR clock
+rate, so it cannot derive TMR accurately.
 
-Reviewed-by: John Garry <john.garry@arm.com>
+> - [Medium] MAC_FSM_ACT_Timer and XGMAC_MAC_FSM_ACT_TIMER are written with
+>   a plain writel() that contains only FIELD_PREP(NTMRMD) |=E2=80=A6
 
-> ---
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h    |  2 +-
->   .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c    |  6 +++---
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c    | 18 +++++++++++++++---
->   3 files changed, 19 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> index bb048e08d613d..8f2c0b1cc4a8d 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> @@ -1003,6 +1003,7 @@ struct arm_smmu_device {
->   #define ARM_SMMU_MAX_VMIDS		(1 << 16)
->   	unsigned int			vmid_bits;
->   	struct ida			vmid_map;
-> +	struct xarray			asid_map;
->   
->   	unsigned int			ssid_bits;
->   	unsigned int			sid_bits;
-> @@ -1180,7 +1181,6 @@ to_smmu_nested_domain(struct iommu_domain *dom)
->   	return container_of(dom, struct arm_smmu_nested_domain, domain);
->   }
->   
-> -extern struct xarray arm_smmu_asid_xa;
->   extern struct mutex arm_smmu_asid_lock;
->   
->   struct arm_smmu_domain *arm_smmu_domain_alloc(void);
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> index faeec656da9e7..489531e0027bd 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> @@ -311,7 +311,7 @@ static void arm_smmu_sva_domain_free(struct iommu_domain *domain)
->   	 * reused, and if there is a race then it just suffers harmless
->   	 * unnecessary invalidation.
->   	 */
-> -	xa_erase(&arm_smmu_asid_xa, smmu_domain->cd.asid);
-> +	xa_erase(&smmu_domain->smmu->asid_map, smmu_domain->cd.asid);
->   
->   	/*
->   	 * Actual free is defered to the SRCU callback
-> @@ -352,7 +352,7 @@ struct iommu_domain *arm_smmu_sva_domain_alloc(struct device *dev,
->   	smmu_domain->stage = ARM_SMMU_DOMAIN_SVA;
->   	smmu_domain->smmu = smmu;
->   
-> -	ret = xa_alloc(&arm_smmu_asid_xa, &asid, smmu_domain,
-> +	ret = xa_alloc(&smmu->asid_map, &asid, smmu_domain,
->   		       XA_LIMIT(1, (1 << smmu->asid_bits) - 1), GFP_KERNEL);
->   	if (ret)
->   		goto err_free;
-> @@ -366,7 +366,7 @@ struct iommu_domain *arm_smmu_sva_domain_alloc(struct device *dev,
->   	return &smmu_domain->domain;
->   
->   err_asid:
-> -	xa_erase(&arm_smmu_asid_xa, smmu_domain->cd.asid);
-> +	xa_erase(&smmu_domain->smmu->asid_map, smmu_domain->cd.asid);
->   err_free:
->   	arm_smmu_domain_free(smmu_domain);
->   	return ERR_PTR(ret);
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 5cabbe5652dc6..cb45bd154c9e5 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -90,7 +90,6 @@ struct arm_smmu_option_prop {
->   	const char *prop;
->   };
->   
-> -DEFINE_XARRAY_ALLOC1(arm_smmu_asid_xa);
->   DEFINE_MUTEX(arm_smmu_asid_lock);
->   
+Agreed, I'll make the MAC_FSM_ACT_Timer write a read-modify-write.
 
-Ignoring what I wrote above, it may be worth adding a comment that this 
-global lock now covers per-SMMU instance asid maps.
+> - [Medium] The new STMMAC_NTMRMD_* encodings (0x1=3D1us, 0x2=3D4ms, 0x3=
+=3D16ms,
+>   0x4=3D64ms, 0x5=3D256ms, 0x6=3D1s, 0x7=3D4s, 0x8=3D16s, 0x9=3D32s, 0xa=
+=3D64s) and=E2=80=A6
 
->   static struct arm_smmu_option_prop arm_smmu_options[] = {
-> @@ -3015,7 +3014,7 @@ static void arm_smmu_domain_free_paging(struct iommu_domain *domain)
->   	if (smmu_domain->stage == ARM_SMMU_DOMAIN_S1) {
->   		/* Prevent SVA from touching the CD while we're freeing it */
->   		mutex_lock(&arm_smmu_asid_lock);
-> -		xa_erase(&arm_smmu_asid_xa, smmu_domain->cd.asid);
-> +		xa_erase(&smmu->asid_map, smmu_domain->cd.asid);
->   		mutex_unlock(&arm_smmu_asid_lock);
->   	} else {
->   		struct arm_smmu_s2_cfg *cfg = &smmu_domain->s2_cfg;
-> @@ -3035,7 +3034,7 @@ static int arm_smmu_domain_finalise_s1(struct arm_smmu_device *smmu,
->   
->   	/* Prevent SVA from modifying the ASID until it is written to the CD */
->   	mutex_lock(&arm_smmu_asid_lock);
-> -	ret = xa_alloc(&arm_smmu_asid_xa, &asid, smmu_domain,
-> +	ret = xa_alloc(&smmu->asid_map, &asid, smmu_domain,
->   		       XA_LIMIT(1, (1 << smmu->asid_bits) - 1), GFP_KERNEL);
->   	cd->asid	= (u16)asid;
->   	mutex_unlock(&arm_smmu_asid_lock);
-> @@ -4741,6 +4740,13 @@ static void arm_smmu_destroy_vmid_map(void *data)
->   	ida_destroy(ida);
->   }
->   
-> +static void arm_smmu_destroy_asid_map(void *data)
-> +{
-> +	struct xarray *xa = data;
-> +
-> +	xa_destroy(xa);
-> +}
-> +
->   static int arm_smmu_init_queues(struct arm_smmu_device *smmu)
->   {
->   	int ret;
-> @@ -4848,6 +4854,12 @@ static int arm_smmu_init_strtab(struct arm_smmu_device *smmu)
->   	if (ret)
->   		return ret;
->   
-> +	xa_init_flags(&smmu->asid_map, XA_FLAGS_ALLOC1);
-> +	ret = devm_add_action_or_reset(smmu->dev, arm_smmu_destroy_asid_map,
-> +				       &smmu->asid_map);
-> +	if (ret)
-> +		return ret;
-> +
->   	if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)
->   		ret = arm_smmu_init_strtab_2lvl(smmu);
->   	else
+The NTMRMD encodings come from the DesignWare Ethernet QoS Databook
+(v5.40a), MAC_FSM_ACT_Timer.NTMRMD field, and the XGMAC Databook
+(v3.10a), same register. TMR is documented as "number of CSR clocks
+required to generate 1us tic", i.e. the CSR clock rate in MHz, not MHz - 1.
 
+Values:
+0x0 (DISABLE): Timer disabled
+0x1 (M_1MICRO_SEC): 1us
+0x2 (M_4MILLI_SEC): 1.024ms (~4ms)
+0x3 (M_16MILLI_SEC): 16.384ms (~16ms)
+0x4 (M_64MILLI_SEC): 65.536ms (~64ms)
+0x5 (M_256MILLI_SEC): 262.144ms (~256ms)
+0x6 (M_1SEC): 1.048sec (~1sec)
+0x7 (M_4SEC): 4.194sec (~4sec)
+0x8 (M_16SEC): 16.777sec (~16sec)
+0x9 (M_32SEC): 33.554sec (~32sec)
+0xa (M_64SEC): 67.108sec (~64sec)
+0xb (RSVD): Reserved
+
+> - [Low] The patch turns on a live FSM timeout with a 1s default on every
+>   dwmac4/5 platform with ASP >=3D 2 that passes no safety config.
+> - [Low] The patch adds a platform-facing knob, struct
+>   stmmac_safety_feature_cfg.ntmrmd, plus ten STMMAC_NTMRMD_* constants=E2=
+=80=A6
+> - [Low] The commit message describes a functional defect: TMOUTEN is
+>   enabled but the timer is never programmed, so 'the advertised timeout=
+=E2=80=A6
+>
+> --
+>
+> net: stmmac: program the FSM timeout timer
+>
+> This patch programs MAC_FSM_ACT_Timer right after TMOUTEN is enabled in
+> dwmac5_safety_feat_config() and dwxgmac3_safety_feat_config(). The TMR
+> field comes from the stmmac_clk rate, and NTMRMD defaults to a 1s
+> timeout. It also adds a csr_clk_mhz argument to the safety_feat_config
+> callback, a new ntmrmd field and STMMAC_NTMRMD_* constants in
+> include/linux/stmmac.h.
+>
+> > v2:
+> > - Rebased onto net-next.
+> > - Dropped the Fixes: tags (this never worked, so it's feature completio=
+n,
+> >   not a regression fix).
+>
+> [Severity: Low]
+> The commit message describes a functional defect. TMOUTEN is enabled but
+> the timer is never programmed, so "the advertised timeout protection is
+> ineffective".
+>
+> Documentation/process/submitting-patches.rst says "A Fixes: tag indicates
+> that the patch fixes a bug in a previous commit."
+>
+> Would it be worth keeping the Fixes: tags, so that stable and downstream
+> safety users can tell which kernels lack working FSM timeout detection?
+> Given the net-next target, this may be the maintainers' call.
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net=
+/ethernet/stmicro/stmmac/dwmac5.c
+> > index f1bb981cab7cd..4ab7a3df98c6d 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+>
+> [ ... ]
+>
+> > @@ -245,6 +247,22 @@ int dwmac5_safety_feat_config(void __iomem *ioaddr=
+, unsigned int asp,
+> >               value |=3D TMOUTEN; /* FSM Timeout Feature */
+> >       writel(value, ioaddr + MAC_FSM_CONTROL);
+> >
+> > +     /* Program the FSM active timer so the timeout checker actually f=
+ires.
+> > +      * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in M=
+Hz.
+> > +      * Default to a 1s timeout when the platform did not select one.
+> > +      */
+> > +     if (safety_feat_cfg->tmouten && csr_clk_mhz) {
+>
+> [Severity: Low]
+> This turns on a live 1s FSM timeout on every dwmac4/5 platform with
+> ASP >=3D 2 that passes no safety config. A NULL safety_feat_cfg selects
+> all_safety_feats with tmouten =3D 1. That covers all the OF glue drivers,
+> plus mediatek and stmmac_pci.
+>
+> When the timer fires, the timeout is reported as MCSIS and handled as
+> uncorrectable:
+>
+> dwmac5_safety_feat_irq_status() {
+>     ...
+>         err =3D (mtl & MCSIS) || (dma & MCSIS);
+>         corr =3D false;
+>         if (err) {
+>                 dwmac5_handle_mac_err(ndev, ioaddr, corr, stats);
+>                 ret |=3D !corr;
+>         }
+>     ...
+> }
+>
+> stmmac_safety_feat_interrupt() {
+>     ...
+>         if (ret && (ret !=3D -EINVAL)) {
+>                 stmmac_global_err(priv);
+>     ...
+> }
+>
+> The result is carrier off and a full adapter reset, which these boards
+> never got before this patch.
+>
+> The commit message only says a stuck FSM will now be "reported". Could
+> it mention the reset, and explain why 1s is safe on platforms other than
+> the two IPs that were tested?
+>
+> > +             u32 ntmrmd =3D safety_feat_cfg->ntmrmd;
+> > +
+> > +             ntmrmd =3D (ntmrmd >=3D STMMAC_NTMRMD_1US &&
+> > +                       ntmrmd <=3D STMMAC_NTMRMD_64SEC) ?
+> > +                      ntmrmd : STMMAC_NTMRMD_1SEC;
+> > +
+> > +             writel(FIELD_PREP(MAC_FSM_ACT_TIMER_NTMRMD, ntmrmd) |
+> > +                    FIELD_PREP(MAC_FSM_ACT_TIMER_TMR, csr_clk_mhz),
+> > +                    ioaddr + MAC_FSM_ACT_TIMER);
+>
+> [Severity: Medium]
+> This is a plain writel() of only NTMRMD and TMR, so every other bit in
+> MAC_FSM_ACT_Timer is set to 0. dwxgmac3_safety_feat_config() does the
+> same for XGMAC_MAC_FSM_ACT_TIMER. The MAC_FSM_CONTROL update just above
+> uses read/modify/write instead.
+>
+> The patch defines only TMR as GENMASK(9, 0) and NTMRMD as
+> GENMASK(19, 16). Doesn't the Synopsys EQoS/XGMAC safety register layout
+> also have a large-mode timeout field (LTMRMD, bits [23:20])?
+>
+> If LTMRMD exists and 0 also means disabled there, would FSMs checked
+> against the large-mode timer stay unprotected after this patch? Any
+> non-zero reset value in those bits would also be cleared.
+>
+> I couldn't confirm the register layout from in-tree code, so this may
+> need checking against the databook.
+>
+> > +     }
+> > +
+>
+> [ ... ]
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/driv=
+ers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > index 7ad08651675e8..dac85431e7401 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+>
+> [ ... ]
+>
+> > @@ -873,6 +875,22 @@ dwxgmac3_safety_feat_config(void __iomem *ioaddr, =
+unsigned int asp,
+> >       value |=3D XGMAC_TMOUTEN; /* FSM Timeout Feature */
+> >       writel(value, ioaddr + XGMAC_MAC_FSM_CONTROL);
+> >
+> > +     /* Program the FSM active timer so the timeout checker actually f=
+ires.
+> > +      * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in M=
+Hz.
+> > +      * Default to a 1s timeout when the platform did not select one.
+> > +      */
+> > +     if (safety_cfg && safety_cfg->tmouten && csr_clk_mhz) {
+>
+> [Severity: High]
+> Can this block ever run on an in-tree XGMAC platform?
+>
+> XGMAC_TMOUTEN is set unconditionally just above, but the timer is only
+> written when safety_cfg is non-NULL. dwmac5_safety_feat_config() falls
+> back to all features when the cfg is NULL, and this function doesn't:
+>
+> dwmac5_safety_feat_config() {
+>     ...
+>         if (!safety_feat_cfg)
+>                 safety_feat_cfg =3D &all_safety_feats;
+>     ...
+> }
+>
+> Only three drivers set plat->safety_feat_cfg: dwmac-intel,
+> dwmac-mediatek and stmmac_pci. None of them is XGMAC. dwmac-socfpga,
+> dwmac-tegra (MGBE) and generic "snps,dwxgmac" via
+> stmmac_probe_config_dt() all leave it NULL:
+>
+> stmmac_hw_setup()
+>   stmmac_safety_feat_configuration()
+>     stmmac_safety_feat_config()       /* safety_cfg =3D=3D NULL */
+>       dwxgmac3_safety_feat_config()
+>
+> Doesn't that leave every in-tree dwxgmac with TMOUTEN =3D 1 and NTMRMD at
+> its reset value of 0? That is the state the commit message calls broken,
+> and the message says the fix was tested on dwxgmac.
+>
+> There is also a second mismatch. A platform that supplies a cfg with
+> tmouten =3D 0 still gets XGMAC_TMOUTEN armed, but the timer is left
+> unprogrammed. Should the timer write follow the same condition as the
+> XGMAC_MAC_FSM_CONTROL write?
+>
+> [ ... ]
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/driver=
+s/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > index 552840d29668e..1b3dd30db6dce 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > @@ -3691,10 +3691,16 @@ static void stmmac_mtl_configuration(struct stm=
+mac_priv *priv)
+> >
+> >  static void stmmac_safety_feat_configuration(struct stmmac_priv *priv)
+> >  {
+> > +     unsigned int csr_clk_mhz =3D 0;
+> > +
+> >       if (priv->dma_cap.asp) {
+> >               netdev_info(priv->dev, "Enabling Safety Features\n");
+> > +             if (priv->plat->stmmac_clk)
+> > +                     csr_clk_mhz =3D clk_get_rate(priv->plat->stmmac_c=
+lk) /
+> > +                                   1000000;
+>
+> [Severity: Medium]
+> What happens when stmmac_clk is NULL or reports a rate of 0?
+>
+> csr_clk_mhz then stays 0. Both dwmac5_safety_feat_config() and
+> dwxgmac3_safety_feat_config() skip the MAC_FSM_ACT_TIMER write without
+> any message, even though TMOUTEN has already been written to
+> MAC_FSM_CONTROL.
+>
+> stmmac_clk can be NULL in a few cases:
+>
+> - An OF platform has no "stmmaceth" clock. stmmac_probe_config_dt() only
+>   warns "Cannot get CSR clock" and sets the clock to NULL.
+> - clk_register_fixed_rate() fails in dwmac-intel.
+>
+> The rate is also 0 with the !CONFIG_COMMON_CLK clk_get_rate() stub.
+>
+> One in-tree case is the Synopsys GMAC5 PCI board. It never sets
+> stmmac_clk, only clk_csr, yet it explicitly asks for the timeout:
+>
+> snps_gmac5_default_data() {
+>     ...
+>         plat->clk_csr =3D STMMAC_CSR_250_300M;
+>     ...
+> }
+>
+> stmmac_pci_probe() {
+>     ...
+>         plat->safety_feat_cfg->tmouten =3D 1;
+>     ...
+> }
+>
+> On that board the timer is still not programmed after this patch. Could
+> this fall back to plat->clk_csr or clk_ref_rate? Failing that, could it
+> at least warn or clear TMOUTEN when the rate is unknown?
+>
+> This also ignores plat->clk_csr, which stmmac_mdio.c prefers over the
+> stmmac_clk rate when the platform supplies it. Is stmmac_clk always
+> clk_csr_i? If it runs slower, the computed tic would be short and the
+> timeout would fire early.
+>
+> >               stmmac_safety_feat_config(priv, priv->ioaddr, priv->dma_c=
+ap.asp,
+> > -                                       priv->plat->safety_feat_cfg);
+> > +                                       priv->plat->safety_feat_cfg,
+> > +                                       csr_clk_mhz);
+> >       } else {
+> >               netdev_info(priv->dev, "No Safety Features support found\=
+n");
+> >       }
+> > diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> > index 00be2df63d220..cb470a153bf81 100644
+> > --- a/include/linux/stmmac.h
+> > +++ b/include/linux/stmmac.h
+> > @@ -168,8 +168,25 @@ struct stmmac_safety_feature_cfg {
+> >       u32 edpp;
+> >       u32 prtyen;
+> >       u32 tmouten;
+> > +     /* FSM normal-mode timeout value (MAC_FSM_ACT_Timer.NTMRMD). The =
+TMR
+> > +      * field (CSR clocks per 1us) is derived from the CSR clock by st=
+mmac.
+> > +      * 0 selects the default 1s timeout.
+> > +      */
+> > +     u32 ntmrmd;
+>
+> [Severity: Low]
+> Is an in-tree user planned for ntmrmd and the STMMAC_NTMRMD_* constants?
+> Nothing in drivers/net/ethernet/stmicro/stmmac/ sets the field.
+> dwmac-intel, dwmac-mediatek and stmmac_pci all leave it at 0, and only
+> the two new consumer blocks read it.
+>
+> Also, dwmac5_safety_feat_config() and dwxgmac3_safety_feat_config() both
+> replace an out-of-range value (0xb-0xf) with STMMAC_NTMRMD_1SEC without a
+> warning. Should that be reported?
+>
+> >  };
+> >
+> > +/* MAC_FSM_ACT_Timer.NTMRMD timeout durations */
+> > +#define STMMAC_NTMRMD_1US            0x1
+> > +#define STMMAC_NTMRMD_4MS            0x2
+> > +#define STMMAC_NTMRMD_16MS           0x3
+> > +#define STMMAC_NTMRMD_64MS           0x4
+> > +#define STMMAC_NTMRMD_256MS          0x5
+> > +#define STMMAC_NTMRMD_1SEC           0x6
+> > +#define STMMAC_NTMRMD_4SEC           0x7
+> > +#define STMMAC_NTMRMD_16SEC          0x8
+> > +#define STMMAC_NTMRMD_32SEC          0x9
+> > +#define STMMAC_NTMRMD_64SEC          0xa
+>
+> [Severity: Medium]
+> Where do these encodings come from? There is no in-tree reference for
+> them. There is also none for TMR being the CSR clock in MHz rather than
+> MHz - 1. The same table is used for both EQoS 5.x and XGMAC 3.x.
+>
+> The steps are also irregular: 1us jumps straight to 4ms, then the values
+> go up in x4 steps, then x2 steps.
+>
+> Suppose the hardware encodes NTMRMD differently, for example with a
+> microsecond-scale normal-mode range. The default of 0x6 would then select
+> a much shorter timeout.
+>
+> dwmac5_mac_errors treats every FSM timeout (TTES, RTES, CTES, ATES,
+> PTES, ...) as uncorrectable, and stmmac_safety_feat_interrupt() handles
+> that with stmmac_global_err().
+>
+> Could a wrong encoding cause repeated full MAC resets by default on OF
+> dwmac4/5 boards with ASP >=3D 2 and a stmmaceth clock? A pointer to the
+> databook table these values come from would help.
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261112053321.1103678-1-zxyan0222%40gmail.com
+
+pw-bot: cr
