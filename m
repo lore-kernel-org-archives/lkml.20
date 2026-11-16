@@ -1,58 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794804510;
-	b=dJQ/hOE2UWodw2vZocFBqI6Zveiq/gFLPz3P7ho76sBKFGTU4htdwsuWkZTHkcvmC7cv
-	 oY8od+i234FfY5I2D+xkRhYHknqtCH5Eeyn3EhCjvWeWJdyDMBuP8N6U2Mzg70mkZYg0K
-	 FDozTua4CskZFUlZs7JqXEwrkLBWu7jlfz0R5tKugelp3yCSSHwB6xi0i2RbX/kDeZtUJ
-	 /5igrtEEr6fUEEWAduvJyeh71sPR1VywrZuKwZ2O28lhDliKrNbEuROHtrxass6hGms89
-	 hyxEGC3SuvK+sbJwNiiuiTyrXqm19kc7/i7YBL94qFZ20v3Y8z7x4b0O5W1kk8dTSPg==
+	t=1794804530;
+	b=UIv97Qa0solyWgDXD3A4eulKcXtRrN0Mt+UCuM1Y9WIADnrnuY8n0zOkjLC98i/KObSF
+	 vaVm1JiY/FigVNHpkzc89pvAYOAcjw6oykaT8FtduvAAGYg2kyJCkfEUgreEjEyPPmFhQ
+	 E5tHPxr20HCMFp2huFe+5zUdvraLY+WFH/VbVfoC40XkNPGlTyDwVwIxTPx1n60IgUfp3
+	 7JIb/UsndaZn9P61MbZ99NrAPEuaZrPClRlsSM70UCgIMufaKxB8K38RicSOgEaEd7Wic
+	 skS6iirzFUbcv+xQSJP22N2Z3DsrRPwGz9H157MwIAI2/rGrBskgI75YrLzqP7CfHYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794804510;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=PGVxYtVa34yvZ+9qqL8SMqtJg1pDmzI4evt177Od7oY=;
-	b=PkhP5EV4YmHJQb8Tdo24s4LnDuugxRiBd51eKdQbceKeLUl+4ukDVhrT1XsDraoIk9t9
-	 Gt4bd8iKojvhF5wryrTv7Ev44n5fA9LtybN8oESs1NqJbjapD5sjzdUm1+kBiGFFB1rWM
-	 zMbZeUTrzaXcXsAVFpFeaAgODhaQcolEeXRTk/8cAKKD4+yD+ubgebudAtpsniocFJmtH
-	 RRbwAt2vSZGlNrQVcamuVgkpVLsunnzGo7hHMIzM65VUs72/xUv+1ggzYvc/Ui/CF+NYw
-	 qdUvDTYwWZg+Bc9LSd/BkhkI9oWUtRX1rX6gl1LYQ/grAOxeudjqwYgqLGID7k5f3zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794804530;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=4+bF1PXdM9i12hwxUlirMfiz4q0u6ZQpW494Zdzq3Q8=;
+	b=3g1k9aH/tecnSuZaluA5HyvLJlOzAVsfGUXz2akcVUwnF0A4cMJr0wwLAx1luq2JMkUi
+	 qvfbhJOJ3hAlvBEjd1zYXaVvgjixPvcP09OrRXNms+lXrvncK+DLRnoEWATZl2UiWTThL
+	 WSP+/vvSM3GLWSrBCgw6p4Ft65rVdjCv0lC67heJYvb2Sx4aCZ5JiXygSNYGFDR3vQEDA
+	 1Wi/DCbAWsgYK8/W02YgYyFEtK7Hu47GurFWVllAguzUg70lH2ZJ0bijdFPywUmQ8Rjn5
+	 2m0K0ZmJMDtKmzkoZluDf+Akq34CbaBeDB48K0GnkX6pZcOr7JF/bqa4HT2xAqqArsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mucse.com;
-	spf=pass smtp.mailfrom=mucse.com;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmQ19CXE;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E7E606A31C;
-	Mon, 16 Nov 2026 04:48:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E7E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
-X-QQ-mid: esmtpsz11t1794804459tffb983d8
-X-QQ-Originating-IP: QwzR3JU7LTo6oRYc83IIO48GpCQyHsxxkFandPLZ2v4=
-Received: from localhost ( [203.174.112.180])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 16 Nov 2026 12:47:37 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11810620712706261052
-EX-QQ-RecipientCnt: 10
-Date: Mon, 16 Nov 2026 12:47:37 +0800
-From: Yibo Dong <dong100@mucse.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	yaojun@mucse.com
-Subject: Re: [PATCH net-next v2 2/5] net: rnpgbe: Report link settings
- through ethtool
-Message-ID: <2207C8DCDD49F5EE+20261116044737.GA1342898@nic-Precision-5820-Tower>
-References: <BD205A7832D36E7D+20261116030917.1329989-1-dong100@mucse.com>
- <66AFF2810AB647C8+20261116031020.1330219-1-dong100@mucse.com>
- <d7351f56-d4fa-4ba0-a0c6-c7bdf7aac460@lunn.ch>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA6F606A31C;
+	Mon, 16 Nov 2026 04:48:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EA6F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmQ19CXE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794804530; x=1826340530;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jBip4E2/xRX2TRtB/jshEtf0db72k3wz/T8VBbLeJ4g=;
+  b=VmQ19CXESMkHgWncgkBOviJcvF2HJn23x2wIRvS9HH/ifvcDg+Hf3NMF
+   0VaJu0R+Unv7DDuSVzWhlwNGlca9G4eSeFSZhpl+xKVrF+Zjwe6iz0Rpf
+   QxwnQpm6do4fil4rtqQjDLDbX2RNFRlNcwVXMDiOoFLHYWo++s5+tb4mx
+   CmrxuXlwimqjpIVN5w62smWVeJUQ5hD3Iv7LpTkXtrKEmyHOQJlaIQvNb
+   TMaDEsYk7NeigtX0fGgU8IrKBNT6OYcOPEAzR/7Nlv2U2IN3De3WwxsXc
+   HFxeOcZCiWg6Jz9VguibsBzro5/7uk6qP7/UfRZo7E/SUk2JTvUi++drn
+   Q==;
+X-CSE-ConnectionGUID: GHX7I7dxRWmBOM2UmIOvbA==
+X-CSE-MsgGUID: UItC521dTS2ET4dEV2TRkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3518298"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3518298"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 20:48:49 -0800
+X-CSE-ConnectionGUID: VuhJD+lmSleff1kF0eSD3g==
+X-CSE-MsgGUID: rBi3O6LXSwKZ45yb2JguoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9284633"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 15 Nov 2026 20:48:47 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xSoe4-000000017qi-1AK4;
+	Mon, 16 Nov 2026 04:48:44 +0000
+Date: Mon, 16 Nov 2026 12:47:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matt Turner <mattst88@gmail.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: oe-kbuild-all@lists.linux.dev, linux-alpha@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+Subject: Re: [PATCH 5/7] hwmon: Add driver for Marvel AlphaServer
+ environmental sensors
+Message-ID: <202611161243.v8EOeTtt-lkp@intel.com>
+References: <20261114-marvel-env-v1-5-890328e4b7e5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,84 +89,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d7351f56-d4fa-4ba0-a0c6-c7bdf7aac460@lunn.ch>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: McJfg7Aee/FZHZaIV3oLykZwMD59+ZK58lwnWmKMJDyQcThleV+PW4wa
-	7YomE/70RwVRzrrw/618siYLUo0+VlUnW2eV/rWf7O0re2EgNDUIUuCAnkyERCaOuaJQMe1
-	EBjqm+Xh0hYa/j6P6NnnWhs/smDTQ/xXgiPNl4ILkumyRQedPnKFCQcgpxfEFr42UqD58JM
-	3TDNXXfivcyQLnb21X3vJNbqi9dSKED4E97RbABv3tk5prwzHT71AnJaq0q65L+Mn0T7r7D
-	iPgG6vC64hU9VgOFX8G34GBsrv0i5pdb3WL1RKRnyRylEaJrYjs3TKGdfIUxGAB+a2cYk82
-	fLQD8P+K392ZBYuzhKKW7xR2zAtFdWit/x9RnO8x2EVWRjClpWHESNm4jfDHSt0fz+64k+B
-	x/6stjGGjVgb3Ra+VwmRP8uUo7yzCVIvvmc9BmgcVxPRWdSUqe+wjP6kyb4rPb95kMQdUhy
-	KxRNRkAehBHEEpSWapDSAHtD5yE6HqUpBUBPJmj8AVRKEgruznuMGuaWeYSEBseaNV7QyBv
-	U5wYO5GBlOz7NiTnW8xz4EH1qfaGAvZAdtK2bLE5uTccYfCANw+biCQMIosoReGpEUtObH6
-	12OEat7Y2Gv0ytQ7zLD1Pc07sZYNEm4xtG6V2gmlczlq3fo/evdm2Yz1JK0zjh3sv+bppkc
-	eiN5k4IyEgL/Bj9Rh910aRdgpwl6n9Bcz6CwcMg0vcObAfLrlMnHPTaMtWspdo4+m71frA8
-	G64Z2LAGCntgX1Zq+jo3Tc4HAzrJm3CCvpKVfke2yVGiSWMy70qfOkVppCjdyKAcmkN8IAL
-	GlgPf4CRnNa5PEMUuQ1AwPwWHazJMx7asXdFTmjvol1aqNOhLGElT+UWcbn6fMkyHgGa7Jg
-	MKz4TG0dEhrrWa3zH5WgQMhR/sT4GfnQ1W049WtJxBZMuvbwK94cGpUPc6tYzYhQDkqDlzz
-	B/7B7plqn1O8eWPMz5+CMcGgXglgIbZHe2Ahl7NAUY+VLjxAg2s0FxXeMvBJAV8TysQcJ12
-	VGZf5UGjlPehkh9lVftet3dfBVO9sWbEmiu0dJLpSskt56nZ2Q
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+In-Reply-To: <20261114-marvel-env-v1-5-890328e4b7e5@gmail.com>
 
-On Mon, Nov 16, 2026 at 05:19:35AM +0100, Andrew Lunn wrote:
-> > +static int rnpgbe_get_link_ksettings(struct net_device *netdev,
-> > +				     struct ethtool_link_ksettings *cmd)
-> > +{
-> > +	struct mucse *mucse = netdev_priv(netdev);
-> > +	struct mucse_hw *hw = &mucse->hw;
-> > +	u32 supported, advertising;
-> > +	unsigned long flags;
-> > +	u16 status;
-> > +	int mode;
-> > +
-> > +	status = hw->link_config.status;
-> > +	supported = hw->link_config.supported;
-> > +	advertising = hw->link_config.advertising;
-> 
-> These are accessed without a lock,
-> 
-The fields in link_config contain cached capabilities and configuration.
-They are initialized before netdevice registration, and subsequent
-configuration updates are serialized with ethtool queries by RTNL.
-Firmware link events do not modify this cache.
-> > +	ethtool_link_ksettings_zero_link_mode(cmd, supported);
-> > +	ethtool_link_ksettings_zero_link_mode(cmd, advertising);
-> > +	ethtool_link_ksettings_zero_link_mode(cmd, lp_advertising);
-> > +	cmd->base.autoneg = AUTONEG_DISABLE;
-> > +	cmd->base.speed = SPEED_UNKNOWN;
-> > +	cmd->base.duplex = DUPLEX_UNKNOWN;
-> > +	cmd->base.eth_tp_mdix = ETH_TP_MDI_INVALID;
-> > +	spin_lock_irqsave(&mucse->link_lock, flags);
-> > +	if (netif_carrier_ok(netdev) && hw->link) {
-> > +		cmd->base.speed = hw->speed;
-> > +		cmd->base.duplex = hw->duplex ?
-> > +				   DUPLEX_FULL : DUPLEX_HALF;
-> > +		if (status & MUCSE_LINK_TP)
-> > +			cmd->base.eth_tp_mdix = hw->mdix;
-> 
-> Yet these need a lock?
-> 
-link, speed, duplex and mdix are updated asynchronously by
-the mailbox event handler, outside RTNL. link_lock protects these updates
-and provides a consistent snapshot in the getter.
-> > +	}
-> > +	spin_unlock_irqrestore(&mucse->link_lock, flags);
-> > +
-> > +	if (status & MUCSE_LINK_TP) {
-> > +		rnpgbe_link_modes(cmd->link_modes.supported, supported);
-> > +		rnpgbe_link_modes(cmd->link_modes.advertising, advertising);
-> > +		ethtool_link_ksettings_add_link_mode(cmd, supported, TP);
-> > +		ethtool_link_ksettings_add_link_mode(cmd, advertising, TP);
-> 
-> Advertising TP? Can you point to some part of 802.3 to support
-> advertising TP to the link partner.
-> 
-You're right. Adding TP to the advertising bitmap here was a mistake.
-I will remove it from advertising in next version.
-> 	Andrew
-> 
-Thanks for your feedback.
+Hi Matt,
 
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on 0b4cadbe7c39d830dec35c4a2655483de0dae568]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Matt-Turner/alpha-marvel-report-environmental-events-without-VERBOSE_MCHECK/20261114-123947
+base:   0b4cadbe7c39d830dec35c4a2655483de0dae568
+patch link:    https://lore.kernel.org/r/20261114-marvel-env-v1-5-890328e4b7e5%40gmail.com
+patch subject: [PATCH 5/7] hwmon: Add driver for Marvel AlphaServer environmental sensors
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20261116/202611161243.v8EOeTtt-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261116/202611161243.v8EOeTtt-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611161243.v8EOeTtt-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   `.exit.text' referenced in section `.init.text' of fs/nfs/blocklayout/blocklayout.o: defined in discarded section `.exit.text' of fs/nfs/blocklayout/blocklayout.o
+   `.exit.text' referenced in section `.init.text' of fs/nfs/blocklayout/blocklayout.o: defined in discarded section `.exit.text' of fs/nfs/blocklayout/blocklayout.o
+   alpha-linux-ld: drivers/hwmon/marvel-env.o: in function `marvel_env_refresh':
+>> (.text+0x528): undefined reference to `marvel_cfgtree_partial_update'
+>> alpha-linux-ld: (.text+0x52c): undefined reference to `marvel_cfgtree_partial_update'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
