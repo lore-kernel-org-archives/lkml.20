@@ -1,48 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794844428;
-	b=opoPftVDYJkg9HYt2yEVwTcsaRFpifxZgzNxq4ggis/u8q1Sb6/B94KWf5uQHh5Isfeo
-	 w4sFsz63Twog9O6W124TCaPiQvd52D1RgpHRPooYhtseOIaC/dEdduU0tU7iqc+UJ3HuK
-	 OgesDBmwAUWR4KM10QbcTAMcTipSlVoJVUAJO9UKnkWNulUHL5OpGnyuI+2R0dlyg18tP
-	 cUaqHY7GXaJbGPolBJIWKUsH1LcEcZ4gQpFp5cDNahsbrIAyKs3uEJbeo47E8i3pd4BA1
-	 MK+/eJ4R3mQVn0FmiZa7uWGtQ1domjdrIIh4w13IRk/90V6tmyc1n3YrccPLSMvH7Cg==
+	b=KCcvxoIoK54Vq1z8bHSJQ2aKsoSxB4PLKjBSNYI3xSpF7skySyEIfPXqdjW9g3UpO5lx
+	 EFFzrRKIN9Emwk5mrWXWgR0DD2q8BED3hBNi6MJM/DuuTNTCGxifHlkZRIvMg66iDzSRs
+	 n4JJOL3m9fkvSX2NddhvUEN9wCCjgUOlfr8JJIevJnm7uGTquTwScIfRiQp5Br33cEU2h
+	 6qJfod7MRkT6sRNBzqKYl4j3PnqZGl/3wuVzstGYkw15nRBQEefCBTournZebybGctufn
+	 ZA0rchtx6p9n2RMH1gkVB/olNR+aB4afGSE+pfuL89a0A+3hkuSLmVp5TzWzyRzaUng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794844428;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=c6A1A6sBiB1tVjJ7aeaK0/VjZv77wQNeEUxCHBc28tA=;
-	b=lOUyruC8IgjSSi3whZ/59C53m4evsfGiDHWB3Q2KhoJtronEHxWI2p2Jg9ynA5pFtAkq
-	 Z1D4cvcz7QQCCoNcxnhdhGQJGZ9j+HKQeQSxnC/vIb/K/O7MeIO4kCui8+LfsMjI3lnPX
-	 Fjs7Vnf66qd83fHHAixzXSjzqvToPMQRFwyN5epIynZaOrKVQgSzAXhhWO5JO5EJJsdpO
-	 f9PctflioktzCPbNcsT6WOGlhXLNTWHf/W5HYK80Y8yv/16nSspIXQ9JtCQcUcZO5uLGZ
-	 MvO3BH7wmC2q2HfoPn2/Ey9G7Sii5JIT2FnYuD8c6GyK9c5aG5odoa/GvxDoU1NwAlg==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=l5/vmAvF28KuEi/vuxEIfS80PMdT2P0hULSlRZ41Miw=;
+	b=ARZefr2wdXhjxb6cs5oYLB0KBvpFejYxpfYmOXn/kBKxy5NXzweOpYuUtiiDu+iCL1/P
+	 CdeTxR/Ad/7FtP8rZtbqYQOLcMrE3askpP7l7qleG+57xtYNT8oGlwSG5oSmu6DRIBwYc
+	 S6p7ybqiaPA/rFCYYoaU55/KCo5tI6BeUOyvq9mK4/26xgCHgufDti/uJb5DfysF4HwGj
+	 sSSnjupfPZua6D7ClynM21DNvD5Zdwxs9I732/aQIfi8ixDoNp5YcFgjIU4230JXJk1vj
+	 E1PV7UNp8GXIoZ8BjDLDuzQ54Pl9hUSG6UBS3jknevAftSRVcpluxcDR915qq7zbezg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYDkERj9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbJColkr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id AD737606A33F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4768606A33A;
 	Mon, 16 Nov 2026 15:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYDkERj9
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B94C61F000CA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbJColkr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7751F000C9;
 	Mon, 16 Nov 2026 15:53:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794844428;
-	bh=c6A1A6sBiB1tVjJ7aeaK0/VjZv77wQNeEUxCHBc28tA=;
-	h=From:Date:Subject:To:Cc;
-	b=nYDkERj9S8ZaZJtA/ErQAR1RIaRJSHSoVwLu/SU2iKkR/JX5awq+HPkjf5FH4sbBD
-	 2sl9/ljAdhLIjH/pRjHaBgby2d/lMfefbXRo+up/YyKCVLtD9LaGk/WqEbUnQLamGk
-	 zPJyIR/dBIlPB4QdzVVPSC1v9asXJNe4ecyWosAggmE7n389lDvmMFtcYDxBcNLD5N
-	 vJ+jXdwQMG39tN7JEjtOArwUbuKrd/fq4RhpbebtlYLUOwFGU+henmdj3zlg+Le8ok
-	 ddjQL5SZNX8KS8oiPSQVQMhJqoGznwOiWjeodY5DQgi0CTIVRUxasFD5Ch4ADquWRb
-	 zRK/Smkhgja9Q==
-From: Nicolas Schier <nsc@kernel.org>
-Date: Mon, 16 Nov 2026 16:52:48 +0100
-Subject: [PATCH] kbuild: package: Install System.map to build tree only
+	bh=l5/vmAvF28KuEi/vuxEIfS80PMdT2P0hULSlRZ41Miw=;
+	h=Date:From:To:Cc:Subject;
+	b=KbJColkraldwXMlKwCGsVABC/5Lj37OEytAhBvsEGjaTAY/XuMcRrPiZrZ4QhpDAi
+	 qcCA7vkcJDAyk0byGpx1zYtjnaS1CFVyGMOLNGfu/vIWQbe+rAsiF3brdhaV3VPV5K
+	 bauSVMOzcei4RqLOCuhbIAu5PrTxh8OQNY6evuF/Zcw/1dfRJBuO35s+oc0UGsi4Mo
+	 ZAo/FjUgeWmFZXWJMG+LoNZBJvsJnGxFl1KzJxpM4IKtP56hfivuxP26vKXwwWU97Z
+	 0FSTeaghzVxDAhsJzPnSjQHWO3F2Xr3ve7y5eXwUrMpT2QGe1sgDcglm6mN8Simnw0
+	 yOzfkH6cYsjcg==
+Date: Mon, 16 Nov 2026 15:53:44 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Yongxin Yang <yangyongxin@kylinos.cn>
+Subject: linux-next: manual merge of the mm-nonmm-unstable tree with the
+ vfs-brauner-fixes tree
+Message-ID: <avsnCFn0jCvbhtRw@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,158 +58,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261116-package-install-system-msp-to-build-dir-v1-1-ec53d3d39146@kernel.org>
-X-B4-Tracking: v=1; b=H4sIANIm+2oC/yXNQQ7CIBCF4as0s3YSIE21XsW4gDLVUUoJQ42m6
- d2luvze4n8rCGUmgXOzQqYXC8+xQh8aGO423gjZV4NRptNadZjs8LT7HKXYEFA+UmjCSRKWGd3
- CwaPnjMb1vT+N6qhbglpLmUZ+/54u179lcQ8ayp6HbfsCT+sRjosAAAA=
-X-Change-ID: 20261106-package-install-system-msp-to-build-dir-2b99d8f0714e
-To: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
- Christian Heusel <christian@heusel.eu>, 
- Nathan Chancellor <nathan@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Adri=C3=A1n_Garc=C3=ADa_Casado?= <adriangarciacasado42@gmail.com>, 
- Nicolas Schier <nsc@kernel.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5283; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=qoHYP6lhLzSoGM/ZxrmtyRQL4jLkf7BehSLsAPLr6Vg=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq+ycB6TvJXPbIEYhxBeFFlQjoby2ECtdU977Uu
- 8y8v6bOaq2JAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCavsnAQAKCRAHUgpwFiYS
- aX/QD/9jly1IFYVphPlIE2Gq0740AkEQFysJNMQ5AFie8/M3m2MerVznLjyue+P/Mj1MeOLXW7g
- RPehu4eJbDy1R7f0ZUDlXd3DEzEInnakGPqJOYhYB8Sfou1t7MXS9JMXyuaUEgm3ci9SqRYbg2C
- V5X4gUfQ0Jk+ZjjMjo2r/Sk1GywZ4SpM1D5Q2XeCBYDIlUPFD4YCPckwx5FdJsV/MVb9y16smC6
- HC3mAELGBP8nsUuHgczFtfVE0wWSt0QvuoPNk0llviuXfH00JFoV2sL126FL23NXgcZA9EoZt3l
- 5QRru2h3hm3PKH719q9yHgupZpDbC/fNak1IoOd5+5kYJzg7q0rBSf55Lb0z3B2HEmIfmk1kTft
- gH7XdfrXriRKzddvtyrYnOSMvoXd/QPLol1cAgC1Iy4soAVQHGZj+QOMM1a/6CZxWx4GVkiLf0h
- s6XR4usJJmUUcCODopAtuH8kFnw3Bp0xbsYkFwiMc748ZAI9cqVRqHrWUR407urYhEZdCjfRArW
- vt+4yEE034t2b670TwVGExo36HNdm3L89CBIC4XeiHCNHBY6FqpnVuthuNJ7J87WIB3ICGOpxBV
- ljTdfgdopte3vx7PiErtrkKlSPOBEXww3AA8lhA4FMADli1rYZNbrFw/FvVmycSacdZ1EtXWyE/
- e3/t2nofV9o0Osg==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+kXcJeGBNP619irg"
+Content-Disposition: inline
 
-Unify the installation of System.map for all packaging targets and
-install it to the packaged kernel build tree.
 
-Kbuild's scripts/depmod.sh expects System.map to be available in the
-build tree to allow depmod to check for unresolved symbols in all
-installed kmods.  The script is called by 'modules_install' for in-tree
-as well as for out-of-tree modules.
+--+kXcJeGBNP619irg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Adrián García Casado reported [1] that the Debian packages produced by
-'deb-pkg' or 'bindeb-pkg' do include System.map at /boot/, where
-scripts/depmod.sh does not find them and thus refuses to run depmod
-after installation of out-of-tree modules built against a packaged
-kernel tree.
+Hi all,
 
-The 'pacman-pkg' target already installs System.map to the build tree,
-while 'deb-pkg', 'rpm-pkg' and 'tar-pkg' install it to /boot.
+Today's linux-next merge of the mm-nonmm-unstable tree got a conflict in:
 
-Replace installation of System.map from all package target specific
-scripts by installing System.map to the build tree via
-install-extmod-build.
+  kernel/profile.c
 
-Suggested-by: Nathan Chancellor <nathan@kernel.org>
-Reported-by: Adrián García Casado <adriangarciacasado42@gmail.com>
-Closes: https://lore.kernel.org/linux-kbuild/20261016111106.221542-1-adriangarciacasado42@gmail.com/ # [1]
-Signed-off-by: Nicolas Schier <nsc@kernel.org>
----
- scripts/package/PKGBUILD             | 3 +--
- scripts/package/builddeb             | 1 -
- scripts/package/buildtar             | 1 -
- scripts/package/install-extmod-build | 1 +
- scripts/package/kernel.spec          | 5 ++---
- 5 files changed, 4 insertions(+), 7 deletions(-)
+between commit:
 
-diff --git a/scripts/package/PKGBUILD b/scripts/package/PKGBUILD
-index 66e4b6a37783..ce8e0bff9041 100644
---- a/scripts/package/PKGBUILD
-+++ b/scripts/package/PKGBUILD
-@@ -90,9 +90,8 @@ _package-headers() {
- 		"${srctree}/scripts/package/install-extmod-build" "${builddir}"
- 	fi
- 
--	echo "Installing System.map and config..."
-+	echo "Installing config..."
- 	mkdir -p "${builddir}"
--	cp System.map "${builddir}/System.map"
- 	cp .config "${builddir}/.config"
- 
- 	echo "Adding symlink..."
-diff --git a/scripts/package/builddeb b/scripts/package/builddeb
-index ba1defc61652..9f8a4a69059c 100755
---- a/scripts/package/builddeb
-+++ b/scripts/package/builddeb
-@@ -48,7 +48,6 @@ install_linux_image () {
- 		gzip "${pdir}/usr/share/doc/${pname}/config"
- 	else
- 		mkdir -p "${pdir}/boot"
--		cp System.map "${pdir}/boot/System.map-${KERNELRELEASE}"
- 		cp ${KCONFIG_CONFIG} "${pdir}/boot/config-${KERNELRELEASE}"
- 	fi
- 
-diff --git a/scripts/package/buildtar b/scripts/package/buildtar
-index cc87a473c01f..057ca4fc7d71 100755
---- a/scripts/package/buildtar
-+++ b/scripts/package/buildtar
-@@ -45,7 +45,6 @@ make ARCH="${ARCH}" -f ${srctree}/Makefile INSTALL_MOD_PATH="${tmpdir}" modules_
- #
- # Install basic kernel files
- #
--cp -v -- "${objtree}/System.map" "${tmpdir}/boot/System.map-${KERNELRELEASE}"
- cp -v -- "${KCONFIG_CONFIG}" "${tmpdir}/boot/config-${KERNELRELEASE}"
- cp -v -- "${objtree}/vmlinux" "${tmpdir}/boot/vmlinux-${KERNELRELEASE}"
- 
-diff --git a/scripts/package/install-extmod-build b/scripts/package/install-extmod-build
-index f12e1ffe409e..fbf8d3e5ab5f 100755
---- a/scripts/package/install-extmod-build
-+++ b/scripts/package/install-extmod-build
-@@ -37,6 +37,7 @@ mkdir -p "${destdir}"
- 	fi
- 
- 	echo Module.symvers
-+	echo System.map
- 	echo "arch/${SRCARCH}/include/generated"
- 	echo include/config/auto.conf
- 	echo include/config/kernel.release
-diff --git a/scripts/package/kernel.spec b/scripts/package/kernel.spec
-index 46e80970f723..37a547299a94 100644
---- a/scripts/package/kernel.spec
-+++ b/scripts/package/kernel.spec
-@@ -114,7 +114,6 @@ cp $(%{make} %{makeflags} -s image_name) %{buildroot}/lib/modules/%{KERNELRELEAS
- # DEPMOD=true makes depmod no-op. We do not package depmod-generated files.
- %{make} %{makeflags} INSTALL_MOD_PATH=%{buildroot} %{?install_mod_strip:INSTALL_MOD_STRIP=1} DEPMOD=true modules_install
- %{make} %{makeflags} INSTALL_HDR_PATH=%{buildroot}/usr headers_install
--cp System.map %{buildroot}/lib/modules/%{KERNELRELEASE}
- cp .config %{buildroot}/lib/modules/%{KERNELRELEASE}/config
- if %{make} %{makeflags} run-command KBUILD_RUN_COMMAND='test -d ${srctree}/arch/${SRCARCH}/boot/dts' 2>/dev/null; then
- 	%{make} %{makeflags} INSTALL_DTBS_PATH=%{buildroot}/lib/modules/%{KERNELRELEASE}/dtb dtbs_install
-@@ -132,7 +131,7 @@ ln -fns /usr/src/kernels/%{KERNELRELEASE} %{buildroot}/lib/modules/%{KERNELRELEA
- 		echo "%ghost /lib/modules/%{KERNELRELEASE}/modules.${x}"
- 	done
- 
--	for x in System.map config vmlinuz; do
-+	for x in config vmlinuz; do
- 		echo "%ghost /boot/${x}-%{KERNELRELEASE}"
- 	done
- 
-@@ -185,7 +184,7 @@ rm -f debugfiles.list debuglinks.list debugsourcefiles.list debugsources.list \
- if [ -x /usr/bin/kernel-install ]; then
- 	/usr/bin/kernel-install add %{KERNELRELEASE} /lib/modules/%{KERNELRELEASE}/vmlinuz
- fi
--for file in vmlinuz System.map config; do
-+for file in vmlinuz config; do
- 	if ! cmp --silent "/lib/modules/%{KERNELRELEASE}/${file}" "/boot/${file}-%{KERNELRELEASE}"; then
- 		cp "/lib/modules/%{KERNELRELEASE}/${file}" "/boot/${file}-%{KERNELRELEASE}"
- 	fi
+  944b8062bc6f6 ("profiling: report it when /proc/profile can't be created")
 
----
-base-commit: 7924b82075ab1aee61be04764152cff49257c449
-change-id: 20261106-package-install-system-msp-to-build-dir-2b99d8f0714e
+=66rom the vfs-brauner-fixes tree and commit:
 
-Best regards,
---  
-Nicolas
+  091be6dce28ab ("perf/profile: report failure to create /proc/profile")
 
+=66rom the mm-nonmm-unstable tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined kernel/profile.c
+index 820d5ec909d40,818098cc094a5..0000000000000
+--- a/kernel/profile.c
++++ b/kernel/profile.c
+@@@ -153,28 -153,52 +153,52 @@@ void profile_tick(int type
+  static ssize_t
+  read_profile(struct file *file, char __user *buf, size_t count, loff_t *p=
+pos)
+  {
+- 	unsigned long p =3D *ppos;
+- 	ssize_t read;
+- 	char *pnt;
+- 	unsigned int sample_step =3D (unsigned int)(1UL << prof_shift);
++ 	const size_t header_size =3D sizeof(unsigned int);
++ 	const size_t file_size =3D (prof_len + 1) * sizeof(unsigned int);
++ 	unsigned int sample_step;
++ 	loff_t offset =3D *ppos;
++ 	size_t pos;
++ 	size_t done =3D 0;
++ 	size_t n, not_copied;
+ =20
+- 	if (p >=3D (prof_len+1)*sizeof(unsigned int))
++ 	/* Keep the shift word-sized before narrowing to the 32-bit ABI. */
++ 	sample_step =3D (unsigned int)(1UL << prof_shift);
++=20
++ 	if (offset < 0)
++ 		return -EINVAL;
++ 	if (offset >=3D file_size)
+  		return 0;
+- 	if (count > (prof_len+1)*sizeof(unsigned int) - p)
+- 		count =3D (prof_len+1)*sizeof(unsigned int) - p;
+- 	read =3D 0;
++ 	pos =3D offset;
++ 	count =3D min(count, file_size - pos);
+ =20
+- 	while (p < sizeof(unsigned int) && count > 0) {
+- 		if (put_user(*((char *)(&sample_step)+p), buf))
+- 			return -EFAULT;
+- 		buf++; p++; count--; read++;
++ 	/* Copy the four-byte sampling resolution. */
++ 	if (pos < header_size) {
++ 		n =3D min(count, header_size - pos);
++ 		not_copied =3D copy_to_user(buf, (u8 *)&sample_step + pos, n);
++ 		done +=3D n - not_copied;
++ 		if (not_copied)
++ 			goto fault;
++ 		buf +=3D n;
++ 		pos +=3D n;
++ 		count -=3D n;
+  	}
+- 	pnt =3D (char *)prof_buffer + p - sizeof(atomic_t);
+- 	if (copy_to_user(buf, (void *)pnt, count))
++=20
++ 	/* Copy raw counters using offsets relative to the counter array. */
++ 	if (count) {
++ 		not_copied =3D copy_to_user(buf,
++ 					(u8 *)prof_buffer + pos - header_size,
++ 					count);
++ 		done +=3D count - not_copied;
++ 		if (not_copied)
++ 			goto fault;
++ 	}
++ 	*ppos +=3D done;
++ 	return done;
++ fault:
++ 	*ppos +=3D done;
++ 	if (!done)
+  		return -EFAULT;
+- 	read +=3D count;
+- 	*ppos +=3D read;
+- 	return read;
++ 	return done;
+  }
+ =20
+  /* default is to not implement this call */
+@@@ -221,8 -245,10 +245,8 @@@ int __ref create_proc_profile(void
+  		return 0;
+  	entry =3D proc_create("profile", S_IWUSR | S_IRUGO,
+  			    NULL, &profile_proc_ops);
+ -	if (!entry) {
+ -		pr_err("profile: failed to create /proc/profile\n");
+ +	if (!entry)
+  		return -ENOMEM;
+ -	}
+  	proc_set_size(entry, (1 + prof_len) * sizeof(atomic_t));
+  	return 0;
+  }
+
+--+kXcJeGBNP619irg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7JwcACgkQJNaLcl1U
+h9BSFAf/RQMO/jCK8ZwjmSP3S9oGA7lruB5Pqhtbv1s/DlUyub9Ju+zuNQdxOPv/
+IoZ32T4BHyTe0woGeJM2vpNfWXkYkaudgleDgNURfbB+a4CxUX5+oiniqvk6MayG
+VcxObQisg5zgRoDWaYGJgH5jQe/Ow37AkVlfX67Lnjz3Vc9vP9Oo8NyZ0GAHjtnD
+nIfiIMopRtyNKMXUAHIcMGpfOwhHjo3BlfwBgfdFkjnbKAwDCfQ2PCb8fvlSkvxs
+hoV9LwwGluLCKi0YQkQ77px2sbcNCAnen/DfrgO0Arqk7yYjEchxgRvN6WtLsWx+
+GS+P/PUe8kQwuA0Ydpo9ZLkVHsF/qQ==
+=lZ0y
+-----END PGP SIGNATURE-----
+
+--+kXcJeGBNP619irg--
