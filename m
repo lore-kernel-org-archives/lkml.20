@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845345;
-	b=YhrnfRzBoGrypExkQEzqVxo/6eK8cgaFrhVcj2vCxcaWniSEy4gb6RBg1dhXUka8Qz6w
-	 3Wup0jsoG/NZ+06JY1K2Yd5pdWZyHnYJY1oLp9ycTf836c6IoldHGLLM1V6g2TrrKzkd8
-	 t9k28Kyc2kPLLpmG+k8u1cIiATyZtiGm7F4fuhYN0gRjL4RAVXTODGyTzRLmbcpROjcJS
-	 ndX+KongnAZ00SrwfH+ikExhrImwKjEW40gTvj+Qk2bfWljyOWMBuilD7blyaE3o9iqLL
-	 Uh7Et9slwrIOsZws/IaU5GFgyzgy6t7pYw0uU/8g0iGhd2RoR0tnwlKsok+jco0LVpw==
+	t=1794845370;
+	b=dBiqe1deS00+f4Cfo9enUH81LS+lsRJCXvPGmoH4ZVi0cYOrKiZIWDHqjLIIc11OZm4Y
+	 qnQNEUUpmB/2akmZE5UVVV+XQzpj5e7p6snHh+HwXdpW5Jgv74SvQtK4xb97LbDNaRY9a
+	 J8+s6YueZEoVO8eR9vXZuc+JfmHk79reRoTU+uraAlwWfq8mcxpAVVjAP06EVGU00VMu8
+	 ljpL9kYYXKsPgZyVHj7X2zoVmh/4bKlKwa6bQWzXT1cjkY5jo+KyPfzb6bJH6kJeo3xpP
+	 LTS0RaFtw6jEA0vi/2ELnchpURqJWuhINZqpYK91NZlyIMtTQPyjoGkkqFGe/yHeheA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845345;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-	b=IwrAsU4GwQaSZZeL0oWsD8n6LzrKiwgHSLmwL3T2b1k20Kz7GTP5RDEdkuT9liBRoh1R
-	 o6gBylIrkGiqK6fc4uwPM/kwpGMLFD4kjdNpZ69s5tOmVsvO0OYpRfF1PzRhgcH6P5vg9
-	 lcF4P+gAknEZ7Gdyx0CtWKpZaFo6Zh6tI6T6E/wa7RBbjHvD+6a11zbvufvma23TOfWoj
-	 6qRAoWjGpehauJ9ut8rUdswa2qOM8NEfLy1SBE7YZOeyGf8m2/YmeI3+LMGlk6qxVdW7a
-	 oynw21asjuQ+5eq9ceqRulB8vqZFfQpa3XECTgNT74FPBppsglK5WdweZhTQVesUNDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845370;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=xuWJrrizIQaSrZTQFgUO3V0HL4ic1BmuoACdN3FzMhU=;
+	b=roYlYdZo6UYUG0paJelUznGwH6U/QwbndHzTrMR32x/rw/30R7XbMXNrj2sDMVgKmIBa
+	 7wNgFCkwd4aZRDZyhRx4rm93MH2qlJ0gjaOFgy13g4ko6xwzJrFzRUbLvvFekvQvGcqm8
+	 rR5eKBCjJfV/wc1M9+Y7gctiOkx3dLiJkaYoSkHe/iOhXqEgluL4E2nvzf/qrNhJHQz+d
+	 dO7M4SRVfBOnO4QlfoyBzmkOkcQW7Z1BP/nGCQbME5icn46sODIFoax5wstfkBnXU6TVy
+	 LChk3UM7MHDItESbJspWj0kBbjVEMWjXWFBoULM+8UMts62BYMI5E+xPwvavReESyKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qwtoFBne;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ae+HIPyq;
+	arc=none smtp.remote-ip=95.215.58.249
+Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A35606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:09:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A35606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D817606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:09:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D817606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qwtoFBne
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-14394530ec6so4439428c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:09:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794845344; x=1795450144; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=qwtoFBne65YrYrGdFleBiK7uChpffIoyGXvdQ9QfKVRGWJEgDZnpqgY9ww7WW9fw5P
-         GFggHf6cti43BuFQfNVpdSpwTcfFa8a+guGivVWHh+FQyLxK9rerYWK2m2ei7ZYAOHiV
-         ZcL694AGT6dInEiyu8Tkr4HhCHtm7xKVnHLiLRrh6jquGaoVU097nG1HY/b8KtQEs5iN
-         xzauO6eaqv8uWnhhefa5T9CClkkxjWX0hMW5z52p/YvQ8mQe1al1zI1QoAHN9W/0uluJ
-         XaGoOXmaT56kV1EDRgIgoMyeljuCxHM9p7oUplY3pp1wNL13YUvl8rLxGZRW+YENtPt7
-         n/Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794845344; x=1795450144;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=1Uubc0DgAfBnFKBTD1DzvvUeAY81vrWiaSEB3lll5kJH50pZ4oLO9NoQ1xinkgK58M
-         YhgXtcg/e5PkjPusXLnlb4SbxNJ67OQwKYweY4Qo82RdTU2Td7HLIBADvRFeXcTcWhhA
-         DFqT4J9um03qN9m/Afq7JtQ36K4WsXYKKc3EyU2xPe5VVkwpfnd0J8y1bBXttcT50uSR
-         T07ySrRja0XaEomQzGUFk3udDF0rbLXW7Rk7xOuUPxvMRwkPkrrt8YnpPeAGeRnbIL5R
-         BeGnA+drWqlAnjzkaYv6BxDjMxCv/u9m5CQ1C5bPr7rdi4Qh9mL7RFPCRmE0Io5WOBl4
-         3+Ow==
-X-Forwarded-Encrypted: i=1; AL+hErHoKTtM1tWCAg1KfU5DoarKRVixsoHiLK4+7dy/pE7Ndm+Xo7FSsar37jjT0f4y4FmDDzsukvpGiTTexiY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+H+duLSZD1Jb6ofZ2PjCQ4HuMnqmquQkCZMHxOM4SFCeL1Ev0I
-	LyvrOu/OTDO09q5710JMBXbOGe3jxhLGwAebE5f5uHVVo9iHQCQc7HmfdGXYQiM6
-X-Gm-Gg: AYBFou3eMaY87J7Q+vQQX79/NNUzxKxLUNiAkT9t+NzGxNYHPQsB65u9+IxgIN6TIG5
-	2dhl//DNQgjsepIFQhwPHSN9Sm7ff52YED83MqYjDcxE2pGkTcaGJCEO9QhVZyqnySZd7DbBrER
-	ZwDSrq2bSlo4Qm5BE+tny/0iE/vj4NppEO2/Bn3uvuN4gE7iZ8JMnD5kQLEcdgzgSr4Esfoir7Z
-	2zi06oAPVmUFlxiPm8coheAr88FILM4vi7iTdLsHtxBL9ar3PW+CQrQg2rEmrO69CM/T3NnnVHk
-	pb9xCpwsk0j+7LEO2TLYrKB/8o/0O2RgPkn3Toy5yZeaJbnfZh4KbHNHAeQ38me5CnbGYwxmseK
-	9/4knQJicS21eEeBfNhrduVwnSunHmtABmdF9nORfO1qFJLQ1+Yflq+3PUIpzEMKH8FiqqoY/Bz
-	AWnEu1cB9JqJRGOj1Dg/2wQQVFWpJbPdKjv6eJkaLcndoZ4p8Za9tfj39nOXGgYpznYlInhrEkn
-	o6jtqtB08QYCg/EtgJORD3kl+JChDZUUfid03qYJh3WyeWHKx+GTsTTUyH3L5kY+rn4AEzGlI+8
-	hMkBvDIwjF7s3aSgKsNw5Lh4FTyyRhQWx8u3bTYbaP1nOm4IyJVDE4l9kZ51vJKMfB6Cco5Q
-X-Received: by 2002:a05:7022:3a03:b0:1a4:9eaa:d01d with SMTP id a92af1059eb24-1b50315d8e2mr12037774c88.45.1794845343916;
-        Mon, 16 Nov 2026 08:09:03 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.79])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm38536683c88.5.2026.11.16.08.09.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 08:09:03 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: kbusch@kernel.org
-Cc: hare@kernel.org,
-	hare@suse.de,
-	hch@lst.de,
-	kch@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	sagi@grimberg.me,
-	sreekuttan2156239@gmail.com
-Subject: Re: [PATCH v2] nvmet: synchronize DH-CHAP secret removal
-Date: Mon, 16 Nov 2026 16:08:40 +0000
-Message-ID: <20261116160840.2616-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179484220961.249619.12113326051904353767.b4-ty@kernel.org>
-References: <179484220961.249619.12113326051904353767.b4-ty@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ae+HIPyq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xuWJrrizIQaSrZTQFgUO3V0HL4ic1BmuoACdN3FzMhU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794845367; v=1; x=1795450167;
+ b=Ae+HIPyqzAROEOoyRp+sqJdgNtzJS/JyJXyiCthVGcmoaviWkiBjm/j+yjeD8sN62KmgrQmq
+ AzURHi9JBd9x0c5DA8pR1o/vWCVDBXJe5RNLzO9SQOBeBQEnW7LdaySQbjCv9jmRoVl9ZgnNOK9
+ hUDgDKvocjlOeF3zwTIgHx88=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 15379bfaf602689c;
+	Mon, 16 Nov 2026 16:09:27 +0000
+X-Mizu-Trace-ID: 15379bfaf602689c
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so12531e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:09:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHMafhwdEpfoEV1BAgH1Hnqw7R5IYRNXvtsJCCI4oWipw3OYb6OxAfKiiZwsUGXVLcgeqO1b8WGQoy8RH4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nphFnr+meQA1QpiWLcEww5gkLLtNP0LXdpdcsfmA1+x7n7rep
+	h+vf9nrcaIoDhgBUIuTIRyF/ybztg/BDTO3r2GqgkJ4sM3GLaP7ft10dVF4bmKzFQoNr1aFU9To
+	oAxJHK6KT8wWlHgipbjoJaleNqTWYrl2fiIAXUPeK
+X-Received: by 2002:a05:6512:1304:b0:5c1:4cc8:2f22 with SMTP id
+ 2adb3069b0e04-5c17e4b9f86mr221482e87.8.1794845363481; Mon, 16 Nov 2026
+ 08:09:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,11 +66,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
+ <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
+In-Reply-To: <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 16 Nov 2026 16:08:47 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com>
+X-Gm-Features: Aa3M54pa7DZ_uBY7ynCUhZPG35ZaG2vJ1bC6E24f7r2YagR26_2vzli-PPKoWqQ
+Message-ID: <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
+ ring is full
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hi Sean,
 
-Thanks for applying the patch!
+On Tue, 10 Nov 2026 17:18:22 +0000, Fuad Tabba <fuad.tabba@linux.dev> wrote:
+[...]
+> > Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
+> > clobbering vcpu->run->exit_reason.
+>
+> Will do.
 
-Best regards,
-Sreeraj
+After taking a closer look, the clobber is problematic on arm64, where
+KVM_RUN completes a pending MMIO exit only if run->exit_reason is
+still KVM_EXIT_MMIO. If a pre-fault stops on a full ring after an MMIO
+exit, the helper overwrites exit_reason, so the next KVM_RUN doesn't
+complete the exit and the guest repeats the MMIO access. The ring can
+be full at that point if the pre-fault dirties pages, or with NV, if
+the stage-2 walk for the MMIO access does.
+
+I don't think changing how arm64 completes an MMIO exit should be in a
+fix for stable, so should I keep testing kvm_dirty_ring_soft_full()
+directly in v2, or do you have another suggestion?
+
+Cheers,
+/fuad
