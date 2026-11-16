@@ -1,68 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851253;
-	b=R5YsRV55CmC/zyW4N+mgoruJmvPA04dRnNOFsRCiLOaFq7stKVF02wU5+FX4vjW782fm
-	 U6R6Bcr/gORiMrz8l/VsVGn0nLVYlcSVEbtaL2uo0dVugKvDqhSKSR/kkEtYbGLfGxv3x
-	 poxIvDNro+YskV/mlr3z1yaxHNDJcjaVA91d2mDRvPVXU74YrKF4ghoTgLWLQHd7ucy14
-	 guZAHU8OlgZjkvevOIgdalFUB9EN9OgGhm4Ynz7q/XQynPQ4pe8z/Kn3xyOC0rkf5uqPk
-	 8fqz7EdB5pqQrB3IL2xrOALK6sV8s/hLw3Igyoo/Ves3BcoAPLlUplOLLBkUPNOa0jg==
+	t=1794851347;
+	b=uaf//bzu9/dmcVmyly8+ALK59pSx/Hu0KKmTG/994TkeKGGYpozim3tnncyyvGfFgQSA
+	 m7iFbKjfOwq8NH2zRqJDOvk/2Ddgh4hzj6BH0wLGHB5gTN36Ag/NBa4uNYgSAZmMXJZiL
+	 DLhPfJAbDGUsQ2T9/Y3FwHE6UTohe4tglZhbIdSjEXFrqjZfte1iI9A0GasNgu8Xs4gCf
+	 DMfhORyiihWq+1WESZuNZDYyVk/AEBhL2/kG+Na78QRLRiiVIXTWaZpKeO0PagkkZXFlj
+	 5xctdPqMu1U5zqlStCXqU/xbFm/65juZnl/Oer1LiE3O4uLSwMo++diop29Lbrv83EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851253;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=NRUJe6MVEMvrDdXoLeC9w5XnpWEenCh40gdtvYmgW/c=;
-	b=Q9lNGZxOzbCuLU/xZ2yvA81vBEMEdC2lazbC8zTKtgYP9CcoAIYvRZhlRyhDGD3FtT7E
-	 Bj7k7KjyLNuBU0OfNcP60Ddrv05KsHNdyVBo4dj4uNTptjifAAVJ3E4xuZwJHZ83sz3Ud
-	 Xp9Be2EKr37xjFJ+pSepe4OMHG123qVHbnYRzFuvIWKt2ZjRGsLOSLNR3yDqeL5EQQW8B
-	 DXTmX56edT7jLNMkZtUpJwi484+l1SCUHFilwcsa6pgrBZBNKfKJzwrUgIzDO9qcOHg6m
-	 V7gNrqsMQ5hW0MyvzDHOajtHZzW3P8zzj7+UToHxuXUFjxRC3zeS4ajPOANad6HeQLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851347;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wM/M3Qr2q2MJMidiTw81CDwlECWMExQSmD67qBO/SYk=;
+	b=HRM5dZZFzjn0DhCikItPIrP13PrKmU+q50BuBhU2YPqrD6Ugg1tfZOVbfsXLWK/xn6Vn
+	 MT1pofCeBasNk8ambjAgkbJ0PaWiLVm//+khSigpHwKuwUNMqjw6g3X6ZDu4tY0K23utk
+	 Z4Fnxbh2M4060wMMkwzIKpeidJGKFU2AxTStDFh6B3sRr/euUBL92zFiB7rJzfKHfIzaV
+	 +JmjfxL0AgYmNIB4WVZf6OvREZPmJF4Jx9MUirMjUSgB8M1rRmYoyjJEuB+Vclek7wZdy
+	 AGkpTIMVXc20yXFQIZlbe5gB4ECkfHYVDVAkkeGt2FQqogVEm7Jib9QIoUdSDYbYJHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aSKO6t5U;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68165606A32F;
-	Mon, 16 Nov 2026 17:47:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68165606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aSKO6t5U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794851253; x=1826387253;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Z28S/J0MHq2vQ14wwJPl/Jn2BHQeVC0tMuYPC+cnwRY=;
-  b=aSKO6t5UzoLo4X+cSLF1Fc1kEnjVj3AFTSy9Q/hBUr6QIp+1q+ZpXyt3
-   UEeZuoZwfrt13wySC+X+qYqEhddm6DyO6FATCATgWTjGND84y0jYrJpPI
-   qpPd/hfwBflDTFA7ULBvhAA4claRXTu+OQPRqV2tfi4PmL/jrVBakyMb7
-   Ehk+vXkB805CV56dHTcnWnChlAjtSLuVb1mBeZlA26KMCbiHTR/HY8w96
-   +56GGY0fv3vH+7mousPRUA8Zr+vKr6vVChDdHBXR3cLL8KI6dSnLoHRRW
-   vIfl9SEKE/X3Q8vt4yh09eLbk66ctWr0ocwB6QOtc655tQ6nfFto2n890
-   g==;
-X-CSE-ConnectionGUID: B0aUfti7RAq3c2D4s4b7rg==
-X-CSE-MsgGUID: /r1S3BJ8SAm8PniolRCa3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3505386"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3505386"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 09:47:31 -0800
-X-CSE-ConnectionGUID: DT4bHHrmROS7onFpDd5i6g==
-X-CSE-MsgGUID: lvzxamG6QfyjjEUiS7TvWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9413140"
-Received: from skuppusw-desk1.jf.intel.com (HELO [10.24.80.125]) ([10.24.80.125])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 09:47:30 -0800
-Message-ID: <e80768e9-b906-4381-9ba5-4d8afc877524@linux.intel.com>
-Date: Mon, 16 Nov 2026 09:47:30 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B066606A33E;
+	Mon, 16 Nov 2026 17:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B066606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:e6fc:5f71:2c1e:7d62:945f] (helo=bertha10..)
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xT0pC-004GcH-2W;
+	Mon, 16 Nov 2026 18:49:02 +0100
+From: John Crispin <john@phrozen.org>
+To: Lorenzo Bianconi <lorenzo@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org,
+	lei.dong@airoha.com,
+	Linqi.zhang@airoha.com,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	mfd@lists.linux.dev,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rajeev.kumar@airoha.com,
+	upstream@airoha.com,
+	Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: [PATCH v3 4/9] pinctrl: airoha: mux a requested GPIO through the IOMUX
+Date: Mon, 16 Nov 2026 18:48:49 +0100
+Message-Id: <20261116174854.342912-5-john@phrozen.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116174854.342912-1-john@phrozen.org>
+References: <20261116174854.342912-1-john@phrozen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,94 +73,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] PCI/PM: Honor PCI_DEV_FLAGS_NO_D3 in
- pci_bridge_d3_possible()
-To: Aviv Bakal <avivb@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- Lukas Wunner <lukas@wunner.de>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, Zeev Zilberman <zeev@amazon.com>,
- stable@vger.kernel.org
-References: <20261116165110.2773301-1-avivb@amazon.com>
- <20261116165110.2773301-2-avivb@amazon.com>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20261116165110.2773301-2-avivb@amazon.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On a SoC with an IOMUX block every pin turns into a GPIO with one mode
+value, mode 0 on the AN7589. Add that value to struct
+airoha_pinctrl_iomux and write it when gpiolib requests a pin, so no
+SoC needs a gpio function with one group per pin.
 
+Without an IOMUX the callback does nothing, so the existing SoCs keep
+their explicit gpio functions and their behavior.
 
-On 11/16/26 08:51, Aviv Bakal wrote:
-> pci_set_power_state() does not put a device with PCI_DEV_FLAGS_NO_D3
-> into D3, but pci_bridge_d3_possible() ignores the flag.
-> pcie_portdrv_probe() therefore enables runtime PM on such a port, and
-> on runtime suspend pciehp masks the hotplug interrupt while the port
-> stays in D0.
-> 
-> Return false from pci_bridge_d3_possible() when the flag is set.
-> pci_bridge_d3_possible() must return the same value for the lifetime
-> of the device, and FINAL fixups may set the flag after portdrv has
-> probed, so record the flag in pci_pm_init() and check that copy.
-> 
-> Fixes: d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root Ports on non-x86 platforms")
-> Cc: stable@vger.kernel.org # 7.3.x
-> Co-developed-by: Zeev Zilberman <zeev@amazon.com>
-> Signed-off-by: Zeev Zilberman <zeev@amazon.com>
-> Signed-off-by: Aviv Bakal <avivb@amazon.com>
-> ---
->  drivers/pci/pci.c   | 10 ++++++++++
->  include/linux/pci.h |  1 +
->  2 files changed, 11 insertions(+)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 7c6f2aba8144..eb7f2f03d9ae 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -3055,6 +3055,10 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
->  		if (pci_bridge_d3_disable)
->  			return false;
->  
-> +		/* The port is known not to work correctly in D3 */
-> +		if (bridge->no_d3)
-> +			return false;
-> +
->  		/*
->  		 * Hotplug ports handled by platform firmware may not be put
->  		 * into D3 by the OS, e.g. ACPI slots ...
-> @@ -3227,6 +3231,12 @@ void pci_pm_init(struct pci_dev *dev)
->  	dev->pm_cap = 0;
->  	dev->pme_support = 0;
->  
-> +	/*
-> +	 * pci_bridge_d3_possible() must not change after this point, so
-> +	 * ignore NO_D3 set by later fixups.
-> +	 */
-> +	dev->no_d3 = !!(dev->dev_flags & PCI_DEV_FLAGS_NO_D3);
+Signed-off-by: John Crispin <john@phrozen.org>
+---
+ drivers/pinctrl/airoha/airoha-common.h  |  1 +
+ drivers/pinctrl/airoha/pinctrl-airoha.c | 14 ++++++++++++++
+ 2 files changed, 15 insertions(+)
 
-This ignores quirk_plx_pex_no_d3(). It is the only other quirk that
-sets NO_D3 on a PCIe port, and it is a FINAL fixup. So
-pci_bridge_d3_possible() still returns true for those PLX downstream
-ports, and portdrv still enables runtime PM on them.
-
-> +
->  	/* find PCI PM capability in list */
->  	pm = pci_find_capability(dev, PCI_CAP_ID_PM);
->  	if (!pm)
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index aa3765a20a96..1238667d643c 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -420,6 +420,7 @@ struct pci_dev {
->  	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
->  	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
->  	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
-> +	unsigned int	no_d3:1;	/* NO_D3 set before PM init */
->  	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
->  	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
->  						   decoding during BAR sizing */
-
+diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/airoha/airoha-common.h
+index 7a0cb8924e71..adfce89493f0 100644
+--- a/drivers/pinctrl/airoha/airoha-common.h
++++ b/drivers/pinctrl/airoha/airoha-common.h
+@@ -111,6 +111,7 @@ extern const struct airoha_gpiochip_regs airoha_gpiochip_regs_64;
+ 
+ struct airoha_pinctrl_iomux {
+ 	u8 mode_bits;
++	u8 gpio_mode;
+ };
+ 
+ struct airoha_pinctrl_confs_info {
+diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
+index 5ae0c49e491a..e6b0180c9cb0 100644
+--- a/drivers/pinctrl/airoha/pinctrl-airoha.c
++++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+@@ -430,6 +430,19 @@ static int airoha_pinmux_set_pin_modes(struct airoha_pinctrl *pinctrl,
+ 	return 0;
+ }
+ 
++static int airoha_pinmux_gpio_request_enable(struct pinctrl_dev *pctrl_dev,
++					     struct pinctrl_gpio_range *range,
++					     unsigned int pin)
++{
++	struct airoha_pinctrl *pinctrl = pinctrl_dev_get_drvdata(pctrl_dev);
++
++	if (!pinctrl->iomux_info)
++		return 0;
++
++	return airoha_pinmux_set_pin_mode(pinctrl, pin,
++					  pinctrl->iomux_info->gpio_mode);
++}
++
+ static int airoha_pinmux_set_mux(struct pinctrl_dev *pctrl_dev,
+ 				 unsigned int selector,
+ 				 unsigned int group)
+@@ -510,6 +523,7 @@ static const struct pinmux_ops airoha_pmxops = {
+ 	.get_functions_count = pinmux_generic_get_function_count,
+ 	.get_function_name = pinmux_generic_get_function_name,
+ 	.get_function_groups = pinmux_generic_get_function_groups,
++	.gpio_request_enable = airoha_pinmux_gpio_request_enable,
+ 	.gpio_set_direction = airoha_pinmux_set_direction,
+ 	.set_mux = airoha_pinmux_set_mux,
+ 	.strict = true,
 -- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+2.34.1
 
