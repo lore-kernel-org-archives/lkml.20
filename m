@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.232.247.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821054;
-	b=BgQupOzGjBrHNjPbw4W8ymsUxHRuvMKfw/DKmXWGH+Pv/QZUAZQhIb3OqCdl0gv9Q7oh
-	 Y0pLsVUv6yyaUxDLeTiBiQqidDupinoo+PSU4KirlxxlMY5TVmqIBVofMUa/EIn9gIcCX
-	 Y/0fXrkxP2U7ZV0Kj7py/Oi6/wU+jcrG0HRolvyuiJr9pRwXrHWyv7i1Z3eBrND4vYSWY
-	 BjxPSn8rdLMewT1xhTMWdi5rDkYMccj6ZXtjFdJ6P0IbyXv1c6FXVGNivz/ZjRyzy5REp
-	 TyTGezU9M8Anx/oYobWQGtqRvAq3XQUnMoRnZl6Z4QBCjh24XLJqBqmIzDjEVGn6OzQ==
+	t=1794821067;
+	b=uAFDyMpvHLM8pi6tl9b0DEInedg8W20AW9EGgUv1o6mCGeR2OffN2IgyM9X5SiVKZ69l
+	 GpL75Rc1bdzC0ZMWsCw0jfhErMiI7rArPcBhnbB8D64sYwkalS6P53zJoKLZMKNrCJoBx
+	 pHowkXKr0lBUEipHQKtUpiudmHuG96kmt52P4CX3drdrojUgdsmiMeFq9Q9tMSZRpwPJv
+	 /AOix6W9blhcFjnHrfnCO6CNAWqOqnBTwDt6R05hjePo522pnOhqyJnPUaBmdGS1OW8Uq
+	 oalKu1fe/Y3FARPvKVbFPOZoEd46jo/KqQxwgdeh0eSHXtmHi1fQ+FmchV/NMtPWPBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821054;
-	h=DMARC-Filter:Received:Received:Received:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:CC:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Originating-IP:
-	 X-ClientProxiedBy:X-FEAS-BEC-Info:X-FEAS-Client-IP:
-	 X-FE-Last-Public-Client-IP:X-FE-Policy-ID:X-FE-Hostname:
-	 DKIM-Signature;
-	bh=8wobkCk6U4WcewhXYiKu2e+Z8/2mRL6oNYJhqRpXCm0=;
-	b=gJmVyDCgYmwl2KdeEmSrqdq6SvP9odPfximc49sCqtMqOwKqi8eTTbprQj7uOOp+6xf1
-	 J/N8+AVg9PWjelFDLVV1yWfywLFU4WDDArDpF8N779g6E5xfZhA2kmpmqzQnpwpc29nsc
-	 5CN79mGp7035ZfVGsUFQpgq5mGXLW6v4LQhjtHGq43qITav2N1NxUoaHHLMXHNOIZVzuf
-	 iDg4BtZma8MKfQd2bQxmfSfWzbG7Bie2Xy9FKNczAJOp/j12EF2/jXLgTDFAW1vbDJjs6
-	 TSpzpviEZ6GmKIIngVkI+G3OnYoX4FImBmjZfRf2hLgFjohSrhUUcGf3a6qmKSd1s3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821067;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cucuRiAtyyJedRw49cmsQXrkLhK0VoK8rf13ct59K5U=;
+	b=WXmYL4bATh4mpnnmCB40foguduxwKHyWVc7nC+YsDtEKFLc6SpCWFpT8dfcEdZuERYAD
+	 j1DEPsCPpgBDDJx+eYjIaP4Bngq/Dho+cifs6e0blSJY1cf2kbwMrMOfBIn1cUp5dET+5
+	 iVaLbd5Q+qMq95zJ2se64glVwmYBU/DRr4twL7BZOoiY5pLK/dFvzvdzQihbJJwKSxEgK
+	 6aCYxfXATTOVd1UyPa/Fdp6aX+NXDFuwRlvHdgnBqY5CLiQfGt1+Rd6y9RiBgkYUp1RXU
+	 L2NoWRUXnZTQrZEwMWLt9WC5xEHgsOqM5yKms0DHkI7A4+oo1rNqYWEtwgYbeKiP+Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=utu.fi;
-	spf=pass smtp.mailfrom=utu.fi;
-	dkim=pass header.d=utu.fi header.i=@utu.fi header.a=rsa-sha256 header.s=out-utu-v3 header.b=fNqdFX9b;
-	arc=none smtp.remote-ip=130.232.247.4
-Received: from fortymile.utu.fi (fortymile.utu.fi [130.232.247.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CkuKJxjR;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3F7606A329;
-	Mon, 16 Nov 2026 09:24:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C3F7606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utu.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utu.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7315606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7315606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=utu.fi header.i=@utu.fi header.a=rsa-sha256 header.s=out-utu-v3 header.b=fNqdFX9b
-Received: from smtp-04.utu.fi (smtp-04.utu.fi [130.232.207.47])
-	by fortymile.utu.fi  with ESMTPS id 6AG9Nlr2007444-6AG9Nlr4007444
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Mon, 16 Nov 2026 11:23:47 +0200
-Received: from ex19-16.utu.fi ([130.232.247.56])
-	by smtp-04.utu.fi with esmtps  (TLS1.2) tls TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.95)
-	(envelope-from <jaakko.ma.koivisto@utu.fi>)
-	id 1xSswF-0004aX-7T;
-	Mon, 16 Nov 2026 11:23:47 +0200
-Received: from localhost (91.145.105.139) by ex19-16.utu.fi (130.232.247.56)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
- 2026 11:23:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CkuKJxjR
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cdab9e9761cso2240598a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:24:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794821066; x=1795425866; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cucuRiAtyyJedRw49cmsQXrkLhK0VoK8rf13ct59K5U=;
+        b=CkuKJxjRDvsygZgd+aU9GZgl95fYcdfhBJvAGAKqyxvJaXrARgzSJYh8vG1obxOYj6
+         Hiq8QBBTu/FBed1FFeE6pzSA2rjI4msRNQYZWbfN6pZ2aGioVQPhZ8k8pz6bMcXzMeC1
+         KbSWr9EefxOFm59PXzFvms9ZImD51K8iWrPSOGfbl1G4zxjUBMpMdNR17CmqweJIlfpa
+         NAgXhjQgW1O2fap99pGikhVU5jE1gSyJLECQ10l1slmhJ54h0FY1IKxDigvfe4jKexRf
+         ibKbEx92bhobUUTRrJaWc1YTGHAJgp/HWTXY+yie45acO8jIoK2SkNcmd4jywIIcSMzx
+         ranw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794821066; x=1795425866;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cucuRiAtyyJedRw49cmsQXrkLhK0VoK8rf13ct59K5U=;
+        b=JsDIbDpGR5wPBXrWAV51Js999835wxqROWD62mIe1ut6x0aO7Y1IJe5l1JUXRj5m+U
+         CZttIN/dmX5U1jwbiuv9j6HUyLdFfFxYB1kUCOog9wlGtOnHiJ4yT1U8hn0WT9ZEjBDT
+         qGsTzBEsRlGROepjBFzA0eNQLfzJGcLd1DwRqKrFYE7cUk3QoXjtOWIIFJtym4YHYpUf
+         AOJRsg3WIHQlByUC7ND6dYK7xFgPmpLOSlN/fWSH0M6RD1E3HIThhYN8j0V/CSN9dvNX
+         BHd7KmC2Llu+VJ9Zf1NO6CBobbYEKHDzj/LMoW5JUUqw1LarXr6ayTmJO49+HlCGcAAO
+         yAow==
+X-Forwarded-Encrypted: i=1; AL+hErGIlt0FbTXvM7NeOrtzvn0Cf6qg1Bx8iAu9UHb5CAeY32Jz3zt7o1G0h8BhIGH9GQfUTcNf+R8LhLkEOQk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92gc5fRL4Nc6z29pjnxbjyDjYW9B2vr/VyLmB+ri71ws3NbAcx
+	KEVYzVVj64FuPfpO76rtPK/YCx9cMppFBcqOWNj8NX77msw4IyAs7M5N
+X-Gm-Gg: AZFdTZc0KXY5FvLiDvQ9T9F2zQQbWFj5RQzatudcdBDdjTZ5kMjsGOPgHdkkUppQTkd
+	a8YRmvRCKeNyxpDNDyQ7JcnsQr7XteNUKrBIAhncQoCq/mzwYvt535+eXBLLg0pBPMbOUHaQRqD
+	YUEs2CCvfIOBV5/gkuVNGWgq4Sx8s9w6QrvvdPpczwJLiRgOBADe7rWKoAUhuCM/pxRB5BSagcB
+	rT5TFjiKqW1zjvmdibcViP4/IT/WfchwRS/hMNLkM32TXqwdlUb6P46dTr5cr+CmJ1B/JsztHGw
+	D/SDN5WA0Sxv/LellMvtleCWhr88gO7YinCvRwBBx9bj1h4BPS+rACbVzj1/3XVY8acNLAHgda8
+	KGxxq7dJnBfG7Bm19yJ0zEoRtcwLFPICfj6+JgTQ9wAhbCEUQxluHUxjrhNZ/qi5gajgh931uJE
+	DVUtptmAUGPlHTWaIavJ46bMZHgiQtnbtVBfwuMK2M6gn6UwO3TmQMDxu5b6fENAazcsfcFE8tc
+	4/AO1DkFoxAVS4/IDPXqcvCn9QXVjlKerYW/fKhaa5cSb0zS1xm6B0709suJJjHkdbeUMInbOaO
+	omqySyX8N7t2OqxZqyqIaZbRFwccS7ZPBgBHJ7lGI+il7rrAIrxkYsvUZmQVe8mN6XEy7n1ZZBN
+	9yQQKxF7qmP0o+YVVNY4ite6NAwxiQNNckiOJG1V1V73zGgRucgHFhzhvpJITzoNGBA==
+X-Received: by 2002:a17:90b:4d06:b0:3ab:884b:65b7 with SMTP id 98e67ed59e1d1-3b1b0ba1321mr8970677a91.25.1794821066118;
+        Mon, 16 Nov 2026 01:24:26 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec43699sm15661189a91.10.2026.11.16.01.24.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 01:24:25 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 0/3] ASoC: atmel: mchp-i2s-mcc: Improve clock and IRQ handling
+Date: Mon, 16 Nov 2026 16:24:03 +0700
+Message-ID: <20261116092407.514998-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,85 +104,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 16 Nov 2026 11:23:46 +0200
-Message-ID: <DMWIYCXE9DLV.3T2MJYLQRGIQN@utu.fi>
-CC: Andreas Klinger <ak@it-klinger.de>, David Lechner <dlechner@baylibre.com>,
-	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko
-	<andy@kernel.org>, <linux-iio@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 5/5] iio: chemical: sgp40: Implement
- turn_heater_off-command
-From: Jaakko Koivisto <jmatko@utu.fi>
-To: Jonathan Cameron <jic23@kernel.org>, Jaakko Koivisto <jmatko@utu.fi>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261102091258.247402-1-jmatko@utu.fi>
- <20261102095602.333752-1-jmatko@utu.fi>
- <20261108010518.5d9c0016@jic23-hlaptop>
-In-Reply-To: <20261108010518.5d9c0016@jic23-hlaptop>
-X-ClientProxiedBy: ex19-04.utu.fi (130.232.247.44) To ex19-16.utu.fi
- (130.232.247.56)
-X-FEAS-BEC-Info: WlpIGw0aAQkEARIJHAEHBlJSCRoLAAEeDUhZUEhYSFhIWkhZXkguLT4lWFxYWFhYWFBeUVxfSFhISFpdSAIJCQMDB0YFCUYDBwEeARscBygdHB1GDgFIWUhZXkgCAQta
- WygDDRoGDQRGBxoPSFhIWkhZXEhZW1hGWltaRlpYX0ZcX0hQSFhIWEhdSFhIWEhYSFleSAkDKAEcRQMEAQYPDRpGDA1IWEhZXUgJBgwRKAMNGgYNBEYHGg9IWEhaWUgM
- BA0LAAYNGigKCREEAQoaDUYLBwVIWEhaXUgEAQYdEEUBAQcoHg8NGkYDDRoGDQRGBxoPSFhIWVBIBh0GB0YbCSgJBgkEBw9GCwcFSFg=
-X-FEAS-Client-IP: 130.232.207.47
-X-FE-Last-Public-Client-IP: 130.232.207.47
-X-FE-Policy-ID: 3:5:2:SYSTEM
-X-FE-Hostname: fortymile.utu.fi
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=utu.fi; s=out-utu-v3; c=relaxed/relaxed;
- h=mime-version:content-type:date:message-id:cc:subject:from:to:references;
- bh=8wobkCk6U4WcewhXYiKu2e+Z8/2mRL6oNYJhqRpXCm0=;
- b=fNqdFX9bmWGBvfRGPlXcpCY6l0uk9zM8WvnDISY49bTfidKIP1Rq0MVgoGOoUi0qUeWdj5xBXmX+
-	6mBQuoD4PpSGb1HRQJpi9kMEasSHMV+TSPkcYz3Wz3DrRJyIOYh9zImTjNNMUl/vByh3GCFHEHcm
-	CnPHyLe9Yzbjp3REvvKEIdoxpGiTx0dsJcz6bUZwaoky830pjItujbmKVTOnLXDsyAzdPTQT7/P+
-	EaFNcR185mSj+axGZhB2cVcysGOPcb8qcbTaeNXLoqyF9EALForZuuFYwM25BM74+eKaEEWE2un/
-	DjV1vUo2WOiCw6BF/Tdrx1oPJKrVgqWkDvaJmQ==
+Content-Transfer-Encoding: 8bit
 
-On Sun Nov 8, 2026 at 3:05 AM EET, Jonathan Cameron wrote:
-> On Mon, 2 Nov 2026 11:56:02 +0200
-> Jaakko Koivisto <jmatko@utu.fi> wrote:
->
->> Add functionality for turning the SGP40 sensor heating element
->> on or off manually. After turning the heater off, the sensor enters
->> idle mode. Track the state of the heater in the driver, as the device
->> does not expose current heater state via any register.
->>=20
->> Turning the heater off saves approx. 2.5 mA compared to regular
->> operation. The heating element is automatically turned back on
->> when measurement is performed.
-> Hi Jaakko,
->
-> Add something here on how long it takes to power up.  It
-> isn't obvious so far that this should be just done via runtime
-> pm and autosuspend.
->
-> Normally the argument to have a manual turn off is that time
-> is huge. Otherwise, why not runtime pm?
->
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-I'm currently unsure which would be the better way, runtime pm or
-manual. There is another source in addition to the datasheet which says
-that turning the sensor on 170 ms before measurement is acceptable
-(https://github.com/Sensirion/gas-index-algorithm, Algorithm usage with
-SGP40 in low power mode).
-The datasheet values 60 seconds and 60 minutes warrant manual control,
-but 170 ms would be workable with automatic pm.
+Hi all,
 
-From chemistry perspective the datasheet values refer to power-on from
-completely cold sensor, lot's of adsorped water and need to heat for a
-long time to reach steady state, while the 170 ms case is for periodic
-measurement and the sensor does not have enough time to cool down and
-adsorp more water between the measurements.
+This series simplifies clock management using devm APIs and ensures
+the peripheral clock is enabled before requesting the IRQ.
 
-I'm gravitating towards manual control, since that does not alter current
-behaviour, the proper heating times are based on how the sensor is used,
-and the sensor power consumption is quite small so it's not horrible
-having it on all the time.
+Compile-tested only.
 
->
-> thanks,
->
-> Jonathan
+Best regards,
+Phuc
 
+bui duc phuc (3):
+  ASoC: atmel: mchp-i2s-mcc: Use devm_clk_get_optional() for gclk
+  ASoC: atmel: mchp-i2s-mcc: Use devm_clk_get_enabled() for pclk
+  ASoC: atmel: mchp-i2s-mcc: Request IRQ after enabling pclk
+
+ sound/soc/atmel/mchp-i2s-mcc.c | 46 ++++++++--------------------------
+ 1 file changed, 11 insertions(+), 35 deletions(-)
+
+-- 
+2.43.0
 
