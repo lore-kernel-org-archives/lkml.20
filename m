@@ -1,83 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814545;
-	b=PrtL1GMJGc5DGqBdSdPKUg7Jw4CGMp5E+/YgLH3xNM3f5xZXwvvN1Zy+9xFJ469U6pZK
-	 OJzxMEqDChEhWY5j87Hof6tz9rnst9OzKZVXbnlsC+Ia7S2pO5qJrNMJ+Ks4DQj+lL/nu
-	 gCFpbACU5Uw+nBg2pmkg+DOgWtoDX3cBxH2ZonpPlVcyKrOcJPICmIh81vgdRtz09s4LX
-	 9IzeSRVxxzSrk+zLaWsgyvBff4v0Xyizkux2s+fFJOCU/V2Fc2BUPHYPp3UHN7HHfSjI6
-	 g9aS0VLNbqvxQBA28CnHuFnHmGHGVZSbTzJj+kbJ/i1ck1+K8L95oPC6MgktEFaEb+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814545;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gPZTbZk8SoJNpUJDON4Ig3GkkPgAjMgPKV23C0DMgpU=;
-	b=YMHuk8W5am2zo4BZYaNUHCg6y/1o/Fh0zt34BbnI/uVhqKpQbWhJr8AuOi014i0PohOR
-	 Rv75Ut6esrdSUXLWvZYpz+3OeTjfVJTaSglTz+Mexiry3u3lEPdZEPbudL9PLFMOWAaEF
-	 FVSXBe0NpWkvnc3K2fnsZdxiZq2x9KTUCto6it5Wi6E+eLd/lBS4aqTNO0OLL8c79mZlA
-	 JDEeYXe/eIQHBwLGQgKAB+LBsAfTyr7r99wnXAj6ztztQtSZRQVRBlOphhS6Z5D64nkKn
-	 p6OSXwvwDo6ys1Y+kPjSbwVOvBqonnweIBaF/k6kXK4GNRjNfH+aeS0T1g9iieBlzOQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=m19tbZ5W;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794814588;
+	b=VOmLU4bkiBXfJjf/OGx10JLrPaeny53Mnizs5Ea/KIKV5eD/6C75npY30oNOdek92JdS
+	 NcBVDkeH4PI/0AFobbsPJpZxwy+Zfdk20TfHYcWz4SJQt+fZbHzcTJPvQl4gvGH/QJJiW
+	 JWzk9ko9D26rs3gSfZgYT/kYSYuO/rhNswHjuAgBZIr1CeaGhe9Q4o2CzSrexojnhTsHJ
+	 SQshg/reKVOeYqQXe85UW/pGDdM4aj+kEMGJq+5rA+B0nJCyHkhwyGaUNHdzY4PiaZ1d+
+	 /M3Kta4UtJlN0MUzrM+O8xu8Fbh6O0TlnxJlnW9rHZqpjAcH+O5FMvN1SyGZ4WktSRg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814588;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
+	b=VcofjVrzzBV950gdJaLLlbzLwpoKjVPCIJAqg65twgoD/Qz0AsThJnN6iWzUiVrneutw
+	 qZmwZ4eCRj0IhjkORE5OiF+Pv30sXzFSER4C2PaQUgXzp7ZWSdbSvo7Xi+JqPdoWVVn3D
+	 shujlkQ2UQaWaTgDPHBvIBoSZyGr7eBupQ9y87nQf4Z/22vOnxGsAKRKhrvxBXLUlQS6P
+	 ipm6TF6dldc+lF0sgqzrgm8Xw8iPSD5l9YcvMYzzRophTXSpcrklbJxNLObQau8CXHGXZ
+	 /p/vLuiODCvqiFuITGv1Z+rVDk1IWQb9aaUGvfmB3ApghYslvEebSQ5mBxJ2xcBzP+g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnQnW5MM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358B9606A31C;
-	Mon, 16 Nov 2026 07:35:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 358B9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C932C606A8A6
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C932C606A8A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=m19tbZ5W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794814532; bh=gPZTbZk8SoJNpUJDON4Ig3GkkPgAjMgPKV23C0DMgpU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m19tbZ5WnGuKPYWjPPNwepbjA4QUPEQH4rUNG5Vyckd56/go7y0EXkFaC93h8h1dW
-	 Xg6RyKFC9jgiVJDMqfX7Ah2ijCw6nTcoVgL5OnaarY+xQv5gRPSoP7pULeRmDP3zYv
-	 Ca9okPL2DfIjsyB43xA4GjwXe639CUtXYFse3vQY=
-Received: from ikun ([221.176.157.242])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 8D3BD429; Mon, 16 Nov 2026 15:35:19 +0800
-X-QQ-mid: xmsmtpt1794814519tl5lnlj7n
-Message-ID: <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
-X-QQ-XMAILINFO: MAUQIEZVArhLaRAHwoTiol5Eu17QC9JGLGD4PHcJuT6LN1zjNUHNcIM05oWU26
-	 wyNGR9jWY5a/tzcgEoPwCEk8TwpkQTkplTdrFeP6TL4vi7dF1QeIlIru1AkXB7Q4HlFJO8KbRqIn
-	 FQlN0HkIHbrZP0nQpzK/NEvjmaAoAqo87M4ogtRFNMuCFnitg8C7siVQh+Y05w3XoCGYvLzVOamj
-	 trwcarLtqAY1FaPoOawK8mRzCnsBY8W2EG0jDS/GBK3z4M2xl1GbyV7XJXx0woh8Z3NPeCNiJy7m
-	 pLOAJkt+6p/g+OZJ0EpHdQApBXxUw1em1hdv5j0TYo4U4EQ7Oibk5WPKDftKej/UiJRUdcJNVpYt
-	 avDIv8MZL5gi1+TSM/ZMPAWr7+W6oX8Ntg1CHh8GxAQfapbAlyr11zREAmqwW9kUF4g6o4/fXite
-	 w2Sv+fH2/6nbT9abLemPG/B3qETPc9rbUG+BuwtIBG8T4zAOOLcvH1s4yc2geR36re5ZefiQ4u/0
-	 zHLyZKrcSq/Xo7cDJEowG2G10Ffm8Posz2Bwt9GvCdFt5LmMacE3b7sGHNo/JOKDPtXyKsIwPj/6
-	 P6NzWXqXkIJuXJnwF+g4bqw8l4qCukIqb5DY4QBanYj+363PnX5x6s70dxuaNMsljzeHKw7NQd1o
-	 HI2fseuS68VhoQgorkbdVWe8mlX+aemTsunomyJI1qV3SkN4SsLVBEMsEPMeaGI9j5hQllTAiBgo
-	 7SzucFk97OCvBNrQqJ6pgy2ojTFV5MLG5Fol8Cl2wM/of0jbzA7nCZqsaXR+AkE5jaenVI8IUnEG
-	 AOPUf9wvwevS/Pc/5ArXbWVxOKFQL08TxrZ3MbN00D8pnmzqW3VpFP4IhP7gI+fMXXy3/EYtSoDM
-	 +uF1c5Cqx2E+U5zH4AqgbDnpmqCOh3hJFtfDWeoK8VudQw/E6e/+jj9n8bHt/1ree3cBlmVE+49o
-	 4drTN6uA2uaW6xXpAfJ7XlBK8poZr7Ei5aNk82gbwz48UqzhqTQAyTjDwwbMrdUmhDjLGXrtrTXs
-	 WJZQQlz6ag8l2/s8ZAE4RATyLQ4Zs=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Alan <3164729207@qq.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	harshadshirwadkar@gmail.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: reserve inode write access before unlinking entry
-Date: Mon, 16 Nov 2026 15:35:19 +0800
-X-OQ-MSGID: <20261116073519.21804-1-3164729207@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
-References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnQnW5MM
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so4600373a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:36:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794814583; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O6Wa4kTRy7FTEqiOHy4F6pe8mwikmwNbw7ZPk9i/ZCiYNoxttvYgPUcKuUD8Qr9i3i
+         WnR4eIXlrZueZn1RpIGSaEfc93tYUUL7mO6jaFvwJywXoZXE1pOyntKQj3I2VhMaLEVD
+         vFt4jNka2PbffAljim5N9ejcJGQ5FbscUEpFvTDj8etgySZZXXv0890JnjIpU1VLqaDr
+         aXf2EpEL6X/sRh+8pOi4wv7lIfCxJz6vD0ysgXWxH1EVoNr0jjbYbhI5gwerqgr+hcb8
+         D/RKky3plItwnLXCH4yKqL2FjBd96ycKMDcUkYHXnhq/5diEeNXZPQ/yQlijet3dwsMb
+         c+KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
+        fh=d5sTNjXsa9bQ5NJNu8qI4pQrGwYdAYVdac/bB21WTno=;
+        b=jho+J8LzNmHucq/5KaRsiZ4n6Y5vnYDic0hZifpWIyFBDfOiOyJnA8QyltExD//Gkh
+         9YfksHMLg98WrODcdVkQ4dpPYOz8Tvk9GEPjBxI5FnuLR2DTNMq6+vln7FyU213gfWeN
+         R8uRy8HuL7f7ULrxZEdt6Qe2QXvKQuhdclh/hIzZqCxyS+MtAMZJchWGumEBPbKIs9DZ
+         E2Ee9aJl5iW+7j+wdW8Kwrkr/WkR68gJzCXrd6BQHIbQryiCTg0jzUoYUT4Gc6oQXNoQ
+         axRrQn0oZvaqu+PvEffmjdniJnaJDlD9sSd95k20PDngO3e3PrJjzKYGsfvSCdDNtLaH
+         d7KQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794814583; x=1795419383; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
+        b=ZnQnW5MMlw8g4UDJend73b2EqQM0QB6Z8uyJYgtQ4aWw+rMVJoWthx1owv+BmRqFOb
+         BaV9WEsevPIZPRXbf67ehZ2/dHGqWOZumsHCVrHC+7bSpy1pqBprWCWjAd/qANlycO9k
+         mkdoQkVuTYaLPCk8+WXG7XLf0drxrF4UZLTQaG3NK1fY/WNM4/vsqkg32Ngp9X8HHziM
+         6hmqdHWBTZh85dtGyW43TYABPZ+oayr3KHt4yRA/5c3HIdT1CHuTrvD6uEWQshbPdDGX
+         S65NCW40Wgb6igu9RrFlVaKXoNFE+80lUaqUlStIfZQTiODQiRQkUhOPtunUJCYWnmJ/
+         HZ0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794814583; x=1795419383;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NuMRN9mlOmZCEKh1xHdz4U4CqJ8o4hxQExiC+l3Niro=;
+        b=LFa2TUrPdIB9WWPfHA/FIzJlNXSGa2cJLG3nTXKmvmDDQve2QTYroC0W2g7fneifKD
+         dHvQxfWP3+mZ3Id85eP7gYH0W/RPwMjIeB2BPPhSEzkAUjPpYvQOaX0FKB/NN7Kn+m2f
+         4IqfEV/Fbcn9XcTB8ZM9ve2SBNRse1mbPUGPl3byZ1pAPnVghDiOjxz+L1c3j6U/T0yO
+         LqBXsrUxcStMI/52eQQOXNPDjjZ8OK7Dui8Okqy+ZMaP92NXllqCIU7h7hTZMoEH4/NW
+         ZmDQTM3EDwKg8rvXQ7A+AH2mDHcTd6lrgbhneOroRzj4p0Mw4nzxANoQVRhPDBkg6R7E
+         RQaA==
+X-Forwarded-Encrypted: i=1; AL+hErEnZavCD5LxEtCdJQclobvPgEcSk9kgyJyMtlyJJ5dgXLNCdGKyZl0+y7TO426fsFj3u7P9mQsZdsuuvzw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rfKfIJZmoZIRrP4D/l+WQbVpCA7Xy9E1lfEoE7mcozyW6orLn
+	61v9viblD6j+ptWWoLQE+6+GvLL7MXXqGH089S/7yrLwA4vmkDr0z14wGOytRHGH6CzzPc9YA0v
+	+AuVMCTOgjNgN3zPrEeNHLHyvSgUQECM=
+X-Gm-Gg: AYBFou2tfEx/7dq9zthu79/BKUOIO0DqhInDF1Id5Qq7fLC1TeESvbpNey8umxs16T+
+	fn12+mL5xnJjPVwToMsBT8LL4lI6VnAjZ5GDylAx8KFQmoAs/2zb4igBvWznQds6X+Of+3ckRqa
+	bbkXfLZppixZ0sLL/iCA5KIl9bKfDgpYGQE6PaEAQQtfotgVh/HZGp0WJKFZFnS7Xp0Lozmf+pV
+	5IoDyfJc2OBsZvVJ/aMqvsITSQMV3tFWMZgq0cnpXr0i3U5PjsNgzSIMTOoXvXa5dEi6PPU45aM
+	oPNz9JYFhHOW490B8AvDlxzd0pgn4eMwXLFNW9f6B1NlCO76pfby083l8B9u9tN3t+KXhXZME0n
+	OlGtSuk6EL6NtLz8S5/+vK7y7XtHfEQxZguHWVhVnKbGs7Uh3wIYDy7lq
+X-Received: by 2002:a05:6402:5d4:b0:6b5:5fc8:9ca2 with SMTP id
+ 4fb4d7f45d1cf-6b7c0c7dc86mr6801231a12.34.1794814582850; Sun, 15 Nov 2026
+ 23:36:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,50 +103,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261110061429.2036-1-linux.amoon@gmail.com> <20261110061429.2036-2-linux.amoon@gmail.com>
+ <avpN-gFOvTBAMY6G@venus>
+In-Reply-To: <avpN-gFOvTBAMY6G@venus>
+From: Anand Moon <linux.amoon@gmail.com>
+Date: Mon, 16 Nov 2026 13:06:08 +0530
+X-Gm-Features: AclHuK_zi0cJ5esU4k_l4Yl1mv76j_qYKuptpaeB4AEIgcR7sleibDfPZTNW_HY
+Message-ID: <CANAwSgT_k35_waHL-+iU93f=k3fjFAPXhk=exRz-XHMm2MqREA@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] power: reset: spacemit-p1: Use atomic I2C
+ transfers for power-off and restart
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>, Andi Shyti <andi.shyti@kernel.org>, 
+	Yixun Lan <dlan@kernel.org>, Aurelien Jarno <aurelien@aurel32.net>, 
+	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Ted, Jan and ext4 reviewers,
+Hi All,
 
-A gentle ping on this patch from October 27. Are there any comments on the
-approach?
+On Mon, 16 Nov 2026 at 11:33, Sebastian Reichel
+<sebastian.reichel@collabora.com> wrote:
+>
+> Hi,
+>
+> On Tue, Nov 10, 2026 at 11:44:27AM +0530, Anand Moon wrote:
+> > The SpacemiT P1 power-off and restart handlers use regmap_set_bits()
+> > to access the PMIC. However, these handlers run in an atomic notifier
+> > context (specifically within an rcu_read_lock() critical section), while
+> > the I2C-backed regmap uses a sleepable mutex.
+> >
+> > This triggers a "WARNING: suspicious RCU usage" warning due to an illegal
+> > context switch in the RCU read-side critical section during shutdown on the
+> > Banana Pi BPI-F3:
+> >
+> > [  563.803475] WARNING: suspicious RCU usage
+> > [  563.807813] 7.3.1-ARCH-RISC-V #1 Not tainted
+> > [  563.816614] ./include/linux/rcupdate.h:387 Illegal context switch in RCU read-side critical section!
+> > ...
+> > [  563.841445] locks held by shutdown/1: 2, last CPU#0:
+> > [  563.846694]  #0: ffffffff8404fb20 (system_transition_mutex){+.+.}-{4:4}, at: __do_sys_reboot+0x230/0x29e
+> > [  563.856806]  #1: ffffffff84167860 (rcu_read_lock){....}-{1:3}, at: atomic_notifier_call_chain+0x4a/0x1c2
+> >
+> > Replace the regmap operations with atomic I2C transfers to avoid sleeping
+> > in an atomic context. Preserve unrelated register bits through
+> > read-modify-write operations and check for atomic I2C support before
+> > registering the handlers.
+> >
+> > Obtain the I2C client from the parent device and verify that the adapter
+> > supports atomic transfers before registering the handlers.
+> >
+> > Tested on the Banana Pi BPI-F3 (SpacemiT K1).
+> >
+> > Assisted-by: LLM
+> > Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> > Cc: Aurelien Jarno <aurelien@aurel32.net>
+> > Fixes: 28124cc0fb8c ("driver: reset: spacemit-p1: add driver for poweroff/reboot")
+> > Signed-off-by: Anand Moon <linux.amoon@gmail.com>
+> > ---
+>
+> regmap runs i2c_transfer itself and thus also uses the atomic I2C
+> transfers. The problem here is regmap itself. But instead of moving
+> away from regmap, the atomic use case should be supported properly
+> in regmap.
+>
 
-I have additional validation from November 2 using QEMU blkdebug to fail an
-actual guest block READ. These results supplement the source-derived fault
-injection described in the original mail.
+On  RISC-V platform, poweroff and reboot are already handled by OpenSBI
+through the SBI System Reset (SRST) extension. Linux delegates these
+operations to firmware using SBI_SRST_RESET_TYPE_SHUTDOWN for poweroff
+and SBI_SRST_RESET_TYPE_COLD_REBOOT or SBI_SRST_RESET_TYPE_WARM_REBOOT
+for reboot, depending on the supported reset type.
 
-On the unpatched Linux 6.12.1 test kernel, with errors=continue, the failed
-read was at sector 2312, in the parent inode-table block (block 289, parent
-inode 13). The kernel reported:
+Therefore, there is no need for an additional Linux PMIC poweroff/reboot handler
+on this platform, as it duplicates functionality already provided by firmware.
 
-  I/O error, dev vda, sector 2312 op 0x0:(READ)
-  ext4_get_inode_loc:4554: inode #13: block 289: unable to read itable block
-  __ext4_unlink:3469: inode #13: mark_inode_dirty error
+While supporting atomic operations in regmap may be useful more generally,
+it is not necessary to address this platform's shutdown and reboot requirements.
 
-unlink returned EIO. After normal unmount, /p/file was absent, but raw
-inode 2064 still had Links: 1. e2fsck -fn reported:
+I tested this on the SpacemiT K1 Banana Pi BPI-F3 after removing this PMIC
+poweroff/reboot driver.
 
-  Unattached inode 2064
+OpenSBI commit which handles this extension
 
-In this case the inode-table read fails in ext4_get_inode_loc(), before the
-journal write-access call. A separate run of the same block-read failure
-traced JBD2 through unlink, sync and normal unmount:
+d9637d00bf47 ("lib: utils/reset: add SpacemiT P1 PMIC support")
+b10e18ec854a ("lib: utils/i2c: add minimal SpacemiT I2C driver")
 
-  jbd2_journal_abort() probe hits: 0
-  unlink handle at jbd2_journal_stop(): TID 7, T_RUNNING
-  h_err=0, h_aborted=0, j_errno=0, journal JBD2_ABORT flag clear
-  jbd2_journal_stop() return value: 0
-  jbd2_start_commit: transaction 7
-  jbd2_end_commit: transaction 7
+Similarly, on the StarFive VisionFive 2, poweroff is handled by
+OpenSBI through the
+AXP15060 PMIC, so there is no need to register an additional poweroff
+handler using
+devm_register_power_off_handler().
 
-The offline filesystem check still reported the unattached inode. This
-demonstrates that this read-error path can commit the directory change
-without a journal abort when mounted with errors=continue.
+OpenSBI commit which handles this extension
 
-With the fix, the same clean input and block-read error failed before the
-directory entry was removed. After normal unmount, /p/file remained present,
-inode 2064 still had Links: 1, and e2fsck -fn completed without diagnostics.
+568ea49490d9 ("platform: starfive: add PMIC power ops in JH7110
+visionfive2 board")
 
-Thanks,
-Alan
+-----8<----------8<----------8<------
+diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+index 50df66de24e06..069259f7d7c15 100644
+--- a/drivers/mfd/axp20x.c
++++ b/drivers/mfd/axp20x.c
+@@ -1458,8 +1458,14 @@ int axp20x_device_probe(struct axp20x_dev *axp20x)
+                return ret;
+        }
 
+-       if (axp20x->variant != AXP288_ID)
+-               devm_register_power_off_handler(axp20x->dev,
+axp20x_power_off, axp20x);
++       /*
++        * The VisionFive 2 handles AXP15060 poweroff through OpenSBI.
++        * Avoid accessing the I2C PMIC from the atomic poweroff path.
++        */
++       if (axp20x->variant != AXP288_ID && !(axp20x->variant == AXP15060_ID &&
++                               of_machine_is_compatible("starfive,jh7110")))
++               devm_register_power_off_handler(axp20x->dev,
++                               axp20x_power_off, axp20x);
+
+        dev_info(axp20x->dev, "AXP20X driver loaded\n");
+
+Please let me know if this works on your board?
+>
+> -- Sebastian
+
+Thanks
+-Anand
