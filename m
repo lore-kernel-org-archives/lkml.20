@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832109;
-	b=eOO8CTtuMbeB4dEb/CCSrCkQQhBHLTXFVRfFdnFkpE+pZfEeGr74w+L6nsWuIcvFCBDL
-	 KfaZc7w9QpWgaOGFh3dXcxg4Jx3PVGax72XHjeKv4ziM/dZHgs8vbvEoRz8pzDlsbVlQu
-	 lLRG/V1SkfHUC2Nn6VAK0BmoYosYenIVulJ1SN95mDOajVj7hFfFiClm96IuGktz11fC5
-	 aJQsUWggb+ftypV+oOwUOwofXhS6klaITerioTN1z7fkQvzVqETN2pGiKP35uWKMj2dmk
-	 PFZiTpeyfR1GpNWWs6UeS6VbyUFCeHG4IgXsnp36Wn9hoYB0ChjxQfKZVfd8C6+fLRQ==
+	t=1794832124;
+	b=x7wIEl0hf3OFVRaEfcfYhF9fORQB83/MJCkxPYBW3DyHosX03icvJtuJknrIJ9ZAAxrI
+	 8AtO/nbnP4VKqVqcqm3duCF9ZKI/rq8hE5gakBFThMNeqowAdIb0PRMhssW15/LF96bB8
+	 vBqBNDTQ+MLyXZrU9h2p+TfJTs/f6Zl3oohdZs/E6I1Httiuf14gKTOrCm/v+4hoTOkJe
+	 gZfFxI9T9DQj1hNRAi0w6OBDZ7vMXFeiosgjrhPm55Ls2oddgObnpT4hQiw6BRtuB/83E
+	 tTCQFxlPoEXqA5I4zr3/TSD+BWPZRVoBFJTEuVM2U9q4IQVW5GKqSGmnD9iq9+NYIbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832109;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=koB5cD8jkiHwg/gaCDPGLOgCwu+vMsptg2p8K3IP/zk=;
-	b=DVRtE1V9Wf6kR38C7QOKsLUrmSUCe7/QNZsj9fSvSSo/n7uIESpM48RLGTT+gy4HrnZn
-	 XygzRbsrKqu4gbjOQUC4LKZt8ZEAXmhMqneWDm+/urMwDXQUpIDidxDNbu08J/1begv6x
-	 9FXN49Ki7dTrb5ibD3prYZP3CbXa1hZ9Y4fi3HtgOHfnmwsmCJzYaE4wKhLUPQdQavyyg
-	 NKNRdE29O7thswPUCtqITcOIeDbafKVdtIkhxU3F4j5MFwtTsw9jUW2M1T1xMc0td7FYj
-	 2mCM31PQBKgjjSm0gCbAqEYmNliclXCow6EN0W79NW5Th6nRv3hbiUyFPaqt7VGrqIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832124;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fwRQP7cKryYxbdezG2O16iT/PFMqteep/2pksLEIx6k=;
+	b=ehQoDEAxEJUUoMmjW4JjXaZWdJMZwd3rLAnlKIHHBN6CwhCGtRBR3w2zpB/7f/lW9FyM
+	 Aarov+uUP/MMqHVOhq6pmot5f5BJes6PT6K9F8Ip+Mqfe0qErsk3yT4ofAL/PPRp3qEv2
+	 TBW4l2/YysqaXKSOl3xSA/TLbVokPxaqnU5u/WvenTOEgHfkMItXTwCDD9nBtJHrI+C2p
+	 vlmFsUj0rsDCuml5hl8LrP/poL+y9jQ4NHc3cIvBVk+8jLWhWXo4TJvug5tRo7Ze+9Sgc
+	 ESbfrGtVtPXDwHM1yt7IT2GyHLEvg9ImTa9udRTg3Itt2PvWCQcsnNBzAUIu+M3B8JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 06FB3606A31C;
-	Mon, 16 Nov 2026 12:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06FB3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=koB5cD8jkiHwg/gaCDPGLOgCwu+vMsptg2p8K3IP/zk=; b=sDchc54b5/Hhu
-	jQgJQso7kRC8U4MZdOTa3543GtiHmcpfFVON9+K/gwmqSdPvwz3kWWlEt0DCn0Y6
-	XPzoDYg1s9JGperNFt6v2GxgLUe2lxJZpqxL7NnNiuofnFNWunmFYjvaiW/UWDf/
-	BaTTXGOaaqoiYzJFI4Tt0H0gZKtQc4=
-Received: from LAPTOP-FRMFRHCN.localdomain (unknown [240e:454:8411:e49:29:34e0:92e:39c2])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2vP_J9vpqLoS3AQ--.35856S2;
-	Mon, 16 Nov 2026 20:27:54 +0800 (CST)
-From: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: linux-ppp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+6b18da3ef22e33061add@syzkaller.appspotmail.com,
-	qingfang.deng@linux.dev,
-	25031212117@stu.xidian.edu.cn,
-	byu@xidian.edu.cn,
-	Haoli Zhang <26031212468@stu.xidian.edu.cn>
-Subject: [PATCH net] ppp: serialize channel connect with unregister
-Date: Mon, 16 Nov 2026 20:27:50 +0800
-Message-Id: <20261116122750.23294-1-26031212468@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eumIoxfG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB28B606A31C;
+	Mon, 16 Nov 2026 12:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eumIoxfG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C4C1F000C4;
+	Mon, 16 Nov 2026 12:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794832124;
+	bh=fwRQP7cKryYxbdezG2O16iT/PFMqteep/2pksLEIx6k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eumIoxfG9j9tRNg+4f/KkVH6NgbIRsjvPyTMbBWoo3aIlCKehQ3oka71EQsYUCN8X
+	 Gd6iJKrR+lmLNv5+mk1LJUeWqJqeYyn6+SyiA8niqSSB5miWqe9MeScmf/Ac/V7DO6
+	 k7rGLxWB8FYUjjTKse/ZK27LzMA/CYKp87lugWoZFc5B60UWy+EYYmlJxGvj3KneVC
+	 jqmVg6EVybxMJRVPuP/ievGZf2Ds89oslixPXpxFJ2cf/S6Ip1bSihl0Kb7EOgEcpm
+	 QgCuAkNdfDhET6mpepDk34dobf5On8F7tFFwCVIRbmYMkXM6f+ekGcd0kaeDCSuacY
+	 B3Gj/vofMJtJw==
+Date: Mon, 16 Nov 2026 13:28:38 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Akshat Chandra <notmissinge@gmail.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, andy@kernel.org, 
+	Lukasz Kulga <lukasz.kulga@gmail.com>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: chemical: Add Sensirion SGP41
+ binding
+Message-ID: <20261116-eager-loutish-moose-0fdcfb@quoll>
+References: <20261115055941.362185-1-notmissinge@gmail.com>
+ <20261115055941.362185-2-notmissinge@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,90 +61,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkC2vP_J9vpqLoS3AQ--.35856S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXF47Gw15XFWktr48Cry5CFg_yoW5XF1UpF
-	Z0k392vryDtFsYga1kGa1UWr17Z3ZxJayjvryqqwn5Zr95GFs3CrsYqayY9F15urs7CFWj
-	yF4FqrZxWa4UX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
-	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
-	0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwV
-	CI4VW5JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU19NV
-	UUUUU
-X-CM-SenderInfo: yswqjiasrskluy6v33wo0lvxldqovvfxof0/1tbiAgUTEWr5zUjRewABs4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261115055941.362185-2-notmissinge@gmail.com>
 
-ppp_unregister_channel() disconnects a channel before clearing pch->chan.
-During that interval, a concurrent PPPIOCCONNECT can observe pch->ppp as
-NULL while pch->chan is still valid. It can reconnect the channel and add
-its clist to a PPP unit, after which unregistering releases the channel
-without removing the new list entry.
+On Sun, Nov 15, 2026 at 11:29:39AM +0530, Akshat Chandra wrote:
+> Add a Device Tree binding for the Sensirion SGP41 VOC and NOx gas
+> sensor, including its VDD supply.
+> 
 
-Serialize PPPIOCCONNECT with channel unregistering using chan_sem. Take
-the mutex before disconnecting the channel and hold it until pch->chan
-is cleared. A connect already in progress completes before unregistering
-disconnects the channel; a later connect waits until pch->chan is NULL and
-is rejected by the existing check in ppp_connect_channel().
+Few nits except Sashiko comments:
 
-This preserves the disconnect-before-null ordering needed by the transmit
-path. The change adds no locking to the packet fast path.
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Fixes: 6a196e83a1a7 ("ppp: disconnect channel before nullifying pch->chan")
-Reported-by: syzbot+6b18da3ef22e33061add@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=6b18da3ef22e33061add
-Co-developed-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Signed-off-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Haoli Zhang <26031212468@stu.xidian.edu.cn>
+> Signed-off-by: Akshat Chandra <notmissinge@gmail.com>
+> ---
+>  .../iio/chemical/sensirion,sgp41.yaml         | 43 +++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml b/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml
+> new file mode 100644
+> index 000000000000..28528a695cf3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml
+> @@ -0,0 +1,43 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/chemical/sensirion,sgp41.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sensirion SGP41 VOC and NOx gas sensor
+> +
+> +maintainers:
+> +  - Akshat Chandra <notmissinge@gmail.com>
+> +
+> +description: |
 
----
+Do not need '|' unless you need to preserve formatting.
 
-diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
---- a/drivers/net/ppp/ppp_generic.c
-+++ b/drivers/net/ppp/ppp_generic.c
-@@ -175,7 +175,7 @@
- 	struct ppp_file	file;		/* stuff for read/write/poll */
- 	struct list_head list;		/* link in all/new_channels list */
- 	struct ppp_channel *chan;	/* public channel data structure */
--	struct mutex chan_sem;		/* protects `chan' during chan ioctl */
-+	struct mutex chan_sem;		/* protects chan ioctl; serializes connect/unregister */
- 	spinlock_t	downl;		/* protects `chan', file.xq dequeue */
- 	struct ppp __rcu *ppp;		/* ppp unit we're connected to */
- 	struct net	*chan_net;	/* the net channel belongs to */
-@@ -755,7 +755,9 @@
- 		case PPPIOCCONNECT:
- 			if (get_user(unit, p))
- 				break;
-+			mutex_lock(&pch->chan_sem);
- 			err = ppp_connect_channel(pch, unit);
-+			mutex_unlock(&pch->chan_sem);
- 			break;
- 
- 		case PPPIOCDISCONN:
-@@ -3093,11 +3095,14 @@
- 	chan->ppp = NULL;
- 
- 	/*
-+	 * Prevent PPPIOCCONNECT from reattaching the channel during removal.
-+	 */
-+	mutex_lock(&pch->chan_sem);
-+	/*
- 	 * This ensures that we have returned from any calls into
- 	 * the channel's start_xmit or ioctl routine before we proceed.
- 	 */
- 	ppp_disconnect_channel(pch);
--	mutex_lock(&pch->chan_sem);
- 	spin_lock_bh(&pch->downl);
- 	pch->chan = NULL;
- 	spin_unlock_bh(&pch->downl);
+> +  Sensirion SGP41 indoor air quality sensor measuring raw VOC and NOx
+> +  signals over I2C.
+> +
+> +properties:
+> +  compatible:
+> +    const: sensirion,sgp41
+> +
+> +  reg:
+> +    const: 0x59
+> +
+> +  vdd-supply: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+
+Missing blank line.
+
+
+Best regards,
+Krzysztof
 
