@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.161.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794789960;
-	b=dkMULkWEHMr+FItClROPXKLPihMeUpDbUHkpcn2hyuG2NrV8XBy0qR4yPBpdX7qExt9i
-	 0chfHfDPr8s4vmVTlHuedHuxbtCGKMrS+6OajL+dMPrysLbfLrJKgnotP/FXD3636CtM+
-	 w1Vn5PG2bRRXP5nyPY1xC4lTaYRub48JOZHrFO8/jiNcW0NHNmPYDO/HqN2ZCo9XXeKDB
-	 42yJ0wUVyfCeNJ8ubztbBwc7+/LabwfJoGPU17cynNYvxpXty2PJrbLaecyKnCAmbWGNj
-	 lqY9soCquinV02E1fOuTwWOLRgldI9/wo/HrJC1/l8NHAEiTZhdHfGevSVywzbAYiAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794789960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=lO3Cr5SSAZtOZOOCaZ4gKS/kULSO6nzv/VYrrhRFV3k=;
-	b=oKZ+LzTRWJDxH6Uny2NjhbC9FQRfkmsR2RkJtbW55IdR1LYg0eZtbAgJRYho1dyR5oLg
-	 NjdZsevvMPlGoPJJ7FHzJzUv7ia+1vK9cSbW5n7CFWD6WOCA0opOJNPAOoE4z6oadmU+K
-	 mUV33GDOr90t4yPTEe/G6p86xgqFB/HyO9eZeEpNC9kvOxyDOa6X3AukTqFYiLGmMWMdo
-	 /Llw/TEYUZX5cXKcyFXyQOgZ7E3fbe/SRLhFNmZRMJngPFJlc8+huiWGT0oEEZZ6DzLF0
-	 UZciBygzfUuYIHXUD8ZwiNDoBR1ke2TBI7ya8leqjLtuVxFU3tM58nxYCJR1JPFCKrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=Xt03lFTd;
-	arc=fail smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794790050;
+	b=4doY5/CC6fvaT4AiDzXWwEBo345+GRcJjy9R/GPfqyyI5XqCg92w0Qytr2fAVfwjXDPn
+	 TvNOsvaDX1yNRk8GhYSrIHyzolUB/CQox4fzGlPrdEsg6FEZNqZceBf3hUKrjwkGeUz8C
+	 b6oeVGDL0yC6IEJRfZIL1XZUrgElD3iH5416NwsOuxLL79h195jDS9PngTpvuc7Qvw5Td
+	 t45fWoGoBhcb+5m5TAnr/KhDwwjB66aUqZH9x7MbLL+Mz4NPia3ccR7lm3o1IWCf5Ge3y
+	 +chJ5+bjDNoF/FK7ytVmaSSbY8Ktv2H+Ulo9eNfiuspa7j6TFLA410U6/guiZ6daSxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794790050;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=7kg4a3TEnZkxRSVDGnX2wLyGiqAZjqROKr48Wn6zfyw=;
+	b=NPmlNeFQ8tbbBdic32DgT5lzj+XLDglYT2SM9HKibPi3cHZRfdGpOmMKhtAM3eC4OU5X
+	 Gzyav/HtdCtJBpgtgzBZOJEdHD53TW4Fuce3QUIVHSGkDc/GXy7FR9heSN710skRnVHj9
+	 CjLHwcMui04OI5dCZ+1YKaOSK/V3vyqyg8Bsaa4w9KL+JGhFx+jVzdhVoTMez+raGDxS7
+	 0AKmEXGHT+C7m354P9M1mskizLWsvuqjAv4AGVMjpJ4k99FiZGTk9r+giXtZ9TV+snPft
+	 L2fSTd2lgikH1WBM/QTWQwQ2aQwZVyySX3v9gNsWEGI2imPUKvDx7p82Rks2uxHYWVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4CatkWg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0990F606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:45:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0990F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B0D606A32F;
+	Mon, 16 Nov 2026 00:47:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=Xt03lFTd
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-71ad099391dso503192eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:45:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794789959; cv=none;
-        d=google.com; s=arc-20260327;
-        b=npryfZpSgR0yQ0m38RvK/an50V+383zNSLf5xlwYMU97OnnXdnzBlwUunEJnkbE+eF
-         KoOR0vfB6ko3pPrbPcOKKi+75TpzcHjxjYjCss3BRqQJsJEFuz9sy/BQJAtPETAvO8W9
-         VS7O4fXXoLTmJibmiqVGKD++opN59ajzTye03tQj+L42g+XGPf1ebYWmnKKjbWDt9tBb
-         058M6AK/n40zkbhP3sL5AGIxMEVe10DKkh+IbQj3Rd2P6Dzlt3Ju5woAnSgxt4qxbPZJ
-         HzwSqpChKxqXCw7a6Tj2NMW3CN+m8tACUgZQ4BGyo/ibuM9MnT0hoY2n8TELRp5jPg9m
-         7nlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=lO3Cr5SSAZtOZOOCaZ4gKS/kULSO6nzv/VYrrhRFV3k=;
-        fh=V8txNX4u61idOuqmTqKleJgEF15iVwKCTuqf/bZzvzM=;
-        b=UYHpnZsBJt9QqCQGRu4BleZWD52F0jDxsgnxXQyqb0f0WPycU5x2GSfyFXZJ5UMjaP
-         NDzNQrqANFe30r0YfjzRtvuVZY7/KANMGSQ9f1w2D0cbGlXgBv3MjcN/XmxYEyX2HeEk
-         uFVfmY6Aj1X1d/W7T3eMloqUiXYkl6BayrgwBCnHB1/maopiKUoceaPi4aMXnaaKMdRZ
-         vl3fwn4kLBq4PKpKuqC67wWNeRCVGliOMBCQTRuCEjxsH20323nfVvq0rR3mBFvewLVe
-         ARO8CvMm9x7EgyIbDk0SJOSnGg5gSCXtN6EkA/yZZTFK6wTSsU3CIlRx0oUM+xpXG+fs
-         /YmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1794789959; x=1795394759; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lO3Cr5SSAZtOZOOCaZ4gKS/kULSO6nzv/VYrrhRFV3k=;
-        b=Xt03lFTdg4jLInQcl04vLeXF9oJW0DFBwZLBN6a6UP614RusImFX02ZlrEXXz3F/ep
-         FI/p/57ji0nH0Q/LBj2Vr5Tn4kQ9X0yEFhbcaIipNU/5Dht727hz9wrlYC5v9Dw24gIK
-         gcndx96h0ysM2nC3pnuIqO7q2HWfC7yPwMymAp9Vdku3yEN1V2Og7zQOZ14fDuYFsTMu
-         3WKaUgWtbxJLvpq9v0jiIsG9cRZAqum8zzpd0kZsrPRCsAMjhZR7M+XVrftklhRZ3tPd
-         1OzvmXEgMo6/bzkd5tw/o0lbIPVzDasw4K4X/njk7mkw7MkFiZfaLq2snUGjJCuM2qG6
-         XfhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794789959; x=1795394759;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lO3Cr5SSAZtOZOOCaZ4gKS/kULSO6nzv/VYrrhRFV3k=;
-        b=vIXHuRMNsbYwMHH2yDVMQfbUspXkDgN1ktPQ0cL0/V3E4gr0WQUkN+yXAZxu8nl516
-         jheBQC+jm43hHnyYHXPXkBYv1EYEqnSUr92H0BDXp/hbjDfgs0r2V1ZEBg8OOXAdEK6V
-         vxeXYF9hd9Rqb4UGmSwAG5CfhSwMKml3Ygj67a1CiJaU90cnsKboA3WyMYtRiNcMOy0P
-         GETQ8e2Z9bTn3v3mXF07/9T4iacter/tulGN1Z7dRqccYM2YKq4FHXAv+2YUFs5Zouqi
-         dIE82SflM6cDo6qQlGxn4aphHNVvBy66rhYbK3WvzOQ6q7sBwhOKMKS4ITbg7dAi5g4n
-         hBjA==
-X-Forwarded-Encrypted: i=1; AL+hErE6uC7bwMhOGJZJHmOPxAUv+xLPqxicyovjtyE/ffqVsNr++U+6A6SLJEtX7myLyCAaQt56ijnbDl9gjpc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Tp+GbGMlAuif3yFtEBGJL8Dxvwp9QS7VPsmiVpxT4ZR158nze
-	4IPR8WF2FcGmLwBCFF9NEJzX+GhsEGZ99Bzffr5ics51L9S9WjTKlP2JmFiZPRi+l7IiKw4ZXiX
-	Lz0pWjQDiMCyGeab6wH+86lFcYg28ZumpVYEbvlwEqQ==
-X-Gm-Gg: AYBFou3nqXW6ekl5IGUlhNTIvWgz12GvcpSUD+JMjGzOpILky2tfVC5hliK7FrBpRm+
-	s44klMktGTbfngg8f7UQAqzzhRcFkG0bq5HIsVLGzy27XmYZ+ZsESvj/BQhFNMYZrP55RMM5LEl
-	FYh8IzVdTstSPpBoU0ig64VuFAs44V9REylCCXIhF6MbqqOBu40cLV/p0nrITzSNFoMfliPMItP
-	AnvRM+bNNY56ZEw1ImdlYaXBLbC3AZ6Th63ID656KmXK2GYWPmEthfdvYAjpexsHotKJAOKsvNb
-	iVwPAFJUZ+kqQWoPlGeW8FW28xNXHsYD1tNbpKh91nHqdwYMvLz+18eZNhFnCzfAEo0sULHlmqN
-	r9mlyKq20BhQ/n5CQLtXLEl4KNxIal6SHELenwG8tAFgsO+wVeh4LsBtwkJ07jhBM0LXhYbvSVe
-	8uKd0KJj4QIHE=
-X-Received: by 2002:a05:6820:4101:b0:716:bd98:252b with SMTP id
- 006d021491bc7-71acc5342dcmr3472073eaf.26.1794789958914; Sun, 15 Nov 2026
- 16:45:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4CatkWg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628571F000C4;
+	Mon, 16 Nov 2026 00:47:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794790050;
+	bh=7kg4a3TEnZkxRSVDGnX2wLyGiqAZjqROKr48Wn6zfyw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=G4CatkWg/0ZzjXnKFPFquPsTV1UAdG+TiPtuE3sawb6i3LcbEfNHykTsJXFM4jqqu
+	 Qx76BV3JddRMniNcvOT5LaR9oZn1LMjfTA8j2Kbl3vd0itrbez19PhB30bQEmZASLT
+	 LShdzv9F4Fp3M/bRxsFnGP6QpQsq8oSXpPOL8PqeD8w/o3ClU3tO39BoCtEvOwAHoP
+	 F8LAXIA4afavZTVj1RT5MSnOGyvKjIsEaPJz6gghxZs+E2XKc57IpOMLskkZL4ROG7
+	 OvcKAv2WasiRrptIoSmS6VEmUnNIB6Zm4BDDfcqcGFhgufgPOhnyKTaEK7zw1pKy93
+	 J7uy0NE6jr4PA==
+Subject: Re: [PATCH net v5 2/4] net: gso: count the inner UDP header of
+ encapsulated UDP GSO packets
+From: netdev-bot+sashiko@kernel.org
+To: julius@bairaktaris.de
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
+ idosch@nvidia.com, willemb@google.com, steffen.klassert@secunet.com,
+ jiayuan.chen@linux.dev, mfleming@cloudflare.com, almasrymina@google.com,
+ bigeasy@linutronix.de, richardbgobert@gmail.com, ecree.xilinx@gmail.com,
+ bsdhenrymartin@gmail.com, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 00:47:28 +0000
+Message-ID: <179479004897.3136.15562972698220894623@kernel.org>
+In-Reply-To: <e2348827189e5c00ec1bab50aa5e8fe5b8bc3b2a.1794151759.git.julius@bairaktaris.de>
+References: <e2348827189e5c00ec1bab50aa5e8fe5b8bc3b2a.1794151759.git.julius@bairaktaris.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,35 +66,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115214702.50817-1-emmaonana18@gmail.com>
-In-Reply-To: <20261115214702.50817-1-emmaonana18@gmail.com>
-From: Tianyi Gao <tianyi@cloudflare.com>
-Date: Mon, 16 Nov 2026 00:45:48 +0000
-X-Gm-Features: Aa3M54pgGbrVncF7OWBfNtWTvVm2wgZ0k6kyExGgK-4Hkv46OrR8Lf1HTEPy_OU
-Message-ID: <CAG4wq-cd01i7YrcFPmma=BXUcwn_PK=wneKW=vyEBYzQ3Bn7QA@mail.gmail.com>
-Subject: [PATCH net v2] selftests: net: veth: propagate channel-check failures
- to exit status
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Cc: kuba@kernel.org, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, davem@davemloft.net, 
-	edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, 
-	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
-	john.fastabend@gmail.com, sdf@fomichev.me, skhan@linuxfoundation.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 15 Nov 2026 22:47:02 +0100 Omokefe Emmanuel Onanaroghene wrote:
-> chk_channels() reports mismatches with a "fail" line but never sets
-> ret, so the script exits 0 even when channel counts are wrong.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-I found three more checks in the same file with the same problem:
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-  bad setting: XDP with RX nr less than TX
-  bad setting: reducing RX nr below peer TX with XDP set
-  bad setting: increasing peer TX nr above RX with XDP set
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Maybe it is worth fixing them all at once?
+- [High] The new encapsulated SKB_GSO_UDP_L4 case in
+  skb_gso_transport_seglen() (net/core/gso.c) adds sizeof(struct udphdr)…
 
-Tested-by: Tianyi Gao <tianyi@cloudflare.com>
+--
 
-Cheers,
-Tianyi
+net: gso: count the inner UDP header of encapsulated UDP GSO packets
+
+This commit changes skb_gso_transport_seglen() so that it adds
+sizeof(struct udphdr) for encapsulated SKB_GSO_UDP_L4 packets, the same
+way the unencapsulated branch does. Without it, each segment of a
+tunnelled UDP GSO packet is counted 8 bytes short. As a result,
+ip_forward() and ip_finish_output_gso() let DF segments that are slightly
+too large leave without being fragmented.
+
+> diff --git a/net/core/gso.c b/net/core/gso.c
+> index b5bd269e56e4e..eb95c9d2819b1 100644
+> --- a/net/core/gso.c
+> +++ b/net/core/gso.c
+> @@ -156,6 +156,8 @@ static unsigned int skb_gso_transport_seglen(const struct sk_buff *skb)
+>  
+>  		if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)))
+>  			thlen += inner_tcp_hdrlen(skb);
+> +		else if (shinfo->gso_type & SKB_GSO_UDP_L4)
+> +			thlen += sizeof(struct udphdr);
+
+[Severity: High]
+Does this cover encapsulated UDP GSO skbs that fraglist GRO builds?
+
+The encapsulated branch computes its base as:
+
+	thlen = skb_inner_transport_header(skb) -
+		skb_transport_header(skb);
+
+That only works if inner_transport_header has been set. On the UDP GRO
+side, the only code that sets it is udp_gro_complete_segment():
+
+net/ipv4/udp_offload.c:udp_gro_complete_segment() {
+    ...
+	if (skb->encapsulation)
+		skb->inner_transport_header = skb->transport_header;
+    ...
+}
+
+Take a receive device with NETIF_F_GRO_FRAGLIST and a UDP tunnel socket
+such as VXLAN. The inner flow usually finds no socket in
+udp_gro_receive(), so it is marked for fraglist:
+
+	if (skb->dev->features & NETIF_F_GRO_FRAGLIST)
+		NAPI_GRO_CB(skb)->is_flist = sk ? !udp_test_bit(GRO_ENABLED, sk) : 1;
+
+On completion, the outer udp_gro_complete() clears encap_mark, sets
+skb->encapsulation = 1 and calls the tunnel's gro_complete. The inner
+udp4_gro_complete() then takes the fraglist branch and returns early:
+
+	if (NAPI_GRO_CB(skb)->is_flist && !NAPI_GRO_CB(skb)->encap_mark) {
+		udp_set_len(uh, skb->len - nhoff);
+
+		skb_shinfo(skb)->gso_type |= (SKB_GSO_FRAGLIST|SKB_GSO_UDP_L4);
+		skb_shinfo(skb)->gso_segs = NAPI_GRO_CB(skb)->count;
+		...
+		return 0;
+	}
+
+udp6_gro_complete() has the same branch. Neither of them reaches
+udp_gro_complete_segment(). inet_gro_complete() and eth_gro_complete()
+only set the inner network and mac offsets.
+
+The resulting skb has encapsulation set, and its gso_type is
+SKB_GSO_UDP_TUNNEL[_CSUM] | SKB_GSO_FRAGLIST | SKB_GSO_UDP_L4. Its
+inner_transport_header is still 0, and transport_header points at the
+outer UDP header.
+
+Doesn't the subtraction above then wrap to (unsigned)(-T), where T is the
+offset of the outer UDP header from skb->head?
+
+With a normal gso_size, the network seglen would come out more than 100
+bytes below the real value. ip_exceeds_mtu() in ip_forward() and
+ip_finish_output_gso() would then still pass oversized DF segments.
+
+If gso_size is smaller than T - 28, the value wraps to nearly 4G instead.
+Valid packets would then get ICMP frag-needed or be dropped.
+
+The commit message says segments "built by UDP GRO behind a tunnel
+socket" are miscounted. The fraglist variant of that same setup still
+gets the wrong length, so the added 8 bytes make no difference there. No
+later patch in the series seems to touch net/core/gso.c or the udp
+offload files.
+
+Would it make sense to also set inner_transport_header in the fraglist
+branches of udp4_gro_complete() and udp6_gro_complete() when
+skb->encapsulation is set? At that point skb->transport_header should
+point at the inner UDP header.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794151759.git.julius%40bairaktaris.de
