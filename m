@@ -1,58 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832444;
-	b=przZsI1P77xNBPviXZFicOOD/LBdQxywAHv3zSw4zafvM70yBw6amQB6wdCAo/VSKM0J
-	 K/HcYacR2ZMxKejcUFyFIib0yAmpCp8Os4DM8hj1CroHFXD54nj9VkSY0iUNL+Nj9j8tV
-	 PQ2t7KZBm0DZKFrf9Vg5W9iOnYvIlmteieWkc08XhtF6Fhhf7o89USBYEGeT95f5bWanF
-	 l9G6OBgA1Akgb+U614e9crfT0RRfJ1LfYtsKXzGX0TOulhXZYb65BqVweM7KMaOUIeMVV
-	 jxYaFXT7Ui6CJw4r044zMZxmF7tdF9cZW854kMSLuCFtt2FtJc2lL+UNgYUptjgLqGg==
+	t=1794832470;
+	b=VmkcxZsy9VeX2bO3d6EnUgLOUMWa52S+wOqcKdwOrjkIIjzOZoDXTcuKFCFSOMAVnALu
+	 LCo+NAHKDDVFPALfFWbKmp4bDL57KgBTloBesiSDXT8X2INWlac/NgZ1hu/qSc24Uaqvw
+	 sBjMAa8JR08s3qEkBAXgkwTwppMtvHler/uKLM0HAeHl5ZNhqqqZAR65uv9JF5TZQb6WA
+	 h38djTA7fsBJlJB+H4M5NQQOgDZkE0M7q+PWocH08jM3opnk/v6xAqkh4PAo2FrJxwR+U
+	 8H81fafoDxLdNKV9HxDwABzyy33YcBtoRI46OOLKM2BGd86GCrAVInqq5nFQBfp+faQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832444;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9U0WlMShIYKKlzPKQhi2qdhsqtxGv+hAPAPG9hLfSaw=;
-	b=1+aAYv0EEsvvqXU2fKBQ5RMX0lqX8aQFiqL8yc6HI+E43JemVs5Kb7dKR9BlEPJA38gQ
-	 y4XN2jPkU5dB86JwyCQOd9NmBXt2iY97UtJe+h8xRTXCykyFiOwGf+YdfSGxhxLEuxoTn
-	 VdjV9sXMt5PE6x2EzQkazZ8MuUCgq4IYeuRsZ9TC57pzk1E6u5Pg05L1BAkcyoj5FIhbG
-	 cK0K7qtWFYWEWj7FE5r8zZNYyN4YPQZVfKczuswuJAxJ1zzv50kY6k3JmJoJhnNiWXBMq
-	 6h04kNhh70KlzH46b5epC9DjQpoHk8KgzcjLELUhVjGczav1HSaL1ilpc9htouh+3cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832470;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lpFaIBWmfmlMxFrZCO2klHkfCv0BTOen1Lt5ra/b8a4=;
+	b=tSRTQaj6GZvQi45SIJssBOZuk5SBriVXziq9j4ls22vCTwu+1YMPNPdr6sMiSVFl8Gff
+	 c8ddweb4sNivOU+ZWX0pYYxOsnsR/Sn3nQ2s9+hqvT6bbtqYJA0BaUCWWnl2QG0m6AIl3
+	 YJzysSXeE9SvcDFvh3xYjBuEV9BEyFLUJ3BqN0m4zPnReAwmfnvn02gnlbiCWuiHVaYDl
+	 FY+wUgzLd9jq1aVc6V6H1ap9SPCyxUozTlVq/ZoBKISUYf62ILfkL3Y1wh3jNfG6DFzmx
+	 qaVkNOWkiMEQrAF+kqb7QSpuD8eGtxcl6GrueVThvf/Fujl2Dkf9gW6HxoYu2FyFdnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByP1oebK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EihWGpxs;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAD8606A31C;
-	Mon, 16 Nov 2026 12:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4045D606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:34:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4045D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByP1oebK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DDC1F000C4;
-	Mon, 16 Nov 2026 12:34:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832444;
-	bh=9U0WlMShIYKKlzPKQhi2qdhsqtxGv+hAPAPG9hLfSaw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ByP1oebKP4sWQdGyIjrHAhZZnFHfL+yKqoygPmUrSTYpZgJvdvduPy/BH5G3Ya3TG
-	 ggqcbGP0mrgQicg5x2MdWKqfWiVJs0g3i95+Jf8/y6qBR7cQs/x2R3vSpaYneFf/JQ
-	 bmsbswWQz73unP+B6OR4mbAH1EAS5YFQMZTW43tzKXllUYQ5UYKuCtoIoOGVP6zCQK
-	 VITvKaK91xHDsyPQKoPWk7A9ymLP85sVaGvOj0ZbeiJAWmipyT2ILu9aVhVFw29KR1
-	 8WWwS8IrOqqxKtQi2417WrEkpY2lVFZ0g/7pHCAirP8A/I3eofRdSuh7YmkiZQ1Y0v
-	 bgsHmVeKDTQfg==
-Date: Mon, 16 Nov 2026 13:33:58 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arun Iyengar <aiyengar1990@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Alex Bee <knaerzche@gmail.com>
-Subject: Re: [PATCH v2 1/3] media: dt-bindings: Add Rockchip IEP2 deinterlacer
-Message-ID: <20261116-resilient-eagle-of-brotherhood-6be3df@quoll>
-References: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
- <20261115-iep2-v2-1-3d8798cd9a55@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EihWGpxs
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c505186727fso77837466b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 04:34:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794832468; x=1795437268; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lpFaIBWmfmlMxFrZCO2klHkfCv0BTOen1Lt5ra/b8a4=;
+        b=EihWGpxsBxK53ZUJS4h2DaFYymtbGue06AA4i8MyxHLS7+PXphaoGC6RR/pNAhrMFd
+         V894PTFwXq1fZ4BNSAP9o3SxVhM+91PbsUsbaE6D0fl/GPHJRbAa8mVNVrPmbL2XC/PG
+         8qQLf8inzFeGL0fy5NYioSliToJoBnm43NkULs+AS6nw8mXMwPcAqeVhJm//d3JRfJ70
+         x1u51oPufRbWbb/2VRcjRwlIrlUbTm8fOeh5ci+U48czV1oyBb0XUMOrCBUr7d0pNx+J
+         0LgLxyYwtxwAZG+zRbh3wjym9OYbjlBW8p6V+NBdjATW4Wtf80SlKzuq+xkoCNQ9jXr3
+         kGiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794832468; x=1795437268;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lpFaIBWmfmlMxFrZCO2klHkfCv0BTOen1Lt5ra/b8a4=;
+        b=WVXBqASpOgkT6Huc5m4We9oF8XhFNjHWjFNJJvMj2ynDHRNyYDrCZst/TE09xT4s3H
+         LN62ofeszOXnXuaGn1elrETKnS1/D+G2/aVJunm4mq3KmKl0BEaSuDhkWBMiY+z1X9fn
+         D9RbeVOz72Q3dTEL/DefkR5yhh5/ZNANa5SzBo2BRZb1T2pG+vUUFiF8hC+SN11gSXxN
+         rFVuqlIlaMvhHfvya+cPCzDrDqUf8S+PetfZSL8LZwv8wVXDBHHjecMuMF7swSm/eojI
+         HaibFBHG/q6SZLp9+d/RLr6dP5h3Y/ingeSTWUiOy3cAZ4dJaTZTefDMLLuC8Wu4pJSX
+         2RLA==
+X-Forwarded-Encrypted: i=1; AL+hErHJLcvI6qSSSYpx0BCakaVjCeQkKWLmiKU2gTcyl+UEVoxRi1/4QUlRuTEwhE9JrIj9EAcdPNqH2skNhlI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gsAQFCbttix8nxo8pc+hIn+hFtmgQL4MP8PWXo34pT6+aV4ov
+	u5QVCglYE5ZFAv647vMhTZ3DSs7fti1ePD2ZxAxs3t7VwFfYSJiH68u0
+X-Gm-Gg: AYBFou3POwdkKQ6aiINJaL4y5gsKDWyC3Xwb01+zBjKxNfZ5m2tvUTD2/mlMgsrlnnX
+	eHaDI/XkQUCSd8XHh4HnvURhxdXmFCN/obzpshxIYS1xvCrZZPcEfthhZKyPJYkNQE+Kxh5KXDr
+	bViDoxoDsjvJDvOFgWxRq36wHXnN88oJJWUC8EEiOvi5xBXaHrr+qaxKzKh0JGBqtxBz+Zan1Zh
+	ns/7IEEWaZBUKAF9CpvBuUwFipTp0n4O0KJu4FyEmyz6neQtM4r8CXaBeDyisDwOtrM2vRhlACN
+	uQQ64fK0aoCJQCCApy0XMwcA3j6ds2EL70ZiER+IPoFHrNtXassE2ruiksvrz6PI4pAtvxcfRt+
+	/XgKTVy6xMbuxMomtpl0jnnu6kxo+5AhXjz7cSlvd8NTKuVyVJ2Xj3O0p4JDB5koXWg6DowvBgQ
+	SBmXNPRAoHt94zQWSgaushfZ9gXZl9I5UY4zhlohagfE7ytqJjumLx2/fmn0bA5+7rKAlkA7mqu
+	OMcqCusoFu6cUYt3m2i8J60UHVJW9HIJPDYCTN0gx9lUApsqU0x7CM3f0/0eFu7NKyIBRtUYrRE
+	GVilJmqbFCpVo6++nEIp/iUQg0NvIz7krt/f+MAp3Oh2
+X-Received: by 2002:a17:907:2d1e:b0:c4d:28c7:eb21 with SMTP id a640c23a62f3a-c50963967fcmr853137766b.29.1794832468302;
+        Mon, 16 Nov 2026 04:34:28 -0800 (PST)
+Received: from localhost.localdomain ([2a06:c701:474b:1700:1c3:e2b2:8068:e97d])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b24608sm410200566b.30.2026.11.16.04.34.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 04:34:27 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Suren Baghdasaryan <surenb@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Domenico Cerasuolo <cerasuolodomenico@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] sched/psi: Check triggers before updating averages on read
+Date: Mon, 16 Nov 2026 14:34:24 +0200
+Message-ID: <20261116123423.743790-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,76 +100,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261115-iep2-v2-1-3d8798cd9a55@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 08:47:42AM +0000, Arun Iyengar wrote:
-> Add a binding for the IEP2 deinterlacer of the RK3568 and RK3588 SoCs.
-> It is a different block from the IEP of RK3228/RK3288/RK3328/RK3399,
-> hence "iep2". The RK3588 block falls back to the RK3568 compatible:
-> the vendor kernel drives both with one compatible ("rockchip,iep-v2")
-> and one driver.
+psi_show() can advance the averaging totals and deadline before
+psi_avgs_work() checks PSI_AVGS triggers. When a pressure-file read
+runs in this interval, the worker can miss a completed threshold
+breach, leaving an unprivileged monitor without a POLLPRI event.
 
-Honestly, last sentence is redundant. Vendor kernels do all sorts of
-odd things. Qualcomm vendor kernel has 100 properties per device nodes,
-each defining single piece of hardware or driver. Shall we ever mention
-it?  No, it's downstream choice, not relevant to here. If Rockchip
-vendor kernel managed 100 devices with single compatible would that ever
-mean anything to us? No.
+Check averaging triggers before updating the averages in psi_show(),
+matching the ordering used by psi_avgs_work().
 
-> 
-> Clock and reset names follow the RGA binding. The resets are optional:
-> the block has its own soft reset.
-> 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  .../bindings/media/rockchip,rk3568-iep2.yaml       | 95 ++++++++++++++++++++++
->  MAINTAINERS                                        |  7 ++
->  2 files changed, 102 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
-> new file mode 100644
-> index 000000000000..0c7666de19f8
-> --- /dev/null
+Fixes: d82caa273565 ("sched/psi: Allow unprivileged polling of N*2s period")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ kernel/sched/psi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
+index 7c5381423334..351d50cc0663 100644
+--- a/kernel/sched/psi.c
++++ b/kernel/sched/psi.c
+@@ -1261,8 +1261,10 @@ int psi_show(struct seq_file *m, struct psi_group *group, enum psi_res res)
+ 	mutex_lock(&group->avgs_lock);
+ 	now = sched_clock();
+ 	collect_percpu_times(group, PSI_AVGS, NULL);
+-	if (now >= group->avg_next_update)
++	if (now >= group->avg_next_update) {
++		update_triggers(group, now, PSI_AVGS);
+ 		group->avg_next_update = update_averages(group, now);
++	}
+ 	mutex_unlock(&group->avgs_lock);
  
-...
+ #ifdef CONFIG_IRQ_TIME_ACCOUNTING
 
-> +      deinterlace@fdbb0000 {
-> +        compatible = "rockchip,rk3588-iep2", "rockchip,rk3568-iep2";
-> +        reg = <0x0 0xfdbb0000 0x0 0x500>;
-> +        interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>,
-> +                 <&cru CLK_IEP2P0_CORE>;
-> +        clock-names = "aclk", "hclk", "sclk";
-> +        resets = <&cru SRST_A_IEP2P0>, <&cru SRST_H_IEP2P0>,
-> +                 <&cru SRST_IEP2P0_CORE>;
-> +        reset-names = "axi", "ahb", "core";
-> +        power-domains = <&power RK3588_PD_VDPU>;
-> +        iommus = <&iep_mmu>;
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f4456f4589a1..b32b7eeb0a9e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24285,6 +24285,13 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
->  F:	sound/soc/rockchip/rockchip_i2s_tdm.*
->  
-> +ROCKCHIP IEP2 DEINTERLACER DRIVER
-> +M:	Arun Iyengar <aiyengar1990@gmail.com>
-> +L:	linux-media@vger.kernel.org
-
-You can drop the media, subsystem defines it. No need to grow more than
-necessary.
-
-> +L:	linux-rockchip@lists.infradead.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+-- 
+2.43.0
 
