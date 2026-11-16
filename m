@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794860168;
-	b=RblzGvZlP9UMtL494RgWzrO3vt4r7fTirVb0lMD9v91KGSQR5UXtS/gaRz6ObFkvP1V/
-	 DKDELtyOrr+ZoeEVKsnsb8vgj1IoDlP432jYjwnkoe/8VxiE0KxgkzvHUxw51oU1wciqT
-	 xJiircGo7qFhJV7hO0f4zgtcggknT9mBbhzkrD0iO+2cAr6uHg15ta359EwC3BtpoJOeD
-	 bjR7+yiiEGAIGHdG/fMbRNUQ471gw+55KZuuLboOO8JVH/+tY1P9VP3AH9G+cSKfJFoAq
-	 DIp3HZrY0UcGv2hGmSOt3f/d4+8lL4M7ysFU+0VFQFMYTKHsaHrx2Fck2BEJ1HKDOnQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794860168;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nP2/A4kreMDxcG0ChilH5zyKMiflQw713CJUf+u0xOo=;
-	b=gjfV+5CkhPuyw/2Cp3kFSWNfxrBEuNSlukE3u3TNwKevjvhSn0Qb8Pf52LBKQs+F4PKM
-	 CEk/OR0P9mOX8nDyxrwD8J3yRYwS2ovl8cQMmDNqNKcqMBwo24t0S18hvBOBWDYBTT0am
-	 IV9QOXtIK0VwCMfP3Gr6QNP0O+J6ezfC5TvKspXiaV6og1LsjAlrLYhbND7hC7/8maoR9
-	 ulRMTGql9r5Dco2yCWDAOvh3RL8MGfo00sGJPIZi1oM8IukguI+I4DdXnn8TjU5pYQ7JH
-	 m690N7vPIsSz1jAv08Y1lK6yPM3KfoSggZRA+DswAMqYvvPvOP5qt6iJXlsr8pupT0g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e91q/zjO";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794860182;
+	b=wt56meYhfyDujHmTYIORvIJPRvOZc4Y753M6I9oRyOsHtkCl74Mt8fjMt6jb8VMYYz3u
+	 wulAYSXjNwjiXWdjD6Udq/mSCbYjHSDb5nZG16Ie63u7EngDtdkreW0hEN0nXGxJ32aLJ
+	 U/WIu78ENXzK2AokZH0mr2DZD8mBQ7iI0NSZAPkN9IgLXt59sKir5YIdJ53dl7NEacfXc
+	 9lWYBeZ6n9lD7ES62+Lamyv46rh9w4JmXWrIQOP8LfcbYkQkJdiyrKmE5GRtHgnGfxrXv
+	 JUx7nCLqKirCZ0bgNpnaRwV9i/Vlun90+BSzVfUZDRE4Oqy1lMDpJsvS9RqqsZm7UKg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860182;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=R/V2B9ksNyT9kQm2jLqpoypC8bz78+PhZsW8jSiYt5I=;
+	b=YrS4e3wCnxoNlAstca/BnVOxoSCvPpeqxzC8JGkHxP15wx7CpNNCWqgZ/z976Ncu4iJP
+	 O++IQxbtcLiAkuTl0gEf+s2SaNKSnbNenF+yM1zpoD1TkKrI44d7IwlPL5a6UOtcuC0e0
+	 fShkxrINaunqmeDvWq67MutFM+GXixrfcUMoguEn+jzubNSwyLW1RVkMCgUxz81zjICGF
+	 bjofhAEw/NNy9zjAmxMdmqw1nh6FyMwAX6nEf3CWQpn+jRtTM8Fyq1WNAARlgcHcNGseZ
+	 qQGEfJXC2Qq/nP+6vI/9MUUeXvgCS0rTqxqyt+W0muONPE5ctyxs8BO75K9WRF2zU0w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1lFsOIN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B99606A323;
-	Mon, 16 Nov 2026 20:16:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459CF606A31C;
+	Mon, 16 Nov 2026 20:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e91q/zjO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D8901F000C4;
-	Mon, 16 Nov 2026 20:15:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1lFsOIN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794860181;
+	b=tf7UMgHidrd3OvsPgu57/BoqFodehUW9exIRaVpoqfpa3heIQ2j/yOo4h8jIyYZwo2Em
+	 OzoKfhJijsQVo6tp7JS6iAp8p5N9g82zS1eG2QlAn7Um8BybGj/5zOBnj9g7RfSh07gUY
+	 1VypzSUKTiBLgSe1KiR5FNGCzuZdSmqj5syj7OLmSflhTa0T5fYgLQFuTCdVyY/ad/dma
+	 TCNlRBX/+1A5wDdt+OgUVy+VAlFYPIJLLSgVXTQGSRfqOwtGsbO10VOUqzz6Gv0QrtJqZ
+	 IBbCcyrnBjNzXqj9DV9AvnSJO+oVIEhq5m0ecwBBEupd6FjhPNhw+3TVvq4/RB3uCwg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794860181;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=R/V2B9ksNyT9kQm2jLqpoypC8bz78+PhZsW8jSiYt5I=;
+	b=amUWmqbFQNHoJmyO14NjZ5ZPjHHGxFvEMcqC7S/vtV+o63SjB+kVXa1g0cTZAsjAqXgh
+	 UjpkcMIC0aw5Q2yg28EWDivmyyvXJUtfz3vFmwMFqLKXmhZXvEWgOxUCgPD6XQGOFxRoR
+	 8iOjybHbY1KD0+3YlymC5hTSlgeiyVqhIN0vRQal6s6FGoSXlxU9AqAvfAt5S29JfSljm
+	 V7fyze8efoK7RFcJ1BUlLTYr6CaYBp3yaQQnK64HwcH0kasWJwwzdZtXZs3lulECn/uAr
+	 tr+XTTPGfb8qOVlj0nGRmUzgEmeyitfs6IjWAYwN6Zda7qiFJmv546Ufxlpr8wVVtrg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4C0F71F000C4;
+	Mon, 16 Nov 2026 20:16:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794860168;
-	bh=nP2/A4kreMDxcG0ChilH5zyKMiflQw713CJUf+u0xOo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=e91q/zjOKL9q/uw7SxD7P7ZTugdBB+UjVeXZwDBA8rP/BBz54+FhWFY2qnooMzVWg
-	 oX84IokEF/q+TxpkmbU7qiM8zh6hxBTGVrRnh87SH/qv2wv73t0THwTWBdRowX9+AW
-	 RsgMhZw0A+ywGRj0DJFvpaHq6RCtWbqAcmzibI9A5TOIQWQadHYiu3HFc4ldrL80oc
-	 QVTzetfhI4ylCxsQROZuZt6AFLOVYngULhFF4XkkvJWtMCM7UKrYOC9vo4XfaKbqwF
-	 qfWjUYCzprpyX+YfuMV5cvu2RO7YeSZKHw0+Qs9kodUTW39ZT8Qjf3Cdi+TeTSWEsc
-	 el6L+IFlE/R9A==
-Message-ID: <d4ceead7-4b55-4525-8d09-121a75c30ac4@kernel.org>
-Date: Mon, 16 Nov 2026 21:15:56 +0100
+	s=k20260515; t=1794860181;
+	bh=R/V2B9ksNyT9kQm2jLqpoypC8bz78+PhZsW8jSiYt5I=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=M1lFsOINEl7KGIOvu0aRP2SguQe1lGRUvQTc7e9NYo8dCC3rnZW1tAyK4ftCGmKyn
+	 JoBpqKMO3GfL2MDVHiDOyJpz56HIclYVNQuE+Sl9IURsDwEjCzcL7SLcDesPqKMsy4
+	 8/8Q5P2zkGEGFZauOKQ6Yy7afMR563+PwWR5NJjRaamlKr1WGHYfsRAnA84cibx5/b
+	 6rqxH322srJnYr3Rijt2wQWXapEFKzGJM0dmQN/y0FkQJKCFNGok4JiqxdZ7C1kNNf
+	 4uz/RpCiEFlLMlysIxXH9j2Jcpei/4v26i1ytmObg+CBi+wZbgsXyhdv5n2xCxs8Rw
+	 u4sDVsNFFc6gA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9995E4A5CD;
+	Mon, 16 Nov 2026 20:16:20 +0000 (UTC)
+From: Marc Herrero via B4 Relay <devnull+marcht.proton.me@kernel.org>
+Subject: [PATCH v2 0/2] ASoC: qcom: audioreach: fix S24_LE playback and
+ route mixer disconnects
+Date: Mon, 16 Nov 2026 20:16:19 +0000
+Message-Id: <20261116-q6apm-fixes-v2-0-ea89fb43316a@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,128 +84,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/9] userfaultfd: use anonymous memory for
- UFFDIO_ZEROPAGE on private file mappings
-To: Tal Zussman <tz2294@columbia.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
- <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22MwQ7CIBBEf6XZsxh2jTTx5H+YHlhZLYcCQkM0D
+ f8u9uzc3kzebFAkeylwGTbIUn3xMXSgwwD32YanKO86A2ky2KNexqZFPfxbiiJ0jMzkjEXoRsq
+ yD124TZ1nX9aYP/t5xV/7/6ei0gpZ+Dxq4tNI15TjGsNxEZhaa197p5KYpgAAAA==
+X-Change-ID: 20261111-q6apm-fixes-21db1bb2d6a1
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Marc Herrero <marcht@proton.me>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794860180; l=1752;
+ i=marcht@proton.me; s=20261111; h=from:subject:message-id;
+ bh=gBvXPz/uO6Ui2hKJhCwlBxzxOFCbiLFJ7wMH5a0P35E=;
+ b=o38zijKvCV/AHQU0xKqA7uJeKbRgtZqEhCGxF/hB322cob+JxhIaI9azUbLCiC7tj3A1cUEm4
+ cBywMox1g1VBoOg0LNQrS9Jqg3Z3LldZ0JdMOgwYE0/fQDNs7K5v2iD
+X-Developer-Key: i=marcht@proton.me; a=ed25519;
+ pk=pIPy6L+INgiuJt7L7umVilPgpzy/Ni3QS77ToLj/H9c=
+X-Endpoint-Received: by B4 Relay for marcht@proton.me/20261111 with
+ auth_id=1490
+X-Original-From: Marc Herrero <marcht@proton.me>
+Reply-To: marcht@proton.me
 
-On 11/16/26 21:02, Tal Zussman wrote:
-> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
-> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
-> installs it through vma_uffd_ops(), no matter what kind of mapping it
-> is. An s390 KVM guest with storage keys or protected virtualization is
-> such an mm.
-> 
-> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
-> cache of the file. That is wrong: a private mapping must never modify
-> the file it maps, and the file might even be mapped from a read-only fd.
-> 
-> The ioctl can also fail where it should succeed. A missing fault is only
-> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
-> an address that did not fault, or can race with a write to the file. If
-> the file has a page at that offset by then, inserting the zeroed folio
-> fails and the ioctl returns -EEXIST although nothing is mapped at the
-> destination address.
-> 
-> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
-> shared zero page can be used, and what UFFDIO_COPY does: only check that
-> nothing is mapped at the destination address, map zeroed memory there,
-> and leave the page cache alone. The zeroed folio path did that before it
-> was moved to vm_uffd_ops.
-> 
-> To fix it, pick the ops in the common folio path, as
-> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
-> mapping, the ops of the VMA otherwise. That makes
-> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
-> so remove them and rename __mfill_atomic_pte() to
-> mfill_atomic_pte_folio().
-> 
-> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
-> if something is already mapped at the destination address.
-> 
-> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
-> Cc: stable@vger.kernel.org
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
+Two AudioReach fixes found while bringing up 24-bit headphone playback
+on the Radxa Dragon Q6A (QCS6490, sc8280xp machine driver, WCD9385).
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Patch 1: S24_LE was described to the DSP as packed 3-byte samples, so
+the ADSP audio_process crashed as soon as an S24_LE stream started.
+Using the 32-bit container size makes S24_LE work.
 
+Patch 2: writing 0 to any "<BE> Audio Mixer <FE>" route control cleared
+the back end's link even if it belonged to another front end. As a
+result alsactl restore lost DisplayPort on every boot, and the board's
+UCM HDMI sequence disconnected the headphones (the PCM then stalls with
+hw_ptr stuck at 0).
+
+Both were tested on 7.2.9 with the board's topology changed to allow
+S24_LE on MultiMedia1, and both apply to and build on asoc/for-next.
+
+---
+Changes in v2:
+- Patch 1: add a comment on bit_width (valid bits) vs bits_per_sample
+  (container size) (Srini). Pick up Reviewed-by.
+- Patch 2: move the ownership check into audioreach_connect_sub_graphs()
+  and keep updating the DAPM mixer state on every write (Srini, Mark).
+  This also fixes a stale DAPM path when switching front ends, reported
+  by the Sashiko review.
+- Link to v1: https://lore.kernel.org/r/20261111-q6apm-fixes-v1-0-1beb5702b372@proton.me
+
+---
+Marc Herrero (2):
+      ASoC: qcom: audioreach: use a 32-bit container for S24_LE PCM
+      ASoC: qcom: audioreach: only disconnect the route a mixer control owns
+
+ sound/soc/qcom/qdsp6/audioreach.c | 10 ++++++++--
+ sound/soc/qcom/qdsp6/topology.c   |  4 +++-
+ 2 files changed, 11 insertions(+), 3 deletions(-)
+---
+base-commit: cde5523c75f1320a55ac1d55a717ccbb566557f0
+change-id: 20261111-q6apm-fixes-21db1bb2d6a1
+
+Best regards,
 -- 
-Cheers,
+Marc Herrero <marcht@proton.me>
 
-David
+
