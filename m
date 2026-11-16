@@ -1,66 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798177;
-	b=EhgVN3LpGrQ5u1AROH3eiDMhhApsAyQOLa/ANdnwpOJZ4tn5DhsU/HAN8nbUE1Emxa91
-	 FUhSRoHVMbp8D9brJt1Aeu8HmE0uOV2YSb8Te5wMOlcwcN8lP2/6OGX1BXPv/84ryjpw9
-	 BUhfKsaLULFbf5XEIJ0speS6e0Pg18PRZ0ro1gieVqgprnG5I+Zx5pwh847gonHCTDL6G
-	 bma1ggoKAueL9YtDs0l1IgqVHA0+lvpnYO/KwYz7AP8R2Zg5FaweGU8ABzmTozUTNWq3r
-	 C3baP3UuxNXHzxS2JulLTejQOWelSPJ7dUpJgsEyjXbfE917K3q2vvuzOq48iBN9TSw==
+	t=1794798230;
+	b=GmmGneIM2VfujRFf4p3SkbW9H96qYNyBXF7Mc4VrXrMZFjM1jcWnXQe5cm6Ibu39DQQa
+	 P5tb+AYOiHbYmKJI9iW0pJ4EbJz5D7SgZ9pTpLaaJEuLy0iZapCIofO4uSttt4WO5Fams
+	 B+aWbDY3mbssysGqoL7MFGzjh+RoIi0U3Ca7uqKtiMUXSXymqXYiUI9gsiaM70hhL71i4
+	 NnUsa+GtysK4hmHn3WMuku/egO3YyQ3iTjhy3N44Z6LWyzbDNPrkYC7c24h2gc1DIGdbH
+	 TfsmseSc/sw8oZoEcTwqewx7phrRFTHTuoo9G8cQ7Uahffdlxyq20d3Rj0en1jxOtrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798177;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798230;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=flcTih/K2WqgiJssTA1G/vPVARHnzg0pHJPJ9QxEWS8=;
-	b=YolD90/QG3bAK0mwsNO4iI2L0ChEywVx4WWgF3/rx4fI0FhhwdvDi3GymRFuNOACrIrp
-	 jb/uB7N4ih5xBWKEPd1MWfgASXupiJoOZLPSOqCym+wz6YJX2VujSU+C9hIETyepDMn8v
-	 +Q/0iYJjEaGf/u1CMxL2uEHpwzuxn0gpxzndt/psIbVbqex24/kUqVXfU5taN04Edb6qA
-	 jRnx5xb6Ae/JQgi+Ei2woHaN4qsDp9iXRdC9H8rkMEUbeANIBZqq7T/HabNgIvPYNLZFG
-	 Mni4ZhIw9f5EYs6oTz5PE36bFLs5EvpfJe5EjuqR8vMCtx1jhxWjGAk+5faEyOjw5Sg==
+	bh=taZmjC+r+n5amxH5ylYkvKHjlAAevcJwdM3ESN5VOIU=;
+	b=tT/Nvea9b2F7vcYiDvSBLL/Vc7RFHVHW8ivkm0lBCsVbYwr9iE4AL9qnY+37nVRb97W7
+	 RMlDxjmdpIBFcSxmE9IItHKkjbGPiJfXzeK2PicrXaNwENnmv+bGsBLsQiBwe9BY6pCvs
+	 BLUyhfOK3SjJJ7lqNqtrOCHBDEEI8i8V26eqHnBpP5GeybOmq9Kl5j5GSw3N25f+aRkAm
+	 drJW2kVACb0WUjT9cm9xtRWhQRbUsIZl74OAZeV7F2aGxTMqIUTSPeDZxuTSIWPmWABo6
+	 eGb+zvLOUPP/otUkhXO87J+SwhgjRH9g5Yilw055vlWlsjEkBi+UhveZgchq/x1tvlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=SROudtYI;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cbuhLi0k;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E94E606A88B;
-	Mon, 16 Nov 2026 03:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E94E606A88B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417B0606A893
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:03:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 417B0606A893
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=SROudtYI
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jSXjR40lRzlffvf;
-	Mon, 16 Nov 2026 03:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794798165; x=1797390166; bh=flcTih/K2WqgiJssTA1G/vPV
-	ARHnzg0pHJPJ9QxEWS8=; b=SROudtYIVni9pdd/Rqni4CcC27e3YMAKu93tVexV
-	J0kVxmCr5b2zUi3eBUnvPm/O+OB18s5dUsj+XiFoH+Zbc7baw8Pl9Lkia+6gwJKo
-	ds9o3C4PjuwzDvd7DbVUh/J9JF96Ou6otyXvdeqim4Xq8RV7GyZruP6H9CACDXYH
-	rqV3YOuclowlnCrALrwI42lkmbt3zCOtp18T88kBdbrNtjstQvCKoi+wp8ohI3Hc
-	gzIuPmFaPECnjyvbl4vLjMcBNw+C9JKdw+FjsfzcDaMey6QeAJ0OJuM5rHAETHa7
-	mAKOf7chsMVSiKzifBru7dLDd1DCffE/zKtlMKggzXJN4w==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id egfHJzUtrqsg; Mon, 16 Nov 2026 03:02:45 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jSXjK0GtDzlpHwl;
-	Mon, 16 Nov 2026 03:02:44 +0000 (UTC)
-Message-ID: <9d58cbf3-e0cc-41b8-8958-df8abd505524@acm.org>
-Date: Sun, 15 Nov 2026 19:02:43 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cbuhLi0k
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so3861726eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 19:03:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794798225; x=1795403025; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=taZmjC+r+n5amxH5ylYkvKHjlAAevcJwdM3ESN5VOIU=;
+        b=cbuhLi0k4gPQunm0cCmyXkobLQ+2PbqWxQNlMMwNnijYec+2l1ABQqA7z+WCEKmsxO
+         zvKYa//6SGPJMW8Gnle952xsq2krkWRMJp+Lf94BVv09Wr2ZG3wZvzeZX5xTesLlFtO5
+         1xGajNIVDjGJ42VXgqvefUaZiDClnCWMj8Ld4jC9YVh5maMEBZ+b+9NTq9CY7l1Lr7GJ
+         6T3tDDaw1rwFNGcEI42z/f8r0Hhd/jL7/3giFsMcA3S/zb/eETdElF5AopnnxICyqLrb
+         pQtyeMQZEpgYCLeStJFwIjdUkthkrXIofhMLqbPwmxrcvO3YAl8aA4tfWhzgLByVMjEA
+         zRHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794798225; x=1795403025;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=taZmjC+r+n5amxH5ylYkvKHjlAAevcJwdM3ESN5VOIU=;
+        b=RLpOomN/ifw5N5kz1KLSGnITK58863dpNBa2ajgMk8+CzvmuPx9y/N2+sMUQ29GKFS
+         I97jeeLt/oGR5rGc8rTo6KbKEGnJU216H6gmVdnCAuLIk35Qbyxt+cgnvZz3lof3Yh5B
+         /6LQzbEDhxrIpVgvAPW6u1uSVs6UjU9LLAIpHUQBALCemGNwqDachTJPSInXofkpUwiJ
+         RT1mJpiHiSzm9txR9PK8ydrCfzBnQyaN2Nxd4SJGN/xDRVGpfZUZx0aMx+bOBJvpJ0H7
+         ZhHlFJU+oTWuhUhPmGX1qs9nfnVyTjCilfoVV0STHJhOmK1PdpUF9NgoAYY2YjVFQvtP
+         41Yw==
+X-Forwarded-Encrypted: i=1; AL+hErGdmgyvmIVz5mwVFueg7NnEvS4LbfUdRN8JMJYDqNFTd1vxNizjsmrlI8gPHAja7EfPzGTvZxvoK3oumho=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9V2h2ADjlk6yy5bXXJWLLNNKd+jrMYSGabj+PxqY5ImelESrU1
+	P1RYp2Pd3+ZqFxenjEa7YUAQ7b56HwzibCBksGcJFvIG4XqcUgiptELT
+X-Gm-Gg: AYBFou2RITCTqML6/jnB8w8KWJoA+onEYWPO/jK4TtImnu3iKCJgRcxhI5k5qxP1Wmy
+	dcP1MKigppRXfSf8/3YgFQPreLQUD+vCtbEVYUzBkML3mFgFef3kaqFgwawbg5rRUfBYUzS2/T8
+	StwT3IWoeFG55SAl9+A7Eksw5bd7IWTMxcHbwhZrITEDQ0DjWwOa0teFR5w2FmTlCk/mEmr2PZW
+	D/MmFhM7ZJAhboH2+c4h+4I64JSCfJ/f1dg6Qdpee+ajaFHWXwSLI650uwkSHMo9KhMJ/6BKM6+
+	JJgsBrdDyaiG5rrd62pVltPOV5u17DguhYvgepIf9D7ZDDbUAifSkKDzOzc32aDJiHxsUhmBFFf
+	LfYz/HA8Hd84RzydI0j7khhwRHNTuEBJGOMMyU1FOWI8O8Axce7FdBN5vgjnzeSkXLVuMehFUaj
+	UhER8ci9YQ8yQUFtJlm7UDl6ux7xQh4TabvIBACsFAZq9BBLrw+FWCa8R+ghKh1507GOOXY83eO
+	4TfTkm0vkmIerZUhFSjQKywcczO2UwGw79ovv9fJC6JtqxdMEwudUPmHRn6YoMK6MvYnZmX7dl5
+	d7t4miLT+MQLQVz9F7RiLOvNBJeRSTelxqUZFmvuQ6GS/RVJL4KMV9UXKRGNi4lRszQSI4Ffr54
+	XXCbp+S9IAcOzIm7KaquE+46/ZHKDg53SOtzYaDfD
+X-Received: by 2002:a05:7300:d40d:b0:360:d4c5:7243 with SMTP id 5a478bee46e88-37966e3a7cfmr10269605eec.11.1794798225248;
+        Sun, 15 Nov 2026 19:03:45 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm29195595eec.0.2026.11.15.19.03.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 19:03:44 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Mark Brown <broonie@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH 0/4] ALSA: seq: ump: Fix Note On/Off and key pressure conversion
+Date: Mon, 16 Nov 2026 12:03:33 +0900
+Message-ID: <20261116030338.422671-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,192 +100,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 RESEND] ufs: sysfs: Add WB partial flush mode support
-To: Daniel Lee <chullee@google.com>, James.Bottomley@hansenpartnership.com,
- martin.petersen@oracle.com
-Cc: alim.akhtar@samsung.com, avri.altman@sandisk.com, tanghuan@vivo.com,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261116020504.4051796-1-chullee@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261116020504.4051796-1-chullee@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/15/26 6:05 PM, Daniel Lee wrote:
- > +What:	 
-/sys/bus/platform/drivers/ufshcd/*/attributes/wb_partial_flush_mode
- > +What:		/sys/bus/platform/devices/*.ufs/attributes/wb_partial_flush_mode
- > +Date:		June 2026
- > +Contact:	Daniel Lee <chullee@google.com>
- > +Description:	This entry controls Extended WriteBooster partial flush 
-modes.
- > +
- > +		======== ==============================
- > +		"none"   No partial flush
- > +		"fifo"   FIFO mode
- > +		"pinned" Pinned mode
- > +		======== ==============================
- > +
- > +		The attribute is read-write.
+Hello Takashi,
 
-Please update the Date: field across the new ABI entries (June 2026 has
-passed).
+While extending seq-ump-test, I found three conversion bugs in
+seq_ump_convert.c. In each case the UMP core or the other sequencer
+path already does the right thing, and the fix follows it.
 
-Also, please drop the quotes around "none", "fifo", and "pinned" to match
-the other string attributes in this file (such as wb_resize_hint,
-wb_resize_status, and hid/state), since literal quotes are neither emitted
-nor accepted.
+Patches 1-3 are the fixes. They also apply to for-linus. Patch 4 adds
+the tests on top of seq-ump-test.c in for-next.
 
- > +Description:	This entry configures the maximum size in Allocation 
-Units reserved for the
- > +		WriteBooster FIFO Buffer size.
- > +		The attribute is read-write.
- > +
- > +What:		/sys/bus/platform/drivers/ufshcd/*/attributes/wb_cur_fifo_size
- > +What:		/sys/bus/platform/devices/*.ufs/attributes/wb_cur_fifo_size
- > +Date:		June 2026
- > +Contact:	Daniel Lee <chullee@google.com>
- > +Description:	This entry shows the current size in Allocation Units 
-of the WriteBooster FIFO
- > +		Buffer size.
- > +		The attribute is read only.
+Without patches 1-3, the new tests midi1_key_pressure,
+ump_midi1_to_midi2_note and ump_midi2_to_midi1_note fail and the other
+25 pass. With them, all 28 pass.
 
-Minor: please drop the redundant trailing "size" in "WriteBooster FIFO
-Buffer size" in both descriptions above.
+Prepared with Claude Code (Claude Opus 5.5). Tested on x86_64 under
+qemu, on sound/for-next.
 
- > +What:		/sys/bus/platform/drivers/ufshcd/*/attributes/wb_pinned_avail_pct
- > +What:		/sys/bus/platform/devices/*.ufs/attributes/wb_pinned_avail_pct
- > +Date:		June 2026
- > +Contact:	Daniel Lee <chullee@google.com>
- > +Description:	This entry shows the percentage of available space 
-remaining in the
- > +		Pinned WriteBooster buffer.
- > +		The attribute is read-only.
+Best regards,
+HyeongJun An
 
-Per JESD220G Table 14.28 (IDN 43h, 
-bPinnedWriteBoosterBufferAvailablePercentage),
-this value is reported in 10% granularity (00h: 0%, 01h-09h: 10%-90%,
-0Ah: 100%), not 0-100%. Please document the 10% granularity so userspace
-does not misinterpret 0x0000000A as 10%.
+HyeongJun An (4):
+  ALSA: seq: ump: Don't turn a zero key pressure into a Note Off
+  ALSA: seq: ump: Convert a zero-velocity Note On to Note Off for MIDI
+    2.0
+  ALSA: seq: ump: Keep a soft MIDI 2.0 Note On from becoming a Note Off
+  selftests/alsa: Test the sequencer UMP Note On/Off conversion
 
- > +What:	 
-/sys/bus/platform/drivers/ufshcd/*/attributes/wb_pinned_cumulative_write_size
- > +What:	 
-/sys/bus/platform/devices/*.ufs/attributes/wb_pinned_cumulative_write_size
- > +Date:		June 2026
- > +Contact:	Daniel Lee <chullee@google.com>
- > +Description:	This entry shows the total cumulative size of data 
-written to the
- > +		Pinned WriteBooster buffer.
- > +		The attribute is read-only.
+ sound/core/seq/seq_ump_convert.c            |  10 +-
+ tools/testing/selftests/alsa/seq-ump-test.c | 187 +++++++++++++++++++-
+ 2 files changed, 188 insertions(+), 9 deletions(-)
 
-Please state the unit here: per JESD220G Table 14.28 (IDN 44h), this value
-is in units of 10 MB (and saturates at 0xFFFFFFFF).
+-- 
+2.43.0
 
- > +What:		/sys/bus/platform/drivers/ufshcd/*/flags/wb_unpin_enable
- > +What:		/sys/bus/platform/devices/*.ufs/flags/wb_unpin_enable
- > +Date:		June 2026
- > +Contact:	Daniel Lee <chullee@google.com>
- > +Description:	This entry controls the Pinned WriteBooster unpin 
-enable flag (fUnpinEn).
- > +
- > +		====== 
-==============================================================
- > +		0        Unpin Disable: pinned data is not flushed by WriteBooster
- > +		         Buffer flush operation.
- > +		1        Unpin Enable: pinned data is flushed by WriteBooster
- > +		         Buffer flush operation.
- > +		====== 
-==============================================================
- > +
- > +		The attribute is read-write.
-
-ufs_sysfs_flag_show() emits "false" or "true" via str_true_false(flag),
-not 0 or 1, while ufs_sysfs_flag_store() accepts any kstrtobool() value
-(0/1, false/true, n/y, off/on). Please update this description so it
-accurately reflects what reading returns and what writing accepts.
-
- >  static inline bool ufshcd_is_wb_flags(enum flag_idn idn)
- >  {
- > -	return idn >= QUERY_FLAG_IDN_WB_EN &&
- > -		idn <= QUERY_FLAG_IDN_WB_BUFF_FLUSH_DURING_HIBERN8;
- > +	return (idn >= QUERY_FLAG_IDN_WB_EN &&
- > +		idn <= QUERY_FLAG_IDN_WB_BUFF_FLUSH_DURING_HIBERN8) ||
- > +	       idn == QUERY_FLAG_IDN_WB_UNPIN_EN;
- > +}
-
-Per JESD220G Table 14.26, fUnpinEn (13h) has Type "D" (device-level,
-addressed with INDEX = 00h and SELECTOR = 00h per Note 1), unlike flags
-0Eh-10h which are "A/LU/0 or D" (Note 4). Including
-QUERY_FLAG_IDN_WB_UNPIN_EN here will send a non-zero INDEX when
-WriteBooster uses an LU-dedicated buffer on a non-zero LUN. Please leave
-ufshcd_is_wb_flags() unchanged.
-
- >  static inline bool ufshcd_is_wb_attrs(enum attr_idn idn)
- >  {
- > -	return idn >= QUERY_ATTR_IDN_WB_FLUSH_STATUS &&
- > -		idn <= QUERY_ATTR_IDN_CURR_WB_BUFF_SIZE;
- > +	return (idn >= QUERY_ATTR_IDN_WB_FLUSH_STATUS &&
- > +		idn <= QUERY_ATTR_IDN_CURR_WB_BUFF_SIZE) ||
- > +	       (idn >= QUERY_ATTR_IDN_WB_PFM &&
- > +		idn <= QUERY_ATTR_IDN_NON_PINNED_WB_MIN_SIZE);
- >  }
-
-Same issue here. Per JESD220G Table 14.28:
-- 3Fh (bWriteBoosterBufferPartialFlushMode),
-   42h (dPinnedWriteBoosterBufferCurrentAllocUnits),
-   43h (bPinnedWriteBoosterBufferAvailablePercentage), and
-   44h (dPinnedWriteBoosterCummulativeWrittenSize) are Type "D" (INDEX = 
-00h).
-- Only 40h, 41h, 45h, and 46h are "A/LU/0 or D" (Note 15).
-
-Please restrict ufshcd_is_wb_attrs() to the LU-indexed attributes
-(1Ch-1Fh, 40h-41h, and 45h-46h).
-
- > +static ssize_t ufs_sysfs_attr_store(struct device *dev,
- > +	struct device_attribute *attr, const char *buf, size_t count,
- > +	enum attr_idn idn)
- > +{
- > +	struct ufs_hba *hba = dev_get_drvdata(dev);
- > +	u8 index = 0;
- > +	u32 value;
- > +	int ret;
- > +
- > +	if (kstrtou32(buf, 0, &value))
- > +		return -EINVAL;
-
-Since ufs_sysfs_attr_show() supports 64-bit attributes via
-ufshcd_is_qword_attr(idn), please either support ufshcd_is_qword_attr(idn)
-here as well or guard against it (e.g. WARN_ON_ONCE) so a future
-UFS_ATTRIBUTE_RW() user for a 64-bit attribute cannot silently issue a
-32-bit query.
-
- > +	ufshcd_rpm_get_sync(hba);
- > +	ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
- > +		QUERY_ATTR_IDN_WB_PFM, ufshcd_wb_get_query_index(hba), 0, &value);
- > +	ufshcd_rpm_put_sync(hba);
-
-Since QUERY_ATTR_IDN_WB_PFM (3Fh) is Type "D" per JESD220G Table 14.28,
-please pass 0 instead of ufshcd_wb_get_query_index(hba) here and in
-wb_partial_flush_mode_store().
-
-Also, unlike wb_resize_hint / wb_resize_status / wb_resize_enable, none of
-the new entries check hba->dev_info.ext_wb_sup 
-(wExtendedWriteBoosterSupport:
-BIT(1) for FIFO Partial Flush Mode and BIT(2) for Pinned Partial Flush
-Mode per JESD220G Table 14.4, plus hba->dev_info.b_presrv_uspc_en for
-Pinned mode per Section 13.4.18.7). Should we define those capability bits
-in include/ufs/ufs.h and check them (returning -EOPNOTSUPP or hiding
-unsupported attributes via .is_visible) rather than waking the device and
-issuing unsupported queries on devices without these features?
-
- > +	QUERY_ATTR_IDN_PINNED_WB_CUMMULATIVE_WS	= 0x44,
-
-Please spell this CUMULATIVE (single 'M'), matching the sysfs attribute
-name wb_pinned_cumulative_write_size and JESD220G Section 13.4.18.7.2.
-
-Thanks,
-
-Bart.
