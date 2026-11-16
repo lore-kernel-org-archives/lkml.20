@@ -1,68 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794790174;
-	b=HA5RGdXXXpBK0kbZOzG/etsWnI/0R4QFFXi0IH4mRYJ0eStn5wmS8JRTeSgLNXRvW2sY
-	 82aX3RhHcB+3IGtGjKsgHfdf0mVWxs5aIQSvSVa26bNXMB8zm9OTzJiYiu1RinYDR/UWO
-	 h1uVarUJqkt2T+WUeuTZ1EpycxNa+NR9da36B0ISfhyQjvEM5Dz+cy4FJq3sHzd8FijwB
-	 T9HSvAGeDsbPAzj1ankGqlYIGr28VCf5+lry1DxbccdfqNhcHk5A5la4enELllhKhQsYT
-	 LeEfTnzxyOndIEGBHilwk7xzrepDvnQ0JSRGwxEE6wSc0iDxv196+gVHESwMULz0D9A==
+	t=1794790274;
+	b=fNW5SCwEgjI5H2p4BlSJ06rcsVu0SPGWWMqf2wMsFRAX5s9mz0+GWID7Er77EugrksoD
+	 +7tZioJHcQeVt7IL6mQZtWUI976FR1+fnrhQNFUr2zNQUdva3iGp42cKYOgtj90esYLIr
+	 R12hR14babZGEt0YKj6Iq70ijx0dJH8cBmD7JgS/ixnSTOpvbbN3883sTgTTjyxWd3BgA
+	 RpPSc6OCTxZnWTHx2f/p8lPQbsrI2+wItzGezMjV8BJlu3SCy/atNGTU3UKnxxS137PDv
+	 hEbJ622dMXP4AvwBZfPLfvIt5l729S2lE4AXa5LenihG362+1gSjxPcyz7fG1GOX5fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794790174;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=E0D8N8G+zEmku/06qMS2sDSDN9cKW5ShnuCBC1SI0dw=;
-	b=qWDxGiuqEYBlqRFqL+NEiBHy9fDbYyf5xanLiiLxs3r15CXQLu25R90IrSMvtEU5XJ2e
-	 6+wb2jVT3Ducz3OKXBW1hy1wfcbLZt102VWt4iPqJsozqaFqsEFLIO82h0qHEEDNRUAhF
-	 FcaP2DGLOjeycH3leuy7UzYFxKqG9KaPDAKuk/eCDkf3hiIQa2zJsCpbMaC6QZpdcw8lU
-	 mvspI5Jc1CmbPrLIFMNS57HfhnAgBdL7QW2BRCHvG/KQn8uBpNpP3jyQqID5Zqc/jQMMy
-	 gUg6/iGe5UNX7gj/a/uBHbLquTFyKWrE5qg3y24FjVWno3E5wMDC5fTjfWeabKJAMnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794790274;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MIjM5AQP/1CG/3Cir93oUp7YXAhmVFmDtgGmXBS6BRM=;
+	b=DhtZ8Cn0n3TiJ6P14JKPFMiktqvOrveEt/NdFxkXm4cjrdUEjvUJARr61m23cF2vTTOj
+	 eSHr3XiiA3W3Nu/mPZcCwysxHJEfONY6FExuRVbmkLybWUk4MLIwe3cCTM0sXA39JtnPc
+	 8OEqc3cgXb8tKcvtsDFQIG48+JjuvCV5rG540adXPyh+LHVxtFzlgCmLYAobXeSxtZ2dQ
+	 N+uw8FaVDhgNDLFm7x2JPyE8JvU/f2GHli2wkc+9coKqmJCYo4Yh1fPuHXgJeXbCC7BC0
+	 oarXKxCIniSiCeUjIUsx8jvYuGvAbx24XNOl2uDxGxnx9dFwkqB/k7e3pJ5HeXz7J8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZnC3Qo72;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmz705tQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B9F606A32C;
-	Mon, 16 Nov 2026 00:49:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C0E1B606A31F;
+	Mon, 16 Nov 2026 00:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZnC3Qo72
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBD481F000C4;
-	Mon, 16 Nov 2026 00:49:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmz705tQ
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D0B6C1F000C4;
+	Mon, 16 Nov 2026 00:51:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794790173;
-	bh=E0D8N8G+zEmku/06qMS2sDSDN9cKW5ShnuCBC1SI0dw=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=ZnC3Qo72C6TkP5AGe79E48HTpmvVbpXRkqSXmp92Ww4GMlTPQwLAQkMzo3Z/VywZd
-	 SEZRBNxjlaP/Ktg4pbbEQBCQATEXRKvnHFJfJ+4OwOB6x7PrgWKSapGyq4XFy5sjeX
-	 I1tcYKbuT/7BM8bazqsQtd/bprMAH8f6JLRb+V8qUfVtkqli/NiRi5o+35aDw746OW
-	 LoGfOAqoaNA5+taKR94ko9WeROPzcAQiDSU749B3QTNSe/Q1Ml5OGJj/Es7XoMtHjU
-	 cYIbM03bVOZxh8hj27IczOlKPhdk/hbcP51gi2GvJ227hpt/jtdkqvPmnrxD7XNWGK
-	 u/D+mSn1ZfOdQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id A5D97CE0C39; Sun, 15 Nov 2026 16:49:33 -0800 (PST)
-Date: Sun, 15 Nov 2026 16:49:33 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Joel Fernandes <jfern@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Shuah Khan <shuah@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, rcu@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH for-v7.5 12/14] rcutorture: Enable RCU_BOOST where
- supported
-Message-ID: <ea57ec3b-fcb0-4382-8327-3384b38e2747@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261113005747.2977123-13-jfern@kernel.org>
- <20261115233931.GC3906606@joelbox>
+	s=k20260515; t=1794790274;
+	bh=MIjM5AQP/1CG/3Cir93oUp7YXAhmVFmDtgGmXBS6BRM=;
+	h=From:To:Cc:Subject:Date;
+	b=gmz705tQclk5xa4yWgQ5iErGq5k+nHHE1YUrcp844z2f7SUoydNA3zjR3CDWNoUu1
+	 FWKl6Kb5vEABJJZTgUHus7BxN7mSTvV52iK+xuOyAoCaw9QX+G82DDtlzdc5byWlmk
+	 A78qxv7yQeVK/hTm/ku8eeVGU7NlJGSFDS9ZTx2EgDJazz9vxRsJgJ2l36X0iBRBnd
+	 UWWVARrsYG5X6KnUDIrhPHB4Mir4qsVqliDYC+FEk1h7sJSLkoARPqoiwqqQ+TU+Mm
+	 XCzcmAOvcLNsAIUGs6V9hE/GbZw5t5kwUYvk4HH30S5puLfgKFzE6v1PzsZXtH6gfI
+	 WWCAuGRnzYeZA==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: linux-integrity@vger.kernel.org
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	keyrings@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alec Brown <alec.r.brown@oracle.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	David Howells <dhowells@redhat.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	James Morris <jmorris@namei.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan McDowell <noodles@earth.li>,
+	Matthew Garrett <mjg59@srcf.ucam.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Ross Philipson <ross.philipson@gmail.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: [PATCH v3 0/5] Unsorted tpm2-sessions improvements
+Date: Mon, 16 Nov 2026 02:50:59 +0200
+Message-ID: <20261116005105.1573016-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,48 +73,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115233931.GC3906606@joelbox>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 06:39:31PM -0500, Joel Fernandes wrote:
-> Hi Paul,
-> 
-> Can I fold in the below diff?  Sashiko found this issue in [1]: with
-> RCU_BOOST now enabled without RCU_EXPERT, its dependent options
-> RCU_BOOST_DELAY and RCU_NOCB_CPU_CB_BOOST would prompt during "make oldconfig"
-> for non-expert configurations.  The diff shows those prompts only with
-> RCU_EXPERT; the defaults stay in effect.
-> 
-> [1] https://lore.kernel.org/all/sashiko-outbox-213970@kernel.org/
+Collected patches that still make sense from [1] and tweaked where needed.
 
-Good catch, and again, please do!
+[1] https://lore.kernel.org/linux-integrity/20260125192526.782202-1-jarkko@kernel.org/#t
 
-							Thanx, Paul
+CHANGES
+=======
 
-> diff --git a/kernel/rcu/Kconfig b/kernel/rcu/Kconfig
-> index 2d0132e0a90f..a0c10750b792 100644
-> --- a/kernel/rcu/Kconfig
-> +++ b/kernel/rcu/Kconfig
-> @@ -249,7 +249,7 @@ config RCU_BOOST
->  
->  
->  config RCU_BOOST_DELAY
-> -	int "Milliseconds to delay boosting after RCU grace-period start"
-> +	int "Milliseconds to delay boosting after RCU grace-period start" if RCU_EXPERT
->  	range 0 3000
->  	depends on RCU_BOOST
->  	default 500
-> @@ -325,7 +325,7 @@ config RCU_NOCB_CPU_DEFAULT_ALL
->  	  Say N here if you are unsure.
->  
->  config RCU_NOCB_CPU_CB_BOOST
-> -	bool "Offload RCU callback from real-time kthread"
-> +	bool "Offload RCU callback from real-time kthread" if RCU_EXPERT
->  	depends on RCU_NOCB_CPU && RCU_BOOST
->  	default y if PREEMPT_RT
->  	help
-> 
-> Thanks,
-> Joel
-> 
+v3:
+- Add "tpm-buf: Make tpm_buf_read*() fallible".
+
+v2:
+- Based on Sashiko feedback I changed "offset += tpm_buf_read_u16()" into
+  "rc = tpm_buf_read_u16(...)" and "offset += rc". I'm convinced that this
+  was necessary but since it does not have a cost, at least this should
+  mute Sashiko.
+
+VERSIONS
+========
+
+v1: https://lore.kernel.org/linux-integrity/20261115224722.1450498-1-jarkko@kernel.org/
+
+Cc: keyrings@vger.kernel.org
+Cc: linux-integrity@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: Alec Brown <alec.r.brown@oracle.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jonathan McDowell <noodles@earth.li>
+Cc: Matthew Garrett <mjg59@srcf.ucam.org>
+Cc: Mimi Zohar <zohar@linux.ibm.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>
+Cc: Roberto Sassu <roberto.sassu@huawei.com>
+Cc: Ross Philipson <ross.philipson@gmail.com>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+
+Jarkko Sakkinen (5):
+  tpm2-sessions: Drop TPM2_NAME_SIZE
+  KEYS: trusted: Open code tpm2_buf_append_auth()
+  KEYS: trusted: Remove dead branch from tpm2_unseal_cmd
+  tpm2-sessions: Re-orchestrate tpm2_read_public() use
+  tpm-buf: Make tpm_buf_read*() fallible
+
+ drivers/char/tpm/tpm-buf.c                |  56 ++--
+ drivers/char/tpm/tpm-sysfs.c              |   2 +-
+ drivers/char/tpm/tpm2-cmd.c               |   9 +-
+ drivers/char/tpm/tpm2-sessions.c          | 306 +++++++++++++---------
+ include/linux/tpm.h                       |  18 +-
+ include/linux/tpm_buf.h                   |   6 +-
+ security/keys/trusted-keys/trusted_tpm2.c |  93 +++----
+ 7 files changed, 270 insertions(+), 220 deletions(-)
+
+--
+2.47.3
+
