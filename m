@@ -1,68 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855772;
-	b=L1b686BZB+6FUGN5ox9L23lpGXhGZvbgTT6SMaWbboZCi1ONowUZBRuVQEv5J1XffmGw
-	 5NldvVJwtCyEW1s9eFsabeJ4qHq4jzNlhwuhITyRwPNfzxWqeejeY/2c6XBz2JGgIH0xU
-	 a5E4ldUMlYvbqOWdK+7Ga1kkqCVewU4vBNb82FURHY0SC+sWCWGOIorp0MlDkJoj4Aauu
-	 g4SAEA310HQoM6Q9MdbB5PKDUokv9LBv/hAR62bUKG4tqCFh6Dx4v8/Hecm+pJBTFDIDd
-	 dZSRYFQ0ixgo4DRhLMqYSQJ7nOeH7Jh6dw2L+6jY4WB4kB985HVyHlsvlwI0gqOloxQ==
+	t=1794855860;
+	b=nNhuagMuuBKR0OR8agac76gvbAwNJlasVWbcg6PUY6fHkfURaxNYIw27dL2obkKkceYq
+	 fUOf7HCVTddQL44K7gSAj4mr8Kp8Lh6z5qh9pbEQXzUbpuap2HTWDpBSGk1aXA8iA+E3G
+	 1ZcX1zlaf22jE2aO2BPg6wYysvKl8JPfGO8Bi4cC0qrXW8zdesDJYFNNfrWqbyG+CE9vf
+	 MnAAVwcS+CKSEPwn0fVZ0gZTfJ1dpc9bp5ak/MFUxh0mn7tgXBPBY8cytWR1qfMsZySS5
+	 TQP1gKz3QokjxvLJ8eI+vRnd5aIfiaM9dmPrKnvFU72NanRj1Q8qOdsMY1uSZPDwQoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855772;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=O6UMZeXcanN8t0djn7NJ3zl4SeBIN2aE6Bswi6j2Bic=;
-	b=5YHgV2k0clkXT3RvJZenmBl9X/XFNlS1NdQ5QBIUA/n5nxtzaZ/SZdTUy+4+d0wOzHuk
-	 2NXmZJA4639F6uutUtJc5YMZAxiH4WTi/32TQcILzSG6KeAMLFhFqc09FPdNZpVQNLIvI
-	 iCpvpCjeKQR94uUHilylk9Iy9C4bVSqrWiT7SLGOmci8YumHlMtar1CLFW+Dm1gBoCsE7
-	 40sdef+YY0cJfn3rh1bLa4uftnlyFogygP8FmzsA/FzJrRqtlQihgAnVnf6GY0CYwVpv/
-	 a37nZGuFayfY97WJaqCO3T2GWOAmCXjB8btP3lZ/iPpeoes1n8eRtPUJVpZ5SnZ6wnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855860;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=WvOfbKHC1YhEa2QpW290x7cG/RSkj9nU3s9Pf1uScWc=;
+	b=GdGnPVGf+EqoMI/dQBoaaDAbgiCa+PmTa6cmXYHuBMkLJ+1CJ6OTm7hxnlHtZOVWxl/O
+	 UwB4KzGesUPmOHXjT3SrbuAQ+3myuNfK5vAD+rtWPql6r2tWvJfRs2U/NlflZHIiRVMoA
+	 yPl062iE9hniZONSY2v8CmLKcxSsB3JxwSqbtJ4uSZHZV74t/jnD0qucYBUbU7DVxeLND
+	 RyslpkPVkGtYVBTnQzZi9JiBofYwvilPP0QIi0OhPCOopfizS5D6iMPV0YYtvzuhTwfpi
+	 HoYKH+yLZaJZLbJ2W36EIQiqX4j6Iq88MrAMW4Pz7owU0BMoetV99V/akCDpiYZCbFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="krLJ/zt0";
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=cV6xCUYW;
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD40606A332;
-	Mon, 16 Nov 2026 19:02:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCD40606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC1B606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBC1B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=krLJ/zt0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794855771; x=1826391771;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=wQE7uNnF9LUCnfBgZItftnbCHtc1uOtISxCx3nLbEHo=;
-  b=krLJ/zt05/jW5akGL0FXG9cQLefBpx/gMTniW/DHPH/8run/Nxm54FbJ
-   jYGHJ+1g/8uiwjZAWZb7Kuxmaj6yLay7ZOiLVHcxBmc/1Gd0K4I9vU41t
-   1Z+N6WCIiyONAssi5X5RDSsODHykH6IFQGvUIQ+6xQhGKJOgrUJf4XhOV
-   y/iu9UkSHb2gKO/C5NDPgLZMaC4BG4njwxsLz1yXryJZE+Ns6q9Qu6pHp
-   NR9QPfFX4YmSHMVOZvqMWYJhxVEsRzcMWMBTJjWRkM9fVagj7mXyaPSE+
-   mzGam0snxeS54naD4tX2mLrym9LUv3P1vlfleO3lYtXoRC9Ur/TZ+gjCC
-   Q==;
-X-CSE-ConnectionGUID: 7HLKsn0CS4ebtuQqc49w7A==
-X-CSE-MsgGUID: mhibNnJRRCySq6mWw3s8ZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3497664"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3497664"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 11:02:51 -0800
-X-CSE-ConnectionGUID: keozqHRVT8qpyORtp6xvdQ==
-X-CSE-MsgGUID: +3DLGtDwTFyUZyCBR1T39A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9696706"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 11:02:51 -0800
-Message-ID: <553050b3-bcda-48e0-af03-754f0b697943@intel.com>
-Date: Mon, 16 Nov 2026 13:02:49 -0600
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=cV6xCUYW
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53669f7b518so50537531cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:04:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1794855859; x=1795460659; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WvOfbKHC1YhEa2QpW290x7cG/RSkj9nU3s9Pf1uScWc=;
+        b=cV6xCUYW6Nj32ATgj9pR3hPHUcXMAswfWFmbofUn9Kj8O2h0vBxKz+gKkblkAcoZs4
+         3Sksf2uZJcrqFHnWfbGA31BNzwsf2S1dv95GJqgZVMfFGYLSB6zg6g2Fr+yuwov/in3t
+         kzMGwphN2MWZmbFV+wYJtbSpA7Il47XDSpoenMocuugAiDnZMkgQe82N6D/LNCvFdxrw
+         g4Vs+tRlvNQP2aXotTXnhkPG5j8fWm0uVGtEmoX6U112LRHDjo2Qmq5iAcSLMow6gR3a
+         CP6w8W/FgL6u2p7O81zc788TpdcCz8lIWVKQDNRHCpvZKfTuZAAb/gE598LmoW33C074
+         z1Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794855859; x=1795460659;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WvOfbKHC1YhEa2QpW290x7cG/RSkj9nU3s9Pf1uScWc=;
+        b=yEVNaxSxz2uyalkse9egyc1dseg8ORcdpCFCD/Tk4k/X7kKXKe1yxAJ1yqBP98gs67
+         uqHI9mNtfyUJ98DJAQ11t41VKKnp/kN6PZL7MqHxhA8KcfApwy/xIKOKbXfAgoEJzoq3
+         q5UeWeoJ8sZr1VGTVat3JZfve1Y/hCP/MU0dBzRpz7hhTqxKMHye0BNkFRgGqEbmmtCt
+         XuWxpTkYaRT5EzHKKCWMEG23WP/93LcQ4CgtKIwy4mnRlxd5GNFhT9GlM8RWw4pKFX8K
+         eM+ZfgLFFkUeSJxCs3VA7Vu64BOI7Jm3m6Ge9+9NjgmWetE7vUN8xzHUvkKIgLYwgLho
+         ZJUQ==
+X-Forwarded-Encrypted: i=1; AL+hErFlhB/04ZLvNQpBV7PJJ8tVn2zgb4XG2wnVUKk41jeKkDKVPSgKtJ/RgCv3jgnzIx93LHLl+eyMT7RYmZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xiDV+eWkzC/tXvWUEvIPdkjQe6fOSBCslHfAQfqvpwkqiltT7
+	+HuPOTBjERjixnQ6qSiqsHAD7LnGocvOkx3LnxTiZ3WiKwVaXGfGP8QL+cpFkfSwpQs=
+X-Gm-Gg: AYBFou3TequZ8A9ltKndmAWALaA8dk5CBPJbNJBxKdCe+XoRUpxD8qZdoKp5qtxKwwX
+	aMplHc/N+1oUWoFWdhjokYxedLzwZax1vRsB5BeV1xN31/5TTC7Zan+XhN4JJUEVl4KFnpJnEAO
+	miFmIjJ61/uqJQfhmxDujFncmUYD/W9Rcc8voIa4vFAlPC9KJ+DDqDacQWj8UbFQqk37jsHGTSO
+	/7AYcap6QuIShMyAASgh/J1LHvm+VC160JKpZh0rgzr3omH+XXIHERzm96Py+URKF2f3jlgTKFn
+	sci2k+x1gZmH7I0//IcnioZVNG0lYJTvnZYgcbAmJ4lxcYk1InEtvVvA07ZHNZARFfd4UpwO1A3
+	tOdnBqCPuslNfqO9g+gDIsfbMYGPnp8cpRMVutc21e/y3sCl81G9v756PYeYeqoldqZa5l7FOd1
+	bpQemxkJZV1f77Fw45CvKX08GYfbFejWJbkoyXgWKyuEN+azltXNje1t9s8XuuyXt017OZQPOcH
+	zodFcNgpXt3EOaW87sC0XVyy12AY6YnrLPKZjVZn0WinL1wuHmIvTiYGgD+VYLPwEJj7Qo03z/n
+	FkbOCw==
+X-Received: by 2002:a05:622a:124b:b0:536:9140:e2be with SMTP id d75a77b69052e-55ac948cc41mr174359441cf.74.1794855858824;
+        Mon, 16 Nov 2026 11:04:18 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad1b13917sm87667361cf.29.2026.11.16.11.04.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 11:04:17 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xT201-0000000AFsj-03Yl;
+	Mon, 16 Nov 2026 15:04:17 -0400
+Date: Mon, 16 Nov 2026 15:04:17 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Kameron Carr <kameroncarr@linux.microsoft.com>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v2 18/19] PCI: Replace untrusted state with device trust
+Message-ID: <20261116190417.GD2299285@ziepe.ca>
+References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+ <20261109-device-trust-core-v2-18-3b12d9a9f861@nvidia.com>
+ <193e4130-9c2f-4a0f-b218-f5fcf0b3d508@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,128 +133,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/21] KVM: SVM: Drop counter MSR checks in
- amd_is_valid_msr()
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261112203227.289379-1-zide.chen@intel.com>
- <20261112203227.289379-2-zide.chen@intel.com> <avis5Ose25IiYM2S@google.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <avis5Ose25IiYM2S@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <193e4130-9c2f-4a0f-b218-f5fcf0b3d508@linux.microsoft.com>
 
-
-
-On 11/14/2026 12:49 PM, Yosry Ahmed wrote:
-> On Thu, Nov 12, 2026 at 01:32:07PM -0700, Zide Chen wrote:
->> amd_msr_idx_to_pmc() accurately validates individual counter MSRs by
->> checking whether the corresponding counter is supported for the vCPU.
->> Validating counter MSRs again in amd_is_valid_msr() is redundant.
->>
->> Furthermore, validating counter MSRs using broad checks like
->> "pmu->version > 0" or "PERFCTR_CORE" is inaccurate and misleading. It
->> falsely validates unexposed counters, which then fail in
->> amd_pmu_{get,set}_msr(), injecting an errant #GP instead of taking
->> KVM's fallback (read 0, write ignored) and breaking migration for
->> unadvertised counters.
->>
->> Finally, the range check in the default case is dead code because AMD
->> CPUs currently support at most 6 Core Perf counters. Even if future AMD
->> CPUs support more than 6, counter MSRs would still be sufficiently
->> validated by amd_msr_idx_to_pmc().
->>
->> Drop the counter cases and dead range check from amd_is_valid_msr(),
->> leaving counter validation solely to amd_msr_idx_to_pmc().
->>
->> Fixes: 4a2771895ca6 ("KVM: x86/svm/pmu: Add AMD PerfMonV2 support")
->> Reported-by: Jim Mattson <jmattson@google.com>
->> Signed-off-by: Zide Chen <zide.chen@intel.com>
+On Mon, Nov 16, 2026 at 10:46:25AM -0800, Kameron Carr wrote:
+> > @@ -1738,24 +1738,24 @@ static void set_pcie_cxl(struct pci_dev *dev)
+> >  
+> >  }
+> >  
+> > -static void set_pcie_untrusted(struct pci_dev *dev)
+> > +static void pci_set_default_trust_policy(struct pci_dev *dev)
+> >  {
+> > -	struct pci_dev *parent = pci_upstream_bridge(dev);
+> > +	struct pci_dev *parent = pci_physfn(dev);
+> > +
+> > +	if (parent == dev)
+> > +		parent = pci_upstream_bridge(dev);
+> >  
+> >  	if (!parent)
+> >  		return;
 > 
-> Should we also drop the get_gp_pmc(.., MSR_IA32_PERFCTR0),
-> get_gp_pmc(.., MSR_P6_EVNTSEL0), and get_fixed_pmc() calls from the
-> default case in intel_is_valid_msr()?
+> Hi Leon,
 > 
-> They are also covered by intel_msr_idx_to_pmc() IIUC.
-It's a shame that I didn't take one step further to check the Intel code.
+> The default policy here works for physical hierarchies, but there's no
+> opportunity for a paravirtual host bridge to participate in the trust
+> resolution when the host bridge driver itself knows the appropriate
+> trust level for a device.
 
-I completely agree that intel_is_valid_msr() should be simplified:
+HW doesn't really "know" the trust level, it can suggest a default but
+the kernel command line and userspace should always be able to
+override it.
 
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 4824e7eb98d3..77ce713101a4 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -229,10 +229,7 @@ static bool intel_is_valid_msr(struct kvm_vcpu
-*vcpu, u32 msr)
-                        ((perf_capabilities & PERF_CAP_PEBS_FORMAT) > 3);
-                break;
-        default:
--               ret = get_gp_pmc(pmu, msr, MSR_IA32_PERFCTR0) ||
--                       get_gp_pmc(pmu, msr, MSR_P6_EVNTSEL0) ||
--                       get_fixed_pmc(pmu, msr) || get_fw_gp_pmc(pmu,
-msr) ||
--                       intel_pmu_is_valid_lbr_msr(vcpu, msr);
-+               ret = intel_pmu_is_valid_lbr_msr(vcpu, msr);
-                break;
-        }
+> My scenario is pci-hyperv in a confidential VM with a paravisor. The
+> paravisor is inside the guest's trust boundary and owns TDISP. It locks,
+> attests and accepts the device, then answers a VMBus query describing
+> which BAR ranges are private and whether the device's DMA may target
+> private memory. Before a driver can bind pci-hyperv has to:
 
-Additionally, intel_msr_idx_to_pmc() currently misses get_fw_gp_pmc(),
-which leaves FW counter writes untracked in kvm_pmu_mark_pmc_in_use().
-Moving get_fw_gp_pmc() into intel_msr_idx_to_pmc() fixes that bug and
-allows dropping all counter checks from intel_is_valid_msr():
+Sounds like a user in such an environment just wouldn't use the trust
+level mechanism at all.
 
-@@ -247,6 +244,7 @@ static struct kvm_pmc *intel_msr_idx_to_pmc(struct
-kvm_vcpu *vcpu, u32 msr)
-        pmc = get_fixed_pmc(pmu, msr);
-        pmc = pmc ? pmc : get_gp_pmc(pmu, msr, MSR_P6_EVNTSEL0);
-        pmc = pmc ? pmc : get_gp_pmc(pmu, msr, MSR_IA32_PERFCTR0);
-+       pmc = pmc ? pmc : get_fw_gp_pmc(pmu, msr);
+What use do you see for enabling trust level but having all the
+devices unattestable and accepted already?
 
-        return pmc;
- }
+Your bigger issue is the below:
 
-This seems a little bit too complicated in intel_msr_idx_to_pmc(),
-especially once PMU v6 is introduced and more v6 specific MSRs are
-available. We may do some cleanup (not in this series though)
+>   - query the paravisor,
+>   - refuse to operate the device if the query failed or if the response
+>     is invalid,
+>   - decide whether the device may operate.
+> 
+> The modular host bridge driver in this scenario needs a hook to be able
+> to participate in trust resolution.
+> 
+> I'm also looking for the right place to setup MMIO and configure DMA
+> in my scenario. Let me know if you have guidance.
 
-- Fold get_fw_gp_pmc() into get_gp_pmc() and hide the base MSR from the
-  API signature to keep the callers clean.
-- Move these helpers from pmu.h to pmu_intel.c, since AMD already uses
-  its own helpers.
+Well, you are very far outside what Linux expects for a CC flow, and
+these special requests conflict with the arch code flows we need to
+have.
 
-@@ -245,10 +294,9 @@ static struct kvm_pmc *intel_msr_idx_to_pmc(struct
-kvm_vcpu *vcpu, u32 msr)
-        struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
-        struct kvm_pmc *pmc;
+So, I don't know. Maybe somewhere in the arch code hyperv can hook and
+say the device is special? You'll have to see when we get more of the
+CC stuff layed out.
 
--       pmc = get_fixed_pmc(pmu, msr);
--       pmc = pmc ? pmc : get_gp_pmc(pmu, msr, MSR_P6_EVNTSEL0);
--       pmc = pmc ? pmc : get_gp_pmc(pmu, msr, MSR_IA32_PERFCTR0);
--       pmc = pmc ? pmc : get_fw_gp_pmc(pmu, msr);
-+       pmc = intel_get_fixed_pmc(pmu, msr);
-+       pmc = pmc ? pmc : intel_get_gp_eventsel_pmc(pmu, msr);
-+       pmc = pmc ? pmc : intel_get_gp_counter_pmc(pmu, msr);
+Though, FWIW, I don't like it at all as a model. Denying the tenant
+the ability to directly attest the HW is far away from what I'd
+consider as necessary for CC.
 
-        return pmc;
- }
-
-@@ -419,18 +467,17 @@ static int intel_pmu_get_msr(struct kvm_vcpu
-*vcpu, struct msr_data *msr_info)
-                msr_info->data = pmu->pebs_data_cfg;
-                break;
-        default:
--               if ((pmc = get_gp_pmc(pmu, msr, MSR_IA32_PERFCTR0)) ||
--                   (pmc = get_gp_pmc(pmu, msr, MSR_IA32_PMC0))) {
-+               if ((pmc = intel_get_gp_counter_pmc(pmu, msr))) {
-                        u64 val = pmc_read_counter(pmc);
-                        msr_info->data =
-                                val & pmu->counter_bitmask[KVM_PMC_GP];
-
+Jason
