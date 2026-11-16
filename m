@@ -1,44 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793634;
-	b=prnK8f9eXAO6Oa5HQ+dQH9BqT8yhu4jQXPkMNvbshvJYptiNiBTD15NppPyjYTR2lgtn
-	 D95/hvDr4c6TiyiPUGu3l+5Gp07nF7tGochjU0d7Vae0WCm1FmqjSF8WG0u2sgcNFoJb9
-	 F324l9FVx5dzcBYFXHFaaJA4/mUwtRzxEc5AumLsEZVHDZ/VPR3rZXeFeQBeLBoEWzglN
-	 C2Y9TTgYdTqVaiXNRbHe08YNA/W1HP7GmuEXk3vYOQvDTtEhwxLFKROISbXoXYS6Z/z7l
-	 PSXoFfMhdUy+A6AyATFEsC5CfH1u9tkOzIC4l8HSB2j37t05MTiuxKI0aB+IT+nT1iA==
+	t=1794793686;
+	b=XuvzPGtf3eh30TtiSBfVuRndHZQBRkZDpUmy2TtVeLLvEsZ/V57OPRTBc9MDQxy+yFoy
+	 v7fGbiSNtQ1W6PfUuVk5kNl9uzyxx4uuW/ADa0IhZLbX2+iszZBaYNAEV4Y9sGz5t3fNx
+	 f5gyugxxdaHS85YQlQeG6kY2u263KdWT1aU+IG9VjYBQvPH7YLjdO5jxdNavjDcAhH6mx
+	 3+DruAbdjJ9Xq0FKnbw+vSfZju7f8HDn+FiuNZP6+97cfXmuERNPPRaNckk09GfU/Mbv2
+	 afL71MIi+a+o5AYXqodW8r5Y28dvQaZuMYhziFwR8ie6XHzEQuA5Ayxxjrr2hSaDu9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793634;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=QL5XckioorVY3HmQuyB7sCoeqaOvjjXM1fRm/QS1zoc=;
-	b=fGBg9sue5shgZ3zIW3Eu5wm+kR3MCT17eRyQDc6+zgL9jy6TJ7SkIOq0s4KwO1kwC4A8
-	 pgbtrY8SZhAlmO+zIRgHNp/ibgDzCmyDIL4DLGHtBmeypz2UEkcQA770p1ivNoI8dvhDF
-	 ZlouRbAqYfB5QAOCOwqqrtzxokuj/X3wFlbU0jNXq/DhWOohdmE9N6vbPFl5TyOP+Whek
-	 N1xA9kWdMCg22Vn5jUkidPjjSZPVWqlniEcUIj2dSmGPLdkeTzaFkPT+sVW8I8HG2aV5X
-	 4UMEt9WCuhoIpRbsa/D/sW4tF91dpvzpp4811IlNY9j8+h/OKka/NEQp1fD0KnuWS4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793686;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SmMEGUJ3TmY5ehawL87dzihwEU8REbIyAh3hfr0asIM=;
+	b=X+Ve98yvKMDTMQ3gKpwrr09Iw6QKNMCwD5eqkkckKtSsGaij47L9KRyAUehb+ckpcX6p
+	 tAKOUivkI/k/RT8/O21vRKBiqVpxQsI1wi+HvwCz1/wD81QSobJqaRrh4E680n/LOM5bZ
+	 yCnBVf+hAnjQaq5QHP+mIj2E2ecC7vQUKm/5hBA/zOrn3PgXenFZwqHyxJtDTd5wRnPjz
+	 gQOsaTm7bVq9vIqidzFVjlPqtlnSDXq0zDvVVTovETslTFNXlQrPne8r73BAfeg9Sa/2n
+	 5FHN2gW69Br5FQ9vvySOo8cmzMiIGQm9WsnQW1oegpmmEVQbCD0puEpIqQTNfjSighA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Xlx9MASN;
-	arc=none smtp.remote-ip=160.236.53.106
-Received: from mail-m16023653106.xmail.ntesmail.com (mail-m16023653106.xmail.ntesmail.com [160.236.53.106])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EC2606A31F;
-	Mon, 16 Nov 2026 01:47:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48EC2606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tGdMhjxn;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0057A606A321;
+	Mon, 16 Nov 2026 01:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0057A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Xlx9MASN
-Received: from [172.16.12.11] (gyproxy-mailtls4-entmail-gy2-virt39.gy.ntes [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54c20f935;
-	Mon, 16 Nov 2026 09:46:55 +0800 (GMT+08:00)
-Message-ID: <13ee0fa0-fcbf-455e-9aac-ea3dcf03b270@rock-chips.com>
-Date: Mon, 16 Nov 2026 09:46:53 +0800
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tGdMhjxn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=tGdMhjxnVgLWwoxU9tS6hZ/HgiNuzsHbxaqBoOMA+Czy6HBzl5auFw8zFadT/FqOSWHlIjXVs0IRv
+	 qN6ookmK+outRRqXtvXCLgc0roZLlYzA6yoPLEh4L/zChPJaam14vq32OXIxvDWMYRahKOcNGUgZIY
+	 R0JmowXfA8HULJS4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86afa60d366d-99adc;
+	Mon, 16 Nov 2026 09:48:04 +0800 (CST)
+X-RM-TRANSID:2ee86afa60d366d-99adc
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[223.64.115.200])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afa60d087e-77831;
+	Mon, 16 Nov 2026 09:48:04 +0800 (CST)
+X-RM-TRANSID:2ee66afa60d087e-77831
+From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Hangbin Liu <hangbin.liu@linux.dev>,
+	Hangbin Liu <liuhangbin@kylinos.cn>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sunwenbo@cmss.chinamobile.com,
+	1342116488@qq.com
+Subject: [PATCH net-next v3 2/2] ipv6: preserve ip6mr_get_route() error in rt6_fill_node()
+Date: Mon, 16 Nov 2026 09:47:44 +0800
+Message-Id: <20261116014744.18223-3-sunwenbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20261116014744.18223-1-sunwenbo@cmss.chinamobile.com>
+References: <20261116014744.18223-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,141 +79,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM / devfreq: governor_userspace: Guard against NULL
- governor_data during switch
-To: Choi Chanwoo <cwchoi00@gmail.com>, heiko@sntech.de,
- linux-pm@vger.kernel.org
-Cc: cw00.choi@samsung.com, myungjoo.ham@samsung.com, kant@allwinnertech.com,
- kyungmin.park@samsung.com, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, tony.xie@rock-chips.com,
- huangtao@rock-chips.com, stable@vger.kernel.org
-References: <20261022022109.642339-1-finley.xiao@rock-chips.com>
- <94a65d65-e81f-4942-b119-51b71e8eabb4@gmail.com>
-From: Finley Xiao <finley.xiao@rock-chips.com>
-In-Reply-To: <94a65d65-e81f-4942-b119-51b71e8eabb4@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1e2092ded03a8kunm3009e2001cb66a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHhkfVkJPT0lDHU0fTE9MQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Xlx9MASNidfN/0/OmnFeLgsodsmzadR89tKU3zq++QnM8UqlhcBAE9GPtPhdMUj8as2WjEADMkE/eG3Rli8TzVi7BgvVr9cUHtnLqTgGasY8903Sk5ClXTWQxdj6y6ojSI0uCWupVaDfuFNU/3WGZBJQghHQMmWVOc63uL7iGhQ=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=QL5XckioorVY3HmQuyB7sCoeqaOvjjXM1fRm/QS1zoc=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Chanwoo,
+In rt6_fill_node(), when ip6mr_get_route() fails with a negative error
+(for example -ENODEV, -ENOENT, -ENOMEM, or -ENOBUFS), the error path
+currently jumps to nla_put_failure and unconditionally returns -EMSGSIZE
+("RTNETLINK answers: Message too long").
 
-Thanks for the review. You're right — I've also taken devfreq->lock
-around the governor_data assignment in userspace_init() in v3.
+Among all callers of rt6_fill_node(), only inet6_rtm_getroute() passes
+a non-zero input interface (RTA_IIF) and propagates negative errors back
+to userspace. Keeping -EMSGSIZE as the default return value for
+attribute put failures while preserving the negative error returned by
+ip6mr_get_route() lets userspace see the actual failure reason when
+multicast forwarding is enabled.
 
-Will send v3 shortly.
+This issue was pointed out during code review of rt6_fill_node() by
+Hangbin Liu, confirmed on a UML kernel with MRT6_INIT enabled (where
+querying a routable multicast route with an input interface reported
+"Message too long" despite the failure in ip6mr_get_route() being
+-ENODEV), and verified after the patch that it returns -ENODEV ("No such
+device") instead while other rt6_fill_node() paths behave unchanged.
 
+Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
+zero new warnings or errors.
 
-在 2026/11/14 22:16, Choi Chanwoo 写道:
->
-> On 10/22/2026 11:21 AM, Finley Xiao wrote:
->> The userspace governor is the only one that uses devfreq->governor_data,
->> allocated in its DEVFREQ_GOV_START handler (userspace_init()) and freed
->> in its DEVFREQ_GOV_STOP handler (userspace_exit()).
->>
->> When switching governors via sysfs (governor_store in devfreq.c), the
->> sequence is:
->>
->> STOP(old) -> df->governor = userspace -> START(userspace) -> userspace_init
->>
->> Between the df->governor assignment and userspace_init() completing,
->> governor_data is still NULL (the previous governor never touched it,
->> and the core does not clear or pre-allocate it). During that window,
->> asynchronous paths that call update_devfreq() outside of the driver's
->> control -- the OPP notifier (devfreq.c:686) and the pm_qos notifier
->> (devfreq.c:707) -- run devfreq_update_target() under df->lock and reach
->> devfreq_userspace_func(), which dereferences governor_data without a
->> NULL check, causing:
->>
->>    Unable to handle kernel access to user memory outside uaccess routines
->>    pc : devfreq_userspace_func+0xc/0x28
->>    lr : devfreq_update_target+0x58/0x158
->>
->> Add a NULL check in devfreq_userspace_func() and fall back to
->> previous_freq, which is the same behaviour as the existing "no user
->> frequency specified yet" branch. This closes the race for all callers
->> since every path ultimately goes through get_target_freq.
->>
->> Additionally, take devfreq->lock around the kfree()/NULL assignment in
->> userspace_exit(). Without it, a concurrent OPP/pm_qos notifier running
->> under devfreq->lock could read governor_data after it is freed but
->> before it is set to NULL, constituting a use-after-free.
->>
->> Fixes: 5fdded844892 ("PM/devfreq: governor: Add a private governor_data for governor")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
->>
->> Link: https://lore.kernel.org/linux-pm/20260723080806.1451-1-finley.xiao@rock-chips.com/
->> ---
->> Changes in v2:
->> - Add Fixes: tag and Cc: stable@vger.kernel.org
->>
->>   drivers/devfreq/governor_userspace.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
->> index 3906ebedbae8..f7a485c43fd7 100644
->> --- a/drivers/devfreq/governor_userspace.c
->> +++ b/drivers/devfreq/governor_userspace.c
->> @@ -24,7 +24,7 @@ static int devfreq_userspace_func(struct devfreq *df, unsigned long *freq)
->>   {
->>   	struct userspace_data *data = df->governor_data;
->>   
->> -	if (data->valid)
->> +	if (data && data->valid)
->>   		*freq = data->user_frequency;
->>   	else
->>   		*freq = df->previous_freq; /* No user freq specified yet */
->> @@ -110,8 +110,10 @@ static void userspace_exit(struct devfreq *devfreq)
->>   	if (devfreq->dev.kobj.sd)
->>   		sysfs_remove_group(&devfreq->dev.kobj, &dev_attr_group);
->>   
->> +	mutex_lock(&devfreq->lock);
->>   	kfree(devfreq->governor_data);
->>   	devfreq->governor_data = NULL;
->> +	mutex_unlock(&devfreq->lock);
->>   }
->>   
->>   static int devfreq_userspace_handler(struct devfreq *devfreq,
-> Hi,
->
-> Looks good to me.
->
-> I think that it is needed to lock  on usrespace_init.
->
-> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
-> index f7a485c43fd7..cfbd72892598 100644
-> --- a/drivers/devfreq/governor_userspace.c
-> +++ b/drivers/devfreq/governor_userspace.c
-> @@ -94,7 +94,9 @@ static int userspace_init(struct devfreq *devfreq)
->   		goto out;
->   	}
->   	data->valid = false;
-> +	mutex_lock(&devfreq->lock);
->   	devfreq->governor_data = data;
-> +	mutex_unlock(&devfreq->lock);
->   
->   	err = sysfs_create_group(&devfreq->dev.kobj, &dev_attr_group);
->   out:
+Suggested-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+---
+ net/ipv6/route.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index 27597d149672..d59aa9272a44 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -5814,6 +5814,7 @@ static int rt6_fill_node(struct net *net, struct sk_buff *skb,
+ 	struct nlmsghdr *nlh;
+ 	struct rtmsg *rtm;
+ 	long expires = 0;
++	int err = -EMSGSIZE;
+ 
+ 	nlh = nlmsg_put(skb, portid, seq, type, sizeof(*rtm), flags);
+ 	if (!nlh)
+@@ -5874,12 +5875,14 @@ static int rt6_fill_node(struct net *net, struct sk_buff *skb,
+ 		    !(ipv6_addr_type(mc_dst) &
+ 		      (IPV6_ADDR_LOOPBACK | IPV6_ADDR_LINKLOCAL)) &&
+ 		    atomic_read(&net->ipv6.devconf_all->mc_forwarding)) {
+-			int err = ip6mr_get_route(net, skb, rtm, portid);
++			int ret = ip6mr_get_route(net, skb, rtm, portid);
+ 
+-			if (err == 0)
++			if (ret == 0)
+ 				return 0;
+-			if (err < 0)
++			if (ret < 0) {
++				err = ret;
+ 				goto nla_put_failure;
++			}
+ 		} else
+ #endif
+ 			if (nla_put_u32(skb, RTA_IIF, iif))
+@@ -6002,7 +6005,7 @@ static int rt6_fill_node(struct net *net, struct sk_buff *skb,
+ 
+ nla_put_failure:
+ 	nlmsg_cancel(skb, nlh);
+-	return -EMSGSIZE;
++	return err;
+ }
+ 
+ static int fib6_info_nh_uses_dev(struct fib6_nh *nh, void *arg)
 -- 
-Best regards,
+2.33.0
 
-底层平台中心 肖锋（Finley Xiao）
-************************************************************************************
-瑞芯微电子股份有限公司
-Rockchip Electronics Co., Ltd.
-福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
-No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
-Tel: 0591-83991906-8602 Mobile: 18506057603
-************************************************************************************
+
 
