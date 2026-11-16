@@ -1,111 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.136
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.60
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830596;
-	b=E4vM2pN7cwHAF1g0O4yXtbYiBYUXst7wJdBK9F1OaawCfmpeEso+iiQdLQ7r6gUfSsA0
-	 3H854V5z6ZhHd9Qc6gRAditT0nfVY0e7fX99PPezR8AE463Av9W9RegAoEfGP5jtbtmD3
-	 1mYAeJc5i3Wt1trVDSh1H37dsH7dZkM633C6z7snIOviCzuEFTazOdMuygYFXT5bt47qg
-	 FlXSJN8L2f7PbnUCFlxeQ4v7Rvd3Fo6mHY3iS/abgd3/KzKM1bKkDdIFkTiqbG3z5YnOP
-	 Eolv5kSIg0q+zUDfrZnEfldbrqdGV+HWigrwNO3BUe+uyziGKS5/NHBtZWbBDNli5dA==
+	t=1794830597;
+	b=ERArhe3Fubr0xAVSg7u28EPFE03hdB8ySac0wcEZvPgPxptxhTW//XKxrx1k0QeCvYvK
+	 Za43YC2fUq7EeIvklqkNWE8r1i+EJh75jTCJPFhRuOWkyKaVhZOvBFoCSLvdZfq3tCS7h
+	 BNwgMCMazBNAU3sT26SfL7RDgbamTb5y5v+gs9SzDZ2J2ZNU8COD5XjZKYx51Vh0HiTy3
+	 +n8dIkrH58Way/hWHJK+xjsndubdYVfJcuwFqyernsuqV7aGowjbkX/RkEZk+sU45xZii
+	 wQMHYmQy6TCHdJDIId0a5uOC91CrOBEeQcu4sCavLRFPib36GjYIN0WDoU0XSxS5K/g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830596;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830597;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9I/MA66wUnM290t51PK71z+fPKKVCFqjtrdqznh+pas=;
-	b=Q2TnCDbsAvkcOVopBuRckn7l6S+Hi1d7B+t72vQjXOfXlgtedY4S8ulK0Sf5jBVGqdQB
-	 02laml0fBFQ3FGG2TnsxMTszCgG137clDo/pt/v+/+0mRJM9YfNlj6NblQbuTi/UvyLlz
-	 rMiZddtd8m9XcysS0NWvvd/IiTWLurF8UZrbevEoTNU8Baq9YPjh2i+/kQ5tMJtx80t46
-	 03qH8sQU1NWmulHvl3/lsU+NvUT2MKAOVfpLOKhmecHyFaQxPQBGDgnQSIbPm+OVD6Z6G
-	 Rfl07PzfeLpTKuoiZAcHagY/6RT6FPOSFIQg0Y6WW9AHO7VzKCegPli/uCmICHoS2Jg==
+	bh=I25oiglLrUzVRCEMM9jHZPyTbD7zyy/tDL/QDW30Qbs=;
+	b=m/Vn7tKWVR9O9k02R5cE10KtGiG1iTO9kjeeQUvdBnJLJP9AMS+7wyviJG1sF966zBdj
+	 H5fYcpdUn78fRLoTkAc8a6/o2PJyDB3QLGvrlT8ym38rkVKgw7gzKgINuU8qNLz0/IU3u
+	 EnF4lLcRHpmZ9WfPczNzxB7qcaHBC14RWQQvlxNi/VioFOsTSr1HSnMPbFJ2rAeM7dd/U
+	 7koAw93h/w8VSEgkDiYT35IBPOa4N1dnEDEFBIW7c3WhgnGQZKUBCdF13ebP4OsUmPktH
+	 TrafuTh4PgtOolg8fGj6Vx8Xsftlg061gF38wrDJ52G2w63nkYtGvAcXMlQh6Hl6omg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=O2eEebz4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.136
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023136.outbound.protection.outlook.com [40.107.44.136])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=q1wyvGcN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.60
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011060.outbound.protection.outlook.com [52.101.57.60])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7D8606A337;
-	Mon, 16 Nov 2026 12:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF7D8606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52CB606A881;
+	Mon, 16 Nov 2026 12:03:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B52CB606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=O2eEebz4
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=q1wyvGcN
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pK2AgFG0PNKfb8zG1shfUOGNsq/tb2W4mRhUlzZl4UVtei3+1hVs1hid/NgyX307dPJwY/k5LUAU8kv2/2WeJYi0xkbNaM7prPQ4BVuOWzk95zgd0VvAuHPjy/RMxJDYAEZ03ksd99d2wrqFdkKOcJiZsgHOQ3fpN1mR28Wp1ryhT0TTbWJS9B6S4v6MJmoU673ewI1omqrCrNLKZeckKISsrbG4E5Bfi0vwDAFrXvQ6b0UHVwbpgMmkIklg/OVYDdolmqcv8hT4BVP52V9CjyFVATEb/WvZxB7Skyq2LjkV6KbeoOV0odr/RmBOa3ohaYAXmV32nk9zoS8Y76Wp+Q==
+ b=vNNRLLmEuzqDrTosZ8e/QAzD9C6Kjb0W4Q5tujOrSlwY6h6WQFG+0wRX226ou7YEq+Mw3IT35BVZ5sNjlcTygixFe3zUowwMjhGTNLn0cTz4C/xxPbfo3299+bV8nyBrf4xFXVVYTcbpiYhOaartkGmsO4Z8SUrWt//hHsk0KV9ExBj+674ndds+H9vfbfwIJxScbKopTs4Lt/Wu8PtiXdUjaRAQnfxdvskgzlxJmlS3eOSit/HMu72U9iFWp3pw8A7jh3AXw+ECTcCfm+KfbKUT4TWXuUwoujUM0QGK/mV/P2rBfBsLBMNkYDEv/B6qGy/cILIsRXCGj7bI32m82w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9I/MA66wUnM290t51PK71z+fPKKVCFqjtrdqznh+pas=;
- b=b6Mo0fV0sWcVSPU8rMcApZWuNxSY0kGHEX6gbrz991warA878+vJrYSQuriyoDmSATncm7lkWXfSRv+iR7b6+heGzpzC1Ibt0gKDofN9y61JQFfVmiPL4JjEbRDvXpTbze4WY1hGvxiVg49wFDucxeDGRF1P+VFt0AZZ3FkG1wFFw0021gznUOGqv9gZGG/NNVtEedsAQZKEKX1cOZL7niFxbJRNgJGeo8x3GH2wmXgOK2gu186Ma7Uvm6//Qtq6hKKUWwAC+nil1tOTew1SUio9S9iyNRNGjo47/VpMFIxT8vxKWb1BssHoEKAkmenxI81h3CZocEoKtV2JVkPazA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
+ bh=I25oiglLrUzVRCEMM9jHZPyTbD7zyy/tDL/QDW30Qbs=;
+ b=SkiISaJkgMSD0RvUfa4NwOG8vrd++91zfXXbnJNttdyW3NzOoq9zXNu1mYtXl/Shs2TDpXwCeJ/y4eUW0SnqVfQecU+R5/uq50oZVH+zAKZ52f1M9Po7QH7E6aYznVj0vrx/NGjDfgxlXyvB7DajUTjsAc31z5P7kTVAONHpSUvsh2BwCOsFphCPDbfKkUgpO5uU5f0nAYI4wzFV2pCZZ2jv0G5oxNCiyhjF1cXszaU+csG6UzEGSvd+0591J9yaB/Onp5jtO9dIIUXbUbfAHAu/V7RliWbZ0ftHgiVPK0fCR1AoJTBv25a/FdPk9Fy0v8yFQf8nPZHGc1dzY6AgNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9I/MA66wUnM290t51PK71z+fPKKVCFqjtrdqznh+pas=;
- b=O2eEebz4sxezInvNk0cdzLW3eQdxHf0MDcZf4+Yx04sr1u+rL740J+cYxXmEqhhhpnEVkV6B39WFk07rlsIV6wEa5NPqiYuQKRbiebhnhv8fB0DitKLQF11XM6ot7HBNeGG/gIUI7J8TK++tUSTa57PF+JWg2pRrnTJiz3WlNYadqgyA+3EFddk49bvtmSGy2GExh+XtX3SY7bHn9dE6TO9JgiUVyADWFwDOjQdHaXDxAC0qzbUYW5zIMntxcXPXeB0IbAAvRJHbnntHjew43NqzWljRddy5i5XbvB2Re5oR+qefrjpAfdHgbTLJYba9aURqOYp7RRozsg+v7YQuJQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
- by SG2PR03MB6610.apcprd03.prod.outlook.com (2603:1096:4:1d9::7) with
+ bh=I25oiglLrUzVRCEMM9jHZPyTbD7zyy/tDL/QDW30Qbs=;
+ b=q1wyvGcNh6iBzkpoNPSGeIQ4Ihfv6HWZbySpacFFV9zJokb5b8oi9vfP7YRydR0DIYp9W3L/v9wGQjqUD1rkeCJ1P3t7v7UvO3uHp6i/Kn3y8p3Y/zujpJ3mB3xXxCcvbqANguWoaoQVWPbZ+cUjOVlLgwK/YiwEJ9wDNxce3e0=
+Received: from CY5PR15CA0057.namprd15.prod.outlook.com (2603:10b6:930:1b::32)
+ by MW4PR12MB7335.namprd12.prod.outlook.com (2603:10b6:303:22b::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:03:12 +0000
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 12:03:11 +0000
-Message-ID: <bd4c8a15-ab13-459f-8fb5-fe3f3b04af43@amlogic.com>
-Date: Mon, 16 Nov 2026 20:03:07 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-To: tanure@linux.com
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Qingpeng.Yang@amlogic.com
-References: <20261103163715.385394-1-tanure@linux.com>
- <20261103163715.385394-3-tanure@linux.com>
- <20261105-stoic-cricket-of-tolerance-cb3014@quoll>
- <35dc1ebf-5194-4ec8-adfb-dcc8ea717750@amlogic.com>
- <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com>
- <bbe0dedf-4b02-4cc6-97be-accfc06baa10@amlogic.com>
- <CAJX_Q+0seFwDvd6zksLnJjWYJJY1QcLc1gAjr=FN1p+aTdumpw@mail.gmail.com>
-From: Chuan Liu <chuan.liu@amlogic.com>
-In-Reply-To: <CAJX_Q+0seFwDvd6zksLnJjWYJJY1QcLc1gAjr=FN1p+aTdumpw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI3PR01CA0006.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::19) To KL1PR03MB5778.apcprd03.prod.outlook.com
- (2603:1096:820:6d::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 12:03:10 +0000
+Received: from CY5PEPF00000E79.namprd02.prod.outlook.com
+ (2603:10b6:930:1b:cafe::8c) by CY5PR15CA0057.outlook.office365.com
+ (2603:10b6:930:1b::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 12:03:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY5PEPF00000E79.mail.protection.outlook.com (10.167.247.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 12:03:10 +0000
+Received: from dcsm-trdripper1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 06:03:06 -0600
+From: Akshay Gupta <Akshay.Gupta@amd.com>
+To: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
+CC: <linux@roeck-us.net>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<rdunlap@infradead.org>, <arnd@arndb.de>, <gregkh@linuxfoundation.org>,
+	<naveenkrishna.chatradhi@amd.com>, <Anand.Umarji@amd.com>, Prathima Lk
+	<Prathima.Lk@amd.com>, Akshay Gupta <Akshay.Gupta@amd.com>
+Subject: [PATCH v1 4/4] Documentation: hwmon: document DIMM thermal sensor channels
+Date: Mon, 16 Nov 2026 17:32:28 +0530
+Message-ID: <20261116120228.865196-5-Akshay.Gupta@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116120228.865196-1-Akshay.Gupta@amd.com>
+References: <20261116120228.865196-1-Akshay.Gupta@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,284 +110,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|SG2PR03MB6610:EE_
-X-MS-Office365-Filtering-Correlation-Id: f76c1b1a-3e14-4c57-c280-08df43d99625
+X-MS-TrafficTypeDiagnostic: CY5PEPF00000E79:EE_|MW4PR12MB7335:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21f9c34b-7922-4747-5001-08df43d995b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|4143699003|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|7416014|36860700016|23010399003|22082099003|18002099003|261009223027099003|3023799007|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021121427099003|261022075727099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	i72eIpqRrN96wKPS42WPbK1/NggB9t+xvSQ5vsELp1LE4apqhZtr/rlggTFbr/zsZGlzRLoUEJo+n+Denpq/zoVdj16iIEO0dUDPVEyX0eH3zOkjpU4okU2mF3sN1Gjoh/oZcYcEbcELrtuLV2lGDS9G5itZUhUxM9QvZgcMCH4o0R46uiUcWC/HsCX4Fmu4mkXezOomMSf9NfzbYyd7AsGr6Prf7qBth2QnFu1FFLR0vbJsB1XfouZPsl0GTGNeaR4YgHq3lFnXJ9/EwX5fyyM6+uW3nH4Oo8bOQz8IsXOZBoHALi+afc75zsTUKpDgEXMntP2bdDTBHZW1bGdy75ab8LQlWGNpOr8DM99wBgQwrK/4IsNrBYqidF5+M2fssnd7nRr5pgG3ecZ6VaUqtR8UGjOdVQ5w7lEZAJWyYcIxRiT/w6tLwkLGu44vLBBFUX0ptoYbzFqzL7fK6ivu31sljgCaKKViJhrRDgJhpN7FTeddVz9FnZlkSbhSZADvlGM9WiTbfh3Ehn1mVq33T2BOFqQNh16qbM5QbdfyGJeg2ILxwMlU/maeWZQSsbuz2z07BO4viY0N/ZlO9uIcnGJmStw+8qAqokPf5u6kLLQVyDqIon8fz5Gml7ajTnZw
+	okW/2EVC9c+rsq8hTRKUxxNxkA3wyLeYUvgfzGFHYItEKyXcL4ttiip0okTKle8/9MwKUzu6nGz8lsLNERoavz7FODOYNzieyP7cgz6jl9gYHK2AvTq06RhD4SSkJySKjV/s6UAOwq5RRxF4lNrN4z7Is5S5wnrTQ6RNOHlHEURjb4Qu3h+1peRSwf0Mld+/4OH6et/PWlYLJZOQVyrI4Yc2Vv0/sHD2Kew/irjEV1B3ol+PYSjATtiwXVVCEvCt7jNjbAFlkK30RUnsKoX3VIYyz8a6ot+s/MH791GRx5Ox09ZU3iVVfnFFRiBFZdOXUxcD2EhyF24B9O7f9ECuvhGZ1l9cicyOpPRe+63+XNzQXTULPIK7DJB5KrL0P08nm67I3I8sV2OBu8cYC4JZeCTZE9cf+UbpXILBkCQNY44Kop3XDuc1Mhiu8kk1EkuXbZS3REMEFFLEyZdLC89iiJmUlebcAal3AljvdxVtbjFGAtipJbRf92Dyiea4FyzwEjcYF+Ib9zG/hTU476wj8+H++cuAdru5kp/vSjEN9Wkhi6+7flHOFTVg/ovNFJU91qLpnmhvqQ5BPA5XGFNnTJjwzmk/djxZx2WWqi8OEvRDmpXVNN72oyG56yxQgIbmzSsJnJaxehj1+DQrx8NkM3nfP47EJbF2GpsJzpWi+WfZ2Oyl4lHcy7knwCSnVFmGSNndTdqsmwiOiapy5jxGPw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(36860700016)(23010399003)(22082099003)(18002099003)(261009223027099003)(3023799007)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021121427099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eGFQWVpwaktuTGtpdUNyMzB5SUJXVS9mdld1RENKdmtjME9PWXJtckg3THdq?=
- =?utf-8?B?a2dmUHJqOWlPRWVwUFg4a2ppeVNyL0N1dmZEeStkTW10Nm1xcDVsZlRVV3VB?=
- =?utf-8?B?TVQwekI4bHhnVnp0RHoyZWJGQmhIWWZQWG91V3FjZ2hFbVpLR2hsV3pOSGkv?=
- =?utf-8?B?bnN5amo1Tkc4VFUxYTR6T3dhWGxDSjQ4c0FUOUJMZFZyQWhvSFpubWdubWx3?=
- =?utf-8?B?WURYbGI5MG1qVUNFNFJTT2hqb2RtK3d2R1VZSTF3dXdzMDl1UGNlZGxCQ1dO?=
- =?utf-8?B?cndrQkxQZkU1aytuS2xTUkRQOEY0K05rUGE0RHc3ZW9zcm5GbFVGcU5OMTE2?=
- =?utf-8?B?WGN5aTVURHhPWHZjV0VjTlpxZkxXNEpHanBuMi9sa3hQSnVzbk5raU5qNk15?=
- =?utf-8?B?dFBMVjBCQ3dza0NPMlhZN01MWUdPei9iWVpvcEgzQlgvZ01SeWxCcVNQSnd4?=
- =?utf-8?B?Q1RJRVo3aUE1Qnk1U2JiSi9EaHNyVitHSTkzSWJnV0QvWmRzS2RmM0prOE9Q?=
- =?utf-8?B?Nk1hVnAyN1pacmlqZ2dIOWYrU3RiTzFxdmQ3YzZObmZQR2tPWmZoZjFFOTV5?=
- =?utf-8?B?UjlhYk92TURhZmY5ZVkxNmhIOFpod1ZWV0hqWnhkZTJGMzRuSWR4dU9rakJ6?=
- =?utf-8?B?Mk12czExU0lDbjVHaVoyc1lSRm5lRXBJaXE1VFVqbktXdVlVZ3UxcnU1b2U1?=
- =?utf-8?B?UDdKdkhzVWlsekFPL1pGdjI2VW9KbEF1cm5raU16aDdGUTkwSXpZcGNrY0t5?=
- =?utf-8?B?b3BaU0VCWEwvOXZWblVad3FRcmdWV1h2NFczRHJSbm1TS0gwb3J2WTZxUStF?=
- =?utf-8?B?ejhkVFhuMzRoRno1aDhpSVh6M1VEaTlQZEV3eGpvMzNQV0Rmb09hU2tYalhI?=
- =?utf-8?B?OHdzYWlIWmQ4ZnM3YjF4RUpoSm5uZnNaOWlrcFRGaFkzQlphY0JJay9Qa2cz?=
- =?utf-8?B?Q3ZQZ25LRmFVcXhrWWxFSFhEKzUrWjZFUWdsUk1xbTVkUXVSVllkdm9KYVlm?=
- =?utf-8?B?NWIwOURtQTRTaEFMMWFlbDMvT3Q2T0RMQ08vdFZTOVFIU2poOStmMURBV28z?=
- =?utf-8?B?R25IVmhLSVI4V0o3Q2pwYWo4M0xaM0lyc21mRTNFaGFENFRSYUhwYjRVRWxF?=
- =?utf-8?B?TEozTnhoZ09JKzFvQTlqbFdtQzJlTWFWQW5vRm52Smx2S0NLdHY3TjdJRXox?=
- =?utf-8?B?UlhQQmo4VWtsdTJGK1ZVZ0FuWWFaZXNQOHNzbDkxOVJwS2hLRThaaW5VbjZv?=
- =?utf-8?B?alBtNytuQ2M4YUs2UlNvYUJhZVhSaEVvRTlxdzIxcFUyclAyZHZ3U0lQTTZj?=
- =?utf-8?B?NmVucjRsSDhyUjlGdENydVprVTRJT29NdVZQdTJuMmROeXZzcVpENHNUWjhT?=
- =?utf-8?B?MkhmM1hFZlJNOTdQU3luSXBSZ0xlYnpKbEtiOXRyRE1vM1k4Z0UxQlN5OFRt?=
- =?utf-8?B?ZU9NRndkNGdaL0E0TkM5RGN0N1hZQUpMMm5QcGlNeTJaSjZqVENRZHo3WDEw?=
- =?utf-8?B?Z0Y4WVF4TXE0NVhnUDZxR29IdVczNHVwR1JIQlg0WUtTVFRvaXArbkl0TjI3?=
- =?utf-8?B?NUdoWTdFZnZhTVNKVlRYNFExWlNnYU1PYXhYL2tRNTdFTkQ0MEplMW9MMTJr?=
- =?utf-8?B?bmRkbHRHMmtSTUsrWTRPODNLRW56dUJzeDlSS2RIQzd6K3BZQzNhV2RhaVhx?=
- =?utf-8?B?djFhaFRWQ3pzT0JoWVJhSjB0YXlEeXROT1hXb3RJRTJLVWo1SHhrcFRYZHIz?=
- =?utf-8?B?ZTRINU1Sc2duQmZYSkNGRCtaK2czOUJqM2xzU3g2T3U0K2FITGVFcjdFV00y?=
- =?utf-8?B?bkFWNkt3ZXFLWXZTMHdCa1JtbEtPcFNSbGVYdkhRSWtlcTJzODRQVUw4OGhK?=
- =?utf-8?B?WGhvYVhKVDRXVWN6dFUxT1dxYTQzZ2lBMmloZ3hVaGdVajhjUzNXS25nRkR1?=
- =?utf-8?B?UTl6bVUxN0FWbkNsekNkWmJWamM5NVJlMDgvbTRrWkFla3VvL09NaGRPcFov?=
- =?utf-8?B?dnhaZnVYSDRxMjF5T21WcnhyUGJPc0txMVNMVno5SEhMM05jUHJGWld4aXBQ?=
- =?utf-8?B?Y3UrM1F2MXVIK1FYa01DTjhhdGx4TCtwSjV5aGhPTmJLUVE5R3YwNy9wbXhi?=
- =?utf-8?B?NFpCbTh1enZJazF0anFwSEVwWEM4VFpLMkU4VllscmowWW9wcml2S2twR1F1?=
- =?utf-8?B?YmFiZWZUMWRiTGFObW1TQk5INlNNTkJIZXoxYzU0VlgxaEpOTVRkeUl0dkNU?=
- =?utf-8?B?Y245Zy9XTzlwbHF0T2dOVG9IdThlWW5BVWoreFpRNGxQYzQ3Ym11N0NpTTNR?=
- =?utf-8?B?VGlaRUwzZUhzck9RZEtuK1ZpRnhLMklCa0xvekxKbm5jbWhZTDNUUT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f76c1b1a-3e14-4c57-c280-08df43d99625
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:03:11.7643
+	T49PMM+AqIVAQLxY2CLx4E2l1B9LKia+AcBx48O5kCoAH9n7yUedS4WLa4gJltNXbFp3MEK3Pt3Nf6Q42YaeuQb/c5Ui+AkXig6AKosS8vbI7K2H7R/XX+Rcx9bLetrHug+qcGTNdwejIJaK10eLOOKlxf99TNEK9NQXa51bzbrVeEuy8OxwPZELBizqPgSfvQm1u8lUtqrkCNZTmVNziUMkvV4cNvxUh6AFhlOh/QwHCGNrDwTE6bvVbjyOwsZ35EIOuj4dUesvzO7sq0oPkC0g0e6VARBvkD62J9j73NcjUMvnQcIt0V2nNEEdMQNUNjGnEvTjCRHPRScx5VGCThFfn5yfRM54sSUy/rk7UJtdCQqi9akjw4GmjdB679QORcRLQg6IU+sR84On/8ah8Od48adPdrThX3CNOeE8w62W/tsHItxzKdT0nJi3F7b9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:03:10.8028
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v1bT6460YowAX8n5FRzJCVit5Rhj5TiVUImA42PH42bGI5RZVI/7p2r4W35rte84rWii70XoduibZa0WbASNFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR03MB6610
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21f9c34b-7922-4747-5001-08df43d995b6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY5PEPF00000E79.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7335
 
-Hi Lucas,
+From: Prathima Lk <Prathima.Lk@amd.com>
 
-On 11/13/2026 7:40 PM, Lucas Tanure wrote:
-> [ EXTERNAL EMAIL ]
-> 
-> On Tue, Nov 10, 2026 at 11:43 AM Chuan Liu <chuan.liu@amlogic.com> wrote:
->>
->> Hi Lucas,
->>
->> On 11/9/2026 11:43 PM, Lucas Tanure wrote:
->>> [ EXTERNAL EMAIL ]
->>>
->>> On Fri, Nov 6, 2026 at 3:16 AM Chuan Liu <chuan.liu@amlogic.com> wrote:
->>>>
->>>> Hi Krzysztof, Lucas,
->>>>
->>>> On 11/5/2026 7:57 PM, Krzysztof Kozlowski wrote:
->>>>> [ EXTERNAL EMAIL ]
->>>>>
->>>>> On Tue, Nov 03, 2026 at 04:37:10PM +0000, Lucas Tanure wrote:
->>>>>>
->>>>>> Assisted-by: LLM
->>>>>
->>>>> Drop this one.
->>>>>
->>>>>> Signed-off-by: Lucas Tanure <tanure@linux.com>
->>>>>> ---
->>>>>>     .../bindings/net/amlogic,meson-dwmac.yaml     | 59 +++++++++++++++++++
->>>>>>     1 file changed, 59 insertions(+)
->>>>>>
->>>>>> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->>>>>> index e769c9bb70d8..6de013e3e8f6 100644
->>>>>> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->>>>>> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->>>>>> @@ -23,6 +23,7 @@ select:
->>>>>>               - amlogic,meson-gxbb-dwmac
->>>>>>               - amlogic,meson-axg-dwmac
->>>>>>               - amlogic,meson-g12a-dwmac
->>>>>> +          - amlogic,t7-dwmac
->>>>>>       required:
->>>>>>         - compatible
->>>>>>
->>>>>> @@ -57,6 +58,59 @@ allOf:
->>>>>>                 - const: clkin1
->>>>>>                 - const: timing-adjustment
->>>>>>
->>>>>> +  - if:
->>>>>> +      properties:
->>>>>> +        compatible:
->>>>>> +          contains:
->>>>>> +            const: amlogic,t7-dwmac
->>>>>> +    then:
->>>>>> +      properties:
->>>>>> +        clocks:
->>>>>> +          items:
->>>>>> +            - description: GMAC main clock
->>>>>> +            - description: First parent clock of the internal mux
->>>>>> +            - description: Second parent clock of the internal mux
->>>>>> +            - description:
->>>>>> +                clock of the pipeline stage inserted in the bus path between
->>>>>> +                the controller and the DRAM. Without it, the controller cannot
->>>>>> +                complete DMA transfers.
->>>>>> +            - description:
->>>>>> +                clock of the register block holding PRG_ETH0 and PRG_ETH1.
->>>>>> +                Without it, the block reads as zero and ignores writes.
->>>>>
->>>>> This sounds like you take clock from other block. That's wrong, that
->>>>> device should take its own clock.
->>>>
->>>> I see that the clock in the dts patch corresponds to <&clkc_periphs
->>>> CLKID_SYS_ETHPHY>. This clock provides the working clock for the APB Bus
->>>> of the ETH PHY controller, and this clock will affect the register
->>>> reading and writing of the ETH PHY (including the ETH_PLL). See section
->>>> 15.3.4.2 RegisterDescription in A311D2 Datasheet for details.
->>>
->>> Thanks. That section is the PHY block at 0xfe028000, the region of the
->>> mdio multiplexer node. The registers in this description are PRG_ETH0
->>> and PRG_ETH1 in eth_top at 0xfe024000. On the VIM4 the same gate feeds
->>> them too: with it off they read as zero and ignore writes. My datasheet
->>> revisions do not say which clock feeds eth_top. Can you confirm it is
->>> this one?
->>
->> The information I can confirm is:
->>     - The base address of eth_phy is 0xfe028000, and its corresponding
->> APB clock is <&clkc_periphs CLKID_SYS_ETHPHY>.
->>     - The base address of eth_top is 0xfe024000, and the base address of
->> eth_mac is 0xfdc00000; their corresponding APB clock is <&clkc_periphs
->> CLKID_SYS_ETH>.
-> 
-> That is not what the VIM4 does. The stmmac core enables
-> CLKID_SYS_ETH before any glue code runs. With that clock on and
-> CLKID_SYS_ETHPHY off, PRG_ETH0 and PRG_ETH1 read as zero and the
-> driver's writes are lost: U-Boot's 0xa0000 was still in PRG_ETH1
-> after the driver had written 0. Enabling CLKID_SYS_ETHPHY right
-> before the write makes it land. That was the v3 bug, every frame a
-> CRC error. I repeated it today on the running kernel, toggling only
-> bit 4 of CLKCTRL_SYS_CLK_EN0_REG0 from user space, every other gate
-> left on:
-> 
->    both gates on        EN0=ffffffff EN1=ffffffff PRG_ETH0=00001601
->    ethphy off, eth on   EN0=ffffffef EN1=ffffffff PRG_ETH0=00000000
->    ethphy restored      EN0=ffffffff EN1=ffffffff PRG_ETH0=00001601
-> 
+sbrmi.rst described only the power1_* attributes. Document the
+tempX_input and tempX_label attributes for the DIMM thermal sensors,
+the DIMM to temp index mapping for one and two DIMMs per channel, the
+DIMM_TS<t>_UMC<n> labels and the effect of amd,dimm-ids, and add a
+sysfs read example.
 
-Sorry that the information I gave before is not completely accurate. The 
-conclusion you drew from the test is correct. The relationship between 
-them should be:
-     - eth_mac:  works with CLKID_SYS_ETH only
-     - eth_phy:  works with CLKID_SYS_ETHPHY only
-     - eth_top:  needs both CLKID_SYS_ETH and CLKID_SYS_ETHPHY
+Also point to it from the SB-RMI section of
+Documentation/misc-devices/amd-sbi.rst, which listed only the power
+attributes.
 
-> So on this chip CLKID_SYS_ETH alone does not give access to eth_top.
-> Could the register interface of eth_top sit behind the eth_phy APB
-> slave?
+Signed-off-by: Prathima Lk <Prathima.Lk@amd.com>
+Signed-off-by: Akshay Gupta <Akshay.Gupta@amd.com>
+---
+ Documentation/hwmon/sbrmi.rst          | 37 ++++++++++++++++++++++++++
+ Documentation/misc-devices/amd-sbi.rst |  4 ++-
+ 2 files changed, 40 insertions(+), 1 deletion(-)
 
-eth_top is the glue between the eth_mac and eth_phy domains, its 
-registers are consumed on both sides of that boundary, so a register 
-access has to complete in both clock domains - with either gate off, 
-reads return zero and writes are lost.
-
-> Either way the MAC node has to enable CLKID_SYS_ETHPHY, and
-> the binding will describe it as the clock of the glue registers.
-> 
->>
->> The CPU reads and writes the registers of these peripheral controllers
->> (or Processing Units) via the APB. Consequently, the registers of these
->> controllers cannot be read and written properly if the corresponding APB
->> clock (sys_clk/clk81) is not enabled.
->>
->>>
->>> Thanks,
->>> Lucas
->>>
->>>>
->>>>>
->>>>>
->>>>>> +
->>>>>> +        clock-names:
->>>>>> +          items:
->>>>>> +            - const: stmmaceth
->>>>>> +            - const: clkin0
->>>>>> +            - const: clkin1
->>>>>> +            - const: pipeline
->>>>>> +            - const: pclk
->>>>>> +
->>>>>> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yaml.
->>>>>> +        # The RX delay line of this glue is fine tuning in 200ps steps,
->>>>>> +        # added on top of what phy-mode describes. The TX side has no fine
->>>>>> +        # tuning: its only step is a quarter of the clock period, the full
->>>>>> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
->>>>>> +        tx-internal-delay-ps: false
->>>>>> +
->>>>>> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
->>>>>> +        # properties instead.
->>>>>> +        amlogic,tx-delay-ns: false
->>>>>> +        amlogic,rx-delay-ns: false
->>>>>> +
->>>>>> +  # Delay definitions for Meson8b and newer
->>>>>> +  - if:
->>>>>> +      properties:
->>>>>> +        compatible:
->>>>>> +          contains:
->>>>>> +            enum:
->>>>>> +              - amlogic,meson8b-dwmac
->>>>>> +              - amlogic,meson8m2-dwmac
->>>>>> +              - amlogic,meson-gxbb-dwmac
->>>>>> +              - amlogic,meson-axg-dwmac
->>>>>> +              - amlogic,meson-g12a-dwmac
->>>>>> +    then:
->>>>>> +      properties:
->>>>>>             amlogic,tx-delay-ns:
->>>>>>               enum: [0, 2, 4, 6]
->>>>>>               default: 2
->>>>>> @@ -106,6 +160,7 @@ allOf:
->>>>>>               contains:
->>>>>>                 enum:
->>>>>>                   - amlogic,meson-g12a-dwmac
->>>>>> +              - amlogic,t7-dwmac
->>>>>>         then:
->>>>>>           properties:
->>>>>>             rx-internal-delay-ps:
->>>>>> @@ -142,6 +197,10 @@ properties:
->>>>>>           - items:
->>>>>>               - const: amlogic,meson6-dwmac
->>>>>>               - const: snps,dwmac
->>>>>> +      - items:
->>>>>> +          - const: amlogic,t7-dwmac
->>>>>> +          - const: snps,dwmac-5.10a
->>>>>> +          - const: snps,dwmac
->>>>>
->>>>> I see no such hunk in the code, so not sure how to review this.
->>>>>
->>>>> Best regards,
->>>>> Krzysztof
->>>>>
->>>>>
->>>>> _______________________________________________
->>>>> linux-amlogic mailing list
->>>>> linux-amlogic@lists.infradead.org
->>>>> http://lists.infradead.org/mailman/listinfo/linux-amlogic
->>>>
->>>> --
->>>> Best regards,
->>>> Chuan
->>>>
->>
->> --
->> Best regards,
->> Chuan
->>
-> Thanks,
-> Lucas
-
+diff --git a/Documentation/hwmon/sbrmi.rst b/Documentation/hwmon/sbrmi.rst
+index 296049e13ac9..08859763658b 100644
+--- a/Documentation/hwmon/sbrmi.rst
++++ b/Documentation/hwmon/sbrmi.rst
+@@ -41,6 +41,8 @@ power on AMD platforms using mailbox command and resembles a typical 8-pin remot
+ power sensor's I2C interface to BMC.
+ 
+ This driver implements current power with power cap and power cap max.
++It also reports DIMM thermal sensor (TS0 and TS1) temperatures read with
++the SB-RMI DIMM thermal mailbox command.
+ 
+ sysfs-Interface
+ ---------------
+@@ -57,6 +59,28 @@ power1_cap       RW    Power limit can be set between 0 and power1_cap_max
+ power1_cap_max   RO    Maximum powerlimit calculated and reported by the SMU FW
+ ================ ===== ========================================================
+ 
++DIMM thermal sensors are reported as temperature channels:
++
++================ ===== ========================================================
++Name             Perm   Description
++================ ===== ========================================================
++tempX_input      RO    DIMM thermal sensor temperature in milli-degrees Celsius
++tempX_label      RO    Channel label, ``DIMM_TS0_UMCn`` or ``DIMM_TS1_UMCn``
++                       (n = 0..15)
++================ ===== ========================================================
++
++Each DIMM has two sensors, TS0 and TS1. DIMM ``n`` (0-15) is reported on
++``temp(n+1)_*`` (TS0) and ``temp(n+17)_*`` (TS1). With one DIMM per memory
++channel (the default), ``n`` is the memory channel and the labels are
++``DIMM_TS0_UMCn`` and ``DIMM_TS1_UMCn``. With two
++(``amd,dpc = /bits/ 8 <2>``), ``n`` is memory channel * 2 + slot,
++the DIMM number on the board, with the same labels.
++
++The optional ``amd,dimm-ids`` firmware property lists the DIMM_ADDRESS of
++each sensor (TS0 or TS1) and only those sensors are reported; without it,
++all 16 DIMMs are reported. A read fails with an error if the DIMM or sensor
++is not present or the firmware rejects the command.
++
+ The following example show how the 'Power' attribute from the i2c-addresses
+ can be monitored using the userspace utilities like ``sensors`` binary::
+ 
+@@ -77,3 +101,16 @@ Also, Below shows how get and set the values from sysfs entries individually::
+   # echo 180000000 > /sys/class/hwmon/hwmon1/power1_cap
+   # cat /sys/class/hwmon/hwmon1/power1_cap
+   180000000
++
++Reading the TS0 and TS1 sensors of the first DIMM without ``amd,dimm-ids``
++(temperatures are in milli-degrees Celsius)::
++
++  # cat /sys/class/hwmon/hwmonN/temp1_label
++  DIMM_TS0_UMC0
++  # cat /sys/class/hwmon/hwmonN/temp1_input
++  42000
++
++  # cat /sys/class/hwmon/hwmonN/temp17_label
++  DIMM_TS1_UMC0
++  # cat /sys/class/hwmon/hwmonN/temp17_input
++  41750
+diff --git a/Documentation/misc-devices/amd-sbi.rst b/Documentation/misc-devices/amd-sbi.rst
+index 648d743903b7..a1ef4872c90f 100644
+--- a/Documentation/misc-devices/amd-sbi.rst
++++ b/Documentation/misc-devices/amd-sbi.rst
+@@ -34,7 +34,9 @@ among protocols as transactions may create race condition.
+    crw-------    1 root     root       10,  53 Jul 10 11:13 /dev/sbrmi-3c
+ 
+ apml_sbrmi driver registers hwmon sensors for monitoring power_cap_max,
+-current power consumption and managing power_cap.
++current power consumption and managing power_cap. It also reports the
++TS0/TS1 DIMM thermal sensors as temperature channels; see
++Documentation/hwmon/sbrmi.rst.
+ 
+ Characteristics of the dev node:
+  * Differnet xfer protocols are defined:
 -- 
-Best regards,
-Chuan
+2.34.1
 
