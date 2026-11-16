@@ -1,80 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794842369;
-	b=NGPJgeEfzBNv/s4adDNgwpTaa7LyPu5kNJNerRstAbuTZ7nnHXuGG1J82K4AXklAcL4A
-	 Ybdqg8Fy+H0FgkEfdwvGSXJcooQH0NIfOL4z+YOIM0P667D+RnXarru+0aq37GXeCr5nl
-	 rXUYKmKAordBGWLIYocUGy/Teehz9GlTW/xRI+22Vnd1VOUcs0wWQqiotjmVVo4mq+J+t
-	 rJ1SIf4wdAPSXmykJxUV76DwAC1a/2j3RCY9O8RRs8G0RCo7mDGi+qWXUfJBU0MLRYkx3
-	 5uQXhgd3rbMn+hJj0EzUObsRvl9Qa31VEMwCntHqk1Wqht5z186lEaCBoUqldRfh5Gg==
+	t=1794842364;
+	b=s/kqhaDOftmshnHVAYs9Q1DufOjYIKOKxRj0ZSVKgDwrvWoczJLlGCKkC3dHnrJRodoV
+	 dWAQqsb3u6cJ4PObmW309XGqJyzJjvvCLIqZde1wetz5mfkeWEmG7O6rh9NtLeL/mScKm
+	 WrlHFrJqrJAMLvKUjcIeNI2xBmjauSk0jcwsD6oU6SqWyRDWwU8IRc3hJk7kAig369RuS
+	 l8zcbnECNuL7HKwfy/LsVVHUKBJXzQx/ccIwIGzM0M4cJS2Xw7u+AUhUGliMPlU59jVdy
+	 lfS9hQHw8pjejxt4K19x3lpw7yPygGWxVqOgB8qZ8jPM7kQ7eME8hevPlCj6yrD2YOA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842369;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842364;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=OWCZ9/LgpLHaNz3W3rNc8qoJ2CKrJG3mW+ZV/dsmarI=;
-	b=XWelHq8Ycrv0nTz51GUIQnuIwxT25j+/0USO7C4HnsRLPPCH99LD8HV23V31VKFOek/f
-	 zg5WN8BqHKKSFAkxBsImOk/8KttMvji4M8rqlV8YGCnS3xzVgKO38+skU71fOqiwSf2He
-	 9g+F6Z2wncvyzZ7ytClnlHHtfxMupxJZY4uUDZrjkYnsE61ZWASisHU8RPsQk1KQJ/n8L
-	 64R0lxKcpUqDotY8uQ7XnOCvfifUKtaRy6XSU+Kph1sFSsY2aBmCCSTi40iLdpbKg5Gao
-	 8GCIxZ7Y8K4UEgM60Ioh+fdAUavhDYNDAn8gV03WsVkqbmbhf55n4YGotRmIDAH8kxw==
+	bh=hnB17rhmQBWtzUIZ58hVjTYdWcGS0s9j9kgcpzJE8eg=;
+	b=qU7AVfl6e+fhu++S0Po+3AvJSdY70KX3IShvCcX2xfRc3Zt/kATIRXQfDslQwp5FTjmH
+	 M6G3r6xpAFLNNqnx9Ypp0v4zKNU8rRhTwrTjdTk9ptXm9jdmgv2g9fhowPu43sOkA7Mli
+	 GowS+tzpDtESuqeon/zTrymRouQ+jXz+18Dqtjr4IdTWEr8GZlaBMBk59nifyC88oz1Ox
+	 HiC547EYfg6P6FykcZEio+Hxb2HW5D8qctxmdqI9LmtR32W11scYjcXaTmcvzGl35NT2/
+	 cuxOclTkP8SM6zxoQY1RT1gk3rd4J0ORjtL8enhi+t/LTbpcre+DRBCpiROLfG4kzLQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SVHy1FPq;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NvEDK4lc;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E60606A32C;
-	Mon, 16 Nov 2026 15:19:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E60606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332C5606A33B;
+	Mon, 16 Nov 2026 15:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 332C5606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SVHy1FPq
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NvEDK4lc
 Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5d79:c700:9ebf:dff:fe00:fdb5])
 	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B574B205A32;
-	Mon, 16 Nov 2026 16:19:22 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7B702200668;
+	Mon, 16 Nov 2026 16:19:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794842362;
+	s=20260414; t=1794842358;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OWCZ9/LgpLHaNz3W3rNc8qoJ2CKrJG3mW+ZV/dsmarI=;
-	b=SVHy1FPqrLm8zPP8eBKCOTDnsA/oHt5dMi215P1STq9iDj17zNe3Ic0kZsIWfDHTD1/cBG
-	cyuqfN1SF6AiaajNMIFlVlH741JmV3iJT2OpiDLSYlCkCtlCx4laCNeik2VKyOp8whOu/B
-	Y1Gj1XlraYVWuIRg/R2Dk5tAh3ILDowevF8OpKvncU3Po79S0WI+SPGBDOS5h4u1W0LWDS
-	mrwZUdAm8AE5xYJLH3c4e4PcknM9ovGf1610oKmOnvhvdGoXB06p6/NdXiGGfmTf2T6vYv
-	qzMI/D8oA7nKlK09unse4bnPYJgV2eZv7YXzMNg08opgaw5godDN145jtaWuyQ==
+	bh=hnB17rhmQBWtzUIZ58hVjTYdWcGS0s9j9kgcpzJE8eg=;
+	b=NvEDK4lcRSAbcuKSGeN/66IQb6Gzo+3H1uJg4MOOjV9yyFsP01+R80FDlFNaJ13MboxW3h
+	e+bPrQS1oubeAIQ76lEOs33Mz0SPCTPbz7i2qZvJkKHh/6Ed7HvgyanehxmywXwGUh4hHB
+	gO+KgR5792aGiByybGNO4xR+e1ZrUIp02aeBSzjVPTEuBRLv+BljVWDwiQEbPlluDbNZ4A
+	XvEyoTnByBNgcokDZ1P/smoQhJo3yNJjDGHSq0/lfUW4GWO/pk8/7chgqkI0CNEmUelIXT
+	F7IoIrpi6mcNhLOMtFSFw9SMb8sf9KT0NX+vJLRmowBJZ36Hpo2SouHjmzmYEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794842362;
+	s=20260414; t=1794842358;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OWCZ9/LgpLHaNz3W3rNc8qoJ2CKrJG3mW+ZV/dsmarI=;
-	b=E8g5E2iQN/JcU4PTt+YNGKYnL4fRq1ZwknOVHX1PaXp9snClxqTN3X5Ah9mkPyUviR0PBV
-	D8EAIxRORINbJqxKgDeLqwq8jROERpHOFU50YItIgXyAh0umTzHOyvQAIr6MriKB1eMzDS
-	qELdMN0V0j18ViWyJT23phoLi7AJEjd3nFMMzk+nGJpD/KQNzZ3UuVGQBEUHWliUcO5gbm
-	SASZohPjJF4U+QIV90DkbCrF2UVdP1Mqc7TUCyGY6q2aUcXlGHGSzXXoD9OIPcutaEEjmH
-	khNk6hqVRTgVmzcGydo05DgHnXb0WLkMso915ieu77/ZnGMN2wnw4kwh3wagSw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794842362; a=rsa-sha256;
+	bh=hnB17rhmQBWtzUIZ58hVjTYdWcGS0s9j9kgcpzJE8eg=;
+	b=Dm3urWBJ9WHNg/t3Wvxa8C/nbZY1UZQBxFLdJBAPNX0BcpX5qYsMwMYfIsvVPseSiVz9bF
+	NhD+OL6HOQW9I/E8xLSBUd89S+YyzpGIJkrmKGKcOimjaXRHporF4JIrROkPdbCUoOu1c+
+	gVnI1xdawVY1+V8muqiNVTH6KSQw3CNvE8ggIAPau9BlDlrCQS2LoFHITOL88xW/ppmMuO
+	gPwGD4/Mlj6qE1+Ut//FJEjZvCOFGzlUcKtaMuJNmRBXE2eWVmMinuAD8Zd19hJP//T42l
+	sYN8W9T/WhkZFd+pVZX5f1NAQOa+S5gBtBLgrU8z08eFbX4nOUCNe2i53n+J/A==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794842358; a=rsa-sha256;
 	cv=none;
-	b=PnqFGC4kFc6WQzZSFA3CKM4ncUmP3ewk6fJrbmQhHIELnwXpuOE3D6c71YvHlv4UEdjCHW
-	KTvgPRUgtQkQnZ6unm6SfZsjC32O0gFeWMpz8woxf/9wMyb2GFfFJCfPv/wGCXsM0x4CpD
-	uUkTbfaAljSD2aC0FgdT76LJ5/mprfkrhHa+xWTcod51ncbEsazSoyq27UE8RUhXpHtGHM
-	GOfMBlkLJxJLIEJSbcNXve6ZCqWmp2eCafoHRNaZ3PUuzbK7qYCLdc6TSBzLvYrB0ndj/W
-	zM5vgGegz1bpntdz+LXhe7bzmsIFoV5Ur63WUtiHtffZwvdl/aYDTXxOPyItLA==
+	b=FDFTXQkdMhvWxhNuhRiSFrO8/KAjqOUaIXYjiDIe8LFVMTHTDoRbeLwt4Dp3R32cLAh4XB
+	wlwrBiPM3ry4hE1CgNSn2Q2Pgp+adarxyHvvJ7IbVuG4Gsf/hbZbpHh4tPPscQqVfjCTBP
+	UG7FRQIWLYYv3qsfFem9YY19I2z6U8EcPWHNjCpJGVxoXdjSEKMgx90UiwsYnau5t5Z/C2
+	NdmoGuF2FlfHJRWHtE/C/R2v1BK79ObGwIqwkbqmnJGTLHS4jeLf47lMOgkBed4KNTdsZb
+	wmaOj2kYnd5vrnpwLfKr1B4Q5hiitJO0g6zHcQ7R696wdE1770j05oU0BgPHCw==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 16 Nov 2026 16:19:03 +0100
-Subject: [PATCH v4 3/9] dt-bindings: media: snps,dw-hdmi-rx: add a port for
- a bridge in front
+Date: Mon, 16 Nov 2026 16:19:02 +0100
+Subject: [PATCH v4 2/9] media: synopsys: hdmirx: add media entity for video
+ capture device
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,7 +86,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-hdmirx-media-v4-3-7aee4a0a273e@pengutronix.de>
+Message-Id: <20261116-hdmirx-media-v4-2-7aee4a0a273e@pengutronix.de>
 References: <20261116-hdmirx-media-v4-0-7aee4a0a273e@pengutronix.de>
 In-Reply-To: <20261116-hdmirx-media-v4-0-7aee4a0a273e@pengutronix.de>
 To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
@@ -98,80 +98,106 @@ To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
 Cc: Gerald Loacker <gerald.loacker@wolfvision.net>, 
  Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
- Conor Dooley <conor.dooley@microchip.com>
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794842349; l=2518;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794842349; l=3278;
  i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=O81aImaxAo88gdv3cWo0dJ3Qz6txOWMD5UhIrvBJMDo=;
- b=XvH2JFfGqCMSOP1MEbpjpfYldMay3CuSyJaUVK5mP2hfju6UkZ5cuS+rlb0l2SURgjYz0BX4g
- cvQjB6J9S0TD9aXsWZQZ2pGzEjJuaCzlOdkazb0DgubiFoRP7bebVF2
+ bh=THA4v8yDAN4XQR46mc9WWssbg3o4qXQhQgbMTHPRF4o=;
+ b=E9zWLSzr4qcnTr3jdDSl84nXxZ+zUL6jzQBXt/o3jyPpfuoaJmKgGG9kPMFIam9+THBruOn/O
+ Ig1DnHwPjrtAWDHLrqfM5Zn8hlTnLMz3qdcGks16rFESNEF3yyuEzk7
 X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
  pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Describe the OF graph port connecting the receiver to an HDMI bridge in
-front of it. The schema sets additionalProperties: false, so without
-this a device tree carrying the endpoint does not validate at all.
+From: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-hpd-gpios is the +5V line of the HDMI connector, which the source drives
-to announce itself. On a board whose HDMI connector belongs to such a
-bridge, that line goes to the bridge and there is nothing for the
-receiver to sense, so the property cannot be provided. The name is
-unfortunate: the hot plug detect line the receiver drives back at the
-source is a controller register, not this GPIO. Describe what it
-actually carries.
+Register the video device as a media entity with a sink pad to integrate
+it into the media controller topology. This allows the capture device to
+be properly represented in the media graph and enables userspace to
+discover the device capabilities through the MC API.
 
-A board has either the connector wired to the receiver or a bridge in
-front of it, so require exactly one of hpd-gpios and port.
+The sink pad indicates that this entity receives data (HDMI video stream)
+which is then made available through the V4L2 video capture interface.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Initialize the pad before registering the video device. The previous patch
+gave v4l2_dev an mdev, so video_register_device() already registers the
+entity, and doing it the other way round would hand
+media_device_register_entity() an entity with no pads yet.
+
+Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
 Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml  | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 26 ++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-index b80660da10505..c797aa7cc1698 100644
---- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-+++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-@@ -63,9 +63,21 @@ properties:
-     maxItems: 1
+diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+index 57e60497e0e30..147ff01c5c843 100644
+--- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
++++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+@@ -127,6 +127,7 @@ struct snps_hdmirx_dev {
+ 	struct hdmirx_stream stream;
+ 	struct v4l2_device v4l2_dev;
+ 	struct media_device mdev;
++	struct media_pad pad;
+ 	struct v4l2_ctrl_handler hdl;
+ 	struct v4l2_ctrl *detect_tx_5v_ctrl;
+ 	struct v4l2_ctrl *rgb_range;
+@@ -3064,15 +3065,29 @@ static int hdmirx_probe(struct platform_device *pdev)
  
-   hpd-gpios:
--    description: GPIO specifier for HPD.
-+    description:
-+      The +5V line of the HDMI connector, which the source drives to announce
-+      itself. Despite the name this is an input to the receiver; the hot plug
-+      detect line the receiver drives back at the source is handled inside the
-+      controller. Absent when the connector belongs to a bridge in front of
-+      this receiver rather than to the receiver itself.
-     maxItems: 1
- 
-+  port:
-+    $ref: /schemas/graph.yaml#/properties/port
-+    description:
-+      Connection to the HDMI source. Present when an HDMI bridge sits in
-+      front of this receiver instead of the connector being wired straight
-+      to it.
+ 	stream = &hdmirx_dev->stream;
+ 	stream->hdmirx_dev = hdmirx_dev;
 +
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
-@@ -95,7 +107,12 @@ required:
-   - power-domains
-   - resets
-   - pinctrl-0
--  - hpd-gpios
++	hdmirx_dev->pad.flags = MEDIA_PAD_FL_SINK;
++	ret = media_entity_pads_init(&stream->vdev.entity, 1, &hdmirx_dev->pad);
++	if (ret) {
++		dev_err_probe(dev, ret, "media entity pads initialization failed\n");
++		goto err_unreg_v4l2_dev;
++	}
 +
-+oneOf:
-+  - required:
-+      - hpd-gpios
-+  - required:
-+      - port
+ 	ret = hdmirx_register_stream_vdev(stream);
+ 	if (ret < 0) {
+ 		dev_err_probe(dev, ret, "video device registration failed\n");
+-		goto err_unreg_v4l2_dev;
++		goto err_cleanup_entity;
++	}
++
++	ret = media_device_register(&hdmirx_dev->mdev);
++	if (ret) {
++		dev_err_probe(dev, ret, "media device registration failed\n");
++		goto err_unreg_video_dev;
+ 	}
  
- allOf:
-   - $ref: /schemas/sound/dai-common.yaml#
+ 	ret = hdmirx_register_cec(hdmirx_dev, pdev);
+ 	if (ret)
+-		goto err_unreg_video_dev;
++		goto err_unreg_media;
+ 
+ 	hdmirx_load_default_edid(hdmirx_dev);
+ 
+@@ -3091,8 +3106,12 @@ static int hdmirx_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
++err_unreg_media:
++	media_device_unregister(&hdmirx_dev->mdev);
+ err_unreg_video_dev:
+ 	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
++err_cleanup_entity:
++	media_entity_cleanup(&hdmirx_dev->stream.vdev.entity);
+ err_unreg_v4l2_dev:
+ 	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+ 	hdmirx_disable(dev);
+@@ -3124,7 +3143,10 @@ static void hdmirx_remove(struct platform_device *pdev)
+ 
+ 	hdmirx_disable_irq(dev);
+ 
++	media_device_unregister(&hdmirx_dev->mdev);
++
+ 	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
++	media_entity_cleanup(&hdmirx_dev->stream.vdev.entity);
+ 	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+ 
+ 	hdmirx_disable(dev);
 
 -- 
 2.47.3
