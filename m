@@ -1,55 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794788917;
-	b=jd5vjKIRq+5cVeflyUS3cqnD9C9SWFnf38ogfxs/wTOTn+wZZessFxU/jivDWvqoju6V
-	 Nh5BbrfV/TSzXJzSwOAsdUdOHWWYEchBOI8FONv0CU13OmwmEmBY2wj8AWvRdl0S0aw8O
-	 0sJKi5UhLQnCiZQT+s6C/IiPmwnPeeyL8i1a/QwKtAapacHpBI8V8fINKxYpXQyDq/Og7
-	 Bis4bAnIS/rUt06naoFTOj5f/8mdscm0QMdVxMpLsktg6WK1oD7ekh92ook/6yljPBl8x
-	 lIRzUf1DMePAnotn+bYzxHvJ023jIElJvB1nGKmk9D7xdl34ylIq0yewB8aHA+iy51w==
+	t=1794789078;
+	b=Iwb3m6CVM8ds/f3lom5dMCrYO23W79muLxdPmFZ0EP+5UfSAk0jdFwRT3f2JPYj++EW9
+	 MAuU/40XchkpksoA9Snl6HvEgEjwzWk8phH3WRddHV0A7TbytscY237yiVdeVsPmV7lRu
+	 jT308Tdz5iYPP5TSjrfUA5muWCS1UJtqxt0rTkvXJUJOHjVvEBa7+7dho7XIIuJk+kIIi
+	 B4P8E2BupbdXtGPQW+sn3EVyGus7KRhCVWEIeqiWSxBQKXVyMC9ShzK+h+f7WSBk6N0JV
+	 GyEVbCUEybv5DsAXxxGa4BuGLijfJc/d7GRWA02ANHT2Xfg2d7W0DL++K69KpNLPeKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794788917;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vlb7g6V4pWyOd0zO2EPUK2XD3xyvl8j1Qdxp54r/T3c=;
-	b=NzvQrqKSK/gtmobTURDjty0ePPJTCM0pZrdNQsYW7MrnkDNSY3CV1m0IhKYQ+b0N27Zp
-	 y0ckj6nGe5Ti1yPdnXpNgtXfsix7BTYcHyxbHAWC+ginoAjgGpuZyiu9RCkvjXtRzaQC9
-	 2cNfldPFfLNrlP1cUImEQDVNjdWZuQyYkoF9aJX8kZoFTpwlUKxJe3szXP0uiqnOU4uO/
-	 8p/SzAJslt4dBITjH0KYAj4SQGK/GFWpsEvKG0D7R5m88B9zqwymCgxwjLiWy2kaIipMP
-	 4eLhlhPTGaCFuyhv8SdxVZwR16u2GT1oXIeBCtpkeksxNvVlVQ32OukZckOXmtpUU+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794789078;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=UVNf9XVGQ9iwewOtqIQdfWKo+D0otSzQYSZuL2dIs84=;
+	b=HJxxY0OP7Mm6GXw5kS3XaRgJNa6RlTa1KG1MkUk+LhtmiwbIxaPrmvpldKKd5Non0tMD
+	 NXPQbAExUv0WuDZZXaA6gP7+waoeApSrOQvPtdgNEUGlL/VXpUspSMEXRhuJQWWx9Njlg
+	 m5fuJuU49BLiYGt1V2agrPyyzF2XbdaxK7QhbBvBHs86aeQM/Yrxh3P7uYCBPLsmgHSNd
+	 iQNF/RZ1SBztqRbLyjPyJCTYvx4OHQ7UfngufN1kltDvcwZRdIZ+iekj0Y8vel8LkA/sa
+	 2DPraOyS9BFC/tzHxRY0oJFKr27FwFqOl5whYYS800i/A6dj3nEyJLX3OKeyL3zwz0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AndzEtOi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DEF606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:28:37 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=zLA69L6Z;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 485A6606A31F;
+	Mon, 16 Nov 2026 00:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 485A6606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AndzEtOi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762AE1F000C4
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:28:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794788917;
-	bh=vlb7g6V4pWyOd0zO2EPUK2XD3xyvl8j1Qdxp54r/T3c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AndzEtOi7z7cZzg5NoaCCSeGXc7Aw6CARxM/9viahN7u1YCx75EsQ3oFhYCKViWaB
-	 OVJ6lNQ8aE4CjAEwCl5fDsfViW9vqmSEJLR+u4yUP3X8NGxoYLvtkpQor/qmAq6Eu0
-	 +p+st04SJbSnd3WEFAfw8wqbsFjUamBY+3XmM4ah9oXxT1cgCa456jvis8zml7ilJN
-	 n/35Bi5/HwAwA4d0eLrIGQTcGo+B3mXFajaELi9SimK4izmoeCuYSu4YQP1IRgwe4G
-	 EddrmH/ROtNglWsLLxtWMX0gWhba17bA9rb0r+h5fvSrKsfZ7u8uRpRRSp4fCalp6a
-	 lVSpQG4DUku4w==
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-945e6d9ceeaso319939485a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 16:28:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFp1AQHP3Kio8oLu33Hf6lCSAePFGuGGfbMKOax0a/PGFEWUC7gyNCEouv4vzr5dOJiP/KNhb1X+6SmT0g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z925Hgw/wZYzzw60xwx9SPCl02KS6BEe9H+cVwE8ZD8lJSKi42H
-	EQYxq6xYX91KxzLIM5Ya2hRdTLwwESxz/BnWJ9DjY5B2EaKS+Tyyjqsu8crMZ5Ldj7MG3n0N0qN
-	HPM1EqiR+B5WfOxqvDjfWYT9RyimhfGE=
-X-Received: by 2002:a05:620a:6cc5:b0:93e:94f2:ada5 with SMTP id
- af79cd13be357-9494bb96c07mr1603501985a.25.1794788916691; Sun, 15 Nov 2026
- 16:28:36 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=zLA69L6Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=zLA69L6ZzZaB3TYuhyeP/FA1bh+2ncGoDblW3Zwx+iXImMpqmpkchnN3lLkLXEWJY139AScc/mxwi
+	 G/P1e9HKSLRN9jgo93EXac870y3v449fIgiaoBHmL9j828kqL3Lf38/G5UnRTAL2xL9KFUJU1Rpotr
+	 yn6MIUlbjFKgaQHI=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16afa4ecede5-d45df;
+	Mon, 16 Nov 2026 08:31:12 +0800 (CST)
+X-RM-TRANSID:2ee16afa4ecede5-d45df
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [198.18.0.90] (unknown[112.23.105.246])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76afa4ecfaa2-74987;
+	Mon, 16 Nov 2026 08:31:12 +0800 (CST)
+X-RM-TRANSID:2ee76afa4ecfaa2-74987
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org,
+    oe-linux-nfc@lists.linux.dev,
+    David Heidelberg <david@ixit.cz>,
+    "David S. Miller" <davem@davemloft.net>,
+    Eric Dumazet <edumazet@kernel.org>,
+    Jakub Kicinski <kuba@kernel.org>,
+    Paolo Abeni <pabeni@redhat.com>,
+    Simon Horman <horms@kernel.org>,
+    Thierry Escande <thierry.escande@linux.intel.com>,
+    Samuel Ortiz <sameo@linux.intel.com>,
+    Samuel Ortiz <sameo@rivosinc.com>,
+    linux-kernel@vger.kernel.org,
+    yana06070@163.com
+Subject: Re: [PATCH net-next v2] NFC: digital: fix target leak after Type 1 Tag discovery
+Date: Mon, 16 Nov 2026 00:30:39 +0000
+Message-ID: <1794789039616.26008.19482872296866344445.nfc-t1t-v2-sinfo@cmss.chinamobile.com>
+In-Reply-To: <179477330961.3291.17907063104926717829@kernel.org>
+References: <1794705795184.22628.49502335540847234602.nfc-t1t-v2@cmss.chinamobile.com> <179477330961.3291.17907063104926717829@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,150 +79,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112081928.3014946-1-ridong.chen@linux.dev>
- <avV52J2rD19cjM2J@KASONG-MC4> <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
- <c01ec177-da44-49bc-a542-35b64554526f@linux.dev>
-In-Reply-To: <c01ec177-da44-49bc-a542-35b64554526f@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 16 Nov 2026 08:28:24 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xx8ivDeh1d5pvJOEgndRL8rf=CO2==T480pAm=j2X0ZQ@mail.gmail.com>
-X-Gm-Features: AclHuK-MUP8ZaH_AYwjIfA2I9NeM0NJE7zPqIV9E8LCJmYdS9SrrB7NPxzl6bIY
-Message-ID: <CAGsJ_4xx8ivDeh1d5pvJOEgndRL8rf=CO2==T480pAm=j2X0ZQ@mail.gmail.com>
-Subject: Re: [PATCH] mm/mglru: deactivate anon folios into the oldest generation
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Kairui Song <ryncsn@gmail.com>, David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 4:55=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
- wrote:
->
->
->
-> On 11/12/2026 4:41 PM, Barry Song wrote:
-> > On Thu, Nov 12, 2026 at 4:38=E2=80=AFPM Kairui Song <ryncsn@gmail.com> =
-wrote:
-> > [...]
-> >>>   mm/folio.c | 11 ++++++++++-
-> >>>   1 file changed, 10 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/mm/folio.c b/mm/folio.c
-> >>> index ea3adb6a89d7..c412d9b398e4 100644
-> >>> --- a/mm/folio.c
-> >>> +++ b/mm/folio.c
-> >>> @@ -583,7 +583,16 @@ static void lru_deactivate(struct lruvec *lruvec=
-, struct folio *folio)
-> >>>        lruvec_del_folio(lruvec, folio);
-> >>>        folio_clear_active(folio);
-> >>>        folio_clear_referenced(folio);
-> >>> -     lruvec_add_folio(lruvec, folio);
-> >>> +     /*
-> >>> +      * For MGLRU, lruvec_add_folio() places anon folios that are no=
-t in
-> >>> +      * the swap cache into the second youngest generation, which is=
- an
-> >>> +      * active one. Add the folio to the oldest generation instead, =
-like
-> >>> +      * lru_deactivate_file() does for clean folios.
-> >>> +      */
-> >>> +     if (lru_gen_enabled())
-> >>> +             lruvec_add_folio_tail(lruvec, folio);
-> >>> +     else
-> >>> +             lruvec_add_folio(lruvec, folio);
-> >>
-> >> Hi Ridong,
-> >>
-> >> One question here, why MGLRU/CLRU have to use two different ways to
-> >> add the folio back?  Will this cause over aggressive reclaim of the
-> >> folio?
-> >
-> > I guess that is because on mglru, that is lacing a way to add the folio=
- to
-> > the head of the oldest generation for anon folios while CLRU can do
-> > that :-)
->
-> Hi Kairui, Barry,
->
-> Thanks for taking a look.
->
-> Barry is right about the reason. With the classic LRU,
-> lruvec_add_folio() adds the deactivated folio to the head of the
-> inactive list. With MGLRU, lruvec_add_folio() can't put an anon folio
-> into the oldest generation at all: lru_gen_folio_seq() places a
-> swap-backed folio that is not in the swap cache into max_seq - 1,
-> regardless of its refs. The only way to reach the oldest generation is
-> the reclaiming path of lruvec_add_folio_tail(), and that path adds the
-> folio to the tail.
->
-> And you are right that this makes it more aggressive than the classic
-> LRU. With this patch, a deactivated folio is evicted before the folios
-> already in the oldest generation, while the classic LRU puts it behind
-> the folios already on the inactive list. It also changes file folios:
-> before this patch they are added to the head of the oldest generation,
-> the same as the classic LRU, and now they go to the tail.
->
-> So the problem in the current code is that a deactivated anon folio is
-> promoted into an active generation, and with this patch it goes one
-> step further than the classic LRU in the other direction.
+Hi,
 
-I think MADV_COLD is fundamentally broken for anonymous folios
-under MGLRU!
-
-An anonymous folio may already be in an older generation, but
-lru_deactivate() can actually promote it to the second-youngest
-generation, effectively making it hotter instead of colder!
-
-Right. For anonymous folios, we have no way to insert them at the
-head of the oldest generation without introducing a new flag like
-PG_cold, which is unlikely to be accepted.
-
-If we instead insert them at the tail of the oldest generation,
-I'm not sure whether that would be consistent with the historical
-semantics of MADV_COLD.
-
-But I've been thinking about how to insert a folio at the head
-of the oldest generation. Why can't we simply move the folio
-directly from its current generation to the head of the oldest
-generation in lru_gen_deactivate_folio()?
-
-For example, something along these lines:
-
-lru_gen_deactivate_folio()
-{
-        int type =3D folio_is_file_lru(folio);
-        int zone =3D folio_zonenum(folio);
-        int gen =3D lru_gen_from_seq(lrugen->min_seq[type]);
-
-        if (folio_lru_gen(folio) < 0)
-                return false;
-
-        folio_clear_active(folio);
-        folio_clear_referenced(folio);
-
-        list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
-}
-
-Right now, lru_deactivate() seems unnecessarily complicated,
-incurring additional CPU overhead and LRU lock contention:
-
-1. Remove the folio from the LRU list.
-2. Add the folio to the LRU cache.
-3. Drain the LRU cache.
-4. Add the folio back to the LRU list.
-
-Why do we need all these intermediate steps instead of moving
-the folio directly in a single operation, given that we're
-already manipulating the LRU list?
-
-Am I missing something?
+This was found by code inspection. I haven't triggered it at runtime.
+nfc_targets_found() copies the target, but the T1T success path returns
+without freeing the original allocation.
 
 Thanks,
-Barry
+Xia Yan
+
+
