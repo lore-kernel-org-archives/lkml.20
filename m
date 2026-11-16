@@ -1,89 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826393;
-	b=fqMhI+uXSHKtuuJBsBlVdE8pRHUdU/NjEslhKPojZd14Y7FdApRdL2WXIDxqv+jamm1W
-	 Z0T0iJm42Dby9ac5UKCmutBTUrmnfU2jsnymkTAn56juGE6rR+LhcHhgKjE8gIMmAbGTg
-	 19yH3xEMPX8KPEdTTfgDFgBnLSi8vJWoWsI0xd2/odxD5cnUsx2LBRasXy+PRyzL4edkS
-	 uOFvRlXhf5vzQm6XFfe3D6DVVcCUZSKYMNlUIrn1NT0bD3sMeUAoEOqMH+9yjioUiRxXb
-	 cKDMXi0478SgshYSbUCbQBlIYw5aMvN2R/79h1OGCwtBw5gvY1dThIA8W2Uwvvg0Kow==
+	t=1794826402;
+	b=L/hVmwRHXd37p3cwhk1tPfQh75YCS6QJNudSXMPfPx9WI0Odrv8w4LyqprayXE1BqGpB
+	 k4nvRwZscqqOpiswd+LMZK8y96nrUwn5lVqlC3U8fvg8nN+MNwtT8bo8pTSlSO0kUc5OI
+	 mwfpT0Q07ik7wt1cawaXSpYvzAtWOE3Mm0aGvgtyKlqwRlmeCRNMkP/PqMCaGoW0wOIcJ
+	 YVOcHYmNB/iJf5BfGZVv/PRS+pMOlaK12gyYGOjHfeZB/0RcbhTDA4aYRolMfFH4TqF0X
+	 XyNgxvXTXxm3gC7aV1xmtlVTIAmZwv/z29lKO73mS70GPRN4Ed6MYlBcUlR5qapEVRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826393;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=D0gFB7DdC88teePcUFhLAHdEAYFbs34TNYi+C0CiCcI=;
-	b=qwoATM46wELzWxVgLru8rkgKDYlCiWvFlyX68SkWBvmzvKqk2brB+YOfdvk2WZ++g5zu
-	 4nNAw5D4zBjT7owPFdjZwefnduCtSKOQpPWe0ScD97zH3jxc44rWhf4FPsQwQv5VadIXr
-	 Y9MdwqlSvBP2q/StdxNgXDohSZnbbc6uH9Oiuw2tewkWEzBu83Oq2jUhpNPYsbwEABNbt
-	 nagO8Q8qZUZxSdPgBl0ztkSy2ChAq5wuu1309Zsntbd24QiNO4IJIqZ8Kw+52sGF5EESM
-	 fT14/Gc+pnvbN2vffwphTx1kt+tklhC20YaZwzSqHS2kSl9pc3iYDqi4+BKF4lwNCPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826402;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=HVQaD9JPLSlypPeoMjV3YW5/MfO3VO8SRm2wJMatWzY=;
+	b=OKprWWsiMHe6EyUDQ4lnbpc8OzRCjK0qqQbsU6ise/OlJ0XRK2ssAMSidS7CC8halh2C
+	 8HORlipxVC91sWhZ028hdF27mTBuG9fhvIUZV/qx/2umqx4w+2tZiD9bz/3MsDkzz+Smp
+	 Fh8DSAN063/CHq0NgYjGtFAv5eNLAzQv1iPIRykDG/oQZoD5hgK44Lulu/leKdXylc3XM
+	 rKxPq6Nx37cOMIZ6llD401qrwKiS4541xOxaj8xAKGVLWhtYBS5S5QHueidBjN7KZruLz
+	 v8MTig09tP4NQ9Ls+KtEYA/HfFhHxaIQ0toeyDvysszyADF8sE5GlIiieSwajWO82tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fMUofNYN;
-	arc=none smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="gVOy/ThH";
+	arc=none smtp.remote-ip=209.85.216.100
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE76060A2620
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE76060A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CB3606A8A7
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:53:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77CB3606A8A7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fMUofNYN
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-844a8bf7e25so2992658a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:53:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794826392; x=1795431192; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D0gFB7DdC88teePcUFhLAHdEAYFbs34TNYi+C0CiCcI=;
-        b=fMUofNYN7W1CyGO7ZvAF2FWAa2qYJcu4r4eowj57uVHPp3ByNFlMHPfRkGCA4jU7FN
-         O8hbQpzvjUUjro5m8khTqFBV7CSBaumnQz8MsGatmHSRCKKF4NBjtYbD0wIRF/d+EqgD
-         XcbcKNluWfhEIjUa81KzsXUH/YE6dCclSHOrbf80Kz/p1DTl+RDjYboCmkbZ61Uvpkjz
-         jQhN7nNrRFcYTMTRRiIYOSp55YG80l0Vn+HVQkP0KLb94CjlgMxkAaawwH6TOpIA2QQH
-         slKH4k3tzGsiYbMloOdqaa+9deaXiPf3fQp4ettzDL4c7sNL5HaK/ngKNDMTCc9HW4kk
-         nXKQ==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=gVOy/ThH
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso3758623a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:53:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794826392; x=1795431192;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794826400; x=1795431200;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D0gFB7DdC88teePcUFhLAHdEAYFbs34TNYi+C0CiCcI=;
-        b=U8wwUzy50IYDNifPOBiVg00NwZ9WUpny9xHERR/WFcmf1W8nti3FOC+zwdwFCAlZCl
-         OJ3KeLI0mFQ9yT7IGgFlHzBq254Ux0oz7RME3qenRA1ppghAF5IZQDB9FMxNIwSkzhyg
-         Z6+cBzOjUs2f5M7UhHwjua+f71FFdJguv7f22zpza0yRCLAewgfrG35XmKHC9GpWGiQW
-         OnjjKTfc6qMjKRjR/UikZcTbtoKH3VquUKD7M3bTqIad+Gztm1pH7Olm7Jd/VTxw+cvm
-         OQFkNyORuEqulNcxnDpysyL1+frNN/DlipeoLaCBTO1Kq7rygeLH3pA2mBDfdBu0/pTw
-         w62A==
-X-Forwarded-Encrypted: i=1; AL+hErHU3PAowHLzl3RZAaKrB84zv7sfSLueOR+bEzN9jVW+O1+H0p0GT21b+c1BZR3Zadfrl4HWOHVC8eGce4I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+f1igMG4DT7rGyzJYXN/9k6ugT59Hsvy+5GB+CL6AqtZrkWmkw
-	1hDfJmiQ0VfnPDIYozLzydEmRngpkov0Rxaw9mapL01M2cBwfmlmc5g3
-X-Gm-Gg: AYBFou2wq/xF63eGtr2k/0OypL+G6JG+sv4xYekzjUhPHS6W/ffVIBvIBdm/Feghdq9
-	pbM7WB9A28F57jSr4hnzA71OJa+qEpqDkKCeZ/en6u9GyNVbpzfHK1BgfBt4+G7/qU0IJoHQt7p
-	3/NAzS55ytNxXxd9wg4xf20naT2VQ16IAsGQm7puADoAuHCNWaUmBT8Ndvwo1Ub+kBbgtBP9Diy
-	untv1CbFQCb81JKJI9RPLPasX+BD00M7CkFMtuSMRN5V7BT5QWMUJDhlYLTDXvgyYd+Js2CPCvk
-	3iOTV9a+FfTd0TXSNNmPUHHY/nwT/+xJkAS1aoXKCYZp+cZCGOgTXB5HH8+wbyRcKG5QWfZD0WV
-	2/WxMGfl2u3AmEQ30zFd8T7KZkC3FPcVgsd6riAQpad+Rq4Xo1R7ctNUs6/N9Uxws3HdOPGqFo8
-	fSRux6lNRfkFSWFTODFdi598N168d2PFdV0j8J70579N23GQe7z2dycQm6gqA+F9Z0cHhFa5MaQ
-	z1Q5aenh5D5D8oZh1XdIMqsKNDTSCIq7O7g/8nmY8BciMwSsuuQZ3dsT+BpvsTAUB4UPqH5eAE2
-	sLd5Hsyhj2sPZ9ezQmlGIrQRHJ3nv0v8DscReChcgsH3ztjON2OMvGV7cLAZ0aYaJOTAZF1ccHG
-	nud3RVbmySkR1vCd0N86gBVO41N2VeKci4QC3c2q08y6dJRCpQu4q8z7IuiWmw9k4L6SpSD6JLD
-	ZNGUk2Ji0Jg18rTdX7Q5SCyVS5HunVDyQjSMh9oUUKY9c7zIN3Dgo=
-X-Received: by 2002:a05:6830:854b:10b0:862:b9dc:183b with SMTP id 46e09a7af769-862b9dc1e62mr2195212a34.27.1794826391709;
-        Mon, 16 Nov 2026 02:53:11 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862b08b8b5bsm5555546a34.5.2026.11.16.02.53.10
+        bh=HVQaD9JPLSlypPeoMjV3YW5/MfO3VO8SRm2wJMatWzY=;
+        b=JYxkXuSGXgPpvgtmzIWzxnD15FtI5OkWUSemTJ/hINLQC+/XNiKrYafwJPl5/RejgD
+         Nmx2o1t9uJ7aVMXwRO3LhB/AyFwJptJBGXqsrMxP1GSdJv8IW4B20PkaV1TXdBIgDETi
+         4QiIRewJYUfHXet7Gw4pW6uZVPeRvCiTnJa/cIz/TJeH05+1mfqx1D1+ZulqIyrRNjKF
+         1Zv8y1CJMKS/iwzqo9ZKAyxMeDdiTEitF5k1sxtnDbyuj7mKLuYkaQSHHI5lbfQpBtOR
+         NKRTINQuyZn7uUvy2a1ADMF4ZSdhABK+MvMLyOz4M2Kxo3Bsr+gLoCznfNlGdx3yO9QT
+         J1KA==
+X-Forwarded-Encrypted: i=1; AL+hErE+VJbYXigBLjCon7/W7NvaAnb/X0zNSyYwzJ/aj7DGBbgh+BJAHyb4eTjkXx4jQBoMqkk8XLX4I+2FVRY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KgwiUGrObmc964SiovvL9qUR3YJNF9ajKgXGgqdYVXy8YH8rD
+	u5b7r85jz+lmSHSpWlsbl/NXZKqCi9wHrv+4AIo6sv3w4iZBWrfaK5UmMKr0k5EeBRpp42e13tN
+	2+6/XqxUUkYI4d+t8s0Bry17d2cE2+7Zmt2HvWuKjtvIy77jv22VmQAlqpkSkxybZKO5A8Ay95l
+	kdeq9YQopT1u27M5akeV0NOxEP6BRbgBj/8PHHKH28R3xsdVn+lQGr90wuc/xxz3G2YBZixkmih
+	Wwd67WJy0PQ6jI+Ung83oZiDA==
+X-Gm-Gg: AZFdTZe9wq8tA/bH2JjqIs1xzjb2K9ea67ntNkD4yOBJZOulHSWzo/cySb5B2TGv6pE
+	g7hPjokkovJ1WM3huUj/2I1ErzkpMMblBhtKuYVefRcYSfWNhQFG7xFzyJo+5CLnkRsjGSTxIsA
+	oBIoL7ZxYIwryDGtrf5UtJ4LUqiPFsHGcLMRfis9/cOFM00p2sJM8Ft3XpGsXysObtkqDjja5J9
+	eynZLmffzB4lWiSnqOCWU3+z3BdOckN6+Dm+rqdOpV6qFoApLiM1FLseIcJrR7uTykzUxqs2mhC
+	b16fgFngM1szgawYgIXwg1gPlLW4nZKdJ5TA7WKQGziNywLsf5pKEPCuYLUJg4jp/tvGdYaF89j
+	lipfbr9w+kBrS7SWESUAm2SgV4IgMWQLhVcGxLIz4Nm9HbP6zMQ8VS1UNm+lsP/SmFT+BEXQqIs
+	R7aUA6bZ7YS+/Wg6JqD0kn7TxRMhec0Y/k54rZg/xOzA==
+X-Received: by 2002:a17:90b:35cf:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3b1b0d08f37mr9761209a91.53.1794826399585;
+        Mon, 16 Nov 2026 02:53:19 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae97e783sm11810309a91.6.2026.11.16.02.53.19
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 16 Nov 2026 02:53:19 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9495a1f5e47so177040185a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:53:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794826398; x=1795431198; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HVQaD9JPLSlypPeoMjV3YW5/MfO3VO8SRm2wJMatWzY=;
+        b=gVOy/ThHKXUgs1OvPpLYhMH/sQgjvWOvzLAUqnIZKQn69+idgqqFb0nESnT7u8LyjC
+         9MyPVIZjBhBRKAbr9Hqjb7OcJtCQhztZdUnayjXqb2fH7CQ8Dr+dqODaj6gP5NoX0opu
+         xWSBP8Ywx5mA6kVppv2sCNbG4ApEfpMXpAXkw=
+X-Forwarded-Encrypted: i=1; AL+hErE8uNEv1oIEmGKCSYo6nagANc2jBMskIPq90RKEV6+XZnLhgcEkDEOSqI2QaXGiut6Y3LJJ0FrpHgmJL8s=@vger.kernel.org
+X-Received: by 2002:a05:620a:4541:b0:945:afc1:a73e with SMTP id af79cd13be357-9494ba601efmr1588959685a.8.1794826398320;
+        Mon, 16 Nov 2026 02:53:18 -0800 (PST)
+X-Received: by 2002:a05:620a:4541:b0:945:afc1:a73e with SMTP id af79cd13be357-9494ba601efmr1588957785a.8.1794826397898;
+        Mon, 16 Nov 2026 02:53:17 -0800 (PST)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949825e08b4sm125151785a.37.2026.11.16.02.53.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:53:11 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 16 Nov 2026 03:52:34 -0700
-Subject: [PATCH v8 6/6] dmaengine: dw: report residue for queued transfers
+        Mon, 16 Nov 2026 02:53:17 -0800 (PST)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Kordian Chmielewski <kudzo51@gmail.com>
+Cc: dev@deq.rocks,
+	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	asahi@lists.linux.dev,
+	j@jannau.net,
+	marcan@marcan.st,
+	sebastian.reichel@collabora.com,
+	linux-kernel@vger.kernel.org,
+	Arend van Spriel <arend.vanspriel@broadcom.com>
+Subject: Re: [PATCH wireless-next v2] wifi: brcmfmac: msgbuf: count tx status only for the current flowring
+Date: Mon, 16 Nov 2026 11:53:13 +0100
+Message-ID: <20261116105313.3479803-1-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261112175754.396469-1-kudzo51@gmail.com>
+References: <20261112175754.396469-1-kudzo51@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,67 +120,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-submit-dw-dma-synchronize-v1-v8-6-4a82d64fcd1a@gmail.com>
-References: <20261116-submit-dw-dma-synchronize-v1-v8-0-4a82d64fcd1a@gmail.com>
-In-Reply-To: <20261116-submit-dw-dma-synchronize-v1-v8-0-4a82d64fcd1a@gmail.com>
-To: Viresh Kumar <vireshk@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Dan Williams <djbw@kernel.org>
-Cc: Serge Semin <fancer.lancer@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-A submitted transfer may still be queued behind the active transaction.
-dwc_find_desc() only checks the active descriptor, so a status query
-reports zero residue for a queued cookie even though none of its data has
-been transferred.
+On Thu, 12 Nov 2026 18:57:54 +0100, Kordian Chmielewski wrote:
+> brcmf_msgbuf_delete_flowring() waits for the outstanding_tx counter of a
+> flowring to reach zero before it sends the delete. When the wait times
+> out, it sets the counter to zero with packets still out. Their tx status
+> still comes and takes the counter below zero, and since the counter
+> lives in the commonring of the flowid and nothing resets it, the next
+> flowring that gets the flowid starts from there. With the counter below
+> zero, the next delete of that flowring waits until it times out as well.
 
-Search the issued and submitted queues as well. vchan_find_desc() covers
-issued descriptors; submitted descriptors need a separate lookup. The
-status getter already reports total_len for a descriptor that is not the
-active transaction, giving queued transfers their full remaining length.
+[...]
 
-Fixes: b68fd0976286 ("dmaengine: dw: move residue to a descriptor")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/dma/dw/core.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+> Reset the counter when a flowring is created. Give each flowid a
+> generation that goes up when the flowid is released, and keep it in the
+> tx pktid of every packet posted to the flowring. A tx status of an older
+> generation still releases its packet, but no longer touches the counter.
 
-diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-index 565d01c9a29a..5a7be765a0c5 100644
---- a/drivers/dma/dw/core.c
-+++ b/drivers/dma/dw/core.c
-@@ -867,9 +867,19 @@ static void dwc_synchronize(struct dma_chan *chan)
- 
- static struct dw_desc *dwc_find_desc(struct dw_dma_chan *dwc, dma_cookie_t c)
- {
-+	struct virt_dma_desc *vd;
-+
- 	if (dwc->desc && dwc->desc->vd.tx.cookie == c)
- 		return dwc->desc;
- 
-+	vd = vchan_find_desc(&dwc->vc, c);
-+	if (vd)
-+		return vd_to_dw_desc(vd);
-+
-+	list_for_each_entry(vd, &dwc->vc.desc_submitted, node)
-+		if (vd->tx.cookie == c)
-+			return vd_to_dw_desc(vd);
-+
- 	return NULL;
- }
- 
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
 
--- 
-2.53.0
-
+> Signed-off-by: Kordian Chmielewski <kudzo51@gmail.com>
+> ---
+>  .../wireless/broadcom/brcm80211/brcmfmac/msgbuf.c  | 36 +++++++++++++++++++++-
+>  1 file changed, 35 insertions(+), 1 deletion(-)
