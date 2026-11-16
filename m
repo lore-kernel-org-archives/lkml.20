@@ -1,60 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794797695;
-	b=xCwYATMxEHSkSEeXQ3Zv6664r6vuRTt8yNPlZVbfdfcm19WFfDHLpWpL//HAfL8MBa4w
-	 lgbaI5HFicztybGJyBRE0cPSzew93+ZD9SSSXae6hJFTOSQOAZ3ZjZXKJP3eBW+w96LeZ
-	 WBZDywQThz/2oOQMC6L6C8c4FM3sN6chCQ+Wo3a7mrIQO0fF7aUjqaSxvH9UrCaF+OkMM
-	 yKlmeSl+D3KkRsnJ8LOc2blrF3s2oYbpowjP3yWmBPe27fceGGCpKW8l98yV7XlO35mDq
-	 hIu0bwpNyJfa8EEZEd6sNM+DgU6NHo93LTSurdoUEw5bO9C2MgqL4CIj8swYDrDeJKg==
+	t=1794797746;
+	b=X69P1UEHOB8O7VwlNBZur91EqjDAE6rrPbct+uJ7U7y14UcldbdY6dmmbKCtY1NC8oRV
+	 JcuqWsXV5J47y/E7/35RoGGcaIfvFpGsHU0+vPmRoc+bQYJIHDAH7I7o+zmKUCFaEA/8k
+	 iU4u3qijMNOryXjYlBBRDMq0GD6IDGLTl7U7Y55+vL/raqWbkm/leyc6zNbPArViCQ68w
+	 nKTPdlYEGuzvwMr1xUCUJ+PnoVcjYkmau/sabd9U9RNakCEfUDbzhTczv9yV8zhluXlZA
+	 6uqJoFxK7SmL54x7hzA87tnAV7+2g6o0h/Yhqd3/EQc0l0MG+wkmZB0YtXPUL2slNQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797695;
-	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Cc:
-	 X-Lms-Return-Path:To:Subject:From:Mime-Version:References:In-Reply-To:
-	 Date:Message-Id:Content-Type;
-	bh=LFNkNbE/BJjMMZVJ30Nnj44+C1fdsFY5EBU4BEDDicQ=;
-	b=Jp1Zso3ECDzkOezhQMfa2hDtJnzGOMW+wWxAiIj9jpDQVHeK5zYHsKI5X2wyejGT9vSS
-	 J06wJ8cuEi0SFNg7o04wC5kHdSdKsHIdgAmoDuzOk7N/XdFZJNxRyrNqEvAiU+UMrpUvq
-	 uTWDcPWE2+ooX2e6QrnZNvMJ8Vzu1gHtTexEVIbfFwYLfsMxWlyFRmUCtilVDB4jXpP9j
-	 OuWYOuUG5ABdj7hFWg2V0TVlMTaXoaJA/vZUY7uRVd80BMrA65Nl3tdDlWGznYqUoIiGt
-	 BHA4IjXVfoGABc6tMGj8IZ0nLhpKUP05/b6x3LhgRG39n9T3hdAPXWCcXh3dYPQ4clA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794797746;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=gsj7jd7AfoGtFg0we3Hz9aAVPLheZu59lIGqgYGY0k4=;
+	b=ChRa8Wg06yVA/cFMtpQgpxiEAs62y5WrSIZyb7K/65P7slMCSjLX1iEOJoDhT5gnf93X
+	 qL/J/JPy8wEWjbL2vPdWYVObnXyX2jEiuHfXl43+mXM7MmW+vvoGZqNUkDgR28Pm/PpB/
+	 vjHADahmWxI93H3SBB/7qF2kUoH6gyL+vz6OLxC8GEYXFPDJF1guab9H/9/7ALyPXmpTX
+	 GJkJDQWMQOFY/X6vR5VNr8XXE7nXhlhGsXmMsFRe/2WwQVNB8KR6WdzYwOr+gh+yhFEn2
+	 miZxOq6dqBNOnaMwucCtH18XYSxUp2Ru86RO3BExB+NU3coGcoeFoN3opUSxWtsSNAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=16YLyYfQ;
-	arc=none smtp.remote-ip=209.127.231.35
-Received: from va-2-35.ptr.blmpb.com (va-2-35.ptr.blmpb.com [209.127.231.35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qXmz27kl;
+	arc=none smtp.remote-ip=117.135.210.8
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FC0606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9FC0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D73606A31C;
+	Mon, 16 Nov 2026 02:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31D73606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=16YLyYfQ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794797682;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=LFNkNbE/BJjMMZVJ30Nnj44+C1fdsFY5EBU4BEDDicQ=;
- b=16YLyYfQbcyz3cZNUAjyKBpGujVF7ypjPj8iR9/eaz7hjdUx8OZ5ZjEKnowaNINjZBtUl7
- 90/5zh8XeyB4QE3S/1fBfRxqb35JLHitd307jfJcuDaOkYsjZnXcGTpKOHCNshptNS0AW1
- 1nyY9anLM55fPLVeWkCCvBWdirSH4j8JKMqhxl4fO9/o9oNEaCvp+yFlWAS+xZ4OYrp24G
- aJ1Mo7ht+71askjNKTQKMQps6NbnkxHCNoZvv7a+BtUUyIDerRXbirUEc+Bh3iQEa8/SU8
- 8Yed2XoDZ+rqXz0qkCrRqnUDdQlQR9Tcg0ciK/70kHS+qwc4N5F4uhf46dTKtg==
-Content-Transfer-Encoding: quoted-printable
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-X-Lms-Return-Path: <lba+16afa7070+a5d044+vger.kernel.org+sandie.cao@deepcomputing.io>
-To: "Yixun Lan" <dlan@kernel.org>
-Subject: Re: [PATCH v4 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB phy support
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qXmz27kl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=gsj7jd7AfoGtFg0we3Hz9aAVPLheZu59lIGqgYGY0k4=;
+	b=qXmz27kln8N9k7u9+HSiPuz0MdzTnYwkO8vNHz3NPEobvoN6y3FOifOWFah20/
+	hlEdGFoHysxSRgVEedGLKPfXtKOYbQpmg9KQw9QcGJ7a55IFO0bkVFwUKwhstBQY
+	t6IVw6Re1LQwvjVxZ4yjCk8AlTV4yKqhWsC5y5QUMX6sQ=
+Message-ID: <cc161d10-9f0f-4074-888e-161f3399a10d@126.com>
+Date: Mon, 16 Nov 2026 10:54:21 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,51 +50,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261109033154.361399-1-sandie.cao@deepcomputing.io> <20261109033310.361435-1-sandie.cao@deepcomputing.io>
-	<20261114073025-GKA100523@kernel.org>
-In-Reply-To: <20261114073025-GKA100523@kernel.org>
-Date: Mon, 16 Nov 2026 10:54:38 +0800
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.c24fe633.1394.4ffc.88d5.f9ade9d7763c@feishu.cn>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] net: ethtool: request rtnl_lock for
+ ETHTOOL_MSG_PORT_GET
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: andrew@lunn.ch, kuba@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
+ jacob.e.keller@intel.com, bjorn@kernel.org, alexanderduyck@fb.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>
+References: <20261111072724.3295527-1-xiaolinkui@126.com>
+ <avX2MdTZePW5ssrq@devvm16445.scu0.facebook.com>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <avX2MdTZePW5ssrq@devvm16445.scu0.facebook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3N6hdcPpq8GeaDQ--.431S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZr1rKF4UCrW3Kr1rAry3CFg_yoWrGr4fpa
+	sYkFyUGr4DXr92gFnrWa1UuF10yanxCw1rCr18KFyUCw45Wr1xGFWxKr9aga45Cr97G34r
+	trWDJFWkZa1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UcBMNUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlR+MY2r6cF91-AAA3T
 
-Hi, Yixun:
+Hi Stanislav,
 
-> From: "Yixun Lan"<dlan@kernel.org>
-> Date:=C2=A0 Sat, Nov 14, 2026, 15:30
-> Hi Sandie,
->=C2=A0
-> On 11:33 Mon 09 Nov =C2=A0 =C2=A0 , Sandie Cao wrote:
-> > Add USB device node (b, c, d) to DeepComputing FML13V05 board.
-> ..
-> > USB A works on otg mode, it isn't configured currently.
-> Drop it, not really useful to mention there, irrelevant to this patch.
->=C2=A0
-> Currently, No USB A port support is merged in mainline code.
-> FYI, Chunyan submitted a patch for adding peripheral support of USB A.
-> https://lore.kernel.org/all/20261105103125.2727341-1-chunyan.zhang@linux.=
-spacemit.com/
->=C2=A0
+On 2026/11/13 01:24, Stanislav Fomichev wrote:
+> On 11/11, Linkui Xiao wrote:
+>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>
+>> port_prepare_data() resolves the requested port through
+>> phy_link_topo_get_port(), which requires rtnl_lock to be held before it
+>> reads topo->ports:
+>>
+>> 	/* ports in the topo are RTNL protected, but may be accessed under
+>> 	 * netdev_lock for ops-locked devices. For now keep them under rtnl
+>> 	 * protection, as no ops-locked devices have phy_port capabilities
+>> 	 * yet.
+>> 	 */
+>> 	ASSERT_RTNL();
+>>
+>> The dump side honours this, port_dump_one_dev() takes rtnl_lock()
+>> itself. The doit side does not. ETHTOOL_MSG_PORT_GET is served by
+>> ethnl_default_doit(), which keeps rtnl_lock only when the device is not
+>> ops-locked, or when ethtool_nl_msg_needs_rtnl() asks for it:
+>>
+>> 	need_rtnl = !netdev_need_ops_lock(req_info->dev) ||
+>> 		    ethtool_nl_msg_needs_rtnl(req_info->dev, cmd);
+>>
+>> ethtool_nl_msg_needs_rtnl() has no case for ETHTOOL_MSG_PORT_GET and
+>> falls through to "return false", so on a device that opts into the
+>> instance lock (request_ops_lock, queue_mgmt_ops or net_shaper_ops)
+>> PORT_GET runs with netdev_lock only. Such a device that does have a
+>> link topology trips the ASSERT_RTNL() warning and reads topo->ports
+>> without the protection the xarray is documented to need.
+>>
+>> Add the missing case. Like TSCONFIG_GET/SET, PORT_GET has no
+>> corresponding ethtool ioctl, so it is Netlink-only and always needs
+>> rtnl_lock.
+> 
+> [..]
+> 
+>> The bug is latent as no device opts into the instance lock while also
+>> carrying a link topology, so it cannot be observed yet and the change is
+>> compile-tested only.
+> 
+> Then why fix it if there is no bug? And phy_link_topo_add_port has
+> a big comment explaining the expectations?
 
-Ok, I will drop USB A in next version.
-I prefer to=C2=A0 submit a new patch for USB A separately.
+You are right, and I withdraw the patch.  It fixes nothing, and the comment
+you point at is why.
 
->=C2=A0
-> > - 4 USB-C Ports
-> =C2=A0 =C2=A0 =C2=A0 ~~~~~ USB Type-C? less confusing
-> > =C2=A0 =C2=A0 =C2=A0- Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
-> > =C2=A0 =C2=A0 =C2=A0- Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (=
-4K@60Hz)
-> > =C2=A0 =C2=A0 =C2=A0- Port 3 & 4: USB 3.2 Gen 1
->=C2=A0
-> For "Port X" here, is it a naming from FML13V05's schematic?
-> would be great to mention which specific USB 3.0 controller (Port B, C, D=
-)
-> =C2=A0of the SoC it connect to..
->=C2=A0
-> >=C2=A0
+phy_link_topo_get_port() returns before the ASSERT_RTNL() when the netdev
+has no topology:
 
-I will correct above to Port B, C, D.
+	struct phy_link_topology *topo = dev->link_topo;
 
-Best regards
-Sandie
+	if (!topo)
+		return NULL;
+
+	ASSERT_RTNL();
+
+and dev->link_topo is only ever allocated from phy_link_topo_get_or_alloc(),
+i.e. from phy_link_topo_add_port() and phy_link_topo_add_phy().  Both refuse
+an ops-locked device before they get that far:
+
+	/* Ports can now be queried without rtnl for ops-locked devices, which
+	 * we don't support now as port retrieval is done under rtnl.
+	 */
+	if (WARN_ON_ONCE(dev->netdev_ops && netdev_need_ops_lock(dev)))
+		return -EOPNOTSUPP;
+
+(phy_link_topo_add_phy() has an equivalent check.)  So an ops-locked device
+never has a topology to begin with: port_prepare_data() gets NULL back from
+phy_link_topo_get_port() and returns -ENODEV, well before the assert.
+With my patch applied it would take rtnl_lock() and still return -ENODEV,
+so the patch is a no-op that only adds a lock - not something I want to
+send.  For devices that are not ops-locked need_rtnl is already true, so
+the assert is satisfied today.
+
+My commit message was wrong on the point that mattered: it claimed such a
+device trips the warning, when the guard at the producer makes that state
+unrepresentable.  I should have read the expected design out of that comment
+first - retrieval stays rtnl-only until an ops-locked device actually grows
+phy_ports, and whoever wires that up will have to move the reader to the
+instance lock instead of threading rtnl_lock() through ethtool.
+
+The other topology readers gate their assert on the topology existing as
+well (ethnl_req_get_phydev() uses phy_link_topo_empty()), so they are not
+separate instances of the same issue.
+
+The patch is already marked rejected in patchwork.  Thanks for the pointer.
+
+Regards,
+Linkui
+
