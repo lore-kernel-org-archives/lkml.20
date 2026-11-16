@@ -1,147 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.32
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794832376;
-	b=1lVsJ6UVP0F/vzVxgGE5SgF22v4ImyVDUfhNriQMnYE28Uk+mC651eFTFZZ+bGC5Yuxh
-	 uKT4Nrr1KjwIW2+elgIR+c9/yI3TstD6JWTlPGfvlE6mUzUMu3q9DU9I3fJR3qLAB18SE
-	 u05ColQpNWaXhuPd1O2KwkNdCikK7SQ4T9mmxMTcykGPnqiRIipChsLS/KH3M2Gh/A0uY
-	 URZ+PYZoPqve7fEMafKicCZOEqfr/q3yjCwznP+FWaQIEuu4XN8DXW3+wAWcF7+ekEn9C
-	 DYFxZrcH8rkeDe079veWRR90MFoRgTFeXdPKjItjuARpy7jzQs1ojyKEMtpQvjNdmfw==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832376;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:
-	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EHD+TlaMMkUGU1QzgnGXBwbt6fC1U5xccW/LC7gAhQo=;
-	b=Ugz2x2vlJV1YsFm+MSFbfo7vjxBmPD/FKe6oBYEz3nSutvEOm86LGyD3fCxOR1juxeU1
-	 CTWTMWQz+6iq6WtIFUeBzrFtiztqQUhVWkbBUCJcxxCNpFZkZWVtdsmi/7qmEcO7Nsbrs
-	 zANMupBAxXKThVdJgrsAeT9vcIzdmtAgs0BIHB6w/IlpEg3+aw7382vRh2fUoG/tysTHK
-	 oiYuBWqlzbnZNmgox7Ch6YjCCb0YqyRD+HMflKdaRPuxuv+C8JKkQxOWSbYUkY1b0XdYU
-	 ASTvHdid+baXA6QG3ySNsJPyz6mUHFbzHptYLMpYBsfhLe9gxY4oWsipWP13SKN+63w==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=mIhjP+K1;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=mIhjP+K1;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.32
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011032.outbound.protection.outlook.com [52.101.65.32])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794832444;
+	b=przZsI1P77xNBPviXZFicOOD/LBdQxywAHv3zSw4zafvM70yBw6amQB6wdCAo/VSKM0J
+	 K/HcYacR2ZMxKejcUFyFIib0yAmpCp8Os4DM8hj1CroHFXD54nj9VkSY0iUNL+Nj9j8tV
+	 PQ2t7KZBm0DZKFrf9Vg5W9iOnYvIlmteieWkc08XhtF6Fhhf7o89USBYEGeT95f5bWanF
+	 l9G6OBgA1Akgb+U614e9crfT0RRfJ1LfYtsKXzGX0TOulhXZYb65BqVweM7KMaOUIeMVV
+	 jxYaFXT7Ui6CJw4r044zMZxmF7tdF9cZW854kMSLuCFtt2FtJc2lL+UNgYUptjgLqGg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832444;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9U0WlMShIYKKlzPKQhi2qdhsqtxGv+hAPAPG9hLfSaw=;
+	b=1+aAYv0EEsvvqXU2fKBQ5RMX0lqX8aQFiqL8yc6HI+E43JemVs5Kb7dKR9BlEPJA38gQ
+	 y4XN2jPkU5dB86JwyCQOd9NmBXt2iY97UtJe+h8xRTXCykyFiOwGf+YdfSGxhxLEuxoTn
+	 VdjV9sXMt5PE6x2EzQkazZ8MuUCgq4IYeuRsZ9TC57pzk1E6u5Pg05L1BAkcyoj5FIhbG
+	 cK0K7qtWFYWEWj7FE5r8zZNYyN4YPQZVfKczuswuJAxJ1zzv50kY6k3JmJoJhnNiWXBMq
+	 6h04kNhh70KlzH46b5epC9DjQpoHk8KgzcjLELUhVjGczav1HSaL1ilpc9htouh+3cQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByP1oebK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74598606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:32:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74598606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAD8606A31C;
+	Mon, 16 Nov 2026 12:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=mIhjP+K1;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=mIhjP+K1
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=ueVzs4ZdCa6QGBkfNouR1YkDW4Oj5yR49/SCF+MqypOtL7azPVPE8PmIkFWH++WiChjCBdwd2AxIZPRNMrQcjMOo3OoG2GHHBVAtnRXF2sqlEtecT0Im303xsMu6hJ+UiJVnfTCjsnbG2oqc9o0ZFnjv2uKgCVH1pp1hNucy5ammZOmGG48OGB2+SCnsVjV2knHJygb39wQ5fUITAk6AHMXjwwsyl4sglfYy/GFJxdj8+JOmm7bQeN/qPv1Tq2jjIIM8VElaIQgWTrgKB64mhtt9lEjvfqluJ3VdTCwXTUqccbPgwIjMBz2/31HvGT8raN08K3mFeLs0cLAIw4rlCg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EHD+TlaMMkUGU1QzgnGXBwbt6fC1U5xccW/LC7gAhQo=;
- b=ciINgJ9sBnidkIKxtLXNQlmcd9jK/bCO6P0A9ROkUhh0lViMY1I/CKlfWBLVCnSoIGxwDffWfuFAEWK6jDY0GYf25k6XMjc43Z7nqsvQ1pfo11GfbFtL8/zLbN8HK0CHYBOToNzfCdu8xcPay11IMecxtY1MrRu+Cnh2nEcSs3CWuFUvVlHQcBUlyV9vlwRlO//RpQbS3JSC9hgHKy9eZO+WPF8Spfmbyv4mnVKkfuUdbodnBLY4UJqV9smyTolz4FbU+02PzO3UmNWxioTxxmH14TSv+i6+/+kb+BnZbiMtbHZUY/tpf0XQ+MUxQ2OwXHbMQ7yic9tz/iWkZ8wSug==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EHD+TlaMMkUGU1QzgnGXBwbt6fC1U5xccW/LC7gAhQo=;
- b=mIhjP+K1WX30lq9uIJoRibzRpH4f5ajLf+k5ybbIhkO7zYUYl0HnmwmYfiY2S8DBJMBe1iJeRCYrK/nON1IOg04bErCiH/MYFyH0mHV9gRqKs3DcwB0tA8v6lKo+4pRVIJeSUFsF42QvksQ8A8s/RpTRnoTyIZYqLvwkVEETkJA=
-Received: from PA7P264CA0512.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:3da::25)
- by PA4PR08MB6144.eurprd08.prod.outlook.com (2603:10a6:102:e3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:32:49 +0000
-Received: from MI3PEPF0000848A.eurprd02.prod.outlook.com
- (2603:10a6:102:3da:cafe::29) by PA7P264CA0512.outlook.office365.com
- (2603:10a6:102:3da::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
- 16 Nov 2026 12:32:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MI3PEPF0000848A.mail.protection.outlook.com (10.167.240.137) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Mon, 16 Nov 2026 12:32:48 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N7uvu4liiA3W1Iv2LnVJHUM1S28sLS7LV/WT9eTxsr5+bedsfXhD1asSr7TA6XREIP7jhlpm4qNeQc9/PXRf/74pKK9Xvv9od3UsN5F0hXRTkNo00I2SkxswDd3F37kglOLqwo/kFQiqB+hxPZq8pN9Dbor1dU6BYiChF9L5PRQ2hju6EMWqws0E7nIOwiWE2JFCMJug8ayD69Q4ZCxcNw0sgwOKIeMWSJEbofx0fXlFuJOGgxFYKMRxg/btRzpvqPJ49DOog446h3VO5T7A1JgAjGl086tmCiEdbgPXiKRLoqaYW+evQTDiSjPcC9E0UGRS0XAMgrOlpZKHDQwG3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EHD+TlaMMkUGU1QzgnGXBwbt6fC1U5xccW/LC7gAhQo=;
- b=IqUQptBlbe9A114kcNwxQImPIh/czB6ya1ZbK7x8w92Z0GIh3q6z0C88FmwbsTQ7bl29TeVdGZM8HNz0aiphvJTdctzQyk0wnIbBllBZyz2rA9e5vG1LSR3iIVgtrv0KOIKbOwZ9gWvov/D0qfufSLTXh9IAJ5rTM1qQydLI/JrI37lpsyzZxapvUQXHouqst128lkxhIQFKxPnQZeSOV/PJPyCDIGIZe6pE42vaBcx2+kobw+xYzFBQFz4SHDX1eG2eVeuVexAKCgjir25w53MyXmMCfoQyPWsHm2p8UJWWjXaPWCZu98LJI/V9xLEF8RUwtEPlbCELjPxHH4JStQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EHD+TlaMMkUGU1QzgnGXBwbt6fC1U5xccW/LC7gAhQo=;
- b=mIhjP+K1WX30lq9uIJoRibzRpH4f5ajLf+k5ybbIhkO7zYUYl0HnmwmYfiY2S8DBJMBe1iJeRCYrK/nON1IOg04bErCiH/MYFyH0mHV9gRqKs3DcwB0tA8v6lKo+4pRVIJeSUFsF42QvksQ8A8s/RpTRnoTyIZYqLvwkVEETkJA=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
- by PAWPR08MB10898.eurprd08.prod.outlook.com (2603:10a6:102:46f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:32:13 +0000
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
- 12:32:13 +0000
-Message-ID: <d768828a-fd21-4511-b56c-ad886128d9d8@arm.com>
-Date: Mon, 16 Nov 2026 12:32:12 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 12/12] iommu/arm-smmu-v3: Detect
- ARM_SMMU_OPT_KDUMP_ADOPT in probe()
-To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, jgg@nvidia.com
-Cc: robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
- kevin.tian@intel.com, smostafa@google.com,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
- Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
- xueshuai@linux.alibaba.com
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <12d498a18dc5a40c4e251397e35f995544730482.1793593923.git.nicolinc@nvidia.com>
-Content-Language: en-US
-From: John Garry <john.garry@arm.com>
-In-Reply-To: <12d498a18dc5a40c4e251397e35f995544730482.1793593923.git.nicolinc@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0104.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::19) To PAWPR08MB8959.eurprd08.prod.outlook.com
- (2603:10a6:102:33f::15)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByP1oebK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DDC1F000C4;
+	Mon, 16 Nov 2026 12:34:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794832444;
+	bh=9U0WlMShIYKKlzPKQhi2qdhsqtxGv+hAPAPG9hLfSaw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ByP1oebKP4sWQdGyIjrHAhZZnFHfL+yKqoygPmUrSTYpZgJvdvduPy/BH5G3Ya3TG
+	 ggqcbGP0mrgQicg5x2MdWKqfWiVJs0g3i95+Jf8/y6qBR7cQs/x2R3vSpaYneFf/JQ
+	 bmsbswWQz73unP+B6OR4mbAH1EAS5YFQMZTW43tzKXllUYQ5UYKuCtoIoOGVP6zCQK
+	 VITvKaK91xHDsyPQKoPWk7A9ymLP85sVaGvOj0ZbeiJAWmipyT2ILu9aVhVFw29KR1
+	 8WWwS8IrOqqxKtQi2417WrEkpY2lVFZ0g/7pHCAirP8A/I3eofRdSuh7YmkiZQ1Y0v
+	 bgsHmVeKDTQfg==
+Date: Mon, 16 Nov 2026 13:33:58 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arun Iyengar <aiyengar1990@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Alex Bee <knaerzche@gmail.com>
+Subject: Re: [PATCH v2 1/3] media: dt-bindings: Add Rockchip IEP2 deinterlacer
+Message-ID: <20261116-resilient-eagle-of-brotherhood-6be3df@quoll>
+References: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
+ <20261115-iep2-v2-1-3d8798cd9a55@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,67 +62,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAWPR08MB8959:EE_|PAWPR08MB10898:EE_|MI3PEPF0000848A:EE_|PA4PR08MB6144:EE_
-X-MS-Office365-Filtering-Correlation-Id: aecc7bf4-fded-48b9-2328-08df43ddb979
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|10067099003|4143699003|56012099006|11063799006|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info-Original:
- BwcYTyFnk+yJ6bPUpowxty34MppHWW3QEs4dUGpEX2l7jc75V81U8Zly4Od8KvWo5JiBn7+a4SyvhkMgwXAc16w0VTs43bszGeajyfLb911i3Vo/rLmca6u2hPIMgt34TMkQdQjh80B8JQcmnHr2p9XY9cUxoiTmzOLIaWELWz64nF+04ez+p+0VrnawnallAfWq1XWXnU/AJ9zd9pvkGfngCrfT1NQFHZsDoq6U6smCnVA4Kx6INHoJRC1TLD8LcVcV1NQ0hztoO2bIljpkHXGdOzqdpz9fIVMtyG8/FaNvtEvwDyMwTExW11VF6hR1uNKNvBhpv2A/0hWLp12NIFmNKOaF3wJcJWmKEXpIBvs8gwDVlbV3Z3Es8NzDo3OTFKZ/ha8RsTmILjIvYeOaH3teUbOtIg/t8ngTrwaI3HTX1qOZb9ntrmts/qCKIEgssjUijX+xySLRbi5LgWXx4QgWgMPzuuK5Yl+EC8Kfq0dDHPJo1fWuW9DuJsIr/j9VSRkh9NdT81Yx0p3F6Q2n4wd7w9urNs5iDMaEa97oN0qX2tH2cccOyLmb3gARKKxUhNU3jnySDxck54HyHig0/UNeNIgTgH+N16rIaQFHN2xEw1Fw+gFhtNA/a7A6x9ILpKWYQNWDx4KoEagweLTit4Zv9xZrFe4LvjF7e8jgwjY=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(10067099003)(4143699003)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- drM9S7rOgkzjAjHcMuGWIDeZoNstMQLKjAYikyRdOrudk/DyshIkcQL+6EVTNoIa+gyTdzv41CLY5fGpd3tD/GaeInMqMOL+jVff6j+BJVGT94vvhEwxQTLt0KCzO4jyy/1GCHIeeUeCS3h7m2jTk/iTjZyBJBAF7sndtWoOSdvZsjNkAs3EF/Ps89K8ek5RBCNDl+z7WZSNhp4UHWIPclTX3hlD2Xp5NrVGGkT/P1ZQv/N4DGrLqT4qHWDgLJeecA81uikE2lgVmu8hOb62uTkP/mL5XB69YvUHoyLZuXhfwv1c8WxzNYYPkikhqU7xQ01v229Ofca14+COQVLHiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB10898
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- MI3PEPF0000848A.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	8165ab46-b4ff-4ef6-6104-08df43dda45c
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|23010399003|14060799003|1800799024|82310400026|376014|7416014|36860700016|10067099003|56012099006|11063799006|4143699003|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	a0gSrqD7RLlrxMJuPCrbKora4OXtitv+nD6EwBv6/+QbpjPe1r8YybKSND7I4v1NhrIqEpebO3r++WaX/XkBY5zeA8G7gFxvTRYOK/uQWkmtawuDedEB2xOSTrRB86XATlSFfWYiDcMh/gStOJy92jvs3WHs3yHodH/Y80+32lfKxFBaYsuWGliOXQbcjw2eq6ZBrOYWlJlAL9KuL9URaRBYOY9uFKWPRgVZ87LUnjLQW02+IZ1opUXH9VDXM5Z/nFcSoxvKRDlc2ZEUePzAiPw8PEwQJ7aGnsVNUL+YPaeAgvFWBaY2dZ0dZqGtSnzwjcuyQytJ0iexvNTCW4kpr8QraOdLYEd/oAFPirgN+LNMNAvG+TG0VqE+vswGT1YKCfQDdoG/Wpeo6Z/UxlgEEptlJJsc1IWiDN6zyJGO9ejHHOFv4KlAbU1tH+L/vlKHTcDIAnJV9mJsRSneGD2s7K7oePrYpMibkBlNLPUHLO5mm74HNkn59VvUAHm+prJ50NFeagrXzY/CuZZjrTZO/Ek2tuobj1/GP861dY1Xz5uabrqD74secEHKij5uOHArtS7TFCpD7ogQxKThqB2/P4ra2DXnXELxiTd8Xsm66ZksJydKkyr5f7f25LuYxFhegDww+PjAHZRDA5m64v79Qar67LIoQ0seyQ90DkvL4JDv00MAlOliCZcP42fqhZt+4gVVrHbbp3lOCozHrZ8Ifg==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(23010399003)(14060799003)(1800799024)(82310400026)(376014)(7416014)(36860700016)(10067099003)(56012099006)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	JM2Vy+87JjmQ92cZMUB7NyJxcBYzb6JvGh0FDP8C2QHu3IN/GRwwbBhMOdLq1iQ7u7cGe8Tk1DyWcHsNL/Q07PKhEtxBDb83d0UZVCo0nDwNiy+Z2NM+tdxMoowHFdSNtCrrg5dP3G2swylFQpDPBloUouytQ8OrOrFjl2cCDUqt44KuWbcR/r0sisIgCZRf0e0cYSTTF4YhvnIjpkRqI5PLwWyKk+m4F5ggOAp6IujiBWVnEW+I9t5nUgCTDjTg2l2xbXFOcy/q0V1KvGPrMQpSqhKRHC0XLGHQO60NdTiIJOnxIjbHEWb/Cmq7TeeRIl4e5teeeGA5lBAAYhVD0ZWHFM5+F4VewhzD3yWim8Hd5kRwwvXgHJMYN2SGAyKTdtwiI//DQTnB0wbZ+g2VZK9XtMIA1DF87RVLYEIpm545AYTWbOXR5T0UXwEpibUA
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:32:48.6777
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aecc7bf4-fded-48b9-2328-08df43ddb979
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000848A.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6144
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261115-iep2-v2-1-3d8798cd9a55@gmail.com>
 
-On 11/2/26 05:19, Nicolin Chen wrote:
-> arm_smmu_device_hw_probe() runs before arm_smmu_init_structures(), so it's
-> natural to decide whether the kdump kernel must adopt the crashed kernel's
-> stream table.
-> 
-> Given that memremap is used to adopt the old stream table, set this option
-> only on a coherent SMMU.
-> 
-> And make sure SMMU isn't in Service Failure Mode.
-> 
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Reviewed-by: Pranjal Shrivastava <praan@google.com>
-> Tested-by: Breno Leitao <leitao@kernel.org>
-> Tested-by: Cristian Prundeanu <cpru@amazon.com>
-> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+On Sun, Nov 15, 2026 at 08:47:42AM +0000, Arun Iyengar wrote:
+> Add a binding for the IEP2 deinterlacer of the RK3568 and RK3588 SoCs.
+> It is a different block from the IEP of RK3228/RK3288/RK3328/RK3399,
+> hence "iep2". The RK3588 block falls back to the RK3568 compatible:
+> the vendor kernel drives both with one compatible ("rockchip,iep-v2")
+> and one driver.
 
-FWIW,
+Honestly, last sentence is redundant. Vendor kernels do all sorts of
+odd things. Qualcomm vendor kernel has 100 properties per device nodes,
+each defining single piece of hardware or driver. Shall we ever mention
+it?  No, it's downstream choice, not relevant to here. If Rockchip
+vendor kernel managed 100 devices with single compatible would that ever
+mean anything to us? No.
 
-Reviewed-by: John Garry <john.garry@arm.com>
+> 
+> Clock and reset names follow the RGA binding. The resets are optional:
+> the block has its own soft reset.
+> 
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  .../bindings/media/rockchip,rk3568-iep2.yaml       | 95 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 ++
+>  2 files changed, 102 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+> new file mode 100644
+> index 000000000000..0c7666de19f8
+> --- /dev/null
+ 
+...
+
+> +      deinterlace@fdbb0000 {
+> +        compatible = "rockchip,rk3588-iep2", "rockchip,rk3568-iep2";
+> +        reg = <0x0 0xfdbb0000 0x0 0x500>;
+> +        interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>,
+> +                 <&cru CLK_IEP2P0_CORE>;
+> +        clock-names = "aclk", "hclk", "sclk";
+> +        resets = <&cru SRST_A_IEP2P0>, <&cru SRST_H_IEP2P0>,
+> +                 <&cru SRST_IEP2P0_CORE>;
+> +        reset-names = "axi", "ahb", "core";
+> +        power-domains = <&power RK3588_PD_VDPU>;
+> +        iommus = <&iep_mmu>;
+> +      };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f4456f4589a1..b32b7eeb0a9e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24285,6 +24285,13 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+>  F:	sound/soc/rockchip/rockchip_i2s_tdm.*
+>  
+> +ROCKCHIP IEP2 DEINTERLACER DRIVER
+> +M:	Arun Iyengar <aiyengar1990@gmail.com>
+> +L:	linux-media@vger.kernel.org
+
+You can drop the media, subsystem defines it. No need to grow more than
+necessary.
+
+> +L:	linux-rockchip@lists.infradead.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
