@@ -1,85 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794871017;
-	b=pfBQnx7PgVbJZ1fxaXykeollMipcOmzlwRPinK9J13OJPTU08tL8DNDQDPWJScp69VZ0
-	 hy8LsRIldDuZfB/bJGSpeb5qNSGATXGe6TNn0AyiicnCUPVOPWr8ONTIdG0T0eOLMDbW2
-	 LOMmdI2eyN9PX9t3C5e/D18FH5awwhbzJfiLQS07HeZE0CU5Lga2DNZLlBeuqYcykxG7/
-	 Bh7mVFlIVMEvhIbBvf0IOnsVOWEacM/RacIWVnQxmZsugGbbx82nrRMKa7IJTXfDTOeRu
-	 Z1rai52Tfn2Uk7HE2S4cesqta0mbeLrMyCq6gCvNSLOp0DBNcI9JjF1czB++++DJiMg==
+	t=1794871171;
+	b=sxQpHghpoHSgZmqYCnrf5ZETcs2a/sTfvJa67pl5LYeP0cU9PZVgCLwX1qXbIokymfmo
+	 1HO0sb0SpT95FjXrQ0pKKDELGEdqBs2GbLd3yT2BMZ+2D7pxc1yhQhx2EUhCNE5/5z+6n
+	 kEWyVyb3ZTiMU1YbWcEiG9PGKl8LMRJAQ17TCP0j0MmIV92KfzI7VeNALNSFYF+7sztnX
+	 EkKu1rE1Zen/fFSaxFrpoclrBxxArJlkYs6saUEAEOfGhk0oy2vL5jHkoOqe35wNqV/z5
+	 XN3xK+/mZGvWa7vxSSL/zOWf2isKGfE6KGzJXguJOWAMNEZ782/vRfdbdyfEACvkGug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794871017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794871171;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=qGaBKJ56JVkr1DV2LxVYuA2rW5L9VQdkgkizr+SHquE=;
-	b=1xU6ddyMFw6rOgjLzj0prodvlsfeTsOBMMwrfsbJxAGUImQ/f3yLa8j6QUA7aMw7cIn+
-	 3dph3iwSOmy2g7FluLFhRdbftnf94d6uqQb2gr6ci+TVz6WErx8ZpGmSbslyPXEj4iWT5
-	 kxevDrvA1WiCeEizNDZv8wPs7MI5Wnu+tD0tKXHVEp7V3Pw9zutJPIo97EZFGhgRuQTpE
-	 UaYDQE35luljpeiShan6hkwSd3nYbeQgSxz1FYL5oUYoo35SKEc4vGuxMCFer9+CwZEhz
-	 p+fC/nUTjaIfkakQRQ0jfEpg/R9p1MXtvNDkJfF26aEa6BxZs3YDy649nFlyafqYI2w==
+	bh=3mi2MURLq2D9TIEmt+9IdF6d4vDvoX02siG9m/EXZ/Q=;
+	b=jScSp+CMDRrACK6Ob3oYGG9pGg2XjszAYOejOzm8L9XSD601ogic3VXEkIsoGRWmSLAd
+	 JA6KK27Peq+rTU0XpAZGXRXhMSVlobAWMA2BDXAA24TYejpmoK4rXhdI/N06Ov/t0+TQh
+	 gNYYIy5XrKUuWowTvi+0PVT7JkLYBzgjYI2IuJV56O3F+QvkURxLIFMUd1Kacld/Hcrw3
+	 am6y8JpoRBY/CpjLUImHT9mrTIfp3YNaEhnL3N7cC6wex8gGRAXGxiFS0dAXKRUfind3A
+	 dy/TqCQ3MZxZMBn0T/4iZvTWiCi4c7WKhZUsA259cA77lH8Ei8so92JhAu3srQIEEcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=T5J4AAVI;
-	arc=none smtp.remote-ip=209.85.160.45
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=oDdQA7LW;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YtYuZmgC;
+	arc=none smtp.remote-ip=103.168.172.154
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B147606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B147606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A51E606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:19:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A51E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=T5J4AAVI
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4ad60ec5eaaso311947fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:16:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794871016; x=1795475816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qGaBKJ56JVkr1DV2LxVYuA2rW5L9VQdkgkizr+SHquE=;
-        b=T5J4AAVIcWVT8mpCdn45DanP2QzcOj7RDXZc0YQPkwV7XUWICfE2gWG3vk+OQgLEAn
-         gjmGnj0rEWVy1mXDgmohD5MtLcOJQ9pXjKbGLw1R4rCVUJuP0A4wPS9vJX0eFAdGWBJL
-         jiIeQIhFL4z0AMgTQ4H5it1u3nSf4xmTXIpMQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794871016; x=1795475816;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qGaBKJ56JVkr1DV2LxVYuA2rW5L9VQdkgkizr+SHquE=;
-        b=XbDnuOaa0NLrHk5k14QT8C8sXmGH/3v1ngDXt/0nXKWXLaVNWIiRWdXF9mAC8MSVPh
-         YdcZivSauejOW02RHMGHxPFToffQfxODaUvIXs+FlI01+IlKq+nc0yli+2Bb2SCFi1Us
-         eLNkcykbiHEtYbkmuq3hRmw2x5zxMDkaYNEBftmA9VFleBHQF2aXLaUWX/z6H/Yge2m0
-         seomNToNmMXV0Qx+869qDNJ5YZ8fFaud1/wpahCk+AupS0n7mxjwa2C+h0v501BiWs3v
-         xUniuB7HzhBODws1YPIRbCrj/OPYryuUoz/llSWEqDjdMA3e38OJf/5sLoR+TYifpRB/
-         6pmA==
-X-Forwarded-Encrypted: i=1; AL+hErGQrjg0Y0f78lYgv52qXRAnmmEsvTXvYsOKDWBcwVxuTHaG7Ml9Dt0J2yHpoAYMCLm/7657AaH51Windbg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kl756XQWl5XQs6RVRpVj0mPAref8wApLGLbs4eeLc6C3B9lzA
-	VG1z4Cc6ugpmWVaBmzjz7Yuw3HjyqdO1doB4rtUwvAAQdNAVPXkkI7SC1RMeWMEvF10=
-X-Gm-Gg: AYBFou2wp6T0B3KmCUF6F7rJSG66O/gAqOjnciuzrWJRZiUa0hhOV481CfmVnUaoHKY
-	JgTCThYRiObJkdzSm69Iy5MxYSgZT0lN4jaWdJJCGW9bbt6dVtU6n3LJpEYGzImWoS7BVsmxL6g
-	cie3qeOZCbw8VFfJvi/BeRSQTLmmWBPCsmNitm2R0HfMxjudJfU6vGeAQBAFbSqPSaILf9eMR4l
-	Z5UfjPsXjjQhn2afv9wkDNoxkSVS12Xjt12EasKqrNB8oSl5avn75U3p0Z+B2JAmiDZT9ljjZD7
-	HQZkzyTNxgyNMUoUAhKtzffabJwButkmS6JwqU4u+/xv0iNG93TC3Bt3f0eD2GKK/giclD8MuOq
-	juVzRRjLCdo/QNXZWWIOeI45iaKtIgvNhJUbgqpO1yvbf2bKnFQA2QDEYl505sQxPQoQey17WX6
-	j8ipm1R42eKGf6AE1YncmP2ow+Sda5Vf6+zjl5ViEjcomPF3CxEcru9bfnBjCJBVXZe+JIuTNfI
-	AQUBkD6WE6rSfhnOfzALyBu3x61ogmYDgfIZ8RR4Npye0BNLYb2j0+K6n9O2aghQEfxUIcszJn3
-	fs4C9uYbKglZQ5tWhp4JFP2waZp4wKRvr4hyRLTuXEk8rSOq3zDx4h/jTVU=
-X-Received: by 2002:a05:6870:8926:b0:4a2:4864:4ead with SMTP id 586e51a60fabf-4b4118f4569mr822025fac.15.1794871016004;
-        Mon, 16 Nov 2026 15:16:56 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe1c7ba35sm8000666fac.0.2026.11.16.15.16.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 15:16:55 -0800 (PST)
-Message-ID: <5ffddf60-7549-45a8-8b7d-496967a4e91a@linuxfoundation.org>
-Date: Mon, 16 Nov 2026 16:16:52 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=oDdQA7LW;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YtYuZmgC
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 5A30C14000C1
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:19:29 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Mon, 16 Nov 2026 18:19:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794871169; x=1794957569; bh=3mi2MURLq2D9TIEmt+9Id
+	F6d4vDvoX02siG9m/EXZ/Q=; b=oDdQA7LWbhN0QhIsXgBZiOWEbwKIHKtrymJOa
+	IqkCI+MjeWAc+R3daAeoHXGHs0G031/Fn++YxjXZISFoFb1BZBse4+tTTNel59cu
+	RB686NXi6UlUlUiwQ0A18b3VG7MGaBAYZyoQp9ieimSUP5bUFVFbAbgSbX5HF9zr
+	Gphuhw+DNoN9YzESHWVfVRvgKzh+bUAMSdSjZ4hHZspT8FfmyiOteg4YITDajtDT
+	4Gew16y6uP0yH3/m/KsEcy1Av37xlvIarH1NHwU29wTO2xSn9Obldm4J0Pn5S0r1
+	FBNtXY6W+0LxKNTSIHE0/x2efSAuq1ucKHr7tJHNwz9SHzixQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794871169; x=1794957569; bh=3mi2MURLq2D9TIEmt+9IdF6d4vDvoX02siG
+	9m/EXZ/Q=; b=YtYuZmgCF08Rm1tZ3cHREAeKNFcElzeb8YY97NfZx2xov74QNi+
+	NvAla9b7AxzQIVYvhT3ohMFvSnn3Xz7WC9vQMrFRx/FEAS0y0VjvSMpVfWNX2QPg
+	2/mJdROoHW8G5zozXux1A1LzO86tWIP2jGg1FUL4ODO888g6VRJsXBEIY8Tpnx+2
+	DjvpaoLdGBgg5Rhsg715yENe048ax48pJH6QC8J2yhQnSTfFfSy4IcvcIlz1dxkg
+	iq0p3UGxVsczUGsf0DAvpn6kMDVrA3/HvETUzUBX05zZ3qabBCnxCxrOw3GOs/n3
+	3uVcHYFUhh4xTM7OUXfIQXIUA7vqLxRPw1w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794871169; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:TWc9lkGcLkrHnr6M/cgvKRQZmv9jjrO0Sgmh5RvkAHPLLSh
+	RdPB4OFZNrutsBne2qaN8NP6NIjlplnRjFrNkKApxg4xj2fktei+MR6m2arCE/oh
+	ATcynU9OVfKpd+hLn71nNjcFBySFG3+95WJMuH9cv2Bq5VWtWqL/iBf3H3H8x0jR
+	KA8ymkIpFmcDRMspPJrKD4Cu8XhuyIbxW7WdRJ+bIWoAah7TRdv59PFv7dDFxhYO
+	iG7XOJQrsbkaUbz7fYuaOmOC3QlrMlwkXfki+I8Qon+1Q0jr8+hsrS+ARXRYurkJ
+	mjBRrnkRLjNpO3GF1UzWao7Y6lI3RyYFBoPPJsA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:b6FQydsq1+h+6suAH3fF7YJvYhrnYOotW+K/d2iLT4Y=:dNM9bpy/xvzf6D0nJQQ3e9zQR3sDaeTN/Si/+ssW2AY=;
+X-ME-Sender: <xms:gI_7ahUsCJVDX-fsGLhbiO9qxP2Q3y4RiLs1gCuwixUsbitHARsC8g>
+    <xme:gI_7aiQRITQt5sAnLDmyPwpYVvwamWLQnbH0Yo9BWEpBzkYBcv7zaVpnz8vf7ilQ3
+    a_qrEh-sxIYaLP-joyMVqRwR9or_tgaPDZC2hTIGf3UCqnZPRIV6YPb>
+X-ME-Received: <xmr:gI_7arl4XzSU3fLMCSkieAhgWg5NVnG-ellUhvHLYaIwq0TPSJUH8YOzKn3clV6k>
+X-ME-Proxy-Cause: dmFkZTEJ3CIJfA1hP7YHW35UPoQyEUprrj/QGnRwhNqllrS4EIgFkJcv7DS3V4CSaIZ4J1
+    4nc9AyIyYqDOm8mF88XeG+0fDyP6ODfK+HjQHDnis5nSd4+7mNmd/+C4dzhq6s07qavSgI
+    wNBEer5Y70x3cS9X9BhlC2axmBUaVhlX3RhBUJ4yZAhTBUzVXgyE07l3OWq54fahLgeLN2
+    Pn2yDmw0BX1jziKOn0safIqruKK4tJxHRkq+kJ+8nutghqDX5KmT3NnAKXn5KhQgY9eYFI
+    QzQMOK4U8l0erXoUOHIkrPx52zuF8K+WJJlFmxHpehRl7muVbngMk1QTvOF6kefQdasyVZ
+    XKhMqf1YPePOgspFkyDAQO011IoSVzS/NNoB8tYZBl4xm3/z90oBrP5LUIcwhouq424Xeq
+    O557Yd2qYKEZZAV21muf09/tozKIPPMD2t01dt+gv3FZUIqhuRjdMLbTUMt0v5q9I0NJje
+    i9OnmK3ofFO6HCD5LBDvrCUxvtY+0Xh1zKp2cmx5Mx4WZ6e5HyeUmiWi5rI+6PLxlQUzz+
+    iyim3t8V54487D+i4rD+Zc8aiku30AJxHYB2MCViq6CIwL7CFu8EuhELBnTH7hS5Mo0L9P
+    DxV6Scd/JT41bBPG8BI1BQJI/J9pDzmL1P1pLH+gxnG2uy5rx0DNaCi0HPkA
+X-ME-Proxy: <xmx:gI_7ao789R3IC5wF7E5sD6FwCo9FtBu66S13S_p7TOc-kIjk2iNTUw>
+    <xmx:gI_7ahh4Zi34FpOocrz9Jbc7S_58EhoZnwkxkwfYnq_4C5qrszHPWA>
+    <xmx:gI_7alGtD3n0ML3MvicXF94fO7TqJZODT5259-u4AQrPjW3c5n-mQg>
+    <xmx:gI_7anRPnDkaNQcbDimVtcGLuFnxQ3reKRKICrKCcCfs0vs8DZdKZA>
+    <xmx:gY_7asKaWJNPnchssTN5L6ZAzn88ta7ivbQin52lzo6TRW8JiUR-398x>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Nov 2026 18:19:27 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: [PATCH] ksmbd: store the security descriptor from a copy
+Date: Mon, 16 Nov 2026 17:19:23 -0600
+Message-ID: <20261116231923.2587994-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,45 +125,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] usbip: stability changes
-To: John Ernberg <john.ernberg@actia.se>,
- Michael Grzeschik <grzeschik@puzzle.ch>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
- <131283b8-0d92-4277-9dc7-eebfe30de5ae@linuxfoundation.org>
- <d9cbecc5-3130-48f1-adfd-4483c1bb4031@actia.se>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <d9cbecc5-3130-48f1-adfd-4483c1bb4031@actia.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/13/26 04:34, John Ernberg wrote:
-> Hi Shuah,
-> 
-> On 12/11/2026 23:46, Shuah Khan wrote:
->> On 11/11/26 04:34, Michael Grzeschik wrote:
->>> While using usbip on kirkwood embedded machine, I came accross
->>> some stability issues. This series is addressing the reference counting
->>> on and usage of the event handler itself.
->>
->> Tell me more about the stability issues? What doesn't work
->> without these patches? Do you have reproducers for these
->> problems?
->>
-> 
-> Since we also had the issue that 2/2 solves: The issue we have is that we see occasional CI failures with ghost USB devices remaining on the client side after our system (server side) had been suspended, even if the device was removed from the server.
-> 
-> Applying a patch 2/2 (or our version of it sent earlier) solved the issue.
+Storing a security descriptor changes the buffer passed by the caller.
+ksmbd_vfs_set_sd_xattr() adjusts three offsets for the on-disk format in
+place. For SET_INFO, and for CREATE with a security descriptor context,
+this modifies the client's request buffer. Current callers do not reuse
+the descriptor after storing it, but a later reader would find incorrect
+offsets.
 
-Hi John,
+Adjust the offsets in a private copy and make the input argument const.
+Reject a length shorter than the descriptor header before copying it.
+This keeps the caller's data intact and preserves the stored format.
 
-Can you send Tested-by for the 2/2 - did you also test patch 1/2?
+Add a KUnit test that checks the input stays unchanged after a
+successful store and after a short length is rejected.
 
-thanks,
--- Shuah
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+
+This is a cleanup. Current callers do not reuse the descriptor after
+storing it, so the patch fixes no bug today.
+
+Tested on ksmbd-for-next 2746a02296a7 with KASAN. Stored descriptors and
+security query results match the base for SET_INFO, CREATE, inheritance
+and default descriptors. KUnit passes with GCC and clang, and the new
+test detects the input changes made by the old code. smbtorture results
+match the base.
+
+This patch was developed with LLM assistance.
+
+ fs/smb/server/tests/smbacl_kunit.c | 36 ++++++++++++++++++++++++++++++
+ fs/smb/server/vfs.c                | 26 ++++++++++++++-------
+ fs/smb/server/vfs.h                |  2 +-
+ 3 files changed, 55 insertions(+), 9 deletions(-)
+
+diff --git a/fs/smb/server/tests/smbacl_kunit.c b/fs/smb/server/tests/smbacl_kunit.c
+index 39c9f8bb1ea7..37d21c10a144 100644
+--- a/fs/smb/server/tests/smbacl_kunit.c
++++ b/fs/smb/server/tests/smbacl_kunit.c
+@@ -280,10 +280,46 @@ ksmbd_smb_check_perm_dacl_maximal_boundary_test(struct kunit *test)
+ 	fput(file);
+ }
+ 
++/*
++ * Storing a descriptor must leave the caller's buffer unchanged.
++ * Check both a successful store and rejection of a short length.
++ */
++static void ksmbd_vfs_set_sd_xattr_keeps_caller_sd_test(struct kunit *test)
++{
++	struct file *file;
++	struct smb_ntsd *pntsd, *orig;
++	int ntsd_size, rc;
++
++	pntsd = build_boundary_ntsd(test, &test_owner_sid, FILE_READ_DATA,
++				    FILE_WRITE_DATA, &ntsd_size);
++	KUNIT_ASSERT_NOT_NULL(test, pntsd);
++	orig = kunit_kmalloc(test, ntsd_size, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, orig);
++	memcpy(orig, pntsd, ntsd_size);
++
++	file = shmem_file_setup("ksmbd-kunit-sd-copy", 0,
++				mk_vma_flags(VMA_NORESERVE_BIT));
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, file);
++
++	rc = ksmbd_vfs_set_sd_xattr(NULL, mnt_idmap(file->f_path.mnt),
++				    &file->f_path, pntsd, ntsd_size);
++	KUNIT_EXPECT_EQ(test, 0, rc);
++	KUNIT_EXPECT_MEMEQ(test, pntsd, orig, ntsd_size);
++
++	rc = ksmbd_vfs_set_sd_xattr(NULL, mnt_idmap(file->f_path.mnt),
++				    &file->f_path, pntsd,
++				    sizeof(struct smb_ntsd) - 1);
++	KUNIT_EXPECT_EQ(test, -EINVAL, rc);
++	KUNIT_EXPECT_MEMEQ(test, pntsd, orig, ntsd_size);
++
++	fput(file);
++}
++
+ static struct kunit_case ksmbd_smbacl_test_cases[] = {
+ 	KUNIT_CASE(ksmbd_dacl_walk_must_stop_at_declared_size),
+ 	KUNIT_CASE(ksmbd_smb_check_perm_dacl_boundary_test),
+ 	KUNIT_CASE(ksmbd_smb_check_perm_dacl_maximal_boundary_test),
++	KUNIT_CASE(ksmbd_vfs_set_sd_xattr_keeps_caller_sd_test),
+ 	{}
+ };
+ 
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 111321b131bb..1114f2503ea7 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -1699,7 +1699,7 @@ static struct xattr_smb_acl *ksmbd_vfs_make_xattr_posix_acl(const struct mnt_idm
+ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
+ 			   const struct mnt_idmap *idmap,
+ 			   const struct path *path,
+-			   struct smb_ntsd *pntsd, int len)
++			   const struct smb_ntsd *pntsd, int len)
+ {
+ 	int rc;
+ 	struct ndr sd_ndr = {0}, acl_ndr = {0};
+@@ -1707,6 +1707,15 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
+ 	struct xattr_smb_acl *smb_acl, *def_smb_acl = NULL;
+ 	struct dentry *dentry = path->dentry;
+ 	struct inode *inode = d_inode(dentry);
++	struct smb_ntsd *sd;
++
++	if (len < (int)sizeof(struct smb_ntsd))
++		return -EINVAL;
++
++	/* Shift the offsets in a copy and leave the caller's SD as it is */
++	sd = kmemdup(pntsd, len, KSMBD_DEFAULT_GFP);
++	if (!sd)
++		return -ENOMEM;
+ 
+ 	acl.version = 4;
+ 	acl.hash_type = XATTR_SD_HASH_TYPE_SHA256;
+@@ -1715,14 +1724,14 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
+ 	memcpy(acl.desc, "posix_acl", 9);
+ 	acl.desc_len = 10;
+ 
+-	pntsd->osidoffset =
+-		cpu_to_le32(le32_to_cpu(pntsd->osidoffset) + NDR_NTSD_OFFSETOF);
+-	pntsd->gsidoffset =
+-		cpu_to_le32(le32_to_cpu(pntsd->gsidoffset) + NDR_NTSD_OFFSETOF);
+-	pntsd->dacloffset =
+-		cpu_to_le32(le32_to_cpu(pntsd->dacloffset) + NDR_NTSD_OFFSETOF);
++	sd->osidoffset =
++		cpu_to_le32(le32_to_cpu(sd->osidoffset) + NDR_NTSD_OFFSETOF);
++	sd->gsidoffset =
++		cpu_to_le32(le32_to_cpu(sd->gsidoffset) + NDR_NTSD_OFFSETOF);
++	sd->dacloffset =
++		cpu_to_le32(le32_to_cpu(sd->dacloffset) + NDR_NTSD_OFFSETOF);
+ 
+-	acl.sd_buf = (char *)pntsd;
++	acl.sd_buf = sd;
+ 	acl.sd_size = len;
+ 
+ 	sha256(acl.sd_buf, acl.sd_size, acl.hash);
+@@ -1765,6 +1774,7 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
+ 	kfree(acl_ndr.data);
+ 	kfree(smb_acl);
+ 	kfree(def_smb_acl);
++	kfree(sd);
+ 	return rc;
+ }
+ EXPORT_SYMBOL_IF_KUNIT(ksmbd_vfs_set_sd_xattr);
+diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
+index 8568184ff05b..fb184546d26b 100644
+--- a/fs/smb/server/vfs.h
++++ b/fs/smb/server/vfs.h
+@@ -164,7 +164,7 @@ int ksmbd_vfs_remove_sd_xattrs(const struct mnt_idmap *idmap, const struct path
+ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
+ 			   const struct mnt_idmap *idmap,
+ 			   const struct path *path,
+-			   struct smb_ntsd *pntsd, int len);
++			   const struct smb_ntsd *pntsd, int len);
+ int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
+ 			   const struct mnt_idmap *idmap,
+ 			   struct dentry *dentry,
+-- 
+2.47.3
+
