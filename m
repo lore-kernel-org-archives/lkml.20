@@ -1,83 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848196;
-	b=YQMjsNVh7k6V9NzexPoNoD15HD/YG5bPYLvGad6rRhcNo7KHf7PC261KKsNMrWfe+aog
-	 OlGLb0NZHj8EPA2hXiKnNCamlXRzLM5/cAdFjdL4pkhBvpd/LGwVeNAs1s6aGvuNbUiuw
-	 le6HMnxqVlPrpB9UXzpcW8LaM/WQxm91XXqTTaxJ5cCabxZh3Hij2LSjStX94wOoVNEHd
-	 28KOwh1OmHrahX8KloE9Y/Ut+AlPs0puOp0U+KhNSrb55cz741ld4kJktB9XaSiBKjDBy
-	 yv1+gaXIIMxt9yoR3hV2gJNXswzUBy4/xA2LeYLETPbrCUfyHL9bg6W8fxvPGWBDDVw==
+	t=1794848215;
+	b=A4yvvAoaMXUghpufjulWZG27uL2N3WQ6MTgqGVNxUAR+To/RejH5qcHcVS9ec8DqW/Bg
+	 Pe86AsU49OP8VWzjbclHd0cFGcrYuFw7Tuc1x/eegQaVF/aaT/WpaaAVRrudGa2zOa7G/
+	 pdPI6qRuhvlNePJfsYolhkwGvRyljjHmVyevNGzcidqyojNVbFIb0YbAZEfxeJulStAHg
+	 q5gur42q/Z5LCnunueuQ/Wh0jQ2QpKIBy3LvOdjSrElJioQtJaZ2mpLO+WwDsstE2zLUb
+	 bXBKeOLzt9DLskSxsZdzz2/tfK05M05gFkF2urjVG4a/majGUlCe4P5SQhPgotYxMIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848196;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=nGtKkqWe9UgPpr5+w33nzRYd1BYTGY4QmLZE2nVpS+Q=;
-	b=YJy1ZKwYLXRoqQyX3oTtxtGAiQeanu+2x71BY4YjBWGpA8fVJIBbSQ3x+faQ7Eiq7tYK
-	 omZWMBAxnbroSTA10NJFYBtHx9ryPCGI/o6+pMiTLLDoV6+T3iv8QbtSjHytCJkjSbkiS
-	 NR+VHneRFQVHGFHUt63VuUl0te23Rk6sr8YjbT2RYSEmxnWYTd4f8Y/rW8OhPvCRPA+TU
-	 /kJHWBNEGNiUpf57uxNAQJpWAoZuqfgxEJvjVXBAhG4G2/U+qzkBy+t6z97keX7TYil7E
-	 Rl2MrI/lE+vTZSF8wvY5UCRxUekg1JwxGYyzHIAF/XTbnt2rQn2/oMgyfd1wW50CrSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848215;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=fXvmHmrqaT7uwzqw5wKHAzK4b6YmdKrUYQojmN7r3o8=;
+	b=dszUXb2ui9k9/OeCB8DiECuX5cbw8uEugqUu+hsPdAfhG3RIoNjlkTI0k7OJCZa4u1w5
+	 N3uR7pDDaVQwr661DGh2Ndpnetm33xY/A85skcA5hpC0bLrGd0GYrFCQlV9lHS112wodT
+	 g3h8vQU95356LigT6Kaaj6nTW5WOmHaIpkHijLnCiX6gBi9X2Y62IJSd6ET49kCNP+vNB
+	 q3IcVjW3LZqzjhyytmUaWVh1PLbH+g9Y1NlRaKuVNq53aH1OCcQduVSg6MHMcamiShKLd
+	 hNuifN5z46A9u8QzEzZWndff+dRZkAV98Sp4G7NWNUyxVVDy2aoTONbZ/cLEG2//cwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ohcFigdh;
-	arc=none smtp.remote-ip=34.218.115.239
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Xw2hAZec;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C07606A883;
-	Mon, 16 Nov 2026 16:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C07606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D87606A896;
+	Mon, 16 Nov 2026 16:56:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D87606A896
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ohcFigdh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794848196; x=1826384196;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=nGtKkqWe9UgPpr5+w33nzRYd1BYTGY4QmLZE2nVpS+Q=;
-  b=ohcFigdh3dwvAcbzegXsTgUoFwxlldPuqKl+jOlFHvF1rgpPD0m9TLlY
-   6Z74R1TvdyzXpdCwm89ujYnMl7L3SSHIxuPt023BVGDDSXqOpLkIS9aoK
-   GLFVXyDXO2L942AdnEfq7tMj6ICO81qeA+qhvBEWuGSdE7TUcneh/y4mL
-   uktl7IFk5Dj4vSs0sBVdBQKflFMkUiJtXBdRiSWrN44hNPTvWohxCheeq
-   9gxoFWUq6wY50KnHt4FOakld4MTuD5hbGm8WIPPwCYNfDqAKWmNlTYq/H
-   lmmtxSXxZHtyvek+ruNGn4YQFzgvj6a/9Us53gkVIkC9yUy+N78NiQv62
-   g==;
-X-CSE-ConnectionGUID: OAg241cfSXOTosfqpRuRvg==
-X-CSE-MsgGUID: 7IbTfab9SLSOmksQINR+kw==
-X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
-   d="scan'208";a="34067159"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:56:35 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:6090]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.250:2525] with esmtp (Farcaster)
- id 53290bc3-64a4-4e73-bba7-410ba37a59a5; Mon, 16 Nov 2026 16:56:35 +0000 (UTC)
-X-Farcaster-Flow-ID: 53290bc3-64a4-4e73-bba7-410ba37a59a5
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 16:56:35 +0000
-Received: from dev-dsk-avivb-1a-8cc559d6.eu-west-1.amazon.com (172.19.102.34)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 16:56:34 +0000
-From: Aviv Bakal <avivb@amazon.com>
-To: Lukas Wunner <lukas@wunner.de>
-CC: Bjorn Helgaas <bhelgaas@google.com>, Manivannan Sadhasivam
-	<manivannan.sadhasivam@oss.qualcomm.com>, Kuppuswamy Sathyanarayanan
-	<sathyanarayanan.kuppuswamy@linux.intel.com>, Zeev Zilberman
-	<zeev@amazon.com>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/3] PCI/PM: Keep hotplug ports that can't wake from D3hot out of D3
-Date: Mon, 16 Nov 2026 18:55:22 +0200
-Message-ID: <20261116165627.2775780-1-avivb@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <avnqWd1gVH-i2Jkk@wunner.de>
-References: <20261115171831.1498006-1-avivb@amazon.com> <avnqWd1gVH-i2Jkk@wunner.de>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Xw2hAZec
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6BD7A4E4145B;
+	Mon, 16 Nov 2026 16:56:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A33E6023F;
+	Mon, 16 Nov 2026 16:56:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1284711BC0F3C;
+	Mon, 16 Nov 2026 17:56:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794848207; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=fXvmHmrqaT7uwzqw5wKHAzK4b6YmdKrUYQojmN7r3o8=;
+	b=Xw2hAZecCTKO4IlSFWSosdZdqjUdxv6ytb39vF5n6H49JkwYw6OCqbScYgJ3Xx2kTiCuz7
+	2MXGQIB/XmuwpFj9j0rrTk2TAD5qpLeZyPWySPvWFOaYi4TnQ/K14Tiwq3b6tiRwQQbNGL
+	L1mBMZwOSQa+ANxkQiGvICuDkJk4DVCmmvgRZfZuIuZreh12C1YBXpFKeb1KjBYTyoIU9I
+	hxr48CWoLnIHXei8q3tJ47nCtaMferfzBuDEBU3BpWR+NtQJe32gGrz9g9x2mN9/Br8yBl
+	xceWNO670TkbXJ1B5Fih80OouheC+pe0XFKKzPG7TVCkz4MHWIj5ZV5p+dTXqA==
+Message-ID: <728be2c9-731e-407d-bc14-513591aefbbf@bootlin.com>
+Date: Mon, 16 Nov 2026 17:56:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,27 +62,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/9] i2c: cgbc: Use plateform data to get bus ID and
+ adapter name
+To: Lee Jones <lee@kernel.org>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
+ <20261103-cgbc-i2c-storage-devices-support-v5-4-ac11f23fae51@bootlin.com>
+ <78cf973d-3434-4f81-82be-a22f4abcfe0c@bootlin.com>
+ <20261116154932.GA97865@joneslee-macbookpro.roam.internal>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20261116154932.GA97865@joneslee-macbookpro.roam.internal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Nov 15, 2026 at 07:22:33PM +0100, Lukas Wunner wrote:
-> Intel Catlow Lake suffers from a similar issue:
->
-> https://lore.kernel.org/all/20261103193136.2410148-1-sathyanarayanan.kuppuswamy@linux.intel.com/
->
-> Please try to follow the approach taken there.
+>> I was ready to send you the v6 (with your I2C patch) based on mfd-next,
+>> but I noticed an issue with this line. In v7.4-rc2 devm_kzalloc() has
+>> been replaced by devm_kzalloc_obj() (commit
+>> 4dd10fbbeb9c33709edc89916e19c03c780a0751). I guess this will conflict
+>> during the merge. So I don't know how to proceed. Please let me know
+>> what to do.
+> 
+> Rebase your set onto v7.4-rc2 or -next.
+Ack, I'll rebase onto v7.4-rc2 as there is no tag for today on linux-next.
 
-Thanks Lukas. In the Catlow Lake case the Root Ports still signal the
-hot-add with a PME interrupt, and only PME Status is unreliable. Our
-ports are switch downstream ports that advertise PME from D3hot but
-never send a PM_PME message, so the Root Port gets no interrupt and a
-pcie_pme_irq() hook would never run. Keeping these ports out of D3
-looks like the only option for the existing devices.
-
-I sent a v2 that fixes a runtime PM imbalance in patch 1 when NO_D3 is
-set by a FINAL fixup.
-
-Thanks,
-Aviv
+Best Regards,
+Thomas
