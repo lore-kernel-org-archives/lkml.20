@@ -1,85 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853359;
-	b=ow/hd3XT/bN+jP90Cq83x5EsUB7p3dyboaD2UisDA9GUcdZy79rlBoIqG8avOGoDE18B
-	 h9NK2Yho/PJ/qYukCbUlKUh8jy3hWg2ABFfxjVvnmf43RpbHqxDw3igQ6JliKrBDeQcvy
-	 6/g3G7lPOFOjvqqzQ2kE2e2roSHIKAPBVRiXbTd7Ga1qQldqg8S0S/ho6AikKEPEhwzV4
-	 fQif1oyChxX0QCsfGybAlY6LX+lVpdY1bDfc/F5qrt++vVOcPltlT0YtcPjfkqxZ2hy3t
-	 0MeWZ2KFrliomK2UrduJAS0sh7BzKODs7MKKPeqFD+7WLn9g1TEzlW03Y+19pUMUpGg==
+	t=1794853366;
+	b=j+xp6WjURL9gHfaSgVaxadg3G0sT0tHBWzzpHwr8rVFqeSC1qI45GGwCFP/0s4k7g+3N
+	 EloV4B4Qkw1cVnt2jZnRbpfJmzuBSFT1ZmTqtW4TdBjedDtMYqy+rmcTbVwaLv29jLVJQ
+	 +v5SJDwjIJ+VCYWU6ZUDXPDceo3jvihIGXLxTK0s+Ftfo014j4oLibSLvUVV52ofYBp6Z
+	 dOzW/KJwSWKe/TR4U+4KtuCNuNJK57vVBIN+YKF5InbGVCmw0H7i+nUqhJwVyLvm4JPWN
+	 V/5Xz4IjXMUzaCDjIq2POYfVL/tqQfZxqzW8T4XE/ltPzWegJ3Vyp/OuMwJ9fAgIInA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853359;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=MqhyZLQkkCy8/4ClTcekh7qpvqyyl6/PFl4tE1ESvso=;
-	b=OCTaGL/lxBzUY5i24GdF10rSRVQOLyve9O1QmIh2omWXoEmZoae59l6CTs6U0ND/gTR3
-	 F36L+s8SsPbOvctCVq1q+sd5/hksH0jmH4MzPJJFnqybFXJxihoaewylvCX+E8zRqJuJ9
-	 uFLIXa/pIfnh1ukclpuj7aoqzoGVk/qjICxelxaXAt1IysEbEGvgoO4yLkn5p5sIUNgIC
-	 wRAhmRSQxlcbmNxS+m3LjvB7yoFkyMBKXQUvcTkAsbxpqQBz4sujuX/6TJPRbS5FGJsED
-	 /PQIMFKM5CTaPbyx9T0jKu+awsPoQcpyFQfb5SQrTtBBhqr7nzvY1MsN/sr435TcQKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853366;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=bqJvB6enP/okPPxSerhwa6fogTBDV5fNQyKcgjywQTM=;
+	b=B9dv5+YXt+ufHZkN2kVxrWMssElVGssL9n1MqN1ugqVK/ypHpQPABapCj5wRuj9tSpNU
+	 wPy4xBWs530xcdS6CIGEj4XH4wwrrMCuf1W2Z62oIgVV10yx3HjSgixkcvDp9cY2xKYNG
+	 Nai6flhInhtfwl+g/q1Wg945CDRCwpbClOWuTm5euh92sOT1sNtCzPbvaLxWPK+TrlDuD
+	 LQtdG7qRRF2Kh4fV2GzB4HPD3o/Y5+WuaCRBWvC+YR1foDJ5lBdN9g/HQF5DwXwa8IFdX
+	 XbygmAmJesSZ2F7NGjQMOWGI3VzhzEI9Hdje5D3MF7mCB8OtPxKQQWlOSkPBvCnyiuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=I2P8n3HM;
-	arc=none smtp.remote-ip=209.85.222.181
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AC3606A897
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:22:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37AC3606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vJjzGIwh;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70A09606A884;
+	Mon, 16 Nov 2026 18:22:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A09606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=I2P8n3HM
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f1e5d7450so462727885a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:22:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794853358; x=1795458158; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MqhyZLQkkCy8/4ClTcekh7qpvqyyl6/PFl4tE1ESvso=;
-        b=I2P8n3HMzvp5OKzZYOywUkl/ozYHK/CE5fFhHOEnWVWSF5Hs9PV7EqrjZetfF/5b3n
-         UNY0wMypHqtMSPepRPFkLZ5Q+5s94MSzWnT2fIz7EhrM8VBiiOjlUdMLUdBZRUghmRgx
-         3BgqQOrjVqwxBoE88tyXgjoTG8xRjAdqhOkIhTUPThw3aPoo2K/nFb4v4lBsDH1Md6dN
-         O32jBFBsWEmvw8yW8uDJQl6YzKgWF8vJrF5z456xn7mnX5GNbYB6QJQ9vOwT5nweIA2v
-         BH6h4rocb+/H+baHciMu3epiiArYA7Khb8i8FT0J/LokU6MSt14VZp84+9pNlLLkBaNo
-         /fqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794853358; x=1795458158;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MqhyZLQkkCy8/4ClTcekh7qpvqyyl6/PFl4tE1ESvso=;
-        b=a9OmbfWczdL/2qji+eH2Ye9B6u+MVL5TB9+9g08U1F0OfD13bBv56EZQDclesrKK4r
-         e3pRYNNoI9o+ognLPu1SXfWxNA3FexNwjyxapiqaEzpP+rKeVbzo1pLQID7EUWTryaS7
-         YGW9St3zuwOoMV7tqaStbe7Cf/5Pb2SBkNLQL9cg4Wt52HqgrbE4r1KGA7gydCxpk76m
-         Qli1zZxt+rR4hQxXeUA/52EdID8kK2zj8of/ibzQZQlPZcEKViidr7F8H5Zm5XHwPpm1
-         MED/1gxxuBQoAuYFCVLJz/Oasbr3CP5jZy281CNsqgBFA0gCegw656wrFEI6Mt0amdzK
-         NPtg==
-X-Forwarded-Encrypted: i=1; AL+hErG8vA1eo/ho3oCo1VolcghMrvGRnqmAEjShqBiyf3mAd3C0xHrPU+r5WnQcKdy5Bv6taHOTkXWf981VZFw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+otizxyftPYCnBpXT7oRJuf3ilenxEyuFtZRU9fU4jQhcxgMAx
-	izCQRPIhEJGNrxoZANR29M9T6CxQAvNJONWL0QBSj6mDrkGj42K8ofrkRmhOm4W7sa0=
-X-Gm-Gg: AYBFou0VHx1mEsxqe7JEvMykE9JdjAhjxw9upiSYMTnBzBrY7XxAEd4MRqtlIMF2hyv
-	JFTeSqc01wkwSINx+apts/NNcOZJ01h9DFC8yF54/nRN+qsRHWPsSSxhkcKB0dVi1ICPWwVyuTw
-	kvOxFXKL4ItDSwce1KSuP+6OUlVVxkdyLDLrOMAaIGAWHJoxdlMQD137yGKkoXuodqqaBOG3VXK
-	GeUnvxUr3SfjLNhq4+ISk578rOAg4gO9TBRXfMsJj3IUYCRo9mkT2H1gPcdSaMJePxiEfiIHjlk
-	LJ0BiLjo9tHr/f0xfZp9co7HHd6HeH4jHaJ1qdSI9+w5tfEkW6JcvgH7g/cG8Skieqg7AGKTQNC
-	EWPwb1PXKC4xqUQPdcK/k/M2qFWNTVlLgaMOcsX3rDrMdCfDlE8SvLgRPErFQN4q9RuFI6nnCTM
-	yjRcJ6Tsf+EOY2sHAv5hhbp3p/oz1sRmwzug/DBaPJb4tbv3dV7rZGCDneIOjfwStbbDyoM+3Vi
-	1llndCMNe9lvT5F9YrNy8GLIb5DxyfV112YQCpF7keHqwBX4VVjb3Lqy2fBUsQcD/60RQ8ocrh4
-	1WU6v6jJKFDpfgSi0lCzStHOSlmBW0PwtjUHrishKZwx/JLe08PF0GVoVNd0l2CMRzjHuQeg2EV
-	h8c5t7Hs+qm3PXL0suwLD62xDcjRM
-X-Received: by 2002:a05:620a:4111:b0:93f:cbd:8e20 with SMTP id af79cd13be357-9494bbeb2cdmr1788283985a.73.1794853358208;
-        Mon, 16 Nov 2026 10:22:38 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c836f6dsm902791285a.22.2026.11.16.10.22.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:22:37 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vJjzGIwh
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B63F1684;
+	Mon, 16 Nov 2026 10:22:43 -0800 (PST)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F247C3F632;
+	Mon, 16 Nov 2026 10:22:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794853366; bh=3HQbqbNQTpF6lOh0eDAnhrgV5w1oEbiu/SzFYvPoCoQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=vJjzGIwhpoGP+617+yXgzDJiFrNJCUg8COsq6eqpx7JRpW6wo53CMiGuWRAHhQQR7
+	 VtywxfvpEAkxZAwI7M9ljvphkHEfNAritXEXLAelFAf4kAm7r+qY0z6YlkSS6GskKZ
+	 OZJ9KBKWXxiwyUEcLbjbhPe8zs5erqg9i1StmMdQ=
+From: Leo Yan <leo.yan@arm.com>
+Date: Mon, 16 Nov 2026 18:21:35 +0000
+Subject: [PATCH 8/8] ACPI: arm64: Move PMU device registration to
+ drivers/acpi/arm64/
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,89 +58,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/3] mm/huge_memory: only compare PFNs of huge entries
- on huge fault insert
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
- Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
- Roman Kisel <romank@linux.microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>, 
- Naman Jain <namjain@linux.microsoft.com>, 
- Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
-Date: Mon, 16 Nov 2026 13:22:36 -0500
-Message-Id: <179485335600.482102.464304486749600271.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Message-Id: <20261116-acpi_arm_pmu_registration_hmp-v1-8-0371d4eca626@arm.com>
+References: <20261116-acpi_arm_pmu_registration_hmp-v1-0-0371d4eca626@arm.com>
+In-Reply-To: <20261116-acpi_arm_pmu_registration_hmp-v1-0-0371d4eca626@arm.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Daniel Scally <djrscally@gmail.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>, Will Deacon <will@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Hanjun Guo <guohanjun@huawei.com>, Jeremy Linton <jeremy.linton@arm.com>, 
+ Marc Zyngier <maz@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Sudeep Holla <sudeep.holla@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Anshuman Khandual <anshuman.khandual@arm.com>, Al Grant <al.grant@arm.com>, 
+ "Johnny.Fan" <johnny.fan@cixtech.com>, linux-acpi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-perf-users@vger.kernel.org, Leo Yan <leo.yan@arm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794853327; l=3632;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=3HQbqbNQTpF6lOh0eDAnhrgV5w1oEbiu/SzFYvPoCoQ=;
+ b=X1LNld2n0QV0BE/yEJT3EFjRd/pSftFLxS6q+LckxMovIMspt6ojlw4avaXkuq6s/KkLjpzCC
+ We8c6U5F43KAt6ZSBQrXO1VU2Z3enb4zhQKneze/7rbzX+WkYWT6n+A
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-On 2026-11-15 20:58 +0000, Lorenzo Stoakes (ARM) wrote:
-> A driver that implements both ->fault and ->huge_fault must anticipate
-> concurrent use of both.
-> 
-> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
-> concurrent with faulting, as that only holds the mmap write lock and thus
-> does not exclude faulting threads stabilised by VMA lock.
-> 
-> insert_pmd() and insert_pud() have issues with this as they both assume
-> that, if the page table entry being populated is not empty, it must a
-> present huge entry.
-> 
-> This is problematic as if it is a write fault, it compares its PFN against
-> the one being inserted, warning if they differ, on the assumption that the
-> entry is a huge leaf.
-> 
-> Since the entry may be a page table, this is invalid and can result in
-> spurious warnings.
-> 
-> Equally, the entry might be non-present. Nothing can install such an entry
-> in the VMAs that reach this code today, but there is no reason to rely upon
-> that.
-> 
-> Therefore only examine the PFN if the entry is both present and huge, and
-> otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
-> at the appropriate level.
-> 
-> This is what already happens for a read fault, for which the existing entry
-> is not examined at all.
-> 
-> Target the commit which introduced the first driver which both mixes fault
-> orders and passes the write flag for the fix (since this commit, both
-> drm_gem_shmem and panthor are prey to this issue).
-> 
-> Reported-by: Eliav Farber <farbere@amazon.com>
-> Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
-> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+The ACPI PMU code now registers platform devices for the CPU PMU, SPE
+and TRBE. Move it to drivers/acpi/arm64/pmu.c with the other Arm ACPI
+device enumeration code.
 
+Move its Kconfig entry alongside it and rename the hidden ARM_PMU_ACPI
+symbol to ACPI_PMU. Drop the ARM_PMU dependency: enumeration does not
+use the CPU PMU framework, and each device type is guarded by its driver
+configuration. This allows SPE and TRBE enumeration with ARM_PMU disabled.
 
-Tested with a similar test to patch 1, but used QEMU's virtio-gpu device
-to generate the bad condition.
+Keep the default-y setting, update the build guard and retain PMU
+maintainer coverage for the new path.
 
-With just patch 1 applied we generate a bunch of warnings, while this
-resolves those warnings.
+Signed-off-by: Leo Yan <leo.yan@arm.com>
+---
+ MAINTAINERS                                       | 1 +
+ drivers/acpi/arm64/Kconfig                        | 4 ++++
+ drivers/acpi/arm64/Makefile                       | 1 +
+ drivers/{perf/arm_pmu_acpi.c => acpi/arm64/pmu.c} | 0
+ drivers/perf/Kconfig                              | 4 ----
+ drivers/perf/Makefile                             | 1 -
+ 6 files changed, 6 insertions(+), 5 deletions(-)
 
-Rethinking whether any of these should be squashed, and maybe not.
-Really i guess patch 1 just mask's the bugs, and patches 2/3 fix them.
-
-Either way, change looks straightforward to me.
-
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ccbcdc0799b9fb8cc2b4dc139906e1584e096c46..f12a37cf20e13583c949b6fa7d9f5eb08e260566 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2445,6 +2445,7 @@ F:	arch/arm*/include/asm/hw_breakpoint.h
+ F:	arch/arm*/include/asm/perf_event.h
+ F:	arch/arm*/kernel/hw_breakpoint.c
+ F:	arch/arm*/kernel/perf_*
++F:	drivers/acpi/arm64/pmu.c
+ F:	drivers/perf/
+ F:	include/linux/perf/arm_pmu*.h
+ 
+diff --git a/drivers/acpi/arm64/Kconfig b/drivers/acpi/arm64/Kconfig
+index f2fd79f22e7d836b07401eb055725b2632ba624c..b4dd7f4d257e005b32d34012169ac595dcdee468 100644
+--- a/drivers/acpi/arm64/Kconfig
++++ b/drivers/acpi/arm64/Kconfig
+@@ -24,3 +24,7 @@ config ACPI_APMT
+ 
+ config ACPI_MPAM
+ 	bool
++
++config ACPI_PMU
++	depends on ACPI
++	def_bool y
+diff --git a/drivers/acpi/arm64/Makefile b/drivers/acpi/arm64/Makefile
+index 9390b57cb56481c547ebb896c58cf3e37a980827..f09e4506954d897caa44481a83f81ca65cfb7d96 100644
+--- a/drivers/acpi/arm64/Makefile
++++ b/drivers/acpi/arm64/Makefile
+@@ -5,6 +5,7 @@ obj-$(CONFIG_ACPI_FFH)		+= ffh.o
+ obj-$(CONFIG_ACPI_GTDT) 	+= gtdt.o
+ obj-$(CONFIG_ACPI_IORT) 	+= iort.o
+ obj-$(CONFIG_ACPI_MPAM) 	+= mpam.o
++obj-$(CONFIG_ACPI_PMU)		+= pmu.o
+ obj-$(CONFIG_ACPI_PROCESSOR_IDLE) += cpuidle.o
+ obj-$(CONFIG_ARM_AMBA)		+= amba.o
+ obj-y				+= dma.o init.o
+diff --git a/drivers/perf/arm_pmu_acpi.c b/drivers/acpi/arm64/pmu.c
+similarity index 100%
+rename from drivers/perf/arm_pmu_acpi.c
+rename to drivers/acpi/arm64/pmu.c
+diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
+index 245e7bb763b9947afc0330689b15d1b73d567f25..e9d61d5dbd1f174cc3862cf7f7823896df9d07d6 100644
+--- a/drivers/perf/Kconfig
++++ b/drivers/perf/Kconfig
+@@ -129,10 +129,6 @@ config ANDES_CUSTOM_PMU
+ 
+ 	  If you don't know what to do here, say "Y".
+ 
+-config ARM_PMU_ACPI
+-	depends on ARM_PMU && ACPI
+-	def_bool y
+-
+ config ARM_SMMU_V3_PMU
+ 	 tristate "ARM SMMUv3 Performance Monitors Extension"
+ 	 depends on ARM64 || (COMPILE_TEST && 64BIT)
+diff --git a/drivers/perf/Makefile b/drivers/perf/Makefile
+index eb8a022dad9a7a78433d42e9424c632d187debea..ddbae5f627ad8bcbe9d7e6c29293429562d85037 100644
+--- a/drivers/perf/Makefile
++++ b/drivers/perf/Makefile
+@@ -5,7 +5,6 @@ obj-$(CONFIG_ARM_CMN) += arm-cmn.o
+ obj-$(CONFIG_ARM_DSU_PMU) += arm_dsu_pmu.o
+ obj-$(CONFIG_ARM_NI) += arm-ni.o
+ obj-$(CONFIG_ARM_PMU) += arm_pmu.o arm_pmu_platform.o
+-obj-$(CONFIG_ARM_PMU_ACPI) += arm_pmu_acpi.o
+ obj-$(CONFIG_ARM_PMUV3) += arm_pmuv3.o
+ obj-$(CONFIG_ARM_V6_PMU) += arm_v6_pmu.o
+ obj-$(CONFIG_ARM_V7_PMU) += arm_v7_pmu.o
 
 -- 
-~Gregory
+2.34.1
 
