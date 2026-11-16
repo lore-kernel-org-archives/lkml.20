@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812688;
-	b=5IlE76qXkQ9byr3fJDxEDsd5zwn32QGarnKuPYKY2CHPfqjqpc/QtEu0HNMVMmVwYfrd
-	 gKG6IMDN9rWLr5UnI0fj5uGWNkKdczb84UAsWAGtm0fsz4bAQ/Q1UPLdQ5QqcNQNUFoJK
-	 lObYA6YPD8sWNGI3kmIG7+Ktl5OmxiJnlPT6BKq9eEpKJtwTWUzHpnoKhUzBuIwXVC33S
-	 /z8bIB9+evcTted/CrD2RZZpcWdZO8n1bs8NJtVD6OX/+nApOg5nwXQXTe4iJJmF2WLwz
-	 LBWH03CC4lTFq1tw+G8Vx4eXS90gq7WUbNRnxU7AfnRYfJExl50g7IC+sebcQ4T338A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812688;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=omQopKG0vJN/8IAN9W8FBopNM44OY3QKRAS5YIysdeY=;
-	b=SfP73oRe5XrSKYmQRhHdG4U5JI7HuQC74IeJdKNmI3VrHeZNIH0S0aeRAjf336l8VMAE
-	 UFev4vRRuPz6UFWaglDuY/P3vfkwIz2ev2TvyiNG1DYYJr1p1NZm0tKnKQEpzWIA68rKP
-	 a4w57aR0FBdqL/2Yy88qSWdDEPVoYWQBWn5ScGjBrefmWHDZU+lhZVhzpIkVMLc9D21/T
-	 AkmNutifOKNIhqNc3cQIOkZ+4JMvjJ/ol8G7QeBqbcKtlENbE+7WxttdNFsNI04Ddv62R
-	 kQkEn0qZuHOvM1UKRG6BvD6a1svbWxjecs2P6y7OWcUxo2o9qT72BKadp6BFcN5vgfg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yuzi.co;
-	spf=pass smtp.mailfrom=yuzifovich.name;
-	dkim=pass header.d=yuzi.co header.i=@yuzi.co header.a=rsa-sha256 header.s=google header.b=N4TBKIhZ;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794812741;
+	b=k8NsWSfj8NKyDrwDe/1FmH7FUARlaRdb6NO7kq3KL71J39EyDmeD5gzPW5QuIt3GSPlf
+	 Ks6qcJFrFDZr5M/3ZkyiKfRzO5IFslaxzYYJULZtjkN69E194bhyDdiegsDhi2sPwyrxJ
+	 wlpjbpEG9vwuA6EKf8GXH+UMkzX6NPZc/vD6WuIEYj4jN7h3SPg5+dakRSHkX8P72s/2E
+	 i/vcRWyI3ksdc5Rln6qM2cumluFGwNTPyl+Y1QK0BYRSzIS7n+riczrHdq/6dV5im8Lrl
+	 augFWBM//FUf8WeGsiVQh8MrLMYAVx6XtoN0SceEzPBxrRewgLthG/lJeCexuzOkOmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812741;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rBoc9Az+eYLYApOQ5Nq0UwLguS2L7Y5c89wC992tlqw=;
+	b=RF1Dq+vBIGMLOlwrmcolukGXaZPoRD3OeSftF6gCKXAuKGfFKydT3cIW1mIRxU5oj6Cs
+	 JKRdx7lqit0cll0Pvesl+Lul3tWAG2keCT30xemiX/fCJRS9+kt07nvPzeav1lxIlpC8L
+	 R5qHQ98c2JUtctPZ8jvApv5lrzI2bEitK2C2rwPdRmd/+wufWyxcQLwy/48FEUuuRWYGk
+	 mSvt4I2g3PUmZUzGYMYTJFBIoPIntYbtvK8fCcJUV2EUxkiBwV3pjYEb5LdyZ/4Jauvk6
+	 4cl2jgPR4mPcImM/SvtsnzrPdH+XVj+LMmpokfME+3bjiH2CpoAOEcM+d67TMcXdh8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SJ5S0Ys/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABBD606A323;
+	Mon, 16 Nov 2026 07:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJ5S0Ys/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794812741;
+	b=Tm08GaosT3F35/goGlMpFlAHYY8sLzjJNGvB2jqci8Egx3nCjpORUUuS9fVMDo6XwQoN
+	 DPssXd3At6lRwQ/hIvzabaRCIshsObTR+CyiAhvWOjVP1aue6BEBmK6zpBbJDTx4qILLE
+	 WlmEMvlY1xqQHtT9AHyHexNb4IPqdiP+y1NEqSb7uk6ThH7Htz7Z6snG8PBc7IBguMJx/
+	 4gJ0qtqff1jAupMkl/UUFJtNhhPrzlz1Xtnrlxb8nO99eZ73OJ0/rIdGyw/d8uCkniLG7
+	 OuOemv1LZGKvXpDYzjdbXQcIPXWN/XbroGWhw8SP8+slhV/GiG2rFo9E6J8eTNNrAaQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794812741;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=rBoc9Az+eYLYApOQ5Nq0UwLguS2L7Y5c89wC992tlqw=;
+	b=BHqtVSLUaiK8Zkq8jw1Nbze/XQz3JyfdkU1SWd8xpkVdZy0fSjd5c6v1MWKolC+k43Al
+	 BRsdpm8HiWnYyMTOEHMQIG7jDCXEA1aR+a4DlepRTRQwGlJqvL/HFcF1BFhnK+i9MEmED
+	 RSszyqxrmhl9uN+gwEhawRCE3kKNekfgyFtxXjpoW0rDUS9xjghvQGH8blXKi0hD9pBbQ
+	 x7bPXOIdIs/ThgoEpyIg6s6iLnuPRZYQFb7hvisQg+2BEtR9ntJi411fIP5Tvje8d/r+O
+	 /MSZdNwJCjPBuRK3iPlmLmj4EUUuBFKersQJV5SFs5MoY92TJZQDtFzs3XVVowPXMxQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A21F606A88D
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:04:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A21F606A88D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yuzi.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yuzifovich.name
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yuzi.co header.i=@yuzi.co header.a=rsa-sha256 header.s=google header.b=N4TBKIhZ
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb72b44a97so2971395e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:04:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=yuzi.co; s=google; t=1794812686; x=1795417486; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=omQopKG0vJN/8IAN9W8FBopNM44OY3QKRAS5YIysdeY=;
-        b=N4TBKIhZUREx+oko062InQiY/JGmQZFhHL9mJdq6v9lX+SqJ8zGFXOtJsAj9Y8fVAo
-         iX19tVhA5QIr73O1O/OLq6FYIHJR1RqFETQ68iU2ZA9Tn6074FFOp5GnTgUXsXwFlR4O
-         V+QohIK7sACnWx4dPtQJx7QyjnA4c4M02rBO4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794812686; x=1795417486;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=omQopKG0vJN/8IAN9W8FBopNM44OY3QKRAS5YIysdeY=;
-        b=Fn6zoZshE9l7S4VUQR4mIvJPpYzxB83eVPV1paIzr56GhMHcK8JHqL11tbpjAfL4w5
-         ZNaQZcNrp2+wrvILxwmUbDOnwZ/wzndi14yLhBQ23SoMGLM2JZw4NeD0J+4sZFYWTgVf
-         knzWEr92/3r0ii3oX184u7UAk0jhCYO9oFulKfimmf7oXtG0aefG1t+0iYq8miO2DpzO
-         sZf6r0EQysFP6Yiyy8v3ZERiQSh8SpTXEOWklnibGLhTNhlqZyVcqvq1urOyhNDLtHuV
-         K4jo6U7EGd8pFQ0epAcR87/SpFivvQNtYytMULn1Ik1BBCay5GEJmQiz+o/2Mxr1GLDD
-         FywA==
-X-Forwarded-Encrypted: i=1; AL+hErFzOWxEIVqde9mZODXJRIsXRYRSZufgW/8FvgAJFRnGhw5qSF+23rUFL2yY0WasMXIIoPvgsFs9K4CD8lc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NXbGkEEs3zc9RVWyPLXHPi6iWEgEzdtko8JGeUdywNMDpUBkR
-	zFoo+CgXSHSCZXBkEKEANyKUI7FQSyjSRAnIRJTw+EDOgkfhfh/U1uy0LbS7ocCcZKI=
-X-Gm-Gg: AYBFou0sdgo0heHc1RRroANWqf+0tMrDDvMOsMRaGfb7jMXiro6UkyVorTvF1ye8vW2
-	hfGkKBcFhCzcbJNZ3s9gyECucvqBhWRHO+tdrpWV2qjxul176ZriVs8kMGgDBWDQXUQ1HMLIWfY
-	VBRsJRonteWUlO38lJni9YVB54L0PnyhNXLmJNidH575I8mN1iBSJCXwgPUyAt82dfEyvL2Gfk7
-	uFOK3BXGl8S6TLuXXYQUwOPic0adS2DB0zUVZHH2awlHbjaKy+s1QyNkcJK32qYw8saQm5ewPOQ
-	6cHXFgkR10kq7vt3ZknN/U5fbKiVvYcHEP1ZdbtJOfi5kIQZDI/e18S7PPaXADOS1qWysUiQd4k
-	rxB8CUH0z/lkdLVS5PxjfCHSVxjE+VVAfn5RtmEDw0hnvlZVrAoJ7eQP9DvgV59mkHXMopkG/h6
-	JmDus/7KqiVEjpsO2QDEnqA02X2Lo9+EeDP9eQ4P6w4naioBGanSAjsTypFtDBPMdss8GTKWWCw
-	GOhR28vUuurkCG0T3nb+1n/8rQtwIRHT/pgN9Cz0121jQ2TZT/0NY5ERnga/qlpdwuRNFKj3xS9
-	Bn9/KB2rOFrl45uKyM4fUEtGxI+4EV7U03lZIZedCQ+JUd90I6HhpFUsavQRx3UrTCE4ksVz3eG
-	Srd3NejM6S90Cv9Mana5qbwI0QvfoXNeLiWxswBesS/TqtiYaSMpbtONCDOqL9mU8JpesFtOXqp
-	FuckCbepon2HK2og==
-X-Received: by 2002:a05:600c:6096:b0:4bb:5de1:e923 with SMTP id 5b1f17b1804b1-4bb5de1f26dmr146040465e9.4.1794812685829;
-        Sun, 15 Nov 2026 23:04:45 -0800 (PST)
-Received: from terra.lan ([78.83.170.221])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c6451sm21866706f8f.45.2026.11.15.23.04.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:04:45 -0800 (PST)
-From: Vadim Yuzifovich <vadim@yuzi.co>
-To: gregkh@linuxfoundation.org,
-	Thinh.Nguyen@synopsys.com
-Cc: chenyou910331@gmail.com,
-	inochiama@gmail.com,
-	linux-usb@vger.kernel.org,
-	sophgo@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Vadim Yuzifovich <vadim@yuzi.co>
-Subject: [PATCH v2 3/3] usb: dwc2: gadget: make descriptors visible before the endpoint is enabled
-Date: Mon, 16 Nov 2026 09:04:33 +0200
-Message-ID: <20261116070433.2813951-4-vadim@yuzi.co>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261116070433.2813951-1-vadim@yuzi.co>
-References: <20261116070433.2813951-1-vadim@yuzi.co>
+	by smtp.kernel.org (Postfix) with ESMTPS id BEF1C1F000C5;
+	Mon, 16 Nov 2026 07:05:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794812741;
+	bh=rBoc9Az+eYLYApOQ5Nq0UwLguS2L7Y5c89wC992tlqw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=SJ5S0Ys/PDkerFAQXDztg4mxwvUqQaWJAKat33wC7U99JQi3bEsDGm+TLR+0tGr2H
+	 zQvr9sBZZkRn588EZzdtU1LK+X0dauYc2+dcZ9wSVpGtzMOeVyB3/FDUBXeM7fKk7Y
+	 eDlRewvqT2LIM5XdLV4M6Mw8m1iavIspbHY17i4r/yX/ilbjRYZKl49Qyiat08/u2B
+	 XXR6llGwZU2LJ1MNnAb6HKQnCwo6CGzJ24ymTLlCkN9Tq8eGCpgNLN8Zia+FDH09Zc
+	 dKeMtZ/BSJUVkGll2RYyQ29QotRYOnGuZ36MkGq35y6Ue5NFRSCeG1uHdwXDSBr5WZ
+	 GwDOq25TgQeBA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4F66B4A368;
+	Mon, 16 Nov 2026 07:05:40 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Mon, 16 Nov 2026 09:05:39 +0200
+Subject: [PATCH v2] PCI: rockchip-host: Retry link bring-up on repeated
+ Recovery
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,126 +83,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-rockchip-pcie-resume-v2-1-a633e279be97@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAEKr+moC/22NQQ7CIBBFr9LM2jFAwTSuvIfpgtBBJmppQImm4
+ e5i49Lle8l/f4VMiSnDsVshUeHMcW6gdh24YOcLIU+NQQl1kEIOmKK7usALLo4JE+XnnVA5PXl
+ Sfa8lQZsuiTy/tux5bBw4P2J6by9Ffu0vqPT/YJEo0AxktDXOGy9PbMv+VmCstX4AwyDy0bUAA
+ AA=
+To: Shawn Lin <shawn.lin@rock-chips.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: Rob Herring <robh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Matt Thompson <matt@boondocker.io>, linux-pci@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7808; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=Cps1/uQ5Lnu2PNKM6vu/z1g7FA1bXqg0a2gSZkGUYzE=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFm/VjufXCMedXRF1s3YKRz8VQrzCiaVx98o7BBOVCreF
+ sBle+ZaRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZgITynDP43jLLzXq0//a/xd
+ JMa//0BQ2KdX6z4XPVA4u6FnqUXw9HyG/w6tAgwiIXGes+Xu68078sU99PeGRIlznw/WrcucYJC
+ 6hh0A
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-In descriptor DMA mode the core fetches the first descriptor of a chain
-as soon as the endpoint is enabled. dwc2 fills the chain in coherent
-memory and then writes DxEPDMA and DxEPCTL.EPENA with writel(), whose
-barrier orders the earlier stores before the MMIO write. On a Sophgo
-SG2002 (T-Head C906, DWC_otg 4.20a) that is not enough: the core still
-finds a descriptor that is not host ready, raises BNA and disables the
-endpoint, although the descriptor reads host ready, last, short, IOC
-when the interrupt is handled.
+From: Igor Velkov <iav@iav.lv>
 
-With a host sending TEST UNIT READY to a CD-ROM LUN as fast as it can
-(about 2600 a second, each followed by REQUEST SENSE) and a 1080p60
-H.264 encode loading the DRAM, about 0.8% of transfer starts raised BNA,
-99.5% of them within 20 us of the enable (the latency of the interrupt
-itself), with DxEPDMA still at the head of the chain. Without the
-encode there was none in 254000 commands. BNAs per variant, measured in
-turn on one boot with a diagnostic build, at about 780000 transfer
-starts a minute each:
+On Kobol Helios64 (RK3399 with a JMB585 at x2) about 3% of link
+bring-ups go bad. The LTSSM reaches L0 and then re-enters Recovery about
+every 200 us; the RC sees DLLPs about 300 times as often as on a good
+link, with no DLLP or CRC errors. The first config read behind the port
+gets no completion and aborts the CPU, or link training times out. The
+state survives Recovery, and a new bring-up of the port clears it.
 
-  unchanged                                   6215, 6510
-  mb(), read the last descriptor, mb()           0
-  th.sync.s                                      0
-  udelay(2)                                      2
-  descriptor written as two word stores,
-    status last, dma_wmb() between            3728
+After the link comes up, poll the LTSSM for 5 ms and treat more than two
+entries into Recovery as a bad bring-up. The RC runs at 2.5 GT/s only,
+so no speed change goes through Recovery, and good bring-ups on the
+boards we tested showed no Recovery entries after L0. Bring the port up
+again, up to five tries in all with 500 ms between them, for this and
+for a training timeout. An empty slot stays in Detect, so a timeout
+there fails on the first try. If no try gives a usable link, probe and
+resume fail as they do on a training timeout today.
 
-Mapping coherent memory non-bufferable on the C906 did not change the
-rate either. So the stores are still on their way to DRAM when the core
-reads, and a load from the descriptor waits for them.
+Every link bring-up takes 5 ms longer. A link that stays bad delays the
+failure by 3 to 5 s.
 
-Read the last descriptor of a chain back between two full barriers
-before the endpoint is enabled, for non-isochronous transfers and for
-the start of an isochronous chain. An isochronous chain marks its first
-descriptor host ready last, so that one is read back as well. It costs
-one uncached load per transfer. With it there was no BNA in 6.2 million
-transfer starts under the same load, and none in a 60 minute run at
-1080p60.
-Signed-off-by: Vadim Yuzifovich <vadim@yuzi.co>
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
-v2:
-- Read the last descriptor back also when the isochronous chain is full
-  and next_desc has wrapped to 0.
-- Read descriptor 0 of an isochronous chain back as well.
+Tested on Helios64 with unbind/bind cycles; every bad bring-up was fixed
+by the first retry:
+- earlier builds with the same poll and retry loop, 7.3: no abort in 600
+  cycles (5 in 150 without the patch), 10/10 cold boots, 60/60 s2idle;
+- 7.4-rc2 with Matt Thompson's RFC v2 [1]: 4 bad bring-ups in 150
+  cycles; with the RFC alone the JMB585 was lost in 5 of 150;
+- this patch, 7.4-rc2: 5 bad bring-ups in 150 cycles (one of them a
+  training timeout), no abort; 20/20 s2idle.
+An NVMe drive on a ROCK Pi 4A with the patch: 60 cycles, none rejected.
 
- drivers/usb/dwc2/gadget.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+[1] https://lore.kernel.org/r/20261113-rfc-b4-v2-0-d6b14f95c1d6@boondocker.io
+---
+Changes in v2:
+- Drop the hot reset of patch 2: it did not stop the aborts.
+- Also retry when the link keeps entering Recovery in the first 5 ms
+  after link-up; up to five tries, 500 ms apart.
+- Do not retry a training timeout in Detect.
+- Rebase onto pci/next.
+- Link to v1: https://lore.kernel.org/r/20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv
+---
+ drivers/pci/controller/pcie-rockchip-host.c | 80 +++++++++++++++++++++++++++--
+ drivers/pci/controller/pcie-rockchip.h      |  3 ++
+ 2 files changed, 80 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
-index a7eaf75ff..cd1773836 100644
---- a/drivers/usb/dwc2/gadget.c
-+++ b/drivers/usb/dwc2/gadget.c
-@@ -854,6 +854,27 @@ static void dwc2_gadget_fill_nonisoc_xfer_ddma_one(struct dwc2_hsotg_ep *hs_ep,
- 	}
+diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
+index 1e1556e436b8..7c43e5bcccd3 100644
+--- a/drivers/pci/controller/pcie-rockchip-host.c
++++ b/drivers/pci/controller/pcie-rockchip-host.c
+@@ -13,12 +13,14 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bitrev.h>
++#include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/interrupt.h>
+ #include <linux/iopoll.h>
+ #include <linux/irq.h>
+ #include <linux/irqchip/chained_irq.h>
+ #include <linux/irqdomain.h>
++#include <linux/ktime.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_pci.h>
+@@ -29,6 +31,11 @@
+ #include "../pci.h"
+ #include "pcie-rockchip.h"
+ 
++#define ROCKCHIP_PCIE_LINK_CHECK_US		5000
++#define ROCKCHIP_PCIE_LINK_CHECK_MAX_RECOVERIES	2
++#define ROCKCHIP_PCIE_LINK_BRING_UP_TRIES	5
++#define ROCKCHIP_PCIE_LINK_RETRY_WAIT_MS	500
++
+ static void rockchip_pcie_enable_bw_int(struct rockchip_pcie *rockchip)
+ {
+ 	u32 status;
+@@ -277,9 +284,40 @@ static void rockchip_pcie_set_power_limit(struct rockchip_pcie *rockchip)
+ 	rockchip_pcie_write(rockchip, status, PCIE_RC_CONFIG_CR + PCI_EXP_DEVCAP);
  }
  
 +/*
-+ * dwc2_gadget_desc_visible - make descriptors the CPU has just written
-+ * visible to the core before it is told to fetch them.
-+ * @desc: The descriptor written last.
-+ *
-+ * The core fetches the first descriptor of a chain as soon as the endpoint is
-+ * enabled. writel() orders the CPU's earlier stores before that MMIO write,
-+ * but on the Sophgo SG2002 (T-Head C906) the stores to coherent memory can
-+ * still be on their way to DRAM when the core reads it. The core then finds a
-+ * descriptor that is not host ready and raises BNA. Reading the last
-+ * descriptor back between two full barriers waits for the stores to land.
++ * A bad bring-up re-enters Recovery about every 200 us, and config requests
++ * through it get no completion. A good link settles in L0. Each visit to
++ * Recovery lasts about 5 us, so we busy-poll; the limit of two entries leaves
++ * margin for an occasional retrain of a good link.
 + */
-+static void dwc2_gadget_desc_visible(struct dwc2_dma_desc *desc)
++static bool rockchip_pcie_link_is_stable(struct rockchip_pcie *rockchip)
 +{
-+	/* Order the stores to the chain before the load below. */
-+	mb();
-+	(void)READ_ONCE(desc->status);
-+	/* Finish the load before the MMIO write that enables the endpoint. */
-+	mb();
++	ktime_t end = ktime_add_us(ktime_get(), ROCKCHIP_PCIE_LINK_CHECK_US);
++	bool was_recovery = false, is_recovery;
++	int recoveries = 0;
++	u32 state;
++
++	while (ktime_before(ktime_get(), end)) {
++		state = rockchip_pcie_read(rockchip, PCIE_CLIENT_DEBUG_OUT_0);
++		state &= PCIE_CLIENT_DEBUG_LTSSM_MASK;
++		is_recovery = state >= PCIE_CLIENT_DEBUG_LTSSM_RCVR_LOCK &&
++			      state <= PCIE_CLIENT_DEBUG_LTSSM_RCVR_IDLE;
++
++		if (is_recovery && !was_recovery)
++			recoveries++;
++		was_recovery = is_recovery;
++		udelay(2);
++	}
++
++	return recoveries <= ROCKCHIP_PCIE_LINK_CHECK_MAX_RECOVERIES;
 +}
 +
- /*
-  * dwc2_gadget_config_nonisoc_xfer_ddma - prepare non ISOC DMA desc chain.
-  * @hs_ep: The endpoint
-@@ -881,6 +902,7 @@ static void dwc2_gadget_config_nonisoc_xfer_ddma(struct dwc2_hsotg_ep *hs_ep,
- 	if (!ureq || !ureq->num_sgs) {
- 		dwc2_gadget_fill_nonisoc_xfer_ddma_one(hs_ep, &desc,
- 			dma_buff, len, true);
-+		dwc2_gadget_desc_visible(desc - 1);
- 		return;
+ /**
+  * rockchip_pcie_host_init_port - Initialize hardware
+  * @rockchip: PCIe port information
++ *
++ * Return: 0 on success, -EAGAIN if another bring-up of the link may help, or
++ * another negative error code
+  */
+ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
+ {
+@@ -325,7 +363,19 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
+ 				 status, PCIE_LINK_UP(status), 20,
+ 				 500 * USEC_PER_MSEC);
+ 	if (err) {
+-		dev_err(dev, "PCIe link training gen1 timeout!\n");
++		status = rockchip_pcie_read(rockchip, PCIE_CLIENT_DEBUG_OUT_0) &
++			 PCIE_CLIENT_DEBUG_LTSSM_MASK;
++		dev_warn(dev, "PCIe link training gen1 timeout, LTSSM %#x\n",
++			 status);
++		/* An empty slot stays in Detect; another try cannot help. */
++		if (status > PCIE_CLIENT_DEBUG_LTSSM_DETECT_ACTIVE)
++			err = -EAGAIN;
++		goto err_power_off_phy;
++	}
++
++	if (!rockchip_pcie_link_is_stable(rockchip)) {
++		dev_warn(dev, "PCIe link up but keeps entering Recovery\n");
++		err = -EAGAIN;
+ 		goto err_power_off_phy;
  	}
  
-@@ -893,6 +915,7 @@ static void dwc2_gadget_config_nonisoc_xfer_ddma(struct dwc2_hsotg_ep *hs_ep,
- 	}
- 
- 	hs_ep->desc_count = desc_count;
-+	dwc2_gadget_desc_visible(desc - 1);
+@@ -377,6 +427,30 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
+ 	return err;
  }
  
- /*
-@@ -1079,12 +1102,23 @@ static void dwc2_gadget_start_isoc_ddma(struct dwc2_hsotg_ep *hs_ep)
- 	depctl = hs_ep->dir_in ? DIEPCTL(index) : DOEPCTL(index);
- 	dma_reg = hs_ep->dir_in ? DIEPDMA(index) : DOEPDMA(index);
- 
-+	/*
-+	 * The rest of the chain has to be visible before descriptor 0 is
-+	 * host ready. The queue is not empty, so at least one descriptor was
-+	 * filled: next_desc 0 means that the chain is full and the index
-+	 * wrapped.
-+	 */
-+	i = hs_ep->next_desc ? hs_ep->next_desc - 1 :
-+			       MAX_DMA_DESC_NUM_HS_ISOC - 1;
-+	dwc2_gadget_desc_visible(&hs_ep->desc_list[i]);
++static int rockchip_pcie_bring_up_port(struct rockchip_pcie *rockchip)
++{
++	struct device *dev = rockchip->dev;
++	int i, err;
 +
- 	/* write descriptor chain address to control register */
- 	dwc2_writel(hsotg, hs_ep->desc_list_dma, dma_reg);
++	for (i = 0; i < ROCKCHIP_PCIE_LINK_BRING_UP_TRIES; i++) {
++		if (i) {
++			dev_info(dev, "retrying the link bring-up (%d/%d)\n", i,
++				 ROCKCHIP_PCIE_LINK_BRING_UP_TRIES - 1);
++			msleep(ROCKCHIP_PCIE_LINK_RETRY_WAIT_MS);
++		}
++		err = rockchip_pcie_host_init_port(rockchip);
++		if (err != -EAGAIN)
++			break;
++	}
++
++	if (err == -EAGAIN)
++		err = -ETIMEDOUT;
++	if (err)
++		dev_err(dev, "no usable link: %pe\n", ERR_PTR(err));
++
++	return err;
++}
++
+ static irqreturn_t rockchip_pcie_subsys_irq_handler(int irq, void *arg)
+ {
+ 	struct rockchip_pcie *rockchip = arg;
+@@ -881,7 +955,7 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
+ 	if (err)
+ 		goto err_disable_0v9;
  
- 	desc = &hs_ep->desc_list[0];
- 	desc->status &= ~DEV_DMA_BUFF_STS_MASK;
- 	desc->status |= DEV_DMA_BUFF_STS_HREADY << DEV_DMA_BUFF_STS_SHIFT;
-+	dwc2_gadget_desc_visible(desc);
+-	err = rockchip_pcie_host_init_port(rockchip);
++	err = rockchip_pcie_bring_up_port(rockchip);
+ 	if (err)
+ 		goto err_pcie_resume;
  
- 	if (!hs_ep->dir_in && !again &&
- 	    dwc2_gadget_isoc_out_held_packet(hs_ep)) {
+@@ -938,7 +1012,7 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
+ 		goto err_set_vpcie;
+ 	}
+ 
+-	err = rockchip_pcie_host_init_port(rockchip);
++	err = rockchip_pcie_bring_up_port(rockchip);
+ 	if (err)
+ 		goto err_vpcie;
+ 
+diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
+index b5da15601b58..fcdc3783b3fd 100644
+--- a/drivers/pci/controller/pcie-rockchip.h
++++ b/drivers/pci/controller/pcie-rockchip.h
+@@ -51,6 +51,9 @@
+ #define   PCIE_CLIENT_PHY_ST			BIT(12)
+ #define PCIE_CLIENT_DEBUG_OUT_0		(PCIE_CLIENT_BASE + 0x3c)
+ #define   PCIE_CLIENT_DEBUG_LTSSM_MASK		GENMASK(5, 0)
++#define   PCIE_CLIENT_DEBUG_LTSSM_DETECT_ACTIVE	0x01
++#define   PCIE_CLIENT_DEBUG_LTSSM_RCVR_LOCK	0x0b
++#define   PCIE_CLIENT_DEBUG_LTSSM_RCVR_IDLE	0x0e
+ #define   PCIE_CLIENT_DEBUG_LTSSM_L1		0x18
+ #define   PCIE_CLIENT_DEBUG_LTSSM_L2		0x19
+ #define PCIE_CLIENT_BASIC_STATUS0	(PCIE_CLIENT_BASE + 0x44)
+
+---
+base-commit: 35f800669ce835aa77364a2ab5b61be19b778d3c
+change-id: 20261018-rockchip-pcie-resume-2c4dfe23341e
+
+Best regards,
 -- 
-2.56.0
+Igor Velkov <iav@iav.lv>
+
 
