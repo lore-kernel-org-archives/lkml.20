@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794810348;
-	b=kXBan3BEPwgq4o5EU6/qvdsA9p9Ar90iGPMtpUDr647SBCJ5PanYFgCFh5/3f58GKGAo
-	 QtNDiGLOCsjYXu7RQ4Gg4uh1S7Ov4f9FSkOLV4e5kzIre/Mbu4olF+CTuZGyiAwwtfRH+
-	 GCRBh97GoNTCJwVCKBEbqoaWIOcbFf5hd6ucmqbZqwF/Qfy/sT55p3IcG7mTYCp7pFCwS
-	 RVZeymqBx8gzeh3nuAwTMfvUkFgQXgUadeEwNXMEaWkSRj0vxyT5w2VLlmgGINc62JfFF
-	 R/NA6KudVoE+lKNhWJQVZFnV9AXillZPnh2G2g60cKlWMbUXl/uzwc/8naCHZDX0sHQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794810348;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794810417;
+	b=x0dfo8JCtTUyz2tN4NJO3cp2rRh+N2C67cnn2fwd5XZOAP0X7z0jtVDAly3wizntFG9w
+	 8y/WHH86TxaHVw7aQFzAwcFVU6PFTyoZiQcEqOOxnGL6uNamMmh9YZF2RMPuDJbIAMMwW
+	 eN8mEzvV9Qg7/nWHoFjQ+rwSs7Nk0mtZCZ6KC9Msaj04IaOds2YU52Zu0LiXbG4zxr3vS
+	 Yml+bj7SrDII+eli7CvbPStYyp0ny5HRHcKnV67LDhikfmWo82gf22zKxA5/ib1HRqWPf
+	 shwra4jRlM2YagIvwv/yy8Gs55eZZqWRO4Ta1vC+y61UMhpVmx+ffbBzEfaHxlKAOdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810417;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UqI2rR4S/NYOEtKkItcu/tRll0s0XIsV9mZE5MtAea8=;
-	b=LPet+0/oV30Z6wrqNbG2WXXU2qSOVF2QIlnUnldq1y9yhXVb65D+FI9Vmob61gqrAMKR
-	 i64wtoKAZMe5a9GfLRE1esQ8QVPtAZUU5z2g1GdFJ1Dx3jIJQndQ588sDWSwO2NiCvVxY
-	 HWyVMn2mHAQsSDaknvEGlL8QsYyuUP4J8Q+vTbSKp8srxfcVSVTpfXm3BE4gUnQBiN5It
-	 EZpZ4jtHtOONq5bMvUpwSFHCs4++mwE2NOfFsHQkKXcZSKNk5SMxUI8cGAl/86x6yI689
-	 3C587Nexze9lmhVPEGLqJJ9vhMs8iFZI99JSUPw7ZNwfrmU09qnxhOBzbeMdEjKyS4g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wd/v+54C2+9hZ5vK2vynCTpvfy6lXgdEPXyeyseozC8=;
+	b=fMcNo+cjpVXfDSTMdhKHP6PwvaoLdV7CunFlwZ+E39Sj2z/J4pMgcObQG/INZil2P+/I
+	 6cxhBy4x+WIq0rwYxuFhOkjmIjcdS7M9POsQ4qcP+DqGMkH4q0wxZwQzmu2dH36vHq9VJ
+	 kSK4G6ePx20YXqheKOK3EcNnk+ZH+W2Ac4PFltwUOZ8yh2Fp7VjoW2JHXOTd4UBoXWR5Y
+	 HUtNDLV5DOGe2zF7FsfBpDsQHUg5a02P0gaoLRX+T4twJE70h999m+oA+Qqj/6wTIFaYD
+	 aZYZnakMh3Pmn5c6I2qtGnUZY9StrIQerNQOFbEBXMz0e2ccqLmI0gVmuHOgihnsIGw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ctcfra7N;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kCXmteOG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE79606A33A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE79606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33A7606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:26:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F33A7606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ctcfra7N
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-491971ac844so2684434f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:25:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kCXmteOG
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ea7190aea1so10332085ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:26:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794810416; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mTVtQla9vmdHwxvKmX49EBdqBch2rMjJhL0O2QU5kjFsquIi3XlDK1m1MJc4TWRIsO
+         SEal17vP9Q0E66BHCThYmGbru+BDqI4Df3bJlwS3SfM7nPBhSXzrwq6b72fjUKQs3lh/
+         6p0wWzhBSwWMRSXrIGtCRo+D+pvMdjfLsknY/pDZOPSTgjyuyoU3JUzMmahBzrNFLvtV
+         KL+sC1LyT/3DyfvaL3WfOqWUMIjoFSH5Vx99zzWCrV0wSEC+f4gCVGNY8uBxTiyJRJca
+         tsmHO1oZ1oGcc0zUiH1dcfkcB4bplTg8V86VZQ0od62HKhUq9q0HRC6SVUq0L6MUtwls
+         p70A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wd/v+54C2+9hZ5vK2vynCTpvfy6lXgdEPXyeyseozC8=;
+        fh=F9PuWdogo52uiVHW/ruAQzWalAFf8eJQl2cw3UZSHxg=;
+        b=Y6pVTbvFGr2JjyuxPAAKFgtKIj6YyO14aIpFIAlQ2ocJvKcmNjuIbFGlxLXPmzIBpm
+         maSKVIcuaqZg82sT5GT9HKhtZmlE2THsKgP7rA+7hGAB+VTtkH+jVLT64b7qMe3aLUzn
+         bSsPSmJcW2wHF+10fft8egnMKrz7JpVh1YHX5uU4Mn0rnXW6YEdYCdedw3FCdCSdfaJu
+         AVtJZ82re7mooWkj9CSmfHdA8w0UPUJwdKLqjDYATLfCFP65gOqokIsN4AnScEDsOhZX
+         +mvVOEtkS3b6sgQE5bkM1yI4Nk0zUXuTrXCvCtWMqqHzsmlxvcQ7YZ6c874OCFtkGb8H
+         4WXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794810346; x=1795415146; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794810416; x=1795415216; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UqI2rR4S/NYOEtKkItcu/tRll0s0XIsV9mZE5MtAea8=;
-        b=Ctcfra7NfZuR0k0eb4jI/ctDYSSdtKEnPr/4sMJvZYkEb5yeMmsjqRgI3g0YLVzutt
-         8EugQMqTmxF97bHTaMwaddPYE1GnlTSt5lDc5oQmNitg8/4oTODSOeNnJ9rVU983s1L5
-         yLmOziN6HeQwLCbIppUN3/9vf1zoqZwm4xKyCMn+3hNDIfi9OsAOcHaiJkeklKptX8d9
-         KexgiPnRPxTYfnTvIILQsfHmfZkHFqedFskvrEl6diGFoHpOuzR8s52dmqoYgi5jSur7
-         dfX0TvdkxvLAvTHnn1NZ+fmpZO+FLODKy7XW6SJ2Y2JO4sTut3tIwWUPj/JyCfpOxOds
-         cmXA==
+        bh=wd/v+54C2+9hZ5vK2vynCTpvfy6lXgdEPXyeyseozC8=;
+        b=kCXmteOGFlIRiNajigys1uwla9KKP4B8RV5cZoAQXXdTrgwjLHpbek9rmSivaCKBPW
+         R1cJYdsD9KKWtnWc4Fcr21U/S7rdFTwvmaqvs5wXYo32fjQlX/AQN23NPivVRr68wSR4
+         +8edqNDvQTp7Kw4Z5gucX7bF4ytviHS0V1/44pyBpuZ06rX64T6724t14AcD7VcNx/Ju
+         JT9Hr7/z/pvCEQAnhG0DmWiPWDfNVn1hNJJTVAm4SG7srlghKulMg/FCb/F2/xLpPSGg
+         gQgiM7xS9yQOCaiDP1+y6YKgSngRbgvgvseO+iW/+7uJE+uBcv8uPyK6FYoaaM5MVCBg
+         dELg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794810346; x=1795415146;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794810416; x=1795415216;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UqI2rR4S/NYOEtKkItcu/tRll0s0XIsV9mZE5MtAea8=;
-        b=gTV88lz8256WAZVsW126KWnPaPoGACGOybEliSFYcgZzW1rx+5f/KkaCZoBLdF4OCj
-         JSuRIQRxRbitddvDeAhhuRKYpRiZzoPhl3C6m3+l36idRuzWn+edOydk5xhJDP8er5rf
-         waN3YVmAiEiSxxXt0XqQe8Ema033wsCBX3/RdQf0wDPlAXrhpukW9nnE1P7n0mdZBnvQ
-         557lAD/tyBblNHE+dVrWvgRSCybE3uPtjIURl7eIYXcMnf/8/SKRbO+3lDquUku7wuwt
-         tTHz0OkVoO1I1asVmd4UPIGwOMkJaP512bt3ySXm/6oA+VXa7G2vFkxkrAGKHanluCVT
-         dYhw==
-X-Forwarded-Encrypted: i=1; AL+hErFTYjVcrq+Wxv3/3BgZEauzPLtI6f7dGgX95o0axOmxeVamq6HuGkkJjmNZao19H/jv9a8sQrmN5NqkkG0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MUkKJ++8oJnG8cy7p/3laADCr1xnjkz3CmRUrx+IHeymrSuCQ
-	lobZNiCVDhgV9hnPP7U/zrSGXMrttGNz79hLXRkaQ9rzEuH5zqyL7DPo
-X-Gm-Gg: AYBFou1oyynFG8OGM+atazx4F8Az+rm7q7cG3DjPZ9C2YVN54uXHxiNTrkLTc2Vw7DZ
-	DajjhhMZRKJ+NO7yxY55nQqyT3e5Ldwncij2Zp1Z4rvqbMo9vp//A6pHdyVZ/RHYruJDOYwuvte
-	YMs5zbSxsD+dRvY3yfxJLDoIsIXwHUrQujI6tl+yChq2Lpk/ehJHY1KoCV+A8eBnDHYgEdR9R4I
-	T1ew+3akuSbADxikg21p9ftNJk7IYcUvbozHeqKtpr2zWuOkwjdqrCpo/dfhmFYg7zN1gMPRqpX
-	1PxBt2tFcrGF2WdvF1fCtBYel5COYXQQyOOoM36IJd8BlA2eD7vAhRx5yjeCz8OjwBTnW1JA7ZF
-	CqXgFGuciJtCgWpkbJ89OXwtwxS1EHzQVPYNd8yi74ImXwFhmz23VWzE0eCUBrZUZM1QY8KqLb2
-	oQhGJk8tpm3y+m0lxPnfDlUGWgZpmv6vQXnZahWcSing5lVW07vJx3c7bfrfX148WL69zWcxlVd
-	FxKRAiNEPS0SnITv4ooQhBfAsaEQLst+WzLBRePV2u3tpauBRRC8xTzujJp3NqD5AEBA3yByWRW
-	oDtJjXcN1WZBiL8t
-X-Received: by 2002:a05:6000:4541:b0:48f:bb86:cc03 with SMTP id ffacd0b85a97d-49c70ed7ff4mr14133514f8f.11.1794810346143;
-        Sun, 15 Nov 2026 22:25:46 -0800 (PST)
-Received: from dl360p ([130.61.107.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c6451sm21676892f8f.45.2026.11.15.22.25.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 22:25:45 -0800 (PST)
-From: Adil Tepe <tadilhusrev@gmail.com>
-X-Google-Original-From: Adil Tepe <adil.tepe@basarsoft.com.tr>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	David Heidelberg <david@ixit.cz>
-Cc: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	netdev@vger.kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/6] nfc: s3fwrn5: drop of_match_ptr() from the I2C driver
-Date: Mon, 16 Nov 2026 09:25:41 +0300
-Message-ID: <20261116062542.275485-2-adil.tepe@basarsoft.com.tr>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811220135.472380-2-jorijnvdgraaf@catcrafts.net>
-References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net> <20260811220135.472380-2-jorijnvdgraaf@catcrafts.net>
+        bh=wd/v+54C2+9hZ5vK2vynCTpvfy6lXgdEPXyeyseozC8=;
+        b=MXyTaZ6HVGnB7QFwTfyrZy+yN8omkmXaQuu2FRahvw3p6vXVm9OWF9OeqyjMKridt3
+         3yRB0lmT3BG8vWfYrKSvSRySMaK/3N9P+uHNaX16TX/BvnXtbYmbDJjUB8RW4gZqnGwO
+         AMbSCYo9tSiiaQ4hgWz50+ZSoWFyYKaYxEnEHDTnxx4vwUR5h0EljKYMaE48ulvQalgS
+         CIavYmWloVZjCPNBTE2egJu9VfsqQsookZJLfIH+Fb+6/cC5YgafBrb+cSf/bJJR4WDY
+         AeAa1xJtT9L7jTdu0iJY90u1RXdB0E6I9L2onJPe+jBb8/Wk/rB1aQG8X3FA2rElRfi7
+         dLWg==
+X-Forwarded-Encrypted: i=1; AL+hErHY92sem6OSs5JxNb8ZHggHLl3nok1D+uJtd3SLuv6cy+QjNVkZ4KaeQoQC3iBPak+tplhe5SIKCJaShIY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82ViJpZkmJKSPer9AnR2nNTg/YZVP1qESVbR8eepd3WPnjMFge
+	PVZkvWIpwdB476QwiB0FvFufUsKdtInKnm7QDeTcW5deEWB7IQgtrBpatNArZxU9sjbsxBSaToh
+	96XREUHWTUUK9bnz89u+2rBO+ihT+69W6tRsS
+X-Gm-Gg: AZFdTZdv3+pMt2D2dZj3RJtlsGl+o1A131kLhcZ1ZNOi02BrctmcpSD089KdsPuqP/r
+	HzgJ/9PXTYBgV5zmsx3yQZddiSKnknwFrsu0GjA32r2heOpi0Xsm9kYc5BCzz2BI+LY4nMVnkTt
+	bab1LbS18Mk59Nahygpzl5woKD45RGj5kNC2hb2rlxD62J4ePPflY0ujZqcO7hY1VsmddwAMV2M
+	cZEtxLumn/Juo/bPLJ3TPGQNIAfC9hpZjrGkC2edD78Y7m7o8Q667ZW7vYzBoUU4J3b0/fQzoDb
+	QaeUalYECRPWzS1BLJ7ptes4L/BC4y7whoxxkjO1aUIriAsR3iZ8uZjvXELZB//vz+eoY0rwqni
+	5NHt46S8H8ONbt74xSezOBVOoBhbB9EINEW9W2/03P2qrczWZP8AcLdoeMntMr8FypQ==
+X-Received: by 2002:a17:903:1844:b0:2ed:3c25:782 with SMTP id
+ d9443c01a7336-2ee0da7f5a1mr90997955ad.24.1794810416253; Sun, 15 Nov 2026
+ 22:26:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,28 +104,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261112140101.647-1-adrianhuang0701@gmail.com>
+ <20261112183727.68afda9533aff699eea12cdd@linux-foundation.org>
+ <CAJuCfpEqQQb1_UkWH50tgbdVz9KZ2anfCGWsvvoYFsnC_KHcjg@mail.gmail.com> <CAJuCfpH57DNEb5ckB_c4QTWiiHVGSHNhB=S6HFdjvJ6GgGNSnw@mail.gmail.com>
+In-Reply-To: <CAJuCfpH57DNEb5ckB_c4QTWiiHVGSHNhB=S6HFdjvJ6GgGNSnw@mail.gmail.com>
+From: Huang Adrian <adrianhuang0701@gmail.com>
+Date: Mon, 16 Nov 2026 14:26:44 +0800
+X-Gm-Features: AclHuK9IzBryxrXRbSIYeEf8bDFSSEJ-fF65yis3zCtQgIP3kFYe9Y881Oj97MU
+Message-ID: <CAHKZfL3UxswfJgK+2rHj8Y-Lckbg1Kt+oVK4iyr0pkPWRmW6mQ@mail.gmail.com>
+Subject: Re: [PATCH mm-unstable 1/1] fs/proc/task_mmu: advance seq_file
+ position on interrupted VMA lookup
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, ahuang12@lenovo.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
+Hi Andrew and Suren,
 
-Hi Jorijn,
+On Fri, Nov 13, 2026 at 11:17=E2=80=AFAM Suren Baghdasaryan <surenb@google.=
+com> wrote:
+>
+> On Thu, Nov 12, 2026 at 7:13=E2=80=AFPM Suren Baghdasaryan <surenb@google=
+.com> wrote:
+> >
+> > On Thu, Nov 12, 2026 at 6:37=E2=80=AFPM Andrew Morton <akpm@linux-found=
+ation.org> wrote:
+> > >
+> > > On Thu, 12 Nov 2026 22:01:01 +0800 "Adrian Huang (Lenovo)" <adrianhua=
+ng0701@gmail.com> wrote:
+> > >
+> > > > Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under
+> > > > per-vma lock") introduced the possibility of returning -EINTR
+> > > > from proc_get_vma() when the VMA lookup is interrupted.
+> > >
+> > > OK, but what's causing the interruption?
+> > >
+> > > > When this happens in m_next(), proc_get_vma() returns an error
+> > > > pointer without updating the position index. Consequently,
+> > > > seq_read_iter() reports:
+> > > >
+> > > >   seq_file: buggy .next function m_next did not update position ind=
+ex
+> > > >
+> > > > The above buggy message is reproduced by the following command:
+> > > >
+> > > >   # stress-ng --vma 0 -t 60
+> > >
+> > > afaict "stress-ng -t" can send SIGALRM, but mmap_read_lock_killable()
+> > > only responds to fatal signals.
+> > >
+> > > So please clarify: exactly what is causing this to happen?
+> >
+> > Also I don't think stress-ng --vma 0 -t 60 command reads maps, smaps
+> > or smaps_rollup files by itself but I might be mistaken. It would be
+> > nice to get more details on how this gets reproduced.
+>
+> Just after sending this I found
+> https://github.com/ColinIanKing/stress-ng/blob/master/stress-vma.c#L536,
+> so I stand corrected. Still, it would be nice to know how exactly this
+> issue is reproduced.
 
-Tested on a Samsung Galaxy XCover5 (Exynos850) on top of 7.4-rc1: the
-s3fwrn5 I2C driver probes, binds, and does DEV_UP/START_POLL/DEV_DOWN
-cleanly with these preparatory patches applied; the "s3fwrn5_i2c" rename
-and the of_match_ptr() removal cause no regression, and the PVDD supply
-is enabled as expected (NFC is dead without it on this board).
+The --vma stressor performs the following jobs:
+  * It creates a thread that repeatedly reads /proc/self/maps while other
+    threads modify the process's VMAs[1][2].
+  * It sends SIGKILL (fatal signal) to its own threads approximately
+    every 10 seconds[3]. This happens independently of the 60-second
+    timeout for the command 'stress-ng --vma 0 -t 60'.
 
-For patches 1/6, 2/6 and 4/6:
+As a result, down_read_killable() in Linux kernel returns -EINTR.
 
-Tested-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
+This finding is based on code inspection and analysis. To validate the
+behavior, I collected ftrace logs and added debug patches to trace the
+relevant task PID/TID information. The full explanation is fairly
+detailed, so I have not included it here, but I can provide it if
+there's interest.
 
-(3/6 is the binding; I can give Reviewed-by there if useful, but I did
-not write the binding so I'll leave that to the DT maintainers.)
+[1] https://github.com/ColinIanKing/stress-ng/blob/master/stress-vma.c#L748
+[2] https://github.com/ColinIanKing/stress-ng/blob/master/stress-vma.c#L658
+[3] https://github.com/ColinIanKing/stress-ng/blob/master/stress-vma.c#L768
 
-The variant patch 5/6 needs a clock-rate fix before it works on this
-26 MHz board -- details in my reply to that patch.
-
-Assisted-by: LLM
--- Adil Hüsrev Tepe
+-- Adrian
