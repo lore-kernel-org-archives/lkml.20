@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826674;
-	b=ufZyRmZkoshiYfReGE3sM/va40wOLeFVyAUViEbgMs8DPZkapqqnl6MHNXAEZ0scnhMN
-	 /QgILT0Q5WFD0w27mcKXUfKR1V3bEhHFYgIo/HKXCrWav7K9g2tBN7c5Gm6VFgv4CN52K
-	 s4RdPs2wcfjHXEBq4ZBrKnbUJnGSm0NcmYkp6hNsb9e1RjN0Ga8Nbtt/pWyUU3AeElNtZ
-	 0JXwqBcYtvDVnvhoDEThlv2/FRmwfWUZbzpDVXgypWcEz4Gir/suHp3gkpUiCO5r7cCkg
-	 l0MjuCvToz6j3w58lcWU6FsHHN4/8jxGVaXyuzDaJ+be4WSFxYR6Gx4x0kaySn+CZmg==
+	t=1794826706;
+	b=btVMfXvlpULVHtD0YGVtoY+aiI6nxZ4QFtK6Pc8Au36BGQQAco2zCXny6enpZ70jk8HW
+	 pS4jQRS78IQHnlYElO8BnMdA/mKZf2D71qi40x6Hjxalo0fNB8d21/F/yU7pnhpcTHFST
+	 2QTKN0RjPtv772EizwK6exlHrEGVVh92rYBqgDZHPjTofEl1x+jrBZYCY5ZyuoZctmRuJ
+	 hFTx2jIiYaObJv5xQJypC6szc+SGdc3VYQEkYzB7oQflXb/ZFM8lS+S3Vpm6cTB4HR469
+	 Uyucm1dMnA4n96yJLl7Rgh50yq1W7M4BxRoLnxqgCpi2LVnWQKoM0z6aysPdeo7bLFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826674;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=PAQXCyHNiBvMqb9gYcyS+GzmiyRSx/3cfzOaMWQGrk8=;
-	b=BdeiEAtQMYBncpNxJfw1kvVp21bBnHu5DHNUCcMs9EA/MEmFWOPF0vGzWoYtmGTUqR4s
-	 heNHCKlRC3Gw6X7azjBAAwI5UcAq6yCK9vr6U9D73mrBJbkgKJczQA1XiK0o6MEztYFTc
-	 C20Y/EIq4xs4rPUvxDiL7KxyWhxyGni55BiZM3OiNA8cR0OMS9fAGCLAms8HDFqWoSta/
-	 HzpQwlMMoz6E3kbGWbb4qggGq2FcApuAj4FRvHPHAf+0CHyrFykmJYmdP9gXNLqHGtVRU
-	 a6nU3dMn72K98xhHZSvdtAWkwj3TNImjkgLgxjU2eShnvQGTe3WEfhclYHEYn7+vpuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826706;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LZNMzre3syHSnWp1Fvv61BL07p1gxzjeqm4GJqL8cS4=;
+	b=1IHkllZnXn9QzaagrNgGilwz8frNJVhu+jNuEugnXAiRwR8fMCDlvCRe/1Q5l03GYFrf
+	 6FqbPuZNAqeZ1EfHn9KAXXYADy+ys1ZiLSZpu7EYNd12Pqo2DN1pjBcMYRUAwZsf14n8w
+	 1RIMBeuV+TZ22inaMiHImaOzviTdDBoBy3ix31jAUgpN4aCla4kQMq5HGrOqo1r6h7Ne+
+	 tzsBgfSxZvPOI2iJqMRaTLsCcVyg70KgtpN2wcOQ0L/MuP31cRtS1VmMVWoq+hSOaMPNn
+	 M/B3OpH36cZOPXrub2p+z3MAjWjHM1qHexlf4ID17hkTadOSsjfAQwUJJphzn6JCbsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=vIRqBKVN;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zetoz1Gq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8DE606A32A;
-	Mon, 16 Nov 2026 10:57:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B8DE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4EF606A31C;
+	Mon, 16 Nov 2026 10:58:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=vIRqBKVN
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jSlFT52RRzMlMf;
-	Mon, 16 Nov 2026 11:57:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794826669;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PAQXCyHNiBvMqb9gYcyS+GzmiyRSx/3cfzOaMWQGrk8=;
-	b=vIRqBKVN9Wte3haTTNwDJIlXH9l6wUwYKa7kPbBC3GCvm0pxH6qaVzlwFsN2yYgC8EpskU
-	Bssn12SApuEUC2gaDnreDfdJVDMGmsMzI4UihS7qs8e98a3IDe4PLzwhgWGxb+DiinGDaI
-	S4pd0UbxH6uCxfG0LBYzEP9Nyqg8YwUaIxPxh5ZhK6zXyLKQqyuz8H20B2Yn261fzQVMv/
-	C87jTL8tA0VKstg9I7UY/turFPGDqBR32m5lBRoUXqFijLXbSRG/WfnywEzl1fK+Ea4tkz
-	BsDNouFFOETGURUv88R4m9I1eKQ0Hfib6VPcpMO61CE5x31t/1Wj9fkPmEenVw==
-Message-ID: <49f749ff-8d34-4806-bca7-403005600c0d@mailbox.org>
-Date: Mon, 16 Nov 2026 11:57:47 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zetoz1Gq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0D51F000C4;
+	Mon, 16 Nov 2026 10:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794826706;
+	bh=LZNMzre3syHSnWp1Fvv61BL07p1gxzjeqm4GJqL8cS4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zetoz1Gql1cc3g7uElb4W8Rc98kKVfYYXhtEtiH4ZJ4XdurD38KoPwtyEioy3vSsj
+	 Q8Q2ZJIvig0qFm62ep1xlI/wuUudsJ3BdEppKFloGOqakDo4wGLOTRIvv1kqHABpEZ
+	 lnhR2e7dmGuho9E/WTIJF+okvlWtqBxtc0PHUER/+ySTfn8sJfz3P7hLIDxqKJLVEr
+	 8QvDfyK+VArzrr209JwwENosVk5wvCWK2bAAIVG7Um+y2UyWqLC6cJoMz9Xuz6uW3S
+	 Jgu+4TpAsi3Z5yPk0BxBvhGRCw5KfXijIDYwSD3lhmKdMHLpDoQcdENVUq1Iliqo0e
+	 vuUgtVMEtgc8g==
+Date: Mon, 16 Nov 2026 11:58:20 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Kumar Patro <bibek.patro@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: remoteproc: Move iommus constraint
+ to SoC-specific bindings
+Message-ID: <20261116-boisterous-ancient-macaw-8cc00e@quoll>
+References: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
+ <20261113-shikra-el2-v5-1-8aca743de97f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,50 +63,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ALSA: doc: cs35l56: Point to kernel.org firmware
- repository
-To: Richard Fitzgerald <rf@opensource.cirrus.com>, linux-sound@vger.kernel.org
-Cc: David Rhodes <david.rhodes@cirrus.com>, Jaroslav Kysela <perex@perex.cz>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20260914031252.98932-1-marek.vasut+renesas@mailbox.org>
- <fd865483-1485-4042-b938-2012eaa65043@mailbox.org>
- <3b620222-ba1c-4c6c-a06b-2dd5fb391fb6@opensource.cirrus.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <3b620222-ba1c-4c6c-a06b-2dd5fb391fb6@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 6d7dbd08e19eb222a41
-X-MBO-RS-META: 4d6c3yhsbnbdbmaq4eut5ju19wdmwcf5
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-shikra-el2-v5-1-8aca743de97f@oss.qualcomm.com>
 
-On 11/16/26 11:14 AM, Richard Fitzgerald wrote:
-> On 16/11/2026 9:22 am, Marek Vasut wrote:
->> On 9/14/26 5:12 AM, Marek Vasut wrote:
->>> Use the primary mirror of linux-firmware at kernel.org.
->>> No functional change.
->>>
->>> Fixes: 088fb4ee17fc ("ALSA: doc: cs35l56: Add information about 
->>> Cirrus Logic CS35L54/56/57")
->>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>> ---
->>> Cc: David Rhodes <david.rhodes@cirrus.com>
->>> Cc: Jaroslav Kysela <perex@perex.cz>
->>> Cc: Jonathan Corbet <corbet@lwn.net>
->>> Cc: Randy Dunlap <rdunlap@infradead.org>
->>> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
->>> Cc: Shuah Khan <skhan@linuxfoundation.org>
->>> Cc: Takashi Iwai <tiwai@suse.com>
-> ...
+On Fri, Nov 13, 2026 at 08:02:20PM +0530, Komal Bajaj wrote:
+> qcom,pas-common.yaml limits iommus to a single entry for every PAS
+> remoteproc, which is too restrictive for SoCs whose firmware uses
+> multiple IOMMU streams.
 > 
+> Drop iommus from common binding and let each SoC-specific binding declare
+> it with its own limits. These bindings set unevaluatedProperties: false,
+> so a compatible that does not declare iommus rejects it. Declare it for
+
+I do not understand this sentence. Compatible cannot declare iommus, but
+anyway the bindings do not reject it.
+
+> every compatible whose nodes use it.
 > 
->> Is there anything left over to do with this change ?
-> You should send patches To: a maintainter if you want them to merge it.
-> They are not guaranteed to see it if you only CC them.
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/remoteproc/qcom,pas-common.yaml   |  3 ---
+>  .../devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml  |  4 ++++
+>  .../devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml   | 12 ++++++++++++
+>  .../devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml   | 13 +++++++++++++
+>  .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml   | 15 +++++++++++++++
+>  5 files changed, 44 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> index f75cab6b4ed9..4662fe4cff62 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> @@ -32,9 +32,6 @@ properties:
+>      minItems: 5
+>      maxItems: 6
+>  
+> -  iommus:
+> -    maxItems: 1
+> -
+>    power-domains:
+>      minItems: 1
+>      maxItems: 3
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> index dda2d144b720..3c35da52204d 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> @@ -38,6 +38,10 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  iommus:
+> +    maxItems: 1
+> +    description: Firmware Stream
+> +
+>    clocks:
+>      items:
+>        - description: XO clock
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+> index b20780e5e26b..8aebc785f212 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+> @@ -169,6 +169,18 @@ allOf:
+>              - const: cx
+>              - const: mx
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,sc7280-adsp-pas
+> +            - qcom,sc7280-cdsp-pas
+> +    then:
+> +      properties:
+> +        iommus:
+> +          maxItems: 1
 
-Who is the maintainer in this case ?
+Same comments as before - missing property definition. Properties should
+not be defined in conditional blocks. If you remove property from common
+schema, then you remove it from every device referencing it. Nothing in
+commit msg explains such intention and reason why.
 
-I used the get_maintainer.pl script which should have done the right thing.
+Either iommus is valid or is not. If it is not, then need mentioning in
+commit msg for example and then you drop it from common schema and add
+it to the bindings where it is valid.
+
+
+Best regards,
+Krzysztof
+
