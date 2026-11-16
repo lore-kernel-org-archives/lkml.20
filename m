@@ -1,87 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851543;
-	b=YGQmRbOGs0idz9bLk7nyEIb4Zy33th6cKCKeIdPoI6HRCuHKsoENYT0tEB5443tox1tC
-	 LMQR5IeLNeqNi6WdJDD2xKwHVXpqg1NZJM+HSH+g1BEhBkP4C2IqIbslbAu7f22xr7HQ6
-	 63fNSJJybHtyAuq1KviDBnu+TYFier2Ns56xhxiSMN6+K4pfpi46Mc8kHSg4ARtK4OmHw
-	 yCzt8SON8lkkBxV7Zzyzfa4EX+af2mACq7qMZ1g362R2JTSvYRJy2STLxkO1Kn+h0LX9Z
-	 CTsvre4Biz9qrHRZuQhYo1h9IFj0XQpzDtf7HgozCFA/QO+Vtf5WyxtFBqIgTCZBtcg==
+	t=1794851548;
+	b=qU/8fRQzQF+dI7ra6x7LMQtxn2Ocgl34ltfdItKWQYDp5XVAGgmtIHSvSBVVAKzpBJND
+	 q47vTh42WCYFXfjlUEJHab5ru9wQAmrFXhhe1vhqawggrVs9oAP92zH401IyxWNh6HFZu
+	 Q1CFqs8RSjSlqsDP7hp+PwZg0OkGahcrP5zXAWL69VqciS0aBAnBRAm1KW03F2SnTFtv8
+	 Dso9jJAwdgQ6zmoR3jPd25rtZ+Bp/hNWY+od52G3k/NBNhAQ/HI/E7YBJY3+N+HmPg6d3
+	 oXMtEq5jmJtUOD27p1rt7Ecnn2XYs+rPwiEf2DIisn129uzOWRoZo6RAKpQhdWQI60A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851548;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=PaRGNEmt//619pxBJGscfP/f4jqd7bM7FVqtMrYw3Os=;
-	b=zwy0wj1dWNAT06b7TaJwlfYq//3k3Qi6aJigyqQlF5DKvu3FYrIiB19Pr0S1Utx3yP6V
-	 Um/LP+qY510aaojfvSaJ0KUJY4ALCAhTh8iuYpv1hcKI8oN4oDd5Kbd7C7siYeJXUjrXF
-	 4FadUx5pewt37hjkgq7c7t048nd5IN8H0xATwErvcXOYuNYRU+3DnQvlbnW+azHF8oNNF
-	 ySYedhtWvJ602mAaJjYE8P1+75VVhAhL5Ulqq0p/mTS1LaqjxFH0G2Q9Oc1WdEgfxWY1Z
-	 XGwqLgqEpkvSKEJ3eNXeH5nhdJaTe0DPg954QsjG/UzmT6WrkIcmW3v2YhEhJvkO1Bg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=27hTMuZJ1nA66i2pyU7gbAoW+DUnYiuiRAEIvnlQvps=;
+	b=Uj3rBEd3FcxWGoOOFhEzHASCrQxLmVHniNVIDtge7dI5r0U3F8Kccq2TNrg5LJG32kg+
+	 pqiDAgNSGokx0pyHFNrGnZgqIzrbBj9nn7RuDW5ZHiCunDuBoBEVc0JSNHYNCtodorBFN
+	 yCJXkDcYZ6uWiEZaPD1KHzUsVFq3jvRcmDjSl2QLn1801r8oCgxBzw3EeKIzh05UO/PYv
+	 UdktNu6SFrUMiKqfEU9nI1ol0QDSlrabg1TDSKP+ZsxwIEObnuMNZNwzGtNlemo7rFSHF
+	 m2ioFL1ufdmG0u+Z8VnjBVM0QDt39ffGMn13stfPnOhgcOhVdAVpZIaTUJyYpJJHhXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OgXgFlvK;
-	arc=none smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="EiHA6/VL";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B08D606A8BA
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B08D606A8BA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514A1606A897
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:52:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514A1606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OgXgFlvK
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c0a520df2eso3739413e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EiHA6/VL
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so23313305e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:52:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794851537; x=1795456337; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794851537; x=1795456337; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PaRGNEmt//619pxBJGscfP/f4jqd7bM7FVqtMrYw3Os=;
-        b=OgXgFlvKOEMs11VxHFKS8Q6Bon5uLbybbWRwurbnp+6hzPkrhnaGWaK79w2aRejWfn
-         8xLBNdIDikUgAX9OBqwHKTO7y2KdSXBL+pTJlVK12EAsDfbcbBJ/LWeMwqavDitaiLkk
-         uZWWgXcm5+S1EAhIcz33oAgCVpXaSLVXq2a/Q=
+        bh=27hTMuZJ1nA66i2pyU7gbAoW+DUnYiuiRAEIvnlQvps=;
+        b=EiHA6/VL7T0syc28WB7DUZlL9JItrTQFkuyP5mHTAqSdArLCtgFfTxjWkVTyNsn5I7
+         2/l5Nr3JawGIpB41F6WSjbSMO2fKd92MukNU29kyHsVIPQovbSW8Pta114C93mfnhKF7
+         1N405J2LtLyA6Q0Z70LxwpocOxSAvICqG/q9OHETafOXYHfXWjqJs/GwhSK9tC2EO3CT
+         jC11ZsvgVIe3JyRAauk5ZMh9mglon2gQy7iC1RXiXuxsryEDIzD6jdcT9OFPDB1kw7Sr
+         XeT/XrnIeZxHmqUWicMd3XzrR9t9u6fqFYRn4OAk5IlihdVxto9aYhxbbQhsxq33xSd3
+         vhzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794851537; x=1795456337;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PaRGNEmt//619pxBJGscfP/f4jqd7bM7FVqtMrYw3Os=;
-        b=gArRLEhqsGARQOBpOsWLMYV/WiqmPnrpdgm4CDivKa9J2SR3Y3oOuYO7x35+4ggkbG
-         tNtqMpsqdNBKNvyx4Qhh4ERGs1Xg+ztBzbMEzStT2Y4U19zwg2cORBqNrYKAzQl7LXeq
-         4uLnPPzcJ5ojhNEhSqKOq3UTvH+4GU3y4xK78X2CNyXn9hVXzPPNOGxBKbO7uMZ94rqu
-         JfeU6iRNyWXL8g/mDCTGzi0Zu3W8ZCtZo2s9MdITzK3kRiL9ju0toChJQT6kKihpa32+
-         SbJpc9PPFPeudScYGFX4UwylH1ygMeSdxE57bLV6KjXMZ88drIPlvxjFQLm7fZJm6oER
-         yMcw==
-X-Forwarded-Encrypted: i=1; AL+hErHMRHE0aQMolZFpIaWyi5QWX9mbNsbXN0HhpPfXPjOtljgdGXmHL/OpNQv4ejC1NvhW/MyGixegY11aBmU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96G+mCYgJmYO5iH8iS6zXN31Q17d7CFBl7FMibVFgVWiY+21rV
-	UUzI8urp5NqaKIm0undbQ4ySSPgHQHKM/XhTD1WxkAm0eigwUWIchd1tLYZM4c4mjKxS1ylY8Rj
-	C4BIgapXl
-X-Gm-Gg: AYBFou0jQjyaM/ukHm/5XWgkupyXccwrLDXjV9Enn72j3TFjGe+Idwz6QfVULst1pbk
-	IqpQn8ujeFyGMokvw06K4Dn5syKK7kAGKQBynLPaaEcAEG0g4uFoR9iiav0YjVVFJx4GxqXoQnp
-	p9gMA2znESn/6akJCB0cIOEHL13my7t4Ml7YYm0wTPVqqq+13cV/d75xzT8XABr783bv7dMr+xl
-	l53rOeczHoDL6RM73xK0w+1QEhGILrJSzqN3VbqROmJBrwkl3ehwpmds0ABVNDdt+I76lZvrcJV
-	vCy1k1OU/DFBMjuK4UE+2asUnmlkpLcbLqW4+xedPU67JFq/UrMDuTuIRbUDwZqg7qakyyEC88q
-	tQ6pTt4G6MoYHzozgj10dtXmnLi9K2FJ91oJQryoZBfUIhb2mw6ztpapAoDerVLoYWiFX10YKib
-	VrGPMk5KlH1aNKAQY/2fX0ndwjrHc99prgODLSn4WaRuoG3Cywoj5tl5XkvIjJHzOk8yw3lF5HA
-	ARUZFW4kRcoXEcw1M2jR26/2BNH0LRcVFP5AdjHoEZSqPSaTGJ7r13IEcG6fi6K3COBSutj7xN5
-	L3r6Ac6v3dTgZlVG9Amh9n5h5er6KlkWoEROUOf4oTnk0f9AkV2pqzTUTse8FqSr3noxE4DbKlu
-	L027SoT3DqII=
-X-Received: by 2002:a05:6512:138d:b0:5bf:ce20:57e8 with SMTP id 2adb3069b0e04-5c1709c19c4mr4170869e87.40.1794851537494;
-        Mon, 16 Nov 2026 09:52:17 -0800 (PST)
-Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.16
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=27hTMuZJ1nA66i2pyU7gbAoW+DUnYiuiRAEIvnlQvps=;
+        b=EXe8Gu/1G4ckvsiIonbmctUbcPW3uJEjeY7I+oFNLXOZP/YKX6gOiawuP7wPzZndo6
+         bvRWjruuEMkNfn5GpFfo2iKknoSqfIBVTG0ZavWsbc+3gkqePd9l37iAyPgiGkaUExCl
+         A4CrTIqR/mSamk2xoXJ/5V1PMh/oA/k3S/5SYuHbvXInscIjcMo+FLO/z9L2ZJ10k/XG
+         7Ntje9beVGl77l+3GTjRTfSj5mU0dxLvEYX83MzyrIOZCDf19UELrvSOUoCHTRnu72My
+         gpl7YUjVnZ6ogDCd/tWn9y8D/JS6SVA2oR/7XeWEyQo1wKdoKjWenzg1otPVUmiGlQi6
+         QJag==
+X-Forwarded-Encrypted: i=1; AL+hErGNeVsIYfqUbETWgPoqvQkeJ4kpEbthlxl7rVOuTgwyagWMpqKWcgOWoy7FUHbwZ3/QpsCv69tgMcX+gPw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Wc4vVnWlrbLngOO72FFnB0Fiae4ZwrssWeI4gy7e+bKLqL34C
+	Xru4n1wLeQpJrpPLbktLzXH4awaydRFT8xWbOufPDqf+yw9atxcDNN0eujC2DymDH9t9ztUu
+X-Gm-Gg: AYBFou1SFwI0iibYUxG1fYSlkhgwiAf4kKVubi5yJzvDm2oQUYjfVZeLM9UDlaVMucM
+	85v19N71bIJSyuVNbWlVp7nrbBYBJ1bBK6PnSa1Rd9TVJ76DIx1vkaUcw7nOzPFDPeU7JPxxx1M
+	nE4GBRLUxQZNQy9ENBVOETqB88TYSO8ysgPN4n1nALQIvRtJZPeCAO6SmSD0ahtlI2nsmgJSPjn
+	jTJfyLkH+QVF0MCBsbLMLuwjnXFq4np1HhbUYrA3KqG4BjgPbkzXBUc+xuerZiBnYYOtcYHZ6cX
+	nmtP0zXN9VgGTiTLSEjp0vb1IOjQKuxlSAYo3NHv0F7I/mURx6mVnvUvTvtan0R/8go3vE29HjE
+	iRG0Qm30xGJzj9an01hWbLfKHCSDWX9IuumhEAhoaLt20UVanDoT+Nlj6JBBknTgrv+7IGNAQg6
+	GC6b6oefpi2wv/Uy5BZinlQUultTxDnC3TW15TUjz5/mdU2fSVKnP76WCihWgX5Vmd5mnZLAYQa
+	0XOAyaPI6O9Y+FWJeTB+I38WExF2ZElookfHO05ucdulUb7ng85sh9gtB/0UM3NFS7wGbsOFBzj
+	tkJ9c8S+WCSA5dxIPjcO5LpMtIm8nPnggRXw3u5pJBE9LDGlAmZ0qarE/Zo+P6uL2iE=
+X-Received: by 2002:a05:600c:8b8a:b0:4a1:9078:911 with SMTP id 5b1f17b1804b1-4bb55abbadamr247795715e9.31.1794851536667;
+        Mon, 16 Nov 2026 09:52:16 -0800 (PST)
+Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78430752sm4546075e9.12.2026.11.16.09.52.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 16 Nov 2026 09:52:16 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 17:52:11 +0000
-Subject: [PATCH v2 4/6] media: uvcvideo: Use bHeaderLength to detect empty
- packets in clock decode
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Volodymyr Chapman <volodymyrchapman@gmail.com>
+Subject: [PATCH 3/3] media: atomisp: csi2-bridge: Add IMX175 sensor config
+Date: Mon, 16 Nov 2026 17:51:51 +0000
+Message-ID: <20261116175151.20150-4-volodymyrchapman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116175151.20150-1-volodymyrchapman@gmail.com>
+References: <20261116175151.20150-1-volodymyrchapman@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,44 +104,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-uvc-shortmeta-v2-4-62d4a8176fb8@chromium.org>
-References: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-In-Reply-To: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-Use the full header size (data[0]) instead of the minimum header size to
-decide if a packet contains payload data or not.
+Sensors without an entry in atomisp_sensor_configs[] default to 1 CSI-2
+data lane, unless the firmware provides a CsiLanes setting, which the
+Lenovo ThinkPad 10 (20C1/20C3) does not. The IMX175 rear camera of this
+machine uses 4 lanes, which the imx175 driver requires, so add an entry
+for its ACPI HID INTCF1A.
 
-This fixes the heuristic on affected devices if they also include
-extended header data such as MSXU metadata.
+The firmware's own camera _DSM data is consistent with this: it returns
+0x0104 for the IMX175 and 0x0101 for the 1-lane OV2722 front camera from
+the same method (GUID 918ab242-c37c-450a-9d0f-f47ab97c3dea), which
+appears to encode the lane count in the low byte.
 
-Fixes: 5cd7c25f6f05 ("media: uvcvideo: Ignore empty TS packets")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+The VCM is left disabled: the firmware does not name the VCM type and
+driving it has not been tested.
+
+Tested on a Lenovo ThinkPad 10 (20C3) together with the rest of this
+series: atomisp configures the primary port for 4 lanes and the IMX175
+streams in both of its modes.
+
+This patch was drafted with the help of an AI coding assistant (Claude)
+and tested on the hardware by the submitter.
+
+Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
 ---
- drivers/media/usb/uvc/uvc_video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index ac8e0c3a0c71..a822b8234789 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -641,7 +641,7 @@ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
- 	 * clock sample from many and the clock recovery algorithm wouldn't
- 	 * suffer from this condition.
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
+index cca91c6d7..239c287ce 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
+@@ -360,6 +360,7 @@ static const struct acpi_device_id atomisp_sensor_configs[] = {
+ 	 * an i2c-client for the VCM, so it is disabled for now.
  	 */
--	if (buf && buf->bytesused == 0 && len == header_size &&
-+	if (buf && buf->bytesused == 0 && len == data[0] &&
- 	    sample.dev_stc == 0 && sample.dev_sof == 0)
- 		return;
+ 	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),	/* OV5693 */
++	ATOMISP_SENSOR_CONFIG("INTCF1A", 4, false),	/* IMX175 */
+ 	{}
+ };
  
-
 -- 
-2.56.0.679.gc527c65306-goog
+2.43.0
 
