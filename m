@@ -1,51 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838411;
-	b=MsdaoVB5XmBAjA9VnnsLWHSVKMngx7nRFmxgDuAcp7Unrf7VA03Ku8cTXcvgDYv+LYXU
-	 qCF/qP9XCPelN+0rlmLm8JWe9fazPdpQ+lMvUgqhhTPip6LoqPvpMyDWXdxiN61cgK4X4
-	 PhSNwoQ29fhN+bdCEPkUyvVWQE9I2tjsfnkKlHtLLaaZlddaYuRX0yHSsRaAYBk3OjlME
-	 HBjdU/usyx6bHFZYWKfsdROiuM2RU2lRGApv9uvLCtKLRnKfxLadaa5JD6dlzmE6cuIOC
-	 H+8tb6EdiVNpbA8l6apiHdJTIJGLMNEPGZoucu+3bPAy4gb9+4iRwU9eQrZcixc7voQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838411;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=A27FojnMSCXdxXUOAkXHhWqJrm39BoVP2wyO2sii3vo=;
-	b=okVZeqgSaaaoUlFRtk7mZg1cYnQspXYcPlFnkrwOiLON2XrL/M/yXtNQVX4DjVRs4CO7
-	 gQF9AldAYfrh1hnPMYEGfov/Io3rNiOSM4EP70vtUgwCHiXLEpzXgySdJRLsmqsnzbqha
-	 bQ85lvurUkVDnDZjWC8LgWhAR+8xT1fwJbYP/F5cewBOCoWdQ0Pnmu2lX4LHnK7krswzs
-	 k6/4xcRcEC/o17AlPxq4KG6EqNtvc/GCaFn6DZ8pZkLC5UhE55sC2hAeF0gQnSqliN2SQ
-	 Q436fTA4a0vzfv6lOFhOlxjeHuH9TJhYBaH1k61UK6bFRNtP0ottnHUwD9Kge54MyeA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=UwaqgKW2;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794838440;
+	b=vIHw2BoCVQabIOkdpfTMg/4+zXd9MaqxoP9SjKPYnjGrfdnCL5d3tRPfVK9QSqTI3EoH
+	 tZ2INmAVvFfa0t7uhmC+K5H8w5RofqAk1NM8wVM3zjbs02hw5vUloyebFPovpg1+fUJ3n
+	 qFwezMCEkWN7yXq/aVuAF8nwIdcREN8GrDI0M06qvagkBBCd/fGrnG8rPXHL2GAj2qRfg
+	 5+L9nUO0S5qRGhz7KVQcAE6bwCRwe7y7XjSJviFkhoaAKpuadGSls0pGRnhfxNkSaZJ5Q
+	 geOb4GUYCyN1P2EstTnyhAl1BURac6lJCXyU/ine04STXRdik/3ahSmWn2GG/XZh/VQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838440;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mE4PFLCBDD7N+5kMo0525pvsFFzxkaRFBGntpezo6s0=;
+	b=AwVn0HHrlIWoKDruThC1fybAZ1jrhVPOY+lZrVGwQKuQsQqPddYUlVaTVxNLmh5Fwpss
+	 buxlvfsT1yK2lSQXLYaIP8K177XQXrNMGlFXY2bmGs7cMRFpXerPK7Rfp3pxYp+YLL0+w
+	 qpvKTuB3jELGDX/8v1HHgryxQ0/SUAfymh5LxCsmVaxQuwdwhbqKzauHFinJ1KMTorI+O
+	 HKzlCKqUr2c1JMRA9m+hokgmSttkWG29LzGsYzoBy6Z6PIW4G1TgD84seFDJfeOAbz7Ei
+	 iMxN/cqPYjThOKgyEuge3UaiV+Ni7kNEJEamnxV/Hsj/ZtbGCTWrBbfCJH3VGcEBcHQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NNbLYEE7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F453606A329;
-	Mon, 16 Nov 2026 14:13:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F453606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB829606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:13:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB829606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=UwaqgKW2
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54db44702;
-	Mon, 16 Nov 2026 22:13:25 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: brcmfmac: Fix potential use-after-free on monitor registration failure
-Date: Mon, 16 Nov 2026 22:13:24 +0800
-Message-ID: <20261116-c29ba55625-wifi-brcmfmac@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NNbLYEE7
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-49412eb1474so1727040f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:13:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794838438; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qeS8Dfmh1zwR7AOcjDBLIdaww0rH7L7R/spZNIJ86vlz6KjQscBiJzt5MlMqaL7jP6
+         dd435UHxJqY4yNjasiYTWRwl57Nz1biDVOay/442C9B5DFcwJzxlTmYIf/XKHQZchyin
+         WK+aB1I1N6FNCc6+K7l+SI/FMcjg00RHx8UhXRbxzfKbKsQ0fPF4Z4UoOEXycFNjB5xA
+         QisT27jwxHyFLjzXFwF5rdn/j9e0cNoOAYvzv+jf1QoNlsiEc3ZS1s9GlB5rdwUC4Tzv
+         Q9d39Z31XpanhNXw8EL+XCCg+bQLsgJ8h7yNBfOmcnxmmw5tisQoZDMuPdqThBDrGlLy
+         7iJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mE4PFLCBDD7N+5kMo0525pvsFFzxkaRFBGntpezo6s0=;
+        fh=dZsGuXMsukFv8weVhYwJJCuv4uWzcUNUDWT5xwZZmRA=;
+        b=UyuFoIoqaEalHHUk4VXvhNZyUFzZWJvmElRSkXDJyI20ox1R+hkhO3faWK2vnawMFO
+         xjgv7CflsjDpgoryVpsM6NdugOE+P5tNzXeIenotRhNfXgI+/TO0KAU1jE1rryJt4nlN
+         fLcXFG+tuDyBmn6yU/rHeFt6AkbZzktjnmlrseMfLc4xpg0DHWqJ1pTnKbEGUFta+86G
+         udtODwcPSn2btINh06BYYh5d309exE2N/nC727Wmmcxe5ddtEbc4BJ+sAaJ9HE7KGrs9
+         79NHl34TXcMYfXMZ2UJ5vNtbZIOhUYsw0e5mP7yL8lfV9MHLlx0wAlGNcLSDlIhZfiEo
+         orJQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794838438; x=1795443238; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mE4PFLCBDD7N+5kMo0525pvsFFzxkaRFBGntpezo6s0=;
+        b=NNbLYEE7oDLii472gysZjYrI4ucISl9mt96P2z/OGqu/ZsjrYEr3uHaHVzcWUzTo0A
+         14D7T4RowjUPGjFvGQ7alC4pgUtLTkMqIs3x8bhCHzouXVTdYjWp+lXePnr08spveTYO
+         JtKuDMpxbF3Q13fLACjnvLTxZS/gqxteZtAaViITZFrq67ZMUG0ZrIeq+z8gS0NnL3du
+         GXuMgo8XKyFkQvOaB1GgAmfPB9N6X3a+pcmZsZStl+7q8wuD8PFaFKao1MoC2NuLyWcV
+         EnulOQYHtZhbPhaWBV3WVbccHCKL4yShukgIgYxPV41D204POa7FzhWg3RgnqK+rYsST
+         VscQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794838438; x=1795443238;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mE4PFLCBDD7N+5kMo0525pvsFFzxkaRFBGntpezo6s0=;
+        b=x65lT4jeq04AaLXvF0QRsaBg4XQRBcFmOyc2WOTNGw2R1s1Co3uMzIvG21zupk+Zus
+         d52S0gOltXxKs0yyJG24ZKyco5IlNp3H5oYdJRzfv1LV21jaYS+QdN9pu8JZUsyFzXE0
+         1+lp22TMq7w+6D+g5Imd0NAdxTOkYJmgI9gWJlnUMILCvUfMvZ+8dz8b/V64jfxpyX3c
+         1xsHph3QdNrjzyZwpgWwjxwhxb8Q5yFnRuUbO0gcVpv7OI6s7Ex4fkpy8iOCSDHwlKvv
+         D/ntGI43peI3I8appMnSPoRnOlSghfHkAOy4nVy5P2uS4/yJC+5SVFoISqy67RQhfcru
+         SjXg==
+X-Forwarded-Encrypted: i=1; AL+hErEtaDgyrpLSjp90SuDTsMap5zzgXCQwKwx4P+Hrli2vpTcxd4IJvzeuSQLjJ4SXlrEDvSaQISyHKVyGfKM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AA7qR9042GD7QEz9pIZzDrbyTSxLTNQZ7RDPDx1hUAQnjmdYW
+	tD9A1Mm4s/IIThZupvWbnTSx4x4hSaOHi4OpC/ZZ4NFSrnW49bMjN/8bb4QE8rJpRiD58Aio00m
+	0aLiCt85RaJF7VYvmNW960TuUbmny4oM=
+X-Gm-Gg: AZFdTZdslYWCzGUIYEZpN9rHUR9ErB9iTOPflFghmqiT9NecgDz5hwcH1Tu1nXXX077
+	xIJHwTBAbtZTYBZoXDF+lMoH7t4kvoiR9mLIxg2O22QsidOehpEIBiTCa6sht+wyu543KEd8+w/
+	ArCT71ZVMLuUNhXMIBoKk7JyZfuer96626Ch+2pNDHJHpR5OuzlEAAqQf2FsBi/KRMcNQWIKTfH
+	q0bdwyBvq41rEZvagDzmSiBS8YQ/s0zviDkTTDgQkXeqzfhCbbkbpwkStlHMfHuBY28rXDi8EkP
+	JnCcko6qXAZAf+SOiMt5i1fj0n/FP45ImNdrblKKZmzN0h4OdXZpA9HKXXdjMW66KvQOK6icoXf
+	vpQJhcO+D5t2ypdPLxiJAE8hkwGbC7mszv+4KeWHZLrkBhVbQfpvMKzo9DFiuXoe5hT7OaEk0Fy
+	Zn8aRl7UIO94g7uJLna7BU2mfcqE5GaCeFRWSOST6QRU6eazQCXykWFz4=
+X-Received: by 2002:a05:6000:29d6:b0:48e:d7c:4bc8 with SMTP id
+ ffacd0b85a97d-49dad032b01mr11487696f8f.7.1794838437977; Mon, 16 Nov 2026
+ 06:13:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,55 +105,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1e4b49fc903a1kunmbe64bfd010dd11
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQx1LVk5MGBkaTk1ITkgfHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=UwaqgKW2kIBsddT2o+CY9HxEt87u68np9Q3If3U5fcIXVtYYF/3Z48eBf5iMtvzug4TDMOsvoj6AQYZDsm4/mr7j24dzrTKVXDN+HMHGlTVDuUSr5+0MDJOMi3B/qCvmny8x7kDI+iMjLmd6l7ELBdBmkhg+CeL5TBJc2WXe5QA=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=A27FojnMSCXdxXUOAkXHhWqJrm39BoVP2wyO2sii3vo=;
-	h=date:mime-version:subject:message-id:from;
+References: <20261116110122.309748-1-nakixii@gmail.com>
+In-Reply-To: <20261116110122.309748-1-nakixii@gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Mon, 16 Nov 2026 06:13:46 -0800
+X-Gm-Features: Aa3M54omNEMN1jWto9qZ-fJE2BPU-EGOtdYeDpXDgUWMj8prRt7WmPFciW1q0iM
+Message-ID: <CAKEwX=M64ZmMLBRiAQ6FiiP8f=jkA4m=HM8rgQo-cir2SENPnw@mail.gmail.com>
+Subject: Re: [RFC PATCH 00/16] mm: add in-memory compression of reclaimed pages
+To: nakixii <nakixii@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Yosry Ahmed <yosry@kernel.org>, Minchan Kim <minchan@kernel.org>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Barry Song <baohua@kernel.org>, 
+	Hugh Dickins <hughd@google.com>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A failed netdevice registration can invoke priv_destructor while
-cfg80211_register_netdevice() still needs the wireless_dev embedded in
-the vif. The caller also frees the vif on this error path.
+On Mon, Nov 16, 2026 at 3:03=E2=80=AFAM nakixii <nakixii@gmail.com> wrote:
+>
+> This is a proof of concept, posted to ask whether the approach is worth
+> pursuing. It is not meant for merging. The series is based on Linux
+> 6.12.23, not on mm-unstable, and has not been ported to the swap-table
+> and zpool changes that have landed since. If there is interest, the
+> next version will be rebased onto mm-unstable.
+>
+> memcomp stores reclaimed anonymous and shmem pages in compressed form
+> in memory, using the kernel's compressors and zsmalloc unchanged.
+> Reclaim replaces the PTE, or the shmem page-cache entry, with a
+> swap-like token that names a 16-byte slot. A fault on the token
+> decompresses the page and maps it again. No block device is needed. If
+> swap is configured, cold entries can be written back to it. The sysfs
+> interface is under /sys/kernel/mm/memcomp.
+>
+> The implementation uses 16-byte slots, a separate owner domain for zero
+> pages, per-key storage and bounded metadata aging. Memory-cgroup
+> accounting, cold-page writeback, asynchronous compression, precise
+> residency reporting and mincore support are separate patches.
+>
+> Refaults follow stock workingset accounting. The first reader claims
+> and clears the shadow under the slot lock. Feedback runs after
+> charging, outside the PTL and slot locks, before the page is read and
+> installed. Consumed feedback is not restored if the read or the
+> installation fails. An mTHP uses the shadow of its first base page and
+> clears the shadows of all its pages. Swapoff returns payloads to the
+> pool without building user pages.
+>
 
-Install the destructor only after registration succeeds, as done for
-regular interfaces, and leave failed registration cleanup to the caller.
-
-This issue was found by our static analysis tool under development.
-Fixes: 20f2c5fa3af0 ("brcmfmac: add initial support for monitor mode")
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 46714d871260..aebc8f7b2a41 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -933,7 +933,6 @@ static struct wireless_dev *brcmf_mon_add_vif(struct wiphy *wiphy,
- 	ndev->type = ARPHRD_IEEE80211_RADIOTAP;
- 	ndev->ieee80211_ptr = &vif->wdev;
- 	ndev->needs_free_netdev = true;
--	ndev->priv_destructor = brcmf_cfg80211_free_vif;
- 	SET_NETDEV_DEV(ndev, wiphy_dev(cfg->wiphy));
- 
- 	ifp = netdev_priv(ndev);
-@@ -951,6 +950,7 @@ static struct wireless_dev *brcmf_mon_add_vif(struct wiphy *wiphy,
- 		goto err_free_vif;
- 	}
- 
-+	ndev->priv_destructor = brcmf_cfg80211_free_vif;
- 	cfg->pub->mon_if = ifp;
- 
- 	return &vif->wdev;
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
-
+What's the motivation of this line of work?
