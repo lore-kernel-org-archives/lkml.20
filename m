@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.223.78.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848595;
-	b=Zhxw+4EVdEWS9EUgRGymyn5lXba2EbMstMCK71X+Z4/n+IkBMSJKwnuj4lQretDPqyJV
-	 9pEhnD1br9gTYe/sV+3ZfiV//6mI0WL/dsbMyCFVqtD4yohZakJD9MzC67EcZSJGYvOw7
-	 Sdtuq+dgod+AyHRsCyrqncRdAzG7wwooITG/E8d5gYPn250o3a10JmqeHBVEHQ2PLDw0/
-	 nenat9ziLtqcIoZiaQMuawX/f84kdEJ2oNtEJoTPAh1X+P/Oly9bs5AsADrhxouRndRkB
-	 VhKmSvhESKp/oc8YxWGSLobNUwTnjOqXGiWAw7kQlmMvlHrbXaZmzZeu1LO+FXVACEw==
+	t=1794848608;
+	b=zAYocQqAzYYI0ZJCVAA/GCRRXEuNmk60BonC4BSmqDxmCDcZxcp6FHmV0KEyKk1Jn8nr
+	 oOvBmO2EayUSpcl0rCkA33JZmsEXvyfQL75EOPuTPwMkgnn4ZsiXDLKRMpIz7VkqSBnx9
+	 YpxWNs2Q/lWMfc4c3HM5z5hbUD1ccObJnJfWdSIDeemtKmZ71CLD5THDGn3rNnXqz/OTI
+	 5QGlS9UNLg9LfJr3jjvsr0z7vqU/+vfFKaAXuXf2CdUQzJMudHlAna9YkklJuzuWgyAMh
+	 dLxgQtf6kwUBl2+4WXccAuZ/QnAGABb4LColV/oZf+wZo3+mR+4/0747/rFYqjugVLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848595;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=Xlu2/XYe7EswtPi8pz+Q2mqJjvsACMdsf2ljlMzSs80=;
-	b=HJ1fwBaJ2+K7eJCFuap2RpCDE+VffntRrJvOMCClGqItOZC67DyDDKv6VNCsMWncIwAj
-	 NcjMgCGKLZWQB1HPZZnaU8BID1FPVmkbonRmQvoZmobssAjIOWZo5o42mx/FOTkp4ZxN+
-	 mo+C/zlyNeeyDFf/9TtHrKtqJBwSTG2iohcRZjeINuK2MVDi+TiX69s9Lg1ZWI6BG/O5N
-	 xCnxC9X0OnaFf4PnLv0hD+w3wqJaeWd308AHW84vN7zlSRy8npwlQqrKahoLob1LtyYd5
-	 r8wAde1mbQch74ZNcloLo/i2vJbd0RtJFnDfrGa5gVlZnhqRNFrpQFhP3yHJTVGhs5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848608;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=poTgbj/foQ9K1AKRlBJ3oT0vb+LsbWUWIzTIhB6fW9A=;
+	b=nFK2/FUyki1dpkoRxHjWnkex+HUPPHKKn+nIRpDMFOWziM3RtMxiG//4HeryderZRg3l
+	 G14HuSLEnIPvtrAnbbvPCDY0KWR8XYOpOqmF6FK81Ga2nwEOO+m0hiz6xsf05rgTW8Gly
+	 fV7evs41S4u5KHIasIq/BgJ+SWD6ooExIRA0fgQBI49n+v9bGf2Ck73H/LOw1ZUzD1drl
+	 X08Pbpe3iyFJHpFe4iog+loN7wmpCj++tHDkBFhcZbJg2tFHlFGNnSegI1dGcj1hNL4q4
+	 IlvWbR02HkSHrh+inmrre2Tu4oaXhV2cLWmR0BMB+6TvCU9+oGpxDdT8UzjjN2TZO1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ruwynwGp;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=wunner.de;
+	spf=pass smtp.mailfrom=wunner.de;
+	arc=none smtp.remote-ip=83.223.78.233
+Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D83606A8B6
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:03:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19D83606A8B6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ruwynwGp
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261116170310euoutp01705bbe9b7bb6b956965f9a31ba5addcd~olUiD6d4e3191731917euoutp01J
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:03:10 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261116170310euoutp01705bbe9b7bb6b956965f9a31ba5addcd~olUiD6d4e3191731917euoutp01J
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794848590;
-	bh=Xlu2/XYe7EswtPi8pz+Q2mqJjvsACMdsf2ljlMzSs80=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=ruwynwGp0S3C1HS8M6dReLS7oashLtwnkk97SGfyB7CSDysLMVg/Dupb8+uCiUyzb
-	 DAu7TXvai1Kbrr+wbxEpv2TzkktSLhLL0+DYwjsWEMxSq2ilZvJJpE/+lgu0piEdVy
-	 JQ1jWcDYbjzSu+p+CnlF5E13AnrFqw1hQvtmnHc0=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261116170309eucas1p151c1b0b2d7e7269bb2d9d3ff5c615b8c~olUh4f9xz3059630596eucas1p1H;
-	Mon, 16 Nov 2026 17:03:09 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261116170309eusmtip21a2347bea4b2aab0270c24a181c6ca4e~olUhaA1XW0959509595eusmtip2j;
-	Mon, 16 Nov 2026 17:03:09 +0000 (GMT)
-Message-ID: <717f8848-99c5-46eb-bffa-aaa17db2adb8@samsung.com>
-Date: Mon, 16 Nov 2026 18:03:09 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8674B606A88E;
+	Mon, 16 Nov 2026 17:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8674B606A88E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout2.hostsharing.net (Postfix) with ESMTPS id D7D6412E3;
+	Mon, 16 Nov 2026 18:03:25 +0100 (CET)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id C1763609C751; Mon, 16 Nov 2026 18:03:25 +0100 (CET)
+Date: Mon, 16 Nov 2026 18:03:25 +0100
+From: Lukas Wunner <lukas@wunner.de>
+To: Aviv Bakal <avivb@amazon.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Zeev Zilberman <zeev@amazon.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] PCI/PM: Keep hotplug ports that can't wake from
+ D3hot out of D3
+Message-ID: <avs3XRxXT7BtbZse@wunner.de>
+References: <20261115171831.1498006-1-avivb@amazon.com>
+ <avnqWd1gVH-i2Jkk@wunner.de>
+ <20261116165627.2775780-1-avivb@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,80 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] dma-contiguous: reserve NUMA CMA areas after default
- reservation failure
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, Feng Tang
-	<feng.tang@linux.alibaba.com>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261115120534.2331911-2-thnkslprpt@gmail.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261116170309eucas1p151c1b0b2d7e7269bb2d9d3ff5c615b8c
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261115120547eucas1p227eb5bfbcb903d677f033dd69643f44b
-X-EPHeader: CA
-X-CMS-RootMailID: 20261115120547eucas1p227eb5bfbcb903d677f033dd69643f44b
-References: <CGME20261115120547eucas1p227eb5bfbcb903d677f033dd69643f44b@eucas1p2.samsung.com>
-	<20261115120534.2331911-2-thnkslprpt@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116165627.2775780-1-avivb@amazon.com>
 
-On 15.11.2026 13:05, Avi Weiss wrote:
-> dma_contiguous_reserve() returns when reserving the default CMA area
-> fails, skipping independently configured NUMA CMA areas that might
-> still be reservable.
->
-> Register the default area only when its reservation succeeds, then
-> continue with NUMA CMA reservation even if the default area fails.
->
-> Fixes: 7e6ace2535d0 ("dma-contiguous: add kconfig option to setup numa cma area if not configured explicitly")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+On Mon, Nov 16, 2026 at 06:55:22PM +0200, Aviv Bakal wrote:
+> On Sun, Nov 15, 2026 at 07:22:33PM +0100, Lukas Wunner wrote:
+> > Intel Catlow Lake suffers from a similar issue:
+> >
+> > https://lore.kernel.org/all/20261103193136.2410148-1-sathyanarayanan.kuppuswamy@linux.intel.com/
+> >
+> > Please try to follow the approach taken there.
+> 
+> Thanks Lukas. In the Catlow Lake case the Root Ports still signal the
+> hot-add with a PME interrupt, and only PME Status is unreliable. Our
+> ports are switch downstream ports that advertise PME from D3hot but
+> never send a PM_PME message, so the Root Port gets no interrupt and a
+> pcie_pme_irq() hook would never run. Keeping these ports out of D3
+> looks like the only option for the existing devices.
 
+We cache the power states which support PME in struct pci_dev::pme_support.
+Have you considered just modifying that in a DECLARE_PCI_FIXUP_FINAL()
+callback?  See e.g. pci_fixup_no_d0_pme(), pci_fixup_no_msi_no_pme(),
+pci_fixup_amd_ehci_pme(), pci_fixup_amd_fch_xhci_pme().
 
-When reservation of the default CMA area fails, there is something really
-wrong with system configuration. I don't think that it is worth trying to
-setup NUMA related regions in such case.
+> I sent a v2 that fixes a runtime PM imbalance in patch 1 when NO_D3 is
+> set by a FINAL fixup.
 
+Please wait one or two weeks before respinning to allow time for the
+community to review your proposed changes and provide feedback.
 
-> ---
->  kernel/dma/contiguous.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-> index 90937dc7c627..0b6500bb6cd9 100644
-> --- a/kernel/dma/contiguous.c
-> +++ b/kernel/dma/contiguous.c
-> @@ -287,8 +287,6 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
->  						  selected_limit,
->  						  &dma_contiguous_default_area,
->  						  fixed);
-> -		if (ret)
-> -			return;
->  
->  		/*
->  		 * We need to insert the new area in our list to avoid
-> @@ -305,9 +303,11 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
->  		 * but we also need to insert it in our list to avoid
->  		 * having a default area but an empty list.
->  		 */
-> -		ret = dma_contiguous_insert_area(dma_contiguous_default_area);
-> -		if (ret)
-> -			pr_warn("Couldn't queue default CMA region for heap creation.");
-> +		if (!ret) {
-> +			ret = dma_contiguous_insert_area(dma_contiguous_default_area);
-> +			if (ret)
-> +				pr_warn("Couldn't queue default CMA region for heap creation.");
-> +		}
->  	}
->  
->  	dma_numa_cma_reserve();
->
-> base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+Thanks,
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+Lukas
