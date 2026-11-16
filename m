@@ -1,83 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853273;
-	b=KboF5Ei5zbCUYaC5MtGsOJvRUsqAXRRwqfnS4lWhARKKrAWPKpvpFW9rZNi9js/UgfqC
-	 RgNW5zxApViYksdTenKe/mHfCN8Hbu8iT7f19CDoKdkVjXnzSGSiJ0s7DZkz+mWPZgRBC
-	 X1zrXN3aFOFaduguYKkp6Za+RJdS8ILJapo4DXq5nOORB+t+Ov2LKPUbQX2tGOOIJSZ8P
-	 xx6yQX1hmXeE4/+4jIhUaO3d1XtuaJF4INyWVTl4O2o2lt7tMr9oJt2LyOHJgTHf9k5EN
-	 dfy3++f7eFA7o9T3adRHrSP6scQRCLkPb8RRg0Vr1RkZcwvrC9tf+PmcpbNy/lSxS5w==
+	t=1794853276;
+	b=XrT+6nGV1j21qEgvQY+/Z7n6IsVwrrJeGNlD9/IxZK+pLCvbaZrZ369V8L6axJYnvzFO
+	 sjaKDq9EnTtpNVqHiVZnCuoFiyWKjBKfvN0CKF21ZVYiXBcxA8NauEpuYHDucERslxQsU
+	 T6DJqFs32DGifzj2ueu59u+EYn+NBB1RsLA8Y3JEeV9y62IT89J1ddU6RWb6fBdqsHbdR
+	 ScR5QJjv75mVdmgXw6ZBg5VsIJ4jcQ/7QGbE7VZhD8vgwvooTK9OcXXOBAdX4kyo00Feu
+	 fBjyGT4VIRucHUZtIOf8AdVEFST93yO5TXeSfjN4CwEkeOQC0akWHSyW2Q/sGmAgJvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853273;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=t+D9qVbzCCKAJlVz/auwzp1cE+wp8QYsKc77PmPP+qg=;
-	b=FzE85iHmJrrAbUN35H1TeaXZFVCBeaY4Hl7gzIzRaR9bFxJDH/U0aEJoMh1dTDVyyjZK
-	 1Gn/I3PdrfrWL/W9zAiqCvYxZwVHiNDoUevyf4fgksDVr7yK6ZozFqr5Sq6J5zbPKHEOH
-	 YtlbYrOmf5AUK4EEr0nBopWunNsrjPRaL5ibBUvFA49Oz8dTd+ZIaOTu6IfM9BHOdVbLb
-	 sDccijV8mpFw+ty5FMIZqOvm7Xv2X5ijHHPCNm9/9e5tVeEQkCVgeMMRfB3+Pq0W5fFKM
-	 NPnWzhvswVe7dT91foY0oKAANmyx/5g1GRXgOkRpkoxWHOnOeAKyMQCqztCVeYPKPZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853276;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FuJbvNF0FrPMLXejiqbdViekL7UXyCU2votoGhiD3Qk=;
+	b=UnQZFN1InJ5O8uNyco4oe4wSUUqviSdbgM0bKDIXg4ZQqVcJHoUUTQ33Obq9cpVvbl5f
+	 UWeW5WTaNcn1Lc/bA7XyB0sLcDN1TeHftn9JFKKvEhga4JYjD+JtLmgxUmKJG/L+LyYpC
+	 dkl8X65ja8KSVELB5LoOzQEUPCfsnqqk28NX/mlnPL1Wv3NViLK74MvgbT8Z7NcqSszuf
+	 tSm4TyYNlAqrBnSuZkug4x7xwBUDVnVEovGYTyUc8equE+9BCiL1UkfIdlTaajHKIR8py
+	 Aw8nmTJ8ZWvC8ffAnWKCrKlLhoSOiZTAFjoM+Lmac09t18mw+mGBVD26J+sc6ccRzqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=szelinsky.de;
-	spf=pass smtp.mailfrom=szelinsky.de;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b="Cx/7cwdI";
-	arc=none smtp.remote-ip=85.214.127.56
-Received: from szelinsky.de (szelinsky.de [85.214.127.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v3JkZ1RQ;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2BE606A33A;
-	Mon, 16 Nov 2026 18:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2BE606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAC3606A88D
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:21:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CAC3606A88D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=Cx/7cwdI
-Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 88F3DE838C9;
-	Mon, 16 Nov 2026 19:21:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1794853264;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t+D9qVbzCCKAJlVz/auwzp1cE+wp8QYsKc77PmPP+qg=;
-	b=Cx/7cwdIkgU93nX8vlrCf93E8a1L/z4qI4Rs3UskVgqIWhaKgJQNxPICpAhLGfhn5V4hJd
-	fZUd7CAyNoDFPwVflrokYJNBvdTRaUcoXj6E2EwZBSjBWDduRbRq1Hx5aRcEudtgEKyDTD
-	C9bM6MnIeBiO8W9l81W+w8RA8XFpPnvGXny7uLON8dk00TrRCdLGMCPlB4OAJBbsjA+T2U
-	TNilQPp9FkT0LKykELdy+CTh/VhNH7Wdl9retX+/yQxnjAFzqrnZpB93tdGbX73iP9PXHa
-	rfIPluYx/B3FiWLr8+xq7u+R9XB1S0u6BzvghZ9h9FU9+Zy6iHqa7QZJH0zhGg==
-X-Virus-Scanned: Debian amavis at szelinsky.de
-Received: from szelinsky.de ([127.0.0.1])
- by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id 9X1y2t5B0bOc; Mon, 16 Nov 2026 19:21:04 +0100 (CET)
-Received: from p14sgen5.. (unknown [91.25.97.186])
-	by szelinsky.de (Postfix) with ESMTPSA;
-	Mon, 16 Nov 2026 19:21:04 +0100 (CET)
-From: Carlo Szelinsky <github@szelinsky.de>
-To: netdev-bot+sashiko@kernel.org,
-	Kory Maincent <kory.maincent@bootlin.com>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Kyle Swenson <kyle.swenson@est.tech>,
-	Ross Cawston <ross@r-sc.ca>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v3JkZ1RQ
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-886e61fa30fso1590426b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:21:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794853275; x=1795458075; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FuJbvNF0FrPMLXejiqbdViekL7UXyCU2votoGhiD3Qk=;
+        b=v3JkZ1RQEG58gy+eqpxPbxT4r2sOGl+3RM02Ofi2whSprgoglF1t5NJzEdx8sfFa6V
+         Y/CwvO/WJHi2dcQl7L143L1IovUE6y9/goX7nZbdD6HmXrv71AVVxOLcPGHccKnPvbpw
+         g9BsGkaBia1RGG1iffaOjrKO7wzfmlrR0pUWwnQiBAnk7bOtcngrh7hZW4orFLM+GXyh
+         oFR7OnXSA1Kyk1Jk8SaztfuO/ien8ulpHEGVKgVjc9S1Eh3vycBMe/pE7M9U6X9TQUTI
+         HJ+l5hcSm27NIv9Pf778NMmhtrIdiGGD9nqKGM3QEisGswQ2XaP2JWerPGeh5agfIAlL
+         A89Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794853275; x=1795458075;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FuJbvNF0FrPMLXejiqbdViekL7UXyCU2votoGhiD3Qk=;
+        b=xfglVmdDrlEdUJYB5ao+mSQFf6LiO53gD3lwjkFe0DRWkDdiiN7ZlJaDyqQHbVAWQl
+         kQVVZ3veX/bdNcO/jZlJHOOUGdeiI/H5juGH1Ai25AqPFpA0PkiYRWuMLokDiKjlmZkG
+         26oH08y12tfjCgXHHK8OQ2SVsCwIYnf9UBrf7Wl6NrYmf73/N8+fYOFRbcwgdH5SXld6
+         84pF+QavUVtATIZ+1jNxKejhcaPdGgLTCYDhgPXvFBNqtLZTGfArPD1rAytXxk9BGxuX
+         N1O6v/pjteoZdfyjtzagvTBEfnOFmA3TmIH8yqjeN1z0twVBc7mBrkLIUVB15c4GMuCP
+         pXiQ==
+X-Forwarded-Encrypted: i=1; AL+hErFYBXcKHHwy/gNNSi5+mU16Tz7INRpb8pJYNHHfrorcrk7dI+EIzA57ECZOCcpolVqAqlPiDoQM0dEh2Jo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PbWjoAhDVGEH+9Z7QaFsuhPqn5+hPNoSNH+4nPcTiqlcHbTOw
+	55bziGd+ilVMbRsM8a8XgFAtgmzsqA5ZRpFMcpgSM1Myc0nYYvbg4W8A
+X-Gm-Gg: AYBFou1KyJTCev4TwwwZUdbaxWFrQR2lhocvxZY26Mmu/67W3yXcVGqvzs7KKhxJ/DJ
+	D/wqo624T6+4sInAR1MkXaD/X4tMcioWgTEzSx3HMyc0SZcrBUptC9sVT/oR9R60ZxRQJH01j+K
+	IDWv/9QjgzKUde3cj6ZsdZ2Pg69TgLxxUAN1mCHGmR64ZJ/2V1NYkPT+SQ37ZXNCt8akeKR2ljG
+	S9caS9k9E6xuYYa6lULermZBd13hN5YoXSZRuLb7Ht7w+TqgKlgoBOa3Y4Xp6a1K1sfigucLEDk
+	3L3hp75x/+evHCLf6VDvcwfpYViuSva3D1E+uqhmndIDQRLNh9O2jFy9AuLvQyLDQP4dB8G1wsc
+	CHz5o1tL/PgKlqQjWiq0mqorF/Hqq8spzLBlBCOUVf6GVLn/qVsaB/azXXHktGOOPgfBrUKpaIa
+	WQzvKJMcpSspeVS1eZXTw5VonWdmHh+LClxnefFFuzslW6VMOOrRVG280Ab/9ahLkv1UpDQyt4c
+	2f+tDfY2puv5qjThptMaxTfVeb5TwpRoJB9IxNyYKwWEEcQfWC2xwyo0UJpVKuHr1kfBVo+5APN
+	6SSZsQnwpIfJGMcmCt72qoL03dS5LhX4VtIDXKITx7Zv6S5PAKc6UuR+X/6ro92POMWpIUoXVfA
+	O0jXA/ceapBdmsIhdZueh7io4OU8YcAAjhVt7
+X-Received: by 2002:a05:6a21:8cc3:b0:3e2:ad2b:8f69 with SMTP id adf61e73a8af0-3f7a7ec1f78mr9948935637.67.1794853275248;
+        Mon, 16 Nov 2026 10:21:15 -0800 (PST)
+Received: from localhost.localdomain ([12.162.234.74])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde0f3f4c7bsm236378a12.22.2026.11.16.10.21.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 10:21:13 -0800 (PST)
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: andi.shyti@kernel.org,
+	andrew+netdev@lunn.ch,
+	corbet@lwn.net,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	jiri@resnulli.us,
+	kuba@kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 06/14] net: pse-pd: check the PI state under the lock when setting a power limit
-Date: Mon, 16 Nov 2026 19:20:52 +0100
-Message-ID: <20261116182052.1262742-1-github@szelinsky.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179477645553.3136.3930514306381646741@kernel.org>
-References: <179477645553.3136.3930514306381646741@kernel.org>
+	pabeni@redhat.com,
+	rdunlap@infradead.org,
+	richardcochran@gmail.com,
+	skhan@linuxfoundation.org,
+	vadim.fedorenko@linux.dev
+Subject: Re: [PATCH net-next 1/3] i2c: xiic: allow platforms to require 32-bit register accesses
+Date: Mon, 16 Nov 2026 10:21:10 -0800
+Message-ID: <20261116-wiwi-v3-87afa10a8-r4-ahmadexp@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179456531820.2199510.7014507677375597007@kernel.org>
+References: <20261111041904.48916-2-ahmadexp@gmail.com> <179456531820.2199510.7014507677375597007@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,28 +115,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 15 Nov 2026 21:00:55 +0000, netdev-bot+sashiko@kernel.org wrote:
-> Does this description understate what the old race did? It looks like
-> the budget was leaked permanently, not just reserved for a while.
+Patch 3 is the first consumer of patch 1's flag. It sets
+force_32bit_access in the typed platform data for WiWi's XIIC child. Patch
+1's proposed commit message now identifies that dependency. Other boards
+retain their existing access mode.
 
-Right, the budget is lost until the controller is bound again.
-v5 says that, and fixes the old "powered" comment.
-
-> Is admin_state_enabled && isr_pd_detected enough to show that the port is
-> actually powered?
-
-> Does this still leave part of the race with pse_isr() open?
-
-Both were there before this patch, which only moves the old check
-under the lock. They need their own fixes, so I keep them out of
-this series. The cover letter lists both.
-
-Kory, are you OK with fixing the two older problems in a follow-up?
-I am happy to work on them next, if you have a preferred approach.
-
-Also, are you fine with the rest of v4? I kept your Reviewed-by on 8
-after the small change there, so please tell me if that is not OK.
-
-pw-bot: cr
-
-Carlo
+v3:
+https://lore.kernel.org/r/20261116-wiwi-v3-87afa10a8-0-ahmadexp@gmail.com
