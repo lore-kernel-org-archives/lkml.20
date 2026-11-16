@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837307;
-	b=u5Zka2GM0oV28ocVWsP571yZFj5Mz4Uc4t233dr1Bk0UgLUVgQUv2FfuWWsY/ukbpeIy
-	 p8Cly9yaK6NUR4zwpnZbB3JmkiyyqZrhZpaPuJ84jlaVZy4hixs/bt5PtCuqzGE1PbT4f
-	 Wjq+wHHbmsnbmxvoXwxTttyozd8GOCwqDu7rLyqNxeBFQDgTdIQ9UZgTjnhdo2ZEZ9WnD
-	 svphjOHi9mU2ExnPuH01NDQ1fTB8LHr35eNWv+aoq41Vv0tlJr+VmfPg9onBcuWxGQZRj
-	 G2w+fkhneyKpq8A6E+9lO7HOaF7tp11NzgVi2XvVKfaudCZj1UPrKLmLH7lMmch45rQ==
+	t=1794837314;
+	b=co+gMZhKDhffoAlkRD88RjN+97/tOMXzzOaIXPKgp1Ams+fbcGZmCdGNWjrXcj7NsxtE
+	 yys19QECXoQujGr2YerxLz6MDJUCOFNwbPA9eLolVrxPyNBsEhuK7ACfMrNjw7Rr0yiUT
+	 jkh3n5unPlQMTO+pZau5sB8YKh3GWmYCL66LbX2dRubgXPMVxTbsu8czoAkJ/Ay8O+lV+
+	 EVKtbahvGuDNC72DwPZ8G4u1cpJc9vOlGWQFHOnoJLrHb8k7llTIDHNWmXIV9uW5qkI2F
+	 zvEGcWVgN1ALtPYG/foAn6h2Bjnz/OoQqOvF0slpplmSbWzE+fvdS3PNmG2OCfNlWFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837307;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837314;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=dJmBvsHxmFsY/NHiTygrkfChS2jWEf5KeHz33qzwJMI=;
-	b=H+JvxtuekTTEvTBxp8ENIuWmQu0jBcDZ4cOHb+RhbQiR9OVahGP14/QqYKHed0jSj8Oo
-	 3x6OhnS2yjL8nHE26LZ831Z4trFAlxVIlYeNUF+NgyKNWZprtuQF+9lTGSWY+iIw3KZqi
-	 Hb7HjrK12b1ZxSdMSyw9h1+vg5IuJTgqBBe4w5B8VLD4CLFSSEl779Rz7b/Qayc6IoIM1
-	 swhBUuLfsOeI6kh6WMhGiN4qagUij95duQgn8v26siswIrAfHP4LxMjWx7XX7xm4Qu7Qh
-	 rOU2lSoD+9/f6MhTdfMgHLSbDNi6o912me3y2/XaymLBW3EdqT5sJLlIu+tN9prBN/w==
+	bh=JnDYP4q711g99WMuz663GPClfp62Sgpn5lVs7PGSx4U=;
+	b=ryHTDMJHlRGdhid7CuanKMXl09cpAtJtKlknVhuJkrqUYaIFX25Hsa+SjgU6PXR0D+pe
+	 9s4p4XnROS6bfGrFPeWHdwVqpCNpp7/2X0oIXIcAxRM29ueuU84InJ3bRTbOcBlpKEqoa
+	 GA8627uMzGnnmjh77NCyd23XxRh98TXjjEvFA+7fewm7lR9ac+ns4ujCAlDBdM45Mqe/K
+	 TZQnsdiUV6i1tb12kxjLhLWonL8y4/xldyR/ayUvQ4It7171wsGuZOG2xFK9qJBgACr4n
+	 ry8d/VOUM8MlTqacsl42+CmXI2onF3bTmMf/GYd8HC5kJapx+qbNVdvnBZPTysosKyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=me975jvN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuGeGt8j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6343C606D54B;
-	Mon, 16 Nov 2026 13:55:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1063E606B747;
+	Mon, 16 Nov 2026 13:55:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=me975jvN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7861F000C5;
-	Mon, 16 Nov 2026 13:55:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuGeGt8j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA9E1F000C4;
+	Mon, 16 Nov 2026 13:55:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837307;
-	bh=dJmBvsHxmFsY/NHiTygrkfChS2jWEf5KeHz33qzwJMI=;
+	s=k20260515; t=1794837313;
+	bh=JnDYP4q711g99WMuz663GPClfp62Sgpn5lVs7PGSx4U=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=me975jvNDmUmvwA6FWFpPXMGtDNyifM8vZozlY5X4jl0OSAHXR6uPZshnPbXAMvHn
-	 61ZpD4PP5BnE1LbiNwqUrhOsOkbAyF03vztminGJrZ7B9uFUBhK0M0EfiKFJsk0jWX
-	 CJB+gzcO0HGSWHsbX7aoCVDKUaMHUt4W69ybxpOvaYsE1DQXLRem7xNl94hC+UBTRv
-	 lyu6tXVPYA16TG1iD14X1JJai/Ez23xjubdXaXxp+007uwYB2N9/6wbuMoLVvnLq8y
-	 /NUWuSKl2PmAgOXiC+J1qO/g8ppmiAW0ARPUiHln+emknOLP6HOFQkbH7fZQkQJdGT
-	 xF3RLMRvN6tog==
-Subject: Re: [PATCH net-next v5 5/9] virtio-net: support receive timestamp
+	b=TuGeGt8jrur+vBdg0M3y6lOmi73bhAFmugfmmjuLpp8zULGhBxF9lLBuEGWlr8IEj
+	 43AoHC9QDYmgkz9DMtfkmQjDDZ9szhGH2FRLd1mIh9D8ZM4qGZT2cXF2sJ0m2oRsEG
+	 XRJeqJGaf3gGIbn2IzPjqRhfvCCvpGcZxP7A6gWJXWyjX0eaeLmRxdoHqw4Ua2+5pr
+	 oIuxWNlAgl3PnyEXLiN8uJp/pmpAbse4X7LJtyr6rbmrY6DyxBvsykeWt/qouwLEbc
+	 wWlzUhR+qQFgIcXvtOB6NGv2auB1zPRw3V6YTl/oeXSL6D6H9ysq0S77PIhrRaWdvF
+	 q2XLf4M3Xnwew==
+Subject: Re: [PATCH net-next v5 9/9] tun: add rx timestamp to the vnet header
 From: netdev-bot+sashiko@kernel.org
 To: s.trumtrar@pengutronix.de
 Cc: mst@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net,
@@ -53,10 +53,10 @@ Cc: mst@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net,
  virtualization@lists.linux.dev, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kvm@vger.kernel.org,
  kernel@pengutronix.de
-Date: Mon, 16 Nov 2026 13:55:04 +0000
-Message-ID: <179483730496.3136.1220905083498568586@kernel.org>
-In-Reply-To: <20261112-v6-7-topic-virtio-net-ptp-v5-5-7ab67b572f4f@pengutronix.de>
-References: <20261112-v6-7-topic-virtio-net-ptp-v5-5-7ab67b572f4f@pengutronix.de>
+Date: Mon, 16 Nov 2026 13:55:11 +0000
+Message-ID: <179483731174.3136.9033275454370245376@kernel.org>
+In-Reply-To: <20261112-v6-7-topic-virtio-net-ptp-v5-9-7ab67b572f4f@pengutronix.de>
+References: <20261112-v6-7-topic-virtio-net-ptp-v5-9-7ab67b572f4f@pengutronix.de>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -70,10 +70,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1
+Critical: 0 · High: 0 · Medium: 4 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -81,165 +81,213 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] Feature bit and wire layout are chosen without citing the
-  virtio spec.
-- [Low] The feature bit is exported to userspace but the header layout it
-  enables is not.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  extends it.
+- [Medium] The commit message says the TAI time is written "when a packet
+  is handed to userspace or vhost".
+- [Medium] Whether tun writes the timestamp depends only on the
+  configured header size: `vnet_hdr_sz >= offsetofend(struct…
+- [Medium] The value the device side reports as the 'TAI receive time' is
+  sampled in tun_put_user() (drivers/net/tun.c:2178,…
+- [Medium] tun cannot see the negotiated virtio features, so it guesses
+  them from vnet_hdr_sz.
+- [Low] The patch adds `sz < tun_vnet_parse_size(features)` → -EINVAL in
+  __tun_vnet_hdr_put() (drivers/net/tun_vnet.h:163-164).
 
 --
 
-virtio-net: support receive timestamp
+tun: add rx timestamp to the vnet header
 
-This adds a VIRTIO_NET_F_RX_TSTAMP feature (bit 49) to virtio-net. When
-it is negotiated, the vnet header grows to 40 bytes and carries a le64 TAI
-receive timestamp at offset 32, which is attached to skbs through
-skb_hwtstamps(). Timestamping is switched on and off at runtime with
-ndo_hwtstamp_get/set.
+This is a reference implementation of the device side of
+VIRTIO_NET_F_RX_TSTAMP. When the configured vnet_hdr_sz covers the tstamp
+field, tun_put_user() writes the current TAI time into the vnet header.
+__tun_vnet_hdr_put() now takes a struct virtio_net_common_hdr and copies as
+much of it as vnet_hdr_sz holds.
 
-> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> index 23e7f62a6ff64..57b7c32625dfb 100644
-> --- a/drivers/net/virtio_net.c
-> +++ b/drivers/net/virtio_net.c
+> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> index 8920c797acfd7..1a8c3377753d7 100644
+> --- a/drivers/net/tun.c
+> +++ b/drivers/net/tun.c
 
 [ ... ]
 
-> @@ -1324,7 +1344,9 @@ static void virtnet_receive_xsk_buf(struct virtnet_info *vi, struct receive_queu
->  		return;
+> @@ -2168,12 +2169,16 @@ static ssize_t tun_put_user(struct tun_struct *tun,
 >  	}
 >  
-> -	flags = ((struct virtio_net_common_hdr *)(xdp->data - vi->hdr_len))->hdr.flags;
-> +	hdr = (struct virtio_net_common_hdr *)(xdp->data - vi->hdr_len);
-> +	flags = hdr->hdr.flags;
-> +	tstamp = virtnet_record_rx_tstamp(vi, hdr);
+>  	if (vnet_hdr_sz) {
+> -		struct virtio_net_hdr_v1_hash_tunnel hdr;
+> -		struct virtio_net_hdr *gso;
+> +		struct virtio_net_common_hdr hdr;
+>  
+>  		memset(&hdr, 0, sizeof(hdr));
+> +
+> +		/* The configured header covers the tstamp field */
+> +		if (vnet_hdr_sz >= offsetofend(struct virtio_net_common_hdr, tstamp))
 
-[Severity: High]
-This is a pre-existing issue, but this patch adds a new read from the same
-region. On the AF_XDP zero-copy path, is the vnet header in front of
-xdp->data ever synced for the CPU?
+[Severity: Medium]
+Is the header size enough on its own to gate this?
 
-virtnet_add_recvbuf_xsk() posts the descriptor hdr_len bytes before the xsk
-DMA address:
+TUNSETVNETHDRSZ in tun_vnet_ioctl() accepts any size of at least
+sizeof(struct virtio_net_hdr), with no upper bound. Before this patch,
+__tun_vnet_hdr_put() zero-filled everything past parsed_size (10 or 24
+bytes). After it, any existing tun user with vnet_hdr_sz >= 40 starts
+getting host CLOCK_TAI values in bytes 32..39.
 
-	addr = xsk_buff_xdp_get_dma(xsk_buffs[i]) - vi->hdr_len;
+The tstamp layout is only defined in the kernel-internal
+include/linux/virtio_net.h. Its comment says the field is present only if
+VIRTIO_NET_F_RX_TSTAMP was negotiated. tun cannot see that negotiation, and
+the uapi header exports only the feature bit.
 
-buf_to_xdp() only calls xsk_buff_dma_sync_for_cpu(), which ends up in:
+UDP tunnel GSO was added behind TUN_F_UDP_TUNNEL_GSO. Older kernels reject
+that flag in set_offload(), so userspace can probe for it. Without a
+similar TUN_F_* opt-in, how would QEMU know whether the running kernel
+fills the field before it offers VIRTIO_NET_F_RX_TSTAMP to a guest?
 
-include/net/xsk_buff_pool.h:xp_dma_sync_for_cpu() {
-	dma_sync_single_for_cpu(xskb->pool->dev, xskb->dma,
-				xskb->pool->frame_len,
-				DMA_BIDIRECTIONAL);
+[Severity: Medium]
+Does letting a 40-byte header mean RX_TSTAMP conflict with the size-based
+feature guess in tun_vnet_hdr_guest_features()?
+
+drivers/net/tun_vnet.h:tun_vnet_hdr_guest_features() {
+	if (vnet_hdr_sz >= TUN_VNET_TNL_SIZE)
+		return NETIF_F_GSO_UDP_TUNNEL | NETIF_F_GSO_UDP_TUNNEL_CSUM;
+	return 0;
 }
 
-That range starts at xskb->dma, so it does not cover the hdr_len bytes the
-device wrote in front of it.
+In this series, virtio_net and vhost-net use a 40-byte header for
+VIRTIO_NET_F_RX_TSTAMP even when UDP tunnel GSO was not negotiated. On the
+guest TX side, tun_get_user() and tun_xdp_one() still pass the guessed
+tunnel features to the header parser:
 
-Under swiotlb bouncing (for example SEV/TDX guests with
-VIRTIO_F_ACCESS_PLATFORM, or swiotlb=force),
-__swiotlb_sync_single_for_cpu() copies back only the synced range.
-Non-coherent DMA has the same problem. In both cases the CPU reads stale
-bytes from the umem page, and userspace or bpf_xdp_adjust_meta() may have
-written those bytes.
+handle_tx()
+  tun_sendmsg()
+    tun_get_user() / tun_xdp_one()
+      tun_vnet_hdr_guest_features(40)   -> tunnel features
+      virtio_net_hdr_tnl_to_skb(..., tnl_hdr_negotiated = true)
 
-virtnet_record_rx_tstamp() now reads hdr->tstamp from that region, and
-virtnet_receive_done() reports the value through skb_hwtstamps(). Could a
-stale or user-controlled value end up reported as the hardware timestamp?
+That means this check in virtio_net_hdr_tnl_to_skb() never fires:
 
-The same gap already affects hdr->hdr.flags (VIRTIO_NET_HDR_F_DATA_VALID)
-and num_buffers in virtnet_receive_xsk_merge(). If num_buffers reads as 0,
-the while (--num_buf) loop in xsk_append_merge_buffer() wraps the u32, then
-consumes and drops buffers that belong to the following packets.
+	/* Tunnel not supported/negotiated, but the hdr asks for it. */
+	if (!tnl_hdr_negotiated)
+		return -EINVAL;
 
-Would syncing the header range too, starting at the posted address
-(xskb->dma - vi->hdr_len), fix all of these?
+Could a guest that negotiated only RX_TSTAMP send the
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_* gso_type bits, the
+VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM flag, or outer_th_offset / inner_nh_offset
+values in bytes 20..23, and have the host accept them? For that guest,
+those bytes should only be padding.
+
+> +			put_unaligned_le64(ktime_get_clocktai_ns(), hdr.tstamp);
+
+[Severity: Medium]
+Is this really the receive time?
+
+tun_put_user() runs when userspace or the vhost worker dequeues the packet
+from tfile->tx_ring through read/recvmsg. The packet reached the tun device
+earlier, in tun_net_xmit(). Any timestamp already on the skb is also
+ignored.
+
+The guest stores this value in skb_hwtstamps(skb)->hwtstamp in
+virtnet_receive_done() and treats it as a hardware RX timestamp. So the
+reported value also includes the ptr_ring backlog (up to tx_queue_len
+entries) and vhost/userspace scheduling latency. Guest PTP or latency
+tools would count that delay as receive time.
+
+The uapi describes the feature as "Device sends TAI receive time". Should
+the timestamp be taken at ingress in tun_net_xmit(), or come from an
+existing skb timestamp? If dequeue time is intentional, could the commit
+message say why? A real implementation would likely copy this reference.
+
+>  		ret = tun_vnet_hdr_tnl_from_skb(tun->flags, tun->dev, skb,
+> -						&hdr);
+> +						&hdr.tnl_hdr);
+>  		if (ret)
+>  			return ret;
 
 [ ... ]
 
-> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-> index a6de308b8f25e..2abd8a614a23f 100644
-> --- a/include/linux/virtio_net.h
-> +++ b/include/linux/virtio_net.h
-> @@ -17,6 +17,16 @@ struct virtio_net_common_hdr {
->  		struct virtio_net_hdr_v1_hash hash_v1_hdr;
->  		struct virtio_net_hdr_v1_hash_tunnel tnl_hdr;
->  	};
-> +	/*
-> +	 * The wire layout is fixed and cumulative: a field sits at the same
-> +	 * offset whether or not the features before it were negotiated; unused
-> +	 * bytes are padding. tstamp is thus always at offset 32 and only
-> +	 * present (header size 40) if VIRTIO_NET_F_RX_TSTAMP was negotiated.
-> +	 * The negotiated header size tells how much of this struct is
-> +	 * on the wire. Only ever append new fields at the end.
-> +	 */
-> +	__u8 reserved[8];	/* outer_nh_offset, ipsec_resource_hdr (not implemented) */
-> +	__le16 tstamp[4];	/* le64 TAI receive time in ns, 0 if none */
->  };
+> diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
+> index f4c652b1fa44d..d4cc56dac98d6 100644
+> --- a/drivers/net/tun_vnet.h
+> +++ b/drivers/net/tun_vnet.h
+> @@ -153,19 +153,21 @@ static inline int tun_vnet_hdr_get(int sz, unsigned int flags,
+>  	return __tun_vnet_hdr_get(sz, flags, 0, from, hdr);
+>  }
+>  
+> +/* hdr is fully initialized, copy as much of it as the configured size holds */
+>  static inline int __tun_vnet_hdr_put(int sz, netdev_features_t features,
+>  				     struct iov_iter *iter,
+> -				     const struct virtio_net_hdr *hdr)
+> +				     const struct virtio_net_common_hdr *hdr)
+>  {
+> -	unsigned int parsed_size = tun_vnet_parse_size(features);
+> +	unsigned int put_size = min_t(unsigned int, sizeof(*hdr), sz);
+>  
+> -	if (unlikely(iov_iter_count(iter) < sz))
+> +	if (unlikely(iov_iter_count(iter) < sz ||
+> +		     sz < tun_vnet_parse_size(features)))
+>  		return -EINVAL;
 
 [Severity: Low]
-Should this layout be exported in include/uapi/linux/virtio_net.h along
-with the feature bit?
+The new sz < tun_vnet_parse_size(features) check seems to quietly fix an
+existing bug. Should it go in a separate patch with a Fixes: tag?
 
-VIRTIO_NET_F_RX_TSTAMP is now in the uAPI header. The 40 byte layout it
-turns on (reserved[8] at offset 24, le64 tstamp at offset 32) is defined
-only in this kernel-internal struct. The earlier patch in the series,
-"virtio-net: move virtio_net_common_hdr to virtio_net.h", moved it here,
-and the series never adds a uAPI struct.
+set_offload() enables NETIF_F_GSO_UDP_TUNNEL without looking at
+vnet_hdr_sz, and TUNSETVNETHDRSZ accepts 10 without re-checking features.
+That makes sz = 10 with parsed_size = 24 reachable. Before this patch,
+__tun_vnet_hdr_put() would then do:
 
-Other features that extend the header have exported wire structs. Examples
-are struct virtio_net_hdr_v1_hash for VIRTIO_NET_F_HASH_REPORT and struct
-virtio_net_hdr_v1_hash_tunnel for the UDP tunnel GSO bits.
+	copy_to_iter(hdr, parsed_size, iter)
 
-Device implementations that import the uAPI header (QEMU standard-headers,
-vhost-user and DPDK backends) get the bit but no definition of the offset
-and size they have to produce.
+This writes 24 bytes into a 10-byte header slot, which overruns into the
+packet area of the user's buffer. Next, sz - parsed_size wraps to
+0xFFFFFFF2, and iov_iter_zero() zeroes the rest of the buffer before
+-EFAULT is returned.
 
-reserved[] stands in for outer_nh_offset and ipsec_resource_hdr, and
-neither field is in the uAPI. The cumulative layout claim therefore can't
-be checked against any exported definition.
+With the new check, -EINVAL is returned before anything is written. The
+commit message does not mention this change in behaviour, and the patch is
+marked as not intended to be merged, so the fix would be lost. The
+underlying problem appears to go back to commit 288f30435132 ("tun: enable
+gso over UDP tunnel support").
 
-> diff --git a/include/uapi/linux/virtio_net.h b/include/uapi/linux/virtio_net.h
-> index 1db45b01532b5..15e8e408d50fb 100644
-> --- a/include/uapi/linux/virtio_net.h
-> +++ b/include/uapi/linux/virtio_net.h
-> @@ -56,6 +56,7 @@
->  #define VIRTIO_NET_F_MQ	22	/* Device supports Receive Flow
->  					 * Steering */
->  #define VIRTIO_NET_F_CTRL_MAC_ADDR 23	/* Set MAC address */
-> +#define VIRTIO_NET_F_RX_TSTAMP	  49	/* Device sends TAI receive time */
+[ ... ]
+
+> @@ -174,7 +176,11 @@ static inline int __tun_vnet_hdr_put(int sz, netdev_features_t features,
+>  static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
+>  				   const struct virtio_net_hdr *hdr)
+>  {
+> -	return __tun_vnet_hdr_put(sz, 0, iter, hdr);
+> +	struct virtio_net_common_hdr common_hdr = {};
+> +
+> +	common_hdr.hdr = *hdr;
+> +
+> +	return __tun_vnet_hdr_put(sz, 0, iter, &common_hdr);
+>  }
 
 [Severity: Medium]
-Is bit 49, and this header layout, reserved in the virtio spec?
+The commit message says the TAI time is written "when a packet is handed
+to userspace or vhost", but tstamp is never set here. Do packets that go
+through tun_vnet_hdr_put() always get a zero timestamp, even when sz
+covers the field?
 
-The commit message does not reference an OASIS virtio-comment change. The
-only device it was tested with is "a patched QEMU". The tun patch in this
-series says it is "not intended to be merged" and links an out-of-tree QEMU
-branch.
+There are two such callers. The first is tun_put_user_xdp(), which handles
+xdp_frames on tfile->tx_ring (for example from XDP_REDIRECT through
+tun_xdp_xmit()):
 
-A gap in this header doesn't mean a bit is free in the spec. Bit 51 is also
-unassigned here, and bits 46/47 are already reused as
-VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_MAPPED and
-VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM_MAPPED. Willem de Bruijn's earlier
-timestamp work used bits that the spec later gave to USO and notification
-coalescing.
+	if (tun->flags & IFF_VNET_HDR) {
+		struct virtio_net_hdr gso = { 0 };
 
-Placing the timestamp at offset 32 also relies on outer_nh_offset and
-ipsec_resource_hdr, which are not implemented here.
+		vnet_hdr_sz = READ_ONCE(tun->vnet_hdr_sz);
+		ret = tun_vnet_hdr_put(vnet_hdr_sz, iter, &gso);
 
-Suppose the spec gives bit 49, or the timestamp offset, to something else.
-A device offering bit 49 would then make virtnet_probe() choose:
+The second is tap_put_user() for macvtap/ipvtap, which also calls
+tun_vnet_hdr_put().
 
-	if (vi->rx_tstamp_supported)
-		vi->hdr_len = offsetofend(struct virtio_net_common_hdr, tstamp);
+vhost-net advertises VIRTIO_NET_F_RX_TSTAMP for every backend and uses a
+40-byte header once it is negotiated. The guest then turns on RX
+timestamping.
 
-for both RX and TX. RX would strip the wrong number of bytes, TX would send
-a header of the wrong size, and unrelated bytes would be reported as
-hardware timestamps.
-
-The vhost-net patch later in the series also advertises the bit to
-userspace. That would make it negotiated ABI as soon as this is merged.
+So a guest on a macvtap/ipvtap backend would negotiate the feature and
+never get a timestamp. On tun, one queue would mix timestamped skbs with
+XDP frames that have no timestamp. Is that intended, or should these paths
+fill tstamp as well?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f%40pengutronix.de
