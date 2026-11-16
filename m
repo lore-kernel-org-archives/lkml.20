@@ -1,75 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820449;
-	b=T4wzFdmaQVMojatPaMPMldo7LYp6+6B0PfnVTNfSx0/LTLlHhOzPi2M/cYNxXzGeAL/N
-	 tgXP7dgDfOE89qbbXxFOysPNBrf/s6mtsdy4olay4VKVDaPkCkRiechnkVqzw1nM5HocW
-	 iiFuGDfuco3G3/1RbOK1kMk0TwpHNV97IxjiPE+3WjIzSDtqn3yTzcP67aMipIt+ZDwys
-	 Dc9CiVaGOrc1dANP4yWB2VNT+/PBOUvvyc4SL1wJu9sGmfDZp33e8fZKlVUcrdgQ68YMX
-	 HkWS7WsCI3J3dX1958dGCA2ar0d9r8jZts+JdXKF5gEwuHTm22CQRm2FDXq7huhWeJg==
+	t=1794820462;
+	b=SVePdtBQvueEdwmxIaT/0fl40na3NEzGiDPS5prfMzIDxX+C8QVu9VIc+tGwgksKuyJR
+	 xUgWOL/Q6uPEwe+gz0gp/M2T0mpz4MOqGxa8JThFlfFmDqZkr8UhQwRaJRXYxAwdVbNTW
+	 Evv605vzmC07BscYIT5PmIbGRYiv2a0Zm1s1aP6WYxtL24QTaLjhPD9OFRK9u+vIaR+2M
+	 K6POOb2MabmzlWykXUOIrkbNmMvquFJVlB6t2V1wxKteK/vsE8lcVv1Jr77AIt3SUumAx
+	 aTVT/pVaSW3xZrgDnwqeheucoKioogGf/sSHs/U6GRHCN2nCzW25X5RdShHebaRtqtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820449;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
-	bh=bzhy1DAd5WxrYnCXpRfLON67LvQNVH3MYSk+qm8+vUU=;
-	b=tRlJCPW/XBc55LbbayGJB7ktCLxFGi9YNPXHRtUByxM4ifqY3eJ6OQpTvmQrbO3/ecjS
-	 4ERS2CQrfpU+px9t44IUiqm48CuH01eT8v3BY6VGzBJXa21lsSe7MgIho6qy1ma5jADcW
-	 qWNY39j0PLDTRMZfTbsSUjcQX+gL0AGb/X+89MwOVElOfwBLSZNq/Zr7mnpCihe8rkKsL
-	 tc7+IdYr3F/kZpNktgTuj2DIyqymhSGY0cro/8BT26AO3ipuQfeHLgNgZhNYYf8l5krvX
-	 IAgFlhCfn/cSbmWcOkvIvCX4QTqfHES0xBiTfNvzrRhyWInEQZHe6l/CAuIXogC5Hiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820462;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
+	b=YRGvAqYs1mBo2pjDJYGcovvHu2aIKX9nF3s3BL1cwGneFSGW82n73Zl/VBQATP43JrKy
+	 ++NcTyy6Snk02atT6W2qNz7QuEFHtZN5UDadDGSQ5CszxpR18hkklpocW4J/1574awZbW
+	 /ZkZp1R9qkG5kMwR5I6QsuqPq1unFIpuAId7qJ0snzcxjFbpGVmJYg/s8kTCF64p6NUMf
+	 C5Md7Cn1a9tWGms3u8uOV4AbTbGIi9SmuHhBm33qsKFdTme0221ehc/DuQs/SOYo63Cq9
+	 4OzjAJUzGCbevMbkGOVaXUIoe88tWAXjaU4sl2EDaPny0mejkQla/QsUTsRlnAmSQ7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=S1hPUkUU;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91968606A338;
-	Mon, 16 Nov 2026 09:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91968606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FA1606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FA1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=S1hPUkUU
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C63CA4E415F7;
-	Mon, 16 Nov 2026 09:14:05 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 991EE6023F;
-	Mon, 16 Nov 2026 09:14:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6F1A911BC084F;
-	Mon, 16 Nov 2026 10:13:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794820444; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=bzhy1DAd5WxrYnCXpRfLON67LvQNVH3MYSk+qm8+vUU=;
-	b=S1hPUkUUg/VGiq+Qb+ZTVMO7sM7o1NY13dEQpbIVgHbqARTm/qnjvJIHP2Qwj0QuaYxhEq
-	I/tD5E2BAB5PVe4KghpbBcbfDShOnJ8C1jXHXYRZkR8RG6+Q62EPbYmqPulFbAHt+QCAnm
-	O3o0RAfYjOMbTrIHuH0RwyM3wJR5K3Svin7hMljOLd//vM8FOOKycjLSlb/TlLn6pqG5hw
-	MM1QcQ0CTARII28UsvC9Q8DFQmU5zW1RInsVqeS7JV3x6+sXMB+snpGSC8BoT2NofLGJIi
-	g9/Z7OeKeQ1iSF6mKsNLEf2UMUtfEEsYNloT9gl2qhKFzIG0yRUHlcoZ0Fj4Lw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org,  Nicolas Ferre <nicolas.ferre@microchip.com>,
-  Alexandre Belloni <alexandre.belloni@bootlin.com>,  Claudiu Beznea
- <claudiu.beznea@tuxon.dev>,  Song Qiang <songqiang1304521@gmail.com>,
-  Radu Sabau <radu.sabau@analog.com>,  Maxwell Doose <maxwell@maxwelld.cc>,
-  Tomasz Duszynski <tduszyns@gmail.com>,  Erikas Bitovtas
- <xerikasxx@gmail.com>,  Waqar Hameed <waqar.hameed@axis.com>,  David
- Lechner <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  Andy
- Shevchenko <andy@kernel.org>,  linux-kernel@vger.kernel.org,  Jonathan
- Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [RESEND PATCH 03/14] iio: adc: max1027: poll own trigger from
- interrupt handler
-In-Reply-To: <20261109042851.1326940-4-jic23@kernel.org> (Jonathan Cameron's
-	message of "Mon, 9 Nov 2026 04:28:40 +0000")
-References: <20261109042851.1326940-1-jic23@kernel.org>
-	<20261109042851.1326940-4-jic23@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 16 Nov 2026 10:13:57 +0100
-Message-ID: <87fqx1t9yi.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490a0e72588so1431645f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:14:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794820460; x=1795425260; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
+        b=b0a3iGWrhf0lSrT8W5PZ3apkvAjkLzovGdk1hHP6fmuZKr0QgHoQskCMS/2eXD8s1H
+         KMlOrWoYP2COhV2udxBxwK3o35CxHUhhuUrA/gsxWN/ozahfqeYoF760rLEDhKWIf9J1
+         qdrT6VnVDZxSlFoyG21Gp1FxTNXij99MBVUfo9iJxRy/yMfTJZPqEIGSE4gOOqSCv8iX
+         ADnrBEXLVfxAyBDtPbyu8KzXQABpCjhC8TzviIGKLh6Ana7YjdzUvNiyAee/3o8oN6L3
+         zijZgQpZW15/LdRnrqhdxzbIDH4YtVKirByXJQPFA2vMzaeNSUzuHGaW5+jHojV5ACNm
+         NOfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794820460; x=1795425260;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
+        b=v/qX6R51NsdYSL2gTTIFT30qdIyIyB0MP+XYxSuBQyt9fWqNpX48i0CZjPaUT+Ebg2
+         0TSldxYdPsF6Z8R3QOXbZ6H5hRQdA16poD8XWMn+siOA2NQtf2ne+CwTAkFzgapJoOJl
+         ck2K5oikZWIYSP5NQzptxUZXsorILELk/6CfidlvnBkHkDB8k40w6vGWOhn56UIIKfpt
+         PhBGOOFLZrp12+TZzInUn6fO17nx22hWCeEDN9y2S88xbQRP4vS5YySjnGwrc40yS1Ba
+         6aULGh+nYDLn6ePxVAmtHrUcKoGCUNFJVYyf6AMP4yF8FAHh2Y1PsfzKec44jHJ+0C5U
+         3uOw==
+X-Forwarded-Encrypted: i=1; AL+hErHmHNok/4+tsrNtyte3IPVvHeV2o1eRZApdcET/uzLKyQ4g1sb3eiAyWMZ74B2r26K6L7Lhp8yNjRgEAUg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YiYC8YmQ67Q6Ae/tXCne5adIYs6QSu36z/cFP8t6pFLTAVemV
+	L/SLo3tKxQComqgcQMf2Eq3SamhgLHOUcukoYCv5yGNOZRo3Rkvrk7BXeOWzH2dXa2I=
+X-Gm-Gg: AYBFou1kX3gAgFG6M0iuoGYMzM4WPgIAjuHyS1gP+QS3yhOlf6GY8Yvl/8gqGsnRd6s
+	jQh3jUv5iu+ufAgRrjdeCjWfng59c4q0WSTkzQtC3TxRS0uzVAwcRuax09Uhs8Vx5FdT+Ga1Emi
+	12/99ADGb+amQ3VAsUa+eAslCP9dO7SZe8qbI262fA0Ai7QlwtIwq5JSY0fBWiZjsiQ7YEjV6fj
+	mZiLPe+Hx+CQPEzWPfZiaR4kE5VWd1eb372xdUDL7lJzItSQpy7AZ5vNl10+Mnd1waq4sYuWtVa
+	hr/F82m1N9DJsFQ1sBN/LgDjADOZR2WZ1eQ8WYgvex6GNKqMhIVjvxn1hbd/XiJlR1s1x6L4fMT
+	TZO3PZbhptY6/jVoniKu55gtVwfHSPai/WpFBwhIIok6LcdPQgf5SXBZyx53FDXuJ0SWTufNDQe
+	dxHZg/gGW5TdabjXr60U9Gtrfs1f46cZLrLQPSMng7zIj33osccqCZlH09kfUY+vA0UqhCjeZsw
+	SVJwlay/6IihxKc9Onk7LU9ebl5eEzEPX1Y0WYO38TISFVB1at3pdzlk7wn7xiN0KKrG8Tt/QfL
+	LlbRRvVWjjr7X8/F4RNXQeWbXK43DzXEjbroJ+kkZt3kKt5AAHByTHxxYnrsXsUs4z0BJ4BgUmw
+	FhoIKDsVgHGJkOas9xQ==
+X-Received: by 2002:a05:600c:1d10:b0:4b2:3c81:d1 with SMTP id 5b1f17b1804b1-4bb55a65ea5mr192703955e9.5.1794820459865;
+        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
+Received: from localhost (p200300f65f19a9042c263c0c153a4e28.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2c26:3c0c:153a:4e28])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb5faf05f8sm159998655e9.10.2026.11.16.01.14.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
+Date: Mon, 16 Nov 2026 10:14:17 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, kernel@pengutronix.de, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
+ m68k/coldfire and reject devices without match data
+Message-ID: <avrHkaYw-De6nv8B@monoceros>
+References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
+ <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,20 +102,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3kbn6dvhzgm4gtvf"
+Content-Disposition: inline
+In-Reply-To: <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
 
-On 09/11/2026 at 04:28:40 GMT, Jonathan Cameron <jic23@kernel.org> wrote:
 
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->
-> Poll st->trig from max1027_handler() rather than indio_dev->trig. The
-> poll is only reached when the buffer is enabled and the device's own
-> trigger is in use.
->
-> This removes a dependency on the trig field of struct iio_dev, which
-> is to become private to the IIO core.
->
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+--3kbn6dvhzgm4gtvf
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
+ m68k/coldfire and reject devices without match data
+MIME-Version: 1.0
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Hello Marc,
+
+On Sat, Nov 14, 2026 at 01:56:15PM +0100, Marc Kleine-Budde wrote:
+> When determining the device details was reworked in commit 5e6c3454b405
+> ("net: can: Use device_get_match_data()") there was no replacement for the
+> previous handling of non-of instantiated devices via the device's id_entry
+> which then results in a NULL pointer exception. The only in-tree provider
+> of such a device is arch/m68k/coldfire/device.c.
+>=20
+> Restore retrieving the devtype_data via platform_get_device_id().
+>=20
+> Also a device bound through driver_override need not match an entry in
+> of_match_table or id_table. In that case device_get_match_data() returns
+> NULL, but flexcan_probe() dereferences the result.
+>=20
+> Reject devices without match data before continuing probe.
+>=20
+> Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
+> Cc: stable@vger.kernel.org
+> Reported-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+> Closes: https://lore.kernel.org/all/20260618140147.142489-2-u.kleine-koen=
+ig@baylibre.com/
+> Reported-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> Closes: https://lore.kernel.org/all/20260528-fluorescent-sage-ladybug-432=
+61b-mkl@pengutronix.de/
+> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> ---
+>  drivers/net/can/flexcan/flexcan-core.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
+xcan/flexcan-core.c
+> index 86b40abe9e76..2bb9e4184eb5 100644
+> --- a/drivers/net/can/flexcan/flexcan-core.c
+> +++ b/drivers/net/can/flexcan/flexcan-core.c
+> @@ -2148,6 +2148,11 @@ static int flexcan_probe(struct platform_device *p=
+dev)
+>  		return PTR_ERR(regs);
+> =20
+>  	devtype_data =3D device_get_match_data(&pdev->dev);
+> +	if (!devtype_data && platform_get_device_id(pdev))
+> +		devtype_data =3D (struct flexcan_devtype_data *)
+> +			platform_get_device_id(pdev)->driver_data;
+> +	if (!devtype_data)
+> +		return -ENODEV;
+
+My stance is that the ability to bind an "unexpected" device via
+driver_override is something that should be handled in the core, see
+https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.179061=
+2298.git.u.kleine-koenig@baylibre.com/
+for the latest patch to address this. I'll work on this patch to
+hopefully get it into v7.5-rc1. IMHO it's ok to not fix this in a driver
+specific way now. (And then my patch referenced above in the first
+Closes:-trailer is IMHO better than this patch.)
+
+Best regards
+Uwe
+
+--3kbn6dvhzgm4gtvf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr6yV8ACgkQj4D7WH0S
+/k4KnAf+I1gQa7nnydreBqpl18qr3bjlMpNbM/wcIEtGP3xMBPkpDX2yJFljOI8k
+9TayfHIOvCINmFKVvL4sioue78+dQP56QUAmZGMHZNnQd4W/38CNi+PxKIqgsV74
+yoJHlZhYsHSMLMsf8oAIKAGhkVtpziLJ88i2Yc2ghjZ7erYkKrSuBc+jFTFzI4tM
+OknkKdfObSLN1TAr5lJYpnpvCn6HNJOkz//vLAgu6wAYdV9WtAd0wrkm/4tFcfir
+MpB/Cw/PNtHNAZWiKPL50rum+ferNUNUzHrRAEx38UA5Sj1Nz4MQonl0UUVFoPIr
+tgcOC5iCUQKdoIJu+AnDEx5AuRV1Dw==
+=98Fb
+-----END PGP SIGNATURE-----
+
+--3kbn6dvhzgm4gtvf--
