@@ -1,111 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794856927;
-	b=s1DVX5KPG+UcKUc1pcG7EWAzpL3IgWB2ytERr5/hBjc0MIk6WDTsfTMDWy6eoayCjUgq
-	 +C5jRL0wyo0yEbcyqZ5OFmCqke+QaGW9ssodJ8ylAU2AXz9AusGqT/mHuGIOKoJCpFQNa
-	 hBXnbXbSp0boT0MeeIipkks/cKReMFX7uqhVSL/QYzdvhj372/dflWqnk6+IpNdsFpkSE
-	 Vb8hU6M/qq39WBxiLxsWStwrfx7pfuEr42ATn4M/dOXMOxkT3FFXb4AvDYj9CEMOHMcc7
-	 dsbnpfZycvD0jqycH/0LzIm4jDuMlDi8tS+9SKO3CxhhAPGx1qm737tdJH4xg3tfsuQ==
+	t=1794857047;
+	b=1wEG/Azd+OubK9QjBmCEEtYXBVOqBBHs5VMrYaVp5Yhr6+MRDgbXoB8wzc4N1b+2NAFL
+	 3OV4Iy/llX/GQHUiuqPr9St767b+BvY4XFPMyCAhOtd3UyD9TkLM6I/EjCIsvOEBUf6tq
+	 5LszBJVzVWCXgbv+A/v1c5lbCXjvoVxd7xR+P/3WqU5nQDi6IKhPcVpgh1XwtVzNQjbzv
+	 aDvqn1Ao6sVg3z9EOfyMcmK3yt6VXjUqDb0MEh1aiNDo8cqtkEfTx28fAgM+wutz5VJLy
+	 cSYVqNI/Oo0GcPSs3ir8fegE0JOaeVInT6jBVRFVtesg1c3pBRWubDPlcv6cxOdbhYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794856927;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EweSUMm4/P5BAq0haWY7BiMzFOHYazFTSCELjkONQrs=;
-	b=q9V/EP3TDbqMKNOAiRsqdKf0bio2JxzhIUl96y1/tLhauJY8Q+9mcmOPwZ/NMgSD+aBP
-	 0fHUw1/v+C4e2pFHGRJ8AO7Ish+P6xJnA8ffBcmZpV5KBoeKRk+CbAne33bIHCIzJRCfZ
-	 Yf0m3QoAOXOa29lTOJw4ZkTTQ7O84QIvx1cLNHvhsBN23lGc0xh5Gqo/0fWaMjkiEO8w+
-	 UcDPTXuBx7Plvw3N5xLD7x4maJdbEQl6Sk3D6mJqVm3VDJKJdhjU6qxF5A47EJMSh3Vin
-	 DF0lvxbU8UicOfFgQvGiPGSacgSH0cdmUacnPK/FnZYD3bjjtCWPCiykI8ia1UtUfHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857047;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=B/UNoClSHX853aynsyAH0lzmqdVObyKe2mic7O4QnJA=;
+	b=X4NpeBDgWJsb47Gw/PbBtRKvZZm3FbGK6umxCJVFawShzAj3WMlxcNVcLv020LU8kQCL
+	 9Y8c9vEseLLEA38DXCCkH1/PNjcCOSJx4D9rkFraSHW4DiVTXqTAVN799DOlK6FzRMG+t
+	 Pfzs9Xb9BU0ExOVntWyfD5S66iRgP3DuQXD5vxb+QWc9epCryEtPO8RTN6U3SNBDNoW9O
+	 zpJae+TC0AWsUK1HP+TJnR/1gDU38GJkrmFOmJqUFqgvc2eCNLUReBG9qWHaX5UCc4sUG
+	 Iz6uY9V8w2HhwLvbOCcwxIsYDI2DlPOYVcPglNK9jqC6gWa7KoDO3SV64BmXepuHm9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nRMS7S/+";
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0HnLTg4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B711606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:22:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B711606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90081606A31C;
+	Mon, 16 Nov 2026 19:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nRMS7S/+
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-372bdb942dbso3440592eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:22:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794856926; x=1795461726; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EweSUMm4/P5BAq0haWY7BiMzFOHYazFTSCELjkONQrs=;
-        b=nRMS7S/+s2Is0hyBZzp0u0FXGwf3uGVRM53Rnx6JBxjL18C39IVe8tfqvxRbjadSNK
-         WUioEZPqrBNefjqg6vGnQg89ClP/bpuUyPvN9pF6ydLpc9SmQDEvwH75UlY4CUUq3jFN
-         piaRj6AKYi5LkOXB+e5Dbz2l8jO4vvVkIw+WO/YJacySO2wPyu9IYH6/ZYim+TXEAVji
-         YMoZqDc0ll/DLm8VfyP3YG5x9wbKxYJWKQJyKKSa03bADwy2nHK+ZNuP6Tp3vBlKXO8c
-         qJKNqWqw+l3KUbclJP4S/YG3mCssdy2kOT75XLkYFx1XLfoUPFyJTGQuNEapvB6eIiJZ
-         Tlgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794856926; x=1795461726;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EweSUMm4/P5BAq0haWY7BiMzFOHYazFTSCELjkONQrs=;
-        b=zFozCUFtSmQdO8rM9ohUBIjhgAegCZTx7hY+VmUe8jXrXp6HgUu6ysPdtbRQ6yhL19
-         1EWBNv6FsPL6/oxXI9ZaWRMcpskAZUkxd8AnMV+ysWR+KHds+uG9gGfwgRW95FgL7wdU
-         TlI5ID7WM5cF8C6j+G6+qfyoKijSUn3cbSRJKOiFpn2ZFY/rJikbdgfg5X08JVmP3tJq
-         OlREjNwH03zur8BsTVlvbEC1Kr/6+Emdq8vOTN/nCG68WUgwkMWLdaTtN1Ju655dKIRR
-         xhoaQSA/Kfktb+bR4otH5XOF/d3PeIdu4IVEBLv7E0AVaaPzmvxEZUTSutXMyiMenEGc
-         GC5Q==
-X-Forwarded-Encrypted: i=1; AL+hErHu28FcJLsz64kJaaptDstPSl/k8NO/PLk46nzhZqkz4Q88xrD4MP/sPeHYH0U0k0J+K7xqSvp7dgzTf9g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9liVd1SGI0753G/hif+GFtQRZ1IlF73v9zDy2m7IUh69Y5ys84
-	xX/xl5/NscCpEH+D38drpmFIwYjYYFSpf+kPsRGJyq5v9SMkJ14FLELF
-X-Gm-Gg: AYBFou0GXR15agJhCDTP1pyA2QLtpNZmsozUZPJX/xL1Eg7L7Gc6GcbO88C4MYYB3At
-	ZJLazFWLW43XZS4SydHafYSny0nZ8lY6dw0Vd1nMnWUHlQc99yhN/h7Qy30YP0qOuVeoQiI9Ko0
-	GpUWFPAUq2BV44g1Q6J4RVZB8PIfRjHbPvPyTTzvXSTBRbzAAIWnDjxcOMdi4myUTwbyURkY2m8
-	PWri7R5BysqoX0HZfI2XFsH6sAXxRlPY4U8gsIKwPlVrSypldQ8YsblQK4c28lDU/KNS5frpPlp
-	K8gMlCopaCFhsV9Cyq/MFLYQoNucst0K3rGctS8kb5bUnxql8jXBAKdB2A9HA6bTiXT0xs4Ehit
-	i/QhgZpk5bKLVbhT/cdoBJfZbE0QDRBE03n8DabcrC8GRDKhcWotghVrYklkYuaBXwaoQPYuyWU
-	9DjI1/OQBnCpp/OwoYvQzvSffF0yKMy7pWZHJuVSJ7UclCiLt3+0KtmoJQz7wTHV7PCnI85Ezph
-	zsLjNAOEqHgxVCborwGtGIcWteAy+M4W0A9hhWcC3JGsF8ZyQJaBHdIoWjGCsmmmrnC+NZHJ1uO
-	oL1S6DAvxwJY2gveoUSjiRQUO7D7DqmYSvan1JFHYe0/GQeDDPObuQVTkOsopjxwm8xnmaeGqu5
-	8CwdjDOZEADcgslE+VsnWrz/xrSshRIww8Bj1hTZHZB7CMER7tOHnwgtUt1AftRPXpv8BRYd8ns
-	36y1Z9vHfGdh7a8qTZWF2KtyaxdyO/R7G9sP91QeIP2w==
-X-Received: by 2002:a05:7301:d189:b0:36f:a651:d649 with SMTP id 5a478bee46e88-37964b08e64mr11776840eec.4.1794856925787;
-        Mon, 16 Nov 2026 11:22:05 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm34908993eec.22.2026.11.16.11.21.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:22:05 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Esben Haabendal <esben@geanix.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Pan Chuang <panchuang@vivo.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Nikita Travkin <nikita@trvn.ru>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/4] iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
-Date: Tue, 17 Nov 2026 00:51:56 +0530
-Message-ID: <20261116192156.33333-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115083741.62140-5-clamor95@gmail.com>
-References: <20261115083741.62140-1-clamor95@gmail.com> <20261115083741.62140-5-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0HnLTg4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A2581F000C4;
+	Mon, 16 Nov 2026 19:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794857047;
+	bh=B/UNoClSHX853aynsyAH0lzmqdVObyKe2mic7O4QnJA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=d0HnLTg4UYS+02ZceRAq1SAzNv9teK0zSpw1hF4LeP1EhlGqen++8v6PBXbecHSFw
+	 3tfT/JdKK2HfqN943WW7ERohLvHPz2k35pwbnEyR6oJa0XdSaa4A95ob9ukCjNnEIJ
+	 x1F1WPV4mN91DUB0iw+d5HLKxZZCkOPCvfayhB96LAPrDkFrgZLplx8yVsmU1UuDSx
+	 SBWZVN0zkFHNKTLqn89qNTrKHtsdj6TXWpaw8p867+kv6M3VwJ3bPv27WPjGtmLK7O
+	 OaZVOSiP2QLdEg8SgaSladmfoIDBPbfWP7FLasxyAJ884pZBY+4x7u/NXBbere48+K
+	 gBOugeETJ/5QQ==
+Subject: Re: [PATCH net] net: mdio: mux-meson-g12a: keep the MAC data path
+ when switching MDIO
+From: netdev-bot+sashiko@kernel.org
+To: iav@iav.lv
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
+ martin.blumenstingl@googlemail.com, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 19:24:05 +0000
+Message-ID: <179485704584.3136.17355463997361048256@kernel.org>
+In-Reply-To: <20261115-g12a-mux-data-path-v1-1-011dad738698@iav.lv>
+References: <20261115-g12a-mux-data-path-v1-1-011dad738698@iav.lv>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,59 +66,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 10:37:41AM +0200, Svyatoslav Ryhel wrote:
-> -	if (test_bit(0, indio_dev->active_scan_mask) ||
-> -	    test_bit(1, indio_dev->active_scan_mask))
-> -		mask |= LTR501_STATUS_ALS_RDY;
-> -	if (test_bit(2, indio_dev->active_scan_mask))
-> -		mask |= LTR501_STATUS_PS_RDY;
-> +	iio_for_each_active_channel(indio_dev, chan_idx) {
-> +		const struct iio_chan_spec *chan = &indio_dev->channels[chan_idx];
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-iio_for_each_active_channel() walks the bits of active_scan_mask, so
-chan_idx is a scan index, not an index into indio_dev->channels[].
-The two only match when every channel before it has scan_index ==
-array position. That holds for ltr659_channels[], but not for
-ltr501_channels[] (also used by ltr559) or ltr301_channels[]: entry 0
-there is LTR501_LIGHT_CHANNEL() with .scan_index = -1, so scan bit N
-maps to channels[N + 1].
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-On ltr501/ltr559 that gives:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  scan bit 0 (intensity_both)  -> channels[0], IIO_LIGHT: no RDY bit set
-  scan bit 1 (intensity_ir)    -> channels[1], IIO_INTENSITY: ALS_RDY (ok)
-  scan bit 2 (proximity)       -> channels[2], IIO_INTENSITY: ALS_RDY
-  scan bit 3 (timestamp)       -> channels[3], IIO_PROXIMITY: PS_RDY
+- [Medium] The patch only sets the internal-PHY data-path bits when it
+  finds the internal PHY through the MAC's "phy-handle" property.
 
-So a proximity-only buffer waits for ALS_RDY and never reads PS (the
-"if (mask & LTR501_STATUS_PS_RDY)" block is skipped), and pushes
-zeros; intensity_both alone gives mask == 0 and also pushes zeros;
-and enabling the timestamp makes an ALS-only capture wait for PS_RDY
-as well. On ltr301 bit 0 is likewise lost.
+--
 
-> +		if (chan->type == IIO_INTENSITY)
-> +			mask |= LTR501_STATUS_ALS_RDY;
+net: mdio: mux-meson-g12a: keep the MAC data path when switching MDIO
+
+With this change, switching to the internal MDIO bus no longer sets
+USE_INTERNAL and RX_CLK_EPHY in ETH_PHY_CNTL2 unconditionally. Those two
+bits route the MAC data path and RX clock to the internal PHY. They are
+now set only when the MAC's phy-handle points at a PHY on the internal
+mux bus. The aim is to stop external-PHY boards from losing RX after
+suspend/resume, when phylib touches the unattached internal PHY.
+
+> diff --git a/drivers/net/mdio/mdio-mux-meson-g12a.c b/drivers/net/mdio/mdio-mux-meson-g12a.c
+> index 71c44385489d4..ed688d48eaf08 100644
+> --- a/drivers/net/mdio/mdio-mux-meson-g12a.c
+> +++ b/drivers/net/mdio/mdio-mux-meson-g12a.c
+
+[ ... ]
+
+> @@ -169,10 +171,11 @@ static int g12a_enable_internal_mdio(struct g12a_mdio_mux *priv)
+>  		PHY_CNTL1_CLK_EN |
+>  		PHY_CNTL1_CLKFREQ;
+>  	writel(value, priv->regs + ETH_PHY_CNTL1);
+> -	writel(PHY_CNTL2_USE_INTERNAL |
+> -	       PHY_CNTL2_SMI_SRC_MAC |
+> -	       PHY_CNTL2_RX_CLK_EPHY,
+> -	       priv->regs + ETH_PHY_CNTL2);
 > +
-> +		if (chan->type == IIO_PROXIMITY)
-> +			mask |= LTR501_STATUS_PS_RDY;
-> +	}
+> +	cntl2 = PHY_CNTL2_SMI_SRC_MAC;
+> +	if (priv->mac_uses_internal_phy)
+> +		cntl2 |= PHY_CNTL2_USE_INTERNAL | PHY_CNTL2_RX_CLK_EPHY;
+> +	writel(cntl2, priv->regs + ETH_PHY_CNTL2);
 
-This is what iio_find_channel_from_si() is for, as Jonathan suggested
-on v3. With the export patch you sent separately, something like
+[ ... ]
 
-	iio_for_each_active_channel(indio_dev, scan_idx) {
-		const struct iio_chan_spec *chan =
-			iio_find_channel_from_si(indio_dev, scan_idx);
-		...
-	}
+> @@ -301,6 +304,41 @@ static int g12a_ephy_glue_clk_register(struct device *dev)
+>  	return 0;
+>  }
+>  
+> +/* Like dwmac-rk: the PHY named by the MAC's phy-handle decides the data path */
+> +static bool g12a_mac_uses_internal_phy(struct device_node *mux_np)
+> +{
+> +	struct device_node *parent_bus, *mac, *phy, *phy_bus, *mux;
+> +	bool internal = false;
+> +	u32 reg;
+> +
+> +	parent_bus = of_parse_phandle(mux_np, "mdio-parent-bus", 0);
+> +	if (!parent_bus)
+> +		return false;
+> +
+> +	mac = of_get_parent(parent_bus);
+> +	of_node_put(parent_bus);
+> +	if (!mac)
+> +		return false;
+> +
+> +	phy = of_parse_phandle(mac, "phy-handle", 0);
 
-(it also returns the timestamp channel, which matches neither type)
-would keep the type-based check working for all four chips. Since
-this patch is the export's only user, it is probably best to fold the
-export into this series.
+[Severity: Medium]
+Can this check pick a different PHY from the one stmmac actually
+attaches?
 
-Thanks,
-Arnav
+Only "phy-handle" is read here. stmmac_init_phy() and
+phylink_fwnode_phy_connect() find the PHY through fwnode_get_phy_node().
+On DT, that function also falls back to the legacy "phy" and
+"phy-device" properties:
+
+drivers/net/phy/phy_device.c:fwnode_get_phy_node() {
+	...
+	phy_node = fwnode_find_reference(fwnode, "phy-handle", 0);
+	if (!IS_ERR(phy_node) || is_acpi_node(fwnode))
+		return phy_node;
+	phy_node = fwnode_find_reference(fwnode, "phy", 0);
+	if (!IS_ERR(phy_node))
+		return phy_node;
+	return fwnode_find_reference(fwnode, "phy-device", 0);
+}
+
+ethernet-controller.yaml still lists both names as deprecated aliases of
+phy-handle.
+
+Take a DT such as:
+
+  &ethmac { phy = <&internal_ephy>; phy-mode = "rmii"; };
+
+Before this patch, stmmac attached internal_ephy, and every switch to the
+internal bus wrote USE_INTERNAL | SMI_SRC_MAC | RX_CLK_EPHY.
+
+After this patch, g12a_mdio_mux_probe() sets mac_uses_internal_phy to
+false. stmmac still attaches the EPHY over MDIO, but
+g12a_enable_internal_mdio() writes only SMI_SRC_MAC. The MAC data path
+and RX clock then stay on the external pins. Would RX on such a board
+stop working, even though the link can come up?
+
+Every in-tree internal-PHY DT (sei510, u200, fbx8am, sei610,
+sm1-a95xf3-air, sm1-x96-air, s4-aq222, s4-vim1s, c3 boards) appears to
+use phy-handle. So this would only hit out-of-tree or
+bootloader-supplied DTs that use the deprecated names.
+
+The comment refers to dwmac-rk. dwmac-rk has read only phy-handle from
+the start, though, so it never broke a working setup. Here a setup that
+used to work would break.
+
+Would fwnode_get_phy_node(of_fwnode_handle(mac)), or the same
+three-property fallback, keep the mux in step with the PHY stmmac
+attaches?
+
+> +	of_node_put(mac);
+> +	if (!phy)
+> +		return false;
+
+[ ... ]
+
+> @@ -313,6 +351,7 @@ static int g12a_mdio_mux_probe(struct platform_device *pdev)
+>  		return -ENOMEM;
+>  
+>  	platform_set_drvdata(pdev, priv);
+> +	priv->mac_uses_internal_phy = g12a_mac_uses_internal_phy(dev->of_node);
+>  
+>  	priv->regs = devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(priv->regs))
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115-g12a-mux-data-path-v1-1-011dad738698%40iav.lv
