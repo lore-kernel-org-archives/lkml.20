@@ -1,90 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822938;
-	b=RrsT3tckLRkqpd5lq+oB5TMd5HTbb5bMTBwFOcVvZAlXK6UDOMUwjf+vp0LWzGc8IXcX
-	 YrAz3xlyH04YNR+3cj2rfHQ3R8y2MYZpX9b9QAmqKNKaacQM8n6FxM8/G+LHKwCQR63a/
-	 TRw3wFL4hpzMT7xGJlQ7+cEHnXVahL8yY1MWvav7f6BGy6rDiOCElvXW+P97P3zrgao2d
-	 a4CTecCxKfznngDG0Wg5fPzweThTLG3Rt4BTnHOD9ij3rou1g7Vc1AJKgD4C/quMmTo9b
-	 WDNHnaSpwkP3RXwQhM32NvbvOamcry+saXZ4yYdt8cmjl749IGSXz+ME6R9CwNbocGQ==
+	t=1794822976;
+	b=BNGaU5VSawRVOMIEOkQOoOFJjep3iGhqjxOH4om0X/nwevx1ZAMZkaN74Xgz1jpNj07G
+	 ZnjQZUKaohmjs4Qk9+lfxtMmHR6uBBoO3UxGPT+QegXaVRfzSukCIDY+74FifnUpJOVOx
+	 CpGT+6cHJJf1JwZrE89jnOz0FAGVOQLSXqHwdXoVI3PSA4Qj2e8i+Wfw6Lv5X6n/es6rw
+	 B+MRnzPN/EFPl7msrls4suF+yq+DlSz48uXlsyECG2xMtC2xjbVSk2EnpiTrfEE1G7119
+	 MaDTuCI931UKILQPR1WAMnWUDSHokvYAqXlhndL0iNYcQ+IlCkAnm3fpxPYtO+6VJ4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822938;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4JH33ii/O1IYJlAZS2nMThk6S+BnMzG8A9OXw4THRRo=;
-	b=HkDx+j20fKmhBxxxO9+jAohA7MLDjXNGfTMrgGj9pswkmZDEcGFUXQhazLhziX813r+Q
-	 6GyLKOgDGPJfGN6NZ1ZhQHzxifrOLkPBeOdgoHWRmNL5SYoHXdZ+EIS7FoJo9x0ec90b7
-	 s+Y188S9polGsubPkFmJJY0Lsd3eCoiaxPas+GsdhNi6uJYYiYp8gWNIf351cKm8Gt+oV
-	 4S//XJiiFKH76KO35gut1ZEWZLSA2dgPhmdrcMeEE9L9wRMw1qidxQxhikKx7JHxS315b
-	 0upaNcTBm7TRSfZhf0YmBIDKFD2hCdRFMFDgn9qIXPLZFGrnqA8i4dOUIiX+9D2HdJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822976;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
+	bh=fL4xMvgzojg+WiVMPbFBWFV3mWxVR2K7sLvrVVvLVtU=;
+	b=37ct8megcomjL9xYjW5pJLaNFgHhjEMzQC5U/LZj7B+kERAHw07qF9QFNazYMklmwp8X
+	 I08V8Y892l8ez461p6jC0SoC5EJewyXUKd1rg3K6i7GG3hqim5yKqaCa4xE63bKkX0fgd
+	 SmGy/R/g05lHWUSkIk6FoIYpPlmgqnozLfJLSEoaJtStlf45AluOhdYQt6Rcb3lLhJ106
+	 tDYx/mv5LcMA47PwPkry7dSM8HXgeNOx/INUoKhKlZNZptIwxMeXYKeHq7LQl3bQtGOHF
+	 rT6HVzDwHoTlykmOSR4w6yhf+y+HIka/zkemfwUzZSJFSS7h6se5Rzy7UdejyMgjiig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mmnAXTMO;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=mGugRIq0;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E36606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E36606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2C6606A338;
+	Mon, 16 Nov 2026 09:56:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD2C6606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mmnAXTMO
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so1623278f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:55:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794822936; x=1795427736; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4JH33ii/O1IYJlAZS2nMThk6S+BnMzG8A9OXw4THRRo=;
-        b=mmnAXTMOBuaV1HOT4mxSu2WXbfTYSvZ47S63y0LCQlV6qnaVPxzK0XtAFgz+7ZT1GC
-         4hADawLO0EYqLdy/Z4xSxpGHou7iPli+gS7ietKmZ9CLCfULGkIjhhdkskx4E69sKIgS
-         hPAo4SxD3sI9YUm85RiAoHn2ehfJAWo2EOG5FlNbAKzoX72usezzoZ2ZU8lkk/IFvi+y
-         lqCsY8yiekgy2amsK/jcW4u+nOfmFthNU4kOTtj6FL+fEs/vjZizjdZdUROF43hpYXli
-         AAUwvZjtAlC1jv7aJCynha+gz2nmXuECNlwrcZzDkgxB49Sxa12DsW4artkTeiKCI3fO
-         p6fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794822936; x=1795427736;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4JH33ii/O1IYJlAZS2nMThk6S+BnMzG8A9OXw4THRRo=;
-        b=F12+UZ7QKSpWHb7299IvQif7ynNQz+8YTJqfobTv5KhnzuVgXU++dd0ILEHaX29Nd3
-         qsNQ2/9K3PWDx7B3X8Tj9f6ow8tJfzph36UtPfHqBorYYM34nsZJ2EmeAoA9jVskC3ez
-         olIZY5GyoJqrJChJH9ohG3ylJWqtRQRkCk3uwwKD+wYQOJ4tF0RWCAJHVjho8hkgFdJU
-         LkP0VBgaKRjjht7nbLhOm5EnujKAlYmxWWHcUiVLn3ws3PuNU6w2t7YqccfbjkvVZf1X
-         d2FXwq7S9mCyOPnF6vlUgdYU4WK3IYqrfGt8V5QTnkQt02Vjhecbn3YscDzmGs4Ytw82
-         B/xg==
-X-Forwarded-Encrypted: i=1; AL+hErERmmXLZiK3b/U1tTQ68v8D59+iG22IutrCRNUR6fK9LvQ4uRvuzekVVXGT955D+mbo3wA4K/aIL9NtbjY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87P0CK86CrA5ENHoi7kXWGBa9m2Ka81SE+hRYkpwtzv5eO9i0g
-	prIpbmc1WmVzVayV5XyfEy/vIIKOzWAoZnBhbCydOYHKftl3r3gYeTlE7w4P/zsAQySgNbLiHqZ
-	olhuhcds=
-X-Gm-Gg: AZFdTZflPN6K4JGi8TQiMIAfbK7SAME8G1g5imxcW6I4KRbBBwxZayFsMuUzF3zLpMt
-	PA7kXeSsYjZHVtgTQRSUwPTFxXPJOYWbLWVnwkKw55aOPEe00BYOiF1Ozp+u/rSBQI1OJ+Z8Nbx
-	rMSZox/0VDaU9/0qhV91evfkbd05DWCMZiN993YJTR56zWvmFJEk9vyC1QY/8wiWH7/NgIE+XUT
-	9XSPxnL+teGjgxo0GNJeLiaIhNAYtqZ233D8duzvQjKc6VpETv9YAIfyVQ4mY3OUpAZ4p73lVBp
-	k2wEpiK4QcFoOYykMLL3coY4/bcMn4qHDKLgP/YPEtUIN24OgHA3QC/3EOf1sEyFRyoKU9m/j00
-	OjyKe6V2Oop/EcYO1ES+UfCUDWAiKBnZec+NBVXyKBoBIszzHG6L2F9DKpy52X2q/eQF8Gblcrw
-	LAqjZqA4eNd3IX7Jg10dfek8aCtmdRe5baBC8NwYJpjkuMv8leJdE4XkkcMbXm9lWsRaABWLmmC
-	zWtRZ/f6F5PjX5k2t/8UJBNl2WufLKKmTSpVaVNHQxbqQzOiA3tCPQqg+mTcge+ti+1lZjg5s3z
-	4sLmP6TAJE35+FhTQm/algopg1NZTYmn7dxqmxzTy3O0K4JqyyVui+o3UJk2W2IXa0UMGs9nzWR
-	VFr+OKEKC
-X-Received: by 2002:a05:6000:26cf:b0:492:f6b7:f488 with SMTP id ffacd0b85a97d-49c6fc9dbf5mr23160002f8f.7.1794822936261;
-        Mon, 16 Nov 2026 01:55:36 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm20884339f8f.12.2026.11.16.01.55.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 01:55:35 -0800 (PST)
-Message-ID: <19786c13-d3fd-4258-a1d5-2a28a1dccc31@linaro.org>
-Date: Mon, 16 Nov 2026 10:55:35 +0100
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=mGugRIq0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794822976; x=1826358976;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=AqU0VY4PfPgM56FvvNZrTMho/7crl4ybIv+YY735130=;
+  b=mGugRIq0zoJNqUkrZLoz4gr++tYwpOM2BfdM684JYwB44mVmJXVPkGRp
+   kssZZ6CnfIf0e9c6rjL5mu5tN5XgBxk+CSKiUUadHS7CID4NLWRd6JzDZ
+   V856r96D50JoWGQvo1vqGGol6GKVB5FsSUkuFDDal3VUZkmvFFM2dM4+8
+   DZC8tfO3OWXNaqJa6NJTFRBg3E8OfaFrfxlgzTwJaV/WOfb581+vkvHIU
+   htZnPEC13Z4jM32okL0ZRhAeuivjbh0n47vpeOBbTov0WmDiGEdUMiiER
+   p9RRIENq/3Z2EoAemjYN1LUoiMLeZy/+fK4pCd2OB6kP/x/s4b7GZ7Pls
+   g==;
+X-CSE-ConnectionGUID: WU7imL2hTwKVUDu7IpqGdw==
+X-CSE-MsgGUID: 9jexKbTTQkKcnIomS6Nxew==
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="233613656"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 16 Nov 2026 02:56:15 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 16 Nov 2026 02:56:14 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 16 Nov 2026 02:56:12 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Mon, 16 Nov 2026 10:56:04 +0100
+Subject: [PATCH net 1/2] net: sparx5: fix RX ring stall on frames from
+ inactive ports
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,94 +74,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/7] arm64: dts: amlogic: Fix dtc warnings with W=1
-To: linux-kernel-dev@aliel.fr, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261116-sparx5-rx-inactive-port-v1-1-343d8bab58bb@microchip.com>
+References: <20261116-sparx5-rx-inactive-port-v1-0-343d8bab58bb@microchip.com>
+In-Reply-To: <20261116-sparx5-rx-inactive-port-v1-0-343d8bab58bb@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>
+CC: Zhang Hewei <memoriaru@foxmail.com>, <netdev@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-On 11/15/26 23:29, Ronald Claveau via B4 Relay wrote:
-> Building the Amlogic device trees with W=1 CHECK_DTBS=y currently
-> produces several dtc warnings, all related to the same pattern:
-> 
->    Warning (unit_address_vs_reg): /soc/bus@.../pinctrl@XXXX: node has a
->    unit name, but no reg or ranges property
->    Warning (simple_bus_reg): /soc/bus@.../pinctrl@XXXX: missing or
->    empty reg/ranges property
-> 
-> The pinctrl nodes use an empty "ranges;" while having a unit address.
-> 
-> With this series applied, the Amlogic DTBs build without any warning
-> with:
-> 
->    make ARCH=arm64 W=1 CHECK_DTBS=y amlogic/
-> 
-> Boot tested on Khadas VIM1 (GXL) and Khadas VIM4 (T7)
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
-> Ronald Claveau (7):
->        arm64: dts: amlogic: t7: Add ranges to periphs pinctrl node
->        arm64: dts: amlogic: a1: Add ranges to periphs pinctrl node
->        arm64: dts: amlogic: axg: Add ranges to periphs pinctrl node
->        arm64: dts: amlogic: g12: Add ranges to periphs pinctrl node
->        arm64: dts: amlogic: gxbb: Add ranges to periphs pinctrl node
->        arm64: dts: amlogic: gxl: Add ranges to periphs pinctrl node
->        arm64: dts: amlogic: s4: Add ranges to periphs pinctrl node
-> 
->   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi       | 2 +-
->   arch/arm64/boot/dts/amlogic/meson-a1.dtsi         | 2 +-
->   arch/arm64/boot/dts/amlogic/meson-axg.dtsi        | 5 +++--
->   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi | 6 ++----
->   arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi       | 5 +++--
->   arch/arm64/boot/dts/amlogic/meson-gxl.dtsi        | 5 +++--
->   arch/arm64/boot/dts/amlogic/meson-s4.dtsi         | 2 +-
->   7 files changed, 14 insertions(+), 13 deletions(-)
-> ---
-> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
-> change-id: 20261115-fix-amlogic-dt-warnings-7cba2a4eb9d4
-> 
-> Best regards,
-> --
-> Ronald Claveau <linux-kernel-dev@aliel.fr>
+If the source port of a received frame does not map to a port with a
+netdev, sparx5_fdma_rx_get_frame() returns false without consuming the
+DB. The DB keeps its DONE bit, so every following poll picks the same
+DB and grows its skb with skb_put() again. This ends in
+skb_over_panic(), or in an RX stall if no more frames arrive.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Drop the frame and return true, so that the DB is consumed like any
+other. Remove the extraction queue flush, as the FDMA has already
+extracted the frame, and ratelimit the error, as the source port comes
+from the hardware.
 
-Thanks,
-Neil
+Confirmed on Sparx5 (PCB135) with a kernel modified to give received
+frames an out-of-range source port, which made the board reset. The fix
+was tested the same way: only the bad frames are dropped.
+
+Fixes: 10615907e9b5 ("net: sparx5: switchdev: adding frame DMA functionality")
+Reported-by: Zhang Hewei <memoriaru@foxmail.com>
+Closes: https://lore.kernel.org/netdev/tencent_ACC296C1F221C304053BD0F1F4B0D2C2BA06@qq.com/
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+ drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
+index 15ec9b053824f..8675702bf1504 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
+@@ -157,9 +157,15 @@ static bool sparx5_fdma_rx_get_frame(struct sparx5 *sparx5, struct sparx5_rx *rx
+ 		       sparx5->ports[fi.src_port] :
+ 		       NULL;
+ 	if (!port || !port->ndev) {
+-		dev_err(sparx5->dev, "Data on inactive port %d\n", fi.src_port);
+-		sparx5_xtr_flush(sparx5, XTR_QUEUE);
+-		return false;
++		dev_err_ratelimited(sparx5->dev, "Data on inactive port %d\n",
++				    fi.src_port);
++
++		/* Drop the frame, but report the DB as consumed so the
++		 * caller advances past it and recycles the DCB.
++		 */
++		kfree_skb(skb);
++
++		return true;
+ 	}
+ 	skb->dev = port->ndev;
+ 	skb_pull(skb, IFH_LEN * sizeof(u32));
+
+-- 
+2.34.1
+
