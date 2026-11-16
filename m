@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.28
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816718;
-	b=Gbr892EZh9MZqpR7p/lSIsQBE8o6WoCxvztL/nyKTKC+wIq4zkLbQErS679tzbSTMLCu
-	 P3Bch7NYkbPxnpNQuwR5ScOv1v1DB8iUHPz2kFTOu+pvcl9JNeRkfXtfAOjttNqVmV29v
-	 Bm9S66OZbaSFhJci7ENoxFwutJW/hP5r6beRXPlbNh7yYvn6psYr7noeow53BDB69HP3N
-	 ImPZiHh/p04L0gTrcVJ8fqGpPU7lnj4hVt1dOPvLzEqouHUWBPZS/DiLua573NYAQfc2E
-	 ZKOIjlA50uSjbuV+v+sesq/uaNu0EvT3bPsl+Zk0zut62p0aXARf/J6XBNScN+olHXA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816718;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794816762;
+	b=bEmzTomXGOijjS+39C1DPz19BJZMSg4/w1UEv6e8WtxM4JSPVzIUiGyYzpWp7uKJVaI7
+	 IEXiAypk5QFfbm3l3ZbVEGucLISppnQx7gKzhos92kHsHEdNWWaCWYuYj5f5rqCC0adRx
+	 XhmDTy78F0UT8qo8G/Ciepqorsn/Golmtju3ZKkPJuvto6h8ooafKPY2JngkF/Dzgy8/0
+	 U+BSbZU7Ect+S+RX98Y2tWUAxaq9knCeIfDxtcedqr4Fesc3JBU7jDDo9c4ihU7id6n2h
+	 GRbsHDSwf2cPOptGOVvlAt+CXLqWe6XF2AZrTP0TznEPmPEXmKEYV3waY/Sg+5F3laQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816762;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=0A5JduA4TQkMkkORQO+6yh7+M9Z6zGTtj1C3RlvkmNE=;
-	b=Y+sl7QaCUddG/FMe6EhuFxSZYNzj2TcexqehSLHVXNNVHrlNiaL/tW1Bkt+TJr6Ngqmz
-	 j2Dv+5M3Tyb1/X7d4AJhA0JvidN/lpICCFaBapFBs9fW0mDW9ZoSWvki7qHGgyGVd+A26
-	 GI0NUzc4cTZj0mp4koB+g3waVhnnIOQOLe0Z4mCC0p7oqQ+AHNMKXI412rAtJ68elt64a
-	 e3FUaJiGSp0LQjnnwzTMimmj9KG7+nIfYnNNab8ZwY9Ma1/lPm33UgdHK6TEOY3lF8spp
-	 Vdgl1DmzYQrs2PSBt9/5B90y04x8KRJAj0Rnx6S03hnhW6TQA/eNSdu8/G3XuRyinaw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qHuUUJes;
-	arc=none smtp.remote-ip=91.218.175.28
-Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	bh=qnNiZniQ7hU/5TWkcm4nRDnYdoUdBrV52jNGrhHKE60=;
+	b=X2Iv04aOgqZznKtStptz/yLi3SZpDQWdWyFVHqf4WQv/gywqzwrTMWtmNCp7u9cFIas1
+	 2yuVrbLjpIkDHvMT2QT8VL44SucYYMFxLxfY6xR0SR2YPUl60NDkd9Hyov3+dL8nHTQUu
+	 LWWIoOfjGI7fCXgtAjwjLrhw7cgLTCHE3oCRQysf2TZxGXr5ddHJHQrAPIkNddZNym4Wp
+	 Vd8sv0ITtzv4YhADH3SBiF/AFcPRl0YPBpkFLD/NSPTlN/Jniv9bxRlXKWhZ982IwaJHf
+	 kUS2WH/d3uB+GfFRs4gyUFePaWozS/s9RR3Yo3O/DOrVQCifnlVHFaabticw3P6W5Tg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Tg7GJN8V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1176606A89E
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:11:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1176606A89E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F40606A33E
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:12:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9F40606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qHuUUJes
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9GDYmFY+izJGRdfGQica9R9+gmd9m0wCYgt03m/gIQw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794816716; v=1; x=1795421516;
- b=qHuUUJesNrb8gn7y1yaRofkI5ZGVHRyunAibatdGkTfgPIxV1IegCAj0tbnAZ26DOlo+N9Nk
- Tiq7VX7DbqPn0xgcqxIkO7godJIyRG3A78uiS1OOX7o5mrMcWgCvP4zO9FfalMrN2yDsiFXpWIb
- BBWuh8pUrbrz3BB+FaUwhs9c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id c382d307db08706c;
-	Mon, 16 Nov 2026 08:11:56 +0000
-X-Mizu-Trace-ID: c382d307db08706c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <96330e94-d3c0-447c-aef0-7c56b24e122b@linux.dev>
-Date: Mon, 16 Nov 2026 08:11:51 +0000
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Tg7GJN8V
+ARC-Seal: i=1; a=rsa-sha256; t=1794816753; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=A532Ekd+Z2KsibURE7m1nmvLs513y7ECYzW+jU413ILxQ0XEirO/uNZRNWRDJMryciASh2hXEw+mFskk1wlJHsNWcPDTQIaUcXuojMu6wdg8qBv/UUuiJJMV1wMt00USf9J/wE8M6XVRzJjqqWAExMCKWNo3KzBEmiBYHrqm5Ck=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794816753; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qnNiZniQ7hU/5TWkcm4nRDnYdoUdBrV52jNGrhHKE60=; 
+	b=ktg3NpXwjvTLmAwoCah4C/MMhMZRPn8fkt3OFd2o3X7y6q3BUk0l1YTdz7dH5sklazeDk+eF3mIgqM7SJCXE1dM49Lzqq3chGiS+C8cL1BaofJB202vgIkEhE+CmhUQDaRiIyXRxhrMaoEKfBd8tXDYum/wejO+exHxYPpezFfI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
+	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=Tg7GJN8V9orHnn3nGD2SqAtPDe8zQI5S9EytKgr6QkrMt/3fyTMFK5wnQIY9wzjnkYJoCPba0aIiGVcSbXCId5cenXQJwHZRuQvikZ/RQazcOSeGuB4ggapXs5+W+QFTuIa7unoazV9sFLNGxbqbrsJygCbRhLK/CS2bXXWSfH8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=qnNiZniQ7hU/5TWkcm4nRDnYdoUdBrV52jNGrhHKE60=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794816752585120.90548357908153;
+	Mon, 16 Nov 2026 00:12:32 -0800 (PST)
+Message-ID: <a1eb584f-abf1-4213-b27c-dbda8c18df4e@collabora.com>
+Date: Mon, 16 Nov 2026 09:12:29 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +59,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: (2) (2) [PATCH v2] xfs: check the disk address for hardware
- atomic writes
-To: daejun7.park@samsung.com, Carlos Maiolino <cem@kernel.org>,
- "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>
-Cc: Pankaj Raghav Partha Sarathy <p.raghav@samsung.com>,
- Pankaj Raghav <pankaj.raghav@linux.dev>, "Darrick J. Wong"
- <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Dave Chinner <david@fromorbit.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <b34aac03-0d43-4ed1-9561-cb6e0e9c582f@linux.dev>
- <b1fba95d-97c8-44ae-a5be-6d2fba7e7e78@linux.dev>
- <20261112-xfs-hw-atomic-align-v2-1-c90394805e7b@samsung.com>
- <20261113025544epcms2p575490538b97c26387515f8b5fc90c321@epcms2p5>
- <CGME20261112082952epcas2p1f902c4243d451635ff27fe1a1c5035fe@epcms2p1>
- <20261116073903epcms2p13ca5bac24c591ae487f0b30dc45b87f8@epcms2p1>
+Subject: Re: [PATCH] iommu/vsi: Don't write the enable register on suspend
+To: aiyengar1990@gmail.com, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261113-vsi-iommu-disable-v1-1-94f7f44540b3@gmail.com>
 Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20261116073903epcms2p13ca5bac24c591ae487f0b30dc45b87f8@epcms2p1>
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+In-Reply-To: <20261113-vsi-iommu-disable-v1-1-94f7f44540b3@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/16/26 07:39, Daejun Park wrote:
-> On Fri, Nov 13, 2026 at 09:45:22AM +0000, John Garry wrote:
->> hmm.. I am still not confident that this the best fix. And if it is,
->> then I think that we should still change the size pre-check in
->> xfs_file_dio_write_atomic(). Here's a combined change which I am
->> thinking of:
-> [...]
->> bt_awu_max is the HW max, and you are saying that it is not aligned with
->> the AG size (and so need a disk alignment check). However, opt max
->> should be (aligned to AG size), so we could check that vs size instead.
-> 
 
-uhhh... I thought about this a bit more, and I am really not sure on the 
-best solution. On one hand, atomic writes whose length is above opt max 
-should not use HW atomics. Or, more specifically, the user can't expect 
-HW atomics to be used. However, if HW atomic is possible, then it would 
-be silly not to use it.
+Le 13/11/2026 à 21:06, Arun Iyengar via B4 Relay a écrit :
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>
+> Benjamin Gaignard pointed out that, per the IOMMU documentation, the
+> IOMMU can't be disabled once enabled. Drop the write on suspend:
+> resume reprograms the IOMMU anyway.
+>
+> Suggested-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-> Thanks, agreed. v3 will check the size instead of the disk address,
-> in both xfs_file_dio_write_atomic() and
-> xfs_bmap_hw_atomic_write_possible(). The limit is the one max_opt
-> applies: the smaller of bt_awu_max and the largest power-of-two factor
-> of the group size. Below that limit the existing br_startblock check is
-> enough, so v3 drops the disk address check.
-> 
-> v3 puts this limit in a helper that xfs_get_atomic_write_max_opt() also
-> uses, so max_opt and the checks use the same hardware limit. The checks
-> call the helper rather than max_opt, since max_opt is 0 on a filesystem
-> without reflink. When I tried max_opt there, the one-block atomic
-> writes went to COW and failed with -EINVAL. The helper returns
-> bt_awu_max when there are no groups, which is the rt device without
-> rtgroups.
-> 
->> BTW, with your proposed change, since HW size is not aligned to AG size
->> and we only check the size vs HW size for HW offload, it is in theory
->> possible to have an atomic write which straddles the AG and is rejected,
->> right?
-> 
-> Userspace does not see a rejection. Such a write maps to two extents,
-> so xfs_bmap_hw_atomic_write_possible() returns false and the write goes
-> through COW. 
+Reviewed-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 
-Yeah, I was really asking if HW atomic could span 2x extents before we 
-catch it.
-
-> This is the same in v2 and v3. In v3, a write sent to the
-> hardware is also aligned and no larger than the group alignment, so it
-> cannot cross a group boundary.
-> 
-Maybe what you have in this patch is ok. I'll wait for v3 and consider 
-it more. Sorry for the hesitancy.
-
-Thanks,
-John
+> ---
+> Benjamin suggested this in the hantro-robust review:
+> https://lore.kernel.org/r/f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com
+>
+> Identity attach keeps the write. On RK3588 it does clear the enable
+> bit (AHB_CONTROL reads 0x1 before, 0x0 after), and without it the
+> IOMMU would keep using the old domain's page table. Benjamin, should
+> that one go too?
+>
+> Tested on RK3588S (Orange Pi 5), v7.3-based kernel with [1] and
+> hantro-robust v3 [2]: AV1 fluster unchanged (203/242), 20 AV1 decoder
+> unbind/bind cycles, 3 s2idle cycles. The IOMMU runtime suspended
+> after each step; no SError or IOMMU fault.
+> Not tested: identity domains, suspend to RAM.
+> No conflict with [1] or with patch 10 of [2].
+>
+> Developed with Claude (Anthropic), which wrote the code and the commit
+> message. I reviewed it.
+>
+> [1] https://lore.kernel.org/r/20261113-vsi-iommu-pm-ref-v1-0-fd917eebdf18@gmail.com
+> [2] https://lore.kernel.org/r/20261113-hantro-robust-v3-0-82383c722ad2@gmail.com
+> ---
+>   drivers/iommu/vsi-iommu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/iommu/vsi-iommu.c b/drivers/iommu/vsi-iommu.c
+> index 5dac20b143a5..bd984060253b 100644
+> --- a/drivers/iommu/vsi-iommu.c
+> +++ b/drivers/iommu/vsi-iommu.c
+> @@ -740,7 +740,7 @@ static int __maybe_unused vsi_iommu_suspend(struct device *dev)
+>   {
+>   	struct vsi_iommu *iommu = dev_get_drvdata(dev);
+>   
+> -	vsi_iommu_disable(iommu);
+> +	iommu->enable = false;
+>   
+>   	clk_bulk_disable(iommu->num_clocks, iommu->clocks);
+>   
+>
+> ---
+> base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
+> change-id: 20261113-vsi-iommu-disable-42edd626d009
+>
+> Best regards,
+> --
+> Arun Iyengar <aiyengar1990@gmail.com>
