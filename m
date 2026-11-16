@@ -1,64 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795970;
-	b=h0Wgq55IdOmTweQ+HYCum8AGtdr4+Nh4PAjeU/hbJndEza7YCsHRdjgEHJBDhmNIksPn
-	 vYwtQ6eVfmSaegJVCAAnP9jaIi0iAv6Ab5F+6sA6kWcoPaK+VnBK4vrTOLel1qjXXlTVh
-	 lyWwGFvfQgJuNKYZIp0Y4V472shfUg+QBhKlI4yNICk6RXkUva2lSiI5uPgzl7nVXvowt
-	 oiBV7lOfPt2mNA7PcstnMYzltdmGp/oeV5fO4NKU0dUGtPHlJcNlEMBARt9xWnqS8Jk1A
-	 QU3vAyJ+KEux05sFApIXUoIpOF/GO+A1TemWj+8hqQUYqVrU+sRTf0ebBM9tuio7YqQ==
+	t=1794796043;
+	b=NZTSIZjnuvmR8fZX7TnG3bR30EjVvo4aEeh/NBCpt8Y2qkG0gwQrZJ0DYjSlCnd7t+od
+	 XoZD+LtbHC4Sn704gMC1p5y9ZTaTESQC4Mm1cjK3TM+J7jnjETW3vu1b77u8Jd8bguuia
+	 YKqrorm9BFkGV/4as0IohBXjoQZYvAVktzoZzRFwDOXiwNUTvu6gWU5Lw/YdAafOgdEco
+	 mAmPOMbj/5aY2Yvk6dODPANxr1yAk23Rg0GKv0Re6JXPAN3Lp93d9EV3BaPSQK+u2tH4D
+	 ku2516A5Dzb+P6+FrZMkAGI5jDXI1cF4jdavtaJ/RW6vVijWMXdFkt6sb4l2qzQ4RAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795970;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=iMwI1VtTle8M9U1HzORWMowXiI+tJHvMIGehr7XKFPA=;
-	b=DG9zzTfkMaPd92dd+rA9YMovqzjgqIMAaRa1k9HrNewP5S1Py6gQ+/XwHVtE2m2oEIh+
-	 YCOKbgrgDLwxQGMfMybmr7+6Q4l8qrFfnDBLx3eGEbjThS5XHrExpVHHVVZ+VfA7arZUC
-	 2al4bgYBHCamHhC5f+b0A3Dl4JvX50UkYsbRAaQ3eg7bricpojQQHbxixjYiVH38w0ovE
-	 T1jbwIJIuZu6SP4eoGcm3Z3qttVcq5ZsL+32xiM0Nb8p5v/0siRCUZvkMI8NS8ySMd7Vt
-	 g0IquqXSjhSInGblOu+k8GmgfAWiymiv307J8yP4GdxL9W9sCWkA0RTfmNpZaQpflbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796043;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=Xa+s8rck0hvVYXsD+lL/I9md5BKO0hs1gcPH9kuiMFs=;
+	b=aRqQgt+E7dgN0cGU+zRUVORnBDROs/W3eQBInSQN/v0tZ182NB3Qc1nef0q3jqntBE2x
+	 vrOfiNM12iJZP/RHkyIDbBMPyJ82WfdbQXJjtpwbX+RRv95mwQTPNZQ9cqs8ZXQjyzGh/
+	 +acxLtJ/mFTTVTuQyEoXug+HeVwNyH8I0THn9xcfUBtvBMYx2bDIwt/Q+VzTC7HYHGqNH
+	 IkTCTK+spaVV5O++DKdcLpVNh8Am6sfpp6Pgts4o0TXNUqrQwYXcFDj30S/rigvC8Ginj
+	 AHjeGCn9c8LGeh2/9F0f2/o3GceGY/HNhocM8sHuUjmoiXV+QjKuw6TsVRJD+SuxJNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=j+DMDLtr;
-	arc=none smtp.remote-ip=54.207.19.206
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tliFr88t;
+	arc=none smtp.remote-ip=95.215.58.72
+Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115E2606A329;
-	Mon, 16 Nov 2026 02:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 115E2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC82606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:27:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AC82606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=j+DMDLtr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794795900;
-	bh=iMwI1VtTle8M9U1HzORWMowXiI+tJHvMIGehr7XKFPA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=j+DMDLtrzPISajByd2CEXW1vk5mRx4Z29d1DJ1sMT/bx5YCgKvYqYxj31JMmo1oii
-	 kZcx87MCb+UFWodRVglWiFPX1543yMd3qJgtBiYCh+yR5de5kCd2mYmCdwk3HyTYr9
-	 tZxQSIxyq4H0CUetJwpa6H/cPsJtCE+QKiAkBTtQ=
-X-QQ-mid: zesmtpsz5t1794795885t8c81686d
-X-QQ-Originating-IP: cFmbniOkH1g3yGyZqiLib/FZuxHl6JNGbIW4KR2ghyY=
-Received: from PEC004119 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 16 Nov 2026 10:24:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16673752541823333651
-EX-QQ-RecipientCnt: 4
-From: Haowen Tu <tuhaowen@uniontech.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haowen Tu <tuhaowen@uniontech.com>
-Subject: [PATCH] Input: max77693-haptic - disable bias on failed open
-Date: Mon, 16 Nov 2026 10:24:42 +0800
-Message-ID: <98F5ACA9EADBEC89+20261116022442.3298673-1-tuhaowen@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tliFr88t
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Xa+s8rck0hvVYXsD+lL/I9md5BKO0hs1gcPH9kuiMFs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794796035; v=1; x=1795400835;
+ b=tliFr88tkGzfG0yLqb7kDYZly2YmYl8MdwxWzXX53WsrZRQT8OJH9TVbgwLHGreMouhiaYJs
+ LC0VfAAgRIozU6xdZpjQoJyl/oqZPw06SQ7lneqDdQEjMD1udTjSKpegaES3kef7mqI2Sw9IJKS
+ BLTfDbOeuYHp75iXnoHOKCzo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bf9aec3d1c6270c4;
+	Mon, 16 Nov 2026 02:27:15 +0000
+X-Mizu-Trace-ID: bf9aec3d1c6270c4
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 02:27:10 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Theodore Ts'o <tytso@mit.edu>, Zhang Yi <yi.zhang@huawei.com>
+Cc: Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, guolingxing <guolingxing@tju.edu.cn>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+Subject: [REGRESSION] ext4: silent data loss when a split at I/O completion
+ gets ENOSPC
+Message-ID: <d400205a-0d3d-4ec3-a916-6c0a085841b4@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,55 +66,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MqYBrkL3Jva45cpPfqEbhpDyh5WMta+8lGtPKSu1X/fF2LlqC6DDpIpM
-	vMkGrMXuTiP2XeAtOITd6eerIkKY8a+mKr8j7i8hy6ImKGbpB39PIHgz688VN3TRLDHgfg+
-	BFRk+cjoa1ImLhzjDL4YKMutCyq+kSPgWiXjAOTjRf2ZzB36M+fV36tLDT4Z6QLQIbZTWLk
-	0qVXH99cfHrid4aVi6NmpqrdOUVBJTT1yXGO6Qq2o9UFZ3Vxr7z6y7mYFzjTWt9SEw1frZt
-	3WQOMew0zzkD9wK0PnkE+JGG2grfo4zMqR35l5FiMswBTBeMpE/CZjotwFtCCaTjA9vGnE2
-	Tyz5v0pwZcvDpqn/1DF63ubpJmq2Ff4Wiqfw0Zd4tqkLIeOS94SDXhdyA+kO2mh8iMg59hA
-	uvwrf3MLOCryEXPc0LNnGbRwVPrXbP9HSx1qjmbEUfc2yEwdmRHSSx7+DueVt+gB4OnYMiH
-	jk6caQH2OBVWDVq4CRhwnsODelnGK4++7wZU0RvkKVe39kGFyNtZ8zBLx7d07dR+tfPSetv
-	XUtdTn98PaFNv9odWP+vwxAqQV2oNKGzN4bep9pw5r6Ui+2+y7X6oZazPI/vzo9j61hsP6Q
-	TkS2ZOi/Rbz5XmNhkcgnZWN+Is8IWkNQCbjEWvpCNbjM6XUvOKrdtjcdmKLzH/+1VVKJhcU
-	xWVsE2T8nxJlzU7S5SgfJ00+K2nKh+kHo/yXtGJsMAhKFha3SV4UwgNemKijhn5ZKgssaDA
-	VhPSyWlB9u+AeY/a+WQsOSKYfcRTSHl6LnWSCMPmCAzhO5+C1OW+IJwbhGmjHb0c+T3RTXT
-	vMxcZFDzMIUmAj69ACvjxAeWcLRHkUtLGL+QcPlUkWiGzpTipYzFFMFxJBX9kXal1BdpvNU
-	PR43EiT64pFeed6kNgtBprz0N9RGgnmmftM44kdG01LbrRRFHON3XgcnjEKH5Y81NKoZHG/
-	w9WigALj+mZoNXKGPiuVpNaTCb6vW7fOTwYbFkUvbwwZ7sKQO/Ef/sjXjVB+wGQnaWAMZUX
-	KTR7z/OYrniZiQdM0vdx2y4Y6V5+4=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-max77693_haptic_open() enables the MAX77843 bias before enabling the motor
-regulator. If regulator_enable() fails, the function returns without
-turning the bias off. The input core does not call the close callback
-after a failed open, so its bias cleanup does not run either.
+Ojaswin's cover letter [1] explains how, since commit ea96cb5c4ae3
+("ext4: don't split extent before submitting I/O"), the split of an
+unwritten extent at I/O completion can get ENOSPC. [1] stops the zeroout
+from hitting other writes in flight, and [2] reports the failed
+conversion to fsync(). Neither gives the split its block, so data is
+still lost.
 
-Disable the bias before returning the regulator error. The bias helper
-already handles reporting register access errors and is a no-op for the
-other supported chip variants.
+LLM agents working with me found that it happens with default options
+on a filesystem that is not full, and ran the tests. write() and fsync()
+return success, and after the pages are evicted part of the file reads
+back as zeros.
 
-Fixes: 56bbc99e6914 ("Input: max77693: Add support for Maxim 77843")
-Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
----
- drivers/input/misc/max77693-haptic.c | 1 +
- 1 file changed, 1 insertion(+)
+Under a load built to run the allocator dry (QEMU without KVM), 42 of
+72 files lost data at ea96cb5c4ae3, none of 72 at its parent and none
+of 48 on v6.18.63. On mainline at 23c62304dde2 32 of 72 did. With [1]
+rebased on it 42 of 72 still did, now as failed conversions in dmesg.
+With [1] and [2] fsync() failed with ENOSPC on 47 of 72, and the other
+25 read back intact.
 
-diff --git a/drivers/input/misc/max77693-haptic.c b/drivers/input/misc/max77693-haptic.c
-index 96d6d4620eb4..2bf4581b6adc 100644
---- a/drivers/input/misc/max77693-haptic.c
-+++ b/drivers/input/misc/max77693-haptic.c
-@@ -278,6 +278,7 @@ static int max77693_haptic_open(struct input_dev *dev)
- 	if (error) {
- 		dev_err(haptic->dev,
- 			"failed to enable regulator: %d\n", error);
-+		max77843_haptic_bias(haptic, false);
- 		return error;
- 	}
- 
--- 
-2.50.1
+Nothing our agents have tried fixes it fully. I'm reporting this so you
+are aware of the regression since v7.0. A reproducer is available to the
+maintainers off-list.
 
+[1] https://lore.kernel.org/linux-ext4/20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com/
+[2] https://lore.kernel.org/linux-ext4/20261101102145.647496-1-guolingxing@tju.edu.cn/
+
+#regzbot introduced: ea96cb5c4ae3
