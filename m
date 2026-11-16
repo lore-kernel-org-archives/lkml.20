@@ -1,99 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.113
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794797901;
-	b=5on4/b/zCTCd/Wp/U18rf35eNcPj6EwK7IRe8i1Ri3P9gnSYAs2eNQiHWRe+JDj71lOu
-	 GQdVGkLdX9IuWtJRUhYFNt4f4xH9TMvyZ+YYWzWDYNo2JSlETYCWtlWFTiBiSRUzQldcL
-	 8y7n2GehkoKPTY1LVVBJvw8tyAV9PD8OdCEMYUEDFBQ7JuyWWhQqFwdsK0lDmNNwKjaYv
-	 yr7ID3L0iIzAxBp8+HDCVRifL7TtOfvLGLcw2ghceqhncm2mo65UU6qK14Sp/65APZ0L8
-	 NOzI7XV7wGJ2TSvzBxFf4aykvGpEPnruKeVtvaDrbLw1XXH7oukkpi9JMS12QWcgE+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797901;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=d2em7nzPLtQPJSojdd+nKqhTn3deaCQuJEyo4+tZSms=;
-	b=TWTnL5g/DGymS0k0/PEh42CcWso0wNiMvcui3eKsxIqR0ZSBhXxABZvwhBSF2t1jhPGF
-	 aTjhsAimEKe3ltvmxnWuqzKaAgWmNnQYEi7P13ZGOFBhvMnwcTUiI0xvbGH1xu+l/l7i5
-	 Sxoug+M+oWZ/No23p1wANVr5iNEzipcCKrUKP63+vL2GvymUwVfkFSbx0mMY1HgJXlMA5
-	 PiVNAJsiefNDWeAROU5YJ9Irt0AT9K690YgFVThboPxpazOo5vPZxFDaYG/s3YLfpGZLV
-	 TNWaZ1C9cvaminBB/IzzGQ6/2SQ0IkGkODk9podivd8IO40VyzmPcYFqBi9imFvR8Dg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.113
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022113.outbound.protection.outlook.com [52.101.126.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11292606A334;
-	Mon, 16 Nov 2026 02:58:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11292606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g/O7Zb4sWc8hPYjV3sSC0IkQzb3RXprJhT4VqM0fUrU4U70mgZCsORddwbFirwq4x9WcHPcQhjjBOssWMpbcb1meDX/G/yZfBJyIPrQmGpu4vcHAYHR4958H2aGLutApUP995SI+/saUdQDKDisI2iw7R8WTrCVu9MDMZErc+f2/LGFpU1Ol/YxH+T2Bed5eU0+HBIgB46+nXTojZp5zmaXg4HW/suzkkqoMbFDM+1vw9vq0CWZDpXkj6ZQZvK5/8KtYiPGg7HIMM+Wpum+nAgFLXAr5V2Jo+pA4QJ7Mw1/3Vi0p9oRwHFXZbvnigVNtbNwDIunVQbR0SKWNXtOOuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d2em7nzPLtQPJSojdd+nKqhTn3deaCQuJEyo4+tZSms=;
- b=fjrtNq8W99hgWWRdFMrHsxI/S0J24hhmdAY+Zvf3ZvG/0gcnb0ddSJ1o4RUGzcWx9vdE/iA5ahHx8aOLY16cU5VSxjPfWriR1WVAcloZWndHOmQ8jAAFWxYuEu/PCnJqS/LfU1NeWTFl/I3U4a+UeGuq7GCagLARKxWLIXZ6BJ9pQTVMiW/C2z/sHNdyM3wNCe8Fau5ADC22+JlVjtFBQXzIeI2d+GYykrKshNlxtztPd+6AmiOi2emLT/3weeUcbOziCAVM9dtjBhLHCYQW+JRAfVUvJ/r2QZoVnwNZF2ciZ7m7ZbcelkvW1wpdqlas7gQH+UO0XLI2yOBxnrEc0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PUVP216CA0044.KORP216.PROD.OUTLOOK.COM (2603:1096:301:210::17)
- by TYNPR06MB9200.apcprd06.prod.outlook.com (2603:1096:405:3d5::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
- 2026 02:58:16 +0000
-Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
- (2603:1096:301:210:cafe::a8) by PUVP216CA0044.outlook.office365.com
- (2603:1096:301:210::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
- 16 Nov 2026 02:58:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 02:58:15 +0000
-Received: from JohnnyFan (unknown [172.21.64.24])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 886CE427EFC7;
-	Mon, 16 Nov 2026 10:58:14 +0800 (CST)
-Date: Mon, 16 Nov 2026 10:58:13 +0800
-From: Johnny Fan <johnny.fan@cixtech.com>
-To: Leo Yan <leo.yan@arm.com>
-Cc: will@kernel.org, mark.rutland@arm.com, suzuki.poulose@arm.com,
-	jeremy.linton@arm.com, maz@kernel.org, mike.leach@arm.com,
-	james.clark@linaro.org, alexander.shishkin@linux.intel.com,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com, jie.fu@cixtech.com,
-	bob.zhang@cixtech.com, Fugang Duan <fugang.duan@cixtech.com>
-Subject: Re: [PATCH v3 2/2] perf: arm_pmu_acpi: Support heterogeneous ACPI
- systems
-Message-ID: <avpxRZFX4Iebu0l3@JohnnyFan>
-References: <20261102084153.3975282-1-johnny.fan@cixtech.com>
- <20261102084153.3975282-3-johnny.fan@cixtech.com>
- <20261113160041.GS9176@e132581.arm.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794797894;
+	b=sibFP0nBZPrdIOXtU8VuTIGI42CMXB+E/w7BewOiGptxzCUIpsYFPzOwgtR/QkuN+EPv
+	 zgw/H4JnBRmEA93KhHT/DOW3JKIwJKksABrGlOrAzXw0URhlzqDXWYzRg1AjALAgxCjKQ
+	 AqDHm4repp5frJQpL+08ykpP2lw8KvWgIDMyqIgAFMBh66pnPhxrt2n7u39fDVkCG/Q9o
+	 FeGvLbhUxEH8+sONyjwKUlKTypFrKAm905TxTdlYvYf0XBs+7aMPd8psg9AyuagZMZR8O
+	 gjfnBGnL198ovA7Hfk0RlEdpgFlUmZG+XHBDQs6MNefeuqsipwt7NyAUNi7l1gK5Zow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794797894;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Pz245/qiYdhAlbrbZ9JGtp5YOswGm+RxhscLH6qfgIM=;
+	b=YKiEAS0e8zat9ZYvCAAN6OwQgR2wfesgpJOGIfE9tRwKtzNYvMpH98o1SypPAWXCXF8z
+	 7wqv8GGpgBfn4OoyD3rOcwvK3dN8n8+z/X8FLdY0CdgT4lfhzojdLTkd5DUimqU3bp3PQ
+	 902+MyitTPffYQkySu8WpTvfJelYETaCOh1SyMhqsbbozjyB3OV4iT86kcVxB6UKRL+6G
+	 76D3UgjAy1wjq4GLBdUDkdJO/hwJMDy6Ybr73BBF7NIlAr6gWxXGyHD5txMFZcqrIVHK5
+	 QkC1+yADdUI1D2IjKSXKOlpWhWnT425MDsSQScLSapC/gL+8xyITH0oCvcWs1/lcKew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=sBpx3Ibm;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 463A6606A323;
+	Mon, 16 Nov 2026 02:58:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 463A6606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=sBpx3Ibm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=sBpx3Ibmg/ey4nt9IsmrNa9gaEQTukyE5dcsTHQrmUhG35IBjUHuIRujbOhyWo8+ueHLRrZ6gS14+
+	 DFldiIZ/s701n1Iu3nzNV5CMKJ/UyzHxSgets3uriQZcIk1rSFC5OZEwUSGDL7bQGWJjVjm3TNSSxE
+	 TQlP6A47Efq10Q0s=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96afa7140acc-0018b;
+	Mon, 16 Nov 2026 10:58:09 +0800 (CST)
+X-RM-TRANSID:2ee96afa7140acc-0018b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHD-W7400297 (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76afa713e7df-79766;
+	Mon, 16 Nov 2026 10:58:09 +0800 (CST)
+X-RM-TRANSID:2ee76afa713e7df-79766
+From: Aibing Chen <chenaibing@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Aibing Chen <chenaibing@cmss.chinamobile.com>,
+	netdev-bot+sinfo@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: hso: cap the MTU to the mux tx buffer size
+Date: Mon, 16 Nov 2026 10:58:06 +0800
+Message-ID: <20261116025806.244-1-chenaibing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <179479401486.3291.17345716560777690357@kernel.org>
+References: <20261116014904.556-1-chenaibing@cmss.chinamobile.com> <179479401486.3291.17345716560777690357@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,56 +76,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113160041.GS9176@e132581.arm.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|TYNPR06MB9200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1542decd-c243-423b-0dcf-08df438d75e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|1800799024|23010399003|82310400026|10067099003|4143699003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261102124527099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	2AMB6foqyk23u3HR/0PBQZzhp4lZyWKjvEzBkLbPg+m64tkuvRX4SNUmxEPd8Fa07spj8YkPd6ikrkQrZTdbht6IXJMys4r0oNJCBBHjPJwrMTc07XGuwHzzWq63ZoJ57nhZ64POznIedCMj5d51TxX6d/hwo4znPdU04EgeXK8BGOY3cwd+YNskypcOaVZVQZGuUFUU7iXD/8F3Op3e8YtqIyKcNTHyS/wnmZd2GcweSjOxYa0zxcLsUCcBjMZasCkR7vjyfOv2PcU8AqW5yINChf2WIN0y199LcT6/k/bWBo0j4Rgbm1HCQnVrmSXlOsoBor8ZcaDAb/l3wmcTJOdJV14F+1s6Pon8WHoM8oJ5lAyxdt0Hu3yWC/W+L1H0mNVp+bpm9My0oZbDb6aK2YmUwy0LRTUErBNdyO86J2cNnm/twx5aFEgfbIrtSXrTipg5VddTSDdPNSc1InQ3OjEvYF+M5zMDeW00ORGnZQWK93B6niGcU5xFsCmk2dPrZtlEFxPoieUhgd1b1NwoScsuWUtViZVGrkRqYdeks05MgN1w1WNz4SqBDC5IbuhTv3fzcXixUAT8eiv8QVArPXSDEk6dDZ11YnI2UuxLamwKcB0vZsJcKNirLZvIXxEnwR6nu4kKh4e/aCou+NUfrxNk3yBL56f3SUm3AAD0+jQach7USK3fV4ytjBZwswgW6rER6KEH6nfW/Hm4eOhXdg==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(1800799024)(23010399003)(82310400026)(10067099003)(4143699003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261102124527099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	B6Cdz4ifVZA78aIIJXaKFBwG9CNNJablUxJ/iDFw0B+pf7gF73cpKcrr6v1RWrTqEkKdGy+6uQPjB3MycZk/4L6RYi/xBi/I0j2bd1Fv1UVUd2+wd0NXQd6vTZ67nQC013vx2iFAXjjeRln4YhPbnRHw6B0k7XXULn5hg9nyPVO0HAEPNQx4uJHJKjwPu5UisnzWHKK5Gf5OwD+raLcFXQKv4kMTO9E3iygkfjwTrYr6p2svw85ysZsT4B432tZhOooIBThw7M6GVHVfU5yDUvsRR2TrXyCX/GpoM2oopC88ZkxvgsAVu8baUd8T1tFwwgDsYXiSKc3f1zcZEdXT7xT3fEU5ubBbH9zEpLHwDTvEML0NRBAnO48y6KDWHiXJFrQkYFSJMT4rZD74Rc6LS/Z2CdsCt7EmZTWhGYUmiT6p7hSv5NaseFldMNJvJQrP
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 02:58:15.5275
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1542decd-c243-423b-0dcf-08df438d75e5
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB83.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB9200
 
-On Fri, Nov 13, 2026 at 04:00:41PM +0000, Leo Yan wrote:
+On Mon, 16 Nov 2026 01:53:34 +0000, netdev-bot+sinfo wrote:
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-[...]
+Code inspection, prompted by the automated review of the companion
+skb_tx_buf fix in the same driver:
 
-> Based on above idea, I would fold your patch into my series (but I will
-> drop the first patch for changing TRBE/SPE drivers). I will keep you as
-> the author but please bear me a bit that I may refactor it to fit into
-> the extensions. Hope this is fine for you.
+https://lore.kernel.org/all/179477764293.3136.7267245337781305691@kernel.org/
+
+That review noted that hso_net_start_xmit() copies skb->len bytes into
+the fixed MUX_BULK_TX_BUF_SIZE (2048) buffer with no bound check, and
+that hso_net_init() never sets max_mtu. Both statements check out in
+the source, which is what this patch addresses. The syzbot memory leak
+that started the series did not touch this path.
+
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by LLM and not proven at runtime). If it was triggered
+>    please include the symptoms, like the stack trace or kernel messages.
+
+Theoretical: the overflow was not triggered at runtime and the patch
+carries no runtime repro. The overflow is statically decidable from the
+code (unbounded memcpy into a fixed 2048-byte allocation, plus the
+missing max_mtu), so the fix stands on inspection alone. I chose the
+max_mtu cap over a runtime length check because the default MTU already
+fits the buffer with the same 14-byte allowance, so there is no reason
+to allow a larger one.
 
 
-Hi Leo,
-
-Thanks for the detailed review, and yes — please go ahead and fold it
-into your series. I'm happy for you to keep me as the author and to
-refactor it as you see fit.
-
-I'll hold off posting a v4 so we don't end up with two versions under
-review. Ping me when there's something you'd like tested on the CIX
-board.
-
-Thanks,
-Johnny
