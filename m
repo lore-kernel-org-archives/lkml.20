@@ -1,74 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870012;
-	b=3whtxBg8rN4C3p4V9PpezSUxUzhQW1r0SctyBRsImeS0SfGfb4j+I5wwkq5FeST7q+s3
-	 VZWt3XwQcvAULFbducyeBaLuVc7SB6fshc4GPZnc0UaH4xRwTvLzbruNk/Ut1PghTlJUA
-	 FZ2ksGYX0EPKmXumDnLdGrnpebFfy+67dq2Jmo8Lf4UGcA0wDEDaQey+YJTkPW+OQJuxt
-	 Q76t7KtNZ0QLiX2ooUnMI3jzCeq9bqRP2oIdGmf179WTRL4REcY/RK84UXZ/ayfANJPHt
-	 2aTZKYoVkxkcadiE9MQ9iC3dv+iaIsO8BvyzbwFsi+xkCqTp/6i0a6n8pExBN2lC4hw==
+	t=1794870013;
+	b=4SjlfLgbPMr2fUdA9igRpIetVRrvSfhqj2Dkes2fQVX4N9/BMbutvBtrHhRb+26PyDNC
+	 Rs9lDyd4g+oZAqDtubm+n0MwAYmFyM/96xKWWdUMlbTs3N8N9J4vVLWHDBrpIfg+irvvl
+	 3rfr2/xcQh9h+Lou8gt7NyWY8UxPM9Carq3nGokTYJoZefNBnj3jga9PX/ZoXxFFaj8eB
+	 cLvHb2a49jteBOuIYjZhb6YIagvJ1BLU0XJMJbqtB6Iv5fL5FEkEaccyuCWOYwmDbPUXc
+	 f/YivssSzY8ET3UQT9D0JIqg6+V/sSlRjqHRoStK503gLyDSK56WUAtKdx1ULkBo/gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870012;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870013;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=PH0YrpSlGVv9qt33Z4Z9rb018oWWfWEr7PktdA631oM=;
-	b=byW4WCtCiHp4Vu/6/qWCN9I6eUWNxdFBIoudG3e9VE/BXlPoMJvH3sFgDXLtUl2I0pLm
-	 r71ouxMlJmkVmRa5AUe1DD7w3Unfu6yW3h2Omt5AcoSKMLsNecphK9mb1bWoZ76/PxJQZ
-	 EVZRKUwkSuhJ8Sy5xs+eYyrU3InoviYAb+uTpFR0SrfUbySCs7456H53jdIKVwK8/1BGE
-	 FY/vpLZmGXnhXweVE130c7zirjukMnnJ/lyJeZimitN+C4wKsQZV3mQdjSshR7pEFJS64
-	 3xbzQ9OzVeoqDHRkhuX2yCY3dXQQ+ha9D6hEPz7PRXhn1pgjQdaxGFdfkwBSB6J6aXg==
+	bh=mqKCpqc3ESi02u0qt7HzlcluWKxVbZ+aolou34tE824=;
+	b=r+Z0bC3BMKt07JdcJvJRKDGMsFlO0PZ4O+f4trqv7nEhwuYUMryQH6aeTOWZIsqckSnq
+	 nsOHjSZonL3CQmtvniYwNpG7b6+rzB++POqIehU8mM9YicSwLiQJG1cDc3i2lG4hogQ0X
+	 6YvP88wk+DvVcRra6AtaAn0Mu+FtA4RvaEkc9hqZdC3qz8Icw8Ht6oZ4U/c/2/pavM2nL
+	 0D5n4jdy0jVoAG9d0YqeqkIvtWBl2zKk1ZQ+sdV66MGrnnbKCLyoDfqFeBacj5YC9Rla+
+	 Y6/UpG0pl2OjYqivm10/PcDlNVU9AX0jhaLQcF5CNTNeCywfGNgT3tqzAJM99fUR8pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	arc=none smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283DD606A8AC
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 283DD606A8AC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA6E60A2603
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BA6E60A2603
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b0dba37a7fso37854267b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:00:12 -0800 (PST)
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b4b2bf375fso15730057b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:00:13 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794870011; x=1795474811;
+        d=1e100.net; s=20260707; t=1794870012; x=1795474812;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PH0YrpSlGVv9qt33Z4Z9rb018oWWfWEr7PktdA631oM=;
-        b=PivCRV9HgN7JpxXiaQpXXzt0wx+32ojA4TA7WmVXGeflAHddtLJWbT3mHYKvGEhq7c
-         YJxtGdvzhTy8j8BBw8ovEUv8OYX2OjqEdtJXwkWkAqhEfiJM/kqGAPwxfEg9GyEesTEv
-         +h+wsrRXRdT+WXnaj5P3Z2E0fuHFTiKoKX/+LFOYF2RMTDuh974Gk3VutKJl6H2q+/x4
-         da9d/SF+1rsbfjnmx892dgGbXQbfLJNntFU359qlyrwQuvkBYwfvzn+Ux1o3VbY8r5mK
-         bXWyIZs36NQmof40QphulW897no6aG4M09KLOgGu/k9O8OqmtkAAtIZcFOdBfCG0kn0+
-         YN9g==
-X-Forwarded-Encrypted: i=1; AL+hErE2PF8MMwVNyprqgEiFXVoPXtyC2nz2NFUQqfaFWpOj654+/lgYHS3JcQtppstOGUYVzEKChGMdKkQttBc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NT5JSWZeEr+PzKxslQXFZl14NRw+KoADLKtLCzkR6TwepFvtT
-	FLMswlaH+Fy6X2UpOR8xiJbJHkeONasEefbb6v1bpRM1rL65FPZti7us
-X-Gm-Gg: AZFdTZfOX1RKjSG11gCun44MJcmykYLWr7Fd+GC4Qocys73rJET1EWvAeEO0aa0k2VT
-	EqZKziq1VckhKsFE/uiywxKeRKZHIZ2bLGJojgyEqtKSnulnvvG787q0OsLt3TjXoF9HLzOqAPv
-	qTF2lznWNLqQUrS2/YzvoJt7SL+QF1zFJzhVgY1BBYubLvc7zeEU+/w+S/ro6E5XHzFUK5suycR
-	dt4eTT+ns+gRZ3ajNvlGYvG0v18fy46b8WFrNydJmxgRfeS/aFSn2YgXHb1+SbjikDYnoN6T5g1
-	6WepzU3f1PXtVUpjlcjLQmZMWlfk+B7mu4IvmjTBqH05ejQBAVqXQnDA9db6XwMIePPtzI1XMus
-	B6DyiYYMiY28tzYsV6kPVhKqwIanzurlo8I1l4QPuAPDj/c4PGv9dLYyYzQESt0JfCpPdQDe9or
-	IsSEaPi/tamM080QXB4uv89FUzfHodk6DpYKCZF0ZOM3/19QXTtqCWxqqeLpXr94VFEBDzb0inC
-	N/Bp5mqco5RHkdxic8NGwkr3hTn2vK/iQi/pDLt4GfK1YH54QeuJ8qmpvEYMSvAsLJvgc2hH6lT
-	7pft044DynLCBaPmAOnHPTR3oQ4FVKf7kgKoiKF32MfTOJkH69Gi7Tj3eS6Py2FScUQ0j0se/gL
-	Hxsv7o66nj2bZ0V1H7uFCredqauzIFmdbDGrbRHKHeh1PepU9/Y/63g==
-X-Received: by 2002:a05:690c:7003:b0:8b4:e2be:7a67 with SMTP id 00721157ae682-8b4e2be8127mr15335447b3.34.1794870011265;
-        Mon, 16 Nov 2026 15:00:11 -0800 (PST)
+        bh=mqKCpqc3ESi02u0qt7HzlcluWKxVbZ+aolou34tE824=;
+        b=BcUbYAKw+gShjfISbtvke7LI/Thne2fXseXKlSYUmxwUI7pzZF8waeffAUoBqohf3A
+         dv4A0UTA6FoISMKiCJU5lzTThWPo5AIYINfQB3/kBr87Qc613r6HYCYo4rABetixdlHi
+         b9DLh9uptRn1b/vXMqoyZ2bVo/GPcDnKLfhzt/TEDFYMiNlR/MuA052z+RQg2uO2TsG5
+         2hLTc5p25KpG9L3N6GuzD3bNruxRrRB2sm3c0vZlisL6RMmLEdsBoX603sBXQVPQl7F5
+         +8NyH8CZv7ziyAKZbxPEXzNCydfF8es5Wsa7n2Jq8hA0in8TKcuylkKArXpsXj+Qgk4U
+         EbHQ==
+X-Forwarded-Encrypted: i=1; AL+hErEXYZxkFvJs5n6FusU12nFX0rexYymldOTFYPV9ZKlnfyiEDbHUOle8i1eOMQ3sPU19S+8NlnAJkOS4Yag=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KmRbK72PwtMl2Rwz565sYQ132gqqfNzrfpjxOLcYSLvmJe92p
+	R5/R6FHaXEv+7lS2o7P/wUgMTPVQa4nB65qMpKxgWmwaCq5Qo6/BsDJxkCgyC1u26+Y=
+X-Gm-Gg: AZFdTZcgRDXyuAVHztqj4JIcowp8pKtSi7xxInEPOlyJnk4qDCqzDQup3QRdQkWo3DP
+	xB6BupQ9gO7EqrO2CdcvGeg1Gf2uzFM0P7eNYwmljVazLLVh94nxhM+tcuvtJHo/JhDW6dkMr9Q
+	rDcscpVEgzFbIyC5vWZXX4iyFshzihI3JH7Lj41PWta8YGym+3gaDO4Nglf/iovZLcldn5Oq/TM
+	ddYLaJcVwBU7GvTR8YzrcYTtAq1LTfw/Zpx/8IMBlTIeR7E7cpI1HmWpvcfJ8fmgW0HJ2h1guEh
+	yCW83sPhsbQYZwtXipoyNO6KRPCEzMxa94Ejsfbx4VMdibXH91pa+cl4W3RIAQ3boniQJm9wza6
+	Z7B1r5VD4+ZsUa9kBNLEnl4z29LUr5mA01HL1t+kbuU1Zcj+2ZXVNiSyOtmkHNkeLkArdTY7imE
+	5ZEf09eEFpwX3oQcwdbHcMtuM8+2NZ3+Vyhm2gjK7dZfm70SyoDkr6hWwMtJve4Uqa6vGj/shw2
+	zxp719Ogz59kD6A8B+xkv7dKxuOxOI8MpuVxil02iwtLtd6rEcdUrmblxI3hExRpJyAw51njI02
+	fgrDZCGbTdYjMHHlRVP9MGy8AYZo8J0JuFLxIXEH/uIH3mpUStU1O/nSRqcYON/QF7If83xXy4s
+	simmLUAjIEPWmdIcpk3LYSJ+Igmk1WCyV
+X-Received: by 2002:a05:690c:e3ec:b0:8b4:b5e4:e7a4 with SMTP id 00721157ae682-8b4b5e4f2c0mr64991407b3.21.1794870012557;
+        Mon, 16 Nov 2026 15:00:12 -0800 (PST)
 Received: from 1.0.0.127.in-addr.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ebc50e40sm10721347b3.17.2026.11.16.15.00.10
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ebc50e40sm10721347b3.17.2026.11.16.15.00.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 15:00:11 -0800 (PST)
+        Mon, 16 Nov 2026 15:00:12 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Mon, 16 Nov 2026 17:59:52 -0500
-Subject: [PATCH 3/5] dt-bindings: iio: potentiometer: Add Analog Devices
- AD5246
+Date: Mon, 16 Nov 2026 17:59:53 -0500
+Subject: [PATCH 4/5] iio: potentiometer: mcp4018: Turn on the vdd supply
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,7 +79,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-iio-ad5246-v1-3-ef6b7c06d4b0@telaak.dev>
+Message-Id: <20261116-iio-ad5246-v1-4-ef6b7c06d4b0@telaak.dev>
 References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
 In-Reply-To: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -94,96 +93,46 @@ Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux@analog.com, devicetree@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-The AD5246 is a 128-position digital rheostat on I2C, in 5, 10, 50 and
-100 kOhm versions. The compatible names the resistance in kOhm, as for
-the AD5272. It uses the same protocol as the MCP4017/18/19, and the
-mcp4018 driver supports it, so list the binding with that driver in
-MAINTAINERS.
-
-It gets its own binding rather than a trivial-devices entry so that it
-can describe its supply and be an IIO channel provider
-(#io-channel-cells) for a consumer such as dpot-dac. There is no
-fallback to the MCP4017 compatibles: its resistance step is 1/128 of
-the end-to-end value, not 1/127.
+Get and enable the vdd supply at probe, so a board that switches the
+potentiometer's supply gets it powered before the wiper is used. On
+boards that describe no supply, this gets the dummy regulator.
 
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- .../bindings/iio/potentiometer/adi,ad5246.yaml     | 54 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- 2 files changed, 55 insertions(+)
+ drivers/iio/potentiometer/mcp4018.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/potentiometer/adi,ad5246.yaml b/Documentation/devicetree/bindings/iio/potentiometer/adi,ad5246.yaml
-new file mode 100644
-index 000000000000..a6642746f002
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/potentiometer/adi,ad5246.yaml
-@@ -0,0 +1,54 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/potentiometer/adi,ad5246.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices AD5246 digital rheostat
-+
-+maintainers:
-+  - Joseph Telaak <joseph@telaak.dev>
-+
-+description: |
-+  128-position digital rheostat with an I2C interface. The compatible
-+  names the end-to-end resistance in kOhm.
-+
-+  Datasheet: https://www.analog.com/en/products/ad5246.html
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,ad5246-005
-+      - adi,ad5246-010
-+      - adi,ad5246-050
-+      - adi,ad5246-100
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+  "#io-channel-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        potentiometer@2e {
-+            compatible = "adi,ad5246-010";
-+            reg = <0x2e>;
-+            vdd-supply = <&reg_3v3>;
-+            #io-channel-cells = <0>;
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9cb91ee8a56d..81069fdbd778 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16680,6 +16680,7 @@ MCP4018 AND MCP4531 MICROCHIP DIGITAL POTENTIOMETER DRIVERS
- M:	Peter Rosin <peda@lysator.liu.se>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/potentiometer/adi,ad5246.yaml
- F:	drivers/iio/potentiometer/mcp4018.c
- F:	drivers/iio/potentiometer/mcp4531.c
+diff --git a/drivers/iio/potentiometer/mcp4018.c b/drivers/iio/potentiometer/mcp4018.c
+index 53471bd24640..0d80bdfdf243 100644
+--- a/drivers/iio/potentiometer/mcp4018.c
++++ b/drivers/iio/potentiometer/mcp4018.c
+@@ -17,6 +17,7 @@
+ #include <linux/iio/iio.h>
+ #include <linux/module.h>
+ #include <linux/property.h>
++#include <linux/regulator/consumer.h>
  
+ #define MCP4018_WIPER_MAX 127
+ 
+@@ -167,6 +168,7 @@ static int mcp4018_probe(struct i2c_client *client)
+ 	struct device *dev = &client->dev;
+ 	struct mcp4018_data *data;
+ 	struct iio_dev *indio_dev;
++	int ret;
+ 
+ 	if (!i2c_check_functionality(client->adapter,
+ 				     I2C_FUNC_SMBUS_BYTE)) {
+@@ -174,6 +176,10 @@ static int mcp4018_probe(struct i2c_client *client)
+ 		return -EOPNOTSUPP;
+ 	}
+ 
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
++
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+ 	if (!indio_dev)
+ 		return -ENOMEM;
 
 -- 
 Git-155)
