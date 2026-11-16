@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794805944;
-	b=QQ6Z4qQUb6JFvLmKGAoo3SDQ1DEB/RA293vzSRFN89DG2qhuBsCyjpN72q6//NT1khkz
-	 Jb5mq/9gTJB5t0x8LZPjRhEX0NXs9rnAqxdvRLqdwaFWlx5PtIFwCY2NodxftFDUqXQPe
-	 ydT+8x5bafO29+6KjBB5++6GXYx2rn2RSqVKJ6CUl3lEh6IWX6VR/Ke/kkoG49rNOK0Xa
-	 a4xfusOMQv+ahKYKH9XYrhRYs50FJ9lvORPZt8ysq1FtxOXzhvznYpGPKFfpWNUaJ7Byp
-	 iSjkgqsn/Md2qbDkGkELSY6Ijc7C3cFqfChyLTwWmhgtWS7vvFU+uCaVjmF5sk0bf8w==
+	t=1794806150;
+	b=3qyTBQQNqtGer4/hhLWvmePqkuDKpIxNVBMtmlCHBmDxK3dS92f+xMKI784jJAFesu2e
+	 HrH4jmKMGpV3hlP39QDw8gNGLk52JUH42yThSmDKp9XdgvDG7qSJaTGu6G+W7a2JSu41g
+	 AxPjbZat31LY4/co17J6X53KlHIfSF1Hrf6T+b0cI2tlMjTJDoQ92aTxtR3gbVB3/eJxd
+	 m0FbcdUcbA99jTWt1ri3RQ0HcPMrqseI1QMN96ZjIv+ZVuawBwo3FsjdwE+rMXtT3PpEe
+	 cLyjQvWbGrQWJIZf3PgeDprGWpQ6tDcEr70vLKnesxOXUBx8NLcHkXDXL2JhF1P78bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794805944;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=iDcxcgpD8H2AJ+U+UDDaqNSj/Xno6laRJDhgDqjVhCc=;
-	b=1NeMFKkPngk5io0PAlgwPYXPpbveydXEdI2D2NCtz+zi5VoxOmK8RIRh+qCGahdPtios
-	 DZ3vGifeJ6MiKZJBZ7YYpLAduKMB2mMz3soMkZ1mx42RIDUYEQmE5CwyJfHwgCWRtZ9sv
-	 PhCD1nu1EdW8UBv+jXIq5VluIoXCiJlb4VgTBjMRq/fkHfkckXHfAImzbRqKhJuAOe4cV
-	 gjZ2gWURZFK7oCpna9j4xiquP0+WqJ1lDOLYDYCgGAEEhilNjrIPuYE7aSVaeg3+W4rHw
-	 EKh+v3H/UFjVn6FFxdBxO98UU0mZj5b1OjK0peRTwQ2HxTlfwvdRP7SWRZ+bqHBrPlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794806150;
+	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=zIG1Zp6FGJRrEDh0pN+mqn8C1jWGbL1fAfu3HFYFjzY=;
+	b=TyDwEz3WDNON5OP9UuNJiZV8XhT6Czc6eKBFZDoQsLq8ywhD2LZvSOIYgJFCqsvBI7c1
+	 TLyP/OBUb4bTiuAc0Xm0uvoq4b84d57pTLqEHQFphF1LuaV3+h2KsMI46FtRKCqSWjxZX
+	 5JGLxzm3nyO/iNIV5YtjJ0LwNOrf4mi7J4mOzewU2P2Lgzu07cdZxy97WSHVlclzHTznr
+	 ccQXmvj9JuPPr6EwLWDSck9bflHV8K4/LKwAKyKoMh8FX94sWhRavB1/ZJ9oNtImGfXZs
+	 pprFpYKVOcVqCca5ygVuG2x2w0ctdT7GlO+GXRZ7BkwThtiePZ90JFEx6FP0BnCrpzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XxwoNSaN;
-	arc=none smtp.remote-ip=91.218.175.157
-Received: from mta0.migadu.com (out-157.mta0.migadu.com [91.218.175.157])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489AB606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 05:12:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 489AB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XxwoNSaN
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KFtcnpywgt6Da6rx/OLFu2kQrGV++9XA+ORnj3A9npM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794805942; v=1; x=1795410742;
- b=XxwoNSaNAzWB+69/SethpreM8exUr5dn8dSHqbWBlekCsHEf8JDujMjvF9nGxmBqUxfcko/P
- WamZQC1SD+nlOBeenLu10vc7MwhQ9LR5o1bIdbiODgrF8QLo1dAYnVwBOjXAUw5d2AxSs00dppj
- 6CM/7jl11G/qZNg/h0UuVDCQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1882c6d6c103cf14;
-	Mon, 16 Nov 2026 05:12:22 +0000
-X-Mizu-Trace-ID: 1882c6d6c103cf14
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Mon, 16 Nov 2026 00:12:04 -0500
-Subject: [PATCH 2/2] dm thin: free thins with kfree_rcu() instead of
- waiting in thin_dtr()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11275606A31C;
+	Mon, 16 Nov 2026 05:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11275606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Mon, 16 Nov
+ 2026 13:15:41 +0800
+Received: from aspeed-fw03.aspeed.com (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Mon, 16 Nov 2026 13:15:41 +0800
+From: Cooper Huang <cooper_huang@aspeedtech.com>
+To: <andrew@codeconstruct.com.au>
+CC: <billy_tsai@aspeedtech.com>, <chin-ting_kuo@aspeedtech.com>,
+	<conor+dt@kernel.org>, <cooper_huang@aspeedtech.com>,
+	<devicetree@vger.kernel.org>, <joel@jms.id.au>, <krzk+dt@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, <robh@kernel.org>,
+	<ryan_chen@aspeedtech.com>, <vince_chang@aspeedtech.com>
+Subject: Re: [PATCH] arm64: dts: aspeed: Enlarge AST2700 EVB kernel partition to 12 MiB
+Date: Mon, 16 Nov 2026 13:15:41 +0800
+Message-ID: <20261116051541.3503805-1-cooper_huang@aspeedtech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <bc6e605a8c5bee59ad9bcbce5f4fe775c9c3324e.camel@codeconstruct.com.au>
+References: <bc6e605a8c5bee59ad9bcbce5f4fe775c9c3324e.camel@codeconstruct.com.au>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,135 +59,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-bug-dm-thin-rcu-gp-v1-2-14ed3567da3e@linux.dev>
-References: <20261116-bug-dm-thin-rcu-gp-v1-0-14ed3567da3e@linux.dev>
-In-Reply-To: <20261116-bug-dm-thin-rcu-gp-v1-0-14ed3567da3e@linux.dev>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
- Mikulas Patocka <mpatocka@redhat.com>, 
- Benjamin Marzinski <bmarzins@redhat.com>
-Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-get_first_thin() and get_next_thin() find a thin on pool->active_thins
-under rcu_read_lock() and take a reference on it. thin_dtr() removes the
-thin from the list and waits for a grace period before dropping its own
-reference, so that no walker takes one after the last is gone.
+Hi Andrew,
 
-Removing a thin device thus waits for a full grace period in thin_dtr(),
-before it waits for the references that are still held.
+Thanks for the review. I've gone back and measured things more
+carefully; details inline.
 
-Take the references with refcount_inc_not_zero() and skip the thins
-whose last reference is gone, so that thin_dtr() only waits for the
-references already taken. Free the thin with kfree_rcu(), as
-requeue_bios() and error_retry_list_with_code() may still look at it
-under rcu_read_lock().
+On Tue, 2026-11-03 at 14:48 +1030, Andrew Jeffery wrote:
+> On Thu, 2026-10-29 at 15:25 +0800, Cooper Huang wrote:
+> > The 128 MiB flash layout of the AST2700 EVB reserves 9 MiB for the
+> > kernel FIT image. A FIT image containing an LZMA-compressed kernel,
+> > the DTB and an initramfs is already close to that size, leaving little
+> > room for the kernel to grow.
+> >
+> > Grow the kernel partition to 12 MiB and take the 3 MiB from rofs,
+>
+> Why 12MiB? Why only take 3MiB?
 
-Removing 100 thin devices of an idle pool with dmsetup remove takes per
-device (mean of five rounds, min-max of the rounds in parentheses). The
-queue freeze in del_gendisk() waits for a grace period of its own, which
-the one in thin_dtr() used to overlap, so only part of it is saved:
+We chose 12MiB to give roughly 3MiB of headroom over the current FIT
+while keeping u-boot, u-boot-env and rwfs (and so the persistent data
+in rwfs) where they are. It's an engineering margin rather than a
+derived figure, and there's no single correct size here, but the
+measurements below suggest it's a reasonable choice.
 
-  before (ms)        after (ms)         change
-  16.9 (15.8-17.3)   14.4 (13.8-15.3)     -15%
+The space comes from rofs because that's where the slack is: the EVB
+rofs image is about 38.4MiB, well within the 79.875MiB that remains.
 
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
- drivers/md/dm-thin.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+The LZMA-compressed kernel built with aspeed_g7_defconfig grew by
+65-72KiB from v7.2 to v7.3, and by 78-89KiB from v7.3 to c339f4010dea,
+depending on the compiler. With a 12MiB partition the FIT still has
+2.93MiB free in the worst case measured (05441d697f7f with GCC 14.2),
+providing headroom for future kernel growth and additional AST2700
+drivers.
 
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index d5ff937eeacba..8386215101eb2 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -360,6 +360,7 @@ struct thin_c {
- 	 */
- 	refcount_t refcount;
- 	struct completion can_destroy;
-+	struct rcu_head rcu;
- };
- 
- /*----------------------------------------------------------------*/
-@@ -2317,25 +2318,29 @@ static void process_thin_deferred_cells(struct thin_c *tc)
- 	} while (!list_empty(&cells));
- }
- 
--static void thin_get(struct thin_c *tc);
-+static bool thin_tryget(struct thin_c *tc);
- static void thin_put(struct thin_c *tc);
- 
- /*
-  * We can't hold rcu_read_lock() around code that can block.  So we
-  * find a thin with the rcu lock held; bump a refcount; then drop
-- * the lock.
-+ * the lock.  Skip the thins whose refcount thin_dtr() already dropped
-+ * to zero.
-  */
- static struct thin_c *get_first_thin(struct pool *pool)
- {
--	struct thin_c *tc = NULL;
-+	struct thin_c *tc;
- 
- 	rcu_read_lock();
--	tc = list_first_or_null_rcu(&pool->active_thins, struct thin_c, list);
--	if (tc)
--		thin_get(tc);
-+	list_for_each_entry_rcu(tc, &pool->active_thins, list) {
-+		if (thin_tryget(tc)) {
-+			rcu_read_unlock();
-+			return tc;
-+		}
-+	}
- 	rcu_read_unlock();
- 
--	return tc;
-+	return NULL;
- }
- 
- static struct thin_c *get_next_thin(struct pool *pool, struct thin_c *tc)
-@@ -2344,7 +2349,8 @@ static struct thin_c *get_next_thin(struct pool *pool, struct thin_c *tc)
- 
- 	rcu_read_lock();
- 	list_for_each_entry_continue_rcu(tc, &pool->active_thins, list) {
--		thin_get(tc);
-+		if (!thin_tryget(tc))
-+			continue;
- 		thin_put(old_tc);
- 		rcu_read_unlock();
- 		return tc;
-@@ -4128,9 +4134,9 @@ static struct target_type pool_target = {
-  * Thin target methods
-  *--------------------------------------------------------------
-  */
--static void thin_get(struct thin_c *tc)
-+static bool thin_tryget(struct thin_c *tc)
- {
--	refcount_inc(&tc->refcount);
-+	return refcount_inc_not_zero(&tc->refcount);
- }
- 
- static void thin_put(struct thin_c *tc)
-@@ -4146,7 +4152,6 @@ static void thin_dtr(struct dm_target *ti)
- 	spin_lock_irq(&tc->pool->lock);
- 	list_del_rcu(&tc->list);
- 	spin_unlock_irq(&tc->pool->lock);
--	synchronize_rcu();
- 
- 	thin_put(tc);
- 	wait_for_completion(&tc->can_destroy);
-@@ -4158,7 +4163,8 @@ static void thin_dtr(struct dm_target *ti)
- 	dm_put_device(ti, tc->pool_dev);
- 	if (tc->origin_dev)
- 		dm_put_device(ti, tc->origin_dev);
--	kfree(tc);
-+	/* Let RCU readers of active_thins finish with tc before freeing it */
-+	kfree_rcu(tc, rcu);
- 
- 	mutex_unlock(&dm_thin_pool_table.mutex);
- }
+We're open to a different size if you'd prefer one.
 
--- 
-2.43.0
+> > which now starts at 0x1020000 and shrinks from 82.875 MiB to
+> > 79.875 MiB. rofs still ends at 0x6000000, so the u-boot, u-boot-env
+> > and rwfs partitions are unchanged.
+> >
+> > This is the same layout used by the OpenBMC images ASPEED provides
+> > for the EVB [1],
+> >
+>
+> Why was what was sent upstream different to what you were doing
+> elsewhere in the software stack? It seems oddly incoherent.
 
+It wasn't different at the time. The 9MiB layout from commit
+e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device
+tree"), which was posted and applied on 2026-06-09 for v7.2, matched
+what the SDK was using then. The SDK only moved to 12MiB later, on
+2026-08-24 [3], and this patch is meant to bring upstream back in line
+with it. I should have explained that in the commit message rather
+than making it look as though upstream had diverged.
+
+> > Notes:
+> > - "Already close to that size": with mainline at c339f4010dea
+> >   (v7.3-17997), ASPEED's aspeed_g7_defconfig [2] and GCC 13.2, a FIT
+>
+> A bit of a tangent, but GCC 13.2 is over 3 years old at this point.
+> Debian stable ships 14.2. Why such an old compiler?
+
+No particular reason; it's just the cross toolchain in my local build
+environment. I've now also measured with the kernel.org crosstool
+builds of GCC 14.2, 15.3 and 16.2. The older compiler doesn't change
+the conclusion. If anything GCC 14.2 makes it worse: its compressed
+kernel is about 1% larger than GCC 13.2's, and with it the FIT no
+longer fits in 9MiB at c339f4010dea.
+
+  Free space left in a 9MiB partition, in KiB (negative: doesn't fit)
+
+                  GCC 13.2  GCC 14.2  GCC 15.3  GCC 16.2
+  v7.2               165.4      98.0     167.1     153.9
+  v7.3               100.7      29.2      96.1      81.9
+  c339f4010dea        16.8     -59.8      16.5       4.1
+  05441d697f7f         8.5     -69.1      10.8      -3.0
+
+05441d697f7f is mainline master as of 2026-11-03.
+
+> >   image with the LZMA-compressed kernel, ast2700-evb.dtb and the
+> >   OpenBMC phosphor initramfs is about 8.99 MiB, less than 20 KiB
+>
+> What are your measured sizes for the kernel vs the initramfs?
+
+At c339f4010dea, in bytes:
+
+  GCC    Image.lzma     DTB  initramfs        FIT
+  13.2    7,930,161  36,758  1,451,420  9,420,020
+  14.2    8,008,518  36,758  1,451,420  9,498,376
+  15.3    7,930,429  36,758  1,451,420  9,420,288
+  16.2    7,943,155  36,758  1,451,420  9,433,012
+
+The kernel is about 84% of the FIT, the initramfs about 15% and the
+DTB 0.4%. Every commit/compiler combination in the table above has
+the same split (83.9-84.3% kernel).
+
+All builds used aspeed_g7_defconfig from [2] plus olddefconfig, then
+"make Image.lzma aspeed/ast2700-evb.dtb". Each FIT was packed with
+mkimage using the same initramfs from our OpenBMC SDK build. With
+KBUILD_BUILD_TIMESTAMP/USER/HOST fixed, two builds of the same commit
+in different directories differ by only ~400 bytes compressed (the
+only differences are the kernel and vDSO build IDs, which change with
+the build directory), so the "few KiB between builds" in my notes was
+overstated.
+
+A caveat on the config: aspeed_g7_defconfig targets our SDK kernel.
+On these mainline commits 344 of its 394 config entries apply. The
+rest are mostly drivers that aren't upstream yet (eSPI, MCTP, LTPI,
+JTAG and so on), plus FTGMAC100, which doesn't support arm64 upstream
+yet. With the same config and compiler, the compressed kernel built
+from our SDK tree (based on v6.18) is 357KiB larger than mainline
+v6.18, and that gap includes the SDK's other changes as well as those
+drivers. The mainline measurements therefore do not yet include all
+the functionality enabled in our SDK, and additional upstream driver
+support may increase the image size.
+
+> Is the initramfs content reasonable?
+
+Mostly, though there is some room to trim. It's the
+obmc-phosphor-initramfs from our OpenBMC SDK build: 254 entries,
+4.4MiB uncompressed and 1.38MiB xz-compressed. It contains busybox,
+util-linux flock, the init/update/shutdown scripts and glibc 2.43,
+which is the bulk of it at about 3.5MiB uncompressed.
+
+busybox and flock only link directly against libc, libm and ld-linux,
+but the whole glibc package is installed, including libmvec, libnsl,
+libnss_compat, libresolv, libBrokenLocale and the compatibility stubs
+(libdl, libpthread, librt, libutil, libanl, libnss_files, libnss_dns).
+Based on that dependency check alone, dropping them would save about
+160KiB compressed. I haven't yet verified that the boot and update
+paths still work without them.
+
+Even if all of it can go, that's a one-off saving of about 160KiB. In
+the worst case above (05441d697f7f with GCC 14.2), the FIT would then
+have only about 90KiB left in 9MiB. The FIT is dominated by the
+kernel, whose compressed size grew by 65-72KiB from v7.2 to v7.3 and
+by 78-89KiB from v7.3 to c339f4010dea.
+
+If this sounds reasonable, I'll send a v2 with the rationale and
+representative numbers in the commit message, and with the SDK
+history described correctly.
+
+[1] https://github.com/AspeedTech-BMC/openbmc/blob/438e761ed38644b77ba704c984cb607649bf2724/meta-aspeed-sdk/meta-ast2700-sdk/conf/machine/ast2700-default.conf
+[2] https://github.com/AspeedTech-BMC/linux/blob/76457d3afe2bd4022ca82dd9eb8fc48b84f0e9ab/arch/arm64/configs/aspeed_g7_defconfig
+[3] https://github.com/AspeedTech-BMC/openbmc/commit/f6671e0eb6a2c542bf3162df7c69906df7b301b7
+
+Thanks,
+Cooper
