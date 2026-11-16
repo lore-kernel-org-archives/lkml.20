@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848916;
-	b=bf71u54+gTzHyFF4eBB2qL2oUhiKaAFgEumvbPBe//iYrMWp1K2Q+ScXshuIEjswAA8k
-	 S0WILPJtmjJd/kiCeQBkzUjIAf/OhBoEARurZDVOkIAuhubfL8H73XSut2Le2HnwYlL0b
-	 05+phlCm8Y8CyvEYekRAB0bUAAN0zxyEKq3kQ5/HB112nVAo+sVN6o9lLa+maQveOEvwy
-	 62kkzXE9hFaHanl3iIXTHqkXVKJycepCA2gLUb5KQucZ75anDut5EI+DjXHfBlBxtLT1F
-	 zZwpqYmp16zG6dM6ffZYi3Ujo1GbOXaikWUevV6Uewsdq+2+DcFbxUrjefDib8kSqGQ==
+	t=1794848920;
+	b=ReCZ6K66YKKblvhlBPlbiobM6o9ysnBkvvFDBBMC7vux26bnL9ItRoKWkdRQqYKleNjH
+	 Dhe9pW9W+f6Kzj+FIxzrTqj6+EAJCN9/pnR7tSxSi9nPwiMNqElMiL30XR4nNPqHZ7jde
+	 4esUoH+Omy0rhbkW4ENm6MfiOjvYGhdBc+6YBMhmtuGosySOnRmPx9WbOypEoIyrIEZju
+	 AkY+BKDiAi5dxv9iZUABxC8vDTlRWwC1pTFP7Z2HuE4WOKLLUFN1KW27nBncv9T6nR7B/
+	 I7sxtg/4eVVSphKwlhjXW+LjCctqPvqSKZ2SaytZswlOfUNBpM0ug6A/Ht1MHhyLhSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848916;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848920;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TyCAJqbOKleGpgFRMJoCvGXwTdjbSq8dLcDtNLIxJcA=;
-	b=yYvxSHio/OKwDIU/eGXaYiE6ZbLdZ+BHfIITEnwxycpCyQPausM6U3Tbf6DqGjwsuvtu
-	 u3/fF1Z62t4Xw3LGSrPz5wQVvrFoAQtOEpPF0B8eHxkxjT6ER8Cq2JYH6nYmtUBdfiUqR
-	 2Rw6xTdvTqcj10z0KSUcuz9dzgjnzb44QdVOx3+1XiUA0VUGf8jXjCrz5QxJVIlzya6e/
-	 ju+G6Wml7hl27nYpuG99O17cE1K2Xk+hwVHgDdyXsbWNxG5N0MYbcLbn+9clio0k+r2d8
-	 TmVp+sMRKDTqykmSG4UxuPSqqFLPKjLQa4sGRTX21QWozxaPWPwHBUGzYSTd7Onq5NQ==
+	bh=+QWXf0N5dldl5WDjUZ0BGBBHwnWXhzOSQfXsr3MF4VQ=;
+	b=Z4dxk/T3MYtxxlkfjgGrU5v72HKjv8HDsZpz9r/Kmm9tUnct6MuoZmJ7sJ8x/9i5PJWx
+	 yVkj0iojidQQHLT3dgEqxxUOlcE9R/OYiybdbOUOKHfVA3vM7EJCnKTMaGkha75ss0dLC
+	 w/xLsdQNT1JSpWqJ9yPi4ThsD8v+DXp6VaBrhNGvqI7aHMCcMSl3De2jvfA50MNa96BFw
+	 eaQspldbzgW9D71AVFyFjcSfPxSPNbvADr3ylvp5VpdvTwkm5m+SIcBWWtImn5NZmorX4
+	 9BMnp3UEzqUYAj9BHtSapaHCXs/snyfS45PP2T3QUt1CbFggqDC+wFjLIOeS9LD7WjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Te7EjenT;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r+z41OKa;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1DE606A898
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D1DE606A898
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D871606A882
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:08:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D871606A882
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Te7EjenT
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ccca948203aso1682541a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:08:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r+z41OKa
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdab9e9761cso2541775a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:08:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794848915; x=1795453715; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794848919; x=1795453719; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TyCAJqbOKleGpgFRMJoCvGXwTdjbSq8dLcDtNLIxJcA=;
-        b=Te7EjenTdLjhLlJJK/DgwaeqvY3nzsOpzyFZoMLTyGvZKTrJmNbPSSbcde3cdrewaB
-         rR5fsCC3cNWscCz6FuZTnYaKXKGvRsFd3/ydandusDQyy6gzyjgiIntRbPSXtfP66Gg5
-         aYxZPu98Jc5uNTm0oyn1sG/L5N3ei0Yi7g2cmHKHNl7zgtd3ZRRukEttv3OnfrlUIxk0
-         hM3kbnhSwLvJyjp4I8t7PNu7Ve/5Wee4HkdkcNjiaTu7gUjPMz1JmagV/fYFi7WpETXE
-         pkyP8uaU/7dNQBVY3GLJKn8XcnOkJhPILKIL7Y27Q+L38MG+bWkrjwGu1dlTPPVOS5Bp
-         Sysw==
+        bh=+QWXf0N5dldl5WDjUZ0BGBBHwnWXhzOSQfXsr3MF4VQ=;
+        b=r+z41OKa53GIVrOrnWyVqnRw3QU9gJuY2wnkKcCNuN7i4BHr63uyFHl+BSw3lqoxgb
+         LsNpvf2sCK4wJkapRXIylMR3g0nAjXBSsoL2YSfYF3/+52mZRLeHV4t0oMzh0ZizOHzl
+         AAzslo+x/UHdYn8UIo0BjCJrZzTOks/dT6J7pNc1TuEkMyno5n+UTQLpXbVGZFEUoa4E
+         j+JgKSNKYbbl4R2t4wghZsO/tWEiTiaLYZQZ/y92ZU92RKqmtqCAyg4xkxvSkUJ5bnIy
+         AzP+OdXPtZJ/aMY8B3AHXdfGH2fQCfM2+A3kUkavGesIHSgE0ycyADpd2ZqM42l3e5eO
+         T6GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794848915; x=1795453715;
+        d=1e100.net; s=20260707; t=1794848919; x=1795453719;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TyCAJqbOKleGpgFRMJoCvGXwTdjbSq8dLcDtNLIxJcA=;
-        b=a9IPpepR3u5zK/EYJYEhCdGXF3QAFp2BK2vDKKjsGevzeXwlobkyERpodhykT3faCC
-         2X21aNii3q/T3uvnK1f0rjP4r0q/EfxoQFVafItk9hffRaaUDry4lbTEbh7k3pV1gpoy
-         j8/ly2mhh+CXEbZ7M4WTCdYHA+eYnO/40a2t04o/l1ftpTOIRGHg5rGuUPgQa0Q4Uk8T
-         gXmK61xhsyMh8TXtfX2jwKoqY0yMnnxvx70+J7JIRNHoaLOKIiJHvSjLihzQOkyuVVA/
-         MeJlnVOsWQQre9LX2HIzthm9p2pzRlyDts0MBj/oGrsAZKZrubREdRkTbjKcLzEGm0Xy
-         KhYg==
-X-Forwarded-Encrypted: i=1; AL+hErGAnHqaPn+5oB4fx+CdnBG3TWOH/mLY7x8tIIB9PCJs9pHcZtxJubnqWfrc/4z90kEq+GZ0DqCjFXcZtu0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88DRz0dBzEK571JqWNrp26h93xW/1anfe4kR7FzkANvG2tJYsV
-	hOE7K//NcU3Hnv3+53e+tXMSClxBcJ6Z+DdpLQBxy4cC3EEvPGvfH4BV
-X-Gm-Gg: AZFdTZeT0yI8pj4yAPZ4pubNV2YfMFPoIrC8qBRgXqmmMaEVQOBltWYsjmA7Wqxbt00
-	eOuV0UIwsa12vZx8wlvZ2/R+VHj0mvliOMpNi0J4WQ99U1YcG/A2q/0hR3v3OqdrlH2f/1YB7z3
-	laDu31NGX7Crv++qIb9x8sc6gxq9sZuCvbO+jNuBIYlDiAofcTfHFoIvLhcvfV35p8v/cAecnxM
-	uICo9YC5RY288RHZKvNduVtveNS/ChDYuXIthB8LDCOMF7/3zlsAWfnL8xIJWW9i1MlraJJ1qAV
-	KC3F5YZeyGuB0QXv7WDXDZccJsE4jQXaZNj+o9ZcSKToSjM+ByODkB95ZipTNgJsoqRYCuUaIG4
-	mjJBFwfhkXOLZd0F+9H72Vxiz65bYXjVrN1Qe9LuNSPr1AvoV0IPJOYsSx0tzgUJ3RWl2R42wBc
-	KTx1c6GFhaP03juOPC1tHZPnZ70ihZxu1anwrC9ep62lIai1N6+y9VAeamNORhNwXVBTmlJ4eU0
-	jzM/mQS2n5Mxm//+9m0LFwCT5PeGj+E7UL/U1JAoqD3wgj9X9A8wSQtNhsLW7QvNQYum8UfNh7Y
-	WF04DLmLtgJ6vBaMi4ciBJNmn1d2qNdlvVTg8qpGdfAub5lH8Z9+pHVpr0S/C7kadzmXJhjcqg=
-	=
-X-Received: by 2002:a17:90b:4a88:b0:3aa:6b5d:9fe4 with SMTP id 98e67ed59e1d1-3b1b09f37b1mr9809235a91.12.1794848915345;
-        Mon, 16 Nov 2026 09:08:35 -0800 (PST)
+        bh=+QWXf0N5dldl5WDjUZ0BGBBHwnWXhzOSQfXsr3MF4VQ=;
+        b=NtNnZuDYH/SJVBsu6XLK0Bj5RN+2H57cIzDmbAiwuPrcKOC5KkjnCdBBbW5/3Zw/Ro
+         MuyrQAtkKK81Xb2YOuxzbnSprbxpGhXZ17Dg4E5CA8G0g8gNHhZ3HJsR+SHAaoTCRsS8
+         zNyEL7gAMwaHzruG5ywSkdczmaxS/J6HtxxqPNJUCq2hu3L+M1ILseGRGZoBFVNGdCq9
+         WM65fU/nliofWLIxgU9WBvHssv8TMmzoTdf7kcM9ITDJkdzBPNwSGkdfj/JeSm1+jonU
+         WUSuLp142uIoW+KqFEaLK4TAlDPJbeqIhiHU02QNExUOizhDMxNZrBjeWIr6bF2ZnQ+z
+         52JQ==
+X-Forwarded-Encrypted: i=1; AL+hErHncE+WMTtIsusJu06EIvaMCWEWnW+T21/jrNAoxWLYAMKQPOr3DN2TxqS/eX2MkIB8j2t44IgXKTrhpZc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RIXeFw+jvW1t8Tbr3D29wfbKd+tL3GxYQj+V1G9B7mhVgKAMb
+	8yUDXEAkB/C43hmcvRn1Zq2pJdPf5pWoBwcGn0moAUvCq2zzDhnOiz9h
+X-Gm-Gg: AZFdTZf+2sW2AQpUcVPlhvwQWbOKcvzvfgcBmMeZZL/PEy80hXORlKIeciJg5DNOV1q
+	noMiq6zC6ulJ7MF7UOQNgvcesQd4N8jFTxjnGZRp0qBdBMtJJXv1kVa4yzkNHJMAbwPQNgeP20F
+	4DaqC9yJJJiL2r5GWMdIIC14rY7I5JwTAxclqhMFL6DuaCuh26scqTEOxGY9XO63DxDhJLnC/ks
+	Sw3PE5G200SkY3p5psBeUPN6i5+PPMvn5R4kCqLG0aPIKf3RDWEhcSeeJ4P0792iHlEyBOiUnCF
+	vqgAAVbrlrfAO8Y6IegOQd71NI7cVbaFID/ivRThHVm0+XVafh0lpRuJ6ACBsVR6M6xmRhS0VJm
+	NodmLvOqZGX5sASdSOvm7ZbrI8SQkQ7MtbeyvrX9OLAQx4qhM3EXN2uXWHK/LCgtuZTBua5ihM/
+	wLE8Od8KYHuPF3efAz+IRUdpJG8wXvJbk92wFlKxH3qmco3JEsAw/hOEKMuqSROCH1xW4j48imR
+	BK0RTfNdmHEr9Pair7MARrtQr+BmF4WcuAUbSce775tUdL42hcQuRaEOI5gGUHSP+YjMixSvjZp
+	0sf2JucuWIwontI2HqAdOPxOsOg7v6c8/B9r3L8Gh/DLQUrKdZKe+K0QeDQ979r1rjjqzNV5RU8
+	deVqBSigq7daF9rz/mtQ=
+X-Received: by 2002:a17:90a:d2cf:b0:3aa:fdad:7d6e with SMTP id 98e67ed59e1d1-3b1b0b669d6mr10573905a91.10.1794848919484;
+        Mon, 16 Nov 2026 09:08:39 -0800 (PST)
 Received: from X.tail7c3ebe.ts.net ([103.190.41.115])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abbad610sm150901a91.2.2026.11.16.09.08.31
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abbad610sm150901a91.2.2026.11.16.09.08.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:08:34 -0800 (PST)
+        Mon, 16 Nov 2026 09:08:39 -0800 (PST)
 From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -90,9 +90,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH v2 1/3] media: atomisp: Remove unused any_virq_signal()
-Date: Mon, 16 Nov 2026 17:08:11 +0000
-Message-ID: <ab38fba11a3d7c38f50c5bd4751494b4f6281d6e.1794845230.git.chaulagainavishek14@gmail.com>
+Subject: [PATCH v2 2/3] media: atomisp: Remove unused get_sp_code_addr()
+Date: Mon, 16 Nov 2026 17:08:12 +0000
+Message-ID: <8f23e8ab1daadcff28d8b795c895ad3ca955181f.1794845230.git.chaulagainavishek14@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794845230.git.chaulagainavishek14@gmail.com>
 References: <cover.1794845230.git.chaulagainavishek14@gmail.com>
@@ -107,51 +107,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-any_virq_signal() has no callers anywhere in the tree. Remove the
+get_sp_code_addr() has no callers anywhere in the tree. Remove the
 unused function and its declaration.
 
 Signed-off-by: Avishek Chaulagain <chaulagainavishek14@gmail.com>
 ---
- .../media/atomisp/pci/hive_isp_css_common/host/irq.c      | 8 --------
- .../atomisp/pci/hive_isp_css_include/host/irq_public.h    | 6 ------
- 2 files changed, 14 deletions(-)
+ .../atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h     | 3 ---
+ .../staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c    | 5 -----
+ 2 files changed, 8 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-index 61dea3863..f1b01f5f9 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-@@ -215,14 +215,6 @@ void irq_raise(
- 	return;
+diff --git a/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h b/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h
+index 3cd69284f..f8be93e03 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h
++++ b/drivers/staging/media/atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h
+@@ -25,9 +25,6 @@ typedef struct {
+ 	char      *program_name;    /** not used on hardware, only for simulation */
+ } ia_css_spctrl_cfg;
+ 
+-/* Get the code addr in DDR of SP */
+-ia_css_ptr get_sp_code_addr(sp_ID_t  sp_id);
+-
+ /* ! Load firmware on to specfied SP
+ */
+ int ia_css_spctrl_load_fw(sp_ID_t sp_id,
+diff --git a/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c b/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c
+index 78f00f07b..49b986351 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c
++++ b/drivers/staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c
+@@ -104,11 +104,6 @@ void sh_css_spctrl_reload_fw(sp_ID_t sp_id)
+ 	spctrl_loaded[sp_id] = true;
  }
  
--bool any_virq_signal(void)
+-ia_css_ptr get_sp_code_addr(sp_ID_t  sp_id)
 -{
--	unsigned int irq_status = irq_reg_load(IRQ0_ID,
--					       _HRT_IRQ_CONTROLLER_STATUS_REG_IDX);
--
--	return (irq_status != 0);
+-	return spctrl_cofig_info[sp_id].code_addr;
 -}
 -
- void cnd_virq_enable_channel(
-     const enum virq_id				irq_ID,
-     const bool					en)
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h
-index 901e10f87..b487b7f31 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/irq_public.h
-@@ -103,12 +103,6 @@ void irq_raise(
-     const irq_ID_t				ID,
-     const irq_sw_channel_id_t	irq_id);
- 
--/*! Test if any IRQ channel of the virtual super IRQ has raised a signal
--
-- \return any(VIRQ.channel[irq_ID] != 0)
-- */
--bool any_virq_signal(void);
--
- /*! Enable an IRQ channel of the virtual super IRQ
- 
-  \param	irq[in]				IRQ (channel) identifier
+ int ia_css_spctrl_unload_fw(sp_ID_t sp_id)
+ {
+ 	if ((sp_id >= N_SP_ID) || ((sp_id < N_SP_ID) && (!spctrl_loaded[sp_id])))
 -- 
 2.43.0
 
