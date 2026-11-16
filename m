@@ -1,87 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794810873;
-	b=W3+PA+E/SEF/mnObIDhyC8m7YxDhv9/vHibR8RweYi11wEc6zz5HUfvB9nQVV1Ko6M/g
-	 E2AvbWd0IOeNwDqbot6maVStv5+idDKQu5GhOrq1Pi0OqhO40reRRqpXVlNsUeEyPZ3aF
-	 NZTqXOFzYFEt+1lEKVMx6XPzVd39H4u8qQvGtHXrfJVK1dJuy+DT1EZcaWLD3EwX77zI8
-	 zutUZvV3Dlhly3AZ5TfXJaWBjra/PaKSbDnMCyRtkG3fFBXG1yz95vL5Q/ZCrSeVFgPkf
-	 ZNI6YOsKUXChPeK8asgq/CdfaIRvEIx9Zkqm8ucESxcmWnfQkXTgW+KbmN7tYVaB4tg==
+	t=1794810880;
+	b=S7Xyg2uodGoPzMAmsQjde0dpogr3ex5AhVaZQ4p6JSkg7Z9zz80hklMJOY0TzJfdG0/l
+	 IWS5v68o3XCwpRSu/DnvhcvywxK258zXGG0yjUkrbucWLWaH9tqFNtUPtdX7GPYU0VE0i
+	 T66kHxdG+qnZW7OBLcmLIJ0uWJ52ykxrI8conYQqaHyxF/ZftUcrvKPpjC99b05vnQJc4
+	 nDcoDeXnjkTVSLCh+JVx2pj2U/z/43KUlWw4zoRXoVKcJVarlN51JIRIJNIM+XBUyA4HL
+	 k5lMxXkPBHqztPe3dfM/QVa2+e1BfiT/ab0/IA8O5rRHdTNSvYxEpvluMaL/8LLf8gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794810873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810880;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=fHZnFX7X6Kt57Oc4zqYHx2brQFPhehsybWGHrYd3t+o=;
-	b=GUis9KYqjO2PlLMXtsOcFQNV2b2fmAXD1AQPBUjSdT5oepew1jbb+Vm2dCaytjOuE1K3
-	 bjF4ZPRmMK9I04ag/JGzMWlzSnQ6X2CcFNLPIWDj8GBUD0wm+xrSiTegy+w4LlxB+K2QI
-	 a54EpPr/vbtGjzCbkYsgAR8arkYdIWWh/hPMGrSjVqkrVOalCxe9YzFRP/Wzh0NdmKfuQ
-	 fVg0Te12xlP1kbVY8tAFudEOCfR7S0IQ8bGwUlM0N9BmvQEps695VWy8QqI3gZcnmTIKp
-	 Yiv2rCydoCWe+8KUx8mLYCYbWqEi748odru/NUq3yptN4ChiP0betqZqVgU59b8o5eA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=KfwcGpUM8rwjbZmhFYZ7zowBgn9VWm/BRkA6swDF/6A=;
+	b=OpUlPsUvYkxhm6zlz7LSAOX1Q18J2L6i493KasPjHPRZyd4Ascueix9J8z9dW39BOCeK
+	 dXuFNhXC3J3IgOyMApAsvNshHvOJXEayQPGozgZieOEv6M76IfvyqXEjcsQOZomrG0g72
+	 xGukwBGN9gxcp5VnPaEn7NS+fc6pijQe7bDOt0LFH0n0RvmNnakWKBNDHczMmRh7VOxBm
+	 1Jf3UgYGvE7MWRiD2Svtzz73uvTWvnfQJbWavHHFzLxQVw02qvFdYjBXUjcULRMS8kw37
+	 7Yh+RbmUFuW26NGMB0Tu+ZL0d6dY9iF+rIRuE9xSzOrmv81wiUkSQvLeOqDoVyGpGKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=colorfullife.com;
-	spf=pass smtp.mailfrom=colorfullife.com;
-	dkim=pass header.d=colorfullife-com.20260707.gappssmtp.com header.i=@colorfullife-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=TnGap+Ur;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=drU7Y1rW;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C36606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:34:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22C36606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=colorfullife.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=colorfullife.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E450606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E450606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=colorfullife-com.20260707.gappssmtp.com header.i=@colorfullife-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=TnGap+Ur
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48dee593f18so3223151f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:34:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=drU7Y1rW
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so4939412eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 22:34:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=colorfullife-com.20260707.gappssmtp.com; s=20260707; t=1794810870; x=1795415670; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fHZnFX7X6Kt57Oc4zqYHx2brQFPhehsybWGHrYd3t+o=;
-        b=TnGap+UrRgAob4hHgWXHOQ7PrgyxDzks6pmst6NT8BlJht8MF+f/rv0hzM2CTA8Ctz
-         3QowrZ3IYKLU4W3u/ay2DMuSiob4XhuqsEoA6Oy6zrVU7fbAkbIbsJbyZLnTRoz1Mld7
-         b8jgy3v+zgESQLGJCDw0LSTrKqnIWhdOLiv08LqyXDq+Ht6iO7ilrWUIu4waSIoBM8Sp
-         Lc7zn9CN81iSc23fU2SpFa5y/awuu/42sr/zKfem2AWd4DqpI+Vieh86spkyfszGy3xp
-         4vx62pHZPJCGnfBblw8v00L5alwrJP0jrMlRpblggCtnnp4rrXWvxZHEalOxEqBDZ1jX
-         D2Rg==
+        d=google.com; s=20260707; t=1794810879; x=1795415679; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KfwcGpUM8rwjbZmhFYZ7zowBgn9VWm/BRkA6swDF/6A=;
+        b=drU7Y1rWbB/458fTeoIRfuHEXjOPwxtmXp4azts+dyH0QgBms52GVm91W6d/lJJu7H
+         wIR5QCaBhLNBR4tdhazHo4/dFUG1Zcoyl1gOkL7qc/X/oYmMFWxBZVEXewrt8r7V8XM/
+         peW80ax+YYy9iso7KjqUudb6/M7OVK/xN+bI3H7E4n1JUTP9scEKV+kGCiuOsCj6QjLR
+         SX+swzenJGzIgAtWVjc6cyYpTzWLG8XQ5PisMZQ+/LPOkk8uiOyxmj4cqtJ6bizrnwL2
+         cc+QnphGY8z+8JDdJsMcGqt7Jp16DXUxmKF7LrV8TNGsv5em5xCbD8LdOffASd8r3iFh
+         2RVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794810870; x=1795415670;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fHZnFX7X6Kt57Oc4zqYHx2brQFPhehsybWGHrYd3t+o=;
-        b=QJS6JM77BZX3/BOP8Nuu0H+UKPHLX23S7BKf5kGzpObtiHKPPmPEP/zz6X9aN1Y402
-         Ugq51iN7c7lFDBTigyRYXRYjWgNxEOD8dCjuOr0tEjVFahijkQ6VCpQ3IGwdE7gdYRD3
-         1WlObx2lTIlrJUEZUxuex0LQ2IuJQw9xYASTvZQ4L6b3uVKEzXZS9EyCGm2qkKGzbfLm
-         9USwtRG8oXWfMTqkg4tt6pzLt2rQynJ0Y77fERQESAxcWF4fJGkMyHc17qTT2Bz/nxOF
-         uuuax0HxyG23RwieZddDsDGfsgQP4EMA25jIwmvuH0EuiFvHz1vGEd1vmuH4aHrGeoGL
-         xp1A==
-X-Gm-Message-State: APuU4Z+Q/iFazLge3DZ4E/dWyZCuPj3bNWA+jsX2s9zebXJw2Sbrgp2y
-	ytLQ3tl6vUbVObocIZgCP8lZ9HpJMlmwepVYWfITtJOabNUFULJ5vn93m++gGhTaMg==
-X-Gm-Gg: AYBFou24QCxSxVLiuSm3BrzyqSDWwZZfMcg+X7eFaqT5SuLRBriUD/CPdNpRENX1khx
-	mVhzphXTr5hh4PKRy33lThxrvKwO1ENT3UacTANkYn6KwMGqjItK9i9TAiHm9jR6XJ3fSTA+9RS
-	W4RqI4kQuc3g0TErJzQZrGCu6Ljfd5OlZcltWqNiMuVfRahPHX6Wr1rykQgPY3iJQUmXMfJMCgR
-	48qtKsLjrjmdOutx+/VPss0Naj+uFQQu16RdpKxZYdUicA1lEwtd520pi18qCcCrQX3I5ksDTOR
-	4JD51xEzUSkD7x35fETc44JP4yIyKG0RPmCT3e5TFW7AQamf9T8xakjdoOyV8BkBpYz4GOUHtTo
-	rIjtWGW4s+0hv5XuQUcge3+IP1qdkfYEpo9fUPTN/DzgpffVQELI3C6ZNLXMgmtJ4J9lWVLoF6O
-	S0VS53zitSb/+j43xkLoBRnZ30KtRkKM2Ni9Wa1pBfFC9eXZvN6XRgB1VvudWNYdW8B1ANd0sJ4
-	LA7DpWuBiiJBwpGJhva2zE/dEU7BfIkq1tFkeww9H6z/+AfnzZHnY6qMXKr253aLDTqX+3bLNkR
-	4LneojDN0eYNwr+m1h6mP1Hs1jYWbi2796neipAEgIWghw1NUliwqeFXiINvMgHfaqD4ykdNG7M
-	VXMTeKOFyVmG6Q4x/gHcoEOep9dIGEDoy7A1t8ivyUeNYQ1mxK+VQOatBdOy76Far
-X-Received: by 2002:adf:e18d:0:b0:48c:67d6:a87a with SMTP id ffacd0b85a97d-49c70a0f020mr19590904f8f.32.1794810869228;
-        Sun, 15 Nov 2026 22:34:29 -0800 (PST)
-Received: from ?IPV6:2003:d9:9744:c00:e132:4153:eb23:391b? (p200300d997440c00e1324153eb23391b.dip0.t-ipconnect.de. [2003:d9:9744:c00:e132:4153:eb23:391b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49d7150529dsm14983828f8f.51.2026.11.15.22.34.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 22:34:28 -0800 (PST)
-Message-ID: <0747b78e-0ea7-46a1-a18a-8af18e98bf3c@colorfullife.com>
-Date: Mon, 16 Nov 2026 07:34:25 +0100
+        d=1e100.net; s=20260707; t=1794810879; x=1795415679;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KfwcGpUM8rwjbZmhFYZ7zowBgn9VWm/BRkA6swDF/6A=;
+        b=KYjSgPOEfTB126c2oYfsDoRo5Ih6I0gBccJMu9RH5AsAzgMQtpwcd8SD1MdwDuf8Gd
+         W2PFSYqMHgHF3sHggCXc6YtVsYOGAg0ENXE4jzV+NHuFhEbiiy9ZjX4oltGz2aHsgQQl
+         4/wjgVC2Frrv93AVOOLCZ3NKZAo9QNjn+rf45Ipu0NvPK6vOrMVSsWk2P1RGE+4kMFqd
+         KFNrt59jw3IcGGw5EF7SM0lMuAVj+VHS1dZPlR9lYTOstOHKmfn7NHp8jzXQU706nNCY
+         +CH05rtLfhZperoICK7x/rmPHboi2rkgP7sfKi0yjYrlrJmKqu66cmTblfJEMtF7tiTN
+         hUtQ==
+X-Forwarded-Encrypted: i=1; AL+hErHWO/QTqFnNDtC/9YsJjhbmVds7pNoHFfeV7XcXy7N3z4xzirgQvc8i0MG7jIMh8SOw3sBIvuPvPpz9/Mc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98xVmAT6OdYyLVKuFjAEwImhG2U+xo9BB3Gg1h2y4UF1rDrx0f
+	JaI/yeknizS83GalaYqu1V1jiPtm1Ygy9ykzlFsNUS8HSKF9fiw85smQJal6sFWB7/BTeMnpx4k
+	0OsDavUKuXg==
+X-Received: from dybnj2.prod.google.com ([2002:a05:7300:d082:b0:375:5ce5:6e37])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:5f0b:b0:378:7434:a526
+ with SMTP id 5a478bee46e88-3796628f413mr9228210eec.14.1794810878811; Sun, 15
+ Nov 2026 22:34:38 -0800 (PST)
+Date: Sun, 15 Nov 2026 22:34:26 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,239 +75,235 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ipc/msg: fix msg_qbytes truncation in IPC_SET
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>, Shuah Khan
- <shuah@kernel.org>, Lu Shuaibing <shuaibinglu@126.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shubhang Kaushik <shubhang@os.amperecomputing.com>,
- "Christopher Lameter (Ampere)" <cl@gentwo.org>,
- Davidlohr Bueso <dave@stgolabs.net>, Jan Koester <jan.koester@tuxist.de>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261029-ipc-msg-qbytes-v3-1-fc3f4307c85b@gentwo.org>
-Content-Language: en-US
-From: Manfred Spraul <manfred@colorfullife.com>
-In-Reply-To: <20261029-ipc-msg-qbytes-v3-1-fc3f4307c85b@gentwo.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261116063435.2817923-1-irogers@google.com>
+Subject: [PATCH v5 0/9] perf symbol: Sorted arrays, DSO-owned lifetimes, and
+ memory shrinking
+From: Ian Rogers <irogers@google.com>
+To: Namhyung Kim <namhyung@kernel.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Alireza Haghdoost <haghdoost@uber.com>, Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Shubhang,
+When profiling large binaries or long-running workloads with many DSOs and
+threads, symbol and DSO tables frequently dominate perf's memory footprint
+and startup latency. Currently `struct symbol` has several structural
+limitations:
 
-On 10/29/26 8:35 PM, Shubhang Kaushik (Ampere) wrote:
-> The msg_qbytes field in the struct msqid64_ds userspace ABI is an
-> unsigned long. Commit 889b331724c82 ("ipc/msg.c: consolidate all
-> xxxctl_down() functions") passes that value to msgctl_down() as an int.
->
-> On ABIs where unsigned long is wider than unsigned int, this narrows
-> msg_qbytes before validation and assignment. For example, an
-> unprivileged queue owner can request msg_qbytes = 0x100000000. The
-> conversion to int changes this value to zero, which passes the
-> msg_ctlmnb check. IPC_SET then succeeds and sets q_qbytes to zero
-> instead of rejecting the requested value with EPERM.
->
-> For callers with CAP_SYS_RESOURCE, values with bit 31 set are also
-> incorrectly sign-extended when assigned to q_qbytes. In particular,
-> UINT_MAX becomes ULONG_MAX rather than the requested UINT_MAX.
->
-> Keep msg_qbytes as unsigned long through validation and assignment.
-> Also preserve its type in ipcctl_obtain_check(), which passes it to the
-> unsigned-long audit field.
->
-> Add a regression test which drops CAP_SYS_RESOURCE and verifies that
-> IPC_SET with a value above UINT_MAX fails with EPERM where unsigned long
-> is wider than unsigned int. Skip the test when it is not, capabilities
-> are unavailable, or System V message queues are unavailable.
->
-> Fixes: 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down() functions")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-Reviewed-by: Manfred Spraul <manfred@colorfullife.com>
-> ---
-> Changes in v3:
->    - Correct the analysis: msg_ctlmnb is unsigned int, so UINT_MAX is
->      already rejected for unprivileged callers on the unfixed kernel.
->    - Test an unprivileged 64-bit msg_qbytes value above UINT_MAX, which
->      truncates to zero on the unfixed kernel.
+1. Every `struct symbol` embeds a 24-byte `struct rb_node` for the
+   `dso->symbols` address rbtree, plus an optional negative-offset
+   allocation prefix (`symbol_conf.priv_size`) for `struct annotation`
+   state even when only a tiny fraction of symbols are ever annotated.
+2. `dso__symbols()` has no internal synchronization against concurrent
+   readers/writers, and `struct call_path` (plus Python callchain frames
+   and nodes) still retains raw `struct symbol *` pointers without
+   retaining a reference on the owning `struct dso`, preventing
+   unreferenced DSOs and their symbol tables from being safely reclaimed
+   under memory pressure.
+3. ELF symbol table loading (`dso__load_sym_internal()`) repeatedly
+   invokes `libelf` section/program header lookups per symbol, calls
+   `elf_sym__name()` before filtering out non-function/non-allocated
+   symbols, and resorts `dso->symbols` with `qsort()` even when ELF symbol
+   tables are already largely ordered in ascending address runs.
 
-Thus:
+Ten preparatory fixes, benchmarks, and cleanups from v4 have landed in
+`perf-tools-next`. The remaining 9 patches complete DSO-owned symbol
+lifetimes, remove `symbol_conf.priv_size`, speed up ELF symbol and map
+loading/sorting, convert `dso->symbols` to a sorted pointer array, and add
+memory shrinking APIs and unit tests:
 
-The global (per namespace) limit msg_ctlmnb is limited to UINT_MAX.
+- **DSO-owned symbol lifetimes and `priv_size` removal (Patches 1-2)**:
+  - Patch 1 converts `struct call_path` and Python callchain frames/nodes
+    to `struct dso_symbol` so retained symbols pin their owning `struct dso`
+    for the lifetime of the call path or Python object, and adds kernel-doc
+    comments to `struct dso_symbol` and `struct map_symbol` documenting the
+    DSO-owned lifetime invariant.
+  - Patch 2 moves `struct annotation` into an on-demand hashmap and removes
+    `symbol_conf.priv_size` and `symbol__priv()`.
+- **Loading and map-sorting optimizations (Patches 3-4)**:
+  - Patch 3 caches ELF program and section headers in
+    `dso__load_sym_internal()` and defers `elf_sym__name()` lookups until
+    after non-symbol/non-allocated entries are filtered out.
+  - Patch 4 adds an O(1) tail-insertion fast path and incremental binary
+    insertion sort to `struct maps`.
+- **Sorted symbol arrays and natural-run merge sort (Patches 5-6)**:
+  - Patch 5 replaces `dso->symbols` (`rb_root_cached`) and
+    `dso->symbol_names` with a `rw_semaphore`-protected `struct symbols`
+    container backed by sorted pointer arrays, removing `struct rb_node`
+    from `struct symbol` (shrinking `sizeof(struct symbol)` from 48 to 24
+    bytes, or 16 bytes net per symbol after accounting for the array
+    pointer).
+  - Patch 6 replaces `qsort()` on `struct symbols` with a stable
+    natural-run merge sort, galloping merge, and a sorted tail buffer with
+    amortized `sqrt(N)` merge for out-of-order insertions.
+- **Memory shrinking APIs and unit tests (Patches 7-9)**:
+  - Patch 7 adds `symbols__shrink()`, `dso__shrink()`, `dsos__shrink()`,
+    `machine__shrink()`, `machines__shrink()`, and `perf_session__shrink()`
+    to reclaim `symbols_by_name`, excess array capacity, cached DSO file
+    descriptors/data/DWARF state, and unreferenced user DSOs (`refcnt == 1`
+    with no annotated symbols), with transparent on-demand reload via
+    `dso__load()`.
+  - Patch 8 adds `dso__session()` and `perf_session__malloc()` /
+    `zalloc()` / `calloc()` / `realloc()` / `strdup()` wrappers (leaving
+    production caller wiring for follow-up once lazy symbol loading is
+    evaluated).
+  - Patch 9 adds unit tests in `perf test symbols` covering sorted symbol
+    insertion, equal-start aliases, symbol/DSO shrinking, `dso_symbol`
+    lifetime pinning, inline frame/srcline cleanup ordering,
+    `symbols_by_name` on-demand rebuild, transparent DSO reload, and session
+    allocation wrappers.
 
-On a 64-bit system, root can increase the per-queue limit to ULONG_MAX.
+Changes in v5:
+- Rebase onto `perf-tools-next` (`b7ff10b9ddec`), dropping the 10 patches
+  from v4 that have been applied upstream.
+- Defer `perf_singlethreaded` removal, `rwsem` trylock helpers, and wiring
+  `perf_session__*` allocation wrappers into symbol/DSO/thread/hist callers
+  to follow-up work while keeping the shrinking APIs and unit tests
+  (Namhyung Kim).
+- Drop the mechanical `struct symbol` field-accessor refactoring patch
+  (`symbol__start()`, `symbol__end()`, `symbol__name()`, etc.) since
+  `struct symbol` is no longer wrapped in `DECLARE_RC_STRUCT(symbol)`, and
+  add kernel-doc comments on `struct dso_symbol` and `struct map_symbol`
+  explaining the DSO-owned symbol lifetime connection (`Patch 1`).
+- Drop `SYMBOL_FLAG_ANNOTATED` from `struct symbol::flags` (avoiding the
+  bit-14 overlap with lazy symbol loading) and check the `annotations`
+  hashmap under `annotations_lock` with an atomic `nr_annotations` fast path
+  (`Patch 2`), and return `NULL` instead of `&empty_annotation` on
+  allocation failure in `symbol__annotation()` (Namhyung Kim, Alireza
+  Haghdoost, Sashiko).
+- Shorten `nr_maps_by_address_sorted` and `nr_maps_by_name_sorted` in
+  `struct maps` to `nr_addr_sorted` and `nr_name_sorted` (`Patch 4`)
+  (Namhyung Kim).
+- Avoid `_dso__data_open_lock` <-> `dso__lock` lock inversion when evicting
+  unreferenced DSOs or closing open DSO fds in `dsos__shrink()` /
+  `dso__shrink()` (`Patch 7`), add a concurrent regression test in
+  `perf test symbols` (`Patch 9`), and drop the unused `adjust` field in
+  `struct elf_phdr_range` (`Patch 3`) (Sashiko).
 
-All per queue logic is now unsigned long based:
+Changes in v4:
+- Add standalone fix for NULL `th` dereference on allocation failure in
+  `__machine__findnew_thread()`, fix `table->lock` read-to-write
+  self-deadlock in `threads__for_each_thread()`, and remove
+  `perf_singlethreaded` (Sashiko).
+- Handle equal-start symbol groups where a sized symbol precedes a
+  zero-length or shorter alias at the same start address (`Patches 5-6`):
+  use `upper_bound` plus equal-start rewind in `symbols__find_range()`,
+  avoid inflating trailing zero-length aliases in `symbols__fixup_end()`
+  when a sized symbol already exists at that address, scan trailing
+  equal-start groups for maximum `sym->end` in `map__fixup_end()`, and
+  always check the unmerged sorted tail in `symbols__find()` when
+  `sorted_cnt < cnt` (Sashiko).
+- Preserve owning `perf_session` across split kallsyms/kcore and ELF kernel
+  DSOs, use `down_write_trylock()` in `machines__shrink()`, and add unit
+  tests for equal-start aliases, unmerged tail lookups, and same-shard
+  `perf_session__e_machine()` (Sashiko).
 
-struct msqid64_ds t::unsigned long  msg_qbytes;
-msgctl_down(,,unsigned long msg_qbytes)
-struct msg_queue::unsigned long q_qbytes;
+Changes in v3:
+- Drop per-symbol `DECLARE_RC_STRUCT(symbol)` reference counting and
+  partial symbol-table retention (`symbols__merge_retained()`) in favor of
+  DSO-owned symbol lifetimes via `struct dso_symbol`, evicting a DSO's
+  symbol table only as a whole when `dso` has `refcnt == 1` and no
+  annotated symbols (Namhyung Kim, Alireza Haghdoost).
+- Reorder the series so bug fixes and small preparatory refactorings come
+  first, split the `symbols` and `maps` benchmarks, and split out the three
+  independent fixes merged upstream (`c4baf52c7901`, `854dd5e7d099`,
+  `baef30dd8308`) (Namhyung Kim, Alireza Haghdoost).
+- Remove the `hash_bits(..., 16)` 64K-bucket cap in `annotate` and
+  `db-export` hashmaps, preserve insertion order on equal-start symbols
+  (`a->start <= b->start`), use stable insertion sort instead of `qsort()`
+  as the allocation-failure fallback, add a sorted tail buffer with
+  amortized `sqrt(N)` merge in `__symbols__insert_sorted()`, rebuild
+  `symbols_by_name` on demand, and expand `perf test symbols` (Alireza
+  Haghdoost, Sashiko).
 
-Ok from my side.
+v4: https://lore.kernel.org/linux-perf-users/20261113171734.2188066-1-irogers@google.com/
+v3: https://lore.kernel.org/linux-perf-users/20261110220803.2503416-1-irogers@google.com/
+v2: https://lore.kernel.org/linux-perf-users/20261027231513.816148-1-irogers@google.com/
+v1: https://lore.kernel.org/lkml/20260928075237.3055101-1-irogers@google.com/
 
+AI Assistance Disclosure (per Documentation/process/coding-assistants.rst
+and Documentation/process/generated-content.rst):
+- Tools used: Google Antigravity / Jetski coding assistant and Sashiko
+  automated patch review (sashiko.dev and internal Sashiko).
+- Summary of prompts and assistance: Interactive pair-programming session to
+  replace per-symbol refcounting with `struct dso_symbol` DSO-borrowed
+  lifetimes, convert `dso->symbols` to a sorted pointer array with
+  natural-run merge sort, and address LKML reviewer and Sashiko feedback
+  across `call-path`, `annotate`, `dso`, `map`, `symbol`, and
+  `tests/symbols.c`.
+- Testing performed: Built each commit (`[1/9]` through `[9/9]`) with Clang
+  (`-Wthread-safety`), AddressSanitizer, LeakSanitizer, and `DEBUG=1`
+  (`REFCNT_CHECKING=1`); ran `perf test` (including `Symbols`, `Maps`, `DSO
+  data`, `hists`, `thread`, and `annotate` suites), `perf bench internals`
+  (`symbols` and `maps`), and `scripts/checkpatch.pl`.
 
->    - Skip the test on 32-bit, where unsigned long cannot represent the
->      regression value.
->    - Remove the incorrect queue-limit-bypass and memory-exhaustion claims.
->
-> Link to v2: https://lore.kernel.org/r/20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org
-> ---
->   ipc/msg.c                                   |  2 +-
->   ipc/util.c                                  |  3 +-
->   ipc/util.h                                  |  3 +-
->   tools/testing/selftests/ipc/Makefile        |  2 +-
->   tools/testing/selftests/ipc/msgctl_qbytes.c | 84 +++++++++++++++++++++++++++++
->   5 files changed, 90 insertions(+), 4 deletions(-)
->
-> diff --git a/ipc/msg.c b/ipc/msg.c
-> index 62996b97f0ac2137dfc2fa109394d6db1fcb4a0f..116126f1235cd6ce9b819cfd317ef039071b95ca 100644
-> --- a/ipc/msg.c
-> +++ b/ipc/msg.c
-> @@ -399,7 +399,7 @@ copy_msqid_from_user(struct msqid64_ds *out, void __user *buf, int version)
->    * NOTE: no locks must be held, the rwsem is taken inside this function.
->    */
->   static int msgctl_down(struct ipc_namespace *ns, int msqid, int cmd,
-> -			struct ipc64_perm *perm, int msg_qbytes)
-> +			struct ipc64_perm *perm, unsigned long msg_qbytes)
->   {
->   	struct kern_ipc_perm *ipcp;
->   	struct msg_queue *msq;
-> diff --git a/ipc/util.c b/ipc/util.c
-> index 1737d776bc089e27495e810569bf302069db3712..c435b2d93a12e92e930358a8bc53a06314d065f5 100644
-> --- a/ipc/util.c
-> +++ b/ipc/util.c
-> @@ -718,7 +718,8 @@ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out)
->    */
->   struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
->   					struct ipc_ids *ids, int id, int cmd,
-> -					struct ipc64_perm *perm, int extra_perm)
-> +					struct ipc64_perm *perm,
-> +					unsigned long extra_perm)
->   {
->   	kuid_t euid;
->   	int err = -EPERM;
-> diff --git a/ipc/util.h b/ipc/util.h
-> index a55d6cebe6d3b0974548a497fcb889248aed0f87..55a76f94667cd4bb248fbcea26323db8d2778a44 100644
-> --- a/ipc/util.h
-> +++ b/ipc/util.h
-> @@ -180,7 +180,8 @@ void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out);
->   int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out);
->   struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
->   					     struct ipc_ids *ids, int id, int cmd,
-> -					     struct ipc64_perm *perm, int extra_perm);
-> +					     struct ipc64_perm *perm,
-> +					     unsigned long extra_perm);
->   
->   static inline void ipc_update_pid(struct pid **pos, struct pid *pid)
->   {
-> diff --git a/tools/testing/selftests/ipc/Makefile b/tools/testing/selftests/ipc/Makefile
-> index fad10f2bb57b0f06f0c741fa89f0489f6952eba6..930a334747a6353c86bebe1f4a521aeee3fe8228 100644
-> --- a/tools/testing/selftests/ipc/Makefile
-> +++ b/tools/testing/selftests/ipc/Makefile
-> @@ -12,7 +12,7 @@ endif
->   
->   CFLAGS += $(KHDR_INCLUDES)
->   
-> -TEST_GEN_PROGS := msgque
-> +TEST_GEN_PROGS := msgctl_qbytes msgque
->   
->   include ../lib.mk
->   
-> diff --git a/tools/testing/selftests/ipc/msgctl_qbytes.c b/tools/testing/selftests/ipc/msgctl_qbytes.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..5549229a25eb6852898fdb6cd8e89f9db78444dd
-> --- /dev/null
-> +++ b/tools/testing/selftests/ipc/msgctl_qbytes.c
-> @@ -0,0 +1,84 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <errno.h>
-> +#include <limits.h>
-> +#include <linux/capability.h>
-> +#include <stdio.h>
-> +#include <sys/msg.h>
-> +#include <sys/syscall.h>
-> +#include <unistd.h>
-> +
-> +#include "kselftest.h"
-> +
-> +static int drop_cap_sys_resource(void)
-> +{
-> +	struct __user_cap_header_struct hdr = {
-> +		.version = _LINUX_CAPABILITY_VERSION_3,
-> +	};
-> +	struct __user_cap_data_struct data[_LINUX_CAPABILITY_U32S_3];
-> +	unsigned int index = CAP_SYS_RESOURCE / 32;
-> +	__u32 mask = 1U << (CAP_SYS_RESOURCE % 32);
-> +
-> +	if (syscall(SYS_capget, &hdr, data))
-> +		return -1;
-> +
-> +	data[index].effective &= ~mask;
-> +	data[index].permitted &= ~mask;
-> +
-> +	return syscall(SYS_capset, &hdr, data);
-> +}
-> +
-> +int main(void)
-> +{
-> +	struct msqid_ds ds;
-> +	int msqid;
-> +	int ret;
-> +
-> +	ksft_print_header();
-> +	ksft_set_plan(1);
-> +
-> +#if ULONG_MAX <= UINT_MAX
-> +	ksft_exit_skip("requires unsigned long wider than unsigned int\n");
-> +#endif
-> +
-> +	if (drop_cap_sys_resource()) {
-> +		if (errno == ENOSYS)
-> +			ksft_exit_skip("capabilities are unavailable\n");
-> +		ksft_exit_fail_perror("drop CAP_SYS_RESOURCE");
-> +	}
-> +
-> +	msqid = msgget(IPC_PRIVATE, 0600);
-> +	if (msqid == -1) {
-> +		if (errno == ENOSYS)
-> +			ksft_exit_skip("System V message queues are unavailable\n");
-> +		ksft_exit_fail_perror("msgget");
-> +	}
-> +
-> +	ret = msgctl(msqid, IPC_STAT, &ds);
-> +	if (ret == -1) {
-> +		ksft_perror("msgctl(IPC_STAT)");
-> +		goto out_fail;
-> +	}
-> +
-> +	/*
-> +	 * Without CAP_SYS_RESOURCE, a value above UINT_MAX must be rejected
-> +	 * rather than truncated to zero.
-> +	 */
-> +	ds.msg_qbytes = (unsigned long)UINT_MAX + 1;
-> +	errno = 0;
-> +	ret = msgctl(msqid, IPC_SET, &ds);
-> +	if (ret == -1 && errno == EPERM) {
-> +		ksft_test_result_pass("IPC_SET rejects oversized msg_qbytes\n");
-> +		msgctl(msqid, IPC_RMID, NULL);
-> +		ksft_exit_pass();
-> +	}
-> +
-> +	if (ret == -1)
-> +		ksft_perror("msgctl(IPC_SET)");
-> +	else
-> +		ksft_print_msg("msgctl(IPC_SET) unexpectedly succeeded\n");
-> +
-> +out_fail:
-> +	msgctl(msqid, IPC_RMID, NULL);
-> +	ksft_test_result_fail("IPC_SET accepted oversized msg_qbytes\n");
-> +	ksft_exit_fail();
-> +}
->
-> ---
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> change-id: 20261027-ipc-msg-qbytes-49b15931c5b6
->
-> Best regards,
+Ian Rogers (9):
+  perf call-path: Use struct dso_symbol to retain symbol DSO lifetimes
+  perf annotate: Move struct annotation to a hashmap and remove
+    symbol_conf.priv_size
+  perf symbol-elf: Cache ELF program/section headers and defer symbol
+    name lookup
+  perf maps: Optimize tail insertion and small-append sorting
+  perf symbol: Switch backing storage from rbtree to struct symbols
+    array
+  perf symbol: Optimize symbol sorting with natural-run merge sort and
+    binary insertion
+  perf symbol: Add memory shrinking for symbols, DSOs, and machines
+  perf session: Add dso__session() and session-scoped allocation
+    wrappers
+  perf test symbols: Add tests for symbol shrinking and session alloc
+    wrappers
 
+ tools/perf/arch/powerpc/util/sym-handling.c |   34 +-
+ tools/perf/builtin-annotate.c               |   16 +-
+ tools/perf/builtin-kmem.c                   |   51 +-
+ tools/perf/builtin-top.c                    |   21 +-
+ tools/perf/tests/builtin-test.c             |    1 -
+ tools/perf/tests/hists_common.c             |    5 +-
+ tools/perf/tests/maps.c                     |   67 ++
+ tools/perf/tests/symbols.c                  |  810 +++++++++++++-
+ tools/perf/tests/vmlinux-kallsyms.c         |  181 +--
+ tools/perf/ui/browser.c                     |    3 +
+ tools/perf/ui/browsers/annotate.c           |   16 +-
+ tools/perf/ui/browsers/hists.c              |   26 +-
+ tools/perf/ui/browsers/map.c                |   62 +-
+ tools/perf/ui/gtk/annotate.c                |    4 +
+ tools/perf/util/annotate.c                  |  152 ++-
+ tools/perf/util/annotate.h                  |    7 +-
+ tools/perf/util/auxtrace.c                  |  109 +-
+ tools/perf/util/block-info.c                |    2 +-
+ tools/perf/util/block-range.c               |   11 +-
+ tools/perf/util/call-path.c                 |   42 +-
+ tools/perf/util/call-path.h                 |   10 +-
+ tools/perf/util/db-export.c                 |   16 +-
+ tools/perf/util/dso.c                       |  368 ++++++-
+ tools/perf/util/dso.h                       |   84 +-
+ tools/perf/util/dsos.c                      |   51 +
+ tools/perf/util/dsos.h                      |    3 +
+ tools/perf/util/intel-pt.c                  |   74 +-
+ tools/perf/util/libbfd.c                    |    3 +-
+ tools/perf/util/machine.c                   |   60 +-
+ tools/perf/util/machine.h                   |    8 +
+ tools/perf/util/map.c                       |   36 +-
+ tools/perf/util/map.h                       |    8 +-
+ tools/perf/util/map_symbol.h                |   28 +
+ tools/perf/util/maps.c                      |  276 ++++-
+ tools/perf/util/probe-event.c               |   98 +-
+ tools/perf/util/python.c                    |   53 +-
+ tools/perf/util/session.c                   |   78 ++
+ tools/perf/util/session.h                   |    8 +
+ tools/perf/util/sort.c                      |    9 +-
+ tools/perf/util/symbol-elf.c                |  251 ++++-
+ tools/perf/util/symbol.c                    | 1100 +++++++++++++++----
+ tools/perf/util/symbol.h                    |   92 +-
+ tools/perf/util/symbol_conf.h               |    1 -
+ tools/perf/util/symbol_fprintf.c            |   25 +-
+ tools/perf/util/thread-stack.c              |   40 +-
+ 45 files changed, 3521 insertions(+), 879 deletions(-)
+
+-- 
+2.56.1.703.gf848ed807c-goog
 
