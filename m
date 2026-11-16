@@ -1,96 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794865776;
-	b=akLKgac1rJ3JEjjjcVx6F4udE9oU/IW6wl/WMWlrrXlYFBUTGBtkRE9Lqn39+jEPkuBN
-	 UUSwpTx5AFdE4pJ2xQspKNXOWusk1uL1TAaV8byUR0NmH30teqa4P7AJU7tP6vUdWIJnb
-	 0vPVtwtSMb3Ct/Wt6YZJvWuGaYEgYdXMzm4JQ7q5U5MYYuJ24+7XZJCMQnNDt33/xOqEC
-	 hySjS01BC76EjY5SPx1BHcWsttOT2UYdl16UlXw3KOOqhJlQthqkctT8c+G76VUHg3/83
-	 aKanrxLOjsAYswuB4IDIv2svzlqJ9MRguYMc6Ccx/50CjfMHHrL2KHz1DV0ub4oSMGg==
+	t=1794865803;
+	b=ginaVK4Z59tvW7RP7+AlcFadLZ9OnMwfCSkw71LfJdfKrkP/nj3VbKXqfxEZGpZyH2rK
+	 yWC/R9FOJGSRp56kOD3hJGuRR+X6uk6h1q+7NBahFSGjTTwHKMBEr9wVWxAlrRnFGqjmH
+	 z0jkQYZ65WauJIObhy9DNcRpifo1FnelO1i7Dj2cOa8+1puYfC7J5eqep+SfN2SP1sDsD
+	 Vx82ZGWZ2qBTyAAddlrGeL1Q1yHmMjYIzg5tbamsi/bQZmOYGwgZ0eLqt2uis500ykYot
+	 rubXA4Qjj2He3rfkkrYsrFE7DMhfZsQNagSdrstZvWbc4bXwAqm7EX+7FYBMF5ht/tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794865776;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uakBzQHpnruk0tRar0RXS2ZBRRSBv/kAwPvqULpDtWY=;
-	b=X6/W9tRpyqmNeYmhwqg2ZKA/QggcFrAEQ6nW3ULFug8Cxs54nCdSqXNVpHyEKTK7RO1t
-	 oJ0Ra++2hJrki9zD7G26UWuM4jYVLn/9KYasSoq6A889JKh1813GI1t0gjbOt0pQwCw0S
-	 TvTcV8Pdo4dNYg54Ll0VQpbZEXLv1MB5MztN4rseS+uOdcgLQf0gl5c38tMN//n1W0tgF
-	 jHYjz5d4TK5aBJf5nJOoUp3vx/3xEcHmdPF8/nqLbgxQ0vRzw8jGTAeGsR2uq520a2zih
-	 IYJD8lZ/SZTUk11NOv+jSfcFzMlnFCei+MBtDiKQBcmrMeHSIduoxBQeiawFVm3aetg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794865803;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=+jsFqFzKZSD9MdsyE3tmoUMLAK/UTPTcstylH2JUgu4=;
+	b=xlCVtH9p2PHmtG/Z92wZSENW+93MWdobb3BRblIUvbRCQeyK7CIs11O7SbwJCKWjRcwo
+	 cGit9/hXHPdxYpogQkLp7QQ/FzFdIT66u57m5eOpBLJzXiVEoZPThPTy65xK0os1LgOw4
+	 hN/hY9AoJ9ClrFIBv5OBsnZBSlapjSo53m2mLZBB7Hbi+Y5yTn8MMCJKeM5H9bocdJIKF
+	 mldrEj2tZ36gCb7eEVCl0cclmOMfFnUOnEmw2G1gD/y7HotwlCpDtTDw9wyqXwZ2KmLAl
+	 cUUIhVeqvvbCir+9mQn4vcMLcBKUGN+wsgKKOnu5lEg9ZwP37d/FqGMgZAnSU2x9R5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E+hjxuO7;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k37Bv7TF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88295606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88295606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A04606A31C;
+	Mon, 16 Nov 2026 21:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E+hjxuO7
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so14623605e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:49:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794865775; x=1795470575; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uakBzQHpnruk0tRar0RXS2ZBRRSBv/kAwPvqULpDtWY=;
-        b=E+hjxuO7iKRJ3ueT3ZvIUPsmnnATLyhItSygXKlGMjYCVBAqIsaxwYyBS7WtFRNa2d
-         FAyI4n8S0MnvngzX2NIilIZ6REX3+ej4wliGoq9olX7jUaOUFnuZ6NHbnreJikmMa+zC
-         dfQheHijyPWjUdisMEUTyhIQIVkWbdVf71/CNoC7acdTDXKyrdqVSPdu3M7Caw81xUYq
-         qiRaDxGxbjmmUVNcXVoZr+Rd8b5ut9GexxUR6Gsm+22VM+jEwktVh36jLU1BvMx0GFpS
-         8Y+B19/v67a7W0WhIKz8UBqhq5DYijPx4bPUC+m/Gq1Hb3lYD9ewQ2XytPivwRA1VYzf
-         CnwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794865775; x=1795470575;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uakBzQHpnruk0tRar0RXS2ZBRRSBv/kAwPvqULpDtWY=;
-        b=ZnM843++QW3g2WaR3wGOtdrIS24f+f5dqbyn7EwnHYW9TFWlGNTEywa+3+P5RfTxDF
-         IH6bUpfdxvYH/H8ksOUWdT7Y3IiUHetYQCYcd9vqE32SzcedJyXDSljyoT4DTLR6Fo9n
-         JvT7DHsbSmDgRYYLddpJdHdl69yZGtBvhNKgwivN1Qa9ucNorLGnTXROzUQ44iTV3R2q
-         8WbxXCvlizid7dhSrYVXMtncdbA9FDQ7fkjzCe4z0F2+11JAQbDDGJ+6p3xxGBzoDxf8
-         vHujTqfPbkvyX2QSuhIjRZgchCNJz2AFlLD35sVknTXnvrCwI5XmPgz++SCEx+Boa5ys
-         K5sQ==
-X-Forwarded-Encrypted: i=1; AL+hErExDAB7VUw+2vqVE0RKZshbncZ9oZUhMuhbSbEBtdHQAWcSEs27BmONrtgrsi9ym0K4jk2V4N5YeHtRuVU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fHzW7jbO/pFzXrI4JYmJzV8np4TtUV/9uo0YiYUWOIIzND/rT
-	ZJPo6iwD9ubqyOIGHlyELCmaY5myTsvNVe5naL6GG5yJ1bEDUjrwgszM
-X-Gm-Gg: AYBFou3NpaMu+QyTeV0wMjm1CFbOPewiOJRiSVdH8SrkX1DI+GclFgc45KTAUtfMivo
-	iKCmQ0WHT2kSU4/P6F16dspjVBz8CntuxuUXW1WvAJruLSTrml/wcqa3yhngU/yHJXJzkBECcYY
-	p+7m+QRFOtxA/690lAqDEAmdsjy7t7PJakDGewPKWN85U3h1m+tG6rYGzMGHhVj91xKUo66RKNw
-	W7WW8qMb3ncdVS2acWsBHM69x68axsuYpQCQlXPr1LCvnkj2AESBwcQQPiMuR/P6wyGcVMhZaxq
-	ByDnJwuIGO6/S1XVsvjGE1fSUMk7gckiISF98JVp9Gjqyk4LHDZIlsHmWfRT/qj24I0uWW80E4U
-	I6O1VXiaszfv0Fys9BRQXEGEHEbiPdlw0tGoon5utCBKSC6GcT0iZvSEV/I0KMjx1XL+VJuEbao
-	TU+FM3WM2TDlHxTauveIcNrxxZ8JtNT+e6D6YAhsEPaO7ZUVXOfujQphDyL+IZilb+HltBYDlQr
-	UgKFLxtPD9QRtTzYg+pspGKcBllhQo+pVvfstyS3EAjMlCcC1W/CUX5RqbfLJJcNtTzXg82CxS4
-	6ouijgcqNgDdxM/PHaj712ZfzMiBOIZgWe8=
-X-Received: by 2002:a05:600d:2:b0:4ba:761:c0c5 with SMTP id 5b1f17b1804b1-4bb55a581e6mr192961515e9.5.1794865774974;
-        Mon, 16 Nov 2026 13:49:34 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f7eecsm30265735e9.3.2026.11.16.13.49.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 13:49:34 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-Cc: Ping-Ke Shih <pkshih@realtek.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH rtw-next v11 3/3] wifi: rtw88: time the countdown downloads from the TBTT
-Date: Mon, 16 Nov 2026 22:49:33 +0100
-Message-ID: <20261116214933.1569681-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <781999FE-B0CB-4D6E-8A1B-06A38082202F@linux.dev>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k37Bv7TF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A821F000C4;
+	Mon, 16 Nov 2026 21:50:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794865803;
+	bh=+jsFqFzKZSD9MdsyE3tmoUMLAK/UTPTcstylH2JUgu4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=k37Bv7TFoT4Ul1KmSwB7KupyTlwJNzDlOaHHOeihdzkaaSpkbBcZ3J9+etgSXHsCW
+	 LQPigaHIBGR7hoYVXT2xaoqFHPdWDdujpYFYva0wTUU3lr4AGFhLB3IMZhZwtzrKop
+	 gcQRKcVKGVWTqi/LPmeXnMSGUGg4UHhuhjOEtT1QTXOhXupyWUDGWf/YfAtSk3sMNV
+	 A2XH1dMEIqloIxM/jZ6tUTM9+Mt6Ts8tiOvU9LF1MvRDzcA0HGe21JXIxRuI6FMHi+
+	 i+t1Gp6HE5HHQKZa8U26AHQwcpsMuUQZolpeeWyClydnidWS5tHg0W9efrQ32wgE4x
+	 I8A8gHaXPZ2NA==
+Subject: Re: [PATCH net v2] selftests: net: veth: propagate channel-check
+ failures to exit status
+From: netdev-bot+sashiko@kernel.org
+To: emmaonana18@gmail.com
+Cc: kuba@kernel.org, tianyi@cloudflare.com, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, skhan@linuxfoundation.org
+Date: Mon, 16 Nov 2026 21:50:01 +0000
+Message-ID: <179486580141.3136.15559598598860423821@kernel.org>
+In-Reply-To: <20261115214702.50817-1-emmaonana18@gmail.com>
+References: <20261115214702.50817-1-emmaonana18@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,23 +66,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Luka,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-> Could the next step wait for a TBTT that can send the first download,
-> including when the first work has missed its scheduled one?
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-Yes. In v12 each step reads the TSF after its download and queues the
-next one 10 ms after the first TBTT at least 10 ms away, so every count,
-the first too, has a TBTT. A step that would run less than 5 ms after
-a TBTT or less than 10 ms before one waits until 10 ms after that TBTT.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-With the first work held back by 90 to 100 ms and a count of 2, v11
-switched without any CSA beacon in 10 of 12 tries. With v12 and the
-first work held back by 95 ms, every count went out in 48 of 50
-switches with counts 2 and 5 on an RTL8821CU, an RTL8822BU and an
-RTL8822CE; in the other two one count is missing in the capture.
+- [High] The fix is incomplete.
+- [Medium] Because chk_channels() now sets ret=1, the "setting invalid
+  channels nr" check at tools/testing/selftests/net/veth.sh:467-468…
 
-Thanks,
-Mehmet
+--
+
+selftests: net: veth: propagate channel-check failures to exit status
+
+This patch changes chk_channels() in tools/testing/selftests/net/veth.sh
+so that it sets ret=1 when the channel counts reported by ethtool do not
+match the expected values. A channel mismatch now gives the script a
+non-zero exit status.
+
+> diff --git a/tools/testing/selftests/net/veth.sh b/tools/testing/selftests/net/veth.sh
+> index 64c2a5a59821d..5c1dbe1516bb4 100755
+> --- a/tools/testing/selftests/net/veth.sh
+> +++ b/tools/testing/selftests/net/veth.sh
+> @@ -130,6 +130,7 @@ chk_channels() {
+>  		echo " ok "
+>  	else
+>  		echo " fail rx:$rx:$cur_rx tx:$tx:$cur_tx combined:n/a:$cur_combined"
+> +		ret=1
+>  	fi
+>  }
+
+[Severity: High]
+Is this fix complete?
+
+The commit in the Fixes: tag, 1ec2230fc721 ("selftests: net: veth: add
+tests for set_channel"), also added three inline channel/XDP checks to
+veth.sh. Each of them prints a fail line but never sets ret:
+
+	printf "%-60s" "bad setting: XDP with RX nr less than TX"
+	ip -n $NS_DST link set dev veth$DST xdp object ${BPF_FILE} \
+		section xdp 2>/dev/null &&\
+		echo "fail - set operation successful ?!?" || echo " ok "
+
+	printf "%-60s" "bad setting: reducing RX nr below peer TX with XDP set"
+	ip netns exec $NS_DST ethtool -L veth$DST rx 1 2>/dev/null &&\
+		echo "fail - set operation successful ?!?" || echo " ok "
+
+	printf "%-60s" "bad setting: increasing peer TX nr above RX with XDP set"
+	ip netns exec $NS_SRC ethtool -L veth$SRC tx 3 2>/dev/null &&\
+		echo "fail - set operation successful ?!?" || echo " ok "
+
+These checks test the queue count limits in drivers/net/veth.c:
+
+veth_xdp_set():
+	if (dev->real_num_rx_queues < peer->real_num_tx_queues) {
+		...
+		err = -ENOSPC;
+
+veth_set_channels():
+	if (priv->_xdp_prog && peer && ch->rx_count < peer->real_num_tx_queues)
+		return -EINVAL;
+
+	if (peer && peer_priv && peer_priv->_xdp_prog && ch->tx_count > peer->real_num_rx_queues)
+		return -EINVAL;
+
+Suppose a kernel change lets one of these invalid configurations
+through. The script prints "fail - set operation successful ?!?", but it
+still reaches exit $ret with ret=0.
+
+The subject says channel-check failures now reach the exit status.
+Should these three sites set ret=1 too?
+
+[Severity: Medium]
+Now that this sets ret=1, can the "setting invalid channels nr" check
+fail the whole script on hosts where nproc is lower than
+num_possible_cpus()?
+
+The test gets its CPU count from nproc and treats CPUS + 1 as an invalid
+tx count:
+
+readonly CPUS=`nproc`
+[ ... ]
+ip netns exec $NS_DST ethtool -L veth$DST tx $((CPUS + 1)) 2>/dev/null
+chk_channels "setting invalid channels nr" $DST $CUR_RX $CUR_TX
+
+The kernel limit comes from num_possible_cpus() instead:
+
+drivers/net/veth.c:veth_get_num_queues() {
+	int queues = num_possible_cpus();
+	...
+}
+
+drivers/net/veth.c:veth_get_channels() {
+	...
+	channels->max_tx = dev->num_tx_queues;
+	channels->max_rx = dev->num_rx_queues;
+}
+
+ethnl_set_channels() in net/ethtool/channels.c rejects only
+tx_count > max_tx, and the ioctl path does the same.
+veth_set_channels() has no upper bound check of its own.
+
+On some hosts nproc is lower than num_possible_cpus(). Examples are QEMU
+with -smp N,maxcpus=M, firmware that lists hotpluggable CPU slots, or a
+process limited by taskset or cpuset. There the ethtool -L call
+succeeds, ethtool -l reports tx = CPUS + 1, and chk_channels() takes the
+else branch.
+
+Before this patch, that only printed a fail line. With ret=1, the
+selftest now fails even though the kernel behaved correctly.
+
+The commit message says:
+
+    all chk_channels() call sites expect the check to pass
+
+That doesn't hold for this call site on such hosts. Should the test pick
+its out-of-range tx value from the kernel's reported maximum instead of
+from nproc?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115214702.50817-1-emmaonana18%40gmail.com
