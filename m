@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841550;
-	b=b5NEc9tvk1dmRhF8QBdJ5rcTKBcEbKUwqIUtPkdcbSzHShZs89EkuDwReBSYRNKn6QUv
-	 sGm0b7aiBpUu7Jv5SasULY9q6uFZGljW8zh/5gOt8R8ktI6idM667WnFMhFuPvosP3DTn
-	 t2m11pgpHPyz20FYlF/VnE0glVVumW5PnPAMs5k58nnKNe/kKVqNQGQPu6cLSt4GyjWqA
-	 zFP9Nsg3u9ohFvzfJvETV6EWr06Rw8y+uHx7Q4NGJub+/XQrlY+5iO8ue0RYJ1mjyFDJa
-	 xlau4MG1Wlwa+d2QTZNk21Lw+691hBVMI1mnDNTsCLzsEZ5i4QjFilQQlLOHTTxFZmQ==
+	t=1794841555;
+	b=fZtJSXh95msnQ7ksNmD1BJrDZ4lxnjv4SRvGjESLZpJHWpjRgSWXD65LcKi50dY4oBLu
+	 6dPoIAc0Z4OFtdKORJcDnRp7FzY3uMdGr/XlGHqROslk1IH7lKUYOb7ypwv263K5ahwAb
+	 /y6eQJVksS57ZcxEiVicH3m4FXSIOQH+NHtJDaDnoGAsYHxdEd3p5obcpJMlfoHavNqG9
+	 RqpDKoMhQxk1sj7PUD7kTzJ/MeWNMj+Iw64liRWGm9s8LVwY3GNtOzhiRpzvgcTjAli12
+	 1M7sAPLrOGTeaaXNw1S1QKMGXcmPUTeuPjH4L2rQtCBxiOCoVZ9L9hgesZSjAD51GMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841550;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RWLDU4EWfngmSrcCkbKdVTyatFJ0OqjQckEYPqGngkI=;
-	b=1haaQ5ZIQcg6S7P9QpVpWe+pOghDNpGB6fnn8kdBX2Th9REOyDP8Mdpa3SkeuI0K6UKC
-	 yALZARAvdQ5QiG7ZnGTMsYFRpiofQiGhoxrp/qJbCbId1TzzEQWz96kGEU4oAc/B/Zzb+
-	 zpndczJ3gNIicSgqyuKU6Twax2c9psAdbYd/iDKam4D72e6e6IIwK6g8jlUUMVhDLuseZ
-	 3fUOvaOyWEKRSpISLbvWvFOPCcW927oPL6stJqFoKzseYzymt8dgVU6yx/rhXikxPyz8C
-	 Lh+AIxljZ7A5Xo7uJEVSh8sXHTn3ZQYb7GO2/S/IckWjWVydIcRRWKTXfmSmUFVkhqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841555;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=OLWrs6wHPjIfz7q4sqV0vSP15dB9qR0xZiDxNkgRnPs=;
+	b=TF6m3tR/sLTXcQnf+OFCqcLoBZt5Wk8343le4yOVFMIdLO9wDijLGpbYmyH4BWTp/vGT
+	 ICfcAabexctvpxuu/Qpj1KZREymsxK0ZhE2xAbGuWGZy/IJSefTTK/hdnmn2sQMh9IoIj
+	 lG8ShvgSlzSlwILmPWiTyC5tlRuLrQQGgnNveiIQFBDKqhN7/j+CQFbs+gqKOIv0ezOEx
+	 VDDSrQY2pvHJb3Akd5pj2bW5dDi/ZBCOlLOGtDdklOwqiu3HTFJVYmlyvw/cfAclRGLV8
+	 UZR7FAAdRzLqQukcTYNpY9tVpOYDMCPC3B/MOvl+tBRTuRkr3DiEE9IaPypNlQd/tSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzEjei9C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFWU1dbh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710CC606A31C;
-	Mon, 16 Nov 2026 15:05:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B5B606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:05:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzEjei9C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84921F000C5;
-	Mon, 16 Nov 2026 15:05:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFWU1dbh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1531A1F000CB
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:05:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794841550;
-	bh=RWLDU4EWfngmSrcCkbKdVTyatFJ0OqjQckEYPqGngkI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QzEjei9C39bx/30fiWMJo3u/F0Eq3Uvo01kc85HuJz/fp0oiWeQJN9WJmLneGSbB4
-	 JhADs6kxenLsjsEL2WN4qqLDkNZ2uvBsFHxm7xwrAc5+vhpAFHyO6TmkxjSMahmTSs
-	 SCfr491ibmKagCRmtUKAZCNPUsN8vuxLw5eWgcVnCRkRFouDn9yphQK7NheS5iCUW6
-	 cH5+DtbGmjFPqbBkltdlHReX2VhFskhdZTrFwzMwa2hreaGIhGcsoRm6qKufflW09c
-	 oLhVcGmBh9P91Ok+9cBl7ulFynGy4ShKnKgO9zfiErOyIj8FKDGBhzkaFQMljejseN
-	 YDRykM5cIFyMg==
-From: SJ Park <sj@kernel.org>
-To: Aveline Noir <jm5905938@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	sashiko-bot@kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [RFC PATCH 14/27] mm/damon/paddr: support REPORT_MADE type probe filter
-Date: Mon, 16 Nov 2026 07:05:42 -0800
-Message-ID: <20261116150543.80514-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <179481501691.2405628.8067144236288202449.b4-reply@b4>
-References: 
+	s=k20260515; t=1794841555;
+	bh=OLWrs6wHPjIfz7q4sqV0vSP15dB9qR0xZiDxNkgRnPs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FFWU1dbhaoZvQa91GRdHI8OMpKROvy42/LGrcfuQXbdf73zihIiGdYVwNZODlPIbV
+	 Q5czS1aAFUldNovu3EQYEfoc8NHu+qSDhm6v6a8eCG4NjUp76kfyw8lV9DsKKVk32O
+	 CcIoLaAkJxaGHLILcqeNkWcM46hNELFAqOhyLM6uSFD20cXkC38iqTJWOeahtcSyYd
+	 gl0YXDYAHTXv1NBld07Xow1K8b2g7I8++GShq7P5vme83fnO0wDP07J8foPfiJr0EU
+	 +rycpV7xKfNuwSFM0D1jd7RIE4w+CF+RlYtMpdD4VUI53TH4XpcHTY33zunLN8yGxa
+	 pKvVYF2ayle9Q==
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so4023503c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:05:55 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGEaJ+c1IAnhW0ApONgSRJDmtWxytCDlo3kd6RRRRCEzkVMByreqPH9isNqIX06jw5Asf+Cjip3/NVpvec=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GPI0XlmKv8HDXQV7apUi1BRQUEgq1YOELxDlK7A8yQvkIxlMJ
+	iUnbisCDnjisUGlrwDHIoh65GGXyV5v/PyYkm8kiuJ71eeVhZPdWTsYpdDeDiCWXs+yyn+H97uT
+	HQ+pPsQ0QFTMG4ULM3XiuZXCpa1FA0Q==
+X-Received: by 2002:a05:7022:170a:b0:1b3:b3de:9232 with SMTP id
+ a92af1059eb24-1b503115668mr9409313c88.9.1794841554483; Mon, 16 Nov 2026
+ 07:05:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,66 +59,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921113914.779393-1-l.scorcia@gmail.com> <20260921113914.779393-3-l.scorcia@gmail.com>
+In-Reply-To: <20260921113914.779393-3-l.scorcia@gmail.com>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Mon, 16 Nov 2026 15:05:41 +0000
+X-Gmail-Original-Message-ID: <CAAOTY_8o7CQQ=GiRX9hiPOjWs=DMP_XSqhpz21d0cN_w3E5LdA@mail.gmail.com>
+X-Gm-Features: AclHuK__YOxqBRiQVL1fHhE6d4s71_dwL_BIXyQUunv6tKh3Bya6r5Lxps8nc8A
+Message-ID: <CAAOTY_8o7CQQ=GiRX9hiPOjWs=DMP_XSqhpz21d0cN_w3E5LdA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] drm/mediatek: Add support for mt8167 Digital
+ Parallel Interface
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
+	Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Aveline,
+Luca Leonardo Scorcia <l.scorcia@gmail.com> =E6=96=BC 2026=E5=B9=B49=E6=9C=
+=8821=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8A=E5=8D=8811:39=E5=AF=AB=E9=81=93=
+=EF=BC=9A
+>
+> Add support for the two DPI blocks found in the mt8167 SoCs. One of them
+> can be routed to a DPI connector and another is directly connected to the
+> HDMI IP.
 
+Applied to mediatek-drm-next [1], thanks.
 
-On Mon, 16 Nov 2026 18:43:36 +1100 Aveline Noir <jm5905938@gmail.com> wrote:
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
+log/?h=3Dmediatek-drm-next
 
-> Hi SJ,
-> 
-> On Sun, 15 Nov 2026 12:28:32 -0800 SJ Park wrote:
-> 
-> > +	case DAMON_FILTER_TYPE_REPORT_MADE:
-> > +		addr_range.start = pa;
-> > +		addr_range.end = pa + 1;
-> > +		matched = damon_report_exist(filter->report_type, &addr_range,
-> > +				jiffies -
-> > +				usecs_to_jiffies(ctx->attrs.sample_interval));
-> 
-> Since the window is counted in jiffies and rounded up, how many samples
-> see a given report depends on HZ.  With the default 5 ms sampling
-> interval, the window is 2 jiffies at HZ=250, i.e. 8 to 12 ms, so a
-> report is usually seen by two consecutive samples.  At HZ=1000 the
-> window is 5 jiffies, but kdamond_usleep() sleeps via
-> schedule_timeout_idle() there, and samples end up about 6 ms apart, so
-> a report made right after a sample can fall out of the window before
-> the next one.
-> 
-> With the queue indexing fixed, user reports submitted every 50 or
-> 250 ms and covering the whole physical address range were counted
-> about 2.0 times each on an x86_64 guest at HZ=250, and about 0.84
-> times at HZ=1000.
+Regards,
+Chun-Kuang.
 
-Thank you for sharing your thought and test results.
-
-> 
-> Is this approximation intended?
-
-Kind of intended.  DAMON uses many approximations for low overhead and easy
-maintenance, as long as the results are practical.
-
-For this case, I'm not that scared about such over-counting.  Users ain't
-really care about the report counted just one more time.  I'd rather expect
-users repeatedly submit reports to make sure DAMON shows the memory as hot.
-
-Also I believe users could tune intervals, manually or using the auto-tuning
-feature.
-
-> If each report is meant to be counted
-> once, maybe we could keep a per-context report sequence cursor and
-> check only the reports enqueued since the previous probe run.  A quick
-> local hack of that counted each report once on both HZ values.  If
-> reports are rather meant to stay valid for a while, like a user saying
-> a range is hot, a validity period separate from the sampling interval
-> might fit better.
-
-If it turns out the approximation is real problem for users, we could consider
-this kind of improvements.
-
-
-Thanks,
-SJ
-
-[...]
+>
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
+ora.com>
+> ---
