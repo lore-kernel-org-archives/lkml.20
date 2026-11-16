@@ -1,112 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870153;
-	b=TkF9CV/AWA0UwwLsnHuf/3MAvlru4j1BK/KaKQgtfbt9EGWk8i9ZadW46uCWmuvv5q/7
-	 FUbR1vdaoIukRzaz9CBlSECrEISR12fcmEMxzXlx/fqdHsNlcGK5GNC/LF4EpwdPyvYDO
-	 cR7kdVCiGFRioIhn/EiyLGdZNXUdpWI/uB0hWQ71bKpIMeQOwF6fiDXaX0Lrr5GpXgpeu
-	 V2LQrSdM1ASquWauf5CjKls+gFVBLnEbmguW7oGWaVZGaljePJIKeyJpjQN1kcXRQtYRp
-	 MJKTx5FRF7OxfpXPwtmzb05oH3SC2FiT0RHg/81P4FrRJwWfVfW2/qzF/t4D8JF2yOQ==
+	t=1794870183;
+	b=bbLZPJ6HbZ7sWjaq37+5pki5qKJh1HnVGVUgIwimfDO5GrysFgRJp48ETs9QmgthGII4
+	 1l813q452JpsCng0IJyS2Vzv3PhGytMySB5PJWAGk27gFRAjUN4cX6Kh5r1jo5/Zly6by
+	 mopGFtwQOs0S2nkM75YKNwUKsM7rJ8ULA2+ToblSCDpqr9y3gz5dwsiTMz3hn2nwKYmWr
+	 yytI8f9mzOiohKZB/oUM2wxFc99q9xBqg/CiS4asT0Lmx8F8aO2CsbMyXDVDZKXwIVaqG
+	 YgSihq0ZqeV/JjiwFNmiCwqh5CuffiwzRuhsaq/b5BroaehiLUYLV2Emu2lOzh5IbbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870153;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=5WThR+UqE34o3lpC1ytNuiTjImnwIUnQa1repMccPxg=;
-	b=iRL4nRgr2TGL4+NkZKjCyl7T/dA+28c+3/GCsl7IIuSujRZm4os1ClF943s3DS6B/lK1
-	 8ujsTCW8y3xb1WrUIGe/YFyFy0ysQhYGJv3C6I5I85qqucdmRcnfVJdFmQ4B7SzHSUFqo
-	 6t5g8u9EzYmziJwUEvaWteirEZM0L9yWxRVYxmd3dq3Bq/jYkTDsArWyY8tshNltjWSPI
-	 hWDUYWbulmz7cvwd9VXn8UHehCGgXR3nbrV+Wb7dTsw6grcVdsb3ESFijMwzUaZFJE2al
-	 PYKfHXnRwM0Rc+kbj3eG7THfwmgNOW/gn5nEO7HIKY09J5lNgpreWep+ynVPVZuXgcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870183;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nRFumCG1IZk3fjsdmZSVriNashmE07r3bdlI4W9+YCE=;
+	b=WHOfpvWDf4qllW97v+pCyw7ilcVkyqSwxKMtqROr4EOkASgiM7EokQ8F9VbC0jOjCobX
+	 X8zJtVnM9nA9Dg9ds+vHSX4SWxmwq89h+HuRxo7NIMFMdApGtWYAh7ZbKcUJJyrLd7v5B
+	 DPzdF/LFjWMww5fzfk8RGII4KDtO7HSbnge/R3TDHSGfKKxzz5fcO4AuV8dRhUM8mX6wd
+	 qMLcZYIaduKZFRNMUgSDc6dn0t2fZgxl29YzvNpoWmpahYGRJCHZKUfZTf4MX1EDkVtcD
+	 H93xjKgAVvbdrxXN/sq6xKCUajd4EdtYJlE7VFFHaJJ+ioZOUjknjztqgumGIVOFYaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=RmszHc0C;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fKfsChHR;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475B7606A33F;
-	Mon, 16 Nov 2026 23:02:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 475B7606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C7A606A33A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:03:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C7A606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=RmszHc0C
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=5WThR+UqE34o3lpC1ytNuiTjImnwIUnQa1repMccPxg=; b=RmszHc
-	0CnOPJyqg+tKPcBjBhz42YOx3X1P8KCM7qlREN/a2q0VePJ6bbwZ1XDxOMA+O3vEMeR5SpSV57ef0
-	rQ+EoIPicylm5jWyeIlqJWCrf1koFnPGUflTUl2VxKWaaXokosqmEamc85QY5RMdjkXoaY9LN77Gh
-	EZzUnQFmYrfzWalegBAAo3FNepH1iapFTh+8StCMtGkWYiRLlLlR5+xpqJYjFmqWnQHUQ2aell1PX
-	yxs95QLzbQofCYE0Uw54aJpcA6padqu7/yqPdz6LHSCbXxwd9jIesHqHgCoWykqOA8e1fqmLyBeeK
-	7daeliVGFLW0sTbeXP3XtYph3cBg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xT57N-00000007mDE-0p4b;
-	Mon, 16 Nov 2026 22:24:05 +0000
-Message-ID: <b2262da0652b467673109d12b5e244c15255a925.camel@surriel.com>
-Subject: Re: [PATCH v2 02/15] mm/hugetlb: compare against persistent count
- when freeing lowmem folios
-From: Rik van Riel <riel@surriel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Muchun Song	
- <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, Naoya
- Horiguchi	 <nao.horiguchi@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, Andy Whitcroft
- <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>,  Michal Hocko
- <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>,  Vivek Kasireddy
- <vivek.kasireddy@intel.com>, Dave Airlie <airlied@redhat.com>, Jason
- Gunthorpe <jgg@ziepe.ca>,  Lorenzo Stoakes	 <ljs@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, Vlastimil Babka	 <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan	 <surenb@google.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan	 <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu	 <peterx@redhat.com>, Breno
- Leitao <leitao@debian.org>, Will Deacon	 <will@kernel.org>, "Aneesh Kumar
- K.V" <aneesh.kumar@kernel.org>, Nick Piggin	 <npiggin@gmail.com>, Peter
- Zijlstra <peterz@infradead.org>, Heiko Carstens	 <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev	
- <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>,  Sven Schnelle <svens@linux.ibm.com>, Arnd
- Bergmann <arnd@arndb.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, Gerd Hoffmann	
- <kraxel@redhat.com>, linux-doc@vger.kernel.org, linux-arch@vger.kernel.org,
- 	linux-s390@vger.kernel.org, stable@kernel.org
-Date: Mon, 16 Nov 2026 17:24:04 -0500
-In-Reply-To: <20261116-fixes_hugetlb-v2-2-4dd9e94ea9ac@kernel.org>
-References: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
-	 <20261116-fixes_hugetlb-v2-2-4dd9e94ea9ac@kernel.org>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fKfsChHR
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4b467581b98so35624415e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:03:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794870179; x=1795474979; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nRFumCG1IZk3fjsdmZSVriNashmE07r3bdlI4W9+YCE=;
+        b=fKfsChHRbJkgHA1Zn5/95TRvUTd0+x6g+VLr5rHsu4l3Fjs1jlWRNjhlL7+uBhyAiB
+         tO0Qxih+V+3owTpaSx59MFFHLwgs6iEIRiQo07ibXqFPIHpUhnjq5XIyvQGh7Zy0sBTX
+         aNEAosnWXWrDdpHQTIIX8EntYgsBB2QMqtc8FYgW39w41lzSLA1gxxKismWU5hQJAGZv
+         soc1u+S+Bop2jutNh40YpwlRqJdTpkKl5M8u/6u1Z0bDCWt0ExYNGkgZ4zaHpaLHidbB
+         G2qnD8avvWcY1gk6Vcug0u1bZ/kNv5p2t+hxhxROUb/6QHZGTW8yemw0wpyv+TmzlAY8
+         zNPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794870179; x=1795474979;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nRFumCG1IZk3fjsdmZSVriNashmE07r3bdlI4W9+YCE=;
+        b=V599eRBkQORjYMtuPE5Ut+3q3/1nysNdm4wQaPMchSYDpBSBH9tsDBY8iRBVx9Yx36
+         QmjHOalRpcDSuo7gBi8K6onVwsTPF5DjbY1MqA+kTlsE1gVHfL3Uuuc/bK5J53vlUG4d
+         8aCwQ3pXrohDK1DxgFrRQG59pGIErxMrfC3KoUk7rXpbHSQJCdqiBG00eI0t4O3aHJWO
+         /SpiyIyHt4U0L1976na0tZNT+3Mxqs96LHWRHFM4XqwqWtCUFx8Id1an3VCIOvDpkDmI
+         6mVKn0OlA0F2UKBXLaoVa1NNpneuD2pHuyZ6MV794/AP7OVNK3iOr3GqjlNsOtxmEQsi
+         0N0g==
+X-Forwarded-Encrypted: i=1; AL+hErFrYAvEm+bIe/XIpn1dirsCvgMTdDlL7BcZTBJDQsIuuAoyikwz5/fFCDL08aSdXza5sY5U9tXl1XZx8Jk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Tv5tMA84BwpyXBG06tefarPI5Lsm3hwffPQISwiGwfAE//RX7
+	xFU90uCoUXODwTvNKnKH1FZS1ZvVrBP0L8BtsmhY2vUaK8bhH3A+xKlo
+X-Gm-Gg: AYBFou3v0c95KNWp/eHW6M5zFpn9U27Vn+Ca5I1stT7+rLW2ht4LayFQy8B8h+VMsiv
+	j83f+HAvhzn+PMGIZwLzer23jQREIhygGts4gC5pR1r9XIddhAQhiElZIC9/AG0rh95nFiaefnd
+	C+SVmYnl0wNRVuobg7V0qiDA+tAH/0VKPOoyAsfytE2tA5o5VwuqPEs2G3sKu7aS+1sCesxMcq2
+	MjDbinEojUqQaQNZEKQT/JjrgB1b3TG9+7Q6G9PXTNZIQWkaP7A7RH+fWLb6zkAvSdi+CjOTSWG
+	Wc1MIlfyK7aSh2FUOixWu9vW+uKuo4J6RYWbFATVdgzu2CFgi8QhNLLSyzYZjetjz3EYaJLFPGH
+	VX60A1z1yCpcLKFEmJDT+/utBmeLZb77X/IQcoaRYIXUvhtyzEu24owln/d0G4zO3LEa2iB6DLf
+	i7kgUXhHi9TGh+I/m9EnUWy1lsZX3UkQZhuztxqWionfOnodxtfBW9YpChEt2sRJLUoy6e7YvVS
+	0csTb3RIph6Ia1E6IIVs00Wg1PDdwV63V4YJ936A4AEv0ZngCGge0hm2bdKVMjw9klvlZOleq8B
+	8azyYLN7YPIUZT2uXi3tZWqEI05bdT+wfA==
+X-Received: by 2002:a05:600c:8b34:b0:4a1:702f:c736 with SMTP id 5b1f17b1804b1-4bb55a25c0fmr239411275e9.3.1794870179190;
+        Mon, 16 Nov 2026 15:02:59 -0800 (PST)
+Received: from vitor-21h1cto1ww ([2001:8a0:c4c6:f00:dd63:7222:aab1:aecd])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78344ddbsm24680955e9.0.2026.11.16.15.02.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 15:02:58 -0800 (PST)
+From: Vitor Soares <ivitro@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Vitor Soares <vitor.soares@toradex.com>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Nithyanantham Paramasivam <nithyanantham.paramasivam@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
+Subject: [PATCH ath-current] wifi: ath12k: report TX status for broadcast and multicast frames
+Date: Mon, 16 Nov 2026 23:02:49 +0000
+Message-ID: <20261116230250.369383-2-ivitro@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,27 +98,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-11-16 at 19:29 +0100, David Hildenbrand (Arm) wrote:
-> try_to_free_low() gets a target number of persistent folios, but
-> compares it with "nr_huge_pages", which includes surplus folios. As a
-> result, it can free lowmem folios below that target.
->=20
-> For example, with two persistent folios and one surplus folio, a
-> target
-> of two can still end up freeing one persistent folio.
->=20
-> Compare against persistent_huge_pages() instead. Convert the macro to
-> a
-> helper function and place it before try_to_free_low().
->=20
-> Fixes: 7893d1d505d5 ("hugetlb: Try to grow hugetlb pool for
-> MAP_PRIVATE mappings")
-> Cc: stable@kernel.org
-> Acked-by: Muchun Song <muchun.song@linux.dev>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+From: Vitor Soares <vitor.soares@toradex.com>
 
-Reviewed-by: Rik van Riel <riel@surriel.com>
+In AP mode, once a station is associated, broadcast and multicast frames
+sent by the AP log:
 
---=20
-All Rights Reversed.
+  ath12k_wifi7_pci 0003:01:00.0: dp_tx: failed to find the peer with peer_id 2
+
+These frames complete against the AP's own peer. That peer has no
+station, and since commit 981050b918fc ("wifi: ath12k: Fix TX status
+reporting to mac80211 when offload is enabled") a missing station is
+treated as a missing peer: the frame is dropped and an error is logged.
+Before that commit, the TX status of these frames was reported without a
+station.
+
+Report the TX status without a station when the peer has none, and add
+rate information only when a station is present. Only drop the frame
+when the peer is not found, and log that case at debug level, as the
+HTT completion path does.
+
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+
+Fixes: 981050b918fc ("wifi: ath12k: Fix TX status reporting to mac80211 when offload is enabled")
+Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+---
+This conflicts with c752394249f8 ("wifi: ath12k: store station pointer
+only in dp_peer") in ath-next; the resolution uses
+ath12k_dp_link_peer_get_sta(peer) in place of peer->sta.
+
+ drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c | 23 +++++++++++--------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c b/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c
+index 41abf1865702..794d85d9dbaf 100644
+--- a/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c
++++ b/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c
+@@ -856,24 +856,27 @@ static void ath12k_wifi7_dp_tx_complete_msdu(struct ath12k_pdev_dp *dp_pdev,
+ 	ath12k_wifi7_dp_tx_update_txcompl(dp_pdev, ts);
+ 
+ 	peer = ath12k_dp_link_peer_find_by_peerid(dp_pdev, ts->peer_id);
+-	if (!peer || !peer->sta) {
+-		ath12k_err(ab,
++	if (!peer) {
++		ath12k_dbg(ab, ATH12K_DBG_DATA,
+ 			   "dp_tx: failed to find the peer with peer_id %d\n",
+ 			   ts->peer_id);
+ 		ieee80211_free_txskb(ath12k_pdev_dp_to_hw(dp_pdev), msdu);
+ 		goto exit;
+ 	}
+ 
+-	status.sta = peer->sta;
+-	status.info = info;
+-	status.skb = msdu;
+-	rate = peer->last_txrate;
++	if (peer->sta) {
++		status.sta = peer->sta;
++		rate = peer->last_txrate;
+ 
+-	status_rate.rate_idx = rate;
+-	status_rate.try_count = 1;
++		status_rate.rate_idx = rate;
++		status_rate.try_count = 1;
+ 
+-	status.rates = &status_rate;
+-	status.n_rates = 1;
++		status.rates = &status_rate;
++		status.n_rates = 1;
++	}
++
++	status.info = info;
++	status.skb = msdu;
+ 	ieee80211_tx_status_ext(ath12k_pdev_dp_to_hw(dp_pdev), &status);
+ 
+ exit:
+-- 
+2.53.0
+
