@@ -1,65 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816346;
-	b=qW/rOC4AmqmpVniDuCKX0d5xxFegzs4gHRSiDufGuI/tTy6RY1/Qh2nyw18fK4zdy9vK
-	 ToMH6ctJmosHffx1Qh73diOaG8g4vfNBzJAc5F5qFQ0IEt3oPvzMmrYqVXz7vGCA6G3nE
-	 BvwBD4F/QnDMK3tKkgZ65zA/S7JL/LIbpdmsip2YzOS1boRE3Qw805XJ9IfOzZCfv1hSy
-	 +7LoyEIXfVE2g2eQXGG378U2Kh5PvWVs7U/8e40Od5TTqLKflGXVJbH2G4o1I2m4qhACH
-	 oCdzdO+O/xqeZigTQw9GbURZOY5NUldLopmGD7s1p3/zMyvdx/nUbMHjE+ICEEBF2NQ==
+	t=1794816362;
+	b=wHVwK07R435FIL7XiiCHaZeiGXQ7PZYiH1RE0t1y78TcbEKX5l0cI/jjD1h/auHMlJst
+	 J+RwX4nTIsr5grRVPJvkDSXn0XgFfr6moMNhoZVvK6yQK0hbc/HwOFweOG40CKq8ciVSU
+	 JQB0tV7sSMgBU1UVhVJy6rZfQRtd2fINqsG8YTwUb0sSVUj5mdpp5KN0LahQaiTguZ/gw
+	 XETwxK1KGjOga1URTEUeoEZvDnu767DAExwrHvcydjuDQJWf2mMFAEC2DNGAaisLB1U4g
+	 thKRs0PHfewMiJKd1MAw/xZgEWyZXRM4QUsqzQYSrNg2g9nJ8A+KmRY4Lzdfi05BixA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816346;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816362;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=6Avz1NW7TUudJTX++ez+xj7beQ7E+txia0kyE9b57xc=;
-	b=GSXe+HlZAOqid532lL/FRCyphgRM+H1Sj12sNd/Nq8L0Bn8uMhKHEbw/jArJsE4DIpHk
-	 B1SJYo6ZnNq4MXtEoWTILerp4+yEPpzYjyCKJ/N9dVBJ3iMdqS6iOwn07Bhr90IYHmeVx
-	 Aj0bRKg/0rPxeYXxwNxZMFiqeuKXyvusGufnoqyxTERToYo7aYmpkNRnNpVlKSv1imHNE
-	 aKl74cW6vQFGhl620drOUXhqA/6wppomgPigRqS4d3d+AcjDlHa+t/EdRgE4RMxqYc21m
-	 8M33/KSAumru7pnHeNfAJrDVvCrd8jFTW34aoBlL8/bMVAvN+S+fzh2be7wSMgAuCYA==
+	bh=D3L9I6nVkWNX8DoxsebmsKpsQfDRL9KhwjDhBEHBohQ=;
+	b=uUvBrb1qiBJZzU8dfOtp7UmNUL4Cq/nBf7atnrdKxl3GBtu39+cczqlfSUNxIMO8TQmt
+	 Xqm2xjvWDzaR+IPYSGpQ8ORzI5le76dv6+m1H+X2D3A9TxKONQeqzdWP/TCFKkmwkvnAm
+	 5kqGNs+iHTY9dN13PnEG2gq+bY1qiDCeo2jdT1FrDxqrJHWvCusIKI4Jki/eAPeikRBWa
+	 gv1B6KB/1f9AIM0BXKymj+i/3nc0Gc9pl5+LDOgbC40w3VZ68Bjl59tAlrHtErE9X+U0R
+	 EnKfG7APtBEsRl925mhBiK8A7nKpVzpFdJOcIHOLNEQWy7SOPuZlF9g7Oa+r4jz7A6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=grpOFYAf;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B277E606A31C;
-	Mon, 16 Nov 2026 08:05:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B277E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ygc/pnFP";
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4ED8606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:06:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4ED8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=grpOFYAf
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ygc/pnFP
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so2766440a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:06:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=grpOFYAf/BGqCy8WbnRkBlQS+K6LyvEA2Bzu8ZRdN5QUZhHfWn6zHkpZ5byLQdpXiQodeQpCB2zPt
-	 D+x8pgBSTDLNPL1/x1ZArqxZgNVkAgG51lmS77RGCNXn3XY0r8EEmFExA95+jFqX9pupiDXM8ApWCY
-	 Bpw3MTw5MwFdTUgQ=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46afab95699e-9dbc1;
-	Mon, 16 Nov 2026 16:05:42 +0800 (CST)
-X-RM-TRANSID:2ee46afab95699e-9dbc1
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from fedora (unknown[223.108.79.102])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16afab9541e5-84257;
-	Mon, 16 Nov 2026 16:05:42 +0800 (CST)
-X-RM-TRANSID:2ee16afab9541e5-84257
-From: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yiqing Wu <wuyiqing@cmss.chinamobile.com>
-Subject: [PATCH] pNFS: Fix use of uninitialized be_prev in ext_tree_encode_commit()
-Date: Mon, 16 Nov 2026 16:05:31 +0800
-Message-ID: <20261116080531.50982-1-wuyiqing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.56.0
+        d=gmail.com; s=20260707; t=1794816361; x=1795421161; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D3L9I6nVkWNX8DoxsebmsKpsQfDRL9KhwjDhBEHBohQ=;
+        b=Ygc/pnFPOt8zvc+W+L790+lPPI92JkPu1Uet0MizR+wPU4/4AVPIO33xQIQQXWqjwl
+         3IsZczk6UpPFMxES408lo6l40XuzSn6/U1NdX8Hulaf4qhY0S6hHaZMoIfvObWIYZBzU
+         R7MW3wm/wkILcpsvHyc+Zfv1G4KYDaDGKYTAizSo2YHL4mcOEUgh0hQVBF5HhFKZ85Qo
+         PnNiRUh1eZLLQEDnb+1yegApZbv97tfxhdh/aUJQeLdYJCo3jPsGg0NhoIZ4HaddwmFZ
+         /jlcSvhnu1UNfNdcNObY98A1srXDzubomlcD0Xsg52xBamATrnZWHwq/S1R40Kd2fsRE
+         xPzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794816361; x=1795421161;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D3L9I6nVkWNX8DoxsebmsKpsQfDRL9KhwjDhBEHBohQ=;
+        b=UPisWkTnKz/TbjcjjdSxiG2ymABP3J5/yLWI2N3iIajMzj1n5saCpdQaIBtPTxNv1Z
+         i1dbZKDGX/BayW6PjRCmcSTun1A1r6WinEF2+FyQOEOxqJMlGyflX3dxMZhY7vrhJ8YW
+         V8gJaO9wDfKkC50TmN8q/75rG+TYMO7WiM/zErDeSY2VzYDMKsrJH6AMwFPQmwQZI6BY
+         qBWGIMhjLgj22IBPWUAcfSahT2zUVchU33oDzma3ahqRUbbin3T3I9qx/tdKT3avAvh/
+         M4ARueF4bf64LHvncVnK9Gex99HqruIlI2CaGe/YS8pmpZj7eU5hD/vjKqXb3pSHWAm0
+         8OCg==
+X-Forwarded-Encrypted: i=1; AL+hErEr6zVqOKLNRf6Ll4pgvXXPxqx0+rjjJJR9JkVgNpJ7WOsuVFab0e4VonjIuXFUP94Kq0H8xBaVbMJrop8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tRzbJterBLUacCtljfZa3XMx5Weakw1WLtrtqbYtDDk9gK3WD
+	aOtQfA3SQPOfFSrChhFHSUXzFzXO4zfF4UAUYGF0xe30rxVl0zYPOtNe
+X-Gm-Gg: AZFdTZf+f4KdsHSS9YiH79KGWPgOMCkAQTjd8KZj9Xl0gp94GoH5kh8zPd3yR/+PbO+
+	MVd2pukLcQGGFdCGaK5jfu+4/JPlxPpiy+FnlBApN/s1F3i4Hx4AOz996GcTkwKW9Vwv2NQH1Y/
+	wjKgr+qBs3Nf0xjBD9414vYs8SDNDsJ5ZXQFwbRek3OyB8BMb1hcqExsk76Njhptm5IdIqLoxzZ
+	8zZuUTniTJPSSRC2Je3cPnjd2K8G6UxRJBNmICBtrtxFr/YqRiJ2NSLbtmrLp9GglK6+kNFWZ8y
+	SMHvvOWFv/706Vk9yMwaxQYOoDR7A9XOOj+kvI4Nl+XF96xh7mQA4OBCCJJhGyncS9pPy2IcduS
+	F12hwmHBH562+sST0qaKarbU7eF1aYHwkvG4W93Ee/UikP5u3kafK33B48sk/hK0BdcdaMTR3yl
+	NQkMwwhbdrEVxNBSIYa4oY1oorg9WQ1nmueY2Ku69Y/zGpSv2N/kcZpsaRwHdpXDCdNczGhSRHR
+	9FIa9V+gL3E8gMQ8c/3mZdQaBchVHTZMC+gGPh88CiBx6nTfxspKBQCfu0xYlM8mOAqFgtl74KW
+	PJz9hvJ90j4uNUMKMnQTkorEFn78cBXRuDXsH2TSU+RntYxRzm8MvPcp9RV+
+X-Received: by 2002:a17:90b:2f0c:b0:3ab:884b:65a8 with SMTP id 98e67ed59e1d1-3b1b0ba0acfmr9088807a91.26.1794816360741;
+        Mon, 16 Nov 2026 00:06:00 -0800 (PST)
+Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:d1be:2710:af83:9beb])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d282fdsm20924303a91.14.2026.11.16.00.05.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 00:06:00 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Pavel Machek <pavel@ucw.cz>,
+	Michael McAllister <me@michaelmcallister.org>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_serdev: serialize flush with transmit work
+Date: Mon, 16 Nov 2026 16:05:38 +0800
+Message-ID: <20261116080538.66575-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,66 +101,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Building with W=2 warns:
+hci_uart_flush() runs on HCI close and reset and frees hu->tx_skb while
+write_work may still be sending the same partial frame. The worker can
+then resume with a freed skb, or both paths can free the frame.
 
-  fs/nfs/blocklayout/extent_tree.c:615:59: warning: be_prev may be used uninitialized [-Wmaybe-uninitialized]
+The tty flush has stopped write_work before freeing the partial frame
+since commit 1b0d946d6f08 ("Bluetooth: hci_uart: clear HCI_UART_SENDING
+when write_work is canceled"). Do the same in the serdev flush: disable
+and drain write_work before releasing the frame, and hold
+HCI_UART_SENDING meanwhile so that hci_uart_tx_wakeup() only records
+HCI_UART_TX_WAKEUP. Then re-enable the work, release SENDING and replay
+a wakeup that arrived in between.
 
-When the encoded layoutcommit overflows the buffer,
-ext_tree_encode_commit() breaks out of the extent loop with -ENOSPC
-and computes lastbyte from be_prev, the last extent that was
-successfully encoded.  be_prev is only assigned after an extent is
-encoded, so if the first extent matching the filter already exceeds
-the buffer, the loop breaks before be_prev is ever set and the error
-path reads it uninitialized.
+AI assistance was used.
 
-That path cannot be reached in practice: overflowing on the very
-first extent would require a buffer smaller than the encoding of a
-single extent (20 bytes for SCSI layouts, 48 bytes for block
-layouts), but the callers always pass a full page or the server
-wsize, which nfs_io_size() clamps to at least NFS_MIN_FILE_IO_SIZE.
-GCC cannot prove this, and zero-initializing be_prev alone would
-turn the theoretical read into a NULL dereference, so handle the
-case explicitly and report U64_MAX, the same "no information" value
-that is already used when bl_lwb is zero.
-
-Signed-off-by: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+Fixes: 82f5169bf3d3 ("Bluetooth: hci_uart: add serdev driver support library")
+Cc: stable@vger.kernel.org # needs adjustments for <= 7.4
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- fs/nfs/blocklayout/extent_tree.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+Michael McAllister's v2 series changes the same function; its
+HCI_UNREGISTER check goes above the new lines:
+https://lore.kernel.org/r/179468159400.2456.12381703314197227930.wcn3950-poweroff-v2-2@michaelmcallister.org
 
-diff --git a/fs/nfs/blocklayout/extent_tree.c b/fs/nfs/blocklayout/extent_tree.c
-index 7393118c42a2..f78699317d8e 100644
---- a/fs/nfs/blocklayout/extent_tree.c
-+++ b/fs/nfs/blocklayout/extent_tree.c
-@@ -585,7 +585,7 @@ static int
- ext_tree_encode_commit(struct pnfs_block_layout *bl, __be32 *p,
- 		size_t buffer_size, size_t *count, __u64 *lastbyte)
- {
--	struct pnfs_block_extent *be, *be_prev;
-+	struct pnfs_block_extent *be, *be_prev = NULL;
- 	int ret = 0;
+Tested in arm64 QEMU under KASAN with a hook that keeps a partial frame
+in hu->tx_skb across an HCI close: without this patch write_work reads
+the freed frame and the close path frees it twice; with it the run is
+clean, the close returns 0 and the device transmits after reopening.
+The same holds with the v2 series applied. No new W=1, sparse or smatch
+warnings.
+
+ drivers/bluetooth/hci_serdev.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/bluetooth/hci_serdev.c b/drivers/bluetooth/hci_serdev.c
+index d2c48df34199..194f11251cc5 100644
+--- a/drivers/bluetooth/hci_serdev.c
++++ b/drivers/bluetooth/hci_serdev.c
+@@ -97,17 +97,26 @@ static int hci_uart_flush(struct hci_dev *hdev)
  
- 	spin_lock(&bl->bl_ext_lock);
-@@ -612,9 +612,14 @@ ext_tree_encode_commit(struct pnfs_block_layout *bl, __be32 *p,
- 		*lastbyte = (bl->bl_lwb != 0) ? bl->bl_lwb - 1 : U64_MAX;
- 		bl->bl_lwb = 0;
- 	} else {
--		*lastbyte = be_prev->be_f_offset + be_prev->be_length;
--		*lastbyte <<= SECTOR_SHIFT;
--		*lastbyte -= 1;
-+		if (be_prev) {
-+			*lastbyte = be_prev->be_f_offset + be_prev->be_length;
-+			*lastbyte <<= SECTOR_SHIFT;
-+			*lastbyte -= 1;
-+		} else {
-+			/* no extent fit in the buffer */
-+			*lastbyte = U64_MAX;
-+		}
+ 	BT_DBG("hdev %p serdev %p", hdev, hu->serdev);
+ 
++	/* Stop write_work and hold SENDING so wakeups only set TX_WAKEUP. */
++	disable_work_sync(&hu->write_work);
++	set_bit(HCI_UART_SENDING, &hu->tx_state);
++
+ 	if (hu->tx_skb) {
+ 		kfree_skb(hu->tx_skb); hu->tx_skb = NULL;
  	}
- 	spin_unlock(&bl->bl_ext_lock);
  
+-	if (!test_bit(HCI_UART_PROTO_READY, &hu->flags))
+-		return 0;
++	if (test_bit(HCI_UART_PROTO_READY, &hu->flags)) {
++		/* Flush any pending characters in the driver and discipline. */
++		serdev_device_write_flush(hu->serdev);
+ 
+-	/* Flush any pending characters in the driver and discipline. */
+-	serdev_device_write_flush(hu->serdev);
++		hu->proto->flush(hu);
++	}
+ 
+-	hu->proto->flush(hu);
++	/* Resume TX and replay a wakeup recorded while it was stopped. */
++	enable_work(&hu->write_work);
++	clear_bit(HCI_UART_SENDING, &hu->tx_state);
++	if (test_bit(HCI_UART_TX_WAKEUP, &hu->tx_state))
++		hci_uart_tx_wakeup(hu);
+ 
+ 	return 0;
+ }
+
+base-commit: da3cc02587c629420603df4395179ec82955c941
 -- 
-2.56.0
-
-
+2.56.1
 
