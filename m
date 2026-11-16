@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794821747;
-	b=hu/YdYEe+C6JiXvEyACbrbjapd3LhuA6HQBhZe67EjOlAFchPRZdottae7yoMdK+6z8a
-	 OlkBhKHQUQhANK9WHNHvNJgR/qdMDCg5fL3f/Xz2pF8oKG/Vymb+oyHft9WQRp+2wMeZJ
-	 bIp6QXgi8aXmiQvwcoQImuwM8lj8k7hYJ/0ge6AlFlNhZGsPPu9nIPQNv9bCi+s7kw8IG
-	 bn4yEzbYnevGs+G2ZUQKugqyxmWVkD2ZHKdexUac9BbtCY+FK/NEvPbYarBBlMTgOgpLU
-	 Lg/X1GxTSBpZDLQUB+UEcpzV57+WYyQU66u5eu7miXdEIxCaP0cOFVJdFnGGH4G3M9Q==
+	b=bU63fDMGBqk+ZpM7zIQhtZYinSAIOzjfy2e+Zc2f55aAGAB5gU2q2I1HMyL5HSOoSLqh
+	 CgXbLmCPd+cl22G4nwgGZIHt87p+wAqbp7hwakXh3N2ZQrwqecN8GVEbFiOYZumcOrsj2
+	 xm88z9nwoLbl+2099eBa7Jtw7IgolTvdU5j9J4iv0L4ydccMeLDB0X8k1dTpmssQNkj+s
+	 m8wFZNmwFWjN7HGWdp8F0Oq62bKz+NCbtpPpsfRIL3YVYWrmZL15v1jKEOpeUzWWcr55x
+	 viPSV2iw4OY0zwKmZ6CPp0krsSHXwfuDQ5r+zeCRw3iqQOPCoXe3FXuD332vso8s9ng==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794821747;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FLhuEFH3u+k6FetUP317BLmCtrtrwaFzt7hnqpVTcNI=;
-	b=Aoe39fCHM28T9pcPxkFcUNcoxmMpoFwfnGN3Z0BJp3G8tSO7v3MtqwwQ325oNa7L3dq+
-	 F8YgzO62IwPEJ3x8xlVfiaQVgJwCp5OwkVji4FyEQtsMZTm5Th3qD8b2ZPx74Pm+tatx1
-	 GWxGHyLgNXao6jqE/tia/3pWAWDUhM+VTAE7sC8uTzi5J6ju4+G7FncMT8xy5ZJWgDt3E
-	 Zu5dyGe9VrZ79QTX5k+Rg1iMejIbNHzmh1b3zqwSmHln1h4hPbNJ7sZkqLbYez6FzKOgj
-	 OAiwzd+gA7GvpC3RRHpYzhVfMCw5F0LV83kJKK2EeSQCPxSf59Fan74PzzbJtLVwRDw==
+	bh=oOWMbyn+xjdjjIrDX/w15MfmyYi+VOxzKvNZodzOTtU=;
+	b=VxoydVHV2AB6JDfBHPbrMJmaA39QfhL/J+4B54TVCLjCEHQlhpa/Pal83f/nuxF1h3qT
+	 rAj0vXDW60rb7CiCXWfQ7QfSJUD2pstg5r9FYkG1aDIZ/kJKtQB31DFaypvfe5FiJlVsm
+	 yJa8PiJynZEZT96/Ft0tnKtgqwRpWvxIPUEKNlKrrNQJPoyidvOrmwQoxeuPULqSV9DVy
+	 N9Kn1/XMiPCDYxBtCcYaMlj5AqHx9TXJC9SRF+7cMgPXrJsYuDRyEruJDfRqAzuTUKSbb
+	 ER0yLBHyw2f37UMLiLGyHaEeqbgHYEe90trHeeRr2WFH4xHw8/oQqzH6M94WG8BNggA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBf6sB8N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMl25YwK;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950AF606A885;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8429606A88D;
 	Mon, 16 Nov 2026 09:35:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBf6sB8N
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMl25YwK
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794821747;
-	b=aR3Ei0qucouuKHzeSJJ0SIRNoS/s7eGbulWfBfUhgkSnqyczTLeSnCWYi6boW4QWR0lb
-	 MJqgdRP6fFqXKB3wAucIS7T6LiKnSGgHmQwE+ElpUPt7URTpX8yz+6KE341KoIRYkuyIP
-	 H4wcRRXWpVBBiMcMmNrrE9ndFOIuQFBSnHo2Cmp2tUsCebd07whIle3XNXI8KaMRV92Ht
-	 hs7519OyiR73vJLyRInu5ruIOnXW1ytrRyBiZbfTVwFHzyDPQfzcqx25oVisIsmH/UfNf
-	 yjVrK34RIBHYEDfTzpkQZ9JSKsyqlT+e5FkfjdPYOLZMOjRFF2US7xZjC3+9NrSxsgg==
+	b=SjHKn6OZuNI8DyzBng4lgnFfkVJO5VP3vbszWaLXJMyrwelz9vT4t5ojYL4ZCEe+bTrI
+	 LGxM1qNLc3i60WtNYKjwswdlZ/Ocyc9Iv3wEhir9eROUI3zELhQJcF9Z4AthPMReoXld9
+	 +l2i/01jL54hFRXp68BfKOmlDNIyIOMAsPadYMXDs2Y+RGLRAm7AImgRaOjdGHXdrf7zw
+	 y46vk3jkXCxQneHhIAIt2EazVTGs34To4LjASd8Vo/17Kuw1KAKYMsaWU6OZ824bVtceL
+	 8P8Yd4xcVz1x8Hyb84JTdl7j++7mOQilCsvrlD3EWQZjZhYLQdtkj6i+yViDNn0CcbQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794821747;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FLhuEFH3u+k6FetUP317BLmCtrtrwaFzt7hnqpVTcNI=;
-	b=BItLXPlhBZ94lX/elvWCbzuYadcNfVUXEdoAMcOLw+zmt7p/5kq9AnqQNnr1CO8To/3h
-	 +QJfUALBca1JMuuGGY5DmITTWIGdpRGa0yete0S1YqXpUaghtArTuPHjO+ZxpbH9N09ZX
-	 EylwS6KPZ9AjK/oy5gGC2YlrQ2F6k44J8QoSHcTnK9e2N3EfaiTXNqzBuYKpP2BKZxm/X
-	 8GnyYJHDRX4qMPqMQJeuXW+cK/Zrjz9ZdMox4ths+EfC2Bk2aPFOl+j1CWDbgMpm6H3GB
-	 LtGHDX1rRGjPP1gLOvjuWQUczcc8FhVP6563MZNpXWt7Mvfmmfb3iIEh7n0wcn7stOw==
+	bh=oOWMbyn+xjdjjIrDX/w15MfmyYi+VOxzKvNZodzOTtU=;
+	b=rxqSiELe5IHFi7mQsnVCVkkS28xSm6LYU/y6fXsPk3QKbVLsUlZK6Z1WmAXkSmZtzrYk
+	 ELHktE6t0O1iwGcVwlBCW8XJmlph/1N7XM/pzQE1l/hHeVe+SVi66VXIrDcIQsu7UYa6s
+	 1+AfZ4FYkk3N1L+7WrCw/uxSbJEYml7Khe1bSX1ieBWNrTW+1Bwonnv+thqTyKeCGM1Oy
+	 kxaD3RWI0qVx2hJH1A5ww2l7VlpOa2oYF/ZHWKlMIs7/k6HYBL/p6ArLKfwws6dGVn1RO
+	 mSKNbT3lMi7CB90dZCIoMY1Z3Aff5NNyV+wfmKcHVU7LdBsvoQb1BcHo9U9LjwD8BeA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 06A0E1F000C8;
+	by smtp.kernel.org (Postfix) with ESMTPS id F37DC1F000CB;
 	Mon, 16 Nov 2026 09:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794821747;
-	bh=FLhuEFH3u+k6FetUP317BLmCtrtrwaFzt7hnqpVTcNI=;
+	bh=oOWMbyn+xjdjjIrDX/w15MfmyYi+VOxzKvNZodzOTtU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OBf6sB8Ndp+/S3rauQQtJOIn77dIy4O6p8GSzveNa+ZrVWDlRJtRV997fPVb+MPm+
-	 3SSw/00769EVbkLHDmM/khL+Ghw8zrKx0kVhMo5cK+0MTbPGvNGuSB6U9PXcjzgTyF
-	 gnb76vVfCEiuhp9qzbh8YiWPBcQyATvvg0UQDj3Gh6auG80qpGvJ6A72Bx0BI2vzrz
-	 O/83w0pckehs/UZoH5gBmzPCvcMcgdXaSg/QmHffM+lU2kYLXb/7KLG6QibaA9CPOi
-	 JSrXrW4qn9QD/BmgGgUUf0HhINV+KLqt8b84xEbUFddIHVwdpnY9RQzH33KAyiaRJT
-	 csLczZjDv4AZg==
+	b=TMl25YwKN49t+AU8jAOFg3rxSfYcAhQWkttdcbGW+QDctHcmupMaV6xWCo2wUgr4W
+	 wa/dAyLOL2S+WS08reF3OGlL16B9Kruwl3CfMbvo6CH+DrjUWDEcZYzqBAs/fpPU4l
+	 j6B4P4o7UF3o0vEiR7PFYTgABbkJxbMg9BTu57YOsrIAnCPRctoisemgCRbbf1X6hf
+	 XNwdxs/6Q1GSNdxd9QLPMARRx/24AZo8082PI/IgghIWRDzO5a72GIM8nxxCTRI6qv
+	 8vj+ylFNJyAhSLMStqV987bbRAtESoHIBHA0k/b1XYVAnnKiOKVDplZI+sQDbZnwkj
+	 ygojJ2swuaL2Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 881664A40A;
+	by lkml.kernel.org (Postfix) with ESMTP id AF6654A412;
 	Mon, 16 Nov 2026 09:35:45 +0000 (UTC)
 From: Matt Thompson via B4 Relay <devnull+matt.boondocker.io@kernel.org>
-Date: Mon, 16 Nov 2026 02:35:46 -0700
-Subject: [PATCH RFC v3 4/6] PCI: Resume downstream ports before sysfs Link
- Control writes
+Date: Mon, 16 Nov 2026 02:35:48 -0700
+Subject: [PATCH RFC v3 6/6] PCI: rockchip-host: Mask the client correctable
+ error interrupt
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-rfc-b4-v3-4-0bf052b68f2a@boondocker.io>
+Message-Id: <20261116-rfc-b4-v3-6-0bf052b68f2a@boondocker.io>
 References: <20261116-rfc-b4-v3-0-0bf052b68f2a@boondocker.io>
 In-Reply-To: <20261116-rfc-b4-v3-0-0bf052b68f2a@boondocker.io>
 To: Shawn Lin <shawn.lin@rock-chips.com>, 
@@ -98,11 +98,11 @@ Cc: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Igor Velkov <iav@iav.lv>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821744; l=1870;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794821744; l=1536;
  i=matt@boondocker.io; s=rk3399-rfc-20261113; h=from:subject:message-id;
- bh=WwxhOpFrtKsCRMga9k7eAPDdOyaWOUhvS24ZacGcwHM=;
- b=Vt/YxUV8iyuFcHYDbGV8VJ1jDUfHBt7r3E0+peNj47PQhLuHZVbc/DW+gkn2Gb1zSm98duTUN
- ShveA0x/eUaAq51euaX34+7tof+wu4vc4pOXXy7r4ZsVWOwU7sG1VR/
+ bh=ce3FAgQbXHJSx+KdqASGBJHjnYp6SNCbhPb8KwijOGQ=;
+ b=Roa8HS4rvXHjevx86m6SGHzFE/Uvg8ZIdOKnCckQyQAhP/T2bbAmFPtUYp+bBt/mQYp8z/z+f
+ Q3cGA20Dji+DvKbDPqSCsiGW2i2ULWqy5FZQpt8sDp0OfoYQJDvjq1k
 X-Developer-Key: i=matt@boondocker.io; a=ed25519;
  pk=WMnh3kwFFRkrqamL/FbDcdl1/9rBF2uT03VdvGGP40k=
 X-Endpoint-Received: by B4 Relay for matt@boondocker.io/rk3399-rfc-20261113
@@ -113,55 +113,41 @@ Content-Transfer-Encoding: 7bit
 
 From: Matt Thompson <matt@boondocker.io>
 
-Configuration space can remain accessible while a port is runtime
-suspended. A sysfs Link Control write can then reach hardware before
-runtime resume restores the saved state. On RockPro64 a rescan resumed
-the port and restored the saved Link Disable bit after userspace had
-cleared it, leaving the endpoint absent.
+On RockPro64 the PCIe client correctable-error bit stayed asserted
+during link bring-up despite acknowledgment. Its level interrupt
+fired at roughly one million interrupts per second on CPU 0 and
+starved RCU.
 
-Resume a runtime-suspended downstream port before writing overlapping
-Link Control bytes. The configuration access already holds the runtime
-PM reference across the write.
+Mask the controller-local notification, which the driver only uses
+for a debug message. Standard PCIe AER uses root port status and its
+separate interrupt.
 
 Signed-off-by: Matt Thompson <matt@boondocker.io>
 ---
- drivers/pci/pci-sysfs.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/pci/controller/pcie-rockchip-host.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index 6669e9a..ff47ea1 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -786,6 +786,7 @@ static ssize_t pci_write_config(struct file *filp, struct kobject *kobj,
- 	struct pci_dev *dev = to_pci_dev(kobj_to_dev(kobj));
- 	unsigned int size = count;
- 	loff_t init_off = off;
-+	loff_t lnkctl = pci_pcie_cap(dev) + PCI_EXP_LNKCTL;
- 	u8 *data = (u8 *) buf;
- 	int ret;
+diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
+index d6c494f..a8c2575 100644
+--- a/drivers/pci/controller/pcie-rockchip-host.c
++++ b/drivers/pci/controller/pcie-rockchip-host.c
+@@ -746,8 +746,14 @@ err_out:
  
-@@ -809,6 +810,21 @@ static ssize_t pci_write_config(struct file *filp, struct kobject *kobj,
- 
- 	pci_config_pm_runtime_get(dev);
- 
+ static void rockchip_pcie_enable_interrupts(struct rockchip_pcie *rockchip)
+ {
+-	rockchip_pcie_write(rockchip, (PCIE_CLIENT_INT_CLI << 16) &
+-			    (~PCIE_CLIENT_INT_CLI), PCIE_CLIENT_INT_MASK);
 +	/*
-+	 * Link Control can be written while config space remains accessible in
-+	 * runtime suspend. Restore saved state first so a later resume cannot
-+	 * replace the new link setting with the saved value.
++	 * Leave the client correctable-error notification masked. On RK3399
++	 * it can remain asserted after acknowledgment during link bring-up
++	 * and monopolize the CPU. PCIe AER uses the root port's own status
++	 * and interrupt, which are independent of this client mask.
 +	 */
-+	if (count && pci_is_pcie(dev) && pcie_downstream_port(dev) &&
-+	    pm_runtime_suspended(&dev->dev) &&
-+	    off < lnkctl + sizeof(u16) && off + count > lnkctl) {
-+		ret = pm_runtime_resume(&dev->dev);
-+		if (ret < 0) {
-+			pci_config_pm_runtime_put(dev);
-+			return ret;
-+		}
-+	}
-+
- 	if ((off & 1) && size) {
- 		pci_user_write_config_byte(dev, off, data[off - init_off]);
- 		off++;
++	rockchip_pcie_write(rockchip, (PCIE_CLIENT_INT_CLI << 16) |
++			    PCIE_CLIENT_INT_CORR_ERR, PCIE_CLIENT_INT_MASK);
+ 	rockchip_pcie_write(rockchip, (u32)(~PCIE_CORE_INT),
+ 			    PCIE_CORE_INT_MASK);
+ 
 
 -- 
 Git-155)
