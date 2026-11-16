@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825191;
-	b=EnJc7A6uh76b+RGOYrIBZqj7dIBqgMXI1MbtxDaQINmZWAM4T7Nz9hhbMlM8WYXRgrJS
-	 7eAOuKJbqaJk4lH1oWS04cz4os93NzsbuZRp04PYHHNHiSpj9NckiUngCHLH6GTpZ8vZ4
-	 pSNquAVrx0slnjrh1fHrQG61/3stYIXByApfc2qKghOe47hm56Omt3GDbgLmrUtGUT859
-	 rcu6UFZlwbIB4+1BrY5WyWr3ag23nGWogBfvyxIFagg1Xx/svnFg3qt7fHD4Cq5byQATQ
-	 4ao0DO5nTYTVdtqosHVc5AUfiXRln1sI/ODTDVBxou4vm0I3TjRVUN2RCfw2uvyP7BA==
+	t=1794825214;
+	b=erF0eXGJMn24K7hICGq2Fds9tIj8dTh8hn9Kw8XKkXfqVKR/jaPWQkBZBil4Z924FwSX
+	 asLhEgbZ0DOFpK02yrKWxZqP577FitWVAPEosI6SA4CDR9Vd4QVD0xxyqIUuqrAkqkZUC
+	 L4oBOIIXXmUzGl9EWS2ENuboFIdCiM36UNUxOaVKB3s+CsY3ZWi2c4HCrjvvSDwXaJWsp
+	 iPr+3qjBIh+5y+HbfPgspLSXU5BtmkILDMgU+pP7NTteDYlCoPXmnmwfuvQ79HGFQPYkh
+	 OPRL7YjL16jyMCurqmOSz4zi2IsU1pYZU3Y0J+9ZnJ+EZYItQCL8/LhJkbajUJbN1OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825191;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xxxchh3oo8QactJDFBFNQRwSEBe+f9CSw296vsCa4Jw=;
-	b=a9eeTq9aUvQnye94r4ah2D00V5mIdR76ax8EHFLN0oCqO6LZ/W0XMT7OE+Izx5W4Uz84
-	 GJQ041coyWAwbVxMQo+Vb93aJI7emqqXFRetFrbxhW/j8pNAe8gsSOjVr+8TriSMrp1ZJ
-	 WyQZh6hpLv0MjktKqZktAC9uzu7pbePLxm98e7/mxmTJVsz9A0TjKY/a0aFDHH0mL4w4k
-	 Sqd9QIdeAbIzmuArba8ve+LN1F4xP85EOaZGSJSHB0YdKLUK7wRzPdeqVEOPRoV4JVYef
-	 T202JkW5gHb5WwMAeKQyKjbUs/FeNGl+eG+kkag/bFeZMLDcGwi9hsjmgz2qzz1xfLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825214;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4xP1wCT3CiCMUHIs8oS3HTOWW4Ga4YMLeo5r3EiUl/I=;
+	b=X9P50HNbwGVTw8J9H6pJYpXQ0AXvBk9i3UiEV+OLinTruN7UIU+6kjxEXk7ULHNzRYHR
+	 CPxAAsKk7mIvGwyZUqF6rQhynKlrxjdhLlRR65ceb5QA2WEnfod3StBbm1DcyOF57PJKC
+	 FU74UuHpMT4ObQ8Rljt6xOEA2k9izYbNvaDwHYvnbVG2Z23Vq5eKIg1zyKZy6A9fWJbeL
+	 XOVdaGNDmeHP1GvCr+7WjHtcWkQ0d3rUxaHFgcekdWu5X0Y+unvVr+Bb8nE31sU+L9Mwq
+	 U8jj1ElAs4H4Rg6FI0befQ1CeqKa9IP58p7rXFng6WWylL/8o6SyFvnLxVipzU1kh0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gX2DGCG7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hVxrfMMr;
+	arc=none smtp.remote-ip=91.218.175.55
+Received: from mta0.migadu.com (out-55.mta0.migadu.com [91.218.175.55])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8398F606A323;
-	Mon, 16 Nov 2026 10:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15164606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:33:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15164606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gX2DGCG7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B60AA1F000C6;
-	Mon, 16 Nov 2026 10:33:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794825191;
-	bh=xxxchh3oo8QactJDFBFNQRwSEBe+f9CSw296vsCa4Jw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gX2DGCG7qGkvTjXcrfHLrGM5iTfJPnOI5tIBB71nW55SnyESrdrusW4Z/uJeL5b0V
-	 /HLYkmbMOONpQ1iPFWpIz9On2BqjuczZdvItlyKclOGg5zKgP7pYzqWEfQlUO0siRz
-	 8fPtn3hZxsyeexPNBdRDEm726q4b5GNVhPFqQJlY6D2Q/+gQ4vy6DVcg/PWRTQmWn7
-	 bgMFroj7iIKZajBVWuIrD7V2RWoVbnxgNd4UBMMt24HagePco7fl+keG8KVEqY6xX2
-	 wPNY8BRLt2uuWdFLyGtpEtP//LaDYS7xRp8+BiBiVap3V7WgJ9QhgeGgIC6X0dx6CC
-	 4q8v9JY2NfFOg==
-Date: Mon, 16 Nov 2026 11:33:06 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
-	Christoph Hellwig <hch@lst.de>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
- entries (Part 5/7)
-Message-ID: <20261116-kaiserlos-tauben-leitsatz-e761080c70f1@brauner>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
- <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
- <20261104-allein-bepacken-hitzig-5e517d3c129f@brauner>
- <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
- <CAHk-=wgLpWDjmcNWphCMkKXKwuZsa8KWRPvJ4j=C_ktCL4gBzg@mail.gmail.com>
- <CAHk-=wi-B--TBQuYjz6J6vKtEMpNSm4_wVRzTP_vE=uTLb7P5g@mail.gmail.com>
- <20261109-hackfleisch-lohnt-konkret-02b5f3dde4f6@brauner>
- <20261110-goldkette-zugzwang-woher-1d6f21b4ddca@brauner>
- <20261110-schornstein-rustikal-obigen-6f6c4a495c0e@brauner>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hVxrfMMr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6WEEXQpnySfT6ftjryWS5P4mMchJTeCrPm9lJA9qPkM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794825211; v=1; x=1795430011;
+ b=hVxrfMMrAA2fdPYjZDrbeMt/pMa4Csur7WEHK1+eZVs7amumk30TilCZ89AXrKJ9oDFRBx5h
+ qFFsezuLQJv8IEYZH0+D83ICDn+h2J+zqfWvlFVtas6uOGuDPp7BaN2AIP5CqcZgC86HVHAxKfB
+ oPuR2Bt2/M+hucRT9fxhio4g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d3af8dde2262cb53;
+	Mon, 16 Nov 2026 10:33:30 +0000
+X-Mizu-Trace-ID: d3af8dde2262cb53
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <70eb1395-ebcf-4ece-ac03-f0796cd02c81@linux.dev>
+Date: Mon, 16 Nov 2026 18:33:25 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,30 +58,273 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261110-schornstein-rustikal-obigen-6f6c4a495c0e@brauner>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v4 5/6] cgroup/cpuset: Handle remote partitions
+ before local partitions in cpuset_handle_hotplug()
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261116012330.2271010-1-longman@redhat.com>
+ <20261116012330.2271010-6-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261116012330.2271010-6-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 11:09:15PM +0100, Christian Brauner wrote:
-> On Tue, Nov 10, 2026 at 11:07:05PM +0100, Christian Brauner wrote:
-> > On Mon, Nov 09, 2026 at 12:26:23PM +0100, Christian Brauner wrote:
-> > > On Fri, Nov 06, 2026 at 12:19:45PM -0800, Linus Torvalds wrote:
-> > > > Ahh, this all goes away in "scsi: core: let procfs copy in writes", so
-> > > > never mind.
-> > 
-> > I updated the tree incorporating all the review items I acked on-list:
-> > 
-> >     https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git/log/?h=work.procfs.cleanup
-> > 
-> > The overview is in the umbrella:
-> > 
-> >     https://patch.msgid.link/20261104-work-procfs-v2-0-b45cd5789ac5@brauner
+
+
+在 2026/11/16 09:23, Waiman Long 写道:
+> When there is a valid remote partition underneath an invalid local
+> partition with subpartitions_cpus cleared because of missing active
+> CPUs in the top_cpuset partition, the current iteration logic in
+> cpuset_handle_hotplug() will handle the invalid local partition first
+> and potentially make the local partition valid. The remote partition
+> will be handled later with the potential that both the local and remote
+> partitions will be valid with overlapping exclusive CPUs violating the
+> cpu exclusivity rule.
 > 
-> Oh, I think it'd be good if I get this into -next soon so it has long
-> exposure there.
+> Fix this problem by adding a new remote_partition_scan() helper to
+> iterate the existing remote partitions first before iterating down
+> the hierarchy to handle the local partitions. That also means that
+> when subpartitions_cpus is cleared, remote partitions have precedence
+> to acquire the exclusive CPUs first before local partitions. It also
+> gives remote partition the ability to recover from the clearing of
+> subpartitions_cpus as all the remote partitions will be disabled before
+> this commit.
+> 
+> A remote partition can only be created if there is at least one active
+> CPU in its effective_xcpus. So remote_partition_scan() will also
+> invalidate the remote partition if there is no active CPU left in its
+> effective_xcpus. This requires a minor change in a test_cpuset_prs.sh
+> test case where a remote partition with no active CPU left will now
+> be invalidated.
+> 
+> With the addition of the remote_partition_scan() call in
+> cpuset_handle_hotplug(), there is no longer a need to do a remote
+> partition check in cpuset_hotplug_update_tasks() and the corresponding
+> code can be removed.
+> 
+> While at it, the subpartition_cpus clearing logic is enhanced to
+> clear it when no domain housekeeping CPUs are left in the top_cpuset
+> partition. When the remote partition is disabled, the effective_cpus
+> is modified in a such a way that cpus_updated will be set true later
+> in cpuset_hotplug_update_tasks() so that the CPU affinity of the
+> tasks within the partition will be updated. This will also fix a
+> bug reported by sashiko that CPU affinity will not be updated when
+> remote_partition_disable() is called in such circumstance.
+> 
+> When efffective_cpus is read during this interim period, the content
+> will be invalid before and after this commit.
+> 
+> Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
+> Reported-by: Guopeng Zhang <guopeng.zhang@linux.dev>
+> Link: https://lore.kernel.org/lkml/fe7aa630-d323-4981-9f89-0958cb6204a2@linux.dev
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/bug/linux-ab90f7e8-0d60-40ca-83e9-e405075b24d2
+> Signed-off-by: Waiman Long <longman@redhat.com>
 
-The bugfixes now sit in vfs.fixes and I plan to send them to you, @Linus
-before -rc4.
+Hi，Longman
 
-All of the semantic and tree-wide rework is in vfs-7.5.procfs and should
-show up in -next tomorrow.
+Tested all six patches on next-20261113 (32-CPU VM, cgroup v2, no boot
+isolation, all CPUs initially online). I can still reproduce an invalid
+local partition becoming valid while its remote descendant remains
+valid:
+
+  cd /sys/fs/cgroup
+  echo +cpuset > cgroup.subtree_control
+  echo 0 > /sys/devices/system/cpu/cpu31/online
+  mkdir A
+  echo 0-30 > A/cpuset.cpus
+  echo 0-30 > A/cpuset.cpus.exclusive
+  echo root > A/cpuset.cpus.partition          # invalid local root
+  echo +cpuset > A/cgroup.subtree_control
+  mkdir A/B
+  echo 20-25 > A/B/cpuset.cpus
+  echo 20-25 > A/B/cpuset.cpus.exclusive
+  echo root > A/B/cpuset.cpus.partition        # valid remote partition
+  echo 1 > /sys/devices/system/cpu/cpu31/online
+
+After CPU31 comes online, A is a valid root (exclusive.effective 0-30),
+A/B is still a valid remote (exclusive.effective 20-25), and the top
+cpuset's effective CPUs are 31. The kernel reports:
+
+  WARNING: cpuset.c:1654 compute_partition_effective_cpumask()
+           WARN_ON_ONCE(is_remote_partition(child))
+
+Two more results:
+1. Local partitions break too, no remote involved.  test_cpuset_prs.sh
+   fails at TEST_MATRIX[19] (C0-3:P1 C2-3:P1 + O2=0): with cpu2
+   offlined, both partitions become "root invalid" instead of remaining
+   valid. A1's effective_cpus then falls back to 0-1,3 instead of 0-1.
+2. Booted with isolcpus=31, the same kernel passes the whole suite.
+
+Thanks，
+Guopeng> ---
+>  kernel/cgroup/cpuset.c                        | 97 ++++++++++++++++---
+>  .../selftests/cgroup/test_cpuset_prs.sh       |  2 +-
+>  2 files changed, 84 insertions(+), 15 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 0fe9f2731fee..64cbcbdbf6da 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -153,6 +153,12 @@ static cpumask_var_t	isolated_cpus;		/* CSCB */
+>   */
+>  static struct list_head remote_children;	/* RWCS */
+>  
+> +/*
+> + * Temporary cpumask for local cpumask computation
+> + * The cpumask may be changed when a cpuset helper is being called.
+> + */
+> +static cpumask_var_t	tmp_cpus;		/* RWCS */
+> +
+>  /*
+>   * Set if housekeeping cpumasks are to be updated.
+>   */
+> @@ -1873,6 +1879,67 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+>  	remote_partition_disable(cs, tmp);
+>  }
+>  
+> +/**
+> + * remote_partition_scan: scan remote partitions to check exclusive CPUs
+> + * @tmpmask: ptr to tmpmasks structure
+> + *
+> + * This function is called in cpuset_handle_hotplug() after the update on
+> + * top_cpuset.effective_cpus when there is cpu online/offline operation.
+> + * As subpartitions_cpus may have been cleared, we need to check if the remote
+> + * partition should acquire the exclusive CPUs again without impacting
+> + * effective_cpus or it needs to be disabled when one or more of the following
+> + * conditions is true.
+> + * 1) All the domain housekeeping CPUs in the top_cpuset will be taken away
+> + * 2) A populated partition with no active CPU or no active CPU in
+> + *    effective_xcpus
+> + */
+> +static void remote_partition_scan(struct tmpmasks *tmp)
+> +{
+> +	struct cpuset *cs, *next;
+> +
+> +	rcu_read_lock();
+> +	list_for_each_entry_safe(cs, next, &remote_children, remote_sibling) {
+> +		bool noxcpus = !cpumask_subset(cs->effective_xcpus, subpartitions_cpus);
+> +		bool nocpus = !cpumask_intersects(cs->effective_xcpus, cpu_active_mask) ||
+> +			      (!cpumask_intersects(cs->effective_cpus, cpu_active_mask) &&
+> +			       partition_is_populated(cs, NULL));
+> +		int cpu;
+> +
+> +		cpumask_and(tmp_cpus, top_cpuset.effective_cpus,
+> +			    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
+> +		if (noxcpus && !nocpus && !cpumask_subset(tmp_cpus, cs->effective_xcpus)) {
+> +			/*
+> +			 * Reacquire exclusive CPUs & update top_cpuset.effective_cpus
+> +			 */
+> +			spin_lock_irq(&callback_lock);
+> +			cpumask_andnot(subpartitions_cpus, subpartitions_cpus,
+> +				       cs->effective_xcpus);
+> +			cpumask_andnot(top_cpuset.effective_cpus, top_cpuset.effective_xcpus,
+> +				       cs->effective_xcpus);
+> +			spin_unlock_irq(&callback_lock);
+> +			continue;
+> +		}
+> +
+> +		if (noxcpus || nocpus || cpumask_empty(tmp_cpus)) {
+> +			/*
+> +			 * Disable remote partition & modifiy effective_cpus
+> +			 * so that cpus_updated will be set true in
+> +			 * cpuset_hotplug_update_tasks().
+> +			 */
+> +			WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
+> +			remote_partition_disable(cs, tmp);
+> +			cpu = cpumask_first(cs->effective_cpus);
+> +			spin_lock_irq(&callback_lock);
+> +			if (cpu < nr_cpu_ids)
+> +				cpumask_clear_cpu(cpu, cs->effective_cpus);
+> +			else
+> +				cpumask_set_cpu(0, cs->effective_cpus);
+> +			spin_unlock_irq(&callback_lock);
+> +		}
+> +	}
+> +	rcu_read_unlock();
+> +}
+> +
+>  /**
+>   * update_parent_effective_cpumask - update effective_cpus mask of parent cpuset
+>   * @cs:      The cpuset that requests change in partition root state
+> @@ -3919,6 +3986,7 @@ int __init cpuset_init(void)
+>  	BUG_ON(!zalloc_cpumask_var(&subpartitions_cpus, GFP_KERNEL));
+>  	BUG_ON(!zalloc_cpumask_var(&isolated_cpus, GFP_KERNEL));
+>  	BUG_ON(!zalloc_cpumask_var(&isolated_hk_cpus, GFP_KERNEL));
+> +	BUG_ON(!alloc_cpumask_var(&tmp_cpus, GFP_KERNEL));
+>  
+>  	cpumask_setall(top_cpuset.cpus_allowed);
+>  	nodes_setall(top_cpuset.mems_allowed);
+> @@ -3993,14 +4061,6 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+>  	if (!tmp || !cs->partition_root_state)
+>  		goto update_tasks;
+>  
+> -	if (is_remote_partition(cs) &&
+> -	    (!cpumask_subset(cs->effective_xcpus, subpartitions_cpus) ||
+> -	     (cpumask_empty(&new_cpus) && partition_is_populated(cs, NULL)))) {
+> -		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
+> -		remote_partition_disable(cs, tmp);
+> -		compute_effective_cpumask(&new_cpus, cs, parent);
+> -	}
+> -
+>  	/*
+>  	 * Force the partition to become invalid if either one of
+>  	 * the following conditions hold:
+> @@ -4104,22 +4164,31 @@ static void cpuset_handle_hotplug(void)
+>  		if (!on_dfl)
+>  			cpumask_copy(top_cpuset.cpus_allowed, &new_cpus);
+>  		/*
+> -		 * Make sure that CPUs allocated to child partitions
+> -		 * do not show up in effective_cpus. If no CPU is left,
+> -		 * we clear the subpartitions_cpus & let the child partitions
+> -		 * fight for the CPUs again.
+> +		 * Make sure that CPUs allocated to child partitions do not
+> +		 * show up in effective_cpus. If no housekeeping CPU is left,
+> +		 * we clear the subpartitions_cpus, scan the remote partitions
+> +		 * to determine if they can remain valid & let the descendant
+> +		 * local partitions fight for the CPUs again.
+>  		 */
+>  		if (!cpumask_empty(subpartitions_cpus)) {
+> +			cpumask_andnot(&new_cpus, cpu_active_mask,
+> +				       housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
+>  			if (cpumask_subset(&new_cpus, subpartitions_cpus)) {
+>  				cpumask_clear(subpartitions_cpus);
+> +				cpumask_copy(&new_cpus, cpu_active_mask);
+>  			} else {
+> -				cpumask_andnot(&new_cpus, &new_cpus,
+> +				cpumask_andnot(&new_cpus, cpu_active_mask,
+>  					       subpartitions_cpus);
+>  			}
+>  		}
+>  		cpumask_copy(top_cpuset.effective_cpus, &new_cpus);
+>  		spin_unlock_irq(&callback_lock);
+> -		/* we don't mess with cpumasks of tasks in top_cpuset */
+> +		/*
+> +		 * We don't mess with cpumasks of tasks in top_cpuset, but we
+> +		 * have to examine impact on remote partition roots if present.
+> +		 */
+> +		if (cpuset_v2() && ptmp)
+> +			remote_partition_scan(ptmp);
+>  	}
+>  
+>  	/* synchronize mems_allowed to N_MEMORY */
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 81f0eecaca80..5c7b583cba18 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -378,7 +378,7 @@ TEST_MATRIX=(
+>  	# Remote partition offline tests
+>  	"   C0-3    C1-3  C2-3     .    X2-3   X2-3 X2-3:P2:O2=0 .   0 A1:0-1|A2:1|A3:3 A1:P0|A3:P2 2-3"
+>  	"   C0-3    C1-3  C2-3     .    X2-3   X2-3 X2-3:P2:O2=0 O2=1 0 A1:0-1|A2:1|A3:2-3 A1:P0|A3:P2 2-3"
+> -	"   C0-3    C1-3   C3      .    X2-3   X2-3    P2:O3=0   .   0 A1:0-2|A2:1-2|A3: A1:P0|A3:P2 3"
+> +	"   C0-3    C1-3   C3      .    X2-3   X2-3    P2:O3=0   .   0 A1:0-2|A2:1-2|A3:1-2 A1:P0|A3:P-2 3|"
+>  	"   C0-3    C1-3   C3      .    X2-3   X2-3   T:P2:O3=0  .   0 A1:0-2|A2:1-2|A3:1-2 A1:P0|A3:P-2 3|"
+>  
+>  	# An invalidated remote partition cannot self-recover from hotplug
+
