@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823848;
-	b=F6WrB+lPnuJ5nnSW3FA9EdXxz920wuC29qXOjoj0enXLfScIdmTK3phsN9Pezhx0L8ty
-	 qewpibD3TbUpg0duWpXFLsmsDkmyjzIEaZVpPhd53IId5oJu4sNxJOrqMKwxPd5QTDrgK
-	 KCBcOJdhyy40XQ0qW8M5FNp9kduzzB9DM7ljuee8/YJN5LzcoRbxS88dRVuUXJtqXt9xS
-	 UlXbWbdTCwpwbH+jy4OoXgu+R/Emf96QXw9DTRVOWXYSn7w2SzpR83hPjrizEsnsMj5HF
-	 t27MBZtWE/mVXNRYne2khtl+dtCkxhWDIaZjujTuoZL3bvLAaUjyBY8DtMNPipY8PqQ==
+	t=1794823853;
+	b=I95jwoDFNgcHMud226KFKjKgIFWqjuIAorbeq0BxP/ENx4JKbrrbuOkuUNy7XkpyhX74
+	 0D5s2jfDl29NYt371MLSGJBmWRcIJwjMplg9UIvzd/aCk0oLZ3ucKOUIvNVJZHJQ0KasF
+	 5RZA0aZWZgukW+2206BgT7vaa2mc/EPs+n/OoFw+Ad7f1jI/oSqwdlogmIMxB9Smxat2k
+	 2vAaOKNBb+kwsFhWKe8WnWeGnGrkAaixdiMpuvYRtt2h+4FV0SyiQznWMm8XkBjls5SSF
+	 1l0y5nK3xDbdR5bQJ6H40hvK8qucyhObRlAbQYeNCxpOX8j9CPWLtK5npq7E4LUbeCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823848;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
-	 DKIM-Signature;
-	bh=H9zdV4HsOxYw8o3VgQCy5JYGPEbSgDNQYunQ4ZytMis=;
-	b=v/wUg1hZdEGEDYM5VcrUQYJKXjs56CCBgOCItg6PsKuTd1wDhaG5XaaQdly6Mnwa+ojn
-	 9PEXLW2da24wFioMga47kRpj8EQV7/0zFoE6oIz8glG32UNPcRLw+tGP0T3ciYTXCO7bM
-	 OaiU1d5FgiyAPj1uU66ntX3D5HYwWW24SVuCmrrvr8O16IaAbBLWOi7PNK7V9AVN+r33i
-	 MPAeqZLDzA/nEAttVVvRhRMa7sLlXI1uetQTe8AdqO0FlmpX6Re/GtvlLJR+9UIE9CZ/I
-	 P30ArPrt6E/V+HCcKXx7IcX0frcMbxJdyAiD3VMy8JRnaVmIReLuS6QPvXh3HgiAk7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823853;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=RHav9j+1EqD2/433Q1hpPIUKH2bJxUn00Cekmi4atDI=;
+	b=t2QCym31I0Ul+36VBDrqrghFIDzdIr9df1EWQHCvDcEzjFAQIDErFa3elGRzpO79zAzj
+	 91vBmrqCEr9KaJptcxA86oA2bPsmVZxSl5NzX4CDMJNuZHq3p56A/mXf1S69FNgTz92oI
+	 KQlI2RBEUjCxIc2Ht5qxLde/lUiys6c60V0i1/xfc0oZ8vqOfWoVeeX2oTkxE5up3SpSq
+	 m5puWNf8i0zZdoSFhfqLWoLasnE87D7tQoMWBIj6YW0MxTXK4AQwFvi41T+5uBeqZnWgq
+	 txlH4EAUSaPvwwoaD/QlNqfeQwaWW+lski3p+T0n7QlvpBiUTmQkP5/WejVITV8uiUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=RqDRWir0;
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kKQ06HKN;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Tf9Ymynv;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC61E606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:10:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC61E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFE3606A32C;
+	Mon, 16 Nov 2026 10:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBFE3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=RqDRWir0
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 39F1960EB1
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:10:46 +0100 (CET)
-Received: (qmail 28155 invoked by uid 990); 16 Nov 2026 10:10:46 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 16 Nov 2026 11:10:45 +0100
-From: Leonard Lausen <leonard@lausen.nl>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: leonard@lausen.nl,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	linux-wireless@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rtw-next v2 1/2] wifi: rtw88: 8822c: filter hardware-handled control frames on SDIO
-Date: Mon, 16 Nov 2026 10:08:03 +0000
-Message-ID: <20261116100804.425592-4-leonard@lausen.nl>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116100804.425592-2-leonard@lausen.nl>
-References: <20261116100804.425592-2-leonard@lausen.nl>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kKQ06HKN;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Tf9Ymynv
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794823850;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RHav9j+1EqD2/433Q1hpPIUKH2bJxUn00Cekmi4atDI=;
+	b=kKQ06HKN4X7Lbo7FJtE1fBApGRDo/wSHWAYGuWr2TZ/MwditnjUXLr6MZKlNaxFC3l18yO
+	SYmfgv1PvXD9+A8/kDE4cC4p17xsixDGYua8fcTn8uoU8z5kkftFHR9cuejfoyf3f+4OBO
+	hUL/D3QcBFZWRVeXK/37fzirG1u2oVyJIGyJOPVlJI0sZ3E7yUSKj3gPHziZSEwLBEBXIa
+	CEUE4t+GtGVkwM2QcTQP4baaPSh3JqtkirOro3uzJAK8xW5FMq3ucRzVZpZfzNA6JeEPfz
+	FWSFxq2YVuZ59j4aRGUXd7JEPbpm0LhF9URxFVsJ7R8s6SZJPEXNhFMm+4+uDg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794823850;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RHav9j+1EqD2/433Q1hpPIUKH2bJxUn00Cekmi4atDI=;
+	b=Tf9Ymynv8ykD+wMIEvRax1nLCINaJrzHT4F+DuVqtaT1gzXKBgy7KHtCH+q501dUsMq8U0
+	tJ72YPx8lNAMZaCA==
+Date: Mon, 16 Nov 2026 11:10:25 +0100
+Subject: [PATCH v10 01/12] firmware: raspberrypi: reorder
+ rpi_firmware_property_tag enum
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,79 +69,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: -----
-X-Rspamd-Report: REPLY(-4) BAYES_HAM(-2.999999) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -5.599999
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=sHlgw8fk8WKCnGQM40/fVqDVr+su7sFDjaRFwuBjyEE=;
-	b=RqDRWir0iSSeTbhe72BKJIU+Zmo/9kT+jEJhuXAl7hgJBYSYMbMQgzv333Ycu20ycROxqSwCOx
-	DL8ov5h+tUmXzqjPEpGVcririvrTJY1w9hcdzWpZ1KOzpDGpU4E6bVnbuhDJJqc83cngTRr0hUir
-	B3G3YoKpOqMgimF6ST1Mw7mFbX17OOycr5LLfFp7Gp9qgYhoUAfOYWstij90Aj0TfiCVXZAwox4z
-	UKvflM1TRCzb3ldnMDeo3oqJX/V8IrdNTtH8Pgdf7EE4og36voxbHAEMOFcyqnpR/1INqE/1T8/6
-	9/8OxFn7gRKD7tf/2i/bfeBggFfvMEhtnWLQJ70rsxyud6diuS7cI6JU+EjJnT8J0+TGQaltZC2b
-	eOXDOveSDHHoaAFQsQsScSPHXPyuTI0xJhDCx3B1N/6j829e7ifcx1/Zu96FqBTkDmkcUCERNC2y
-	kmtUp3p8oK7Wf8PsoZJPbh5mAdg1LOvgee77Ctv4re1YDZDuymJaR7cbTcxBO/s1spdotYTSZw9X
-	B14ELXRkXwUyNDepjgOw+6zBsM8reesCx1NzmCjxPbuQEnEnwjGBXnYfaC4fJ9/rWXt5PJ+mwmto
-	SZ6scOpaXFkXNtO1pgA9HQMC0OpVMI92PxKbJ43TN7RHRw74fQIlmpJAeTpeLp9/2BIi4JH0Ua1O
-	Q=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-rpi-otp-driver-v10-1-15302dcfd5e1@linutronix.de>
+References: <20261116-rpi-otp-driver-v10-0-15302dcfd5e1@linutronix.de>
+In-Reply-To: <20261116-rpi-otp-driver-v10-0-15302dcfd5e1@linutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+ Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Russell King <linux@armlinux.org.uk>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794823848; l=4711;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=/uVtf3kszhzLO1BlweCr+n2EDaewhQfZuSguFQqGLwA=;
+ b=ACXQD5qWjiXA7C2mcDCfZgdMeB8QiKDdbSL5EYxGLXVgNuznrjDHCswXrd1gOkXpSx53KwPf8
+ 8sVvxCUj18sBx7+91/ubGtBPn3ykWEym+leQpI18AdYIhPYGRuDbLsC
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-RTL8822C forwards every control-frame subtype to the host by default.
-ACK, Block Ack, RTS and CTS frames are handled by hardware, but forwarding
-them also adds small SDIO transfers to the data path.
+The enum was once ordered by tag values. The later added tags were added
+in a different order. Reorder the tags again.
 
-Clear these four subtypes from the SDIO default RX filter. Retain BAR,
-PS-Poll and the remaining subtypes, and store the default in rxfltmap1
-so FIF_CONTROL can still request all control frames.
+No functional change intended.
 
-Limit the new default to SDIO, where profiling identified this overhead.
-PCIe and USB receive paths have not been tested with this filter setting.
-
-FriendlyElec's RTL8822CS driver also filters control frames at startup;
-this change retains additional subtypes for mac80211.
-
-Link: https://github.com/friendlyarm/rtl8822cs/blob/c8b944a34bba2116fcdb060362bde40242bb87e5/hal/rtl8822c/rtl8822c_halinit.c
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- drivers/net/wireless/realtek/rtw88/reg.h      |  4 ++++
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 10 ++++++++++
- 2 files changed, 14 insertions(+)
+ include/soc/bcm2835/raspberrypi-firmware.h | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/reg.h b/drivers/net/wireless/realtek/rtw88/reg.h
-index afcdb66fdb9a1..8e220580be4f8 100644
---- a/drivers/net/wireless/realtek/rtw88/reg.h
-+++ b/drivers/net/wireless/realtek/rtw88/reg.h
-@@ -587,6 +587,10 @@
+diff --git a/include/soc/bcm2835/raspberrypi-firmware.h b/include/soc/bcm2835/raspberrypi-firmware.h
+index 8c3d43977a031..5a0cbb18d0b6c 100644
+--- a/include/soc/bcm2835/raspberrypi-firmware.h
++++ b/include/soc/bcm2835/raspberrypi-firmware.h
+@@ -72,9 +72,16 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_GET_EDID_BLOCK =                         0x00030020,
+ 	RPI_FIRMWARE_GET_CUSTOMER_OTP =                       0x00030021,
+ 	RPI_FIRMWARE_GET_DOMAIN_STATE =                       0x00030030,
++	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
++	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
++	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_GET_THROTTLED =                          0x00030046,
+ 	RPI_FIRMWARE_GET_CLOCK_MEASURED =                     0x00030047,
+ 	RPI_FIRMWARE_NOTIFY_REBOOT =                          0x00030048,
++	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
++	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
++	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
++	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
+ 	RPI_FIRMWARE_GET_RTC_REG =                            0x00030087,
+ 	RPI_FIRMWARE_SET_CLOCK_STATE =                        0x00038001,
+ 	RPI_FIRMWARE_SET_CLOCK_RATE =                         0x00038002,
+@@ -82,17 +89,10 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_SET_TURBO =                              0x00038009,
+ 	RPI_FIRMWARE_SET_CUSTOMER_OTP =                       0x00038021,
+ 	RPI_FIRMWARE_SET_DOMAIN_STATE =                       0x00038030,
+-	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
+ 	RPI_FIRMWARE_SET_GPIO_STATE =                         0x00038041,
+ 	RPI_FIRMWARE_SET_SDHOST_CLOCK =                       0x00038042,
+-	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
+ 	RPI_FIRMWARE_SET_GPIO_CONFIG =                        0x00038043,
+-	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_SET_PERIPH_REG =                         0x00038045,
+-	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
+-	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
+-	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
+-	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
+ 	RPI_FIRMWARE_SET_RTC_REG =                            0x00038087,
  
- #define REG_RXFLTMAP0		0x06A0
- #define REG_RXFLTMAP1		0x06A2
-+#define BIT_RXFLTMAP1_BACK	BIT(9)
-+#define BIT_RXFLTMAP1_RTS	BIT(11)
-+#define BIT_RXFLTMAP1_CTS	BIT(12)
-+#define BIT_RXFLTMAP1_ACK	BIT(13)
- #define REG_RXFLTMAP2		0x06A4
- #define REG_RXFLTMAP4		0x068A
- #define REG_BT_COEX_TABLE0	0x06C0
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-index 09315d23e2c40..03e714c3c2e7a 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-@@ -2096,6 +2096,16 @@ static int rtw8822c_mac_init(struct rtw_dev *rtwdev)
- 	rtw_write8(rtwdev, REG_WMAC_TRXPTCL_CTL_H  + 2, WLAN_BAR_ACK_TYPE);
- 	rtw_write16(rtwdev, REG_RXFLTMAP0, WLAN_RX_FILTER0);
- 	rtwdev->hal.rxfltmap1 = WLAN_RX_FILTER1;
-+	if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_SDIO) {
-+		/*
-+		 * Hardware handles these frames; retain BAR and PS-Poll for
-+		 * mac80211. FIF_CONTROL restores all subtypes for monitors.
-+		 */
-+		rtwdev->hal.rxfltmap1 &= ~(BIT_RXFLTMAP1_BACK |
-+					   BIT_RXFLTMAP1_RTS |
-+					   BIT_RXFLTMAP1_CTS |
-+					   BIT_RXFLTMAP1_ACK);
-+	}
- 	rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1);
- 	rtw_write16(rtwdev, REG_RXFLTMAP2, WLAN_RX_FILTER2);
- 	rtw_write32(rtwdev, REG_RCR, WLAN_RCR_CFG);
+ 	/* Dispmanx TAGS */
+@@ -109,7 +109,6 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_PALETTE =                0x0004000b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_TOUCHBUF =               0x0004000f,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_GPIOVIRTBUF =            0x00040010,
+-	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PHYSICAL_WIDTH_HEIGHT = 0x00044003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VIRTUAL_WIDTH_HEIGHT =  0x00044004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_DEPTH =                 0x00044005,
+@@ -119,6 +118,7 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_OVERSCAN =              0x0004400a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PALETTE =               0x0004400b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VSYNC =                 0x0004400e,
++	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PHYSICAL_WIDTH_HEIGHT =  0x00048003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_WIDTH_HEIGHT =   0x00048004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_DEPTH =                  0x00048005,
+@@ -127,10 +127,10 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_OFFSET =         0x00048009,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_OVERSCAN =               0x0004800a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PALETTE =                0x0004800b,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VSYNC =                  0x0004800e,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_BACKLIGHT =              0x0004800f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
+ 
+ 	RPI_FIRMWARE_VCHIQ_INIT =                             0x00048010,
+ 
+
+-- 
+2.47.3
+
