@@ -1,62 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845370;
-	b=dBiqe1deS00+f4Cfo9enUH81LS+lsRJCXvPGmoH4ZVi0cYOrKiZIWDHqjLIIc11OZm4Y
-	 qnQNEUUpmB/2akmZE5UVVV+XQzpj5e7p6snHh+HwXdpW5Jgv74SvQtK4xb97LbDNaRY9a
-	 J8+s6YueZEoVO8eR9vXZuc+JfmHk79reRoTU+uraAlwWfq8mcxpAVVjAP06EVGU00VMu8
-	 ljpL9kYYXKsPgZyVHj7X2zoVmh/4bKlKwa6bQWzXT1cjkY5jo+KyPfzb6bJH6kJeo3xpP
-	 LTS0RaFtw6jEA0vi/2ELnchpURqJWuhINZqpYK91NZlyIMtTQPyjoGkkqFGe/yHeheA==
+	t=1794845382;
+	b=0rNjzzTit3yW+NmLnN4JFuymur0jDY0z+zKD+KeKeu35rb1xRbH8azQcF81uo8+cYAoR
+	 4G6N1D1o+nV0bMae3Q3kGODDpBVs/M4SBL8D3ZZaJKtXGHbX+o1KeAcVEILj3kjqo2fDm
+	 HBZstpiPT2EeKTSbaSQL6Vn6N5TkZt9wEX61A3pacu/l9gUYYVKlNaqNwVZ+Vlal/UN5B
+	 x+EKTHNpbCegWgczLERhnmW5No49YS8mizoLAcdM2qoJEBCM2cBusoMIV89FPJLEKkDy4
+	 VpF0QQvPiw1GV1y16aVuPqT3806L3NMU837AGOA+k+XKs44Zgwse1MfNWKIIjdfdKoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845370;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=xuWJrrizIQaSrZTQFgUO3V0HL4ic1BmuoACdN3FzMhU=;
-	b=roYlYdZo6UYUG0paJelUznGwH6U/QwbndHzTrMR32x/rw/30R7XbMXNrj2sDMVgKmIBa
-	 7wNgFCkwd4aZRDZyhRx4rm93MH2qlJ0gjaOFgy13g4ko6xwzJrFzRUbLvvFekvQvGcqm8
-	 rR5eKBCjJfV/wc1M9+Y7gctiOkx3dLiJkaYoSkHe/iOhXqEgluL4E2nvzf/qrNhJHQz+d
-	 dO7M4SRVfBOnO4QlfoyBzmkOkcQW7Z1BP/nGCQbME5icn46sODIFoax5wstfkBnXU6TVy
-	 LChk3UM7MHDItESbJspWj0kBbjVEMWjXWFBoULM+8UMts62BYMI5E+xPwvavReESyKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845382;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=k442VjNAgTRK01arDxCo74sZ/IUCWSOvu/yQtHpOYbc=;
+	b=ccII+SOaMA42pSPC/oJd+6r6ZBXtm5M1vwBnVxqdDu5jjX+r0f/eQroHgeY/x+vqqXNQ
+	 FDMH+rFrFmnremRwBpcT9jei9VGLHm3zZFyPP+NnVlbI9zodxoGjp1Inu76si5N5oZgoc
+	 Io+WBllHVodD1yO40h6ixWBJty/oY+AqlybeAilQizhHvpVyrLuClH38BgNZi5rLjkvfs
+	 YwaGac4qJg4Zjjl7araWPg4vwUghr7XWi7CGTi/bxKN5snLeFHw1NvA9n003JKQDmDdRE
+	 LkgFPsLSIfg71TUzaZof+pSGXczaHACCNeGGZv+H+hkCNZsShJwNSTaRR0QAAGDnIOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ae+HIPyq;
-	arc=none smtp.remote-ip=95.215.58.249
-Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k7lMJ6+7;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D817606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:09:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D817606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34878606A322;
+	Mon, 16 Nov 2026 16:09:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34878606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ae+HIPyq
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xuWJrrizIQaSrZTQFgUO3V0HL4ic1BmuoACdN3FzMhU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794845367; v=1; x=1795450167;
- b=Ae+HIPyqzAROEOoyRp+sqJdgNtzJS/JyJXyiCthVGcmoaviWkiBjm/j+yjeD8sN62KmgrQmq
- AzURHi9JBd9x0c5DA8pR1o/vWCVDBXJe5RNLzO9SQOBeBQEnW7LdaySQbjCv9jmRoVl9ZgnNOK9
- hUDgDKvocjlOeF3zwTIgHx88=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 15379bfaf602689c;
-	Mon, 16 Nov 2026 16:09:27 +0000
-X-Mizu-Trace-ID: 15379bfaf602689c
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so12531e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:09:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHMafhwdEpfoEV1BAgH1Hnqw7R5IYRNXvtsJCCI4oWipw3OYb6OxAfKiiZwsUGXVLcgeqO1b8WGQoy8RH4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nphFnr+meQA1QpiWLcEww5gkLLtNP0LXdpdcsfmA1+x7n7rep
-	h+vf9nrcaIoDhgBUIuTIRyF/ybztg/BDTO3r2GqgkJ4sM3GLaP7ft10dVF4bmKzFQoNr1aFU9To
-	oAxJHK6KT8wWlHgipbjoJaleNqTWYrl2fiIAXUPeK
-X-Received: by 2002:a05:6512:1304:b0:5c1:4cc8:2f22 with SMTP id
- 2adb3069b0e04-5c17e4b9f86mr221482e87.8.1794845363481; Mon, 16 Nov 2026
- 08:09:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k7lMJ6+7
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 77582C4EFDB;
+	Mon, 16 Nov 2026 16:09:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 662156023F;
+	Mon, 16 Nov 2026 16:09:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 40CFC11BC146D;
+	Mon, 16 Nov 2026 17:09:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794845378; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=k442VjNAgTRK01arDxCo74sZ/IUCWSOvu/yQtHpOYbc=;
+	b=k7lMJ6+7AhYnaYvY82R1DvzIhN4zHmQZ3VDVTttNGtJH6ANkEgdXIeR1CpN2CEF2hoYXJy
+	sL7WhLKofJrdr5cqC6aR97+94ECZx7wWLy9K7/RngBU+a/rU1zi4zeCBJ0UdfIG96koqh+
+	kx38y8XL9kChVFjozBShYbJ97bDsqa1uJmb73Budvya7HQuReuDP9kIZl4oT0TbNYUb/58
+	Bqt/6Wqtyxq53eQq1A85Ys6bev1mPbsN+efZBx34RZ8v81hNeK2e6e8jGVhA5nGgOpPtXx
+	wqUYOSNjZ7kseNdDddogbsIdHRqTasD5U4FWramVuOzx/irq2vmBmQQW8Qd+9Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+Cc: linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
+  edumazet@kernel.org,  kuba@kernel.org,  pabeni@redhat.com,
+  horms@kernel.org,  zihanx@nebusec.ai,  stable@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] mac802154: validate pinned interface before
+ beacon transmission
+In-Reply-To: <179378621331.55520.8126896786309171541@stu.pku.edu.cn> (Yifan
+	Zhang's message of "Wed, 04 Nov 2026 17:56:53 +0800")
+References: <179337523079.51423.6573078122047317758@stu.pku.edu.cn>
+	<179378621331.55520.8126896786309171541@stu.pku.edu.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 16 Nov 2026 17:09:32 +0100
+Message-ID: <87y0aspxkz.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,47 +76,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
- <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
- <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
-In-Reply-To: <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 16 Nov 2026 16:08:47 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com>
-X-Gm-Features: Aa3M54pa7DZ_uBY7ynCUhZPG35ZaG2vJ1bC6E24f7r2YagR26_2vzli-PPKoWqQ
-Message-ID: <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
- ring is full
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Sean,
+Hi,
 
-On Tue, 10 Nov 2026 17:18:22 +0000, Fuad Tabba <fuad.tabba@linux.dev> wrote:
-[...]
-> > Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
-> > clobbering vcpu->run->exit_reason.
->
-> Will do.
+> Changes in v3:
+> - revalidate the request and pinned interface under RTNL
+> - serialize beacon template access with request replacement
+> - free the skb on every failure before the transmit-path handoff
 
-After taking a closer look, the clobber is problematic on arm64, where
-KVM_RUN completes a pending MMIO exit only if run->exit_reason is
-still KVM_EXIT_MMIO. If a pre-fault stops on a full ring after an MMIO
-exit, the helper overwrites exit_reason, so the next KVM_RUN doesn't
-complete the exit and the guest repeats the MMIO access. The ring can
-be full at that point if the pre-fault dirties pages, or with NV, if
-the stage-2 walk for the MMIO access does.
+I think on this point we should have something a bit unified with the
+scan worker, because both handle similar situations. This is worth
+fixing in another patch.
 
-I don't think changing how arm64 completes an MMIO exit should be in a
-fix for stable, so should I keep testing kvm_dirty_ring_soft_full()
-directly in v2, or do you have another suggestion?
+> --- a/net/mac802154/scan.c
+> +++ b/net/mac802154/scan.c
+> @@ -354,35 +354,31 @@ static int mac802154_transmit_beacon(struct ieee802=
+154_local *local,
+>  				     struct wpan_dev *wpan_dev)
+>  {
 
-Cheers,
-/fuad
+...
+
+> +	rtnl_lock();
+> +	beacon_req =3D rtnl_dereference(local->beacon_req);
+> +	if (unlikely(!beacon_req || beacon_req->wpan_dev !=3D wpan_dev ||
+> +		     !ieee802154_sdata_running(sdata) ||
+> +		     !netif_running(sdata->dev))) {
+> +		ret =3D -ECANCELED;
+
+Since this is not an error, the caller should maybe not amit a log at
+the error level. Again, not worth a change in this patch, but would be a
+good follow-up.
+
+> +		goto out_free;
+>  	}
+>=20=20
+> -	sdata =3D IEEE802154_WPAN_DEV_TO_SUB_IF(beacon_req->wpan_dev);
+> +	/* Update the sequence number */
+> +	local->beacon.mhr.seq =3D atomic_inc_return(&wpan_dev->bsn) & 0xFF;
+>  	skb->dev =3D sdata->dev;
+>=20=20
+> -	rcu_read_unlock();
+> -
+>  	ret =3D ieee802154_beacon_push(skb, &local->beacon);
+> -	if (ret) {
+> -		kfree_skb(skb);
+> -		return ret;
+> -	}
+> +	if (ret)
+> +		goto out_free;
+>=20=20
+>  	/* Using the MLME transmission helper for sending beacons is a bit
+>  	 * overkill because we do not really care about the final outcome.
+> @@ -402,7 +398,16 @@ static int mac802154_transmit_beacon(struct ieee8021=
+54_local *local,
+>  	 * transmissions, wich anyway does not have a huge impact on the
+>  	 * performances given the current design of the stack.
+>  	 */
+> -	return ieee802154_mlme_tx(local, sdata, skb);
+> +	ret =3D ieee802154_mlme_tx_locked(local, sdata, skb);
+> +	rtnl_unlock();
+> +
+> +	return ret;
+> +
+> +out_free:
+> +	rtnl_unlock();
+> +	kfree_skb(skb);
+> +
+> +	return ret;
+>  }
+>=20=20
+>  void mac802154_beacon_worker(struct work_struct *work)
+
+Again, not related to this patch, but existing issue: since you are
+fixing the beacon path that is very close to the scan path that has
+already been fixed, there may be a missing cancel_delayed_work_sync() in
+mac802154_stop_beacons_locked() (the timer may still be pending when the
+PHY is freed).
+
+So for me the patch is correct, but follow-ups are needed.
+
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+
+Thanks,
+Miqu=C3=A8l
