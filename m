@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811645;
-	b=erOkURB2L64sxw8OC9kvGsy4pfCHSHO7mHbJcTSC+Hy1TFM1Rr3JvNdMUgTvGvRH79cD
-	 yea8sGMGwdKo6StbHFO4fOf0/JnykQP//6WzjoghQqVxTkG6ZHXSzDNaG5HkI+iJmX6V4
-	 Gm5WJf0zm+nNeXe8TEnFAp7o60EsXcUA3o2oh+Xo0ktcl+kTXp66Gnwok6+9dxKBvF39J
-	 MsLd81aQVv1EF1i8mb3kHn819nQM/0HnopuFKeMOlPDn+mSIcFTBGAUZPFSBcu/uf4P7l
-	 eNAeg9VoKRw1+7whkv6xGvtzy/4YrFQYgYglY2tq/cuiCYGswmO3UPCeCPEh2ihtdog==
+	t=1794811649;
+	b=IwQ/wF+qmzcV2xab12QZ8B14OnHMAmLibeEQPO0MI9g7USMTsE5Ufeaixik3/ZqdKNvf
+	 o/CWpYfeGIk4PdgUE3ypZPEfpZAA1j9noumNNkaZfdZfqlTAOnJffXxvvx4+OCfYO7ZOV
+	 skzjNEgZuH1tLcnW3MmPQGNydgha7TFRe3yaucsUt8X/7bVLrWFrjByYk3HON/+Aauh3B
+	 /m7IZyts5fhcPg0m/wPBX6Iyvi4lf0r+KmaSqNKVfHctqfs+aMoPhS3Cit/IxDNg8iheg
+	 1R+Hkv1Zk8Lq0T9EAD1d6C0o20siTB2WtJ8Ovtee5+vYbRh0OVtfSeg/zJk6+wFlQZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811645;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811649;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=qnAd8kdJJsCCZ9ku2gzzQPm1FL2bWZEjkOx7cLArqZE=;
-	b=mWXCF+p/uLwUuIvwJ/h9wLZb42MBRtVLovwDQztofQc5tZ03arLM0IzMllNk7Gi1rY8c
-	 IqwSo9zaBVb5Pm1g1hgntRQYN9nEP6ieIN2U70SAsxRCAT7+Lvl5/HgUnoXvKJzxx4uXT
-	 T806PUe7i0icx4Tji7ktqf4vrczaKBe1QnBUPXcR8YzqG+lcjPTT3wUrNgZToCv1lxpet
-	 9tjmIlqhmAHuAcmIN9n8ptt5ucsTR3aByvYba2f7cJEwyiuHcTt+atBpotLUrc8hoZawe
-	 wb0NCEUC1OibuOVSF8WU+XwoavCwrXM0G3l2qaOD+bsqmt1FrKa8m/aqZ2Lm6qva8HA==
+	bh=gc5nVXFmpa2FYzNpiPky+TSsIO9QRIgf+0xNVO2950I=;
+	b=VHVNKee3YZs0xn2jBXthLhT27kGShhKW19y0GbVCs/eShqm75NGV0rxAC6M8oBDd+rEi
+	 0GTHX9/qnYUWOlZejEJYcCOyuNjnsVqOap+/p84DNPHrTt2PySooZHHVm85HF8jsm3bCw
+	 UTOjrbRdvuEhp1eX9nK6wDJlTpfNELSw338vBhb6r2niPm6DD3BTfG8wH0agGcj7+st1w
+	 HXfS4O814c9xOX2g49JxFHEi/E8knR3CiOLIBQx2lh3yqYgxUMK6LtErC73hLCr13Me/i
+	 02L6A64iCv+eWeSBdKe1mweN1IuZJJvJ6cVkhbF8MkL+ljULKYOMUcGTfwXpsrSLcMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbU+7DQA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5dD2v5y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF781606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:47:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0936606A335
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 06:47:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbU+7DQA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738F71F000C5;
-	Mon, 16 Nov 2026 06:47:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5dD2v5y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2637F1F000C5;
+	Mon, 16 Nov 2026 06:47:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794811645;
-	bh=qnAd8kdJJsCCZ9ku2gzzQPm1FL2bWZEjkOx7cLArqZE=;
+	s=k20260515; t=1794811649;
+	bh=gc5nVXFmpa2FYzNpiPky+TSsIO9QRIgf+0xNVO2950I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HbU+7DQAaJDNRjsKZtMjIolMTDwZVhEoaALimOLHB6t4dRaEII9oFMDxHbYA7OnT/
-	 YmXU/WFq2zfCUnwfaC5yukA2XQznxMUkKbdDV6x0IKgOvclGKNmppIYr2yFSurb3kn
-	 SX4S2czRGqy5NwuGB6ZvCGuvvyc/KMozI5cOogZ8+PogD4PmiuKq9bvy5Fa8dG4aNf
-	 EcdCP00K95HeR2Xkh6Q1kSamO+Y6BrLMvySV6eIBdbp/ATG3QR0/UHKMxcaPsPxCv4
-	 Kb4qdx4BGhJaiz0ezO27NZbi+FxZJBsEHrogqyrXMmt/NznPTXhTuN9dYVfy3YhBlh
-	 F7XW1ri5LlMLw==
+	b=O5dD2v5yu5J8xhy7sLPwd8o1ZenNXCLx3LgiAqlz+xblx0jU5kst8YgL1FzGksOMI
+	 Cdmw+8t33N9Lr2RFsL7lc4pfxDksNxt/p+GEvfl1tdhkKJ1c6nUk3OBNbJ19E5cYLA
+	 /EiT2QwT6tHdhFxSWoRSONfUznDnKd7SIl8H4vhCJyPHDjrloiq7/CLzTyBH8cpIIn
+	 EW04UJZPD4cUPBJNk36PRasfzLGgs0UdabevdEy+Nt5SoALqKxqtkNryrDqwkPIXjt
+	 qmQppbrnNfmObfSslu6C6MCui7Y8obF7XEWUGD+rkGdYUowoq5vXboe0GrhxtZvvoj
+	 FyL24kkvR9HeQ==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Mon, 16 Nov 2026 07:47:10 +0100
-Subject: [PATCH v4 02/10] kasan, kunit: pin test slabs by an extra
- allocation
+Date: Mon, 16 Nov 2026 07:47:11 +0100
+Subject: [PATCH v4 03/10] mm, slab: refactor slab_min/max_order handling
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-slub_tiny_rework-v4-2-227a4b3636a5@kernel.org>
+Message-Id: <20261116-slub_tiny_rework-v4-3-227a4b3636a5@kernel.org>
 References: <20261116-slub_tiny_rework-v4-0-227a4b3636a5@kernel.org>
 In-Reply-To: <20261116-slub_tiny_rework-v4-0-227a4b3636a5@kernel.org>
 To: Harry Yoo <harry@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>
@@ -70,110 +69,176 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 X-Mailer: b4 0.16.0
 
-The tests kmem_cache_double_free() and kmem_cache_rcu_reuse() create a
-scenario where a slab becomes empty, but rely on the implementation not
-immediately freeing it.
+Setting slab_min_order and slab_max_order as boot-time parameters
+currently has several not so great aspects:
 
-This subtly relies on non-zero s->min_partial. It currently compile-time
-defaults to a non-zero value, but in theory a sysfs write racing with
-the kunit test could change it. More importantly, the upcoming
-CONFIG_SLUB_TINY changes will make it possible to run the kunit tests
-with s->min_partial being a compile-time zero, which means the tests can
-cause a NULL pointer dereference, or fail, respectively, as flagged by
-sashiko [1].
+- slab_min_order is not checked against MAX_PAGE_ORDER
+- slab_min_order can raise slab_max_order
+- processing requires custom callbacks, their execution order
+  depends on the order of boot time parameters specified
+- upcoming SLUB_TINY changes would be more complicated
 
-To prevent this in a robust way, add an extra object allocation to the
-tests, that will prevent the slab being freed. Use migrate_disable() to
-prevent migration to a different NUMA node, which would place the
-allocation to a different slab. kmem_cache_rcu_reuse() already uses
-that.
+Instead of custom callbacks, introduce __initdata variables that hold
+the boot-time parameter values (if given). All inputs are then evaluated
+deterministically in kmem_cache_init(). slab_min_order is always capped
+at slab_max_order and cannot raise it.
 
-[1] https://sashiko.dev/#/patchset/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org?part=8
+debug_guardpage_minorder() still overrides any given boot time params,
+but it could be changed if there's a use case.
 
+While at it, rename the slub_min/max_order variables and
+slub_min_objects to have a "slab_" prefix instead, as their values
+determine the sizing of slabs, and the "slub_" prefix already became
+deprecated also for the boot-time parameters.
+
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
-As per sashiko, this scenario needs CONFIG_KASAN_SW_TAGS or
-CONFIG_KASAN_HW_TAGS to occur, otherwise kasan quarantine will keep the
-objects and thus slabs alive.
+ mm/slub.c | 84 ++++++++++++++++++++++++---------------------------------------
+ 1 file changed, 32 insertions(+), 52 deletions(-)
 
-To avoid the need for arm64 system, I have reproduced the issue and
-verified the fix instead with slab_free_hook() modified to skip kasan
-quarantine.
----
- mm/kasan/kasan_test_c.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
-
-diff --git a/mm/kasan/kasan_test_c.c b/mm/kasan/kasan_test_c.c
-index b9e167ed5be3..01cf001bf0ef 100644
---- a/mm/kasan/kasan_test_c.c
-+++ b/mm/kasan/kasan_test_c.c
-@@ -1051,22 +1051,30 @@ static void kmem_cache_oob(struct kunit *test)
- 
- static void kmem_cache_double_free(struct kunit *test)
- {
--	char *p;
-+	char *p, *pin;
- 	size_t size = 200;
- 	struct kmem_cache *cache;
- 
- 	cache = kmem_cache_create("test_cache", size, 0, 0, NULL);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cache);
- 
-+	migrate_disable();
-+	pin = kmem_cache_alloc(cache, GFP_KERNEL);
- 	p = kmem_cache_alloc(cache, GFP_KERNEL);
--	if (!p) {
-+	migrate_enable();
+diff --git a/mm/slub.c b/mm/slub.c
+index 45e077c7526c..30714557306d 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -7684,10 +7684,17 @@ EXPORT_SYMBOL(kmem_cache_alloc_bulk_noprof);
+  * and increases the number of allocations possible without having to
+  * take the list_lock.
+  */
+-static unsigned int slub_min_order;
+-static unsigned int slub_max_order =
++static unsigned int slab_min_order;
++static unsigned int slab_max_order =
+ 	IS_ENABLED(CONFIG_SLUB_TINY) ? 1 : PAGE_ALLOC_COSTLY_ORDER;
+-static unsigned int slub_min_objects;
++static unsigned int slab_min_objects;
 +
-+	if (!p || !pin) {
- 		kunit_err(test, "Allocation failed: %s\n", __func__);
-+		kfree(p);
-+		kfree(pin);
- 		kmem_cache_destroy(cache);
- 		return;
++/*
++ * Store values set by boot-time parameters, to be evaluated in
++ * kmem_cache_init(). UINT_MAX means they were not set, as 0 is a valid value.
++ */
++static unsigned int slab_min_order_param __initdata = UINT_MAX;
++static unsigned int slab_max_order_param __initdata = UINT_MAX;
+ 
+ /*
+  * Calculate the order of allocation given an slab object size.
+@@ -7741,7 +7748,7 @@ static inline int calculate_order(unsigned int size)
+ 	unsigned int max_objects;
+ 	unsigned int min_order;
+ 
+-	min_objects = slub_min_objects;
++	min_objects = slab_min_objects;
+ 	if (!min_objects) {
+ 		/*
+ 		 * Some architectures will only update present cpus when
+@@ -7758,10 +7765,10 @@ static inline int calculate_order(unsigned int size)
+ 		min_objects = 4 * (fls(nr_cpus) + 1);
+ 	}
+ 	/* min_objects can't be 0 because get_order(0) is undefined */
+-	max_objects = max(order_objects(slub_max_order, size), 1U);
++	max_objects = max(order_objects(slab_max_order, size), 1U);
+ 	min_objects = min(min_objects, max_objects);
+ 
+-	min_order = max_t(unsigned int, slub_min_order,
++	min_order = max_t(unsigned int, slab_min_order,
+ 			  get_order(min_objects * size));
+ 	if (order_objects(min_order, size) > MAX_OBJS_PER_PAGE)
+ 		return get_order(size * MAX_OBJS_PER_PAGE) - 1;
+@@ -7782,9 +7789,9 @@ static inline int calculate_order(unsigned int size)
+ 	 * long as at least single object fits within slab_max_order.
+ 	 */
+ 	for (unsigned int fraction = 16; fraction > 1; fraction /= 2) {
+-		order = calc_slab_order(size, min_order, slub_max_order,
++		order = calc_slab_order(size, min_order, slab_max_order,
+ 					fraction);
+-		if (order <= slub_max_order)
++		if (order <= slab_max_order)
+ 			return order;
  	}
  
- 	kmem_cache_free(cache, p);
- 	KUNIT_EXPECT_KASAN_FAIL(test, kmem_cache_free(cache, p));
+@@ -8355,50 +8362,14 @@ void __kmem_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab)
+  *		Kmalloc subsystem
+  *******************************************************************/
+ 
+-static int __init setup_slub_min_order(const char *str, const struct kernel_param *kp)
+-{
+-	int ret;
+-
+-	ret = kstrtouint(str, 0, &slub_min_order);
+-	if (ret)
+-		return ret;
++core_param(slab_min_order, slab_min_order_param, uint, 0);
++core_param(slub_min_order, slab_min_order_param, uint, 0);
+ 
+-	if (slub_min_order > slub_max_order)
+-		slub_max_order = slub_min_order;
++core_param(slab_max_order, slab_max_order_param, uint, 0);
++core_param(slub_max_order, slab_max_order_param, uint, 0);
+ 
+-	return 0;
+-}
+-
+-static const struct kernel_param_ops param_ops_slab_min_order __initconst = {
+-	.set = setup_slub_min_order,
+-};
+-__core_param_cb(slab_min_order, &param_ops_slab_min_order, &slub_min_order, 0);
+-__core_param_cb(slub_min_order, &param_ops_slab_min_order, &slub_min_order, 0);
+-
+-static int __init setup_slub_max_order(const char *str, const struct kernel_param *kp)
+-{
+-	int ret;
+-
+-	ret = kstrtouint(str, 0, &slub_max_order);
+-	if (ret)
+-		return ret;
+-
+-	slub_max_order = min_t(unsigned int, slub_max_order, MAX_PAGE_ORDER);
+-
+-	if (slub_min_order > slub_max_order)
+-		slub_min_order = slub_max_order;
+-
+-	return 0;
+-}
+-
+-static const struct kernel_param_ops param_ops_slab_max_order __initconst = {
+-	.set = setup_slub_max_order,
+-};
+-__core_param_cb(slab_max_order, &param_ops_slab_max_order, &slub_max_order, 0);
+-__core_param_cb(slub_max_order, &param_ops_slab_max_order, &slub_max_order, 0);
+-
+-core_param(slab_min_objects, slub_min_objects, uint, 0);
+-core_param(slub_min_objects, slub_min_objects, uint, 0);
++core_param(slab_min_objects, slab_min_objects, uint, 0);
++core_param(slub_min_objects, slab_min_objects, uint, 0);
+ 
+ #ifdef CONFIG_NUMA
+ static int __init setup_slab_strict_numa(const char *str, const struct kernel_param *kp)
+@@ -8771,8 +8742,17 @@ void __init kmem_cache_init(void)
+ 
+ 	slab_obj_ext_has_codetag_init();
+ 
++	if (slab_max_order_param <= MAX_PAGE_ORDER)
++		slab_max_order = slab_max_order_param;
 +
-+	kmem_cache_free(cache, pin);
- 	kmem_cache_destroy(cache);
- }
- 
-@@ -1152,7 +1160,7 @@ static void kmem_cache_rcu_uaf(struct kunit *test)
-  */
- static void kmem_cache_rcu_reuse(struct kunit *test)
- {
--	char *p, *p2;
-+	char *p, *p2, *pin;
- 	struct kmem_cache *cache;
- 
- 	KASAN_TEST_NEEDS_CONFIG_OFF(test, CONFIG_SLUB_RCU_DEBUG);
-@@ -1162,6 +1170,13 @@ static void kmem_cache_rcu_reuse(struct kunit *test)
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cache);
- 
- 	migrate_disable();
-+	pin = kmem_cache_alloc(cache, GFP_KERNEL);
-+	if (!pin) {
-+		kunit_err(test, "Allocation failed: %s\n", __func__);
-+		migrate_enable();
-+		goto destroy;
-+	}
++	if (slab_min_order_param <= MAX_PAGE_ORDER)
++		slab_min_order = slab_min_order_param;
 +
- 	p = kmem_cache_alloc(cache, GFP_KERNEL);
- 	if (!p) {
- 		kunit_err(test, "Allocation failed: %s\n", __func__);
-@@ -1178,8 +1193,12 @@ static void kmem_cache_rcu_reuse(struct kunit *test)
- 
- 	kmem_cache_free(cache, p2);
- 
+ 	if (debug_guardpage_minorder())
+-		slub_max_order = 0;
++		slab_max_order = 0;
 +
- out:
- 	migrate_enable();
-+	kmem_cache_free(cache, pin);
-+
-+destroy:
- 	kmem_cache_destroy(cache);
++	if (slab_min_order > slab_max_order)
++		slab_min_order = slab_max_order;
+ 
+ 	/* Inform pointer hashing choice about slub debugging state. */
+ 	hash_pointers_finalize(__slub_debug_enabled());
+@@ -8823,7 +8803,7 @@ void __init kmem_cache_init(void)
+ 
+ 	pr_info("SLUB: HWalign=%d, Order=%u-%u, MinObjects=%u, CPUs=%u, Nodes=%u\n",
+ 		cache_line_size(),
+-		slub_min_order, slub_max_order, slub_min_objects,
++		slab_min_order, slab_max_order, slab_min_objects,
+ 		nr_cpu_ids, nr_node_ids);
  }
  
 
