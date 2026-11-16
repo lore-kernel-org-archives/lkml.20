@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834607;
-	b=kJsusB2oc+Hx0NrTqA8aq67XP1xkKV8tgfN05aRqM24BxzpebFkjm1q8yon+SvuLT1a2
-	 ggMnvTl5hojBzfMihFH5p+QJdoJATHdQgC/IY2RIohhU8bk6y3ihq53X8FzKgn88Rn7lk
-	 BhSmI3ZyIFb7GaiotlXjUF3cKJJItVBobcA60mqrLGmwhBeI7VL9B/wPoJC+H0mMRqnhj
-	 J7BdO5Mwiu6vvSQUXsD3c2XbUunEwh+cy6gZyL4ooJOARqlP+bLfCzDHlGhWzMYsEYZWB
-	 C8QF8ZwnHAJ2B/CGyUyevkza+HKz7qgVvPmmKhEUEilXmXoxZ8CJd9hDgkgSUHKtt2A==
+	t=1794834645;
+	b=va4ybS9UfrPIl7mRBmO39OIlW2APl5F2my4SaKJJWygxBrVyQXvPtSmPuHQZuH0yrlVv
+	 a+sxpl18V8HCF8KQhjyHJ2SFkn9JCQnOJWFKDFNovOVy4dgfW16p13M7cJdGoPMo5XXnI
+	 ix5ZIqiwKgEnbYlHylGgF/LtpoIogL/7MRVVlQ6LKfWDdHOaz0kQ6l5c0zOi02lNsT2yT
+	 5oWWIgk9QWY+RGHgfluLmBTpSi+eH8lrHRH28TA1Z70RNeFkJQynaBlBaTaM+FlqoZ6B+
+	 0P8ucdxf2Ar8FmlJCHX0HdGGUPJlZiQyfxR539WONJh5JaH/CqCoZuZM7EnOanXTMHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834607;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=b68FNTlzlmlqrTbHaH7Dck2gPJT6FeXJ2H/HqfqMPDg=;
-	b=bKiZuj87UXRKtrCDS8eF1w28t6qY5Btuf0zEKG5sBQS/V6OrsVU9WA2ByyJzcCW8X/ye
-	 Q7eIVC5nuoximYDPDEwV+cFEjSloUBafnHuwCRxHwY6N7KaT1D7aZ5a/3PAOfO+FToaE3
-	 CHfUEXWcymEqtBkUIYxWoiSeaYHytKLD5quYEn51YBmowRG5sdcRY7IPoecTc3Ql3Hh56
-	 NwVqVAom7RX0ijZ3OHxgo0ihT3dhm9IBGTMd2OPA743Orz9SC8DcRmBwpEvUC1vdYr51f
-	 K860MgOmhhOsoB3HTPdB0IYsO0mRLG02bliVQaagGjHfBNu8N4N9Ii0ErskpzrWfZOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834645;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=h/EcMMy6lB0dwByblQ+wtEW6CQqWJ+089YlzEizOkgE=;
+	b=oDXiBnwbcPwa4kucB/d41DJCnK/j9iINKhVj0jb0OFi7RV47g7vfjSqhWwrYBy4+DpVP
+	 NfFR//RbVIJg6UZQR+Goyst9XTMd7GKdXl7RY1WyAGsnZZFm25YNC7q8gpGjvXv/4A/Us
+	 l6UYw9YA3/RaU4CqDbTwGaID+a/n8Tsu5RtR6vE6Yl8IvyPLddiv9Ve/zs5U6U8Xg/p28
+	 L7QP/bPrmXEsUSHKI+HlEl8XSekqWfEA43DcO6DCjKd4aRQd39uRINQKuj2lSaNC7OlyB
+	 zeRqBoFfxVPduVjoQSxWMkibxzmcUX+iIHLXZQ65B4QgIF568cpL1fAJVC9esb4bbKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fFxSLqLE;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db7RY90V;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC53606A323;
-	Mon, 16 Nov 2026 13:10:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDC53606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E710606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 13:10:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E710606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fFxSLqLE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=b6
-	8FNTlzlmlqrTbHaH7Dck2gPJT6FeXJ2H/HqfqMPDg=; b=fFxSLqLEjF7k4sjK0S
-	24Tek8u5UiCtcOU5zaM8W856vS1Jc8XJI+cYyQkP4EiaENEX5qq117wYRcLrzrwN
-	m7KP+0i4OTIhtnohhc2+WmHdJD5tMH7cVcRQazh5pY7xQmKqK61perXAbqnQucKX
-	cXxZ32572K6vfsRM1tsAKCvFc=
-Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3f_WVAPtqHE8VIA--.30076S2;
-	Mon, 16 Nov 2026 21:09:41 +0800 (CST)
-From: Ziheng Wei <zihengw03@163.com>
-To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] RDMA/hfi1: free CPU to SDMA map nodes after an RCU grace period
-Date: Mon, 16 Nov 2026 21:09:40 +0800
-Message-ID: <20261116130940.1629295-1-zihengw03@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db7RY90V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794834644; x=1826370644;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=FE8Eb/o2jNhMmUkY0cmLF5+hbV0dzwgrgopBYqNs/2g=;
+  b=Db7RY90VJBMp0IobypR/45LHYchBIG55PtBnIF62pvPKlws3a0zSfHpJ
+   FqdpSYbOXsu5Vko1Qlqk4SYO9cPLQrM3C6XhGOd6GmvrKtW7zc19lIDhG
+   Bw/McS3IAwLu1cWrpaG8snjCyFORJTj+JKn42P/U1bhQdsUscvnIPEi3I
+   mxkde87AKXLpvIROSwA+2vC8VoM80yZI32Gqll8OovpH0J6GoYSk4cd8G
+   /m/RsaudiU7b1+1rjyvtZb4jKuvE179SVNZqyUSaZhq9ZWu3qLRClpdi4
+   gWRZY5SJ9/20MP4Kk1hdTCqYGhHL8ickdcN+lxYMciEvKrdJu/weypXoq
+   A==;
+X-CSE-ConnectionGUID: 10MAXrvHQYWTex1ZY5eamg==
+X-CSE-MsgGUID: ELgL5qArQs6ZkRWyMftqXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3464630"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3464630"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 05:10:43 -0800
+X-CSE-ConnectionGUID: neqRBvN9TSuOXPoowwyZdg==
+X-CSE-MsgGUID: HJr8YL80TZmLcafdJ7R4kA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9388760"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 05:10:34 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
+ <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Manasi Navare
+ <navaremanasi@google.com>, Drew Davenport <ddavenport@google.com>, Louis
+ Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Kory Maincent
+ <kory.maincent@bootlin.com>
+Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
+ information report
+In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+Date: Mon, 16 Nov 2026 15:10:30 +0200
+Message-ID: <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,150 +101,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f_WVAPtqHE8VIA--.30076S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWxWr47CFy5Wr43tr45trb_yoWrZw4kpF
-	Z5Ka4Ykws2yF1ruwn3Jrs7AFyfWFn3Xa17Wa4DuF4fCrn5Xws3tr10kFy7Wrn8GFy8Arn5
-	Xrn0gw1rCry8JrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jt8nOUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7hW+D2r7AJUGkAAA3Y
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-sdma_select_user_engine() looks up the per-CPU sdma_rht_node in
-dd->sdma_rht under rcu_read_lock() and reads rht_node->map[vl],
-map->mask and map->sde[].  sdma_set_cpu_to_sde_map(), called when the
-cpu_list sysfs attribute of an SDMA engine is written, removes a node
-whose maps have become empty with rhashtable_remove_fast() and then
-kfree()s the maps and the node right away.  There is no RCU grace
-period between the removal and the free, so a user SDMA submission on
-that CPU can read the node and the map after they have been freed.  If
-the memory has been reused, the map pointer and the engine pointer read
-from it are arbitrary, and the caller goes on to use that engine.
+On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> DisplayPort link training negotiates the physical-layer parameters needed
+> for a reliable connection: lane count, link rate, and optionally Display
+> Stream Compression (DSC). Currently, each driver exposes this state in
+> its own way, often through driver-specific debugfs entries, with no
+> standard interface for userspace diagnostic and monitoring tools.
+>
+> This series introduces generic helpers, for exposing DP link capabilities
+> and state as standard sysfs entries.
 
-Writing cpu_list requires CAP_SYS_ADMIN.  The reader is reachable by any
-user that can open /dev/hfi1_N, when the task submitting user SDMA
-requests is pinned to a single CPU.  So this needs an administrator to
-change the SDMA engine CPU lists while jobs are running.
+So how did we end up with sysfs here?
 
-The debugfs dump in sdma_seqfile_dump_cpu_list() has the same problem,
-and in addition does not hold the RCU read lock at all while walking
-the node, because rhashtable_lookup_fast() drops it before returning.
+> The aim of such development is to guide users to select the most suitable
+> DisplayPort connector for their needs. For example, if you have a USB-C
+> hub with lesser capabilities than your computer=E2=80=99s native DisplayP=
+ort
+> connector (such as HBR2 versus HBR3 support), the system could recommend
+> connecting high-resolution displays directly to the computer=E2=80=99s po=
+rt
+> instead of through the hub to ensure optimal performance.
 
-Free the node and its maps from an RCU callback, as is already done for
-dd->sdma_map, and do the debugfs lookup and walk inside an RCU read-side
-critical section.  hfi1_free_devdata() calls rcu_barrier() before
-sdma_clean(), so no callback can still be pending when the hash table
-is destroyed.
+I do wonder how all this is supposed to work in more complex real world
+scenarios, though.
 
-Found by LLM-assisted static analysis.  Not reproduced, as I have no
-Omni-Path hardware; build tested only.
+I believe the user primarily cares about *modes*. Which display modes
+can be used with each display/connector pair.
 
-Fixes: 0cb2aa690c7e ("IB/hfi1: Add sysfs interface for affinity setup")
-Fixes: af3674d62d34 ("IB/hfi1: Add new debugfs sdma_cpu_list file")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ziheng Wei <zihengw03@163.com>
----
+With the low level link information, are you proposing to compute the
+required bandwidth for modes in userspace? I think it's going to be a
+lot of work to compute the bandwidth requirements, taking into account
+DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
+still miss any driver/GPU specific contraints. Or are you just proposing
+to match the physical characteristics only?
 
-Notes:
-    The changelog was drafted with an AI assistant from my analysis;
-    I have reviewed the code, the fix and the text.
+Given all the connectors and displays and their modes on a system, you
+could estimate a) for each display, what modes could be used on each
+connector, and b) for each connector, what modes could be used on a
+display, if connected. From the user POV, they could be shown why some
+display mode is not available on the current connector, and crucially,
+on which connector it could be available.
 
- drivers/infiniband/hw/hfi1/sdma.c | 45 ++++++++++++++++++-------------
- 1 file changed, 27 insertions(+), 18 deletions(-)
+In general, I'm wondering if you're really after higher level
+information, something like "connector max available bandwidth
+with/without DSC", that would more directly map to the user needs as I
+see them than low level link details.
 
-diff --git a/drivers/infiniband/hw/hfi1/sdma.c b/drivers/infiniband/hw/hfi1/sdma.c
-index a71fc8f2d..bf9e362f1 100644
---- a/drivers/infiniband/hw/hfi1/sdma.c
-+++ b/drivers/infiniband/hw/hfi1/sdma.c
-@@ -801,6 +801,7 @@ struct sdma_rht_node {
- 	unsigned long cpu_id;
- 	struct sdma_rht_map_elem *map[HFI1_MAX_VLS_SUPPORTED];
- 	struct rhash_head node;
-+	struct rcu_head rcu;
- };
- 
- #define NR_CPUS_HINT 192
-@@ -886,6 +887,22 @@ static void sdma_cleanup_sde_map(struct sdma_rht_map_elem *map,
- 	}
- }
- 
-+static void sdma_rht_free(void *ptr, void *arg)
-+{
-+	struct sdma_rht_node *rht_node = ptr;
-+	int i;
-+
-+	for (i = 0; i < HFI1_MAX_VLS_SUPPORTED; i++)
-+		kfree(rht_node->map[i]);
-+
-+	kfree(rht_node);
-+}
-+
-+static void sdma_rht_free_rcu(struct rcu_head *head)
-+{
-+	sdma_rht_free(container_of(head, struct sdma_rht_node, rcu), NULL);
-+}
-+
- /*
-  * Prevents concurrent reads and writes of the sdma engine cpu_mask
-  */
-@@ -1027,10 +1044,11 @@ ssize_t sdma_set_cpu_to_sde_map(struct sdma_engine *sde, const char *buf,
- 							     sdma_rht_params);
- 				WARN_ON(ret);
- 
--				for (i = 0; i < HFI1_MAX_VLS_SUPPORTED; i++)
--					kfree(rht_node->map[i]);
--
--				kfree(rht_node);
-+				/*
-+				 * sdma_select_user_engine() may still be
-+				 * using the node under rcu_read_lock().
-+				 */
-+				call_rcu(&rht_node->rcu, sdma_rht_free_rcu);
- 			}
- 		}
- 	}
-@@ -1055,17 +1073,6 @@ ssize_t sdma_get_cpu_to_sde_map(struct sdma_engine *sde, char *buf)
- 	return strnlen(buf, PAGE_SIZE);
- }
- 
--static void sdma_rht_free(void *ptr, void *arg)
--{
--	struct sdma_rht_node *rht_node = ptr;
--	int i;
--
--	for (i = 0; i < HFI1_MAX_VLS_SUPPORTED; i++)
--		kfree(rht_node->map[i]);
--
--	kfree(rht_node);
--}
--
- /**
-  * sdma_seqfile_dump_cpu_list() - debugfs dump the cpu to sdma mappings
-  * @s: seq file
-@@ -1081,10 +1088,10 @@ void sdma_seqfile_dump_cpu_list(struct seq_file *s,
- 	struct sdma_rht_node *rht_node;
- 	int i, j;
- 
--	rht_node = rhashtable_lookup_fast(dd->sdma_rht, &cpuid,
--					  sdma_rht_params);
-+	rcu_read_lock();
-+	rht_node = rhashtable_lookup(dd->sdma_rht, &cpuid, sdma_rht_params);
- 	if (!rht_node)
--		return;
-+		goto out;
- 
- 	seq_printf(s, "cpu%3lu: ", cpuid);
- 	for (i = 0; i < HFI1_MAX_VLS_SUPPORTED; i++) {
-@@ -1107,6 +1114,8 @@ void sdma_seqfile_dump_cpu_list(struct seq_file *s,
- 	}
- 
- 	seq_puts(s, "\n");
-+out:
-+	rcu_read_unlock();
- }
- 
- /*
+Do you have the userspace somewhere? That's needed for merging UABI
+anyway [1].
 
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
--- 
-2.43.0
+[1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-require=
+ments
 
+>
+> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
+> source and sink training capabilities to userspace via sysfs attributes
+> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
+> report current link information at runtime.
+>
+> Three drivers are updated as reference implementations: i915 (direct
+> connector path), ANX7625 and MediaTek (via the bridge connector framework
+> using a new DRM_BRIDGE_OP_DP flag).
+>
+> Here is a sysfs example:
+>
+> cur_link_info_dsc            sink_link_caps_nlanes
+> cur_link_info_link_rate      source_link_caps_dsc
+> cur_link_info_nlanes         source_link_caps_link_rates
+> sink_link_caps_dsc           source_link_caps_nlanes
+> sink_link_caps_link_rates
+>
+> 1620000 2160000 2700000 3240000 4320000 5400000
+>
+> 1620000 2700000 5400000 10000000 20000000
+>
+> 5400000
+>
+> This series is rebased on top of drm-misc and may conflict with the
+> current state of the drm i915 tree. Which tree should pick this up,
+> given that it mixes core development with driver changes?
+
+For development, please just base your work on top of drm-tip, and the
+tree(s) will be sorted out later.
+
+BR,
+Jani.
+
+
+> Patch 1,2: Move helpers out of i915
+> Patch 3: Introduce DisplayPort link training capabilities and state helpe=
+rs
+> Patch 4: Read i915 DSC capabilities in any case
+> Patch 5  Use dp_connector helpers in i915 to expose link training state
+> Patch 6: Introduce DRM_BRIDGE_OP_DP and wire bridge connectors
+> Patch 7: Use dp_connector helpers in anx7625 to expose link training state
+> Patch 8: Use dp_connector helpers in mediatek to expose link training sta=
+te
+>
+> Changes in v3:
+> - Rework the core to use new helpers instead of an extension of
+>   drmm_connector_init().
+> - Add a new mutex to protect sysfs read write access instead of using
+>   the global connection_mutex.
+> - Move helpers out of i915.
+> - Add the support in the anx7625 driver.
+> - Link to v2: https://patch.msgid.link/20260619-feat_link_cap-v2-0-a3dec4=
+c02ad9@bootlin.com
+>
+> Changes in v2:
+> - Removed work converting i915 to DRM managed resource
+> - Remove voltage swing and pre-emphasis properties
+> - Expose link training state via sysfs dp_link/ group instead of
+>   connector properties
+> - Add comprehensive sysfs attributes for both source and sink capabilities
+> - Add new helpers for managing sink capabilities and for current link
+>   parameters
+> - Link to v1: https://lore.kernel.org/r/20260409-feat_link_cap-v1-0-7069e=
+8199ce2@bootlin.com
+>
+> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> ---
+> Kory Maincent (8):
+>       drm: Move sink link rates reading helpers out of i915
+>       drm: Move DSC capability reading helper out of i915
+>       drm: Introduce DisplayPort link training capabilities and state hel=
+pers
+>       drm/i915/display/dp: Read DPCD DSC capabilities in any case
+>       drm/i915/display/dp: Use dp_connector helpers to expose link traini=
+ng state
+>       drm/bridge: Expose link training state via new DRM_BRIDGE_OP_DP flag
+>       drm/analogix/anx7625: Use dp_connector helpers to expose link train=
+ing state
+>       drm/mediatek: Use dp_connector helpers to expose link training state
+>
+>  Documentation/ABI/testing/sysfs-class-drm-dp       |  85 +++
+>  drivers/gpu/drm/bridge/analogix/anx7625.c          |  68 +++
+>  drivers/gpu/drm/bridge/analogix/anx7625.h          |   1 +
+>  drivers/gpu/drm/display/Kconfig                    |   1 +
+>  drivers/gpu/drm/display/drm_bridge_connector.c     |  29 ++
+>  drivers/gpu/drm/display/drm_dp_helper.c            | 571 +++++++++++++++=
+++++++
+>  drivers/gpu/drm/drm_connector.c                    |  11 +
+>  drivers/gpu/drm/drm_sysfs.c                        | 155 ++++++
+>  drivers/gpu/drm/i915/display/intel_display_types.h |   2 +
+>  drivers/gpu/drm/i915/display/intel_dp.c            | 249 ++++-----
+>  .../gpu/drm/i915/display/intel_dp_link_training.c  |  14 +
+>  drivers/gpu/drm/mediatek/mtk_dp.c                  |  79 ++-
+>  include/drm/display/drm_dp.h                       |   1 +
+>  include/drm/display/drm_dp_helper.h                |  25 +
+>  include/drm/drm_bridge.h                           |  13 +
+>  include/drm/drm_connector.h                        |  53 ++
+>  include/drm/drm_sysfs.h                            |   1 +
+>  17 files changed, 1202 insertions(+), 156 deletions(-)
+> ---
+> base-commit: 34e9ab0182494d7599dc9759bc216550d814b396
+> change-id: 20260226-feat_link_cap-20cbb6f31d40
+>
+> Best regards,
+> --=20=20
+> K=C3=B6ry Maincent, Bootlin
+> Embedded Linux and kernel engineering
+> https://bootlin.com
+>
+
+--=20
+Jani Nikula, Intel
