@@ -1,86 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844176;
-	b=pP4Kr1j4nJCLLXkucozGBpYGuDmFBiz+QauK+wh7GSo0zyZmDXNIswBC+dnmCdMZMlYd
-	 pggId2zZA3DidjtF8CHC1pM/nSb12nCExNAed/qH+AGh0KG63VtBeRpL2+qlq6TW94DWb
-	 jqemlNWcA157i74I2Ins8nhdvlqK620oY1phldWChMIf4qGa12GoMBR9eys84Wq9kMSi+
-	 1NnuCpcRCHa0CUbX3KaRbEla3sEENCZNwLwWGK9WYFV4z4iCHnUgMp05a97cTDSK31Q5D
-	 k9nB3ntkbDIa9mpLS3b4pK8mG3o1KVH1z7Td932fqCb7g7JEyYJA8UwGukqDu2Fojow==
+	t=1794844177;
+	b=CkxQW07OW6GDVSXzaCopFUEWYYQ3vzk07E9cK1Bi+CBWosskhsoXbJoRtI0/NQtKjw3q
+	 pYoSQpBAzllJRvJo1XXnW/UrKvbUWIe4luUcjrUGwILE4tPBnmLzOxN5bVq1NYZCdDl5f
+	 DFCbLZkbBZij6De3ALrIrOiXf6/ISQZlVn5T6zgAmQcdZafFLeHjaZvaceIh7n22Av7Yi
+	 d4YX6/aRc27w8sWcyr1prMv7+56PANZPhli/P4Fjl6krO7ST4OS+BKZnAN4T3lbFGE+zJ
+	 U/6OoeW14vNg2WctirIhzylKpLI+kNKQR1WGFJKFwc4wiiQuCXbYyFvCB6MHg36N2RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844176;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=xCYRfhAkzWaZpwWauEuyflZ4FUKPVISwTSunpC1O8vU=;
-	b=FE0a1iJMv3WSQrZCGlVsBvelRcUwAPtLViCxkppxh5/bOKt0WrnrxtWw/Bcdyn/GpGlU
-	 wLJKybFJeDnfxnOY68rlhogcWwJ5q3vSWAMV62g7p7MrtZx+xYW21Igjjpeqpd+jcG6hU
-	 6zCxIoSLwbdqh2azASVFILVP8npsZzXnbUe062IeqvHggJ048lm+ibMSAMoedkCtLw+qY
-	 EZtPD06jsjcC18rTJQ7SVEtOCjbSI+sQKo+lxszLu56QlfoR31aP6aEsVhl2A6y4YjWCa
-	 yF3hXnzkOad1qIPbYsbpVLta5DOyuMhTdieazgUerWdiXlgW//T3uiHCaxtoxum/XeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844177;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9LPqHJ7+1oVkvrwe5gK+4+RwocL1Gh6Vu3hJ8plLtpc=;
+	b=Dal6y1JXsA3OMhjIxomMExBgwIRgThS+pGSnve6nJkqQs7/C0Bru2Gv6jwZnpdsO90o+
+	 NqQkVFMAhHjhASGE9BXxDY+g7kEg8k1QE3jkHh2uWIY8HDw5oIH6iqyrZ2Y6XD7Jd8/39
+	 hTo2tyO8qNKosyqQrb3SvkX0tWHZGbPwA/qd/QOBBwuo9wuuArJjVbPjH0tqpeh92TnrH
+	 t0AA8CDI1+RM/BZu+VdKTKuP3iIrOTBESD3f1Pnm+Apx6UY0jUcHMm8R/2CsPK6MIcjns
+	 d6DOcddPhqOnobI4rb8NhJiXjcqZ2tgfsXV0vvrmeweEjlycLlwrEFoYFdTyLG2PmhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=vfF6GTfI;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IC+bJO5H;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C123F606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 15:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C123F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0CC606A333;
+	Mon, 16 Nov 2026 15:49:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=vfF6GTfI
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3E3814BB;
-	Mon, 16 Nov 2026 16:47:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794844026;
-	bh=CitaHNP+eD6uKjpobd8G4BGHZf0N9cqOrXyChUK85EY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vfF6GTfIwSZTnh/YSEOytkbxHiImCvVCvyrpZRm76Nhg/ImdqxvbdMZIk3rSxVBpk
-	 VVudytRnEhV5bX2uLDhqj5J1EJV9/7pjJcTKjqd3OcJ9XxYkqDyNmaI52R+RFmzNNM
-	 kxWvwgbX2P2TqXxt/9wDGJMVK21NpG+WnagDaAIE=
-Date: Mon, 16 Nov 2026 17:49:31 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Kory Maincent <kory.maincent@bootlin.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Daniel Stone <daniels@collabora.com>,
-	Manasi Navare <navaremanasi@google.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IC+bJO5H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DF91F000CD;
+	Mon, 16 Nov 2026 15:49:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794844177;
+	bh=9LPqHJ7+1oVkvrwe5gK+4+RwocL1Gh6Vu3hJ8plLtpc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IC+bJO5HUXPPRjfFNoVDEPS6n3cyhDdWgaeENHn/BaxaCvGr5Rhi0vtoxhG4RV9uC
+	 elU9xOd4Mx+DFTSdNTcgsOsmncba3S/wt/wQhhsBwCHUOdaEB4ef8ECh/UJeJUf8KA
+	 /8W1FrYIanntePWIvLYohIWcz9/90xE0LmTilcqLvJZz+1A4JgayGhxmi43I6VwimX
+	 Xak7oTi2LH+YfFCKD1xdgSvxF4ea7q6NOnJhHy2vOgYqsL93FKE5IQS6hPu5Iqxgb0
+	 h8YUSKS6aRCe1Dk66+btrlLQehaf8v69iosXEob/ytswjX+IO7uH/2HQD8+qHgTQGJ
+	 XmqYesdB7iXrA==
+Date: Mon, 16 Nov 2026 15:49:32 +0000
+From: Lee Jones <lee@kernel.org>
+To: Thomas Richard <thomas.richard@bootlin.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Mark Yacoub <markyacoub@google.com>,
-	Sean Paul <seanpaul@google.com>,
-	Drew Davenport <ddavenport@google.com>,
-	Louis Chauvet <louis.chauvet@bootlin.com>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
- information report
-Message-ID: <20261116154931.GA1763340@killaraus.ideasonboard.com>
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
- <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
- <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
+	Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [PATCH v5 4/9] i2c: cgbc: Use plateform data to get bus ID and
+ adapter name
+Message-ID: <20261116154932.GA97865@joneslee-macbookpro.roam.internal>
+References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
+ <20261103-cgbc-i2c-storage-devices-support-v5-4-ac11f23fae51@bootlin.com>
+ <78cf973d-3434-4f81-82be-a22f4abcfe0c@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,119 +61,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
+In-Reply-To: <78cf973d-3434-4f81-82be-a22f4abcfe0c@bootlin.com>
 
-On Mon, Nov 16, 2026 at 04:13:52PM +0100, Kory Maincent wrote:
-> On 11/16/26 14:10, Jani Nikula wrote:
-> > On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
-> >> DisplayPort link training negotiates the physical-layer parameters needed
-> >> for a reliable connection: lane count, link rate, and optionally Display
-> >> Stream Compression (DSC). Currently, each driver exposes this state in
-> >> its own way, often through driver-specific debugfs entries, with no
-> >> standard interface for userspace diagnostic and monitoring tools.
-> >>
-> >> This series introduces generic helpers, for exposing DP link capabilities
-> >> and state as standard sysfs entries.
-> > 
-> > So how did we end up with sysfs here?
-> 
-> In the first RFC it was in DRM properties. I presented it in the display 
-> hackfest in Nice last years. People suggested to use sysfs instead but 
-> if the need appears later in the development move back to DRM 
-> properties. I first though DRM properties seems better as it is the user 
-> interface used by distros but I had no strong argument about the change 
-> to sysfs, so I moved on to it.
-> 
-> >> The aim of such development is to guide users to select the most suitable
-> >> DisplayPort connector for their needs. For example, if you have a USB-C
-> >> hub with lesser capabilities than your computer’s native DisplayPort
-> >> connector (such as HBR2 versus HBR3 support), the system could recommend
-> >> connecting high-resolution displays directly to the computer’s port
-> >> instead of through the hub to ensure optimal performance.
-> > 
-> > I do wonder how all this is supposed to work in more complex real world
-> > scenarios, though.
-> > 
-> > I believe the user primarily cares about *modes*. Which display modes
-> > can be used with each display/connector pair.
-> > 
-> > With the low level link information, are you proposing to compute the
-> > required bandwidth for modes in userspace? I think it's going to be a
-> > lot of work to compute the bandwidth requirements, taking into account
-> > DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
-> > still miss any driver/GPU specific contraints. Or are you just proposing
-> > to match the physical characteristics only?
-> 
-> This is a requirement from Google, yes they want to compute the 
-> bandwidth for modes in the userspace side.
-> @Manasi could describe in detail how would you implement it?
-> 
-> > Given all the connectors and displays and their modes on a system, you
-> > could estimate a) for each display, what modes could be used on each
-> > connector, and b) for each connector, what modes could be used on a
-> > display, if connected. From the user POV, they could be shown why some
-> > display mode is not available on the current connector, and crucially,
-> > on which connector it could be available.
-> > 
-> > In general, I'm wondering if you're really after higher level
-> > information, something like "connector max available bandwidth
-> > with/without DSC", that would more directly map to the user needs as I
-> > see them than low level link details.
-> > 
-> > Do you have the userspace somewhere? That's needed for merging UABI
-> > anyway [1].
-> > 
-> > [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
-> 
-> I wanted to add it to IGT GPU tools, but I was hopping for community 
-> review on this RFC before the IGT development.
+On Mon, 16 Nov 2026, Thomas Richard wrote:
 
-Note the following requirement:
-
-  The open-source userspace must not be a toy/test application, but the
-  real thing. Specifically it needs to handle all the usual error and
-  corner cases. These are often the places where new uAPI falls apart
-  and hence essential to assess the fitness of a proposed interface.
-
-I think think IGT qualifies. An implementation in a desktop environment
-would likely be needed.
-
-> >> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
-> >> source and sink training capabilities to userspace via sysfs attributes
-> >> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
-> >> report current link information at runtime.
-> >>
-> >> Three drivers are updated as reference implementations: i915 (direct
-> >> connector path), ANX7625 and MediaTek (via the bridge connector framework
-> >> using a new DRM_BRIDGE_OP_DP flag).
-> >>
-> >> Here is a sysfs example:
-> >>
-> >> cur_link_info_dsc            sink_link_caps_nlanes
-> >> cur_link_info_link_rate      source_link_caps_dsc
-> >> cur_link_info_nlanes         source_link_caps_link_rates
-> >> sink_link_caps_dsc           source_link_caps_nlanes
-> >> sink_link_caps_link_rates
-> >>
-> >> 1620000 2160000 2700000 3240000 4320000 5400000
-> >>
-> >> 1620000 2700000 5400000 10000000 20000000
-> >>
-> >> 5400000
-> >>
-> >> This series is rebased on top of drm-misc and may conflict with the
-> >> current state of the drm i915 tree. Which tree should pick this up,
-> >> given that it mixes core development with driver changes?
-> > 
-> > For development, please just base your work on top of drm-tip, and the
-> > tree(s) will be sorted out later.
+> Hi Lee,
 > 
-> Oh, ok, thanks you.
+> On 11/3/26 5:49 PM, Thomas Richard (congatec GmbH) wrote:
+> > Obtain the bus ID (from the BC point of view) and adapter name from
+> > platform data. This allows the specific definitions to be removed, leaving
+> > only a generic adapter definition.
+> > 
+> > Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+> > ---
+> >  drivers/i2c/busses/i2c-cgbc.c | 68 ++++++++++++++++---------------------------
+> >  1 file changed, 25 insertions(+), 43 deletions(-)
+> > 
+> > diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
+> > index ac23435b731b..40ffab4fd0bc 100644
+> > --- a/drivers/i2c/busses/i2c-cgbc.c
+> > +++ b/drivers/i2c/busses/i2c-cgbc.c
+> > @@ -12,9 +12,6 @@
+> >  #include <linux/module.h>
+> >  #include <linux/platform_device.h>
+> >  
+> > -#define CGBC_I2C_PRIMARY_BUS_ID	0
+> > -#define CGBC_I2C_PM_BUS_ID	4
+> > -
+> >  #define CGBC_I2C_CMD_START	0x40
+> >  #define CGBC_I2C_CMD_STAT	0x48
+> >  #define CGBC_I2C_CMD_DATA	0x50
+> > @@ -60,11 +57,6 @@ enum cgbc_i2c_state {
+> >  	CGBC_I2C_STATE_ERROR,
+> >  };
+> >  
+> > -struct i2c_algo_cgbc_data {
+> > -	u8		bus_id;
+> > -	unsigned long	read_maxtime_us;
+> > -};
+> > -
+> >  struct cgbc_i2c_data {
+> >  	struct device		*dev;
+> >  	struct cgbc_device_data *cgbc;
+> > @@ -73,6 +65,8 @@ struct cgbc_i2c_data {
+> >  	int			nmsgs;
+> >  	int			pos;
+> >  	enum cgbc_i2c_state	state;
+> > +	u8			bus_id;
+> > +	unsigned long		read_maxtime_us;
+> >  };
+> >  
+> >  struct cgbc_i2c_transfer {
+> > @@ -115,10 +109,9 @@ static unsigned int cgbc_i2c_reg_to_freq(u8 reg)
+> >  
+> >  static int cgbc_i2c_get_status(struct i2c_adapter *adap)
+> >  {
+> > -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
+> >  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
+> >  	struct cgbc_device_data *cgbc = i2c->cgbc;
+> > -	u8 cmd = CGBC_I2C_CMD_STAT | algo_data->bus_id;
+> > +	u8 cmd = CGBC_I2C_CMD_STAT | i2c->bus_id;
+> >  	u8 status;
+> >  	int ret;
+> >  
+> > @@ -132,7 +125,6 @@ static int cgbc_i2c_get_status(struct i2c_adapter *adap)
+> >  static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
+> >  				  unsigned int bus_frequency)
+> >  {
+> > -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
+> >  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
+> >  	struct cgbc_device_data *cgbc = i2c->cgbc;
+> >  	u8 cmd[2], data;
+> > @@ -144,7 +136,7 @@ static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
+> >  		bus_frequency = I2C_MAX_STANDARD_MODE_FREQ;
+> >  	}
+> >  
+> > -	cmd[0] = CGBC_I2C_CMD_SPEED | algo_data->bus_id;
+> > +	cmd[0] = CGBC_I2C_CMD_SPEED | i2c->bus_id;
+> >  	cmd[1] = cgbc_i2c_freq_to_reg(bus_frequency);
+> >  
+> >  	ret = cgbc_command(cgbc, &cmd, sizeof(cmd), &data, 1, NULL);
+> > @@ -170,7 +162,7 @@ static int cgbc_i2c_set_frequency(struct i2c_adapter *adap,
+> >  	 * can be read by a command is CGBC_I2C_READ_MAX_LEN.
+> >  	 * Therefore, calculate the max time to properly size the timeout.
+> >  	 */
+> > -	algo_data->read_maxtime_us = (BITS_PER_BYTE + 1) * CGBC_I2C_READ_MAX_LEN
+> > +	i2c->read_maxtime_us = (BITS_PER_BYTE + 1) * CGBC_I2C_READ_MAX_LEN
+> >  		* USEC_PER_SEC / bus_frequency;
+> >  
+> >  	return 0;
+> > @@ -200,7 +192,6 @@ static unsigned int cgbc_i2c_xfer_to_cmd(struct cgbc_i2c_transfer xfer, u8 *cmd)
+> >  
+> >  static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+> >  {
+> > -	struct i2c_algo_cgbc_data *algo_data = adap->algo_data;
+> >  	struct cgbc_i2c_data *i2c = i2c_get_adapdata(adap);
+> >  	struct cgbc_device_data *cgbc = i2c->cgbc;
+> >  	struct i2c_msg *msg = i2c->msg;
+> > @@ -210,7 +201,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+> >  	u8 cmd_data, data_len;
+> >  
+> >  	struct cgbc_i2c_transfer xfer = {
+> > -		.bus_id = algo_data->bus_id,
+> > +		.bus_id = i2c->bus_id,
+> >  		.addr = i2c_8bit_addr_from_msg(msg),
+> >  	};
+> >  
+> > @@ -268,7 +259,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+> >  
+> >  		ret = read_poll_timeout(cgbc_i2c_get_status, status,
+> >  					status != CGBC_I2C_STAT_BUSY, 0,
+> > -					2 * algo_data->read_maxtime_us, false, adap);
+> > +					2 * i2c->read_maxtime_us, false, adap);
+> >  		if (ret)
+> >  			goto err;
+> >  
+> > @@ -282,7 +273,7 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+> >  			goto err;
+> >  		}
+> >  
+> > -		cmd_data = CGBC_I2C_CMD_DATA | algo_data->bus_id;
+> > +		cmd_data = CGBC_I2C_CMD_DATA | i2c->bus_id;
+> >  		ret = cgbc_command(cgbc, &cmd_data, sizeof(cmd_data),
+> >  				   msg->buf + i2c->pos, len, &data_len);
+> >  		if (ret)
+> > @@ -350,44 +341,35 @@ static const struct i2c_algorithm cgbc_i2c_algorithm = {
+> >  	.functionality = cgbc_i2c_func,
+> >  };
+> >  
+> > -static struct i2c_algo_cgbc_data cgbc_i2c_algo_data[] = {
+> > -	{ .bus_id = CGBC_I2C_PRIMARY_BUS_ID },
+> > -	{ .bus_id = CGBC_I2C_PM_BUS_ID },
+> > -};
+> > -
+> > -static const struct i2c_adapter cgbc_i2c_adapter[] = {
+> > -	{
+> > -		.owner		= THIS_MODULE,
+> > -		.name		= "cgbc-i2c0",
+> > -		.class		= I2C_CLASS_DEPRECATED,
+> > -		.algo		= &cgbc_i2c_algorithm,
+> > -		.algo_data	= &cgbc_i2c_algo_data[0],
+> > -		.nr		= -1,
+> > -	},
+> > -	{
+> > -		.owner		= THIS_MODULE,
+> > -		.name		= "cgbc-ddc0",
+> > -		.class		= I2C_CLASS_DEPRECATED,
+> > -		.algo		= &cgbc_i2c_algorithm,
+> > -		.algo_data	= &cgbc_i2c_algo_data[1],
+> > -		.nr		= -1,
+> > -	},
+> > +static const struct i2c_adapter cgbc_i2c_adapter = {
+> > +	.owner		= THIS_MODULE,
+> > +	.class		= I2C_CLASS_DEPRECATED,
+> > +	.algo		= &cgbc_i2c_algorithm,
+> > +	.nr		= -1,
+> >  };
+> >  
+> >  static int cgbc_i2c_probe(struct platform_device *pdev)
+> >  {
+> > -	struct cgbc_device_data *cgbc = dev_get_drvdata(pdev->dev.parent);
+> > +	struct device *dev = &pdev->dev;
+> > +	struct cgbc_device_data *cgbc = dev_get_drvdata(dev->parent);
+> > +	struct cgbc_i2c_platform_data *pdata;
+> >  	struct cgbc_i2c_data *i2c;
+> >  	int ret;
+> >  
+> > -	i2c = devm_kzalloc(&pdev->dev, sizeof(*i2c), GFP_KERNEL);
+> > +	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
+> I was ready to send you the v6 (with your I2C patch) based on mfd-next,
+> but I noticed an issue with this line. In v7.4-rc2 devm_kzalloc() has
+> been replaced by devm_kzalloc_obj() (commit
+> 4dd10fbbeb9c33709edc89916e19c03c780a0751). I guess this will conflict
+> during the merge. So I don't know how to proceed. Please let me know
+> what to do.
+
+Rebase your set onto v7.4-rc2 or -next.
 
 -- 
-Regards,
-
-Laurent Pinchart
+Lee Jones
