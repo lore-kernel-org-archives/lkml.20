@@ -1,54 +1,145 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816771;
-	b=3fa5jaKx13A17ne9jIVDd9G6asLy84NdMORORaFlD/YKGQff240wqp63k2eWrcBbocLu
-	 KbqWVj2hTgPsgDOSWBUspI1RoCAeq3vmhto2AOcRfd5ZoxzGCtTPusFMIzj/DZzswk1Fu
-	 yY9RKz5jtBgAgd6A4xFjfwA40P2rLRPiNZyiA1LxpNAAbRdIj/90nccB3yCyVdqC0K90f
-	 ImSTyLoARgtUGOZLHrdB5qQ+idUbON5kzdRbnrCakyTbWAtq87z/4Ol3v7AfS0fl5GsaE
-	 OukN5+Zly8pg6r4mtes/0gIX/qr/LymQz2+WUW+d7d6N0r4sUiYg1DVAjMezoZrPeOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816771;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=tKJr2taXAbMNdxS2ld12zcXQJ7D7w6pOLh3/XuIBMz8=;
-	b=ovnSsFpZweTB7QTmgOJ2/nSPcAhg0Tg1RAyYXWDbtlUIMu0NHAtDbstW5kJJPtMM0O46
-	 dTaDxfAqzo4DzF2mGn7giUfLOqfqjdQ+802fvnYuFACPXlkmLeMyd1qfKOYYhFP0LWjw0
-	 3is42wTK6q/yDjqrYhBHiiiXBrVdl+GMkDT7C55EmAJaoMiIoro/btyS/D+Wawk4de86P
-	 IgBTgs+XbR4bjY+6W3vFO/VXZ/p87VTSVECHOtUK/JabpWX27fKS+qh2tNvZHA9YVynyd
-	 jw1azxGQPlDl6ubFuBRRJW2Dm2BAYPjE5nUrvzswgBjvZtBwQxnwsAPMNczaSt1Bqiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.70
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.29
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794816784;
+	b=crbG3BR5MX/y3MwdnQC0hGAOqSdrB8zKfHkA6oKw4NUWAP+N7F0GHOVOr7s9pINPoXKf
+	 IgjJxaRE+2bL4PFU74fIHu1SUsRN801sdsk9VKk6LbQKwzuOclvTLENxN26Vf3dLxW+vX
+	 5L775XhQeYsuubOyZbd9p0EVQMLWBa0lR5FEJO3GMnufTC9wEX1ctoupujFnfK4Wns3NV
+	 YUzBnI/hYnYBhlBcW+lVMMOaH4bEldP3Gc69qh9yKkGPkJvsqVlLjRUvULmJbcLGR/O7j
+	 t9hg2xKaeSfym0Bal9b6NfLZR6Gl1sCd0N4eiTCtLregplDIcR3Eh2H0bc0/2IjohMA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816784;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XFnEr9ogN3tXfeEcJ7GP5EDzcpj4tDoXyZXyymIAtAg=;
+	b=UOeV2dvXXEXaeyUrBbprMr8pdRR9NjvVZCPwwRoLzD2zaHSjGyZH8UZUxqsM/UreFYo/
+	 fmG403TFfC5YYZytJVn8d/vvF+6VQ/mz6DEPKf06HFUOnHus3B+31bxNuSwluphVCVjJV
+	 gcrQQf5w+nIGjsE1tKG0J1vKxuuxQuOSHWFJpo2d+cV49kx56nYTbcXWSEBZ+FPVJdTiP
+	 +lsF3v+oZXPiLFYVXbi/f4Rl7/ZWUpJET9nOqp9xd5ZH6Y3u5atd7Rmn4uhu/lnZtFRTS
+	 GlGlhAsXKJwgrvE6x8RWgvHjLCNso7FBJQ/PbPYL6vHv+AMVtmfIxuC3QukFyj42naw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=JQJsBfFa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.29
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013029.outbound.protection.outlook.com [40.107.162.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47959606A889
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:12:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47959606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-862a543c4bcso1563955a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:12:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794816770; x=1795421570;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tKJr2taXAbMNdxS2ld12zcXQJ7D7w6pOLh3/XuIBMz8=;
-        b=xx96Eq8lWcgyE63TTzcKu7v1AnRtEHoSG4S33KLAVkJCmXY54TA+R5J9faFxCX7Hji
-         vy53V9TOvgGr+lx/r2kdEjj4I8x/KbP2oPOje2d129ia7nvI1mfWY+hzXI+v3KlPyYVc
-         0KeHGj5r19Q9zlrTIEB65qvryspW8ecB9GhqwUdlxSmYclgafZJXIw9TV0T+yKYNfvZA
-         Uo2LsbtpLvytEGYfgwsK33fMReS1jHe0A/UbxGbo2qNd7TEW1cD2f0hTSl38cDcf3Ah6
-         D+uyyAB2FkzfFy4lCYXTS7sxjSxORwiwvVnwN26hmlmKXhZYHGIdz4zRkWH222J2p9e1
-         noOQ==
-X-Forwarded-Encrypted: i=1; AL+hErFKTyI7rehYMdchTnsJXK/bjAn01H0ag7dsMw9hl2iyaLir01seQ82Yhs/0NjRQZTEuWvR5jkvx+qOY2ko=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Jz2HSg3hiDwgEhJ9RqdJhi/t7etU8ZWF9GgU8SV3TgSX+/Wfq
-	gOmfQi7jfg3WjKWN9KyPTdcmzbMXcSczXtRTuV+00AWvGaX9C1btmd3nQsoXHNg3YWpOW5OtbS9
-	Xo+kbqZnnyyPxbvm3wujbsE9Wngm4CV48Ar81bjwyF0g3iFfnacwJa/mG2x8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34655606A883;
+	Mon, 16 Nov 2026 08:13:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34655606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=JQJsBfFa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=J5vO3S1OdP2mAqm8piH5tC+q074gWpgnoQVushEQE+3ajc1XhgOucg/TtPm6qjXmOgt+Ai77jnSbHpxMOSSXM/a1fwzSAhMJ0uYdPXNtKLOo0mph5Jc6rglpyHLsi2WhA4/GINkX1z6UOI7ATMJ0Oy120QyA9kZlyQnMMuyq6IVJoEwCrjjRcrkJdBqf/5uFjYz9RWJNTM/KdO3EQLZguQDD3bv919UCtTafTfwISjSQWi2ZqcluGWH/bzy4av7Qmt5qWvTNJq5H2fLMnlsjYSRgjJ8IXnBIScVofUjv7Dj/GpVayWeq9Wj04pahzygb67hIGj9ri+UwT27I3rD4TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XFnEr9ogN3tXfeEcJ7GP5EDzcpj4tDoXyZXyymIAtAg=;
+ b=dmr250Dyc7rBrXVW+FUauSId5Wf1Naa4GKtPbSjkA4js/G+LeIPvXEmt2NIGo2ZjTBUV0ozmaMtX2rgSEtg2kF7aIrPHyUO8Qdlg0WMqIdlSmpXXfp8c8HhBsjKQ+2rNg2LRbWluvszG8ju/2IKpOaGQKxmx8r/wvFJgLyCDgrN7bGAhXuVhayIZHI7P6u+4D61N+2Thmp4VpCXwzoLhPYHQn2DzYuY793LI7ifSY1u48iv4JoedjGvc1NZX++ysmJmcllmW/joHpzP01bTOzyDcwjPnKMKoffk1kPshhmLoLAfCbuOQ98fY4C0mefWKwmDh6CjSkmQtdD6klM6DFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XFnEr9ogN3tXfeEcJ7GP5EDzcpj4tDoXyZXyymIAtAg=;
+ b=JQJsBfFaoplYoeGGLxlUNNxxiE/hof1sVNx0l+WY1KsW+z+xKdmM69tN6qJW7/rA/h7nc3guZ+686fj8qzQ+9CCwHY3FcbCIPGW2lktKpFxQG0SLUT5g2nFcrN99orSMSeb/J+abQbMdLRP8gfzMapc91B0NoLTijW5vGSasnyIX2ENeE5PWdI95iNVC+veYFTXO++k1P18Juw/GsjR7g9ZMBMmAh8rK6Js+5Qg0aID7nI5cOHTx1VCdvVtZrZ0XqoH8NUCsq7Q9V7XZ8eyq4eDXSjrt1NgUb0l+YigtDxXGRIa7wxbx7jcE34ZfaarymCrPPIxX6YMSWptK2t2hfQ==
+Received: from AMBPR04MB484752.eurprd04.prod.outlook.com
+ (2603:10a6:20b:7da::11) by VI1PR04MB6894.eurprd04.prod.outlook.com
+ (2603:10a6:803:13a::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 08:12:57 +0000
+Received: from AMBPR04MB484752.eurprd04.prod.outlook.com
+ ([fe80::47e:af5a:c2c:93bb]) by AMBPR04MB484752.eurprd04.prod.outlook.com
+ ([fe80::47e:af5a:c2c:93bb%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 08:12:57 +0000
+From: Sherry Sun <sherry.sun@nxp.com>
+To: "jonas.juffinger@liebherr.com" <jonas.juffinger@liebherr.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"michael@walle.cc" <michael@walle.cc>
+Subject: RE: [PATCH 1/2] serial: fsl_lpuart: Enable break detection in 8-bit
+ driver
+Thread-Topic: [PATCH 1/2] serial: fsl_lpuart: Enable break detection in 8-bit
+ driver
+Thread-Index: AQHddSuM8k6Wen6eoU2NPVVlQ5AFgbcwWfVA
+Date: Mon, 16 Nov 2026 08:12:57 +0000
+Message-ID:
+ <AMBPR04MB48475265D89BE514F79D7371C0927C2@AMBPR04MB484752.eurprd04.prod.outlook.com>
+References:
+ <20261115-fsl_lpuart_8_bit_break_detection-v1-0-b7ac2307dd55@liebherr.com>
+ <20261115-fsl_lpuart_8_bit_break_detection-v1-1-b7ac2307dd55@liebherr.com>
+In-Reply-To:
+ <20261115-fsl_lpuart_8_bit_break_detection-v1-1-b7ac2307dd55@liebherr.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AMBPR04MB484752:EE_|VI1PR04MB6894:EE_
+x-ms-office365-filtering-correlation-id: 9bbc104a-62af-4ab7-77f1-08df43b96c83
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|22082099003|18002099003|261009223027099003|261009221227099003|11063799006|4143699003|56012099006|261028144727099003|261102123227099003|261026140227099003|261022105027099003|261021121427099003|261021123027099003|38070700021|10067099003;
+x-microsoft-antispam-message-info:
+ vhrtVIupRxK3fdPj/iq+HxO0a57Z+Z151YR2Z47g6O67+f0i9PC2k+fnZhHDqIFKgtpZGesoUk+UneRvXgyaYDY71Nq6OVcbOhTBBc5/D0Miw0F8cLJI58VcKcq/ShfWNs1KHiDZbkJo9yO8UVeaDQaPDXvQvV2hkLsLVy0pJW2Zdj5RJa4ht2LaWiqAmlMlU2gaDjUrRTHEs+9k15w9yjkE6b1sYCF9ymmfEC4Gku3b/Rvx90bi/GBH0v4HebbvjLWAI9ET2GbA+/x0se/s7meQhJEb+hIMtK4k2rD5D5GLRCLO8qjGv2chl7nbd5JbqD0flaHelJv0trcI/7lYVyceGga9a4U1VFAaetXpLpkHAOd0vCU+Zsj6ifrDHyz5Fu1ZmaPrYtScn36hHBo7aK3LPY9GbSxmcVdYKJZlXbFIbYuD9qg5nQLfGsHGjAsF4I/jau4HzzA1B20haNpVaLE3dbk7vjIp7DrNt+pWYTxZE64q1jOy9X9zv4L6/JiH9zHYhlhtMF3drLJRq6J9kflnlNb6KU7N814FrQfQaJfbqP+IHZzXdWCY/XYxdPYYLTXgtPIulKri6eN6qT0y7sUyfpgiOZF2eu+LhU6pQnK4HD1HeBZN76XHPA071wLVf8pRwneu0hp7zheglA/DF4IOeifYwV+pSv4TddDIMypVpzA7QN4R58Kvy8wQmLZUBcGDLNG/ttM43+HlroUoZzJxigMqTB+HOlX5mQLcEd8=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB484752.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(22082099003)(18002099003)(261009223027099003)(261009221227099003)(11063799006)(4143699003)(56012099006)(261028144727099003)(261102123227099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?1yMlbvWH8ht/AVz6zlBLG7JRXAkLVxYz6PO5iAjGCmwDMyQf61XwlN/0vScV?=
+ =?us-ascii?Q?gf5aW88Xb0t7fCTorVGW/jcpuqmmHC+7EGU2ZHaRokCOhF00Wx23DK3BwdUp?=
+ =?us-ascii?Q?LIojwvA4vlja1a5bzxdUR+QSQrvPxmK/o+BHrGQPXHbUOiZD7FyphOpURJik?=
+ =?us-ascii?Q?ONThFdzUHjNkTMzcdqh0E0jGK+eSzMH+ZjppIskB0j+SOEWpuoV6RY+UOGEb?=
+ =?us-ascii?Q?JmHE9IuaxvYxgVzSduJbY4yVmRuoy0s6x6vC8/BAzxu6j6F1yxLYhb1ngaQv?=
+ =?us-ascii?Q?Kfl4rUuRnluvln6CNFsKQD5DgypnkdnXU/+vDEaG3HAbI7j9q33uAsYHoeLY?=
+ =?us-ascii?Q?AU+h8fr/dPft5tAopG/9YBHJRKYBc4VfRVxBmer2KDdgqPFn6T/8jC1p8IO4?=
+ =?us-ascii?Q?JZbF3voKgdJpRnrBjw0Ds4BfGXgjpAp/CHn6vrrbI2hichHGuRfzyoyBp0Nv?=
+ =?us-ascii?Q?Tx2Kog+A4TqHsLDux2OOxZAbQF6yFadagUxM6hBTywZjSrAMZYUl5cz0XMmU?=
+ =?us-ascii?Q?JfDBBjlaQbsyLpMztvDbGViO+bxfgMXEl5YooJBHiniOWSayAEjJazDeP+lT?=
+ =?us-ascii?Q?oIkzTW2wuAipDbqUBBvs8NBaE1pWRySVip0TrlQgpQCD9tvZ6H+MOcXzpOa9?=
+ =?us-ascii?Q?y/IrZMJfpFevVzygRi9tFeYJKL8HJnZJ2/9RKEB9kNgcOYNA2q5Ze5WEv3Ri?=
+ =?us-ascii?Q?+eipgUD2mNOj90eBpH44/romg06en9Y+cUl2aS08V9ccLuXds4Y+3cYFlXw+?=
+ =?us-ascii?Q?/IewVS0j0jwxqtaFWw1ByH9encDWcD9w985G8QF7qHnq1+bcTvi45eiPnksf?=
+ =?us-ascii?Q?Y0n3OFD0GM7vQEZVzcoykdqNpH5kMZX4KyUwD3zek6yTEc7fQ35Mfqo21A24?=
+ =?us-ascii?Q?NsaVbu2qgIXUn+BVz77JlGsOkmkvH2cNGiDKEXGJSFUwjKyaWfeVbHYFc/6F?=
+ =?us-ascii?Q?WKsUId+ChlFu3mQxb8fTJP9vZJKnB9lxWx80trPTcWuxMa9FDFfG79YOqxRb?=
+ =?us-ascii?Q?rlXUp4i3Pl5eXJE579f33Etb+qM6BhS29fP7Dlenpz7GNyJL/8ws/V8dIwOr?=
+ =?us-ascii?Q?Dgulxo32Q81Vg1aJ/blvUnMcaTA0+i6Zp6R22gI5JdCC5D8o7w110U8DOpOR?=
+ =?us-ascii?Q?bWlYnb3tbj9EecxqoBQH+Hbb5KxvyOKI6t1KLfaIYom1mc4nEQ1gZFEav1sn?=
+ =?us-ascii?Q?4QJTfeyiiDSejff7eSmQ2Yh4fNnuUHzKL/m6D+LXZf9TJfLpZZWkQ8hwDeRp?=
+ =?us-ascii?Q?KK4cIjfUxcW6+giwGGEWeBoGvN/HPPzkr9Ogviu4hb0wP33+GIB5oJgSTAPR?=
+ =?us-ascii?Q?SbRL9b5oTzPM8VPIyUT7V271zK7gBZw+9kyNyhe4fHOR1FyX6EceY4a0X/1Y?=
+ =?us-ascii?Q?pEtrmqRtLzA4xeVD/mFy/W2jThQtAd4jRFDsfi0cSH8H6haOhcIAJoWAYgji?=
+ =?us-ascii?Q?s4H67Rj0w6NhUByI8Mo5U6dGEocl9Mr9V0qTHFABNa490yTPjR2JH8JpzivR?=
+ =?us-ascii?Q?MkwaKDJw8yGGMdoZ+QjjUQ5w8PKt8Bf23pV+cAmiEX+H5hTr6n0iee8MS6jB?=
+ =?us-ascii?Q?JFHGcNOT0wgo17gDZ2iK7fVhDOQf+IznQ044/+YAwnpvbzXAw+bIv3zZQ7Ze?=
+ =?us-ascii?Q?diMh3rSesgURctBG8xA8bPirjLTsTab5aH8wc9PGOZRNZ8Bqb784gg6HI5i5?=
+ =?us-ascii?Q?XWc0EMkLPtcGf7y2O7x0AycLHHvI0orNBcCs3Uufv/3jNcWY?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,125 +149,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:148a:b0:4b9:e6ab:d07b with SMTP id
- 5614622812f47-56e634827b9mr7862955b6e.27.1794816770222; Mon, 16 Nov 2026
- 00:12:50 -0800 (PST)
-Date: Mon, 16 Nov 2026 00:12:50 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afabb02.3f8ef711.2cc87e.0003.GAE@google.com>
-Subject: [syzbot] [ext4?] WARNING in jbd2_journal_dirty_metadata (4)
-From: syzbot <syzbot+e8180f5590685cbc9037@syzkaller.appspotmail.com>
-To: jack@suse.cz, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tytso@mit.edu
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    fa2933aac170 Merge tag 'x86-urgent-2026-11-15' of git://gi..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=144bd5a1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d16c0eae9c338e3c
-dashboard link: https://syzkaller.appspot.com/bug?extid=e8180f5590685cbc9037
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=154c444d580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=113d0411580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/40cdc2f6bae1/disk-fa2933aa.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f3aa3c064246/vmlinux-fa2933aa.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/bae87f0bfa48/bzImage-fa2933aa.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/6a29776e177b/mount_0.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=164c444d580000)
-
-AI-generated root cause summary:
-In ext4 inline data writes, ext4_generic_write_inline_data() starts a
-transaction handle requesting only 1 credit for dirtying the inode buffer. When
-inline data is created or expanded, ext4_prepare_inline_data() consumes that
-sole credit by marking the inode table block (iloc.bh) dirty. If the subsequent
-userspace copy fails or is truncated (e.g. copying from a NULL/unmapped
-address), ext4_write_inline_data_end() invokes ext4_orphan_add(handle, inode),
-which attempts to dirty an orphan file or superblock block using the exhausted
-handle. jbd2_journal_dirty_metadata() encounters
-jbd2_handle_buffer_credits(handle) <= 0, warns, and returns -ENOSPC, causing
-__ext4_handle_dirty_metadata() to abort the journal handle and trigger ext4
-filesystem error handling.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=e8180f5590685cbc9037
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e8180f5590685cbc9037@syzkaller.appspotmail.com
-
-EXT4-fs (loop0): mounted filesystem 104feaea-39f8-49fa-9fe9-3052f307e139 r/w with ordered data mode. Quota mode: journalled.
-------------[ cut here ]------------
-jbd2_handle_buffer_credits(handle) <= 0
-WARNING: fs/jbd2/transaction.c:1598 at jbd2_journal_dirty_metadata+0xb84/0xef0 fs/jbd2/transaction.c:1598, CPU#0: syz-executor284/5618
-Modules linked in:
-CPU: 0 UID: 0 PID: 5618 Comm: syz-executor284 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-RIP: 0010:jbd2_journal_dirty_metadata+0xb84/0xef0 fs/jbd2/transaction.c:1598
-Code: 39 03 00 00 45 8b 06 48 c7 c7 a0 bf a7 8b 89 ee 89 da 4c 89 f9 e8 bc 6f 80 fe b8 ea ff ff ff e9 40 fd ff ff e8 dd f5 20 ff 90 <0f> 0b 90 b8 e4 ff ff ff e9 2d fd ff ff 44 89 e1 80 e1 07 38 c1 0f
-RSP: 0018:ffffc90004a5f0f8 EFLAGS: 00010293
-RAX: ffffffff82a6f833 RBX: 1ffff11008908f20 RCX: ffff88804117be80
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffffbfff21ab638 R12: dffffc0000000000
-R13: ffff888044847908 R14: ffff888044853900 R15: 0000000000000008
-FS:  000055558b2f3400(0000) GS:ffff888124709000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000000046af40 CR3: 000000002ae66000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __ext4_handle_dirty_metadata+0x198/0x9f0 fs/ext4/ext4_jbd2.c:392
- ext4_quota_write+0x3ca/0x580 fs/ext4/super.c:7503
- qtree_write_dquot+0x244/0x5e0 fs/quota/quota_tree.c:462
- v2_write_dquot+0x183/0x260 fs/quota/quota_v2.c:372
- dquot_commit+0x36e/0x440 fs/quota/dquot.c:540
- ext4_write_dquot+0x20a/0x380 fs/ext4/super.c:7096
- mark_dquot_dirty fs/quota/dquot.c:398 [inline]
- mark_all_dquot_dirty+0x1fe/0x460 fs/quota/dquot.c:438
- __dquot_free_space+0x817/0xc00 fs/quota/dquot.c:1901
- dquot_free_space_nodirty include/linux/quotaops.h:372 [inline]
- dquot_free_space+0x1b/0x30 include/linux/quotaops.h:377
- swap_inode_boot_loader+0xbe6/0x1070 fs/ext4/ioctl.c:503
- __ext4_ioctl fs/ext4/ioctl.c:1731 [inline]
- ext4_ioctl+0x2379/0x4b70 fs/ext4/ioctl.c:1932
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:598 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f163c16d949
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffe5b174698 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0031656c69662f2e RCX: 00007f163c16d949
-RDX: 0000000000000000 RSI: 0000000000006611 RDI: 0000000000000004
-RBP: 0000000000000001 R08: 000055558b2f4560 R09: 000055558b2f4560
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe5b1746c0
-R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007f163c1cd04b
- </TASK>
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB484752.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bbc104a-62af-4ab7-77f1-08df43b96c83
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 08:12:57.8244
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ME3LK2u/hAFnQRcmwxB2BjQIxLxGM/LGrVfYVuJUxLVFAYXfZeAd2Qf/Tvc8I+6eQiDCcR4EeiNeEcx8xdNuvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6894
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> From: Jonas Juffinger <jonas.juffinger@liebherr.com>
+>=20
+> Add break detection in the code for the 8-bit LPUART.
+>=20
+> The driver contains the code for the 8-bit and 32-bit LPUART device but o=
+nly
+> the 32-bit part has working break detection. Add break detection to the 8=
+-bit
+> LPUART driver.
+>=20
+> Break detection in the 32-bit part was added with commit 5541a9bacfe5
+> ("serial: fsl_lpuart: handle break and make sysrq work") and later fixed =
+with
+> commit 707f816f2559 ("tty: serial: fsl_lpuart: correct the count of break
+> characters"). This patch is practically identical.
+>=20
+> Signed-off-by: Jonas Juffinger <jonas.juffinger@liebherr.com>
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Reviewed-by: Sherry Sun <sherry.sun@nxp.com>
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Best Regards
+Sherry
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+> ---
+>  drivers/tty/serial/fsl_lpuart.c | 32 ++++++++++++++++++++++++--------
+>  1 file changed, 24 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpu=
+art.c index
+> c8575c965203..5817c47e4db3 100644
+> --- a/drivers/tty/serial/fsl_lpuart.c
+> +++ b/drivers/tty/serial/fsl_lpuart.c
+> @@ -885,6 +885,7 @@ static void lpuart_rxint(struct lpuart_port *sport)
+>         unsigned int flg, ignored =3D 0, overrun =3D 0;
+>         struct tty_port *port =3D &sport->port.state->port;
+>         u8 rx, sr;
+> +       bool is_break;
+>=20
+>         uart_port_lock(&sport->port);
+>=20
+> @@ -898,14 +899,27 @@ static void lpuart_rxint(struct lpuart_port *sport)
+>                 sr =3D readb(sport->port.membase + UARTSR1);
+>                 rx =3D readb(sport->port.membase + UARTDR);
+>=20
+> +               /*
+> +                * The LPUART can't distinguish between a break and a fra=
+ming
+> error,
+> +                * thus we assume it is a break if the received data is z=
+ero.
+> +                */
+> +               is_break =3D (sr & UARTSR1_FE) && !rx;
+> +
+> +               if (is_break && uart_handle_break(&sport->port))
+> +                       continue;
+> +
+>                 if (uart_prepare_sysrq_char(&sport->port, rx))
+>                         continue;
+>=20
+>                 if (sr & (UARTSR1_PE | UARTSR1_OR | UARTSR1_FE)) {
+> -                       if (sr & UARTSR1_PE)
+> +                       if (sr & UARTSR1_PE) {
+>                                 sport->port.icount.parity++;
+> -                       else if (sr & UARTSR1_FE)
+> -                               sport->port.icount.frame++;
+> +                       } else if (sr & UARTSR1_FE) {
+> +                               if (is_break)
+> +                                       sport->port.icount.brk++;
+> +                               else
+> +                                       sport->port.icount.frame++;
+> +                       }
+>=20
+>                         if (sr & UARTSR1_OR)
+>                                 overrun++; @@ -918,15 +932,17 @@ static v=
+oid
+> lpuart_rxint(struct lpuart_port *sport)
+>=20
+>                         sr &=3D sport->port.read_status_mask;
+>=20
+> -                       if (sr & UARTSR1_PE)
+> +                       if (sr & UARTSR1_PE) {
+>                                 flg =3D TTY_PARITY;
+> -                       else if (sr & UARTSR1_FE)
+> -                               flg =3D TTY_FRAME;
+> +                       } else if (sr & UARTSR1_FE) {
+> +                               if (is_break)
+> +                                       flg =3D TTY_BREAK;
+> +                               else
+> +                                       flg =3D TTY_FRAME;
+> +                       }
+>=20
+>                         if (sr & UARTSR1_OR)
+>                                 flg =3D TTY_OVERRUN;
+> -
+> -                       sport->port.sysrq =3D 0;
+>                 }
+>=20
+>                 if (tty_insert_flip_char(port, rx, flg) =3D=3D 0)
+>=20
+> --
+> 2.43.0
+>=20
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
