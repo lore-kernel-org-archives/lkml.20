@@ -1,96 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819940;
-	b=u5Fljo3kCsctFH8brxecnjAIbQrgVIZMZbOaqH+JqC+5D338mYNvW/iIN4dIAy8HovPf
-	 2M29zRbijC3hvqPQZnuC41eVccCwdy9dd4se/wNkYSd4hBpqQ3+rmNAbPJAXIeLnELA6B
-	 ckAR9j8MFwx1Uqq7w9vUCbeFvPOf3ZAPhHCPSmHw8sewaLp5k4mgwERZZpq03Gpeja8Ys
-	 FyogS/Tf7wWSDjIiJUtwJECdvD48VCV9UdgoSdU7uX5E2cV50vCu/1eqXS4Jc06u+xgVh
-	 zxuKl0szbmlctQRFZj54F+rJdEGYwuhthEjG6AFMU2rFKe6uDz2scShKvRfqFVVrLiA==
+	t=1794819949;
+	b=jRCWszjTv/gBEVXpEXcmmIn1VPu60xJMWiqUXTjhuYcbshFwYuSxPpeSd0WlnGJwrHXv
+	 lG5k5LL5uBEEjjJFEpgicjUnCR/PTZfl5flCez15h8qZePs2yTRZrEHUoJmcmIY2qAeNl
+	 Fb3Tn0nMrntZsIu4N8dSDXOSVXeNfePXBWqsaKaXHXazU9Vozt/uA9Adj0d9iOiVZtZ5b
+	 4eEK3dQuYbze35gb3touKHvoPHWaIFQx7qDN4g8Ca3WiGAKDsAUUnRuMmv0xDDPj9Uh4R
+	 Tb3YK9WtvXai6g2j4CwS2u7VWJiU8PPZnsjxHhMFYpix0VdplL1lrkL2pAILjibEHUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819940;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819949;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=1zvuDxYaIx+wRq51z8Ba2c/DCwXwLVuqXqRa+7I8efo=;
-	b=Ki3IasxDoSRTcwqCksAJpAdcSFWLTmPUjE/F2DAHrjrVrofdtM/iyBHcqkcIu+DCilPo
-	 nH9G2jlWSWt2yb/VtQ/oAZdn6NOe9auoTLaRDg4427Jw6CAKu89Zk7TfY/lN//C30T/tW
-	 GKbHQGEf2N7gL2HoKClzLL/jXkfYIletQ4QwkEx8jdet//1GvQFEjCaU8wr3v8l1cS7IC
-	 GsdVrv1tgFfeab00rGGu7g/Clv5kNj64pzjuCnr6VUVnuGkToX0SDjfTzWXAy0r+xwpy8
-	 HFeK957KEe5uWnmv9xdoCUiBFOSDIznP6i/LJCR4JWzRxVd/Z2shgSg5RI0/hHGs3Ow==
+	bh=/0oXdxbpu71mKxzQVXDmWWE0LshjAYMSIYDSuXABBY4=;
+	b=ckMQT4d9VNMDs4rOMg7H55trlP7X+2aepaoor+WKUq2BIfqbONWtltkEr08liAbwbb/5
+	 ftI6XQvSzjldzlvzfMIlkcv6fuEiCzDH2etM+IlgZ8h36c9FLABxdhwNYM5XP2Nk3INoj
+	 h4H3FlE4ghic/i3G9r7ujDTaWaojG5XIK0pxuVdUW6MFEOWYjSEl2OTxLUJOj+CR8Hkpw
+	 xpMhBm5olAwd/kVolkhdgCVbWcrvNafqptAyd2fYpVjILzRfoUM4oRDncBo5fCdvqgxIn
+	 7ibGdHkRKWJhsoNT7wuTJPmEMMu+1JYdnjR2Lkm5Kpxm3wyhhx88HhADnh9kbXj/e3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Matny45j;
-	arc=none smtp.remote-ip=74.125.82.195
-Received: from mail-dy1-f195.google.com (mail-dy1-f195.google.com [74.125.82.195])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=jDneAKx1;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE7D606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:05:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE7D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A501606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:05:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A501606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Matny45j
-Received: by mail-dy1-f195.google.com with SMTP id 5a478bee46e88-37600b0db49so3747689eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:05:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794819939; x=1795424739; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1zvuDxYaIx+wRq51z8Ba2c/DCwXwLVuqXqRa+7I8efo=;
-        b=Matny45jJHPjIWXkekS7kOaHLqe+34gj0u7udcwy8lDdIpS68CDXZP5LGnCpltTdf+
-         dzp/fnKOEMmaGI2fJlFpKanKtIdr7KPLjdLdrRYri4pE25TITMaUdT3FOmIATtX5fB2W
-         nBBvWs1vdMfQTQ3F33nHPrTeDv2CfPsMiyqE88TtvyG0ze6XcceBvRd7KNPsvwIRkFip
-         MpbN2yeEb0EOPLH8gMB2g2syFrjEUZigMpOrWF69szbJKNM04yRNSM47T9TsibtwPqcz
-         sIXARK5Wf4QMMZrTGsCbgtNASTFpP02dceQrq9eYFBaw70YmcwWo8ApNHcYS0cBj4uVU
-         y0Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794819939; x=1795424739;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1zvuDxYaIx+wRq51z8Ba2c/DCwXwLVuqXqRa+7I8efo=;
-        b=saTvoofQHc8MJ95SP/YprGBf9reVRUFK32YfrMRobpRggcHMLldp2jQ3Br5CNOjd34
-         5T+dSLEM6tfF5yLBH32n24CxHlbjTRhmg24HHwiLzLFP3UsbmpQCJ7RicjQBpgz2oEaY
-         FmX4nnXkun9LMlFAhctWbpCStkQlN31oQUD0q1iwLssLN6y/2CgCes4MCP91DDUIeVfe
-         I5Z47ehFQBxI67w87d2q6NAzLEv2uu2cuT6L0QV5nAyZ1u/TNyAe3FEBBD40vrNUPwYR
-         pygGQLJGwCkAyisC0WipKn76PAYL+HgxPxYM5osw/MYaf9VK+LZG93MgqwQSTaTfHHbn
-         jO+g==
-X-Forwarded-Encrypted: i=1; AL+hErGAkxCJTBGMKcKJT2loCcIbfFWScIAi27ZWIXxXvQSHD0XKfPN4kBkTnoGLhKKaMr83VK/0OY23jv8LStk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2Q3Via7anPx1OQcl3lLBjQ0C2bv7LWMwPfZ2eqeXXYOQF9ih3
-	9AQeHMHj4IaGUKWMq4yz0lIDjatBLIHIee0xV6MGu9qy/pSQlDEmFD+o
-X-Gm-Gg: AZFdTZcSPiPO29xs6+Trs4L+vTenc/oue285MuAWpg/AZGNmfcXE6tb8dNxATBgxPjs
-	94kDv2aRmg4rs3p0NZPe2vhxDdjFCiHfsOw0Z6SLP0+iVueXsef6dg3I7CeYQ9hjpSTk8abNu+B
-	tGeCt8kURhvAdGWOAba67LGivcREvLbocc0OPFu35yuTvJr9YAfawEMDMRjX/p51cl/n/vMS4LK
-	3lHUyKItTPwY69bI7nc0+3yO7BLsZxa+iyGjGPrbuV+bIFE2pZlWDyQ59y1xLOwjIFv7umURA5E
-	nSvX+PAwVD1lfHT5cdzedfI+yg4Kleqzl46wO7Zwg/NYWVKiBeyn3aG7dMLYFvaOWkRkzUvHwAc
-	TiRdUrvRIfVXF2YoqzJkK7P5u739VN0PQFbJZT2ubLvpGMMcTHdJpkeopqiMkfLcYuhmwIrvJZn
-	Nn+FXMYyD5NT+MV1mA6sAR/tQQSmFbaqP6tXQeTxGxLBAQFFeVn6w21gajCU4IZDmBv590ZjiKK
-	FsWfKN3gcY5bYZGuxU73AZNzeR5EoZggKU43ScIF/YiBMrly/tYukDnqyjOymDjm+cEtaONAYCT
-	N5TqRLj4XqtyTPkdakVT8Df96p+zIV70yBV9X9R83V+2nVui5jlg8tY2dXCsKbQNZSPJvE64d6Q
-	DSAc6w61mwbALYCdkKpp7jLS7ByJn6WiSekP3cg==
-X-Received: by 2002:a05:693c:60d2:b0:362:2e2f:c261 with SMTP id 5a478bee46e88-377e1cebaffmr13409680eec.27.1794819938661;
-        Mon, 16 Nov 2026 01:05:38 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm32581548eec.3.2026.11.16.01.05.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:05:38 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: axboe@kernel.dk
-Cc: tj@kernel.org,
-	josef@toxicpanda.com,
-	bvanassche@acm.org,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] blk-ioprio: check capabilities before promoting a cgroup to RT
-Date: Mon, 16 Nov 2026 09:05:29 +0000
-Message-ID: <20261116090529.69650-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=jDneAKx1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=/0oXdxbpu71mKxzQVXDmWWE0LshjAYMSIYDSuXABBY4=; t=1794819948; x=1796029548; 
+	b=jDneAKx1jl1OLxVVYUWLUkIRxde3zO39JXF3rvceEIX/QTP3smwIFmw0hMepo4HsrLTalSNMsVC
+	6pQgtvCzv6gVvagRVK17kOKfQsLCEpbFArseMb24Nzvn1fN1r7QxiQ/iNESUwbM6FGWBbSUWcEvOE
+	gUD46vtRpSg1vzNbDscfvxfXWMG2+uju8pwdfRtsz4DMOyJ9TjYySBbKzDf+k2EQFW76a0lVvv4b9
+	LziAEa+GIekBPR3R3TVGRAC3PDZC8Yqxa8GejLYJB7F00cJzOmTwiBXXdv/rKppDGu7Ut2fmmrUUQ
+	8bE8V0E+Fq4Dy9Li9zdQu1V29LybEGpGvm0w==;
+Date: Mon, 16 Nov 2026 10:05:26 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>
+Subject: Re: [PATCH v5 10/13] drm/bridge: tc358762: Move tc358762_init()
+ into tc358762_enable()
+Message-ID: <20261116100526.3e699f94@kemnade.info>
+In-Reply-To: <20261015-tc358762-fixes-v5-10-7cd721a6451b@ideasonboard.com>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+	<20261015-tc358762-fixes-v5-10-7cd721a6451b@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,61 +70,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-ioprio_set() and the per-request I/O priority of aio and io_uring only
-hand out IOPRIO_CLASS_RT to tasks that have CAP_SYS_ADMIN or
-CAP_SYS_NICE. The io.prio.class cgroup attribute has no such check.
-Writing "promote-to-rt", or its alias "none-to-rt", to it changes the
-requests of the cgroup to the RT class.
+On Thu, 15 Oct 2026 14:16:01 +0300
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-The attribute exists in every cgroup that has the io controller enabled
-and it is not hierarchical. A user that got a cgroup delegated owns the
-files of the child cgroups it creates there, so it can create a child
-cgroup, move into it and write "promote-to-rt" to its io.prio.class.
-Its requests are then issued with IOPRIO_CLASS_RT although ioprio_set()
-fails with -EPERM for the same task, and mq-deadline dispatches them
-before the best-effort requests of everybody else.
-
-The delegation model in Documentation/admin-guide/cgroup-v2.rst expects
-the settings of all resource controllers to be hierarchical, so that a
-delegatee can only distribute further what it received from its parent.
-This attribute lets it raise the priority class of its own requests
-instead.
-
-Require CAP_SYS_ADMIN or CAP_SYS_NICE for the two policies that raise
-the priority class, like ioprio_check_cap() does. The other policies are
-left alone.
-
-Fixes: 556910e39249 ("block: Introduce the ioprio rq-qos policy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- block/blk-ioprio.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/block/blk-ioprio.c b/block/blk-ioprio.c
-index 8fa8bca35062..ea32db727b16 100644
---- a/block/blk-ioprio.c
-+++ b/block/blk-ioprio.c
-@@ -14,6 +14,7 @@
- 
- #include <linux/blk-mq.h>
- #include <linux/blk_types.h>
-+#include <linux/capability.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include "blk-cgroup.h"
-@@ -91,6 +92,9 @@ static ssize_t ioprio_set_prio_policy(struct kernfs_open_file *of, char *buf,
- 	ret = sysfs_match_string(policy_name, buf);
- 	if (ret < 0)
- 		return ret;
-+	if ((ret == POLICY_PROMOTE_TO_RT || ret == POLICY_NONE_TO_RT) &&
-+	    !capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_NICE))
-+		return -EPERM;
- 	blkcg->prio_policy = ret;
- 	return nbytes;
- }
--- 
-2.43.0
+> The only thing tc358762_enable() does is call tc358762_init(). Inline
+> the tc358762_init() into tc358762_enable(), for simplicity and to make
+> it easier to improve the tc358762_enable() in the following commits. No
+> functional change.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+> ---
+>  drivers/gpu/drm/bridge/tc358762.c | 104 ++++++++++++++++++--------------------
+>  1 file changed, 49 insertions(+), 55 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+> index 2baacef685a5..a91cf159ba27 100644
+> --- a/drivers/gpu/drm/bridge/tc358762.c
+> +++ b/drivers/gpu/drm/bridge/tc358762.c
+> @@ -138,9 +138,56 @@ static inline struct tc358762 *bridge_to_tc358762(struct drm_bridge *bridge)
+>  	return container_of(bridge, struct tc358762, bridge);
+>  }
+>  
+> -static int tc358762_init(struct tc358762 *ctx)
+> +static void tc358762_post_disable(struct drm_bridge *bridge,
+> +				  struct drm_atomic_commit *state)
+> +{
+> +	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> +	int ret;
+> +
+> +	/*
+> +	 * The post_disable hook might be called multiple times.
+> +	 * We want to avoid regulator imbalance below.
+> +	 */
+> +	if (!ctx->pre_enabled)
+> +		return;
+> +
+> +	ctx->pre_enabled = false;
+> +
+> +	/* Turn off the DPI output */
+> +	tc358762_write(ctx, LCDCTRL, 0);
+> +
+> +	if (ctx->reset_gpio)
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +
+> +	ret = regulator_disable(ctx->regulator);
+> +	if (ret < 0)
+> +		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
+> +}
+> +
+> +static void tc358762_pre_enable(struct drm_bridge *bridge,
+> +				struct drm_atomic_commit *state)
+>  {
+> +	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> +	int ret;
+> +
+> +	ret = regulator_enable(ctx->regulator);
+> +	if (ret < 0)
+> +		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
+> +
+> +	if (ctx->reset_gpio) {
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		usleep_range(5000, 10000);
+> +	}
+> +
+> +	ctx->pre_enabled = true;
+> +}
+> +
+> +static void tc358762_enable(struct drm_bridge *bridge,
+> +			    struct drm_atomic_commit *state)
+> +{
+> +	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+>  	u32 lcdctrl;
+> +	int ret;
+>  
+>  	/*
+>  	 * DPIENABLE has reset default of 1. Make sure we don't output on
+> @@ -203,60 +250,7 @@ static int tc358762_init(struct tc358762 *ctx)
+>  
+>  	msleep(100);
+>  
+> -	return tc358762_clear_error(ctx);
+> -}
+> -
+> -static void tc358762_post_disable(struct drm_bridge *bridge,
+> -				  struct drm_atomic_commit *state)
+> -{
+> -	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> -	int ret;
+> -
+> -	/*
+> -	 * The post_disable hook might be called multiple times.
+> -	 * We want to avoid regulator imbalance below.
+> -	 */
+> -	if (!ctx->pre_enabled)
+> -		return;
+> -
+> -	ctx->pre_enabled = false;
+> -
+> -	/* Turn off the DPI output */
+> -	tc358762_write(ctx, LCDCTRL, 0);
+> -
+> -	if (ctx->reset_gpio)
+> -		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> -
+> -	ret = regulator_disable(ctx->regulator);
+> -	if (ret < 0)
+> -		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
+> -}
+> -
+> -static void tc358762_pre_enable(struct drm_bridge *bridge,
+> -				struct drm_atomic_commit *state)
+> -{
+> -	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> -	int ret;
+> -
+> -	ret = regulator_enable(ctx->regulator);
+> -	if (ret < 0)
+> -		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
+> -
+> -	if (ctx->reset_gpio) {
+> -		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> -		usleep_range(5000, 10000);
+> -	}
+> -
+> -	ctx->pre_enabled = true;
+> -}
+> -
+> -static void tc358762_enable(struct drm_bridge *bridge,
+> -			    struct drm_atomic_commit *state)
+> -{
+> -	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> -	int ret;
+> -
+> -	ret = tc358762_init(ctx);
+> +	ret = tc358762_clear_error(ctx);
+>  	if (ret < 0)
+>  		dev_err(ctx->dev, "error initializing bridge (%d)\n", ret);
+>  }
+> 
 
