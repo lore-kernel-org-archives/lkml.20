@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827640;
-	b=PWkn9kwQ+Mq87SAPSjf8qdg0QjttzaF8txUThtNkXZnjc0zZe2/ur2PhUEZCq5lGcAeA
-	 f48j2MBEVIRkpIb+mnpztRwHraoKyzFHfLJfOxZyIlg5zQ1uZbIv6UoVdiOQCAJho0mGm
-	 ckbmJLh+ag1LLxwk1gt4QUtYm2FCkh5yCCugvHY+BfdHsuY1tlZTe5Q8zJyX6SASGqjM2
-	 IhbFjGahKfYPMIlEvOjLKyBTcpGVpdCtbM/KgCbKP2DWqT0mGOCvpUuFCEAUIqUzM02A/
-	 xUjwOn3txPnP319OvNGqWjM8qIBwYPqP3V1Xii89Gmsj97gF01Le71548ErjJKlOn0w==
+	t=1794827665;
+	b=FRnkZMny0xNxdO509cl6iABSz3L1UDEUTxfyeNLEEsxEqqq/EN8ls9cnySUB99zjLiLr
+	 7ZyQUE1l7yuCowTUJ51V7LUap1OowEPv7HGvtSsgByAyOEWNVxlnbQmkXYjHHs+JDiyUk
+	 MGgOVEKOie3qRzdVRpRcNFQ7PMOcWGct29ql5dmGj4oHIeusHQnWSNMWnbRB5u/KteTDo
+	 vZ2T9EmkvwJ24zKzytzZ6xkD3hMdBr5wM7U83mojfdT2JlAswz2AqLsCZTjqC0RvRDCz9
+	 GAiFC+KG3+mWrZzzAyz0CtRQetQeInxHLrHC7pfReAcOnb72byRjGvCzi0ZiwGC6Jmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827640;
-	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-malware-bazaar;
-	bh=q3tXTTuzZPDwf7cWttrKZdbIQ10UDrDakG8A8akmtsc=;
-	b=hyqrdd51OaUMQXG6jGXsFQyXWrM1tOm4kuCEwF/1brNuGhJGgLLzwXeO9MPSiHhmx/7s
-	 VNA/8lYu+BMLkaMVCa9l+Vr2aOrjx/FkSPMvwvbueJg4zW6faYKwgmEwYwMo0lXughZvy
-	 F0tlOg6232zt8/Ay9mGUNt0tYH487Vxj7T1JAn8w2modxOEeXE1IxYc3mJhudhFe0Nv4n
-	 Hn9ZPnQkCUKeuDd3uo1jBYPJLtpAPNZxClHl4GsnMzH52UeOPdKNdnHo0oE5qMQOoZhOJ
-	 XADdzkRSnPm/BNOSNTxsnpy1Bbh/bcRSX+L1DudTuVrQAl8lHEwBooQDw5hhqmr5ZVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827665;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KNPAh5bBD/DCtRCxR0hqcD+XfwtFgFjRzluMrGXNBRI=;
+	b=EHGgpGHAm59gYeWg3WzBjjHLH9Osy2AQEeOqqq+eZlj+K1jUKVh1vkg8wDsEaPpRlykL
+	 CwJidtbAR8Oir0hTyHrlATWVVBoig5DWsOv3GG5w9jXJSMR/tkpimOvBAmPisaAG6WwL4
+	 MI2BidJRYE5o4odai9ScrL054newRaUv2LNZ6U/1Ji9KAdpyj/cGUxov3dcc3lETkGSdN
+	 m3glhh4ecGXiie6YWmW/1l2ejHHy0Qvg35hSm+/k5Bi1tHaIdlkwYbUX6j4rblNz7pBSW
+	 O5sYQxuUM6mDfKLiC/4wwD4CQ7RJV0ufQ+IzNDTe+tO0C1Gku/dbd97GTbt6Jky8kFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=permerror header.from=sipsolutions.net;
-	spf=pass smtp.mailfrom=sipsolutions.net;
-	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b="p6tJuYr/";
-	arc=none smtp.remote-ip=168.119.38.16
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5zrqDaC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27204606A8B9;
-	Mon, 16 Nov 2026 11:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07E2606A332;
+	Mon, 16 Nov 2026 11:14:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=p6tJuYr/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=q3tXTTuzZPDwf7cWttrKZdbIQ10UDrDakG8A8akmtsc=;
-	t=1794827639; x=1796037239; b=p6tJuYr/EAWGpL2edL7Zpun4M6i3IRsmyNLZ8LlvyDsQHsJ
-	JgTBysM8cDCLFPQFC6ZLM83lBRFVHr2irBIDDG6c7L4JB2QyVdq9g9pA0M8aFu2OnmJrLUxAugMAT
-	SwYi7wrwfAEopmTv34Xqw1DA0xyt8a5IssdnpNtWTjP/2ZJ5YnsN03uFsnnqgaUodqxTl1O+NRAWb
-	PA0ASE/elpvrZaFkp/2Y8JeysaYCa1P5HGRChqXp7iH0ylTYgdudHgrWtRkUi6g+rNeY9cAHVUp9v
-	jP9Uxu4y70+3sGxHmVRtxRuEflQ/KGuY35A/h5GYARo6sh/aCOK62rELjfd8VezA==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xSueq-0000000GZaZ-1ipX;
-	Mon, 16 Nov 2026 12:13:56 +0100
-Message-ID: <0ebac9768c0294b8ecfc8729447dee94ec0b7c84.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless-next v4 09/21] wifi: nl80211/cfg80211: add
- support for SMD context programming
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 12:13:55 +0100
-In-Reply-To: <2be101bb-081c-4d6b-93b6-a7cea3f183f2@oss.qualcomm.com>
-References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
-	 <20261106-smd-v4-9-62e39487f51a@oss.qualcomm.com>
-	 <7e6a6640fe034af160eec0dda532259b499153ad.camel@sipsolutions.net>
-	 <2be101bb-081c-4d6b-93b6-a7cea3f183f2@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5zrqDaC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E331F000C4;
+	Mon, 16 Nov 2026 11:14:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794827664;
+	bh=KNPAh5bBD/DCtRCxR0hqcD+XfwtFgFjRzluMrGXNBRI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O5zrqDaCTmINWztAloFXN+rib9w6MXO+Cig6Cqk8sJgar8MILTmb6qSQTzdhtT5vQ
+	 /ai9JqDwBZCd7Bj+66UtHdzRGQDUWraCnMEPl+H+91qobdHvRBE09minUyXSPTDOHN
+	 SR+Z1HO69AKxCZozQX2A13wcm5W1p7E/BSAAzcXVEhs/gGNPHLVeJwRsAhCy42glLk
+	 sZzo45Lyuk1zo5M3067MD/U5Kh3sJlqEb0fmFvM6jPpWFQNAtIp4vwa8652NKBEqcq
+	 gXMnfrqG3xlHcUMPkCUaZyXk5hZd2JZpuKmAXRzngkZkn3miQVNMe57FPiGEnq0Vq6
+	 plAw86jLVh3yQ==
+Date: Mon, 16 Nov 2026 13:14:16 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: nakixii <nakixii@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>,
+	Yosry Ahmed <yosry@kernel.org>, Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Barry Song <baohua@kernel.org>, Hugh Dickins <hughd@google.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>, Peter Xu <peterx@redhat.com>,
+	Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [RFC PATCH 00/16] mm: add in-memory compression of reclaimed
+ pages
+Message-ID: <avrliOfBi326au6B@kernel.org>
+References: <20261116110122.309748-1-nakixii@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,33 +67,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116110122.309748-1-nakixii@gmail.com>
 
-On Fri, 2026-11-13 at 23:24 +0530, Pooventhiran G wrote:
->=20
-> There were similar changes done for array of values for
-> NL80211_ATTR_CNTDWN_OFFS_BEACON, NL80211_ATTR_SCAN_FREQUENCIES, etc., So,=
- this
-> approach was done here to make sure that each SN in the array was u16 as
-> expected. If there _is_ a way to add policies for the iterator-based nest=
-ing
-> of such values that you could point me to, I will change accordingly.
->=20
-> [1] =3D>
->=20
-> struct nla_policy sn_policy[8] =3D {
-> 	[0] =3D { .type =3D NLA_U16 },
-> 	[1] =3D { .type =3D NLA_U16 },
-> 	...
-> 	[7] =3D { .type =3D NLA_U16 },
-> }
->=20
+Hi,
 
-Wait, I thought you _had_ a policy for this? Sorry! I also thought we
-had a macro for such policies, but ... I guess not?
+On Mon, Nov 16, 2026 at 07:01:06PM +0800, nakixii wrote:
+> This is a proof of concept, posted to ask whether the approach is worth
+> pursuing. It is not meant for merging. The series is based on Linux
+> 6.12.23, not on mm-unstable, and has not been ported to the swap-table
+> and zpool changes that have landed since. If there is interest, the
+> next version will be rebased onto mm-unstable.
+> 
+> memcomp stores reclaimed anonymous and shmem pages in compressed form
+> in memory, using the kernel's compressors and zsmalloc unchanged.
+> Reclaim replaces the PTE, or the shmem page-cache entry, with a
+> swap-like token that names a 16-byte slot. A fault on the token
+> decompresses the page and maps it again. No block device is needed. If
+> swap is configured, cold entries can be written back to it. The sysfs
+> interface is under /sys/kernel/mm/memcomp.
+> 
+> Results
+> =======
+> 
+> The comparison ran 965 fresh guest boots on real application pages,
+> under nested KVM on WSL2, with a paired rule fixed before collection.
+> Selected results:
+> 
+>   Without real swap, single-page refault p99 was 10.7 us against 20.7 us
+>   for zram with lz4, and 22.0 us against 27.3 us with zstd. Under
+>   512 MiB of anonymous pressure, refault p99 was 37% lower than zram
+>   with lz4 and 36% lower than zswap.
+>   Completed-switch p99 with zstd was 33-36% lower than zram in 10/10
+>   rounds and 20-22% lower than zswap in 9/10; these differences were
+>   smaller than the reference's variation between rounds.
+>   After writeback, readback p50 over an 832 MiB target was 11.9 us
+>   against 105.5 us for zswap and 114.0 us for zram writeback, with
+>   70-76% fewer bytes written before readback; p99 was about the same.
+> 
+> Less favorable:
+> 
+>   With real swap, single-page refault p99 was 4.8 times zram with lz4
+>   and about 1.5 times zram and zswap with zstd.
+>   Sequential refault was 30-31% slower than zswap, since there is no
+>   swap readahead. Single-page pageout p99 was 35-38% slower than zswap.
+>   In the pageout and refault workload, 64 MiB of real pages per
+>   application, memcomp used 5-8% more memory than zram; this leaves
+>   out zram's disksize-sized table, which was larger than the difference.
+> 
+> nakixii (16):
+>   mm: userfaultfd: check the exclusivity of the page being moved
+>   mm: add a swap entry type for in-memory compressed pages
+>   mm: memcomp: compress reclaimed anonymous pages in memory
+>   mm: userfaultfd: let UFFDIO_MOVE move memcomp entries
+>   mm: memcomp: charge compressed pages to the source memcg
+>   mm: memcomp: store shmem and tmpfs pages
+>   mm: memcomp: write cold pages back to swap
+>   mm: memcomp: compress foreground batches asynchronously
+>   mm: memcomp: batch unmap reserved large folios
+>   mm: memcomp: queue restored large folios for splitting
+>   mm: memcomp: account user eviction and refault
+>   mm: memcomp: report precise token residency
+>   mm: memcomp: add KUnit tests
+>   selftests/mm: add a memcomp pageout and refault test
+>   mm: memcomp: add the design doc
+>   mm: memcomp: add the admin guide
+> 
+>  .../ABI/testing/sysfs-kernel-mm-memcomp       |  363 +
+>  .../admin-guide/kernel-parameters.txt         |   10 +
+>  Documentation/admin-guide/mm/index.rst        |    1 +
+>  Documentation/admin-guide/mm/memcomp.rst      |  149 +
+>  Documentation/mm/index.rst                    |    1 +
+>  Documentation/mm/memcomp.rst                  |  215 +
+>  MAINTAINERS                                   |   12 +
+>  fs/proc/task_mmu.c                            |   20 +
+>  include/linux/memcomp.h                       |  481 ++
+>  include/linux/memcontrol.h                    |   45 +
+>  include/linux/swap.h                          |   52 +-
+>  include/linux/swapops.h                       |   22 +
+>  mm/Kconfig                                    |   75 +
+>  mm/Makefile                                   |    1 +
+>  mm/hmm.c                                      |    3 +
+>  mm/huge_memory.c                              |   44 +
+>  mm/internal.h                                 |   84 +
+>  mm/madvise.c                                  |   10 +-
+>  mm/memcomp.c                                  | 6181 +++++++++++++++++
 
-There's a preference for using a single attribute multiple times to get
-an array, in part for this reason, but we've never done that really in
-nl80211. Maybe see how that'd be?
+... (a lot of memcomp/ +++ changes)
 
-johannes
+>  mm/memcontrol.c                               |   99 +
+>  mm/memory.c                                   |   42 +-
+>  mm/migrate.c                                  |   11 +-
+>  mm/mincore.c                                  |  125 +-
+>  mm/page_io.c                                  |   42 +
+>  mm/rmap.c                                     |   41 +-
+>  mm/shmem.c                                    |  251 +
+>  mm/swap.h                                     |    4 +
+>  mm/swap_state.c                               |    5 +
+>  mm/swapfile.c                                 |   49 +
+>  mm/userfaultfd.c                              |   94 +-
+>  mm/vmscan.c                                   |  651 +-
+>  mm/workingset.c                               |   32 +
+>  tools/testing/selftests/mm/Makefile           |    9 +-
+>  tools/testing/selftests/mm/config             |   11 +
+>  tools/testing/selftests/mm/hmm-tests.c        |  112 +
+>  tools/testing/selftests/mm/memcomp.c          |  831 +++
+>  134 files changed, 46825 insertions(+), 14 deletions(-)
+
+This seems to big of a change and the wall of text in your "results"
+section does not explain clearly why would we want to bother reading this.
+
+-- 
+Sincerely yours,
+Mike.
