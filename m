@@ -1,41 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.83.148.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794840555;
-	b=CjNf5yi/1PHMyHx35y6G8QaievFPLKpLk2EigOWcHV9OFgvRO7eaZlyCwX+/tBITIgRR
-	 UvJkyfVxPzeqqc/ovUEMb5yLhqRnhkvPgZV2KgdgXs1frNdcZTHsLFaXMDIgZm/rA+9qw
-	 I4LIqHdMZegkM53BGQSRNCk7lOqJELPetNPhJm8QMZPLps3tnB2gYgHfTzgr3xlazA/pS
-	 6q+9uZwaQkIJmBYrjIbtvo0QFo05bg2+LDNbH2ddRdApwFUDF9W9fA5BCOQZ7jegtTDHY
-	 dkXu2Dgxftr2YI2h3aXa1qhvTjZscckYIXzZ/oUvLPMg2ZHu+AcNfu2qE1YbxgLxY/A==
+	t=1794840567;
+	b=DfMjvnZ9z5+YJfvDLebtQa+6Au68X0xyTWRkewxlEEpKFuRyCSjbd71Bef3vclNxBqv/
+	 lnbYMbXYL+KXuHb8kcpzVBJJBPu/7lO4XWKVua/SLzPsIuqIIwhajbx9OTgICgQGoFwsM
+	 eBCJf01UDkoHO4uXNYDCVszV84//W//208gHYWrwD0ILG6V+SZnxhzGo6qXIdNdU8a8bl
+	 aF7DqX54Czk2KGpNPqRVx/fXSs9Xd8AL9syDMS24OAnmbKr55t+SrJ3woUHeEeE5oC8Ym
+	 jIxtCK6nJLg5YNA8fBCLrvQOzpU7IQuOs42K6MH5Yn6ERuLezcDKnlO/r9iHpN5NcGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794840555;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=0P7IhuoEAlIgIeaASYKjjxjkw6sQN/BUUnRORtlONC0=;
-	b=u50Z/8q6FVi88ib5XEuk8LNLSlD2W2ivArm+LUcMpPDxj2rAKEGpX9jRd4fUTmgofJMv
-	 2mERKPUSa2x5wTGbHAXW0Tedw8KaEK2CzLSONOSwXGfeEuvE2z63AhTdsVgG/MRF+IDwm
-	 IdDu+pnFoM/nVxFNcrpDtOgMbVNvhjtbbnIg1b0tKUVSnxE60GGZYQDGy7nfoBb4wRYU1
-	 LWv6vScxMpoU5YAkyVD22hORifBkYvYY6zNdOjnYL2LX1CxUpj/PiUKfpWIpUeGTc7V+1
-	 Ycu9BRfdlw62jomuuI59mcClBgkn4cjHEBW9FKqUZcOe8SF6My6JU5RE08oPZxg9q9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794840567;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=NXpgx+0i44M78UoKTUMCrjnivVPP6RYflxKJSh7MlM8=;
+	b=CzRt8dRbTiLqE+cV0iqSivBizBhTCAokyfs6WhF5cZ/FVWFMiTwy8UNuonYrgqpo5k9h
+	 qyAylcR0k2GucGAhOPek0HlJ4XwcpTbXT/os/VjUinIr589L7yo6TgSVpdZioprzO+Thl
+	 OE88x/dnX45ESAwa+LK4QH2PNrXk5QLsEhGfo8nOTHm2nzx7mxa+EuAFW9u4fTO+IdfY+
+	 UmPt0o+PHzavY3r94Vzc0ppt4+hXkwxzxD8kkNlljM9imxQYDTxzyNCF6CGLkiVQVZKLc
+	 K0XKgizRB8NizVhIpvLeetX9+jnD3UK/fchShSe3BHDA6o5xyI08hBSK1R4UwLBDykQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.161.220
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C209B606A32F;
-	Mon, 16 Nov 2026 14:49:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C209B606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMBWfcXnF_tqS2cbAA--.39072S2;
-	Mon, 16 Nov 2026 22:49:11 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wDHz6PjF_tqn40cAA--.5619S2;
-	Mon, 16 Nov 2026 22:49:08 +0800 (CST)
-Message-ID: <14c51094-0bb0-4cf8-8daf-0d307d5436db@hust.edu.cn>
-Date: Mon, 16 Nov 2026 22:49:07 +0800
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=MGkczmmh;
+	arc=none smtp.remote-ip=35.83.148.184
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A037606A31C;
+	Mon, 16 Nov 2026 14:49:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A037606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=MGkczmmh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794840567; x=1826376567;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NXpgx+0i44M78UoKTUMCrjnivVPP6RYflxKJSh7MlM8=;
+  b=MGkczmmh5GszmJhXCdnYxxTrj9/dS2UAYeBbgJZJHM1BhPrbQf1q4UZl
+   MdfryitN3D4uRdA9A8bnkkA2gdoI5T3X8QTRV2XD3pLInlO2s1r3zOrWy
+   Xu5+65Z6PvmZRkjURiZAXOnUDNzf/V+LarETqErE7doI7LuEZSVEO4+l9
+   WI75SF2W9pqpiH3XhJ4gNNgePSI2L72ln6KORqNL8lyxjMEQvdPAV//fV
+   Y545pcDRpzUtXT+xBqfDvZCy34mae7w1BtzOROblId/EbfE6ZO/LPZoXe
+   cNplH28x1jqwWVN/Lv+79MOfV1UDJP5rA0iYfJ/q/6X0yjWJa98xIwxNG
+   A==;
+X-CSE-ConnectionGUID: M3STGN+QSAi9SiATBRgxjg==
+X-CSE-MsgGUID: AGu0K+1RT92bHetxeJ7ORw==
+X-IronPort-AV: E=Sophos;i="6.27,216,1787011200"; 
+   d="scan'208";a="34045607"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 14:49:24 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:4750]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.34.255:2525] with esmtp (Farcaster)
+ id c863a0ff-fd35-4842-871c-91283f3f0497; Mon, 16 Nov 2026 14:49:24 +0000 (UTC)
+X-Farcaster-Flow-ID: c863a0ff-fd35-4842-871c-91283f3f0497
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 14:49:23 +0000
+Received: from dev-dsk-mrgolin-1c-b2091117.eu-west-1.amazon.com
+ (10.253.103.172) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Mon, 16 Nov 2026
+ 14:49:22 +0000
+Date: Mon, 16 Nov 2026 14:49:20 +0000
+From: Michael Margolin <mrgolin@amazon.com>
+To: Eric Davis <eric.davis@broadcom.com>
+CC: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH rdma-next v3 06/13] RDMA/core: query the semantics a
+ queue pair type guarantees
+Message-ID: <20261116144920.GE34010@dev-dsk-mrgolin-1c-b2091117.eu-west-1.amazon.com>
+References: <20261109-uet-ib-core-v3-0-3e7e7ffed2e9@broadcom.com>
+ <20261109-uet-ib-core-v3-6-3e7e7ffed2e9@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,129 +85,324 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] docs/zh_CN: Add RCU/index.rst translation
-To: xiongwei.song@linux.dev, alexs@kernel.org, si.yanteng@linux.dev
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- paulmck@kernel.org, linux-doc@vger.kernel.org, rcu@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261113013054.5662-1-xiongwei.song@linux.dev>
- <20261113013054.5662-2-xiongwei.song@linux.dev>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <20261113013054.5662-2-xiongwei.song@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMBWfcXnF_tqS2cbAA--.39072S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFWDAFWkZF4DCFWrury8Zrb_yoW8KFyxpr
-	yDKryfKF17Jr13uw1xGFy2gry5C3Wxuw4UKr9Fq3Wvqr4DJayIyr4ayrWDKFZxGrWrAFy5
-	XanY9FW09rWj937anT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQKb7Iv0xC_Zr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY02
-	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr
-	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxG
-	rwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
-	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2
-	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0trc3UUUUU==
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20261109-uet-ib-core-v3-6-3e7e7ffed2e9@broadcom.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-
-On 11/13/26 9:30 AM, xiongwei.song@linux.dev wrote:
-> From: Xiongwei Song <xiongwei.song@linux.dev>
->
-> Translate .../RCU/index.rst into Chinese and update subsystem-apis.rst
->
-> Update the translation through commit b3eb16109ae1
-> ("doc: Update stallwarn.rst based on RCU Tasks Trace as SRCU")
->
-> Signed-off-by: Xiongwei Song <xiongwei.song@linux.dev>
+On Mon, Nov 09, 2026 at 08:00:39PM -0800, Eric Davis wrote:
+> An unconnected transport orders far less than a connected one, and how
+> much varies by device. Add a device method that reports, for a queue pair
+> type, which operations it orders against which and up to what size the
+> data stays in that order, the largest packet it puts on the wire, how
+> wide an immediate it carries, and whether that immediate consumes a
+> posted receive.
+> 
+> Signed-off-by: Eric Davis <eric.davis@broadcom.com>
 > ---
->   .../translations/zh_CN/RCU/index.rst          | 49 +++++++++++++++++++
->   .../translations/zh_CN/subsystem-apis.rst     |  1 +
->   2 files changed, 50 insertions(+)
->   create mode 100644 Documentation/translations/zh_CN/RCU/index.rst
->
-> diff --git a/Documentation/translations/zh_CN/RCU/index.rst b/Documentation/translations/zh_CN/RCU/index.rst
-> new file mode 100644
-> index 000000000000..6db03061fd87
-> --- /dev/null
-> +++ b/Documentation/translations/zh_CN/RCU/index.rst
-> @@ -0,0 +1,49 @@
-> +.. SPDX-License-Identifier: GPL-2.0
+>  drivers/infiniband/core/device.c                  |  1 +
+>  drivers/infiniband/core/uverbs.h                  | 13 ++++
+>  drivers/infiniband/core/uverbs_std_types_device.c | 90 ++++++++++++++++++++++-
+>  include/rdma/ib_verbs.h                           | 15 ++++
+>  include/uapi/rdma/ib_user_ioctl_cmds.h            |  6 ++
+>  include/uapi/rdma/ib_user_ioctl_verbs.h           | 65 ++++++++++++++++
+>  6 files changed, 189 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
+> index 7c65a9373701..8b1563de4726 100644
+> --- a/drivers/infiniband/core/device.c
+> +++ b/drivers/infiniband/core/device.c
+> @@ -3011,6 +3011,7 @@ void ib_set_device_ops(struct ib_device *dev, const struct ib_device_ops *ops)
+>  	SET_DEVICE_OP(dev_ops, query_port);
+>  	SET_DEVICE_OP(dev_ops, query_port_speed);
+>  	SET_DEVICE_OP(dev_ops, query_qp);
+> +	SET_DEVICE_OP(dev_ops, query_qp_semantics);
+>  	SET_DEVICE_OP(dev_ops, query_srq);
+>  	SET_DEVICE_OP(dev_ops, query_ucontext);
+>  	SET_DEVICE_OP(dev_ops, rdma_netdev_get_params);
+> diff --git a/drivers/infiniband/core/uverbs.h b/drivers/infiniband/core/uverbs.h
+> index 6aaac1c309f0..2160985f18e9 100644
+> --- a/drivers/infiniband/core/uverbs.h
+> +++ b/drivers/infiniband/core/uverbs.h
+> @@ -407,5 +407,18 @@ static inline void ib_uverbs_comp_dev(struct ib_uverbs_device *dev)
+>  	complete(&dev->comp);
+>  }
+>  
+> +/* the semantics fields, ordering bits and usage flags uverbs knows of */
+> +#define QP_SEMANTICS_MASK_ALL	((IB_UVERBS_QP_SEMANTICS_MASK_USAGE << 1) - 1)
+> +#define QP_ORDER_ALL		((IB_UVERBS_QP_ORDER_WAW << 1) - 1)
+> +#define QP_USAGE_ALL		IB_UVERBS_QP_USAGE_IMM_DATA_RQ
 > +
-> +.. _rcu_handbook:
+> +/* the ordering bits each data-ordering size limits */
+> +#define QP_ORDER_RAW_SIZED	(IB_UVERBS_QP_ORDER_RDMA_RAW |	\
+> +				 IB_UVERBS_QP_ORDER_RAW)
+> +#define QP_ORDER_WAR_SIZED	(IB_UVERBS_QP_ORDER_RDMA_WAR |	\
+> +				 IB_UVERBS_QP_ORDER_WAR)
+> +#define QP_ORDER_WAW_SIZED	(IB_UVERBS_QP_ORDER_RDMA_WAW |	\
+> +				 IB_UVERBS_QP_ORDER_WAW)
 > +
-> +.. include:: ../disclaimer-zh_CN.rst
+>  
+>  #endif /* UVERBS_H */
+> diff --git a/drivers/infiniband/core/uverbs_std_types_device.c b/drivers/infiniband/core/uverbs_std_types_device.c
+> index db65032e80b4..4fed4e79a3d2 100644
+> --- a/drivers/infiniband/core/uverbs_std_types_device.c
+> +++ b/drivers/infiniband/core/uverbs_std_types_device.c
+> @@ -591,6 +591,93 @@ DECLARE_UVERBS_NAMED_METHOD(
+>  			    UVERBS_ATTR_TYPE(u32),
+>  			    UA_OPTIONAL));
+>  
+> +/* What a QP type guarantees on this device. Which operations it orders
+> + * against, how large a packet it puts on the wire, how wide an immediate it
+> + * carries.
+> + */
+> +static int UVERBS_HANDLER(UVERBS_METHOD_QUERY_QP_SEMANTICS)(
+> +	struct uverbs_attr_bundle *attrs)
+> +{
+> +	struct ib_uverbs_qp_semantics resp = {};
+> +	struct ib_qp_semantics sem = {};
+> +	struct ib_ucontext *ucontext;
+> +	struct ib_device *ib_dev;
+> +	enum ib_qp_type qp_type;
+> +	int ret;
 > +
-> +:Original: Documentation/RCU/index.rst
+> +	ucontext = ib_uverbs_get_ucontext(attrs);
+> +	if (IS_ERR(ucontext))
+> +		return PTR_ERR(ucontext);
+> +	ib_dev = ucontext->device;
 > +
-> +:翻译:
+> +	if (!ib_dev->ops.query_qp_semantics)
+> +		return -EOPNOTSUPP;
 > +
-> + 宋雄微 Xiongwei Song <xiongwei.song@linux.dev>
+> +	ret = uverbs_get_const(&qp_type, attrs,
+> +			       UVERBS_ATTR_QUERY_QP_SEMANTICS_QP_TYPE);
+> +	if (ret)
+> +		return ret;
 > +
-> +:校译:
+> +	/* only the types userspace can create, less the driver type, whose
+> +	 * subtypes one answer can't describe
+> +	 */
+> +	switch (qp_type) {
+> +	case IB_UVERBS_QPT_RC:
+> +	case IB_UVERBS_QPT_UC:
+> +	case IB_UVERBS_QPT_UD:
+> +	case IB_UVERBS_QPT_RAW_PACKET:
+> +	case IB_UVERBS_QPT_XRC_INI:
+> +	case IB_UVERBS_QPT_XRC_TGT:
+> +	case IB_UVERBS_QPT_RU:
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
 > +
-> +============
-> +RCU Handbook
-> +============
+> +	ret = ib_dev->ops.query_qp_semantics(ib_dev, qp_type, &sem);
+> +	if (ret)
+> +		return ret;
 > +
-> +.. toctree::
-> +   :maxdepth: 2
+> +	/* only the fields, bits and flags uverbs knows of reach userspace */
+> +	resp.comp_mask = sem.comp_mask & QP_SEMANTICS_MASK_ALL;
+> +	if (resp.comp_mask & IB_UVERBS_QP_SEMANTICS_MASK_MSG_ORDER)
+> +		resp.msg_order = sem.msg_order & QP_ORDER_ALL;
+> +	if (resp.comp_mask & IB_UVERBS_QP_SEMANTICS_MASK_RAW)
+> +		resp.max_rdma_raw_size = sem.max_rdma_raw_size;
+> +	if (resp.comp_mask & IB_UVERBS_QP_SEMANTICS_MASK_WAR)
+> +		resp.max_rdma_war_size = sem.max_rdma_war_size;
+> +	if (resp.comp_mask & IB_UVERBS_QP_SEMANTICS_MASK_WAW)
+> +		resp.max_rdma_waw_size = sem.max_rdma_waw_size;
+> +	if (resp.comp_mask & IB_UVERBS_QP_SEMANTICS_MASK_PDU)
+> +		resp.max_pdu = sem.max_pdu;
+> +	if (resp.comp_mask & IB_UVERBS_QP_SEMANTICS_MASK_USAGE)
+> +		resp.usage_flags = sem.usage_flags & QP_USAGE_ALL;
+> +	if (resp.comp_mask & IB_UVERBS_QP_SEMANTICS_MASK_IMM)
+> +		resp.imm_data_size = sem.imm_data_size;
 > +
-> +TODOLIST:
+> +	/* a pair whose data-ordering size is 0 is not ordered */
+> +	if (!resp.max_rdma_raw_size)
+> +		resp.msg_order &= ~QP_ORDER_RAW_SIZED;
+> +	if (!resp.max_rdma_war_size)
+> +		resp.msg_order &= ~QP_ORDER_WAR_SIZED;
+> +	if (!resp.max_rdma_waw_size)
+> +		resp.msg_order &= ~QP_ORDER_WAW_SIZED;
 > +
-> +* checklist
-> +* lockdep
-> +* lockdep-splat
-> +* rcubarrier
-> +* rcu_dereference
-> +* whatisRCU
-> +* rcu
-> +* rculist_nulls
-> +* rcuref
-> +* torture
-> +* stallwarn
-> +* listRCU
-> +* NMI-RCU
-> +* UP
+> +	return uverbs_copy_to_struct_or_zero(
+> +		attrs, UVERBS_ATTR_QUERY_QP_SEMANTICS_RESP, &resp,
+> +		sizeof(resp));
+> +}
 > +
-> +* Design/Memory-Ordering/Tree-RCU-Memory-Ordering
-> +* Design/Expedited-Grace-Periods/Expedited-Grace-Periods
-> +* Design/Requirements/Requirements
-> +* Design/Data-Structures/Data-Structures
+> +DECLARE_UVERBS_NAMED_METHOD(
+> +	UVERBS_METHOD_QUERY_QP_SEMANTICS,
+> +	UVERBS_ATTR_CONST_IN(UVERBS_ATTR_QUERY_QP_SEMANTICS_QP_TYPE,
+> +			     enum ib_uverbs_qp_type,
+> +			     UA_MANDATORY),
+> +	UVERBS_ATTR_PTR_OUT(UVERBS_ATTR_QUERY_QP_SEMANTICS_RESP,
+> +			    UVERBS_ATTR_STRUCT(struct ib_uverbs_qp_semantics,
+> +					       imm_data_size),
+> +			    UA_MANDATORY));
 > +
-> +.. only::  subproject and html
+>  DECLARE_UVERBS_GLOBAL_METHODS(UVERBS_OBJECT_DEVICE,
+>  			      &UVERBS_METHOD(UVERBS_METHOD_GET_CONTEXT),
+>  			      &UVERBS_METHOD(UVERBS_METHOD_INVOKE_WRITE),
+> @@ -600,7 +687,8 @@ DECLARE_UVERBS_GLOBAL_METHODS(UVERBS_OBJECT_DEVICE,
+>  			      &UVERBS_METHOD(UVERBS_METHOD_QUERY_CONTEXT),
+>  			      &UVERBS_METHOD(UVERBS_METHOD_QUERY_GID_TABLE),
+>  			      &UVERBS_METHOD(UVERBS_METHOD_QUERY_GID_ENTRY),
+> -			      &UVERBS_METHOD(UVERBS_METHOD_QUERY_COMP_CNTR_CAPS));
+> +			      &UVERBS_METHOD(UVERBS_METHOD_QUERY_COMP_CNTR_CAPS),
+> +			      &UVERBS_METHOD(UVERBS_METHOD_QUERY_QP_SEMANTICS));
+>  
+>  const struct uapi_definition uverbs_def_obj_device[] = {
+>  	UAPI_DEF_CHAIN_OBJ_TREE_NAMED(UVERBS_OBJECT_DEVICE),
+> diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
+> index 68f7a271cf7a..003b70424429 100644
+> --- a/include/rdma/ib_verbs.h
+> +++ b/include/rdma/ib_verbs.h
+> @@ -2496,6 +2496,18 @@ struct ib_counters {
+>  	atomic_t	usecnt;
+>  };
+>  
+> +/* what a queue pair of a given type guarantees (query_qp_semantics) */
+> +struct ib_qp_semantics {
+> +	u32	comp_mask;		/* enum ib_uverbs_qp_semantics_mask */
+> +	u32	msg_order;		/* enum ib_uverbs_qp_msg_order */
+> +	u32	max_rdma_raw_size;
+> +	u32	max_rdma_war_size;
+> +	u32	max_rdma_waw_size;
+> +	u32	max_pdu;
+> +	u32	usage_flags;		/* enum ib_uverbs_qp_usage_flags */
+> +	u8	imm_data_size;		/* bits */
+> +};
 > +
-> +   Indices
-> +   ====
+>  struct ib_counters_read_attr {
+>  	u64	*counters_buff;
+>  	u32	ncounters;
+> @@ -2751,6 +2763,9 @@ struct ib_device_ops {
+>  				       int mr_access_flags, struct ib_pd *pd,
+>  				       struct ib_udata *udata);
+>  	int (*dereg_mr)(struct ib_mr *mr, struct ib_udata *udata);
+> +	int (*query_qp_semantics)(struct ib_device *device,
+> +				  enum ib_qp_type qp_type,
+> +				  struct ib_qp_semantics *sem);
+>  	struct ib_mr *(*alloc_mr)(struct ib_pd *pd, enum ib_mr_type mr_type,
+>  				  u32 max_num_sg);
+>  	struct ib_mr *(*alloc_mr_integrity)(struct ib_pd *pd,
+> diff --git a/include/uapi/rdma/ib_user_ioctl_cmds.h b/include/uapi/rdma/ib_user_ioctl_cmds.h
+> index 40fcd4bd1b5e..fb746257eb2c 100644
+> --- a/include/uapi/rdma/ib_user_ioctl_cmds.h
+> +++ b/include/uapi/rdma/ib_user_ioctl_cmds.h
+> @@ -77,6 +77,12 @@ enum uverbs_methods_device {
+>  	UVERBS_METHOD_QUERY_GID_ENTRY,
+>  	UVERBS_METHOD_QUERY_PORT_SPEED,
+>  	UVERBS_METHOD_QUERY_COMP_CNTR_CAPS,
+> +	UVERBS_METHOD_QUERY_QP_SEMANTICS,
+> +};
+> +
+> +enum uverbs_attrs_query_qp_semantics_attr_ids {
+> +	UVERBS_ATTR_QUERY_QP_SEMANTICS_QP_TYPE,
+> +	UVERBS_ATTR_QUERY_QP_SEMANTICS_RESP,
+>  };
+>  
+>  enum uverbs_attrs_invoke_write_cmd_attr_ids {
+> diff --git a/include/uapi/rdma/ib_user_ioctl_verbs.h b/include/uapi/rdma/ib_user_ioctl_verbs.h
+> index 4975771290eb..9ae45f7d3dc0 100644
+> --- a/include/uapi/rdma/ib_user_ioctl_verbs.h
+> +++ b/include/uapi/rdma/ib_user_ioctl_verbs.h
+> @@ -323,6 +323,52 @@ struct ib_uverbs_buffer_desc {
+>  #define IB_UVERBS_QPN_UET_RESERVED_MASK		0x7f000000
+>  #define IB_UVERBS_QPN_UET_ABSOLUTE_ADDR_BIT	0x80000000
+>  
+> +enum ib_uverbs_qp_semantics_mask {
+> +	IB_UVERBS_QP_SEMANTICS_MASK_MSG_ORDER	= 1 << 0,
+> +	IB_UVERBS_QP_SEMANTICS_MASK_RAW		= 1 << 1,
+> +	IB_UVERBS_QP_SEMANTICS_MASK_WAR		= 1 << 2,
+> +	IB_UVERBS_QP_SEMANTICS_MASK_WAW		= 1 << 3,
+> +	IB_UVERBS_QP_SEMANTICS_MASK_PDU		= 1 << 4,
+> +	IB_UVERBS_QP_SEMANTICS_MASK_IMM		= 1 << 5,
+> +	IB_UVERBS_QP_SEMANTICS_MASK_USAGE	= 1 << 6,
+> +};
+> +
+> +/* Ordering guarantees between operations on one QP. "X after Y" means an
+> + * X may not pass a Y posted before it. A bit that is clear means the pair
+> + * does not order that combination, and an application that needs it must
+> + * wait for the earlier completion.
+> + */
 
-Documentation/translations/zh_CN/RCU/index.rst:48: WARNING: Title 
-underline too short.
+These bits describe ordering at the target. Is completion order meant to be covered too? It can
+differ from placement order, and it can differ between the send queue (completions vs post order)
+and the receive queue (receive completions vs the sender's order). Would it make sense to report
+those separately, so an app knows whether it can rely on in-order send completions, for example
+for selective signaling?
 
-Please use make htmldocs to double check your added documents has no 
-compilation errors.
-
-Dongliang Mu
-
+> +enum ib_uverbs_qp_msg_order {
+> +	/* atomic after atomic */
+> +	IB_UVERBS_QP_ORDER_ATOMIC_RAR	= 1 << 0,
+> +	IB_UVERBS_QP_ORDER_ATOMIC_RAW	= 1 << 1,
+> +	IB_UVERBS_QP_ORDER_ATOMIC_WAR	= 1 << 2,
+> +	IB_UVERBS_QP_ORDER_ATOMIC_WAW	= 1 << 3,
+> +	/* rma after rma */
+> +	IB_UVERBS_QP_ORDER_RDMA_RAR	= 1 << 4,
+> +	IB_UVERBS_QP_ORDER_RDMA_RAW	= 1 << 5,
+> +	IB_UVERBS_QP_ORDER_RDMA_WAR	= 1 << 6,
+> +	IB_UVERBS_QP_ORDER_RDMA_WAW	= 1 << 7,
+> +	/* send against send, rma and atomic */
+> +	IB_UVERBS_QP_ORDER_RAS		= 1 << 8,
+> +	IB_UVERBS_QP_ORDER_SAR		= 1 << 9,
+> +	IB_UVERBS_QP_ORDER_SAS		= 1 << 10,
+> +	IB_UVERBS_QP_ORDER_SAW		= 1 << 11,
+> +	IB_UVERBS_QP_ORDER_WAS		= 1 << 12,
+> +	/* rma or atomic against rma or atomic, in any mix, so each also
+> +	 * covers its RDMA_ and ATOMIC_ bit
+> +	 */
+> +	IB_UVERBS_QP_ORDER_RAR		= 1 << 13,
+> +	IB_UVERBS_QP_ORDER_RAW		= 1 << 14,
+> +	IB_UVERBS_QP_ORDER_WAR		= 1 << 15,
+> +	IB_UVERBS_QP_ORDER_WAW		= 1 << 16,
+> +};
 > +
-> +   * :ref:`genindex`
-> diff --git a/Documentation/translations/zh_CN/subsystem-apis.rst b/Documentation/translations/zh_CN/subsystem-apis.rst
-> index b52e1feb0167..4488a97934ec 100644
-> --- a/Documentation/translations/zh_CN/subsystem-apis.rst
-> +++ b/Documentation/translations/zh_CN/subsystem-apis.rst
-> @@ -29,6 +29,7 @@
->      power/index
->      scheduler/index
->      locking/index
-> +   RCU/index
->   
->   TODOList:
->   
+> +enum ib_uverbs_qp_usage_flags {
+> +	/* immediate data consumes a posted receive */
+> +	IB_UVERBS_QP_USAGE_IMM_DATA_RQ	= 1 << 0,
 
+Some devices can do either per QP: an RDMA write with immediate either consumes a posted receive or
+completes without one. With the subset check in 10, how would such a device advertise both, and how
+would an app ask for the mode that doesn't consume a receive? It seems more like a mode the QP is
+created with than a guarantee to relax. Would a separate create-time choice fit better, with the
+device reporting which modes it supports?
+
+Michael
+
+> +};
+> +
+>  /* An address handle that names a peer using both transport+network addresses.
+>   * Used for reliable unconnected QPs in both work request address handles and
+>   * a Job address table.
+> @@ -332,6 +378,25 @@ struct ib_uverbs_ah_attr_ex {
+>  	__u32 remote_qpn;
+>  };
+>  
+> +struct ib_uverbs_qp_semantics {
+> +	__u32 comp_mask;		/* enum ib_uverbs_qp_semantics_mask */
+> +	__u32 msg_order;		/* enum ib_uverbs_qp_msg_order */
+> +	/*
+> +	 * Data ordering: the largest transfer, in bytes, for which the target
+> +	 * memory reflects the order of the pair under its RDMA_ and plain
+> +	 * msg_order bits. 0 if not provided, and those bits are then clear.
+> +	 * The sizes don't limit the ATOMIC_ bits. There is no read-after-read
+> +	 * size, as two reads leave memory unchanged.
+> +	 */
+> +	__u32 max_rdma_raw_size;	/* read after write */
+> +	__u32 max_rdma_war_size;	/* write after read */
+> +	__u32 max_rdma_waw_size;	/* write after write */
+> +	__u32 max_pdu;			/* largest packet, bytes */
+> +	__u32 usage_flags;		/* enum ib_uverbs_qp_usage_flags */
+> +	__u8  imm_data_size;		/* widest immediate, in bits */
+> +	__u8  reserved[3];
+> +};
+> +
+>  enum ib_uverbs_comp_cntr_entry {
+>  	IB_UVERBS_COMP_CNTR_ENTRY_COMP,
+>  	IB_UVERBS_COMP_CNTR_ENTRY_ERR,
+> 
+> -- 
+> 2.56.0
+> 
