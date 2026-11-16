@@ -1,86 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821015;
-	b=d9rvG6dptcjNN8vEV8or16ZbRDOHoISOTqzbywXv4TGmlkTuImEXnMKpxxPxtfD2U/Zf
-	 uEtjIVAiutAPu4ePqyc9RLMfCaUzpWNBk4KfKpxlKjyCHwZiOFJvI+sucWsyeskeyo+es
-	 mdhsVWbXhc+a++6icqapjFr4cd8I/ybFWSbgfHqyKDan4JYxyXL0Z+qYAWWTOw4prJXrj
-	 +fqJppxzLtr544IowqyKmdpz1VH9LuAJsW/fu7L5lZQvpPWEIIGDTMrQsz1SkJad9zi81
-	 bG+bGJOp2LYQHZpOxEdQgWgMzYLXjccPMAXfMEqzleG1xdGSy9qZ6z1++8Ysm9Rxo2w==
+	t=1794821032;
+	b=Uz3ZoAkNwkjPmZLozOyuiyOPomslVE8H0Enp5GQnj8MGwzAqwxLP90YtslIfBJWBgBjg
+	 5YQ5DzAtqnnd+F1pSLU0TCDFJ0aWDfP+80aSC30EHxldzxCaMuPnwnF4151NkNHZGG44U
+	 eYGdBaMYCJiBdDYAQeE3Aba2Oj3LKgvytoZD7X6AraVJheMBKpm3fimrIYUIgWrOvY5GY
+	 7x/6bXz48BD96KcYVJratueyzJv4fUQ55NFrt5S4D8dy0+B4SFvBnReG2D5WcuI7iylDR
+	 UXf2xzMfKzTJLUOBe4NwxtRsB+vqSij/tQdriVdYMd5Vggb8UdRRByBHJqiyNbmD6aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821015;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=U7QGeUHPLaOKaTFmRwI4vSzvwc9pnqiaJV8xvo3ZyVo=;
-	b=mWIjz0Lr5FvP+23Lmc+z3bzzexbOTZtEZHcTaOxcPuqzaycj/4f3JP2E8IRGOlpXBo69
-	 7tAG2ujIVtqE5jyKFQa/dWDVHkZBYDel/wLVy46ug+tih2B8vo5CUFHRXqfpWoNR9DfKL
-	 3R418tNbdiwctlYcHLuBznCae1p2H6yZ23O9VNKHx9Cyc3Z8RC+wiM/M1ccsXRBYoe5/x
-	 cYWqqSYDgbbA8HvSOqh+kkyI8MCIVAZkzu1yrAu6xbmllVxxIzPHM3XENBGaAYornBYhY
-	 IjzNpnkdM8vLIPHNCg0PxoTJuThvPppu7fLPXF/pbkw+RGAFhMsMVbDge6imi16i/pA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821032;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=6JF4UOJMPZGFw1tD8cF7gQzIg19LtWWgj1ffpuYUt0g=;
+	b=aOjJ4ocYanzasH/8RzqDk1ZUu3YmI26OBwhzViROsRPouwd66/nGSSRr7hjFqHG6l3SW
+	 f1WH+Gc9uHN6cjeTUn+ObeaUstNUEUIYvxgb2/+eX0DFdC0WgL2riCmC754RFHOCBisRM
+	 +yJCEirJ03vXRdljm3bH3ws3iumUXZln9qZFvjr4veDZgzeCFcf2qLG6AQI2ysK45jov5
+	 tCid6CeVzQCqUl5FYA33gH8jmMPTokF0QTYkUCe/vc+GbWKFPcR9nppm0VZbjEWb8NK/e
+	 v9HQqSucIxb9qgzMfCcjGMzbYeMMOitNBnEGrkElCjLhSgBfVYKXGwpkqtRPzGKglOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EMsJFdki;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=vOONwTR4;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48263606A323;
-	Mon, 16 Nov 2026 09:23:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48263606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F29606A32A;
+	Mon, 16 Nov 2026 09:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14F29606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EMsJFdki
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794821015; x=1826357015;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nGUJYj/3FEkggBBxupS2Xofdcl6yEIq2D4ZxSGaqdUc=;
-  b=EMsJFdkigzLsi6ZEeuIW2dcB/m6Jps55ShWQPeKbZB6BQnCR2mfPAz3b
-   77E93W5ooEuuc0+DdaB46xypCKSVOtoUoO9aJaQCFNKhwCsN8xWQy+NaG
-   feC8IV7wSZwr3xuSHJaIw+FvMSFZv6EFcRR09qCUlfYESraKtYjzN4jba
-   3M1IoYkLE3LD03r9d+k1YpoITz0QeMIJBGQCsg/rLn7GqxoIQwNO1/lWc
-   GUv/vLPW+MJuceAGlSc5NhoJRsQ3ZliEzy3Dl6spRomCedjr/cf799FiR
-   iz8LcfjQAujxntZSqJ/f2zIdvB5Fibt8w9XZtdKYggZCFuzysvOhWiy/7
-   Q==;
-X-CSE-ConnectionGUID: OqQqt/28ThaED4EDJP/eCg==
-X-CSE-MsgGUID: tv97WclHRnqWwsMB0ilEHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3580053"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3580053"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:23:35 -0800
-X-CSE-ConnectionGUID: L03AtofEQZiAP50YHomc3A==
-X-CSE-MsgGUID: 2p72z+SJSqyRVDyz+zkqRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9578043"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:23:31 -0800
-Date: Mon, 16 Nov 2026 11:23:28 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>,
-	admin@tsv-stahl-riesa.de, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Kevin Tsai <ktsai@capellamicro.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: light: Add Capella CM3217 ambient light
- sensor driver
-Message-ID: <avrLkP1IR449AwLy@ashevche-desk.local>
-References: <20261113-upstream-iio-cm3217-v3-0-c4d5b2485dff@tsv-stahl-riesa.de>
- <20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
- <20261114012906.6f66edce@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=vOONwTR4
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jSj8z4Zx4zKnCY;
+	Mon, 16 Nov 2026 10:23:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794821027;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6JF4UOJMPZGFw1tD8cF7gQzIg19LtWWgj1ffpuYUt0g=;
+	b=vOONwTR4nIilD3gyoBNXuBYvhgcVSk6snE3qR5waIgJhzzVyXNfkaCafrdPgJPNLKOpKwW
+	/rL1iIjuGpUjiLpgEWgZC7t8mnWS9bo2N3VEGzdsHnQ9pa3QbWvN8NPefMp3pwQ7opcETe
+	NNd1SIjDED5zI4wH/C1BUQ1O7if4EJCyIYwuxXIdwp8uKMoOfdCTsvk194rgOq6mM9QTvb
+	5Ifg79w8qEBEZGodjy6wAbVo0dX6RLqKJFlQ9L8jajuTccZTQU9mpuFKuRAvVHT6tRSknC
+	5NWDIwr62L0Db+559SbuRKb/Pyx75FiivpJ/A2AbMyGXKMk58mVtG3vQCKBWow==
+Message-ID: <5032c246-d0e4-4c2f-a2b4-17b28c76c1f6@mailbox.org>
+Date: Mon, 16 Nov 2026 10:23:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,73 +62,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114012906.6f66edce@jic23-hlaptop>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
+ Gen5 DWC3 xHCI USB controller glue
+From: Marek Vasut <marek.vasut@mailbox.org>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ Thanh Quan <thanh.quan.xn@renesas.com>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+ <20260903213031.314473-2-marek.vasut+renesas@mailbox.org>
+ <aptP39nVZPFLgekY@vbox> <be205518-ba8d-486f-b603-1d52321edc1a@mailbox.org>
+Content-Language: en-US
+In-Reply-To: <be205518-ba8d-486f-b603-1d52321edc1a@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 8ff5d6a3bc2bc829ece
+X-MBO-RS-META: ixp6qbz454jy3jzq3hkohwp3wz98nfm4
 
-On Sat, Nov 14, 2026 at 01:29:06AM +0000, Jonathan Cameron wrote:
-> On Fri, 13 Nov 2026 20:59:00 +0100
-> Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:
-
-...
-
-> > +static int cm3217_probe(struct i2c_client *client)
-> > +{
-> > +	struct device *dev = &client->dev;
-> > +	struct cm3217_data *data;
-> > +	struct iio_dev *indio_dev;
-> > +	u16 addr_lsb = CM3217_ADDR_CMD2_LSB;
-> > +	u32 reg[2];
-> > +	u8 cmd1, cmd2;
-
-Keep reversed xmas tree order.
-
-> > +	int ret;
-> > +
-> > +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> > +	if (!indio_dev)
-> > +		return -ENOMEM;
-> > +
-> > +	data = iio_priv(indio_dev);
-> > +	data->client = client;
-> > +	i2c_set_clientdata(client, indio_dev);
-> > +
-> > +	ret = devm_mutex_init(dev, &data->lock);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = devm_regulator_get_enable(dev, "vdd");
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
-> > +
-> > +	/* Without a firmware node (e.g. sysfs new_device) use the fixed one */
+On 10/26/26 1:21 AM, Marek Vasut wrote:
+> On 9/5/26 1:10 AM, Thinh Nguyen wrote:
+>> On Thu, Sep 03, 2026, Marek Vasut wrote:
+>>> From: Thanh Quan <thanh.quan.xn@renesas.com>
+>>>
+>>> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
+>>> controller with glue logic wrapper around them. Extend the generic
+>>> DWC3 platform driver with Renesas R-Car Gen5 glue logic specifics.
+>>>
+>>> Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
+>>> Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > 
-> I'd rather we handled that explicitly.
+> [...]
 > 
-> 	if (dev_fwmode(dev))
+>>>   static const struct of_device_id dwc3_generic_of_match[] = {
+>>>       { .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
+>>>       { .compatible = "spacemit,k3-dwc3", },
+>>>       { .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+>>>       { .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
+>>> +    { .compatible = "renesas,rcar-gen5-dwc3", &renesas_rcar_gen5_dwc3},
+>>>       { .compatible = "starfive,jhb100-dwc3", },
+>>>       { /* sentinel */ }
+>>>   };
+>>> -- 
+>>> 2.53.0
+>>>
+>>
+>> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Hello everyone,
 > 
-> That way we can return an error if there is firmware but it's broken.
+> could these two patches possibly be picked up ? They should have all the 
+> necessary RB tags for about a month now.
+> 
+> Thank you !
+> 
+> (yes, I know everyone is flooded by emails recently, I apologize for 
+> making this worse for you)
 
-I think here we want
+Shall I maybe resubmit these patches ?
 
-	if (device_property_present()) {
-		...
-	} else {
-		addr_lsb = CM3217_ADDR_CMD2_LSB;
-	}
-
-I really discourage people to check for FW node presence with dev_fwnode(dev).
-This is a corner case which is in most cases needs better granularity (like
-distinguishing the fwnode by type). But in general ideally it has not to be
-used at all.
-
-> > +	if (!device_property_read_u32_array(dev, "reg", reg, ARRAY_SIZE(reg)))
-> > +		addr_lsb = reg[1];
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thank you for your help !
