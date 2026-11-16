@@ -1,73 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862905;
-	b=aKxIZwzT5IpCs6mOt76WJfwb9U+St3IC+x4FBWC5yvjycLhw6PcQEoCYVJQvbEs7Oxhd
-	 65RqnL6bhp0OLg6+wGHJiVXU9vcNf3MxPahbtu+SAzqVGKZCoy37/Yp1hkJx042tphbFT
-	 aEzpMiDAMHMJL0RelIgVrYtPKjZSMX8IIx0h3g0iKCPa7xmBr6Yps6TJNWYCLZPVBozqS
-	 waC/KqMXpid6ZBHX/qU8Ygouq/aAKHvUN31ZzSrUCtBlnH7qzZCG4eZdbI2jIi9mO7g+c
-	 NMjnqjOYsepG38c7kVWZDIukPnT3CcPLUxlrNO9wA9rby15vcWNpljt90jQI4ipPFBw==
+	t=1794862916;
+	b=4/LvkSVuQeR7SwyZgkvwHrBy56WbQqaSY7DdHNv61bU7rshD0kx8OCngDFuPBCWaKMEh
+	 dMpUVOtyBixXv69ACAj4NNBJ8r3qgBlZbob+5cMUXZK7DZMqHfC8nWo6psrDBwtU9+/Rd
+	 QTK84lDaIuklMeUK8pUA4R1jVBl+v5iML5zYCZT4l3ZAI3X6yAo9ZMUcgEy6hYIl1GbqA
+	 pyNlCro3O+yZoJm0ls9cgB+y8c/K/5h20Y8fAgEh7XYMKr5zGQ/8NHC5gDOMv8TNjoa34
+	 iMkvqfoPSplstny2jGoy2tCINDL5gRMEOqba4RFks8Cj/NmEpojx4l8K1FXNFrCuGHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862905;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862916;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2AUyPLHoJGA+N57VqGbbG58eC0VGEyt9DiA6L7vBhoI=;
-	b=hiLH5jQ7YLoDTDoM0iaYW85VhereOTTGW56YSlgzkO0YvJPPk3WzDobIxXjxhS9kSS0U
-	 3lnHbu5uWiPsI84AjgDaCEjov22EcSUQEUvvM0D2ZdtYKRx3YWlc+N1eismqbFc9DqIyC
-	 6P+WjzdmC6q2LBb8RxueUQCMfYhbysg+XwWxzSCQm9EhHLsK8e/uMHLAWQu4mVquMqy/4
-	 kyYcyvGpjDWY/dJ3vaskGb8QnHjhMku7C8aWhrsrf1G8FN7ipIRLqOdcOFoNTGx+P5i46
-	 Lr8CXzgb6NWyivqjTV3jYphzCPBtDg/D6A9Er2E229Pec0twMmqrT5TVA09+zNlix5A==
+	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
+	 DKIM-Signature;
+	bh=D2VoQ3mzn9IV/deL7z6q7kor82sRFzrWZnuI+dB14N0=;
+	b=fVPnb5RQhKRT0Id14FhhPMeClO822TF4v9j6OLXCYYEQf3zitg7OlPIdm/tTPqRp7C2J
+	 0dWBAxF1s4aqlGgh0wwAddraEfjgixUfV/qpKWBUNFhpabU6CT8lb4MaBJKaql7ekPffD
+	 1ZGyxqYJth0WoWxa6q5OQ7AVz9hCdEclkdk+vFIOXDQPrkLRwHuNh4iy2vfXFZjEa0+i1
+	 Xv4IT2FCUD1/djwltIfvq/qorKDZQp4ZhQK/B0wGwyyns9ee/7ALpCdlRkHoHeIhO07m6
+	 erMREI2hqYTPHplpmnT5TY/YSKF4w7YYkBsHReQp2YwxZRQpK7Y9lVkNUCVrmG98HAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=G0nOB+yz;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=KZ1PmW7f;
+	arc=none smtp.remote-ip=95.143.172.20
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B25606A884
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37B25606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239DB606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:01:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 239DB606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=G0nOB+yz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=2AUyPLHoJGA+N57VqGbbG58eC0VGEyt9DiA6L7vBhoI=; b=G0nOB+
-	yzoiynRlRZGccPLBbvd0KJyvXs7KutAcOce9vx/b6CRQHn5N0JxXwvbz7vOT1N6AtkwGz5bC6caB7
-	xtc0Po3BGnwjZt1g9HGf/yKm/H0GiOlB7GiGH+L3OcdMH4gRjEZflleiRRVb+/wJOxCGBsMA5gHUk
-	97OdlfdD7TG415WzHhjUf979x7Sudnijc3cmbDD4eBKKeNXopuIY/d0hJ8vDkcwGVdTDgu83ka39H
-	Ab4qQQdAkN5v//MCBYpqfLaNrKtZch9nQTQ6EmWQSRvsRrJ0JDwn8HtJ+EjAj5EcC7W1cgR6wsn3m
-	+83cOEuul5zCvFQ98wZ0Pyvf4mYQ==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn.surriel.com)
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xT3pS-00000007LIv-2CpY;
-	Mon, 16 Nov 2026 21:01:30 +0000
-From: Rik van Riel <riel@surriel.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org,
-	David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Peter Xu <peterx@redhat.com>,
-	Rik van Riel <riel@surriel.com>
-Subject: [PATCH v5 5/8] mm/gup: break out gup_lookup_pte() helper
-Date: Mon, 16 Nov 2026 16:01:24 -0500
-Message-ID: <20261116210127.3837898-6-riel@surriel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261116210127.3837898-1-riel@surriel.com>
-References: <20261116210127.3837898-1-riel@surriel.com>
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=KZ1PmW7f
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id B0D8F60E61
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:01:53 +0100 (CET)
+Received: (qmail 15164 invoked by uid 990); 16 Nov 2026 21:01:53 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 16 Nov 2026 22:01:53 +0100
+From: Leonard Lausen <leonard@lausen.nl>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: leonard@lausen.nl,
+	Luka Gejak <luka.gejak@linux.dev>,
+	=?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-wireless@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rtw-next v3 2/2] wifi: rtw88: sdio: combine free TX page register reads
+Date: Mon, 16 Nov 2026 20:57:40 +0000
+Message-ID: <20261116205739.462458-6-leonard@lausen.nl>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116205739.462458-2-leonard@lausen.nl>
+References: <20261116205739.462458-2-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,166 +68,152 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -----
+X-Rspamd-Report: REPLY(-4) BAYES_HAM(-3) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) FUZZY_BULK(0.099999) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -5.5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=u9zBG78NfuqjnWbNtLn07MUPutjuv/dSBbMhffUUwS0=;
+	b=KZ1PmW7fDHjXhhn4bQ81uyNP9B6k/7SP81W5TgD7gfpkpqhy4ITvCLyYcOKCYFMMrJqewTMm+A
+	CfJOVtnzLftAjm++4Umo1glEKFzGBLXWsMIrH8mJzaBvoa5P9p6S4FQbjgX4dY8HpcqnaX3LDx4I
+	EUE3e2+DCOVP14/s09Z3m2AamxPHcY5a/VaIZ3QSWEZjfPU90Bk91+B0SzA1/6ngojU4Drc/w1jy
+	nJgbUsw6vPEujy84+oo0eUEnYv0O+qXelOejXfjz7x5Wyn4RAeevPRuAOxYaT0JsQssKgK5ZqsoC
+	au7DotyJgYdXaend+quo+Zl54V8xf6vKvdYsbQaEperQVWQVtOCAKRZ0IveBXb4dgky9zovQO7Up
+	y7diWy2PWXa+erfFnFe3Zdm+mj8vLqezutTbrvU89N6NBWo5lPpE0fwOSYd9DxbALDzmAC0A165u
+	FrTZLbt9j/hQ3N8XcTxxjJiYpFCYDrTZIpFVGBtc/x+AxdQ0J34+kuzXt+4b7dfmh+aPnID3lRDc
+	ug8jBrgGUZQJ2mNs2IMAGciGpsVmI/CqA9cZFGiexWA/PBHXWhtxFY/nBKZBdcnRtnd+CdV0Jtr1
+	8Db9NFNu4fmBs6GNzdOyZsVW/GsyxxVX/XK2bYw6UyoLiDP9OR2C3y+QKCZCemoiuHLobqKiu/Q0
+	w=
 
-follow_page_pte() is 92 lines and does two separate things: work out
-which page a PTE maps, if any, and commit to the page it found. The
-first half reaches the second through five exit paths, two of which
-unwind the PTE lock in different ways.
+TX capacity checks on non-8051 chips read three adjacent 32-bit registers
+in separate SDIO requests. Combine them into one 12-byte CMD53 read when
+the existing power/alignment check permits it, with the per-register
+fallback otherwise. Propagate read errors before checking queue capacity.
 
-Split the resolve half into gup_lookup_pte(), which returns the page it
-resolved, NULL when the PTE cannot be followed, or the errno the caller
-must report. follow_page_pte() is left with one unlock and one exit.
+Allocate a DMA-safe buffer at probe and copy its little-endian values
+into the caller's array before releasing the host. Holding the host
+through the read and copy serializes access to the shared buffer.
 
-no_page_table() can look up the page cache, so the case that needs it is
-recorded and the call made after dropping the PTE lock, as before.
-
-A none PTE still returns before any write check runs, so a FOLL_WRITE
-failure can never reach the recorded call: the caller consults
-no_page_table() for exactly the same PTEs the old code did.
-
-No functional changes intended.
-
-Suggested-by: David Hildenbrand <david@kernel.org>
-Signed-off-by: Rik van Riel <riel@surriel.com>
+Signed-off-by: Leonard Lausen <leonard@lausen.nl>
 ---
- mm/gup.c | 100 +++++++++++++++++++++++++++++++------------------------
- 1 file changed, 56 insertions(+), 44 deletions(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 64 +++++++++++++++++++++--
+ drivers/net/wireless/realtek/rtw88/sdio.h |  1 +
+ 2 files changed, 61 insertions(+), 4 deletions(-)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index efb2ad64be80..3aed0bc1c2b4 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -965,74 +965,86 @@ static long gup_grab_fill_folio_pages(struct folio *folio,
- 	return 0;
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index ecd4d751c05a5..09337acb76749 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -26,6 +26,7 @@
+ #define RTW_SDIO_TX_FIFO_HIWATER			16
+ #define RTW_SDIO_TX_FIFO_LOWATER			8
+ #define RTW_SDIO_TX_RETRY_DELAY			msecs_to_jiffies(1)
++#define RTW_SDIO_FREE_TXPG_COUNT			3
+ 
+ static bool rtw_sdio_is_bus_addr(u32 addr)
+ {
+@@ -675,6 +676,43 @@ static atomic_t *rtw_sdio_8723bs_free_txpg(struct rtw_dev *rtwdev, u8 queue)
+ 	}
  }
  
--static long follow_page_pte(struct vm_area_struct *vma,
--		unsigned long address, pmd_t *pmd, unsigned int flags,
--		struct page **pages)
-+/*
-+ * Resolve one present PTE to the page it maps. Returns no page and no error
-+ * when the PTE cannot be followed but the caller may fault it in, and a
-+ * negative errno when the caller must report the failure.
-+ */
-+static long gup_lookup_pte(struct vm_area_struct *vma, unsigned long address,
-+		pte_t *ptep, pte_t pte, unsigned int flags, struct page **pagep)
- {
--	struct mm_struct *mm = vma->vm_mm;
--	struct folio *folio;
- 	struct page *page;
--	spinlock_t *ptl;
--	pte_t *ptep, pte;
--	long ret;
- 
--	ptep = pte_offset_map_lock(mm, pmd, address, &ptl);
--	if (!ptep)
--		return no_page_table(vma, flags, address);
--	pte = ptep_get(ptep);
-+	*pagep = NULL;
-+
- 	if (!pte_present(pte))
--		goto no_page;
-+		return 0;
- 	if (pte_protnone(pte) && !gup_can_follow_protnone(vma, flags))
--		goto no_page;
-+		return 0;
- 
- 	page = vm_normal_page(vma, address, pte);
- 
- 	/*
- 	 * We only care about anon pages in can_follow_write_pte().
- 	 */
--	if ((flags & FOLL_WRITE) &&
--	    !can_follow_write_pte(pte, page, vma, flags)) {
--		ret = 0;
--		goto out;
--	}
-+	if ((flags & FOLL_WRITE) && !can_follow_write_pte(pte, page, vma, flags))
-+		return 0;
- 
- 	if (unlikely(!page)) {
- 		if (flags & FOLL_DUMP) {
- 			/* Avoid special (like zero) pages in core dumps */
--			ret = -EFAULT;
--			goto out;
--		}
--
--		if (is_zero_pfn(pte_pfn(pte))) {
--			page = pte_page(pte);
--		} else {
--			ret = follow_pfn_pte(vma, address, ptep, flags);
--			goto out;
-+			return -EFAULT;
- 		}
-+		if (!is_zero_pfn(pte_pfn(pte)))
-+			return follow_pfn_pte(vma, address, ptep, flags);
-+		page = pte_page(pte);
- 	}
--	folio = page_folio(page);
- 
--	if (!pte_write(pte) && gup_must_unshare(vma, flags, folio, page)) {
--		ret = -EMLINK;
--		goto out;
--	}
-+	if (!pte_write(pte) &&
-+	    gup_must_unshare(vma, flags, page_folio(page), page))
-+		return -EMLINK;
- 
- 	VM_WARN_ON_ONCE_PAGE((flags & FOLL_PIN) && PageAnon(page) &&
- 			     !PageAnonExclusive(page), page);
- 
--	ret = gup_grab_fill_folio_pages(folio, page, 1,
--			pte_dirty(pte), flags, pages);
--	if (ret)
--		goto out;
--	ret = 1;
--out:
-+	*pagep = page;
-+	return 0;
-+}
-+
-+static long follow_page_pte(struct vm_area_struct *vma,
-+		unsigned long address, pmd_t *pmd, unsigned int flags,
-+		struct page **pages)
++static int rtw_sdio_read_free_txpg(struct rtw_dev *rtwdev, u32 *free_txpg)
 +{
-+	struct mm_struct *mm = vma->vm_mm;
-+	bool need_no_page_table = false;
-+	struct page *page;
-+	spinlock_t *ptl;
-+	pte_t *ptep, pte;
-+	long ret;
++	u32 addr = rtw_sdio_to_bus_offset(rtwdev, REG_SDIO_FREE_TXPG);
++	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	bool bus_claim = rtw_sdio_bus_claim_needed(rtwsdio);
++	int i, ret;
 +
-+	ptep = pte_offset_map_lock(mm, pmd, address, &ptl);
-+	if (!ptep)
-+		return no_page_table(vma, flags, address);
-+	pte = ptep_get(ptep);
++	if (bus_claim)
++		sdio_claim_host(rtwsdio->sdio_func);
 +
-+	ret = gup_lookup_pte(vma, address, ptep, pte, flags, &page);
-+	if (!ret && page) {
-+		ret = gup_grab_fill_folio_pages(page_folio(page), page,
-+						     1, pte_dirty(pte), flags, pages);
-+		if (!ret)
-+			ret = 1;
-+	} else if (!ret && pte_none(pte)) {
-+		/*
-+		 * no_page_table() may look up the page cache, so it cannot run
-+		 * under the PTE lock. A none PTE returns from gup_lookup_pte()
-+		 * before any write check runs, so this is the same call the old
-+		 * code made -- not a new failure mode for FOLL_WRITE.
-+		 */
-+		need_no_page_table = true;
++	if (!rtw_sdio_use_memcpy_io(rtwdev, addr, sizeof(u32))) {
++		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++) {
++			free_txpg[i] = rtw_sdio_readl(rtwdev,
++						      addr + i * sizeof(u32),
++						      &ret);
++			if (ret)
++				break;
++		}
++		goto out;
 +	}
 +
- 	pte_unmap_unlock(ptep, ptl);
- 	return ret;
--no_page:
--	pte_unmap_unlock(ptep, ptl);
--	if (!pte_none(pte))
--		return 0;
--	return no_page_table(vma, flags, address);
- }
++	ret = sdio_memcpy_fromio(rtwsdio->sdio_func,
++				 rtwsdio->free_txpg_buf, addr,
++				 RTW_SDIO_FREE_TXPG_COUNT * sizeof(__le32));
++	if (!ret) {
++		/* Copy the shared DMA buffer before releasing the host. */
++		for (i = 0; i < RTW_SDIO_FREE_TXPG_COUNT; i++)
++			free_txpg[i] = le32_to_cpu(rtwsdio->free_txpg_buf[i]);
++	}
++
++out:
++	if (bus_claim)
++		sdio_release_host(rtwsdio->sdio_func);
++
++	return ret;
++}
++
+ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
+ 				    size_t count)
+ {
+@@ -727,11 +765,15 @@ static int rtw_sdio_check_free_txpg(struct rtw_dev *rtwdev, u8 queue,
+ 		/* add the pages from the public queue */
+ 		pages_free += (free_txpg >> 24) & 0xff;
+ 	} else {
+-		u32 free_txpg[3];
++		u32 free_txpg[RTW_SDIO_FREE_TXPG_COUNT];
++		int ret;
  
- static long follow_pmd_mask(struct vm_area_struct *vma,
--- 
-2.56.0
-
+-		free_txpg[0] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG);
+-		free_txpg[1] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 4);
+-		free_txpg[2] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 8);
++		ret = rtw_sdio_read_free_txpg(rtwdev, free_txpg);
++		if (ret) {
++			rtw_warn(rtwdev, "Failed to read free TX pages: %d\n",
++				 ret);
++			return ret;
++		}
+ 
+ 		switch (queue) {
+ 		case RTW_TX_QUEUE_BCN:
+@@ -1782,6 +1824,7 @@ static void rtw_sdio_deinit_tx(struct rtw_dev *rtwdev)
+ int rtw_sdio_probe(struct sdio_func *sdio_func,
+ 		   const struct sdio_device_id *id)
+ {
++	struct rtw_sdio *rtwsdio;
+ 	struct ieee80211_hw *hw;
+ 	struct rtw_dev *rtwdev;
+ 	int drv_data_size;
+@@ -1805,6 +1848,19 @@ int rtw_sdio_probe(struct sdio_func *sdio_func,
+ 	if (ret)
+ 		goto err_release_hw;
+ 
++	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
++	if (!rtw_chip_wcpu_8051(rtwdev)) {
++		rtwsdio->free_txpg_buf =
++			devm_kmalloc_array(rtwdev->dev,
++					   RTW_SDIO_FREE_TXPG_COUNT,
++					   sizeof(*rtwsdio->free_txpg_buf),
++					   GFP_KERNEL);
++		if (!rtwsdio->free_txpg_buf) {
++			ret = -ENOMEM;
++			goto err_deinit_core;
++		}
++	}
++
+ 	rtw_dbg(rtwdev, RTW_DBG_SDIO,
+ 		"rtw88 SDIO probe: vendor=0x%04x device=%04x class=%02x",
+ 		id->vendor, id->device, id->class);
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
+index 6e7e6009744b0..5c2337ccffb2a 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.h
++++ b/drivers/net/wireless/realtek/rtw88/sdio.h
+@@ -181,6 +181,7 @@ struct rtw_sdio {
+ 	atomic_t tx_oqt_free;
+ 	/* one writer at a time between the credit check and the accounting */
+ 	struct mutex tx_credit_lock;
++	__le32 *free_txpg_buf;
+ };
+ 
+ extern const struct dev_pm_ops rtw_sdio_pm_ops;
