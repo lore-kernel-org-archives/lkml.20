@@ -1,76 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794866114;
-	b=rPcw6A2VXlKE3hiIsHzuTWcKpe4lQCUbLXvJGSPyAxs99daS3tFLU2sI9Vo5HAi/UXrq
-	 d8z3rT2LQZX9ZDFEfN0JOumtHQOu3pMI1I/8zW1sVa9tOf5NRhjXIZIn5usRytOqJeJD8
-	 Z2fur5iAr2rxjatLvY5cS1Kn0tFj2Z79trRd8EyBuG2LlrulmMSEpS/mzVDTZnGdTprC9
-	 C/d6pmXCYpeoPBfYnJ1nwB9GIBEhXvdNOnyddnZgxS359M33LKB3DgbGjWbvHsaSVpnqW
-	 IbCpD7peNwyYcBpgIFpp7ifYSMYJzoYuxYCY3hQWyjCvTt6GoWo+SAmNPwzbRoktCfQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866114;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ZohoMailClient;
-	bh=UUuGY8A1jPzFzjbtIeOfv8dCf2A++5qQ+XzU4f4OM2g=;
-	b=OXeH9WYTaBVvV8KjfJ/gRFS/74HqQ72hdzANyrvAo7F+Y8IJnmsXgcvB80GmYVm2Nh/q
-	 k+p6+Q6rUNRibf/D2EyMoaGmA5oBUVE/H2zAeV46h6h0RIfzoxYGtGtElJlWV17q4sEZ7
-	 5NBzgBm/Ke6dQzG6cHj/b6yuwIyp93yMoZdUvKJmX+Jaljw1x0UH02XBomqIWnVDXFNHo
-	 eGoemKvX+/Ixoj/CnYkUMhFj5lUS57cB49yPVtVGus8cWUHykZcQUkhNdEFlVpYkQ1tsR
-	 +Dcqss+7lhSzxd76TzTEGEyr0UxGxXExNrLrlXRtosvVyweI5dT4rpiNOxYrzYrJ9Xw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=VrGBTM93;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794866218;
+	b=hum1PSt8O7RhubOn1sHb6eTZ1OgeyXsqkFW5eO2oRw4VhW9fK+M+Ui9MT226uM38707F
+	 JYkGpc/Oe3BgaSxfxYr7+UB713NU00qk3z8apc/No23FAYSwmLypsYH7RHP+NV5dxo2Q+
+	 ZdQhSSSN9cphlhyCUQxb0yCZjpd7P50YAy5ReATtl9nA1fmdlVq/LPLt3CcDG9gFDkq5U
+	 vULeEzTFnOECdutP4dwO73bQPJvvzKkPy8JLy5M1UrnlMqNshK9nX2WtGrVApbNKFtA3D
+	 n9P28WQn43a59riH9I3AbRdBkjaWPKP9KVq8A+Kb4oMRrVvge9xx5oo8OG4RSbsbVWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866218;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=O+Af/O1KOS+3yVT+ztxCO4Vlx6y9GiaWxCfrUb0JAjg=;
+	b=Ka6WQlrJU/lRwSkPm65tAgAHMIAONQJNT/k833eGrwbPWv6CgnpmtcaCWD5EscIFmnrf
+	 IhRbBZZG5j3DKZp3/7VzzTETgkAJdXGyvsbUzCWqD4aod87Oca35uUxWopro+ZbxE6PUD
+	 +qunWA85rEZZAZ/AeF5XDJm/KYay9aOc2z4Vt726ZOkdGW+wnQX6jbA1NK+GTJajwVH3h
+	 TFb+1ByBhS+r7UUNMlDogeGnyRJNZ08x6p9KQZx+pN/CNFjcI2v6tV11nRjE3V9jLh0lW
+	 EunIeYQLCpT2TXIybUhnr6pZG/zdBWN3CVM7YCBwip65i0hNPYlXJtRVM/YeFm5pWhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dds2rHjx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03280606A33E;
-	Mon, 16 Nov 2026 21:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03280606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF20F606A31C;
+	Mon, 16 Nov 2026 21:56:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=VrGBTM93
-ARC-Seal: i=1; a=rsa-sha256; t=1794866087; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YsNI1MpHjiXdt5833k585f4WEp7eebiebYc9NHeyLzBffa5FQfKqrYZJBos3EcABuVOc0DsRDWj2Os9RXCEnuYO/c+Ms5USOXrCyF0dOKSMB3shrWXIE6b8fwg/T/Q3nU6hzkPwhpBXLoWVNg6UvP8/ufInrebjbSjhzbEmE31E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794866087; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=UUuGY8A1jPzFzjbtIeOfv8dCf2A++5qQ+XzU4f4OM2g=; 
-	b=H3X0m22pWeHao5BvMGRIrWzK1f1wpR4oxQyhllJGijQJaIqoGtPq8Qk0v63DyJvcW9z7+rqVsVd6Fn+tt3yQhEsE4jyxY9IDbP6NdYSdlq5aTSLyt9So/HGHmxJh+XDcW8OCwH3bZE5fOzvyrQ99/3gIB/0/VmDMY3JFzX34Jko=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
-	dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=VrGBTM93kL31b6tdXuYgwYqMKn7XWfYGmZHIr+R1W7Tv7QkO5b6K97fqikwT5ELeoEuG7VYD6Iw9fiPe2c5tjlnrp9xHBU8R5vZUoG9cBAOcd3/kWlnY16ZVKSG0815E8QD8tKk7BAZXrwTWFuw2IskxS30JPLII31dix/fCwYc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=UUuGY8A1jPzFzjbtIeOfv8dCf2A++5qQ+XzU4f4OM2g=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794866084138197.18938672995478;
-	Mon, 16 Nov 2026 13:54:44 -0800 (PST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Daniel Almeida <daniel.almeida@collabora.com>
-Cc: iommu@lists.linux.dev, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [PATCH 4/6] rust: iommu: add Domain::attach()
-Date: Mon, 16 Nov 2026 16:54:41 -0500
-Message-ID: <mT5CXvCzTcmD0ecGNGQ1Hg@collabora.com>
-In-Reply-To: <20261112-b4-iommu-domain-v1-4-c29e86788dda@collabora.com>
-References:
- <20261112-b4-iommu-domain-v1-0-c29e86788dda@collabora.com>
- <20261112-b4-iommu-domain-v1-4-c29e86788dda@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dds2rHjx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29EE41F000C4;
+	Mon, 16 Nov 2026 21:56:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794866217;
+	bh=O+Af/O1KOS+3yVT+ztxCO4Vlx6y9GiaWxCfrUb0JAjg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dds2rHjxOJshfzf88zP+wXAMH865aEz0gH9Dv2+/Pm7lD7NjXKocWXlz148tY5D+Q
+	 R6lPZona4Kf3mTDMPvr8+lx2zr+NUnViBQLP4MOWUOEzHhsvkqXKXcRbtE8W5w3bTA
+	 ktvSZd5WkkpDO/+Hy3Tw9wj+IjDNduKaGkA9jwuvxKxHhOt3r9rJt62kyh7NU4kFq8
+	 jnLmiCVh2E4NdLx42CAHiFcYa+S1dHNelphRxgzU2cXaKN7wN1jYzibJY9tdLt8RV1
+	 Vp0TRvVenEVPvJfTfK+F8dhCBF/e20cg1t0K5b7jUdHBMPspCiOSpRJzcNkiCozDoG
+	 nfdITYqRlskKw==
+Date: Mon, 16 Nov 2026 15:56:52 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Cc: Anvesh Jain P <anvesh.p@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur: Add EC thermal zones
+Message-ID: <avt6-driUZyXA_9N@zenbook>
+References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
+ <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
+ <e77c0255-6299-4718-aaa6-04f4366fe749@oss.qualcomm.com>
+ <5d84ee1b-a765-4d6c-ab01-ca1a06a0e3d0@oss.qualcomm.com>
+ <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,129 +66,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
 
-Hi !
-
-On Thursday, 12 November 2026 12:00:11 EST Daniel Almeida wrote:
-> The upcoming rkvenc driver will use IOMMU domains to isolate different
-> sessions.
+On Mon, Nov 02, 2026 at 04:36:16PM +0530, Manaf Meethalavalappu Pallikunhi wrote:
+> Hi Konrad,
 > 
-> Add Domain::attach(), which attaches the domain to a device and returns
-> an Attachment that detaches it on drop. Devices that share their IOMMU
-> group with other devices are not supported.
-
-Same wording issue here, and in the patch.
-Even though this will work for our encoder usage (devices <->domain mappings 
-will be 1:1), this doesn't match what the iommu driver does, which can attach 
-multiple devices to a single iommu_domain.
-
-Detlev.
-
-> attach() is unsafe. The caller must be the device's driver, and the
-> device must stop using the domain before the Attachment is dropped.
-> The Attachment must not be leaked, since the domain could then be
-> freed while it is still attached.
+> On 10/29/2026 2:38 PM, Anvesh Jain P wrote:
+> > 
+> > 
+> > On 10/20/2026 1:33 PM, Konrad Dybcio wrote:
+> > > > Add support for back cover, keyboard, and SoC thermal zones through
+> > > > temperature sensors hosted on the EC for Glymur and Mahua CRDs.
+> > > > 
+> > > > Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> > > > ---
+> > > >   arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 45 +++++++++++++++++++++++++++++++-
+> > > >   1 file changed, 44 insertions(+), 1 deletion(-)
+> > > > 
+> > > > diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> > > > index e27c697e3170..571c98124a40 100644
+> > > > --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> > > > +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> > > > @@ -594,10 +594,12 @@ &i2c9 {
+> > > >   	status = "okay";
+> > > > -	embedded-controller@76 {
+> > > > +	ec: embedded-controller@76 {
+> > > "ec" is a super short label, perhaps let's spell out
+> > > embedded_controller
+> > > 
+> > 
+> > Thanks for you review, I will rename the label to embedded_controller.
+> > > [...]
+> > > 
+> > > > +&thermal_zones {
+> > > > +	ec-back-cover {
+> > > > +		polling-delay = <10000>;
+> > > > +		thermal-sensors = <&ec 2>;
+> > > > +
+> > > > +		trips {
+> > > > +			trip-point0 {
+> > > > +				temperature = <90000>;
+> > > This is *really* hot!
+> > > 
+> > 
+> > The 90°C trip value was suggested by thermal team(Manaf Meethalavalappu
+> > Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>). We are open to using a
+> > lower value if this is too high for the keyboard and back-cover sensors.
 > 
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> ---
->  rust/kernel/iommu/domain.rs | 57
-> +++++++++++++++++++++++++++++++++++++++++++-- 1 file changed, 55
-> insertions(+), 2 deletions(-)
+> These sensors are intended to be controlled primarily from userspace by the
+> thermal governor in thermald, through the powercap sysfs interface [1]. We
+> do not plan to add cooling bindings for these thermal zones.
 > 
-> diff --git a/rust/kernel/iommu/domain.rs b/rust/kernel/iommu/domain.rs
-> index 2e66becde156..2a5b66f2a5d9 100644
-> --- a/rust/kernel/iommu/domain.rs
-> +++ b/rust/kernel/iommu/domain.rs
-> @@ -19,7 +19,10 @@
->          Bound,
->          Device, //
->      },
-> -    error::from_err_ptr,
-> +    error::{
-> +        from_err_ptr,
-> +        to_result, //
-> +    },
->      prelude::*, //
->  };
+
+I don't plan to merge settings that will cause physical harm to people
+who for some reason doesn't run your userspace tool.
+
+> Based on discussions with the tuning team, we agreed on a hot-trip threshold
+> of 90°C for these sensors.
 > 
-> @@ -44,6 +47,11 @@ pub struct Domain<'a> {
->  // SAFETY: A `struct iommu_domain` is not tied to the thread that allocated
-> it. unsafe impl<'a> Send for Domain<'a> {}
+
+Please make tuning team that the user might/will bring their own
+userspace, with or without this configuration.
+
+E.g. on my system there doesn't seem to be anything called "thermald":
+
+$ pacman -Ss thermald |wc -l
+0
+
+Thanks,
+Bjorn
+
+> [1] https://github.com/intel/thermal_daemon/pull/614/commits/7f3dd62353e039957e52eeb40c67ec388d543ebe
 > 
-> +// SAFETY: `&Domain` allows the following from several threads at once:
-> +// - Attaching and detaching the domain. `iommu_attach_device()` and
-> `iommu_detach_device()` may +//   be called concurrently for the same
-> domain.
-> +unsafe impl<'a> Sync for Domain<'a> {}
-> +
->  impl<'a> Domain<'a> {
->      /// Allocates a paging domain for `dev`.
->      ///
-> @@ -70,11 +78,56 @@ pub unsafe fn new(dev: &'a Device<Bound>) ->
-> Result<Self> { _dev: PhantomData,
->          })
->      }
-> +
-> +    /// Attaches the domain to `dev`.
-> +    ///
-> +    /// This may sleep.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - The caller must be the driver bound to `dev`.
-> +    /// - The caller must ensure that `dev` stops using the domain before
-> the returned +    ///   [`Attachment`] is dropped.
-> +    /// - The caller must not `mem::forget()` the returned [`Attachment`]
-> or otherwise prevent its +    ///   [`Drop`] implementation from running.
-> +    pub unsafe fn attach<'d>(&'d self, dev: &'d Device<Bound>) ->
-> Result<Attachment<'d>> { +        // SAFETY: By the type invariant,
-> `self.ptr` is a valid domain, and `dev` is a valid +        // device. The
-> caller is the driver bound to `dev`.
-> +        to_result(unsafe { bindings::iommu_attach_device(self.ptr.as_ptr(),
-> dev.as_raw()) })?; +
-> +        // INVARIANT: The domain is attached to `dev`.
-> +        Ok(Attachment { domain: self, dev })
-> +    }
->  }
+> Thanks,
+> Manaf
 > 
->  impl<'a> Drop for Domain<'a> {
->      fn drop(&mut self) {
-> -        // SAFETY: By the type invariant, `self.ptr` is a domain owned by
-> `self`. +        // SAFETY: By the type invariant, `self.ptr` is a domain
-> owned by `self`. Every +        // `Attachment` borrows `self`, and the
-> caller of `attach()` promised not to leak it, so +        // the domain is
-> attached to no device.
->          unsafe { bindings::iommu_domain_free(self.ptr.as_ptr()) };
->      }
->  }
-> +
-> +/// A [`Domain`] attached to a device.
-> +///
-> +/// An attachment cannot outlive the domain or the binding of the device it
-> is attached to. +/// Dropping it detaches the domain from the device, which
-> may sleep. +///
-> +/// # Invariants
-> +///
-> +/// `domain` is attached to `dev`.
-> +#[must_use = "the domain is detached when the attachment is dropped"]
-> +pub struct Attachment<'d> {
-> +    domain: &'d Domain<'d>,
-> +    dev: &'d Device<Bound>,
-> +}
-> +
-> +impl<'d> Drop for Attachment<'d> {
-> +    fn drop(&mut self) {
-> +        // SAFETY: By the type invariant, `self.domain` is attached to
-> `self.dev`. The caller of +        // `Domain::attach()` is the driver
-> bound to `self.dev`, and promised that the device +        // stopped using
-> the domain.
-> +        unsafe { bindings::iommu_detach_device(self.domain.ptr.as_ptr(),
-> self.dev.as_raw()) }; +    }
-> +}
-
-
-
-
+> > > > +				hysteresis = <5000>;
+> > > > +				type = "hot";
+> > > > +			};
+> > > > +		};
+> > > > +	};
+> > > > +
+> > > > +	ec-keyboard {
+> > > > +		polling-delay = <10000>;
+> > > > +		thermal-sensors = <&ec 1>;
+> > > > +
+> > > > +		trips {
+> > > > +			trip-point0 {
+> > > > +				temperature = <90000>;
+> > > Likewise
+> > > 
+> > > Konrad
+> > 
+> 
