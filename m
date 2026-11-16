@@ -1,86 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849625;
-	b=SyqJ9WtsPOoPk/mNFRiM8CQTAiDmFBFKY1ZNwnXgXLJIpyEAirPdXZ8tNLN6aNfQ/18K
-	 2fbsT5r0Gomt3AHYOrDCnUynUSz8YqummCFFlPZdKgXHViZ7j9YI6P6xL2p7B7DKEfW4x
-	 fhY6DFaliiYrPLsrpDm2dhWq5fcpJgZ8lfHHwbODksiJpJTBDUbhWo8xmhcb8aAaQwx6U
-	 LnOow8lp4MVU5ad/4lksJYE8v/g9bL0iOJf3HILV4RAbpe7ZpP9bBBSMW0rmkbywvXdxR
-	 6GNUZCARsMVu4wBsUu4TGorMpX3O/tBT0GWmqFTXHyXK246yNRASJGyK69DZsyMXdbA==
+	t=1794849652;
+	b=TdztgL3Sg097GKEpCkAf0L9U2QibLnnuCNA39ysHDZr6vLZqCkHQt/p4pis6ISdqFUqZ
+	 XT8iTz8SPpfNGH7zZR03j62mcNGwjmQwbRT/q/iDZAHQcKKtVA14VB4XDT9/PA6oxzUjo
+	 34qtYdnfZGIOB+Q0kpP0lmGZggJxkncGZgAK6ZUify+hO9x3lETOtAZkaxetqnUb/5hSW
+	 RSQHjdOHWG8D6maaWKCMP8DxwcKRAjihQcZigvxG9kan+ibgdYDLJDK00BO5brGYugxWP
+	 0m3OhvpoPNaIaFQUYVfmZXH51FTZDZgnYbUG0UHd5aJvsxFPotmGCQ/mFLYuX8MuVuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849625;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=Uhn3Xh440rrzv0xOTkiny4cGS6bsXvzVeqcYJ4nwTDs=;
-	b=h3ODBnrmiEfzKALd0fdn1BCWMy7dHL2rFAtSm7J7RTqiHhQKG9LiDExVHmDzMhK2RvqN
-	 1MHYvreU0E1wSOpVvuV3pixcae6YltcPqPtECs+XwUSxo07cbdRkgx5md9+hJ5aFwCjdm
-	 +CBQaHjVNOgLwZhJEWSMMIk8O8i41tHq3Z0Vj48HkvWs9/Et/Qx/jEZsj/vLboSXvwIAZ
-	 ZF6y2jMA1WrUHf7r9fMO4UaEa4bIoqmTrU98z0fhKaqaVLFv6X7oJqwPRtZVB9BgOJOmw
-	 XTBsY5XJEEQfxSjHJZlpiMW4F+qsPHJbfKarTHd03Ubh4A32mCOSlfSoKGmqtxvf2TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849652;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=scd7KPiRVsbA2XxL7ASc6Bp3Xum97UozhMdMhwjKhPo=;
+	b=1KopqK4ffa5a3zBL4fGVSjPx654Tb50E3Dpkjsx9ad27iq0F3DEaHcIZ0aHPiqkyYVx0
+	 XgOEsvolH8GZKrDj0X6j2+6+58ZThdcAWtW/TYFRqaN2fy3Uw8X6lmgW4x+UoSstsp2FS
+	 kyPajauBoKPYvu0P50YSncmIXBjeWhYiMHnZUtHbQHhCzOH/zBhhGVyKrhSYYfXMZGOta
+	 biDl5ubw75KsOxYWhonE/ZFmrFBcngn9fFWj30Gh6T7crlEEiTie49cTSGhURt8hMKzML
+	 MlailvA8ndd7JzqgEWfxYqhPzgynLiS8RS7wxeexQncsRjnhyApKJCYr/mQCtdKlIxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=aX5WK4VM;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IwT+AooZ;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kw/RMWwl";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53300606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:20:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53300606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F450606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:20:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=aX5WK4VM;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=IwT+AooZ
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794849622;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uhn3Xh440rrzv0xOTkiny4cGS6bsXvzVeqcYJ4nwTDs=;
-	b=aX5WK4VMEnjF9i1VKVQSHFX2GLhbxsGh0rUUEpq16akWX/oza8TC2x4U2Wc5M2cea5s+pr
-	FG7n6wly3PaZ/Mq8S4XaUkpXwJXmNwINcQe529CM2y8TtfwdUsQI7umWEMC/Y6npD4Rv5b
-	NKWunLOmi55uB+seqegTvmwiHNVscAexBW+ovmpj5P+GxXl0MDs14cFZ1Vso7OS8RUyUxE
-	CMJFtuouBK/6+19icelMId62QdTq41y3v+LEABahmYc2lUj3TT9bSVBO5W49uxQurGRjp+
-	JzpHZoiHSeL3p9a67NtjbjE0DjZmidChXhXxBYZxCcPAa1JbWT3+OPcJ41ujFA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794849622;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uhn3Xh440rrzv0xOTkiny4cGS6bsXvzVeqcYJ4nwTDs=;
-	b=IwT+AooZ8H8ysTr1pAwAVYo/Aex9uA3/+R34PP1Hz0Mquv2Mb6PM8k4ReFej4Va7RWRgfC
-	3kUcg2AomgSL65DA==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Ryan Roberts <ryan.roberts@arm.com>, Breno Leitao
- <leitao@debian.org>, printk@lists.linux.dev, linux-kernel@vger.kernel.org,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman
- <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, "Christophe
- Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)"
- <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Jason Wessel
- <jason.wessel@windriver.com>, Daniel Thompson <danielt@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Andrew Morton
- <akpm@linux-foundation.org>, Mukesh Kumar Chaurasiya
- <mchauras@linux.ibm.com>, Feng Tang <feng.tang@linux.alibaba.com>, Rio
- <rioo.tsukatsukii@gmail.com>, Bradley Morgan <brads@mainlining.org>, Pnina
- Feder <pnina.feder@mobileye.com>, Gal Pressman <gal@nvidia.com>, Petr
- Pavlu <petr.pavlu@suse.com>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- Oleg Nesterov <oleg@redhat.com>, "Cen Zhang (Microsoft)"
- <blbllhy@gmail.com>, loongarch@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, kgdb-bugreport@lists.sourceforge.net
-Subject: Re: [PATCH printk v2 1/6] printk: Introduce and specify flush reasons
-In-Reply-To: <avcnSjj2P9UfsBn7@pathway.suse.cz>
-References: <20261111181942.593695-1-john.ogness@linutronix.de>
- <20261111181942.593695-2-john.ogness@linutronix.de>
- <avcnSjj2P9UfsBn7@pathway.suse.cz>
-Date: Mon, 16 Nov 2026 18:26:21 +0106
-Message-ID: <87cxs4y9pm.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kw/RMWwl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EFFC1F000C4;
+	Mon, 16 Nov 2026 17:20:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794849652;
+	bh=scd7KPiRVsbA2XxL7ASc6Bp3Xum97UozhMdMhwjKhPo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kw/RMWwlR/zQZHbAxE2vH0EEg69M0lvUZrH2QSeJ/p7OwB4IE44S09DcNBW6OGVW7
+	 BslOPpjPmEBzBN5LM4qb4E2LckVVJ/euPotGVii4Za5Di878LUagpYKfOa2vWOYGaL
+	 C9fzd2budQoE/3X6VryI5gDUOpCCMn84stoVUffaFkGJ2Lma8Nr8rbN22mnLj0rPRL
+	 DXwCYT2q+omBNLjSWRGj9/Jlu886zo+sh/kIuVLOWyRtpvTYV8EXP2lMNy9RJt1R9a
+	 f2xTO0xrMJnJJtS379Z7d9ROQjOq23aMEtUzMIBw0Y2J+0PjYwhyMDgNIMYpDAXZ1B
+	 9Kuqk6/e/3pgw==
+Date: Mon, 16 Nov 2026 17:20:49 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Avi <thnkslprpt@gmail.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cache: sifive_ccache: skip disabled device tree nodes
+Message-ID: <20261116-dreamlike-uncheck-9eebf91555d6@spud>
+References: <20261028131939.1014720-2-thnkslprpt@gmail.com>
+ <20261105-igloo-stunt-534496ad0518@spud>
+ <CA+jvY9Ft4KKTGD7jM-pBFeN4orRuMs1pQUfcLerKGTW24KDQVQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,62 +57,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nbYSfbusVy/ZW6KP"
+Content-Disposition: inline
+In-Reply-To: <CA+jvY9Ft4KKTGD7jM-pBFeN4orRuMs1pQUfcLerKGTW24KDQVQ@mail.gmail.com>
 
-On 2026-11-13, Petr Mladek <pmladek@suse.com> wrote:
-> This entire patchset adds a lot of complexity just to enable all
-> 4 new policy flags for netconsole in the last patch.
->
-> There already have few dimensions which affect console flushing:
->
->    + console_loglevel
->    + nbcon_prio
+--nbYSfbusVy/ZW6KP
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-"Dimensions" is the correct word. These are orthogonal:
+On Sat, Nov 14, 2026 at 07:40:42PM +0200, Avi wrote:
+> On Thu, Nov 5, 2026 at 8:24=E2=80=AFPM Conor Dooley <conor@kernel.org> wr=
+ote:
+> >
+> > On Wed, Oct 28, 2026 at 03:19:40PM +0200, Avi Weiss wrote:
+> > > sifive_ccache_init() uses of_find_matching_node_and_match(), which al=
+so
+> > > returns nodes marked as disabled. The initializer can therefore map a=
+nd
+> > > access a cache controller that the device tree marks unavailable.
+> > >
+> > > Select the first available matching node before accessing its registe=
+rs.
+> > > This also handles a disabled node preceding an enabled one.
+> > >
+> > > Fixes: a967a289f169 ("RISC-V: sifive_l2_cache: Add L2 cache controlle=
+r driver for SiFive SoCs")
+> > > Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> > > ---
+> > >  drivers/cache/sifive_ccache.c | 4 +++-
+> > >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/cache/sifive_ccache.c b/drivers/cache/sifive_cca=
+che.c
+> > > index 71d3f94987fa..02878d54381d 100644
+> > > --- a/drivers/cache/sifive_ccache.c
+> > > +++ b/drivers/cache/sifive_ccache.c
+> > > @@ -297,7 +297,9 @@ static int __init sifive_ccache_init(void)
+> > >       unsigned long quirks __maybe_unused;
+> > >       int rc;
+> > >
+> > > -     np =3D of_find_matching_node_and_match(NULL, sifive_ccache_ids,=
+ &match);
+> > > +     for_each_matching_node_and_match(np, sifive_ccache_ids, &match)
+> > > +             if (of_device_is_available(np))
+> >
+> > Are there any devices where this is actually possible? IOW, where there
+> > are 2 ccache instances.
 
-  + console_loglevel: which messages to print
-  + nbcon_prio: which context is allowed access to hardware
-  + pr_flush_reason: reason for atomic flushing
-  + unsafe_flush_flags: policy when unsafe flushing is acceptable
+> It's more of a defensive thing. The 2 ccache instance was an example -
+> the issue is also relevant for one disabled ccache node no?
 
-I do not see a single property above where a value in one implies a
-value in another.
+That is true.
+And on the two node front, the driver doesn't support that anyway either
+before or after the patch. Consider what the new code does if there are
+two nodes, both enabled.
 
-> This patchset adds 8 new terms in pr_flush_reason and
-> nbcon_unsafe_flush_flags just to explicitly set all
-> flush_flags in netconsole.
->
-> Let's start with pr_flush_reason. I am not sure if it is worth it:
->
->   + PR_FLUSH_RUNTIME is the default
->
->   + PR_FLUSH_RESTART can be detected by system_state > SYSTEM_RUNNING
+But I don't think the ccache or llc-cache successor are intended for
+that kind of situation anyway.
 
-This does not cover the panic-restart case.
+> Since of_find_matching_node_and_match() doesn't check whether a node
+> is enabled, it can return a disabled one.
+>=20
+> sifive_ccache_init() then goes ahead and maps and accesses its
+> registers, even though the device tree marks it as disabled and normal
+> OF platform-device creation would skip it.
 
->   + PR_FLUSH_HANG has only one caller currently distinguished by
-> 	the global panic_nbcon_allow_unsafe_takeover
+Could we instead drop the loop and just check for availability, while
+retaining of_find_matching_node_and_match()? I kinda feel like the loop
+gives the impression that the driver supports multiple nodes, when it
+realistically does not.
 
-In my series there is another user:
+Cheers,
+Conor.
 
-arch/loongarch/kernel/reset.c:machine_halt()
+>=20
+> >
+> > > +                     break;
+> > >       if (!np)
+> > >               return -ENODEV;
+> > >
+> > >
+> > > base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+> > > --
+> > > 2.43.0
+> > >
 
->   +  PR_FLUSH_KDB can be detected by kdb_trap_printk and
->      kdb_printf_cpu, see vprintk() implementation.
+--nbYSfbusVy/ZW6KP
+Content-Type: application/pgp-signature; name=signature.asc
 
-Ack. PR_FLUSH_RUNTIME could cover this case.
+-----BEGIN PGP SIGNATURE-----
 
-> IMHO, it makes things worse because nbcon_atomic_flush_pending() has
-> to use PR_FLUSH_RUNTIME in vprintk_emit(). But I think that we
-> would like to flush it the same way as an explicit flush called
-> in the given context.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavs7cQAKCRB4tDGHoIJi
+0pNvAQD5/KJVymuE7qmA071m1fi7a4OINJ983TfXYxTo/6Wq0AEA04ux8cMbfJqI
+BIpTXQuSLQDewZqgUQfZE9C4L2OC2gg=
+=haUZ
+-----END PGP SIGNATURE-----
 
-You write it backwards. vprintk_emit() uses
-nbcon_atomic_flush_pending(). Calling printk() (a single record) is
-quite different than calling printk_trigger_flush() (flushing a
-backlog).
-
-Let us discuss this after I respond to your comments on patch 2/6. There
-you include many details and suggestions that require closer inspection.
-
-John
+--nbYSfbusVy/ZW6KP--
