@@ -1,53 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815345;
-	b=ESMICh7hcEP/dpD0Vmy/mQxLy6nSE7eAqdIJM551HrhcPDZ9zrsXTgsoD1bcx0hxXvCl
-	 J+DaFxKRWGEl0LrRLuFm+OteGb7xVjECQoibdOlqwbXkANVNJ8/WoJAl+vrHJ0BXMvTIi
-	 JQ7kYdEte7Vf/ZEki5uhGr2gLIXeiEfZjNcC95KUsr+7Lww5KEJH/o0TtJW24Vo1scdF+
-	 aIO4pzT0J+KJlHFGoYjleln82LBb/WCvCh7Gr72rMNLOb8QZbqGx8xRK6RFjs7GNM1nRi
-	 g/IWj7uX8OMGEyv4tSO19fXSnAf9T6Vu1HHU1XOvBfyt+gyJwP04gBmmor6+VMjv6OA==
+	t=1794815360;
+	b=CPbHFm+5C3h5Rmh2FvBMlD8UuILZHGvKJlqy/zppSfwaXv9K4UWnNY9RHfbJdGA4VYdx
+	 nAnRd5Dyv/qgqla98gZkUF8vblnc722yGYL2mINkCycUm+FNl1j8pzZy7dt0pG0rcSKhk
+	 IApnj8nV53M51XEX2Cnh0flhGbD30Xr4GkE+xdesZj9yvK7OvVjY7I5w7iIJK8wMITgYw
+	 SHM5D+o8oSbVo6H8uZ6gxhbuGAGes+miOSyXkVrDwxbcdGUWKLjaTARJ+lat7eJ9RhGwS
+	 MoBhDQ80X2IufSjP94ObwzZ3MFrsyDtFXkAbq991dn1EQRrwCH1KTLvmZQO4y3/I7gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815345;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=bY6lzXmazPNgQ+UcyoLBmKep2WfhVGTgscTPgEi4ngw=;
-	b=Rq/ojf84DlGooEC0rvPDx9FFpgf2RUnLFTwtrq4AeL3q4hd/xXYIQl8RPuUHzIaUoNAC
-	 lZw8RqNsylt0MW1v/POCdqZtMkRJwG9mpfUjpPnenMFb4bWBu70vm/e7fXI4f1n3ydp82
-	 6ELeGSjPOpN07buFleiJg22196T+UEQwgdaQDFus/XVov54MRHimudpLENTYPe5B32u+3
-	 Y1YTxgSpZz9m607SnPHxQC44kA49WhGhnaEiHDQlJBwBS8ew76Z/2cEQOvjzF7MsF4EzM
-	 QCVCKCUHxaovi/7Xa31U0kJsWnejT4EUYdLwhykarGYCbfdchQofj8k09252EgVOcoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815360;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=qfEwEGdsfpaSsQ0CV8iU4w1B9JOv1XHHo5P0ONr0dGk=;
+	b=OAsqL0dDtDsbu/QJljO2WdjUW+2CJG9A6wZqPTgRhyRy0/zXCRObMmLwrnHqDp/3bpXp
+	 n7aUEBhomHlaWtXaE+T/uib0I4X4jf6El/FJWYVFetn2sK7uYlIshABEOhwRCmM4z4e/1
+	 bVgzbBkzlfrolx/vEgSaasA+F7wA8UxjUA7HvYlePcBnXD2QoWCPxn+SXCOLwgO2O1U+T
+	 kx3JuwVufYJrrLBufeHwfGFvmx4c9UJMkA799czW3n1JOgE/4X5jVXrXhvcrJHOJec94s
+	 WE+QGAxRABURnbzkK+nC2Rj05P1pVkRn3H/r/A5KTO34sSVYOyn1qOcqeQA5XboE4nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1D46606A31C;
-	Mon, 16 Nov 2026 07:49:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D46606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UslJmPZB;
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C899F606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:49:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C899F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UslJmPZB
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso1118433a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:49:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794815359; x=1795420159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qfEwEGdsfpaSsQ0CV8iU4w1B9JOv1XHHo5P0ONr0dGk=;
+        b=zn0NpKFAfS0r1ikkc0Phr7o/+0+jjlYdDHHWx3NnxxtGUXiTwOuJJ+I1PrEJgH4S3Y
+         aneJ3CjNliMt3e2qjQsCKstKiNA4UrMQwojLUTWX66enM59/y8MRkSUrzCT82f74Z7dV
+         dHno6gPKQA+vZVMWwg95ZTxnX8vU2nY46GezdiFbBF1kgdK14Uw3tXHIZ/SmSsfzDWUm
+         Oks9knNUFhxCd/hIHyXAYkVkfcAzVo9tF8mJjaHwKnXzcZfwGy4V+imXeKCp+rbx3xaC
+         WGwwINp0fXPs4viPpaGlBzR4rrPd1a0NVLdH7OxPgYw99IPLeJPqo0NeRMzocQWA3tEh
+         Z9+Q==
+X-Forwarded-Encrypted: i=1; AL+hErHZWIon4cs6vSTt9OXUJj/p4Sa+uJLD9ANFZSummGjTaamb5ngjsQkjOmbtZrKRR5uQuz2+LNPPoEBcy0Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4dfrZi4NLbmi6UlMaHCI4H/YBfKHDBMoga8PiQF9hk8i5S7sT
+	CxXdsjASeqxc9CKQHzRgmF1BaESPPlWJMIUveHFHr1lMGyTRt0tsgVtrxfo/R0h0kHwkN3+8j3h
+	aFBgb024rGIoEVvh6RpQMk0APwqXiOuiLSDCztzddXH8r9QZDnkyS1P9oagj67pCQUX38YefkVL
+	vDa4foU+Hq2GaNwGAyss/qBHePjCKGVUR8U/bSM6C0ZxdqUR1phtTLPeVpDNjL6esOPet+mk0X4
+	6mQUO9JXyIyQqa6pDKnYgOq
+X-Gm-Gg: AZFdTZd1Dz9klljlm/TfvKJJPb2g1BlI+W5Z8jYAwIfRqs30mYFmQc73LQA2zTwBcFc
+	oKrstelpI+RRxWlJwCfRGI5nKcxkIxYnOk5112ahDhx0HXAUvzJgRrXhH8nShkQM4pbjIrs7upI
+	QRGre/ywHGq9Ae+oUTu3eyH0yzTRyeknVQYa1sLgl318dTGDOKG5UPCNJN03hbgmOH5MexgKnTn
+	jOXsG8yj7UFDftZU2EbJ2T71A2L62BxbvwhlvLrozYyhJ0a6/DdNb3nkazCw2UHdiD82oxQS3d4
+	YqJd2owHPwFTg5nY/uOCNiAELlqKlqQIWhPjGKMlgoK9i/VEaglQq4LaOSKFVn5X94pfvfngJLu
+	bbCsMeiy6gciqg4nX8G4VPOW3fPqOreCYf5wlX+vg27LfM9KKQHuxAQQ0tQVjX7T9EafSRJDtZ2
+	1mHGSmt9c15DxF7j+GzuqmkXyHbWvEr6TmQRV/6QG2
+X-Received: by 2002:a17:90b:4a88:b0:3b0:a7b5:c037 with SMTP id 98e67ed59e1d1-3b1b07fecf9mr9422262a91.1.1794815359091;
+        Sun, 15 Nov 2026 23:49:19 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae9bbffcsm11288596a91.8.2026.11.15.23.49.18
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 15 Nov 2026 23:49:19 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91ec6cd898eso67490406d6.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:49:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=bY6lzXmazP
-	NgQ+UcyoLBmKep2WfhVGTgscTPgEi4ngw=; b=VGdZytAhpz16t7Nyc2Kwz2z8SQ
-	KsUYzgpZGIDTLHBftk1bvhZ3IWFM3r8mQtTkGXK1zHLiWBPsAnv6m+8Z1i77LhgF
-	otqLu5Q2yCxll/JBM+Bl8EBfTMTTQGuIgMFnyew5aLz03xyrmS4mD+ftgH2w69gZ
-	ExMEQGKnFPqCFxCfo=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDGyv1otfpqVsG0AQ--.43335S2;
-	Mon, 16 Nov 2026 15:48:57 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Dave Penkler <dpenkler@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        d=broadcom.com; s=google; t=1794815358; x=1795420158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qfEwEGdsfpaSsQ0CV8iU4w1B9JOv1XHHo5P0ONr0dGk=;
+        b=UslJmPZBBMWxXiIGaZ+wfVp2KPNXzFws9P0FePRAxwQZGpES3oH8a8jKyUUTE1fnm4
+         rbYJ6AAVmTsjKY0F+DYCGYOB13q+Ww1bf1uA8nQ7RJG5DPLZ7LLj5YvrKmWnYkJrses5
+         sqOjGIX7dGOPOe0Pf91azz3xovi59t/wuqcFM=
+X-Forwarded-Encrypted: i=1; AL+hErFq2ue1jLpw7+GdD/7Bh69I7TXJhc8rn2o6GKpMFFdNlMeAdZMsTclHsDDwSpXPegVhvU2vI0RPMMeiyYQ=@vger.kernel.org
+X-Received: by 2002:a05:6214:4b10:b0:91e:f04a:b237 with SMTP id 6a1803df08f44-91f242135efmr158105606d6.39.1794815358071;
+        Sun, 15 Nov 2026 23:49:18 -0800 (PST)
+X-Received: by 2002:a05:6214:4b10:b0:91e:f04a:b237 with SMTP id 6a1803df08f44-91f242135efmr158105406d6.39.1794815357480;
+        Sun, 15 Nov 2026 23:49:17 -0800 (PST)
+Received: from bld-ams-bvg-44.ams.broadcom.net ([192.19.176.250])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f8319d44bsm36603646d6.4.2026.11.15.23.49.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:49:16 -0800 (PST)
+From: Stefan Chulski <stefan.chulski@broadcom.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] gpib: ni_usb: fix use-after-free in ni_usb_line_status()
-Date: Mon, 16 Nov 2026 15:48:56 +0800
-Message-Id: <20261116074856.3446-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Stefan Chulski <stefan.chulski@broadcom.com>,
+	Ilya Lifshits <ilya.lifshits@broadcom.com>
+Subject: [PATCH RFC v1] ksmbd: add use_unbound_wq module parameter for the ksmbd-io workqueue
+Date: Mon, 16 Nov 2026 08:48:49 +0100
+Message-ID: <20261116074849.475815-1-stefan.chulski@broadcom.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,102 +115,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkDGyv1otfpqVsG0AQ--.43335S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrWUAFyxCrW5tr1kZryUAwb_yoW5Cry8pa
-	y3tayjkFyqqr1SyanxAa1DuF15C3ZFvas7CF1jk3yxuws8J34fKrykKryYga4FyrykAw47
-	JFWjvrWUuFWrCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
-	15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8QBMJUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2r5zUhtNAACsW
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-ni_usb_line_status() caches the usb_device derived from
-ni_priv->bus_interface and uses it for the two error messages that
-follow the register read.  The bus_interface check at the top of the
-function only proves that the interface was still valid when the
-pointer was taken: the bulk transfer can take up to a second, and
-longer when the endpoint stalls, so the dongle can be disconnected
-while the transfer is in flight.  The USB core then frees the
-usb_device and dev_err() reads freed memory:
+The "ksmbd-io" workqueue has always been per-CPU. Commit 69635d7f4b34
+("fs: WQ_PERCPU added to alloc_workqueue users") only made that
+default explicit as part of the treewide transition to unbound-by-default;
+it was not a ksmbd-specific decision.
 
-  BUG: KASAN: slab-use-after-free in dev_name include/linux/device.h:934
-  Read of size 8 at addr ffff8880088df100
-  Freed by task 11:
-   device_release
-   kobject_put
-   put_device
-   hub_port_connect
-  Call Trace:
-   _dev_err
-   ni_usb_line_status
-   iblines
-   general_ibstatus
-   ibwait
-   ibioctl
+Per-CPU work keeps request processing on the CPU that queued it, which
+is good for cache locality, but it also runs work on CPUs that were
+isolated from workqueue noise (isolcpus=, nohz_full=) and prevents the
+scheduler from placing blocked or long-running workers elsewhere.
+Which behaviour is better depends on the workload and platform.
 
-The gpib board and its device outlive the USB interface, so report the
-transfer failure through board->gpib_dev and drop the local usb_device
-pointer.
+Add a boolean use_unbound_wq module parameter. It defaults to false, so
+behaviour is unchanged unless it is set; when true, "ksmbd-io" is
+allocated with WQ_UNBOUND instead of WQ_PERCPU. The "ksmbd-break"
+workqueue is already WQ_UNBOUND and is not affected.
 
-Fixes: 4934b98bb243 ("staging: gpib: Update messaging and usb_device refs in ni_usb")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Document the parameter in ksmbd.rst.
+
+Signed-off-by: Stefan Chulski <stefan.chulski@broadcom.com>
 ---
- drivers/gpib/ni_usb/ni_usb_gpib.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ Documentation/filesystems/smb/ksmbd.rst | 6 ++++++
+ fs/smb/server/ksmbd_work.c              | 9 ++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpib/ni_usb/ni_usb_gpib.c b/drivers/gpib/ni_usb/ni_usb_gpib.c
-index 28de1d543ad6..8e688509fdff 100644
---- a/drivers/gpib/ni_usb/ni_usb_gpib.c
-+++ b/drivers/gpib/ni_usb/ni_usb_gpib.c
-@@ -1516,7 +1516,6 @@ static int ni_usb_line_status(const struct gpib_board *board)
+diff --git a/Documentation/filesystems/smb/ksmbd.rst b/Documentation/filesystems/smb/ksmbd.rst
+index 728cfca13205..a045ed6db9b3 100644
+--- a/Documentation/filesystems/smb/ksmbd.rst
++++ b/Documentation/filesystems/smb/ksmbd.rst
+@@ -158,6 +158,12 @@ How to run
+ 
+ 	$ sudo modprobe ksmbd.ko
+ 
++   - Optional module parameter ``use_unbound_wq`` (default ``0``) makes ksmbd
++     use an unbound workqueue instead of a per-CPU one for request
++     processing, e.g. when CPUs are isolated (``isolcpus=``, ``nohz_full=``).
++
++	$ sudo modprobe ksmbd use_unbound_wq=1
++
+ 5. Start ksmbd user space daemon
+ 
+ 	$ sudo ksmbd.mountd
+diff --git a/fs/smb/server/ksmbd_work.c b/fs/smb/server/ksmbd_work.c
+index 6e5122e2d6fc..0447b2da84d5 100644
+--- a/fs/smb/server/ksmbd_work.c
++++ b/fs/smb/server/ksmbd_work.c
+@@ -7,6 +7,7 @@
+ #include <linux/mm.h>
+ #include <linux/slab.h>
+ #include <linux/workqueue.h>
++#include <linux/moduleparam.h>
+ 
+ #include "server.h"
+ #include "connection.h"
+@@ -18,6 +19,11 @@ static struct kmem_cache *work_cache;
+ static struct workqueue_struct *ksmbd_wq;
+ static struct workqueue_struct *ksmbd_break_wq;
+ 
++static bool use_unbound_wq;
++module_param(use_unbound_wq, bool, 0444);
++MODULE_PARM_DESC(use_unbound_wq,
++		 "Use an unbound workqueue for request processing (default: false, per-CPU)");
++
+ static int ksmbd_reserve_iov(struct ksmbd_work *work, int need_iov_cnt)
  {
- 	int retval;
- 	struct ni_usb_priv *ni_priv = board->private_data;
--	struct usb_device *usb_dev;
- 	u8 *out_data, *in_data;
- 	static const int out_data_length = 0x20;
- 	static const int  in_data_length = 0x20;
-@@ -1528,7 +1527,6 @@ static int ni_usb_line_status(const struct gpib_board *board)
+ 	struct kvec *new;
+@@ -108,7 +114,8 @@ int ksmbd_work_pool_init(void)
  
- 	if (!ni_priv->bus_interface)
- 		return -ENODEV;
--	usb_dev = interface_to_usbdev(ni_priv->bus_interface);
- 	out_data = kmalloc(out_data_length, GFP_KERNEL);
- 	if (!out_data)
+ int ksmbd_workqueue_init(void)
+ {
+-	ksmbd_wq = alloc_workqueue("ksmbd-io", WQ_PERCPU, 0);
++	ksmbd_wq = alloc_workqueue("ksmbd-io",
++				   use_unbound_wq ? WQ_UNBOUND : WQ_PERCPU, 0);
+ 	if (!ksmbd_wq)
  		return -ENOMEM;
-@@ -1550,7 +1548,7 @@ static int ni_usb_line_status(const struct gpib_board *board)
- 	if (retval || bytes_written != i) {
- 		mutex_unlock(&ni_priv->addressed_transfer_lock);
- 		if (retval != -EAGAIN)
--			dev_err(&usb_dev->dev, "send_bulk_msg returned %i, bytes_written=%i, i=%i\n",
-+			dev_err(board->gpib_dev, "send_bulk_msg returned %i, bytes_written=%i, i=%i\n",
- 				retval, bytes_written, i);
- 		return retval;
- 	}
-@@ -1567,7 +1565,7 @@ static int ni_usb_line_status(const struct gpib_board *board)
- 
- 	if (retval) {
- 		if (retval != -EAGAIN)
--			dev_err(&usb_dev->dev, "receive_bulk_msg returned %i, bytes_read=%i\n",
-+			dev_err(board->gpib_dev, "receive_bulk_msg returned %i, bytes_read=%i\n",
- 				retval, bytes_read);
- 		kfree(in_data);
- 		return retval;
+ 	ksmbd_break_wq = alloc_workqueue("ksmbd-break", WQ_UNBOUND, 0);
 -- 
-2.34.1
+2.54.0
 
