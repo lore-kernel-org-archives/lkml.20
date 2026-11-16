@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814389;
-	b=X0KxkHjSpJdr3hwh/4P2rIjygEP//z7ljMUSyc0ebX+08tRBjD0/7EOuyyXRDP8SpoGU
-	 1MiH2ldREjS8UF6BYrLHyY50ppOh0MGblIHvkm/RsZ45jeYXdcC3ua2UHBOmx8O8VDJIi
-	 MWCmwHZc29zeUBgmQJFTq3d2PhJE+HpwzZ+Qog9LYIwq2A75PQ8sPyxBcoju3ZlTP8wsv
-	 dVfvypbN1ix+BI2pmYLLn8qMCKSYvrMTXh+fx21WmQbJTyWW9d3pxYcy8+X/QI/JBf3Ub
-	 EKV4y/YQFl5DdzzonvgERO8LsYemEhJGlHW9B0lOLQe8jL8Ge5BlbUcE1ZNg4H21vDw==
+	t=1794814414;
+	b=T3jlVdBjuJMqxdlPT5pCw5p59pLlmkbkF12N53Jo3ummQFeob8ByVNjhaKtA3Ci4guLa
+	 hHzCtip3zU9hJ3F1tHiQImuCtU8Y7rQb5Xf1i5Scg3jqOTj6E3d+pTnD/J3bFl/UYkese
+	 nam8SRk507YOL1swDKCpk/NPYCwtfZ6dm49RzK+JHRGjeJvxMG98SZcZ1+Jfw9J10vunu
+	 YB3ygk1bnLHHE8arxgUYcvFCaIKeVu/ViAMC8AZ/m0yXE2nIQtrZKdF8tFFujtD0iYqr+
+	 iPq99FEmH287QYTOw3uXIANz3eyQfn4JILrzgrhhpUO2Dgm6x7t2ryGlvcmXo/aRtfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814389;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=G7t2Ip9dU2h7Xb2XPTJWwdlpbD3DBdvbU6zpBUoazbQ=;
-	b=mxQ/dQVlaKYs8jze1n7ZrePvtUNrNLykKUz682DJZp/8pCGsN3+wnpcb/3hJ08tGA86O
-	 +vhTVXV4b5Av6DZrPccRRXjHLq/wUNHNpDiLVMh6rreWoWrViX197bxmYtwmp0DMmAfIG
-	 CCLHbR4jRQFWFu6GewJzoP6W6ekhgtQ3SaOaanmRC9bbylUqsuCJ1HvstOPFCMaCAghUU
-	 BYQd2fWEQQUDK9f1o2H+WWxRqeQ2wKvuZmBED4D/EmsOsqI15RIkZW4nw6L2IfDnscl9a
-	 8Eql51H9RXBqrzWjpqhv3YP7H90rNvdMOD9pi9fZhJps+2iIJEAmcmk1FwZikEN9dHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814414;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZSfgqdGwCAZSv33LraZUlvda7VWvNJ3OL164hELpjTU=;
+	b=rWfNnDq+/of0+1eLG9d092WFWWmkdRRlCXIDm1JHCV3LjHdJiSqattsqGhyt2RdoEksd
+	 LQbhdDl6t1W8fNOwQ6Izy+CWL4CiR1AutbfSErebvxYI/muCpUB2lMjpqadW32kXSmouA
+	 kIeieoRU4xxQOa9Pu+xI4n66d8q5EvozDqg3tcYTSNwgozNBXpMm4KoS3GFxj986LIQLW
+	 GhkhT8DlJEQ76gIbJoADK8NGoBZ23C03/tUr1ZrhbnrFW23HtvDyI1t6wylpCpa+acRP3
+	 wfsArn0ta7jQVtNYl8SWecNja7rujWcgIGahUwVxbRxpVS2y9vTEb2dGP54MU2uOwbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=QE1HGcrh;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iPZpNxaD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3535606A33E
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:33:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3535606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50E1606A31C;
+	Mon, 16 Nov 2026 07:33:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=QE1HGcrh
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261116073300euoutp021968391dc18137df98c1b26a7e656916~oditXcSg-2218922189euoutp02D
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:33:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261116073300euoutp021968391dc18137df98c1b26a7e656916~oditXcSg-2218922189euoutp02D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794814380;
-	bh=G7t2Ip9dU2h7Xb2XPTJWwdlpbD3DBdvbU6zpBUoazbQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=QE1HGcrhGpi0jdCiWphheI2xdO8hZj5e/qi0AXcUjbxymqKPB3hEKE5xa0uYwDBEr
-	 pigvvGWK6CcI8Vrd4coZDwzSk/xKz/pNcAwnH4NmU8vKh4gom92hE0ZG7gZbDIOsRA
-	 ukzHVbbC5zpK511sDGInT+dSdVKTpaiE2eynjt/U=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261116073259eucas1p26c60e7986a36f26e43f65b1d911a05ec~oditM9CuF0584505845eucas1p2X;
-	Mon, 16 Nov 2026 07:32:59 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261116073258eusmtip13de6c0ef2c345ebc557d5a64f0c0be0c~odisY_OC90411204112eusmtip1q;
-	Mon, 16 Nov 2026 07:32:58 +0000 (GMT)
-Message-ID: <240c99c9-0215-41c1-95ed-b0942d800551@samsung.com>
-Date: Mon, 16 Nov 2026 08:32:58 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iPZpNxaD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB7B1F000C4;
+	Mon, 16 Nov 2026 07:33:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794814414;
+	bh=ZSfgqdGwCAZSv33LraZUlvda7VWvNJ3OL164hELpjTU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iPZpNxaDvQ+0/44LrEVn/j2ewesqjChof0LJDrrbjdye8nTpw8rgGyPVReIp1aEW0
+	 iY5r9fRLZ6y1UsmC7p03+4PRX8WZzDvZjKt9Cst41L/PhfTFjO/UnXCAcO3rvJwkEE
+	 4P4g6/nk6jIV6Jur0uMMIyRQPQvsW+UCYnNcd+gp2Rsc0VLB5YNNaCNiliqwQYRd84
+	 o4NwBrXInPq5sREFgzrs7R7WFmzDlJ+RE8PiC9+dTl+iGNgfv5yQ3Sm6DY4wpLO1QG
+	 7Q7FI1iw8eUJ+bC7ZdWjHf9oog1O9SCWyoGtob+3Vmuk8oi/boXG9iVrt6aUkg+pYA
+	 bp0dwhzFI/S0A==
+Subject: Re: [PATCH RESEND net-next v2 2/3] rust: net: phy: make Device
+ generic over a lock context
+From: netdev-bot+sashiko@kernel.org
+To: engineer.jjhama@gmail.com
+Cc: fujita.tomonori@gmail.com, tmgross@umich.edu, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ aliceryhl@google.com, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, netdev@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 07:33:32 +0000
+Message-ID: <179481441244.3136.17001607410238147789@kernel.org>
+In-Reply-To: <20261115-exp-phy-rs-maybelocked-v2-2-8fa7897a0352@gmail.com>
+References: <20261115-exp-phy-rs-maybelocked-v2-2-8fa7897a0352@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,159 +68,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] mmc: dw_mmc: enable MMC_CAP_DONE_COMPLETE
-To: Shawn Lin <shawn.lin@linux.dev>, Shawn Lin <shawn.lin@rock-chips.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: Jaehoon Chung <jh80.chung@samsung.com>, linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <0c0bf25b-3a23-4d24-8ffb-fce801a3208c@linux.dev>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261116073259eucas1p26c60e7986a36f26e43f65b1d911a05ec
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261110192834eucas1p1e183345528f097cb64340f36a03e4b14
-X-EPHeader: CA
-X-CMS-RootMailID: 20261110192834eucas1p1e183345528f097cb64340f36a03e4b14
-References: <1791876245-190981-1-git-send-email-shawn.lin@rock-chips.com>
-	<CGME20261110192834eucas1p1e183345528f097cb64340f36a03e4b14@eucas1p1.samsung.com>
-	<4a1867dc-7bcd-4c63-bdbd-a533043cd91e@samsung.com>
-	<0c0bf25b-3a23-4d24-8ffb-fce801a3208c@linux.dev>
 
-On 11.11.2026 02:15, Shawn Lin wrote:
-> 在 2026/11/11 星期三 3:28, Marek Szyprowski 写道:
->> On 13.10.2026 09:24, Shawn Lin wrote:
->>> All requests issued by dw_mmc are completed from dw_mci_work_func(),
->>> which runs from the system_bh_wq workqueue. It is therefore preemptible
->>> context and host->lock is dropped before the completion, see
->>> mmc_request_done() in dw_mci_request_end().
->>>
->>> The dw_mci_interrupt and the dw_mci_watchdog_fn never call mmc_request_done()
->>> directly. So every request is completed from a sleepable context with no
->>> spinlock held.
->>>
->>> This is exactly the contract required by MMC_CAP_DONE_COMPLETE, which was
->>> introduced for hosts that can complete requests within mmc_request_done()
->>> without deferring to the core's complete_work.
->>>
->>> Without the flag, the core records the finished request in
->>> mq->complete_req and queues mq->complete_work, i.e. a second workqueue
->>> dispatch plus an extra context switch per request. With the flag,
->>> mmc_blk_mq_req_done() completes the request directly via
->>> mmc_blk_mq_post_req() -> blk_mq_complete_request(), and a following
->>> request completes the previous one inline from mmc_blk_rw_wait().
->>>
->>> Measured on an RK3576 SD card (dw_mmc) with:
->>>
->>>    perf record -a -g -F 999 -- sleep 30
->>>    perf report --stdio -g graph,0.5,caller
->>>
->>> fio: 4k randread, ioengine=libaio
->>>
->>> Without the flag, the completion hot path is:
->>>
->>>    mmc_request_done -> mmc_blk_mq_req_done -> queue_work_on      (~4.3%)
->>>    ... -> mmc_blk_mq_complete_work            (kworker/5:1H-mm, ~18.4%)
->>>         -> mmc_blk_mq_complete_prev_req -> mmc_blk_mq_post_req
->>>
->>> with the flag the workqueue round trip disappears completely: there is no
->>> queue_work_on and no mmc_blk_mq_complete_work in the profile anymore, and
->>> the previous request is completed inline:
->>>
->>>    mmc_blk_mq_issue_rq -> mmc_blk_mq_post_req -> mmc_blk_mq_complete_rq
->>>                                                    -> __blk_mq_end_request
->>>
->>> This can remove a redundant workqueue dispatch and context switch per completed
->>> request.
->>>
->>> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
->>
->>
->> This patch landed yesterday in linux-next as commit 80636b762eec ("mmc: dw_mmc:
->> enable MMC_CAP_DONE_COMPLETE"). In my tests I found that it causes serious
->> problems. I found that it is responsible for corrupting root filesystem and/or
->> journal.
->> Reverting this on top of linux-next fixes the issue. Unfortunately I didn't find
->> what mmc access pattern causes the corruption, but running my tests and rebooting
->> boards 2 or 3 times usually ended in breaking it.
->>
->>
->> There must some corner case missed in the analysis behind this patch.
->>
->
-> Thansk for testing.
->
-> I have tested this patch in my local product environment for several
-> days and did not trigger the issue. Of course, I have also been keeping
-> an eye on whether the Linux-next branch can reproduce the problem on
-> other platforms, because frankly speaking, this is the first controller
-> that is about to enable this mmc block multi-queue internal mechanism,
-> meaning this mechanism has not undergone rigorous large-scale deployment
-> testing. Could you please help test the following patch to see if it
-> resolves your issue?
->
-> --- a/drivers/mmc/core/block.c
-> +++ b/drivers/mmc/core/block.c
-> @@ -2248,6 +2248,7 @@ static void mmc_blk_mq_req_done(struct mmc_request *mrq)
->
->         /* Take the recovery path for errors or urgent background operations */
->         if (mmc_blk_rq_error(&mqrq->brq) ||
-> +           mmc_blk_card_busy(mq->card, req) ||
->             mmc_blk_urgent_bkops_needed(mq, mqrq)) {
->                 spin_lock_irqsave(&mq->lock, flags);
->                 mq->recovery_needed = true;
->
->
-I just got back from holidays, sorry for the delay. This change in turn
-triggers lots of the following warnings:
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-BUG: sleeping function called from invalid context at kernel/sched/completion.c:116
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 0, name: swapper/0
-preempt_count: 101, expected: 0
-RCU nest depth: 0, expected: 0
-locks held by swapper/0/0: 2, on CPU#0:
- #0: c2035ebc ((wq_completion)events_bh){+.-.}-{0:0}, at: process_one_work+0x234/0x8b8
- #1: c1501da8 ((work_completion)(&host->bh_work)){+.-.}-{0:0}, at: process_one_work+0x25c/0x8b8
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc2-next-20261109-00114-gec88e69c6c34-dirty #14141 PREEMPT
-Hardware name: Samsung Exynos (Flattened Device Tree)
-Call trace:
- unwind_backtrace from show_stack+0x10/0x14
- show_stack from dump_stack_lvl+0x6c/0x8c
- dump_stack_lvl from __might_resched+0x198/0x264
- __might_resched from __wait_for_common+0x3c/0x258
- __wait_for_common from mmc_wait_for_req_done+0x4c/0xe8
- mmc_wait_for_req_done from mmc_wait_for_cmd+0x6c/0xac
- mmc_wait_for_cmd from mmc_send_status+0x60/0xa0
- mmc_send_status from mmc_blk_busy_cb+0x34/0x80
- mmc_blk_busy_cb from __mmc_poll_for_busy+0x68/0x110
- __mmc_poll_for_busy from mmc_blk_card_busy+0x6c/0x118
- mmc_blk_card_busy from mmc_blk_mq_req_done+0xf0/0x200
- mmc_blk_mq_req_done from dw_mci_request_end+0x64/0x80
- dw_mci_request_end from dw_mci_work_func+0x110/0x3b4
- dw_mci_work_func from process_one_work+0x2c8/0x8b8
- process_one_work from bh_worker+0x294/0x480
- bh_worker from tasklet_action+0xc/0x28
- tasklet_action from handle_softirqs+0x14c/0x67c
- handle_softirqs from __irq_exit_rcu+0x148/0x1f4
- __irq_exit_rcu from irq_exit+0x8/0x28
- irq_exit from __irq_svc+0x8c/0xd0
-Exception stack(0xc1501ed0 to 0xc1501f18)
-1ec0:                                     ffffffff ffffffff 00000001 00028481
-1ee0: c150bcc0 c019d30c 00000000 c1492e28 c15080f8 00000000 c1182000 00000000
-1f00: 00000000 c1501f20 c0de16d8 c0de16dc 60000013 ffffffff
- __irq_svc from default_idle_call+0x1c/0x13c
- default_idle_call from do_idle+0x25c/0x374
- do_idle from cpu_startup_entry+0x28/0x2c
- cpu_startup_entry from rest_init+0x1b4/0x1b8
- rest_init from start_kernel+0x7bc/0x7d8
+Critical: 0 · High: 0 · Medium: 2 · Low: 2
 
-I was not able to test if the rootfs corruption is fixed or not.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] `match_phy_device` is still given a `Device<Locked>` even
+  though, as the new docs themselves say, it runs without…
+- [Medium] The new `Locked` doc (rust/kernel/net/phy.rs:66-68) puts
+  `Driver::suspend` under "Without the lock, but where PHYLIB ensures by…
+- [Low] The commit message says "Update the documentation and SAFETY
+  comments to match", but the callback SAFETY comments in `Adapter<T>`…
+- [Low] The new `Locked` doc (rust/kernel/net/phy.rs:66-68) lists
+  `Driver::resume` among callbacks PHYLIB calls "Without the lock".
 
-Best regards
+--
+
+rust: net: phy: make Device generic over a lock context
+
+This commit makes the Rust PHY Device type generic over a lock context,
+Locked (the default) or MaybeLocked. It moves phy_id(), read(), write()
+and genphy_soft_reset() into an impl block that covers both contexts, and
+documents which PHYLIB callbacks run with or without phy_device->lock.
+
+> diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
+> index 7ca3f2329e6a2..105a1b727a088 100644
+> --- a/rust/kernel/net/phy.rs
+> +++ b/rust/kernel/net/phy.rs
+> @@ -50,6 +50,51 @@ pub enum DuplexMode {
+>      Unknown,
+>  }
+>  
+
+[ ... ]
+
+> +/// The [`Device`] context of every [`Driver`] callback that does not take a
+> +/// [`Device<MaybeLocked>`].
+> +///
+> +/// PHYLIB calls these callbacks in one of three ways:
+> +///
+> +/// - With `phy_device->lock` held: every callback not listed below.
+> +/// - Without the lock, but where PHYLIB ensures by other means that no other path accesses the
+> +///   instance: [`Driver::probe`] and [`Driver::get_features`], which are called from
+> +///   `phy_probe()`, and [`Driver::suspend`] and [`Driver::resume`].
+
+[Severity: Medium]
+Does PHYLIB really guarantee exclusive access for Driver::suspend?
+
+phy_state_machine() releases the lock before the post-work step:
+
+drivers/net/phy/phy.c:phy_state_machine() {
+    ...
+	mutex_lock(&phydev->lock);
+	state_work = _phy_state_machine(phydev);
+	mutex_unlock(&phydev->lock);
+
+	_phy_state_machine_post_work(phydev, state_work);
+    ...
+}
+
+For PHY_HALTED or PHY_ERROR, _phy_state_machine() returns
+PHY_STATE_WORK_SUSPEND. The unlocked part then calls:
+
+_phy_state_machine_post_work()
+    phy_suspend()
+        phydrv->suspend(phydev)
+
+and no lock is held during that call.
+
+Meanwhile, phy_ethtool_ksettings_set() or phy_start_aneg() can take
+phydev->lock, write phydev->autoneg, speed and duplex, and call
+_phy_start_aneg()->config_aneg. A halted PHY doesn't count as started, so
+that path is reachable.
+
+In that case suspend_callback() and config_aneg_callback() each hold a
+&mut Device<Locked> for the same phy_device, on different CPUs. Safe code
+in the suspend callback (set_speed(), set_duplex(), genphy_update_link()
+and so on) would then race with the lock holder.
+
+Wouldn't that break the new Locked invariant further down, which says no
+other thread touches the lock-protected state while a &mut Device<Locked>
+exists?
+
+The old struct comment made a similar claim. This patch turns it into a
+formal invariant, though, and suspend still gets a type that says the
+lock is held.
+
+[Severity: Low]
+Is Driver::resume actually called without the lock? The only call site of
+phydrv->resume seems to be __phy_resume(), and it asserts that the lock is
+held:
+
+drivers/net/phy/phy_device.c:__phy_resume() {
+    ...
+	lockdep_assert_held(&phydev->lock);
+
+	if (!phydrv || !phydrv->resume)
+		return 0;
+
+	ret = phydrv->resume(phydev);
+    ...
+}
+
+phy_resume() also takes phydev->lock around that call. The SAFETY comment
+in resume_callback(), which this patch leaves unchanged, says the lock
+"might not be held", so it has the same inaccuracy.
+
+> +/// - Without the lock, possibly on an unbound device or one bound to another driver:
+> +///   [`Driver::match_phy_device`], which therefore only gets a shared reference.
+> +///
+> +/// # Invariants
+> +///
+> +/// For the lifetime of a `&mut Device<Locked>`, no other thread accesses the state of the
+> +/// `phy_device` that `phy_device->lock` protects.
+> +pub struct Locked;
+
+[Severity: Medium]
+Does a shared reference give match_phy_device any protection here? The
+invariant only covers &mut Device<Locked>. match_phy_device_callback()
+still creates one through from_raw() and passes a &Device<Locked> to
+T::match_phy_device():
+
+rust/kernel/net/phy.rs:Adapter::match_phy_device_callback() {
+    ...
+        let dev = unsafe { Device::from_raw(phydev) };
+        T::match_phy_device(dev).into()
+}
+
+phy_bus_match() calls phydrv->match_phy_device() without the lock.
+__driver_attach() calls driver_match_device() on every device on the bus
+before it checks dev->driver, so this includes PHYs already bound to
+other drivers.
+
+So when a Rust PHY driver that implements match_phy_device is loaded:
+
+phy_drivers_register()
+  driver_register()
+    bus_add_driver()
+      __driver_attach()
+        phy_bus_match()
+          match_phy_device_callback()
+
+safe code can call state(), is_link_up(), is_autoneg_enabled() or
+is_autoneg_completed() on a PHY whose phy_state_machine() is running
+under phydev->lock for another driver. Those accessors do plain reads,
+justified by "there is no concurrent write to this field". At the same
+time, _phy_state_machine() writes fields such as phydev->link.
+
+Isn't this still a callback that runs without the lock but gets a Device
+whose type says the lock is held? The commit message gives that as the
+problem to fix, and it still applies at the end of the series.
+
+[ ... ]
+
+> @@ -276,7 +280,52 @@ pub fn genphy_read_abilities(&mut self) -> Result {
+>      }
+>  }
+>  
+> -impl AsRef<kernel::device::Device> for Device {
+> +impl<Ctx: PhyContext> Device<Ctx> {
+> +    /// Creates a new [`Device`] instance from a raw pointer.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// For the duration of `'a`,
+> +    /// - the pointer must point at a valid `phy_device`, and the caller
+> +    ///   must be in the `Ctx` context, see [`Locked`] and [`MaybeLocked`].
+> +    /// - `(*ptr).mdio.dev` must be a valid.
+> +    unsafe fn from_raw<'a>(ptr: *mut bindings::phy_device) -> &'a mut Self {
+
+[Severity: Low]
+The commit message says:
+
+    Update the documentation and SAFETY comments to match.
+
+The from_raw() callers in Adapter<T> weren't updated, though. None of
+them says which context it is in or why; they all get Ctx = Locked by
+inference.
+
+Some of those comments now contradict the new Locked docs.
+get_features_callback() still says:
+
+            // SAFETY: This callback is called only in contexts
+            // where we hold `phy_device->lock`, so the accessors on
+            // `Device` are okay to call.
+            let dev = unsafe { Device::from_raw(phydev) };
+
+The Locked docs say get_features is called from phy_probe() without the
+lock, and the C code agrees:
+
+drivers/net/phy/phy_device.c:phy_probe() {
+    ...
+	else if (phydrv->get_features)
+		err = phydrv->get_features(phydev);
+    ...
+}
+
+match_phy_device_callback() has the same comment, while the Locked docs
+say match_phy_device runs without the lock.
+
+The invariant on struct Device ("a context where all methods defined on
+this struct are safe to call") still describes the old single-context
+model. So does the comment block above the struct definition.
+
+A later patch in the series, "rust: net: phy: pass a MaybeLocked device
+to soft_reset", updates only the soft_reset_callback() comment. The
+get_features and match_phy_device comments are still out of date at the
+end of the series.
+
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115-exp-phy-rs-maybelocked-v2-0-8fa7897a0352%40gmail.com
