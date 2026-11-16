@@ -1,65 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794789855;
-	b=2G7R8cXLILRb3lqFxJpbfaGJ2psCldAdP2Bk9o5/uLLVVEYSQBLtNdITlN/7W2JazsGv
-	 Yb/AwctSyGGAbfQn1cp+xSXOfmbLY2/KWk8rR32VeIVA1M2NH3PeNHIc9gu5OxpDWJ8TY
-	 M0FjGyLEdC6ZbO9G6+hTg/OUHsl9NTEADA3h/WLfaHSU9Z8FcBlE3ddudlUw1YaoHinAJ
-	 qj3tZv4+46sW8DwpXtSQDfZlmvVkISkTvKY+cVOxFYAdoPoa/xQilJ8ZxwQJ9G4QusUTm
-	 sRQov0EuSzrOuxKVYP/A6Zg9DET46HK95NqAihWhahtpXuc7nrc1Hukxk2uKanuyI/A==
+	t=1794789906;
+	b=fqtSnUakT82n5+KtcMCm0PibAvsO9NlY4CSMyFIQBU9v7EvAcg/xOjFmwWHC3AsSda1f
+	 b4F20Sn0e7rSnk5vib/YJT9G8zsrkzPGRQHTG7jWKWKzUyoTK06qPufpCfoBXBRlCdTj+
+	 guChmzKTT3sCNPHd0sdbs1rkMQPj86n+O0NxiK9Zb74Nu7Lz3g2RGZlHPsaaJqSjzTp+0
+	 3MFiqU1jSlT1OZc6Q6NqQGATf1AWLYyQMZeimpCUvLcoa52zXRp8FM/jA5uSRrhoACx/D
+	 mMqB4F0QM3qPsWQErHxQ+qJ4vpy8HoN7+bbWBKDtEOlz3LModMseeqb4C9D+u04zQxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794789855;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ISEuVjYQM8NCj0mZGFd4fsXBhv05BIQupK8d1+cRaYE=;
-	b=UzsuWr6djodHRtJVSfJTJLjlcF32IDfvKBA22p3l5l0TxtIp9/lAbUDl2k+DOKBKcKX3
-	 XoLluieB5RJckTCip2h9T8F/z8Sa/9cv2rGUNuHjTgw6R94WZtDY7WTow8Ovn/x9NcK+O
-	 1gJ1kbPzNuam84KNd6py4jRFz3WtXq/CTG/nbUUars5Dk3aLq6VxTIBW6RHZS68rpNqEk
-	 UZFFx+0Gk3Wcf/jz2MbQ0YE4TZL+jUmJmCSveZ9XdYa+I6h1gHdXAkgQZyom1q7iN4KjF
-	 Q63s4EeagncW91vs97iLvNkAExt3a74vgLnuflqt+Aa2YiqlhvdhQ+fQPT5ibv5eV3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794789906;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ctZSRWrZZMy13MxbtfbQBUphTOZaOpODMuYrXj3Muzo=;
+	b=OB8Z/ZsOJLkdsZZUknBK8+BE5q/CXOKDdEnMIR1t4YIYzE1IrWaHAuAQcnNPQLtve4w7
+	 EV4Pl0x/a+POvVhQi8JmR2jJGD4g1WMIeA67/60aNOys3t8sNOshvuTREJuAEPuaTrc3n
+	 d8p6kpogizsSIq0+cjJCU/SL8gD9w98IpzFN1Ogqpiv2pJpO8DGHuoGrwTQ19/maTzFFZ
+	 aroZwFM5q/9R5qrMeXmokVNJE5bzdhwY+gHJ78NVm0Ta8uhFjrhxMlqZkvHHKwOP/W8s7
+	 zSqkSQSq/jizjucFb+0mtcY/P0F1Kubbcuvg2f4KbK75OEUd3SY7kCE1Du9GSzICfSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhKuUoN2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IBEsriqu;
+	arc=none smtp.remote-ip=95.215.58.152
+Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78B9606A337;
-	Mon, 16 Nov 2026 00:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2824E606A330
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:45:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2824E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhKuUoN2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DE31F000C9;
-	Mon, 16 Nov 2026 00:44:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794789855;
-	bh=ISEuVjYQM8NCj0mZGFd4fsXBhv05BIQupK8d1+cRaYE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JhKuUoN2sfEI9yRCyu1pG3d3cKdyt4ERpoS8Y53YUTXlWV2wA4MXSnKolapdX6jyK
-	 mfjBWb6JMNeJY7Iyh3zBogRLSlmAjVZaXAMDrUxML6yNpjKO4764Rmj65MoE9D5Cxs
-	 fKzR+OZguQGjsa1Y3NIFHR8jmwE7qi7P5klN/IJpjBdd2QrIKzTyIao2RDZsdW22zh
-	 +WTEO5z9zDChgcMo55NcKv/aJTXL8VQT13+h6+Uj2L432f9x0/v+HZBmuAO/Ff7i8x
-	 0WQnk1TTqK1RhhgSMe72cuA5E7qtnAYLLazNoGCcoQOzb13Pi3JTUwMW0AuX1QZ4tu
-	 WPbz0nQdOYGmg==
-Subject: Re: [PATCH net-next v6 2/4] net: qrtr: Assign unique node id for MHI
- endpoints
-From: netdev-bot+sashiko@kernel.org
-To: manivannan.sadhasivam@oss.qualcomm.com
-Cc: mani@kernel.org, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, jjohnson@kernel.org, edumazet@kernel.org,
- linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, ath12k@lists.infradead.org, andersson@kernel.org,
- christopher.lew@oss.qualcomm.com, deepak.singh@oss.qualcomm.com,
- raj.bhagat@oss.qualcomm.com, juha-matti.tilli@iki.fi,
- jeff.hugo@oss.qualcomm.com, daizhuang.bai@oss.qualcomm.com,
- jeff.johnson@oss.qualcomm.com
-Date: Mon, 16 Nov 2026 00:44:13 +0000
-Message-ID: <179478985375.3136.1235406838106549470@kernel.org>
-In-Reply-To: <20261114-qrtr-multi-ep-v6-2-2eb9885659e2@oss.qualcomm.com>
-References: <20261114-qrtr-multi-ep-v6-2-2eb9885659e2@oss.qualcomm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IBEsriqu
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=G+X74yAedzt/K4RCiUDrNtK1i7drT5QJjzIXNFk4vww=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794789903; v=1; x=1795394703;
+ b=IBEsriquxLQpHaiQoo7fJyBU3Hl2c37GSs5Fz75e3PxPCbQNnrwWNEdPIcRJoHHBoghqE1v5
+ p6EJRjcRrkFgC1yHDgwtAKkrp4yRSC0pI+CdPcmh5JbYjkOwgrj0BnJIXUk9CpluIJj1oT//jTV
+ gLssOFaUmoTgOm3AyfSN07tU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 27cf97a24d1aab7b;
+	Mon, 16 Nov 2026 00:45:02 +0000
+X-Mizu-Trace-ID: 27cf97a24d1aab7b
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 08:44:56 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	1342116488@qq.com
+Subject: Re: [PATCH net v3] team: validate the length of U32 and S32 option
+ data
+Message-ID: <avpSCLnDT69U4ei9@fedora>
+References: <20261113090108.175889-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,246 +68,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113090108.175889-1-sunwenbo@cmss.chinamobile.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+On Fri, Nov 13, 2026 at 05:01:08PM +0800, Wenbo Sun wrote:
+> In team_nl_options_set_doit(), the policy for TEAM_ATTR_OPTION_DATA in
+> team_attr_option_nl_policy is NLA_BINARY because the payload layout
+> varies with the option type.
+> 
+> For TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32, the payload is
+> read directly with nla_get_u32(attr_data) and nla_get_s32(attr_data)
+> without checking its attribute length. When userspace supplies a
+> truncated attribute (0 to 3 bytes), nla_get_u32() or nla_get_s32()
+> performs an out-of-bounds read past the attribute buffer. Conversely,
+> oversized payloads (> 4 bytes) would also have trailing bytes
+> silently ignored instead of being rejected as invalid input.
+> 
+> Validate that nla_len(attr_data) equals sizeof(u32) or sizeof(s32)
+> for TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32 respectively, and
+> return -EINVAL otherwise, consistent with how NLA_U32/NLA_S32
+> attributes are validated and similar to commit 5bef3ac184b5 ("team:
+> better TEAM_OPTION_TYPE_STRING validation").
+> 
+> This issue was identified with the assistance of an LLM-based code
+> review of Netlink option handlers in the team driver, confirmed by
+> sending malformed U32 (notify_peers_count) and S32 (priority) option
+> attributes on a UML kernel, and verified after the patch that
+> invalid lengths (0..3, 5, and 8 bytes) are rejected with -EINVAL while
+> valid 4-byte options still work as expected.
+> 
+> Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
+> zero new warnings or errors.
+> 
+> Fixes: 3d249d4ca7d0 ("net: introduce ethernet teaming device")
+> Fixes: 69821638b274 ("team: add signed 32-bit team option type")
+> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+> ---
+> 
+> Changes in v3:
+> - Add Fixes: 69821638b274 ("team: add signed 32-bit team option type") for
+>   the TEAM_OPTION_TYPE_S32 check, as suggested by Hangbin Liu.
+> - Rebase onto latest mainline (7e1392a42ea2) with no functional code
+>   changes.
+> - Link to v2: https://lore.kernel.org/r/20261112090030.172342-1-sunwenbo@cmss.chinamobile.com
+> 
+> Changes in v2:
+> - Check exact length (!= sizeof(u32) / != sizeof(s32)) instead of
+>   only rejecting truncated payloads (<), as suggested by Hangbin Liu.
+> - Extended the UML test to also cover oversized option payloads.
+> - Link to v1: https://lore.kernel.org/r/20261111085924.360720-1-sunwenbo@cmss.chinamobile.com
+> 
+>  drivers/net/team/team_core.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
+> index cfb833c307c1..65ac25e97ae3 100644
+> --- a/drivers/net/team/team_core.c
+> +++ b/drivers/net/team/team_core.c
+> @@ -2834,6 +2834,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
+>  			ctx.info = opt_inst_info;
+>  			switch (opt_type) {
+>  			case TEAM_OPTION_TYPE_U32:
+> +				if (nla_len(attr_data) != sizeof(u32)) {
+> +					err = -EINVAL;
+> +					goto team_put;
+> +				}
+>  				ctx.data.u32_val = nla_get_u32(attr_data);
+>  				break;
+>  			case TEAM_OPTION_TYPE_STRING:
+> @@ -2853,6 +2857,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
+>  				ctx.data.bool_val = attr_data ? true : false;
+>  				break;
+>  			case TEAM_OPTION_TYPE_S32:
+> +				if (nla_len(attr_data) != sizeof(s32)) {
+> +					err = -EINVAL;
+> +					goto team_put;
+> +				}
+>  				ctx.data.s32_val = nla_get_s32(attr_data);
+>  				break;
+>  			default:
+> -- 
+> 2.33.0
+> 
+> 
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] Both the commit message and the new comment in
-  include/net/qrtr.h say that 'an endpoint using v2 can never claim an…
-- [Medium] MHI QRTR now registers a fixed nid, 0x10000 +
-  mhi_cntrl->index, and this id is reused.
-- [Medium] net: qrtr: missing sysfs ABI for host node ID in
-  qcom_mhi_qrtr_probe()
-- [Low] The comment in include/net/qrtr.h says 'A collision is caught
-  when the id is added to the node lookup table.' One case is not…
-- [Low] The host nid is now in qrtr_nodes from the moment
-  qrtr_endpoint_register() runs.
-
---
-
-net: qrtr: Assign unique node id for MHI endpoints
-
-This adds include/net/qrtr.h. The header defines QRTR_NODE_HOST_BASE
-(0x10000) and a qrtr_host_node_id() helper that returns the base plus a
-per-device index. The MHI QRTR driver now registers its endpoint with
-qrtr_host_node_id(mhi_cntrl->index) instead of QRTR_EP_NID_AUTO.
-
-> diff --git a/include/net/qrtr.h b/include/net/qrtr.h
-> new file mode 100644
-> index 0000000000000..e2a8d93564b58
-> --- /dev/null
-> +++ b/include/net/qrtr.h
-> @@ -0,0 +1,27 @@
-
-[ ... ]
-
-> +/*
-> + * Base for the node ids the host assigns to endpoints. It sits just above the
-> + * 16-bit range a v2 header can express, so a v2 endpoint can never claim an id
-> + * in it. A v1 endpoint can claim any 32-bit id, so a collision is possible,
-> + * but unlikely as the firmware assigned node ids are either smaller than this
-> + * base or in the range of 0x08e5ff85. A collision is caught when the id is
-> + * added to the node lookup table.
-> + */
-> +#define QRTR_NODE_HOST_BASE 0x10000u
-
-[Severity: Medium]
-Is it accurate that a v2 endpoint can never claim an id in this range?
-The commit message makes the same claims:
-
-  "The base is chosen just above the 16-bit range a v2 header can
-  express, so an endpoint using v2 can never claim an id in the host
-  range."
-
-  "Such a collision is caught when the id is added to the node lookup
-  table."
-
-In qrtr_endpoint_post(), the NEW_SERVER handler reads a 32-bit node id
-from the payload, whatever the header version:
-
-net/qrtr/af_qrtr.c:qrtr_endpoint_post() {
-    ...
-	if (cb->type == QRTR_TYPE_NEW_SERVER) {
-		...
-		nid = le32_to_cpu(pkt->server.node);
-
-		if (nid != READ_ONCE(node->ep_nid)) {
-			rc = qrtr_node_assign(node, nid);
-    ...
-}
-
-That means a v2 endpoint can insert an id such as 0x10001 into
-qrtr_nodes as a bridged key. A v1 endpoint can do the same through
-src_node_id. __qrtr_node_assign() does not check the id against
-QRTR_NODE_HOST_BASE.
-
-The only collision handling is radix_tree_insert() returning -EEXIST,
-so whoever claims the id first keeps it:
-
-	rc = radix_tree_insert(&qrtr_nodes, nid, node);
-	if (rc)
-		return rc;
-
-The host ids are easy to predict. They are 0x10000 plus the lowest free
-IDA index, and they stay the same across MHI recovery. Another remote
-endpoint could claim 0x10000 + N before MHI controller N registers, or
-while it is between remove and re-probe. That endpoint could be another
-MHI card's firmware, an SMD/rpmsg remoteproc, or a /dev/qrtr-tun user.
-
-In that case, wouldn't
-qcom_mhi_qrtr_probe()->qrtr_endpoint_register()->qrtr_node_assign()
-get -EEXIST and abort the probe, so the device's QRTR link never comes
-up? With QRTR_EP_NID_AUTO, registration could not fail on an id
-conflict.
-
-[Severity: Low]
-One collision is not caught the way this comment describes: a
-remote-claimed id that equals the endpoint's own host nid.
-__qrtr_node_assign() returns success without an error in that case:
-
-	if (radix_tree_lookup(&qrtr_nodes, nid) == node)
-		return 0;
-
-Suppose the remote behind MHI endpoint N sends a v1 src_node_id of
-0x10000 + N (which differs from ep_nid), or a NEW_SERVER with
-server.node = 0x10000 + N. The assign succeeds silently. The source id
-is not rewritten either, because qrtr_endpoint_post() only rewrites
-ep_nid:
-
-	if (cb->src_node == READ_ONCE(node->ep_nid))
-		cb->src_node = READ_ONCE(node->nid);
-
-A local reply to 0x10000 + N is then rewritten in qrtr_node_enqueue():
-
-		dst_node = to->sq_node;
-		if (dst_node == READ_ONCE(node->nid))
-			dst_node = READ_ONCE(node->ep_nid);
-
-Wouldn't that send the reply to the endpoint's own node rather than the
-bridged node that sent the packet? It would also merge the bridged
-node's services with the endpoint's own.
-
-[ ... ]
-
-> diff --git a/net/qrtr/mhi.c b/net/qrtr/mhi.c
-> index 1040c3c8cfd68..e9377f818b4dd 100644
-> --- a/net/qrtr/mhi.c
-> +++ b/net/qrtr/mhi.c
-
-[ ... ]
-
-> @@ -127,7 +128,8 @@ static int qcom_mhi_qrtr_probe(struct mhi_device *mhi_dev,
->  	if (rc)
->  		return rc;
->  
-> -	rc = qrtr_endpoint_register(&qdev->ep, QRTR_EP_NID_AUTO);
-> +	rc = qrtr_endpoint_register(&qdev->ep,
-> +				    qrtr_host_node_id(mhi_dev->mhi_cntrl->index));
-
-[Severity: Medium]
-This changes the node id that userspace sees for every MHI QRTR
-endpoint. Before, the remote's own id was what ended up in qrtr_nodes
-and in the NEW_SERVER notifications delivered to AF_QIPCRTR sockets.
-Now a host nid is passed to qrtr_endpoint_register(), and
-qrtr_endpoint_post() and qrtr_node_rewrite_ctrl() rewrite the
-firmware-advertised id (node->ep_nid) to node->nid. Lookups therefore
-report 0x10000 + mhi_cntrl->index.
-
-How is a userspace client supposed to map an MHI device to its QRTR
-node after this? As I understand it, on QAIC the firmware nid matches
-the serial number exposed through sysfs and the QAIC control channel,
-so a client could correlate the two. The lookup notifications only
-carry service, instance, node and port. They have no device
-identifier.
-
-In-kernel users such as ath11k and ath12k can call
-qrtr_host_node_id() on their own mhi_cntrl->index. However,
-include/net/qrtr.h is not UAPI. The only option left for userspace
-seems to be parsing the mhiN controller name and hardcoding
-QRTR_NODE_HOST_BASE. That would turn an internal constant into ABI
-without documenting it.
-
-My understanding from earlier review of this series was that the
-assigned node id would be exposed through a sysfs attribute. I can't
-find that anywhere in v6. Was it dropped on purpose, or is it planned
-for a follow-up? Since this is the patch that changes the ids
-userspace sees, shouldn't the attribute land together with it?
-
-[Severity: Medium]
-Can a re-probe fail here while the previous qrtr_node is still
-referenced?
-
-This nid is now fixed and gets reused. mhi_unregister_controller()
-frees the IDA index, and mhi_register_controller() gets the same value
-back from ida_alloc(). MHI SYS_ERR recovery or a power cycle also
-recreates the devices on the same controller.
-
-qrtr_endpoint_register() now inserts the nid into qrtr_nodes at
-registration time and returns -EEXIST if the slot is taken. However,
-qrtr_endpoint_unregister() only drops its own reference:
-
-	qrtr_node_release(node);
-	ep->node = NULL;
-
-The radix tree slots are removed only in __qrtr_node_release(), on the
-final kref put:
-
-	radix_tree_for_each_slot(slot, &qrtr_nodes, &iter, 0) {
-		if (*slot == node)
-			radix_tree_iter_delete(&qrtr_nodes, &iter, slot);
-	}
-
-qrtr_sendmsg() takes a node reference with qrtr_node_lookup() and holds
-it until qrtr_node_release(). In between it calls
-sock_alloc_send_skb(), which can block, and memcpy_from_msg(), which
-can fault on user memory. qrtr_send_resume_tx() holds a reference in a
-similar way.
-
-qrtr_create() has no capability check, so an unprivileged user can
-sendmsg() to the predictable host nid with a slow-faulting buffer, for
-example a FUSE-backed mapping. That keeps the old node referenced.
-
-If the device is re-probed during that window, wouldn't
-radix_tree_insert() return -EEXIST and make qcom_mhi_qrtr_probe() fail?
-The QRTR link would then stay down until the next probe. With
-QRTR_EP_NID_AUTO, registration always succeeded and later packets
-retried the assignment.
-
-[Severity: Low]
-Does passing a concrete nid here open a window where DATA packets go
-out with a broadcast destination node id?
-
-The node can be looked up by 0x10000 + index as soon as
-qrtr_endpoint_register() runs. node->ep_nid stays QRTR_EP_NID_AUTO
-(0xFFFFFFFF) until qrtr_endpoint_post() receives the first packet.
-qrtr_hello_work() sends HELLO right away, and hello_sent is set once
-xmit succeeds, whether or not the remote has replied.
-
-Consider a qrtr_sendmsg() of a DATA packet to (0x10000 + index, port)
-in that window. It passes the lookup and the hello_sent check, and then
-qrtr_node_enqueue() does:
-
-		dst_node = to->sq_node;
-		if (dst_node == READ_ONCE(node->nid))
-			dst_node = READ_ONCE(node->ep_nid);
-		hdr->dst_node_id = cpu_to_le32(dst_node);
-
-Wouldn't that put dst_node_id = 0xFFFFFFFF (QRTR_NODE_BCAST) in a
-unicast DATA header sent to the firmware? With QRTR_EP_NID_AUTO, a node
-only became findable in the same critical section that set ep_nid, so
-this state could not occur.
-
->  	if (rc)
->  		goto err_unprepare;
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114-qrtr-multi-ep-v6-0-2eb9885659e2%40oss.qualcomm.com
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
