@@ -1,53 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.77.61
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827270;
-	b=muBzrmPgjJqptE4xX+GLWKWJLa2CDgEdL52HZ7YheevJfLoSl5msRfS/nBd84nbrcDH9
-	 IsDV2Zzp80EEs6IExZs7Z99BOJcHq+r4hDqO7fpP8uzUhZYKkzpFGOGwhAjrS8jCqQwpj
-	 7tv/pKmGwmzpiGmCfKl7cEA9PVXr9IVBWe4r8fx0y1pWhrUB5gq8gocQGt5EvytruvU5v
-	 51n6eOrEZsFXhd2lEMOcBtjOKanTuP08Jdtdk08sP1eJYg2W+kHOp0pi6wlrHmR7dbUTJ
-	 Wqy9RmtIZjEbUA6MfbSwdkwLfCBMrwsA8lJpsMd31LF0oEHS00AkppbIE4d5iL7P9xg==
+	t=1794827271;
+	b=GPMn+kNRCEdoBQViYiXfaQYaRuvo6l8+4wvzBHU80eKTR4KWxwH+6w2EWXLP2GHUMnoM
+	 CSCD3tMxSWK0KZF6kLb3qv+UsuhuutJV4/dCct6FC8moe5TVzts8NrrXUXOVW40QwZQ2k
+	 Mlfi4loldy7+guthg3ANo9+Se//OXcbMMcj6SaCi0SvxTNSK3l84OGI/skNdOQ26Afj3B
+	 xSULaVveTmkgRvWwN+3dOj87IwqShSLDRFFksxlzE0cavA02htin09GtReD/co50CqPdj
+	 agZJGRAsAZem2JFkQehPbnjjpNkvrQ9RWmW1adLbmgXp1HCisfQ2aH3f1hw2S2HviTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827270;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=2crvVlQ0qrNcT4X3yeFwrEOwN+ga0vW6noWwACc1vro=;
-	b=oHP8dCPHob31Y6ETmfFSpljz0Vu2LJpU1i8wpCwj5zn6bKTsVi2Yjqki7FFxw1j/kiFH
-	 nLPeuzIsSC+MoDzYLJgV70WZoSGRg3TyFbUD8M+WOBoFhvUh4UA6xyn+yjVnxZ8O1vWyh
-	 Vwuy4YguYf0LJQmeqE9dhNaOSBBZr8tPFpXRjTlbMrHu6fA458CuBFdJNwj2OS8oRi9S/
-	 y8wU8JRiA1f49b3swb5xpy4MkMGCz3F5T9Qw9kCyrIaOEnWOsFwOoSeRdTwCWj3NI2Pzj
-	 2tgcaJZg7lXWhq5JTFLzNEYL4DRgMlWM6GsL4FHEDoLqFDNy/LfDP5tdBop7R8d+ucg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827271;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8X/VWMuk4kYzcSXRZvBmCXdDBR924lepSLdcXRzaC7s=;
+	b=4WqWk8pUfqG1mMNFCQEK4pBZ8otby7e7pOidEQtXSwkI5lgrrIp0opDq+s8U1o04QSe8
+	 MJTiWtC2lu3B1vsszsGNnFg+eZgsFY7D1KC4ANUYECzpV7oDm62YFw16KJoiksEfrh7ye
+	 gvYXCdDQvQBGBGDjkr+RXPRi35o2JiYCGJaxKREamG6jTq5lSMhvEWI8zlxSrR0YUubII
+	 PV6bH41B9nPktFnkPHl07zABaqkMt8s0cBonJ01lwokZrR7GT+csvGvoLDDRLGFbFMsCT
+	 7jA7mwndIcEdpJwvBkuYZGpbS/IDeNXiStvfI/9ZF8ArOlM5cAIc3qAXNDr/2v1/g2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baryla.org;
-	spf=pass smtp.mailfrom=baryla.org;
-	dkim=pass header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=CzMoaRSw;
-	arc=none smtp.remote-ip=217.182.77.61
-Received: from mail.baryla.org (mail.baryla.org [217.182.77.61])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bobrowski.net;
+	spf=pass smtp.mailfrom=bobrowski.net;
+	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=n4htZ6k+;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA6A606B1BE
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:07:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AA6A606B1BE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=baryla.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baryla.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F5B606F349
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:07:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8F5B606F349
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=CzMoaRSw
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57ECE7460F7;
-	Mon, 16 Nov 2026 11:07:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baryla.org; s=dkim;
-	t=1794827259; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=2crvVlQ0qrNcT4X3yeFwrEOwN+ga0vW6noWwACc1vro=;
-	b=CzMoaRSwq1oY44fRqo+f19AVaWdsYumJbYOERqIIuQZ6lstvEWuIfw9yehx/2gQP/o47md
-	nVH4fjt7bTTvVjKl2FoRDtwJ0nDhyxhQMOX46QG0Fp35RA5kvacuRBwL2hxYNKTOmba/W9
-	8FumqApHdchGhtdmhZMdyoyY32avTY20Ym56CE2vzanVyV2mObmDmn5g6adlhkCkf5aetq
-	+9mkoS4yVPhZiIja5KJv46wmowet2Pcd4klxTDaMMNIfJ1kufkwlLeHHomFMud69CYuBLz
-	wMA1XS11apnM/2UZu3U+dYknpxIHHUGjcF3/BdFG1vmoU11Q38LSzdC51Ua7PQ==
-From: =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-Subject: [PATCH 0/2] drm/amd/display: Skip the MST last link check for
- logical ports
-Date: Mon, 16 Nov 2026 12:07:31 +0100
-Message-Id: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
+	dkim=pass (2048-bit key) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=n4htZ6k+
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc751eddf25so2631756a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:07:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bobrowski.net; s=google; t=1794827270; x=1795432070; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8X/VWMuk4kYzcSXRZvBmCXdDBR924lepSLdcXRzaC7s=;
+        b=n4htZ6k+rXJjqOGHlTptUNPZZfhDILvPIkp8XPYQG93vq3RAHuWPgJJn/uh9dTFAKR
+         yKgw265OmWLMx8yzQX/vtUAAujLx3554sGpsRLmjgUzCihnDAX3geHh8iorI9AeTqM4Z
+         zFJuOb9l8M5tky5GKGORbBi1yV2CcFo7simUIX+ipyYuO3Y6O9W6Dc8/S6kmtlI3Dz9f
+         w2Lz1spo1xcT5876mDB5GZoKoHqtoQ2SdEoba1+dKpLz0VCZgg1Rxm9MKAZXEJ0rp8Pp
+         DVZ2DMvSihzUSjBu1hY9mAeQANNGw9Z/Wv5N8+YzIwZgBXkRrnwntzLVts7x8BNVSkj5
+         xZbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794827270; x=1795432070;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8X/VWMuk4kYzcSXRZvBmCXdDBR924lepSLdcXRzaC7s=;
+        b=uVv7kUY500xVlsq9ifn6yLJbrr0g31LqFTTUObRn9QUUFQ/5jRLNsArcN0NdbOZmqf
+         J/rUTT2/CqBXtK5P2Uv5I6e8j3bW6UaFePB+Oin16NFtjmPADDNCqfr4u4BT/d87aW28
+         uyzM13748yU5ZjT9QCL1W78q/v5pyGYstb9HtxFTAaMcJpPEMvYeGIfqCPqVf0DUj1Bk
+         PwQ1wU5Inb8GgBMGGrEoJ7GH8rdwRPPmtTM5kKoOy1h/fcCVEPsXTd3RuJ3bj8zA3Mt7
+         po/YdFzhg7mJG7WyQBIh7PqvGvDcijfVmZ/uqUcKKk0CCR7+SN0Wmw/6yK/yqdoTWZlW
+         E+Fw==
+X-Forwarded-Encrypted: i=1; AL+hErFAZelsfE3xklc104Bb6+F3n/KxBVto9wkXRzptIxXAlInxdXpbpWrx/JmyHzW+JUAt4yJg9cKbvGiw9x8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pLt6MfSkWxDHM5fhK19ur1VSP9QmIxciam8OuVCl99n/CvhCo
+	a+53qzBxvlVnKPNcjn+b/pd7RDEZ7S4YbKF+KFEtkwwFD1HDJ1MpqSqvOE2Y3NmeYVGk
+X-Gm-Gg: AZFdTZdSH5FVDu2vo865WR63+K7OUlbgj7l6oaM+q/VuVbKm1nadqOXe+Stsa3dEu3B
+	FcPzGZgISW/j0+zcYJbd07m7vgA5pB9WBqNXqJ9g5HlK5AqQ7mdlPFFqDK3LWkxtW1vHwLF3RHg
+	a8C5Aa9JptxPtkN1mh3lHenDg+6NLuYB9pRY9OiuEUJOih0LAScEppK9/Rmt7f5PiRwYgw0pzV9
+	MK4TpbBDgqzE8LjmBe+mr8nxhFRo6ziXylgmVh30qBLyrvzVoHQeBIVBPOdeaw7OXBUXuiaw7vN
+	iiNVVjb8LltsTgK/XBEmiYR+VMxFB0vwQdhFgQC0AAUdhpuUMiBM4J+ZiTfDCJluMbExy3UYDrs
+	QkVby+OGAgYjB3Lf4irWTjOvZd+HpgrbWelziU0KAnB8QB5sejfQwNY5R3/kC63Zrvhg752b9Un
+	fzdK8ylk2B/T9QcpL1YLMzbAL9uENIOaZt3cUJyq6c20WSPBHatCO7ZUjEChX9jQRTt2/YHoDdC
+	G+Xq+2LP35PbhvODHgJh/Jetp0iqpTZWo/J2StqLmGndZBp/vg2Un2rkC8w5cnmH4tqbbXGumS4
+	sozAu1VDz1KdlNFJHNNCKoLX7AwKTg6xNMJVswV2+zpMSShgWyYWk2fuaSfkQ8/NeGStEqWGTEO
+	pmRFIgwQ=
+X-Received: by 2002:a17:903:3843:b0:2d9:4358:73ab with SMTP id d9443c01a7336-2ee0daa351bmr102383795ad.19.1794827269844;
+        Mon, 16 Nov 2026 03:07:49 -0800 (PST)
+Received: from lima-development (163-53-146-70.ip4.superloop.au. [163.53.146.70])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8d9966sm36823895ad.61.2026.11.16.03.07.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:07:49 -0800 (PST)
+Date: Mon, 16 Nov 2026 22:07:40 +1100
+From: Matt Bobrowski <matt@bobrowski.net>
+To: Sergei Nizovtsev <snizovtsev@cloudlinux.com>
+Cc: bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+	stable@vger.kernel.org, KP Singh <kpsingh@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Serge Hallyn <serge@hallyn.com>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf] bpf, lsm: Mark backing_file_alloc/free LSM hooks as
+ untrusted
+Message-ID: <avrj_GrUbKNjDXz6@lima-development>
+References: <20261111203614.1221188-1-snizovtsev@cloudlinux.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,111 +113,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQrDIBAF0KsMf50BjZBar1K6EDNJB2wMGkIge
- PdC3wHejSZVpSHQjSqnNi0bAtmBkD5xW4V1RiCMZpystRN/28G5rJpi5r3Ug13y0bvnwzsjGAh
- 7lUWvf/l69/4D8TyLEWIAAAA=
-X-Change-ID: 20261116-mst-logical-port-3c8a8397830e
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Zaeem Mohamed <zaeem.mohamed@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
- Jerry Zuo <jerry.zuo@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111203614.1221188-1-snizovtsev@cloudlinux.com>
 
-Hi,
+On Wed, Nov 11, 2026 at 09:35:52PM +0100, Sergei Nizovtsev wrote:
+> The backing_file_alloc and backing_file_free LSM hooks get the backing
+> file as "struct file *backing_file", but its f_path is not populated
+> while they run:
+> 
+>  - security_backing_file_alloc() is called from init_backing_file() in
+>    alloc_empty_backing_file(), before vfs_open() sets f_path, so
+>    backing_file->f_path.dentry is NULL;
+>  - security_backing_file_free() can run for a backing file whose open
+>    failed and whose f_path was already cleared.
+> 
+> Neither hook is listed in untrusted_lsm_hooks, so bpf_lsm_is_trusted()
+> lets BPF LSM programs use the argument as a trusted pointer.  A program
+> attached to lsm/backing_file_alloc can pass &backing_file->f_path to the
+> trusted-args kfunc bpf_path_d_path(), and d_path() dereferences the NULL
+> dentry on the first open of a file on overlayfs:
+> 
+>   extern int bpf_path_d_path(const struct path *path, char *buf,
+>                              size_t sz) __ksym;
+>   char buf[256];
+> 
+>   SEC("lsm/backing_file_alloc")
+>   int BPF_PROG(poc, struct file *backing_file,
+>                const struct file *user_file)
+>   {
+>           bpf_path_d_path(&backing_file->f_path, buf, sizeof(buf));
+>           return 0;
+>   }
+> 
+>   # bpftool prog load poc.bpf.o /sys/fs/bpf/poc autoattach
+>   # cat <any file on an overlayfs mount>
+> 
+>   Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
+>   KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+>   RIP: 0010:d_path+0xb4/0x810
+>   Call Trace:
+>    bpf_path_d_path+0x26/0x70
+>    bpf_prog_f8f2e241d4ff7217_poc+0x33/0x37
+>    bpf_trampoline_6442521065+0x61/0xf9
+>    security_backing_file_alloc+0x78/0xe0
+>    alloc_empty_backing_file+0xf0/0x170
+>    backing_file_open+0xfd/0x290
+>    ovl_open_realfile+0x1ed/0x270
+>    ovl_open+0x1a9/0x2f0
+>    do_dentry_open+0x404/0x1280
+>    vfs_open_consume+0xba/0x4b0
+>    path_openat+0xc4f/0x1f60
+> 
+> Add both hooks to untrusted_lsm_hooks, next to file_alloc_security and
+> file_free_security, which are listed there for the same reason.  The
+> program above is then rejected at load time with "R1 must be referenced
+> or trusted".
 
-This series fixes a missing 3840x2160@120 mode on a Dell U3225QE, a
-monitor with a built-in USB4 hub and MST branch device, connected to a
-laptop over USB4.
+I literally had a patch queued up and was just about to send it out for
+review. Thank you for this.
 
-After every USB4 plug-in, 3840x2160@120 RGB is not available for the
-U3225QE panel. It comes back after a monitor power cycle and is lost
-again on the next plug-in. Up to 7.2 the mode is missing from the mode
-list. Since commit 0b0ff65d3ca1 ("drm/amd/display: Refactor stream
-validation") in 7.3, it is offered as YCbCr 4:2:2 without DSC instead,
-and "Mode Validation Warning: Viewport size failed validation." is
-logged on every atomic check.
-
-The mode needs DSC: uncompressed it needs 28.5 Gbit/s, and the HBR3 x4
-link gives 25.1 Gbit/s. The panel is on logical port 8 of the monitor's
-branch device, and DSC is decoded at that port, so
-dm_dp_mst_is_port_support_mode() checks the "last link" after it. It
-reads DP_LINK_BW_SET and DP_LANE_COUNT_SET of the port once, caches the
-result, and rejects modes whose uncompressed rate does not fit.
-
-A logical port is the branch device's own internal sink, so no DP link
-follows it. On this monitor its registers seem to show the state of the
-monitor's internal link while it trains. DPCD 0x100-0x108 of port 8,
-captured with bpftrace:
-
-  when                  driver's read                 read ~1 s later
-  after USB4 plug-in    06 01 00 00 00 00 00 00 01    1e 84 00 02 02 02 02 10 01
-  after power cycle     06 04 00 00 00 00 00 00 00    1e 84 00 02 02 02 02 10 01
-
-0x100 is DP_LINK_BW_SET, 0x101 is DP_LANE_COUNT_SET (bit 7 is enhanced
-framing) and 0x108 is DP_MAIN_LINK_CHANNEL_CODING_SET.
-
-After a plug-in the driver sees RBR x1 (1.26 Gbit/s) and drops the
-mode. After a power cycle it reads before the channel coding is set,
-gets no bandwidth, and skips the check. Even the settled value, HBR3
-x4, is too slow for the uncompressed mode, so reading the registers
-later would not help.
-
-Patch 1 skips the last link check for logical ports. Physical ports
-keep it. Patch 2 adds KUnit tests.
-
-Testing:
-- Reproduced on a Lenovo IdeaPad Pro 5 16AHP9 (Ryzen 7 8845HS, Radeon
-  780M, DCN 3.1.4) and a ThinkPad P14s (Ryzen AI 7 PRO 350, Radeon
-  860M, DCN 3.5), with a Dell U2515H daisy-chained from the U3225QE's DP
-  output, on Fedora kernels 7.2.4 and 7.3.3.
-- With patch 1 applied to the amdgpu module of Fedora's 7.3.3, on both
-  laptops every plug-in gives 3840x2160@120 RGB 8 bpc with DSC
-  (4 slices, 16 bpp), and there are no Viewport size warnings.
-- Without patch 1, the new logical port test (from patch 2) fails.
-- Not tested: other MST hubs, or other monitors with logical ports.
-
-Physical ports read and cache the same registers in the same way, so
-they may have the same timing problem. I have no hardware to check
-that, and this series does not change it.
-
-How this was made: I used an AI coding assistant (Claude Code with
-Claude Opus 5.5) to investigate the problem, write the bpftrace script
-and the patches, and draft the messages. I ran all the hardware tests
-myself and reviewed and edited the patches, tests and messages. Before
-posting the bug report and this series, I spent time understanding the
-problem and the solution well enough to feel that posting this makes
-sense. DP, MST and DSC are not areas I know well, and this is my first
-attempt at contributing to the kernel, so please point out anything
-that looks wrong, and I am sorry in advance if I did not adhere to some
-kernel requirement or convention.
-
-The bug report has dmesg logs, the MST topology and the bpftrace
-script:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/6142
-
-Signed-off-by: Karol Baryła <git@baryla.org>
----
-Karol Baryła (2):
-      drm/amd/display: Skip the MST last link check for logical ports
-      drm/amd/display: Add KUnit tests for the MST last link check on logical ports
-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 13 ++++--
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     | 47 ++++++++++++++++++++++
- 2 files changed, 57 insertions(+), 3 deletions(-)
----
-base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-change-id: 20261116-mst-logical-port-3c8a8397830e
-
-Best regards,
--- 
-Karol Baryła <git@baryla.org>
-
+> Fixes: 6af36aeb147a ("lsm: add backing_file LSM hooks")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-fable-5-2
+> Signed-off-by: Sergei Nizovtsev <snizovtsev@cloudlinux.com>
+> ---
+> Tested on bpf.git master (475a0cfd02f1) under virtme-ng with KASAN: the
+> reproducer oopses without the patch and fails to load with it. Only the
+> backing_file_alloc case was reproduced; backing_file_free is from code
+> reading.
+> 
+>  kernel/bpf/bpf_lsm.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
+> index f58dce888ff4a..f39a3766f2245 100644
+> --- a/kernel/bpf/bpf_lsm.c
+> +++ b/kernel/bpf/bpf_lsm.c
+> @@ -411,6 +411,8 @@ BTF_ID(func, bpf_lsm_bpf_map_free)
+>  BTF_ID(func, bpf_lsm_bpf_prog_free)
+>  BTF_ID(func, bpf_lsm_file_alloc_security)
+>  BTF_ID(func, bpf_lsm_file_free_security)
+> +BTF_ID(func, bpf_lsm_backing_file_alloc)
+> +BTF_ID(func, bpf_lsm_backing_file_free)
+>  #ifdef CONFIG_SECURITY_NETWORK
+>  BTF_ID(func, bpf_lsm_sk_alloc_security)
+>  BTF_ID(func, bpf_lsm_sk_free_security)
+> -- 
+> 2.56.0
+> 
