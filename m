@@ -1,65 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.145
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794790739;
-	b=xqX9D9HprQmAm39pQ+/gHnmavIh0ngwBL3grYF/PBpdWRFCZMX65kdZwSZ9mEYXNDZ0H
-	 3uyAcJ57oKPyEbRA+ArQ5xvgflne0tw0fiAYRqm8ASPjGrIyeLTAu5vkPhQvXrZcNnAkU
-	 K4W4JkvWnjcCiKPJbw6fBodQZjh68RrZBJQ9gHboQ4ZhKmIaKp2w56WRm+aIFw8zzDda7
-	 vP17tRL2BfA3YHhWZ6zvYS3CDk1Cpa6bpTz7js+cRAxqmRKKAdxq7ETJbAnDHy4dwgSHb
-	 R722N5zfIHxO/nbho9ETVX9ap1+WCgftm75iSXks+CoB/nkYBId8RWQJeyv5n4ZCCdw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794790739;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=spbrg8AyLCNQ5x9swmn2JrPWZsDBrk0FLssfjAjiFfU=;
-	b=wGQfIND1Cs6OvUlZ+VRUkrWUMZC5V9d3zASvp2fvNoqY5w8eK3Rnh8IGGpD4Z8KcxXwb
-	 fhRm5Dgz8N0qGLa/fpoJaDCo8Q4dURo1in1z9rpgW55nw8arQnPySPslS2fSI0QNxBVMN
-	 94vIri1Y7+yEktlui5gL8sykOp5DvoukeDlQI43dNgqLNgwU1sAKG4YhUrlNpM1vTP5dw
-	 aqnGjn3x3ZAAMpMIO5iqY5vr+tD7PhdRE/rjg+m1iOqQojcBqu1a+Lfkgc74O0IoE7tGl
-	 7ANvihcHmBk7Twk6YB+CgbcQDO9Lsdwb6exQHTGrX2Qwnnh7M4SyXO943nQtum7b/BA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQb3aimH;
-	arc=none smtp.remote-ip=91.218.175.145
-Received: from mta0.migadu.com (out-145.mta0.migadu.com [91.218.175.145])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794790952;
+	b=SUhNVIvdzW+Ltt4crX0xzsW0OPUtlTrlPsGM0mRAvo0yRb5MiADLwprf2zXZ3Eia5yF3
+	 DcF5YCQExNoqwVAXbrwC4eTZWlpBRip4FqUTraWKLsuQ+dhBej8BgXcqj3PP4K7Jl/1y8
+	 pevM706TeU8weJ24E0vnCMuRV6pqg4Os8Rfh1DkWp/TkTRnh5j9mBQQovgFeuUFvFMU2u
+	 Y3Ha2tfQE3g5uBLBeIAEs0s0u4dqvY3gAjyyrfkcUSPQuWbkFGVDUGD244jei2Avt//sh
+	 7pMlJS1Xc5cXQZB7+i8Lg8hnuQ97uc+mBT212I3nBansIUreZcWeHnXwLHnsesDzURw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794790952;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Date:From:To:CC:Subject:
+	 Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=qQgYsM5vinnLXK0UIGtDewY/yq6H9Ak+x+6Q/hQDpvI=;
+	b=5KTQ7NmQxfmSYT1expjv8VA8DFZAnOQfiyKA2Obe0mkziUJDQbNqQKP1dNMNNPHdEWZO
+	 /vb+IIkex+V2USuLEuZvPgFH4cZZuZ0k7kMu9kY33OTcpkAGQh6XwwSsX/dZw2ZcMYAb8
+	 MaR2s367gf3C/x5RNNXqWJL8nVpjLFEx3D1UQwyruTtEqspePY4cvsPWgTGoeJ85blehH
+	 vg8EAZrctnjjkaN3O4ssN7dtfZAQLPak9r3RHIVd1p4vQqTTnqbFd0rTwMAuKUyLemvlA
+	 d6B6+fxkstHaDCbCwtamWHy23IF5uyLBnd00PS4rLM4obpfDGYjE+gLO5iN0NEuowKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuhT4iao;
+	dkim=fail reason="signature verification failed" header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=lpqPxnut;
+	arc=fail smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C690E606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 00:58:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C690E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0542A606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:02:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0542A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQb3aimH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EjkEr/neE2/QekiTzAaqP4pmiVVI+Ergqo6XektbsmA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794790736; v=1; x=1795395536;
- b=AQb3aimHG058HVBd1JP4IipeD2YBzPVHOFSjf8VSbwH7KEdhiVuKuxwLkzN5GE7Nr0mmZ61S
- 1JXMIbQYjjvLYguICazKVpmw5H6ets9eASrBJPLMl3rYCUn5DqeOZBMWn1ISVwGEycsVCI+nh5b
- qw13D9FdzYpGLJjzHNaBsKjA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id f86aeccc5230d798;
-	Mon, 16 Nov 2026 00:58:56 +0000
-X-Mizu-Trace-ID: f86aeccc5230d798
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 08:58:49 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Cc: netdev@vger.kernel.org, po-hsu.lin@canonical.com,
-	linux-kselftest@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org, skhan@linuxfoundation.org
-Subject: Re: [PATCH net] selftests: net: arp_ndisc_evict_nocarrier: propagate
- the last test failure
-Message-ID: <avpVSd7XV1lIOeZf@fedora>
-References: <20261115222351.52930-1-emmaonana18@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuhT4iao;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=lpqPxnut
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794790952; x=1826326952;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=0nAL0lEwShlyeTwz3Z0ivVqmmCmZAhU7IX3hD688alU=;
+  b=DuhT4iaosGcg3lK5sVGHChNBczhToExe+AQjWAaFwHL2rwa8jzegA5f8
+   dNNHaCsGLPsUfLJJqE3j+vN4/afhXPZwOg8y0wdxofhEOGKKIf0ttd0vm
+   ipL1tUpdY//0VmOKhPIW3AqbY7g1G4sal0EqQVgGoOs/o73wllVPjqfER
+   PKUmFJ6NZ7dXX6SfPlO1JLM1XMekFpF14ZEtJ8KsrBqu6qqFQP6gNX5wN
+   fAIlZahkoin6WxbwtdFcdpaIE1rdOdYO2R2AeMZmDWXUOcM5xu+X+mVEa
+   B73rJEqbJzxCAPY1wIWaAbsRuDAJ+hHxVqhqBdOaL2j9s2fPwiY+di+gK
+   w==;
+X-CSE-ConnectionGUID: hb3l0KL5TOqFj9r9rBvkZw==
+X-CSE-MsgGUID: fugoI3yeRwiWn9tqQ7G1XA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3558874"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3558874"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:02:29 -0800
+X-CSE-ConnectionGUID: TRUMyIaGS++v2pguy/b/LA==
+X-CSE-MsgGUID: 8ckfye+BQe+6PqXLbLkv+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9761487"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:02:27 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 17:02:27 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Sun, 15 Nov 2026 17:02:27 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.71) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 17:02:09 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jh8pVxsYebga+IuZS5EdkKzJhGlANUKYvkLGnoBTqFgqme/FhFF0Q1NQ6fBZYWgP+1ZLMx2V89mShYd7L+37K5kEPlygv3RRxJNpjO97V+i5nfXsWZmmBcQn38FGBDePoe0a8okdz9CCaJJAnfChQHjij6WsyS7l6FYYGT/LodoGyZT367HOs5iUIHl/1+pCwQFTQDjuyiLxi6MfDoVYOP1oVjTuaO8s0dpkiqowKbwtG/UcUgdnrLu0Va/UbeoLB8xTldwjpjuxpKAho28la9Yp/ABo2ZvaBjaJOQrmnmZkttguBZEyWHnwtm2VawL5n4OVkjyFPwkCJMFWrRv97w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NU0eJ/4RY3RQ+GLqzABtIGExPU7FKtF5yPjamMxBq60=;
+ b=PjRomKTAfNmxUGCpN0HpSSZ5ueQOHtfgI7KelPMRYIaySn9HUBRskVqHoUPAXltgXPxwfPoaGL5kcsaCQK+vQ+0WpZKhfHB01252G2Bwtm++cUpMqc54igH7+1wXz6VJvkUZ/zHUZFiY+xjGZv33YQorBsj/9AXYdywtRetGiXxM5+3gpCKdEY5e+dWsOETkgMNxVet1pEmQadBiRqSh62qQzI53+X9UVbuiRVQMwQyRVd7O19iVYisKQtak76l9sn1KRyrtFO95QfNCjsFuznBzNbhIZOdT6k8mnydoK7a76r30DOaJ25qlk/Oh+OI71jOZmGHr3cPX9ZbLeHwAeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NU0eJ/4RY3RQ+GLqzABtIGExPU7FKtF5yPjamMxBq60=;
+ b=lpqPxnutYdWO0Vd74fpWiVW7Ji0P8bo+mEDIxtFjrzbMefEix2LXTa+6BsQ6aaYxsI4nsAa+pC8wjOcCWnCE+Za9nkyi7fa648tWIOEyqMaPqbmHuA/qOpFfkLjfEVPoYjntwgO8GLUFPvNC+n7GH/7y/j5ANPuxhafi59JbI3o=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by DS0PR11MB7766.namprd11.prod.outlook.com (2603:10b6:8:138::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 01:01:27 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 01:01:27 +0000
+Date: Sun, 15 Nov 2026 17:01:24 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 00/33] drm/ttm, drm/xe: Minimize dma-resv hold times
+ and defragment sub-optimally backed BOs
+Message-ID: <avpV5E1PgH3YKzwk@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-1-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0147.namprd05.prod.outlook.com
+ (2603:10b6:a03:33d::32) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,38 +148,248 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115222351.52930-1-emmaonana18@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|DS0PR11MB7766:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8ac48b1-b295-4c8d-56ca-08df437d242f
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 44HCP+s9JkSUaGAAgRBMjHubEalXej4o/fjNoPPHGtfV+j8sYpeoJ9T5p21KEBqdbj+fy6NB+jF2s0irFEXS0LPpRjpnj6fPVmNvpU4rrz/hJIWzjjEG9Xay0+yYPBNkBVrBW+0qit1xVQr3XEfhD4JRtmWBjFU2T5oeR8Nil+rdPkkFdUbR1UI3RYLbyWJajN0q9Yg165ircIlzXbaaxGjBTrXLputgn1CLgPGp1McvJRTUcXyeu7PTh9VVCXbwR912xo9EyefXVw6jB8IsryUb8UI7mTV2wF+ls8p3OiV7FpN7+x/GQR/jaH8t7/9JjhGUwJaQUHvhlUiFbGvxduxDeyvycFhqkE8W2en8Yr+jAp9jSMG9YfoIziV/uU4opzvsJ4Q+bF9LV3sSeJhp9upsdSNmDq6WA4/23ZFqy6LOcvp3i4r8xEhLXPzvOofrCBXQ2gN4+a9BxD49cgn3lyIz15hG1am/E9EemX0IPPMJcYZ4mCcvKJgGZSMSjVU1pWIA6YV3yHzCr6xjW70bKkSgrSrrO99QrpjST9jZFFxN98+OSXF1zLV6vPwRJxlRSiSd7oV9jSR6x3jU/wdp+U6z9Nw5epyPONtx/rn5Z58=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?CEicS0vzPVZg/4AAM2mmMSaZBr6eUhSpOTdSZeAfnl4qJGNpeymyccAXGR?=
+ =?iso-8859-1?Q?83kSkG6QCVFSqGvalFI23ui9eoliMEPxbJhmYtvUfZhZCOqw5fMrDOZ5ha?=
+ =?iso-8859-1?Q?7xRO0Ov6j2hrnuUMPxfRVUq2p1lgm9GTKz46/kClRXTpC1XJuZWfgEJ/5/?=
+ =?iso-8859-1?Q?81GE7htHoWu+97pVqEC22k5bsbJ3lLMMDvDO4diXQF9mm6648qhV0pzo0B?=
+ =?iso-8859-1?Q?43YQDaEyPy6HEFWeSMdFzV8hZdI8Ru11OsSOUr5S0olOhN8vRAUWxwG2qg?=
+ =?iso-8859-1?Q?AoPaZaz4J/RATM0D0Bq45Tzmrm4dIluAGbhC0nwb2yan0qlwdOrBApgIHt?=
+ =?iso-8859-1?Q?ygEL6l6V3gBYBAP56ZUsuxXpr1qZ2woUeNrNSGDvPfmMgGRZNgGS68c64G?=
+ =?iso-8859-1?Q?nFhK2gJhKskeUFaoFyrh0qKOzhSQ7otqoMZ3xDxZcsy4njafy+Cvo3JDoC?=
+ =?iso-8859-1?Q?xlTz7P4ixvUWeB1tbvQJGSbJJjmG6hB6RJzl5F6iN31dDp16nV6THEuorc?=
+ =?iso-8859-1?Q?4oMC9Grbj3doWupOZbqhaZQrIxp360zCmJWvXKiV55dM2fmkxK1BBL2ido?=
+ =?iso-8859-1?Q?HEzE5vBO7BvyqREYnciq2yiWGDt2wKvPL1ceFREWu8Alf+59viHCtJwI08?=
+ =?iso-8859-1?Q?YDPvctGGCXXZmF3xOFtD8NOuJINrIWqiyZFq+X9HwrJAk/J9RtH8fkPmvp?=
+ =?iso-8859-1?Q?ozCTqJy1QRK+ckCGPt47axDlAdGSdxcY8zOqlKtxgkh+oRRNDYbkJHDkt5?=
+ =?iso-8859-1?Q?8W7dFk8qXtamR9xk0KBeJBXsZ0fJ4dJzGyK/VnLSzsx/cRk26iYXKMpoVf?=
+ =?iso-8859-1?Q?+2M++SIgh0Ht8Iz+Hm5c9RvWS2OzBQRCDVABaShH8smMMqh/vocaggHrAv?=
+ =?iso-8859-1?Q?BHGoeM1oDNKuOohkIZHXJ4fIHXhszxki48s/j1C7W/GDjnQjz8D9wKo+AM?=
+ =?iso-8859-1?Q?HITcofI1vfJ5wjMGOXz+6CwLSuD9mYAmd3jCjvunRYaaTd4CREWkYA/fhf?=
+ =?iso-8859-1?Q?WwIsgFCf+s+9E6gOmZd6GfVudgBDqKzi6jtWiQAEbip8q6gCz4bK/0FSvo?=
+ =?iso-8859-1?Q?CR/axW86ECqbAypjupdfzK2TjWD5k7VaclJhwLjXjhP57jCc1tx9PC14v8?=
+ =?iso-8859-1?Q?0jmOXrzlL2RdNqOqtJFaKWy4X8+AxkGoa5CGVxNH62O5smY9gh0jsFQrqw?=
+ =?iso-8859-1?Q?AubEhl1kaqClmlWteNew3j72IsRrCxbzK6mWuqqo/2WCJ7pDivkNW+F+Qx?=
+ =?iso-8859-1?Q?x6/hc+olDi0wJoGbQhqguCTrvsa2rABdvBGQRw5YqWECegl20fqTu3Pd0N?=
+ =?iso-8859-1?Q?Q4qzaGCv53Pb2I9KfJ8k9ks0+ogZeId9xz9wVpf9dt7RWbhMPZOEAZCFOJ?=
+ =?iso-8859-1?Q?7k/DHDos0MogmMhxAMQbiGzHL2sZNnSYEh0KI1P33Cuv8mCubXR+Y38L5Z?=
+ =?iso-8859-1?Q?ynousGGYAlf0Sou/MixorP/9UDUW3h5KT6Yhl5YIJ74whyjfzNncHg+9HK?=
+ =?iso-8859-1?Q?riPGi5f3fc7DUn2a9488SGFLVq6T51ubm3HxvKl8JVjgwVBMQCxnASMHrk?=
+ =?iso-8859-1?Q?Gz1CU/pmoTWBwR/Fzw65Oa7bZfp7TrXHJ09cESU05Gj0f8qE5SMJdnHgSz?=
+ =?iso-8859-1?Q?ZmyvITUAAiUqtMRshall+QQHf1mOZUtt42nVvUkIQ6sN7oEmEWtp5GlCw/?=
+ =?iso-8859-1?Q?KD59ytlAnCmbkrY1aCTwsM5saaI7nsLQD8d8W6M11Mvx/NnT23d9UhkKHd?=
+ =?iso-8859-1?Q?OqPmdBI7ZlOX1amjbsOjwDl92iuAVWHfq8LP0B9EPTxDTZ09VBouTxRGa8?=
+ =?iso-8859-1?Q?rYeq2bME2uBAHFkiEzkNAS8UHxXCOa2kCc63R10DjifPzKgO97ol?=
+X-Exchange-RoutingPolicyChecked: i6LpSbg27spJQ1WmgTcnC/o6Nc3FHis+pmqXz8U3lyggvh7jIpWhfRaxmMTsIESxUSsHfwLZww8wOsfEoDJFkFMe96YyKFW70bnsnCiLwfiljvaWzP0f5PpjZFmXaCLsDigLJUMXw8a4lGMK7qHPwVKEZmOBYlEA0afgd+h3dGMhkSHojIjfyQyZhKLsPt6DJ15/cc5fcRzWGnDxGYrbMpLDaN1dLycgtMkbtbleD2/BGzvHjGe/iGWOodLpPN68phH4qIuDAlfpiEWDOs6q3IJo5QP0ZRZMUqJpDup80OmuTd6oQDbT9xFn5xvOVjX8xmjt1OaWTXKJ/kOhM412VA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8ac48b1-b295-4c8d-56ca-08df437d242f
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 01:01:26.9416
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ve5swCPy0JRGhJJIK4uHjhrmY12Js1pCWXsD0nxQT0a5w1TiF91Z7oWft7NTd5xRdRfYpl6Hl9moa5rVp4+B5RlO1dqqHoFHPOJt9KjHamueG/cOIvQ5XLdnD6hsLlmf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7766
+X-OriginatorOrg: intel.com
 
-On Sun, Nov 15, 2026 at 11:23:51PM +0100, Omokefe Emmanuel Onanaroghene wrote:
-> run_arp_evict_nocarrier_disabled_all() reports mismatches with a
-> "failed" line but never sets ret, so the script exits 0 even when the
-> all.arp_evict_nocarrier=0 test fails. The 2023 bulk fix wired the
-> other five test functions and missed this one; the v6 twin
-> (run_ndisc_evict_nocarrier_disabled_all) already sets ret=1. Set
-> ret=1 on mismatch.
-> 
-> Fixes: 1856628baa170 ("selftests: net: return non-zero for failures reported in arp_ndisc_evict_nocarrier")
-> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-> ---
->  tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh b/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh
-> index 00758f00efbfa..4afb953a3e479 100755
-> --- a/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh
-> +++ b/tools/testing/selftests/net/arp_ndisc_evict_nocarrier.sh
-> @@ -139,6 +139,7 @@ run_arp_evict_nocarrier_disabled_all() {
->          echo "ok"
->      else
->          echo "failed"
-> +        ret=1
->      fi
->  
->      cleanup_v4
-> -- 
-> 2.43.0
-> 
+On Fri, Jul 10, 2026 at 07:55:46PM -0700, Matthew Brost wrote:
+>The overarching goal of this series is to keep user-facing IOCTLs snappy
+>by holding the BO dma-resv lock for the shortest possible time, and to
+>push the expensive, best-effort work - page (re)allocation, DMA mapping
+>and placement fixups - into the background or out of the locked critical
+>section entirely.
+>
+>Two related mechanisms fall out of that goal:
+>
+> - Out-of-lock backing. Page allocation and DMA mapping are the dominant
+>   cost of gem_create and of BO moves, and doing them under the dma-resv
+>   lock serializes otherwise-independent clients. This series preallocates
+>   the backing pages (and, where applicable, builds the DMA/IOVA mapping)
+>   outside the lock, then transfers the result into the BO under a brief
+>   lock hold. The user gets a fast IOCTL return; the heavy lifting happens
+>   without contending the reservation.
+>
+> - Page defragmentation. A BO allocated under memory pressure keeps its
+>   scattered, sub-optimally-ordered backing for its entire lifetime,
+>   costing TLB efficiency forever. TTM grows the plumbing to track
+>   order-failure and to re-back a populated BO in place at the beneficial
+>   order, and Xe wires up a background delayed worker that promotes such
+>   BOs on the GPU once memory is available again - again, off the hot
+>   path and without stalling the submitting thread.
+>
+>Since v1 [1] the series has grown considerably. The bulk of the new
+>material is a direct result of profiling: once the defragmenter was in
+>place, the remaining dma-resv hold times and the per-BO
+>allocation/mapping costs showed up clearly, which motivated the
+>out-of-lock preallocation, the IOVA-based mapping path, and the amdgpu
+>counterpart. Rather than land the defragmenter alone, v2 folds in these
+>optimizations since they share the same infrastructure and the same
+>"hold dma-resv briefly, fix up in the background" architecture.
+>
+>The series is organized in sections rather than described patch by patch:
+>
+> - Patches 1-10 (drm/ttm): core TTM preparation - order-failure tracking,
+>   the defragmentation move, reclaim backoff, and out-of-lock page
+>   preallocation plumbing.
+> - Patches 11-14: other dependent drm/gpusvm and drm/xe patches this
+>   series builds on (DMA-mapping accounting, per-order DMA stats, async
+>   L2 flush, and a VM-teardown ordering fix).
+> - Patches 15-23 (drm/xe): the page defragmenter itself - BO tracking,
+>   the on-GPU defrag copy, xe_bo_move() handling, and the background
+>   worker with its stats and configuration.
+> - Patches 24-25 (drm/xe): out-of-lock system BO backing preallocation
+>   in gem_create, moving page allocation out of the dma-resv lock.
+> - Patches 26-32 (drm/xe): IOVA-based DMA mapping optimizations, building
+>   and finalizing the mapping outside the lock.
+> - Patch 33 (drm/amdgpu): the equivalent out-of-lock system BO
+>   preallocation for amdgpu, exercising the shared TTM plumbing.
+>
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Assisted-by: LLM
+
+All components in the patch series seems to be essential, but probably
+below ordering of the features along with how much incremental benefit
+they offer would have been easier to follow.
+
+1. dma_iova usage
+2. out-of-lock preallocation
+3. Defragmentation support
+
+Just a thought, not a suggestion to change.
+
+LLM also suggests a light compaction (with __GFP_KSWAPD_RECLAIM) in
+between the backoff and heavy reclaim (RETRY_MAYFAIL), mainly for the
+gem_create preallocation. Not sure how much real value it adds though.
+
+Niranjana
+
+>Testing
+>=======
+>
+> - 3D benchmarks on Ubuntu and on Android, with memory intentionally
+>   fragmented by a separate program at launch (plus beneficial-order
+>   error injection). BOs are initially backed at a sub-optimal order and
+>   scores start lower; the background defrag worker then promotes the
+>   backing to the beneficial order and scores climb back in line with the
+>   unfragmented baseline.
+> - IGT:
+>   https://patchwork.freedesktop.org/patch/739052/?series=170046&rev=2
+>
+>Matt
+>
+>v3:
+> - Fix valid raised raised by Sashiko on v2 [2]
+>
+>[1] https://patchwork.freedesktop.org/series/169053/
+>[2] https://sashiko.dev/#/patchset/20260710215442.2444235-1-matthew.brost%40intel.com
+>
+>Cc: amd-gfx@lists.freedesktop.org
+>Cc: Alex Deucher <alexander.deucher@amd.com>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>
+>Matthew Brost (31):
+>  drm/ttm/pool: Allow backing off reclaim at the beneficial order
+>  drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
+>  drm/ttm: Record sub-optimal page order allocations in ttm_tt
+>  drm/ttm: Introduce ttm_pool_alloc_iter for __ttm_pool_alloc()
+>  drm/ttm: Support defragmentation moves
+>  drm/ttm: Add fault injection for beneficial-order allocation failures
+>  drm/ttm: Harvest beneficial-order pages on defragmentation moves
+>  drm/ttm: Bound page (re)allocation per defragmentation move
+>  drm/ttm: Preallocate beneficial-order defrag pages outside the lock
+>  drm/ttm: Add full out-of-lock preallocation for ttm_pool_alloc()
+>  drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
+>  drm/xe: Destroy page tables after unlinking all VMAs on VM close
+>  drm/xe: Track BOs backed at a sub-optimal page order
+>  drm/xe: Back off beneficial-order reclaim under defrag pressure
+>  drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
+>  drm/xe: Handle defrag moves in xe_bo_move()
+>  drm/xe: Skip self-copies for borrowed pages on defrag moves
+>  drm/xe: Add a page defragmentation worker
+>  drm/xe: Add defrag GT stats
+>  drm/xe: Add Kconfig.profile options for BO defrag configuration
+>  drm/xe: Defrag using out-of-lock page preallocation
+>  drm/xe: Add defrag profiling tracepoints
+>  drm/xe: Preallocate system BO backing outside the dma-resv lock
+>  drm/xe: Add tracepoint for xe_gem_create_ioctl
+>  drm/xe: Add IOVA-based xe_res_cursor variant
+>  drm/xe: Use IOVA-based DMA mapping for eligible tt BOs
+>  drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
+>  drm/xe: Add packed copy-step IOVA mapping for defrag
+>  drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
+>  drm/xe: Finalize defrag-IOVA moves with post-copy job
+>  drm/amdgpu: Preallocate system BO pages outside the reservation lock
+>
+>Thomas Hellström (2):
+>  drm/gpusvm: Add a DMA-mapping accounting callback
+>  drm/xe: Add debugfs stats for DMA-mapped pages per order
+>
+> .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |    4 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    2 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   73 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |    5 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |    3 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   39 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    3 +
+> drivers/gpu/drm/drm_gpusvm.c                  |   17 +-
+> drivers/gpu/drm/ttm/ttm_bo.c                  |  118 +-
+> drivers/gpu/drm/ttm/ttm_bo_util.c             |   21 +-
+> drivers/gpu/drm/ttm/ttm_pool.c                |  947 ++++++++-
+> drivers/gpu/drm/ttm/ttm_tt.c                  |   67 +
+> drivers/gpu/drm/xe/Kconfig.profile            |   40 +
+> drivers/gpu/drm/xe/tests/xe_bo.c              |    8 +-
+> drivers/gpu/drm/xe/tests/xe_dma_buf.c         |    2 +-
+> drivers/gpu/drm/xe/tests/xe_migrate.c         |   12 +-
+> drivers/gpu/drm/xe/xe_bo.c                    | 1699 ++++++++++++++++-
+> drivers/gpu/drm/xe/xe_bo.h                    |   15 +-
+> drivers/gpu/drm/xe/xe_bo_types.h              |    6 +
+> drivers/gpu/drm/xe/xe_debugfs.c               |   26 +
+> drivers/gpu/drm/xe/xe_device.c                |   41 +
+> drivers/gpu/drm/xe/xe_device_types.h          |   57 +
+> drivers/gpu/drm/xe/xe_dma_buf.c               |    2 +-
+> drivers/gpu/drm/xe/xe_ggtt.c                  |    2 +-
+> drivers/gpu/drm/xe/xe_gt_stats.c              |    5 +
+> drivers/gpu/drm/xe/xe_gt_stats_types.h        |   17 +
+> drivers/gpu/drm/xe/xe_migrate.c               |  531 +++++-
+> drivers/gpu/drm/xe/xe_migrate.h               |   17 +
+> drivers/gpu/drm/xe/xe_pt.c                    |    2 +-
+> drivers/gpu/drm/xe/xe_res_cursor.h            |   56 +-
+> drivers/gpu/drm/xe/xe_svm.c                   |   44 +-
+> drivers/gpu/drm/xe/xe_svm.h                   |    4 +-
+> drivers/gpu/drm/xe/xe_trace_bo.h              |   90 +
+> drivers/gpu/drm/xe/xe_userptr.c               |   63 +
+> drivers/gpu/drm/xe/xe_userptr.h               |    1 +
+> drivers/gpu/drm/xe/xe_vm.c                    |  149 +-
+> drivers/gpu/drm/xe/xe_vm.h                    |    5 +
+> include/drm/drm_gpusvm.h                      |   19 +
+> include/drm/ttm/ttm_bo.h                      |   64 +
+> include/drm/ttm/ttm_pool.h                    |   46 +
+> include/drm/ttm/ttm_tt.h                      |   43 +-
+> 42 files changed, 4179 insertions(+), 190 deletions(-)
+>
+>-- 
+>2.34.1
+>
