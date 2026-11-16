@@ -1,88 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866427;
-	b=qbxTwJwPCiZUSBRrXD/94SrRaCtQzQdWEswBYorKTLPAIFrcizqwI9z/YhLkgY/P/Q+P
-	 31auQs1DmnzTm70M02hdW6txKgBlAyJ6nzsWWL2m73R/FI4YDauO9+uxpTVfl7USVUSXa
-	 i+8ptJ0duyWcnydRl71fYttCVPiHJu3m1wJQfuVPTovlB3C9Rzwg/wfGyyc1i9ANO9jMl
-	 JdqQ8e2rDkAXOROvebLQM1gR7gPuIQ2VylCQIDqQ96GngLkzrOeo6YYu4pnG62uNLbY52
-	 Hu88O1BLl9aw4L3vNPECqY1mU43z8BKlpRasqmZDojUPeJfVKIx9vNk/hE1Df4dMGHA==
+	t=1794866459;
+	b=HSfVysZPoMRo2YHTPeT/myrwaGun/FDx0x5VOry4gqAUVVmNx8RBZW262rlb8/ovmWCA
+	 rFwBpIEDO1SsShxkWLMRXFFrL3dJayVJ83JbuUPhokJjUKdef38C2Z3Od55knPlbfNTSk
+	 YJ0jdnjOwsBE33u9htir+LNpbjvk+AVL0igu+1e1bhGAgogKFciSG/ISfWw1oFYXKjWkM
+	 DTpOXI7r0Y3weIl3j7WOjiWZqkEJzHx1eiYPgHYX3XPdcRcx3gCqd58LJlHLYhr4Rvw0q
+	 0aUulkZW4Lg0SDPRyZE0YHtbhIvpTW0YGFLWSfthFDe3qrdNTFx4sCJXEjJSrn2Hp8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866427;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BTPE9Q1KzFgXOzghIcy1Do+zsJcn2B9P+6aO9CoEBkg=;
-	b=zXnD5pEcIE/6pJEQ8xbTm0cKJZFFDSzcpXVf2qV2kiojr6i1xy5IIB2q8Oh7MLGBoRCN
-	 Jg/K8yhuYdRaR4DXdEnEFy4SxNOht5YIgUfryYSv/OuVVXyTcpP7ilE692A+FJ2K58nMJ
-	 luNzE3dKxPLx3tvXp9daUk0nxVWdKFhsHfDENSIyLPVKgf72BS1F6YW5l7ZmRP1A6KL+t
-	 2RtAg7s55k96wTcskJM/VVSNRaEITNfRQrxOAFPZKwQ3dVOtEamgv6qf0sptEdNS8qfob
-	 SHKleLaIKre76rpkluQCFkyeXLJUbuzjJTCbNKbAGlZnyDpQP0bGiZIvq6YFd4Asrjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866459;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=oq7/QJvgsIGr3vI4LiXKymjwhbWAjvsBsJsLOljo0Qk=;
+	b=MxuDTBgLtENd7VPGD66pgGIqimMYnntWDF7T739fJQ78PVcBKm+keYWimr1uNdBh8IxF
+	 pE6C3gwgEOAkXrvUPbwY7KS8q2Xt4dHXzG/8pPM1WdU2UMhbJORyTTO1I4hg88BHz2pSK
+	 HjnnVhG904t1fLZTX6HWUz97TOMjtg2SnNASkdZLboW8DUCDPbzFuDHE7BG/sT882AN8O
+	 P5b/QG/hhiAc8yn7krECrzOjrLog1mvqDQw6hSHujPLRsapGXvfaZJExWJyr6MMCw3Vkq
+	 EebHsS3hR4WiDmO6JF2GqQeVJAjkqZpnNMh3UFlpJQWfBPSK+7nYUlzINBG2kdwnzmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wgaz3sxI;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dph+lEn9;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ntv5hXq+;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E17606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:00:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99E17606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA13606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:00:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA13606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wgaz3sxI
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso45323915e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 14:00:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794866425; x=1795471225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BTPE9Q1KzFgXOzghIcy1Do+zsJcn2B9P+6aO9CoEBkg=;
-        b=Wgaz3sxIxWZLDFT7xVEdmX1ppNgZ14lH2Bd/pkkQY8LuwSm23WSJcoASZdiEoRzwgY
-         NrDnUGRd8QWiPBQaGHTSVC3t/pfUMPwHHDcS6QN4v/rhN4wcNK+PQW58WH9kQyQh51/m
-         dodS6K1TM1o95Uso14CGLlGiQg+16nqE76ucJu+hS8G1eDddvX5CmuQKKYzcYv+lHhiW
-         QsraJwnG1B74v4hIV4DQcwYn+NAEt5Px5tM+fx+hA/Li4DkDMHyRmupnWh4tg+1nAAGd
-         PX1eRA47BtO4ClJlF/DMwUrc9Bnw4tkHBPbbcwTtOdOOCduf50BdrndDMGZh5wGc0uyb
-         ELFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794866425; x=1795471225;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BTPE9Q1KzFgXOzghIcy1Do+zsJcn2B9P+6aO9CoEBkg=;
-        b=fQYxTHt8j94Wl9qqx4Ll+u5Yk+Blkaj+PP/xW/1pEP7zBSsckWAwWmiNG7PlSItasD
-         sdtBSGP6PsWlEwVjposMn6vCFGr3AdXUPkykM4Yes2HafLYgT75BK5hFkOJPdurHnKua
-         m+UM35e9wslK9n7R8tY7UVUhOYNxVeaESmNgJUWR2qur2YW7OkCaMz9/m5xzZhv8Knmy
-         IXleXncncER/b4HR2u/Ht8UpTDL6ICdcQ6A99E5NxeXOvOqLV6pvlQSjtfcw7IJ+lgai
-         S7siWgwmHROno69eJcLoTzrxO5aILrR4/jOa+0PAfWMYM4AFKu2iiH8K/i0+tqDep4fd
-         0dNw==
-X-Forwarded-Encrypted: i=1; AL+hErG20qDcC/eyr/GY3MhdOO8xrCszgMDRQSguCIVjhP+gC3iOT4nnGIGlF6NS/CQ+2RVZ/uV9dmkggpajJMA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8l8ofu7ocOeV9DqQFFyolgDoxlAlpnu3XijGpbex9L7z3l7f5m
-	syauwQyg0O0OQK1QqPDPj3zdmVcDLjDZGPrmeXqu9hlzf1KctNMdb7qh
-X-Gm-Gg: AYBFou2pYNkL7/l4tgubsWEPrUATWMSvrURCUM6+YsdAIgOBWTDni1cCPqzaHfXpanw
-	vC4zMooiLgJYVZIXVNsuawu5q6KIx+xQDYXGt4WwBsqdmY2vj2G2wfe6VwW4N0xPHJoGhvWeksY
-	jz8iCABDbcJSLGghziI+aWnVjvDMysYaje2r/943DzdopJzobd6T7d18sv9DaaQ7kLikY+Dbcan
-	0wahwdVBm4SsF6jI8s8JKVGXlZ5UUOQVKxz6tC+sDp6NXCR4wx8BiEmFLEMWSSC/QKK2DmEaKb0
-	T79oyMOQjEr1bcROpwo3Iy3L+CrC1jykpxG2Mrle7gOOMtp7WJVmTvF6hIMSYkn8eM/lCCIJkJS
-	j6n9fq3FeJ/DVcb4jVMtalhgL/fyukwaWg/QI668xGUzbgSiRQ1pgomiDtu/SKdTKK+tN8iDGP7
-	LUcZDm/1w1Yy1fDz7Co8BgzmWiu0GFmnmqh7qpyIjyBdpkLTE3KzIYurqkZ3EZ5Hww9VJ52EXWp
-	GiGdFb/Nsx0ftaqoYtWnDJ81ViDksSmAzuM7ofNIk6rv6eK22eehtJrIrZuzVwooXrYYFgGwKIb
-	jYYVc2y/p2raMVPH2efbcrxAfI+9gw==
-X-Received: by 2002:a05:600c:34d0:b0:4a2:133:45e1 with SMTP id 5b1f17b1804b1-4bb55a59f41mr249245185e9.24.1794866424901;
-        Mon, 16 Nov 2026 14:00:24 -0800 (PST)
-Received: from [10.10.0.26] ([85.105.252.11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56f97257sm207857645e9.4.2026.11.16.14.00.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 14:00:24 -0800 (PST)
-Message-ID: <228df241-da5e-49cb-b29f-6b9158557f55@gmail.com>
-Date: Tue, 17 Nov 2026 01:00:20 +0300
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dph+lEn9;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ntv5hXq+
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794866456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oq7/QJvgsIGr3vI4LiXKymjwhbWAjvsBsJsLOljo0Qk=;
+	b=dph+lEn98b4l983dVMrnV6uUQ6MyRGMhGkjDWA6llxSjvwEicw/hW8eISy3XxtlKnvaqM1
+	cwZoFth4XPz20+FpJNgcBOZbjsXRnpQ+HNno+aAQ1bNnSfgrDDTt0QYPjCWUjpb3jgv6qA
+	zao+0kctxY/LTxAfeUFzVYyCkARaPsEUblIt+k2Yp8pv88cxjahDdTPufiMi69DtHu216G
+	MJLJxlhrK0z2jqYU78VTJ9VUjDc9Xa3hhCJg265+x4wwFo2c2xPZywtsy3NSAI/9UQ7oHf
+	SiHp0qdv38GmVE6x9TvKtJPIjE5CuMxeMh4dpIJpxGkxdGS3Izi7nkAl8KNxxw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794866456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oq7/QJvgsIGr3vI4LiXKymjwhbWAjvsBsJsLOljo0Qk=;
+	b=ntv5hXq++k9se6cqF91UGrnVqvsbVNmLuu+7rx8ySKJCAPfKpk9drPL6RTK/l0lCyBZ5N9
+	NYzJKsxS/hplJSDw==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Ryan Roberts <ryan.roberts@arm.com>, Breno Leitao
+ <leitao@debian.org>, printk@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH printk v2 2/6] console: Introduce unsafe flush policy flags
+In-Reply-To: <avc4GVqYdpL8r3Un@pathway.suse.cz>
+References: <20261111181942.593695-1-john.ogness@linutronix.de>
+ <20261111181942.593695-3-john.ogness@linutronix.de>
+ <avc4GVqYdpL8r3Un@pathway.suse.cz>
+Date: Mon, 16 Nov 2026 23:06:56 +0106
+Message-ID: <878q2sxwpz.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,81 +75,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
- readback support
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Denis Benato <denis.benato@linux.dev>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
- <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
- platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
-References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com>
- <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
- <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
-Content-Language: en-US
-From: bartu alev <bartualev@gmail.com>
-In-Reply-To: <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 11/9/26 9:02 PM, Ilpo Järvinen wrote:
-> What do you (or Denis) think on sashiko's mention about 
-> asus_wmi_evaluate_method_buf() casting integer.value to int which might 
-> end up aliasing high-bit on return values with errnos?
-> 
-> The other caller seems to also return that value directly out of _store 
-> function().
+Hi Petr,
 
-Hi Ilpo and Denis,
+At the end I suggestion some simplification. But I want to address your
+questions so that you understand my reasoning... even if we decide we
+will simplify things.
 
-I checked the DSDTs across 102 ASUS models we have dumped as well as the
-UEFI/SMM path on my FA507NV (BIOS 318) to see what firmware actually
-returns on the DSTS path:
+On 2026-11-13, Petr Mladek <pmladek@suse.com> wrote:
+>> diff --git a/include/linux/console.h b/include/linux/console.h
+>> index 06d01f1743512..beb1ee04535b7 100644
+>> --- a/include/linux/console.h
+>> +++ b/include/linux/console.h
+>> @@ -194,6 +194,29 @@ enum cons_flags {
+>>  	CON_NBCON_ATOMIC_UNSAFE	= BIT(9),
+>>  };
+>>  
+>> +/**
+>> + * enum nbcon_unsafe_flush_flags - Unsafe atomic flush policy flags
+>> + * @NBCON_PANIC_FLUSH:		In panic, unsafe flush before kexec or reboot.
+>> + * @NBCON_PANIC_PRINTK:		In panic, unsafe flush on each printk().
+>
+> Do we need to distinguish between flush in printk() and an explicit flush?
 
-1. Across the 102 DSDTs, no static DSTS branch returns 0xFFFFFFFF or
-   Ones. Models without 0x0010005B either hit a DSTS tail of
-   0xFFFFFFFE (15), fall through to WMNB's trailing 0xFFFFFFFE (45),
-   or return Zero (3 older models: GL553VD, GL553VE, FX505DT).
+Please keep in mind that these are _per-console_ policies for _unsafe_
+flushing.
 
-2. On modern models (including FA507NV, FX517, GA403, GA605WI), DSTS
-   delegates unlisted DEVIDs via WCHK/W15H (SW SMI 0xAA, cmd 0x9603).
-   Disassembling the FA507NV modules (AsusSmmService ->
-   AsusWmiToProtocol -> QuantaDxeWrapperPkg) shows that this dynamic
-   chain also returns 0 (unmatched consumer / missing table entry), 1,
-   capability/presence bits (e.g. 0x00010000 for 0x00100056/57), MMIO
-   reads, or 0xFFFFFFFE -- never 0xFFFFFFFF.
+> IMHO, there is no reason. We usually call the explicit flush because
+> we want to trigger it. But printk(), called in the same context,
+> should trigger/do it as well.
 
-   (Note: on FA507NV, 0x0010005B itself is static in AML and calls
-   EC0.KBLS(), while 0x00100056/57 go through WCHK/W15H and return
-   0x00010000 on DSTS.)
+Let us use an example: A panic backtrace that is followed by a
+restart. In my example I have a safe-atomic 8250 UART console and an
+unsafe-atomic netconsole.
 
-However, checking those tables did uncover one real mismatch and a clean
-reason to still harden asus_wmi_evaluate_method_buf():
+If we handle printk and flush the same, then what are the choices:
 
-- On models like FX505DT, DSTS(0x00100056/57) returns 0x00010000 (so
-  kbd_rgb_mode/kbd_rgb_state are registered), while 0x0010005B hits the
-  DSTS tail Return (Zero).  asus_wmi_evaluate_method_buf() turns 0 into
-  -ENODATA, so v4's `err < 0 ? err : -ENODEV` would return -ENODATA
-  instead of -ENODEV as documented in the ABI patch.  The same happens
-  if W15H hits an unmatched consumer/table miss in SMM (returns 0).
+1. I can choose to enable unsafe-atomic netconsole printing and attempt
+unsafe printing each line of the backtrace as printk() is called. This
+risks hanging the system on the first line, and even via 8250 UART I
+only get the first line.
 
-- Even though 0xFFFFFFFF didn't show up in this set, an unseen BIOS or
-  SMM branch returning 0xFFFFFFFF or any bit-31-set integer would still
-  alias a negative errno in asus_wmi_evaluate_method_buf().
+2. I can choose not to enable unsafe-atomic netconsole printing and see
+the full backtrace via 8250 UART but no backtrace via netconsole.
 
-To avoid disturbing older devices, would a minimal approach like this be
-acceptable for v5?
+My motivation is to provide a third option:
 
-1. Add a small prep patch to asus_wmi_evaluate_method_buf() using a u32
-   retval: keep 0xFFFFFFFE -> -ENODEV and 0 -> -ENODATA as today, also
-   map (u32)~0 (0xFFFFFFFF) -> -ENODEV (matching asus_wmi_get_devstate()),
-   and return -ENODATA for any other unexpected integer (matching the
-   `default:` case; the only existing caller fan_curve_get_factory_default()
-   already treats any non-zero return as failure).
+3. I can choose to enable unsafe-atomic netconsole for backlog
+flushes. Then I safely see 8250 UART output per line and right before
+the restart, the netconsole unsafely prints the backlog.
 
-2. In kbd_rgb_read_status(), translate -ENODATA to -ENODEV so FX505DT /
-   0-returning firmware matches the ABI while preserving -EIO / -ENOSPC.
+>> + * @NBCON_NORMAL_NOTHREAD:	During normal operation, when printing
+>> + *				kthreads are unreliable or have been shutdown,
+>> + *				unsafe flush on each printk() or on explicit
+>> + *				flushing.
+>
+> Do we need to distinguish between panic and non-panic paths when the
+> kthreads do not work?
+>
+> IMHO, this is more about that the system is going down and the
+> kthreads do not work.
 
-Thanks,
-Bartu
+There are multiple non-panic paths when kthreads will not work. Some of
+them are because the kthreads are shutdown. Others are because it is an
+immediate trigger and the kthreads have no chance to act. It was a
+mistake for me to group both of these together because although one is
+truly normal, the other is not. I will talk more about this below.
+
+> Also what about emergency context when the system is about
+> to continue?
+
+I do not think it makes sense to offer this policy. We cannot be unsafe
+and then expect the system to continue correctly.
+
+>> + * @NBCON_KDB:			Unsafe flush kdb output.
+>
+> OK, let's assume that we want to set a policy where we allow
+> the unsafe takeover in the following contexts:
+>
+>   NBCON_ALLOW_UNSAFE_NEVER
+>   NBCON_ALLOW_UNSAFE_RESTART
+>   NBCON_ALLOW_UNSAFE_EMERGENCY
+>   NBCON_ALLOW_UNSAFE_KDB
+>
+> , where
+>
+>   + NEVER might actually allow it when explicitely enabled in
+>     nbcon_panic_flush_unsafe(). The word "never" just has a simple
+>     semantic in the context of the other values
+
+We do not need a flag to mean "no flag".
+
+>   + RESTART would allow the unsafe takeover in printk()/flush()
+>     when the system is doing halt/reboot/crash_kexec...
+
+Above I talked about printk vs flush. And IMHO it is important that
+users can distinguish between panic and non-panic (even if non-panic is
+a kind of emergency... for example sysrq-b).
+
+>   + EMERGENCY would allow it even in NBCON_PRIO_EMERGENCY context.
+
+This does not make sense if normal operation continues (for example from
+a WARN()). But it makes sense in the reboot context (sysrq-b).
+
+>   + KDB would allow it in KDB context
+
+This was not actually requested so we could drop this policy for now.
+
+> And I would get the context the following way:
+>
+> enum nbcon_allow_unsafe get_nbcon_allow_unsafe_request(void)
+> {
+> 	enum nbcon_prio prio;
+>
+> /*
+> 	 * The kdb check is copied from vprintk() implementation.
+> 	 * We should put it into a helper.
+> 	 */
+> #ifdef CONFIG_KGDB_KDB
+>        /* Allow to pass printk() to kdb but avoid a recursion. */
+> 	if (unlikely(kdb_trap_printk && kdb_printf_cpu < 0))
+> 		return NBCON_ALLOW_UNSAFE_KDB;
+> #endif
+>
+> 	prio = nbcon_get_default_prio();
+>
+> 	/* FIXME: What about SYSTEM_SUSPEND?
+> 	if (prio == NBCON_PRIO_PANIC || system_state > SYSTEM_RUNNING)
+> 		return NBCON_ALLOW_UNSAFE_RESTART;
+
+I do not agree with putting panic and non-panic under the same policy.
+
+> 	if (prio == NBCON_PRIO_EMERGENCY)
+> 		return NBCON_ALLOW_UNSAFE_EMERGENCY;
+
+Too dangerous if the kernel is not ending.
+
+> 	return NBCON_ALLOW_UNSAFE_NEVER;
+> }
+>
+> IMHO, this better fits the existing terminology and design.
+> And it should be much easier to understand by developers
+> and users.
+
+...
+
+>> + *
+>> + * NBCON unsafe atomic flushing always occurs at the end of panic() before
+>> + * the kernel enters an infinite loop. Users may choose to perform unsafe
+>> + * flushing in additional scenarios where the current kernel is ending in
+>> + * order to increase the chances of seeing console messages, even if it is
+>> + * not safe to do so.
+>> + */
+>> +enum nbcon_unsafe_flush_flags {
+>> +	NBCON_PANIC_FLUSH	= BIT(0),
+>> +	NBCON_PANIC_PRINTK	= BIT(1),
+>> +	NBCON_NORMAL_NOTHREAD	= BIT(2),
+>> +	NBCON_KDB		= BIT(3),
+>> +};
+>> +
+>>  /**
+>>   * struct nbcon_state - console state for nbcon consoles
+>>   * @atom:	Compound of the state fields for atomic operations
+>> @@ -326,6 +349,7 @@ struct nbcon_write_context {
+>>   * @data:		Driver private data
+>>   * @node:		hlist node for the console list
+>>   *
+>> + * @unsafe_flush_flags:	Unsafe atomic flush policy. See enum nbcon_unsafe_flush_flags
+>>   * @nbcon_state:	State for nbcon consoles
+>>   * @nbcon_seq:		Sequence number of the next record for nbcon to print
+>>   * @nbcon_device_ctxt:	Context available for non-printing operations
+>> @@ -461,6 +485,8 @@ struct console {
+>>  	 */
+>>  	void (*device_unlock)(struct console *con, unsigned long flags);
+>>  
+>> +	unsigned int		unsafe_flush_flags;
+>
+> I would call it:
+>
+> 	unsigned int		allow_unsafe_policy;
+
+OK.
+
+>> +
+>>  	atomic_t		__private nbcon_state;
+>>  	atomic_long_t		__private nbcon_seq;
+>>  	struct nbcon_context	__private nbcon_device_ctxt;
+>
+> And the net console would get initialized to:
+>
+> 	.allow_unsafe_policy = NBCON_ALLOW_UNSAFE_RESTART | NBCON_ALLOW_UNSAFE_KDB;
+>
+>
+> And nbcon_allow_unsafe_takeover would get implemented as:
+>
+> static bool nbcon_allow_unsafe_takeover(struct console *con)
+> {
+> 	allow_unsafe_request = get_nbcon_allow_unsafe();
+>
+> 	if (con->allow_unsafe_policy & get_nbcon_allow_usafe_request())
+> 		return true;
+>
+> 	return panic_nbcon_allow_unsafe_takeover;
+> }
+>
+> What do you think, please?
+
+I suggest only supporting explicit flushing with only two unsafe
+policies for now:
+
+- NBCON_PANIC_RESTART_FLUSH (panic-kexec, panic-reboot)
+- NBCON_EMERGENCY_RESTART_FLUSH (non-panic emergency reboot)
+
+Only these were originally requested. But I would like to keep the
+others in mind because I think they are useful for certain scenarios:
+
+- NBCON_PANIC_PRINTK (printk() calls during panic)
+- NBCON_KDB (printk() and flush() during kdb)
+- NBCON_NORMAL_NOTHREAD (printk() and flush() during normal kexec,
+  reboot, shutdown)
+
+However, I still think it is necessary to include context in order to
+properly evaluate the policies. I do not see how this can be effectively
+implemented without printk_trigger_flush() receiving a @reason argument
+to provide context. CPU and system states are not enough.
+
+You have given me some new ideas. I would like to post a v3, also to
+address the mess I made of legacy mode (pointed out by Sashiko).
+
+John
