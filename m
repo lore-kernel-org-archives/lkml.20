@@ -1,59 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852670;
-	b=2PBEq9BKp2ruak70chPwU1tbiPmIJ5NX/1GVdQoFa8AF4fhbMVsKmox4U44p6kVctvwl
-	 J/ww+r3MryUFJRlUiCkBe5wWm92/UQJLs3CSaLwhJzXKra6nj2VHzjM++xWGl81LRxoKm
-	 Q9O0zRvYYgIgAOwa6l8NUZ3tTn6Ze9OTEkWvJRE1AIaZ98o4JYBeq40+kgDOc6yq8Le3/
-	 1iJH+YrTJHwoh9ry+Ly5Y9WcEz19h0puc9u4CGaTleTwN/rbVM7LfVdgy79glQE6qdZko
-	 umfnfCQacydLMowlWNGdKi4EbNSSZNFRRZLq1pa4N4C8/eFolGP7bLctF8Wj1hFAUEw==
+	t=1794852678;
+	b=NcKxj2V07WM3yiqJ+B5sgPaeTR6aXru9LQY4I7F6j7Lxh44PiGHLEN9l/n/n7Vd/ANEy
+	 0/ZfUuE/FrdUNGNGOV94MW4QsIDSHtBua/dxOAEIhn1l+ZnmIQ+K61ZlfP4kQO+//cg9m
+	 uutZtWbqgKmA93VC1K2IbDS8oaxkLE5IP3+180iXXAKdS4VwWv3hgIDjX8YUhyD8wNQN+
+	 dRrrAm3T1545kvV93+CK4g9An5+NNCsBE2aFSS3YOg/64g/fnix7nmulrSKm79hZqZhqW
+	 NeOTZj5dLJPS5C9cOhjCWSrq3SYQeC6SxEyEm8Hf24Jfa72oABe6pby4IqkfAOKRlwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852670;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Cw9zGt+6BcAAxGXLKuxEpnFTLz0hNmcrTc0x1UP3Om0=;
-	b=a1h+skjxNkVqhoqZoxGDWxWNln6c7W3rD94ZVYk0Teby5clxTS2yFnJTlLg88GHxzqpK
-	 JkfMWoSukLXQILadIjOZCZTMQgjMrUxPpo8Yh6YBC+13LACEzjxwAzrrY4/MUaDueDQPa
-	 E6JUSJ+nM6F5AYgRgKNdtZikgv4xbjQSp4V0ip7PBYbAgT0rX5tMbVrIc/ODE69e3o6QE
-	 WFhHgXsBr7wL1WFa8ejzMvX9I7RtQs9TY38gzmElJaU5k6M5Lw7Qlu1wumZ35xmSMuZAW
-	 9j//uEd44UnWlLV6Mqc26/xLrg2l97UG0eP3m8ZzyPPnskVHSqA9DmyW2XwpjUaR39w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852678;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=q46AE2TsYo8zXLliVKO5Tx+OouQ4BpY5EoM6nx9zS/Y=;
+	b=oRfbwsyyhSy7NmWof/delJkEWi85/u5/Va6YuSgKy+0u0gKtVdw/uzPcyXX+K4jY/+Ck
+	 M/FSQqq2AZmWr5mqGuaN5DMgQT7y39B+R7pKNj17DAxoChnUOXdkpujUI4syub857isIa
+	 JRkJ/qyoPoBnRr4f3uJ8DSRCjyoQmVRwyq2y8DQwvdKSqH8Z8D6/27zjNW96udZF9tBoD
+	 xdnuq/hnXatBD3MM3MVjE2tUR9Zk+5MLB4rOvICYJ/dyplp7SK5SqFAmpQ07bvJnVo+Wb
+	 p2u4sAvlufeabunIeFzJz5B56g7JJcQLOaNqNaYCwMqxIQNW0x5pdIvSFunmimSeBhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oN7MEyFk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/bxCzJd";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E13E606A322;
-	Mon, 16 Nov 2026 18:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA28606A322;
+	Mon, 16 Nov 2026 18:11:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oN7MEyFk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B791F000C4;
-	Mon, 16 Nov 2026 18:11:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/bxCzJd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C5C1F000C9;
+	Mon, 16 Nov 2026 18:11:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794852669;
-	bh=Cw9zGt+6BcAAxGXLKuxEpnFTLz0hNmcrTc0x1UP3Om0=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=oN7MEyFkmcArK3z2TUAxOyshqkJz25MvGPIiGf0a4czyOSLZD9y/DBC1EJHVojx6o
-	 v8NT0Sq5e5m/H+NpIcvklduHLyP2XPEdwbIEaeMAW1XeyrqFGSXDTRL5+6lt25rnZX
-	 fnH2BYKwFdFY6ZwKptVYd1NnNrRTn9UKWzdDz9L/2sOd6iDXWgF8qQfuHImENT+VDq
-	 BFyOHyqfUrFqkb5Uoe8QkRGKz57tQ/VxLa3R9QPJFsRAM0Hl9YrKb39oUrsHtOq/7D
-	 9NWMlp3LX/+499UJF935UscbrhGCAFDjaiLCFm2MISnqq1NcRuZBHXV1A3/g2EflJZ
-	 ld8R34R9KAOIA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 85D66CE097D; Mon, 16 Nov 2026 10:11:09 -0800 (PST)
-Date: Mon, 16 Nov 2026 10:11:09 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Guikun Yang <yangguikun19@qq.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
-	rcu@vger.kernel.org, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [Bug report] srcu_module_coming() dereferences unvalidated
- ___srcu_struct_ptrs entries - wild kernel-memory write on module load
-Message-ID: <9e56774c-abf3-49bc-b6e8-34ae1db4cf9d@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <mod-r-offset-oob-20261113@qq.com>
- <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
+	s=k20260515; t=1794852678;
+	bh=q46AE2TsYo8zXLliVKO5Tx+OouQ4BpY5EoM6nx9zS/Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=X/bxCzJdAoaLpc4TJKp1MPffvF9eU2tf9Eg/YQFHd9gDjXM4+TV6RZaNrcXGeKk0p
+	 LeE6RDixr7VEnDWt/1qbysXCgJmCK2NWqseCxBD50haobqGedfGc3IDtDKL5CB/G6c
+	 2YddrXfJQ6TPnXoY/NAOlGyo5ancAkGvS10ND/rxDDVfc1fv5CTa5BG1tnfY2m3RUc
+	 jMz4AROlbCB1XQW4aVLbmZ80vKbnjy7ODpePuH4RaOjUe3nlcKRGZxliq5O7dPAdq0
+	 hs5z7UgIG5ut1WtTYdFneNza5mI+hGZF4bvAK2qZEgguvfn9GCoOES/+/fFqeX2Rbp
+	 N2SBMzBWUEr7A==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xT1Ai-0000000GbgH-1eXM;
+	Mon, 16 Nov 2026 18:11:16 +0000
+Date: Mon, 16 Nov 2026 18:11:15 +0000
+Message-ID: <86h5hg1wak.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Dan Carpenter <dan@pereq.eu>
+Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
+ <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
+ Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,	Karthik Bhargavan <karthik@pereq.eu>,
+	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau <clement@cryspen.com>
+Subject: Re: [PATCH] KVM: arm64: nv: Fix NULL dereference in kvm_inject_nested()
+In-Reply-To: <avsH0lxpLIF2Ug64@stanley.mountain>
+References: <avsH0lxpLIF2Ug64@stanley.mountain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,147 +73,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_0836A27053A7BED946E49CE04D27A31E7D09@qq.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: dan@pereq.eu, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, karthik@pereq.eu, clement@cryspen.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sat, Nov 14, 2026 at 09:30:00AM +0800, Guikun Yang wrote:
-> From: Guikun Yang <yangguikun19@qq.com>
-> To: "Paul E. McKenney" <paulmck@kernel.org>
-> Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
->     rcu@vger.kernel.org, linux-modules@vger.kernel.org,
->     linux-kernel@vger.kernel.org
-> Subject: [Bug report] srcu_module_coming() dereferences unvalidated
->  ___srcu_struct_ptrs entries - wild kernel-memory write on module load
+On Mon, 16 Nov 2026 13:40:34 +0000,
+Dan Carpenter <dan@pereq.eu> wrote:
 > 
-> Hi Paul, Luis,
+> There is a NULL dereference of vcpu->arch.hw_mmu in kvm_inject_nested()
 > 
-> The module loader hands the contents of the ___srcu_struct_ptrs section
-> to SRCU as an array of absolute struct srcu_struct * pointers, with no
-> validation of any entry. srcu_module_coming() then writes through each
-> one during the MODULE_STATE_COMING notification, inside init_module().
-> A crafted module whose synthetic section contains an arbitrary 64-bit
-> value therefore gets a kernel-heap pointer written to an
-> attacker-chosen address.
+> Unable to handle kernel NULL pointer dereference at virtual address 0000000000000084
+>   kvm_vcpu_put_hw_mmu (arch/arm64/kvm/nested.c:1046) (P)
+>   vhe_vcpu_put (arch/arm64/kvm/arm.c:827)
+>   kvm_arch_vcpu_put (arch/arm64/kvm/arm.c:860)
+>   kvm_inject_nested (arch/arm64/kvm/emulate-nested.c:2903)
+>   kvm_inject_nested_serror (arch/arm64/kvm/emulate-nested.c:2976)
+>   kvm_inject_serror_esr (arch/arm64/kvm/inject_fault.c:365)
+>   __kvm_arm_vcpu_set_events (arch/arm64/kvm/guest.c:827)
+>   kvm_arch_vcpu_ioctl (arch/arm64/kvm/arm.c:2017 arch/arm64/kvm/arm.c:2157)
+>   kvm_vcpu_ioctl (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:4772)
 > 
->   Oops: general protection fault, probably for non-canonical address
->   0xe00006aaa0000021: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN NOPTI
->   KASAN: probably user-memory-access in range
->   [0x0000555500000108-0x000055550000010f]
->   RIP: 0010:srcu_module_notify+0x480/0x610
->   RAX: 0000607f57d191c0   (alloc_percpu return, the value being written)
->   RBX: 0000555500000100   (the section entry, verbatim from the file)
->   RDI: 0000555500000108   (&ssp->sda)
->    notifier_call_chain
->    blocking_notifier_call_chain_robust
->    load_module
->    __do_sys_init_module
+> KVM_SET_VCPU_EVENTS does not load the vcpu, but it injects a pending
+> SError or external abort straight away.  If the vcpu is in L2 context
+> and L1 has asked for the exception, kvm_inject_nested() puts and loads
+> a vcpu that is not loaded.  vcpu->arch.hw_mmu is NULL when the vcpu is
+> not loaded, so kvm_vcpu_put_hw_mmu() dereferences a NULL pointer.
 > 
-> ## The three pieces
+> To fix this bug, only put and load the vcpu when it is loaded, similar
+> to what kvm_reset_vcpu() does.  When the vcpu is not loaded there is
+> nothing to switch: the next kvm_arch_vcpu_load() loads L1's context.
 > 
-> Loader, zero validation (kernel/module/main.c):
+> Fixes: 9aba641b9ec2 ("KVM: arm64: nv: Respect exception routing rules for SEAs")
+> Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dan Carpenter <dan@pereq.eu>
+> ---
+> This was found through Pereq's formal analysis but the stack trace
+> comes from real life testing.
 > 
->   mod->srcu_struct_ptrs = section_objs(info, "___srcu_struct_ptrs",
->                                        sizeof(*mod->srcu_struct_ptrs),
->                                        &mod->num_srcu_structs);
+> x86 implements kvm_arch_vcpu_ioctl() differently and puts vcpu_load()
+> at the start of the ioctl.  But the way arm64 does it is deliberately
+> and just something that people working with the code need to be aware
+> of, I guess.
 > 
-> section_objs() counts entries and returns sh_addr; the bytes' validity
-> is entirely up to the ELF file.
+>  arch/arm64/kvm/emulate-nested.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 > 
-> Generator, absolute pointer (include/linux/srcutree.h):
-> 
->   struct srcu_struct * const __srcu_struct_##name
->         __section("___srcu_struct_ptrs") = &name
-> 
-> Unlike __tracepoints_ptrs (PREL32 self-relative on x86), this is a
-> link-time absolute address. In a hand-built section the bytes are
-> whatever the attacker writes, and since no .rela entry targets them,
-> apply_relocations() never touches them either.
-> 
-> Consumer, write on load (kernel/rcu/srcutree.c, unchanged from 7.3 to
-> mainline 2026-11-14):
-> 
->   ssp = *(sspp++);
->   ssp->sda = alloc_percpu(struct srcu_data);       /* wild write */
->   if (WARN_ON_ONCE(!ssp->sda))
->           return -ENOMEM;
->   ssp->srcu_ctrp = &ssp->sda->srcu_ctrs[0];        /* second write */
-> 
-> ssp->sda sits at offset 8, so an entry value V makes the kernel write
-> a freshly allocated percpu pointer to V+8, and a pointer derived from
-> it to V. The unload/rollback path (srcu_module_going()) dereferences
-> ssp->srcu_sup and frees ssp->sda through the same unchecked entries.
-> 
-> ## Why this is more than a crash
-> 
-> The write value is a kernel heap address and the target is a fully
-> attacker-chosen 64-bit address. Pointing the entry at a
-> userland-readable mapping leaks the percpu allocation address directly
-> to userspace, defeating percpu-base randomization and contributing to
-> KASLR defeat. Pointing it at any zero-filled kernel address lands the
-> write. A non-canonical target gives the deterministic #GP above
-> (reproduced 7.3.0, KASAN inline, DEBUG_PAGEALLOC).
-> 
-> ## The fix has an in-tree precedent
-> 
-> jump_label.c validates exactly this class of pointer in the same
-> module-notification path (kernel/jump_label.c:716):
-> 
->   if (within_module((unsigned long)key, mod)) {
->           static_key_set_entries(key, iter);
->           continue;
->   }
-> 
-> The suggested fix mirrors it in srcu_module_coming() and
-> srcu_module_going():
-> 
->   for (i = 0; i < mod->num_srcu_structs; i++) {
->           ssp = *(sspp++);
-> +         if (!ssp || !within_module((unsigned long)ssp, mod))
-> +                 return -EINVAL;
->           ssp->sda = alloc_percpu(struct srcu_data);
+> diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
+> index 2bec81668361..22ca735a34f6 100644
+> --- a/arch/arm64/kvm/emulate-nested.c
+> +++ b/arch/arm64/kvm/emulate-nested.c
+> @@ -2862,7 +2862,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
+>  			     enum exception_type type)
+>  {
+>  	u64 pstate, mode;
+> -	bool direct_inject;
+> +	bool direct_inject, loaded;
+>  
+>  	if (!vcpu_has_nv(vcpu)) {
+>  		kvm_err("Unexpected call to %s for the non-nesting configuration\n",
+> @@ -2891,6 +2891,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
+>  	}
+>  
+>  	preempt_disable();
+> +	loaded = (vcpu->cpu != -1);
+>  
+>  	vcpu_set_flag(vcpu, IN_NESTED_EXCEPTION);
+>  
+> @@ -2900,7 +2901,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
+>  	 */
+>  	__kvm_adjust_pc(vcpu);
+>  
+> -	kvm_arch_vcpu_put(vcpu);
+> +	if (loaded)
+> +		kvm_arch_vcpu_put(vcpu);
+>  
+>  	kvm_inject_el2_exception(vcpu, esr_el2, type);
+>  
+> @@ -2915,7 +2917,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
+>  	 */
+>  	__kvm_adjust_pc(vcpu);
+>  
+> -	kvm_arch_vcpu_load(vcpu, smp_processor_id());
+> +	if (loaded)
+> +		kvm_arch_vcpu_load(vcpu, smp_processor_id());
+>  	vcpu_clear_flag(vcpu, IN_NESTED_EXCEPTION);
+>  
+>  	preempt_enable();
 
-Good catch, thank you!
+I wonder if a marginally better approach is to add an unconditional
+vcpu_load() in the event injection ioctl:
 
-I presume that srcu_module_going() would instead do something like this?
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 5959bbbfa026f..21cd872ea394b 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -2007,7 +2007,7 @@ static int kvm_arm_vcpu_get_events(struct kvm_vcpu *vcpu,
+ static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
+ 				   struct kvm_vcpu_events *events)
+ {
+-	int i;
++	int i, ret;
+ 
+ 	/* check whether the reserved field is zero */
+ 	for (i = 0; i < ARRAY_SIZE(events->reserved); i++)
+@@ -2019,7 +2019,11 @@ static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
+ 		if (events->exception.pad[i])
+ 			return -EINVAL;
+ 
+-	return __kvm_arm_vcpu_set_events(vcpu, events);
++	vcpu_load(vcpu);
++	ret = __kvm_arm_vcpu_set_events(vcpu, events);
++	vcpu_put(vcpu);
++
++	return ret;
+ }
+ 
+ /*
 
-> +         if (!ssp || !within_module((unsigned long)ssp, mod))
-> +                 continue;
+and be done with it, avoiding the fast-path bloating altogether.
+Unless you can spot another path where the vcpu is not loaded, but
+still requires the injection of an exception?
 
-Either way, would you be willing to send a proper patch?
+Thanks,
 
-							Thanx, Paul
+	M.
 
-> __tracepoints_ptrs and __bpf_raw_tp_map are sibling pointer sections
-> with the same exposure; a shared check in find_module_sections()
-> would cover the class, but the SRCU entries are the concrete
-> write-what-where primitive demonstrated here.
-> 
-> This is the second report in this series: the relocation r_offset
-> bounds gap went out as <mod-r-offset-oob-20261113@qq.com> yesterday.
-> Both are cases of the module loader consuming section contents that
-> its ELF validity layer never checked.
-> 
-> ## Reproducer
-> 
-> Carrier is a real xt_mark.ko built from the same tree as the test
-> kernel (vermagic, this_module size, 11 undefined symbols all
-> matching). A section synthesizer appends an 8-byte
-> ___srcu_struct_ptrs entry (0x0000555500000100), fixing shstrtab,
-> e_shnum and e_shoff. Same boot, three steps:
-> 
->   1. load original xt_mark.ko   -> 0
->   2. unload                     -> 0
->   3. load synthesized module    -> the Oops above
-> 
-> The A/B pair, the synthesizer and the reproducer are available on
-> request.
-> 
-> Tested on 7.3.0; kernel/rcu/srcutree.c and the loader path are
-> unchanged in mainline as of 2026-11-14.
-> 
-> Thanks,
-> Guikun Yang
-> 
-> 
+-- 
+Without deviation from the norm, progress is not possible.
