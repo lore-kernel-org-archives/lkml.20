@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845878;
-	b=J2MHuWpVwgskK5ciD+uz/Qja06gpPRYLC6Ib9vq+fTJ8yDpUmDi4WZhA0rV6f1NbJJQr
-	 nhZlWKKgAmCvUsNSNHSuPeE4wjYrI5Y6sjW2sY5wZSSqgoojrIAaYLj4I5YF1DfqERjnS
-	 O+QAfchBqR0IaPh5MO63KRuP+faPNGt1chxXtxnU0fowFgXjlEytEFcbEujsRJVMUkmgw
-	 euihWfPJNqbg11jBVGJgdZwB04/3u4cgQqHY9rwXSVEBtnZy+F+l5WUrEJxiCO68dxdUo
-	 Ja2WmBKFQ2ldML7SmctLmh2smCPNSxpfWLwuzU+fj/e5tVg/BcF29G8feGSnuF7Xg3Q==
+	t=1794845910;
+	b=Nm+Q7Yk9KkrVD5YDJZYmQILT1SKAI7un2IjZCTTS4HTPD5erSAtqzMylj8jqluVwpX2J
+	 FO2pZcGev/D+VsDHLpp/G0nDIZvQsEd6wviaOIMKZtDKemjKBRBc5w4fj51pqYWuqP5RF
+	 3wWLqBxP793vX8+7/T04hKB2irjVoKAn6dIWYVtiDJtnbKwXGhoKaj00NwMFf0Vd8aF3v
+	 x+MXKwynI57K7Yve4fZNi14Y72R2bKQULW68o7gbQqqADLBWbc+jUG9nlJvgUWTlOCcLZ
+	 n/+WZWakjqsomtNnlpWzffAozRt3XLTFSYm2Tp8vLpL5H4UDpXOW2r7BLSyRhpVIy4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845878;
-	h=Received:DKIM-Signature:Date:From:To:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=SfYOB7Ty0pCYb2nC1eyV5BC3WSCxR60P35W/OeXWh3U=;
-	b=4yzekDj9oMoT5dyNpDhwtESES1JQl1Wqu4ov8S2j6MzwHSjOPcVbRY7BviocERhLjaTx
-	 iQuW6sKy74w1isdETuM/8//+aE+Jw/ou743bCJgd9ciWtF8uaPfO7k6WKxbkuTpbL27JP
-	 isksTSLZ7zGtPR8EiEi3pUnBrhTH8jpq9JVgQ3xBjDhoUTG5L4bQ8r9DGbrmldHIgVQQL
-	 oR4S5mVqnesVYRvSEjKJxAfol4E9mWqcx/LEDlX5NfES8gkmsya3dzOHrhzDvit3tSM4a
-	 /z4XL/tOiVnxj4OBvOFC3KQZdcz++4GffYpKGbySOghOYPuSgjPInx6tMtXBLQjJYrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845910;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=hWYRZxhzdGmu3yL2KKK7JeGOrICBHwZgYHCHIPw54NE=;
+	b=Lq5u8mC+19vDr6r//aCy0BI3Wr8f7/5LgM/Jxzn34zSOqJPnLUKgKPIqzbgIcQ+5R873
+	 ej8GJoMov8b68looJYhTWiEZix0s0vQS27A4a9Cn5Ebf3LFCkr9oBSNMtwxKbBjgJD+lp
+	 02V4iXNINgNGme8ixWIMflKLHlJW22DzwzeJDt4hJYXIhlAXwPZCTdLdmDn7qaDWX16aP
+	 hT1Mvzo7prnc5r9e+0TXcyEwOoun+w52AARieOgORvbzHK1ytsHr7c18a47jB9B70dreB
+	 zCdyw/X2odu25K2xefEiJsB5bHh8ZW6doZhUIqjo0xuoagNuSC9MoG82vCaw3eaiYXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8wTJ9qX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LUnH/Z48";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EA58E606A323;
-	Mon, 16 Nov 2026 16:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7012E606A31C;
+	Mon, 16 Nov 2026 16:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8wTJ9qX
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 151021F000C4;
-	Mon, 16 Nov 2026 16:17:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LUnH/Z48
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7FAD1F000C4;
+	Mon, 16 Nov 2026 16:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794845877;
-	bh=SfYOB7Ty0pCYb2nC1eyV5BC3WSCxR60P35W/OeXWh3U=;
-	h=Date:From:To:Subject:References:In-Reply-To;
-	b=k8wTJ9qXMAYMMp8fVdyY3tzE5G50vfQuLllT96f9g52tkvYXnS0wOxGXYjR1YZLfm
-	 wAEBSF8wKSjOfzZqrkXw9Mx6TbsxxLC8gNJum08TR6/dEm9iWReHUzVDWPMFIDEocf
-	 AAgiey7T+49cDMcQ0uYToMOrgrF/wkZPsxYAsGFAdEBKZRCqZaO01/ehK/AxEgITPU
-	 6/qDSQnOwbVBBjsK3Fa60WORGs3Ei5cYvZ+Rfh81ewgPbUJOS5Z+iNJQPblCaVxXWe
-	 149SmnehwEskp749QBDUFVzLKi9JnwQ4Bw283pOeuX3AecK9nUq1PG0pYkmHF2LpxP
-	 876PVCjuGUEvw==
-Date: Mon, 16 Nov 2026 17:15:08 +0100
-From: Nicolas Schier <nsc@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>,
-	=?iso-8859-1?Q?Adri=E1n_Garc=EDa?= Casado <adriangarciacasado42@gmail.com>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kbuild: depmod: fallback to
- /boot/System.map-KERNELRELEASE
-Message-ID: <avssDBUtw0dhlpKT@levanger>
-Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	=?iso-8859-1?Q?Adri=E1n_Garc=EDa?= Casado <adriangarciacasado42@gmail.com>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016111106.221542-1-adriangarciacasado42@gmail.com>
- <20261016-lyrical-original-woodlouse-3cfb2c@l-nschier-aarch64>
- <179392018201.309869.11526061626002654500.b4-reply@b4>
- <aviwMdFX5CpBfB0Y@levanger>
+	s=k20260515; t=1794845910;
+	bh=hWYRZxhzdGmu3yL2KKK7JeGOrICBHwZgYHCHIPw54NE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LUnH/Z48zWPLdQoLRf6pyF4mOCpt5tUjm11Q6Bib3u9mpsZfnB60yeR9iS1Ai20op
+	 x+sSBYVcNTzuvLZI3cKc+voTIXguqaB/EL6PsOmj3cFCP04mugauAf25bqCo3L79lU
+	 xh9EGNJ0jplV8FyuqD2+3fcvBrseeL5He42Z9YBGW163n+LWMCi9c99h6gHyxE/y3m
+	 vTmRahFjuRsejRZM2uvJGhGFUV6ZmBZpkn+BxF4ciml1xP6MARs1Z9Th5r/GpBtw7Q
+	 qcVohxxP6mGqQVCkFv5GcHDF7dTC1YjPrKZc95950oUjNqto+Sk2XmGWSbtzHeo6La
+	 GUZqhfu1384Dg==
+From: Niklas Cassel <cassel@kernel.org>
+To: dlemoal@kernel.org,
+	linux-ide@vger.kernel.org,
+	shao.mingyin@zte.com.cn
+Cc: Niklas Cassel <cassel@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH RESEND 0/5] ata: fix platform driver probe, removal and locking issues
+Date: Mon, 16 Nov 2026 17:18:09 +0100
+Message-ID: <179484577325.2781504.2497197768299979233.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
+References: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,114 +62,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1526; i=cassel@kernel.org; h=from:subject:message-id; bh=m6P+ovuoLnFZojBaYpMmxQknMVxdBrl66jX5PDeKg/k=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLJ+6xyK3ZF1Ib69/YSTobfkm7Z9HO+z3tey1hz8a/7ox Ypy7qXbO0pZGMS4GGTFFFl8f7jsL+52n3Jc8Y4NzBxWJpAhDFycAjCRf2cZGX4VOYrrxz9Z1qbX /u5yZtaSTcvW+p5vUORfW/N14u0+j6MM/8xOP3ozc/uMc5yf416w+Ty/Yn73m8zVV1EXwjrS3O/ OkWcHAA==
+X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aviwMdFX5CpBfB0Y@levanger>
 
-On Sat, Nov 14, 2026 at 08:02:09PM +0100, Nicolas Schier wrote:
-> On Thu, Nov 05, 2026 at 04:09:42PM -0700, Nathan Chancellor wrote:
-> > On 2026-10-16 16:22 +0200, Nicolas Schier wrote:
-> > > On Fri, Oct 16, 2026 at 01:11:06PM +0200, Adrián García Casado wrote:
-> > > > When installing external modules (M=...) against packaged kernel headers
-> > > > such as linux-headers built via 'make bindeb-pkg', ${objtree}/System.map
-> > > > is absent because System.map is located in:
-> > > > /boot/System.map-${KERNELRELEASE}
-> > > > 
-> > > > Currently, scripts/depmod.sh only checks ${objtree}/System.map and skips
-> > > > running depmod with a warning, leaving newly installed out-of-tree
-> > > > modules unindexed in modules.dep.
-> > > > 
-> > > > Fall back to ${INSTALL_MOD_PATH}/boot/System.map-${KERNELRELEASE} when
-> > > > ${objtree}/System.map is not readable so that depmod runs properly
-> > > > during external module installation.
-> > > > 
-> > > > Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
-> > > > ---
-> > > >  scripts/depmod.sh | 13 +++++++++----
-> > > >  1 file changed, 9 insertions(+), 4 deletions(-)
-> > > > 
-> > > > diff --git a/scripts/depmod.sh b/scripts/depmod.sh
-> > > > index 3c34fecac..d6d1b9547 100755
-> > > > --- a/scripts/depmod.sh
-> > > > +++ b/scripts/depmod.sh
-> > > > @@ -12,9 +12,14 @@ KERNELRELEASE=$1
-> > > >  
-> > > >  : ${DEPMOD:=depmod}
-> > > >  
-> > > > -if ! test -r "${objtree}/System.map" ; then
-> > > > -	echo "Warning: modules_install: missing 'System.map' file. Skipping depmod." >&2
-> > > > -	exit 0
-> > > > +system_map="${objtree}/System.map"
-> > > > +if ! test -r "${system_map}" ; then
-> > > > +	if test -r "${INSTALL_MOD_PATH}/boot/System.map-${KERNELRELEASE}" ; then
-> > > > +		system_map="${INSTALL_MOD_PATH}/boot/System.map-${KERNELRELEASE}"
-> > > > +	else
-> > > > +		echo "Warning: modules_install: missing 'System.map' file. Skipping depmod." >&2
-> > > > +		exit 0
-> > > > +	fi
-> > > >  fi
-> > > >  
-> > > >  # legacy behavior: "depmod" in /sbin, no /sbin in PATH
-> > > > @@ -25,7 +30,7 @@ if [ -z $(command -v $DEPMOD) ]; then
-> > > >  	exit 0
-> > > >  fi
-> > > >  
-> > > > -set -- -ae -F "${objtree}/System.map"
-> > > > +set -- -ae -F "${system_map}"
-> > > >  if test -n "$INSTALL_MOD_PATH"; then
-> > > >  	set -- "$@" -b "$INSTALL_MOD_PATH"
-> > > >  fi
-> > > > -- 
-> > > > 2.39.5
-> > > > 
-> > > 
-> > > Thanks for report and patch.
-> > > 
-> > > For the record, this is what I can find in Debian's Linux packages:
-> > > 
-> > > Debian puts a dummy System.map to /lib/modules/$(KERNELVER)/System.map 
-> > > (linux-image-$(KVER)-$(DEBVER)-$(ARCH).deb) and the real System.map is 
-> > > only available in linux-image-$(KVER)-$(DEBVER)-$(ARCH)-dbg package 
-> > > at /usr/lib/debug/lib/modules/$(KVER)-$(ARCH)/System.map.
-> > > 
-> > > So, do we need a valid System.map for out-of-tree modules?
-> > 
-> > Yeah, how does this work for the main Debian packages? Do they just not
-> > expecte modules.dep to be generated for external modules if System.map
-> > is not in a standard location? Or maybe nobody cares?
+On Sat, 14 Nov 2026 02:03:05 +0800, shao.mingyin@zte.com.cn wrote:
+> The ATA platform drivers in this series have independent defects in
+> their probe, removal or locking paths.  They share the same shape:
+> state established in probe is not checked, torn down or serialized
+> consistently.
 > 
-> Supplying '-F ../path/to/System.map -e' to depmod enables checking all
-> installed modules for unresolved symbols.  The in-tree scripts/depmod.sh
-> wrapper script always adds '-e -F ${objtree}/System.map', or fails if
-> System.map is not there (cp. report above).  Debian installs a dummy
-> /boot/System.map-${KVER}, but that will not be used automatically by
-> anything (as far as I can see).
+> Patch 1 fixes recursive locking in the IXP4xx CF PIO callback, which
+> can hang the first data transfer, including IDENTIFY during probe.  Patch 2
+> returns the host activation error from the Buddha probe path instead of
+> reporting a successful bind.  Patch 3 makes the QorIQ and Seattle
+> drivers inherit ahci_platform_ops so that host teardown runs host_stop.
+> Patch 4 stops only the Gemini SATA bridges that started successfully.
+> Patch 5 serializes the controller-wide SGPIO update in the Seattle LED
+> callback.
 > 
-> Thus, AFAIK System.map is required only for checking against unresolved
-> symbols in the just installed kernel modules, whether they are built
-> in-tree or out-of-tree.
-> 
-> > > At a first glance, you patch looks good to me.  But lets way some days 
-> > > for other feedback.
-> > 
-> > I don't have a particular opinion on this patch other than maybe this is
-> > being patched in the wrong place? Perhaps we should be fixing this in
-> > scripts/package/install-extmod-build? scripts/package/PKGBUILD copies
-> > System.map to its external module build folder already.
-> > scripts/package/kernel.spec copies it to /lib/modules/<rel>, not
-> > /lib/modules/<rel>/build. Unifying those in in install-extmod-build
-> > would avoid having to change it here (since /boot/System.map-<rel> seems
-> > like a Debian-ism that we are hard coding here). I trust your judgement
-> > though.
-> 
-> Yeah, I think you're right: we should fix in install-extmod-build and
-> unify the install for all packaging targets by putting System.map to the
-> build directory, as that's where scripts/depmod.sh expects to find it.
-> 
-> I am preparing a patch for that.
+> [...]
 
-https://lore.kernel.org/linux-kbuild/20261116-package-install-system-msp-to-build-dir-v1-1-ec53d3d39146@kernel.org/
+Applied to libata/linux.git (for-7.5), thanks!
 
--- 
-Nicolas
+[1/5] ata: pata_ixp4xx_cf: avoid recursive locking in the PIO callback
+      https://git.kernel.org/libata/linux/c/5149ef22
+[2/5] ata: pata_buddha: propagate host activation errors
+      https://git.kernel.org/libata/linux/c/5849257c
+[3/5] ata: ahci: release QorIQ and Seattle platform resources on removal
+      https://git.kernel.org/libata/linux/c/8d1ddc50
+[4/5] ata: pata_ftide010: stop only successfully started Gemini bridges
+      https://git.kernel.org/libata/linux/c/1c72150a
+[5/5] ata: ahci_seattle: serialize SGPIO register updates
+      https://git.kernel.org/libata/linux/c/e83e9d4d
+
+Kind regards,
+Niklas
