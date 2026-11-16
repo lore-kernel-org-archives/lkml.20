@@ -1,80 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853895;
-	b=xN/GlgWPqlI1hbLtBDi4RYZLBfnRSkcyAaWMQ0FPt6xMb6Q/ghYOhNKqZ5J7NN1OdUvh
-	 RpvxM8b+hFwh61BcKNji2Fg9T/VON3T2JkrlHgmb7bjbbLVMuok42u9VEAf5TwWpIR478
-	 jIm7G3uidbH7a9L85Sa5E3YvS7FR9NrZq1w5LMrBpCvGV5Mq0bpEDkRrsbfBZeuz1I2J/
-	 S1vfhD/JInQYln2DuTV0V1zxKUfE8750zEZBCziPNAY0QU6wiwWAN7o37jZKeMDQ21YhN
-	 clWkiPamJx+D5D01G0TqDebxSWpK3zlmgmTC5fGvHp05mWVnm6FJdkwEjqCo0d9bbTQ==
+	t=1794853898;
+	b=LuG3EDztp1ui2R93TzICmn1sl6horBwTD+51KaEQ4EqolouwvrZue4QPLbzliGpEg2nQ
+	 zF7fb7MutzSLlYQIncbqKmNPGikZqWZTdLtaBOeoNRVJ9FeQy7gYhiSu+zRSSSmeV8kUo
+	 Ey1+aw+FeWQKdG6LpM7+HDTcT4LeP6WT38gvioGoKP5yN6uW9YVd4vjAN/aCfwQAJWb4T
+	 8WKlipTIVrIibQjBECNQFdksdRnTHY3TFZiCxD+9UPuxwmAqdIhkW8mpyCejXlSq4KvvA
+	 wrqxZFYapCYlTMC1pM1z1CidROd/Lxjf/IV1D2WuxfEBC85DQemxeIM25+KViOv8yFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853895;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XJUTX/oG3xFE1N53/inUBACgrxQmH1VhG5mRIeJMkCA=;
-	b=DOKC1Pf53uaCFL/7DVvqRnBRHtpRRTU6z+VwPE7f6UvyZVABreUpsXFqTtXorNIxGK67
-	 WnXiXyDtn3QRanqw05Qynv5qXPoGrfuftHFEThJjbDXWL/jVMNgz1SUhoqH3O1Tfw2Ziw
-	 rMrs6fTZoTh8+BOmQ6HLJElQF3pwv7ePPoC9muLkTuFAPDarpuwXqpz3rFpzY9ycrEG4F
-	 xbm6JqAc29n7+6J5YmzyCwKuo3pzCqiRWAVyDiyybg57blRwL1GChBPrddNljHE1nKmoK
-	 VqIIyxjzrqRtsIenQvr+V/upwyo6U3jiACtgz8vEaKKLU0Wp7/w/w/6k3IHL9dZrkLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3FVCd29/nY5upknxk8YUhTBqkzrzJTvA+JWUTuAvzHY=;
+	b=3o3+xyyH8VmeK4OaqpD9lvPd4GY+7CDRKdFYmBaHfrz4Xs36V2xIhYQd1h8VUK5ZqqQA
+	 GNrRPTekarEPzU5tNcatGsyU/wU++AJqiRy7LgSNGmOPnKLgcocHucLoly4wqpqH3DdyC
+	 dYimJJW9o36nMcrDMLILs61qStkqIHruOQ7I3pkCc9KOe5rMs4Y2c/w07MT3rD4aKgM6F
+	 8x+dST5Ha5Hwto9xiIIlZzlG39SCmZZq5QMx7xrQMgmQmT9vBnvTCH3QBzAqCqcbtp8jl
+	 kmqvRNIBLJgW2tfbehLrDCuYUgueINdadfp0KVmMb/4o1lMMBqg/vBb9kTWtMF777cA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvQ8bF80;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=VYA41JHK;
+	arc=none smtp.remote-ip=209.85.217.49
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E44606A31C;
-	Mon, 16 Nov 2026 18:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED57606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:31:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ED57606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvQ8bF80
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5451F000C4;
-	Mon, 16 Nov 2026 18:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794853894;
-	bh=XJUTX/oG3xFE1N53/inUBACgrxQmH1VhG5mRIeJMkCA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YvQ8bF808RG4sXE5szH3DD7gpS+TlFCTXaX0vgrRZrdjqyhOnJo8pwDfaE3fyjFWK
-	 LAtMA0HvOeCESP193MmryXsuJFOlr176GZLcshKu2Zeiy4AXD+IRSEGlVvD93d/XbL
-	 noirZBbzEwlqSdCKe2HsbLZaX3gVjl8GsoMYefSL6ugEC2HTr+wrFwCAVsUrZz/+/s
-	 ijqQlbkwFPF+IvGTExOWIpB9J2v6ZBOLME/yfL7eeNtxdUHg1JKQzUxJGieyT4KlS5
-	 qBY9zfBP2tlR5U+F/UR2N2y6GCvTbiT2EUDIPLdW1XoTpWtSjsjuhYhH9tn3VENOlK
-	 acIc4NSXc72tQ==
-Date: Mon, 16 Nov 2026 18:31:26 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Guo Ren <guoren@kernel.org>
-Cc: gaohan@iscas.ac.cn, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org,
-	linux-csky@vger.kernel.org, linux-sunxi@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 01/19] riscv: sunxi: describe the wider Allwinner SoC
- family
-Message-ID: <20261116-myth-sponge-9a8cb0627b65@spud>
-References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
- <20261114-v861-v1-1-eb71ec3ee523@iscas.ac.cn>
- <CAJF2gTTF0b-dkLdznGzwYZmC6rP6GozX1j0Rre5t-aw6i5uDvg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=VYA41JHK
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-745497ac8fcso1100927137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 10:31:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1794853897; x=1795458697; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3FVCd29/nY5upknxk8YUhTBqkzrzJTvA+JWUTuAvzHY=;
+        b=VYA41JHK1/7uyVYIWyme84bwPY5CiM4AjtFVKvc6/mhR32E9yGr51bV7oUZBtJrMdF
+         Zi3TlXmqaos/rleDr5duscLUrFdWoaLCx/o8dBvUCl3rtAuwbpmNjm2azJhP32mekoxt
+         w8HJsU0YRR5V1TLIhgR/zwsdyOgDZ3uDu94dlJ7sg7mD8mqNTswNGs5Iky0vHpAs1sZf
+         wquduviertQoPKkEVOAndEWLrXdSEfkyTJTAcRUiw/M9L7qCWNuhctDx9zHlqa9EmwOz
+         t9cTrLSLaX/UHxSZAHfjXN9BvmwjMWJ5kYSzjdhiesfe3Jy5TptkQNh5NCp4Y4z5LRwO
+         ZjAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794853897; x=1795458697;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3FVCd29/nY5upknxk8YUhTBqkzrzJTvA+JWUTuAvzHY=;
+        b=rJ/LQzOIOuygAtlNYJNhLlE0EBQrsxwHX8kOSEOtyif3TSEdflZM1t3Oxuh9x+btfm
+         eU148ZV4S/GaCMdilAX6bm8w36V3No62QTgkDI/cOGGto5slek78o3ewpjJ61BsIq4rI
+         kFO+PmIhSN7zUTBcsa/cbtxmMZYW/ysR+7aVMTk2wg8KUPeaEITWRxlarT7vZKhGMAdb
+         ay0XMDBAvq3VgduLt+LC6dgICPgPp0SLwibZg+K/xiWX1SaUCaE9o2srO1Hk0iZ4cKpf
+         bADvFqdPgOT0qkxUZ3i74R/oKX07kv/T1LENUGAM+V31j/XRDkJOvNKtM0pauoaSsB1J
+         gnkg==
+X-Forwarded-Encrypted: i=1; AL+hErFBtFojGvM+adjoS5e//wF/kDnazOnPYHR8gycn1orPwXxvde+SxJ7s2qItPBqu15DJuhSewlIXhnBHt3o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Sqpiwac2dvGzG6mAwcYQfRSZZ3WFsFRD0LO3ORiB+mwPfLW25
+	IvV13/TZGFa0I+PBh2nT2JDIGRPOaZ18G2uASjmt6lJYhkjYyHkL6Q41HJ18FcN0Hg==
+X-Gm-Gg: AYBFou04nX+ZkXjuwZpbJhmnR/Iu8RJT9MQW80li3z2QJ02qplMcsbEKsLmez4BfJ6w
+	iPtBLp+pzQ7+FFeXrGNUzsMWd5zP2nmiy7lnFBeK3Btdqp+D6p9xjTvpc/gPfS8F///sxImqLSO
+	sIfQVXO+BMiYAdgQdZHP1rQrA62r2kuhtr+Syk5DTnsHXq++4kXduDaBby7GKdaVIPEcRWu+zAj
+	hF9zAQWCyI60R8k8GJI/MxdD9zBnCh0WqQh6AkeauFcajc3Zl6LfIJYvtD78MCUk03eDZRI9vn/
+	PD6m92jITcA07d7EuMMkqBVxyaZUUq+XO7C52R8c/RNbkRZt3wqZYJKJ/uPR8fXvSJ0TdY5GtsT
+	brCMfzslIIwOoDuPlMOWTaoxAC3UAprZw5Ys1mhKQGq4O2I3v6CwvUmly0CDS+ryNBRZBw0GUtg
+	/2aLE1Zm+n0PC066bkooMhJLFJ2xsKst5hIExoKV+W+d1fL2+A5WEifu3TH8bij0xk2QnGxz5eG
+	cef9D50atTofbVn2yo/8mByKE/BLQ5rY0pFk9Pp07KvIE9jljGVaCcpNwkBzhBKTuyF8tKv2wzJ
+	aXyUb9MoGZ02LDUHW0dLDVJgBq4PeG60SKVdpBOze1xoJ+cdLxQ=
+X-Received: by 2002:a05:6102:2c82:b0:7cc:2152:4f79 with SMTP id ada2fe7eead31-7d64d75729emr3525895137.16.1794853897067;
+        Mon, 16 Nov 2026 10:31:37 -0800 (PST)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d702b8sm91768246d6.23.2026.11.16.10.31.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 10:31:36 -0800 (PST)
+Date: Mon, 16 Nov 2026 13:31:34 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: "William A. Kennington III" <william@wkennington.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] usb: ehci: skip companion handoff when no companion
+ exists
+Message-ID: <a222ec80-0865-4624-9c3e-3811a93e8750@rowland.harvard.edu>
+References: <20261116063104.1018358-1-william@wkennington.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,80 +98,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1w7qvO7R9koz6ld3"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAJF2gTTF0b-dkLdznGzwYZmC6rP6GozX1j0Rre5t-aw6i5uDvg@mail.gmail.com>
+In-Reply-To: <20261116063104.1018358-1-william@wkennington.com>
 
---1w7qvO7R9koz6ld3
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, Nov 16, 2026 at 06:31:04AM +0000, William A. Kennington III wrote:
+> EHCI controllers without an integrated root-hub transaction translator
+> unconditionally set PORT_OWNER whenever a root port sees low-speed line
+> state before reset, finishes reset without enabling High-Speed mode, or
+> is relinquished by usbcore after enumeration fails. When no companion
+> controller is present or enabled, setting PORT_OWNER routes the port
+> away from EHCI to a nonexistent or disabled controller. A single missed
+> High-Speed chirp or transient D+/D- bounce during reset then strands
+> downstream USB 2.0 hubs until EHCI is rebound, and connecting a USB 1.1
+> device leaves the port dead to later USB 2.0 devices.
+> 
+> Check during ehci_setup() whether the root hub has an integrated
+> transaction translator (ehci_is_TDI()), HCSPARAMS reports zero
+> companions (HCS_N_CC == 0), both CONFIG_USB_OHCI_HCD and
+> CONFIG_USB_UHCI_HCD are disabled in Kconfig (such as in
+> aspeed_g4_defconfig, aspeed_g5_defconfig, and BMC builds without UHCI
+> or OHCI), or a Device Tree companion phandle points to a disabled node.
+> Runtime companion binding is intentionally not checked at setup time so
+> modular or later-probing companion drivers still receive handoffs.
+> 
+> When no companion is available, set ehci->no_companion so the handoff
+> and companion sysfs paths check a single flag, keeping port ownership
+> on EHCI when no companion exists. USB 1.1 full- and low-speed devices
+> still cannot enumerate without an integrated TT or companion controller
+> and will fail usbcore's normal reset retries instead of triggering a
+> PORT_OWNER handoff.
+> 
+> Signed-off-by: William A. Kennington III <william@wkennington.com>
+> ---
+> Changes in v2:
+> - Fold ehci_is_TDI() and its comment into ehci_has_companion() so all
+>   handoff and sysfs sites check ehci->no_companion alone (Michal Pecio).
+> - Drop Alan Stern's v1 Acked-by due to the refactored check.
+> - Link to v1: https://lore.kernel.org/linux-usb/20261114051653.1353346-1-william@wkennington.com/
 
-On Sat, Nov 14, 2026 at 09:13:49PM +0800, Guo Ren wrote:
-> On Sat, Nov 14, 2026 at 6:33=E2=80=AFAM Han Gao via B4 Relay
-> <devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
-> >
-> > From: Han Gao <gaohan@iscas.ac.cn>
-> >
-> > ARCH_SUNXI is about to cover the V861 as well. Update its prompt and
-> > help text instead of adding another option.
-> >
-> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > ---
-> >  arch/riscv/Kconfig.socs | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-> > index cecbce0c4983..4cf3b24467e8 100644
-> > --- a/arch/riscv/Kconfig.socs
-> > +++ b/arch/riscv/Kconfig.socs
-> > @@ -61,13 +61,13 @@ config SOC_STARFIVE
-> >           This enables support for StarFive SoC platform hardware.
-> >
-> >  config ARCH_SUNXI
-> > -       bool "Allwinner sun20i SoCs"
-> > +       bool "Allwinner SoCs"
-> >         depends on MMU
-> >         select ERRATA_THEAD
-> >         select SUN4I_TIMER
-> >         help
-> > -         This enables support for Allwinner sun20i platform hardware,
-> > -         including boards based on the D1 and D1s SoCs.
-> > +         This enables support for Allwinner SoC platform hardware,
-> > +         including boards based on the D1, D1s and V861 SoCs.
-> Perhaps we could keep the help text generic and omit the specific SoC
-> models, so it won't need updating whenever support for another
-> Allwinner SoC is added:
-> This enables support for Allwinner SoC platform hardware.
-
-Actually yea, you're right. There is apparently an allwinner device with
-an andes cpu on the way too, so there will be growth.
-
->=20
-> >
-> >  config ARCH_TENSTORRENT
-> >         bool "Tenstorrent SoCs"
-> >
-> > --
-> > 2.55.0
-> >
-> >
->=20
->=20
-> --=20
-> Best Regards
->  Guo Ren
-
---1w7qvO7R9koz6ld3
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtL/gAKCRB4tDGHoIJi
-0pIhAP4uFWaULc3q4nslu9XRgPV6TBBGg02sy+5Omy1R8F0pfQD/ScwUGiv/JuIQ
-T4rHBR3hRAetz2ZNVtK27eqE8dA66wQ=
-=0dEM
------END PGP SIGNATURE-----
-
---1w7qvO7R9koz6ld3--
+Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
