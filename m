@@ -1,49 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853831;
-	b=dL5a09tPWPwT1f+GSUoRpyGafTJcSr6hUPIu4ClzDFE0hLUxppc1pgAXo9kRlqAIU1/p
-	 t4IYZmqhmftQ5V2dSO4pki9iZdubgX7bb0l1MJVkiagU3ZbIAu6V0025NXcYrUpSf+l81
-	 2jwCiJ/3G+SLN5cRV8Cgk9i4TNOmIV/C7JHx5CXt/5LeVvAr9+/f2TyVMweiATr9nN5wa
-	 53gstuy+ztw4NXFLo6EEt2+jweexMk2rq9hSHJylBefwABBtb3lQhVVR296AODgYqlWRs
-	 gNUkmkvqstbGh9vpdWOjxcmdOnQpkcSBplxU6dJykrNtbx0cfqb0kWsc1ptnY+RSNMA==
+	t=1794853838;
+	b=q1rx7548RZUoFsoti703js8RTCDX1WIng0IjThQsmpmP6RqN0hD3H5j+WOL+SOwY7EdC
+	 fUz6y1ndc+Ur6PTziHsttTsBcRPr4jzsZGq7ZG77X/ETQBdbA9Lf8xQFInky4F5HIjrox
+	 jF9MTlHlhXtoZb1kpkr//TYrxn26YQDt3iofX9ADJUZGqoKstczZCEJtMSOfODbErY218
+	 RuwESB4vTyvZmGppu5o5usteACEok09myf3HhoqSXEwh0h60WuXUbRwMbvuETap456+Yv
+	 jT3+NR1l6Atj7oveJs+EQU0dGgLEjulzrYOB/QT1s8HBVD3UtiDT4rU40Ddho1m0k0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853831;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MAbycF0/+XNvdgeJe8qDtyiq8qtlOjB5ajoOuaStxBM=;
-	b=bOWmOC/d1T87MdSOqvFkczkdwMAqPF0rnNDsDjS9yA0gLAl3EhsrUR07uRS9Xht1+Fue
-	 XgL+6+QQ907XCgS7ceZqFLgfzYIMKWV+A9157X37mw6G5rvM/xxHC2+CahlSlToOJe22U
-	 VX+rTSgMCOeQPAkrgr+ZQycJD0nYTWPAG+Uzt0INvkESlqCa7hnNO0/lHOuapjAQ1bRPY
-	 lqWQXSDMVYVDxojDadhNRWmNuTZycph7ymps1m6YSTRzX2cldjdcLklFUUGEAetgxnfOq
-	 Qkbi+DAF/ZOv0XAAhwcDEPJ02f3jtI/pZUA3YdIEGGzlxyEU6nnd4pSUR5f9lf1WlHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853838;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fq8UNJdybhSyeB6z80ooizYYo9twY2GQIUpJeSeo6z0=;
+	b=UxtXWn4fj2v4MMSDJVSW4deP00DTLcQiffuMnNJl7aNFhQpSYHtIUi2/Gn07vkLFJqLz
+	 hp9ccFMxABAfXGk62y/i6PuRkjIyCPs0WD8FFZevF72cCD9VM73vp+NTglc0jCevh/Xhq
+	 Vco3n5/JseEgKa2FZbXc4HNAAjpQOWFy5dorYP55jtdKS2CouqXKUFNNyK+LjLt+jytXL
+	 FtrYalV6SmDoKP8h0Gpl7DTCJE5yGsNuCaaJANz5gCS0VnVneneCpdTRZNtVX/B1KVV2X
+	 CsxqALEy00EBVCUNQ/QbOvU637axzZxLttjP6Wl1+FIOuj7UXGKV4dt5XOruhJCQYdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ao0kEzZi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AvHSX4j3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DB1606A31C;
-	Mon, 16 Nov 2026 18:30:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEB2606A322;
+	Mon, 16 Nov 2026 18:30:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ao0kEzZi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99E21F000CA;
-	Mon, 16 Nov 2026 18:30:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AvHSX4j3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C6E1F000CF;
+	Mon, 16 Nov 2026 18:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794853831;
-	bh=MAbycF0/+XNvdgeJe8qDtyiq8qtlOjB5ajoOuaStxBM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ao0kEzZi0S4R/6HFc6vYp6H66hH146HshELvMNuBfW3wDR4Xmqa14Du85e8ZFtYdo
-	 hvuqCh0o6GCANSyjeuo2+hv/FO5YxSQmPhJXy7Sq4EVSLs0fdJ2zaQ3Y3ok28eINhb
-	 ZNgdfN6vjxHRgYTaCkCO8n5Y7k9jBnWYEToOxRaiByQpzmxn8d+wb3O+H0YlD3/uGg
-	 YJ8uSV59VdqufDfbYEgO58HCx+atM6cK6mxldpSD2scA4lq5x2X8L2Anvg4SOj2TKN
-	 b4AClfHx6Gj0WMRgdJbDKPpjiUm+WlgvpqH9Mhaod2pkQ7Zuo7EzBgtKcaq7qxHvNp
-	 BLv60SWdKwK9w==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 16 Nov 2026 19:29:26 +0100
-Subject: [PATCH v2 05/15] mm/hugetlb: keep surplus folios when the pool
- shrinks
+	s=k20260515; t=1794853838;
+	bh=fq8UNJdybhSyeB6z80ooizYYo9twY2GQIUpJeSeo6z0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AvHSX4j3wHDmokZU9UmVXmHC/fH1020VEVVpL9WtM3yt1ZLgWvlTQLWLh25a5F+wF
+	 p3oUOOczaaWxcUzN7gYP1fNxtgc0+ZXdREZYeVZQAopYSK2pbI9yKNwIy6otK7H24J
+	 edE2Xz/uQA0j+T6dxpSSGiE9qsXFnmRP/q3P1fzcbc0L8m9Dz+e7vwYIoT+3vWEI75
+	 brLsfzg+hCziVtYBEbAyuBUijC55x32ZmaI6mDyvQrTnuiKvIkWR/+6x+24GYN0Nit
+	 oAqvU02x6x22NLIUjcEEpldo08azcX3NHrALt5Mum6cq3oTlGfnrrZmafSe3n2a2cl
+	 YerqN1Mu0CFZg==
+Date: Mon, 16 Nov 2026 18:30:30 +0000
+From: Conor Dooley <conor@kernel.org>
+To: gaohan@iscas.ac.cn
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org,
+	linux-csky@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 01/19] riscv: sunxi: describe the wider Allwinner SoC
+ family
+Message-ID: <20261116-trekker-dropper-f5a3f7cd7387@spud>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-1-eb71ec3ee523@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,128 +82,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-fixes_hugetlb-v2-5-4dd9e94ea9ac@kernel.org>
-References: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
-In-Reply-To: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
- Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
- Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, stable@kernel.org, 
- "Gregory Price (Meta)" <gourry@gourry.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3099; i=david@kernel.org;
- h=from:subject:message-id; bh=p2A2APQ/0/VopuKu/gGhIyLBtoUy7qw63EWyI85Mq8Y=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJ+e3fcFpl3cplx2jfuP8529fZ9dkEu3IVJznEs07ueX
- Yg/4SzUUcrCIMbBICumyBIUfN/g5ct1tdVufMwwc1iZQIYwcHEKwEQmvWH4n9FZeSPt1btNe/fd
- Wbv1anHLI+nl7ZvzCxlkQhYI/yy7HsTI8MJgrX2xw8/k1L8uHEFK85kduT4fd7/DViXUfO2y/pd
- DnAA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zLmNtJsl6PDzM1aQ"
+Content-Disposition: inline
+In-Reply-To: <20261114-v861-v1-1-eb71ec3ee523@iscas.ac.cn>
 
-From: Josef Bacik <josef@toxicpanda.com>
+--zLmNtJsl6PDzM1aQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Surplus folios are accounted per node. When shrinking the pool,
-set_max_huge_pages() removes free folios through
-remove_pool_hugetlb_folio() and accounts them as persistent folios.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-It can select a node whose folios are all surplus and leave its surplus
-count larger than its total count. Free surplus folios can back
-reservations created by gather_surplus_pages().
 
-For example, with nr_overcommit_hugepages = 8 on two nodes:
+--zLmNtJsl6PDzM1aQ
+Content-Type: application/pgp-signature; name=signature.asc
 
-  (node columns show total/free/surplus)
+-----BEGIN PGP SIGNATURE-----
 
-                                      total free surp   node0   node1
-  mmap() of one page, bound to node 0     1    1    1   1 1 1   0 0 0
-  node1/nr_hugepages = 7                  8    8    1   1 1 1   7 7 0
-  nr_hugepages = 6                        7    7    1   0 0 1   7 7 0
-  munmap()                                7    7    1   0 0 1   7 7 0
-  nr_hugepages = 0                        1    1    1   0 0 1   1 1 0
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtLxQAKCRB4tDGHoIJi
+0l6qAP9H2PZxrdM3PXC0VQDqNZHcObimsehrN1DJV6Ri5MeH5wEA4MvfzsTXAJvt
+qyg5wYSgjZRDoS3t6HW/HGfIGKx1BgA=
+=jF6F
+-----END PGP SIGNATURE-----
 
-After shrinking to six persistent folios, node 0 has no folios but its
-surplus count is still one. Releasing the reservation cannot clear that
-count, and shrinking the pool to zero leaves one free page on node 1.
-
-A later write to node0/nr_hugepages underflows the unsigned per-node
-persistent count: 0 - 1, resulting in allocation of many folios.
-
-Use persistent_huge_pages_node() to skip nodes with no persistent folios,
-as adjust_pool_surplus() does. This also excludes temporary folios.
-
-Fixes: e4e574b767ba ("hugetlb: Try to grow hugetlb pool for MAP_SHARED mappings")
-Cc: stable@kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: cleanup code and description ]
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/hugetlb.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index d7c71025d166b..3ffd87eb9e45f 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1959,17 +1959,25 @@ static struct folio *remove_pool_hugetlb_folio(struct hstate *h,
- 
- 	lockdep_assert_held(&hugetlb_lock);
- 	for_each_node_mask_to_free(h, nr_nodes, node, nodes_allowed) {
-+		if (list_empty(&h->hugepage_freelists[node]))
-+			continue;
-+
- 		/*
- 		 * If we're returning unused surplus pages, only examine
--		 * nodes with surplus pages.
-+		 * nodes with surplus pages. If we're shrinking the pool, only
-+		 * examine nodes with persistent folios.
- 		 */
--		if ((!acct_surplus || h->surplus_huge_pages_node[node]) &&
--		    !list_empty(&h->hugepage_freelists[node])) {
--			folio = list_entry(h->hugepage_freelists[node].next,
--					  struct folio, lru);
--			remove_hugetlb_folio(h, folio, acct_surplus);
--			break;
-+		if (acct_surplus) {
-+			if (!h->surplus_huge_pages_node[node])
-+				continue;
-+		} else if (!persistent_huge_pages_node(h, node)) {
-+			continue;
- 		}
-+
-+		folio = list_first_entry(&h->hugepage_freelists[node],
-+					 struct folio, lru);
-+		remove_hugetlb_folio(h, folio, acct_surplus);
-+		break;
- 	}
- 
- 	return folio;
-
--- 
-2.56.1
-
+--zLmNtJsl6PDzM1aQ--
