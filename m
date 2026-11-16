@@ -1,67 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853985;
-	b=DEmKzuhjSdWnvvH4joE4XBvLH7g9FU124gAMJcoPGk/61EDp6O62LoUaggdOYGHUvtO3
-	 8xnrx4W9jRbmY9bjUFySxdW5lTGXoE4tgNLGmbZgps8Z3nQ6mUCd+uwEfoayr5zGoUEL4
-	 nU1lYgiSxvvS2aTJzhbEny2OZZjkTuU6UyXcj0rRrVrMMs0RFi9viqhaRnlQ6fFufCCxt
-	 vMBj676xWlLN8w3IfiOei9IoA9B4mUeTQ0vWAFFFDPIf5jH0PrfHtkwW8F84n6ZzYZqDK
-	 iFR5BNoN3tUV4XG/yFhFjftlAGS2FYwzBcLBAJ077BQsM/bFAUd3VVrAU7IuZpW64dg==
+	t=1794853986;
+	b=Hw/lRNeOvJarHvvHbJxvyXsuh1Hw+QBpirerrSodzc2653YdiImBgfMwcEcsVLthYOn3
+	 vbcvjmCdR++onM3O/SAexQ+p9s9/VIjSjluSGgqGQL/ybYaDp4JJHawy5utpjQIv5M84D
+	 GkrCfZiNA9Jx1U1On/SuFha5jPjAJgOzIVWQjIHcjn6mjdcyQv8f2oHgcG5mCyqrkXt1V
+	 XQCKcY9HPQC9uRBRC4Ehmkn+1GIHJm88ENnW04d+sH2NYt3FXKhTiMggsF0teVNSAPabC
+	 6Gv2VY7w1G9ilJTr78+dDaxicRc81QYC7dtqnVpnnP9ysl5OZmngyrsGflGS9vU9GXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853985;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=pLbSnLN6/1576pxJwaqXyR5opWYY3qz9oGloy9SS1q0=;
-	b=N4uA1IUIUm0cOYxoNq0UIbA8CnNYNk3wCfADjfLyCALJTBAxTmU4NnoWhSAnHCU//8S4
-	 Mf+HlAlTgWE916Ds6WS0vH38LXz9u6X/Eg2iVSTEKqksmyQmlh46NB25LCOTiX8YuuTXW
-	 gONCCI85O1JZ+uj4HQ62nPTMAGueDiGszEL+ecRgVwBjpl+M9IZEtQUGhrOmSMtA0jd2P
-	 WMI7COR9LAFtqCr3AV0D9tA3ZhqmaGftFC5NsRXnlC/bJU+4pu2ZyvV/L6S/Fbr+gdvxd
-	 OtmsJsynCg3JShm7nwJLq2BEstNhHtIYvTTlf+OOVb2jisoff5Sm5QZDjd/xCm0asdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853986;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=W4DMrdgsLAUvBBrAedtVh2X2nrPi8BxrDXtCs7P+IMI=;
+	b=gf1oUHkq5w8BS9BnAgmTqrovKKaUIXrE9dZed3+XCDq7UkzNefXGLi4L32btzTOknkF5
+	 zGDFpVq/al+yiIXR/urAW9eoNNKd+SqnGg3jnFueN46dLVpkK5alQvRN/A5bX+pW/ebk7
+	 l3d4nu1H3xgzNkkPSkvn8gzK+20xRi8ssP0N5GyiHLXvz7vUtjAPhSwBcgS/AdlY9FwKC
+	 axhqHVY1ioP6WrzMjCNcx8hoKdA2NrWLsZ+VJzR83EJF3rp20fDaclySjPoaW94WDrUNX
+	 wc4VaI2mw5pghA1lWedgXSxd1fP7yfVXEndvlOW7OOCekzZpEBuvwmp6O8lh1WECiqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=W5OzgRlU;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaluPPtm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A982606A31C;
-	Mon, 16 Nov 2026 18:33:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A982606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E29606A330;
+	Mon, 16 Nov 2026 18:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=W5OzgRlU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=pLbSnLN6/1576pxJwaqXyR5opWYY3qz9oGloy9SS1q0=; b=W5OzgRlUb1W/Hy9/J3QxAUN0Ix
-	FTvWd6w8rA4xJKPDV7q7tiHeFGhHmexLSo+OyjFj+fh7gaCCXiuokLsz2R9isWIjyZZ4y67Pr04Og
-	6B9jZi5gQ2KtsPdY9Vs4WFs1bKrkf7/kASFGwwxDSYlmewoFW3DE+IqoHoPRvee6SZtpfIlgwuo2B
-	Ie39YEw5gIBSjAvy7MJChKRJGId29KvnUavjpV3rl+rjHB6J8rSjb7SuZfj6FywiUYPzGHDIiucyI
-	ixzkPp1rhsFMu1IVDCUxpW1fxBcZPe1X4u172PyuYoc5CqoOguLD9naFLThZ3cBaW+vA9IzgqlLvU
-	+mYDz+Jg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Arun Iyengar <aiyengar1990@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Hans Verkuil <hverkuil@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Alex Bee <knaerzche@gmail.com>
-Subject:
- Re: [PATCH v2 3/3] arm64: dts: rockchip: Add IEP2 deinterlacer to RK3588
-Date: Mon, 16 Nov 2026 19:32:49 +0100
-Message-ID: <yRxnTArhQFiS4u_tncJj-g@sntech.de>
-In-Reply-To: <20261116-luminous-heavenly-guan-b20f2e@quoll>
-References:
- <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
- <20261115-iep2-v2-3-3d8798cd9a55@gmail.com>
- <20261116-luminous-heavenly-guan-b20f2e@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaluPPtm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16001F000CC;
+	Mon, 16 Nov 2026 18:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794853986;
+	bh=W4DMrdgsLAUvBBrAedtVh2X2nrPi8BxrDXtCs7P+IMI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WaluPPtmVQajcvp3iSn8n4nUrBdnmzjvcL8SQtCk/wc4+cJVkEcnzLmkx0S1GIB8n
+	 lTRfAEGpyhFjU4JMR6szToKlZxCFEdwOGLEDX2rxrQTq1rDBEt1SVAH5t+KuWrgO4P
+	 SqWI39DsGszLHHoHQRQGo9qVoX9DM1YyYJEGs+rO4aPdze0yoHYmIhv+84jh4DimRg
+	 oP48j2zl9gB3+kCyygIxdyd2P/ytRyTCUJOiLAeHn6cjZDwW/LsahzNz7CALmz+5Tl
+	 Y2Bo3LxPi1sPEjllqdCBWIfviaqNkSjKpXc8pMXzZUemcpTEn1L93wEom2dMTp/7y5
+	 m5zlvuwouxfRA==
+Date: Mon, 16 Nov 2026 18:32:57 +0000
+From: Conor Dooley <conor@kernel.org>
+To: gaohan@iscas.ac.cn
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org,
+	linux-csky@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 17/19] dt-bindings: riscv: sunxi: add the YuzukiHD Avaota
+ F2
+Message-ID: <20261116-coerce-abroad-f6a0d972e7d6@spud>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-17-eb71ec3ee523@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,53 +82,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eAu7+tg1zQRG6YLP"
+Content-Disposition: inline
+In-Reply-To: <20261114-v861-v1-17-eb71ec3ee523@iscas.ac.cn>
 
-Am Montag, 16. November 2026, 13:35:28 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Krzysztof Kozlowski:
-> On Sun, Nov 15, 2026 at 08:47:44AM +0000, Arun Iyengar wrote:
-> > Add the IEP2 deinterlacer and its IOMMU to the RK3588 base dtsi. Both
-> > share GIC SPI 117 and sit in the VDPU power domain.
-> >=20
-> > Addresses, clocks, resets and the interrupt are taken from the Rockchip
-> > BSP rk3588s.dtsi (develop-6.1).
-> >=20
-> > Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 22 +++++++++++++++++++=
-+++
-> >  1 file changed, 22 insertions(+)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64=
-/boot/dts/rockchip/rk3588-base.dtsi
-> > index aa69fd3793fd..5297519bd251 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> > @@ -1397,6 +1397,28 @@ vepu121_3_mmu: iommu@fdbac800 {
-> >  		#iommu-cells =3D <0>;
-> >  	};
-> > =20
-> > +	iep: deinterlace@fdbb0000 {
->=20
-> Why all these are outside soc node? That's more of a question to
-> existing code...
+--eAu7+tg1zQRG6YLP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Many years back, during the RK3288 addition I got the comment from the
-arm-soc maintainer to drop the soc node [0]:
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-"[...] this isn't how we tend to do it any more (unless all devices
-are physically on a bus, but then it should probably be named something else
-than 'soc')."
+--eAu7+tg1zQRG6YLP
+Content-Type: application/pgp-signature; name=signature.asc
 
-So since then we didn't have soc nodes. Except in time for the RK3576, the
-tune has changed, so socs from then on have a soc node again ;-) .
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtMWQAKCRB4tDGHoIJi
+0kqjAP46j2mw4L3q+jkKbSPU8KSsnHg0/9HtMnl3SxjhCkKDjQD/Zz+2au8n8mQC
+VWw54ziAbcJSElKAfoNDn+1Tq0vebgc=
+=7x1B
+-----END PGP SIGNATURE-----
 
-Heiko
-
-
-[0] https://lists.infradead.org/pipermail/linux-arm-kernel/2014-July/272779=
-=2Ehtml
-
-
+--eAu7+tg1zQRG6YLP--
