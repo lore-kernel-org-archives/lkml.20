@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794869453;
-	b=20XVZw04IGyOq6h3g5w5l1U4wWWJ5VhwH+KO8pCGGIbbO9xJdwPPVktismPcpXYy5fRw
-	 qnZoYiN7mhtu+D+Pi2fr9nWNFLf8O31TrJrQm7YqAf7Kqz1LlWNa+65HOJ7Vmp7JsWIiG
-	 L1JTn/tWhmKPqv5VVbZFm3E/6vaLngUEKYYEEFa+33joLnJbt/6JQTN760FNwQdunq6Z+
-	 MDi5l/OZn7+Ety7mhfX0Q3gg3NPdonEeOj+ru+STTUCpe0yqPYs6xz5x/WigUotJhNvlF
-	 xO7+Q0I5Ads+cAplPgC6dLG8a6Fwfx+4sKuWwMO8hcxjJ6p3N2QTb3iF0H/jO/8OIjA==
+	t=1794869454;
+	b=vt+4r+4u4cg+uv4rOhYa9S749f/D8ATLycdxIpjo78WQwebnnLXlR0wT7o+vJQ/2P1tr
+	 ouILo4jbDCRlufhBqpZub3UFep7SfnXnkliHOOQEXmqIDLHhjWOislhMg6q58RrFHsjgp
+	 g1nK214xycShbhp1XFyS7Pi3MctU3OTGabzqgaNu6l+y4wYRBui2TcsbFCHMTN4rz6lRA
+	 7laXOU+4WNynJBjl88mKhf6aPP3a2JPj7T9qTNa+FpCjv74Fc9s1ICiiFZLD5Z3TFc9PP
+	 XXY3NmLSgU78KO1y0cSCV1WriQLVN9ZChs53vR6tcmPWKaRqY5SgVCXpC3GqTcADisw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794869453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794869454;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=+RtW+LO16tzYVoM2ZlYDJzm7Z5KIRm9zqctqyxQAcRQ=;
-	b=okVewySNzlaIlymWe6GK+hU3S9T3NV8h7rSGHuwqfT47IRy2o8pXdFdHwQXZ33k/9Lmy
-	 PLXwdnd5G7eBUPZ9NeSzjoODNv5zoiw8fAwhy1Ex/1fi6lpIXwIqPcLaX0M9qs3ibB79x
-	 S8LyFSw+2Yx78Hv+I4TNCw/nJHz95YKVOjL7lBx7O+10w5ZpiOWNeFqpWmbjyRZHoreJU
-	 UHArxuEEmzwHHN9tApYsOafHuTp1Yb5WVwVsA0cYVMRPnQ39T1EETmmssKNV+TugyxzlS
-	 SgXoU1ltmJhujTS2iCpdMNZaVlBI9NQLwNRmg1Gsh77rghI7ee/KkZEVJxIEUV8J9mA==
+	bh=HdzBusJ2m2oIJwvG8r/gIEsWxjBy4zz4R3lKt0q2ErQ=;
+	b=e1ZCdvAsrNjhiJVjAzvcOwxzm3ERty7lqo0yw//5b2BKv7VM0FDHJRQJCDqxGaae4pkM
+	 g7nPAXLPtYGgTbXuKx2Mwprdu80m/UdrIxDLX0GOkPvi3ae1BEfzEyUrRxa2yHbQ5A2D1
+	 gyf6DQY+OagUvKHMSxgJTs3QMsuEYPcD7oq3FocXU7zoMWAHZv0RwMLgW+SZEd652UAFP
+	 rS/a3dievoTeAiQdBqB2G9/Dxt1O+SRvlJ84y77NOvlYdbiEZzrXbXgL30r4iMuBdusWS
+	 2PQQVNiOM3VhyqfV4TePXcY6YYg7Twm2r5tBy+mMvfwgU1AAO/4VeCFKInDZweOLMAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=erebion.eu;
 	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b="B0Rv/KY3";
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=Z4BV9CYp;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=NOdUCWXf;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=liaGC5tB;
 	arc=none smtp.remote-ip=142.132.183.134
 Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16BF606A891;
-	Mon, 16 Nov 2026 22:50:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E16BF606A891
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1BE60A260E;
+	Mon, 16 Nov 2026 22:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF1BE60A260E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=B0Rv/KY3;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=Z4BV9CYp
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=NOdUCWXf;
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=liaGC5tB
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794869437; bh=+RtW+LO16tzYVoM2ZlYDJzm
-	7Z5KIRm9zqctqyxQAcRQ=; b=B0Rv/KY3tQfOqj4m8+kex0co0/pLOPPFVsthYoJP76X5s8vOGK
-	G9Oh/JJUICfErrKxMOVnk2NTmYGZJrkhA4Bw==;
+	h=To:Message-Id:Subject:Date:From; t=1794869435; bh=HdzBusJ2m2oIJwvG8r/gIEs
+	WxjBy4zz4R3lKt0q2ErQ=; b=NOdUCWXfzdCJHm+7KNssXMRDeL/Xk4GG8IXcnK7CDSNcnETx0B
+	gpon7j+UT5saKCKqeNrAy0pSNH5hyYysUbAQ==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794869437; bh=+RtW+LO16tzYVoM2ZlYDJzm
-	7Z5KIRm9zqctqyxQAcRQ=; b=Z4BV9CYpQcawQm3qiE/hm52EK9gRAzDJi0pzPCS49cWg/+5oP6
-	czOk/KIAi+HlEFus4hv1zGE2XIU+NV5LDOzS0S/IJQdzi20YNOI+5ju/OJw3Yp45ExVivl51nPr
-	UD7kTJAX8NoabJEh8wvl42cbWQBdSDb+8qud3kHSDdWROw3588HLN5u04AFjXjsa3yF8raVPRV4
-	6/sopRdvglSQFPWixbNRdlqWa7dcSzWE2nRNlsW0bNolcpsyfsFK26JmlU7PDQamIxgAmoiM9iE
-	Af+sHp2Qc7BSHpbboKOHVPV8wAnD7QHyU551flOau0r20eIAyhTetNVVpmZRO0luxbA==;
+	h=To:Message-Id:Subject:Date:From; t=1794869435; bh=HdzBusJ2m2oIJwvG8r/gIEs
+	WxjBy4zz4R3lKt0q2ErQ=; b=liaGC5tBTg7Kpfieyi9cLjekgvF4EFXZarGiWSGo26nhb460Ky
+	SDkAIl6aZJZxNw+TmkUVnoDST1hMMFX7NgGzSHQU5AEh1EFeSu4RdF2PgTnOg2jPAldU9Ej+Q+S
+	3abfjTEF+XRT4HjxAdbrEtiXf4cCaR1m2UXzb6ECJ+blNUqxK/fwXShm5I5o3Ii47oNOsowVKTG
+	QiLCUYZpRgg1FBkCqaNMSGzTMjUjFobdHuy5JW3ylLe9I7qUsb1temtIVEsIZ5wbXDCo7jh7jV4
+	hdKM9leOQp5IuyO0qMd17DZa+fb67hrYVI5UfKrdvUZaJxf5EUujMLQGDQdkzf6aYIQ==;
 From: erebion <erebion@erebion.eu>
-Date: Mon, 16 Nov 2026 23:50:38 +0100
-Subject: [PATCH v5 08/12] arm64: dts: qcom: sm6350-lena: Enable PMK8350
+Date: Mon, 16 Nov 2026 23:50:35 +0100
+Subject: [PATCH v5 05/12] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-pdx213-upstream-3-v5-8-7318a19806eb@erebion.eu>
+Message-Id: <20261116-pdx213-upstream-3-v5-5-7318a19806eb@erebion.eu>
 References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
 In-Reply-To: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -77,84 +77,143 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  phone-devel@vger.kernel.org, erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794869432; l=1892;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794869432; l=3560;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=DI4Jq2jAvY7a8+ZXuYXyW8kux3TwKsK3kwQyP7qtWL8=;
- b=BfqpVCrLwMudPz6cM3m7Lb3mDbWYTCe8TZ4FIRLB9lMZFAl0wzb414sYv67kotQ4CKyNXA94q
- je2GtCa0+kDA7cKutzii7idvEzx1YTmZ/70CWe6uig9lbxkG9D2veTz
+ bh=9i1AK5BOSgoKjgzyzIvOIdNUt//20/4Ya8X1h1Kh+Tc=;
+ b=1G2aGckki85dghvVOGe/Y0Ra2AWsT9XQpp1oUQoKqnS1q93uzSxgcutgbSHDIwVdrg3lZ1Vm/
+ hv63uXDxbpzD7riDzvlUZ3gHf+Yk+2grjSI+MxMRUGr1sYbcAjhKyct
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Configure and enable nodes for PMK8350 on the Xperia 10 III.
-
-The phone has two PMICs which have a PON block, disable the PMK8350
- PON and keep the PM6350 PON, as only one should be enabled.
+Configure the required regulators for Bluetooth and enable it on the
+Xperia 10 III.
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 34 ++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 96 ++++++++++++++++++++++
+ 1 file changed, 96 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 697e1cfae72e0..50a235d6fb6df 100644
+index e8808865bf6fa..12bf5420530d3 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -8,7 +8,11 @@
- #define PM7250B_SID 2
- #define PM7250B_SID1 3
+@@ -19,6 +19,10 @@ / {
+ 	qcom,msm-id = <434 0x10000>, <459 0x10000>;
+ 	qcom,board-id = <0x1000b 0>;
  
-+/* PMK8350 (in reality a PMK8003) is configured to use SID6 instead of 0 */
-+#define PMK8350_SID 6
++	aliases {
++		serial1 = &uart1;
++	};
 +
- #include <dt-bindings/firmware/qcom,scm.h>
-+#include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-@@ -16,6 +20,7 @@
- #include "pm6150l.dtsi"
- #include "pm6350.dtsi"
- #include "pm7250b.dtsi"
-+#include "pmk8350.dtsi"
- 
- / {
- 	model = "Sony Xperia 10 III";
-@@ -420,6 +425,35 @@ &pm7250b_vbus {
+ 	chosen {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -376,6 +380,32 @@ &qupv3_id_1 {
  	status = "okay";
  };
  
-+&pmk8350_adc_tm {
-+	status = "okay";
++/* UART1: HS UART for Bluetooth */
++&qup_uart1_rts {
++	/* We'll drive RTS, so no pull */
++	drive-strength = <2>;
++	/delete-property/ bias-pull-down;
++	bias-disable;
++};
 +
-+	xo-therm@0 {
-+		reg = <0>;
-+		io-channels = <&pmk8350_vadc PMK8350_ADC7_AMUX_THM1_100K_PU>;
-+		qcom,hw-settle-time-us = <200>;
-+		qcom,ratiometric;
++&qup_uart1_rx {
++	/*
++	 * Configure a pull-up on RX. This is needed to avoid
++	 * garbage data when the TX pin of the Bluetooth module is
++	 * in tri-state (module powered off or not driving the
++	 * signal yet).
++	 */
++	/delete-property/ bias-disable;
++	bias-pull-up;
++};
++
++&qup_uart1_tx {
++	/* We'll drive TX, so no pull */
++	drive-strength = <2>;
++	/delete-property/ bias-pull-up;
++	bias-disable;
++};
++
+ &sdc2_off_state {
+ 	sd-cd-pins {
+ 		pins = "gpio94";
+@@ -419,6 +449,72 @@ ts_int_default: ts-int-default-state {
+ 		drive-strength = <2>;
+ 		bias-disable;
+ 	};
++
++	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
++		pins = "gpio61";
++		function = "gpio";
++		/*
++		 * Configure a bias-bus-hold on CTS to lower power
++		 * usage when Bluetooth is turned off. Bus hold will
++		 * maintain a low power state regardless of whether
++		 * the Bluetooth module drives the pin in either
++		 * direction or leaves the pin fully unpowered.
++		 */
++		bias-bus-hold;
++	};
++
++	qup_uart1_sleep_rts: qup-uart1-sleep-rts-state {
++		pins = "gpio62";
++		function = "gpio";
++		/*
++		 * Configure pull-down on RTS. As RTS is active low
++		 * signal, pull it low to indicate the BT SoC that it
++		 * can wakeup the system anytime from suspend state by
++		 * pulling RX low (by sending wakeup bytes).
++		 */
++		bias-pull-down;
++	};
++
++	qup_uart1_sleep_rx: qup-uart1-sleep-rx-state {
++		pins = "gpio64";
++		function = "gpio";
++		/*
++		 * Configure a pull-up on RX. This is needed to avoid
++		 * garbage data when the TX pin of the Bluetooth module
++		 * is floating which may cause spurious wakeups.
++		 */
++		bias-pull-up;
++	};
++
++	qup_uart1_sleep_tx: qup-uart1-sleep-tx-state {
++		pins = "gpio63";
++		function = "gpio";
++		/*
++		 * Configure pull-up on TX when it isn't actively driven
++		 * to prevent BT SoC from receiving garbage during sleep.
++		 */
++		bias-pull-up;
 +	};
 +};
 +
-+&pmk8350_pon {
-+	status = "disabled";
-+};
++&uart1 {
++	/delete-property/ interrupts;
++	interrupts-extended = <&intc GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
++			     <&tlmm 64 IRQ_TYPE_EDGE_FALLING>;
 +
-+&pmk8350_rtc {
++	pinctrl-names = "default", "sleep";
++	pinctrl-1 = <&qup_uart1_sleep_cts>, <&qup_uart1_sleep_rts>, <&qup_uart1_sleep_tx>, <&qup_uart1_sleep_rx>;
++
 +	status = "okay";
-+};
 +
-+&pmk8350_vadc {
-+	channel@644 {
-+		reg = <PMK8350_ADC7_AMUX_THM1_100K_PU>;
-+		label = "xo_therm";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
++	bluetooth {
++		compatible = "qcom,wcn3991-bt";
++		vddio-supply = <&pm6350_l11>;
++		vddxo-supply = <&pm6350_l7>;
++		vddrf-supply = <&pm6150l_l2>;
++		vddch0-supply = <&pm6150l_l10>;
++		firmware-name = "crnv32u.bin";
 +	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
  };
+ 
+ &usb_1 {
 
 -- 
 2.53.0
