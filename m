@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794814802;
-	b=lTRiQg/J09iFBcKyOwKlyKStnWf5+R7e9qKROT+WH2ACD3yjM0n8ouL34IoQ8p6M0SnD
-	 K9Az7O2XIz4blWb8Mw0j9c/eUynQZHv4kCYYOSDI0vaR2BdOKHn/RD/GifoK9JOkegqke
-	 ENAwYTRWqtWeroKpifPPYLOYZPqD34bIS3r9Rwc19JbXKGAzpqBtzLrmbfxaTVsKdNJEQ
-	 7Obawv4WE8I4/G4I9hI8tpgZ1VJwssa984xa885ONpDJ6eYYqpz6TZXT7aIuZLy9VW8EW
-	 PQ5N5zJ7jNsEPEMqyKtq4z9mWcvYGi6UlX1a0vuq8RAc8WiKVveEnnAHjXolCcVD3NQ==
+	t=1794814807;
+	b=0jY+wFuHBabBye4oVBjGmuVKXQFTe0cvZ1SCg2b//fDp4GzquTLiwKflaDntddSfUhcI
+	 m0MQr6XnGMflVwHaqTHomVvfBVLOd8PN5bZBirIsdfibZKpew6ua5+tnAvbvWiSSvD8Gy
+	 a2lY5T5OinjOG3yUu6RMjxojxYnAuPi+LKZmcApi9IuyGIzdfasSG88lOXSsOQNvXEDX0
+	 DjDiZJ2iL0/wnqg982hTSbM6N4NCQX0xjEXdOrIdH0SWbXuAe3nlS8Bt0HYq/Wk+q9EOq
+	 ZryZdgFBaZbgVjDr74oAqU6XBZkhU3D7XGkDAbZ3Fa0jb2nnOwn6SSJX/7PWje9lCkQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814802;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814807;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8Kon/6Uqe5Kpe9D41AWo9kl1LoUswztrLzTZdnau53g=;
-	b=TjxQY4yVnFq3mc84iW1v3LoyJCZ0HoVaG/1SpojT+hzEaDyCf4wtooKF1g2H2crQJ7mc
-	 Kb9jKMZ5/O3x2LDvSbVuewnD+1QI4az//6r8286J6WLuGqPGxKfA5ouPke9uCdAhjYTWM
-	 FyPAWMFlVjZXtsvr0YRpRTUldEDw8VfTa/gQLxj8rbkUywEfAORD/PD5WVDUE25Q6emSI
-	 ZIKk8DzRJUbUSvAt5LDo0p5axqXyAKbGQUgyOoZYdjPxE3gFBkPm7SwPspRRksFFGuoq8
-	 ibAtk9uXkEL89ECzfnOGfK1CrAHSpWzeH83Id5szicm6p1nz+f2WiO1JotrriBYImEQ==
+	bh=X9NhWVmJxEidT7/JXU2xw4/SALM/kruwZYrnyrOBc00=;
+	b=K/EgAH2Y1Ko/216OuXD4wp8rpu/d2MsFYmRDAKF3NAVYsEO6Kn2Ch83xKUtB28ecKakv
+	 rPeJHjVGEgJqCeAK2FLHlVKsx2PejNZD5+ndVhCOH+blsPVQcGbn0Gp03ejtzyP4172pH
+	 JfKWYmwh+vCKMvjS796Kvew9frg48Ui+TH9QUw8vHzzv1KWIz/9sFJnwy1zHhufzsCI3U
+	 IvHMPlIQe8YmbE5lEoaN87N7uflyYIl5e6SaYfGDKN+2ImbmMT6G9m5792y25IR5p2aee
+	 pYupYr1zwpe50L8zw7N6xEDJsgepWR4HT9cVkiFt+tRV8dP7olcYxXei0wnMzz8rBOg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGQszKD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Imf59Q+Z;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C5F606A883;
-	Mon, 16 Nov 2026 07:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD1360A5BE2;
+	Mon, 16 Nov 2026 07:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGQszKD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Imf59Q+Z
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794814802;
-	b=O4jkz4DbMS60OTm+75kIr5WrupT5pM0T2U96Y/Kmr4Jup3zfAbme+A7xzuHq2FfvjgZK
-	 HohrkX0Ys4bXXAYtQ2DElNd/GcAJLXY8zT5igUNb/s/m6fMRWUJR8LtVSUxVVL1l10E2D
-	 OOa0mYK53sha+vMwoXkSw7GHv2rrUuU8RMfjvua5M1yhaT7387ujWvzvrMP0bZEOgvX7U
-	 /ydqTteBTY5KYnMz+JR9mMveYatSytlXJHzPW7ihCB/ns56ydJOZhmv0lJ1Z85QzzVgRe
-	 HMhXLpaWSMbXievrPAsslSXvA6J0GESqPNDr0S+tY6pMr92gkbDsJuk5OllC33b6ZDg==
+	t=1794814807;
+	b=EoPAg7S7G6UgWAdAJk4Vx8fMPC28abGsP7kVZFV/OBgJ2UVOPx/typJ1YptEoWVt00BB
+	 RP9qDJc//Z1TauUsFNyO+++ijmX/1mkVQhnyJNluVMQHLl1CKdz26+4c4MqIyIPwcMn0/
+	 JV7qRFa7CHSq87tP9lhVg68NeKD6yjMMcnfyRnz3lX3R6PDwqwY53yxd4xatL33m2dJLz
+	 ZXcke1AMK1P8qGxZkh5c6VgCrcekKHBsMi582jcg0A6jQRueMehGsBbZSWlJrTAbbgrQo
+	 PDje2xwME6PnI1R952ND0AyeEDzAA14RNdrMMLroj3ZAhGYe1ic8rcBSH3Iv4hDxQwQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794814802;
+	c=relaxed/relaxed; t=1794814807;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8Kon/6Uqe5Kpe9D41AWo9kl1LoUswztrLzTZdnau53g=;
-	b=oep9oZ0WllzEdDEi/D/PkM6VDvQJHzouhhVkSL1JJmIzkXiPXb0YNWGxmMXMnTCcRLGf
-	 ZwStu09qF4hMUgnQ9+vrbZv5eydLc2qPqJoYb7GJGOdMbjD2qUXAY5JtpKpfvGitHyV0Q
-	 maY80xRvaaNCf4jsIdpcls7VPwDgNFqPGRCi4zp07ZdmHm1ti/5AsMd/zSsBWlFJoikSL
-	 oD3hvovQxeBiv6ue5Ykf9DY8fPDN9wYxvYLCNQ9KbG6OheD/SRTDKEy3fnm2gExGewo6Q
-	 vd3EpcbHTuXDB4oG9kMLveaX5Mp1BX8ClijhoXSd6IAqT8suW+I90NzK2MbtD0ff1qw==
+	bh=X9NhWVmJxEidT7/JXU2xw4/SALM/kruwZYrnyrOBc00=;
+	b=Wf5J/nGZrSqfupXtmRBe2Z3DaEKMEeKjhltil7biId+C9ayRjd/SQ5+dcKKMQnNdJogj
+	 CrOoehoWiWOBq0XXNwNLkwkb1fOAnHaEgztdU7jMg6ExrUmNIp52qewBm/sVx6v+5uF9Z
+	 tqSjMqR+Z3s1bD5TA1lgEKIh2RJtaMUmhjZsqPuxcvYTMlLljDDVUiB6opLZlUam2JCg5
+	 tmYXrMPKWE9wm+Qvh1HVw5V8SWS4pJCGxqDjChnWNZeSCGNBm4r8o85lZZ7yye5i9RwaA
+	 SHAGd1o6hS/oMdGYf516TLFjoTAddm9wL7dcFyAKiZUn6QZyIVWnk04BD91hIyEfRWg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9CDB61F000CA;
-	Mon, 16 Nov 2026 07:40:00 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 63E021F000D3;
+	Mon, 16 Nov 2026 07:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794814802;
-	bh=8Kon/6Uqe5Kpe9D41AWo9kl1LoUswztrLzTZdnau53g=;
+	s=k20260515; t=1794814807;
+	bh=X9NhWVmJxEidT7/JXU2xw4/SALM/kruwZYrnyrOBc00=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mcGQszKDrEaNnZix1zz8MWFCNNfw3YbcJgYGIkIZhPUHmo2HCnmhcvEkT1cr+hIxZ
-	 COlzWXI8IeVIPJ6w+Cyo+rrL0QSi/IyBMCTg67xuEb+t+RnYUl4ryq1BfgvXv0rm0f
-	 ReC0jTz3jqLuTT+S1zG1qAxLaaNeyF1WOJXg9JLUd0coJhG6oICPYjrx5aCxI5Zmhy
-	 LvuRpHjbQPBgiQLP91IeMSIjfgOfdE+tboVJJpk1HI6tYemWzfToV1AOqV2zClYCE8
-	 /VUphpi6UWvmjxZKel+6I+cD6EQrTT/xh0hG8K41it9nPx1n4lMJIOOPNWphM+iKzE
-	 ibMPeqvMAIyoQ==
+	b=Imf59Q+ZLL1XfxebV3jhiQPQGvgafWuVamna1Hi6EV+pG3Q4rT5m37kz2IhVp52mM
+	 boLTNPihsjHGy5opq9Hn+BJoAr0uyDpcJur7zFUKzglof5LRHYm+JxSJTVX2ZQlLCO
+	 XwQAHnyt89HeiuaYHB1xC7odFkI7E4ZutrV2dd1htDrLOaXPTyZmbnKHpV9HJW6pWN
+	 1iTBK3H22D7N+ueoSNYV4iW3Dz26nZ0GMFbr3yzi7QAL4cFCU2rZCbdWsHSCCzpKMr
+	 0btw6NKTdHpG9VDBfn/ZE9gWgcECtcU/HpP/1DcEP9jrOoP6HIPmGfZ6EDBNLZJhl2
+	 KEr9GNh15jxlg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2E2974A39D;
-	Mon, 16 Nov 2026 07:40:00 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 1A3F34A3C1;
+	Mon, 16 Nov 2026 07:40:01 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 13:10:00 +0530
-Subject: [PATCH v2 02/11] soc: qcom: socinfo: Add SM8845 SoC ID
+Date: Mon, 16 Nov 2026 13:10:09 +0530
+Subject: [PATCH v2 11/11] arm64: dts: qcom: Add Motorola Signature
+ (vantage)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-molokai-soc-v2-2-9dc4dddc4e96@yahoo.com>
+Message-Id: <20261116-molokai-soc-v2-11-9dc4dddc4e96@yahoo.com>
 References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
 In-Reply-To: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -96,11 +97,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814798; l=723;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814798; l=19229;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=u3GVb+FW18KBEBTsCyqY576uTv9UwXATV3TTXWEJaAI=;
- b=WfT+0AlMZTcwLtG4i80A32c06+mykbcApYnSYZCUWQQL8ZgVTBsZ6w914U+g01P2wZoM28FNq
- ZAcEqLMe1o8DjdEhj3YwnGHoF1D4JutO6sbw9BBR96MSIKq91I9D1gQ
+ bh=o3WO/AamhZH9jUMIJDEHmjfbbiwrSOLQxLDv6LTi8XM=;
+ b=ulP1A2bTnxI0dM9gPIePFqUhZLnOox71Gj+2FQeM7vr5aOQA56yH2mlvprfq3/3e308gxc6rp
+ Bxa2x3BaiM9Am/yob6Kndcx2lGKTuHc2YaSaqoeLSWdUYh5goHOC5Dw
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
@@ -111,27 +112,838 @@ Content-Transfer-Encoding: 7bit
 
 From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-Add the SoC ID for SM8845, a variant of SM8850 (Kaanapali).
+Add the devicetree for the Motorola Signature (vantage), a phone built
+on the Molokai (SM8845) SoC, with:
 
-An LLM was used to help write this commit message.
+- UFS storage, the device reset is on GPIO 205
+- USB with role switching, and the Type-C connector handled by the
+  charger firmware on SoCCP through pmic-glink, which also provides the
+  battery and USB power supplies
+- the volume and AI keys: volume up is GPIO 6 of the PM8550, the AI key
+  TLMM GPIO 124 and volume down the RESIN input of the PMK8550
+- the bootloader's splash buffer as a simple-framebuffer
 
+The PMICs on SPMI bus 0 are a PMK8550 (SID 0), a PM8550 (SID 1) and
+PM8550VE regulators, as reported in SMEM and described by the vendor
+devicetree. They are described here instead of including pmk8850.dtsi
+or pmk8550.dtsi: the PMK8550 has 6 GPIOs, not the 8 of the PMK8850, and
+pmk8550.dtsi is written for the single SPMI bus of the older SoCs.
+The LDOs are PMIC5 LDOs, which have no auto mode: like the vendor
+devicetree they start in high power mode and may drop to low power mode.
+
+The memory map follows the firmware the phone ships with. The CoreSight
+blocks are disabled: they are not accessible on production devices and
+reading their peripheral ID registers is a synchronous external abort.
+
+Assisted-by: LLM
 Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
- drivers/soc/qcom/socinfo.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../boot/dts/qcom/molokai-motorola-vantage.dts     | 784 +++++++++++++++++++++
+ 2 files changed, 785 insertions(+)
 
-diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
-index 18105ddcf04d..718d1fa7e830 100644
---- a/drivers/soc/qcom/socinfo.c
-+++ b/drivers/soc/qcom/socinfo.c
-@@ -541,6 +541,7 @@ static const struct soc_id soc_id[] = {
- 	{ qcom_board_id(QCS8275) },
- 	{ qcom_board_id(QCS9075) },
- 	{ qcom_board_id(QCS615) },
-+	{ qcom_board_id(SM8845) },
- 	{ qcom_board_id(SA8797P) },
- 	{ qcom_board_id(SM8975) },
- 	{ qcom_board_id(CQ7790M) },
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 9553e3aaeccb..17d4374e2a5d 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -79,6 +79,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-lenovo-thinkpad-t14s-gen7-lcd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-qcb.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= molokai-motorola-vantage.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
+ 
+ monaco-arduino-monza-el2-dtbs	:= monaco-arduino-monza.dtb monaco-el2.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts b/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
+new file mode 100644
+index 000000000000..6d6648b8cddc
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
+@@ -0,0 +1,784 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026 Venkat Yadlapati <venkat.yadlapati@yahoo.com>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/linux-event-codes.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/spmi/spmi.h>
++#include "molokai.dtsi"
++
++/delete-node/ &adspslpi_mem;
++/delete-node/ &camera_2_mem;
++/delete-node/ &camera_mem;
++/delete-node/ &cdsp_mem;
++/delete-node/ &cvp_mem;
++/delete-node/ &dsm_partition_1_mem;
++/delete-node/ &dsm_partition_2_mem;
++/delete-node/ &q6_adsp_dtb_mem;
++/delete-node/ &q6_cdsp_dtb_mem;
++/delete-node/ &soccp_dtb_mem;
++/delete-node/ &soccp_mem;
++/delete-node/ &video_mem;
++
++/ {
++	model = "Motorola Signature";
++	compatible = "motorola,vantage", "qcom,molokai";
++	chassis-type = "handset";
++
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer0: framebuffer@fc800000 {
++			compatible = "simple-framebuffer";
++			reg = <0x0 0xfc800000 0x0 0x2b00000>;
++			width = <1264>;
++			height = <2780>;
++			stride = <(1264 * 4)>;
++			format = "a8r8g8b8";
++		};
++	};
++
++	clocks {
++		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++
++		bi_tcxo_div2: bi-tcxo-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32764>;
++			#clock-cells = <0>;
++		};
++
++		xo_board: xo-board {
++			compatible = "fixed-clock";
++			clock-frequency = <76800000>;
++			#clock-cells = <0>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&key_vol_up_default>, <&key_ai_default>;
++		pinctrl-names = "default";
++
++		key-ai {
++			label = "AI Key";
++			linux,code = <KEY_ASSISTANT>;
++			gpios = <&tlmm 124 GPIO_ACTIVE_LOW>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++
++		key-volume-up {
++			label = "Volume Up";
++			linux,code = <KEY_VOLUMEUP>;
++			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++	};
++
++	pmic-glink {
++		compatible = "qcom,kaanapali-pmic-glink",
++			     "qcom,pmic-glink";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++
++			power-role = "dual";
++			data-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					pmic_glink_hs_in: endpoint {
++						remote-endpoint = <&usb_dwc3_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					pmic_glink_ss_in: endpoint {
++						remote-endpoint = <&usb_dp_qmpphy_out>;
++					};
++				};
++
++				port@2 {
++					reg = <2>;
++
++					pmic_glink_sbu: endpoint {
++					};
++				};
++			};
++		};
++	};
++
++	/* Memory map of the SM8845 firmware shipped with A171WVH.21-16-16 */
++	reserved-memory {
++		gunyah_hyp_mem: gunyah-hyp@80000000 {
++			reg = <0x0 0x80000000 0x0 0xe00000>;
++			no-map;
++		};
++
++		cpucp_mem: cpucp@81200000 {
++			reg = <0x0 0x81200000 0x0 0x100000>;
++			no-map;
++		};
++
++		xbl_dtlog_mem: xbl-dtlog@81a00000 {
++			reg = <0x0 0x81a00000 0x0 0x60000>;
++			no-map;
++		};
++
++		aop_image_mem: aop-image@81c00000 {
++			reg = <0x0 0x81c00000 0x0 0x60000>;
++			no-map;
++		};
++
++		aop_config_mem: aop-config@81c80000 {
++			reg = <0x0 0x81c80000 0x0 0x20000>;
++			no-map;
++		};
++
++		tme_crash_dump_mem: tme-crash-dump@81ca0000 {
++			reg = <0x0 0x81ca0000 0x0 0x40000>;
++			no-map;
++		};
++
++		tme_log_mem: tme-log@81ce0000 {
++			reg = <0x0 0x81ce0000 0x0 0x4000>;
++			no-map;
++		};
++
++		uefi_log_mem: uefi-log@81ce4000 {
++			reg = <0x0 0x81ce4000 0x0 0x10000>;
++			no-map;
++		};
++
++		cpucp_scandump_mem: cpucp-scandump@82000000 {
++			reg = <0x0 0x82000000 0x0 0x380000>;
++			no-map;
++		};
++
++		adsp_mhi_mem: adsp-mhi@82380000 {
++			reg = <0x0 0x82380000 0x0 0x20000>;
++			no-map;
++		};
++
++		soccp_sdi_mem: soccp-sdi@823a0000 {
++			reg = <0x0 0x823a0000 0x0 0x40000>;
++			no-map;
++		};
++
++		pmic_minidump_mem: pmic-minidump@823e0000 {
++			reg = <0x0 0x823e0000 0x0 0x80000>;
++			no-map;
++		};
++
++		qup_fw_mem: qup-fw@82460000 {
++			reg = <0x0 0x82460000 0x0 0x18000>;
++			no-map;
++		};
++
++		pvm_fw_mem: pvm-fw@824a0000 {
++			reg = <0x0 0x824a0000 0x0 0x100000>;
++			no-map;
++		};
++
++		hyp_mem_database_mem: hyp-mem-database@825a0000 {
++			reg = <0x0 0x825a0000 0x0 0x60000>;
++			no-map;
++		};
++
++		tz_stat_mem: tz-stat@82700000 {
++			reg = <0x0 0x82700000 0x0 0x100000>;
++			no-map;
++		};
++
++		qdss_apps_mem: qdss-apps@82800000 {
++			compatible = "shared-dma-pool";
++			reg = <0x0 0x82800000 0x0 0x2000000>;
++			reusable;
++		};
++
++		dsm_partition_1_mem: dsm-partition-1@84a00000 {
++			reg = <0x0 0x84a00000 0x0 0x5100000>;
++			no-map;
++		};
++
++		camera_mem: camera@9b800000 {
++			reg = <0x0 0x9b800000 0x0 0x800000>;
++			no-map;
++		};
++
++		camera_2_mem: camera-2@9c000000 {
++			reg = <0x0 0x9c000000 0x0 0x800000>;
++			no-map;
++		};
++
++		video_mem: video@9c800000 {
++			reg = <0x0 0x9c800000 0x0 0x800000>;
++			no-map;
++		};
++
++		cvp_mem: cvp@9d000000 {
++			reg = <0x0 0x9d000000 0x0 0x700000>;
++			no-map;
++		};
++
++		cdsp_mem: cdsp@9d700000 {
++			reg = <0x0 0x9d700000 0x0 0x1900000>;
++			no-map;
++		};
++
++		q6_cdsp_dtb_mem: q6-cdsp-dtb@9f000000 {
++			reg = <0x0 0x9f000000 0x0 0x80000>;
++			no-map;
++		};
++
++		dcp_dtb_mem: dcp-dtb@a4080000 {
++			reg = <0x0 0xa4080000 0x0 0x80000>;
++			no-map;
++		};
++
++		dcp_mem: dcp@a4100000 {
++			reg = <0x0 0xa4100000 0x0 0x300000>;
++			no-map;
++		};
++
++		soccp_mem: soccp@a4400000 {
++			reg = <0x0 0xa4400000 0x0 0x600000>;
++			no-map;
++		};
++
++		soccp_dtb_mem: soccp-dtb@a4a00000 {
++			reg = <0x0 0xa4a00000 0x0 0x40000>;
++			no-map;
++		};
++
++		mmi_annotate_mem: mmi-annotate@adfff000 {
++			reg = <0x0 0xadfff000 0x0 0x1000>;
++			no-map;
++		};
++
++		ramoops_mem: ramoops@ae000000 {
++			compatible = "ramoops";
++			reg = <0x0 0xae000000 0x0 0x60000>;
++			console-size = <0x40000>;
++			record-size = <0x20000>;
++			no-map;
++		};
++
++		q6_adsp_dtb_mem: q6-adsp-dtb@b8280000 {
++			reg = <0x0 0xb8280000 0x0 0x80000>;
++			no-map;
++		};
++
++		adspslpi_mem: adspslpi@b8300000 {
++			reg = <0x0 0xb8300000 0x0 0x5e00000>;
++			no-map;
++		};
++
++		xbl_ramdump_mem: xbl-ramdump@d5d00000 {
++			reg = <0x0 0xd5d00000 0x0 0x1c0000>;
++			no-map;
++		};
++
++		hyp_ext_heap_mem: hyp-ext-heap@d63d0000 {
++			reg = <0x0 0xd63d0000 0x0 0x800000>;
++			no-map;
++		};
++
++		global_sync_mem: global-sync@d7a00000 {
++			reg = <0x0 0xd7a00000 0x0 0x200000>;
++			no-map;
++		};
++
++		tz_merged_mem: tz-merged@d8000000 {
++			reg = <0x0 0xd8000000 0x0 0x3a00000>;
++			no-map;
++		};
++
++		oem_vm_mem: oem-vm@f7c00000 {
++			compatible = "shared-dma-pool";
++			reg = <0x0 0xf7c00000 0x0 0x4c00000>;
++			reusable;
++		};
++
++		splash_mem: splash@fc800000 {
++			reg = <0x0 0xfc800000 0x0 0x2b00000>;
++			no-map;
++		};
++
++		llcc_lpi_mem: llcc-lpi@ff800000 {
++			reg = <0x0 0xff800000 0x0 0x600000>;
++			no-map;
++		};
++
++		lcp_dare_mem: lcp-dare@880000000 {
++			compatible = "shared-dma-pool";
++			reg = <0x8 0x80000000 0x0 0x6000000>;
++			reusable;
++		};
++	};
++};
++
++/*
++ * The CoreSight/QDSS debug blocks are not accessible on these production-fused
++ * phones; reading their peripheral ID registers is a synchronous external abort.
++ */
++&{/soc@0/stm@10002000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@10003000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpda@10004000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@1000f000} {
++	status = "disabled";
++};
++
++&{/soc@0/funnel@10041000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11000000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpda@11004000} {
++	status = "disabled";
++};
++
++&{/soc@0/funnel@11005000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@1102c000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11180000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11183000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11184000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11185000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11186000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpda@11188000} {
++	status = "disabled";
++};
++
++&{/soc@0/funnel@11189000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111a3000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111a4000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111a5000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111a6000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111a7000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111a8000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111a9000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111aa000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111ab000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111ac000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111ad000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111ae000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111af000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111b3000} {
++	status = "disabled";
++};
++
++&{/soc@0/tn@111b8000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@111d0000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11303000} {
++	status = "disabled";
++};
++
++&{/soc@0/funnel@11304000} {
++	status = "disabled";
++};
++
++&{/soc@0/tmc@11305000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpda@11308000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11309000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@1130a000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@1130b000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@1130c000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@1130d000} {
++	status = "disabled";
++};
++
++&{/soc@0/tpdm@11422000} {
++	status = "disabled";
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm8550-rpmh-regulators";
++		qcom,pmic-id = "B_E0";
++
++		vreg_l5b_3p1: ldo5 {
++			regulator-name = "vreg_l5b_3p1";
++			regulator-min-microvolt = <3100000>;
++			regulator-max-microvolt = <3148000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l15b_1p8: ldo15 {
++			regulator-name = "vreg_l15b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l17b_2p5: ldo17 {
++			regulator-name = "vreg_l17b_2p5";
++			regulator-min-microvolt = <2504000>;
++			regulator-max-microvolt = <2504000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-2 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++		qcom,pmic-id = "F_E0";
++
++		vreg_l2f_1p2: ldo2 {
++			regulator-name = "vreg_l2f_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3f_1p2: ldo3 {
++			regulator-name = "vreg_l3f_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-4 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++		qcom,pmic-id = "I_E0";
++
++		vreg_l1i_0p9: ldo1 {
++			regulator-name = "vreg_l1i_0p9";
++			regulator-min-microvolt = <866000>;
++			regulator-max-microvolt = <958000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2i_0p9: ldo2 {
++			regulator-name = "vreg_l2i_0p9";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <920000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3i_0p8: ldo3 {
++			regulator-name = "vreg_l3i_0p8";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <920000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++};
++
++&spmi_bus0 {
++	pmic@0 {
++		compatible = "qcom,pmk8550", "qcom,spmi-pmic";
++		reg = <0x0 SPMI_USID>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		pmk8550_pon: pon@1300 {
++			compatible = "qcom,pmk8350-pon";
++			reg = <0x1300>,
++			      <0x800>;
++			reg-names = "hlos",
++				    "pbs";
++
++			pon_pwrkey: pwrkey {
++				compatible = "qcom,pmk8350-pwrkey";
++				interrupts = <0x0 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
++				linux,code = <KEY_POWER>;
++			};
++
++			pon_resin: resin {
++				compatible = "qcom,pmk8350-resin";
++				interrupts = <0x0 0x13 0x6 IRQ_TYPE_EDGE_BOTH>;
++				linux,code = <KEY_VOLUMEDOWN>;
++			};
++		};
++
++		pmk8550_gpios: gpio@b800 {
++			compatible = "qcom,pmk8550-gpio", "qcom,spmi-gpio";
++			reg = <0xb800>;
++			gpio-controller;
++			gpio-ranges = <&pmk8550_gpios 0 0 6>;
++			#gpio-cells = <2>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++		};
++
++		pmk8550_rtc: rtc@6100 {
++			compatible = "qcom,pmk8350-rtc";
++			reg = <0x6100>,
++			      <0x6200>;
++			reg-names = "rtc",
++				    "alarm";
++			interrupts = <0x0 0x62 0x1 IRQ_TYPE_EDGE_RISING>;
++		};
++
++		pmk8550_sdam_2: nvram@7100 {
++			compatible = "qcom,spmi-sdam";
++			reg = <0x7100>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0x7100 0x100>;
++
++			reboot_reason: reboot-reason@48 {
++				reg = <0x48 0x1>;
++				bits = <1 7>;
++			};
++		};
++	};
++
++	pmic@1 {
++		compatible = "qcom,pm8550", "qcom,spmi-pmic";
++		reg = <0x1 SPMI_USID>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		pm8550_gpios: gpio@8800 {
++			compatible = "qcom,pm8550-gpio", "qcom,spmi-gpio";
++			reg = <0x8800>;
++			gpio-controller;
++			gpio-ranges = <&pm8550_gpios 0 0 12>;
++			#gpio-cells = <2>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++
++			key_vol_up_default: key-vol-up-default-state {
++				pins = "gpio6";
++				function = "normal";
++				power-source = <1>;
++				bias-pull-up;
++				input-enable;
++			};
++		};
++	};
++
++	pmic@7 {
++		compatible = "qcom,pmih0108", "qcom,spmi-pmic";
++		reg = <0x7 SPMI_USID>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		pmih0108_eusb2_repeater: phy@fd00 {
++			compatible = "qcom,pm8550b-eusb2-repeater";
++			reg = <0xfd00>;
++			#phy-cells = <0>;
++
++			vdd18-supply = <&vreg_l15b_1p8>;
++			vdd3-supply = <&vreg_l5b_3p1>;
++		};
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <36 8>, <46 1>, <56 4>, <72 1>, <148 2>;
++
++	key_ai_default: key-ai-default-state {
++		pins = "gpio124";
++		function = "gpio";
++		output-disable;
++		bias-pull-up;
++	};
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 205 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l17b_2p5>;
++	vcc-max-microamp = <1200000>;
++	vccq-supply = <&vreg_l3f_1p2>;
++	vccq-max-microamp = <1200000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l1i_0p9>;
++	vdda-pll-supply = <&vreg_l2f_1p2>;
++
++	status = "okay";
++};
++
++&usb {
++	status = "okay";
++};
++
++&usb_dp_qmpphy {
++	vdda-phy-supply = <&vreg_l2i_0p9>;
++	vdda-pll-supply = <&vreg_l2f_1p2>;
++
++	status = "okay";
++};
++
++&usb_dp_qmpphy_out {
++	remote-endpoint = <&pmic_glink_ss_in>;
++};
++
++&usb_dwc3_hs {
++	remote-endpoint = <&pmic_glink_hs_in>;
++};
++
++&usb_hsphy {
++	vdd-supply = <&vreg_l3i_0p8>;
++	vdda12-supply = <&vreg_l2f_1p2>;
++
++	phys = <&pmih0108_eusb2_repeater>;
++
++	status = "okay";
++};
 
 -- 
 2.56.1
