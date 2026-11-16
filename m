@@ -1,147 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.59
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794831625;
-	b=TM3I96mEC+4Lp2Nn26eX14nghCEc7aweLBmE/E7tLEt4mgAmT4B0zmTUHD6cNUqGnDCh
-	 +n20M1q0zP1+kLl5+L5MNZ9GddPpY0IQgmAOQE6OtpixzX2Le01TWNO7IxcLHPMxLIcxD
-	 jEjh2IoEDJHnsFr4MPNDGTq077Ne946/n3tdkuP3VZZ1jNzVSFSDubWbmvv7tOJwBBPZC
-	 T/tY+UTG4kDNP2XzD+ll1tojLvSjQpspDdOpSEQwAD0zDjBPW3S+L2FVBsmEPg4QP8qlR
-	 89eD9w5Z10muzm6MtLN5rDL4xEJYK8mEv03B5sNQ1rJxgjj3fJeHpm4WEIOUftNoETQ==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831625;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:
-	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CtwGAOEJHOdLBLYPLu2UI6rLMOJWNbfWdKQEmMj9pUw=;
-	b=rW568iI/8q7L/QupOu3xR/tYVU3nffIPWbIQbpA/Z8/74QTjWE35k0wPPHeuWd5cEaVi
-	 UraTLeT1pmLQMQDZGXA/2rb3Al2qIZYmubOUd+EgnOR1NmV5p0cjcDX4wtUtpI52Az/db
-	 xF1XvCwpW5BXWABd6wHpD3ExQ7OPZXY3HlUJIRzVtVEb26yH2uPwhRR+b6WJ97HXllltB
-	 RH/bz8NRDCoafaxdWnRAk0wpvCnNkuqiw7aeK4QMHbLHsqcXFR1hoJdByt7HSXYdivYFW
-	 BsOULdCqdKdWcjoHVOdIIT7230O5NozyUE65BaLTCGeYpIUpVugVPsSfyV1VjiVZ9Fg==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=li2IM+wR;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=li2IM+wR;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.59
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013059.outbound.protection.outlook.com [40.107.159.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794831640;
+	b=rJOEP64uXFX1c2gG0bVWfG86qIt/Ds3x2eveL3NwybkFnB+ZVVJmyLgpxfOFPiVG/Z3D
+	 MMLdzWMVYLNIIRE3/Tj3c6rVWZ3tqJNa3P27Yo3J+d3Ns+HVH+Tg4ou/ieviB4/Nj5FDU
+	 oiONEuLE2ftJGAo/nhlXtc4x5Z05yF31SS9SuXxWcSA9TVTsnW5PLvWrhaZiTBff0scLh
+	 nzn2a5ruFQmi5xUP/3Ou8DrsAyB134AjJGzUGT0bw7PPa0XWZHMkTc0XQIVYXvUQ6O6Hx
+	 jtv5N6wJsPGPAnZ8fgmf8jhCb6Fuw+Ox5g6g0s+yLu3lHfnLkO9pynrCwFHiMRUB1QA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831640;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=4MCroR/sjsq4mO+nQ3f/SHJLqA9hA+O6cA4sBYcKkZg=;
+	b=b3uurwu9RNOAARMxLd1DiDihoYLuAF8mEL7VbS07/s/lUBHRUTpmMX5PPGlrjnU2JaiW
+	 JOKc549cDgneSamtc3crDlRdxVRQQm0t8hJM/pMeDW7lljLHLgE6pl+B1dOvzz33APMka
+	 lmuGHJCpdhGBN9ltRJ5HIESsqqcj/SCYSURgYH3piUJfFaizIo6m3iN2d5R73zaQfBFQh
+	 XRC8m2u8odsKRjsVuCekmmGPS7fHeGy99zZsL0KAxh+sjGw012WOpoarAXVewaQ6Ohm8t
+	 QvFnfK/pGll4RFcklLVim70hOOSfIfslO2GKrD9xGHdVzExxO3A+mv2n+1zJYz1he4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="nF/UyUSR";
+	arc=none smtp.remote-ip=203.205.221.245
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB3B606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CB3B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA37606A31C;
+	Mon, 16 Nov 2026 12:20:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEA37606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=li2IM+wR;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=li2IM+wR
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=cyPtIrVMxBcNX6r06PONWQDcS7Mew9DNTd4ldblMxBkvoatZ4UyEROjQwq0IXDC39TkiUM5sJAF1+FWtmcOb9d4kZ6J7/yESOQ7pV9yXP55a/Co5+sdDiTJlZtuBkXCAIBHz/dKj1RUxQmRlFpf996pD6PPPvOqiGEo8DlIad9ivMwiKaS+hurxUNJIkKjEh5ezY7opnqRiARMYzh2tlIm2A/CDACvgmtyaCWI3NzN8l5IkaagFy9KWr0t7A7X1Ej8XBlehCzPD4+GhU2S7X68YPfOO3dMiuePzW7YCmbg6nTRzwPo0RGw1EVVZrCbDkLf0kixBjy/p/KalxtAfblQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CtwGAOEJHOdLBLYPLu2UI6rLMOJWNbfWdKQEmMj9pUw=;
- b=yXet4nUZ53LF/mrejURYREzypeJZIAASu/K2JBhNqTVHFQ4Y64uTBhY4H0fG3+mkgadDh+xQ+qr+x3iHDvDSyNpF7qUpb4etPquMAcrRtG1gNcW+/uSNHP8T/nd1TkBPJXvVSZxQNVg3ooxao3g+sLlJOKkGKtEqDf8tcKYkCqptdiTF+mcrjHtSz/9tHHsMwk1KrHEqCFUvCa6hltM/5zNehk9fvEmWy1GN1U0m4z9VyIm5eqcFx2MRJDdY/BkseO5N3oGEKT7T89mfNrfjQ/eveuNUsJzzuJx0cYqwGWzoG2/pKuyP5FnBJoJ7vZBYpYqw33PvdFpwpaZzIP/6lQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CtwGAOEJHOdLBLYPLu2UI6rLMOJWNbfWdKQEmMj9pUw=;
- b=li2IM+wRUY03CbBi8eK1Bq9ejnkXigVaXuRI+fDKAzpuwPw98RItnmX0hyb6ik1BgP89vJt+prjehuXDKBQBxJ2lpsNU5gSTY2s3h7G1EqhlGpix8u00V9gnFNSCLH/wQFUaa9dAsteOcpvioR1bokKCpKf0hbk1UFNMIF1RKBE=
-Received: from AS9PR06CA0145.eurprd06.prod.outlook.com (2603:10a6:20b:467::27)
- by PAVPR08MB9282.eurprd08.prod.outlook.com (2603:10a6:102:305::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:20:09 +0000
-Received: from AMS0EPF00000567.eurprd02.prod.outlook.com
- (2603:10a6:20b:467:cafe::ab) by AS9PR06CA0145.outlook.office365.com
- (2603:10a6:20b:467::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 12:20:08 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF00000567.mail.protection.outlook.com (10.167.242.117) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.5
- via Frontend Transport; Mon, 16 Nov 2026 12:20:08 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WzMm6Bjf+H/5FpS92sYjzymMwO44nxPXOoEs9gU+Fu4Ud0iOLcHtjblwLVPyoHE3lykEeZEHyiNVEkO+PcFmoHHZ6YQp6eJY6i8kfoGo31ro5rL3LpUc7RHDIiFYenjnfdkXUYuiaySdZrBfJp7GL5cCsjRqoD9pxqclL9oOUHcyWOnyYlNgE4JxSsIccHWe1BPfjMNTB5dGPoimtQYumVSJDZPKXK4PV+XdYqQ0qFsijDz7GBmcy8RboNaLDwqgO+/9Er7aP1XCSk2QHz+gYokIXv6B7enuM+ZdMMqVuuZTj8XznFRCP1F6V5NtZQi5yPHUrcQFV8nfwNs547vW0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CtwGAOEJHOdLBLYPLu2UI6rLMOJWNbfWdKQEmMj9pUw=;
- b=nM/xTLZ0DDyW3j0NdXwlItfrWF+TNG3yJrCVctDQmezTe2V8G/izgQqRfdJEt8OzSGX0WTwv0WnEmjUR84ZRlJwtQPJ+MWUruPBoY9OfoBQVqtx2kQWI12vFF+1HixVb0ah4cDtVKaUyDBNAnL7c0yRVeYQZHU2/AxskaqajBqnxIblLQss32TZfvFF/TRdCq0nnSyYumC9QjQuHpV8OqPx+52Wzq9Qk2wcfwiUzVOwhYmHodT0ZD8YwostJBuqlAryi3ZzarLnZYWT97o1pQstse38zQZdj8ntmLDZr5DoNbpGSwFQNoiuLL/r6lIlNaBzfrJU7MBZBSRo+YANTVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CtwGAOEJHOdLBLYPLu2UI6rLMOJWNbfWdKQEmMj9pUw=;
- b=li2IM+wRUY03CbBi8eK1Bq9ejnkXigVaXuRI+fDKAzpuwPw98RItnmX0hyb6ik1BgP89vJt+prjehuXDKBQBxJ2lpsNU5gSTY2s3h7G1EqhlGpix8u00V9gnFNSCLH/wQFUaa9dAsteOcpvioR1bokKCpKf0hbk1UFNMIF1RKBE=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
- by CPH1PF402BC9893.eurprd08.prod.outlook.com (2603:10a6:388::508) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
- 2026 12:19:34 +0000
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
- 12:19:34 +0000
-Message-ID: <1ee06735-d651-411f-bcc9-783e9c016c84@arm.com>
-Date: Mon, 16 Nov 2026 12:19:32 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 10/12] iommu/arm-smmu-v3: Retain CR0_SMMUEN during
- kdump device reset
-To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, jgg@nvidia.com
-Cc: robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
- kevin.tian@intel.com, smostafa@google.com,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
- Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
- xueshuai@linux.alibaba.com
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <f458ce5587ad991c85e65ee12e8f5b271e5f6745.1793593923.git.nicolinc@nvidia.com>
-Content-Language: en-US
-From: John Garry <john.garry@arm.com>
-In-Reply-To: <f458ce5587ad991c85e65ee12e8f5b271e5f6745.1793593923.git.nicolinc@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nF/UyUSR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794831630; bh=4MCroR/sjsq4mO+nQ3f/SHJLqA9hA+O6cA4sBYcKkZg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nF/UyUSR0bYZHL1EW8l3asisTFTPGviv8Eu5gqVRoo59ZrHeswUdya8UcQB1+pJO6
+	 lyAxJNB+Op2iDiXD3HFZ4lnBRenC7FvgLLtNFxaTPRTfP1W+GXrG9e4w4MXzRDcGir
+	 98O/MkCu6nKj8Qu7abPHlxZ50l5E14RedIKR4bIo=
+Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:2979:aa1c:9ec4:8698])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 5199FA81; Mon, 16 Nov 2026 20:20:25 +0800
+X-QQ-mid: xmsmtpt1794831625txwxrqa5i
+Message-ID: <tencent_5B7B9ECE9036BE72D331CB2A2E4AEC5F8909@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahMxe7Nis9QgS3xrmsPlhKDX17WXMQD2D8PIOyxhm1Gb53FHXytD
+	 4YzNWcq2zfLEL3ipFJGuhhitYhPI+x449ysiTJGcDUJuZaxDIUDAJArVe3MX5CLxEqc03cv6OlHI
+	 h2OywKU/9gLYeVck2/zsWvqglFzU8HRH6YtHmafnQQkvaQdFfL0qeEgBK2GCgU+RBMi6wY7S8Pmc
+	 iejgiTM7doW4zq4NVdbnSe707CfGZ8u44KMRhci5VXIPDFrpAFtqHUhhAaQlB59HlkBixCoaBeZI
+	 6EsSxbZwlZ/E8ebdJjGNSpA0nZCZ/yIOI7ZIv3jGOXh2n3J25ewX0uJNPxdExMN5Nobnk0nqSvR9
+	 rGGQ5+utxN+WifW+ZGQyXGeuY3H+78jgTtmhqYeiHB8EFLLIix0jccSKPYbeAjSz1LM70iJtTr/c
+	 f86bXmxjKq3K/g/j1Uee6sCMVJYfaKEeagxB3bg7sk37SzlcatPKQvKD8Ac5ZbIRqB+5IwsuAmG9
+	 F3smTEFUZOhQ93Bo9Ggrztx+C3YEYKrxEaY93Ootkc3sL91qYHMFwkQJxxp3MetEPm3TYOKEPUZO
+	 9lqI/70VxBYW9Y6T3DPY6wynJjV0N473wyveWP44fXnTJopKHKUjwN5ABNtjjju1jDm30kZCy8Xx
+	 lpGHle5g5QmIhiWnEdYkbAomPggm2BQJRNjF16krS3W6/u/ClgCKcdRSgSexjoiiekjFuh3owqsO
+	 5lWQc5bDj/jaZ6bqPf6mFg+DZqAwJdblrtBuvO/mTygc8M1O9aKZacg7aomeuyAcpHb9uBs+RKyk
+	 LV7lOoN9saLS6wdWuml54knc5SghDkQra0etDu81vMA/Hes/KiI6jtE8np7P2Um71SPRAvSkfuwn
+	 x+FV9jaQUF89ybMxaxV9UFPC1bL1rLdg/5oQHbAdE28otxHx6sVJ6kfjAFu6Qb0+u/R03kRjgxgq
+	 poTep0wR1rXt8uMeMOGdkt53nKZr8ZSm9lpm28SZ6VgekJC15d0j/Ukvj2ioeiutJMsW+RGY+Ke0
+	 s+DOceTR8MaxSMsg7lZmAW/TQH2cg06j92Y9ZLWAj66jrMQMz0dyKPLbtah+1re2iqQPbf7LrrKH
+	 Xj0wjW
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hang Nan <2122295973@qq.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
+ martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, 2122295973@qq.com
+Subject: Re: [PATCH net v4 0/3] mptcp token hash ordering and token 0 lookups
+Date: Mon, 16 Nov 2026 20:20:25 +0800
+X-OQ-MSGID: <179483162524.42663.16445873285874492835@qq.com>
+In-Reply-To: <20261115155747.178858-1-2122295973@qq.com>
+References: <20261115155747.178858-1-2122295973@qq.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO3P265CA0017.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::22) To PAWPR08MB8959.eurprd08.prod.outlook.com
- (2603:10a6:102:33f::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,179 +84,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAWPR08MB8959:EE_|CPH1PF402BC9893:EE_|AMS0EPF00000567:EE_|PAVPR08MB9282:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc1215f1-b7c3-4ca9-890f-08df43dbf45c
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|261028144727099003|261021123027099003|261021121427099003|261021135927099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261102123227099003|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003|261009223027099003|6133799003;
-X-Microsoft-Antispam-Message-Info-Original:
- /FIjxPAkBSF/PdW9jfn0eyOsE2LDtVs4qAfAjC5tRlsTcx3Dsyvzb81meEg7hOo7ENw/+XAQmq27FVQMbLH6ovrkVaJeXRpFS3l1kGK9NRfB3Yko6dE6xlvJAqIL6poEyM5kWjIM36n/XkZ2QmeyAQStSUfMax34cBPCONsSP6NiCS5yDMtbJl833WnwKlhFNcd5wQI4KUl+KWoYl/VRSrxRaRfH9V2Msq8q1chHm5FncLsRrZVyv2ggADBE1ABowgjIAisR+zhnB5cwSFuMvtmjY1bMM0PNhnl4R8IgnzVs6sCc2+4PqZqIR+dJJAUWQ1jiW1DjPVsA42Fl4o13yuTp5uZBv3aDtqyU4Jl8wweN8EhYhZnI9EDlnOkzyq+FZRNSpoc4FhjAAYkGCba+GNKDwGrsnMcwndCtVmk2odTwNX0xap3tdzoRFhYK3fYnUELxXPY5VYDaOVSunFlOhi6BIol9hN2JamF5+6BNn8MNVsmAC+vazlsb6PbOypHlKZtjgsFA8Y5gddB4HInV8U0Z0IVsD+td0eascsyI8iuDAZOoHoScOr+dBmf0XpK2u+8NA98M0TJnfVwq707C87w4+TSBoYuFw+b4UPoyrs4++QDxOP/i4hnN4hYPLbPczfBUDLWMk8+g8iZIWMppxWVL3x+Mtq2gDQE3PJ+Dl5I=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(261028144727099003)(261021123027099003)(261021121427099003)(261021135927099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261102123227099003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003)(6133799003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- PmepRdGXtmKadd/PtnroK6gF/z2gjrxOHW9wZhU+GzkLziGlwkRBa8mghNgkmAgdmW/nFxAaHkhix8Cc5IEXDwYWsE38sWpXAnao/8lzo/HARvd3zeuPNJlxjnSFJbFRbVZzDzRTqmRJk6AZiJZaQjylyMShZAFkI3E0WP9OFQwrnkPEQlcQmlIz40T+UnyRJe+jf1e3Hh/FoUeOlBjiEVJRKWDyIBFGPYRaf+0iHSs27iTNZ8v/s2TM31jADxgNBJu9Q29CIrPgK4dU7IeWQp32zacNJXO4Uq+4PhHzC5kObJz2NQCHCmrwKBaVq7vOaagZpS5RyN7OZk5lpLEL9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPH1PF402BC9893
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF00000567.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	62fbaf4f-04e9-4265-9010-08df43dbdfa8
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|35042699022|14060799003|1800799024|82310400026|36860700016|10067099003|4143699003|56012099006|11063799006|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	1oWmZSIUFFkMjS1oLKXAqvNTvmaAwCKFBQSUVA5je8kHbMvONW6uTsJY9SXRVxQVQfEod1QSm1D+V1h2gn9v1qKTyszwFRbTMfMXZttdZEWnLqW0+OsuCPWtwjsjyyYaAmvGdF2/eeACS8pjJElp4zqpdblO+DrFY33iyThy2QLwb6D76hRDzPt2Qc7zU8EWENmg3Io+nlsYokri1/0M8bPV39/Lf0rRNtPAjK3YFe9dW5XtNZozH9TU68S1+9Y2sWEBduLo28Dfp7kE5DKIfYnDW9952L0zYpv12CPg+SyI5i92Wj3KPXk9Po9aehmKaex9+4NbsQe6a+B9NTI3G5IsSoVgGo/GuqqKFHvNuH/wUCFFy5rtc4HsUkq0850cr88tYKavIj2flONJWeVPTjSGRvPEj82Hb2dB1EEaPGqVmT+jsijsVCnfgiAcuF30cwdK+UWVWpGNzJVpLbII0jgA4iVVL8k9ZT34/hXGV4nyqMWaYLzeBBlQKezZqwRZFVIesAoBQcBIBfWqDiefZ4W4lHeFzvG33fN58QZbtq8MfN9/vP2UN+9QbY5F9fy/WKsqoD89CsECSo47YoFrvIkZvZLSezK/AinL8C85crnX4WB9IC/aNXUjvCMlPgVkckH8p1uiCoWoXLRXG2Yry86nvGfq1zzT5utQxSaYQU938ego6adXppSLJojSWROoVewUG8yYhjPCw15XwOSsbQ==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(35042699022)(14060799003)(1800799024)(82310400026)(36860700016)(10067099003)(4143699003)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Vz61M07g7Eq1Xg4gCYjcG/6TQN1zvEMWOEGQGnZCKFjLxMP353KbgLvhpt2scynAGgDfe1D+QINw9X8RGf75GLsvyM3/K0EYTVRZMflaV3lxxB8AZlorCLsOpFwtvyzjHrJ3T4TFRVfTG8+exyypxkTLyN+Bip1OPdN7IEZnG5QwAhtrNaqdFM7iw9X02i+RYxFXTN+qxoAGzupY8FaSJwXEZ+eQ/e4zh0XMVO0gomX3+dkIZbLHwM9qiwuz1AgKLUbVTonISCGuowdYG6sFfmC1WOxBJmBokH6rIpbcgMXKgPFUx7jjgsByShmPWqA2cGxRMdXKtjAfLH2EUPxK8Eugq9UU3sWuMvgYG3v1sIifT7w4Q2jbFDopsMeIq1G2IGR7kgHgyr5lA/B44rEA1h71G64fJw/qWWwOGndOf9aa7Oe3QHx+eet8rZeND9n6
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:20:08.5473
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc1215f1-b7c3-4ca9-890f-08df43dbf45c
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF00000567.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9282
 
-On 11/2/26 05:19, Nicolin Chen wrote:
-> When ARM_SMMU_OPT_KDUMP_ADOPT is detected, do not disable SMMUEN and skip
-> the CR1/CR2/STRTAB_BASE update sequence in arm_smmu_device_reset(). Those
-> register writes are all CONSTRAINED UNPREDICTABLE while CR0_SMMUEN==1, so
-> leaving them intact lets in-flight DMAs continue to be translated by the
-> adopted stream table.
-> 
-> Initialize 'enables' to 0, so it can carry the retained CR0 fields in the
-> kdump case, clearing only the queue enable bits. Then, preserve them when
-> enabling the command queue.
-> 
-> The retained CR0 keeps the crashed kernel's ATSCHK too, which selects the
-> fast (0) or the safe (1) mode for the ATS translated traffic. Switching to
-> the safe mode would start checking the in-flight traffic against STE.EATS
-> fields that the crashed kernel never set up for a check, aborting the very
-> DMAs being carried.
-> 
-> Clear latched gerror bits if necessary.
-> 
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-> Reviewed-by: Pranjal Shrivastava <praan@google.com>
-> Tested-by: Breno Leitao <leitao@kernel.org>
-> Tested-by: Cristian Prundeanu <cpru@amazon.com>
-> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Thanks for the prompt.  Honest answer up front: none of the three patches
+has a runtime trigger.  All three are theoretical, and this is what I
+should have put in the commit messages.
 
-Looks ok regardless of small comments below, so FWIW:
+1/3 net: mptcp: take token lookup references with acquire ordering
+   Theoretical.  There is no syzbot report, no KCSAN splat and no
+   reproducer.  KCSAN cannot observe this class of defect at all:
+   Documentation/dev-tools/kcsan.rst is explicit that watchpoints are
+   only set up for plain accesses ("KCSAN never sets up a watchpoint on
+   marked accesses") and that "reordering of marked accesses is not
+   modeled", and the reordering in question involves a marked refcount
+   operation.  On x86-64 there is nothing to observe anyway: both
+   variants compile to the same lock cmpxchg.  The evidence is
+   instruction-level: on arm64 the CAS becomes CASA
+   (88a37c02 cas -> 88e17c43 casa), which I can attach if wanted.  What
+   I did confirm is only reachability of the lookup path from the wire
+   (mptcp_parse_option() -> subflow_token_join_request() ->
+   mptcp_token_get_sock()), which is a static reading, not a runtime
+   demonstration of the reordering.
 
-Reviewed-by: John Garry <john.garry@arm.com>
+2/3 net: mptcp: reject token 0 in mptcp_token_get_sock()
+   Theoretical, and found by static analysis while addressing a review
+   comment on 1/3, not by fuzzing.  The crash path I describe
+   (subflow_check_req() -> mptcp_pm_announced_has_ssk() walking
+   msk->pm.anno_list before mptcp_pm_data_init() has run) is argued from
+   code; I have not triggered it and have no stack trace or KASAN
+   report for it.  What is verified is the input side: the token is
+   copied from the MP_JOIN option without validation, and 0 is never
+   assigned to a live connection, so a lookup for 0 relies entirely on
+   the two comparisons that cannot distinguish it.
 
-> ---
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 57 +++++++++++++++++++--
->   1 file changed, 53 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index d45ce33334ce2..1c53c690a2b02 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -5145,10 +5145,39 @@ static void arm_smmu_write_strtab(struct arm_smmu_device *smmu)
->   static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
->   {
->   	int ret;
-> -	u32 reg, enables;
-> +	u32 reg, enables = 0;
->   
-> -	/* Clear CR0 and sync (disables SMMU and queue processing) */
->   	reg = readl_relaxed(smmu->base + ARM_SMMU_CR0);
-> +
-> +	/*
-> +	 * In a kdump case (set when CR0_SMMUEN=1 and !GERROR_SFM_ERR), retain
-> +	 * all the live CR0 fields, e.g. CR0_SMMUEN to avoid aborting in-flight
-> +	 * DMA and CR0_ATSCHK to carry on the ATS-check policy, while clearing
-> +	 * only the queue enable bits for this kernel to take over the queues.
-> +	 *
-> +	 * According to spec, updating STRTAB_BASE/CR1/CR2 when CR0_SMMUEN=1 is
-> +	 * CONSTRAINED UNPREDICTABLE. So, skip those register updates and rely
-> +	 * on the adopted stream table from the crashed kernel.
-> +	 */
-> +	if (smmu->options & ARM_SMMU_OPT_KDUMP_ADOPT) {
-> +		dev_info(smmu->dev,
-> +			 "kdump: retaining SMMUEN for in-flight DMA\n");
-> +		enables = reg & ~(CR0_CMDQEN | CR0_EVTQEN | CR0_PRIQEN);
-> +		/*
-> +		 * Disable queues since arm_smmu_device_disable() is skipped.
-> +		 * CR0 fields are independent per spec, so the queue enable bits
-> +		 * can be cleared while retaining SMMUEN=1.
-> +		 */
-> +		ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
-> +					      ARM_SMMU_CR0ACK);
-> +		if (ret) {
-> +			dev_err(smmu->dev, "failed to disable queues\n");
+3/3 net: mptcp: verify the token slot in mptcp_token_iter_next()
+   Theoretical as well.  Both consumers (mptcp_diag and the userspace
+   path manager) are netlink paths that need privileges in the target
+   network namespace, so this is not a remote attack surface in the
+   first place.
 
-"kdump: failed to disable queues\n"?
-
-And it would be nice to say or hint what happens next.
-
-> +			return ret;
-> +		}
-> +		goto reset_queues;
-
-nit: goto could be avoided, but that is a taste thing
-
-> +	}
-> +
-> +	/* Clear CR0 and sync (disables SMMU and queue processing) */
->   	if (reg & CR0_SMMUEN) {
->   		dev_warn(smmu->dev, "SMMU currently enabled! Resetting...\n");
->   		arm_smmu_update_gbpa(smmu, GBPA_ABORT, 0);
-> @@ -5178,12 +5207,27 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
->   	/* Stream table */
->   	arm_smmu_write_strtab(smmu);
->   
-> +reset_queues:
-> +	/*
-> +	 * GERROR bits are latched. Read after queue disabling so that unhandled
-> +	 * errors would be visible. Ack everything prior to re-enabling the CMDQ
-> +	 * as a stale CMDQ_ERR would halt the CMDQ and new command will timeout.
-> +	 * Acking SFM_ERR is defined too, although it would not exit the SFM.
-> +	 */
-> +	if (is_kdump_kernel()) {
-> +		u32 gerror = readl_relaxed(smmu->base + ARM_SMMU_GERROR);
-> +		u32 gerrorn = readl_relaxed(smmu->base + ARM_SMMU_GERRORN);
-> +
-> +		if ((gerror ^ gerrorn) & GERROR_ERR_MASK)
-> +			writel(gerror, smmu->base + ARM_SMMU_GERRORN);
-> +	}
-> +
->   	/* Command queue */
->   	writeq_relaxed(smmu->cmdq.q.q_base, smmu->base + ARM_SMMU_CMDQ_BASE);
->   	writel_relaxed(smmu->cmdq.q.llq.prod, smmu->base + ARM_SMMU_CMDQ_PROD);
->   	writel_relaxed(smmu->cmdq.q.llq.cons, smmu->base + ARM_SMMU_CMDQ_CONS);
->   
-> -	enables = CR0_CMDQEN;
-> +	enables |= CR0_CMDQEN;
->   	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
->   				      ARM_SMMU_CR0ACK);
->   	if (ret) {
-> @@ -5239,7 +5283,12 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
->   		}
->   	}
->   
-> -	if (smmu->features & ARM_SMMU_FEAT_ATS) {
-> +	/*
-> +	 * In a kdump adopt case, retain the crashed kernel's ATS-check policy
-> +	 * captured above rather than forcing it on.
-> +	 */
-> +	if (!(smmu->options & ARM_SMMU_OPT_KDUMP_ADOPT) &&
-> +	    (smmu->features & ARM_SMMU_FEAT_ATS)) {
->   		enables |= CR0_ATSCHK;
->   		ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
->   					      ARM_SMMU_CR0ACK);
+For 2/3 I will add a KUnit case to net/mptcp/token_test.c
+(mptcp_token_get_sock(&init_net, 0) must return NULL) in the next
+revision, so at least the guard has a regression test.  I am not
+reposting only for this message; if reviewers want the above folded into
+the cover letter, I will include it with the next respin.
 
