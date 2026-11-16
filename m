@@ -1,75 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815146;
-	b=LZfk/pu1s+3zIUV7QqZGzf5BgWa6v4QeZXyX7gfuAcgV6Cn056yjMjeovpiAQ/rmT05S
-	 nNSykBHovTsGroUY1tgzaPs2J4h6m4Yy6YvBUiJNuJAvLL8oiFCyxEMzN3PaEpGbd6bkq
-	 kWi5Ud4F4ig+XRsh6NUbl6fyGzVI/1D/XtuHiVd5LuNGGvYKvKVPYhJCoiPs4m/5K0Q93
-	 YRP6X+kNSXJ5wwLKIiOdGEYcBkVi/25mrNWm3ptbGH390tMzoUKRoIuy/wlg2udtdQ3ry
-	 H9SPD+XpRGrZM3AsVkejdui89FlNq8fouJFAv2qSI9Uue3Rq8KFt9y79VJwvQNTvXfw==
+	t=1794815150;
+	b=nqsEWXKCId4KxfA4GagagX8Dk6G78BtVNjMe9yGijepPba8Ju3dbZoFSdN+gf+WPQcgy
+	 Hb+atJY0BOYQHEb4pterGDayD+tRam7NzZemm2gD1dIoAwynF4ESIWcd+5Exa/W3QHoI/
+	 DLwlTI7LOs989hfkp3cDt61aMc0XupYMICY0st8MUloy1Rak8ZJiOdcqBzUrJgHEA0Qi1
+	 ZeI7Aqx4/ay1JbxtoOvNS2jZCZbOQ0fCQbcPCxu/lrktnmbbjOLcR5EW3Q7VD3fCVu6P5
+	 UTXxQeeo9YsOp0ePQcOApHE/JQGoif5WTscpNKwfgBf/I+ct6hZ/R+h92Fuvw0CNFYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815146;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815150;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=Nj1ORUVmelbkoIJqM5VpUSwJbEzzI9+08Fr7bdYhd0w=;
-	b=veHU7/sFsLfe7TCJmJjjqiHR3WWJ0kGKsYKRGYaSrW8D/q6d2Toi5wpTx3+LcQ/AdEFQ
-	 9iMHw3aVauSPGH06LOKg2MuhCaPCJGcv5aEs81ZHcJFSeOyyzRAPM+FffBEKsD2Zv73RB
-	 TR/BWCE6aE29vAon2vCjiz2x00sEsSCEqkXjia12QShVS6rANvI0+lFoztQ9zy23POB98
-	 uMlzkAJXf3BS8n2Rx8LG3SA3w70c9odurPd/aFJooNJNLg6SG/p4yNd3IAaFg9bm2b9+8
-	 yg69hBceJI1y4lG/FviyIfP9bj3QyiU5HXF06sBJ83mRKm5rzagzgBYWl9X0SR4oqIA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:Date:
+	 Message-Id:To:Cc:In-Reply-To:References:X-Mailer;
+	bh=zmgK2rZQB0Zps7NPdGicEsUeC+FDAzmra5NHyyX5KYA=;
+	b=3ycaInzcD27tS/0sGpPTIhjrQQF1WCUFXOwlDLxD6kSCEzDczFoqND2bTtb7bC+fXdvK
+	 WgtThlSi1JFmPkJkRs93Li3s9GMa58qG5gVZJGLl9NGMUhqjkbCUgHq1ze2Coj89ETWtu
+	 J0jZmSHImMKhVBxVMdiwWlEJXHu1MiB9Ww/ak7tWDGfb7RpJef9vXLK8VgM0EuFKHGL1U
+	 v1VBXBt/yQFmkFkp3OYF11qDaq28JfptJ/nTc2K3avUHW9v/OW9hSOngnxfAH+r0xiOBu
+	 U8w66pu3T0FxngUo+ioC4tJpNvqxBj2pr0EIBD28lQn8xR4PsYepJyhg5reIHxjkTzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j9uS3N3X;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eon5LALw;
+	arc=none smtp.remote-ip=74.125.227.201
+Received: from mail-pi2-f9.google.com (mail-pi2-f9.google.com [74.125.227.201])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68DD60A380A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C68DD60A380A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D69606A8A6
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D69606A8A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j9uS3N3X
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a3451ea93so3258268eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eon5LALw
+Received: by mail-pi2-f9.google.com with SMTP id 41be03b00d2f7-cdd9779aac8so728779a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:45:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794815144; x=1795419944; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nj1ORUVmelbkoIJqM5VpUSwJbEzzI9+08Fr7bdYhd0w=;
-        b=j9uS3N3X0vMNKP1B7gukpp094P+Jx8EC6xCEVyrSo63xC3StcQs/zCLuVDBs2TwRxy
-         5u9ZPTlXuTQqWb0kzU7WtAozlEjp+25cLjC9AU7GBAmY7i8G1C2SNLEsTwcjyg0G2zmH
-         ojP5nEfx4Y96eUJIXeUfuriosRtKokzzCqRln04BdqMGMK/ziXdRi19D7hvn55yB1iR5
-         4QHJwBCFLtkHLVGVyyc6OTm3Ku1b4S3Lt2AbxcfGW3ItN4TnxB2d9wjv+AqXQXaNHpJT
-         0WeHNUmJVuV9YYHBlt7brT1FYSKZ6meNIPZmd8ogI4MNei2+lV9Vig6M06QAQV3CvB8k
-         ufhw==
+        d=gmail.com; s=20260707; t=1794815150; x=1795419950; darn=vger.kernel.org;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zmgK2rZQB0Zps7NPdGicEsUeC+FDAzmra5NHyyX5KYA=;
+        b=Eon5LALwWF4LfJWvx0rLOJ9Wff3uR4DX5Txpe2eizNWBt3ur8KVEqMi91StWp45DCr
+         Mi71YFPmCOnv0q61HIbvZ4ll3HPTeHNIBX97NrQJ5yDvFxOL4oCj4dGzOhzxIPu2qwCP
+         YQw4OAfxQnEtNQ/mucdSD9lJSkhjFulTJGCjzJi8SRU44gwNVVnBwZNrxNT+L+5/iNyc
+         v+b20fC4LL/221FzeGOxIn577wfLvrmdl5MMaNLWRmSIgwOsbnvM8QXhrYA6HVT3QlLf
+         6qcbtdXc+SAhKilXtFIj8AHgRqi9Mvko7rMScwhHnzlsFERXbdtecyRoBc61SUXEZ2B2
+         W61w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815144; x=1795419944;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nj1ORUVmelbkoIJqM5VpUSwJbEzzI9+08Fr7bdYhd0w=;
-        b=krGjMjNy0mAFoT99Sk+lDobIo98Jsv9Lk7ZkKDVnFkQzJvjf/Lojs4SOnvn+3glb4g
-         idM6zkjjAPVcLMrvgyNnnHCwlZaRsiUKlxmgf8no+PTGMdg5Z5/gZZrnKL1906jFyjpt
-         5p7tj85H+uDQ75UracZ+Pst0EF/CpmD3aL+DYh2DwV6G0jvH+Dzcwj8KoCivbbfibT46
-         G1Mv2qUR2CVYOiPHkFktgeyxiaYFXhv12ce6S3E/AYCBoHGRhfjtIlOihaaf/7wj4Q2h
-         cHDsnZHsYOsKdPDJsN3OxMVKZjjILsFcpOQMLqGL6xoT321S7hhBqmMqP4HL5u+FGfCg
-         ET9A==
-X-Forwarded-Encrypted: i=1; AL+hErFmN0KwXVMZQpH1PYtLWpmkliUaFMGA3dPnTlHt3lEK/7gERv7woMJ1yWPiz5wAF0Ez5/HqjF6mLIqtOgA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tWvWxxXudPjAqZisivZiHfB3I5vkQQyQ95Sy5pZGy42A6pKaQ
-	1PswdEaey27z4PtF/iQwhtBzavIvAD5aSzIuYTMseCYaAbDkNkh1WCGpPs1RoGX74dox6bmFFgD
-	2udMFMH/JVg==
-X-Received: from dlrr18.prod.google.com ([2002:a05:701a:c952:b0:1ac:f9af:14c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:f211:b0:183:7d42:cfb5
- with SMTP id a92af1059eb24-1b503100812mr11585823c88.19.1794815143558; Sun, 15
- Nov 2026 23:45:43 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:44:13 -0800
-In-Reply-To: <20261116074414.3174737-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1794815150; x=1795419950;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zmgK2rZQB0Zps7NPdGicEsUeC+FDAzmra5NHyyX5KYA=;
+        b=EwMg9C+JC3B63MDbmsZWWP1FecWEltgOyl+RgQup7F8exVSpmaEkM9R1aK2xgcO/9p
+         3ZxFtU2gaOtptJIG/Id7Nj5+PWzhxgNeRwqX/g0QRQf2SKm5/qy4HLHyAJzY37zdC+EV
+         TPLmnQ4ZbKPrjyIwZtgT1AUIFOyA61nwz7w9H/zdPg8QquAKWtEAR30MKWvdx8KebQfa
+         d1mSgr6VuWbqdn2GGCN16wJaOVV5Iml9tzLKjGrFnUQwOLtmZjPwAYz1neALDXAeh69b
+         DJZI13xvqqJvFYQklQ14J4fbswXni654VfV+YRzajWvBgStE12Wz6w9iDSHL+rUp4Mds
+         2wOQ==
+X-Forwarded-Encrypted: i=1; AL+hErFGIcmMWYVNFb8udcGQnut55huB+EzS4d+gmvU3/nnMrpk4ZfQl+gkkaPWOQvlCZfkoZIk4bDQIRGulQnQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QAaoZt7IU/gf5dfCiYOl7z9qPV9J9gomrwVcjt8GDCezbglfd
+	w+r4v2N8NygUTnIu7x8tw4N6307+Ee6f8/c/AZGtG7yCWG8xOycDrLg63oLbbfxv17oW322s
+X-Gm-Gg: AYBFou07YSbUZNQVbn1ibhqo9aWY4QJfuPvkh1qNnkP15tlYboz/e0VQDh4oiaXD+8Y
+	DwNEkiFXwK93Yt9s3N/OW10uH6VKj8oEgPafoIMZ0CSZEwQARJyHibyvlyUOZJdvKDEavBqbipn
+	82MwATcaIDuA5yLja86sWuBTc3bY/ZC1oVZITf9XzMpWn+ltmhV5DtUTcquLcTrL9zC/aZ1y7aq
+	+cTxsMi5peZ27ueDgB6Eva/eueFIMY4LxGq0hNHmojncweLlRqQGYJcbAFOBpuYhR2Nk/YO6TDp
+	CLnSYuC3+pfd0DonGPlRvdK9rG+i+MLh8ZD7uDg86gwb9lquc81/TVR6mL+okKCpbNbv/c+3GY9
+	5cTDEUX3B9exYEr3lEbAqHu+jOFcjiBYofo2tDX3VDRc48RIT2Q3Nz52Qv93uIcDe0/JQCpopWl
+	/3L2TbEaO/p7CD0jCghMPicMmkWlXP1mTjMVH5ssNF72rZY/Qt71OtTldppAZs1xhTAmtf7NeuI
+	4afJGlq5stYL6rYYdnTwJP7vXTNBe5loLtJefh+YseUGt1vSu9UrzHc3q34gvRwh/EjBALxZMi6
+	Wgw3PuwkB84ZZ2p8MhGiL25HIxsE4k/It9WR9mQYirrzHeh3y0pysdEr9curZTt2hKhQKY7Dtur
+	JIApnuZyjlr/IPw03l36nO5QMuPZiVJtxe/8Xnq5CpmKDIuczfGC8i0RiGqu2jWk=
+X-Received: by 2002:a05:6a00:181b:b0:8a0:7677:c8c9 with SMTP id d2e1a72fcca58-8beb7c21179mr8733834b3a.51.1794815149534;
+        Sun, 15 Nov 2026 23:45:49 -0800 (PST)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6dbd9sm3244287b3a.27.2026.11.15.23.45.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:45:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,324 +88,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261116074414.3174737-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261116074414.3174737-19-irogers@google.com>
-Subject: [PATCH v3 18/19] perf test: Add BUILD_ID_OFFSET C unit tests
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Leo Yan <leo.yan@linux.dev>, Dmitry Vyukov <dvyukov@google.com>, 
-	"Steinar H . Gunderson" <sesse@google.com>, Stephen Brennan <stephen.s.brennan@oracle.com>, 
-	Thomas Falcon <thomas.falcon@intel.com>, linux-perf-users@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH 14/27] mm/damon/paddr: support REPORT_MADE type
+ probe filter
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Mon, 16 Nov 2026 18:43:36 +1100
+Message-Id: <179481501691.2405628.8067144236288202449.b4-reply@b4>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, sashiko-bot@kernel.org, 
+ sashiko-reviews@lists.linux.dev
+In-Reply-To: <20261115202849.99134-15-sj@kernel.org>
+References: <20261115202849.99134-1-sj@kernel.org>
+ <20261115202849.99134-15-sj@kernel.org>
+X-Mailer: b4 0.16.0
 
-Add C unit test coverage for PERF_SAMPLE_BUILD_ID_OFFSET and
-PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET:
-- sample-parsing: round-trip synthesis and parsing
-- mmap-thread-lookup: map lookup by build ID and DSO file offset
-- bid-offset: sys_perf_event_open() attribute probing
+Hi SJ,
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/Build                |  1 +
- tools/perf/tests/bid-offset.c         | 61 +++++++++++++++++++++++++++
- tools/perf/tests/builtin-test.c       |  1 +
- tools/perf/tests/mmap-thread-lookup.c | 49 ++++++++++++++++++++-
- tools/perf/tests/sample-parsing.c     | 60 +++++++++++++++++++++++++-
- tools/perf/tests/tests.h              |  1 +
- 6 files changed, 170 insertions(+), 3 deletions(-)
- create mode 100644 tools/perf/tests/bid-offset.c
+On Sun, 15 Nov 2026 12:28:32 -0800 SJ Park wrote:
 
-diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index 5eebb2ec5dde..d6fe1ba57a79 100644
---- a/tools/perf/tests/Build
-+++ b/tools/perf/tests/Build
-@@ -66,6 +66,7 @@ perf-test-y += expand-cgroup.o
- perf-test-y += perf-time-to-tsc.o
- perf-test-y += dlfilter-test.o
- perf-test-y += sigtrap.o
-+perf-test-y += bid-offset.o
- perf-test-y += event_groups.o
- perf-test-y += hybrid-merge.o
- perf-test-y += symbols.o
-diff --git a/tools/perf/tests/bid-offset.c b/tools/perf/tests/bid-offset.c
-new file mode 100644
-index 000000000000..0cf52caae047
---- /dev/null
-+++ b/tools/perf/tests/bid-offset.c
-@@ -0,0 +1,61 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "tests.h"
-+#include "debug.h"
-+#include "evlist.h"
-+#include "evsel.h"
-+#include <linux/hw_breakpoint.h>
-+#include <linux/perf_event.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+#include <errno.h>
-+#include "../perf-sys.h"
-+
-+static int test__bid_offset(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
-+{
-+	struct perf_event_attr attr = {
-+		.type		= PERF_TYPE_SOFTWARE,
-+		.config		= PERF_COUNT_SW_DUMMY,
-+		.size		= sizeof(attr),
-+		.sample_type	= PERF_SAMPLE_BUILD_ID_OFFSET,
-+		.exclude_kernel = 1,
-+		.exclude_hv     = 1,
-+	};
-+	int fd;
-+
-+	fd = sys_perf_event_open(&attr, /*pid=*/0, /*cpu=*/-1, /*group_fd=*/-1, /*flags=*/0);
-+	if (fd < 0) {
-+		pr_debug("sys_perf_event_open failed with %d\n", errno);
-+		if (errno == EINVAL || errno == EACCES || errno == EPERM) {
-+			pr_debug("Kernel does not support or permit PERF_SAMPLE_BUILD_ID_OFFSET\n");
-+			return TEST_SKIP;
-+		}
-+		return TEST_FAIL;
-+	}
-+	close(fd);
-+
-+	attr.sample_type = PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET;
-+	attr.exclude_callchain_kernel = 1;
-+	fd = sys_perf_event_open(&attr, /*pid=*/0, /*cpu=*/-1, /*group_fd=*/-1, /*flags=*/0);
-+	if (fd < 0) {
-+		pr_debug("sys_perf_event_open with callchain failed with %d\n", errno);
-+		if (errno == EINVAL || errno == EACCES || errno == EPERM) {
-+			pr_debug("Kernel does not support or permit PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET\n");
-+			return TEST_SKIP;
-+		}
-+		return TEST_FAIL;
-+	}
-+	close(fd);
-+
-+	return TEST_OK;
-+}
-+
-+static struct test_case bid_offset_tests[] = {
-+	TEST_CASE_REASON("Test PERF_SAMPLE_BUILD_ID_OFFSET", bid_offset,
-+			 "not supported by kernel"),
-+	{ .name = NULL, }
-+};
-+
-+struct test_suite suite__bid_offset = {
-+	.desc = "Test PERF_SAMPLE_BUILD_ID_OFFSET",
-+	.test_cases = bid_offset_tests,
-+};
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 327483f96401..501d72fc7dcb 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -186,6 +186,7 @@ static struct test_suite *generic_tests[] = {
- 	&suite__perf_time_to_tsc,
- 	&suite__dlfilter,
- 	&suite__sigtrap,
-+	&suite__bid_offset,
- 	&suite__event_groups,
- 	&suite__hybrid_merge,
- 	&suite__symbols,
-diff --git a/tools/perf/tests/mmap-thread-lookup.c b/tools/perf/tests/mmap-thread-lookup.c
-index dca8bbfe780a..7e312d5a1ba3 100644
---- a/tools/perf/tests/mmap-thread-lookup.c
-+++ b/tools/perf/tests/mmap-thread-lookup.c
-@@ -7,6 +7,7 @@
- #include <pthread.h>
- #include <stdlib.h>
- #include <stdio.h>
-+#include <string.h>
- #include "debug.h"
- #include "env.h"
- #include "event.h"
-@@ -17,7 +18,10 @@
- #include "symbol.h"
- #include "util/synthetic-events.h"
- #include "thread.h"
-+#include "dso.h"
-+#include "build-id.h"
- #include <internal/lib.h> // page_size
-+#include <internal/rc_check.h>
- 
- #define THREADS 4
- 
-@@ -200,17 +204,58 @@ static int mmap_events(synth_cb synth)
- 					.ip = (unsigned long) (td->map + 1),
- 				 }, &al);
- 
--		thread__put(thread);
--
- 		if (!al.map) {
- 			pr_debug("failed, couldn't find map\n");
- 			err = -1;
-+			thread__put(thread);
- 			addr_location__exit(&al);
- 			break;
- 		}
- 
- 		pr_debug("map %p, addr %" PRIx64 "\n", al.map, map__start(al.map));
- 
-+		/* Verify lookup by build ID and offset */
-+		{
-+			struct build_id test_bid = {
-+				.data = { [0] = i + 1 },
-+				.size = BUILD_ID_SIZE,
-+			};
-+			struct dso *dso = dso__new("test_dso");
-+			struct addr_location al2;
-+			struct perf_build_id pbid = { .size = test_bid.size };
-+			u64 offset = map__dso_map_ip(al.map,
-+						     (unsigned long)(td->map + 1));
-+
-+			if (!dso) {
-+				pr_debug("failed to create test dso\n");
-+				err = -1;
-+				thread__put(thread);
-+				addr_location__exit(&al);
-+				break;
-+			}
-+			dso__set_build_id(dso, &test_bid);
-+			dso__put(map__dso(al.map));
-+			map__set_dso(al.map, dso);
-+
-+			memcpy(pbid.data, test_bid.data, test_bid.size);
-+			addr_location__init(&al2);
-+			thread__find_map(thread, &(struct perf_sample){
-+						.cpumode = PERF_RECORD_MISC_USER,
-+						.ip = 0,
-+						.bid = {
-+							.bid = &pbid,
-+							.offset = offset,
-+						},
-+					 }, &al2);
-+
-+			if (!RC_CHK_EQUAL(al2.map, al.map) || al2.addr != offset) {
-+				pr_debug("failed, couldn't find map by build id and offset\n");
-+				err = -1;
-+			}
-+			addr_location__exit(&al2);
-+		}
-+
-+		thread__put(thread);
- 		addr_location__exit(&al);
- 		if (err)
- 			break;
-diff --git a/tools/perf/tests/sample-parsing.c b/tools/perf/tests/sample-parsing.c
-index bd30f6d4c31b..41e8933bc2fc 100644
---- a/tools/perf/tests/sample-parsing.c
-+++ b/tools/perf/tests/sample-parsing.c
-@@ -218,6 +218,33 @@ static bool samples_same(struct perf_sample *s1,
- 		}
- 	}
- 
-+	if (type & PERF_SAMPLE_BUILD_ID_OFFSET) {
-+		if (!s1->bid.bid || !s2->bid.bid ||
-+		    memcmp(s1->bid.bid, s2->bid.bid, sizeof(*s1->bid.bid))) {
-+			pr_debug("Samples differ at 'bid.bid'\n");
-+			return false;
-+		}
-+		COMP(bid.offset);
-+	}
-+
-+	if (type & PERF_SAMPLE_CALLCHAIN_BUILD_ID_OFFSET) {
-+		COMP(callchain_bid.nr_build_ids);
-+		COMP(callchain_bid.nr_offsets);
-+		COMP(callchain_bid.build_ids_len);
-+		if (!s1->callchain_bid.build_ids || !s2->callchain_bid.build_ids ||
-+		    memcmp(s1->callchain_bid.build_ids, s2->callchain_bid.build_ids,
-+			   s1->callchain_bid.build_ids_len)) {
-+			pr_debug("Samples differ at 'callchain_bid.build_ids'\n");
-+			return false;
-+		}
-+		if (!s1->callchain_bid.offsets || !s2->callchain_bid.offsets ||
-+		    memcmp(s1->callchain_bid.offsets, s2->callchain_bid.offsets,
-+			   s1->callchain_bid.nr_offsets * sizeof(u64))) {
-+			pr_debug("Samples differ at 'callchain_bid.offsets'\n");
-+			return false;
-+		}
-+	}
-+
- 	return true;
- }
- 
-@@ -247,6 +274,26 @@ static int do_test(u64 sample_type, u64 sample_regs, u64 read_format)
- 	const u32 raw_data[] = {0x12345678, 0x0a0b0c0d, 0x11020304, 0x05060708, 0 };
- 	const u64 data[] = {0x2211443366558877ULL, 0, 0xaabbccddeeff4321ULL};
- 	const u64 aux_data[] = {0xa55a, 0, 0xeeddee, 0x0282028202820282};
-+	const struct perf_build_id bid = {
-+		.size = 20,
-+		.data = {
-+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-+		}
-+	};
-+	const u8 callchain_build_ids[48] = {
-+		20,
-+		'9', '8', '7', '6', '5', '4', '3', '2', '1', '0',
-+		'9', '8', '7', '6', '5', '4', '3', '2', '1', '0',
-+		20,
-+		'a', 'b', 'c', 'd', 'e', 'f', 'a', 'b', 'c', 'd',
-+		'e', 'f', 'a', 'b', 'c', 'd', 'e', 'f', 'a', 'b',
-+	};
-+	const u64 callchain_offsets[] = {
-+		(1ULL << 56) | 201,
-+		(2ULL << 56) | 202,
-+		(1ULL << 56) | 203,
-+	};
- 	struct regs_dump user_regs = {
- 		.abi	= PERF_SAMPLE_REGS_ABI_64,
- 		.mask	= sample_regs,
-@@ -295,6 +342,17 @@ static int do_test(u64 sample_type, u64 sample_regs, u64 read_format)
- 			.size	= sizeof(aux_data),
- 			.data	= (void *)aux_data,
- 		},
-+		.bid		= {
-+			.bid = (struct perf_build_id *)&bid,
-+			.offset = 119,
-+		},
-+		.callchain_bid	= {
-+			.nr_build_ids = 2,
-+			.nr_offsets = ARRAY_SIZE(callchain_offsets),
-+			.build_ids_len = sizeof(callchain_build_ids),
-+			.build_ids = (u8 *)callchain_build_ids,
-+			.offsets = (u64 *)callchain_offsets,
-+		},
- 	};
- 	struct sample_read_value values[] = {{1, 5, 0}, {9, 3, 0}, {2, 7, 0}, {6, 4, 1},};
- 	struct sample_read_value packed_values[ARRAY_SIZE(values)];
-@@ -547,7 +605,7 @@ static int test__sample_parsing(struct test_suite *test __maybe_unused, int subt
- 	 * were added.  Please actually update the test rather than just change
- 	 * the condition below.
- 	 */
--	if (PERF_SAMPLE_MAX > PERF_SAMPLE_WEIGHT_STRUCT << 1) {
-+	if (PERF_SAMPLE_WEIGHT_STRUCT << 3 < PERF_SAMPLE_MAX) {
- 		pr_debug("sample format has changed, some new PERF_SAMPLE_ bit was introduced - test needs updating\n");
- 		return -1;
- 	}
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index af822885890d..a65d209b649f 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -196,6 +196,7 @@ DECLARE_SUITE(expand_cgroup_events);
- DECLARE_SUITE(perf_time_to_tsc);
- DECLARE_SUITE(dlfilter);
- DECLARE_SUITE(sigtrap);
-+DECLARE_SUITE(bid_offset);
- DECLARE_SUITE(event_groups);
- DECLARE_SUITE(hybrid_merge);
- DECLARE_SUITE(symbols);
--- 
-2.56.1.703.gf848ed807c-goog
+> +	case DAMON_FILTER_TYPE_REPORT_MADE:
+> +		addr_range.start = pa;
+> +		addr_range.end = pa + 1;
+> +		matched = damon_report_exist(filter->report_type, &addr_range,
+> +				jiffies -
+> +				usecs_to_jiffies(ctx->attrs.sample_interval));
 
+Since the window is counted in jiffies and rounded up, how many samples
+see a given report depends on HZ.  With the default 5 ms sampling
+interval, the window is 2 jiffies at HZ=250, i.e. 8 to 12 ms, so a
+report is usually seen by two consecutive samples.  At HZ=1000 the
+window is 5 jiffies, but kdamond_usleep() sleeps via
+schedule_timeout_idle() there, and samples end up about 6 ms apart, so
+a report made right after a sample can fall out of the window before
+the next one.
+
+With the queue indexing fixed, user reports submitted every 50 or
+250 ms and covering the whole physical address range were counted
+about 2.0 times each on an x86_64 guest at HZ=250, and about 0.84
+times at HZ=1000.
+
+Is this approximation intended?  If each report is meant to be counted
+once, maybe we could keep a per-context report sequence cursor and
+check only the reports enqueued since the previous probe run.  A quick
+local hack of that counted each report once on both HZ values.  If
+reports are rather meant to stay valid for a while, like a user saying
+a range is hot, a validity period separate from the sampling interval
+might fit better.
+
+Thanks,
+Aveline Noir
