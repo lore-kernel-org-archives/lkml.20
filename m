@@ -1,101 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794796334;
-	b=RXZ5RVy/yEZfZkE3SjfrxXJBLalHL+eG25GxdaQvJsHt7yDCEUXf1p1sErbCXZF/EzcN
-	 iWk47mIHWUyII2IXlOM/9P4eqnFss91xDHSw1GmVMJxuq7zak/Wn+67/qum0eR5U9QpwD
-	 LDxG3UY7cg324yewO6th8h9GcOsXrZ1qPXBp1wG3UYxy+ilYQMar1lwrBfQG/F5Nrmia6
-	 FDinIZn1LuJDX3Y8DycrlbunJondU+lk9kjcOtYKKQpz+GYmzBpKlJf1/mHq2VBGoQLeW
-	 4/gUSeBGrLshRdY9fz8cwwvWCduWaDvDajVQrW1lg7jVnDQR+iGydK5evzxXAgo6GIg==
+	t=1794796336;
+	b=jPHxB3U1QNKSGtPcchhbnlMJ+u8yzGun08kvRke3POZq3ymSvPi4EOjnycLNyxyT7wHd
+	 alSp6dEs6DMCg6pfYg1wg5HIk31GHuigpf7Aj21kVanxEO6rmLWHRU749ycQ+vHhtqxpL
+	 Lq47ewFWcSoKBj5Q37enqZqOhY8mzp2WU8F+okXswWeVak0uv2zbE9A6j847Qw0NeapXE
+	 LIlRa/L5u9uRVLzus3HeI6vWT1tKcpJ126+2rJAMjk90iT3rqS4HSAH7YnHAAhD0xF8SI
+	 OxWMcAR4hb+3Ex8UTXpC3b9tcS7RjFLJih0J5vjRYAkQMOctdn0WsuRPAFL/Qqmu0bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794796334;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796336;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=qP0oQ8pgHCHQzk/+nldvTTjF2Xe/AkvM0ngljoymRm4=;
-	b=QVYk25+k6yn1VHQVZ9UeGHchsC3r65krRNo0jBYQkXVRjXqcuagd+dOAKLCYMgOD69y9
-	 zVh0VLfrhZS49/5GQ9/6p6Abbd6wUsjdagTyZYioakmnAhAVvKYjjFqLcp1btmnDirVLH
-	 w7zhVnXvKqYFe9Lk/3NX1R7IvCcxflYOInh/v10rumSg8oavCvzAD5RGmyN+GasrLPt8r
-	 WYUEPM/PTHxXzgbNgSt3YlQeq5Xx1AeOVm5k62Wot/itkILKaNEepBmbYiyPlwwrHL3uJ
-	 E4FKXVLuhyCKzldX+RiWGb8vKg1zjsWz4pNbI5h8/lnhJG7EuzI3U4zS8jKE+yVNi3g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=HL9KJ6zJx0cYgN2NafMIfK7yVZJpUohcZPTXV+OQ/Ow=;
+	b=cIucWm0FOn58cXj1TEwbNJPENuONc77YTNF8yMBmIkxord17NYKgd+1PdKIx2TBBteNE
+	 fM0rWEk1ti4g9mH6avU7HUODmLmI5xGw3NDx0kFj45D5ESyAhwfCsdY/x1T5vChQ7U7gE
+	 o2MxzOeZYd2x1dXKo9qeWU6sy0jt8Cohw8sA8XGl7J57AanTM0W3axLdlmBhcfw0cTVuM
+	 m4J2hCSQ4FxKDVURbUp6hhPBGZR/WzxjNsEnPeNrL1fVT/Ja1KAIjh7g8jyokZ8U2tQCi
+	 2wJYeuzuxj13o+eM1nUiT/QWtPae4JxlgLSpguvBhs4g/bGyLOadIsKzf2HRbfCddSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n097wLUh;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p5qduGPN;
+	arc=none smtp.remote-ip=209.85.222.69
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17140606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:32:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17140606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD21606A321
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD21606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n097wLUh
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-71ad047710aso1013799eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:32:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p5qduGPN
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-99e0e774882so779677241.3
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:32:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794796332; x=1795401132; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qP0oQ8pgHCHQzk/+nldvTTjF2Xe/AkvM0ngljoymRm4=;
-        b=n097wLUhxoclfA5QObXODd/JJRRKdOMko7wT9CCDpExxu+EqWIRhSBNsYYJW1UNrAo
-         oNR2SX6deWfZeNa0DslMa0sMX7UtmAo4zgIRgiABWk5pgtfUOw13ijcp3BLV3Cx6zeNf
-         1bUrTC2qZRH5pmqtCBMte/Th5bR9t19SgALJVXzq6Vf7+4xIxuM67fweKuwVegbjyKw8
-         emkTrBKSFEk8UIjCPafZo09qflxilxW1zvRkRkKTsOe9nWg8K/mFtD/SOTvEtC638G2M
-         jBcu5xCP71GlWOtRLnusPyokNC5B0dn9ZA4K8Cg9ZrEg3zxWJMvW1nrpzEpjZ7RWAlVe
-         n4Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794796332; x=1795401132;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794796335; x=1795401135; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qP0oQ8pgHCHQzk/+nldvTTjF2Xe/AkvM0ngljoymRm4=;
-        b=IeABvxFK4jEBk1HrcjKlVyqCQHHknZAYk31Y6iXCDGzaLMi9yDZ0iXzVoutKCGHLMx
-         tRFwJIdpea/NkiVDnIrxhlkmee9vUF1MYPvZT8wORx+qPvqK1dEr2dIMg9SVUgTjbC9N
-         CdY2kE1JEyikA5PLICmMfA4ojnCaqfPBGG9tf1AlcuZsyqz+tkZyWAxBCPu2ija5iCyx
-         UiaHXeFUnFLaeLd0itaVrRAqC6CCQvuvBK+wxQ3V0BeXVvFAArvB+FBZ5CRlmKR4PfY6
-         xSusTod8fxfEUxrmy+NBNO1l41uAbqQDsdr1a7UKg8qpjNTZ6gxjcoFfIuKccFdF2Em8
-         Hkuw==
-X-Forwarded-Encrypted: i=1; AL+hErGS9WmvrdozheuqxtSf6OiAiKMzwbpbrMRO+nIvXG/ORbRyLVMxuF6e8Yx84zqFrfe3FaPlfIp3armCYp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UoWUOFvs47e4CSQhrJVbV9oOcsSExwXTKRY9wJ2pye0DNHOST
-	z7FVdTwkWsFSqCvZDtx/Yn+F0xoiGP5BkTukheExxCTsjYDKWCQ88V2N
-X-Gm-Gg: AYBFou1nWZXSbly5iwEJbMXeQkQde43CXhRIGBjJ7I9LnKn/CwXS5Q4+n8M6RE0SZzb
-	9tj3hIWEy6oLSLtCNUC9Zdzx8Wul6acEM6e5cy0ych3obILlJRB79dzqR4A5nJg6xdZR/t7Pi+Z
-	S2EhktAseL4RpTWd+b7HcfW5r2rYt+M7dbCO5q9r0Q3P8eLBQXEGaCIgSwqsYxlbVSuflDP69pS
-	n+T8iEb2/lto/cXwWz/2v8Wd9/TQJ0aDGYVDletGOueS9BOWCm03OXm8Yzc3YWUk3RwvH9BkRwm
-	wziu7xygSxXoYOOiIckEsfbZK5XUBvPZrjnOXH19sEWzuECvr/Wfw33opwpMMKbBreoBdV1qNVz
-	joCz9QWEplttfGHP6qXdenB4WJSLYWitRMRxXldLo39LrYdrTXcR2hKfDPp2QhYjEf/9HyR9L9a
-	c8zsdCN9GvM9nhWYXKSHhRJuwp/J12ssBBeTJAEoTUA7XDdusXxXpbPGYHhbCQ5o5hfjgkzVr2/
-	HMkkTbFfDqyyxnRBERe37l3Oc/zX8Mvak/RNYImHhgUGZjVivKrrclEOaDOI+G6QNbUfOsyzWIn
-	0OcHjVUFj9CQIYa3egfIKK799tCKI0Mqk2EDGqwoBIIUErdKoN/4OlLIVD2p/XSXtomK/UfRcs9
-	kctBlXBkw1/yPhx3g1bJEjvLWud3h49EVPA==
-X-Received: by 2002:a05:6820:1c83:b0:71a:ea6a:4f65 with SMTP id 006d021491bc7-71aea6a57c6mr2168123eaf.23.1794796331802;
-        Sun, 15 Nov 2026 18:32:11 -0800 (PST)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862c67db8basm1743225a34.13.2026.11.15.18.32.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 18:32:10 -0800 (PST)
-Date: Sun, 15 Nov 2026 20:32:02 -0600
-From: Ming Lei <tom.leiming@gmail.com>
-To: Qiliang Yuan <qiliang.yuan@linux.dev>
-Cc: "Martin K. Petersen" <mkp@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org,
-	Mike Christie <michael.christie@oracle.com>,
-	Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [PATCH RFC 00/18] scsi: target: Add target_core_uring, an
- io_uring based user backstore
-Message-ID: <avprIhtn1TuYLX1b@fedora-laptop>
-References: <20261115-feat-target-core-uring-v1-0-28cdc137eac6@linux.dev>
+        bh=HL9KJ6zJx0cYgN2NafMIfK7yVZJpUohcZPTXV+OQ/Ow=;
+        b=p5qduGPNWYEdMm58fmgaqV+WWGO2kO1BdwPyIACIzLv+7zdvvT129FbE/bFatUg8IE
+         rjLFwG17fbP3emtXYQWIvrDJb0hqMwGIX0/DqhRD7ycbV3ROoBpYtMXibjB1rUpFA5DO
+         tDG1OqWUzm/3jHdAFCGuHrGmp/nMdPeWuApD8+29AWjZH4lBoXeaCdU3f3cc234gaLbO
+         cBvt/m2c77eyyMKM22rxO4YukmySjv1LXhF3e2KFUX8j3Jb5K0s5csW8K6IZDk+UUIwh
+         CVwcjGmRStMNa5DoQF22nmtDqRTF86YWOEbo36vUKEHD3AWiUb8xp+hBjbkksZd1QIyw
+         F0Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794796335; x=1795401135;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HL9KJ6zJx0cYgN2NafMIfK7yVZJpUohcZPTXV+OQ/Ow=;
+        b=JCLtSfk/15LDovdFIDLYQVd91Az42iVEiSHpqBVWTb0sQz/75C316XzjMwcrd2LJN4
+         6dBuQcvlFT3DrBWKHXORmJHaDPWjNjbiTousaBCSrkwwhYHorRljNJ2qTQoI/5EeGvCf
+         wZmXHQfLme7a3anfayUovSlmhbwDsNvNjuXtO+i7apWeiaLIhv4Nk/tDZTXyV3jnFUJ0
+         6o0NlEOdAr/Tr0v5OVYPr0o4hvYpffDi4XtL+TmcKgBNhEI+8xKFh+/goEGTabMHMblN
+         XI1q48lYBu/+PYIw/iYC5y1NDF/DWJ/f151QRc73ypjjhrGjiKgVt2YqNXnIwuY64xAR
+         3jsw==
+X-Forwarded-Encrypted: i=1; AL+hErGybvmAiOSNrDgnq9r02h0zNuAZfmLZUGNVmwCMzWu2kg6xJvhHpclzJfOZS8WXHLRmxsZEBCllOSgo2dQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WMLPiCeAfZb1zuMQMV/vvXgglwlyXsfkzkfNWP6PuG4Zoy+z2
+	ceT9nwF/DMe9ZGMobZ1BfH2ekQmF00eJIrkqYfrquApgJBW0J+wQFHRdlRVbcHzsw/aNbZiZmCm
+	yatosMGrYPkz5iR+o4IZApV2/mw==
+X-Received: from uabig12.prod.google.com ([2002:a05:6130:1ecc:b0:99e:b1a:30])
+ (user=thaisonphan job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6102:510f:b0:7ad:3ad3:997a with SMTP id ada2fe7eead31-7d64d45ce68mr3464173137.5.1794796335056;
+ Sun, 15 Nov 2026 18:32:15 -0800 (PST)
+Date: Mon, 16 Nov 2026 02:32:11 +0000
+In-Reply-To: <CAL4Wiipd8pVX8Rxkof+29iSmfoAC5tytsOh0afnovEwaZ4NEjQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,83 +78,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115-feat-target-core-uring-v1-0-28cdc137eac6@linux.dev>
+Mime-Version: 1.0
+References: <20261114161248.3428695-1-thaisonphan@google.com>
+ <20261114161248.3428695-3-thaisonphan@google.com> <CAL4Wiipd8pVX8Rxkof+29iSmfoAC5tytsOh0afnovEwaZ4NEjQ@mail.gmail.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261116023211.129862-1-thaisonphan@google.com>
+Subject: Re: [PATCH net 2/2] tcp: accecn: initialize AccECN fields in
+ syncookie path
+From: Thaison Phan <thaisonphan@google.com>
+To: edumazet@kernel.org
+Cc: chia-yu.chang@nokia-bell-labs.com, davem@davemloft.net, horms@kernel.org, 
+	ij@kernel.org, kuba@kernel.org, kuniyu@google.com, 
+	linux-kernel@vger.kernel.org, ncardwell@google.com, netdev@vger.kernel.org, 
+	olivier.tilmans@nokia.com, pabeni@redhat.com, stani@google.com, 
+	thaisonphan@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 15, 2026 at 07:17:53PM -0500, Qiliang Yuan wrote:
-> TCM/USER is how a userspace process serves a LIO device, for instance
-> to export distributed storage over iSCSI or vhost-scsi. All commands of
-> a device go through one command ring under one mutex, the data of each
-> command is copied into and out of a shared data area, and the server
-> has to parse every SCSI CDB itself.
-> 
-> This series adds target_core_uring, a second user backstore next to
-> TCM/USER, built the way ublk is:
-> 
-> - The kernel emulates the SCSI commands. The server only sees reads,
->   writes, flushes, UNMAP and WRITE SAME as an operation, an offset and a
->   length.
-> - A device has several queues. Each queue is served through io_uring
->   commands on its own ring, with no lock shared between queues.
-> - Data is copied once, with pread()/pwrite() on the character device, or
->   not at all when the server registers the pages of a command as an
->   io_uring fixed buffer.
+On Sun, Nov 15, 2026 at 09:13:02AM +0100, Eric Dumazet wrote:
+> This is a different bug than the uninitialized fields above, with
+> a different impact. I would prefer two patches, one per bug, but
+> since both Fixes: commits landed in the same release I will not
+> insist.
 
-This is ublk's uapi re-implemented inside LIO: FETCH/COMMIT_AND_FETCH
-per tag, pread()/pwrite() with (qid, tag) in the offset, and buffer
-registration via io_buffer_register_bvec(). It starts without what
-ublk added afterwards (queue affinity, recovery, auto buffer
-registration, batching), and the sashiko reviews already found the
-same abort and lifetime races ublk fixed years ago.
+Makes sense. I'll make sure to split independent fixes into separate patches
+in the future.
 
-Follows two alternatives, especially with zero kernel change:
+> Same remark as for the LOOPBACK4_IPV6 patch: KASAN does not catch
+> uninitialized bitfields. Please say how the failure was observed
+> (KMSAN, tcpi_accecn_fail_mode in TCP_INFO on the child, ...).
 
-1) If LIO is required (vhost-scsi, FC, SRP, iSER), serve the device
-with ublk and export it via target_core_iblock. Same per-queue
-io_uring, same user copy and zero copy path, no new uapi. Please
-benchmark that configuration, with UBLK_F_USER_COPY and with
-UBLK_F_AUTO_BUF_REG, same 32 queues and threads.
+This was spotted by code inspection (with AI assistance) comparing
+tcp_openreq_init() and cookie_tcp_reqsk_init() while investigating the
+LOOPBACK4_IPV6 bug. We then verified it on a kernel with SLUB_RCU_DEBUG=y and
+slub_debug=P (preventing reuse of the warm request_sock from the initial SYN),
+observing bogus tcpi_accecn_fail_mode and tcpi_accecn_opt_seen values in
+TCP_INFO on the accepted child socket (as well as tcpi_accecn_fail_mode=0x2
+when the listener sends ECT(0) on the SYN-ACK).
 
-2) If the goal is iSCSI for userspace storage, keep the kernel out of
-the data path entirely. A write here still goes NIC -> iscsit -> LIO
--> uring_cmd -> pread() -> storage client, and a distributed storage
-client needs the data in its own memory anyway, so the zero copy path
-only helps file and block backends, which iblock and fileio already
-cover.
+I'll update the v2 changelog with these details.
 
-A userspace iSCSI target on io_uring receives straight into the server's
-buffer, with one copy fewer and no new kernel ABI. ioutgt
+> I think syn_ect_snt is always overwritten in cookie_{v4,v6}_check()
+> before being read, this line is not needed?
 
-		https://github.com/io-target/ioutgt
-
-is that design: one ring per queue thread for socket and backend I/O, lock-free
-data path, NVMe/TCP and NVMe/RDMA today, iSCSI on the roadmap. It already beats
-the kernel target by a wide margin: about 2x nvmet on 4k NVMe/TCP random read
-and write, and 2x on 64k over both TCP and RDMA, on 100GbE. Adding iSCSI
-there is a bounded userspace project.
-  
-> Patches 1-4 create the device, its queues and the character device.
-> Patches 5-8 pass reads and writes to the server. Patches 9-11 handle a
-> server that exits or hangs, and aborts. Patches 12-14 add flush, UNMAP
-> and WRITE SAME, patch 15 adds fixed buffers. Patches 16-18 add a small
-> server, a selftest and the documentation.
-> 
-> Not covered yet: protection information, and a way for existing
-> tcmu-runner handlers to move over without changes, as they implement
-> SCSI rather than block commands.
-> 
-> Exporting a 2 GiB device through tcm_loop to fio (io_uring, direct I/O,
-> iodepth 32 for 4k and 8 for 1M, 6 seconds per job) on a 32 CPU VM, with
-> TCM/USER and a single-threaded handler, then with this series, 32 queues
-> and one server thread per queue. Both servers keep the data in memory.
-
-32 threads against one, over tcm_loop with data in memory, measures
-only the hand-off. Please run a real fabric and explain the -13%
-single job result.
-
-
-
-Thanks,
-Ming
+Agreed, cookie_{v4,v6}_check() always overwrite syn_ect_snt before
+tcp_get_cookie_sock() reads it. I'll drop that line in v2.
