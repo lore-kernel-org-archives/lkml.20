@@ -1,48 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.77.61
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794827270;
-	b=ZuQaJCpnkDt7vlymnxMsyl7JIKr7axaBH08K6XnDT36qU9etIZkhPPL3Lq7mwDbqwP1h
-	 uSbhEWng6tE2rVAXH3fWrGisGlPcNe2erTYjAUB2+G88eU+3AsyOaNulIrm/9c1p+1Zhm
-	 XScEaB1rXwcJVXo5jMfL4uZ39EIqiKNEcLUhsH9Cda2i8xR8w+ztMBgjVBRmsKOy6w1WP
-	 yclqkHMaR9Coj63ds+X2laz4beQ5cxBmD7XvAjGt037GGh1SglllptTJbP7dlpnuvmWnh
-	 E+1+3rQsawFHEhNI5tOtb+3WcMWh+ZbdkdjPdCOcrxYXhl+AbPGMz/6KBTusmFdM5nw==
+	b=QBPLtVkWW+gSxXgGm6Fn5W1lhXJa5khpI3NTXDX/FYjYkp/nqKT7hYKhdRwHMeR/5utH
+	 h0kkpvsIGO2fXhlBcW+oTIkM8ra5gH7zvyhV+xK+56mwqUK7KRHQUsyW59YuQYwYWKnKo
+	 H8oEWpTq4kl7YuQjjfiWZyX9e/gy4ex+BsdAVyDASEv1cy4gloCmNT/0Ts19IWfKFxcLn
+	 yHXhx4fsQo+U6P5YRjuNNqbZdqAMKMH4lKQCCKfNcCv7MUzIdfC+yThhDE6h+zNf87VyC
+	 6N6q89zBKJiFn66FZ4JdEs/IqT+9vCr04j+XyMEby40xyHVn63btuMJF3erYxnXHwsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794827270;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=noVXPKL/og69bpc9W91xJU4Acp5mP0BVhDE9sjv3SIE=;
-	b=x6ZGJs99YpukYouoy/zg7tyzK49Km44/ZfaC+7sJEEX3IW2zFDSMz7co3qz3f2Arm3e7
-	 eW8KCxxoLympPAbZXJfTnYC8GV1GV6wTfjzrQnD1NbYTPLZ83CgjfuCZ9L4H48A+34Zqd
-	 BQo/MEA17F6Jxakc3EJ2x2cy3iQ+21ASfPiSHVVado3FELa4YvmfolqTEH1gvxCw69Nm8
-	 Kt3PL2l0eJllbrbaIOWZI9Xw7L42gbI3xUGVNtJpLR4FrtS8B24QBsU2z3DQMYbfBdy7E
-	 GBoRKHmMOxe5XxHkl0KXE+olQgLAnfyhjvBUC4Pd46nAUXMO4NcQvOEcnJ9OgWCpdZQ==
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=mSKHltzBGWAj3KmddZORQ4Qcz3ohrAZDhoh6LxxVyv0=;
+	b=RrIfTdJVVjYNx36lD7IuOEd2+naWRbRWdu56z16m70/0CckxwXpL+XiBDKwv0/NtC0vl
+	 hWzTN2RI+Enjmlr+mUckRCbdsUscTGF8Lbzr4+f1/Oi+NU4HQI6wt4C8RWC28mjGJeutu
+	 wdFHEg1kjWFFyf3wmq/PPaTJERR9Q+5PszS0eT2D1HM/yIuWLJjyylRVgKpPGYA+DBLhd
+	 rzBhb2lcoMPzlKECmICfQYtCs86zx3EeyJ7+jm61wSXXTE4bCCMd8Dz66S0wmZ1wcsCII
+	 Z/fT8DHRfaa2//s7fTJtUZwLN/0DNeOO2CC3ex2PEKoc/bugi9lYdkEUx449pkhakJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d4AsBCAD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=baryla.org;
+	spf=pass smtp.mailfrom=baryla.org;
+	dkim=pass header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=HG+C7W+d;
+	arc=none smtp.remote-ip=217.182.77.61
+Received: from mail.baryla.org (mail.baryla.org [217.182.77.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5D2606B1B1;
-	Mon, 16 Nov 2026 11:07:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D0E606A335
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:07:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D0E606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=baryla.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baryla.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d4AsBCAD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F09EA1F000C4;
-	Mon, 16 Nov 2026 11:07:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794827270;
-	bh=noVXPKL/og69bpc9W91xJU4Acp5mP0BVhDE9sjv3SIE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=d4AsBCADtblGWR9WmNzc/DEiDFBjSUivsWERw3pTmg4xXqpyh2WyGQku9f8392N4s
-	 lfp7IFHxwJWFFx4/59deH/zuDtHGCY6wN7yNaETZqW9wHK/nTklbztbkm3Wwcrl5rs
-	 /PJrwjLnB2b8CQO7J05TacPexxC4CdTFDq6H0mUnYoCkhrcI8qk+w4xvBTttcE0blv
-	 o5BvIuIcseSCY08bFNm0BzpUGXQUSuzvPjVlG78Ls3ZLMo4LLkvGz8bdDEukYq7Vao
-	 aHiqggmt77TpKf0+EPd6nrKM/u0GR6gducTj/TJI46cLCwmRKEJBv1/6Cyuu7zx5LS
-	 hfk7yo69L3CNQ==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 16 Nov 2026 12:04:47 +0100
-Subject: [PATCH RFC v3 14/44] debugfs: use fc_init_pseudo()
+	dkim=pass (2048-bit key, unprotected) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=HG+C7W+d
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A82E74613A;
+	Mon, 16 Nov 2026 11:07:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baryla.org; s=dkim;
+	t=1794827261; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mSKHltzBGWAj3KmddZORQ4Qcz3ohrAZDhoh6LxxVyv0=;
+	b=HG+C7W+ddYmt+VV5/VQn9z38cBy7TRBXaJDvmeW4QOLjEhwJ+Hcl8lqgtLf7HwL77DiuBf
+	v/gRDXrGWLHSftlR0ZqjccV9icfDt48xBbp4QiTjNZA2FKFt/CVsn3cMkiCLpSnxtMf2sP
+	Mj9MKd4EPwTt+KBZDDQmc0Egr44F2ozdEDovrKGIqPEfbMCPwC68Cj8upALNdzuKJhLxX1
+	KCuUp8qCYnkjN5I7pX7vXoPAykthaDKOkSGd+t8nMB5sjjWYa0DE+OulIb9gwcPlX3uQAN
+	KDsdGg6pTiJLmlBUqLSszXtdmu7EHnlYJw2iXdPkvKNZLK9mT5fTkoI6zC9aGg==
+From: =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
+Date: Mon, 16 Nov 2026 12:07:33 +0100
+Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the MST last link
+ check on logical ports
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,75 +58,98 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-work-loop-pseudo-v3-14-8cbbea1cf34f@kernel.org>
-References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
-In-Reply-To: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-mm@kvack.org, bpf@vger.kernel.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
- linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
- ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
- Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
- linux-kselftest@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Alexander Mikhalitsyn <alex@amutable.com>, 
- Chris Down <chris@chrisdown.name>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1179; i=brauner@kernel.org;
- h=from:subject:message-id; bh=BMUOzEt5tvGDwdfnxxzb3r0lJ0rbiII34CFK/yH29Y0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9epxnx7/ATlD2sfyF6Q/Ob+LauKkocK0zM9/G/RKir
- je4M2+zdZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk40+G/3WuJ83uZj8TS2Pv
- P+y8X7rLQErNXSRM4ffcO+2RcrZsBgz/k29eZL535s1/3bTPB6VDJWd2vyq4ffGpScB+y0nHBXn
- MeQE=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261116-mst-logical-port-v1-2-6b446ebe75e7@baryla.org>
+References: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
+In-Reply-To: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Zaeem Mohamed <zaeem.mohamed@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
+ Jerry Zuo <jerry.zuo@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Initialize debugfs as a pseudo filesystem. This raises SB_I_PSEUDO and
-also SB_I_NOEXEC and SB_I_NODEV. debugfs never holds executables or
-device nodes.
+Check that a logical port accepts a DSC mode even when its
+DP_LINK_BW_SET describes a link too slow for the uncompressed stream,
+and that port 7, the highest physical port number, is still rejected.
 
-SB_I_NOEXEC also refuses PROT_EXEC mappings. The debugfs files that
-can be mapped, kcov, relay channels and powernv's memtrace, map data.
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
-Reviewed-by: Chris Down <chris@chrisdown.name>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Karol Baryła <git@baryla.org>
 ---
- fs/debugfs/inode.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     | 47 ++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/fs/debugfs/inode.c b/fs/debugfs/inode.c
-index b4915551ad315..f163f0bc5703a 100644
---- a/fs/debugfs/inode.c
-+++ b/fs/debugfs/inode.c
-@@ -15,6 +15,7 @@
- #include <linux/module.h>
- #include <linux/fs.h>
- #include <linux/fs_context.h>
-+#include <linux/pseudo_fs.h>
- #include <linux/fs_parser.h>
- #include <linux/pagemap.h>
- #include <linux/init.h>
-@@ -317,6 +318,7 @@ static int debugfs_init_fs_context(struct fs_context *fc)
- 	fsi->mode = DEBUGFS_DEFAULT_MODE;
- 
- 	fc->s_fs_info = fsi;
-+	fc_init_pseudo(fc);
- 	fc->ops = &debugfs_context_ops;
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+index e624eb55cae1..e33a9daaebde 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+@@ -2943,6 +2943,51 @@ static void dm_mst_test_port_mode_last_link_synaptics_quirk(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
  }
+ 
++/**
++ * dm_mst_test_port_mode_logical_port_skips_last_link_check - logical ports have no last link
++ * @test: KUnit test context
++ *
++ * A logical port is the branch device's own internal sink, so no DP link
++ * follows it. A DP_LINK_BW_SET too slow for the uncompressed stream must not
++ * reject the mode, and the link settings are not read.
++ */
++static void dm_mst_test_port_mode_logical_port_skips_last_link_check(struct kunit *test)
++{
++	struct dm_mst_test_port_mode_ctx ctx;
++
++	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
++	dm_mst_test_enable_dsc(test, &ctx);
++	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
++	ctx.port->port_num = DP_MST_LOGICAL_PORT_0;
++	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
++
++	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream), DC_OK);
++	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
++	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 0U);
++}
++
++/**
++ * dm_mst_test_port_mode_highest_physical_port_last_link_checked - port 7 is physical
++ * @test: KUnit test context
++ *
++ * Port numbers 0-7 are physical and only 8 and above are logical, so a too
++ * slow last link behind port 7 still rejects the mode.
++ */
++static void dm_mst_test_port_mode_highest_physical_port_last_link_checked(struct kunit *test)
++{
++	struct dm_mst_test_port_mode_ctx ctx;
++
++	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
++	dm_mst_test_enable_dsc(test, &ctx);
++	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
++	ctx.port->port_num = DP_MST_LOGICAL_PORT_0 - 1;
++	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
++
++	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream),
++			DC_FAIL_BANDWIDTH_VALIDATE);
++	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 1257120U);
++}
++
+ /**
+  * dm_mst_test_port_mode_upstream_vc_too_small - the upstream hop is the bottleneck
+  * @test: KUnit test context
+@@ -4143,6 +4188,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
+ 	KUNIT_CASE(dm_mst_test_port_mode_last_link_too_slow),
+ 	KUNIT_CASE(dm_mst_test_port_mode_last_link_cached_bw),
+ 	KUNIT_CASE(dm_mst_test_port_mode_last_link_synaptics_quirk),
++	KUNIT_CASE(dm_mst_test_port_mode_logical_port_skips_last_link_check),
++	KUNIT_CASE(dm_mst_test_port_mode_highest_physical_port_last_link_checked),
+ 	KUNIT_CASE(dm_mst_test_port_mode_upstream_vc_too_small),
+ 	KUNIT_CASE(dm_mst_test_port_mode_branch_throughput_exceeded),
+ 	/* get_conv_frl_bw tests */
 
 -- 
-2.53.0
+2.56.1
 
