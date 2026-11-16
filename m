@@ -1,66 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820683;
-	b=As5NUl2SSOLHVRT83Zf32fJSbksFT/LsR/W6Gatwu0DV3icsOHGuMP3359iNqeAOeej3
-	 8BrC9eI9gDlrb0+J8HD7AcTwZOz6r75bzan7FyDE56JVdo8uByNRVefELa4SOPw5ZQSUI
-	 9dVQdpz5/b1gOfHWJNlQiYae8B6WL3CAeyAFPbheSmrw2yGQEFVm0S2syqMCOwZd9fqe9
-	 BemeBNg337SaoDNAuV9Qmn/5YKIFU3pwvAVH5i4B1+F7Ygj/Yz5K4/da03eNei/k5UTSV
-	 aHl9syKE+nLTp0YipGlnAL3t7gkNhAlK26F7PWjZs6vEj/Tf33uNl4TOKtXx4u4okDg==
+	t=1794820702;
+	b=l1G8BnMrJt3SHXqr+StLuGnBebbAIHorBmFZWSEnCsLE3XETU453MiRZi+8l9ENz08kd
+	 AD1PJvSQEaVQPMjXFOcp/AuXg7L8E7xaFKcKVYxS/3ochPmDSi/St+20TbgIj0jEM+HRA
+	 wX4dsFw1jDs1/vFAhl+8mz71FICrqs7jsBkJ3fmFg/yoscy+r0HXfZSQnioIQXQHpOJrS
+	 Ct4hZYsU5t3NUVxMuIEimYkL/jAMx97HmTcW3zoFoCUDSkFPjmc8g3HXbGjW8w0WfH24M
+	 YP+nIGW0tCGyzNtYIFKR/IzuKvWXd+qcOb9+dNnzKV4tE2izAj3G9KRnshsOK0W5Q9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820683;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z8vIOmbIt256h0sN5KP+ZCa71ev+Q0ASUR7JzYgKmR4=;
-	b=YsMoNUDGYDkLHqRzbMUWhLkaTKnxzaCBG/eYBcjn5CWQBv8XhRSc9rT6q83In1w/dC+o
-	 2m58pxUYVJYBPm4dyjpn+3j7edVuZXL4Lq82LL8Jo5anE2d+ZFU3RwM33zB2fyeadFbTF
-	 CQgb5jCUX8w85EIJpMeHJg8wgXxeXVPvZ1MoIabCylPlZP3JSLrgUweqZT4hixby3wsXx
-	 ksPF/JiN0Zyw142q/SJySIH22y7YhN+JX/sndhYfaMDsJ6/2FYL4ydeC16hRX3bD/dtgM
-	 nOJI7ho+UXU7eVX1a4UhOKxqokn281PG+OjQmKNGUOtHMjtC24lmVm4QhEMxacG7MuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820702;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=826ov78qP2Q842fxa0PM5ff12xaor6OwKbs+ThG4sQU=;
+	b=A8zjT4OH7VG2Osvakg4lfqmRn75qnwzlgvIPjldv1bIjz4B2LndZfIaAelkjyomuMICI
+	 /4udoUsZnKyv8StKl+5ZZ903n0Gzd7QpeINJ7tDOLqnbbmfmip+x9xi4VvD09LVpIoeo8
+	 sojvHX5UzrpMY5chpCC6nGjBmmi4gOQ40YxzexjfpGuypLpmRnyCnQ4qIkOCX3rriAvPx
+	 1RRFCm+bSUiOpFua7BX9wowWf2yIG7N1bR3inoT9DfcIc4Hp/V3oZwcA7QtyXAN5Ut/yZ
+	 ALG+Mw+P8jJB2OmzYPD92LWMrmmTqmcExukYU7xq2MDxlRK+5hbdj4VpXlcW1iNLYCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Q2QJKiq1;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dmarc=pass header.from=kernelriot.com;
+	spf=pass smtp.mailfrom=kernelriot.com;
+	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=5yV8kMQv;
+	arc=none smtp.remote-ip=74.208.142.49
+Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CC606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:18:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 746CC606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A234E606A32A;
+	Mon, 16 Nov 2026 09:18:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A234E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kernelriot.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Q2QJKiq1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=Z8vIOmbIt256h0sN5KP+ZCa71ev+Q0ASUR7JzYgKmR4=; t=1794820680; x=1796030280; 
-	b=Q2QJKiq1FQ93goteVqR+jRmBKMzkfiMa8fikRDY6mXkoVL2lHaLDIQPSdtuIaIRlHFxkH8tyvqZ
-	VWRqI8rYt/D/pepqixocy6iMLnKiS4YKSJ6O+QQv/wuxg7obF3mXrNxkvrrl16e5Ac/JEQG4K7bOY
-	slkcBXDvKqhLL8KipxyGtsUq7QxNExZ+XarI0TeMSlSKBPgUgF0E0ALuxWFy4HGtafyRSA10APLV+
-	GYpv0PAzOOJOF7tdhtpiTKP32119Gdxq7fK3f4csKt49CA5btxlPxJN71nE8bYtAnhgGj2CfEtJhC
-	iaMUqJkQuU6QA+5LaG8/6+nKV5Atb4CBk0Pg==;
-Date: Mon, 16 Nov 2026 10:17:37 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
- Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v5 12/13] drm/bridge: tc358762: Set DE_POL and DCLK_POL
- properly
-Message-ID: <20261116101737.38caec27@kemnade.info>
-In-Reply-To: <20261015-tc358762-fixes-v5-12-7cd721a6451b@ideasonboard.com>
-References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
-	<20261015-tc358762-fixes-v5-12-7cd721a6451b@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=5yV8kMQv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
+	s=kr2026; t=1794820695;
+	bh=hb1SHra0c6oIUSjdOL0+vPjC+s/ft/oax5PM5+83JJs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:From;
+	b=5yV8kMQv/8FxyufwLKZ77hp0BU0b1fkPO9lw71ihg8vRK/3gcLrJtYf9e9Yg343di
+	 /LXbwuJYo5FQKZm7Tbueio+q6svMS9Pwuee8Q2QpxDQieo/nF0Wat8f5sHQnHmwaAi
+	 8yW1T8t2Jc01eg25WF4AhS5Azb4SmRjBuS4nMhOPd1jhFBOJUg1JK5sX34fk+qmtV2
+	 uX5o1n+NJL6PGIOBh40am7WmBGv3KRy8/PSTvZoLtSiW8rZLyviIaye42GJYJIcTGp
+	 5aLc9qKIu/7D/SoV6pHwOHy2GQ5+8RecuaPPSWyU0FZomsK3xucol/O19XB8bcroxG
+	 GWWTf4veYllBQ==
+Received: by mail.kernelriot.com (Postfix, from userid 995)
+	id 19C268D74E; Mon, 16 Nov 2026 09:18:15 +0000 (UTC)
+From: Magnus Leatti <magnusleatti@kernelriot.com>
+To: me@ziyao.cc,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Nespolino <g.nespolino@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 0/2] net: stmmac: dwmac-motorcomm: shutdown hook and Wake-on-LAN from S5
+Date: Mon, 16 Nov 2026 06:17:55 -0300
+Message-ID: <20261116091757.1656602-1-magnusleatti@kernelriot.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,62 +73,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 14:16:03 +0300
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+The YT6801 accepts "ethtool -s eth0 wol g" today and then ignores magic
+packets once the system is powered off. This series makes S5
+Wake-on-LAN work. Both patches touch only the glue.
 
-> The driver hardcodes LCDCTRL_DCLK_POL and ~DE_POL, ignoring what the
-> panel actuall wants. Fix this by looking at the
-> bridge_state->output_bus_cfg.flags, and set the polarities correctly.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-> ---
->  drivers/gpu/drm/bridge/tc358762.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-> index 33312300e606..e73be376e33c 100644
-> --- a/drivers/gpu/drm/bridge/tc358762.c
-> +++ b/drivers/gpu/drm/bridge/tc358762.c
-> @@ -186,12 +186,15 @@ static void tc358762_enable(struct drm_bridge *bridge,
->  {
->  	struct tc358762 *ctx = bridge_to_tc358762(bridge);
->  	struct drm_connector_state *conn_state;
-> +	struct drm_bridge_state *bridge_state;
->  	struct drm_crtc_state *crtc_state;
->  	struct drm_connector *connector;
->  	struct drm_display_mode *mode;
->  	u32 lcdctrl;
->  	int ret;
->  
-> +	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
-> +
->  	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
->  	conn_state = drm_atomic_get_new_connector_state(state, connector);
->  	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-> @@ -243,7 +246,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
->  	if (ctx->use_vtg)
->  		lcdctrl |= LCDCTRL_VTGEN;
->  
-> -	lcdctrl |= LCDCTRL_DCLK_POL;
-> +	/* Note: DCLK_POL affects pixdata, de and syncs */
-> +	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE)
-> +		lcdctrl |= LCDCTRL_DCLK_POL;
->  
->  	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
->  		lcdctrl |= LCDCTRL_HSYNC_POL;
-> @@ -251,6 +256,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
->  	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
->  		lcdctrl |= LCDCTRL_VSYNC_POL;
->  
-> +	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
-> +		lcdctrl |= LCDCTRL_DE_POL;
-> +
->  	tc358762_write(ctx, LCDCTRL, lcdctrl);
->  
->  	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
-> 
+Patch 1 adds a shutdown hook that stops the device. The glue has none,
+so the MAC and DMA keep running into reboot and kexec.
+
+Patch 2 arms the chip when powering off with Wake-on-LAN set. The
+sequence follows the vendor driver, with two differences that come
+from measurements on the test board:
+
+ - The function stays in D0 instead of D3hot. With MAC Wake-on-LAN
+   phylib keeps polling the PHY until power is removed, and in D3hot
+   that poll fails with -EBUSY and warns from phy_error_precise(). It
+   happened 111 ms after D3hot on a normal power-off.
+ - Bit 9 of LPW_CTRL is not set. The chip wakes without it.
+
+Every write that is left was removed once to see what it does: without
+OOB WoL or the packet wake bit there is no wake. Without the MAC
+address rewrite, or without the 2 ms wait before it, the chip wakes on
+the factory address only.
+
+Tested on a Celeron N3350 mini PC, net-next at 6964ff21c5d8:
+
+  net-next  wol g                         no wake, 3 of 3
+  patched   wol g                         wake, 8 of 8
+  patched   wol u                         wake on unicast, 1 of 1
+  patched   wol d                         no wake, 3 of 3
+  patched   wol g, interface down         no wake, 1 of 1
+  patched   wol g, power/wakeup disabled  no wake, 1 of 1
+  patched   wol g, reboot                 reboots, link back, 3 of 3
+
+A second board, a PSJ8500-N97 mini PC (Intel N97), behaves the same.
+
+This series does S5 only, on purpose. S5 wake is the important case
+and it is not implemented. The change for it is small and stays in the
+glue. Wake from suspend and hibernation has a larger blast radius.
+
+Giuseppe, this is the OOB WoL enable you and Yao discussed in the
+s2idle thread [1]: it is only enabled when powering off, because only
+a chip reset disables it again. If you can try "wol g" and a power-off
+on the Slimbook, a laptop would be a good third board.
+
+[1] https://lore.kernel.org/netdev/apSDPwF49Z1Zd0kJ@pie/
+
+Magnus Leatti (2):
+  net: stmmac: dwmac-motorcomm: quiesce the device at shutdown
+  net: stmmac: dwmac-motorcomm: support Wake-on-LAN from S5
+
+ .../ethernet/stmicro/stmmac/dwmac-motorcomm.c | 84 +++++++++++++++++++
+ 1 file changed, 84 insertions(+)
+
+
+base-commit: 6964ff21c5d8b75649211a52dbfd92753e605649
+-- 
+2.56.1
 
