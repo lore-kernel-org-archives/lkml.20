@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858501;
-	b=e6ddhIDlO4jydGiT7bK4Ck1VaLjG0ijcRAP9ju8jc15LVGWUN3uRaedpkhwia0wp6N32
-	 WCW8eu52qBDdTw3eXRNe/kk7LNQGRsIyjerKqQCRdhgq0xG1QvA67fFLFMprCA2cdknIt
-	 SC0TLv418S/PL9JqG3yo/n57skwfpbLYuSUTlipe40BZxsGquKhFvsu5lOH8oC0jD0+hH
-	 Gtd8YWAUCKHlLR7P+bcyEsVamL7myGglpBe1f0QY/mWYORONUnJV7+YXRWkCLgc345osq
-	 RzXZ4pC7pPpjUcYs+Qgvmml3X0k0XumlAMIda3Pn2FLnSeuEiPfB6HhXcrLSE0AXf0w==
+	t=1794858528;
+	b=nUAo94HBfTQAbhEqK/BC4wwh+Qr+oL5fc1Av3bN3buHtp+3fqut6enWKljCiyR3/eHFj
+	 E9qd5AADgXyGv5VEoACiiaBzhLKWIHUdADZxSbIwWIJmp/4vTyCPHccL+a5debJgEezOI
+	 2+I4JBj1sm76Kah1V9wISfxGqPGvwpaa4xLHBoEmQlcIJm4SpTe9HSt8Jvd6y/YjkdKK8
+	 oW6vXgcG2AutnIkn1uOkWMdlSlWubMmd/Zv2qI7foKIaqQhyT0EgzdSLDIXdMT2Dy1fiX
+	 nN91c1ZWCgWBjlA4r8Hokwhn5fPv5LbJ5bE7jeSmkEeMRepVE/t5OJNWTotbO1FJQSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858501;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=NTJxvN6eVCRH9bYjo5+5T3IwZyMatLdqQn+ZAt89TIc=;
-	b=FlmBNG1Z1QGKPILZvRi5TR19ziHpizdWS2k7b5nP0/TERCnmps+I8UCIHRoeCW3vdkN6
-	 gmDT4iBqVAS9kEDCesJpsCXlrFoL8mqe/WJgCmk/JL0hIkLcGHkVj1xL86FT/DuH2W9xR
-	 KI4Xl0cqDkZOTWGxtgJGdcqqa9ukQd75TF7BIg9gUD9BA7tK1sKXM7uF//RIOGOZ707ge
-	 B3oC2HY50xKpJY2I/wT058Zn9HuWVNx0JzvErDi9aeKpB20Jj1LeOAZvCkLOoUV2guXm5
-	 CMBrO407KFpF2oXHlJpRsqInv3zgCFoY+xKZm00gWvOxkly+pSKODjpPmKBS/Tz5m+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858528;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=agI9AZcjlcABwNXd8gSX+qg6fWruBT4JR3ByMj7fWQM=;
+	b=vi6zpJKxRJP0jVqAkr55xjNJTPa/PCRDSksii60kpRf5usXXHAR5WmIqaIdE0ut0u1NM
+	 DRIhLbmHDLYnUPLSLQuMGLq6NcnpeS2713jMej8OaXvW/JcH33IzhHVBSfJbwQqB7w4tC
+	 VsRvilmP0GzsvCuZrlkJUytoM2yKg/1kVB0aNbvUw8KKZlArZ8plCX+/N1w9dYHmm6Qd8
+	 oFHIpIcQO00E1W2PRR/M2uFtbGlpiDuP7Ui9fvaR5hMlI0/DeNIIwUOWmMhTUQkHEfM1B
+	 gc2ZEgSa6nIjWZmngAeuCATkUMrDYXrvgc4xgSXQhO7GYi3UodFELvqTFLVwB3jHADw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkdAc24K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWPTS1+t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD81606A322;
-	Mon, 16 Nov 2026 19:48:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B03606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:48:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkdAc24K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F3C1F000C4;
-	Mon, 16 Nov 2026 19:48:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWPTS1+t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696531F000C4;
+	Mon, 16 Nov 2026 19:48:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794858501;
-	bh=NTJxvN6eVCRH9bYjo5+5T3IwZyMatLdqQn+ZAt89TIc=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=hkdAc24KoXrS9Wo07IgWag2ZQQSuPPvp1/gwGqKqn4jrtCrHSG1wv9HC8UWnVkTBO
-	 iwgidp9zMDxWT8RqAVAR2j1Fw6pigvbxW3SrnSphNOlYAo3QaWeS96lukZAAOqXq1T
-	 zmC6/koKylG8mFSyee4UQP8rfrsjU9FJs9UPc9/RhYZW9Ych2+Wff62dBcojSh/2Se
-	 P5oNC8N5imW9rsUT/IpWUSXLzRlL/INTlbwxPNCIkhoXAdwRjf+JZ5W/cGlCirinIg
-	 POczF+rc5rS6pS8Op7Wgw3H8NW7TjZ70MObfxMLUI2iGaXXgE2DFNADD3FpN8DSZbx
-	 0lcen3Y4tiu9g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 6C128CE097D; Mon, 16 Nov 2026 11:48:21 -0800 (PST)
-Date: Mon, 16 Nov 2026 11:48:21 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Joel Fernandes <jfern@kernel.org>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	rostedt@goodmis.org
-Subject: Re: [PATCH 0/6] Additional miscellaneous RCU updates for v7.5
-Message-ID: <e173f3b7-de3b-4b3d-b0dc-c12a091c9723@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <bf761cab-7423-464b-ba8e-bd39ad0eb089@paulmck-laptop>
- <20261116190040.GA946893@joelbox>
+	s=k20260515; t=1794858527;
+	bh=agI9AZcjlcABwNXd8gSX+qg6fWruBT4JR3ByMj7fWQM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IWPTS1+tmPA+wbHrpEoNmkW2+4xuFyUqI8/tTVO0eHT5qiFzP0PyEPtB3qjTw7HNP
+	 sgQw2F4mSNLR3uwu3YinlW0x1EQAGT3U+EY9iehi9XqdxsKjHUAb6v8T7U/wgOF3wT
+	 rhnl05ZbIV0rscUno7cA8nlQ1sZwGLk8RwzhxF5Q6XG1VqttMKXdsG8f0oFFyTtoSZ
+	 9Bpp5irCk7K/Cc+Bed1jmzDXp7tOeSqnh8EHV5h5poeLxmMEl4r6hbUst3dmr1VjZ0
+	 QhqRsA6eoJSlJozWCF7BT73eyqA59dr5Y4DxW66xFHdc6YnV1RDuVUsQ5213YgikUD
+	 sqfZvvWevmHnw==
+Date: Mon, 16 Nov 2026 19:48:45 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org, andrealmeid@igalia.com,
+	qkrwngud825@gmail.com, zhanxusheng@xiaomi.com,
+	Gabriel Krisman Bertazi <krisman@kernel.org>
+Subject: Re: [RFC PATCH] f2fs: fold casefolded names of F2FS_NAME_LEN bytes
+Message-ID: <20261116194845.GC229817@google.com>
+References: <20261103030712.1514800-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,52 +61,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116190040.GA946893@joelbox>
+In-Reply-To: <20261103030712.1514800-1-zhanxusheng1024@gmail.com>
 
-On Mon, Nov 16, 2026 at 02:00:40PM -0500, Joel Fernandes wrote:
-> On 11/16, "Paul E. McKenney" <paulmck@kernel.org> wrote:
-> > Hello!
-> > 
-> > This series provides additional miscellaneous updates for v7.5:
-> > 
-> > 1.	MAINTAINERS: Add Puranjay Mohan and RCU reviewer.
-> > 
-> > 2.	Make torture.sh test NMIs for atomic SRCU on x86.
-> > 
-> > 3.	Avoid duplicate identify_qemu_vcpus calls in torture.sh.
-> > 
-> > 4.	Make torture.sh test NMIs for RCU on x86.
-> > 
-> > 5.	Make kvm.sh ignore empty-string arguments.
-> > 
-> > 6.	Use ${:+} to save a few lines in torture.sh's torture_one().
-> 
-> Thanks, I will apply all except 2. and 4. as they depend on Mathieu's series
-> which is not going in for 7.4:
-> https://lore.kernel.org/all/20261112133731.127221-1-mathieu.desnoyers@efficios.com/
-> 
-> For the others, I have replaced patches which were already there (in 7.4 next
-> tree) with the new ones you sent, with updated tags.
+[ +Cc Gabriel, who maintains fs/unicode/ ]
 
-Thank you, and apologies for missing that dependency.  Distractions this
-morning.  ;-)
+On Tue, Nov 03, 2026 at 11:07:12AM +0800, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> utf8_casefold() needs room for the terminating NUL, but
+> f2fs_init_casefolded_name() gives it only F2FS_NAME_LEN bytes, so a
+> name that folds to exactly 255 bytes is not folded. In a casefolded
+> directory, creating 'A' x 255 fails with EINVAL under utf8:strict.
+> Without strict, after creating 'A' x 255, stat of 'a' x 255 returns
+> ENOENT and creating it adds a second entry.
+> 
+> Fold into F2FS_NAME_LEN + 1 bytes. Existing entries for these names
+> are hashed by the name as given, so on a miss also try that hash.
+> 
+> Fixes: 43c780ba2624 ("f2fs: rework filename handling")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+> RFC because new entries for these names get a different hash on disk.
+> Results in a VM, with dentries dropped before each stat:
+> 
+>                                  'A'x255  'a'x255  'C'x255  'c'x255
+>   current kernel creates 'A'        ok    ENOENT
+>   this patch creates 'C', 'c'       ok    ENOENT     ok       ok
+>                                     (one 'c' entry)
+>   back on the current kernel        ok    ENOENT   ENOENT   ENOENT
+>   strict, current kernel        create 'S' x 255: EINVAL
+>   strict, this patch            create ok, found in both cases
+> 
+> Each fsck.f2fs version matches only one side. 1.16 folds into PATH_MAX
+> and rewrote 'A' to the folded hash, after which the current kernel
+> cannot find it. The dev branch rewrote 'C' to the raw hash, after
+> which this patch finds it only as 'C'. fsck would need to accept both
+> hashes for these names. Encrypted directories are not tested.
+> 
+> Is the second lookup acceptable? The alternative is to keep hashing
+> these names as given, which fixes the EINVAL but leaves them
+> case-sensitive.
 
-							Thanx, Paul
+Sorry about this bug!
 
-> thanks,
-> 
-> Joel Fernandes
-> 
-> 
-> 
-> 
-> > 
-> > 						Thanx, Paul
-> > 
-> > ------------------------------------------------------------------------
-> > 
-> >  b/MAINTAINERS                                       |    1 
-> >  b/tools/testing/selftests/rcutorture/bin/kvm.sh     |    3 ++
-> >  b/tools/testing/selftests/rcutorture/bin/torture.sh |   11 ++++++---
-> >  tools/testing/selftests/rcutorture/bin/torture.sh   |   23 +++++++++-----------
-> >  4 files changed, 22 insertions(+), 16 deletions(-)
+I think it's actually worse than you say, and this commit doesn't fix it
+entirely.  A filename can "casefold" (really NFD canonical decomposition
++ Default_Ignorable_Code_Point stripping + full casefolding) to much
+more than F2FS_NAME_LEN bytes.  The decomposition stage in particular
+can result in significant expansion, up to 3 * F2FS_NAME_LEN.
+
+For ASCII though it is indeed as you say: they cannot expand, and only
+max-length filenames are affected due to the off-by-one caused by
+utf8_casefold() unexpectedly including a NUL terminator.
+
+I think this shows that the 'casefold' feature` isn't really used for
+anything other than ASCII in practice, and all the complexity of Unicode
+normalization wasn't needed in the first place...
+
+But I suppose this should be fixed anyway.  The approach of this patch
+should generally be okay if you increase the buffer to the required
+'3 * F2FS_NAME_LEN + 1'.
+
+However, please check the Sashiko comments
+https://sashiko.dev/#/patchset/20261103030712.1514800-1-zhanxusheng1024%40gmail.com
+as some issues were found with the implementation.
+
+- Eric
