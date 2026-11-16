@@ -1,70 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852678;
-	b=NcKxj2V07WM3yiqJ+B5sgPaeTR6aXru9LQY4I7F6j7Lxh44PiGHLEN9l/n/n7Vd/ANEy
-	 0/ZfUuE/FrdUNGNGOV94MW4QsIDSHtBua/dxOAEIhn1l+ZnmIQ+K61ZlfP4kQO+//cg9m
-	 uutZtWbqgKmA93VC1K2IbDS8oaxkLE5IP3+180iXXAKdS4VwWv3hgIDjX8YUhyD8wNQN+
-	 dRrrAm3T1545kvV93+CK4g9An5+NNCsBE2aFSS3YOg/64g/fnix7nmulrSKm79hZqZhqW
-	 NeOTZj5dLJPS5C9cOhjCWSrq3SYQeC6SxEyEm8Hf24Jfa72oABe6pby4IqkfAOKRlwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852678;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=q46AE2TsYo8zXLliVKO5Tx+OouQ4BpY5EoM6nx9zS/Y=;
-	b=oRfbwsyyhSy7NmWof/delJkEWi85/u5/Va6YuSgKy+0u0gKtVdw/uzPcyXX+K4jY/+Ck
-	 M/FSQqq2AZmWr5mqGuaN5DMgQT7y39B+R7pKNj17DAxoChnUOXdkpujUI4syub857isIa
-	 JRkJ/qyoPoBnRr4f3uJ8DSRCjyoQmVRwyq2y8DQwvdKSqH8Z8D6/27zjNW96udZF9tBoD
-	 xdnuq/hnXatBD3MM3MVjE2tUR9Zk+5MLB4rOvICYJ/dyplp7SK5SqFAmpQ07bvJnVo+Wb
-	 p2u4sAvlufeabunIeFzJz5B56g7JJcQLOaNqNaYCwMqxIQNW0x5pdIvSFunmimSeBhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/bxCzJd";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794852726;
+	b=sFWVliv2IVSf1Tkbg0vBap/Y2bggPGaJseW4iZ8j61hagxeZjLH65DFBK5tVwg2wH9iK
+	 1eWWPhnUXNx5v7q1faUTI0+v5UlMYzLWvG8uwT4RuJa+K3+ZfPAKKo0+wPU0VKnYqIB7R
+	 0oHnHiYLGCBo5z3xSHY/oKNGdcMJZYhzDo0RxC7sC2Tw1Z1TpTozbQKEiJR8TwFD30j+v
+	 0n2Hh7h4o4Tbc53pusY/DhrQ2tzhVzbJmAYLMxlMgthUH99Srk66FXyoxyjLhWEpzgMms
+	 e4ERFyJqUiPlHwSlN14wFmEcDcL6OjCJI/YyVqVIFTLdqLGnIKwVaNNxX3wtkTQseag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852726;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=lnYA9xwRLKMC/0Lr3E1MKv0dCp5XHmuZfnB0s7sDW/Y=;
+	b=aUrnJiqw0doodZVV7wrrAzDA6X/GfktjyR03IqvMNFa6JUaabV5vED0tO+5kyA5zcCTg
+	 djyjP/cauFf/cs/jw5LXuVPgeypoHVJrXcHbrbqtwA5xs/96icS0WhpHkPEvAR/y1dEZ7
+	 bPnSfK5YX0O1tjqRQMtH++5lxGYjV5MXpO3HaLWgzCKIk7LhccY6BincCSAMoZbdsC0cN
+	 p7VuiLngEd8HkTZhm1cuTqGsx4xC5Lw3FApe1BWzwiG6VObV4zEIqWKxIjmlPrTucwZeR
+	 wkKXhSEYLNppPQ2UmHm0pQt8R0EewdAU4FvdV+nBdRsSOtIej7XVLAA2tzRNZdbG/yQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=VS4DUEy0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA28606A322;
-	Mon, 16 Nov 2026 18:11:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E98606A31C;
+	Mon, 16 Nov 2026 18:12:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E98606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/bxCzJd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C5C1F000C9;
-	Mon, 16 Nov 2026 18:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794852678;
-	bh=q46AE2TsYo8zXLliVKO5Tx+OouQ4BpY5EoM6nx9zS/Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=X/bxCzJdAoaLpc4TJKp1MPffvF9eU2tf9Eg/YQFHd9gDjXM4+TV6RZaNrcXGeKk0p
-	 LeE6RDixr7VEnDWt/1qbysXCgJmCK2NWqseCxBD50haobqGedfGc3IDtDKL5CB/G6c
-	 2YddrXfJQ6TPnXoY/NAOlGyo5ancAkGvS10ND/rxDDVfc1fv5CTa5BG1tnfY2m3RUc
-	 jMz4AROlbCB1XQW4aVLbmZ80vKbnjy7ODpePuH4RaOjUe3nlcKRGZxliq5O7dPAdq0
-	 hs5z7UgIG5ut1WtTYdFneNza5mI+hGZF4bvAK2qZEgguvfn9GCoOES/+/fFqeX2Rbp
-	 N2SBMzBWUEr7A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xT1Ai-0000000GbgH-1eXM;
-	Mon, 16 Nov 2026 18:11:16 +0000
-Date: Mon, 16 Nov 2026 18:11:15 +0000
-Message-ID: <86h5hg1wak.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Dan Carpenter <dan@pereq.eu>
-Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
- <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
- Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,	Karthik Bhargavan <karthik@pereq.eu>,
-	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau <clement@cryspen.com>
-Subject: Re: [PATCH] KVM: arm64: nv: Fix NULL dereference in kvm_inject_nested()
-In-Reply-To: <avsH0lxpLIF2Ug64@stanley.mountain>
-References: <avsH0lxpLIF2Ug64@stanley.mountain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=VS4DUEy0
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A8518201F22;
+	Mon, 16 Nov 2026 19:11:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794852718;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lnYA9xwRLKMC/0Lr3E1MKv0dCp5XHmuZfnB0s7sDW/Y=;
+	b=VS4DUEy0Kr0nCe1Ga/vZamVSmmOqOTz4XH39lb6Fv71Lk+lqdLRcpFeZg9DrDlzhCt158D
+	o+oIXaEUwR2x+H6Bg4/is8wBibuzkMa8DSEbeLLsozSnV8TFg4W2XhTdrqmvYkA6AvN9Fw
+	nYa8lrRGp2avyvpoAXbjrYBWfjp1BYCXQY73elUDeovmuDoGieYWtMc77nR9/Wgqem7NIu
+	IKcFgG0fq7tRC9fbBn44Kh4/CAFEPMZ1pwPaJyzd451q8pnlA+ymOh5UIYqqcB3pSnIw/D
+	BQ0H2+LZd4imA60N+NRgJJ6S+yVE8XGXE0jdx1k1Bc6/woebKLdKm+sEHh4gHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794852718;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lnYA9xwRLKMC/0Lr3E1MKv0dCp5XHmuZfnB0s7sDW/Y=;
+	b=AhD545BxEDvDCLQCdWqUofc30juAYoSi25n5LexAlVg5GnWRNoSvYXzTkXsDHXidLmdCjm
+	SkxuzsAZC5T5Mcf1zcKGmGS0qAiRzM+Ly56TFGiGekv87UxJJbe5jQd9Q0dW6tGW9zeb2M
+	MadLx4ZMVcyxOFXN0ms4aCdQleyOQFdjr81VGch8WsoowPXDd3AMZ3oZES9zQGORuo2TLB
+	c2FIG9uO3IHBohAGdQE53pC7s7E2sy9CHtIZuNS6ZF0FDc5BxTzpqS1V1p+YON4DG3wk1O
+	h1Pz7IGukTAItxYDw4VMRNXVwHiLbHtt/6ekb6GaIkCCLoiAuveEy57dcDKhqw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794852718; a=rsa-sha256;
+	cv=none;
+	b=L8ntS7ewq8kl+/2ve0D5zUw+4hGGKCobeJgB8lWqfsqMfaj/EB0WN+NKIdkBebHkCUDAUl
+	4zW4Lx4sFyiZrD1vLueMQ/+TdFuydfvpBoYWbOP4yVZJSAt3TfnKwpyszMWfsIIsCq4tlA
+	lzrSifWN9E1A42X0+RC3vWYzjt24G+UwhvMJHCAmPp2QLPYiFtd+dvZlMEQVv8/hJi4IW2
+	4wA1M87eWCI2PZymaReAGxXFT4sHUZiWPUcVta6qLdZBfOIpXJ7alA3dedCrqEahWbSGA6
+	P3ofIdkQSIkIcvkdSiuu6nSw8v9GtvgYWCk7xyLRfR6Mfm5swiGhrqrQRN0cqw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
+	id 82B711BF88A; Mon, 16 Nov 2026 19:11:58 +0100 (CET)
+Date: Mon, 16 Nov 2026 19:11:58 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: James Hilliard <james.hilliard1@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net-next v5 2/3] ethtool: add a PHY receive byte total
+Message-ID: <avtHbulALsI61uVr@pengutronix.de>
+References: <20261115-submit-acx00-phy-stats-v1-v5-0-ed81a7f54373@gmail.com>
+ <20261115-submit-acx00-phy-stats-v1-v5-2-ed81a7f54373@gmail.com>
+ <37e4b9b8-d381-448f-a2b3-b92d7bd9033d@lunn.ch>
+ <CADvTj4qh8Pvss+xEwcjshodwv-yN6haP-9aaeRXg1ydSu5ibVg@mail.gmail.com>
+ <d3f2dc1c-9daf-4b5f-903b-657ae3f32647@lunn.ch>
+ <CADvTj4opiu_vhat12BRzk61b7ymG+g12c2aoK+rcZHjpWZjL4Q@mail.gmail.com>
+ <b84021aa-f843-4668-8172-0afcbb97c27f@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,134 +101,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: dan@pereq.eu, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, karthik@pereq.eu, clement@cryspen.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b84021aa-f843-4668-8172-0afcbb97c27f@lunn.ch>
 
-On Mon, 16 Nov 2026 13:40:34 +0000,
-Dan Carpenter <dan@pereq.eu> wrote:
-> 
-> There is a NULL dereference of vcpu->arch.hw_mmu in kvm_inject_nested()
-> 
-> Unable to handle kernel NULL pointer dereference at virtual address 0000000000000084
->   kvm_vcpu_put_hw_mmu (arch/arm64/kvm/nested.c:1046) (P)
->   vhe_vcpu_put (arch/arm64/kvm/arm.c:827)
->   kvm_arch_vcpu_put (arch/arm64/kvm/arm.c:860)
->   kvm_inject_nested (arch/arm64/kvm/emulate-nested.c:2903)
->   kvm_inject_nested_serror (arch/arm64/kvm/emulate-nested.c:2976)
->   kvm_inject_serror_esr (arch/arm64/kvm/inject_fault.c:365)
->   __kvm_arm_vcpu_set_events (arch/arm64/kvm/guest.c:827)
->   kvm_arch_vcpu_ioctl (arch/arm64/kvm/arm.c:2017 arch/arm64/kvm/arm.c:2157)
->   kvm_vcpu_ioctl (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:4772)
-> 
-> KVM_SET_VCPU_EVENTS does not load the vcpu, but it injects a pending
-> SError or external abort straight away.  If the vcpu is in L2 context
-> and L1 has asked for the exception, kvm_inject_nested() puts and loads
-> a vcpu that is not loaded.  vcpu->arch.hw_mmu is NULL when the vcpu is
-> not loaded, so kvm_vcpu_put_hw_mmu() dereferences a NULL pointer.
-> 
-> To fix this bug, only put and load the vcpu when it is loaded, similar
-> to what kvm_reset_vcpu() does.  When the vcpu is not loaded there is
-> nothing to switch: the next kvm_arch_vcpu_load() loads L1's context.
-> 
-> Fixes: 9aba641b9ec2 ("KVM: arm64: nv: Respect exception routing rules for SEAs")
-> Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dan Carpenter <dan@pereq.eu>
-> ---
-> This was found through Pereq's formal analysis but the stack trace
-> comes from real life testing.
-> 
-> x86 implements kvm_arch_vcpu_ioctl() differently and puts vcpu_load()
-> at the start of the ioctl.  But the way arm64 does it is deliberately
-> and just something that people working with the code need to be aware
-> of, I guess.
-> 
->  arch/arm64/kvm/emulate-nested.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-> index 2bec81668361..22ca735a34f6 100644
-> --- a/arch/arm64/kvm/emulate-nested.c
-> +++ b/arch/arm64/kvm/emulate-nested.c
-> @@ -2862,7 +2862,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
->  			     enum exception_type type)
->  {
->  	u64 pstate, mode;
-> -	bool direct_inject;
-> +	bool direct_inject, loaded;
->  
->  	if (!vcpu_has_nv(vcpu)) {
->  		kvm_err("Unexpected call to %s for the non-nesting configuration\n",
-> @@ -2891,6 +2891,7 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
->  	}
->  
->  	preempt_disable();
-> +	loaded = (vcpu->cpu != -1);
->  
->  	vcpu_set_flag(vcpu, IN_NESTED_EXCEPTION);
->  
-> @@ -2900,7 +2901,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
->  	 */
->  	__kvm_adjust_pc(vcpu);
->  
-> -	kvm_arch_vcpu_put(vcpu);
-> +	if (loaded)
-> +		kvm_arch_vcpu_put(vcpu);
->  
->  	kvm_inject_el2_exception(vcpu, esr_el2, type);
->  
-> @@ -2915,7 +2917,8 @@ static int kvm_inject_nested(struct kvm_vcpu *vcpu, u64 esr_el2,
->  	 */
->  	__kvm_adjust_pc(vcpu);
->  
-> -	kvm_arch_vcpu_load(vcpu, smp_processor_id());
-> +	if (loaded)
-> +		kvm_arch_vcpu_load(vcpu, smp_processor_id());
->  	vcpu_clear_flag(vcpu, IN_NESTED_EXCEPTION);
->  
->  	preempt_enable();
+On Mon, Nov 16, 2026 at 02:14:38PM +0100, Andrew Lunn wrote:
+> > > Think about it.
+> > >
+> > > If you don't have a MAC, you don't have FCS.
+> >
+> > There are existing mainline PHY drivers exposing this functionality.
+> > The QCA807x/QCA808x drivers use qcom_phy_counter_config() to enable
+> > CRC checking, and qcom_phy_get_stats() reports the RX CRC-error count
+> > through ethtool_phy_stats.rx_errors [0]. The IP101G driver also exposes
+> > a phy_crc_errors counter separately from phy_symbol_errors [1].
+> >
+> > This demonstrates frame-aware diagnostic functionality within these
+> > PHYs, rather than something every PHY necessarily implements.
+> >
+> > The generic byte counter need not require that functionality. My
+> > question was whether rx_bytes should count received bytes without
+> > conditioning the count on FCS validity. ACx00 could then report its
+> > hardware byte total through that field, including bytes from frames
+> > which its separate CRC checker identifies as bad.
+>
+> Read 802.3. What does an 802.3 defined PHY actually allow. That is
+> ideally what the kernel should support with these counters. Lowest
+> common denominator.
+>
+> So i would say RX bytes does not differentiate between the frames the
+> MAC will later throw away because the FCS is wrong. I would say it is
+> also O.K. to include the preamble, and the FCS, any padding up to 64
+> byte frames, etc.
+>
+> Since this counter is not actually defined by 802.3, i would also
+> allow some flexibility in its meaning. Different PHYs might have
+> slightly different meanings.
+>
+> Look at it from the other direction. What is your use case? Does the
+> exact definition actually matter? Does it matter if a different
+> vendors PHY counts it differently? Does your use case require cross
+> device compatibility?
+>
+> You have not actually said what your use case is. For new board
+> bringup, debugging broken networking, the exact definition generally
+> does not matter. The PHY RX counter is going up, the MAC is not,
+> something between the MAC and the PHY. Neither the MAC nor the PHY
+> counters are going up, something between the RJ45 and the PHY. The
+> absolute values don't matter, its that they change which matters. But
+> maybe your use case is different?
 
-I wonder if a marginally better approach is to add an unconditional
-vcpu_load() in the event injection ioctl:
+I agree that for bring-up the deltas are enough.
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 5959bbbfa026f..21cd872ea394b 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2007,7 +2007,7 @@ static int kvm_arm_vcpu_get_events(struct kvm_vcpu *vcpu,
- static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
- 				   struct kvm_vcpu_events *events)
- {
--	int i;
-+	int i, ret;
- 
- 	/* check whether the reserved field is zero */
- 	for (i = 0; i < ARRAY_SIZE(events->reserved); i++)
-@@ -2019,7 +2019,11 @@ static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
- 		if (events->exception.pad[i])
- 			return -EINVAL;
- 
--	return __kvm_arm_vcpu_set_events(vcpu, events);
-+	vcpu_load(vcpu);
-+	ret = __kvm_arm_vcpu_set_events(vcpu, events);
-+	vcpu_put(vcpu);
-+
-+	return ret;
- }
- 
- /*
+In the field the question is usually: is the board broken, or something
+outside of it? The MAC counts FCS errors both when the line is noisy and
+when the xMII corrupts frames. The PHY is the natural place to tell the
+two apart, but only if we know whether its error counter checked the
+FCS. Without that, the wrong part gets replaced.
 
-and be done with it, avoiding the fast-path bloating altogether.
-Unless you can spot another path where the vcpu is not loaded, but
-still requires the injection of an exception?
+I have seen a board where MAC and PHY both provided the xMII clock.
+Frames were lost only when the clocks drifted into a bad phase, so
+production tests did not catch it. A PHY that checks the FCS would show
+a clean PHY side, while the MAC counts FCS errors from time to time.
 
-Thanks,
+So the meaning has to be known, even if it differs between PHYs. I am
+fine with that, as long as rx_packets and rx_bytes describe the same
+frames and the driver says what they include, for example which errored
+frames are counted and whether rx_errors counts CRC or symbol errors.
+That is the metadata I suggested in the v6 thread. The ACx00 byte total
+also counts frames with a bad CRC, while its rx_packets does not, so it
+does not fit rx_bytes.
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Oleksij
