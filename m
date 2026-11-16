@@ -1,53 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794787655;
-	b=y1Ls740/0BqVw80ybVfrlNxBYlxQSJFeWZH+Eg8PM84aMg+v18IFYz0vr74hod1le20W
-	 ruJ2QSGEJGOnZvJj1C9wCqSv4ZthEKjgCUHJPb708ua8WuAdYRQU94LP6VGh59yK7TvhX
-	 b5BuGg4CR2e+qF4SIHQdBm4a2JltuhNkX462y9JBc11Tp1UpL80SQWbAK1VwrPfOW+MPQ
-	 +TprBY5sh40lovmQ5+xDnH2n6C6iT+ELxGj2njY29XqN/a7Tb82xfb5G+Xm9HW+6yyLC3
-	 OW+967f5RckD/stxwMccAUn7aHwYqxuUUm8yk8wRAc9ItfilJoU52AV/e8xbavq9skg==
+	t=1794787742;
+	b=UhAGo9zdmQ+8En7T8eH10N3gFdYzdQnWItFvEbc1YYpDaDqlRnJCSOjKhvmJ6myT4Ims
+	 bfQrHlxWT5QOQUtVimafTEmJyS0ZWXhiCovKXX5Ab+PQOwZ2NYov3QpdoHBcjKPaLNw4a
+	 0V1TK30+QgoYT2xSJUiyFVCZm6x8wybSD0+IGBhTUYYmwwLflqKSqt663x03hsdLCU/MW
+	 wqGFgtdsCp7IEki+iPbd+ob0hfyvP2OjpWPY7N4G9P7fW+CDteOby5CbYlfYFnY4mAGSU
+	 /27TSaFmewuf5B/c6Smj2JR0eZemLXuV9dSRTen2ug2MbxIY9YCBc5EYT/yUjDOQOMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794787655;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KynMk6tfaUF3/byRhIeOBBnOgXm4IwVi/zkKqYpvSGU=;
-	b=mmWTIaUfTQhRh/HWkkYmMINnISTLjZK4uSQo2PII9+OHgG3Qj9yts65yBhbm+oq6xzHd
-	 J4QClFAG36aKM6e9DauwCLPqMnQ2tEhsedB0LIC0stSZmFNiqcg/bwLt92H5tw09aCvuw
-	 Jtt4CGTk7r68DU9WjV+bpcK6Vb1Iv2lzZe/wnjF1PyWAMxCXq9c97lUj512rt14nImK2j
-	 WRNX7s8g8vCaCrUUAj5cJVjCMwRZ4AS+UvHNuQ98a2NnPBwQbKjo7/COwF/H2d8Mafh7z
-	 VXEV93y1m0fKf3G9aAEhQdIPC33lT6Fg0IvFNGjXuPdzixiWASmPiCngEGYW8xqD22Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794787742;
+	h=Received:Received:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=Cj1CTWpXm1c7X2x8Nx89WqHJnRm+vG///VRBx79CFpI=;
+	b=auvHo2PQ4lcPcYWNOPxWqzSbSSQoLkHgw7yqP8cvJI2IjH9BoT0ChGyx8aczzP9E7rp2
+	 SFqxZlhgdsWIphn6hnbUN71azMN+7B+Zp1l52ScwA9fkZZ2y2xttW+AQKDleD8ZNE+Ax5
+	 aOhmJMxM+9FU2mp/0hQ67PU+0pNmqjHK+2rvPSXCS8fmlRUFO/BhZq5vmwYhLA9WsdSul
+	 CdmeS403cbTRP88Cr6onnuwaGCj8NH55MvYZZMKYI2Y5OmrviBNCL/Zraq9gVnjf8qtw2
+	 CRtEONE6NqCVZqMqTCFuqhRwEN7AKQgH4DCRROhQh2Pbb4KHTF5Pmid2sHTMFFmBTYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2zpy3vl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C0D606A31F;
-	Mon, 16 Nov 2026 00:07:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2zpy3vl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8FA1F000C4;
-	Mon, 16 Nov 2026 00:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794787655;
-	bh=KynMk6tfaUF3/byRhIeOBBnOgXm4IwVi/zkKqYpvSGU=;
-	h=From:To:Cc:Subject:Date;
-	b=S2zpy3vlRQ9XEQjJUFEcHTyU3/jVmzyr9s1nHs+IsH9Fs3xd2z2qKzIYupzWO9NEN
-	 cDfY2w5NQMb1byCrS7437tT5GcxSs9LMEiU/TO1VLcm8UcQU+S2lxd1p2kAlKeHPok
-	 2n/blieiLnELfpeM1Sap0S5R/j6Y6HPnfmFmc6SvHAVZKSPTziLDzcm2ptsdnb0uuo
-	 mSOAWyHacwJsdZMarTFxyEmw4Z8MpzEaWzo/QzFwZ6btor4HiaEZKeMsrZbDP5Gr6T
-	 S0T/jWvu8QSNFh6YEkREPMUBrwKdnsb8W7gVnywuNXt48LCCL8mFSQ1+lrJ58BXo/h
-	 Ip94XVT7EH5Cw==
-From: Chao Yu <chao@kernel.org>
-To: axboe@kernel.dk
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>
-Subject: [PATCH] block: prevent reordering of PF_BLOCK_TS clear and plug NULLing
-Date: Mon, 16 Nov 2026 00:07:23 +0000
-Message-ID: <20261116000723.934826-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0E8606A31F;
+	Mon, 16 Nov 2026 00:09:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E746F1F000C4;
+	Mon, 16 Nov 2026 00:09:01 +0000 (UTC)
+Received: by venus (Postfix, from userid 1000)
+	id 47EC3181BFC; Mon, 16 Nov 2026 01:09:00 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nizat Mikayilli <nacht@dxdmail.cc>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
+References: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
+Subject: Re: [PATCH 0/2] power: supply: Add Silicon Mitus SM5714 fuel gauge
+Message-Id: <179478774028.232281.11992235307901965999.b4-ty@b4>
+Date: Mon, 16 Nov 2026 01:09:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,111 +49,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-From: Chao Yu <chao@kernel.org>
 
-We hit below kernel panic while running fsstress on f2fs on an arm64
-Android device:
+On Sun, 08 Nov 2026 12:22:24 +0100, Nizat Mikayilli wrote:
+> The Samsung Galaxy Tab S9 Wi-Fi uses the fuel gauge of the Silicon
+> Mitus SM5714. This series adds a binding and a small driver for it,
+> which reports the state of charge, voltage, current and status.
+> 
+> The fuel gauge node for the tablet will be sent with its board series:
+> https://lore.kernel.org/r/20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc
+> 
+> [...]
 
- Unable to handle kernel NULL pointer dereference at virtual address 0000000000000020
- Internal error: Oops: 0000000096000046 [#1] PREEMPT SMP
- CPU: 1 UID: 0 PID: 9196 Comm: fsstress Tainted: G S      W  O       6.12.96-android16-6-maybe-dirty-4k #1
- pc : __schedule+0xeb8/0x1de4
- lr : __schedule+0x7b4/0x1de4
- Call trace:
-  __schedule+0xeb8/0x1de4
-  preempt_schedule_irq+0x48/0xa8
-  arm64_preempt_schedule_irq+0x30/0x48
-  el1_interrupt+0x48/0x8c
-  el1h_64_irq_handler+0x18/0x24
-  el1h_64_irq+0x7c/0x80
-  blk_finish_plug+0x70/0x18c
-  f2fs_write_data_pages+0x1bc/0x14f4
-  do_writepages+0x98/0x1b0
-  filemap_fdatawrite_wbc+0x60/0x9c
-  filemap_write_and_wait_range+0x7c/0x210
-  f2fs_flush_buffered_write+0x24/0x50
-  f2fs_file_write_iter+0x650/0x798
-  ksys_write+0x2d8/0x500
-  __arm64_sys_write+0x1c/0x2c
-  invoke_syscall+0x58/0xe8
-  do_el0_svc+0x80/0xb0
-  el0_svc+0x4c/0xd8
-  el0t_64_sync_handler+0x94/0x10c
-  el0t_64_sync+0x1bc/0x1c0
- Code: b4ffa688 97c33675 17fffd32 f9454e68 (f900111f)
- Kernel panic - not syncing: Oops: Fatal exception
+Applied, thanks!
 
-The faulting instructions are in blk_plug_invalidate_ts(), which is
-inlined into finish_task_switch():
+[1/2] dt-bindings: power: supply: Add Silicon Mitus SM5714 fuel gauge
+      commit: 459af25d38f47328a049905cab3152747b994119
+[2/2] power: supply: Add Silicon Mitus SM5714 fuel gauge driver
+      commit: 432b12f5e9a0fa412af36d5eb8d4f73620208f94
 
-	ldr	x8, [x19, #0xa98]	// x8 = current->plug, which is NULL
-	str	xzr, [x8, #0x20]	// current->plug->cur_ktime = 0
-
-blk_plug_invalidate_ts() assumes current->plug is valid as long as
-PF_BLOCK_TS is set. However, in blk_finish_plug(), __blk_flush_plug() is
-inlined, and the compiler is free to reorder the store that clears
-PF_BLOCK_TS after the store that sets current->plug to NULL, since
-nothing tells it there is a dependency between them:
-
-	str	xzr, [x19, #0x20]	// plug->cur_ktime = 0
-	ldr	w8, [x20, #0x44]	// w8 = current->flags
-	str	xzr, [x20, #0xa98]	// current->plug = NULL
-	and	w8, w8, #0xdfffffff	// w8 &= ~PF_BLOCK_TS
-	str	w8, [x20, #0x44]	// current->flags = w8 <- blk_finish_plug+0x70
-
-The race is as below:
-
-- blk_finish_plug
- - __blk_flush_plug
-  - plug->cur_ktime = 0
- - current->plug = NULL
-					: IRQ arrives at blk_finish_plug+0x70,
-					: PF_BLOCK_TS is still set
-					- preempt_schedule_irq
-					 - __schedule
-					  - finish_task_switch
-					   - blk_plug_invalidate_ts
-					    : current->flags & PF_BLOCK_TS
-					    : current->plug->cur_ktime = 0
-					    : NULL pointer dereference
- - current->flags &= ~PF_BLOCK_TS
-
-Commit 691b052139c9 ("block: fix race in blk_time_get_ns() returning 0")
-already added a barrier() on the side that sets PF_BLOCK_TS, but the
-side that clears it in __blk_flush_plug() is still unordered against
-current->plug = NULL.
-
-Fix it by adding a barrier() after clearing PF_BLOCK_TS in
-__blk_flush_plug(), so that the compiler can not move the store of
-current->plug = NULL in blk_finish_plug() before it. Both stores and
-the reader in finish_task_switch() run on the same CPU in the context
-of current task, so a compiler barrier is enough here.
-
-Fixes: fad156c2af22 ("block: invalidate cached plug timestamp after task switch")
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- block/blk-core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 8836c7028568..65379d5a1686 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -1283,6 +1283,12 @@ void __blk_flush_plug(struct blk_plug *plug, bool from_schedule)
- 
- 	plug->cur_ktime = 0;
- 	current->flags &= ~PF_BLOCK_TS;
-+	/*
-+	 * Ensure PF_BLOCK_TS is cleared before blk_finish_plug() sets
-+	 * current->plug to NULL, otherwise blk_plug_invalidate_ts() can
-+	 * dereference a NULL current->plug if preempted in between.
-+	 */
-+	barrier();
- }
- 
- /**
+Best regards,
 -- 
-2.49.0
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
