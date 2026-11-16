@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794854054;
-	b=sZb9bpDo5jfi9IJyjYo18MBQiOBwQKRVhBdy1rQFku4/WOi5/0o7whZMqZCJoxRf3eb3
-	 kZFgP13/+cYmGt5P7E8sNuMAGSnFob6hP9LxTQOxUkuupKPHvCumTsA1B28Gi64TEx0U0
-	 qFw0qpW5sjkQYDq73Fue0FNK2I3Jmfb+KAc0z0zCJ1qLnsMVW1FaX81mFdZJPgd9/Z8Z4
-	 W2pJqsJlvXd9unxE2TZrY0r3qdadHgq6hgdubIerg46aCrKUDLMP7/d+Q8ozLU3g1xb5D
-	 sNx16PxLjt6V/N/efaykA8QnhX+liQ7r5EQfnPafKurQmiea9cDJphmzeSV7QxGe6RA==
+	t=1794854060;
+	b=bOgb+MCNPfpY2d2DmSBS8tFMPqAP4xHNvPSyQgfT8h2PLJw4o4cSzhjQsSH9UprbXjA9
+	 nhzy5wo3ovcCktWq0Moq4w1VWfm/aVuefVEDXNIxcHM0ITqsfayUXwAwZVVoM+2CXgr9G
+	 Okfo5mk/G4eyaSpQovRedV15tt7apec038bv3MqcFmhM54B64ZCk8UDdE2m3LxmH4hPNY
+	 U36Ba7kiKZbsl8iIWluuiA7DegmA/g4Ig9G5XY5NV0xxUENGWzBY2gUcoE3XCNzXjoOLK
+	 YZMBOzznbMoScL12ybyhHd6Kr/KMI7+PzDoE2++oA98DVA0Q/y6QuzvwvvlkRRCj07w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794854054;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854060;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-Id:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=5dFXIsn66BgpcaL02+D6hymno/ysNYMGfyTni/ZfKzE=;
-	b=J02GylLhxY6E74k6bpAikw6dWX+raj9xBZkpEo47DMhKnbbmcIsY8xNprfKpUlLQVjNy
-	 HLh7sAssZMe4OIF8Z/CQ2pSFqhzwJk91LH+7mmCkg/T7jRMAVY6HzzG135IoLo2uBPqKp
-	 AsWVaI8cz1rRByoXkOlQOJBZCWG2b8kNqVE+xc6JrMfrzbR+1zuIXTdGgFvygXqFuzz40
-	 PxLey8WBeL2UhPTXsK+1Z3PTZbBFO6/O2XXPO0sMqzbHmT7ZDk/TZqJUSJOHS51RDByiL
-	 o36leePEsa+/XUOA4q5h7JmR5tQSZ+XQR0Qh4JoEXrAvjWX2XEwpKK0LelCZLb+eUMw==
+	bh=gRltEsjFj+deDZeaqgk4Ea0K4n+h3Q/K1mgxwQTMG90=;
+	b=Ez05SvUU5vCO6jMt2KUgCq9gVy4+xfq9oGXElQ5BL9Jxy8GmSx9tVpNDBRUMLI7/4CIP
+	 SiCIISm5YwwBelyl6wpyt1t1/pfe6rPmr3YgL+kVgIle9MxWwmgyEtZ7QOvWOOCcNYviG
+	 v6TPVxxyj53P2JpcOfCewP5TN2F1HFhmeexm1D27AME5PW3H6NB4kwfwvWZ1Nk6D8ObDG
+	 QlbcI2y675400rx8S8AwVBOyG2ZOprRczBrqhJe7vaqbMnImJqU85v7OscXa/F92RxMTt
+	 iyBcFy+Hl4G8KQvdTaKZNC0uW6qjlP2jgpoKkZp/zaAGXqKO9DU9R7XtXn491f+OkJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cjdns.fr;
 	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=XnIurmEQ;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b="obYXVyO/";
 	arc=none smtp.remote-ip=5.135.140.105
 Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C684E606A329;
-	Mon, 16 Nov 2026 18:34:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C684E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E7C606A31C;
+	Mon, 16 Nov 2026 18:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9E7C606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=XnIurmEQ
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 34DDC4FAEA4;
-	Mon, 16 Nov 2026 19:33:57 +0100 (CET)
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=obYXVyO/
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B7D284F9114;
+	Mon, 16 Nov 2026 19:34:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1794854050; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794854057; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=5dFXIsn66BgpcaL02+D6hymno/ysNYMGfyTni/ZfKzE=;
-	b=XnIurmEQ2/c/p0ClFBPW/mfWqDnzAafKy+X8gcsvq+RVJhkqb/M/9MReLgRn0pHWgC28eg
-	k/fYj7LlKsbkJDUaaJqFoyQw3gUuqRXTiagUSteEtOUvW/dWDs9wn215WGHSodHpDeL2KR
-	0ON9OqYQDCqQfsLlz74PPRUzsuKSAW1qEXOH67qhEWK4QsaKtc66Su96bUTalUkSiq/ONL
-	+X+vkNZhueEEoRelefUgYpyCMJscK18D/Mlcu9k9m8i4HYt4rFoCgYkMsDdGzdySs5SRk9
-	KADSQ9v4WuhO6/dUF6+5y3W19oUJVM/3e/lCnlsR6k+gwCnICfsAhh5vH9FVQw==
+	bh=gRltEsjFj+deDZeaqgk4Ea0K4n+h3Q/K1mgxwQTMG90=;
+	b=obYXVyO/8BkSxaBTo/9oT+KyY7+h8rVy6koDbi1siR0aAq/ma4INy4YEgmc3kDWScWiDA6
+	4lQaAGk5w3RyIAaFhSIr3Vwo2hIN4YoMaFbfgdiDHYuXBKl/A1aGanJkHioFTyaroiVyP7
+	sE6aJ/dpzvm1yLLHiadO0SuENEfSXM7QwLYop4DpVEPQbKBf70BGxki7AOI5nt/zFcEZrk
+	Lp6MHV6ilaAajD4AhtkJd/Gdx2PmlotWTdwoXHGzhzksrNyyZTEb49lwEvg3sWLIiWN4JL
+	I6nx3WhmB8BCv6BANukg7lwB06ssJH3F+yZ+BNwpKzfOD/dFEPWUoHGHtLUYBg==
 From: Caleb James DeLisle <cjd@cjdns.fr>
 To: netdev@vger.kernel.org
 Cc: andrew@lunn.ch,
@@ -71,9 +71,9 @@ Cc: andrew@lunn.ch,
 	naseefkm@gmail.com,
 	b.larsson@gmx.com,
 	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [net-next v5 1/7] net: dsa: mt7530: get ctrl phy addr using a function
-Date: Mon, 16 Nov 2026 18:33:26 +0000
-Message-Id: <20261116183332.168858-2-cjd@cjdns.fr>
+Subject: [net-next v5 2/7] dt-bindings: net: dsa: mediatek,mt7530: describe 'passthrough' hierarchy
+Date: Mon, 16 Nov 2026 18:33:27 +0000
+Message-Id: <20261116183332.168858-3-cjd@cjdns.fr>
 In-Reply-To: <20261116183332.168858-1-cjd@cjdns.fr>
 References: <20261116183332.168858-1-cjd@cjdns.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -88,190 +88,33 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The MDIO MT7530 has 5 integrated PHYs, of these, the first PHY has
-the additional registers that are used for such things as configuring
-the clock configuration for the switch. The switch is typically on
-MDIO address 31 and the PHYs are 0, 1, 2, 3, and 4 with 0 being the
-special one. So taking the address of mdiodev (the switch) add 1 and
-modulo 31 finds the first PHY.
-
-However there are a number of MMIO based implementations of MT7530
-and on these, mdiodev is NULL though they often still have a control
-PHY for the purpose. Move MT753X_CTRL_PHY_ADDR to a function which
-handles the NULL condition somewhat more gracefully and allows a
-place for MMIO implementations to add special case handling to
-provide their control PHY address.
+Due to hardware limitations, full switch hierarchies are not supported
+with DSA based on the mt7530 DSA tag, however it does support a simplified
+hierarchy in which one or more switches act as passthrough conduits with
+only one CPU port and one DSA port active. Document this capability.
 
 Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
 ---
- drivers/net/dsa/mt7530.c | 54 +++++++++++++++++++++-------------------
- drivers/net/dsa/mt7530.h |  2 --
- 2 files changed, 29 insertions(+), 27 deletions(-)
+ .../devicetree/bindings/net/dsa/mediatek,mt7530.yaml        | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index d5a199293f78..3bfe29b3b93e 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -46,6 +46,16 @@ static const struct mt7530_mib_desc mt7530_mib[] = {
- 	MIB_DESC(1, MT7530_PORT_MIB_RX_ARL_DROP, "RxArlDrop"),
- };
+diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+index 90b3582b7619..590eb39d6b93 100644
+--- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+@@ -73,6 +73,12 @@ description: |
  
-+static int
-+mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
-+{
-+	if (WARN_ON_ONCE(!priv->mdiodev))
-+		return 0;
+       Check out example 7.
+ 
++  The MT7530 and MT7531 switches offer limited support for switch hierarchies,
++  particularly in the case where one or more switches have only one upstream
++  and one downstream port, and can act as blind pass-throughs to a fully
++  featured switch downstream. When using this configuration, the fully featured
++  switch must have a DSA index of zero.
 +
-+	/* Default is 1st PHY */
-+	return (priv->mdiodev->addr + 1) & (PHY_MAX_ADDR - 1);
-+}
-+
- static void
- mt7530_mutex_lock(struct mt7530_priv *priv)
- {
-@@ -63,32 +73,30 @@ mt7530_mutex_unlock(struct mt7530_priv *priv)
- static void
- core_write(struct mt7530_priv *priv, u32 reg, u32 val)
- {
-+	int ctl_phy = mt753x_ctrl_phy_addr(priv);
- 	struct mii_bus *bus = priv->bus;
- 	int ret;
- 
- 	mt7530_mutex_lock(priv);
- 
- 	/* Write the desired MMD Devad */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_CTRL, MDIO_MMD_VEND2);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Write the desired MMD register address */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, reg);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, reg);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Select the Function : DATA with no post increment */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
-+	ret = bus->write(bus, ctl_phy,
- 			 MII_MMD_CTRL, MDIO_MMD_VEND2 | MII_MMD_CTRL_NOINCR);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Write the data into MMD's selected register */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, val);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, val);
- err:
- 	if (ret < 0)
- 		dev_err(&bus->dev, "failed to write mmd register\n");
-@@ -99,6 +107,7 @@ core_write(struct mt7530_priv *priv, u32 reg, u32 val)
- static void
- core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
- {
-+	int ctl_phy = mt753x_ctrl_phy_addr(priv);
- 	struct mii_bus *bus = priv->bus;
- 	u32 val;
- 	int ret;
-@@ -106,26 +115,23 @@ core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
- 	mt7530_mutex_lock(priv);
- 
- 	/* Write the desired MMD Devad */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_CTRL, MDIO_MMD_VEND2);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Write the desired MMD register address */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, reg);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, reg);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Select the Function : DATA with no post increment */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
-+	ret = bus->write(bus, ctl_phy,
- 			 MII_MMD_CTRL, MDIO_MMD_VEND2 | MII_MMD_CTRL_NOINCR);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Read the content of the MMD's selected register */
--	ret = bus->read(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			MII_MMD_DATA);
-+	ret = bus->read(bus, ctl_phy, MII_MMD_DATA);
- 	if (ret < 0)
- 		goto err;
- 	val = ret;
-@@ -133,8 +139,7 @@ core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
- 	val &= ~mask;
- 	val |= set;
- 	/* Write the data into MMD's selected register */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, val);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, val);
- err:
- 	if (ret < 0)
- 		dev_err(&bus->dev, "failed to write mmd register\n");
-@@ -2668,8 +2673,11 @@ mt7531_setup(struct dsa_switch *ds)
- {
- 	struct mt7530_priv *priv = ds->priv;
- 	u32 val, id;
-+	int ctl_phy;
- 	int ret, i;
- 
-+	ctl_phy = mt753x_ctrl_phy_addr(priv);
-+
- 	/* Reset whole chip through gpio pin or memory-mapped registers for
- 	 * different type of hardware
- 	 */
-@@ -2737,25 +2745,21 @@ mt7531_setup(struct dsa_switch *ds)
- 	 * phy_[read,write]_mmd_indirect is called, we provide our own
- 	 * mt7531_ind_mmd_phy_[read,write] to complete this function.
- 	 */
--	ret = mt7531_ind_c45_phy_read(priv,
--				      MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--				      MDIO_MMD_VEND2, CORE_PLL_GROUP4);
-+	ret = mt7531_ind_c45_phy_read(priv, ctl_phy, MDIO_MMD_VEND2,
-+				      CORE_PLL_GROUP4);
- 	if (ret < 0)
- 		return ret;
- 
- 	val = ret;
- 	val |= MT7531_RG_SYSPLL_DMY2 | MT7531_PHY_PLL_BYPASS_MODE;
- 	val &= ~MT7531_PHY_PLL_OFF;
--	ret = mt7531_ind_c45_phy_write(priv,
--				       MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--				       MDIO_MMD_VEND2, CORE_PLL_GROUP4, val);
-+	ret = mt7531_ind_c45_phy_write(priv, ctl_phy, MDIO_MMD_VEND2,
-+				       CORE_PLL_GROUP4, val);
- 	if (ret < 0)
- 		return ret;
- 
- 	/* Disable EEE advertisement on the switch PHYs. */
--	for (i = MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr);
--	     i < MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr) + MT7530_NUM_PHYS;
--	     i++) {
-+	for (i = ctl_phy; i < ctl_phy + MT7530_NUM_PHYS; i++) {
- 		mt7531_ind_c45_phy_write(priv, i, MDIO_MMD_AN, MDIO_AN_EEE_ADV,
- 					 0);
- 	}
-diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-index 2bbbe617b52e..3dabbc99fbbc 100644
---- a/drivers/net/dsa/mt7530.h
-+++ b/drivers/net/dsa/mt7530.h
-@@ -747,8 +747,6 @@ enum mt7531_xtal_fsel {
- #define  MT7531_PHY_PLL_OFF		BIT(5)
- #define  MT7531_PHY_PLL_BYPASS_MODE	BIT(4)
- 
--#define MT753X_CTRL_PHY_ADDR(addr)	(((addr) + 1) & (PHY_MAX_ADDR - 1))
--
- #define CORE_PLL_GROUP5			0x404
- #define  RG_LCDDS_PCW_NCPO1_MASK	GENMASK(15, 0)
- #define  RG_LCDDS_PCW_NCPO1(x)		FIELD_PREP(RG_LCDDS_PCW_NCPO1_MASK, x)
+ properties:
+   compatible:
+     oneOf:
 -- 
 2.39.5
 
