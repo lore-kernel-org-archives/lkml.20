@@ -1,110 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794858632;
-	b=xiVuVgNaj3Jxy9VUpJB1VN7tmnaOSuAD/xIe5u9guY03bSLEh7xzkwYSap37doOyIOVf
-	 ZFhEWU5L3ZKjwYGHgTcuZbvYCuW3ofZwaO5PgEXyNL5dnLABm2aYl8UeUyBIvcycLTQzV
-	 6jHGWK22faGZYkv9PkwKYSi/CL1nwveyhwbMu6Z7kW61RWry3kzvVvFQmqkzQakKeaeV/
-	 9SEvegMsTiSuHImjh+0MIE0gAWJHr/4ZwIUpM3C9aXM8D6PqrXJHFy6Cz7qIrTg/zxCtt
-	 bWzmyAuLAaB/sJDxXOs5bNaLDGO048gYT6YCr3d2DX8mXelgFO+NQKl8Qbc8SvYBG4g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794858632;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794858652;
+	b=bv+WjazxWai2lR3iZPqyA6436+qwsy1L3nGEiIgurW4ysLmpud877uaFG6q4ApVY9uvN
+	 +KCD5D6uKcVMc6FkF1BQzzmqOalzcFm5czAKoOdr5eNg1KWw+6C7w4+FSP1TvXoX63K2R
+	 NOExInibCsm839llmuwBTc3LzTyI1k9hrtcbDyBowL537wnCUHLgOMjdu47wyl4m1rYdK
+	 +NcBdXi70s0EbgWp9PYd5nkxQRjstoc22HRa9NkCZY/BtkzDysCdLIqmZIG1qM1GUwZoG
+	 98HEDTXKL24MAAopxSXhzteuMNTcUEh/xhS+KZcf0v6Hk5OkCdGCeG/FcfBWjqQ81NQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794858652;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=eFdg050KOzhqiZr8wAb8DDApASy+byey6lJxXjWxoKM=;
-	b=ZFHcDPRZqBI8UfvN46HbRwiRuX0coTLcEhG9uj2Aw9hV5pFfKAudxAzuDZUq7pRvWVuw
-	 Qg/yqxzoXoyjSkQ073Uwv07Zhx+i+0KUi3Y0ql652vvVbDG9WCramrrBnFcadJyzEBwlD
-	 +mMrJHnec5HxuxGQPUodf0i7zesNIE2D/JUd3ZM/JQVxEVmtCv4n8xrj1/h2w+b7cUSjy
-	 lp4wdugm6nWdFQMnFcnfkhYEUb5mc6Wb9ANdTae23rruR1bq84vc5ngk/CpYmwYplc2AB
-	 14o2cAouigFOD0FrTp91nWHUZBM0vNHZCFLxdyWVK+Gnl2wuXJNBLR/EqpXn8T/OgXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CxkHrH3VxQe1SMYPYrNEyj9vp9sqPdyZzYaUVPRrdH4=;
+	b=UoqCpNwtNOAYUT1Jh9TcOpBYwjOYrGZqyH0CAfJfMi/06tgmGU9zUGtFIz6jdFouVdEN
+	 MbSKpIMO6qvqIqwj9CgAmOf9Lwk5BKV+2ZVd286WoyLD7EtraTb94cGOO6cEK5F7KP7GG
+	 40HdO1FEVmxP/h80dNVj0Nw6vmFXbRhPPmD96dXusc8z5EsT04mc+xdNEN6z9PPsrYlP6
+	 7T6xowk4pjQwTJcjx8gbZXZ09Q9tqiNUvifT0NfjEqHFZutA0+mo24HvdxZplK8fFxFGf
+	 LXiKoMJU1co6Ihsk4F3AXnS+KPX+khACI6J9nJ/nzeZDF3I4pyJEKmgYswwVfnxSeww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVPMv5Jj;
-	arc=none smtp.remote-ip=209.85.167.43
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a44tx9FY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D81606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60D81606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4178A606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4178A606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVPMv5Jj
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c14f3dab0cso3304843e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:50:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a44tx9FY
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b81214ab40so598542a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 11:50:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794858651; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rUAmGQEEwccAhcNa+jCvbC93wVP7UxiObhVm0ChyT7cVYcf3os67p+40H0mhC4WFld
+         CKoNnMe087KNdipHV5sVFHMBHzFmnGZIwsIyggoMIATMwQ0HmoSuycMFdGQjl91daQa5
+         glWDWKPUJ7qigGXPS3I9o/+5GXftL8c+Fi3wpuOLykpyoYv5jNEnxig9tDj98ZB1ynoN
+         y6YDqYGDqAA1wLe3p5Y7wd8vozwno+8bUnhfxfsQsW5QmTkK/M21jyWppCh12LSEm7bb
+         jLasyj+n1DeXRlit9qR53RdRzCX8JmkHZ8cxie+2qCAdF9rpVzIAUs++8wOGH9r20zDV
+         cJVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CxkHrH3VxQe1SMYPYrNEyj9vp9sqPdyZzYaUVPRrdH4=;
+        fh=7WdMDqO1xVv7bS4KPwcxwsRIdbbgubleinkMc6U5b3w=;
+        b=RESVRfn0eAkDSKnRhoPk6tZ7p+DfocJ3g4ekiDyyODebbTwDxNoi4fT6rmzJ/21hex
+         0KM2rfAkqkmH+PqPg03JJLD/aMwJg+MlJEe5BgekgTxXkCriZE41dvrBcNeYY6lcExFy
+         kGiwD3JkozkkKpHroQ8R9eOzI6nIGwi3XpAS6iskEDw3/G1OYnyq5404aph0GZd3Zlwu
+         hjfqCTpSsywsa0j8+M8WDhnS0h3FVLUQZyvpdclSOHnQahWUQ5gx90hLgGrTZz/JvqtJ
+         FqvslDl0gSCc6LqgEpdVWrnRT5lsPP4oCUICh+iZX9NBYSpxrYepJByENxq+3BxR01/F
+         2ipA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794858631; x=1795463431; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eFdg050KOzhqiZr8wAb8DDApASy+byey6lJxXjWxoKM=;
-        b=fVPMv5Jjqv7rtUacwUWwxgzGUKh0kbGrQvPDNKQgdg3PfGugNot89oLZEB9uDECq20
-         kt4Ze77lLAUWZGkp14AN3KdOXlAaFBy6L1ueciTnmSBmoUb4pfdFZ98zR+pQ9zsJLHRz
-         5nDBMJrkRJwuttQU+Ggvi+BNlUX+jFGCDohXhNdYfz9d/+lXqn41DpMVBBRMcPxA2dno
-         u6/HTzFgpjeTl4aZ6r6xtb4uuwBS8N/HMAuLQlBTlSa72iUI06FvQ+5ohd4heLO/y1MN
-         fbABCiqCeEaaoSb85YjVoN+hfHep4gg/mFfBJr21Bw4mkQbFo0cZxdcylKM74107fVf6
-         7G1w==
+        d=gmail.com; s=20260707; t=1794858651; x=1795463451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CxkHrH3VxQe1SMYPYrNEyj9vp9sqPdyZzYaUVPRrdH4=;
+        b=a44tx9FYyulYEGe3djm9Dz0e4h/xYE50BzIFjZWY1zKfeBJKRnDZ7tRH5xTHnNkbKC
+         YrNy7YuRVwhOfWVEbrk9cNdS9qLZw29MPMsit5oz5tz4efpaft9J5GLu9dExFJgC1GxE
+         Fo9SP5H0u8Qh1mGGy8eOrfa8Jb7o4+gCQ6ztDG5atsUt8o8wI4m7iRI1UPAedfyZV3T9
+         xYfQM8cLEkGF8gaYfwKGPKxknUriZVosfrn5SrWMrZBgDwvuOk2Up9e6zTMHQuw291wQ
+         JN3IyTMeymXNNN+s2nh8650jxW8nzAbS2WkDJriAZsikKVfeinh6IYLIxDHgV1bsJwsd
+         vrbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794858631; x=1795463431;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eFdg050KOzhqiZr8wAb8DDApASy+byey6lJxXjWxoKM=;
-        b=QdTbQqU6XK1JEPGTjOwt55Kg5BpLuWEjDF31wsGGfLl5sTD0Ylu47HqlIN36U/r4tv
-         coW0PNsemir9gh0zaJtg/3k+YCaOLONb9Q/knp6BzWmP+zJq0jO9kW64Ns0EV/PCeEvv
-         yjzcPlv4DysV1Py4ON1ZQivva5jHvt8EiDdPCfM0q1xfcz/3Hx5+UUmJBUe7d0JeAn6s
-         0ff2D2dpi9ImbvxNZM+KnbZCqKsVoPhEDNbOnz9TlpXjDm2h6222kAK+akIm7C9XJeUe
-         rhkiVKkkIRFBkxiM2JEZzBakRZ28UwCWy6fwFHYOGrGCZQI67VFxiuG1zCEDPdHQvA7x
-         UnSw==
-X-Forwarded-Encrypted: i=1; AL+hErH85ICW6YC8ErF2vmaODRIUPWEWmiqYE55cyCdMZFSnfSAUWvHqDtykkjGG3DYmlcJbegJjIoO8rVbpz1g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YNQaE+GKQ8dzhHZONPzroQ5/rNG1nvU9bkF908y0I3K4WP3s+
-	Wyg+AHWchTGfTfUo4mJLixbyAwVZOfXGPDQ9cWoqStfpZn4d1d6EucnH
-X-Gm-Gg: AYBFou2LNu2XVjKQIFUblxfWPO46vtLT+bHh7aqEIs8hoyQTznbnpKpN+pNe1lxMBlX
-	SaqBB3L7DDjKhf6M53uWB1thXwCIG7oUvJQ8NRvJoTeXjwJ0QYF1x1Kelv0KOUO3rOOaznzVFLt
-	eVbiHP73HK3KG89Axfm556M/Zem7PI0qejV2eSPIDc2wM0U44W8FFhhWaVhX8tEczxeJWNAcgMQ
-	3+mY/g2w0BL3WkkgEDh2N58H39eHNk0CcyvBPCJ/m9eIYqBggtsT/JtL07c14zrlurI23QKP6Hq
-	2w4qECtSip5yZ+UaI7kBwB+1N5dbCNgFnDj/ms95/f+NwGUi1+G2T5KR/8yG8QBr5+HFBqT2uWI
-	MJ/y4BhzOOhoA6xsDgE0K3cHYcSvq6j2fXMS2NIg8hlm+oCEmlRMEFUISIZ+7ieNAYOZXRKDtea
-	dBl7KnO0Ku5KQIjkn8twosp1t7XvJKHA72Zi0rfqvzfI/+izqswGoGxTcAddxs+s8imsH0i+8Ll
-	KCM0iTSsLfwEaCpi8WzI9fxht4PjZAxEi21C4niUPUpZpZx6mGue4kOqri4uQbqYgVtHhUfNHRr
-	Q3UL7QNaod5C3cjrVY1i621Y/8JKeX1rpA4w1c8=
-X-Received: by 2002:ac2:568a:0:b0:5bf:cf80:aa76 with SMTP id 2adb3069b0e04-5c170435903mr4496087e87.0.1794858630530;
-        Mon, 16 Nov 2026 11:50:30 -0800 (PST)
-Received: from IuseArchBTW ([194.28.181.64])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7d1ff0sm35700701fa.32.2026.11.16.11.50.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:50:30 -0800 (PST)
-From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] rust: sync: atomic: Fix typo in SAFETY comment for `isize`
-Date: Mon, 16 Nov 2026 21:50:09 +0200
-Message-ID: <20261116195011.24156-2-mbkchelofficialdev@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116195011.24156-1-mbkchelofficialdev@gmail.com>
-References: <20261116195011.24156-1-mbkchelofficialdev@gmail.com>
+        d=1e100.net; s=20260707; t=1794858651; x=1795463451;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CxkHrH3VxQe1SMYPYrNEyj9vp9sqPdyZzYaUVPRrdH4=;
+        b=flB3jKrAbPQ8mtreu7vKVB3j0TbVSZhmQGB9xemIwA9ZYPh9wWnkXkEznFvwgBNYu1
+         CK8nx8EM16Uu/lbJGIElma2r/MpQISAeWkOhMX1O0stPuH/9L8KLshJoo0zGetRsqjYW
+         resLjq1tCcyjO0E5OdbCNrmD6RJ7j1hL/w2e6i8B5lcJral+35vnxHhvCxH17Py6R0Zh
+         yAYj+wyKQUxjR2fwaSRM8WIX1wJrX/0h49w30PLbaKi8wNlTmPQa2xyIMci7yBfOsfDR
+         AucOtcK5AcL44iSsBqx3rRJqBncXf9fjHtK2Xego2XU3WmHjviFxCmhhrglguZZo//IL
+         53lA==
+X-Forwarded-Encrypted: i=1; AL+hErHziAy5DKdAJaGN/FRcIbDs+9zBwktsF+pS5PlofUrfojAl5mJaeKQ/c3lFPAw3Sv3zmP3hZxNSw8Kvrws=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+P9e+jJWkeSn1nwMpoJFkqIE2WNdHiu4xbBkibDOtixHkL5lip
+	OFzqty71TEQb9FgXs4YJrjztXfBmBiNLwCvdchT8J8AB1069xL+BCVpNXwdqI59qfUR/n9tJXm4
+	Rw2zNKT/Dxp0UBvj3IE3Q5dS/WYvHMMA=
+X-Gm-Gg: AYBFou1O2KLDIKPsvfBglk2iP07Scpcl+KNMjv/8eayBrLPeejFFw1ztjVsnR1B3rkH
+	0SQXzwFnr1nOIMrfyxp73TD6f29NlMrUyFIy6ObVqx3TZM/e4tl3weqy2O0dE42aiun+9Rx9Xxl
+	F7BbKALYFqUP1RnT/u/f9wYbImDtZ8Wa35ur2b9w4EQ8wemF7TptmPnwyFVwn4Ftebyj+ona+mF
+	G1eCAEVr4JO9WkOv3LXf1bY/Cisp1bLfxLowRtn7jE6ogJTxhFOkKaEYGa0rTy2umw+DXoXnCjy
+	sig1WegrkZvq/YBw/EuDSZmp1lZbskGhZPAG4B4D57q8FzyJqm4EiwUaISER6+O42n+WDO48fXa
+	U0aIpy6L0Lvjq28Cnw1GUVP82OQoa1wivTLG4EEKX/zlh/w2xBCwR+JKi8MhQP4no0uar7ePu7F
+	sLgMqRIc+Caq1IMvOQ4aiACtI=
+X-Received: by 2002:a05:6402:2b91:b0:6b4:1eed:b9f2 with SMTP id
+ 4fb4d7f45d1cf-6b859739689mr380339a12.10.1794858650577; Mon, 16 Nov 2026
+ 11:50:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,29 +105,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com> <20261116152403.2672-3-ilpo.jarvinen@linux.intel.com>
+In-Reply-To: <20261116152403.2672-3-ilpo.jarvinen@linux.intel.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Mon, 16 Nov 2026 20:50:39 +0100
+X-Gm-Features: AclHuK_k2jdl-xE0SWqHh40PilxNCJBvLhOeyDjPjuatpm5yQ5pSESh5pEDEfkc
+Message-ID: <CA+=Fv5SkcpskpFUCP-qDmP1vWqDiqO8FgSJJ92UvX6jGRfaGLQ@mail.gmail.com>
+Subject: Re: [PATCH 02/13] alpha/PCI: Convert to pci_bus_size_and_assign_resources()
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring <robh@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>, 
+	Richard Henderson <richard.henderson@linaro.org>, Matt Turner <mattst88@gmail.com>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The SAFETY comment for the `AtomicAdd<isize>` impl of `isize` says
-the result is a valid `usize`. Fix it to say `isize`.
+Hi Ilpo,
 
-Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
----
- rust/kernel/sync/atomic/predefine.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon, Nov 16, 2026 at 4:24=E2=80=AFPM Ilpo J=C3=A4rvinen
+<ilpo.jarvinen@linux.intel.com> wrote:
+>
+> To serialize bridge window sizing and resource assignment, PCI core
+> needs to hold locks across both phases. Alpha nautilus PCI code calls
+> pci_bus_size_bridges() and pci_bus_assign_resources() separately
+> because it needs to do special resource alignment and setup after the
+> window sizes have been calculated. At least the former would seem to
+> belong to some existing __weak pcibios_*() hook but the latter might
+> need yet another pcibios_*() hook just for this single use.
+>
+> The nautilus code runs during init, so nothing is likely to race with
+> it. Converting it is mainly about consolidating the sizing and
+> assignment entry points of PCI core, which eventually allows removing
+> pci_bus_assign_resources().
+>
+> Instead of trying to do a complex rework of the code, which is risky
+> without the ability to test on the hardware, simply convert
+> pci_bus_assign_resources() to pci_bus_size_and_assign_resources(). This
+> adds a small bit of extra work by performing the sizing step again, but
+> the calculations should yield the same sizes, so it seems safe
+>
 
-diff --git a/rust/kernel/sync/atomic/predefine.rs b/rust/kernel/sync/atomic/predefine.rs
-index 3d63f40791fa..61394a32951a 100644
---- a/rust/kernel/sync/atomic/predefine.rs
-+++ b/rust/kernel/sync/atomic/predefine.rs
-@@ -106,7 +106,7 @@ unsafe impl super::AtomicType for isize {
-     type Repr = isize_atomic_repr;
- }
- 
--// SAFETY: The wrapping add result of two `isize_atomic_repr`s is a valid `usize`.
-+// SAFETY: The wrapping add result of two `isize_atomic_repr`s is a valid `isize`.
- unsafe impl super::AtomicAdd<isize> for isize {
-     fn rhs_into_delta(rhs: isize) -> isize_atomic_repr {
-         rhs as isize_atomic_repr
--- 
-2.56.1
+Agreed. By the second pass irongate_mem has been request_resource()d, so
+pbus_size_mem() skips it as assigned, and ioport_resource is never picked
+as a window (find_bus_resource_of_type()). Only the AGP bridge's
+unassigned windows are sized again, from the same inputs.
 
+That does rely on the assigned check, though: if your follow-up series
+starts sizing assigned windows, nautilus' relocated root window
+(size_windows =3D 1) must stay untouched by the second pass.
+
+It builds at every patch for the generic and Nautilus configs. I have a
+UP1100 (Nautilus), but it doesn't start up at the moment; if I get it
+running again I'll give this a boot. But for the Alpha part of this series:
+
+Acked-by: Magnus Lindholm <linmag7@gmail.com>
+
+> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> ---
+>  arch/alpha/kernel/sys_nautilus.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/alpha/kernel/sys_nautilus.c b/arch/alpha/kernel/sys_nau=
+tilus.c
+> index 13b79960b4b9..23a74fd4a83f 100644
+> --- a/arch/alpha/kernel/sys_nautilus.c
+> +++ b/arch/alpha/kernel/sys_nautilus.c
+> @@ -263,7 +263,7 @@ nautilus_init_pci(void)
+>         if ((IRONGATE0->dev_vendor >> 16) > 0x7006)     /* Albacore? */
+>                 IRONGATE0->pci_mem =3D pci_mem;
+>
+> -       pci_bus_assign_resources(bus);
+> +       pci_bus_size_and_assign_resources(bus);
+>         pci_bus_add_devices(bus);
+>  }
+>
+> --
+> 2.47.3
+>
