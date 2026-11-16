@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827411;
-	b=LUUaXT1y8paGBLIt/AWofxQs4hjJw/C2L42FffP0iqazOJwer4n239wuOJM/SW0q8Dkf
-	 LTNnPgXxtCz8JEBoiqs3YEKH6/4aU3N1NQu+Ec/+PejZocFUGb3PXwCNLwE9GkxPJOUBJ
-	 Yr02l0QSp3/cXRcIZ6K25qDkzAgwtfBivEOoz9XWgNz0HeuoTeyJXH/+10AtFO45kyDPP
-	 odBEbr22CIHv3StU5fqDbMjl4hJ1WuUR7sEkk/UXSQf6rFiTmBg6rCvg6cpw2bn2nx5Sb
-	 utEbKJqIw5HwZhDbXGVtITViJ/A49Ch02XT78h5p0gm7POFRWi13byWqA3dmAIs0ikg==
+	t=1794827397;
+	b=4h79SUOGcYf7pjeC7XzB1g5bVR8jYR4CGQUkdQj0dvr0sAOzkyBCqkqTrDGlllc6cyEs
+	 gozuScq4p9R407/1oFMjMU7Aer3ZCG2BGMCLZT++bzmwDyNTK5KLq1IWiXKPGeFNqG9pN
+	 eg+b8aD2JM2agP+xuoLDOAIFnZuqpQXZYPxWonP1D7Oepv39q3dGPrNrhKBUA5vJmixso
+	 i4KwuKyM7QgRLKzKUPqHUTpdvGfsdaRaBG8n/cqJD2MMiSCvQr07nR+trUhltzzzTxvU4
+	 Y7UqDxBg86INa3he+Bl3L56znUqXZlFEnk796fAEnieBe8Xb3B/Wv6XC3S8VgOBWN+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827411;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RVmCKf70eEEgds5H1uF6AGyws+PKbUsScOYwDZol0jI=;
-	b=eOxfz8WggR/pE7wgLNV0SNvUU4bJPg9by+SF8YXnZ7Ml3qCK4ivwWVNEH8E/txcgk8Mt
-	 0sbRBEG0MDwtrnY3RymR496Jhorrr0UvT3VMYDbMfCEjmbVqnPVjP2igR5XxpItWFr5n+
-	 SIihqpSnkQ3ukqR/nAxCqTQcfW5tM2Gnv5VjKNG9J3cRp6OGKmN3/cKMUx+YGUHmG6uhU
-	 Wf76ffURDJs30Ukawke+JvIUqiEdvB/7/Q8goG8MnwHllJ3wJV6xHJgBhrdiKFzvLolil
-	 srVaHhczVHM7NRAHbfJsygYmAsouDUhGBGyKpDhY/RASw4obDnbC6QOuAzyx2WjtXSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827397;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uQiaosrZq/6cfVUoy8hqdiQwradIgh/yOR1oHMgTR+I=;
+	b=idFEczwDn+T4BlOSs7TJweADMwH6rNnhRb8I27EJuBH1Qw0L2XtihE/FSlGNm8whyoXl
+	 c0Eci/rV7uHDgNEVb4djsn/l7rokNi9C92PKIuErALWHWV8PWKdnNNBmxo3vAxgKxTMq1
+	 DJciXop4Itut54drxsQjtu4v9Iy8OZAV58Y+0OkYWO9ENz05gcc0aVT3iQRsFZ+UogMZ4
+	 12vK3uvQUnJ8LwgZwr+jTlVrzlAgVeKXYuZxI450Ju6hlMN7eGKD6vFFdJXtIjoj5WPu6
+	 lVWc8h7p9K0h4V6rOlQCi0dJzGRk0YTmug/pmgSLEWvp4BUMNlVtI+te96tDK6BjKcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2a8x4Ij;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a3fthGMX;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931BD6080643;
-	Mon, 16 Nov 2026 11:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73477606FD88;
+	Mon, 16 Nov 2026 11:09:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73477606FD88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2a8x4Ij
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FA51F000C7;
-	Mon, 16 Nov 2026 11:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794827411;
-	bh=RVmCKf70eEEgds5H1uF6AGyws+PKbUsScOYwDZol0jI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a2a8x4IjQXkhMC1xZWG1AVMGBMTEmD20nU3hCnUhvZ2vMo4uVoX+r+vCY/Vqi1aM0
-	 a1IoeIh1W9cjCBm0tODJqaQmQjhGGoDNvz69Nsgl2n/uILPoLklFL5Tkz5iST4+LXh
-	 6b65l6TgLBipCAdAxf9qfyD7N8V84W7lT8kW54Oyx64yxTHLqesRullrtGyFnHgjVR
-	 yvsuzCCwjByMQwH53+E8LglmZAn4VUbpKSlYcOZsLXpcnivoAsGcOwGKZyZWvd9pwB
-	 xbP6AN/7RPoakTYBSouOUtAeXNnz/4j4gmKYInuyV9Xof84ezPkJW8Gr23jhK8Wu+3
-	 s8ZTmOdqoe4hQ==
-Date: Mon, 16 Nov 2026 12:10:05 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yanli Yang <yanli.yang@bedmex.com>
-Cc: linux-wireless@vger.kernel.org, 
-	Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Zhirun Liu <zhirunliu@aicsemi.com>, 
-	Dijia Xu <dijiaxu@aicsemi.com>, Chunqiu Liu <chunqiuliu@aicsemi.com>, 
-	Liheng Wei <liheng.wei@bedmex.com>
-Subject: Re: [PATCH wireless-next v5 4/4] wifi: aic: Integrate the AIC8800
- SDIO driver
-Message-ID: <20261116-pygmy-partridge-of-defense-e039a8@quoll>
-References: <179481380235.4.7388336477392853157@bedmex.com>
- <179481380242.4.1693438763870948060@bedmex.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a3fthGMX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794827398; x=1826363398;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=WhpSgKz06/UoA0SUzG7bcB2Js0yT2iQrvfmwQ8dZ9ws=;
+  b=a3fthGMXBAqMBRKWAAu1xrCgIt3OUQUMagQQbGHdoZCMRUTtuz3DCBId
+   WrKan/asDNOumU6mCqgJyzisZAtg67BIHeVSgj09qrgyf7z6t+VqJbZkK
+   YZajq9F813QKmC+CQnSIWeuVecXyMNgIYoBcxkKl0B85geaRNdPo9SBNR
+   jj7iokmODp6yh8nytlDkAYKbS5eOrxNV2wNn9OKdSo9DeFQKzB0JlrqWP
+   hBaVw7aCVufYxb/Fw6vna12+pCnHZ34xyAM90ktKovYJh7Kis2l1YK99l
+   Fx4XMxr8QCOpxhSShFbHtxUabZsYZ7zizuORykNENQ4n4MMvrhgDlTSlm
+   A==;
+X-CSE-ConnectionGUID: AHrnMMwiS3OeNFn1iUvklA==
+X-CSE-MsgGUID: NVbwIDhiTbC+SPYDcuxUrg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3429632"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3429632"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:09:57 -0800
+X-CSE-ConnectionGUID: Mb1/qUX8TCimH2SqS0E8xw==
+X-CSE-MsgGUID: wKuz7SU7S6aEXHOAGtX76g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9848138"
+Received: from 984fee019967.jf.intel.com ([10.23.153.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 03:09:57 -0800
+From: Chao Gao <chao.gao@intel.com>
+To: linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Cc: rick.p.edgecombe@intel.com,
+	kevin.tian@intel.com,
+	yilun.xu@intel.com,
+	chao.p.peng@intel.com,
+	baolu.lu@linux.intel.com,
+	chao.gao@intel.com,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>
+Subject: [RFC PATCH 7/7] x86/virt/tdx: Enable PCIe link encryption
+Date: Mon, 16 Nov 2026 03:10:25 -0800
+Message-ID: <20261116111037.3478844-8-chao.gao@intel.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261116111037.3478844-1-chao.gao@intel.com>
+References: <20261116111037.3478844-1-chao.gao@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,82 +93,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179481380242.4.1693438763870948060@bedmex.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 03:23:22PM +0800, Yanli Yang wrote:
-> From: Zhirun Liu <zhirunliu@aicsemi.com>
-> 
-> Connect the AIC vendor directory to the wireless Kconfig and Makefile
-> so the complete AIC8800D80 and AIC8800D80N FullMAC driver can be selected.
-> 
-> Add the driver maintainers, reviewers and linux-wireless mailing list to
-> MAINTAINERS. Keep the parent build integration last so that intermediate
-> patches do not expose an incomplete driver configuration.
-> 
-> Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
-> Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
-> Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
-> ---
->  MAINTAINERS                   | 10 ++++++++++
->  drivers/net/wireless/Kconfig  |  1 +
->  drivers/net/wireless/Makefile |  1 +
->  3 files changed, 12 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7336600952c8..4e327fd62b26 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -746,6 +746,16 @@ L:	linux-scsi@vger.kernel.org
->  S:	Maintained
->  F:	drivers/scsi/aic7xxx/
->  
-> +AIC8800 WIRELESS DRIVER
-> +M:	Zhirun Liu <zhirunliu@aicsemi.com>
-> +M:	Dijia Xu <dijiaxu@aicsemi.com>
-> +M:	Chunqiu Liu <chunqiuliu@aicsemi.com>
-> +R:	Liheng Wei <liheng.wei@bedmex.com>
-> +R:	Yanli Yang <yanli.yang@bedmex.com>
+The basic SPDM session and IDE functionalities are all implemented,
+configure the TDX Module to enable the TDISP feature and in turn enable
+PCIe link encryption.
 
-So all these five people will be providing reviews, right? Just don't
-add random managers names?
+Based on work by Yilun.
 
-> +L:	linux-wireless@vger.kernel.org
-> +S:	Maintained
-> +F:	drivers/net/wireless/aic/
+Signed-off-by: Chao Gao <chao.gao@intel.com>
+---
+ arch/x86/include/asm/tdx.h  | 2 +-
+ arch/x86/virt/vmx/tdx/tdx.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Bindings as well
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index add83e7b9c36..c051f2ae82e6 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -147,7 +147,7 @@ static inline bool tdx_supports_tdisp(const struct tdx_sys_info *sysinfo)
+ 	if (!(sysinfo->features.tdx_features0 & TDX_FEATURES0_TDXCONNECT))
+ 		return false;
+ 
+-	return false; /* To be enabled when kernel is ready */
++	return true;
+ }
+ 
+ int tdx_guest_keyid_alloc(void);
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index d661de8230cf..9e87484283b8 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -1043,7 +1043,7 @@ struct tdmr_info_pa_array {
+ };
+ 
+ /* List all kernel-supported add-on features0 bits here */
+-#define TDX_KERNEL_SUPPORTED_ADDON_FEATURES0	(0)
++#define TDX_KERNEL_SUPPORTED_ADDON_FEATURES0	(TDX_FEATURES0_TDXCONNECT)
+ 
+ static __init u64 get_tdx_usable_addon_features0(void)
+ {
+-- 
+2.52.0
 
-> +
->  AIMSLAB FM RADIO RECEIVER DRIVER
->  M:	Hans Verkuil <hverkuil@kernel.org>
->  L:	linux-media@vger.kernel.org
-> diff --git a/drivers/net/wireless/Kconfig b/drivers/net/wireless/Kconfig
-> index f4f969fdbc02..964e633898ca 100644
-> --- a/drivers/net/wireless/Kconfig
-> +++ b/drivers/net/wireless/Kconfig
-> @@ -19,6 +19,7 @@ menuconfig WLAN
->  if WLAN
->  
->  source "drivers/net/wireless/admtek/Kconfig"
-> +source "drivers/net/wireless/aic/Kconfig"
->  source "drivers/net/wireless/ath/Kconfig"
->  source "drivers/net/wireless/atmel/Kconfig"
->  source "drivers/net/wireless/broadcom/Kconfig"
-> diff --git a/drivers/net/wireless/Makefile b/drivers/net/wireless/Makefile
-> index fa3100ff3bf7..47b999e8014c 100644
-> --- a/drivers/net/wireless/Makefile
-> +++ b/drivers/net/wireless/Makefile
-> @@ -4,6 +4,7 @@
->  #
->  
->  obj-$(CONFIG_WLAN_VENDOR_ADMTEK) += admtek/
-> +obj-$(CONFIG_WLAN_VENDOR_AIC) += aic/
-
-Why this cannot be previous patch? Why Makefile entry has to be a
-separate commit?
-
->  obj-$(CONFIG_WLAN_VENDOR_ATH) += ath/
->  obj-$(CONFIG_WLAN_VENDOR_ATMEL) += atmel/
->  obj-$(CONFIG_WLAN_VENDOR_BROADCOM) += broadcom/
