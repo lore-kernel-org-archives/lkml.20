@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877078;
-	b=oeemGeRxiuhlsZKqoqD6u7Efx0A2tyf1R3XUF9yZSx/9yE3WmqbceH1w8Dm5hzXNHepQ
-	 KtMJb8VTi3Vab9DEJOIZmiaGnmWpOmjUdXoN5KbUrSfAS++NyMNPF+EK/8KzBJhYet7/o
-	 q1WT3K1cC/ZWwiUBvNzYV0s2E5Gf4oD6J+xb51TebzSDFpwPVouwj03j+D/1bMn0GZGfk
-	 ivVnxr6+EPCCmKhW+0iLPCN5q2lOXXuWTJI2S0cRDLsNS0tpoi5LBLxGlBfnq6jJ8QkG6
-	 NlbcbD/3edims/XEgtEQkp5Q9bnbFtg9uWVfXZhi9mVKsOQFaEoMrga+vsoW/NddDjw==
+	t=1794877225;
+	b=p04jns9mSTBXajwrHQmiwbQsAF66HdaBkCfOtIWgV1NUWjHjwWsnzeQHq8y03YxAKN3R
+	 LrxD1F1NMfiZgA9a1H1VHLgXB/UC+MnAzD1iU2KnKz9YasG4nj9/ioVlfo3oW0EfnEfGI
+	 EADB68QKg0pIQaFXA3PNVqUO/XfqaaQtb9ZRvqxBRi/5YWxXygxbr/H75Bk7spa6xmDba
+	 DauJQNIzKOrg7s+PWLS+zEh7MpZt9d7AqshBRG5K69LClLfbToMfuynJ+mtHiMnQa5FYU
+	 gbk3ok3ry8DUQFH0C1NIsie3p64tcc4/omx2twVbQQ44Lg7DXvl/apY36JvqtVgZwmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877078;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KgDSpxzJb3bAALuMtGoPjTr7eQ9Jv9niChI7HXsF3Z4=;
-	b=heIKjjviB3Gybwzx/2JNWYxM/uNvD500auXOfALDSaEIyXmpQOYtAmL9tUm0k2omzS+v
-	 uLUyKPtGaIOZLwPOpijYRGk1oa8wOYdlW8wkOL0ZFhB1bBVJFvKuqiLrw7bdhR3E1j9vg
-	 9AgzjA0I+BfPXLurknRDAVw1xdKbpxknS75bZwiWiKHtZFT8nyZoK1RtwdX/GzTejc45y
-	 J30vVq7MPby754NUtoQlwT+Rls5k5r6zDIT8/ag4rnu2fxnm2zbaL9RXKfeRRxQd30qBC
-	 fc76e0YGC6mfthnhz+va2ajZlm7qqvWqfwpSAKMmw0QNPt00tPmEyfwvXFsFJreI9KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877225;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=bgSIbrhhX1M1S/mhIphweUgHFMz7lfbrdfHFK5Cb/eE=;
+	b=h5EGLG1Xq13FHWMGZ/qcwVYb7R6+avXNOCRTP03LcImglScT9oVuR0pMiSh7IZj84UCx
+	 xkXPb5A6nmFHDxtGxdINLLSnTQ1FokWDO/tyG2aJxRQxTiOPeIE6Hp1z/OrDZGRv7UeFX
+	 PopLHPfHKXsEcA2j2K0ZSFM55vhD2+zqvv04GgfZaCcNdCKpHLOTp9LElTClBXg3FvxDN
+	 KYcY3syrNjkiC82oQdLx/1xM0rzn1hfzylB4/mbWTzrt5pZnG6VdRgrifJZmnuGvJHHVC
+	 0UxdJYkrxg7D+/AHc1rZj7m9rRX+NKOs+YkSkMQNhuMUd5/A3tNQEo9MaHLx76vj8GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epJ76Q5N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSXHPF7s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEFA606A31C;
-	Tue, 17 Nov 2026 00:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8419B606A31C;
+	Tue, 17 Nov 2026 01:00:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epJ76Q5N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74971F000C4;
-	Tue, 17 Nov 2026 00:57:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSXHPF7s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3221F000C4;
+	Tue, 17 Nov 2026 01:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877078;
-	bh=KgDSpxzJb3bAALuMtGoPjTr7eQ9Jv9niChI7HXsF3Z4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=epJ76Q5NwE05ch2nHZjELnmbx2glge7NHXjaE2gHfeTw43Gp+kfzoNCgilb9C+DsC
-	 eqaGWYfMSCv19UUGWTyP55mgIipVnYtbXVEr3jUx4W0csz5AF/xXx7cUgTQef0U6WD
-	 Jw/VLhGoxb/1++54nSFdEZeDZ7kklgfhCvvIftnOdyuPuliWMKUap3zpJlTLJSdcTp
-	 rQ5yQOOCziYFiJ0BM0lDSy5CRhF1amTipv4C6RkeqvXyw4VPeV0Yz8bpeeRJDJuJmg
-	 OiyPiNZeDYB4Xj0+e6Qpy9qgIvdq5VUFjxtPDK6sjH9/PM/4PCibmRWS/jFERSsFuZ
-	 2vwlQALqlYjxA==
-Date: Tue, 17 Nov 2026 00:57:55 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: E Shattow <e@freeshell.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] riscv: dts: spacemit: k3: use com260 8gb memory
- configuration
-Message-ID: <20261117005755-GKD100890@kernel.org>
-References: <20261115195112.32120-1-e@freeshell.de>
- <20261115195112.32120-2-e@freeshell.de>
+	s=k20260515; t=1794877224;
+	bh=bgSIbrhhX1M1S/mhIphweUgHFMz7lfbrdfHFK5Cb/eE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=PSXHPF7spIVqe2ztBNDDhOyYVVdgDBOHFwE50CSUKJP/2nwXXWyJklRJOhCdEj6HQ
+	 iPZooWFYCdvtK3lEDbYKgpvpWu++UIHhC0Kcxb04kS4rlzrgKlAEF7JY3kCW/+r+xX
+	 NLgumWSFFMKlBgBlqxlizlycsYAwGc1yKgUj6Lg8wFoHOpZFfoXVDqnZwKSfufBV30
+	 9E6AzsxjvDLpoh4+IcM116kHk5mja0+V8XEX1J5UvlxFt/BPJs52DpeZ6J74Z8BcIp
+	 SXjMgGE0dvaod3eD4zSUV59LAygTs8n0PcY9MPMxipOfIJ3lyx9O6ptBdUDy7MLMer
+	 30FpotCBC8xYA==
+From: Mark Brown <broonie@kernel.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Leilk Liu <leilk.liu@mediatek.com>, Rui Cao <i@udp0.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261107-mt65xx-qos-fix-v1-1-9d9c16a584e4@udp0.com>
+References: <20261107-mt65xx-qos-fix-v1-1-9d9c16a584e4@udp0.com>
+Subject: Re: [PATCH] spi: mt65xx: Remove the CPU latency QoS request when
+ probe fails
+Message-Id: <179486355915.2504946.5816262629767344458.b4-ty@b4>
+Date: Mon, 16 Nov 2026 21:12:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,44 +62,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261115195112.32120-2-e@freeshell.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ueKoG72WP0KE1M/J03C8AU5NedkldPwySMm1P4vDO9M=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+L1fdF3Ncc+Ole4JbK9bpNv+1eNVoOnsNn4TyBMfoF
+ 0cc70293lHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJqO9l+Gcn8Ozcvwsfj8+4
+ 8+XP9W2bZM+XZL1mSpV8qsLfK13NfWsXI8NTO9MfSvs05/O2dExeELatWiat17E/5IbBku/V2cc
+ SlFkB
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi E Shattow,
+On Sat, 07 Nov 2026 18:13:43 +0800, Rui Cao wrote:
+> spi: mt65xx: Remove the CPU latency QoS request when probe fails
 
-On 11:50 Sun 15 Nov     , E Shattow wrote:
-> The boot loader may override this configuration based on stored ID value
-> in EEPROM TLV and if it does not then the smallest common sold
-I think bootloader will detect memory size during DDR initiliazation phase,
-and then update the DT configuration, I haven't checked vendor code, but
-plan to implement this in mainline u-boot..
+Applied to
 
-While the change itself looks good, to have always smallest valid default..
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
-> configuration of 8gb is the most compatible option.
-> 
-> Signed-off-by: E Shattow <e@freeshell.de>
-> ---
->  arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> index 054bfff7413a..c18680b963a4 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> @@ -14,7 +14,7 @@ / {
->  
->  	memory@100000000 {
->  		device_type = "memory";
-> -		reg = <0x1 0x00000000 0x4 0x00000000>;
-> +		reg = <0x1 0x00000000 0x2 0x00000000>;
->  	};
->  
->  	reg_5v_sys: regulator-5v-sys {
-> -- 
-> 2.53.0
-> 
+Thanks!
 
--- 
-Yixun Lan (dlan)
+[1/1] spi: mt65xx: Remove the CPU latency QoS request when probe fails
+      https://git.kernel.org/broonie/spi/c/d4cb2717eb13
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
