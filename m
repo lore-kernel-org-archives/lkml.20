@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798944;
-	b=d/pTRiMPAgmv0GO6rUWYRe7wUtE9sheTt8qmsaKIiTHPPUmu9p1QABU4HuGuHBIV6bgx
-	 7AE3tCmtvShMEEb0aKSsmdKjqs5B5qu/VCzcPiXKRJ1c+l9l6pUXU/ytL4874j91ooadL
-	 d9c/qf/GdSJhoDsNlmi25c73dPGNmF8bK8WVQ2WZUTg/llOFNckQlU2DWWN9YvbPn2V+v
-	 Pqdb8CgdspiMcTN4lKYJ2uszgumHTEP5JqEgUV+lxkJGSeDbbCkheDz6xBUSm3rtjj2Ng
-	 FZbrrfHvUH+Q0aSz8jr6wICbhWPoDAiwBIN69Rm7wQb1QANQDOZy7V+xY+D88bSQbxg==
+	t=1794798998;
+	b=k84V0aqQt3E3SQ9v6pdNC+0KbTfkaKwHwINz0fq2HMfKKDHrR0NMGaVzkZML1Y6R7fSA
+	 w6Oe2jcC+7u1GRrWxkWo5Da1sDZGWkdOW7mJ9e7t4pozZ7+PNSBKX6yFVShVcEfumUpnx
+	 qpVYQt0XpaBQ/y+x5AFz1YQVyMSOipkFn4NIBXAwLEkNwPWz6K5+dPTYNaVM07cJ06C19
+	 enOgIrwiPGa1FgEgEoV+536n+gtbO/fMV1Hl7EMDv32hp1IJuN26BHl5yXR0v0y5DuzLP
+	 3YMoRbXHUDIHGqoLyqJKmRDpRTp0IzRUiKfutiEeF7J61OV8NiaCGt6vFb+tJqRqjOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798944;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=61hA4pI6lWNHs1Ny06AZoS+2gE8bk9pfoV7wwfpwYLY=;
-	b=AiqlLFw6vfHqmvADWhs6CWFn6Lg2XvPBwSoJzc1HokoRLAX1iDz7qaCr2GxeG2w9RVdD
-	 Qi92mBp16nNqGGFMQZRaNe8j2YT3JCDC4G2/Gc3nKnjITRg1LwbOE9Tak++LWHlhPzBZZ
-	 qAbv8q7xE2H/qMdXMH9pP44OOeYEgFSkfNb0codbDdK4gzZ0qSgAnJN5b42Prkxwym7r1
-	 Zq2Y2xE4B71M4y76KjGnbLJuVHRoozc/KmoWWiDlckOg4y2O/1iKVw/8Fpnsvwcu3DPK0
-	 WwlSCwvEKpo0MiL7YhIw77jmgw1iqxhzfr1Y8VkC9KDy3hBNoLitiFw9Of24OqfxS3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798998;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=f9vMUAln9RF4ExbyRQjC3UtblgMb7Qet2HsLNIFFgQk=;
+	b=vRaPnRw47/wb/ItVNdUfr8CKuVp+i5nmnUrD2j7Ey6SjNLdqsTc2GbAoKLUnXvP18PAI
+	 lNDb+KLmQdO18KbXptE/Qery91fku1H551lQ5um7etSoG4VTbHzp1Fyy5DCMGVxLBNcDE
+	 Pn08zDKeAy+6G5NL3NxVY3pmtNmTP2ZjwgL3gbpabV0lIWpDSs8SHi1Hoq90RPLxphY2u
+	 ZxQlqSfLszKcDAQYEYqZCrZqt63F6dNuEwNUvI8Co+Uu2l51lO2bqmK9A7vG+tvmvbPnl
+	 pjUhYVPuVUQpIzqXeSZHKxoJrYoS7KjYe/9zEJ0ZsyofBZkXaTNBbAZMSPmj55WVZ9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b6y5pjZT;
-	arc=none smtp.remote-ip=91.218.175.29
-Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LyRAVFev;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560CD606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 03:15:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 560CD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514D1606A323;
+	Mon, 16 Nov 2026 03:16:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b6y5pjZT
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RUdXcvQAkasOinh1aHVDzx5Sbf8dYEfIHFE+pPtSAf8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794798941; v=1; x=1795403741;
- b=b6y5pjZThx7DYDxGEYNfUyp+U3/xosaEMZmj2dCioSZXgrycZsMsMAUAuW/xB7bHrCC6ul7F
- 9ajzKA3pNWSWmGKecb6G6We6VuI02BRbHXYzbgsLhXKuTqXrA9aqLfU8wfztFqNfoahP2KCso1W
- Xp6Tjkb4pnM2yywUCJeoV9ao=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4346fe518fa13606;
-	Mon, 16 Nov 2026 03:15:41 +0000
-X-Mizu-Trace-ID: 4346fe518fa13606
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5d234178-7799-4603-82bf-40a70101f78a@linux.dev>
-Date: Mon, 16 Nov 2026 11:15:24 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LyRAVFev
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC701F000C4;
+	Mon, 16 Nov 2026 03:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794798997;
+	bh=f9vMUAln9RF4ExbyRQjC3UtblgMb7Qet2HsLNIFFgQk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LyRAVFevgYPkx5MazjZeILe8nf+HIaMipxE5RhUD9KN0zKvQ9SX4LhtRQ6w0wax5b
+	 pl6MKCva03CSsRGh5DEW5ZknGlva63h0SQAVEpY2Jx+/r7drr1fqCizZdoMW4lzrmO
+	 qrvDPmonNiAAfQOtlW/qtNHjnRTJAVZMiZvyNHdM=
+Date: Sun, 15 Nov 2026 19:16:36 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jiebin Sun <jiebin.sun@intel.com>
+Cc: dennis@kernel.org, tj@kernel.org, cl@gentwo.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, bigeasy@linutronix.de, clrkwllms@kernel.org,
+ rostedt@goodmis.org, linux-rt-devel@lists.linux.dev,
+ tim.c.chen@linux.intel.com, tianyou.li@intel.com, wangyang.guo@intel.com
+Subject: Re: [PATCH] lib/percpu_counter: allow concurrent sums with an
+ rwlock
+Message-Id: <20261115191636.f18859e4dd5f58b9a33e7814@linux-foundation.org>
+In-Reply-To: <20261116015655.2744577-1-jiebin.sun@intel.com>
+References: <20261116015655.2744577-1-jiebin.sun@intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,87 +58,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/9] mm/vmalloc: BUG_ON() on an unaligned range in
- vmap_pages_range_noflush_walk()
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Dev Jain <dev.jain@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261110112546.261415-1-hao.ge@linux.dev>
- <20261110112546.261415-5-hao.ge@linux.dev> <avWtB-nWZUwLdQdP@milan>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <avWtB-nWZUwLdQdP@milan>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Ulad
+On Mon, 16 Nov 2026 09:56:55 +0800 Jiebin Sun <jiebin.sun@intel.com> wrote:
 
-On 2026/11/12 20:11, Uladzislau Rezki wrote:
-> On Tue, Nov 10, 2026 at 07:25:41PM +0800, Hao Ge wrote:
->> The pte loop of vmap_pages_pte_range() maps whole pages and stops
->> only when addr lands exactly on end.  An unaligned end lets addr
->> jump over it and the loop keeps mapping into whatever follows the
->> range.  An unaligned start maps the page below the range with its
->> first pte.  That corruption is impossible to debug afterwards, so
->> bug out on addr and end at the entry of
->> vmap_pages_range_noflush_walk().
->>
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>  mm/vmalloc.c | 2 ++
->>  1 file changed, 2 insertions(+)
->>
->> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->> index 27f2674a5556..86fbb1d2b27a 100644
->> --- a/mm/vmalloc.c
->> +++ b/mm/vmalloc.c
->> @@ -698,6 +698,8 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
->>  	pgtbl_mod_mask mask = 0;
->>  
->>  	BUG_ON(addr >= end);
->> +	BUG_ON(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end));
->> +
->>
-> But why do we add this? We used to live without it and as far i see
-> we have not gotten any report about any unaligned addresses un-maping.
+> __percpu_counter_sum() holds a raw spinlock while reading the global
+> count and per-CPU deltas, serializing concurrent sums of the same
+> counter. Since a sum changes neither the global count nor the per-CPU
+> deltas, use rwlock_t on !PREEMPT_RT to allow concurrent sums with a
+> read lock. Global updates take the write lock. The per-CPU fast path
+> remains lockless, so sums keep their existing snapshot semantics.
 > 
-> The vmap allocator grantees that va->va_start/end have to be page
-> aligned.
-
-You are right that no in-tree caller passes an unaligned range today.
-This came about after looking at
-commit a739e6b557af ("mm: vmalloc: WARN_ON if mapping size is not PAGE_SIZE aligned").
-That commit only guards the ioremap family. vmap_pte_range() is reached
-through vmap_page_range() only, so what it protects is ioremap_page_range(),
-pci_remap_iospace() and friends, which map physically contiguous ranges.
-
-vmap_pages_range_noflush_walk() has the same loop and serves the other half of the picture,
-the virtually contiguous mappings, where the physical pages behind the range do not have to
-be contiguous, and since functions like vmap_pages_range() take addr and end from the caller as
-they are, the page alignment is the caller's contract in the first place, so this is the same idea
-as a739e6b557af and the check just makes that contract visible.
-
-That said, dropping this patch is also fine with me. Nobody can actually trigger it today, as I said at
-the beginning, so I will drop it from the next version.
-
-Thanks
-Best Regards
-Hao
-
+> stress-ng dentry reaches this path through ext4_statfs():
 > 
-> --
-> Uladzislau Rezki
+>   statfs -> ext4_statfs -> __percpu_counter_sum
+>          -> native_queued_spin_lock_slowpath
+> 
+> Keep the raw spinlock on PREEMPT_RT, where rwlock_t can sleep.
+> Global counter updates can run in atomic context and must not sleep.
+> 
+> stress-ng dentry test average throughput change:
+> 
+>   +------------------------+------------+--------------------+
+>   | Case                   | Unit       | Average change (%) |
+>   +------------------------+------------+--------------------+
+>   | Dentry, 64 workers     | bogo ops/s |             +47.34 |
+>   +------------------------+------------+--------------------+
+> 
+> Dentry ran on ext4 with 64 workers pinned to physical CPUs:
+> 
+>   stress-ng --dentry 64 --dentries 4096 --timeout 20s
+
+lol, this is a fun patch - it reminds me of the old days.  All those
+mission-critical workloads which sit in a loop running statfs will love
+it!
+
+I had $sidekick do a scan and it told me "the only plausible routine
+win is dirty throttling: with low dirty limits, concurrent writers sum
+the same counters.  ext4 and XFS sum near ENOSPC, where updates also
+contend.  BFQ's sums are debug-only and serialized.  Most other callers
+report statistics".  You might want to add something like this to
+changelog.
+
+Also mention that percpu_counter_sum_positive callers will benefit.
+
+> --- a/include/linux/percpu_counter.h
+> +++ b/include/linux/percpu_counter.h
+> @@ -20,7 +20,11 @@
+>  #ifdef CONFIG_SMP
+>  
+>  struct percpu_counter {
+> +#ifdef CONFIG_PREEMPT_RT
+
+Might be worth a wee comment telling readers why RT is special?
+
+>  	raw_spinlock_t lock;
+> +#else
+> +	rwlock_t lock;		/* shared for sums, exclusive for updates */
+> +#endif
+>  	s64 count;
+>  #ifdef CONFIG_HOTPLUG_CPU
+>  	struct list_head list;	/* All percpu_counters are on a list */
+>
+> --- a/lib/percpu_counter.c
+> +++ b/lib/percpu_counter.c
+> @@ -15,6 +15,46 @@ static LIST_HEAD(percpu_counters);
+>  static DEFINE_SPINLOCK(percpu_counters_lock);
+>  #endif
+>  
+> +/*
+> + * Non-RT sums share the lock; global updates take it exclusively.
+> + * Keep raw spinlocks on RT: rwlocks may sleep and their irqsave variants
+> + * do not disable interrupts. Updates run in atomic contexts and need
+> + * IRQ exclusion for CPU-local read-modify-write sequences.
+> + */
+> +#ifdef CONFIG_PREEMPT_RT
+> +#define fbc_lock(fbc)			raw_spin_lock(&(fbc)->lock)
+> +#define fbc_unlock(fbc)			raw_spin_unlock(&(fbc)->lock)
+> +#define fbc_lock_irqsave(fbc, f)		raw_spin_lock_irqsave(&(fbc)->lock, f)
+> +#define fbc_unlock_irqrestore(fbc, f)	raw_spin_unlock_irqrestore(&(fbc)->lock, f)
+> +#define fbc_read_lock_irqsave		fbc_lock_irqsave
+> +#define fbc_read_unlock_irqrestore	fbc_unlock_irqrestore
+> +#else
+> +#define fbc_lock(fbc)			write_lock(&(fbc)->lock)
+> +#define fbc_unlock(fbc)			write_unlock(&(fbc)->lock)
+> +#define fbc_lock_irqsave(fbc, f)		write_lock_irqsave(&(fbc)->lock, f)
+> +#define fbc_unlock_irqrestore(fbc, f)	write_unlock_irqrestore(&(fbc)->lock, f)
+> +#define fbc_read_lock_irqsave(fbc, f)	read_lock_irqsave(&(fbc)->lock, f)
+> +#define fbc_read_unlock_irqrestore(fbc, f) read_unlock_irqrestore(&(fbc)->lock, f)
+> +#endif
+
+Please, no!
+
+https://www.google.com/search?q=why+does+Andrew+Morton+prefer+static+inlines+over+macros
+
+lots of good stuff there ;)
+
+
