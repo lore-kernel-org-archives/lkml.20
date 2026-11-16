@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793854;
-	b=VjjiQ5T9DrsdguinQlJNilocinijc1alqq9t5pcU8DMatdjaW+WrRv+qLX7rXVesnX5k
-	 yO40Vir0VXzFOLwJSujbnf+x2AEb28PVbosVjlmw4WUZFGF0NdbhhPEEHDvQ1GPrc+Bsd
-	 z++op03B1md/bB+nDmGN35a7MC8gATF9uJeP42Ges1Cuo3lt7x/fvNyqWBVPFADOr9Qaf
-	 hmZ2xVuxOvmN3FV4x/oOdqyqMhOFp6Y7KjyDhOgVwTRPaj5sswU43DaKKusnomVm9TQs3
-	 VWQSWuVD98CNrvD9Q/VF2r0VUGcqO3ifgbbd4h/q2p9yhFJRVx604z1exY9vFjYIZPg==
+	t=1794793850;
+	b=sCteQM2tW20lMLdPZmchG+TVPR7MZCVpgTZ2ccuBbKq/UjtClDQVysFqxiats9gozVdB
+	 DO2AIVncPvONo8T36ziry7zMHfrK5o2URPVr+jJ16yB6oFDY9vX97mW5KgbrJdgG1m1yE
+	 68ME33FxjRRuqeHOyp+psJDTPBHvX2w+DaG1+Bk2i3i44UAis0gaarKOJOv27obCEGEXG
+	 1wdzWPfNZOpXVkj1fF841jB5Uhy71+dTsh+zoTOkiOE5aOWwtMYzAhly8LLMMBrkAHPf8
+	 0YpAvdeRL9veJE67oYiqjF8nTRyrHr9hLrS2GZi577DIot6/QbiOn6Nsqiz9/TDNK2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793854;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793850;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OkLUpvqoChdOLzjAlYGgEYQWNeVERS3W3LYApB+dQRw=;
-	b=eJe7D81TJZ1Wzz5/JcHeoWfYjFRk8KPWXkwZVaal6hbO8C1Db7TIedIHa9hUpntpsKj6
-	 XjIs6dc7itDK1eFrDIeDvlSkua4hFTWx1Uv4ZsIhnQY2jvzhhdLtNhbpA1slSD4NX/K31
-	 gxlC68+UxZUDc6KILiyoPIbEmPOBXs0RlpXBPIdO50OkiaCtk6ALGXsCM7Afmnajy0C+t
-	 wdN9gmuftg8ZdSiK2qLJFsiwQ/iH0zH9QlZMphBA+lxUWIvwfM43SmU+5UFD5L3/uXEJv
-	 ZZxT29Fp/iVJtw9McleJGQ9UdZOfWxioRQk/EKQk1e7Zqhi2sonMJiHfhE0QUSCElzA==
+	bh=jFwk4Zemtrm4ht3jnJ6TydPD7rUeTLMMaLKzdtozJkI=;
+	b=aDz1PHbRoRgGh2sG8LLa/G0r7FK4CLK3Cbj4Mu++iXtdeJUfC11mFO2+Dpw2sLm92Llp
+	 0cxCsJHtyJu7ywya0mEq0B6Kv0hQpblVQs6oGG/LFS6PDNcJutBngECxABnkb6OTZNwX2
+	 QuwHy0r73yv+7ypZnhqMw/EZWAinSI2+SF0wwG+0Af3tLHOvlIdTeJTaEq5zAMvkr4YAY
+	 jtxjVHk7Qnxeqi2SUlSZM4kzX+0hCm4IWelyBy/UuBxs8dIzdM5fFTwjiCuZRNfvBp1f7
+	 s4Z5FdTA5naRxYqjafchOnj7+kthBarwzLi57nzUD5KQ4PCElHNI5dfHRghy6hEcU4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7iPvsS3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T03CegPC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39E5606A332;
-	Mon, 16 Nov 2026 01:50:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803F1606A89A;
+	Mon, 16 Nov 2026 01:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7iPvsS3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC3F1F01819;
-	Mon, 16 Nov 2026 01:50:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T03CegPC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5131F000C9;
+	Mon, 16 Nov 2026 01:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793854;
-	bh=OkLUpvqoChdOLzjAlYGgEYQWNeVERS3W3LYApB+dQRw=;
+	s=k20260515; t=1794793850;
+	bh=jFwk4Zemtrm4ht3jnJ6TydPD7rUeTLMMaLKzdtozJkI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T7iPvsS3Yi/ngGWmUHh+ZUJqaRfL3MU0iqnU+DQRFWVJl6v8Y/vMZ3jjmxXcXutDj
-	 fyu6ytMtQlM9HwykQ/GUah98IZqjLygSY9ThhMyG99C9CjAXaxwezW8M66QhzSa+nW
-	 +eyRXYRbvIoToORsrUzTrHi1eCxxlT37zQyiFc4SP1cVsVaG0/9JS5vJicXWFHDQyZ
-	 Hdua4PveiSmF0CbRoGquS43x78hj2kEBJxf86fmc530yWS+pR85d50/fgtKwLs+NKh
-	 o2yK3dMeXe7SWh3XChdJgODHiOuDx7rgQHPD4SH1n7I82I2EVT1vlm044qJLp3Cnr1
-	 ArTxD+viMSyag==
+	b=T03CegPCwiJYMH5rnwgyAQ3l2rOxgKrkB7cLQlbNbUUo9mdpkJCSdMphpcKw8jpcG
+	 R+in2e4otv/A9TKH45G6ZS8JACgKQq1q4U4QGAYBiQEYGSKuXcRb61hQuHio59gcm3
+	 ASiPSw1GymkqTOqLtCL0/++ObAQQnIjuQ6ETWauXLnrXQQl/JOfzZgOzP4bzMdjsk5
+	 /N1zqBIzPeXJ9tPxJ9f5JSxth4oudPgxlhE4pcdwzJ4bpK7R0ad/EVPIweTYSfVwtM
+	 fgy5hgmpPTNeqbOAiH9sVB1J5maSjbyaR/5oj6okyTz4JOCfXLaEK+dD0scS4KOlP9
+	 Vc2WQUZbwBJHg==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	David Lechner <dlechner@baylibre.com>,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Linus Walleij <linusw@kernel.org>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 30/35] iio: gyro: adxrs290: use default_trigger
-Date: Mon, 16 Nov 2026 01:48:18 +0000
-Message-ID: <20261116014823.3132576-31-jic23@kernel.org>
+Subject: [PATCH 24/35] iio: common: hid-sensors: use default_trigger
+Date: Mon, 16 Nov 2026 01:48:12 +0000
+Message-ID: <20261116014823.3132576-25-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
 References: <20261116014823.3132576-1-jic23@kernel.org>
@@ -92,77 +92,43 @@ Content-Transfer-Encoding: 8bit
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
 Set indio_dev->default_trigger rather than taking a reference to the
-trigger in probe(). The IIO core now takes the reference during
-iio_device_register(), relaxing ordering constraint between setting
-this and registration of buffers. The ordering in this driver was such
-that there is not a leak, so this is more about avoiding fragility and
-enabling further refactors on top.
+trigger in hid_sensor_setup_trigger(). The IIO core now takes the
+reference during iio_device_register(), so it is not leaked if probe()
+fails after the trigger is set up.
 
-The copy of the trigger pointer in st->dready_trig is only used during
-probe(), so replace it with a local variable.
+Set it only once nothing else in hid_sensor_setup_trigger() can fail,
+so the error path does not leave it pointing at the freed trigger.
+
+All users call devm_hid_sensor_setup_trigger() before
+devm_iio_device_register() and do not access indio_dev->trig.
+
+The ordering in this driver ensures there is no leak today but
+this patch will make that ordering much less fragile going forwards.
 
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/gyro/adxrs290.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+ drivers/iio/common/hid-sensors/hid-sensor-trigger.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/gyro/adxrs290.c b/drivers/iio/gyro/adxrs290.c
-index b61cc81122a6..8b1807124795 100644
---- a/drivers/iio/gyro/adxrs290.c
-+++ b/drivers/iio/gyro/adxrs290.c
-@@ -72,7 +72,6 @@ struct adxrs290_state {
- 	enum adxrs290_mode	mode;
- 	unsigned int		lpf_3db_freq_idx;
- 	unsigned int		hpf_3db_freq_idx;
--	struct iio_trigger      *dready_trig;
- 	/* Ensure correct alignment of timestamp when present */
- 	struct {
- 		s16 channels[3];
-@@ -566,6 +565,7 @@ static const struct iio_info adxrs290_info = {
- static int adxrs290_probe_trigger(struct iio_dev *indio_dev)
- {
- 	struct adxrs290_state *st = iio_priv(indio_dev);
-+	struct iio_trigger *trig;
- 	int ret;
- 
- 	if (!st->spi->irq) {
-@@ -573,28 +573,27 @@ static int adxrs290_probe_trigger(struct iio_dev *indio_dev)
- 		return 0;
+diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+index df6c07d6a6b7..44fb4bd1d316 100644
+--- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
++++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+@@ -278,12 +278,13 @@ int hid_sensor_setup_trigger(struct iio_dev *indio_dev, const char *name,
+ 		goto error_free_trig;
  	}
+ 	attrb->trigger = trig;
+-	indio_dev->trig = iio_trigger_get(trig);
  
--	st->dready_trig = devm_iio_trigger_alloc(&st->spi->dev, "%s-dev%d",
--						 indio_dev->name,
--						 iio_device_id(indio_dev));
--	if (!st->dready_trig)
-+	trig = devm_iio_trigger_alloc(&st->spi->dev, "%s-dev%d", indio_dev->name,
-+				      iio_device_id(indio_dev));
-+	if (!trig)
- 		return -ENOMEM;
- 
--	st->dready_trig->ops = &adxrs290_trigger_ops;
--	iio_trigger_set_drvdata(st->dready_trig, indio_dev);
-+	trig->ops = &adxrs290_trigger_ops;
-+	iio_trigger_set_drvdata(trig, indio_dev);
- 
- 	ret = devm_request_irq(&st->spi->dev, st->spi->irq,
- 			       &iio_trigger_generic_data_rdy_poll,
--			       IRQF_NO_THREAD, "adxrs290_irq", st->dready_trig);
-+			       IRQF_NO_THREAD, "adxrs290_irq", trig);
+ 	ret = pm_runtime_set_active(&indio_dev->dev);
  	if (ret)
- 		return ret;
+ 		goto error_unreg_trigger;
  
--	ret = devm_iio_trigger_register(&st->spi->dev, st->dready_trig);
-+	ret = devm_iio_trigger_register(&st->spi->dev, trig);
- 	if (ret) {
- 		dev_err(&st->spi->dev, "iio trigger register failed\n");
- 		return ret;
- 	}
- 
--	indio_dev->trig = iio_trigger_get(st->dready_trig);
 +	indio_dev->default_trigger = trig;
++
+ 	iio_device_set_drvdata(indio_dev, attrb);
  
- 	return 0;
- }
+ 	INIT_WORK(&attrb->work, hid_sensor_set_power_work);
 -- 
 2.56.1
 
