@@ -1,102 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862438;
-	b=3jSQGcnD+uhAKb72g2tAz7cYCKm/Fud2e6GPQJudYbv7ygaGClrhvfj5va3PQEmRf1oy
-	 yV0ti7cBv0jxLZPEEhwA821MXSUBiX5wWloEQ6ogSRavmlY7Fg6XEjTT0wyfCUGeOvjg1
-	 rLOg2NXb5sp9DsWC/vKJQYbTQGVznD9ysAYRW2BcMKosIlD8yYJWVPC2mRl0jD6/FWQDI
-	 FVqH87zwmx+Pj7nGcynTxVq5tselsrpkv05lEsB2Las+PwzxdMqAaS59GKpcsCCr6/ob5
-	 P+ev1anR7edPZt0I7fE6P6sTFVO7Hq3ExRo7Snw8DvAo0OWIj6TkodLupD6ijtWzmYQ==
+	t=1794862441;
+	b=B6D6uafqYIESaYE39PRbuMLX9XQSlRXUQBVM0J0NZw/Kb9OWM1XI1U+JFmjo2QwltAje
+	 hLLsbSuaiYgUu1carKEsodk7DaeKG5rCHergNHBKeNNYVDkRaL4crffbNOniAVg61vYhn
+	 qDJETuwRKUZmlZnm4AicP7SWgkyF8SisIdnGWs5s94mr7bAmBlHeNgXF5UrIgMvartNmR
+	 VkQApEha7piP/+p0XI//opFy8S1b6WvYgR6+0KYRWhZDV4UPW8E9bGL4tweohg/Ft90Wb
+	 Q+GEqRwqSz3kE3xC+BkCIT3b1u2SFdZfrmjZrqiSI/CRwZ8MShOQuB3eZUdXt0qFC/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862438;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862441;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ljvyR0WuHX+wTiGEcCFlcGHOJ6URbUYTzcXzcdYxpLw=;
-	b=UF1qno1+T3rSPLwlAgRKln112YY6vlmvMXcFqjhgw8wX7k/sLX4c+O3BTLEFpwSWWfIA
-	 NrIHCCLLHKPihs2r802R5JP+AhPYsxuJkcS04vNeec9G5gHKTaklcp+AAuHGrYYG1dUtx
-	 pVGirqolAarDi/nn8PYd7Mz06yKksSD3U3Pefxt0dukKBd3SQr04CESX00adIu3CCX8M7
-	 wwWorc4TmbqOeeHgURpjUsoQ7cwoUK4WnxwGgaafTgC14yeOcwC3A15cAKygibaiTGn3c
-	 jWIhp5RUdUuSwhrXLlGu7La7b1VA0Qz5ZhLeI9Js9crgcAYuhMqI598MXkGFW78FIdw==
+	bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
+	b=VgMJEQ5BYcD8Xzu/PqW5E6ltO/Ui0DkQemb4gB6lgKNXfKXuX7AaG+7H7iXqp1beueC8
+	 Ny5PPRpbna1J70dzNBhEoIBn3S8AbTCDa2AV6VtTvHWIEdbFLS16pqIu5dj08/bKYeBbK
+	 5fHtoUgQDKwoZmCP03g17dNAmgycICsdm6guIbn8CmeEheV2BhBNjCvSBoWfRHIIx8cMj
+	 stQSi8EcCIaNIoOHvAORAgiDkOrMQvFKTgup+38TOvq9Bz9JEsqh/trp5RTw7gDVsnDtw
+	 U9MEwmvsjfSC32B/6MXx/zCs7OJwiP/nGsvzm8UeUSrrSCvPTqL5R5xu31+dYoeHpbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YAnC5pjD;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="V/WQ14Z5";
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215F7606A889
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:53:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 215F7606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575D160A2602
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:54:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 575D160A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YAnC5pjD
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b244fb7fffso4689811c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:53:57 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V/WQ14Z5
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3791619605cso7363297eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:54:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794862437; x=1795467237; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794862439; x=1795467239; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ljvyR0WuHX+wTiGEcCFlcGHOJ6URbUYTzcXzcdYxpLw=;
-        b=YAnC5pjDk1mPYDsTC2lRlCBPfbMyvkSuH9z3Tw9hwVmf8dOU4IAskT7fjlTtIPnA/X
-         NzJ3EHjwxpyPBcW/+2g5EzSOzATzaKEhxIR74PiXekxsVM2/ZWE+Lz2ZklxrTuBT1bom
-         MHWfjof6NY3apTZeUiLgoSj5LTSOPKD7MUlEWmVz11K6gA+3RgFw6IycG1X+bKWGfPLH
-         UKp7/YNqbcixdPUUEfKMWNclykcXfBqba5jnrk8k8phrNzYe1IUqur50faM6wtzjEvm7
-         WVEOucJt77aqZNVP8Sjc88AvuTIILfLqfbwICG7XfuInG8E0jXkUiny0L0yyPbibc1dp
-         fyZQ==
+        bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
+        b=V/WQ14Z5JsS299GMVO38nLTCesW0lZD2nRskeGbbhT6RTJz/XsPAzhwpwkvVmvVjSS
+         l5OxNg1HaYGVQrA9bJeY4mXPTZVTSZHNUYMyFCxIbkas13W86sKNbEsiA6qzSBiH+vQd
+         jBw9vYYYOoUOFDhvmirgTPn/SH21BNtQ3OBVg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862437; x=1795467237;
+        d=1e100.net; s=20260707; t=1794862439; x=1795467239;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ljvyR0WuHX+wTiGEcCFlcGHOJ6URbUYTzcXzcdYxpLw=;
-        b=VY12o6Z7xGBVmeLlaAVdEdxboNC/qGJ4vSibL0HwBim2MantmKSeV1e1jwwmZl1YwP
-         KKD7Py6R/EUojytMzY9V6MGEjMBfoX/BiMqSKokW6ChGC/wwaklD6DOf4FkLbjCSQTVm
-         8xH4i5YN92bzDu0XO1v12EBwI7su/eKU0wh4mm/tjLw94GofRNDAI/WwGJEx816Jxwy2
-         4rnGeZspD+QSlveWhRuECl/Bae5puWKAovlYsIIL5GcGC2L4DwwucyJT2mQ4nvV5KTVQ
-         hFPUbRHV6XSywhcqk8JH/yEmFwLwTI7Sjhtarh/q55gjwdxNXH6dmNrAPQIrLqiED9NP
-         1Fhw==
-X-Forwarded-Encrypted: i=1; AL+hErHXmzJVxLrwfbUjrsiDal0Smj1OzK9qgHQ2YCs3Bow10eEvXvAPfBeuUee6SoqtDZyJuNW+Xd/Bx7E8Bhc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cQWnV8D/A3L2/tSfrnMqw2rnHqeuJHCtm/auCHUvFGJjwXkMU
-	dIuhfDlV5d3/Tsm5tFA5+ylejCRscai8JBqUMFzdODu4fskuWhiQEIQe
-X-Gm-Gg: AYBFou0Oko9/4nocQCfBHndb1F0tHbBySXfOSzXmRaV3Qnpi5BOgjyKVlK9c6zPUX5v
-	02CDrHQtZYmaAOZfwpgDhMAzB6bfDkn7Eys0NPt/XHTiMejK1dxKDQxOLWRQ4twbDWbjgTl3WZ3
-	ToJYb4WY7WGfstdUelA6AwRFePjyzOvJHG82n6vbKSUbZFFkGA1IJ7pRCx6mmjLSYkY0DhwcYQQ
-	2XgZwzObgsotUQO8z4502Pk8ryaON8LOA9qcyZyXP5vQuk4O3IfrXRmM+izfUtUjEcnrRFxJH2P
-	hKi9DD2j602dNAOg2T46YijZzRBN3oomOj17zvg26XvFutcbpbZymNQeBAbY5U95d1Bk6qlYb83
-	8K/VU+SnByz6hjfYWFbZf6PqE/8z74q5PaokobwaGzh+Lg4SstKoHvzM1g+Fmp6nkMpqyp0o171
-	Zbck9EDthiUZ9OQzqBCbmN2rMDwy5AOTNKcj/IZ2h4r13XJbKVk6YgNSWQsDUt/B2MLp5iftzi6
-	GXabs8Db2Q1P9SUv07LAe6TlI6UWVhcmR8ppsnZkETTWPEflYwVac5h/RpRSfwNFnWkdDxdeo5J
-	pOxcqTBDIfdoyiImHAhb9FxW3YKww2BnUoj7D8Dg765FAvN2xbJOxVqbXW/zo6ARrZquIh3rdG2
-	47PFQZ+41UaweQ0/XcILp5/Rhvzkvc/3h6fnxuyuvmm/7JE1PXoN/H6nDzL6tAmw5NrYRwjbsYR
-	ie7KRi0aKCt3BHoJAw9qzoNqUNxnYOiVIGBJAFtgc2ug==
-X-Received: by 2002:a05:701a:ccd9:10b0:1b5:32d6:677f with SMTP id a92af1059eb24-1b532d667b7mr2676150c88.34.1794862437187;
-        Mon, 16 Nov 2026 12:53:57 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b524049e0asm15293497c88.4.2026.11.16.12.53.53
+        bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
+        b=VprRFYdZ4k/bDmVRBEjkrq6YMF+wRxP3biNFCcXqUjSB4KjH+43pIyYGbdsMrr1qbG
+         nRNiHDyqnQziNR4yB8I9FYuLAe/DOeFkS3QvcyK6vo0oKAOdG5Pm/3snVYizM23ChLqx
+         3GCdm/W6jA5yfGg6ePOH7jIUX65GTTn0KXzMRg5qRIE1gtVHk/fI6ZJGsChOcXYAvIwW
+         eqjkdtcH62JE+HqfRKhAGlX90qsYZanrhAOGGoDGuWFrczztZb/jYmitzp6D6fRjfy9Y
+         yKO+tF9HUXkWdoMJZgOka8f/Rc0Hx60JCYEBXb5564neNZ0Yavwq9RfCisdPtkRByt73
+         YTLQ==
+X-Forwarded-Encrypted: i=1; AL+hErFL22vQ8Q3jhOgZT4f0FANBxb6QayZbZ9BSQO5UoZo1ElFY2fpbmbisQvCOaPetM/qblKK1v0HkqdmCOtc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+uhNp9UGkBmt9IhsYyRh0iCelii90p9OcHxPvRcWVcstgVXhIs
+	6sfGaFB7R4CFYS7xwe8GfkAbQVmYQ1V/XtIwIOHNAyEoMHolftYQoTgqVn7hwwEPoA==
+X-Gm-Gg: AYBFou0oqRtwjMy2YjGOnwewxXZCyT43g+2AVoAQ4LgyzGBPZuMGueBHK/HZOPniqm8
+	ykDuADkw9JCO869nQsi74qGzzJANIE83EFh+o79Iki/ZHdRTvncBOcB3mI+UxyVVHeQHzLszswv
+	Zaru/D5UAYPIcVwyITyRnOl8aUKZ6AsoWihmYRN+7t0YGR1wOoC/85SAd1jKkIH7U8VX1xITgdW
+	/BFpu2d0RV5jF09iJELVLCxid6lkL8je7SqUpzXjWw/SPCLt02wwfPwxC8hlcAtNLt7C6Dpbg+d
+	SKoyk+YyWkBz4oXprlzAV2EFqpR9dGc7vDAkvi7ari1D4RdtU6bdsHXm2kbX+m91t5apuLMGfsw
+	y5sZZqGK4hzw0C/fjAyW9IZtQHQdvgpb1UloKDPvh5X4aFP1bENnLvfxoE6mHN+ZVAKknrgq/Ml
+	UVGlqbjX/wnd85xIsCddMz8cVfYUFr71IwjMTuZEprhZKfTvr/exUOJOxQyT2AVKAdE/eTRnjo3
+	ZC2tHaznmZwdC355AJf1cqrezDN/nUaw+QYfE/jYvoYnyPfL9f1PY3xait4QKqWyR+ycFHBYMCX
+	HfOHJZVMXLozMUKMdwqNZaZVi52PzCYtXPCLyQVwEdTzDCOM7NaPnDAu8bP3G4pplX/Mu5NujAo
+	jqW3IwZleaRkPTw==
+X-Received: by 2002:a05:693c:4146:20b0:36f:551:2bd5 with SMTP id 5a478bee46e88-379e16d093cmr11060171eec.32.1794862439198;
+        Mon, 16 Nov 2026 12:53:59 -0800 (PST)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:53:56 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Stephen Boyd <swboyd@chromium.org>,
-	linux-iio@vger.kernel.org,
+        Mon, 16 Nov 2026 12:53:57 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Simon Glass <sjg@chromium.org>,
 	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH 5/6] iio: proximity: sx9360: fix proximity threshold writes
-Date: Tue, 17 Nov 2026 02:23:13 +0530
-Message-ID: <20261116205320.26070-6-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116205320.26070-1-kapoorarnav43@gmail.com>
-References: <20261116205320.26070-1-kapoorarnav43@gmail.com>
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>
+Subject: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with memchr()
+Date: Mon, 16 Nov 2026 12:53:05 -0800
+Message-ID: <20261116205320.1621386-9-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
+References: <20261116205320.1621386-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,46 +111,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sx9360_read_thresh() reports a PROX_THRESH code r as r for r <= 1 and as
-r * r / 2 otherwise, but sx9360_write_thresh() converts back with
-int_sqrt(2 * val). For odd r the read value is (r * r - 1) / 2, so
-writing back the value that was just read programs r - 1: setting the
-threshold to the value it already has lowers it, for 127 of the 256
-codes (3, 5, 7, ...).
+`fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
+across the string table (`for (p = strtab; p <= last; p++)`). When
+building or modifying trees with large string tables (such as DTBs and
+overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
+`fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
+byte dominates serialization time.
 
-The int to unsigned int conversion also lets some negative values
-through: 2 * val wraps, so e.g. INT_MIN is written as 0 and values just
-above INT_MIN as small thresholds instead of being rejected.
+Advance `p` between candidate first-byte matches using `memchr()` (with
+an explicit `slen == 0` check for empty property names and a `tabsize <
+slen + 1` bounds check before computing `last`), preserving identical
+suffix-sharing behavior.
 
-Reject negative values and use int_sqrt(2 * val + 1), which picks the
-largest code whose reported threshold does not exceed the requested
-value and makes read_thresh() and write_thresh() inverses of each
-other for all 256 codes.
+On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
+DTBs) this reduced `fdt_property()` time by ~5.6x.
 
-Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Assisted-by: Gemini:gemini-pro-prerelease
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
- drivers/iio/proximity/sx9360.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Found this speedup while benchmarking fdtfactor. It's not critical to
+functionality, but seems like a nice win.
 
-diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
-index 9ba967a33c98..26190f9c6c1f 100644
---- a/drivers/iio/proximity/sx9360.c
-+++ b/drivers/iio/proximity/sx9360.c
-@@ -510,8 +510,12 @@ static int sx9360_write_thresh(struct sx_common_data *data, int _val)
+Changes in v4:
+- New patch speeding up fdt_find_string_len_() with memchr()
+
+ libfdt/fdt.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+index d9ccb70345d0..c7cedfba7815 100644
+--- a/libfdt/fdt.c
++++ b/libfdt/fdt.c
+@@ -348,12 +348,20 @@ int fdt_next_subnode(const void *fdt, int offset)
+ const char *fdt_find_string_len_(const char *strtab, int tabsize, const char *s,
+ 				 int slen)
  {
- 	unsigned int val = _val;
+-	const char *last = strtab + tabsize - (slen + 1);
+-	const char *p;
++	const char *last;
++	const char *p = strtab;
  
-+	if (_val < 0)
-+		return -EINVAL;
+-	for (p = strtab; p <= last; p++)
++	if (tabsize < slen + 1)
++		return NULL;
++	if (slen == 0)
++		return memchr(strtab, '\0', tabsize);
 +
-+	/* Inverse of read_thresh(), so that writing back a read value is a no-op */
- 	if (val >= 1)
--		val = int_sqrt(2 * val);
-+		val = int_sqrt(2 * val + 1);
++	last = strtab + tabsize - (slen + 1);
++	while (p <= last && (p = memchr(p, s[0], last - p + 1)) != NULL) {
+ 		if (memcmp(p, s, slen) == 0 && p[slen] == '\0')
+ 			return p;
++		p++;
++	}
+ 	return NULL;
+ }
  
- 	if (val > 0xff)
- 		return -EINVAL;
 -- 
-2.53.0
+2.56.0.679.gc527c65306-goog
 
