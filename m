@@ -1,65 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818846;
-	b=TSp3gxVIpFK5okdPuzN3Iio5G1jkNiEJTK92jm8qqtAYb/jPsdcbFfustEMNBS+VnBeJ
-	 +AEY3yScJ6XEayVtdQnvEsUNoefu5pKWTrPTDd27+cEEMcc83i+CQJjLTQAJ8Ei4VfXmI
-	 G2cXt3F17sKtQC7Z9VI2TnuFPuwW0dy4pk9yF8NL0Ex7iDRju9JPhWrDfYz9HLQd0YtIb
-	 O0l8prebrxB68oOdQOig7HOfK3rWXvC4ZS4ELi9L4SwelPb1XP/W0JgZ67ub9ZJddZX0T
-	 XE/vnI9mgfPV5wEUJ8JKQFHKMrO0dEq3cJGwGv7sC4K5Akoyf87cE0ZtABgFoW8xv3g==
+	t=1794818868;
+	b=p/WC8zPxHGjWcx6T/aetMy58mAAQQdOWa/1pdonJurbv3Rm9K/iQp2VzKzSuAk95P9/e
+	 prZ7hlDEn3NvAGTwWvDpiFjnBZav00zuXEAa/H4b0CpRSnxWS3k4S7GPEEfQok7Kohrcn
+	 lwEn6NX6rAvvjfv9EsZo1qpiMmVvL35/MRtfcMigtO+Mb96BSwob91Ziaftdov80Rjfm8
+	 Hhktu3Pj5XIlq3TJarXtFgabVQENjg4y9wBpoVcav3/i8PHy7LSrjwUBvdltd7F02tLsZ
+	 wosD9OSRfOlJlv/WMJ2Tf/e4NP8sdwCsdhzyEwTtdnZExI4lPE+qZmq0HdS2BJFb4rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818846;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=CpxPwjwc+ZYwJ/LLzCiMIrB17AE2heuOVpqJXUeodI4=;
-	b=DUruBvvq9G2gPosS+LitFUwieaX6hN+617lx2MOLi7DMmElzMkNsy6x7xop5WXEkG2Qo
-	 drUYCEQCss9q6uj9Oo+JQ4WDQa2U2zFvPwDn4s4+QcLEvRgqjdLZ8Lq8Vq2SPv59f8jFt
-	 4g0OKO9ZodCsWcj6LHbNi9JzZ/zz3SLUd2yRGsuOVX0TzK3dvZDhMST74nPC5058GwEIN
-	 Y2xsBgYH2Ijr0a9OOFZXjQOH+Wt/mSAuK7EKrL1nsXHhw3utTw/JQufCHFY7lGCrOinGV
-	 2YnVqn/Op1LICQOI5ktlkvKHR5Bb5Co5CMa/H67t7u6NOGOoEh+bSd+uBYqu/ZvHSOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818868;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
+	b=Veo+XTwlZhEwjWzeVQOHz8eAKSTz6RLgJTXLzqUDk4wa148ZeJaf1x2BoR3/BcdazmFO
+	 FzNAFhl3/3FDX+5yzfRzdgnIO34/Xn35oqFko9705DFNMVyuX0luf6mKctZeKBhMrGXOz
+	 +zKDJTkJlYVCDrEIqbV+HtDrH00kqoyx3ASq53jYL+gji6+tmIWl5D3oBNxRKp4ZYWTIG
+	 qE4SgHWNwBPzJpbvs3yWQvbP2XH8e+bujgNNfG580Rljo4XDrj6Bi3ZnIFyT8/8lN9jHI
+	 q8yy5fSR+VgG5SvDoxGIEw/eywDWrEBWNFkW9xf3+bZ9W0U9q1jBrjpJtArUXz0me6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="OJKud/HL";
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B12606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B12606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C88606A31C;
+	Mon, 16 Nov 2026 08:47:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C88606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OJKud/HL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794818840; bh=CpxPwjwc+ZYwJ/LLzCiMIrB17AE2heuOVpqJXUeodI4=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=OJKud/HL7j3AnzRax8m47eAu9osWYEA4hfCKkJQpqt3iFgy/KiU4p9pPmfdsLF75y
-	 6OwRFZ2cRJH35VbU8vV+wUyyP9UYhkbPOMwStU2yoI8oumhNeTMyfUMXOU1zbC5rU0
-	 9djvJReELh5QqaeO+SNtYNW+SdtXgvrj07GB859o=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-XMAILINFO: MOlL/R5ZerVSsEILqNUQZvi905V4kz6vdNEMMv4LhLrR/Cm4NYPbmgljNldmcC
-	 Oyh7P0HeRQvjyE27KO9DYiUjUAzsD11Q115RnJLJnOR+fNuqMeDJ+FRn1aMZjX1x3ZktrvASlJHLG
-	 iON4r1macmMCK5h62McjsDDRHjSmopwPTPypik3ECCntbE3qPlVptwEnGx23XTPTYm73JoXRtmZ6G
-	 E4vi9RnuwUdI9M39DAP/KRac/YVWPsDqidzWhQUzfC/cMs8YlhALh3Da/JqssVVP1IsOz5MnkvzKh
-	 XSHU8t6vSq3jA+6F1EoZAfLGYnd37rhvvmIlHzoo/xfDLcrNYhTH5iRu3ghCuatnfnNwc6+5qhSvA
-	 gImX9z2Y1lzoRAyvYcegHPFgHYhVqh1bcjnxqSpR/B9xhkAxFiJOgZAVt2gITV5gsi4c214O6CeA+
-	 nn43qs2No947Yb+pZYWSU/kL3HC3y7mHw5Db2nDaIRNaCBkB9jECeact6DIPO0kXJoQTJlCCoh4XP
-	 0R0lhFRjXyKMnA7csfrkULzgl7kAvb5Fz472M7JKLrkdCncp9mPWCB/tE9D7jQAJNkG3RKXmnAcdL
-	 FUaQ4S2EPF7Ga9MzSoM+u53x+Hc+uSdckpnkGMyngLdxbYym14jsKqydfjYWMGRx2V4TXO8CrqV1N
-	 V57joEdo7m2sYdlmSFObEU+pQGz8TtP7VFCNt5/7FiLgRujLMJekqjLwzRqmzt9tbphlwwExvNkvm
-	 uN72DVmwIkk4p3aG896sBzJ9RBhxjE9GLsonJO4//IgxGig723+FtW+5NyuAcrWLGpmxklUiAWFdk
-	 7JTeDq5fZlAlHh1sAW/S5uU17c3cz/mU95uPwCNJcIGRfKt5VxLl8C07ZmcCd0f5RSkEMqF+guPf8
-	 4cNfb0C/h4VddRGv1LBR+lpRvnlBfyX3rTzKx4EpNsZZyjZLt0nJJb/d0S8isvNDp/lqtqULJW+VM
-	 VVzpxDk3K7wqZde04guvyc5AwVeKqMk1ONyeiE0TXMUZ2Fs5HxA/y9lQPDeWMg2jEYxLPvZ/WrvQ3
-	 51Gv/z6JTGgUiyQoIK+Of+v8AeYMNgg7+jaZlRN61B/5v0/08IlJq5Nu/TlzPSMVs8BUIKP2NaWQo
-	 uIvkNW0MpSCoPQ==
-From: "=?utf-8?B?Q29uZ2ppZSBaaG91?=" <zcjie0802@qq.com>
-To: "=?utf-8?B?TWljaGFlbCBTLiBUc2lya2lu?=" <mst@redhat.com>
-Cc: "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?amFzb3dhbmdpbw==?=" <jasowangio@gmail.com>, "=?utf-8?B?ZXBlcmV6bWE=?=" <eperezma@redhat.com>, "=?utf-8?B?eHVhbnpodW8=?=" <xuanzhuo@linux.alibaba.com>, "=?utf-8?B?YW5kcmV3K25ldGRldg==?=" <andrew+netdev@lunn.ch>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?dmlydHVhbGl6YXRpb24=?=" <virtualization@lists.linux.dev>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
-Subject: Re: [BUG] virtio_net: RX stall caused by masking callbacks after NAPI ownership release
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9661410EF78;
+	Mon, 16 Nov 2026 09:47:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794818861;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
+	b=Dszj5M7U3OEX3vPhggvupYiDIDtgJ1CjrqH5Jt0f645TpAqgjRC9P+8/lrpkHKJ+4JoiTI
+	L6UReXGEDu+KJYLwUgrhEDOaOLHm8TXhzjZsjwb1Cvq8TSacvTA4Zi7CQC+V2kbXr6z2Ec
+	oJYa65T0uQ1X8vP0Ux1FzzD28Tw5cWSUL3S4IYBT8R50BW7hIMwlI/8f42jVXfRI2av8Qg
+	Nr8K2WPco6yYOr8L9d1lNx14IvPMRsO1EjKVZuGoVCeILnDjUDnlM/+rpDR6UfPcoSs0l3
+	x6LaUOrQKikwH0C250Caia2m9t8ssLX83VmU+40Km/H10RKzqjVPiq2+uJXVfA==
+Date: Mon, 16 Nov 2026 09:47:36 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 000/507] 7.3.5-rc1 review
+Message-ID: <avrDKGcdTCqA4RFn@duo.ucw.cz>
+References: <20261113153753.358973689@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,45 +66,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Mon, 16 Nov 2026 16:47:17 +0800
-X-Priority: 3
-Message-ID: <tencent_94953697D2BA27275BEF7A26404E69800605@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
-	<20261115175445-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20261115175445-mutt-send-email-mst@kernel.org>
-X-QQ-mid: xmsezc52-0t1794818837tna47ww5b
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="7nLTaoNpBa1RI6kS"
+Content-Disposition: inline
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-VHJpZWQgeW91ciBwYXRjaCB3aXRoIG15IGVhcmxpZXIgVENQIHRlc3QuIE5vIG1vcmUgY29t
-cGxldGUgTkFQSQpzdGFsbHMgc28gZmFyLCB0aGFua3MhCgpCdXQgTExNIGZvdW5kIGFub3Ro
-ZXIgcG9zc2libGUgaW50ZXJsZWF2aW5nLCB0aG91Z2guIEkgcmVwcm9kdWNlZCBpdAppbiBh
-biBpbnN0cnVtZW50ZWQgS1VuaXQgdGVzdCB3aXRoIGluamVjdGVkIGRlbGF5cywgYnV0IGhh
-dmVuJ3QgaGl0Cml0IGluIHRoZSBUQ1AgdGVzdC4KCldpdGggZGVmZXJfaGFyZF9pcnFzPTEs
-IGl0IGdvZXMgbGlrZSB0aGlzOgoKQ1BVMSAvIG9sZCBwb2xsICAgICAgICAgICAgICAgICAg
-Q1BVMiAvIGJ1c3ktcG9sbAotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAgICAtLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpDb21wbGV0ZTogY2xlYXIgU0NIRUQsCmFybSB0
-aW1lciwgcmV0dXJuIGZhbHNlLgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBU
-YWtlIE5BUEkgb3duZXJzaGlwLgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBF
-bnRlciBidXN5X3BvbGxfc3RvcCgpLCBjbGVhcgogICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBJTl9CVVNZX1BPTEwuIFRoZSBmaW5hbCBwb2xsCiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGVuYWJsZXMgY2FsbGJhY2tzLCB0aGVuIHBhdXNlcwogICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBiZWZvcmUgY29tcGxldGlvbi4KV2F0Y2hkb2cg
-ZXhwaXJlcywgc2VlcwpTQ0hFRD0xLCBleGl0cyB3aXRob3V0CnNjaGVkdWxpbmcgb3Igc2V0
-dGluZyBNSVNTRUQuCkRpc2FibGUgY2FsbGJhY2tzLgpUaW1lcj0wLCBTQ0hFRD0xLCBzbyBz
-a2lwCm5hcGlfc2NoZWR1bGUoKSBhbmQgZXhpdC4KICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgbmFwaV9jb21wbGV0ZV9kb25lKC4uLiwgMCk6CiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGRlZmVyIGNvdW50PTAsIG5vIE1JU1NFRC4KICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgQ2xlYXIgU0NIRUQsIHJldHVybiB0cnVlLgogICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBRdWV1ZSBpcyBlbXB0eSwgZXhpdC4KClRoZW4g
-dGhlIGRldmljZSBhZGRzIGEgdXNlZCBlbnRyeSwgYnV0IGNhbGxiYWNrcyBhcmUgc3RpbGwg
-ZGlzYWJsZWQsCndpdGggbm8gdGltZXIgb3IgcG9sbCBwZW5kaW5nLgoKU28gU0NIRUQ9MSBh
-dCB0aGUgY2hlY2ssIGJ1dCB0aGF0IHBvbGwgaGFzIGFscmVhZHkgZW5hYmxlZCBjYWxsYmFj
-a3MKYW5kIHdvbid0IGVuYWJsZSB0aGVtIGFnYWluIGFmdGVyIHRoZSBvbGQgcG9sbCBtYXNr
-cyB0aGVtLgoK
 
+--7nLTaoNpBa1RI6kS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi!
+
+> This is the start of the stable review cycle for the 7.3.5 release.
+> There are 507 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+We get build errors here:
+
+
+236
+19:06:22
+  CC      arch/arm/kernel/asm-offsets.s
+237
+19:06:23
+In file included from arch/arm/kernel/asm-offsets.c:12:
+238
+19:06:23
+./include/linux/mmap_lock.h: In function 'vma_end_write_all':
+239
+19:06:23
+./include/linux/mmap_lock.h:604:25: error: 'struct mm_struct' has no member named 'mm_lock_seq'
+240
+19:06:23
+  604 |         if (unlikely(!mm->mm_lock_seq.sequence))
+241
+19:06:23
+      |                         ^~
+242
+19:06:23
+./include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+243
+19:06:23
+   77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+244
+19:06:23
+      |                                             ^
+245
+19:06:23
+make[2]: *** [scripts/Makefile.build:185:
+arch/arm/kernel/asm-offsets.s] Error 1
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3065943408
+
+Best regards,
+								Pavel
+
+--7nLTaoNpBa1RI6kS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavrDKAAKCRAw5/Bqldv6
+8ul/AJ9f+PnOukZPzcN2ZHZtw9cnclNmZACeMOiCeO2h+nlj4rHyzyH6uojigtI=
+=Qmfa
+-----END PGP SIGNATURE-----
+
+--7nLTaoNpBa1RI6kS--
