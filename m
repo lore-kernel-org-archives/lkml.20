@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837046;
-	b=TBOvG0a/BzeEpgyYgb9R0dARGaEmBK1pOvFdRQcSReHC8T7PJJRK6E11QwBbPPySxi9d
-	 LiC1s3xqrYq5qIIZdq/Tk4dFqYwZkvkRy12TAgXTsMeFJTY5oRZ852DaYaIqa1/XfhKqp
-	 Z8qX7sS5xQLFyJqYcu9ma/WAmdlxV7Svp9HleF+Np5Xax1ooZURJqM6aEQ0u7eCRn9qYn
-	 zqayOsp6RuktNgSG8lQXXvaGGKcPwUP6fRMI9e5orHGk9mGEJjmrV2JRYBe6I0FcLxQa5
-	 /AZTxvgP3gZ0hmrYHLum1WiwY1kXlm0TJ7mtqhhrE694yaaC+3bo2M5XGAP8+qfZ1BA==
+	t=1794837051;
+	b=fjzjoIKVge56ltIU4aJsPdNS9VHU1hd0BkNs+UAAtD1br0J/5NYCWPMELJ2TjpaAJfl2
+	 C4/t8ukdRILYv58y+b9pkEa/Uqgrtb5Shi+nAKpjCOeoTDKi56dagYoudrq1oxekUIQ5V
+	 itdLddGQHyXbUQPElNAe+HEE8KVIREZ4V1KBmwkJsLyJgwwEarG6Sk3DjVYsFaOwPr5lo
+	 y8jAsMUqiEvYBOVrMzOcT0l5TOgk7DXOq19QfD1RdwmOTkZfnLlXV00PLkTNQsPrSch0s
+	 VRFNOOtR9mavqvFJI95IddRBd80KegxNCnn7Z37nri6eOmnNQQ9YNOnsPn69tL4hRlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837051;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=akTGnfa9Y+dF6UITPcBnRtwKMfecwTjl7OenkZ1Dweg=;
-	b=FxptMtqJpjHJzEVSuXSzgWtgwa4qx13cfE0K3NQu6fUiRlewSk6Q22J18n5VoQMtfchn
-	 GwrJ/nNUdyLyhIKZbHuIIGe8aMMKT4T4xCm+r8ugARxuoYUO6k9kttlFcLCAnoNbJZ+9v
-	 zPmq/HemxSEgZxhTn8xUo1vC/kgpsonnXMnMztkYXdvYcCOzL6PbkDl9aIk5Sd58Oevcp
-	 lr5VzuojNpWHk09FJNeYUwy4WZ5bf2F745hWZ0pJWvySfYe7HKB9RncxgJiwVrpo/TwBt
-	 ridw1UhM11i0UAqio1FOwCmGGRigSavH69RyyN+5J9vgmdhb1o4fvUsvCUJvqS5Kfzw==
+	bh=EeDl7bbI7LCiKb5h7E9ZI6fEwc5/yvL/KpqTYXXHOMw=;
+	b=uiCCWV/2uNVJB2S/qgsugFndMCYBZbWsMyMprrd0KERQThkXavQTaPQMhwDpCAsXq9ob
+	 2ifPrCWyHlKzAj8FeYdBi/uGb+mfDR5mH8fk1/xt91jjP8EHMKOv7q2DZvZD5j7HStgc8
+	 pblwVrbi92WBlhb2yTwhkMFZE0VkVm4aBWckaXsL4OEbsqxXKG1/7hBv6Xd6lE8+dNkUj
+	 8H3vr5CoYnWufdQpJnWbS4tPErvybXLboVrrOg9vYx7W8tWnpSNOjTgk/gk9dvMVQKJoh
+	 pwQZqyiDxushwLEiLLIoKVAXfFIYILs/8ouJAQ3Rd0msBGcfeFn9BhY11RsA4L7JnKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SW1sFwoT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oj4HjDXH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B76760A2609;
-	Mon, 16 Nov 2026 13:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41D060A262A;
+	Mon, 16 Nov 2026 13:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SW1sFwoT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31411F000C7;
-	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oj4HjDXH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDD31F0182D;
+	Mon, 16 Nov 2026 13:50:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837046;
-	bh=akTGnfa9Y+dF6UITPcBnRtwKMfecwTjl7OenkZ1Dweg=;
+	s=k20260515; t=1794837051;
+	bh=EeDl7bbI7LCiKb5h7E9ZI6fEwc5/yvL/KpqTYXXHOMw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SW1sFwoTWRup5UEOuaHBZYneSmOkK+5oO8zOo1IIhSWnZXZZRxtjq2M5Quy4+hvKs
-	 uSOhBKwjVJvL+j3+nxUUwKKxFhQ9AqQ2Jj124uiVzNBqGGaXF4PCkDynGM+rqF1fEq
-	 rQ7HLPk+bpMG07fCXwFosfSY7bRjnbZVQfWTUow4k3t0YVIdba7FwMjor6PYeULCdw
-	 Sg+XEZtAjywcERrocSBCY9aQ7imoWYrHo8kzqOlYe4khk+PfzbBZcCwXXQdrJWfFOb
-	 4/vvevXROogfcAFVDAMLiMSNt8s54ozAyVR8Ad7nmg85euUShuqoTmJMV9AuvGD6ZB
-	 FXc3YS2j8iiyg==
-Subject: Re: [PATCH net v2 06/12] net: au1000: assign a valid MAC address
- without platform data
+	b=Oj4HjDXHhFsZ5UxPZYFtazBHZTpjYPeQRgPrAt3SO/FK0/ZD+/oHcw2KdHoKs8NUe
+	 Uyl11iJBxfwXcYT4uVhg1r9XqE2Ht2cMTSxHbXkoi72Sj7dpquUyBPL/swBFYiH+Ys
+	 evNFkf35AZ1vXhtF9WFfUS0JevDdAt9dB9843g2MT7ed7SS54fyLDYNrOYNkH6h87C
+	 xIReujsr6tv3O2+WHx9VZCJiubBd1WAbqFW0Efosx4fXqYkeNntLaqBijkg5qCRfl4
+	 e/P4Ax6xqR5HBYnRfmK4/lSrYV5nhDji5WaolbbPwGyG4EswO4d4BRinfHzLsxDFjA
+	 yDK+7AzR3xxpQ==
+Subject: Re: [PATCH net v2 11/12] net: au1000: keep the MAC stopped until the
+ PHY link is ready
 From: netdev-bot+sashiko@kernel.org
 To: f.fainelli@gmail.com
 Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -50,10 +50,10 @@ Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org, jeff@garzik.org,
  danny.kukawka@bisect.de, mugunthanvnm@ti.com, sebastian.hesselbarth@gmail.com,
  linux-kernel@vger.kernel.org, manuel.lauss@gmail.com
-Date: Mon, 16 Nov 2026 13:50:44 +0000
-Message-ID: <179483704445.3136.5178913144882531268@kernel.org>
-In-Reply-To: <20261112045301.3669532-7-f.fainelli@gmail.com>
-References: <20261112045301.3669532-7-f.fainelli@gmail.com>
+Date: Mon, 16 Nov 2026 13:50:49 +0000
+Message-ID: <179483704995.3136.5707920157509018990@kernel.org>
+In-Reply-To: <20261112045301.3669532-12-f.fainelli@gmail.com>
+References: <20261112045301.3669532-12-f.fainelli@gmail.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -73,53 +73,110 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message overstates how far the bug reaches, and it
-  carries a Fixes: tag.
+- [Low] The commit message and comments in this patch don't match the
+  code.
 
 --
 
-net: au1000: assign a valid MAC address without platform data
+net: au1000: keep the MAC stopped until the PHY link is ready
 
-When no platform data is passed, au1000_probe() now calls
-eth_hw_addr_random(). Before this, the device kept an all-zero dev_addr,
-and eth_validate_addr() rejected it at open time.
+This patch stops the MAC when the PHY reports link-down. On open, it now
+calls phy_resume() before au1000_init(). It also keeps MAC RX/TX disabled
+in au1000_init() until au1000_adjust_link() has seen a link-up.
 
-> The supported no-platform-data path leaves dev_addr as all zeroes. The
-> device can register but eth_validate_addr() prevents it from opening.
+> diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
+> index 8b7a88ceb3c5e..d60430a3795ed 100644
+> --- a/drivers/net/ethernet/amd/au1000_eth.c
+> +++ b/drivers/net/ethernet/amd/au1000_eth.c
+
+[ ... ]
+
+> @@ -691,8 +692,8 @@ static u32 au1000_rx_mode(struct net_device *dev, u32 reg);
+>   * When the device powers up, the clocks are disabled and the
+>   * mac is in reset state.  When the interface is closed, we
+>   * do the same -- reset the device and disable the clocks to
+> - * conserve power. Thus, whenever au1000_init() is called,
+> - * the device should already be in reset state.
+> + * conserve power. The device must be stopped before au1000_init() is
+> + * called, but may be out of reset for MDIO accesses while resuming the PHY.
+>   */
+>  static int au1000_init(struct net_device *dev)
+>  {
+
+[ ... ]
+
+> @@ -928,11 +934,25 @@ static int au1000_open(struct net_device *dev)
+>  		return retval;
+>  	}
+>  
+
+[ ... ]
+
+> +	/* Restore the MII clocks without starting the PHY state machine. */
+> +	if (dev->phydev) {
+> +		retval = phy_resume(dev->phydev);
+> +		if (retval)
+> +			goto err_reset;
+> +	}
+> +
+>  	retval = au1000_init(dev);
+>  	if (retval) {
+>  		netdev_err(dev, "error in au1000_init\n");
+> -		free_irq(dev->irq, dev);
+> -		return retval;
+> +		if (dev->phydev)
+> +			phy_suspend(dev->phydev);
+> +		goto err_reset;
+>  	}
 
 [Severity: Low]
-Can any in-tree configuration actually reach this path?
 
-The only in-tree au1000-eth platform devices are au1xxx_eth0_device and
-au1xxx_eth1_device in arch/mips/alchemy/common/platform.c. Both always set
-platform_data:
+Can this error branch in au1000_open() ever run? au1000_init() has only
+one return statement:
 
-    .platform_data          = &au1xxx_eth0_platform_data,
+drivers/net/ethernet/amd/au1000_eth.c:au1000_init() {
+	...
+	spin_unlock_irqrestore(&aup->lock, flags);
+	netif_addr_unlock_bh(dev);
+	return 0;
+}
 
-au1xxx_override_eth_cfg() is the board override path, used by
-board-mtx1.c. It copies into the same static structures, so the pointer
-stays non-NULL:
+au1000_enable_mac() returns void, so nothing in au1000_init() can fail.
+That makes the new phy_suspend() rollback look like dead code, even
+though the commit message describes it as:
 
-	if (port == 0)
-		memcpy(&au1xxx_eth0_platform_data, eth_data,
-			sizeof(struct au1000_eth_platform_data));
+    if initialization fails, suspend the PHY again before cleanup.
 
-au1000_eth_driver has no of_match_table or id_table. It can only bind by
-name to the platform devices above.
+The commit message also says:
 
-So dev_get_platdata() never seems to return NULL for an in-tree user. The
-failure described could only happen with out-of-tree board code that
-registers the device without platform data.
+    Initialize the MAC before phy_start() so the PHY worker cannot access
+    MDIO or enable traffic during setup.
 
-The code change itself looks correct. It restores what the !pd branch did
-before 7718f2c27dbd, which only added eth_hw_addr_random() to the
-invalid-MAC branch.
+Didn't au1000_open() already call au1000_init() before phy_start() before
+this patch? The diff shows that order as unchanged context.
 
-> Fixes: 7718f2c27dbd ("au1000_eth: use eth_hw_addr_random() instead of random_ether_addr()")
+The actual changes seem to be the new phy_resume() call before
+au1000_init(), and making RX/TX depend on aup->old_link. Could the commit
+message describe those changes instead?
 
-Could the commit message say that only out-of-tree platform code can hit
-this, or describe the change as hardening? As written, the Fixes: tag may
-lead to a stable backport for a failure no mainline configuration can hit.
+Separately, the au1000_init() header comment now says the device "may be
+out of reset for MDIO accesses while resuming the PHY". The comment in
+au1000_probe() was not changed and still says:
+
+	/*
+	 * The boot code uses the ethernet controller, so reset it to start
+	 * fresh.  au1000_init() expects that the device is in reset state.
+	 */
+
+Should these two comments be reconciled? They now give conflicting
+preconditions for au1000_init(). Neither is strictly accurate, because
+au1000_init() always forces a reset itself through
+au1000_enable_mac(dev, 1).
+
+>  
+>  	if (dev->phydev)
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112045301.3669532-1-f.fainelli%40gmail.com
