@@ -1,98 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830623;
-	b=frK24Ovl6YqnKv0DvNazesARDT0T8LpVNff/wbtllyCOQlgiUOEYnIs3601NrsQKzyeB
-	 Kf25rn2xmxfmIBuCP+pe9EcdmrG41qlDTsR8w5AoJVNq4/yDzuoKg7vIE4RPME9WqSS50
-	 50mX9PkUdEzvgGH1vqDsmCmYt9fzB0Ojc3vKf/52eYmxt6c7zKikKo2NOeAycH7HdTtze
-	 fWAioDC7bSmymsCx05Hz/TRzEvIlu4HXJdy4PXCvlSnSLiEAUpnkef1lYsRivWYx+1u8v
-	 E3Y5uLChHfGjdR6xf6N4Iip0G7KWsAc+e68X8fl3BXiKg7EqX2TZ5gmuZUo9dA+GKyg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830623;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=IQekBwaziHPekHFCxrEj0AOguGwmnwhYwSVSC2fhEpU=;
-	b=wQEE0zuTDaL0zVe/8z8HfkUhOnVG2roi0vIM2yMKDrwAu+EN9uwaxDQRgfbGv3MBnKZd
-	 UOuDMPOFv++mVWFFpMLQWEuL5Tj0avWFbFVwaFEJw4XjL+EZA1BGn7wVaOtCAnyXHvApW
-	 Df2H3q/MyxrCncQNEJbMCwPXOygjfzK+YjhHL8Jr9QHkDRmzbKS9EsiqVW5AnhRBvvQgQ
-	 1881rmqbOa5NZgrdVMwbojwm3AymmLOwMKqbe3Z44EI1qa6PXlmXbq1Lr+gsCWNa02I1V
-	 89E2vj3y1Rwc8FoPIc36Ab4iMHrhegAa8+WrYyJFTZAVwgN9PD/EQva4GuyUwzJXJ6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqMxocZS;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.51
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794830645;
+	b=WNG0Yiu9JGhViHqQIhrOim45G7xFO4WTF1N/241y2VE10SDJguPIJzf07hXmsx9nJwHm
+	 lyTu/98Hfkxr+gatLm+Rv/Nv/bUnu3JekioYxxnrMg5JxmOE4EHa+1sSa5xc1Rqu48Wai
+	 9kbpXd2ERg2afUwU0cd2I0NunzE4Y4spwD9unJWAF81R6IqFm5t6UaorgaqhJA/5g0SSJ
+	 r5dSEWh3Yms7jSsap42hjDkVRsirB6mOOByELpf+LboiDekkQ5Kh8rY8vUvQE/LqAar1R
+	 9+3OuDpEfYdYPNSZeGLlK3b8kONe5ig4Nba4FTKVbHIlPt8dfjUE8dEn2pIZgcdWgbg==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830645;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:
+	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
+	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
+	b=sv/gVy1UuM7KQgVG5PIPhfYF3vrM7ZYyK5y6KCgvtUi+88qpU4nZsAMEj64o6+R4V4U1
+	 ewboBFMleZxqjY3GSwqg6+NtuwfPBwRH+jc4zi4Khhcoqto3m6OMf03/WFb+t/M0TnaT5
+	 GAHYAz+jDkyvnZVYrMAUVvoMvq+MRjZvbgTwD6AhTpB/01ZKmMLZ7XANanPMRmkc9gc2r
+	 czWhtszacGbwyTOZBoZd+BOByEw86j5bGO/zXFasegbZEeHPnb3TN/Coyhf7XuuyObZce
+	 pLAsjZ9E58hkuXy3eRdJ4jkiri+UILLAxPnR7QN/Re0O3TfmXJFL486Sj0G9xQCESEw==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.51
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013051.outbound.protection.outlook.com [40.107.159.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12108606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12108606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1562606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 12:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1562606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqMxocZS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794830624; x=1826366624;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=Bf5cAdHMAJ7il91i8L2BuKajCP/dY1k+p59Ms1D7n+U=;
-  b=cqMxocZSi5Tq1UEPNK2Ir2JanxLkU7CZn7gGo8gw48Q+7/HN0lBraHUJ
-   qkk4dCfI1p7Edgn8OPvKqCai2WO1+25Ak+FlEzO5IT8SNzjyXpsoT2OtA
-   /Kof4b0DU4PGwIEx7Edlh/iVjDraa+nSxk53+SrFzQs7mkOz8JtaLP5lC
-   2x3tJfvZJIIS5me8paLDnDsjJKF+r+F4aJk5pa+Z3BSItOfUosqVHbiVJ
-   IsmbjFWDGD3YGWI8aYXSxSnuGonsd6qX+YrcAPelNXyUoA9A1Uh+tcF+Z
-   qWNk6xt8ExNo+D0n8cd1STUagh8ZiyL7qaj+dccOQ3rm1Mug9ud1pFC7L
-   g==;
-X-CSE-ConnectionGUID: j0OwUyhTQd6OihXZICCQMg==
-X-CSE-MsgGUID: kZtcOHS7RUSblVYZYAhurQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3552917"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3552917"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:03:43 -0800
-X-CSE-ConnectionGUID: NBN82YKvRumnOXUGXvHsOA==
-X-CSE-MsgGUID: 0PwLTXsfT56YDMVgPQUegw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9427054"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:03:33 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
- <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Manasi Navare
- <navaremanasi@google.com>, Drew Davenport <ddavenport@google.com>, Louis
- Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Kory Maincent
- <kory.maincent@bootlin.com>
-Subject: Re: [PATCH RFC v3 2/8] drm: Move DSC capability reading helper out
- of i915
-In-Reply-To: <20261012-feat_link_cap-v3-2-7517f4aba0f3@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
- <20261012-feat_link_cap-v3-2-7517f4aba0f3@bootlin.com>
-Date: Mon, 16 Nov 2026 14:03:30 +0200
-Message-ID: <d2ff3419f0965670bbf566bc4cb0afd1cab8e461@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=sBkeVFJ1
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=fyUB/WL9zYK+6uQeMrtrbyRRM5oCwBo4gNE8UfId8H+iMSZ7yxaAuzMY+02Hz5QzqLOnS+20knX1lBcHElpXaz5xgUv8qMrSoPnGbMRftjsNSbswYTX6j7plnG2wED9DVcNYzzRAYzv4EWBxgrWKPcyB6FWShF+95KKkVdORMtf6XOC2/Me9MF1REPA6zuzZzt1yjqBAVayTpzroiWnh9Oe2QBnJoL8xyWqp91QNc6QabMsTpC0zbzykkbF6ualDLNqouEO6bgasjAg24iOljQxtNfduXjWHs8Mlsm3SBsKmJ3t78fNQ+UZrrPLNQ5aEaMZxqR6hihY4//cHKk9pvw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
+ b=fvng6m3mdHl+uYG9sC7MDXlJyVjAA/g2yQDXvLnnHN3pclMgerVIv6twoTXn5jw33Ic2NElcr8efEEyNwB9U/Du9hLYHNOm0Nd+EQslgVq5tnEIEG6DTMovOBcDTLQ2nEZvOBA/5hqvioLM+LozcrOgCmr/LDjPx5AHTA58z3BvuvtyuM+i2thzefp0wI6pDYJmpilG4YabN1jiO0B26MeDalC2LWmTCs4N/F9it09vA51F2+uYIGlEXcpSD30YArP1GQ8qiLGuVfw+xlSLygoFukKlwOG/HjCnB+s1pYF5sxJyqmj/O5eJcyGLGl1Zr2Ml1lcKqSM1N64E/cyEumQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
+ b=sBkeVFJ12DfrXI7BieClKLbwQinKD7DmmRZ+aw0t/ZfsIEPqLNxScj78wTOqcp1N3omWZJSytsJqLmXJoxEIv8xv1+JPLLhVGQ3Jj11n+pFNE3WexsiHzJrWG2ptQyBEMeJTroHTQuWgEmryGdUXFGPRI04Kyw6h/tPue3uNPW4=
+Received: from DU2P250CA0001.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::6) by
+ GV2PR08MB547301.eurprd08.prod.outlook.com (2603:10a6:150:3b9::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 12:03:56 +0000
+Received: from DB1PEPF000509FE.eurprd03.prod.outlook.com
+ (2603:10a6:10:231:cafe::3a) by DU2P250CA0001.outlook.office365.com
+ (2603:10a6:10:231::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
+ 16 Nov 2026 12:03:56 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509FE.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Mon, 16 Nov 2026 12:03:55 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VpQotlYp7jMaAESnIEfgzJWBkOz+hHY0kGee8Na4XU/p7MasPxlhGk5Wk3yV6vpbeCRxUktqdcWuat8Ni7fl1Y5CgcJzG8PRHx6dQXM1/UwTlZFhgSTBlDu6znmbjb4tqccaJCivHv0KxCppLrYSNlnyAx5L3Z9R2/vIFWtu29wPj5XwGkATX+zsjlJsfXho8q16WBi3W4PNVeKQjOYjso9DkTU7vdwCo13xLfNHglPM8TRiY47nz2WWznHPqDt0IaNkp386lS7F+vFb62igTFxg+b1Xeto+66cPdmXZapNbiHbz85RhQTXD3zKBLGmiC2xVS/URqsyQwGYbiri9/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
+ b=tejcmCvvhku39nOFjQAolmKmUWSpj9a6fRPUVBn+CPQbWjghm7CtyIus9XmB0Qc+XTR9UNlTJK2VC4we3/M7i38RgyJWYF6rs4keibAotB4A1flIj/65T3VmRTNsqrXzTyuj+4Gjpmkj1n1AnleS15xYHu9wKp4uA25CdHDVhO8Lot4xSZ+l97z2Gwy93Y919eQ9WZZUB6Ojv3BgElawqDT6KD3YwgeNXAw+31r3HPL450CSmWmYgqRKsXfPTqHyQ0F+CmoRqGTlU8bKb1tAClalYQukgDDY+1orZrmp3VhxIa+cOcsHjv97JMX+D/JQXpff7IQo2oobI7ET/nmvnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WC6odsbv88linR8kETVekz0LF7qUlb1FWF+N1ERNnEk=;
+ b=sBkeVFJ12DfrXI7BieClKLbwQinKD7DmmRZ+aw0t/ZfsIEPqLNxScj78wTOqcp1N3omWZJSytsJqLmXJoxEIv8xv1+JPLLhVGQ3Jj11n+pFNE3WexsiHzJrWG2ptQyBEMeJTroHTQuWgEmryGdUXFGPRI04Kyw6h/tPue3uNPW4=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
+ by WA4PR08MB496630.eurprd08.prod.outlook.com (2603:10a6:1d0:34::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 12:03:20 +0000
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
+ 12:03:20 +0000
+Message-ID: <a25bc3c5-080f-4e24-afdd-971f313a9442@arm.com>
+Date: Mon, 16 Nov 2026 12:03:18 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 09/12] iommu/arm-smmu-v3-kexec: Implement
+ is_attach_deferred()
+To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, jgg@nvidia.com
+Cc: robin.murphy@arm.com, joro@8bytes.org, praan@google.com,
+ kevin.tian@intel.com, smostafa@google.com,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+ Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
+ xueshuai@linux.alibaba.com
+References: <cover.1793593923.git.nicolinc@nvidia.com>
+ <8de1e1f52a03059f2e1123d259467eac23e9740e.1793593923.git.nicolinc@nvidia.com>
+Content-Language: en-US
+From: John Garry <john.garry@arm.com>
+In-Reply-To: <8de1e1f52a03059f2e1123d259467eac23e9740e.1793593923.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0102.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::17) To PAWPR08MB8959.eurprd08.prod.outlook.com
+ (2603:10a6:102:33f::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,143 +151,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-TrafficTypeDiagnostic:
+	PAWPR08MB8959:EE_|WA4PR08MB496630:EE_|DB1PEPF000509FE:EE_|GV2PR08MB547301:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b23d3aa-a73a-4a46-bdb8-08df43d9b09b
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|11063799006|56012099006|4143699003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261021121427099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ D5+vQPe7V9fO7hRGB1560UmrtoCSbCNNQZ1GK9jjpeMBi0uP+aywRzBPO3yoCEBTLZNuUluzXdPAJEfY0xCqnuQiCRdyufGfy6ZAw/ITHRyuqev9wQgkfOfcw89Kv8Xxy/NiAojxwqKAxtir/Ro+r6hujIzYpRvk2RBkVdzlbGfboFO8KoETdr9r2Q6AD17BgZx7YepA4wB2CTyNbLr65xaPl8al5CnHF5tG+XZRaSRVkxc/If3Z171/+2TpZ9d0rc7BbGsQEQUpXkujlSumXrXgrs6FV/xHRFIe5mxSm4wuiwU2VlPuQRovfER3JE/wUkn1B85kDZ9+4nUmNtnt8xqDtX1MoMTG91DjkMCVkBD2pi/DXhfcQPEQNK/DGuBk7j9tft7c601wNa8lc5yzj8l5XvrBr2wtIdvsTrBVflkVEZl0GE9dFiQvuOtiU9v4vIFqGAfwYb5SDb83IWi5jv0EfhBkWgWEFg7KlX9iCX1g3VtcxMivCR4Mo2XyFc8DS/zyi3mWpGnIy4z7lgwOSM23p324/rjTNdcDANvUD+HbmJgP6XgMfJU8MD1s1hPSy02mdm6yPWZXV4QzNZKvfNKkgJrWOff7A5oVRWP653qbcQJRJaSQlDYvXyCUokW1kOYCwzeDqyOj0HtUiJnf60R/R6mBEsLnLKPGq71+1vg=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ Kwk0RrPA9w1lEHnt5U0RtprtYwtiVJpg3jpEJf+SUPPNSaV5+o0AVt6Ot704O/1bizXXuHbBDOXOemXO7Dipj9NKxC4l1GbVvxzRGYKgM2sZgSnzvpc8axXtP2RFDvaaOEQpsyfybOvjVsTAyJnswt5P1ENsC/ILBBO6zqlTDgu5+vXxKYSKFPQ+awUxHFC3wlaQogh6cqC0cQRwyDoime8vb7aw2VmbCT+orpXtvknf74FimX3zCc/QVhQwfZOh6uWYYUnwaYvqsYZbDLkvqp9V5x4lXBRNuA2yObsjJpw+0kY2i0dLzZBAChrUh8VbfY792cVYOLAD/TcQr7cbZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR08MB496630
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509FE.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	b38b1321-7dc9-4123-8f57-08df43d99b3d
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|35042699022|23010399003|14060799003|1800799024|82310400026|376014|7416014|36860700016|10067099003|56012099006|11063799006|4143699003|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	8RxsGAXOo7AqxYUnmzvgwXVwvbydgQBixzytCVkwxUmHeQCbviI3zwdOrc/yELmAr8xUlWCAglUJw5nY0E/SdwW9VbXbb/Z6J8fNht5+mQAC2yz5yDSHWUB9zWdLzFiiMj8FyQU3mH1PHMKts8zCXPjwjTC4GiPrXd82l/s+BqXvr8Fy5b55EpAxcYUcY7zmmnhlSf5TSkUbP+Fsz+6p2q8zXrgokP6n8EJdiG9L4InYMeM/VZEC1XWmHevDKaZG1giElOQgscWBR4qVK+qA3LVZjLZ7mSbZKp9cboVUohVCeOCdp7S5H/kB7qD3Qem3a6x/zaRV/ioDUshKUR6tldCk0FZBSPtrJf0zAef/jnprWGX3c44Ztt8eegkxQRQ+4FqWjY2ULrVquA/UKAkMbyea3UjUctbW9AabAYeUB/bgLkugq4ReEEDG16R3084PL9+4iQ7Tsz70qv7J3fksAnaHwFkzkcjJHGy2KiIne/twJ0GC/CEpFXOozz9VYIfumkBK8RF5fU/JFDtnWivOEi6wRmokINb/saH1y8UShDAhMb4pHZtVlPyY/KqEzI4X0Gex6FSf1X9kOAZysfUlhn7XGmaY6OLa3PJ6v04SLVUvLlbkaYmwQqf0RhFtst7sLVTHbhqvYWd7/dgKYjyZegKE02BXnkuV2vq4aA8hHVs5d8HG+oHFMWpGJJs4C6dCY4VSrBvh6Vc9QkYf2+zR5w==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(23010399003)(14060799003)(1800799024)(82310400026)(376014)(7416014)(36860700016)(10067099003)(56012099006)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1RdKd/gDS/6C9tcYsw3BTv9vEffPfZ5Fv6i182X8OH3ZVNT4t5y6Tw4WVtRcwE+LX3VKnG+5GTA2rdbv92l7XLLuCrT/Ivy9VGLB+MfrGQ18hfraGILgL9rUREO8zRqdkDRQyyIemKxhtykUJSUMeMAlGQ14ORNnOPMl7UwbccIo8qLGzHyIHihVII0rKKvH5GTYSZ90y3WxA3hpX/0FJaVUO6hFB8TnR7RKu/pLDoZ633yYH9oATpf31GuYWfBFZa74FiVlga3pEG67JIQOVHwYABSUjiLOkAcOOxmHXHlSEKQ2bdK6sP/lzDprWXZ4DJfYuB660xXixlSXCOw05PCQShvXRl1uqbwo6cfvQ66S0uDtYpqKl8oyfjYBM0Jz0SQMbORGEYud9nn3766eIN42BZHUObh/ncr2Jk2umGAEHsCuv5h3197o3yCPhtRQ
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:03:55.8877
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b23d3aa-a73a-4a46-bdb8-08df43d9b09b
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509FE.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB547301
 
-On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
-> In preparation for adding generic DRM properties to report source and
-> sink capabilities, move the DSC capability reading helper out of the
-> i915 driver into the generic DRM helpers.
+On 11/2/26 05:19, Nicolin Chen wrote:
+> Though the kdump kernel adopts the crashed kernel's stream table, the iommu
+> core will still try to attach each probed device to a default domain, which
+> overwrites the adopted STE and breaks in-flight DMA from that device.
+> 
+> Implement an is_attach_deferred() callback to prevent this. For each device
+> that has STE.V=1 and STE.Cfg!=Abort in the adopted table, defer the default
+> domain attachment, until the device driver explicitly requests it.
+> 
+> Also, move arm_smmu_get_step_for_sid() to the header for the kdump function
+> to use.
+> 
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+> Tested-by: Breno Leitao <leitao@kernel.org>
+> Tested-by: Cristian Prundeanu <cpru@amazon.com>
+> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 
-Independent of the goal of the series, I support moving helpers from
-i915 to generic drm code.
+FWIW:
 
-It might even make sense to try to do that separately, to make forward
-progress.
+Reviewed-by: John Garry <john.garry@arm.com>
 
-> No functional change intended.
->
-> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
-> ---
-> Change in v3:
-> - New patch
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 30 ++++++++++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.c | 28 ++++------------------------
->  include/drm/display/drm_dp_helper.h     |  2 ++
->  3 files changed, 36 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index 8ef096a0138e4..93cf43d166c6e 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -5149,3 +5149,33 @@ int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
->  	return num_sink_rates;
->  }
->  EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
-> +
-> +/**
-> + * drm_dp_read_dsc_dpcd() - read the DSC capabilities from the DPCD
-> + * @aux: DisplayPort AUX channel
-> + * @dsc_dpcd: Buffer to store the DSC capabilities read from the DPCD
-> + *
-> + * Attempts to read the sink DSC capabilities from the DPCD of @aux.
-> + *
-> + * Returns: 0 on success or a negative error code on failure.
-> + */
-> +int drm_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
-> +			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
-
-Nitpick, I think all or nearly all of the DSC functions here use the
-drm_dp_dsc_ prefix, and so should this.
-
-BR,
-Jani.
-
-
-> +{
-> +	int ret;
-> +
-> +	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd,
-> +				    DP_DSC_RECEIVER_CAP_SIZE);
-> +	if (ret) {
-> +		drm_dbg_kms(aux->drm_dev,
-> +			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
-> +			    DP_DSC_SUPPORT, ERR_PTR(ret));
-> +		return ret;
-> +	}
-> +
-> +	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
-> +		    DP_DSC_RECEIVER_CAP_SIZE,
-> +		    dsc_dpcd);
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(drm_dp_read_dsc_dpcd);
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index da73ad11e9cac..830fe6eda17d7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4430,26 +4430,6 @@ static bool intel_dp_get_sst_split_sdp_status(u8 dprx)
->  	return dprx & DP_SST_SPLIT_SDP_CAP;
->  }
->  
-> -static int intel_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
-> -				  u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
-> -{
-> -	int ret;
-> -
-> -	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd,
-> -				    DP_DSC_RECEIVER_CAP_SIZE);
-> -	if (ret) {
-> -		drm_dbg_kms(aux->drm_dev,
-> -			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
-> -			    DP_DSC_SUPPORT, ERR_PTR(ret));
-> -		return ret;
-> -	}
-> -
-> -	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
-> -		    DP_DSC_RECEIVER_CAP_SIZE,
-> -		    dsc_dpcd);
-> -	return 0;
-> -}
-> -
->  static void init_dsc_overall_throughput_limits(struct intel_connector *connector, bool is_branch)
->  {
->  	u8 branch_caps[DP_DSC_BRANCH_CAP_SIZE];
-> @@ -4498,8 +4478,8 @@ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
->  	if (dpcd_rev < DP_DPCD_REV_14)
->  		return;
->  
-> -	if (intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
-> -				   connector->dp.dsc_dpcd) < 0)
-> +	if (drm_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
-> +				 connector->dp.dsc_dpcd) < 0)
->  		return;
->  
->  	if (drm_dp_dpcd_readb(connector->dp.dsc_decompression_aux, DP_FEC_CAPABILITY,
-> @@ -4530,8 +4510,8 @@ static void intel_edp_get_dsc_sink_cap(u8 edp_dpcd_rev, struct intel_connector *
->  	if (edp_dpcd_rev < DP_EDP_14)
->  		return;
->  
-> -	if (intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
-> -				   connector->dp.dsc_dpcd) < 0)
-> +	if (drm_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
-> +				 connector->dp.dsc_dpcd) < 0)
->  		return;
->  
->  	if (connector->dp.dsc_dpcd[0] & DP_DSC_DECOMPRESSION_IS_SUPPORTED)
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index d7f4c6f2ba4c7..7bc3b36f38b82 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -215,6 +215,8 @@ drm_dp_is_branch(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
->  }
->  
->  /* DP/eDP DSC support */
-> +int drm_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
-> +			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
->  u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
->  u32 drm_dp_dsc_slice_count_to_mask(int slice_count);
->  u32 drm_dp_dsc_sink_slice_count_mask(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE],
-
--- 
-Jani Nikula, Intel
