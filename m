@@ -1,70 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812440;
-	b=yZkpF6e0dPucHnRQ/PxS/UO2K6RuPpNpNcUINwiZnY0xg2B2m5Bvro96Qtd1lBM3BrGN
-	 INOd0iwG9xesw1Uc01C0BrBsJaRLPG19NZOoxaazfCMBOXiHk7F7LH/vtiMx43LZH1FjQ
-	 8C9RV+GBX5ClnKqdnX1oQRU1GyT6cuAeguCGHJ9QQGJgIcRT2urPkXccLz04bmENW1/A6
-	 UG3UQSbY9lYk39N6g3wf5sqHKwD7Fj7zj/nG1Jael6nlvfnHKLiAXejB2TgWoIicbiduh
-	 y+S7wg7k+L/TNjaLLGAPuuzuoMBylfhW45VtO/IMloh4bwjLmJIe9gQQ/pyZM4wNsKQ==
+	t=1794812454;
+	b=dCwwTFaSH0nQrSItm6ZI4AOivthFLvYnOtAVAeSc5YgFhiMLvSPx2JZiBymnj0QTBPL0
+	 0iFp/AdJcKlRJWYugMFmefT7xEnBLsoHOcQhs46x8hLK2sleih7KiseUcQZy25pxJ13nC
+	 p0kdj6+nyICFCtyS9z/F/VnibWc8hyD5Okob9c5+SJrt+l2mFjnJCIwmXTWcCJcNrlSsj
+	 ESXk6oyTw/rInIwtfEX2gvaQcQRIJVngUvA37wWt/A0auZGXx5KlKbsned//zK0U3yTxw
+	 kFxKcWlHeN9ITdbKmz/qLhHLWUibkjGvM1PWrIiogiaw6KUV7MofX2l/g16ZPkrdupw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812440;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=xB+BFyiBhg43vKmSg8qYqtNW6BXxNZFsoZ8jrkcXKtI=;
-	b=gBgium7XVFYTBKjRbzVT29VkAr526eYJThCj+PkRWClHJ7PGUuTqa/RtU1g+MVoixvC5
-	 RdArw1XhLev3CDOS6eCWEHrJw7pTc9VlDI5D/2D2VAboiVnj66XrUaWMZkxFMtWrB8KN6
-	 1Lg7fRDZXBjS3sDzg0Hh51oDvDCMeViKxjT39EjcCDL3Exab9sBQAAWd5tITqPGu90bhr
-	 V8NRrwR9PGVOFw0ia66zb7EiLHGGhd6EZs7z4qg/CoJUl3TuF5Cvcfo3hKV3DhXY2nB2l
-	 qgzwY0yUPGWFDhHuChPlX1qFiG+4C/KJr/mUIoxIKOo5g0b+I0rb61eEg+ZgoZ/BuTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812454;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=kh6UlnWztI3zIgcftIH9P4UlRyIS0R7gY9R2lXWQmVM=;
+	b=fZc9IXvwbdmL049qAzG4/E5Vm1gYZg9hSJSujVtUcNp4UFp0JJmr8DDByLTOpPvRzO4C
+	 H5wmjhkTdZeyk80dbB07cwI6evQkhVXPBXnqz4AC8M3vTuusHKdI/Qn9cBi1JMGCe88T/
+	 7dnxGu8g4ulG+JEgByq7TQ+flwc9yOb15qhv6KysIGAq4zS16uW2Zbmpp+198QDoNJKrL
+	 2UKFADu16tMPhbGOduz4TfGC/oM6tTub1SIo6iZBdwYAyvJ5UNE0VX61TNn9fJeWwCwJ8
+	 twEma8KN3SZgYbn5RpWSt3kA+80XDMtmrNcCJDvx8VAC9iNmCUrOScNApjJoOjs8Zrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=URK1A+aN;
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="FPXsc6/Y";
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F70606A323;
-	Mon, 16 Nov 2026 07:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30F70606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684AE606A32A
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 07:00:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 684AE606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=URK1A+aN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794812399;
-	bh=xB+BFyiBhg43vKmSg8qYqtNW6BXxNZFsoZ8jrkcXKtI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=URK1A+aNbgmqzkfebTJo/cSldfDMGgGTXjXKBe0NseRqgSu8UhEL+eiAy/X+tALX9
-	 oGPiRdmGou/miOqacsumQ7H0w9o17QYJRNujBv7rHvvqkMV7L5/ntUb6Epsjy8FBVc
-	 gH6vsa5RiWxbRZ3XzXjPTPyGVIn6aqU4MWLQfYYo=
-X-QQ-mid: esmtpgz13t1794812381t4041da20
-X-QQ-Originating-IP: n004XmxgKogGDXiilDcoOCabJnUIn8l5kAG3eSkS40M=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 16 Nov 2026 14:59:39 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13267101832186099259
-EX-QQ-RecipientCnt: 10
-From: raoxu <raoxu@uniontech.com>
-To: mchehab@kernel.org
-Cc: luiz.von.dentz@intel.com,
-	pengpeng@iscas.ac.cn,
-	pmenzel@molgen.mpg.de,
-	brgl@kernel.org,
-	raoxu@uniontech.com,
-	sakari.ailus@maxwell.research.nokia.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: v4l2-event: Unblock DQEVENT after device unregister
-Date: Mon, 16 Nov 2026 14:59:38 +0800
-Message-ID: <C882A5D3FC331B7A+20261116065938.2035746-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FPXsc6/Y
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b25d977b91so2463934c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 23:00:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794812452; x=1795417252; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kh6UlnWztI3zIgcftIH9P4UlRyIS0R7gY9R2lXWQmVM=;
+        b=FPXsc6/YYHPUANe6YRfnNKcurPGcVKZs7fZ+VMLxDYFz6p5tjrk3djH3XhauzR8Obk
+         1ZdG34bGLLE6OW34lSXYceF4OHRcf9kkm4XltLCYgrY+TJw3y00c7mGuqU96ZPslc4ki
+         zvNG6WkMaTnBeZvYOCQTv1TOKKoj9W9TRPfLSdTXZqDiT80vZWKu0lRr/0N7RN/AArKx
+         qr4cAmg2uJ56emfW34ChnyPWkkdMxOBfiuJDnOlZwzVrFMrrEQKt3/dpUnb3P7yfWQAa
+         XwH5rqA/FYjFhJIVNuRX8vNgcIv9XjqcCJopbn6La+M5blUv2oaROTtX5lzHm/CP9/LS
+         eD0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794812452; x=1795417252;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kh6UlnWztI3zIgcftIH9P4UlRyIS0R7gY9R2lXWQmVM=;
+        b=cWKIiqWEcLqHw2iiXuiEPn0jQy4FeuuDECcV8a0QnPFPtUqvVFqBPnpsi1Lciohe7J
+         r6oga+ciJafFde6Nr/FuiHfy6NrO8bVqf32jqrOo7MinoPahRmDMnuooOIjDk1d3gcUr
+         qFXaDkOuPXA7uGQsadskUI6IVEJqShJh7xVsXmQcEFCEolHIadReBwG+HraTk5hcmAST
+         CSfH+SpOQiyq4U4jHM/LKx2R39mOCV01rdIGnjtK8Nxkec0f8C5+HeT67CXid0ONrKcC
+         pkJcVRlh5UijHseb0hI/wmtdoxvQ6I3VKyJAl0GXp4q1bo5mxKs0vQINa85I8BsKgu+L
+         5FrQ==
+X-Forwarded-Encrypted: i=1; AL+hErEt1lipTYoXGRcLFSCtCdxYtt5P5DrP5SrBICkgERG/4kxQ1C2vm/nwAlsVsHEfPVgZY0gWae0o+n3+zoM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WIbJTwRD5WMhH91Wz8ErQ1oW3xDBK4gTnF5Fq8hYixCySNhLz
+	4f9pXqQfiyb10sTeGZOoUlDq4KSM5qj5QmOXkMKayk9iYQlB1v5gRwu71drY+QQRPU7VAMmGOjM
+	YYk8sNsUJKA==
+X-Received: from dybrt9.prod.google.com ([2002:a05:7301:4709:b0:369:f2bd:5ab6])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4293:20b0:187:efba:9ba2
+ with SMTP id a92af1059eb24-1b5031562cemr9996482c88.44.1794812452079; Sun, 15
+ Nov 2026 23:00:52 -0800 (PST)
+Date: Sun, 15 Nov 2026 23:00:27 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,120 +75,153 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NPwdxSKNG61XtVeQFjBCp05K8CqgXIRWlm6XVis33V7IWi6PKn5OYXNR
-	QQKEC84XfmYMLshtdEtbHzGKtTPMyutZXz5zaUBGaZvOgtTumOSc6M0JjKJJpGwk8+I4I2C
-	d5YamO9RM8ptrk2NR6u0KfcO5zz3KOJ/tGDgjmGIzfTQa28jbpZ9FRqgXpdlMCZ0+QewdHk
-	B0sZeD3kLw/3J8IKzmq5YzKgKSu8a+XFsJcgUWal8cNco+oY9zokd2fjvDScJJjfWoF+wlO
-	hBF1FAJmd2K8IqYLV02dKyOBBR1AjPVQAIoBMEKpXLfcDkaYD6uJNEgS5i8BIWMRjA2hzXZ
-	FY6Y/xhf66DXv3aHo+ubSaT1qxZM53EOjiAB/r20VpuEJYyM0nNNbv1Q86gZm1lLGwTgmfe
-	QtZaBE/cND9q4S/JR2nWQH1/AKDmFo7+EKgXsk+oSBFff9q4lb3HRXpefGHbZViGNbt61lm
-	NMfj7cWB8+QKPdJsAWHzkZbKR00ClWKg2NBNUwYQDVPaYskr9aF81NK22tceCb2poUk0fOQ
-	2Pi2UaViDyLwfroxpGZwCoFsGBHpMpF1bHo+1ALlAxXYwLsqH14/XctWnPpg84uUAzwjHT6
-	hGOqrBpB/qjeJEqpULYBF9fet4ZKZuQeZjWwM3u5YltxUSZiI1LTHbJeQm3hAnj+bRzCTrN
-	pnRD2FKkGq3bPjr3vShzvcblQLu4MBxROODTFT69Qi+dRkPAEa2ygUBu9S3BY6P+/Vw5bsL
-	IuXeXiN7tL09/w3QJiIvQIw95xTMlnXESLitKMPTv45p177PPNJYJ4UZ+VVYf9A+R7v+R66
-	F3i5FNT3NmDZrZR4mIGa/4+kw7BZMlPiFot/yNoie/K9KgvlX7hiMhuVtOOhI7EvC0nJdqz
-	XdRN2wOs7HzwYNtkz9LvHxV5T4NwHJ6vvZsX/rlCVVT/yvWp60n3H0vOyVKXdgB23upmFkC
-	BEaQJUZfoe0xfp3LW9bWvjkeJVKL+gkZGsDqgpmo7Pxd2SIKYBblDnV0QP6V8W1k0F8i7Ky
-	bjH5WbRJOIjxlbQuflvm4TSa2EA2wApY6O4w6ovw==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261116070038.2968725-1-irogers@google.com>
+Subject: [PATCH v2 00/10] perf jevents: Block-indexed string compression and
+ default JEVENTS_ARCH=all
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Xu Rao <raoxu@uniontech.com>
+Compiled-in PMU event and metric tables (pmu-events-in.o) currently
+store ~6.9 MiB of uncompressed string data in .rodata on x86 alone,
+causing JEVENTS_ARCH to default to $(SRCARCH) rather than all and
+preventing out-of-the-box cross-architecture perf.data event/metric
+resolution unless explicitly built with JEVENTS_ARCH=all.
 
-A blocking VIDIOC_DQEVENT can remain asleep after its video device is
-unregistered. video_unregister_device() clears V4L2_FL_REGISTERED and
-wakes event waiters, but v4l2_event_dequeue() only waits for a nonempty
-event queue. A removal wakeup with no queued event therefore sends the
-caller back to sleep, potentially indefinitely in the absence of a
-subsequent event or signal.
+Compressing big_c_string as a single whole-table stream would force perf
+to allocate and decompress megabytes of unused CPU models' strings on
+startup just to resolve a single event, whereas compressing individual
+short strings suffers from poor compression ratios and per-string
+framing overhead.
 
-Reproduce this by opening an event-capable node, subscribing to an event,
-draining pending events, clearing O_NONBLOCK and entering DQEVENT. Once
-the task is asleep in v4l2_event_dequeue(), unregister the node from
-another process. The ioctl must already be in progress: a new ioctl
-after unregister is normally rejected by the outer V4L2 file operations.
-Losing an input signal alone is insufficient if the node stays registered.
+Instead, this series introduces "block-indexed string compression":
+sorted, suffix-folded event and metric byte records are packed into
+~8 KiB blocks without splitting records across block boundaries, each
+block is compressed independently (sharing a single preset or trained
+dictionary across blocks so ~8 KiB blocks retain high compression
+ratios), and every uint32_t string offset is encoded as
+(block_id << 16) | sub_offset. An ~8 KiB target block size sits at the
+knee of the compression vs. random-access curve (smaller 1-4 KiB blocks
+pay 22-128% more .rodata for per-block entropy headers and index
+entries, while larger 16-64 KiB blocks yield <15% extra savings at 2-8x
+higher decompression and page-fault cost per binary-search probe). At
+runtime, pmu_events__get_string() uses a lock-free atomic block pointer
+cache to decompress only the touched ~8 KiB blocks on demand, leaving
+untouched CPU models' and non-host architectures' blocks compressed in
+.rodata at zero runtime CPU or heap cost.
 
-This is reachable during legitimate use by an application with a thread
-blocked waiting for device events when the device is hot-unplugged or
-its driver is unbound. It does not require malformed input. Applications
-using nonblocking dequeue do not sleep at this wait point, and an event
-or signal can mask the problem. The frequency in real applications has
-not been measured; the runtime test below uses driver unbind rather than
-physical unplug.
+The series starts with a standalone BigCString raw-byte fix for
+describe_metricgroup() binary-search ordering, prepares the string and
+PMU table layout, adds the zlib, lzma, and zstd block compression
+backends, and switches the default JEVENTS_ARCH to all:
 
-This was reproduced with an ov9734 UVC camera (0408:1040).
-Subscribe to V4L2_EVENT_CTRL for
-V4L2_CID_BRIGHTNESS on /dev/video0, then unbind the camera's uvcvideo
-interface. Both video nodes disappear, but the blocked ioctl does not
-return. A representative trace, collected from the test program and
-/proc/256634/{status,wchan,stack}, is shown below (timestamps omitted):
+- Bug fix, string layout, and hot-path isolation (Patches 1-4):
+  - Patch 1 stores raw NUL-delimited UTF-8 bytes in BigCString instead
+    of C-escaped strings, fixing suffix folding and describe_metricgroup()
+    binary-search ordering on prefix-overlapping names (such as "Bad" vs
+    "BadSpec"; Fixes: 66c6e0c10027) without changing empty-pmu-events.c
+    so it can be cherry-picked standalone.
+  - Patch 2 partitions non-folded BigCString event strings before metric
+    strings and sorts entries lexicographically by their raw UTF-8 byte
+    sequence within each partition so identically prefixed event names,
+    encodings, descriptions, and metric expressions cluster into
+    adjacent ~8 KiB blocks, improving block compression ratios by
+    ~20-23%.
+  - Patch 3 stores PMU names directly as const char *pmu_name string
+    literals in struct pmu_table_entry (only 68 unique PMU names / 536 B
+    across ~443 rows across all architectures, already in .data.rel.ro)
+    so the compiler/linker merge them in .rodata.str1.1 and hot PMU
+    wildcard scans never touch big_c_string or trigger block
+    decompression.
+  - Patch 4 encapsulates big_c_string offset lookups behind
+    pmu_events__get_string(uint32_t offset) across pmu-events.c and
+    pmu-events-string.c.
+- On-demand block decompression backends (Patches 5-8):
+  - Patch 5 packs big_c_string into ~8 KiB record-aligned blocks indexed
+    by (block_id << 16) | sub_offset, adds lock-free thread-safe atomic
+    per-block decompression on demand, and adds --compress=zlib using
+    raw Deflate with a <= 32 KiB preset dictionary.
+  - Patch 6 adds --compress=lzma using raw LZMA2 per block with a 64 KiB
+    dictionary window.
+  - Patch 7 adds --compress=zstd using ZSTD_decompress_usingDDict() per
+    block with a once-digested shared 64 KiB ZSTD_DDict (~26% smaller
+    .rodata than dictionary-free ~8 KiB zstd blocks).
+  - Patch 8 wires JEVENTS_COMPRESS into Makefile.perf and
+    pmu-events/Build, preferring zstd, then zlib, then lzma, and falling
+    back to none.
+- Testing and JEVENTS_ARCH=all default (Patches 9-10):
+  - Patch 9 adds prefix-overlapping metricgroups.json test coverage and
+    an 8-thread concurrent event/metric/metricgroup stress test in
+    perf test pmu-events.
+  - Patch 10 switches the default JEVENTS_ARCH to all. Bundling all
+    architectures (x86, arm64, powerpc, riscv, s390, nds32) with zstd
+    shrinks pmu-events-in.o from 7.16 MiB (x86 + none) to 1.11 MiB
+    (all + zstd, -84.5%) and cuts the stripped perf binary from
+    13.32 MiB to 7.28 MiB (-45.4%), with ~3 ms median wall-clock
+    overhead on 'perf stat true'.
 
-  DRAIN_EMPTY errno=2 type=3 id=0x980900
-  UNBIND_COMPLETE nodes=[]
-  # About three seconds after unbind:
-  Name: dqevent_test
-  State: S (sleeping)
-  wchan: v4l2_event_dequeue
-  [<0>] v4l2_event_dequeue+0xbc/0x140 [videodev]
-  [<0>] v4l_dqevent+0x20/0x30 [videodev]
-  [<0>] __video_do_ioctl+0x1cc/0x4b0 [videodev]
-  [<0>] video_usercopy+0x15d/0x700 [videodev]
-  [<0>] video_ioctl2+0x15/0x20 [videodev]
-  [<0>] v4l2_ioctl+0x50/0x60 [videodev]
-  # Only after the test sends SIGUSR1:
-  ret=-1 errno=4(Interrupted system call) signal=10
+v2:
+- Patch 1: Avoid rebinding pmu_name from str to bytes in
+  print_pending_events() and print_pending_metrics() (use
+  pmu_name_bytes) and annotate _args as Optional[argparse.Namespace] so
+  mypy type-checks functions guarding on 'assert _args is not None'
+  (Sashiko).
+- Patch 10: Remove the unreferenced make_jevents_all definition in
+  tools/perf/tests/make (Sashiko).
+- Rebase onto latest perf-tools-next.
+- v1: https://lore.kernel.org/linux-perf-users/20261113210822.3112700-1-irogers@google.com/
 
-All three original-handler trials needed the test signal to finish.
-There was no Oops or hung-task report: this is an interruptible wait.
-With the changed dequeue handler temporarily installed using livepatch,
-the same unregister test returned without a signal in all three trials:
+AI Assistance Disclosure (per Documentation/process/coding-assistants.rst
+and Documentation/process/generated-content.rst):
+- Tools used: Antigravity coding assistant and Sashiko automated patch
+  review.
+- Summary of prompts and assistance: Interactive design and
+  implementation of the BigCString raw-byte fix and alphabetical
+  sorting, struct pmu_table_entry PMU name string literals, lock-free
+  8 KiB block-indexed decompression across zlib, lzma, and zstd,
+  Makefile.config/Build integration, multithreaded unit tests,
+  size/latency benchmarking, and Sashiko review fixes.
+- Testing performed: Built and tested JEVENTS_COMPRESS={none,zlib,lzma,zstd}
+  and NO_JEVENTS=1, JEVENTS_ARCH={x86,all}, AddressSanitizer +
+  LeakSanitizer, perf test (pmu-events, make, metric parsing), and
+  scripts/checkpatch.pl.
 
-  UNBIND_COMPLETE nodes=[]
-  ret=-1 errno=19(No such device) signal=0
+Ian Rogers (10):
+  perf jevents: Store raw bytes in BigCString instead of C-escaped
+    strings
+  perf jevents: Sort BigCString entries alphabetically
+  perf jevents: Store PMU names as string literals in struct
+    pmu_table_entry
+  perf jevents: Encapsulate big_c_string lookups behind
+    pmu_events__get_string()
+  perf jevents: Add block-indexed string packing and --compress=zlib
+  perf jevents: Add --compress=lzma block compression backend
+  perf jevents: Add --compress=zstd block compression backend
+  perf build: Enable jevents string compression when available
+  perf tests pmu-events: Test metricgroup descriptions and concurrent
+    lookups
+  perf build: Default JEVENTS_ARCH to all
 
-Disabling and unloading the livepatch restored the original behavior.
-This comparison used the running test kernel, not a newly
-booted mainline kernel.
+ tools/perf/.gitignore                         |    1 +
+ tools/perf/Makefile.config                    |    9 +-
+ tools/perf/Makefile.perf                      |   13 +-
+ tools/perf/pmu-events/Build                   |   49 +-
+ .../arch/test/test_soc/cpu/metricgroups.json  |    4 +
+ tools/perf/pmu-events/empty-pmu-events.c      | 7804 +++++++++--------
+ tools/perf/pmu-events/jevents.py              |  969 +-
+ tools/perf/tests/make                         |    6 +-
+ tools/perf/tests/pmu-events.c                 |  209 +-
+ 9 files changed, 5016 insertions(+), 4048 deletions(-)
+ create mode 100644 tools/perf/pmu-events/arch/test/test_soc/cpu/metricgroups.json
 
-Include the registration state in the wait condition. Attempt to dequeue
-an event after waking and return -ENODEV if the queue is empty and the
-device is unregistered. This also handles another waiter consuming the
-last event first. An in-flight call can still return a pending event;
-nonblocking calls, signal handling and mutex reacquisition are unchanged.
 
-Fixes: c3b5b0241f62 ("V4L/DVB: V4L: Events: Add backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/media/v4l2-core/v4l2-event.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-core/v4l2-event.c
-index 9dd2aaa95a67..17d3c53c0d93 100644
---- a/drivers/media/v4l2-core/v4l2-event.c
-+++ b/drivers/media/v4l2-core/v4l2-event.c
-@@ -70,11 +70,14 @@ int v4l2_event_dequeue(struct v4l2_fh *fh, struct v4l2_event *event,
-
- 	do {
- 		ret = wait_event_interruptible(fh->wait,
--					       fh->navailable != 0);
-+					       fh->navailable != 0 ||
-+					       !video_is_registered(fh->vdev));
- 		if (ret < 0)
- 			break;
-
- 		ret = __v4l2_event_dequeue(fh, event);
-+		if (ret == -ENOENT && !video_is_registered(fh->vdev))
-+			ret = -ENODEV;
- 	} while (ret == -ENOENT);
-
- 	if (fh->vdev->lock)
---
-2.50.1
+base-commit: b7ff10b9ddec8da75304c40fe4abf1ee4f9f0a43
+-- 
+2.56.1.703.gf848ed807c-goog
 
