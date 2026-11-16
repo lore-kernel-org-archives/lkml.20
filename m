@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795887;
-	b=QW8rBb0O0EHvb+AuqC/V3KBbnxhjopay3mcsbrAFrXgMR4wiagkEh05DHQzbnBhEOmGN
-	 BZB8fPKGcYELn4jxVh5zHZ7FbY8XaL4IBQ5fBKiVTkXLuOHbF+ue9qpEzAYtNSviMblMl
-	 60ekRPNPyLPDMtwPR9NU6mSeJpDPt41sezQryIaT/8AeIbwaBnBlv2R5GVVW7bFmLLArK
-	 CrsdTsNPnFGyYluH6PNc1Bp7inrwnQ0JbCJG+HJrhoyJxxq4KhDxN8n8sR6OXFQdL5Lxl
-	 cIwA15FIidPuDLFriBc2AdegPKi4Pr9/DaOGw8F+/m0CmTOUxGVbiChDIGsmownFj+Q==
+	t=1794795947;
+	b=IJWGjWi/9jSpyhJChA2OcijH2t6ouRBxA1E4fco3U2oiBJNc/Cb71oDA40123JUEqLpD
+	 m7C+/wWZSVL/FG8Uo7yCRMeFnUOEtqvBs/CRR82g74uoKSRzlRxwPawKFN4xYj20X1fUx
+	 yJW4wl9G8H7vRUw+hKusfZNigXlUZxfMdCeF76uZEx9oW9JcL8n1+vTRZkwCYzW7aTWEE
+	 TwIECfnKuKtwi6NUqiJV08jsQcW7biYy1EP1fbr7ZxJZLA+zj37SRJmqPQvYbLA5bYFMJ
+	 1+Lo+3+fmWJgl3NRRbS93M23FJILmpLVM/T/jSYZc+MUkLGs/JjjcSwtXNTIMlje16g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795887;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LsKScfO0dJa2srmU76Dlr1zeKCRPz7xQofnlV4WBL/E=;
-	b=Knpf0Ng/2GflXvb4pXWRauND8BnW4xmS89kGhq2q2OK393+UOu2dp0q7xD0eq3PnqJum
-	 TqtIpITSwNOWcxlc7qYdylGrtZ6IUxfQUOn40V2kuddmnSOtMWVn8dqpnuIy1XhMgfZlg
-	 dK6LyIn1eml5vm3IMVy5RX+6ziUTvW/SLT6/8YG+0xM/Fa8e8JbAd3+8/+BPhzixQ94jh
-	 kh3pM0OTTbyVqc9U4JHhQwlPZmFyKP5hdfp0rgbBROqvItPvC7HOE6y15d7QKsE1b9oy8
-	 ieh7RhDwILbRqoejw4o72LcxctxZ/q3DxrYSwDGhyJW/pyn9im4PJUSOJSLftESZMHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795947;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=4cVn2led5HgP5xLulb4J0qrBX+b1Zaf9EJxKInsiKbE=;
+	b=ZcIwWqUFHdlY8Rfe44vAjRVh5vXChlFnMMibJSiDFhxNhZyvy0F80qpBYq4MVC/d3MOc
+	 WnSvV8IHZC+t5DSDJFmXFjuLMfLqOvfxTT6C2Fo775YsVKM61KWqYfA0y6cTgD0PbLFcQ
+	 5w+YBUs6nTSjS1y6qPBXXDY1lVQYSdfaqTB57V6hSq/LDsF/7tA2qIXg6vFSa76ep8NwH
+	 upLV+hOhESTFxansYxaE4As/lwrllcED310yYghe/TmXjKt/0xKhW8dA+QB2zyStzkhB9
+	 c0SAswXx/IBCkMQ6prUS2FleR7C7MK466/WPuPHhtAm6hiy2bz1HpwGhhhQvzhTuSKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P17l79qk;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3586606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:24:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3586606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xSmOX-004BHZ-Ne;
-	Sun, 15 Nov 2026 21:24:33 -0500
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Waterman <andrew@sifive.com>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-riscv@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v2] riscv: mm: Skip the icache flush for special PTEs
-Date: Sun, 15 Nov 2026 21:24:33 -0500
-Message-ID: <20261116022433.49952-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D784606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 02:25:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D784606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P17l79qk
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36f479b9819so1249776eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 15 Nov 2026 18:25:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794795946; x=1795400746; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4cVn2led5HgP5xLulb4J0qrBX+b1Zaf9EJxKInsiKbE=;
+        b=P17l79qkCUNCqxrxH8hhdLwXXjDr3K8ukb7w3haB77kS8pl1erTNufHo5yDAZB5Qdh
+         ntN+1iXzCQ+FRe+FxTM6NrDrt0X4f1xPrlekTsEk/FsnZ31hjHmP10noPwLpsXpl1VS/
+         OshLsCafXGBQPN+QgN6qsB8CRSc576QMIfuLf8MvJp7M6ffpked3v7Enbf3QX/FLyn9r
+         VEOab6gZIL/+xghqxRl1p8GCylry/BvxEdalIZRyRx+6taFhRzwMyiwJVYD916INoA7i
+         qH4dVnHZBXVjKi9XLiolttvf0tm2PwXHtBYWe2THV/hFehHEjJ9RYDSzeHP7IPd2t1A+
+         ASpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794795946; x=1795400746;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4cVn2led5HgP5xLulb4J0qrBX+b1Zaf9EJxKInsiKbE=;
+        b=MssSGOq0vD8qbugofjsCGlYg7hQc0MZhfyj3gOsERdZTw8Xwmt33xf0ziQVHDUg28e
+         Gw4oNPLp+mE3e+Mk+pw7Yjk80xHduKUUj2R5CDHzhVecsd+LKVKeCDUNbiSms6i9ddrj
+         tNDq0E5phid5EKmT5CmIAbQfdDzIC2YgqcR0HO3Dv+LZuB/u5zOZW12q8bFrq08+DfE2
+         5ycn7b/MqKT1A7uyUfS3d5Ff+YL+tkzoA2Cg0MTyRqhLnX233XBy4oSvDsZbPtdV3ucS
+         oEogkkwOaIVC14DyWlqgsuqvSp8t8uGYxSuzjy8A3/BB6q3Y4S9wSJB9PoyDsNZiOTOd
+         NKKA==
+X-Forwarded-Encrypted: i=1; AL+hErGARaVl1wY8cBmADAHu9p2BF5gLZekp5sWcyyXRFrhQW0Uh7YBR14bVwelrreavoY/zWg26yl6TxSMLCvQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kEhHi8f7mC3b4EURa56fPvhkqglhqQ4PyDKky2cQZox0WLCrn
+	1M1B8GsB+GokfymB1x0pbWGdMpqQNf57eaN3lkvdzFhVRAKIOQyvFb3UYjT60Jw/bLx1knso9N9
+	Jd+wf9V7GPFKg6Q5cFxPzaUezp1XPEQ==
+X-Received: from dybnj40.prod.google.com ([2002:a05:7300:d0a8:b0:36a:de0:d28a])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:895c:10b0:35e:f1a5:9ba6 with SMTP id 5a478bee46e88-37963a4f1femr9418441eec.5.1794795945341;
+ Sun, 15 Nov 2026 18:25:45 -0800 (PST)
+Date: Mon, 16 Nov 2026 02:25:44 GMT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,106 +75,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Message-ID: <18e865672dda2d41.3137322e32332e3235332e313736.36f4d7.0000sendgmr@google.com>
+Subject: [PATCH] ext4: free HTree fname rb-tree at EOF in ext4_dx_readdir()
+From: Chris Wiseman <chriswiseman@google.com>
+To: "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-An executable mmap() of memory outside RAM through remap_pfn_range() or
-vmf_insert_pfn(), such as /dev/mem or a PCI BAR's sysfs resource file,
-oopses in flush_icache_pte() with the page table lock held, and the task
-never exits. With FLATMEM the kernel instead sets a bit in whatever
-memory lies past mem_map.
+When ext4_dx_readdir() finishes scanning the last HTree leaf block of
+an indexed directory, ext4_htree_fill_tree() sets info->next_hash to
+~0.  On the final iteration, once rb_next(info->curr_node) returns NULL,
+ext4_dx_readdir() sets ctx->pos to ext4_get_htree_eof(file) and breaks
+out of the loop without calling free_rb_tree_fname(&info->root).
 
-__set_pte_at() calls flush_icache_pte() for every present executable
-PTE, and flush_icache_pte() records the flush in the folio of
-pte_page(). A special PTE may have no struct page behind it.
+While ext4_dx_readdir() frees info->root when advancing across leaf
+blocks or resetting on seek, reaching EOF leaves the final leaf block's
+red-black tree of struct fname nodes pinned in file->private_data until
+the directory fd is closed in ext4_release_dir().  Processes and daemons
+that keep directory descriptors open after reading to EOF retain those
+slab allocations for the lifetime of the open fd.
 
-Skip the flush for special PTEs, as arm64 does since
-commit 71fdb6bf61bf ("arm64: Do not synchronise I and D caches for
-special ptes").
+Free info->root before returning EOF when info->next_hash == ~0.  If the
+caller later seeks back, the existing !info->curr_node check at the top
+of the loop repopulates the tree on demand.
 
-Reproduced on QEMU virt with the riscv64 defconfig by mapping the PCIe
-ECAM window from /dev/mem with PROT_EXEC; the patched kernel maps it.
+Benchmark results (/proc/allocinfo, 256 open HTree dirs at EOF):
 
-Fixes: 08f051eda33b ("RISC-V: Flush I$ when making a dirty page executable")
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+  Metric                                  Before        After     Delta
+  ----------------------------------  -----------  ----------  --------
+  ext4_htree_store_dirent live slab   1,007,616 B         0 B   -100.0%
+  ext4_htree_store_dirent live objs        10,496           0   -100.0%
+  /proc/meminfo SUnreclaim delta        +1,246 kB     +133 kB    -89.3%
+
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 ---
+ fs/ext4/dir.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Notes:
-    Changes in v2:
-    - Reworded the source comment as suggested by Jisheng Zhang.
-    - Shortened the commit message.
-    - Rebased on v7.4-rc3.
-    
-    v1: https://lore.kernel.org/all/20261017013634.792220-1-nickolai@csail.mit.edu/
-    
-    This patch was prepared with the help of an AI coding assistant.
-    
-    Reproducer (QEMU virt, riscv64 defconfig, run as /init with /dev/mem
-    c 1 1 in the initramfs; 0x30000000 is the PCIe ECAM window, any non-RAM
-    range does):
-    
-      riscv64-linux-gnu-gcc -O2 -static -o test exec_mmio_mmap.c
-      qemu-system-riscv64 -M virt -cpu max -smp 2 -m 1G -nographic \
-          -kernel Image -initrd initramfs.cpio -append "console=ttyS0 rdinit=/init"
-    
-      unpatched: Unable to handle kernel paging request at virtual address
-                 ff1c000000c00008, epc : flush_icache_pte+0x5c/0xa2,
-                 ra : do_remap_pfn_range+0x284/0x3e6; the task never exits
-      patched:   mapped at 0x7fff8418b000, first word 0x00081b36
-    
-      #include <fcntl.h>
-      #include <stdint.h>
-      #include <stdio.h>
-      #include <stdlib.h>
-      #include <sys/mman.h>
-      #include <unistd.h>
-    
-      int main(int argc, char **argv)
-      {
-      	unsigned long phys = argc > 1 ? strtoul(argv[1], NULL, 0) : 0x30000000UL;
-      	volatile uint32_t *p;
-      	int fd;
-    
-      	fd = open("/dev/mem", O_RDONLY | O_SYNC);
-      	if (fd < 0) {
-      		perror("open /dev/mem");
-      		return 2;
-      	}
-      	printf("mmap(/dev/mem, phys 0x%lx, PROT_READ|PROT_EXEC, MAP_SHARED)\n", phys);
-      	fflush(stdout);
-      	p = mmap(NULL, 4096, PROT_READ | PROT_EXEC, MAP_SHARED, fd, phys);
-      	if (p == MAP_FAILED) {
-      		perror("mmap");
-      		return 2;
-      	}
-      	printf("mapped at %p, first word 0x%08x\n", p, p[0]);
-      	return 0;
-      }
-
- arch/riscv/include/asm/pgtable.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-index 2ebd5fa5adc5..48eeeac1019b 100644
---- a/arch/riscv/include/asm/pgtable.h
-+++ b/arch/riscv/include/asm/pgtable.h
-@@ -624,7 +624,11 @@ void flush_icache_pte(struct mm_struct *mm, pte_t pte);
- 
- static inline void __set_pte_at(struct mm_struct *mm, pte_t *ptep, pte_t pteval)
- {
--	if (pte_present(pteval) && pte_exec(pteval))
-+	/*
-+	 * Special PTE mappings are not intended to be executable and may not
-+	 * even have an associated struct page.
-+	 */
-+	if (pte_present(pteval) && pte_exec(pteval) && !pte_special(pteval))
- 		flush_icache_pte(mm, pteval);
- 
- 	set_pte(ptep, pteval);
-
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
+index 8d7b81e6948e..435300cd2c61 100644
+--- a/fs/ext4/dir.c
++++ b/fs/ext4/dir.c
+@@ -640,6 +640,7 @@ static int ext4_dx_readdir(struct file *file, struct dir_context *ctx)
+ 			info->curr_minor_hash = fname->minor_hash;
+ 		} else {
+ 			if (info->next_hash == ~0) {
++				free_rb_tree_fname(&info->root);
+ 				ctx->pos = ext4_get_htree_eof(file);
+ 				break;
+ 			}
 -- 
-2.53.0
+2.56.0
 
