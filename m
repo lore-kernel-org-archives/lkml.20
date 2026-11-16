@@ -1,108 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794861897;
-	b=oWbFelvMxtzLcEwZu8e0vCxEonnERpKy3ijYT46kTtYqG4TeR1CSy4bcvK9YHzgNIqvK
-	 khc+6eBaKo9V2nHBLYriexL3BkISy3XcTgLuIOv419rs+UcKRNycLPKE5usqrm6E+WJXe
-	 B1ZzfE6jnulTBVveC2YUzH45ymNm7/Apy6IDfD02BZmpK/IbRnLpHyur7sztane3thFZF
-	 l6mn8XT9Zgr4MhE42GJd/rpYYA7Svugw1xq0qtSTqH8S2YZ3p/AG8Grja+qSoSGQ+rzVG
-	 exl2hbRC4tqeg1L/sYfxwVn+He5sh/R/RywDkozv7kKJ7FZ7Df5xsYsgxDjSq6yGlfw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861897;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iLNRB7He7rjr+/wiaJxfR3wgdC/I+r/KXciImfr/fxw=;
-	b=XIC0eB/hvtnCMsawvPLU61KiuvKLX+fdWlKWr0xhEQTX90G9+jKZ1xohy1FpVwBQZ6I2
-	 6hPNoVQK3OiAK/r50ywim1A1Ds/Qdc0p4vPURLlyhg0jVdgwBS9XIIx5p05KuNaeyoVAm
-	 yl9XnubmTeiAyAMWEKj/AEQDS/8CIr5ahJFFejHTeNcq7S+hEPh2rMGkzTU2oPbQeBPB9
-	 CvyEqhoeWKGe+LmG28Sd1lMyuvoIpj9oKcT9SJtQIBf3q2OzOLPUgUqVAiC12WqRxbZP9
-	 ldLCqoFfydbQCdmxAeVLHcQUOqvrZ4mTBn86Sxek3pxa5xJ0jo2o2OkWyKiYXuCewjQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EO8ZFL2f;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.28
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010028.outbound.protection.outlook.com [52.101.84.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794861921;
+	b=I4pZPZbewnimNxVJVlHGVazlnodo26wep33vOp/1qQykOqiDtupgGY7uaKefEjVEK6qa
+	 HUaQHVmZ0Q7uPNRLYMQhDTRM1YZDI3EETPipwMggIR8L8t5vGiHGrgXdZOS84T/Jin/K6
+	 j/ZsBL2ANmLnzgTWcH5/Ji4FMRP7fk2ur2/O1rICmC8oV1vm3aN6BmfTFRgEHbX+2Sk/V
+	 s9l297XT694RA2VX8qEbbsbH9z4fRyPox4URkJX/6meO8xUJIlXvv8KKXIE977x6CJffa
+	 fyk3eXHfDLo2he3M5iHvQsCTVXpF9AIx0swsRRUz9YmPNFbvxiru9lOH7Z9KJ7PIJew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861921;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=i74bkDZDW2utys7XBRaw8ZBdMRzIuwI/mGYldrQ8McI=;
+	b=xHKCadvZBDHGbA2ggI0Fx3jhlEl88QNtHJ7RbNdCvBqzLJbC6TTFsPMgTYe93YiVZmSH
+	 peHe7w/cBsxrfmabUejOVGpUGGY9h8v54MkN0LKPSUtbABuxrPvRgtrhZy+AKRU3QgJFd
+	 Bh7AHViuNhKzQFTjoj2/1ocf2oaeUJwja+bTn9qp3xnc7PLEi2gaKTGdZn1wujpHZK4tb
+	 6CB+tUAQBrThP2yJ7fTA2sMyMVFt7BXLo6IrBsyXfG8h17SNjEdJzGEdJPQV36UU9Psrq
+	 v1w1k8xb7BMqb+mgfbKpGYFEkPYVHqd4P3mKFjrwsnyYUgEcfaeB4G/1tysWozO3KNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Topt6J5Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59155606A32C;
-	Mon, 16 Nov 2026 20:44:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59155606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5970606A882;
+	Mon, 16 Nov 2026 20:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EO8ZFL2f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yrLz7EiZ9q+gpxyGVHxLSP+uqJiKdwtBTmiCJfrqzxekPZiuFQMnvBHHJDhMocEqHa+uPiJrVH/cKmUmTk9rzvcyUH8Y3Xey3GdQrNG867ZoENJon0ChIXLMQ5sZE5pph9LMuaMwY/cv1tO/PY6CiNtFX8cNFb+10jbyBby4SP0l+B7sclU8r8goTA1bfY4q+bKkf7gJZu1IkYDfnQtzYYMQ1xx1uydDir7PzjB248TF8ZiRJx7SRVwnFY5sxL0bW6heRdxNxgDpAyxEFF4SpQb3j8VO467JBef5vjTAaeeNIkA1MZGbjtIZySW1HnE3hXxdo5NoLE//VvjQNFlhvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iLNRB7He7rjr+/wiaJxfR3wgdC/I+r/KXciImfr/fxw=;
- b=RyXJTr1OIYtDZgTXTlbDlxC+wACEh5bpgX9gnY6fTjgB/fvo5L8sgMxao8AQDjLCmK0HaAPvtjz4JG2RcCWaN5dopr3crriT2DMpyN8fvcQgVfFXqvOT20nLwDf8rSGXUoGAz1jUkpriheLFIdM+6sMwZojgfqHJjgyIdgeAnPXn9xJkn0/hmiYFjSMZxc2h4Cm3EgOUezdcnZ6DAKanMMrlIfnEvbCjaIhhH0WbU+47w9LpiUEKWsiFkKBTT03CSfwfC2UwCNQ+TFW/EiG+WJCgKk7iZxKjK+R/g0nq7A4tyB9yIkcY6t4mv36s3Cf12f33aRpqbYQITH3RNB6KMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iLNRB7He7rjr+/wiaJxfR3wgdC/I+r/KXciImfr/fxw=;
- b=EO8ZFL2fhe8tL7QxLGBD+9rmH9sxPRhJs6M1PfVxRwLNd53q0YX65ResAM8Qf9GQUx9yCYQkr/NUcT/7rpV5YffCBZdg1ZQgVQM0OYhNta6HUFu5PiS91WoW+ULJyXC/HQAc44ptmq7hLQYnJTI6ezQrJMD1qKN659uUwqLcicUe3OPhwCv/nbRz1P/BTD4cRwibMhvxyDanbdLdkR8zEhFjYyspMu8hBjTThvoJzB+iiQlKxdODKhlDzZ+40ip1l0z4taPbEWD+POjyQ/wCnkdOt07CC1YkRllGSGgzQJsJ+opT3Cugsv8V/T+HRrUa5l6hBfUnxAOoFCgyArLemw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI2PR04MB10859.eurprd04.prod.outlook.com (2603:10a6:800:278::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 20:44:54 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 20:44:54 +0000
-Date: Mon, 16 Nov 2026 14:44:40 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Ludovic Desroches <ludovic.desroches@microchip.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Linus Walleij <linusw@kernel.org>, Zhang Wei <zw@zh-kernel.org>,
-	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
-	imx@lists.linux.dev, linux-actions@lists.infradead.org,
-	linux-riscv@lists.infradead.org, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH 2/3] dmaengine: convert to subsys_platform_driver_probe()
-Message-ID: <avtrONsd_CZLSbdj@SMW015318>
-References: <20261106-dmaengine-subsys-v1-0-780eeddbf3ef@redhat.com>
- <20261106-dmaengine-subsys-v1-2-780eeddbf3ef@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-dmaengine-subsys-v1-2-780eeddbf3ef@redhat.com>
-X-ClientProxiedBy: PH7PR10CA0013.namprd10.prod.outlook.com
- (2603:10b6:510:23d::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Topt6J5Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079221F000C4;
+	Mon, 16 Nov 2026 20:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794861921;
+	bh=i74bkDZDW2utys7XBRaw8ZBdMRzIuwI/mGYldrQ8McI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Topt6J5YLjpoEdU0G7nd51NYyv9gldy85Wfl2RY+5bzO9TFA/nLEPSFGzVfVGII3u
+	 sYUZwD8bmbLiQQHcBBJE4NVQ/as9wlHsXad2eOP6NHdWGMr1+42PhKSRhqwuiqH4VO
+	 AMW+j9F0rbAExTOqhX+235UAe0vhGPjFQk5CXW+VvTXrwnAnApKDEcO/R6BK9ZZnVl
+	 4xAVMMx1HIb5XRVSIRqicT3ixlZpEyPLoxLUeUwmkVg8tLgN3+ebqeGptFQ1nIKcsJ
+	 72MEQYR18cDN5B1FRUHnqoTvVt9NlT7iwuTh/SezDln9X6RXAgvL/3+vOFfoeyIeTl
+	 mvAPrEZaBbA8A==
+Date: Mon, 16 Nov 2026 13:45:17 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org,
+	"Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <20261116204517.GB1037705@ax162>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+ <avrPcQ4sOkgJPbkZ@gmail.com>
+ <20261116130159.GA1327949@ax162>
+ <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,106 +62,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI2PR04MB10859:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d88ece7-1ae3-4baa-0417-08df442277d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|23010399003|7416014|18002099003|22082099003|11063799006|4143699003|10067099003|261021121427099003|56012099006|261009220027099003|261009221727099003|261009223327099003|261009223027099003|261102123227099003|261009221227099003|261021123027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	cnY43WBqfKOqqKx4SqwPO69BL2JxivT9S/nhZoO9pPbYpQ3VT6H33xnHt4hZp+IkJu7XcV/7fPcmZcB2Ey/P4vc0m70AtIBEVQqZstXxdc5m+TAuFszpq5UJR+PZ5VLqYcba8EULP7aET0y1KiCl1Sl6uSWuJNxf/uIStgaIk3HpzmltSOVFOeO8ApsYUPJ0gkqbtTdJcST4GtNcR+1VZjF7MjwKX6yZ78GtB4mbpkN8MW8iptwU65DM4JeDi32ctU/DiGxGjkxiFkeIXYZwqcdRFkdZyrtVkYt+5qpXEcoERbgvYoMMTifcBy/WdtJYRvnMhg7Ugdl63St6q5NExcEArYAfIcMAeH3ukBMfmkYwpht2f+YE/WcoRPyUHcoWCKibFtTJ6CtPKlD75OGi0IRwOkbOYheDyFjEMiMiVug6f0Ulylb2DUAbE34Tm/bZl4JnTudP6HHKV4FCid6VOKbQfCI4QoHHXa7+c2Kd2H8DBiuL0oFAPA2ofI2oBVd5Hc71+ftes8To/jAqpjKU3bLlJMm+QkwyJv6ayIBbW9gob6mky7q+8VAXLmIksf73BzAUrBNmPIfuR5VUj5RSRVifcl6nlpS4ciVu4r596uqSdDsyAiE0LEg2e8uOw7cnEdJlM1oH6JXsLnfj1LkPBOJowP5KbbMch76rYRob93M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(23010399003)(7416014)(18002099003)(22082099003)(11063799006)(4143699003)(10067099003)(261021121427099003)(56012099006)(261009220027099003)(261009221727099003)(261009223327099003)(261009223027099003)(261102123227099003)(261009221227099003)(261021123027099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?N2Mwn7HZFDeWI7Cp4MrmXlfpifI9t94uUfaU9YqFsqoKgkggO2ZxQP0FBH+p?=
- =?us-ascii?Q?fA8GHmk2t/AR010qtNh9XvHFRBoa4n0xSnN03Kg1a5gGOCfVKMIhAS6utmzJ?=
- =?us-ascii?Q?TW5yzLvAt6Ohk2JcU2eJ+6jRohoHZRPAJPU6PnTW86HL1uUp49RFt18KLTBY?=
- =?us-ascii?Q?EY8AsP8edhfGM07BiL0UlzA1653j0W9Kp0BHsBI8vQSCDwpryFcRNrGHUY9K?=
- =?us-ascii?Q?4P/HPR0HAZ3KWbSNFLKbRmGPO5EvKHtYLxi+jNA4IGX+mAktg0RhWOZ+4X0R?=
- =?us-ascii?Q?SHQaob55A1hFQ3YTd0gIlKNG7NFN7YYER/27oLle3AuOo7K3lYIPuJCEB7jl?=
- =?us-ascii?Q?HgHbrLaLuH+nwbPvXa0GV524N4Q4hbCSIldYF0rBjvcy2P5ySBa1W72Lyt2d?=
- =?us-ascii?Q?rQS1v/o4dGJlSfPoPkgqr6mvYJtDch8jTgilaNGoIJ2bFH7Tje1/8yaA2oKe?=
- =?us-ascii?Q?jKY6ZgbFLQRQlm726sQHGHeLZVEbdRrkr0dQoL7wZhDkDf1ZAHVNm0izgVjF?=
- =?us-ascii?Q?UXSspNUAVutQHU7nJ8OU9x1oUuuN034dI1t5fXLl476oe85/uM/8WJXZ4qzB?=
- =?us-ascii?Q?Rd3x0Jg1imz5Ued8C9Raqvk4UDpY2++KBeqhqscykcfBDh6co3F7H+uw6Cww?=
- =?us-ascii?Q?i98yD+U+tIxVjj7ZqpmHsDsdtmzab6Vmv12PMi0V20U/rnOenHKtNexN1x+/?=
- =?us-ascii?Q?TFbPs6NCayITXY/1aNBRWD45uI5z35VbmCUKTqLXHGC5eGHFD6LIazj0ZSzJ?=
- =?us-ascii?Q?UelYt5MvHPYecmbvLrSGqjn8jp3+SbR6FgO1D8dBpN2uYww+qkGl865ejHYX?=
- =?us-ascii?Q?RlXgDSZ/DpiQBYsJZSVY9JtT30fWonodExF2V9d+b4rzvBNnn1hcTWN1oTCJ?=
- =?us-ascii?Q?gnVxnzG7s8vQBMVvma3xK8r4G59PJ2AL2ganIcwAO2OjZxfwkKcKUbvqxvHd?=
- =?us-ascii?Q?td75bcMoYOgngjpUMH6bn6p9UkzRCJkc2Lnwv3pPkhavkDuOwrVySTWuiOvb?=
- =?us-ascii?Q?3vsxKbTtrbsvqvgApS9a4ElutiOHiWljP4HIIXWtOr847tNUrJTDoy0SVBWG?=
- =?us-ascii?Q?xj/QCV+l/I3T22ZoU+q4y+uXubZvAvnD2IR4VIBqVAAg6aZkY6TgjUBUpH+O?=
- =?us-ascii?Q?u/nTRTotDVe0VTh4Ibtie9C2bsn21QcuJ/n+W1R6mTF3Sol+3A4Ak6LCqtNo?=
- =?us-ascii?Q?+fzFUhr9Xi1VJ434dIFc34lOE0E8SkxR7AIeZDgJl57Lei4wZ7MqIw7HrTv+?=
- =?us-ascii?Q?qm+6vohNPd7myacnT/AorSjph4o18dbjIZANtPGImK0hnA3fHopwA8zv+/MK?=
- =?us-ascii?Q?TlFHYfrznieHR9a7OasJaBLMQNo738hd3UBfxYvSa4YjCLpxFoc8QM3gIbq0?=
- =?us-ascii?Q?yPiE9rg8Igizd8j1YGz9laYQa3hvPJ76D4Q9LXnoHKo+34AqDaKU+6ss/+5p?=
- =?us-ascii?Q?o/0ff//5EKAs6M0rp+GUKUTrB51UmOLql2HTR2xgQMvEXE/HXxak/Fvf6K+/?=
- =?us-ascii?Q?kovJ3vHNgsfmY/yHNtw0ZVCdV71lydVb6Twm8kqXrh5SbXqnJpCUcJbGckPA?=
- =?us-ascii?Q?0I5NpnCKZLwMCMTGVqfK1AobTRvENvFfgmtzRodGiXoW3rFJohURyLP4uHUq?=
- =?us-ascii?Q?Ah53uCP+mzIEtjnRoyluR9gYTIHYga2xLquahF8kvxhd3ZNCt4MHObnN/5DR?=
- =?us-ascii?Q?ZRZJonWu/t/uWu3/AZ+XHElBUwSQ7Rhjx3kNsRMPnM3BekvyHq6JmxavT3HU?=
- =?us-ascii?Q?7S4Y6+5fqDEge5tJNOgXx7RHrBsI3QRpbwTk5aA646IvH3QR69L2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d88ece7-1ae3-4baa-0417-08df442277d8
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:44:54.2132
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fwCdV1O8H/yj0mTMoQ1hPAwvu4smCXjoNDQZDf6o4qNcZO2rGeUqB0RMaUQTnbxOxBzOP/s6H+rUtJ1gnXkmoNzRfn95pA7mOJHNVI5POyAoWTnoCC6muNXuFtmAxyd9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10859
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
 
-On Fri, Nov 06, 2026 at 07:06:09PM -0500, Brian Masney wrote:
-> Reduce boilerplate code in these drivers and convert them over to use
-> the macro subsys_platform_driver_probe().
->
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
-> ---
+On Mon, Nov 16, 2026 at 07:48:34AM -0800, Linus Torvalds wrote:
+> On Mon, 16 Nov 2026 at 05:02, Nathan Chancellor <nathan@kernel.org> wrote:
+> >
+> > On Mon, Nov 16, 2026 at 10:40:01AM +0100, Ingo Molnar wrote:
+> > > Can we just limit the feature to when host == target, ie. to not
+> > > work it around in such a crude fashion?
+> >
+> > That was my v1 but Boris didn't like it:
+> >
+> >   https://lore.kernel.org/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org
+> 
+> Well, that is admittedly very crude and hacky.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I guess that's one way to describe it.
 
->  drivers/dma/imx-dma.c   | 6 +-----
->  drivers/dma/ste_dma40.c | 6 +-----
->  2 files changed, 2 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/dma/imx-dma.c b/drivers/dma/imx-dma.c
-> index 81c6276436f8..8e0e82df8c5b 100644
-> --- a/drivers/dma/imx-dma.c
-> +++ b/drivers/dma/imx-dma.c
-> @@ -1238,11 +1238,7 @@ static struct platform_driver imxdma_driver = {
->  	.remove		= imxdma_remove,
->  };
->
-> -static int __init imxdma_module_init(void)
-> -{
-> -	return platform_driver_probe(&imxdma_driver, imxdma_probe);
-> -}
-> -subsys_initcall(imxdma_module_init);
-> +subsys_platform_driver_probe(imxdma_driver, imxdma_probe);
->
->  MODULE_AUTHOR("Sascha Hauer, Pengutronix <s.hauer@pengutronix.de>");
->  MODULE_DESCRIPTION("i.MX dma driver");
-> diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
-> index 2e83503f71d1..4fb54c8f2d23 100644
-> --- a/drivers/dma/ste_dma40.c
-> +++ b/drivers/dma/ste_dma40.c
-> @@ -3990,8 +3990,4 @@ static struct platform_driver d40_driver = {
->  	},
->  };
->
-> -static int __init stedma40_init(void)
-> -{
-> -	return platform_driver_probe(&d40_driver, d40_probe);
-> -}
-> -subsys_initcall(stedma40_init);
-> +subsys_platform_driver_probe(d40_driver, d40_probe);
->
-> --
-> 2.56.0
->
+> Maybe we should have some config variables that depend on HOSTCC, and
+> detect it *that* way. It does appear that we don't have any model for
+> cross-compiling in the Kconfig setup, but maybe  we should..
+> 
+> I'd actually love to have support for making the compiler itself part
+> of Kconfig, so that the gcc-vs-clang could be *in* the .config file
+> rather than being an external thing to it.
+
+I guess you mean having CC and HOSTCC and friends as values in Kconfig?
+
+> I've mentioned that before, and the problem has typically been that we
+> end up depending on 'CC' outside of the Kconfig scripts and
+> independently of the current config.
+> 
+> The recent work to move the compiler flags into Kconfig itself may
+> have lessened some of those dependencies, but there's probably still
+> lots of small details.
+> 
+> But for the whole "cross-compile", maybe we can just say that
+> X86_NATIVE_CPU depends on '$CC' being the same as '$HOSTCC'.
+
+Unfortunately, that would not for the LLVM case that the commit message
+brings up since HOSTCC == CC (we switch targets using '--target'),
+
+> Or even do '$(CC) -v" and '$(HOSTCC) -v' and check for 'Target' being
+> the same, and having a CONFIG_CROSSCOMPILE thing for that?
+
+Hmmm, not a bad idea. That does seems to work based on my initial tests,
+which would probably be the most generic way to solve this? I am not
+sure I want to extrapolate '-march=native' out of x86 right now since I
+think architecture maintainers should have the option to support it or
+not. However, this would at least lay the ground work for generically
+abstracting it (hopefully making Boris happy) and allowing it to still
+be enabled in the allmodconfig case (hopefully making Ingo happy) while
+still resolving my original issue.
+
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index 6e7a366f0798..4643b3482d94 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
++	depends on !CROSS_COMPILING
+ 	depends on CC_HAS_MARCH_NATIVE
+ 	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index 2acbd40a38f1..ac2e3de50ac0 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -32,6 +32,9 @@ config CLANG_VERSION
+ 	default $(cc-version) if CC_IS_CLANG
+ 	default 0
+ 
++config CROSS_COMPILING
++	def_bool $(success,$(srctree)/scripts/check-cross-compiling.sh "$(HOSTCC)" "$(CC) $(CLANG_FLAGS)")
++
+ config AS_IS_GNU
+ 	def_bool $(success,test "$(as-name)" = GNU)
+ 
+diff --git a/scripts/check-cross-compiling.sh b/scripts/check-cross-compiling.sh
+new file mode 100755
+index 000000000000..fd1af38926a9
+--- /dev/null
++++ b/scripts/check-cross-compiling.sh
+@@ -0,0 +1,19 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++
++hostcc="$1"
++cc="$2"
++
++get_target() {
++    "$@" -v 2>&1 | grep -o 'Target: \([^-]\+\)'
++}
++if ! hostcc_target=$(get_target $hostcc); then
++    echo >&2 "Could not get target for HOSTCC!"
++    return 1
++fi
++if ! cc_target=$(get_target $cc); then
++    echo >&2 "Could not get target for CC!"
++    return 1
++fi
++
++test "$hostcc_target" != "$cc_target"
+-- 
+Cheers,
+Nathan
