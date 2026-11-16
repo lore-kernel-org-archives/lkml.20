@@ -1,48 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.30.189.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794869021;
-	b=iXNh4Z9dY047QrGP+VUJi5eTWMc1CC6h5fg+neW4T3HNqFkQdX/XPF2Td2deXTngiNjo
-	 S+z1Vih4Xxk6ALbk6IlkIAXIQZgKZQr5GVyv10BJXcH1SiW/CtG52/W+gLJsurtV9oQtu
-	 sNQYM0sMEe93o+MXuixv47hx1yT+flSD4/oX2bxOWZgaNMIIi/cMNatTa5TMEGQFAnfKn
-	 4E8t0lkJt4zAWmmfau/FSTumMVt7wHT4Y7rv8P/BZo5Mp99dlPgo6D/+mMeYlbSbFZ/Pp
-	 OStAgIQ0HNjim5k8Lh7q+9EfnnDieDmu0/yGGKbyj6MQGZudyDLh5d21xGqjRMc39EQ==
+	t=1794869016;
+	b=4h3V9GKiLkgFdMMHXEGNEnLq/G14KERPDJX7hk6BCv3OzTAKdpoYsX7r/Vb4WxaBPrjS
+	 8z1gZ2PzAZp85AM4vKakZ0meW4+uZUcSUkNLO59hv7A5NUqEfRXhPl7hWr4vKBFjLb+8R
+	 LS+gtQ9k5/XBOrKuMB+vXGNCoby5hw9JOLFkT7uewLXZw7Ssdh0nu3UjQ5hZiAtqPbCK5
+	 Rz4rHtQHqnGsvy50JLaGIIELNaP+jX35R+vgqGjuzEm78lamE0ub2nLA/Qtms5tKYVUcq
+	 IaXrrg8tOUW9MG3ow7m6JTI9vJzwKehgOtOQ4BoDJIivz9aR7imhtBsLZBfELYpbF/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794869021;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794869016;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=e0lXXEZC9dHIaVd2wKZITazVzsaitYm0GW6OeFVOYAU=;
-	b=J7xykU1f76P2cwrBriOasaXwdHe1SM96mdvrjWZ3qlUqYl7KOGTVsXaFGR/rvdeLLLPa
-	 sSznB7PPhAc+A+1HyQARzLEe9IwqR9+aW4CCU8fRdG9CMHTxIV6xG7KfJYSMgcaaGhLQc
-	 5bJqyeCyOMGtzi43hQfOGhqtg9gcYI57HPRm8bAoE5NTIkZQ0goag1ANLbUEvsGk1rZLD
-	 OPvmXuu6BOtvSuwl1fz1XXPEipboCw+lnKtwfDkjZt7ISzcxKTsIzw7CiCpRFHWpmNWzO
-	 rG0HWftgL3qHBeK1LgLKRz4ORM/kHGVPUGLggvfISzI+hI0RxtI5nqPIALJ0/sKlznw==
+	bh=6KY2FKP+FBfUQwA57M/uE9a8s4UDJI0J/zaSKYPKyLc=;
+	b=GJ3EZ0dt8CS5MIdnDNXL20KKFFtnLaR8bKuVoPqAAOHrY8+iMlJSGn2TUhdiR2nnU91M
+	 oFnMfnSth6ym8VKGgOR4N5rJzz34GCDzXzF5elFVA7cb6r5XhGr8aRpTUVRgrNJp0pLAZ
+	 wQm1Pntp5ABL8frOw/F1JWWIvLU/KPjQUvZR9f8fXXc72+6DqcpBlCj4P7M9IziHN1OYR
+	 YIGNSS8zhtm3GZdCRbiLDmE6Te2JFhp6XTHJuWWvGpfhEc/H1Si7lkipeRXZ/TwH1ztaU
+	 yOyahfME83Nl93kgwhjfiYAmBmZuUVwPU4l6hM5F+tUsbKIBzct4JPlJbMQxkRqKzig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=iodev.co.uk;
 	spf=pass smtp.mailfrom=iodev.co.uk;
 	arc=none smtp.remote-ip=46.30.189.100
 Received: from iodev.co.uk (iodev.co.uk [46.30.189.100])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A147B606A89D;
-	Mon, 16 Nov 2026 22:43:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A147B606A89D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 657E4606A329;
+	Mon, 16 Nov 2026 22:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657E4606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iodev.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iodev.co.uk
 Received: from localhost (unknown [79.116.217.174])
-	by iodev.co.uk (Postfix) with ESMTPSA id E1EA35E22DC;
-	Mon, 16 Nov 2026 23:43:39 +0100 (CET)
+	by iodev.co.uk (Postfix) with ESMTPSA id B31B05E22D3;
+	Mon, 16 Nov 2026 23:43:29 +0100 (CET)
 From: Ismael Luceno <ismael@iodev.co.uk>
 To: linux-kernel@vger.kernel.org
 Cc: Ismael Luceno <ismael@iodev.co.uk>,
 	Ismael Luceno <iluceno@suse.de>,
-	David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-btrfs@vger.kernel.org (open list:BTRFS FILE SYSTEM),
-	linux-doc@vger.kernel.org (open list:DOCUMENTATION)
-Subject: [PATCH 6/8] Documentation: btrfs: document waiting for the root filesystem devices
-Date: Mon, 16 Nov 2026 23:43:22 +0100
-Message-ID: <20261116224316.11237-16-ismael@iodev.co.uk>
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure))
+Subject: [PATCH 2/8] init: mount devtmpfs before the root filesystem
+Date: Mon, 16 Nov 2026 23:43:18 +0100
+Message-ID: <20261116224316.11237-12-ismael@iodev.co.uk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116224316.11237-10-ismael@iodev.co.uk>
 References: <20261116224316.11237-10-ismael@iodev.co.uk>
@@ -57,56 +54,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the whole feature, including the part btrfs opens devices by
-their /dev name and so cannot run the search at all without devtmpfs
-mounted.  Say that too, and what happens when it is not, rather than
-leaving a boot that stops with nothing in the log.
+devtmpfs is mounted after the root filesystem, which leaves the root
+mount with no /dev nodes to look devices up by.  A filesystem that has
+to open block devices other than the one it was given has nothing to
+open them by, and without an initrd there is no userspace around to
+create the nodes either.
+
+Mount it on the initial root before the root filesystem is mounted, so
+the root filesystem can resolve device paths.  This is what lets a
+multi-device btrfs root assemble itself with no initrd to run the
+device scanner.
+
+This mount is on the initial root and goes away with it at the pivot,
+so the existing mount after mount_root() is kept: that is the one that
+ends up in the new root.
+
+This is only needed by the btrfs root device scan, so it is done only when
+CONFIG_BTRFS_ROOT_SCAN is set; without it boot is unchanged.
 
 Signed-off-by: Ismael Luceno <ismael@iodev.co.uk>
 Signed-off-by: Ismael Luceno <iluceno@suse.de>
 ---
- Documentation/filesystems/btrfs.rst | 31 +++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ init/do_mounts.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/Documentation/filesystems/btrfs.rst b/Documentation/filesystems/btrfs.rst
-index a81db8f54d68..9dcdb87a53c3 100644
---- a/Documentation/filesystems/btrfs.rst
-+++ b/Documentation/filesystems/btrfs.rst
-@@ -33,6 +33,37 @@ The main Btrfs features include:
-     * Read/write metadata verification
-     * Online resize (shrink, grow)
+diff --git a/init/do_mounts.c b/init/do_mounts.c
+index b088021b1546..febcc37f9128 100644
+--- a/init/do_mounts.c
++++ b/init/do_mounts.c
+@@ -480,6 +480,20 @@ #define CIFSROOT_RETRY_MAX	5
  
-+Multi-device root filesystem without an initrd
-+----------------------------------------------
+ 	if (root_wait)
+ 		wait_for_root(saved_root_name);
 +
-+A multi-device btrfs filesystem is normally assembled by the device scanner in
-+userspace, which the initrd runs before mounting the root filesystem.  Without
-+an initrd there is nothing to run that scanner, so the root filesystem is
-+mounted from the single device named by ``root=`` and the remaining devices are
-+left out.
++	/*
++	 * Mount devtmpfs before the root filesystem, so that the filesystem
++	 * mounting it can look devices up by path.  A multi-device btrfs root
++	 * needs this: it has to open its other devices to assemble the
++	 * filesystem, and there is no userspace around to create the nodes.
++	 *
++	 * This one is on the initial root and goes away with it below; the
++	 * mount after mount_root() is the one that sticks around.  Only the
++	 * btrfs root device scan needs it.
++	 */
++	if (IS_ENABLED(CONFIG_BTRFS_ROOT_SCAN))
++		devtmpfs_mount();
 +
-+Given ``rootwait``, btrfs finds the rest of them during the root mount.
-+
-+    root=/dev/sda1 rootwait
-+
-+The devices are then given the time ``rootwait=`` specifies, or indefinite for
-+``rootwait`` with no value.  The search repeats at the interval set by
-+CONFIG_BTRFS_ROOT_SCAN_INTERVAL_MS (100 ms by default) until they are
-+all found, and is not made for any other mount: a filesystem mounted later has
-+been given the devices it needs, or is being mounted degraded on purpose.
-+
-+When the wait runs out btrfs mounts whatever it has, which for a redundant
-+profile usually means the mount fails and the kernel panics; a warning is
-+printed before that happens.  Without ``rootwait`` there is no wait at all, and
-+an incomplete filesystem is mounted as usual.
-+
-+The search needs the device nodes in ``/dev``, which come from devtmpfs.  Where
-+that is not mounted the search cannot start, and btrfs says so and gives up
-+rather than waiting for something it can never find.
-+
-+The search is built with ``CONFIG_BTRFS_ROOT_SCAN``, which depends on
-+``CONFIG_DEVTMPFS`` and is on by default.
-+
- For more information please refer to the documentation site or wiki
+ 	mount_root(saved_root_name);
+ 	devtmpfs_mount();
  
-   https://btrfs.readthedocs.io
