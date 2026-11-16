@@ -1,65 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816140;
-	b=vZV7KgEUegCjfFHHGpmCKczl8Qkp+K0IvXHixLfHe5vfegb53TOHPuD3ltO+ZljFi1Pu
-	 eV+vKAbhlLLyHcNxMmYvx2zyQG8Y4wGzsXSycQ8mhUi1F1lOeHAlGrsuSmOo57Ilm4bHS
-	 5Oh1kuzrS/6EItWTf7w3tPWMn7eyTbV4uehQr5e/TAldc1ZB8s+6Zev/lvlaJGQ1MXeTb
-	 NcfUxhXRVCo38F7uA1GCw8qdujac3cMsMLrAnFKab/Sz/veTPXBHXw3q0SdN42/+gvmT9
-	 qIwPOEtpDWSpK8tmEArGvpo+gqxCXj2i2+p3Ivp1Fm8J5lG0vEhC1ub+ZlSVItpCGng==
+	t=1794816166;
+	b=fNJ3XxXyl5YEseG/wVL0x1e+HPDs/sYaytI/prbNmMw1Rlkzy32fQ1vXKUkWXUAE6zH5
+	 Gi3Na2ekjEq/cxOoEh3FPXiM2G3wzwB6x8FvNj+3GhJwxcB4siG4C0XimE2cnSz6FlF2y
+	 GZjSB8sxboQYhc3TDqSsRMyAKrG79jvo4iTEjKvXuaVc6Foe+cEanZtU/yEAbS+P+JGkb
+	 uWvFgqaMJzst1VRi0GcND1fe81xxcDfOIrl1rVa3bCSyIDnK06HoGy8/sEBbjO5QhmIUc
+	 /pM0t2BWcAbZi6Ee02P0Rz7f11OcKRrzh5FU1JeERk3jXgw/uFpHqvmrqTHS+QFY4Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816140;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kImUUDUMbJNjcB2Ehox7k7NTkFpga3rhi0U9FNipmLY=;
-	b=qqStKpfJCnzMHcn2JuQO9aI3uotBUA3+T7jkMP4eJngu485E9xkFmfpkUZdm6uLiK/86
-	 X3LQ6SI4Q4YKVq92qjPu3kkT0Wj78vxCb43brlKcmkLQRvKXfG2OAsiq86eXXseYeoJ2L
-	 3ZBm+t43uJDEtTeA3OXfEwNvEG3m/8N+qh4qIn12e0yLGMF4OBCEJHePC1dBk+r63imJv
-	 37GcDHIPo8SKbYNJ2YYn7tV3yO74cPX60066argkuzFRnDau7pXfYEYiH2IHlP7yT4y9T
-	 5VO6zrYxrjUBdgloC7HBHArML4eQLrPJeqDjfAR4gMVlWtmesE+IbWh3beskb4ZPywQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816166;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=279Hmw0WZmFW6md53ZRBIRk2MyfOqBqEG67/CplP9MQ=;
+	b=pQEcSD3epz5DwZC4+Ydv6j/Nc/xYHr9b7y7LTaABgNWdwv2vV6PtYUt4o8kTHUlG2Qe8
+	 TrvzqCJL+Mx+gYCD9iY7f/s93FAXu7mC5jnp49KL1OggOinrxemQxbXybqewSqkucP8nR
+	 Ug3HMUG0olU6EiEflAJquGodDB7zjrPXgEv1K4ogathLVdsBkSTSSRNd//g3VuBZPu3xg
+	 iZ1lMCScbsA/NVXIcugp74JxUjYPkuGwehk8XynutToloA0RDcxAtKQg+7/6clqHOXHEL
+	 45R7KBWqYr/c9FBsOpr/R8B25GiU6iQ4+eT+upE1cE27NIESAPU4AEGP4pJIu6S0XYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=CY3EVaHf;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUma0mk4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B77606A895
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 08:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B77606A895
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F912606A32F;
+	Mon, 16 Nov 2026 08:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=CY3EVaHf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=kImUUDUMbJNjcB2Ehox7k7NTkFpga3rhi0U9FNipmLY=; t=1794816139; x=1796025739; 
-	b=CY3EVaHf05B4oiohet9vOthUsJoybjBJvI/f714nMQG0y6sNNczGDJ0MPGnHTnFC1aScKtmAObq
-	SEjVjVWbfwQ6dp3f03jXwTPKNWTEcoPQWxM4AWqODImmVf4eUeKX42njEzB8JhVglM+Osg8VVzAWp
-	9gA1Tdgu+343/+tsjh00tqkVDTBZhohMf5jmAEJw/plzoTUNYcwdujGDpj/TbUVc6RbMy/2/zX9Un
-	IDTPxTaFkzZ9uU+UbiWW1ITC4pu3QZhv2VkA6AGSPZ4rYAKCuRuDVmsvaVlYMbu0770Aoy885MGJG
-	zUVFfvIV+tOIPMGgfyYFm4wHVNI2tj7UgeUg==;
-Date: Mon, 16 Nov 2026 09:02:06 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
- Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v5 03/13] drm/bridge: tc358762: Improve LCDCTRL defines
-Message-ID: <20261116090206.4085771b@kemnade.info>
-In-Reply-To: <20261015-tc358762-fixes-v5-3-7cd721a6451b@ideasonboard.com>
-References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
-	<20261015-tc358762-fixes-v5-3-7cd721a6451b@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUma0mk4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9061F000C6;
+	Mon, 16 Nov 2026 08:02:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794816166;
+	bh=279Hmw0WZmFW6md53ZRBIRk2MyfOqBqEG67/CplP9MQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UUma0mk4D7xxm2OAtXyYwW7rpkjARX0kNBWwVSiqQjcyRuWB5qKPYW1KMMxmLso37
+	 dUtqw3NrysP06us9HNvNCxshj6lhk2z4nGh/Gy9wt3y9V0YV8aNc1nlccZ/w34DT12
+	 lDeWWTwep2ESDuqYYapsv9YR6/f/v/TMxpT42/WqJimg7KwZR7ABBJGev9nKM6jbJK
+	 kDfS4B10NF+j5/wXYVCEmJnMnkZ9+vp86iHF0q6oYVw72aui7x35u2cixV50J22PEE
+	 5JGlmKI6Y2Oebt8XsrDxDqcvuVmlsE/8jDJ2BNHX+mWrO/Sm9utGUnihIGGfC8+9cp
+	 Hxws0XhJn7GEA==
+Message-ID: <34da61f7-c1c9-4a40-8ce3-fde8c03d0199@kernel.org>
+Date: Mon, 16 Nov 2026 09:02:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,86 +51,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] gpio: aspeed-sgpio: propagate IRQ setup error in
+ probe
+To: shao.mingyin@zte.com.cn, linusw@kernel.org, brgl@kernel.org,
+ linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, andrew@codeconstruct.com.au,
+ wbg@kernel.org, opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, jelonek.jonas@gmail.com
+References: <20261110232903548MKw1ilhZfMJtzbTnK9nSv@zte.com.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261110232903548MKw1ilhZfMJtzbTnK9nSv@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, 15 Oct 2026 14:15:54 +0300
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+On 10/11/2026 16:29, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> aspeed_sgpio_probe() ignores the return value of
+> aspeed_sgpio_setup_irqs().  That function returns the result of
+> platform_get_irq(), so on failure - in particular -EPROBE_DEFER while
+> the parent interrupt controller is still probing - the driver carries on
 
-> LCDCTRL fields are quite wrong in the driver. Fix the field defines.
-> 
-> A few notes about the wrong fields:
-> 
-> LCDCTRL_VSDELAY(1) actually sets LCDCTRL_DCLK_POL
-> LCDCTRL_UNK6 | LCDCTRL_VTGEN actually set LCDCTRL_PXLFORM_RGB888
-> LCDCTRL_RGB888 actually sets LCDCTRL_DPI_EN
-> 
-> The total still resulted in a working display even if the defines were
-> quite wrong.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+How parent controller can defer probing?
 
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-> ---
->  drivers/gpu/drm/bridge/tc358762.c | 33 ++++++++++++++++++++-------------
->  1 file changed, 20 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-> index 59c68432f8e1..26671dc66874 100644
-> --- a/drivers/gpu/drm/bridge/tc358762.c
-> +++ b/drivers/gpu/drm/bridge/tc358762.c
-> @@ -46,17 +46,22 @@
->  #define DSI_LANEENABLE_L0EN	BIT(1)
->  #define DSI_LANEENABLE_L1EN	BIT(2)
->  
-> -/* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
-> +/* LCDC/DPI Registers */
->  #define LCDCTRL			0x0420 /* Video Path Control */
->  #define LCDCTRL_MSF		BIT(0) /* Magic square in RGB666 */
-> -#define LCDCTRL_VTGEN		BIT(4)/* Use chip clock for timing */
-> -#define LCDCTRL_UNK6		BIT(6) /* Unknown */
-> -#define LCDCTRL_EVTMODE		BIT(5) /* Event mode */
-> -#define LCDCTRL_RGB888		BIT(8) /* RGB888 mode */
-> -#define LCDCTRL_HSPOL		BIT(17) /* Polarity of HSYNC signal */
-> -#define LCDCTRL_DEPOL		BIT(18) /* Polarity of DE signal */
-> -#define LCDCTRL_VSPOL		BIT(19) /* Polarity of VSYNC signal */
-> -#define LCDCTRL_VSDELAY(v)	(((v) & 0xfff) << 20) /* VSYNC delay */
-> +#define LCDCTRL_VTGEN		BIT(1) /* Use chip clock for timing */
-> +#define LCDCTRL_PXLFORM		GENMASK_U32(6, 4)
-> +#define LCDCTRL_PXLFORM_RGB666		0	/* x:R:G:B 6:8:8:8 */
-> +#define LCDCTRL_PXLFORM_RGB666_24	1	/* x:R:x:G:x:B 2:6:2:6:2:6 */
-> +#define LCDCTRL_PXLFORM_RGB565		2	/* x:R:G:B 8:5:6:5 */
-> +#define LCDCTRL_PXLFORM_RGB565_1	3	/* x:R:x:G:x:B 3:5:2:6:3:5 */
-> +#define LCDCTRL_PXLFORM_RGB565_2	4	/* x:R:x:G:x:B:x 2:5:3:6:2:5:1 */
-> +#define LCDCTRL_PXLFORM_RGB888		5	/* R:G:B 8:8:8 */
-> +#define LCDCTRL_DPI_EN		BIT(8)
-> +#define LCDCTRL_HSYNC_POL	BIT(17) /* Polarity of HSYNC signal */
-> +#define LCDCTRL_DE_POL		BIT(18) /* Polarity of DE signal */
-> +#define LCDCTRL_VSYNC_POL	BIT(19) /* Polarity of VSYNC signal */
-> +#define LCDCTRL_DCLK_POL	BIT(20) /* Polarity of pixel clock */
->  
->  /* SPI Master Registers */
->  #define SPICMR			0x0450
-> @@ -139,14 +144,16 @@ static int tc358762_init(struct tc358762 *ctx)
->  
->  	tc358762_write(ctx, SPICMR, 0x00);
->  
-> -	lcdctrl = LCDCTRL_VSDELAY(1) | LCDCTRL_RGB888 |
-> -		  LCDCTRL_UNK6 | LCDCTRL_VTGEN;
-> +	lcdctrl = FIELD_PREP(LCDCTRL_PXLFORM, LCDCTRL_PXLFORM_RGB888) |
-> +		  LCDCTRL_DPI_EN;
-> +
-> +	lcdctrl |= LCDCTRL_DCLK_POL;
->  
->  	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
-> -		lcdctrl |= LCDCTRL_HSPOL;
-> +		lcdctrl |= LCDCTRL_HSYNC_POL;
->  
->  	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
-> -		lcdctrl |= LCDCTRL_VSPOL;
-> +		lcdctrl |= LCDCTRL_VSYNC_POL;
->  
->  	tc358762_write(ctx, LCDCTRL, lcdctrl);
->  
-> 
+This is on of many LLM slops this user sent (and then replied with LLM
+replies, so we are talking with a meat proxy).
 
+See https://lore.kernel.org/all/avibe0HG4ssUUuBX@gremlin/ and many others
+
+> and registers the gpiochip with no interrupt support, and the deferred
+> probe is never retried, leaving GPIO interrupts permanently broken.
+> 
+> The "interrupts" property is mandatory for this device, so propagate the
+> error from probe.
+> 
+> Fixes: 7db47faae79b ("gpio: aspeed: Add SGPIO driver")
+> Cc: stable@vger.kernel.org
+
+Nothing for stable really.
+
+
+Best regards,
+Krzysztof
