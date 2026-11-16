@@ -1,81 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820962;
-	b=hdy6cuVsenKZf15ymThHGeA89A6e+q56WYO773rbZpnhzlVhTx7RHN/THSUGBrkDqPst
-	 3sG+9OmwTxNEBKXt7WDvs5kdjQx4WxuYijFZ5pC8saLoDCNLSINpaW/4nisqFK89dgIhL
-	 nLt4nvc48K6HFao+jhVJC5Rg64lExeCY3bHWG7Qe4CPABRh8gp3D+4nBxb1GYt2fLdx/m
-	 GBlq2EDoT6PDRuf2/WpavhkJnVIIJ4dSQYw3pVOeFOQQnFjbUAWJ/XZLHML8dFXBafLkf
-	 U3Fer6SV1ZZx41y27TVSe/SAzGtuk2/e6wJs96D3sdYhooWVQFRCpA7bYgazdLGvrRw==
+	t=1794821009;
+	b=04u9rq/2cUO8m/x8WACBnGALdIP5GZ0Qh4s6eF6/wZYmjeVu2FmIp6Ilaee9LgOOSSQz
+	 pPlR+04ha3o4AaWsI5AitTQU1xL2IXZf6USUhl29w9tnPj5j+uKq2TmCWlFNJoizj2ahB
+	 9feAC8Ww0VYAUBQAZLe9E6j7IDu2SJrwEB4IKGk8jGamyCmo5wjCDBhiDsJJnU9Tc5yDL
+	 e4fwLdQVEaKuX+bgclomqTKEYY1u8fbmMsiymSHiGDHZjdxUGvXFR39sEh+HRkped+4wn
+	 6wL4OQHkevCyh/CPzeC8UgtO4cYQgH2DOLiuWaI+kL5cApbm8wvM6zDCFuB+CQoaJzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820962;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=LtBNXsNicSdXeQ45UPuaB31xx6ZCxcVBSiBC9NIdDp0=;
-	b=VdMlOUlrgILA4tx6t5EO9ezkp9Xu33Znr+GKtkvOBuhtRKjVIIl1FOXN8x89r8HDAYTL
-	 MryImJ9lAf81y0z5yGAQk5Wybx+VRX1r1InK65nfAoeO+NvZbXWhOQNH6l0FcaA0mJHl8
-	 tjb5001K7urvI/9FkND9OCg1oHccnlc2zS640Qwl4mvgfOzdBZQskyjXvq+tJCSLkq7/I
-	 xYzAqUytuQTOfiSgMjNg2LV+vZBwAAVEmz+mJXCIQXxl0pv6sML/McJSeHQ5vHas6wyYd
-	 NWz+Vxi9u2MFWD8apvV94wBVXtLApBYeR63R0eJRqJTCzajECNB58qm0Giq+nJdfJPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8Di33WShdwbsd6k1hBxIRZVPI/wZsEbgX0u8y5qE320=;
+	b=XQ5B8gp6ZeHbaXcXTPM1L8uRM55a4Rd2ziSaXVUmkTkZcNM6kfC9cA0hcED+y1uLte0X
+	 D+pcSSYg6dj8JvW/dUwGMr0w7/UNjVAo7s+80IAf5amVguE71+ctQwIr5RVl8a+LgqDXz
+	 E1UG0vQ/FOIHON77aiZB1z/1ya2O5bzD6UnOPwPx7CPWQFgDI7EOx9AAi51L9qItNBVoQ
+	 QJJgNtRH8gihTW/+zqPBehCObdC6cSRC0ukER2D+aqCwpFydBoO+tVjm5XFTZy1N5+ddD
+	 xg4U5p7jb0nit/0Zbz6CCFhuFos0vRXTW+tpoJ5RxTbrsnSixMvXlYM2QK/Ms1X1MEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SpeSUFBw;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyJdSiG1;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11552606A333
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:22:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11552606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03433606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 09:23:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03433606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SpeSUFBw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794820962; x=1826356962;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Y2zldT+YuSEQD9QzOAhBed/JdXYSi8OLsQFal3RWfDo=;
-  b=SpeSUFBw90zeiiChxFxuuanpMXURA7yzlj+Rx1ihvvqrBunBOqZszDny
-   Pp3cYgGmUngL53lp3rqdyu8PuWJiu4UkvnoPReGRIBb/r8Fnx2VQW3sSY
-   w3DtlLrf044fHI/d5r5pEBujj4FeNsq6tCluY1l2pyfaySrFNMcb6sx2O
-   +8Y5HXFYzZRwu6M3+S6n2TAr/eSGQNdudqWNUc2NAXf4feh0KvXKTnXHP
-   vv6X1+vwG7cvpEXPPNGOwjSP3WC83Orjkz94J3fYRAjZ2OY3/Ydusqo2w
-   mDdDfnDVd1KYOmqWRamzlRLD7CUZbIyaHZVAHO3xxcVMuQVGjKyASuP+B
-   w==;
-X-CSE-ConnectionGUID: pJeJMobTS7qwY0stFvbbqg==
-X-CSE-MsgGUID: 3/J4WjvLTwCzqkyXbsZlqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3442855"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3442855"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:22:39 -0800
-X-CSE-ConnectionGUID: EQntyqAFTXq7wdrA1wo5ow==
-X-CSE-MsgGUID: Snrum0OSRqWvUnjJB+5zPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9640030"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:22:35 -0800
-Date: Mon, 16 Nov 2026 11:22:32 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: aot.lerwin@gmail.com
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/i915/display: Ignore disabled planes in async
- flip checks
-Message-ID: <avrLWCctBVWAjOo4@intel.com>
-References: <20261115-i915-async-planes-v2-1-c5163dfea5b2@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyJdSiG1
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ed2b4348fcso10260005ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 01:23:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794821008; x=1795425808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8Di33WShdwbsd6k1hBxIRZVPI/wZsEbgX0u8y5qE320=;
+        b=EyJdSiG1l2h+Qw6QXQI4AHp9x+efFXbaWsf23ACOXySlZe0TOjoqVsBCWPBsyBcoR9
+         sf+4UbiR5nLb1kqDIoosl/P0PdpUpz1BE1aQRTu5bT7VlCCg4iXwo5j3Pltpl3HkuRo0
+         GE8N+v9TgrxUzUfj44iac/geYD0aQ7juG2ugZ0HteyxOdyDfOzSDUa0vgy7a2E8t7Kt8
+         P36kmyYTtmKnT7Tw1u6Hx5uAy4TmY/9GuYZ2u3aekdILN1fvCLzrC+AGDRB4GB4aeXmg
+         aAd65yQ0dv/mxYlE8E+2Llj+n/z2yp+YtM5rf3OUKnWH+NhmDZOkqGcYAY01Z+kC96ku
+         9mhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794821008; x=1795425808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8Di33WShdwbsd6k1hBxIRZVPI/wZsEbgX0u8y5qE320=;
+        b=vBWv7Xm09YmW3oBJL4LVHFovYbCnPmil1R6FoIoIMjsZ8+cTmij0MnmQCooYHo0zKT
+         x9hEvfRxIdV1weHfl52KsQ+7kjGKB9i1m+oJbdJ5Ftb7HIhLvRj59DTcFaSSld4KU7j7
+         ETzlR5dDnxwlqNza+KUKH3Li1ul+aO3tnhShCFO2Lj+tnKxkL6FbrPbo4MZPqj1zM0eh
+         nG15gfZs3nM3nzrOP8y8z1uMpuIOMqmEnVNPX1/YyY/9uup4a0l+oLge5Fxrim92Qjde
+         Z3GgzujimhMoD/andi7p9ZRZkOSgqF+oWMZdLVdrTYt9izYA/n8kkjp9WOv+f9L0h623
+         VlcQ==
+X-Forwarded-Encrypted: i=1; AL+hErFRrGYVecYfs6lvHvpytLA73BsTBjvupij1znub50Dowb1NGsuH6KaiKEODlco8gzCgmywxSQPkPc8I0No=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bKNxM4zPOP/khUJOgWM9OzbqIEj355GU4Qr9Zb/vBePuMR3u+
+	3+jAKVeCoKkW+kwEhcVlPmXh6OklJCDglLxFaQOYnlP5s1VDRetMDFn9
+X-Gm-Gg: AZFdTZeORK700Vz4zPke31RsxwYkOsWe88vrWPs79SMM3Xm3pLAn3iU4l+nhic13zh1
+	hUlK5bkCk3JzvrykANWTGSj553BUww3JY2gxM5qIfELwFK8tikWZqTP/IKDJ/XW0NJTkV77qav6
+	TmfZ4w+LjqKtHYJoqB8TqdQcMvpsxJnKb3zuRvDFUoMFFs5xzNCcjGbZep6OjbAmzsv6szXzL1u
+	/W+4x+Juo8nCT+salWGIwPxQ6XqROwASpZv+Amee+Ch2xZI8z3QVnnQg77qwFvuBoWxaZEt7TRs
+	lQZaQQDorfjZiZIILYAnoRxVCB4IjWgGts8gPeIV3BPTdF2NxNnOuCI+iy1yNsAyen0CPsmDpoq
+	h5MGw62koT/7pJUYtr0n6OVPdSqH7lhXJF/jW+Kpba/hEBUgBBaHutWbNsQuDg9pJ135D4twuhb
+	bK6NQdI7ifXa0Wmlgsua+clakUGkv9chPEMETs5WwwR4giWglshmWyHlaXT8yQTW5M+6kinSFOX
+	zDFu+v5Y9cXYhmK7rAMl54MEXrmxXNbZ0GaX6XyQApNNagVffFYVBcivxSQy/NJBdc8iq+a/xB5
+	4/fONUAYZKlQ/avkh8M0D5Y44ws3HTQmVKyjtCo6nFWqX/3MnHi18w==
+X-Received: by 2002:a17:902:e951:b0:2e5:54b9:6b5c with SMTP id d9443c01a7336-2ee0da98ceemr88257225ad.20.1794821007979;
+        Mon, 16 Nov 2026 01:23:27 -0800 (PST)
+Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:90a:5f11:9056:5eea])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f7d99fasm35015195ad.35.2026.11.16.01.23.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 01:23:27 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Po-Hao Huang <phhuang@realtek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rtw-next v2] wifi: rtw89: update PN state only from correctly decrypted frames
+Date: Mon, 16 Nov 2026 17:23:00 +0800
+Message-ID: <20261116092300.20414-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,108 +95,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261115-i915-async-planes-v2-1-c5163dfea5b2@gmail.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-On Sun, Nov 15, 2026 at 04:43:35PM +0100, Erwin Springer via B4 Relay wrote:
-> From: Erwin Springer <aot.lerwin@gmail.com>
-> 
-> Atomic async flips may carry properties that don't change, so compositors
-> tend to send their whole plane state with every commit. KWin for example
-> adds all planes of the pipe, including the ones that are disabled and stay
-> disabled (CRTC_ID=0, FB_ID=0).
+rtw89_core_skb_pn_valid() records the sequence and packet numbers of
+hardware-decrypted QoS data frames so that it can drop frames whose
+sequence number goes backwards while the PN advances. It runs before
+mac80211 discards frames with an ICV/MIC or FCS error and requires only
+hw_dec, so a frame that failed decryption still updates last_sn and
+last_pn. Such a frame need not come from the peer. One with an advanced
+sequence number and a PN between the recorded PN and the peer's next
+one makes the check drop the peer's following valid frames until their
+sequence numbers catch up.
 
-I have slightly more universal solution to this atomic+async issue.
-I just posted it and Cc:d you.
+Skip frames that rtw89_core_update_rx_status() does not report to
+mac80211 as decrypted, or reports with an FCS error.
 
-> 
-> intel_async_flip_check_uapi() fails the commit as soon as the state
-> contains any plane of the pipe that can't do async flips:
-> 
->   [drm:intel_atomic_check [i915]] [PLANE:66:plane 2A] async flip not supported
->   [drm:drm_atomic_check_only.cold] atomic driver check for ... failed: -22
-> 
-> So with such a compositor tearing never works on a pipe with sprite or
-> cursor planes, even though only the FB of the primary plane changes. KWin
-> silently falls back to vsynced flips, about 60 rejected commits per second.
-> 
-> A plane without a framebuffer before and after the commit takes no part in
-> the flip. Skip it in both async flip checks.
-> 
-> A plane that is disabled in uapi may still be used by the hardware as the
-> Y plane of a planar framebuffer on another plane (planar_linked_plane on
-> ICL+). Don't skip such a plane in the uapi check, so the commit is still
-> rejected there as before, instead of the linked planes being pulled into
-> the state later and tripping the drm_WARN_ON() in
-> intel_async_flip_check_hw().
-> 
-> Tested on Raptor Lake-U (Iris Xe) with the patch applied to the i915 of
-> Linux 7.3.4, unmodified KWin 6.8.2 and a fullscreen client that requests
-> tearing through wp_tearing_control_v1. Before, none of about 350 frames per
-> run was presented without vsync. With the patch 3334 of 3340 frames tear
-> and the message above is gone. What is still rejected is the first flip
-> after the modifier or format changed, once per run, as intended.
-> 
-> Signed-off-by: Erwin Springer <aot.lerwin@gmail.com>
-> ---
-> Changes in v2:
-> - Don't skip a disabled plane that is in use as the Y plane of a planar
->   framebuffer, it would trip the drm_WARN_ON() in
->   intel_async_flip_check_hw() (found by the Sashiko review)
->   The device test was done with v1, no planar framebuffer was in use
->   there. v2 is compile-tested (W=1).
-> - Link to v1: https://patch.msgid.link/20261115-i915-async-planes-v1-1-d13498d0b6be@gmail.com
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index f4d9148ef..9be7596fa 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -6281,6 +6281,16 @@ static int intel_async_flip_check_uapi(struct intel_atomic_state *state,
->  		if (plane->pipe != crtc->pipe)
->  			continue;
->  
-> +		/*
-> +		 * Userspace may add planes it doesn't change to the commit.
-> +		 * A plane that is disabled and stays disabled takes no part
-> +		 * in the async flip, unless it is in use as the Y plane of
-> +		 * a planar format on another plane.
-> +		 */
-> +		if (!old_plane_state->uapi.fb && !new_plane_state->uapi.fb &&
-> +		    !old_plane_state->planar_linked_plane)
-> +			continue;
-> +
->  		/*
->  		 * TODO: Async flip is only supported through the page flip IOCTL
->  		 * as of now. So support currently added for primary plane only.
-> @@ -6346,6 +6356,10 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
->  		if (plane->pipe != crtc->pipe)
->  			continue;
->  
-> +		/* Disabled planes that stay disabled take no part in the flip. */
-> +		if (!old_plane_state->hw.fb && !new_plane_state->hw.fb)
-> +			continue;
-> +
->  		/*
->  		 * Only async flip capable planes should be in the state
->  		 * if we're really about to ask the hardware to perform
-> 
-> ---
-> base-commit: 419bb0e4cadd214a0847010c02ade95e5fc511f7
-> change-id: 20261115-i915-async-planes-d532ca94cf3c
-> 
-> Best regards,
-> --  
-> Erwin Springer <aot.lerwin@gmail.com>
-> 
+Found by code review and not reproduced; compile-tested only.
 
+AI assistance was used.
+
+Fixes: bda294ed0ed0 ("wifi: rtw89: Drop malformed AMPDU frames with abnormal PN")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+Changes in v2:
+- Keep the two existing conditions in place and append the three new
+  ones (Ping-Ke).
+
+v1: https://lore.kernel.org/r/20261115172754.35124-1-enderaoelyther@gmail.com
+
+ drivers/net/wireless/realtek/rtw89/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
+index 58ee5efc3b5e..ef6bb1a43cd3 100644
+--- a/drivers/net/wireless/realtek/rtw89/core.c
++++ b/drivers/net/wireless/realtek/rtw89/core.c
+@@ -3950,7 +3950,8 @@ static bool rtw89_core_skb_pn_valid(struct rtw89_dev *rtwdev,
+ 	if (!ieee80211_is_data_qos(hdr->frame_control))
+ 		return true;
+ 
+-	if (!desc_info->hw_dec || !desc_info->addr1_match)
++	if (!desc_info->hw_dec || !desc_info->addr1_match ||
++	    desc_info->sw_dec || desc_info->icv_err || desc_info->crc32_err)
+ 		return true;
+ 
+ 	guard(rcu)();
+
+base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
 -- 
-Ville Syrjälä
-Intel
+2.56.1
+
